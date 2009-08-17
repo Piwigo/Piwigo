@@ -28,7 +28,7 @@ $t1 = explode( ' ', microtime() );
 $t2 = explode( '.', $t1[0] );
 $t2 = $t1[1].'.'.$t2[1];
 
-set_magic_quotes_runtime(0); // Disable magic_quotes_runtime
+@set_magic_quotes_runtime(0); // Disable magic_quotes_runtime
 
 //
 // addslashes to vars if magic_quotes_gpc is off this is a security

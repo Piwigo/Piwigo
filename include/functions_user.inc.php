@@ -75,11 +75,11 @@ function register_user($login, $password, $mail_address,
   {
     array_push($errors, l10n('reg_err_login1'));
   }
-  if (ereg("^.* $", $login))
+  if (preg_match('/^.* $/', $login))
   {
     array_push($errors, l10n('reg_err_login2'));
   }
-  if (ereg("^ .*$", $login))
+  if (preg_match('/^ .*$/', $login))
   {
     array_push($errors, l10n('reg_err_login3'));
   }

@@ -203,7 +203,7 @@ function pwg_check_graphics()
     $info = gd_info();
     
     // Backup GD major version
-    $pwg_conf['gd_version_full'] = ereg_replace('[[:alpha:][:space:]()]+', '', $info['GD Version']);
+    $pwg_conf['gd_version_full'] = preg_replace('/[[:alpha:][:space:]()]+/', '', $info['GD Version']);
     list($pwg_conf['gd_version_major']) = preg_split('/[.]+/', $pwg_conf['gd_version_full']);
     
     // Backup input/output format support
@@ -1087,7 +1087,7 @@ function pwg_test_exit()
     else
     {
       $info = gd_info();
-      $gd_full_version = ereg_replace('[[:alpha:][:space:]()]+', '', $info['GD Version']);
+      $gd_full_version = preg_replace('/[[:alpha:][:space:]()]+/', '', $info['GD Version']);
       list($gd_version) = preg_split('/[.]+/', $gd_full_version);
       
       $g_message .= '        <h3>Image generation</h3>'."\n";

@@ -57,7 +57,7 @@ function validate_upload( $temp_name, $my_max_file_size,
 
   $result = array();
   $result['error'] = array();
-  //echo $_FILES['picture']['name']."<br>".$temp_name;
+  //echo $_FILES['picture']['name']."<br />".$temp_name;
   $extension = get_extension( $_FILES['picture']['name'] );
   if (!in_array($extension, $conf['picture_ext']))
   {
@@ -188,7 +188,7 @@ if ( isset( $_POST['submit'] ) and !isset( $_GET['waiting_id'] ) )
   {
     array_push( $error, l10n('upload_filenotfound') );
   }
-  if ( !ereg( "([_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)+)",
+  if ( !preg_match( '/([_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)+)/',
              $_POST['mail_address'] ) )
   {
     array_push( $error, l10n('reg_err_mail_address') );
