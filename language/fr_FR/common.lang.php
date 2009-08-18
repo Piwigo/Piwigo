@@ -160,7 +160,6 @@ $lang['comment_to_validate'] = 'Un administrateur doit valider votre commentaire
 $lang['comment_user_exists'] = 'Ce nom d\'utilisateur est déjà pris';
 $lang['comments'] = 'Commentaires';
 $lang['comments_add'] = 'Ajouter un commentaire';
-$lang['Edit a comment'] = 'Editer un commentaire';
 $lang['created after %s (%s)'] = 'créée après le %s (%s)';
 $lang['created before %s (%s)'] = 'créée avant le %s (%s)';
 $lang['created between %s (%s) and %s (%s)'] = 'créée entre le %s (%s) et le %s (%s)';
@@ -259,7 +258,7 @@ $lang['recent_period'] = 'Période récente';
 $lang['recent_pics_cat'] = 'Images récentes';
 $lang['recent_pics_cat_hint'] = 'afficher les images les plus récentes';
 $lang['redirect_msg'] = 'Redirection...';
-$lang['reg_err_login1'] = 'S\'il vous plaît, entrer un nom utilisateur';
+$lang['reg_err_login1'] = 'S\'il vous plaît, entrez un nom utilisateur';
 $lang['reg_err_login2'] = 'le nom utilisateur ne doit pas se terminer par un espace';
 $lang['reg_err_login3'] = 'le nom utilisateur ne doit pas commencer par un espace';
 $lang['reg_err_login5'] = 'ce nom utilisateur est déjà pris';
@@ -366,7 +365,4 @@ $lang['group by letters'] = 'regrouper par lettres';
 $lang['letters'] = 'lettres';
 $lang['show tag cloud'] = 'montrer le nuage de tags';
 $lang['cloud'] = 'nuage';
-// --------- Starting below: New or revised $lang ---- from Colibri (2.1)
-$lang['del_all_favorites_hint'] = 'supprimer toutes les images de vos favoris';
-$lang['Sent by'] = 'Envoyé par';
 ?>

@@ -71,10 +71,6 @@ $lang['Category elements associated to the following categories: %s'] = 'Les él
 $lang['Check for upgrade failed for unknown reasons.'] = 'La vérification de la dernière version sur le serveur a échouée pour une raison inconnue.';
 $lang['Check for upgrade'] = 'Dernière version ?';
 $lang['Comments for all'] = 'Commentaires pour tous';
-$lang['Allow users to edit theirs owns comments'] = 'Autoriser les utilisateurs à modifier leurs propres commentaires';
-$lang['Allow users to delete theirs owns comments'] = 'Autoriser les utilisateurs à supprimer leurs propres commentaires';
-$lang['Email administrators when a comment is modified'] = 'Notifier les administrateurs quand un commentaire est modifié';
-$lang['Email administrators when a comment is deleted'] = 'Notifier les administrateurs quand un commentaire est supprimé';
 $lang['Controversy'] = 'Controverse';
 $lang['Current name'] = 'Nom courant';
 $lang['Database'] = 'Base de données';
@@ -650,11 +646,15 @@ $lang['Bound template'] = 'Template rattaché';
 $lang['Downloads'] = 'Téléchargements';
 $lang['Released on'] = 'Ajouté le';
 $lang['Number of downloads'] = 'Nombre de téléchargements';
-// --------- Starting below: New or revised $lang ---- from Colibri (2.1)
+// --------- Starting below: New or revised $lang ---- from Colibri
 $lang['Piwigo Announcements Newsletter'] = 'Newsletter Piwigo';
 $lang['Subscribe to Piwigo Announcements Newsletter'] = 'Restez en contact avec le projet Piwigo, abonnez-vous à la newsletter. Vous recevrez un email lorsqu\'une nouvelle version sera disponible (parfois un bug de sécurité est corrigé, il est important d\'être au courant et de mettre à jour) ou qu\'un événement majeur surviendra sur le projet. Seulement quelques messages par an.';
 $lang['Subscribe %s'] = 'Abonner %s';
 $lang['Subscribe %s to Piwigo Announcements Newsletter'] = 'Abonner %s à la newsletter Piwigo';
 $lang['Purge search history'] = 'Purger l\'historique des recherches';
 $lang['Hide'] = 'Masquer';
+$lang['Password is missing'] = 'Le mot de passe manque. Veuillez saisir le mot de passe.';
+$lang['Password confirmation is missing'] = 'La confirmation du mot de passe manque. Veuillez confirmer le mot de passe choisi.';
+$lang['Email address is missing'] = 'L\'adresse email manque. Veuillez spécifier une adresse email.';
+$lang['Password confirmation error'] = 'Erreur de confirmation du mot de passe.';
 ?>

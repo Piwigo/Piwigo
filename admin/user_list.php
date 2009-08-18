@@ -185,19 +185,38 @@ $page['direction_items'] = array(
 
 if (isset($_POST['submit_add']))
 {
-  $page['errors'] = register_user(
-    $_POST['login'], $_POST['password'], $_POST['email'], false);
+	if(empty($_POST['password']))
+	{
+		array_push($page['errors'], l10n('Password is missing'));
+	}
+	else if(empty($_POST['password_conf']))
+	{
+		array_push($page['errors'], l10n('Password confirmation is missing'));
+	}
+	else if(empty($_POST['email']))
+	{
+		array_push($page['errors'], l10n('Email address is missing'));
+	}
+	else if ($_POST['password'] != $_POST['password_conf'])
+	{
+		array_push($page['errors'], l10n('Password confirmation error'));
+	}
+	else
+	{
+  		$page['errors'] = register_user(
+    		$_POST['login'], $_POST['password'], $_POST['email'], false);
 
-  if (count($page['errors']) == 0)
-  {
-    array_push(
-      $page['infos'],
-      sprintf(
-        l10n('user "%s" added'),
-        $_POST['login']
-        )
-      );
-  }
+		if (count($page['errors']) == 0)
+  		{
+    		array_push(
+    			$page['infos'],
+    			sprintf(
+    				l10n('user "%s" added'),
+    				$_POST['login']
+    			)
+    		);
+  		}
+	}
 }
 
 // +-----------------------------------------------------------------------+
@@ -589,7 +608,7 @@ $navbar = create_navigation_bar(
   $conf['users_page']
   );
 
-$template->assign('navbar', $navbar);
+$template->assign('NAVBAR', $navbar);
 
 // +-----------------------------------------------------------------------+
 // |                               user list                               |
@@ -658,12 +677,12 @@ foreach ($visible_user_list as $local_user)
       'U_PERM' => $perm_url.$local_user['id'],
       'USERNAME' => $local_user['username']
         .($local_user['id'] == $conf['guest_id']
-          ? '<br>['.l10n('is_the_guest').']' : '')
+          ? '<BR />['.l10n('is_the_guest').']' : '')
         .($local_user['id'] == $conf['default_user_id']
-          ? '<br>['.l10n('is_the_default').']' : ''),
+          ? '<BR />['.l10n('is_the_default').']' : ''),
       'STATUS' => l10n('user_status_'.
         $local_user['status']).(($local_user['adviser'] == 'true')
-        ? '<br>['.l10n('adviser').']' : ''),
+        ? '<BR />['.l10n('adviser').']' : ''),
       'EMAIL' => get_email_address_as_display_text($local_user['email']),
       'GROUPS' => $groups_string,
       'PROPERTIES' => implode( ', ', $properties),

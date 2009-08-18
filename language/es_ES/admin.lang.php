@@ -651,4 +651,8 @@ $lang['Subscribe %s'] = 'Abonar a la newsletter inglesa %s';
 $lang['Subscribe %s to Piwigo Announcements Newsletter'] = 'Abonar %s a la newsletter Piwigo';
 $lang['Purge search history'] = 'Purgar la reseña histórica de las búsquedas';
 $lang['Hide'] = 'Enmascarar';
+$lang['Password is missing'] = 'Contraseña falta. Por favor, introduzca la contraseña.';
+$lang['Password confirmation is missing'] = 'Falta la confirmación de la contraseña. Por favor, confirme la contraseña que elija.';
+$lang['Email address is missing'] = 'Dirección de correo electrónico está desaparecido. Por favor, especifica una dirección de correo electrónico.';
+$lang['Password confirmation error'] = 'Error de Confirmación de la contraseña.';
 ?>

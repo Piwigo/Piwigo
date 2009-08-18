@@ -647,7 +647,15 @@ $lang['Bound template'] = 'Przypisz Szablon';
 /* TODO */ $lang['Downloads'] = 'Downloads';
 /* TODO */ $lang['Released on'] = 'Released on';
 /* TODO */ $lang['Number of downloads'] = 'Number of downloads';
-// --------- Starting below: New or revised $lang ---- from Colibri (2.1)
+// --------- Starting below: New or revised $lang ---- from Colibri
+/*TODO*/$lang['Piwigo Announcements Newsletter'] = 'Piwigo Announcements Newsletter';
+/*TODO*/$lang['Subscribe to Piwigo Announcements Newsletter'] = 'Keep in touch with Piwigo project, subscribe to Piwigo Announcement Newsletter. You will receive emails when a new release is available (sometimes including a security bug fix, it\'s important to know and upgrade) and when major events happen to the project. Only a few emails a year.';
+/*TODO*/$lang['Subscribe %s'] = 'Subscribe %s';
+/*TODO*/$lang['Subscribe %s to Piwigo Announcements Newsletter'] = 'Subscribe %s to Piwigo English Announcements Newsletter';
 /*TODO*/$lang['Purge search history'] = 'Purge search history';
 /*TODO*/$lang['Hide'] = 'Hide';
+/*TODO*/$lang['Password is missing'] = 'Password is missing. Please enter the password.';
+/*TODO*/$lang['Password confirmation is missing'] = 'Password confirmation is missing. Please confirm the chosen password.';
+/*TODO*/$lang['Email address is missing'] = 'Email address is missing. Please specify an email address.';
+/*TODO*/$lang['Password confirmation error'] = 'Password confirmation error.';
 ?>
