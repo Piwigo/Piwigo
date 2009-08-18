@@ -256,6 +256,8 @@ function mkgetdir($dir, $flags=MKGETDIR_DEFAULT)
  */
 function mkget_thumbnail_dir($dirname, &$errors)
 {
+  global $conf;
+
   $tndir = $dirname.'/'.$conf['dir_thumbnail'];
   if (! mkgetdir($tndir, MKGETDIR_NONE) )
   {
