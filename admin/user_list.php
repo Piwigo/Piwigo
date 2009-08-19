@@ -677,12 +677,12 @@ foreach ($visible_user_list as $local_user)
       'U_PERM' => $perm_url.$local_user['id'],
       'USERNAME' => $local_user['username']
         .($local_user['id'] == $conf['guest_id']
-          ? '<BR />['.l10n('is_the_guest').']' : '')
+          ? '<br>['.l10n('is_the_guest').']' : '')
         .($local_user['id'] == $conf['default_user_id']
-          ? '<BR />['.l10n('is_the_default').']' : ''),
+          ? '<br>['.l10n('is_the_default').']' : ''),
       'STATUS' => l10n('user_status_'.
         $local_user['status']).(($local_user['adviser'] == 'true')
-        ? '<BR />['.l10n('adviser').']' : ''),
+        ? '<br>['.l10n('adviser').']' : ''),
       'EMAIL' => get_email_address_as_display_text($local_user['email']),
       'GROUPS' => $groups_string,
       'PROPERTIES' => implode( ', ', $properties),
