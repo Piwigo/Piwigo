@@ -148,8 +148,8 @@ TD {
 {else}
 <p>
   <br />
-  <input type="button" name="home" value="{'home'|@translate}" onClick="window.location='index.php';"/>
-  <input type="button" name="admin" value="{'admin'|@translate}" onClick="window.location='admin.php';"/>
+  <input type="button" name="home" value="{'home'|@translate}" onClick="window.open('index.php');"/>
+  <input type="button" name="admin" value="{'admin'|@translate}" onClick="window.open('admin.php');"/>
 </p>
 
 <div class="infos">
