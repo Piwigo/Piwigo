@@ -132,6 +132,7 @@ class smtp_mail
       $this->server_write('MAIL FROM:<'.$this->email_webmaster.'>'."\r\n");
       $this->server_parse('250');
 
+      // Add "To:" on headers if there are included
       if ((preg_match('/^\s*to\s*:.*/mi', $headers) === 0) and !empty($to))
       {
         $to_header = 'To:'.implode(',', array_map(create_function('$email','return "<".$email.">";'), explode(',', $to)));
