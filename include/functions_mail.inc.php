@@ -608,11 +608,9 @@ function pwg_mail($to, $args = array())
   $headers.= 'Reply-To: '.$args['from']."\n";
   if (empty($to))
   {
+    // Add only when to is empty
+    // else mail() add 'To:' on header
     $headers.= 'To: undisclosed-recipients: ;'."\n";
-  }
-  else
-  {
-    $headers.= 'To: '.$to."\n";
   }
 
   if (!empty($args['Cc']))
