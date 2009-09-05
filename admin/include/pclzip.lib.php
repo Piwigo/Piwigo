@@ -1,8 +1,8 @@
 <?php
 // --------------------------------------------------------------------------------
-// PhpConcept Library - Zip Module 2.8
+// PhpConcept Library - Zip Module 2.8.1
 // --------------------------------------------------------------------------------
-// License GNU/LGPL - Vincent Blavet - March 2006
+// License GNU/LGPL - Vincent Blavet - August 2009
 // http://www.phpconcept.net
 // --------------------------------------------------------------------------------
 //
@@ -44,7 +44,7 @@ if (!defined('PCLZIP_TEMPORARY_FILE_RATIO')) {
 }
 
 
-$g_pclzip_version = "2.8";
+$g_pclzip_version = "2.8.1";
 
 define( 'PCLZIP_ERR_USER_ABORTED', 2 );
 define( 'PCLZIP_ERR_NO_ERROR', 0 );
@@ -956,6 +956,7 @@ function privParseOptions(&$p_options_list, $p_size, &$v_result_list, $v_request
       break;
 
       case PCLZIP_OPT_BY_EREG :
+        $p_options_list[$i] = PCLZIP_OPT_BY_PREG;
       case PCLZIP_OPT_BY_PREG :
         if (($i+1) >= $p_size) {
           PclZip::privErrorLog(PCLZIP_ERR_MISSING_OPTION_VALUE, "Missing parameter value for option '".PclZipUtilOptionText($p_options_list[$i])."'");
@@ -2259,14 +2260,6 @@ function privExtractByRule(&$p_file_list, $p_path, $p_remove_path, $p_remove_all
         }
     }
 
-    else if (   (isset($p_options[PCLZIP_OPT_BY_EREG]))
-             && ($p_options[PCLZIP_OPT_BY_EREG] != "")) {
-
-        if (ereg($p_options[PCLZIP_OPT_BY_EREG], $v_header['stored_filename'])) {
-            $v_extract = true;
-        }
-    }
-
     else if (   (isset($p_options[PCLZIP_OPT_BY_PREG]))
              && ($p_options[PCLZIP_OPT_BY_PREG] != "")) {
 
@@ -3221,14 +3214,6 @@ function privDeleteByRule(&$p_result_list, &$p_options)
             elseif ($v_header_list[$v_nb_extracted]['stored_filename'] == $p_options[PCLZIP_OPT_BY_NAME][$j]) {
                 $v_found = true;
             }
-        }
-    }
-
-    else if (   (isset($p_options[PCLZIP_OPT_BY_EREG]))
-             && ($p_options[PCLZIP_OPT_BY_EREG] != "")) {
-
-        if (ereg($p_options[PCLZIP_OPT_BY_EREG], $v_header_list[$v_nb_extracted]['stored_filename'])) {
-            $v_found = true;
         }
     }
 
