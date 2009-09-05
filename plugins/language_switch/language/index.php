@@ -3,7 +3,7 @@
 // | Piwigo - a PHP based picture gallery                                  |
 // +-----------------------------------------------------------------------+
 // | Copyright(C) 2008-2009 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 Piwigo team    http://phpwebgallery.net |
+// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
 // | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
 // +-----------------------------------------------------------------------+
 // | This program is free software; you can redistribute it and/or modify  |
@@ -21,22 +21,10 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
-/*
-Plugin Name: Multi view
-Version: 2.0.2
-Description: Allows administrators to view gallery as guests and/or change the language and/or theme on the fly. Practical to debug changes...
-Plugin URI: http://piwigo.org/ext/extension_view.php?eid=286
-Author: Piwigo team
-Author URI: http://piwigo.org
-*/
-
-add_event_handler('user_init', 'multiview_user_init' );
-
-function multiview_user_init()
-{
-  if (!is_admin())
-    return;
-  include_once( dirname(__FILE__).'/is_admin.inc.php' );
-}
-
+// Recursive call
+$url = '../';
+header( 'Request-URI: '.$url );
+header( 'Content-Location: '.$url );
+header( 'Location: '.$url );
+exit();
 ?>

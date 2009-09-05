@@ -1,0 +1,1 @@
+Affiche une astuce sur la page d'accueil de l'administration.
