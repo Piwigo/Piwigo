@@ -1,0 +1,1 @@
+Visualizza un'astuzia/consiglio sulla pagina di amministrazione.
