@@ -1,0 +1,1 @@
+Edita tus archivos locales desde el panel de administración.
