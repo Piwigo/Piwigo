@@ -1,0 +1,1 @@
+Wyświetla poradę (w języku angielskim) na stronie administracyjnej.
