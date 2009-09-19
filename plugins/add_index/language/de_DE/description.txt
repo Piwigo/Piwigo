@@ -1,0 +1,1 @@
+Fügt eine Datei index.php in jeden Unterordner der Galerie hinzu.

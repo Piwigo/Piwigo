@@ -1,0 +1,1 @@
+Ausgabe von Empfehlungen (auf englisch) für die Administratorseite.

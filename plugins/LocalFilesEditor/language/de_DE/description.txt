@@ -1,0 +1,1 @@
+Editiert lokale Dateien aus der Administratoroberfläche heraus.
