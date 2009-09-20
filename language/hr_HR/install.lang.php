@@ -30,37 +30,37 @@ $lang['Start_Install'] = 'Pokreni ugradbu';
 $lang['reg_err_mail_address'] = 'e-mail adresa mora biti kao xxx@yyy.eee (example : jere@stranica.org)';
 
 $lang['install_webmaster'] = 'Webmaster-ova prijava';
-$lang['install_webmaster_info'] = 'Biti Êe prikazano posjetiteljima. Potrebno je za upravljanje web mjestom';
+$lang['install_webmaster_info'] = 'Biti √¶e prikazano posjetiteljima. Potrebno je za upravljanje web mjestom';
 
 $lang['step1_confirmation'] = 'Postavke su ispravne';
-$lang['step1_err_db'] = 'Povezivanje sa posluûiteljem uspjeöno, ali je nemoguÊe povezivanje sa bazom podataka';
-$lang['step1_err_server'] = 'Ne mogu se povezati sa posluûiteljem';
-$lang['step1_err_copy_2'] = 'SlijedeÊi korak ugradbe je omoguÊen';
-$lang['step1_err_copy_next'] = 'slijedeÊi korak';
-$lang['step1_err_copy'] = 'Kopirajte ruûiËasti tekst izmeu crtica i prebacite ga u "include/mysql.inc.php"(Pozor : mysql.inc.php mora sadrûavati samo ruûiËasti tekst, bez znakova novog reda ili razmaka)';
+$lang['step1_err_db'] = 'Povezivanje sa poslu≈æiteljem uspje≈°no, ali je nemogu√¶e povezivanje sa bazom podataka';
+$lang['step1_err_server'] = 'Ne mogu se povezati sa poslu≈æiteljem';
+$lang['step1_err_copy_2'] = 'Slijede√¶i korak ugradbe je omogu√¶en';
+$lang['step1_err_copy_next'] = 'slijede√¶i korak';
+$lang['step1_err_copy'] = 'Kopirajte ru≈æi√®asti tekst izme√∞u crtica i prebacite ga u "include/mysql.inc.php"(Pozor : mysql.inc.php mora sadr≈æavati samo ru≈æi√®asti tekst, bez znakova novog reda ili razmaka)';
 
-$lang['step1_host'] = 'MySQL posluûitelj';
+$lang['step1_host'] = 'MySQL poslu≈æitelj';
 $lang['step1_host_info'] = 'localhost, sql.multimania.com, toto.freesurf.fr';
 $lang['step1_user'] = 'Korisnik';
-$lang['step1_user_info'] = 'korisniËko ime dobiveno od davatelja usluge smjeötaja';
+$lang['step1_user_info'] = 'korisni√®ko ime dobiveno od davatelja usluge smje≈°taja';
 $lang['step1_pass'] = 'Zaporka';
-$lang['step1_pass_info'] = 'korisniËka zaporka dobivena od davatelja usluge smjeötaja';
+$lang['step1_pass_info'] = 'korisni√®ka zaporka dobivena od davatelja usluge smje≈°taja';
 $lang['step1_database'] = 'Naziv baze podataka';
-$lang['step1_database_info'] = 'takoer dobivena od davatelja usluge smjeötaja';
+$lang['step1_database_info'] = 'tako√∞er dobivena od davatelja usluge smje≈°taja';
 $lang['step1_prefix'] = 'Predznak tabela baze podataka';
-$lang['step1_prefix_info'] = 'nazivi tabela baze podataka Êe biti predznaËeni sa time (omoguÊava vam bolje upravljanje tabelama)';
-$lang['step2_err_login1'] = 'upiöite korisniËko ime za webmaster-a';
-$lang['step2_err_login3'] = 'webmaster-ovo korisniËko ime ne moûe sadrûavati znakove \' ili "';
-$lang['step2_err_pass'] = 'molimo upiöite zaporku ponovo';
-$lang['install_end_title'] = 'Ugradba zavröena';
+$lang['step1_prefix_info'] = 'nazivi tabela baze podataka √¶e biti predzna√®eni sa time (omogu√¶ava vam bolje upravljanje tabelama)';
+$lang['step2_err_login1'] = 'upi≈°ite korisni√®ko ime za webmaster-a';
+$lang['step2_err_login3'] = 'webmaster-ovo korisni√®ko ime ne mo≈æe sadr≈æavati znakove \' ili "';
+$lang['step2_err_pass'] = 'molimo upi≈°ite zaporku ponovo';
+$lang['install_end_title'] = 'Ugradba zavr≈°ena';
 $lang['step2_pwd'] = 'Webmaster-ova zaporka';
-$lang['step2_pwd_info'] = '»uvajte je na sigurnom mjestu, ona omoguÊava pristup upravnoj ploËi';
+$lang['step2_pwd_info'] = '√àuvajte je na sigurnom mjestu, ona omogu√¶ava pristup upravnoj plo√®i';
 $lang['step2_pwd_conf'] = 'Zaporka [potvrdi]';
 $lang['step2_pwd_conf_info'] = 'ovjera';
-$lang['install_help'] = 'Trebate pomoÊ? Pitajte na <a href="%s">Piwigo message board</a>.';
-$lang['install_end_message'] = 'Postava Piwigo-a je zavröena, slijedeÊi korak je<br /><br />
-* idite na prijavnicu i koristite korisniËko ime/zaporku danu za webmaster-a<br />
-* ova prijava Êe vam omoguÊiti pristup upravnoj ploËi i uputama za pohranu slika u mape';
+$lang['install_help'] = 'Trebate pomo√¶? Pitajte na <a href="%s">Piwigo message board</a>.';
+$lang['install_end_message'] = 'Postava Piwigo-a je zavr≈°ena, slijede√¶i korak je<br /><br />
+* idite na prijavnicu i koristite korisni√®ko ime/zaporku danu za webmaster-a<br />
+* ova prijava √¶e vam omogu√¶iti pristup upravnoj plo√®i i uputama za pohranu slika u mape';
 $lang['conf_mail_webmaster'] = 'Webmaster-ova e-mail adresa';
-$lang['conf_mail_webmaster_info'] = 'Posjetitelji Êe moÊi pisati upravitelju galerije preko ove adrese';
+$lang['conf_mail_webmaster_info'] = 'Posjetitelji √¶e mo√¶i pisati upravitelju galerije preko ove adrese';
 ?>
