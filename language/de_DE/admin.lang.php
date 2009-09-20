@@ -650,7 +650,7 @@ $lang['Number of downloads'] = 'Anzahl der Downloads';
 $lang['Piwigo Announcements Newsletter'] = 'Piwigo Newsletter';
 $lang['Subscribe to Piwigo Announcements Newsletter'] = 'Bleibe in Verbindung mit dem, abonniere den Piwigo Newsletter. Du bekommst eine E-Mail wenn eine neue Version verfügbar ist (manchmal wird ein Bug gefixt, der die Sicherheit der Piwigo erhöht, es ist dann wichtig, das Upgrade zu installieren) und wenn es wichtige Ereignisse rund um das Projekt gibt. Es sind nur ein paar E-Mails im Jahr.';
 $lang['Subscribe %s'] = 'Abonnieren %s';
-$lang['Subscribe %s to Piwigo Announcements Newsletter'] = 'Abonniere %s zum englischen Piwigo Newsletter';
+$lang['Subscribe %s to Piwigo Announcements Newsletter'] = 'Abonniere %s zum Piwigo Newsletter';
 $lang['Purge search history'] = 'Lösche die Such-Historie';
 $lang['Hide'] = 'Verstecken';
 ?>
