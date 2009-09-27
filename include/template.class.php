@@ -293,21 +293,19 @@ class Template {
     $this->smarty->assign( 'TAG_INPUT_ENABLED',
       ((is_adviser()) ? 'disabled="disabled" onclick="return false;"' : ''));
 
-    $this->load_external_filters();
+    $save_compile_id = $this->smarty->compile_id;
+    $this->load_external_filters($handle);
 
     global $conf, $lang_info;
     if ( $conf['compiled_template_cache_language'] and isset($lang_info['code']) )
     {
-      $save_compile_id = $this->smarty->compile_id;
       $this->smarty->compile_id .= '.'.$lang_info['code'];
     }
 
     $v = $this->smarty->fetch($this->files[$handle], null, null, false);
 
-    if (isset ($save_compile_id) )
-    {
-      $this->smarty->compile_id = $save_compile_id;
-    }
+    $this->smarty->compile_id = $save_compile_id;
+    $this->unload_external_filters($handle);
 
     if ($return)
     {
@@ -431,12 +429,21 @@ class Template {
    * They will be processed by weight ascending.
    * http://www.smarty.net/manual/en/advanced.features.prefilters.php
    */
-  function set_external_filter($weight, $callback) 
+  function set_external_filter($handle, $callback, $weight=50) 
   {
-  
-    if (! is_integer($weight)) return false;
-    $this->external_filters[$weight] = $callback;
-    return ksort($this->external_filters);
+    if (isset($this->external_filters[$handle][$weight]))
+    {
+      foreach($this->external_filters[$handle][$weight] as $func)
+      {
+        if ($func == $callback)
+        {
+          return false;
+        }
+      }
+    }
+    $this->external_filters[$handle][$weight][] = $callback;
+    ksort($this->external_filters[$handle]);
+    return true;
   }
   
  /**
@@ -444,18 +451,37 @@ class Template {
    * Called in the parse method.
    * http://www.smarty.net/manual/en/advanced.features.prefilters.php
    */
-  function load_external_filters() 
+  function load_external_filters($handle)
   {
-    if (! isset($this->external_filters) || ! count($this->external_filters)) return;  
-    print_r($this->external_filters );
-    $test= array(1,2,3);
-    print_r($test);
-    foreach ($this->external_filters as $filter) 
+    if (isset($this->external_filters[$handle]))
     {
-      $this->smarty->register_prefilter( $filter );     
+      $compile_id = $this->smarty->compile_id;
+      foreach ($this->external_filters[$handle] as $callbacks) 
+      {
+        foreach ($callbacks as $callback) 
+        {
+          $compile_id .= $callback;
+          $this->smarty->register_prefilter($callback);
+        }
+      }
+      $this->smarty->compile_id = base_convert(crc32($compile_id), 10, 36);
     }
   }
-  
+
+  function unload_external_filters($handle)
+  {
+    if (isset($this->external_filters[$handle]))
+    {
+      foreach ($this->external_filters[$handle] as $callbacks) 
+      {
+        foreach ($callbacks as $callback) 
+        {
+          $this->smarty->unregister_prefilter($callback);
+        }
+      }
+    }
+  }
+
   static function prefilter_white_space($source, &$smarty)
   {
     $ld = $smarty->left_delimiter;
