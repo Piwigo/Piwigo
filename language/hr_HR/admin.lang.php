@@ -648,10 +648,10 @@ $lang['Downloads'] = 'Preuzimanja';
 $lang['Released on'] = 'Objavljeno dana';
 $lang['Number of downloads'] = 'Broj preuzimanja';
 // --------- Starting below: New or revised $lang ---- from Colibri
-/*TODO*/$lang['Piwigo Announcements Newsletter'] = 'Piwigo Announcements Newsletter';
-/*TODO*/$lang['Subscribe to Piwigo Announcements Newsletter'] = 'Keep in touch with Piwigo project, subscribe to Piwigo Announcement Newsletter. You will receive emails when a new release is available (sometimes including a security bug fix, it\'s important to know and upgrade) and when major events happen to the project. Only a few emails a year.';
-/*TODO*/$lang['Subscribe %s'] = 'Subscribe %s';
-/*TODO*/$lang['Subscribe %s to Piwigo Announcements Newsletter'] = 'Subscribe %s to Piwigo English Announcements Newsletter';
-/*TODO*/$lang['Purge search history'] = 'Purge search history';
-/*TODO*/$lang['Hide'] = 'Hide';
+$lang['Piwigo Announcements Newsletter'] = 'Piwigo Announcements e-Novine';
+$lang['Subscribe to Piwigo Announcements Newsletter'] = 'Ostanite u vezi sa projektom, pretplatite se na Piwigo Announcement e-Novine. Primati ćete e-mail poruke po izlasku novih inačica (ponekad sa sigurnosnim zakrpama, važno je znati da su dostupne i treba ih što prije ugraditi) te o svim važnijim zbivanjima i događanjima u vezi sa projektom. Svega par e-mail poruka godišnje.';
+$lang['Subscribe %s'] = 'Pretplatite %s';
+$lang['Subscribe %s to Piwigo Announcements Newsletter'] = 'Pretplatite %s na Piwigo English Announcements e-Novine';
+$lang['Purge search history'] = 'Pročisti povijest pretraživanja';
+$lang['Hide'] = 'Sakrij';
 ?>
