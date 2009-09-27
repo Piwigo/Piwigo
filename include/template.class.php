@@ -46,6 +46,9 @@ class Template {
   // Template extents filenames for each template handle.
   var $extents = array();
 
+  // Templates prefilter from external sources (plugins)
+  var $external_filters = array();
+  
   // used by html_head smarty block to add content before </head>
   var $html_head_elements = array();
 
@@ -290,6 +293,8 @@ class Template {
     $this->smarty->assign( 'TAG_INPUT_ENABLED',
       ((is_adviser()) ? 'disabled="disabled" onclick="return false;"' : ''));
 
+    $this->load_external_filters();
+
     global $conf, $lang_info;
     if ( $conf['compiled_template_cache_language'] and isset($lang_info['code']) )
     {
@@ -333,6 +338,7 @@ class Template {
       } //else maybe error or warning ?
       $this->html_head_elements = array();
     }
+
     echo $this->output;
     $this->output='';
   }
@@ -419,6 +425,37 @@ class Template {
     }
   }
 
+ /**
+   * This function allows to declare a Smarty prefilter from a plugin, thus allowing
+   * it to modify template source before compilation and without changing core files
+   * They will be processed by weight ascending.
+   * http://www.smarty.net/manual/en/advanced.features.prefilters.php
+   */
+  function set_external_filter($weight, $callback) 
+  {
+  
+    if (! is_integer($weight)) return false;
+    $this->external_filters[$weight] = $callback;
+    return ksort($this->external_filters);
+  }
+  
+ /**
+   * This function actually triggers the filters on the tpl files.
+   * Called in the parse method.
+   * http://www.smarty.net/manual/en/advanced.features.prefilters.php
+   */
+  function load_external_filters() 
+  {
+    if (! isset($this->external_filters) || ! count($this->external_filters)) return;  
+    print_r($this->external_filters );
+    $test= array(1,2,3);
+    print_r($test);
+    foreach ($this->external_filters as $filter) 
+    {
+      $this->smarty->register_prefilter( $filter );     
+    }
+  }
+  
   static function prefilter_white_space($source, &$smarty)
   {
     $ld = $smarty->left_delimiter;
@@ -464,6 +501,7 @@ class Template {
     return $source;
   }
 }
+
 
 /**
  * This class contains basic functions that can be called directly from the
