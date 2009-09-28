@@ -287,6 +287,11 @@ $conf['send_bcc_mail_webmaster'] = false;
 //  Value could be text/plain  or text/html
 $conf['default_email_format'] = 'text/html';
 
+// alternative_email_format:
+//  Define the alternative email format use to send email
+//  Value could be text/plain  or text/html
+$conf['alternative_email_format'] = 'text/plain';
+
 // define the name of sender mail:
 // If value is empty, gallery title is used
 $conf['mail_sender_name'] = '';

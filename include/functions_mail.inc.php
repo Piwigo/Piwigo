@@ -79,6 +79,7 @@ function get_mail_configuration()
     'mail_options' => $conf['mail_options'],
     'send_bcc_mail_webmaster' => $conf['send_bcc_mail_webmaster'],
     'default_email_format' => $conf['default_email_format'],
+    'alternative_email_format' => $conf['alternative_email_format'],
     'use_smtp' => !empty($conf['smtp_host']),
     'smtp_host' => $conf['smtp_host'],
     'smtp_user' => $conf['smtp_user'],
@@ -558,10 +559,7 @@ function pwg_mail($to, $args = array())
   }
 
   // Compute root_path in order have complete path
-  if ($args['email_format'] == 'text/html')
-  {
-    set_make_full_url();
-  }
+  set_make_full_url();
 
   if (empty($args['from']))
   {
@@ -596,12 +594,6 @@ function pwg_mail($to, $args = array())
     $args['Bcc'][] = $conf_mail['formated_email_webmaster'];
   }
 
-  if (($args['content_format'] == 'text/html') and ($args['email_format'] == 'text/plain'))
-  {
-    // Todo find function to convert html text to plain text
-    return false;
-  }
-
   $args = array_merge($args, get_array_template_theme($args));
 
   $headers = 'From: '.$args['from']."\n";
@@ -623,105 +615,121 @@ function pwg_mail($to, $args = array())
   $headers.= 'MIME-Version: 1.0'."\n";
   $headers.= 'X-Mailer: Piwigo Mailer'."\n";
 
+  // List on content-type
+  $content_type_list[] = $args['email_format'];
+  if (!empty($conf_mail['alternative_email_format']))
+  {
+    $content_type_list[] = $conf_mail['alternative_email_format'];
+  }
+
   $content = '';
 
-  // key compose of indexes witch allow ti cache mail data
-  $cache_key = $args['email_format'].'-'.$lang_info['code'].'-'.$args['template'].'-'.$args['theme'];
-
-  if (!isset($conf_mail[$cache_key]))
+  foreach (array_unique($content_type_list) as $content_type)
   {
-    if (!isset($mail_template))
+    // key compose of indexes witch allow ti cache mail data
+    $cache_key = $content_type.'-'.$lang_info['code'].'-'.$args['template'].'-'.$args['theme'];
+
+    if (!isset($conf_mail[$cache_key]))
     {
-      $mail_template = get_mail_template($args['email_format']);
+      if (!isset($conf_mail[$cache_key]['template']))
+      {
+        $conf_mail[$cache_key]['template'] = get_mail_template($content_type);
+      }
+
+      $conf_mail[$cache_key]['template']->set_filename('mail_header', 'header.tpl');
+      $conf_mail[$cache_key]['template']->set_filename('mail_footer', 'footer.tpl');
+
+      $conf_mail[$cache_key]['template']->assign(
+        array(
+          //Header
+          'BOUNDARY_KEY' => $conf_mail['boundary_key'],
+          'CONTENT_TYPE' => $content_type,
+          'CONTENT_ENCODING' => get_pwg_charset(),
+
+          // Footer
+          'GALLERY_URL' =>
+            isset($page['gallery_url']) ?
+                  $page['gallery_url'] : $conf['gallery_url'],
+          'GALLERY_TITLE' =>
+            isset($page['gallery_title']) ?
+                  $page['gallery_title'] : $conf['gallery_title'],
+          'VERSION' => $conf['show_version'] ? PHPWG_VERSION : '',
+          'PHPWG_URL' => PHPWG_URL,
+
+          'TITLE_MAIL' => urlencode(l10n('title_send_mail')),
+          'MAIL' => get_webmaster_mail_address()
+          ));
+
+      if ($content_type == 'text/html')
+      {
+        if (is_file($conf_mail[$cache_key]['template']->get_template_dir().'/global-mail-css.tpl'))
+        {
+          $conf_mail[$cache_key]['template']->set_filename('css', 'global-mail-css.tpl');
+          $conf_mail[$cache_key]['template']->assign_var_from_handle('GLOBAL_MAIL_CSS', 'css');
+        }
+
+        $root_abs_path = dirname(dirname(__FILE__));
+
+        $file = $root_abs_path.'/template/'.$args['template'].'/theme/'.$args['theme'].'/mail-css.tpl';
+        if (is_file($file))
+        {
+          $conf_mail[$cache_key]['template']->set_filename('css', $file);
+          $conf_mail[$cache_key]['template']->assign_var_from_handle('MAIL_CSS', 'css');
+        }
+
+        $file = $root_abs_path.'/template-common/local-mail-css.tpl';
+        if (is_file($file))
+        {
+          $conf_mail[$cache_key]['template']->set_filename('css', $file);
+          $conf_mail[$cache_key]['template']->assign_var_from_handle('LOCAL_MAIL_CSS', 'css');
+        }
+      }
+
+      // what are displayed on the header of each mail ?
+      $conf_mail[$cache_key]['header'] =
+        $conf_mail[$cache_key]['template']->parse('mail_header', true);
+
+      // what are displayed on the footer of each mail ?
+      $conf_mail[$cache_key]['footer'] =
+        $conf_mail[$cache_key]['template']->parse('mail_footer', true);
     }
 
-    $mail_template->set_filename('mail_header', 'header.tpl');
-    $mail_template->set_filename('mail_footer', 'footer.tpl');
+    // Header
+    $content.= $conf_mail[$cache_key]['header'];
 
-    $mail_template->assign(
-      array(
-        //Header
-        'BOUNDARY_KEY' => $conf_mail['boundary_key'],
-        'CONTENT_TYPE' => $args['email_format'],
-        'CONTENT_ENCODING' => get_pwg_charset(),
-
-        // Footer
-        'GALLERY_URL' =>
-          isset($page['gallery_url']) ?
-                $page['gallery_url'] : $conf['gallery_url'],
-        'GALLERY_TITLE' =>
-          isset($page['gallery_title']) ?
-                $page['gallery_title'] : $conf['gallery_title'],
-        'VERSION' => $conf['show_version'] ? PHPWG_VERSION : '',
-        'PHPWG_URL' => PHPWG_URL,
-
-        'TITLE_MAIL' => urlencode(l10n('title_send_mail')),
-        'MAIL' => get_webmaster_mail_address()
-        ));
-
-    if ($args['email_format'] == 'text/html')
+    // Content
+    if (($args['content_format'] == 'text/plain') and ($content_type == 'text/html'))
     {
-      if (is_file($mail_template->get_template_dir().'/global-mail-css.tpl'))
-      {
-        $mail_template->set_filename('css', 'global-mail-css.tpl');
-        $mail_template->assign_var_from_handle('GLOBAL_MAIL_CSS', 'css');
-      }
-
-      $root_abs_path = dirname(dirname(__FILE__));
-
-      $file = $root_abs_path.'/template/'.$args['template'].'/theme/'.$args['theme'].'/mail-css.tpl';
-      if (is_file($file))
-      {
-        $mail_template->set_filename('css', $file);
-        $mail_template->assign_var_from_handle('MAIL_CSS', 'css');
-      }
-
-      $file = $root_abs_path.'/template-common/local-mail-css.tpl';
-      if (is_file($file))
-      {
-        $mail_template->set_filename('css', $file);
-        $mail_template->assign_var_from_handle('LOCAL_MAIL_CSS', 'css');
-      }
+      $content.= '<p>'.
+                  nl2br(
+                    preg_replace("/(http:\/\/)([^\s,]*)/i",
+                                 "<a href='$1$2' class='thumblnk'>$1$2</a>",
+                                 htmlspecialchars($args['content']))).
+                  '</p>';
+    }
+    else if (($args['content_format'] == 'text/html') and ($content_type == 'text/plain'))
+    {
+      // convert html text to plain text
+      $content.= strip_tags($args['content']);
+    }
+    else
+    {
+      $content.= $args['content'];
     }
 
-    // what are displayed on the header of each mail ?
-    $conf_mail[$cache_key]['header'] =
-      $mail_template->parse('mail_header', true);
-
-    // what are displayed on the footer of each mail ?
-    $conf_mail[$cache_key]['footer'] =
-      $mail_template->parse('mail_footer', true);
-  }
-
-  // Header
-  $content.= $conf_mail[$cache_key]['header'];
-
-  // Content
-  if (($args['content_format'] == 'text/plain') and ($args['email_format'] == 'text/html'))
-  {
-    $content.= '<p>'.
-                nl2br(
-                  preg_replace("/(http:\/\/)([^\s,]*)/i",
-                               "<a href='$1$2' class='thumblnk'>$1$2</a>",
-                               htmlspecialchars($args['content']))).
-                '</p>';
-  }
-  else
-  {
-    $content.= $args['content'];
-  }
-
-  // Footer
-  $content.= $conf_mail[$cache_key]['footer'];
+    // Footer
+    $content.= $conf_mail[$cache_key]['footer'];
 
   // Close boundary
   $content.= "\n".'-----='.$conf_mail['boundary_key'].'--'."\n";
+  }
+
+
+  //~ // Close boundary
+  //~ $content.= "\n".'-----='.$conf_mail['boundary_key'].'--'."\n";
 
    // Undo Compute root_path in order have complete path
-  if ($args['email_format'] == 'text/html')
-  {
-    unset_make_full_url();
-  }
+  unset_make_full_url();
 
   return
     trigger_event('send_mail',
