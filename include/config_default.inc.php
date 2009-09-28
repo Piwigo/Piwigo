@@ -317,6 +317,9 @@ $conf['rate_items'] = array(0,1,2,3,4,5);
 // Define default method to use ('http' or 'html' in order to do redirect)
 $conf['default_redirect_method'] = 'http';
 
+// Define using double password type in admin's users management panel
+$conf['double_password_type_in_admin'] = false;
+
 // +-----------------------------------------------------------------------+
 // |                               metadata                                |
 // +-----------------------------------------------------------------------+
