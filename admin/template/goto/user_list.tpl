@@ -6,8 +6,13 @@
 <form class="filter" method="post" name="add_user" action="{$F_ADD_ACTION}">
   <fieldset>
     <legend>{'Add a user'|@translate}</legend>
-    <label>{'Username'|@translate} <input type="text" name="login" maxlength="50" size="20" /></label>
-    <label>{'Password'|@translate} <input type="text" name="password" /></label>
+    <label>{'Username'|@translate} <input type="text" name="login" maxlength="50" size="20"></label>
+    {if $Double_Password}
+		<label>{'Password'|@translate} <input type="password" name="password"></label>
+		<label>{'Confirm Password'|@translate} <input type="password" name="password_conf" id="password_conf"></label>
+		{else}
+		<label>{'Password'|@translate} <input type="text" name="password"></label>
+		{/if}
     <label>{'Email address'|@translate} <input type="text" name="email" /></label>
     <label>&nbsp; <input class="submit" type="submit" name="submit_add" value="{'Submit'|@translate}" {$TAG_INPUT_ENABLED} /></label>
   </fieldset>

@@ -183,20 +183,63 @@ $page['direction_items'] = array(
 // |                              add a user                               |
 // +-----------------------------------------------------------------------+
 
-if (isset($_POST['submit_add']))
+// Check for config_default var - If True : Using double password type else single password type
+// This feature is discussed on Piwigo's english forum
+if ($conf['double_password_type_in_admin'] == true)
 {
-  $page['errors'] = register_user(
-    $_POST['login'], $_POST['password'], $_POST['email'], false);
+	if (isset($_POST['submit_add']))
+	{
+		if(empty($_POST['password']))
+		{
+			array_push($page['errors'], l10n('Password is missing'));
+		}
+		else if(empty($_POST['password_conf']))
+		{
+			array_push($page['errors'], l10n('Password confirmation is missing'));
+		}
+		else if(empty($_POST['email']))
+		{
+			array_push($page['errors'], l10n('Email address is missing'));
+		}
+		else if ($_POST['password'] != $_POST['password_conf'])
+		{
+			array_push($page['errors'], l10n('Password confirmation error'));
+		}
+		else
+		{
+  		$page['errors'] = register_user(
+    		$_POST['login'], $_POST['password'], $_POST['email'], false);
 
-  if (count($page['errors']) == 0)
-  {
-    array_push(
-      $page['infos'],
-      sprintf(
-        l10n('user "%s" added'),
-        $_POST['login']
-        )
-      );
+			if (count($page['errors']) == 0)
+  		{
+    		array_push(
+    			$page['infos'],
+    			sprintf(
+    				l10n('user "%s" added'),
+    				$_POST['login']
+    			)
+    		);
+  		}
+		}
+	}
+}
+else if ($conf['double_password_type_in_admin'] == false)
+{
+	if (isset($_POST['submit_add']))
+	{
+  	$page['errors'] = register_user(
+    	$_POST['login'], $_POST['password'], $_POST['email'], false);
+
+  	if (count($page['errors']) == 0)
+  	{
+    	array_push(
+      	$page['infos'],
+      	sprintf(
+        	l10n('user "%s" added'),
+        	$_POST['login']
+        	)
+      	);
+  	}
   }
 }
 
@@ -486,6 +529,12 @@ if ($conf['allow_adviser'])
   $template->assign('adviser', true);
 }
 
+// Display or Hide double password type
+if ($conf['double_password_type_in_admin'])
+{
+  $template->assign('Double_Password', true);
+}
+
 // Filter status options
 $status_options[-1] = '------------';
 foreach (get_enums(USER_INFOS_TABLE, 'status') as $status)
@@ -658,12 +707,12 @@ foreach ($visible_user_list as $local_user)
       'U_PERM' => $perm_url.$local_user['id'],
       'USERNAME' => $local_user['username']
         .($local_user['id'] == $conf['guest_id']
-          ? '<BR />['.l10n('is_the_guest').']' : '')
+          ? '<br>['.l10n('is_the_guest').']' : '')
         .($local_user['id'] == $conf['default_user_id']
-          ? '<BR />['.l10n('is_the_default').']' : ''),
+          ? '<br>['.l10n('is_the_default').']' : ''),
       'STATUS' => l10n('user_status_'.
         $local_user['status']).(($local_user['adviser'] == 'true')
-        ? '<BR />['.l10n('adviser').']' : ''),
+        ? '<br>['.l10n('adviser').']' : ''),
       'EMAIL' => get_email_address_as_display_text($local_user['email']),
       'GROUPS' => $groups_string,
       'PROPERTIES' => implode( ', ', $properties),
