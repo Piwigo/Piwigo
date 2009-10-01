@@ -431,19 +431,19 @@ class Template {
    */
   function set_prefilter($handle, $callback, $weight=50)
   {
-    $this->external_filters[$handle][$weight][] = array('pre', $callback);
+    $this->external_filters[$handle][$weight][] = array('prefilter', $callback);
     ksort($this->external_filters[$handle]);
   }
 
   function set_postfilter($handle, $callback, $weight=50)
   {
-    $this->external_filters[$handle][$weight][] = array('post', $callback);
+    $this->external_filters[$handle][$weight][] = array('postfilter', $callback);
     ksort($this->external_filters[$handle]);
   }
 
   function set_outputfilter($handle, $callback, $weight=50)
   {
-    $this->external_filters[$handle][$weight][] = array('output', $callback);
+    $this->external_filters[$handle][$weight][] = array('outputfilter', $callback);
     ksort($this->external_filters[$handle]);
   }
   
@@ -463,18 +463,7 @@ class Template {
         {
           list($type, $callback) = $filter;
           $compile_id .= $type.( is_array($callback) ? implode('', $callback) : $callback );
-          switch ($type)
-          {
-            case 'pre':
-              $this->smarty->register_prefilter($callback);
-              break;
-            case 'post':
-              $this->smarty->register_postfilter($callback);
-              break;
-            case 'output':
-              $this->smarty->register_outputfilter($callback);
-              break;
-          }
+          call_user_func(array($this->smarty, 'register_'.$type), $callback);
         }
       }
       $this->smarty->compile_id .= '.'.base_convert(crc32($compile_id), 10, 36);
@@ -490,18 +479,7 @@ class Template {
         foreach ($filters as $filter) 
         {
           list($type, $callback) = $filter;
-          switch ($type)
-          {
-            case 'pre':
-              $this->smarty->unregister_prefilter($callback);
-              break;
-            case 'post':
-              $this->smarty->unregister_postfilter($callback);
-              break;
-            case 'output':
-              $this->smarty->unregister_outputfilter($callback);
-              break;
-          }
+          call_user_func(array($this->smarty, 'unregister_'.$type), $callback);
         }
       }
     }
