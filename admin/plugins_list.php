@@ -38,10 +38,16 @@ $plugins = new plugins();
 //--------------------------------------------------perform requested actions
 if (isset($_GET['action']) and isset($_GET['plugin']) and !is_adviser())
 {
-  $page['errors'] =
-    $plugins->perform_action($_GET['action'], $_GET['plugin']);
+  $page['errors'] = $plugins->perform_action($_GET['action'], $_GET['plugin']);
 
-  if (empty($page['errors'])) redirect($base_url);
+  if (empty($page['errors']))
+  {
+    if ($_GET['action'] == 'activate' or $_GET['action'] == 'deactivate')
+    {
+      $template->delete_compiled_templates();
+    }
+    redirect($base_url);
+  }
 }
 
 //--------------------------------------------------------------------Tabsheet
