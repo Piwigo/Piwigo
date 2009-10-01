@@ -429,21 +429,22 @@ class Template {
    * They will be processed by weight ascending.
    * http://www.smarty.net/manual/en/advanced.features.prefilters.php
    */
-  function set_external_filter($handle, $callback, $weight=50) 
+  function set_prefilter($handle, $callback, $weight=50)
   {
-    if (isset($this->external_filters[$handle][$weight]))
-    {
-      foreach($this->external_filters[$handle][$weight] as $func)
-      {
-        if ($func == $callback)
-        {
-          return false;
-        }
-      }
-    }
-    $this->external_filters[$handle][$weight][] = $callback;
+    $this->external_filters[$handle][$weight][] = array('pre', $callback);
     ksort($this->external_filters[$handle]);
-    return true;
+  }
+
+  function set_postfilter($handle, $callback, $weight=50)
+  {
+    $this->external_filters[$handle][$weight][] = array('post', $callback);
+    ksort($this->external_filters[$handle]);
+  }
+
+  function set_outputfilter($handle, $callback, $weight=50)
+  {
+    $this->external_filters[$handle][$weight][] = array('output', $callback);
+    ksort($this->external_filters[$handle]);
   }
   
  /**
@@ -455,16 +456,28 @@ class Template {
   {
     if (isset($this->external_filters[$handle]))
     {
-      $compile_id = $this->smarty->compile_id;
-      foreach ($this->external_filters[$handle] as $callbacks) 
+      $compile_id = '';
+      foreach ($this->external_filters[$handle] as $filters) 
       {
-        foreach ($callbacks as $callback) 
+        foreach ($filters as $filter) 
         {
-          $compile_id .= $callback;
-          $this->smarty->register_prefilter($callback);
+          list($type, $callback) = $filter;
+          $compile_id .= $type.( is_array($callback) ? implode('', $callback) : $callback );
+          switch ($type)
+          {
+            case 'pre':
+              $this->smarty->register_prefilter($callback);
+              break;
+            case 'post':
+              $this->smarty->register_postfilter($callback);
+              break;
+            case 'output':
+              $this->smarty->register_outputfilter($callback);
+              break;
+          }
         }
       }
-      $this->smarty->compile_id = base_convert(crc32($compile_id), 10, 36);
+      $this->smarty->compile_id .= '.'.base_convert(crc32($compile_id), 10, 36);
     }
   }
 
@@ -472,11 +485,23 @@ class Template {
   {
     if (isset($this->external_filters[$handle]))
     {
-      foreach ($this->external_filters[$handle] as $callbacks) 
+      foreach ($this->external_filters[$handle] as $filters) 
       {
-        foreach ($callbacks as $callback) 
+        foreach ($filters as $filter) 
         {
-          $this->smarty->unregister_prefilter($callback);
+          list($type, $callback) = $filter;
+          switch ($type)
+          {
+            case 'pre':
+              $this->smarty->unregister_prefilter($callback);
+              break;
+            case 'post':
+              $this->smarty->unregister_postfilter($callback);
+              break;
+            case 'output':
+              $this->smarty->unregister_outputfilter($callback);
+              break;
+          }
         }
       }
     }
