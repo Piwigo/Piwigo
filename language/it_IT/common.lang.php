@@ -365,6 +365,7 @@ $lang['group by letters'] = 'ragruppare per lettera';
 $lang['letters'] = 'lettere';
 $lang['show tag cloud'] = 'fare salire la nuvola di tags';
 $lang['cloud'] = 'nuvola';
+$lang['Reset_To_Default'] = 'Ripristinare le impostazioni predefinite';
 // --------- Starting below: New or revised $lang ---- from Colibri (2.1)
 $lang['del_all_favorites_hint'] = 'cancellare tutte le immagini dai vostri favoriti';
 $lang['Sent by'] = 'Mandato da';

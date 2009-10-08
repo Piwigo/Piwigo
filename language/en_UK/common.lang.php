@@ -365,6 +365,7 @@ $lang['group by letters'] = 'group by letters';
 $lang['letters'] = 'letters';
 $lang['show tag cloud'] = 'show tag cloud';
 $lang['cloud'] = 'cloud';
+$lang['Reset_To_Default'] = 'Reset to default values';
 // --------- Starting below: New or revised $lang ---- from Colibri (2.1)
 $lang['del_all_favorites_hint'] = 'delete all images from your favorites';
 $lang['Sent by'] = 'Sent by';
