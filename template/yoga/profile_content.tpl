@@ -104,6 +104,7 @@
   <p class="bottomButtons">
     <input class="submit" type="submit" name="validate" value="{'Submit'|@translate}">
     <input class="submit" type="reset" name="reset" value="{'Reset'|@translate}">
+    <input class="submit" type="submit" name="reset_to_default" value="{'Reset_To_Default'|@translate}">
   </p>
 
 </form>

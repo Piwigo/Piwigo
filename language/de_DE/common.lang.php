@@ -365,4 +365,5 @@ $lang['group by letters'] = 'Gruppieren nach Buchstaben';
 $lang['letters'] = 'Buchstaben';
 $lang['show tag cloud'] = 'zeigen die Tag-Wolke';
 $lang['cloud'] = 'Wolke';
+$lang['Reset_To_Default'] = 'Zurücksetzen auf Standardwerte';
 ?>
