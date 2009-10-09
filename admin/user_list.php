@@ -187,59 +187,59 @@ $page['direction_items'] = array(
 // This feature is discussed on Piwigo's english forum
 if ($conf['double_password_type_in_admin'] == true)
 {
-	if (isset($_POST['submit_add']))
-	{
-		if(empty($_POST['password']))
-		{
-			array_push($page['errors'], l10n('Password is missing'));
-		}
-		else if(empty($_POST['password_conf']))
-		{
-			array_push($page['errors'], l10n('Password confirmation is missing'));
-		}
-		else if(empty($_POST['email']))
-		{
-			array_push($page['errors'], l10n('Email address is missing'));
-		}
-		else if ($_POST['password'] != $_POST['password_conf'])
-		{
-			array_push($page['errors'], l10n('Password confirmation error'));
-		}
-		else
-		{
-  		$page['errors'] = register_user(
-    		$_POST['login'], $_POST['password'], $_POST['email'], false);
+  if (isset($_POST['submit_add']))
+  {
+    if(empty($_POST['password']))
+    {
+      array_push($page['errors'], l10n('Password is missing'));
+    }
+    else if(empty($_POST['password_conf']))
+    {
+      array_push($page['errors'], l10n('Password confirmation is missing'));
+    }
+    else if(empty($_POST['email']))
+    {
+      array_push($page['errors'], l10n('Email address is missing'));
+    }
+    else if ($_POST['password'] != $_POST['password_conf'])
+    {
+      array_push($page['errors'], l10n('Password confirmation error'));
+    }
+    else
+    {
+      $page['errors'] = register_user(
+        $_POST['login'], $_POST['password'], $_POST['email'], false);
 
-			if (count($page['errors']) == 0)
-  		{
-    		array_push(
-    			$page['infos'],
-    			sprintf(
-    				l10n('user "%s" added'),
-    				$_POST['login']
-    			)
-    		);
-  		}
-		}
-	}
+      if (count($page['errors']) == 0)
+      {
+        array_push(
+          $page['infos'],
+          sprintf(
+            l10n('user "%s" added'),
+            $_POST['login']
+          )
+        );
+      }
+    }
+  }
 }
 else if ($conf['double_password_type_in_admin'] == false)
 {
-	if (isset($_POST['submit_add']))
-	{
-  	$page['errors'] = register_user(
-    	$_POST['login'], $_POST['password'], $_POST['email'], false);
+  if (isset($_POST['submit_add']))
+  {
+    $page['errors'] = register_user(
+      $_POST['login'], $_POST['password'], $_POST['email'], false);
 
-  	if (count($page['errors']) == 0)
-  	{
-    	array_push(
-      	$page['infos'],
-      	sprintf(
-        	l10n('user "%s" added'),
-        	$_POST['login']
-        	)
-      	);
-  	}
+    if (count($page['errors']) == 0)
+    {
+      array_push(
+        $page['infos'],
+        sprintf(
+          l10n('user "%s" added'),
+          $_POST['login']
+          )
+        );
+    }
   }
 }
 
