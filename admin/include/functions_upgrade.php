@@ -136,7 +136,7 @@ function check_upgrade_access_rights($current_release, $username, $password)
 {
   global $conf, $page;
 
-  if(!get_magic_quotes_gpc())
+  if(!@get_magic_quotes_gpc())
   {
     $username = mysql_real_escape_string($username);
   }

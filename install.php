@@ -72,12 +72,12 @@ function execute_sqlfile($filepath, $replaced, $replacing)
   }
 }
 
-set_magic_quotes_runtime(0); // Disable magic_quotes_runtime
+@set_magic_quotes_runtime(0); // Disable magic_quotes_runtime
 //
 // addslashes to vars if magic_quotes_gpc is off this is a security
 // precaution to prevent someone trying to break out of a SQL statement.
 //
-if( !get_magic_quotes_gpc() )
+if( !@get_magic_quotes_gpc() )
 {
   if( is_array($_POST) )
   {
