@@ -40,79 +40,45 @@ if (!defined('PHPWG_ROOT_PATH'))
 
   trigger_action('loc_begin_profile');
 
-// Reset to default (Guest) custom settings
+  // Reset to default (Guest) custom settings
   if (isset($_POST['reset_to_default']))
   {
-  	global $conf;
+    global $conf;
     // Get the Guest custom settings
-		$query = 'SELECT * FROM '.USER_INFOS_TABLE.
-            ' WHERE user_id = '.$conf['default_user_id'].';';
+    $query = '
+SELECT * FROM '.USER_INFOS_TABLE.' 
+WHERE user_id = '.$conf['default_user_id'].
+';';
 
     $result = pwg_query($query);
     
     $cache['default_user'] = mysql_fetch_assoc($result);
     
-		$default_user = array();
+    $default_user = array();
     
-		foreach ($cache['default_user'] as $name => $value)
+    foreach ($cache['default_user'] as $name => $value)
     {
-		// If the field is true or false, the variable is transformed into a
-  	// boolean value.
-    	if ($value == 'true' or $value == 'false')
+      // If the field is true or false, the variable is transformed into a
+      // boolean value.
+      if ($value == 'true' or $value == 'false')
       {
       	$default_user[$name] = get_boolean($value);
-     	}
+      }
       else
       {
       	$default_user[$name] = $value;
       }
-  	}
-		// Changing $userdata array values with default ones	
-		foreach ($userdata as $key => $valeur)
-		{
-			if ($key == 'nb_image_line')
-			{
-				$userdata[$key] = $default_user['nb_image_line'];
-				$_POST['nb_image_line'] = $userdata['nb_image_line'];
-			}
-			if ($key == 'nb_line_page')
-			{
-				$userdata[$key] = $default_user['nb_line_page'];
-				$_POST['nb_line_page'] = $userdata['nb_line_page'];
-			}
-			if ($key == 'maxwidth')
-			{
-				$userdata[$key] = $default_user['maxwidth'];
-				$_POST['maxwidth'] = $userdata['maxheight'];
-			}
-			if ($key == 'maxheight')
-			{
-				$userdata[$key] = $default_user['maxheight'];
-				$_POST['maxheight'] = $userdata['maxheight'];
-			}
-			if ($key == 'expand')
-			{
-				$userdata[$key] = $default_user['expand'];
-				$_POST['expand'] = $userdata['expand'];
-			}
-			if ($key == 'show_nb_comments')
-			{
-				$userdata[$key] = $default_user['show_nb_comments'];
-				$_POST['show_nb_comments'] = $userdata['show_nb_comments'];
-			}
-			if ($key == 'recent_period')
-			{
-				$userdata[$key] = $default_user['recent_period'];
-				$_POST['recent_period'] = $userdata['recent_period'];
-			}
-			if ($key == 'show_nb_hits')
-			{
-				$userdata[$key] = $default_user['show_nb_hits'];
-				$_POST['show_nb_hits'] = $userdata['show_nb_hits'];
-			}
-		}
-	}
-	
+    }
+    // Changing $userdata array values with default ones	
+    $userdata_params = array('nb_image_line', 'nb_line_page', 
+			      'maxwidth', 'maxheight', 'expand', 
+			      'show_nb_comments', 'show_nb_hits');
+    foreach ($userdata_params as $key)      
+    {
+      $userdata[$key] = $default_user[$key];
+      $_POST[$key] = $userdata[$key];
+    }
+  }	
   save_profile_from_post($userdata, $errors);
 
   $title= l10n('customize_page_title');
