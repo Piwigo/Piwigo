@@ -46,6 +46,9 @@ class Template {
   // Template extents filenames for each template handle.
   var $extents = array();
 
+  // Templates prefilter from external sources (plugins)
+  var $external_filters = array();
+  
   // used by html_head smarty block to add content before </head>
   var $html_head_elements = array();
 
@@ -290,19 +293,19 @@ class Template {
     $this->smarty->assign( 'TAG_INPUT_ENABLED',
       ((is_adviser()) ? 'disabled="disabled" onclick="return false;"' : ''));
 
+    $save_compile_id = $this->smarty->compile_id;
+    $this->load_external_filters($handle);
+
     global $conf, $lang_info;
     if ( $conf['compiled_template_cache_language'] and isset($lang_info['code']) )
     {
-      $save_compile_id = $this->smarty->compile_id;
       $this->smarty->compile_id .= '.'.$lang_info['code'];
     }
 
     $v = $this->smarty->fetch($this->files[$handle], null, null, false);
 
-    if (isset ($save_compile_id) )
-    {
-      $this->smarty->compile_id = $save_compile_id;
-    }
+    $this->smarty->compile_id = $save_compile_id;
+    $this->unload_external_filters($handle);
 
     if ($return)
     {
@@ -333,6 +336,7 @@ class Template {
       } //else maybe error or warning ?
       $this->html_head_elements = array();
     }
+
     echo $this->output;
     $this->output='';
   }
@@ -419,6 +423,68 @@ class Template {
     }
   }
 
+ /**
+   * This function allows to declare a Smarty prefilter from a plugin, thus allowing
+   * it to modify template source before compilation and without changing core files
+   * They will be processed by weight ascending.
+   * http://www.smarty.net/manual/en/advanced.features.prefilters.php
+   */
+  function set_prefilter($handle, $callback, $weight=50)
+  {
+    $this->external_filters[$handle][$weight][] = array('prefilter', $callback);
+    ksort($this->external_filters[$handle]);
+  }
+
+  function set_postfilter($handle, $callback, $weight=50)
+  {
+    $this->external_filters[$handle][$weight][] = array('postfilter', $callback);
+    ksort($this->external_filters[$handle]);
+  }
+
+  function set_outputfilter($handle, $callback, $weight=50)
+  {
+    $this->external_filters[$handle][$weight][] = array('outputfilter', $callback);
+    ksort($this->external_filters[$handle]);
+  }
+  
+ /**
+   * This function actually triggers the filters on the tpl files.
+   * Called in the parse method.
+   * http://www.smarty.net/manual/en/advanced.features.prefilters.php
+   */
+  function load_external_filters($handle)
+  {
+    if (isset($this->external_filters[$handle]))
+    {
+      $compile_id = '';
+      foreach ($this->external_filters[$handle] as $filters) 
+      {
+        foreach ($filters as $filter) 
+        {
+          list($type, $callback) = $filter;
+          $compile_id .= $type.( is_array($callback) ? implode('', $callback) : $callback );
+          call_user_func(array($this->smarty, 'register_'.$type), $callback);
+        }
+      }
+      $this->smarty->compile_id .= '.'.base_convert(crc32($compile_id), 10, 36);
+    }
+  }
+
+  function unload_external_filters($handle)
+  {
+    if (isset($this->external_filters[$handle]))
+    {
+      foreach ($this->external_filters[$handle] as $filters) 
+      {
+        foreach ($filters as $filter) 
+        {
+          list($type, $callback) = $filter;
+          call_user_func(array($this->smarty, 'unregister_'.$type), $callback);
+        }
+      }
+    }
+  }
+
   static function prefilter_white_space($source, &$smarty)
   {
     $ld = $smarty->left_delimiter;
@@ -464,6 +530,7 @@ class Template {
     return $source;
   }
 }
+
 
 /**
  * This class contains basic functions that can be called directly from the
