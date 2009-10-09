@@ -633,4 +633,6 @@ $lang['exif_field_FocalLength'] = 'Ohnisko';
 $lang['exif_field_ExposureBiasValue'] = 'Korekce';
 $lang['exif_field_ExposureProgram'] = 'Program';
 $lang['exif_field_Flash'] = 'Blesk';
+// --------- Starting below: New or revised $lang ---- from Butterfly (2.0)
+/* TODO */ $lang['Reset_To_Default'] = 'Reset to default values';
 ?>

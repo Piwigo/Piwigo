@@ -365,4 +365,5 @@ $lang['group by letters'] = '按字母顺序分';
 $lang['letters'] = '字母';
 $lang['show tag cloud'] = '显示标签云';
 $lang['cloud'] = '云';
+/* TODO */ $lang['Reset_To_Default'] = 'Reset to default values';
 ?>
