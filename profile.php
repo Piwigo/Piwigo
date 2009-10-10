@@ -43,9 +43,6 @@ if (!defined('PHPWG_ROOT_PATH'))
 // Reset to default (Guest) custom settings
   if (isset($_POST['reset_to_default']))
   {
-    // mass_updates function
-    include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
-
     $fields = array(
       'nb_image_line', 'nb_line_page', 'maxwidth', 'maxheight', 'expand',
       'show_nb_comments', 'show_nb_hits', 'recent_period', 'show_nb_hits'
@@ -60,12 +57,6 @@ SELECT '.implode(',', $fields).'
     $result = pwg_query($query);
     $default_user = mysql_fetch_assoc($result);
     $userdata = array_merge($userdata, $default_user);
-
-    mass_updates(
-      USER_INFOS_TABLE,
-      array('primary' => array('user_id'), 'update' => $fields),
-      array($userdata)
-      );
   }
 
   save_profile_from_post($userdata, $errors);
