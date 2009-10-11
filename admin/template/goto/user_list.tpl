@@ -56,6 +56,8 @@
 
 <form method="post" name="preferences" action="">
 
+<div class="navigationBar">{$NAVBAR}</div>
+
 <table class="table2" width="97%">
   <thead>
     <tr class="throw">
