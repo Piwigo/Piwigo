@@ -412,6 +412,27 @@ DELETE FROM ' . PLUGINS_TABLE . ' WHERE id="' . $plugin_id . '"';
                   break;
                 }
               }
+              if (file_exists($extract_path.'/obsolete.list')
+                and $old_files = file($extract_path.'/obsolete.list', FILE_IGNORE_NEW_LINES)
+                and !empty($old_files))
+              {
+                array_push($old_files, 'obsolete.list');
+                foreach($old_files as $old_file)
+                {
+                  $path = $extract_path.'/'.$old_file;
+                  if (is_file($path))
+                  {
+                    @unlink($path);
+                  }
+                  elseif (is_dir($path))
+                  {
+                    if (!$this->deltree($path))
+                    {
+                      $this->send_to_trash($path);
+                    }
+                  }
+                }
+              }
             }
             else $status = 'extract_error';
           }
