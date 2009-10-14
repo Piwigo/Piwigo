@@ -231,11 +231,11 @@ if (isset($_POST['submit']))
   $infos = array();
   
   // checking criteria
-  if (!ereg('^[0-9]{2,3}$', $_POST['width']) or $_POST['width'] < 10)
+  if (!preg_match('/^[0-9]{2,3}$/', $_POST['width']) or $_POST['width'] < 10)
   {
     array_push($page['errors'], l10n('tn_err_width').' 10');
   }
-  if (!ereg('^[0-9]{2,3}$', $_POST['height']) or $_POST['height'] < 10)
+  if (!preg_match('/^[0-9]{2,3}$/', $_POST['height']) or $_POST['height'] < 10)
   {
     array_push($page['errors'], l10n('tn_err_height').' 10');
   }
