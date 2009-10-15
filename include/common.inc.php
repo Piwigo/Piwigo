@@ -129,6 +129,12 @@ include(PHPWG_ROOT_PATH.'include/user.inc.php');
 if ('fr_FR' == $user['language']) {
   define('PHPWG_DOMAIN', 'fr.piwigo.org');
 }
+else if ('de_DE' == $user['language']) {
+  define('PHPWG_DOMAIN', 'de.piwigo.org');
+}
+else if ('es_ES' == $user['language']) {
+  define('PHPWG_DOMAIN', 'es.piwigo.org');
+}
 else {
   define('PHPWG_DOMAIN', 'piwigo.org');
 }
