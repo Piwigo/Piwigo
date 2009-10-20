@@ -530,10 +530,7 @@ if ($conf['allow_adviser'])
 }
 
 // Display or Hide double password type
-if ($conf['double_password_type_in_admin'])
-{
-  $template->assign('Double_Password', true);
-}
+$template->assign('Double_Password', $conf['double_password_type_in_admin'] );
 
 // Filter status options
 $status_options[-1] = '------------';
@@ -587,12 +584,12 @@ else
 
 // Template Options
 $template->assign('template_options', get_pwg_themes());
-$template->assign('template_selected', 
+$template->assign('template_selected',
     isset($_POST['pref_submit']) ? $_POST['template'] : get_default_template());
 
 // Language options
 $template->assign('language_options', get_languages());
-$template->assign('language_selected', 
+$template->assign('language_selected',
     isset($_POST['pref_submit']) ? $_POST['language'] : get_default_language());
 
 // Status options
@@ -605,7 +602,7 @@ foreach (get_enums(USER_INFOS_TABLE, 'status') as $status)
   }
 }
 $template->assign('pref_status_options', $pref_status_options);
-$template->assign('pref_status_selected', 
+$template->assign('pref_status_selected',
     isset($_POST['pref_submit']) ? $_POST['status'] : 'normal');
 
 // associate and dissociate options
@@ -622,7 +619,7 @@ foreach ($conf['available_permission_levels'] as $level)
   $level_options[$level] = l10n(sprintf('Level %d', $level));
 }
 $template->assign('level_options', $level_options);
-$template->assign('level_selected', 
+$template->assign('level_selected',
     isset($_POST['pref_submit']) ? $_POST['level'] : $default_user['level']);
 
 // +-----------------------------------------------------------------------+
@@ -663,7 +660,7 @@ foreach ($page['filtered_users'] as $num => $local_user)
   $visible_user_list[] = $local_user;
 }
 
-// allow plugins to fill template var plugin_user_list_column_titles and 
+// allow plugins to fill template var plugin_user_list_column_titles and
 // plugin_columns/plugin_actions for each user in the list
 $visible_user_list = trigger_event('loc_visible_user_list', $visible_user_list);
 
