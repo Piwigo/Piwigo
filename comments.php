@@ -59,7 +59,14 @@ $since_options = array(
              'clause' => '1=1') // stupid but generic
   );
 
-$page['since'] = isset($_GET['since']) ? $_GET['since'] : 4;
+if (!empty($_GET['since']) && is_numeric($_GET['since']))
+{
+  $page['since'] = $_GET['since'];
+}
+else
+{
+  $page['since'] = 4;
+}
 
 // on which field sorting
 //
@@ -101,13 +108,13 @@ if (isset($_GET['cat']) and 0 != $_GET['cat'])
 }
 
 // search a particular author
-if (isset($_GET['author']) and !empty($_GET['author']))
+if (!empty($_GET['author']))
 {
   $page['where_clauses'][] = 'com.author = \''.$_GET['author'].'\'';
 }
 
 // search a substring among comments content
-if (isset($_GET['keyword']) and !empty($_GET['keyword']))
+if (!empty($_GET['keyword']))
 {
   $page['where_clauses'][] =
     '('.
@@ -180,8 +187,8 @@ $template->set_filenames(array('comments'=>'comments.tpl'));
 $template->assign(
   array(
     'F_ACTION'=>PHPWG_ROOT_PATH.'comments.php',
-    'F_KEYWORD'=>@htmlspecialchars(stripslashes($_GET['keyword'])),
-    'F_AUTHOR'=>@htmlspecialchars(stripslashes($_GET['author'])),
+    'F_KEYWORD'=> @htmlspecialchars($_GET['keyword'], ENT_QUOTES, 'utf-8'),
+    'F_AUTHOR'=> @htmlspecialchars($_GET['author'], ENT_QUOTES, 'utf-8'),
     )
   );
 
@@ -252,8 +259,10 @@ else
 $query = '
 SELECT COUNT(DISTINCT(id))
   FROM '.IMAGE_CATEGORY_TABLE.' AS ic
-    INNER JOIN '.COMMENTS_TABLE.' AS com
+    INNER JOIN '.COMMENTS_TABLE.' AS com    
     ON ic.image_id = com.image_id
+    LEFT JOIN '.USERS_TABLE.' As u
+    ON u.'.$conf['user_fields']['id'].' = com.author_id
   WHERE '.implode('
     AND ', $page['where_clauses']).'
 ;';
@@ -290,6 +299,8 @@ SELECT com.id AS comment_id
   FROM '.IMAGE_CATEGORY_TABLE.' AS ic
     INNER JOIN '.COMMENTS_TABLE.' AS com
     ON ic.image_id = com.image_id
+    LEFT JOIN '.USERS_TABLE.' As u
+    ON u.'.$conf['user_fields']['id'].' = com.author_id
   WHERE '.implode('
     AND ', $page['where_clauses']).'
   GROUP BY comment_id
