@@ -365,8 +365,8 @@ $lang['group by letters'] = 'Csoport levelek';
 $lang['letters'] = 'Levelek';
 $lang['show tag cloud'] = 'Címkefelhő mutatása';
 $lang['cloud'] = 'Wolke';
-/*TODO*/$lang['Reset_To_Default'] = 'Reset to default values';
-// --------- Starting below: New or revised $lang ---- from Colibri (2.1)
-/*TODO*/$lang['del_all_favorites_hint'] = 'delete all images from your favorites';
-/*TODO*/$lang['Sent by'] = 'Sent by';
+$lang['Reset_To_Default'] = 'Alap értékek visszaállítása';
+// --------- Starting below: Új vagy javított $lang ---- Tőle: Colibri (2.1)
+$lang['del_all_favorites_hint'] = 'Minden kép törlése a kedvencekből';
+$lang['Sent by'] = 'Küldte';
 ?>
