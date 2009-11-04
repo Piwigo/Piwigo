@@ -204,8 +204,8 @@ $template->set_filenames(array('comments'=>'comments.tpl'));
 $template->assign(
   array(
     'F_ACTION'=>PHPWG_ROOT_PATH.'comments.php',
-    'F_KEYWORD'=> @htmlspecialchars($_GET['keyword'], ENT_QUOTES, 'utf-8'),
-    'F_AUTHOR'=> @htmlspecialchars($_GET['author'], ENT_QUOTES, 'utf-8'),
+    'F_KEYWORD'=> @htmlspecialchars(stripslashes($_GET['keyword'], ENT_QUOTES, 'utf-8')),
+    'F_AUTHOR'=> @htmlspecialchars(stripslashes($_GET['author'], ENT_QUOTES, 'utf-8')),
     )
   );
 
