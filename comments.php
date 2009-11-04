@@ -187,8 +187,8 @@ $template->set_filenames(array('comments'=>'comments.tpl'));
 $template->assign(
   array(
     'F_ACTION'=>PHPWG_ROOT_PATH.'comments.php',
-    'F_KEYWORD'=> @htmlspecialchars($_GET['keyword'], ENT_QUOTES, 'utf-8'),
-    'F_AUTHOR'=> @htmlspecialchars($_GET['author'], ENT_QUOTES, 'utf-8'),
+    'F_KEYWORD'=> @htmlspecialchars(stripslashes($_GET['keyword'], ENT_QUOTES, 'utf-8')),
+    'F_AUTHOR'=> @htmlspecialchars(stripslashes($_GET['author'], ENT_QUOTES, 'utf-8')),
     )
   );
 
@@ -257,7 +257,7 @@ else
 }
 
 $query = '
-SELECT COUNT(DISTINCT(id))
+SELECT COUNT(DISTINCT(com.id))
   FROM '.IMAGE_CATEGORY_TABLE.' AS ic
     INNER JOIN '.COMMENTS_TABLE.' AS com    
     ON ic.image_id = com.image_id
