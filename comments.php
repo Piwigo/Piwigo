@@ -261,8 +261,6 @@ SELECT COUNT(DISTINCT(com.id))
   FROM '.IMAGE_CATEGORY_TABLE.' AS ic
     INNER JOIN '.COMMENTS_TABLE.' AS com    
     ON ic.image_id = com.image_id
-    LEFT JOIN '.USERS_TABLE.' As u
-    ON u.'.$conf['user_fields']['id'].' = com.author_id
   WHERE '.implode('
     AND ', $page['where_clauses']).'
 ;';
@@ -299,8 +297,6 @@ SELECT com.id AS comment_id
   FROM '.IMAGE_CATEGORY_TABLE.' AS ic
     INNER JOIN '.COMMENTS_TABLE.' AS com
     ON ic.image_id = com.image_id
-    LEFT JOIN '.USERS_TABLE.' As u
-    ON u.'.$conf['user_fields']['id'].' = com.author_id
   WHERE '.implode('
     AND ', $page['where_clauses']).'
   GROUP BY comment_id
