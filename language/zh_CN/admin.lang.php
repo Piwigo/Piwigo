@@ -647,11 +647,11 @@ $lang['Downloads'] = '下载';
 $lang['Released on'] = '发布于';
 $lang['Number of downloads'] = '下载次数';
 // --------- Starting below: New or revised $lang ---- from Colibri (2.1)
-/*TODO*/$lang['Piwigo Announcements Newsletter'] = 'Piwigo Announcements Newsletter';
-/*TODO*/$lang['Subscribe to Piwigo Announcements Newsletter'] = 'Keep in touch with Piwigo project, subscribe to Piwigo Announcement Newsletter. You will receive emails when a new release is available (sometimes including a security bug fix, it\'s important to know and upgrade) and when major events happen to the project. Only a few emails a year.';
-/*TODO*/$lang['Subscribe %s'] = 'Subscribe %s';
-/*TODO*/$lang['Subscribe %s to Piwigo Announcements Newsletter'] = 'Subscribe %s to Piwigo English Announcements Newsletter';
-/*TODO*/$lang['Purge search history'] = 'Purge search history';
-/*TODO*/$lang['Hide'] = 'Hide';
+/*TO CHECK*/$lang['Piwigo Announcements Newsletter'] = 'Piwigo公告时事通讯';
+/*TO CHECK*/$lang['Subscribe to Piwigo Announcements Newsletter'] = '与Piwigo项目保持联系，订阅Piwigo公告时事通讯。 您将收到电子邮件，当新的发行是可利用的(有时包括安全错误修复，知道和升级)是重要的，并且，当主要事件发生在这个项目。 仅一些电子邮件每年。';
+/*TO CHECK*/$lang['Subscribe %s'] = '订阅%s';
+/*TO CHECK*/$lang['Subscribe %s to Piwigo Announcements Newsletter'] = '订阅%s Piwigo中国公告时事通讯';
+/*TO CHECK*/$lang['Purge search history'] = '清除查寻历史';
+/*TO CHECK*/$lang['Hide'] = '皮';
 
 ?>
