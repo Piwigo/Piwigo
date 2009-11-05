@@ -25,6 +25,10 @@ if (! defined('MULTIVIEW_CONTROLLER') )
     $conf['debug_l10n'] = true;
   if (pwg_get_session_var( 'multiview_debug_template', 0 ))
     $conf['debug_template'] = true;
+  if (pwg_get_session_var( 'multiview_no_history', 0 ))
+  {
+    add_event_handler( 'pwg_log_allowed', create_function( '', 'return false;' ) );
+  }
 }
 
 add_event_handler('loc_end_page_header', 'multiview_loc_end_page_header');
