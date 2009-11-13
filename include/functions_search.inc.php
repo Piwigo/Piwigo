@@ -438,7 +438,7 @@ function get_quick_search_results($q, $super_order_by, $images_where='')
   if (!empty($q_like_clause))
   {
     $where_clauses .= '
-    OR '. str_replace($q_like_field, 'file', $q_like_clause);
+    OR '. str_replace($q_like_field, 'CONVERT(file, CHAR)', $q_like_clause);
     $where_clauses = '('.$where_clauses.')';
   }
   $where_clauses = array($where_clauses);
