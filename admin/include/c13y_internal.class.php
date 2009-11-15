@@ -126,7 +126,7 @@ class c13y_internal
     $status = array();
 
     $result = pwg_query($query);
-    while ($row = mysql_fetch_array($result))
+    while ($row = mysql_fetch_assoc($result))
     {
       $status[$row['id']] = $row['status'];
     }

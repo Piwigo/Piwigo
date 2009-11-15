@@ -150,7 +150,7 @@ order by
     $inserts = array();
     $check_key_list = array();
 
-    while ($nbm_user = mysql_fetch_array($result))
+    while ($nbm_user = mysql_fetch_assoc($result))
     {
       // Calculate key
       $nbm_user['check_key'] = find_available_check_key();
@@ -512,7 +512,7 @@ switch ($page['mode'])
       $updated_param_count = 0;
       // Update param
       $result = pwg_query('select param, value from '.CONFIG_TABLE.' where param like \'nbm\\_%\'');
-      while ($nbm_user = mysql_fetch_array($result))
+      while ($nbm_user = mysql_fetch_assoc($result))
       {
         if (isset($_POST[$nbm_user['param']]))
         {

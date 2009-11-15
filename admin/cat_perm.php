@@ -45,7 +45,7 @@ SELECT status
   FROM '.CATEGORIES_TABLE.'
   WHERE id = '.$_GET['cat'].'
 ;';
-  list($status) = mysql_fetch_array(pwg_query($query));
+  list($status) = mysql_fetch_row(pwg_query($query));
   
   if ('private' == $status)
   {
@@ -62,7 +62,7 @@ SELECT id
   LIMIT 0,1
 ;';
 
-  list($page['cat']) = mysql_fetch_array(pwg_query($query));
+  list($page['cat']) = mysql_fetch_row(pwg_query($query));
 }
 
 // +-----------------------------------------------------------------------+
@@ -110,7 +110,7 @@ SELECT group_id, cat_id
     AND group_id IN ('.implode(',', $_POST['grant_groups']).')
 ;';
   $result = pwg_query($query);
-  while ($row = mysql_fetch_array($result))
+  while ($row = mysql_fetch_assoc($result))
   {
     array_push($granteds[$row['cat_id']], $row['group_id']);
   }
@@ -169,7 +169,7 @@ SELECT user_id, cat_id
     AND user_id IN ('.implode(',', $_POST['grant_users']).')
 ;';
   $result = pwg_query($query);
-  while ($row = mysql_fetch_array($result))
+  while ($row = mysql_fetch_assoc($result))
   {
     array_push($granteds[$row['cat_id']], $row['user_id']);
   }
@@ -274,7 +274,7 @@ SELECT user_id, group_id
   WHERE group_id IN ('.implode(',', $group_granted_ids).') 
 ';
   $result = pwg_query($query);
-  while ($row = mysql_fetch_array($result))
+  while ($row = mysql_fetch_assoc($result))
   {
     if (!isset($granted_groups[$row['group_id']]))
     {

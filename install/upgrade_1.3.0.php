@@ -84,7 +84,7 @@ SELECT id, id_uppercat
   FROM '.CATEGORIES_TABLE.'
 ;';
 $result = pwg_query($query);
-while ($row = mysql_fetch_array($result))
+while ($row = mysql_fetch_assoc($result))
 {
   if (!isset($row['id_uppercat']) or $row['id_uppercat'] == '')
   {

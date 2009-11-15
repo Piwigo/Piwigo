@@ -238,7 +238,7 @@ SELECT * FROM '.PLUGINS_TABLE;
 
   $result = pwg_query($query);
   $plugins = array();
-  while ($row = mysql_fetch_array($result))
+  while ($row = mysql_fetch_assoc($result))
   {
     array_push($plugins, $row);
   }

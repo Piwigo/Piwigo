@@ -42,7 +42,7 @@ $query = '
 SELECT prefix_thumbnail, mail_webmaster
   FROM '.PREFIX_TABLE.'config
 ;';
-$save = mysql_fetch_array(pwg_query($query));
+$save = mysql_fetch_assoc(pwg_query($query));
 
 $queries = array(
   "
@@ -344,7 +344,7 @@ SHOW INDEX
   FROM '.PREFIX_TABLE.$table.'
 ;';
   $result = pwg_query($query);
-  while ($row = mysql_fetch_array($result))
+  while ($row = mysql_fetch_assoc($result))
   {
     if ($row['Key_name'] != 'PRIMARY')
     {
@@ -536,7 +536,7 @@ SELECT DISTINCT(storage_category_id) AS unique_storage_category_id
   FROM '.IMAGES_TABLE.'
 ;';
 $result = pwg_query($query);
-while ($row = mysql_fetch_array($result))
+while ($row = mysql_fetch_assoc($result))
 {
   array_push($cat_ids, $row['unique_storage_category_id']);
 }
@@ -561,7 +561,7 @@ SELECT id
   WHERE status = \'private\'
 ;';
 $result = pwg_query($query);
-while ($row = mysql_fetch_array($result))
+while ($row = mysql_fetch_assoc($result))
 {
   array_push($cat_ids, $row['id']);
 }

@@ -37,7 +37,7 @@ SELECT COUNT(rate) AS count
   FROM '.RATE_TABLE.'
   WHERE element_id = '.$picture['current']['id'].'
 ;';
-    $row = mysql_fetch_array(pwg_query($query));
+    $row = mysql_fetch_assoc(pwg_query($query));
   }
   else
   { // avg rate null -> no rate -> no need to query db
@@ -69,7 +69,7 @@ SELECT COUNT(rate) AS count
       $result = pwg_query($query);
       if (mysql_num_rows($result) > 0)
       {
-        $row = mysql_fetch_array($result);
+        $row = mysql_fetch_assoc($result);
         $user_rate = $row['rate'];
       }
     }

@@ -167,7 +167,7 @@ order by';
     $result = pwg_query($query);
     if (!empty($result))
     {
-      while ($nbm_user = mysql_fetch_array($result))
+      while ($nbm_user = mysql_fetch_assoc($result))
       {
         array_push($data_users, $nbm_user);
       }

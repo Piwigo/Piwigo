@@ -36,7 +36,7 @@ SELECT id
 ;';
   $result = pwg_query($query);
   $category_ids = array();
-  while ($row = mysql_fetch_array($result))
+  while ($row = mysql_fetch_assoc($result))
   {
     array_push($category_ids, $row['id']);
   }
@@ -77,7 +77,7 @@ SELECT id
 ;';
   $result = pwg_query($query);
   $element_ids = array();
-  while ($row = mysql_fetch_array($result))
+  while ($row = mysql_fetch_assoc($result))
   {
     array_push($element_ids, $row['id']);
   }
@@ -544,7 +544,7 @@ SHOW FULL COLUMNS FROM '.$tablename;
     $result = pwg_query($query);
     $columns = array();
     $all_fields = array_merge($dbfields['primary'], $dbfields['update']);
-    while ($row = mysql_fetch_array($result))
+    while ($row = mysql_fetch_assoc($result))
     {
       if (in_array($row['Field'], $all_fields))
       {
@@ -630,7 +630,7 @@ SELECT id, if(id_uppercat is null,\'\',id_uppercat) AS id_uppercat, uppercats, r
   $current_uppercat = '';
 
   $result = pwg_query($query);
-  while ($row = mysql_fetch_array($result))
+  while ($row = mysql_fetch_assoc($result))
   {
     if ($row['id_uppercat'] != $current_uppercat)
     {
@@ -776,7 +776,7 @@ SELECT uppercats
   WHERE id IN ('.implode(',', $cat_ids).')
 ;';
   $result = pwg_query($query);
-  while ($row = mysql_fetch_array($result))
+  while ($row = mysql_fetch_assoc($result))
   {
     $uppercats = array_merge($uppercats,
                              explode(',', $row['uppercats']));
@@ -803,7 +803,7 @@ SELECT image_id
   ORDER BY RAND()
   LIMIT 0,1
 ;';
-    list($representative) = mysql_fetch_array(pwg_query($query));
+    list($representative) = mysql_fetch_row(pwg_query($query));
 
     array_push(
       $datas,
@@ -863,7 +863,7 @@ SELECT id, uppercats, site_id
 '.wordwrap(implode(', ', $cat_ids), 80, "\n").')
 ;';
   $result = pwg_query($query);
-  while ($row = mysql_fetch_array($result))
+  while ($row = mysql_fetch_assoc($result))
   {
     array_push($categories, $row);
   }
@@ -1139,7 +1139,7 @@ SELECT element_id,
 
   $datas = array();
 
-  while ($row = mysql_fetch_array($result))
+  while ($row = mysql_fetch_assoc($result))
   {
     array_push(
       $datas,
@@ -1206,7 +1206,7 @@ SELECT id, id_uppercat, status, uppercats
   WHERE id IN ('.implode(',', $category_ids).')
 ;';
   $result = pwg_query($query);
-  while ($row = mysql_fetch_array($result))
+  while ($row = mysql_fetch_assoc($result))
   {
     $categories[$row['id']] =
       array(
@@ -1355,7 +1355,7 @@ SELECT MAX(rank)
   FROM '.CATEGORIES_TABLE.'
   WHERE id_uppercat '.(is_numeric($parent_id) ? '= '.$parent_id : 'IS NULL').'
 ;';
-  list($current_rank) = mysql_fetch_array(pwg_query($query));
+  list($current_rank) = mysql_fetch_row(pwg_query($query));
 
   $insert = array(
     'name' => $category_name,
@@ -1371,21 +1371,21 @@ SELECT id, uppercats, global_rank, visible, status
   FROM '.CATEGORIES_TABLE.'
   WHERE id = '.$parent_id.'
 ;';
-    $parent = mysql_fetch_array(pwg_query($query));
+    $parent = mysql_fetch_assoc(pwg_query($query));
 
-    $insert{'id_uppercat'} = $parent{'id'};
-    $insert{'global_rank'} = $parent{'global_rank'}.'.'.$insert{'rank'};
+    $insert['id_uppercat'] = $parent['id'];
+    $insert['global_rank'] = $parent['global_rank'].'.'.$insert['rank'];
 
     // at creation, must a category be visible or not ? Warning : if the
     // parent category is invisible, the category is automatically create
     // invisible. (invisible = locked)
     if ('false' == $parent['visible'])
     {
-      $insert{'visible'} = 'false';
+      $insert['visible'] = 'false';
     }
     else
     {
-      $insert{'visible'} = boolean_to_string($conf['newcat_default_visible']);
+      $insert['visible'] = boolean_to_string($conf['newcat_default_visible']);
     }
 
     // at creation, must a category be public or private ? Warning : if the
@@ -1393,18 +1393,18 @@ SELECT id, uppercats, global_rank, visible, status
     // private.
     if ('private' == $parent['status'])
     {
-      $insert{'status'} = 'private';
+      $insert['status'] = 'private';
     }
     else
     {
-      $insert{'status'} = $conf['newcat_default_status'];
+      $insert['status'] = $conf['newcat_default_status'];
     }
   }
   else
   {
-    $insert{'visible'} = boolean_to_string($conf['newcat_default_visible']);
-    $insert{'status'} = $conf['newcat_default_status'];
-    $insert{'global_rank'} = $insert{'rank'};
+    $insert['visible'] = boolean_to_string($conf['newcat_default_visible']);
+    $insert['status'] = $conf['newcat_default_status'];
+    $insert['global_rank'] = $insert['rank'];
   }
 
   // we have then to add the virtual category
@@ -1609,7 +1609,7 @@ function do_maintenance_all_tables()
   // List all tables
   $query = 'SHOW TABLES LIKE \''.$prefixeTable.'%\'';
   $result = pwg_query($query);
-  while ($row = mysql_fetch_array($result))
+  while ($row = mysql_fetch_assoc($result))
   {
     array_push($all_tables, $row[0]);
   }
@@ -1625,7 +1625,7 @@ function do_maintenance_all_tables()
 
     $query = 'DESC '.$table_name.';';
     $result = pwg_query($query);
-    while ($row = mysql_fetch_array($result))
+    while ($row = mysql_fetch_assoc($result))
     {
       if ($row['Key'] == 'PRI')
       {

@@ -98,7 +98,7 @@ SELECT COUNT(id) AS count
   FROM '.SITES_TABLE.'
   WHERE galleries_url = \''.$url.'\'
 ;';
-  $row = mysql_fetch_array(pwg_query($query));
+  $row = mysql_fetch_assoc(pwg_query($query));
   if ($row['count'] > 0)
   {
     array_push($page['errors'],
@@ -167,7 +167,7 @@ SELECT galleries_url
   FROM '.SITES_TABLE.'
   WHERE id = '.$page['site'].'
 ;';
-  list($galleries_url) = mysql_fetch_array(pwg_query($query));
+  list($galleries_url) = mysql_fetch_row(pwg_query($query));
   switch($_GET['action'])
   {
     case 'generate' :
@@ -236,7 +236,7 @@ SELECT *
 ;';
 $result = pwg_query($query);
 
-while ($row = mysql_fetch_array($result))
+while ($row = mysql_fetch_assoc($result))
 {
   $is_remote = url_is_remote($row['galleries_url']);
   $base_url = PHPWG_ROOT_PATH.'admin.php';

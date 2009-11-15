@@ -60,7 +60,7 @@ $conf = $conf_save;
 // +-Do I already have them in DB ?----------------------------------------+
 $query = 'SELECT param FROM '.PREFIX_TABLE.'config';
 $result = pwg_query($query);
-while ($row = mysql_fetch_array($result))
+while ($row = mysql_fetch_assoc($result))
 {
   unset( $params[ $row['param'] ] );
 }

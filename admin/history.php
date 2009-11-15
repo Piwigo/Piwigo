@@ -257,7 +257,7 @@ SELECT '.$conf['user_fields']['id'].' AS id
     $result = pwg_query($query);
 
     $username_of = array();
-    while ($row = mysql_fetch_array($result))
+    while ($row = mysql_fetch_assoc($result))
     {
       $username_of[$row['id']] = $row['username'];
     }
@@ -305,7 +305,7 @@ SELECT
     $tn_ext_of_image = array();
 
     $result = pwg_query($query);
-    while ($row = mysql_fetch_array($result))
+    while ($row = mysql_fetch_assoc($result))
     {
       $label_of_image[ $row['id'] ] = $row['label'];
 
@@ -341,7 +341,7 @@ SELECT
     $name_of_tag = array();
 
     $result = pwg_query($query);
-    while ($row = mysql_fetch_array($result))
+    while ($row = mysql_fetch_assoc($result))
     {
       $name_of_tag[ $row['id'] ] = $row['name'];
     }

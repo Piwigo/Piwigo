@@ -175,7 +175,7 @@ SELECT *
   FROM '.IMAGES_TABLE.'
   WHERE id = '.$_GET['image_id'].'
 ;';
-$row = mysql_fetch_array(pwg_query($query));
+$row = mysql_fetch_assoc(pwg_query($query));
 
 $storage_category_id = null;
 if (!empty($row['storage_category_id']))
@@ -324,7 +324,7 @@ SELECT category_id, uppercats
 ;';
 $result = pwg_query($query);
 
-while ($row = mysql_fetch_array($result))
+while ($row = mysql_fetch_assoc($result))
 {
   $name =
     get_cat_display_name_cache(
@@ -417,7 +417,7 @@ if (isset($storage_category_id))
 {
   array_push($associateds, $storage_category_id);
 }
-while ($row = mysql_fetch_array($result))
+while ($row = mysql_fetch_assoc($result))
 {
   array_push($associateds, $row['id']);
 }

@@ -93,7 +93,7 @@ if ($page['show_comments'])
 SELECT COUNT(*) AS nb_comments
   FROM '.COMMENTS_TABLE.'
   WHERE image_id='.$page['image_id']." AND validated = 'true'";
-  $row = mysql_fetch_array( pwg_query( $query ) );
+  $row = mysql_fetch_assoc( pwg_query( $query ) );
 
   // navigation bar creation
   if (!isset($page['start']))
@@ -140,7 +140,7 @@ $validated_clause.'
 ;';
     $result = pwg_query( $query );
 
-    while ($row = mysql_fetch_array($result))
+    while ($row = mysql_fetch_assoc($result))
     {
       if (!empty($row['author']))
       {

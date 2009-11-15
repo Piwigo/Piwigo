@@ -94,7 +94,7 @@ SELECT '.$conf['user_fields']['username'].' as username, '.$conf['user_fields'][
   FROM '.USERS_TABLE.'
 ;';
 $result = pwg_query($query);
-while ($row = mysql_fetch_array($result))
+while ($row = mysql_fetch_assoc($result))
 {
   $users[$row['id']]=$row['username'];
 }
@@ -214,7 +214,7 @@ ORDER BY date DESC;';
        'rates'  => array()
    );
 
-  while ($row = mysql_fetch_array($result))
+  while ($row = mysql_fetch_assoc($result))
   {
 
     $url_del = PHPWG_ROOT_PATH.'admin.php'.

@@ -192,7 +192,7 @@ elseif ('recent'== $_GET['cat'])
   $page['title'] = l10n('recent_pics_cat');
   $query = 'SELECT MAX(date_available) AS date
   FROM '.IMAGES_TABLE;
-  if ($row=mysql_fetch_array( pwg_query($query) ) )
+  if ($row = mysql_fetch_assoc( pwg_query($query) ) )
   {
     $query = 'SELECT id
   FROM '.IMAGES_TABLE.'

@@ -231,7 +231,7 @@ function build_global_calendar(&$tpl_var)
 
   $result = pwg_query($query);
   $items=array();
-  while ($row = mysql_fetch_array($result))
+  while ($row = mysql_fetch_assoc($result))
   {
     $y = substr($row['period'], 0, 4);
     $m = (int)substr($row['period'], 4, 2);
@@ -283,7 +283,7 @@ function build_year_calendar(&$tpl_var)
 
   $result = pwg_query($query);
   $items=array();
-  while ($row = mysql_fetch_array($result))
+  while ($row = mysql_fetch_assoc($result))
   {
     $m = (int)substr($row['period'], 0, 2);
     $d = substr($row['period'], 2, 2);
@@ -333,7 +333,7 @@ function build_month_calendar(&$tpl_var)
 
   $items=array();
   $result = pwg_query($query);
-  while ($row = mysql_fetch_array($result))
+  while ($row = mysql_fetch_assoc($result))
   {
     $d = (int)$row['period'];
     $items[$d] = array('nb_images'=>$row['count']);

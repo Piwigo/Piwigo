@@ -57,7 +57,7 @@ SELECT id, file, level
       str_replace(array('_','%'), array('/_','/%'), $page['image_file'] ).
       '.%" ESCAPE "/" LIMIT 1';
   }
-  if ( ! ( $row = mysql_fetch_array(pwg_query($query)) ) )
+  if ( ! ( $row = mysql_fetch_assoc(pwg_query($query)) ) )
   {// element does not exist
     page_not_found( 'The requested image does not exist',
       duplicate_index_url()
@@ -387,7 +387,7 @@ SELECT category_id,uppercats,commentable,global_rank
 ;';
 $result = pwg_query($query);
 $related_categories = array();
-while ($row = mysql_fetch_array($result))
+while ($row = mysql_fetch_assoc($result))
 {
   array_push($related_categories, $row);
 }
@@ -767,7 +767,7 @@ SELECT COUNT(*) AS nb_fav
     AND user_id = '.$user['id'].'
 ;';
   $result = pwg_query($query);
-  $row = mysql_fetch_array($result);
+  $row = mysql_fetch_assoc($result);
 
   if ($row['nb_fav'] == 0)
   {

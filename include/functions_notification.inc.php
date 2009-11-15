@@ -145,7 +145,7 @@ function custom_notification_query($action, $type, $start, $end)
     }
     $query = 'SELECT count(distinct '.$field_id.') as CountId
 '.$query;
-    list($count) = mysql_fetch_array(pwg_query($query));
+    list($count) = mysql_fetch_row(pwg_query($query));
     return $count;
 
     break;
@@ -178,7 +178,7 @@ function custom_notification_query($action, $type, $start, $end)
 
     $infos = array();
 
-    while ($row = mysql_fetch_array($result))
+    while ($row = mysql_fetch_assoc($result))
     {
       array_push($infos, $row);
     }

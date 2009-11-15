@@ -78,7 +78,7 @@ SELECT id
     AND status = \'private\'
 ;';
   $result = pwg_query($query);
-  while ($row = mysql_fetch_array($result))
+  while ($row = mysql_fetch_assoc($result))
   {
     array_push($private_uppercats, $row['id']);
   }
@@ -95,7 +95,7 @@ SELECT cat_id
 ;';
   $result = pwg_query($query);
 
-  while ($row = mysql_fetch_array($result))
+  while ($row = mysql_fetch_assoc($result))
   {
     array_push($authorized_ids, $row['cat_id']);
   }
@@ -158,7 +158,7 @@ $result = pwg_query($query);
 if (mysql_num_rows($result) > 0)
 {
   $cats = array();
-  while ($row = mysql_fetch_array($result))
+  while ($row = mysql_fetch_assoc($result))
   {
     array_push($cats, $row);
     array_push($group_authorized, $row['cat_id']);
@@ -191,7 +191,7 @@ display_select_cat_wrapper($query_true,array(),'category_option_true');
 
 $result = pwg_query($query_true);
 $authorized_ids = array();
-while ($row = mysql_fetch_array($result))
+while ($row = mysql_fetch_assoc($result))
 {
   array_push($authorized_ids, $row['id']);
 }

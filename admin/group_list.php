@@ -175,7 +175,7 @@ $del_url     = $admin_url.'group_list&amp;delete=';
 $members_url = $admin_url.'user_list&amp;group=';
 $toggle_is_default_url     = $admin_url.'group_list&amp;toggle_is_default=';
 
-while ($row = mysql_fetch_array($result))
+while ($row = mysql_fetch_assoc($result))
 {
   $query = '
 SELECT COUNT(*)

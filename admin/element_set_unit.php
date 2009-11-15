@@ -56,7 +56,7 @@ SELECT id, date_creation
 ;';
   $result = pwg_query($query);
 
-  while ($row = mysql_fetch_array($result))
+  while ($row = mysql_fetch_assoc($result))
   {
     $data = array();
 

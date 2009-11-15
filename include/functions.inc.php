@@ -44,7 +44,7 @@ function get_enums($table, $field)
   // retrieving the properties of the table. Each line represents a field :
   // columns are 'Field', 'Type'
   $result = pwg_query('desc '.$table);
-  while ($row = mysql_fetch_array($result))
+  while ($row = mysql_fetch_assoc($result))
   {
     // we are only interested in the the field given in parameter for the
     // function
@@ -935,7 +935,7 @@ function array_from_query($query, $fieldname)
   $array = array();
 
   $result = pwg_query($query);
-  while ($row = mysql_fetch_array($result))
+  while ($row = mysql_fetch_assoc($result))
   {
     array_push($array, $row[$fieldname]);
   }
@@ -1121,7 +1121,7 @@ SELECT '.$conf['user_fields']['email'].'
   FROM '.USERS_TABLE.'
   WHERE '.$conf['user_fields']['id'].' = '.$conf['webmaster_id'].'
 ;';
-  list($email) = mysql_fetch_array(pwg_query($query));
+  list($email) = mysql_fetch_row(pwg_query($query));
 
   return $email;
 }
@@ -1147,7 +1147,7 @@ SELECT param, value
     fatal_error('No configuration data');
   }
 
-  while ($row = mysql_fetch_array($result))
+  while ($row = mysql_fetch_assoc($result))
   {
     $conf[ $row['param'] ] = isset($row['value']) ? $row['value'] : '';
 
@@ -1192,7 +1192,7 @@ function simple_hash_from_query($query, $keyname, $valuename)
   $array = array();
 
   $result = pwg_query($query);
-  while ($row = mysql_fetch_array($result))
+  while ($row = mysql_fetch_assoc($result))
   {
     $array[ $row[$keyname] ] = $row[$valuename];
   }
@@ -1584,7 +1584,7 @@ function get_icon($date, $is_child_date = false)
   {
     // Use MySql date in order to standardize all recent "actions/queries"
     list($cache['get_icon']['sql_recent_date']) =
-      mysql_fetch_array(pwg_query('select SUBDATE(
+      mysql_fetch_row(pwg_query('select SUBDATE(
       CURRENT_DATE,INTERVAL '.$user['recent_period'].' DAY)'));
   }
 

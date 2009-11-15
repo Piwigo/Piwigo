@@ -58,7 +58,7 @@ from '.USERS_TABLE.'
 where upper('.$conf['user_fields']['email'].') = upper(\''.$mail_address.'\')
 '.(is_numeric($user_id) ? 'and '.$conf['user_fields']['id'].' != \''.$user_id.'\'' : '').'
 ;';
-    list($count) = mysql_fetch_array(pwg_query($query));
+    list($count) = mysql_fetch_row(pwg_query($query));
     if ($count != 0)
     {
       return l10n('reg_err_mail_address_dbl');
@@ -110,7 +110,7 @@ function register_user($login, $password, $mail_address,
 SELECT MAX('.$conf['user_fields']['id'].') + 1
   FROM '.USERS_TABLE.'
 ;';
-    list($next_id) = mysql_fetch_array(pwg_query($query));
+    list($next_id) = mysql_fetch_row(pwg_query($query));
 
     $insert =
       array(
@@ -134,7 +134,7 @@ SELECT id
       $result = pwg_query($query);
 
       $inserts = array();
-      while ($row = mysql_fetch_array($result))
+      while ($row = mysql_fetch_assoc($result))
       {
         array_push
         (
@@ -249,7 +249,7 @@ SELECT ';
   FROM '.USERS_TABLE.'
   WHERE '.$conf['user_fields']['id'].' = \''.$user_id.'\'';
 
-  $row = mysql_fetch_array(pwg_query($query));
+  $row = mysql_fetch_assoc(pwg_query($query));
 
   while (true)
   {
@@ -269,7 +269,7 @@ SELECT ui.*, uc.*
     }
   }
 
-  $row = array_merge($row, mysql_fetch_array($result));
+  $row = array_merge($row, mysql_fetch_assoc($result));
 
   foreach ($row as $key => $value)
   {
@@ -324,7 +324,7 @@ SELECT COUNT(DISTINCT(image_id)) as total
   FROM '.IMAGE_CATEGORY_TABLE.'
   WHERE category_id NOT IN ('.$userdata['forbidden_categories'].')
     AND image_id '.$userdata['image_access_type'].' ('.$userdata['image_access_list'].')';
-      list($userdata['nb_total_images']) = mysql_fetch_array(pwg_query($query));
+      list($userdata['nb_total_images']) = mysql_fetch_row(pwg_query($query));
 
 
       // now we update user cache categories
@@ -428,7 +428,7 @@ SELECT DISTINCT f.image_id
 ;';
   $result = pwg_query($query);
   $authorizeds = array();
-  while ($row = mysql_fetch_array($result))
+  while ($row = mysql_fetch_assoc($result))
   {
     array_push($authorizeds, $row['image_id']);
   }
@@ -440,7 +440,7 @@ SELECT image_id
 ;';
   $result = pwg_query($query);
   $favorites = array();
-  while ($row = mysql_fetch_array($result))
+  while ($row = mysql_fetch_assoc($result))
   {
     array_push($favorites, $row['image_id']);
   }
@@ -481,7 +481,7 @@ SELECT id
   WHERE status = \'private\'
 ;';
   $result = pwg_query($query);
-  while ($row = mysql_fetch_array($result))
+  while ($row = mysql_fetch_assoc($result))
   {
     array_push($private_array, $row['id']);
   }
@@ -523,7 +523,7 @@ SELECT id
   WHERE visible = \'false\'
 ;';
     $result = pwg_query($query);
-    while ($row = mysql_fetch_array($result))
+    while ($row = mysql_fetch_assoc($result))
     {
       array_push($forbidden_array, $row['id']);
     }

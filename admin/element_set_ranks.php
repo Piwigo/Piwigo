@@ -115,7 +115,7 @@ SELECT uppercats
   FROM '.CATEGORIES_TABLE.'
   WHERE id = '.$page['category_id'].'
 ;';
-$category = mysql_fetch_array(pwg_query($query));
+$category = mysql_fetch_assoc(pwg_query($query));
 
 // Navigation path
 $navigation = get_cat_display_name_cache(

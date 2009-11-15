@@ -193,7 +193,7 @@ SELECT *
   FROM '.CATEGORIES_TABLE.'
   WHERE id = '.$_GET['cat_id'].'
 ;';
-$category = mysql_fetch_array( pwg_query( $query ) );
+$category = mysql_fetch_assoc( pwg_query( $query ) );
 // nullable fields
 foreach (array('comment','dir','site_id', 'id_uppercat') as $nullable)
 {
@@ -373,7 +373,7 @@ SELECT id,tn_ext,path
   FROM '.IMAGES_TABLE.'
   WHERE id = '.$category['representative_picture_id'].'
 ;';
-    $row = mysql_fetch_array(pwg_query($query));
+    $row = mysql_fetch_assoc(pwg_query($query));
     $src = get_thumbnail_url($row);
     $url = get_root_url().'admin.php?page=picture_modify';
     $url.= '&amp;image_id='.$category['representative_picture_id'];

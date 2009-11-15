@@ -458,7 +458,7 @@ SELECT i.id,
 
   $by_weights=array();
   $result = pwg_query($query);
-  while ($row = mysql_fetch_array($result))
+  while ($row = mysql_fetch_assoc($result))
   { // weight is important when sorting images by relevance
     if ($row['weight'])
     {

@@ -100,7 +100,7 @@ SELECT id, storage_category_id, file, tn_ext
   WHERE id IN ('.implode(',', $to_reject).')
 ;';
     $result = pwg_query($query);
-    while($row = mysql_fetch_array($result))
+    while($row = mysql_fetch_assoc($result))
     {
       $dir = get_complete_dir($row['storage_category_id']);
       unlink($dir.$row['file']);
@@ -153,7 +153,7 @@ $query.= " WHERE validated = 'false'";
 $query.= ' ORDER BY storage_category_id';
 $query.= ';';
 $result = pwg_query( $query );
-while ( $row = mysql_fetch_array( $result ) )
+while ( $row = mysql_fetch_assoc( $result ) )
 {
   if ( !isset( $cat_names[$row['storage_category_id']] ) )
   {

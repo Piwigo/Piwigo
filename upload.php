@@ -288,7 +288,7 @@ if ( isset( $_POST['submit'] ) and isset( $_GET['waiting_id'] ) )
   $query.= ' where id = '.$_GET['waiting_id'];
   $query.= ';';
   $result= pwg_query( $query );
-  $row = mysql_fetch_array( $result );
+  $row = mysql_fetch_assoc( $result );
   $file = substr ( $row['file'], 0, strrpos ( $row['file'], ".") );
   $extension = get_extension( $_FILES['picture']['name'] );
 

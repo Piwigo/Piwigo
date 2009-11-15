@@ -165,7 +165,7 @@ SELECT language FROM '.USER_INFOS_TABLE.'
   $all_tables = array();
   $query = 'SHOW TABLES LIKE "'.$prefixeTable.'%"';
   $result = pwg_query($query);
-  while ( $row=mysql_fetch_array($result) )
+  while ( $row=mysql_fetch_assoc($result) )
   {
     array_push($all_tables, $row[0]);
   }
@@ -176,7 +176,7 @@ SELECT language FROM '.USER_INFOS_TABLE.'
     $query = 'SHOW FULL COLUMNS FROM '.$table;
     $result = pwg_query($query);
     $field_definitions=array();
-    while ( $row=mysql_fetch_array($result) )
+    while ( $row=mysql_fetch_assoc($result) )
     {
       if ( !isset($row['Collation']) or $row['Collation']=='NULL' )
         continue;

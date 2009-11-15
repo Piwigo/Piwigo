@@ -185,7 +185,7 @@ SELECT id, uppercats, global_rank, status, visible
 SELECT id
   FROM '.CATEGORIES_TABLE;
   $result = pwg_query($query);
-  while ($row = mysql_fetch_array($result))
+  while ($row = mysql_fetch_assoc($result))
   {
     $next_rank[$row['id']] = 1;
   }
@@ -196,7 +196,7 @@ SELECT id_uppercat, MAX(rank)+1 AS next_rank
   FROM '.CATEGORIES_TABLE.'
   GROUP BY id_uppercat';
   $result = pwg_query($query);
-  while ($row = mysql_fetch_array($result))
+  while ($row = mysql_fetch_assoc($result))
   {
     // for the id_uppercat NULL, we write 'NULL' and not the empty string
     if (!isset($row['id_uppercat']) or $row['id_uppercat'] == '')
@@ -210,7 +210,7 @@ SELECT id_uppercat, MAX(rank)+1 AS next_rank
   $query = '
 SELECT IF(MAX(id)+1 IS NULL, 1, MAX(id)+1) AS next_id
   FROM '.CATEGORIES_TABLE;
-  list($next_id) = mysql_fetch_array(pwg_query($query));
+  list($next_id) = mysql_fetch_row(pwg_query($query));
 
   // retrieve sub-directories fulldirs from the site reader
   $fs_fulldirs = $site_reader->get_full_directories($basedir);
@@ -386,7 +386,7 @@ SELECT file,storage_category_id
 '.wordwrap(implode(', ', $cat_ids), 80, "\n").')
     AND validated = \'false\'';
     $result = pwg_query($query);
-    while ($row = mysql_fetch_array($result))
+    while ($row = mysql_fetch_assoc($result))
     {
       array_push(
         $db_unvalidated,
@@ -402,7 +402,7 @@ SELECT file,storage_category_id
   $query = '
 SELECT IF(MAX(id)+1 IS NULL, 1, MAX(id)+1) AS next_element_id
   FROM '.IMAGES_TABLE;
-  list($next_element_id) = mysql_fetch_array(pwg_query($query));
+  list($next_element_id) = mysql_fetch_row(pwg_query($query));
 
   $start = get_moment();
 
@@ -555,7 +555,7 @@ SELECT id,file,storage_category_id,infos
 
     $waiting_to_delete = array();
 
-    while ($row = mysql_fetch_array($result))
+    while ($row = mysql_fetch_assoc($result))
     {
       $data = array();
 
@@ -564,7 +564,7 @@ SELECT id
   FROM '.IMAGES_TABLE.'
   WHERE storage_category_id = '.$row['storage_category_id'].'
     AND file = \''.$row['file'].'\'';
-      list($data['id']) = mysql_fetch_array(pwg_query($query));
+      list($data['id']) = mysql_fetch_row(pwg_query($query));
 
       foreach ($fields['update'] as $field)
       {

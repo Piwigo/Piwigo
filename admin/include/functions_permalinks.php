@@ -52,7 +52,7 @@ SELECT c.id
   $result = pwg_query($query);
   $cat_id = null;
   if ( mysql_num_rows($result) )
-    list( $cat_id ) = mysql_fetch_array($result);
+    list( $cat_id ) = mysql_fetch_row($result);
   return $cat_id;
 }
 
@@ -74,7 +74,7 @@ SELECT permalink
   $result = pwg_query($query);
   if ( mysql_num_rows($result) )
   {
-    list($permalink) = mysql_fetch_array($result);
+    list($permalink) = mysql_fetch_row($result);
   }
   if ( !isset($permalink) )
   {// no permalink; nothing to do

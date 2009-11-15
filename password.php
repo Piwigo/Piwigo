@@ -79,7 +79,7 @@ WHERE '
       $error_on_mail = false;
       $datas = array();
       
-      while ($row = mysql_fetch_array($result))
+      while ($row = mysql_fetch_assoc($result))
       {
         $new_password = generate_key(6);
 

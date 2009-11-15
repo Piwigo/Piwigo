@@ -178,7 +178,7 @@ SELECT
   GROUP BY category_id
 ;';
     $result = pwg_query($query);
-    while ($row = mysql_fetch_array($result))
+    while ($row = mysql_fetch_assoc($result))
     {
       $dates_of_category[ $row['category_id'] ] = array(
         'from' => $row['date_creation_min'],

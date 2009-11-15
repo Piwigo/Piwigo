@@ -351,7 +351,7 @@ order by
   $datas = pwg_query($query);
   if (!empty($datas))
   {
-    while ($admin = mysql_fetch_array($datas))
+    while ($admin = mysql_fetch_assoc($datas))
     {
       if (!empty($admin['mail_address']))
       {
@@ -450,7 +450,7 @@ WHERE
   if (mysql_num_rows($result) > 0)
   {
     $list = array();
-    while ($row = mysql_fetch_array($result))
+    while ($row = mysql_fetch_assoc($result))
     {
       $row['template_theme'] = $row['template'];
       list($row['template'], $row['theme']) = explode('/', $row['template_theme']);
@@ -479,7 +479,7 @@ WHERE
       if (mysql_num_rows($result) > 0)
       {
         $Bcc = array();
-        while ($row = mysql_fetch_array($result))
+        while ($row = mysql_fetch_assoc($result))
         {
           if (!empty($row['mail_address']))
           {

@@ -240,7 +240,7 @@ function get_local_dir( $category_id )
     $query = 'SELECT uppercats';
     $query.= ' FROM '.CATEGORIES_TABLE.' WHERE id = '.$category_id;
     $query.= ';';
-    $row = mysql_fetch_array( pwg_query( $query ) );
+    $row = mysql_fetch_assoc( pwg_query( $query ) );
     $uppercats = $row['uppercats'];
   }
 
@@ -251,7 +251,7 @@ function get_local_dir( $category_id )
   $query.= ' FROM '.CATEGORIES_TABLE.' WHERE id IN ('.$uppercats.')';
   $query.= ';';
   $result = pwg_query( $query );
-  while( $row = mysql_fetch_array( $result ) )
+  while( $row = mysql_fetch_assoc( $result ) )
   {
     $database_dirs[$row['id']] = $row['dir'];
   }
@@ -275,7 +275,7 @@ SELECT galleries_url
   WHERE s.id = c.site_id
     AND c.id = '.$category_id.'
 ;';
-  $row = mysql_fetch_array(pwg_query($query));
+  $row = mysql_fetch_assoc(pwg_query($query));
   return $row['galleries_url'];
 }
 
@@ -384,7 +384,7 @@ SELECT DISTINCT(id)
   $result = pwg_query($query);
 
   $subcats = array();
-  while ($row = mysql_fetch_array($result))
+  while ($row = mysql_fetch_assoc($result))
   {
     array_push($subcats, $row['id']);
   }
