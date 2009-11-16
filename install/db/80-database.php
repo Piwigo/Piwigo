@@ -173,7 +173,7 @@ $list_files = array(
 'include_phpwebgallery',
 'include_phpwebgallery/config.php',
 'include_phpwebgallery/index.htm',
-'include_phpwebgallery/mysql.inc.php',
+'include_phpwebgallery/config_database.inc.php',
 'index.htm',
 // Comparison between phpwebgallery-1.2.1 and phpwebgallery-1.1.0
 'admin/isadmin.php',
@@ -927,7 +927,7 @@ $list_files = array(
 // Comparison between trunk-r3105 and phpwebgallery-2.0.0RC4
 'admin/template/goto/theme/roma/images/bottom-left-bg.png',
 'admin/template/goto/theme/roma/images/top-left-bg.png',
-'include/mysql.inc.php',
+'include/config_database.inc.php',
 'template-common/lib/ui/ui.accordion.packed.js',
 'template-common/lib/ui/ui.core.packed.js',
 'template-common/lib/ui/ui.datepicker.css',
@@ -943,7 +943,7 @@ $list_files = array(
 );
 
 $list_exlude_files = array(
-'include/mysql.inc.php',
+'include/config_database.inc.php',
 );
 
 

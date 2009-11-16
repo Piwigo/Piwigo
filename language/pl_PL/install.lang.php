@@ -37,7 +37,7 @@ $lang['step1_err_db'] = 'Połączenie do serwera powiodło się, ale nie było m
 $lang['step1_err_server'] = 'Nie można połączyć sie do serwera';
 $lang['step1_err_copy_2'] = 'Teraz mozliwy jest następny krok instalacji';
 $lang['step1_err_copy_next'] = 'następny krok';
-$lang['step1_err_copy'] = 'Skopiuj tekst zaznaczony na różowo pomiędzy cudzysłowiami i wklej do pliku "include/mysql.inc.php"(Uwaga : mysql.inc.php musi zawierać tylko to co jest na różowo bez żadnych znaków końca linii czy spacji)';
+$lang['step1_err_copy'] = 'Skopiuj tekst zaznaczony na różowo pomiędzy cudzysłowiami i wklej do pliku "include/config_database.inc.php"(Uwaga : config_database.inc.php musi zawierać tylko to co jest na różowo bez żadnych znaków końca linii czy spacji)';
 
 $lang['step1_host'] = 'MySQL host';
 $lang['step1_host_info'] = 'localhost, sql.multimania.com, toto.freesurf.fr';

@@ -494,7 +494,10 @@ $conf['apache_authentication'] = false;
 //
 // All informations contained in these tables and column are related to
 // piwigo_users table.
-$conf['users_table'] = $prefixeTable.'users';
+//
+// You can use a different table for users, if you define associated constant
+// default configuration :
+// define('USERS_TABLE', $prefixeTable.'users');
 
 // Other tables can be changed, if you define associated constants
 // Example:

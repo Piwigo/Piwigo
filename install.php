@@ -168,7 +168,7 @@ $infos = array();
 $errors = array();
 
 // Open config.php ... if it exists
-$config_file = PHPWG_ROOT_PATH.'include/mysql.inc.php';
+$config_file = PHPWG_ROOT_PATH.'include/config_database.inc.php';
 if (@file_exists($config_file))
 {
   include($config_file);
@@ -291,10 +291,10 @@ if ( isset( $_POST['install'] ))
   {
     $step = 2;
     $file_content = '<?php
-$cfgBase = \''.$dbname.'\';
-$cfgUser = \''.$dbuser.'\';
-$cfgPassword = \''.$dbpasswd.'\';
-$cfgHote = \''.$dbhost.'\';
+$conf[\'db_base\'] = \''.$dbname.'\';
+$conf[\'db_user\'] = \''.$dbuser.'\';
+$conf[\'db_password\'] = \''.$dbpasswd.'\';
+$conf[\'db_host\'] = \''.$dbhost.'\';
 
 $prefixeTable = \''.$table_prefix.'\';
 

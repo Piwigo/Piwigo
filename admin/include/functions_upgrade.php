@@ -159,7 +159,7 @@ WHERE username = "'.$username.'"
   {
     $query = '
 SELECT u.password, ui.status
-FROM '.$conf['users_table'].' AS u
+FROM '.USERS_TABLE.' AS u
 INNER JOIN '.USER_INFOS_TABLE.' AS ui
 ON u.'.$conf['user_fields']['id'].'=ui.user_id
 WHERE '.$conf['user_fields']['username'].'="'.$username.'"

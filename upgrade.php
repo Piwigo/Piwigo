@@ -24,7 +24,7 @@
 define('PHPWG_ROOT_PATH', './');
 
 // load config file
-$config_file = PHPWG_ROOT_PATH.'include/mysql.inc.php';
+$config_file = PHPWG_ROOT_PATH.'include/config_database.inc.php';
 $config_file_contents = @file_get_contents($config_file);
 if ($config_file_contents === false)
 {
@@ -40,7 +40,7 @@ include_once(PHPWG_ROOT_PATH.'include/functions.inc.php');
 include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
 include_once(PHPWG_ROOT_PATH.'admin/include/functions_upgrade.php');
 
-include(PHPWG_ROOT_PATH.'include/mysql.inc.php');
+include(PHPWG_ROOT_PATH.'include/config_database.inc.php');
 include(PHPWG_ROOT_PATH . 'include/config_default.inc.php');
 @include(PHPWG_ROOT_PATH. 'include/config_local.inc.php');
 
@@ -50,8 +50,8 @@ include_once(PHPWG_ROOT_PATH.'include/constants.php');
 define('PREFIX_TABLE', $prefixeTable);
 
 // Database connection
-mysql_connect( $cfgHote, $cfgUser, $cfgPassword ) or die ( "Could not connect to database server" );
-mysql_select_db( $cfgBase ) or die ( "Could not connect to database" );
+mysql_connect( $conf['db_host'], $conf['db_user'], $conf['db_password'] ) or die ( "Could not connect to database server" );
+mysql_select_db( $conf['db_base'] ) or die ( "Could not connect to database" );
 if ( version_compare(mysql_get_server_info(), '4.1.0', '>=')
     and defined('DB_CHARSET') and DB_CHARSET!='' )
 {
@@ -262,7 +262,7 @@ if (isset($_POST['submit']) and check_upgrade())
     $conf['die_on_sql_error'] = false;
     include($upgrade_file);
 
-    // Something to add in mysql.inc.php?
+    // Something to add in config_database.inc.php?
     if (!empty($mysql_changes))
     {
       $config_file_contents = 
@@ -273,7 +273,7 @@ if (isset($_POST['submit']) and check_upgrade())
       if (!@file_put_contents($config_file, $config_file_contents))
       {
         array_push($page['infos'],
-          l10n('in include/mysql.inc.php, before ?>, insert:') . '
+          l10n('in include/config_database.inc.php, before ?>, insert:') . '
 <p><textarea rows="4" cols="40">'.implode("\r\n" , $mysql_changes).'</textarea></p>'
           );
       }

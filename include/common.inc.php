@@ -70,7 +70,7 @@ $header_msgs = array();
 $header_notes = array();
 $filter = array();
 
-@include(PHPWG_ROOT_PATH .'include/mysql.inc.php');
+@include(PHPWG_ROOT_PATH .'include/config_database.inc.php');
 if (!defined('PHPWG_INSTALLED'))
 {
   header('Location: install.php');
@@ -104,8 +104,8 @@ include(PHPWG_ROOT_PATH . 'include/functions.inc.php');
 include( PHPWG_ROOT_PATH .'include/template.class.php');
 
 // Database connection
-@mysql_connect( $cfgHote, $cfgUser, $cfgPassword ) or my_error( 'mysql_connect', true );
-@mysql_select_db( $cfgBase ) or my_error( 'mysql_select_db', true );
+@mysql_connect( $conf['db_host'], $conf['db_user'], $conf['db_password'] ) or my_error( 'mysql_connect', true );
+@mysql_select_db( $conf['db_base'] ) or my_error( 'mysql_select_db', true );
 
 defined('PWG_CHARSET') and defined('DB_CHARSET')
   or fatal_error('PWG_CHARSET and/or DB_CHARSET is not defined');

@@ -34,9 +34,9 @@ mkdir $version
 
 # cvs export -r $tag -d $version phpwebgallery
 svn export http://piwigo.org/svn/tags/$tag $name
-# creating mysql.inc.php empty and writeable
-touch $name/include/mysql.inc.php
-chmod a+w $name/include/mysql.inc.php
+# creating config_database.inc.php empty and writeable
+touch $name/include/config_database.inc.php
+chmod a+w $name/include/config_database.inc.php
 
 # find $name -name "*.php" \
 #   | xargs grep -l 'branch 1.7' \

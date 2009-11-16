@@ -34,7 +34,7 @@ $lang['perform a maintenance check'] = 'Veuillez effectuer une maintenance dans 
 $lang['deactivated plugins'] = 'Par précaution, les plugins suivants ont été désactivés. Vérifiez s\'il existe des mises à jour avant de les réactiver:';
 $lang['upgrade login message'] = 'Seul un administrateur peut lancer la mise à jour: veuillez vous identifier ci-dessous.';
 $lang['You do not have access rights to run upgrade'] = 'Vous n\'avez pas les droits necessaires pour lancer la mise à jour.';
-$lang['in include/mysql.inc.php, before ?>, insert:'] = 'Dans le fichier <i>include/mysql.inc.php</i>, avant <b>?></b>, insérez:';
+$lang['in include/config_database.inc.php, before ?>, insert:'] = 'Dans le fichier <i>include/config_database.inc.php</i>, avant <b>?></b>, insérez:';
 
 // Upgrade informations from upgrade_1.3.1.php
 $lang['all sub-categories of private categories become private'] = 'Toutes les sous-catégories de catégories privées deviennent privées';

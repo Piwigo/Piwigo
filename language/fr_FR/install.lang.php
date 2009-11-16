@@ -54,7 +54,7 @@ $lang['step2_pwd'] = 'Mot de passe';
 $lang['step2_pwd_info'] = 'Il doit rester confidentiel, il permet d\'accéder au panneau d\'administration.';
 $lang['step2_pwd_conf'] = 'Mot de passe [ Confirmer ]';
 $lang['step2_pwd_conf_info'] = 'Vérification';
-$lang['step1_err_copy'] = 'Copiez le texte en rose entre les tirets et collez-le dans le fichier mysql.inc.php qui se trouve dans le répertoire "include" à la base de l\'endroit où vous avez installé Piwigo (le fichier mysql.inc.php ne doit comporter QUE ce qui est en rose entre les tirets, aucun retour à la ligne ou espace n\'est autorisé)';
+$lang['step1_err_copy'] = 'Copiez le texte en rose entre les tirets et collez-le dans le fichier config_database.inc.php qui se trouve dans le répertoire "include" à la base de l\'endroit où vous avez installé Piwigo (le fichier config_database.inc.php ne doit comporter QUE ce qui est en rose entre les tirets, aucun retour à la ligne ou espace n\'est autorisé)';
 $lang['install_help'] = 'Besoin d\'aide ? Posez votre question sur le <a href="%s">forum de Piwigo</a>.';
 $lang['install_end_message'] = 'La configuration de l\'application s\'est correctement déroulée, place à la prochaine étape<br><br>
 * allez sur la page d\'identification et connectez-vous avec le pseudo donné pour le webmaster<br>

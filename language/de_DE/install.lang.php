@@ -54,7 +54,7 @@ $lang['step2_pwd'] = 'Passwort';
 $lang['step2_pwd_info'] = 'Administratorpasswort';
 $lang['step2_pwd_conf'] = 'Passwort [Best&auml;tigung]';
 $lang['step2_pwd_conf_info'] = 'Wiederholen Sie das eingegebene Passwort';
-$lang['step1_err_copy'] = 'Kopieren Sie den rosa Text ohne die Bindestriche und fügen Sie ihn in die Datei "include / mysql.inc.php" auf dem Webserver ein (Warnung: die Datei "mysql.inc.php" darf nur die rosa Zeichen enthalten, nicht mehr und nicht weniger)';
+$lang['step1_err_copy'] = 'Kopieren Sie den rosa Text ohne die Bindestriche und fügen Sie ihn in die Datei "include / config_database.inc.php" auf dem Webserver ein (Warnung: die Datei "config_database.inc.php" darf nur die rosa Zeichen enthalten, nicht mehr und nicht weniger)';
 $lang['install_help'] = 'Brauchen Sie Hilfe? Stellen Sie Ihre Frage auf der <a href="%s"> Forum Piwigo </a>.';
 $lang['install_end_message'] = 'Die Konfiguration der Piwigo abgeschlossen ist, hier ist der n&auml;chste Schritt<br><br>
 * Gehen Sie zum Anmelden auf die Startseite: [ <a href="./identification.php">Identifizierung</a> ] und verwenden Sie die Login / Passwort für Webmaster<br>

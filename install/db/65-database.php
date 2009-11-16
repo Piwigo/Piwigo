@@ -255,7 +255,7 @@ ALTER TABLE t1 CHANGE c1 c1 TEXT CHARACTER SET utf8;
 
 
 // +-----------------------------------------------------------------------+
-// changes to write in mysql.inc.php
+// changes to write in config_database.inc.php
   array_push($mysql_changes,
 'define(\'PWG_CHARSET\', \''.$pwg_charset.'\');
 define(\'DB_CHARSET\',  \''.$db_charset.'\');

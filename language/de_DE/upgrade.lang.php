@@ -34,7 +34,7 @@ $lang['perform a maintenance check'] = 'Führen Sie einen Wartungs-Check am [Adm
 $lang['deactivated plugins'] = 'Als Vorsichtsmaßnahme folgenden Plugins wurden deaktiviert. Sie müssen prüfen, ob Plugins aktualisieren, bevor sie reactiving:';
 $lang['upgrade login message'] = 'Nur Administrator können Upgrade ausführen : Bitte melden Sie sich an unter.';
 $lang['You do not have access rights to run upgrade'] = 'Sie haben nicht das Recht auf Zugang zum Upgrade ausführen';
-$lang['in include/mysql.inc.php, before ?>, insert:'] = 'In <i>include/mysql.inc.php</i>, vor <b>?></b>, wird Folgendes eingefügt:';
+$lang['in include/config_database.inc.php, before ?>, insert:'] = 'In <i>include/config_database.inc.php</i>, vor <b>?></b>, wird Folgendes eingefügt:';
 
 // Upgrade informations from upgrade_1.3.1.php
 $lang['all sub-categories of private categories become private'] = 'Alle Unter-Kategorien von privaten Gruppen wirden privaten';

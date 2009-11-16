@@ -32,7 +32,7 @@ define('PHPWG_ROOT_PATH', './');
 include_once(PHPWG_ROOT_PATH.'include/functions.inc.php');
 include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
 include_once(PHPWG_ROOT_PATH.'admin/include/functions_upgrade.php');
-include(PHPWG_ROOT_PATH.'include/mysql.inc.php');
+include(PHPWG_ROOT_PATH.'include/config_database.inc.php');
 include(PHPWG_ROOT_PATH . 'include/config_default.inc.php');
 @include(PHPWG_ROOT_PATH. 'include/config_local.inc.php');
 
@@ -54,8 +54,8 @@ define('UPGRADES_PATH', PHPWG_ROOT_PATH.'install/db');
 // |                         Database connection                           |
 // +-----------------------------------------------------------------------+
 
-mysql_connect($cfgHote, $cfgUser, $cfgPassword) or die("Could not connect to database server");
-mysql_select_db($cfgBase) or die("Could not connect to database");
+mysql_connect($conf['db_host'], $conf['db_user'], $conf['db_password']) or die("Could not connect to database server");
+mysql_select_db($conf['db_base']) or die("Could not connect to database");
 if ( version_compare(mysql_get_server_info(), '4.1.0', '>=')
     and defined('DB_CHARSET') and DB_CHARSET!='' )
 {
