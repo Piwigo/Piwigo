@@ -156,9 +156,9 @@ SELECT id FROM '.COMMENTS_TABLE.'
 INSERT INTO '.COMMENTS_TABLE.'
   (author, author_id, content, date, validated, validation_date, image_id)
   VALUES (
-    "'.addslashes($comm['author']).'",
+    "'.$comm['author'].'",
     '.$comm['author_id'].',
-    "'.addslashes($comm['content']).'",
+    "'.$comm['content'].'",
     NOW(),
     "'.($comment_action=='validate' ? 'true':'false').'",
     '.($comment_action=='validate' ? 'NOW()':'NULL').',
