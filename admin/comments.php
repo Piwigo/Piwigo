@@ -160,7 +160,7 @@ while ($row = mysql_fetch_assoc($result))
   }
   else
   {
-    $author_name = $row['username'];
+    $author_name = stripslashes($row['username']);
   }
   $template->append(
     'comments',

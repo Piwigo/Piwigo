@@ -170,7 +170,7 @@ SELECT id
 
       $keyargs_content = array
       (
-        get_l10n_args('User: %s', $login),
+        get_l10n_args('User: %s', stripslashes($login)),
         get_l10n_args('Email: %s', $_POST['mail_address']),
         get_l10n_args('', ''),
         get_l10n_args('Admin: %s', $admin_url)
@@ -178,7 +178,7 @@ SELECT id
 
       pwg_mail_notification_admins
       (
-        get_l10n_args('Registration of %s', $login),
+        get_l10n_args('Registration of %s', stripslashes($login)),
         $keyargs_content
       );
     }
@@ -933,8 +933,8 @@ WHERE '.$conf['user_fields']['id'].' = '.$user_id;
   if (mysql_num_rows($result) > 0)
   {
     $row = mysql_fetch_assoc($result);
-    $username = $row['username'];
-    $data = $time.$row['username'].$row['password'];
+    $username = stripslashes($row['username']);
+    $data = $time.stripslashes($row['username']).$row['password'];
     $key = base64_encode(
       pack('H*', sha1($data))
       .hash_hmac('md5', $data, $conf['secret_key'],true)
@@ -1018,7 +1018,7 @@ function auto_login() {
       if ($key!==false and $key===$cookie[2])
       {
         log_user($cookie[0], true);
-        trigger_action('login_success', $username);
+        trigger_action('login_success', stripslashes($username));
         return true;
       }
     }
@@ -1039,16 +1039,16 @@ function try_log_user($username, $password, $remember_me)
 SELECT '.$conf['user_fields']['id'].' AS id,
        '.$conf['user_fields']['password'].' AS password
   FROM '.USERS_TABLE.'
-  WHERE '.$conf['user_fields']['username'].' = \''.$username.'\'
+  WHERE '.$conf['user_fields']['username'].' = \''.mysql_real_escape_string($username).'\'
 ;';
   $row = mysql_fetch_assoc(pwg_query($query));
   if ($row['password'] == $conf['pass_convert']($password))
   {
     log_user($row['id'], $remember_me);
-    trigger_action('login_success', $username);
+    trigger_action('login_success', stripslashes($username));
     return true;
   }
-  trigger_action('login_failure', $username);
+  trigger_action('login_failure', stripslashes($username));
   return false;
 }
 

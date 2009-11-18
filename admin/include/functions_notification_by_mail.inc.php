@@ -288,7 +288,7 @@ function inc_mail_sent_success($nbm_user)
   global $page, $env_nbm;
 
   $env_nbm['sent_mail_count'] += 1;
-  array_push($page['infos'], sprintf($env_nbm['msg_info'], $nbm_user['username'], $nbm_user['mail_address']));
+  array_push($page['infos'], sprintf($env_nbm['msg_info'], stripslashes($nbm_user['username']), $nbm_user['mail_address']));
 }
 
 /*
@@ -301,7 +301,7 @@ function inc_mail_sent_failed($nbm_user)
   global $page, $env_nbm;
 
   $env_nbm['error_on_mail_count'] += 1;
-  array_push($page['errors'], sprintf($env_nbm['msg_error'], $nbm_user['username'], $nbm_user['mail_address']));
+  array_push($page['errors'], sprintf($env_nbm['msg_error'], stripslashes($nbm_user['username']), $nbm_user['mail_address']));
 }
 
 /*
@@ -338,7 +338,7 @@ function assign_vars_nbm_mail_content($nbm_user)
   (
     array
     (
-      'USERNAME' => $nbm_user['username'],
+      'USERNAME' => stripslashes($nbm_user['username']),
 
       'SEND_AS_NAME' => $env_nbm['send_as_name'],
 
@@ -427,7 +427,7 @@ function do_subscribe_unsubscribe_notification_by_mail($is_admin_request, $is_su
 
         if (pwg_mail
             (
-              format_email($nbm_user['username'], $nbm_user['mail_address']),
+              format_email(stripslashes($nbm_user['username']), $nbm_user['mail_address']),
               array
               (
                 'from' => $env_nbm['send_as_mail_formated'],
@@ -465,12 +465,12 @@ function do_subscribe_unsubscribe_notification_by_mail($is_admin_request, $is_su
           )
         );
         $updated_data_count += 1;
-        array_push($page['infos'], sprintf($msg_info, $nbm_user['username'], $nbm_user['mail_address']));
+        array_push($page['infos'], sprintf($msg_info, stripslashes($nbm_user['username']), $nbm_user['mail_address']));
       }
       else
       {
         $error_on_updated_data_count += 1;
-        array_push($page['errors'], sprintf($msg_error, $nbm_user['username'], $nbm_user['mail_address']));
+        array_push($page['errors'], sprintf($msg_error, stripslashes($nbm_user['username']), $nbm_user['mail_address']));
       }
 
     }

@@ -46,8 +46,8 @@ if ( $page['show_comments'] and isset( $_POST['content'] ) )
   }
 
   $comm = array(
-    'author' => trim(@$_POST['author']),
-    'content' => trim($_POST['content']),
+    'author' => trim( stripslashes(@$_POST['author']) ),
+    'content' => trim( stripslashes($_POST['content']) ),
     'image_id' => $page['image_id'],
    );
 
@@ -152,7 +152,7 @@ $validated_clause.'
       }
       else
       {
-	$author = $row['username'];
+	$author = stripslashes($row['username']);
       }
 
       $tpl_comment =

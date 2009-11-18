@@ -281,7 +281,7 @@ function initialize_menu()
   }
   else
   {
-    $template->assign('USERNAME', $user['username']);
+    $template->assign('USERNAME', stripslashes($user['username']));
     if (is_autorize_status(ACCESS_CLASSIC))
     {
       $template->assign('U_PROFILE', get_root_url().'profile.php');

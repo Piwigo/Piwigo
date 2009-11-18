@@ -243,7 +243,7 @@ function load_profile_in_template($url_action, $url_redirect, $userdata)
 
   $template->assign(
     array(
-      'USERNAME'=>$userdata['username'],
+      'USERNAME'=>stripslashes($userdata['username']),
       'EMAIL'=>get_email_address_as_display_text(@$userdata['email']),
       'NB_IMAGE_LINE'=>$userdata['nb_image_line'],
       'NB_ROW_PAGE'=>$userdata['nb_line_page'],

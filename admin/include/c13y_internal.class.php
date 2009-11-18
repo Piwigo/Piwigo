@@ -195,7 +195,7 @@ class c13y_internal
             $inserts = array(
               array(
                 'id'       => $id,
-                'username' => $name,
+                'username' => addslashes($name),
                 'password' => $password
                 ),
               );

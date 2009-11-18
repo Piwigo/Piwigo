@@ -177,7 +177,7 @@ while ( $row = mysql_fetch_assoc( $result ) )
           (substr($row['file'], 0, 10)).'...' : $row['file'],
       'PREVIEW_URL_IMG'=>$preview_url,
       'UPLOAD_EMAIL'=>get_email_address_as_display_text($row['mail_address']),
-      'UPLOAD_USERNAME'=>$row['username']
+      'UPLOAD_USERNAME'=>stripslashes($row['username'])
     );
 
   // is there an existing associated thumnail ?

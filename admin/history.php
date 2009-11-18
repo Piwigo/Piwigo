@@ -259,7 +259,7 @@ SELECT '.$conf['user_fields']['id'].' AS id
     $username_of = array();
     while ($row = mysql_fetch_assoc($result))
     {
-      $username_of[$row['id']] = $row['username'];
+      $username_of[$row['id']] = stripslashes($row['username']);
     }
   }
 

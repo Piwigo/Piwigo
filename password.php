@@ -84,7 +84,7 @@ WHERE '
         $new_password = generate_key(6);
 
         $infos =
-          l10n('Username').': '.$row['username']
+          l10n('Username').': '.stripslashes($row['username'])
           ."\n".l10n('Password').': '.$new_password
           ;
 

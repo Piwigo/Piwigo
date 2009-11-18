@@ -360,10 +360,10 @@ else
 $template->assign(
   array(
     'ADVISE_TITLE' => $advise_title,
-    'NAME' => $username,
+    'NAME' => stripslashes($username),
     'EMAIL' => $mail_address,
     'NAME_IMG' => $name,
-    'AUTHOR_IMG' => $author,
+    'AUTHOR_IMG' => stripslashes($author),
     'DATE_IMG' => $date_creation,
     'COMMENT_IMG' => $comment,
 

@@ -2112,7 +2112,7 @@ SELECT '.$conf['user_fields']['username'].'
     return false;
   }
 
-  return $username;
+  return stripslashes($username);
 }
 
 function get_newsletter_subscribe_base_url($language) {

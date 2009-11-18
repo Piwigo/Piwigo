@@ -702,7 +702,7 @@ foreach ($visible_user_list as $local_user)
       'CHECKED' => $checked,
       'U_PROFILE' => $profile_url.$local_user['id'],
       'U_PERM' => $perm_url.$local_user['id'],
-      'USERNAME' => $local_user['username']
+      'USERNAME' => stripslashes($local_user['username'])
         .($local_user['id'] == $conf['guest_id']
           ? '<br>['.l10n('is_the_guest').']' : '')
         .($local_user['id'] == $conf['default_user_id']

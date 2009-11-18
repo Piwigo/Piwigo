@@ -364,7 +364,7 @@ order by
   {
     $keyargs_content_admin_info = array
     (
-      get_l10n_args('Connected user: %s', $user['username']),
+      get_l10n_args('Connected user: %s', stripslashes($user['username'])),
       get_l10n_args('IP: %s', $_SERVER['REMOTE_ADDR']),
       get_l10n_args('Browser: %s', $_SERVER['HTTP_USER_AGENT'])
     );
@@ -483,7 +483,7 @@ WHERE
         {
           if (!empty($row['mail_address']))
           {
-            array_push($Bcc, format_email($row['username'], $row['mail_address']));
+            array_push($Bcc, format_email(stripslashes($row['username']), $row['mail_address']));
           }
         }
 
@@ -794,7 +794,7 @@ function pwg_send_mail($result, $to, $subject, $content, $headers)
     $dir = $conf['local_data_dir'].'/tmp';
     if ( mkgetdir( $dir,  MKGETDIR_DEFAULT&~MKGETDIR_DIE_ON_ERROR) )
     {
-      $filename = $dir.'/mail.'.$user['username'].'.'.$lang_info['code'].'.'.$args['template'].'.'.$args['theme'];
+      $filename = $dir.'/mail.'.stripslashes($user['username']).'.'.$lang_info['code'].'.'.$args['template'].'.'.$args['theme'];
       if ($args['content_format'] == 'text/plain')
       {
         $filename .= '.txt';

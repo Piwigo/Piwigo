@@ -175,7 +175,7 @@ order by
         $page['infos'],
         sprintf(
           l10n('nbm_user_x_added'),
-          $nbm_user['username'],
+          stripslashes($nbm_user['username']),
           get_email_address_as_display_text($nbm_user['mail_address'])
         )
       );
@@ -388,7 +388,7 @@ function do_action_send_mail_notification($action = 'list_to_send', $check_key_l
 
               if (pwg_mail
                   (
-                    format_email($nbm_user['username'], $nbm_user['mail_address']),
+                    format_email(stripslashes($nbm_user['username']), $nbm_user['mail_address']),
                     array
                     (
                       'from' => $env_nbm['send_as_mail_formated'],
@@ -665,7 +665,7 @@ switch ($page['mode'])
     {
       if (get_boolean($nbm_user['enabled']))
       {
-        $opt_true[ $nbm_user['check_key'] ] = $nbm_user['username'].'['.get_email_address_as_display_text($nbm_user['mail_address']).']';
+        $opt_true[ $nbm_user['check_key'] ] = stripslashes($nbm_user['username']).'['.get_email_address_as_display_text($nbm_user['mail_address']).']';
         if ((isset($_POST['falsify']) and isset($_POST['cat_true']) and in_array($nbm_user['check_key'], $_POST['cat_true'])))
         {
           $opt_true_selected[] = $nbm_user['check_key'];
@@ -673,7 +673,7 @@ switch ($page['mode'])
       }
       else
       {
-        $opt_false[ $nbm_user['check_key'] ] = $nbm_user['username'].'['.get_email_address_as_display_text($nbm_user['mail_address']).']';
+        $opt_false[ $nbm_user['check_key'] ] = stripslashes($nbm_user['username']).'['.get_email_address_as_display_text($nbm_user['mail_address']).']';
         if (isset($_POST['trueify']) and isset($_POST['cat_false']) and in_array($nbm_user['check_key'], $_POST['cat_false']))
         {
           $opt_false_selected[] = $nbm_user['check_key'];
@@ -718,7 +718,7 @@ switch ($page['mode'])
                               isset($_POST['send_selection']) and // not init
                               !in_array($nbm_user['check_key'], $_POST['send_selection']) // not selected
                             )   ? '' : 'checked="checked"',
-              'USERNAME'=> $nbm_user['username'],
+              'USERNAME'=> stripslashes($nbm_user['username']),
               'EMAIL' => get_email_address_as_display_text($nbm_user['mail_address']),
               'LAST_SEND'=> $nbm_user['last_send']
               );

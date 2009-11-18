@@ -99,7 +99,7 @@ function insert_user_comment( &$comm, $key, &$infos )
       $query = '
 SELECT COUNT(*) AS user_exists
   FROM '.USERS_TABLE.'
-  WHERE '.$conf['user_fields']['username']." = '".$comm['author']."'";
+  WHERE '.$conf['user_fields']['username']." = '".addslashes($comm['author'])."'";
       $row = mysql_fetch_assoc( pwg_query( $query ) );
       if ( $row['user_exists'] == 1 )
       {

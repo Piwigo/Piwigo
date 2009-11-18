@@ -96,7 +96,7 @@ SELECT '.$conf['user_fields']['username'].' as username, '.$conf['user_fields'][
 $result = pwg_query($query);
 while ($row = mysql_fetch_assoc($result))
 {
-  $users[$row['id']]=$row['username'];
+  $users[$row['id']]=stripslashes($row['username']);
 }
 
 

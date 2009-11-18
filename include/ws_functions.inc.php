@@ -523,8 +523,8 @@ SELECT DISTINCT image_id
   }
 
   $comm = array(
-    'author' => trim($params['author']),
-    'content' => trim($params['content']),
+    'author' => trim( stripslashes($params['author']) ),
+    'content' => trim( stripslashes($params['content']) ),
     'image_id' => $params['image_id'],
    );
 
@@ -700,7 +700,7 @@ SELECT id, date, author, content
       )
       )
   {
-    $comment_post_data['author'] = $user['username'];
+    $comment_post_data['author'] = stripslashes($user['username']);
     $comment_post_data['key'] = get_comment_post_key($params['image_id']);
   }
 
@@ -1254,7 +1254,7 @@ function ws_session_getStatus($params, &$service)
 {
   global $user;
   $res = array();
-  $res['username'] = is_a_guest() ? 'guest' : $user['username'];
+  $res['username'] = is_a_guest() ? 'guest' : stripslashes($user['username']);
   foreach ( array('status', 'template', 'theme', 'language') as $k )
   {
     $res[$k] = $user[$k];
