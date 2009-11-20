@@ -375,7 +375,6 @@ INSERT INTO '.$table_name.'
       }
       $query .= ')';
     }
-    Log::getInstance()->debug($query);
     pwg_query($query);
   }
 }
