@@ -259,7 +259,7 @@ SELECT id
   $query.= '
 ;';
   $result = pwg_query($query);
-  while ($row = mysql_fetch_assoc($result))
+  while ($row = pwg_db_fetch_assoc($result))
   {
     array_push($cat_ids, $row['id']);
   }
@@ -284,7 +284,7 @@ SELECT id, path
   $query.= '
 ;';
   $result = pwg_query($query);
-  while ($row = mysql_fetch_assoc($result))
+  while ($row = pwg_db_fetch_assoc($result))
   {
     $files[$row['id']] = $row['path'];
   }

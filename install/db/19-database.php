@@ -68,7 +68,7 @@ SELECT id, keywords
   WHERE keywords IS NOT NULL
 ;';
 $result = pwg_query($query);
-while ($row = mysql_fetch_assoc($result))
+while ($row = pwg_db_fetch_assoc($result))
 {
   foreach(preg_split('/[,]+/', $row['keywords']) as $keyword)
   {

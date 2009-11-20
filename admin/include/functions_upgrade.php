@@ -112,7 +112,7 @@ AND id NOT IN ("' . implode('","', $standard_plugins) . '")
 
   $result = pwg_query($query);
   $plugins = array();
-  while ($row = mysql_fetch_assoc($result))
+  while ($row = pwg_db_fetch_assoc($result))
   {
     array_push($plugins, $row['id']);
   }
@@ -138,7 +138,7 @@ function check_upgrade_access_rights($current_release, $username, $password)
 
   if(!@get_magic_quotes_gpc())
   {
-    $username = mysql_real_escape_string($username);
+    $username = pwg_db_real_escape_string($username);
   }
 
   if (version_compare($current_release, '2.0', '<'))
@@ -165,7 +165,7 @@ ON u.'.$conf['user_fields']['id'].'=ui.user_id
 WHERE '.$conf['user_fields']['username'].'="'.$username.'"
 ;';
   }
-  $row = mysql_fetch_assoc(pwg_query($query));
+  $row = pwg_db_fetch_assoc(pwg_query($query));
 
   if (!isset($conf['pass_convert']))
   {

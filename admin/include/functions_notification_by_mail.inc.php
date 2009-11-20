@@ -59,7 +59,7 @@ from
 where
   check_key = \''.$key.'\';';
 
-    list($count) = mysql_fetch_row(pwg_query($query));
+    list($count) = pwg_db_fetch_row(pwg_query($query));
     if ($count == 0)
     {
       return $key;
@@ -167,7 +167,7 @@ order by';
     $result = pwg_query($query);
     if (!empty($result))
     {
-      while ($nbm_user = mysql_fetch_assoc($result))
+      while ($nbm_user = pwg_db_fetch_assoc($result))
       {
         array_push($data_users, $nbm_user);
       }

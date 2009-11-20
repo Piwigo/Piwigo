@@ -42,8 +42,8 @@ class c13y_internal
 
     $check_list[] = array('type' => 'PHP', 'current' => phpversion(), 'required' => REQUIRED_PHP_VERSION);
 
-    list($mysql_version) = mysql_fetch_row(pwg_query('SELECT VERSION();'));
-    $check_list[] = array('type' => 'MySQL', 'current' => $mysql_version, 'required' => REQUIRED_MYSQL_VERSION);
+    $db_version = pwg_get_db_version();
+    $check_list[] = array('type' => 'MySQL', 'current' => $db_version, 'required' => REQUIRED_MYSQL_VERSION);
 
     foreach ($check_list as $elem)
     {
@@ -126,7 +126,7 @@ class c13y_internal
     $status = array();
 
     $result = pwg_query($query);
-    while ($row = mysql_fetch_assoc($result))
+    while ($row = pwg_db_fetch_assoc($result))
     {
       $status[$row['id']] = $row['status'];
     }

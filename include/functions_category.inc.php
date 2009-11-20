@@ -101,7 +101,7 @@ WHERE '.$where.'
   $result = pwg_query($query);
   $cats = array();
   $selected_category = isset($page['category']) ? $page['category'] : null;
-  while ($row = mysql_fetch_assoc($result))
+  while ($row = pwg_db_fetch_assoc($result))
   {
     $child_date_last = @$row['max_date_last']> @$row['date_last'];
     $row = array_merge($row,
@@ -165,7 +165,7 @@ SELECT *
   FROM '.CATEGORIES_TABLE.'
   WHERE id = '.$id.'
 ;';
-  $cat = mysql_fetch_assoc(pwg_query($query));
+  $cat = pwg_db_fetch_assoc(pwg_query($query));
   if (empty($cat))
     return null;
 
@@ -240,7 +240,7 @@ function get_local_dir( $category_id )
     $query = 'SELECT uppercats';
     $query.= ' FROM '.CATEGORIES_TABLE.' WHERE id = '.$category_id;
     $query.= ';';
-    $row = mysql_fetch_assoc( pwg_query( $query ) );
+    $row = pwg_db_fetch_assoc( pwg_query( $query ) );
     $uppercats = $row['uppercats'];
   }
 
@@ -251,7 +251,7 @@ function get_local_dir( $category_id )
   $query.= ' FROM '.CATEGORIES_TABLE.' WHERE id IN ('.$uppercats.')';
   $query.= ';';
   $result = pwg_query( $query );
-  while( $row = mysql_fetch_assoc( $result ) )
+  while( $row = pwg_db_fetch_assoc( $result ) )
   {
     $database_dirs[$row['id']] = $row['dir'];
   }
@@ -275,7 +275,7 @@ SELECT galleries_url
   WHERE s.id = c.site_id
     AND c.id = '.$category_id.'
 ;';
-  $row = mysql_fetch_assoc(pwg_query($query));
+  $row = pwg_db_fetch_assoc(pwg_query($query));
   return $row['galleries_url'];
 }
 
@@ -344,7 +344,7 @@ function display_select_cat_wrapper($query, $selecteds, $blockname,
   $categories = array();
   if (!empty($result))
   {
-    while ($row = mysql_fetch_assoc($result))
+    while ($row = pwg_db_fetch_assoc($result))
     {
       array_push($categories, $row);
     }
@@ -384,7 +384,7 @@ SELECT DISTINCT(id)
   $result = pwg_query($query);
 
   $subcats = array();
-  while ($row = mysql_fetch_assoc($result))
+  while ($row = pwg_db_fetch_assoc($result))
   {
     array_push($subcats, $row['id']);
   }
@@ -533,7 +533,7 @@ WHERE
     ).'
 LIMIT 1';
 
-      $show_link = mysql_num_rows(pwg_query($query)) <> 0;
+      $show_link = pwg_db_num_rows(pwg_query($query)) <> 0;
     }
   }
   if ($show_link)

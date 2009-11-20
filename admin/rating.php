@@ -94,7 +94,7 @@ SELECT '.$conf['user_fields']['username'].' as username, '.$conf['user_fields'][
   FROM '.USERS_TABLE.'
 ;';
 $result = pwg_query($query);
-while ($row = mysql_fetch_assoc($result))
+while ($row = pwg_db_fetch_assoc($result))
 {
   $users[$row['id']]=stripslashes($row['username']);
 }
@@ -104,7 +104,7 @@ $query = 'SELECT COUNT(DISTINCT(i.id))
 FROM '.RATE_TABLE.' AS r, '.IMAGES_TABLE.' AS i
 WHERE r.element_id=i.id'. $page['user_filter'] .
 ';';
-list($nb_images) = mysql_fetch_row(pwg_query($query));
+list($nb_images) = pwg_db_fetch_row(pwg_query($query));
 
 
 // +-----------------------------------------------------------------------+
@@ -181,7 +181,7 @@ SELECT i.id,
 
 $images = array();
 $result = pwg_query($query);
-while ($row = mysql_fetch_assoc($result))
+while ($row = pwg_db_fetch_assoc($result))
 {
   array_push($images, $row);
 }
@@ -199,7 +199,7 @@ FROM '.RATE_TABLE.' AS r
 WHERE r.element_id='.$image['id'] . '
 ORDER BY date DESC;';
   $result = pwg_query($query);
-  $nb_rates = mysql_num_rows($result);
+  $nb_rates = pwg_db_num_rows($result);
 
   $tpl_image = 
      array(
@@ -214,7 +214,7 @@ ORDER BY date DESC;';
        'rates'  => array()
    );
 
-  while ($row = mysql_fetch_assoc($result))
+  while ($row = pwg_db_fetch_assoc($result))
   {
 
     $url_del = PHPWG_ROOT_PATH.'admin.php'.

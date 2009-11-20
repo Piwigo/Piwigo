@@ -32,7 +32,7 @@ $upgrade_description = 'Just a beginning test';
 // |                            Upgrade content                            |
 // +-----------------------------------------------------------------------+
 
-list($now) = mysql_fetch_row(pwg_query('SELECT NOW()'));
+list($now) = pwg_db_fetch_row(pwg_query('SELECT NOW()'));
 echo
 $now
 ."\n"

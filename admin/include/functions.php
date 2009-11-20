@@ -36,7 +36,7 @@ SELECT id
 ;';
   $result = pwg_query($query);
   $category_ids = array();
-  while ($row = mysql_fetch_assoc($result))
+  while ($row = pwg_db_fetch_assoc($result))
   {
     array_push($category_ids, $row['id']);
   }
@@ -77,7 +77,7 @@ SELECT id
 ;';
   $result = pwg_query($query);
   $element_ids = array();
-  while ($row = mysql_fetch_assoc($result))
+  while ($row = pwg_db_fetch_assoc($result))
   {
     array_push($element_ids, $row['id']);
   }
@@ -159,7 +159,7 @@ SELECT
     AND storage_category_id IS NULL
 ;';
     $result = pwg_query($query);
-    while ($row = mysql_fetch_assoc($result))
+    while ($row = pwg_db_fetch_assoc($result))
     {
       $file_path = $row['path'];
       $thumbnail_path = get_thumbnail_path($row);
@@ -409,210 +409,6 @@ function get_fs_directories($path, $recursive = true)
 }
 
 /**
- * inserts multiple lines in a table
- *
- * @param string table_name
- * @param array dbfields
- * @param array inserts
- * @return void
- */
-function mass_inserts($table_name, $dbfields, $datas)
-{
-  if (count($datas) != 0)
-  {
-    $first = true;
-
-    $query = 'SHOW VARIABLES LIKE \'max_allowed_packet\'';
-    list(, $packet_size) = mysql_fetch_row(pwg_query($query));
-    $packet_size = $packet_size - 2000; // The last list of values MUST not exceed 2000 character*/
-    $query = '';
-
-    foreach ($datas as $insert)
-    {
-      if (strlen($query) >= $packet_size)
-      {
-        pwg_query($query);
-        $first = true;
-      }
-
-      if ($first)
-      {
-        $query = '
-INSERT INTO '.$table_name.'
-  ('.implode(',', $dbfields).')
-  VALUES';
-        $first = false;
-      }
-      else
-      {
-        $query .= '
-  , ';
-      }
-
-      $query .= '(';
-      foreach ($dbfields as $field_id => $dbfield)
-      {
-        if ($field_id > 0)
-        {
-          $query .= ',';
-        }
-
-        if (!isset($insert[$dbfield]) or $insert[$dbfield] === '')
-        {
-          $query .= 'NULL';
-        }
-        else
-        {
-          $query .= "'".$insert[$dbfield]."'";
-        }
-      }
-      $query .= ')';
-    }
-    pwg_query($query);
-  }
-}
-
-define('MASS_UPDATES_SKIP_EMPTY', 1);
-/**
- * updates multiple lines in a table
- *
- * @param string table_name
- * @param array dbfields
- * @param array datas
- * @param int flags - if MASS_UPDATES_SKIP_EMPTY - empty values do not overwrite existing ones
- * @return void
- */
-function mass_updates($tablename, $dbfields, $datas, $flags=0)
-{
-  if (count($datas) == 0)
-    return;
-  // depending on the MySQL version, we use the multi table update or N update queries
-  if (count($datas) < 10 or version_compare(mysql_get_server_info(), '4.0.4') < 0)
-  { // MySQL is prior to version 4.0.4, multi table update feature is not available
-    foreach ($datas as $data)
-    {
-      $query = '
-UPDATE '.$tablename.'
-  SET ';
-      $is_first = true;
-      foreach ($dbfields['update'] as $key)
-      {
-        $separator = $is_first ? '' : ",\n    ";
-
-        if (isset($data[$key]) and $data[$key] != '')
-        {
-          $query.= $separator.$key.' = \''.$data[$key].'\'';
-        }
-        else
-        {
-          if ($flags & MASS_UPDATES_SKIP_EMPTY )
-            continue; // next field
-          $query.= "$separator$key = NULL";
-        }
-        $is_first = false;
-      }
-      if (!$is_first)
-      {// only if one field at least updated
-        $query.= '
-  WHERE ';
-        $is_first = true;
-        foreach ($dbfields['primary'] as $key)
-        {
-          if (!$is_first)
-          {
-            $query.= ' AND ';
-          }
-          if ( isset($data[$key]) )
-          {
-            $query.= $key.' = \''.$data[$key].'\'';
-          }
-          else
-          {
-            $query.= $key.' IS NULL';
-          }
-          $is_first = false;
-        }
-        pwg_query($query);
-      }
-    } // foreach update
-  } // if mysql_ver or count<X
-  else
-  {
-    // creation of the temporary table
-    $query = '
-SHOW FULL COLUMNS FROM '.$tablename;
-    $result = pwg_query($query);
-    $columns = array();
-    $all_fields = array_merge($dbfields['primary'], $dbfields['update']);
-    while ($row = mysql_fetch_assoc($result))
-    {
-      if (in_array($row['Field'], $all_fields))
-      {
-        $column = $row['Field'];
-        $column.= ' '.$row['Type'];
-
-        $nullable = true;
-        if (!isset($row['Null']) or $row['Null'] == '' or $row['Null']=='NO')
-        {
-          $column.= ' NOT NULL';
-          $nullable = false;
-        }
-        if (isset($row['Default']))
-        {
-          $column.= " default '".$row['Default']."'";
-        }
-        elseif ($nullable)
-        {
-          $column.= " default NULL";
-        }
-        if (isset($row['Collation']) and $row['Collation'] != 'NULL')
-        {
-          $column.= " collate '".$row['Collation']."'";
-        }
-        array_push($columns, $column);
-      }
-    }
-
-    $temporary_tablename = $tablename.'_'.micro_seconds();
-
-    $query = '
-CREATE TABLE '.$temporary_tablename.'
-(
-  '.implode(",\n  ", $columns).',
-  UNIQUE KEY the_key ('.implode(',', $dbfields['primary']).')
-)';
-
-    pwg_query($query);
-    mass_inserts($temporary_tablename, $all_fields, $datas);
-    if ( $flags & MASS_UPDATES_SKIP_EMPTY )
-      $func_set = create_function('$s', 'return "t1.$s = IFNULL(t2.$s, t1.$s)";');
-    else
-      $func_set = create_function('$s', 'return "t1.$s = t2.$s";');
-
-    // update of images table by joining with temporary table
-    $query = '
-UPDATE '.$tablename.' AS t1, '.$temporary_tablename.' AS t2
-  SET '.
-      implode(
-        "\n    , ",
-        array_map($func_set,$dbfields['update'])
-        ).'
-  WHERE '.
-      implode(
-        "\n    AND ",
-        array_map(
-          create_function('$s', 'return "t1.$s = t2.$s";'),
-          $dbfields['primary']
-          )
-        );
-    pwg_query($query);
-    $query = '
-DROP TABLE '.$temporary_tablename;
-    pwg_query($query);
-  }
-}
-
-/**
  * order categories (update categories.rank and global_rank database fields)
  * so that rank field are consecutive integers starting at 1 for each child
  * @return void
@@ -630,7 +426,7 @@ SELECT id, if(id_uppercat is null,\'\',id_uppercat) AS id_uppercat, uppercats, r
   $current_uppercat = '';
 
   $result = pwg_query($query);
-  while ($row = mysql_fetch_assoc($result))
+  while ($row = pwg_db_fetch_assoc($result))
   {
     if ($row['id_uppercat'] != $current_uppercat)
     {
@@ -776,7 +572,7 @@ SELECT uppercats
   WHERE id IN ('.implode(',', $cat_ids).')
 ;';
   $result = pwg_query($query);
-  while ($row = mysql_fetch_assoc($result))
+  while ($row = pwg_db_fetch_assoc($result))
   {
     $uppercats = array_merge($uppercats,
                              explode(',', $row['uppercats']));
@@ -803,7 +599,7 @@ SELECT image_id
   ORDER BY RAND()
   LIMIT 0,1
 ;';
-    list($representative) = mysql_fetch_row(pwg_query($query));
+    list($representative) = pwg_db_fetch_row(pwg_query($query));
 
     array_push(
       $datas,
@@ -863,7 +659,7 @@ SELECT id, uppercats, site_id
 '.wordwrap(implode(', ', $cat_ids), 80, "\n").')
 ;';
   $result = pwg_query($query);
-  while ($row = mysql_fetch_assoc($result))
+  while ($row = pwg_db_fetch_assoc($result))
   {
     array_push($categories, $row);
   }
@@ -1139,7 +935,7 @@ SELECT element_id,
 
   $datas = array();
 
-  while ($row = mysql_fetch_assoc($result))
+  while ($row = pwg_db_fetch_assoc($result))
   {
     array_push(
       $datas,
@@ -1206,7 +1002,7 @@ SELECT id, id_uppercat, status, uppercats
   WHERE id IN ('.implode(',', $category_ids).')
 ;';
   $result = pwg_query($query);
-  while ($row = mysql_fetch_assoc($result))
+  while ($row = pwg_db_fetch_assoc($result))
   {
     $categories[$row['id']] =
       array(
@@ -1225,7 +1021,7 @@ SELECT uppercats
   FROM '.CATEGORIES_TABLE.'
   WHERE id = '.$new_parent.'
 ;';
-    list($new_parent_uppercats) = mysql_fetch_row(pwg_query($query));
+    list($new_parent_uppercats) = pwg_db_fetch_row(pwg_query($query));
 
     foreach ($categories as $category)
     {
@@ -1270,7 +1066,7 @@ SELECT status
   FROM '.CATEGORIES_TABLE.'
   WHERE id = '.$new_parent.'
 ;';
-    list($parent_status) = mysql_fetch_row(pwg_query($query));
+    list($parent_status) = pwg_db_fetch_row(pwg_query($query));
   }
 
   if ('private' == $parent_status)
@@ -1355,7 +1151,7 @@ SELECT MAX(rank)
   FROM '.CATEGORIES_TABLE.'
   WHERE id_uppercat '.(is_numeric($parent_id) ? '= '.$parent_id : 'IS NULL').'
 ;';
-  list($current_rank) = mysql_fetch_row(pwg_query($query));
+  list($current_rank) = pwg_db_fetch_row(pwg_query($query));
 
   $insert = array(
     'name' => $category_name,
@@ -1371,7 +1167,7 @@ SELECT id, uppercats, global_rank, visible, status
   FROM '.CATEGORIES_TABLE.'
   WHERE id = '.$parent_id.'
 ;';
-    $parent = mysql_fetch_assoc(pwg_query($query));
+    $parent = pwg_db_fetch_assoc(pwg_query($query));
 
     $insert['id_uppercat'] = $parent['id'];
     $insert['global_rank'] = $parent['global_rank'].'.'.$insert['rank'];
@@ -1417,7 +1213,7 @@ SELECT id, uppercats, global_rank, visible, status
     array($insert)
     );
 
-  $inserted_id = mysql_insert_id();
+  $inserted_id = pwg_db_insert_id();
 
   $query = '
 UPDATE
@@ -1550,7 +1346,7 @@ SELECT id
         )
       );
 
-    $page['tag_id_from_tag_name_cache'][$tag_name] = mysql_insert_id();
+    $page['tag_id_from_tag_name_cache'][$tag_name] = pwg_db_insert_id();
   }
   else
   {
@@ -1592,70 +1388,6 @@ DELETE
       array_keys($inserts[0]),
       $inserts
       );
-  }
-}
-
-/**
- * Do maintenance on all PWG tables
- *
- * @return none
- */
-function do_maintenance_all_tables()
-{
-  global $prefixeTable, $page;
-
-  $all_tables = array();
-
-  // List all tables
-  $query = 'SHOW TABLES LIKE \''.$prefixeTable.'%\'';
-  $result = pwg_query($query);
-  while ($row = mysql_fetch_assoc($result))
-  {
-    array_push($all_tables, $row[0]);
-  }
-
-  // Repair all tables
-  $query = 'REPAIR TABLE '.implode(', ', $all_tables);
-  $mysql_rc = pwg_query($query);
-
-  // Re-Order all tables
-  foreach ($all_tables as $table_name)
-  {
-    $all_primary_key = array();
-
-    $query = 'DESC '.$table_name.';';
-    $result = pwg_query($query);
-    while ($row = mysql_fetch_assoc($result))
-    {
-      if ($row['Key'] == 'PRI')
-      {
-        array_push($all_primary_key, $row['Field']);
-      }
-    }
-
-    if (count($all_primary_key) != 0)
-    {
-      $query = 'ALTER TABLE '.$table_name.' ORDER BY '.implode(', ', $all_primary_key).';';
-      $mysql_rc = $mysql_rc && pwg_query($query);
-    }
-  }
-
-  // Optimize all tables
-  $query = 'OPTIMIZE TABLE '.implode(', ', $all_tables);
-  $mysql_rc = $mysql_rc && pwg_query($query);
-  if ($mysql_rc)
-  {
-    array_push(
-          $page['infos'],
-          l10n('Optimizations completed')
-          );
-  }
-  else
-  {
-    array_push(
-          $page['errors'],
-          l10n('Optimizations errors')
-          );
   }
 }
 
@@ -1889,7 +1621,7 @@ SELECT id
         )
       );
 
-    $inserted_id = mysql_insert_id();
+    $inserted_id = pwg_db_insert_id();
 
     return array(
       'info' => sprintf(
@@ -2075,9 +1807,9 @@ SELECT name
   WHERE id = '.intval($group_id).'
 ;';
   $result = pwg_query($query);
-  if (mysql_num_rows($result) > 0)
+  if (pwg_db_num_rows($result) > 0)
   {
-    list($groupname) = mysql_fetch_row($result);
+    list($groupname) = pwg_db_fetch_row($result);
   }
   else
   {
@@ -2103,9 +1835,9 @@ SELECT '.$conf['user_fields']['username'].'
   WHERE '.$conf['user_fields']['id'].' = '.intval($user_id).'
 ;';
   $result = pwg_query($query);
-  if (mysql_num_rows($result) > 0)
+  if (pwg_db_num_rows($result) > 0)
   {
-    list($username) = mysql_fetch_row($result);
+    list($username) = pwg_db_fetch_row($result);
   }
   else
   {

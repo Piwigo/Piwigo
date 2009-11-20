@@ -71,7 +71,7 @@ SELECT * FROM '. IMAGES_TABLE.'
 ;';
 
 $result = pwg_query($query);
-$element_info = mysql_fetch_assoc($result);
+$element_info = pwg_db_fetch_assoc($result);
 if ( empty($element_info) )
 {
   do_error(404, 'Requested id not found');
@@ -93,7 +93,7 @@ SELECT id
   ).'
   LIMIT 1
 ;';
-if ( mysql_num_rows(pwg_query($query))<1 )
+if ( pwg_db_num_rows(pwg_query($query))<1 )
 {
   do_error(401, 'Access denied');
 }

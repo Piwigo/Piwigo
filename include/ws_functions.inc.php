@@ -256,7 +256,7 @@ SELECT id, name, permalink, image_order
     AND ', $where_clauses);
   $result = pwg_query($query);
   $cats = array();
-  while ($row = mysql_fetch_assoc($result))
+  while ($row = pwg_db_fetch_assoc($result))
   {
     $row['id'] = (int)$row['id'];
     $cats[ $row['id'] ] = $row;
@@ -295,7 +295,7 @@ GROUP BY i.id
 LIMIT '.(int)($params['per_page']*$params['page']).','.(int)$params['per_page'];
 
     $result = pwg_query($query);
-    while ($row = mysql_fetch_assoc($result))
+    while ($row = pwg_db_fetch_assoc($result))
     {
       $image = array();
       foreach ( array('id', 'width', 'height', 'hit') as $k )
@@ -405,7 +405,7 @@ SELECT id, name, permalink, uppercats, global_rank,
   $result = pwg_query($query);
 
   $cats = array();
-  while ($row = mysql_fetch_assoc($result))
+  while ($row = pwg_db_fetch_assoc($result))
   {
     $row['url'] = make_index_url(
         array(
@@ -471,7 +471,7 @@ SELECT
   $result = pwg_query($query);
   $cats = array();
 
-  while ($row = mysql_fetch_assoc($result))
+  while ($row = pwg_db_fetch_assoc($result))
   {
     $id = $row['id'];
     $row['nb_images'] = isset($nb_images_of[$id]) ? $nb_images_of[$id] : 0;
@@ -517,7 +517,7 @@ SELECT DISTINCT image_id
       ),
       ' AND'
     );
-  if ( !mysql_num_rows( pwg_query( $query ) ) )
+  if ( !pwg_db_num_rows( pwg_query( $query ) ) )
   {
     return new PwgError(WS_ERR_INVALID_PARAM, "Invalid image_id");
   }
@@ -577,7 +577,7 @@ SELECT * FROM '.IMAGES_TABLE.'
     ).'
 LIMIT 1';
 
-  $image_row = mysql_fetch_assoc(pwg_query($query));
+  $image_row = pwg_db_fetch_assoc(pwg_query($query));
   if ($image_row==null)
   {
     return new PwgError(404, "image_id not found");
@@ -598,7 +598,7 @@ SELECT id, name, permalink, uppercats, global_rank, commentable
   $result = pwg_query($query);
   $is_commentable = false;
   $related_categories = array();
-  while ($row = mysql_fetch_assoc($result))
+  while ($row = pwg_db_fetch_assoc($result))
   {
     if ($row['commentable']=='true')
     {
@@ -655,7 +655,7 @@ SELECT COUNT(rate) AS count
   FROM '.RATE_TABLE.'
   WHERE element_id = '.$image_row['id'].'
 ;';
-  $rating = mysql_fetch_assoc(pwg_query($query));
+  $rating = pwg_db_fetch_assoc(pwg_query($query));
   $rating['count'] = (int)$rating['count'];
 
   //---------------------------------------------------------- related comments
@@ -686,7 +686,7 @@ SELECT id, date, author, content
     ','.(int)$params['comments_per_page'];
 
     $result = pwg_query($query);
-    while ($row = mysql_fetch_assoc($result))
+    while ($row = pwg_db_fetch_assoc($result))
     {
       $row['id']=(int)$row['id'];
       array_push($related_comments, $row);
@@ -757,7 +757,7 @@ SELECT DISTINCT id FROM '.IMAGES_TABLE.'
     '    AND'
     ).'
     LIMIT 1';
-  if ( mysql_num_rows( pwg_query($query) )==0 )
+  if ( pwg_db_num_rows( pwg_query($query) )==0 )
   {
     return new PwgError(404, "Invalid image_id or access denied" );
   }
@@ -813,7 +813,7 @@ SELECT * FROM '.IMAGES_TABLE.'
 
     $image_ids = array_flip($image_ids);
     $result = pwg_query($query);
-    while ($row = mysql_fetch_assoc($result))
+    while ($row = pwg_db_fetch_assoc($result))
     {
       $image = array();
       foreach ( array('id', 'width', 'height', 'hit') as $k )
@@ -870,7 +870,7 @@ UPDATE '.IMAGES_TABLE.'
   SET level='.(int)$params['level'].'
   WHERE id IN ('.implode(',',$params['image_id']).')';
   $result = pwg_query($query);
-  $affected_rows = mysql_affected_rows();
+  $affected_rows = pwg_db_affected_rows();
   if ($affected_rows)
   {
     include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
@@ -1007,13 +1007,13 @@ SELECT
   FROM '.IMAGES_TABLE.'
   WHERE md5sum = \''.$params['original_sum'].'\'
 ;';
-  list($counter) = mysql_fetch_row(pwg_query($query));
+  list($counter) = pwg_db_fetch_row(pwg_query($query));
   if ($counter != 0) {
     return new PwgError(500, 'file already exists');
   }
 
   // current date
-  list($dbnow) = mysql_fetch_row(pwg_query('SELECT NOW();'));
+  list($dbnow) = pwg_db_fetch_row(pwg_query('SELECT NOW();'));
   list($year, $month, $day) = preg_split('/[^\d]/', $dbnow, 4);
 
   // upload directory hierarchy
@@ -1199,7 +1199,7 @@ SELECT
     array($insert)
     );
 
-  $image_id = mysql_insert_id();
+  $image_id = pwg_db_insert_id();
 
   // let's add links between the image and the categories
   if (isset($params['categories']))
@@ -1358,7 +1358,7 @@ SELECT image_id, GROUP_CONCAT(tag_id) tag_ids
   WHERE tag_id IN ('.implode(',',$tag_ids).')
   GROUP BY image_id';
       $result = pwg_query($query);
-      while ( $row=mysql_fetch_assoc($result) )
+      while ( $row=pwg_db_fetch_assoc($result) )
       {
         $row['image_id'] = (int)$row['image_id'];
         array_push( $image_ids, $row['image_id'] );
@@ -1401,7 +1401,7 @@ SELECT DISTINCT i.* FROM '.IMAGES_TABLE.' i
 LIMIT '.(int)($params['per_page']*$params['page']).','.(int)$params['per_page'];
 
     $result = pwg_query($query);
-    while ($row = mysql_fetch_assoc($result))
+    while ($row = pwg_db_fetch_assoc($result))
     {
       $image = array();
       foreach ( array('id', 'width', 'height', 'hit') as $k )
@@ -1572,7 +1572,7 @@ SELECT *
   WHERE id = '.$params['image_id'].'
 ;';
 
-  $image_row = mysql_fetch_assoc(pwg_query($query));
+  $image_row = pwg_db_fetch_assoc(pwg_query($query));
   if ($image_row == null)
   {
     return new PwgError(404, "image_id not found");

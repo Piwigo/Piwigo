@@ -145,7 +145,7 @@ function custom_notification_query($action, $type, $start, $end)
     }
     $query = 'SELECT count(distinct '.$field_id.') as CountId
 '.$query;
-    list($count) = mysql_fetch_row(pwg_query($query));
+    list($count) = pwg_db_fetch_row(pwg_query($query));
     return $count;
 
     break;
@@ -178,7 +178,7 @@ function custom_notification_query($action, $type, $start, $end)
 
     $infos = array();
 
-    while ($row = mysql_fetch_assoc($result))
+    while ($row = pwg_db_fetch_assoc($result))
     {
       array_push($infos, $row);
     }
@@ -448,7 +448,7 @@ SELECT date_available,
 ;';
   $result = pwg_query($query);
   $dates = array();
-  while ($row = mysql_fetch_assoc($result))
+  while ($row = pwg_db_fetch_assoc($result))
   {
     array_push($dates, $row);
   }
@@ -468,7 +468,7 @@ SELECT DISTINCT id, path, name, tn_ext, file
 ;';
       $dates[$i]['elements'] = array();
       $result = pwg_query($query);
-      while ($row = mysql_fetch_assoc($result))
+      while ($row = pwg_db_fetch_assoc($result))
       {
         array_push($dates[$i]['elements'], $row);
       }
@@ -488,7 +488,7 @@ SELECT DISTINCT c.uppercats, COUNT(DISTINCT i.id) img_count
 ;';
       $dates[$i]['categories'] = array();
       $result = pwg_query($query);
-      while ($row = mysql_fetch_assoc($result))
+      while ($row = pwg_db_fetch_assoc($result))
       {
         array_push($dates[$i]['categories'], $row);
       }

@@ -56,7 +56,7 @@ if (isset($_POST['submit']))
   }
   else if (isset($_POST['mail_address']) and !empty($_POST['mail_address']))
   {
-    $mail_address = mysql_real_escape_string($_POST['mail_address']);
+    $mail_address = pwg_db_real_escape_string($_POST['mail_address']);
     
     $query = '
 SELECT '.$conf['user_fields']['id'].' AS id
@@ -74,12 +74,12 @@ WHERE '
 ;';
     $result = pwg_query($query);
 
-    if (mysql_num_rows($result) > 0)
+    if (pwg_db_num_rows($result) > 0)
     {
       $error_on_mail = false;
       $datas = array();
       
-      while ($row = mysql_fetch_assoc($result))
+      while ($row = pwg_db_fetch_assoc($result))
       {
         $new_password = generate_key(6);
 

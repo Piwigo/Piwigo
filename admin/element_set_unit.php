@@ -56,7 +56,7 @@ SELECT id, date_creation
 ;';
   $result = pwg_query($query);
 
-  while ($row = mysql_fetch_assoc($result))
+  while ($row = pwg_db_fetch_assoc($result))
   {
     $data = array();
 
@@ -200,7 +200,7 @@ SELECT id,path,tn_ext,name,date_creation,comment,author,file
 ;';
   $result = pwg_query($query);
 
-  while ($row = mysql_fetch_assoc($result))
+  while ($row = pwg_db_fetch_assoc($result))
   {
     // echo '<pre>'; print_r($row); echo '</pre>';
     array_push($element_ids, $row['id']);

@@ -115,7 +115,7 @@ SELECT uppercats
   FROM '.CATEGORIES_TABLE.'
   WHERE id = '.$page['category_id'].'
 ;';
-$category = mysql_fetch_assoc(pwg_query($query));
+$category = pwg_db_fetch_assoc(pwg_query($query));
 
 // Navigation path
 $navigation = get_cat_display_name_cache(
@@ -150,7 +150,7 @@ $result = pwg_query($query);
 // template thumbnail initialization
 $current_rank = 1;
 
-while ($row = mysql_fetch_assoc($result))
+while ($row = pwg_db_fetch_assoc($result))
 {
   $src = get_thumbnail_url($row);
   

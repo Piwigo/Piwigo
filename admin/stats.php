@@ -95,7 +95,7 @@ SELECT
   $result = pwg_query($query);
 
   $output = array();
-  while ($row = mysql_fetch_assoc($result))
+  while ($row = pwg_db_fetch_assoc($result))
   {
     array_push($output, $row);
   }
@@ -133,7 +133,7 @@ $max_id = 0;
 $is_first = true;
 $first_time_key = null;
 
-while ($row = mysql_fetch_assoc($result))
+while ($row = pwg_db_fetch_assoc($result))
 {
   $time_keys = array(
     substr($row['date'], 0, 4), //yyyy
@@ -204,7 +204,7 @@ SELECT *
     )
 ;';
   $result = pwg_query($query);
-  while ($row = mysql_fetch_assoc($result))
+  while ($row = pwg_db_fetch_assoc($result))
   {
     $key = sprintf('%4u', $row['year']);
     if ( isset($row['month']) )

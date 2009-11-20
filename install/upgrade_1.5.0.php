@@ -79,7 +79,7 @@ SELECT id, keywords
   WHERE keywords IS NOT NULL
 ;';
   $result = pwg_query($query);
-  while ($row = mysql_fetch_assoc($result))
+  while ($row = pwg_db_fetch_assoc($result))
   {
     foreach(preg_split('/[,]+/', $row['keywords']) as $keyword)
     {
@@ -351,7 +351,7 @@ $conf = $conf_save;
 // Do I already have them in DB ?
 $query = 'SELECT param FROM '.PREFIX_TABLE.'config';
 $result = pwg_query($query);
-while ($row = mysql_fetch_assoc($result))
+while ($row = pwg_db_fetch_assoc($result))
 {
   unset( $params[ $row['param'] ] );
 }
@@ -452,7 +452,7 @@ DESC '.PREFIX_TABLE.'users
 
 $result = pwg_query($query);
 
-while ($row = mysql_fetch_assoc($result))
+while ($row = pwg_db_fetch_assoc($result))
 {
   if (!in_array($row['Field'], $to_keep))
   {

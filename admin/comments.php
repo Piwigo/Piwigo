@@ -145,7 +145,7 @@ $conf['user_fields']['username'].' AS username, c.content, i.path, i.tn_ext
   ORDER BY c.date DESC
 ;';
 $result = pwg_query($query);
-while ($row = mysql_fetch_assoc($result))
+while ($row = pwg_db_fetch_assoc($result))
 {
   $thumb = get_thumbnail_url(
       array(

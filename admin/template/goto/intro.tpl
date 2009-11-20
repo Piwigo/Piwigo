@@ -30,7 +30,7 @@ jQuery().ready(function(){ldelim}
       <li>{'Operating system'|@translate}: {$OS}</li>
       <li>PHP: {$PHP_VERSION} (<a href="{$U_PHPINFO}" onclick="window.open(this.href, ''); 
           return false;">{'Show info'|@translate}</a>)  [{$PHP_DATATIME}]</li>
-      <li>MySQL: {$MYSQL_VERSION} [{$DB_DATATIME}]</li>
+      <li>{$DB_ENGINE}: {$DB_VERSION} [{$DB_DATATIME}]</li>
     </ul>
   </dd>
 

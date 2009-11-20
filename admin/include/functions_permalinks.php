@@ -51,8 +51,8 @@ SELECT c.id
   LIMIT 1';
   $result = pwg_query($query);
   $cat_id = null;
-  if ( mysql_num_rows($result) )
-    list( $cat_id ) = mysql_fetch_row($result);
+  if ( pwg_db_num_rows($result) )
+    list( $cat_id ) = pwg_db_fetch_row($result);
   return $cat_id;
 }
 
@@ -72,9 +72,9 @@ SELECT permalink
   WHERE id="'.$cat_id.'"
 ;';
   $result = pwg_query($query);
-  if ( mysql_num_rows($result) )
+  if ( pwg_db_num_rows($result) )
   {
-    list($permalink) = mysql_fetch_row($result);
+    list($permalink) = pwg_db_fetch_row($result);
   }
   if ( !isset($permalink) )
   {// no permalink; nothing to do

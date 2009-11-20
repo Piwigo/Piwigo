@@ -119,7 +119,7 @@ SELECT id, name
     (!isset($_GET['parent_id']) ? 'IS NULL' : '= '.$_GET['parent_id']).'
 ;';
   $result = pwg_query($query);
-  while ($row = mysql_fetch_assoc($result))
+  while ($row = pwg_db_fetch_assoc($result))
   {
     $categories[ $row['id'] ] = strtolower($row['name']);
   }

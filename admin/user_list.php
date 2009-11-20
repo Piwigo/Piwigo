@@ -49,7 +49,7 @@ function get_filtered_user_list()
   if (isset($_GET['username']) and !empty($_GET['username']))
   {
     $username = str_replace('*', '%', $_GET['username']);
-    $filter['username'] = mysql_real_escape_string($username);
+    $filter['username'] = pwg_db_real_escape_string($username);
   }
 
   if (isset($_GET['group'])
@@ -115,7 +115,7 @@ SELECT DISTINCT u.'.$conf['user_fields']['id'].' AS id,
 ;';
 
   $result = pwg_query($query);
-  while ($row = mysql_fetch_assoc($result))
+  while ($row = pwg_db_fetch_assoc($result))
   {
     $user = $row;
     $user['groups'] = array();
@@ -139,7 +139,7 @@ SELECT user_id, group_id
   WHERE user_id IN ('.implode(',', $user_ids).')
 ;';
     $result = pwg_query($query);
-    while ($row = mysql_fetch_assoc($result))
+    while ($row = pwg_db_fetch_assoc($result))
     {
       array_push(
         $users[$user_nums[$row['user_id']]]['groups'],
@@ -492,7 +492,7 @@ SELECT id, name
 ;';
 $result = pwg_query($query);
 
-while ($row = mysql_fetch_assoc($result))
+while ($row = pwg_db_fetch_assoc($result))
 {
   $groups[$row['id']] = $row['name'];
 }

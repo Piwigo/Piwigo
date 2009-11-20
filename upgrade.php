@@ -43,6 +43,7 @@ include_once(PHPWG_ROOT_PATH.'admin/include/functions_upgrade.php');
 include(PHPWG_ROOT_PATH.'include/config_database.inc.php');
 include(PHPWG_ROOT_PATH . 'include/config_default.inc.php');
 @include(PHPWG_ROOT_PATH. 'include/config_local.inc.php');
+include(PHPWG_ROOT_PATH .'include/dblayer/functions_mysql.inc.php');
 
 prepare_conf_upgrade();
 
@@ -50,13 +51,11 @@ include_once(PHPWG_ROOT_PATH.'include/constants.php');
 define('PREFIX_TABLE', $prefixeTable);
 
 // Database connection
-mysql_connect( $conf['db_host'], $conf['db_user'], $conf['db_password'] ) or die ( "Could not connect to database server" );
-mysql_select_db( $conf['db_base'] ) or die ( "Could not connect to database" );
-if ( version_compare(mysql_get_server_info(), '4.1.0', '>=')
-    and defined('DB_CHARSET') and DB_CHARSET!='' )
-{
-  pwg_query('SET NAMES "'.DB_CHARSET.'"');
-}
+$pwg_db_link = pwg_db_connect($conf['db_host'], $conf['db_user'], 
+			      $conf['db_password'], $conf['db_base']) 
+  or my_error('pwg_db_connect', true);
+
+pwg_db_check_charset();
 
 // +-----------------------------------------------------------------------+
 // |                              functions                                |
@@ -76,7 +75,7 @@ SHOW TABLES
 ;';
   $result = pwg_query($query);
 
-  while ($row = mysql_fetch_row($result))
+  while ($row = pwg_db_fetch_row($result))
   {
     if (preg_match('/^'.PREFIX_TABLE.'/', $row[0]))
     {
@@ -105,7 +104,7 @@ DESC '.$table.'
 
     $columns_of[$table] = array();
 
-    while ($row = mysql_fetch_row($result))
+    while ($row = pwg_db_fetch_row($result))
     {
       array_push($columns_of[$table], $row[0]);
     }

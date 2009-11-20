@@ -75,7 +75,7 @@ SELECT user_id,
   FROM '.USER_FEED_TABLE.'
   WHERE id = \''.$feed_id.'\'
 ;';
-  $feed_row = mysql_fetch_assoc(pwg_query($query));
+  $feed_row = pwg_db_fetch_assoc(pwg_query($query));
   if ( empty($feed_row) )
   {
     page_not_found('Unknown/missing feed identifier');
@@ -97,7 +97,7 @@ else
 // Check the status now after the user has been loaded
 check_status(ACCESS_GUEST);
 
-list($dbnow) = mysql_fetch_row(pwg_query('SELECT NOW();'));
+list($dbnow) = pwg_db_fetch_row(pwg_query('SELECT NOW();'));
 
 include_once(PHPWG_ROOT_PATH.'include/feedcreator.class.php');
 

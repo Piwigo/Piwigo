@@ -110,7 +110,7 @@ if (isset($_POST['submit']))
     $search['fields']['filename'] = str_replace(
       '*',
       '%',
-      mysql_real_escape_string($_POST['filename'])
+      pwg_db_real_escape_string($_POST['filename'])
       );
   }
 
@@ -136,7 +136,7 @@ INSERT INTO '.SEARCH_TABLE.'
 ;';
     pwg_query($query);
 
-    $search_id = mysql_insert_id();
+    $search_id = pwg_db_insert_id();
 
     redirect(
       PHPWG_ROOT_PATH.'admin.php?page=history&search_id='.$search_id
@@ -177,7 +177,7 @@ SELECT rules
   FROM '.SEARCH_TABLE.'
   WHERE id = '.$page['search_id'].'
 ;';
-  list($serialized_rules) = mysql_fetch_row(pwg_query($query));
+  list($serialized_rules) = pwg_db_fetch_row(pwg_query($query));
 
   $page['search'] = unserialize($serialized_rules);
 
@@ -198,7 +198,7 @@ INSERT INTO '.SEARCH_TABLE.'
 ;';
     pwg_query($query);
 
-    $search_id = mysql_insert_id();
+    $search_id = pwg_db_insert_id();
 
     redirect(
       PHPWG_ROOT_PATH.'admin.php?page=history&search_id='.$search_id
@@ -257,7 +257,7 @@ SELECT '.$conf['user_fields']['id'].' AS id
     $result = pwg_query($query);
 
     $username_of = array();
-    while ($row = mysql_fetch_assoc($result))
+    while ($row = pwg_db_fetch_assoc($result))
     {
       $username_of[$row['id']] = stripslashes($row['username']);
     }
@@ -305,7 +305,7 @@ SELECT
     $tn_ext_of_image = array();
 
     $result = pwg_query($query);
-    while ($row = mysql_fetch_assoc($result))
+    while ($row = pwg_db_fetch_assoc($result))
     {
       $label_of_image[ $row['id'] ] = $row['label'];
 
@@ -341,7 +341,7 @@ SELECT
     $name_of_tag = array();
 
     $result = pwg_query($query);
-    while ($row = mysql_fetch_assoc($result))
+    while ($row = pwg_db_fetch_assoc($result))
     {
       $name_of_tag[ $row['id'] ] = $row['name'];
     }

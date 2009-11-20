@@ -75,7 +75,7 @@ $categories = array();
 $category_ids = array();
 $image_ids = array();
 
-while ($row = mysql_fetch_assoc($result))
+while ($row = pwg_db_fetch_assoc($result))
 {
   $row['is_child_date_last'] = @$row['max_date_last']>@$row['date_last'];
 
@@ -108,9 +108,9 @@ SELECT image_id
   LIMIT 0,1
 ;';
       $subresult = pwg_query($query);
-      if (mysql_num_rows($subresult) > 0)
+      if (pwg_db_num_rows($subresult) > 0)
       {
-        list($image_id) = mysql_fetch_row($subresult);
+        list($image_id) = pwg_db_fetch_row($subresult);
       }
     }
   }
@@ -136,9 +136,9 @@ SELECT image_id
     LIMIT 0,1
   ;';
       $subresult = pwg_query($query);
-      if (mysql_num_rows($subresult) > 0)
+      if (pwg_db_num_rows($subresult) > 0)
       {
-        list($image_id) = mysql_fetch_row($subresult);
+        list($image_id) = pwg_db_fetch_row($subresult);
       }
     }
   }
@@ -178,7 +178,7 @@ SELECT
   GROUP BY category_id
 ;';
     $result = pwg_query($query);
-    while ($row = mysql_fetch_assoc($result))
+    while ($row = pwg_db_fetch_assoc($result))
     {
       $dates_of_category[ $row['category_id'] ] = array(
         'from' => $row['date_creation_min'],
@@ -202,7 +202,7 @@ SELECT id, path, tn_ext
   WHERE id IN ('.implode(',', $image_ids).')
 ;';
   $result = pwg_query($query);
-  while ($row = mysql_fetch_assoc($result))
+  while ($row = pwg_db_fetch_assoc($result))
   {
     $thumbnail_src_of[$row['id']] = get_thumbnail_url($row);
   }

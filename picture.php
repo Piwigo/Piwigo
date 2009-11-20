@@ -57,7 +57,7 @@ SELECT id, file, level
       str_replace(array('_','%'), array('/_','/%'), $page['image_file'] ).
       '.%" ESCAPE "/" LIMIT 1';
   }
-  if ( ! ( $row = mysql_fetch_assoc(pwg_query($query)) ) )
+  if ( ! ( $row = pwg_db_fetch_assoc(pwg_query($query)) ) )
   {// element does not exist
     page_not_found( 'The requested image does not exist',
       duplicate_index_url()
@@ -93,7 +93,7 @@ SELECT id
             " AND"
           ).'
   LIMIT 1';
-      if ( mysql_num_rows( pwg_query($query) ) == 0 )
+      if ( pwg_db_num_rows( pwg_query($query) ) == 0 )
       {
         access_denied();
       }
@@ -387,7 +387,7 @@ SELECT category_id,uppercats,commentable,global_rank
 ;';
 $result = pwg_query($query);
 $related_categories = array();
-while ($row = mysql_fetch_assoc($result))
+while ($row = pwg_db_fetch_assoc($result))
 {
   array_push($related_categories, $row);
 }
@@ -415,7 +415,7 @@ SELECT *
 
 $result = pwg_query($query);
 
-while ($row = mysql_fetch_assoc($result))
+while ($row = pwg_db_fetch_assoc($result))
 {
   if (isset($page['previous_item']) and $row['id'] == $page['previous_item'])
   {
@@ -767,7 +767,7 @@ SELECT COUNT(*) AS nb_fav
     AND user_id = '.$user['id'].'
 ;';
   $result = pwg_query($query);
-  $row = mysql_fetch_assoc($result);
+  $row = pwg_db_fetch_assoc($result);
 
   if ($row['nb_fav'] == 0)
   {

@@ -35,7 +35,7 @@ else
 
 define('UPGRADES_PATH', PHPWG_ROOT_PATH.'install/db');
 
-list($dbnow) = mysql_fetch_row(pwg_query('SELECT NOW();'));
+list($dbnow) = pwg_db_fetch_row(pwg_query('SELECT NOW();'));
 define('CURRENT_DATE', $dbnow);
 
 // +-----------------------------------------------------------------------+

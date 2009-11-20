@@ -63,7 +63,7 @@ SELECT *
   FROM '.TAGS_TABLE;
   $result = pwg_query($query);
   $tags = array();
-  while ($row = mysql_fetch_assoc($result))
+  while ($row = pwg_db_fetch_assoc($result))
   {
     $counter = @$tag_counters[ $row['id'] ];
     if ( $counter )
@@ -88,7 +88,7 @@ SELECT *
 ;';
   $result = pwg_query($query);
   $tags = array();
-  while ($row = mysql_fetch_assoc($result))
+  while ($row = pwg_db_fetch_assoc($result))
   {
     array_push($tags, $row);
   }
@@ -249,7 +249,7 @@ SELECT t.*, count(*) counter
 
   $result = pwg_query($query);
   $tags = array();
-  while($row = mysql_fetch_assoc($result))
+  while($row = pwg_db_fetch_assoc($result))
   {
     array_push($tags, $row);
   }
@@ -311,7 +311,7 @@ SELECT *
 
   $result = pwg_query($query);
   $tags = array();
-  while ($row = mysql_fetch_assoc($result))
+  while ($row = pwg_db_fetch_assoc($result))
   {
     array_push($tags, $row);
   }

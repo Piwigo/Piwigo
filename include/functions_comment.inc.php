@@ -100,7 +100,7 @@ function insert_user_comment( &$comm, $key, &$infos )
 SELECT COUNT(*) AS user_exists
   FROM '.USERS_TABLE.'
   WHERE '.$conf['user_fields']['username']." = '".addslashes($comm['author'])."'";
-      $row = mysql_fetch_assoc( pwg_query( $query ) );
+      $row = pwg_db_fetch_assoc( pwg_query( $query ) );
       if ( $row['user_exists'] == 1 )
       {
         array_push($infos, l10n('comment_user_exists') );
@@ -138,7 +138,7 @@ SELECT COUNT(*) AS user_exists
 SELECT id FROM '.COMMENTS_TABLE.'
   WHERE date > FROM_UNIXTIME('.$reference_date.')
     AND author_id = '.$comm['author_id'];
-    if ( mysql_num_rows( pwg_query( $query ) ) > 0 )
+    if ( pwg_db_num_rows( pwg_query( $query ) ) > 0 )
     {
       array_push( $infos, l10n('comment_anti-flood') );
       $comment_action='reject';
@@ -168,7 +168,7 @@ INSERT INTO '.COMMENTS_TABLE.'
 
     pwg_query($query);
 
-    $comm['id'] = mysql_insert_id();
+    $comm['id'] = pwg_db_insert_id();
 
     if (($comment_action=='validate' and $conf['email_admin_on_comment']) or
         ($comment_action!='validate' and $conf['email_admin_on_comment_validation']))
@@ -266,7 +266,7 @@ function update_user_comment($comment, $post_key)
 SELECT id FROM '.COMMENTS_TABLE.'
   WHERE date > FROM_UNIXTIME('.$reference_date.')
     AND author_id = '.$comm['author_id'];
-    if ( mysql_num_rows( pwg_query( $query ) ) > 0 )
+    if ( pwg_db_num_rows( pwg_query( $query ) ) > 0 )
     {
       //?? array_push( $infos, l10n('comment_anti-flood') );
       $comment_action='reject';

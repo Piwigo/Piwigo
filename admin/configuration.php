@@ -138,7 +138,7 @@ if (isset($_POST['submit']) and !is_adviser())
   {
     //echo '<pre>'; print_r($_POST); echo '</pre>';
     $result = pwg_query('SELECT param FROM '.CONFIG_TABLE);
-    while ($row = mysql_fetch_assoc($result))
+    while ($row = pwg_db_fetch_assoc($result))
     {
       if (isset($_POST[$row['param']]))
       {

@@ -364,7 +364,7 @@ define(\'DB_COLLATE\', \'\');
     // Available upgrades must be ignored after a fresh installation. To
     // make PWG avoid upgrading, we must tell it upgrades have already been
     // made.
-    list($dbnow) = mysql_fetch_row(pwg_query('SELECT NOW();'));
+    list($dbnow) = pwg_db_fetch_row(pwg_query('SELECT NOW();'));
     define('CURRENT_DATE', $dbnow);
     $datas = array();
     foreach (get_available_upgrade_ids() as $upgrade_id)

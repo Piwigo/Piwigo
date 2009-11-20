@@ -245,7 +245,7 @@ SELECT id
 ;';
     $result = pwg_query($query);
 
-    while ($row = mysql_fetch_assoc($result))
+    while ($row = pwg_db_fetch_assoc($result))
     {
       $data = array();
       $data['id'] = $row['id'];
@@ -337,7 +337,7 @@ SELECT
   WHERE id IN ('.implode(',', $page['cat_elements_id']).')
     AND storage_category_id IS NULL
 ;';
-  list($counter) = mysql_fetch_row(pwg_query($query));
+  list($counter) = pwg_db_fetch_row(pwg_query($query));
 
   if ($counter > 0)
   {
@@ -481,7 +481,7 @@ SELECT id,path,tn_ext,file,filesize,level
 
   // template thumbnail initialization
 
-  while ($row = mysql_fetch_assoc($result))
+  while ($row = pwg_db_fetch_assoc($result))
   {
     $src = get_thumbnail_url($row);
 

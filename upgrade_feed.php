@@ -35,6 +35,7 @@ include_once(PHPWG_ROOT_PATH.'admin/include/functions_upgrade.php');
 include(PHPWG_ROOT_PATH.'include/config_database.inc.php');
 include(PHPWG_ROOT_PATH . 'include/config_default.inc.php');
 @include(PHPWG_ROOT_PATH. 'include/config_local.inc.php');
+include(PHPWG_ROOT_PATH .'include/dblayer/functions_mysql.inc.php');
 
 // +-----------------------------------------------------------------------+
 // | Check Access and exit when it is not ok                               |
@@ -54,14 +55,11 @@ define('UPGRADES_PATH', PHPWG_ROOT_PATH.'install/db');
 // |                         Database connection                           |
 // +-----------------------------------------------------------------------+
 
-mysql_connect($conf['db_host'], $conf['db_user'], $conf['db_password']) or die("Could not connect to database server");
-mysql_select_db($conf['db_base']) or die("Could not connect to database");
-if ( version_compare(mysql_get_server_info(), '4.1.0', '>=')
-    and defined('DB_CHARSET') and DB_CHARSET!='' )
-{
-  pwg_query('SET NAMES "'.DB_CHARSET.'"');
-}
+$pwg_db_link = pwg_db_connect($conf['db_host'], $conf['db_user'], 
+			      $conf['db_password'], $conf['db_base']) 
+  or my_error('pwg_db_connect', true);
 
+pwg_db_check_charset();
 
 // +-----------------------------------------------------------------------+
 // |                              Upgrades                                 |

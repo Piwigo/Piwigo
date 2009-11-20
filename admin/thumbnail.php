@@ -178,7 +178,7 @@ SELECT galleries_url FROM '.SITES_TABLE.'
   WHERE galleries_url NOT LIKE "http://%"
 ;';
 $result = pwg_query($query);
-while ( $row=mysql_fetch_assoc($result) )
+while ( $row=pwg_db_fetch_assoc($result) )
 {
   $basedir = preg_replace('#/*$#', '', $row['galleries_url']);
   $fs = get_fs($basedir);

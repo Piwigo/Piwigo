@@ -45,7 +45,7 @@ SELECT *
   WHERE id IN ('.implode(',', $selection).')
 ;';
   $result = pwg_query($query);
-  while ($row = mysql_fetch_assoc($result))
+  while ($row = pwg_db_fetch_assoc($result))
   {
     $row['rank'] = $rank_of[ $row['id'] ];
 

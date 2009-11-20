@@ -43,14 +43,14 @@ $query='
 SELECT galleries_url
   FROM '.SITES_TABLE.'
   WHERE id = '.$site_id;
-list($site_url) = mysql_fetch_row(pwg_query($query));
+list($site_url) = pwg_db_fetch_row(pwg_query($query));
 if (!isset($site_url))
 {
   die('site '.$site_id.' does not exist');
 }
 $site_is_remote = url_is_remote($site_url);
 
-list($dbnow) = mysql_fetch_row(pwg_query('SELECT NOW();'));
+list($dbnow) = pwg_db_fetch_row(pwg_query('SELECT NOW();'));
 define('CURRENT_DATE', $dbnow);
 
 $error_labels = array(
@@ -185,7 +185,7 @@ SELECT id, uppercats, global_rank, status, visible
 SELECT id
   FROM '.CATEGORIES_TABLE;
   $result = pwg_query($query);
-  while ($row = mysql_fetch_assoc($result))
+  while ($row = pwg_db_fetch_assoc($result))
   {
     $next_rank[$row['id']] = 1;
   }
@@ -196,7 +196,7 @@ SELECT id_uppercat, MAX(rank)+1 AS next_rank
   FROM '.CATEGORIES_TABLE.'
   GROUP BY id_uppercat';
   $result = pwg_query($query);
-  while ($row = mysql_fetch_assoc($result))
+  while ($row = pwg_db_fetch_assoc($result))
   {
     // for the id_uppercat NULL, we write 'NULL' and not the empty string
     if (!isset($row['id_uppercat']) or $row['id_uppercat'] == '')
@@ -210,7 +210,7 @@ SELECT id_uppercat, MAX(rank)+1 AS next_rank
   $query = '
 SELECT IF(MAX(id)+1 IS NULL, 1, MAX(id)+1) AS next_id
   FROM '.CATEGORIES_TABLE;
-  list($next_id) = mysql_fetch_row(pwg_query($query));
+  list($next_id) = pwg_db_fetch_row(pwg_query($query));
 
   // retrieve sub-directories fulldirs from the site reader
   $fs_fulldirs = $site_reader->get_full_directories($basedir);
@@ -246,34 +246,34 @@ SELECT IF(MAX(id)+1 IS NULL, 1, MAX(id)+1) AS next_id
         'uploadable'  => $site_is_remote
           ? 'false'
           : boolean_to_string($conf['newcat_default_uploadable']),
-        'status'      => $conf{'newcat_default_status'},
-        'visible'     => boolean_to_string($conf{'newcat_default_visible'}),
+        'status'      => $conf['newcat_default_status'],
+        'visible'     => boolean_to_string($conf['newcat_default_visible']),
         );
 
       if (isset($db_fulldirs[dirname($fulldir)]))
       {
         $parent = $db_fulldirs[dirname($fulldir)];
 
-        $insert{'id_uppercat'} = $parent;
-        $insert{'uppercats'} =
-          $db_categories[$parent]['uppercats'].','.$insert{'id'};
-        $insert{'rank'} = $next_rank[$parent]++;
-        $insert{'global_rank'} =
-          $db_categories[$parent]['global_rank'].'.'.$insert{'rank'};
+        $insert['id_uppercat'] = $parent;
+        $insert['uppercats'] =
+          $db_categories[$parent]['uppercats'].','.$insert['id'];
+        $insert['rank'] = $next_rank[$parent]++;
+        $insert['global_rank'] =
+          $db_categories[$parent]['global_rank'].'.'.$insert['rank'];
         if ('private' == $db_categories[$parent]['status'])
         {
-          $insert{'status'} = 'private';
+          $insert['status'] = 'private';
         }
         if ('false' == $db_categories[$parent]['visible'])
         {
-          $insert{'visible'} = 'false';
+          $insert['visible'] = 'false';
         }
       }
       else
       {
-        $insert{'uppercats'} = $insert{'id'};
+        $insert['uppercats'] = $insert['id'];
         $insert{'rank'} = $next_rank['NULL']++;
-        $insert{'global_rank'} = $insert{'rank'};
+        $insert['global_rank'] = $insert['rank'];
       }
 
       array_push($inserts, $insert);
@@ -288,13 +288,13 @@ SELECT IF(MAX(id)+1 IS NULL, 1, MAX(id)+1) AS next_id
       // add the new category to $db_categories and $db_fulldirs array
       $db_categories[$insert{'id'}] =
         array(
-          'id' => $insert{'id'},
-          'status' => $insert{'status'},
-          'visible' => $insert{'visible'},
-          'uppercats' => $insert{'uppercats'},
-          'global_rank' => $insert{'global_rank'}
+          'id' => $insert['id'],
+          'status' => $insert['status'],
+          'visible' => $insert['visible'],
+          'uppercats' => $insert['uppercats'],
+          'global_rank' => $insert['global_rank']
           );
-      $db_fulldirs[$fulldir] = $insert{'id'};
+      $db_fulldirs[$fulldir] = $insert['id'];
       $next_rank[$insert{'id'}] = 1;
     }
     else
@@ -386,7 +386,7 @@ SELECT file,storage_category_id
 '.wordwrap(implode(', ', $cat_ids), 80, "\n").')
     AND validated = \'false\'';
     $result = pwg_query($query);
-    while ($row = mysql_fetch_assoc($result))
+    while ($row = pwg_db_fetch_assoc($result))
     {
       array_push(
         $db_unvalidated,
@@ -402,7 +402,7 @@ SELECT file,storage_category_id
   $query = '
 SELECT IF(MAX(id)+1 IS NULL, 1, MAX(id)+1) AS next_element_id
   FROM '.IMAGES_TABLE;
-  list($next_element_id) = mysql_fetch_row(pwg_query($query));
+  list($next_element_id) = pwg_db_fetch_row(pwg_query($query));
 
   $start = get_moment();
 
@@ -470,7 +470,7 @@ SELECT IF(MAX(id)+1 IS NULL, 1, MAX(id)+1) AS next_element_id
       array_push(
         $insert_links,
         array(
-          'image_id'    => $insert{'id'},
+          'image_id'    => $insert['id'],
           'category_id' => $insert['storage_category_id'],
           )
         );
@@ -478,7 +478,7 @@ SELECT IF(MAX(id)+1 IS NULL, 1, MAX(id)+1) AS next_element_id
       array_push(
         $infos,
         array(
-          'path' => $insert{'path'},
+          'path' => $insert['path'],
           'info' => l10n('update_research_added')
           )
         );
@@ -555,7 +555,7 @@ SELECT id,file,storage_category_id,infos
 
     $waiting_to_delete = array();
 
-    while ($row = mysql_fetch_assoc($result))
+    while ($row = pwg_db_fetch_assoc($result))
     {
       $data = array();
 
@@ -564,7 +564,7 @@ SELECT id
   FROM '.IMAGES_TABLE.'
   WHERE storage_category_id = '.$row['storage_category_id'].'
     AND file = \''.$row['file'].'\'';
-      list($data['id']) = mysql_fetch_row(pwg_query($query));
+      list($data['id']) = pwg_db_fetch_row(pwg_query($query));
 
       foreach ($fields['update'] as $field)
       {

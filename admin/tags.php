@@ -49,7 +49,7 @@ SELECT id, name
   WHERE id IN ('.$_POST['edit_list'].')
 ;';
   $result = pwg_query($query);
-  while ($row = mysql_fetch_assoc($result))
+  while ($row = pwg_db_fetch_assoc($result))
   {
     $current_name_of[ $row['id'] ] = $row['name'];
   }
@@ -220,7 +220,7 @@ SELECT id, name
   WHERE id IN ('.implode(',', $_POST['tags']).')
 ;';
   $result = pwg_query($query);
-  while ($row = mysql_fetch_assoc($result))
+  while ($row = pwg_db_fetch_assoc($result))
   {
     $name_of[ $row['id'] ] = $row['name'];
   }

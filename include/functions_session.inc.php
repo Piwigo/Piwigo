@@ -121,7 +121,7 @@ SELECT data
   $result = pwg_query($query);
   if ($result)
   {
-    $row = mysql_fetch_assoc($result);
+    $row = pwg_db_fetch_assoc($result);
     return $row['data'];
   }
   else

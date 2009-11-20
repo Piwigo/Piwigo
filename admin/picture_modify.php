@@ -44,7 +44,7 @@ SELECT path
   FROM '.IMAGES_TABLE.'
   WHERE id = '.$_GET['image_id'].'
 ;';
-  list($path) = mysql_fetch_row(pwg_query($query));
+  list($path) = pwg_db_fetch_row(pwg_query($query));
   update_metadata(array($_GET['image_id'] => $path));
 
   array_push($page['infos'], l10n('Metadata synchronized from file'));
@@ -175,7 +175,7 @@ SELECT *
   FROM '.IMAGES_TABLE.'
   WHERE id = '.$_GET['image_id'].'
 ;';
-$row = mysql_fetch_assoc(pwg_query($query));
+$row = pwg_db_fetch_assoc(pwg_query($query));
 
 $storage_category_id = null;
 if (!empty($row['storage_category_id']))
@@ -324,7 +324,7 @@ SELECT category_id, uppercats
 ;';
 $result = pwg_query($query);
 
-while ($row = mysql_fetch_assoc($result))
+while ($row = pwg_db_fetch_assoc($result))
 {
   $name =
     get_cat_display_name_cache(
@@ -417,7 +417,7 @@ if (isset($storage_category_id))
 {
   array_push($associateds, $storage_category_id);
 }
-while ($row = mysql_fetch_assoc($result))
+while ($row = pwg_db_fetch_assoc($result))
 {
   array_push($associateds, $row['id']);
 }

@@ -92,6 +92,7 @@ foreach( array(
 
 include(PHPWG_ROOT_PATH . 'include/config_default.inc.php');
 @include(PHPWG_ROOT_PATH. 'include/config_local.inc.php');
+include(PHPWG_ROOT_PATH .'include/dblayer/functions_mysql.inc.php');
 
 if(isset($conf['show_php_errors']) && !empty($conf['show_php_errors']))
 {
@@ -104,22 +105,11 @@ include(PHPWG_ROOT_PATH . 'include/functions.inc.php');
 include( PHPWG_ROOT_PATH .'include/template.class.php');
 
 // Database connection
-@mysql_connect( $conf['db_host'], $conf['db_user'], $conf['db_password'] ) or my_error( 'mysql_connect', true );
-@mysql_select_db( $conf['db_base'] ) or my_error( 'mysql_select_db', true );
+$pwg_db_link = pwg_db_connect($conf['db_host'], $conf['db_user'], 
+			      $conf['db_password'], $conf['db_base']) 
+  or my_error('pwg_db_connect', true);
 
-defined('PWG_CHARSET') and defined('DB_CHARSET')
-  or fatal_error('PWG_CHARSET and/or DB_CHARSET is not defined');
-if ( version_compare(mysql_get_server_info(), '4.1.0', '>=') )
-{
-  if (DB_CHARSET!='')
-  {
-    pwg_query('SET NAMES "'.DB_CHARSET.'"');
-  }
-}
-elseif ( strtolower(PWG_CHARSET)!='iso-8859-1' )
-{
-  fatal_error('PWG supports only iso-8859-1 charset on MySql version '.mysql_get_server_info());
-}
+pwg_db_check_charset();
 
 load_conf_from_db();
 load_plugins();

@@ -108,7 +108,7 @@ if ( !defined('PWG_CHARSET') )
 SELECT language, COUNT(user_id) AS count FROM '.USER_INFOS_TABLE.'
   GROUP BY language';
   $result = pwg_query($query);
-  while ( $row=mysql_fetch_assoc($result) )
+  while ( $row=pwg_db_fetch_assoc($result) )
   {
     $language = $row["language"];
     $lang_def = explode('.', $language);
@@ -141,7 +141,7 @@ SELECT language, COUNT(user_id) AS count FROM '.USER_INFOS_TABLE.'
 SELECT language FROM '.USER_INFOS_TABLE.'
   WHERE user_id='.$conf['webmaster_id'];
   $result = pwg_query($query);
-  if (mysql_num_rows($result)==0)
+  if (pwg_db_num_rows($result)==0)
   {
     $query='
 SELECT language FROM '.USER_INFOS_TABLE.'
@@ -150,7 +150,7 @@ SELECT language FROM '.USER_INFOS_TABLE.'
     $result = pwg_query($query);
   }
 
-  if ( $row=mysql_fetch_assoc($result) )
+  if ( $row=pwg_db_fetch_assoc($result) )
   {
     $admin_charset = $all_langs[$row['language']]['charset'];
   }
@@ -165,7 +165,7 @@ SELECT language FROM '.USER_INFOS_TABLE.'
   $all_tables = array();
   $query = 'SHOW TABLES LIKE "'.$prefixeTable.'%"';
   $result = pwg_query($query);
-  while ( $row=mysql_fetch_assoc($result) )
+  while ( $row=pwg_db_fetch_assoc($result) )
   {
     array_push($all_tables, $row[0]);
   }
@@ -176,7 +176,7 @@ SELECT language FROM '.USER_INFOS_TABLE.'
     $query = 'SHOW FULL COLUMNS FROM '.$table;
     $result = pwg_query($query);
     $field_definitions=array();
-    while ( $row=mysql_fetch_assoc($result) )
+    while ( $row=pwg_db_fetch_assoc($result) )
     {
       if ( !isset($row['Collation']) or $row['Collation']=='NULL' )
         continue;

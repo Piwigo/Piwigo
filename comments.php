@@ -283,7 +283,7 @@ SELECT COUNT(DISTINCT(com.id))
   WHERE '.implode('
     AND ', $page['where_clauses']).'
 ;';
-list($counter) = mysql_fetch_row(pwg_query($query));
+list($counter) = pwg_db_fetch_row(pwg_query($query));
 
 $url = PHPWG_ROOT_PATH
     .'comments.php'
@@ -331,7 +331,7 @@ if ('all' != $page['items_number'])
 $query.= '
 ;';
 $result = pwg_query($query);
-while ($row = mysql_fetch_assoc($result))
+while ($row = pwg_db_fetch_assoc($result))
 {
   array_push($comments, $row);
   array_push($element_ids, $row['image_id']);
@@ -348,7 +348,7 @@ SELECT id, name, file, path, tn_ext
   WHERE id IN ('.implode(',', $element_ids).')
 ;';
   $result = pwg_query($query);
-  while ($row = mysql_fetch_assoc($result))
+  while ($row = pwg_db_fetch_assoc($result))
   {
     $elements[$row['id']] = $row;
   }

@@ -66,7 +66,7 @@ $result = pwg_query($query);
 
 $datas = array();
 
-while ($row = mysql_fetch_assoc($result))
+while ($row = pwg_db_fetch_assoc($result))
 {
   array_push(
     $datas,

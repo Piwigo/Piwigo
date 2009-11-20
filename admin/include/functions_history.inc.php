@@ -165,7 +165,7 @@ SELECT
 
   $result = pwg_query($query);
 
-  while ($row = mysql_fetch_assoc($result))
+  while ($row = pwg_db_fetch_assoc($result))
   {
     array_push($data, $row);
   }

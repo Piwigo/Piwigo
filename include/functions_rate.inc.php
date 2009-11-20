@@ -124,7 +124,7 @@ SELECT COUNT(rate) AS count
   FROM '.RATE_TABLE.'
   WHERE element_id = '.$image_id.'
 ;';
-  $row = mysql_fetch_assoc(pwg_query($query));
+  $row = pwg_db_fetch_assoc(pwg_query($query));
   $query = '
 UPDATE '.IMAGES_TABLE.'
   SET average_rate = '.$row['average'].'

@@ -44,7 +44,7 @@ function get_enums($table, $field)
   // retrieving the properties of the table. Each line represents a field :
   // columns are 'Field', 'Type'
   $result = pwg_query('desc '.$table);
-  while ($row = mysql_fetch_assoc($result))
+  while ($row = pwg_db_fetch_assoc($result))
   {
     // we are only interested in the the field given in parameter for the
     // function
@@ -59,7 +59,7 @@ function get_enums($table, $field)
       }
     }
   }
-  mysql_free_result($result);
+  pwg_db_free_result($result);
   return $options;
 }
 
@@ -596,54 +596,6 @@ function format_date($date, $show_time = false)
   return $formated_date;
 }
 
-function pwg_query($query)
-{
-  global $conf,$page,$debug,$t2;
-
-  $start = get_moment();
-  ($result = mysql_query($query)) or my_error($query, $conf['die_on_sql_error']);
-
-  $time = get_moment() - $start;
-
-  if (!isset($page['count_queries']))
-  {
-    $page['count_queries'] = 0;
-    $page['queries_time'] = 0;
-  }
-
-  $page['count_queries']++;
-  $page['queries_time']+= $time;
-
-  if ($conf['show_queries'])
-  {
-    $output = '';
-    $output.= '<pre>['.$page['count_queries'].'] ';
-    $output.= "\n".$query;
-    $output.= "\n".'(this query time : ';
-    $output.= '<b>'.number_format($time, 3, '.', ' ').' s)</b>';
-    $output.= "\n".'(total SQL time  : ';
-    $output.= number_format($page['queries_time'], 3, '.', ' ').' s)';
-    $output.= "\n".'(total time      : ';
-    $output.= number_format( ($time+$start-$t2), 3, '.', ' ').' s)';
-    if ( $result!=null and preg_match('/\s*SELECT\s+/i',$query) )
-    {
-      $output.= "\n".'(num rows        : ';
-      $output.= mysql_num_rows($result).' )';
-    }
-    elseif ( $result!=null
-      and preg_match('/\s*INSERT|UPDATE|REPLACE|DELETE\s+/i',$query) )
-    {
-      $output.= "\n".'(affected rows   : ';
-      $output.= mysql_affected_rows().' )';
-    }
-    $output.= "</pre>\n";
-
-    $debug .= $output;
-  }
-
-  return $result;
-}
-
 function pwg_debug( $string )
 {
   global $debug,$t2,$page;
@@ -905,44 +857,6 @@ function get_thumbnail_title($element_info)
   return $thumbnail_title;
 }
 
-// my_error returns (or send to standard output) the message concerning the
-// error occured for the last mysql query.
-function my_error($header, $die)
-{
-  $error = "[mysql error ".mysql_errno().'] '.mysql_error()."\n";
-  $error .= $header;
-
-  if ($die)
-  {
-    fatal_error($error);
-  }
-  echo("<pre>");
-  trigger_error($error, E_USER_WARNING);
-  echo("</pre>");
-}
-
-
-/**
- * creates an array based on a query, this function is a very common pattern
- * used here
- *
- * @param string $query
- * @param string $fieldname
- * @return array
- */
-function array_from_query($query, $fieldname)
-{
-  $array = array();
-
-  $result = pwg_query($query);
-  while ($row = mysql_fetch_assoc($result))
-  {
-    array_push($array, $row[$fieldname]);
-  }
-
-  return $array;
-}
-
 /**
  * fill the current user caddie with given elements, if not already in
  * caddie
@@ -1121,7 +1035,7 @@ SELECT '.$conf['user_fields']['email'].'
   FROM '.USERS_TABLE.'
   WHERE '.$conf['user_fields']['id'].' = '.$conf['webmaster_id'].'
 ;';
-  list($email) = mysql_fetch_row(pwg_query($query));
+  list($email) = pwg_db_fetch_row(pwg_query($query));
 
   return $email;
 }
@@ -1142,12 +1056,12 @@ SELECT param, value
 ;';
   $result = pwg_query($query);
 
-  if ((mysql_num_rows($result) == 0) and !empty($condition))
+  if ((pwg_db_num_rows($result) == 0) and !empty($condition))
   {
     fatal_error('No configuration data');
   }
 
-  while ($row = mysql_fetch_assoc($result))
+  while ($row = pwg_db_fetch_assoc($result))
   {
     $conf[ $row['param'] ] = isset($row['value']) ? $row['value'] : '';
 
@@ -1192,7 +1106,7 @@ function simple_hash_from_query($query, $keyname, $valuename)
   $array = array();
 
   $result = pwg_query($query);
-  while ($row = mysql_fetch_assoc($result))
+  while ($row = pwg_db_fetch_assoc($result))
   {
     $array[ $row[$keyname] ] = $row[$valuename];
   }
@@ -1213,7 +1127,7 @@ function hash_from_query($query, $keyname)
 {
   $array = array();
   $result = pwg_query($query);
-  while ($row = mysql_fetch_assoc($result))
+  while ($row = pwg_db_fetch_assoc($result))
   {
     $array[ $row[$keyname] ] = $row;
   }
@@ -1584,7 +1498,7 @@ function get_icon($date, $is_child_date = false)
   {
     // Use MySql date in order to standardize all recent "actions/queries"
     list($cache['get_icon']['sql_recent_date']) =
-      mysql_fetch_row(pwg_query('select SUBDATE(
+      pwg_db_fetch_row(pwg_query('select SUBDATE(
       CURRENT_DATE,INTERVAL '.$user['recent_period'].' DAY)'));
   }
 

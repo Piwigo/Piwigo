@@ -99,7 +99,7 @@ DELETE FROM '.OLD_PERMALINKS_TABLE.'
   WHERE permalink="'.$_GET['delete_permanent'].'"
   LIMIT 1';
   pwg_query($query);
-  if (mysql_affected_rows()==0)
+  if (pwg_db_affected_rows()==0)
     array_push($page['errors'], 'Cannot delete the old permalink !');
 }
 
@@ -134,7 +134,7 @@ if ( $sort_by[0]=='id' or $sort_by[0]=='permalink' )
 }
 $categories=array();
 $result=pwg_query($query);
-while ( $row=mysql_fetch_assoc($result) )
+while ( $row = pwg_db_fetch_assoc($result) )
 {
   $row['name'] = get_cat_display_name_cache( $row['uppercats'] );
   $categories[] = $row;
@@ -162,7 +162,7 @@ if ( count($sort_by) )
 }
 $result = pwg_query($query);
 $deleted_permalinks=array();
-while ( $row=mysql_fetch_assoc($result) )
+while ( $row = pwg_db_fetch_assoc($result) )
 {
   $row['name'] = get_cat_display_name_cache($row['cat_id']);
   $row['U_DELETE'] =

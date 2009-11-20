@@ -55,7 +55,7 @@ SELECT '.implode(',', $fields).'
   WHERE user_id = '.$conf['default_user_id'].'
 ;';
     $result = pwg_query($query);
-    $default_user = mysql_fetch_assoc($result);
+    $default_user = pwg_db_fetch_assoc($result);
     $userdata = array_merge($userdata, $default_user);
   }
 
@@ -162,7 +162,7 @@ function save_profile_from_post($userdata, &$errors)
     FROM '.USERS_TABLE.'
     WHERE '.$conf['user_fields']['id'].' = \''.$userdata['id'].'\'
   ;';
-      list($current_password) = mysql_fetch_row(pwg_query($query));
+      list($current_password) = pwg_db_fetch_row(pwg_query($query));
   
       if ($conf['pass_convert']($_POST['password']) != $current_password)
       {

@@ -193,7 +193,7 @@ SELECT *
   FROM '.CATEGORIES_TABLE.'
   WHERE id = '.$_GET['cat_id'].'
 ;';
-$category = mysql_fetch_assoc( pwg_query( $query ) );
+$category = pwg_db_fetch_assoc( pwg_query( $query ) );
 // nullable fields
 foreach (array('comment','dir','site_id', 'id_uppercat') as $nullable)
 {
@@ -210,7 +210,7 @@ $query = 'SELECT DISTINCT category_id
   WHERE category_id = '.$_GET['cat_id'].'
   LIMIT 1';
 $result = pwg_query($query);
-$category['has_images'] = mysql_num_rows($result)>0 ? true : false;
+$category['has_images'] = pwg_db_num_rows($result)>0 ? true : false;
 
 // Navigation path
 $navigation = get_cat_display_name_cache(
@@ -373,7 +373,7 @@ SELECT id,tn_ext,path
   FROM '.IMAGES_TABLE.'
   WHERE id = '.$category['representative_picture_id'].'
 ;';
-    $row = mysql_fetch_assoc(pwg_query($query));
+    $row = pwg_db_fetch_assoc(pwg_query($query));
     $src = get_thumbnail_url($row);
     $url = get_root_url().'admin.php?page=picture_modify';
     $url.= '&amp;image_id='.$category['representative_picture_id'];
@@ -461,9 +461,9 @@ SELECT id, file, path, tn_ext
 ;';
 
     $result = pwg_query($query);
-    if (mysql_num_rows($result) > 0)
+    if (pwg_db_num_rows($result) > 0)
     {
-      $element = mysql_fetch_assoc($result);
+      $element = pwg_db_fetch_assoc($result);
 
       $img_url  = '<a href="'.
                       make_picture_url(array(
@@ -511,7 +511,7 @@ SELECT
   FROM '.GROUPS_TABLE.'
   WHERE id = '.$_POST['group'].'
 ;';
-  list($group_name) = mysql_fetch_row(pwg_query($query));
+  list($group_name) = pwg_db_fetch_row(pwg_query($query));
   
   array_push(
     $page['infos'],

@@ -136,7 +136,7 @@ INSERT INTO '.SEARCH_TABLE.'
 ;';
     pwg_query($query);
 
-    $search_id = mysql_insert_id();
+    $search_id = pwg_db_insert_id();
   }
   else
   {

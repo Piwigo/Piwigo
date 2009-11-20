@@ -42,7 +42,7 @@ SELECT value
   FROM '.CONFIG_TABLE.'
   WHERE param = \'prefix_thumbnail\'
 ;';
-list($prefix_thumbnail) = mysql_fetch_row(pwg_query($query));
+list($prefix_thumbnail) = pwg_db_fetch_row(pwg_query($query));
 
 // delete obsolete configuration
 $query = '
@@ -191,10 +191,10 @@ SELECT *
 ;';
 
 $datas = array();
-list($dbnow) = mysql_fetch_row(pwg_query('SELECT NOW();'));
+list($dbnow) = pwg_db_fetch_row(pwg_query('SELECT NOW();'));
 
 $result = pwg_query($query);
-while ($row = mysql_fetch_assoc($result))
+while ($row = pwg_db_fetch_assoc($result))
 {
   $row['user_id'] = $row['id'];
   $row['registration_date'] = $dbnow;

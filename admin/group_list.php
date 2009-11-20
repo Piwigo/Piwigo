@@ -60,7 +60,7 @@ SELECT name
   FROM '.GROUPS_TABLE.'
   WHERE id = '.$_GET['delete'].'
 ;';
-  list($groupname) = mysql_fetch_row(pwg_query($query));
+  list($groupname) = pwg_db_fetch_row(pwg_query($query));
   
   // destruction of the group
   $query = '
@@ -94,7 +94,7 @@ SELECT COUNT(*)
   FROM '.GROUPS_TABLE.'
   WHERE name = \''.$_POST['groupname'].'\'
 ;';
-    list($count) = mysql_fetch_row(pwg_query($query));
+    list($count) = pwg_db_fetch_row(pwg_query($query));
     if ($count != 0)
     {
       array_push($page['errors'], l10n('group_add_error2'));
@@ -107,7 +107,7 @@ SELECT COUNT(*)
 INSERT INTO '.GROUPS_TABLE.'
   (name)
   VALUES
-  (\''.mysql_real_escape_string($_POST['groupname']).'\')
+  (\''.pwg_db_real_escape_string($_POST['groupname']).'\')
 ;';
     pwg_query($query);
 
@@ -129,7 +129,7 @@ SELECT name, is_default
   FROM '.GROUPS_TABLE.'
   WHERE id = '.$_GET['toggle_is_default'].'
 ;';
-  list($groupname, $is_default) = mysql_fetch_row(pwg_query($query));
+  list($groupname, $is_default) = pwg_db_fetch_row(pwg_query($query));
   
   // update of the group
   $query = '
@@ -175,14 +175,14 @@ $del_url     = $admin_url.'group_list&amp;delete=';
 $members_url = $admin_url.'user_list&amp;group=';
 $toggle_is_default_url     = $admin_url.'group_list&amp;toggle_is_default=';
 
-while ($row = mysql_fetch_assoc($result))
+while ($row = pwg_db_fetch_assoc($result))
 {
   $query = '
 SELECT COUNT(*)
   FROM '.USER_GROUP_TABLE.'
   WHERE group_id = '.$row['id'].'
 ;';
-  list($counter) = mysql_fetch_row(pwg_query($query));
+  list($counter) = pwg_db_fetch_row(pwg_query($query));
   
   $template->append(
     'groups',

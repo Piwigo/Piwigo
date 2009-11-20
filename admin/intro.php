@@ -53,24 +53,24 @@ if (isset($_GET['action']) and 'check_upgrade' == $_GET['action'])
 
     // if the current version is a BSF (development branch) build, we check
     // the first line, for stable versions, we check the second line
-    if (preg_match('/^BSF/', $versions{'current'}))
+    if (preg_match('/^BSF/', $versions['current']))
     {
-      $versions{'latest'} = trim($lines[0]);
+      $versions['latest'] = trim($lines[0]);
 
       // because integer are limited to 4,294,967,296 we need to split BSF
       // versions in date.time
       foreach ($versions as $key => $value)
       {
-        $versions{$key} =
+        $versions[$key] =
           preg_replace('/BSF_(\d{8})(\d{4})/', '$1.$2', $value);
       }
     }
     else
     {
-      $versions{'latest'} = trim($lines[1]);
+      $versions['latest'] = trim($lines[1]);
     }
 
-    if ('' == $versions{'latest'})
+    if ('' == $versions['latest'])
     {
       array_push(
         $page['errors'],
@@ -79,14 +79,14 @@ if (isset($_GET['action']) and 'check_upgrade' == $_GET['action'])
     }
     // concatenation needed to avoid automatic transformation by release
     // script generator
-    else if ('%'.'PWGVERSION'.'%' == $versions{'current'})
+    else if ('%'.'PWGVERSION'.'%' == $versions['current'])
     {
       array_push(
         $page['infos'],
         l10n('You are running on development sources, no check possible.')
         );
     }
-    else if (version_compare($versions{'current'}, $versions{'latest'}) < 0)
+    else if (version_compare($versions['current'], $versions['latest']) < 0)
     {
       array_push(
         $page['infos'],
@@ -125,69 +125,70 @@ if ($conf['show_newsletter_subscription']) {
 }
 
 $php_current_timestamp = date("Y-m-d H:i:s");
-list($mysql_version, $db_current_timestamp) = mysql_fetch_row(pwg_query('SELECT VERSION(), CURRENT_TIMESTAMP;'));
+$db_version = pwg_get_db_version();
+list($db_current_timestamp) = pwg_db_fetch_row(pwg_query('SELECT CURRENT_TIMESTAMP;'));
 
 $query = '
 SELECT COUNT(*)
   FROM '.IMAGES_TABLE.'
 ;';
-list($nb_elements) = mysql_fetch_row(pwg_query($query));
+list($nb_elements) = pwg_db_fetch_row(pwg_query($query));
 
 $query = '
 SELECT COUNT(*)
   FROM '.CATEGORIES_TABLE.'
 ;';
-list($nb_categories) = mysql_fetch_row(pwg_query($query));
+list($nb_categories) = pwg_db_fetch_row(pwg_query($query));
 
 $query = '
 SELECT COUNT(*)
   FROM '.CATEGORIES_TABLE.'
   WHERE dir IS NULL
 ;';
-list($nb_virtual) = mysql_fetch_row(pwg_query($query));
+list($nb_virtual) = pwg_db_fetch_row(pwg_query($query));
 
 $query = '
 SELECT COUNT(*)
   FROM '.CATEGORIES_TABLE.'
   WHERE dir IS NOT NULL
 ;';
-list($nb_physical) = mysql_fetch_row(pwg_query($query));
+list($nb_physical) = pwg_db_fetch_row(pwg_query($query));
 
 $query = '
 SELECT COUNT(*)
   FROM '.IMAGE_CATEGORY_TABLE.'
 ;';
-list($nb_image_category) = mysql_fetch_row(pwg_query($query));
+list($nb_image_category) = pwg_db_fetch_row(pwg_query($query));
 
 $query = '
 SELECT COUNT(*)
   FROM '.TAGS_TABLE.'
 ;';
-list($nb_tags) = mysql_fetch_row(pwg_query($query));
+list($nb_tags) = pwg_db_fetch_row(pwg_query($query));
 
 $query = '
 SELECT COUNT(*)
   FROM '.IMAGE_TAG_TABLE.'
 ;';
-list($nb_image_tag) = mysql_fetch_row(pwg_query($query));
+list($nb_image_tag) = pwg_db_fetch_row(pwg_query($query));
 
 $query = '
 SELECT COUNT(*)
   FROM '.USERS_TABLE.'
 ;';
-list($nb_users) = mysql_fetch_row(pwg_query($query));
+list($nb_users) = pwg_db_fetch_row(pwg_query($query));
 
 $query = '
 SELECT COUNT(*)
   FROM '.GROUPS_TABLE.'
 ;';
-list($nb_groups) = mysql_fetch_row(pwg_query($query));
+list($nb_groups) = pwg_db_fetch_row(pwg_query($query));
 
 $query = '
 SELECT COUNT(*)
   FROM '.COMMENTS_TABLE.'
 ;';
-list($nb_comments) = mysql_fetch_row(pwg_query($query));
+list($nb_comments) = pwg_db_fetch_row(pwg_query($query));
 
 $template->assign(
   array(
@@ -195,7 +196,8 @@ $template->assign(
     'PWG_VERSION' => PHPWG_VERSION,
     'OS' => PHP_OS,
     'PHP_VERSION' => phpversion(),
-    'MYSQL_VERSION' => $mysql_version,
+    'DB_ENGINE' => 'MySQL',
+    'DB_VERSION' => $db_version,
     'DB_ELEMENTS' => l10n_dec('%d element', '%d elements', $nb_elements),
     'DB_CATEGORIES' =>
       l10n_dec('cat_inclu_part1_S', 'cat_inclu_part1_P',
@@ -223,7 +225,7 @@ if ($nb_elements > 0)
 SELECT MIN(date_available)
   FROM '.IMAGES_TABLE.'
 ;';
-  list($first_date) = mysql_fetch_row(pwg_query($query));
+  list($first_date) = pwg_db_fetch_row(pwg_query($query));
 
   $template->assign(
     'first_added',
@@ -243,7 +245,7 @@ SELECT COUNT(*)
   FROM '.WAITING_TABLE.'
   WHERE validated=\'false\'
 ;';
-list($nb_waiting) = mysql_fetch_row(pwg_query($query));
+list($nb_waiting) = pwg_db_fetch_row(pwg_query($query));
 
 if ($nb_waiting > 0)
 {
@@ -262,7 +264,7 @@ SELECT COUNT(*)
   FROM '.COMMENTS_TABLE.'
   WHERE validated=\'false\'
 ;';
-list($nb_comments) = mysql_fetch_row(pwg_query($query));
+list($nb_comments) = pwg_db_fetch_row(pwg_query($query));
 
 if ($nb_comments > 0)
 {

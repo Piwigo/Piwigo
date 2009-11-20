@@ -145,12 +145,12 @@ order by
 
   $result = pwg_query($query);
 
-  if (mysql_num_rows($result) > 0)
+  if (pwg_db_num_rows($result) > 0)
   {
     $inserts = array();
     $check_key_list = array();
 
-    while ($nbm_user = mysql_fetch_assoc($result))
+    while ($nbm_user = pwg_db_fetch_assoc($result))
     {
       // Calculate key
       $nbm_user['check_key'] = find_available_check_key();
@@ -238,7 +238,7 @@ function do_action_send_mail_notification($action = 'list_to_send', $check_key_l
 
   if (in_array($action, array('list_to_send', 'send')))
   {
-    list($dbnow) = mysql_fetch_row(pwg_query('SELECT NOW();'));
+    list($dbnow) = pwg_db_fetch_row(pwg_query('SELECT NOW();'));
 
     $is_action_send = ($action == 'send');
 
@@ -512,7 +512,7 @@ switch ($page['mode'])
       $updated_param_count = 0;
       // Update param
       $result = pwg_query('select param, value from '.CONFIG_TABLE.' where param like \'nbm\\_%\'');
-      while ($nbm_user = mysql_fetch_assoc($result))
+      while ($nbm_user = pwg_db_fetch_assoc($result))
       {
         if (isset($_POST[$nbm_user['param']]))
         {

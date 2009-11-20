@@ -248,7 +248,7 @@ if ( isset( $_POST['submit'] ) and !isset( $_GET['waiting_id'] ) )
     $query.= ",'".$_POST['mail_address']."',".time().",'".$xml_infos."')";
     $query.= ';';
     pwg_query( $query );
-    $page['waiting_id'] = mysql_insert_id();
+    $page['waiting_id'] = pwg_db_insert_id();
 
     if ($conf['email_admin_on_picture_uploaded'])
     {
@@ -288,7 +288,7 @@ if ( isset( $_POST['submit'] ) and isset( $_GET['waiting_id'] ) )
   $query.= ' where id = '.$_GET['waiting_id'];
   $query.= ';';
   $result= pwg_query( $query );
-  $row = mysql_fetch_assoc( $result );
+  $row = pwg_db_fetch_assoc( $result );
   $file = substr ( $row['file'], 0, strrpos ( $row['file'], ".") );
   $extension = get_extension( $_FILES['picture']['name'] );
 

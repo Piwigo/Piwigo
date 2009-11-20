@@ -41,7 +41,7 @@ SELECT rules
   FROM '.SEARCH_TABLE.'
   WHERE id = '.$search_id.'
 ;';
-  list($serialized_rules) = mysql_fetch_row(pwg_query($query));
+  list($serialized_rules) = pwg_db_fetch_row(pwg_query($query));
 
   return unserialize($serialized_rules);
 }
@@ -458,7 +458,7 @@ SELECT i.id,
 
   $by_weights=array();
   $result = pwg_query($query);
-  while ($row = mysql_fetch_assoc($result))
+  while ($row = pwg_db_fetch_assoc($result))
   { // weight is important when sorting images by relevance
     if ($row['weight'])
     {
@@ -489,7 +489,7 @@ SELECT image_id, COUNT(tag_id) AS weight
   WHERE tag_id IN ('.implode(',',array_keys($tags)).')
   GROUP BY image_id';
       $result = pwg_query($query);
-      while ($row = mysql_fetch_assoc($result))
+      while ($row = pwg_db_fetch_assoc($result))
       { // weight is important when sorting images by relevance
         $image_id=(int)$row['image_id'];
         @$by_weights[$image_id] += $row['weight'];
@@ -510,7 +510,7 @@ SELECT id, name, permalink, nb_images
       array( 'visible_categories' => 'cat_id' ), "\n    AND"
     );
   $result = pwg_query($query);
-  while ($row = mysql_fetch_assoc($result))
+  while ($row = pwg_db_fetch_assoc($result))
   { // weight is important when sorting images by relevance
     if ($row['nb_images']==0)
     {

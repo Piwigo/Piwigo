@@ -58,7 +58,7 @@ from '.USERS_TABLE.'
 where upper('.$conf['user_fields']['email'].') = upper(\''.$mail_address.'\')
 '.(is_numeric($user_id) ? 'and '.$conf['user_fields']['id'].' != \''.$user_id.'\'' : '').'
 ;';
-    list($count) = mysql_fetch_row(pwg_query($query));
+    list($count) = pwg_db_fetch_row(pwg_query($query));
     if ($count != 0)
     {
       return l10n('reg_err_mail_address_dbl');
@@ -110,12 +110,12 @@ function register_user($login, $password, $mail_address,
 SELECT MAX('.$conf['user_fields']['id'].') + 1
   FROM '.USERS_TABLE.'
 ;';
-    list($next_id) = mysql_fetch_row(pwg_query($query));
+    list($next_id) = pwg_db_fetch_row(pwg_query($query));
 
     $insert =
       array(
         $conf['user_fields']['id'] => $next_id,
-        $conf['user_fields']['username'] => mysql_real_escape_string($login),
+        $conf['user_fields']['username'] => pwg_db_real_escape_string($login),
         $conf['user_fields']['password'] => $conf['pass_convert']($password),
         $conf['user_fields']['email'] => $mail_address
         );
@@ -134,7 +134,7 @@ SELECT id
       $result = pwg_query($query);
 
       $inserts = array();
-      while ($row = mysql_fetch_assoc($result))
+      while ($row = pwg_db_fetch_assoc($result))
       {
         array_push
         (
@@ -249,7 +249,7 @@ SELECT ';
   FROM '.USERS_TABLE.'
   WHERE '.$conf['user_fields']['id'].' = \''.$user_id.'\'';
 
-  $row = mysql_fetch_assoc(pwg_query($query));
+  $row = pwg_db_fetch_assoc(pwg_query($query));
 
   while (true)
   {
@@ -259,7 +259,7 @@ SELECT ui.*, uc.*
     ON ui.user_id = uc.user_id
   WHERE ui.user_id = \''.$user_id.'\'';
     $result = pwg_query($query);
-    if (mysql_num_rows($result) > 0)
+    if (pwg_db_num_rows($result) > 0)
     {
       break;
     }
@@ -269,7 +269,7 @@ SELECT ui.*, uc.*
     }
   }
 
-  $row = array_merge($row, mysql_fetch_assoc($result));
+  $row = array_merge($row, pwg_db_fetch_assoc($result));
 
   foreach ($row as $key => $value)
   {
@@ -324,7 +324,7 @@ SELECT COUNT(DISTINCT(image_id)) as total
   FROM '.IMAGE_CATEGORY_TABLE.'
   WHERE category_id NOT IN ('.$userdata['forbidden_categories'].')
     AND image_id '.$userdata['image_access_type'].' ('.$userdata['image_access_list'].')';
-      list($userdata['nb_total_images']) = mysql_fetch_row(pwg_query($query));
+      list($userdata['nb_total_images']) = pwg_db_fetch_row(pwg_query($query));
 
 
       // now we update user cache categories
@@ -428,7 +428,7 @@ SELECT DISTINCT f.image_id
 ;';
   $result = pwg_query($query);
   $authorizeds = array();
-  while ($row = mysql_fetch_assoc($result))
+  while ($row = pwg_db_fetch_assoc($result))
   {
     array_push($authorizeds, $row['image_id']);
   }
@@ -440,7 +440,7 @@ SELECT image_id
 ;';
   $result = pwg_query($query);
   $favorites = array();
-  while ($row = mysql_fetch_assoc($result))
+  while ($row = pwg_db_fetch_assoc($result))
   {
     array_push($favorites, $row['image_id']);
   }
@@ -481,7 +481,7 @@ SELECT id
   WHERE status = \'private\'
 ;';
   $result = pwg_query($query);
-  while ($row = mysql_fetch_assoc($result))
+  while ($row = pwg_db_fetch_assoc($result))
   {
     array_push($private_array, $row['id']);
   }
@@ -523,7 +523,7 @@ SELECT id
   WHERE visible = \'false\'
 ;';
     $result = pwg_query($query);
-    while ($row = mysql_fetch_assoc($result))
+    while ($row = pwg_db_fetch_assoc($result))
     {
       array_push($forbidden_array, $row['id']);
     }
@@ -647,7 +647,7 @@ FROM '.CATEGORIES_TABLE.' as c
   $result = pwg_query($query);
 
   $cats = array();
-  while ($row = mysql_fetch_assoc($result))
+  while ($row = pwg_db_fetch_assoc($result))
   {
     $row['user_id'] = $userdata['id'];
     $row['count_categories'] = 0;
@@ -692,7 +692,7 @@ function get_userid($username)
 {
   global $conf;
 
-  $username = mysql_real_escape_string($username);
+  $username = pwg_db_real_escape_string($username);
 
   $query = '
 SELECT '.$conf['user_fields']['id'].'
@@ -701,13 +701,13 @@ SELECT '.$conf['user_fields']['id'].'
 ;';
   $result = pwg_query($query);
 
-  if (mysql_num_rows($result) == 0)
+  if (pwg_db_num_rows($result) == 0)
   {
     return false;
   }
   else
   {
-    list($user_id) = mysql_fetch_row($result);
+    list($user_id) = pwg_db_fetch_row($result);
     return $user_id;
   }
 }
@@ -727,7 +727,7 @@ SELECT COUNT(*)
   FROM '.USER_FEED_TABLE.'
   WHERE id = \''.$key.'\'
 ;';
-    list($count) = mysql_fetch_row(pwg_query($query));
+    list($count) = pwg_db_fetch_row(pwg_query($query));
     if (0 == $count)
     {
       return $key;
@@ -750,7 +750,7 @@ function get_default_user_info($convert_str = true)
             ' WHERE user_id = '.$conf['default_user_id'].';';
 
     $result = pwg_query($query);
-    $cache['default_user'] = mysql_fetch_assoc($result);
+    $cache['default_user'] = pwg_db_fetch_assoc($result);
 
     if ($cache['default_user'] !== false)
     {
@@ -865,7 +865,7 @@ function create_user_infos($arg_id, $override_values = null)
   if (!empty($user_ids))
   {
     $inserts = array();
-    list($dbnow) = mysql_fetch_row(pwg_query('SELECT NOW();'));
+    list($dbnow) = pwg_db_fetch_row(pwg_query('SELECT NOW();'));
 
     $default_user = get_default_user_info(false);
     if ($default_user === false)
@@ -930,9 +930,9 @@ SELECT '.$conf['user_fields']['username'].' AS username
 FROM '.USERS_TABLE.'
 WHERE '.$conf['user_fields']['id'].' = '.$user_id;
   $result = pwg_query($query);
-  if (mysql_num_rows($result) > 0)
+  if (pwg_db_num_rows($result) > 0)
   {
-    $row = mysql_fetch_assoc($result);
+    $row = pwg_db_fetch_assoc($result);
     $username = stripslashes($row['username']);
     $data = $time.stripslashes($row['username']).$row['password'];
     $key = base64_encode(
@@ -1041,7 +1041,7 @@ SELECT '.$conf['user_fields']['id'].' AS id,
   FROM '.USERS_TABLE.'
   WHERE '.$conf['user_fields']['username'].' = \''.mysql_real_escape_string($username).'\'
 ;';
-  $row = mysql_fetch_assoc(pwg_query($query));
+  $row = pwg_db_fetch_assoc(pwg_query($query));
   if ($row['password'] == $conf['pass_convert']($password))
   {
     log_user($row['id'], $remember_me);
