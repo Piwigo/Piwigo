@@ -973,13 +973,87 @@ function merge_chunks($output_filepath, $original_sum, $type)
     
     if (!file_put_contents($output_filepath, $string, FILE_APPEND))
     {
-      return new PwgError(500, 'error while writting chunks for '.$output_filepath);
+      new PwgError(500, '[merge_chunks] error while writting chunks for '.$output_filepath);
+      exit();
     }
     
     unlink($chunk);
   }
 
   ws_logfile('[merge_chunks] memory_get_usage after loading chunks: '.memory_get_usage());
+}
+
+/*
+ * The $file_path must be the path of the basic "web sized" photo
+ * The $type value will automatically modify the $file_path to the corresponding file
+ */
+function add_file($file_path, $type, $original_sum, $file_sum)
+{
+  // resolve the $file_path depending on the $type
+  if ('thumb' == $type) {
+    $file_path = get_thumbnail_location(
+      array(
+        'path' => $file_path,
+        'tn_ext' => 'jpg',
+        )
+      );
+  }
+
+  if ('high' == $type) {
+    @include_once(PHPWG_ROOT_PATH.'include/functions_picture.inc.php');
+    $file_path = get_high_location(
+      array(
+        'path' => $file_path,
+        'has_high' => 'true'
+        )
+      );
+  }
+
+  $upload_dir = dirname($file_path);
+  
+  if (!is_dir($upload_dir)) {
+    umask(0000);
+    $recursive = true;
+    if (!@mkdir($upload_dir, 0777, $recursive))
+    {
+      new PwgError(500, '[add_file] error during '.$type.' directory creation');
+      exit();
+    }
+  }
+
+  if (!is_writable($upload_dir))
+  {
+    // last chance to make the directory writable
+    @chmod($upload_dir, 0777);
+
+    if (!is_writable($upload_dir))
+    {
+      new PwgError(500, '[add_file] '.$type.' directory has no write access');
+      exit();
+    }
+  }
+
+  secure_directory($upload_dir);
+
+  // merge the thumbnail
+  merge_chunks($file_path, $original_sum, $type);
+  chmod($file_path, 0644);
+
+  // check dumped thumbnail md5
+  $dumped_md5 = md5_file($file_path);
+  if ($dumped_md5 != $file_sum) {
+    new PwgError(500, '[add_file] '.$type.' transfer failed');
+    exit();
+  }
+
+  list($width, $height) = getimagesize($file_path);
+  $filesize = floor(filesize($file_path)/1024);
+
+  return array(
+    'width' => $width,
+    'height' => $height,
+    'filesize' => $filesize,
+    );
 }
 
 function ws_images_add($params, &$service)
@@ -1024,138 +1098,20 @@ SELECT
     $day
     );
 
-  // create the upload directory tree if not exists
-  if (!is_dir($upload_dir)) {
-    umask(0000);
-    $recursive = true;
-    if (!@mkdir($upload_dir, 0777, $recursive))
-    {
-      return new PwgError(500, 'error during directory creation');
-    }
-  }
-
-  if (!is_writable($upload_dir))
-  {
-    // last chance to make the directory writable
-    @chmod($upload_dir, 0777);
-
-    if (!is_writable($upload_dir))
-    {
-      return new PwgError(500, 'directory has no write access');
-    }
-  }
-
-  secure_directory($upload_dir);
-
   // compute file path
   $date_string = preg_replace('/[^\d]/', '', $dbnow);
   $random_string = substr($params['file_sum'], 0, 8);
   $filename_wo_ext = $date_string.'-'.$random_string;
   $file_path = $upload_dir.'/'.$filename_wo_ext.'.jpg';
 
-  // merge the photo file
-  merge_chunks($file_path, $params['original_sum'], 'file');
-  chmod($file_path, 0644);
+  // add files
+  $file_infos  = add_file($file_path, 'file',  $params['original_sum'], $params['file_sum']);
+  $thumb_infos = add_file($file_path, 'thumb', $params['original_sum'], $params['thumbnail_sum']);
 
-  // check dumped file md5sum against expected md5sum
-  $dumped_md5 = md5_file($file_path);
-  if ($dumped_md5 != $params['file_sum']) {
-    return new PwgError(500, 'file transfer failed');
-  }
-
-  // thumbnail directory is a subdirectory of the photo file, hard coded
-  // "thumbnail"
-  $thumbnail_dir = $upload_dir.'/thumbnail';
-  if (!is_dir($thumbnail_dir)) {
-    umask(0000);
-    if (!@mkdir($thumbnail_dir, 0777))
-    {
-      return new PwgError(500, 'error during thumbnail directory creation');
-    }
-  }
-
-  if (!is_writable($thumbnail_dir))
-  {
-    // last chance to make the directory writable
-    @chmod($thumbnail_dir, 0777);
-
-    if (!is_writable($thumbnail_dir))
-    {
-      return new PwgError(500, 'thumbnail directory has no write access');
-    }
-  }
-
-  secure_directory($thumbnail_dir);
-
-  // thumbnail path, the filename may use a prefix and the extension is
-  // always "jpg" (no matter what the real file format is)
-  $thumbnail_path = sprintf(
-    '%s/%s%s.%s',
-    $thumbnail_dir,
-    $conf['prefix_thumbnail'],
-    $filename_wo_ext,
-    'jpg'
-    );
-
-  // merge the thumbnail
-  merge_chunks($thumbnail_path, $params['original_sum'], 'thumb');
-  chmod($thumbnail_path, 0644);
-
-  // check dumped thumbnail md5
-  $dumped_md5 = md5_file($thumbnail_path);
-  if ($dumped_md5 != $params['thumbnail_sum']) {
-    return new PwgError(500, 'thumbnail transfer failed');
-  }
-
-  // high resolution
   if (isset($params['high_sum']))
   {
-    // high resolution directory is a subdirectory of the photo file, hard
-    // coded "pwg_high"
-    $high_dir = $upload_dir.'/pwg_high';
-    if (!is_dir($high_dir)) {
-      umask(0000);
-      if (!@mkdir($high_dir, 0777))
-      {
-        return new PwgError(500, 'error during high directory creation');
-      }
-    }
-
-    if (!is_writable($high_dir))
-    {
-      // last chance to make the directory writable
-      @chmod($high_dir, 0777);
-
-      if (!is_writable($high_dir))
-      {
-        return new PwgError(500, 'high directory has no write access');
-      }
-    }
-
-    secure_directory($high_dir);
-
-    // high resolution path, same name as web size file
-    $high_path = sprintf(
-      '%s/%s.%s',
-      $high_dir,
-      $filename_wo_ext,
-      'jpg'
-      );
-
-    // merge the high resolution file
-    merge_chunks($high_path, $params['original_sum'], 'high');
-    chmod($high_path, 0644);
-
-    // check dumped thumbnail md5
-    $dumped_md5 = md5_file($high_path);
-    if ($dumped_md5 != $params['high_sum']) {
-      return new PwgError(500, 'high resolution transfer failed');
-    }
-
-    $high_filesize = floor(filesize($high_path)/1024);
+    $high_infos = add_file($file_path, 'high', $params['original_sum'], $params['high_sum']);
   }
-
-  list($width, $height) = getimagesize($file_path);
 
   // database registration
   $insert = array(
@@ -1164,9 +1120,9 @@ SELECT
     'tn_ext' => 'jpg',
     'name' => $params['name'],
     'path' => $file_path,
-    'filesize' => floor(filesize($file_path)/1024),
-    'width' => $width,
-    'height' => $height,
+    'filesize' => $file_infos['filesize'],
+    'width' => $file_infos['width'],
+    'height' => $file_infos['height'],
     'md5sum' => $params['original_sum'],
     );
 
@@ -1189,7 +1145,7 @@ SELECT
   if (isset($params['high_sum']))
   {
     $insert['has_high'] = 'true';
-    $insert['high_filesize'] = $high_filesize;
+    $insert['high_filesize'] = $high_infos['filesize'];
   }
 
   include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
