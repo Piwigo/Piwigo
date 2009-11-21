@@ -52,7 +52,7 @@ SELECT DISTINCT(id)
     'WHERE'
   ).'
   ORDER BY RAND(NOW())
-  LIMIT 0, '.min(50, $conf['top_number'],$user['nb_image_page']).'
+  LIMIT '.min(50, $conf['top_number'],$user['nb_image_page']).'
 ;';
 
 // +-----------------------------------------------------------------------+

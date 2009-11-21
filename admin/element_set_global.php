@@ -474,13 +474,11 @@ SELECT id,path,tn_ext,file,filesize,level
   FROM '.IMAGES_TABLE.'
   WHERE id IN ('.implode(',', $page['cat_elements_id']).')
   '.$conf['order_by'].'
-  LIMIT '.$page['start'].' OFFSET '.$page['nb_images'].'
+  LIMIT '.$page['nb_images'].' OFFSET '.$page['start'].'
 ;';
-  //echo '<pre>'.$query.'</pre>';
   $result = pwg_query($query);
 
   // template thumbnail initialization
-
   while ($row = pwg_db_fetch_assoc($result))
   {
     $src = get_thumbnail_url($row);

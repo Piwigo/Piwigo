@@ -490,7 +490,7 @@ SELECT DISTINCT(id)
   WHERE hit > 0
     '.$forbidden.'
     '.$conf['order_by'].'
-  LIMIT 0, '.$conf['top_number'].'
+  LIMIT '.$conf['top_number'].'
 ;';
 
     $page = array_merge(
@@ -517,7 +517,7 @@ SELECT DISTINCT(id)
   WHERE average_rate IS NOT NULL
     '.$forbidden.'
     '.$conf['order_by'].'
-  LIMIT 0, '.$conf['top_number'].'
+  LIMIT '.$conf['top_number'].'
 ;';
     $page = array_merge(
       $page,

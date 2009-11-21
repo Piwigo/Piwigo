@@ -239,7 +239,7 @@ SELECT t.*, count(*) counter
   {
     $query .= '
   ORDER BY counter DESC
-  LIMIT 0,'.$max_tags;
+  LIMIT '.$max_tags;
   }
   else
   {

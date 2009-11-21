@@ -292,7 +292,7 @@ SELECT i.*, GROUP_CONCAT(category_id) cat_ids
     AND ', $where_clauses).'
 GROUP BY i.id
 '.$order_by.'
-LIMIT '.(int)($params['per_page']*$params['page']).' OFFSET '.(int)$params['per_page'];
+LIMIT '.(int)$params['per_page'].' OFFSET '.(int)($params['per_page']*$params['page']);
 
     $result = pwg_query($query);
     while ($row = pwg_db_fetch_assoc($result))
@@ -682,8 +682,8 @@ SELECT id, date, author, content
   FROM '.COMMENTS_TABLE.'
   WHERE '.$where_comments.'
   ORDER BY date
-  LIMIT '.(int)($params['comments_per_page']*$params['comments_page']).
-    ' OFFSET '.(int)$params['comments_per_page'];
+  LIMIT '.(int)$params['comments_per_page'].
+    ' OFFSET '.(int)($params['comments_per_page']*$params['comments_page']);
 
     $result = pwg_query($query);
     while ($row = pwg_db_fetch_assoc($result))
@@ -1398,7 +1398,7 @@ SELECT DISTINCT i.* FROM '.IMAGES_TABLE.' i
   WHERE '. implode('
     AND ', $where_clauses).'
 '.$order_by.'
-LIMIT '.(int)($params['per_page']*$params['page']).' OFFSET '.(int)$params['per_page'];
+LIMIT '.(int)$params['per_page'].' OFFSET '.(int)($params['per_page']*$params['page']);
 
     $result = pwg_query($query);
     while ($row = pwg_db_fetch_assoc($result))

@@ -105,7 +105,7 @@ SELECT image_id
       "\n  AND"
     ).'
   ORDER BY RAND()
-  LIMIT 0,1
+  LIMIT 1
 ;';
       $subresult = pwg_query($query);
       if (pwg_db_num_rows($subresult) > 0)
@@ -133,7 +133,7 @@ SELECT image_id
       "\n  AND"
     ).'
     ORDER BY RAND()
-    LIMIT 0,1
+    LIMIT 1
   ;';
       $subresult = pwg_query($query);
       if (pwg_db_num_rows($subresult) > 0)

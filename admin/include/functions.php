@@ -597,7 +597,7 @@ SELECT image_id
   FROM '.IMAGE_CATEGORY_TABLE.'
   WHERE category_id = '.$category_id.'
   ORDER BY '.DB_RANDOM_FUNCTION.'()
-  LIMIT 0 OFFSET 1
+  LIMIT 1
 ;';
     list($representative) = pwg_db_fetch_row(pwg_query($query));
 

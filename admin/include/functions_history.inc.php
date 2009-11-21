@@ -161,7 +161,7 @@ SELECT
   WHERE '.$where_separator.'
 ;';
 
-  // LIMIT '.$page['start'].' OFFSET '.$conf['nb_logs_page'].'
+  // LIMIT '.$conf['nb_logs_page'].' OFFSET '.$page['start'].'
 
   $result = pwg_query($query);
 
