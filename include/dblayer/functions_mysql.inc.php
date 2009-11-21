@@ -393,7 +393,7 @@ function do_maintenance_all_tables()
   // List all tables
   $query = 'SHOW TABLES LIKE \''.$prefixeTable.'%\'';
   $result = pwg_query($query);
-  while ($row = pwg_db_fetch_assoc($result))
+  while ($row = pwg_db_fetch_row($result))
   {
     array_push($all_tables, $row[0]);
   }
