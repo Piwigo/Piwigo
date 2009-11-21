@@ -474,7 +474,7 @@ SELECT id,path,tn_ext,file,filesize,level
   FROM '.IMAGES_TABLE.'
   WHERE id IN ('.implode(',', $page['cat_elements_id']).')
   '.$conf['order_by'].'
-  LIMIT '.$page['start'].', '.$page['nb_images'].'
+  LIMIT '.$page['start'].' OFFSET '.$page['nb_images'].'
 ;';
   //echo '<pre>'.$query.'</pre>';
   $result = pwg_query($query);

@@ -326,7 +326,7 @@ SELECT com.id AS comment_id
 if ('all' != $page['items_number'])
 {
   $query.= '
-  LIMIT '.$start.','.$page['items_number'];
+  LIMIT '.$start.' OFFSET '.$page['items_number'];
 }
 $query.= '
 ;';

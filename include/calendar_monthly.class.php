@@ -348,7 +348,7 @@ SELECT id, file,tn_ext,path, width, height, DAYOFWEEK('.$this->date_field.')-1 a
     $query.= $this->get_date_where();
     $query.= '
   ORDER BY RAND()
-  LIMIT 0,1';
+  LIMIT 0 OFFSET 1';
     unset ( $page['chronology_date'][CDAY] );
 
     $row = pwg_db_fetch_assoc(pwg_query($query));

@@ -596,8 +596,8 @@ function set_random_representant($categories)
 SELECT image_id
   FROM '.IMAGE_CATEGORY_TABLE.'
   WHERE category_id = '.$category_id.'
-  ORDER BY RAND()
-  LIMIT 0,1
+  ORDER BY '.DB_RANDOM_FUNCTION.'()
+  LIMIT 0 OFFSET 1
 ;';
     list($representative) = pwg_db_fetch_row(pwg_query($query));
 

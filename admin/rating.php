@@ -176,7 +176,7 @@ SELECT i.id,
   WHERE 1 = 1 ' . $page['user_filter'] . '
   GROUP BY r.element_id
   ORDER BY ' . $available_order_by[$order_by_index][1] .'
-  LIMIT '.$start.','.$elements_per_page.'
+  LIMIT '.$start.' OFFSET '.$elements_per_page.'
 ;';
 
 $images = array();

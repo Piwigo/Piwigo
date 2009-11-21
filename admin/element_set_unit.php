@@ -196,7 +196,7 @@ SELECT id,path,tn_ext,name,date_creation,comment,author,file
   FROM '.IMAGES_TABLE.'
   WHERE id IN ('.implode(',', $page['cat_elements_id']).')
   '.$conf['order_by'].'
-  LIMIT '.$page['start'].', '.$page['nb_images'].'
+  LIMIT '.$page['start'].' OFFSET '.$page['nb_images'].'
 ;';
   $result = pwg_query($query);
 

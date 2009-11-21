@@ -444,7 +444,7 @@ SELECT date_available,
   '.$where_sql.'
   GROUP BY date_available
   ORDER BY date_available DESC
-  LIMIT 0,'.$max_dates.'
+  LIMIT 0 OFFSET '.$max_dates.'
 ;';
   $result = pwg_query($query);
   $dates = array();
@@ -464,7 +464,7 @@ SELECT DISTINCT id, path, name, tn_ext, file
     AND date_available="'.$dates[$i]['date_available'].'"
     AND tn_ext IS NOT NULL
   ORDER BY RAND(NOW())
-  LIMIT 0,'.$max_elements.'
+  LIMIT 0 OFFSET '.$max_elements.'
 ;';
       $dates[$i]['elements'] = array();
       $result = pwg_query($query);
@@ -484,7 +484,7 @@ SELECT DISTINCT c.uppercats, COUNT(DISTINCT i.id) img_count
     AND date_available="'.$dates[$i]['date_available'].'"
   GROUP BY category_id
   ORDER BY img_count DESC
-  LIMIT 0,'.$max_cats.'
+  LIMIT 0 OFFSET '.$max_cats.'
 ;';
       $dates[$i]['categories'] = array();
       $result = pwg_query($query);

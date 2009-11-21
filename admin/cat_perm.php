@@ -59,7 +59,7 @@ if (!isset($page['cat']))
 SELECT id
   FROM '.CATEGORIES_TABLE.'
   WHERE status = \'private\'
-  LIMIT 0,1
+  LIMIT 0 OFFSET 1
 ;';
 
   list($page['cat']) = pwg_db_fetch_row(pwg_query($query));
