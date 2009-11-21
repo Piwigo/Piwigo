@@ -132,7 +132,7 @@ function pwg_db_fetch_object($result)
   return mysql_fetch_object($result);
 }
 
-function pwg_free_result($result) 
+function pwg_db_free_result($result) 
 {
   return mysql_free_result($result);
 }
