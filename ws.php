@@ -251,6 +251,18 @@ function ws_addDefaultMethods( $arr )
     );
 
   $service->addMethod(
+    'pwg.images.checkFiles',
+    'ws_images_checkFiles',
+    array(
+      'image_id' => array(),
+      'thumbnail_sum' => array('default' => null),
+      'file_sum' => array('default' => null),
+      'high_sum' => array('default' => null),
+      ),
+    'check if you have updated version of your files for a given photo, for each requested file type, the answer can be "missing", "equals" or "differs"'
+    );
+
+  $service->addMethod(
     'pwg.images.setInfo',
     'ws_images_setInfo',
     array(

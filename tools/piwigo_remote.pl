@@ -17,6 +17,7 @@ use warnings;
 
 use JSON;
 use LWP::UserAgent;
+# LWP::Debug::level('+');
 use Getopt::Long;
 use Encode qw/is_utf8 decode/;
 use POSIX qw(ceil floor);
@@ -40,6 +41,7 @@ GetOptions(
 );
 
 our $ua = LWP::UserAgent->new;
+$ua->agent('Mozilla/piwigo_remote.pl 1.25');
 $ua->cookie_jar({});
 
 my %conf;
@@ -55,6 +57,11 @@ my %conf_default = (
 foreach my $conf_key (keys %conf_default) {
     $conf{$conf_key} = defined $opt{$conf_key} ? $opt{$conf_key} : $conf_default{$conf_key}
 }
+
+$ua->default_headers->authorization_basic(
+    $conf{username},
+    $conf{password}
+);
 
 my $result = undef;
 my $query = undef;
@@ -78,7 +85,6 @@ $result = $ua->post(
 if ($opt{action} eq 'pwg.images.add') {
     use MIME::Base64 qw(encode_base64);
     use Digest::MD5::File qw/file_md5_hex/;
-    use File::Slurp;
 
     $form = {};
     $form->{method} = 'pwg.images.add';
@@ -132,6 +138,7 @@ if ($opt{action} eq 'pwg.images.add') {
         print "upload successful\n";
     }
     else {
+        print Dumper($response);
         warn 'A problem has occured during upload', "\n";
         warn $response->decoded_content, "\n";
         die $response->status_line;
@@ -170,6 +177,7 @@ if ($opt{action} eq 'pwg.tags.getAdminList') {
     );
 
     $result = $ua->get($query);
+    print Dumper($result);
     my $tags = from_json($result->content)->{result}{tags};
 
     foreach my $tag (@{$tags}) {
@@ -234,6 +242,37 @@ if ($opt{action} eq 'pwg.images.exist') {
     # print Dumper($response);
 }
 
+if ($opt{action} eq 'pwg.images.checkFiles') {
+    use Digest::MD5::File qw/file_md5_hex/;
+
+    $form = {};
+    $form->{method} = $opt{action};
+
+    foreach my $type (qw/thumbnail file high/) {
+        if (defined $opt{$type}) {
+            $form->{$type.'_sum'} = file_md5_hex($opt{$type});
+        }
+    }
+
+    foreach my $key (keys %{ $opt{define} }) {
+        $form->{$key} = $opt{define}{$key};
+    }
+
+    my $response = $ua->post(
+        $conf{base_url}.'/ws.php?format=json',
+        $form
+    );
+
+    print "-" x 50, "\n";
+    printf("response code    : %u\n", $response->code);
+    printf("response message : %s\n", $response->message);
+    print "-" x 50, "\n";
+    print "\n";
+
+    use Data::Dumper;
+    print Dumper(from_json($response->content));
+}
+
 if ($opt{action} eq 'pwg.images.setInfo' or $opt{action} eq 'pwg.categories.setInfo') {
     $form = {
         method => $opt{action},
@@ -252,6 +291,27 @@ if ($opt{action} eq 'pwg.images.setInfo' or $opt{action} eq 'pwg.categories.setI
     # print Dumper(from_json($response->content)->{result});
     print Dumper($response);
 }
+
+if ($opt{action} eq 'pwg.categories.getList') {
+    $form = {
+        method => $opt{action},
+    };
+
+    foreach my $key (keys %{ $opt{define} }) {
+        $form->{$key} = $opt{define}{$key};
+    }
+
+    my $response = $ua->post(
+        $conf{base_url}.'/ws.php?format=json',
+        $form
+    );
+
+    use Data::Dumper;
+    print Dumper($response->content);
+    print Dumper(from_json($response->content)->{result});
+    print Dumper($response);
+}
+
 
 $query = pwg_ws_get_query(
     method => 'pwg.session.logout'
@@ -272,6 +332,8 @@ sub pwg_ws_get_query {
 
 sub send_chunks {
     my %params = @_;
+
+    use File::Slurp;
 
     my $content = read_file($params{filepath});
     my $content_length = length($content);

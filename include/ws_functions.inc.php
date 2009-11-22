@@ -989,25 +989,7 @@ function merge_chunks($output_filepath, $original_sum, $type)
  */
 function add_file($file_path, $type, $original_sum, $file_sum)
 {
-  // resolve the $file_path depending on the $type
-  if ('thumb' == $type) {
-    $file_path = get_thumbnail_location(
-      array(
-        'path' => $file_path,
-        'tn_ext' => 'jpg',
-        )
-      );
-  }
-
-  if ('high' == $type) {
-    @include_once(PHPWG_ROOT_PATH.'include/functions_picture.inc.php');
-    $file_path = get_high_location(
-      array(
-        'path' => $file_path,
-        'has_high' => 'true'
-        )
-      );
-  }
+  $file_path = file_path_for_type($file_path, $type);
 
   $upload_dir = dirname($file_path);
   
@@ -1499,6 +1481,90 @@ SELECT
   }
 
   return $result;
+}
+
+function ws_images_checkFiles($params, &$service)
+{
+  if (!is_admin() or is_adviser())
+  {
+    return new PwgError(401, 'Access denied');
+  }
+
+  // input parameters
+  //
+  // image_id
+  // thumbnail_sum
+  // file_sum
+  // high_sum
+
+  $params['image_id'] = (int)$params['image_id'];
+  if ($params['image_id'] <= 0)
+  {
+    return new PwgError(WS_ERR_INVALID_PARAM, "Invalid image_id");
+  }
+
+  $query = '
+SELECT
+    path
+  FROM '.IMAGES_TABLE.'
+  WHERE id = '.$params['image_id'].'
+;';
+  $result = pwg_query($query);
+  if (mysql_num_rows($result) == 0) {
+    return new PwgError(404, "image_id not found");
+  }
+  list($path) = mysql_fetch_row($result);
+
+  $ret = array();
+
+  foreach (array('thumb', 'file', 'high') as $type) {
+    $param_name = $type;
+    if ('thumb' == $type) {
+      $param_name = 'thumbnail';
+    }
+
+    if (isset($params[$param_name.'_sum'])) {
+      $type_path = file_path_for_type($path, $type);
+      if (!is_file($type_path)) {
+        $ret[$param_name] = 'missing';
+      }
+      else {
+        if (md5_file($type_path) != $params[$param_name.'_sum']) {
+          $ret[$param_name] = 'differs';
+        }
+        else {
+          $ret[$param_name] = 'equals';
+        }
+      }
+    }
+  }
+
+  return $ret;
+}
+
+function file_path_for_type($file_path, $type='thumb')
+{
+  // resolve the $file_path depending on the $type
+  if ('thumb' == $type) {
+    $file_path = get_thumbnail_location(
+      array(
+        'path' => $file_path,
+        'tn_ext' => 'jpg',
+        )
+      );
+  }
+
+  if ('high' == $type) {
+    @include_once(PHPWG_ROOT_PATH.'include/functions_picture.inc.php');
+    $file_path = get_high_location(
+      array(
+        'path' => $file_path,
+        'has_high' => 'true'
+        )
+      );
+  }
+
+  return $file_path;
 }
 
 function ws_images_setInfo($params, &$service)
