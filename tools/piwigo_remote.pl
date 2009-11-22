@@ -83,11 +83,10 @@ $result = $ua->post(
 # print "\n", $ua->cookie_jar->as_string, "\n";
 
 if ($opt{action} eq 'pwg.images.add') {
-    use MIME::Base64 qw(encode_base64);
     use Digest::MD5::File qw/file_md5_hex/;
 
     $form = {};
-    $form->{method} = 'pwg.images.add';
+    $form->{method} = $opt{action};
 
     my $original_sum = file_md5_hex($opt{original});
     $form->{original_sum} = $original_sum;
@@ -114,6 +113,70 @@ if ($opt{action} eq 'pwg.images.add') {
         );
         $form->{high_sum} = file_md5_hex($opt{high});
     }
+
+    foreach my $key (keys %{ $opt{define} }) {
+        $form->{$key} = $opt{define}{$key};
+    }
+
+    my $response = $ua->post(
+        $conf{base_url}.'/ws.php?format=json',
+        $form
+    );
+
+    print "-" x 50, "\n";
+    printf("response code    : %u\n", $response->code);
+    printf("response message : %s\n", $response->message);
+    print "-" x 50, "\n";
+    print "\n";
+
+#     use Data::Dumper;
+#     print Dumper($response->content);
+#     print Dumper(from_json($response->content));
+
+    if ($response->is_success) {
+        print "upload successful\n";
+    }
+    else {
+        print Dumper($response);
+        warn 'A problem has occured during upload', "\n";
+        warn $response->decoded_content, "\n";
+        die $response->status_line;
+    }
+}
+
+if ($opt{action} eq 'pwg.images.addFile') {
+    use Digest::MD5::File qw/file_md5_hex/;
+
+    if (not defined $opt{define}{image_id}) {
+        die '--define image_id=1234 is missing';
+    }
+
+    # which file type are we going to add/update?
+    my $type = undef;
+
+    foreach my $test_type (qw/thumbnail file high/) {
+        if (defined $opt{$test_type}) {
+            $type = $test_type;
+            last;
+        }
+    }
+
+    if (not defined $type) {
+        die 'at least one of file/thumbnail/high parameters must be set';
+    }
+
+    my $type_code = typecode_from_typename($type);
+
+    send_chunks(
+        filepath => $opt{$type},
+        type => $type_code,
+        original_sum => file_md5_hex($opt{original}),
+    );
+
+    $form = {};
+    $form->{method} = $opt{action};
+    $form->{type}   = $type_code;
+    $form->{sum}    = file_md5_hex($opt{$type});
 
     foreach my $key (keys %{ $opt{define} }) {
         $form->{$key} = $opt{define}{$key};
@@ -333,6 +396,7 @@ sub pwg_ws_get_query {
 sub send_chunks {
     my %params = @_;
 
+    use MIME::Base64 qw(encode_base64);
     use File::Slurp;
 
     my $content = read_file($params{filepath});
@@ -374,4 +438,16 @@ sub send_chunks {
 
         $chunk_id++;
     }
+}
+
+sub typecode_from_typename {
+    my ($typename) = @_;
+
+    my $typecode = $typename;
+
+    if ('thumbnail' eq $typename) {
+        $typecode = 'thumb';
+    }
+
+    return $typecode;
 }
