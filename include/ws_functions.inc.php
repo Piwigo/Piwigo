@@ -942,6 +942,17 @@ function merge_chunks($output_filepath, $original_sum, $type)
 {
   ws_logfile('[merge_chunks] input parameter $output_filepath : '.$output_filepath);
 
+  if (is_file($output_filepath))
+  {
+    unlink($output_filepath);
+    
+    if (is_file($output_filepath))
+    {
+      new PwgError(500, '[merge_chunks] error while trying to remove existing '.$output_filepath);
+      exit();
+    }
+  }
+  
   $upload_dir = PHPWG_ROOT_PATH.'upload/buffer';
   $pattern = '/'.$original_sum.'-'.$type.'/';
   $chunks = array();
@@ -1036,6 +1047,79 @@ function add_file($file_path, $type, $original_sum, $file_sum)
     'height' => $height,
     'filesize' => $filesize,
     );
+}
+
+function ws_images_addFile($params, &$service)
+{
+  // image_id
+  // type {thumb, file, high}
+  // sum
+
+  global $conf;
+  if (!is_admin() || is_adviser() )
+  {
+    return new PwgError(401, 'Access denied');
+  }
+
+  $params['image_id'] = (int)$params['image_id'];
+  if ($params['image_id'] <= 0)
+  {
+    return new PwgError(WS_ERR_INVALID_PARAM, "Invalid image_id");
+  }
+
+  //
+  // what is the path?
+  //
+  $query = '
+SELECT
+    path,
+    md5sum
+  FROM '.IMAGES_TABLE.'
+  WHERE id = '.$params['image_id'].'
+;';
+  list($file_path, $original_sum) = mysql_fetch_row(pwg_query($query));
+
+  // TODO only files added with web API can be updated with web API
+
+  //
+  // makes sure directories are there and call the merge_chunks
+  //
+  $infos = add_file($file_path, $params['type'], $original_sum, $params['sum']);
+
+  //
+  // update basic metadata from file
+  //
+  $update = array();
+  
+  if ('high' == $params['type'])
+  {
+    $update['high_filesize'] = $infos['filesize'];
+    $update['has_high'] = 'true';
+  }
+
+  if ('file' == $params['type'])
+  {
+    $update['filesize'] = $infos['filesize'];
+    $update['width'] = $infos['width'];
+    $update['height'] = $infos['height'];
+  }
+
+  // we may have nothing to update at database level, for example with a
+  // thumbnail update
+  if (count($update) > 0)
+  {
+    $update['id'] = $params['image_id'];
+    
+    include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
+    mass_updates(
+      IMAGES_TABLE,
+      array(
+        'primary' => array('id'),
+        'update'  => array_diff(array_keys($update), array('id'))
+        ),
+      array($update)
+      );
+  }
 }
 
 function ws_images_add($params, &$service)

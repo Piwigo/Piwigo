@@ -183,7 +183,18 @@ function ws_addDefaultMethods( $arr )
       ),
     'POST method only. For admin only.'
     );
-  
+
+  $service->addMethod(
+    'pwg.images.addFile',
+    'ws_images_addFile',
+    array(
+      'image_id' => array(),
+      'type' => array(),
+      'sum' => array(),
+      ),
+    'Add or update a file for an existing photo. pwg.images.addChunk must have been called  before (maybe several times)'
+    );
+
 
   $service->addMethod(
     'pwg.images.add',
