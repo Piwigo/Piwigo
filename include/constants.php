@@ -68,7 +68,7 @@ if (!defined('USER_ACCESS_TABLE'))
 if (!defined('USER_GROUP_TABLE'))
   define('USER_GROUP_TABLE', $prefixeTable.'user_group');
 if (!defined('USERS_TABLE'))
-  define('USERS_TABLE', $prefixeTable.'users');
+  define('USERS_TABLE', $conf['users_table']);
 if (!defined('USER_INFOS_TABLE'))
   define('USER_INFOS_TABLE', $prefixeTable.'user_infos');
 if (!defined('USER_FEED_TABLE'))

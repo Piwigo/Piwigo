@@ -494,15 +494,11 @@ $conf['apache_authentication'] = false;
 //
 // All informations contained in these tables and column are related to
 // piwigo_users table.
-//
-// You can use a different table for users, if you define associated constant
-// default configuration :
-// define('USERS_TABLE', $prefixeTable.'users');
+$conf['users_table'] = $prefixeTable.'users';
 
 // Other tables can be changed, if you define associated constants
 // Example:
 //   define('USER_INFOS_TABLE', 'pwg_main'.'user_infos');
-
 
 // user_fields : mapping between generic field names and table specific
 // field names. For example, in PWG, the mail address is names
