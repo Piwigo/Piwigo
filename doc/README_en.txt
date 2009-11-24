@@ -20,7 +20,7 @@ page will appear : Administration. Enter the administration panel.
 In the administration panel, take all your time for reading instructions
 explaining how to use your gallery.
 
-Communication media
+Communication
 =============
 
 Newsletter
