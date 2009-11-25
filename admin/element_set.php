@@ -196,7 +196,7 @@ elseif ('recent'== $_GET['cat'])
   {
     $query = 'SELECT id
   FROM '.IMAGES_TABLE.'
-  WHERE date_available BETWEEN DATE_SUB("'.$row['date'].'", INTERVAL 1 DAY) AND "'.$row['date'].'"';
+  WHERE date_available BETWEEN '.pwg_db_get_recent_period_expression(1, $row['date']).' AND \''.$row['date'].'\'';
     $page['cat_elements_id'] = array_from_query($query, 'id');
   }
 }

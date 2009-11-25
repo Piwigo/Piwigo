@@ -385,8 +385,8 @@ INSERT INTO '.USER_CACHE_TABLE.'
   VALUES
   ('.$userdata['id'].',\''.boolean_to_string($userdata['need_update']).'\','
   .$userdata['cache_update_time'].',\''
-  .$userdata['forbidden_categories'].'\','.$userdata['nb_total_images'].',"'
-  .$userdata['image_access_type'].'","'.$userdata['image_access_list'].'")';
+  .$userdata['forbidden_categories'].'\','.$userdata['nb_total_images'].',\''
+  .$userdata['image_access_type'].'\',\''.$userdata['image_access_list'].'\')';
       pwg_query($query);
     }
   }
@@ -632,7 +632,7 @@ FROM '.CATEGORIES_TABLE.' as c
 
   if ( isset($filter_days) )
   {
-    $query .= ' AND i.date_available > SUBDATE(CURRENT_DATE,INTERVAL '.$filter_days.' DAY)';
+    $query .= ' AND i.date_available > '.pwg_db_get_recent_period_expression($filter_days);
   }
 
   if ( !empty($userdata['forbidden_categories']) )
@@ -1039,7 +1039,7 @@ function try_log_user($username, $password, $remember_me)
 SELECT '.$conf['user_fields']['id'].' AS id,
        '.$conf['user_fields']['password'].' AS password
   FROM '.USERS_TABLE.'
-  WHERE '.$conf['user_fields']['username'].' = \''.mysql_real_escape_string($username).'\'
+  WHERE '.$conf['user_fields']['username'].' = \''.pwg_db_real_escape_string($username).'\'
 ;';
   $row = pwg_db_fetch_assoc(pwg_query($query));
   if ($row['password'] == $conf['pass_convert']($password))

@@ -246,7 +246,7 @@ SELECT id
     if ($recursive)
     {
       $query.= '
-    AND uppercats REGEXP \'(^|,)'.$category_id.'(,|$)\'
+    AND uppercats '.DB_REGEX_OPERATOR.' \'(^|,)'.$category_id.'(,|$)\'
 ';
     }
     else

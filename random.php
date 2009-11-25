@@ -51,7 +51,7 @@ SELECT DISTINCT(id)
       ),
     'WHERE'
   ).'
-  ORDER BY RAND(NOW())
+  ORDER BY '.DB_RANDOM_FUNCTION.'()
   LIMIT '.min(50, $conf['top_number'],$user['nb_image_page']).'
 ;';
 

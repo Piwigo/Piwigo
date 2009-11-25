@@ -377,7 +377,7 @@ SELECT DISTINCT(id)
       $query.= '
     OR ';
     }
-    $query.= 'uppercats REGEXP \'(^|,)'.$category_id.'(,|$)\'';
+    $query.= 'uppercats '.DB_REGEX_OPERATOR.' \'(^|,)'.$category_id.'(,|$)\'';
   }
   $query.= '
 ;';

@@ -69,8 +69,8 @@ if ( isset($_POST['reset']) and !is_adviser())
   $mb_conf = array();
   $query = '
 UPDATE '.CONFIG_TABLE.'
-  SET value=""
-  WHERE param="blk_'.addslashes($menu->get_id()).'"
+  SET value=\'\'
+  WHERE param=\'blk_'.addslashes($menu->get_id()).'\'
   LIMIT 1';
   pwg_query($query);
 }
@@ -143,9 +143,9 @@ if ( isset($_POST['submit']) and !is_adviser() )
   */
   $query = '
 UPDATE '.CONFIG_TABLE.'
-  SET value="'.addslashes(serialize($mb_conf_db)).'"
-  WHERE param="blk_'.addslashes($menu->get_id()).'"
-  LIMIT 1';
+  SET value=\''.addslashes(serialize($mb_conf_db)).'\'
+  WHERE param=\'blk_'.addslashes($menu->get_id()).'\'
+  ';
   pwg_query($query);
 }
 

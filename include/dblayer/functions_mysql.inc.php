@@ -21,6 +21,11 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
+define('DB_ENGINE', 'MySQL');
+
+define('DB_REGEX_OPERATOR', 'REGEXP');
+define('DB_RANDOM_FUNCTION', 'RAND');
+
 /**
  *
  * simple functions
@@ -105,6 +110,16 @@ function pwg_query($query)
   }
 
   return $result;
+}
+
+function pwg_db_nextval($column, $table)
+{
+  $query = '
+SELECT IF(MAX('.$column.')+1 IS NULL, 1, MAX('.$column.')+1)
+  FROM '.$table;
+  list($next) = pwg_db_fetch_row(pwg_query($query));
+
+  return $next;
 }
 
 function pwg_db_changes($result) 
@@ -440,6 +455,86 @@ function do_maintenance_all_tables()
           $page['errors'],
           l10n('Optimizations errors')
           );
+  }
+}
+
+function pwg_db_get_recent_period_expression($period, $date='CURRENT_DATE')
+{
+  if ($date!='CURRENT_DATE')
+  {
+    $date = '\''.$date.'\'';
+  }
+
+  return 'SUBDATE('.$date.',INTERVAL '.$period.' DAY)';
+}
+
+function pwg_db_get_recent_period($period, $date='CURRENT_DATE')
+{
+  $query = '
+SELECT '.pwg_db_get_recent_period_expression($period);
+  list($d) = pwg_db_fetch_row(pwg_query($query));
+
+  return $d;
+}
+
+/**
+ * returns an array containing the possible values of an enum field
+ *
+ * @param string tablename
+ * @param string fieldname
+ */
+function get_enums($table, $field)
+{
+  // retrieving the properties of the table. Each line represents a field :
+  // columns are 'Field', 'Type'
+  $result = pwg_query('desc '.$table);
+  while ($row = pwg_db_fetch_assoc($result))
+  {
+    // we are only interested in the the field given in parameter for the
+    // function
+    if ($row['Field'] == $field)
+    {
+      // retrieving possible values of the enum field
+      // enum('blue','green','black')
+      $options = explode(',', substr($row['Type'], 5, -1));
+      foreach ($options as $i => $option)
+      {
+        $options[$i] = str_replace("'", '',$option);
+      }
+    }
+  }
+  pwg_db_free_result($result);
+  return $options;
+}
+
+// get_boolean transforms a string to a boolean value. If the string is
+// "false" (case insensitive), then the boolean value false is returned. In
+// any other case, true is returned.
+function get_boolean( $string )
+{
+  $boolean = true;
+  if ( 'false' == strtolower($string) )
+  {
+    $boolean = false;
+  }
+  return $boolean;
+}
+
+/**
+ * returns boolean string 'true' or 'false' if the given var is boolean
+ *
+ * @param mixed $var
+ * @return mixed
+ */
+function boolean_to_string($var)
+{
+  if (is_bool($var))
+  {
+    return $var ? 'true' : 'false';
+  }
+  else
+  {
+    return $var;
   }
 }
 

@@ -51,11 +51,11 @@ $items_number = array(5,10,20,50,'all');
 //
 $since_options = array(
   1 => array('label' => l10n('today'),
-             'clause' => 'date > SUBDATE(CURDATE(), INTERVAL 1 DAY)'),
+             'clause' => 'date > '.pwg_db_get_recent_period_expression(1)),
   2 => array('label' => sprintf(l10n('last %d days'), 7),
-             'clause' => 'date > SUBDATE(CURDATE(), INTERVAL 7 DAY)'),
+             'clause' => 'date > '.pwg_db_get_recent_period_expression(7)),
   3 => array('label' => sprintf(l10n('last %d days'), 30),
-             'clause' => 'date > SUBDATE(CURDATE(), INTERVAL 30 DAY)'),
+             'clause' => 'date > '.pwg_db_get_recent_period_expression(30)),
   4 => array('label' => l10n('the beginning'),
              'clause' => '1=1') // stupid but generic
   );
@@ -138,7 +138,7 @@ $page['where_clauses'][] = $since_options[$page['since']]['clause'];
 // which status to filter on ?
 if ( !is_admin() )
 {
-  $page['where_clauses'][] = 'validated="true"';
+  $page['where_clauses'][] = 'validated=\'true\'';
 }
 
 $page['where_clauses'][] = get_sql_condition_FandF

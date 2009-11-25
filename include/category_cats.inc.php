@@ -35,9 +35,7 @@ SELECT
   c.*, nb_images, date_last, max_date_last, count_images, count_categories
   FROM '.CATEGORIES_TABLE.' c INNER JOIN '.USER_CACHE_CATEGORIES_TABLE.'
   ON id = cat_id and user_id = '.$user['id'].'
-  WHERE date_last >= SUBDATE(
-    CURRENT_DATE,INTERVAL '.$user['recent_period'].' DAY
-  )
+  WHERE date_last >= '.pwg_db_get_recent_period_expression($user['recent_period']).'
 '.get_sql_condition_FandF
   (
     array
@@ -104,7 +102,7 @@ SELECT image_id
         ),
       "\n  AND"
     ).'
-  ORDER BY RAND()
+  ORDER BY '.DB_RANDOM_FUNCTION.'()
   LIMIT 1
 ;';
       $subresult = pwg_query($query);
@@ -132,7 +130,7 @@ SELECT image_id
         ),
       "\n  AND"
     ).'
-    ORDER BY RAND()
+    ORDER BY '.DB_RANDOM_FUNCTION.'()
     LIMIT 1
   ;';
       $subresult = pwg_query($query);

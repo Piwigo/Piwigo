@@ -33,67 +33,6 @@ include_once( PHPWG_ROOT_PATH .'include/functions_plugins.inc.php' );
 
 //----------------------------------------------------------- generic functions
 
-/**
- * returns an array containing the possible values of an enum field
- *
- * @param string tablename
- * @param string fieldname
- */
-function get_enums($table, $field)
-{
-  // retrieving the properties of the table. Each line represents a field :
-  // columns are 'Field', 'Type'
-  $result = pwg_query('desc '.$table);
-  while ($row = pwg_db_fetch_assoc($result))
-  {
-    // we are only interested in the the field given in parameter for the
-    // function
-    if ($row['Field'] == $field)
-    {
-      // retrieving possible values of the enum field
-      // enum('blue','green','black')
-      $options = explode(',', substr($row['Type'], 5, -1));
-      foreach ($options as $i => $option)
-      {
-        $options[$i] = str_replace("'", '',$option);
-      }
-    }
-  }
-  pwg_db_free_result($result);
-  return $options;
-}
-
-// get_boolean transforms a string to a boolean value. If the string is
-// "false" (case insensitive), then the boolean value false is returned. In
-// any other case, true is returned.
-function get_boolean( $string )
-{
-  $boolean = true;
-  if ( 'false' == strtolower($string) )
-  {
-    $boolean = false;
-  }
-  return $boolean;
-}
-
-/**
- * returns boolean string 'true' or 'false' if the given var is boolean
- *
- * @param mixed $var
- * @return mixed
- */
-function boolean_to_string($var)
-{
-  if (is_bool($var))
-  {
-    return $var ? 'true' : 'false';
-  }
-  else
-  {
-    return $var;
-  }
-}
-
 // The function get_moment returns a float value coresponding to the number
 // of seconds since the unix epoch (1st January 1970) and the microseconds
 // are precised : e.g. 1052343429.89276600
@@ -540,8 +479,8 @@ INSERT INTO '.HISTORY_TABLE.'
   )
   VALUES
   (
-    CURDATE(),
-    CURTIME(),
+    CURRENT_DATE,
+    CURRENT_TIME,
     '.$user['id'].',
     \''.$_SERVER['REMOTE_ADDR'].'\',
     '.(isset($page['section']) ? "'".$page['section']."'" : 'NULL').',
@@ -1497,9 +1436,7 @@ function get_icon($date, $is_child_date = false)
   if (!isset($cache['get_icon']['sql_recent_date']))
   {
     // Use MySql date in order to standardize all recent "actions/queries"
-    list($cache['get_icon']['sql_recent_date']) =
-      pwg_db_fetch_row(pwg_query('select SUBDATE(
-      CURRENT_DATE,INTERVAL '.$user['recent_period'].' DAY)'));
+    $cache['get_icon']['sql_recent_date'] = pwg_db_get_recent_period($user['recent_period']);
   }
 
   $cache['get_icon'][$date] = $date > $cache['get_icon']['sql_recent_date'];

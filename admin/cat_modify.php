@@ -67,7 +67,7 @@ if (isset($_POST['submit']))
     array(
       'id' => $_GET['cat_id'],
       'name' => @$_POST['name'],
-      'commentable' => $_POST['commentable'],
+      'commentable' => isset($_POST['commentable'])?$_POST['commentable']:'false',
       'uploadable' =>
         isset($_POST['uploadable']) ? $_POST['uploadable'] : 'false',
       'comment' =>

@@ -121,15 +121,15 @@ function ws_std_image_sql_order( $params, $tbl_name='' )
       case 'date_posted':
         $matches[1][$i] = 'date_available'; break;
       case 'rand': case 'random':
-        $matches[1][$i] = 'RAND()'; break;
+        $matches[1][$i] = DB_RANDOM_FUNCTION.'()'; break;
     }
     $sortable_fields = array('id', 'file', 'name', 'hit', 'average_rate',
-      'date_creation', 'date_available', 'RAND()' );
+      'date_creation', 'date_available', DB_RANDOM_FUNCTION.'()' );
     if ( in_array($matches[1][$i], $sortable_fields) )
     {
       if (!empty($ret))
         $ret .= ', ';
-      if ($matches[1][$i] != 'RAND()' )
+      if ($matches[1][$i] != DB_RANDOM_FUNCTION.'()' )
       {
         $ret .= $tbl_name;
       }
@@ -230,7 +230,7 @@ function ws_categories_getImages($params, &$service)
       continue;
     if ($params['recursive'])
     {
-      $where_clauses[] = 'uppercats REGEXP \'(^|,)'.$cat_id.'(,|$)\'';
+      $where_clauses[] = 'uppercats '.DB_REGEX_OPERATOR.' \'(^|,)'.$cat_id.'(,|$)\'';
     }
     else
     {
@@ -377,7 +377,7 @@ function ws_categories_getList($params, &$service)
   }
   else if ($params['cat_id']>0)
   {
-    $where[] = 'uppercats REGEXP \'(^|,)'.
+    $where[] = 'uppercats '.DB_REGEX_OPERATOR.' \'(^|,)'.
       (int)($params['cat_id'])
       .'(,|$)\'';
   }

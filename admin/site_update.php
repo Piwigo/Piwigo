@@ -148,7 +148,7 @@ SELECT id, uppercats, global_rank, status, visible
     if (isset($_POST['subcats-included']) and $_POST['subcats-included'] == 1)
     {
       $query.= '
-    AND uppercats REGEXP \'(^|,)'.$_POST['cat'].'(,|$)\'
+    AND uppercats '.DB_REGEX_OPERATOR.' \'(^|,)'.$_POST['cat'].'(,|$)\'
 ';
     }
     else
@@ -207,10 +207,7 @@ SELECT id_uppercat, MAX(rank)+1 AS next_rank
   }
 
   // next category id available
-  $query = '
-SELECT IF(MAX(id)+1 IS NULL, 1, MAX(id)+1) AS next_id
-  FROM '.CATEGORIES_TABLE;
-  list($next_id) = pwg_db_fetch_row(pwg_query($query));
+  $next_id = pwg_db_nextval('id', CATEGORIES_TABLE);
 
   // retrieve sub-directories fulldirs from the site reader
   $fs_fulldirs = $site_reader->get_full_directories($basedir);
@@ -399,10 +396,7 @@ SELECT file,storage_category_id
   }
 
   // next element id available
-  $query = '
-SELECT IF(MAX(id)+1 IS NULL, 1, MAX(id)+1) AS next_element_id
-  FROM '.IMAGES_TABLE;
-  list($next_element_id) = pwg_db_fetch_row(pwg_query($query));
+  $next_element_id = pwg_db_nextval('id', IMAGES_TABLE);
 
   $start = get_moment();
 

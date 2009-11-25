@@ -268,7 +268,7 @@ $this->get_date_where($level).'
     $prev = $next =null;
     if ( empty($page['chronology_date']) )
       return;
-    $query = 'SELECT CONCAT_WS("-"';
+    $query = 'SELECT CONCAT_WS(\'-\'';
     for ($i=0; $i<count($page['chronology_date']); $i++)
     {
       if ( 'any' === $page['chronology_date'][$i] )

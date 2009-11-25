@@ -156,7 +156,7 @@ if ( !empty($feed_id) and empty($news) )
   {
     $query = '
 UPDATE '.USER_FEED_TABLE.'
-  SET last_check = DATE_ADD(\''.$dbnow.'\', INTERVAL -15 DAY )
+  SET last_check = '.pwg_db_get_recent_period_expression(-15, $dbnow).'
   WHERE id = \''.$feed_id.'\'
 ;';
     pwg_query($query);

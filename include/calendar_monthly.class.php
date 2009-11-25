@@ -347,7 +347,7 @@ SELECT id, file,tn_ext,path, width, height, DAYOFWEEK('.$this->date_field.')-1 a
     $query.= $this->inner_sql;
     $query.= $this->get_date_where();
     $query.= '
-  ORDER BY RAND()
+  ORDER BY '.DB_RANDOM_FUNCTION.'()
   LIMIT 1';
     unset ( $page['chronology_date'][CDAY] );
 

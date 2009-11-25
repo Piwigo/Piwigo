@@ -449,8 +449,7 @@ SELECT DISTINCT(id)
   FROM '.IMAGES_TABLE.'
     INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON id = ic.image_id
   WHERE
-    date_available >= SUBDATE(
-      CURRENT_DATE,INTERVAL '.$user['recent_period'].' DAY)
+    date_available >= '.pwg_db_get_recent_period_expression($user['recent_period']).'
     '.$forbidden.'
   '.$conf['order_by'].'
 ;';

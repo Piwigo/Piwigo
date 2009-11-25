@@ -224,7 +224,7 @@ SELECT * FROM '.PLUGINS_TABLE;
   $clauses = array();
   if (!empty($state))
   {
-    $clauses[] = 'state="'.$state.'"';
+    $clauses[] = 'state=\''.$state.'\'';
   }
   if (!empty($id))
   {

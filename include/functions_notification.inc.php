@@ -463,7 +463,7 @@ SELECT DISTINCT id, path, name, tn_ext, file
   '.$where_sql.'
     AND date_available="'.$dates[$i]['date_available'].'"
     AND tn_ext IS NOT NULL
-  ORDER BY RAND(NOW())
+  ORDER BY '.DB_RANDOM_FUNCTION.'())
   LIMIT '.$max_elements.'
 ;';
       $dates[$i]['elements'] = array();
