@@ -292,6 +292,7 @@ if ( isset( $_POST['install'] ))
   {
     $step = 2;
     $file_content = '<?php
+$conf[\'dblayer\'] = \'mysql\';
 $conf[\'db_base\'] = \''.$dbname.'\';
 $conf[\'db_user\'] = \''.$dbuser.'\';
 $conf[\'db_password\'] = \''.$dbpasswd.'\';

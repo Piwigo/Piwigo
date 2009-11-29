@@ -122,6 +122,7 @@ if (script_basename() == 'picture') // basename without file extention
 }
 
 $page = array_merge( $page, parse_section_url( $tokens, $next_token) );
+
 if ( !isset($page['section']) )
 {
   $page['section'] = 'categories';
@@ -156,10 +157,7 @@ if ( !isset($page['section']) )
   }
 }
 
-
 $page = array_merge( $page, parse_well_known_params_url( $tokens, $next_token) );
-
-
 if ( script_basename()=='picture' and 'categories'==$page['section'] and
       !isset($page['category']) and !isset($page['chronology_field']) )
 { //access a picture only by id, file or id-file without given section

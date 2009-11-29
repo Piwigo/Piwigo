@@ -43,7 +43,7 @@ include_once(PHPWG_ROOT_PATH.'admin/include/functions_upgrade.php');
 include(PHPWG_ROOT_PATH.'include/config_database.inc.php');
 include(PHPWG_ROOT_PATH . 'include/config_default.inc.php');
 @include(PHPWG_ROOT_PATH. 'include/config_local.inc.php');
-include(PHPWG_ROOT_PATH .'include/dblayer/functions_mysql.inc.php');
+include(PHPWG_ROOT_PATH .'include/dblayer/functions_'.$conf['dblayer'].'.inc.php');
 
 prepare_conf_upgrade();
 

@@ -538,6 +538,79 @@ function boolean_to_string($var)
   }
 }
 
+/**
+ *
+ * interval and date functions 
+ *
+ */
+
+
+function pwg_db_get_recent_period_expression($period, $date='CURRENT_DATE')
+{
+  if ($date!='CURRENT_DATE')
+  {
+    $date = '\''.$date.'\'';
+  }
+
+  return 'SUBDATE('.$date.',INTERVAL '.$period.' DAY)';
+}
+
+function pwg_db_get_recent_period($period, $date='CURRENT_DATE')
+{
+  $query = '
+SELECT '.pwg_db_get_recent_period_expression($period);
+  list($d) = pwg_db_fetch_row(pwg_query($query));
+
+  return $d;
+}
+
+function pwg_db_get_date_YYYYMM($date)
+{
+  return 'DATE_FORMAT('.$date.', \'%Y%m\')';
+}
+
+function pwg_db_get_date_MMDD($date)
+{
+  return 'DATE_FORMAT('.$date.', \'%m%d\')';
+}
+
+function pwg_db_get_year($date)
+{
+  return 'YEAR('.$date.')';
+}
+
+function pwg_db_get_month($date)
+{
+  return 'MONTH('.$date.')';
+}
+
+function pwg_db_get_week($date, $mode=null)
+{
+  if ($mode)
+  {
+    return 'WEEK('.$date.', '.$mode.')';
+  }
+  else
+  {
+    return 'WEEK('.$date.')';
+  }
+}
+
+function pwg_db_get_dayofmonth($date)
+{
+  return 'DAYOFMONTH('.$date.')';
+}
+
+function pwg_db_get_dayofweek($date)
+{
+  return 'DAYOFWEEK('.$date.')';
+}
+
+function pwg_db_get_weekday($date)
+{
+  return 'WEEKDAY('.$date.')';
+}
+
 // my_error returns (or send to standard output) the message concerning the
 // error occured for the last mysql query.
 function my_error($header, $die)

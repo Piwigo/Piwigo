@@ -416,7 +416,7 @@ function get_fs_directories($path, $recursive = true)
 function update_global_rank()
 {
   $query = '
-SELECT id, if(id_uppercat is null,\'\',id_uppercat) AS id_uppercat, uppercats, rank, global_rank
+SELECT id, id_uppercat, uppercats, rank, global_rank
   FROM '.CATEGORIES_TABLE.'
   ORDER BY id_uppercat,rank,name';
 

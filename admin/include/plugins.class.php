@@ -80,8 +80,8 @@ class plugins
         if (empty($errors))
         {
           $query = '
-INSERT INTO ' . PLUGINS_TABLE . ' (id,version) VALUES ("'
-. $plugin_id . '","' . $this->fs_plugins[$plugin_id]['version'] . '"
+INSERT INTO ' . PLUGINS_TABLE . ' (id,version) VALUES (\''
+. $plugin_id . '\',\'' . $this->fs_plugins[$plugin_id]['version'] . '\'
 )';
           pwg_query($query);
         }
@@ -110,8 +110,8 @@ INSERT INTO ' . PLUGINS_TABLE . ' (id,version) VALUES ("'
         {
           $query = '
 UPDATE ' . PLUGINS_TABLE . '
-SET state="active", version="'.$this->fs_plugins[$plugin_id]['version'].'"
-WHERE id="' . $plugin_id . '"';
+SET state=\'active\', version=\''.$this->fs_plugins[$plugin_id]['version'].'\'
+WHERE id=\'' . $plugin_id . '\'';
           pwg_query($query);
         }
         break;
@@ -126,7 +126,7 @@ WHERE id="' . $plugin_id . '"';
           die('invalid current state ' . $crt_db_plugin['state']);
         }
         $query = '
-UPDATE ' . PLUGINS_TABLE . ' SET state="inactive" WHERE id="' . $plugin_id . '"';
+UPDATE ' . PLUGINS_TABLE . ' SET state=\'inactive\' WHERE id=\'' . $plugin_id . '\'';
         pwg_query($query);
         if (file_exists($file_to_include))
         {
@@ -144,7 +144,7 @@ UPDATE ' . PLUGINS_TABLE . ' SET state="inactive" WHERE id="' . $plugin_id . '"'
           die ('CANNOT UNINSTALL - NOT INSTALLED');
         }
         $query = '
-DELETE FROM ' . PLUGINS_TABLE . ' WHERE id="' . $plugin_id . '"';
+DELETE FROM ' . PLUGINS_TABLE . ' WHERE id=\'' . $plugin_id . '\'';
         pwg_query($query);
         if (file_exists($file_to_include))
         {

@@ -38,12 +38,17 @@ class c13y_internal
    */
   function c13y_version($c13y)
   {
+    global $conf;
+
     $check_list = array();
 
     $check_list[] = array('type' => 'PHP', 'current' => phpversion(), 'required' => REQUIRED_PHP_VERSION);
 
     $db_version = pwg_get_db_version();
-    $check_list[] = array('type' => 'MySQL', 'current' => $db_version, 'required' => REQUIRED_MYSQL_VERSION);
+    $check_list[] = array('type' => $conf['dblayer'],
+			  'current' => $db_version, 
+			  'required' => constant('REQUIRED_'.strtoupper($conf['dblayer']).'_VERSION')
+			  );
 
     foreach ($check_list as $elem)
     {

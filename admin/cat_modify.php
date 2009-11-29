@@ -242,9 +242,9 @@ $template->assign(
     'status_values'     => array('public','private'),
 
     'CAT_STATUS'        => $category['status'],
-    'CAT_VISIBLE'       => $category['visible'],
-    'CAT_COMMENTABLE'   => $category['commentable'],
-    'CAT_UPLOADABLE'    => $category['uploadable'],
+    'CAT_VISIBLE'       => boolean_to_string($category['visible']),
+    'CAT_COMMENTABLE'   => boolean_to_string($category['commentable']),
+    'CAT_UPLOADABLE'    => boolean_to_string($category['uploadable']),
 
     'IMG_ORDER_DEFAULT'  => empty($category['image_order']) ?
                               'checked="checked"' : '',

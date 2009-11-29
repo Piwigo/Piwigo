@@ -642,7 +642,7 @@ FROM '.CATEGORIES_TABLE.' as c
   }
 
   $query.= '
-  GROUP BY c.id';
+  GROUP BY c.id, c.global_rank';
 
   $result = pwg_query($query);
 

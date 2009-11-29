@@ -196,7 +196,7 @@ $template->assign(
     'PWG_VERSION' => PHPWG_VERSION,
     'OS' => PHP_OS,
     'PHP_VERSION' => phpversion(),
-    'DB_ENGINE' => 'MySQL',
+    'DB_ENGINE' => $conf['dblayer'],
     'DB_VERSION' => $db_version,
     'DB_ELEMENTS' => l10n_dec('%d element', '%d elements', $nb_elements),
     'DB_CATEGORIES' =>

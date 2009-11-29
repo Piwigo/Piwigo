@@ -38,7 +38,7 @@ check_status(ACCESS_GUEST);
 // +-----------------------------------------------------------------------+
 
 $query = '
-SELECT DISTINCT(id)
+SELECT id
   FROM '.IMAGES_TABLE.'
     INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON id = ic.image_id
 '.get_sql_condition_FandF

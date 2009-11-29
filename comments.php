@@ -321,7 +321,8 @@ SELECT com.id AS comment_id
     ON u.'.$conf['user_fields']['id'].' = com.author_id
   WHERE '.implode('
     AND ', $page['where_clauses']).'
-  GROUP BY comment_id
+  GROUP BY comment_id, com.image_id, ic.category_id, com.author, 
+           com.author_id, com.date, com.content, com.validated
   ORDER BY '.$page['sort_by'].' '.$page['sort_order'];
 if ('all' != $page['items_number'])
 {

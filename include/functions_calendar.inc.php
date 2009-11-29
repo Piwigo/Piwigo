@@ -258,7 +258,7 @@ WHERE id IN (' . implode(',',$page['items']) .')';
 
   if ($must_show_list)
   {
-    $query = 'SELECT DISTINCT(id)';
+    $query = 'SELECT id';
     $query .= $calendar->inner_sql.'
   '.$calendar->get_date_where();
     if ( isset($page['super_order_by']) )
@@ -284,9 +284,8 @@ WHERE id IN (' . implode(',',$page['items']) .')';
       $query .= '
   '.$order_by;
     }
-    $page['items']              = array_from_query($query, 'id');
+    $page['items'] = array_from_query($query, 'id');
   }
   pwg_debug('end initialize_calendar');
 }
-
 ?>
