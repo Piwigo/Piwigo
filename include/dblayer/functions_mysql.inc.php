@@ -458,23 +458,14 @@ function do_maintenance_all_tables()
   }
 }
 
-function pwg_db_get_recent_period_expression($period, $date='CURRENT_DATE')
+function pwg_db_concat_ws($string, $separaor)
 {
-  if ($date!='CURRENT_DATE')
-  {
-    $date = '\''.$date.'\'';
-  }
-
-  return 'SUBDATE('.$date.',INTERVAL '.$period.' DAY)';
+  return 'CONCAT_WS(\''.$separaor.'\','. $string.')';
 }
 
-function pwg_db_get_recent_period($period, $date='CURRENT_DATE')
+function pwg_db_cast_to_text($string)
 {
-  $query = '
-SELECT '.pwg_db_get_recent_period_expression($period);
-  list($d) = pwg_db_fetch_row(pwg_query($query));
-
-  return $d;
+  return 'CAST('.$string.' AS CHAR)';
 }
 
 /**

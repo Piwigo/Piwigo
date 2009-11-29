@@ -49,8 +49,7 @@ SELECT tag_id, COUNT(DISTINCT(it.image_id)) counter
       '
   WHERE'
     ).'
-  GROUP BY tag_id
-  ORDER BY NULL';
+  GROUP BY tag_id';
   $tag_counters = simple_hash_from_query($query, 'tag_id', 'counter');
 
   if ( empty($tag_counters) )
@@ -234,17 +233,12 @@ SELECT t.*, count(*) counter
     AND tag_id NOT IN ('.implode(',', $excluded_tag_ids).')';
   }
   $query .='
-  GROUP BY tag_id';
+  GROUP BY tag_id, t.id, t.name, t.url_name';
   if ($max_tags>0)
   {
     $query .= '
   ORDER BY counter DESC
   LIMIT '.$max_tags;
-  }
-  else
-  {
-    $query .= '
-  ORDER BY NULL';
   }
 
   $result = pwg_query($query);

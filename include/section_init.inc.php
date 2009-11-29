@@ -292,7 +292,7 @@ SELECT id
 
     // Main query
     $query = '
-SELECT DISTINCT(image_id)
+SELECT DISTINCT(image_id)'.get_extra_fields($conf['order_by']).'
   FROM '.IMAGE_CATEGORY_TABLE.'
     INNER JOIN '.IMAGES_TABLE.' ON id = image_id
   WHERE
@@ -326,7 +326,7 @@ else
     if (!empty($items) )
     {
       $query = '
-SELECT DISTINCT image_id
+SELECT DISTINCT image_id'.get_extra_fields($conf['order_by']).'
   FROM '.IMAGE_CATEGORY_TABLE.' INNER JOIN '.IMAGES_TABLE.' ON image_id=id
   WHERE image_id IN ('.implode(',', $items).')
     '.$forbidden.
@@ -443,7 +443,7 @@ SELECT image_id
     }
 
     $query = '
-SELECT DISTINCT(id)
+SELECT DISTINCT(id)'.get_extra_fields($conf['order_by'].'
   FROM '.IMAGES_TABLE.'
     INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON id = ic.image_id
   WHERE
@@ -481,7 +481,7 @@ SELECT DISTINCT(id)
     $page['super_order_by'] = true;
     $conf['order_by'] = ' ORDER BY hit DESC, file ASC';
     $query = '
-SELECT DISTINCT(id)
+SELECT DISTINCT(id), hit, file
   FROM '.IMAGES_TABLE.'
     INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON id = ic.image_id
   WHERE hit > 0
@@ -508,7 +508,7 @@ SELECT DISTINCT(id)
     $conf['order_by'] = ' ORDER BY average_rate DESC, id ASC';
 
     $query ='
-SELECT DISTINCT(id)
+SELECT DISTINCT(id), average_rate
   FROM '.IMAGES_TABLE.'
     INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON id = ic.image_id
   WHERE average_rate IS NOT NULL
@@ -531,7 +531,7 @@ SELECT DISTINCT(id)
   else if ($page['section'] == 'list')
   {
     $query ='
-SELECT DISTINCT(id)
+SELECT DISTINCT(id)'.get_extra_fields($conf['order_by'].'
   FROM '.IMAGES_TABLE.'
     INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON id = ic.image_id
   WHERE image_id IN ('.implode(',', $page['list']).')
