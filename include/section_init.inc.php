@@ -443,7 +443,7 @@ SELECT image_id
     }
 
     $query = '
-SELECT DISTINCT(id)'.get_extra_fields($conf['order_by'].'
+SELECT DISTINCT(id)'.get_extra_fields($conf['order_by']).'
   FROM '.IMAGES_TABLE.'
     INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON id = ic.image_id
   WHERE
@@ -531,7 +531,7 @@ SELECT DISTINCT(id), average_rate
   else if ($page['section'] == 'list')
   {
     $query ='
-SELECT DISTINCT(id)'.get_extra_fields($conf['order_by'].'
+SELECT DISTINCT(id)'.get_extra_fields($conf['order_by']).'
   FROM '.IMAGES_TABLE.'
     INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON id = ic.image_id
   WHERE image_id IN ('.implode(',', $page['list']).')

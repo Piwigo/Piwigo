@@ -32,7 +32,7 @@ include_once( PHPWG_ROOT_PATH .'include/functions_url.inc.php' );
 include_once( PHPWG_ROOT_PATH .'include/functions_plugins.inc.php' );
 
 //----------------------------------------------------------- generic functions
-function get_extra_fiels($order_by_fields) 
+function get_extra_fields($order_by_fields) 
 {
   $fields = str_ireplace(array(' order by ', ' desc', ' asc'), 
 			 array('', '', ''),
