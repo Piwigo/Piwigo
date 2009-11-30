@@ -43,15 +43,15 @@ class Calendar extends CalendarBase
     global $lang;
     $this->calendar_levels = array(
       array(
-          'sql'=> 'YEAR('.$this->date_field.')',
+          'sql'=> pwg_db_get_year($this->date_field),
           'labels' => null
         ),
       array(
-          'sql'=> 'MONTH('.$this->date_field.')',
-          'labels' => $lang['month']
+	  'sql'=> pwg_db_get_month($this->date_field),
+	  'labels' => $lang['month']
         ),
       array(
-          'sql'=> 'DAYOFMONTH('.$this->date_field.')',
+          'sql'=> pwg_db_get_dayofmonth($this->date_field),
           'labels' => null
         ),
      );
@@ -134,6 +134,7 @@ function generate_category_content()
 function get_date_where($max_levels=3)
 {
   global $page;
+
   $date = $page['chronology_date'];
   while (count($date)>$max_levels)
   {
@@ -156,7 +157,7 @@ function get_date_where($max_levels=3)
       else
       {
         $b .= '01';
-        $e .= '31';
+        $e .= $this->get_all_days_in_month($date[CYEAR], $date[CMONTH]);
       }
     }
     else
@@ -193,7 +194,7 @@ function get_date_where($max_levels=3)
 
 //--------------------------------------------------------- private members ---
 
-// returns an array with alll the days in a given month
+// returns an array with all the days in a given month
 function get_all_days_in_month($year, $month)
 {
   $md= array(1=>31,28,31,30,31,30,31,31,30,31,30,31);
@@ -220,14 +221,18 @@ function get_all_days_in_month($year, $month)
 function build_global_calendar(&$tpl_var)
 {
   global $page;
+
   assert( count($page['chronology_date']) == 0 );
-  $query='SELECT DISTINCT(DATE_FORMAT('.$this->date_field.',"%Y%m")) as period,
-            COUNT( DISTINCT(id) ) as count';
+  $query='
+SELECT '.pwg_db_get_date_YYYYMM($this->date_field).' as period,'
+    .pwg_db_get_year($this->date_field).' as year, '
+    .pwg_db_get_month($this->date_field).' as month, 
+            count(distinct id) as count';
   $query.= $this->inner_sql;
   $query.= $this->get_date_where();
   $query.= '
-  GROUP BY period
-  ORDER BY YEAR('.$this->date_field.') DESC, MONTH('.$this->date_field.')';
+  GROUP BY period, year, month
+  ORDER BY year DESC, month ASC';
 
   $result = pwg_query($query);
   $items=array();
@@ -273,13 +278,15 @@ function build_global_calendar(&$tpl_var)
 function build_year_calendar(&$tpl_var)
 {
   global $page;
+
   assert( count($page['chronology_date']) == 1 );
-  $query='SELECT DISTINCT(DATE_FORMAT('.$this->date_field.',"%m%d")) as period,
-            COUNT( DISTINCT(id) ) as count';
+  $query='SELECT '.pwg_db_get_date_MMDD($this->date_field).' as period,
+            COUNT(DISTINCT id) as count';
   $query.= $this->inner_sql;
   $query.= $this->get_date_where();
   $query.= '
-  GROUP BY period';
+  GROUP BY period
+  ORDER BY period ASC';
 
   $result = pwg_query($query);
   $items=array();
@@ -324,12 +331,14 @@ function build_year_calendar(&$tpl_var)
 function build_month_calendar(&$tpl_var)
 {
   global $page;
-  $query='SELECT DISTINCT(DAYOFMONTH('.$this->date_field.')) as period,
-            COUNT( DISTINCT(id) ) as count';
+
+  $query='SELECT '.pwg_db_get_dayofmonth($this->date_field).' as period,
+            COUNT(DISTINCT id) as count';
   $query.= $this->inner_sql;
   $query.= $this->get_date_where();
   $query.= '
-  GROUP BY period';
+  GROUP BY period
+  ORDER BY period ASC';
 
   $items=array();
   $result = pwg_query($query);
@@ -343,7 +352,7 @@ function build_month_calendar(&$tpl_var)
   {
     $page['chronology_date'][CDAY]=$day;
     $query = '
-SELECT id, file,tn_ext,path, width, height, DAYOFWEEK('.$this->date_field.')-1 as dow';
+SELECT id, file,tn_ext,path, width, height, '.pwg_db_get_dayofweek($this->date_field).'-1 as dow';
     $query.= $this->inner_sql;
     $query.= $this->get_date_where();
     $query.= '

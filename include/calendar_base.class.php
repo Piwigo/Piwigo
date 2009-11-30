@@ -215,7 +215,8 @@ SELECT DISTINCT('.$this->calendar_levels[$level]['sql'].') as period,
   COUNT(DISTINCT id) as nb_images'.
 $this->inner_sql.
 $this->get_date_where($level).'
-  GROUP BY period
+  GROUP BY period 
+  ORDER BY period ASC
 ;';
 
     $level_items = simple_hash_from_query($query, 'period', 'nb_images');
@@ -265,27 +266,34 @@ $this->get_date_where($level).'
   function build_next_prev()
   {
     global $template, $page;
+
     $prev = $next =null;
     if ( empty($page['chronology_date']) )
       return;
-    $query = 'SELECT CONCAT_WS(\'-\'';
-    for ($i=0; $i<count($page['chronology_date']); $i++)
+    
+    $sub_query = '';
+    $nb_elements = count($page['chronology_date']);
+    for ($i=0; $i<$nb_elements; $i++)
     {
       if ( 'any' === $page['chronology_date'][$i] )
       {
-        $query .= ','.'"any"';
+        $sub_query .= '\'any\'';
       }
       else
       {
-        $query .= ','.$this->calendar_levels[$i]['sql'];
+        $sub_query .= pwg_db_cast_to_text($this->calendar_levels[$i]['sql']);
+      }
+      if ($i<($nb_elements-1))
+      {
+	$sub_query .= ',';
       }
     }
-    $current = implode('-', $page['chronology_date'] );
-
-    $query.=') as period' . $this->inner_sql .'
+    $query = 'SELECT '.pwg_db_concat_ws($sub_query, '-').' AS period';
+    $query .= $this->inner_sql .'
 AND ' . $this->date_field . ' IS NOT NULL
 GROUP BY period';
-
+    
+    $current = implode('-', $page['chronology_date'] );
     $upper_items = array_from_query( $query, 'period');
 
     usort($upper_items, 'version_compare');

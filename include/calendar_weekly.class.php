@@ -50,22 +50,22 @@ class Calendar extends CalendarBase
 
     $this->calendar_levels = array(
       array(
-          'sql'=> 'YEAR('.$this->date_field.')',
+          'sql'=> pwg_db_get_year($this->date_field),
           'labels' => null
         ),
       array(
-          'sql'=> 'WEEK('.$this->date_field.')+1',
+          'sql'=> pwg_db_get_week($this->date_field)+1,
           'labels' => $week_no_labels,
         ),
       array(
-          'sql'=> 'DAYOFWEEK('.$this->date_field.')-1',
+          'sql'=> pwg_db_get_dayofweek($this->date_field)-1,
           'labels' => $lang['day']
         ),
      );
     //Comment next lines for week starting on Sunday or if MySQL version<4.0.17
     //WEEK(date,5) = "0-53 - Week 1=the first week with a Monday in this year"
-    $this->calendar_levels[CWEEK]['sql'] = 'WEEK('.$this->date_field.',5)+1';
-    $this->calendar_levels[CDAY]['sql'] = 'WEEKDAY('.$this->date_field.')';
+    $this->calendar_levels[CWEEK]['sql'] = pwg_db_get_week($this->date_field, 5).'+1';
+    $this->calendar_levels[CDAY]['sql'] = pwg_db_get_weekday($this->date_field);
     array_push( $this->calendar_levels[CDAY]['labels'],
                 array_shift( $this->calendar_levels[CDAY]['labels'] ) );
   }
