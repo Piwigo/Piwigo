@@ -1231,7 +1231,7 @@ SELECT uppercats
     {
       // technically, you can't move a category with uppercats 12,125,13,14
       // into a new parent category with uppercats 12,125,13,14,24
-      if (preg_match('/^'.$category['uppercats'].'/', $new_parent_uppercats))
+      if (preg_match('/^'.$category['uppercats'].',/', $new_parent_uppercats))
       {
         array_push(
           $page['errors'],
