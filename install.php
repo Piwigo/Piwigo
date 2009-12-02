@@ -24,53 +24,7 @@
 //----------------------------------------------------------- include
 define('PHPWG_ROOT_PATH','./');
 
-/**
- * loads an sql file and executes all queries
- *
- * Before executing a query, $replaced is... replaced by $replacing. This is
- * useful when the SQL file contains generic words. Drop table queries are
- * not executed.
- *
- * @param string filepath
- * @param string replaced
- * @param string replacing
- * @return void
- */
-function execute_sqlfile($filepath, $replaced, $replacing)
-{
-  $sql_lines = file($filepath);
-  $query = '';
-  foreach ($sql_lines as $sql_line)
-  {
-    $sql_line = trim($sql_line);
-    if (preg_match('/(^--|^$)/', $sql_line))
-    {
-      continue;
-    }
-    $query.= ' '.$sql_line;
-    // if we reached the end of query, we execute it and reinitialize the
-    // variable "query"
-    if (preg_match('/;$/', $sql_line))
-    {
-      $query = trim($query);
-      $query = str_replace($replaced, $replacing, $query);
-      // we don't execute "DROP TABLE" queries
-      if (!preg_match('/^DROP TABLE/i', $query))
-      {
-        global $install_charset_collate;
-        if ( !empty($install_charset_collate) )
-        {
-          if ( preg_match('/^(CREATE TABLE .*)[\s]*;[\s]*/im', $query, $matches) )
-          {
-            $query = $matches[1].' '.$install_charset_collate.';';
-          }
-        }
-        pwg_query($query);
-      }
-      $query = '';
-    }
-  }
-}
+include(PHPWG_ROOT_PATH . 'admin/include/functions_install.inc.php');
 
 @set_magic_quotes_runtime(0); // Disable magic_quotes_runtime
 //
@@ -149,6 +103,7 @@ $dbhost = (!empty($_POST['dbhost'])) ? $_POST['dbhost'] : 'localhost';
 $dbuser = (!empty($_POST['dbuser'])) ? $_POST['dbuser'] : '';
 $dbpasswd = (!empty($_POST['dbpasswd'])) ? $_POST['dbpasswd'] : '';
 $dbname = (!empty($_POST['dbname'])) ? $_POST['dbname'] : '';
+$dblayer = (!empty($_POST['dblayer'])) ? $_POST['dblayer'] : 'mysql';
 
 if (isset($_POST['install']))
 {
@@ -182,7 +137,7 @@ if (@file_exists($config_file))
 $prefixeTable = $table_prefix;
 include(PHPWG_ROOT_PATH . 'include/config_default.inc.php');
 @include(PHPWG_ROOT_PATH. 'include/config_local.inc.php');
-include(PHPWG_ROOT_PATH . 'include/dblayer/functions_mysql.inc.php');
+include(PHPWG_ROOT_PATH .'include/dblayer/functions_'.$dblayer.'.inc.php');
 include(PHPWG_ROOT_PATH . 'include/constants.php');
 include(PHPWG_ROOT_PATH . 'include/functions.inc.php');
 include(PHPWG_ROOT_PATH . 'admin/include/functions.php');
@@ -232,34 +187,36 @@ if (version_compare(PHP_VERSION, REQUIRED_PHP_VERSION, '<'))
 
 //----------------------------------------------------- template initialization
 include( PHPWG_ROOT_PATH .'include/template.class.php');
-$template=new Template(PHPWG_ROOT_PATH.'admin/template/goto', 'roma');
+$template = new Template(PHPWG_ROOT_PATH.'admin/template/goto', 'roma');
 $template->set_filenames( array('install'=>'install.tpl') );
 $step = 1;
 //---------------------------------------------------------------- form analyze
 if ( isset( $_POST['install'] ))
 {
-  if ( @mysql_connect( $_POST['dbhost'],
-                       $_POST['dbuser'],
-                       $_POST['dbpasswd'] ) )
+  if (($pwg_db_link = pwg_db_connect($_POST['dbhost'], $_POST['dbuser'], 
+				     $_POST['dbpasswd'], $_POST['dbname']))!==false) 
   {
-    if ( @mysql_select_db($_POST['dbname'] ) )
+
+    array_push( $infos, l10n('step1_confirmation') );
+
+    $required_version = constant('REQUIRED_'.strtoupper($conf['dblayer']).'_VERSION');
+    if ( version_compare(pwg_get_db_version(), $required_version, '>=') )
     {
-      array_push( $infos, l10n('step1_confirmation') );
+      $pwg_charset = 'utf-8';
+      $pwg_db_charset = 'utf8';
+      if ($dblayer=='mysql')
+      {
+	$install_charset_collate = "DEFAULT CHARACTER SET $pwg_db_charset";
+      }
+      else 
+      {
+	$install_charset_collate = '';
+      }
     }
     else
     {
-      array_push( $errors, l10n('step1_err_db') );
-    }
-    if ( version_compare(mysql_get_server_info(), '4.1.0', '>=') )
-    {
-      $pwg_charset='utf-8';
-      $pwg_db_charset='utf8';
-      $install_charset_collate = "DEFAULT CHARACTER SET $pwg_db_charset";
-    }
-    else
-    {
-      $pwg_charset='iso-8859-1';
-      $pwg_db_charset='latin1';
+      $pwg_charset = 'iso-8859-1';
+      $pwg_db_charset = 'latin1';
       $install_charset_collate = '';
       if ( !array_key_exists($language, get_languages($pwg_charset) ) )
       {
@@ -292,7 +249,7 @@ if ( isset( $_POST['install'] ))
   {
     $step = 2;
     $file_content = '<?php
-$conf[\'dblayer\'] = \'mysql\';
+$conf[\'dblayer\'] = \''.$dblayer.'\';
 $conf[\'db_base\'] = \''.$dbname.'\';
 $conf[\'db_user\'] = \''.$dbuser.'\';
 $conf[\'db_password\'] = \''.$dbpasswd.'\';
@@ -326,7 +283,7 @@ define(\'DB_COLLATE\', \'\');
 
     // tables creation, based on piwigo_structure.sql
     execute_sqlfile(
-      PHPWG_ROOT_PATH.'install/piwigo_structure.sql',
+      PHPWG_ROOT_PATH.'install/piwigo_structure-'.$dblayer.'.sql',
       DEFAULT_PREFIX_TABLE,
       $table_prefix
       );
@@ -336,6 +293,12 @@ define(\'DB_COLLATE\', \'\');
       DEFAULT_PREFIX_TABLE,
       $table_prefix
       );
+
+    $query = '
+INSERT INTO piwigo_config (param,value,comment) 
+   VALUES (\'secret_key\',\'md5('.pwg_db_cast_to_text(DB_RANDOM_FUNCTION.'()').')\',
+   \'a secret key specific to the gallery for internal use\');';
+    pwg_query($query);
 
     // fill $conf global array
     load_conf_from_db();
@@ -389,6 +352,8 @@ define(\'DB_COLLATE\', \'\');
 }
 
 //------------------------------------------------------ start template output
+$dbengines = available_engines();
+
 foreach (get_languages('utf-8') as $language_code => $language_name)
 {
   if ($language == $language_code)
@@ -402,15 +367,17 @@ $template->assign('language_options', $languages_options);
 $template->assign(
   array(
     'T_CONTENT_ENCODING' => 'utf-8',
-    'RELEASE'=>PHPWG_VERSION,
+    'RELEASE' => PHPWG_VERSION,
     'F_ACTION' => 'install.php?language=' . $language,
-    'F_DB_HOST'=>$dbhost,
-    'F_DB_USER'=>$dbuser,
-    'F_DB_NAME'=>$dbname,
+    'F_DB_ENGINES' => $dbengines,
+    'F_DB_LAYER' => $dblayer,
+    'F_DB_HOST' => $dbhost,
+    'F_DB_USER' => $dbuser,
+    'F_DB_NAME' => $dbname,
     'F_DB_PREFIX' => $table_prefix,
-    'F_ADMIN'=>$admin_name,
-    'F_ADMIN_EMAIL'=>$admin_mail,
-    'L_INSTALL_HELP'=>sprintf(l10n('install_help'), PHPWG_URL.'/forum'),
+    'F_ADMIN' => $admin_name,
+    'F_ADMIN_EMAIL' => $admin_mail,
+    'L_INSTALL_HELP' => sprintf(l10n('install_help'), PHPWG_URL.'/forum'),
     ));
 
 //------------------------------------------------------ errors & infos display

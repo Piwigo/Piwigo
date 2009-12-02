@@ -36,7 +36,9 @@ $lang['step1_confirmation'] = 'Les paramètres rentrés sont corrects';
 $lang['step1_err_db'] = 'La connexion au serveur est OK, mais impossible de se connecter à cette base de données';
 $lang['step1_err_server'] = 'Impossible de se connecter au serveur';
 
-$lang['step1_host'] = 'Hôte MySQL';
+$lang['step1_dbengine'] = 'Type de base de données';
+$lang['step1_dbengine_info'] = 'La base de données à utiliser pour installer piwigo';
+$lang['step1_host'] = 'Hôte';
 $lang['step1_host_info'] = 'localhost, sql.multimania.com, toto.freesurf.fr';
 $lang['step1_user'] = 'Utilisateur';
 $lang['step1_user_info'] = 'nom d\'utilisateur pour votre hébergeur';

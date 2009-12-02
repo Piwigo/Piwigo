@@ -36,7 +36,9 @@ $lang['step1_confirmation'] = 'Die Parameter sind korrekt ausgefüllt';
 $lang['step1_err_db'] = 'Die Verbindung zum Server ist OK, aber nicht die Verbindung zu dieser Datenbank';
 $lang['step1_err_server'] = 'Es konnte keine Verbindung zum Datenbankserver aufgebaut werden';
 
-$lang['step1_host'] = 'MySQL Host';
+$lang['step1_dbengine'] = 'Database type';
+$lang['step1_dbengine_info'] = 'The type of database your piwigo data will be store in';
+$lang['step1_host'] = 'Host';
 $lang['step1_host_info'] = 'localhost, sql.multimania.com, toto.freesurf.fr';
 $lang['step1_user'] = 'Benutzer';
 $lang['step1_user_info'] = 'Benutzernamen für die MySQL Datenbank';

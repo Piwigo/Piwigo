@@ -36,7 +36,9 @@ $lang['step1_confirmation'] = 'I parametri sono corretti';
 $lang['step1_err_db'] = 'Connessione al server riuscita. Non è stato però possibile connettersi alla base dati';
 $lang['step1_err_server'] = 'Non è stato possibile connettersi al server';
 
-$lang['step1_host'] = 'MySQL host';
+$lang['step1_dbengine'] = 'Database type';
+$lang['step1_dbengine_info'] = 'The type of database your piwigo data will be store in';
+$lang['step1_host'] = 'Host';
 $lang['step1_host_info'] = 'localhost, sql.multimania.com, pluto.libero.it';
 $lang['step1_user'] = 'Utente';
 $lang['step1_user_info'] = 'nome utente di login alla base dati fornito dal tuo provider';

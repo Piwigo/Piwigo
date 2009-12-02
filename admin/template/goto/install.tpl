@@ -84,6 +84,21 @@ TD {
     <tr class="throw">
       <th colspan="3">{'step1_title'|@translate}</th>
     </tr>
+    {if count($F_DB_ENGINES)>1}
+    <tr>
+      <td style="width: 30%;">{'step1_dbengine'|@translate}</td>
+      <td>
+	<select name="dblayer">
+	  {html_options options=$F_DB_ENGINES selected=$F_DB_LAYER}
+	</select>    
+      </td>
+      <td>{'step1_dbengine_info'|@translate}</td>
+    {else}
+    <td colspan="3">
+    <input type="hidden" name="dbengine" value="{$F_DB_LAYER}">
+    </td>
+    {/if}
+    </tr>
     <tr>
       <td style="width: 30%;">{'step1_host'|@translate}</td>
       <td align=center><input type="text" name="dbhost" value="{$F_DB_HOST}"></td>

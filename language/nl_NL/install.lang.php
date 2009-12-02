@@ -39,7 +39,9 @@ $lang['step1_err_copy_2'] = 'Het is nu mogelijk om verder te gaan met de volgend
 $lang['step1_err_copy_next'] = 'volgende stap';
 $lang['step1_err_copy'] = 'Kopieer de tekst tussen de lijnen en plak deze in het bestand "include/config_database.inc.php"(Waarschuwing: config_database.inc.php mag alleen het roze gedeelte bevatten, geen return of extra spatie). Dit moet alleen wanneer dit bestand geen schrijfrechten';
 
-$lang['step1_host'] = 'MySQL host';
+$lang['step1_dbengine'] = 'Database type';
+$lang['step1_dbengine_info'] = 'The type of database your piwigo data will be store in';
+$lang['step1_host'] = 'Host';
 $lang['step1_host_info'] = 'localhost, sql.multimania.com, toto.freesurf.fr';
 $lang['step1_user'] = 'Gebruiker';
 $lang['step1_user_info'] = 'De gebruikersnaam welke door uw provider is gegeven';

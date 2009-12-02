@@ -36,7 +36,9 @@ $lang['step1_confirmation'] = 'Los parámetros entrados son correctos';
 $lang['step1_err_db'] = 'La conexión al camarero(servidor) es O.K., pero imposible conectarse a esta base de datos';
 $lang['step1_err_server'] = 'Imposible conectarse al servidor';
 
-$lang['step1_host'] = 'Huésped MySQL';
+$lang['step1_dbengine'] = 'Database type';
+$lang['step1_dbengine_info'] = 'The type of database your piwigo data will be store in';
+$lang['step1_host'] = 'Huésped';
 $lang['step1_host_info'] = 'localhost, sql.multimania.com, toto.freesurf.fr';
 $lang['step1_user'] = 'Utilizador';
 $lang['step1_user_info'] = 'Nombre de utilizador para su hébergeur';

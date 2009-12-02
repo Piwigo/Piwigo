@@ -39,7 +39,9 @@ $lang['step1_err_copy_2'] = 'Teraz mozliwy jest następny krok instalacji';
 $lang['step1_err_copy_next'] = 'następny krok';
 $lang['step1_err_copy'] = 'Skopiuj tekst zaznaczony na różowo pomiędzy cudzysłowiami i wklej do pliku "include/config_database.inc.php"(Uwaga : config_database.inc.php musi zawierać tylko to co jest na różowo bez żadnych znaków końca linii czy spacji)';
 
-$lang['step1_host'] = 'MySQL host';
+$lang['step1_dbengine'] = 'Database type';
+$lang['step1_dbengine_info'] = 'The type of database your piwigo data will be store in';
+$lang['step1_host'] = 'Host';
 $lang['step1_host_info'] = 'localhost, sql.multimania.com, toto.freesurf.fr';
 $lang['step1_user'] = 'Uzytkownik';
 $lang['step1_user_info'] = 'login użytkownika dostarczona przez provider\'a';
