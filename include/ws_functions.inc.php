@@ -972,7 +972,9 @@ function merge_chunks($output_filepath, $original_sum, $type)
 
   sort($chunks);
 
-  ws_logfile('[merge_chunks] memory_get_usage before loading chunks: '.memory_get_usage());
+  if (function_exists('memory_get_usage')) {
+    ws_logfile('[merge_chunks] memory_get_usage before loading chunks: '.memory_get_usage());
+  }
 
   $i = 0;
   
@@ -980,7 +982,9 @@ function merge_chunks($output_filepath, $original_sum, $type)
   {
     $string = file_get_contents($chunk);
 
-    ws_logfile('[merge_chunks] memory_get_usage on chunk '.++$i.': '.memory_get_usage());
+    if (function_exists('memory_get_usage')) {
+      ws_logfile('[merge_chunks] memory_get_usage on chunk '.++$i.': '.memory_get_usage());
+    }
 
     if (!file_put_contents($output_filepath, $string, FILE_APPEND))
     {
@@ -991,7 +995,9 @@ function merge_chunks($output_filepath, $original_sum, $type)
     unlink($chunk);
   }
 
-  ws_logfile('[merge_chunks] memory_get_usage after loading chunks: '.memory_get_usage());
+  if (function_exists('memory_get_usage')) {
+    ws_logfile('[merge_chunks] memory_get_usage after loading chunks: '.memory_get_usage());
+  }
 }
 
 /*
