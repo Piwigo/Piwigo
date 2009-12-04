@@ -64,7 +64,7 @@ class PwgXmlRpcEncoder extends PwgResponseEncoder
 {
   function encodeResponse($response)
   {
-    $respClass = strtolower( get_class($response) );
+    $respClass = strtolower( @get_class($response) );
     if ($respClass=='pwgerror')
     {
       $code = $response->code();

@@ -269,7 +269,7 @@ class PwgResponseEncoder
 
   private static function _removeNamedArray(&$value)
   {
-    if ( strtolower( get_class($value) ) =='pwgnamedarray')
+    if ( strtolower( @get_class($value) ) =='pwgnamedarray')
     {
       $value = $value->_content;
       return 1;
@@ -279,7 +279,7 @@ class PwgResponseEncoder
 
   private static function _removeNamedStruct(&$value)
   {
-    if ( strtolower( get_class($value) ) =='pwgnamedstruct')
+    if ( strtolower( @get_class($value) ) =='pwgnamedstruct')
     {
       if ( isset($value->_content['']) )
       {
@@ -524,7 +524,7 @@ Request format: ".@$this->_requestFormat." Response format: ".@$this->_responseF
       return new PwgError(WS_ERR_MISSING_PARAM, 'Missing parameters: '.implode(',',$missing_params));
     }
     $result = trigger_event('ws_invoke_allowed', true, $methodName, $params);
-    if ( strtolower( get_class($result) )!='pwgerror')
+    if ( strtolower( @get_class($result) )!='pwgerror')
     {
       if ( !empty($method['include']) )
       {
