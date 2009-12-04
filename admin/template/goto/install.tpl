@@ -162,11 +162,11 @@ TD {
 </form>
 {else}
 <p>
-  <br />
-  <input type="button" name="home" value="{'home'|@translate}" onClick="window.open('index.php');"/>
-  <input type="button" name="admin" value="{'admin'|@translate}" onClick="window.open('admin.php');"/>
+  <input type="button" name="home" value="{'home'|@translate}" onClick="window.open('index.php');">
+  <input type="button" name="admin" value="{'admin'|@translate}" onClick="window.open('admin.php');">
 </p>
 
+{if !isset($migration)}
 <div class="infos">
   <ul>
     <li>{'Subscribe to Piwigo Announcements Newsletter'|@translate}</li>
@@ -174,9 +174,9 @@ TD {
 </div>
 
 <p>
-  <br />
-  <input type="button" name="subscribe" value="{'Subscribe %s'|@translate|@sprintf:$F_ADMIN_EMAIL}" onClick="window.open('{$SUBSCRIBE_BASE_URL}{$F_ADMIN_EMAIL}');"/>
+  <input type="button" name="subscribe" value="{'Subscribe %s'|@translate|@sprintf:$F_ADMIN_EMAIL}" onClick="window.open('{$SUBSCRIBE_BASE_URL}{$F_ADMIN_EMAIL}');">
 </p>
+{/if}
 {/if}
 </div> {* content *}
 <div style="text-align: center">{$L_INSTALL_HELP}</div>

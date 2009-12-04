@@ -122,9 +122,31 @@ $admin_mail = (!empty($_POST['admin_mail'])) ? $_POST['admin_mail'] : '';
 $infos = array();
 $errors = array();
 
+// database config file migration : mysql.inc.php et config_database.inc.php
+$old_config_file = PHPWG_ROOT_PATH . 'include/mysql.inc.php';
+$config_file = PHPWG_ROOT_PATH . 'include/config_database.inc.php';
+if (!file_exists($config_file) && file_exists($old_config_file))
+{
+  $step = 3;
+  include $old_config_file;
+  $file_content = '<?php
+$conf[\'dblayer\'] = \'mysql\';
+$conf[\'db_base\'] = \''.$cfgBase.'\';
+$conf[\'db_user\'] = \''.$cfgUser.'\';
+$conf[\'db_password\'] = \''.$cfgPassword.'\';
+$conf[\'db_host\'] = \''.$cfgHote.'\';
+
+$prefixeTable = \''.$prefixeTable.'\';
+
+define(\'PHPWG_INSTALLED\', true);
+define(\'PWG_CHARSET\', \''.PWG_CHARSET.'\');
+define(\'DB_CHARSET\', \''.DB_CHARSET.'\');
+define(\'DB_COLLATE\', \''.DB_COLLATE.'\');
+
+?'.'>';
+}
 // Open config.php ... if it exists
-$config_file = PHPWG_ROOT_PATH.'include/config_database.inc.php';
-if (@file_exists($config_file))
+elseif (@file_exists($config_file))
 {
   include($config_file);
   // Is Piwigo already installed ?
@@ -175,9 +197,12 @@ else {
 }
 define('PHPWG_URL', 'http://'.PHPWG_DOMAIN);
 
-load_language( 'common.lang', '', array('language'=>$language, 'target_charset'=>'utf-8') );
-load_language( 'admin.lang', '', array('language'=>$language, 'target_charset'=>'utf-8') );
-load_language( 'install.lang', '', array('language'=>$language, 'target_charset'=>'utf-8') );
+if ($step != 3)
+{
+  load_language('common.lang', '', array('language' => $language, 'target_charset'=>'utf-8'));
+  load_language('admin.lang', '', array('language' => $language, 'target_charset'=>'utf-8'));
+  load_language('install.lang', '', array('language' => $language, 'target_charset'=>'utf-8'));
+}
 
 //------------------------------------------------- check php version
 if (version_compare(PHP_VERSION, REQUIRED_PHP_VERSION, '<'))
@@ -188,8 +213,11 @@ if (version_compare(PHP_VERSION, REQUIRED_PHP_VERSION, '<'))
 //----------------------------------------------------- template initialization
 include( PHPWG_ROOT_PATH .'include/template.class.php');
 $template = new Template(PHPWG_ROOT_PATH.'admin/template/goto', 'roma');
-$template->set_filenames( array('install'=>'install.tpl') );
-$step = 1;
+$template->set_filenames( array('install' => 'install.tpl') );
+if (!isset($step))
+{
+  $step = 1;
+}
 //---------------------------------------------------------------- form analyze
 if ( isset( $_POST['install'] ))
 {
@@ -352,38 +380,77 @@ INSERT INTO piwigo_config (param,value,comment)
 }
 
 //------------------------------------------------------ start template output
-$dbengines = available_engines();
-
-foreach (get_languages('utf-8') as $language_code => $language_name)
+if ($step == 3)
 {
-  if ($language == $language_code)
+  @umask(0111);
+  // writing the new configuration file
+  if ( !($fp = @fopen( $config_file, 'w' )))
   {
-    $template->assign('language_selection', $language_code);
-  }
-  $languages_options[$language_code] = $language_name;
-}
-$template->assign('language_options', $languages_options);
+    $html_content = htmlentities( $file_content, ENT_QUOTES );
+    $html_content = nl2br( $html_content );
+    $error_copy = l10n('Copy the text in pink between hyphens and paste it into the file "include/config_database.inc.php"(Warning : config_database.inc.php must only contain what is in pink, no line return or space character)');
+    $error_copy .= '<br>--------------------------------------------------------------------<br>';
+    $error_copy .= '<span class="sql_content">' . $html_content . '</span>';
+    $error_copy .= '<br>--------------------------------------------------------------------<br>';
+  } 
+  else 
+  {
+    @fputs($fp, $file_content, strlen($file_content));
+    @fclose($fp);
 
-$template->assign(
-  array(
-    'T_CONTENT_ENCODING' => 'utf-8',
-    'RELEASE' => PHPWG_VERSION,
-    'F_ACTION' => 'install.php?language=' . $language,
-    'F_DB_ENGINES' => $dbengines,
-    'F_DB_LAYER' => $dblayer,
-    'F_DB_HOST' => $dbhost,
-    'F_DB_USER' => $dbuser,
-    'F_DB_NAME' => $dbname,
-    'F_DB_PREFIX' => $table_prefix,
-    'F_ADMIN' => $admin_name,
-    'F_ADMIN_EMAIL' => $admin_mail,
-    'L_INSTALL_HELP' => sprintf(l10n('install_help'), PHPWG_URL.'/forum'),
-    ));
+    @unlink($old_config_file);
+    header("Location: index.php");
+    exit();
+  }
+
+  $template->assign(
+    array(
+      'T_CONTENT_ENCODING' => 'utf-8',
+      'migration' => true
+	  ));
+}
+else
+{
+  $dbengines = available_engines();
+
+  foreach (get_languages('utf-8') as $language_code => $language_name)
+  {
+    if ($language == $language_code)
+    {
+      $template->assign('language_selection', $language_code);
+    }
+    $languages_options[$language_code] = $language_name;
+  }
+  $template->assign('language_options', $languages_options);
+
+  $template->assign(
+    array(
+      'T_CONTENT_ENCODING' => 'utf-8',
+      'RELEASE' => PHPWG_VERSION,
+      'F_ACTION' => 'install.php?language=' . $language,
+      'F_DB_ENGINES' => $dbengines,
+      'F_DB_LAYER' => $dblayer,
+      'F_DB_HOST' => $dbhost,
+      'F_DB_USER' => $dbuser,
+      'F_DB_NAME' => $dbname,
+      'F_DB_PREFIX' => $table_prefix,
+      'F_ADMIN' => $admin_name,
+      'F_ADMIN_EMAIL' => $admin_mail,
+      'L_INSTALL_HELP' => sprintf(l10n('install_help'), PHPWG_URL.'/forum'),
+      ));
+}
 
 //------------------------------------------------------ errors & infos display
 if ($step == 1)
 {
   $template->assign('install', true);
+}
+elseif ($step == 3)
+{
+  if (isset($error_copy))
+  {
+    array_push($errors, $error_copy);
+  }
 }
 else
 {
