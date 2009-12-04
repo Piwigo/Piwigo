@@ -25,7 +25,7 @@ class PwgSerialPhpEncoder extends PwgResponseEncoder
 {
   function encodeResponse($response)
   {
-    $respClass = strtolower( get_class($response) );
+    $respClass = strtolower( @get_class($response) );
     if ($respClass=='pwgerror')
     {
       return serialize(
