@@ -66,6 +66,31 @@ where upper('.$conf['user_fields']['email'].') = upper(\''.$mail_address.'\')
   }
 }
 
+// validate_login_case:
+//   o check if login is not used by a other user
+// If the login doesn't correspond, an error message is returned.
+//
+function validate_login_case($login)
+{
+  global $conf;
+  
+  if (defined("PHPWG_INSTALLED"))
+  {
+    $query = "
+SELECT ".$conf['user_fields']['username']."
+FROM ".USERS_TABLE."
+WHERE LOWER(".stripslashes($conf['user_fields']['username']).") = '".strtolower($login)."'
+;";
+
+    $count = pwg_db_num_rows(pwg_query($query));
+
+    if ($count > 0)
+    {
+      return l10n('reg_err_login5');
+    }
+  }
+}
+
 function register_user($login, $password, $mail_address,
   $with_notification = true, $errors = array())
 {
@@ -91,6 +116,15 @@ function register_user($login, $password, $mail_address,
   if ('' != $mail_error)
   {
     array_push($errors, $mail_error);
+  }
+
+  if ($conf['no_case_sensitive_for_login'] == true)
+  {
+    $login_error = validate_login_case($login);
+    if ($login_error != '')
+    {
+      array_push($errors, $login_error);
+    }
   }
 
   $errors = trigger_event('register_user_check',

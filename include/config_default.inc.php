@@ -325,6 +325,12 @@ $conf['default_redirect_method'] = 'http';
 // Define using double password type in admin's users management panel
 $conf['double_password_type_in_admin'] = false;
 
+// Define if logins must be case sentitive or not at users registration. ie :
+// If set true, the login "user" will equal "User" or "USER" or "user",
+// etc. ... And it will be impossible to use such login variation to create a
+// new user account. 
+$conf['no_case_sensitive_for_login'] = false;
+
 // +-----------------------------------------------------------------------+
 // |                               metadata                                |
 // +-----------------------------------------------------------------------+
