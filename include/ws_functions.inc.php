@@ -1730,7 +1730,8 @@ SELECT *
   {
     ws_add_image_category_relations(
       $params['image_id'],
-      $params['categories']
+      $params['categories'],
+      $params['replace_mode']
       );
   }
 
@@ -1738,16 +1739,29 @@ SELECT *
   if (isset($params['tag_ids']))
   {
     include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
-    add_tags(
-      explode(',', $params['tag_ids']),
-      array($params['image_id'])
-      );
+
+    $tag_ids = explode(',', $params['tag_ids']);
+
+    if ($params['replace_mode'])
+    {
+      set_tags(
+        $tag_ids,
+        $params['image_id']
+        );
+    }
+    else
+    {
+      add_tags(
+        $tag_ids,
+        array($params['image_id'])
+        );
+    }
   }
 
   invalidate_user_cache();
 }
 
-function ws_add_image_category_relations($image_id, $categories_string)
+function ws_add_image_category_relations($image_id, $categories_string, $replace_mode=false)
 {
   // let's add links between the image and the categories
   //
@@ -1765,6 +1779,11 @@ function ws_add_image_category_relations($image_id, $categories_string)
   {
     @list($cat_id, $rank) = explode(',', $token);
 
+    if (!preg_match('/^\d+$/', $cat_id))
+    {
+      continue;
+    }
+
     array_push($cat_ids, $cat_id);
 
     if (!isset($rank))
@@ -1781,62 +1800,119 @@ function ws_add_image_category_relations($image_id, $categories_string)
 
   $cat_ids = array_unique($cat_ids);
 
-  if (count($cat_ids) > 0)
+  if (count($cat_ids) == 0)
   {
-    if ($search_current_ranks)
+    new PwgError(
+      500,
+      '[ws_add_image_category_relations] there is no category defined in "'.$categories_string.'"'
+      );
+    exit();
+  }
+  
+  $query = '
+SELECT
+    id
+  FROM '.CATEGORIES_TABLE.'
+  WHERE id IN ('.implode(',', $cat_ids).')
+;';
+  $db_cat_ids = array_from_query($query, 'id');
+
+  $unknown_cat_ids = array_diff($cat_ids, $db_cat_ids);
+  if (count($unknown_cat_ids) != 0)
+  {
+    new PwgError(
+      500,
+      '[ws_add_image_category_relations] the following categories are unknown: '.implode(', ', $unknown_cat_ids)
+      );
+    exit();
+  }
+  
+  $to_update_cat_ids = array();
+    
+  // in case of replace mode, we first check the existing associations
+  $query = '
+SELECT
+    category_id
+  FROM '.IMAGE_CATEGORY_TABLE.'
+  WHERE image_id = '.$image_id.'
+;';
+  $existing_cat_ids = array_from_query($query, 'category_id');
+
+  if ($replace_mode)
+  {
+    $to_remove_cat_ids = array_diff($existing_cat_ids, $cat_ids);
+    if (count($to_remove_cat_ids) > 0)
     {
       $query = '
+DELETE
+  FROM '.IMAGE_CATEGORY_TABLE.'
+  WHERE image_id = '.$image_id.'
+    AND category_id IN ('.implode(', ', $to_remove_cat_ids).')
+;';
+      pwg_query($query);
+      update_category($to_remove_cat_ids);
+    }
+  }
+  
+  $new_cat_ids = array_diff($cat_ids, $existing_cat_ids);
+  if (count($new_cat_ids) == 0)
+  {
+    return true;
+  }
+    
+  if ($search_current_ranks)
+  {
+    $query = '
 SELECT
     category_id,
     MAX(rank) AS max_rank
   FROM '.IMAGE_CATEGORY_TABLE.'
   WHERE rank IS NOT NULL
-    AND category_id IN ('.implode(',', $cat_ids).')
+    AND category_id IN ('.implode(',', $new_cat_ids).')
   GROUP BY category_id
 ;';
-      $current_rank_of = simple_hash_from_query(
-        $query,
-        'category_id',
-        'max_rank'
-        );
-
-      foreach ($cat_ids as $cat_id)
-      {
-        if (!isset($current_rank_of[$cat_id]))
-        {
-          $current_rank_of[$cat_id] = 0;
-        }
-
-        if ('auto' == $rank_on_category[$cat_id])
-        {
-          $rank_on_category[$cat_id] = $current_rank_of[$cat_id] + 1;
-        }
-      }
-    }
-
-    $inserts = array();
-
-    foreach ($cat_ids as $cat_id)
-    {
-      array_push(
-        $inserts,
-        array(
-          'image_id' => $image_id,
-          'category_id' => $cat_id,
-          'rank' => $rank_on_category[$cat_id],
-          )
-        );
-    }
-
-    include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
-    mass_inserts(
-      IMAGE_CATEGORY_TABLE,
-      array_keys($inserts[0]),
-      $inserts
+    $current_rank_of = simple_hash_from_query(
+      $query,
+      'category_id',
+      'max_rank'
       );
 
-    update_category($cat_ids);
+    foreach ($new_cat_ids as $cat_id)
+    {
+      if (!isset($current_rank_of[$cat_id]))
+      {
+        $current_rank_of[$cat_id] = 0;
+      }
+      
+      if ('auto' == $rank_on_category[$cat_id])
+      {
+        $rank_on_category[$cat_id] = $current_rank_of[$cat_id] + 1;
+      }
+    }
   }
+  
+  $inserts = array();
+  
+  foreach ($new_cat_ids as $cat_id)
+  {
+    array_push(
+      $inserts,
+      array(
+        'image_id' => $image_id,
+        'category_id' => $cat_id,
+        'rank' => $rank_on_category[$cat_id],
+        )
+      );
+  }
+  
+  include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
+  mass_inserts(
+    IMAGE_CATEGORY_TABLE,
+    array_keys($inserts[0]),
+    $inserts
+    );
+  
+  update_category($new_cat_ids);
 }
 
 function ws_categories_setInfo($params, &$service)
