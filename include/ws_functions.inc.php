@@ -1665,13 +1665,6 @@ function ws_images_setInfo($params, &$service)
     return new PwgError(401, 'Access denied');
   }
 
-  // name
-  // category_id
-  // file_content
-  // file_sum
-  // thumbnail_content
-  // thumbnail_sum
-
   $params['image_id'] = (int)$params['image_id'];
   if ($params['image_id'] <= 0)
   {
@@ -1691,9 +1684,7 @@ SELECT *
   }
 
   // database registration
-  $update = array(
-    'id' => $params['image_id'],
-    );
+  $update = array();
 
   $info_columns = array(
     'name',
@@ -1703,18 +1694,38 @@ SELECT *
     'date_creation',
     );
 
-  $perform_update = false;
   foreach ($info_columns as $key)
   {
     if (isset($params[$key]))
     {
-      $perform_update = true;
-      $update[$key] = $params[$key];
+      if ('fill_if_empty' == $params['single_value_mode'])
+      {
+        if (empty($image_row[$key]))
+        {
+          $update[$key] = $params[$key];
+        }
+      }
+      elseif ('replace' == $params['single_value_mode'])
+      {
+        $update[$key] = $params[$key];
+      }
+      else
+      {
+        new PwgError(
+          500,
+          '[ws_images_setInfo]'
+          .' invalid parameter single_value_mode "'.$params['single_value_mode'].'"'
+          .', possible values are {fill_if_empty, replace}.'
+          );
+        exit();
+      }
     }
   }
 
-  if ($perform_update)
+  if (count(array_keys($update)) > 0)
   {
+    $update['id'] = $params['image_id'];
+
     include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
     mass_updates(
       IMAGES_TABLE,
@@ -1731,7 +1742,7 @@ SELECT *
     ws_add_image_category_relations(
       $params['image_id'],
       $params['categories'],
-      $params['replace_mode']
+      ('replace' == $params['multiple_value_mode'] ? true : false)
       );
   }
 
@@ -1742,19 +1753,29 @@ SELECT *
 
     $tag_ids = explode(',', $params['tag_ids']);
 
-    if ($params['replace_mode'])
+    if ('replace' == $params['multiple_value_mode'])
     {
       set_tags(
         $tag_ids,
         $params['image_id']
         );
     }
-    else
+    elseif ('append' == $params['multiple_value_mode'])
     {
       add_tags(
         $tag_ids,
         array($params['image_id'])
         );
+    }
+    else
+    {
+      new PwgError(
+        500,
+        '[ws_images_setInfo]'
+        .' invalid parameter multiple_value_mode "'.$params['multiple_value_mode'].'"'
+        .', possible values are {replace, append}.'
+        );
+      exit();
     }
   }
 
