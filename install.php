@@ -197,7 +197,7 @@ else {
 }
 define('PHPWG_URL', 'http://'.PHPWG_DOMAIN);
 
-if ($step != 3)
+if (empty($step) || ($step != 3))
 {
   load_language('common.lang', '', array('language' => $language, 'target_charset'=>'utf-8'));
   load_language('admin.lang', '', array('language' => $language, 'target_charset'=>'utf-8'));
@@ -227,7 +227,7 @@ if ( isset( $_POST['install'] ))
 
     array_push( $infos, l10n('step1_confirmation') );
 
-    $required_version = constant('REQUIRED_'.strtoupper($conf['dblayer']).'_VERSION');
+    $required_version = constant('REQUIRED_'.strtoupper($dblayer).'_VERSION');
     if ( version_compare(pwg_get_db_version(), $required_version, '>=') )
     {
       $pwg_charset = 'utf-8';
