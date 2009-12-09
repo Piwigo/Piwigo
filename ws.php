@@ -289,10 +289,13 @@ function ws_addDefaultMethods( $arr )
         'default' => 0,
         'maxValue' => $conf['available_permission_levels']
         ),
-      'replace_mode' => array('default' => false),
+      'single_value_mode' => array('default' => 'fill_if_empty'),
+      'multiple_value_mode' => array('default' => 'append'),
       ),
     'POST method only. Admin only
-<br/><b>categories</b> is a string list "category_id[,rank];category_id[,rank]" The rank is optional and is equivalent to "auto" if not given.'
+<br/><b>categories</b> is a string list "category_id[,rank];category_id[,rank]" The rank is optional and is equivalent to "auto" if not given.
+<br/><b>single_value_mode</b> can be "fill_if_empty" (only use the input value if the corresponding values is currently empty) or "replace" (overwrite any existing value) and applies to single values properties like name/author/date_creation/comment
+<br/><b>multiple_value_mode</b> can be "append" (no change on existing values, add the new values) or "replace" and applies to multiple values properties like tag_ids/categories'
     );
   
   $service->addMethod(
