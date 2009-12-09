@@ -635,7 +635,7 @@ $navbar = create_navigation_bar(
   $conf['users_page']
   );
 
-$template->assign('NAVBAR', $navbar);
+$template->assign('navbar', $navbar);
 
 // +-----------------------------------------------------------------------+
 // |                               user list                               |

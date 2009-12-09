@@ -1,4 +1,3 @@
-{* $Id: user_list.tpl 2578 2008-09-24 00:51:40Z rvelices $ *}
 <div class="titrePage">
   <h2>{'title_liste_users'|@translate}</h2>
 </div>
@@ -56,7 +55,7 @@
 
 <form method="post" name="preferences" action="">
 
-<div class="navigationBar">{$NAVBAR}</div>
+{if !empty($navbar) }{include file='navigation_bar.tpl'|@get_extent:'navbar'}{/if}
 
 <table class="table2" width="97%">
   <thead>
@@ -98,7 +97,7 @@
   {/foreach}
 </table>
 
-<div class="navigationBar">{$NAVBAR}</div>
+{if !empty($navbar) }{include file='navigation_bar.tpl'|@get_extent:'navbar'}{/if}
 
 {* delete the selected users ? *}
 <fieldset>
