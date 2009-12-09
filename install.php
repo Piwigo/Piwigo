@@ -203,7 +203,7 @@ if (empty($step) || ($step != 3))
   load_language('admin.lang', '', array('language' => $language, 'target_charset'=>'utf-8'));
   load_language('install.lang', '', array('language' => $language, 'target_charset'=>'utf-8'));
 }
-
+header('Content-Type: text/html; charset=UTF-8');
 //------------------------------------------------- check php version
 if (version_compare(PHP_VERSION, REQUIRED_PHP_VERSION, '<'))
 {
