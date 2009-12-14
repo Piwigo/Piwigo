@@ -34,13 +34,18 @@ function check_token()
 {
   global $conf;
 
-  $token = hash_hmac('md5', session_id(), $conf['secret_key']);
+  $valid_token = hash_hmac('md5', session_id(), $conf['secret_key']);
+  $given_token = null;
 
-  if (!empty($_POST['pwg_token']) && ($_POST['pwg_token'] != $token))
+  if (!empty($_POST['pwg_token']))
   {
-    access_denied();    
+    $given_token = $_POST['pwg_token'];
   }
-  elseif (!empty($_GET['pwg_token']) && ($_GET['pwg_token'] != $token))
+  elseif (!empty($_GET['pwg_token']))
+  {
+    $given_token = $_GET['pwg_token'];
+  }
+  if ($given_token != $valid_token)
   {
     access_denied();    
   }
