@@ -23,6 +23,28 @@
 
 include(PHPWG_ROOT_PATH.'admin/include/functions_metadata.php');
 
+/**
+ * check token comming from form posted or get params to prevent csrf attacks
+ * if pwg_token is empty action doesn't require token
+ * else pwg_token is compare to server token
+ *
+ * @return void access denied if token given is not equal to server token 
+ */
+function check_token()
+{
+  global $conf;
+
+  $token = hash_hmac('md5', session_id(), $conf['secret_key']);
+
+  if (!empty($_POST['pwg_token']) && ($_POST['pwg_token'] != $token))
+  {
+    access_denied();    
+  }
+  elseif (!empty($_GET['pwg_token']) && ($_GET['pwg_token'] != $token))
+  {
+    access_denied();    
+  }
+}
 
 // The function delete_site deletes a site and call the function
 // delete_categories for each primary category of the site
