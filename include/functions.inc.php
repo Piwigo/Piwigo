@@ -1492,4 +1492,47 @@ function get_comment_post_key($image_id)
       )
     );
 }
+
+/*
+ * breaks the script execution if the given value doesn't match the given
+ * pattern. This should happen only during hacking attempts.
+ *
+ * @param string param_name
+ * @param mixed param_value
+ * @param boolean is_array
+ * @param string pattern
+ *
+ * @return void
+ */
+function check_input_parameter($param_name, $param_value, $is_array, $pattern)
+{
+  // it's ok if the input parameter is null
+  if (empty($param_value))
+  {
+    return true;
+  }
+  
+  if ($is_array)
+  {
+    if (!is_array($param_value))
+    {
+      die('[Hacking attempt] the input parameter "'.$param_name.'" should be an array');
+    }
+
+    foreach ($param_value as $item_to_check)
+    {
+      if (!preg_match($pattern, $item_to_check))
+      {
+        die('[Hacking attempt] an item is not valid in input parameter "'.$param_name.'"');
+      }
+    }
+  }
+  else
+  {
+    if (!preg_match($pattern, $param_value))
+    {
+      die('[Hacking attempt] the input parameter "'.$param_name.'" is not valid');
+    }
+  }
+}
 ?>

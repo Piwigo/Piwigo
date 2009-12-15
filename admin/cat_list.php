@@ -64,6 +64,8 @@ function save_categories_order($categories)
 // |                            initialization                             |
 // +-----------------------------------------------------------------------+
 
+check_input_parameter('parent_id', @$_GET['parent_id'], false, PATTERN_ID);
+
 $categories = array();
 
 $base_url = get_root_url().'admin.php?page=cat_list';
