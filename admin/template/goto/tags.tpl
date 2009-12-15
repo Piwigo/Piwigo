@@ -4,6 +4,7 @@
 </div>
 
 <form action="{$F_ACTION}" method="post">
+  <input type="hidden" name="pwg_token" value="{$PWG_TOKEN}" />
 
   {if isset($EDIT_TAGS_LIST)}
   <fieldset>

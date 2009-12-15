@@ -30,11 +30,9 @@ include(PHPWG_ROOT_PATH.'admin/include/functions_metadata.php');
  *
  * @return void access denied if token given is not equal to server token 
  */
-function check_token()
+function check_pwg_token()
 {
-  global $conf;
-
-  $valid_token = hash_hmac('md5', session_id(), $conf['secret_key']);
+  $valid_token = get_pwg_token();
   $given_token = null;
 
   if (!empty($_POST['pwg_token']))
@@ -49,6 +47,13 @@ function check_token()
   {
     access_denied();    
   }
+}
+
+function get_pwg_token()
+{
+  global $conf;
+
+  return hash_hmac('md5', session_id(), $conf['secret_key']);
 }
 
 // The function delete_site deletes a site and call the function
