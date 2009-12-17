@@ -149,7 +149,8 @@ SELECT id,author,date,image_id,content
                   $url_self,
                   array(
                     'action'=>'delete_comment',
-                    'comment_to_delete'=>$row['id']
+                    'comment_to_delete'=>$row['id'],
+                    'pwg_token'=>get_pwg_token(),
                   )
               );
       }

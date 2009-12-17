@@ -309,6 +309,8 @@ UPDATE '.CATEGORIES_TABLE.'
     }
     case 'delete_comment' :
     {
+      check_pwg_token();
+      
       if (isset($_GET['comment_to_delete'])
           and is_numeric($_GET['comment_to_delete'])
           and is_admin() and !is_adviser() )
