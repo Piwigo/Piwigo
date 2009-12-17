@@ -38,6 +38,8 @@ $plugins = new plugins();
 //------------------------------------------------------automatic installation
 if (isset($_GET['revision']) and isset($_GET['extension']) and !is_adviser())
 {
+  check_pwg_token();
+  
   $install_status = $plugins->extract_plugin_files('install', $_GET['revision'], $_GET['extension']);
 
   redirect($base_url.'&installstatus='.$install_status);
@@ -110,7 +112,9 @@ if ($plugins->get_server_plugins(true))
 
     $url_auto_install = htmlentities($base_url)
       . '&amp;revision=' . $plugin['revision_id']
-      . '&amp;extension=' . $plugin['extension_id'];
+      . '&amp;extension=' . $plugin['extension_id']
+      . '&amp;pwg_token='.get_pwg_token()
+    ;
 
     $template->append('plugins', array(
       'EXT_NAME' => $plugin['extension_name'],

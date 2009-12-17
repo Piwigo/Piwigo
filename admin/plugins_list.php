@@ -38,6 +38,8 @@ $plugins = new plugins();
 //--------------------------------------------------perform requested actions
 if (isset($_GET['action']) and isset($_GET['plugin']) and !is_adviser())
 {
+  check_pwg_token();
+  
   $page['errors'] = $plugins->perform_action($_GET['action'], $_GET['plugin']);
 
   if (empty($page['errors']))
@@ -96,7 +98,7 @@ foreach($plugins->fs_plugins as $plugin_id => $fs_plugin)
     array('NAME' => $display_name,
           'VERSION' => $fs_plugin['version'],
           'DESCRIPTION' => $desc,
-          'U_ACTION' => $base_url.'&amp;plugin='.$plugin_id);
+          'U_ACTION' => $base_url.'&amp;plugin='.$plugin_id.'&amp;pwg_token='.get_pwg_token());
 
   if (isset($plugins->db_plugins_by_id[$plugin_id]))
   {
