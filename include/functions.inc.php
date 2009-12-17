@@ -1535,4 +1535,37 @@ function check_input_parameter($param_name, $param_value, $is_array, $pattern)
     }
   }
 }
+
+/**
+ * check token comming from form posted or get params to prevent csrf attacks
+ * if pwg_token is empty action doesn't require token
+ * else pwg_token is compare to server token
+ *
+ * @return void access denied if token given is not equal to server token 
+ */
+function check_pwg_token()
+{
+  $valid_token = get_pwg_token();
+  $given_token = null;
+
+  if (!empty($_POST['pwg_token']))
+  {
+    $given_token = $_POST['pwg_token'];
+  }
+  elseif (!empty($_GET['pwg_token']))
+  {
+    $given_token = $_GET['pwg_token'];
+  }
+  if ($given_token != $valid_token)
+  {
+    access_denied();    
+  }
+}
+
+function get_pwg_token()
+{
+  global $conf;
+
+  return hash_hmac('md5', session_id(), $conf['secret_key']);
+}
 ?>

@@ -113,6 +113,26 @@ if (!empty($_GET['author']))
   $page['where_clauses'][] = 'com.author = \''.$_GET['author'].'\'';
 }
 
+// search a specific comment (if you're coming directly from an admin
+// notification email)
+if (!empty($_GET['comment_id']))
+{
+  check_input_parameter('comment_id', $_GET['comment_id'], false, PATTERN_ID);
+
+  // currently, the $_GET['comment_id'] is only used by admins from email
+  // for management purpose (validate/delete)
+  if (!is_admin())
+  {
+    $login_url =
+      get_root_url().'identification.php?redirect='
+      .urlencode(urlencode($_SERVER['REQUEST_URI']))
+      ;
+    redirect($login_url);
+  }
+
+  $page['where_clauses'][] = 'com.id = '.$_GET['comment_id'];
+}
+
 // search a substring among comments content
 if (!empty($_GET['keyword']))
 {
@@ -152,28 +172,46 @@ $page['where_clauses'][] = get_sql_condition_FandF
 // +-----------------------------------------------------------------------+
 // |                         comments management                           |
 // +-----------------------------------------------------------------------+
-if (isset($_GET['delete']) and is_numeric($_GET['delete'])
-      and !is_adviser() )
-{// comments deletion
-  check_status(ACCESS_ADMINISTRATOR);
-  $query = '
-DELETE FROM '.COMMENTS_TABLE.'
-  WHERE id='.$_GET['delete'].'
-;';
-  pwg_query($query);
-}
 
-if (isset($_GET['validate']) and is_numeric($_GET['validate'])
-      and !is_adviser() )
-{  // comments validation
-  check_status(ACCESS_ADMINISTRATOR);
-  $query = '
-UPDATE '.COMMENTS_TABLE.'
-  SET validated = \'true\'
-  , validation_date = NOW()
-  WHERE id='.$_GET['validate'].'
+if (isset($_GET['delete']) or isset($_GET['validate']))
+{
+  check_pwg_token();
+  
+  if (!is_adviser())
+  {
+    check_status(ACCESS_ADMINISTRATOR);
+
+    if (isset($_GET['delete']))
+    {
+      check_input_parameter('delete', $_GET['delete'], false, PATTERN_ID);
+      
+      $query = '
+DELETE
+  FROM '.COMMENTS_TABLE.'
+  WHERE id = '.$_GET['delete'].'
 ;';
-  pwg_query($query);
+      pwg_query($query);
+    }
+
+    if (isset($_GET['validate']))
+    {
+      check_input_parameter('validate', $_GET['validate'], false, PATTERN_ID);
+      
+      $query = '
+UPDATE '.COMMENTS_TABLE.'
+  SET validated = "true"
+    , validation_date = NOW()
+  WHERE id = '.$_GET['validate'].'
+;';
+      pwg_query($query);
+    }
+
+    $redirect_url =
+      PHPWG_ROOT_PATH
+      .'comments.php'
+      .get_query_string_diff(array('delete','validate','pwg_token'));
+    redirect($redirect_url);
+  }
 }
 
 // +-----------------------------------------------------------------------+
@@ -268,7 +306,7 @@ list($counter) = mysql_fetch_row(pwg_query($query));
 
 $url = PHPWG_ROOT_PATH
     .'comments.php'
-    .get_query_string_diff(array('start','delete','validate'));
+  .get_query_string_diff(array('start','delete','validate','pwg_token'));
 
 $navbar = create_navigation_bar($url,
                                 $counter,
@@ -380,16 +418,25 @@ SELECT id, name, permalink, uppercats
 
     if ( is_admin() )
     {
-      $url = get_root_url().'comments.php'.get_query_string_diff(array('delete','validate'));
-      $tpl_comment['U_DELETE'] = add_url_params($url,
-                          array('delete'=>$comment['comment_id'])
-                         );
+      $url = get_root_url().'comments.php'.get_query_string_diff(array('delete','validate','pwg_token'));
+      
+      $tpl_comment['U_DELETE'] = add_url_params(
+        $url,
+        array(
+          'delete' => $comment['comment_id'],
+          'pwg_token' => get_pwg_token(),
+          )
+        );
 
       if ($comment['validated'] != 'true')
       {
-        $tpl_comment['U_VALIDATE'] = add_url_params($url,
-                            array('validate'=>$comment['comment_id'])
-                           );
+        $tpl_comment['U_VALIDATE'] = add_url_params(
+          $url,
+          array(
+            'validate' => $comment['comment_id'],
+            'pwg_token' => get_pwg_token(),
+            )
+          );
       }
     }
     $template->append('comments', $tpl_comment);
