@@ -891,6 +891,11 @@ function ws_images_add_chunk($params, &$service)
     return new PwgError(401, 'Access denied');
   }
 
+  if (!$service->isPost())
+  {
+    return new PwgError(405, "This method requires HTTP POST");
+  }
+
   $upload_dir = PHPWG_ROOT_PATH.'upload/buffer';
 
   // create the upload directory tree if not exists
@@ -1665,6 +1670,11 @@ function ws_images_setInfo($params, &$service)
     return new PwgError(401, 'Access denied');
   }
 
+  if (!$service->isPost())
+  {
+    return new PwgError(405, "This method requires HTTP POST");
+  }
+
   $params['image_id'] = (int)$params['image_id'];
   if ($params['image_id'] <= 0)
   {
@@ -1942,6 +1952,11 @@ function ws_categories_setInfo($params, &$service)
   if (!is_admin() || is_adviser() )
   {
     return new PwgError(401, 'Access denied');
+  }
+
+  if (!$service->isPost())
+  {
+    return new PwgError(405, "This method requires HTTP POST");
   }
 
   // category_id
