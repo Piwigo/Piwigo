@@ -136,7 +136,7 @@ function ws_addDefaultMethods( $arr )
       'image_id' => array('flags'=>WS_PARAM_FORCE_ARRAY),
       'level' => array('maxValue'=>$conf['available_permission_levels']),
       ),
-    'sets the privacy levels for the images'
+    'sets the privacy levels for the images (POST method only)'
     );
 
   $service->addMethod('pwg.session.getStatus', 'ws_session_getStatus', null, '' );
@@ -278,7 +278,7 @@ function ws_addDefaultMethods( $arr )
     'ws_images_setInfo',
     array(
       'image_id' => array(),
-      
+
       'name' => array('default' => null),
       'author' => array('default' => null),
       'date_creation' => array('default' => null),
@@ -297,13 +297,13 @@ function ws_addDefaultMethods( $arr )
 <br/><b>single_value_mode</b> can be "fill_if_empty" (only use the input value if the corresponding values is currently empty) or "replace" (overwrite any existing value) and applies to single values properties like name/author/date_creation/comment
 <br/><b>multiple_value_mode</b> can be "append" (no change on existing values, add the new values) or "replace" and applies to multiple values properties like tag_ids/categories'
     );
-  
+
   $service->addMethod(
     'pwg.categories.setInfo',
     'ws_categories_setInfo',
     array(
       'category_id' => array(),
-      
+
       'name' => array('default' => null),
       'comment' => array('default' => null),
       ),
