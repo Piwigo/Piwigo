@@ -111,8 +111,9 @@ PwgWS.prototype = {
 		}
 		this.transport.onreadystatechange = this.onStateChange.pwgBind(this);
 
-		var url = this.urlRoot;
-		url += "ws.php?format=json&method="+method;
+		var url = this.urlRoot+"ws.php?format=json";
+
+		var body = "method="+method;
 		if (parameters)
 		{
 			for (var property in parameters)
@@ -120,14 +121,25 @@ PwgWS.prototype = {
 				if ( typeof parameters[property] == 'object' && parameters[property])
 				{
 					for (var i=0; i<parameters[property].length; i++)
-						url += "&"+property+"[]="+encodeURIComponent(parameters[property][i]);
+						body += "&"+property+"[]="+encodeURIComponent(parameters[property][i]);
 				}
 				else
-					url += "&"+property+"="+encodeURIComponent(parameters[property]);
+					body += "&"+property+"="+encodeURIComponent(parameters[property]);
 			}
 		}
-		this.transport.open(this.options.method, url, this.options.async);
-		this.transport.send(null);
+
+		if (this.options.method == "POST" )
+		{
+			this.transport.open(this.options.method, url, this.options.async);
+			this.transport.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+			this.transport.send(body);
+		}
+		else
+		{
+			url += "&"+body;
+			this.transport.open(this.options.method, url, this.options.async);
+			this.transport.send(null);
+		}
 	},
 
 	onStateChange: function() {

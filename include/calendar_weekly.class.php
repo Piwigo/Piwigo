@@ -54,11 +54,11 @@ class Calendar extends CalendarBase
           'labels' => null
         ),
       array(
-          'sql'=> pwg_db_get_week($this->date_field)+1,
+          'sql'=> pwg_db_get_week($this->date_field).'+1',
           'labels' => $week_no_labels,
         ),
       array(
-          'sql'=> pwg_db_get_dayofweek($this->date_field)-1,
+          'sql'=> pwg_db_get_dayofweek($this->date_field).'-1',
           'labels' => $lang['day']
         ),
      );

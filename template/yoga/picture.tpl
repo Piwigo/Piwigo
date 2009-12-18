@@ -214,6 +214,7 @@ var y = new PwgWS(rootUrl);
 y.callService(
 	"pwg.images.setPrivacyLevel", {image_id: id, level:level} ,
 	{
+		method: "POST",
 		onFailure: function(num, text) { selectElement.disabled = false; alert(num + " " + text); },
 		onSuccess: function(result) { selectElement.disabled = false; }
 	}
