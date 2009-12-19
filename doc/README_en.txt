@@ -26,7 +26,7 @@ Communication
 Newsletter
 ----------
 
-https://mail.gna.org/listinfo/phpwebgallery-announce/
+http://piwigo.org/announcement/subscribe/"your e-mail"
 
 It is *highly* recommended to subscribe to Piwigo newsletter. This is
 extremely low-traffic, but will provide you with announcements of new
@@ -35,7 +35,7 @@ Piwigo releases and serious bug notification.
 Freshmeat
 ---------
 
-http://freshmeat.net/projects/phpwebgallery
+http://freshmeat.net/projects/piwigo
 
 Want to stay informed at each release, stable and development
 release. Development releases notification are not send in the newsletter.
