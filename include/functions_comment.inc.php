@@ -166,33 +166,25 @@ INSERT INTO '.COMMENTS_TABLE.'
 
     $comm['id'] = mysql_insert_id();
 
-    if
-      (
-        ($comment_action=='validate' and $conf['email_admin_on_comment'])
-        or
-        ($comment_action!='validate' and $conf['email_admin_on_comment_validation'])
-      )
+    if ($conf['email_admin_on_comment']
+        or ($conf['email_admin_on_comment_validation'] and 'moderate' == $comment_action))
     {
       include_once(PHPWG_ROOT_PATH.'include/functions_mail.inc.php');
 
-      $del_url =
-          get_absolute_root_url().'comments.php?delete='.$comm['id'];
+      $comment_url = get_absolute_root_url().'comments.php?comment_id='.$comm['id'];
 
       $keyargs_content = array
       (
         get_l10n_args('Author: %s', $comm['author']),
         get_l10n_args('Comment: %s', $comm['content']),
         get_l10n_args('', ''),
-        get_l10n_args('Delete: %s', $del_url)
+        get_l10n_args('Manage this user comment: %s', $comment_url)
       );
 
-      if ($comment_action!='validate')
+      if ('moderate' == $comment_action)
       {
-        $keyargs_content[] =
-          get_l10n_args('', '');
-        $keyargs_content[] =
-          get_l10n_args('Validate: %s',
-            get_absolute_root_url().'comments.php?validate='.$comm['id']);
+        $keyargs_content[] = get_l10n_args('', '');
+        $keyargs_content[] = get_l10n_args('(!) This comment requires validation', '');
       }
 
       pwg_mail_notification_admins

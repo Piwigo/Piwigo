@@ -17,6 +17,7 @@
 {'remote_site_local_found'|@translate} {$local_listing.URL}
 {if isset($local_listing.CREATE)}
 <form action="{$F_ACTION}" method="post">
+  <input type="hidden" name="pwg_token" value="{$PWG_TOKEN}" />
   <p>
     {'remote_site_local_create'|@translate}:
     <input type="hidden" name="no_check" value="1"/>
@@ -64,6 +65,7 @@
 {/if}
 
 <form action="{$F_ACTION}" method="post">
+  <input type="hidden" name="pwg_token" value="{$PWG_TOKEN}" />
   <p>
     <label for="galleries_url" >{'site_create'|@translate}</label>
     <input type="text" name="galleries_url" id="galleries_url" />

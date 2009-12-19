@@ -29,6 +29,11 @@ if( !defined("PHPWG_ROOT_PATH") )
 include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
 check_status(ACCESS_ADMINISTRATOR);
 
+if (!empty($_POST))
+{
+  check_pwg_token();
+}
+
 // +-----------------------------------------------------------------------+
 // |                                edit tags                              |
 // +-----------------------------------------------------------------------+
@@ -189,7 +194,8 @@ $template->set_filenames(array('tags' => 'tags.tpl'));
 
 $template->assign(
   array(
-    'F_ACTION' => PHPWG_ROOT_PATH.'admin.php?page=tags'
+    'F_ACTION' => PHPWG_ROOT_PATH.'admin.php?page=tags',
+    'PWG_TOKEN' => get_pwg_token(),
     )
   );
 

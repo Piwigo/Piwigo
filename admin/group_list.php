@@ -33,6 +33,11 @@ include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
 // +-----------------------------------------------------------------------+
 check_status(ACCESS_ADMINISTRATOR);
 
+if (!empty($_POST) or isset($_GET['delete']) or isset($_GET['toggle_is_default']))
+{
+  check_pwg_token();
+}
+
 // +-----------------------------------------------------------------------+
 // |                             delete a group                            |
 // +-----------------------------------------------------------------------+
@@ -155,6 +160,7 @@ $template->assign(
   array(
     'F_ADD_ACTION' => get_root_url().'admin.php?page=group_list',
     'U_HELP' => get_root_url().'popuphelp.php?page=group_list',
+    'PWG_TOKEN' => get_pwg_token(),
     )
   );
 
@@ -191,9 +197,9 @@ SELECT COUNT(*)
       'IS_DEFAULT' => (get_boolean($row['is_default']) ? ' ['.l10n('is_default_group').']' : ''),
       'MEMBERS' => l10n_dec('%d member', '%d members', $counter),
       'U_MEMBERS' => $members_url.$row['id'],
-      'U_DELETE' => $del_url.$row['id'],
+      'U_DELETE' => $del_url.$row['id'].'&amp;pwg_token='.get_pwg_token(),
       'U_PERM' => $perm_url.$row['id'],
-      'U_ISDEFAULT' => $toggle_is_default_url.$row['id']
+      'U_ISDEFAULT' => $toggle_is_default_url.$row['id'].'&amp;pwg_token='.get_pwg_token(),
       )
     );
 }

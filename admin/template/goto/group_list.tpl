@@ -4,6 +4,7 @@
 </div>
 
 <form method="post" name="add_user" action="{$F_ADD_ACTION}" class="properties">
+  <input type="hidden" name="pwg_token" value="{$PWG_TOKEN}" />
   <fieldset>
     <legend>{'Add group'|@translate}</legend>
 

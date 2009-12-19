@@ -23,7 +23,6 @@
 
 include(PHPWG_ROOT_PATH.'admin/include/functions_metadata.php');
 
-
 // The function delete_site deletes a site and call the function
 // delete_categories for each primary category of the site
 function delete_site( $id )

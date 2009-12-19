@@ -855,6 +855,10 @@ function ws_images_setPrivacyLevel($params, &$service)
   {
     return new PwgError(401, 'Access denied');
   }
+  if (!$service->isPost())
+  {
+    return new PwgError(405, "This method requires HTTP POST");
+  }
   $params['image_id'] = array_map( 'intval',$params['image_id'] );
   if ( empty($params['image_id']) )
   {
@@ -865,6 +869,7 @@ function ws_images_setPrivacyLevel($params, &$service)
   {
     return new PwgError(WS_ERR_INVALID_PARAM, "Invalid level");
   }
+
   $query = '
 UPDATE '.IMAGES_TABLE.'
   SET level='.(int)$params['level'].'
@@ -885,10 +890,15 @@ function ws_images_add_chunk($params, &$service)
   // original_sum
   // type {thumb, file, high}
   // position
-  
+
   if (!is_admin() || is_adviser() )
   {
     return new PwgError(401, 'Access denied');
+  }
+
+  if (!$service->isPost())
+  {
+    return new PwgError(405, "This method requires HTTP POST");
   }
 
   $upload_dir = PHPWG_ROOT_PATH.'upload/buffer';
@@ -945,18 +955,18 @@ function merge_chunks($output_filepath, $original_sum, $type)
   if (is_file($output_filepath))
   {
     unlink($output_filepath);
-    
+
     if (is_file($output_filepath))
     {
       new PwgError(500, '[merge_chunks] error while trying to remove existing '.$output_filepath);
       exit();
     }
   }
-  
+
   $upload_dir = PHPWG_ROOT_PATH.'upload/buffer';
   $pattern = '/'.$original_sum.'-'.$type.'/';
   $chunks = array();
-  
+
   if ($handle = opendir($upload_dir))
   {
     while (false !== ($file = readdir($handle)))
@@ -977,21 +987,21 @@ function merge_chunks($output_filepath, $original_sum, $type)
   }
 
   $i = 0;
-  
+
   foreach ($chunks as $chunk)
   {
     $string = file_get_contents($chunk);
-    
+
     if (function_exists('memory_get_usage')) {
       ws_logfile('[merge_chunks] memory_get_usage on chunk '.++$i.': '.memory_get_usage());
     }
-    
+
     if (!file_put_contents($output_filepath, $string, FILE_APPEND))
     {
       new PwgError(500, '[merge_chunks] error while writting chunks for '.$output_filepath);
       exit();
     }
-    
+
     unlink($chunk);
   }
 
@@ -1009,7 +1019,7 @@ function add_file($file_path, $type, $original_sum, $file_sum)
   $file_path = file_path_for_type($file_path, $type);
 
   $upload_dir = dirname($file_path);
-  
+
   if (!is_dir($upload_dir)) {
     umask(0000);
     $recursive = true;
@@ -1096,7 +1106,7 @@ SELECT
   // update basic metadata from file
   //
   $update = array();
-  
+
   if ('high' == $params['type'])
   {
     $update['high_filesize'] = $infos['filesize'];
@@ -1115,7 +1125,7 @@ SELECT
   if (count($update) > 0)
   {
     $update['id'] = $params['image_id'];
-    
+
     include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
     mass_updates(
       IMAGES_TABLE,
@@ -1665,6 +1675,11 @@ function ws_images_setInfo($params, &$service)
     return new PwgError(401, 'Access denied');
   }
 
+  if (!$service->isPost())
+  {
+    return new PwgError(405, "This method requires HTTP POST");
+  }
+
   $params['image_id'] = (int)$params['image_id'];
   if ($params['image_id'] <= 0)
   {
@@ -1829,7 +1844,7 @@ function ws_add_image_category_relations($image_id, $categories_string, $replace
       );
     exit();
   }
-  
+
   $query = '
 SELECT
     id
@@ -1847,9 +1862,9 @@ SELECT
       );
     exit();
   }
-  
+
   $to_update_cat_ids = array();
-    
+
   // in case of replace mode, we first check the existing associations
   $query = '
 SELECT
@@ -1874,13 +1889,13 @@ DELETE
       update_category($to_remove_cat_ids);
     }
   }
-  
+
   $new_cat_ids = array_diff($cat_ids, $existing_cat_ids);
   if (count($new_cat_ids) == 0)
   {
     return true;
   }
-    
+
   if ($search_current_ranks)
   {
     $query = '
@@ -1904,16 +1919,16 @@ SELECT
       {
         $current_rank_of[$cat_id] = 0;
       }
-      
+
       if ('auto' == $rank_on_category[$cat_id])
       {
         $rank_on_category[$cat_id] = $current_rank_of[$cat_id] + 1;
       }
     }
   }
-  
+
   $inserts = array();
-  
+
   foreach ($new_cat_ids as $cat_id)
   {
     array_push(
@@ -1925,14 +1940,14 @@ SELECT
         )
       );
   }
-  
+
   include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
   mass_inserts(
     IMAGE_CATEGORY_TABLE,
     array_keys($inserts[0]),
     $inserts
     );
-  
+
   update_category($new_cat_ids);
 }
 
@@ -1942,6 +1957,11 @@ function ws_categories_setInfo($params, &$service)
   if (!is_admin() || is_adviser() )
   {
     return new PwgError(401, 'Access denied');
+  }
+
+  if (!$service->isPost())
+  {
+    return new PwgError(405, "This method requires HTTP POST");
   }
 
   // category_id
@@ -1986,7 +2006,7 @@ function ws_categories_setInfo($params, &$service)
       array($update)
       );
   }
-  
+
 }
 
 function ws_logfile($string)
@@ -1996,7 +2016,7 @@ function ws_logfile($string)
   if (!$conf['ws_enable_log']) {
     return true;
   }
-  
+
   file_put_contents(
     $conf['ws_log_filepath'],
     '['.date('c').'] '.$string."\n",
