@@ -644,14 +644,14 @@ $lang['Delete selected photos'] = 'Usuń zaznaczone zdjęcie';
 $lang['%d photo was deleted'] = '%d zdjęcie zostało usunięte';
 $lang['%d photos were deleted'] = '%d zdjęć zostało usuniętych';
 $lang['Bound template'] = 'Przypisz Szablon';
-/* TODO */ $lang['Downloads'] = 'Downloads';
-/* TODO */ $lang['Released on'] = 'Released on';
-/* TODO */ $lang['Number of downloads'] = 'Number of downloads';
+$lang['Downloads'] = 'Pobrania';
+$lang['Released on'] = 'Opublikowano';
+$lang['Number of downloads'] = 'Liczba pobrań';
 // --------- Starting below: New or revised $lang ---- from Colibri
-/*TODO*/$lang['Piwigo Announcements Newsletter'] = 'Piwigo Announcements Newsletter';
-/*TODO*/$lang['Subscribe to Piwigo Announcements Newsletter'] = 'Keep in touch with Piwigo project, subscribe to Piwigo Announcement Newsletter. You will receive emails when a new release is available (sometimes including a security bug fix, it\'s important to know and upgrade) and when major events happen to the project. Only a few emails a year.';
-/*TODO*/$lang['Subscribe %s'] = 'Subscribe %s';
-/*TODO*/$lang['Subscribe %s to Piwigo Announcements Newsletter'] = 'Subscribe %s to Piwigo English Announcements Newsletter';
-/*TODO*/$lang['Purge search history'] = 'Purge search history';
-/*TODO*/$lang['Hide'] = 'Hide';
+$lang['Piwigo Announcements Newsletter'] = 'Newsletter Piwigo';
+$lang['Subscribe to Piwigo Announcements Newsletter'] = 'Zapisz się, aby otrzymywać Newsletter Piwigo, jeśli chcesz mieć bieżące informacje o projekcie Piwigo. Kiedy nowa wersja Piwigo zostanie opublikowana (czasami zawierająca konieczne do zainstalowania poprawki bezpieczeństwa) oraz gdy zajdą ważne zdarzenia dotyczące projektu - wtedy otrzymasz wiadomość e-mail z Newsletterem Piwigo. Powinno to być kilka wiadomości w ciągu roku.';
+$lang['Subscribe %s'] = 'Zapisz %s';
+$lang['Subscribe %s to Piwigo Announcements Newsletter'] = 'Zapisz %s do angielskiej wersji Newsletter Piwigo';
+$lang['Purge search history'] = 'Usuń historię przeszukiwań';
+$lang['Hide'] = 'Ukryj';
 ?>
