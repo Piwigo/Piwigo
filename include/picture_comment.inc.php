@@ -136,7 +136,7 @@ SELECT com.id,author,author_id,'.$conf['user_fields']['username'].' AS username,
   WHERE image_id = '.$page['image_id'].
 $validated_clause.'
   ORDER BY date ASC
-  LIMIT '.$page['start'].' OFFSET '.$conf['nb_comment_page'].'
+  LIMIT '.$conf['nb_comment_page'].' OFFSET '.$page['start'].'
 ;';
     $result = pwg_query( $query );
 
