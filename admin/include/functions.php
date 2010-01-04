@@ -1882,6 +1882,7 @@ function get_newsletter_subscribe_base_url($language) {
     'it_IT' => 'it.piwigo.org',
     'de_DE' => 'de.piwigo.org',
     'es_ES' => 'es.piwigo.org',
+    'pl_PL' => 'pl.piwigo.org',
     );
 
   if (isset($domain_of[$language])) {
