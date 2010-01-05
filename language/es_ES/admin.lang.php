@@ -467,6 +467,7 @@ $lang['Advanced_features'] = 'Funciones avanzadas';
 $lang['Elements_not_linked'] = 'Elementos no atados';
 $lang['special_admin_menu'] = 'Especiales';
 $lang['Duplicates'] = 'Ficheros que llevan el mismo nombre en varias categorías físicas';
+
 $lang['Overall'] = 'Vista global';
 $lang['Year'] = 'Año';
 $lang['Month'] = 'Mes';
@@ -506,6 +507,7 @@ $lang['Hour'] = 'Hora';
 $lang['is_the_guest'] = 'Invitado';
 $lang['is_the_default'] = 'valores por defecto';
 $lang['High filesize'] = 'Talla del fichero HR';
+// --------- Starting below: New or revised $lang ---- from version 1.7.1
 $lang['Guest cannot be deleted'] = 'No se puede suprimir el invitado';
 $lang['Default user cannot be deleted'] = 'No se puede suprimie al usuario por defecto';
 $lang['purge history detail'] = 'Vaciar el histórico';
@@ -536,7 +538,7 @@ $lang['c13y_bad_webmaster_status'] = 'El estatuto del utilizador " webmestre " p
 $lang['c13y_user_created'] = 'Utilizador "%s" creado con como palabra de paso "%s"';
 $lang['c13y_user_status_updated'] = 'Estatuto del utilizador "%s" puesto al día';
 $lang['add new elements to caddie'] = 'añadir los nuevos elementos a la cesta';
-// --------- Starting below: New or revised $lang ---- from Butterfly (
+// --------- Starting below: New or revised $lang ---- from Butterfly 
 $lang['no_display_thumbnail'] = 'Ninguna fijación';
 $lang['display_thumbnail_classic'] = 'Fijación clásica';
 $lang['display_thumbnail_hoverbox'] = 'Fijación en el momento del sobrevuelo';
@@ -655,4 +657,8 @@ $lang['Password is missing'] = 'Contraseña falta. Por favor, introduzca la cont
 $lang['Password confirmation is missing'] = 'Falta la confirmación de la contraseña. Por favor, confirme la contraseña que elija.';
 $lang['Email address is missing'] = 'Dirección de correo electrónico está desaparecido. Por favor, especifica una dirección de correo electrónico.';
 $lang['Password confirmation error'] = 'Error de Confirmación de la contraseña.';
+$lang['Allow users to edit theirs owns comments'] = 'Autorizar a los usuarios a modificar sus propios comentarios';
+$lang['Allow users to delete theirs owns comments'] = 'Autorizar a los usuarios a suprimir sus propios comentarios';
+$lang['Email administrators when a comment is modified'] = 'Notificar a los administradores cuando un comentario es modificado';
+$lang['Email administrators when a comment is deleted'] = 'Notificar a los administradores cuando un comentario es suprimido';
 ?>

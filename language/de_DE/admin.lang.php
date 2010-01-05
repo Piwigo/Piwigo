@@ -617,7 +617,6 @@ $lang['GD library is missing'] = 'die GD-Library ist nicht auf dem Server instal
 $lang['conf_extents'] = 'Templates (Modelle)';
 $lang['extend_for_templates'] = 'Erweitere für Templates';
 $lang['Replacement of original templates'] = 'Ersetzte originale Templates';
-
 $lang['Replacers'] = 'Veränderte (Templates geändert)';
 $lang['Original templates'] = 'Originales Templates';
 $lang['Optional URL keyword'] = 'Optionale Parameter in der URL';
@@ -658,4 +657,8 @@ $lang['Password is missing'] = 'Passwort fehlt. Bitte geben Sie das Passwort ein
 $lang['Password confirmation is missing'] = 'Passwort-Bestätigung fehlt. Bitte bestätigen Sie die gewählte Passwort ein.';
 $lang['Email address is missing'] = 'E-Mail-Adresse fehlt. Bitte geben Sie eine E-Mail-Adresse.';
 $lang['Password confirmation error'] = 'Passwortbestätigung Fehler.';
+/*TODO*/$lang['Allow users to edit theirs owns comments'] = 'Allow users to edit theirs owns comments';
+/*TODO*/$lang['Allow users to delete theirs owns comments'] = 'Allow users to delete theirs owns comments';
+/*TODO*/$lang['Email administrators when a comment is modified'] = 'Email administrators when a comment is modified';
+/*TODO*/$lang['Email administrators when a comment is deleted'] = 'Email administrators when a comment is deleted';
 ?>

@@ -616,8 +616,7 @@ $lang['Hits'] = 'Hits';
 $lang['GD library is missing'] = 'GD library is missing';
 $lang['conf_extents'] = 'Templates';
 $lang['extend_for_templates'] = 'Extend for templates';
-$lang['Replacement of original templates'] =
- 'Replacement of original templates by customized templates from template-extension subfolder';
+$lang['Replacement of original templates'] = 'Replacement of original templates by customized templates from template-extension subfolder';
 $lang['Replacers'] = 'Replacers (customized templates)';
 $lang['Original templates'] = 'Original templates';
 $lang['Optional URL keyword'] = 'Optional URL keyword';
@@ -658,4 +657,8 @@ $lang['Password is missing'] = 'Password is missing. Please enter the password.'
 $lang['Password confirmation is missing'] = 'Password confirmation is missing. Please confirm the chosen password.';
 $lang['Email address is missing'] = 'Email address is missing. Please specify an email address.';
 $lang['Password confirmation error'] = 'Password confirmation error.';
+$lang['Allow users to edit theirs owns comments'] = 'Allow users to edit theirs owns comments';
+$lang['Allow users to delete theirs owns comments'] = 'Allow users to delete theirs owns comments';
+$lang['Email administrators when a comment is modified'] = 'Email administrators when a comment is modified';
+$lang['Email administrators when a comment is deleted'] = 'Email administrators when a comment is deleted';
 ?>

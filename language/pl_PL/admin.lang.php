@@ -616,8 +616,7 @@ $lang['Hits'] = 'Wejść';
 $lang['GD library is missing'] = 'Brak biblioteki GD';
 $lang['conf_extents'] = 'Szablony';
 $lang['extend_for_templates'] = 'Rozszerz dla szablony';
-$lang['Replacement of original templates'] =
- 'Zamienniki oryginalnych szablonów przez spersonalizowane szablony z katalogu template-extension';
+$lang['Replacement of original templates'] = 'Zamienniki oryginalnych szablonów przez spersonalizowane szablony z katalogu template-extension';
 $lang['Replacers'] = 'Zamienniki (spersonalizowane szablony)';
 $lang['Original templates'] = 'Oryginalne szablony';
 $lang['Optional URL keyword'] = 'Opcjonalne słowo klucz dla URL';
@@ -658,4 +657,8 @@ $lang['Password is missing'] = 'Brak hasła. Wpisz proszę hasło.';
 $lang['Password confirmation is missing'] = 'Brak informacji o haśle. Potwierdź wybrane hasło.';
 $lang['Email address is missing'] = 'Brak adresu email. usupełnij adres email.';
 $lang['Password confirmation error'] = 'Wprowadzone hasła nie pasują do siebie.';
+/*TODO*/$lang['Allow users to edit theirs owns comments'] = 'Allow users to edit theirs owns comments';
+/*TODO*/$lang['Allow users to delete theirs owns comments'] = 'Allow users to delete theirs owns comments';
+/*TODO*/$lang['Email administrators when a comment is modified'] = 'Email administrators when a comment is modified';
+/*TODO*/$lang['Email administrators when a comment is deleted'] = 'Email administrators when a comment is deleted';
 ?>
