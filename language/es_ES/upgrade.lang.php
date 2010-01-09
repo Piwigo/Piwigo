@@ -40,4 +40,6 @@ $lang['all sub-categories of private categories become private'] = 'Todas las su
 $lang['user permissions and group permissions have been erased'] = 'Los autorizaciones de los usuarios y de los grupos han sido borrados';
 $lang['only thumbnails prefix and webmaster mail saved'] = 'Sólo el prefijo de las miniaturas y el email electrónico del webmestre han sido salvaguardados por la configuración precedente';
 
+$lang['in include/mysql.inc.php, before ?>, insert:'] = 'En el fichero <i>include/mysql.inc.php</i>, antes <b>?></b>,  inserte:';
+
 ?>
