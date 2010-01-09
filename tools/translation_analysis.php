@@ -55,16 +55,41 @@ foreach ($languages as $language)
         array_keys($metalang[ $language ][$file])
         );
 
-      $output = '';
+      $output_missing = '';
       foreach ($missing_keys as $key)
       {
-        $print_key = str_replace("'", '\\\'', $key);
-        $print_value = str_replace("'", '\\\'', $metalang[ $page['ref_default_values'] ][$file][$key]);
-        $output.= '$'."lang['".$print_key."'] = '".$print_value."';\n";
+        $output_missing.= get_line_to_translate($file, $key);
       }
 
-      if ('' != $output)
+      // strings not "really" translated?
+      $output_duplicated = '';
+      foreach (array_keys($metalang[$language][$file]) as $key)
       {
+        $exceptions = array('Level 0');
+        if (in_array($key, $exceptions))
+        {
+          continue;
+        }
+        
+        $local_value = $metalang[$language][$file][$key];
+        $ref_value = $metalang[ $page['ref_default_values'] ][$file][$key];
+        if ($local_value == $ref_value)
+        {
+          $output_duplicated.= get_line_to_translate($file, $key);
+        }
+      }
+
+      if ('' != $output_missing or '' != $output_duplicated)
+      {
+        $output = '';
+        if ('' != $output_missing)
+        {
+          $output.= "// missing translations\n".$output_missing;
+        }
+        if ('' != $output_duplicated)
+        {
+          $output.= "\n// untranslated yet\n".$output_duplicated;
+        }
         echo '<h3>'.$file.'.lang.php</h3>';
         echo '<textarea style="width:100%;height:150px;">'.$output.'</textarea>';
       }
@@ -91,5 +116,14 @@ function load_metalang($language, $file_list)
     }
   }
   return $metalang;
+}
+
+function get_line_to_translate($file, $key)
+{
+  global $metalang, $page;
+  
+  $print_key = str_replace("'", '\\\'', $key);
+  $print_value = str_replace("'", '\\\'', $metalang[ $page['ref_default_values'] ][$file][$key]);
+  return '$'."lang['".$print_key."'] = '".$print_value."';\n";
 }
 ?>
