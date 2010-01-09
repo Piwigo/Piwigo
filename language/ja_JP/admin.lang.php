@@ -645,10 +645,4 @@ $lang['Delete selected photos'] = '選択した写真を削除する';
 $lang['%d photo was deleted'] = '%d 写真が削除されました。';
 $lang['%d photos were deleted'] = '%d 写真が削除されました。';
 // --------- Starting below: New or revised $lang ---- from Colibri
-/*TODO*/$lang['Piwigo Announcements Newsletter'] = 'Piwigo Announcements Newsletter';
-/*TODO*/$lang['Subscribe to Piwigo Announcements Newsletter'] = 'Keep in touch with Piwigo project, subscribe to Piwigo Announcement Newsletter. You will receive emails when a new release is available (sometimes including a security bug fix, it\'s important to know and upgrade) and when major events happen to the project. Only a few emails a year.';
-/*TODO*/$lang['Subscribe %s'] = 'Subscribe %s';
-/*TODO*/$lang['Subscribe %s to Piwigo Announcements Newsletter'] = 'Subscribe %s to Piwigo English Announcements Newsletter';
-/*TODO*/$lang['Purge search history'] = 'Purge search history';
-/*TODO*/$lang['Hide'] = 'Hide';
 ?>

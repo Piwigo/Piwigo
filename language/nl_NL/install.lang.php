@@ -64,13 +64,4 @@ $lang['install_end_message'] = 'Het installeren van Piwigo is klaar, de volgende
 $lang['conf_mail_webmaster'] = 'Webmaster email adres';
 $lang['conf_mail_webmaster_info'] = 'Het is mogelijk dat bezoekers contact opnemen met de beheerder middels e-mail';
 
-/* TODO */$lang['PHP 5 is required'] = 'PHP 5 is required';
-/* TODO */$lang['It appears your webhost is currently running PHP %s.'] = 'It appears your webhost is currently running PHP %s.';
-/* TODO */$lang['Piwigo may try to switch your configuration to PHP 5 by creating or modifying a .htaccess file.'] = 'Piwigo may try to switch your configuration to PHP 5 by creating or modifying a .htaccess file.';
-/* TODO */$lang['Note you can change your configuration by yourself and restart Piwigo after that.'] = 'Note you can change your configuration by yourself and restart Piwigo after that.';
-/* TODO */$lang['Try to configure PHP 5'] = 'Try to configure PHP 5';
-/* TODO */$lang['Sorry!'] = 'Sorry!';
-/* TODO */$lang['Piwigo was not able to configure PHP 5.'] = 'Piwigo was not able to configure PHP 5.';
-/* TODO */$lang["You may referer to your hosting provider's support and see how you could switch to PHP 5 by yourself."] = "You may referer to your hosting provider's support and see how you could switch to PHP 5 by yourself.";
-/* TODO */$lang['Hope to see you back soon.'] = 'Hope to see you back soon.';
 ?>

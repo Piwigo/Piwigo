@@ -361,5 +361,4 @@ $lang['elements posted during the last %d days'] = 'afbeelding binnen de %d dage
 $lang['Choose an image'] = 'Kies een afbeelding om';
 $lang['Piwigo Help'] = 'Piwigo Help';
 // --------- Starting below: New or revised $lang ---- from Butterfly (2.0)
-/* TODO */ $lang['Reset_To_Default'] = 'Reset to default values';
 ?>

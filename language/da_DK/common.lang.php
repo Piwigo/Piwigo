@@ -365,5 +365,4 @@ $lang['group by letters'] = 'alfabetiske grupper';
 $lang['letters'] = 'bogstaver';
 $lang['show tag cloud'] = 'vis tag cloud';
 $lang['cloud'] = 'cloud';
-/* TODO */ $lang['Reset_To_Default'] = 'Reset to default values';
 ?>

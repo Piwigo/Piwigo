@@ -365,5 +365,4 @@ $lang['group by letters'] = 'сгруппировать по буквам';
 $lang['letters'] = 'буквы';
 $lang['show tag cloud'] = 'показать облако слов';
 $lang['cloud'] = 'облако';
-/* TODO */ $lang['Reset_To_Default'] = 'Reset to default values';
 ?>

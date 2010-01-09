@@ -365,10 +365,7 @@ $lang['group by letters'] = 'seskupit podle písmen';
 $lang['letters'] = 'písmena';
 $lang['show tag cloud'] = 'zobrazit klíčová slova v bublině';
 $lang['cloud'] = 'bublina';
-/* TODO */ $lang['Reset_To_Default'] = 'Reset to default values';
 // --------- Starting below: New or revised $lang ---- from Colibri (2.1)
-/* TODO */ $lang['del_all_favorites_hint'] = 'delete all images from your favorites';
-/* TODO */ $lang['Sent by'] = 'Sent by';
 
 //old
 $lang['comments_title'] = 'Komentáře uživatelů';

@@ -365,5 +365,4 @@ $lang['group by letters'] = 'složeno po slovima';
 $lang['letters'] = 'slova';
 $lang['show tag cloud'] = 'prikaži tag oblak';
 $lang['cloud'] = 'oblak';
-/* TODO */ $lang['Reset_To_Default'] = 'Reset to default values';
 ?>

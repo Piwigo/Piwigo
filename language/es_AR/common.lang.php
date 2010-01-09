@@ -365,5 +365,4 @@ $lang['group by letters'] = 'reagrupar por letras';
 $lang['letters'] = 'letras';
 $lang['show tag cloud'] = 'mostrar la nube de tags';
 $lang['cloud'] = 'nube';
-/* TODO */ $lang['Reset_To_Default'] = 'Reset to default values';
 ?>

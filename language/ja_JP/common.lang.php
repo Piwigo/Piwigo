@@ -365,5 +365,4 @@ $lang['group by letters'] = '文字でグループ化する';
 $lang['letters'] = '文字';
 $lang['show tag cloud'] = 'タグクラウドを表示する';
 $lang['cloud'] = 'クラウド';
-/* TODO */ $lang['Reset_To_Default'] = 'Reset to default values';
 ?>
