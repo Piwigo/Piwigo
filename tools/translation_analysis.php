@@ -48,37 +48,47 @@ foreach ($languages as $language)
 
   foreach ($file_list as $file)
   {
-    $missing_keys = array_diff(
-      array_keys($metalang[ $page['ref_compare'] ][$file]),
-      array_keys($metalang[ $language ][$file])
-      );
-
-    $output = '';
-    foreach ($missing_keys as $key)
+    if (isset($metalang[ $language ][$file]))
     {
-      $print_key = str_replace("'", '\\\'', $key);
-      $print_value = str_replace("'", '\\\'', $metalang[ $page['ref_default_values'] ][$file][$key]);
-      $output.= '$'."lang['".$print_key."'] = '".$print_value."';\n";
+      $missing_keys = array_diff(
+        array_keys($metalang[ $page['ref_compare'] ][$file]),
+        array_keys($metalang[ $language ][$file])
+        );
+
+      $output = '';
+      foreach ($missing_keys as $key)
+      {
+        $print_key = str_replace("'", '\\\'', $key);
+        $print_value = str_replace("'", '\\\'', $metalang[ $page['ref_default_values'] ][$file][$key]);
+        $output.= '$'."lang['".$print_key."'] = '".$print_value."';\n";
+      }
+
+      if ('' != $output)
+      {
+        echo '<h3>'.$file.'.lang.php</h3>';
+        echo '<textarea style="width:100%;height:150px;">'.$output.'</textarea>';
+      }
     }
-
-    if ('' != $output)
+    else
     {
-      echo '<h3>'.$file.'.lang.php</h3>';
-      echo '<textarea style="width:100%;height:150px;">'.$output.'</textarea>';
+      echo '<h3>'.$file.'.lang.php is missing</h3>';
     }
   }
 }
 
 function load_metalang($language, $file_list)
 {
-  global $lang;
+  global $lang, $user;
   
   $metalang = array();
   foreach ($file_list as $file)
   {
     $lang = array();
-    load_language($file.'.lang', '', array('language'=>$language));
-    $metalang[$file] = $lang;
+    $user['language'] = $language;
+    if (load_language($file.'.lang', '', array('language'=>$language, 'no_fallback'=>true)))
+    {
+      $metalang[$file] = $lang;
+    }
   }
   return $metalang;
 }
