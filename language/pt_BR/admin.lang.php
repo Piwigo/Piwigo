@@ -615,7 +615,7 @@ $lang['Hits'] = 'Acessos (Hits)';
 $lang['GD library is missing'] = 'está faltanto a GD library';
 $lang['conf_extents'] = 'Modelos (Templates)';
 $lang['extend_for_templates'] = 'Extensões para modelos (templates)';
-$lang['Substituição dos modelos originais'] =
+$lang['Replacement of original templates'] =
 'Substituição dos modelos originais pelos modelos customizados do subdiretório template-extension';
 $lang['Replacers'] = 'Substitutos (modelos customizados)';
 $lang['Original templates'] = 'Modelos(templates) originais';
