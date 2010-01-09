@@ -23,7 +23,7 @@
 
 define('PHPWG_ROOT_PATH', '../');
 include_once( PHPWG_ROOT_PATH.'include/common.inc.php' );
-
+include_once( PHPWG_ROOT_PATH.'tools/translation_validated.inc.php' );
 $languages = array_keys(get_languages());
 
 $page['ref_compare'] = 'en_UK';
@@ -67,6 +67,11 @@ foreach ($languages as $language)
       {
         $exceptions = array('Level 0');
         if (in_array($key, $exceptions))
+        {
+          continue;
+        }
+
+        if (isset($validated_keys[$language]) and in_array($key, $validated_keys[$language]))
         {
           continue;
         }
