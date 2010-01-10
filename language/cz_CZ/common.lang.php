@@ -367,16 +367,5 @@ $lang['show tag cloud'] = 'zobrazit klíčová slova v bublině';
 $lang['cloud'] = 'bublina';
 // --------- Starting below: New or revised $lang ---- from Colibri (2.1)
 
-//old
-$lang['comments_title'] = 'Komentáře uživatelů';
-$lang['exif_field_Make'] = 'Značka';
-$lang['exif_field_Model'] = 'Model';
-$lang['exif_field_DateTimeOriginal'] = 'Vytvořeno';
-$lang['exif_field_ApertureFNumber'] = 'Clona';
-$lang['exif_field_ExposureTime'] = 'Čas';
-$lang['exif_field_ISOSpeedRatings'] = 'ISO';
-$lang['exif_field_FocalLength'] = 'Ohnisko';
-$lang['exif_field_ExposureBiasValue'] = 'Korekce';
-$lang['exif_field_ExposureProgram'] = 'Program';
-$lang['exif_field_Flash'] = 'Blesk';
+
 ?>
