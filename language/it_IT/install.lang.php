@@ -72,5 +72,9 @@ $lang['Try to configure PHP 5'] = 'Provate a configuratre PHP 5';
 $lang['Sorry!'] = 'Spiacente!';
 $lang['Piwigo was not able to configure PHP 5.'] = 'Piwigo non a potuto configurare PHP 5.';
 $lang["You may referer to your hosting provider's support and see how you could switch to PHP 5 by yourself."] = 'Dovete contattare il votro provider per chiedere come configurare PHP 5.';
-$lang['Hope to see you back soon.'] = 'Sperando di rivedervi prossimamente ...';
+$lang['Hope to see you back soon.'] = 'Sperando rivedervi prossimamente ...';
+
+$lang['step1_err_copy_2'] = 'Il prossimo step d\'installazione è oramail possibile';
+$lang['step1_err_copy_next'] = 'step successivo';
+
 ?>

@@ -218,6 +218,7 @@ $lang['mode_normal_hint'] = 'Ritorna alla visualizzazione normale';
 $lang['mode_posted_hint'] = 'Mostra il calendario per data d\'inserimento nella galleria';
 $lang['month'][10] = 'Ottobre';
 $lang['month'][11] = 'Novembre';
+$lang['month'][12] = 'Dicembre';
 $lang['month'][1] = 'Gennaio';
 $lang['month'][2] = 'Febbraio';
 $lang['month'][3] = 'Marzo';
@@ -227,7 +228,6 @@ $lang['month'][6] = 'Giugno';
 $lang['month'][7] = 'Luglio';
 $lang['month'][8] = 'Agosto';
 $lang['month'][9] = 'Settembre';
-$lang['month'][12] = 'Dicembre';
 $lang['most_visited_cat'] = 'Le più viste';
 $lang['most_visited_cat_hint'] = 'Mostra le foto le più viste';
 $lang['nb_image_line_error'] = 'Il numero d\'immagini per riga deve essere un intero non nullo';
@@ -366,7 +366,6 @@ $lang['letters'] = 'lettere';
 $lang['show tag cloud'] = 'fare salire la nuvola di tags';
 $lang['cloud'] = 'nuvola';
 $lang['Reset_To_Default'] = 'Ripristinare le impostazioni predefinite';
-// --------- Starting below: New or revised $lang ---- from Colibri (2.1)
-$lang['del_all_favorites_hint'] = 'cancellare tutte le immagini dai vostri favoriti';
-$lang['Sent by'] = 'Mandato da';
+$lang['del_all_favorites_hint'] = 'supprimer toutes les images de vos favoris';
+$lang['Sent by'] = 'Envoyé par';
 ?>
