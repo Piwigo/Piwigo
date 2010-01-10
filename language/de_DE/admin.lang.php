@@ -646,6 +646,8 @@ $lang['Bound template'] = 'Verbundenes Template';
 $lang['Downloads'] = 'Downloads';
 $lang['Released on'] = 'Veröffentlicht am';
 $lang['Number of downloads'] = 'Anzahl der Downloads';
+$lang['Unable to check for upgrade.'] = 'Update-Prüfung ist nicht möglich.';
+$lang['Date'] = 'Datum';
 // --------- Starting below: New or revised $lang ---- from Colibri
 $lang['Piwigo Announcements Newsletter'] = 'Piwigo Newsletter';
 $lang['Subscribe to Piwigo Announcements Newsletter'] = 'Abonniere den Piwigo Newsletter. Du bekommst eine E-Mail wenn eine neue Version verfügbar ist (manchmal wird ein Bug gefixt, der die Sicherheit der Piwigo erhöht, es ist dann wichtig das Upgrade zu installieren) und wenn es wichtige Ereignisse rund um das Projekt gibt. Es sind nur ein paar E-Mails im Jahr.';
