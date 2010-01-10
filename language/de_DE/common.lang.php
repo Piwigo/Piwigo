@@ -366,5 +366,7 @@ $lang['letters'] = 'Buchstaben';
 $lang['show tag cloud'] = 'zeigen die Tag-Wolke';
 $lang['cloud'] = 'Wolke';
 $lang['Reset_To_Default'] = 'Zurücksetzen auf Standardwerte';
+$lang['del_all_favorites_hint'] = 'Löscht alle Bilder aus deinen Favoriten';
+$lang['Sent by'] = 'Gesendet von';
 // --------- Starting below: New or revised $lang ---- from Colibri (2.1)
 ?>

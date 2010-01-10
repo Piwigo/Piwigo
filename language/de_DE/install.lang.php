@@ -71,4 +71,7 @@ $lang['Sorry!'] = 'Entschuldigung!';
 $lang['Piwigo was not able to configure PHP 5.'] = 'Piwigo ist nicht in der Lage PHP 5 zu konfigurieren.';
 $lang["You may referer to your hosting provider's support and see how you could switch to PHP 5 by yourself."] = "Sie können Kontakt zu ihrem Hosting-Provider aufnehmen und um Unterstützung bitten zur Umstellung auf PHP 5.";
 $lang['Hope to see you back soon.'] = 'Wir hoffen, Sie sind bald wieder zurück.';
+
+$lang['step1_err_copy_2'] = 'Der nächste Schritt der Installation ist nun möglich';
+$lang['step1_err_copy_next'] = 'nächster Schritt';
 ?>
