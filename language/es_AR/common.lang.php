@@ -365,4 +365,7 @@ $lang['group by letters'] = 'reagrupar por letras';
 $lang['letters'] = 'letras';
 $lang['show tag cloud'] = 'mostrar la nube de tags';
 $lang['cloud'] = 'nube';
+$lang['Reset_To_Default'] = 'Resetear a los valores por defecto';
+$lang['del_all_favorites_hint'] = 'borrar todas las imágenes de tus favoritos';
+$lang['Sent by'] = 'Enviado por';
 ?>
