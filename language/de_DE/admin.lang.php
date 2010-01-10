@@ -177,7 +177,7 @@ $lang['Tag selection'] = 'Tag Auswahl';
 $lang['Take selected elements out of caddie'] = 'Entferne markierte Elemente aus dem Sammelkorb';
 $lang['The %d following tag were deleted'] = 'Der folgende Tag wird gelöscht';
 $lang['The %d following tags were deleted'] = 'Die %d folgenden Tags werden gelöscht :';
-$lang['Unable to check for upgrade since allow_url_fopen is disabled.'] = 'Kann nicht nach Upgrade suchen, weil allow_url_fopen deaktiviert ist.';
+$lang['Unable to check for upgrade.'] = 'Update-Prüfung ist nicht möglich.';
 $lang['Uninstall'] = 'Deinstallieren';
 $lang['Use default sort order']='Nutze die Voreingestellte Sortieroption (Festgelegt in der Konfigurationsdatei)';
 $lang['User comments validation'] = 'Kommentare warten auf Freigabe';
@@ -222,7 +222,7 @@ $lang['conf_main_title'] = 'Grundeinstellungen';
 $lang['conf_nb_comment_page_error'] = 'Anzahl Kommentare pro Seite muß zwischen 5 und 50 liegen.';
 $lang['config'] = 'Konfiguration';
 $lang['confirm'] = 'bestätigen';
-$lang['date'] = 'Datum';
+$lang['Date'] = 'Datum';
 $lang['delete category'] = 'Lösche Kategorie';
 $lang['dissociate from category'] = 'Von Kategorie abtrennen';
 $lang['dissociate from group'] = 'Von Gruppe abtrennen';
@@ -647,8 +647,8 @@ $lang['Bound template'] = 'Verbundenes Template';
 $lang['Downloads'] = 'Downloads';
 $lang['Released on'] = 'Veröffentlicht am';
 $lang['Number of downloads'] = 'Anzahl der Downloads';
-$lang['Unable to check for upgrade.'] = 'Update-Prüfung ist nicht möglich.';
-$lang['Date'] = 'Datum';
+
+
 // --------- Starting below: New or revised $lang ---- from Colibri
 $lang['Piwigo Announcements Newsletter'] = 'Piwigo Newsletter';
 $lang['Subscribe to Piwigo Announcements Newsletter'] = 'Abonniere den Piwigo Newsletter. Du bekommst eine E-Mail wenn eine neue Version verfügbar ist (manchmal wird ein Bug gefixt, der die Sicherheit der Piwigo erhöht, es ist dann wichtig das Upgrade zu installieren) und wenn es wichtige Ereignisse rund um das Projekt gibt. Es sind nur ein paar E-Mails im Jahr.';
