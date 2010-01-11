@@ -366,6 +366,6 @@ $lang['letters'] = 'lettere';
 $lang['show tag cloud'] = 'fare salire la nuvola di tags';
 $lang['cloud'] = 'nuvola';
 $lang['Reset_To_Default'] = 'Ripristinare le impostazioni predefinite';
-$lang['del_all_favorites_hint'] = 'supprimer toutes les images de vos favoris';
-$lang['Sent by'] = 'Envoyé par';
+$lang['del_all_favorites_hint'] = 'cancellare tutte le immagini dai vostri favoriti';
+$lang['Sent by'] = 'Mandato da';
 ?>
