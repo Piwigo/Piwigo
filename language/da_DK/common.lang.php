@@ -130,7 +130,7 @@ $lang['access_forbiden'] = 'Du har ikke tilladelse til at besøge denne side';
 $lang['add to caddie'] = 'tilføj til caddie';
 $lang['add_favorites_hint'] = 'tilføj dette foto til dine favoritter';
 $lang['admin'] = 'Administration';
-$lang['adviser_mode_enabled'] = 'Adviser mode enabsearch';
+$lang['adviser_mode_enabled'] = 'Rådgivnings mode aktiveret';
 $lang['all'] = 'all';
 $lang['ascending'] = 'ascending';
 $lang['author(s) : %s'] = 'author(s) : %s';
@@ -365,4 +365,7 @@ $lang['group by letters'] = 'alfabetiske grupper';
 $lang['letters'] = 'bogstaver';
 $lang['show tag cloud'] = 'vis tag cloud';
 $lang['cloud'] = 'cloud';
+$lang['Reset_To_Default'] = 'Reset til default';
+$lang['del_all_favorites_hint'] = 'slet alle filer fra dine favoritter';
+$lang['Sent by'] = 'Sent af';
 ?>

@@ -63,8 +63,8 @@ $lang['conf_mail_webmaster_info'] = 'Besøgende vil have mulighed for at kontakt
 
 $lang['PHP 5 is required'] = 'PHP 5 er nødvendig';
 $lang['It appears your webhost is currently running PHP %s.'] = 'Din webhost har PHP %s.';
-$lang['Piwigo may try to switch your configuration to PHP 5 by creating or modifying a .htaccess file.'] = 'Piwigo vil forsøgte at skifte din konfiguration til PHP 5 ved at ændre / oprette .htaccess file.';
-$lang['Note you can change your configuration by yourself and restart Piwigo after that.'] = 'Bemærk at du kan ændre konfigurationen selv ved at genstarte Piwigo.';
+$lang['Piwigo may try to switch your configuration to PHP 5 by creating or modifying a .htaccess file.'] = 'Piwigo kan prøve at skifte din konfiguration til PHP 5 ved at oprette eller ændre en. htaccess fil.';
+$lang['Note you can change your configuration by yourself and restart Piwigo after that.'] = 'Bemærk at du kan ændre din konfiguration selv og derefter genstarte Piwigo.';
 $lang['Try to configure PHP 5'] = 'Prøv at konfigurere PHP 5';
 $lang['Sorry!'] = 'Hov!';
 $lang['Piwigo was not able to configure PHP 5.'] = 'Piwigo var ikke istand til af konfigurere PHP 5.';
