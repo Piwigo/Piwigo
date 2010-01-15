@@ -141,12 +141,20 @@ SELECT id
     if ($conf['use_exif'])
     {
       $exif = get_sync_exif_data($file);
+      if (count($exif) == 0 and isset($data['high_filesize']))
+      {
+        $exif = get_sync_exif_data($high_file);
+      }
       $data = array_merge($data, $exif);
     }
 
     if ($conf['use_iptc'])
     {
       $iptc = get_sync_iptc_data($file);
+      if (count($iptc) == 0 and isset($data['high_filesize']))
+      {
+        $iptc = get_sync_iptc_data($high_file);
+      }
       $data = array_merge($data, $iptc);
       
       if (count($iptc) > 0)
