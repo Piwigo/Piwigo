@@ -141,11 +141,14 @@ SELECT id
     if ($conf['use_exif'])
     {
       $exif = get_sync_exif_data($file);
+      $data = array_merge($data, $exif);
     }
 
     if ($conf['use_iptc'])
     {
       $iptc = get_sync_iptc_data($file);
+      $data = array_merge($data, $iptc);
+      
       if (count($iptc) > 0)
       {
         foreach (array_keys($iptc) as $key)
