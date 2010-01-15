@@ -1254,6 +1254,10 @@ SELECT
       );
   }
 
+  // update metadata from the uploaded file (exif/iptc)
+  require_once(PHPWG_ROOT_PATH.'admin/include/functions_metadata.php');
+  update_metadata(array($image_id=>$file_path));
+  
   invalidate_user_cache();
 }
 
