@@ -26,13 +26,13 @@ page.</li>
 
   <li><strong>Rating</strong>: Picture rating feature is enabled.</li>
 
-  <li><strong>Rating by guests</strong>: Even non registered users can rate images.</li>
+  <li><strong>Rating by guests</strong>: Even unregistered users can rate images.</li>
 
-  <li><strong>Allow user registration</strong>: Registration is free for all.</li>
+  <li><strong>Allow user registration</strong>: Anybody can register.</li>
 
-  <li><strong>Mail address is obligatory for all users</strong>: Mail address will checked on registration or profile update except if the action is done on administration part.</li>
+  <li><strong>Mail address is mandatory for all users</strong>: mail address will be checked on registration or profile update, except if the action is done by an administrator.</li>
 
-  <li><strong>Email admins when a new user registers</strong>: Administrators will be received mail for each registration.</li>
+  <li><strong>Email admins when a new user registers</strong>: administrators will be notified by mail for each registration.</li>
 
 </ul>
 
@@ -47,24 +47,23 @@ page.</li>
   class="pwgScreen">Administration, Specials, History</span>.</p>
 
 <ul>
-  <li><strong>Save page visits by guests</strong>: page visits by guests will be saved.</li>
+  <li><strong>Save page visits by guests</strong>: page visits by guests will be recorded.</li>
 
-  <li><strong>Save page visits by users</strong>: visits by registrered users will be saved.</li>
+  <li><strong>Save page visits by users</strong>: visits by registrered users will be recorded.</li>
 
-  <li><strong>Save page visits by administrators</strong>: page visits by administrators will be saved.</li>
+  <li><strong>Save page visits by administrators</strong>: page visits by administrators will be recorded.</li>
 
 </ul>
 
 <h3>Comments</h3>
 <ul>
 
-  <li><strong>Comments for all</strong>: Even guest not registered can post
+  <li><strong>Comments for all</strong>: Even unregistered guest can post
   comments.</li>
 
   <li><strong>Number of comments per page</strong>.</li>
 
-  <li><strong>Validation</strong>: an administrator validate users posted
-  comments before they become visible on the site. User comments validation
+  <li><strong>Validation</strong>: an administrator must validate users comments before they become visible on the site. User comments validation
   takes place in screen <span class="pwgScreen">Administration, Pictures,
   Comments</span>.</li>
 
@@ -79,26 +78,25 @@ User comments validation takes place in the screen <span class="pwgScreen">Admin
 
 <!--TODO --><h3>Upload</h3>
 <ul>
-<!--TODO -->  <li><strong>Show upload link every time</strong>: If exists uploadeable categories, add link will be show for each categoy.</li>
-<!--TODO -->  <li><strong>User access level to upload</strong>: Allows to restrict upload by users</li>
-  <li><strong>Email adminis when a picture is uploaded</strong>: Administrators will be received mail for each picture uploaded by a user.</li>
+<!--TODO -->  <li><strong>Show upload link every time</strong>: If uploadable categories exist, an upload link will be shown for each category.</li>
+<!--TODO -->  <li><strong>User access level for uploading</strong>: Restricts upload to some categories of users</li>
+  <li><strong>Email admins when a picture is uploaded</strong>: Administrators will be notified by mail each time a picture is uploaded by a user.</li>
 </ul>
 
 <h3>Default display</h3>
 
-<p>Here you can change display options used by default, when guest is not
-connected. Once connected, these options are overloaded by user own options
+<p>Here you can change display options used by guest, the default user that is not
+connected. Once connected, these options are overridden by the user own options
 (modifiable in <span class="pwgScreen">profile</span>).</p>
 
-<p>It is possible to change display options for all existing users, but the
-screen to consider is <span class="pwgScreen">Administration,
-Identification, Users</span>, where you can options for a selected list of
+<p>It is possible to change the display options for all existing users, on the <span class="pwgScreen">Administration,
+Identification, Users</span> screen, where you can select a list of
 users.</p>
 
 <ul>
 
-  <li><strong>Language</strong>: concerns only Piwigo
-  labels. Category names, picture names and all descriptions are not
+  <li><strong>Language</strong>: apply to Piwigo
+  labels only. Category names, picture names and all descriptions fields are not
   localized.</li>
 
   <li><strong>Number of images per row</strong></li>
@@ -107,30 +105,30 @@ users.</p>
 
   <li><strong>Interface theme</strong></li>
 
-  <li><strong>Recent period</strong>: By days. Period within a picture is
-  shown as new. Must be superior to 1 day.</li>
+  <li><strong>Recent period</strong>: By days. Period during which a picture is
+  shown as new. Must be greater than 1 day.</li>
 
   <li><strong>Expand all categories</strong>: Expand all categories by
-  default in the menu? <em>Warning</em>: this option is resources consuming
-  and may generate a huge menu if your category tree is contains many
+  default in the menu <em>Warning</em>: this option is resources consuming
+  and may generate a huge menu if your category tree contains many
   categories.</li>
 
   <li><strong>Show number of comments</strong>: show the number of comments
-  for each picture on the thumbnails page. Resource consuming.</li>
+  for each picture on the thumbnails page. Resources consuming.</li>
 
   <li><strong>Show hits count</strong>: display hits observed on picture
   just under its thumbnail on the thumbnails page. 
   Only when advanced configuration parameter is: <br />
   $conf['show_nb_hits'] = true; <br />
-  Notice: it is false by default.</li>
+  Notice: false by default.</li>
 
   <li><strong>Maximum width of the pictures</strong>: maximum displayed
-  width. If pictures are larger than this setting, they will be resized on
-  display. If you consider filling this option, you'd better consider
-  modifying the width of your pictures instead.</li>
+  width. Pictures larger than this setting will be resized on
+  display. Rather than choosing this option, you might consider
+  modifying the width of your pictures; that would be a better practice.</li>
 
   <li><strong>Maximum height of the pictures</strong>: same remarks as for
-  previous setting.</li>
+ the maximum width setting.</li>
 
 </ul>
 
