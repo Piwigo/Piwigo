@@ -234,6 +234,20 @@ DELETE FROM '.IMAGES_TABLE.'
 ;';
   pwg_query($query);
 
+  // are the photo used as category representant?
+  $query = '
+SELECT
+    id
+  FROM '.CATEGORIES_TABLE.'
+  WHERE representative_picture_id IN (
+'.wordwrap(implode(', ', $ids), 80, "\n").')
+;';
+  $category_ids = array_from_query($query, 'id');
+  if (count($category_ids) > 0)
+  {
+    update_category($category_ids);
+  }
+  
   trigger_action('delete_elements', $ids);
 }
 

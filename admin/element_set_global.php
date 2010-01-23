@@ -91,20 +91,8 @@ SELECT
 
       if (count($deletables) > 0)
       {
-        // what will be the categories to update? (to avoid orphan on
-        // representative_picture_id)
-        $query = '
-SELECT
-    category_id
-  FROM '.IMAGE_CATEGORY_TABLE.'
-  WHERE image_id IN ('.implode(',', $deletables).')
-;';
-        $categories_to_update = array_from_query($query, 'category_id');
-          
         $physical_deletion = true;
         delete_elements($deletables, $physical_deletion);
-
-        update_category($categories_to_update);
 
         array_push(
           $page['infos'],
