@@ -35,6 +35,14 @@ $errors = array();
 $search = array();
 if (isset($_POST['submit']))
 {
+  foreach ($_POST as $post_key => $post_value)
+  {
+    if (!is_array($post_value))
+    {
+      $_POST[$post_key] = mysql_real_escape_string($post_value);
+    }
+  }  
+  
   if (isset($_POST['search_allwords'])
       and !preg_match('/^\s*$/', $_POST['search_allwords']))
   {
@@ -63,6 +71,8 @@ if (isset($_POST['submit']))
 
   if (isset($_POST['tags']))
   {
+    check_input_parameter('tags', $_POST['tags'], true, PATTERN_ID);
+    
     $search['fields']['tags'] = array(
       'words' => $_POST['tags'],
       'mode'  => $_POST['tag_mode'],
@@ -82,6 +92,8 @@ if (isset($_POST['submit']))
 
   if (isset($_POST['cat']))
   {
+    check_input_parameter('cat', $_POST['cat'], true, PATTERN_ID);
+    
     $search['fields']['cat'] = array(
       'words'   => $_POST['cat'],
       'sub_inc' => ($_POST['subcats-included'] == 1) ? true : false,
