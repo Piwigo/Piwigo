@@ -138,6 +138,12 @@ else if ('de_DE' == $user['language']) {
 else if ('es_ES' == $user['language']) {
   define('PHPWG_DOMAIN', 'es.piwigo.org');
 }
+else if ('pl_PL' == $user['language']) {
+  define('PHPWG_DOMAIN', 'pl.piwigo.org');
+}
+else if ('zh_CN' == $user['language']) {
+  define('PHPWG_DOMAIN', 'cn.piwigo.org');
+}
 else {
   define('PHPWG_DOMAIN', 'piwigo.org');
 }
