@@ -21,10 +21,10 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
-define('REQUIRED_PGSQL_VERSION', '8.0');
-define('DB_ENGINE', 'PostgreSQL');
+define('REQUIRED_SQLITE_VERSION', '3.0.0');
+define('DB_ENGINE', 'SQLite');
 
-define('DB_REGEX_OPERATOR', '~');
+define('DB_REGEX_OPERATOR', 'REGEXP');
 define('DB_RANDOM_FUNCTION', 'RANDOM');
 
 /**
@@ -35,21 +35,16 @@ define('DB_RANDOM_FUNCTION', 'RANDOM');
 
 function pwg_db_connect($host, $user, $password, $database)
 {
-  $connection_string = '';
-  if (strpos($host,':') !== false) 
-  {
-    list($host, $port) = explode(':', $host);
-  }
-  $connection_string = sprintf('host=%s', $host);
-  if (!empty($port))
-  {
-    $connection_string .= sprintf(' port=%d', $port);
-  }
-  $connection_string .= sprintf(' user=%s password=%s dbname=%s', 
-				$user, 
-				$password,
-				$database);
-  $link = pg_connect($connection_string) or my_error('pg_connect', true);  
+  global $conf;
+
+  $db_file = sprintf('%s/%s.db', $conf['local_data_dir'], $database);
+
+  $link = new SQLite3($db_file);
+  $link->createFunction('now', 'pwg_now', 0);
+  $link->createFunction('md5', 'md5', 1);
+
+  $link->createAggregate('std', 'pwg_std_step', 'pwg_std_finalize');
+  $link->createFunction('regexp', 'pwg_regexp', 2);
 
   return $link;
 }
@@ -61,17 +56,49 @@ function pwg_db_check_charset()
 
 function pwg_get_db_version() 
 {
-  list($pg_version) = pwg_db_fetch_row(pwg_query('SHOW SERVER_VERSION;'));
-  
-  return $pg_version;
+  global $pwg_db_link;
+
+  $versionInfos = $pwg_db_link->version();
+  return $versionInfos['versionString'];
 }
 
 function pwg_query($query)
 {
-  global $conf,$page,$debug,$t2;
+  global $conf,$page,$debug,$t2,$pwg_db_link;
 
   $start = get_moment();
-  ($result = pg_query($query)) or die($query."\n<br>".pg_last_error());
+
+  $truncate_pattern = '`truncate(.*)`i';
+  $insert_pattern = '`(INSERT INTO [^)]*\)\s*VALUES)(\([^)]*\))\s*,\s*(.*)`mi';  
+
+  if (preg_match($truncate_pattern, $query, $matches))
+  {
+    $query = str_replace('TRUNCATE TABLE', 'DELETE FROM', $query);
+    $truncate_query = true;
+    ($result = $pwg_db_link->exec($query)) or die($query."\n<br>".$pwg_db_link->lastErrorMsg());
+  }
+  elseif (preg_match($insert_pattern, $query, $matches))
+  {
+    $base_query = substr($query, 0, strlen($matches[1])+1);
+    $values_pattern = '`\)\s*,\s*\(`';
+    $values = preg_split($values_pattern, substr($query, strlen($matches[1])+1));
+    $values[0] = substr($values[0], 1);
+    $values[count($values)-1] = substr($values[count($values)-1], 
+				     0, 
+				     strlen($values[count($values)-1])-1
+				     );
+    for ($n=0;$n<count($values);$n++)
+    {
+      $query = $base_query . '('. $values[$n] . ")\n;";
+      ($result = $pwg_db_link->query($query)) 
+	or die($query."\n<br>".$pwg_db_link->lastErrorMsg());
+    }
+  }
+  else 
+  {
+    ($result = $pwg_db_link->query($query)) 
+      or die($query."\n<br>".$pwg_db_link->lastErrorMsg());
+  }
 
   $time = get_moment() - $start;
 
@@ -101,7 +128,8 @@ function pwg_query($query)
       $output.= pwg_db_num_rows($result).' )';
     }
     elseif ( $result!=null
-      and preg_match('/\s*INSERT|UPDATE|REPLACE|DELETE\s+/i',$query) )
+      and preg_match('/\s*INSERT|UPDATE|REPLACE|DELETE\s+/i',$query) 
+      and !isset($truncate_query))
     {
       $output.= "\n".'(affected rows   : ';
       $output.= pwg_db_changes($result).' )';
@@ -117,9 +145,13 @@ function pwg_query($query)
 function pwg_db_nextval($column, $table)
 {
   $query = '
-SELECT nextval(\''.$table.'_'.$column.'_seq\')';
+SELECT MAX('.$column.')+1
+  FROM '.$table;
   list($next) = pwg_db_fetch_row(pwg_query($query));
-
+  if (is_null($next))
+  {
+    $next = 1;
+  }
   return $next;
 }
 
@@ -129,44 +161,49 @@ SELECT nextval(\''.$table.'_'.$column.'_seq\')';
  *
  */
 
-function pwg_db_changes($result) 
+function pwg_db_changes(SQLite3Result $result=null) 
 {
-  return pg_affected_rows($result);
+  global $pwg_db_link;
+
+  return $pwg_db_link->changes();
 }
 
 function pwg_db_num_rows($result) 
-{
-  return pg_num_rows($result);
+{ 
+  return $result->numColumns();
 }
 
 function pwg_db_fetch_assoc($result)
 {
-  return pg_fetch_assoc($result);
+  return $result->fetchArray(SQLITE3_ASSOC);
 }
 
 function pwg_db_fetch_row($result)
 {
-  return pg_fetch_row($result);
+  return $result->fetchArray(SQLITE3_NUM);
 }
 
 function pwg_db_fetch_object($result)
 {
-  return pg_fetch_object($result);
+  return $result;
 }
 
 function pwg_db_free_result($result) 
 {
-  return pg_free_result($result);
 }
 
 function pwg_db_real_escape_string($s)
 {
-  return pg_escape_string($s);
+  global $pwg_db_link;
+
+  return $pwg_db_link->escapeString($s);
 }
 
 function pwg_db_insert_id()
 {
-  // select currval('piwigo_user_id_seq');
+  global $pwg_db_link;
+
+  return $pwg_db_link->lastInsertRowID();
 }
 
 /**
@@ -188,7 +225,7 @@ function array_from_query($query, $fieldname)
   $array = array();
 
   $result = pwg_query($query);
-  while ($row = pg_fetch_assoc($result))
+  while ($row = pwg_db_fetch_assoc($result))
   {
     array_push($array, $row[$fieldname]);
   }
@@ -211,91 +248,51 @@ function mass_updates($tablename, $dbfields, $datas, $flags=0)
   if (count($datas) == 0)
     return;
 
-  if (count($datas) < 10)
+  foreach ($datas as $data)
   {
-    foreach ($datas as $data)
-    {
-      $query = '
+    $query = '
 UPDATE '.$tablename.'
   SET ';
-      $is_first = true;
-      foreach ($dbfields['update'] as $key)
+    $is_first = true;
+    foreach ($dbfields['update'] as $key)
+    {
+      $separator = $is_first ? '' : ",\n    ";
+      
+      if (isset($data[$key]) and $data[$key] != '')
       {
-        $separator = $is_first ? '' : ",\n    ";
-
-        if (isset($data[$key]) and $data[$key] != '')
-        {
-          $query.= $separator.$key.' = \''.$data[$key].'\'';
-        }
-        else
-        {
-          if ($flags & MASS_UPDATES_SKIP_EMPTY )
-            continue; // next field
-          $query.= "$separator$key = NULL";
-        }
-        $is_first = false;
+	$query.= $separator.$key.' = \''.$data[$key].'\'';
       }
-      if (!$is_first)
-      {// only if one field at least updated
-        $query.= '
+      else
+      {
+	if ($flags & MASS_UPDATES_SKIP_EMPTY )
+	  continue; // next field
+	$query.= "$separator$key = NULL";
+      }
+      $is_first = false;
+    }
+    if (!$is_first)
+    {// only if one field at least updated
+      $query.= '
   WHERE ';
-        $is_first = true;
-        foreach ($dbfields['primary'] as $key)
+      $is_first = true;
+      foreach ($dbfields['primary'] as $key)
+      {
+	if (!$is_first)
         {
-          if (!$is_first)
-          {
-            $query.= ' AND ';
-          }
-          if ( isset($data[$key]) )
-          {
-            $query.= $key.' = \''.$data[$key].'\'';
-          }
-          else
-          {
-            $query.= $key.' IS NULL';
-          }
-          $is_first = false;
-        }
-        pwg_query($query);
+	  $query.= ' AND ';
+	}
+	if ( isset($data[$key]) )
+        {
+	  $query.= $key.' = \''.$data[$key].'\'';
+	}
+	else
+        {
+	  $query.= $key.' IS NULL';
+	}
+	$is_first = false;
       }
-    } // foreach update
-  } // if mysql_ver or count<X
-  else
-  {
-    $all_fields = array_merge($dbfields['primary'], $dbfields['update']);
-    $temporary_tablename = $tablename.'_'.micro_seconds();
-    $query = '
-CREATE TABLE '.$temporary_tablename.' 
-  AS SELECT * FROM '.$tablename.' WHERE 1=2';
-
-    pwg_query($query);
-    mass_inserts($temporary_tablename, $all_fields, $datas);
-    if ( $flags & MASS_UPDATES_SKIP_EMPTY )
-      $func_set = create_function('$s, $t', 'return "$s = IFNULL(t2.$s, '.$tablename.'.$s)";');
-    else
-      $func_set = create_function('$s', 'return "$s = t2.$s";');
-
-    // update of images table by joining with temporary table
-    $query = '
-UPDATE '.$tablename.'
-  SET '.
-      implode(
-        "\n    , ",
-        array_map($func_set, $dbfields['update'])
-        ).'
-FROM '.$temporary_tablename.' AS t2
-  WHERE '.
-      implode(
-        "\n    AND ",
-        array_map(
-          create_function('$s, $t', 'return "'.$tablename.'.$s = t2.$s";'),
-          $dbfields['primary']
-          )
-        );
-    pwg_query($query);
-    $query = '
-DROP TABLE '.$temporary_tablename;
-    pwg_query($query);
+      pwg_query($query);
+    }
   }
 }
 
@@ -376,17 +373,16 @@ function do_maintenance_all_tables()
   $all_tables = array();
 
   // List all tables
-  $query = 'SELECT tablename FROM pg_tables 
-WHERE tablename like \''.$prefixeTable.'%\'';
+  $query = 'SELECT name FROM SQLITE_MASTER
+WHERE name LIKE \''.$prefixeTable.'%\'';
 
-  $all_tables = array_from_query($query, 'tablename');
-
-  // Optimize all tables
-  foreach ($all_tables as $table)
+  $all_tables = array_from_query($query, 'name');
+  foreach ($all_tables as $table_name)
   {
-    $query = 'VACUUM FULL '.$table;
-    pwg_query($query);
+    $query = 'VACUUM '.$table_name.';';
+    $result = pwg_query($query);
   }
+  
   array_push($page['infos'],
 	     l10n('Optimizations completed')
 	     );
@@ -394,13 +390,14 @@ WHERE tablename like \''.$prefixeTable.'%\'';
 
 function pwg_db_concat_ws($array, $separator)
 {
-  $string = implode($array, ',');
-  return 'ARRAY_TO_STRING(ARRAY['.$string.'],\''.$separator.'\')';
+  $glue = sprintf(' || \'%s\' || ', $separator);
+
+  return implode($array, $glue);
 }
 
 function pwg_db_cast_to_text($string)
 {
-  return 'CAST('.$string.' AS TEXT)';
+  return $string;
 }
 
 /**
@@ -411,21 +408,7 @@ function pwg_db_cast_to_text($string)
  */
 function get_enums($table, $field)
 {
-  $typname = preg_replace('/'.$GLOBALS['prefixeTable'].'/', '', $table); 
-  $typname .= '_' . $field;
-
-  $query = 'SELECT 
-enumlabel FROM pg_enum JOIN pg_type
-  ON pg_enum.enumtypid=pg_type.oid 
-  WHERE typname=\''.$typname.'\'
-';
-  $result = pwg_query($query);
-  while ($row = pwg_db_fetch_assoc($result))
-  {
-    $options[] = $row['enumlabel'];
-  }
-
-  return $options;
+  return array();
 }
 
 // get_boolean transforms a string to a boolean value. If the string is
@@ -469,10 +452,10 @@ function pwg_db_get_recent_period_expression($period, $date='CURRENT_DATE')
 {
   if ($date!='CURRENT_DATE')
   {
-    $date = '\''.$date.'\'::date';
+    $date = '\''.$date.'\'';
   }
 
-  return '('.$date.' - \''.$period.' DAY\'::interval)::date';
+  return 'date('.$date.',\''.$period.' DAY\')';
 }
 
 function pwg_db_get_recent_period($period, $date='CURRENT_DATE')
@@ -485,49 +468,51 @@ function pwg_db_get_recent_period($period, $date='CURRENT_DATE')
 
 function pwg_db_get_date_YYYYMM($date)
 {
-  return 'TO_CHAR('.$date.', \'YYYYMM\')';
+  return 'strftime(\'%Y%m\','.$date.')';
 }
 
 function pwg_db_get_date_MMDD($date)
 {
-  return 'TO_CHAR('.$date.', \'MMDD\')';
+  return 'strftime(\'%m%d\','.$date.')';
 }
 
 function pwg_db_get_year($date)
 {
-  return 'EXTRACT(YEAR FROM '.$date.')';
+  return 'strftime(\'%Y\','.$date.')';
 }
 
 function pwg_db_get_month($date)
 {
-  return 'EXTRACT(MONTH FROM '.$date.')';
+  return 'strftime(\'%m\','.$date.')';
 }
 
 function pwg_db_get_week($date, $mode=null)
 {
-  return 'EXTRACT(WEEK FROM '.$date.')';
+  return 'strftime(\'%W\','.$date.')';
 }
 
 function pwg_db_get_dayofmonth($date)
 {
-  return 'EXTRACT(DAY FROM '.$date.')';
+  return 'strftime(\'%d\','.$date.')';
 }
 
 function pwg_db_get_dayofweek($date)
 {
-  return 'EXTRACT(DOW FROM '.$date.')::INTEGER - 1';
+  return 'strftime(\'%w\','.$date.')+1';
 }
 
 function pwg_db_get_weekday($date)
 {
-  return 'EXTRACT(ISODOW FROM '.$date.')::INTEGER - 1';
+  return 'strftime(\'%w\','.$date.')';
 }
 
 // my_error returns (or send to standard output) the message concerning the
 // error occured for the last mysql query.
 function my_error($header, $die)
 {
-  $error = '[pgsql error]'.pg_last_error()."\n";
+  global $pwg_db_link;
+
+  $error = '[sqlite error]'.$pwg_db_link->lastErrorMsg()."\n";
   $error .= $header;
 
   if ($die)
@@ -539,5 +524,43 @@ function my_error($header, $die)
   echo("</pre>");
 }
 
+// sqlite create functions
+function pwg_now()
+{
+  return date('Y-m-d H:i:s');
+}
 
+function pwg_regexp($pattern, $string)
+{
+  $pattern = sprintf('`%s`', $pattern);
+  return preg_match($pattern, $string);
+}
+
+function pwg_std_step(&$values, $rownumber, $value) 
+{
+  $values[] = $value;
+
+  return $values;
+}
+
+function pwg_std_finalize(&$values, $rownumber) 
+{
+  if (count($values)<=1)
+  {
+    return 0;
+  }
+
+  $total = 0;
+  $total_square = 0;
+  foreach ($values as $value)
+  {
+    $total += $value;
+    $total_square += pow($value, 2);
+  }
+
+  $mean = $total/count($values);
+  $var = $total_square/count($values) - pow($mean, 2);
+  
+  return sqrt($var);
+}
 ?>

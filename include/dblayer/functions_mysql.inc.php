@@ -458,9 +458,10 @@ function do_maintenance_all_tables()
   }
 }
 
-function pwg_db_concat_ws($string, $separaor)
+function pwg_db_concat_ws($array, $separator)
 {
-  return 'CONCAT_WS(\''.$separaor.'\','. $string.')';
+  $string = implode($array, ',');
+  return 'CONCAT_WS(\''.$separator.'\','. $string.')';
 }
 
 function pwg_db_cast_to_text($string)

@@ -271,24 +271,20 @@ $this->get_date_where($level).'
     if ( empty($page['chronology_date']) )
       return;
     
-    $sub_query = '';
+    $sub_queries = array();
     $nb_elements = count($page['chronology_date']);
     for ($i=0; $i<$nb_elements; $i++)
     {
       if ( 'any' === $page['chronology_date'][$i] )
       {
-        $sub_query .= '\'any\'';
+        $sub_queries[] = '\'any\'';
       }
       else
       {
-        $sub_query .= pwg_db_cast_to_text($this->calendar_levels[$i]['sql']);
-      }
-      if ($i<($nb_elements-1))
-      {
-	$sub_query .= ',';
+        $sub_queries[] = pwg_db_cast_to_text($this->calendar_levels[$i]['sql']);
       }
     }
-    $query = 'SELECT '.pwg_db_concat_ws($sub_query, '-').' AS period';
+    $query = 'SELECT '.pwg_db_concat_ws($sub_queries, '-').' AS period';
     $query .= $this->inner_sql .'
 AND ' . $this->date_field . ' IS NOT NULL
 GROUP BY period';
@@ -296,12 +292,12 @@ GROUP BY period';
     $current = implode('-', $page['chronology_date'] );
     $upper_items = array_from_query( $query, 'period');
 
-    usort($upper_items, 'version_compare');
+    usort($upper_items, 'date_compare');
     $upper_items_rank = array_flip($upper_items);
     if ( !isset($upper_items_rank[$current]) )
     {
       array_push($upper_items, $current);// just in case (external link)
-      usort($upper_items, 'version_compare');
+      usort($upper_items, 'date_compare');
       $upper_items_rank = array_flip($upper_items);
     }
     $current_rank = $upper_items_rank[$current];

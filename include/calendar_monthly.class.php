@@ -147,12 +147,12 @@ function get_date_where($max_levels=3)
     $e = $date[CYEAR] . '-';
     if (isset($date[CMONTH]) and $date[CMONTH]!=='any')
     {
-      $b .= $date[CMONTH] . '-';
-      $e .= $date[CMONTH] . '-';
+      $b .= sprintf('%02d-', $date[CMONTH]);
+      $e .= sprintf('%02d-', $date[CMONTH]);
       if (isset($date[CDAY]) and $date[CDAY]!=='any')
       {
-        $b .= $date[CDAY];
-        $e .= $date[CDAY];
+        $b .= sprintf('%02d', $date[CDAY]);
+        $e .= sprintf('%02d', $date[CDAY]);
       }
       else
       {

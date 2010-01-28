@@ -29,4 +29,8 @@ $dblayers['mysql'] = array('engine' => 'MySQL',
 $dblayers['pgsql'] = array('engine' => 'PostgreSQL',
 			   'function_available' => 'pg_connect'
 			   );
+
+$dblayers['sqlite'] = array('engine' => 'SQLite',
+			    'function_available' => 'sqlite_open'
+			    );
 ?>
