@@ -39,7 +39,20 @@ function pwg_db_connect($host, $user, $password, $database)
 
   $db_file = sprintf('%s/%s.db', $conf['local_data_dir'], $database);
 
-  $link = new SQLite3($db_file);
+  if (script_basename()=='install') 
+  {
+    $sqlite_open_mode = SQLITE3_OPEN_READWRITE | SQLITE3_OPEN_CREATE;
+  }
+  else 
+  {
+    $sqlite_open_mode = SQLITE3_OPEN_READWRITE;
+  }
+  try {
+    $link = new SQLite3($db_file, $sqlite_open_mode);
+  } catch (Exception $e) {
+    my_error('sqlite::open', true);
+  }
+
   $link->createFunction('now', 'pwg_now', 0);
   $link->createFunction('md5', 'md5', 1);
 
@@ -417,7 +430,7 @@ function get_enums($table, $field)
 function get_boolean( $string )
 {
   $boolean = true;
-  if ('f' == $string || 'false' == $string)
+  if ('f' === $string || 'false' === $string)
   {
     $boolean = false;
   }
@@ -432,7 +445,7 @@ function get_boolean( $string )
  */
 function boolean_to_string($var)
 {
-  if (!empty($var) && ($var == 't'))
+  if (!empty($var) && ($var == 'true'))
   {
     return 'true';
   }
@@ -512,7 +525,12 @@ function my_error($header, $die)
 {
   global $pwg_db_link;
 
-  $error = '[sqlite error]'.$pwg_db_link->lastErrorMsg()."\n";
+  $error = '';
+  if (isset($pwg_db_link)) 
+  {
+    $error .= '[sqlite error]'.$pwg_db_link->lastErrorMsg()."\n";
+  }
+
   $error .= $header;
 
   if ($die)
