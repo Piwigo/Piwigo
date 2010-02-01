@@ -163,6 +163,12 @@ else
 if ('fr_FR' == $language) {
   define('PHPWG_DOMAIN', 'fr.piwigo.org');
 }
+else if ('pl_PL' == $language) {
+  define('PHPWG_DOMAIN', 'pl.piwigo.org');
+}
+else if ('zh_CN' == $language) {
+  define('PHPWG_DOMAIN', 'cn.piwigo.org');
+}
 else {
   define('PHPWG_DOMAIN', 'piwigo.org');
 }
