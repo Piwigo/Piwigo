@@ -290,23 +290,35 @@ WHERE id IN (' . implode(',',$page['items']) .')';
   pwg_debug('end initialize_calendar');
 }
 
-/*
- * callback to sort array with date comparaison
- *
- **/
-function date_compare(&$a, &$b)
+function array_to_int($array)
 {
-  $parts = explode('-', $a);
-  foreach ($parts as &$p) {
-    $p = (int)$p;
+  foreach ($array as $k => $v)
+  {
+    if ((int)$k==$k)
+    {
+      $key = (int) $k;
+    }
+    else
+    {
+      $key = $k;
+    }
+    if (is_array($v))
+    {
+      $result[$key] = array_to_int($v);
+    }
+    else
+    {
+      if (is_int($v))
+      {
+	$value = (int) $v;
+      }
+      else
+      {
+	$value = $v;
+      }
+      $result[$key] = $value;
+    }
   }
-  $a = implode('-', $parts);
-  $parts = explode('-', $b);
-  foreach ($parts as &$p) {
-    $p = (int)$p;
-  }
-  $b = implode('-', $parts);
-
-  return strcmp($a, $b);
+  return $result;
 }
 ?>

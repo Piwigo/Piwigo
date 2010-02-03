@@ -458,6 +458,12 @@ function do_maintenance_all_tables()
   }
 }
 
+function pwg_db_concat($array)
+{
+  $string = implode($array, ',');
+  return 'CONCAT('. $string.')';
+}
+
 function pwg_db_concat_ws($array, $separator)
 {
   $string = implode($array, ',');

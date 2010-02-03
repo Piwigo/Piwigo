@@ -948,7 +948,7 @@ SELECT DISTINCT(storage_category_id)
   {
     $query = '
 UPDATE '.IMAGES_TABLE.'
-  SET path = CONCAT(\''.$fulldirs[$cat_id].'\',\'/\',file)
+  SET path = '.pwg_db_concat(array($fulldirs[$cat_id],'\'/\'','file')).'
   WHERE storage_category_id = '.$cat_id.'
 ;';
     pwg_query($query);

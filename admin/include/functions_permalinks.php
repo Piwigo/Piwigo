@@ -192,8 +192,8 @@ DELETE FROM '.OLD_PERMALINKS_TABLE.'
   $query = '
 UPDATE '.CATEGORIES_TABLE.'
   SET permalink="'.$permalink.'"
-  WHERE id='.$cat_id.'
-  LIMIT 1';
+  WHERE id='.$cat_id;
+  //  LIMIT 1';
   pwg_query($query);
 
   unset( $cache['cat_names'] ); //force regeneration

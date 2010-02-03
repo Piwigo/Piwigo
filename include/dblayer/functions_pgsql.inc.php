@@ -392,6 +392,12 @@ WHERE tablename like \''.$prefixeTable.'%\'';
 	     );
 }
 
+function pwg_db_concat($array)
+{
+  $string = implode($array, ',');
+  return 'ARRAY_TO_STRING(ARRAY['.$string.'])';
+}
+
 function pwg_db_concat_ws($array, $separator)
 {
   $string = implode($array, ',');

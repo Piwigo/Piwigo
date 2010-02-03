@@ -109,7 +109,7 @@ $template->set_filename('permalinks', 'permalinks.tpl' );
 $query = '
 SELECT
   id,
-  CONCAT(id, " - ", name, IF(permalink IS NULL, "", " &radic;") ) AS name,
+  '.pwg_db_concat(array('id', '\' - \'', 'name', 'IF(permalink IS NULL, \'\', \' &radic;\')')).' AS name,
   uppercats, global_rank
 FROM '.CATEGORIES_TABLE;
 

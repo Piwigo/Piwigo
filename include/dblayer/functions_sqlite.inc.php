@@ -54,7 +54,9 @@ function pwg_db_connect($host, $user, $password, $database)
   }
 
   $link->createFunction('now', 'pwg_now', 0);
+  $link->createFunction('unix_timestamp', 'pwg_unix_timestamp', 0);
   $link->createFunction('md5', 'md5', 1);
+  $link->createFunction('if', 'pwg_if', 3);
 
   $link->createAggregate('std', 'pwg_std_step', 'pwg_std_finalize');
   $link->createFunction('regexp', 'pwg_regexp', 2);
@@ -401,6 +403,11 @@ WHERE name LIKE \''.$prefixeTable.'%\'';
 	     );
 }
 
+function pwg_db_concat($array)
+{
+  return implode($array, ' || ');
+}
+
 function pwg_db_concat_ws($array, $separator)
 {
   $glue = sprintf(' || \'%s\' || ', $separator);
@@ -468,7 +475,7 @@ function pwg_db_get_recent_period_expression($period, $date='CURRENT_DATE')
     $date = '\''.$date.'\'';
   }
 
-  return 'date('.$date.',\''.$period.' DAY\')';
+  return 'date('.$date.',\''.-$period.' DAY\')';
 }
 
 function pwg_db_get_recent_period($period, $date='CURRENT_DATE')
@@ -511,12 +518,12 @@ function pwg_db_get_dayofmonth($date)
 
 function pwg_db_get_dayofweek($date)
 {
-  return 'strftime(\'%w\','.$date.')+1';
+  return 'strftime(\'%w\','.$date.')';
 }
 
 function pwg_db_get_weekday($date)
 {
-  return 'strftime(\'%w\','.$date.')';
+  return 'strftime(\'%w\',date('.$date.',\'-1 DAY\'))';
 }
 
 // my_error returns (or send to standard output) the message concerning the
@@ -547,6 +554,23 @@ function pwg_now()
 {
   return date('Y-m-d H:i:s');
 }
+
+function pwg_unix_timestamp()
+{
+  return time();
+}
+
+function pwg_if($expression, $value1, $value2) 
+{
+  if ($expression)
+  {
+    return $value1;
+  }
+  else
+  {
+    return $value2;
+  }
+} 
 
 function pwg_regexp($pattern, $string)
 {
