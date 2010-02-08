@@ -40,13 +40,13 @@ function set_admin_advice_add_css()
   }
 }
 
-// Build an advice on the Admin Intro page
+// Build advice on the Admin Intro page
 function set_admin_advice()
 {
   global $page, $user, $template, $conf, $prefixeTable, $lang;
   $my_path = dirname(__FILE__).'/';
 
-//  Include language advices
+//  Include language advice
   foreach ($conf as $key => $value)
   {
     if ( is_string($value) )
@@ -134,7 +134,7 @@ function set_admin_advice()
       )
     );
 
-//  If there is an advice
+//  If there is advice
   if ( $cond )
   {
 
