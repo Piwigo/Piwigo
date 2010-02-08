@@ -22,8 +22,8 @@
 // +-----------------------------------------------------------------------+
 
 /*
-Plugin Name: Admin Advices
-Version: 2.0.2
+Plugin Name: Admin Advice
+Version: Auto
 Description: Give you an advice on the administration page.
 Plugin URI: http://piwigo.org/ext/extension_view.php?eid=285
 Author: Piwigo team

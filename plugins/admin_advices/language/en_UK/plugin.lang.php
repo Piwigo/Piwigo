@@ -22,7 +22,7 @@
 // +-----------------------------------------------------------------------+
 
 // --------- Starting below: New or revised $lang ---- from Butterfly (1.8)
-$lang['An_advice_about'] = 'A new advice about';
+$lang['An_advice_about'] = 'New advice about';
 $lang['contribute'] = 'how you can contribute'; 
 $lang['navigation'] = 'navigation';
 $lang['Metadata'] = 'Metadata';

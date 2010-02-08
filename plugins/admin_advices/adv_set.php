@@ -23,7 +23,7 @@
 
 
 //
-// A new advices needs:
+// New advice needs:
 //    $lang['Adv_case'][xx] = 'Text' ==> in all plugin.lang
 //    $adv['c'][xx] = Condition (default true)
 //    $adv['v'][xx] = Value (if there is one (facultative))
