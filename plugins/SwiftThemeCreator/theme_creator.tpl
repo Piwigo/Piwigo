@@ -9,7 +9,7 @@ You can update later the result as you need.'|@translate}
 <form method="post" action="" class="general">
 
 <fieldset>
-	<legend>{'Template selection '|@translate}</legend>
+	<legend>{'Template selection'|@translate}</legend>
 <table><tr><td style="padding-right:20px;">
   {'Template'|@translate}
 </td><td>
@@ -43,7 +43,7 @@ You can update later the result as you need.'|@translate}
 </script>
 
 <fieldset>
-	<legend>{'Colours selection '|@translate}</legend>
+	<legend>{'Colours selection'|@translate}</legend>
 <table>
 <tr><td style="padding-right:20px;">
   {'Main background'|@translate}  
@@ -73,7 +73,7 @@ You can update later the result as you need.'|@translate}
 </fieldset>
 
 <fieldset>
-	<legend>{'Header background selection '|@translate}</legend>
+	<legend>{'Header background selection'|@translate}</legend>
 <table>
   <tr>
     <td style="padding-right:120px;">
@@ -154,7 +154,7 @@ You can update later the result as you need.'|@translate}
 </p>
 </form>
 <fieldset>
-	<legend>{'Just a yoga preview... '|@translate}</legend>
+	<legend>{'Just a yoga preview...'|@translate}</legend>
 <div style="background-color:{$main.color1}; width: 600px; overflow: hidden; margin: 5px auto 5px auto;
 font-family:Univers,Helvetica,Optima,'Bitstream Vera Sans',sans-serif;">
   {* Preview header *}<div style="width: 600px; height: 80px; overflow: hidden;">

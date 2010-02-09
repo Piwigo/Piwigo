@@ -26,6 +26,8 @@ if (!defined('PHPWG_ROOT_PATH')) die('Hacking attempt!');
 if (!defined('IN_ADMIN') or !IN_ADMIN) die('Hacking attempt!');
 define('STC_PATH', PHPWG_PLUGINS_PATH.'SwiftThemeCreator/');
 define('STC_INTERNAL_VERSION', '1.40'); 
+load_language('plugin.lang', STC_PATH);
+
 /*
  * stc_hex2rgb convert any string to array of RGB values
  */
