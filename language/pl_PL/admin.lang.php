@@ -657,8 +657,8 @@ $lang['Password is missing'] = 'Brak hasła. Wpisz proszę hasło.';
 $lang['Password confirmation is missing'] = 'Brak informacji o haśle. Potwierdź wybrane hasło.';
 $lang['Email address is missing'] = 'Brak adresu email. usupełnij adres email.';
 $lang['Password confirmation error'] = 'Wprowadzone hasła nie pasują do siebie.';
-/*TODO*/$lang['Allow users to edit theirs owns comments'] = 'Allow users to edit theirs owns comments';
-/*TODO*/$lang['Allow users to delete theirs owns comments'] = 'Allow users to delete theirs owns comments';
-/*TODO*/$lang['Email administrators when a comment is modified'] = 'Email administrators when a comment is modified';
-/*TODO*/$lang['Email administrators when a comment is deleted'] = 'Email administrators when a comment is deleted';
+$lang['Allow users to edit theirs owns comments'] = 'Zezwalaj użytkownikom edytować własne komentarze';
+$lang['Allow users to delete theirs owns comments'] = 'Zezwalaj użytkownikom usuwać własne komentarze';
+$lang['Email administrators when a comment is modified'] = 'Wyślij email do administratorów gdy komentarz został zmodyfikowany';
+$lang['Email administrators when a comment is deleted'] = 'Wyślij email do administratorów gdy komentarz został usunięty';
 ?>
