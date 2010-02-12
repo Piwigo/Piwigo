@@ -365,7 +365,9 @@ function ws_categories_getList($params, &$service)
 {
   global $user,$conf;
 
-  $where = array();
+  $where = array('1=1');
+  $join_type = 'INNER';
+  $join_user = $user['id'];
 
   if (!$params['recursive'])
   {
@@ -386,11 +388,19 @@ function ws_categories_getList($params, &$service)
   {
     $where[] = 'status = "public"';
     $where[] = 'visible = "true"';
-    $where[]= 'user_id='.$conf['guest_id'];
+    
+    $join_user = $conf['guest_id'];
   }
-  else
+  elseif (is_admin())
   {
-    $where[]= 'user_id='.$user['id'];
+    // in this very specific case, we don't want to hide empty
+    // categories. Function calculate_permissions will only return
+    // categories that are either locked or private and not permitted
+    // 
+    // calculate_permissions does not consider empty categories as forbidden
+    $forbidden_categories = calculate_permissions($user['id'], $user['status']);
+    $where[]= 'id NOT IN ('.$forbidden_categories.')';
+    $join_type = 'LEFT';
   }
 
   $query = '
@@ -398,7 +408,7 @@ SELECT id, name, permalink, uppercats, global_rank,
     nb_images, count_images AS total_nb_images,
     date_last, max_date_last, count_categories AS nb_categories
   FROM '.CATEGORIES_TABLE.'
-   INNER JOIN '.USER_CACHE_CATEGORIES_TABLE.' ON id=cat_id
+   '.$join_type.' JOIN '.USER_CACHE_CATEGORIES_TABLE.' ON id=cat_id AND user_id='.$join_user.'
   WHERE '. implode('
     AND ', $where);
 
