@@ -22,7 +22,7 @@
         {/if}
         {if isset($comment.U_VALIDATE)}
         <li>
-          <a href="{$comment.U_VALIDATE}" title="validate this comment">
+          <a href="{$comment.U_VALIDATE}" title="{'validate this comment'|@translate}">
             <img src="{$ROOT_URL}{$themeconf.icon_dir}/validate_s.png" class="button" alt="[validate]" />
           </a>
         </li>
