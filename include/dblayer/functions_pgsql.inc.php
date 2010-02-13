@@ -70,8 +70,36 @@ function pwg_query($query)
 {
   global $conf,$page,$debug,$t2;
 
+  $replace_pattern = '`REPLACE INTO\s(\S*)\s*([^)]*\))\s*VALUES\(([^,]*),(.*)\)\s*`mi';  
+
   $start = get_moment();
-  ($result = pg_query($query)) or die($query."\n<br>".pg_last_error());
+
+  if (preg_match($replace_pattern, $query, $matches)
+      && $matches[1]==SESSIONS_TABLE)
+  {
+    $select_query = '
+SELECT id FROM '.$matches[1].'
+  WHERE id='.$matches[3];
+    ( $result = pg_query($select_query)) or die($query."\n<br>".pg_last_error());
+    if (pwg_db_num_rows($result)==1)
+    {
+      $query = '
+UPDATE '.$matches[1].'
+  SET expiration=now()
+  WHERE id='.$matches[3];
+    }
+    else
+    {
+      $query = '
+INSERT INTO '.$matches[1].'
+  '.$matches[2].' VALUES('.$matches[3].','.$matches[4].')';
+    }
+    ( $result = pg_query($query)) or die($query."\n<br>".pg_last_error());      
+  }
+  else 
+  {
+    ($result = pg_query($query)) or die($query."\n<br>".pg_last_error());
+  }
 
   $time = get_moment() - $start;
 
