@@ -168,7 +168,7 @@ INSERT INTO '.COMMENTS_TABLE.'
 
     pwg_query($query);
 
-    $comm['id'] = pwg_db_insert_id();
+    $comm['id'] = pwg_db_insert_id(COMMENTS_TABLE);
 
     if (($comment_action=='validate' and $conf['email_admin_on_comment']) or
         ($comment_action!='validate' and $conf['email_admin_on_comment_validation']))

@@ -248,7 +248,7 @@ if ( isset( $_POST['submit'] ) and !isset( $_GET['waiting_id'] ) )
     $query.= ",'".$_POST['mail_address']."',".time().",'".$xml_infos."')";
     $query.= ';';
     pwg_query( $query );
-    $page['waiting_id'] = pwg_db_insert_id();
+    $page['waiting_id'] = pwg_db_insert_id(WAITING_TABLE);
 
     if ($conf['email_admin_on_picture_uploaded'])
     {

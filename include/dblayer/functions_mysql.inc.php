@@ -157,7 +157,7 @@ function pwg_db_real_escape_string($s)
   return mysql_real_escape_string($s);
 }
 
-function pwg_db_insert_id()
+function pwg_db_insert_id($table=null, $column='id')
 {
   return mysql_insert_id();
 }

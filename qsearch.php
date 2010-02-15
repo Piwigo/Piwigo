@@ -60,7 +60,7 @@ INSERT INTO '.SEARCH_TABLE.'
   (\''.addslashes(serialize($search)).'\', NOW() )
 ;';
   pwg_query($query);
-  $search_id = pwg_db_insert_id();
+  $search_id = pwg_db_insert_id(SEARCH_TABLE);
 }
 
 redirect(

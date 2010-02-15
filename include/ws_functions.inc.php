@@ -1247,7 +1247,7 @@ SELECT
     array($insert)
     );
 
-  $image_id = pwg_db_insert_id();
+  $image_id = pwg_db_insert_id(IMAGES_TABLE);
 
   // let's add links between the image and the categories
   if (isset($params['categories']))

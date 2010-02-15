@@ -1254,7 +1254,7 @@ SELECT id, uppercats, global_rank, visible, status
     array($insert)
     );
 
-  $inserted_id = pwg_db_insert_id();
+  $inserted_id = pwg_db_insert_id(CATEGORIES_TABLE);
 
   $query = '
 UPDATE
@@ -1387,7 +1387,7 @@ SELECT id
         )
       );
 
-    $page['tag_id_from_tag_name_cache'][$tag_name] = pwg_db_insert_id();
+    $page['tag_id_from_tag_name_cache'][$tag_name] = pwg_db_insert_id(TAGS_TABLE);
   }
   else
   {
@@ -1662,7 +1662,7 @@ SELECT id
         )
       );
 
-    $inserted_id = pwg_db_insert_id();
+    $inserted_id = pwg_db_insert_id(TAGS_TABLE);
 
     return array(
       'info' => sprintf(

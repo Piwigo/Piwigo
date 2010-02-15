@@ -214,7 +214,7 @@ function pwg_db_real_escape_string($s)
   return $pwg_db_link->escapeString($s);
 }
 
-function pwg_db_insert_id()
+function pwg_db_insert_id($table=null, $column='id')
 {
   global $pwg_db_link;
 

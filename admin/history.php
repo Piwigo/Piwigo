@@ -136,7 +136,7 @@ INSERT INTO '.SEARCH_TABLE.'
 ;';
     pwg_query($query);
 
-    $search_id = pwg_db_insert_id();
+    $search_id = pwg_db_insert_id(SEARCH_TABLE);
 
     redirect(
       PHPWG_ROOT_PATH.'admin.php?page=history&search_id='.$search_id
@@ -198,7 +198,7 @@ INSERT INTO '.SEARCH_TABLE.'
 ;';
     pwg_query($query);
 
-    $search_id = pwg_db_insert_id();
+    $search_id = pwg_db_insert_id(SEARCH_TABLE);
 
     redirect(
       PHPWG_ROOT_PATH.'admin.php?page=history&search_id='.$search_id

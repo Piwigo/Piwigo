@@ -192,9 +192,15 @@ function pwg_db_real_escape_string($s)
   return pg_escape_string($s);
 }
 
-function pwg_db_insert_id()
+function pwg_db_insert_id($table=null, $column='id')
 {
-  // select currval('piwigo_user_id_seq');
+  $sequence = sprintf('%s_%s_seq', strtolower($table), $column);
+  $query = '
+SELECT CURRVAL(\''.$sequence.'\');';
+
+  list($id) = pwg_db_fetch_row(pwg_query($query));
+
+  return $id;
 }
 
 /**
