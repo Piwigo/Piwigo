@@ -155,7 +155,8 @@ if (is_a_guest())
 }
 
 // template instance
-if ( defined('IN_ADMIN') and IN_ADMIN )
+if (( defined('IN_ADMIN') and IN_ADMIN )
+    or (defined('PWG_HELP') and PWG_HELP))
 {// Admin template
   list($user['admin_template'], $user['admin_theme']) =
     explode ('/', $conf['admin_layout']);
