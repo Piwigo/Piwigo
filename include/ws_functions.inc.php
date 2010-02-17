@@ -427,6 +427,14 @@ SELECT id, name, permalink, uppercats, global_rank,
       $row[$key] = (int)$row[$key];
     }
 
+    $row['name'] = strip_tags(
+      trigger_event(
+        'render_category_name',
+        $row['name'],
+        'ws_categories_getList'
+        )
+      );
+    
     array_push($cats, $row);
   }
   usort($cats, 'global_rank_compare');
@@ -485,6 +493,13 @@ SELECT
   {
     $id = $row['id'];
     $row['nb_images'] = isset($nb_images_of[$id]) ? $nb_images_of[$id] : 0;
+    $row['name'] = strip_tags(
+      trigger_event(
+        'render_category_name',
+        $row['name'],
+        'ws_categories_getAdminList'
+        )
+      );
     array_push($cats, $row);
   }
 
