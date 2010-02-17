@@ -896,6 +896,7 @@ UPDATE '.IMAGES_TABLE.'
 
 function ws_images_add_chunk($params, &$service)
 {
+  ws_logfile('[ws_images_add_chunk] welcome');
   // data
   // original_sum
   // type {thumb, file, high}
@@ -909,6 +910,20 @@ function ws_images_add_chunk($params, &$service)
   if (!$service->isPost())
   {
     return new PwgError(405, "This method requires HTTP POST");
+  }
+
+  foreach ($params as $param_key => $param_value) {
+    if ('data' == $param_key) {
+      continue;
+    }
+    
+    ws_logfile(
+      sprintf(
+        '[ws_images_add_chunk] input param "%s" : "%s"',
+        $param_key,
+        is_null($param_value) ? 'NULL' : $param_value
+        )
+      );
   }
 
   $upload_dir = PHPWG_ROOT_PATH.'upload/buffer';
@@ -1029,7 +1044,14 @@ function add_file($file_path, $type, $original_sum, $file_sum)
   $file_path = file_path_for_type($file_path, $type);
 
   $upload_dir = dirname($file_path);
+  if (substr(PHP_OS, 0, 3) == 'WIN')
+  {
+    $upload_dir = str_replace('/', DIRECTORY_SEPARATOR, $upload_dir);
+  }
 
+  ws_logfile('[add_file] file_path  : '.$file_path);
+  ws_logfile('[add_file] upload_dir : '.$upload_dir);
+  
   if (!is_dir($upload_dir)) {
     umask(0000);
     $recursive = true;
