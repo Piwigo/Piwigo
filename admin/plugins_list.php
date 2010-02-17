@@ -32,6 +32,7 @@ $template->set_filenames(array('plugins' => 'plugins_list.tpl'));
 
 $order = isset($_GET['order']) ? $_GET['order'] : 'name';
 $base_url = get_root_url().'admin.php?page='.$page['page'].'&amp;order='.$order;
+$action_url = $base_url.'&amp;plugin='.'%s'.'&amp;pwg_token='.get_pwg_token();
 
 $plugins = new plugins();
 
@@ -98,7 +99,7 @@ foreach($plugins->fs_plugins as $plugin_id => $fs_plugin)
     array('NAME' => $display_name,
           'VERSION' => $fs_plugin['version'],
           'DESCRIPTION' => $desc,
-          'U_ACTION' => $base_url.'&amp;plugin='.$plugin_id.'&amp;pwg_token='.get_pwg_token());
+          'U_ACTION' => sprintf($action_url, $plugin_id));
 
   if (isset($plugins->db_plugins_by_id[$plugin_id]))
   {
@@ -117,14 +118,12 @@ $missing_plugin_ids = array_diff(
 
 foreach($missing_plugin_ids as $plugin_id)
 {
-  $action_url = $base_url.'&amp;plugin='.$plugin_id;
-
   $template->append( 'plugins',
       array(
         'NAME' => $plugin_id,
         'VERSION' => $plugins->db_plugins_by_id[$plugin_id]['version'],
         'DESCRIPTION' => "ERROR: THIS PLUGIN IS MISSING BUT IT IS INSTALLED! UNINSTALL IT NOW !",
-        'U_ACTION' => $base_url.'&amp;plugin='.$plugin_id,
+        'U_ACTION' => sprintf($action_url, $plugin_id),
         'STATE' => 'missing'
       )
     );
