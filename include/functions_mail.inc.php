@@ -221,49 +221,46 @@ function switch_lang_to($language)
 {
   global $switch_lang, $user, $lang, $lang_info;
 
-  if (count($switch_lang['stack']) == 0)
+  // explanation of switch_lang
+  // $switch_lang['language'] contains data of language
+  // $switch_lang['stack'] contains stack LIFO
+  // $switch_lang['initialisation'] allow to know if it's first call
+
+  // Treatment with current user
+  // Language of current user is saved (it's considered OK on firt call)
+  if (!isset($switch_lang['initialisation']) and !isset($switch_lang['language'][$user['language']]))
   {
-    $prev_language = $user['language'];
+    $switch_lang['initialisation'] = true;
+    $switch_lang['language'][$user['language']]['lang_info'] = $lang_info;
+    $switch_lang['language'][$user['language']]['lang'] = $lang;
+  }
+
+  // Change current infos
+  $switch_lang['stack'][] = $user['language'];
+  $user['language'] = $language;
+
+  // Load new data if necessary
+  if (!isset($switch_lang['language'][$language]))
+  {
+    // Re-Init language arrays
+    $lang_info = array();
+    $lang  = array();
+
+    // language files
+    load_language('common.lang', '', array('language'=>$language) );
+    // No test admin because script is checked admin (user selected no)
+    // Translations are in admin file too
+    load_language('admin.lang', '', array('language'=>$language) );
+    trigger_action('loading_lang');
+    load_language('local.lang', '', array('language'=>$language, 'no_fallback'=>true));
+
+    $switch_lang['language'][$language]['lang_info'] = $lang_info;
+    $switch_lang['language'][$language]['lang'] = $lang;
   }
   else
   {
-    $prev_language = end($switch_lang['stack']);
-  }
-
-  $switch_lang['stack'][] = $language;
-
-  if ($prev_language != $language)
-  {
-    if (!isset($switch_lang['language'][$prev_language]))
-    {
-      $switch_lang[$prev_language]['lang_info'] = $lang_info;
-      $switch_lang[$prev_language]['lang'] = $lang;
-    }
-
-    if (!isset($switch_lang['language'][$language]))
-    {
-      // Re-Init language arrays
-      $lang_info = array();
-      $lang  = array();
-
-      // language files
-      load_language('common.lang', '', array('language'=>$language) );
-      // No test admin because script is checked admin (user selected no)
-      // Translations are in admin file too
-      load_language('admin.lang', '', array('language'=>$language) );
-      trigger_action('loading_lang');
-      load_language('local.lang', '', array('language'=>$language, 'no_fallback'=>true));
-
-      $switch_lang[$language]['lang_info'] = $lang_info;
-      $switch_lang[$language]['lang'] = $lang;
-    }
-    else
-    {
-      $lang_info = $switch_lang[$language]['lang_info'];
-      $lang = $switch_lang[$language]['lang'];
-    }
-
-    $user['language'] = $language;
+    $lang_info = $switch_lang['language'][$language]['lang_info'];
+    $lang = $switch_lang['language'][$language]['lang'];
   }
 }
 
@@ -276,23 +273,16 @@ function switch_lang_back()
 {
   global $switch_lang, $user, $lang, $lang_info;
 
-  $last_language = array_pop($switch_lang['stack']);
-
   if (count($switch_lang['stack']) > 0)
   {
-    $language = end($switch_lang['stack']);
-  }
-  else
-  {
-    $language = $user['language'];
-  }
+    // Get last value
+    $language = array_pop($switch_lang['stack']);
 
-  if ($last_language != $language)
-  {
-    if (!isset($switch_lang['language'][$language]))
+    // Change current infos
+    if (isset($switch_lang['language'][$language]))
     {
-      $lang_info = $switch_lang[$language]['lang_info'];
-      $lang = $switch_lang[$language]['lang'];
+      $lang_info = $switch_lang['language'][$language]['lang_info'];
+      $lang = $switch_lang['language'][$language]['lang'];
     }
     $user['language'] = $language;
   }
