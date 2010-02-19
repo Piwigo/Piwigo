@@ -1244,7 +1244,7 @@ SELECT
 
   // database registration
   $insert = array(
-    'file' => $filename_wo_ext.'.jpg',
+    'file' => !empty($params['original_filename']) ? $params['original_filename'] : $filename_wo_ext.'.jpg',
     'date_available' => $dbnow,
     'tn_ext' => 'jpg',
     'name' => $params['name'],
