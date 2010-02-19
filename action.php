@@ -177,8 +177,7 @@ $http_headers[] = 'Content-Type: '.$ctype;
 
 if (!isset($_GET['view']))
 {
-  $http_headers[] = 'Content-Disposition: attachment; filename="'
-            .basename($file).'";';
+  $http_headers[] = 'Content-Disposition: attachment; filename="'.$element_info['file'].'";';
   $http_headers[] = 'Content-Transfer-Encoding: binary';
 }
 else
