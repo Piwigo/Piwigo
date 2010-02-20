@@ -1,22 +1,20 @@
-/* Japanese (UTF-8) initialisation for the jQuery UI date picker plugin. */
-/* Written by Milly. */
+﻿/* Japanese initialisation for the jQuery UI date picker plugin. */
+/* Written by Kentaro SATO (kentaro@ranvis.com). */
 jQuery(function($){
-	$.datepicker.regional['ja'] = {clearText: '&#21066;&#38500;', clearStatus: '',
-		closeText: '&#38281;&#12376;&#12427;', closeStatus: '',
-		prevText: '&lt;&#21069;&#26376;', prevStatus: '',
-		nextText: '&#27425;&#26376;&gt;', nextStatus: '',
-		currentText: '&#20170;&#26085;', currentStatus: '',
-		monthNames: ['1&#26376;','2&#26376;','3&#26376;','4&#26376;','5&#26376;','6&#26376;',
-		'7&#26376;','8&#26376;','9&#26376;','10&#26376;','11&#26376;','12&#26376;'],
-		monthNamesShort: ['1&#26376;','2&#26376;','3&#26376;','4&#26376;','5&#26376;','6&#26376;',
-		'7&#26376;','8&#26376;','9&#26376;','10&#26376;','11&#26376;','12&#26376;'],
-		monthStatus: '', yearStatus: '',
-		weekHeader: 'Wk', weekStatus: '',
-		dayNames: ['&#26085;','&#26376;','&#28779;','&#27700;','&#26408;','&#37329;','&#22303;'],
-		dayNamesShort: ['&#26085;','&#26376;','&#28779;','&#27700;','&#26408;','&#37329;','&#22303;'],
-		dayNamesMin: ['&#26085;','&#26376;','&#28779;','&#27700;','&#26408;','&#37329;','&#22303;'],
-		dayStatus: 'DD', dateStatus: 'D, M d',
-		dateFormat: 'yy/mm/dd', firstDay: 0, 
-		initStatus: '', isRTL: false};
+	$.datepicker.regional['ja'] = {
+		closeText: '閉じる',
+		prevText: '&#x3c;前',
+		nextText: '次&#x3e;',
+		currentText: '今日',
+		monthNames: ['1月','2月','3月','4月','5月','6月',
+		'7月','8月','9月','10月','11月','12月'],
+		monthNamesShort: ['1月','2月','3月','4月','5月','6月',
+		'7月','8月','9月','10月','11月','12月'],
+		dayNames: ['日曜日','月曜日','火曜日','水曜日','木曜日','金曜日','土曜日'],
+		dayNamesShort: ['日','月','火','水','木','金','土'],
+		dayNamesMin: ['日','月','火','水','木','金','土'],
+		dateFormat: 'yy/mm/dd', firstDay: 0,
+		isRTL: false,
+		showMonthAfterYear: true};
 	$.datepicker.setDefaults($.datepicker.regional['ja']);
 });

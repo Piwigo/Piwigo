@@ -1,7 +1,7 @@
 /*
- * jQuery UI Accordion
- * 
- * Copyright (c) 2007, 2008 Jörn Zaefferer
+ * jQuery UI Accordion 1.7.2
+ *
+ * Copyright (c) 2009 AUTHORS.txt (http://jqueryui.com/about)
  * Dual licensed under the MIT (MIT-LICENSE.txt)
  * and GPL (GPL-LICENSE.txt) licenses.
  *
@@ -13,229 +13,389 @@
 (function($) {
 
 $.widget("ui.accordion", {
-	init: function() {
-		var options = this.options;
-		
-		if ( options.navigation ) {
-			var current = this.element.find("a").filter(options.navigationFilter);
+
+	_init: function() {
+
+		var o = this.options, self = this;
+		this.running = 0;
+
+		// if the user set the alwaysOpen option on init
+		// then we need to set the collapsible option
+		// if they set both on init, collapsible will take priority
+		if (o.collapsible == $.ui.accordion.defaults.collapsible &&
+			o.alwaysOpen != $.ui.accordion.defaults.alwaysOpen) {
+			o.collapsible = !o.alwaysOpen;
+		}
+
+		if ( o.navigation ) {
+			var current = this.element.find("a").filter(o.navigationFilter);
 			if ( current.length ) {
-				if ( current.filter(options.header).length ) {
-					options.active = current;
+				if ( current.filter(o.header).length ) {
+					this.active = current;
 				} else {
-					options.active = current.parent().parent().prev();
-					current.addClass("current");
+					this.active = current.parent().parent().prev();
+					current.addClass("ui-accordion-content-active");
 				}
 			}
 		}
+
+		this.element.addClass("ui-accordion ui-widget ui-helper-reset");
 		
-		// calculate active if not specified, using the first header
-		options.headers = this.element.find(options.header);
-		options.active = findActive(options.headers, options.active);
-		
-		// IE7-/Win - Extra vertical space in Lists fixed
+		// in lack of child-selectors in CSS we need to mark top-LIs in a UL-accordion for some IE-fix
+		if (this.element[0].nodeName == "UL") {
+			this.element.children("li").addClass("ui-accordion-li-fix");
+		}
+
+		this.headers = this.element.find(o.header).addClass("ui-accordion-header ui-helper-reset ui-state-default ui-corner-all")
+			.bind("mouseenter.accordion", function(){ $(this).addClass('ui-state-hover'); })
+			.bind("mouseleave.accordion", function(){ $(this).removeClass('ui-state-hover'); })
+			.bind("focus.accordion", function(){ $(this).addClass('ui-state-focus'); })
+			.bind("blur.accordion", function(){ $(this).removeClass('ui-state-focus'); });
+
+		this.headers
+			.next()
+				.addClass("ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom");
+
+		this.active = this._findActive(this.active || o.active).toggleClass("ui-state-default").toggleClass("ui-state-active").toggleClass("ui-corner-all").toggleClass("ui-corner-top");
+		this.active.next().addClass('ui-accordion-content-active');
+
+		//Append icon elements
+		$("<span/>").addClass("ui-icon " + o.icons.header).prependTo(this.headers);
+		this.active.find(".ui-icon").toggleClass(o.icons.header).toggleClass(o.icons.headerSelected);
+
+		// IE7-/Win - Extra vertical space in lists fixed
 		if ($.browser.msie) {
 			this.element.find('a').css('zoom', '1');
 		}
-		
-		if (!this.element.hasClass("ui-accordion")) {
-			this.element.addClass("ui-accordion");
-			$("<span class='ui-accordion-left'/>").insertBefore(options.headers);
-			$("<span class='ui-accordion-right'/>").appendTo(options.headers);
-			options.headers.addClass("ui-accordion-header").attr("tabindex", "0");
+
+		this.resize();
+
+		//ARIA
+		this.element.attr('role','tablist');
+
+		this.headers
+			.attr('role','tab')
+			.bind('keydown', function(event) { return self._keydown(event); })
+			.next()
+			.attr('role','tabpanel');
+
+		this.headers
+			.not(this.active || "")
+			.attr('aria-expanded','false')
+			.attr("tabIndex", "-1")
+			.next()
+			.hide();
+
+		// make sure at least one header is in the tab order
+		if (!this.active.length) {
+			this.headers.eq(0).attr('tabIndex','0');
+		} else {
+			this.active
+				.attr('aria-expanded','true')
+				.attr('tabIndex', '0');
 		}
-		
-		var maxHeight;
-		if ( options.fillSpace ) {
+
+		// only need links in taborder for Safari
+		if (!$.browser.safari)
+			this.headers.find('a').attr('tabIndex','-1');
+
+		if (o.event) {
+			this.headers.bind((o.event) + ".accordion", function(event) { return self._clickHandler.call(self, event, this); });
+		}
+
+	},
+
+	destroy: function() {
+		var o = this.options;
+
+		this.element
+			.removeClass("ui-accordion ui-widget ui-helper-reset")
+			.removeAttr("role")
+			.unbind('.accordion')
+			.removeData('accordion');
+
+		this.headers
+			.unbind(".accordion")
+			.removeClass("ui-accordion-header ui-helper-reset ui-state-default ui-corner-all ui-state-active ui-corner-top")
+			.removeAttr("role").removeAttr("aria-expanded").removeAttr("tabindex");
+
+		this.headers.find("a").removeAttr("tabindex");
+		this.headers.children(".ui-icon").remove();
+		var contents = this.headers.next().css("display", "").removeAttr("role").removeClass("ui-helper-reset ui-widget-content ui-corner-bottom ui-accordion-content ui-accordion-content-active");
+		if (o.autoHeight || o.fillHeight) {
+			contents.css("height", "");
+		}
+	},
+	
+	_setData: function(key, value) {
+		if(key == 'alwaysOpen') { key = 'collapsible'; value = !value; }
+		$.widget.prototype._setData.apply(this, arguments);	
+	},
+
+	_keydown: function(event) {
+
+		var o = this.options, keyCode = $.ui.keyCode;
+
+		if (o.disabled || event.altKey || event.ctrlKey)
+			return;
+
+		var length = this.headers.length;
+		var currentIndex = this.headers.index(event.target);
+		var toFocus = false;
+
+		switch(event.keyCode) {
+			case keyCode.RIGHT:
+			case keyCode.DOWN:
+				toFocus = this.headers[(currentIndex + 1) % length];
+				break;
+			case keyCode.LEFT:
+			case keyCode.UP:
+				toFocus = this.headers[(currentIndex - 1 + length) % length];
+				break;
+			case keyCode.SPACE:
+			case keyCode.ENTER:
+				return this._clickHandler({ target: event.target }, event.target);
+		}
+
+		if (toFocus) {
+			$(event.target).attr('tabIndex','-1');
+			$(toFocus).attr('tabIndex','0');
+			toFocus.focus();
+			return false;
+		}
+
+		return true;
+
+	},
+
+	resize: function() {
+
+		var o = this.options, maxHeight;
+
+		if (o.fillSpace) {
+			
+			if($.browser.msie) { var defOverflow = this.element.parent().css('overflow'); this.element.parent().css('overflow', 'hidden'); }
 			maxHeight = this.element.parent().height();
-			options.headers.each(function() {
+			if($.browser.msie) { this.element.parent().css('overflow', defOverflow); }
+	
+			this.headers.each(function() {
 				maxHeight -= $(this).outerHeight();
 			});
+
 			var maxPadding = 0;
-			options.headers.next().each(function() {
+			this.headers.next().each(function() {
 				maxPadding = Math.max(maxPadding, $(this).innerHeight() - $(this).height());
-			}).height(maxHeight - maxPadding);
-		} else if ( options.autoHeight ) {
+			}).height(Math.max(0, maxHeight - maxPadding))
+			.css('overflow', 'auto');
+
+		} else if ( o.autoHeight ) {
 			maxHeight = 0;
-			options.headers.next().each(function() {
+			this.headers.next().each(function() {
 				maxHeight = Math.max(maxHeight, $(this).outerHeight());
 			}).height(maxHeight);
 		}
-	
-		options.headers
-			.not(options.active || "")
-			.next()
-			.hide();
-		options.active.parent().andSelf().addClass(options.selectedClass);
-		
-		if (options.event) {
-			this.element.bind((options.event) + ".accordion", clickHandler);
-		}
+
 	},
+
 	activate: function(index) {
 		// call clickHandler with custom event
-		clickHandler.call(this.element[0], {
-			target: findActive( this.options.headers, index )[0]
-		});
+		var active = this._findActive(index)[0];
+		this._clickHandler({ target: active }, active);
 	},
-	destroy: function() {
-		this.options.headers.next().css("display", "");
-		if ( this.options.fillSpace || this.options.autoHeight ) {
-			this.options.headers.next().css("height", "");
+
+	_findActive: function(selector) {
+		return selector
+			? typeof selector == "number"
+				? this.headers.filter(":eq(" + selector + ")")
+				: this.headers.not(this.headers.not(selector))
+			: selector === false
+				? $([])
+				: this.headers.filter(":eq(0)");
+	},
+
+	_clickHandler: function(event, target) {
+
+		var o = this.options;
+		if (o.disabled) return false;
+
+		// called only when using activate(false) to close all parts programmatically
+		if (!event.target && o.collapsible) {
+			this.active.removeClass("ui-state-active ui-corner-top").addClass("ui-state-default ui-corner-all")
+				.find(".ui-icon").removeClass(o.icons.headerSelected).addClass(o.icons.header);
+			this.active.next().addClass('ui-accordion-content-active');
+			var toHide = this.active.next(),
+				data = {
+					options: o,
+					newHeader: $([]),
+					oldHeader: o.active,
+					newContent: $([]),
+					oldContent: toHide
+				},
+				toShow = (this.active = $([]));
+			this._toggle(toShow, toHide, data);
+			return false;
 		}
-		$.removeData(this.element[0], "accordion");
-		this.element.removeClass("ui-accordion").unbind(".accordion");
+
+		// get the click target
+		var clicked = $(event.currentTarget || target);
+		var clickedIsActive = clicked[0] == this.active[0];
+
+		// if animations are still active, or the active header is the target, ignore click
+		if (this.running || (!o.collapsible && clickedIsActive)) {
+			return false;
+		}
+
+		// switch classes
+		this.active.removeClass("ui-state-active ui-corner-top").addClass("ui-state-default ui-corner-all")
+			.find(".ui-icon").removeClass(o.icons.headerSelected).addClass(o.icons.header);
+		this.active.next().addClass('ui-accordion-content-active');
+		if (!clickedIsActive) {
+			clicked.removeClass("ui-state-default ui-corner-all").addClass("ui-state-active ui-corner-top")
+				.find(".ui-icon").removeClass(o.icons.header).addClass(o.icons.headerSelected);
+			clicked.next().addClass('ui-accordion-content-active');
+		}
+
+		// find elements to show and hide
+		var toShow = clicked.next(),
+			toHide = this.active.next(),
+			data = {
+				options: o,
+				newHeader: clickedIsActive && o.collapsible ? $([]) : clicked,
+				oldHeader: this.active,
+				newContent: clickedIsActive && o.collapsible ? $([]) : toShow.find('> *'),
+				oldContent: toHide.find('> *')
+			},
+			down = this.headers.index( this.active[0] ) > this.headers.index( clicked[0] );
+
+		this.active = clickedIsActive ? $([]) : clicked;
+		this._toggle(toShow, toHide, data, clickedIsActive, down);
+
+		return false;
+
+	},
+
+	_toggle: function(toShow, toHide, data, clickedIsActive, down) {
+
+		var o = this.options, self = this;
+
+		this.toShow = toShow;
+		this.toHide = toHide;
+		this.data = data;
+
+		var complete = function() { if(!self) return; return self._completed.apply(self, arguments); };
+
+		// trigger changestart event
+		this._trigger("changestart", null, this.data);
+
+		// count elements to animate
+		this.running = toHide.size() === 0 ? toShow.size() : toHide.size();
+
+		if (o.animated) {
+
+			var animOptions = {};
+
+			if ( o.collapsible && clickedIsActive ) {
+				animOptions = {
+					toShow: $([]),
+					toHide: toHide,
+					complete: complete,
+					down: down,
+					autoHeight: o.autoHeight || o.fillSpace
+				};
+			} else {
+				animOptions = {
+					toShow: toShow,
+					toHide: toHide,
+					complete: complete,
+					down: down,
+					autoHeight: o.autoHeight || o.fillSpace
+				};
+			}
+
+			if (!o.proxied) {
+				o.proxied = o.animated;
+			}
+
+			if (!o.proxiedDuration) {
+				o.proxiedDuration = o.duration;
+			}
+
+			o.animated = $.isFunction(o.proxied) ?
+				o.proxied(animOptions) : o.proxied;
+
+			o.duration = $.isFunction(o.proxiedDuration) ?
+				o.proxiedDuration(animOptions) : o.proxiedDuration;
+
+			var animations = $.ui.accordion.animations,
+				duration = o.duration,
+				easing = o.animated;
+
+			if (!animations[easing]) {
+				animations[easing] = function(options) {
+					this.slide(options, {
+						easing: easing,
+						duration: duration || 700
+					});
+				};
+			}
+
+			animations[easing](animOptions);
+
+		} else {
+
+			if (o.collapsible && clickedIsActive) {
+				toShow.toggle();
+			} else {
+				toHide.hide();
+				toShow.show();
+			}
+
+			complete(true);
+
+		}
+
+		toHide.prev().attr('aria-expanded','false').attr("tabIndex", "-1").blur();
+		toShow.prev().attr('aria-expanded','true').attr("tabIndex", "0").focus();
+
+	},
+
+	_completed: function(cancel) {
+
+		var o = this.options;
+
+		this.running = cancel ? 0 : --this.running;
+		if (this.running) return;
+
+		if (o.clearStyle) {
+			this.toShow.add(this.toHide).css({
+				height: "",
+				overflow: ""
+			});
+		}
+
+		this._trigger('change', null, this.data);
 	}
+
 });
 
-function scopeCallback(callback, scope) {
-	return function() {
-		return callback.apply(scope, arguments);
-	};
-};
-
-function completed(cancel) {
-	// if removed while animated data can be empty
-	if (!$.data(this, "accordion")) {
-		return;
-	}
-	
-	var instance = $.data(this, "accordion");
-	var options = instance.options;
-	options.running = cancel ? 0 : --options.running;
-	if ( options.running ) {
-		return;
-	}
-	if ( options.clearStyle ) {
-		options.toShow.add(options.toHide).css({
-			height: "",
-			overflow: ""
-		});
-	}
-	$(this).triggerHandler("accordionchange", [$.event.fix({type: 'accordionchange', target: instance.element[0]}), options.data], options.change);
-}
-
-function toggle(toShow, toHide, data, clickedActive, down) {
-	var options = $.data(this, "accordion").options;
-	options.toShow = toShow;
-	options.toHide = toHide;
-	options.data = data;
-	var complete = scopeCallback(completed, this);
-	
-	// count elements to animate
-	options.running = toHide.size() === 0 ? toShow.size() : toHide.size();
-	
-	if ( options.animated ) {
-		if ( !options.alwaysOpen && clickedActive ) {
-			$.ui.accordion.animations[options.animated]({
-				toShow: jQuery([]),
-				toHide: toHide,
-				complete: complete,
-				down: down,
-				autoHeight: options.autoHeight
-			});
-		} else {
-			$.ui.accordion.animations[options.animated]({
-				toShow: toShow,
-				toHide: toHide,
-				complete: complete,
-				down: down,
-				autoHeight: options.autoHeight
-			});
-		}
-	} else {
-		if ( !options.alwaysOpen && clickedActive ) {
-			toShow.toggle();
-		} else {
-			toHide.hide();
-			toShow.show();
-		}
-		complete(true);
-	}
-}
-
-function clickHandler(event) {
-	var options = $.data(this, "accordion").options;
-	if (options.disabled) {
-		return false;
-	}
-	
-	// called only when using activate(false) to close all parts programmatically
-	if ( !event.target && !options.alwaysOpen ) {
-		options.active.parent().andSelf().toggleClass(options.selectedClass);
-		var toHide = options.active.next(),
-			data = {
-				options: options,
-				newHeader: jQuery([]),
-				oldHeader: options.active,
-				newContent: jQuery([]),
-				oldContent: toHide
-			},
-			toShow = (options.active = $([]));
-		toggle.call(this, toShow, toHide, data );
-		return false;
-	}
-	// get the click target
-	var clicked = $(event.target);
-	
-	// due to the event delegation model, we have to check if one
-	// of the parent elements is our actual header, and find that
-	// otherwise stick with the initial target
-	clicked = $( clicked.parents(options.header)[0] || clicked );
-	
-	var clickedActive = clicked[0] == options.active[0];
-	
-	// if animations are still active, or the active header is the target, ignore click
-	if (options.running || (options.alwaysOpen && clickedActive)) {
-		return false;
-	}
-	if (!clicked.is(options.header)) {
-		return;
-	}
-	
-	// switch classes
-	options.active.parent().andSelf().toggleClass(options.selectedClass);
-	if ( !clickedActive ) {
-		clicked.parent().andSelf().addClass(options.selectedClass);
-	}
-	
-	// find elements to show and hide
-	var toShow = clicked.next(),
-		toHide = options.active.next(),
-		//data = [clicked, options.active, toShow, toHide],
-		data = {
-			options: options,
-			newHeader: clicked,
-			oldHeader: options.active,
-			newContent: toShow,
-			oldContent: toHide
-		},
-		down = options.headers.index( options.active[0] ) > options.headers.index( clicked[0] );
-	
-	options.active = clickedActive ? $([]) : clicked;
-	toggle.call(this, toShow, toHide, data, clickedActive, down );
-
-	return false;
-};
-
-function findActive(headers, selector) {
-	return selector != undefined
-		? typeof selector == "number"
-			? headers.filter(":eq(" + selector + ")")
-			: headers.not(headers.not(selector))
-		: selector === false
-			? $([])
-			: headers.filter(":eq(0)");
-}
 
 $.extend($.ui.accordion, {
+	version: "1.7.2",
 	defaults: {
-		selectedClass: "selected",
-		alwaysOpen: true,
+		active: null,
+		alwaysOpen: true, //deprecated, use collapsible
 		animated: 'slide',
-		event: "click",
-		header: "a",
 		autoHeight: true,
-		running: 0,
+		clearStyle: false,
+		collapsible: false,
+		event: "click",
+		fillSpace: false,
+		header: "> li > :first-child,> :not(li):even",
+		icons: {
+			header: "ui-icon-triangle-1-e",
+			headerSelected: "ui-icon-triangle-1-s"
+		},
+		navigation: false,
 		navigationFilter: function() {
 			return this.href.toLowerCase() == location.href.toLowerCase();
 		}
@@ -250,31 +410,58 @@ $.extend($.ui.accordion, {
 				options.toShow.animate({height: "show"}, options);
 				return;
 			}
-			var hideHeight = options.toHide.height(),
-				showHeight = options.toShow.height(),
-				difference = showHeight / hideHeight;
+			if ( !options.toShow.size() ) {
+				options.toHide.animate({height: "hide"}, options);
+				return;
+			}
+			var overflow = options.toShow.css('overflow'),
+				percentDone,
+				showProps = {},
+				hideProps = {},
+				fxAttrs = [ "height", "paddingTop", "paddingBottom" ],
+				originalWidth;
+			// fix width before calculating height of hidden element
+			var s = options.toShow;
+			originalWidth = s[0].style.width;
+			s.width( parseInt(s.parent().width(),10) - parseInt(s.css("paddingLeft"),10) - parseInt(s.css("paddingRight"),10) - (parseInt(s.css("borderLeftWidth"),10) || 0) - (parseInt(s.css("borderRightWidth"),10) || 0) );
+			
+			$.each(fxAttrs, function(i, prop) {
+				hideProps[prop] = 'hide';
+				
+				var parts = ('' + $.css(options.toShow[0], prop)).match(/^([\d+-.]+)(.*)$/);
+				showProps[prop] = {
+					value: parts[1],
+					unit: parts[2] || 'px'
+				};
+			});
 			options.toShow.css({ height: 0, overflow: 'hidden' }).show();
-			options.toHide.filter(":hidden").each(options.complete).end().filter(":visible").animate({height:"hide"},{
-				step: function(now) {
-					var current = (hideHeight - now) * difference;
-					if ($.browser.msie || $.browser.opera) {
-						current = Math.ceil(current);
+			options.toHide.filter(":hidden").each(options.complete).end().filter(":visible").animate(hideProps,{
+				step: function(now, settings) {
+					// only calculate the percent when animating height
+					// IE gets very inconsistent results when animating elements
+					// with small values, which is common for padding
+					if (settings.prop == 'height') {
+						percentDone = (settings.now - settings.start) / (settings.end - settings.start);
 					}
-					options.toShow.height( current );
+					
+					options.toShow[0].style[settings.prop] =
+						(percentDone * showProps[settings.prop].value) + showProps[settings.prop].unit;
 				},
 				duration: options.duration,
 				easing: options.easing,
 				complete: function() {
 					if ( !options.autoHeight ) {
-						options.toShow.css("height", "auto");
+						options.toShow.css("height", "");
 					}
+					options.toShow.css("width", originalWidth);
+					options.toShow.css({overflow: overflow});
 					options.complete();
 				}
 			});
 		},
 		bounceslide: function(options) {
 			this.slide(options, {
-				easing: options.down ? "bounceout" : "swing",
+				easing: options.down ? "easeOutBounce" : "swing",
 				duration: options.down ? 1000 : 200
 			});
 		},
@@ -286,10 +473,5 @@ $.extend($.ui.accordion, {
 		}
 	}
 });
-
-// deprecated, use accordion("activate", index) instead
-$.fn.activate = function(index) {
-	return this.accordion("activate", index);
-};
 
 })(jQuery);

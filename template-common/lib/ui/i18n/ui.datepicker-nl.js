@@ -1,21 +1,19 @@
-/* Dutch (UTF-8) initialisation for the jQuery UI date picker plugin. */
+﻿/* Dutch (UTF-8) initialisation for the jQuery UI date picker plugin. */
+/* Written by Mathias Bynens <http://mathiasbynens.be/> */
 jQuery(function($){
-	$.datepicker.regional['nl'] = {clearText: 'Wissen', clearStatus: 'Wis de huidige datum',
-		closeText: 'Sluiten', closeStatus: 'Sluit zonder verandering',
-		prevText: '&lt;Terug', prevStatus: 'Laat de voorgaande maand zien',
-		nextText: 'Volgende&gt;', nextStatus: 'Laat de volgende maand zien',
-		currentText: 'Vandaag', currentStatus: 'Laat de huidige maand zien',
-		monthNames: ['Januari','Februari','Maart','April','Mei','Juni',
-		'Juli','Augustus','September','Oktober','November','December'],
-		monthNamesShort: ['Jan','Feb','Mrt','Apr','Mei','Jun',
-		'Jul','Aug','Sep','Okt','Nov','Dec'],
-		monthStatus: 'Laat een andere maand zien', yearStatus: 'Laat een ander jaar zien',
-		weekHeader: 'Wk', weekStatus: 'Week van het jaar',
-		dayNames: ['Zondag','Maandag','Dinsdag','Woensdag','Donderdag','Vrijdag','Zaterdag'],
-		dayNamesShort: ['Zon','Maa','Din','Woe','Don','Vri','Zat'],
-		dayNamesMin: ['Zo','Ma','Di','Wo','Do','Vr','Za'],
-		dayStatus: 'DD', dateStatus: 'D, M d',
-		dateFormat: 'dd.mm.yy', firstDay: 1, 
-		initStatus: 'Kies een datum', isRTL: false};
-	$.datepicker.setDefaults($.datepicker.regional['nl']);
+	$.datepicker.regional.nl = {
+		closeText: 'Sluiten',
+		prevText: '←',
+		nextText: '→',
+		currentText: 'Vandaag',
+		monthNames: ['januari', 'februari', 'maart', 'april', 'mei', 'juni',
+		'juli', 'augustus', 'september', 'oktober', 'november', 'december'],
+		monthNamesShort: ['jan', 'feb', 'maa', 'apr', 'mei', 'jun',
+		'jul', 'aug', 'sep', 'okt', 'nov', 'dec'],
+		dayNames: ['zondag', 'maandag', 'dinsdag', 'woensdag', 'donderdag', 'vrijdag', 'zaterdag'],
+		dayNamesShort: ['zon', 'maa', 'din', 'woe', 'don', 'vri', 'zat'],
+		dayNamesMin: ['zo', 'ma', 'di', 'wo', 'do', 'vr', 'za'],
+		dateFormat: 'dd/mm/yy', firstDay: 1,
+		isRTL: false};
+	$.datepicker.setDefaults($.datepicker.regional.nl);
 });
