@@ -11,7 +11,7 @@ var rows = table.tBodies[0].rows;
 for (var i=0; i<rows.length; i++) {
   $(rows[i])
      .attr('class', 'row'+i%2)
-     .find("input[@type='text']").attr('value', (i+1)*10);
+     .find("input:text").attr('value', (i+1)*10);
 }
 }
 });
