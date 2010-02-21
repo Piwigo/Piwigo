@@ -14,12 +14,7 @@
     class="instructionBlockContent"
     style="display:none"
   >
-    <p>
-      <a href="http://piwigo.org/ext/extension_view.php?eid=270">pLoader Windows</a>
-      vagy <a href="http://piwigo.org/ext/extension_view.php?eid=269">pLoader Linux</a>
-      vagy <a href="http://piwigo.org/ext/extension_view.php?eid=353">pLoader Mac</a>
-      : Lírás, letöltés és részletek az új javításokról.
-    </p>
+    <p><a href="http://piwigo.org/ext/extension_view.php?eid=270">pLoader Windows</a> vagy <a href="http://piwigo.org/ext/extension_view.php?eid=269">pLoader Linux</a> : Lírás, letöltés és részletek az új javításokról.</p>
     <ol>
       <li>Hozz létre egy "upload" mappát a "galeries" mappába.</li>
       <li>Telpítsd a számítógépedre a pLoader programot, indítsd el és add meg a pontos URL-t és a hozzáférési adataid.</li>
@@ -107,67 +102,48 @@ Itt következik a könyvtárfa egy kis galériáról,
 <li>Minden új alkönyvtár a "galeries" könyvtárban létrehoz egy új karegóriát. A könyvtárak mélysége nincs korlátozva.
     A fenti példában a Kategorie-1.1.1.1 könyvtár 4. mélység szintű.</li>
 
-   <li>Jedes Element besteht aus einer Datei. 
-   Eine Datei zählt als Element für Piwigo, wenn die Erweiterung des Dateinamens in den
-   Konfigurationsparametern festgelegt ist <code>file_ext</code> (siehe
-   <span class="filename">Datei include / config.inc.php</span>). 
-   Eine Datei zählt als Bild, wenn die Dateiendung mit dem Konfigurationsparameter
-   <code>picture_ext</code> festgelegt wird.</li>
+  <li>Basically, an element is represented by a file. A file can be a
+  Piwigo element if its extenstion is among <code>file_ext</code>
+  configuration parameter possibilities (see <span
+  class="filename">include/config_default.inc.php</span> file). A file can
+  be a picture if its extension is among <code>picture_ext</code>
+  configuration parameter possibilities.</li>
 
-   <li>Elemente vom Typ Bild müssen ein Thumbnail (kleines Vorschaubild) (siehe
-Abschnitt Thumbnails) besitzen.</li>
+  <li>Picture elements must have an associated thumbnail (see section below
+  about thumbnails)</li>
 
-   <li>Bild können Bilder im Grossformat hinterlegt sein (in einem Unterordner "Pwg_high".
-   Wie für die Datei <span class="filename">Hochzeit.jpg</span>
-im obigen Beispiel. Dem Dateinamen darf nichts vorangestellt werden.</li>
+  <li>Picture elements can have a high quality file associated. As for
+  wedding.jpg in the example above. No prefix on the high quality picture.</li>
 
-   <li>Alle Elemente, die keine Bilder sind (Videos, Sounds, Textdateien, die alles, was du 
-   möchtest, ...) werden standardmäßig von einem Symbol für die Erweiterung des Dateinamens 
-   dargestellt. Optional kann selbst eine Miniaturansicht erstellt werden
-   (siehe die Datei <span
-   class = "filename">video.avi</span> im Beispiel).</li>
+  <li>Non picture elements (video, sounds, file texts, what you want...) are
+  by default represented by an icon corresponding to the filename
+  extension. Optionaly, you can associate a thumbnail and a representative
+  file (see video.avi in the example above).</li>
 
-   <li><em>Achtung</em>: der Namen für ein Verzeichnis oder eine Datei darf
-nur aus Buchstaben, Zahlen, "-", "_" oder "." bestehen. Umlaute und Sonderzeichen
-dürfen nicht verwendet werden.</li>
+  <li><em>Warning</em>: the name of directories and files must contain only letters, figures, "-", "_" or ".". No blank space, no accentuated characters.</li>
 
-   <li><em>Empfehlung</em>: eine Kategorie kann Elemente und Unterkategorien enthalten,
-Es ist aber empfehlenswert und übersichtlicher, wenn eine Kategorie entweder Elemente 
-<strong>oder</strong>Unterkategorien enthält.</li>
-
-   <li>Wenn du die Dateien, Bilder und Thumbnails in die richtigen Ordner hochgeladen hast, 
-logge dich ein und gehen auf<span 
-class = "pwgScreen">Verwaltung &raquo; Kategorien &raquo; synchronisieren</span>.</li>
+  <li>Once files, thumbnails and representatives are correctly placed in the
+  directories, go to : <span class="pwgScreen">Administration &raquo; Categories &raquo;
+  Synchronize</span></li>
 
 </ul>
 
-<h3>kleines Vorschaubild, Miniatur (Thumbnails)</h3>
-
+<h3>Thumbnails</h3>
 <ul>
-  
-   <li>Wie bereits erwähnt, gehört zu jedem Bild ein Thumbnail.</li>
 
-   <li>Thumbnails werden in einem Unterverzeichnis "thumbnail" jeder
-Kategorie gespeichert. Ein zu einem Bild gehörendes Thumbnail hat den gleichen Namen wie das Bild 
-mit einem vorangestelltem Präfix (siehe TN- oben im Beispielverzeichnisbaum). Dieses Präfix ist in 
-der Konfiguration festgelegt <code>prefix_thumbnail</code>
-(siehe <span class="filename">include / config.inc.php</span >).</li>
+  <li>Each photo must have its thumbnail.</li>
 
-   <li>Die Miniaturen brauchen nicht die gleiche Dateiendung zu haben. Ein "jpg" Bild darf ein
-"GIF" als Vorschaubild haben.</li>
+  <li>Thumbnails are stored in the sub-directory "thumbnail" of the category
+  directory. The thumbnail has the same filename as the corresponding photo, with <em>TN-</em> as prefix.</li>
 
-   <li> Es wird empfohlen, ein externes Programm für die Erstellung von
-Miniaturen zu verwenden.</li>
+  <li><em>Advise</em>: use an external module for thumbnails creation.</li>
 
-   <li> Du kannst auch das Tool zum Erstellen von Thumbnails der Piwigo verwenden aber dies wird 
-   nicht empfohlen, da meistens die Qualität enttäuschend ist und der Server stark belastet wird.
-   Im Ernstfall kann es den Server überlasten.</li>
+  <li>Even if it is not recommended (image quality, web server resource load), you can use <span
+  class="pwgScreen">Administration &raquo; Pictures &raquo; Thumbnails</span> page to create thumbnails.</li>
 
-   <li> Falls SIe doch den Webserver verwenden um Thumbnails generieren zu lassen, müssen Sie allen Kategorieordnern 
-   per CHMOD die entsprechenden Rechte zuweisen.</li>
+  <li>Give write access on all category directories.</li>
 
 </ul>
-
 
   </div> <!-- FTP_content -->
 </div> <!-- instructionFTP -->
@@ -178,36 +154,38 @@ Miniaturen zu verwenden.</li>
     class="instructionBlockHeaderCollapsed"
     onclick="blockToggleDisplay('permissions_header', 'permissions_content')"
   ><span>
-    Berechtigungen
+    Permissions
   </span></div>
   <div
     id="permissions_content"
     class="instructionBlockContent"
     style="display:none"
   >
-
 <ul>
 
-   <li>Du kannst den Zugriff auf bestimmte Kategorien beschränken. Die Kategorien können
-öffentlich oder privat sein. Zugriffsbeschränkungen für bestimmte Benutzer oder Gruppen 
-können nur für private Kategorien eingerichtet werden.</li>
-  
-   <li>So kannst du eine einzelne öffentliche Kategorie in eine private ändern (<span
-class = "pwgScreen">Verwaltung &raquo; Kategorien &raquo; Verwalten &raquo; Bearbeiten (Icon rechts)</span>) oder
-alle Kategorien verwalten (<span
-class = "pwgScreen">Verwaltung &raquo; Kategorien &raquo; Eigenschaften &raquo; Public / Private</span>).</li>
+  <li>You can forbid access to categories. Switch the category access type to "private" if you want to manage permissions.</li>
+
+  <li>You can set a category to private by editing a single category (<span
+  class="pwgScreen">Administration &raquo; Categories &raquo; Manage &raquo; edit</span>) or by
+  setting options to your whole category tree (<span
+  class="pwgScreen">Administration &raquo; Categories &raquo; Properties &raquo; Public / Private</span>).</li>
 
   <li>
 
-    <p>Wenn eine Ketegorie privat ist, kannst du die Berechtigungen für Gruppen und Benutzer auf 3 
-    unterschiedlichen Seiten einstellen:</p>
+    <p>Once the category is private, you can manage permissions for groups
+    and users with 3 screens:</p>
 
     <ul>
-		<li><span class="pwgScreen">Verwaltung  &raquo; Verwaltung &raquo; Benutzer &raquo;
-      Aktionen</span> (jeweils ein Limk pro Benutzer)</li>
-		<li><span class="pwgScreen">Verwaltung  &raquo; Verwaltung &raquo; Gruppen &raquo;
-      Aktionen</span> (jeweils ein Link pro Gruppe)</li>
-		<li><span class="pwgScreen">Administration &raquo; Kategorien &raquo; Verwalten &raquo; Berechtigung für Kategorie ändern</span> (jeweils ein Link pro Kategorie)</li>
+
+      <li><span class="pwgScreen">Administration &raquo; Identification &raquo; Users &raquo;
+      permissions action</span> (one link per user)</li>
+
+      <li><span class="pwgScreen">Administration &raquo; Identification &raquo; Groups &raquo;
+      permissions action</span> (one link per group)</li>
+
+      <li><span class="pwgScreen">Administration &raquo; Categories &raquo; Manage &raquo; edit
+      category permissions action</span> (one link per category)</li>
+
     </ul>
 
   </li>
@@ -222,7 +200,7 @@ class = "pwgScreen">Verwaltung &raquo; Kategorien &raquo; Eigenschaften &raquo; 
     class="instructionBlockHeaderCollapsed"
     onclick="blockToggleDisplay('groups_header', 'groups_content')"
   ><span>
-    Benutzergruppen
+    Groups
   </span></div>
   <div
     id="groups_content"
@@ -231,17 +209,17 @@ class = "pwgScreen">Verwaltung &raquo; Kategorien &raquo; Eigenschaften &raquo; 
   >
 <ul>
 
-	<li>Gruppen sind ein guter Weg, Benutzerrechte für mehrere Benutzer zugleich zu verwalten.</li>
+  <li>Groups is a convenient way to set permissions for a list of users.</li>
 
-	<li>Du kannst Gruppen und Benutzer hinzufügen und erstellen unter:
-<span class="pwgScreen">Verwaltung &raquo; Verwaltung &raquo; Gruppen</span>.</li>
+  <li>Create groups in <span class="pwgScreen">Administration &raquo;
+  Identification &raquo; Groups</span> and associate users to this group in <span
+  class="pwgScreen">Administration &raquo; Identication &raquo; Users</span>.</li>
 
-	<li>Ein Benutzer kann mehreren Gruppen angehören. Die Freigaben der "stärksten Gruppe"
-sind relevant.
-Wenn der Benutzer "Stein" zu den Gruppen "Familie" und "Freunde" gehört und nur die Gruppe
- "Familie" kann sich die Kategorie "Weihnachten 2003" ansehen, dann kann "Stein" kann sich 
- dieser Kategorie ansehen.</li>
-  
+  <li>A user can belong to several groups. Authorization is stronger
+  than forbiddance : if user "jack" belongs to groups "family" and
+  "friends", and that only group "family" can see category "Christmas 2003" category then
+  "jack" will be able to see "Christmas 2003".</li>
+
 </ul>
   </div> <!-- groups_content --> 
 </div> <!-- instructionGroups -->
@@ -252,27 +230,27 @@ Wenn der Benutzer "Stein" zu den Gruppen "Familie" und "Freunde" gehört und nur
     class="instructionBlockHeaderCollapsed"
     onclick="blockToggleDisplay('upload_header', 'upload_content')"
   ><span>
-    Hinzufügen von Dateien durch die Benutzer
+    Upload by users
   </span></div>
   <div
     id="upload_content"
     class="instructionBlockContent"
     style="display:none"
   >
-<p>Benutzer können ihre eigenen Fotos hochladen.</p>
+<p>Users can upload their photos too.</p>
 
 <ol>
 
-    <li>Erlaube den Upload für eine physische Kategorie (ein existierender Ordner) (<span
-  class="pwgScreen">Verwaltung &raquo; Kategorien &raquo; Verwalten &raquo; bearbeite die Informationen in dieser Kategorie</span> or <span
-  class="pwgScreen">Verwaltung &raquo; Kategorien &raquo; Eigenschaften &raquo; Upload</span>). In virtuelle Kategorien kann nichts hochgeladen werden.</li>
+  <li>Authorize upload on any physical categories (<span
+  class="pwgScreen">Administration &raquo; Categories &raquo; Manage &raquo; edit</span> or <span
+  class="pwgScreen">Administration &raquo; Categories &raquo; Properties &raquo; Upload</span>). Virtual categories can't receive any upload.</li>
 
+  <li>Give write access on corresponding directories.</li>
 
-   <li>Gebe allen Benutzern die Berechtigung zum Upload auf freigegebene Kategorien.</li>
 </ol>
-<p>Die hinzugefügten Dateien sind durch die Benutzer nicht direkt
-sichtbar. Ein Administrator muss die hochgeladenen Fotos in <span class="pwgScreen">Verwaltung &raquo; Bilder &raquo; Wartend auf Freigabe </span>freigeben.</p>
 
+<p>Photos uploaded by users are not directly visible on the website. An administrator
+must validate uploaded photos in <span class="pwgScreen">Administration &raquo; Pictures &raquo; Waiting</span>.</p>
   </div> <!-- upload_content --> 
 </div> <!-- instructionUpload -->
 
@@ -282,21 +260,20 @@ sichtbar. Ein Administrator muss die hochgeladenen Fotos in <span class="pwgScre
     class="instructionBlockHeaderCollapsed"
     onclick="blockToggleDisplay('categoryLinks_header', 'categoryLinks_content')"
   ><span>
-    Verbindungen zwischen Elementen, Kategorien und virtuellen Kategorien
+    Links between photos and categories, virtual categories
   </span></div>
   <div
     id="categoryLinks_content"
     class="instructionBlockContent"
     style="display:none"
   >
-
 <ul>
 
-	<li>Fotos werden normalerweise in der Kategorie angezeigt, in der sie hochgeladen wurden.</li>
+  <li>Photos are displayed in the category corresponding to the file directory.</li>
 
-	<li>Man kann Fotos auch in einer zweiten Kategorie anzeigen ohne sie zu duplizieren. Verbinde das Bild einfach mit einer anderen Kategorie auf der Seite "Information ändern" (den Link dazu kann jeder Administrator auf der Seite des Fotos selbst sehen).</li>
+  <li>You can also display a picture in several categories, without duplicating the file on your web server. Associate the photo to any category from the photo editing screen (that any administrator can reach from the photo page on the gallery side).</li>
 
-	<li>Virtuelle Kategorien basieren auf folgendem Konzept: sie haben keinen eigenen Ordner. Erstelle eine virtuelle Kategorie unter <span class="pwgScreen">Verwaltung &raquo; Kategorien &raquo; Verwalten</span>.</li>
+  <li>Virtual categories are based on this concept: they have no corresponding directory. Create virtual categories from <span class="pwgScreen">Administration &raquo; Categories &raquo; Manage</span>.</li>
 
 </ul>
   </div> <!-- categoryLinks_content --> 
@@ -308,29 +285,21 @@ sichtbar. Ein Administrator muss die hochgeladenen Fotos in <span class="pwgScre
     class="instructionBlockHeaderCollapsed"
     onclick="blockToggleDisplay('misc_header', 'misc_content')"
   ><span>
-    Verschiedenes
+    Miscellanous informations
   </span></div>
   <div
     id="misc_content"
     class="instructionBlockContent"
     style="display:none"
   >
-
 <ul>
-  
-   <li>Nachdem du die Galerie erfolgreich erstellt habst, konfiguriere die gewünschte Anzeige über
-<span class="pwgScreen">Verwaltung &raquo; Konfiguration &raquo; Standartanzeige</span>. Jeder neu registrierte Benutzer
-bekommt diese Einstellungen als Standart vorgegeben.</li>
 
-   <li>Bei Fragen besuchen Sie bitte das Forum. Wenn ihre Frage dort nicht schon beantwortet wurde, scheuen Sie sich 
-   sie dort zu stellen.
-   Das
-<a href="http://piwigo.org/forum">Forum</a> ist auf der Website von Piwigo. Siehe 
-auch <a href="http://piwigo.org/doc">Offizielle Dokumentation von Piwigo</a> für 
-weitere Informationen. </li>
+  <li>As soon as you created your gallery, modify default display properties
+  in <span class="pwgScreen">Administration &raquo; Configuration &raquo;
+  Default</span>. Every new registered user will use these default configuration settings.</li>
 
-   <li>Falls du eine Frage hast, die Piwigo community heisst dich herzlich Willkommen in ihrem<a
-  href="http://piwigo.org/forum">ihrem Forum.</a>.</li>
+  <li>If you have any question, Piwigo community will welcome you on <a
+  href="http://piwigo.org/forum">its forum</a>.</li>
 
 </ul>
   </div> <!-- misc_content --> 
