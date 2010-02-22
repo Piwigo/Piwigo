@@ -1,0 +1,1 @@
+Átválthatja a galériát egy másik nyelvre a honlapon lévő zászlók segítségével.
