@@ -1,0 +1,1 @@
+Fejlesztőknek: mutatja valamennyi meghívást a trigger_event-hez.
