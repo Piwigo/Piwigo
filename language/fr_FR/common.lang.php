@@ -368,4 +368,5 @@ $lang['cloud'] = 'nuage';
 $lang['Reset_To_Default'] = 'Rétablir les valeurs par défaut';
 $lang['del_all_favorites_hint'] = 'supprimer toutes les images de vos favoris';
 $lang['Sent by'] = 'Envoyé par';
+$lang['Cookies are blocked or not supported by your browser. You must enable cookies to connect.'] = 'Les cookies sont bloqués ou non supportés par votre navigateur web. Vous devez activer les cookies pour vous connecter.';
 ?>
