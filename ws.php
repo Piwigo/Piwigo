@@ -257,7 +257,8 @@ function ws_addDefaultMethods( $arr )
     'pwg.images.exist',
     'ws_images_exist',
     array(
-      'md5sum_list'=> array(),
+      'md5sum_list'=> array('default' => null),
+      'filename_list' => array('default' => null),
       ),
     'check existence of a photo list'
     );

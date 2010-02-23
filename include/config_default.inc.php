@@ -322,6 +322,10 @@ $conf['default_redirect_method'] = 'http';
 // Define using double password type in admin's users management panel
 $conf['double_password_type_in_admin'] = false;
 
+// how should we check for unicity when adding a photo. Can be 'md5sum' or
+// 'filename'
+$conf['uniqueness_mode'] = 'md5sum';
+
 // +-----------------------------------------------------------------------+
 // |                               metadata                                |
 // +-----------------------------------------------------------------------+
