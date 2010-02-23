@@ -369,4 +369,5 @@ $lang['Reset_To_Default'] = 'Alap értékek visszaállítása';
 // --------- Starting below: Új vagy javított $lang ---- Tőle: Colibri (2.1)
 $lang['del_all_favorites_hint'] = 'Minden kép törlése a kedvencekből';
 $lang['Sent by'] = 'Küldte';
+$lang['Cookies are blocked or not supported by your browser. You must enable cookies to connect.'] = 'A cookie-k le vannak tiltva vagy a böngésző nem támogatja. Engedélyezni kell a cookie-kat a csatlakozáshoz.';
 ?>
