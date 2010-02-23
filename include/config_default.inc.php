@@ -331,6 +331,10 @@ $conf['double_password_type_in_admin'] = false;
 // new user account. 
 $conf['no_case_sensitive_for_login'] = false;
 
+// how should we check for unicity when adding a photo. Can be 'md5sum' or
+// 'filename'
+$conf['uniqueness_mode'] = 'md5sum';
+
 // +-----------------------------------------------------------------------+
 // |                               metadata                                |
 // +-----------------------------------------------------------------------+

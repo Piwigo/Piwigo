@@ -1204,11 +1204,20 @@ function ws_images_add($params, &$service)
   }
 
   // does the image already exists ?
+  if ('md5sum' == $conf['uniqueness_mode'])
+  {
+    $where_clause = "md5sum = '".$params['original_sum']."'";
+  }
+  if ('filename' == $conf['uniqueness_mode'])
+  {
+    $where_clause = "file = '".$params['original_filename']."'";
+  }
+  
   $query = '
 SELECT
     COUNT(*) AS counter
   FROM '.IMAGES_TABLE.'
-  WHERE md5sum = \''.$params['original_sum'].'\'
+  WHERE '.$where_clause.'
 ;';
   list($counter) = pwg_db_fetch_row(pwg_query($query));
   if ($counter != 0) {
@@ -1597,37 +1606,76 @@ function ws_tags_add($params, &$service)
 
 function ws_images_exist($params, &$service)
 {
+  global $conf;
+  
   if (!is_admin() or is_adviser())
   {
     return new PwgError(401, 'Access denied');
   }
 
-  // search among photos the list of photos already added, based on md5sum
-  // list
-  $md5sums = preg_split(
-    '/[\s,;\|]/',
-    $params['md5sum_list'],
-    -1,
-    PREG_SPLIT_NO_EMPTY
+  $split_pattern = '/[\s,;\|]/';
+
+  if ('md5sum' == $conf['uniqueness_mode'])
+  {
+    // search among photos the list of photos already added, based on md5sum
+    // list
+    $md5sums = preg_split(
+      $split_pattern,
+      $params['md5sum_list'],
+      -1,
+      PREG_SPLIT_NO_EMPTY
     );
 
-  $query = '
+    $query = '
 SELECT
     id,
     md5sum
   FROM '.IMAGES_TABLE.'
   WHERE md5sum IN (\''.implode("','", $md5sums).'\')
 ;';
-  $id_of_md5 = simple_hash_from_query($query, 'md5sum', 'id');
+    $id_of_md5 = simple_hash_from_query($query, 'md5sum', 'id');
 
-  $result = array();
+    $result = array();
 
-  foreach ($md5sums as $md5sum)
-  {
-    $result[$md5sum] = null;
-    if (isset($id_of_md5[$md5sum]))
+    foreach ($md5sums as $md5sum)
     {
-      $result[$md5sum] = $id_of_md5[$md5sum];
+      $result[$md5sum] = null;
+      if (isset($id_of_md5[$md5sum]))
+      {
+        $result[$md5sum] = $id_of_md5[$md5sum];
+      }
+    }
+  }
+  
+  if ('filename' == $conf['uniqueness_mode'])
+  {
+    // search among photos the list of photos already added, based on
+    // filename list
+    $filenames = preg_split(
+      $split_pattern,
+      $params['filename_list'],
+      -1,
+      PREG_SPLIT_NO_EMPTY
+    );
+
+    $query = '
+SELECT
+    id,
+    file
+  FROM '.IMAGES_TABLE.'
+  WHERE file IN (\''.implode("','", $filenames).'\')
+;';
+    $id_of_filename = simple_hash_from_query($query, 'file', 'id');
+
+    $result = array();
+
+    foreach ($filenames as $filename)
+    {
+      $result[$filename] = null;
+      if (isset($id_of_filename[$filename]))
+      {
+        $result[$filename] = $id_of_filename[$filename];
+      }
     }
   }
 
