@@ -45,15 +45,25 @@ if ( !empty($_GET['redirect']) )
 
 if (isset($_POST['login']))
 {
-  $redirect_to = isset($_POST['redirect']) ? $_POST['redirect'] : '';
-  $remember_me = isset($_POST['remember_me']) and $_POST['remember_me']==1;
-  if ( try_log_user($_POST['username'], $_POST['password'], $remember_me) )
+  if (!isset($_COOKIE[session_name()]))
   {
-    redirect(empty($redirect_to) ? make_index_url() : $redirect_to);
+    array_push(
+      $errors,
+      l10n('Cookies are blocked or not supported by your browser. You must enable cookies to connect.')
+      );
   }
   else
-  {
-    array_push( $errors, l10n('invalid_pwd') );
+  { 
+    $redirect_to = isset($_POST['redirect']) ? $_POST['redirect'] : '';
+    $remember_me = isset($_POST['remember_me']) and $_POST['remember_me']==1;
+    if ( try_log_user($_POST['username'], $_POST['password'], $remember_me) )
+    {
+      redirect(empty($redirect_to) ? make_index_url() : $redirect_to);
+    }
+    else
+    {
+      array_push( $errors, l10n('invalid_pwd') );
+    }
   }
 }
 
