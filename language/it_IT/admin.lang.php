@@ -624,6 +624,7 @@ $lang['Templates recorded.'] = 'La configurazione dei templates è stata registr
 $lang['Optimizations completed'] = 'Ottimizzazioni realissate correttamente.';
 $lang['Optimizations errors'] = 'Ottimizzazioni concluse con errori.';
 $lang['delete this comment'] = 'cancellare commenti';
+$lang['validate this comment'] = 'convalidare questo commento';
 $lang['link_info_image'] = 'Modifica le informazioni';
 $lang['edit category informations'] = 'Modificare le informazioni della categoria';
 $lang['nothing'] = 'niente';
