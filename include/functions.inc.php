@@ -516,6 +516,11 @@ function format_date($date, $show_time = false)
 {
   global $lang;
 
+  if (strpos($date, '0') == 0)
+  {
+    return l10n('N/A');
+  }
+
   $ymdhms = array();
   $tok = strtok( $date, '- :');
   while ($tok !== false)
