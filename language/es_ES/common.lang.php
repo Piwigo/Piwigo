@@ -367,6 +367,7 @@ $lang['show tag cloud'] = 'mostrar la nube de tags';
 $lang['cloud'] = 'nube';
 $lang['Reset_To_Default'] = 'Restablecer los valores predeterminados';
 $lang['Sent by'] = 'Enviado por';
+$lang['Cookies are blocked or not supported by your browser. You must enable cookies to connect.'] = 'El cookies están bloqueados o sostenidos por su navegador Web. Usted debe acelerar el cookies para conectarse.';
 // --------- Starting below: New or revised $lang ---- from Colibri (2.1)
 $lang['del_all_favorites_hint'] = 'Suprimir todas las imágenes de sus favoritos';
 ?>
