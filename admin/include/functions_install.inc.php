@@ -87,7 +87,14 @@ function available_engines()
   foreach ($dblayers as $engine_name => $engine)
   {
     if (file_exists(sprintf($pattern, $engine_name)) 
+	&& isset($engine['function_available'])
 	&& function_exists($engine['function_available']))
+    {
+      $engines[$engine_name] = $engine['engine'];
+    }
+    elseif (file_exists(sprintf($pattern, $engine_name)) 
+	    && isset($engine['class_available'])
+	    && class_exists($engine['class_available']))
     {
       $engines[$engine_name] = $engine['engine'];
     }
