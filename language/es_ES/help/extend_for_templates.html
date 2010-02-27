@@ -1,11 +1,11 @@
-<h2>Configuración para "extender" el templates</h2>
+<h2>Configuración para "extender" los templates</h2>
 
 <h3>Objetivo</h3>
 <p>Definir las condiciones de sustitución de cada template (modelo) a partir de template-extensión
- (template llamado "a reponer" (a sustituto)).</p>
+ (template llamado "a reemplasar " (sustituto)).</p>
 
-<p>" Templates de origen " proviniendo de . / template / yoga (o de otro expediente que "yoga")
- son reemplazados por el sustituto si éste es atado(vinculado) a su template de origen 
+<p>" Templates de origen " proviniendo de . / template / yoga (o de otra carpeta que "yoga")
+ son reemplazados por el sustituto si éste es vinculado a su template de origen 
  (y de modo facultativo, cuando la dirección (URL) contiene un URL contains un 
  " Parámetro facultativo del URL ").</p>
 
@@ -14,14 +14,14 @@
 <p>Así un " Parámetro facultativo del URL " puede ser un "permalink" (lazo permanente) activo 
 (ver el permalinks en nuestra documentación para más información).</p>
 
-<p>Leer las `<a href="#warnings">impuestas en guardia</a>` sobre las condiciones de utilización.</p>
+<p>Leer las `<a href="#warnings">advertencias</a>` sobre las condiciones de utilización.</p>
 
-<h3>¿ Qué las extensiones de los modelos?</h3>
+<h3>¿ Qué son las extensiones de los modelos?</h3>
 
 <p>Este instrumento de configuración es a la vez poderoso para los principiantes y para los usuarios avanzados.
-Por FTP, en el expediente template-extensión, Webmaster podrá duplicar una buena parte(partida) de los ficheros 
+Por FTP, en el expediente template-extensión, Webmaster podrá duplicar una buena parte de los ficheros 
 .tpl distribuidos (" Templates de origen ") 
-con un nombre diferente ("reponer" (a sustituto)).
+con un nombre diferente ("reemplasar" (a sustituto)).
  
  "Templates de origen ", actualmente los modelos sostenidos de origen son:</p>
 <ul>
@@ -42,10 +42,10 @@ con un nombre diferente ("reponer" (a sustituto)).
   <li><span class="filename">redirect.tpl</span></li>
 </ul>
 
-<h3>¿ Dónde puedo encontrar a " Templates de origen "?</h3>
+<h3>¿ Dónde puedo encontrar los " Templates de origen "?</h3>
 
 <p>Los modelos distribuidos de origen son en template / yoga / 
-(directamente no modificarlos en este lugar por razones de evolución).
+( no modificarlos directamente en este lugar por razones de evolución).
  Así a partir de " templates de origen ", todo webmaster podrá crear su " replacers 
  (modelos personalisés) ".</p>
 
@@ -57,44 +57,44 @@ Los sustitutos pueden tener cualquier nombre de fichero con la extensión .tpl. 
 class="filename">template-extension/my-extension/video.tpl</span>.</p>
 
 
-<h3>¿ Cómo puedo acelerar a mis "sustitutos"?</h3>
-<p>Uno <strong>Template de origen </strong> debería ser asociado con cada <strong>
- reponer (modelo modificado) </strong> a fin de acelerar las sustituciones correspondientes.
- Acelerar a los sustitutos es la función de " Extender el templates " en los menús de
+<h3>¿ Cómo puedo activar mis "sustitutos"?</h3>
+<p>Un<strong>Template de origen </strong> debería ser asociado con cada <strong>
+ reemplaso </strong> con el fin de activar las sustituciones correspondientes.
+ Activar los sustitutos es la función de " Extender el templates " en los menús de
  Configuración de la Administración. </p>
 
 <p>Si usted selecciona un <strong> Define parámetros facultativo del URL </strong>
- entonces las sustituciones serán realizados sólo sobre las páginas que utilizarán 
+ entonces las sustituciones serán realizadas sólo sobre las páginas que utilizarán 
  esta palabra clave. Por ejemplo: <span
   class="pwgScreen">index.php?/<strong>most_visited</strong></span></p>
   
-<p>Los usuarios avanzados utilizarán el permalinks (permaliens, lazos permanentes) como strong> parámetro facultativo del URL </strong>. </p>
+<p>Los usuarios avanzados utilizarán los permalinks (permaliens, lazos permanentes) como strong> parámetro facultativo del URL </strong>. </p>
 
 <!-- TODO -->
-<p>If you select a <strong>Bound template</strong> then replacements will be operate only on this template.</p>
+<p>Si usted selecciona un<strong>template atado</strong> entonces los cambios se realizaran solo sobre ese template.</p>
 
-<h3>¿ Cómo puedo desactivar mi "sustitutos"?</h3>
+<h3>¿ Cómo puedo desactivar mis "sustitutos"?</h3>
 <ul>
-<li>Deselectionner " template de origen ".</li>
+<li>Desmarcar " template de origen ".</li>
 <li>Por FTP suprimir "sustitutos".</li>
 </ul>
 <a name="warnings"></a>
-<h3>Advertidas</h3>
+<h3>Advertencias</h3>
 <ul>
 
-  <li>¡ El <strong> template de origen </strong> debe ser el verdadero 
-  template " de origen " de otro modo usted podría tener los resultados imprevisibles!</li>
+  <li>El <strong> template de origen </strong> debe ser el verdadero 
+  template " de origen " de otro modo usted podría tener resultados imprevisibles!</li>
 
-  <li>Si vario <strong> sustituto templates modofiés </strong> tienen lo mismo <strong>
-  template de origen </strong> y lo mismo <strong> parámetro facultativo del URL </strong> entonces solamente el último sustituto será activo.</li>
+  <li>Si varios <strong> sustitutos ( templates modoficados) </strong> tienen el mismo <strong>
+  template de origen </strong> y el mismo <strong> parámetro facultativo del URL </strong> entonces solamente el último sustituto será activo.</li>
 
-  <li>No seleccionar de <strong> parámetro facultativo del URL </strong> acelerará el template de sustitución a cada utilización del template.
-  Así como mencionada más arriba, la orden puede inhibir por los sustitutos precedentes.</li>
+  <li>No seleccionar <strong> parámetro facultativo del URL </strong> activará el template de sustitución a cada utilización del template.
+  Así como mencionado más arriba, la orden puede inhibir los sustitutos precedentes.</li>
 
   <li>Subexpedientes :
   Los subexpedientes son ignorados pero son útiles para modificar la orden de los sustitutos. <br />
-  distributed-samples: ¡ para sus pruebas son distributés! 
-<strong>No modificarlos :</strong>¡ Cree vuestros!
+  distributed-samples: ¡ para sus pruebas son distribuidos! 
+<strong>No modificarlos :</strong>¡ Haga los suyos!
 </li>
 
   <li>A la supresión del sustituto el <strong> template de origen </strong> inmediatamente será
