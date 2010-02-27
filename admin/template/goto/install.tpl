@@ -9,6 +9,7 @@
 <link rel="stylesheet" type="text/css" href="{$ROOT_URL}admin/template/{$themeconf.template}/layout.css">
 <link rel="stylesheet" type="text/css" href="{$ROOT_URL}admin/template/{$themeconf.template}/default-colors.css">
 <link rel="stylesheet" type="text/css" href="{$ROOT_URL}admin/template/{$themeconf.template}/theme/{$themeconf.theme}/theme.css">
+{include file="include/install.inc.tpl"}
 {literal}
 <style type="text/css">
 .content {
@@ -88,8 +89,13 @@ TD {
     <tr>
       <td style="width: 30%;">{'step1_dbengine'|@translate}</td>
       <td>
-	<select name="dblayer">
-	  {html_options options=$F_DB_ENGINES selected=$F_DB_LAYER}
+	<select name="dblayer" id="dblayer">
+	  {foreach from=$F_DB_ENGINES key=k item=v}
+	  <option value="{$k}"
+		  {if $k==$F_DB_LAYER or $v.selected} selected="selected"{/if}
+		  {if $v.available!=1} disabled="disabled"{/if}
+		  >{$v.label}</option>
+	  {/foreach}
 	</select>    
       </td>
       <td>{'step1_dbengine_info'|@translate}</td>

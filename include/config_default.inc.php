@@ -520,6 +520,16 @@ $conf['user_fields'] = array(
   'email' => 'mail_address'
   );
 
+// database engine default choice between sqlite (native or via pdo)
+// if the twice are available.
+// $conf['db_sqlite_default'] = 'pdo'; 
+$conf['db_sqlite_default'] = 'native'; 
+
+// default database engine proposed if severals are available
+// choices : sqlite, mysql, pgsql, pdo-sqlite
+// see include/dblayer/dblayers.inc.php
+$conf['dbengine_select_default'] = 'sqlite'; 
+
 // pass_convert : function to crypt or hash the clear user password to store
 // it in the database
 $conf['pass_convert'] = create_function('$s', 'return md5($s);');

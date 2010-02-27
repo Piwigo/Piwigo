@@ -2,6 +2,7 @@
 body, h3, dt, h2, .throw, .content, label,
 input.rateButtonSelected /* <= why IE doesn't inherit this ? */ { color:#666; }
 INPUT, select, textarea { color:#999; background-color: #444; }  
+option[disabled] { background-color: #999; color: #444; }
 input[type="radio"], input[type="checkbox"] { background-color: transparent; }  
 /* INPUT[type="checkbox"], INPUT[type="radio"]
 { color:#999; background-color: #eee; }  */

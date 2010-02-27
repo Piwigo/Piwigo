@@ -86,20 +86,41 @@ function available_engines()
 
   foreach ($dblayers as $engine_name => $engine)
   {
-    if (file_exists(sprintf($pattern, $engine_name)) 
-	&& isset($engine['function_available'])
-	&& function_exists($engine['function_available']))
+    if (file_exists(sprintf($pattern, $engine_name))) 
     {
-      $engines[$engine_name] = $engine['engine'];
-    }
-    elseif (file_exists(sprintf($pattern, $engine_name)) 
-	    && isset($engine['class_available'])
-	    && class_exists($engine['class_available']))
-    {
-      $engines[$engine_name] = $engine['engine'];
+      $engines[$engine_name]['label'] = $engine['engine'];
+      $engines[$engine_name]['available'] = 'disabled';
+
+      if (isset($engine['function_available'])
+	  && function_exists($engine['function_available']))
+      {
+	$engines[$engine_name]['available'] = true;
+      }
+      elseif (isset($engine['class_available']) 
+	      && class_exists($engine['class_available']))
+      {
+	$engines[$engine_name]['available'] = true;
+      } 
     }
   }
+
+  if (count($engines)>1)
+  {
+    $engines[$GLOBALS['conf']['dbengine_select_default']]['selected'] = true;
+  }
   
+  if ($engines['sqlite']['available'] && $engines['pdo-sqlite']['available'])
+  {
+    if ($GLOBALS['conf']['db_sqlite_default']=='native')
+    {
+      unset($engines['pdo-sqlite']);
+    }
+    else 
+    {
+      unset($engines['sqlite']);
+    }
+  }
+
   return $engines;
 }
 ?>
