@@ -117,7 +117,7 @@ if (!empty($_GET['author']))
 // notification email)
 if (!empty($_GET['comment_id']))
 {
-  check_input_parameter('comment_id', $_GET['comment_id'], false, PATTERN_ID);
+  check_input_parameter('comment_id', $_GET, false, PATTERN_ID);
 
   // currently, the $_GET['comment_id'] is only used by admins from email
   // for management purpose (validate/delete)
@@ -183,7 +183,7 @@ if (isset($_GET['delete']) or isset($_GET['validate']))
 
     if (isset($_GET['delete']))
     {
-      check_input_parameter('delete', $_GET['delete'], false, PATTERN_ID);
+      check_input_parameter('delete', $_GET, false, PATTERN_ID);
       
       $query = '
 DELETE
@@ -195,7 +195,7 @@ DELETE
 
     if (isset($_GET['validate']))
     {
-      check_input_parameter('validate', $_GET['validate'], false, PATTERN_ID);
+      check_input_parameter('validate', $_GET, false, PATTERN_ID);
       
       $query = '
 UPDATE '.COMMENTS_TABLE.'

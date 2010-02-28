@@ -1503,14 +1503,20 @@ function get_comment_post_key($image_id)
  * pattern. This should happen only during hacking attempts.
  *
  * @param string param_name
- * @param mixed param_value
+ * @param array param_array
  * @param boolean is_array
  * @param string pattern
  *
  * @return void
  */
-function check_input_parameter($param_name, $param_value, $is_array, $pattern)
+function check_input_parameter($param_name, $param_array, $is_array, $pattern)
 {
+  $param_value = null;
+  if (isset($param_array[$param_name]))
+  {
+    $param_value = $param_array[$param_name];
+  }
+  
   // it's ok if the input parameter is null
   if (empty($param_value))
   {

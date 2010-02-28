@@ -39,7 +39,7 @@ include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
 // +-----------------------------------------------------------------------+
 check_status(ACCESS_ADMINISTRATOR);
 
-check_input_parameter('selection', @$_POST['selection'], true, PATTERN_ID);
+check_input_parameter('selection', $_POST, true, PATTERN_ID);
 
 // +-----------------------------------------------------------------------+
 // |                          caddie management                            |
