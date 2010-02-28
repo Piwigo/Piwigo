@@ -63,7 +63,7 @@ function ts_to_iso8601($ts)
 // |                            initialization                             |
 // +-----------------------------------------------------------------------+
 
-check_input_parameter('feed', $_GET['feed'], false, '/^[0-9a-z]{50}$/i');
+check_input_parameter('feed', @$_GET['feed'], false, '/^[0-9a-z]{50}$/i');
 
 $feed_id= isset($_GET['feed']) ? $_GET['feed'] : '';
 $image_only=isset($_GET['image_only']);
