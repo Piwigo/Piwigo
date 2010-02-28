@@ -49,7 +49,7 @@ function pwg_db_connect($host, $user, $password, $database)
 				$user, 
 				$password,
 				$database);
-  $link = pg_connect($connection_string) or my_error('pg_connect', true);  
+  $link = pg_connect($connection_string) or my_error('pg_connect', false);  
 
   return $link;
 }

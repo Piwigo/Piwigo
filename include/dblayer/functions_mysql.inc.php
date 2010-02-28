@@ -34,8 +34,8 @@ define('DB_RANDOM_FUNCTION', 'RAND');
 
 function pwg_db_connect($host, $user, $password, $database)
 {  
-  $link = mysql_connect($host, $user, $password) or my_error('mysql_connect', true);
-  mysql_select_db($database, $link) or my_error('mysql_select_db', true);
+  $link = mysql_connect($host, $user, $password) or my_error('mysql_connect', false);
+  mysql_select_db($database, $link) or my_error('mysql_select_db', false);
 
   return $link;
 }
