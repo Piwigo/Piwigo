@@ -93,7 +93,7 @@ $conf['protect_warnings'] = true;
 
 // ****** Thumbnails generation functionality ****** //
 // Define if images have to be reduced if they are not
-$conf['thumbnail'] = true;
+$conf['thumbnail'] = false;
 
 // Define method to generate thumbnails : 
 // - fixed (width and height required);
@@ -183,7 +183,7 @@ function pwg_log($line)
  */
 function pwg_check_graphics()
 {
-  pwg_log('>>>>> pwg_check_graphics() >>>>>'."\n");
+  //~ pwg_log('>>>>> pwg_check_graphics() >>>>>'."\n");
   
   global $conf, $pwg_conf;
   $log = '';
@@ -290,7 +290,7 @@ function pwg_check_graphics()
     }
   }
   
-  pwg_log('<<<<< pwg_check_graphics() returns '.var_export($log, TRUE).' <<<<<'."\n");
+  //~ pwg_log('<<<<< pwg_check_graphics() returns '.var_export($log, TRUE).' <<<<<'."\n");
   return $log;
 }
 
@@ -303,7 +303,7 @@ function pwg_check_graphics()
  */
 function pwg_close_level($dir_start, $dir_number)
 {
-  pwg_log('>>>>> pwg_close_level($dir_start = '.var_export($dir_start, TRUE).', $dir_number = '.var_export($dir_number, TRUE).') >>>>>'."\n");
+  //~ pwg_log('>>>>> pwg_close_level($dir_start = '.var_export($dir_start, TRUE).', $dir_number = '.var_export($dir_number, TRUE).') >>>>>'."\n");
   
   $lines ='';
   do
@@ -314,7 +314,7 @@ function pwg_close_level($dir_start, $dir_number)
   }
   while(($dir_number > 0) && ($dir_start >= 0));
   
-  pwg_log('<<<<< pwg_close_level returns '.var_export($lines, TRUE).' <<<<<'."\n");
+  //~ pwg_log('<<<<< pwg_close_level returns '.var_export($lines, TRUE).' <<<<<'."\n");
   return $lines;
 }
 
@@ -326,7 +326,7 @@ function pwg_close_level($dir_start, $dir_number)
  */
 function pwg_clean_iptc_value($value)
 {
-  pwg_log('>>>>> pwg_clean_iptc_value ($value = '.var_export($value, TRUE).') >>>>>'."\n");
+  //~ pwg_log('>>>>> pwg_clean_iptc_value ($value = '.var_export($value, TRUE).') >>>>>'."\n");
   
   // strip leading zeros (weird Kodak Scanner software)
   while (isset($value[0]) and $value[0] == chr(0))
@@ -336,7 +336,7 @@ function pwg_clean_iptc_value($value)
   // remove binary nulls
   $value = str_replace(chr(0x00), ' ', $value);
 
-  pwg_log('<<<<< pwg_clean_iptc_value() returns '.var_export($value, TRUE).' <<<<<'."\n");
+  //~ pwg_log('<<<<< pwg_clean_iptc_value() returns '.var_export($value, TRUE).' <<<<<'."\n");
   return $value;
 }
 
@@ -350,7 +350,7 @@ function pwg_clean_iptc_value($value)
  */
 function pwg_get_iptc_data($filename, $map)
 {
-  pwg_log('>>>>> pwg_get_iptc_data ($filename = '.var_export($filename, TRUE).', $map = '.var_export($map, TRUE).') >>>>>'."\n");
+  //~ pwg_log('>>>>> pwg_get_iptc_data ($filename = '.var_export($filename, TRUE).', $map = '.var_export($map, TRUE).') >>>>>'."\n");
   
   $result = array();
 
@@ -388,7 +388,7 @@ function pwg_get_iptc_data($filename, $map)
     }
   }
   
-  pwg_log('<<<<< pwg_get_iptc_data() returns '.var_export($result, TRUE).' <<<<<'."\n");
+  //~ pwg_log('<<<<< pwg_get_iptc_data() returns '.var_export($result, TRUE).' <<<<<'."\n");
   return $result;
 }
 
@@ -400,7 +400,7 @@ function pwg_get_iptc_data($filename, $map)
  */
 function pwg_get_sync_iptc_data($file)
 {
-  pwg_log('>>>>> pwg_get_sync_iptc_data ($file = '.var_export($file, TRUE).') >>>>>'."\n");
+  //~ pwg_log('>>>>> pwg_get_sync_iptc_data ($file = '.var_export($file, TRUE).') >>>>>'."\n");
 
   global $conf;
 
@@ -429,7 +429,7 @@ function pwg_get_sync_iptc_data($file)
 
   $iptc['keywords'] = isset($iptc['keywords']) ? implode(',', array_unique(explode(',', $iptc['keywords']))) : NULL;
 
-  pwg_log('<<<<< pwg_get_sync_iptc_data() returns '.var_export($iptc, TRUE).' <<<<<'."\n");
+  //~ pwg_log('<<<<< pwg_get_sync_iptc_data() returns '.var_export($iptc, TRUE).' <<<<<'."\n");
   return $iptc;
 }
 
@@ -442,7 +442,7 @@ function pwg_get_sync_iptc_data($file)
  */
 function pwg_get_representative_ext($file_dir, $file_short)
 {
-  pwg_log('>>>>> pwg_get_representative_ext($file_dir = '.var_export($file_dir, TRUE).', $file_short = '.var_export($file_short, TRUE).') >>>>>'."\n");
+  //~ pwg_log('>>>>> pwg_get_representative_ext($file_dir = '.var_export($file_dir, TRUE).', $file_short = '.var_export($file_short, TRUE).') >>>>>'."\n");
   
   global $conf;
   
@@ -456,7 +456,7 @@ function pwg_get_representative_ext($file_dir, $file_short)
     }
   }
   
-  pwg_log('<<<<< pwg_get_representative_ext() returns '.var_export($rep_ext, TRUE).' <<<<<'."\n");
+  //~ pwg_log('<<<<< pwg_get_representative_ext() returns '.var_export($rep_ext, TRUE).' <<<<<'."\n");
   return $rep_ext; 
 }
 
@@ -469,7 +469,7 @@ function pwg_get_representative_ext($file_dir, $file_short)
  */
 function pwg_get_high($file_dir, $file_base)
 {
-  pwg_log('>>>>> pwg_get_high($file = '.var_export($file_dir, TRUE).', $line = '.var_export($file_base, TRUE).') >>>>>'."\n");
+  //~ pwg_log('>>>>> pwg_get_high($file = '.var_export($file_dir, TRUE).', $line = '.var_export($file_base, TRUE).') >>>>>'."\n");
   
   global $conf;
   
@@ -479,7 +479,7 @@ function pwg_get_high($file_dir, $file_base)
     $high = true;
   }
   
-  pwg_log('<<<<< pwg_get_high() returns '.var_export($high, TRUE).' <<<<<'."\n");
+  //~ pwg_log('<<<<< pwg_get_high() returns '.var_export($high, TRUE).' <<<<<'."\n");
   return $high; 
 }
 
@@ -491,11 +491,11 @@ function pwg_get_high($file_dir, $file_base)
  */
 function pwg_get_filename_wo_extension($filename)
 {
-  pwg_log('>>>>> _get_filename_wo_extension($filename = '.var_export($filename, TRUE).') >>>>>'."\n");
+  //~ pwg_log('>>>>> _get_filename_wo_extension($filename = '.var_export($filename, TRUE).') >>>>>'."\n");
   
   $short_name = substr($filename, 0, strrpos($filename, '.'));
   
-  pwg_log('<<<<< _get_filename_wo_extension() returns '.var_export($short_name, TRUE).' <<<<<'."\n");
+  //~ pwg_log('<<<<< _get_filename_wo_extension() returns '.var_export($short_name, TRUE).' <<<<<'."\n");
   return $short_name;
 }
 
@@ -510,7 +510,7 @@ function pwg_get_filename_wo_extension($filename)
  */
 function pwg_get_thumbnail_ext($file_dir, $file_short, $file_ext, &$error_log)
 {
-  pwg_log('>>>>> pwg_get_thumbnail_ext($file_dir = '.var_export($file_dir, TRUE).', $file_short = '.var_export($file_short, TRUE).') >>>>>'."\n");
+  //~ pwg_log('>>>>> pwg_get_thumbnail_ext($file_dir = '.var_export($file_dir, TRUE).', $file_short = '.var_export($file_short, TRUE).') >>>>>'."\n");
   
   global $conf;
   
@@ -537,7 +537,7 @@ function pwg_get_thumbnail_ext($file_dir, $file_short, $file_ext, &$error_log)
     }
   }
   
-  pwg_log('<<<<< pwg_get_thumbnail_ext() returns '.var_export($thumb_ext, TRUE).' <<<<<'."\n");
+  //~ pwg_log('<<<<< pwg_get_thumbnail_ext() returns '.var_export($thumb_ext, TRUE).' <<<<<'."\n");
   return $thumb_ext; 
 }
 
@@ -552,12 +552,18 @@ function pwg_get_thumbnail_ext($file_dir, $file_short, $file_ext, &$error_log)
  */
 function pwg_icon_file($file_dir, $file_short, $file_ext)
 {
-  pwg_log('>>>>> pwg_icon_file($file_dir = '.var_export($file_dir, TRUE).', $file_short = '.var_export($file_short, TRUE).') >>>>>'."\n");
+  //~ pwg_log('>>>>> pwg_icon_file($file_dir = '.var_export($file_dir, TRUE).', $file_short = '.var_export($file_short, TRUE).') >>>>>'."\n");
   
   global $conf, $pwg_conf;
   
   $error_log = '';
   
+  // Create thumbnail directory if not exists
+  if (!file_exists($file_dir.'/'.$conf['thumbs']))
+  {
+    mkdir($file_dir.'/'.$conf['thumbs']);
+  }
+
   // Get original properties (width, height)
   if ($image_size = getimagesize($file_dir.'/'.$file_short.'.'.$file_ext))
   {
@@ -683,7 +689,7 @@ function pwg_icon_file($file_dir, $file_short, $file_ext)
   $error_log .= '          <code class="success">Success -</code> Thumbnail generated for <code>';
   $error_log .= $file_dir.'/'.$file_short.'.'.$file_ext.'</code><br />'."\n";
 
-  pwg_log('<<<<< pwg_icon_file() returns '.var_export($error_log, TRUE).' <<<<<'."\n");
+  //~ pwg_log('<<<<< pwg_icon_file() returns '.var_export($error_log, TRUE).' <<<<<'."\n");
   return $error_log; 
 }
 
@@ -696,7 +702,7 @@ function pwg_icon_file($file_dir, $file_short, $file_ext)
  */
 function pwg_scan_file($file_full, &$line)
 {
-  pwg_log('>>>>> pwg_scan_file($file = '.var_export($file_full, TRUE).', $line = '.var_export($line, TRUE).') >>>>>'."\n");
+  //~ pwg_log('>>>>> pwg_scan_file($file = '.var_export($file_full, TRUE).', $line = '.var_export($line, TRUE).') >>>>>'."\n");
   
   global $conf, $pwg_conf;
   
@@ -805,7 +811,7 @@ function pwg_scan_file($file_full, &$line)
     $line .= '/>'."\n";
   }
   
-  pwg_log('<<<<< pwg_scan_file() returns '.var_export($error_log, TRUE).' <<<<<'."\n");
+  //~ pwg_log('<<<<< pwg_scan_file() returns '.var_export($error_log, TRUE).' <<<<<'."\n");
   return $error_log;
 }
 
@@ -816,11 +822,11 @@ function pwg_scan_file($file_full, &$line)
  */
 function pwg_get_level($dir)
 {
-  pwg_log('>>>>> pwg_get_level($dir = '.var_export($dir, TRUE).') >>>>>'."\n");
+  //~ pwg_log('>>>>> pwg_get_level($dir = '.var_export($dir, TRUE).') >>>>>'."\n");
   
   $level = substr_count($dir, '/') - 1; // -1 because of ./ at the beginning of path
   
-  pwg_log('<<<<< pwg_get_level() returns '.var_export($level, TRUE).' <<<<<'."\n");
+  //~ pwg_log('<<<<< pwg_get_level() returns '.var_export($level, TRUE).' <<<<<'."\n");
   return $level;
 }
 
@@ -832,7 +838,7 @@ function pwg_get_level($dir)
  */
 function pwg_get_indent($element_type)
 {
-  pwg_log('>>>>> pwg_get_indent($element_type = '.var_export($element_type, TRUE).') >>>>>'."\n");
+  //~ pwg_log('>>>>> pwg_get_indent($element_type = '.var_export($element_type, TRUE).') >>>>>'."\n");
   
   $level = substr_count($_SESSION['scan_list_fold'][0], '/') - 1; // because of ./ at the beginning
   switch($element_type)
@@ -859,7 +865,7 @@ function pwg_get_indent($element_type)
     }
   }
   
-  pwg_log('<<<<< pwg_get_indent() returns '.var_export(strlen($indent), TRUE).' spaces <<<<<'."\n");
+  //~ pwg_log('<<<<< pwg_get_indent() returns '.var_export(strlen($indent), TRUE).' spaces <<<<<'."\n");
   return $indent;
 }
 
@@ -871,7 +877,7 @@ function pwg_get_indent($element_type)
  */
 function pwg_protect_directories($directory)
 {
-  pwg_log('>>>>> pwg_protect_directories($directory = '.var_export($directory, true).') >>>>>'."\n");
+  //~ pwg_log('>>>>> pwg_protect_directories($directory = '.var_export($directory, true).') >>>>>'."\n");
   
   global $conf;
   
@@ -905,7 +911,7 @@ function pwg_protect_directories($directory)
     }
   }
   
-  pwg_log('<<<<< pwg_protect_directories() returns '.var_export($error_log, true).' <<<<<'."\n");
+  //~ pwg_log('<<<<< pwg_protect_directories() returns '.var_export($error_log, true).' <<<<<'."\n");
   return $error_log;
 }
 
@@ -917,11 +923,11 @@ function pwg_protect_directories($directory)
  */
 function pwg_get_file_extension($file)
 {
-  pwg_log('>>>>> pwg_get_file_extension($file = '.var_export($file, true).') >>>>>'."\n");
+  //~ pwg_log('>>>>> pwg_get_file_extension($file = '.var_export($file, true).') >>>>>'."\n");
   
   $ext = substr(strrchr($file, '.'), 1, strlen ($file));
   
-  pwg_log('<<<<< pwg_get_file_extension() returns '.var_export($ext, true).' <<<<<'."\n");
+  //~ pwg_log('<<<<< pwg_get_file_extension() returns '.var_export($ext, true).' <<<<<'."\n");
   return $ext;
 }
 
@@ -933,7 +939,7 @@ function pwg_get_file_extension($file)
  */
 function pwg_get_file_list($directory)
 {
-  pwg_log('>>>>> pwg_get_file_list($directory = '.var_export($directory, true).') >>>>>'."\n");
+  //~ pwg_log('>>>>> pwg_get_file_list($directory = '.var_export($directory, true).') >>>>>'."\n");
   
   global $conf, $pwg_conf;
 
@@ -949,7 +955,7 @@ function pwg_get_file_list($directory)
         {
           // The file pointed is a regular file with a supported extension
           array_push($_SESSION['scan_list_file'], $directory.'/'.$file);
-          pwg_log('--->> Push in $_SESSION[scan_list_file] value "'.$directory.'/'.$file.'"'."\n");
+          //~ pwg_log('--->> Push in $_SESSION[scan_list_file] value "'.$directory.'/'.$file.'"'."\n");
           if (!preg_match('/^[a-zA-Z0-9-_.]+$/', $file))
           {
             $errorLog .= '          <code class="failure">Failure -</code> Invalid file name for <code>'.$file.'</code> in <code>'.$directory.'</code>';
@@ -965,7 +971,7 @@ function pwg_get_file_list($directory)
         {
           // The file pointed is a directory but neither system directory nor reserved by PWG
           array_push($_SESSION['scan_list_fold'], $directory.'/'.$file);
-          pwg_log('--->> Push in $_SESSION[scan_list_fold] value "'.$directory.'/'.$file.'"'."\n");
+          //~ pwg_log('--->> Push in $_SESSION[scan_list_fold] value "'.$directory.'/'.$file.'"'."\n");
           if (!preg_match('/^[a-zA-Z0-9-_.]+$/', $file))
           {
             $errorLog .= '          <code class="failure">Failure -</code> Invalid directory name for <code>'.$directory.'/'.$file.'</code>';
@@ -989,7 +995,7 @@ function pwg_get_file_list($directory)
   }
   closedir($dir);
   
-  pwg_log('<<<<< pwg_get_file_list() returns '.var_export($errorLog, true).' <<<<<'."\n");
+  //~ pwg_log('<<<<< pwg_get_file_list() returns '.var_export($errorLog, true).' <<<<<'."\n");
 
   return $errorLog;
 }
@@ -1003,13 +1009,13 @@ function pwg_get_file_list($directory)
  */
 function pwg_get_moment()
 {
-  pwg_log('>>>>> pwg_get_moment() >>>>>'."\n");
+  //~ pwg_log('>>>>> pwg_get_moment() >>>>>'."\n");
   
   $t1 = explode(' ', microtime());
   $t2 = explode('.', $t1[0]);
   $t2 = $t1[1].'.'.$t2[1];
 
-  pwg_log('<<<<< pwg_get_moment() returns '.var_export($t2, true).' <<<<<'."\n");
+  //~ pwg_log('<<<<< pwg_get_moment() returns '.var_export($t2, true).' <<<<<'."\n");
   return $t2;
 }
 
@@ -1022,7 +1028,7 @@ function pwg_referer_is_me()
 {
   global $pwg_conf;
 
-  pwg_log('>>>>> pwg_referer_is_me() >>>>>'."\n");
+  //~ pwg_log('>>>>> pwg_referer_is_me() >>>>>'."\n");
   
   $response = false;
   $caller = (isset($_SERVER['HTTP_REFERER'])) ? $_SERVER['HTTP_REFERER'] : '';
@@ -1031,7 +1037,7 @@ function pwg_referer_is_me()
     $response = true;
   }
 
-  pwg_log('<<<<< pwg_referer_is_me() returns '.var_export($response, true).' <<<<<'."\n");
+  //~ pwg_log('<<<<< pwg_referer_is_me() returns '.var_export($response, true).' <<<<<'."\n");
   return $response;
 }
 
@@ -1041,7 +1047,7 @@ function pwg_referer_is_me()
 
 function pwg_test_start()
 {
-  pwg_log('>>>>> pwg_test_start() >>>>>'."\n");
+  //~ pwg_log('>>>>> pwg_test_start() >>>>>'."\n");
 
   global $g_message, $conf;
   
@@ -1062,12 +1068,12 @@ function pwg_test_start()
   }
   $_SESSION['scan_step'] = 'exit';
   
-  pwg_log('<<<<< pwg_test_start() <<<<<'."\n");
+  //~ pwg_log('<<<<< pwg_test_start() <<<<<'."\n");
 }
 
 function pwg_test_exit()
 {
-  pwg_log('>>>>> pwg_test_exit() >>>>>'."\n");
+  //~ pwg_log('>>>>> pwg_test_exit() >>>>>'."\n");
 
   global $g_header, $g_message, $g_footer, $conf, $pwg_conf;
  
@@ -1126,12 +1132,12 @@ function pwg_test_exit()
     }
   }
   
-  pwg_log('<<<<< pwg_test_exit() <<<<<'."\n");
+  //~ pwg_log('<<<<< pwg_test_exit() <<<<<'."\n");
 }
 
 function pwg_clean_start()
 {
-  pwg_log('>>>>> pwg_clean_start() >>>>>'."\n");
+  //~ pwg_log('>>>>> pwg_clean_start() >>>>>'."\n");
   
   global $g_message;
   
@@ -1146,12 +1152,12 @@ function pwg_clean_start()
 
   $_SESSION['scan_step'] = 'exit';
   
-  pwg_log('<<<<< pwg_clean_start() <<<<<'."\n");
+  //~ pwg_log('<<<<< pwg_clean_start() <<<<<'."\n");
 }
 
 function pwg_clean_exit()
 {
-  pwg_log('>>>>> pwg_clean_exit() >>>>>'."\n");
+  //~ pwg_log('>>>>> pwg_clean_exit() >>>>>'."\n");
 
   global $g_header, $g_message, $g_footer, $conf, $pwg_conf;
   
@@ -1180,13 +1186,13 @@ function pwg_clean_exit()
     }
   }
   
-  pwg_log('<<<<< pwg_clean_exit() <<<<<'."\n");
+  //~ pwg_log('<<<<< pwg_clean_exit() <<<<<'."\n");
 }
 
 function pwg_generate_start()
 {
-  pwg_log('>>>>> pwg_generate_start() >>>>>'."\n");
-  pwg_log("GENARATE start >>>\n".var_export($_SESSION['scan_list_fold'], true)."\n".var_export($_SESSION['scan_list_file'], true)."\nGENERATE start >>>\n");
+  //~ pwg_log('>>>>> pwg_generate_start() >>>>>'."\n");
+  //~ pwg_log("GENARATE start >>>\n".var_export($_SESSION['scan_list_fold'], true)."\n".var_export($_SESSION['scan_list_file'], true)."\nGENERATE start >>>\n");
 
   global $g_listing, $pwg_conf, $conf;
   
@@ -1234,14 +1240,14 @@ function pwg_generate_start()
     $_SESSION['scan_step'] = 'stop';
   }
   
-  pwg_log("GENARATE start <<<\n".var_export($_SESSION['scan_list_fold'], true)."\n".var_export($_SESSION['scan_list_file'], true)."\nGENERATE start <<<\n");
-  pwg_log('<<<<< pwg_generate_start() <<<<<'."\n");
+  //~ pwg_log("GENARATE start <<<\n".var_export($_SESSION['scan_list_fold'], true)."\n".var_export($_SESSION['scan_list_file'], true)."\nGENERATE start <<<\n");
+  //~ pwg_log('<<<<< pwg_generate_start() <<<<<'."\n");
 }
 
 function pwg_generate_list()
 {
-  pwg_log('>>>>> pwg_generate_list() >>>>>'."\n");
-  pwg_log("GENARATE list >>>\n".var_export($_SESSION['scan_list_fold'], true)."\n".var_export($_SESSION['scan_list_file'], true)."\nGENERATE list >>>\n");
+  //~ pwg_log('>>>>> pwg_generate_list() >>>>>'."\n");
+  //~ pwg_log("GENARATE list >>>\n".var_export($_SESSION['scan_list_fold'], true)."\n".var_export($_SESSION['scan_list_file'], true)."\nGENERATE list >>>\n");
   
   global $g_listing;
   
@@ -1262,14 +1268,14 @@ function pwg_generate_list()
   // What are we doing at next step
   $_SESSION['scan_step'] = 'scan';
   
-  pwg_log("GENARATE list <<<\n".var_export($_SESSION['scan_list_fold'], true)."\n".var_export($_SESSION['scan_list_file'], true)."\nGENERATE list <<<\n");
-  pwg_log('<<<<< pwg_generate_list() <<<<<'."\n");
+  //~ pwg_log("GENARATE list <<<\n".var_export($_SESSION['scan_list_fold'], true)."\n".var_export($_SESSION['scan_list_file'], true)."\nGENERATE list <<<\n");
+  //~ pwg_log('<<<<< pwg_generate_list() <<<<<'."\n");
 }
 
 function pwg_generate_scan()
 {
-  pwg_log('>>>>> pwg_generate_scan() >>>>>'."\n");
-  pwg_log("GENARATE scan >>>\n".var_export($_SESSION['scan_list_fold'], true)."\n".var_export($_SESSION['scan_list_file'], true)."\nGENERATE scan >>>\n");
+  //~ pwg_log('>>>>> pwg_generate_scan() >>>>>'."\n");
+  //~ pwg_log("GENARATE scan >>>\n".var_export($_SESSION['scan_list_fold'], true)."\n".var_export($_SESSION['scan_list_file'], true)."\nGENERATE scan >>>\n");
   
   global $g_listing, $conf;
   
@@ -1282,7 +1288,7 @@ function pwg_generate_scan()
     {
       fwrite($g_listing, $line);
     }
-    pwg_log('---<< Pull of $_SESSION[scan_list_file] value "'.$_SESSION['scan_list_file'][0].'"'."\n");
+    //~ pwg_log('---<< Pull of $_SESSION[scan_list_file] value "'.$_SESSION['scan_list_file'][0].'"'."\n");
     array_shift($_SESSION['scan_list_file']);
     $_SESSION['scan_cnt_file']++;
   }
@@ -1292,14 +1298,14 @@ function pwg_generate_scan()
     $_SESSION['scan_step'] = 'prot';
   }
   
-  pwg_log("GENERATE scan <<<\n".var_export($_SESSION['scan_list_fold'], true)."\n".var_export($_SESSION['scan_list_file'], true)."\nGENERATE scan <<<\n");
-  pwg_log('<<<<< pwg_generate_scan() <<<<<'."\n");
+  //~ pwg_log("GENERATE scan <<<\n".var_export($_SESSION['scan_list_fold'], true)."\n".var_export($_SESSION['scan_list_file'], true)."\nGENERATE scan <<<\n");
+  //~ pwg_log('<<<<< pwg_generate_scan() <<<<<'."\n");
 }
 
 function pwg_generate_prot()
 {
-  pwg_log('>>>>> pwg_generate_prot() >>>>>'."\n");
-  pwg_log("GENARATE prot >>>\n".var_export($_SESSION['scan_list_fold'], true)."\n".var_export($_SESSION['scan_list_file'], true)."\nGENERATE prot >>>\n");
+  //~ pwg_log('>>>>> pwg_generate_prot() >>>>>'."\n");
+  //~ pwg_log("GENARATE prot >>>\n".var_export($_SESSION['scan_list_fold'], true)."\n".var_export($_SESSION['scan_list_file'], true)."\nGENERATE prot >>>\n");
   
   global $conf, $g_listing;
   
@@ -1316,7 +1322,7 @@ function pwg_generate_prot()
   $current_level = pwg_get_level($_SESSION['scan_list_fold'][0]);
   if (isset($_SESSION['scan_list_fold'][1]))
   {
-    pwg_log('---<< Pull of $_SESSION[scan_list_fold] value "'.$_SESSION['scan_list_fold'][0].'"'."\n");
+    //~ pwg_log('---<< Pull of $_SESSION[scan_list_fold] value "'.$_SESSION['scan_list_fold'][0].'"'."\n");
     array_shift($_SESSION['scan_list_fold']);
     $_SESSION['scan_cnt_fold']++;
     $next_level = pwg_get_level($_SESSION['scan_list_fold'][0]);
@@ -1341,14 +1347,14 @@ function pwg_generate_prot()
     } // Nothing to do if current_level < next_level
   }
 
-  pwg_log("GENERATE prot <<<\n".var_export($_SESSION['scan_list_fold'], true)."\n".var_export($_SESSION['scan_list_file'], true)."\nGENERATE prot <<<\n");
-  pwg_log('<<<<< pwg_generate_prot() <<<<<'."\n");
+  //~ pwg_log("GENERATE prot <<<\n".var_export($_SESSION['scan_list_fold'], true)."\n".var_export($_SESSION['scan_list_file'], true)."\nGENERATE prot <<<\n");
+  //~ pwg_log('<<<<< pwg_generate_prot() <<<<<'."\n");
 }
 
 function pwg_generate_stop()
 {
-  pwg_log('>>>>> pwg_generate_stop() >>>>>'."\n");
-  pwg_log("GENARATE stop >>>\n".var_export($_SESSION['scan_list_fold'], true)."\n".var_export($_SESSION['scan_list_file'], true)."\nGENERATE stop >>>\n");
+  //~ pwg_log('>>>>> pwg_generate_stop() >>>>>'."\n");
+  //~ pwg_log("GENARATE stop >>>\n".var_export($_SESSION['scan_list_fold'], true)."\n".var_export($_SESSION['scan_list_file'], true)."\nGENERATE stop >>>\n");
   
   global $pwg_conf, $g_listing, $g_header, $g_message, $g_footer;
   
@@ -1369,8 +1375,8 @@ function pwg_generate_stop()
   // What are we doing at next step
   $_SESSION['scan_step'] = 'exit';
   
-  pwg_log("GENARATE stop <<<\n".var_export($_SESSION['scan_list_fold'], true)."\n".var_export($_SESSION['scan_list_file'], true)."\nGENERATE stop <<<\n");
-  pwg_log('<<<<< pwg_generate_stop() <<<<<'."\n");
+  //~ pwg_log("GENARATE stop <<<\n".var_export($_SESSION['scan_list_fold'], true)."\n".var_export($_SESSION['scan_list_file'], true)."\nGENERATE stop <<<\n");
+  //~ pwg_log('<<<<< pwg_generate_stop() <<<<<'."\n");
 }
 
 // +-----------------------------------------------------------------------+
@@ -1384,7 +1390,7 @@ function pwg_generate_stop()
  */
 function pwg_continue()
 {
-  pwg_log('>>>>> pwg_continue() >>>>>'."\n");
+  //~ pwg_log('>>>>> pwg_continue() >>>>>'."\n");
   
   global $conf, $pwg_conf, $g_refresh, $g_header, $g_message, $g_footer, $start_time;
   
@@ -1442,7 +1448,7 @@ function pwg_continue()
       $return = true;
     }
   }
-  pwg_log('<<<<< pwg_continue() returns '.var_export($return, true).' <<<<<'."\n");
+  //~ pwg_log('<<<<< pwg_continue() returns '.var_export($return, true).' <<<<<'."\n");
   
   return $return;
 }
@@ -1458,7 +1464,7 @@ function pwg_continue()
  */
 function pwg_init()
 {
-  pwg_log('>>>>> pwg_init() >>>>>'."\n");
+  //~ pwg_log('>>>>> pwg_init() >>>>>'."\n");
 
   global $g_message, $g_listing, $g_footer, $conf, $pwg_conf, $start_time;
   $init_message = '';
@@ -1475,7 +1481,7 @@ function pwg_init()
       $g_message .= "\n";
       $g_footer   = '<a href="'.$pwg_conf['this_url'].'" title="Main menu"><img src="'.$pwg_conf['icon_dir'].'up.png" /></a>'."\n";
       $_SESSION['scan_step'] = 'exit';
-      pwg_log('<<<<< pwg_init() failure <<<<<'."\n");
+      //~ pwg_log('<<<<< pwg_init() failure <<<<<'."\n");
       return;
     }
     else
@@ -1500,7 +1506,7 @@ function pwg_init()
           $g_message .= "\n";
           $g_footer   = '<a href="'.$pwg_conf['this_url'].'" title="Main menu"><img src="'.$pwg_conf['icon_dir'].'up.png" /></a>'."\n";
           $_SESSION['scan_step'] = 'exit';
-          pwg_log('<<<<< pwg_init() failure <<<<<'."\n");
+          //~ pwg_log('<<<<< pwg_init() failure <<<<<'."\n");
           return;
         }
       }
@@ -1517,7 +1523,7 @@ function pwg_init()
       $g_message .= "\n";
       $g_footer   = '<a href="'.$pwg_conf['this_url'].'" title="Main menu"><img src="'.$pwg_conf['icon_dir'].'up.png" /></a>'."\n";
       $_SESSION['scan_step'] = 'exit';
-      pwg_log('<<<<< pwg_init() failure <<<<<'."\n");
+      //~ pwg_log('<<<<< pwg_init() failure <<<<<'."\n");
       return;
     }
   }
@@ -1548,7 +1554,7 @@ function pwg_init()
       $g_message .= "\n";
       $g_footer   = '<a href="'.$pwg_conf['this_url'].'" title="Main menu"><img src="'.$pwg_conf['icon_dir'].'up.png" /></a>'."\n";
       $_SESSION['scan_step'] = 'exit';
-      pwg_log('<<<<< pwg_init() failure <<<<<'."\n");
+      //~ pwg_log('<<<<< pwg_init() failure <<<<<'."\n");
       return;
     }
     
@@ -1568,7 +1574,7 @@ function pwg_init()
     $_SESSION['scan_logs'] = $init_message;
   }
   
-  pwg_log('<<<<< pwg_init() success <<<<<'."\n");
+  //~ pwg_log('<<<<< pwg_init() success <<<<<'."\n");
 }
 
 /**
@@ -1581,7 +1587,7 @@ function pwg_init()
  */
 function pwg_exit()
 {
-  pwg_log('>>>>> pwg_exit() >>>>>'."\n");
+  //~ pwg_log('>>>>> pwg_exit() >>>>>'."\n");
   
   global $g_listing;
   
@@ -1612,7 +1618,7 @@ function pwg_exit()
     call_user_func('pwg_'.$local_action.'_exit');
   }
   
-  pwg_log('<<<<< pwg_exit() <<<<<'."\n");
+  //~ pwg_log('<<<<< pwg_exit() <<<<<'."\n");
 }
 
 // +-----------------------------------------------------------------------+
