@@ -911,6 +911,8 @@ UPDATE '.IMAGES_TABLE.'
 
 function ws_images_add_chunk($params, &$service)
 {
+  global $conf;
+  
   ws_logfile('[ws_images_add_chunk] welcome');
   // data
   // original_sum
@@ -941,7 +943,7 @@ function ws_images_add_chunk($params, &$service)
       );
   }
 
-  $upload_dir = PHPWG_ROOT_PATH.'upload/buffer';
+  $upload_dir = $conf['upload_dir'].'/buffer';
 
   // create the upload directory tree if not exists
   if (!is_dir($upload_dir)) {
@@ -990,6 +992,8 @@ function ws_images_add_chunk($params, &$service)
 
 function merge_chunks($output_filepath, $original_sum, $type)
 {
+  global $conf;
+  
   ws_logfile('[merge_chunks] input parameter $output_filepath : '.$output_filepath);
 
   if (is_file($output_filepath))
@@ -1003,7 +1007,7 @@ function merge_chunks($output_filepath, $original_sum, $type)
     }
   }
 
-  $upload_dir = PHPWG_ROOT_PATH.'upload/buffer';
+  $upload_dir = $conf['upload_dir'].'/buffer';
   $pattern = '/'.$original_sum.'-'.$type.'/';
   $chunks = array();
 
@@ -1230,7 +1234,7 @@ SELECT
 
   // upload directory hierarchy
   $upload_dir = sprintf(
-    PHPWG_ROOT_PATH.'upload/%s/%s/%s',
+    $conf['upload_dir'].'/%s/%s/%s',
     $year,
     $month,
     $day
