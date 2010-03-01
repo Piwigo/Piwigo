@@ -1516,25 +1516,25 @@ function check_input_parameter($param_name, $param_array, $is_array, $pattern)
   {
     $param_value = $param_array[$param_name];
   }
-  
+
   // it's ok if the input parameter is null
   if (empty($param_value))
   {
     return true;
   }
-  
+
   if ($is_array)
   {
     if (!is_array($param_value))
     {
-      die('[Hacking attempt] the input parameter "'.$param_name.'" should be an array');
+      fatal_error('[Hacking attempt] the input parameter "'.$param_name.'" should be an array');
     }
 
     foreach ($param_value as $item_to_check)
     {
       if (!preg_match($pattern, $item_to_check))
       {
-        die('[Hacking attempt] an item is not valid in input parameter "'.$param_name.'"');
+        fatal_error('[Hacking attempt] an item is not valid in input parameter "'.$param_name.'"');
       }
     }
   }
@@ -1542,7 +1542,7 @@ function check_input_parameter($param_name, $param_array, $is_array, $pattern)
   {
     if (!preg_match($pattern, $param_value))
     {
-      die('[Hacking attempt] the input parameter "'.$param_name.'" is not valid');
+      fatal_error('[Hacking attempt] the input parameter "'.$param_name.'" is not valid');
     }
   }
 }
@@ -1552,7 +1552,7 @@ function check_input_parameter($param_name, $param_array, $is_array, $pattern)
  * if pwg_token is empty action doesn't require token
  * else pwg_token is compare to server token
  *
- * @return void access denied if token given is not equal to server token 
+ * @return void access denied if token given is not equal to server token
  */
 function check_pwg_token()
 {
@@ -1569,7 +1569,7 @@ function check_pwg_token()
   }
   if ($given_token != $valid_token)
   {
-    access_denied();    
+    access_denied();
   }
 }
 
