@@ -759,4 +759,7 @@ $conf['light_slideshow'] = true;
 // the local data directory is used to store data such as compiled templates
 // or other plugin variables etc
 $conf['local_data_dir'] = dirname(dirname(__FILE__)).'/_data';
+
+// where should the API add photos?
+$conf['upload_dir'] = PHPWG_ROOT_PATH.'upload';
 ?>
