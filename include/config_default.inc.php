@@ -156,7 +156,7 @@ $conf['tn_compression_level'] = 75;
 
 // show_version : shall the version of Piwigo be displayed at the
 // bottom of each page ?
-$conf['show_version'] = true;
+$conf['show_version'] = false;
 
 // meta_ref to reference multiple sets of incorporated pages or elements
 // Set it false to avoid referencing in google, and other search engines.
@@ -311,7 +311,7 @@ $conf['smtp_password'] = '';
 //
 // This configuration parameter is set to true in BSF branch and to false
 // elsewhere.
-$conf['check_upgrade_feed'] = true;
+$conf['check_upgrade_feed'] = false;
 
 // rate_items: available rates for a picture
 $conf['rate_items'] = array(0,1,2,3,4,5);
@@ -440,7 +440,7 @@ $conf['session_length'] = 3600;
 $conf['show_queries'] = false;
 
 // show_gt : display generation time at the bottom of each page
-$conf['show_gt'] = true;
+$conf['show_gt'] = false;
 
 // debug_l10n : display a warning message each time an unset language key is
 // accessed
@@ -450,7 +450,7 @@ $conf['debug_l10n'] = false;
 $conf['debug_template'] = false;
 
 // die_on_sql_error: if an SQL query fails, should everything stop?
-$conf['die_on_sql_error'] = true;
+$conf['die_on_sql_error'] = false;
 
 // if true, some language strings are replaced during template compilation
 // (insted of template output). this results in better performance. however
