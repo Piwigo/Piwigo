@@ -207,7 +207,7 @@ function pwg_check_graphics()
     list($pwg_conf['gd_version_major']) = preg_split('/[.]+/', $pwg_conf['gd_version_full']);
     
     // Backup input/output format support
-    array_push($pwg_conf['gd_supported_format'], isset($info['JPG Support']) or isset($info['JPEG Support']) ? 'jpeg' : NULL);
+    array_push($pwg_conf['gd_supported_format'], (isset($info['JPG Support']) and $info['JPG Support']) or (isset($info['JPEG Support']) and $info['JPEG Support']) ? 'jpeg' : NULL);
     array_push($pwg_conf['gd_supported_format'], $info['PNG Support'] ? 'png' : NULL);
     array_push($pwg_conf['gd_supported_format'], ($info['GIF Read Support'] and $info['GIF Create Support']) ? 'gif' : NULL);
     
@@ -1106,7 +1106,7 @@ function pwg_test_exit()
       $format_list = array();
       $format = ($info['GIF Create Support']) ? '<code>gif</code>' : NULL;
       array_push($format_list, $format);
-      $format = (isset($info['JPG Support']) or isset($info['JPEG Support'])) ? '<code>jpg</code>' : NULL;
+      $format = ((isset($info['JPG Support']) and $info['JPG Support']) or (isset($info['JPEG Support']) and $info['JPEG Support'])) ? '<code>jpg</code>' : NULL;
       array_push($format_list, $format);
       $format = ($info['PNG Support']) ? '<code>png</code>' : NULL;
       array_push($format_list, $format);
