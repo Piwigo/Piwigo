@@ -207,7 +207,7 @@ function pwg_check_graphics()
     list($pwg_conf['gd_version_major']) = preg_split('/[.]+/', $pwg_conf['gd_version_full']);
     
     // Backup input/output format support
-    array_push($pwg_conf['gd_supported_format'], $info['JPG Support'] ? 'jpeg' : NULL);
+    array_push($pwg_conf['gd_supported_format'], isset($info['JPG Support']) or isset($info['JPEG Support']) ? 'jpeg' : NULL);
     array_push($pwg_conf['gd_supported_format'], $info['PNG Support'] ? 'png' : NULL);
     array_push($pwg_conf['gd_supported_format'], ($info['GIF Read Support'] and $info['GIF Create Support']) ? 'gif' : NULL);
     
@@ -508,7 +508,7 @@ function pwg_get_filename_wo_extension($filename)
  * @param string &$error_log
  * @return string
  */
-function pwg_get_thumbnail_ext($file_dir, $file_short, $file_ext, &$error_log)
+function pwg_get_thumbnail_ext($file_dir, $file_short, $file_ext, &$error_log, &$icon_log)
 {
   //~ pwg_log('>>>>> pwg_get_thumbnail_ext($file_dir = '.var_export($file_dir, TRUE).', $file_short = '.var_export($file_short, TRUE).') >>>>>'."\n");
   
@@ -533,7 +533,7 @@ function pwg_get_thumbnail_ext($file_dir, $file_short, $file_ext, &$error_log)
       {
         $thumb_ext = $conf['thumbnail_format'];
       }
-      $error_log .= $log;  
+      $icon_log .= $log;  
     }
   }
   
@@ -558,6 +558,12 @@ function pwg_icon_file($file_dir, $file_short, $file_ext)
   
   $error_log = '';
   
+  // Create thumbnail directory if not exists
+  if (!file_exists($file_dir.'/'.$conf['thumbs']))
+  {
+    mkdir($file_dir.'/'.$conf['thumbs']);
+  }
+
   // Get original properties (width, height)
   if ($image_size = getimagesize($file_dir.'/'.$file_short.'.'.$file_ext))
   {
@@ -701,6 +707,7 @@ function pwg_scan_file($file_full, &$line)
   global $conf, $pwg_conf;
   
   $error_log ='';
+  $icon_log = '';
   
   $file_base  = basename($file_full);
   $file_short = pwg_get_filename_wo_extension($file_base);
@@ -713,7 +720,7 @@ function pwg_scan_file($file_full, &$line)
   if (in_array($file_ext, $conf['picture_ext']))
   {
     // Here we scan a picture : thumbnail is mandatory, high is optionnal, representative is not scanned
-    $element['tn_ext'] = pwg_get_thumbnail_ext($file_dir, $file_short, $file_ext, $error_log);
+    $element['tn_ext'] = pwg_get_thumbnail_ext($file_dir, $file_short, $file_ext, $error_log, $icon_log);
     if ($element['tn_ext'] != '')
     {
       // picture has a thumbnail, get image width, heigth, size in Mo
@@ -804,7 +811,10 @@ function pwg_scan_file($file_full, &$line)
     }
     $line .= '/>'."\n";
   }
-  
+
+  // Adding Icon generation log to message
+  $error_log .= $icon_log;
+
   //~ pwg_log('<<<<< pwg_scan_file() returns '.var_export($error_log, TRUE).' <<<<<'."\n");
   return $error_log;
 }
@@ -1096,7 +1106,7 @@ function pwg_test_exit()
       $format_list = array();
       $format = ($info['GIF Create Support']) ? '<code>gif</code>' : NULL;
       array_push($format_list, $format);
-      $format = ($info['JPG Support']) ? '<code>jpg</code>' : NULL;
+      $format = (isset($info['JPG Support']) or isset($info['JPEG Support'])) ? '<code>jpg</code>' : NULL;
       array_push($format_list, $format);
       $format = ($info['PNG Support']) ? '<code>png</code>' : NULL;
       array_push($format_list, $format);
