@@ -46,7 +46,7 @@
 
     <p>
       <input class="submit" type="submit" name="edit" value="{'Edit selected tags'|@translate}">
-      <input class="submit" type="submit" name="delete" value="{'Delete selected tags'|@translate}" onclick="return confirm('{'Are you sure?'|@translate}');" {$TAG_INPUT_ENABLED}>
+      <input class="submit" type="submit" name="delete" value="{'Are you sure?'|@translate}" onclick="return confirm('{'Are you sure?'|@translate}');" {$TAG_INPUT_ENABLED}>
     </p>
   </fieldset>
 

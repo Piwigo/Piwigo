@@ -173,19 +173,19 @@ if (isset($user['internal_status']['guest_must_be_guest'])
     and
     $user['internal_status']['guest_must_be_guest'] === true)
 {
-  $header_msgs[] = l10n('guest_must_be_guest');
+  $header_msgs[] = l10n('Bad status for user "guest", using default status. Please notify the webmaster.');
 }
 
 if ($conf['gallery_locked'])
 {
-  $header_msgs[] = l10n('gallery_locked_message');
+  $header_msgs[] = l10n('The gallery is locked for maintenance. Please, come back later.');
 
   if ( script_basename() != 'identification' and !is_admin() )
   {
     set_status_header(503, 'Service Unavailable');
     @header('Retry-After: 900');
     header('Content-Type: text/html; charset='.get_pwg_charset());
-    echo '<a href="'.get_absolute_root_url(false).'identification.php">'.l10n('gallery_locked_message').'</a>';
+    echo '<a href="'.get_absolute_root_url(false).'identification.php">'.l10n('The gallery is locked for maintenance. Please, come back later.').'</a>';
     echo str_repeat( ' ', 512); //IE6 doesn't error output if below a size
     exit();
   }
@@ -203,7 +203,7 @@ if ($conf['check_upgrade_feed'])
 
 if (is_adviser())
 {
-  $header_msgs[] = l10n('adviser_mode_enabled');
+  $header_msgs[] = l10n('Adviser mode enabled');
 }
 
 if (count($header_msgs) > 0)

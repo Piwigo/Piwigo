@@ -30,7 +30,7 @@ function waiting_tabsheet()
   // TabSheet
   $tabsheet = new tabsheet();
   // TabSheet initialization
-  $tabsheet->add('comments', l10n('comments'), $link_start.'comments');
+  $tabsheet->add('Comments', l10n('Comments'), $link_start.'Comments');
   $tabsheet->add('upload', l10n('Pictures'), $link_start.'upload');
   // TabSheet selection
   $tabsheet->select($page['page']);

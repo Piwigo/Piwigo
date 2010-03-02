@@ -47,7 +47,7 @@ function validate_mail_address($user_id, $mail_address)
 
   if ( !preg_match( $regex, $mail_address ) )
   {
-    return l10n('reg_err_mail_address');
+    return l10n('mail address must be like xxx@yyy.eee (example : jack@altern.org)');
   }
 
   if (defined("PHPWG_INSTALLED") and !empty($mail_address))
@@ -61,7 +61,7 @@ where upper('.$conf['user_fields']['email'].') = upper(\''.$mail_address.'\')
     list($count) = pwg_db_fetch_row(pwg_query($query));
     if ($count != 0)
     {
-      return l10n('reg_err_mail_address_dbl');
+      return l10n('a user use already this mail address');
     }
   }
 }
@@ -86,7 +86,7 @@ WHERE LOWER(".stripslashes($conf['user_fields']['username']).") = '".strtolower(
 
     if ($count > 0)
     {
-      return l10n('reg_err_login5');
+      return l10n('this login is already used');
     }
   }
 }
@@ -98,19 +98,19 @@ function register_user($login, $password, $mail_address,
 
   if ($login == '')
   {
-    array_push($errors, l10n('reg_err_login1'));
+    array_push($errors, l10n('Please, enter a login'));
   }
   if (preg_match('/^.* $/', $login))
   {
-    array_push($errors, l10n('reg_err_login2'));
+    array_push($errors, l10n('login mustn\'t end with a space character'));
   }
   if (preg_match('/^ .*$/', $login))
   {
-    array_push($errors, l10n('reg_err_login3'));
+    array_push($errors, l10n('login mustn\'t start with a space character'));
   }
   if (get_userid($login))
   {
-    array_push($errors, l10n('reg_err_login5'));
+    array_push($errors, l10n('this login is already used'));
   }
   $mail_error = validate_mail_address(null, $mail_address);
   if ('' != $mail_error)

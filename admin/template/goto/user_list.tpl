@@ -1,5 +1,5 @@
 <div class="titrePage">
-  <h2>{'title_liste_users'|@translate}</h2>
+  <h2>{'User list'|@translate}</h2>
 </div>
 
 <form class="filter" method="post" name="add_user" action="{$F_ADD_ACTION}">
@@ -62,10 +62,10 @@
     <tr class="throw">
       <td>&nbsp;</td>
       <td>{'Username'|@translate}</td>
-      <td>{'user_status'|@translate}</td>
+      <td>{'User status'|@translate}</td>
       <td>{'Email address'|@translate}</td>
       <td>{'Groups'|@translate}</td>
-      <td>{'properties'|@translate}</td>
+      <td>{'Properties'|@translate}</td>
       {if not empty($plugin_user_list_column_titles)}
       {foreach from=$plugin_user_list_column_titles item=title}
       <td>{$title}</td>
@@ -87,7 +87,7 @@
     <td>{$data}</td>
     {/foreach}
     <td style="text-align:center;">
-      <a href="{$user.U_PERM}"><img src="{$ROOT_URL}{$themeconf.admin_icon_dir}/permissions.png" class="button" style="border:none" alt="{'permissions'|@translate}" title="{'permissions'|@translate}"></a>
+      <a href="{$user.U_PERM}"><img src="{$ROOT_URL}{$themeconf.admin_icon_dir}/Permissions.png" class="button" style="border:none" alt="{'Permissions'|@translate}" title="{'Permissions'|@translate}"></a>
       <a href="{$user.U_PROFILE}"><img src="{$ROOT_URL}{$themeconf.admin_icon_dir}/edit_s.png" class="button" style="border:none" alt="{'Profile'|@translate}" title="{'Profile'|@translate}"></a>
       {foreach from=$user.plugin_actions item=data}
       {$data}
@@ -123,7 +123,7 @@
 
     {if isset($adviser)}
     <tr>
-      <td>{'adviser'|@translate}</td>
+      <td>{'Adviser'|@translate}</td>
       <td>
         <label><input type="radio" name="adviser" value="leave" checked="checked"> {'leave'|@translate}</label>
         / {'set to'|@translate}
@@ -162,12 +162,12 @@
 
 {* Properties *}
 <fieldset>
-  <legend>{'properties'|@translate}</legend>
+  <legend>{'Properties'|@translate}</legend>
 
   <table>
 
     <tr>
-      <td>{'enabled_high'|@translate}</td>
+      <td>{'High definition enabled'|@translate}</td>
       <td>
         <label><input type="radio" name="enabled_high" value="leave" checked="checked"> {'leave'|@translate}</label>
         / {'set to'|@translate}
@@ -196,7 +196,7 @@
 
 <table>
   <tr>
-    <td>{'nb_image_per_row'|@translate}</td>
+    <td>{'Number of images per row'|@translate}</td>
     <td>
       <label><input type="radio" name="nb_image_line_action" value="leave" checked="checked"> {'leave'|@translate}</label>
       <label><input type="radio" name="nb_image_line_action" value="set" id="nb_image_line_action_set"> {'set to'|@translate}</label>
@@ -206,7 +206,7 @@
   </tr>
 
   <tr>
-    <td>{'nb_row_per_page'|@translate}</td>
+    <td>{'Number of rows per page'|@translate}</td>
     <td>
       <label><input type="radio" name="nb_line_page_action" value="leave" checked="checked"> {'leave'|@translate}</label>
       <label><input type="radio" name="nb_line_page_action" value="set" id="nb_line_page_action_set"> {'set to'|@translate}</label>
@@ -216,7 +216,7 @@
   </tr>
 
   <tr>
-    <td>{'theme'|@translate}</td>
+    <td>{'Interface theme'|@translate}</td>
     <td>
       <label><input type="radio" name="template_action" value="leave" checked="checked"> {'leave'|@translate}</label>
       <label><input type="radio" name="template_action" value="set" id="template_action_set"> {'set to'|@translate}</label>
@@ -227,7 +227,7 @@
   </tr>
 
   <tr>
-    <td>{'language'|@translate}</td>
+    <td>{'Language'|@translate}</td>
     <td>
       <label><input type="radio" name="language_action" value="leave" checked="checked"> {'leave'|@translate}</label>
       <label><input type="radio" name="language_action" value="set" id="language_action_set"> {'set to'|@translate}</label>
@@ -238,7 +238,7 @@
   </tr>
 
   <tr>
-    <td>{'recent_period'|@translate}</td>
+    <td>{'Recent period'|@translate}</td>
     <td>
       <label><input type="radio" name="recent_period_action" value="leave" checked="checked"> {'leave'|@translate}</label>
       <label><input type="radio" name="recent_period_action" value="set" id="recent_period_action_set"> {'set to'|@translate}</label>
@@ -248,7 +248,7 @@
   </tr>
 
   <tr>
-    <td>{'auto_expand'|@translate}</td>
+    <td>{'Expand all categories'|@translate}</td>
     <td>
       <label><input type="radio" name="expand" value="leave" checked="checked"> {'leave'|@translate}</label>
       / {'set to'|@translate}
@@ -258,7 +258,7 @@
   </tr>
 
   <tr>
-    <td>{'show_nb_comments'|@translate}</td>
+    <td>{'Show number of comments'|@translate}</td>
     <td>
       <label><input type="radio" name="show_nb_comments" value="leave" checked="checked"> {'leave'|@translate}</label>
       / {'set to'|@translate}
@@ -268,7 +268,7 @@
   </tr>
 
   <tr>
-    <td>{'show_nb_hits'|@translate}</td>
+    <td>{'Show number of hits'|@translate}</td>
     <td>
       <label><input type="radio" name="show_nb_hits" value="leave" checked="checked"> {'leave'|@translate}</label>
       / {'set to'|@translate}
@@ -278,7 +278,7 @@
   </tr>
 
   <tr>
-    <td>{'maxwidth'|@translate}</td>
+    <td>{'Maximum width of the pictures'|@translate}</td>
     <td>
       <label><input type="radio" name="maxwidth_action" value="leave" checked="checked"> {'leave'|@translate}</label>
       <label><input type="radio" name="maxwidth_action" value="unset"> {'unset'|@translate}</label>
@@ -290,7 +290,7 @@
 
 
   <tr>
-    <td>{'maxheight'|@translate}</td>
+    <td>{'Maximum height of the pictures'|@translate}</td>
     <td>
       <label><input type="radio" name="maxheight_action" value="leave" checked="checked"> {'leave'|@translate}</label>
       <label><input type="radio" name="maxheight_action" value="unset"> {'unset'|@translate}</label>

@@ -55,9 +55,9 @@ function set_plugins_tabsheet($selected)
   $link = get_root_url().'admin.php?page=';
 
   $tabsheet = new tabsheet();
-  $tabsheet->add('plugins_list', l10n('plugins_tab_list'), $link.'plugins_list');
-  $tabsheet->add('plugins_update', l10n('plugins_tab_update'), $link.'plugins_update');
-  $tabsheet->add('plugins_new', l10n('plugins_tab_new'), $link.'plugins_new');
+  $tabsheet->add('plugins_list', l10n('Plugin list'), $link.'plugins_list');
+  $tabsheet->add('plugins_update', l10n('Check for updates'), $link.'plugins_update');
+  $tabsheet->add('plugins_new', l10n('Other plugins'), $link.'plugins_new');
   $tabsheet->select($selected);
   $tabsheet->assign();
 }

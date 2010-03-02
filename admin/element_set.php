@@ -132,7 +132,7 @@ SELECT element_id
 }
 else if ('not_linked' == $_GET['cat'])
 {
-  $page['title'] = l10n('Elements_not_linked');
+  $page['title'] = l10n('Not linked elements');
   $template->assign(array('U_ACTIVE_MENU' => 5 ));
 
   // we are searching elements not linked to any virtual category
@@ -163,7 +163,7 @@ SELECT DISTINCT(image_id)
 }
 else if ('duplicates' == $_GET['cat'])
 {
-  $page['title'] = l10n('Duplicates');
+  $page['title'] = l10n('Files with same name in more than one physical category');
   $template->assign(array('U_ACTIVE_MENU' => 5 ));
 
   // we are searching related elements twice or more to physical categories
@@ -189,7 +189,7 @@ ORDER BY file, id
 }
 elseif ('recent'== $_GET['cat'])
 {
-  $page['title'] = l10n('recent_pics_cat');
+  $page['title'] = l10n('Recent pictures');
   $query = 'SELECT MAX(date_available) AS date
   FROM '.IMAGES_TABLE;
   if ($row = pwg_db_fetch_assoc( pwg_query($query) ) )

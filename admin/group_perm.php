@@ -132,12 +132,12 @@ $template->assign(
   array(
     'TITLE' =>
       sprintf(
-        l10n('Manage permissions for group "%s"'),
+        l10n('Manage permissions for group \"%s\"'),
         get_groupname($page['group']
           )
         ),
-    'L_CAT_OPTIONS_TRUE'=>l10n('authorized'),
-    'L_CAT_OPTIONS_FALSE'=>l10n('forbidden'),
+    'L_CAT_OPTIONS_TRUE'=>l10n('Authorized'),
+    'L_CAT_OPTIONS_FALSE'=>l10n('Forbidden'),
 
     'F_ACTION' =>
         get_root_url().

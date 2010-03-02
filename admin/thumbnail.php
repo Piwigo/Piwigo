@@ -115,7 +115,7 @@ function RatioResizeImg($path, $newWidth, $newHeight, $tn_ext)
     // creation and backup of final picture
     if (!is_writable($tndir))
     {
-      array_push($page['errors'], '['.$tndir.'] : '.l10n('no_write_access'));
+      array_push($page['errors'], '['.$tndir.'] : '.l10n('no write access'));
       return false;
     }
     imagejpeg($destImage, $dest_file, $conf['tn_compression_level']);
@@ -136,14 +136,14 @@ function RatioResizeImg($path, $newWidth, $newHeight, $tn_ext)
   // error
   else
   {
-    echo l10n('tn_no_support')." ";
+    echo l10n('Picture unreachable or no support')." ";
     if ( isset( $extenstion ) )
     {
-      echo l10n('tn_format').' '.$extension;
+      echo l10n('for the file format').' '.$extension;
     }
     else
     {
-      echo l10n('tn_thisformat');
+      echo l10n('for this file format');
     }
     exit();
   }
@@ -233,11 +233,11 @@ if (isset($_POST['submit']))
   // checking criteria
   if (!preg_match('/^[0-9]{2,3}$/', $_POST['width']) or $_POST['width'] < 10)
   {
-    array_push($page['errors'], l10n('tn_err_width').' 10');
+    array_push($page['errors'], l10n('width must be a number superior to').' 10');
   }
   if (!preg_match('/^[0-9]{2,3}$/', $_POST['height']) or $_POST['height'] < 10)
   {
-    array_push($page['errors'], l10n('tn_err_height').' 10');
+    array_push($page['errors'], l10n('height must be a number superior to').' 10');
   }
   
   // picture miniaturization

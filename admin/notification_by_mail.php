@@ -174,7 +174,7 @@ order by
       (
         $page['infos'],
         sprintf(
-          l10n('nbm_user_x_added'),
+          l10n('User %s [%s] added.'),
           stripslashes($nbm_user['username']),
           get_email_address_as_display_text($nbm_user['mail_address'])
         )
@@ -200,7 +200,9 @@ order by
         $query = 'delete from '.USER_MAIL_NOTIFICATION_TABLE.' where check_key in ('.implode(",", $quoted_check_key_list).');';
         $result = pwg_query($query);
 
-        redirect($base_url.get_query_string_diff(array(), false), l10n('nbm_redirect_msg'));
+        redirect($base_url.get_query_string_diff(array(), false), l10n('Processing treatment.
+
+Please wait...'));
       }
     }
   }
@@ -267,11 +269,11 @@ function do_action_send_mail_notification($action = 'list_to_send', $check_key_l
         // Prepare message after change language
         if ($is_action_send)
         {
-          $msg_break_timeout = l10n('nbm_break_timeout_send_mail');
+          $msg_break_timeout = l10n('Time to send mail is limited. Others mails are skipped.');
         }
         else
         {
-          $msg_break_timeout = l10n('nbm_break_timeout_list_user');
+          $msg_break_timeout = l10n('Prepared time for list of users to send mail is limited. Others users are not listed.');
         }
 
         // Begin nbm users environment
@@ -313,7 +315,7 @@ function do_action_send_mail_notification($action = 'list_to_send', $check_key_l
 
             if ($exist_data)
             {
-              $subject = '['.$conf['gallery_title'].']: '.l10n('nbm_object_news');
+              $subject = '['.$conf['gallery_title'].']: '.l10n('New elements added');
 
               // Assign current var for nbm mail
               assign_vars_nbm_mail_content($nbm_user);
@@ -449,7 +451,7 @@ function do_action_send_mail_notification($action = 'list_to_send', $check_key_l
       {
         if ($is_action_send)
         {
-          array_push($page['errors'], l10n('nbm_no_user_to send_notifications_by_mail'));
+          array_push($page['errors'], l10n('No user to send notifications by mail.'));
         }
       }
     }
@@ -593,13 +595,13 @@ if (is_autorize_status(ACCESS_WEBMASTER))
   // TabSheet
   $tabsheet = new tabsheet();
   // TabSheet initialization
-  $tabsheet->add('param', l10n('nbm_param_mode'),
+  $tabsheet->add('param', l10n('Parameter'),
     add_url_params($base_url.get_query_string_diff(array('mode', 'select')),
         array('mode' => 'param')));
-  $tabsheet->add('subscribe', l10n('nbm_subscribe_mode'),
+  $tabsheet->add('subscribe', l10n('Subscribe'),
     add_url_params($base_url.get_query_string_diff(array('mode', 'select')),
       array('mode' => 'subscribe')));
-  $tabsheet->add('send', l10n('nbm_send_mode'),
+  $tabsheet->add('send', l10n('Send'),
     add_url_params($base_url.get_query_string_diff(array('mode', 'select')),
       array('mode' => 'send')));
   // TabSheet selection
@@ -650,8 +652,8 @@ switch ($page['mode'])
 
     $template->assign(
       array(
-        'L_CAT_OPTIONS_TRUE' => l10n('nbm_subscribe_col'),
-        'L_CAT_OPTIONS_FALSE' => l10n('nbm_unsubscribe_col')
+        'L_CAT_OPTIONS_TRUE' => l10n('Subscribed'),
+        'L_CAT_OPTIONS_FALSE' => l10n('Unsubscribed')
         )
       );
 

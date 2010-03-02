@@ -103,7 +103,7 @@ SELECT COUNT(*) AS user_exists
       $row = pwg_db_fetch_assoc( pwg_query( $query ) );
       if ( $row['user_exists'] == 1 )
       {
-        array_push($infos, l10n('comment_user_exists') );
+        array_push($infos, l10n('This login is already used by another user') );
         $comment_action='reject';
       }
     }
@@ -140,7 +140,7 @@ SELECT id FROM '.COMMENTS_TABLE.'
     AND author_id = '.$comm['author_id'];
     if ( pwg_db_num_rows( pwg_query( $query ) ) > 0 )
     {
-      array_push( $infos, l10n('comment_anti-flood') );
+      array_push( $infos, l10n('Anti-flood system : please wait for a moment before trying to post another comment') );
       $comment_action='reject';
     }
   }
@@ -268,7 +268,7 @@ SELECT id FROM '.COMMENTS_TABLE.'
     AND author_id = '.$comm['author_id'];
     if ( pwg_db_num_rows( pwg_query( $query ) ) > 0 )
     {
-      //?? array_push( $infos, l10n('comment_anti-flood') );
+      //?? array_push( $infos, l10n('Anti-flood system : please wait for a moment before trying to post another comment') );
       $comment_action='reject';
     }
   }

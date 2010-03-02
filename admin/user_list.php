@@ -168,10 +168,10 @@ include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
 check_status(ACCESS_ADMINISTRATOR);
 
 $page['order_by_items'] = array(
-  'id' => l10n('registration_date'),
+  'id' => l10n('registration date'),
   'username' => l10n('Username'),
   'level' => l10n('Privacy level'),
-  'language' => l10n('language'),
+  'Language' => l10n('Language'),
   );
 
 $page['direction_items'] = array(
@@ -191,19 +191,19 @@ if ($conf['double_password_type_in_admin'] == true)
   {
     if(empty($_POST['password']))
     {
-      array_push($page['errors'], l10n('Password is missing'));
+      array_push($page['errors'], l10n('Password is missing. Please enter the password.'));
     }
     else if(empty($_POST['password_conf']))
     {
-      array_push($page['errors'], l10n('Password confirmation is missing'));
+      array_push($page['errors'], l10n('Password confirmation is missing. Please confirm the chosen password.'));
     }
     else if(empty($_POST['email']))
     {
-      array_push($page['errors'], l10n('Email address is missing'));
+      array_push($page['errors'], l10n('Email address is missing. Please specify an email address.'));
     }
     else if ($_POST['password'] != $_POST['password_conf'])
     {
-      array_push($page['errors'], l10n('Password confirmation error'));
+      array_push($page['errors'], l10n('Password confirmation error.'));
     }
     else
     {
@@ -215,7 +215,7 @@ if ($conf['double_password_type_in_admin'] == true)
         array_push(
           $page['infos'],
           sprintf(
-            l10n('user "%s" added'),
+            l10n('user \"%s\" added'),
             $_POST['login']
           )
         );
@@ -235,7 +235,7 @@ else if ($conf['double_password_type_in_admin'] == false)
       array_push(
         $page['infos'],
         sprintf(
-          l10n('user "%s" added'),
+          l10n('user \"%s\" added'),
           $_POST['login']
           )
         );
@@ -693,7 +693,7 @@ foreach ($visible_user_list as $local_user)
   }
   $properties[] =
     (isset($local_user['enabled_high']) and ($local_user['enabled_high'] == 'true'))
-        ? l10n('is_high_enabled') : l10n('is_high_disabled');
+        ? l10n('') : l10n('');
 
   $template->append(
     'users',
@@ -704,12 +704,12 @@ foreach ($visible_user_list as $local_user)
       'U_PERM' => $perm_url.$local_user['id'],
       'USERNAME' => stripslashes($local_user['username'])
         .($local_user['id'] == $conf['guest_id']
-          ? '<br>['.l10n('is_the_guest').']' : '')
+          ? '<br>['.l10n('guest').']' : '')
         .($local_user['id'] == $conf['default_user_id']
-          ? '<br>['.l10n('is_the_default').']' : ''),
+          ? '<br>['.l10n('default values').']' : ''),
       'STATUS' => l10n('user_status_'.
         $local_user['status']).(($local_user['adviser'] == 'true')
-        ? '<br>['.l10n('adviser').']' : ''),
+        ? '<br>['.l10n('Adviser').']' : ''),
       'EMAIL' => get_email_address_as_display_text($local_user['email']),
       'GROUPS' => $groups_string,
       'PROPERTIES' => implode( ', ', $properties),

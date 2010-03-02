@@ -65,7 +65,7 @@ function remote_output($url)
   }
   else
   {
-    array_push($page['errors'], l10n('site_err_remote_file_not_found'));
+    array_push($page['errors'], l10n('file create_listing_file.php on remote site was not found'));
   }
 }
 
@@ -102,7 +102,7 @@ SELECT COUNT(id) AS count
   if ($row['count'] > 0)
   {
     array_push($page['errors'],
-      l10n('site_already_exists').' ['.$url.']');
+      l10n('This site already exists').' ['.$url.']');
   }
   if (count($page['errors']) == 0)
   {
@@ -120,12 +120,12 @@ SELECT COUNT(id) AS count
           if (!preg_match('/^PWG-INFO-2:/', $first_line))
           {
             array_push($page['errors'],
-                       l10n('site_err').' : '.$first_line);
+                       l10n('an error happened').' : '.$first_line);
           }
         }
         else
         {
-          array_push($page['errors'], l10n('site_err_remote_file_not_found') );
+          array_push($page['errors'], l10n('file create_listing_file.php on remote site was not found') );
         }
       }
     }
@@ -149,7 +149,7 @@ INSERT INTO '.SITES_TABLE.'
 ;';
     pwg_query($query);
     array_push($page['infos'],
-               $url.' '.l10n('site_created'));
+               $url.' '.l10n('created'));
   }
 }
 
@@ -172,19 +172,19 @@ SELECT galleries_url
   {
     case 'generate' :
     {
-      $title = $galleries_url.' : '.l10n('remote_site_generate');
+      $title = $galleries_url.' : '.l10n('generate listing');
       remote_output($galleries_url.'create_listing_file.php?action=generate');
       break;
     }
     case 'test' :
     {
-      $title = $galleries_url.' : '.l10n('remote_site_test');
+      $title = $galleries_url.' : '.l10n('test');
       remote_output($galleries_url.'create_listing_file.php?action=test&version='.PHPWG_VERSION);
       break;
     }
     case 'clean' :
     {
-      $title = $galleries_url.' : '.l10n('remote_site_clean');
+      $title = $galleries_url.' : '.l10n('clean');
       remote_output($galleries_url.'create_listing_file.php?action=clean');
       break;
     }
@@ -192,7 +192,7 @@ SELECT galleries_url
     {
       delete_site($page['site']);
       array_push($page['infos'],
-                 $galleries_url.' '.l10n('site_deleted'));
+                 $galleries_url.' '.l10n('deleted'));
       break;
     }
   }

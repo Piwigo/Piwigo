@@ -61,7 +61,7 @@ SELECT '.implode(',', $fields).'
 
   save_profile_from_post($userdata, $errors);
 
-  $title= l10n('customize_page_title');
+  $title= l10n('Your Gallery Customization ');
   $page['body_id'] = 'theProfilePage';
   include(PHPWG_ROOT_PATH.'include/page_header.php');
 
@@ -108,32 +108,32 @@ function save_profile_from_post($userdata, &$errors)
   if (empty($_POST['nb_image_line'])
       or (!preg_match($int_pattern, $_POST['nb_image_line'])))
   {
-    $errors[] = l10n('nb_image_line_error');
+    $errors[] = l10n('The number of images per row must be a not null scalar');
   }
 
   if (empty($_POST['nb_line_page'])
       or (!preg_match($int_pattern, $_POST['nb_line_page'])))
   {
-    $errors[] = l10n('nb_line_page_error');
+    $errors[] = l10n('The number of rows per page must be a not null scalar');
   }
 
   if ($_POST['maxwidth'] != ''
       and (!preg_match($int_pattern, $_POST['maxwidth'])
            or $_POST['maxwidth'] < 50))
   {
-    $errors[] = l10n('maxwidth_error');
+    $errors[] = l10n('Maximum width must be a number superior to 50');
   }
   if ($_POST['maxheight']
        and (!preg_match($int_pattern, $_POST['maxheight'])
              or $_POST['maxheight'] < 50))
   {
-    $errors[] = l10n('maxheight_error');
+    $errors[] = l10n('Maximum height must be a number superior to 50');
   }
   // periods must be integer values, they represents number of days
   if (!preg_match($int_pattern, $_POST['recent_period'])
       or $_POST['recent_period'] <= 0)
   {
-    $errors[] = l10n('periods_error') ;
+    $errors[] = l10n('Recent period must be a positive integer value') ;
   }
 
   if (isset($_POST['mail_address']))

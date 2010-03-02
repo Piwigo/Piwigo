@@ -1,5 +1,5 @@
 <div class="titrePage">
-  <h2>{'waiting'|@translate} {$TABSHEET_TITLE}</h2>
+  <h2>{'Waiting'|@translate} {$TABSHEET_TITLE}</h2>
 </div>
 
 <h3>{'User comments validation'|@translate}</h3>

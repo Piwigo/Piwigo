@@ -86,7 +86,7 @@ if (isset($_POST['submit']) and !is_adviser())
     {
       if ( !url_is_remote($_POST['gallery_url']) )
       {
-        array_push($page['errors'], l10n('conf_gallery_url_error'));
+        array_push($page['errors'], l10n('The gallery URL is not valid.'));
       }
       foreach( $main_checkboxes as $checkbox)
       {
@@ -110,7 +110,7 @@ if (isset($_POST['submit']) and !is_adviser())
            or $_POST['nb_comment_page'] < 5
            or $_POST['nb_comment_page'] > 50)
       {
-        array_push($page['errors'], l10n('conf_nb_comment_page_error'));
+        array_push($page['errors'], l10n('The number of comments a page must be between 5 and 50 included.'));
       }
       foreach( $comments_checkboxes as $checkbox)
       {
@@ -160,7 +160,7 @@ WHERE param = \''.$row['param'].'\'
         pwg_query($query);
       }
     }
-    array_push($page['infos'], l10n('conf_confirmation'));
+    array_push($page['infos'], l10n('Information data registered in database'));
   }
 
   //------------------------------------------------------ $conf reinitialization
@@ -173,11 +173,11 @@ $template->set_filename('config', 'configuration.tpl');
 // TabSheet
 $tabsheet = new tabsheet();
 // TabSheet initialization
-$tabsheet->add('main', l10n('conf_main_title'), $conf_link.'main');
-$tabsheet->add('history', l10n('conf_history_title'), $conf_link.'history');
-$tabsheet->add('comments', l10n('conf_comments_title'), $conf_link.'comments');
-$tabsheet->add('upload', l10n('conf_upload_title'), $conf_link.'upload');
-$tabsheet->add('default', l10n('conf_display'), $conf_link.'default');
+$tabsheet->add('main', l10n('Main'), $conf_link.'main');
+$tabsheet->add('history', l10n('History'), $conf_link.'history');
+$tabsheet->add('comments', l10n('Comments'), $conf_link.'comments');
+$tabsheet->add('upload', l10n('Upload'), $conf_link.'upload');
+$tabsheet->add('default', l10n('Default display'), $conf_link.'default');
 // TabSheet selection
 $tabsheet->select($page['section']);
 // Assign tabsheet to template
@@ -285,7 +285,7 @@ switch ($page['section'])
       {
         // Reload user
         $edit_user = build_user($conf['default_user_id'], false);
-        array_push($page['infos'], l10n('conf_confirmation'));
+        array_push($page['infos'], l10n('Information data registered in database'));
       }
     }
     $page['errors'] = array_merge($page['errors'], $errors);

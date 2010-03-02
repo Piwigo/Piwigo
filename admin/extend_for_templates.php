@@ -146,7 +146,7 @@ WHERE param = 'extents_for_templates';";
   if (pwg_query($query))
   {
     array_push($page['infos'], 
-      l10n('Templates recorded.'));
+      l10n('Templates configuration has been recorded.'));
   }
 }
 

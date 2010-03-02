@@ -16,7 +16,7 @@
 <fieldset>
   <legend>{'Filter'|@translate}</legend>
   <ul>
-    <li><label>{'search_date_from'|@translate}</label></li>
+    <li><label>{'Date'|@translate}</label></li>
     <li>
       <select id="start_day" name="start_day">
         <option value="0">--</option>
@@ -32,7 +32,7 @@
     </li>
   </ul>
   <ul>
-    <li><label>{'search_date_to'|@translate}</label></li>
+    <li><label>{'End-Date'|@translate}</label></li>
     <li>
       <select id="end_day" name="end_day">
         <option value="0">--</option>
@@ -106,14 +106,14 @@
 <table class="table2" id="detailedStats">
 <tr class="throw">
   <th>{'Date'|@translate}</th>
-  <th>{'time'|@translate}</th>
-  <th>{'user'|@translate}</th>
+  <th>{'Time'|@translate}</th>
+  <th>{'User'|@translate}</th>
   <th>{'IP'|@translate}</th>
-  <th>{'image'|@translate}</th>
+  <th>{'Element'|@translate}</th>
   <th>{'Element type'|@translate}</th>
-  <th>{'section'|@translate}</th>
-  <th>{'category'|@translate}</th>
-  <th>{'tags'|@translate}</th>
+  <th>{'Section'|@translate}</th>
+  <th>{'Category'|@translate}</th>
+  <th>{'Tags'|@translate}</th>
 </tr>
 {if !empty($search_results) }
 {foreach from=$search_results item=detail name=res_loop}

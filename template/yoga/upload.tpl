@@ -8,9 +8,9 @@
 
   <div class="titrePage">
     <ul class="categoryActions">
-      <li><a href="{$U_HOME}" title="{'return to homepage'|@translate}"><img src="{$themeconf.icon_dir}/home.png" class="button" alt="{'home'|@translate}"></a></li>
+      <li><a href="{$U_HOME}" title="{'Home'|@translate}"><img src="{$themeconf.icon_dir}/Home.png" class="button" alt="{'Home'|@translate}"></a></li>
     </ul>
-    <h2>{'upload_title'|@translate}</h2>
+    <h2>{'Upload a picture'|@translate}</h2>
   </div>
 
   {if !empty($errors)}
@@ -60,21 +60,21 @@
     </tr>
     <!-- mail address -->
     <tr>
-      <td>{'mail_address'|@translate} <span style="color:red;">*</span></td>
+      <td>{'E-mail address'|@translate} <span style="color:red;">*</span></td>
       <td>
       <input name="mail_address" type="text" value="{$EMAIL}">
       </td>
     </tr>
     <!-- name of the picture -->
     <tr>
-      <td>{'upload_name'|@translate}</td>
+      <td>{'Name of the picture'|@translate}</td>
       <td>
       <input name="name" type="text" value="{$NAME_IMG}">
       </td>
     </tr>
     <!-- author -->
     <tr>
-      <td>{'upload_author'|@translate}</td>
+      <td>{'Author'|@translate}</td>
       <td>
       <input name="author" type="text" value="{$AUTHOR_IMG}">
       </td>
@@ -88,7 +88,7 @@
     </tr>
     <!-- comment -->
     <tr>
-      <td>{'comment'|@translate}</td>
+      <td>{'Comment'|@translate}</td>
       <td>
        <textarea name="comment" id="comment" rows="3" cols="40" style="overflow:auto">{$COMMENT_IMG}</textarea>
       </td>
@@ -102,13 +102,13 @@
     </table>
   </form>
   {else}
-  {'upload_successful'|@translate}<br>
+  {'Picture uploaded with success, an administrator will validate it as soon as possible'|@translate}<br>
   <div style="text-align:center;">
-    <a href="{$U_RETURN}">[ {'home'|@translate} ]</a>
+    <a href="{$U_RETURN}">[ {'Home'|@translate} ]</a>
   </div>
   {/if}
   
   {if isset($SHOW_FORM_FIELDS) and $SHOW_FORM_FIELDS}
-  <div style="text-align:left; margin-left:20px;"><span style="color:red;">*</span> : {'mandatory'|@translate}</div>
+  <div style="text-align:left; margin-left:20px;"><span style="color:red;">*</span> : {'obligatory'|@translate}</div>
   {/if}
 </div> <!-- content -->

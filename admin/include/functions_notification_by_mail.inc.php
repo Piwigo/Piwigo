@@ -204,8 +204,8 @@ function begin_users_env_nbm($is_to_send_mail = false)
     $env_nbm['error_on_mail_count'] = 0;
     $env_nbm['sent_mail_count'] = 0;
     // Save sendmail message info and error in the original language
-    $env_nbm['msg_info'] = l10n('nbm_msg_mail_sent_to');
-    $env_nbm['msg_error'] = l10n('nbm_msg_error_sending_email_to');
+    $env_nbm['msg_info'] = l10n('Mail sent to %s [%s].');
+    $env_nbm['msg_error'] = l10n('Error when sending email to %s [%s].');
   }
 }
 
@@ -322,7 +322,7 @@ function display_counter_info()
   else
   {
     if ($env_nbm['sent_mail_count'] == 0)
-      array_push($page['infos'], l10n('nbm_no_mail_to_send'));
+      array_push($page['infos'], l10n('No mail to send.'));
     else
       array_push($page['infos'], l10n_dec('nbm_msg_n_mail_sent', 'nbm_msg_n_mails_sent', $env_nbm['sent_mail_count']));
   }
@@ -369,13 +369,13 @@ function do_subscribe_unsubscribe_notification_by_mail($is_admin_request, $is_su
 
   if ($is_subscribe)
   {
-    $msg_info = l10n('nbm_user_change_enabled_true');
-    $msg_error = l10n('nbm_user_not_change_enabled_true');
+    $msg_info = l10n('User %s [%s] was added to the subscription list.');
+    $msg_error = l10n('User %s [%s] was not added to the subscription list.');
   }
   else
   {
-    $msg_info = l10n('nbm_user_change_enabled_false');
-    $msg_error = l10n('nbm_user_not_change_enabled_false');
+    $msg_info = l10n('User %s [%s] was removed from the subscription list.');
+    $msg_error = l10n('User %s [%s] was not removed from the subscription list.');
   }
 
   if (count($check_key_list) != 0)
@@ -385,7 +385,7 @@ function do_subscribe_unsubscribe_notification_by_mail($is_admin_request, $is_su
     $data_users = get_user_notifications('subscribe', $check_key_list, !$is_subscribe);
 
     // Prepare message after change language
-    $msg_break_timeout = l10n('nbm_break_timeout_send_mail');
+    $msg_break_timeout = l10n('Time to send mail is limited. Others mails are skipped.');
 
     // Begin nbm users environment
     begin_users_env_nbm(true);
@@ -408,7 +408,7 @@ function do_subscribe_unsubscribe_notification_by_mail($is_admin_request, $is_su
         // set env nbm user
         set_user_on_env_nbm($nbm_user, true);
 
-        $subject = '['.$conf['gallery_title'].']: '.($is_subscribe ? l10n('nbm_object_subscribe'): l10n('nbm_object_unsubscribe'));
+        $subject = '['.$conf['gallery_title'].']: '.($is_subscribe ? l10n('Unsubscribe from notification by mail'): l10n('Unsubscribe from notification by mail'));
 
         // Assign current var for nbm mail
         assign_vars_nbm_mail_content($nbm_user);

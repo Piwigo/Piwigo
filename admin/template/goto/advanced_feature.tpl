@@ -1,5 +1,5 @@
 <div class="titrePage">
-  <h2>{'Advanced_features'|@translate}</h2>
+  <h2>{'Advanced features'|@translate}</h2>
 </div>
 
 <ul>

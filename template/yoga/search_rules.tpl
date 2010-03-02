@@ -15,7 +15,7 @@
 
   {if isset($SEARCH_TAGS_MODE) }
   <li>
-    <p>{if 'AND'==$SEARCH_TAGS_MODE}{'All tags must match'|@translate}{else}{'At least one tag must match'|@translate}{/if}</p>
+    <p>{if 'AND'==$SEARCH_TAGS_MODE}{'At least one tag must match'|@translate}{else}{'At least one tag must match'|@translate}{/if}</p>
     <ul>
       {foreach from=$search_tags item=v}
       <li>{$v}</li>

@@ -1,7 +1,7 @@
 <div id="imageHeaderBar">
   <div class="browsePath">
     {if isset($U_SLIDESHOW_STOP) }
-    [ <a href="{$U_SLIDESHOW_STOP}">{'slideshow_stop'|@translate}</a> ]
+    [ <a href="{$U_SLIDESHOW_STOP}">{'stop the slideshow'|@translate}</a> ]
     {/if}
   </div>
   <div class="imageNumber">{$PHOTO}</div>

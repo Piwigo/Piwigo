@@ -1,16 +1,16 @@
 <div class="titrePage">
-  <h2>{'waiting'|@translate} {$TABSHEET_TITLE}</h2>
+  <h2>{'Waiting'|@translate} {$TABSHEET_TITLE}</h2>
 </div>
 
-<h3>{'title_upload'|@translate}</h3>
+<h3>{'Pictures waiting for validation'|@translate}</h3>
 
 <form action="{$F_ACTION}" method="post" id="waiting">
   <table style="width:99%;" >
     <tr class="throw">
-      <td style="width:20%;">{'category'|@translate}</td>
+      <td style="width:20%;">{'Category'|@translate}</td>
       <td style="width:20%;">{'Date'|@translate}</td>
-      <td style="width:20%;">{'file'|@translate}</td>
-      <td style="width:20%;">{'thumbnail'|@translate}</td>
+      <td style="width:20%;">{'File'|@translate}</td>
+      <td style="width:20%;">{'Thumbnail'|@translate}</td>
       <td style="width:20%;">{'Author'|@translate}</td>
       <td style="width:1px;">&nbsp;</td>
     </tr>

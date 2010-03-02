@@ -72,7 +72,7 @@ DELETE
 
   array_push(
     $page['infos'],
-    sprintf(l10n('group "%s" deleted'), $groupname)
+    sprintf(l10n('group \"%s\" deleted'), $groupname)
     );
 }
 
@@ -84,7 +84,7 @@ if (isset($_POST['submit_add']) and !is_adviser())
 {
   if (empty($_POST['groupname']))
   {
-    array_push($page['errors'], l10n('group_add_error1'));
+    array_push($page['errors'], l10n('The name of a group must not contain \" or \' or be empty.'));
   }
   if (count($page['errors']) == 0)
   {
@@ -97,7 +97,7 @@ SELECT COUNT(*)
     list($count) = pwg_db_fetch_row(pwg_query($query));
     if ($count != 0)
     {
-      array_push($page['errors'], l10n('group_add_error2'));
+      array_push($page['errors'], l10n('This name is already used by another group.'));
     }
   }
   if (count($page['errors']) == 0)
@@ -113,7 +113,7 @@ INSERT INTO '.GROUPS_TABLE.'
 
     array_push(
       $page['infos'],
-      sprintf(l10n('group "%s" added'), $_POST['groupname'])
+      sprintf(l10n('group \"%s\" added'), $_POST['groupname'])
       );
   }
 }
@@ -141,7 +141,7 @@ UPDATE '.GROUPS_TABLE.'
 
   array_push(
     $page['infos'],
-    sprintf(l10n('group "%s" updated'), $groupname)
+    sprintf(l10n('group \"%s\" updated'), $groupname)
     );
 }
 
@@ -188,7 +188,7 @@ SELECT COUNT(*)
     'groups',
     array(
       'NAME' => $row['name'],
-      'IS_DEFAULT' => (get_boolean($row['is_default']) ? ' ['.l10n('is_default_group').']' : ''),
+      'IS_DEFAULT' => (get_boolean($row['is_default']) ? ' ['.l10n('default').']' : ''),
       'MEMBERS' => l10n_dec('%d member', '%d members', $counter),
       'U_MEMBERS' => $members_url.$row['id'],
       'U_DELETE' => $del_url.$row['id'],

@@ -1,7 +1,7 @@
 <div id="copyright">
  <a name="EoP"></a> <!-- End of Page -->
  {if isset($debug.TIME) }
- {'generation_time'|@translate} {$debug.TIME} ({$debug.NB_QUERIES} {'sql_queries_in'|@translate} {$debug.SQL_TIME}) -
+ {'SQL queries in'|@translate} {$debug.TIME} ({$debug.NB_QUERIES} {'SQL queries in'|@translate} {$debug.SQL_TIME}) -
  {/if}
 
  {* Please, do not remove this copyright. If you really want to,
@@ -9,12 +9,12 @@
       to show the origin of the script...
   *}
 
-  {'powered_by'|@translate}
+  {'Powered by'|@translate}
   <a href="{$PHPWG_URL}" class="Piwigo">
   <span class="Piwigo">Piwigo</span></a>
   {$VERSION}
   {if isset($CONTACT_MAIL)}
-  - {'send_mail'|@translate}
+  - {'Contact'|@translate}
   <a href="mailto:{$CONTACT_MAIL}?subject={'title_send_mail'|@translate|@escape:url}">{'Webmaster'|@translate}</a>
   {/if}
 

@@ -70,12 +70,12 @@
       </li>
       <li>
         <a href="{$plugin.U_ACTION}&amp;action=delete" onclick="return confirm('{'plugins_confirm_delete'|@translate|@escape:'javascript'}');">
-          <img src="{$themeconf.admin_icon_dir}/plug_delete.png" alt="{'plugins_delete'|@translate}" title="{'plugins_delete'|@translate}">
+          <img src="{$themeconf.admin_icon_dir}/plug_delete.png" alt="{'Delete'|@translate}" title="{'Delete'|@translate}">
         </a>
       </li>
     {else}
       <li>
-        <img src="{$themeconf.admin_icon_dir}/plug_delete_grey.png" alt="{'plugins_delete'|@translate}" title="{'plugins_delete'|@translate}">
+        <img src="{$themeconf.admin_icon_dir}/plug_delete_grey.png" alt="{'Delete'|@translate}" title="{'Delete'|@translate}">
       </li>
     {/if}
     </ul>

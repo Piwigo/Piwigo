@@ -148,16 +148,16 @@ function initialize_menu()
       $block->data['favorites'] =
         array(
           'URL' => make_index_url(array('section' => 'favorites')),
-          'TITLE' => l10n('favorite_cat_hint'),
-          'NAME' => l10n('favorite_cat')
+          'TITLE' => l10n('display my favorites pictures'),
+          'NAME' => l10n('My favorites')
           );
     }
 
     $block->data['most_visited'] =
       array(
         'URL' => make_index_url(array('section' => 'most_visited')),
-        'TITLE' => l10n('most_visited_cat_hint'),
-        'NAME' => l10n('most_visited_cat')
+        'TITLE' => l10n('display most visited pictures'),
+        'NAME' => l10n('Most visited')
       );
 
     if ($conf['rate'])
@@ -165,31 +165,31 @@ function initialize_menu()
        $block->data['best_rated'] =
         array(
           'URL' => make_index_url(array('section' => 'best_rated')),
-          'TITLE' => l10n('best_rated_cat_hint'),
-          'NAME' => l10n('best_rated_cat')
+          'TITLE' => l10n('display best rated items'),
+          'NAME' => l10n('Best rated')
         );
     }
 
     $block->data['random'] =
       array(
         'URL' => get_root_url().'random.php',
-        'TITLE' => l10n('random_cat_hint'),
-        'NAME' => l10n('random_cat'),
+        'TITLE' => l10n('display a set of random pictures'),
+        'NAME' => l10n('Random pictures'),
         'REL'=> 'rel="nofollow"'
       );
 
     $block->data['recent_pics'] =
       array(
         'URL' => make_index_url(array('section' => 'recent_pics')),
-        'TITLE' => l10n('recent_pics_cat_hint'),
-        'NAME' => l10n('recent_pics_cat'),
+        'TITLE' => l10n('display most recent pictures'),
+        'NAME' => l10n('Recent pictures'),
       );
 
     $block->data['recent_cats'] =
       array(
         'URL' => make_index_url(array('section' => 'recent_cats')),
-        'TITLE' => l10n('recent_cats_cat_hint'),
-        'NAME' => l10n('recent_cats_cat'),
+        'TITLE' => l10n('display recently updated categories'),
+        'NAME' => l10n('Recent categories'),
       );
 
 
@@ -204,8 +204,8 @@ function initialize_menu()
                'chronology_view' => 'calendar'
             )
           ),
-        'TITLE' => l10n('calendar_hint'),
-        'NAME' => l10n('calendar'),
+        'TITLE' => l10n('display each day with pictures, month per month'),
+        'NAME' => l10n('Calendar'),
         'REL'=> 'rel="nofollow"'
       );
     $block->template = 'menubar_specials.tpl';
@@ -230,7 +230,7 @@ function initialize_menu()
     // search link
     $block->data['search'] =
       array(
-        'TITLE'=>l10n('hint_search'),
+        'TITLE'=>l10n('search'),
         'NAME'=>l10n('Search'),
         'URL'=> get_root_url().'search.php',
         'REL'=> 'rel="search"'
@@ -239,15 +239,15 @@ function initialize_menu()
     // comments link
     $block->data['comments'] =
       array(
-        'TITLE'=>l10n('hint_comments'),
-        'NAME'=>l10n('comments'),
+        'TITLE'=>l10n('See last users comments'),
+        'NAME'=>l10n('Comments'),
         'URL'=> get_root_url().'comments.php',
       );
 
     // about link
     $block->data['about'] =
       array(
-        'TITLE'     => l10n('about_page_title'),
+        'TITLE'     => l10n('About Piwigo'),
         'NAME'      => l10n('About'),
         'URL' => get_root_url().'about.php',
       );

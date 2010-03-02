@@ -25,7 +25,7 @@
 {/if}
       <li>
         <span class="property">
-          <label for="use_new_pwd">{'new_password'|@translate}</label>
+          <label for="use_new_pwd">{'New password'|@translate}</label>
         </span>
         <input type="password" name="use_new_pwd" id="use_new_pwd" value="">
       </li>
@@ -40,60 +40,60 @@
   </fieldset>
 
   <fieldset>
-    <legend>{'preferences'|@translate}</legend>
+    <legend>{'Preferences'|@translate}</legend>
 
     <ul>
       <li>
         <span class="property">
-          <label for="nb_image_line">{'nb_image_per_row'|@translate}</label>
+          <label for="nb_image_line">{'Number of images per row'|@translate}</label>
         </span>
         <input type="text" size="3" maxlength="2" name="nb_image_line" id="nb_image_line" value="{$NB_IMAGE_LINE}">
       </li>
       <li>
         <span class="property">
-          <label for="nb_line_page">{'nb_row_per_page'|@translate}</label>
+          <label for="nb_line_page">{'Number of rows per page'|@translate}</label>
         </span>
         <input type="text" size="3" maxlength="2" name="nb_line_page" id="nb_line_page" value="{$NB_ROW_PAGE}" >
       </li>
       <li>
         <span class="property">
-          <label for="template">{'theme'|@translate}</label>
+          <label for="template">{'Interface theme'|@translate}</label>
         </span>
         {html_options name=template options=$template_options selected=$template_selection}
       </li>
       <li>
         <span class="property">
-          <label for="language">{'language'|@translate}</label>
+          <label for="Language">{'Language'|@translate}</label>
         </span>
         {html_options name=language options=$language_options selected=$language_selection}
       </li>
       <li>
         <span class="property">
-          <label for="recent_period">{'recent_period'|@translate}</label>
+          <label for="Recent period">{'Recent period'|@translate}</label>
         </span>
         <input type="text" size="3" maxlength="2" name="recent_period" id="recent_period" value="{$RECENT_PERIOD}">
       </li>
       <li>
-        <span class="property">{'auto_expand'|@translate}</span>
+        <span class="property">{'Expand all categories'|@translate}</span>
         {html_radios name='expand' options=$radio_options selected=$EXPAND}
       </li>
       <li>
-        <span class="property">{'show_nb_comments'|@translate}</span>
+        <span class="property">{'Show number of comments'|@translate}</span>
         {html_radios name='show_nb_comments' options=$radio_options selected=$NB_COMMENTS}
       </li>
       <li>
-        <span class="property">{'show_nb_hits'|@translate}</span>
+        <span class="property">{'Show number of hits'|@translate}</span>
         {html_radios name='show_nb_hits' options=$radio_options selected=$NB_HITS}
       </li>
       <li>
         <span class="property">
-          <label for="maxwidth">{'maxwidth'|@translate}</label>
+          <label for="Maximum width of the pictures">{'Maximum width of the pictures'|@translate}</label>
         </span>
         <input type="text" size="4" maxlength="4" name="maxwidth" id="maxwidth" value="{$MAXWIDTH}">
       </li>
       <li>
         <span class="property">
-          <label for="maxheight">{'maxheight'|@translate}</label>
+          <label for="Maximum height of the pictures">{'Maximum height of the pictures'|@translate}</label>
         </span>
         <input type="text" size="4" maxlength="4" name="maxheight" id="maxheight" value="{$MAXHEIGHT}">
       </li>
@@ -103,7 +103,7 @@
   <p class="bottomButtons">
     <input class="submit" type="submit" name="validate" value="{'Submit'|@translate}">
     <input class="submit" type="reset" name="reset" value="{'Reset'|@translate}">
-    <input class="submit" type="submit" name="reset_to_default" value="{'Reset_To_Default'|@translate}">
+    <input class="submit" type="submit" name="reset_to_default" value="{'Reset to default values'|@translate}">
   </p>
 
 </form>

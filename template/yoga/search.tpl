@@ -22,7 +22,7 @@
   <div class="titrePage">
     <ul class="categoryActions">
       <li><a href="{$U_HELP}" onclick="popuphelp(this.href); return false;" title="{'Help'|@translate}" rel="nofollow"><img src="{$ROOT_URL}{$themeconf.icon_dir}/help.png" class="button" alt="(?)"></a></li>
-      <li><a href="{$U_HOME}" title="{'return to homepage'|@translate}" rel="home"><img src="{$ROOT_URL}{$themeconf.icon_dir}/home.png" class="button" alt="{'home'|@translate}"></a></li>
+      <li><a href="{$U_HOME}" title="{'Home'|@translate}" rel="Home"><img src="{$ROOT_URL}{$themeconf.icon_dir}/Home.png" class="button" alt="{'Home'|@translate}"></a></li>
     </ul>
     <h2>{'Search'|@translate}</h2>
   </div>
@@ -40,18 +40,18 @@
 <form class="filter" method="post" name="search" action="{$F_SEARCH_ACTION}">
 <fieldset>
   <legend>{'Filter'|@translate}</legend>
-  <label>{'search_keywords'|@translate}
+  <label>{'Search for words'|@translate}
     <input type="text" style="width: 300px" name="search_allwords" size="30">
   </label>
   <ul>
     <li><label>
-      <input type="radio" name="mode" value="AND" checked="checked">{'search_mode_and'|@translate}
+      <input type="radio" name="mode" value="AND" checked="checked">{'Search for all terms '|@translate}
     </label></li>
     <li><label>
-      <input type="radio" name="mode" value="OR">{'search_mode_or'|@translate}
+      <input type="radio" name="mode" value="OR">{'Search for any terms'|@translate}
     </label></li>
   </ul>
-  <label>{'search_author'|@translate}
+  <label>{'Search for Author'|@translate}
     <input type="text" style="width: 300px" name="search_author" size="30">
   </label>
 </fieldset>
@@ -66,9 +66,9 @@
 {/if}
 
 <fieldset>
-  <legend>{'search_date'|@translate}</legend>
+  <legend>{'Search by Date'|@translate}</legend>
   <ul>
-    <li><label>{'search_date_type'|@translate}</label></li>
+    <li><label>{'Kind of date'|@translate}</label></li>
     <li><label>
       <input type="radio" name="date_type" value="date_creation" checked="checked">{'Creation date'|@translate}
     </label></li>
@@ -77,7 +77,7 @@
     </label></li>
   </ul>
   <ul>
-    <li><label>{'search_date_from'|@translate}</label></li>
+    <li><label>{'Date'|@translate}</label></li>
     <li>
       <select id="start_day" name="start_day">
           <option value="0">--</option>
@@ -96,7 +96,7 @@
     </li>
   </ul>
   <ul>
-    <li><label>{'search_date_to'|@translate}</label></li>
+    <li><label>{'End-Date'|@translate}</label></li>
     <li>
       <select id="end_day" name="end_day">
           <option value="0">--</option>
@@ -117,14 +117,14 @@
 </fieldset>
 
 <fieldset>
-  <legend>{'search_options'|@translate}</legend>
-  <label>{'search_categories'|@translate}
+  <legend>{'Search Options'|@translate}</legend>
+  <label>{'Search in Categories'|@translate}
     <select class="categoryList" name="cat[]" multiple="multiple" >
       {html_options options=$category_options selected=$category_options_selected}
     </select>
   </label>
   <ul>
-    <li><label>{'search_subcats_included'|@translate}</label></li>
+    <li><label>{'Search in subcategories'|@translate}</label></li>
     <li><label>
       <input type="radio" name="subcats-included" value="1" checked="checked">{'Yes'|@translate}
     </label></li>

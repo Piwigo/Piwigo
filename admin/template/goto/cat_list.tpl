@@ -21,13 +21,13 @@
   });
 </script>
 
-<h2>{'title_categories'|@translate}</h2>
+<h2>{'Categories management'|@translate}</h2>
 
 <h3>{$CATEGORIES_NAV}</h3>
 
 <form id="addVirtual" action="{$F_ACTION}" method="post">
   <p>
-    {'cat_add'|@translate} : <input type="text" name="virtual_name">
+    {'Add a virtual category'|@translate} : <input type="text" name="virtual_name">
     <input class="submit" type="submit" value="{'Submit'|@translate}" name="submitAdd" {$TAG_INPUT_ENABLED}>
     {if count($categories)>9 }
     <a href="#EoP" class="button" style="border:0;">
@@ -51,16 +51,16 @@
         {if cat_admin_access($category.ID)}
         <li><a href="{$category.U_JUMPTO}" title="{'jump to category'|@translate}"><img src="{$themeconf.admin_icon_dir}/category_jump-to.png" class="button" alt="{'jump to category'|@translate}"></a></li>
         {/if}
-        <li><a href="{$category.U_EDIT}" title="{'edit category informations'|@translate}"><img src="{$themeconf.admin_icon_dir}/category_edit.png" class="button" alt="{'edit'|@translate}"></a></li>
+        <li><a href="{$category.U_EDIT}" title="{'edit'|@translate}"><img src="{$themeconf.admin_icon_dir}/category_edit.png" class="button" alt="{'edit'|@translate}"></a></li>
         {if isset($category.U_MANAGE_ELEMENTS) }
-        <li><a href="{$category.U_MANAGE_ELEMENTS}" title="{'manage category elements'|@translate}"><img src="{$themeconf.admin_icon_dir}/category_elements.png" class="button" alt="{'elements'|@translate}"></a></li>
+        <li><a href="{$category.U_MANAGE_ELEMENTS}" title="{'elements'|@translate}"><img src="{$themeconf.admin_icon_dir}/category_elements.png" class="button" alt="{'elements'|@translate}"></a></li>
         {/if}
-        <li><a href="{$category.U_CHILDREN}" title="{'manage sub-categories'|@translate}"><img src="{$themeconf.admin_icon_dir}/category_children.png" class="button" alt="{'sub-categories'|@translate}"></a></li>
+        <li><a href="{$category.U_CHILDREN}" title="{'sub-categories'|@translate}"><img src="{$themeconf.admin_icon_dir}/category_children.png" class="button" alt="{'sub-categories'|@translate}"></a></li>
         {if isset($category.U_MANAGE_PERMISSIONS) }
-        <li><a href="{$category.U_MANAGE_PERMISSIONS}" title="{'edit category permissions'|@translate}" ><img src="{$themeconf.admin_icon_dir}/category_permissions.png" class="button" alt="{'permissions'|@translate}"></a></li>
+        <li><a href="{$category.U_MANAGE_PERMISSIONS}" title="{'Permissions'|@translate}" ><img src="{$themeconf.admin_icon_dir}/category_Permissions.png" class="button" alt="{'Permissions'|@translate}"></a></li>
         {/if}
         {if isset($category.U_DELETE) }
-        <li><a href="{$category.U_DELETE}" title="{'delete category'|@translate}" onclick="return confirm('{'Are you sure?'|@translate|@escape:javascript}');"><img src="{$themeconf.admin_icon_dir}/category_delete.png" class="button" alt="{'delete'|@translate}"></a></li>
+        <li><a href="{$category.U_DELETE}" title="{'Are you sure?'|@translate|@escape:javascript}');"><img src="{$themeconf.admin_icon_dir}/category_delete.png" class="button" alt="{'delete'|@translate}" onclick="return confirm('{'Are you sure?'|@translate|@escape:javascript}');"><img src="{$themeconf.admin_icon_dir}/category_delete.png" class="button" alt="{'delete'|@translate}"></a></li>
         {/if}
       </ul>
 
@@ -68,7 +68,7 @@
       <img src="{$themeconf.admin_icon_dir}/cat_move.png" class="button drag_button" style="display:none;" alt="{'Drag to re-order'|@translate}" title="{'Drag to re-order'|@translate}">
       <strong><a href="{$category.U_CHILDREN}" title="{'manage sub-categories'|@translate}">{$category.NAME}</a></strong>
       {if $category.IS_VIRTUAL}
-      <img src="{$themeconf.admin_icon_dir}/virt_category.png" class="button" alt="{'virtual_category'|@translate}">
+      <img src="{$themeconf.admin_icon_dir}/virt_category.png" class="button" alt="{'Virtual category'|@translate}">
       {/if}
       </p>
 

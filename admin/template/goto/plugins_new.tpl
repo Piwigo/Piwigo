@@ -39,7 +39,7 @@ jQuery().ready(function(){ldelim}
     <td>{$plugin.DATE}</td>
     <td>{$plugin.AUTHOR}</td>
     <td style="text-align:center;"><a href="{$plugin.URL_INSTALL}" onclick="return confirm('{'plugins_confirm_install'|@translate|@escape:javascript}');">{'plugins_auto_install'|@translate}</a>
-      / <a href="{$plugin.URL_DOWNLOAD}">{'plugins_download'|@translate}</a>
+      / <a href="{$plugin.URL_DOWNLOAD}">{'Download file'|@translate}</a>
     </td>
   </tr>
 {/foreach}

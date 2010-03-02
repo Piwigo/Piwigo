@@ -95,7 +95,7 @@ class CalendarBase
     }
     elseif ('any' === $date_component )
     {
-      $label = l10n('calendar_any');
+      $label = l10n('All');
     }
     return $label;
   }
@@ -192,7 +192,7 @@ class CalendarBase
         array( 'start' )
           );
       $nav_bar_datas[]=array(
-        'LABEL' => l10n('calendar_any'),
+        'LABEL' => l10n('All'),
         'URL' => $url
       );
     }

@@ -62,7 +62,7 @@ if (isset($_POST['date_creation_action'])
         $_POST['date_creation_year'])
     )
   {
-    array_push($page['errors'], l10n('err_date'));
+    array_push($page['errors'], l10n('wrong date'));
   }
 }
 

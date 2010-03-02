@@ -5,7 +5,7 @@
 		<div class="thumbnailCategory">
 			<div class="illustration">
 			<a href="{$cat.URL}">
-				<img src="{$cat.TN_SRC}" alt="{$cat.TN_ALT}" title="{$cat.NAME|@replace:'"':' '} - {'hint_category'|@translate}">
+				<img src="{$cat.TN_SRC}" alt="{$cat.TN_ALT}" title="{$cat.NAME|@replace:'"':' '} - {'shows images at the root of this category'|@translate}">
 			</a>
 			</div>
 			<div class="description">

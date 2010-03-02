@@ -34,7 +34,7 @@ check_status(ACCESS_GUEST);
 //
 // Start output of page
 //
-$title= l10n('about_page_title');
+$title= l10n('About Piwigo');
 $page['body_id'] = 'theAboutPage';
 include(PHPWG_ROOT_PATH.'include/page_header.php');
 

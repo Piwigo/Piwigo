@@ -126,12 +126,12 @@ $template->assign(
   array(
     'TITLE' =>
       sprintf(
-        l10n('Manage permissions for user "%s"'),
+        l10n('Manage permissions for user \"%s\"'),
         get_username($page['user']
           )
         ),
-    'L_CAT_OPTIONS_TRUE'=>l10n('authorized'),
-    'L_CAT_OPTIONS_FALSE'=>l10n('forbidden'),
+    'L_CAT_OPTIONS_TRUE'=>l10n('Authorized'),
+    'L_CAT_OPTIONS_FALSE'=>l10n('Forbidden'),
 
     'F_ACTION' =>
         PHPWG_ROOT_PATH.

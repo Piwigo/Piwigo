@@ -61,7 +61,7 @@ function validate_upload( $temp_name, $my_max_file_size,
   $extension = get_extension( $_FILES['picture']['name'] );
   if (!in_array($extension, $conf['picture_ext']))
   {
-    array_push( $result['error'], l10n('upload_advise_filetype') );
+    array_push( $result['error'], l10n('the picture must be to the fileformat jpg, gif or png') );
     return $result;
   }
   if ( !isset( $_FILES['picture'] ) )
@@ -72,7 +72,7 @@ function validate_upload( $temp_name, $my_max_file_size,
   else if ( $_FILES['picture']['size'] > $my_max_file_size * 1024 )
   {
     array_push( $result['error'],
-                l10n('upload_advise_filesize').$my_max_file_size.' KB' );
+                l10n('the filesize of the picture must not exceed : ').$my_max_file_size.' KB' );
   }
   else
   {
@@ -80,7 +80,7 @@ function validate_upload( $temp_name, $my_max_file_size,
     // upload de la photo sous un nom temporaire
     if ( !move_uploaded_file( $_FILES['picture']['tmp_name'], $temp_name ) )
     {
-      array_push( $result['error'], l10n('upload_cannot_upload') );
+      array_push( $result['error'], l10n('can\'t upload the picture on the server') );
     }
     else
     {
@@ -90,14 +90,14 @@ function validate_upload( $temp_name, $my_max_file_size,
            and $size[0] > $image_max_width )
       {
         array_push( $result['error'],
-                    l10n('upload_advise_width').$image_max_width.' px' );
+                    l10n('the width of the picture must not exceed : ').$image_max_width.' px' );
       }
       if ( isset( $image_max_height )
            and $image_max_height != ""
            and $size[1] > $image_max_height )
       {
         array_push( $result['error'],
-                    l10n('upload_advise_height').$image_max_height.' px' );
+                    l10n('the height of the picture must not exceed : ').$image_max_height.' px' );
       }
       // $size[2] == 1 means GIF
       // $size[2] == 2 means JPG
@@ -108,7 +108,7 @@ function validate_upload( $temp_name, $my_max_file_size,
       case 2 : $result['type'] = 'jpg'; break;
       case 3 : $result['type'] = 'png'; break;
       default :
-        array_push( $result['error'], l10n('upload_advise_filetype') );
+        array_push( $result['error'], l10n('the picture must be to the fileformat jpg, gif or png') );
       }
     }
   }
@@ -181,21 +181,21 @@ if ( isset( $_POST['submit'] ) and !isset( $_GET['waiting_id'] ) )
   $path = $category['cat_dir'].$_FILES['picture']['name'];
   if ( @is_file( $path ) )
   {
-    array_push( $error, l10n('upload_file_exists') );
+    array_push( $error, l10n('A picture\'s name already used') );
   }
   // test de la présence des champs obligatoires
   if ( empty($_FILES['picture']['name']))
   {
-    array_push( $error, l10n('upload_filenotfound') );
+    array_push( $error, l10n('You must choose a picture fileformat for the image') );
   }
   if ( !preg_match( '/([_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)+)/',
              $_POST['mail_address'] ) )
   {
-    array_push( $error, l10n('reg_err_mail_address') );
+    array_push( $error, l10n('mail address must be like xxx@yyy.eee (example : jack@altern.org)') );
   }
   if ( empty($_POST['username']) )
   {
-    array_push( $error, l10n('upload_err_username') );
+    array_push( $error, l10n('the username must be given') );
   }
 
   $date_creation = '';
@@ -209,7 +209,7 @@ if ( isset( $_POST['submit'] ) and !isset( $_GET['waiting_id'] ) )
     }
     else
     {
-      array_push( $error, l10n('err_date') );
+      array_push( $error, l10n('wrong date') );
     }
   }
   // creation of the "infos" field :
@@ -224,7 +224,7 @@ if ( isset( $_POST['submit'] ) and !isset( $_GET['waiting_id'] ) )
 
   if ( !preg_match( '/^[a-zA-Z0-9-_.]+$/', $_FILES['picture']['name'] ) )
   {
-    array_push( $error, l10n('update_wrong_dirname') );
+    array_push( $error, l10n('wrong filename') );
   }
 
   if ( sizeof( $error ) == 0 )
@@ -318,7 +318,7 @@ if ( isset( $_POST['submit'] ) and isset( $_GET['waiting_id'] ) )
 //
 // Start output of page
 //
-$title= l10n('upload_title');
+$title= l10n('Upload a picture');
 $page['body_id'] = 'theUploadPage';
 include(PHPWG_ROOT_PATH.'include/page_header.php');
 $template->set_filenames(array('upload'=>'upload.tpl'));
@@ -350,7 +350,7 @@ $u_form.= '&amp;waiting_id='.$page['waiting_id'];
 
 if ( isset( $page['waiting_id'] ) )
 {
-  $advise_title = l10n('upload_advise_thumbnail').$_FILES['picture']['name'];
+  $advise_title = l10n('Optional, but recommended : choose a thumbnail to associate to ').$_FILES['picture']['name'];
 }
 else
 {
@@ -381,7 +381,7 @@ if ( !$page['upload_successful'] )
 //--------------------------------------------------------------------- advises
   if ( !empty($conf['upload_maxfilesize']) )
   {
-    $content = l10n('upload_advise_filesize');
+    $content = l10n('the filesize of the picture must not exceed : ');
     $content.= $conf['upload_maxfilesize'].' KB';
     $template->append('advises', $content);
   }
@@ -390,13 +390,13 @@ if ( !$page['upload_successful'] )
   {
     if ( $conf['upload_maxwidth_thumbnail'] != '' )
     {
-      $content = l10n('upload_advise_width');
+      $content = l10n('the width of the picture must not exceed : ');
       $content.= $conf['upload_maxwidth_thumbnail'].' px';
       $template->append('advises', $content);
     }
     if ( $conf['upload_maxheight_thumbnail'] != '' )
     {
-      $content = l10n('upload_advise_height');
+      $content = l10n('the height of the picture must not exceed : ');
       $content.= $conf['upload_maxheight_thumbnail'].' px';
       $template->append('advises', $content);
     }
@@ -405,18 +405,18 @@ if ( !$page['upload_successful'] )
   {
     if ( $conf['upload_maxwidth'] != '' )
     {
-      $content = l10n('upload_advise_width');
+      $content = l10n('the width of the picture must not exceed : ');
       $content.= $conf['upload_maxwidth'].' px';
       $template->append('advises', $content);
     }
     if ( $conf['upload_maxheight'] != '' )
     {
-      $content = l10n('upload_advise_height');
+      $content = l10n('the height of the picture must not exceed : ');
       $content.= $conf['upload_maxheight'].' px';
       $template->append('advises', $content);
     }
   }
-  $template->append('advises', l10n('upload_advise_filetype'));
+  $template->append('advises', l10n('the picture must be to the fileformat jpg, gif or png'));
 
 //----------------------------------------- optionnal username and mail address
   if ( !isset( $page['waiting_id'] ) )

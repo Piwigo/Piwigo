@@ -2,7 +2,7 @@
 {include file='include/autosize.inc.tpl'}
 
 <div class="titrePage">
-  <h2>{'title_configuration'|@translate} {$TABSHEET_TITLE}</h2>
+  <h2>{'Piwigo configuration'|@translate} {$TABSHEET_TITLE}</h2>
 </div>
 
 {if !isset($default)}
@@ -69,14 +69,14 @@
 
     <li>
       <label>
-        <span class="property">{'obligatory_user_mail_address'|@translate}</span>
+        <span class="property">{'Mail address is obligatory for all users'|@translate}</span>
         <input type="checkbox" name="obligatory_user_mail_address" {if ($main.obligatory_user_mail_address)}checked="checked"{/if}>
       </label>
     </li>
 
     <li>
       <label>
-        <span class="property">{'Email administrators when a new user registers'|@translate}</span>
+        <span class="property">{'Email admins when a new user registers'|@translate}</span>
         <input type="checkbox" name="email_admin_on_new_user" {if ($main.email_admin_on_new_user)}checked="checked"{/if}>
       </label>
     </li>
@@ -89,15 +89,15 @@
   <legend></legend>
   <ul>
       <li>
-        <label><span class="property">{'conf_history_guest'|@translate}</span><input type="checkbox" name="history_guest" {if ($history.history_guest)}checked="checked"{/if}></label>
+        <label><span class="property">{'Save page visits by guests'|@translate}</span><input type="checkbox" name="history_guest" {if ($history.history_guest)}checked="checked"{/if}></label>
       </li>
 
       <li>
-        <label><span class="property">{'conf_history_user'|@translate}</span><input type="checkbox" name="log" {if ($history.log)}checked="checked"{/if}></label>
+        <label><span class="property">{'Save page visits by users'|@translate}</span><input type="checkbox" name="log" {if ($history.log)}checked="checked"{/if}></label>
       </li>
 
       <li>
-        <label><span class="property">{'conf_history_admin'|@translate}</span><input type="checkbox" name="history_admin" {if ($history.history_admin)}checked="checked"{/if}></label>
+        <label><span class="property">{'Save page visits by administrators'|@translate}</span><input type="checkbox" name="history_admin" {if ($history.history_admin)}checked="checked"{/if}></label>
       </li>
   </ul>
 </fieldset>
@@ -132,14 +132,14 @@
 
     <li>
       <label>
-        <span class="property">{'Email administrators when a valid comment is entered'|@translate}</span>
+        <span class="property">{'Email admins when a valid comment is entered'|@translate}</span>
         <input type="checkbox" name="email_admin_on_comment" {if ($comments.email_admin_on_comment)}checked="checked"{/if}>
       </label>
     </li>
 
     <li>
       <label>
-        <span class="property">{'Email administrators when a comment requires validation'|@translate}</span>
+        <span class="property">{'Email admins when a comment requires validation'|@translate}</span>
         <input type="checkbox" name="email_admin_on_comment_validation" {if ($comments.email_admin_on_comment_validation)}checked="checked"{/if}>
       </label>
     </li>
@@ -188,7 +188,7 @@
     </li>
     <li>
       <label>
-        <span class="property">{'Email administrators when a picture is uploaded'|@translate}</span>
+        <span class="property">{'Email admins when a picture is uploaded'|@translate}</span>
         <input type="checkbox" name="email_admin_on_picture_uploaded" {if ($upload.email_admin_on_picture_uploaded)}checked="checked"{/if}>
       </label>
     </li>

@@ -529,7 +529,7 @@ function get_html_description_recent_post_date($date_detail)
         .l10n_dec('%d new element', '%d new elements', $date_detail['nb_elements'])
         .' ('
         .'<a href="'.make_index_url(array('section'=>'recent_pics')).'">'
-          .l10n('recent_pics_cat').'</a>'
+          .l10n('Recent pictures').'</a>'
         .')'
         .'</li><br>';
 

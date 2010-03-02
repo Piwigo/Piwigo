@@ -152,7 +152,7 @@ INSERT INTO '.SEARCH_TABLE.'
   }
   else
   {
-    array_push($errors, l10n('search_one_clause_at_least'));
+    array_push($errors, l10n('Empty query. No criteria has been entered.'));
   }
 }
 //----------------------------------------------------------------- redirection
@@ -172,7 +172,7 @@ if (isset($_POST['submit']) and count($errors) == 0)
 //
 // Start output of page
 //
-$title= l10n('search_title');
+$title= l10n('Search');
 $page['body_id'] = 'theSearchPage';
 
 $template->set_filename('search' ,'search.tpl' );

@@ -30,6 +30,7 @@ include_once( PHPWG_ROOT_PATH .'include/functions_html.inc.php' );
 include_once( PHPWG_ROOT_PATH .'include/functions_tag.inc.php' );
 include_once( PHPWG_ROOT_PATH .'include/functions_url.inc.php' );
 include_once( PHPWG_ROOT_PATH .'include/functions_plugins.inc.php' );
+include_once( PHPWG_ROOT_PATH .'include/php-gettext/gettext.inc.php' );
 
 //----------------------------------------------------------- generic functions
 function get_extra_fields($order_by_fields) 
@@ -39,7 +40,7 @@ function get_extra_fields($order_by_fields)
 			 $order_by_fields
 			 );
   if (!empty($fields))
-  {
+  { 
     $fields = ','.$fields;
   }
   return $fields;
@@ -173,7 +174,7 @@ function mkgetdir($dir, $flags=MKGETDIR_DEFAULT)
     umask($umask);
     if ($mkd==false)
     {
-      !($flags&MKGETDIR_DIE_ON_ERROR) or fatal_error( "$dir ".l10n('no_write_access'));
+      !($flags&MKGETDIR_DIE_ON_ERROR) or fatal_error( "$dir ".l10n('no write access'));
       return false;
     }
     if( $flags&MKGETDIR_PROTECT_HTACCESS )
@@ -189,7 +190,7 @@ function mkgetdir($dir, $flags=MKGETDIR_DEFAULT)
   }
   if ( !is_writable($dir) )
   {
-    !($flags&MKGETDIR_DIE_ON_ERROR) or fatal_error( "$dir ".l10n('no_write_access'));
+    !($flags&MKGETDIR_DIE_ON_ERROR) or fatal_error( "$dir ".l10n('no write access'));
     return false;
   }
   return true;
@@ -213,7 +214,7 @@ function mkget_thumbnail_dir($dirname, &$errors)
   if (! mkgetdir($tndir, MKGETDIR_NONE) )
   {
     array_push($errors,
-          '['.$dirname.'] : '.l10n('no_write_access'));
+          '['.$dirname.'] : '.l10n('no write access'));
     return false;
   }
   return $tndir;
@@ -620,7 +621,7 @@ function redirect_html( $url , $msg = '', $refresh_time = 0)
 
   if (empty($msg))
   {
-    $msg = nl2br(l10n('redirect_msg'));
+    $msg = nl2br(l10n('Redirection...'));
   }
 
   $refresh = $refresh_time;
@@ -866,16 +867,28 @@ function get_name_from_file($filename)
  * @param string key
  * @return string
  */
-function l10n($key)
+function l10n($key, $textdomain='messages')
 {
-  global $lang, $conf;
+  global $user;
 
-  if ($conf['debug_l10n'] and !isset($lang[$key]) and !empty($key))
+  if (empty($user['language']))
   {
-    trigger_error('[l10n] language key "'.$key.'" is not defined', E_USER_WARNING);
+    $locale = $GLOBALS['language'];
+  } 
+  else 
+  {
+    $locale = $user['language'];
   }
 
-  return isset($lang[$key]) ? $lang[$key] : $key;
+  T_setlocale(LC_ALL, $locale.'.UTF-8');
+
+  // Specify location of translation tables
+  T_bindtextdomain($textdomain, "./language");
+
+  // Choose domain
+  T_textdomain($textdomain);
+  
+  return T_gettext($key);
 }
 
 /**
@@ -887,18 +900,35 @@ function l10n($key)
  * @param decimal value
  * @return string
  */
-function l10n_dec($singular_fmt_key, $plural_fmt_key, $decimal)
+function l10n_dec($singular_fmt_key, $plural_fmt_key, 
+		  $decimal, $textdomain='messages')
 {
-  global $lang_info;
+  global $user;
 
-  return
-    sprintf(
-      l10n((
-        (($decimal > 1) or ($decimal == 0 and $lang_info['zero_plural']))
-          ? $plural_fmt_key
-          : $singular_fmt_key
-        )), $decimal);
+  if (empty($user['language']))
+  {
+    $locale = $GLOBALS['language'];
+  } 
+  else 
+  {
+    $locale = $user['language'];
+  }
+
+  T_setlocale(LC_ALL, $locale.'.UTF-8');
+
+  // Specify location of translation tables
+  T_bindtextdomain($textdomain, "./language");
+
+  // Choose domain
+  T_textdomain($textdomain);
+
+  return sprintf(T_ngettext($singular_fmt_key, 
+			    $plural_fmt_key, 
+			    $decimal),
+		 $decimal
+		 );
 }
+
 /*
  * returns a single element to use with l10n_args
  *
@@ -1435,7 +1465,7 @@ function get_icon($date, $is_child_date = false)
   if (!isset($cache['get_icon']['title']))
   {
     $cache['get_icon']['title'] = sprintf(
-      l10n('elements posted during the last %d days'),
+      l10n('images posted during the last %d days'),
       $user['recent_period']
       );
   }

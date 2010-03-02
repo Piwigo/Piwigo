@@ -1182,7 +1182,7 @@ function create_virtual_category($category_name, $parent_id=null)
   // is the given category name only containing blank spaces ?
   if (preg_match('/^\s*$/', $category_name))
   {
-    return array('error' => l10n('cat_error_name'));
+    return array('error' => l10n('The name of a category should not be empty'));
   }
 
   $parent_id = !empty($parent_id) ? $parent_id : 'NULL';
@@ -1268,7 +1268,7 @@ UPDATE
   pwg_query($query);
 
   return array(
-    'info' => l10n('cat_virtual_added'),
+    'info' => l10n('Virtual category added'),
     'id'   => $inserted_id,
     );
 }
@@ -1666,7 +1666,7 @@ SELECT id
 
     return array(
       'info' => sprintf(
-        l10n('Tag "%s" was added'),
+        l10n('Tag \"%s\" was added'),
         stripslashes($tag_name)
         ),
       'id' => $inserted_id,
@@ -1676,7 +1676,7 @@ SELECT id
   {
     return array(
       'error' => sprintf(
-        l10n('Tag "%s" already exists'),
+        l10n('Tag \"%s\" already exists'),
         stripslashes($tag_name)
         )
       );

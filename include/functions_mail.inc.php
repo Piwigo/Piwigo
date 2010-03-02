@@ -646,7 +646,7 @@ function pwg_mail($to, $args = array())
           'VERSION' => $conf['show_version'] ? PHPWG_VERSION : '',
           'PHPWG_URL' => PHPWG_URL,
 
-          'TITLE_MAIL' => urlencode(l10n('title_send_mail')),
+          'TITLE_MAIL' => urlencode(l10n('A comment on your site')),
           'MAIL' => get_webmaster_mail_address()
           ));
 

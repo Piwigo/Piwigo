@@ -55,10 +55,10 @@ class c13y_internal
       if (version_compare($elem['current'], $elem['required'], '<'))
       {
         $c13y->add_anomaly(
-          sprintf(l10n('c13y_version_anomaly'), $elem['type'], $elem['current'], $elem['required']),
+          sprintf(l10n('The version of %s [%s] installed is not compatible with the version required [%s]'), $elem['type'], $elem['current'], $elem['required']),
           null,
           null,
-          l10n('c13y_version_correction')
+          l10n('You need to upgrade your system to take full advantage of the application else the application will not work correctly, or not at all')
           .'<br>'.
           $c13y->get_htlm_links_more_info());
       }
@@ -80,10 +80,10 @@ class c13y_internal
       if (($conf[$value]) and (!function_exists('read_exif_data')))
       {
         $c13y->add_anomaly(
-          sprintf(l10n('c13y_exif_anomaly'), '$conf[\''.$value.'\']'),
+          sprintf(l10n('%s value is not correct file because exif are not supported'), '$conf[\''.$value.'\']'),
           null,
           null,
-          sprintf(l10n('c13y_exif_correction'), '$conf[\''.$value.'\']')
+          sprintf(l10n('%s must be to set to false in your config_local.inc.php file'), '$conf[\''.$value.'\']')
           .'<br>'.
           $c13y->get_htlm_links_more_info());
       }
@@ -208,7 +208,7 @@ class c13y_internal
 
             create_user_infos($id);
 
-            $page['infos'][] = sprintf(l10n('c13y_user_created'), $name, $password);
+            $page['infos'][] = sprintf(l10n('User \"%s\" created with \"%s\" like password'), $name, $password);
 
             $result = true;
           }
@@ -239,7 +239,7 @@ class c13y_internal
               array('primary' => array('user_id'),'update' => array('status')),
               $updates);
 
-            $page['infos'][] = sprintf(l10n('c13y_user_status_updated'), get_username($id));
+            $page['infos'][] = sprintf(l10n('Status of user \"%s\" updated'), get_username($id));
 
             $result = true;
           }

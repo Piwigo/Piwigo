@@ -16,13 +16,13 @@ jQuery().ready(function(){ldelim}
 
 {if isset($plugins_not_uptodate)}
 <br>
-<b>{'plugins_need_update'|@translate}</b>
+<b>{'Plugins which need upgrade'|@translate}</b>
 <table class="table2 plugins">
 <thead>
   <tr class="throw">
     <td>{'Name'|@translate}</td>
-    <td>{'plugins_actual_version'|@translate}</td>
-    <td>{'plugins_new_version'|@translate}</td>
+    <td>{'Current<br>version'|@translate}</td>
+    <td>{'Available<br>version'|@translate}</td>
     <td>{'Actions'|@translate}</td>
   </tr>
 </thead>
@@ -32,7 +32,7 @@ jQuery().ready(function(){ldelim}
     <td style="text-align:center;">{$plugin.VERSION}</td>
     <td style="text-align:center;"><a href="{$plugin.EXT_URL}" onclick="window.open(this.href); return false;" class="cluetip" title="{$plugin.EXT_NAME}|{$plugin.NEW_VER_DESC|htmlspecialchars|nl2br}">{$plugin.NEW_VERSION}</a></td>
     <td style="text-align:center;"><a href="{$plugin.URL_UPDATE}" onclick="return confirm('{'plugins_confirm_upgrade'|@translate|@escape:javascript}');">{'plugins_auto_update'|@translate}</a>
-      / <a href="{$plugin.URL_DOWNLOAD}">{'plugins_download'|@translate}</a></td>
+      / <a href="{$plugin.URL_DOWNLOAD}">{'Download file'|@translate}</a></td>
   </tr>
 {/foreach}
 </table>
@@ -41,7 +41,7 @@ jQuery().ready(function(){ldelim}
 
 {if isset($plugins_uptodate)}
 <br>
-<b>{'plugins_dontneed_update'|@translate}</b>
+<b>{'Plugins up to date'|@translate}</b>
 <table class="table2 plugins">
 <thead>
   <tr class="throw">
@@ -61,7 +61,7 @@ jQuery().ready(function(){ldelim}
 
 {if isset($plugins_cant_check)}
 <br>
-<b>{'plugins_cant_check'|@translate}</b>
+<b>{'Plugin versions can\'t be checked'|@translate}</b>
 <table class="table2 plugins">
 <thead>
   <tr class="throw">

@@ -3,7 +3,7 @@
 {include file='include/resize.inc.tpl'}
 
 <div class="titrePage">
-  <h2>{'title_edit_cat'|@translate}</h2>
+  <h2>{'Edit a category'|@translate}</h2>
 </div>
 
 <h3>{$CATEGORIES_NAV}</h3>
@@ -13,15 +13,15 @@
   <li><a href="{$U_JUMPTO}" title="{'jump to category'|@translate}"><img src="{$themeconf.admin_icon_dir}/category_jump-to.png" class="button" alt="{'jump to category'|@translate}"></a></li>
   {/if}
   {if isset($U_MANAGE_ELEMENTS) }
-  <li><a href="{$U_MANAGE_ELEMENTS}" title="{'manage category elements'|@translate}"><img src="{$ROOT_URL}{$themeconf.admin_icon_dir}/category_elements.png" class="button" alt="{'elements'|@translate}"></a></li>
-  <li><a href="{$U_MANAGE_RANKS}" title="{'manage image ranks'|@translate}"><img src="{$ROOT_URL}{$themeconf.admin_icon_dir}/ranks.png" class="button" alt="{'ranks'|@translate}"></a></li>
+  <li><a href="{$U_MANAGE_ELEMENTS}" title="{'elements'|@translate}"><img src="{$ROOT_URL}{$themeconf.admin_icon_dir}/category_elements.png" class="button" alt="{'elements'|@translate}"></a></li>
+  <li><a href="{$U_MANAGE_RANKS}" title="{'ranks'|@translate}"><img src="{$ROOT_URL}{$themeconf.admin_icon_dir}/ranks.png" class="button" alt="{'ranks'|@translate}"></a></li>
   {/if}
-  <li><a href="{$U_CHILDREN}" title="{'manage sub-categories'|@translate}"><img src="{$ROOT_URL}{$themeconf.admin_icon_dir}/category_children.png" class="button" alt="{'sub-categories'|@translate}"></a></li>
+  <li><a href="{$U_CHILDREN}" title="{'sub-categories'|@translate}"><img src="{$ROOT_URL}{$themeconf.admin_icon_dir}/category_children.png" class="button" alt="{'sub-categories'|@translate}"></a></li>
   {if isset($U_MANAGE_PERMISSIONS) }
-  <li><a href="{$U_MANAGE_PERMISSIONS}" title="{'edit category permissions'|@translate}"><img src="{$ROOT_URL}{$themeconf.admin_icon_dir}/category_permissions.png" class="button" alt="{'permissions'|@translate}"></a></li>
+  <li><a href="{$U_MANAGE_PERMISSIONS}" title="{'Permissions'|@translate}"><img src="{$ROOT_URL}{$themeconf.admin_icon_dir}/category_Permissions.png" class="button" alt="{'Permissions'|@translate}"></a></li>
   {/if}
   {if isset($U_DELETE) }
-  <li><a href="{$U_DELETE}" title="{'delete category'|@translate}" onclick="return confirm('{'Are you sure?'|@translate|@escape:'javascript'}');"><img src="{$ROOT_URL}{$themeconf.admin_icon_dir}/category_delete.png" class="button" alt="{'delete'|@translate}"></a></li>
+  <li><a href="{$U_DELETE}" title="{'Are you sure?'|@translate|@escape:'javascript'}');"><img src="{$ROOT_URL}{$themeconf.admin_icon_dir}/category_delete.png" class="button" alt="{'delete'|@translate}" onclick="return confirm('{'Are you sure?'|@translate|@escape:'javascript'}');"><img src="{$ROOT_URL}{$themeconf.admin_icon_dir}/category_delete.png" class="button" alt="{'delete'|@translate}"></a></li>
   {/if}
 </ul>
 
@@ -33,7 +33,7 @@
 
     {if isset($CAT_FULL_DIR) }
     <tr>
-      <td><strong>{'storage'|@translate}</strong></td>
+      <td><strong>{'Directory'|@translate}</strong></td>
       <td class="row1">{$CAT_FULL_DIR}</td>
     </tr>
     {/if}
@@ -68,26 +68,26 @@
   <legend>{'Options'|@translate}</legend>
   <table>
     <tr>
-      <td><strong>{'conf_access'|@translate}</strong>
+      <td><strong>{'Access type'|@translate}</strong>
       <td>
         {html_radios name='status' values=$status_values output=$status_values|translate selected=$CAT_STATUS}
       </td>
     </tr>
     <tr>
-      <td><strong>{'lock'|@translate}</strong>
+      <td><strong>{'Lock'|@translate}</strong>
       <td>
         {html_radios name='visible' values='true,false'|@explode output='No,Yes'|@explode|translate selected=$CAT_VISIBLE}
       </td>
     </tr>
     <tr>
-      <td><strong>{'comments'|@translate}</strong>
+      <td><strong>{'Comments'|@translate}</strong>
       <td>
         {html_radios name='commentable' values='false,true'|@explode output='No,Yes'|@explode|translate selected=$CAT_COMMENTABLE}
       </td>
     </tr>
     {if isset($SHOW_UPLOADABLE) }
     <tr>
-      <td><strong>{'editcat_uploadable'|@translate}</strong>
+      <td><strong>{'Authorize upload'|@translate}</strong>
       <td>
         {html_radios name='uploadable' values='false,true'|@explode output='No,Yes'|@explode|translate selected=$CAT_UPLOADABLE}
       </td>
@@ -99,7 +99,7 @@
 <fieldset id="image_order">
   <legend>{'Sort order'|@translate}</legend>
   <input type="checkbox" name="image_order_default" id="image_order_default" {$IMG_ORDER_DEFAULT}>
-  <label for="image_order_default">{'Use default sort order'|@translate}</label>
+  <label for="image_order_default">{'Use the default image sort order (defined in the configuration file)'|@translate}</label>
   <br>
   <input type="checkbox" name="image_order_subcats" id="image_order_subcats">
   <label for="image_order_subcats">{'Apply to subcategories'|@translate}</label>
@@ -135,7 +135,7 @@
       </td>
       <td>
         {if $representant.ALLOW_SET_RANDOM }
-        <p><input class="submit" type="submit" name="set_random_representant" value="{'cat_representant'|@translate}" {$TAG_INPUT_ENABLED}></p>
+        <p><input class="submit" type="submit" name="set_random_representant" value="{'Find a new representant by random'|@translate}" {$TAG_INPUT_ENABLED}></p>
         {/if}
 
         {if isset($representant.ALLOW_DELETE) }
@@ -213,7 +213,7 @@
       </td>
     </tr>
     <tr>
-      <td><strong>{'mail_content'|@translate}</strong></td>
+      <td><strong>{'Mail content'|@translate}</strong></td>
       <td>
         <textarea cols="50" rows="5" name="mail_content" id="mail_content" class="description">{$MAIL_CONTENT}</textarea>
       </td>

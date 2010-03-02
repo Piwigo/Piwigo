@@ -66,14 +66,14 @@ $advanced_features = array();
 array_push($advanced_features,
   array
   (
-    'CAPTION' => l10n('Elements_not_linked'),
+    'CAPTION' => l10n('Not linked elements'),
     'URL' => get_root_url().'admin.php?page=element_set&amp;cat=not_linked'
   ));
 
 array_push($advanced_features,
   array
   (
-    'CAPTION' => l10n('Duplicates'),
+    'CAPTION' => l10n('Files with same name in more than one physical category'),
     'URL' => get_root_url().'admin.php?page=element_set&amp;cat=duplicates'
   ));
 

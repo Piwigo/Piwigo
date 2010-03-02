@@ -1,12 +1,12 @@
 {html_head}
 <link rel="alternate" type="application/rss+xml" title="{'Image only RSS feed'|@translate}" href="{$U_FEED_IMAGE_ONLY}">
-<link rel="alternate" type="application/rss+xml" title="{'Complete RSS feed'|@translate}" href="{$U_FEED}">
+<link rel="alternate" type="application/rss+xml" title="{'Complete RSS feed (images, comments)'|@translate}" href="{$U_FEED}">
 {/html_head}
 <div id="content" class="content">
 
   <div class="titrePage">
     <ul class="categoryActions">
-      <li><a href="{$U_HOME}" title="{'return to homepage'|@translate}"><img src="{$themeconf.icon_dir}/home.png" class="button" alt="{'home'|@translate}"></a></li>
+      <li><a href="{$U_HOME}" title="{'Home'|@translate}"><img src="{$themeconf.icon_dir}/Home.png" class="button" alt="{'Home'|@translate}"></a></li>
     </ul>
     <h2>{'Notification'|@translate}</h2>
   </div>
@@ -18,7 +18,7 @@
       <a href="{$U_FEED_IMAGE_ONLY}">{'Image only RSS feed'|@translate}</a><br><br>
     </dt>
     <dt>
-      <a href="{$U_FEED}">{'Complete RSS feed'|@translate}</a>
+      <a href="{$U_FEED}">{'Complete RSS feed (images, comments)'|@translate}</a>
     </dt>
   </dl>
 </div>

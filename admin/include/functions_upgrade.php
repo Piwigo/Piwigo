@@ -127,7 +127,7 @@ WHERE id IN ("' . implode('","', $plugins) . '")
     pwg_query($query);
 
     array_push($page['infos'],
-      l10n('deactivated plugins').'<p><i>'.implode(', ', $plugins).'</i></p>');
+      l10n('As a precaution, following plugins have been deactivated. You must check for plugins upgrade before reactiving them:').'<p><i>'.implode(', ', $plugins).'</i></p>');
   }
 }
 
@@ -174,7 +174,7 @@ WHERE '.$conf['user_fields']['username'].'="'.$username.'"
 
   if ($row['password'] != $conf['pass_convert']($password))
   {
-    array_push($page['errors'], l10n('invalid_pwd'));
+    array_push($page['errors'], l10n('Invalid password!'));
   }
   elseif ($row['status'] != 'admin' and $row['status'] != 'webmaster')
   {

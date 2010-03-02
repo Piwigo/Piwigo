@@ -286,9 +286,9 @@ function get_category_preferred_image_orders()
 
   return trigger_event('get_category_preferred_image_orders',
     array(
-    array(l10n('default_sort'), '', true),
+    array(l10n('Default'), '', true),
     array(l10n('Average rate'), 'average_rate DESC', $conf['rate']),
-    array(l10n('most_visited_cat'), 'hit DESC', true),
+    array(l10n('Most visited'), 'hit DESC', true),
     array(l10n('Creation date'), 'date_creation DESC', true),
     array(l10n('Post date'), 'date_available DESC', true),
     array(l10n('File name'), 'file ASC', true),
@@ -297,7 +297,7 @@ function get_category_preferred_image_orders()
       'rank ASC',
       ('categories' == @$page['section'] and !isset($page['flat']) and !isset($page['chronology_field']) )
       ),
-    array( l10n('permissions'), 'level DESC', is_admin() )
+    array( l10n('Permissions'), 'level DESC', is_admin() )
     ));
 }
 
@@ -479,7 +479,7 @@ function get_display_images_count($cat_nb_images, $cat_count_images, $cat_count_
       //no descendant categories or descendants do not contain images
       if (! $short_message)
       {
-        $display_text.= ' '.l10n('images_available_cpl');
+        $display_text.= ' '.l10n('in this category');
       }
     }
     else

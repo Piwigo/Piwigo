@@ -68,26 +68,26 @@ if (isset($_GET['upgradestatus']) and isset($_GET['plugin']))
     case 'ok':
       array_push($page['infos'],
          sprintf(
-            l10n('plugins_upgrade_ok'),
+            l10n('%s has been successfully upgraded.'),
             $plugins->fs_plugins[$_GET['plugin']]['name']));
       break;
 
     case 'temp_path_error':
-      array_push($page['errors'], l10n('plugins_temp_path_error'));
+      array_push($page['errors'], l10n('Can\'t create temporary file.'));
       break;
 
     case 'dl_archive_error':
-      array_push($page['errors'], l10n('plugins_dl_archive_error'));
+      array_push($page['errors'], l10n('Can\'t download archive.'));
       break;
 
     case 'archive_error':
-      array_push($page['errors'], l10n('plugins_archive_error'));
+      array_push($page['errors'], l10n('Can\'t read or extract archive.'));
       break;
 
     default:
       array_push($page['errors'],
-        sprintf(l10n('plugins_extract_error'), $_GET['upgradestatus']),
-        l10n('plugins_check_chmod'));
+        sprintf(l10n('An error occured during extraction (%s).'), $_GET['upgradestatus']),
+        l10n('Please check \"plugins\" folder and sub-folders permissions (CHMOD).'));
   }  
 }
 
@@ -157,7 +157,7 @@ if ($plugins->get_server_plugins())
 }
 else
 {
-  array_push($page['errors'], l10n('plugins_server_error'));
+  array_push($page['errors'], l10n('Can\'t connect to server.'));
 }
 
 $template->assign_var_from_handle('ADMIN_CONTENT', 'plugins');

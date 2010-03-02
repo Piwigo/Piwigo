@@ -57,13 +57,13 @@ if (isset($_GET['unsubscribe'])
 }
 else
 {
-  array_push($page['errors'], l10n('nbm_unknown_identifier'));
+  array_push($page['errors'], l10n('Unknown identifier'));
 }
 
 // +-----------------------------------------------------------------------+
 // | template initialization                                               |
 // +-----------------------------------------------------------------------+
-$title = l10n('nbm_item_notification');
+$title = l10n('Notification');
 $page['body_id'] = 'theNBMPage';
 include(PHPWG_ROOT_PATH.'include/page_header.php');
 

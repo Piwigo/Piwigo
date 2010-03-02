@@ -2,9 +2,9 @@
 <div id="content" class="content">
   <div class="titrePage">
     <ul class="categoryActions">
-      <li><a href="{$U_HOME}" title="{'Go through the gallery as a visitor'|@translate}"><img src="{$themeconf.icon_dir}/home.png" class="button" alt="{'home'|@translate}"></a></li>
+      <li><a href="{$U_HOME}" title="{'Home'|@translate}"><img src="{$themeconf.icon_dir}/Home.png" class="button" alt="{'Home'|@translate}"></a></li>
     </ul>
-    <h2>{'nbm_item_notification'|@translate}</h2>
+    <h2>{'Notification'|@translate}</h2>
   </div>
 
   {if not empty($errors)}

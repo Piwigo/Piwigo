@@ -1,4 +1,4 @@
-<h2>{'Rating'|@translate} [{$NB_ELEMENTS} {'elements'|@translate}]</h2>
+<h2>{'elements'|@translate} [{$NB_ELEMENTS} {'elements'|@translate}]</h2>
 
 <form action="{$F_ACTION}" method="GET" id="update" class="filter">
   <fieldset>
@@ -58,7 +58,7 @@
     <td>{$rate.RATE}</td>
     <td><b>{$rate.USER}</b></td>
     <td><span class="date">{$rate.DATE}</span></td>
-    <td><a href="{$rate.U_DELETE}" {$TAG_INPUT_ENABLED}><img src="{$themeconf.admin_icon_dir}/delete.png" class="button" style="border:none;vertical-align:middle; margin-left:5px;" alt="[{'delete'|@translate}]"></a></td>
+    <td><a href="{$rate.U_DELETE}" {$TAG_INPUT_ENABLED}><img src="{$themeconf.admin_icon_dir}/Delete.png" class="button" style="border:none;vertical-align:middle; margin-left:5px;" alt="[{'Delete'|@translate}]"></a></td>
 </tr>
 {/foreach} {*rates*}
 {/foreach} {*images*}

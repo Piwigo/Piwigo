@@ -39,7 +39,7 @@ if ( !empty($_GET['redirect']) )
   $redirect_to = urldecode($_GET['redirect']);
   if ( is_a_guest() )
   {
-    array_push($errors, l10n('access_forbiden'));
+    array_push($errors, l10n('You are not authorized to access the requested page'));
   }
 }
 
@@ -62,7 +62,7 @@ if (isset($_POST['login']))
     }
     else
     {
-      array_push( $errors, l10n('invalid_pwd') );
+      array_push( $errors, l10n('Invalid password!') );
     }
   }
 }
@@ -71,7 +71,7 @@ if (isset($_POST['login']))
 //
 // Start output of page
 //
-$title = l10n('identification');
+$title = l10n('Identification');
 $page['body_id'] = 'theIdentificationPage';
 include(PHPWG_ROOT_PATH.'include/page_header.php');
 

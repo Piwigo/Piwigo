@@ -1,0 +1,2649 @@
+# Piwigo gettext master template file
+# Copyright(C) 2008-20010 Piwigo Team - http://piwigo.org 
+# This file is distributed under the same license as Piwigo
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Piwigo Colibri\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-02-18 09:23+0100\n"
+"PO-Revision-Date: 2010-02-24 21:16+0100\n"
+"Last-Translator: Nicolas <nikrou77@gmail.com>\n"
+"Language-Team: Spanish <team-i18n@piwigo.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "About"
+msgstr "Acerca de"
+
+msgid "About Piwigo"
+msgstr "Acerca de Piwigo"
+
+msgid "Free access"
+msgstr "Acceso libre"
+
+msgid "Access to all"
+msgstr "Acceso todos"
+
+msgid "Access to subscribed"
+msgstr "Acceso inscritos"
+
+msgid "Access to administrators"
+msgstr "Acceso administradores"
+
+msgid "Access to webmasters"
+msgstr "Acceso webmestres"
+
+msgid "No access"
+msgstr "Ningún acceso"
+
+msgid "You are not authorized to access the requested page"
+msgstr "No dispone de autorización para ver la página solicitada"
+
+msgid "Actions"
+msgstr "Acciones"
+
+msgid "Activate"
+msgstr "Acelerar"
+
+msgid "Add"
+msgstr "Añadir"
+
+msgid "Add a tag"
+msgstr "Añadir un tag"
+
+msgid "Add a user"
+msgstr "Añadir un utilizador"
+
+msgid "Add/delete a permalink"
+msgstr "Añadir / borrar un lazo permanente"
+
+msgid "add this image to your favorites"
+msgstr "Agregar a los favoritos"
+
+msgid "Add group"
+msgstr "Añadir un grupo"
+
+msgid "add new elements to caddie"
+msgstr "añadir los nuevos elementos a la cesta"
+
+msgid "Add selected elements to caddie"
+msgstr "Añadir los elementos seleccionados a la cesta"
+
+msgid "add tags"
+msgstr "Añadir los tags"
+
+msgid "add to caddie"
+msgstr "Agregar a la cesta"
+
+msgid "Administration"
+msgstr "Administración"
+
+msgid "Administrator, webmaster and special user cannot use this method"
+msgstr "El Administrador, el administrador del sitio y el usuario especial no pueden utilizar este método"
+
+msgid "Advanced features"
+msgstr "Funciones avanzadas"
+
+msgid "Adviser"
+msgstr "Consejero"
+
+msgid "Adviser mode enabled"
+msgstr "Modo de recomendaciones activo"
+
+msgid "after"
+msgstr ""
+
+msgid "all"
+msgstr "todo"
+
+msgid "Allow user registration"
+msgstr "Permitir el registro de los utilizadores"
+
+msgid "Allow users to delete theirs owns comments"
+msgstr "Autorizar a los usuarios a suprimir sus propios comentarios"
+
+msgid "Allow users to edit theirs owns comments"
+msgstr "Autorizar a los usuarios a modificar sus propios comentarios"
+
+msgid "All sub-categories of private categories become private"
+msgstr "Todas las subcategorías de categorías privadas se vuelven privadas"
+
+msgid "All tags"
+msgstr "Todos los tags"
+
+msgid "All tags must match"
+msgstr "Todos los tags deben coincidir"
+
+msgid "A new version of Piwigo is available."
+msgstr "Una nueva versión de Piwigo está disponible."
+
+#, c-format
+msgid "An information email was sent to group \"%s\""
+msgstr "Un mail de informaciones ha sido enviado a los miembros del grupo \"%s\""
+
+msgid "Any tag"
+msgstr "Cualquier tag"
+
+msgid "Apply to subcategories"
+msgstr "Aplicar a subcategorías"
+
+msgid "Are you sure?"
+msgstr "¿ Seguro?"
+
+msgid "ascending"
+msgstr "ascendiente"
+
+msgid "Associated"
+msgstr "Asociada a"
+
+msgid "associate to category"
+msgstr "asociar con la categoría"
+
+msgid "associate to group"
+msgstr "asociar con grupo"
+
+msgid "Association to categories"
+msgstr "Asociación a las categorías"
+
+msgid "%d association"
+msgid_plural "%d associations"
+msgstr[0] "%d asociación"
+msgstr[1] "%d asociaciones"
+
+msgid "At least one listed rule must be satisfied."
+msgstr "Debe elegir al menos una de las reglas que se listan."
+
+msgid "At least one tag must match"
+msgstr "Debe coincidir al menos una de las etiquetas"
+
+msgid "Author"
+msgstr "Autor"
+
+msgid "Authorized"
+msgstr "Autorizados"
+
+msgid "author(s) : %s"
+msgstr "autor(es) : %s"
+
+msgid "Expand all categories"
+msgstr "Expandir todas las categorías"
+
+msgid "Average rate"
+msgstr "Valoración promedio"
+
+msgid "Batch management"
+msgstr "Gestión por premio"
+
+msgid "before"
+msgstr ""
+
+msgid "Best rated"
+msgstr "Mejor valoradas"
+
+msgid "display best rated items"
+msgstr "mostrar las imagenes mejor valoradas"
+
+msgid "Bound template"
+msgstr "Template relacionado "
+
+msgid "%d category including "
+msgid_plural "%d categories including "
+msgstr[0] "%d categoría entre las cuales "
+msgstr[1] "%d categorías entre las cuates "
+
+msgid "%d physical"
+msgid_plural "%d physical"
+msgstr[0] "%d físico"
+msgstr[1] "%d físicos"
+
+msgid " and %d virtual"
+msgid_plural " and %d virtual"
+msgstr[0] " et %d virtual"
+msgstr[1] " et %d virtuales"
+
+msgid "%d category moved"
+msgid_plural "%d categories moved"
+msgstr[0] "%d categoría trasladada"
+msgstr[1] "%d categorías trasladadas"
+
+msgid "Anomaly"
+msgstr "Anomalía"
+
+msgid "Automatic correction"
+msgstr "Corrección automática"
+
+msgid "Check automatic corrections"
+msgstr "Puntear las correcciones automáticas"
+
+msgid "Correction"
+msgstr "Corrección"
+
+msgid "Correction applied with error"
+msgstr "Corrección erronea"
+
+msgid "Correction applied with success"
+msgstr "Corrección lograda"
+
+msgid "%s value is not correct file because exif are not supported"
+msgstr "El valor de %s no es correcto porque el extejo no es sostenido"
+
+msgid "%s must be to set to false in your config_local.inc.php file"
+msgstr "%s debe ser puesto a \"false\" en su fichero config_local.inc.php"
+
+msgid "The anomaly will be ignored until next application version"
+msgstr "La anomalía será ignorada hasta la versión próxima de la aplicación"
+
+msgid "Correction the anomaly will cancel the fact that it's ignored"
+msgstr "La corrección de la anomalía anulará el hecho de que sea ignorada"
+
+msgid "Impossible automatic correction"
+msgstr "Corrección automática imposible"
+
+msgid "Reinitialize check integrity"
+msgstr "Reinicializar los controles de integridad"
+
+msgid "Go to %s or %s for more informations"
+msgstr "Vaya sobre %s o %s para más informaciones"
+
+msgid "the forum"
+msgstr "El foro"
+
+msgid "the wiki"
+msgstr "El wiki"
+
+msgid "Apply selected corrections"
+msgstr "Aplicar las correcciones seleccionadas"
+
+msgid "Ignore selected anomalies"
+msgstr "Ignorar las anomalías seleccionadas"
+
+msgid "Refresh"
+msgstr "Refrescar"
+
+msgid "Check integrity"
+msgstr "Control de integridad"
+
+msgid "User \"%s\" created with \"%s\" like password"
+msgstr "Utilizador \"%s\" creado con como palabra de paso \"%s\""
+
+msgid "Status of user \"%s\" updated"
+msgstr "Estatuto del utilizador \"%s\" puesto al día"
+
+msgid "The version of %s [%s] installed is not compatible with the version required [%s]"
+msgstr "La versión de  %s [%s] instalada no es compatible con la versión requiseès [%s]"
+
+msgid "You need to upgrade your system to take full advantage of the application else the application will not work correctly, or not at all"
+msgstr "Usted debe poner al día su sistema para sacar provecho plenamente de la aplicación si no la aplicación no funcionará correctamente, incluso en absoluto"
+
+msgid "caddie"
+msgstr "Carrito"
+
+msgid "Caddie"
+msgstr "Cesta"
+
+msgid "Caddie is currently empty"
+msgstr "La cesta actualmente está vacía"
+
+msgid "Caddie management"
+msgstr "Gestión de la cesta"
+
+msgid "Calendar"
+msgstr "Calendario"
+
+msgid "All"
+msgstr "Todo"
+
+msgid "display each day with pictures, month per month"
+msgstr "Muestra cada día con imágenes, mes a mes"
+
+msgid "View"
+msgstr "Vista"
+
+msgid "Add a virtual category"
+msgstr "Añadir una categoría virtual"
+
+msgid "Authorize users to add comments on selected categories"
+msgstr "Autorizar a los utilizadores a añadir comentarios en las categorías seleccionadas"
+
+msgid "Categories"
+msgstr "Categorías"
+
+msgid "Categories authorized thanks to group associations"
+msgstr "Categorías accesibles gracias a la pertenencia a los grupos"
+
+msgid "Categories manual order was saved"
+msgstr "La orden manual de las categorías ha sido salvaguardada"
+
+msgid "Categories ordered alphanumerically"
+msgstr "Categorías ordenadas alfabético - numéricamente"
+
+msgid "Category"
+msgstr "Categoría"
+
+#, c-format
+msgid "Category elements associated to the following categories: %s"
+msgstr "Los elementos de la categoría han sido asociados con las categorías siguientes : %s"
+
+msgid "Category results for"
+msgstr "Resultados de las categorías para"
+
+msgid "The name of a category should not be empty"
+msgstr "El nombre de la categoría no debe estar vacío"
+
+msgid "Lock categories"
+msgstr "Encerrar las categorías"
+
+msgid "Properties"
+msgstr "Propiedades"
+
+msgid "Private category"
+msgstr "Categoría particular"
+
+msgid "Public category"
+msgstr "Categoría pública"
+
+msgid "Find a new representant by random"
+msgstr "Encontrar a un nuevo representante al azar"
+
+msgid "Public / Private"
+msgstr "Pública / Particular"
+
+msgid "Manage authorizations for selected categories"
+msgstr "Administrar el tipo de acceso para las categorías seleccionadas"
+
+msgid "Select uploadable categories"
+msgstr "Seleccionar las categorías autorizadas al añadido"
+
+msgid "Virtual category added"
+msgstr "Categoría virtual añadida"
+
+msgid "Virtual category deleted"
+msgstr "Categoría virtual suprimida"
+
+msgid "Check all"
+msgstr "Todo verificado"
+
+msgid "Check for upgrade"
+msgstr "Última versión"
+
+msgid "Check for upgrade failed for unknown reasons."
+msgstr "La comprobación de la última versión sobre el servidor fue suspendida por una razón desconocida."
+
+msgid "Choose an image"
+msgstr "Elegir una imagen"
+
+msgid "Monthly calendar"
+msgstr "Calendario mensual"
+
+msgid "Monthly list"
+msgstr "Lista mensual"
+
+msgid "Weekly list"
+msgstr "Lista semanal"
+
+msgid "Click here if your browser does not automatically forward you"
+msgstr "Pulse aquí si su navegador no le reenvía a la página solicitada."
+
+msgid "Close this window"
+msgstr "Cerrar la ventana"
+
+msgid "cloud"
+msgstr "nube"
+
+msgid "Come to discover the category:"
+msgstr "Venga para descubrir la categoría:"
+
+msgid "Comment"
+msgstr "Comentario"
+
+msgid "%d comment"
+msgid_plural "%d comments"
+msgstr[0] "%d Comentario"
+msgstr[1] "%d Comentarios"
+
+msgid "Your comment has been registered"
+msgstr "Su comentario ha sido añadido"
+
+msgid "Anti-flood system : please wait for a moment before trying to post another comment"
+msgstr "Systema anti-abuso : por favor, aguarde unos momentos antes de agregar un nuevo comentario"
+
+msgid "comment date"
+msgstr "Fecha de comentario"
+
+msgid "Your comment has NOT been registered because it did not pass the validation rules"
+msgstr "Su comentario no ha sido registrado porque no ha superado las reglas de validación"
+
+msgid "Comments"
+msgstr "Comentarios"
+
+msgid "Add a comment"
+msgstr "Agregar comentario"
+
+msgid "Comments for all"
+msgstr "Comentarios para todos"
+
+msgid "An administrator must authorize your comment before it is visible."
+msgstr "El administrador debe validar su comentario antes de que sea visible."
+
+msgid "This login is already used by another user"
+msgstr "Este nombre de usuario ya ha sido registrado con anterioridad, por favor inténtelo con otro"
+
+msgid "Complete RSS feed (images, comments)"
+msgstr "Flujo RSS completo (imágenes, comentarios)"
+
+msgid "Access type"
+msgstr "Tipo de acceso"
+
+msgid "Information data registered in database"
+msgstr "Informaciones registradas en la base de datos"
+
+msgid "Default display"
+msgstr "Fijación por defecto"
+
+msgid "Templates"
+msgstr "Templates (Modelos)"
+
+msgid "The gallery URL is not valid."
+msgstr "La dirección de la galería no es válida."
+
+msgid "General"
+msgstr "Ensayo general"
+
+msgid "Save page visits by administrators"
+msgstr "Registrar las páginas visitadas por los administradores"
+
+msgid "Save page visits by guests"
+msgstr "Registrar las páginas visitadas por los invitados"
+
+msgid "History"
+msgstr "Reseña histórica"
+
+msgid "Save page visits by users"
+msgstr "Registrar las páginas visitadas por los utilizadores"
+
+msgid "Configuration"
+msgstr "Configuración"
+
+msgid "confirm"
+msgstr "Confirmar"
+
+msgid "Confirm Password"
+msgstr "Confirmar la contraseña"
+
+msgid "Webmaster mail address"
+msgstr "Dirige e-mail del Administrador"
+
+msgid "Visitors will be able to contact site administrator with this mail"
+msgstr "Los visitadores podrán ponerse en contacto con usted por este mail"
+
+msgid "Main"
+msgstr "Directora de colegio"
+
+msgid "The number of comments a page must be between 5 and 50 included."
+msgstr "El número de comentarios de utilizadores por página debe ser comprendido entre 5 y 50."
+
+msgid "Upload"
+msgstr "Descargar"
+
+msgid "Login"
+msgstr "Identificarse"
+
+msgid "Connection settings"
+msgstr "Datos de conexión"
+
+msgid "Contact webmaster"
+msgstr "Contactar el webmastre"
+
+msgid "Controversy"
+msgstr "Controversia"
+
+msgid "Copy the text in pink between hyphens and paste it into the file \"include/config_database.inc.php\"(Warning : config_database.inc.php must only contain what is in pink, no line return or space character)"
+msgstr "Copie el texto en rosa entre las rayas y pegúelo en el fichero config_database.inc.php que se encuentra en el repertorio \"include\" a la base del lugar donde usted instaló a Piwigo (el fichero config_database.inc.php debe contener SÓLO lo que está en rosa entre las rayas, ninguna vuelta a la línea o espacio es autorizado)"
+
+msgid "Create a new account"
+msgstr "Crear una nueva cuenta"
+
+msgid "Created on"
+msgstr "Creada el"
+
+msgid "Creation date"
+msgstr "Fecha de creación"
+
+msgid "Current name"
+msgstr "Nombre corriente"
+
+msgid "Current password is wrong"
+msgstr "La contraseña actual es incorrecta"
+
+msgid "Customize"
+msgstr "Personalizar"
+
+msgid "Your Gallery Customization "
+msgstr "Personalización de su pantalla "
+
+msgid "Database"
+msgstr "Base de datos"
+
+msgid "date"
+msgstr ""
+
+msgid "Date"
+msgstr "Fecha"
+
+msgid "Day"
+msgstr "Día"
+
+msgid "Deactivate"
+msgstr "Desactivar"
+
+msgid "As a precaution, following plugins have been deactivated. You must check for plugins upgrade before reactiving them:"
+msgstr "Por precaución, el plugins siguiente han sido desactivados. Verifique si existen unas posturas al día antes de reactivarlas:"
+
+msgid "Accelerate diaporama speed"
+msgstr "Acelerar la velocidad del diaporama"
+
+msgid "Default gallery language"
+msgstr "Lengua por defecto de la galería"
+
+msgid "Default"
+msgstr "Por defecto"
+
+msgid "Default user cannot be deleted"
+msgstr "No se puede suprimie al usuario por defecto"
+
+msgid "delete all images from your favorites"
+msgstr "Suprimir todas las imágenes de sus favoritos"
+
+msgid "Delete"
+msgstr "Suprimir"
+
+msgid "delete category"
+msgstr "Suprimir la categoría"
+
+msgid "Delete Representant"
+msgstr "Suprimir al representante"
+
+msgid "Delete selected photos"
+msgstr "Suprimir las fotos"
+
+msgid "Delete selected tags"
+msgstr "Suprimir los tags seleccionados"
+
+msgid "Delete selected users"
+msgstr "Suprimir los utilizadores seleccionados"
+
+msgid "delete this comment"
+msgstr "Borrar este comentario"
+
+msgid "Deletions"
+msgstr "Supresiones"
+
+msgid "delete this image from your favorites"
+msgstr "Eliminar favoritos"
+
+msgid "Deny selected groups"
+msgstr "Prohibir el acceso a los grupos seleccionados"
+
+msgid "Deny selected users"
+msgstr "Prohibirles el acceso a los utilizadores seleccionados"
+
+msgid "descending"
+msgstr "descendente"
+
+msgid "Description"
+msgstr "Descripción"
+
+msgid "Dimensions"
+msgstr "Dimensiones"
+
+msgid "Directory does not exist"
+msgstr ""
+
+msgid "Display"
+msgstr "Monstrar"
+
+msgid "Display options"
+msgstr "Opciones de fijación"
+
+msgid "Dissociated"
+msgstr "Separada de"
+
+msgid "dissociate from category"
+msgstr "Disociar la categoría"
+
+msgid "dissociate from group"
+msgstr "Disociar el grupo"
+
+#, c-format
+msgid "%d Kb"
+msgstr "%d Ko"
+
+msgid "Does not represent"
+msgstr "No representes"
+
+msgid "download"
+msgstr "descargar"
+
+msgid "download this file"
+msgstr "descargar este fichero"
+
+msgid "Downloads"
+msgstr "Descargar"
+
+msgid "Drag to re-order"
+msgstr "Hacer clic deslizar para reorganizar"
+
+msgid "Files with same name in more than one physical category"
+msgstr "Ficheros que llevan el mismo nombre en varias categorías físicas"
+
+#, c-format
+msgid "%d waiting for validation"
+msgstr "%d en espera de validación"
+
+#, c-format
+msgid "%d waiting pictures rejected"
+msgstr "%d imágenes en espera rechazadas"
+
+#, c-format
+msgid "%d waiting pictures validated"
+msgstr "%d imágenes en espera validadas"
+
+msgid "Each listed rule must be satisfied."
+msgstr "Debe cumplimentar cada una de las reglas"
+
+msgid "edit"
+msgstr "Editar"
+
+msgid "Edit a comment"
+msgstr ""
+
+msgid "Edit all picture informations"
+msgstr "Modificar todas las informaciones atadas(vinculadas) a esta imagen"
+
+msgid "Category informations updated successfully."
+msgstr "Las informaciones de la categoría han sido puestas al día con éxito."
+
+msgid "edit category informations"
+msgstr "editar las informaciones de esta categoría"
+
+msgid "edit category permissions"
+msgstr "Modificar los permisos de la categoría"
+
+msgid "Authorize upload"
+msgstr "Autorizar el añadido de imágenes"
+
+msgid "Edit ranks"
+msgstr "Modificar la orden"
+
+msgid "Edit selected tags"
+msgstr "Editar los tags seleccionadas"
+
+msgid "Edit tags"
+msgstr "Editar los tags"
+
+msgid "edit this comment"
+msgstr ""
+
+msgid "elements"
+msgstr "Elementos"
+
+msgid "%d image"
+msgid_plural "%d images"
+msgstr[0] "%d imágen"
+msgstr[1] "%d imágenes"
+
+msgid "Elements"
+msgstr "Elementos"
+
+msgid "Not linked elements"
+msgstr "Elementos no atados"
+
+msgid "elements per page"
+msgstr "Elementos por página"
+
+#, c-format
+msgid "images posted during the last %d days"
+msgstr "esta imagen tiene menos de %d dias"
+
+msgid "Element type"
+msgstr "Tipo de elemento"
+
+msgid "Email address"
+msgstr "Dirección electrónica"
+
+msgid "Email address is missing. Please specify an email address."
+msgstr "Dirección de correo electrónico está desaparecido. Por favor, especifica una dirección de correo electrónico."
+
+msgid "Email administrators when a comment is deleted"
+msgstr "Notificar a los administradores cuando un comentario es suprimido"
+
+msgid "Email administrators when a comment is modified"
+msgstr "Notificar a los administradores cuando un comentario es modificado"
+
+msgid "Email admins when a comment requires validation"
+msgstr "Notificar a los administradores cuando un comentario requiere su validación"
+
+msgid "Email admins when a new user registers"
+msgstr "Notificar a los administradores en el momento de la inscripción de un utilizador"
+
+msgid "Email admins when a picture is uploaded"
+msgstr "Notificar a los administradores cuando una imagen es cargada"
+
+msgid "Email admins when a valid comment is entered"
+msgstr "Notificar a los administradores cuando un comentario es registrado"
+
+msgid "Empty caddie"
+msgstr "Vaciar la cesta"
+
+msgid "High definition enabled"
+msgstr "Alta definición activo"
+
+msgid "Enter your personnal informations"
+msgstr "Cumplimente sus datos personales"
+
+msgid "Environment"
+msgstr "Medio ambiente"
+
+msgid "wrong date"
+msgstr "Fecha errónea"
+
+msgid "Error sending email"
+msgstr "Error de envío"
+
+msgid "excluded"
+msgstr "Excluidos"
+
+msgid "Extend for templates"
+msgstr "Extender el templates"
+
+msgid "My favorites"
+msgstr "Mis favoritos"
+
+msgid "display my favorites pictures"
+msgstr "Mostrar mis imágenes favoritas"
+
+msgid "Favorites"
+msgstr "Favoritas"
+
+msgid "File"
+msgstr "Fichero"
+
+msgid "File name"
+msgstr "Nombre del fichero"
+
+msgid "Filesize"
+msgstr "Peso"
+
+msgid "Filter"
+msgstr "Filtro"
+
+msgid "Filter and display"
+msgstr "Filtrar y mostrar"
+
+#, c-format
+msgid "first element added on %s"
+msgstr "el primer elemento añadido %s"
+
+msgid "First"
+msgstr "Primera página"
+
+msgid "Forbidden"
+msgstr "entredicho"
+
+msgid "Forgot your password?"
+msgstr "¿Olvidó su contraseña?"
+
+msgid "Form"
+msgstr "Formulario"
+
+msgid "Support"
+msgstr "Ayuda"
+
+#, c-format
+msgid "from %s to %s"
+msgstr "de %s a %s"
+
+msgid "The gallery is locked for maintenance. Please, come back later."
+msgstr "Se están realizando operaciones de mantenimiento, regrese más tarde."
+
+msgid "Gallery title"
+msgstr "Título de la galería"
+
+msgid "Gallery URL"
+msgstr "URL de la galería"
+
+msgid "GD library is missing"
+msgstr "La biblioteca GD es faltante"
+
+msgid "Page generated in"
+msgstr "Página generada en"
+
+msgid "global mode"
+msgstr "modo global"
+
+msgid "Go through the gallery as a visitor"
+msgstr "Recorrer la galería como visitante"
+
+msgid "Grant selected groups"
+msgstr "Dar el acceso a los grupos seleccionados"
+
+msgid "Grant selected users"
+msgstr "Darles el acceso a los utilizadores seleccionados"
+
+msgid "group"
+msgstr "grupo"
+
+msgid "Group"
+msgstr "Groupe"
+
+msgid "The name of a group must not contain \" or ' or be empty."
+msgstr "El nombre del grupo no debe contener \"or ' y no debe estar vacío."
+
+msgid "This name is already used by another group."
+msgstr "Este nombre es ya utilizado por otro grupo."
+
+msgid "group by letters"
+msgstr "Reagrupar por letras"
+
+msgid "Group name"
+msgstr "Nombre del grupo"
+
+msgid "Groups"
+msgstr "Grupos"
+
+#, c-format
+msgid "group \"%s\" added"
+msgstr "grupo \"%s\" añadido"
+
+#, c-format
+msgid "group \"%s\" deleted"
+msgstr "grupo \"%s\" suprimido"
+
+#, c-format
+msgid "group \"%s\" updated"
+msgstr "grupo \"%s\" puestos al día"
+
+msgid "guest"
+msgstr "Visitante"
+
+msgid "Guest cannot be deleted"
+msgstr "No se puede suprimir el invitado"
+
+msgid "Bad status for user \"guest\", using default status. Please notify the webmaster."
+msgstr "El estatus del usuario \"guest\" no es conforme, se utilizará el estatus por defecto. Por favor, informe al administrador del sitio."
+
+msgid "Guests"
+msgstr "Invitados"
+
+msgid "Hello"
+msgstr "Hola"
+
+msgid "Hello,"
+msgstr "Buenos días,"
+
+msgid "Help"
+msgstr "Ayuda"
+
+msgid "Hide"
+msgstr "Enmascarar"
+
+msgid "High filesize"
+msgstr "Talla del fichero HR"
+
+msgid "available for administrators only"
+msgstr "disponible sólo para los administradores"
+
+msgid "shows images at the root of this category"
+msgstr "muestra las imágenes  en el directorio raíz de esta categoría"
+
+msgid "See last users comments"
+msgstr "Ver los últimos comentarios de los usuarios"
+
+msgid "customize the appareance of the gallery"
+msgstr "personalizar el aspecto de la galería"
+
+msgid "search"
+msgstr "Buscar"
+
+msgid "Home"
+msgstr "Inicio"
+
+msgid "Hope to see you back soon."
+msgstr "Esperando verle de revisarle muy pronto..."
+
+msgid "Hour"
+msgstr "Hora"
+
+msgid "Identification"
+msgstr "Identificación"
+
+msgid "Element"
+msgstr "Imágenes"
+
+msgid "Image id"
+msgstr "Identificando imagen"
+
+msgid "Image only RSS feed"
+msgstr "Contenido RSS: sólo imagen"
+
+msgid "in this category"
+msgstr "en esta categoría"
+
+msgid "in %d sub-category"
+msgid_plural "in %d sub-categories"
+msgstr[0] "en %d subcategoría"
+msgstr[1] "en %d subcategorías"
+
+msgid "Images manual order was saved"
+msgstr "La orden manual de las imágenes ha sido salvada"
+
+msgid "in <i>%s</i>, before <b>?></b>, insert:"
+msgstr ""
+
+msgid "included"
+msgstr "incluidos"
+
+msgid "Reduce diaporama speed"
+msgstr "Disminuir la velocidad del diaporama"
+
+msgid "Informations"
+msgstr "Informaciones"
+
+msgid "Basic configuration"
+msgstr "Configuración de Base"
+
+msgid "Install"
+msgstr "Instalar"
+
+msgid "Installation"
+msgstr "Instalación"
+
+msgid "The configuration of Piwigo is finished, here is the next step<br><br>\n* go to the identification page and use the login/password given for webmaster<br>\n* this login will enable you to access to the administration panel and to the instructions in order to place pictures in your directories"
+msgstr "La configuración de la aplicación correctamente se celebró, coloca en la etapa próxima<br><br>"
+"* Vaya sobre la página de identificación y conéctese con pseudo dado para el webmaster<br>"
+"* Éste le permite acceder a la parte administración y a las instrucciones para colocar las imágenes en los repertorios."
+
+msgid "Need help ? Ask your question on <a href=\"%s\">Piwigo message board</a>."
+msgstr "¿ Necesidad de ayudante? Plantee su cuestión sobre él <a href=\"%s\">foro de Piwigo</a>."
+
+msgid "Webmaster login"
+msgstr "Administrador"
+
+msgid "It will be shown to the visitors. It is necessary for website administration"
+msgstr "Este identificado aparecerá en todos sus visitadores. Le sirve para administrar la sitio"
+
+msgid "Instructions"
+msgstr "Instrucciones"
+
+msgid "Invalid password!"
+msgstr "Contraseña incorrecta !"
+
+msgid "IP"
+msgstr "IP"
+
+msgid "default"
+msgstr "por defecto"
+
+msgid "High definition"
+msgstr "Alta definición"
+
+msgid "default values"
+msgstr "valores por defecto"
+
+#, c-format
+msgid "It appears your webhost is currently running PHP %s."
+msgstr "Aparentemente, la versión PHP de su hébergeur es PHP %s."
+
+msgid "jump to category"
+msgstr "Ir en la categoría"
+
+msgid "jump to image"
+msgstr "Ir a la imagen"
+
+msgid "Keyword"
+msgstr "Palabra clave"
+
+msgid "Language"
+msgstr "Idioma"
+
+#, c-format
+msgid "last %d days"
+msgstr "%d últimos días"
+
+msgid "Last"
+msgstr "Última página"
+
+msgid "leave"
+msgstr "dejar"
+
+msgid "letters"
+msgstr "letras"
+
+msgid "Contacts"
+msgstr "Contactos"
+
+msgid "Friends"
+msgstr "Amigos"
+
+msgid "Family"
+msgstr "Familia"
+
+msgid "Admins"
+msgstr "Admins"
+
+msgid "Link all category elements to a new category"
+msgstr "Vincular todos los elementos de la categoría con una nueva categoría"
+
+msgid "Link all category elements to some existing categories"
+msgstr "Vincular odos los elementos de la categoría existentes"
+
+msgid "Linked categories"
+msgstr "Categorías asociadas"
+
+msgid "Modify information"
+msgstr "Modificar las informaciones"
+
+msgid "Links"
+msgstr "Enlaces"
+
+msgid "Lock"
+msgstr "Encerrar"
+
+msgid "Locked"
+msgstr "Encerrado"
+
+msgid "Lock gallery"
+msgstr "Encerrar la galería"
+
+msgid "Logout"
+msgstr "Desconexión"
+
+msgid "E-mail address"
+msgstr "Dirección electrónica"
+
+msgid "Mail address"
+msgstr "Dirección electrónica"
+
+msgid "Mail content"
+msgstr "Contenido del mail"
+
+msgid "Maintenance"
+msgstr "Mantenimiento"
+
+msgid "Manage"
+msgstr "Administrar"
+
+msgid "manage category elements"
+msgstr "administrar los elementos de la categoría"
+
+msgid "manage image ranks"
+msgstr "Administrar la orden de las imágenes"
+
+msgid "Manage image ranks"
+msgstr "Administrar la orden de las imágenes"
+
+msgid "Manage permissions for a category"
+msgstr "Administrar las autorizaciones para una categoría"
+
+#, c-format
+msgid "Manage permissions for group \"%s\""
+msgstr "Administrar las autorizaciones para el grupo \"%s\""
+
+#, c-format
+msgid "Manage permissions for user \"%s\""
+msgstr "Administrar las autorizaciones para el utilizador \"%s\""
+
+msgid "manage sub-categories"
+msgstr "administrar las subcategorías"
+
+msgid "Manage tags"
+msgstr "Administrar los tags"
+
+msgid "obligatory"
+msgstr "obligatorio"
+
+msgid "Maximum height of the pictures"
+msgstr "Altura máxima de las imágenes"
+
+msgid "Maximum height must be a number superior to 50"
+msgstr "La altura máxima de las imágenes no debe ser superioror a 50"
+
+msgid "maximum height"
+msgstr "Altura máxima"
+
+msgid "maximum width"
+msgstr "Anchura máxima"
+
+msgid "Maximum width of the pictures"
+msgstr "Anchura máxima de las imágenes"
+
+msgid "Maximum width must be a number superior to 50"
+msgstr "El ancho máximo de las imágenes no debe ser superior a 50"
+
+msgid "Members"
+msgstr "Miembros"
+
+msgid "%d member"
+msgid_plural "%d members"
+msgstr[0] "%d miembro"
+msgstr[1] "%d miembros"
+
+msgid "Metadata synchronized from file"
+msgstr "Meta-datos sincronizadas a partir del fichero"
+
+msgid "Minimum privacy level"
+msgstr "Nivel mínimo de carácter confidencial"
+
+msgid "display a calendar by creation date"
+msgstr "Mostrar las imágenes en un calendario por fecha de creación"
+
+msgid "display all elements in all sub-categories"
+msgstr "Mostrar todos los elementos de todas las categorías"
+
+msgid "return to normal view mode"
+msgstr "Volver a la vista normal"
+
+msgid "display a calendar by posted date"
+msgstr "Mostrar las imágenes en un calendario por fecha de agregación"
+
+msgid "Month"
+msgstr "Mes"
+
+msgid "Most visited"
+msgstr "Imágenes más vistas"
+
+msgid "display most visited pictures"
+msgstr "mostrar las imágenes más vistas"
+
+msgid "Move"
+msgstr "Desplazar"
+
+msgid "Move categories"
+msgstr "Desplazar las categorías"
+
+msgid "N/A"
+msgstr "no disponible"
+
+msgid "Name"
+msgstr "Nombre"
+
+msgid "The number of images per row must be a not null scalar"
+msgstr "El número de imágenes por línea debe ser un número entero no nulo"
+
+msgid "Number of images per row"
+msgstr "Número de miniaturas por línea"
+
+msgid "The number of rows per page must be a not null scalar"
+msgstr "El número de líneas por página debe ser un numero entero no nulo"
+
+msgid "Prepared time for list of users to send mail is limited. Others users are not listed."
+msgstr "El tiempo de preparación de la lista de los utilizadores para el envío es limitado. Otros utilizadores no son puestos en una lista."
+
+msgid "Time to send mail is limited. Others mails are skipped."
+msgstr "El tiempo de envío del mails es limitado. Otros envíos de mail han sido ignorados."
+
+msgid "To send ?"
+msgstr "¿ Enviar?"
+
+msgid "Last send"
+msgstr "Último envío"
+
+msgid "email"
+msgstr "e-mail"
+
+msgid "User"
+msgstr "Utilizador"
+
+msgid "Complementary mail content"
+msgstr "Contenido complementario en el mail"
+
+msgid "See you soon,"
+msgstr "Hasta pronto,"
+
+msgid ", click on "
+msgstr ", Haga clic sobre "
+
+msgid "Go to "
+msgstr "Cita sobre "
+
+msgid "."
+msgstr "."
+
+msgid "Hello "
+msgstr "Buenos días "
+
+msgid ","
+msgstr ","
+
+msgid "New elements were added "
+msgstr "Los nuevos elementos han sido añadidos "
+
+msgid "between "
+msgstr "entre él "
+
+msgid " and "
+msgstr " y él "
+
+msgid " on "
+msgstr " el "
+
+msgid "[NBM] Problems or questions"
+msgstr "[NBM] Problemas o de cuestiones"
+
+msgid "If you encounter problems or have any question, please send a message to "
+msgstr "En caso de problemas o en caso de cuestiones, enviar un mail a "
+
+msgid "The webmaster has subscribed you to receiving notifications by mail."
+msgstr "Usted acaba de ser inscrito por el webmaster del sitio para recibir la notificación por mail."
+
+msgid "You have subscribed to receiving notifications by mail."
+msgstr "Usted acaba de inscribirse para recibir la notificación por mail."
+
+msgid "To subscribe"
+msgstr "Para inscribirse"
+
+msgid "The webmaster has unsubscribed you from receiving notifications by mail."
+msgstr "Usted acaba de ser désinscrit por el webmaster del sitio para recibir la notificación por mail."
+
+msgid "You have unsubscribed from receiving notifications by mail."
+msgstr "Usted viene de usted désinscrire para recibir la notificación por mail."
+
+msgid "To unsubscribe"
+msgstr "Para usted desinscribirse"
+
+msgid "With blank value, gallery title will be used"
+msgstr "Sin valor, el título de la galería será utilizado"
+
+msgid "Available only with HTML format"
+msgstr "Disponible únicamente con tamaño HTML"
+
+msgid "Notification"
+msgstr "Notificación"
+
+msgid "Error when sending email to %s [%s]."
+msgstr "Error en el momento del envío del mail a %s [%s]."
+
+msgid "Mail sent to %s [%s]."
+msgstr "Mail enviado a %s [%s]."
+
+msgid "No mail to send."
+msgstr "No de mail a enviar."
+
+msgid "There is no available subscribers to mail."
+msgstr "No hay utilizador que notifica por mail."
+
+msgid "Subscribers could be listed (available) only if there is new elements to notify."
+msgstr "Un utilizador tiene que notificar si los nuevos elementos están disponibles para este utilizador."
+
+msgid "Anyway only webmasters can see this tab and never administrators."
+msgstr "Puede así como él no tengo allí ningún utilizador inscrito (sólo el webmaster tiene acceso a este inglete)."
+
+msgid "No user to send notifications by mail."
+msgstr "Ningún utilizador para enviar notificaciones por mails."
+
+msgid "New elements added"
+msgstr "Nuevos elementos añadidos"
+
+msgid "Subscribe to notification by mail"
+msgstr "Inscripción a la notificación por mail"
+
+msgid "Unsubscribe from notification by mail"
+msgstr "Désinscription a la notificación por mail"
+
+msgid "Parameter"
+msgstr "Parametraje"
+
+msgid "Processing treatment.\nPlease wait..."
+msgstr "Tratamiento corriente.\nPor favor, espere..."
+
+msgid "Continue processing treatment"
+msgstr "Continuar el tratamiento corriente..."
+
+msgid "Add detailed content"
+msgstr "Añadido de un contenido detallado"
+
+msgid "Send mail on HTML format"
+msgstr "Enviar el mail al tamaño HTML"
+
+msgid "Send mail as"
+msgstr "Enviar el mail como"
+
+msgid "Send mail to users"
+msgstr "Envío de mail a los utilizadores"
+
+msgid "Send"
+msgstr "Envío"
+
+msgid "Options"
+msgstr "Opciones"
+
+msgid "Include display of recent pictures group by dates"
+msgstr "Incluir la fijación de las últimas imágenes agrupadas por fechas"
+
+msgid "Subscribed"
+msgstr "Inscritos"
+
+msgid "Subscribe"
+msgstr "Inscripción"
+
+msgid "Parameters"
+msgstr "Parámetros"
+
+msgid "Select recipients"
+msgstr "Selección de los envíos"
+
+msgid "Subscribe/unsubscribe users"
+msgstr "Inscribir / desinscribir a los utilizadores"
+
+msgid "Unknown identifier"
+msgstr "Identificador desconocido"
+
+msgid "Unsubscribed"
+msgstr "Inscritos"
+
+msgid "User %s [%s] was removed from the subscription list."
+msgstr "El utilizador %s [%s] ha sido suprimido por la lista de los inscritos."
+
+msgid "User %s [%s] was added to the subscription list."
+msgstr "El utilizador %s [%s] ha sido añadido a la lista de los inscritos."
+
+msgid "User %s [%s] was not removed from the subscription list."
+msgstr "El utilizador %s [%s] no ha sido suprimido por la lista de los inscritos."
+
+msgid "User %s [%s] was not added to the subscription list."
+msgstr "El utilizador %s [%s] no ha sido añadido a la lista de los inscritos."
+
+msgid "User %s [%s] added."
+msgstr "Utilizador %s [%s] añadido."
+
+msgid "Warning: subscribing or unsubscribing will send mails to users"
+msgstr "Cuidado, la inscripción o anaulación de inscripción lleve del envío de mails a los utilizadores concernidos"
+
+msgid "Number of rows per page"
+msgstr "Número de líneas por pagina"
+
+msgid "New name"
+msgstr "Nuevo nombre"
+
+#, c-format
+msgid "New on %s"
+msgstr "Nuevo el %s"
+
+msgid "New parent category"
+msgstr "Nueva categoría allegada"
+
+msgid "New password"
+msgstr "Nueva contraseña"
+
+msgid "New password confirmation does not correspond"
+msgstr "Los valores de la contraseña no coinciden"
+
+msgid "New password sent by email"
+msgstr "Nueva contraseña enviada por correo electrónico"
+
+msgid "Rate this picture"
+msgstr "De una calificación a esta imagen"
+
+msgid "New tag"
+msgstr "Nuevo tag"
+
+msgid "Next"
+msgstr "Página siguiente"
+
+msgid "No"
+msgstr "No"
+
+msgid "No element in this category"
+msgstr "Ningún elemento en esta categoría"
+
+msgid "No email address"
+msgstr "Ninguna dirección electrónica"
+
+msgid "No photo can be deleted"
+msgstr "Ninguna foto puede ser suprimida"
+
+msgid "no rate"
+msgstr "no valorada"
+
+msgid "No tag defined. Use Administration>Pictures>Tags"
+msgstr "Ninguna tag definida. Utilizar la pantalla Adminstration> Imágenes> tags"
+
+msgid "Note: Only deletes photos added with pLoader"
+msgstr "Nota: las únicas las fotos aumentadas vía pLoader pueden ser suprimidas"
+
+msgid "Note you can change your configuration by yourself and restart Piwigo after that."
+msgstr "Anote que usted mismo puede cambiar la configuración PHP y volver a lanzar a Piwigo después."
+
+msgid "nothing"
+msgstr "nada"
+
+msgid "No classic user matches this email address"
+msgstr "Falta cumplimentar la electrónica no corresponde a ningún usuario"
+
+msgid "no write access"
+msgstr "ningún acceso en escritura"
+
+msgid "Number of comments per page"
+msgstr "Número de comentarios por página"
+
+msgid "Number of downloads"
+msgstr "Número de descargar"
+
+msgid "Number of items"
+msgstr "Número de artículos"
+
+msgid "Number of rates"
+msgstr "Número de notas"
+
+msgid "Number of thumbnails to create"
+msgstr "Número de miniaturas que hay que crear"
+
+msgid "Mail address is obligatory for all users"
+msgstr "La dirección mail es obligatoria para todos los utilizadores"
+
+msgid "Only private categories are listed"
+msgstr "Sólo las categorías particulares son puestas en una lista"
+
+msgid "Only thumbnails prefix and webmaster mail address have been saved from previous configuration"
+msgstr "Sólo el prefijo de las miniaturas y el email electrónico del webmestre han sido salvaguardados por la configuración precedente"
+
+msgid "Operating system"
+msgstr "Systema de explotación"
+
+msgid "All optimizations have been successfully completed."
+msgstr "Todas las optimizaciones han sido realizadas con éxito."
+
+msgid "Optimizations have been completed with some errors."
+msgstr "Ciertas optimizaciones se acabaron con errores."
+
+msgid "Optional URL keyword"
+msgstr "Parámetro facultativo del URL"
+
+msgid "Order alphanumerically"
+msgstr "Ordenar alfabético - numéricamente"
+
+msgid "Original dimensions"
+msgstr "Dimensiones originales"
+
+msgid "Original templates"
+msgstr "Templates de origen"
+
+msgid "Other private categories"
+msgstr "Otras categorías particulares"
+
+msgid "Overall"
+msgstr "Vista global"
+
+msgid "overrides existing values with empty ones"
+msgstr "Ignora valores existentes con vacíos"
+
+msgid "Page banner"
+msgstr "Bandera de las páginas"
+
+msgid "Page end"
+msgstr ""
+
+msgid "Pages seen"
+msgstr "Páginas vistas"
+
+msgid "Parent category"
+msgstr "Categoría allegada"
+
+msgid "Password"
+msgstr "Contraseña"
+
+msgid "Password confirmation error."
+msgstr "Error de Confirmación de la contraseña."
+
+msgid "Password confirmation is missing. Please confirm the chosen password."
+msgstr "Falta la confirmación de la contraseña. Por favor, confirme la contraseña que elija."
+
+msgid "Password forgotten"
+msgstr "Contraseña olvidada"
+
+msgid "Password is missing. Please enter the password."
+msgstr "Contraseña falta. Por favor, introduzca la contraseña."
+
+msgid "password updated"
+msgstr "contraseña actualizada"
+
+msgid "Path"
+msgstr "Camino"
+
+msgid "Perform a maintenance check in [Administration>Specials>Maintenance] if you encounter any problem."
+msgstr "Por favor, efectúes un mantenimiento en [Administración>Especiales>Mantenimiento] si usted encuentra problemas."
+
+msgid "period"
+msgstr ""
+
+msgid "Recent period must be a positive integer value"
+msgstr "El período debe ser un número entero positivo"
+
+msgid "Permalink"
+msgstr "Lazo permanente"
+
+msgid "Permalink history"
+msgstr "Reseña histórica de los lazos permanentes"
+
+msgid "The permalink name must be composed of a-z, A-Z, 0-9, \"-\", \"_\" or \"/\". It must not be numeric or start with number followed by \"-\""
+msgstr "El lazo permanente debe contener carácteres sólo entre \" Tiene - zA-Z0-9 \", \"-\" o \"_\". No debe ser numérico o comenzar con un número seguido por \"-\""
+
+msgid "Permalinks"
+msgstr "Lazos permanentes"
+
+#, c-format
+msgid "Permalink %s has been previously used by category %s. Delete from the permalink history first"
+msgstr "El lazo permanente %s ha sido utilizado anteriormente por la categoría %s. Por favor, bórrelo de la reseña histórica de los lazos permanentes"
+
+#, c-format
+msgid "Permalink %s is already used by category %s"
+msgstr "El lazo permanente %s es ya utilizado por la categoría %s"
+
+msgid "Permission denied"
+msgstr "Acceso prohibido"
+
+msgid "Permission granted"
+msgstr "Acceso autorizado"
+
+msgid "Permission granted thanks to a group"
+msgstr "Acceso autorizado gracias a la pertenencia a los grupos"
+
+msgid "Permissions"
+msgstr "Permisos"
+
+msgid "PHP 5 is required"
+msgstr "PHP 5 es requerido"
+
+msgid "picture"
+msgstr "imagen"
+
+msgid "Click on the picture to see it in high definition"
+msgstr "Hacer clic sobre la imagen para verla en alta resolución"
+
+msgid "Picture informations updated"
+msgstr "Informaciones puestas al día de la imagen"
+
+msgid "Pictures"
+msgstr "Imágenes"
+
+msgid "Show file metadata"
+msgstr "Mostrar los meta-datos del fichero"
+
+msgid "Piwigo Administration"
+msgstr "Administración de Piwigo"
+
+msgid "Piwigo Announcements Newsletter"
+msgstr "Newsletter Piwigo"
+
+msgid "Piwigo Help"
+msgstr "Ayuda de Piwigo"
+
+msgid "Piwigo may try to switch your configuration to PHP 5 by creating or modifying a .htaccess file."
+msgstr "Piwigo va a tratar de pasar en PHP 5 creando o modificando el fichero .htaccess."
+
+msgid "Piwigo version"
+msgstr "Versión de Piwigo"
+
+msgid "Piwigo was not able to configure PHP 5."
+msgstr "Piwigo no pudo configurar PHP 5."
+
+msgid "Plugins"
+msgstr "Plugins"
+
+msgid "Current<br>version"
+msgstr "Versión<br>actual"
+
+msgid "Can't read or extract archive."
+msgstr "Imposible leer o extraer el archivo."
+
+msgid "Automatic installation"
+msgstr "Instalación automática"
+
+msgid "Automatic upgrade"
+msgstr "Puesta al día automático"
+
+msgid "Plugin versions can't be checked"
+msgstr "Imposible verificar el plugins siguiente"
+
+msgid "Please check \"plugins\" folder and sub-folders permissions (CHMOD)."
+msgstr "Verifique los autorizaciones del expediente \" plugins \" y de sus subexpedientes (CHMOD)."
+
+msgid "Can't download archive."
+msgstr "Imposible recuperar el archivo."
+
+msgid "Plugins up to date"
+msgstr "Plugins al día"
+
+msgid "Download file"
+msgstr "Descargar el fichero"
+
+msgid "An error occured during extraction (%s)."
+msgstr "Un error sobrevino durante la extracción de los ficheros (%s)."
+
+msgid "You might go to plugin list to install and activate it."
+msgstr "Cita en la lista del plugins para instalarlo y acelerarlo."
+
+msgid "Plugin has been successfully copied"
+msgstr "El plugin ha sido copiado con éxito"
+
+msgid "Plugins which need upgrade"
+msgstr "Plugins que necesita una postura al día "
+
+msgid "Available<br>version"
+msgstr "Versión<br>disponible"
+
+msgid "Last revisions"
+msgstr "Últimas revisiones"
+
+msgid "Can't connect to server."
+msgstr "Imposible conectarse al servidor."
+
+msgid "Plugin list"
+msgstr "Lista plugins"
+
+msgid "Other plugins"
+msgstr "Otro plugins disponible"
+
+msgid "Check for updates"
+msgstr "Verificar las puestas al día"
+
+msgid "Can't create temporary file."
+msgstr "Imposible crear un fichero temporal."
+
+msgid "%s has been successfully upgraded."
+msgstr "%s ha sido puesto al día con éxito."
+
+msgid "Position"
+msgstr "Posición"
+
+msgid "Post date"
+msgstr "Añadido el día"
+
+msgid "Posted on"
+msgstr "Añadido el"
+
+msgid "Powered by"
+msgstr "Distribuido por"
+
+msgid "Preferences"
+msgstr "Preferencias"
+
+msgid "Previous"
+msgstr "Página anterior"
+
+msgid "Privacy level"
+msgstr "Nivel de carácter confidencial"
+
+msgid "Profile"
+msgstr "Perfil"
+
+msgid "Purge compiled templates"
+msgstr "Purgar el templates compilado"
+
+msgid "Purge history detail"
+msgstr "Vaciar el histórico"
+
+msgid "Purge history summary"
+msgstr "Vaciar el sumario del histórico"
+
+msgid "Purge never used notification feeds"
+msgstr "Purgar los flujos jamás utilizados de notificación"
+
+msgid "Purge search history"
+msgstr "Purgar la reseña histórica de las búsquedas"
+
+msgid "Purge sessions"
+msgstr "Purgar las sesiones"
+
+msgid "Quick connect"
+msgstr "Conexión rápida"
+
+msgid "Quick Local Synchronization"
+msgstr "Sincronización Rápida"
+
+msgid "Random pictures"
+msgstr "Selección aleatoria"
+
+msgid "display a set of random pictures"
+msgstr "mostrar un grupo aleatorio de imágenes"
+
+msgid "randomly represented"
+msgstr "Representando al azar"
+
+msgid "Random picture"
+msgstr "Al azar"
+
+msgid "Rank"
+msgstr "Fila"
+
+msgid "ranks"
+msgstr "Filas"
+
+msgid "Rate"
+msgstr "Valoración"
+
+msgid "Rate date"
+msgstr "Data de notación"
+
+msgid "Rating"
+msgstr "Notación"
+
+msgid "Rating by guests"
+msgstr "Notación por los visitadores"
+
+msgid "Recent categories"
+msgstr "Últimas categorías"
+
+msgid "display recently updated categories"
+msgstr "mostrar las categorías recientement actualizadas o creadas"
+
+msgid "Recent period"
+msgstr "Número de imágenes recientes"
+
+msgid "Recent pictures"
+msgstr "Últimas imágenes añadidas"
+
+msgid "display most recent pictures"
+msgstr "Mostrar las imágenes añadidas recientemente"
+
+msgid "Redirection..."
+msgstr "Redirección..."
+
+msgid "Please, enter a login"
+msgstr "Por favor, indique un nombre de usuario"
+
+msgid "login mustn't end with a space character"
+msgstr "el nombre de usuario no debe terminar por un espacio"
+
+msgid "login mustn't start with a space character"
+msgstr "el nombre de usuario no debe empezar por un espacio"
+
+msgid "this login is already used"
+msgstr "Este nombre de usuario ya ha sido escogido con anterioridad"
+
+msgid "mail address must be like xxx@yyy.eee (example : jack@altern.org)"
+msgstr "La dirección mail debe ser la forma xxx@yyy.eee (ejemplo: jack@altern.org)"
+
+msgid "a user use already this mail address"
+msgstr "Otro usuario ya utiliza esta dirección e-mail"
+
+msgid "please enter your password again"
+msgstr "Por favor, escriba de nuevo su contraseña"
+
+msgid "Register"
+msgstr "Regístrese"
+
+msgid "Registration"
+msgstr "Registro"
+
+msgid "registration date"
+msgstr "Data de registro"
+
+msgid "Reject"
+msgstr "Rechazar"
+
+msgid "Reject All"
+msgstr "Rechazar todo"
+
+msgid "Related tags"
+msgstr "Tags relacionados"
+
+msgid "Released on"
+msgstr "Añadido"
+
+msgid "Auto login"
+msgstr "Conexión automática"
+
+msgid "clean"
+msgstr "limpiar"
+
+msgid "remove remote listing.xml file"
+msgstr "Suprimir el fichero listing.xml distante"
+
+msgid "generate listing"
+msgstr "generar el listado"
+
+msgid "generate file listing.xml on remote site"
+msgstr "generar el fichero listing.xml sobre el sitio distante"
+
+msgid "Create this site"
+msgstr "Crear este sitio"
+
+msgid "A local listing.xml file has been found for "
+msgstr "Un fichero listing.xml local ha sido encontrado para "
+
+msgid "read local listing.xml and update"
+msgstr "Leer el listing.xml local y poner al día"
+
+msgid "test"
+msgstr "testar"
+
+msgid "test this remote site"
+msgstr "testar este sitio distante"
+
+msgid "remove tags"
+msgstr "suprimir los tags"
+
+msgid "remove this tag from the list"
+msgstr "quitar este tag de la lista"
+
+msgid "Repair and optimize database"
+msgstr "Reparar y optimizar la base de datos"
+
+msgid "Replacement of original templates by customized templates from template-extension subfolder"
+msgstr "Sustitución del templates de origen por su templates adaptados por el expediente  template-extension"
+
+msgid "Replacers (customized templates)"
+msgstr "Los sustitutos (templates modificados)"
+
+msgid "Representant"
+msgstr "Representante"
+
+msgid "Representation of categories"
+msgstr "Representación de las categorías"
+
+msgid "representative"
+msgstr "representante"
+
+msgid "Representative"
+msgstr "Representante"
+
+msgid "Represents"
+msgstr "Representa"
+
+msgid "Reset"
+msgstr "Anular"
+
+msgid "Reset to default values"
+msgstr "Restablecer los valores predeterminados"
+
+msgid "Retrieve password"
+msgstr "Recuperar la contraseña"
+
+msgid "return to homepage"
+msgstr "Volver a la página de inicio"
+
+msgid "RSS feed"
+msgstr "flux RSS"
+
+msgid "Save order"
+msgstr "Salvaguardar la orden"
+
+msgid "Save to permalink history"
+msgstr "Salvaguardar en la reseña histórica de los lazos permanentes"
+
+msgid "Search"
+msgstr "Búsqueda avanzada"
+
+msgid "Search for Author"
+msgstr "Buscar por autor"
+
+msgid "Search in Categories"
+msgstr "Buscar por categorías"
+
+msgid "Search by Date"
+msgstr "Buscar por fecha"
+
+msgid "End-Date"
+msgstr "Hasta la fecha"
+
+msgid "Kind of date"
+msgstr "Tipo de fecha"
+
+#, c-format
+msgid "searched words : %s"
+msgstr "Palabras de búsqueda : %s"
+
+msgid "Search for words"
+msgstr "Buscar por palabra"
+
+msgid "Search for all terms "
+msgstr "Buscar todas las palabras"
+
+msgid "Search for any terms"
+msgstr "Buscar una de las palabras"
+
+msgid "Empty query. No criteria has been entered."
+msgstr "Demanda vacía. Ningún criterio surtido.."
+
+msgid "Search Options"
+msgstr "Opciones de búsqueda"
+
+msgid "Search results"
+msgstr "Resultados de la búsqueda"
+
+msgid "Search rules"
+msgstr "Criterios de búsqueda"
+
+msgid "Search in subcategories"
+msgstr "Buscar en las subcategorías"
+
+msgid "Search tags"
+msgstr "Buscar tags"
+
+msgid "Section"
+msgstr "sección"
+
+msgid "See available tags"
+msgstr "Ver los tags disponibles"
+
+msgid "See images linked to this tag only"
+msgstr "Ver las imágenes relacionadas únicamente a este tag"
+
+msgid "See you soon."
+msgstr "Hasta pronto."
+
+msgid "Select at least one category"
+msgstr "Seleccionar por lo menos una categoría"
+
+msgid "Select at least one picture"
+msgstr "Seleccionar por lo menos una imagen"
+
+msgid "Select at least one user"
+msgstr "Seleccionar por lo menos a un utilizador"
+
+msgid "selection"
+msgstr "Selección"
+
+msgid "Send an information email to group members"
+msgstr "Enviarles un mail de informaciones a los miembros de un grupo"
+
+msgid "Contact"
+msgstr "Contactar"
+
+msgid "Send new password"
+msgstr "Enviar una nueva contraseña"
+
+msgid "Sent by"
+msgstr "Sent by"
+
+msgid "set as category representative"
+msgstr "elegir para representar esta categoría"
+
+msgid "set to"
+msgstr "Cambiarlo"
+
+msgid "Show info"
+msgstr "Mostrar las informaciones"
+
+msgid "Show number of comments"
+msgstr "Mostrar el número de comentarios"
+
+msgid "Show number of hits"
+msgstr "Mostrar el número de visualizaciones"
+
+msgid "show tag cloud"
+msgstr "mostrar la nube de tags"
+
+msgid "Show upload link every time"
+msgstr "Fijar el lazo de añadido de imagen todo el tiempo"
+
+msgid "Since"
+msgstr "Desde"
+
+msgid "singly represented"
+msgstr "representante fijo"
+
+msgid "This site already exists"
+msgstr "Este sitio ya existe"
+
+msgid "Create a new site : (give its URL to create_listing_file.php)"
+msgstr "Crear un nuevo sitio distante: (dar su URL hacia create_listing_file.php)"
+
+msgid "created"
+msgstr "Creado"
+
+msgid "delete"
+msgstr "suprimir"
+
+msgid "deleted"
+msgstr "suprimido"
+
+msgid "delete this site and all its attached elements"
+msgstr "suprimir este sitio y todas las informaciones asociadas"
+
+msgid "an error happened"
+msgstr "Un error sobrevino"
+
+msgid "file create_listing_file.php on remote site was not found"
+msgstr "el fichero create_listing_file.php es imposible de encontrar sobre el sitio distante"
+
+msgid "Local"
+msgstr "Local"
+
+msgid "Site manager"
+msgstr "Gerente de los sitios"
+
+msgid "Remote"
+msgstr "Distante"
+
+msgid "synchronize"
+msgstr "Sincronizar"
+
+msgid "update the database from files"
+msgstr "pone al día la base de datos a partir de los ficheros"
+
+msgid "slideshow"
+msgstr "Diaporama"
+
+msgid "stop the slideshow"
+msgstr "Detener el diaporama"
+
+msgid "Sorry!"
+msgstr "Desolado!"
+
+msgid "Sort by"
+msgstr "Clasificar según"
+
+msgid "Sort order"
+msgstr "Orden de Clasificación"
+
+msgid "Specials"
+msgstr "Especiales"
+
+msgid "SQL queries"
+msgstr "número de demanda SQL"
+
+msgid "SQL queries in"
+msgstr "búsquedas SQL en"
+
+msgid "display only recently posted images"
+msgstr "Seleccionar sólo los elementos incorporados recientemente"
+
+msgid "Start Install"
+msgstr "Empezar la instalación"
+
+msgid "Play of slideshow"
+msgstr "Lectura del diaporama"
+
+msgid "Repeat the slideshow"
+msgstr "Repetir el diaporama"
+
+msgid "Statistics"
+msgstr "Estadísticas"
+
+msgid "status"
+msgstr "Estatuto"
+
+msgid "Status"
+msgstr "Estatuto"
+
+msgid "Parameters are correct"
+msgstr "Los parámetros entrados son correctos"
+
+msgid "Database name"
+msgstr "Nombre de la base"
+
+msgid "also given by your host provider"
+msgstr "El abastecido por su hébergeur"
+
+msgid "Database type"
+msgstr "Database type"
+
+msgid "The type of database your piwigo data will be store in"
+msgstr "The type of database your piwigo data will be store in"
+
+msgid "Can't connect to server"
+msgstr "Imposible conectarse al servidor"
+
+msgid "Host"
+msgstr "Huésped"
+
+msgid "localhost, sql.multimania.com, toto.freesurf.fr"
+msgstr "localhost, sql.multimania.com, toto.freesurf.fr"
+
+msgid "user password given by your host provider"
+msgstr "El abastecido por su hébergeur"
+
+msgid "Database table prefix"
+msgstr "Prefijo nombres de mesa"
+
+msgid "database tables names will be prefixed with it (enables you to manage better your tables)"
+msgstr "El nombre de las mesas aparecerá con este prefijo (permite administrar mejor su base de datos)"
+
+msgid "Database configuration"
+msgstr "Configuración de la Base de datos"
+
+msgid "user login given by your host provider"
+msgstr "Nombre de utilizador para su hébergeur"
+
+msgid "enter a login for webmaster"
+msgstr "Por favor, recoja un pseudo para el webmaster"
+
+msgid "webmaster login can't contain characters ' or \""
+msgstr "El pseudo del webmaster no debe contener carácter \" y '"
+
+msgid "Webmaster password"
+msgstr "Palabra de paso"
+
+msgid "Password [confirm]"
+msgstr "Palabra de paso [Confirmar]"
+
+msgid "verification"
+msgstr "Comprobación"
+
+msgid "Keep it confidential, it enables you to access administration panel"
+msgstr "Debe quedar confidencial, permite acceder al tabla de administración."
+
+msgid "Admin configuration"
+msgstr "Configuración de la cuenta Administrador"
+
+msgid "return to the display of all images"
+msgstr "Volver a mostrar todos los elementos"
+
+msgid "Pause of slideshow"
+msgstr "Pausa del diaporama"
+
+msgid "Not repeat the slideshow"
+msgstr "No repetir el diaporama "
+
+msgid "Directory"
+msgstr "Repertorio"
+
+msgid "Storage category"
+msgstr "Categoría de almacenamiento"
+
+msgid "sub-categories"
+msgstr "subcategorías"
+
+msgid "Submit"
+msgstr "Validar"
+
+msgid "Keep in touch with Piwigo project, subscribe to Piwigo Announcement Newsletter. You will receive emails when a new release is available (sometimes including a security bug fix, it's important to know and upgrade) and when major events happen to the project. Only a few emails a year."
+msgstr "Quédese en contacto con proyecto Piwigo, abónese a la newsletter. Usted recibirá un e-mail cuando una nueva versión estará disponible (a veces un bug de seguridad es corregido, es importante estar al tanto y poner al día) o que un acontecimiento superior sobrevendrá sobre el proyecto. Solamente algunos mensajes al año."
+
+msgid "Subscribe %s to Piwigo Announcements Newsletter"
+msgstr "Abonar %s a la newsletter Piwigo"
+
+msgid "Summary"
+msgstr "Resumen"
+
+msgid "Sum of rates"
+msgstr "Suma notas"
+
+msgid "synchronize metadata"
+msgstr "Sincronizar los méta-datos"
+
+msgid "Tag"
+msgstr "Tag"
+
+msgid "%d tag"
+msgid_plural "%d tags"
+msgstr[0] "%d tag"
+msgstr[1] "%d tags"
+
+msgid "Tag results for"
+msgstr "Resultados de las etiquetas para"
+
+msgid "Tags"
+msgstr "tags"
+
+#, c-format
+msgid "Tag \"%s\" already exists"
+msgstr "El tag \"%s\" ya existe"
+
+msgid "Tag selection"
+msgstr "Selección de tags"
+
+#, c-format
+msgid "Tag \"%s\" was added"
+msgstr "El tag \"%s\" ha sido añadida"
+
+msgid "Take selected elements out of caddie"
+msgstr "Sacar los elementos seleccionados de la cesta"
+
+msgid "target"
+msgstr "blanco"
+
+msgid "Templates configuration has been recorded."
+msgstr "La configuración del templates ha sido registrada."
+
+msgid "the beginning"
+msgstr "el principio"
+
+msgid "Interface theme"
+msgstr "Tema"
+
+msgid "Theme: "
+msgstr ""
+
+msgid "The RSS notification feed provides notification on news from this website : new pictures, updated categories, new comments. Use a RSS feed reader."
+msgstr "Mediante RSS puede recibir notificación de los cambios que tienen lugar en la galería: nuevas imágenes, categorías, etc. Para suscribirse, haga clic en uno de los siguientes enlaces."
+
+msgid "Thumbnail"
+msgstr "miniatura"
+
+msgid "Thumbnails"
+msgstr "Miniaturas"
+
+msgid "Time"
+msgstr "Hora"
+
+msgid "title"
+msgstr "título"
+
+msgid "Categories management"
+msgstr "Gestión de las categorías"
+
+msgid "Piwigo configuration"
+msgstr "Configuración de Piwigo"
+
+msgid "Piwigo administration"
+msgstr "Administración de Piwigo"
+
+msgid "Edit a category"
+msgstr "Modificar una categoría"
+
+msgid "Group management"
+msgstr "Gestión de los grupos"
+
+msgid "User list"
+msgstr "Lista utilizadores"
+
+msgid "Menu"
+msgstr "Menú"
+
+msgid "Modify informations about a picture"
+msgstr "Modificar las informaciones de una imagen"
+
+msgid "A comment on your site"
+msgstr "Una opinión sobre esta pagina"
+
+msgid "Thumbnail creation"
+msgstr "Creación de las miniaturas"
+
+msgid "Database synchronization with files"
+msgstr "Sincronización de la base de datos a partir de los ficheros"
+
+msgid "Pictures waiting for validation"
+msgstr "Imágenes en espera de validación"
+
+msgid "pictures without thumbnail (jpeg and png only)"
+msgstr "imagen sin miniatura (jpeg y png únicamente)"
+
+msgid "height must be a number superior to"
+msgstr "La altura debe un entero superior a"
+
+msgid "width must be a number superior to"
+msgstr "La anchura debe ser un entero superior a"
+
+msgid "for the file format"
+msgstr "para el tamaño de fichero"
+
+msgid "No missing thumbnail"
+msgstr "Ninguna miniatura falta"
+
+msgid "Picture unreachable or no support"
+msgstr "Imagen inaccesible o no sostenida"
+
+msgid "GD version"
+msgstr "versión de GD"
+
+msgid "Miniaturization parameters"
+msgstr "Parámetro de miniaturización"
+
+msgid "generated in"
+msgstr "generada de allí"
+
+msgid "Results of miniaturization"
+msgstr "Los resultados de la miniaturización"
+
+msgid "General statistics"
+msgstr "Estadísticas generales"
+
+msgid "max time"
+msgstr "El tiempo máximo"
+
+msgid "average time"
+msgstr "El tiempo medio"
+
+msgid "min time"
+msgstr "El tiempo mínimo"
+
+msgid "number of miniaturized pictures"
+msgstr "número de miniaturas creadas"
+
+msgid "total time"
+msgstr "el tiempo total"
+
+msgid "for this file format"
+msgstr "para este tamaño de fichero"
+
+msgid "today"
+msgstr "hoy"
+
+msgid "Toggle 'default group' property"
+msgstr "Invertir la propiedad 'grupo por defecto'"
+
+msgid "total SQL time"
+msgstr "tiempo total de la demanda SQL"
+
+msgid "total upgrade time"
+msgstr "tiempo total de la puesta al día"
+
+msgid "Try to configure PHP 5"
+msgstr "Tratar de configurar PHP 5"
+
+msgid "Unable to check for upgrade."
+msgstr "Imposible conocer la última versión."
+
+msgid "Uncheck all"
+msgstr "Soltar todo"
+
+msgid "Uninstall"
+msgstr "Desinstalar"
+
+msgid "unit mode"
+msgstr "modo unitario"
+
+msgid "unknown"
+msgstr ""
+
+msgid "Unlocked"
+msgstr "quitada el cierre"
+
+msgid "unset"
+msgstr "Vaciar"
+
+msgid "Synchronize"
+msgstr "Sincronizar"
+
+msgid "Update categories informations"
+msgstr "Poner al día las informaciones de las categorías"
+
+msgid "reduce to single existing categories"
+msgstr "Únicamente tratar una categoría"
+
+msgid "Choose an option"
+msgstr "Escoger una opción"
+
+msgid "display maximum informations (added categories and elements, deleted categories and elements)"
+msgstr "Fijar un máximo de informaciones (categorías añadidas, elementos añadidos, categorías y elementos suprimidos)"
+
+msgid "Error list"
+msgstr "Lista errores"
+
+msgid "Errors caption"
+msgstr "Leyenda de los errores"
+
+msgid "Piwigo version differs on the remote site"
+msgstr "La versión Piwigo sobre el sitio distante es diferente"
+
+msgid "Version of create_listing_file.php on the remote site and Piwigo must be the same"
+msgstr "La versión de create_listing_file.php sobre la sitio distante y Piwigo debe ser lo mismo"
+
+msgid "listing.xml file was not found"
+msgstr "El fichero listing.xml es imposible de encontrar"
+
+msgid "listing.xml file was not found on the remote site. This file is generated by choosing the \"generate listing\" command in the Site manager"
+msgstr "el fichero listing.xml es imposible de encontrar sobre el sitio distante. Este fichero está generado escogiendo el encargo \" generar el listado \" en el gerente de sitios"
+
+msgid "Update images informations"
+msgstr "Poner al día las informaciones de las imágenes"
+
+msgid "Detailed informations"
+msgstr "Informaciones detalladas"
+
+msgid "File/directory read error"
+msgstr "Error de abertura fichero / repertorio"
+
+msgid "The file or directory cannot be accessed (either it does not exist or the access is denied)"
+msgstr "El fichero o el repertorio no puede ser accesible (o sea no existe, o sea el acceso es negado)"
+
+msgid "a picture filetype requires a thumbnail. The thumbnail must be present in the sub-directory \"thumbnail\" of the category directory. The thumbnail filename must start with the configured thumbnail prefix and the extension must be among the following list :"
+msgstr "Cada fichero lleno de imágenes requiere una miniatura. La miniatura debe estar presente en el subdirectorio \" thumbnail \" del repertorio de la categoría. El nombre del fichero de la miniatura debe comenzar con parámetro de configuración \"prefix_thumbnail\" y la extensión del nombre del fichero debe estar entre la lista siguiente:"
+
+msgid "missing thumbnail"
+msgstr "falta la miniatura "
+
+msgid "categories deleted in the database"
+msgstr "categorías suprimidas de la base de datos"
+
+msgid "elements deleted in the database"
+msgstr "Elementos suprimidos de la base de datos"
+
+msgid "images candidates for metadata synchronization"
+msgstr "Llena de imágenes a candidatas a la sincronización con los méta-datos"
+
+msgid "elements informations synchronized with files metadata"
+msgstr "Informaciones de las imágenes sincronizadas con los méta-datos"
+
+msgid "errors during synchronization"
+msgstr "errores sobrevenidos durante la sincronización"
+
+msgid "categories added in the database"
+msgstr "categorías añadidas a la base de datos"
+
+msgid "elements added in the database"
+msgstr "elementos añadidos a la base de datos"
+
+msgid "elements updated in the database"
+msgstr "elementos puestos al día en la base de datos"
+
+msgid "Search for new images in the directories"
+msgstr "Buscar las nuevas imágenes en los repertorios"
+
+msgid "Update your rating"
+msgstr "Actualizar la valoración"
+
+msgid "added"
+msgstr "añadido"
+
+msgid "Metadata synchronization results"
+msgstr "El resultado de la sincronización de los méta-datos"
+
+msgid "only perform a simulation (no change in database will be made)"
+msgstr "Únicamente simular (ningún cambio en la base de datos será efectuado)"
+
+msgid "[Simulation]"
+msgstr "[Simulation]"
+
+msgid "directories + files"
+msgstr "repertorios + ficheros"
+
+msgid "only directories"
+msgstr "repertorios únicamente"
+
+msgid "synchronize files structure with database"
+msgstr "sincronizar la estructura de los ficheros con la base de datos"
+
+msgid "synchronize files metadata with database elements informations"
+msgstr "sincronizar las informaciones de los elementos en la base de datos a partir de los méta-datos de los ficheros"
+
+msgid "even already synchronized elements"
+msgstr "hasta los elementos ya sincronizados"
+
+msgid "Used metadata"
+msgstr "Méta-datos empleadas"
+
+msgid "wrong filename"
+msgstr "Nombre de directorio incorrecto"
+
+msgid "The name of directories and files must be composed of letters, numbers, \"-\", \"_\" or \".\""
+msgstr "El nombre de los repertorios y de los ficheros debe estar constituido sólo por letras, por cifras, de \"-\", \"_\" y \".\""
+
+msgid "Upgrade"
+msgstr "Puesta al día"
+
+msgid "Upgrade informations"
+msgstr "Informaciones sobre la puesta al día"
+
+msgid "Only administrator can run upgrade: please sign in below."
+msgstr "Sólo un administrador puede lanzar la puesta al día: por favor, identifiqúese más abajo."
+
+msgid "the filesize of the picture must not exceed : "
+msgstr "El tamaño de la imagen no debe sobrepasar los: "
+
+msgid "the picture must be to the fileformat jpg, gif or png"
+msgstr "El tipo de archivo de la imagen debe ser jpg, png o gif"
+
+msgid "the height of the picture must not exceed : "
+msgstr "La altura de la imagen no debe sobrepasar los: "
+
+msgid "Optional, but recommended : choose a thumbnail to associate to "
+msgstr "Opcional, pero recomendado: escoger una miniatura para asociar "
+
+msgid "the width of the picture must not exceed : "
+msgstr "La anchura de la imagen no debe sobrepasar los: "
+
+msgid "can't upload the picture on the server"
+msgstr "Imposible trasladar el fichero sobre el camarero(servidor)"
+
+msgid "the username must be given"
+msgstr "Indique el nombre de usuario"
+
+msgid "A picture's name already used"
+msgstr "Ya existe otra imagen con el mismo nombre"
+
+msgid "You must choose a picture fileformat for the image"
+msgstr "Indique el formato de archivo de la imagen"
+
+msgid "Name of the picture"
+msgstr "Nombre de la imagen"
+
+msgid "Upload a picture"
+msgstr "Agregar una imagen"
+
+msgid "Picture uploaded with success, an administrator will validate it as soon as possible"
+msgstr "Imagen agregada; podrá visualizarse una vez la apruebe el administrador"
+
+msgid "Use the default image sort order (defined in the configuration file)"
+msgstr "Utilizar la orden de selección de las imágenes por defecto (definido en el fichero de configuración)"
+
+msgid "useful when password forgotten"
+msgstr "Útil en caso de que olvide la contraseña"
+
+msgid "User access level to upload"
+msgstr "Nivel de acceso usuario para cargar"
+
+msgid "User comments"
+msgstr "Comentarios del usuario"
+
+msgid "User comments validation"
+msgstr "Validación de los comentarios de utilizadores"
+
+msgid "Username"
+msgstr "Nombre del usuario"
+
+msgid "User permissions and group permissions have been erased"
+msgstr "Los autorizaciones de los usuarios y de los grupos han sido borrados"
+
+msgid "Users"
+msgstr "Utilizadores"
+
+#, c-format
+msgid "user \"%s\" added"
+msgstr "utilizador \"%s\" añadido"
+
+msgid "User status"
+msgstr "Estatuto del utilizador"
+
+msgid "Administrator"
+msgstr "Administrador"
+
+msgid "Generic"
+msgstr "Genérico"
+
+msgid "Guest"
+msgstr "Invitado"
+
+msgid "Webmaster"
+msgstr "Webmestre"
+
+msgid "%d user"
+msgid_plural "%d users"
+msgstr[0] "%d utilizador"
+msgstr[1] "%d utilizadores"
+
+msgid "%d user comment rejected"
+msgid_plural "%d user comments rejected"
+msgstr[0] "%d comentario de utilizador rechazado"
+msgstr[1] "%d comentarios de utilizadores rechazados"
+
+msgid "%d user comment validated"
+msgid_plural "%d user comments validated"
+msgstr[0] "%d comentario de utilizador validado"
+msgstr[1] "%d comentarios de utilizadores validados"
+
+msgid "%d user deleted"
+msgid_plural "%d users deleted"
+msgstr[0] "%d utilizador suprimido"
+msgstr[1] "%d utilizadores suprimidos"
+
+msgid "%d group"
+msgid_plural "%d groups"
+msgstr[0] "%d grupo"
+msgstr[1] "%d grupos"
+
+msgid "Validate"
+msgstr "Validar"
+
+msgid "Validate All"
+msgstr "Validar todo"
+
+msgid "validate this comment"
+msgstr ""
+
+msgid "Validation"
+msgstr "Validación"
+
+msgid "Version"
+msgstr "Versión"
+
+msgid "Virtual categories movement"
+msgstr "Desplazamiento de categorías virtuales"
+
+msgid "Virtual categories to move"
+msgstr "Categorías virtuales que hay que desplazar"
+
+msgid "Virtual category"
+msgstr "Categoría virtual"
+
+msgid "Virtual category name"
+msgstr "Nombre de la categoría virtual"
+
+msgid "Visits"
+msgstr "Visitas"
+
+msgid "Waiting"
+msgstr "En espera"
+
+msgid "Webmaster cannot be deleted"
+msgstr "El webmestre no puede ser suprimido"
+
+#, c-format
+msgid "Week %d"
+msgstr ""
+
+msgid "Documentation"
+msgstr "Documentación"
+
+msgid "Year"
+msgstr "Año"
+
+msgid "Yes"
+msgstr "Si"
+
+msgid "You are running on development sources, no check possible."
+msgstr "Usted trabaja con las fuentes de desarrollo, imposible verificar la última versión."
+
+msgid "You are running the latest version of Piwigo."
+msgstr "Usted utiliza la última versión de Piwigo."
+
+msgid "You cannot delete your account"
+msgstr "Usted no puede suprimir su cuenta"
+
+msgid "You cannot move a category in its own sub category"
+msgstr "Usted no puede desplazar una categoría en su propia subcategoría"
+
+msgid "You do not have access rights to run upgrade"
+msgstr "Usted no tiene los derechos necessaires para lanzar la puesta al día."
+
+msgid "You may referer to your hosting provider's support and see how you could switch to PHP 5 by yourself."
+msgstr "Usted debe ponerse en contacto con su hébergeur con el fin de saber cómo configurar PHP 5"
+
+msgid "You need to confirm deletion"
+msgstr "Usted debe confirmar la supresión"

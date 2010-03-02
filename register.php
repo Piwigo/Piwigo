@@ -42,7 +42,7 @@ if (isset($_POST['submit']))
 {
   if ($_POST['password'] != $_POST['password_conf'])
   {
-    array_push($errors, l10n('reg_err_pass'));
+    array_push($errors, l10n('please enter your password again'));
   }
 
   $errors =

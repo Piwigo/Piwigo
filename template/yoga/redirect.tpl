@@ -8,6 +8,6 @@
 
 <p style="margin: 2em">
 	<a href="{$page_refresh.U_REFRESH}">
-		{'click_to_redirect'|@translate}
+		{'Click here if your browser does not automatically forward you'|@translate}
 	</a>
 </p>

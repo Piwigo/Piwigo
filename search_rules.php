@@ -30,7 +30,7 @@
  */
 function inc_exc_str($is_included)
 {
-  return $is_included ? l10n('included') : l10n('excluded');
+  return $is_excluded ? l10n('excluded') : l10n('excluded');
 }
 
 // +-----------------------------------------------------------------------+

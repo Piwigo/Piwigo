@@ -292,9 +292,9 @@ function access_denied()
   if ( isset($user) and !is_a_guest() )
   {
     echo '<meta http-equiv="Content-Type" content="text/html; charset=utf-8">';
-    echo '<div style="text-align:center;">'.l10n('access_forbiden').'<br>';
-    echo '<a href="'.get_root_url().'identification.php">'.l10n('identification').'</a>&nbsp;';
-    echo '<a href="'.make_index_url().'">'.l10n('home').'</a></div>';
+    echo '<div style="text-align:center;">'.l10n('You are not authorized to access the requested page').'<br>';
+    echo '<a href="'.get_root_url().'Identification.php">'.l10n('Identification').'</a>&nbsp;';
+    echo '<a href="'.make_index_url().'">'.l10n('Home').'</a></div>';
     echo str_repeat( ' ', 512); //IE6 doesn't error output if below a size
     exit();
   }
@@ -399,7 +399,7 @@ $btrace_msg
 function get_tags_content_title()
 {
   global $page;
-  $title = count($page['tags']) > 1 ? l10n('Tags') : l10n('Tag');
+  $title = count($page['tags']) > 1 ? l10n('Tag') : l10n('Tag');
   $title.= ' ';
 
   for ($i=0; $i<count($page['tags']); $i++)
@@ -414,7 +414,7 @@ function get_tags_content_title()
           )
         )
       .'" title="'
-      .l10n('See elements linked to this tag only')
+      .l10n('See images linked to this tag only')
       .'">'
       .$page['tags'][$i]['name']
       .'</a>';
@@ -431,7 +431,7 @@ function get_tags_content_title()
             )
           )
         .'" style="border:none;" title="'
-        .l10n('remove this tag')
+        .l10n('remove this tag from the list')
         .'"><img src="'
         .get_root_url().get_themeconf('icon_dir').'/remove_s.png'
         .'" alt="x" style="vertical-align:bottom;" class="button">'

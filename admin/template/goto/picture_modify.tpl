@@ -9,16 +9,16 @@
 </script>
 {/literal}
 
-<h2>{'title_picmod'|@translate}</h2>
+<h2>{'Modify informations about a picture'|@translate}</h2>
 
-<img src="{$TN_SRC}" alt="{'thumbnail'|@translate}" class="thumbnail">
+<img src="{$TN_SRC}" alt="{'Thumbnail'|@translate}" class="Thumbnail">
 
 <ul class="categoryActions">
   {if isset($U_JUMPTO) }
   <li><a href="{$U_JUMPTO}" title="{'jump to image'|@translate}"><img src="{$themeconf.admin_icon_dir}/category_jump-to.png" class="button" alt="{'jump to image'|@translate}"></a></li>
   {/if}
   {if !url_is_remote($path)}
-  <li><a href="{$U_SYNC}" title="{'synchronize metadata'|@translate}" {$TAG_INPUT_ENABLED}><img src="{$themeconf.admin_icon_dir}/sync_metadata.png" class="button" alt="{'synchronize'|@translate}"></a></li>
+  <li><a href="{$U_SYNC}" title="{'synchronize'|@translate}" {$TAG_INPUT_ENABLED}><img src="{$themeconf.admin_icon_dir}/sync_metadata.png" class="button" alt="{'synchronize'|@translate}"></a></li>
   {/if}
 </ul>
 

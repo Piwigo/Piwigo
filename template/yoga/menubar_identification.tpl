@@ -1,28 +1,28 @@
-<dt>{'identification'|@translate}</dt>
+<dt>{'Identification'|@translate}</dt>
 <dd>
 	{if isset($USERNAME)}
-	<p>{'hello'|@translate}&nbsp;{$USERNAME}&nbsp;!</p>
+	<p>{'Hello'|@translate}&nbsp;{$USERNAME}&nbsp;!</p>
 	{/if}
 
 	<ul>
 	{if isset($U_REGISTER)}
-	<li><a href="{$U_REGISTER}" title="{'Create a new account'|@translate}" rel="nofollow">{'Register'|@translate}</a></li>
+	<li><a href="{$U_REGISTER}" title="{'Register'|@translate}" rel="nofollow">{'Register'|@translate}</a></li>
 	{/if}
 
 	{if isset($U_LOGIN)}
-	<li><a href="{$U_LOGIN}" rel="nofollow">{'Connection'|@translate}</a></li>
+	<li><a href="{$U_LOGIN}" rel="nofollow">{'Login'|@translate}</a></li>
 	{/if}
 
 	{if isset($U_LOGOUT)}
-	<li><a href="{$U_LOGOUT}">{'logout'|@translate}</a></li>
+	<li><a href="{$U_LOGOUT}">{'Logout'|@translate}</a></li>
 	{/if}
 
 	{if isset($U_PROFILE)}
-	<li><a href="{$U_PROFILE}" title="{'hint_customize'|@translate}">{'customize'|@translate}</a></li>
+	<li><a href="{$U_PROFILE}" title="{'Customize'|@translate}">{'Customize'|@translate}</a></li>
 	{/if}
 
 	{if isset($U_ADMIN)}
-	<li><a href="{$U_ADMIN}" title="{'hint_admin'|@translate}">{'admin'|@translate}</a></li>
+	<li><a href="{$U_ADMIN}" title="{'Administration'|@translate}">{'Administration'|@translate}</a></li>
 	{/if}
 	</ul>
 
@@ -42,7 +42,7 @@
 
 	{if $AUTHORIZE_REMEMBERING}
 	<div><label for="remember_me">
-	{'remember_me'|@translate}
+	{'Auto login'|@translate}
 	<input type="checkbox" name="remember_me" id="remember_me" value="1">
 	</label></div>
 	{/if}
@@ -52,7 +52,7 @@
 	<ul class="actions">
 		<li><a href="{$U_LOST_PASSWORD}" title="{'Forgot your password?'|@translate}" rel="nofollow"><img src="{$ROOT_URL}{$themeconf.icon_dir}/lost_password.png" class="button" alt="{'Forgot your password?'|@translate}"></a></li>
 		{if isset($U_REGISTER)}
-		<li><a href="{$U_REGISTER}" title="{'Create a new account'|@translate}" rel="nofollow"><img src="{$ROOT_URL}{$themeconf.icon_dir}/register.png" class="button" alt="{'Register'|@translate}"></a></li>
+		<li><a href="{$U_REGISTER}" title="{'Register'|@translate}" rel="nofollow"><img src="{$ROOT_URL}{$themeconf.icon_dir}/register.png" class="button" alt="{'Register'|@translate}"></a></li>
 		{/if}
 	</ul>
 	</div>

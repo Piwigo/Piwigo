@@ -51,7 +51,7 @@ if (isset($_POST['submit']))
 
   if (isset($_POST['no_mail_address']) and $_POST['no_mail_address'] == 1)
   {
-    array_push($page['infos'], l10n('Email address is missing'));
+    array_push($page['infos'], l10n('Email address is missing. Please specify an email address.'));
     array_push($page['infos'], $mailto);
   }
   else if (isset($_POST['mail_address']) and !empty($_POST['mail_address']))
@@ -130,7 +130,7 @@ WHERE '
     }
     else
     {
-      array_push($page['errors'], l10n('No user matches this email address'));
+      array_push($page['errors'], l10n('No classic user matches this email address'));
       array_push($page['errors'], l10n('Administrator, webmaster and special user cannot use this method'));
       array_push($page['errors'], $mailto);
     }

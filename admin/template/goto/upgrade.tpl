@@ -48,7 +48,7 @@ textarea { margin-left: 20px; }
 
 <table>
   <tr>
-    <td>{'language'|@translate}</td>
+    <td>{'Language'|@translate}</td>
     <td>
       <select name="language" onchange="document.location = 'upgrade.php?language='+this.options[this.selectedIndex].value;">
         {html_options options=$language_options selected=$language_selection}
@@ -59,7 +59,7 @@ textarea { margin-left: 20px; }
 
 <p>{'introduction message'|@translate|@sprintf:$introduction.CURRENT_RELEASE}</p>
 {if isset($login)}
-<p>{'upgrade login message'|@translate}</p>
+<p>{'Only administrator can run upgrade: please sign in below.'|@translate}</p>
 {/if}
 
 <form method="POST" action="{$introduction.F_ACTION}" name="upgrade_form">
@@ -106,7 +106,7 @@ textarea { margin-left: 20px; }
 </ul>
 
 <form action="index.php" method="post">
-<p><input type="submit" name="submit" value="{'home'|@translate}"></p>
+<p><input type="submit" name="submit" value="{'Home'|@translate}"></p>
 </form>
 {/if}
 

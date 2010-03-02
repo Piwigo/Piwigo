@@ -144,7 +144,7 @@ INSERT INTO '.SEARCH_TABLE.'
   }
   else
   {
-    array_push($page['errors'], l10n('search_one_clause_at_least'));
+    array_push($page['errors'], l10n('Empty query. No criteria has been entered.'));
   }
 }
 

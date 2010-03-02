@@ -13,11 +13,11 @@
 {/if}
 
 {if isset($local_listing)}
-{'remote_site_local_found'|@translate} {$local_listing.URL}
+{'A local listing.xml file has been found for '|@translate} {$local_listing.URL}
 {if isset($local_listing.CREATE)}
 <form action="{$F_ACTION}" method="post">
   <p>
-    {'remote_site_local_create'|@translate}:
+    {'Create this site'|@translate}:
     <input type="hidden" name="no_check" value="1">
     <input type="hidden" name="galleries_url" value="{$local_listing.URL}">
     <input type="submit" name="submit" value="{'Submit'|@translate}" {$TAG_INPUT_ENABLED}>
@@ -25,7 +25,7 @@
 </form>
 {/if}
 {if isset($local_listing.U_SYNCHRONIZE)}
-&nbsp;<a href="{$local_listing.U_SYNCHRONIZE}" title="{'remote_site_local_update'|@translate}">{'site_synchronize'|@translate}</a>
+&nbsp;<a href="{$local_listing.U_SYNCHRONIZE}" title="{'synchronize'|@translate}">{'synchronize'|@translate}</a>
 <br><br>
 {/if}
 {/if}
@@ -33,23 +33,23 @@
 {if not empty($sites)}
 <table class="table2">
 	<tr class="throw">
-		<td>{'site_local'|@translate} / {'site_remote'|@translate}</td>
+		<td>{'Remote'|@translate} / {'Remote'|@translate}</td>
 		<td>{'Actions'|@translate}</td>
 	</tr>
   {foreach from=$sites item=site name=site}
   <tr style="text-align:left" class="{if $smarty.foreach.site.index is odd}row1{else}row2{/if}"><td>
     <a href="{$site.NAME}">{$site.NAME}</a><br>({$site.TYPE}, {$site.CATEGORIES} {'Categories'|@translate}, {$pwg->l10n_dec('%d element','%d elements',$site.IMAGES)})
   </td><td>
-    [<a href="{$site.U_SYNCHRONIZE}" title="{'site_synchronize_hint'|@translate}">{'site_synchronize'|@translate}</a>]
+    [<a href="{$site.U_SYNCHRONIZE}" title="{'synchronize'|@translate}">{'synchronize'|@translate}</a>]
     {if isset($site.U_DELETE)}
       [<a href="{$site.U_DELETE}" onclick="return confirm('{'Are you sure?'|@translate|escape:'javascript'}');"
-                title="{'site_delete_hint'|@translate}" {$TAG_INPUT_ENABLED}>{'site_delete'|@translate}</a>]
+                title="{'delete'|@translate}" {$TAG_INPUT_ENABLED}>{'delete'|@translate}</a>]
     {/if}
     {if isset($site.remote)}
       <br>
-      [<a href="{$site.remote.U_TEST}" title="{'remote_site_test_hint'|@translate}" {$TAG_INPUT_ENABLED}>{'remote_site_test'|@translate}</a>]
-      [<a href="{$site.remote.U_GENERATE}" title="{'remote_site_generate_hint'|@translate}" {$TAG_INPUT_ENABLED}>{'remote_site_generate'|@translate}</a>]
-      [<a href="{$site.remote.U_CLEAN}" title="{'remote_site_clean_hint'|@translate}" {$TAG_INPUT_ENABLED}>{'remote_site_clean'|@translate}</a>]
+      [<a href="{$site.remote.U_TEST}" title="{'test'|@translate}" {$TAG_INPUT_ENABLED}>{'test'|@translate}</a>]
+      [<a href="{$site.remote.U_GENERATE}" title="{'generate listing'|@translate}" {$TAG_INPUT_ENABLED}>{'generate listing'|@translate}</a>]
+      [<a href="{$site.remote.U_CLEAN}" title="{'clean'|@translate}" {$TAG_INPUT_ENABLED}>{'clean'|@translate}</a>]
     {/if}
     {if not empty($site.plugin_links)}
         <br>
@@ -64,7 +64,7 @@
 
 <form action="{$F_ACTION}" method="post">
   <p>
-    <label for="galleries_url" >{'site_create'|@translate}</label>
+    <label for="galleries_url" >{'Create a new site : (give its URL to create_listing_file.php)'|@translate}</label>
     <input type="text" name="galleries_url" id="galleries_url">
   </p>
   <p>

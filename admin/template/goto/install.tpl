@@ -70,10 +70,10 @@ TD {
 
   <table class="table2">
     <tr class="throw">
-      <th colspan="2">{'Initial_config'|@translate}</th>
+      <th colspan="2">{'Basic configuration'|@translate}</th>
     </tr>
     <tr>
-      <td style="width: 30%">{'Default_lang'|@translate}</td>
+      <td style="width: 30%">{'Default gallery language'|@translate}</td>
       <td>
     <select name="language" onchange="document.location = 'install.php?language='+this.options[this.selectedIndex].value;">
     {html_options options=$language_options selected=$language_selection}
@@ -83,11 +83,11 @@ TD {
   </table>
   <table class="table2">
     <tr class="throw">
-      <th colspan="3">{'step1_title'|@translate}</th>
+      <th colspan="3">{'Database configuration'|@translate}</th>
     </tr>
     {if count($F_DB_ENGINES)>1}
     <tr>
-      <td style="width: 30%;">{'step1_dbengine'|@translate}</td>
+      <td style="width: 30%;">{'Database type'|@translate}</td>
       <td>
 	<select name="dblayer" id="dblayer">
 	  {foreach from=$F_DB_ENGINES key=k item=v}
@@ -98,7 +98,7 @@ TD {
 	  {/foreach}
 	</select>    
       </td>
-      <td>{'step1_dbengine_info'|@translate}</td>
+      <td>{'The type of database your piwigo data will be store in'|@translate}</td>
     {else}
     <td colspan="3">
     <input type="hidden" name="dbengine" value="{$F_DB_LAYER}">
@@ -106,76 +106,76 @@ TD {
     {/if}
     </tr>
     <tr>
-      <td style="width: 30%;">{'step1_host'|@translate}</td>
+      <td style="width: 30%;">{'Host'|@translate}</td>
       <td align=center><input type="text" name="dbhost" value="{$F_DB_HOST}"></td>
-      <td>{'step1_host_info'|@translate}</td>
+      <td>{'localhost, sql.multimania.com, toto.freesurf.fr'|@translate}</td>
     </tr>
     <tr>
-      <td>{'step1_user'|@translate}</td>
+      <td>{'User'|@translate}</td>
       <td align=center><input type="text" name="dbuser" value="{$F_DB_USER}"></td>
-      <td>{'step1_user_info'|@translate}</td>
+      <td>{'user login given by your host provider'|@translate}</td>
     </tr>
     <tr>
-      <td>{'step1_pass'|@translate}</td>
+      <td>{'Password'|@translate}</td>
       <td align=center><input type="password" name="dbpasswd" value=""></td>
-      <td>{'step1_pass_info'|@translate}</td>
+      <td>{'user password given by your host provider'|@translate}</td>
     </tr>
     <tr>
-      <td>{'step1_database'|@translate}</td>
+      <td>{'Database name'|@translate}</td>
       <td align=center><input type="text" name="dbname" value="{$F_DB_NAME}"></td>
-      <td>{'step1_database_info'|@translate}</td>
+      <td>{'also given by your host provider'|@translate}</td>
     </tr>
     <tr>
-      <td>{'step1_prefix'|@translate}</td>
+      <td>{'Database table prefix'|@translate}</td>
       <td align=center><input type="text" name="prefix" value="{$F_DB_PREFIX}"></td>
-      <td>{'step1_prefix_info'|@translate}</td>
+      <td>{'database tables names will be prefixed with it (enables you to manage better your tables)'|@translate}</td>
     </tr>
   </table>
 
   <table class="table2">
     <tr class="throw">
-      <th colspan="3">{'step2_title'|@translate}</th>
+      <th colspan="3">{'Admin configuration'|@translate}</th>
     </tr>
     <tr>
-      <td style="width: 30%;">{'install_webmaster'|@translate}</td>
+      <td style="width: 30%;">{'Webmaster login'|@translate}</td>
       <td align="center"><input type="text" name="admin_name" value="{$F_ADMIN}"></td>
-      <td>{'install_webmaster_info'|@translate}</td>
+      <td>{'It will be shown to the visitors. It is necessary for website administration'|@translate}</td>
     </tr>
     <tr>
-      <td>{'step2_pwd'|@translate}</td>
+      <td>{'Webmaster password'|@translate}</td>
       <td align="center"><input type="password" name="admin_pass1" value=""></td>
-      <td>{'step2_pwd_info'|@translate}</td>
+      <td>{'Keep it confidential, it enables you to access administration panel'|@translate}</td>
     </tr>
     <tr>
-      <td>{'step2_pwd_conf'|@translate}</td>
+      <td>{'Password [confirm]'|@translate}</td>
       <td align="center"><input type="password" name="admin_pass2" value=""></td>
-      <td>{'step2_pwd_conf_info'|@translate}</td>
+      <td>{'verification'|@translate}</td>
     </tr>
     <tr>
-      <td>{'conf_mail_webmaster'|@translate}</td>
+      <td>{'Webmaster mail address'|@translate}</td>
       <td align="center"><input type="text" name="admin_mail" value="{$F_ADMIN_EMAIL}"></td>
-      <td>{'conf_mail_webmaster_info'|@translate}</td>
+      <td>{'Visitors will be able to contact site administrator with this mail'|@translate}</td>
     </tr>
   </table>
 
   <table>
     <tr>
       <td style="text-align: center;">
-        <input class="submit" type="submit" name="install" value="{'Start_Install'|@translate}">
+        <input class="submit" type="submit" name="install" value="{'Start Install'|@translate}">
       </td>
     </tr>
   </table>
 </form>
 {else}
 <p>
-  <input type="button" name="home" value="{'home'|@translate}" onClick="window.open('index.php');">
-  <input type="button" name="admin" value="{'admin'|@translate}" onClick="window.open('admin.php');">
+  <input type="button" name="Home" value="{'Home'|@translate}" onClick="window.open('index.php');">
+  <input type="button" name="Administration" value="{'Administration'|@translate}" onClick="window.open('Administration.php');">
 </p>
 
 {if !isset($migration)}
 <div class="infos">
   <ul>
-    <li>{'Subscribe to Piwigo Announcements Newsletter'|@translate}</li>
+    <li>{'Keep in touch with Piwigo project, subscribe to Piwigo Announcement Newsletter. You will receive emails when a new release is available (sometimes including a security bug fix, it\'s important to know and upgrade) and when major events happen to the project. Only a few emails a year.'|@translate}</li>
   </ul>
 </div>
 

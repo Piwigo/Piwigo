@@ -87,7 +87,7 @@ SELECT permalink
     {
       $page['errors'][] = 
         sprintf( 
-          l10n('Permalink_%s_histo_used_by_%s'),
+          l10n('Permalink %s has been previously used by category %s. Delete from the permalink history first'),
           $permalink, $old_cat_id
         );
       return false;
@@ -140,7 +140,7 @@ function set_cat_permalink( $cat_id, $permalink, $save )
   if ( $sanitized_permalink != $permalink 
       or preg_match( '#^(\d)+(-.*)?$#', $permalink) )
   {
-    $page['errors'][] = l10n('Permalink_name_rule');
+    $page['errors'][] = l10n('The permalink name must be composed of a-z, A-Z, 0-9, \"-\", \"_\" or \"/\". It must not be numeric or start with number followed by \"-\"');
     return false;
   }
   
@@ -169,7 +169,7 @@ function set_cat_permalink( $cat_id, $permalink, $save )
   {
     $page['errors'][] = 
       sprintf( 
-        l10n('Permalink_%s_histo_used_by_%s'),
+        l10n('Permalink %s has been previously used by category %s. Delete from the permalink history first'),
         $permalink, $old_cat_id
       );
     return false;

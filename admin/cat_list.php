@@ -68,7 +68,7 @@ $categories = array();
 
 $base_url = get_root_url().'admin.php?page=cat_list';
 $navigation = '<a href="'.$base_url.'">';
-$navigation.= l10n('home');
+$navigation.= l10n('Home');
 $navigation.= '</a>';
 
 // +-----------------------------------------------------------------------+
@@ -78,7 +78,7 @@ $navigation.= '</a>';
 if (isset($_GET['delete']) and is_numeric($_GET['delete']) and !is_adviser())
 {
   delete_categories(array($_GET['delete']));
-  array_push($page['infos'], l10n('cat_virtual_deleted'));
+  array_push($page['infos'], l10n('Virtual category deleted'));
   update_global_rank();
 }
 // request to add a virtual category

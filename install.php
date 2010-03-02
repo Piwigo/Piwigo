@@ -231,7 +231,7 @@ if ( isset( $_POST['install'] ))
 				     $_POST['dbpasswd'], $_POST['dbname']))!==false) 
   {
 
-    array_push( $infos, l10n('step1_confirmation') );
+    array_push( $infos, l10n('Parameters are correct') );
 
     $required_version = constant('REQUIRED_'.strtoupper($dblayer).'_VERSION');
     if ( version_compare(pwg_get_db_version(), $required_version, '>=') )
@@ -260,18 +260,18 @@ if ( isset( $_POST['install'] ))
   }
   else
   {
-    array_push( $errors, l10n('step1_err_server') );
+    array_push( $errors, l10n('Can\'t connect to server') );
   }
 
   $webmaster = trim(preg_replace( '/\s{2,}/', ' ', $admin_name ));
   if ( empty($webmaster))
-    array_push( $errors, l10n('step2_err_login1') );
+    array_push( $errors, l10n('enter a login for webmaster') );
   else if ( preg_match( '/[\'"]/', $webmaster ) )
-    array_push( $errors, l10n('step2_err_login3') );
+    array_push( $errors, l10n('webmaster login can\'t contain characters \' or \"') );
   if ( $admin_pass1 != $admin_pass2 || empty($admin_pass1) )
-    array_push( $errors, l10n('step2_err_pass') );
+    array_push( $errors, l10n('please enter your password again') );
   if ( empty($admin_mail))
-    array_push( $errors, l10n('reg_err_mail_address') );
+    array_push( $errors, l10n('mail address must be like xxx@yyy.eee (example : jack@altern.org)') );
   else
   {
     $error_mail_address = validate_mail_address(null, $admin_mail);
@@ -304,7 +304,7 @@ define(\'DB_COLLATE\', \'\');
     {
       $html_content = htmlentities( $file_content, ENT_QUOTES );
       $html_content = nl2br( $html_content );
-      $error_copy = l10n('step1_err_copy');
+      $error_copy = l10n('Copy the text in pink between hyphens and paste it into the file \"include/config_database.inc.php\"(Warning : config_database.inc.php must only contain what is in pink, no line return or space character)');
       $error_copy .= '<br>--------------------------------------------------------------------<br>';
       $error_copy .= '<span class="sql_content">' . $html_content . '</span>';
       $error_copy .= '<br>--------------------------------------------------------------------<br>';
@@ -442,7 +442,7 @@ else
       'F_DB_PREFIX' => $table_prefix,
       'F_ADMIN' => $admin_name,
       'F_ADMIN_EMAIL' => $admin_mail,
-      'L_INSTALL_HELP' => sprintf(l10n('install_help'), PHPWG_URL.'/forum'),
+      'L_INSTALL_HELP' => sprintf(l10n('Need help ? Ask your question on <a href="%s">Piwigo message board</a>.'), PHPWG_URL.'/forum'),
       ));
 }
 
@@ -460,7 +460,9 @@ elseif ($step == 3)
 }
 else
 {
-  array_push($infos, l10n('install_end_message'));
+  array_push($infos, l10n('The configuration of Piwigo is finished, here is the next step<br><br>
+* go to the identification page and use the login/password given for webmaster<br>
+* this login will enable you to access to the administration panel and to the instructions in order to place pictures in your directories'));
 
   if (isset($error_copy))
   {

@@ -1,11 +1,11 @@
-<div class="titrePage"><h2>{'extend_for_templates'|@translate}</h2>
+<div class="titrePage"><h2>{'Extend for templates'|@translate}</h2>
 </div>
 {if isset($extents)}
-<h4>{'Replacement of original templates'|@translate}</h4>
+<h4>{'Replacement of original templates by customized templates from template-extension subfolder'|@translate}</h4>
 <form method="post" name="extend_for_templates" id="extend_for_templates" action="">
   <table class="table2">
     <tr class="throw">
-      <th>{'Replacers'|@translate}</th>
+      <th>{'Replacers (customized templates)'|@translate}</th>
       <th>{'Original templates'|@translate}</th>
       <th>{'Optional URL keyword'|@translate}</th>
       <th>{'Bound template'|@translate}</th>

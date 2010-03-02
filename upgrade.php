@@ -194,7 +194,7 @@ $template = new Template(PHPWG_ROOT_PATH.'admin/template/goto', 'roma');
 $template->set_filenames(array('upgrade'=>'upgrade.tpl'));
 $template->assign(array(
   'RELEASE' => PHPWG_VERSION,
-  'L_UPGRADE_HELP' => sprintf(l10n('install_help'), PHPWG_URL.'/forum'),
+  'L_UPGRADE_HELP' => sprintf(l10n('Need help ? Ask your question on <a href=\"%s\">Piwigo message board</a>.'), PHPWG_URL.'/forum'),
   )
 );
 
@@ -278,9 +278,11 @@ if (isset($_POST['submit']) and check_upgrade())
       if (!@file_put_contents($config_file, $config_file_contents))
       {
         array_push($page['infos'],
-          l10n('in include/config_database.inc.php, before ?>, insert:') . '
-<p><textarea rows="4" cols="40">'.implode("\r\n" , $mysql_changes).'</textarea></p>'
-          );
+		   l10n_args('in <i>%s</i>, before <b>?></b>, insert:', 
+			     'include/config_database.inc.php') . 
+		   '<p><textarea rows="4" cols="40">' .
+		   implode("\r\n" , $mysql_changes).'</textarea></p>'
+		   );
       }
     }
 
@@ -314,7 +316,7 @@ if (isset($_POST['submit']) and check_upgrade())
       );
 
     array_push($page['infos'],
-      l10n('perform a maintenance check')
+      l10n('Perform a maintenance check in [Administration>Specials>Maintenance] if you encounter any problem.')
       );
 
     // Save $page['infos'] in order to restore after maintenance actions

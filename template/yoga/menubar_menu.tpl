@@ -1,4 +1,4 @@
-<dt>{'title_menu'|@translate}</dt>
+<dt>{'Menu'|@translate}</dt>
 <dd>
   {if isset($block->data.qsearch) and  $block->data.qsearch==true}
     <form action="{$ROOT_URL}qsearch.php" method="get" id="quicksearch" onsubmit="return this.q.value!='' && this.q.value!=qsearch_prompt;">

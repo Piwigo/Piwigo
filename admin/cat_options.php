@@ -160,10 +160,10 @@ $template->assign(
 $tabsheet = new tabsheet();
 // TabSheet initialization
 $opt_link = $link_start.'cat_options&amp;section=';
-$tabsheet->add('status', l10n('cat_security'), $opt_link.'status');
-$tabsheet->add('visible', l10n('lock'), $opt_link.'visible');
-$tabsheet->add('upload', l10n('upload'), $opt_link.'upload');
-$tabsheet->add('comments', l10n('comments'), $opt_link.'comments');
+$tabsheet->add('status', l10n('Public / Private'), $opt_link.'status');
+$tabsheet->add('visible', l10n('Lock'), $opt_link.'visible');
+$tabsheet->add('Upload', l10n('Upload'), $opt_link.'Upload');
+$tabsheet->add('Comments', l10n('Comments'), $opt_link.'Comments');
 if ($conf['allow_random_representative'])
 {
   $tabsheet->add('representative', l10n('Representative'), $opt_link.'representative');
@@ -208,9 +208,9 @@ SELECT id,name,uppercats,global_rank
 ;';
     $template->assign(
       array(
-        'L_SECTION' => l10n('cat_upload_title'),
-        'L_CAT_OPTIONS_TRUE' => l10n('authorized'),
-        'L_CAT_OPTIONS_FALSE' => l10n('forbidden'),
+        'L_SECTION' => l10n('Select uploadable categories'),
+        'L_CAT_OPTIONS_TRUE' => l10n('Authorized'),
+        'L_CAT_OPTIONS_FALSE' => l10n('Forbidden'),
         )
       );
     break;
@@ -229,9 +229,9 @@ SELECT id,name,uppercats,global_rank
 ;';
     $template->assign(
       array(
-        'L_SECTION' => l10n('cat_comments_title'),
-        'L_CAT_OPTIONS_TRUE' => l10n('authorized'),
-        'L_CAT_OPTIONS_FALSE' => l10n('forbidden'),
+        'L_SECTION' => l10n('Authorize users to add comments on selected categories'),
+        'L_CAT_OPTIONS_TRUE' => l10n('Authorized'),
+        'L_CAT_OPTIONS_FALSE' => l10n('Forbidden'),
         )
       );
     break;
@@ -250,9 +250,9 @@ SELECT id,name,uppercats,global_rank
 ;';
     $template->assign(
       array(
-        'L_SECTION' => l10n('cat_lock_title'),
-        'L_CAT_OPTIONS_TRUE' => l10n('unlocked'),
-        'L_CAT_OPTIONS_FALSE' => l10n('locked'),
+        'L_SECTION' => l10n('Lock categories'),
+        'L_CAT_OPTIONS_TRUE' => l10n('Unlocked'),
+        'L_CAT_OPTIONS_FALSE' => l10n('Locked'),
         )
       );
     break;
@@ -271,9 +271,9 @@ SELECT id,name,uppercats,global_rank
 ;';
     $template->assign(
       array(
-        'L_SECTION' => l10n('cat_status_title'),
-        'L_CAT_OPTIONS_TRUE' => l10n('cat_public'),
-        'L_CAT_OPTIONS_FALSE' => l10n('cat_private'),
+        'L_SECTION' => l10n('Manage authorizations for selected categories'),
+        'L_CAT_OPTIONS_TRUE' => l10n('Public category'),
+        'L_CAT_OPTIONS_FALSE' => l10n('Private category'),
         )
       );
     break;

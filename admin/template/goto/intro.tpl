@@ -10,7 +10,7 @@ jQuery().ready(function(){ldelim}
 });
 </script>
 
-<h2>{'title_default'|@translate}</h2>
+<h2>{'Piwigo administration'|@translate}</h2>
 <dl style="padding-top: 30px;">
   <dt>{'Piwigo version'|@translate}</dt>
   <dd>

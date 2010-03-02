@@ -1,59 +1,59 @@
   <div class="navButtons">
   
 {if isset($last)}
-  <a class="navButton" href="{$last.U_IMG}" title="{'last_page'|@translate} : {$last.TITLE}" rel="last"><img src="{$ROOT_URL}{$themeconf.icon_dir}/last.png" class="button" alt="{'last_page'|@translate}"></a>
+  <a class="navButton" href="{$last.U_IMG}" title="{'Last'|@translate} : {$last.TITLE}" rel="last"><img src="{$ROOT_URL}{$themeconf.icon_dir}/last.png" class="button" alt="{'Last'|@translate}"></a>
 {else}
   <a class="navButton"><img src="{$ROOT_URL}{$themeconf.icon_dir}/last_unactive.png" class="button" alt=""></a>
 {/if}
   
 {if isset($next)}
-  <a class="navButton" href="{$next.U_IMG}" title="{'next_page'|@translate} : {$next.TITLE}" rel="next"><img src="{$ROOT_URL}{$themeconf.icon_dir}/right.png" class="button" alt="{'next_page'|@translate}"></a>
+  <a class="navButton" href="{$next.U_IMG}" title="{'Next'|@translate} : {$next.TITLE}" rel="next"><img src="{$ROOT_URL}{$themeconf.icon_dir}/right.png" class="button" alt="{'Next'|@translate}"></a>
 {else}
   <a class="navButton"><img src="{$ROOT_URL}{$themeconf.icon_dir}/right_unactive.png" class="button" alt=""></a>
 {/if}
 
 {if isset($slideshow.U_START_PLAY)}
-  <a class="navButton" href="{$slideshow.U_START_PLAY}" title="{'start_play'|@translate}"><img src="{$ROOT_URL}{$themeconf.icon_dir}/play.png" class="button" alt="{'start_play'|@translate}"></a>
+  <a class="navButton" href="{$slideshow.U_START_PLAY}" title="{'Play of slideshow'|@translate}"><img src="{$ROOT_URL}{$themeconf.icon_dir}/play.png" class="button" alt="{'Play of slideshow'|@translate}"></a>
 {/if}
 
 {if isset($slideshow.U_STOP_PLAY)}
-  <a class="navButton" href="{$slideshow.U_STOP_PLAY}" title="{'stop_play'|@translate}"><img src="{$ROOT_URL}{$themeconf.icon_dir}/pause.png" class="button" alt="{'stop_play'|@translate}"></a>
+  <a class="navButton" href="{$slideshow.U_STOP_PLAY}" title="{'Pause of slideshow'|@translate}"><img src="{$ROOT_URL}{$themeconf.icon_dir}/pause.png" class="button" alt="{'Pause of slideshow'|@translate}"></a>
 {/if}
 
 {if isset($U_UP) and !isset($slideshow)}
-  <a class="navButton" href="{$U_UP}" title="{'thumbnails'|@translate}" rel="up"><img src="{$ROOT_URL}{$themeconf.icon_dir}/up.png" class="button" alt="{'thumbnails'|@translate}"></a>
+  <a class="navButton" href="{$U_UP}" title="{'Thumbnails'|@translate}" rel="up"><img src="{$ROOT_URL}{$themeconf.icon_dir}/up.png" class="button" alt="{'Thumbnails'|@translate}"></a>
 {/if}
   
 {if isset($previous)}
-  <a class="navButton" href="{$previous.U_IMG}" title="{'previous_page'|@translate} : {$previous.TITLE}" rel="prev"><img src="{$ROOT_URL}{$themeconf.icon_dir}/left.png" class="button" alt="{'previous_page'|@translate}"></a>
+  <a class="navButton" href="{$previous.U_IMG}" title="{'Previous'|@translate} : {$previous.TITLE}" rel="prev"><img src="{$ROOT_URL}{$themeconf.icon_dir}/left.png" class="button" alt="{'Previous'|@translate}"></a>
 {else}
   <a class="navButton"><img src="{$ROOT_URL}{$themeconf.icon_dir}/left_unactive.png" class="button" alt=""></a>
 {/if}
   
 {if isset($first)}
-  <a class="navButton" href="{$first.U_IMG}" title="{'first_page'|@translate} : {$first.TITLE}" rel="first"><img src="{$ROOT_URL}{$themeconf.icon_dir}/first.png" class="button" alt="{'first_page'|@translate}"></a>
+  <a class="navButton" href="{$first.U_IMG}" title="{'First'|@translate} : {$first.TITLE}" rel="first"><img src="{$ROOT_URL}{$themeconf.icon_dir}/first.png" class="button" alt="{'First'|@translate}"></a>
 {else}
   <a class="navButton"><img src="{$ROOT_URL}{$themeconf.icon_dir}/first_unactive.png" class="button" alt=""></a>
 {/if}
 
 
 {if isset($slideshow.U_START_REPEAT)}
-  <a class="navButton" href="{$slideshow.U_START_REPEAT}" title="{'start_repeat'|@translate}"><img src="{$ROOT_URL}{$themeconf.icon_dir}/start_repeat.png" class="button" alt="{'start_repeat'|@translate}"></a>
+  <a class="navButton" href="{$slideshow.U_START_REPEAT}" title="{'Repeat the slideshow'|@translate}"><img src="{$ROOT_URL}{$themeconf.icon_dir}/Repeat the slideshow.png" class="button" alt="{'Repeat the slideshow'|@translate}"></a>
 {/if}
 
 {if isset($slideshow.U_STOP_REPEAT)}
-  <a class="navButton" href="{$slideshow.U_STOP_REPEAT}" title="{'stop_repeat'|@translate}"><img src="{$ROOT_URL}{$themeconf.icon_dir}/stop_repeat.png" class="button" alt="{'stop_repeat'|@translate}"></a>
+  <a class="navButton" href="{$slideshow.U_STOP_REPEAT}" title="{'Not repeat the slideshow'|@translate}"><img src="{$ROOT_URL}{$themeconf.icon_dir}/Not repeat the slideshow.png" class="button" alt="{'Not repeat the slideshow'|@translate}"></a>
 {/if}
 
 {if isset($slideshow)}
   {if isset($slideshow.U_DEC_PERIOD)}
-    <a class="navButton" href="{$slideshow.U_DEC_PERIOD}" title="{'dec_period'|@translate}"><img src="{$ROOT_URL}{$themeconf.icon_dir}/dec_period.png" class="button" alt="{'dec_period'|@translate}"></a>
+    <a class="navButton" href="{$slideshow.U_DEC_PERIOD}" title="{'Accelerate diaporama speed'|@translate}"><img src="{$ROOT_URL}{$themeconf.icon_dir}/Accelerate diaporama speed.png" class="button" alt="{'Accelerate diaporama speed'|@translate}"></a>
   {else}
     <a class="navButton"> <img src="{$ROOT_URL}{$themeconf.icon_dir}/dec_period_unactive.png" class="button" alt=""></a>
   {/if}
 
   {if isset($slideshow.U_INC_PERIOD)}
-    <a class="navButton" href="{$slideshow.U_INC_PERIOD}" title="{'inc_period'|@translate}"><img src="{$ROOT_URL}{$themeconf.icon_dir}/inc_period.png" class="button" alt="{'inc_period'|@translate}"></a>
+    <a class="navButton" href="{$slideshow.U_INC_PERIOD}" title="{'Reduce diaporama speed'|@translate}"><img src="{$ROOT_URL}{$themeconf.icon_dir}/Reduce diaporama speed.png" class="button" alt="{'Reduce diaporama speed'|@translate}"></a>
   {else}
     <a class="navButton"> <img src="{$ROOT_URL}{$themeconf.icon_dir}/inc_period_unactive.png" class="button" alt=""></a>
   {/if}

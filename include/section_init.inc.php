@@ -237,7 +237,7 @@ if ('categories' == $page['section'])
   }
   else
   {
-    $page['title'] = l10n('no_category');
+    $page['title'] = l10n('Home');
   }
 
   if
@@ -361,7 +361,7 @@ SELECT DISTINCT image_id'.get_extra_fields($conf['order_by']).'
       array(
         'items' => $search_result['items'],
         'title' => '<a href="'.duplicate_index_url(array('start'=>0)).'">'
-                  .l10n('search_result').'</a>',
+                  .l10n('Search results').'</a>',
         )
       );
   }
@@ -375,7 +375,7 @@ SELECT DISTINCT image_id'.get_extra_fields($conf['order_by']).'
     $page = array_merge(
       $page,
       array(
-	'title' => l10n('favorites')
+	'title' => l10n('Favorites')
 	    )
     );
 
@@ -456,7 +456,7 @@ SELECT DISTINCT(id)'.get_extra_fields($conf['order_by']).'
       $page,
       array(
         'title' => '<a href="'.duplicate_index_url(array('start'=>0)).'">'
-                  .l10n('recent_pics_cat').'</a>',
+                  .l10n('Recent pictures').'</a>',
         'items' => array_from_query($query, 'id'),
         )
       );
@@ -469,7 +469,7 @@ SELECT DISTINCT(id)'.get_extra_fields($conf['order_by']).'
     $page = array_merge(
       $page,
       array(
-        'title' => l10n('recent_cats_cat'),
+        'title' => l10n('Recent categories'),
         )
       );
   }
@@ -494,7 +494,7 @@ SELECT DISTINCT(id), hit, file
       $page,
       array(
         'title' => '<a href="'.duplicate_index_url(array('start'=>0)).'">'
-                  .$conf['top_number'].' '.l10n('most_visited_cat').'</a>',
+                  .$conf['top_number'].' '.l10n('Most visited').'</a>',
         'items' => array_from_query($query, 'id'),
         )
       );
@@ -520,7 +520,7 @@ SELECT DISTINCT(id), average_rate
       $page,
       array(
         'title' => '<a href="'.duplicate_index_url(array('start'=>0)).'">'
-                  .$conf['top_number'].' '.l10n('best_rated_cat').'</a>',
+                  .$conf['top_number'].' '.l10n('Best rated').'</a>',
         'items' => array_from_query($query, 'id'),
         )
       );
@@ -543,7 +543,7 @@ SELECT DISTINCT(id)'.get_extra_fields($conf['order_by']).'
       $page,
       array(
         'title' => '<a href="'.duplicate_index_url(array('start'=>0)).'">'
-                    .l10n('random_cat').'</a>',
+                    .l10n('Random pictures').'</a>',
         'items' => array_from_query($query, 'id'),
         )
       );

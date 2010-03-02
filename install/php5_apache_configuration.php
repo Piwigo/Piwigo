@@ -108,7 +108,7 @@ function closePage()
 {
   echo '
 </div>
-<div style="text-align: center">'.sprintf(l10n('install_help'), PHPWG_URL.'/forum').'</div>
+<div style="text-align: center">'.sprintf(l10n('Need help ? Ask your question on <a href="%s">Piwigo message board</a>.'), PHPWG_URL.'/forum').'</div>
 </div>
 </body>
 </html>';
@@ -140,7 +140,7 @@ else
   echo '
   <table>
   <tr>
-    <td>'.l10n('language').'</td>
+    <td>'.l10n('Language').'</td>
     <td>
       <select name="language" onchange="document.location = \''.$script.'.php?language=\'+this.options[this.selectedIndex].value;">';
   foreach (get_languages('utf-8') as $code => $name)

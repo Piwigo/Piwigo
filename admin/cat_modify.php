@@ -110,7 +110,7 @@ UPDATE '.CATEGORIES_TABLE.' SET image_order='.(isset($image_order) ? 'NULL':"'$i
     move_categories( array($_GET['cat_id']), $_POST['parent'] );
   }
 
-  array_push($page['infos'], l10n('editcat_confirm'));
+  array_push($page['infos'], l10n('Category informations updated successfully.'));
 }
 elseif (isset($_POST['set_random_representant']))
 {
@@ -316,7 +316,7 @@ $sort_fields = array(
   'date_creation' => l10n('Creation date'),
   'date_available' => l10n('Post date'),
   'average_rate' => l10n('Average rate'),
-  'hit' => l10n('most_visited_cat'),
+  'hit' => l10n('Most visited'),
   'file' => l10n('File name'),
   'id' => 'Id',
   'rank' => l10n('Rank'),
@@ -516,7 +516,7 @@ SELECT
   array_push(
     $page['infos'],
     sprintf(
-      l10n('An information email was sent to group "%s"'),
+      l10n('An information email was sent to group \"%s\"'),
       $group_name
       )
     );

@@ -334,9 +334,9 @@ class check_integrity
     return
       sprintf
       (
-        l10n('c13y_more_info'),
-        sprintf($link_fmt, $pwg_links['FORUM'], l10n('c13y_more_info_forum')),
-        sprintf($link_fmt, $pwg_links['WIKI'], l10n('c13y_more_info_wiki'))
+        l10n('Go to %s or %s for more informations'),
+        sprintf($link_fmt, $pwg_links['FORUM'], l10n('the forum')),
+        sprintf($link_fmt, $pwg_links['WIKI'], l10n('the wiki'))
       );
   }
 

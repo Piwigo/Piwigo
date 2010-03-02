@@ -28,7 +28,7 @@
 
 <div id="imageHeaderBar">
   <div class="browsePath">
-    <a href="{$U_HOME}" rel="home">{'home'|@translate}</a>
+    <a href="{$U_HOME}" rel="Home">{'Home'|@translate}</a>
     {if !$IS_HOME}{$LEVEL_SEPARATOR}{$SECTION_TITLE}{/if}
     {$LEVEL_SEPARATOR}{$current.TITLE}
   </div>
@@ -44,21 +44,21 @@
       <a href="{$U_SLIDESHOW_START}" title="{'slideshow'|@translate}" rel="nofollow"><img src="{$ROOT_URL}{$themeconf.icon_dir}/start_slideshow.png" class="button" alt="{'slideshow'|@translate}"></a>
     {/if}
     {if isset($U_SLIDESHOW_STOP) }
-      <a href="{$U_SLIDESHOW_STOP}" title="{'slideshow_stop'|@translate}" rel="nofollow"><img src="{$ROOT_URL}{$themeconf.icon_dir}/stop_slideshow.png" class="button" alt="{'slideshow_stop'|@translate}"></a>
+      <a href="{$U_SLIDESHOW_STOP}" title="{'stop the slideshow'|@translate}" rel="nofollow"><img src="{$ROOT_URL}{$themeconf.icon_dir}/stop_slideshow.png" class="button" alt="{'stop the slideshow'|@translate}"></a>
     {/if}
-      <a href="{$U_METADATA}" title="{'picture_show_metadata'|@translate}" rel="nofollow"><img src="{$ROOT_URL}{$themeconf.icon_dir}/metadata.png" class="button" alt="metadata"></a>
+      <a href="{$U_METADATA}" title="{'Show file metadata'|@translate}" rel="nofollow"><img src="{$ROOT_URL}{$themeconf.icon_dir}/metadata.png" class="button" alt="metadata"></a>
     {if isset($current.U_DOWNLOAD) }
-      <a href="{$current.U_DOWNLOAD}" title="{'download_hint'|@translate}"><img src="{$ROOT_URL}{$themeconf.icon_dir}/save.png" class="button" alt="{'download'|@translate}"></a>
+      <a href="{$current.U_DOWNLOAD}" title="{'download'|@translate}"><img src="{$ROOT_URL}{$themeconf.icon_dir}/save.png" class="button" alt="{'download'|@translate}"></a>
     {/if}
     {if isset($PLUGIN_PICTURE_ACTIONS)}{$PLUGIN_PICTURE_ACTIONS}{/if}
     {if isset($favorite) }
       <a href="{$favorite.U_FAVORITE}" title="{$favorite.FAVORITE_HINT}"><img src="{$favorite.FAVORITE_IMG}" class="button" alt="favorite" title="{$favorite.FAVORITE_HINT}"></a>
     {/if}
     {if !empty($U_SET_AS_REPRESENTATIVE) }
-      <a href="{$U_SET_AS_REPRESENTATIVE}" title="{'set as category representative'|@translate}"><img src="{$ROOT_URL}{$themeconf.icon_dir}/representative.png" class="button" alt="{'representative'|@translate}"></a>
+      <a href="{$U_SET_AS_REPRESENTATIVE}" title="{'representative'|@translate}"><img src="{$ROOT_URL}{$themeconf.icon_dir}/representative.png" class="button" alt="{'representative'|@translate}"></a>
     {/if}
     {if isset($U_ADMIN) }
-      <a href="{$U_ADMIN}" title="{'link_info_image'|@translate}"><img src="{$ROOT_URL}{$themeconf.icon_dir}/preferences.png" class="button" alt="{'edit'|@translate}"></a>
+      <a href="{$U_ADMIN}" title="{'edit'|@translate}"><img src="{$ROOT_URL}{$themeconf.icon_dir}/preferences.png" class="button" alt="{'edit'|@translate}"></a>
     {/if}
     {if isset($U_CADDIE) }{*caddie management BEGIN*}
 <script type="text/javascript">
@@ -77,7 +77,7 @@ y.callService(
   );
 }{/literal}
 </script>
-      <a href="{$U_CADDIE}" onclick="addToCadie(this, '{$ROOT_URL|@escape:'javascript'}', {$current.id}); return false;" title="{'add to caddie'|@translate}"><img src="{$ROOT_URL}{$themeconf.icon_dir}/caddie_add.png" class="button" alt="{'caddie'|@translate}"></a>
+      <a href="{$U_CADDIE}" onclick="addToCadie(this, '{$ROOT_URL|@escape:'javascript'}', {$current.id}); return false;" title="{'caddie'|@translate}"><img src="{$ROOT_URL}{$themeconf.icon_dir}/caddie_add.png" class="button" alt="{'caddie'|@translate}"></a>
     {/if}{*caddie management END*}
   </div>
   {include file='picture_nav_buttons.tpl'|@get_extent:'picture_nav_buttons'}
@@ -92,19 +92,19 @@ y.callService(
 
 {if isset($U_SLIDESHOW_STOP) }
 <p>
-  [ <a href="{$U_SLIDESHOW_STOP}">{'slideshow_stop'|@translate}</a> ]
+  [ <a href="{$U_SLIDESHOW_STOP}">{'stop the slideshow'|@translate}</a> ]
 </p>
 {/if}
 
 </div>
 
 {if isset($previous) }
-<a class="navThumb" id="linkPrev" href="{$previous.U_IMG}" title="{'previous_page'|@translate} : {$previous.TITLE}" rel="prev">
+<a class="navThumb" id="linkPrev" href="{$previous.U_IMG}" title="{'Previous'|@translate} : {$previous.TITLE}" rel="prev">
   <img src="{$previous.THUMB_SRC}" alt="{$previous.TITLE}">
 </a>
 {/if}
 {if isset($next) }
-<a class="navThumb" id="linkNext" href="{$next.U_IMG}" title="{'next_page'|@translate} : {$next.TITLE}" rel="next">
+<a class="navThumb" id="linkNext" href="{$next.U_IMG}" title="{'Next'|@translate} : {$next.TITLE}" rel="next">
   <img src="{$next.THUMB_SRC}" alt="{$next.TITLE}">
 </a>
 {/if}
@@ -168,7 +168,7 @@ y.callService(
 			{assign var='rate_text' value='%.2f (rated %d times, standard deviation = %.2f)'|@translate }
 			{$pwg->sprintf($rate_text, $rate_summary.average, $rate_summary.count, $rate_summary.std) }
 		{else}
-			{'no_rate'|@translate}
+			{'no rate'|@translate}
 		{/if}
 		</td>
 	</tr>
@@ -177,7 +177,7 @@ y.callService(
 {if isset($rating)}
 	<tr>
 		<td class="label">
-			<span id="updateRate">{if isset($rating.USER_RATE)}{'update_rate'|@translate}{else}{'new_rate'|@translate}{/if}</span>
+			<span id="updateRate">{if isset($rating.USER_RATE)}{'Rate this picture'|@translate}{else}{'Rate this picture'|@translate}{/if}</span>
 		</td>
 		<td class="value">
 			<form action="{$rating.F_ACTION}" method="post" id="rateForm" style="margin:0;">
@@ -264,11 +264,11 @@ y.callService(
 	{if isset($comment_add)}
 	<form  method="post" action="{$comment_add.F_ACTION}" class="filter" id="addComment">
 	<fieldset>
-		<legend>{'comments_add'|@translate}</legend>
+		<legend>{'Add a comment'|@translate}</legend>
 		{if $comment_add.SHOW_AUTHOR}
-		<label>{'upload_author'|@translate}<input type="text" name="author"></label>
+		<label>{'Author'|@translate}<input type="text" name="author"></label>
 		{/if}
-		<label>{'comment'|@translate}<textarea name="content" id="contentid" rows="5" cols="80">{$comment_add.CONTENT}</textarea></label>
+		<label>{'Comment'|@translate}<textarea name="content" id="contentid" rows="5" cols="80">{$Comment_add.CONTENT}</textarea></label>
 		<input type="hidden" name="key" value="{$comment_add.KEY}">
 		<input class="submit" type="submit" value="{'Submit'|@translate}">
 	</fieldset>

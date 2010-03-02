@@ -1,15 +1,15 @@
 <div class="titrePage">
-  <h2>{'title_thumbnails'|@translate}</h2>
+  <h2>{'Thumbnail creation'|@translate}</h2>
 </div>
 
 {if isset($results) }
-<div class="admin">{'tn_results_title'|@translate}</div>
+<div class="admin">{'Results of miniaturization'|@translate}</div>
 <table style="width:100%;">
   <tr class="throw">
     <td>{'Path'|@translate}</td>
-    <td>{'thumbnail'|@translate}</td>
-    <td>{'tn_results_gen_time'|@translate}</td>
-    <td>{'filesize'|@translate}</td>
+    <td>{'Thumbnail'|@translate}</td>
+    <td>{'generated in'|@translate}</td>
+    <td>{'Filesize'|@translate}</td>
     <td>{'Dimensions'|@translate}</td>
   </tr>
   {foreach from=$results.elements item=elt}
@@ -25,26 +25,26 @@
 
 <table class="table2">
   <tr class="throw">
-    <td colspan="2">{'tn_stats'|@translate}</td>
+    <td colspan="2">{'General statistics'|@translate}</td>
   </tr>
   <tr>
-    <td>{'tn_stats_nb'|@translate}</td>
+    <td>{'number of miniaturized pictures'|@translate}</td>
     <td style="text-align:center;">{$results.TN_NB}</td>
   </tr>
   <tr>
-    <td>{'tn_stats_total'|@translate}</td>
+    <td>{'total time'|@translate}</td>
     <td style="text-align:right;">{$results.TN_TOTAL}</td>
   </tr>
   <tr>
-    <td>{'tn_stats_max'|@translate}</td>
+    <td>{'max time'|@translate}</td>
     <td style="text-align:right;">{$results.TN_MAX}</td>
   </tr>
   <tr>
-    <td>{'tn_stats_min'|@translate}</td>
+    <td>{'min time'|@translate}</td>
     <td style="text-align:right;">{$results.TN_MIN}</td>
   </tr>
   <tr>
-    <td>{'tn_stats_mean'|@translate}</td>
+    <td>{'average time'|@translate}</td>
     <td style="text-align:right;">{$results.TN_AVERAGE}</td>
   </tr>
 </table>
@@ -55,11 +55,11 @@
 <form method="post" action="{$params.F_ACTION}" class="properties">
 
   <fieldset>
-    <legend>{'tn_params_title'|@translate}</legend>
+    <legend>{'Miniaturization parameters'|@translate}</legend>
 
     <ul>
       <li>
-        <span class="property">{'tn_params_GD'|@translate}</span>
+        <span class="property">{'GD version'|@translate}</span>
 	<label>
           <input type="radio" name="gd" value="2" {if $params.GD_SELECTED==2}checked="checked"{/if}>2.x
         </label>
@@ -87,7 +87,7 @@
 	<label><input type="radio" name="n" value="5"   {if $params.N_SELECTED==5}checked="checked"{/if}> 5</label>
 	<label><input type="radio" name="n" value="10"  {if $params.N_SELECTED==10}checked="checked"{/if}> 10</label>
 	<label><input type="radio" name="n" value="20"  {if $params.N_SELECTED==20}checked="checked"{/if}> 20</label>
-	<label><input type="radio" name="n" value="all" {if $params.N_SELECTED=='all'}checked="checked"{/if}> {'tn_all'|@translate}</label>
+	<label><input type="radio" name="n" value="all" {if $params.N_SELECTED=='all'}checked="checked"{/if}> {'all'|@translate}</label>
       </li>
     </ul>
   </fieldset>
@@ -97,12 +97,12 @@
 {/if} {*isset params*}
 
 {if !empty($remainings) }
-<div class="admin">{$TOTAL_NB_REMAINING} {'tn_alone_title'|@translate}</div>
+<div class="admin">{$TOTAL_NB_REMAINING} {'pictures without thumbnail (jpeg and png only)'|@translate}</div>
 <table style="width:100%;">
   <tr class="throw">
     <td>&nbsp;</td>
     <td style="width:60%;">{'Path'|@translate}</td>
-    <td>{'filesize'|@translate}</td>
+    <td>{'Filesize'|@translate}</td>
     <td>{'Dimensions'|@translate}</td>
   </tr>
   {foreach from=$remainings item=elt name=remain_loop}
@@ -115,5 +115,5 @@
   {/foreach}
 </table>
 {else}
-<div style="text-align:center;font-weight:bold;margin:10px;"> [ {'tn_no_missing'|@translate} ]</div>
+<div style="text-align:center;font-weight:bold;margin:10px;"> [ {'No missing thumbnail'|@translate} ]</div>
 {/if}
