@@ -169,7 +169,7 @@ TD {
 {else}
 <p>
   <input type="button" name="Home" value="{'Home'|@translate}" onClick="window.open('index.php');">
-  <input type="button" name="Administration" value="{'Administration'|@translate}" onClick="window.open('Administration.php');">
+  <input type="button" name="Administration" value="{'Administration'|@translate}" onClick="window.open('admin.php');">
 </p>
 
 {if !isset($migration)}

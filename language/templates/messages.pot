@@ -2150,6 +2150,9 @@ msgstr ""
 msgid "Keep in touch with Piwigo project, subscribe to Piwigo Announcement Newsletter. You will receive emails when a new release is available (sometimes including a security bug fix, it's important to know and upgrade) and when major events happen to the project. Only a few emails a year."
 msgstr ""
 
+msgid "Subscribe %s"
+msgstr ""
+
 msgid "Subscribe %s to Piwigo Announcements Newsletter"
 msgstr ""
 

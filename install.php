@@ -304,7 +304,7 @@ define(\'DB_COLLATE\', \'\');
     {
       $html_content = htmlentities( $file_content, ENT_QUOTES );
       $html_content = nl2br( $html_content );
-      $error_copy = l10n('Copy the text in pink between hyphens and paste it into the file \"include/config_database.inc.php\"(Warning : config_database.inc.php must only contain what is in pink, no line return or space character)');
+      $error_copy = l10n('Copy the text in pink between hyphens and paste it into the file "include/config_database.inc.php"(Warning : config_database.inc.php must only contain what is in pink, no line return or space character)');
       $error_copy .= '<br>--------------------------------------------------------------------<br>';
       $error_copy .= '<span class="sql_content">' . $html_content . '</span>';
       $error_copy .= '<br>--------------------------------------------------------------------<br>';
