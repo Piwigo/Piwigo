@@ -343,12 +343,12 @@ $lang['reg_err_mail_address_dbl'] = 'Een andere gebruiker maakt al gebruik van d
 $lang['Category results for'] = 'Categorie resultaten voor';
 $lang['Tag results for'] = 'Tag resultaten voor';
 $lang['from %s to %s'] = 'van %s tot %s';
-/* TODO */ $lang['start_play'] = 'Play of slideshow';
-/* TODO */ $lang['stop_play'] = 'Pause of slideshow';
-/* TODO */ $lang['start_repeat'] = 'Repeat the slideshow';
-/* TODO */ $lang['stop_repeat'] = 'Not repeat the slideshow';
-/* TODO */ $lang['inc_period'] = 'Reduce diaporama speed';
-/* TODO */ $lang['dec_period'] = 'Accelerate diaporama speed';
+$lang['start_play'] = 'Play of slideshow';
+$lang['stop_play'] = 'Pause of slideshow';
+$lang['start_repeat'] = 'Repeat the slideshow';
+$lang['stop_repeat'] = 'Not repeat the slideshow';
+$lang['inc_period'] = 'Reduce diaporama speed';
+$lang['dec_period'] = 'Accelerate diaporama speed';
 $lang['Submit'] = 'Bevestig';
 $lang['Yes'] = 'Ja';
 $lang['No'] = 'Nee';
@@ -361,6 +361,6 @@ $lang['elements posted during the last %d days'] = 'afbeelding binnen de %d dage
 $lang['Choose an image'] = 'Kies een afbeelding om';
 $lang['Piwigo Help'] = 'Piwigo Help';
 // --------- Starting below: New or revised $lang ---- from Colibri (2.1)
-/* TODO */ $lang['del_all_favorites_hint'] = 'delete all images from your favorites';
-/* TODO */ $lang['Sent by'] = 'Sent by';
+$lang['del_all_favorites_hint'] = 'Alle geselecteerde favoriete foto\'s deselecteren';
+$lang['Sent by'] = 'Verstuurd door';
 ?>
