@@ -87,7 +87,7 @@ if (isset($_GET['upgradestatus']) and isset($_GET['plugin']))
     default:
       array_push($page['errors'],
         sprintf(l10n('An error occured during extraction (%s).'), $_GET['upgradestatus']),
-        l10n('Please check \"plugins\" folder and sub-folders permissions (CHMOD).'));
+        l10n('Please check "plugins" folder and sub-folders permissions (CHMOD).'));
   }  
 }
 

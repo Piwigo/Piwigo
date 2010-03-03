@@ -136,6 +136,17 @@ msgstr "Aplicar a subcategorías"
 msgid "Are you sure?"
 msgstr "¿ Seguro?"
 
+msgid "Are you sure you want to delete this plugin?"
+msgstr "¿ Es seguro de querer suprimir este plugin?"
+
+msgid "Are you sure you want to install this plugin?"
+msgstr "¿ Es seguro de querer instalar este plugin?"
+
+msgid ""
+"Are you sure to install this upgrade? You must verify if this version does "
+"not need uninstallation."
+msgstr "¿ Es sobre querer instalar esta postura al día? Usted debe verifique que esta postura al día no necesita de désinstalación."
+
 msgid "ascending"
 msgstr "ascendiente"
 
@@ -1329,8 +1340,12 @@ msgid ""
 msgid_plural ""
 "Execution time is out, treatment must be continue [Estmated time: %d "
 "seconds]."
-msgstr[0] "Ser sobrepasado el tiempo de ejecución, el tratamiento debe continuar [el Tiempo estimado: %d el segundo]."
-msgstr[1] "Ser sobrepasado el tiempo de ejecución, el tratamiento debe continuar [el Tiempo estimado: %d secundas]."
+msgstr[0] ""
+"Ser sobrepasado el tiempo de ejecución, el tratamiento debe continuar [el "
+"Tiempo estimado: %d el segundo]."
+msgstr[1] ""
+"Ser sobrepasado el tiempo de ejecución, el tratamiento debe continuar [el "
+"Tiempo estimado: %d secundas]."
 
 msgid "%d parameter was updated."
 msgid_plural "%d parameters were updated."
@@ -1438,7 +1453,7 @@ msgstr "Parametraje"
 
 msgid "Processing treatment.\nPlease wait..."
 msgstr ""
-"Tratamiento corriente.\n"
+"Tratamiento corriente."
 "Por favor, espere..."
 
 msgid "Continue processing treatment"
