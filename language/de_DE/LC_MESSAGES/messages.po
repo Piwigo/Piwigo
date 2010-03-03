@@ -385,13 +385,13 @@ msgstr "Suche nach einem Upgrade nicht möglich."
 msgid "Choose an image"
 msgstr "Wählen Sie ein Bild"
 
-msgid "Monthly calendar"
+msgid "chronology_monthly_calendar"
 msgstr "Monatskalender"
 
-msgid "Monthly list"
+msgid "chronology_monthly_list"
 msgstr "Monatliche Liste"
 
-msgid "Weekly list"
+msgid "chronology_weekly_list"
 msgstr "Wöchentlichen Liste"
 
 msgid "Click here if your browser does not automatically forward you"

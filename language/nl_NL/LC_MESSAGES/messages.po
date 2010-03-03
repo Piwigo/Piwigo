@@ -385,13 +385,13 @@ msgstr "Controle voor upgrade is niet geslaagt door onbekende reden."
 msgid "Choose an image"
 msgstr "Kies een afbeelding om"
 
-msgid "Monthly calendar"
+msgid "chronology_monthly_calendar"
 msgstr "Maand kalender"
 
-msgid "Monthly list"
+msgid "chronology_monthly_list"
 msgstr "Maand lijst"
 
-msgid "Weekly list"
+msgid "chronology_weekly_list"
 msgstr "Week lijst"
 
 msgid "Click here if your browser does not automatically forward you"

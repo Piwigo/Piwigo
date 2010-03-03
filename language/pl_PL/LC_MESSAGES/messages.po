@@ -385,13 +385,13 @@ msgstr "Sprawdzenie aktualizacji nie powiodło się z nieznanych powodów."
 msgid "Choose an image"
 msgstr "Wybierz obraz"
 
-msgid "Monthly calendar"
+msgid "chronology_monthly_calendar"
 msgstr "Kalendarz miesięczny"
 
-msgid "Monthly list"
+msgid "chronology_monthly_list"
 msgstr "Lista miesięczna"
 
-msgid "Weekly list"
+msgid "chronology_weekly_list"
 msgstr "Lista tygodniowa"
 
 msgid "Click here if your browser does not automatically forward you"

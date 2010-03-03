@@ -392,13 +392,13 @@ msgstr ""
 msgid "Choose an image"
 msgstr "Scegliere un immagine da aggiungere"
 
-msgid "Monthly calendar"
+msgid "chronology_monthly_calendar"
 msgstr "Calendario mensile"
 
-msgid "Monthly list"
+msgid "chronology_monthly_list"
 msgstr "Lista mensile"
 
-msgid "Weekly list"
+msgid "chronology_weekly_list"
 msgstr "Lista settimanale"
 
 msgid "Click here if your browser does not automatically forward you"
