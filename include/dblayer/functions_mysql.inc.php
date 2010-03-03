@@ -446,14 +446,14 @@ function do_maintenance_all_tables()
   {
     array_push(
           $page['infos'],
-          l10n('Optimizations completed')
+          l10n('All optimizations have been successfully completed.')
           );
   }
   else
   {
     array_push(
           $page['errors'],
-          l10n('Optimizations errors')
+          l10n('Optimizations have been completed with some errors.')
           );
   }
 }

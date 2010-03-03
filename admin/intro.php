@@ -200,11 +200,11 @@ $template->assign(
     'DB_VERSION' => $db_version,
     'DB_ELEMENTS' => l10n_dec('%d element', '%d elements', $nb_elements),
     'DB_CATEGORIES' =>
-      l10n_dec('cat_inclu_part1_S', 'cat_inclu_part1_P',
+      l10n_dec('%d category including ', '%d categories including ',
         $nb_categories).
-      l10n_dec('cat_inclu_part2_S', 'cat_inclu_part2_P',
+      l10n_dec('%d physical', '%d physical',
         $nb_physical).
-      l10n_dec('cat_inclu_part3_S', 'cat_inclu_part3_P',
+      l10n_dec(' and %d virtual', ' and %d virtual',
         $nb_virtual),
     'DB_IMAGE_CATEGORY' => l10n_dec('%d association', '%d associations', $nb_image_category),
     'DB_TAGS' => l10n_dec('%d tag', '%d tags', $nb_tags),

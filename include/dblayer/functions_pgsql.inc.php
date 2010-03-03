@@ -422,7 +422,7 @@ WHERE tablename like \''.$prefixeTable.'%\'';
     pwg_query($query);
   }
   array_push($page['infos'],
-	     l10n('Optimizations completed')
+	     l10n('All optimizations have been successfully completed.')
 	     );
 }
 

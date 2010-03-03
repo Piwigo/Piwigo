@@ -162,8 +162,8 @@ $tabsheet = new tabsheet();
 $opt_link = $link_start.'cat_options&amp;section=';
 $tabsheet->add('status', l10n('Public / Private'), $opt_link.'status');
 $tabsheet->add('visible', l10n('Lock'), $opt_link.'visible');
-$tabsheet->add('Upload', l10n('Upload'), $opt_link.'Upload');
-$tabsheet->add('Comments', l10n('Comments'), $opt_link.'Comments');
+$tabsheet->add('upload', l10n('Upload'), $opt_link.'upload');
+$tabsheet->add('comments', l10n('Comments'), $opt_link.'comments');
 if ($conf['allow_random_representative'])
 {
   $tabsheet->add('representative', l10n('Representative'), $opt_link.'representative');

@@ -21,22 +21,22 @@ msgstr "O Piwigo"
 msgid "About Piwigo"
 msgstr "O Piwigo"
 
-msgid "Free access"
+msgid "ACCESS_0"
 msgstr "Wolny dostęp"
 
-msgid "Access to all"
+msgid "ACCESS_1"
 msgstr "Dostęp dla wszystkich"
 
-msgid "Access to subscribed"
+msgid "ACCESS_2"
 msgstr "Dostep dla zapisanych"
 
-msgid "Access to administrators"
+msgid "ACCESS_3"
 msgstr "Dostęp dla Administratorów"
 
-msgid "Access to webmasters"
+msgid "ACCESS_4"
 msgstr "Dostęp dla webmasterów"
 
-msgid "No access"
+msgid "ACCESS_5"
 msgstr "Brak dostępu"
 
 msgid "You are not authorized to access the requested page"
@@ -460,6 +460,15 @@ msgstr "Dane zapisane w bazie danych"
 msgid "Default display"
 msgstr "Wyświetlanie domyślne"
 
+msgid "No display"
+msgstr "Brak wyświetlania"
+
+msgid "Classic display"
+msgstr "Wyświetlanie klasyczne"
+
+msgid "Hoverbox display"
+msgstr "Wyświetlanie w ramkach w kształcie poduszek"
+
 msgid "Templates"
 msgstr "Szablony"
 
@@ -657,6 +666,9 @@ msgstr "Nie reprezentuje"
 msgid "download"
 msgstr "Pobierz"
 
+msgid "Download file"
+msgstr "Pobierz plik"
+
 msgid "download this file"
 msgstr "Pobierz ten plik"
 
@@ -741,6 +753,15 @@ msgstr "obrazy wgrane przez ostatnich %d dni"
 msgid "Element type"
 msgstr "Typ elementu"
 
+msgid "none"
+msgstr "brak"
+
+msgid "high"
+msgstr "wysoki"
+
+msgid "other"
+msgstr "inny"
+
 msgid "Email address"
 msgstr "Adres email"
 
@@ -812,6 +833,11 @@ msgstr "rozmiar pliku"
 
 msgid "Filter"
 msgstr "Filtr"
+
+msgid "%d line filtered"
+msgid_plural "%d lines filtered"
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "Filter and display"
 msgstr "Filtrowanie i wyświetlanie"
@@ -1070,16 +1096,19 @@ msgstr "opuść"
 msgid "letters"
 msgstr "litery"
 
-msgid "Contacts"
+msgid "Level 0"
+msgstr "---"
+
+msgid "Level 1"
 msgstr "Kontakty"
 
-msgid "Friends"
+msgid "Level 2"
 msgstr "Przyjaciele"
 
-msgid "Family"
+msgid "Level 4"
 msgstr "Rodzina"
 
-msgid "Admins"
+msgid "Level 8"
 msgstr "Administratorzy"
 
 msgid "Link all category elements to a new category"
@@ -1263,14 +1292,8 @@ msgstr ", kliknij "
 msgid "Go to "
 msgstr "Przejdź do "
 
-msgid "."
-msgstr "."
-
 msgid "Hello "
 msgstr "Witaj "
-
-msgid ","
-msgstr ","
 
 msgid "New elements were added "
 msgstr "dodano nowe elementy "
@@ -1283,6 +1306,39 @@ msgstr " i "
 
 msgid " on "
 msgstr " dnia "
+
+msgid ""
+"Execution time is out, treatment must be continue [Estmated time: %d second]."
+msgid_plural ""
+"Execution time is out, treatment must be continue [Estmated time: %d "
+"seconds]."
+msgstr[0] "Czas wykonania minął, proces musi być kontynuowany [Szacowany czas: %d sekund]."
+msgstr[1] "Czas wykonania minął, proces musi być kontynuowany [Szacowany czas: %d sekund]."
+
+msgid "%d parameter was updated."
+msgid_plural "%d parameters were updated."
+msgstr[0] "Zaktualizowano %d parametr."
+msgstr[1] "Zaktualizowano %d parametrów."
+
+msgid "%d user was updated."
+msgid_plural "%d users were updated."
+msgstr[0] "Zaktualizowano użytkownika %d."
+msgstr[1] "Zaktualizowano %d użytkowników."
+
+msgid "%d user was not updated."
+msgid_plural "%d users were not updated."
+msgstr[0] "Użytkownik %d nie został zaktualizowany."
+msgstr[1] "Nie zaktualizowano %d użytkowników."
+
+msgid "%d mail was sent."
+msgid_plural "%d mails were sent."
+msgstr[0] "Wysłano %d wiadomość."
+msgstr[1] "Wysłano %d wiadomości."
+
+msgid "%d mail was not sent."
+msgid_plural "%d mails were not sent."
+msgstr[0] "Nie wysłano %d wiadomości."
+msgstr[1] "Nie wysłano %d wiadomości."
 
 msgid "[NBM] Problems or questions"
 msgstr "[NBM] Problemy i pytania"
@@ -1356,8 +1412,7 @@ msgstr "Wypisz z powiadomień email"
 msgid "Parameter"
 msgstr "Parametr"
 
-#, fuzzy
-msgid "Processing treatment.Please wait..."
+msgid "Processing treatment.\nPlease wait..."
 msgstr ""
 "Procesowanie.\n"
 "Proszę czekać..."
@@ -2161,6 +2216,24 @@ msgstr "status"
 msgid "Status"
 msgstr "Status"
 
+msgid "User status"
+msgstr "Staus użytkownika"
+
+msgid "user_status_admin"
+msgstr "Administrator"
+
+msgid "user_status_generic"
+msgstr "Ogólny"
+
+msgid "user_status_guest"
+msgstr "Gość"
+
+msgid "user_status_normal"
+msgstr "Użytkownik"
+
+msgid "user_status_webmaster"
+msgstr "Webmaster"
+
 msgid "Parameters are correct"
 msgstr "Parametry są poprawne"
 
@@ -2280,6 +2353,11 @@ msgid "%d tag"
 msgid_plural "%d tags"
 msgstr[0] "%d tag"
 msgstr[1] "%d tagów"
+
+msgid "The following tag was deleted"
+msgid_plural "The %d following tags were deleted"
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "Tag results for"
 msgstr "Wyniki tagów dla"
@@ -2678,9 +2756,6 @@ msgstr "Użytkownicy"
 msgid "user \"%s\" added"
 msgstr "użytkownik \"%s\" został dodany"
 
-msgid "User status"
-msgstr "Staus użytkownika"
-
 msgid "Administrator"
 msgstr "Administrator"
 
@@ -2791,6 +2866,3 @@ msgstr ""
 
 msgid "You need to confirm deletion"
 msgstr "Musisz potwierdzić usunięcie"
-
-#~ msgid "Download file"
-#~ msgstr "Pobierz plik"

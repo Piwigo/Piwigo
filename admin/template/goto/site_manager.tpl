@@ -33,7 +33,7 @@
 {if not empty($sites)}
 <table class="table2">
 	<tr class="throw">
-		<td>{'Remote'|@translate} / {'Remote'|@translate}</td>
+		<td>{'Local'|@translate} / {'Remote'|@translate}</td>
 		<td>{'Actions'|@translate}</td>
 	</tr>
   {foreach from=$sites item=site name=site}

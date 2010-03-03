@@ -251,7 +251,7 @@ while ($row = pwg_db_fetch_assoc($result))
   $tpl_var =
     array(
       'NAME' => $row['galleries_url'],
-      'TYPE' => l10n( $is_remote ? 'site_remote' : 'site_local' ),
+      'TYPE' => l10n( $is_remote ? 'Remote' : 'Local' ),
       'CATEGORIES' => (int)@$sites_detail[$row['id']]['nb_categories'],
       'IMAGES' => (int)@$sites_detail[$row['id']]['nb_images'],
       'U_SYNCHRONIZE' => $update_url

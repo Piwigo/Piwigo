@@ -81,8 +81,8 @@ function do_timeout_treatment($post_keyname, $check_key_treated = array())
 
       $must_repost = true;
       array_push($page['errors'],
-        l10n_dec('nbm_background_treatment_redirect_second',
-                 'nbm_background_treatment_redirect_seconds',
+        l10n_dec('Execution time is out, treatment must be continue [Estmated time: %d second].',
+                 'Execution time is out, treatment must be continue [Estmated time: %d seconds].',
                   $time_refresh));
     }
   }
@@ -200,9 +200,7 @@ order by
         $query = 'delete from '.USER_MAIL_NOTIFICATION_TABLE.' where check_key in ('.implode(",", $quoted_check_key_list).');';
         $result = pwg_query($query);
 
-        redirect($base_url.get_query_string_diff(array(), false), l10n('Processing treatment.
-
-Please wait...'));
+        redirect($base_url.get_query_string_diff(array(), false), l10n("Processing treatment.\nPlease wait..."));
       }
     }
   }
@@ -533,7 +531,7 @@ where
       }
 
       array_push($page['infos'],
-        l10n_dec('nbm_updated_param_count', 'nbm_updated_params_count',
+        l10n_dec('%d parameter was updated.', '%d parameters were updated.',
           $updated_param_count));
 
       // Reload conf with new values

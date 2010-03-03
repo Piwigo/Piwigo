@@ -51,7 +51,7 @@ else
 }
 
 $types = array('none', 'picture', 'high', 'other');
-$display_thumbnails = array('no_display_thumbnail', 'display_thumbnail_classic', 'display_thumbnail_hoverbox');
+$display_thumbnails = array('No display', 'Classic display', 'Hoverbox display');
 
 // +-----------------------------------------------------------------------+
 // | Check Access and exit when user status is not ok                      |

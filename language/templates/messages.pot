@@ -21,22 +21,22 @@ msgstr ""
 msgid "About Piwigo"
 msgstr ""
 
-msgid "Free access"
+msgid "ACCESS_0"
 msgstr ""
 
-msgid "Access to all"
+msgid "ACCESS_1"
+msgstr ""
+
+msgid "ACCESS_2"
 msgstr ""
  
-msgid "Access to subscribed"
+msgid "ACCESS_3"
 msgstr ""
- 
-msgid "Access to administrators"
+
+msgid "ACCESS_4"
 msgstr ""
- 
-msgid "Access to webmasters"
-msgstr ""
- 
-msgid "No access"
+
+msgid "ACCESS_5"
 msgstr ""
 
 msgid "You are not authorized to access the requested page"
@@ -443,6 +443,15 @@ msgstr ""
 msgid "Default display"
 msgstr ""
 
+msgid "No display"
+msgstr ""
+
+msgid "Classic display"
+msgstr ""
+
+msgid "Hoverbox display"
+msgstr ""
+
 msgid "Templates"
 msgstr ""
 
@@ -627,6 +636,9 @@ msgstr ""
 msgid "download"
 msgstr ""
 
+msgid "Download file"
+msgstr ""
+
 msgid "download this file"
 msgstr ""
 
@@ -711,6 +723,15 @@ msgstr ""
 msgid "Element type"
 msgstr ""
 
+msgid "none"
+msgstr ""
+
+msgid "high"
+msgstr ""
+
+msgid "other"
+msgstr ""
+
 msgid "Email address"
 msgstr ""
 
@@ -779,6 +800,11 @@ msgstr ""
 
 msgid "Filter"
 msgstr ""
+
+msgid "%d line filtered"
+msgid_plural "%d lines filtered"
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "Filter and display"
 msgstr ""
@@ -1020,16 +1046,19 @@ msgstr ""
 msgid "letters"
 msgstr ""
 
-msgid "Contacts"
+msgid "Level 0"
 msgstr ""
 
-msgid "Friends"
+msgid "Level 1"
 msgstr ""
 
-msgid "Family"
+msgid "Level 2"
 msgstr ""
 
-msgid "Admins"
+msgid "Level 4"
+msgstr ""
+
+msgid "Level 8"
 msgstr ""
 
 msgid "Link all category elements to a new category"
@@ -1207,13 +1236,7 @@ msgstr ""
 msgid "Go to "
 msgstr ""
 
-msgid "."
-msgstr ""
-
 msgid "Hello "
-msgstr ""
-
-msgid ","
 msgstr ""
 
 msgid "New elements were added "
@@ -1227,6 +1250,36 @@ msgstr ""
 
 msgid " on "
 msgstr ""
+
+msgid "Execution time is out, treatment must be continue [Estmated time: %d second]."
+msgid_plural "Execution time is out, treatment must be continue [Estmated time: %d seconds]."	
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "%d parameter was updated."
+msgid_plural "%d parameters were updated."
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "%d user was updated."
+msgid_plural "%d users were updated."
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "%d user was not updated."
+msgid_plural "%d users were not updated."
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "%d mail was sent."
+msgid_plural "%d mails were sent."
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "%d mail was not sent."
+msgid_plural "%d mails were not sent."
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "[NBM] Problems or questions"
 msgstr ""
@@ -2066,6 +2119,24 @@ msgstr ""
 msgid "Status"
 msgstr ""
 
+msgid "User status"
+msgstr ""
+
+msgid "user_status_admin"
+msgstr ""
+
+msgid "user_status_generic"
+msgstr ""
+
+msgid "user_status_guest"
+msgstr ""
+
+msgid "user_status_normal"
+msgstr ""
+
+msgid "user_status_webmaster"
+msgstr ""
+
 msgid "Parameters are correct"
 msgstr ""
 
@@ -2170,6 +2241,11 @@ msgstr ""
 
 msgid "%d tag"
 msgid_plural "%d tags"
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "The following tag was deleted"
+msgid_plural "The %d following tags were deleted"
 msgstr[0] ""
 msgstr[1] ""
 
@@ -2534,9 +2610,6 @@ msgstr ""
 
 #, c-format
 msgid "user \"%s\" added"
-msgstr ""
-
-msgid "User status"
 msgstr ""
 
 msgid "Administrator"

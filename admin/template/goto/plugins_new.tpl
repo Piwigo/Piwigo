@@ -38,7 +38,7 @@ jQuery().ready(function(){ldelim}
     <td style="text-align:center;"><a href="{$plugin.EXT_URL}" onclick="window.open(this.href); return false;" class="cluetip" title="{$plugin.EXT_NAME}|{$plugin.VER_DESC|htmlspecialchars|nl2br}">{$plugin.VERSION}</a></td>
     <td>{$plugin.DATE}</td>
     <td>{$plugin.AUTHOR}</td>
-    <td style="text-align:center;"><a href="{$plugin.URL_INSTALL}" onclick="return confirm('{'plugins_confirm_install'|@translate|@escape:javascript}');">{'plugins_auto_install'|@translate}</a>
+    <td style="text-align:center;"><a href="{$plugin.URL_INSTALL}" onclick="return confirm('{'Are you sure you want to install this plugin?'|@translate|@escape:javascript}');">{'Automatic installation'|@translate}</a>
       / <a href="{$plugin.URL_DOWNLOAD}">{'Download file'|@translate}</a>
     </td>
   </tr>

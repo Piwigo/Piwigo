@@ -72,7 +72,7 @@ DELETE
 
   array_push(
     $page['infos'],
-    sprintf(l10n('group \"%s\" deleted'), $groupname)
+    sprintf(l10n('group "%s" deleted'), $groupname)
     );
 }
 
@@ -84,7 +84,7 @@ if (isset($_POST['submit_add']) and !is_adviser())
 {
   if (empty($_POST['groupname']))
   {
-    array_push($page['errors'], l10n('The name of a group must not contain \" or \' or be empty.'));
+    array_push($page['errors'], l10n('The name of a group must not contain " or \' or be empty.'));
   }
   if (count($page['errors']) == 0)
   {
@@ -113,7 +113,7 @@ INSERT INTO '.GROUPS_TABLE.'
 
     array_push(
       $page['infos'],
-      sprintf(l10n('group \"%s\" added'), $_POST['groupname'])
+      sprintf(l10n('group "%s" added'), $_POST['groupname'])
       );
   }
 }
@@ -141,7 +141,7 @@ UPDATE '.GROUPS_TABLE.'
 
   array_push(
     $page['infos'],
-    sprintf(l10n('group \"%s\" updated'), $groupname)
+    sprintf(l10n('group "%s" updated'), $groupname)
     );
 }
 

@@ -21,22 +21,22 @@ msgstr "Over"
 msgid "About Piwigo"
 msgstr "Over Piwigo"
 
-msgid "Free access"
+msgid "ACCESS_0"
 msgstr "Gratis toegang"
 
-msgid "Access to all"
+msgid "ACCESS_1"
 msgstr "Toegang tot alles"
 
-msgid "Access to subscribed"
+msgid "ACCESS_2"
 msgstr "Toegang tot geabbonnneerde"
 
-msgid "Access to administrators"
+msgid "ACCESS_3"
 msgstr "Toegang voor beheerders"
 
-msgid "Access to webmasters"
+msgid "ACCESS_4"
 msgstr "Toegang voor webmasters"
 
-msgid "No access"
+msgid "ACCESS_5"
 msgstr "Geen toegang"
 
 msgid "You are not authorized to access the requested page"
@@ -462,6 +462,15 @@ msgstr "Informatie data geregistereerd in de database"
 msgid "Default display"
 msgstr "Standaard weergave"
 
+msgid "No display"
+msgstr "Geen weergave"
+
+msgid "Classic display"
+msgstr "Klassieke weergave"
+
+msgid "Hoverbox display"
+msgstr "Hoverbox weergave"
+
 msgid "Templates"
 msgstr "Sjablonen"
 
@@ -658,6 +667,9 @@ msgstr "Is niet aanwezig"
 msgid "download"
 msgstr "download"
 
+msgid "Download file"
+msgstr "Download bestand"
+
 msgid "download this file"
 msgstr "download dit bestand"
 
@@ -742,6 +754,15 @@ msgstr "afbeelding binnen de %d dagen"
 msgid "Element type"
 msgstr "Element type"
 
+msgid "none"
+msgstr "geen"
+
+msgid "high"
+msgstr "hoog"
+
+msgid "other"
+msgstr "anders"
+
 msgid "Email address"
 msgstr "Email adres"
 
@@ -810,6 +831,11 @@ msgstr "bestandsgrote"
 
 msgid "Filter"
 msgstr "Filter"
+
+msgid "%d line filtered"
+msgid_plural "%d lines filtered"
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "Filter and display"
 msgstr "Filteren en tonen"
@@ -1070,16 +1096,19 @@ msgstr "verlaten"
 msgid "letters"
 msgstr ""
 
-msgid "Contacts"
+msgid "Level 0"
+msgstr "---"
+
+msgid "Level 1"
 msgstr "Contacten"
 
-msgid "Friends"
+msgid "Level 2"
 msgstr "Vrienden"
 
-msgid "Family"
+msgid "Level 4"
 msgstr "Familie"
 
-msgid "Admins"
+msgid "Level 8"
 msgstr "Admins"
 
 msgid "Link all category elements to a new category"
@@ -1262,14 +1291,8 @@ msgstr ", Klik op "
 msgid "Go to "
 msgstr "Ga naar "
 
-msgid "."
-msgstr "http://www.terwolde.net"
-
 msgid "Hello "
 msgstr "Hallo "
-
-msgid ","
-msgstr ","
 
 msgid "New elements were added "
 msgstr "Nieuwe elementen toegevoegd "
@@ -1282,6 +1305,39 @@ msgstr " en "
 
 msgid " on "
 msgstr " op "
+
+msgid ""
+"Execution time is out, treatment must be continue [Estmated time: %d second]."
+msgid_plural ""
+"Execution time is out, treatment must be continue [Estmated time: %d "
+"seconds]."
+msgstr[0] "Executie tijd is om, treatment moet verder gaan [Verwachte tijd: %d seconden]."
+msgstr[1] "Executie tijd is om, treatment moet verder gaan [Verwachte tijd: %d seconden]."
+
+msgid "%d parameter was updated."
+msgid_plural "%d parameters were updated."
+msgstr[0] "%d parameter is bijgewerkt."
+msgstr[1] "%d parameters zijn bijgewerkt."
+
+msgid "%d user was updated."
+msgid_plural "%d users were updated."
+msgstr[0] "%d gebruiker is bijgewerkt."
+msgstr[1] "%d gebruikers zijn bijgewerkt."
+
+msgid "%d user was not updated."
+msgid_plural "%d users were not updated."
+msgstr[0] "%d gebruiker is niet bijgewerkt."
+msgstr[1] "%d gebruikers zijn niet bijgewerkt."
+
+msgid "%d mail was sent."
+msgid_plural "%d mails were sent."
+msgstr[0] "%d mail is verstuurd."
+msgstr[1] "%d mails zijn verstuurd."
+
+msgid "%d mail was not sent."
+msgid_plural "%d mails were not sent."
+msgstr[0] "%d mail is niet verstuurd."
+msgstr[1] "%d mails zijn niet verstuurd."
 
 msgid "[NBM] Problems or questions"
 msgstr "[NBM] Problemen of vragen"
@@ -1355,8 +1411,7 @@ msgstr "Uitschrijven van meldingen per mail"
 msgid "Parameter"
 msgstr "Parameter"
 
-#, fuzzy
-msgid "Processing treatment.Please wait..."
+msgid "Processing treatment.\nPlease wait..."
 msgstr ""
 "Bezig met voltooien van de bewerking.\n"
 "Even wachten..."
@@ -2160,6 +2215,24 @@ msgstr "status"
 msgid "Status"
 msgstr "Status"
 
+msgid "User status"
+msgstr "Gebruikers status"
+
+msgid "user_status_admin"
+msgstr "Beheerder"
+
+msgid "user_status_generic"
+msgstr "Generic"
+
+msgid "user_status_guest"
+msgstr "Gast"
+
+msgid "user_status_normal"
+msgstr "Gebruiker"
+
+msgid "user_status_webmaster"
+msgstr "Webmaster"
+
 msgid "Parameters are correct"
 msgstr "Parameters zijn correct"
 
@@ -2278,6 +2351,11 @@ msgid "%d tag"
 msgid_plural "%d tags"
 msgstr[0] "%d tag"
 msgstr[1] "%d tags"
+
+msgid "The following tag was deleted"
+msgid_plural "The %d following tags were deleted"
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "Tag results for"
 msgstr "Tag resultaten voor"
@@ -2683,9 +2761,6 @@ msgstr "Gebruikers"
 msgid "user \"%s\" added"
 msgstr "gebruiker \"%s\" toegevoegd"
 
-msgid "User status"
-msgstr "Gebruikers status"
-
 msgid "Administrator"
 msgstr "Beheerder"
 
@@ -2796,6 +2871,3 @@ msgstr ""
 
 msgid "You need to confirm deletion"
 msgstr "Je moet de verwijdering bevestigen"
-
-#~ msgid "Download file"
-#~ msgstr "Download bestand"

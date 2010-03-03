@@ -21,22 +21,22 @@ msgstr ""
 msgid "About Piwigo"
 msgstr ""
 
-msgid "Free access"
+msgid "ACCESS_0"
 msgstr ""
 
-msgid "Access to all"
+msgid "ACCESS_1"
 msgstr ""
 
-msgid "Access to subscribed"
+msgid "ACCESS_2"
 msgstr ""
 
-msgid "Access to administrators"
+msgid "ACCESS_3"
 msgstr ""
 
-msgid "Access to webmasters"
+msgid "ACCESS_4"
 msgstr ""
 
-msgid "No access"
+msgid "ACCESS_5"
 msgstr ""
 
 msgid "You are not authorized to access the requested page"
@@ -272,10 +272,14 @@ msgstr ""
 msgid "Status of user \"%s\" updated"
 msgstr ""
 
-msgid "The version of %s [%s] installed is not compatible with the version required [%s]"
+msgid ""
+"The version of %s [%s] installed is not compatible with the version required "
+"[%s]"
 msgstr ""
 
-msgid "You need to upgrade your system to take full advantage of the application else the application will not work correctly, or not at all"
+msgid ""
+"You need to upgrade your system to take full advantage of the application "
+"else the application will not work correctly, or not at all"
 msgstr ""
 
 msgid "caddie"
@@ -407,16 +411,17 @@ msgstr[1] ""
 msgid "Your comment has been registered"
 msgstr ""
 
-msgid "Anti-flood system : please wait for a moment before trying to post another comment"
+msgid ""
+"Anti-flood system : please wait for a moment before trying to post another "
+"comment"
 msgstr ""
 
 msgid "comment date"
 msgstr ""
 
-msgid "Your comment has NOT been registered because it did not pass the validation rules"
-msgstr ""
-
-msgid "Comments"
+msgid ""
+"Your comment has NOT been registered because it did not pass the validation "
+"rules"
 msgstr ""
 
 msgid "Add a comment"
@@ -437,10 +442,22 @@ msgstr ""
 msgid "Access type"
 msgstr ""
 
+msgid "Comments"
+msgstr ""
+
 msgid "Information data registered in database"
 msgstr ""
 
 msgid "Default display"
+msgstr ""
+
+msgid "No display"
+msgstr ""
+
+msgid "Classic display"
+msgstr ""
+
+msgid "Hoverbox display"
 msgstr ""
 
 msgid "Templates"
@@ -500,7 +517,10 @@ msgstr ""
 msgid "Controversy"
 msgstr ""
 
-msgid "Copy the text in pink between hyphens and paste it into the file \"include/config_database.inc.php\"(Warning : config_database.inc.php must only contain what is in pink, no line return or space character)"
+msgid ""
+"Copy the text in pink between hyphens and paste it into the file \"include/"
+"config_database.inc.php\"(Warning : config_database.inc.php must only "
+"contain what is in pink, no line return or space character)"
 msgstr ""
 
 msgid "Create a new account"
@@ -539,7 +559,9 @@ msgstr ""
 msgid "Deactivate"
 msgstr ""
 
-msgid "As a precaution, following plugins have been deactivated. You must check for plugins upgrade before reactiving them:"
+msgid ""
+"As a precaution, following plugins have been deactivated. You must check for "
+"plugins upgrade before reactiving them:"
 msgstr ""
 
 msgid "Accelerate diaporama speed"
@@ -627,6 +649,9 @@ msgstr ""
 msgid "download"
 msgstr ""
 
+msgid "Download file"
+msgstr ""
+
 msgid "download this file"
 msgstr ""
 
@@ -711,6 +736,15 @@ msgstr ""
 msgid "Element type"
 msgstr ""
 
+msgid "none"
+msgstr ""
+
+msgid "high"
+msgstr ""
+
+msgid "other"
+msgstr ""
+
 msgid "Email address"
 msgstr ""
 
@@ -779,6 +813,11 @@ msgstr ""
 
 msgid "Filter"
 msgstr ""
+
+msgid "%d line filtered"
+msgid_plural "%d lines filtered"
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "Filter and display"
 msgstr ""
@@ -872,7 +911,9 @@ msgstr ""
 msgid "Guest cannot be deleted"
 msgstr ""
 
-msgid "Bad status for user \"guest\", using default status. Please notify the webmaster."
+msgid ""
+"Bad status for user \"guest\", using default status. Please notify the "
+"webmaster."
 msgstr ""
 
 msgid "Guests"
@@ -961,16 +1002,23 @@ msgstr ""
 msgid "Installation"
 msgstr ""
 
-msgid "The configuration of Piwigo is finished, here is the next step<br><br>\n* go to the identification page and use the login/password given for webmaster<br>\n* this login will enable you to access to the administration panel and to the instructions in order to place pictures in your directories"
+msgid ""
+"The configuration of Piwigo is finished, here is the next step<br><br>\n"
+"* go to the identification page and use the login/password given for "
+"webmaster<br>\n"
+"* this login will enable you to access to the administration panel and to "
+"the instructions in order to place pictures in your directories"
 msgstr ""
 
-msgid "Need help ? Ask your question on <a href=\"%s\">Piwigo message board</a>."
+msgid ""
+"Need help ? Ask your question on <a href=\"%s\">Piwigo message board</a>."
 msgstr ""
 
 msgid "Webmaster login"
 msgstr ""
 
-msgid "It will be shown to the visitors. It is necessary for website administration"
+msgid ""
+"It will be shown to the visitors. It is necessary for website administration"
 msgstr ""
 
 msgid "Instructions"
@@ -1020,16 +1068,19 @@ msgstr ""
 msgid "letters"
 msgstr ""
 
-msgid "Contacts"
+msgid "Level 0"
 msgstr ""
 
-msgid "Friends"
+msgid "Level 1"
 msgstr ""
 
-msgid "Family"
+msgid "Level 2"
 msgstr ""
 
-msgid "Admins"
+msgid "Level 4"
+msgstr ""
+
+msgid "Level 8"
 msgstr ""
 
 msgid "Link all category elements to a new category"
@@ -1177,7 +1228,9 @@ msgstr ""
 msgid "The number of rows per page must be a not null scalar"
 msgstr ""
 
-msgid "Prepared time for list of users to send mail is limited. Others users are not listed."
+msgid ""
+"Prepared time for list of users to send mail is limited. Others users are "
+"not listed."
 msgstr ""
 
 msgid "Time to send mail is limited. Others mails are skipped."
@@ -1207,13 +1260,7 @@ msgstr ""
 msgid "Go to "
 msgstr ""
 
-msgid "."
-msgstr ""
-
 msgid "Hello "
-msgstr ""
-
-msgid ","
 msgstr ""
 
 msgid "New elements were added "
@@ -1228,10 +1275,44 @@ msgstr ""
 msgid " on "
 msgstr ""
 
+msgid ""
+"Execution time is out, treatment must be continue [Estmated time: %d second]."
+msgid_plural ""
+"Execution time is out, treatment must be continue [Estmated time: %d "
+"seconds]."
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "%d parameter was updated."
+msgid_plural "%d parameters were updated."
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "%d user was updated."
+msgid_plural "%d users were updated."
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "%d user was not updated."
+msgid_plural "%d users were not updated."
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "%d mail was sent."
+msgid_plural "%d mails were sent."
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "%d mail was not sent."
+msgid_plural "%d mails were not sent."
+msgstr[0] ""
+msgstr[1] ""
+
 msgid "[NBM] Problems or questions"
 msgstr ""
 
-msgid "If you encounter problems or have any question, please send a message to "
+msgid ""
+"If you encounter problems or have any question, please send a message to "
 msgstr ""
 
 msgid "The webmaster has subscribed you to receiving notifications by mail."
@@ -1243,7 +1324,8 @@ msgstr ""
 msgid "To subscribe"
 msgstr ""
 
-msgid "The webmaster has unsubscribed you from receiving notifications by mail."
+msgid ""
+"The webmaster has unsubscribed you from receiving notifications by mail."
 msgstr ""
 
 msgid "You have unsubscribed from receiving notifications by mail."
@@ -1273,7 +1355,9 @@ msgstr ""
 msgid "There is no available subscribers to mail."
 msgstr ""
 
-msgid "Subscribers could be listed (available) only if there is new elements to notify."
+msgid ""
+"Subscribers could be listed (available) only if there is new elements to "
+"notify."
 msgstr ""
 
 msgid "Anyway only webmasters can see this tab and never administrators."
@@ -1294,7 +1378,7 @@ msgstr ""
 msgid "Parameter"
 msgstr ""
 
-msgid "Processing treatment.\n Please wait..."
+msgid "Processing treatment.Please wait..."
 msgstr ""
 
 msgid "Continue processing treatment"
@@ -1412,7 +1496,9 @@ msgstr ""
 msgid "Note: Only deletes photos added with pLoader"
 msgstr ""
 
-msgid "Note you can change your configuration by yourself and restart Piwigo after that."
+msgid ""
+"Note you can change your configuration by yourself and restart Piwigo after "
+"that."
 msgstr ""
 
 msgid "nothing"
@@ -1445,7 +1531,9 @@ msgstr ""
 msgid "Only private categories are listed"
 msgstr ""
 
-msgid "Only thumbnails prefix and webmaster mail address have been saved from previous configuration"
+msgid ""
+"Only thumbnails prefix and webmaster mail address have been saved from "
+"previous configuration"
 msgstr ""
 
 msgid "Operating system"
@@ -1511,7 +1599,9 @@ msgstr ""
 msgid "Path"
 msgstr ""
 
-msgid "Perform a maintenance check in [Administration>Specials>Maintenance] if you encounter any problem."
+msgid ""
+"Perform a maintenance check in [Administration>Specials>Maintenance] if you "
+"encounter any problem."
 msgstr ""
 
 msgid "period"
@@ -1526,14 +1616,18 @@ msgstr ""
 msgid "Permalink history"
 msgstr ""
 
-msgid "The permalink name must be composed of a-z, A-Z, 0-9, \"-\", \"_\" or \"/\". It must not be numeric or start with number followed by \"-\""
+msgid ""
+"The permalink name must be composed of a-z, A-Z, 0-9, \"-\", \"_\" or \"/\". "
+"It must not be numeric or start with number followed by \"-\""
 msgstr ""
 
 msgid "Permalinks"
 msgstr ""
 
 #, c-format
-msgid "Permalink %s has been previously used by category %s. Delete from the permalink history first"
+msgid ""
+"Permalink %s has been previously used by category %s. Delete from the "
+"permalink history first"
 msgstr ""
 
 #, c-format
@@ -1579,7 +1673,9 @@ msgstr ""
 msgid "Piwigo Help"
 msgstr ""
 
-msgid "Piwigo may try to switch your configuration to PHP 5 by creating or modifying a .htaccess file."
+msgid ""
+"Piwigo may try to switch your configuration to PHP 5 by creating or "
+"modifying a .htaccess file."
 msgstr ""
 
 msgid "Piwigo version"
@@ -1613,9 +1709,6 @@ msgid "Can't download archive."
 msgstr ""
 
 msgid "Plugins up to date"
-msgstr ""
-
-msgid "Download file"
 msgstr ""
 
 msgid "An error occured during extraction (%s)."
@@ -1831,7 +1924,9 @@ msgstr ""
 msgid "Repair and optimize database"
 msgstr ""
 
-msgid "Replacement of original templates by customized templates from template-extension subfolder"
+msgid ""
+"Replacement of original templates by customized templates from template-"
+"extension subfolder"
 msgstr ""
 
 msgid "Replacers (customized templates)"
@@ -2069,6 +2164,24 @@ msgstr ""
 msgid "Status"
 msgstr ""
 
+msgid "User status"
+msgstr ""
+
+msgid "user_status_admin"
+msgstr ""
+
+msgid "user_status_generic"
+msgstr ""
+
+msgid "user_status_guest"
+msgstr ""
+
+msgid "user_status_normal"
+msgstr ""
+
+msgid "user_status_webmaster"
+msgstr ""
+
 msgid "Parameters are correct"
 msgstr ""
 
@@ -2099,7 +2212,9 @@ msgstr ""
 msgid "Database table prefix"
 msgstr ""
 
-msgid "database tables names will be prefixed with it (enables you to manage better your tables)"
+msgid ""
+"database tables names will be prefixed with it (enables you to manage better "
+"your tables)"
 msgstr ""
 
 msgid "Database configuration"
@@ -2150,7 +2265,14 @@ msgstr ""
 msgid "Submit"
 msgstr ""
 
-msgid "Keep in touch with Piwigo project, subscribe to Piwigo Announcement Newsletter. You will receive emails when a new release is available (sometimes including a security bug fix, it's important to know and upgrade) and when major events happen to the project. Only a few emails a year."
+msgid ""
+"Keep in touch with Piwigo project, subscribe to Piwigo Announcement "
+"Newsletter. You will receive emails when a new release is available "
+"(sometimes including a security bug fix, it's important to know and upgrade) "
+"and when major events happen to the project. Only a few emails a year."
+msgstr ""
+
+msgid "Subscribe %s"
 msgstr ""
 
 msgid "Subscribe %s to Piwigo Announcements Newsletter"
@@ -2170,6 +2292,11 @@ msgstr ""
 
 msgid "%d tag"
 msgid_plural "%d tags"
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "The following tag was deleted"
+msgid_plural "The %d following tags were deleted"
 msgstr[0] ""
 msgstr[1] ""
 
@@ -2208,7 +2335,9 @@ msgstr ""
 msgid "Theme: "
 msgstr ""
 
-msgid "The RSS notification feed provides notification on news from this website : new pictures, updated categories, new comments. Use a RSS feed reader."
+msgid ""
+"The RSS notification feed provides notification on news from this website : "
+"new pictures, updated categories, new comments. Use a RSS feed reader."
 msgstr ""
 
 msgid "Thumbnail"
@@ -2358,7 +2487,9 @@ msgstr ""
 msgid "Choose an option"
 msgstr ""
 
-msgid "display maximum informations (added categories and elements, deleted categories and elements)"
+msgid ""
+"display maximum informations (added categories and elements, deleted "
+"categories and elements)"
 msgstr ""
 
 msgid "Error list"
@@ -2370,13 +2501,17 @@ msgstr ""
 msgid "Piwigo version differs on the remote site"
 msgstr ""
 
-msgid "Version of create_listing_file.php on the remote site and Piwigo must be the same"
+msgid ""
+"Version of create_listing_file.php on the remote site and Piwigo must be the "
+"same"
 msgstr ""
 
 msgid "listing.xml file was not found"
 msgstr ""
 
-msgid "listing.xml file was not found on the remote site. This file is generated by choosing the \"generate listing\" command in the Site manager"
+msgid ""
+"listing.xml file was not found on the remote site. This file is generated by "
+"choosing the \"generate listing\" command in the Site manager"
 msgstr ""
 
 msgid "Update images informations"
@@ -2388,10 +2523,16 @@ msgstr ""
 msgid "File/directory read error"
 msgstr ""
 
-msgid "The file or directory cannot be accessed (either it does not exist or the access is denied)"
+msgid ""
+"The file or directory cannot be accessed (either it does not exist or the "
+"access is denied)"
 msgstr ""
 
-msgid "a picture filetype requires a thumbnail. The thumbnail must be present in the sub-directory \"thumbnail\" of the category directory. The thumbnail filename must start with the configured thumbnail prefix and the extension must be among the following list :"
+msgid ""
+"a picture filetype requires a thumbnail. The thumbnail must be present in "
+"the sub-directory \"thumbnail\" of the category directory. The thumbnail "
+"filename must start with the configured thumbnail prefix and the extension "
+"must be among the following list :"
 msgstr ""
 
 msgid "missing thumbnail"
@@ -2460,7 +2601,9 @@ msgstr ""
 msgid "wrong filename"
 msgstr ""
 
-msgid "The name of directories and files must be composed of letters, numbers, \"-\", \"_\" or \".\""
+msgid ""
+"The name of directories and files must be composed of letters, numbers, \"-"
+"\", \"_\" or \".\""
 msgstr ""
 
 msgid "Upgrade"
@@ -2505,7 +2648,9 @@ msgstr ""
 msgid "Upload a picture"
 msgstr ""
 
-msgid "Picture uploaded with success, an administrator will validate it as soon as possible"
+msgid ""
+"Picture uploaded with success, an administrator will validate it as soon as "
+"possible"
 msgstr ""
 
 msgid "Use the default image sort order (defined in the configuration file)"
@@ -2534,9 +2679,6 @@ msgstr ""
 
 #, c-format
 msgid "user \"%s\" added"
-msgstr ""
-
-msgid "User status"
 msgstr ""
 
 msgid "Administrator"
@@ -2640,7 +2782,9 @@ msgstr ""
 msgid "You do not have access rights to run upgrade"
 msgstr ""
 
-msgid "You may referer to your hosting provider's support and see how you could switch to PHP 5 by yourself."
+msgid ""
+"You may referer to your hosting provider's support and see how you could "
+"switch to PHP 5 by yourself."
 msgstr ""
 
 msgid "You need to confirm deletion"

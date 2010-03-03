@@ -215,7 +215,7 @@ if ($conf['double_password_type_in_admin'] == true)
         array_push(
           $page['infos'],
           sprintf(
-            l10n('user \"%s\" added'),
+            l10n('user "%s" added'),
             $_POST['login']
           )
         );
@@ -235,7 +235,7 @@ else if ($conf['double_password_type_in_admin'] == false)
       array_push(
         $page['infos'],
         sprintf(
-          l10n('user \"%s\" added'),
+          l10n('user "%s" added'),
           $_POST['login']
           )
         );
@@ -592,6 +592,7 @@ $template->assign('language_options', get_languages());
 $template->assign('language_selected',
     isset($_POST['pref_submit']) ? $_POST['language'] : get_default_language());
 
+Log::getInstance()->debug($status);
 // Status options
 foreach (get_enums(USER_INFOS_TABLE, 'status') as $status)
 {
@@ -693,7 +694,7 @@ foreach ($visible_user_list as $local_user)
   }
   $properties[] =
     (isset($local_user['enabled_high']) and ($local_user['enabled_high'] == 'true'))
-        ? l10n('') : l10n('');
+        ? l10n('High definition') : l10n('');
 
   $template->append(
     'users',

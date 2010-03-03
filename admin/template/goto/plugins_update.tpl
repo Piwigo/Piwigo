@@ -31,7 +31,7 @@ jQuery().ready(function(){ldelim}
     <td><a href="{$plugin.EXT_URL}" onclick="window.open(this.href); return false;" class="cluetip" title="{$plugin.EXT_NAME}|{$plugin.EXT_DESC|htmlspecialchars|nl2br}">{$plugin.EXT_NAME}</a></td>
     <td style="text-align:center;">{$plugin.VERSION}</td>
     <td style="text-align:center;"><a href="{$plugin.EXT_URL}" onclick="window.open(this.href); return false;" class="cluetip" title="{$plugin.EXT_NAME}|{$plugin.NEW_VER_DESC|htmlspecialchars|nl2br}">{$plugin.NEW_VERSION}</a></td>
-    <td style="text-align:center;"><a href="{$plugin.URL_UPDATE}" onclick="return confirm('{'plugins_confirm_upgrade'|@translate|@escape:javascript}');">{'plugins_auto_update'|@translate}</a>
+    <td style="text-align:center;"><a href="{$plugin.URL_UPDATE}" onclick="return confirm('{'Are you sure to install this upgrade? You must verify if this version does not need uninstallation.'|@translate|@escape:javascript}');">{'plugins_auto_update'|@translate}</a>
       / <a href="{$plugin.URL_DOWNLOAD}">{'Download file'|@translate}</a></td>
   </tr>
 {/foreach}

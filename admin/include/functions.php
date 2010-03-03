@@ -1666,7 +1666,7 @@ SELECT id
 
     return array(
       'info' => sprintf(
-        l10n('Tag \"%s\" was added'),
+        l10n('Tag "%s" was added'),
         stripslashes($tag_name)
         ),
       'id' => $inserted_id,
@@ -1676,7 +1676,7 @@ SELECT id
   {
     return array(
       'error' => sprintf(
-        l10n('Tag \"%s\" already exists'),
+        l10n('Tag "%s" already exists'),
         stripslashes($tag_name)
         )
       );

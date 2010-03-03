@@ -67,7 +67,7 @@ SELECT id, name
         array_push(
           $page['errors'],
           sprintf(
-            l10n('Tag \"%s\" already exists'),
+            l10n('Tag "%s" already exists'),
             $tag_name
             )
           );
@@ -125,7 +125,7 @@ DELETE
   array_push(
     $page['infos'],
     l10n_dec(
-      'The %d following tag were deleted', 
+      'The following tag was deleted', 
       'The %d following tags were deleted',
       count($tag_names)).' : '.
       implode(', ', $tag_names)
@@ -164,7 +164,7 @@ SELECT id
     array_push(
       $page['infos'],
       sprintf(
-        l10n('Tag \"%s\" was added'),
+        l10n('Tag "%s" was added'),
         stripslashes($tag_name)
         )
       );
@@ -174,7 +174,7 @@ SELECT id
     array_push(
       $page['errors'],
       sprintf(
-        l10n('Tag \"%s\" already exists'),
+        l10n('Tag "%s" already exists'),
         stripslashes($tag_name)
         )
       );

@@ -315,16 +315,16 @@ function display_counter_info()
 
   if ($env_nbm['error_on_mail_count'] != 0)
   {
-    array_push($page['errors'], l10n_dec('nbm_msg_n_mail_not_send', 'nbm_msg_n_mails_not_send', $env_nbm['error_on_mail_count']));
+    array_push($page['errors'], l10n_dec('%d mail was not sent.', '%d mails were not sent.', $env_nbm['error_on_mail_count']));
     if ($env_nbm['sent_mail_count'] != 0)
-      array_push($page['infos'], l10n_dec('nbm_msg_n_mail_sent', 'nbm_msg_n_mails_sent', $env_nbm['sent_mail_count']));
+      array_push($page['infos'], l10n_dec('%d mail was sent.', '%d mails were sent.', $env_nbm['sent_mail_count']));
   }
   else
   {
     if ($env_nbm['sent_mail_count'] == 0)
       array_push($page['infos'], l10n('No mail to send.'));
     else
-      array_push($page['infos'], l10n_dec('nbm_msg_n_mail_sent', 'nbm_msg_n_mails_sent', $env_nbm['sent_mail_count']));
+      array_push($page['infos'], l10n_dec('%d mail was sent.', '%d mails were sent.', $env_nbm['sent_mail_count']));
   }
 }
 
@@ -491,12 +491,12 @@ function do_subscribe_unsubscribe_notification_by_mail($is_admin_request, $is_su
 
   }
 
-  array_push($page['infos'], l10n_dec('nbm_user_change_enabled_updated_data_count', 'nbm_users_change_enabled_updated_data_count', $updated_data_count));
+  array_push($page['infos'], l10n_dec('%d user was updated.', '%d users were updated.', $updated_data_count));
   if ($error_on_updated_data_count != 0)
   {
     array_push($page['errors'],
-      l10n_dec('nbm_user_change_enabled_error_on_updated_data_count',
-               'nbm_users_change_enabled_error_on_updated_data_count',
+      l10n_dec('%d user was not updated.',
+               '%d users were not updated.',
                $error_on_updated_data_count));
   }
 

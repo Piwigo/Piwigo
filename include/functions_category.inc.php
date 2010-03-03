@@ -484,7 +484,7 @@ function get_display_images_count($cat_nb_images, $cat_count_images, $cat_count_
     }
     else
     {
-      $display_text.= ' '.l10n_dec('images_available_cat', 'images_available_cats', $cat_count_categories);
+      $display_text.= ' '.l10n_dec('in %d sub-category', 'in %d sub-categories', $cat_count_categories);
     }
   }
 
