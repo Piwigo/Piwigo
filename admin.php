@@ -34,6 +34,31 @@ include_once(PHPWG_ROOT_PATH.'admin/include/functions_plugins.inc.php');
 // +-----------------------------------------------------------------------+
 check_status(ACCESS_ADMINISTRATOR);
 
+// tags
+if (isset($_GET['fckb_tags']))
+{
+  $query = '
+SELECT
+    id,
+    name
+  FROM '.TAGS_TABLE.'
+;';
+  $result = pwg_query($query);
+  $taglist = array();
+  while ($row = pwg_db_fetch_assoc($result))
+  {
+    array_push(
+      $taglist,
+      array(
+        'caption' => $row['name'],
+        'value' => '~~'.$row['id'].'~~',
+        )
+      );
+  }
+  echo json_encode($taglist);
+  exit();
+}
+
 // +-----------------------------------------------------------------------+
 // |                    synchronize user informations                      |
 // +-----------------------------------------------------------------------+

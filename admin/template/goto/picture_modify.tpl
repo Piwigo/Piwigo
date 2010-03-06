@@ -1,7 +1,24 @@
-
 {include file='include/autosize.inc.tpl'}
 {include file='include/dbselect.inc.tpl'}
 {include file='include/datepicker.inc.tpl'}
+
+{known_script id="jquery.fcbkcomplete" src=$ROOT_URL|@cat:"template-common/lib/plugins/jquery.fcbkcomplete.js"}
+{literal}
+<script type="text/javascript">
+  $(document).ready(function() {
+    $("#tags").fcbkcomplete({
+      json_url: "admin.php?fckb_tags=1",
+      cache: false,
+      filter_case: true,
+      filter_hide: true,
+      firstselected: true,
+      filter_selected: true,
+      maxitems: 10,
+      newel: true
+    });
+  });
+</script>
+{/literal}
 
 {literal}
 <script type="text/javascript">
@@ -119,7 +136,13 @@
 
       <tr>
         <td><strong>{'Tags'|@translate}</strong></td>
-        <td>{$TAG_SELECTION}</td>
+        <td>
+<select id="tags" name="tags">
+{foreach from=$tags item=tag}
+  <option value="{$tag.value}" class="selected">{$tag.caption}</option>
+{/foreach}
+</select>
+        </td>
       </tr>
 
 

@@ -106,8 +106,32 @@ if (isset($_POST['submit']) and count($page['errors']) == 0 and !is_adviser())
     array($data)
     );
 
+  // In $_POST[tags] we receive something like array('~~6~~', '~~59~~', 'New
+  // tag', 'Another new tag') The ~~34~~ means that it is an existing
+  // tag. I've added the surrounding ~~ to permit creation of tags like "10"
+  // or "1234" (numeric characters only)
+  $tag_ids = array();
+  if (isset($_POST['tags']))
+  {
+    foreach ($_POST['tags'] as $raw_tag)
+    {
+      if (preg_match('/^~~(\d+)~~$/', $raw_tag, $matches))
+      {
+        array_push($tag_ids, $matches[1]);
+      }
+      else
+      {
+        // we have to create a new tag
+        array_push(
+          $tag_ids, 
+          tag_id_from_tag_name($raw_tag)
+          );
+      }
+    }
+  }
+  
   set_tags(
-    isset($_POST['tags']) ? $_POST['tags'] : array(),
+    $tag_ids,
     $_GET['image_id']
     );
 
@@ -169,6 +193,29 @@ if (isset($_POST['dismiss'])
   set_random_representant($_POST['cat_elected']);
 }
 
+// tags
+$tags = array();
+
+$query = '
+SELECT
+    tag_id,
+    name
+  FROM '.IMAGE_TAG_TABLE.' AS it
+    JOIN '.TAGS_TABLE.' AS t ON t.id = it.tag_id
+  WHERE image_id = '.$_GET['image_id'].'
+;';
+$result = pwg_query($query);
+while ($row = pwg_db_fetch_assoc($result))
+{
+  array_push(
+    $tags,
+    array(
+      'value' => '~~'.$row['tag_id'].'~~',
+      'caption' => $row['name'],
+      )
+    );
+}
+
 // retrieving direct information about picture
 $query = '
 SELECT *
@@ -185,14 +232,6 @@ if (!empty($row['storage_category_id']))
 
 $image_file = $row['file'];
 
-// tags
-$query = '
-SELECT tag_id
-  FROM '.IMAGE_TAG_TABLE.'
-  WHERE image_id = '.$_GET['image_id'].'
-;';
-$selected_tags = array_from_query($query, 'tag_id');
-
 // +-----------------------------------------------------------------------+
 // |                             template init                             |
 // +-----------------------------------------------------------------------+
@@ -203,26 +242,9 @@ $template->set_filenames(
     )
   );
 
-$all_tags = get_all_tags();
-
-if (count($all_tags) > 0)
-{
-  $tag_selection = get_html_tag_selection(
-    $all_tags,
-    'tags',
-    $selected_tags
-    );
-}
-else
-{
-  $tag_selection =
-    '<p>'.
-    l10n('No tag defined. Use Administration>Pictures>Tags').
-    '</p>';
-}
-
 $template->assign(
   array(
+    'tags' => $tags,
     'U_SYNC' =>
         get_root_url().'admin.php?page=picture_modify'.
         '&amp;image_id='.$_GET['image_id'].
@@ -244,8 +266,6 @@ $template->assign(
     'REGISTRATION_DATE' => format_date($row['date_available']),
 
     'AUTHOR' => isset($_POST['author']) ? $_POST['author'] : @$row['author'],
-
-    'TAG_SELECTION' => $tag_selection,
 
     'DESCRIPTION' =>
       htmlspecialchars( isset($_POST['description']) ?
