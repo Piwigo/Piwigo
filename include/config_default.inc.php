@@ -329,7 +329,7 @@ $conf['double_password_type_in_admin'] = false;
 // If set true, the login "user" will equal "User" or "USER" or "user",
 // etc. ... And it will be impossible to use such login variation to create a
 // new user account. 
-$conf['no_case_sensitive_for_login'] = false;
+$conf['insensitive_case_logon'] = false;
 
 // how should we check for unicity when adding a photo. Can be 'md5sum' or
 // 'filename'

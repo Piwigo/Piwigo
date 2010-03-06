@@ -118,7 +118,7 @@ function register_user($login, $password, $mail_address,
     array_push($errors, $mail_error);
   }
 
-  if ($conf['no_case_sensitive_for_login'] == true)
+  if ($conf['insensitive_case_logon'] == true)
   {
     $login_error = validate_login_case($login);
     if ($login_error != '')
