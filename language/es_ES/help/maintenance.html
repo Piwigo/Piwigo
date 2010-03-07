@@ -1,12 +1,12 @@
 <h2>Mantenimiento</h2>
 
-<p>Para optimizar el tiempo de generación de las páginas, Piwigo utiliza informaciones en viñeta. Por ejemplo, en lugar de contar el número de elementos contenidos en cada categoría a cada nueva carga de página, esta información es almacenada en la base de datos. Teóricamente, esta información debe siempre ser correcta, pero a veces un error puede sobrevenir y la información en viñeta se vuelve falsa.</p>
+<p>Para optimizar el tiempo de generación de las páginas, Piwigo utiliza informaciones en viñeta. Por ejemplo, en lugar de contar el número de elementos contenidos en cada categoría a cada nueva carga de página, esta información es almacenada en la base de datos. Teóricamente, esta información debe siempre estar correcta, pero a veces un error puede sobrevenir y la información en viñeta se vuelve falsa.</p>
 
-<p>Informaciones se vuelven inútiles con tiempo. Suprimirlos de la base de datos libera del espacio disco.</p>
+<p>Informaciones se vuelven inútiles con tiempo. Suprimirlas de la base de datos liberara espacio en el disco.</p>
 
 <ul>
 
-  <li><strong>Poner al día las informaciones de las categorías:</strong> Para cada categoría, las informaciones a controller y\o poner al día son las siguientes: lista de las categorías madres, número de elementos, fecha del último elemento, la posición entre las categorías hermana, posición en el árbol completo de las categorías. Esta acción también verifica la coherencia de los representantes.</li>
+  <li><strong>Poner al día las informaciones de las categorías:</strong> Para cada categoría, las informaciones a controllar y\o poner al día son las siguientes: lista de las categorías madres, número de elementos, fecha del último elemento, la posición entre las categorías hermana, posición en el árbol completo de las categorías. Esta acción también verifica la coherencia de los representantes.</li>
 
   <li><strong>Poner al día las informaciones de las imágenes:</strong> Para cada imagen, las informaciones que hay que poner al día son: camino completo hacia el fichero, la nota media. <em>Atención</em>: No confundir con los méta-datos que son sincronizados sobre la pantalla <span
 class="pwgScreen">Administración, Categorías, Sincronizar</span> O sobre la pantalla <span class="pwgScreen">Modificar las informaciones de una imagen</span>
@@ -14,24 +14,24 @@ class="pwgScreen">Administración, Categorías, Sincronizar</span> O sobre la pa
 class="pwgScreen">picture.php</span>).</li>
 
   <li><strong>Reparar y optimizar la base de datos :</strong>
-Para cada mesa de la base de datos Piwigo las operaciones de ré-planificación, de reparación y de optimización son efectuadas.
+Para cada tabla de la base de datos Piwigo efectua operaciones de ré-planificación, de reparación y de optimización.
   </li>
 
 </ul>
 
 <ul>
   <li><strong>Vaciar el histórico :</strong>
-Suprime todas las líneas de la mesa <code>history</code>. La pantalla <span class="pwgScreen">
-Administración, Especiales, histórico</span> no muestra entonces ninguna información sobre el pasado. <Em>Atención</em>: todos los datos estarán perdidos y no existe ningún medio de recuperarlas.
+Suprime todas las líneas de la tabla <code>history</code>. La pantalla <span class="pwgScreen">
+Administración, Especiales, histórico</span> no muestrara ninguna información sobre el pasado. <Em>Atención</em>: todos los datos estarán perdidos y no existe ningún medio de recuperarlos.
   </li>
   
-  <li><strong>Vaciar el sumario del histórico</strong>Suprime todas las informaciones recapitulativas (obtenidas a partir del detalle de la reseña histórica).</li>
+  <li><strong>Vaciar el sumario del histórico</strong>Suprime todas las informaciones recapitulativas (obtenidas a partir del detalle de la peataña histórico).</li>
 
   <li><strong>Purgar las sesiones:</strong> Suprimir las sesiones espiradas..</li>
 
   <li><strong>Purgar los flujos jamás utilizados de notificación</strong></li>
 
-  <li><strong>Purgar la reseña histórica de las búsquedas</strong></li>
+  <li><strong>Purgar la pestaña histórico de las búsquedas</strong></li>
   
   <li><strong>Purgar el templates compilado</strong></li>
   
