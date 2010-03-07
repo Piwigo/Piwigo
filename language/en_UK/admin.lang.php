@@ -654,4 +654,8 @@ $lang['Subscribe %s'] = 'Subscribe %s';
 $lang['Subscribe %s to Piwigo Announcements Newsletter'] = 'Subscribe %s to Piwigo Announcements Newsletter';
 $lang['Purge search history'] = 'Purge search history';
 $lang['Hide'] = 'Hide';
+$lang['Cannot delete the old permalink !'] = 'Cannot delete the old permalink !';
+$lang['Deleted on'] = 'Deleted on';
+$lang['Last hit'] = 'Last hit';
+$lang['Hit'] = 'Hit';
 ?>
