@@ -41,6 +41,7 @@
   <p>
     <input class="submit" name="submitOrder" type="submit" value="{'Save order'|@translate}" {$TAG_INPUT_ENABLED}>
     <input class="submit" name="submitOrderAlphaNum" type="submit" value="{'Order alphanumerically'|@translate}" {$TAG_INPUT_ENABLED}>
+	<input class="submit" name="submitOrderAlphaNumReverse" type="submit" value="{'Order alphanumerically reverse'|@translate}" {$TAG_INPUT_ENABLED}>
   </p>
   <ul class="categoryUl">
 
@@ -85,6 +86,7 @@
   <p>
     <input class="submit" name="submitOrder" type="submit" value="{'Save order'|@translate}" {$TAG_INPUT_ENABLED}>
     <input class="submit" name="submitOrderAlphaNum" type="submit" value="{'Order alphanumerically'|@translate}" {$TAG_INPUT_ENABLED}>
+	<input class="submit" name="submitOrderAlphaNumReverse" type="submit" value="{'Order alphanumerically reverse'|@translate}" {$TAG_INPUT_ENABLED}>
   </p>
 
 </form>

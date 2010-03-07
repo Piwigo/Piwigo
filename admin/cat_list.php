@@ -132,6 +132,29 @@ SELECT id, name
     l10n('Categories ordered alphanumerically')
     );
 }
+// sort categories alpha-numerically reverse
+else if (isset($_POST['submitOrderAlphaNumReverse']))
+{
+  $query = '
+SELECT id, name
+  FROM '.CATEGORIES_TABLE.'
+  WHERE id_uppercat '.
+    (!isset($_GET['parent_id']) ? 'IS NULL' : '= '.$_GET['parent_id']).'
+;';
+  $result = pwg_query($query);
+  while ($row = pwg_db_fetch_assoc($result))
+  {
+    $categories[ $row['id'] ] = strtolower($row['name']);
+  }
+
+  arsort($categories, SORT_REGULAR);
+  save_categories_order(array_keys($categories));
+
+  array_push(
+    $page['infos'],
+    l10n('Categories ordered alphanumerically reverse')
+    );
+}
 
 // +-----------------------------------------------------------------------+
 // |                            Navigation path                            |
