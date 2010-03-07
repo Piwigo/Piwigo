@@ -1,0 +1,1 @@
+Hozzáad index.php fájl az összes alkönyvtár a helyi galériák képek.
