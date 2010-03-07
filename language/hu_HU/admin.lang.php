@@ -67,6 +67,7 @@ $lang['Caddie'] = 'Kosár';
 $lang['Categories authorized thanks to group associations'] = 'A kategóriák csoport tagsága';
 $lang['Categories manual order was saved'] = 'Kategóriák sorrendjének mentése megtörtént';
 $lang['Categories ordered alphanumerically'] = 'Kategóriák ABC sorrendben';
+$lang['Categories ordered alphanumerically reverse'] = 'Kategóriák csökkenő ABC sorrendben';
 $lang['Category elements associated to the following categories: %s'] = 'A kategória elemeinek a következõ kategóriához rendelése: %s';
 $lang['Check for upgrade failed for unknown reasons.'] = 'A program frissítése ismeretlen okból nem sikerült.';
 $lang['Check for upgrade'] = 'Frissítés keresése';
