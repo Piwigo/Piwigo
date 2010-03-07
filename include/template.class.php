@@ -96,11 +96,27 @@ class Template {
 
   /**
    * Sets the template root directory for this Template object.
+   * Revised from Piwigo 2.1 to add modeling support
    */
   function set_template_dir($dir)
   {
-    $this->smarty->template_dir = $dir;
-
+	if (!defined('IN_ADMIN')) 
+	{ // Modeling is active only on gallery side and never in admin
+	  // Set the normal directory
+      $this->smarty->template_dir = array($dir);
+	  // Modeling by theme parameter
+	  $modeling = './template/' . $this->get_themeconf('modeling');
+      if ( $modeling != './template/' and is_dir($modeling))
+	  {
+		$this->smarty->template_dir[] = $modeling;
+      }
+	  // Default template directory
+	  $this->smarty->template_dir[] = './template-common/yoga';
+	}
+    else
+	{
+      $this->smarty->template_dir = $dir;
+	}
     $real_dir = realpath($dir);
     $compile_id = crc32( $real_dir===false ? $dir : $real_dir);
     $this->smarty->compile_id = base_convert($compile_id, 10, 36 );
