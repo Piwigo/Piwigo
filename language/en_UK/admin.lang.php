@@ -661,4 +661,8 @@ $lang['Allow users to edit theirs owns comments'] = 'Allow users to edit theirs 
 $lang['Allow users to delete theirs owns comments'] = 'Allow users to delete theirs owns comments';
 $lang['Email administrators when a comment is modified'] = 'Email administrators when a comment is modified';
 $lang['Email administrators when a comment is deleted'] = 'Email administrators when a comment is deleted';
+$lang['Cannot delete the old permalink !'] = 'Cannot delete the old permalink !';
+$lang['Deleted on'] = 'Deleted on';
+$lang['Last hit'] = 'Last hit';
+$lang['Hit'] = 'Hit';
 ?>

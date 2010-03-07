@@ -100,7 +100,7 @@ DELETE FROM '.OLD_PERMALINKS_TABLE.'
   LIMIT 1';
   pwg_query($query);
   if (pwg_db_affected_rows()==0)
-    array_push($page['errors'], 'Cannot delete the old permalink !');
+    array_push($page['errors'], l10n('Cannot delete the old permalink !'));
 }
 
 

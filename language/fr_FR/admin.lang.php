@@ -662,4 +662,8 @@ $lang['Allow users to edit theirs owns comments'] = 'Autoriser les utilisateurs 
 $lang['Allow users to delete theirs owns comments'] = 'Autoriser les utilisateurs à supprimer leurs propres commentaires';
 $lang['Email administrators when a comment is modified'] = 'Notifier les administrateurs quand un commentaire est modifié';
 $lang['Email administrators when a comment is deleted'] = 'Notifier les administrateurs quand un commentaire est supprimé';
+$lang['Cannot delete the old permalink !'] = 'Impossible de supprimer cet ancien lien permanent !';
+$lang['Deleted on'] = 'Supprimés sur';
+$lang['Last hit'] = 'dernier score';
+$lang['Hit'] = 'score';
 ?>
