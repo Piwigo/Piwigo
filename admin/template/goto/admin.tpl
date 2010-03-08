@@ -58,6 +58,7 @@ jQuery().ready(function(){ldelim}
     <dt class="rdion"><span>{'Pictures'|@translate}&nbsp;</span></dt>
     <dd>
       <ul>
+        <li><a href="{$U_ADD_PHOTOS}">{'Add'|@translate}</a></li>
         <li><a href="{$U_WAITING}">{'Waiting'|@translate}</a></li>
         <li><a href="{$U_THUMBNAILS}">{'Thumbnails'|@translate}</a></li>
         <li><a href="{$U_RATING}">{'Rating'|@translate}</a></li>

@@ -499,3 +499,52 @@ ul.holder li.bit-box-focus a.closebutton, ul.holder li.bit-box-focus a.closebutt
 
 #demo ul.holder li.bit-input input { padding: 2px 0 1px; border: 1px solid #999; }
 .ie6fix {height:1px;width:1px; position:absolute;top:0px;left:0px;z-index:1;}
+
+/* Add photos, direct mode */
+#uploadBoxes P {
+  margin:0;
+  margin-bottom:2px;
+  padding:0;
+}
+
+#batchLink {
+  text-align:center;
+}
+
+.category_selection {
+  min-height:65px;
+  margin-top:5px;
+}
+
+.category_selection TABLE {
+  margin:0;
+}
+
+.formField {
+  width:650px;
+  margin:0 auto 20px auto;
+  padding:10px;
+  border: 2px solid #292929;
+}
+
+.formFieldTitle {
+  font-weight:bold;
+  margin-bottom:10px;
+}
+
+.formField P {
+  margin:0;
+}
+
+.formField TH {
+  text-align:right;
+  padding-right: 5px;
+}
+
+#uploadFormSettings input[type="text"] {
+  text-align:right;
+}
+
+#uploadFormSettings TH {
+  width:50%;
+}
