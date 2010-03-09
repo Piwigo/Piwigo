@@ -1,0 +1,198 @@
+/* text color */
+.theme_title { left: 15px; color: #000; text-align: left;}
+body, h3, dt, h2, .throw, .content, label,
+input.rateButtonSelected /* <= why IE doesn't inherit this ? */ { color:#777; }
+th { color: #888; }
+INPUT, select, textarea { color:#666; background-color: #ccc; }  
+input[type="radio"], input[type="checkbox"] { background-color: transparent; }  
+INPUT[type="submit"], INPUT[type="reset"]  { color:#666; border: 1px solid #777; background-color: #bbb; padding: 1px 15px; }
+input.rateButton, legend, h3 { color: #777; }
+#theAdminPage h2 { color: #ccc; }
+.content .infos { color: #0a0; border:0; background: transparent url(icon/infos.png) no-repeat left bottom;
+padding:5px 70px 0pt 30px; min-height: 48px; text-align:left; }
+.content .infos .submit {margin-left:30px;}
+.content .infos li, .content .errors li { list-style-type:none; }
+.content .errors { color: #f22; border:0; background: transparent url(icon/errors.png) no-repeat left top;
+padding:5px 60px 0pt 30px; min-height: 48px; text-align:left; font-weight:bold; background-position:left top;  }
+#copyright { color:#777; margin:5px auto 0px 240px; text-align:center; 
+padding-bottom: 15px; }
+.header_notes { background: transparent url(icon/note.png) no-repeat right top;
+border:0; font-weight:bold; min-height: 48px;
+padding:15px 60px 0 0; position:absolute; right:0;
+text-align:right; top:30px; width:550px;  }
+html, body { min-height: 100%; }
+body { margin: 0; padding: 0; background:#eeeeee }
+#the_page { margin: 0; padding: 0; z-index: 1; top:0px;
+padding-top: 0; min-height: 100%; width:100%; position:absolute; left:0px; }
+#headbranch { width: 233px; height: 240px; margin: 0; padding: 0;
+position:absolute; left:0px; top:0px; z-index: 0; 
+background:transparent }
+#theHeader { height:40px; margin: 0; padding: 0;
+background:transparent }
+h3, #imageToolBar a:hover, .row2, .content { background-color: #ddd; }
+.throw, .row1 { background-color:#eee; }
+.throw em { font-style: normal; color: #0cc9c; }
+#content { background: #ddd; min-height: 467px; border: 1px solid}
+.content { padding:5px 5px 5px 5px; margin: 0 10px 0 252px; z-index:99; }
+.content h3 { font-size:20px; letter-spacing:-0.4px; margin:0 20px 12px 0;
+ text-align:center; background:none; border: 0; }
+.content h3 ~ h3{ margin-top: 40px; }
+.content h4 { color: #aaa; font-size:14px; text-align:center; padding:3px; margin-top: 0; margin-bottom: 10px;}
+/*.content h2:before, .content h2:after, */ 
+.content h2 { 
+letter-spacing:2px; margin-right:30px; text-align:right; color: #999; 
+text-transform:none; font-weight:bold; padding-left:20px; width:54%; }
+.content h2:lang(en) { text-transform:capitalize; }
+
+.content dl, dd { margin:5px; }
+.content div.titrePage { height:40px; }
+
+.instructions { text-align:left; padding-top:5px;}
+.instructions LI { margin-bottom:5px; }
+.instructionBlock {border: 1px solid #999; margin: 5px; overflow: hidden;}
+.instructionBlockHeaderCollapsed, .instructionBlockHeaderExpanded {background-color:#eee; background-position:15px center;
+background-repeat:no-repeat; color:#999; cursor:pointer; font-size:110%; overflow:hidden; padding:8px 41px;}
+.instructionBlockHeaderCollapsed span, .instructionBlockHeaderExpanded span {border-bottom: none; }
+ 
+.instructionBlockHeaderCollapsed { background-image: url(icon/expand.gif);}
+.instructionBlockHeaderExpanded { background-image: url(icon/collapse.gif);}
+.instructionBlockContent { padding:0 15px 15px;}
+SPAN.pwgScreen { font-style:italic; border-bottom:1px dotted #666}
+
+.content ul.thumbnails span.wrap2:hover { background-color:#eee; border:1px solid #0cc9c; color:#999; }
+.content ul.thumbnails span.wrap2 { border:1px solid #999; padding: 4px; }
+.content ul.thumbnails span.wrap2 { -moz-border-radius-bottomleft:4px; -moz-border-radius-bottomright:4px; -moz-border-radius-topleft:4px; -moz-border-radius-topright:4px; }
+.content ul.thumbnails span.wrap1 { margin:0 12px 5px; }
+
+/* borders */ 
+fieldset { border: 1px solid #999; }
+INPUT, SELECT, TEXTAREA { border: 1px solid #999; }
+input:focus, select:focus, textarea:focus, input.focus, form .focus { background-color:#bbb;color: #666; }
+TEXTAREA { cursor:text; font-size: 13px; }
+.content UL.thumbnails SPAN.wrap2 {
+  border: 1px solid #555555;	/* thumbnails border color and style */
+  border-radius: 4px 4px;	/* round corners with CSS3 compliant browsers */
+}
+.tagSelection label { padding-right:12px; }
+.content ul.categoryActions a img { margin-left: 10px; }
+ul.thumbnails input { border:3px double #666; color:#666; font-size:10px; margin:0; background-color:#bbb; text-align: center;}
+INPUT[type="submit"]:hover , INPUT[type="reset"]:hover  { cursor: pointer; }
+INPUT.bigbutton:hover { background-color: #ddd;  color:#0cc; border: 0; }
+.throw  { font-size: 120%; line-height: 26px; padding-top: 10px; font-weight: bold; color: #0cc9c; }
+label { cursor:pointer }
+.categoryLi { background: #ddd }
+.virtual_cat { background: #ccc !important; }
+a.Piwigo {
+  font-family: verdana, arial, helvetica, sans-serif !important;
+  font-size: 11px; font-weight: normal; letter-spacing: 0;
+  color : #0cc; text-decoration: none; border: 0; }
+a.Piwigo:hover  span.Piwigo  { 
+  border-bottom: 1px solid #0cc9c; 
+}
+TABLE.table2 { border: 2px solid #eee; }
+
+*, *:focus, *:active, input:active, a:active, input:focus, a:focus { outline: none; -moz-outline-width: 0px; }
+a { color:#04f; border-width: 0; }
+a:hover, a:active { color: #0aa; border-bottom: 0 none; cursor: pointer; }
+.content .navigationBar {color:#999;}
+ul.actions, .content form#waiting  {text-align:center;}
+h2 { display:block; font-size:28px; letter-spacing:-1px; 
+margin:0 20px; height:40px; overflow:hidden; padding:0; position:absolute; 
+right:0; text-align:right; top:0; width:770px; }
+.header_msgs { background:transparent url(images/header_msgs-bg.gif) repeat scroll right top;
+border:0; color:#ccc; font-size:24px; height:30px; left:0; margin:0; padding:10px 0 0; position:absolute;
+text-align:center; top:0; width:100%; z-index:99; }
+.HelpActions a { border:0; margin:-14px 14px 0 0; position:absolute; right:0; }
+.HelpActions li {list-style-image:none; list-style-position:outside; 
+list-style-type:none; text-align:center; text-indent:0pt; }
+#content.content div.comment a.illustration{ margin-right: 30px;}
+/* tabsheets are often used in admin  pages => No specific css files */
+.tabsheet { 
+background-color:transparent; border:0; display:table; float:right; 
+font-family:verdana,arial,helvetica,sans-serif; font-size:8px; line-height:14px; 
+list-style-image:none; padding: 0; position:relative; text-decoration:none;
+top:-2px; white-space:nowrap; margin: 0 25px 0 0;}
+.tabsheet li { background:transparent;
+float:left; margin:0 2px 0 0; overflow:hidden; text-align:right; }
+.tabsheet a { 
+color:#999; display:block; font-size:11px; border:0;
+font-weight: bold; height:18px; overflow:hidden; padding:8px 7px 5px 15px; line-height: 18px;
+text-align: right; text-decoration:none; margin: 0; }
+.tabsheet a:first-letter { text-transform: capitalize; }
+.tabsheet a:hover, .tabsheet li.selected_tab  a { color: #0a7; }
+.tabsheet a span { display:block; font-size:10px; padding:0 3px 0 1px; }
+
+.sort { clear: none; }
+#214ug { margin-left:248px; font-size:12px; }
+/* menubar is on all admin pages => No specific css file */
+#menubar { background-color: #ddd;
+border: 1px solid; display:inline; float:left; left:0; margin: 0 0 0 35px; min-height:475px; height:475px; /* should be 477 */
+padding:0; width:207px; z-index:99; text-align: left; }
+#menubar ul.scroll { height:163px; margin-right:10px; overflow-y:auto; 
+ /* Only IE family supports colored scrollbar */
+ scrollbar-face-color: #ddd; scrollbar-shadow-color: #bbb; scrollbar-highlight-color: #fff;
+ scrollbar-3dlight-color: #d6d6d6; scrollbar-darkshadow-color: #ccc; scrollbar-track-color: #eee;
+ scrollbar-arrow-color: #0cccc; }
+
+#menubar dd { margin: 10px 0 0 0; padding: 0; height:232px; }
+#menubar dl { width: 207px; border:0; margin: 0; padding: 0; display: block; min-height:35px; }
+#menubar dt { margin: 0; display: block; background-color: #eee; font-weight:bold;
+position:relative; padding: 5px 1px 4px 5px; font-size: 13px; color: #999; }
+#menubar dt  span { background-color: #eee; cursor:pointer; }
+#menubar li { margin: 0 0 0 6px; }
+#menubar li.external { list-style-image:url(images/external_inactive.png); padding:10px 0px 0pt 10px; }
+#menubar li.external:hover { list-style-image:url(images/external_active.png); }
+#menubar ul { color: #ccc; margin:0 0 0 9px; line-height: 16px;
+  list-style-type: square; list-style-position: inside; padding: 0; }
+/* jQuery tooltips */
+.cluetip-default #cluetip-outer { border-color: #999; color: #999; background-color: #ddd; }
+.cluetip-default h3#cluetip-title { color: #0cc9c; background-color: #eee; }
+/* jQuery ui resizable */
+.ui-resizable { position: relative; }
+.ui-wrapper { border: 0; }
+.ui-wrapper input, .ui-wrapper textarea { border: 0; }
+
+/* Global handle styles */
+.ui-resizable-handle { position: absolute; display: none; font-size: 0.1px; }
+.ui-resizable .ui-resizable-handle { display: block; }
+body .ui-resizable-disabled .ui-resizable-handle { display: none; } /* use 'body' to make it more specific (css order) */
+body .ui-resizable-autohide .ui-resizable-handle { display: none; } /* use 'body' to make it more specific (css order) */
+.ui-resizable-n { cursor: n-resize; height: 6px; width: 100%; top: 0px; left: 0px; background: transparent url(images/resizable-n.gif) no-repeat scroll center top; }
+.ui-resizable-s { cursor: s-resize; height: 6px; width: 100%; bottom: 0px; left: 0px; background: transparent url(images/resizable-s.gif) no-repeat scroll center top; }
+.ui-resizable-e { cursor: e-resize; width: 6px; right: 0px; top: 0px; height: 100%; background: transparent url(images/resizable-e.gif) no-repeat scroll right center; }
+.ui-resizable-w { cursor: w-resize; width: 6px; left: 0px; top: 0px; height: 100%; background: transparent url(images/resizable-w.gif) no-repeat scroll right center; }
+.ui-resizable-se { cursor: se-resize; width: 9px; height: 9px; right: 0px; bottom: 0px; background: transparent url(images/resizable-se.gif); }
+.ui-resizable-sw { cursor: sw-resize; width: 9px; height: 9px; left: 0px; bottom: 0px; background: transparent url(images/resizable-sw.gif); }
+.ui-resizable-nw { cursor: nw-resize; width: 9px; height: 9px; left: 0px; top: 0px; background: transparent url(images/resizable-nw.gif); }
+.ui-resizable-ne { cursor: ne-resize; width: 9px; height: 9px; right: 0px; top: 0px; background: transparent url(images/resizable-ne.gif); }
+#ui-datepicker-div .ui-datepicker-control, #ui-datepicker-div  a { background-color: #eee; color: #08f !important;}
+#ui-datepicker-div .ui-datepicker-days-row { background-color: #bbb;}
+#ui-datepicker-div .ui-datepicker-week-end-cell, #ui-datepicker-div .ui-datepicker-week-end-cell  a { background-color: #ddd; color: #0cc; border-color: #bbb; border-top-color: #ddd; border-left-color: #ddd;}
+#ui-datepicker-div .ui-datepicker-title-row { background-color: #eee;}
+#ui-datepicker-div .ui-datepicker-title-row .ui-datepicker-week-end-cell a { color: #0cc;}
+#ui-datepicker-div  a:hover { color: #0cccc !important; border: 0; background-color: #eee !important;}
+#ui-datepicker-div .ui-datepicker-header select { background-color:#bbb; color:#666; font-weight:normal;}
+#ui-datepicker-div .ui-datepicker-links { background-color:#ddd;}
+#ui-datepicker-div .ui-datepicker-header { background-color:#bbb;}
+#ui-datepicker-div .ui-datepicker-current-day { background-color: #eee !important; border-color: #bbb; border-top-color: #eee; border-left-color: #eee;}
+#ui-datepicker-div .ui-datepicker-days-cell { background-color:#bbb; border:1px solid #ddd; border-top-color: #bbb; border-left-color: #bbb;}
+td img.ui-datepicker-trigger { margin:-3px 5px 2px; }
+INPUT[type="text"].large  { width: 317px; }
+input[type="button"], input[type="submit"], input[type="reset"] {
+color:#0cc9c; background-color:#ddd; border-color: #0cc9c; }
+input[type="button"]:hover, input[type="submit"]:hover, input[type="reset"]:hover {
+color:#666; border-color: #999; }
+.bigbutton { background:transparent url(images/quickLocalSync.png) no-repeat scroll left top; display: block;
+color:#eee; font-size:28px; height:161px; margin: 0 20px 0 auto; padding:0 18px 0; text-align:center; width:625px; 
+position:relative;  z-index: 50;}
+.bigtext { display:block; font-weight:bold; left:225px; position:relative; top:35px; width:320px;  z-index: 55; cursor:pointer; }
+.bigbutton:hover { color: #fff; }
+.bigbutton input { background:transparent url(images/transparent.gif) repeat scroll left top; border:0;
+display:block; height:85px; left:225px; position:relative; top:-42px; width:313px; z-index:99; padding:0;}
+.bigbutton input:hover { cursor:pointer; background:transparent url(images/transparent.gif) repeat scroll left top; border:0; padding:0;}
+/* hacks */
+html>body #menubar {min-height:477px; height:477px;} /* IE 7 and modern browsers */
+* html[lang="en"] body .content h2 , *+html[lang="en"] body .content h2 { text-transform:capitalize; } /* IE */
+*+html  .bigtext { left: 70px; }
+*+html  .bigbutton input, * html  .bigbutton input  { left:0px; position:relative; top:-40px; }
+* html .bigtext { margin-right: 300px; }
