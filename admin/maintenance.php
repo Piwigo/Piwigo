@@ -138,6 +138,7 @@ $template->assign(
     'U_MAINT_FEEDS' => $start_url.'feeds',
     'U_MAINT_DATABASE' => $start_url.'database',
     'U_MAINT_C13Y' => $start_url.'c13y',
+	'U_MAINT_SEARCH' => $start_url.'search',
     'U_MAINT_COMPILED_TEMPLATES' => $start_url.'compiled-templates',
     'U_HELP' => PHPWG_ROOT_PATH.'popuphelp.php?page=maintenance',
     )
