@@ -111,7 +111,7 @@ class Template {
 		$this->smarty->template_dir[] = $modeling;
       }
 	  // Default template directory
-	  $this->smarty->template_dir[] = './template-common/yoga';
+	  $this->smarty->template_dir[] = './template/default';
 	}
     else
 	{
