@@ -59,6 +59,36 @@ SELECT
   exit();
 }
 
+// theme changer
+if (isset($_GET['change_theme']))
+{
+  $admin_themes = array('goto/roma', 'goto/clear');
+
+  $new_admin_theme = array_pop(
+    array_diff(
+      $admin_themes,
+      array($conf['admin_layout'])
+      )
+    );
+
+  $query = '
+DELETE
+  FROM '.CONFIG_TABLE.'
+  WHERE param = "admin_layout"
+;';
+  pwg_query($query);
+
+  $query = '
+INSERT
+  INTO '.CONFIG_TABLE.'
+  SET param = "admin_layout"
+    , value = "'.$new_admin_theme.'"
+;';
+  pwg_query($query);
+
+  redirect('admin.php');
+}
+
 // +-----------------------------------------------------------------------+
 // |                    synchronize user informations                      |
 // +-----------------------------------------------------------------------+
@@ -94,6 +124,7 @@ $template->set_filenames(array('admin' => 'admin.tpl'));
 
 $template->assign(
   array(
+    'USERNAME' => $user['username'],
     'U_SITE_MANAGER'=> $link_start.'site_manager',
     'U_HISTORY_STAT'=> $link_start.'stats',
     'U_FAQ'=> $link_start.'help',
@@ -123,6 +154,7 @@ $template->assign(
     'U_LOGOUT'=> PHPWG_ROOT_PATH.'index.php?act=logout',
     'U_PLUGINS'=> $link_start.'plugins_list',
     'U_ADD_PHOTOS' => $link_start.'photos_add',
+    'U_CHANGE_THEME' => PHPWG_ROOT_PATH.'admin.php?change_theme=1',
     )
   );
 

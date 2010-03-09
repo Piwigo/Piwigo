@@ -43,8 +43,27 @@
 </head>
 
 <body id="{$BODY_ID}">
-<div id="headbranch"></div> {* Dummy block for double background management *}
+
 <div id="the_page">
+
+<div id="pwgHead">
+  <h1>
+    <a href="{$U_RETURN}" title="Visit Gallery">
+      <img src="admin/template/goto/icon/home.png" alt="{'Home'|@translate}">
+      {$GALLERY_TITLE}
+    </a>
+  </h1>
+
+  <div id="headActions">
+    Hello {$USERNAME} :
+    <a href="{$U_RETURN}" title="Visit Gallery">Visit Gallery</a> |
+    <a href="{$U_CHANGE_THEME}" title="Switch to clear theme for administration">Change Theme</a> |
+    <a href="{$U_LOGOUT}">{'Logout'|@translate}</a>
+    <a href="{$U_FAQ}" title="{'Instructions'|@translate}" id="instructions"><img style="padding-left:10px;" src="{$ROOT_URL}admin/template/goto/icon/help.png" class="button" alt="(?)"></a>
+  </div>
+</div>
+
+<div style="clear:both;"></div>
 
 {if not empty($header_msgs)}
 <div class="header_msgs">
@@ -55,6 +74,7 @@
 {/if}
 
 <div id="theHeader">{*$PAGE_BANNER*}</div>
+
 {if not empty($header_notes)}
 <div class="header_notes">
   {foreach from=$header_notes item=elt}
@@ -62,3 +82,5 @@
   {/foreach}
 </div>
 {/if}
+
+<div id="pwgMain">

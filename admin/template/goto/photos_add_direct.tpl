@@ -71,7 +71,7 @@ jQuery(document).ready(function() {
 </script>
 {/if}
 
-<div class="titrePage" style="height:25px">
+<div class="titrePage">
   <h2>{'Upload photos'|@translate}</h2>
 </div>
 

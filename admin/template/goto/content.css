@@ -1,6 +1,6 @@
 /* .Content  is on every pages so it is common and it will no longer be a specific css */
 .content { margin-right: 1em; margin-bottom: 1em; }
-.content h2 { margin-bottom: 3px;}
+.content h2 {margin: 0; padding: 5px 0.5em 5px 0.5em; text-align: right; font-size: 120%;}
 .content .navigationBar { margin: 10px 0; text-align: center; }
 .content form { text-align: left; }
 .content dt { margin-bottom: 5px; font-style: italic;

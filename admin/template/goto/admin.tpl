@@ -1,5 +1,6 @@
 {known_script id="jquery.ui" src=$ROOT_URL|@cat:"template-common/lib/ui/packed/ui.core.packed.js" }
 {known_script id="jquery.ui.accordion" src=$ROOT_URL|@cat:"template-common/lib/ui/packed/ui.accordion.packed.js" }
+{known_script id="jquery.tipTip" src=$ROOT_URL|@cat:"template-common/lib/plugins/jquery.tipTip.minified.js" }
 
 <script type="text/javascript">
 jQuery().ready(function(){ldelim}
@@ -12,25 +13,8 @@ jQuery().ready(function(){ldelim}
 </script>
 
 <div id="menubar">
+  <div id="adminHome"><a href="{$U_ADMIN}">Administration Home</a></div>
   <dl class="first">
-    <dt class="rdion"><span>{'Links'|@translate}&nbsp;</span></dt>
-    <dd>
-      <ul>
-        <li><a href="{$U_RETURN}">{'Home'|@translate}</a></li>
-        <li><a href="{$U_FAQ}">{'Instructions'|@translate}</a></li>
-        <li><a href="{$U_ADMIN}" title="{'Administration'|@translate}">{'Administration'|@translate}</a></li>
-        <li><a href="{$U_LOGOUT}">{'Logout'|@translate}</a></li>
-{if isset($pwgmenu)}
-        <li class="external"><a class="external" href="{$pwgmenu.WIKI}" onclick="window.open(this.href, ''); 
-          return false;">{'Documentation'|@translate}</a></li>
-        <li class="external"><a class="external" href="{$pwgmenu.FORUM}" onclick="window.open(this.href, '');
-          return false;">{'Support'|@translate}</a></li>
-{/if}
-        
-      </ul>
-    </dd>
-  </dl>
-  <dl>
     <dt class="rdion"><span>{'Configuration'|@translate}&nbsp;</span></dt>
     <dd>
       <ul>

@@ -210,24 +210,28 @@ BODY {
 	margin: 5px;
 	padding: 0;
 	font-size: 0.8em;
-	font-family: Univers, Helvetica, Optima, "Bitstream Vera Sans", sans-serif;
+	font-family: "Lucida Grande",Verdana,Arial,"Bitstream Vera Sans",sans-serif;
 	text-align: center; /* be nice to IE5 */
 }
 
 H1 {
-	text-align: center;
-	font-size: 150%;
-	font-weight: bold;
-	padding: 0;
-	margin: 0.5em 0 1em 0;
+color:#eee;
+letter-spacing:1px;
+text-align: left;
+font-size: 150%;
+font-weight: normal;
+font-style:italic;
+padding: 8px 0 0 10px;
+margin: 0;
+float:left;
 }
 
-H2 {
-	margin: 0;
-	padding: 5px 0.5em 5px 0.5em;
-	text-align: left;
-	font-size: 120%;
-}
+#pwgHead {color:#aaa;}
+#pwgHead A {color:#ccc;}
+#pwgHead A:hover {color:#fff;border-bottom:1px solid #fff}
+#pwgHead A#instructions:hover {border:none;}
+
+#headActions {float:right; height:46px; line-height:46px; margin-right:10px;}
 
 A {
 	text-decoration:none;
@@ -246,13 +250,6 @@ IMG {
 HR.separation {
 	visibility: hidden;
 	clear: both;
-}
-
-#copyright {
-	clear: both;
-	font-size: 83%;
-	text-align: center;
-	margin: 0 0 10px 0;
 }
 
 /** General defaults **/
@@ -547,4 +544,155 @@ ul.holder li.bit-box-focus a.closebutton, ul.holder li.bit-box-focus a.closebutt
 
 #uploadFormSettings TH {
   width:50%;
+}
+
+#pwgHead {
+  background-color:#464646;
+  height:46px;
+}
+
+html, body {height:100%; margin:0; padding:0;}
+#the_page {min-height:100%; position:relative; padding:0;margin:0;}
+#pwgMain {padding:10px;padding-bottom:60px;}
+
+#footer {
+  position:absolute;
+  bottom:0;
+  width:100%;
+  height:46px;
+  background-color:#464646;
+  color:#aaa;
+  line-height:46px;
+}
+
+#footer A {color:#ccc;}
+#footer A:hover {color:#fff;border-bottom:1px solid #fff;}
+
+#adminHome {
+  text-align:center;
+  margin-bottom:15px;
+  line-height:30px;
+  width:200px;
+  margin-left:5px;
+  -moz-border-radius: 6px; -webkit-border-radius: 6px; border-radius: 6px;
+}
+
+#adminHome A {display:block; font-size:1.1em; font-weight:bold;}
+#adminHome A {border:none;}
+
+#piwigoInfos {float:left; margin-left:10px;}
+#pageInfos {float:right; margin-right:10px;}
+
+/* TipTip CSS - Version 1.2 */
+
+#tiptip_holder {
+	display: none;
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 99999;
+}
+
+#tiptip_holder.tip_top {
+	padding-bottom: 5px;
+}
+
+#tiptip_holder.tip_bottom {
+	padding-top: 5px;
+}
+
+#tiptip_holder.tip_right {
+	padding-left: 5px;
+}
+
+#tiptip_holder.tip_left {
+	padding-right: 5px;
+}
+
+#tiptip_content {
+	font-size: 11px;
+	color: #fff;
+	text-shadow: 0 0 2px #000;
+	padding: 4px 8px;
+	border: 1px solid rgba(255,255,255,0.25);
+	background-color: rgb(25,25,25);
+	background-color: rgba(25,25,25,0.92);
+	background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(transparent), to(#000));
+	border-radius: 3px;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	box-shadow: 0 0 3px #555;
+	-webkit-box-shadow: 0 0 3px #555;
+	-moz-box-shadow: 0 0 3px #555;
+}
+
+#tiptip_arrow, #tiptip_arrow_inner {
+	position: absolute;
+	border-color: transparent;
+	border-style: solid;
+	border-width: 6px;
+	height: 0;
+	width: 0;
+}
+
+#tiptip_holder.tip_top #tiptip_arrow {
+	border-top-color: #fff;
+	border-top-color: rgba(255,255,255,0.35);
+}
+
+#tiptip_holder.tip_bottom #tiptip_arrow {
+	border-bottom-color: #fff;
+	border-bottom-color: rgba(255,255,255,0.35);
+}
+
+#tiptip_holder.tip_right #tiptip_arrow {
+	border-right-color: #fff;
+	border-right-color: rgba(255,255,255,0.35);
+}
+
+#tiptip_holder.tip_left #tiptip_arrow {
+	border-left-color: #fff;
+	border-left-color: rgba(255,255,255,0.35);
+}
+
+#tiptip_holder.tip_top #tiptip_arrow_inner {
+	margin-top: -7px;
+	margin-left: -6px;
+	border-top-color: rgb(25,25,25);
+	border-top-color: rgba(25,25,25,0.92);
+}
+
+#tiptip_holder.tip_bottom #tiptip_arrow_inner {
+	margin-top: -5px;
+	margin-left: -6px;
+	border-bottom-color: rgb(25,25,25);
+	border-bottom-color: rgba(25,25,25,0.92);
+}
+
+#tiptip_holder.tip_right #tiptip_arrow_inner {
+	margin-top: -6px;
+	margin-left: -5px;
+	border-right-color: rgb(25,25,25);
+	border-right-color: rgba(25,25,25,0.92);
+}
+
+#tiptip_holder.tip_left #tiptip_arrow_inner {
+	margin-top: -6px;
+	margin-left: -7px;
+	border-left-color: rgb(25,25,25);
+	border-left-color: rgba(25,25,25,0.92);
+}
+
+/* Webkit Hacks  */
+@media screen and (-webkit-min-device-pixel-ratio:0) {	
+	#tiptip_content {
+		padding: 4px 8px 5px 8px;
+		background-color: rgba(45,45,45,0.88);
+	}
+	#tiptip_holder.tip_bottom #tiptip_arrow_inner { 
+		border-bottom-color: rgba(45,45,45,0.88);
+	}
+	#tiptip_holder.tip_top #tiptip_arrow_inner { 
+		border-top-color: rgba(20,20,20,0.92);
+	}
 }
