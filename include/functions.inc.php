@@ -721,11 +721,13 @@ function get_pwg_themes()
 
   foreach (get_dirs($template_dir) as $template)
   {
-    foreach (get_dirs($template_dir.'/'.$template.'/theme') as $theme)
-    {
-      if ( ($template.'/'.$theme) != $conf['admin_layout'] )
-      array_push($themes, $template.'/'.$theme);
-    }
+    if ( $template != 'default' )
+	{
+      foreach (get_dirs($template_dir.'/'.$template.'/theme') as $theme)
+      {
+        array_push($themes, $template.'/'.$theme);
+      }
+	}
   }
 
   return $themes;
