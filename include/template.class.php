@@ -100,15 +100,16 @@ class Template {
    */
   function set_template_dir($dir)
   {
-	if (!defined('IN_ADMIN')) 
+    $modeling = $this->get_themeconf('modeling');
+	if (!defined('IN_ADMIN') and ($modeling !== false)) 
 	{ // Modeling is active only on gallery side and never in admin
 	  // Set the normal directory
       $this->smarty->template_dir = array($dir);
 	  // Modeling by theme parameter
-	  $modeling = './template/' . $this->get_themeconf('modeling');
-      if ( $modeling != './template/' and is_dir($modeling))
+	  $model = './template/' . $modeling;
+      if ( $model != './template/' and is_dir($model))
 	  {
-		$this->smarty->template_dir[] = $modeling;
+		$this->smarty->template_dir[] = $model;
       }
 	  // Default template directory
 	  $this->smarty->template_dir[] = './template/default';
