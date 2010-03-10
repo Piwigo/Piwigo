@@ -730,6 +730,8 @@ function get_pwg_themes()
 	}
   }
 
+  // plugins want remove some themes based on user status maybe?
+  $themes = trigger_event('get_pwg_themes', $themes);
   return $themes;
 }
 
