@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Piwigo Colibri\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-02-18 09:23+0100\n"
-"PO-Revision-Date: 2010-03-11 22:22+0100\n"
+"PO-Revision-Date: 2010-03-11 22:34+0100\n"
 "Last-Translator: ddtddt <ddtddt@piwigo.org>\n"
 "Language-Team: French <team-i18n@piwigo.org>\n"
 "MIME-Version: 1.0\n"
@@ -2747,4 +2747,10 @@ msgstr "Score"
 
 msgid "Order alphanumerically reverse"
 msgstr "Catégories triées par ordre décroissant alphabético-numériquement."
+
+msgid "Some info about this picture"
+msgstr "Quelques infos sur cette image"
+
+msgid "Some more (technical) info about this picture"
+msgstr "Certains infos (plus techniques) sur cette image"
 
