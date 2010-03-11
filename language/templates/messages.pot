@@ -2727,3 +2727,18 @@ msgstr ""
 
 msgid "You need to confirm deletion"
 msgstr ""
+
+msgid "Cannot delete the old permalink !"
+msgstr ""
+
+msgid "Deleted on"
+msgstr ""
+
+msgid "Last hit"
+msgstr ""
+
+msgid "Hit"
+msgstr ""
+
+msgid "Order alphanumerically reverse"
+msgstr ""
