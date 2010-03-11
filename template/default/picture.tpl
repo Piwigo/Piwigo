@@ -109,32 +109,32 @@ y.callService(
 </a>
 {/if}
 
-<table class="infoTable" summary="Some info about this picture">
-  <tr>
+<table id="standard" class="infoTable" summary="Some info about this picture">
+  <tr id="Author">
     <td class="label">{'Author'|@translate}</td>
     <td class="value">{if isset($INFO_AUTHOR)}{$INFO_AUTHOR}{else}{'N/A'|@translate}{/if}</td>
   </tr>
-  <tr>
+  <tr id="datecreate">
     <td class="label">{'Created on'|@translate}</td>
     <td class="value">{if isset($INFO_CREATION_DATE)}{$INFO_CREATION_DATE}{else}{'N/A'|@translate}{/if}</td>
   </tr>
-  <tr>
+  <tr id="datepost">
     <td class="label">{'Posted on'|@translate}</td>
     <td class="value">{$INFO_POSTED_DATE}</td>
   </tr>
-  <tr>
+  <tr id="Dimensions">
     <td class="label">{'Dimensions'|@translate}</td>
     <td class="value">{if isset($INFO_DIMENSIONS)}{$INFO_DIMENSIONS}{else}{'N/A'|@translate}{/if}</td>
   </tr>
-  <tr>
+  <tr id="File">
     <td class="label">{'File'|@translate}</td>
     <td class="value">{$INFO_FILE}</td>
   </tr>
-  <tr>
+  <tr id="Filesize">
     <td class="label">{'Filesize'|@translate}</td>
     <td class="value">{if isset($INFO_FILESIZE)}{$INFO_FILESIZE}{else}{'N/A'|@translate}{/if}</td>
   </tr>
-  <tr>
+  <tr id="Tags">
     <td class="label">{'Tags'|@translate}</td>
     <td class="value">
       {if isset($related_tags)}
@@ -143,7 +143,7 @@ y.callService(
       {/if}
     </td>
   </tr>
-  <tr>
+  <tr id="Categories">
     <td class="label">{'Categories'|@translate}</td>
     <td class="value">
       {if isset($related_categories)}
@@ -155,13 +155,13 @@ y.callService(
       {/if}
     </td>
   </tr>
-  <tr>
+  <tr id="Visits">
     <td class="label">{'Visits'|@translate}</td>
     <td class="value">{$INFO_VISITS}</td>
   </tr>
 
 {if isset($rate_summary) }
-	<tr>
+	<tr id="Average">
 		<td class="label">{'Average rate'|@translate}</td>
 		<td class="value" id="ratingSummary">
 		{if $rate_summary.count}
@@ -175,7 +175,7 @@ y.callService(
 {/if}
   
 {if isset($rating)}
-	<tr>
+	<tr id="rating">
 		<td class="label">
 			<span id="updateRate">{if isset($rating.USER_RATE)}{'Rate this picture'|@translate}{else}{'Rate this picture'|@translate}{/if}</span>
 		</td>
@@ -203,7 +203,7 @@ y.callService(
 {/if}
 
 {if isset($available_permission_levels) }
-	<tr>
+	<tr id="Privacy">
 		<td class="label">{'Privacy level'|@translate}:</td>
 		<td class="value"> 
 <script type="text/javascript">
@@ -232,7 +232,7 @@ y.callService(
 </table>
 
 {if isset($metadata)}
-<table class="infoTable" summary="Some more (technical) info about this picture">
+<table id="Metadata" class="infoTable2" summary="Some more (technical) info about this picture">
 {foreach from=$metadata item=meta}
   <tr>
     <th colspan="2">{$meta.TITLE}</th>
