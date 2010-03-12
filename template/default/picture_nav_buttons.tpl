@@ -38,22 +38,22 @@
 
 
 {if isset($slideshow.U_START_REPEAT)}
-  <a class="navButton" href="{$slideshow.U_START_REPEAT}" title="{'Repeat the slideshow'|@translate}"><img src="{$ROOT_URL}{$themeconf.icon_dir}/Repeat the slideshow.png" class="button" alt="{'Repeat the slideshow'|@translate}"></a>
+  <a class="navButton" href="{$slideshow.U_START_REPEAT}" title="{'Repeat the slideshow'|@translate}"><img src="{$ROOT_URL}{$themeconf.icon_dir}/start_repeat.png" class="button" alt="{'Repeat the slideshow'|@translate}"></a>
 {/if}
 
 {if isset($slideshow.U_STOP_REPEAT)}
-  <a class="navButton" href="{$slideshow.U_STOP_REPEAT}" title="{'Not repeat the slideshow'|@translate}"><img src="{$ROOT_URL}{$themeconf.icon_dir}/Not repeat the slideshow.png" class="button" alt="{'Not repeat the slideshow'|@translate}"></a>
+  <a class="navButton" href="{$slideshow.U_STOP_REPEAT}" title="{'Not repeat the slideshow'|@translate}"><img src="{$ROOT_URL}{$themeconf.icon_dir}/stop_repeat.png" class="button" alt="{'Not repeat the slideshow'|@translate}"></a>
 {/if}
 
 {if isset($slideshow)}
   {if isset($slideshow.U_DEC_PERIOD)}
-    <a class="navButton" href="{$slideshow.U_DEC_PERIOD}" title="{'Accelerate diaporama speed'|@translate}"><img src="{$ROOT_URL}{$themeconf.icon_dir}/Accelerate diaporama speed.png" class="button" alt="{'Accelerate diaporama speed'|@translate}"></a>
+    <a class="navButton" href="{$slideshow.U_DEC_PERIOD}" title="{'Accelerate diaporama speed'|@translate}"><img src="{$ROOT_URL}{$themeconf.icon_dir}/dec_period.png" class="button" alt="{'Accelerate diaporama speed'|@translate}"></a>
   {else}
     <a class="navButton"> <img src="{$ROOT_URL}{$themeconf.icon_dir}/dec_period_unactive.png" class="button" alt=""></a>
   {/if}
 
   {if isset($slideshow.U_INC_PERIOD)}
-    <a class="navButton" href="{$slideshow.U_INC_PERIOD}" title="{'Reduce diaporama speed'|@translate}"><img src="{$ROOT_URL}{$themeconf.icon_dir}/Reduce diaporama speed.png" class="button" alt="{'Reduce diaporama speed'|@translate}"></a>
+    <a class="navButton" href="{$slideshow.U_INC_PERIOD}" title="{'Reduce diaporama speed'|@translate}"><img src="{$ROOT_URL}{$themeconf.icon_dir}/inc_period.png" class="button" alt="{'Reduce diaporama speed'|@translate}"></a>
   {else}
     <a class="navButton"> <img src="{$ROOT_URL}{$themeconf.icon_dir}/inc_period_unactive.png" class="button" alt=""></a>
   {/if}
