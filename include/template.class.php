@@ -78,17 +78,14 @@ class Template {
     }
 
     $this->smarty->template_dir = array();
-    if ( !empty($theme) )
-    {
-      $this->set_theme($root, $theme, $path);
-    }
+    $this->set_theme($root, $theme, $path);
 
     $this->smarty->assign('lang_info', $lang_info);
 
     if (!defined('IN_ADMIN') and isset($conf['extents_for_templates']))
     {
       $tpl_extents = unserialize($conf['extents_for_templates']);
-      $this->set_extents($tpl_extents, './template-extension/', true);
+      $this->set_extents($tpl_extents, './template-extension/', true, $theme);
     }
   }
 
@@ -115,6 +112,10 @@ class Template {
     $this->smarty->append('themeconf', $themeconf, true);
   }
 
+  /**
+   * Add template directory for this Template object.
+   * Set compile id if not exists.
+   */
   function set_template_dir($dir)
   {
     $this->smarty->template_dir[] = $dir;
@@ -189,7 +190,7 @@ class Template {
   /**
    * Sets template extention filename for handles.
    */
-  function set_extent($filename, $param, $dir='', $overwrite=true)
+  function set_extent($filename, $param, $dir='', $overwrite=true, $theme='N/A')
   {
     return $this->set_extents(array($filename => $param), $dir, $overwrite);
   }
@@ -198,10 +199,8 @@ class Template {
    * Sets template extentions filenames for handles.
    * $filename_array should be an hash of filename => array( handle, param) or filename => handle
    */
-  function set_extents($filename_array, $dir='', $overwrite=true)
+  function set_extents($filename_array, $dir='', $overwrite=true, $theme='N/A')
   {
-    global $user;
-
     if (!is_array($filename_array))
     {
       return false;
@@ -212,13 +211,13 @@ class Template {
       {
         $handle = $value[0];
         $param = $value[1];
-        $tpl = $value[2];
+        $thm = $value[2];
       }
       elseif (is_string($value))
       {
         $handle = $value;
         $param = 'N/A';
-        $tpl = 'N/A';
+        $thm = 'N/A';
       }
       else
       {
@@ -226,7 +225,7 @@ class Template {
       }
 
       if ((stripos(implode('',array_keys($_GET)), '/'.$param) !== false or $param == 'N/A')
-        and ($tpl == $user['theme'] or $tpl == 'N/A')
+        and ($thm == $theme)
         and (!isset($this->extents[$handle]) or $overwrite)
         and file_exists($dir . $filename))
       {
