@@ -39,9 +39,9 @@
 
 {if not empty($page_refresh)    }<meta http-equiv="refresh" content="{$page_refresh.TIME};url={$page_refresh.U_REFRESH}">{/if}
 
-<script type="text/javascript" src="{$ROOT_URL}{$themeconf.js_dir}/scripts.js"></script>
+<script type="text/javascript" src="{$ROOT_URL}themes/default/js/scripts.js"></script>
 <!--[if lt IE 7]>
-<script type="text/javascript" src="{$ROOT_URL}{$themeconf.js_dir}/pngfix.js"></script>
+<script type="text/javascript" src="{$ROOT_URL}themes/default/js/pngfix.js"></script>
 <![endif]-->
 
 {if not empty($head_elements)}

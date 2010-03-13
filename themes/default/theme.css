@@ -1,12 +1,851 @@
+/**
+ * Menubar
+ */
+#menubar {
+	float: left;
+	margin: 0 0 10px 1em;
+	padding: 0;
+	display: inline;
+}
 
-/* template css */
-@import "menubar.css";
-@import "content.css";
-@import "thumbnails.css";
-@import "picture.css";
-@import "default-layout.css";
-/* Override properties with import local file */
-@import "local-layout.css";
+#menubar DL, #menubar DT, #menubar DD {
+	margin: 0; padding: 0; display: block;
+}
 
-@import "default-colors.css";
+#menubar .button {
+	margin: -2px 2px 2px;
+	width: auto;
+	padding: 0;
+	text-indent: 0;
+	list-style: none;
+	text-align: center;
+	float: right;
+}
 
+/* H2 properties copied here */
+#menubar DT {
+	font-weight: bold;
+	padding: 5px 5px 5px 5px;
+	font-size: 120%;
+	text-align: center;
+}
+
+#menubar UL,
+#menubar FORM,
+#menubar P {
+	font-size: 92%;
+	margin: 10px 0 10px 5px;
+}
+#menubar UL {
+	list-style-type: square;
+	list-style-position: inside;
+	padding: 0 0 0 2px;
+}
+#menubar UL UL {
+	font-size: 100%;
+	margin-top: 0;
+	margin-bottom: 0;
+}
+
+#menubar LI.selected A {
+	font-weight: bold;
+}
+
+#menubar LI.selected LI A {
+	font-weight: normal;
+}
+
+#menubar .menuInfoCatByChild {
+	font-size: 80%;
+	font-style: italic;
+}
+
+#menubar INPUT {
+	text-indent: 2px;
+}
+
+/* quickconnect form */
+FORM#quickconnect {
+	margin: 5px;
+	padding: 0;
+}
+
+FORM#quickconnect FIELDSET {
+	margin: 0;
+	padding: 0; /*IE6 requires padding 0*/
+}
+
+FORM#quickconnect FIELDSET DIV {
+	margin: 8px 5px;
+	padding: 0;
+}
+
+#menubar #menuTagCloud {
+	text-align: center;
+	margin: 5px 0;
+}
+
+#menubar #menuTagCloud SPAN {
+	white-space: nowrap;
+}
+
+/**
+ * Content
+ */
+.content {
+	margin-right: 1em;
+	margin-bottom: 1em; /* when it's longer than menu bar */
+}
+
+BODY#theCommentsPage .content,
+BODY#theUploadPage .content,
+BODY#theRegisterPage .content,
+BODY#theIdentificationPage .content,
+BODY#theProfilePage .content,
+BODY#theSearchPage .content,
+BODY#theAboutPage .content,
+BODY#thePopuphelpPage .content,
+BODY#thePasswordPage .content,
+BODY#theNotificationPage .content,
+BODY#theTagsPage .content,
+BODY#theNBMPage .content
+{
+	margin: 1em;
+}
+
+.content H2 { margin-bottom: 3px;} /*<- for IE otherwise calendar select is displaced to middle of page*/
+
+.content .navigationBar, .content .additional_info, .content .calendarBar {
+	margin: 8px 4px;
+	text-align: center;
+}
+
+.content .pageNumberSelected {
+	font-style: italic;
+	font-weight: bold;
+}
+
+.content .additional_info {
+	font-size: 110%;
+}
+
+
+/* actions */
+UL.categoryActions {
+	margin: 0 2px;
+	width: auto;
+	padding: 0;
+	text-indent: 0;
+	list-style: none;
+	text-align: center;
+}
+
+.content DIV.titrePage UL.categoryActions {
+	float: right;
+	text-align: center;
+}
+
+.content DIV.titrePage {
+	padding: 0 0 3px;
+}
+
+.content UL.categoryActions LI {
+	display: inline;
+}
+
+.content UL.categoryActions A IMG, UL.categoryActions A {
+	border: none;
+	margin-bottom: -5px;
+}
+
+/* begin chronology/calendar elements*/
+.content DIV.calendarViews {
+	display: block;
+	float: right;
+	margin: 2px 0 0;
+}
+
+SPAN.calItem, SPAN.calItemEmpty {
+	font-weight: bold;
+	margin: 0 1px;
+}
+
+SPAN.calItem A { border:0 }
+
+.content DIV.calendarCalBar {
+	margin: 10px 10px;
+	text-align: left;
+}
+
+SPAN.calCalHead {
+	font-weight: bold;
+	font-size: 110%;
+	margin: 0 2px;
+}
+
+SPAN.calCal { margin: 0 2px; }
+
+/* nice looking month calendar*/
+TABLE.calMonth {
+	border: none;
+	border-collapse: collapse;
+	margin-bottom: 10px;	/*<-IE ignores this */
+}
+
+TD.calDayCellFull, TD.calDayCellEmpty, TD.calDayCellBlank {
+	vertical-align: top;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+TD.calDayHead {
+  font-weight: bold;
+  font-size: 12px;
+	text-align: center;
+}
+
+DIV.calImg {
+	overflow: hidden;
+	vertical-align: bottom;
+	z-index: 1;
+	position: relative; /*<- this required by IE*/
+}
+
+.calImg img {
+	position: relative;
+	border: 0;
+}
+
+.calBackDate {
+	padding-left: 4px;
+	padding-top: 0px;
+	z-index: 2;
+	position: absolute;
+	vertical-align: top;
+	color: #000;
+}
+
+.calForeDate {
+	padding-left: 5px;
+	padding-top: 1px;
+	z-index: 3;
+	position: absolute;
+	vertical-align: top;
+	color: #fff;
+}
+
+/* Category thumbnails on main page, CSS code inspired from MOD subcatify */
+.content UL.thumbnailCategories {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	overflow: hidden;
+	width: 100%;
+}
+
+.content UL.thumbnailCategories LI {
+	margin:0;
+	padding:0;
+	float:left;
+}
+
+.content DIV.thumbnailCategory {
+	display:block;
+	padding: 2px 0px 0px 2px;
+	margin: 5px;
+}
+
+.content DIV.thumbnailCategory DIV.description {
+	font-size: 90%;
+	overflow: auto;
+	/*width: inherit;*/
+}
+
+.content DIV.thumbnailCategory DIV.description H3 {
+	text-align: left;
+	background: transparent;
+	margin: 0;
+	padding: 0.1em;
+	font-size: 120%;
+}
+
+.content DIV.thumbnailCategory DIV.description P {
+	margin: 0;
+}
+
+.content DIV.thumbnailCategory DIV.illustration {
+	text-align: left;
+	margin: 2px 0 0 2px;
+	float: left;
+}
+
+
+/* User comments */
+DIV#comments {
+	padding-left: 5px;
+	padding-right: 5px;
+}
+
+DIV#comments DIV.description {
+	font-size: 100%;
+}
+
+/* Thumbnails */
+.content UL.thumbnails SPAN.thumbLegend {
+	font-size: 90%;
+	overflow: hidden;/* oversized legend is clipped */
+}
+
+/* Thumbnail "elastic" layout */
+.content UL.thumbnails {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	text-align: center;	/* to center the whole collection in .content */
+}
+.content UL.thumbnails LI { display: inline }
+
+.content UL.thumbnails SPAN.wrap1 {
+	margin: 0 5px 5px 5px;
+	display: table-cell; display: inline-table;
+	display: inline-block;/* Why 3 display option ??? */
+	vertical-align: top;	/* OK with Opera and IE6 not Geko */
+	text-align: center;		/* to center the thumbnail and legend in Geko/Opera */
+}
+.content UL.thumbnails SPAN.wrap2 {
+	margin: 0;			/* important reset the margins */
+	display: table-cell;/* block prevents vertical-align here */
+	vertical-align: middle;/* Ok with Opera and Geko not IE6 */
+}
+.content UL.thumbnails SPAN.wrap2 A,
+.content UL.thumbnails LABEL {
+	display: block;
+	border-bottom: none;
+}
+.content UL.thumbnails IMG {
+	margin-bottom: -4px;  /* why ??? something wrong with Geko and Opera ignored by IE6*/
+}
+
+/**
+ * Picture
+ */
+#imageHeaderBar {
+	padding-top: 2px;
+	padding-bottom: 2px;
+	margin-top: 4px;
+	overflow: hidden;
+	width: 100%;
+}
+
+#imageHeaderBar .browsePath {
+	float: left;
+	margin-left: 10px;
+}
+
+#imageHeaderBar .imageNumber {
+	float: right;
+	margin-right: 10px;
+}
+
+#imageHeaderBar H2 {
+	text-align: center;
+	padding: 0;
+	clear: both;
+}
+
+#imageToolBar {
+	text-align: center;
+	position: relative;
+	clear: both;
+	margin-bottom: 4px;
+	padding: 0;
+	height: 28px;
+}
+
+#imageToolBar A, #imageToolBar IMG {
+	display: block;
+	border: none;
+	margin: 0; padding: 0;
+}
+#imageToolBar A { width: 48px; }
+#imageToolBar IMG { margin: 2px auto; }
+#imageToolBar .randomButtons A { float: left; }
+#imageToolBar .navButtons    A { float: right; }
+
+#theImage {
+	clear: left;
+	text-align: center;
+}
+
+#theImage>IMG {
+	display: block;
+	margin: 0 auto;
+	border: none;
+}
+
+#linkPrev {
+	float: left;
+	margin-right: 10px;
+	margin-left: 5px;
+}
+
+#linkNext {
+	float: right;
+	margin-right: 5px;
+	margin-left: 10px;
+}
+
+TABLE.infoTable .label {
+	font-weight: bold;
+	text-align: right;
+	padding-right: 0.5em;
+}
+
+TABLE.infoTable TD.value UL {
+	margin: 0;
+	padding: 0 0 0 1.5em;
+	list-style-type: square;
+}
+
+.thumbnailCategories LI { list-style: none; }
+
+.rateButton, .rateButtonSelected, .rateButtonStarFull, .rateButtonStarEmpty  {
+	padding:0;
+	border:0;
+}
+
+.rateButton, .rateButtonStarFull, .rateButtonStarEmpty {
+	cursor: pointer;
+}
+
+.rateButtonSelected {
+	font-weight:bold;
+	font-size:120%;
+}
+
+.rateButtonStarFull {
+	background: url('icon/rating-stars.gif') no-repeat scroll; background-position:-16px center; width:16px;
+}
+
+.rateButtonStarEmpty {
+	background: url('icon/rating-stars.gif') no-repeat scroll; background-position:0 center; width:16px;
+}
+
+/**
+ * Default Layout
+ */
+BODY {
+	margin: 5px;
+	padding: 0;
+	font-size: 0.8em;
+	font-family: Arial,Helvetica,sans-serif;
+}
+
+
+H1 {
+	text-align: center;
+	font-size: 150%;
+	font-weight: bold;
+	padding: 0;
+	margin: 0.5em 0 1em 0;
+}
+
+H2 {
+	margin: 0;
+	padding: 5px 0.5em 5px 0.5em;
+	text-align: left;
+	font-size: 120%;
+}
+
+A {
+	text-decoration:none;
+	border-bottom: 1px dotted #005e89;
+}
+A:hover {
+	border-bottom: 1px solid #858460;
+}
+
+IMG {
+	border: none;
+}
+
+HR.separation {
+	visibility: hidden;
+	clear: both;
+}
+
+#copyright {
+	clear: both;
+	font-size: 83%;
+	text-align: center;
+	margin: 0 0 10px 0;
+}
+
+INPUT, SELECT {
+	margin: 0;
+	font-size: 1em;	/* <= some browsers don't set it correctly */
+}
+
+TABLE {	/* horizontaly centered */
+	margin-left: auto;
+	margin-right: auto;
+}
+
+
+FORM { padding: 0; margin: 0; }
+
+FORM P {
+	text-align: center;
+	margin-top: 2em;
+	margin-bottom: 2em;
+}
+
+FORM FIELDSET P {
+	margin-top: 1em;
+	margin-bottom: 0;
+}
+
+SELECT.categoryList {
+	height: 20em;
+	width: 500px;
+}
+
+
+/**
+ * Filter forms are displayed label by label with the input (or select...)
+ * below the label. Use an UL to make a group (radiobox for instance).
+ * Use a SPAN to group objects in line
+ */
+FIELDSET {
+	padding: 1em;
+	margin: 1em;
+	overflow: hidden; /* <- makes Opera happy */
+}
+
+FORM.filter FIELDSET UL {
+  margin: 0;
+}
+FORM.filter FIELDSET UL,
+FORM.filter FIELDSET LABEL {
+	display: block;
+	float: left;
+	margin-right: 1em;
+	padding: 0;
+}
+
+FORM.filter FIELDSET LI {
+	list-style: none;
+	margin-bottom: 0.5em;
+}
+
+FORM.filter FIELDSET LI LABEL {
+	display: inline;
+	float: none;
+}
+
+FORM.filter FIELDSET UL.tagSelection LABEL {
+	display: inline;
+	float: none;
+	margin-right:0.5em;/*reduce from above*/
+}
+
+/* cannot use FIELDSET>LABEL because of IE<=6 */
+FORM.filter FIELDSET LABEL INPUT,
+FORM.filter FIELDSET LABEL SELECT,
+FORM.filter FIELDSET LABEL SPAN,
+FORM.filter FIELDSET LABEL TEXTAREA {
+  display: block;
+  margin: 0.5em 0;
+}
+FORM.filter FIELDSET * LABEL INPUT,
+FORM.filter FIELDSET * LABEL SELECT,
+FORM.filter FIELDSET * LABEL TEXTAREA,
+FORM.filter FIELDSET LABEL SPAN INPUT,
+FORM.filter FIELDSET LABEL SPAN SELECT,
+FORM.filter FIELDSET LABEL SPAN TEXTAREA {
+	display: inline;
+	vertical-align: top;
+	margin: 0 0.5em 0 0;
+}
+
+FORM.filter FIELDSET UL.tagSelection LI LABEL INPUT {
+	margin-right:0;
+}
+
+/* following declaration is important to avoid strange FF behaviour */
+FORM.filter FIELDSET LABEL SPAN SELECT {
+	margin: 0;
+}
+
+FORM.filter FIELDSET P
+{
+	clear: left;
+	display: block;
+}
+
+FORM.filter INPUT[type="submit"] {
+	margin-top: 1em;
+}
+
+FORM.properties UL {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+
+FORM.properties LI {
+	margin-bottom: 0.5em;
+	padding: 0;
+	line-height: 1.8em;
+	clear: left;
+}
+
+FORM.properties SPAN.property {
+	font-weight: bold;
+	float: left;
+	width: 50%;
+	text-align: right;
+	margin: 0;
+	padding: 0 0.5em 0 0;
+}
+
+/* button tools */
+UL.actions {
+	text-indent: 0;
+	list-style: none;
+}
+UL.actions LI {
+	display: inline;
+}
+UL.actions A, UL.actions IMG {
+	border: none;
+}
+
+UL.tagSelection {
+	width: 99%;
+	margin: 1em 0 1em 0;
+	padding: 0;
+}
+
+UL.tagSelection LI {
+	display: inline;
+	white-space: nowrap;
+}
+
+#fullTagCloud {
+	font-size: 120%;
+	text-align: justify;
+	padding: 0;
+	margin: 1em 2em 1em 2em;
+}
+
+#fullTagCloud SPAN {
+	white-space: nowrap;
+	margin: 0 2px;
+}
+
+
+.tagLevel5 { font-size: 150%; }
+.tagLevel4 { font-size: 140%; }
+.tagLevel3 { font-size: 120%; }
+.tagLevel2 { font-size: 100%; }
+.tagLevel1 { font-size: 90%; }
+
+
+/* Popup help page */
+BODY#thePopuphelpPage #copyright {
+	display: none;
+}
+
+#theNotificationPage p { padding: 0.5em; }
+BODY#thePopuphelpPage .content P {
+	text-align: justify;
+	padding: 0.5em;
+}
+
+BODY#thePopuphelpPage .content OL LI,
+BODY#thePopuphelpPage .content UL LI
+{
+	margin-bottom: 0.5em;
+}
+
+TR.tagLine {
+	border-bottom: 1px solid #ddd;
+}
+TD.nbEntries {
+	text-align: right;
+	font-style: italic;
+	font-size: 90%;
+}
+
+FIELDSET.tagLetter {
+	border: 1px solid #d3d3d3;
+	width: 200px;
+	margin: 0.5em;
+	padding: 10px;
+}
+
+LEGEND.tagLetterLegend {
+	border: 1px solid #d3d3d3;
+	font-size:120%;
+	font-weight: bold;
+	padding: 0 5px;
+	font-style: normal;
+}
+
+TABLE.tagLetterContent {
+	width:100%;
+	font-size:80%;
+	border-collapse : collapse;
+}
+
+#theHeader {text-align: center;}
+
+#theNotificationPage DL,
+#thePopuphelpPage DL { margin: 0 25px 25px; }
+.content #comments UL.thumbnailCategories LI { width:99%; }
+/* jQuery datepicker */
+IMG.ui-datepicker-trigger {
+	cursor : pointer;
+}
+
+/* Set the width of the menubar for the galery */
+#menubar {
+  width: 18em;
+}
+.content {
+  margin-left: 20em;  /* = #menubar width + 2em */
+}
+/* Set minimum width of the page before getting a scrollbar */
+/* IE5 and IE6 don't get that */
+BODY {
+  min-width: 60em;  /* ~ 3* #menubar width */
+}
+BODY#thePopuphelpPage {
+  min-width: 0;
+}
+
+/* Set some sizes according to your maximum thumbnail width and height */
+.content UL.thumbnails SPAN,
+.content UL.thumbnails SPAN.wrap2 A,
+.content UL.thumbnails LABEL,
+.content DIV.thumbnailCategory DIV.illustration {
+  width: 140px;      /* max thumbnail width + 2px */
+}
+.content UL.thumbnails SPAN.wrap2,
+.content DIV.thumbnailCategory DIV.description {
+  height: 140px;    /* max thumbnail height + 2px */
+}
+
+
+/* Category thumbnails on main page */
+.content UL.thumbnailCategories LI {
+  width: 49.7%;    /* 49.7% for 2 per line, 33.2% for 3 per line*/
+}
+
+/* Set defaults for thumbnails legend */
+.content UL.thumbnails SPAN.thumbLegend {
+  display: block;  /* display: none; if you don't want legend */
+  height: 4em;    /* legend height (don't set auto to be Gecko friendly)*/
+}
+
+/**
+ * Default colors
+ */
+#imageToolBar * {
+	background: inherit;
+}
+
+/* So that non-links are slightly greyed out */
+.content .navigationBar, SPAN.calItemEmpty, TD.calDayCellEmpty {
+	color: #b0b0b0;
+}
+
+/* Tables & forms */
+/* IE <= 6 is so bad with this that you can't merge with the following rule */
+INPUT[type="text"], INPUT[type="password"], INPUT[type="button"],
+INPUT[type="submit"], INPUT[type="reset"], INPUT[type="file"] {
+	color:black;
+	background-color: #d3d3d3;	/* lightgrey */
+}
+
+INPUT.text, INPUT.password, INPUT.button,
+INPUT.submit, INPUT.reset, INPUT.file,
+SELECT, TEXTAREA {
+	color:black;
+	background-color: #d3d3d3;	/* lightgrey */
+}
+
+INPUT:focus, SELECT:focus, TEXTAREA:focus, INPUT.focus, FORM .focus {
+	background-color: #f5f5f5;	/* whitesmoke */
+}
+
+/* some theme set a border on INPUT  which is not pretty for radio/checkbox */
+INPUT[type="radio"], INPUT[type="checkbox"] {
+	border: none;	/* <= Opera needs this */
+}
+
+INPUT.radio, INPUT.checkbox {
+	border: none;	/* <= IE6 needs this */
+}
+
+/* rate buttons displayed like links */
+INPUT.rateButton, INPUT.rateButtonSelected, INPUT.rateButtonStarFull, INPUT.rateButtonStarEmpty {
+	color:inherit;
+	background-color:transparent !important;	/* Konqueror doesn't accept transparent here */
+}
+
+.errors { /* Errors display */
+	color: red;
+	background-color: #ffe1e1;
+	font-weight: bold;
+	margin: 5px;
+	border: 1px solid red;
+	background-image: url(icon/errors.png);
+	background-repeat: no-repeat;
+	background-position: top right;
+	padding: 10px 50px 10px 10px;
+}
+
+/* Informations box in administration */
+.infos {
+	color: #002000;
+	background-color: #98fb98; /* palegreen */
+	background-image: url(icon/infos.png);
+	background-repeat: no-repeat;
+	background-position: top right;
+	margin: 5px;
+	padding: 10px 50px 10px 10px;
+}
+
+/* Header message like upgrade or adviser mode */
+.header_msgs {
+	text-align:center;
+	font-weight: bold;
+	color:#696969;	/* dimgray */
+	background-color: #d3d3d3;
+	margin: 1px;
+	padding: 1px;
+}
+
+/* Header notes box in public/administration */
+.header_notes {
+	border: 1px solid #aaaaaa; /* border color and style */
+	text-align: center;
+	background-image: url(icon/note.png);
+	background-repeat: no-repeat;
+	background-position: top left;
+	font-weight: bold;
+	margin: 14px;
+	padding: 5px 00px 0px 0px;
+}
+
+LEGEND {
+	font-style: italic;
+}
+
+/*calendar*/
+SPAN.calItem, SPAN.calItemEmpty, 
+TD.calDayCellEmpty, TD.calDayCellFull {
+	border: 1px solid gray;
+}
