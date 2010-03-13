@@ -75,10 +75,9 @@ function openPage()
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta http-equiv="Content-script-type" content="text/javascript">
 <meta http-equiv="Content-Style-Type" content="text/css">
-<link rel="shortcut icon" type="image/x-icon" href="template-common/favicon.ico">
-<link rel="stylesheet" type="text/css" href="admin/template/goto/layout.css">
-<link rel="stylesheet" type="text/css" href="admin/template/goto/default-colors.css">
-<link rel="stylesheet" type="text/css" href="admin/template/goto/theme/roma/theme.css">
+<link rel="shortcut icon" type="image/x-icon" href="themes/default/icon/favicon.ico">
+<link rel="stylesheet" type="text/css" href="admin/themes/roma/default-colors.css">
+<link rel="stylesheet" type="text/css" href="admin/themes/roma/theme.css">
 <style type="text/css">
 .content {
   width: 800px;

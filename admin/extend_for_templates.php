@@ -111,7 +111,7 @@ $flip_templates = array_flip($eligible_templates);
 
 $available_templates = array_merge(
   array('N/A' => '----------'),
-  get_dirs(PHPWG_ROOT_PATH.'template'));
+  get_dirs(PHPWG_ROOT_PATH.'theme'));
 
 // +-----------------------------------------------------------------------+
 // |                            selected templates                         |

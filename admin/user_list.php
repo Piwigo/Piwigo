@@ -385,7 +385,7 @@ DELETE FROM '.USER_GROUP_TABLE.'
   $dbfields = array('primary' => array('user_id'), 'update' => array());
 
   $formfields =
-    array('nb_image_line', 'nb_line_page', 'template', 'language',
+    array('nb_image_line', 'nb_line_page', 'theme', 'language',
           'recent_period', 'maxwidth', 'expand', 'show_nb_comments',
           'show_nb_hits', 'maxheight', 'status', 'enabled_high',
           'level');
@@ -583,16 +583,16 @@ else
 }
 
 // Template Options
-$template->assign('template_options', get_pwg_themes());
-$template->assign('template_selected',
-    isset($_POST['pref_submit']) ? $_POST['template'] : get_default_template());
+$template->assign('theme_options', get_pwg_themes());
+$template->assign('theme_selected',
+    isset($_POST['pref_submit']) ? $_POST['theme'] : get_default_theme());
 
 // Language options
 $template->assign('language_options', get_languages());
 $template->assign('language_selected',
     isset($_POST['pref_submit']) ? $_POST['language'] : get_default_language());
 
-Log::getInstance()->debug($status);
+//Log::getInstance()->debug($status);
 // Status options
 foreach (get_enums(USER_INFOS_TABLE, 'status') as $status)
 {

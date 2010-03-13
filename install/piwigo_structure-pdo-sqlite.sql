@@ -449,7 +449,7 @@ CREATE TABLE piwigo_user_infos
   "show_nb_comments" BOOLEAN default false,
   "show_nb_hits" BOOLEAN default false,
   "recent_period" INTEGER default 7 NOT NULL,
-  "template" VARCHAR(255) default 'yoga/Sylvia' NOT NULL,
+  "theme" VARCHAR(255) default 'Sylvia' NOT NULL,
   "registration_date" TIMESTAMP NOT NULL,
   "enabled_high" BOOLEAN default true,
   "level" INTEGER default 0 NOT NULL,

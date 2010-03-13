@@ -611,12 +611,11 @@ function redirect_html( $url , $msg = '', $refresh_time = 0)
     load_language('common.lang');
     trigger_action('loading_lang');
     load_language('local.lang', '', array('no_fallback'=>true) );
-    list($tmpl, $thm) = explode('/', get_default_template());
-    $template = new Template(PHPWG_ROOT_PATH.'template/'.$tmpl, $thm);
+    $template = new Template(PHPWG_ROOT_PATH.'themes', get_default_theme());
   }
   else
   {
-    $template = new Template(PHPWG_ROOT_PATH.'template/'.$user['template'], $user['theme']);
+    $template = new Template(PHPWG_ROOT_PATH.'themes', $user['theme']);
   }
 
   if (empty($msg))
@@ -710,24 +709,21 @@ function url_is_remote($url)
 }
 
 /**
- * returns available template/theme
+ * returns available themes
  */
 function get_pwg_themes()
 {
   global $conf;
   $themes = array();
 
-  $template_dir = PHPWG_ROOT_PATH.'template';
+  $template_dir = PHPWG_ROOT_PATH.'themes';
 
-  foreach (get_dirs($template_dir) as $template)
+  foreach (get_dirs($template_dir) as $theme)
   {
-    if ( $template != 'default' )
-	{
-      foreach (get_dirs($template_dir.'/'.$template.'/theme') as $theme)
-      {
-        array_push($themes, $template.'/'.$theme);
-      }
-	}
+    if ( $theme != 'default' )
+	  {
+      array_push($themes, $theme);
+	  }
   }
 
   // plugins want remove some themes based on user status maybe?

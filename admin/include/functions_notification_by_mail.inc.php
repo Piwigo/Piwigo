@@ -256,11 +256,8 @@ function set_user_on_env_nbm(&$nbm_user, $is_action_send)
 
   if ($is_action_send)
   {
-    $nbm_user['template'] = $user['template'];
     $nbm_user['theme'] = $user['theme'];
-    $env_nbm['mail_template'] =
-      get_mail_template($env_nbm['email_format'], 
-        array('template' => $nbm_user['template'], 'theme' => $nbm_user['theme']));
+    $env_nbm['mail_template'] = get_mail_template($env_nbm['email_format'], $nbm_user['theme']);
     $env_nbm['mail_template']->set_filename('notification_by_mail', 'notification_by_mail.tpl');
   }
 }
@@ -435,7 +432,6 @@ function do_subscribe_unsubscribe_notification_by_mail($is_admin_request, $is_su
                 'email_format' => $env_nbm['email_format'],
                 'content' => $env_nbm['mail_template']->parse('notification_by_mail', true),
                 'content_format' => $env_nbm['email_format'],
-                'template' => $nbm_user['template'],
                 'theme' => $nbm_user['theme']
               )
             ))

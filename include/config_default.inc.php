@@ -335,6 +335,9 @@ $conf['insensitive_case_logon'] = false;
 // 'filename'
 $conf['uniqueness_mode'] = 'md5sum';
 
+// Define default theme for your gallery
+$conf['default_theme'] = 'Sylvia';
+
 // +-----------------------------------------------------------------------+
 // |                               metadata                                |
 // +-----------------------------------------------------------------------+
@@ -676,7 +679,7 @@ $conf['rss_feed_author'] = 'Piwigo notifier';
 // | Set admin layout                                                      |
 // +-----------------------------------------------------------------------+
 
-$conf['admin_layout'] = 'goto/roma';
+$conf['admin_theme'] = 'roma';
 
 // should we load the active plugins ? true=Yes, false=No
 $conf['enable_plugins']=true;

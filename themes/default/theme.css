@@ -1,0 +1,12 @@
+
+/* template css */
+@import "menubar.css";
+@import "content.css";
+@import "thumbnails.css";
+@import "picture.css";
+@import "default-layout.css";
+/* Override properties with import local file */
+@import "local-layout.css";
+
+@import "default-colors.css";
+

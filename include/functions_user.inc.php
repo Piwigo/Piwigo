@@ -245,7 +245,11 @@ function build_user( $user_id, $use_cache )
   // calculation of the number of picture to display per page
   $user['nb_image_page'] = $user['nb_image_line'] * $user['nb_line_page'];
 
-  list($user['template'], $user['theme']) = explode('/', $user['template']);
+  // Check user theme
+  if (!file_exists(PHPWG_ROOT_PATH.'themes/'.$user['theme'].'/themeconf.inc.php'))
+  {
+    $user['theme'] = $conf['default_theme'];
+  }
 
   return $user;
 }
@@ -841,9 +845,9 @@ function get_default_user_value($value_name, $sos_value)
  * Returns the default template value
  *
  */
-function get_default_template()
+function get_default_theme()
 {
-  return get_default_user_value('template', PHPWG_DEFAULT_TEMPLATE);
+  return get_default_user_value('theme', PHPWG_DEFAULT_TEMPLATE);
 }
 
 /*

@@ -158,15 +158,11 @@ if (is_a_guest())
 if (( defined('IN_ADMIN') and IN_ADMIN )
     or (defined('PWG_HELP') and PWG_HELP))
 {// Admin template
-  list($user['admin_template'], $user['admin_theme']) =
-    explode ('/', $conf['admin_layout']);
-  $template = new Template(PHPWG_ROOT_PATH.'admin/template/'
-    . $user['admin_template'], $user['admin_theme'] );
+  $template = new Template(PHPWG_ROOT_PATH.'admin/themes', $conf['admin_theme']);
 }
 else
 { // Classic template
-  $template = new Template(PHPWG_ROOT_PATH.'template/'
-    . $user['template'], $user['theme'] );
+  $template = new Template(PHPWG_ROOT_PATH.'themes', $user['theme'] );
 }
 
 if (isset($user['internal_status']['guest_must_be_guest'])

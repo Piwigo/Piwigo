@@ -202,7 +202,7 @@ function save_profile_from_post($userdata, &$errors)
     // update user "additional" informations (specific to Piwigo)
     $fields = array(
       'nb_image_line', 'nb_line_page', 'language', 'maxwidth', 'maxheight',
-      'expand', 'show_nb_comments', 'show_nb_hits', 'recent_period', 'template'
+      'expand', 'show_nb_comments', 'show_nb_hits', 'recent_period', 'theme'
       );
 
     $data = array();
@@ -257,14 +257,13 @@ function load_profile_in_template($url_action, $url_redirect, $userdata)
       'F_ACTION'=>$url_action,
       ));
 
-  foreach (get_pwg_themes() as $pwg_template)
+  foreach (get_pwg_themes() as $pwg_theme)
   {
-    if (isset($_POST['submit'])
-      or $userdata['template'].'/'.$userdata['theme'] == $pwg_template)
+    if (isset($_POST['submit']) or $userdata['theme'] == $pwg_theme)
     {
-      $template->assign('template_selection', $pwg_template);
+      $template->assign('template_selection', $pwg_theme);
     }
-    $template_options[$pwg_template] = $pwg_template;
+    $template_options[$pwg_theme] = $pwg_theme;
   }
   $template->assign('template_options', $template_options);
 

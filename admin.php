@@ -62,26 +62,26 @@ SELECT
 // theme changer
 if (isset($_GET['change_theme']))
 {
-  $admin_themes = array('goto/roma', 'goto/clear');
+  $admin_themes = array('roma', 'clear');
 
   $new_admin_theme = array_pop(
     array_diff(
       $admin_themes,
-      array($conf['admin_layout'])
+      array($conf['admin_theme'])
       )
     );
 
   $query = '
 DELETE
   FROM '.CONFIG_TABLE.'
-  WHERE param = "admin_layout"
+  WHERE param = "admin_theme"
 ;';
   pwg_query($query);
 
   $query = '
 INSERT
   INTO '.CONFIG_TABLE.'
-  SET param = "admin_layout"
+  SET param = "admin_theme"
     , value = "'.$new_admin_theme.'"
 ;';
   pwg_query($query);

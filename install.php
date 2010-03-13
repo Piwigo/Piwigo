@@ -218,7 +218,7 @@ if (version_compare(PHP_VERSION, REQUIRED_PHP_VERSION, '<'))
 
 //----------------------------------------------------- template initialization
 include( PHPWG_ROOT_PATH .'include/template.class.php');
-$template = new Template(PHPWG_ROOT_PATH.'admin/template/goto', 'roma');
+$template = new Template(PHPWG_ROOT_PATH.'admin/themes', 'roma');
 $template->set_filenames( array('install' => 'install.tpl') );
 if (!isset($step))
 {

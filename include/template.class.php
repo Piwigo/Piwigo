@@ -52,7 +52,7 @@ class Template {
   // used by html_head smarty block to add content before </head>
   var $html_head_elements = array();
 
-  function Template($root = ".", $theme= "")
+  function Template($root = ".", $theme= "", $path = "template")
   {
     global $conf, $lang_info;
 
@@ -77,15 +77,13 @@ class Template {
       $this->smarty->register_prefilter( array('Template', 'prefilter_language') );
     }
 
+    $this->smarty->template_dir = array();
     if ( !empty($theme) )
     {
-      include($root.'/theme/'.$theme.'/themeconf.inc.php');
-      $this->smarty->assign('themeconf', $themeconf);
+      $this->set_theme($root, $theme, $path);
     }
 
     $this->smarty->assign('lang_info', $lang_info);
-
-    $this->set_template_dir($root);
 
     if (!defined('IN_ADMIN') and isset($conf['extents_for_templates']))
     {
@@ -95,32 +93,38 @@ class Template {
   }
 
   /**
-   * Sets the template root directory for this Template object.
-   * Revised from Piwigo 2.1 to add modeling support
+   * Load theme's parameters.
    */
+  function set_theme($root, $theme, $path)
+  {
+    $this->set_template_dir($root.'/'.$theme.'/'.$path);
+
+    include($root.'/'.$theme.'/themeconf.inc.php');
+
+    if (isset($themeconf['parent']))
+    {
+      $this->set_theme($root, $themeconf['parent'], $path);
+    }
+
+    $tpl_var = array('name' => $themeconf['theme']);
+    if (file_exists($root.'/'.$theme.'/local_head.tpl'))
+    {
+      $tpl_var['local_head'] = realpath($root.'/'.$theme.'/local_head.tpl');
+    }
+    $this->smarty->append('themes', $tpl_var);
+    $this->smarty->append('themeconf', $themeconf, true);
+  }
+
   function set_template_dir($dir)
   {
-    $modeling = $this->get_themeconf('modeling');
-	if (!defined('IN_ADMIN') and ($modeling !== false)) 
-	{ // Modeling is active only on gallery side and never in admin
-	  // Set the normal directory
-      $this->smarty->template_dir = array($dir);
-	  // Modeling by theme parameter
-	  $model = './template/' . $modeling;
-      if ( $model != './template/' and is_dir($model))
-	  {
-		$this->smarty->template_dir[] = $model;
-      }
-	  // Default template directory
-	  $this->smarty->template_dir[] = './template/default';
-	}
-    else
-	{
-      $this->smarty->template_dir = $dir;
-	}
-    $real_dir = realpath($dir);
-    $compile_id = crc32( $real_dir===false ? $dir : $real_dir);
-    $this->smarty->compile_id = base_convert($compile_id, 10, 36 );
+    $this->smarty->template_dir[] = $dir;
+
+    if (!isset($this->smarty->compile_id))
+    {
+      $real_dir = realpath($dir);
+      $compile_id = crc32( $real_dir===false ? $dir : $real_dir);
+      $this->smarty->compile_id = base_convert($compile_id, 10, 36 );
+    }
   }
 
   /**
@@ -196,6 +200,8 @@ class Template {
    */
   function set_extents($filename_array, $dir='', $overwrite=true)
   {
+    global $user;
+
     if (!is_array($filename_array))
     {
       return false;
@@ -220,7 +226,7 @@ class Template {
       }
 
       if ((stripos(implode('',array_keys($_GET)), '/'.$param) !== false or $param == 'N/A')
-        and (preg_match('/'.preg_quote($tpl,'/').'$/', $this->get_template_dir()) or $tpl == 'N/A')
+        and ($tpl == $user['theme'] or $tpl == 'N/A')
         and (!isset($this->extents[$handle]) or $overwrite)
         and file_exists($dir . $filename))
       {

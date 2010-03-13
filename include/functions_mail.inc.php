@@ -152,12 +152,12 @@ function get_strict_email_list($email_list)
 
 /**
  * Returns an completed array template/theme
- * completed with get_default_template()
+ * completed with get_default_theme()
  *
  * @params:
  *   - args: incompleted array of template/theme
- *       o template: template to use [default get_default_template()]
- *       o theme: template to use [default get_default_template()]
+ *       o template: template to use [default get_default_theme()]
+ *       o theme: template to use [default get_default_theme()]
  */
 function get_array_template_theme($args = array())
 {
@@ -167,7 +167,7 @@ function get_array_template_theme($args = array())
 
   if (empty($args['template']) or empty($args['theme']))
   {
-    list($res['template'], $res['theme']) = explode('/', get_default_template());
+    list($res['template'], $res['theme']) = explode('/', get_default_theme());
   }
 
   if (!empty($args['template']))
@@ -189,15 +189,18 @@ function get_array_template_theme($args = array())
  * @params:
  *   - email_format: mail format
  *   - args: function params of mail function:
- *       o template: template to use [default get_default_template()]
- *       o theme: template to use [default get_default_template()]
+ *       o template: template to use [default get_default_theme()]
+ *       o theme: template to use [default get_default_theme()]
  */
-function & get_mail_template($email_format, $args = array())
+function & get_mail_template($email_format, $theme='')
 {
-  $args = get_array_template_theme($args);
+  if (empty($theme))
+  {
+    $theme = get_default_theme();
+  }
 
-  $mail_template = new Template(PHPWG_ROOT_PATH.'template/'.$args['template'], $args['theme']);
-  $mail_template->set_template_dir(PHPWG_ROOT_PATH.'template/'.$args['template'].'/mail/'.$email_format);
+  $mail_template = new Template(PHPWG_ROOT_PATH.'themes', $theme, 'template/mail/'.$email_format);
+
   return $mail_template;
 }
 
@@ -417,7 +420,7 @@ function pwg_mail_group(
 
   $query = '
 SELECT
-  distinct language, template
+  distinct language, theme
 FROM
   '.USER_GROUP_TABLE.' as ug
   INNER JOIN '.USERS_TABLE.' as u  ON '.$conf['user_fields']['id'].' = ug.user_id
@@ -442,8 +445,6 @@ WHERE
     $list = array();
     while ($row = pwg_db_fetch_assoc($result))
     {
-      $row['template_theme'] = $row['template'];
-      list($row['template'], $row['theme']) = explode('/', $row['template_theme']);
       $list[] = $row;
     }
 
@@ -461,7 +462,7 @@ WHERE
         '.$conf['user_fields']['email'].' IS NOT NULL
     AND group_id = '.$group_id.'
     AND language = \''.$elem['language'].'\'
-    AND template = \''.$elem['template_theme'].'\'
+    AND theme = \''.$elem['theme'].'\'
 ;';
 
       $result = pwg_query($query);
@@ -481,7 +482,7 @@ WHERE
         {
           switch_lang_to($elem['language']);
 
-          $mail_template = get_mail_template($email_format, $elem);
+          $mail_template = get_mail_template($email_format, $elem['theme']);
           $mail_template->set_filename($tpl_shortname, $tpl_shortname.'.tpl');
 
           $mail_template->assign(
@@ -497,7 +498,6 @@ WHERE
               'email_format' => $email_format,
               'content' => $mail_template->parse($tpl_shortname, true),
               'content_format' => $email_format,
-              'template' => $elem['template'],
               'theme' => $elem['theme']
             )
           ) and $return;
@@ -524,8 +524,7 @@ WHERE
  *       o content: content of mail    [default value '']
  *       o content_format: format of mail content  [default value 'text/plain']
  *       o email_format: global mail format  [default value $conf_mail['default_email_format']]
- *       o template: template to use [default get_default_template()]
- *       o theme: template to use [default get_default_template()]
+ *       o theme: template to use [default get_default_theme()]
  *
  * @return boolean (Ok or not)
  */
@@ -584,7 +583,10 @@ function pwg_mail($to, $args = array())
     $args['Bcc'][] = $conf_mail['formated_email_webmaster'];
   }
 
-  $args = array_merge($args, get_array_template_theme($args));
+  if (empty($args['theme']))
+  {
+    $args['theme'] = get_default_theme();
+  }
 
   $headers = 'From: '.$args['from']."\n";
   $headers.= 'Reply-To: '.$args['from']."\n";
@@ -617,19 +619,19 @@ function pwg_mail($to, $args = array())
   foreach (array_unique($content_type_list) as $content_type)
   {
     // key compose of indexes witch allow ti cache mail data
-    $cache_key = $content_type.'-'.$lang_info['code'].'-'.$args['template'].'-'.$args['theme'];
+    $cache_key = $content_type.'-'.$lang_info['code'].'-'.$args['theme'];
 
     if (!isset($conf_mail[$cache_key]))
     {
-      if (!isset($conf_mail[$cache_key]['template']))
+      if (!isset($conf_mail[$cache_key]['theme']))
       {
-        $conf_mail[$cache_key]['template'] = get_mail_template($content_type);
+        $conf_mail[$cache_key]['theme'] = get_mail_template($content_type);
       }
 
-      $conf_mail[$cache_key]['template']->set_filename('mail_header', 'header.tpl');
-      $conf_mail[$cache_key]['template']->set_filename('mail_footer', 'footer.tpl');
+      $conf_mail[$cache_key]['theme']->set_filename('mail_header', 'header.tpl');
+      $conf_mail[$cache_key]['theme']->set_filename('mail_footer', 'footer.tpl');
 
-      $conf_mail[$cache_key]['template']->assign(
+      $conf_mail[$cache_key]['theme']->assign(
         array(
           //Header
           'BOUNDARY_KEY' => $conf_mail['boundary_key'],
@@ -652,36 +654,37 @@ function pwg_mail($to, $args = array())
 
       if ($content_type == 'text/html')
       {
-        if (is_file($conf_mail[$cache_key]['template']->get_template_dir().'/global-mail-css.tpl'))
+        /*
+        if (is_file($conf_mail[$cache_key]['theme']->get_template_dir().'/global-mail-css.tpl'))
         {
-          $conf_mail[$cache_key]['template']->set_filename('css', 'global-mail-css.tpl');
-          $conf_mail[$cache_key]['template']->assign_var_from_handle('GLOBAL_MAIL_CSS', 'css');
+          $conf_mail[$cache_key]['theme']->set_filename('css', 'global-mail-css.tpl');
+          $conf_mail[$cache_key]['theme']->assign_var_from_handle('GLOBAL_MAIL_CSS', 'css');
         }
+        */
 
-        $root_abs_path = dirname(dirname(__FILE__));
-
-        $file = $root_abs_path.'/template/'.$args['template'].'/theme/'.$args['theme'].'/mail-css.tpl';
+        $file = PHPWG_ROOT_PATH.'themes/'.$args['theme'].'/mail-css.tpl';
         if (is_file($file))
         {
-          $conf_mail[$cache_key]['template']->set_filename('css', $file);
-          $conf_mail[$cache_key]['template']->assign_var_from_handle('MAIL_CSS', 'css');
+          $conf_mail[$cache_key]['theme']->set_filename('css', realpath($file));
+          $conf_mail[$cache_key]['theme']->assign_var_from_handle('MAIL_CSS', 'css');
         }
-
+        /*
         $file = $root_abs_path.'/template-common/local-mail-css.tpl';
         if (is_file($file))
         {
           $conf_mail[$cache_key]['template']->set_filename('css', $file);
           $conf_mail[$cache_key]['template']->assign_var_from_handle('LOCAL_MAIL_CSS', 'css');
         }
+        */
       }
 
       // what are displayed on the header of each mail ?
       $conf_mail[$cache_key]['header'] =
-        $conf_mail[$cache_key]['template']->parse('mail_header', true);
+        $conf_mail[$cache_key]['theme']->parse('mail_header', true);
 
       // what are displayed on the footer of each mail ?
       $conf_mail[$cache_key]['footer'] =
-        $conf_mail[$cache_key]['template']->parse('mail_footer', true);
+        $conf_mail[$cache_key]['theme']->parse('mail_footer', true);
     }
 
     // Header
@@ -713,7 +716,6 @@ function pwg_mail($to, $args = array())
   // Close boundary
   $content.= "\n".'-----='.$conf_mail['boundary_key'].'--'."\n";
   }
-
 
   //~ // Close boundary
   //~ $content.= "\n".'-----='.$conf_mail['boundary_key'].'--'."\n";
