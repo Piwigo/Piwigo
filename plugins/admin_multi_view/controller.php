@@ -128,17 +128,17 @@ $users_html.= '</select>';
 
 // +-----------------------------------------------------------------------+
 // | templates                                                             |
-$my_template = '';
+$my_theme = '';
 $themes_html='<select onchange="document.location = this.options[this.selectedIndex].value;">';
-foreach (get_pwg_themes() as $pwg_template)
+foreach (get_pwg_themes() as $pwg_theme)
 {
-  $selected = $pwg_template == pwg_get_session_var( 'multiview_theme', $view_as_user['template'].'/'.$view_as_user['theme'] ) ? 'selected="selected"' : '';
-  $my_template = $selected == '' ? $my_template : $view_as_user['template'].'/theme/'.$view_as_user['theme'];
+  $selected = $pwg_theme == pwg_get_session_var( 'multiview_theme', $view_as_user['theme'] ) ? 'selected="selected"' : '';
+  $my_theme = $selected == '' ? $my_theme : 'themes/'.$view_as_user['theme'];
   $themes_html .=
     '<option value="'
-    .$my_url.'?theme='.$pwg_template
+    .$my_url.'?theme='.$pwg_theme
     .'" '.$selected.'>'
-    .$pwg_template
+    .$pwg_theme
     .'</option>';
 }
 $themes_html .= '</select>';
@@ -206,9 +206,9 @@ else
 <title>Controller</title>
 <?php
 // Controller will be displayed  with  the **real admin template** (without Any if it has been removed)
-if ( $my_template !== '') {
-  $my_template = get_root_url().'template/'.$my_template.'/theme.css';
-  echo '<link rel="stylesheet" type="text/css" href="' . $my_template .'">';
+if ( $my_theme !== '') {
+  $my_theme = get_root_url().$my_theme.'/theme.css';
+  echo '<link rel="stylesheet" type="text/css" href="' . $my_theme .'">';
 }
 ?>
 
