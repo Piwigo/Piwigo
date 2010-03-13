@@ -292,9 +292,6 @@ if (isset($_POST['submit']) and check_upgrade())
       deactivate_non_standard_plugins();
     }
 
-    // Create empty local files to avoid log errors
-    create_empty_local_files();
-
     $page['upgrade_end'] = get_moment();
 
     $template->assign(

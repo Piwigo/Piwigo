@@ -312,9 +312,6 @@ define(\'DB_COLLATE\', \'\');
     @fputs($fp, $file_content, strlen($file_content));
     @fclose($fp);
 
-    // Create empty local files to avoid log errors
-    create_empty_local_files();
-
     // tables creation, based on piwigo_structure.sql
     execute_sqlfile(
       PHPWG_ROOT_PATH.'install/piwigo_structure-'.$dblayer.'.sql',
