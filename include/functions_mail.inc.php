@@ -654,13 +654,11 @@ function pwg_mail($to, $args = array())
 
       if ($content_type == 'text/html')
       {
-        /*
-        if (is_file($conf_mail[$cache_key]['theme']->get_template_dir().'/global-mail-css.tpl'))
+        if ($conf_mail[$cache_key]['theme']->smarty->template_exists('global-mail-css.tpl'))
         {
           $conf_mail[$cache_key]['theme']->set_filename('css', 'global-mail-css.tpl');
           $conf_mail[$cache_key]['theme']->assign_var_from_handle('GLOBAL_MAIL_CSS', 'css');
         }
-        */
 
         $file = PHPWG_ROOT_PATH.'themes/'.$args['theme'].'/mail-css.tpl';
         if (is_file($file))
@@ -668,14 +666,6 @@ function pwg_mail($to, $args = array())
           $conf_mail[$cache_key]['theme']->set_filename('css', realpath($file));
           $conf_mail[$cache_key]['theme']->assign_var_from_handle('MAIL_CSS', 'css');
         }
-        /*
-        $file = $root_abs_path.'/template-common/local-mail-css.tpl';
-        if (is_file($file))
-        {
-          $conf_mail[$cache_key]['template']->set_filename('css', $file);
-          $conf_mail[$cache_key]['template']->assign_var_from_handle('LOCAL_MAIL_CSS', 'css');
-        }
-        */
       }
 
       // what are displayed on the header of each mail ?

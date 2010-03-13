@@ -396,7 +396,6 @@ function do_action_send_mail_notification($action = 'list_to_send', $check_key_l
                       'email_format' => $env_nbm['email_format'],
                       'content' => $env_nbm['mail_template']->parse('notification_by_mail', true),
                       'content_format' => $env_nbm['email_format'],
-                      'template' => $nbm_user['template'],
                       'theme' => $nbm_user['theme']
                     )
                   ))

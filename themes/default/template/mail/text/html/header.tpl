@@ -10,7 +10,6 @@ Content-Transfer-Encoding: 8bit
 <style><!-- /* Mini style for mails */
 {if isset($GLOBAL_MAIL_CSS)}{$GLOBAL_MAIL_CSS}{/if}
 {if isset($MAIL_CSS)}{$MAIL_CSS}{/if}
-{if isset($LOCAL_MAIL_CSS)}{$LOCAL_MAIL_CSS}{/if}
 --></style>
 </head>
 <body>
