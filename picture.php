@@ -25,7 +25,6 @@ define('PHPWG_ROOT_PATH','./');
 include_once(PHPWG_ROOT_PATH.'include/common.inc.php');
 include(PHPWG_ROOT_PATH.'include/section_init.inc.php');
 include_once(PHPWG_ROOT_PATH.'include/functions_picture.inc.php');
-include_once(PHPWG_ROOT_PATH.'include/functions_comment.inc.php');
 
 // Check Access and exit when user status is not ok
 check_status(ACCESS_GUEST);
@@ -67,7 +66,9 @@ SELECT id, file, level
   {
     access_denied();
   }
-  list($page['image_id'], $page['image_file']) =  $row;
+
+  $page['image_id'] = $row['id'];
+  $page['image_file'] =  $row['file'];
   if ( !isset($page['rank_of'][$page['image_id']]) )
   {// the image can still be non accessible (filter/cat perm) and/or not in the set
     global $filter;
@@ -310,36 +311,39 @@ UPDATE '.CATEGORIES_TABLE.'
     }
     case 'edit_comment' :
     {
+      include_once(PHPWG_ROOT_PATH.'include/functions_comment.inc.php');
       if (isset($_GET['comment_to_edit'])
           and is_numeric($_GET['comment_to_edit'])
-	  and (is_admin() || $conf['user_can_edit_comment']))
+          and (is_admin() || $conf['user_can_edit_comment']))
       {
-	if (!empty($_POST['content'])) 
-	{
-	  update_user_comment(array('comment_id' => $_GET['comment_to_edit'], 
-				    'image_id' => $page['image_id'],
-				    'content' => $_POST['content']),
-			      $_POST['key']
-			      ); 
-	  redirect($url_self);
-	} else {
-	  $edit_comment = $_GET['comment_to_edit'];
-	  break;
-	}
+        if (!empty($_POST['content']))
+        {
+          update_user_comment(array('comment_id' => $_GET['comment_to_edit'],
+                  'image_id' => $page['image_id'],
+                  'content' => $_POST['content']),
+                  $_POST['key']
+                  );
+          redirect($url_self);
+        } else {
+          $edit_comment = $_GET['comment_to_edit'];
+          break;
+        }
       }
     }
     case 'delete_comment' :
     {
+      include_once(PHPWG_ROOT_PATH.'include/functions_comment.inc.php');
       if (isset($_GET['comment_to_delete'])
           and is_numeric($_GET['comment_to_delete'])
 	  and (is_admin() || $conf['user_can_delete_comment']))
       {
-	delete_user_comment($_GET['comment_to_delete']);
+        delete_user_comment($_GET['comment_to_delete']);
       }
       redirect($url_self);
     }
     case 'validate_comment' :
     {
+      include_once(PHPWG_ROOT_PATH.'include/functions_comment.inc.php');
       if (isset($_GET['comment_to_validate'])
           and is_numeric($_GET['comment_to_validate'])
           and is_admin() and !is_adviser() )
