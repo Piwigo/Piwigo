@@ -1060,6 +1060,24 @@ SELECT param, value
   }
 }
 
+function conf_update_param($param, $value)
+{
+  $query = '
+DELETE
+  FROM '.CONFIG_TABLE.'
+  WHERE param = "'.$param.'"
+;';
+  pwg_query($query);
+
+  $query = '
+INSERT
+  INTO '.CONFIG_TABLE.'
+  SET param = "'.$param.'"
+    , value = "'.$value.'"
+;';
+  pwg_query($query);
+}
+
 /**
  * Prepends and appends a string at each value of the given array.
  *

@@ -165,6 +165,41 @@ else
   $template = new Template(PHPWG_ROOT_PATH.'themes', $user['theme'] );
 }
 
+// The "No Photo Yet" feature: if you have no photo yet in your gallery, the
+// gallery displays only a big box to show you the way for adding your first
+// photos
+if (
+  !isset($conf['no_photo_yet'])             // the message disappears at first photo
+  and !(defined('IN_ADMIN') and IN_ADMIN)   // no message inside administration
+  and script_basename() != 'identification' // keep the ability to login
+  )
+{
+  $query = '
+SELECT
+    COUNT(*)
+  FROM '.IMAGES_TABLE.'
+;';
+  list($nb_photos) = pwg_db_fetch_row(pwg_query($query));
+  if (0 == $nb_photos)
+  {
+    $template->set_filenames(array('no_photo_yet'=>'no_photo_yet.tpl'));
+
+    $url = $conf['no_photo_yet_url'];
+    if (substr($url, 0, 4) != 'http')
+    {
+      $url = get_root_url().$url;
+    }
+    
+    $template->assign(array('next_step_url' => $url));
+    $template->pparse('no_photo_yet');
+    exit();
+  }
+  else
+  {
+    conf_update_param('no_photo_yet', 'false');
+  }
+}
+
 if (isset($user['internal_status']['guest_must_be_guest'])
     and
     $user['internal_status']['guest_must_be_guest'] === true)
