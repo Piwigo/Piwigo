@@ -71,20 +71,7 @@ if (isset($_GET['change_theme']))
       )
     );
 
-  $query = '
-DELETE
-  FROM '.CONFIG_TABLE.'
-  WHERE param = "admin_theme"
-;';
-  pwg_query($query);
-
-  $query = '
-INSERT
-  INTO '.CONFIG_TABLE.'
-  SET param = "admin_theme"
-    , value = "'.$new_admin_theme.'"
-;';
-  pwg_query($query);
+  conf_update_param('admin_theme', $new_admin_theme);
 
   redirect('admin.php');
 }
