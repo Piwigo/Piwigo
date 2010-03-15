@@ -736,3 +736,9 @@ BODY#thePopuphelpPage {
   display: block;  /* display: none; if you don't want legend */
   height: 4em;    /* legend height (don't set auto to be Gecko friendly)*/
 }
+
+.themeBox {float:left; text-align:center; height:170px; background-color:#eee; margin:5px; -moz-border-radius:5px;}
+.themeBox IMG {border:1px solid white; margin:0 15px;}
+.themeName {font-size:1.1em; margin:5px 0;}
+.themeActions {margin:5px 0;}
+.themeActions A {display:block;}

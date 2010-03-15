@@ -217,3 +217,8 @@ html>body #menubar {min-height:477px; height:477px;} /* IE 7 and modern browsers
 
 #adminHome       {background-color:#222;}
 #adminHome:hover {background-color:#333;}
+
+.themeBox {background-color:#333;}
+.themeBox IMG {border:1px solid #666;}
+.themeName {color:white;}
+.themeActions A {border-bottom:none;}
