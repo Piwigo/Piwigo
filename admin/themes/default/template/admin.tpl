@@ -22,6 +22,7 @@ jQuery().ready(function(){ldelim}
         <li><a href="{$U_CONFIG_DISPLAY}">{'Default display'|@translate}</a></li>
         <li><a href="{$U_CONFIG_MENUBAR}">{'Menu'|@translate}</a></li>
         <li><a href="{$U_CONFIG_EXTENTS}">{'Templates'|@translate}</a></li>
+        <li><a href="{$U_CONFIG_THEMES}">{'Themes'|@translate}</a></li>
       </ul>
     </dd>
   </dl>

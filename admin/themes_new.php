@@ -1,0 +1,133 @@
+<?php
+// +-----------------------------------------------------------------------+
+// | Piwigo - a PHP based picture gallery                                  |
+// +-----------------------------------------------------------------------+
+// | Copyright(C) 2008-2009 Piwigo Team                  http://piwigo.org |
+// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
+// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
+// +-----------------------------------------------------------------------+
+// | This program is free software; you can redistribute it and/or modify  |
+// | it under the terms of the GNU General Public License as published by  |
+// | the Free Software Foundation                                          |
+// |                                                                       |
+// | This program is distributed in the hope that it will be useful, but   |
+// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
+// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
+// | General Public License for more details.                              |
+// |                                                                       |
+// | You should have received a copy of the GNU General Public License     |
+// | along with this program; if not, write to the Free Software           |
+// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
+// | USA.                                                                  |
+// +-----------------------------------------------------------------------+
+
+if( !defined("PHPWG_ROOT_PATH") )
+{
+  die ("Hacking attempt!");
+}
+
+include_once(PHPWG_ROOT_PATH.'admin/include/plugins.class.php');
+
+$base_url = get_root_url().'admin.php?page='.$page['page'];
+
+$themes = new plugins();
+
+// +-----------------------------------------------------------------------+
+// |                           setup check                                 |
+// +-----------------------------------------------------------------------+
+
+$themes_dir = PHPWG_ROOT_PATH.'themes';
+if (!is_writable($themes_dir))
+{
+  array_push(
+    $page['errors'],
+    sprintf(
+      l10n('Add write access to the "%s" directory'),
+      'themes'
+      )
+    );
+}
+
+// +-----------------------------------------------------------------------+
+// |                       perform installation                            |
+// +-----------------------------------------------------------------------+
+
+if (isset($_GET['revision']) and isset($_GET['extension']) and !is_adviser())
+{
+  $install_status = $themes->extract_plugin_files(
+    'install',
+    $_GET['revision'],
+    $_GET['extension'],
+    'theme'
+    );
+  
+  redirect($base_url.'&installstatus='.$install_status);
+}
+
+// +-----------------------------------------------------------------------+
+// |                        installation result                            |
+// +-----------------------------------------------------------------------+
+
+if (isset($_GET['installstatus']))
+{
+  switch ($_GET['installstatus'])
+  {
+    case 'ok':
+      array_push(
+        $page['infos'],
+        l10n('Theme has been successfully installed')
+        );
+      break;
+
+    case 'temp_path_error':
+      array_push($page['errors'], l10n('Can\'t create temporary file.'));
+      break;
+
+    case 'dl_archive_error':
+      array_push($page['errors'], l10n('Can\'t download archive.'));
+      break;
+
+    case 'archive_error':
+      array_push($page['errors'], l10n('Can\'t read or extract archive.'));
+      break;
+
+    default:
+      array_push(
+        $page['errors'],
+        sprintf(l10n('An error occured during extraction (%s).'), $_GET['installstatus'])
+        );
+  }  
+}
+
+// +-----------------------------------------------------------------------+
+// |                          template output                              |
+// +-----------------------------------------------------------------------+
+
+$template->set_filenames(array('themes' => 'themes_new.tpl'));
+
+if ($themes->get_server_plugins(true, 'theme'))
+{
+  foreach($themes->server_plugins as $theme)
+  {
+    $url_auto_install = htmlentities($base_url)
+      . '&amp;revision=' . $theme['revision_id']
+      . '&amp;extension=' . $theme['extension_id']
+      ;
+
+    $template->append(
+      'new_themes',
+      array(
+        'name' => $theme['extension_name'],
+        'src' => PEM_URL.'/upload/extension-'.$theme['extension_id'].'/thumbnail.jpg',
+        'install_url' => $url_auto_install,
+        )
+      );
+  }
+}
+else
+{
+  array_push($page['errors'], l10n('Can\'t connect to server.'));
+}
+
+$template->assign_var_from_handle('ADMIN_CONTENT', 'themes');
+?>

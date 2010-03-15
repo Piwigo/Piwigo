@@ -268,14 +268,20 @@ DELETE FROM ' . PLUGINS_TABLE . ' WHERE id=\'' . $plugin_id . '\'';
   /**
    * Retrieve PEM server datas to $server_plugins
    */
-  function get_server_plugins($new=false)
+  function get_server_plugins($new=false, $ext_type='plugin')
   {
     global $user;
+
+    $pem_category_id = 12;
+    if ('theme' == $ext_type)
+    {
+      $pem_category_id = 10;
+    }
 
     // Retrieve PEM versions
     $version = PHPWG_VERSION;
     $versions_to_check = array();
-    $url = PEM_URL . '/api/get_version_list.php?category_id=12&format=php';
+    $url = PEM_URL . '/api/get_version_list.php?category_id='.$pem_category_id.'&format=php';
     if (fetchRemote($url, $result) and $pem_versions = @unserialize($result))
     {
       if (!preg_match('/^\d+\.\d+\.\d+/', $version))
@@ -307,7 +313,7 @@ DELETE FROM ' . PLUGINS_TABLE . ' WHERE id=\'' . $plugin_id . '\'';
     }
 
     // Retrieve PEM plugins infos
-    $url = PEM_URL . '/api/get_revision_list.php?category_id=12&format=php&last_revision_only=true';
+    $url = PEM_URL . '/api/get_revision_list.php?category_id='.$pem_category_id.'&format=php&last_revision_only=true';
     $url .= '&version=' . implode(',', $versions_to_check);
     $url .= '&lang=' . substr($user['language'], 0, 2);
     $url .= '&get_nb_downloads=true';
@@ -364,9 +370,24 @@ DELETE FROM ' . PLUGINS_TABLE . ' WHERE id=\'' . $plugin_id . '\'';
    *  @param string - archive URL
     * @param string - plugin id or extension id
    */
-  function extract_plugin_files($action, $revision, $dest)
+  function extract_plugin_files($action, $revision, $dest, $ext_type = 'plugin')
   {
-    if ($archive = tempnam( PHPWG_PLUGINS_PATH, 'zip'))
+    if ('plugin' == $ext_type)
+    {
+      $install_basedir = PHPWG_PLUGINS_PATH;
+      $main_filename = 'main.inc.php';
+    }
+    elseif ('theme' == $ext_type)
+    {
+      $install_basedir = PHPWG_ROOT_PATH.'themes/';
+      $main_filename = 'themeconf.inc.php';
+    }
+    else
+    {
+      fatal_error('unknown extension type "'.$ext_type.'"');
+    }
+    
+    if ($archive = tempnam( $install_basedir, 'zip'))
     {
       $url = PEM_URL . '/download.php?rid=' . $revision;
       $url .= '&origin=piwigo_' . $action;
@@ -381,7 +402,7 @@ DELETE FROM ' . PLUGINS_TABLE . ' WHERE id=\'' . $plugin_id . '\'';
           foreach ($list as $file)
           {
             // we search main.inc.php in archive
-            if (basename($file['filename']) == 'main.inc.php'
+            if (basename($file['filename']) == $main_filename
               and (!isset($main_filepath)
               or strlen($file['filename']) < strlen($main_filepath)))
             {
@@ -393,11 +414,11 @@ DELETE FROM ' . PLUGINS_TABLE . ' WHERE id=\'' . $plugin_id . '\'';
             $root = dirname($main_filepath); // main.inc.php path in archive
             if ($action == 'upgrade')
             {
-              $extract_path = PHPWG_PLUGINS_PATH . $dest;
+              $extract_path = $install_basedir . $dest;
             }
             else
             {
-              $extract_path = PHPWG_PLUGINS_PATH
+              $extract_path = $install_basedir
                   . ($root == '.' ? 'extension_' . $dest : basename($root));
             }
             if($result = $zip->extract(PCLZIP_OPT_PATH, $extract_path,
