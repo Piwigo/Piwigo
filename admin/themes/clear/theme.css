@@ -127,7 +127,7 @@ margin-top:4px; padding-bottom:3px; padding-top:3px; top:1px;
 #menubar {
 display:inline; float:left; left:0; margin: 10px 0 0 10px; min-height:475px; height:475px; /* should be 477 */
 padding:0; width:207px; z-index:99; text-align: left; }
-#menubar ul.scroll { height:163px; margin-right:10px; overflow-y:auto; 
+#menubar ul.scroll { height:163px; overflow-y:auto; 
  /* Only IE family supports colored scrollbar */
  scrollbar-face-color: #ddd; scrollbar-shadow-color: #bbb; scrollbar-highlight-color: #fff;
  scrollbar-3dlight-color: #d6d6d6; scrollbar-darkshadow-color: #ccc; scrollbar-track-color: #eee;
@@ -208,3 +208,5 @@ html>body #menubar {min-height:477px; height:477px;} /* IE 7 and modern browsers
 .themeName {color:black;}
 #themesContent H3 {border-bottom:1px solid #aaa;}
 .themeDefault {background-color:#dbe8f3;}
+
+#pluginsMenuSeparator {border:1px solid #ddd;}

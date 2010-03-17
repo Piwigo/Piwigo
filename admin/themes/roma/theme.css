@@ -136,7 +136,7 @@ margin-top:4px; padding-bottom:3px; padding-top:3px; top:1px;
 background:transparent url(images/menuBoxBottom_new.png) no-repeat scroll left bottom;
 border:0; display:inline; float:left; left:0; margin: 10px 0 0 10px; min-height:475px; height:475px; /* should be 477 */
 padding:0; width:230px; z-index:99; text-align: left; }
-#menubar ul.scroll { height:163px; margin-right:10px; overflow-y:auto;
+#menubar ul.scroll { height:163px; overflow-y:auto;
  /* Only IE family supports colored scrollbar */
  scrollbar-face-color: #222; scrollbar-shadow-color: #444; scrollbar-highlight-color: #000;
  scrollbar-3dlight-color: #292929; scrollbar-darkshadow-color: #333; scrollbar-track-color: #111;
@@ -219,5 +219,6 @@ html>body #menubar {min-height:477px; height:477px;} /* IE 7 and modern browsers
 .themeBox IMG {border:1px solid #666;}
 .themeName {color:white;}
 .themeActions A {border-bottom:none;}
-
 .themeDefault {background-color:#555;}
+
+#pluginsMenuSeparator {border:1px solid #333;}

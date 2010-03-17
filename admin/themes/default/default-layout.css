@@ -750,3 +750,5 @@ BODY#thePopuphelpPage {
 
 h2 { letter-spacing:2px; font-weight:bold;}
 h2:lang(en) { text-transform:capitalize; }
+
+#pluginsMenuSeparator {width:80%; margin:5px auto;}

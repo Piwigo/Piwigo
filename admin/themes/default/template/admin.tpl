@@ -15,14 +15,15 @@ jQuery().ready(function(){ldelim}
 <div id="menubar">
   <div id="adminHome"><a href="{$U_ADMIN}">Administration Home</a></div>
   <dl class="first">
-    <dt class="rdion"><span>{'Configuration'|@translate}&nbsp;</span></dt>
+    <dt class="rdion"><span>{'Photos'|@translate}&nbsp;</span></dt>
     <dd>
       <ul>
-        <li><a href="{$U_CONFIG_GENERAL}">{'General'|@translate}</a></li>
-        <li><a href="{$U_CONFIG_DISPLAY}">{'Default display'|@translate}</a></li>
-        <li><a href="{$U_CONFIG_MENUBAR}">{'Menu'|@translate}</a></li>
-        <li><a href="{$U_CONFIG_EXTENTS}">{'Templates'|@translate}</a></li>
-        <li><a href="{$U_CONFIG_THEMES}">{'Themes'|@translate}</a></li>
+        <li><a href="{$U_ADD_PHOTOS}">{'Add'|@translate}</a></li>
+        <li><a href="{$U_WAITING}">{'Waiting'|@translate}</a></li>
+        <li><a href="{$U_RATING}">{'Rating'|@translate}</a></li>
+        <li><a href="{$U_TAGS}">{'Tags'|@translate}</a></li>
+        <li><a href="{$U_CADDIE}">{'Caddie'|@translate}</a></li>
+        <li><a href="{$U_RECENT_SET}">{'Recent pictures'|@translate}</a></li>
       </ul>
     </dd>
   </dl>
@@ -40,45 +41,51 @@ jQuery().ready(function(){ldelim}
     </dd>
   </dl>
   <dl>
-    <dt class="rdion"><span>{'Pictures'|@translate}&nbsp;</span></dt>
+    <dt class="rdion"><span>{'Users'|@translate}&nbsp;</span></dt>
     <dd>
       <ul>
-        <li><a href="{$U_ADD_PHOTOS}">{'Add'|@translate}</a></li>
-        <li><a href="{$U_WAITING}">{'Waiting'|@translate}</a></li>
-        <li><a href="{$U_THUMBNAILS}">{'Thumbnails'|@translate}</a></li>
-        <li><a href="{$U_RATING}">{'Rating'|@translate}</a></li>
-        <li><a href="{$U_TAGS}">{'Tags'|@translate}</a></li>
-        <li><a href="{$U_CADDIE}">{'Caddie'|@translate}</a></li>
-        <li><a href="{$U_RECENT_SET}">{'Recent pictures'|@translate}</a></li>
-      </ul>
-    </dd>
-  </dl>
-  <dl>
-    <dt class="rdion"><span>{'Identification'|@translate}&nbsp;</span></dt>
-    <dd>
-      <ul>
-        <li><a href="{$U_USERS}">{'Users'|@translate}</a></li>
+        <li><a href="{$U_USERS}">{'Manage'|@translate}</a></li>
         <li><a href="{$U_GROUPS}">{'Groups'|@translate}</a></li>
         <li><a href="{$U_NOTIFICATION_BY_MAIL}">{'Notification'|@translate}</a></li>
       </ul>
     </dd>
   </dl>
-  <dl class="last">
-    <dt class="rdion"><span>{'Specials'|@translate}&nbsp;</span></dt>
+  <dl>
+    <dt class="rdion"><span>{'Plugins'|@translate}&nbsp;</span></dt>
+    <dd>
+      <ul>
+        <li><a href="{$U_PLUGINS}">{'Manage'|@translate}</a></li>
+      </ul>
+      <div id="pluginsMenuSeparator"></div>
+{if !empty($plugin_menu_items)}
+      <ul class="scroll">
+  {foreach from=$plugin_menu_items item=menu_item}
+        <li><a href="{$menu_item.URL}">{$menu_item.NAME}</a></li>
+  {/foreach}
+      </ul>
+{/if}
+    </dd>
+  </dl>
+  <dl>
+    <dt class="rdion"><span>{'Tools'|@translate}&nbsp;</span></dt>
     <dd>
       <ul>
         <li><a href="{$U_HISTORY_STAT}">{'History'|@translate}</a></li>
+        <li><a href="{$U_THUMBNAILS}">{'Thumbnails'|@translate}</a></li>
         <li><a href="{$U_MAINTENANCE}">{'Maintenance'|@translate}</a></li>
         <li><a href="{$U_ADVANCED_FEATURE}">{'Advanced features'|@translate}</a></li>
-        <li><a href="{$U_PLUGINS}">{'Plugins'|@translate}</a>
-        {if !empty($plugin_menu_items)}
-          <ul class="scroll">
-          {foreach from=$plugin_menu_items item=menu_item}
-            <li><a href="{$menu_item.URL}">{$menu_item.NAME}</a></li>
-          {/foreach}
-          </ul>
-        {/if}
-        </li>
+      </ul>
+    </dd>
+  </dl>
+  <dl class="last">
+    <dt class="rdion"><span>{'Configuration'|@translate}&nbsp;</span></dt>
+    <dd>
+      <ul>
+        <li><a href="{$U_CONFIG_GENERAL}">{'General'|@translate}</a></li>
+        <li><a href="{$U_CONFIG_DISPLAY}">{'Default display'|@translate}</a></li>
+        <li><a href="{$U_CONFIG_MENUBAR}">{'Menu'|@translate}</a></li>
+        <li><a href="{$U_CONFIG_EXTENTS}">{'Templates'|@translate}</a></li>
+        <li><a href="{$U_CONFIG_THEMES}">{'Themes'|@translate}</a></li>
       </ul>
     </dd>
   </dl>
