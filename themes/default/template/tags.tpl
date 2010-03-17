@@ -10,7 +10,7 @@
 			<li><a href="{$U_LETTERS}" title="{'letters'|@translate}" rel="nofollow"><img src="{$themeconf.icon_dir}/tag_letters.png" class="button" alt="{'letters'|@translate}"></a></li>
 		{/if}
 
-			<li><a href="{$U_HOME}" title="{'Home'|@translate}"><img src="{$themeconf.icon_dir}/Home.png" class="button" alt="{'Home'|@translate}"></a></li>
+			<li><a href="{$U_HOME}" title="{'Home'|@translate}"><img src="{$themeconf.icon_dir}/home.png" class="button" alt="{'Home'|@translate}"></a></li>
 		</ul>
 		<h2>{'Tags'|@translate}</h2>
   </div>

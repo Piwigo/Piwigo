@@ -6,7 +6,7 @@
       {if isset($U_REGISTER) }
       <li><a href="{$U_REGISTER}" title="{'Register'|@translate}"><img src="{$ROOT_URL}{$themeconf.icon_dir}/register.png" class="button" alt="{'Register'|@translate}"></a></li>
       {/if}
-      <li><a href="{$U_HOME}" title="{'Home'|@translate}"><img src="{$ROOT_URL}{$themeconf.icon_dir}/Home.png" class="button" alt="{'Home'|@translate}"></a></li>
+      <li><a href="{$U_HOME}" title="{'Home'|@translate}"><img src="{$ROOT_URL}{$themeconf.icon_dir}/home.png" class="button" alt="{'Home'|@translate}"></a></li>
     </ul>
     <h2>{'Identification'|@translate}</h2>
   </div>

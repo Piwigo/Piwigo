@@ -22,7 +22,7 @@
   <div class="titrePage">
     <ul class="categoryActions">
       <li><a href="{$U_HELP}" onclick="popuphelp(this.href); return false;" title="{'Help'|@translate}" rel="nofollow"><img src="{$ROOT_URL}{$themeconf.icon_dir}/help.png" class="button" alt="(?)"></a></li>
-      <li><a href="{$U_HOME}" title="{'Home'|@translate}" rel="Home"><img src="{$ROOT_URL}{$themeconf.icon_dir}/Home.png" class="button" alt="{'Home'|@translate}"></a></li>
+      <li><a href="{$U_HOME}" title="{'Home'|@translate}" rel="Home"><img src="{$ROOT_URL}{$themeconf.icon_dir}/home.png" class="button" alt="{'Home'|@translate}"></a></li>
     </ul>
     <h2>{'Search'|@translate}</h2>
   </div>
