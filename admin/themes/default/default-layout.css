@@ -747,3 +747,6 @@ BODY#thePopuphelpPage {
 #themesContent H3 {font-size:16px; text-align:left; border-bottom:1px solid #444; letter-spacing:1px; margin:5px;}
 
 .themeBoxes {min-height:300px;}
+
+h2 { letter-spacing:2px; font-weight:bold;}
+h2:lang(en) { text-transform:capitalize; }
