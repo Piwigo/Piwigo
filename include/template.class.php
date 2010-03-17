@@ -98,7 +98,7 @@ class Template {
 
     include($root.'/'.$theme.'/themeconf.inc.php');
 
-    if (isset($themeconf['parent']))
+    if (isset($themeconf['parent']) and $themeconf['parent'] != $theme)
     {
       $this->set_theme($root, $themeconf['parent'], $path);
     }
