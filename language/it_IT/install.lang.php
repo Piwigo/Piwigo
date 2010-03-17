@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | Piwigo - a PHP based picture gallery                                  |
 // +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2009 Piwigo Team                  http://piwigo.org |
+// | Copyright(C) 2008-2010 Piwigo Team                  http://piwigo.org |
 // | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
 // | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
 // +-----------------------------------------------------------------------+
@@ -21,60 +21,58 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
-$lang['Installation'] = 'Installazione';
-$lang['Initial_config'] = 'Configurazione di base';
-$lang['Default_lang'] = 'Linguaggio di default della galleria';
-$lang['step1_title'] = 'Configurazione della base dati';
-$lang['step2_title'] = 'Configurazione del utente "Amministratore"';
-$lang['Start_Install'] = 'Inizia l\'installazione';
-$lang['reg_err_mail_address'] = 'L\'indirizzo email deve essere del tipo xxx@yyy.eee (ad esempio: cippalippa@libero.rio)';
 
-$lang['install_webmaster'] = 'Amministratore';
-$lang['install_webmaster_info'] = 'verrà mostrato ai visitatori. È necessario per l\'amministrazione del sito';
 
-$lang['step1_confirmation'] = 'I parametri sono corretti';
-$lang['step1_err_db'] = 'Connessione al server riuscita. Non è stato però possibile connettersi alla base dati';
-$lang['step1_err_server'] = 'Non è stato possibile connettersi al server';
-
-$lang['step1_dbengine'] = 'Tipo di Database';
-$lang['step1_dbengine_info'] = 'La base dati da utilizzare per installare Piwigo';
-$lang['step1_host'] = 'Host';
-$lang['step1_host_info'] = 'localhost, sql.multimania.com, pluto.libero.it';
-$lang['step1_user'] = 'Utente';
-$lang['step1_user_info'] = 'nome utente di login alla base dati fornito dal tuo provider';
-$lang['step1_pass'] = 'Password';
-$lang['step1_pass_info'] = 'La password d\'accesso alla base dati fornita dal tuo provider';
-$lang['step1_database'] = 'Nome della base dati';
-$lang['step1_database_info'] = 'fornitovi dal provider';
-$lang['step1_prefix'] = 'Prefisso delle tabelle della base dati';
-$lang['step1_prefix_info'] = 'Le tabelle della base dati lo avranno come prefisso (permette di gestire meglio le tabelle)';
-$lang['step2_err_login1'] = 'Inserire un nome utente per il webmaster';
-$lang['step2_err_login3'] = 'Il nome utente del webmaster non può contenere caratteri come \' o "';
-$lang['step2_err_pass'] = 'Reinserire la password';
-$lang['install_end_title'] = 'Installazione completata';
-$lang['step2_pwd'] = 'Password';
-$lang['step2_pwd_info'] = 'da conservare con cura. Permette l\'accesso al pannello di amministrazione';
-$lang['step2_pwd_conf'] = 'Password [confermare]';
-$lang['step2_pwd_conf_info'] = 'verifica';
-$lang['step1_err_copy'] = 'Copiate il testo in rosa trà i trattini e mettetelo nel file config_database.inc.php che si trova nella directory "include" alla base del vostro sito dove aveto installato Piwigo (il file config_database.inc.php non deve contenere altro che ciò che è in rosa tra i trattini, nessun ritorno a capo o spazio è autorizzato)';
-$lang['install_help'] = 'Bisogno di un aiuto? Visitate il <a href="%s">forum di Piwigo</a>.';
-$lang['install_end_message'] = 'La configurazione di Piwigo è conclusa. Procedete al prossimo step<br><br>
-* collegatevi alla pagina d\'accesso e usare come nome d\'utente e password quello del Webmaster<br>
-* a questo punto sarete abilitati all\'accesso al pannello di amministrazione in cui troverete le istruzioni per l\'inserimento delle immagini nelle vostre directory';
-$lang['conf_mail_webmaster'] = 'Indirizzo email del Amministratore';
-$lang['conf_mail_webmaster_info'] = 'i visitatori potranno contattarvi utilizzando questo indirizzo email';
-
-$lang['PHP 5 is required'] = 'È necessario PHP 5';
-$lang['It appears your webhost is currently running PHP %s.'] = 'Sembrerebbe che la versione del vostro server è PHP %s.';
-$lang['Piwigo may try to switch your configuration to PHP 5 by creating or modifying a .htaccess file.'] = 'Piwigo cerchrà di passare in PHP 5 creando o modificando il file .htaccess.';
-$lang['Note you can change your configuration by yourself and restart Piwigo after that.'] = 'Notate che potete cambiare manualmente la configurazione e rilanciare Piwigo.';
-$lang['Try to configure PHP 5'] = 'Provate a configuratre PHP 5';
-$lang['Sorry!'] = 'Spiacente!';
-$lang['Piwigo was not able to configure PHP 5.'] = 'Piwigo non a potuto configurare PHP 5.';
-$lang["You may referer to your hosting provider's support and see how you could switch to PHP 5 by yourself."] = 'Dovete contattare il votro provider per chiedere come configurare PHP 5.';
-$lang['Hope to see you back soon.'] = 'Sperando rivedervi prossimamente ...';
-
-$lang['step1_err_copy_2'] = 'Il prossimo step d\'installazione è oramail possibile';
-$lang['step1_err_copy_next'] = 'step successivo';
-
+$lang['Installation'] = "Installazione";
+$lang['Basic configuration'] = "Configurazione di base";
+$lang['Default gallery language'] = "Linguaggio di default della galleria";
+$lang['Database configuration'] = "Configurazione della base dati";
+$lang['Admin configuration'] = "Configurazione del utente \"Amministratore\"";
+$lang['Start Install'] = "Inizia l'installazione";
+$lang['mail address must be like xxx@yyy.eee (example : jack@altern.org)'] = "L'indirizzo email deve essere del tipo xxx@yyy.eee (ad esempio: cippalippa@libero.rio)";
+$lang['Webmaster login'] = "Amministratore";
+$lang['It will be shown to the visitors. It is necessary for website administration'] = "verrà mostrato ai visitatori. È necessario per l'amministrazione del sito";
+$lang['Parameters are correct'] = "I parametri sono corretti";
+$lang['Connection to server succeed, but it was impossible to connect to database'] = "Connessione al server riuscita. Non è stato però possibile connettersi alla base dati";
+$lang['Can\'t connect to server'] = "Non è stato possibile connettersi al server";
+$lang['The next step of the installation is now possible'] = "Il prossimo step d'installazione è oramail possibile";
+$lang['next step'] = "step successivo";
+$lang['Copy the text in pink between hyphens and paste it into the file "include/config_database.inc.php"(Warning : config_database.inc.php must only contain what is in pink, no line return or space character)'] = "Copiate il testo in rosa trà i trattini e mettetelo nel file config_database.inc.php che si trova nella directory \"include\" alla base del vostro sito dove aveto installato Piwigo (il file config_database.inc.php non deve contenere altro che ciò che è in rosa tra i trattini, nessun ritorno a capo o spazio è autorizzato)";
+$lang['Database type'] = "Tipo di Database";
+$lang['The type of database your piwigo data will be store in'] = "La base dati da utilizzare per installare Piwigo";
+$lang['Host'] = "Host";
+$lang['localhost, sql.multimania.com, toto.freesurf.fr'] = "localhost, sql.multimania.com, pluto.libero.it";
+$lang['User'] = "Utente";
+$lang['user login given by your host provider'] = "nome utente di login alla base dati fornito dal tuo provider";
+$lang['Password'] = "Password";
+$lang['user password given by your host provider'] = "La password d'accesso alla base dati fornita dal tuo provider";
+$lang['Database name'] = "Nome della base dati";
+$lang['also given by your host provider'] = "fornitovi dal provider";
+$lang['Database table prefix'] = "Prefisso delle tabelle della base dati";
+$lang['database tables names will be prefixed with it (enables you to manage better your tables)'] = "Le tabelle della base dati lo avranno come prefisso (permette di gestire meglio le tabelle)";
+$lang['enter a login for webmaster'] = "Inserire un nome utente per il webmaster";
+$lang['webmaster login can\'t contain characters \' or "'] = "Il nome utente del webmaster non può contenere caratteri come ' o \"";
+$lang['please enter your password again'] = "Reinserire la password";
+$lang['Installation finished'] = "Installazione completata";
+$lang['Webmaster password'] = "Password";
+$lang['Keep it confidential, it enables you to access administration panel'] = "da conservare con cura. Permette l'accesso al pannello di amministrazione";
+$lang['Password [confirm]'] = "Password [confermare]";
+$lang['verification'] = "verifica";
+$lang['Need help ? Ask your question on <a href="%s">Piwigo message board</a>.'] = "Bisogno di un aiuto? Visitate il <a href=\"%s\">forum di Piwigo</a>.";
+$lang['The configuration of Piwigo is finished, here is the next step<br><br>
+* go to the identification page and use the login/password given for webmaster<br>
+* this login will enable you to access to the administration panel and to the instructions in order to place pictures in your directories'] = "La configurazione di Piwigo è conclusa. Procedete al prossimo step<br><br>
+* collegatevi alla pagina d'accesso e usare come nome d'utente e password quello del Webmaster<br>
+* a questo punto sarete abilitati all'accesso al pannello di amministrazione in cui troverete le istruzioni per l'inserimento delle immagini nelle vostre directory";
+$lang['Webmaster mail address'] = "Indirizzo email del Amministratore";
+$lang['Visitors will be able to contact site administrator with this mail'] = "i visitatori potranno contattarvi utilizzando questo indirizzo email";
+$lang['PHP 5 is required'] = "È necessario PHP 5";
+$lang['It appears your webhost is currently running PHP %s.'] = "Sembrerebbe che la versione del vostro server è PHP %s.";
+$lang['Piwigo may try to switch your configuration to PHP 5 by creating or modifying a .htaccess file.'] = "Piwigo cerchrà di passare in PHP 5 creando o modificando il file .htaccess.";
+$lang['Note you can change your configuration by yourself and restart Piwigo after that.'] = "Notate che potete cambiare manualmente la configurazione e rilanciare Piwigo.";
+$lang['Try to configure PHP 5'] = "Provate a configuratre PHP 5";
+$lang['Sorry!'] = "Spiacente!";
+$lang['Piwigo was not able to configure PHP 5.'] = "Piwigo non a potuto configurare PHP 5.";
+$lang['You may referer to your hosting provider\'s support and see how you could switch to PHP 5 by yourself.'] = "Dovete contattare il votro provider per chiedere come configurare PHP 5.";
+$lang['Hope to see you back soon.'] = "Sperando rivedervi prossimamente ...";
 ?>

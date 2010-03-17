@@ -30,7 +30,6 @@ include_once( PHPWG_ROOT_PATH .'include/functions_html.inc.php' );
 include_once( PHPWG_ROOT_PATH .'include/functions_tag.inc.php' );
 include_once( PHPWG_ROOT_PATH .'include/functions_url.inc.php' );
 include_once( PHPWG_ROOT_PATH .'include/functions_plugins.inc.php' );
-include_once( PHPWG_ROOT_PATH .'include/php-gettext/gettext.inc.php' );
 
 //----------------------------------------------------------- generic functions
 function get_extra_fields($order_by_fields) 
@@ -872,26 +871,14 @@ function get_name_from_file($filename)
  */
 function l10n($key, $textdomain='messages')
 {
-  global $user;
+  global $lang, $conf;
 
-  if (empty($user['language']))
+  if ($conf['debug_l10n'] and !isset($lang[$key]) and !empty($key))
   {
-    $locale = $GLOBALS['language'];
-  } 
-  else 
-  {
-    $locale = $user['language'];
+    trigger_error('[l10n] language key "'.$key.'" is not defined', E_USER_WARNING);
   }
 
-  T_setlocale(LC_ALL, $locale.'.UTF-8');
-
-  // Specify location of translation tables
-  T_bindtextdomain($textdomain, "./language");
-
-  // Choose domain
-  T_textdomain($textdomain);
-  
-  return T_gettext($key);
+  return isset($lang[$key]) ? $lang[$key] : $key;
 }
 
 /**
@@ -903,33 +890,17 @@ function l10n($key, $textdomain='messages')
  * @param decimal value
  * @return string
  */
-function l10n_dec($singular_fmt_key, $plural_fmt_key, 
-		  $decimal, $textdomain='messages')
+function l10n_dec($singular_fmt_key, $plural_fmt_key, $decimal)
 {
-  global $user;
+  global $lang_info;
 
-  if (empty($user['language']))
-  {
-    $locale = $GLOBALS['language'];
-  } 
-  else 
-  {
-    $locale = $user['language'];
-  }
-
-  T_setlocale(LC_ALL, $locale.'.UTF-8');
-
-  // Specify location of translation tables
-  T_bindtextdomain($textdomain, "./language");
-
-  // Choose domain
-  T_textdomain($textdomain);
-
-  return sprintf(T_ngettext($singular_fmt_key, 
-			    $plural_fmt_key, 
-			    $decimal),
-		 $decimal
-		 );
+  return
+    sprintf(
+      l10n((
+        (($decimal > 1) or ($decimal == 0 and $lang_info['zero_plural']))
+          ? $plural_fmt_key
+          : $singular_fmt_key
+        )), $decimal);
 }
 
 /*

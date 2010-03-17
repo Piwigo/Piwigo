@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | Piwigo - a PHP based picture gallery                                  |
 // +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2009 Piwigo Team                  http://piwigo.org |
+// | Copyright(C) 2008-2010 Piwigo Team                  http://piwigo.org |
 // | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
 // | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
 // +-----------------------------------------------------------------------+
@@ -21,24 +21,24 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
-$lang['Upgrade'] = 'Upgrade';
-$lang['introduction message'] = 'This page proposes to upgrade your database corresponding to your old version of Piwigo to the current version.
-The upgrade assistant thinks you are currently running a <strong>release %s</strong> (or equivalent).';
-$lang['Upgrade from %s to %s'] = 'Upgrade from version %s to %s';
-$lang['Statistics'] = 'Statistics';
-$lang['total upgrade time'] = 'total upgrade time';
-$lang['total SQL time'] = 'total SQL time';
-$lang['SQL queries'] = 'SQL queries';
-$lang['Upgrade informations'] = 'Upgrade informations';
-$lang['perform a maintenance check'] = 'Perform a maintenance check in [Administration>Specials>Maintenance] if you encounter any problem.';
-$lang['deactivated plugins'] = 'As a precaution, following plugins have been deactivated. You must check for plugins upgrade before reactiving them:';
-$lang['upgrade login message'] = 'Only administrator can run upgrade: please sign in below.';
-$lang['You do not have access rights to run upgrade'] = 'You do not have access rights to run upgrade';
-$lang['in include/config_database.inc.php, before ?>, insert:'] = 'In <i>include/config_database.inc.php</i>, before <b>?></b>, insert:';
 
-// Upgrade informations from upgrade_1.3.1.php
-$lang['all sub-categories of private categories become private'] = 'All sub-categories of private categories become private';
-$lang['user permissions and group permissions have been erased'] = 'User permissions and group permissions have been erased';
-$lang['only thumbnails prefix and webmaster mail saved'] = 'Only thumbnails prefix and webmaster mail address have been saved from previous configuration';
 
+$lang['Upgrade'] = "Upgrade";
+$lang['This page proposes to upgrade your database corresponding to your old version of Piwigo to the current version.
+The upgrade assistant thinks you are currently running a <strong>release %s</strong> (or equivalent).'] = "This page proposes to upgrade your database corresponding to your old version of Piwigo to the current version.
+The upgrade assistant thinks you are currently running a <strong>release %s</strong> (or equivalent).";
+$lang['Upgrade from version %s to %s'] = "Upgrade from version %s to %s";
+$lang['Statistics'] = "Statistics";
+$lang['total upgrade time'] = "total upgrade time";
+$lang['total SQL time'] = "total SQL time";
+$lang['SQL queries'] = "SQL queries";
+$lang['Upgrade informations'] = "Upgrade informations";
+$lang['Perform a maintenance check in [Administration>Specials>Maintenance] if you encounter any problem.'] = "Perform a maintenance check in [Administration>Specials>Maintenance] if you encounter any problem.";
+$lang['As a precaution, following plugins have been deactivated. You must check for plugins upgrade before reactiving them:'] = "As a precaution, following plugins have been deactivated. You must check for plugins upgrade before reactiving them:";
+$lang['Only administrator can run upgrade: please sign in below.'] = "Only administrator can run upgrade: please sign in below.";
+$lang['You do not have access rights to run upgrade'] = "You do not have access rights to run upgrade";
+$lang['In <i>include/config_database.inc.php</i>, before <b>?></b>, insert:'] = "In <i>include/config_database.inc.php</i>, before <b>?></b>, insert:";
+$lang['All sub-categories of private categories become private'] = "All sub-categories of private categories become private";
+$lang['User permissions and group permissions have been erased'] = "User permissions and group permissions have been erased";
+$lang['Only thumbnails prefix and webmaster mail address have been saved from previous configuration'] = "Only thumbnails prefix and webmaster mail address have been saved from previous configuration";
 ?>

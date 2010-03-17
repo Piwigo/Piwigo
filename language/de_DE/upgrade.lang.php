@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | Piwigo - a PHP based picture gallery                                  |
 // +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2009 Piwigo Team                  http://piwigo.org |
+// | Copyright(C) 2008-2010 Piwigo Team                  http://piwigo.org |
 // | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
 // | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
 // +-----------------------------------------------------------------------+
@@ -21,24 +21,24 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
-$lang['Upgrade'] = 'Upgrade';
-$lang['introduction message'] = 'Diese Seite schlägt vor aktualisieren Ihre Datenbank von Ihre alte Version von Piwigo auf die aktuelle Version.
-Der Upgrade-Assistent denkt Sie derzeit ein <strong>Freigabe %s</strong> (oder gleichwertig).';
-$lang['Upgrade from %s to %s'] = 'Upgrade von Version %s bis %s';
-$lang['Statistics'] = 'Statistik';
-$lang['total upgrade time'] = 'insgesamt Upgrade-Zeit';
-$lang['total SQL time'] = 'insgesamt SQL-Zeit';
-$lang['SQL queries'] = 'SQL-Abfragen';
-$lang['Upgrade informations'] = 'Upgrade-Informationen';
-$lang['perform a maintenance check'] = 'Führen Sie einen Wartungs-Check am [Administration> Specials> Wartung], wenn Sie auf ein Problem stoßen';
-$lang['deactivated plugins'] = 'Als Vorsichtsmaßnahme folgenden Plugins wurden deaktiviert. Sie müssen prüfen, ob Plugins aktualisieren, bevor sie reactiving:';
-$lang['upgrade login message'] = 'Nur Administrator können Upgrade ausführen : Bitte melden Sie sich an unter.';
-$lang['You do not have access rights to run upgrade'] = 'Sie haben nicht das Recht auf Zugang zum Upgrade ausführen';
-$lang['in include/config_database.inc.php, before ?>, insert:'] = 'In <i>include/config_database.inc.php</i>, vor <b>?></b>, wird Folgendes eingefügt:';
 
-// Upgrade informations from upgrade_1.3.1.php
-$lang['all sub-categories of private categories become private'] = 'Alle Unter-Kategorien von privaten Gruppen wirden privaten';
-$lang['user permissions and group permissions have been erased'] = 'Benutzer und Gruppen Berechtigungen wurden gelöscht';
-$lang['only thumbnails prefix and webmaster mail saved'] = 'Nur Miniaturansichten Präfix und Webmaster Mail-Adresse gespeichert wurden aus früheren Konfiguration';
 
+$lang['Upgrade'] = "Upgrade";
+$lang['This page proposes to upgrade your database corresponding to your old version of Piwigo to the current version.
+The upgrade assistant thinks you are currently running a <strong>release %s</strong> (or equivalent).'] = "Diese Seite schlägt vor aktualisieren Ihre Datenbank von Ihre alte Version von Piwigo auf die aktuelle Version.
+Der Upgrade-Assistent denkt Sie derzeit ein <strong>Freigabe %s</strong> (oder gleichwertig).";
+$lang['Upgrade from version %s to %s'] = "Upgrade von Version %s bis %s";
+$lang['Statistics'] = "Statistik";
+$lang['total upgrade time'] = "insgesamt Upgrade-Zeit";
+$lang['total SQL time'] = "insgesamt SQL-Zeit";
+$lang['SQL queries'] = "SQL-Abfragen";
+$lang['Upgrade informations'] = "Upgrade-Informationen";
+$lang['Perform a maintenance check in [Administration>Specials>Maintenance] if you encounter any problem.'] = "Führen Sie einen Wartungs-Check am [Administration> Specials> Wartung], wenn Sie auf ein Problem stoßen";
+$lang['As a precaution, following plugins have been deactivated. You must check for plugins upgrade before reactiving them:'] = "Als Vorsichtsmaßnahme folgenden Plugins wurden deaktiviert. Sie müssen prüfen, ob Plugins aktualisieren, bevor sie reactiving:";
+$lang['Only administrator can run upgrade: please sign in below.'] = "Nur Administrator können Upgrade ausführen : Bitte melden Sie sich an unter.";
+$lang['You do not have access rights to run upgrade'] = "Sie haben nicht das Recht auf Zugang zum Upgrade ausführen";
+$lang['In <i>include/config_database.inc.php</i>, before <b>?></b>, insert:'] = "In <i>include/config_database.inc.php</i>, vor <b>?></b>, wird Folgendes eingefügt:";
+$lang['All sub-categories of private categories become private'] = "Alle Unter-Kategorien von privaten Gruppen wirden privaten";
+$lang['User permissions and group permissions have been erased'] = "Benutzer und Gruppen Berechtigungen wurden gelöscht";
+$lang['Only thumbnails prefix and webmaster mail address have been saved from previous configuration'] = "Nur Miniaturansichten Präfix und Webmaster Mail-Adresse gespeichert wurden aus früheren Konfiguration";
 ?>
