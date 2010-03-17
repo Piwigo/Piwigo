@@ -164,6 +164,8 @@ include(PHPWG_ROOT_PATH.'admin/'.$page['page'].'.php');
 // |                            errors & infos                             |
 // +-----------------------------------------------------------------------+
 
+$template->assign('ACTIVE_MENU', get_active_menu($page['page']));
+
 if (count($page['errors']) != 0)
 {
   $template->assign('errors', $page['errors']);

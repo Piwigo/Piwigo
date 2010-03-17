@@ -1905,4 +1905,80 @@ function get_newsletter_subscribe_base_url($language) {
 
   return 'http://'.$subscribe_domain.'/announcement/subscribe/';
 }
+
+/**
+ * Accordion menus need to know which section to open by default when
+ * loading the page
+ */
+function get_active_menu($menu_page)
+{
+  global $page;
+
+  if (isset($page['active_menu']))
+  {
+    return $page['active_menu'];
+  }
+
+  // specific cases
+  if ('element_set' == $menu_page)
+  {
+    if (isset($_GET['cat']) and is_numeric($_GET['cat']))
+    {
+      return 1;
+    }
+    else
+    {
+      return 0;
+    }
+  }
+  
+  switch ($menu_page)
+  {
+    case 'photos_add':
+    case 'upload':
+    case 'comments': // really needs to be moved somewhere else
+    case 'rating':
+    case 'tags':
+    case 'picture_modify':
+      return 0;
+
+    case 'site_manager':
+    case 'site_update':
+    case 'cat_list':
+    case 'cat_modify':
+    case 'cat_move':
+    case 'cat_options':
+    case 'cat_perm':
+    case 'permalinks':
+      return 1;
+      
+    case 'user_list':
+    case 'user_perm':
+    case 'group_list':
+    case 'group_perm':
+    case 'notification_by_mail':
+      return 2;
+
+    case 'plugins_list':
+    case 'plugins_update':
+    case 'plugins_new':
+    case 'plugin':
+      return 3;
+      
+    case 'stats':
+    case 'history':
+    case 'maintenance':
+    case 'advanced_feature':
+    case 'thumbnail':
+      return 4;
+
+    case 'configuration':
+    case 'extend_for_templates':
+    case 'menubar':
+    case 'themes_new':
+    case 'themes_installed':
+      return 5;
+  }
+  return 0;
+}
 ?>

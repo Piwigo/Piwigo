@@ -7,7 +7,7 @@ jQuery().ready(function(){ldelim}
   jQuery('#menubar').accordion({ldelim}
     header: "dt.rdion",
     event: "click",
-    active: {$U_ACTIVE_MENU|default:$themeconf.selected_admin_menu}
+    active: {$ACTIVE_MENU}
   });
 });
 </script>
