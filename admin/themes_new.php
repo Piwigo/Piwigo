@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | Piwigo - a PHP based picture gallery                                  |
 // +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2009 Piwigo Team                  http://piwigo.org |
+// | Copyright(C) 2008-2010 Piwigo Team                  http://piwigo.org |
 // | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
 // | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
 // +-----------------------------------------------------------------------+
@@ -26,11 +26,12 @@ if( !defined("PHPWG_ROOT_PATH") )
   die ("Hacking attempt!");
 }
 
-include_once(PHPWG_ROOT_PATH.'admin/include/plugins.class.php');
+include_once(PHPWG_ROOT_PATH.'admin/include/themes.class.php');
 
 $base_url = get_root_url().'admin.php?page='.$page['page'];
 
-$themes = new plugins();
+$themes = new themes();
+$themes->set_tabsheet('themes_new');
 
 // +-----------------------------------------------------------------------+
 // |                           setup check                                 |
@@ -54,11 +55,10 @@ if (!is_writable($themes_dir))
 
 if (isset($_GET['revision']) and isset($_GET['extension']) and !is_adviser())
 {
-  $install_status = $themes->extract_plugin_files(
+  $install_status = $themes->extract_theme_files(
     'install',
     $_GET['revision'],
-    $_GET['extension'],
-    'theme'
+    $_GET['extension']
     );
   
   redirect($base_url.'&installstatus='.$install_status);
@@ -105,9 +105,9 @@ if (isset($_GET['installstatus']))
 
 $template->set_filenames(array('themes' => 'themes_new.tpl'));
 
-if ($themes->get_server_plugins(true, 'theme'))
+if ($themes->get_server_themes(true)) // only new themes
 {
-  foreach($themes->server_plugins as $theme)
+  foreach($themes->server_themes as $theme)
   {
     $url_auto_install = htmlentities($base_url)
       . '&amp;revision=' . $theme['revision_id']
@@ -118,7 +118,7 @@ if ($themes->get_server_plugins(true, 'theme'))
       'new_themes',
       array(
         'name' => $theme['extension_name'],
-        'src' => PEM_URL.'/upload/extension-'.$theme['extension_id'].'/thumbnail.jpg',
+        'screenshot' => PEM_URL.'/upload/extension-'.$theme['extension_id'].'/thumbnail.jpg',
         'install_url' => $url_auto_install,
         )
       );

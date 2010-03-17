@@ -293,6 +293,18 @@ CREATE TABLE `piwigo_tags` (
 ) TYPE=MyISAM;
 
 --
+-- Table structure for table `piwigo_themes`
+--
+
+DROP TABLE IF EXISTS `piwigo_themes`;
+CREATE TABLE `piwigo_themes` (
+  `id` varchar(64) NOT NULL default '',
+  `version` varchar(64) NOT NULL default '0',
+  `name` varchar(64) default NULL,
+  PRIMARY KEY  (`id`)
+) TYPE=MyISAM;
+
+--
 -- Table structure for table `piwigo_upgrade`
 --
 

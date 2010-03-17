@@ -737,8 +737,13 @@ BODY#thePopuphelpPage {
   height: 4em;    /* legend height (don't set auto to be Gecko friendly)*/
 }
 
-.themeBox {float:left; text-align:center; height:170px; background-color:#eee; margin:5px; -moz-border-radius:5px;}
+.themeBox {float:left; text-align:center; height:180px; background-color:#eee; margin:5px; -moz-border-radius:5px;}
 .themeBox IMG {border:1px solid white; margin:0 15px;}
 .themeName {font-size:1.1em; margin:5px 0;}
-.themeActions {margin:5px 0;}
-.themeActions A {display:block;}
+.themeActions {margin:5px 0; font-size:12px;}
+.themeActions A {}
+
+#themesContent .themeBox IMG {width:150px; height:120px;}
+#themesContent H3 {font-size:16px; text-align:left; border-bottom:1px solid #444; letter-spacing:1px; margin:5px;}
+
+.themeBoxes {min-height:300px;}

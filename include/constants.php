@@ -24,7 +24,9 @@
 // Default settings
 define('PHPWG_VERSION', 'Colibri');
 define('PHPWG_DEFAULT_LANGUAGE', 'en_UK');
-define('PHPWG_DEFAULT_TEMPLATE', 'yoga/Sylvia');
+define('PHPWG_DEFAULT_TEMPLATE', 'Sylvia');
+
+define('PHPWG_THEMES_PATH', $conf['themes_dir'].'/');
 
 // Required versions
 define('REQUIRED_PHP_VERSION', '5.0.0');
@@ -97,5 +99,7 @@ if (!defined('PLUGINS_TABLE'))
   define('PLUGINS_TABLE', $prefixeTable.'plugins');
 if (!defined('OLD_PERMALINKS_TABLE'))
   define('OLD_PERMALINKS_TABLE', $prefixeTable.'old_permalinks');
+if (!defined('THEMES_TABLE'))
+  define('THEMES_TABLE', $prefixeTable.'themes');
 
 ?>

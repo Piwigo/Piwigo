@@ -257,15 +257,8 @@ function load_profile_in_template($url_action, $url_redirect, $userdata)
       'F_ACTION'=>$url_action,
       ));
 
-  foreach (get_pwg_themes() as $pwg_theme)
-  {
-    if (isset($_POST['submit']) or $userdata['theme'] == $pwg_theme)
-    {
-      $template->assign('template_selection', $pwg_theme);
-    }
-    $template_options[$pwg_theme] = $pwg_theme;
-  }
-  $template->assign('template_options', $template_options);
+  $template->assign('template_selection', $userdata['theme']);
+  $template->assign('template_options', get_pwg_themes());
 
   foreach (get_languages() as $language_code => $language_name)
   {

@@ -713,21 +713,24 @@ function url_is_remote($url)
  */
 function get_pwg_themes()
 {
-  global $conf;
   $themes = array();
 
-  $template_dir = PHPWG_ROOT_PATH.'themes';
-
-  foreach (get_dirs($template_dir) as $theme)
+  $query = '
+SELECT
+    id,
+    name
+  FROM '.THEMES_TABLE.'
+  ORDER BY name ASC
+;';
+  $result = pwg_query($query);
+  while ($row = pwg_db_fetch_assoc($result))
   {
-    if ( $theme != 'default' )
-	  {
-      array_push($themes, $theme);
-	  }
+    $themes[ $row['id'] ] = $row['name'];
   }
 
   // plugins want remove some themes based on user status maybe?
   $themes = trigger_event('get_pwg_themes', $themes);
+  
   return $themes;
 }
 
