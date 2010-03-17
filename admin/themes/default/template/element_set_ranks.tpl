@@ -12,7 +12,7 @@
   handle: $('.rank-of-image').add('.rank-of-image img'),
   update: function() {
   $(this).find('li').each(function(i) { 
-  $(this).find("input[@name~='rank_of_image']")
+  $(this).find("input[name^=rank_of_image]")
   .each(function() { $(this).attr('value', (i+1)*10)});
   });
   }
