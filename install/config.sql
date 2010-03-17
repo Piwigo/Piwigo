@@ -32,3 +32,7 @@ INSERT INTO piwigo_config (param,value,comment) VALUES ('upload_link_everytime',
 INSERT INTO piwigo_config (param,value,comment) VALUES ('upload_user_access',2 /*ACCESS_CLASSIC*/,'User access level to upload');
 INSERT INTO piwigo_config (param,value,comment) VALUES ('extents_for_templates','a:0:{}','Actived template-extension(s)');
 INSERT INTO piwigo_config (param,value,comment) VALUES ('blk_menubar','','Menubar options');
+
+INSERT INTO piwigo_themes (id) VALUES ('Sylvia');
+INSERT INTO piwigo_themes (id) VALUES ('clear');
+INSERT INTO piwigo_themes (id) VALUES ('dark');
