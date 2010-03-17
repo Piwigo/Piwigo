@@ -39,9 +39,6 @@ $tabsheet = new tabsheet();
 $tabsheet->add('localconf',
                l10n('locfiledit_onglet_localconf'),
                $my_base_url.'&amp;tab=localconf');
-$tabsheet->add('css',
-               l10n('locfiledit_onglet_css'),
-               $my_base_url.'&amp;tab=css');
 $tabsheet->add('tpl',
                l10n('locfiledit_onglet_tpl'),
                $my_base_url.'&amp;tab=tpl');
@@ -141,35 +138,6 @@ switch ($page['tab'])
     $editarea_options['syntax'] = 'php';
     break;
 
-  case 'css':
-    $template_dir = PHPWG_ROOT_PATH . 'template';
-    $selected = 0; 
-    $options[] = l10n('locfiledit_choose_file');
-    $options[] = '----------------------';
-    $value = PHPWG_ROOT_PATH . "template-common/local-layout.css";
-    $options[$value] = 'template-common / local-layout.css';
-    if ($edited_file == $value) $selected = $value;
-	
-    foreach (get_dirs($template_dir) as $pwg_template)
-    {
-      $options[] = '----------------------';
-      $value = $template_dir . '/' . $pwg_template . '/local-layout.css';
-      $options[$value] = $pwg_template . ' / local-layout.css';
-      if ($edited_file == $value) $selected = $value;
-      $options[] = '----------------------';
-      foreach (get_dirs($template_dir.'/'.$pwg_template.'/theme') as $theme)
-      {
-        $value = $template_dir.'/'.$pwg_template.'/theme/'.$theme.'/theme.css';
-        $options[$value] = $pwg_template . ' / ' . $theme . ' / theme.css';
-        if ($edited_file == $value) $selected = $value;
-      }
-    }
-    $template->assign('css_lang_tpl', array(
-        'OPTIONS' => $options,
-        'SELECTED' => $selected));
-    $editarea_options['syntax'] = 'css';
-    break;
-  
   case 'tpl':
     // New file form creation
     if ($newfile_page and !is_adviser())

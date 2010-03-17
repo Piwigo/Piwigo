@@ -1,5 +1,6 @@
 editAreaLoader.load_syntax["css"] = {
-	'COMMENT_SINGLE' : {1 : '@'}
+	'DISPLAY_NAME' : 'CSS'
+	,'COMMENT_SINGLE' : {1 : '@'}
 	,'COMMENT_MULTI' : {'/*' : '*/'}
 	,'QUOTEMARKS' : ['"', "'"]
 	,'KEYWORD_CASE_SENSITIVE' : false

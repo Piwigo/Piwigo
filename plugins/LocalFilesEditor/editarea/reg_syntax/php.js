@@ -1,5 +1,6 @@
 editAreaLoader.load_syntax["php"] = {
-	'COMMENT_SINGLE' : {1 : '//', 2 : '#'}
+	'DISPLAY_NAME' : 'Php'
+	,'COMMENT_SINGLE' : {1 : '//', 2 : '#'}
 	,'COMMENT_MULTI' : {'/*' : '*/'}
 	,'QUOTEMARKS' : {1: "'", 2: '"'}
 	,'KEYWORD_CASE_SENSITIVE' : false
