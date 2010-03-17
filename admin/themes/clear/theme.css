@@ -27,13 +27,13 @@ body { margin: 0; padding: 0; background:#eeeeee }
 #headbranch { width: 233px; height: 240px; margin: 0; padding: 0;
 position:absolute; left:0px; top:0px; z-index: 0; 
 background:transparent }
-#theHeader { height:40px; margin: 0; padding: 0;
+#theHeader { display:none; height:40px; margin: 0; padding: 0;
 background:transparent }
 h3, #imageToolBar a:hover, .row2, .content { background-color: #ddd; }
 .throw, .row1 { background-color:#eee; }
 .throw em { font-style: normal; color: #0cc9c; }
-#content { background: #ddd; min-height: 467px; border: 1px solid}
-.content { padding:5px 5px 5px 5px; margin: 0 10px 0 252px; z-index:99; }
+#content { background: #ddd; min-height: 467px;}
+.content { padding:0 5px 5px; margin: 0 10px 0 252px; z-index:99; }
 .content h3 { font-size:20px; letter-spacing:-0.4px; margin:0 20px 12px 0;
  text-align:center; background:none; border: 0; }
 .content h3 ~ h3{ margin-top: 40px; }
@@ -105,20 +105,26 @@ text-align:center; top:0; width:100%; z-index:99; }
 list-style-type:none; text-align:center; text-indent:0pt; }
 #content.content div.comment a.illustration{ margin-right: 30px;}
 /* tabsheets are often used in admin  pages => No specific css files */
-.tabsheet { 
-background-color:transparent; border:0; display:table; float:right; 
-font-family:verdana,arial,helvetica,sans-serif; font-size:8px; line-height:14px; 
+.tabsheet {
+background-color:#eee; border:0px none; border-bottom:1px solid #777; display:table;
+font-family:verdana,arial,helvetica,sans-serif; font-size:8px;
 list-style-image:none; padding: 0; position:relative; text-decoration:none;
-top:-2px; white-space:nowrap; margin: 0 25px 0 0;}
-.tabsheet li { background:transparent;
-float:left; margin:0 2px 0 0; overflow:hidden; text-align:right; }
-.tabsheet a { 
-color:#999; display:block; font-size:11px; border:0;
-font-weight: bold; height:18px; overflow:hidden; padding:8px 7px 5px 15px; line-height: 18px;
-text-align: right; text-decoration:none; margin: 0; }
-.tabsheet a:first-letter { text-transform: capitalize; }
-.tabsheet a:hover, .tabsheet li.selected_tab  a { color: #0a7; }
-.tabsheet a span { display:block; font-size:10px; padding:0 3px 0 1px; }
+top:-2px; white-space:nowrap; margin: 0 0 0 -5px; padding-left:10px;
+width:100%; }
+.tabsheet li { background:#ddd; float:left; margin:0 6px 0 0; overflow:hidden; text-align:right; border:1px solid #777; border-bottom:none; position:relative; top:11px; -moz-border-radius-topleft:5px; -moz-border-radius-topright:5px;}
+.tabsheet a {
+color:#777; display:block; font-size:11px; border:0;
+font-weight:bold; overflow:hidden; padding:6px;
+text-align:right; text-decoration:none; margin: 0; }
+.tabsheet a:first-letter { text-transform:capitalize; }
+.tabsheet li.selected_tab  {
+  border-bottom:1px solid #ddd;
+}
+.tabsheet li:hover, .tabsheet li.selected_tab  {
+margin-top:4px; padding-bottom:3px; padding-top:3px; top:1px;
+ }
+.tabsheet a:hover, .tabsheet li.selected_tab  a { color: #333; }
+.tabsheet a span { background-color:#ddd; display:block; font-size:10px; margin-right:2px; padding:0 3px 0 1px; }
 
 .sort { clear: none; }
 #214ug { margin-left:248px; font-size:12px; }
