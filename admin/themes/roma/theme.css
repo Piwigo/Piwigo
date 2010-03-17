@@ -151,7 +151,7 @@ width: 207px; border:0; margin: 0; padding: 0; display: block; min-height:35px; 
 #menubar dl.first {
 background:transparent url(images/menubar-top.png) no-repeat scroll left 1px; }
 #menubar dt { margin: 0; display: block; background: none; left:10px; font-weight:bold;
-position:relative; padding: 5px 1px 4px 5px; top:-10px; font-size: 13px; color: #666; }
+position:relative; padding: 5px 1px 4px 5px; top:-10px; font-size: 13px; color: #666;  outline:none;}
 #menubar dt  span { background-color: #111; cursor:pointer; }
 #menubar li { margin: 0 0 0 6px; }
 #menubar li.external { list-style-image:url(images/external_inactive.png); padding:10px 0px 0pt 10px; }
