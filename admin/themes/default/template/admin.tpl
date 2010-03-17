@@ -63,7 +63,7 @@ jQuery().ready(function(){ldelim}
       </ul>
     </dd>
   </dl>
-  <dl>
+  <dl class="last">
     <dt class="rdion"><span>{'Specials'|@translate}&nbsp;</span></dt>
     <dd>
       <ul>

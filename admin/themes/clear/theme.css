@@ -33,7 +33,7 @@ h3, #imageToolBar a:hover, .row2, .content { background-color: #ddd; }
 .throw, .row1 { background-color:#eee; }
 .throw em { font-style: normal; color: #0cc9c; }
 #content { background: #f1f1f1; min-height: 467px;}
-.content { padding:0 5px 5px; margin: 0 10px 0 252px; z-index:99; }
+.content { padding:0 5px 5px; margin: 0 10px 0 252px; z-index:99; border: 1px solid #aaa;}
 .content h3 { font-size:20px; letter-spacing:-0.4px; margin:0 20px 12px 0;
  text-align:center; background:none; border: 0; }
 .content h3 ~ h3{ margin-top: 40px; }
@@ -100,10 +100,10 @@ list-style-type:none; text-align:center; text-indent:0pt; }
 #content.content div.comment a.illustration{ margin-right: 30px;}
 /* tabsheets are often used in admin  pages => No specific css files */
 .tabsheet {
-background-color:#f9f9f9; border:0px none; border-bottom:1px solid #aaa; display:table;
+background-color:#f9f9f9; border:1px solid #f9f9f9; border-bottom:1px solid #aaa; display:table;
 font-family:verdana,arial,helvetica,sans-serif; font-size:8px;
 list-style-image:none; padding: 0; position:relative; text-decoration:none;
-top:-2px; white-space:nowrap; margin: 0 0 0 -5px; padding-left:10px;
+top:-2px; white-space:nowrap; margin: 0 0 0 -6px; padding-left:10px;
 width:100%; }
 .tabsheet li { background:#f1f1f1; float:left; margin:0 6px 0 0; overflow:hidden; text-align:right; border:1px solid #aaa; border-bottom:none; position:relative; top:11px; -moz-border-radius-topleft:5px; -moz-border-radius-topright:5px;}
 .tabsheet a {
@@ -134,7 +134,9 @@ padding:0; width:207px; z-index:99; text-align: left; }
  scrollbar-arrow-color: #0cccc; }
 
 #menubar dd { margin: 0; padding: 0; height:232px; }
-#menubar dl { width: 207px; border:0; margin: 0; padding: 0; display: block; min-height:35px; border:1px solid #ddd; background-color:#f1f1f1}
+#menubar dl { width: 207px; border:0; margin: 0; padding: 0; display: block; min-height:35px; border:1px solid #ddd; background-color:#f1f1f1; border-left:1px solid #aaa; border-right:1px solid #aaa;}
+#menubar dl.first {border-top:1px solid #aaa;}
+#menubar dl.last {border-bottom:1px solid #aaa;}
 #menubar dt { background-color: #ddd; margin: 0; display: block; font-weight:bold;
 position:relative; padding: 5px 1px 4px 5px; font-size: 13px; color: #777; }
 #menubar dt  span { cursor:pointer; }
