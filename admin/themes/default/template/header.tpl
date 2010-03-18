@@ -48,9 +48,9 @@
   <div id="headActions">
     Hello {$USERNAME} :
     <a href="{$U_RETURN}" title="Visit Gallery">Visit Gallery</a> |
-    <a href="{$U_CHANGE_THEME}" title="Switch to clear theme for administration">Change Theme</a> |
+    <a href="{$U_CHANGE_THEME}" title="Switch to clear theme for administration">Change Admin Colors</a> |
+    <a href="{$U_FAQ}" title="{'Instructions to use Piwigo'|@translate}">Help Me</a> |
     <a href="{$U_LOGOUT}">{'Logout'|@translate}</a>
-    <a href="{$U_FAQ}" title="{'Instructions'|@translate}" id="instructions"><img style="padding-left:10px;" src="{$ROOT_URL}admin/themes/default/icon/help.png" class="button" alt="(?)"></a>
   </div>
 </div>
 

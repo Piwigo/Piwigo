@@ -540,7 +540,7 @@ ul.holder li.bit-box-focus a.closebutton, ul.holder li.bit-box-focus a.closebutt
 }
 
 #pwgHead {
-  background-color:#222;
+  background-color:#464646;
   height:46px;
 }
 
@@ -745,3 +745,7 @@ h2 { letter-spacing:2px; font-weight:bold;}
 h2:lang(en) { text-transform:capitalize; }
 
 #pluginsMenuSeparator {width:80%; margin:5px auto;}
+
+#helpContent P {text-align:left; margin-left:10px;}
+#helpContent LI, #ftpPage LI {margin-top:10px;}
+#helpContent P.nextStepLink {text-align:center; font-weight:bold; margin-bottom:20px;}

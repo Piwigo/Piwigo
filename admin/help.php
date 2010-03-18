@@ -22,11 +22,83 @@
 // +-----------------------------------------------------------------------+
 
 include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
+include_once(PHPWG_ROOT_PATH.'admin/include/tabsheet.class.php');
 
 // +-----------------------------------------------------------------------+
 // | Check Access and exit when user status is not ok                      |
 // +-----------------------------------------------------------------------+
 check_status(ACCESS_ADMINISTRATOR);
 
-$template->assign('ADMIN_CONTENT', load_language('help.html','',array('return'=>true)) );
+$link = get_root_url().'admin.php?page=help&section=';
+$selected = null;
+$help_section_title = null;
+
+$tabs = array(
+  array(
+    'code' => 'add_photos',
+    'label' => 'Add Photos',
+    ),
+  array(
+    'code' => 'permissions',
+    'label' => 'Permissions',
+    ),
+  array(
+    'code' => 'groups',
+    'label' => 'Groups',
+    ),
+  array(
+    'code' => 'user_upload',
+    'label' => 'User Upload',
+    ),
+  array(
+    'code' => 'virtual_links',
+    'label' => 'Virtual Links',
+    ),
+  array(
+    'code' => 'misc',
+    'label' => 'Miscellaneous',
+    ),
+  );
+
+if (!isset($_GET['section']))
+{
+  $section = $tabs[0]['code'];
+}
+else
+{
+  $section = $_GET['section'];
+}
+
+$tabsheet = new tabsheet();
+foreach ($tabs as $tab)
+{
+  if ($tab['code'] == $section)
+  {
+    $selected_tab = $tab['code'];
+    $help_section_title = l10n($tab['label']);
+  }
+  
+  $tabsheet->add($tab['code'], l10n($tab['label']), $link.$tab['code']);
+}
+$tabsheet->select($selected_tab);
+$tabsheet->assign();
+
+$template->set_filenames(array('help' => 'help.tpl'));
+
+$template->assign(
+  array(
+    'HELP_CONTENT' => load_language(
+      'help/help_'.$selected_tab.'.html',
+      '',
+      array('return'=>true)
+      ),
+    'HELP_SECTION_TITLE' => $help_section_title,
+    )
+  );
+
+// +-----------------------------------------------------------------------+
+// |                           sending html code                           |
+// +-----------------------------------------------------------------------+
+
+$template->assign_var_from_handle('ADMIN_CONTENT', 'help');
 ?>

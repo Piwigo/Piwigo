@@ -1,0 +1,141 @@
+<fieldset>
+  <legend>Démarrage rapide</legend>
+
+<ol>
+  <li>Créez un répertoire sur votre ordinateur.</li>
+
+  <li>Copiez des photos à l'intérieur de ce répertoire, puis redimensionnez les pour un affichage sur le web. <em>Attention</em> : le nom des répertoires et des fichiers ne doit contenir que des lettres, des chiffres et les caractères  "-", "_" or ".". Pas d'espace ou de caractères accentués.</li>
+
+  <li>Avec un client FTP, copiez le répertoire dans le répertoire "galleries" de votre installation de Piwigo.</li>
+
+  <li>Connectez vous à votre installation de Piwigo et rendez vous sur <span class="pwgScreen">Administration &raquo; Images &raquo; Miniatures</span> pour créer les miniatures manquantes.</li>
+
+  <li>Rendez vous sur <span class="pwgScreen">Administration</span> et cliquez sur le gros bouton de synchronisation.</li>
+</ol>
+
+<p>Bravo ! Vous avez créé avec succès la première catégorie de votre galerie.</p>
+
+</fieldset>
+
+<fieldset>
+  <legend>Organisation des répertoires et des fichiers</legend>
+
+<ul>
+
+  <li>
+
+    <p>Les répertoires représentant les catégories sont dans le répertoire
+"galleries". Ci-dessous l'arbre des répertoires d'une très petite galerie
+(mais utilisant de nombreuses fonctionnalités) : </p>
+  
+<pre>
+.
+|-- admin
+|-- doc
+|-- galleries
+|   |-- categorie-1
+|   |   |-- categorie-1.1
+|   |   |   |-- categorie-1.1.1
+|   |   |   |   |-- categorie-1.1.1.1
+|   |   |   |   |   |-- pwg_high
+|   |   |   |   |   |   +-- mariage.jpg
+|   |   |   |   |   |-- thumbnail
+|   |   |   |   |   |   +-- TN-mariage.jpg
+|   |   |   |   |   +-- mariage.jpg
+|   |   |   |   +-- categorie-1.1.1.2
+|   |   |   +-- categorie-1.1.2
+|   |   |-- categorie-1.2
+|   |   |   |-- pookie.jpg
+|   |   |   +-- thumbnail
+|   |   |       +-- TN-pookie.jpg
+|   |   +-- categorie-1.3
+|   +-- categorie-2
+|       |-- porcinet.gif
+|       |-- pwg_representative
+|       |   +-- video.jpg
+|       |-- thumbnail
+|       |   +-- TN-porcinet.jpg
+|       +-- video.avi
+|-- include
+|-- install
+|-- language
+|-- template
++-- tool</pre>
+
+  </li>
+  
+  <li>Fondamentalement, une catégorie est représentée par un répertoire à
+n'importe quel niveau sous le répertoire "galleries" de votre installation
+de Piwigo. Chaque catégorie peut contenir autant de sous-niveaux que
+désiré. Dans l'exemple ci-dessus, categorie-1.1.1.1 est à un niveau 4 de
+profondeur.</li>
+
+  <li>Fondamentalement, un élément est représenté par un fichier. Un fichier
+peut être un élément pour Piwigo si l'extension du nom du fichier est
+parmi la liste du paramètre de configuration <code>file_ext</code> (voir
+fichier <span class="filename">include/config.inc.php</span>). Un fichier
+peut être une image si son extension est parmi le paramètre de configuration
+<code>picture_ext</code>.</li>
+
+  <li>Les éléments de type image doivent avoir une miniature associée (voir la
+section suivante à propos des miniatures).</li>
+
+  <li>Les éléments de type image peuvent avoir un image en grand format
+associé.  Comme pour le fichier <span class="filename">mariage.jpg</span>
+dans l'exemple ci-dessus. Aucun préfixe n'est nécessaire sur le nom du
+fichier.</li>
+
+  <li>Les éléments non image (vidéos, sons, fichiers texte, tout ce que vous
+voulez...) sont par défaut représentés par un icône correspondant à
+l'extension du nom du fichier. Optionnellement, une miniature et un
+représentant peuvent être associés (voir le fichier <span
+class="filename">video.avi</span> dans l'exemple).</li>
+
+  <li><em>Attention</em> : le nom d'un répertoire ou d'un fichier ne doit
+être composé que de lettres, de chiffres, de "-", "_" ou ".". Pas d'espace
+ou de caractères accentués.</li>
+
+  <li><em>Conseil</em> : une catégorie peut contenir des éléments et des
+sous-catégories à la fois. Néanmoins, il est fortement conseillé pour chaque
+catégorie de choisir entre contenir des éléments <strong>ou bien</strong>
+des sous-catégories.</li>
+
+  <li>Une fois que les fichiers, les miniatures et les représentants sont
+correctement placés dans les répertoires, se rendre sur l'écran <span
+class="pwgScreen">Administration &raquo; Catégories &raquo; Synchroniser</span>.</li>
+
+</ul>
+
+</fieldset>
+
+<fieldset>
+  <legend>Miniatures</legend>
+
+<ul>
+  
+  <li>Comme mentionné précédemment, chaque élément de type image doit être
+associé à une miniature.</li>
+
+  <li>Les miniatures sont stockées dans le sous-répertoire "thumbnail" de
+chaque répertoire représentant une catégorie. Une miniature est un fichier
+de type image (même extension du nom du fichier) dont le nom de fichier est
+préfixé par le paramètre de configuration <code>prefix_thumbnail</code>
+(voir <span class="filename">include/config.inc.php</span>).</li>
+
+  <li>Les miniatures n'ont pas besoin d'avoir la même extension que leur
+image associée (une image avec ".jpg" comme extension peut avoir une
+miniature en ".GIF" par exemple).</li>
+
+  <li>Il est conseillé d'utiliser un outil externe pour la création des
+miniatures.</li>
+
+  <li>Vous pouvez également utiliser l'outil de création de miniature
+intégré à Piwigo mais cela est déconseillé car la qualité risque
+d'être décevante et cela utilise inutilement les ressources du serveur (ce
+qui peut être un grave problème sur un serveur mutualisé).</li>
+
+  <li>Si vous choisissez d'utiliser le serveur web pour générer les
+miniatures, vous devez donner les droits en écriture sur les
+répertoires.</li>
+
+</fieldset>

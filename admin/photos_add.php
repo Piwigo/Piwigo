@@ -147,7 +147,15 @@ $tabs = array(
   array(
     'code' => 'settings',
     'label' => 'Settings',
-    )
+    ),
+  array(
+    'code' => 'ploader',
+    'label' => 'Piwigo Uploader',
+    ),
+  array(
+    'code' => 'ftp',
+    'label' => 'FTP + Synchronisation',
+    ),
   );
 
 $tab_codes = array_map(

@@ -210,3 +210,6 @@ html>body #menubar {min-height:477px; height:477px;} /* IE 7 and modern browsers
 .themeDefault {background-color:#dbe8f3;}
 
 #pluginsMenuSeparator {border:1px solid #ddd;}
+
+#helpContent A {border-bottom:1px dotted #005E89;}
+#helpContent A:hover {border-bottom:1px solid #d54e21;}

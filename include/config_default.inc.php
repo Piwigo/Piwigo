@@ -771,4 +771,13 @@ $conf['no_photo_yet_url'] = 'admin.php?page=photos_add';
 
 // directory with themes inside
 $conf['themes_dir'] = PHPWG_ROOT_PATH.'themes';
+
+// pLoader direct download url for windows
+$conf['ploader_download_windows'] = 'http://piwigo.org/ext/download.php?eid=270';
+
+// pLoader direct download url for mac
+$conf['ploader_download_mac'] = 'http://piwigo.org/ext/download.php?eid=353';
+
+// pLoader direct download url for linux
+$conf['ploader_download_linux'] = 'http://piwigo.org/ext/download.php?eid=269';
 ?>
