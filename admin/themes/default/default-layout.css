@@ -517,23 +517,16 @@ ul.holder li.bit-box-focus a.closebutton, ul.holder li.bit-box-focus a.closebutt
   margin:0;
 }
 
-.formField {
+#photosAddContent FIELDSET {
   width:650px;
   margin:0 auto 20px auto;
-  padding:10px;
-  border: 2px solid #292929;
 }
 
-.formFieldTitle {
-  font-weight:bold;
-  margin-bottom:10px;
-}
-
-.formField P {
+#photosAddContent P {
   margin:0;
 }
 
-.formField TH {
+#photosAddContent TH {
   text-align:right;
   padding-right: 5px;
 }
@@ -547,7 +540,7 @@ ul.holder li.bit-box-focus a.closebutton, ul.holder li.bit-box-focus a.closebutt
 }
 
 #pwgHead {
-  background-color:#464646;
+  background-color:#222;
   height:46px;
 }
 

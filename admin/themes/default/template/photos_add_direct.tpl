@@ -75,6 +75,8 @@ jQuery(document).ready(function() {
   <h2>{'Upload photos'|@translate}</h2>
 </div>
 
+<div id="photosAddContent">
+
 {if count($setup_errors) > 0}
 <div class="errors">
   <ul>
@@ -105,8 +107,8 @@ jQuery(document).ready(function() {
 <input name="upload_id" value="{$upload_id}" type="hidden">
 {/if}
 
-    <div class="formField">
-      <div class="formFieldTitle">{'Drop into category'|@translate}</div>
+    <fieldset>
+      <legend>{'Drop into category'|@translate}</legend>
       
       <label><input type="radio" name="category_type" value="existing"> {'existing category'|@translate}</label>
       <label><input type="radio" name="category_type" value="new" checked="checked"> {'create a new category'|@translate}</label>
@@ -136,18 +138,18 @@ jQuery(document).ready(function() {
           </tr>
         </table>
       </div>
-    </div>
+    </fieldset>
 
-    <div class="formField">
-      <div class="formFieldTitle">{'Who can see these photos?'|@translate}</div>
+    <fieldset>
+      <legend>{'Who can see these photos?'|@translate}</legend>
 
       <select name="level" size="1">
         {html_options options=$level_options selected=$level_options_selected}
       </select>
-    </div>
+    </fieldset>
 
-    <div class="formField">
-      <div class="formFieldTitle">{'Select files'|@translate}</div>
+    <fieldset>
+      <legend>{'Select files'|@translate}</legend>
 
 {if $upload_mode eq 'html'}
     <p><a href="{$switch_url}">{'... or switch to the multiple files form'|@translate}</a></p>
@@ -159,7 +161,7 @@ jQuery(document).ready(function() {
         <a href="javascript:">{'+ Add an upload box'|@translate}</a>
       </div>
     
-    </div> <!-- formField -->
+    </fieldset>
 
     <p>
       <input class="submit" type="submit" name="submit_upload" value="{'Upload'|@translate}" {$TAG_INPUT_ENABLED}/>
@@ -175,7 +177,7 @@ jQuery(document).ready(function() {
 
     <div id="fileQueue"></div>
 
-    </div> <!-- formField -->
+    </fieldset>
     <p>
       <input class="submit" type="button" value="{'Upload'|@translate}" onclick="javascript:jQuery('#uploadify').uploadifyUpload()"/>
       <input type="submit" name="submit_upload" style="display:none"/>
@@ -183,3 +185,5 @@ jQuery(document).ready(function() {
 {/if}
 </form>
 {/if}
+
+</div> <!-- photosAddContent -->

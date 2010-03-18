@@ -60,7 +60,7 @@ SPAN.pwgScreen { font-style:italic; border-bottom:1px dotted #666}
 .content ul.thumbnails span.wrap1 { margin:0 12px 5px; }
 
 /* borders */ 
-fieldset { border: 1px solid #999; }
+fieldset { border: 2px solid #ddd; }
 INPUT, SELECT, TEXTAREA { border: 1px solid #999; }
 input:focus, select:focus, textarea:focus, input.focus, form .focus { background-color:#bbb;color: #666; }
 TEXTAREA { cursor:text; font-size: 13px; }

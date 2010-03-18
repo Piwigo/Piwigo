@@ -23,10 +23,12 @@ $(document).ready(function(){
   <h2>{'Upload Photos'|@translate}</h2>
 </div>
 
+<div id="photosAddContent">
+
 <form id="uploadFormSettings" enctype="multipart/form-data" method="post" action="{$F_ACTION}" class="properties">
 
-  <div class="formField">
-    <div class="formFieldTitle">{'Web size photo'|@translate}</div>
+  <fieldset>
+    <legend>{'Web size photo'|@translate}</legend>
 
     <table>
       <tr>
@@ -46,10 +48,10 @@ $(document).ready(function(){
         <td><input type="text" name="websize_quality" value="{$values.websize_quality}" size="3" maxlength="3"> %</td>
       </tr>
     </table>
-  </div>
+  </fieldset>
 
-  <div class="formField">
-    <div class="formFieldTitle">{'Thumbnail'|@translate}</div>
+  <fieldset>
+    <legend>{'Thumbnail'|@translate}</legend>
 
     <table>
       <tr>
@@ -65,10 +67,12 @@ $(document).ready(function(){
         <td><input type="text" name="thumb_quality" value="{$values.thumb_quality}" size="3" maxlength="3"> %</td>
       </tr>
     </table>
-  </div>
+  </fieldset>
 
   <p>
     <input class="submit" type="submit" name="submit" value="{'Save Settings'|@translate}"/>
   </p>
 
 </form>
+
+</div> <!-- photosAddContent -->
