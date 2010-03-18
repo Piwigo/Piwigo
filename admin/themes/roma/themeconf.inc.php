@@ -1,6 +1,6 @@
 <?php
 $themeconf = array(
-  'theme'  => 'roma',
+  'name'  => 'roma',
   'parent' => 'default',
 );
 ?>

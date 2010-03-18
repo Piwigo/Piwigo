@@ -1,6 +1,6 @@
 <?php
 $themeconf = array(
-  'theme'  => 'dark',
+  'name'  => 'dark',
   'parent' => 'default',
 );
 ?>

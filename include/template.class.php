@@ -24,15 +24,6 @@
 
 require_once(PHPWG_ROOT_PATH.'include/smarty/libs/Smarty.class.php');
 
-// migrate lang:XXX
-//    sed "s/{lang:\([^}]\+\)}/{\'\1\'|@translate}/g" my_template.tpl
-// migrate change root level vars {XXX}
-//    sed "s/{pwg_root}/{ROOT_URL}/g" my_template.tpl
-// migrate change root level vars {XXX}
-//    sed "s/{\([a-zA-Z_]\+\)}/{$\1}/g" my_template.tpl
-// migrate all
-//    cat my_template.tpl | sed "s/{lang:\([^}]\+\)}/{\'\1\'|@translate}/g" | sed "s/{pwg_root}/{ROOT_URL}/g" | sed "s/{\([a-zA-Z_]\+\)}/{$\1}/g"
-
 
 class Template {
 
@@ -48,7 +39,7 @@ class Template {
 
   // Templates prefilter from external sources (plugins)
   var $external_filters = array();
-  
+
   // used by html_head smarty block to add content before </head>
   var $html_head_elements = array();
 
@@ -78,7 +69,10 @@ class Template {
     }
 
     $this->smarty->template_dir = array();
-    $this->set_theme($root, $theme, $path);
+    if ( !empty($theme) )
+      $this->set_theme($root, $theme, $path);
+    else
+      $this->set_template_dir($root);
 
     $this->smarty->assign('lang_info', $lang_info);
 
@@ -103,10 +97,10 @@ class Template {
       $this->set_theme($root, $themeconf['parent'], $path);
     }
 
-    $tpl_var = array('name' => $themeconf['theme']);
-    if (file_exists($root.'/'.$theme.'/local_head.tpl'))
+    $tpl_var = array('name' => $themeconf['name']);
+    if (!empty($themeconf['local_head']) )
     {
-      $tpl_var['local_head'] = realpath($root.'/'.$theme.'/local_head.tpl');
+      $tpl_var['local_head'] = realpath($root.'/'.$theme.'/'.$themeconf['local_head'] );
     }
     $this->smarty->append('themes', $tpl_var);
     $this->smarty->append('themeconf', $themeconf, true);
@@ -468,7 +462,7 @@ class Template {
     $this->external_filters[$handle][$weight][] = array('outputfilter', $callback);
     ksort($this->external_filters[$handle]);
   }
-  
+
  /**
    * This function actually triggers the filters on the tpl files.
    * Called in the parse method.
@@ -479,9 +473,9 @@ class Template {
     if (isset($this->external_filters[$handle]))
     {
       $compile_id = '';
-      foreach ($this->external_filters[$handle] as $filters) 
+      foreach ($this->external_filters[$handle] as $filters)
       {
-        foreach ($filters as $filter) 
+        foreach ($filters as $filter)
         {
           list($type, $callback) = $filter;
           $compile_id .= $type.( is_array($callback) ? implode('', $callback) : $callback );
@@ -496,9 +490,9 @@ class Template {
   {
     if (isset($this->external_filters[$handle]))
     {
-      foreach ($this->external_filters[$handle] as $filters) 
+      foreach ($this->external_filters[$handle] as $filters)
       {
-        foreach ($filters as $filter) 
+        foreach ($filters as $filter)
         {
           list($type, $callback) = $filter;
           call_user_func(array($this->smarty, 'unregister_'.$type), $callback);

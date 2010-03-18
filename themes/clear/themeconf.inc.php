@@ -1,6 +1,6 @@
 <?php
 $themeconf = array(
-  'theme'  => 'clear',
+  'name'  => 'clear',
   'parent' => 'default',
 );
 ?>
