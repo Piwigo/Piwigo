@@ -69,7 +69,7 @@
         </a>
       </li>
       <li>
-        <a href="{$plugin.U_ACTION}&amp;action=delete" onclick="return confirm('{'plugins_confirm_delete'|@translate|@escape:'javascript'}');">
+        <a href="{$plugin.U_ACTION}&amp;action=delete" onclick="return confirm('{'Are you sure you want to delete this plugin?'|@translate|@escape:'javascript'}');">
           <img src="{$themeconf.admin_icon_dir}/plug_delete.png" alt="{'Delete'|@translate}" title="{'Delete'|@translate}">
         </a>
       </li>

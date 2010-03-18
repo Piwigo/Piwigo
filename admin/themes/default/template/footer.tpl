@@ -36,7 +36,7 @@
 
 
   {'Contact'|@translate}
-  <a href="mailto:{$CONTACT_MAIL}?subject={'title_send_mail'|@translate|@escape:url}">{'Webmaster'|@translate}</a>
+  <a href="mailto:{$CONTACT_MAIL}?subject={'A comment on your site'|@translate|@escape:url}">{'Webmaster'|@translate}</a>
   </div> <!-- pageInfos -->
 
 </div> <!-- footer -->

@@ -198,9 +198,9 @@ $template->assign(
     'PHP_VERSION' => phpversion(),
     'DB_ENGINE' => $conf['dblayer'],
     'DB_VERSION' => $db_version,
-    'DB_ELEMENTS' => l10n_dec('%d element', '%d elements', $nb_elements),
+    'DB_ELEMENTS' => l10n_dec('%d image', '%d images', $nb_elements),
     'DB_CATEGORIES' =>
-      l10n_dec('%d category including ', '%d categories including ',
+      l10n_dec('%d category including', '%d categories including',
         $nb_categories).
       l10n_dec('%d physical', '%d physical',
         $nb_physical).

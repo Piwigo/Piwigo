@@ -109,7 +109,7 @@ y.callService(
 </a>
 {/if}
 
-<table id="standard" class="infoTable" summary="{'Some info about this picture'|@translate}">
+<table id="standard" class="infoTable" summary="Some info about this picture">
   <tr id="Author">
     <td class="label">{'Author'|@translate}</td>
     <td class="value">{if isset($INFO_AUTHOR)}{$INFO_AUTHOR}{else}{'N/A'|@translate}{/if}</td>
@@ -177,7 +177,7 @@ y.callService(
 {if isset($rating)}
 	<tr id="rating">
 		<td class="label">
-			<span id="updateRate">{if isset($rating.USER_RATE)}{'Rate this picture'|@translate}{else}{'Rate this picture'|@translate}{/if}</span>
+			<span id="updateRate">{if isset($rating.USER_RATE)}{'Update your rating'|@translate}{else}{'Rate this picture'|@translate}{/if}</span>
 		</td>
 		<td class="value">
 			<form action="{$rating.F_ACTION}" method="post" id="rateForm" style="margin:0;">
@@ -193,7 +193,7 @@ y.callService(
 			<script type="text/javascript" src="{$ROOT_URL}themes/default/js/rating.js"></script>
 			<script type="text/javascript">
 			makeNiceRatingForm( {ldelim}rootUrl: '{$ROOT_URL|@escape:"javascript"}', image_id: {$current.id},
-			updateRateText: "{'update_rate'|@translate|@escape:'javascript'}", updateRateElement: document.getElementById("updateRate"),
+			updateRateText: "{'Update your rating'|@translate|@escape:'javascript'}", updateRateElement: document.getElementById("updateRate"),
 			ratingSummaryText: "{'%.2f (rated %d times, standard deviation = %.2f)'|@translate|@escape:'javascript'}", ratingSummaryElement: document.getElementById("ratingSummary") {rdelim} );
 			</script>
 			</div>
@@ -268,7 +268,7 @@ y.callService(
 		{if $comment_add.SHOW_AUTHOR}
 		<label>{'Author'|@translate}<input type="text" name="author"></label>
 		{/if}
-		<label>{'Comment'|@translate}<textarea name="content" id="contentid" rows="5" cols="80">{$Comment_add.CONTENT}</textarea></label>
+		<label>{'Comment'|@translate}<textarea name="content" id="contentid" rows="5" cols="80">{$comment_add.CONTENT}</textarea></label>
 		<input type="hidden" name="key" value="{$comment_add.KEY}">
 		<input class="submit" type="submit" value="{'Submit'|@translate}">
 	</fieldset>

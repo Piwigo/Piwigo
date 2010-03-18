@@ -45,7 +45,7 @@
   </label>
   <ul>
     <li><label>
-      <input type="radio" name="mode" value="AND" checked="checked">{'Search for all terms '|@translate}
+      <input type="radio" name="mode" value="AND" checked="checked">{'Search for all terms'|@translate}
     </label></li>
     <li><label>
       <input type="radio" name="mode" value="OR">{'Search for any terms'|@translate}

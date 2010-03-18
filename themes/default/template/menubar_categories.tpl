@@ -35,5 +35,5 @@
 		</li>
 	</ul>
 	{/if}
-	<p class="totalImages">{$pwg->l10n_dec('%d element', '%d elements', $block->data.NB_PICTURE)}</p>
+	<p class="totalImages">{$pwg->l10n_dec('%d image', '%d images', $block->data.NB_PICTURE)}</p>
 </dd>

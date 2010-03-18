@@ -35,7 +35,7 @@
       {foreach from=$letter.tags item=tag}
       <tr class="tagLine">
         <td><a href="{$tag.URL}">{$tag.name}</a></td>
-        <td class="nbEntries">{$pwg->l10n_dec('%d element', '%d elements', $tag.counter)}</td>
+        <td class="nbEntries">{$pwg->l10n_dec('%d image', '%d images', $tag.counter)}</td>
       </tr>
       {/foreach}
     </table>

@@ -5,7 +5,7 @@
 		<span>
 			{if !empty($tag.U_ADD) }
 			<a href="{$tag.U_ADD}"
-				title="{$pwg->l10n_dec('%d element are also linked to current tags', '%d elements are also linked to current tags', $tag.counter)}"
+				title="{$pwg->l10n_dec('%d image is also linked to current tags', '%d images are also linked to current tags', $tag.counter)}"
 				rel="nofollow">
 				<img src="{$ROOT_URL}{$themeconf.icon_dir}/add_tag.png" alt="+">
 			</a>
