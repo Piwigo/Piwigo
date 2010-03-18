@@ -31,11 +31,11 @@ jQuery().ready(function(){ldelim}
     <dt class="rdion"><span>{'Categories'|@translate}&nbsp;</span></dt>
     <dd>
       <ul>
-        <li><a href="{$U_SITE_MANAGER}">{'Site manager'|@translate}</a></li>
-        <li><a href="{$U_CAT_UPDATE}">{'Synchronize'|@translate}</a></li>
         <li><a href="{$U_CATEGORIES}">{'Manage'|@translate}</a></li>
         <li><a href="{$U_MOVE}">{'Move'|@translate}</a></li>
         <li><a href="{$U_CAT_OPTIONS}">{'Properties'|@translate}</a></li>
+        <li><a href="{$U_SITE_MANAGER}">{'Site manager'|@translate}</a></li>
+        <li><a href="{$U_CAT_UPDATE}">{'Synchronize'|@translate}</a></li>
         <li><a href="{$U_PERMALINKS}">{'Permalinks'|@translate}</a></li>
       </ul>
     </dd>
