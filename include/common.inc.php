@@ -81,7 +81,6 @@ foreach( array(
   'array_intersect_key', //PHP 5 >= 5.1.0RC1
   'hash_hmac', //(hash) - enabled by default as of PHP 5.1.2
   'preg_last_error', // PHP 5 >= 5.2.0
-  'file_put_contents', //PHP5
   ) as $func)
 {
   if (!function_exists($func))
@@ -105,8 +104,8 @@ include(PHPWG_ROOT_PATH . 'include/functions.inc.php');
 include( PHPWG_ROOT_PATH .'include/template.class.php');
 
 // Database connection
-$pwg_db_link = pwg_db_connect($conf['db_host'], $conf['db_user'], 
-			      $conf['db_password'], $conf['db_base']) 
+$pwg_db_link = pwg_db_connect($conf['db_host'], $conf['db_user'],
+			      $conf['db_password'], $conf['db_base'])
   or my_error('pwg_db_connect', true);
 
 pwg_db_check_charset();
@@ -116,19 +115,11 @@ load_plugins();
 
 include(PHPWG_ROOT_PATH.'include/user.inc.php');
 
-if ('fr_FR' == $user['language']) {
-  define('PHPWG_DOMAIN', 'fr.piwigo.org');
+if (in_array( substr($user['language'],0,2), array('fr','de','es','pl') ) )
+{
+  define('PHPWG_DOMAIN', substr($user['language'],0,2).'.piwigo.org');
 }
-else if ('de_DE' == $user['language']) {
-  define('PHPWG_DOMAIN', 'de.piwigo.org');
-}
-else if ('es_ES' == $user['language']) {
-  define('PHPWG_DOMAIN', 'es.piwigo.org');
-}
-else if ('pl_PL' == $user['language']) {
-  define('PHPWG_DOMAIN', 'pl.piwigo.org');
-}
-else if ('zh_CN' == $user['language']) {
+elseif ('zh_CN' == $user['language']) {
   define('PHPWG_DOMAIN', 'cn.piwigo.org');
 }
 else {

@@ -114,6 +114,7 @@ function get_elements($path)
       $tmp_fs = $this->get_elements($path.'/'.$subdir);
       $fs = array_merge($fs, $tmp_fs);
     }
+    ksort($fs);
   } //end if is_dir
   return $fs;
 }
@@ -198,10 +199,10 @@ function get_element_metadata($file, $has_high = false)
   if ($has_high)
   {
     $high_file = dirname($file).'/pwg_high/'.basename($file);
-    
+
     $data['high_filesize'] = floor(filesize($high_file)/1024);
   }
-  
+
   if ($conf['use_exif'])
   {
     $data = array_merge($data, get_sync_exif_data($file) );
