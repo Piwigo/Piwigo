@@ -17,16 +17,23 @@
   margin: 10px;
 }
 .content ul.thumbnails li.rank-of-image img {
+  margin: 0 20px;
+  padding: 4px 2px;
+  float: left;
+}
+.clipwrapper {
+  position:relative;
   width: 96px;
   height: 96px;
-  margin: 4px;
-  float: left;
+}
+.clip {
+  position:absolute;
 }
 .content ul.thumbnails li.rank-of-image input {
   height: 12px; 
   width: 50px;
   position: relative;
-  top: 0;  
+  top: 4px;  
 }
 .content UL.thumbnails SPAN.wrap1 {
   margin: 0 5px 5px 5px;

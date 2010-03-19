@@ -153,6 +153,10 @@ $current_rank = 1;
 while ($row = pwg_db_fetch_assoc($result))
 {
   $src = get_thumbnail_url($row);
+
+  list($thumbnail_width, $thumbnail_height) = getimagesize($src);
+  $thumbnail_x_center = $thumbnail_width/2;
+  $thumbnail_y_center = $thumbnail_height/2;
   
   $template->append(
     'thumbnails',
@@ -160,6 +164,10 @@ while ($row = pwg_db_fetch_assoc($result))
       'ID' => $row['id'],
       'TN_SRC' => $src,
       'RANK' => $current_rank * 10,
+      'CLIP_TOP' => round($thumbnail_y_center - 96/2),
+      'CLIP_RIGHT' => round($thumbnail_x_center + 96/2),
+      'CLIP_BOTTOM' => round($thumbnail_y_center + 96/2),
+      'CLIP_LEFT' => round($thumbnail_x_center - 96/2)
       )
     );
 
