@@ -98,8 +98,8 @@ elseif ( isset($_GET['delete_permanent']) and !is_adviser() )
 DELETE FROM '.OLD_PERMALINKS_TABLE.'
   WHERE permalink="'.$_GET['delete_permanent'].'"
   LIMIT 1';
-  pwg_query($query);
-  if (pwg_db_affected_rows()==0)
+  $result = pwg_query($query);
+  if (pwg_db_changes($result)==0)
     array_push($page['errors'], l10n('Cannot delete the old permalink !'));
 }
 
@@ -108,8 +108,8 @@ $template->set_filename('permalinks', 'permalinks.tpl' );
 
 $query = '
 SELECT
-  id,
-  '.pwg_db_concat(array('id', '\' - \'', 'name', 'IF(permalink IS NULL, \'\', \' &radic;\')')).' AS name,
+  id, permalink,
+  '.pwg_db_concat(array('id', '\' - \'', 'name')).' AS name,
   uppercats, global_rank
 FROM '.CATEGORIES_TABLE;
 

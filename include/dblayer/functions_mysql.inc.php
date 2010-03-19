@@ -124,7 +124,7 @@ SELECT IF(MAX('.$column.')+1 IS NULL, 1, MAX('.$column.')+1)
 
 function pwg_db_changes($result) 
 {
-  return mysql_affected_rows($result);
+  return mysql_affected_rows();
 }
 
 function pwg_db_num_rows($result) 
@@ -461,7 +461,7 @@ function do_maintenance_all_tables()
 function pwg_db_concat($array)
 {
   $string = implode($array, ',');
-  return 'CONCAT(\''. $string.'\')';
+  return 'CONCAT('. $string.')';
 }
 
 function pwg_db_concat_ws($array, $separator)

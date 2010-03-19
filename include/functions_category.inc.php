@@ -311,6 +311,10 @@ function display_select_categories($categories,
   $tpl_cats = array();
   foreach ($categories as $category)
   {
+    if (!empty($category['permalink']))
+    {
+      $category['name'] .= ' &radic;';
+    }
     if ($fullname)
     {
       $option = get_cat_display_name_cache($category['uppercats'],
