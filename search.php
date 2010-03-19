@@ -71,7 +71,7 @@ if (isset($_POST['submit']))
 
   if (isset($_POST['tags']))
   {
-    check_input_parameter('tags', $_POST['tags'], true, PATTERN_ID);
+    check_input_parameter('tags', $_POST, true, PATTERN_ID);
     
     $search['fields']['tags'] = array(
       'words' => $_POST['tags'],
@@ -92,7 +92,7 @@ if (isset($_POST['submit']))
 
   if (isset($_POST['cat']))
   {
-    check_input_parameter('cat', $_POST['cat'], true, PATTERN_ID);
+    check_input_parameter('cat', $_POST, true, PATTERN_ID);
     
     $search['fields']['cat'] = array(
       'words'   => $_POST['cat'],

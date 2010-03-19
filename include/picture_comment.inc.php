@@ -166,23 +166,25 @@ $validated_clause.'
 
       if (can_manage_comment('delete', $row['author_id']))
       {
-        $tpl_comment['U_DELETE'] =
-	  add_url_params($url_self,
-			 array(
-			   'action'=>'delete_comment',
-			   'comment_to_delete'=>$row['id']
-			       )
-			 );
+        $tpl_comment['U_DELETE'] = add_url_params(
+          $url_self,
+          array(
+            'action'=>'delete_comment',
+            'comment_to_delete'=>$row['id'],
+            'pwg_token' => get_pwg_token(),
+            )
+          );
       }
       if (can_manage_comment('edit', $row['author_id']))
       {
-	$tpl_comment['U_EDIT'] =
-	  add_url_params($url_self,
-			 array(
-			   'action'=>'edit_comment',
-			   'comment_to_edit'=>$row['id']
-			       )
-			 );
+	$tpl_comment['U_EDIT'] = add_url_params(
+          $url_self,
+          array(
+            'action'=>'edit_comment',
+            'comment_to_edit'=>$row['id'],
+            'pwg_token' => get_pwg_token(),
+            )
+          );
 	if (isset($edit_comment) and ($row['id'] == $edit_comment))
 	{
 	  $tpl_comment['IN_EDIT'] = true;
@@ -195,12 +197,14 @@ $validated_clause.'
       {
 	if ($row['validated'] != 'true')
 	{
-	  $tpl_comment['U_VALIDATE'] =
-	    add_url_params($url_self,
-			   array('action' => 'validate_comment',
-				 'comment_to_validate' => $row['id']
-				 )
-			   );
+	  $tpl_comment['U_VALIDATE'] = add_url_params(
+            $url_self,
+            array(
+              'action' => 'validate_comment',
+              'comment_to_validate' => $row['id'],
+              'pwg_token' => get_pwg_token(),
+              )
+            );
 	}
       }
       $template->append('comments', $tpl_comment);

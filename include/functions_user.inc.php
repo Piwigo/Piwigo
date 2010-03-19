@@ -1246,19 +1246,44 @@ function is_adviser()
 }
 
 /*
- * Return if current user can edit/delete a comment
- * @param action edit/delete
+ * Return if current user can edit/delete/validate a comment
+ * @param action edit/delete/validate
  * @return bool
  */
 function can_manage_comment($action, $comment_author_id)
 {
-  if (!in_array($action, array('delete','edit'))) {
+  global $user, $conf;
+  
+  if (is_a_guest())
+  {
     return false;
   }
-  return (is_admin() ||
-	  (($GLOBALS['user']['id'] == $comment_author_id)
-	   && !is_a_guest()
-	   && $GLOBALS['conf'][sprintf('user_can_%s_comment', $action)]));
+  
+  if (!in_array($action, array('delete','edit', 'validate')))
+  {
+    return false;
+  }
+
+  if (is_admin())
+  {
+    return true;
+  }
+
+  if ('edit' == $action and $conf['user_can_edit_comment'])
+  {
+    if ($comment_author_id == $user['id']) {
+      return true;
+    }
+  }
+
+  if ('delete' == $action and $conf['user_can_delete_comment'])
+  {
+    if ($comment_author_id == $user['id']) {
+      return true;
+    }
+  }
+
+  return false;
 }
 
 /*

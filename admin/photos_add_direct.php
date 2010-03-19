@@ -30,7 +30,7 @@ if (!defined('PHOTOS_ADD_BASE_URL'))
 
 if (isset($_GET['batch']))
 {
-  check_input_parameter('batch', $_GET['batch'], false, '/^\d+(,\d+)*$/');
+  check_input_parameter('batch', $_GET, false, '/^\d+(,\d+)*$/');
 
   $query = '
 DELETE FROM '.CADDIE_TABLE.'
@@ -347,7 +347,7 @@ $template->assign(
       'switch_url' => PHOTOS_ADD_BASE_URL.'&amp;upload_mode='.$upload_switch,
       'upload_id' => md5(rand()),
       'session_id' => session_id(),
-      'pwg_token' => '1234abcd5678efgh',// get_pwg_token(),
+      'pwg_token' => get_pwg_token(),
     )
   );
 

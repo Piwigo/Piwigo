@@ -33,6 +33,11 @@ include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
 // +-----------------------------------------------------------------------+
 check_status(ACCESS_ADMINISTRATOR);
 
+if (!empty($_POST) or isset($_GET['action']))
+{
+  check_pwg_token();
+}
+
 /**
  * requests the given $url (a remote create_listing_file.php) and fills a
  * list of lines corresponding to request output
@@ -198,11 +203,13 @@ SELECT galleries_url
   }
 }
 
-$template->assign( array(
-  'U_HELP'    => get_root_url().'popuphelp.php?page=site_manager',
-  'F_ACTION'  => get_root_url().'admin.php'
-                .get_query_string_diff( array('action','site') )
-  ) );
+$template->assign(
+  array(
+    'U_HELP'    => get_root_url().'popuphelp.php?page=site_manager',
+    'F_ACTION'  => get_root_url().'admin.php'.get_query_string_diff(array('action','site','pwg_token')),
+    'PWG_TOKEN' => get_pwg_token(),
+    )
+  );
 
 // +-----------------------------------------------------------------------+
 // |                           remote sites list                           |
@@ -242,6 +249,7 @@ while ($row = pwg_db_fetch_assoc($result))
   $base_url = PHPWG_ROOT_PATH.'admin.php';
   $base_url.= '?page=site_manager';
   $base_url.= '&amp;site='.$row['id'];
+  $base_url.= '&amp;pwg_token='.get_pwg_token();
   $base_url.= '&amp;action=';
 
   $update_url = PHPWG_ROOT_PATH.'admin.php';

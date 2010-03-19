@@ -311,20 +311,31 @@ UPDATE '.CATEGORIES_TABLE.'
     }
     case 'edit_comment' :
     {
+      check_pwg_token();
+  
       include_once(PHPWG_ROOT_PATH.'include/functions_comment.inc.php');
-      if (isset($_GET['comment_to_edit'])
-          and is_numeric($_GET['comment_to_edit'])
-          and (is_admin() || $conf['user_can_edit_comment']))
+
+      check_input_parameter('comment_to_edit', $_GET, false, PATTERN_ID);
+
+      $author_id = get_comment_author_id($_GET['comment_to_edit']);
+      
+      if (can_manage_comment('edit', $author_id))
       {
         if (!empty($_POST['content']))
         {
-          update_user_comment(array('comment_id' => $_GET['comment_to_edit'],
-                  'image_id' => $page['image_id'],
-                  'content' => $_POST['content']),
-                  $_POST['key']
-                  );
+          update_user_comment(
+            array(
+              'comment_id' => $_GET['comment_to_edit'],
+              'image_id' => $page['image_id'],
+              'content' => $_POST['content']
+              ),
+            $_POST['key']
+            );
+          
           redirect($url_self);
-        } else {
+        }
+        else
+        {
           $edit_comment = $_GET['comment_to_edit'];
           break;
         }
@@ -332,30 +343,36 @@ UPDATE '.CATEGORIES_TABLE.'
     }
     case 'delete_comment' :
     {
+      check_pwg_token();
+  
       include_once(PHPWG_ROOT_PATH.'include/functions_comment.inc.php');
-      if (isset($_GET['comment_to_delete'])
-          and is_numeric($_GET['comment_to_delete'])
-	  and (is_admin() || $conf['user_can_delete_comment']))
+      
+      check_input_parameter('comment_to_delete', $_GET, false, PATTERN_ID);
+
+      $author_id = get_comment_author_id($_GET['comment_to_delete']);
+      
+      if (can_manage_comment('delete', $author_id))
       {
         delete_user_comment($_GET['comment_to_delete']);
       }
+      
       redirect($url_self);
     }
     case 'validate_comment' :
     {
+      check_pwg_token();
+  
       include_once(PHPWG_ROOT_PATH.'include/functions_comment.inc.php');
-      if (isset($_GET['comment_to_validate'])
-          and is_numeric($_GET['comment_to_validate'])
-          and is_admin() and !is_adviser() )
+
+      check_input_parameter('comment_to_validate', $_GET, false, PATTERN_ID);
+      
+      $author_id = get_comment_author_id($_GET['comment_to_delete']);
+      
+      if (can_manage_comment('validate', $author_id))
       {
-	$query = '
-UPDATE '.COMMENTS_TABLE.'
-  SET validated = \'true\'
-  , validation_date = NOW()
-  WHERE id='.$_GET['comment_to_validate'].'
-;';
-        pwg_query( $query );
+        validate_user_comment($_GET['comment_to_validate']);
       }
+      
       redirect($url_self);
     }
 

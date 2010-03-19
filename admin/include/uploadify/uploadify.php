@@ -8,7 +8,7 @@ include_once(PHPWG_ROOT_PATH.'include/common.inc.php');
 include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
 include_once(PHPWG_ROOT_PATH.'admin/include/functions_upload.inc.php');
 
-// check_pwg_token();
+check_pwg_token();
 
 ob_start();
 print_r($_FILES);

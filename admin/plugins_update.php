@@ -37,6 +37,8 @@ $plugins = new plugins();
 //-----------------------------------------------------------automatic upgrade
 if (isset($_GET['plugin']) and isset($_GET['revision']) and !is_adviser())
 {
+  check_pwg_token();
+  
   $plugin_id = $_GET['plugin'];
   $revision = $_GET['revision'];
 
@@ -48,6 +50,7 @@ if (isset($_GET['plugin']) and isset($_GET['revision']) and !is_adviser())
     redirect($base_url
       . '&revision=' . $revision
       . '&plugin=' . $plugin_id
+      . '&pwg_token='.get_pwg_token()
       . '&reactivate=true');
   }
 
@@ -133,7 +136,9 @@ if ($plugins->get_server_plugins())
         // Plugin need upgrade
         $url_auto_update = $base_url
           . '&amp;revision=' . $plugin_info['revision_id']
-          . '&amp;plugin=' . $plugin_id;
+          . '&amp;plugin=' . $plugin_id
+          . '&amp;pwg_token='.get_pwg_token()
+          ;
 
         $template->append('plugins_not_uptodate', array(
           'EXT_NAME' => $fs_plugin['name'],

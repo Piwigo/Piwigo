@@ -16,6 +16,7 @@
 {'A local listing.xml file has been found for '|@translate} {$local_listing.URL}
 {if isset($local_listing.CREATE)}
 <form action="{$F_ACTION}" method="post">
+  <input type="hidden" name="pwg_token" value="{$PWG_TOKEN}" />
   <p>
     {'Create this site'|@translate}:
     <input type="hidden" name="no_check" value="1">
@@ -63,6 +64,7 @@
 {/if}
 
 <form action="{$F_ACTION}" method="post">
+  <input type="hidden" name="pwg_token" value="{$PWG_TOKEN}" />
   <p>
     <label for="galleries_url" >{'Create a new site : (give its URL to create_listing_file.php)'|@translate}</label>
     <input type="text" name="galleries_url" id="galleries_url">

@@ -43,6 +43,11 @@ check_status(ACCESS_ADMINISTRATOR);
 // |                         deletion form submission                      |
 // +-----------------------------------------------------------------------+
 
+// the $_POST['selection'] was already checked in element_set.php
+check_input_parameter('del_tags', $_POST, true, PATTERN_ID);
+check_input_parameter('associate', $_POST, false, PATTERN_ID);
+check_input_parameter('dissociate', $_POST, false, PATTERN_ID);
+
 if (isset($_POST['delete']))
 {
   if (isset($_POST['confirm_deletion']) and 1 == $_POST['confirm_deletion'])

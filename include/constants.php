@@ -40,6 +40,9 @@ define('ACCESS_ADMINISTRATOR', 3);
 define('ACCESS_WEBMASTER', 4);
 define('ACCESS_CLOSED', 5);
 
+// Sanity checks
+define('PATTERN_ID', '/^\d+$/');
+
 // Table names
 if (!defined('CATEGORIES_TABLE'))
   define('CATEGORIES_TABLE', $prefixeTable.'categories');

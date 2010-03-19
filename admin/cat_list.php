@@ -33,6 +33,11 @@ include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
 // +-----------------------------------------------------------------------+
 check_status(ACCESS_ADMINISTRATOR);
 
+if (!empty($_POST) or isset($_GET['delete']))
+{
+  check_pwg_token();
+}
+
 // +-----------------------------------------------------------------------+
 // |                               functions                               |
 // +-----------------------------------------------------------------------+
@@ -63,6 +68,8 @@ function save_categories_order($categories)
 // +-----------------------------------------------------------------------+
 // |                            initialization                             |
 // +-----------------------------------------------------------------------+
+
+check_input_parameter('parent_id', $_GET, false, PATTERN_ID);
 
 $categories = array();
 
@@ -185,6 +192,7 @@ if (isset($_GET['parent_id']))
 $template->assign(array(
   'CATEGORIES_NAV'=>$navigation,
   'F_ACTION'=>$form_action,
+  'PWG_TOKEN' => get_pwg_token(),
  ));
 
 // +-----------------------------------------------------------------------+
@@ -260,6 +268,7 @@ foreach ($categories as $category)
   if (empty($category['dir']))
   {
     $tpl_cat['U_DELETE'] = $self_url.'&amp;delete='.$category['id'];
+    $tpl_cat['U_DELETE'].= '&amp;pwg_token='.get_pwg_token();
   }
 
   if ( array_key_exists($category['id'], $categories_with_images) )
