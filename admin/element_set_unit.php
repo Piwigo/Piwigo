@@ -105,7 +105,8 @@ SELECT id, date_creation
     // tags management
     if (isset($_POST[ 'tags-'.$row['id'] ]))
     {
-      set_tags($_POST[ 'tags-'.$row['id'] ], $row['id']);
+      $tag_ids = get_fckb_tag_ids($_POST[ 'tags-'.$row['id'] ]);
+      set_tags($tag_ids, $row['id']);
     }
   }
 
@@ -207,13 +208,6 @@ SELECT id,path,tn_ext,name,date_creation,comment,author,file
 
     $src = get_thumbnail_url($row);
 
-    $query = '
-SELECT tag_id
-  FROM '.IMAGE_TAG_TABLE.'
-  WHERE image_id = '.$row['id'].'
-;';
-    $selected_tags = array_from_query($query, 'tag_id');
-
     // creation date
     if (!empty($row['date_creation']))
     {
@@ -224,21 +218,15 @@ SELECT tag_id
       list($year,$month,$day) = array('',0,0);
     }
 
-    if (count($all_tags) > 0)
-    {
-      $tag_selection = get_html_tag_selection(
-        $all_tags,
-        'tags-'.$row['id'],
-        $selected_tags
-        );
-    }
-    else
-    {
-      $tag_selection =
-        '<p>'.
-        l10n('No tag defined. Use Administration>Pictures>Tags').
-        '</p>';
-    }
+    $query = '
+SELECT
+    tag_id,
+    name AS tag_name
+  FROM '.IMAGE_TAG_TABLE.' AS it
+    JOIN '.TAGS_TABLE.' AS t ON t.id = it.tag_id
+  WHERE image_id = '.$row['id'].'
+;';
+    $tag_selection = get_fckb_taglist($query);
 
     $template->append(
       'elements',
@@ -258,7 +246,7 @@ SELECT tag_id
         'DATE_CREATION_MONTH' => (int)$month,
         'DATE_CREATION_DAY' => (int)$day,
 
-        'TAG_SELECTION' => $tag_selection,
+        'TAGS' => $tag_selection,
         )
       );
   }

@@ -148,7 +148,8 @@ if (isset($_POST['submit']))
 
   if (isset($_POST['add_tags']) and count($collection) > 0)
   {
-    add_tags($_POST['add_tags'], $collection);
+    $tag_ids = get_fckb_tag_ids($_POST['add_tags']);
+    add_tags($tag_ids, $collection);
   }
 
   if (isset($_POST['del_tags']) and count($collection) > 0)
@@ -365,20 +366,6 @@ SELECT
     )
 ;';
   display_select_cat_wrapper($query, array(), 'dissociate_options', true);
-}
-
-$all_tags = get_all_tags();
-
-if (count($all_tags) > 0)
-{// add tags
-  $template->assign(
-    array(
-      'ADD_TAG_SELECTION' => get_html_tag_selection(
-                              $all_tags,
-                              'add_tags'
-                              ),
-      )
-    );
 }
 
 if (count($page['cat_elements_id']) > 0)

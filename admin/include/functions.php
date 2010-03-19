@@ -1981,4 +1981,50 @@ function get_active_menu($menu_page)
   }
   return 0;
 }
+
+function get_fckb_taglist($query)
+{
+  $result = pwg_query($query);
+  $taglist = array();
+  while ($row = pwg_db_fetch_assoc($result))
+  {
+    array_push(
+      $taglist,
+      array(
+        'caption' => $row['tag_name'],
+        'value' => '~~'.$row['tag_id'].'~~',
+        )
+      );
+  }
+  
+  return $taglist;
+}
+
+function get_fckb_tag_ids($raw_tags)
+{
+  // In $raw_tags we receive something like array('~~6~~', '~~59~~', 'New
+  // tag', 'Another new tag') The ~~34~~ means that it is an existing
+  // tag. I've added the surrounding ~~ to permit creation of tags like "10"
+  // or "1234" (numeric characters only)
+
+  $tag_ids = array();
+  
+  foreach ($raw_tags as $raw_tag)
+  {
+    if (preg_match('/^~~(\d+)~~$/', $raw_tag, $matches))
+    {
+      array_push($tag_ids, $matches[1]);
+    }
+    else
+    {
+      // we have to create a new tag
+      array_push(
+        $tag_ids, 
+        tag_id_from_tag_name($raw_tag)
+        );
+    }
+  }
+
+  return $tag_ids;
+}
 ?>

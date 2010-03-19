@@ -106,34 +106,13 @@ if (isset($_POST['submit']) and count($page['errors']) == 0 and !is_adviser())
     array($data)
     );
 
-  // In $_POST[tags] we receive something like array('~~6~~', '~~59~~', 'New
-  // tag', 'Another new tag') The ~~34~~ means that it is an existing
-  // tag. I've added the surrounding ~~ to permit creation of tags like "10"
-  // or "1234" (numeric characters only)
+  // time to deal with tags
   $tag_ids = array();
   if (isset($_POST['tags']))
   {
-    foreach ($_POST['tags'] as $raw_tag)
-    {
-      if (preg_match('/^~~(\d+)~~$/', $raw_tag, $matches))
-      {
-        array_push($tag_ids, $matches[1]);
-      }
-      else
-      {
-        // we have to create a new tag
-        array_push(
-          $tag_ids, 
-          tag_id_from_tag_name($raw_tag)
-          );
-      }
-    }
+    $tag_ids = get_fckb_tag_ids($_POST['tags']);
   }
-  
-  set_tags(
-    $tag_ids,
-    $_GET['image_id']
-    );
+  set_tags($tag_ids, $_GET['image_id']);
 
   array_push($page['infos'], l10n('Picture informations updated'));
 }
@@ -194,27 +173,15 @@ if (isset($_POST['dismiss'])
 }
 
 // tags
-$tags = array();
-
 $query = '
 SELECT
     tag_id,
-    name
+    name AS tag_name
   FROM '.IMAGE_TAG_TABLE.' AS it
     JOIN '.TAGS_TABLE.' AS t ON t.id = it.tag_id
   WHERE image_id = '.$_GET['image_id'].'
 ;';
-$result = pwg_query($query);
-while ($row = pwg_db_fetch_assoc($result))
-{
-  array_push(
-    $tags,
-    array(
-      'value' => '~~'.$row['tag_id'].'~~',
-      'caption' => $row['name'],
-      )
-    );
-}
+$tags = get_fckb_taglist($query);
 
 // retrieving direct information about picture
 $query = '

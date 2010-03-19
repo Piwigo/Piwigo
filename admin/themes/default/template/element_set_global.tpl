@@ -7,6 +7,24 @@
 </script>
 {/literal}
 
+{known_script id="jquery.fcbkcomplete" src=$ROOT_URL|@cat:"themes/default/js/plugins/jquery.fcbkcomplete.js"}
+{literal}
+<script type="text/javascript">
+  $(document).ready(function() {
+    $("#tags").fcbkcomplete({
+      json_url: "admin.php?fckb_tags=1",
+      cache: false,
+      filter_case: true,
+      filter_hide: true,
+      firstselected: true,
+      filter_selected: true,
+      maxitems: 10,
+      newel: true
+    });
+  });
+</script>
+{/literal}
+
 <h2>{'Batch management'|@translate}</h2>
 
 <h3>{$CATEGORIES_NAV}</h3>
@@ -108,7 +126,13 @@
 
       <tr>
         <td>{'add tags'|@translate}</td>
-        <td>{if !empty($ADD_TAG_SELECTION)}{$ADD_TAG_SELECTION}{else}<p>{'No tag defined. Use Administration>Pictures>Tags'|@translate}</p>{/if}</td>
+        <td>
+<select id="tags" name="add_tags">
+{foreach from=$tags item=tag}
+  <option value="{$tag.value}" class="selected">{$tag.caption}</option>
+{/foreach}
+</select>
+        </td>
       </tr>
 
       {if !empty($DEL_TAG_SELECTION)}
