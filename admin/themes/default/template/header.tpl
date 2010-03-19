@@ -47,8 +47,8 @@
 
   <div id="headActions">
     Hello {$USERNAME} :
-    <a href="{$U_RETURN}" title="Visit Gallery">Visit Gallery</a> |
-    <a href="{$U_CHANGE_THEME}" title="Switch to clear theme for administration">Change Admin Colors</a> |
+    <a href="{$U_RETURN}">Visit Gallery</a> |
+    <a href="{$U_CHANGE_THEME}" title="Switch to clear or dark colors for administration">Change Admin Colors</a> |
     <a href="{$U_FAQ}" title="{'Instructions to use Piwigo'|@translate}">Help Me</a> |
     <a href="{$U_LOGOUT}">{'Logout'|@translate}</a>
   </div>
