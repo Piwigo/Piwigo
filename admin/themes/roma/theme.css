@@ -118,7 +118,7 @@ top:-2px; white-space:nowrap; margin: 0 0 0 -5px; padding-left:10px;
 width:100%; }
 .tabsheet li { background:#222222; float:left; margin:0 6px 0 0; overflow:hidden; text-align:right; border:1px solid #ff3363; border-bottom:none; position:relative; top:11px; -moz-border-radius-topleft:5px; -moz-border-radius-topright:5px;}
 .tabsheet a {
-color:#666; display:block; font-size:11px; border:0;
+outline:none; color:#666; display:block; font-size:11px; border:0;
 font-weight:bold; overflow:hidden; padding:6px;
 text-align:right; text-decoration:none; margin: 0; }
 .tabsheet a:first-letter { text-transform:capitalize; }
