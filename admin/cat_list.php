@@ -80,6 +80,7 @@ if (isset($_GET['delete']) and is_numeric($_GET['delete']) and !is_adviser())
   delete_categories(array($_GET['delete']));
   array_push($page['infos'], l10n('Virtual category deleted'));
   update_global_rank();
+  redirect(get_root_url().'admin.php?page=cat_list');
 }
 // request to add a virtual category
 else if (isset($_POST['submitAdd']))

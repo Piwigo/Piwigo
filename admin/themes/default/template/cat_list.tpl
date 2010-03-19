@@ -61,7 +61,7 @@
         <li><a href="{$category.U_MANAGE_PERMISSIONS}" title="{'Permissions'|@translate}" ><img src="{$themeconf.admin_icon_dir}/category_Permissions.png" class="button" alt="{'Permissions'|@translate}"></a></li>
         {/if}
         {if isset($category.U_DELETE) }
-        <li><a href="{$category.U_DELETE}" title="{'Are you sure?'|@translate|@escape:javascript}');"><img src="{$themeconf.admin_icon_dir}/category_delete.png" class="button" alt="{'delete'|@translate}" onclick="return confirm('{'Are you sure?'|@translate|@escape:javascript}');"><img src="{$themeconf.admin_icon_dir}/category_delete.png" class="button" alt="{'delete'|@translate}"></a></li>
+        <li><a href="{$category.U_DELETE}" onclick="return confirm('{'Are you sure?'|@translate|@escape:javascript}');"><img src="{$themeconf.admin_icon_dir}/category_delete.png" class="button" alt="{'delete'|@translate}"></a></li>
         {/if}
       </ul>
 
