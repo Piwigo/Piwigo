@@ -14,7 +14,7 @@
     $("#tags").fcbkcomplete({
       json_url: "admin.php?fckb_tags=1",
       cache: false,
-      filter_case: true,
+      filter_case: false,
       filter_hide: true,
       firstselected: true,
       filter_selected: true,
