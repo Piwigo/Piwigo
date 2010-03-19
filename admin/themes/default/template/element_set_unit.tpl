@@ -3,10 +3,19 @@
 {include file='include/datepicker.inc.tpl'}
 
 {known_script id="jquery.fcbkcomplete" src=$ROOT_URL|@cat:"themes/default/js/plugins/jquery.fcbkcomplete.js"}
-{literal}
 <script type="text/javascript">
+  var tag_boxes_selector = "";
+{foreach from=$elements item=element name=element}
+  {if $smarty.foreach.element.first}
+  var prefix = "";
+  {else}
+  prefix = ", ";
+  {/if}
+  tag_boxes_selector = tag_boxes_selector + prefix + "#tags-" + {$element.ID};
+{/foreach}
+{literal}
   $(document).ready(function() {
-    $(".tags").fcbkcomplete({
+    $(tag_boxes_selector).fcbkcomplete({
       json_url: "admin.php?fckb_tags=1",
       cache: false,
       filter_case: true,
@@ -96,7 +105,7 @@
       <td><strong>{'Tags'|@translate}</strong></td>
       <td>
 
-<select class="tags" name="tags-{$element.ID}">
+<select id="tags-{$element.ID}" name="tags-{$element.ID}">
 {foreach from=$element.TAGS item=tag}
   <option value="{$tag.value}" class="selected">{$tag.caption}</option>
 {/foreach}

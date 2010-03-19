@@ -39,23 +39,11 @@ if (isset($_GET['fckb_tags']))
 {
   $query = '
 SELECT
-    id,
-    name
+    id AS tag_id,
+    name AS tag_name
   FROM '.TAGS_TABLE.'
 ;';
-  $result = pwg_query($query);
-  $taglist = array();
-  while ($row = pwg_db_fetch_assoc($result))
-  {
-    array_push(
-      $taglist,
-      array(
-        'caption' => $row['name'],
-        'value' => '~~'.$row['id'].'~~',
-        )
-      );
-  }
-  echo json_encode($taglist);
+  echo json_encode(get_fckb_taglist($query));
   exit();
 }
 
