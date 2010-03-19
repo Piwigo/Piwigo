@@ -97,7 +97,7 @@ class Template {
       $this->set_theme($root, $themeconf['parent'], $path);
     }
 
-    $tpl_var = array('name' => $themeconf['name']);
+    $tpl_var = array('id' => $theme);
     if (!empty($themeconf['local_head']) )
     {
       $tpl_var['local_head'] = realpath($root.'/'.$theme.'/'.$themeconf['local_head'] );

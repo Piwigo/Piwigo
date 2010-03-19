@@ -32,7 +32,7 @@
 
 {foreach from=$themes item=theme}
 {if isset($theme.local_head)}{include file=$theme.local_head}{/if}
-<link rel="stylesheet" type="text/css" href="{$ROOT_URL}themes/{$theme.name}/theme.css">
+<link rel="stylesheet" type="text/css" href="{$ROOT_URL}themes/{$theme.id}/theme.css">
 {/foreach}
 
 {if isset($U_PREFETCH)          }<link rel="prefetch" href="{$U_PREFETCH}">{/if}

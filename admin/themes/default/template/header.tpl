@@ -15,7 +15,7 @@
 
 {foreach from=$themes item=theme}
 {if isset($theme.local_head)}{include file=$theme.local_head}{/if}
-<link rel="stylesheet" type="text/css" href="{$ROOT_URL}admin/themes/{$theme.name}/theme.css">
+<link rel="stylesheet" type="text/css" href="{$ROOT_URL}admin/themes/{$theme.id}/theme.css">
 {/foreach}
 
 {known_script id="jquery" src=$ROOT_URL|@cat:"themes/default/js/jquery.packed.js" now=1} {*jQuery is always available by default*}
