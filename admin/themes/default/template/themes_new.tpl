@@ -3,7 +3,7 @@
 </div>
 
 {if isset($themes)}
-<div id="themeBoxes">
+<div class="themeBoxes">
 {foreach from=$new_themes item=theme name=themes_loop}
   <div class="themeBox">
     <div class="themeName">{$theme.name}</div>
