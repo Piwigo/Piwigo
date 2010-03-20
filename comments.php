@@ -184,7 +184,7 @@ foreach ($actions as $loop_action)
 {
   if (isset($_GET[$loop_action]))
   {
-    $action = $loop_action;    
+    $action = $loop_action;
     check_input_parameter($action, $_GET, false, PATTERN_ID);
     $comment_id = $_GET[$action];
     break;
@@ -196,11 +196,11 @@ if (isset($action))
   check_pwg_token();
 
   $comment_author_id = get_comment_author_id($comment_id);
-    
+
   if (can_manage_comment($action, $comment_author_id))
   {
     $perform_redirect = false;
-  
+
     if ('delete' == $action)
     {
       delete_user_comment($comment_id);
@@ -212,7 +212,7 @@ if (isset($action))
       validate_user_comment($comment_id);
       $perform_redirect = true;
     }
-    
+
     if ('edit' == $action)
     {
       if (!empty($_POST['content']))
@@ -225,7 +225,7 @@ if (isset($action))
             ),
           $_POST['key']
           );
-        
+
         $edit_comment = null;
       }
       else
@@ -233,14 +233,14 @@ if (isset($action))
         $edit_comment = $_GET['edit'];
       }
     }
-    
+
     if ($perform_redirect)
     {
       $redirect_url =
         PHPWG_ROOT_PATH
         .'comments.php'
         .get_query_string_diff(array('delete','validate','pwg_token'));
-      
+
       redirect($redirect_url);
     }
   }
@@ -329,7 +329,7 @@ else
 $query = '
 SELECT COUNT(DISTINCT(com.id))
   FROM '.IMAGE_CATEGORY_TABLE.' AS ic
-    INNER JOIN '.COMMENTS_TABLE.' AS com    
+    INNER JOIN '.COMMENTS_TABLE.' AS com
     ON ic.image_id = com.image_id
     LEFT JOIN '.USERS_TABLE.' As u
     ON u.'.$conf['user_fields']['id'].' = com.author_id
@@ -374,8 +374,7 @@ SELECT com.id AS comment_id
     ON u.'.$conf['user_fields']['id'].' = com.author_id
   WHERE '.implode('
     AND ', $page['where_clauses']).'
-  GROUP BY comment_id, com.image_id, ic.category_id, com.author, 
-           com.author_id, com.date, com.content, com.validated
+  GROUP BY comment_id
   ORDER BY '.$page['sort_by'].' '.$page['sort_order'];
 if ('all' != $page['items_number'])
 {
@@ -437,7 +436,7 @@ SELECT id, name, permalink, uppercats
         'image_file' => $elements[$comment['image_id']]['file'],
         )
       );
-    
+
     $tpl_comment = array(
       'U_PICTURE' => $url,
       'TN_SRC' => $thumbnail_src,
@@ -453,7 +452,7 @@ SELECT id, name, permalink, uppercats
         get_root_url()
         .'comments.php'
         .get_query_string_diff(array('delete','validate','edit', 'pwg_token'));
-      
+
       $tpl_comment['U_DELETE'] = add_url_params(
         $url,
         array(
@@ -462,14 +461,14 @@ SELECT id, name, permalink, uppercats
           )
         );
     }
-    
+
     if (can_manage_comment('edit', $comment['author_id']))
     {
       $url =
         get_root_url()
         .'comments.php'
 	.get_query_string_diff(array('edit', 'delete','validate', 'pwg_token'));
-      
+
       $tpl_comment['U_EDIT'] = add_url_params(
         $url,
         array(
@@ -477,7 +476,7 @@ SELECT id, name, permalink, uppercats
           'pwg_token' => get_pwg_token(),
           )
         );
-      
+
       if (isset($edit_comment) and ($comment['comment_id'] == $edit_comment))
       {
 	$tpl_comment['IN_EDIT'] = true;
