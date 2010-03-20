@@ -22,7 +22,7 @@
         {/if}
         {if isset($comment.U_EDIT) and !isset($comment.IN_EDIT)}
         <li>
-          <a class="editComment" href="{$comment.U_EDIT}#edit_comment" title="edit this comment">
+          <a class="editComment" href="{$comment.U_EDIT}#edit_comment" title="{'edit this comment'|@translate}">
             <img src="{$ROOT_URL}{$themeconf.icon_dir}/edit.png" class="button" alt="[edit]">
           </a>
         </li>
@@ -41,7 +41,7 @@
       <a name="edit_comment"></a>
       <form  method="post" action="{$comment.U_EDIT}" class="filter" id="editComment">
 	<fieldset>
-	  <legend>Edit a comment</legend>
+	  <legend>{'Edit a comment'|@translate}</legend>
 	  <label>{'Comment'|@translate}<textarea name="content" id="contenteditid" rows="5" cols="80">{$comment.CONTENT|@escape}</textarea></label>
 	  <input type="hidden" name="key" value="{$comment.KEY}">
 	  <input type="hidden" name="image_id" value="{$comment.IMAGE_ID|@default:$current.id}">

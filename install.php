@@ -267,7 +267,7 @@ if ( isset( $_POST['install'] ))
   if ( empty($webmaster))
     array_push( $errors, l10n('enter a login for webmaster') );
   else if ( preg_match( '/[\'"]/', $webmaster ) )
-    array_push( $errors, l10n('webmaster login can\'t contain characters \' or \"') );
+    array_push( $errors, l10n('webmaster login can\'t contain characters \' or "') );
   if ( $admin_pass1 != $admin_pass2 || empty($admin_pass1) )
     array_push( $errors, l10n('please enter your password again') );
   if ( empty($admin_mail))

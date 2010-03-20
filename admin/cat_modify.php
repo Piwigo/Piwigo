@@ -516,7 +516,7 @@ SELECT
   array_push(
     $page['infos'],
     sprintf(
-      l10n('An information email was sent to group \"%s\"'),
+      l10n('An information email was sent to group "%s"'),
       $group_name
       )
     );

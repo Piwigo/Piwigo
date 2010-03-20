@@ -208,7 +208,7 @@ class c13y_internal
 
             create_user_infos($id);
 
-            $page['infos'][] = sprintf(l10n('User \"%s\" created with \"%s\" like password'), $name, $password);
+            $page['infos'][] = sprintf(l10n('User "%s" created with "%s" like password'), $name, $password);
 
             $result = true;
           }
@@ -239,7 +239,7 @@ class c13y_internal
               array('primary' => array('user_id'),'update' => array('status')),
               $updates);
 
-            $page['infos'][] = sprintf(l10n('Status of user \"%s\" updated'), get_username($id));
+            $page['infos'][] = sprintf(l10n('Status of user "%s" updated'), get_username($id));
 
             $result = true;
           }

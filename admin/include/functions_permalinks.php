@@ -140,7 +140,7 @@ function set_cat_permalink( $cat_id, $permalink, $save )
   if ( $sanitized_permalink != $permalink 
       or preg_match( '#^(\d)+(-.*)?$#', $permalink) )
   {
-    $page['errors'][] = l10n('The permalink name must be composed of a-z, A-Z, 0-9, \"-\", \"_\" or \"/\". It must not be numeric or start with number followed by \"-\"');
+    $page['errors'][] = l10n('The permalink name must be composed of a-z, A-Z, 0-9, "-", "_" or "/". It must not be numeric or start with number followed by "-"');
     return false;
   }
   

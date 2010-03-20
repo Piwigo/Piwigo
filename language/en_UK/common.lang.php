@@ -367,4 +367,9 @@ $lang['Reset to default values'] = "Reset to default values";
 $lang['delete all images from your favorites'] = "delete all images from your favorites";
 $lang['Sent by'] = "Sent by";
 $lang['Cookies are blocked or not supported by your browser. You must enable cookies to connect.'] = "Cookies are blocked or not supported by your browser. You must enable cookies to connect.";
+
+$lang['Some info about this picture'] = "Some info about this picture";
+$lang['Some more (technical) info about this picture'] = "Some more (technical) info about this picture";
+$lang['edit this comment'] = "edit this comment";
+$lang['Edit a comment'] = "Edit a comment";
 ?>

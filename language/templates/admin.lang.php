@@ -667,4 +667,15 @@ $lang['Cannot delete the old permalink !'] = 'Cannot delete the old permalink !'
 $lang['Deleted on'] = 'Deleted on';
 $lang['Last hit'] = 'Last hit';
 $lang['Hit'] = 'Hit';
+
+$lang['Tools'] = "Tools";
+$lang['Photos'] = "Photos";
+$lang['Themes'] = "Themes";
+$lang['Instructions to use Piwigo'] = "Instructions to use Piwigo";
+$lang['Order alphanumerically'] = "Order alphanumerically";
+$lang['Order alphanumerically reverse'] = "Order alphanumerically reverse";
+$lang['Installed Themes'] = "Installed Themes";
+$lang['Add New Theme'] = "Add New Theme";
+$lang['Forbid this theme to users'] = "Forbid this theme to users";
+$lang['Set as default theme for unregistered and new users'] = "Set as default theme for unregistered and new users";
 ?>
