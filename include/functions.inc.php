@@ -32,14 +32,14 @@ include_once( PHPWG_ROOT_PATH .'include/functions_url.inc.php' );
 include_once( PHPWG_ROOT_PATH .'include/functions_plugins.inc.php' );
 
 //----------------------------------------------------------- generic functions
-function get_extra_fields($order_by_fields) 
+function get_extra_fields($order_by_fields)
 {
-  $fields = str_ireplace(array(' order by ', ' desc', ' asc'), 
+  $fields = str_ireplace(array(' order by ', ' desc', ' asc'),
 			 array('', '', ''),
 			 $order_by_fields
 			 );
   if (!empty($fields))
-  { 
+  {
     $fields = ','.$fields;
   }
   return $fields;
@@ -414,33 +414,7 @@ function get_languages($target_charset = null)
     {
       list($language_name) = @file($path.'/iso.txt');
 
-      $langdef = explode('.',$file);
-      if (count($langdef)>1) // (langCode,encoding)
-      {
-        $langdef[1] = strtolower($langdef[1]);
-
-        if (
-          $target_charset==$langdef[1]
-         or
-          ($target_charset=='utf-8' and $langdef[1]=='iso-8859-1')
-         or
-          ($target_charset=='iso-8859-1' and
-          in_array( substr($langdef[0],2), array('en','fr','de','es','it','nl')))
-        )
-        {
-          $language_name = convert_charset($language_name,
-              $langdef[1], $target_charset);
-          $languages[ $langdef[0] ] = $language_name;
-        }
-        else
-          continue; // the language encoding is not compatible with our charset
-      }
-      else
-      { // UTF-8
-        $language_name = convert_charset($language_name,
-              'utf-8', $target_charset);
-        $languages[$file] = $language_name;
-      }
+      $languages[$file] = convert_charset($language_name, $target_charset);
     }
   }
   closedir($dir);
@@ -729,7 +703,7 @@ SELECT
 
   // plugins want remove some themes based on user status maybe?
   $themes = trigger_event('get_pwg_themes', $themes);
-  
+
   return $themes;
 }
 
@@ -1240,28 +1214,12 @@ function load_language($filename, $dirname = '',
     $target_charset = $options['target_charset'];
   }
   $target_charset = strtolower($target_charset);
-  $source_charset = '';
   $source_file    = '';
   foreach ($languages as $language)
   {
-    $dir = $dirname.$language;
-
-    if ($target_charset!='utf-8')
-    {
-      // exact charset match - no conversion required
-      $f = $dir.'.'.$target_charset.'/'.$filename;
-      if (file_exists($f))
-      {
-        $source_file = $f;
-        break;
-      }
-    }
-
-    // UTF-8 ?
-    $f = $dir.'/'.$filename;
+    $f = $dirname.$language.'/'.$filename;
     if (file_exists($f))
     {
-      $source_charset = 'utf-8';
       $source_file = $f;
       break;
     }
@@ -1279,7 +1237,7 @@ function load_language($filename, $dirname = '',
       if ( !isset($lang) ) $lang=array();
       if ( !isset($lang_info) ) $lang_info=array();
 
-      if ( !empty($source_charset) and $source_charset!=$target_charset)
+      if ( 'utf-8'!=$target_charset)
       {
         if ( is_array($load_lang) )
         {
@@ -1287,18 +1245,18 @@ function load_language($filename, $dirname = '',
           {
             if ( is_array($v) )
             {
-              $func = create_function('$v', 'return convert_charset($v, "'.$source_charset.'","'.$target_charset.'");' );
+              $func = create_function('$v', 'return convert_charset($v, "'.$target_charset.'");' );
               $lang[$k] = array_map($func, $v);
             }
             else
-              $lang[$k] = convert_charset($v, $source_charset, $target_charset);
+              $lang[$k] = convert_charset($v, $target_charset);
           }
         }
         if ( is_array($load_lang_info) )
         {
           foreach ($load_lang_info as $k => $v)
           {
-            $lang_info[$k] = convert_charset($v, $source_charset, $target_charset);
+            $lang_info[$k] = convert_charset($v, $target_charset);
           }
         }
       }
@@ -1312,10 +1270,7 @@ function load_language($filename, $dirname = '',
     else
     {
       $content = @file_get_contents($source_file);
-      if ( !empty($source_charset) and $source_charset!=$target_charset)
-      {
-        $content = convert_charset($content, $source_charset, $target_charset);
-      }
+      $content = convert_charset($content, $target_charset);
       return $content;
     }
   }
@@ -1323,30 +1278,27 @@ function load_language($filename, $dirname = '',
 }
 
 /**
- * converts a string from a character set to another character set
+ * converts a string from utf-8 character set to another character set
  * @param string str the string to be converted
- * @param string source_charset the character set in which the string is encoded
  * @param string dest_charset the destination character set
  */
-function convert_charset($str, $source_charset, $dest_charset)
+function convert_charset($str, $dest_charset)
 {
-  if ($source_charset==$dest_charset)
-    return $str;
-  if ($source_charset=='iso-8859-1' and $dest_charset=='utf-8')
+  if ($dest_charset=='utf-8')
   {
-    return utf8_encode($str);
+    return $str;
   }
-  if ($source_charset=='utf-8' and $dest_charset=='iso-8859-1')
+  if ($dest_charset=='iso-8859-1')
   {
     return utf8_decode($str);
   }
   if (function_exists('iconv'))
   {
-    return iconv($source_charset, $dest_charset, $str);
+    return iconv('utf-8', $dest_charset, $str);
   }
   if (function_exists('mb_convert_encoding'))
   {
-    return mb_convert_encoding( $str, $dest_charset, $source_charset );
+    return mb_convert_encoding( $str, $dest_charset, 'utf-8' );
   }
   return $str; //???
 }

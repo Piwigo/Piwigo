@@ -31,7 +31,7 @@
     <div class="themeShot"><img src="{$theme.screenshot}"></div>
     <div class="themeActions">
       <a href="{$activate_baseurl}{$theme.id}" title="{'Make this theme available to users'|@translate}">{'Activate'|@translate}</a>
-      | <a href="{$delete_baseurl}{$theme.id}" title="{'Delete this theme'|@translate}">{'Delete'|@translate}</a>
+      | <a href="{$delete_baseurl}{$theme.id}" onclick="return confirm('{'Are you sure?'|@translate|@escape:javascript}');" title="{'Delete this theme'|@translate}">{'Delete'|@translate}</a>
     </div>
     
   </div>
