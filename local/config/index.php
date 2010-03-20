@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | Piwigo - a PHP based picture gallery                                  |
 // +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2010 Piwigo Team                  http://piwigo.org |
+// | Copyright(C) 2008-2009 Piwigo Team                  http://piwigo.org |
 // | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
 // | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
 // +-----------------------------------------------------------------------+
@@ -21,50 +21,10 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
-//----------------------------------------------------------- include
-define('PHPWG_ROOT_PATH','./');
-include_once( PHPWG_ROOT_PATH.'include/common.inc.php' );
-
-// +-----------------------------------------------------------------------+
-// | Check Access and exit when user status is not ok                      |
-// +-----------------------------------------------------------------------+
-check_status(ACCESS_GUEST);
-
-//----------------------------------------------------- template initialization
-//
-// Start output of page
-//
-$title= l10n('About Piwigo');
-$page['body_id'] = 'theAboutPage';
-include(PHPWG_ROOT_PATH.'include/page_header.php');
-
-/**
- * set in ./local/language/en_UK.lang.php (maybe to create)
- * for example for clear theme:
-  $lang['Theme: clear'] = 'This is the clear theme based on yoga template. '.
-  ' A standard template/theme of PhpWebgallery.';
- *
- * Don't forget php tags !!!
- *
- * Another way is to code it thru the theme itself in ./themeconf.inc.php
- */
-@include(PHPWG_ROOT_PATH.'template/'.$user['template'].
-  '/theme/'.$user['theme'].'/themeconf.inc.php');
-
-$template->set_filenames(
-  array(
-    'about'=>'about.tpl',
-    )
-  );
-if ( isset($lang['Theme: '.$user['theme']]) )
-{
-  $template->assign(
-    'THEME_ABOUT',l10n('Theme: '.$user['theme'])
-    );
-}
-
-$template->assign('ABOUT_MESSAGE', load_language('about.html','', array('return'=>true)) );
-
-$template->pparse('about');
-include(PHPWG_ROOT_PATH.'include/page_tail.php');
+// Recursive call
+$url = '../';
+header( 'Request-URI: '.$url );
+header( 'Content-Location: '.$url );
+header( 'Location: '.$url );
+exit();
 ?>

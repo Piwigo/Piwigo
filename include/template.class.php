@@ -49,7 +49,8 @@ class Template {
 
     $this->smarty = new Smarty;
     $this->smarty->debugging = $conf['debug_template'];
-    $this->smarty->compile_check=$conf['template_compile_check'];
+    $this->smarty->compile_check = $conf['template_compile_check'];
+    $this->smarty->force_compile = $conf['template_force_compile'];
 
     $compile_dir = $conf['local_data_dir'].'/templates_c';
     mkgetdir( $compile_dir );
@@ -70,7 +71,10 @@ class Template {
 
     $this->smarty->template_dir = array();
     if ( !empty($theme) )
+    {
       $this->set_theme($root, $theme, $path);
+      $this->set_prefilter( 'header', array('Template', 'prefilter_local_css') );
+    }
     else
       $this->set_template_dir($root);
 
@@ -542,6 +546,30 @@ class Template {
 
     $regex = "~($ldq *assign +var=.+ +value=)\'([^'$]+)\'\|@translate~e";
     $source = preg_replace( $regex, 'isset($lang[\'$2\']) ? \'$1\'.var_export($lang[\'$2\'],true) : \'$0\'', $source);
+
+    return $source;
+  }
+
+  static function prefilter_local_css($source, &$smarty)
+  {
+    $css = array();
+
+    foreach ($smarty->get_template_vars('themes') as $theme)
+    {
+      if (file_exists(PHPWG_ROOT_PATH.'local/css/'.$theme['id'].'-rules.css'))
+      {
+        array_push($css, '<link rel="stylesheet" type="text/css" href="{$ROOT_URL}local/css/'.$theme['id'].'-rules.css">');
+      }
+    }
+    if (file_exists(PHPWG_ROOT_PATH.'local/css/rules.css'))
+    {
+      array_push($css, '<link rel="stylesheet" type="text/css" href="{$ROOT_URL}local/css/rules.css">');
+    }
+
+    if (!empty($css))
+    {
+      $source = str_replace("\n</head>", "\n".implode( "\n", $css )."\n</head>", $source);
+    }
 
     return $source;
   }

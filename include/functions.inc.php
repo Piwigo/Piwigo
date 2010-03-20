@@ -583,7 +583,7 @@ function redirect_html( $url , $msg = '', $refresh_time = 0)
     $user = build_user( $conf['guest_id'], true);
     load_language('common.lang');
     trigger_action('loading_lang');
-    load_language('local.lang', '', array('no_fallback'=>true) );
+    load_language('lang', PHPWG_ROOT_PATH.'local/', array('no_fallback'=>true, 'local'=>true) );
     $template = new Template(PHPWG_ROOT_PATH.'themes', get_default_theme());
   }
   else
@@ -1168,6 +1168,7 @@ function get_pwg_charset()
  *     return - if true the file content is returned otherwise the file is evaluated as php
  *     target_charset -
  *     no_fallback - the language must be respected
+ *     local - if true, get local language file
  * @return boolean success status or a string if options['return'] is true
  */
 function load_language($filename, $dirname = '',
@@ -1217,7 +1218,10 @@ function load_language($filename, $dirname = '',
   $source_file    = '';
   foreach ($languages as $language)
   {
-    $f = $dirname.$language.'/'.$filename;
+    $f = @$options['local'] ?
+      $dirname.$language.'.'.$filename:
+      $dirname.$language.'/'.$filename;
+
     if (file_exists($f))
     {
       $source_file = $f;

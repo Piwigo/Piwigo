@@ -49,7 +49,9 @@ class language_controler {
   // Reload language only if it isn't the same one
     if ( $same !== $user['language']) {
       load_language('common.lang', '', array('language'=>$user['language']) );
-      load_language('local.lang', '', array('language'=>$user['language'], 'no_fallback'=>true) );
+      load_language('lang', PHPWG_ROOT_PATH.'local/',
+        array('language'=>$user['language'], 'no_fallback'=>true, 'local'=>true)
+      );
       if (defined('IN_ADMIN') and IN_ADMIN) { // Never currently
         load_language('admin.lang', '', array('language'=>$user['language']) );
       }
