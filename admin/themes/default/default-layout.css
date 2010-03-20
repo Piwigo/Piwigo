@@ -576,7 +576,7 @@ html, body {height:100%; margin:0; padding:0;}
 #piwigoInfos {float:left; margin-left:10px;}
 #pageInfos {float:right; margin-right:10px;}
 
-.PiwigoLogo { vertical-align: middle; }
+.PiwigoLogo { vertical-align: middle; margin-top:-20px; }
 #footer A.PiwigoLogo:hover { border-bottom:0px solid #fff; }
 
 /* TipTip CSS - Version 1.2 */
