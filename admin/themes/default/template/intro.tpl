@@ -12,11 +12,9 @@ jQuery().ready(function(){ldelim}
 
 <h2>{'Piwigo administration'|@translate}</h2>
 <dl style="padding-top: 30px;">
-  <dt>{'Piwigo version'|@translate}</dt>
+  <dt>Piwigo version'|@translate}</dt>
   <dd>
     <ul>
-      <li><a href="{$PHPWG_URL}"  onclick="window.open(this.href, ''); 
-          return false;">Piwigo</a> {$PWG_VERSION}</li>
       <li><a href="{$U_CHECK_UPGRADE}">{'Check for upgrade'|@translate}</a></li>
 {if isset($SUBSCRIBE_BASE_URL)}
       <li><a href="{$SUBSCRIBE_BASE_URL}{$EMAIL}" onclick="window.open(this.href); return false;" class="cluetip" title="{'Piwigo Announcements Newsletter'|@translate}|{'Subscribe to Piwigo Announcements Newsletter'|@translate|htmlspecialchars|nl2br}">{'Subscribe %s to Piwigo Announcements Newsletter'|@translate|@sprintf:$EMAIL}</a></li>
