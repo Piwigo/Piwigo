@@ -82,7 +82,7 @@
 
   </fieldset>
 
-  {if $show_delete_form}
+  {if isset($show_delete_form) }
   <fieldset>
     <legend>{'Deletions'|@translate}</legend>
     <p style="font-style:italic">{'Note: Only deletes photos added with pLoader'|@translate}</p>
@@ -128,9 +128,6 @@
         <td>{'add tags'|@translate}</td>
         <td>
 <select id="tags" name="add_tags">
-{foreach from=$tags item=tag}
-  <option value="{$tag.value}" class="selected">{$tag.caption}</option>
-{/foreach}
 </select>
         </td>
       </tr>

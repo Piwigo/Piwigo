@@ -123,7 +123,7 @@ WHERE ';
   unset($filter_key);
   if (get_filter_page_value('add_notes'))
   {
-    $header_notes[] = l10n_dec('note_filter_day', 'note_filter_days', $filter['recent_period']);
+    $header_notes[] = l10n_dec('Elements posted within the last %d day.', 'Elements posted within the last %d days.', $filter['recent_period']);
   }
   include_once(PHPWG_ROOT_PATH.'include/functions_filter.inc.php');
 }

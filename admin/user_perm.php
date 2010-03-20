@@ -126,7 +126,7 @@ $template->assign(
   array(
     'TITLE' =>
       sprintf(
-        l10n('Manage permissions for user \"%s\"'),
+        l10n('Manage permissions for user "%s"'),
         get_username($page['user']
           )
         ),

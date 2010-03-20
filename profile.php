@@ -61,7 +61,7 @@ SELECT '.implode(',', $fields).'
 
   save_profile_from_post($userdata, $errors);
 
-  $title= l10n('Your Gallery Customization ');
+  $title= l10n('Your Gallery Customization');
   $page['body_id'] = 'theProfilePage';
   include(PHPWG_ROOT_PATH.'include/page_header.php');
 
@@ -163,7 +163,7 @@ function save_profile_from_post($userdata, &$errors)
     WHERE '.$conf['user_fields']['id'].' = \''.$userdata['id'].'\'
   ;';
       list($current_password) = pwg_db_fetch_row(pwg_query($query));
-  
+
       if ($conf['pass_convert']($_POST['password']) != $current_password)
       {
         $errors[] = l10n('Current password is wrong');
@@ -220,7 +220,7 @@ function save_profile_from_post($userdata, &$errors)
                  array($data));
 
     trigger_action( 'save_profile_from_post', $userdata['id'] );
-    
+
     if (!empty($_POST['redirect']))
     {
       redirect($_POST['redirect']);
@@ -277,7 +277,7 @@ function load_profile_in_template($url_action, $url_redirect, $userdata)
 
   // allow plugins to add their own form data to content
   trigger_action( 'load_profile_in_template', $userdata );
-  
+
   $template->assign_var_from_handle('PROFILE_CONTENT', 'profile_content');
 }
 ?>

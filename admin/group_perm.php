@@ -132,7 +132,7 @@ $template->assign(
   array(
     'TITLE' =>
       sprintf(
-        l10n('Manage permissions for group \"%s\"'),
+        l10n('Manage permissions for group "%s"'),
         get_groupname($page['group']
           )
         ),
