@@ -12,7 +12,7 @@ jQuery().ready(function(){ldelim}
 
 <h2>{'Piwigo administration'|@translate}</h2>
 <dl style="padding-top: 30px;">
-  <dt>Piwigo version'|@translate}</dt>
+  <dt>{'Piwigo version'|@translate}</dt>
   <dd>
     <ul>
       <li><a href="{$U_CHECK_UPGRADE}">{'Check for upgrade'|@translate}</a></li>
