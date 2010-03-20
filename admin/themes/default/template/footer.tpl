@@ -22,8 +22,8 @@
   *}
 
   {'Powered by'|@translate}
-  <a href="{$PHPWG_URL}" title="Visit Piwigo project website">
-  <span class="Piwigo">Piwigo</span></a>
+  <a class="PiwigoLogo" href="{$PHPWG_URL}" title="Visit Piwigo project website">
+  <img class="PiwigoLogo" alt="Piwigo" src="{$ROOT_URL}admin/images/piwigo-logo-simply-45.png"></a>
   {$VERSION}
   | <a class="external" href="{$pwgmenu.WIKI}" title="Read Piwigo Documentation" onclick="window.open(this.href, ''); return false;">{'Documentation'|@translate}</a>
   | <a class="external" href="{$pwgmenu.FORUM}" title="Get Support on Piwigo Forum" onclick="window.open(this.href, ''); return false;">{'Support'|@translate}</a>
