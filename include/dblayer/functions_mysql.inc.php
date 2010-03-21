@@ -32,16 +32,21 @@ define('DB_RANDOM_FUNCTION', 'RAND');
  *
  */
 
-function pwg_db_connect($host, $user, $password, $database=null, $die=true)
+function pwg_db_connect($host, $user, $password, $database)
 {  
-  $link = @mysql_connect($host, $user, $password) or my_error('mysql_connect', $die);
-
-  return $link;
-}
-
-function pwg_select_db($database, $link, $die=true)
-{
-  return @mysql_select_db($database, $link) or my_error('mysql_select_db', $die);
+  $link = @mysql_connect($host, $user, $password);
+  if (!$link)
+  {
+    throw new Exception("Can't connect to server");
+  }
+  if (mysql_select_db($database, $link))
+  {
+    return $link;
+  }
+  else
+  {
+    throw new Exception('Connection to server succeed, but it was impossible to connect to database');
+  }
 }
 
 function pwg_db_check_charset() 

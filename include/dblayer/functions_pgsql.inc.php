@@ -33,7 +33,7 @@ define('DB_RANDOM_FUNCTION', 'RANDOM');
  *
  */
 
-function pwg_db_connect($host, $user, $password, $database, $die=true)
+function pwg_db_connect($host, $user, $password, $database)
 {
   $connection_string = '';
   if (strpos($host,':') !== false) 
@@ -49,9 +49,15 @@ function pwg_db_connect($host, $user, $password, $database, $die=true)
 				$user, 
 				$password,
 				$database);
-  $link = pg_connect($connection_string) or my_error('pg_connect', $die);  
-
-  return $link;
+  $link = pg_connect($connection_string);
+  if (!$link)
+  {
+    throw new Exception("Can't connect to server");
+  }
+  else
+  {
+    return $link;
+  }
 }
 
 function pwg_select_db($database=null, $link=null, $die=null)

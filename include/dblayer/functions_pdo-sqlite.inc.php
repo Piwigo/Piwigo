@@ -33,16 +33,16 @@ define('DB_RANDOM_FUNCTION', 'RANDOM');
  *
  */
 
-function pwg_db_connect($host, $user, $password, $database, $die=true)
+function pwg_db_connect($host, $user, $password, $database)
 {
   global $conf;
 
   $db_file = sprintf('sqlite:%s/%s.db', $conf['local_data_dir'], $database);
 
-  try {
-    $link = new PDO($db_file);
-  } catch (Exception $e) {
-    my_error('sqlite::open', $die);
+  $link = new PDO($db_file);
+  if (!$link)
+  {
+    throw new  Exception('Connection to server succeed, but it was impossible to connect to database');
   }
 
   $link->sqliteCreateFunction('now', 'pwg_now', 0);
@@ -54,11 +54,6 @@ function pwg_db_connect($host, $user, $password, $database, $die=true)
   $link->sqliteCreateFunction('regexp', 'pwg_regexp', 2);
 
   return $link;
-}
-
-function pwg_select_db($database=null, $link=null, $die=null)
-{
-  return true;
 }
 
 function pwg_db_check_charset() 

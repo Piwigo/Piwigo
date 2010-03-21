@@ -33,7 +33,7 @@ define('DB_RANDOM_FUNCTION', 'RANDOM');
  *
  */
 
-function pwg_db_connect($host, $user, $password, $database, $die=true)
+function pwg_db_connect($host, $user, $password, $database)
 {
   global $conf;
 
@@ -47,10 +47,11 @@ function pwg_db_connect($host, $user, $password, $database, $die=true)
   {
     $sqlite_open_mode = SQLITE3_OPEN_READWRITE;
   }
-  try {
-    $link = new SQLite3($db_file, $sqlite_open_mode);
-  } catch (Exception $e) {
-    my_error('sqlite::open', $die);
+  
+  $link = new SQLite3($db_file, $sqlite_open_mode);
+  if (!$link)
+  {
+    throw new  Exception('Connection to server succeed, but it was impossible to connect to database');
   }
 
   $link->createFunction('now', 'pwg_now', 0);
@@ -62,11 +63,6 @@ function pwg_db_connect($host, $user, $password, $database, $die=true)
   $link->createFunction('regexp', 'pwg_regexp', 2);
 
   return $link;
-}
-
-function pwg_select_db($database=null, $link=null, $die=null)
-{
-  return true;
 }
 
 function pwg_db_check_charset() 

@@ -104,9 +104,15 @@ include(PHPWG_ROOT_PATH . 'include/functions.inc.php');
 include( PHPWG_ROOT_PATH .'include/template.class.php');
 
 // Database connection
-$pwg_db_link = pwg_db_connect($conf['db_host'], $conf['db_user'],
-			      $conf['db_password'], $conf['db_base']);
-pwg_select_db($conf['db_base'], $pwg_db_link);
+try
+{
+  $pwg_db_link = pwg_db_connect($conf['db_host'], $conf['db_user'],
+                                $conf['db_password'], $conf['db_base']);
+}
+catch (Exception $e)
+{
+  my_error(l10n($e->getMessage(), true); 
+}
 
 pwg_db_check_charset();
 
