@@ -98,21 +98,24 @@ if( !@get_magic_quotes_gpc() )
 
 define('DEFAULT_PREFIX_TABLE', 'piwigo_');
 
+if (isset($_POST['install']))
+{
+  $prefixeTable = $_POST['prefix'];
+}
+else
+{
+  $prefixeTable = DEFAULT_PREFIX_TABLE;
+}
+
+include(PHPWG_ROOT_PATH . 'include/config_default.inc.php');
+@include(PHPWG_ROOT_PATH. 'local/config/config.inc.php');
+
 // Obtain various vars
 $dbhost = (!empty($_POST['dbhost'])) ? $_POST['dbhost'] : 'localhost';
 $dbuser = (!empty($_POST['dbuser'])) ? $_POST['dbuser'] : '';
 $dbpasswd = (!empty($_POST['dbpasswd'])) ? $_POST['dbpasswd'] : '';
 $dbname = (!empty($_POST['dbname'])) ? $_POST['dbname'] : '';
-$dblayer = (!empty($_POST['dblayer'])) ? $_POST['dblayer'] : 'mysql';
-
-if (isset($_POST['install']))
-{
-  $table_prefix = $_POST['prefix'];
-}
-else
-{
-  $table_prefix = DEFAULT_PREFIX_TABLE;
-}
+$dblayer = (!empty($_POST['dblayer'])) ? $_POST['dblayer'] : $conf['dbengine_select_default'];
 
 $admin_name = (!empty($_POST['admin_name'])) ? $_POST['admin_name'] : '';
 $admin_pass1 = (!empty($_POST['admin_pass1'])) ? $_POST['admin_pass1'] : '';
@@ -156,9 +159,6 @@ elseif (@file_exists($config_file))
   }
 }
 
-$prefixeTable = $table_prefix;
-include(PHPWG_ROOT_PATH . 'include/config_default.inc.php');
-@include(PHPWG_ROOT_PATH. 'local/config/config.inc.php');
 include(PHPWG_ROOT_PATH .'include/dblayer/functions_'.$dblayer.'.inc.php');
 include(PHPWG_ROOT_PATH . 'include/constants.php');
 include(PHPWG_ROOT_PATH . 'include/functions.inc.php');
@@ -289,7 +289,7 @@ $conf[\'db_user\'] = \''.$dbuser.'\';
 $conf[\'db_password\'] = \''.$dbpasswd.'\';
 $conf[\'db_host\'] = \''.$dbhost.'\';
 
-$prefixeTable = \''.$table_prefix.'\';
+$prefixeTable = \''.$prefixeTable.'\';
 
 define(\'PHPWG_INSTALLED\', true);
 define(\'PWG_CHARSET\', \''.$pwg_charset.'\');
@@ -316,17 +316,17 @@ define(\'DB_COLLATE\', \'\');
     execute_sqlfile(
       PHPWG_ROOT_PATH.'install/piwigo_structure-'.$dblayer.'.sql',
       DEFAULT_PREFIX_TABLE,
-      $table_prefix
+      $prefixeTable
       );
     // We fill the tables with basic informations
     execute_sqlfile(
       PHPWG_ROOT_PATH.'install/config.sql',
       DEFAULT_PREFIX_TABLE,
-      $table_prefix
+      $prefixeTable
       );
 
     $query = '
-INSERT INTO '.$table_prefix.'config (param,value,comment) 
+INSERT INTO '.$prefixeTable.'config (param,value,comment) 
    VALUES (\'secret_key\',\'md5('.pwg_db_cast_to_text(DB_RANDOM_FUNCTION.'()').')\',
    \'a secret key specific to the gallery for internal use\');';
     pwg_query($query);
@@ -436,7 +436,7 @@ else
       'F_DB_HOST' => $dbhost,
       'F_DB_USER' => $dbuser,
       'F_DB_NAME' => $dbname,
-      'F_DB_PREFIX' => $table_prefix,
+      'F_DB_PREFIX' => $prefixeTable,
       'F_ADMIN' => $admin_name,
       'F_ADMIN_EMAIL' => $admin_mail,
       'L_INSTALL_HELP' => sprintf(l10n('Need help ? Ask your question on <a href="%s">Piwigo message board</a>.'), PHPWG_URL.'/forum'),

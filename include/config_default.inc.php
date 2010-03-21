@@ -536,7 +536,7 @@ $conf['db_sqlite_default'] = 'native';
 // default database engine proposed if severals are available
 // choices : sqlite, mysql, pgsql, pdo-sqlite
 // see include/dblayer/dblayers.inc.php
-$conf['dbengine_select_default'] = 'sqlite'; 
+$conf['dbengine_select_default'] = 'mysql'; 
 
 // pass_convert : function to crypt or hash the clear user password to store
 // it in the database

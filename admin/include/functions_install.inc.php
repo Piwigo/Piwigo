@@ -89,7 +89,7 @@ function available_engines()
     if (file_exists(sprintf($pattern, $engine_name))) 
     {
       $engines[$engine_name]['label'] = $engine['engine'];
-      $engines[$engine_name]['available'] = 'disabled';
+      $engines[$engine_name]['available'] = false;
 
       if (isset($engine['function_available'])
 	  && function_exists($engine['function_available']))
@@ -104,11 +104,6 @@ function available_engines()
     }
   }
 
-  if (count($engines)>1)
-  {
-    $engines[$GLOBALS['conf']['dbengine_select_default']]['selected'] = true;
-  }
-  
   if ($engines['sqlite']['available'] && $engines['pdo-sqlite']['available'])
   {
     if ($GLOBALS['conf']['db_sqlite_default']=='native')

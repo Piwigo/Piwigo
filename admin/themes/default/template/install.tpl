@@ -112,8 +112,8 @@ TD {
 	<select name="dblayer" id="dblayer">
 	  {foreach from=$F_DB_ENGINES key=k item=v}
 	  <option value="{$k}"
-		  {if $k==$F_DB_LAYER or $v.selected} selected="selected"{/if}
-		  {if $v.available!=1} disabled="disabled"{/if}
+		  {if $k==$F_DB_LAYER and $v.available} selected="selected"{/if}
+		  {if !$v.available} disabled="disabled"{/if}
 		  >{$v.label}</option>
 	  {/foreach}
 	</select>    
