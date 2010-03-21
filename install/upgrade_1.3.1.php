@@ -579,7 +579,7 @@ UPDATE '.CATEGORIES_TABLE.'
 }
 
 // load the config file
-$config_file = PHPWG_ROOT_PATH.'include/config_database.inc.php';
+$config_file = PHPWG_ROOT_PATH.'local/config/database.inc.php';
 $config_file_contents = @file_get_contents($config_file);
 if ($config_file_contents === false)
 {
@@ -595,7 +595,7 @@ if (!is_writable($config_file))
   die('FILE NOT WRITABLE '.$config_file);
 }
 
-// changes to write in config_database.inc.php
+// changes to write in database.inc.php
 array_push($mysql_changes, 'define(\'PHPWG_INSTALLED\', true);');
 
 // Send infos

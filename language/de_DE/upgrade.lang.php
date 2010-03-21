@@ -37,7 +37,7 @@ $lang['Perform a maintenance check in [Administration>Specials>Maintenance] if y
 $lang['As a precaution, following plugins have been deactivated. You must check for plugins upgrade before reactiving them:'] = "Als Vorsichtsmaßnahme folgenden Plugins wurden deaktiviert. Sie müssen prüfen, ob Plugins aktualisieren, bevor sie reactiving:";
 $lang['Only administrator can run upgrade: please sign in below.'] = "Nur Administrator können Upgrade ausführen : Bitte melden Sie sich an unter.";
 $lang['You do not have access rights to run upgrade'] = "Sie haben nicht das Recht auf Zugang zum Upgrade ausführen";
-$lang['In <i>include/config_database.inc.php</i>, before <b>?></b>, insert:'] = "In <i>include/config_database.inc.php</i>, vor <b>?></b>, wird Folgendes eingefügt:";
+$lang['In <i>%s</i>, before <b>?></b>, insert:'] = "In <i>%s</i>, vor <b>?></b>, wird Folgendes eingefügt:";
 $lang['All sub-categories of private categories become private'] = "Alle Unter-Kategorien von privaten Gruppen wirden privaten";
 $lang['User permissions and group permissions have been erased'] = "Benutzer und Gruppen Berechtigungen wurden gelöscht";
 $lang['Only thumbnails prefix and webmaster mail address have been saved from previous configuration'] = "Nur Miniaturansichten Präfix und Webmaster Mail-Adresse gespeichert wurden aus früheren Konfiguration";

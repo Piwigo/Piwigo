@@ -31,9 +31,9 @@ cd $version
 
 svn export http://piwigo.org/svn/tags/$tag piwigo
 
-# creating config_database.inc.php empty and writeable
-touch piwigo/include/config_database.inc.php
-chmod a+w piwigo/include/config_database.inc.php
+# creating database.inc.php empty and writeable
+touch piwigo/local/config/database.inc.php
+chmod a+w piwigo/local/config/database.inc.php
 
 zip -r $name.zip piwigo
 

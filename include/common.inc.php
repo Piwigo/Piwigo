@@ -70,7 +70,7 @@ $header_msgs = array();
 $header_notes = array();
 $filter = array();
 
-@include(PHPWG_ROOT_PATH .'include/config_database.inc.php');
+@include(PHPWG_ROOT_PATH .'local/config/database.inc.php');
 if (!defined('PHPWG_INSTALLED'))
 {
   header('Location: install.php');

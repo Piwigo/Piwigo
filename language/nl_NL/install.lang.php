@@ -37,7 +37,7 @@ $lang['Connection to server succeed, but it was impossible to connect to databas
 $lang['Can\'t connect to server'] = "Geen verbinding met de server";
 $lang['The next step of the installation is now possible'] = "Het is nu mogelijk om verder te gaan met de volgende stap van de installatie";
 $lang['next step'] = "volgende stap";
-$lang['Copy the text in pink between hyphens and paste it into the file "include/config_database.inc.php"(Warning : config_database.inc.php must only contain what is in pink, no line return or space character)'] = "Kopieer de tekst tussen de lijnen en plak deze in het bestand \"include/config_database.inc.php\"(Waarschuwing: config_database.inc.php mag alleen het roze gedeelte bevatten, geen return of extra spatie). Dit moet alleen wanneer dit bestand geen schrijfrechten";
+$lang['Copy the text in pink between hyphens and paste it into the file "local/config/database.inc.php"(Warning : database.inc.php must only contain what is in pink, no line return or space character)'] = "Kopieer de tekst tussen de lijnen en plak deze in het bestand \"local/config/database.inc.php\"(Waarschuwing: database.inc.php mag alleen het roze gedeelte bevatten, geen return of extra spatie). Dit moet alleen wanneer dit bestand geen schrijfrechten";
 $lang['Database type'] = "Database type";
 $lang['The type of database your piwigo data will be store in'] = "The type of database your piwigo data will be store in";
 $lang['Host'] = "Host";

@@ -37,7 +37,7 @@ $lang['Connection to server succeed, but it was impossible to connect to databas
 $lang['Can\'t connect to server'] = "Imposible conectarse al servidor";
 $lang['The next step of the installation is now possible'] = "Puede seguir con la instalación sigiente";
 $lang['next step'] = "Etapa siguiente";
-$lang['Copy the text in pink between hyphens and paste it into the file "include/config_database.inc.php"(Warning : config_database.inc.php must only contain what is in pink, no line return or space character)'] = "Copie el texto en rosa entre los guillones y pegúelo en el fichero mysql.inc.php que se encuentra en el repertorio \" include \" a la base del lugar donde usted instaló  Piwigo (el fichero mysql.inc.php debe contener SÓLO lo que está en rosa entre las rayas, ninguna vuelta a la línea o espacio es autorizado)";
+$lang['Copy the text in pink between hyphens and paste it into the file "local/config/database.inc.php"(Warning : database.inc.php must only contain what is in pink, no line return or space character)'] = "Copie el texto en rosa entre los guillones y pegúelo en el fichero database.inc.php que se encuentra en el repertorio \"local/config\" a la base del lugar donde usted instaló  Piwigo (el fichero database.inc.php debe contener SÓLO lo que está en rosa entre las rayas, ninguna vuelta a la línea o espacio es autorizado)";
 $lang['Database type'] = "Database type";
 $lang['The type of database your piwigo data will be store in'] = "The type of database your piwigo data will be store in";
 $lang['Host'] = "Huésped MySQL";

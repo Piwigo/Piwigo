@@ -122,9 +122,9 @@ $admin_mail = (!empty($_POST['admin_mail'])) ? $_POST['admin_mail'] : '';
 $infos = array();
 $errors = array();
 
-// database config file migration : mysql.inc.php et config_database.inc.php
+// database config file migration : mysql.inc.php et database.inc.php
 $old_config_file = PHPWG_ROOT_PATH . 'include/mysql.inc.php';
-$config_file = PHPWG_ROOT_PATH . 'include/config_database.inc.php';
+$config_file = PHPWG_ROOT_PATH . 'local/config/database.inc.php';
 if (!file_exists($config_file) && file_exists($old_config_file))
 {
   $step = 3;
@@ -304,7 +304,7 @@ define(\'DB_COLLATE\', \'\');
     {
       $html_content = htmlentities( $file_content, ENT_QUOTES );
       $html_content = nl2br( $html_content );
-      $error_copy = l10n('Copy the text in pink between hyphens and paste it into the file "include/config_database.inc.php"(Warning : config_database.inc.php must only contain what is in pink, no line return or space character)');
+      $error_copy = l10n('Copy the text in pink between hyphens and paste it into the file "local/config/database.inc.php"(Warning : database.inc.php must only contain what is in pink, no line return or space character)');
       $error_copy .= '<br>--------------------------------------------------------------------<br>';
       $error_copy .= '<span class="sql_content">' . $html_content . '</span>';
       $error_copy .= '<br>--------------------------------------------------------------------<br>';
@@ -391,7 +391,7 @@ if ($step == 3)
   {
     $html_content = htmlentities( $file_content, ENT_QUOTES );
     $html_content = nl2br( $html_content );
-    $error_copy = l10n('Copy the text in pink between hyphens and paste it into the file "include/config_database.inc.php"(Warning : config_database.inc.php must only contain what is in pink, no line return or space character)');
+    $error_copy = l10n('Copy the text in pink between hyphens and paste it into the file "local/config/database.inc.php"(Warning : database.inc.php must only contain what is in pink, no line return or space character)');
     $error_copy .= '<br>--------------------------------------------------------------------<br>';
     $error_copy .= '<span class="sql_content">' . $html_content . '</span>';
     $error_copy .= '<br>--------------------------------------------------------------------<br>';

@@ -34,7 +34,7 @@ $lang['perform a maintenance check'] = 'Perform a maintenance check in [Administ
 $lang['deactivated plugins'] = 'As a precaution, following plugins have been deactivated. You must check for plugins upgrade before reactiving them:';
 $lang['upgrade login message'] = 'Only administrator can run upgrade: please sign in below.';
 $lang['You do not have access rights to run upgrade'] = 'You do not have access rights to run upgrade';
-$lang['in include/config_database.inc.php, before ?>, insert:'] = 'In <i>include/config_database.inc.php</i>, before <b>?></b>, insert:';
+$lang['in <i>%s</i>, before ?>, insert:'] = 'In <i>%s</i>, before <b>?></b>, insert:';
 
 // Upgrade informations from upgrade_1.3.1.php
 $lang['all sub-categories of private categories become private'] = 'All sub-categories of private categories become private';

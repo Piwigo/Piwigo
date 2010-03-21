@@ -24,7 +24,7 @@
 define('PHPWG_ROOT_PATH', './');
 
 // load config file
-$config_file = PHPWG_ROOT_PATH.'include/config_database.inc.php';
+$config_file = PHPWG_ROOT_PATH.'local/config/database.inc.php';
 $config_file_contents = @file_get_contents($config_file);
 if ($config_file_contents === false)
 {
@@ -40,7 +40,7 @@ include_once(PHPWG_ROOT_PATH.'include/functions.inc.php');
 include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
 include_once(PHPWG_ROOT_PATH.'admin/include/functions_upgrade.php');
 
-include(PHPWG_ROOT_PATH.'include/config_database.inc.php');
+include(PHPWG_ROOT_PATH.'local/config/database.inc.php');
 include(PHPWG_ROOT_PATH . 'include/config_default.inc.php');
 @include(PHPWG_ROOT_PATH. 'include/config_local.inc.php');
 include(PHPWG_ROOT_PATH .'include/dblayer/functions_'.$conf['dblayer'].'.inc.php');
@@ -267,7 +267,7 @@ if (isset($_POST['submit']) and check_upgrade())
     $conf['die_on_sql_error'] = false;
     include($upgrade_file);
 
-    // Something to add in config_database.inc.php?
+    // Something to add in database.inc.php?
     if (!empty($mysql_changes))
     {
       $config_file_contents = 
@@ -279,7 +279,7 @@ if (isset($_POST['submit']) and check_upgrade())
       {
         array_push($page['infos'],
 		   l10n_args('in <i>%s</i>, before <b>?></b>, insert:', 
-			     'include/config_database.inc.php') . 
+			     'local/config/database.inc.php') . 
 		   '<p><textarea rows="4" cols="40">' .
 		   implode("\r\n" , $mysql_changes).'</textarea></p>'
 		   );

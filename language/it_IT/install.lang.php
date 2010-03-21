@@ -37,7 +37,7 @@ $lang['Connection to server succeed, but it was impossible to connect to databas
 $lang['Can\'t connect to server'] = "Non è stato possibile connettersi al server";
 $lang['The next step of the installation is now possible'] = "Il prossimo step d'installazione è oramail possibile";
 $lang['next step'] = "step successivo";
-$lang['Copy the text in pink between hyphens and paste it into the file "include/config_database.inc.php"(Warning : config_database.inc.php must only contain what is in pink, no line return or space character)'] = "Copiate il testo in rosa trà i trattini e mettetelo nel file config_database.inc.php che si trova nella directory \"include\" alla base del vostro sito dove aveto installato Piwigo (il file config_database.inc.php non deve contenere altro che ciò che è in rosa tra i trattini, nessun ritorno a capo o spazio è autorizzato)";
+$lang['Copy the text in pink between hyphens and paste it into the file "local/config/database.inc.php"(Warning : database.inc.php must only contain what is in pink, no line return or space character)'] = "Copiate il testo in rosa trà i trattini e mettetelo nel file database.inc.php che si trova nella directory \"local/config\" alla base del vostro sito dove aveto installato Piwigo (il file database.inc.php non deve contenere altro che ciò che è in rosa tra i trattini, nessun ritorno a capo o spazio è autorizzato)";
 $lang['Database type'] = "Tipo di Database";
 $lang['The type of database your piwigo data will be store in'] = "La base dati da utilizzare per installare Piwigo";
 $lang['Host'] = "Host";
