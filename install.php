@@ -227,11 +227,20 @@ if (!isset($step))
 //---------------------------------------------------------------- form analyze
 if ( isset( $_POST['install'] ))
 {
+  ob_start();
   if (($pwg_db_link = pwg_db_connect($_POST['dbhost'], $_POST['dbuser'], 
-				     $_POST['dbpasswd'], $_POST['dbname']))!==false) 
+				     $_POST['dbpasswd'], $_POST['dbname'], false))!==false) 
   {
-
-    array_push( $infos, l10n('Parameters are correct') );
+    if (pwg_select_db($_POST['dbname'], $pwg_db_link, false)!==false)
+    {
+      array_push( $infos, l10n('Parameters are correct') );
+    }
+    else
+    {
+      array_push( $errors,
+        l10n('Connection to server succeed, but it was impossible to connect to database') );
+    }
+    ob_end_clean();
 
     $required_version = constant('REQUIRED_'.strtoupper($dblayer).'_VERSION');
     if ( version_compare(pwg_get_db_version(), $required_version, '>=') )
@@ -261,8 +270,8 @@ if ( isset( $_POST['install'] ))
   else
   {
     array_push( $errors, l10n('Can\'t connect to server') );
+    ob_end_clean();
   }
-
   $webmaster = trim(preg_replace( '/\s{2,}/', ' ', $admin_name ));
   if ( empty($webmaster))
     array_push( $errors, l10n('enter a login for webmaster') );

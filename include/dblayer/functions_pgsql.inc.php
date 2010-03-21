@@ -33,7 +33,7 @@ define('DB_RANDOM_FUNCTION', 'RANDOM');
  *
  */
 
-function pwg_db_connect($host, $user, $password, $database)
+function pwg_db_connect($host, $user, $password, $database, $die=true)
 {
   $connection_string = '';
   if (strpos($host,':') !== false) 
@@ -49,9 +49,14 @@ function pwg_db_connect($host, $user, $password, $database)
 				$user, 
 				$password,
 				$database);
-  $link = pg_connect($connection_string) or my_error('pg_connect', false);  
+  $link = pg_connect($connection_string) or my_error('pg_connect', $die);  
 
   return $link;
+}
+
+function pwg_select_db($database=null, $link=null, $die=null)
+{
+  return true;
 }
 
 function pwg_db_check_charset() 

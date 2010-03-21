@@ -33,7 +33,7 @@ define('DB_RANDOM_FUNCTION', 'RANDOM');
  *
  */
 
-function pwg_db_connect($host, $user, $password, $database)
+function pwg_db_connect($host, $user, $password, $database, $die=true)
 {
   global $conf;
 
@@ -50,7 +50,7 @@ function pwg_db_connect($host, $user, $password, $database)
   try {
     $link = new SQLite3($db_file, $sqlite_open_mode);
   } catch (Exception $e) {
-    my_error('sqlite::open', true);
+    my_error('sqlite::open', $die);
   }
 
   $link->createFunction('now', 'pwg_now', 0);
@@ -62,6 +62,11 @@ function pwg_db_connect($host, $user, $password, $database)
   $link->createFunction('regexp', 'pwg_regexp', 2);
 
   return $link;
+}
+
+function pwg_select_db($database=null, $link=null, $die=null)
+{
+  return true;
 }
 
 function pwg_db_check_charset() 
