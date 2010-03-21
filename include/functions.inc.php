@@ -410,7 +410,7 @@ function get_languages($target_charset = null)
   while ($file = readdir($dir))
   {
     $path = PHPWG_ROOT_PATH.'language/'.$file;
-    if (!is_link($path) and file_exists($path.'/iso.txt'))
+    if (!is_link($path) and is_dir($path) and file_exists($path.'/iso.txt'))
     {
       list($language_name) = @file($path.'/iso.txt');
 
