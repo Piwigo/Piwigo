@@ -39,6 +39,9 @@ $tabsheet = new tabsheet();
 $tabsheet->add('localconf',
                l10n('locfiledit_onglet_localconf'),
                $my_base_url.'&amp;tab=localconf');
+$tabsheet->add('css',
+               l10n('locfiledit_onglet_css'),
+               $my_base_url.'&amp;tab=css');
 $tabsheet->add('tpl',
                l10n('locfiledit_onglet_tpl'),
                $my_base_url.'&amp;tab=tpl');
@@ -138,6 +141,27 @@ switch ($page['tab'])
     $editarea_options['syntax'] = 'php';
     break;
 
+  case 'css':
+    $selected = 0; 
+    $options[] = l10n('locfiledit_choose_file');
+    $options[] = '----------------------';
+    $value = PHPWG_ROOT_PATH . "local/css/rules.css";
+    $options[$value] = 'local / css / rules.css';
+    if ($edited_file == $value) $selected = $value;
+    $options[] = '----------------------';
+	
+    foreach (get_dirs($conf['themes_dir']) as $theme_id)
+    {
+      $value = PHPWG_ROOT_PATH . 'local/css/'.$theme_id.'-rules.css';
+      $options[$value] = 'local / css / '.$theme_id.'-rules.css';
+      if ($edited_file == $value) $selected = $value;
+    }
+    $template->assign('css_lang_tpl', array(
+        'OPTIONS' => $options,
+        'SELECTED' => $selected));
+    $editarea_options['syntax'] = 'css';
+    break;
+
   case 'tpl':
     // New file form creation
     if ($newfile_page and !is_adviser())
@@ -150,65 +174,39 @@ switch ($page['tab'])
       $options['parent'] = array(PHPWG_ROOT_PATH . 'template-extension' => 'template-extension');
       $options['parent'] = array_merge($options['parent'], get_rec_dirs(PHPWG_ROOT_PATH . 'template-extension'));
 
-      // Model list
-      $eligible_templates = array(
-          'about.tpl',
-          'footer.tpl',
-          'header.tpl',
-          'identification.tpl',
-          'index.tpl',
-          'mainpage_categories.tpl',
-          'menubar.tpl',
-          'menubar_categories.tpl',
-          'menubar_identification.tpl',
-          'menubar_links.tpl',
-          'menubar_menu.tpl',
-          'menubar_specials.tpl',
-          'menubar_tags.tpl',
-          'navigation_bar.tpl',
-          'nbm.tpl',
-          'notification.tpl',
-          'picture.tpl',
-          'picture_content.tpl',
-          'picture_nav_buttons.tpl',
-          'popuphelp.tpl',
-          'profile.tpl',
-          'profile_content.tpl',
-          'redirect.tpl',
-          'register.tpl',
-          'search.tpl',
-          'search_rules.tpl',
-          'slideshow.tpl',
-          'tags.tpl',
-          'thumbnails.tpl',
-          'upload.tpl');
-
       $options['model'][] = l10n('locfiledit_empty_page');
       $options['model'][] = '----------------------';
+      $i = 0;
       foreach (get_extents() as $pwg_template)
       {
         $value = PHPWG_ROOT_PATH . 'template-extension/' . $pwg_template;
         $options['model'][$value] =  'template-extension / ' . str_replace('/', ' / ', $pwg_template);
+        $i++;
       }
-      $template_dir = PHPWG_ROOT_PATH . 'template';
-      foreach (get_dirs($template_dir) as $pwg_template)
+      foreach (get_dirs($conf['themes_dir']) as $theme_id)
       {
-        if (count($options['model']) > 2)
+        if ($i)
         {
           $options['model'][] = '----------------------';
+          $i = 0;
         }
-        $dir = $template_dir . '/' . $pwg_template . '/';
+        $dir = $conf['themes_dir'] . '/' . $theme_id . '/template/';
         if (is_dir($dir) and $content = opendir($dir))
         {
           while ($node = readdir($content))
           {
-            if (is_file($dir . $node) and in_array($node, $eligible_templates))
+            if (is_file($dir.$node) and get_extension($node) == 'tpl')
             {
               $value = $dir . $node;
-              $options['model'][$value] = $pwg_template . ' / ' . $node;
+              $options['model'][$value] = $theme_id . ' / ' . $node;
+              $i++;
             }
           }
         }
+      }
+      if (end($options['model']) == '----------------------')
+      {
+        array_pop($options['model']);
       }
       // Assign variables to template
       $template->assign('create_tpl', array(
@@ -220,7 +218,6 @@ switch ($page['tab'])
       break;
     }
     // List existing template extensions
-    $template_dir = PHPWG_ROOT_PATH . 'template-extension';
     $selected = 0; 
     $options[] = l10n('locfiledit_choose_file');
     $options[] = '----------------------';
@@ -250,7 +247,7 @@ switch ($page['tab'])
     $options[] = '----------------------';
     foreach (get_languages() as $language_code => $language_name)
     {
-      $value = PHPWG_ROOT_PATH.'language/'.$language_code.'/local.lang.php';
+      $value = PHPWG_ROOT_PATH.'local/language/'.$language_code.'.lang.php';
       if ($edited_file == $value)
       {
         $selected = $value;
