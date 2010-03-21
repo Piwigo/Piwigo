@@ -321,6 +321,7 @@ if (isset($_POST['submit']) and !is_adviser())
       @fwrite($file , $content_file);
       @fclose($file);
       array_unshift($page['infos'], l10n('locfiledit_save_config'));
+      $template->delete_compiled_templates();
     }
 		else
     {
