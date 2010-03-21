@@ -163,11 +163,26 @@ else
 if ('fr_FR' == $language) {
   define('PHPWG_DOMAIN', 'fr.piwigo.org');
 }
+else if ('it_IT' == $language) {
+  define('PHPWG_DOMAIN', 'it.piwigo.org');
+}
+else if ('de_DE' == $language) {
+  define('PHPWG_DOMAIN', 'de.piwigo.org');
+}
+else if ('es_ES' == $language) {
+  define('PHPWG_DOMAIN', 'es.piwigo.org');
+}
 else if ('pl_PL' == $language) {
   define('PHPWG_DOMAIN', 'pl.piwigo.org');
 }
 else if ('zh_CN' == $language) {
   define('PHPWG_DOMAIN', 'cn.piwigo.org');
+}
+else if ('hu_HU' == $language) {
+  define('PHPWG_DOMAIN', 'hu.piwigo.org');
+}
+else if ('ru_RU' == $language) {
+  define('PHPWG_DOMAIN', 'ru.piwigo.org');
 }
 else {
   define('PHPWG_DOMAIN', 'piwigo.org');
