@@ -104,16 +104,21 @@ function available_engines()
     }
   }
 
-  if ($engines['sqlite']['available'] && $engines['pdo-sqlite']['available'])
+  if ($engines['sqlite']['available'] and !$engines['pdo-sqlite']['available'])
   {
-    if ($GLOBALS['conf']['db_sqlite_default']=='native')
-    {
-      unset($engines['pdo-sqlite']);
-    }
-    else 
-    {
-      unset($engines['sqlite']);
-    }
+    unset($engines['pdo-sqlite']);
+  }
+  elseif ($engines['pdo-sqlite']['available'] and !$engines['sqlite']['available'])
+  {
+    unset($engines['sqlite']);
+  }
+  elseif (DEFAULT_DB_SQLITE=='native')
+  {
+    unset($engines['pdo-sqlite']);
+  }
+  else
+  {
+    unset($engines['sqlite']);
   }
 
   return $engines;

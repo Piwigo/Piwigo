@@ -34,7 +34,7 @@ $dblayers['sqlite'] = array('engine' => 'SQLite',
 			    'function_available' => 'sqlite_open'
 			    );
 
-$dblayers['pdo-sqlite'] = array('engine' => 'PDO::SQLite',
+$dblayers['pdo-sqlite'] = array('engine' => 'SQLite',
 				'class_available' => 'PDO'
 				);
 

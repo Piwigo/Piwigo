@@ -98,6 +98,15 @@ if( !@get_magic_quotes_gpc() )
 
 define('DEFAULT_PREFIX_TABLE', 'piwigo_');
 
+// default database engine proposed if severals are available
+// choices : sqlite, mysql, pgsql, pdo-sqlite
+// see include/dblayer/dblayers.inc.php
+define('DEFAULT_DB_ENGINE', 'mysql');
+
+// database engine default choice between sqlite (native or via pdo)
+// if the twice are available.
+define('DEFAULT_DB_SQLITE', 'native'); 
+
 if (isset($_POST['install']))
 {
   $prefixeTable = $_POST['prefix'];
@@ -115,7 +124,7 @@ $dbhost = (!empty($_POST['dbhost'])) ? $_POST['dbhost'] : 'localhost';
 $dbuser = (!empty($_POST['dbuser'])) ? $_POST['dbuser'] : '';
 $dbpasswd = (!empty($_POST['dbpasswd'])) ? $_POST['dbpasswd'] : '';
 $dbname = (!empty($_POST['dbname'])) ? $_POST['dbname'] : '';
-$dblayer = (!empty($_POST['dblayer'])) ? $_POST['dblayer'] : $conf['dbengine_select_default'];
+$dblayer = (!empty($_POST['dblayer'])) ? $_POST['dblayer'] : DEFAULT_DB_ENGINE;
 
 $admin_name = (!empty($_POST['admin_name'])) ? $_POST['admin_name'] : '';
 $admin_pass1 = (!empty($_POST['admin_pass1'])) ? $_POST['admin_pass1'] : '';
