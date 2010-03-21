@@ -9,7 +9,7 @@
 
 {foreach from=$themes item=theme}
 {if isset($theme.local_head)}{include file=$theme.local_head}{/if}
-<link rel="stylesheet" type="text/css" href="{$ROOT_URL}admin/themes/{$theme.name}/theme.css">
+<link rel="stylesheet" type="text/css" href="{$ROOT_URL}admin/themes/{$theme.id}/theme.css">
 {/foreach}
 
 <script type="text/javascript" src="themes/default/js/jquery.packed.js"></script>
