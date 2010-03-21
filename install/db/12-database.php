@@ -30,7 +30,7 @@ $upgrade_description = 'Field "Status" Table #user_infos changed';
 
 include_once(PHPWG_ROOT_PATH.'include/constants.php');
 include(PHPWG_ROOT_PATH . 'include/config_default.inc.php');
-@include(PHPWG_ROOT_PATH. 'include/config_local.inc.php');
+@include(PHPWG_ROOT_PATH. 'local/config/config.inc.php');
 
 // +-----------------------------------------------------------------------+
 // |                            Upgrade content                            |

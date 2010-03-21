@@ -90,7 +90,7 @@ foreach( array(
 }
 
 include(PHPWG_ROOT_PATH . 'include/config_default.inc.php');
-@include(PHPWG_ROOT_PATH. 'include/config_local.inc.php');
+@include(PHPWG_ROOT_PATH. 'local/config/config.inc.php');
 include(PHPWG_ROOT_PATH .'include/dblayer/functions_'.$conf['dblayer'].'.inc.php');
 
 if(isset($conf['show_php_errors']) && !empty($conf['show_php_errors']))

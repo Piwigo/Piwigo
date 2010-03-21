@@ -30,7 +30,7 @@
  *
  * It is recommended to let config_default.inc.php as provided and to
  * overwrite configuration in your local configuration file
- * config_local.inc.php. See tools/config_local.inc.php as an example.
+ * local/config/config.inc.php. See tools/config.inc.php as an example.
  *
  * Why having some parameters in config table and others in
  * config_*.inc.php? Modifying config_*.inc.php is a "hard" task for low

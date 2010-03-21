@@ -83,7 +83,7 @@ class c13y_internal
           sprintf(l10n('%s value is not correct file because exif are not supported'), '$conf[\''.$value.'\']'),
           null,
           null,
-          sprintf(l10n('%s must be to set to false in your config_local.inc.php file'), '$conf[\''.$value.'\']')
+          sprintf(l10n('%s must be to set to false in your local/config/config.inc.php file'), '$conf[\''.$value.'\']')
           .'<br>'.
           $c13y->get_htlm_links_more_info());
       }

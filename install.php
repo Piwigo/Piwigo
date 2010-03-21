@@ -158,7 +158,7 @@ elseif (@file_exists($config_file))
 
 $prefixeTable = $table_prefix;
 include(PHPWG_ROOT_PATH . 'include/config_default.inc.php');
-@include(PHPWG_ROOT_PATH. 'include/config_local.inc.php');
+@include(PHPWG_ROOT_PATH. 'local/config/config.inc.php');
 include(PHPWG_ROOT_PATH .'include/dblayer/functions_'.$dblayer.'.inc.php');
 include(PHPWG_ROOT_PATH . 'include/constants.php');
 include(PHPWG_ROOT_PATH . 'include/functions.inc.php');

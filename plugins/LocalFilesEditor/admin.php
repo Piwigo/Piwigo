@@ -127,7 +127,7 @@ if (isset($_POST['create_tpl']))
 switch ($page['tab'])
 {
   case 'localconf':
-    $edited_file = PHPWG_ROOT_PATH . "include/config_local.inc.php";
+    $edited_file = PHPWG_ROOT_PATH . "local/config/config.inc.php";
     $content_file = file_exists($edited_file) ?
       file_get_contents($edited_file) : $new_file['localconf'];
 	

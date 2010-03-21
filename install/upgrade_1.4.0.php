@@ -282,7 +282,7 @@ if ($prefix_thumbnail != 'TN-')
   array_push(
     $page['infos'],
     'the thumbnail prefix configuration parameter was moved to configuration
-file, copy config_local.inc.php from "tools" directory to "include" directory
+file, copy config.inc.php from "tools" directory to "local/config" directory
 and edit $conf[\'prefix_thumbnail\'] = '.$prefix_thumbnail
     );
 }
