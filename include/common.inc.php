@@ -144,6 +144,12 @@ else if ('pl_PL' == $user['language']) {
 else if ('zh_CN' == $user['language']) {
   define('PHPWG_DOMAIN', 'cn.piwigo.org');
 }
+else if ('hu_HU' == $user['language']) {
+  define('PHPWG_DOMAIN', 'hu.piwigo.org');
+}
+else if ('ru_RU' == $user['language']) {
+  define('PHPWG_DOMAIN', 'ru.piwigo.org');
+}
 else {
   define('PHPWG_DOMAIN', 'piwigo.org');
 }
