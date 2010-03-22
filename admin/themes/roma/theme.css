@@ -224,3 +224,5 @@ html>body #menubar {min-height:522px; height:522px;} /* IE 7 and modern browsers
 #pluginsMenuSeparator {border:1px solid #333;}
 
 #helpContent, #pLoaderPage, #ftpPage, #ftpPage LEGEND {color:#aaa;}
+
+#pwgHead, #footer {background-color:#222;}

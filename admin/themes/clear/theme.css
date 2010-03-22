@@ -213,3 +213,8 @@ html>body #menubar {min-height:477px; height:477px;} /* IE 7 and modern browsers
 
 #helpContent A {border-bottom:1px dotted #005E89;}
 #helpContent A:hover {border-bottom:1px solid #d54e21;}
+
+#pwgHead, #footer {background-color:#ddd;}
+#pwgHead, #footer {color:#666;}
+#pwgHead A, #footer A {color:#444;}
+#pwgHead A:hover, #footer A:hover {color:black; border-color:black;}
