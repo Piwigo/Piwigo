@@ -169,6 +169,7 @@ if (
   !isset($conf['no_photo_yet'])             // the message disappears at first photo
   and !(defined('IN_ADMIN') and IN_ADMIN)   // no message inside administration
   and script_basename() != 'identification' // keep the ability to login
+  and !isset($_SESSION['no_photo_yet'])     // temporary hide
   )
 {
   $query = '
@@ -179,17 +180,27 @@ SELECT
   list($nb_photos) = pwg_db_fetch_row(pwg_query($query));
   if (0 == $nb_photos)
   {
-    $template->set_filenames(array('no_photo_yet'=>'no_photo_yet.tpl'));
-    
-    if (is_admin())
+    if (isset($_GET['no_photo_yet']))
     {
-      if (isset($_GET['no_photo_yet']))
+      if ('browse' == $_GET['no_photo_yet'])
+      {
+        $_SESSION['no_photo_yet'] = 'browse';
+        redirect(make_index_url());
+        exit();
+      }
+
+      if ('deactivate' == $_GET['no_photo_yet'])
       {
         conf_update_param('no_photo_yet', 'false');
         redirect(make_index_url());
         exit();
       }
-      
+    }
+    
+    $template->set_filenames(array('no_photo_yet'=>'no_photo_yet.tpl'));
+    
+    if (is_admin())
+    {      
       $url = $conf['no_photo_yet_url'];
       if (substr($url, 0, 4) != 'http')
       {
@@ -215,6 +226,7 @@ SELECT
         array(
           'step' => 1,
           'U_LOGIN' => 'identification.php',
+          'deactivate_url' => get_root_url().'?no_photo_yet=browse',
           )
         );
     }

@@ -2,6 +2,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="stylesheet" type="text/css" href="themes/default/theme.css">
 <link rel="stylesheet" type="text/css" href="themes/Sylvia/theme.css">
 <title>Piwigo, {'Welcome'|@translate}</title>
 {literal}
@@ -13,7 +14,7 @@ background-color:#111;
 }
 
 P {text-align:center;}
-TD {color:#888;}
+TD {color:#888; letter-spacing:1px;}
 
 #global {
 position:absolute;
@@ -66,7 +67,10 @@ border:2px solid #FF3363;
     width:100%;
 
     font-style:normal;
+    font-size:1.0em;
 }
+
+.submit {font-size:1.0em; letter-spacing:2px; font-weight:normal;}
 
 #deactivate A {
     text-decoration:none;
@@ -96,13 +100,15 @@ border:2px solid #FF3363;
 </table>
 
 <p><input class="submit" type="submit" name="login" value="{'Login'|@translate}"></p>
+
+<div id="deactivate"><a href="{$deactivate_url}">{'... or browse your empty gallery'|@translate}</a></div>
 </form>
 
 
 {else}
 <p id="noPhotoWelcome">{$intro}</p>
 <div class="bigButton"><a href="{$next_step_url}">{'I want to add photos'|@translate}</a></div>
-<div id="deactivate"><a href="{$deactivate_url}">{'I will find my way by myself, please deactivate this message'|@translate}</a></div>
+<div id="deactivate"><a href="{$deactivate_url}">{'... or please deactivate this message, I will find my way by myself'|@translate}</a></div>
 {/if}
 
 
