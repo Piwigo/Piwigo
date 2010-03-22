@@ -33,6 +33,6 @@ INSERT INTO piwigo_config (param,value,comment) VALUES ('upload_user_access',2 /
 INSERT INTO piwigo_config (param,value,comment) VALUES ('extents_for_templates','a:0:{}','Actived template-extension(s)');
 INSERT INTO piwigo_config (param,value,comment) VALUES ('blk_menubar','','Menubar options');
 
-INSERT INTO piwigo_themes (id) VALUES ('Sylvia');
-INSERT INTO piwigo_themes (id) VALUES ('clear');
-INSERT INTO piwigo_themes (id) VALUES ('dark');
+INSERT INTO piwigo_themes (id, name) VALUES ('Sylvia', 'Sylvia');
+INSERT INTO piwigo_themes (id, name) VALUES ('clear', 'clear');
+INSERT INTO piwigo_themes (id, name) VALUES ('dark', 'dark');
