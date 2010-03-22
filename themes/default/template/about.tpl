@@ -9,10 +9,12 @@
     </ul>
     <h2>{'About'|@translate}</h2>
   </div>
-  <ul>
+  <div id="piwigoAbout">
   {$ABOUT_MESSAGE}
   {if isset($THEME_ABOUT) }
-  <li>{$THEME_ABOUT}</li>
-  {/if}
+  <ul>
+   <li>{$THEME_ABOUT}</li>
   </ul>
+  {/if}
+  </div>
 </div>

@@ -849,3 +849,6 @@ SPAN.calItem, SPAN.calItemEmpty,
 TD.calDayCellEmpty, TD.calDayCellFull {
 	border: 1px solid gray;
 }
+
+#piwigoAbout {width:600px;margin:0 auto;}
+#linkToPiwigo {text-align:center;}
