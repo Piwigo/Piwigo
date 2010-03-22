@@ -43,6 +43,9 @@
 // |                                 misc                                  |
 // +-----------------------------------------------------------------------+
 
+// home_page : relative url of your homepage. Empty by default. It points to the index of the gallery.
+$conf['home_page'] = '';
+
 // order_by : how to change the order of display for images in a category ?
 //
 // There are several fields that can order the display :
