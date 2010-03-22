@@ -40,7 +40,7 @@
 <div id="pwgHead">
   <h1>
     <a href="{$U_RETURN}" title="Visit Gallery">
-      <img src="{$ROOT_URL}admin/themes/default/icon/home.png" alt="{'Home'|@translate}">
+      <img src="{$ROOT_URL}admin/themes/{$theme.id}/icon/home.png" alt="{'Home'|@translate}">
       {$GALLERY_TITLE}
     </a>
   </h1>
