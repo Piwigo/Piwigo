@@ -95,7 +95,7 @@ border:2px solid #FF3363;
   </tr>
   <tr>
     <td>{'Password'|@translate}</td>
-    <td><input type="text" name="password"></td>
+    <td><input type="password" name="password"></td>
   </tr>
 </table>
 
