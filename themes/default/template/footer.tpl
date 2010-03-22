@@ -1,7 +1,7 @@
 <div id="copyright">
  <a name="EoP"></a> <!-- End of Page -->
  {if isset($debug.TIME) }
- {'SQL queries in'|@translate} {$debug.TIME} ({$debug.NB_QUERIES} {'SQL queries in'|@translate} {$debug.SQL_TIME}) -
+ {'Page generated in'|@translate} {$debug.TIME} ({$debug.NB_QUERIES} {'SQL queries in'|@translate} {$debug.SQL_TIME}) -
  {/if}
 
  {* Please, do not remove this copyright. If you really want to,
