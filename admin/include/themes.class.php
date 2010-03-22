@@ -140,6 +140,19 @@ DELETE
           // nothing to do here
           break;
         }
+
+        $children = $this->get_children_themes($theme_id);
+        if (count($children) > 0)
+        {
+          array_push(
+            $errors,
+            sprintf(
+              l10n('Impossible to delete this theme. Other themes depends on it: %s'),
+              implode(', ', $children)
+              )
+            );
+          break;
+        }
         
         if (!$this->deltree(PHPWG_THEMES_PATH.$theme_id))
         {
@@ -154,6 +167,21 @@ DELETE
     }
     return $errors;
   }
+
+  function get_children_themes($theme_id)
+  {
+    $children = array();
+    
+    foreach ($this->fs_themes as $test_child)
+    {
+      if (isset($test_child['parent']) and $test_child['parent'] == $theme_id)
+      {
+        array_push($children, $test_child['name']);
+      }
+    }
+
+    return $children;
+  } 
 
   function set_default_theme($theme_id)
   {
@@ -266,6 +294,10 @@ SELECT
           {
             list( , $extension) = explode('extension_view.php?eid=', $theme['uri']);
             if (is_numeric($extension)) $theme['extension'] = $extension;
+          }
+          if (preg_match('/["\']parent["\'][^"\']+["\']([^"\']+)["\']/', $theme_data, $val))
+          {
+            $theme['parent'] = $val[1];
           }
 
           // screenshot

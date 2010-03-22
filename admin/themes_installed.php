@@ -68,7 +68,7 @@ foreach ($db_themes as $db_theme)
 $active_themes = array();
 $inactive_themes = array();
 
-foreach($themes->fs_themes as $theme_id => $fs_theme)
+foreach ($themes->fs_themes as $theme_id => $fs_theme)
 {
   if ($theme_id == 'default')
   {
@@ -89,6 +89,22 @@ foreach($themes->fs_themes as $theme_id => $fs_theme)
   }
   else
   {
+    $children = $themes->get_children_themes($theme_id);
+    
+    if (count($children) > 0)
+    {
+      $fs_theme['deletable'] = false;
+      
+      $fs_theme['delete_tooltip'] = sprintf(
+        l10n('Impossible to delete this theme. Other themes depends on it: %s'),
+        implode(', ', $children)
+        );
+    }
+    else
+    {
+      $fs_theme['deletable'] = true;
+    }
+    
     array_push($inactive_themes, $fs_theme);
   }
 }

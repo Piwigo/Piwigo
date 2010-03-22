@@ -4,7 +4,8 @@
 
 <div id="themesContent">
 
-<h3>Active Themes</h3>
+<fieldset>
+<legend>Active Themes</legend>
 {if isset($active_themes)}
 <div class="themeBoxes">
 {foreach from=$active_themes item=theme}
@@ -21,9 +22,11 @@
 {/foreach}
 </div> <!-- themeBoxes -->
 {/if}
+</fieldset>
 
 {if isset($inactive_themes)}
-<h3>Inactive Themes</h3>
+<fieldset>
+<legend>Inactive Themes</legend>
 <div class="themeBoxes">
 {foreach from=$inactive_themes item=theme}
   <div class="themeBox">
@@ -31,12 +34,18 @@
     <div class="themeShot"><img src="{$theme.screenshot}"></div>
     <div class="themeActions">
       <a href="{$activate_baseurl}{$theme.id}" title="{'Make this theme available to users'|@translate}">{'Activate'|@translate}</a>
-      | <a href="{$delete_baseurl}{$theme.id}" onclick="return confirm('{'Are you sure?'|@translate|@escape:javascript}');" title="{'Delete this theme'|@translate}">{'Delete'|@translate}</a>
+      |
+  {if $theme.deletable}
+      <a href="{$delete_baseurl}{$theme.id}" onclick="return confirm('{'Are you sure?'|@translate|@escape:javascript}');" title="{'Delete this theme'|@translate}">{'Delete'|@translate}</a>
+  {else}
+      <span title="{$theme.delete_tooltip}">{'Delete'|@translate}</span>
+  {/if}
     </div>
     
   </div>
 {/foreach}
 </div> <!-- themeBoxes -->
+</fieldset>
 {/if}
 
 </div> <!-- themesContent -->
