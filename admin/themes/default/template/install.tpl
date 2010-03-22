@@ -32,10 +32,43 @@ $(function() {
 </script>
 
 <style type="text/css">
+body {
+  background:url("admin/themes/roma/images/bottom-left-bg.jpg") no-repeat fixed left bottom #111111;
+}
+
 .content {
+ background:url("admin/themes/roma/images/fillet.png") repeat-x scroll left top #222222;
  width: 800px;
  margin: auto;
  text-align: center;
+ padding: 5px;
+}
+
+#headbranch  {
+  background:url("admin/themes/roma/images/top-left-bg.jpg") no-repeat scroll left top transparent;
+}
+
+#theHeader {
+  display: block;
+  background:url("admin/themes/roma/images/piwigo_logo_sombre_214x100.png") no-repeat scroll 245px top transparent;
+}
+
+.content h2 {
+  display:block;
+  font-size:28px;
+  height:104px;
+  width:54%;
+  color:#666666;
+  letter-spacing:-1px;
+  margin:0 30px 3px 20px;
+  overflow:hidden;
+  position:absolute;
+  right:0;
+  text-align:right;
+  top:0;
+  width:770px;
+  text-align:right;
+  text-transform:none; 
 }
 
 .table2 {
