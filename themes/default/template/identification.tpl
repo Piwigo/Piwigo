@@ -2,10 +2,6 @@
 
   <div class="titrePage">
     <ul class="categoryActions">
-      <li><a href="{$U_LOST_PASSWORD}" title="{'Forgot your password?'|@translate}"><img src="{$ROOT_URL}{$themeconf.icon_dir}/lost_password.png" class="button" alt="{'Forgot your password?'|@translate}"></a></li>
-      {if isset($U_REGISTER) }
-      <li><a href="{$U_REGISTER}" title="{'Register'|@translate}"><img src="{$ROOT_URL}{$themeconf.icon_dir}/register.png" class="button" alt="{'Register'|@translate}"></a></li>
-      {/if}
       <li><a href="{$U_HOME}" title="{'Home'|@translate}"><img src="{$ROOT_URL}{$themeconf.icon_dir}/home.png" class="button" alt="{'Home'|@translate}"></a></li>
     </ul>
     <h2>{'Identification'|@translate}</h2>
