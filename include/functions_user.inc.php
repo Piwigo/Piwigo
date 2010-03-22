@@ -246,9 +246,9 @@ function build_user( $user_id, $use_cache )
   $user['nb_image_page'] = $user['nb_image_line'] * $user['nb_line_page'];
 
   // Check user theme
-  if (!file_exists(PHPWG_ROOT_PATH.'themes/'.$user['theme'].'/themeconf.inc.php'))
+  if (!isset($user['theme_name']))
   {
-    $user['theme'] = $conf['default_theme'];
+    $user['theme'] = get_default_theme();
   }
 
   return $user;
@@ -292,9 +292,10 @@ SELECT ';
   while (true)
   {
     $query = '
-SELECT ui.*, uc.*
-  FROM '.USER_INFOS_TABLE.' AS ui LEFT JOIN '.USER_CACHE_TABLE.' AS uc
-    ON ui.user_id = uc.user_id
+SELECT ui.*, uc.*, t.name AS theme_name
+  FROM '.USER_INFOS_TABLE.' AS ui
+    LEFT JOIN '.USER_CACHE_TABLE.' AS uc ON ui.user_id = uc.user_id
+    LEFT JOIN '.THEMES_TABLE.' AS t ON t.id = ui.theme
   WHERE ui.user_id = \''.$user_id.'\'';
     $result = pwg_query($query);
     if (pwg_db_num_rows($result) > 0)
