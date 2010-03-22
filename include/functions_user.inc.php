@@ -832,7 +832,7 @@ function get_default_user_info($convert_str = true)
 function get_default_user_value($value_name, $sos_value)
 {
   $default_user = get_default_user_info(true);
-  if ($default_user === false or !isset($default_user[$value_name]))
+  if ($default_user === false or empty($default_user[$value_name]))
   {
     return $sos_value;
   }
