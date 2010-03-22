@@ -28,19 +28,19 @@ $lang['locfiledit_onglet_lang'] = 'Lingue';
 $lang['locfiledit_onglet_plug'] = 'Plugin Personale';
 $lang['locfiledit_cant_save'] = 'Non è stato possibile scrivere il file. Verificare i permessi (chmod) della directory "include/".';
 $lang['locfiledit_newfile'] = 'Il file non esiste e sarà creato durante la fase di registrazione con LocalFiles Editor';
-$lang['locfiledit_save_config'] = 'Il file è stato registrato.';
+$lang['locfiledit_save_config'] = 'Il file è stato salvato.';
 $lang['locfiledit_show_default'] = 'Visualizzare il file ';
 $lang['locfiledit_save_bak'] = 'Una copia di backup del file sarà creata durante la fase di registrazione';
 $lang['locfiledit_saved_bak'] = 'Una copia di backup è stata creata (%s)';
-$lang['locfiledit_save_file'] = 'Registrare il file';
+$lang['locfiledit_save_file'] = 'Salvare il file';
 $lang['locfiledit_choose_file'] = 'Scegliere un file da editare';
 $lang['locfiledit_edit'] = 'Editare';
 $lang['locfiledit_restore'] = 'Caricare il file di backup';
 $lang['locfiledit_restore_confirm'] = 'Volete caricare il file di backup?
-Dovrete in seguito cliccare sù Registrare per restaurarlo.';
+Dovrete in seguito cliccare sù Salvare per restaurarlo.';
 $lang['locfiledit_bak_loaded1'] = 'Copia di backup caricata';
 $lang['locfiledit_bak_loaded2'] = 'Dovete registrarlo per salvarlo.';
-$lang['locfiledit_syntax_error'] = 'Errore di sintassi! Impossible di registrare il file.';
+$lang['locfiledit_syntax_error'] = 'Errore di sintassi! Impossible salvare il file.';
 $lang['locfiledit_enable_editarea'] = 'Attivare Editarea';
 $lang['locfiledit_disable_editarea'] = 'Disattivare Editarea';
 $lang['locfiledit_new_tpl'] = 'Creare un nuovo file';
@@ -52,6 +52,6 @@ $lang['locfiledit_filename_error'] = 'Caratteri vietati nel nome del file.';
 $lang['locfiledit_file_already_exists'] = 'Il file esiste già.';
 $lang['locfiledit_model_error'] = 'Selezionare un modello.';
 $lang['locfiledit_empty_filename'] = 'Indicate un nome di file.';
-/* TODO */ $lang['locfiledit_webmaster_only'] = 'Only webmasters can create or modify local files.';
+$lang['locfiledit_webmaster_only'] = 'Solo i webmasters sono autorizzati a creare o modificare i file locali.';
 
 ?>
