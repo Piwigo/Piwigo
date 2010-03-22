@@ -628,7 +628,9 @@ UL.tagSelection {
 }
 
 UL.tagSelection LI {
-	display: inline;
+        display:inline-block;
+        width:150px!important;
+        overflow:hidden;
 	white-space: nowrap;
 }
 
