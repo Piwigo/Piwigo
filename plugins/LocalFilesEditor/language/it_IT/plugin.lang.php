@@ -52,5 +52,6 @@ $lang['locfiledit_filename_error'] = 'Caratteri vietati nel nome del file.';
 $lang['locfiledit_file_already_exists'] = 'Il file esiste già.';
 $lang['locfiledit_model_error'] = 'Selezionare un modello.';
 $lang['locfiledit_empty_filename'] = 'Indicate un nome di file.';
+/* TODO */ $lang['locfiledit_webmaster_only'] = 'Only webmasters can create or modify local files.';
 
 ?>

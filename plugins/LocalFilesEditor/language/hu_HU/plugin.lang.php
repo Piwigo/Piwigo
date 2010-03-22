@@ -52,5 +52,6 @@ $lang['locfiledit_filename_error'] = 'Nem használható fájlnév vagy karakter.
 $lang['locfiledit_file_already_exists'] = 'Ilyen fájl már létezik.';
 $lang['locfiledit_model_error'] = 'A típust ki kell választani.';
 $lang['locfiledit_empty_filename'] = 'A fájlnevet ki kell tölteni.';
+/* TODO */ $lang['locfiledit_webmaster_only'] = 'Only webmasters can create or modify local files.';
 
 ?>

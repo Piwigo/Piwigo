@@ -294,38 +294,45 @@ if (isset($_POST['restore']) and !is_adviser())
 // +-----------------------------------------------------------------------+
 if (isset($_POST['submit']) and !is_adviser())
 {
-  $edited_file = $_POST['edited_file'];
-  $content_file = stripslashes($_POST['text']);
-  if (get_extension($edited_file) == 'php')
-	{
-    $content_file = eval_syntax($content_file);
+  if ($user['status'] != 'webmaster')
+  {
+    array_push($page['errors'], l10n('locfiledit_webmaster_only'));
   }
-  if ($content_file === false)
-	{
-    array_push($page['errors'], l10n('locfiledit_syntax_error'));
-  }
-	else
-	{
-    if ($page['tab'] == 'plug' and !is_dir(PHPWG_PLUGINS_PATH . 'PersonalPlugin'))
+  else
+  {
+    $edited_file = $_POST['edited_file'];
+    $content_file = stripslashes($_POST['text']);
+    if (get_extension($edited_file) == 'php')
     {
-      @mkdir(PHPWG_PLUGINS_PATH . "PersonalPlugin");
+      $content_file = eval_syntax($content_file);
     }
-    if (file_exists($edited_file))
+    if ($content_file === false)
     {
-      @copy($edited_file, get_bak_file($edited_file));
-      array_push($page['infos'], sprintf(l10n('locfiledit_saved_bak'), substr(get_bak_file($edited_file), 2)));
+      array_push($page['errors'], l10n('locfiledit_syntax_error'));
     }
-    
-    if ($file = @fopen($edited_file , "w"))
-		{
-      @fwrite($file , $content_file);
-      @fclose($file);
-      array_unshift($page['infos'], l10n('locfiledit_save_config'));
-      $template->delete_compiled_templates();
-    }
-		else
+    else
     {
-      array_push($page['errors'], l10n('locfiledit_cant_save'));
+      if ($page['tab'] == 'plug' and !is_dir(PHPWG_PLUGINS_PATH . 'PersonalPlugin'))
+      {
+        @mkdir(PHPWG_PLUGINS_PATH . "PersonalPlugin");
+      }
+      if (file_exists($edited_file))
+      {
+        @copy($edited_file, get_bak_file($edited_file));
+        array_push($page['infos'], sprintf(l10n('locfiledit_saved_bak'), substr(get_bak_file($edited_file), 2)));
+      }
+      
+      if ($file = @fopen($edited_file , "w"))
+      {
+        @fwrite($file , $content_file);
+        @fclose($file);
+        array_unshift($page['infos'], l10n('locfiledit_save_config'));
+        $template->delete_compiled_templates();
+      }
+      else
+      {
+        array_push($page['errors'], l10n('locfiledit_cant_save'));
+      }
     }
   }
 }
