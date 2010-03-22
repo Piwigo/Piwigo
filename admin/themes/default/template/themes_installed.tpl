@@ -33,13 +33,21 @@
     <div class="themeName">{$theme.name}</div>
     <div class="themeShot"><img src="{$theme.screenshot}"></div>
     <div class="themeActions">
+
+  {if $theme.activable}
       <a href="{$activate_baseurl}{$theme.id}" title="{'Make this theme available to users'|@translate}">{'Activate'|@translate}</a>
+  {else}
+      <span title="{$theme.activate_tooltip}">{'Activate'|@translate}</span>
+  {/if}
+
       |
+
   {if $theme.deletable}
       <a href="{$delete_baseurl}{$theme.id}" onclick="return confirm('{'Are you sure?'|@translate|@escape:javascript}');" title="{'Delete this theme'|@translate}">{'Delete'|@translate}</a>
   {else}
       <span title="{$theme.delete_tooltip}">{'Delete'|@translate}</span>
   {/if}
+
     </div>
     
   </div>

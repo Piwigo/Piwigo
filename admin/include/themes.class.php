@@ -80,6 +80,20 @@ class themes
           // the theme is already active
           break;
         }
+
+        $missing_parent = $this->missing_parent_theme($theme_id);
+        if (isset($missing_parent))
+        {
+          array_push(
+            $errors, 
+            sprintf(
+              l10n('Impossible to activate this theme, the parent theme is missing: %s'),
+              $missing_parent
+              )
+            );
+          
+          break;
+        }
         
         $query = "
 INSERT INTO ".THEMES_TABLE."
@@ -166,6 +180,28 @@ DELETE
         break;
     }
     return $errors;
+  }
+
+  function missing_parent_theme($theme_id)
+  {
+    if (!isset($this->fs_themes[$theme_id]['parent']))
+    {
+      return null;
+    }
+    
+    $parent = $this->fs_themes[$theme_id]['parent'];
+      
+    if ('default' == $parent)
+    {
+      return null;
+    }
+      
+    if (!isset($this->fs_themes[$parent]))
+    {
+      return $parent;
+    }
+
+    return $this->missing_parent_theme($parent);
   }
 
   function get_children_themes($theme_id)

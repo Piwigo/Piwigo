@@ -89,7 +89,24 @@ foreach ($themes->fs_themes as $theme_id => $fs_theme)
   }
   else
   {
+    // is the theme "activable" ?
+    $fs_theme['activable'] = true;
+    
+    $missing_parent = $themes->missing_parent_theme($theme_id);
+    if (isset($missing_parent))
+    {
+      $fs_theme['activable'] = false;
+      
+      $fs_theme['activate_tooltip'] = sprintf(
+        l10n('Impossible to activate this theme, the parent theme is missing: %s'),
+        $missing_parent
+        );
+    }
+
+    // is the theme "deletable" ?
     $children = $themes->get_children_themes($theme_id);
+
+    $fs_theme['deletable'] = true;
     
     if (count($children) > 0)
     {
@@ -99,10 +116,6 @@ foreach ($themes->fs_themes as $theme_id => $fs_theme)
         l10n('Impossible to delete this theme. Other themes depends on it: %s'),
         implode(', ', $children)
         );
-    }
-    else
-    {
-      $fs_theme['deletable'] = true;
     }
     
     array_push($inactive_themes, $fs_theme);
