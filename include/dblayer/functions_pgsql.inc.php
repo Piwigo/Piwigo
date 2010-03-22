@@ -49,7 +49,7 @@ function pwg_db_connect($host, $user, $password, $database)
 				$user, 
 				$password,
 				$database);
-  $link = pg_connect($connection_string);
+  $link = @pg_connect($connection_string);
   if (!$link)
   {
     throw new Exception("Can't connect to server");
@@ -58,11 +58,6 @@ function pwg_db_connect($host, $user, $password, $database)
   {
     return $link;
   }
-}
-
-function pwg_select_db($database=null, $link=null, $die=null)
-{
-  return true;
 }
 
 function pwg_db_check_charset() 
