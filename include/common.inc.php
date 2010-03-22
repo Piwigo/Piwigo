@@ -180,14 +180,45 @@ SELECT
   if (0 == $nb_photos)
   {
     $template->set_filenames(array('no_photo_yet'=>'no_photo_yet.tpl'));
-
-    $url = $conf['no_photo_yet_url'];
-    if (substr($url, 0, 4) != 'http')
+    
+    if (is_admin())
     {
-      $url = get_root_url().$url;
+      if (isset($_GET['no_photo_yet']))
+      {
+        conf_update_param('no_photo_yet', 'false');
+        redirect(make_index_url());
+        exit();
+      }
+      
+      $url = $conf['no_photo_yet_url'];
+      if (substr($url, 0, 4) != 'http')
+      {
+        $url = get_root_url().$url;
+      }
+      
+      $template->assign(
+        array(
+          'step' => 2,
+          'intro' => sprintf(
+            l10n('Hello %s, your Piwigo photo gallery is empty!'),
+            $user['username']
+            ),
+          'next_step_url' => $url,
+          'deactivate_url' => get_root_url().'?no_photo_yet=deactivate',
+          )
+        );
+    }
+    else
+    {
+      
+      $template->assign(
+        array(
+          'step' => 1,
+          'U_LOGIN' => 'identification.php',
+          )
+        );
     }
     
-    $template->assign(array('next_step_url' => $url));
     $template->pparse('no_photo_yet');
     exit();
   }
