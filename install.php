@@ -119,6 +119,20 @@ else
 include(PHPWG_ROOT_PATH . 'include/config_default.inc.php');
 @include(PHPWG_ROOT_PATH. 'local/config/config.inc.php');
 
+// download database config file if exists
+if (!empty($_GET['dl']) && file_exists($conf['local_data_dir'].'/pwg_'.$_GET['dl']))
+{
+  $filename = $conf['local_data_dir'].'/pwg_'.$_GET['dl'];
+  header('Cache-Control: no-cache, must-revalidate');
+  header('Pragma: no-cache');
+  header('Content-Disposition: attachment; filename="database.inc.php"');
+  header('Content-Transfer-Encoding: binary');
+  header('Content-Length: '.filesize($filename));
+  echo file_get_contents($filename);
+  unlink($filename);
+  exit();
+} 
+
 // Obtain various vars
 $dbhost = (!empty($_POST['dbhost'])) ? $_POST['dbhost'] : 'localhost';
 $dbuser = (!empty($_POST['dbuser'])) ? $_POST['dbuser'] : '';
@@ -320,12 +334,22 @@ define(\'DB_COLLATE\', \'\');
     // writing the configuration file
     if ( !($fp = @fopen( $config_file, 'w' )))
     {
-      $html_content = htmlentities( $file_content, ENT_QUOTES );
-      $html_content = nl2br( $html_content );
-      $error_copy = l10n('Copy the text in pink between hyphens and paste it into the file "local/config/database.inc.php"(Warning : database.inc.php must only contain what is in pink, no line return or space character)');
-      $error_copy .= '<br>--------------------------------------------------------------------<br>';
-      $error_copy .= '<span class="sql_content">' . $html_content . '</span>';
-      $error_copy .= '<br>--------------------------------------------------------------------<br>';
+      $tmp_filename = md5(uniqid(time()));
+      $fh = @fopen( $conf['local_data_dir'] . '/pwg_' . $tmp_filename, 'w' );
+      @fputs($fh, $file_content, strlen($file_content));
+      @fclose($fh);
+
+      $error_copy = l10n('Creation of config file local/config/database.inc.php failed.');
+      $error_copy .= sprintf('<br><a href="install.php?dl=%s">%s</a> %s',
+                             $tmp_filename,
+                             l10n('You can download the config file'),
+                             l10n('and upload it to local/config directory of your installation.')
+        );
+
+      $error_copy .= '<br><br>';
+      $error_copy .= l10n('An alternate solution is to copy the text in the box above and paste it into the file "local/config/database.inc.php" (Warning : database.inc.php must only contain what is in the textarea, no line return or space character)');
+      $error_copy .= '<br><br>';
+      $error_copy .= '<textarea rows="15" cols="70">' . $file_content . '</textarea>';
     }
     @fputs($fp, $file_content, strlen($file_content));
     @fclose($fp);
