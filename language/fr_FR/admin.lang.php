@@ -680,6 +680,8 @@ $lang['unknown'] = 'inconnu';
 $lang['Guest Settings'] = 'Paramètres invité';
 $lang['Main Page'] = 'Page Principale';
 $lang['Photo Page'] = 'Page de la Photo';
-$lang['Navigation Bar'] = 'Barre de navigation';
-$lang['Navigation Thumbnails'] = 'Miniatures de navigation';
+$lang['Activate Navigation Bar'] = 'Activer la barre de navigation';
+$lang['Activate Navigation Thumbnails'] = 'Activer les miniatures de navigation';
+$lang['Activate icon "%s"'] = 'Activer l\'icone "%s"';
+$lang['Activate field "%s"'] = 'Activer le champ "%s"';
 ?>

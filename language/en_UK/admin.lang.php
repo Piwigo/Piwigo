@@ -747,6 +747,8 @@ $lang['pLoader stands for <em>Piwigo Uploader</em>. From your computer, pLoader 
 $lang['Guest Settings'] = 'Guest Settings';
 $lang['Main Page'] = 'Main Page';
 $lang['Photo Page'] = 'Photo Page';
-$lang['Navigation Bar'] = 'Navigation Bar';
-$lang['Navigation Thumbnails'] = 'Navigation Thumbnails';
+$lang['Activate Navigation Bar'] = 'Activate Navigation Bar';
+$lang['Activate Navigation Thumbnails'] = 'Activate Navigation Thumbnails';
+$lang['Activate icon "%s"'] = 'Activate icon "%s"';
+$lang['Activate field "%s"'] = 'Activate field "%s"';
 ?>
