@@ -678,4 +678,10 @@ $lang['Add New Theme'] = "Ajouter un thème";
 $lang['Forbid this theme to users'] = "Interdire ce thème aux utilisateurs";
 $lang['Set as default theme for unregistered and new users'] = "Thème par défaut pour les invités et les nouveaux utilisateurs";
 $lang['unknown'] = 'inconnu';
+
+$lang['Guest Settings'] = 'Paramètres invité';
+$lang['Main Page'] = 'Page Principale';
+$lang['Photo Page'] = 'Page de la Photo';
+$lang['Navigation Bar'] = 'Barre de navigation';
+$lang['Navigation Thumbnails'] = 'Miniatures de navigation';
 ?>

@@ -126,14 +126,18 @@ FORM#categoryPermissions LI {
 FIELDSET#mainConfCheck SPAN.property,
 FIELDSET#historyConf SPAN.property,
 FIELDSET#commentsConf SPAN.property,
-FIELDSET#uploadConf SPAN.property {
+FIELDSET#uploadConf SPAN.property,
+FIELDSET#indexDisplayConf SPAN.property,
+FIELDSET#pictureDisplayConf SPAN.property {
 	float: right;
 	text-align: left;
 }
 FIELDSET#mainConfCheck INPUT,
 FIELDSET#historyConf INPUT,
 FIELDSET#commentsConf INPUT,
-FIELDSET#uploadConf INPUT {
+FIELDSET#uploadConf INPUT,
+FIELDSET#indexDisplayConf INPUT,
+FIELDSET#pictureDisplayConf INPUT {
 	float: none;
 }
 
@@ -145,12 +149,16 @@ FIELDSET#mainConf TEXTAREA.description {
 }
 
 FIELDSET#mainConfCheck SPAN.property,
-FIELDSET#historyConf SPAN.property {
+FIELDSET#historyConf SPAN.property,
+FIELDSET#indexDisplayConf SPAN.property,
+FIELDSET#pictureDisplayConf SPAN.property {
 	width: 90%;
 }
 FIELDSET#mainConfCheck INPUT,
 FIELDSET#historyConf INPUT,
-FIELDSET#commentsConf INPUT {
+FIELDSET#commentsConf INPUT,
+FIELDSET#indexDisplayConf INPUT,
+FIELDSET#pictureDisplayConf INPUT {
 	margin-left: 5%;
 }
 FIELDSET#uploadConf SELECT {

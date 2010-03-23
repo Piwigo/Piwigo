@@ -202,6 +202,95 @@
 {$PROFILE_CONTENT}
 {/if}
 
+{if isset($display)}
+<fieldset id="indexDisplayConf">
+  <legend>{'Main Page'|@translate}</legend>
+  <ul>
+    <li>
+      <label>
+        <span class="property">{'display only recently posted images'|@translate|@ucfirst}</span>
+        <input type="checkbox" name="menubar_filter_icon" {if ($display.menubar_filter_icon)}checked="checked"{/if}>
+      </label>
+    </li>
+
+    <li>
+      <label>
+        <span class="property">{'Sort order'|@translate}</span>
+        <input type="checkbox" name="index_sort_order_input" {if ($display.index_sort_order_input)}checked="checked"{/if}>
+      </label>
+    </li>
+
+    <li>
+      <label>
+        <span class="property">{'display all elements in all sub-categories'|@translate|@ucfirst}</span>
+        <input type="checkbox" name="index_flat_icon" {if ($display.index_flat_icon)}checked="checked"{/if}>
+      </label>
+    </li>
+
+    <li>
+      <label>
+        <span class="property">{'display a calendar by posted date'|@translate|@ucfirst}</span>
+        <input type="checkbox" name="index_posted_date_icon" {if ($display.index_posted_date_icon)}checked="checked"{/if}>
+      </label>
+    </li>
+
+    <li>
+      <label>
+        <span class="property">{'display a calendar by creation date'|@translate|@ucfirst}</span>
+        <input type="checkbox" name="index_created_date_icon" {if ($display.index_created_date_icon)}checked="checked"{/if}>
+      </label>
+    </li>
+
+    <li>
+      <label>
+        <span class="property">{'slideshow'|@translate|@ucfirst}</span>
+        <input type="checkbox" name="index_slideshow_icon" {if ($display.index_slideshow_icon)}checked="checked"{/if}>
+      </label>
+    </li>
+  </ul>
+</fieldset>
+
+<fieldset id="pictureDisplayConf">
+  <legend>{'Photo Page'|@translate}</legend>
+  <ul>
+    <li>
+      <label>
+        <span class="property">{'Show file metadata'|@translate}</span>
+        <input type="checkbox" name="picture_metadata_icon" {if ($display.picture_metadata_icon)}checked="checked"{/if}>
+      </label>
+    </li>
+
+    <li>
+      <label>
+        <span class="property">{'slideshow'|@translate}</span>
+        <input type="checkbox" name="picture_slideshow_icon" {if ($display.picture_slideshow_icon)}checked="checked"{/if}>
+      </label>
+    </li>
+
+    <li>
+      <label>
+        <span class="property">{'add this image to your favorites'|@translate|@ucfirst}</span>
+        <input type="checkbox" name="picture_favorite_icon" {if ($display.picture_favorite_icon)}checked="checked"{/if}>
+      </label>
+    </li>
+
+    <li>
+      <label>
+        <span class="property">{'Navigation Bar'|@translate|@ucfirst}</span>
+        <input type="checkbox" name="picture_navigation_icons" {if ($display.picture_navigation_icons)}checked="checked"{/if}>
+      </label>
+    </li>
+
+    <li>
+      <label>
+        <span class="property">{'Navigation Thumbnails'|@translate|@ucfirst}</span>
+        <input type="checkbox" name="picture_navigation_thumb" {if ($display.picture_navigation_thumb)}checked="checked"{/if}>
+      </label>
+    </li>
+  </ul>
+</fieldset>
+{/if}
+
 {if !isset($default)}
   <p>
     <input class="submit" type="submit" name="submit" value="{'Submit'|@translate}" {$TAG_INPUT_ENABLED}>

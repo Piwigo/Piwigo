@@ -679,4 +679,10 @@ $lang['Add New Theme'] = "Add New Theme";
 $lang['Forbid this theme to users'] = "Forbid this theme to users";
 $lang['Set as default theme for unregistered and new users'] = "Set as default theme for unregistered and new users";
 $lang['unknown'] = 'unknown';
+
+$lang['Guest Settings'] = 'Guest Settings';
+$lang['Main Page'] = 'Main Page';
+$lang['Photo Page'] = 'Photo Page';
+$lang['Navigation Bar'] = 'Navigation Bar';
+$lang['Navigation Thumbnails'] = 'Navigation Thumbnails';
 ?>

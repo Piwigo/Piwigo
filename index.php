@@ -107,7 +107,7 @@ if (isset($page['flat']) or isset($page['chronology_field']))
     );
 }
 
-if (!isset($page['flat']) and 'categories' == $page['section'])
+if ($conf['index_flat_icon'] and !isset($page['flat']) and 'categories' == $page['section'])
 {
   $template->assign(
     'U_MODE_FLAT',
@@ -123,16 +123,21 @@ if (!isset($page['chronology_field']))
           'chronology_style' => 'monthly',
           'chronology_view' => 'list',
       );
-  $template->assign(
-    'U_MODE_CREATED',
-    duplicate_index_url( $chronology_params, array('start', 'flat') )
-    );
-
-  $chronology_params['chronology_field'] = 'posted';
-  $template->assign(
-    'U_MODE_POSTED',
-    duplicate_index_url( $chronology_params, array('start', 'flat') )
-    );
+  if ($conf['index_created_date_icon'])
+  {
+    $template->assign(
+      'U_MODE_CREATED',
+      duplicate_index_url( $chronology_params, array('start', 'flat') )
+      );
+  }
+  if ($conf['index_posted_date_icon'])
+  {
+    $chronology_params['chronology_field'] = 'posted';
+    $template->assign(
+      'U_MODE_POSTED',
+      duplicate_index_url( $chronology_params, array('start', 'flat') )
+      );
+  }
 }
 else
 {
@@ -144,14 +149,17 @@ else
   {
     $chronology_field = 'created';
   }
-  $url = duplicate_index_url(
-            array('chronology_field'=>$chronology_field ),
-            array('chronology_date', 'start', 'flat')
-          );
-  $template->assign(
-      'U_MODE_'.strtoupper($chronology_field),
-      $url
-    );
+  if ($conf['index_'.$chronology_field.'_date_icon'])
+  {
+    $url = duplicate_index_url(
+              array('chronology_field'=>$chronology_field ),
+              array('chronology_date', 'start', 'flat')
+            );
+    $template->assign(
+        'U_MODE_'.strtoupper($chronology_field),
+        $url
+      );
+  }
 }
 
 if ('search' == $page['section'])
@@ -218,7 +226,8 @@ if ( $page['section']=='search' and $page['start']==0 and
 // navigation bar
 $template->assign( 'navbar', $page['navigation_bar'] );
 
-if ( count($page['items']) > 0
+if ( $conf['index_sort_order_input']
+    and count($page['items']) > 0
     and $page['section'] != 'most_visited'
     and $page['section'] != 'best_rated')
 {
@@ -278,7 +287,7 @@ if (!empty($page['cat_slideshow_url']))
   {
     redirect($page['cat_slideshow_url']);
   }
-  else
+  elseif ($conf['index_slideshow_icon'])
   {
     $template->assign('U_SLIDESHOW', $page['cat_slideshow_url']);
   }

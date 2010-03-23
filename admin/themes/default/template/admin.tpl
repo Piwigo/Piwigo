@@ -81,8 +81,7 @@ jQuery().ready(function(){ldelim}
     <dt class="rdion"><span>{'Configuration'|@translate}&nbsp;</span></dt>
     <dd>
       <ul>
-        <li><a href="{$U_CONFIG_GENERAL}">{'General'|@translate}</a></li>
-        <li><a href="{$U_CONFIG_DISPLAY}">{'Default display'|@translate}</a></li>
+        <li><a href="{$U_CONFIG_GENERAL}">{'Options'|@translate}</a></li>
         <li><a href="{$U_CONFIG_MENUBAR}">{'Menu'|@translate}</a></li>
         <li><a href="{$U_CONFIG_EXTENTS}">{'Templates'|@translate}</a></li>
         <li><a href="{$U_CONFIG_THEMES}">{'Themes'|@translate}</a></li>

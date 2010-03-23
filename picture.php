@@ -716,7 +716,7 @@ if ($page['slideshow'])
   }
   $template->assign('slideshow', $tpl_slideshow );
 }
-else
+elseif ($conf['picture_slideshow_icon'])
 {
   $template->assign(
     array(
@@ -739,9 +739,15 @@ $template->assign(
 
     'U_HOME' => make_index_url(),
     'U_UP' => $url_up,
-    'U_METADATA' => $url_metadata,
+    'DISPLAY_NAV_BUTTONS' => $conf['picture_navigation_icons'],
+    'DISPLAY_NAV_THUMB' => $conf['picture_navigation_thumb']
     )
   );
+
+if ($conf['picture_metadata_icon'])
+{
+  $template->assign('U_METADATA', $url_metadata);
+}
 
 
 //------------------------------------------------------- upper menu management

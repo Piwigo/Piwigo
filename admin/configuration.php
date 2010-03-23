@@ -75,6 +75,20 @@ $comments_checkboxes = array(
     'email_admin_on_comment_deletion'
   );
 
+$display_checkboxes = array(
+    'menubar_filter_icon',
+    'index_sort_order_input',
+    'index_flat_icon',
+    'index_posted_date_icon',
+    'index_created_date_icon',
+    'index_slideshow_icon',
+    'picture_metadata_icon',
+    'picture_slideshow_icon',
+    'picture_favorite_icon',
+    'picture_navigation_icons',
+    'picture_navigation_thumb',
+  );
+
 //------------------------------ verification and registration of modifications
 if (isset($_POST['submit']) and !is_adviser())
 {
@@ -131,6 +145,14 @@ if (isset($_POST['submit']) and !is_adviser())
       // Never go here
       break;
     }
+    case 'display' :
+    {
+      foreach( $display_checkboxes as $checkbox)
+      {
+        $_POST[$checkbox] = empty($_POST[$checkbox])?'false':'true';
+      }
+      break;
+    }
   }
 
   // updating configuration if no error found
@@ -174,10 +196,11 @@ $template->set_filename('config', 'configuration.tpl');
 $tabsheet = new tabsheet();
 // TabSheet initialization
 $tabsheet->add('main', l10n('Main'), $conf_link.'main');
+$tabsheet->add('display', l10n('Display'), $conf_link.'display');
 $tabsheet->add('history', l10n('History'), $conf_link.'history');
 $tabsheet->add('comments', l10n('Comments'), $conf_link.'comments');
 $tabsheet->add('upload', l10n('Upload'), $conf_link.'upload');
-$tabsheet->add('default', l10n('Default display'), $conf_link.'default');
+$tabsheet->add('default', l10n('Guest Settings'), $conf_link.'default');
 // TabSheet selection
 $tabsheet->select($page['section']);
 // Assign tabsheet to template
@@ -296,6 +319,20 @@ switch ($page['section'])
       $edit_user
       );
     $template->assign('default', array());
+    break;
+  }
+  case 'display' :
+  {
+    foreach ($display_checkboxes as $checkbox)
+    {
+      $template->append(
+          'display',
+          array(
+            $checkbox => $conf[$checkbox]
+            ),
+          true
+        );
+    }
     break;
   }
 }

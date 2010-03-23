@@ -46,7 +46,9 @@
     {if isset($U_SLIDESHOW_STOP) }
       <a href="{$U_SLIDESHOW_STOP}" title="{'stop the slideshow'|@translate}" rel="nofollow"><img src="{$ROOT_URL}{$themeconf.icon_dir}/stop_slideshow.png" class="button" alt="{'stop the slideshow'|@translate}"></a>
     {/if}
+    {if isset($U_METADATA) }
       <a href="{$U_METADATA}" title="{'Show file metadata'|@translate}" rel="nofollow"><img src="{$ROOT_URL}{$themeconf.icon_dir}/metadata.png" class="button" alt="metadata"></a>
+    {/if}
     {if isset($current.U_DOWNLOAD) }
       <a href="{$current.U_DOWNLOAD}" title="{'download'|@translate}"><img src="{$ROOT_URL}{$themeconf.icon_dir}/save.png" class="button" alt="{'download'|@translate}"></a>
     {/if}
@@ -98,6 +100,7 @@ y.callService(
 
 </div>
 
+{if $DISPLAY_NAV_THUMB}
 {if isset($previous) }
 <a class="navThumb" id="linkPrev" href="{$previous.U_IMG}" title="{'Previous'|@translate} : {$previous.TITLE}" rel="prev">
   <img src="{$previous.THUMB_SRC}" alt="{$previous.TITLE}">
@@ -107,6 +110,7 @@ y.callService(
 <a class="navThumb" id="linkNext" href="{$next.U_IMG}" title="{'Next'|@translate} : {$next.TITLE}" rel="next">
   <img src="{$next.THUMB_SRC}" alt="{$next.TITLE}">
 </a>
+{/if}
 {/if}
 
 <table id="standard" class="infoTable" summary="{'Some info about this picture'|@translate}">

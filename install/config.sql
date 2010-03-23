@@ -32,6 +32,17 @@ INSERT INTO piwigo_config (param,value,comment) VALUES ('upload_link_everytime',
 INSERT INTO piwigo_config (param,value,comment) VALUES ('upload_user_access',2 /*ACCESS_CLASSIC*/,'User access level to upload');
 INSERT INTO piwigo_config (param,value,comment) VALUES ('extents_for_templates','a:0:{}','Actived template-extension(s)');
 INSERT INTO piwigo_config (param,value,comment) VALUES ('blk_menubar','','Menubar options');
+INSERT INTO piwigo_config (param,value,comment) VALUES ('menubar_filter_icon','true','Display filter icon');
+INSERT INTO piwigo_config (param,value,comment) VALUES ('index_sort_order_input','true','Display image order selection list');
+INSERT INTO piwigo_config (param,value,comment) VALUES ('index_flat_icon','true','Display flat icon');
+INSERT INTO piwigo_config (param,value,comment) VALUES ('index_posted_date_icon','true','Display calendar by posted date');
+INSERT INTO piwigo_config (param,value,comment) VALUES ('index_created_date_icon','true','Display calendar by creation date icon');
+INSERT INTO piwigo_config (param,value,comment) VALUES ('index_slideshow_icon','true','Display slideshow icon');
+INSERT INTO piwigo_config (param,value,comment) VALUES ('picture_metadata_icon','true','Display metadata icon on picture page');
+INSERT INTO piwigo_config (param,value,comment) VALUES ('picture_slideshow_icon','true','Display slideshow icon on picture page');
+INSERT INTO piwigo_config (param,value,comment) VALUES ('picture_favorite_icon','true','Display favorite icon on picture page');
+INSERT INTO piwigo_config (param,value,comment) VALUES ('picture_navigation_icons','true','Display navigation icons on picture page');
+INSERT INTO piwigo_config (param,value,comment) VALUES ('picture_navigation_thumb','true','Display navigation thumbnails on picture page');
 
 INSERT INTO piwigo_themes (id, name) VALUES ('Sylvia', 'Sylvia');
 INSERT INTO piwigo_themes (id, name) VALUES ('clear', 'clear');

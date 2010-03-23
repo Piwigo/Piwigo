@@ -1,5 +1,6 @@
   <div class="navButtons">
-  
+
+{if $DISPLAY_NAV_BUTTONS and !isset($slideshow)}
 {if isset($last)}
   <a class="navButton" href="{$last.U_IMG}" title="{'Last'|@translate} : {$last.TITLE}" rel="last"><img src="{$ROOT_URL}{$themeconf.icon_dir}/last.png" class="button" alt="{'Last'|@translate}"></a>
 {else}
@@ -57,6 +58,7 @@
   {else}
     <a class="navButton"> <img src="{$ROOT_URL}{$themeconf.icon_dir}/inc_period_unactive.png" class="button" alt=""></a>
   {/if}
+{/if}
 {/if}
 
   </div>

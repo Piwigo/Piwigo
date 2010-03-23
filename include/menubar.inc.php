@@ -79,7 +79,7 @@ function initialize_menu()
 //-------------------------------------------------------------- categories
   $block = $menu->get_block('mbCategories');
 //------------------------------------------------------------------------ filter
-  if (!empty($conf['filter_pages']) and get_filter_page_value('used'))
+  if ($conf['menubar_filter_icon'] and !empty($conf['filter_pages']) and get_filter_page_value('used'))
   {
     if ($filter['enabled'])
     {
