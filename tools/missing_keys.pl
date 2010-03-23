@@ -8,8 +8,8 @@ use File::Find;
 our %used_keys = ();
 our %registered_keys = ();
 
-my $piwigo_dir = '/home/pierrick/public_html/piwigo/dev/trunk';
-my $type = $ARGV[0]; # common, admin, install, upgrade
+my $piwigo_dir = $ARGV[0]; # '/home/pierrick/public_html/piwigo/dev/trunk';
+my $type = $ARGV[1];       # common, admin, install, upgrade
 
 find(\&used_keys, $piwigo_dir);
 load_registered_keys($type);
@@ -18,8 +18,8 @@ foreach my $key (sort keys %used_keys) {
     # print "{".$key."}", ' is used', "\n";
 
     if (not defined $registered_keys{$key}) {
-        print "{".$key."}", ' is missing', "\n";
-        # print '$lang[\''.$key.'\'] = \''.$key.'\';', "\n";
+        # print "{".$key."}", ' is missing', "\n";
+        print '$lang[\''.$key.'\'] = \''.$key.'\';', "\n";
     }
 }
 
@@ -34,7 +34,7 @@ sub used_keys {
         return 0;
     }
 
-    if ($File::Find::name =~ m{/(plugins|language)/}) {
+    if ($File::Find::name =~ m{/(plugins|language|_data)/}) {
         return 0;
     }
 
@@ -69,6 +69,9 @@ sub used_keys {
         if ($File::Find::name =~ m{/admin/}) {
             $is_admin = 1;
         }
+        if ($File::Find::name =~ m{/admin\.php$}) {
+            $is_admin = 1;
+        }
 
         if (not $is_admin) {
             return 0;
@@ -82,7 +85,7 @@ sub used_keys {
         if ($File::Find::name =~ m{/install(\.tpl|\.php|/)}) {
             return 0;
         }
-        if ($File::Find::name =~ m{/admin/} or $File::Find::name =~ m{themes/default/template/mail}) {
+        if ($File::Find::name =~ m{/admin(/|\.php)} or $File::Find::name =~ m{themes/default/template/mail}) {
             return 0;
         }
     }
