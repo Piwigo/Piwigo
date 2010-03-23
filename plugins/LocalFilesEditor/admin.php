@@ -294,7 +294,7 @@ if (isset($_POST['restore']) and !is_adviser())
 // +-----------------------------------------------------------------------+
 if (isset($_POST['submit']) and !is_adviser())
 {
-  if ($user['status'] != 'webmaster')
+  if (!is_webmaster())
   {
     array_push($page['errors'], l10n('locfiledit_webmaster_only'));
   }

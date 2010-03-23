@@ -1236,6 +1236,15 @@ function check_status($access_type, $user_status = '')
 }
 
 /*
+ * Return if user is, at least, a webmaster
+ * @return bool
+*/
+ function is_webmaster($user_status = '')
+{
+  return is_autorize_status(ACCESS_WEBMASTER, $user_status);
+}
+
+/*
  * Return if current user is an adviser
  * @return bool
 */
