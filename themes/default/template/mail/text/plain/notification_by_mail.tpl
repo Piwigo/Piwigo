@@ -13,10 +13,10 @@
 {'You have unsubscribed from receiving notifications by mail.'|@translate}
 {/if}
 {if isset($content_new_elements_single)}
-{'New elements were added '|@translate} {'on'|@translate} {$content_new_elements_single.DATE_SINGLE}.
+{'New elements were added'|@translate} {'on'|@translate} {$content_new_elements_single.DATE_SINGLE}.
 {/if}
 {if isset($content_new_elements_between)}
-{'New elements were added '|@translate} {'between'|@translate} {$content_new_elements_between.DATE_BETWEEN_1} {'and'|@translate} {$content_new_elements_between.DATE_BETWEEN_2}.
+{'New elements were added'|@translate} {'between'|@translate} {$content_new_elements_between.DATE_BETWEEN_1} {'and'|@translate} {$content_new_elements_between.DATE_BETWEEN_2}.
 {/if}
 {if not empty($global_new_lines)}
 {foreach from=$global_new_lines item=line}

@@ -15,10 +15,10 @@
 <p>{'You have unsubscribed from receiving notifications by mail.'|@translate}</p>
 {/if}
 {if isset($content_new_elements_single)}
-<p>{'New elements were added '|@translate} {'on'|@translate} {$content_new_elements_single.DATE_SINGLE}.</p>
+<p>{'New elements were added'|@translate} {'on'|@translate} {$content_new_elements_single.DATE_SINGLE}.</p>
 {/if}
 {if isset($content_new_elements_between)}
-<p>{'New elements were added '|@translate} {'between'|@translate} {$content_new_elements_between.DATE_BETWEEN_1} {'and'|@translate} {$content_new_elements_between.DATE_BETWEEN_2}.</p>
+<p>{'New elements were added'|@translate} {'between'|@translate} {$content_new_elements_between.DATE_BETWEEN_1} {'and'|@translate} {$content_new_elements_between.DATE_BETWEEN_2}.</p>
 {/if}
 
 {if not empty($global_new_lines)}
@@ -41,7 +41,7 @@
 <p>
 <br><hr>
 {'To unsubscribe'|@translate}{', click on'|@translate} <a href="{$UNSUBSCRIBE_LINK}">{$UNSUBSCRIBE_LINK}</a><br>
-{'To subscribe '|@translate}{', click on'|@translate} <a href="{$SUBSCRIBE_LINK}">{$SUBSCRIBE_LINK}</a><br>
+{'To subscribe'|@translate}{', click on'|@translate} <a href="{$SUBSCRIBE_LINK}">{$SUBSCRIBE_LINK}</a><br>
 {'If you encounter problems or have any question, please send a message to'|@translate} <a href="mailto:{$CONTACT_EMAIL}?subject={'[NBM] Problems or questions'|@translate}">{$CONTACT_EMAIL}</a><br>
 <hr><br>
 </p>
