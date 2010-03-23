@@ -13,7 +13,7 @@
 {/if}
 
 {if isset($local_listing)}
-{'A local listing.xml file has been found for '|@translate} {$local_listing.URL}
+{'A local listing.xml file has been found for'|@translate} {$local_listing.URL}
 {if isset($local_listing.CREATE)}
 <form action="{$F_ACTION}" method="post">
   <input type="hidden" name="pwg_token" value="{$PWG_TOKEN}" />

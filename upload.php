@@ -72,7 +72,7 @@ function validate_upload( $temp_name, $my_max_file_size,
   else if ( $_FILES['picture']['size'] > $my_max_file_size * 1024 )
   {
     array_push( $result['error'],
-                l10n('the filesize of the picture must not exceed : ').$my_max_file_size.' KB' );
+                l10n('the filesize of the picture must not exceed :').$my_max_file_size.' KB' );
   }
   else
   {
@@ -90,14 +90,14 @@ function validate_upload( $temp_name, $my_max_file_size,
            and $size[0] > $image_max_width )
       {
         array_push( $result['error'],
-                    l10n('the width of the picture must not exceed : ').$image_max_width.' px' );
+                    l10n('the width of the picture must not exceed :').$image_max_width.' px' );
       }
       if ( isset( $image_max_height )
            and $image_max_height != ""
            and $size[1] > $image_max_height )
       {
         array_push( $result['error'],
-                    l10n('the height of the picture must not exceed : ').$image_max_height.' px' );
+                    l10n('the height of the picture must not exceed :').$image_max_height.' px' );
       }
       // $size[2] == 1 means GIF
       // $size[2] == 2 means JPG
@@ -350,7 +350,7 @@ $u_form.= '&amp;waiting_id='.$page['waiting_id'];
 
 if ( isset( $page['waiting_id'] ) )
 {
-  $advise_title = l10n('Optional, but recommended : choose a thumbnail to associate to ').$_FILES['picture']['name'];
+  $advise_title = l10n('Optional, but recommended : choose a thumbnail to associate to').' '.$_FILES['picture']['name'];
 }
 else
 {
@@ -381,7 +381,7 @@ if ( !$page['upload_successful'] )
 //--------------------------------------------------------------------- advises
   if ( !empty($conf['upload_maxfilesize']) )
   {
-    $content = l10n('the filesize of the picture must not exceed : ');
+    $content = l10n('the filesize of the picture must not exceed :');
     $content.= $conf['upload_maxfilesize'].' KB';
     $template->append('advises', $content);
   }
@@ -390,13 +390,13 @@ if ( !$page['upload_successful'] )
   {
     if ( $conf['upload_maxwidth_thumbnail'] != '' )
     {
-      $content = l10n('the width of the picture must not exceed : ');
+      $content = l10n('the width of the picture must not exceed :');
       $content.= $conf['upload_maxwidth_thumbnail'].' px';
       $template->append('advises', $content);
     }
     if ( $conf['upload_maxheight_thumbnail'] != '' )
     {
-      $content = l10n('the height of the picture must not exceed : ');
+      $content = l10n('the height of the picture must not exceed :');
       $content.= $conf['upload_maxheight_thumbnail'].' px';
       $template->append('advises', $content);
     }
@@ -405,13 +405,13 @@ if ( !$page['upload_successful'] )
   {
     if ( $conf['upload_maxwidth'] != '' )
     {
-      $content = l10n('the width of the picture must not exceed : ');
+      $content = l10n('the width of the picture must not exceed :');
       $content.= $conf['upload_maxwidth'].' px';
       $template->append('advises', $content);
     }
     if ( $conf['upload_maxheight'] != '' )
     {
-      $content = l10n('the height of the picture must not exceed : ');
+      $content = l10n('the height of the picture must not exceed :');
       $content.= $conf['upload_maxheight'].' px';
       $template->append('advises', $content);
     }

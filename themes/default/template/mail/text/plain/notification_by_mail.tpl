@@ -37,5 +37,5 @@ ______________________________________________________________________________
 
 {'To unsubscribe'|@translate}{', click on '|@translate}{$UNSUBSCRIBE_LINK}
 {'To subscribe'|@translate}{', click on '|@translate}{$SUBSCRIBE_LINK}
-{'If you encounter problems or have any question, please send a message to '|@translate}{$CONTACT_EMAIL}
+{'If you encounter problems or have any question, please send a message to'|@translate} {$CONTACT_EMAIL}
 ______________________________________________________________________________
