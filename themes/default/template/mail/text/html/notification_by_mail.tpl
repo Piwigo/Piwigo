@@ -1,24 +1,24 @@
 <div id="nbm_message">
 <h2>{'Notification'|@translate}</h2>
-<p>{'nbm_content_hello_1'|@translate}{$USERNAME}{'nbm_content_hello_2'|@translate}</p>
+<p>{'Hello '|@translate}{$USERNAME},</p>
 
 {if isset($subscribe_by_admin)}
-<p>{'nbm_content_subscribe_by_admin'|@translate}</p>
+<p>{'The webmaster has subscribed you to receiving notifications by mail.'|@translate}</p>
 {/if}
 {if isset($subscribe_by_himself)}
-<p>{'nbm_content_subscribe_by_himself'|@translate}</p>
+<p>{'You have subscribed to receiving notifications by mail.'|@translate}</p>
 {/if}
 {if isset($unsubscribe_by_admin)}
-<p>{'nbm_content_unsubscribe_by_admin'|@translate}</p>
+<p>{'The webmaster has unsubscribed you from receiving notifications by mail.'|@translate}</p>
 {/if}
 {if isset($unsubscribe_by_himself)}
-<p>{'nbm_content_unsubscribe_by_himself'|@translate}</p>
+<p>{'You have unsubscribed from receiving notifications by mail.'|@translate}</p>
 {/if}
 {if isset($content_new_elements_single)}
-<p>{'nbm_content_new_elements'|@translate}{'nbm_content_new_elements_single'|@translate}{$content_new_elements_single.DATE_SINGLE}.</p>
+<p>{'New elements were added '|@translate}{' on '|@translate}{$content_new_elements_single.DATE_SINGLE}.</p>
 {/if}
 {if isset($content_new_elements_between)}
-<p>{'nbm_content_new_elements'|@translate}{'nbm_content_new_elements_between_1'|@translate}{$content_new_elements_between.DATE_BETWEEN_1}{'nbm_content_new_elements_between_2'|@translate}{$content_new_elements_between.DATE_BETWEEN_2}.</p>
+<p>{'New elements were added '|@translate}{' between '|@translate}{$content_new_elements_between.DATE_BETWEEN_1}{' and '|@translate}{$content_new_elements_between.DATE_BETWEEN_2}.</p>
 {/if}
 
 {if not empty($global_new_lines)}
@@ -34,15 +34,15 @@
 {/if}
 
 {if not empty($GOTO_GALLERY_TITLE)}
-<p>{'nbm_content_goto_1'|@translate}<a href="{$GOTO_GALLERY_URL}">{$GOTO_GALLERY_TITLE}</a>{'nbm_content_goto_2'|@translate}</p>
+<p>{'Go to '|@translate}<a href="{$GOTO_GALLERY_URL}">{$GOTO_GALLERY_TITLE}</a>.</p>
 {/if}
-<p>{'nbm_content_byebye'|@translate}</p>
+<p>{'See you soon,'|@translate}</p>
 <p style="text-align:center">{$SEND_AS_NAME}</p>
 <p>
 <br><hr>
-{'nbm_content_unsubscribe_link'|@translate}{'nbm_content_click_on'|@translate}<a href="{$UNSUBSCRIBE_LINK}">{$UNSUBSCRIBE_LINK}</a><br>
-{'nbm_content_subscribe_link'|@translate}{'nbm_content_click_on'|@translate}<a href="{$SUBSCRIBE_LINK}">{$SUBSCRIBE_LINK}</a><br>
-{'nbm_content_problem_contact'|@translate}<a href="mailto:{$CONTACT_EMAIL}?subject={'nbm_content_pb_contact_object'|@translate}">{$CONTACT_EMAIL}</a><br>
+{'To unsubscribe'|@translate}{', click on '|@translate}<a href="{$UNSUBSCRIBE_LINK}">{$UNSUBSCRIBE_LINK}</a><br>
+{'To subscribe '|@translate}{', click on '|@translate}<a href="{$SUBSCRIBE_LINK}">{$SUBSCRIBE_LINK}</a><br>
+{'If you encounter problems or have any question, please send a message to '|@translate}<a href="mailto:{$CONTACT_EMAIL}?subject={'[NBM] Problems or questions'|@translate}">{$CONTACT_EMAIL}</a><br>
 <hr><br>
 </p>
 {if not empty($recent_posts)}

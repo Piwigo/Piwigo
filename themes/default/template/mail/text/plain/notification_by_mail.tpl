@@ -1,22 +1,22 @@
-{'nbm_content_hello_1'|@translate}{$USERNAME}{'nbm_content_hello_2'|@translate}
+{'Hello '|@translate}{$USERNAME},
 
 {if isset($subscribe_by_admin)}
-{'nbm_content_subscribe_by_admin'|@translate}
+{'The webmaster has subscribed you to receiving notifications by mail.'|@translate}
 {/if}
 {if isset($subscribe_by_himself)}
-{'nbm_content_subscribe_by_himself'|@translate}
+{'You have subscribed to receiving notifications by mail.'|@translate}
 {/if}
 {if isset($unsubscribe_by_admin)}
-{'nbm_content_unsubscribe_by_admin'|@translate}
+{'The webmaster has unsubscribed you from receiving notifications by mail.'|@translate}
 {/if}
 {if isset($unsubscribe_by_himself)}
-{'nbm_content_unsubscribe_by_himself'|@translate}
+{'You have unsubscribed from receiving notifications by mail.'|@translate}
 {/if}
 {if isset($content_new_elements_single)}
-{'nbm_content_new_elements'|@translate}{'nbm_content_new_elements_single'|@translate}{$content_new_elements_single.DATE_SINGLE}.
+{'New elements were added '|@translate}{' on '|@translate}{$content_new_elements_single.DATE_SINGLE}.
 {/if}
 {if isset($content_new_elements_between)}
-{'nbm_content_new_elements'|@translate}{'nbm_content_new_elements_between_1'|@translate}{$content_new_elements_between.DATE_BETWEEN_1}{'nbm_content_new_elements_between_2'|@translate}{$content_new_elements_between.DATE_BETWEEN_2}.
+{'New elements were added '|@translate}{' between '|@translate}{$content_new_elements_between.DATE_BETWEEN_1}{' and '|@translate}{$content_new_elements_between.DATE_BETWEEN_2}.
 {/if}
 {if not empty($global_new_lines)}
 {foreach from=$global_new_lines item=line}
@@ -27,15 +27,15 @@
 {$custom_mail_content}
 {/if}
 {if not empty($GOTO_GALLERY_TITLE)}
-{'nbm_content_goto_1'|@translate}{$GOTO_GALLERY_TITLE} {$GOTO_GALLERY_URL} {'nbm_content_goto_2'|@translate}
+{'.'|@translate}{$GOTO_GALLERY_TITLE} {$GOTO_GALLERY_URL} {'.'|@translate}
 {/if}
 
-{'nbm_content_byebye'|@translate}
+{'See you soon,'|@translate}
   {$SEND_AS_NAME}
 
 ______________________________________________________________________________
 
-{'nbm_content_unsubscribe_link'|@translate}{'nbm_content_click_on'|@translate}{$UNSUBSCRIBE_LINK}
-{'nbm_content_subscribe_link'|@translate}{'nbm_content_click_on'|@translate}{$SUBSCRIBE_LINK}
-{'nbm_content_problem_contact'|@translate}{$CONTACT_EMAIL}
+{'To unsubscribe'|@translate}{', click on '|@translate}{$UNSUBSCRIBE_LINK}
+{'To subscribe'|@translate}{', click on '|@translate}{$SUBSCRIBE_LINK}
+{'If you encounter problems or have any question, please send a message to '|@translate}{$CONTACT_EMAIL}
 ______________________________________________________________________________
