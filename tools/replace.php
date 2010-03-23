@@ -18,10 +18,10 @@ $nbLines = count($lines);
 $pattern = "`(.*{')(.*)('\|@translate}.*)`Um";
 $replace = "'{\''.keyReplace('\\1').'\'|@translate}'";
 
-include "language/en_UK/common.lang.php";
-include "language/en_UK/admin.lang.php";
-include "language/en_UK/upgrade.lang.php";
-include "language/en_UK/install.lang.php";
+include "language/templates/common.lang.php";
+include "language/templates/admin.lang.php";
+include "language/templates/upgrade.lang.php";
+include "language/templates/install.lang.php";
 
 while ($n < $nbLines) {
   preg_match_all($pattern, $lines[$n], $matches);
