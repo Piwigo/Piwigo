@@ -59,7 +59,7 @@ SELECT path
 if (isset($_POST['date_creation_action'])
     and 'set' == $_POST['date_creation_action'])
 {
-  if (!checkdate(
+  if (!@checkdate(
         $_POST['date_creation_month'],
         $_POST['date_creation_day'],
         $_POST['date_creation_year'])

@@ -292,6 +292,7 @@ WHERE id IN (' . implode(',',$page['items']) .')';
 
 function array_to_int($array)
 {
+  $result = array();
   foreach ($array as $k => $v)
   {
     if ((int)$k==$k)
