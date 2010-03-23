@@ -303,11 +303,8 @@ $lang['New elements added'] = "New elements added";
 $lang['Subscribe to notification by mail'] = "Subscribe to notification by mail";
 $lang['Unsubscribe from notification by mail'] = "Unsubscribe from notification by mail";
 $lang['Parameter'] = "Parameter";
-$lang['Processing treatment.
-
-Please wait...'] = "Processing treatment.
-
-Please wait...";
+$lang['Processing treatment.'] = 'Processing treatment.';
+$lang['Please wait...'] = 'Please wait...';
 $lang['Continue processing treatment'] = "Continue processing treatment";
 $lang['Complementary mail content'] = "Complementary mail content";
 $lang['Add detailed content'] = "Add detailed content";
@@ -734,7 +731,8 @@ $lang['Install on your computer,'] = 'Install on your computer,';
 $lang['Make this theme available to users'] = 'Make this theme available to users';
 $lang['Page end'] = 'Page end';
 $lang['Piwigo Uploader'] = 'Piwigo Uploader';
-$lang['Processing treatment.\nPlease wait...'] = 'Processing treatment.\nPlease wait...';
+$lang['Processing treatment.'] = 'Processing treatment.';
+$lang['Please wait...'] = 'Please wait...';
 $lang['Read Piwigo Documentation'] = 'Read Piwigo Documentation';
 $lang['Start pLoader and add your photos.'] = 'Start pLoader and add your photos.';
 $lang['Switch to clear or dark colors for administration'] = 'Switch to clear or dark colors for administration';
