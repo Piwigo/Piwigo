@@ -751,3 +751,5 @@ h2:lang(en) { text-transform:capitalize; }
 #helpContent P {text-align:left; margin-left:10px;}
 #helpContent LI, #ftpPage LI {margin-top:10px;}
 #helpContent P.nextStepLink {text-align:center; font-weight:bold; margin-bottom:20px;}
+
+#configContent FIELDSET {border:none;}

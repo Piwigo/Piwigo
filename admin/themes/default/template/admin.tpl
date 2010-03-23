@@ -13,7 +13,7 @@ jQuery().ready(function(){ldelim}
 </script>
 
 <div id="menubar">
-  <div id="adminHome"><a href="{$U_ADMIN}">Administration Home</a></div>
+  <div id="adminHome"><a href="{$U_ADMIN}">{'Administration Home'|@translate}</a></div>
   <dl class="first">
     <dt class="rdion"><span>{'Photos'|@translate}&nbsp;</span></dt>
     <dd>

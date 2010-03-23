@@ -19,7 +19,7 @@ $(document).ready(function(){
 </script>
 {/literal}
 
-<div class="titrePage" style="height:25px">
+<div class="titrePage">
   <h2>{'Upload Photos'|@translate}</h2>
 </div>
 

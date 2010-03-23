@@ -8,7 +8,7 @@
 {if !isset($default)}
 <form method="post" action="{$F_ACTION}" class="properties">
 {/if}
-
+<div id="configContent">
 {if isset($main)}
 <fieldset id="mainConf">
   <legend></legend>
@@ -195,6 +195,8 @@
   </ul>
 </fieldset>
 {/if}
+
+</div> <!-- configContent -->
 
 {if isset($default)}
 {$PROFILE_CONTENT}

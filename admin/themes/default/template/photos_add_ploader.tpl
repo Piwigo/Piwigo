@@ -52,11 +52,11 @@ $().ready(function(){
 </div>
 
 <div id="pLoaderPage">
-<p>pLoader stands for <em>Piwigo Uploader</em>. From your computer, pLoader prepares your photos and transfer them to your Piwigo photo gallery.</p>
+<p>{'pLoader stands for <em>Piwigo Uploader</em>. From your computer, pLoader prepares your photos and transfer them to your Piwigo photo gallery.'|@translate}</p>
 
 <ol>
   <li>
-    Download,
+    {'Download,'|@translate}
 
 <table class="downloads">
   <tr>
@@ -82,7 +82,7 @@ $().ready(function(){
 </table>
 
   </li>
-  <li>Install on your computer,</li>
-  <li>Start pLoader and add your photos.</li>
+  <li>{'Install on your computer,'|@translate}</li>
+  <li>{'Start pLoader and add your photos.'|@translate}</li>
 </ol>
 </div>

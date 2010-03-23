@@ -5,12 +5,12 @@
 <div id="themesContent">
 
 <fieldset>
-<legend>Active Themes</legend>
+<legend>{'Active Themes'|@translate}</legend>
 {if isset($active_themes)}
 <div class="themeBoxes">
 {foreach from=$active_themes item=theme}
   <div class="themeBox{if $theme.is_default} themeDefault{/if}">
-    <div class="themeName">{$theme.name}{if $theme.is_default} <em>(default)</em>{/if}</div>
+    <div class="themeName">{$theme.name}{if $theme.is_default} <em>({'default'|@translate})</em>{/if}</div>
     <div class="themeShot"><img src="{$theme.screenshot}"></div>
     <div class="themeActions">
       <a href="{$deactivate_baseurl}{$theme.id}" title="{'Forbid this theme to users'|@translate}">{'Deactivate'|@translate}</a>
@@ -26,7 +26,7 @@
 
 {if isset($inactive_themes)}
 <fieldset>
-<legend>Inactive Themes</legend>
+<legend>{'Inactive Themes'|@translate}</legend>
 <div class="themeBoxes">
 {foreach from=$inactive_themes item=theme}
   <div class="themeBox">
