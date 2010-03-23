@@ -25,7 +25,7 @@ $lang['Installation'] = 'Installazione';
 $lang['Initial_config'] = 'Configurazione di base';
 $lang['Default_lang'] = 'Linguaggio di default della galleria';
 $lang['step1_title'] = 'Configurazione della base dati';
-$lang['step2_title'] = 'Configurazione del utente "Amministratore"';
+$lang['step2_title'] = 'Configurazione dell\'utente "Amministratore"';
 $lang['Start_Install'] = 'Inizia l\'installazione';
 $lang['reg_err_mail_address'] = 'L\'indirizzo email deve essere del tipo xxx@yyy.eee (ad esempio: cippalippa@libero.rio)';
 
