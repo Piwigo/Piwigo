@@ -56,7 +56,7 @@ $upload_form_config = array(
     'max' => 1600,
     'pattern' => '/^\d+$/',
     'can_be_null' => true,
-    'error_message' => 'The websize maximum width must be a number between %d and %d',
+    'error_message' => l10n('The websize maximum width must be a number between %d and %d'),
     ),
   
   'websize_maxheight' => array(
@@ -65,7 +65,7 @@ $upload_form_config = array(
     'max' => 1200,
     'pattern' => '/^\d+$/',
     'can_be_null' => true,
-    'error_message' => 'The websize maximum height must be a number between %d and %d',
+    'error_message' => l10n('The websize maximum height must be a number between %d and %d'),
     ),
   
   'websize_quality' => array(
@@ -74,7 +74,7 @@ $upload_form_config = array(
     'max' => 100,
     'pattern' => '/^\d+$/',
     'can_be_null' => false,
-    'error_message' => 'The websize image quality must be a number between %d and %d',
+    'error_message' => l10n('The websize image quality must be a number between %d and %d'),
     ),
   
   'thumb_maxwidth' => array(
@@ -83,7 +83,7 @@ $upload_form_config = array(
     'max' => 300,
     'pattern' => '/^\d+$/',
     'can_be_null' => false,
-    'error_message' => 'The thumbnail maximum width must be a number between %d and %d',
+    'error_message' => l10n('The thumbnail maximum width must be a number between %d and %d'),
     ),
   
   'thumb_maxheight' => array(
@@ -92,7 +92,7 @@ $upload_form_config = array(
     'max' => 300,
     'pattern' => '/^\d+$/',
     'can_be_null' => false,
-    'error_message' => 'The thumbnail maximum height must be a number between %d and %d',
+    'error_message' => l10n('The thumbnail maximum height must be a number between %d and %d'),
     ),
   
   'thumb_quality' => array(
@@ -101,7 +101,7 @@ $upload_form_config = array(
     'max' => 100,
     'pattern' => '/^\d+$/',
     'can_be_null' => false,
-    'error_message' => 'The thumbnail image quality must be a number between %d and %d',
+    'error_message' => l10n('The thumbnail image quality must be a number between %d and %d'),
     ),
   );
 
@@ -142,19 +142,19 @@ if (count($inserts) > 0)
 $tabs = array(
   array(
     'code' => 'direct',
-    'label' => 'Upload Photos',
+    'label' => l10n('Upload Photos'),
     ),
   array(
     'code' => 'settings',
-    'label' => 'Settings',
+    'label' => l10n('Settings'),
     ),
   array(
     'code' => 'ploader',
-    'label' => 'Piwigo Uploader',
+    'label' => l10n('Piwigo Uploader'),
     ),
   array(
     'code' => 'ftp',
-    'label' => 'FTP + Synchronisation',
+    'label' => l10n('FTP + Synchronization'),
     ),
   );
 
@@ -177,7 +177,7 @@ foreach ($tabs as $tab)
 {
   $tabsheet->add(
     $tab['code'],
-    l10n($tab['label']),
+    $tab['label'],
     PHOTOS_ADD_BASE_URL.'&amp;section='.$tab['code']
     );
 }

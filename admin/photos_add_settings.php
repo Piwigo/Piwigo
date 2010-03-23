@@ -104,7 +104,7 @@ if (isset($_POST['submit']))
         array_push(
           $page['errors'],
           sprintf(
-            l10n($upload_form_config[$field]['error_message']),
+            $upload_form_config[$field]['error_message'],
             $min,
             $max
             )

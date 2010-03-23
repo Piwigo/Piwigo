@@ -1,4 +1,4 @@
-<div class="titrePage" style="height:25px">
+<div class="titrePage">
   <h2>{'FTP + Synchronization'|@translate}</h2>
 </div>
 
