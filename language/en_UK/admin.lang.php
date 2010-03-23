@@ -740,7 +740,6 @@ $lang['Start pLoader and add your photos.'] = 'Start pLoader and add your photos
 $lang['Switch to clear or dark colors for administration'] = 'Switch to clear or dark colors for administration';
 $lang['Theme has been successfully installed'] = 'Theme has been successfully installed';
 $lang['Upgrade from %s to %s'] = 'Upgrade from %s to %s';
-$lang['Upload photos'] = 'Upload photos';
 $lang['Visit Gallery'] = 'Visit Gallery';
 $lang['Visit Piwigo project website'] = 'Visit Piwigo project website';
 $lang['pLoader stands for <em>Piwigo Uploader</em>. From your computer, pLoader prepares your photos and transfer them to your Piwigo photo gallery.'] = 'pLoader stands for <em>Piwigo Uploader</em>. From your computer, pLoader prepares your photos and transfer them to your Piwigo photo gallery.';

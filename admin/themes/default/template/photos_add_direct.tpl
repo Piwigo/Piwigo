@@ -72,7 +72,7 @@ jQuery(document).ready(function() {
 {/if}
 
 <div class="titrePage">
-  <h2>{'Upload photos'|@translate}</h2>
+  <h2>{'Upload Photos'|@translate}</h2>
 </div>
 
 <div id="photosAddContent">
