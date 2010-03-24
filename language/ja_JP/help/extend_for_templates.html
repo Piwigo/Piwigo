@@ -1,0 +1,85 @@
+<h2>テンプレートの拡張設定</h2>
+
+<h3>ゴール</h3>
+<p>それぞれのテンプレートに関して、テンプレート拡張より、テンプレートの置換 (「replacer」と呼びます) を定義します。</p>
+
+<p>replacerがオリジナルテンプレートにリンクされた場合 (または任意で、要求されたURIに「任意のURIキーワード」が含まれている場合)、
+./template/yoga (または他のyoga) は「replacer」と置換されます。</p>
+
+<p>「任意のURIキーワード」は、URIのモジュール名の後にあります。</p>
+
+<p>従って、「任意のURIキーワード」は、「パーマリンク」になり得ます (パーマリンクに関する詳細は、私たちのドキュメントをご覧ください)。</p>
+
+<p>使用用法に関して、「<a href="#warnings">注意</a>」をご覧ください。</p>
+
+<h3>テンプレート拡張とは?</h3>
+
+<p>この設定ツールは、ビギナーおよびアドバンストユーザにとって、パワフルなツールです。
+FTPを使用して、ウェブマスタは、多くの配布 .tplファイル (「オリジナルテンプレート」) を異なる名称 (「replacer」) で複製することができます。
+ 
+ 現在サポートされている「オリジナルテンプレート」は、以下のとおりです:</p>
+<ul>
+  <li><span class="filename">index.tpl</span></li>
+  <li><span class="filename">mainpage_categories.tpl</span> および/または <span class="filename">thumbnails.tpl</span></li>
+  <li><span class="filename">menubar.tpl</span></li>
+  <li><span class="filename">header.tpl</span> および/または <span class="filename">footer.tpl</span></li>
+  <li><span class="filename">picture_content.tpl</span> および/または<span class="filename">picture.tpl</span></li>
+  <!-- <li><span class="filename">slideshow.tpl</span></li> -->
+  <li><span class="filename">profile.tpl</span> および/または <span class="filename">profile_content.tpl</span></li>
+  <li><span class="filename">tags.tpl</span></li>
+  <li><span class="filename">upload.tpl</span></li>
+  <li><span class="filename">about.tpl</span></li>
+  <li><span class="filename">popuphelp.tpl</span></li>
+  <li><span class="filename">search.tpl</span> および/または <span class="filename">search_rules.tpl</span></li>
+  <li><span class="filename">nbm.tpl</span> および/または <span class="filename">notification.tpl</span></li>
+  <li><span class="filename">identification.tpl</span> および/または <span class="filename">register.tpl</span></li>
+  <li><span class="filename">redirect.tpl</span></li>
+</ul>
+
+<h3>オリジナルテンプレートは、どこにありますか?</h3>
+
+<p>配布されているオリジナルテンプレートは、template/yoga/ にあります (アップグレードの観点から、編集しないでください)。
+そのため、ウェブマスタは、「オリジナルテンプレート」から独自の「replacers (カスタマイズテンプレート)」を作成することができます。
+
+<h3>replacerは、どこに保存すべきですか?</h3>
+
+<p><strong>replacer (カスタマイズテンプレート)</strong> は、template-extensionフォルダ (または、そのサブフォルダ) に配置する必要があります。
+Replacers can have any filename with the .tpl extension. For example: <span
+class="filename">template-extension/my-extension/video.tpl</span>.</p>
+
+
+<h3>replacerは、どこで有効にできますか?</h3>
+<p>関連する置換テンプレートを有効にするため、<strong>オリジナルテンプレート</strong>は、
+<strong>replacer (カスタマイズテンプレート)</strong> に割り当てられる必要があります。
+これは、設定管理ページの「テンプレートの拡張」にて、割り当てることができます。</p>
+
+<p>あなたが<strong>任意のURIキーワード</strong>を選択した場合、このキーワードを使ったページのみ、
+置換が実行されます。例えば次のようになります: <span class="pwgScreen">index.php?/<strong>most_visited</strong></span></p>
+  
+<p>アドバンストユーザは、<strong>任意URIキーワード</strong>をパーマリンクとして使用します。</p>
+<h3>replacerを無効にするには?</h3>
+<ul>
+<li>関連する「オリジナルテンプレート」の選択を解除してください。</li>
+<li>FTPでreplacerを削除してください。</li>
+</ul>
+<a name="warnings"></a>
+<h3>注意</h3>
+<ul>
+
+<li><strong>オリジナルテンプレート</strong>は、「オリジナル」テンプレートであるべきです。そうでない場合、あなたの予想できない結果となってしまいます!</li>
+
+<li>同じ<strong>オリジナルテンプレート</strong>を使って、いくつかの<strong>replacer (カスタマイズテンプレート)</strong> を作成して、
+同じ<strong>任意のURIキーワード</strong>を使用する場合、最後のreplacerのみ有効となります。</li>
+
+<li>未選択の<strong>任意のURIキーワード</strong>は、すべてのテンプレート使用に関して、replacerを有効にします。
+前の時点と同じように、順番は、前に選択されたreplacerをオーバーライドすることができます。</li>
+
+<li>サブフォルダ:
+サブフォルダは無視されますが、現在の順番を変更するのに有用です。<br />
+distributed-samples: テスト目的のため提供されます! 
+<strong>編集せずに</strong>、あなた自身のテンプレートを作成してください。
+</li>
+
+<li>replacerを削除すると、すぐに<strong>オリジナルテンプレート</strong>が再度有効にされます。</li>
+
+</ul>

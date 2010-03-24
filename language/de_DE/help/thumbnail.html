@@ -1,36 +1,36 @@
-<h2>Erstellen von Miniaturansichten</h2>
+<h2>Erstellen von Miniaturansichten (Thumbnails)</h2>
 
-<p>Erstellen von Miniaturansichten fehlen. Die Verwendung dieser Funktion
+<p>Erstellen von fehlenden Miniaturansichten. Die Verwendung dieser Funktion
 ist nicht zu empfehlen, wenn die Galerie ist auf einem Server gehostet
-ziert (resources Maschine geteilt).</p>
+ziert (Ressourcen des Servers sind begrenzt).</p>
 
 <dl>
 
    <dt>Version von GD</dt>
 
-   <dd>GD ist eine Grafikbibliothek Manipulation von Bildern
-PHP. Wählen Sie die Version auf Ihrem Server installiert. Wenn Sie
-der schlechte, der Fehlermeldungen erscheinen, kehren Sie auf der Seite
-und wählen Sie die vorherige Version. Wenn es nicht funktioniert, das
-GD bedeutet, dass nicht verfügbar ist.</dd>
+   <dd>GD ist eine Grafikbibliothek zur Manipulation von Bildern per
+PHP. Wählen Sie die Version, die auf Ihrem Server installiert ist. Wenn 
+Fehlermeldungen erscheinen, kehren Sie auf die vorherige Seite zurück
+und wählen Sie die andere Version der GD-Biliothek. Falls es überhaupt nicht
+funktionieret, ist  die GD-Biliothek nicht verfügbar.</dd>
 
    <dt>Breite und Höhe</dt>
 
-   <dd>Maximale Maße, dass die Miniaturen können. Das Verhältnis
-Breite / Höhe Original beibehalten. Die Standardwerte sind
+   <dd>Bestimmt die maximale Größe der Miniaturen. Das Verhältnis
+Breite / Höhe des Originals wird beibehalten. Die Standardwerte sind
 veränderbar durch die Konfigurationseinstellungen <code>tn_width</code> und
 <code>tn_height</code> (siehe Datei <span
 class = "filename">include / config_default.inc.php</span >).</dd>
   
-   <dt>Anzahl der Miniaturen zu schaffen</dt>
+   <dt>Anzahl der zu erstellenden Miniaturen begrenzen</dt>
 
-   <dd>nicht, Miniaturisierung zu viele Bilder in der
-mal. Durch die Miniaturisierung erfordert eine relativ große
-CPU.</dd>
+   <dd>Bitte nicht alle Miniaturen auf einmal erstellen lassen, da
+   dies eine relativ hohe CPU-Last auf dem Server erzeugt.</dd>
 
    <dt>Format der Datei</dt>
 
-   <dd>Die Miniaturen sind im JPEG-Format erstellt. Nur die Formate PNG und
-JPEG können miniaturisierte.</dd>
+   <dd>Die Miniaturen werden im JPEG-Format erstellt. Nur die Formate PNG und
+JPEG werden verarbeitet. Thumbnails für alle anderen Dateiformate müssen selbst 
+erstellt werden</dd>
 
 </dl>

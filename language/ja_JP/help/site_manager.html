@@ -1,0 +1,41 @@
+<h2>リモートサイト</h2>
+
+<p>Piwigoでは、イメージを保存して、あなたのギャラリーを構成するため、
+複数のサーバを使用することができます。 これは、ギャラリーがインストールされているサーバのディスクスペースが限られていて、
+あなたが大量のイメージを表示したい場合、有用です。</p>
+
+<ol>
+
+  <li><code>$conf['prefix_thumbnail']</code> または <code>$conf['use_exif']</code></li>のようなパラメータセクションを変更することで、
+  ファイル<span class="filename">tools/create_listing_file.php</span>を編集してください。
+
+  <li>修正済みファイル<span class="filename">tools/create_listing_file.php</span>を
+  あなたのカテゴリのディレクトリ (このウェブサイトのディレクトリ<span class="filename">galleries</span> )と
+  同じ遠隔サーバのディレクトリにFTPでアップロードしてください。
+  例えば、あなたが<span class="filename">http://example.com/galleries/create_listing_file.php</span>にアクセスできるようにします。</li>
+
+  <li>「<span class="pwgScreen">管理パネル > カテゴリ > サイトマネージャ</span>」に移動してください。
+  例えば、<span class="filename">http://example.com/galleries</span>のようなサイトを作成してください。</li>
+
+  <li>新しいリモートサイトが作成されます。あなたは、次の4つの処理を実行できます :
+
+    <ol>
+
+      <li><strong>一覧の作成</strong> : 遠隔ファイル一覧を作成するリクエストを送信できます。</li>
+
+      <li><strong>同期化</strong> : 遠隔サイトの<span class="filename">listing.xml</span>ファイルを読んで、
+      データベース情報と同期化できます。</li>
+
+      <li><strong>クリーン</strong> : 遠隔サイトの<span class="filename">listing.xml</span>ファイルを削除できます。</li>
+
+      <li><strong>削除</strong> : データベース内のサイト (および、すべての関連カテゴリおよびエレメント) をデータベースから削除できます。</li>
+
+    </ol>
+  </li>
+</ol>
+
+<!-- <p>You can do all this by hand by generating yourself the <span
+class="filename">listing.xml</span> file, moving it from your distant server
+to you local Piwigo root directory and opening the remote site
+management screen : Piwigo will propose you to use the found
+listing.xml file.</p>-->

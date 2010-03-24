@@ -1,0 +1,121 @@
+<h2>Uredi skupinu</h2>
+
+<h3>Obavijesti</h3>
+
+<ul>
+
+  <li><strong>naziv</strong>: preimenuj skupinu (nestvarno preimenovanje u slučaju stvarne skupine).</li>
+
+  <li><strong>opis</strong>: prikažite uopćeni opis sadržaja, ovaj tekst će se prikazati ispod stranice poveznih sličica.</li>
+
+</ul>
+
+<h3>Premjesti</h3>
+
+<p>Ako je skupina nestvarna, možete je premjestiti. Premještanje skupine znači promjenu njene nadređene skupine.</p>
+
+<h3>Mogućnosti</h3>
+
+<ul>
+
+  <li><strong>Vrsta pristupa</strong>: Upravljanje dozvolama. Ako postavite skupinu kao osobnu, sve njoj podređene skupine postaju osobne. Ako postavite
+  skupinu kao javnu, sve njoj nadređene skupine postaju javne.</li>
+
+  <li><strong>Zaključavanje</strong>: Skupina i njene podskupine postaju nedostupne zbog poslova održavanja.</li>
+
+  <li><strong>Komentari</strong>: Dozvoli korisnicima da mogu komentirati stavke ove skupine.</li>
+
+  <li><strong>Dozvoli prebacivanje</strong>: Dozvoli korisnicima da mogu prebacivati zapise na poslužitelj. Ova mogućnost je dostupna samo za stvarne skupine (ne i za nestvarne skupine).</li>
+
+</ul>
+
+<p>Ovim mogućnostima možete upravljati i preko "Svojstva" upravnog prozora
+ (prozori <span class="pwgScreen">Prebaci</span>, <span
+class="pwgScreen">Komentari</span>, <span class="pwgScreen">Zaključaj</span>,
+<span class="pwgScreen">Javno/Osobno</span>, <span
+class="pwgScreen">Predstavnik</span> dostupnih preko <span
+class="pwgScreen">Uprava, Skupine, Svojstva</span>).</p>
+
+<h3>Redoslijed slaganja</h3>
+
+<p>Odaberite ako će se koristiti pretpostavljeni redoslijed slaganja.</p>
+
+<p>Označite ako će se taj redoslijed primjeniti i na podskupine.</p>
+
+<p>Odaberite posebno slaganje po stupcima za korištenje kod ove skupine.</p>
+<ul>
+<li><strong>Nadnevak izrade</strong>: Nadnevak stvaranja slike</li>
+<li><strong>Nadnevak postavljanja</strong>: Nadnevak usklađivanja</li>
+<li><strong>Prosječna ocjena (*)</strong>: Prosječna ocjena se može mijenjati od strane posjetitelja</li>
+<li><strong>Najposjećenije (*)</strong>: Trenutna posjeta mijenja redoslijed najposjećenijih</li>
+<li><strong>Naziv zapisa</strong>: Dano ime u obavijesnim poljima</li>
+<li><strong>Id</strong>: Unutarnja Id oznaka (novije skupine imaju veći id nego starije.</li>
+
+</ul>
+<p><strong>(*)</strong>Budite oprezni i prethodno isprobajte jer možete dobiti neočekivane ishode.</p>
+
+
+<h3>Predstavnik</h3>
+
+<p>Predstavnik skupine je povezna sličica postavljena da predstavlja
+skupinu na glavnoj stranici (<span class="pwgScreen">category.php</span>) kada skupina
+sadrži samo podskupine (kao korijenska skupina).</p>
+
+<p>Postoje 4 načina za postavljanje slike predstavnika skupine :</p>
+
+<ul>
+
+  <li><span class="pwgScreen">Stranica Slika</span>: dugmad na traci postupaka,
+  jedan od njih omogućava postavljanje prikazane slike kao predstavnika skupine. ovo dugme je dostupno samo upravnicima.</li>
+
+  <li><span class="pwgScreen">Izmjena podataka o slici</span> u upravnom dijelu. Ovaj prozor dostupan preko <span
+  class="pwgScreen">picture.php</span> ili <span class="pwgScreen">Slijedna obrada </span> u <em>pojedinačnom načinu</em>. Pogledajte sustav pomoći u ovom prozoru za pojedinosti.</li>
+
+  <li><span class="pwgScreen">Uprava, Skupine, Svojstva, Predstavnik</span>. Pogledajte sustav pomoći u ovom prozoru za pojedinosti.</li>
+
+  <li><span class="pwgScreen">Uredi skupinu</span> (ovaj prozor).</li>
+
+</ul>
+
+<p>Predstavljanje ovisi o postavkama stavke <code>allow_random_representative</code> (vidi <span
+class="filename">include/config_default.inc.php</span>).</p>
+
+<p>U pretpostavljenom načinu (<code>allow_random_representative</code> postavljen na false)
+svaka skupina koja sadrži najmanje jednu stavku je predstavljena određenim predstavnikom. Jednom postavljen (pri stvaranju skupine), predstavnik se mijenja jedino 
+kada upravnik to zatraži. Ako predstavnik nije odgovarajući možete zatražiti <strong>Odabir novog predstavnika slučajnim pristupom</strong>.</p>
+
+<p>Ako je postavka <code>allow_random_representative</code> postavljena na true, skupina koja ima sadržaj ne može imati prepostavljenog prestavnika. 
+Jednostavno upotrijebite <strong>Izbriši predstavnika</strong> dugme.</p>
+
+<p>Ako skupina nema stavki (nego samo podskupine) može biti predstavljena bilo kojom 
+stavkom podskupina zahvaljujući prozoru  <span class="pwgScreen">Promijeni podatke o slici</span>. Jedina mogućnost na trenutnom prozou je 
+ <strong>Izbriši predstavnika</strong> dugme, a nakon birisanja, odabir predstavnika nije više dostupan.</p>
+
+<h3>Poveži sve stavke skupine u novu skupinu</h3>
+
+<ul>
+
+<li><strong>Naziv nestvarne skupine</strong>: Novi naziv skupine će se odrediti, 
+sve slike trenutne skupine će se povezati sa novonastalom.</li>
+
+<li><strong>Nadređena skupina</strong>: Gdje će se nova skupina nalaziti, ostavi prazno za postavu iz polazišta.</li>
+
+</ul>
+
+<h3>Poveži sve stavke skupine sa nekim postojećim skupinama</h3>
+
+<ul>
+
+<li><strong>Skupine</strong>: Odaberite odredišnu skupinu.</li>
+
+</ul>
+
+<h3>Pošalji e-mail obavijest članovima grupe</h3>
+
+<ul>
+
+<li><strong>Grupa</strong>: adrese grupe</li>
+
+<li><strong>Sadržaj e-mail poruke</strong>: sadržaj po volji koji će se poslati.</li>
+
+</ul>  

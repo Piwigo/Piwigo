@@ -1,0 +1,111 @@
+<h2>Podešavanje</h2>
+
+<p>Ovaj prozor omogućava upravniku obavljanje osnovnih podešavanja. Zaista, ovaj
+prozor prikazuje samo najosnovnije postavke podešavanja koje bi trebale biti dovoljne za
+veliku većinu upravnika. Ako želite proučiti ostale brojne (i napredne) 
+postavke podešavanja, pregledajte zapis <span class="filename">include/config_default.inc.php</span>.</p>
+
+<p>Ovaj prozor je podijeljen u nekoliko odjeljaka, tematski preslaguje postavke podešavanja.</p>
+
+
+<h3>Glavo</h3>
+<ul>
+  <li><strong>Naslov galerije</strong>: koristi se za RSS izvore i e-mail obavijesti.</li>
+
+  <li><strong>Baner stranice</strong>: prikazan na svakoj javnoj stranici.</li>
+
+  <li><strong>URL galerije</strong>: koristi se za RSS izvore.</li>
+
+  <li><strong>Zaključavanje galerije</strong>: Zaključavanje cjelokupne galerije zbog poslova održavanja. Jedino upravni korisnici mogu pristupiti galeriji.</li>
+
+  <li><strong>Ocjene</strong>: POcjenjivanje slika je omogućeno.</li>
+
+  <li><strong>Ocjenjivanje od gostiju</strong>: Čak i nepoznati posjetitelji mogu ocjenjivati slike.</li>
+
+  <li><strong>Dozvoli upis korisnika</strong>: Upis je odobren za sve.</li>
+
+  <li><strong>E-mail adresa je obvezna za sve korisnike</strong>: E-mail adresa će se provjeravati pri upisu ili izmjeni profila osim ako se postupak vrši preko upravnog dijela.</li>
+
+  <li><strong>E-mail poruka upravniku pri upisu novog korisnika</strong>: Upravnik će dobiti obavijesnu e-mail poruku pri svakom novom upisu.</li>
+
+</ul>
+
+<h3>Povijest</h3>
+
+  <p>Posjete stranicama <span
+  class="pwgScreen">category.php</span> i <span
+  class="pwgScreen">picture.php</span> će biti pohranjene u
+  <code>povijest</code> tabeli.</p>
+  
+  <p>Posjete će biti vidljive u <span
+  class="pwgScreen">Uprava, Posebnosti, Povijest</span>.</p>
+
+<ul>
+  <li><strong>Pohrani posjete stranicama po gostima</strong>: posjete stranicama se vode po gostima.</li>
+
+  <li><strong>Pohrani posjete stranicama po korisnicima</strong>: posjete stranicama se vode po korisnicima.</li>
+
+  <li><strong>Pohrani posjete stranicama po upravnicima</strong>: posjete stranicama se vode po upravnicima.</li>
+
+</ul>
+
+<h3>Komentari</h3>
+<ul>
+
+  <li><strong>Komentari za sve</strong>: Čak i obični posjetitelji mogu pisati komentare.</li>
+
+  <li><strong>Broj komentara po stranici</strong>.</li>
+
+  <li><strong>Ovjera</strong>: upravnik ovjerava komentare posjetitelja prije javne objave. Ovjera korisničkih kometara 
+  se vrši u <span class="pwgScreen">Uprava, Slike, Komentari</span>.</li>
+
+  <li><strong>Pošalji e-mail obavijest po upisu kometara</strong>:
+Šalje e-mail obavijesnu poruku upravnicima kada korisnici upišu komentare koji su već ovjereni.</li>
+
+  <li><strong>Pošalji e-mail obavijest kada komentar treba ovjeru</strong>:
+Šalje e-mail obavijesnu poruku upravnicima kada korisnici upišu komentare koji trebaju biti ovjereni.
+Ovjeri korisničkih komentara se pristupa preko <span class="pwgScreen">Uprava, Slike, Komentari</span>.</li>
+
+</ul>
+
+<!--TODO --><h3>Prebacivanje</h3>
+<ul>
+<!--TODO -->  <li><strong>Prikaži poveznicu prebacivanja svaki put</strong>: Ako postoje skupine za prebacivanje, poveznica DODAJ će biti prikazana za svaku skupinu.</li>
+<!--TODO -->  <li><strong>Korisnička razina pristupa za prebacivanje</strong>: Omogućava ograničavanje prebacivanja od korisnika</li>
+  <li><strong>E-mail poruka upraviteljima po prebacivanju zapisa</strong>: Upravitelji će dobiti e-mail poruku za svaku prebačenu korisničku sliku.</li>
+</ul>
+
+<h3>Pretpostavljeni prikaz</h3>
+
+<p>Ovdje možete mijenjati postavke prikaza korištene kao zadane, kada gost nije prijavljen. Jednom kada se prijavi, ove mogućnosti će biti promijenjene korisnički izabranima (izmjenjivo u <span class="pwgScreen">profili</span>).</p>
+
+<p>Moguće je promijeniti mogućnosti prikaza za sve korisnike, ali preko prozora is <span class="pwgScreen">Uprava, Prijavnica, Korisnici</span>, gdje prikaz možete odrediti za odabrani popis korisnika.</p>
+
+<ul>
+
+  <li><strong>Jezik</strong>: zahvaća samo sučelje Piwigo galerije. Nazivi skupina, slika i svi opisi nisu obuhvaćeno prijevodom.</li>
+
+  <li><strong>Broj slika po redu</strong></li>
+
+  <li><strong>Broj redova po stranici</strong></li>
+
+  <li><strong>Tema sučelja</strong></li>
+
+  <li><strong>Nedavno razdoblje</strong>: Po danima. Razdoblje u kojem se prikazana slika smatra novom. Mora biti veće od 1 dan.</li>
+
+  <li><strong>Razgranaj sve skupine</strong>: Pretpostavljeno razgranati sve skupine u 
+  izbornik? <em>Pozor</em>: ova mogućnost može opteretiti računalo poslužitelj i stvoriti ogromni izbornik ako vaše sustav sadrži mnogo skupina.</li>
+
+  <li><strong>Prikaži broj komentara</strong>: prikazuje broj komentara za svaku sliku na stranici poveznih sličica. Zahtjevno za poslužitelja.</li>
+
+  <li><strong>Prikaži broj posjeta</strong>: prikaži broj posjeta slici pravo ispod povezne sličice na stranici. 
+  Samo kada je napredna postavka : <br />  $conf['show_nb_hits'] = true; <br />
+  Obavijest: pretpostavljeno je false .</li>
+
+  <li><strong>Najveća širina slika</strong>: najveća dozvoljena širina. Ako je slika veča od ove postavke, biti će prilagođena pri prikazu. Ukoliko razmišljate o određivanju ove vrijednosti, možda bi bilo
+  bolje prilagoditi širinu vaših slika pri izradi umjesto ovog.</li>
+
+  <li><strong>Najveća visina slika</strong>: iste primjedbe kao ikod prethodne stavke.</li>
+
+</ul>
+

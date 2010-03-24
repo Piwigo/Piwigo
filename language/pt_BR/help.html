@@ -1,0 +1,309 @@
+<div class="instructions">
+<h2>Ajuda</h2>
+
+<div id="instructionPLoader" class="instructionBlock">
+  <div
+    id="pLoader_header"
+    class="instructionBlockHeaderCollapsed"
+    onclick="blockToggleDisplay('pLoader_header', 'pLoader_content')"
+  ><span>
+    Adicionar fotos, através do pLoader
+  </span></div>
+  <div
+    id="pLoader_content"
+    class="instructionBlockContent"
+    style="display:none"
+  >
+    <p>
+      <a href="http://piwigo.org/ext/extension_view.php?eid=270">pLoader para Windows</a>
+      ou <a href="http://piwigo.org/ext/extension_view.php?eid=269">pLoader para Linux</a>
+      ou <a href="http://piwigo.org/ext/extension_view.php?eid=353">pLoader para Mac</a>
+      : descrição, download e detalhes sobre novas revisões.
+    </p>
+    <ol>
+      <li>Crie um diretório intitulado "upload" ao lado do diretório "galleries" na sua instalação do Piwigo, com permissões de acesso à escrita.</li>
+      <li>Instale o pLoader no seu computadoron your computer, inicie-o e preencha os dados de conexão: o URL(endereço) da sua galeria, seu nome de usuário e senha.</li>
+      <li>Arraste e solte fotos do seu diretório para dentro da seleção de fotos do Ploader.</li>
+      <li>Crie uma categoria e selecione-a.</li>
+      <li>Selecione algumas fotos.</li>
+      <li>Clique na seta verde para transferir as fotos para a sua galeria.</li>
+    </ol>
+Parabéns ! Você acabou de criar a primeira categoria da sua galeria de fotos.
+  </div> <!-- pLoader_content -->
+</div> <!-- instructionPLoader -->
+
+<div id="instructionFTP" class="instructionBlock">
+  <div
+    id="FTP_header"
+    class="instructionBlockHeaderCollapsed"
+    onclick="blockToggleDisplay('FTP_header', 'FTP_content')"
+  ><span>
+    Adicionar fotos, através de FTP
+  </span></div>
+  <div
+    id="FTP_content"
+    class="instructionBlockContent"
+    style="display:none"
+  >
+
+<h3>Início Rápido</h3>
+
+<ol>
+  <li>Crie um diretório no seu computador.</li>  
+
+  <li>Copie algumas fotos para esse diretório, altere o tamanho delas para serem exibidas na rede. <em>Cuidado</em>: o nome dos diretórios e dos arquivos devem conter apenas letras, números, "-", "_" ou ".". Não use espaço em branco, e nem caracteres acentuados.</li>
+
+  <li>Com a ajuda de um programa de FTP, copie o seu diretório para o diretório "galleries" da sua instalação Piwigo.</li>
+
+  <li>Faça o login na sua galeria e vá até <span class="pwgScreen">Administração &raquo; Imagens &raquo; Miniatruras</span> para criar alguma miniatura que esteja faltando.</li>
+
+  <li>Vá até <span class="pwgScreen">Administração</span> e clique no grande botão escrito "Sincronização".</li>
+</ol>
+
+Parabéns! Você acabou de criar a primeira categoria da sua galeria de fotos.
+
+<h3>Organização de diretórios e arquivos</h3>
+<ul>
+
+  <li>
+
+    <p>Os diretórios das categorias estão no diretório "galleries" no Piwigo. Segue aqui a árvore de diretórios de uma pequena galeria (mas
+    usando muitos recursos) :</p>
+
+    <pre>
+.
+|-- admin
+|-- doc
+|-- galleries
+|   |-- category-1
+|   |   |-- category-1.1
+|   |   |   |-- category-1.1.1
+|   |   |   |   |-- category-1.1.1.1
+|   |   |   |   |   |-- pwg_high
+|   |   |   |   |   |   +-- wedding.jpg
+|   |   |   |   |   |-- thumbnail
+|   |   |   |   |   |   +-- TN-wedding.jpg
+|   |   |   |   |   +-- wedding.jpg
+|   |   |   |   +-- category-1.1.1.2
+|   |   |   +-- category-1.1.2
+|   |   |-- category-1.2
+|   |   |   |-- pookie.jpg
+|   |   |   +-- thumbnail
+|   |   |       +-- TN-pookie.jpg
+|   |   +-- category-1.3
+|   +-- category-2
+|       |-- piglet.gif
+|       |-- pwg_representative
+|       |   +-- video.jpg
+|       |-- thumbnail
+|       |   +-- TN-piglet.jpg
+|       +-- video.avi
+|-- include
+|-- install
+|-- language
+|-- template
++-- tool</pre>
+
+  </li>
+  
+  <li>Cada diretório sob "galleries" produz uma categoria. Não há limite de profundidade.</li>
+
+  <li>Basicamente, um item é representado por um arquivo. Um arquivo pode ser um
+  iten Piwigo se sua extensão estiver entre as possibilidades dos parâmetros de configuração <code>file_ext</code> (veja o arquivo <span
+  class="filename">include/config_default.inc.php</span> ). Um arquivo pode
+  ser uma imagem se a sua extensão estiver entre as possibilidades dos parâmetros de configuração <code>picture_ext</code>.</li>
+
+  <li>Os itens fotográficos devem ter uma miniatura associada (veja a seção abaixo
+  sobre miniaturas)</li>
+
+  <li>Os itens fotográficos podem ter um arquivo de alta definição associado. Assim como para
+  wedding.jpg no exemplo acima. Não use prefixo nas imagens de alta definição.</li>
+
+  <li>Outros itens (video, sons, arquivos de texto, o que você quiser...) são
+  por padrão representados por um ícone correspondente à extensão do nome de arquivo. Você tem a opção de associar uma miniatura e um arquivo representativo (veja video.avi no exemplo acima).</li>
+
+  <li><em>Atenção</em>: o nome dos diretórios e dos arquivos devem conter apenas letras, números, "-", "_" ou ".". Não use espaço em branco e nem caracteres acentuados.</li>
+
+  <li>Uma vez que os arquivos, as miniaturas e representativos estiverem corretamente alocados nos diretórios,
+  vá até : <span class="pwgScreen">Administração &raquo; Categorias &raquo;
+  Sincronizar</span></li>
+
+</ul>
+
+<h3>Miniaturas (Thumbnails)</h3>
+<ul>
+
+  <li>Cada foto deve ter a sua miniatura.</li>
+
+  <li>As miniaturas estão armazenadas no subdiretório "thumbnail" no diretório das categorias. 
+      A miniatura tem o mesmo nome de arquivo que a foto correspondente, com <em>TN-</em> como prefixo.</li>
+
+  <li><em>Aviso</em>: use um módulo externo para a criação das miniaturas.</li>
+
+  <li>Even if it is not recommended (qualidade da imagem, carregamento do servidor, etc), você pode usar a página<span>
+  class="pwgScreen">Administração &raquo; Imagens &raquo; Miniaturas</span> para criar as miniaturas.</li>
+
+  <li>Dê acesso de escrita para todos os diretórios das categorias.</li>
+
+</ul>
+
+  </div> <!-- FTP_content -->
+</div> <!-- instructionFTP -->
+
+<div id="instructionPermissions" class="instructionBlock">
+  <div
+    id="permissions_header"
+    class="instructionBlockHeaderCollapsed"
+    onclick="blockToggleDisplay('permissions_header', 'permissions_content')"
+  ><span>
+    Permissões
+  </span></div>
+  <div
+    id="permissions_content"
+    class="instructionBlockContent"
+    style="display:none"
+  >
+<ul>
+
+  <li>Você pode proibir o acesso às categorias. Altere o modo de acesso à categoria para "privado" se você quiser gerenciar permissões.</li>
+
+  <li>Você pode tornar uma categoria privada simplesmente editando uma categoria (<span
+  class="pwgScreen">Administração &raquo; Categorias &raquo; Gerenciar &raquo; editar</span>) ou
+  alterando as opções em toda a árvore da categoria (<span
+  class="pwgScreen">Administração &raquo; Categorias &raquo; Propriedades &raquo; Publico / Privado</span>).</li>
+
+  <li>
+
+    <p>Uma vez que a categoria esteja como privada, você pode gerenciar as permissões para grupos
+    e usuários com 3 telas:</p>
+
+    <ul>
+
+      <li><span class="pwgScreen">Administração &raquo; Identificação &raquo; Usuários &raquo;
+      ação das permissões</span> (um link por usuário)</li>
+
+      <li><span class="pwgScreen">Administração &raquo; Identificação &raquo; Grupos &raquo;
+      ação das permissões</span> (um link por grupo)</li>
+
+      <li><span class="pwgScreen">Administração &raquo; Categorias &raquo; Gerenciar &raquo; editar
+      ação das permissões da categoria</span> (um link por categoria)</li>
+
+    </ul>
+
+  </li>
+
+</ul>
+  </div> <!-- permissions_content --> 
+</div> <!-- instructionPermissions -->
+
+<div id="instructionGroups" class="instructionBlock">
+  <div
+    id="groups_header"
+    class="instructionBlockHeaderCollapsed"
+    onclick="blockToggleDisplay('groups_header', 'groups_content')"
+  ><span>
+    Grupos
+  </span></div>
+  <div
+    id="groups_content"
+    class="instructionBlockContent"
+    style="display:none"
+  >
+<ul>
+
+  <li>Os grupos são uma maneira conveniente de configurar permissões para uma lista de usuários.</li>
+
+  <li>Crie grupos em <span class="pwgScreen">Administração &raquo;
+  Identificação &raquo; Grupos</span> e associe usuários para este grupo em <span
+  class="pwgScreen">Administração &raquo; Identificação &raquo; Usuários</span>.</li>
+
+  <li>Um usuário pode pertencer a vários grupos. A autorização é mais forte do que a
+  proibição : se o usuário "jack" pertence aos grupos "família" e
+  "amigos", e apenas o grupo "família" pode ver a categoria "Natal 2003", então
+  "jack" poderá ver "Natal 2003".</li>
+
+</ul>
+  </div> <!-- groups_content --> 
+</div> <!-- instructionGroups -->
+
+<div id="instructionUpload" class="instructionBlock">
+  <div
+    id="upload_header"
+    class="instructionBlockHeaderCollapsed"
+    onclick="blockToggleDisplay('upload_header', 'upload_content')"
+  ><span>
+    Upload(envio de fotos) de usuários
+  </span></div>
+  <div
+    id="upload_content"
+    class="instructionBlockContent"
+    style="display:none"
+  >
+<p>Os usuários também podem enviar suas fotos.</p>
+
+<ol>
+
+  <li>Você pode autorizar o upload em qualquer categoria física (<span
+  class="pwgScreen">Administração &raquo; Categorias &raquo; Gerenciar &raquo; editar</span> ou <span
+  class="pwgScreen">Administração &raquo; Categorias &raquo; Propriedades &raquo; Upload</span>). Categorias virtuais não podem receber uploads.</li>
+
+  <li>Dê acesso de escrita nos diretórios correspondentes.</li>
+
+</ol>
+
+<p>As fotos enviadas por usuários não são diretamente visíveis no website. Um administrador
+deve validar as fotos enviadas em <span class="pwgScreen">Administração &raquo; Imagens &raquo; Aguardando</span>.</p>
+  </div> <!-- upload_content --> 
+</div> <!-- instructionUpload -->
+
+<div id="instructionCategoryLinks" class="instructionBlock">
+  <div
+    id="categoryLinks_header"
+    class="instructionBlockHeaderCollapsed"
+    onclick="blockToggleDisplay('categoryLinks_header', 'categoryLinks_content')"
+  ><span>
+    Links entre fotos e categorias, categorias virtuais
+  </span></div>
+  <div
+    id="categoryLinks_content"
+    class="instructionBlockContent"
+    style="display:none"
+  >
+<ul>
+
+  <li>As fotos são mostradas na categoria correspondente are displayed in the category corresponding to the file directory.</li>
+
+  <li>Você também pode mostrar uma imagem em várias categorias, sem a necessidade de duplicar o arquivo em seu servidor. Associe a imagem a qualquer categoria na tela de edição de foto (que qualquer administrador pode ter acesso da página de foto na galeria).</li>
+
+  <li>Categorias virtuais são baseadas neste conceito: elas não tem diretório correspondente. Crie categorias virtuais através da <span class="pwgScreen">Administração &raquo; Categorias &raquo; Gerenciar</span>.</li>
+
+</ul>
+  </div> <!-- categoryLinks_content --> 
+</div> <!-- instructionCategoryLinks -->
+
+<div id="instructionMisc" class="instructionBlock">
+  <div
+    id="misc_header"
+    class="instructionBlockHeaderCollapsed"
+    onclick="blockToggleDisplay('misc_header', 'misc_content')"
+  ><span>
+    Outras informações
+  </span></div>
+  <div
+    id="misc_content"
+    class="instructionBlockContent"
+    style="display:none"
+  >
+<ul>
+
+  <li>Assim que você tiver criado sua galeria, modifique as propriedades padrão em <span class="pwgScreen">Administração &raquo; Configuração &raquo;
+  Padrão</span>. Todo usuário novo registrado usará estas opções de configuração padrão.</li>
+
+  <li>Se você tiver qualquer pergunta, a comunidade Piwigo lhe receberá de braços abertos em <a
+  href="http://piwigo.org/forum">seu forum</a>.</li>
+
+</ul>
+  </div> <!-- misc_content --> 
+</div> <!-- instructionMisc -->
+
+</div>

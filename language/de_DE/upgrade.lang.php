@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | Piwigo - a PHP based picture gallery                                  |
 // +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2010 Piwigo Team                  http://piwigo.org |
+// | Copyright(C) 2008-2009 Piwigo Team                  http://piwigo.org |
 // | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
 // | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
 // +-----------------------------------------------------------------------+
@@ -21,24 +21,24 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
+$lang['Upgrade'] = 'Upgrade';
+$lang['introduction message'] = 'Diese Seite schlägt vor, Ihre Datenbank auf die aktuelle Version upzugraden, die Ihre vorhandenen Daten enthält. 
+Sie benutzen zur Zeit die Version <strong>release %s</strong> (oder kompatibel).';
+$lang['Upgrade from version %s to %s'] = 'Upgrade von der Version %s auf %s';
+$lang['Statistics'] = 'Statistik';
+$lang['total upgrade time'] = 'total upgrade time';
+$lang['total SQL time'] = 'total SQL time';
+$lang['SQL queries'] = 'SQL queries';
+$lang['Upgrade informations'] = 'Upgrade Informationen';
+$lang['Perform a maintenance check in [Administration>Specials>Maintenance] if you encounter any problem.'] = 'Führen Sie eine Datenbanküberprüfung durch in [Verwaltung>Erweiterte Einstellungen>Wartung] falls ein Problem auftritt.';
+$lang['As a precaution, following plugins have been deactivated. You must check for plugins upgrade before reactiving them:'] = 'Als Vorsichtsmaßnahme wurden folgende Plugins deaktiviert. Prüfen Sie, ob ein Update verfügbar ist oder die Plugins kompatibel zur neuen Version sind, bevor Sie diese wieder aktivieren:';
+$lang['Only administrator can run upgrade: please sign in below.'] = 'Nur Administratoren dürfen ein Upgrade durchführen. Bitte loggen Sie sich ein';
+$lang['You do not have access rights to run upgrade'] = 'Sie haben nicht die erforderlichen Rechte ein Upgrade durchzuführen';
+$lang['in include/mysql.inc.php, before ?>, insert:'] = 'In die Datei<i>include/mysql.inc.php</i>, vor <b>?></b>, bitte folgenden Text einfügen:';
 
+// Upgrade informations from upgrade_1.3.1.php
+$lang['All sub-categories of private categories become private'] = 'Alle Unterkategorien von privaten Kategorien bekommen den Status "private Kategorie"';
+$lang['User permissions and group permissions have been erased'] = 'Alle Benutzer- und Gruppenberechtigungen/beschränkungen wurden entfernt';
+$lang['Only thumbnails prefix and webmaster mail address have been saved from previous configuration'] = 'Es wurden nur die Thumbnail-Präfixe und die Mailadresse des Webmasters übernommen';
 
-$lang['Upgrade'] = "Upgrade";
-$lang['This page proposes to upgrade your database corresponding to your old version of Piwigo to the current version.
-The upgrade assistant thinks you are currently running a <strong>release %s</strong> (or equivalent).'] = "Diese Seite schlägt vor aktualisieren Ihre Datenbank von Ihre alte Version von Piwigo auf die aktuelle Version.
-Der Upgrade-Assistent denkt Sie derzeit ein <strong>Freigabe %s</strong> (oder gleichwertig).";
-$lang['Upgrade from version %s to %s'] = "Upgrade von Version %s bis %s";
-$lang['Statistics'] = "Statistik";
-$lang['total upgrade time'] = "insgesamt Upgrade-Zeit";
-$lang['total SQL time'] = "insgesamt SQL-Zeit";
-$lang['SQL queries'] = "SQL-Abfragen";
-$lang['Upgrade informations'] = "Upgrade-Informationen";
-$lang['Perform a maintenance check in [Administration>Specials>Maintenance] if you encounter any problem.'] = "Führen Sie einen Wartungs-Check am [Administration> Specials> Wartung], wenn Sie auf ein Problem stoßen";
-$lang['As a precaution, following plugins have been deactivated. You must check for plugins upgrade before reactiving them:'] = "Als Vorsichtsmaßnahme folgenden Plugins wurden deaktiviert. Sie müssen prüfen, ob Plugins aktualisieren, bevor sie reactiving:";
-$lang['Only administrator can run upgrade: please sign in below.'] = "Nur Administrator können Upgrade ausführen : Bitte melden Sie sich an unter.";
-$lang['You do not have access rights to run upgrade'] = "Sie haben nicht das Recht auf Zugang zum Upgrade ausführen";
-$lang['In <i>%s</i>, before <b>?></b>, insert:'] = "In <i>%s</i>, vor <b>?></b>, wird Folgendes eingefügt:";
-$lang['All sub-categories of private categories become private'] = "Alle Unter-Kategorien von privaten Gruppen wirden privaten";
-$lang['User permissions and group permissions have been erased'] = "Benutzer und Gruppen Berechtigungen wurden gelöscht";
-$lang['Only thumbnails prefix and webmaster mail address have been saved from previous configuration'] = "Nur Miniaturansichten Präfix und Webmaster Mail-Adresse gespeichert wurden aus früheren Konfiguration";
 ?>
