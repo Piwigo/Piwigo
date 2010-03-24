@@ -63,6 +63,7 @@ foreach ($languages as $language)
 
       // strings not "really" translated?
       $output_duplicated = '';
+      $output_lost = '';
       foreach (array_keys($metalang[$language][$file]) as $key)
       {
         $exceptions = array('Level 0');
@@ -77,10 +78,17 @@ foreach ($languages as $language)
         }
         
         $local_value = $metalang[$language][$file][$key];
-        $ref_value = $metalang[ $page['ref_default_values'] ][$file][$key];
-        if ($local_value == $ref_value)
+        if (!isset($metalang[ $page['ref_default_values'] ][$file][$key]))
         {
-          $output_duplicated.= get_line_to_translate($file, $key);
+          $output_lost.= '#'.$key.'# does not exist in the reference language'."\n";
+        }
+        else
+        {
+          $ref_value = $metalang[ $page['ref_default_values'] ][$file][$key];
+          if ($local_value == $ref_value)
+          {
+            $output_duplicated.= get_line_to_translate($file, $key);
+          }
         }
       }
 
@@ -97,6 +105,11 @@ foreach ($languages as $language)
         }
         echo '<h3>'.$file.'.lang.php</h3>';
         echo '<textarea style="width:100%;height:150px;">'.$output.'</textarea>';
+      }
+
+      if ('' != $output_lost)
+      {
+        echo '<pre>'.$output_lost.'</pre>';
       }
     }
     else
