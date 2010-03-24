@@ -387,4 +387,5 @@ $lang['This author removed the comment with id %d'] = 'Cet auteur a supprimé le
 $lang['delete this comment'] = "supprimer ce commentaire";
 $lang['validate this comment'] = 'valider ce commentaire';
 $lang['(!) This comment requires validation'] = '(!) Ce commentaire requiert une validation';
+$lang['Allow user customization'] = "Permettre la personnalisation de l'affichage"; 
 ?>

@@ -39,6 +39,7 @@
 {/if}
   </fieldset>
 
+{if $ALLOW_USER_CUSTOMIZATION}
   <fieldset>
     <legend>{'Preferences'|@translate}</legend>
 
@@ -99,6 +100,7 @@
       </li>
     </ul>
   </fieldset>
+{/if}
 
   <p class="bottomButtons">
     <input class="submit" type="submit" name="validate" value="{'Submit'|@translate}">

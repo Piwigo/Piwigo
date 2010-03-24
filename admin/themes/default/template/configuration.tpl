@@ -69,6 +69,13 @@
 
     <li>
       <label>
+        <span class="property">{'Allow user customization'|@translate}</span>
+        <input type="checkbox" name="allow_user_customization" {if ($main.allow_user_customization)}checked="checked"{/if}>
+      </label>
+    </li>
+
+    <li>
+      <label>
         <span class="property">{'Mail address is obligatory for all users'|@translate}</span>
         <input type="checkbox" name="obligatory_user_mail_address" {if ($main.obligatory_user_mail_address)}checked="checked"{/if}>
       </label>

@@ -104,36 +104,39 @@ function save_profile_from_post($userdata, &$errors)
           );
   }
 
-  $int_pattern = '/^\d+$/';
-  if (empty($_POST['nb_image_line'])
-      or (!preg_match($int_pattern, $_POST['nb_image_line'])))
+  if ($conf['allow_user_customization'] or defined('IN_ADMIN'))
   {
-    $errors[] = l10n('The number of images per row must be a not null scalar');
-  }
+    $int_pattern = '/^\d+$/';
+    if (empty($_POST['nb_image_line'])
+        or (!preg_match($int_pattern, $_POST['nb_image_line'])))
+    {
+      $errors[] = l10n('The number of images per row must be a not null scalar');
+    }
 
-  if (empty($_POST['nb_line_page'])
-      or (!preg_match($int_pattern, $_POST['nb_line_page'])))
-  {
-    $errors[] = l10n('The number of rows per page must be a not null scalar');
-  }
+    if (empty($_POST['nb_line_page'])
+        or (!preg_match($int_pattern, $_POST['nb_line_page'])))
+    {
+      $errors[] = l10n('The number of rows per page must be a not null scalar');
+    }
 
-  if ($_POST['maxwidth'] != ''
-      and (!preg_match($int_pattern, $_POST['maxwidth'])
-           or $_POST['maxwidth'] < 50))
-  {
-    $errors[] = l10n('Maximum width must be a number superior to 50');
-  }
-  if ($_POST['maxheight']
-       and (!preg_match($int_pattern, $_POST['maxheight'])
-             or $_POST['maxheight'] < 50))
-  {
-    $errors[] = l10n('Maximum height must be a number superior to 50');
-  }
-  // periods must be integer values, they represents number of days
-  if (!preg_match($int_pattern, $_POST['recent_period'])
-      or $_POST['recent_period'] <= 0)
-  {
-    $errors[] = l10n('Recent period must be a positive integer value') ;
+    if ($_POST['maxwidth'] != ''
+        and (!preg_match($int_pattern, $_POST['maxwidth'])
+             or $_POST['maxwidth'] < 50))
+    {
+      $errors[] = l10n('Maximum width must be a number superior to 50');
+    }
+    if ($_POST['maxheight']
+         and (!preg_match($int_pattern, $_POST['maxheight'])
+               or $_POST['maxheight'] < 50))
+    {
+      $errors[] = l10n('Maximum height must be a number superior to 50');
+    }
+    // periods must be integer values, they represents number of days
+    if (!preg_match($int_pattern, $_POST['recent_period'])
+        or $_POST['recent_period'] <= 0)
+    {
+      $errors[] = l10n('Recent period must be a positive integer value') ;
+    }
   }
 
   if (isset($_POST['mail_address']))
@@ -199,26 +202,28 @@ function save_profile_from_post($userdata, &$errors)
                    array($data));
     }
 
-    // update user "additional" informations (specific to Piwigo)
-    $fields = array(
-      'nb_image_line', 'nb_line_page', 'language', 'maxwidth', 'maxheight',
-      'expand', 'show_nb_comments', 'show_nb_hits', 'recent_period', 'theme'
-      );
-
-    $data = array();
-    $data['user_id'] = $userdata['id'];
-
-    foreach ($fields as $field)
+    if ($conf['allow_user_customization'] or defined('IN_ADMIN'))
     {
-      if (isset($_POST[$field]))
-      {
-        $data[$field] = $_POST[$field];
-      }
-    }
-    mass_updates(USER_INFOS_TABLE,
-                 array('primary' => array('user_id'), 'update' => $fields),
-                 array($data));
+      // update user "additional" informations (specific to Piwigo)
+      $fields = array(
+        'nb_image_line', 'nb_line_page', 'language', 'maxwidth', 'maxheight',
+        'expand', 'show_nb_comments', 'show_nb_hits', 'recent_period', 'theme'
+        );
 
+      $data = array();
+      $data['user_id'] = $userdata['id'];
+
+      foreach ($fields as $field)
+      {
+        if (isset($_POST[$field]))
+        {
+          $data[$field] = $_POST[$field];
+        }
+      }
+      mass_updates(USER_INFOS_TABLE,
+                   array('primary' => array('user_id'), 'update' => $fields),
+                   array($data));
+    }
     trigger_action( 'save_profile_from_post', $userdata['id'] );
 
     if (!empty($_POST['redirect']))
@@ -245,6 +250,7 @@ function load_profile_in_template($url_action, $url_redirect, $userdata)
     array(
       'USERNAME'=>stripslashes($userdata['username']),
       'EMAIL'=>get_email_address_as_display_text(@$userdata['email']),
+      'ALLOW_USER_CUSTOMIZATION'=>$conf['allow_user_customization'],
       'NB_IMAGE_LINE'=>$userdata['nb_image_line'],
       'NB_ROW_PAGE'=>$userdata['nb_line_page'],
       'RECENT_PERIOD'=>$userdata['recent_period'],

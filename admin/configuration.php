@@ -51,6 +51,7 @@ $main_checkboxes = array(
     'rate',
     'rate_anonymous',
     'email_admin_on_new_user',
+    'allow_user_customization',
    );
 
 $history_checkboxes = array(
