@@ -1,1 +1,0 @@
-Create new theme elements which can be manually updated later.
