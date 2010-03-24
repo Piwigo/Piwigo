@@ -105,7 +105,9 @@
   <p class="bottomButtons">
     <input class="submit" type="submit" name="validate" value="{'Submit'|@translate}">
     <input class="submit" type="reset" name="reset" value="{'Reset'|@translate}">
+    {if $ALLOW_USER_CUSTOMIZATION}
     <input class="submit" type="submit" name="reset_to_default" value="{'Reset to default values'|@translate}">
+    {/if}
   </p>
 
 </form>
