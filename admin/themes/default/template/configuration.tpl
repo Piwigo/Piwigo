@@ -103,7 +103,6 @@
 </fieldset>
 {/if}
 
-
 {if isset($comments)}
 <fieldset id="commentsConf">
   <legend></legend>
@@ -128,7 +127,6 @@
         <input type="checkbox" name="comments_validation" {if ($comments.comments_validation)}checked="checked"{/if}>
       </label>
     </li>
-
 
     <li>
       <label>
@@ -285,6 +283,88 @@
       <label>
         <span class="property">{'Activate Navigation Thumbnails'|@translate}</span>
         <input type="checkbox" name="picture_navigation_thumb" {if ($display.picture_navigation_thumb)}checked="checked"{/if}>
+      </label>
+    </li>
+  </ul>
+</fieldset>
+
+<fieldset id="pictureInfoConf">
+  <legend>{'Photo Properties'|@translate}</legend>
+  <ul>
+    <li>
+      <label>
+        <span class="property">{'Author'|@translate}</span>
+        <input type="checkbox" name="picture_informations[author]" {if ($display.picture_informations.author)}checked="checked"{/if}>
+      </label>
+    </li>
+
+    <li>
+      <label>
+        <span class="property">{'Created on'|@translate}</span>
+        <input type="checkbox" name="picture_informations[created_on]" {if ($display.picture_informations.created_on)}checked="checked"{/if}>
+      </label>
+    </li>
+
+    <li>
+      <label>
+        <span class="property">{'Posted on'|@translate}</span>
+        <input type="checkbox" name="picture_informations[posted_on]" {if ($display.picture_informations.posted_on)}checked="checked"{/if}>
+      </label>
+    </li>
+
+    <li>
+      <label>
+        <span class="property">{'Dimensions'|@translate}</span>
+        <input type="checkbox" name="picture_informations[dimensions]" {if ($display.picture_informations.dimensions)}checked="checked"{/if}>
+      </label>
+    </li>
+
+    <li>
+      <label>
+        <span class="property">{'File'|@translate}</span>
+        <input type="checkbox" name="picture_informations[file]" {if ($display.picture_informations.file)}checked="checked"{/if}>
+      </label>
+    </li>
+
+    <li>
+      <label>
+        <span class="property">{'Filesize'|@translate}</span>
+        <input type="checkbox" name="picture_informations[filesize]" {if ($display.picture_informations.filesize)}checked="checked"{/if}>
+      </label>
+    </li>
+
+    <li>
+      <label>
+        <span class="property">{'Tags'|@translate}</span>
+        <input type="checkbox" name="picture_informations[tags]" {if ($display.picture_informations.tags)}checked="checked"{/if}>
+      </label>
+    </li>
+
+    <li>
+      <label>
+        <span class="property">{'Categories'|@translate}</span>
+        <input type="checkbox" name="picture_informations[categories]" {if ($display.picture_informations.categories)}checked="checked"{/if}>
+      </label>
+    </li>
+
+    <li>
+      <label>
+        <span class="property">{'Visits'|@translate}</span>
+        <input type="checkbox" name="picture_informations[visits]" {if ($display.picture_informations.visits)}checked="checked"{/if}>
+      </label>
+    </li>
+
+    <li>
+      <label>
+        <span class="property">{'Average rate'|@translate}</span>
+        <input type="checkbox" name="picture_informations[average_rate]" {if ($display.picture_informations.average_rate)}checked="checked"{/if}>
+      </label>
+    </li>
+
+    <li>
+      <label>
+        <span class="property">{'Privacy level'|@translate} ({'available for administrators only'|@translate})</span>
+        <input type="checkbox" name="picture_informations[privacy_level]" {if ($display.picture_informations.privacy_level)}checked="checked"{/if}>
       </label>
     </li>
   </ul>

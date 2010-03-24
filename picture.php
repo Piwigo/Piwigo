@@ -657,10 +657,13 @@ foreach (array('first','previous','next','last', 'current') as $which_image)
           'U_IMG' =>
             add_url_params(
               $picture[$which_image]['url'], $slideshow_url_params),
-          'U_DOWNLOAD' => @$picture['current']['download_url'],
           )
         )
       );
+    if ($conf['picture_download_icon'] and !empty($picture['current']['download_url']))
+    {
+      $template->append($which_image, array('U_DOWNLOAD' => $picture['current']['download_url']), true);
+    }
   }
 }
 
@@ -918,6 +921,7 @@ $infos['INFO_VISITS'] = $picture['current']['hit'];
 $infos['INFO_FILE'] = $picture['current']['file'];
 
 $template->assign($infos);
+$template->assign('display_info', unserialize($conf['picture_informations']));
 
 // related tags
 $tags = get_common_tags( array($page['image_id']), -1);

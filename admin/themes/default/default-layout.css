@@ -128,7 +128,8 @@ FIELDSET#historyConf SPAN.property,
 FIELDSET#commentsConf SPAN.property,
 FIELDSET#uploadConf SPAN.property,
 FIELDSET#indexDisplayConf SPAN.property,
-FIELDSET#pictureDisplayConf SPAN.property {
+FIELDSET#pictureDisplayConf SPAN.property,
+FIELDSET#pictureInfoConf SPAN.property {
 	float: right;
 	text-align: left;
 }
@@ -137,7 +138,8 @@ FIELDSET#historyConf INPUT,
 FIELDSET#commentsConf INPUT,
 FIELDSET#uploadConf INPUT,
 FIELDSET#indexDisplayConf INPUT,
-FIELDSET#pictureDisplayConf INPUT {
+FIELDSET#pictureDisplayConf INPUT,
+FIELDSET#pictureInfoConf INPUT {
 	float: none;
 }
 
@@ -151,14 +153,16 @@ FIELDSET#mainConf TEXTAREA.description {
 FIELDSET#mainConfCheck SPAN.property,
 FIELDSET#historyConf SPAN.property,
 FIELDSET#indexDisplayConf SPAN.property,
-FIELDSET#pictureDisplayConf SPAN.property {
+FIELDSET#pictureDisplayConf SPAN.property,
+FIELDSET#pictureInfoConf SPAN.property {
 	width: 90%;
 }
 FIELDSET#mainConfCheck INPUT,
 FIELDSET#historyConf INPUT,
 FIELDSET#commentsConf INPUT,
 FIELDSET#indexDisplayConf INPUT,
-FIELDSET#pictureDisplayConf INPUT {
+FIELDSET#pictureDisplayConf INPUT,
+FIELDSET#pictureInfoConf INPUT {
 	margin-left: 5%;
 }
 FIELDSET#uploadConf SELECT {

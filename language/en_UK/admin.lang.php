@@ -748,4 +748,5 @@ $lang['Activate Navigation Bar'] = 'Activate Navigation Bar';
 $lang['Activate Navigation Thumbnails'] = 'Activate Navigation Thumbnails';
 $lang['Activate icon "%s"'] = 'Activate icon "%s"';
 $lang['Activate field "%s"'] = 'Activate field "%s"';
+$lang['Photo Properties'] = 'Photo Properties';
 ?>

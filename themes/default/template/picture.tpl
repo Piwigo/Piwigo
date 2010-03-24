@@ -114,30 +114,43 @@ y.callService(
 {/if}
 
 <table id="standard" class="infoTable" summary="{'Some info about this picture'|@translate}">
+  {if $display_info.author}
   <tr id="Author">
     <td class="label">{'Author'|@translate}</td>
     <td class="value">{if isset($INFO_AUTHOR)}{$INFO_AUTHOR}{else}{'N/A'|@translate}{/if}</td>
   </tr>
+  {/if}
+  {if $display_info.created_on}
   <tr id="datecreate">
     <td class="label">{'Created on'|@translate}</td>
     <td class="value">{if isset($INFO_CREATION_DATE)}{$INFO_CREATION_DATE}{else}{'N/A'|@translate}{/if}</td>
   </tr>
+  {/if}
+  {if $display_info.posted_on}
   <tr id="datepost">
     <td class="label">{'Posted on'|@translate}</td>
     <td class="value">{$INFO_POSTED_DATE}</td>
   </tr>
+  {/if}
+  {if $display_info.dimensions}
   <tr id="Dimensions">
     <td class="label">{'Dimensions'|@translate}</td>
     <td class="value">{if isset($INFO_DIMENSIONS)}{$INFO_DIMENSIONS}{else}{'N/A'|@translate}{/if}</td>
   </tr>
+  {/if}
+  {if $display_info.file}
   <tr id="File">
     <td class="label">{'File'|@translate}</td>
     <td class="value">{$INFO_FILE}</td>
   </tr>
+  {/if}
+  {if $display_info.filesize}
   <tr id="Filesize">
     <td class="label">{'Filesize'|@translate}</td>
     <td class="value">{if isset($INFO_FILESIZE)}{$INFO_FILESIZE}{else}{'N/A'|@translate}{/if}</td>
   </tr>
+  {/if}
+  {if $display_info.tags}
   <tr id="Tags">
     <td class="label">{'Tags'|@translate}</td>
     <td class="value">
@@ -147,6 +160,8 @@ y.callService(
       {/if}
     </td>
   </tr>
+  {/if}
+  {if $display_info.categories}
   <tr id="Categories">
     <td class="label">{'Categories'|@translate}</td>
     <td class="value">
@@ -159,12 +174,15 @@ y.callService(
       {/if}
     </td>
   </tr>
+  {/if}
+  {if $display_info.visits}
   <tr id="Visits">
     <td class="label">{'Visits'|@translate}</td>
     <td class="value">{$INFO_VISITS}</td>
   </tr>
+  {/if}
 
-{if isset($rate_summary) }
+{if $display_info.average_rate and isset($rate_summary) }
 	<tr id="Average">
 		<td class="label">{'Average rate'|@translate}</td>
 		<td class="value" id="ratingSummary">
@@ -206,7 +224,7 @@ y.callService(
 	</tr>
 {/if}
 
-{if isset($available_permission_levels) }
+{if $display_info.privacy_level and isset($available_permission_levels) }
 	<tr id="Privacy">
 		<td class="label">{'Privacy level'|@translate}:</td>
 		<td class="value"> 

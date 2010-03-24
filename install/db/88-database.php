@@ -26,22 +26,17 @@ if (!defined("PHPWG_ROOT_PATH"))
   die('Hacking attempt!');
 }
 
-$upgrade_description = 'Add display configuration options.';
+$upgrade_description = 'Add display configuration for picture properties.';
 
 $query = '
 INSERT INTO '.CONFIG_TABLE.' (param,value,comment)
   VALUES
-    ("menubar_filter_icon","true","Display filter icon"),
-    ("index_sort_order_input","true","Display image order selection list"),
-    ("index_flat_icon","true","Display flat icon"),
-    ("index_posted_date_icon","true","Display calendar by posted date"),
-    ("index_created_date_icon","true","Display calendar by creation date icon"),
-    ("index_slideshow_icon","true","Display slideshow icon"),
-    ("picture_metadata_icon","true","Display metadata icon on picture page"),
-    ("picture_slideshow_icon","true","Display slideshow icon on picture page"),
-    ("picture_favorite_icon","true","Display favorite icon on picture page"),
-    ("picture_navigation_icons","true","Display navigation icons on picture page"),
-    ("picture_navigation_thumb","true","Display navigation thumbnails on picture page")
+    ("picture_download_icon","true","Display download icon on picture page"),
+    (
+      "picture_informations", 
+      "a:11:{s:6:\"author\";b:1;s:10:\"created_on\";b:1;s:9:\"posted_on\";b:1;s:10:\"dimensions\";b:1;s:4:\"file\";b:1;s:8:\"filesize\";b:1;s:4:\"tags\";b:1;s:10:\"categories\";b:1;s:6:\"visits\";b:1;s:12:\"average_rate\";b:1;s:13:\"privacy_level\";b:1;}",
+      "Information displayed on picture page"
+    )
 ;';
 
 pwg_query($query);

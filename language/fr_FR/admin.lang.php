@@ -722,6 +722,7 @@ $lang['Activate Navigation Bar'] = 'Activer la barre de navigation';
 $lang['Activate Navigation Thumbnails'] = 'Activer les miniatures de navigation';
 $lang['Activate icon "%s"'] = 'Activer l\'icone "%s"';
 $lang['Activate field "%s"'] = 'Activer le champ "%s"';
+$lang['Photo Properties'] = 'Propriétés de la photo';
 
 $lang['Active Themes'] = 'Thèmes activés';
 $lang['Add write access to the "%s" directory'] = 'Ajoutez l\'accès en écriture pour le répertoire "%s"';

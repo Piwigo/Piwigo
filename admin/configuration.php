@@ -89,6 +89,19 @@ $display_checkboxes = array(
     'picture_navigation_thumb',
   );
 
+$display_info_checkboxes = array(
+    'author',
+    'created_on',
+    'posted_on',
+    'dimensions',
+    'file',
+    'filesize',
+    'tags',
+    'categories',
+    'visits',
+    'average_rate',
+  );
+
 //------------------------------ verification and registration of modifications
 if (isset($_POST['submit']) and !is_adviser())
 {
@@ -151,6 +164,12 @@ if (isset($_POST['submit']) and !is_adviser())
       {
         $_POST[$checkbox] = empty($_POST[$checkbox])?'false':'true';
       }
+      foreach( $display_info_checkboxes as $checkbox)
+      {
+        $_POST['picture_informations'][$checkbox] =
+          empty($_POST['picture_informations'][$checkbox])? false : true;
+      }
+      $_POST['picture_informations'] = addslashes(serialize($_POST['picture_informations']));
       break;
     }
   }
@@ -333,6 +352,13 @@ switch ($page['section'])
           true
         );
     }
+    $template->append(
+        'display',
+        array(
+          'picture_informations' => unserialize($conf['picture_informations'])
+          ),
+        true
+      );
     break;
   }
 }

@@ -41,8 +41,15 @@ INSERT INTO piwigo_config (param,value,comment) VALUES ('index_slideshow_icon','
 INSERT INTO piwigo_config (param,value,comment) VALUES ('picture_metadata_icon','true','Display metadata icon on picture page');
 INSERT INTO piwigo_config (param,value,comment) VALUES ('picture_slideshow_icon','true','Display slideshow icon on picture page');
 INSERT INTO piwigo_config (param,value,comment) VALUES ('picture_favorite_icon','true','Display favorite icon on picture page');
+INSERT INTO piwigo_config (param,value,comment) VALUES ('picture_download_icon','true','Display download icon on picture page');
 INSERT INTO piwigo_config (param,value,comment) VALUES ('picture_navigation_icons','true','Display navigation icons on picture page');
 INSERT INTO piwigo_config (param,value,comment) VALUES ('picture_navigation_thumb','true','Display navigation thumbnails on picture page');
+INSERT INTO piwigo_config (param,value,comment)
+  VALUES (
+    'picture_informations',
+    'a:11:{s:6:"author";b:1;s:10:"created_on";b:1;s:9:"posted_on";b:1;s:10:"dimensions";b:1;s:4:"file";b:1;s:8:"filesize";b:1;s:4:"tags";b:1;s:10:"categories";b:1;s:6:"visits";b:1;s:12:"average_rate";b:1;s:13:"privacy_level";b:1;}',
+    'Information displayed on picture page'
+  );
 
 INSERT INTO piwigo_themes (id, name) VALUES ('Sylvia', 'Sylvia');
 INSERT INTO piwigo_themes (id, name) VALUES ('clear', 'clear');
