@@ -787,7 +787,7 @@ if (is_admin())
 }
 
 // favorite manipulation
-if (!is_a_guest())
+if (!is_a_guest() and $conf['picture_favorite_icon'])
 {
   // verify if the picture is already in the favorite of the user
   $query = '
