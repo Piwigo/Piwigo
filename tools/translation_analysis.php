@@ -25,6 +25,7 @@ define('PHPWG_ROOT_PATH', '../');
 include_once( PHPWG_ROOT_PATH.'include/common.inc.php' );
 include_once( PHPWG_ROOT_PATH.'tools/translation_validated.inc.php' );
 $languages = array_keys(get_languages());
+sort($languages);
 
 $page['ref_compare'] = 'en_UK';
 $page['ref_default_values'] = 'en_UK';
@@ -124,7 +125,7 @@ foreach ($languages as $language)
           $output.= "\n// untranslated yet\n".$output_duplicated;
         }
         echo '<h3>'.$file.'.lang.php</h3>';
-        echo '<textarea style="width:100%;height:150px;">'.$output.'</textarea>';
+        echo '<textarea style="width:100%;height:250px;">'.$output.'</textarea>';
       }
 
       if ('' != $output_lost)
