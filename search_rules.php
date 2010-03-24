@@ -160,10 +160,10 @@ foreach (array('date_available', 'date_creation') as $datefield)
   if ('date_available' == $datefield)
   {
     $lang_items = array(
-      'date'   => l10n('became available on %s'),
-      'period' => l10n('became available between %s (%s) and %s (%s)'),
-      'after'  => l10n('became available after %s (%s)'),
-      'before' => l10n('became available before %s (%s)'),
+      'date'   => l10n('posted on %s'),
+      'period' => l10n('posted between %s (%s) and %s (%s)'),
+      'after'  => l10n('posted after %s (%s)'),
+      'before' => l10n('posted before %s (%s)'),
       );
   }
   elseif ('date_creation' == $datefield)
