@@ -686,6 +686,8 @@ function url_is_remote($url)
  */
 function get_pwg_themes()
 {
+  global $conf;
+
   $themes = array();
 
   $query = '
@@ -698,7 +700,10 @@ SELECT
   $result = pwg_query($query);
   while ($row = pwg_db_fetch_assoc($result))
   {
-    $themes[ $row['id'] ] = $row['name'];
+    if (file_exists($conf['themes_dir'].'/'.$row['name'].'/'.'themeconf.inc.php'))
+    {
+      $themes[ $row['id'] ] = $row['name'];
+    }
   }
 
   // plugins want remove some themes based on user status maybe?

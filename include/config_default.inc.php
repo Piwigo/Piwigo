@@ -335,9 +335,6 @@ $conf['insensitive_case_logon'] = false;
 // 'filename'
 $conf['uniqueness_mode'] = 'md5sum';
 
-// Define default theme for your gallery
-$conf['default_theme'] = 'Sylvia';
-
 // +-----------------------------------------------------------------------+
 // |                               metadata                                |
 // +-----------------------------------------------------------------------+

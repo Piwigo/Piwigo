@@ -59,7 +59,7 @@
         <span class="property">
           <label for="template">{'Interface theme'|@translate}</label>
         </span>
-        {html_options id=template name=template options=$template_options selected=$template_selection}
+        {html_options id=template name=theme options=$template_options selected=$template_selection}
       </li>
       <li>
         <span class="property">
