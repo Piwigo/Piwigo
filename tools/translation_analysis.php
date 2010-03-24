@@ -29,6 +29,26 @@ $languages = array_keys(get_languages());
 $page['ref_compare'] = 'en_UK';
 $page['ref_default_values'] = 'en_UK';
 
+if (!isset($_GET['lang']))
+{
+  echo '<a href="?lang=all">All languages</a><br><br>';
+  echo '<ul>';
+  foreach ($languages as $language)
+  {
+    if ($page['ref_compare'] == $language)
+    {
+      continue;
+    }
+    echo '<li><a href="?lang='.$language.'">'.$language.'</a></li>';
+  }
+  echo '</ul>';
+  exit();
+}
+else if (in_array($_GET['lang'], $languages))
+{
+  $languages = array($_GET['lang']);
+}
+
 $file_list = array('common', 'admin', 'install', 'upgrade');
 
 $metalang = array();
