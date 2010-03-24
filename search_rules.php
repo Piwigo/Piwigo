@@ -30,7 +30,7 @@
  */
 function inc_exc_str($is_included)
 {
-  return $is_excluded ? l10n('excluded') : l10n('excluded');
+  return $is_included ? l10n('included') : l10n('excluded');
 }
 
 // +-----------------------------------------------------------------------+
@@ -160,19 +160,19 @@ foreach (array('date_available', 'date_creation') as $datefield)
   if ('date_available' == $datefield)
   {
     $lang_items = array(
-      'date'   => 'became available on %s',
-      'period' => 'became available between %s (%s) and %s (%s)',
-      'after'  => 'became available after %s (%s)',
-      'before' => 'became available before %s (%s)',
+      'date'   => l10n('became available on %s'),
+      'period' => l10n('became available between %s (%s) and %s (%s)'),
+      'after'  => l10n('became available after %s (%s)'),
+      'before' => l10n('became available before %s (%s)'),
       );
   }
   elseif ('date_creation' == $datefield)
   {
     $lang_items = array(
-      'date'   => 'created on %s',
-      'period' => 'created between %s (%s) and %s (%s)',
-      'after'  => 'created after %s (%s)',
-      'before' => 'created before %s (%s)',
+      'date'   => l10n('created on %s'),
+      'period' => l10n('created between %s (%s) and %s (%s)'),
+      'after'  => l10n('created after %s (%s)'),
+      'before' => l10n('created before %s (%s)'),
       );
   }
 
@@ -187,7 +187,7 @@ foreach (array('date_available', 'date_creation') as $datefield)
     $template->assign(
       strtoupper($datefield),
       sprintf(
-          l10n($lang_items['date']),
+          $lang_items['date'],
           format_date($search['fields'][ $keys['date'] ])
           )
       );
@@ -198,7 +198,7 @@ foreach (array('date_available', 'date_creation') as $datefield)
     $template->assign(
       strtoupper($datefield),
       sprintf(
-          l10n($lang_items['period']),
+          $lang_items['period'],
 
           format_date($search['fields'][ $keys['after'] ]['date']),
           inc_exc_str($search['fields'][ $keys['after'] ]['inc']),
@@ -213,7 +213,7 @@ foreach (array('date_available', 'date_creation') as $datefield)
     $template->assign(
       strtoupper($datefield),
       sprintf(
-          l10n($lang_items['before']),
+          $lang_items['before'],
 
           format_date($search['fields'][ $keys['before'] ]['date']),
           inc_exc_str($search['fields'][ $keys['before'] ]['inc'])
@@ -225,7 +225,7 @@ foreach (array('date_available', 'date_creation') as $datefield)
     $template->assign(
       strtoupper($datefield),
       sprintf(
-          l10n($lang_items['after']),
+          $lang_items['after'],
 
           format_date($search['fields'][ $keys['after'] ]['date']),
           inc_exc_str($search['fields'][ $keys['after'] ]['inc'])
