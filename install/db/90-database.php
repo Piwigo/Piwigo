@@ -26,10 +26,10 @@ if (!defined('PHPWG_ROOT_PATH'))
   die('Hacking attempt!');
 }
 
-$upgrade_description = 'Add a table to manage themes.';
+$upgrade_description = 'Add a table to manage languages.';
 
 $query = "
-CREATE TABLE ".PREFIX_TABLE."themes (
+CREATE TABLE ".PREFIX_TABLE."languages (
   `id` varchar(64) NOT NULL default '',
   `version` varchar(64) NOT NULL default '0',
   `name` varchar(64) default NULL,
@@ -42,6 +42,17 @@ if (DB_CHARSET == 'utf8')
 }
 
 pwg_query($query);
+
+// Fill table
+$inserts = array();
+foreach (get_languages('utf-8') as $language_code => $language_name)
+{
+  $inserts[] = array(
+    'id' => $language_code,
+    'name' => $language_name,
+  );
+}
+mass_inserts(PREFIX_TABLE.'languages', array('id', 'name'), $inserts);
 
 echo
 "\n"

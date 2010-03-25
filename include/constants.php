@@ -104,5 +104,7 @@ if (!defined('OLD_PERMALINKS_TABLE'))
   define('OLD_PERMALINKS_TABLE', $prefixeTable.'old_permalinks');
 if (!defined('THEMES_TABLE'))
   define('THEMES_TABLE', $prefixeTable.'themes');
+if (!defined('LANGUAGES_TABLE'))
+  define('LANGUAGES_TABLE', $prefixeTable.'languages');
 
 ?>

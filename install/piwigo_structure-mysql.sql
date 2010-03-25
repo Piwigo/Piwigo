@@ -204,6 +204,18 @@ CREATE TABLE `piwigo_images` (
 ) TYPE=MyISAM;
 
 --
+-- Table structure for table `piwigo_languages`
+--
+
+DROP TABLE IF EXISTS `piwigo_languages`;
+CREATE TABLE `piwigo_languages` (
+  `id` varchar(64) NOT NULL default '',
+  `version` varchar(64) NOT NULL default '0',
+  `name` varchar(64) default NULL,
+  PRIMARY KEY  (`id`)
+) TYPE=MyISAM;
+
+--
 -- Table structure for table `piwigo_old_permalinks`
 --
 

@@ -273,11 +273,12 @@ if ( isset( $_POST['install'] ))
       $pwg_db_charset = 'utf8';
       if ($dblayer=='mysql')
       {
-	$install_charset_collate = "DEFAULT CHARACTER SET $pwg_db_charset";
+        $install_charset_collate = "DEFAULT CHARACTER SET $pwg_db_charset";
+        pwg_query('SET NAMES "'.$pwg_db_charset.'"');
       }
       else 
       {
-	$install_charset_collate = '';
+        $install_charset_collate = '';
       }
     }
     else
@@ -372,6 +373,17 @@ INSERT INTO '.$prefixeTable.'config (param,value,comment)
    VALUES (\'secret_key\',\'md5('.pwg_db_cast_to_text(DB_RANDOM_FUNCTION.'()').')\',
    \'a secret key specific to the gallery for internal use\');';
     pwg_query($query);
+
+    // fill languages table
+    $inserts = array();
+    foreach (get_languages('utf-8') as $language_code => $language_name)
+    {
+      $inserts[] = array(
+        'id' => $language_code,
+        'name' => $language_name,
+      );
+    }
+    mass_inserts(LANGUAGES_TABLE, array('id', 'name'), $inserts);
 
     // fill $conf global array
     load_conf_from_db();
