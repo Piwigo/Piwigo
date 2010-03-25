@@ -44,15 +44,15 @@ if (DB_CHARSET == 'utf8')
 pwg_query($query);
 
 // Fill table
-$inserts = array();
-foreach (get_languages('utf-8') as $language_code => $language_name)
+include_once(PHPWG_ROOT_PATH.'include/constants.php');
+include_once(PHPWG_ROOT_PATH.'admin/include/languages.class.php');
+
+$languages = new languages(PWG_CHARSET);
+
+foreach ($languages->fs_languages as $language_code => $language_name)
 {
-  $inserts[] = array(
-    'id' => $language_code,
-    'name' => $language_name,
-  );
+  $languages->perform_action('activate', $language_code);
 }
-mass_inserts(PREFIX_TABLE.'languages', array('id', 'name'), $inserts);
 
 echo
 "\n"

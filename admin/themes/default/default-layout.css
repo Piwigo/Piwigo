@@ -36,13 +36,14 @@ TABLE#detailedStats {
 	width: 99%;
 }
 
-/* Plugins tables */
+/* Plugins, languages tables */
 TABLE.plugins { min-width: 400px; }
 TABLE.plugins A { border: 0; }
 TABLE.plugins TR TD { padding: 4px 10px; }
 TABLE.plugins TR TD.pluginState { padding: 4px 16px; }
 
-TABLE.plugins TR TD.active {
+TABLE.plugins TR TD.active,
+TABLE.languages TR TD.active {
 	background: url(icon/plugin_active.gif) no-repeat center left;
 	background-color: inherit; /* IE need it */
 }
@@ -62,6 +63,9 @@ TABLE.plugins ul.pluginsActions {
 }
 
 TABLE.plugins ul.pluginsActions li { display: inline; }
+
+TABLE.languages  { min-width: 400px; }
+TABLE.languages TR TD { text-align: center; padding: 4px 20px; }
 
 /* categoryOrdering */
 SELECT.categoryList {

@@ -396,29 +396,23 @@ function str2url($str)
  *
  * @returns array
  */
-function get_languages($target_charset = null)
+function get_languages()
 {
-  if ( empty($target_charset) )
-  {
-    $target_charset = get_pwg_charset();
-  }
-  $target_charset = strtolower($target_charset);
+  $query = '
+SELECT id, name
+  FROM '.LANGUAGES_TABLE.'
+  ORDER BY name ASC
+;';
+  $result = pwg_query($query);
 
-  $dir = opendir(PHPWG_ROOT_PATH.'language');
   $languages = array();
-
-  while ($file = readdir($dir))
+  while ($row = pwg_db_fetch_assoc($result))
   {
-    $path = PHPWG_ROOT_PATH.'language/'.$file;
-    if (!is_link($path) and is_dir($path) and file_exists($path.'/iso.txt'))
+    if (is_dir(PHPWG_ROOT_PATH.'language/'.$row['id']))
     {
-      list($language_name) = @file($path.'/iso.txt');
-
-      $languages[$file] = convert_charset($language_name, $target_charset);
+      $languages[ $row['id'] ] = $row['name'];
     }
   }
-  closedir($dir);
-  @asort($languages);
 
   return $languages;
 }

@@ -751,4 +751,5 @@ $lang['Upgrade from %s to %s'] = 'Mis à jour de %s vers %s';
 $lang['Visit Gallery'] = 'Visiter la galerie';
 $lang['Visit Piwigo project website'] = 'Visiter le site web du projet Piwigo';
 $lang['pLoader stands for <em>Piwigo Uploader</em>. From your computer, pLoader prepares your photos and transfer them to your Piwigo photo gallery.'] = 'pLoader signifie <em>Piwigo Uploader</em>. Depuis votre ordinateur, pLoader prépare vos photos et les transfert vers votre galerie photo Piwigo.';
+$lang['Languages'] = 'Langues';
 ?>

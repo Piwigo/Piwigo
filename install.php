@@ -188,6 +188,9 @@ include(PHPWG_ROOT_PATH . 'include/functions.inc.php');
 include(PHPWG_ROOT_PATH . 'admin/include/functions.php');
 include(PHPWG_ROOT_PATH . 'admin/include/functions_upgrade.php');
 
+include(PHPWG_ROOT_PATH . 'admin/include/languages.class.php');
+$languages = new languages('utf-8');
+
 if (isset($_GET['language']))
 {
   $language = strip_tags($_GET['language']);
@@ -196,7 +199,7 @@ else
 {
   $language = 'en_UK';
   // Try to get browser language
-  foreach (get_languages('utf-8') as $language_code => $language_name)
+  foreach ($languages->fs_languages as $language_code => $language_name)
   {
     if (substr($language_code,0,2) == @substr($_SERVER["HTTP_ACCEPT_LANGUAGE"],0,2))
     {
@@ -286,7 +289,7 @@ if ( isset( $_POST['install'] ))
       $pwg_charset = 'iso-8859-1';
       $pwg_db_charset = 'latin1';
       $install_charset_collate = '';
-      if ( !array_key_exists($language, get_languages($pwg_charset) ) )
+      if ( !array_key_exists($language, $languages->get_fs_languages($pwg_charset) ) )
       {
         $language='en_UK';
       }
@@ -375,15 +378,10 @@ INSERT INTO '.$prefixeTable.'config (param,value,comment)
     pwg_query($query);
 
     // fill languages table
-    $inserts = array();
-    foreach (get_languages('utf-8') as $language_code => $language_name)
+    foreach ($languages->get_fs_languages($pwg_charset) as $language_code => $language_name)
     {
-      $inserts[] = array(
-        'id' => $language_code,
-        'name' => $language_name,
-      );
+      $languages->perform_action('activate', $language_code);
     }
-    mass_inserts(LANGUAGES_TABLE, array('id', 'name'), $inserts);
 
     // fill $conf global array
     load_conf_from_db();
@@ -475,7 +473,7 @@ else
 {
   $dbengines = available_engines();
 
-  foreach (get_languages('utf-8') as $language_code => $language_name)
+  foreach ($languages->fs_languages as $language_code => $language_name)
   {
     if ($language == $language_code)
     {

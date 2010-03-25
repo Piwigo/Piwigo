@@ -111,6 +111,7 @@ $template->assign(
     'U_CONFIG_DISPLAY'=> $conf_link.'default',
     'U_CONFIG_EXTENTS'=> $link_start.'extend_for_templates',
     'U_CONFIG_MENUBAR'=> $link_start.'menubar',
+    'U_CONFIG_LANGUAGES' => $link_start.'languages_installed',
     'U_CONFIG_THEMES'=> $link_start.'themes_installed',
     'U_CATEGORIES'=> $link_start.'cat_list',
     'U_MOVE'=> $link_start.'cat_move',
