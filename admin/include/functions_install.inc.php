@@ -123,4 +123,19 @@ function available_engines()
 
   return $engines;
 }
+
+/**
+ * Automatically activate all themes in the "themes" directory.
+ *
+ * @return void
+ */
+function activate_all_themes()
+{
+  include_once(PHPWG_ROOT_PATH.'admin/include/themes.class.php');
+  $themes = new themes();
+  foreach ($themes->fs_themes as $theme_id => $fs_theme)
+  {
+    $themes->perform_action('activate', $theme_id);
+  }
+}
 ?>

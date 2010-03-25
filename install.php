@@ -376,6 +376,11 @@ INSERT INTO '.$prefixeTable.'config (param,value,comment)
     // fill $conf global array
     load_conf_from_db();
 
+    // PWG_CHARSET is required for building the fs_themes array in the
+    // themes class
+    define('PWG_CHARSET', $pwg_charset);
+    activate_all_themes();
+
     $insert = array(
       'id' => 1,
       'galleries_url' => PHPWG_ROOT_PATH.'galleries/',

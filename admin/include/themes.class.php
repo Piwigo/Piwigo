@@ -81,6 +81,12 @@ class themes
           break;
         }
 
+        if ('default' == $theme_id)
+        {
+          // you can't activate the "default" theme
+          break;
+        }
+
         $missing_parent = $this->missing_parent_theme($theme_id);
         if (isset($missing_parent))
         {
