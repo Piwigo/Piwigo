@@ -120,6 +120,9 @@ $validated_keys = array(
 	'Installation',
 	'localhost, sql.multimania.com, toto.freesurf.fr',
 	'Upgrade',
+	'Download,',
+	'Piwigo Uploader',
+	'[Simulation]',
 	),
   'da_DK' => array(
  	'%d Kb',
