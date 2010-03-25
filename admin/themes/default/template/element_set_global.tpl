@@ -1,4 +1,4 @@
-
+{include file='include/tag_selection.inc.tpl'}
 {include file='include/datepicker.inc.tpl'}
 
 {literal}

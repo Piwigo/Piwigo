@@ -1,3 +1,5 @@
+{include file='include/tag_selection.inc.tpl'}
+
 <div class="titrePage">
   <h2>{'Manage tags'|@translate}</h2>
 </div>

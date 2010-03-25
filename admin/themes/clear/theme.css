@@ -73,6 +73,9 @@ TEXTAREA { cursor:text; font-size: 13px; }
   border-radius: 4px 4px;	/* round corners with CSS3 compliant browsers */
 }
 .tagSelection label { padding-right:12px; }
+.tagSelection LI.tagSelected {background-color:#dbe8f3;}
+.tagSelected LABEL {color:black;}
+
 .content ul.categoryActions a img { margin-left: 10px; }
 ul.thumbnails input { border:3px double #666; color:#666; font-size:10px; margin:0; background-color:#bbb; text-align: center;}
 INPUT[type="submit"]:hover , INPUT[type="reset"]:hover  { cursor: pointer; }
