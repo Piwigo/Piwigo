@@ -1453,21 +1453,15 @@ function get_icon($date, $is_child_date = false)
  */
 function check_pwg_token()
 {
-  $valid_token = get_pwg_token();
-  $given_token = null;
-
-  if (!empty($_POST['pwg_token']))
+  if (!empty($_REQUEST['pwg_token']))
   {
-    $given_token = $_POST['pwg_token'];
+    if (get_pwg_token() != $_REQUEST['pwg_token'])
+    {
+      access_denied();
+    }
   }
-  elseif (!empty($_GET['pwg_token']))
-  {
-    $given_token = $_GET['pwg_token'];
-  }
-  if ($given_token != $valid_token)
-  {
-    access_denied();
-  }
+  else
+    bad_request('missing token');
 }
 
 function get_pwg_token()

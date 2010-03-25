@@ -26,7 +26,6 @@ if (!defined('PHPWG_ROOT_PATH'))
   die('Hacking attempt!');
 }
 
-include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
 include_once(PHPWG_ROOT_PATH.'include/functions_mail.inc.php');
 
 // +-----------------------------------------------------------------------+
@@ -289,7 +288,7 @@ if ($category['is_virtual'])
 {
   $template->assign(
     array(
-      'U_DELETE' => $self_url.'&amp;delete='.$category['id'],
+      'U_DELETE' => $self_url.'&amp;delete='.$category['id'].'&amp;pwg_token='.get_pwg_token(),
       )
     );
 }
@@ -344,12 +343,12 @@ for ($i=0; $i<3; $i++) // 3 fields
       'FIELD' => array(''),
       'DIRECTION' => array('ASC'),
     );
-  
+
   if ( isset($matches[1][$i]) )
   {
     $tpl_image_order_select['FIELD'] = array($matches[1][$i]);
   }
-  
+
   if (isset($matches[2][$i]) and strcasecmp($matches[2][$i],'DESC')==0)
   {
     $tpl_image_order_select['DIRECTION'] = array('DESC');
@@ -450,7 +449,7 @@ if (isset($_POST['submitEmail']) and !empty($_POST['group']))
 {
   set_make_full_url();
 
-  /* TODO: if $category['representative_picture_id'] 
+  /* TODO: if $category['representative_picture_id']
     is empty find child representative_picture_id */
   if (!empty($category['representative_picture_id']))
   {
@@ -474,7 +473,7 @@ SELECT id, file, path, tn_ext
                       .'" class="thumblnk"><img src="'.get_thumbnail_url($element).'"></a>';
     }
   }
-  
+
   if (!isset($img_url))
   {
     $img_url = '';
@@ -512,7 +511,7 @@ SELECT
   WHERE id = '.$_POST['group'].'
 ;';
   list($group_name) = pwg_db_fetch_row(pwg_query($query));
-  
+
   array_push(
     $page['infos'],
     sprintf(
