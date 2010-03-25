@@ -55,9 +55,6 @@ $lang['Keep it confidential, it enables you to access administration panel'] = '
 $lang['Password [confirm]'] = 'Password [bekræft]';
 $lang['verification'] = 'bekræftelse';
 $lang['Need help ? Ask your question on <a href="%s">Piwigo message board</a>.'] = 'Hjælp ? Stil dine spørgsmål på <a href="%s">Piwigo message board</a>.';
-$lang['install_end_message'] = 'Konfiguration af Piwigo er færdig, her er næste skridt<br /><br />
-* gå til identifikations siden og brug login/password som du har fået af webmaster<br />
-* dette login vil give dig mulighed for at komme til administrationspanelet og til instruktionernerne om hvordan du placerer billeder i dine biblioteker';
 $lang['Webmaster mail address'] = 'Webmaster mail addresse';
 $lang['Visitors will be able to contact site administrator with this mail'] = 'Besøgende vil have mulighed for at kontakte administratoren med denne mail';
 
