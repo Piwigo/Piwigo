@@ -33,7 +33,7 @@ $lang['Webmaster login'] = 'Webmester';
 $lang['It will be shown to the visitors. It is necessary for website administration'] = 'A látogatók látni fogják. Szükséges a weboldal adminisztrációjához';
 
 $lang['Parameters are correct'] = 'Adatok rendben';
-$lang['Connection to server succeed, but it was impossible to connect to database'] = 'A kapcsolat a kiszolválóval rendben, de nem sikerült csatlakozni az adatbázishoz';
+$lang['Connection to server succeed, but it was impossible to connect to database'] = 'A kapcsolat a kiszolgálóval rendben, de nem sikerült csatlakozni az adatbázishoz';
 $lang['Can\'t connect to server'] = 'Nem sikerült kapcsolódni a szerverhez';
 $lang['The next step of the installation is now possible'] = 'A következő lépés, most már indulhat a telepítés';
 $lang['next step'] = 'következő lépés';
