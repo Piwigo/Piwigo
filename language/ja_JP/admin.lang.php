@@ -744,5 +744,5 @@ $lang['Activate Navigation Thumbnails'] = 'ナビゲーションのサムネー�
 $lang['Activate icon "%s"'] = '"%s"のアイコンを有効する';
 $lang['Activate field "%s"'] = '"%s"のフィールドを有効する';
 $lang['Photo Properties'] = '写真のプロパティ';
-
+$lang['Allow user customization'] = 'ユーザーのカスタマイズを有効にする';
 ?>

@@ -82,6 +82,7 @@ $validated_keys = array(
 	'IP',
 	'Sent by',
 	'%d Kb',
+	'',
 	),
   'pl_PL' => array(
  	'',
