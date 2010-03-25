@@ -1,1 +1,0 @@
-Add index.php file on all sub-directories of local galleries pictures.

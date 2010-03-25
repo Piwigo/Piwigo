@@ -1,1 +1,0 @@
-Agrega index.php on sub-directorios de galerías de fotos local.

@@ -1,1 +1,0 @@
-Dodaje plik index.php do wszystkich podkatalogów bieżącej galerii zdjęć.
