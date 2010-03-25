@@ -25,20 +25,20 @@
 
 $lang['Upgrade'] = "Upgrade";
 $lang['This page proposes to upgrade your database corresponding to your old version of Piwigo to the current version.
-The upgrade assistant thinks you are currently running a <strong>release %s</strong> (or equivalent).'] = "This page proposes to upgrade your database corresponding to your old version of Piwigo to the current version.
+The upgrade assistant thinks you are currently running a <strong>release %s</strong> (or equivalent).'] = "This page proposes to upgrade the database from your Piwigo old version to the new version.
 The upgrade assistant thinks you are currently running a <strong>release %s</strong> (or equivalent).";
 $lang['Upgrade from version %s to %s'] = "Upgrade from version %s to %s";
 $lang['Statistics'] = "Statistics";
 $lang['total upgrade time'] = "total upgrade time";
 $lang['total SQL time'] = "total SQL time";
 $lang['SQL queries'] = "SQL queries";
-$lang['Upgrade informations'] = "Upgrade informations";
+$lang['Upgrade informations'] = "Upgrade information";
 $lang['Perform a maintenance check in [Administration>Specials>Maintenance] if you encounter any problem.'] = "Perform a maintenance check in [Administration>Specials>Maintenance] if you encounter any problem.";
-$lang['As a precaution, following plugins have been deactivated. You must check for plugins upgrade before reactiving them:'] = "As a precaution, following plugins have been deactivated. You must check for plugins upgrade before reactiving them:";
-$lang['Only administrator can run upgrade: please sign in below.'] = "Only administrator can run upgrade: please sign in below.";
+$lang['As a precaution, following plugins have been disabled. You must check for plugins upgrade before reactiving them:'] = "As a precaution, the following plugins have been deactivated. You must check for plugins upgrades before reactivating them:";
+$lang['Only administrator can run upgrade: please sign in below.'] = "Only an administrator can run upgrade: please sign in below.";
 $lang['You do not have access rights to run upgrade'] = "You do not have access rights to run upgrade";
 $lang['In <i>%s</i>, before <b>?></b>, insert:'] = "In <i>%s</i>, before <b>?></b>, insert:";
 $lang['All sub-categories of private categories become private'] = "All sub-categories of private categories become private";
-$lang['User permissions and group permissions have been erased'] = "User permissions and group permissions have been erased";
+$lang['User permissions and group permissions have been erased'] = "Users and groups permissions have been erased";
 $lang['Only thumbnails prefix and webmaster mail address have been saved from previous configuration'] = "Only thumbnails prefix and webmaster mail address have been saved from previous configuration";
 ?>

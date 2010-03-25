@@ -4,7 +4,7 @@
 <ol>
   <li>Create a directory on your computer.</li>  
 
-  <li>Copy some photos inside this directory, resize them for web display. <em>Warning</em>: the name of directories and files must contain only letters, figures, "-", "_" or ".". No blank space, no accentuated characters.</li>
+  <li>Copy some photos inside this directory, resize them for web display. <em>Warning</em>: the name of directories and files must contain only letters, figures, "-", "_" or ".". No blank space, nor accentuated characters.</li>
 
   <li>With a FTP client, copy your directory in the "galleries" directory of your Piwigo installation.</li>
 
@@ -13,7 +13,7 @@
   <li>Go to <span class="pwgScreen">Administration</span> and click on the big Synchronization button.</li>
 </ol>
 
-Congratulations! You have successfuly created the first category of your photo gallery.
+Congratulations! You have successfully created the first category of your photo gallery.
 </fieldset>
 
 <fieldset>
@@ -25,7 +25,7 @@ Congratulations! You have successfuly created the first category of your photo g
 
     <p>Category directories are in the Piwigo directory
     "galleries". Here follows the directory tree of a very small gallery (but
-    using many features) :</p>
+    using many features):</p>
 
     <pre>
 .
@@ -63,10 +63,10 @@ Congratulations! You have successfuly created the first category of your photo g
 
   </li>
 
-  <li>Each directory under "galleries" produces a category. There is no limit on deepness.</li>
+  <li>Except for those named "thumbnail", "pwg-high" or "pwg_representative" (see explanations below), each directory under "galleries" produces a category. There is no limit on deepness.</li>
 
   <li>Basically, an element is represented by a file. A file can be a
-  Piwigo element if its extenstion is among <code>file_ext</code>
+  Piwigo element if its extension is among <code>file_ext</code>
   configuration parameter possibilities (see <span
   class="filename">include/config_default.inc.php</span> file). A file can
   be a picture if its extension is among <code>picture_ext</code>
@@ -78,15 +78,14 @@ Congratulations! You have successfuly created the first category of your photo g
   <li>Picture elements can have a high quality file associated. As for
   wedding.jpg in the example above. No prefix on the high quality picture.</li>
 
-  <li>Non picture elements (video, sounds, file texts, what you want...) are
-  by default represented by an icon corresponding to the filename
-  extension. Optionaly, you can associate a thumbnail and a representative
+  <li>Non picture elements (video, sounds, file texts, whatever you want...) are represented by default by an icon corresponding to the filename
+  extension. Optionally, you can associate a thumbnail and a representative
   file (see video.avi in the example above).</li>
 
-  <li><em>Warning</em>: the name of directories and files must contain only letters, figures, "-", "_" or ".". No blank space, no accentuated characters.</li>
+  <li><em>Warning</em>: the name of directories and files must contain only letters, figures, "-", "_" or ".". No blank space, nor accentuated characters.</li>
 
   <li>Once files, thumbnails and representatives are correctly placed in the
-  directories, go to : <span class="pwgScreen">Administration &raquo; Categories &raquo;
+  directories, go to: <span class="pwgScreen">Administration &raquo; Categories &raquo;
   Synchronize</span></li>
 
 </ul>
@@ -98,15 +97,16 @@ Congratulations! You have successfuly created the first category of your photo g
 
   <li>Each photo must have its thumbnail.</li>
 
-  <li>Thumbnails are stored in the sub-directory "thumbnail" of the category
-  directory. The thumbnail has the same filename as the corresponding photo, with <em>TN-</em> as prefix.</li>
+  <li>Thumbnails are stored in the "thumbnail" sub-directory of the category
+  directory. The thumbnail has the same filename as the corresponding photo, with configuration parameter <code>prefix_thumbnail</code> as prefix (see <span class="filename">include/config.inc.php</span>).</li>
 
-  <li><em>Advise</em>: use an external module for thumbnails creation.</li>
+  <li>Thumbnails files have not necessary the same extension as the associated image (eg a ".jpg" image may have a ".GIF" extension).</li>
 
-  <li>Even if it is not recommended (image quality, web server resource load), you can use <span
-  class="pwgScreen">Administration &raquo; Pictures &raquo; Thumbnails</span> page to create thumbnails.</li>
+  <li>It is recommended to use an external module for thumbnails creation.</li>
 
-  <li>Give write access on all category directories.</li>
+  <li>The usage of the thumbnails creation tool integrated in Piwigo is not advisable, because the resulting quality might be disappointing and this will lie heavily on the server ressources (and that could be a serious problem on a shared server).
+
+  <li>If you choose to use the webserver to generate thumbnails, you must allow write access on all category directories.</li>
 
 </ul>
 </fieldset>

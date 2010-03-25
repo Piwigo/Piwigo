@@ -4,13 +4,13 @@
 <ol>
   <li>Créez un répertoire sur votre ordinateur.</li>
 
-  <li>Copiez des photos à l'intérieur de ce répertoire, puis redimensionnez les pour un affichage sur le web. <em>Attention</em> : le nom des répertoires et des fichiers ne doit contenir que des lettres, des chiffres et les caractères  "-", "_" or ".". Pas d'espace ou de caractères accentués.</li>
+  <li>Copiez des photos à l'intérieur de ce répertoire, puis redimensionnez-les pour un affichage sur le web. <em>Attention</em> : le nom des répertoires et des fichiers ne doit contenir que des lettres, des chiffres et les caractères  "-", "_" ou ".". Pas d'espace ou de caractères accentués.</li>
 
   <li>Avec un client FTP, copiez le répertoire dans le répertoire "galleries" de votre installation de Piwigo.</li>
 
-  <li>Connectez vous à votre installation de Piwigo et rendez vous sur <span class="pwgScreen">Administration &raquo; Images &raquo; Miniatures</span> pour créer les miniatures manquantes.</li>
+  <li>Connectez-vous à votre galerie Piwigo et rendez-vous sur <span class="pwgScreen">Administration &raquo; Images &raquo; Miniatures</span> pour créer les miniatures manquantes.</li>
 
-  <li>Rendez vous sur <span class="pwgScreen">Administration</span> et cliquez sur le gros bouton de synchronisation.</li>
+  <li>Rendez-vous sur <span class="pwgScreen">Administration</span> et cliquez sur le gros bouton de synchronisation.</li>
 </ol>
 
 <p>Bravo ! Vous avez créé avec succès la première catégorie de votre galerie.</p>
@@ -24,9 +24,7 @@
 
   <li>
 
-    <p>Les répertoires représentant les catégories sont dans le répertoire
-"galleries". Ci-dessous l'arbre des répertoires d'une très petite galerie
-(mais utilisant de nombreuses fonctionnalités) : </p>
+    <p>Les répertoires représentant les catégories se trouvent dans le répertoire "galleries". Ci-dessous l'arbre des répertoires d'une très petite galerie (mais utilisant de nombreuses fonctionnalités) : </p>
   
 <pre>
 .
@@ -64,17 +62,11 @@
 
   </li>
   
-  <li>Fondamentalement, une catégorie est représentée par un répertoire à
-n'importe quel niveau sous le répertoire "galleries" de votre installation
-de Piwigo. Chaque catégorie peut contenir autant de sous-niveaux que
-désiré. Dans l'exemple ci-dessus, categorie-1.1.1.1 est à un niveau 4 de
-profondeur.</li>
+  <li>A l'exception de ceux appelés "thumbnail", "pwg_high" ou "pwg_representative" (voir explications ci-dessous), chaque répertoire dans "galleries" génère une catégorie. Le nombre de niveaux (profondeur) n'est pas limité.</li>
 
-  <li>Fondamentalement, un élément est représenté par un fichier. Un fichier
-peut être un élément pour Piwigo si l'extension du nom du fichier est
-parmi la liste du paramètre de configuration <code>file_ext</code> (voir
+  <li>Fondamentalement, un élément est représenté par un fichier. Pour Piwigo, un fichier peut être un élément si son extension figure dans la liste du paramètre de configuration <code>file_ext</code> (voir
 fichier <span class="filename">include/config.inc.php</span>). Un fichier
-peut être une image si son extension est parmi le paramètre de configuration
+peut être une image si son extension figure dans la liste du paramètre de configuration
 <code>picture_ext</code>.</li>
 
   <li>Les éléments de type image doivent avoir une miniature associée (voir la
@@ -85,8 +77,8 @@ associé.  Comme pour le fichier <span class="filename">mariage.jpg</span>
 dans l'exemple ci-dessus. Aucun préfixe n'est nécessaire sur le nom du
 fichier.</li>
 
-  <li>Les éléments non image (vidéos, sons, fichiers texte, tout ce que vous
-voulez...) sont par défaut représentés par un icône correspondant à
+  <li>Les éléments autres que les images (vidéos, sons, fichiers texte, tout ce que vous
+voulez...) sont représentés par défaut par une icône correspondant à
 l'extension du nom du fichier. Optionnellement, une miniature et un
 représentant peuvent être associés (voir le fichier <span
 class="filename">video.avi</span> dans l'exemple).</li>
@@ -129,7 +121,7 @@ miniature en ".GIF" par exemple).</li>
   <li>Il est conseillé d'utiliser un outil externe pour la création des
 miniatures.</li>
 
-  <li>Vous pouvez également utiliser l'outil de création de miniature
+  <li>Vous pouvez également utiliser l'outil de création de miniatures
 intégré à Piwigo mais cela est déconseillé car la qualité risque
 d'être décevante et cela utilise inutilement les ressources du serveur (ce
 qui peut être un grave problème sur un serveur mutualisé).</li>
