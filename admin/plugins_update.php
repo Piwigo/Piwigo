@@ -95,7 +95,7 @@ if (isset($_GET['upgradestatus']) and isset($_GET['plugin']))
 }
 
 //--------------------------------------------------------------------Tabsheet
-set_plugins_tabsheet($page['page']);
+$plugins->set_tabsheet($page['page']);
 
 // +-----------------------------------------------------------------------+
 // |                     start template output                             |

@@ -54,7 +54,7 @@ if (isset($_GET['action']) and isset($_GET['plugin']) and !is_adviser())
 }
 
 //--------------------------------------------------------------------Tabsheet
-set_plugins_tabsheet($page['page']);
+$plugins->set_tabsheet($page['page']);
 
 //---------------------------------------------------------------Order options
 $link = get_root_url().'admin.php?page='.$page['page'].'&amp;order=';

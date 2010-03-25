@@ -40,6 +40,24 @@ class plugins
     }
   }
 
+  /**
+   * Set tabsheet for plugins pages.
+   * @param string selected page.
+   */
+  function set_tabsheet($selected)
+  {
+    include_once(PHPWG_ROOT_PATH.'admin/include/tabsheet.class.php');
+
+    $link = get_root_url().'admin.php?page=';
+
+    $tabsheet = new tabsheet();
+    $tabsheet->add('plugins_list', l10n('Plugin list'), $link.'plugins_list');
+    $tabsheet->add('plugins_update', l10n('Check for updates'), $link.'plugins_update');
+    $tabsheet->add('plugins_new', l10n('Other plugins'), $link.'plugins_new');
+    $tabsheet->select($selected);
+    $tabsheet->assign();
+  }
+
  /**
    * Perform requested actions
   *  @param string - action

@@ -76,7 +76,7 @@ if (isset($_GET['installstatus']))
 }
 
 //--------------------------------------------------------------------Tabsheet
-set_plugins_tabsheet($page['page']);
+$plugins->set_tabsheet($page['page']);
 
 //---------------------------------------------------------------Order options
 $link = get_root_url().'admin.php?page='.$page['page'].'&amp;order=';
