@@ -769,3 +769,21 @@ h2:lang(en) { text-transform:capitalize; }
 #helpContent P.nextStepLink {text-align:center; font-weight:bold; margin-bottom:20px;}
 
 #configContent FIELDSET {border:none;}
+
+/**
+ * Informations box in administration
+ */
+.infos {
+  text-align: left;
+  margin: 5px;
+  padding: 10px 50px 10px 10px;
+  font-weight:bold;
+}
+
+.errors { /* Errors display */
+  text-align: left;
+  margin: 5px;
+  font-weight:bold;
+}
+
+.content .infos li, .content .errors li { list-style-type:square; }

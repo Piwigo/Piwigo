@@ -27,32 +27,6 @@ INPUT.radio, INPUT.checkbox {
   border: none;	/* <= IE6 needs this */
 }
 
-.errors { /* Errors display */
-  color: #f33;
-  background-color: transparent;
-  font-weight: bold;
-  text-align: left;
-  margin: 5px;
-  border: 1px solid #666;
-  background-image: url(icon/errors.png);
-  background-repeat: no-repeat;
-  background-position: top right;
-  padding: 10px 50px 10px 10px;
-}
-
-/**
- * Informations box in administration
- */
-.infos {
-  text-align: left;
-  color: #f70;
-  background-color: transparent; 
-  background-image: url(icon/infos.png);
-  background-repeat: no-repeat;
-  background-position: top right;
-  margin: 5px;
-  padding: 10px 50px 10px 10px;
-}
 
 /**
  * Header message like upgrade or adviser mode
