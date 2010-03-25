@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | Piwigo - a PHP based picture gallery                                  |
 // +-----------------------------------------------------------------------+
-// | Copyright(C) 2008      Piwigo Team                  http://piwigo.org |
+// | Copyright(C) 2008-2010 Piwigo Team                  http://piwigo.org |
 // | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
 // | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
 // +-----------------------------------------------------------------------+
@@ -21,9 +21,12 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
+
+
 $lang['Upgrade'] = 'アップグレード';
-$lang['introduction message'] = 'あなたの古いバージョンのPiwigoから最新バージョンへアップグレードします。
-あなたは、現在 <strong>リリース %s</strong> (または同等のバージョン) を使用しています。';
+$lang['This page proposes to upgrade your database corresponding to your old version of Piwigo to the current version.
+The upgrade assistant thinks you are currently running a <strong>release %s</strong> (or equivalent).'] = 'このページであなたのデータベースをアップグレードするように推薦しています（旧Piwigoのデータベースから、現在版）。
+アップグレード・アシスタントはあなたが現在<strong>release %s</strong> (またはそれと同等)を使っています。';
 $lang['Upgrade from version %s to %s'] = 'バージョン %s から %s にアップグレードする';
 $lang['Statistics'] = '統計';
 $lang['total upgrade time'] = '合計アップグレード時間';
@@ -34,11 +37,8 @@ $lang['Perform a maintenance check in [Administration>Specials>Maintenance] if y
 $lang['As a precaution, following plugins have been deactivated. You must check for plugins upgrade before reactiving them:'] = '事前チェックで以下のプラグインが検出されました。再度有効にする前にプラグインのアップグレードを確認してください:';
 $lang['Only administrator can run upgrade: please sign in below.'] = '管理者のみアップグレードを実行できます: 以下でログインしてください。';
 $lang['You do not have access rights to run upgrade'] = 'あなたには、アップグレードを実行する権限がありません。';
-$lang['in include/mysql.inc.php, before ?>, insert:'] = '<i>include/mysql.inc.php</i>内にある<b>?></b>の前に次の行を挿入してください:';
-
-// Upgrade informations from upgrade_1.3.1.php
+$lang['In <i>%s</i>, before <b>?></b>, insert:'] = '<b>?></b>の前に、<i>%s</i>に追加:';
 $lang['All sub-categories of private categories become private'] = 'プライベートカテゴリのすべてのサブカテゴリがプライベートにされました。';
 $lang['User permissions and group permissions have been erased'] = 'ユーザパーミッションおよびグループパーミッションが削除されました。';
 $lang['Only thumbnails prefix and webmaster mail address have been saved from previous configuration'] = '以前の設定より、サムネイル接頭辞およびウェブマスターのメールアドレスのみ保存されました。';
-
 ?>

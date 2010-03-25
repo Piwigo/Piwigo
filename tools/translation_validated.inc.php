@@ -80,6 +80,8 @@ $validated_keys = array(
 	'Powered by',
  	'IP: %s',
 	'IP',
+	'Sent by',
+	'%d Kb',
 	),
   'pl_PL' => array(
  	'',

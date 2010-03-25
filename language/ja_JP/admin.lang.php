@@ -641,7 +641,7 @@ $lang['%d photo was deleted'] = '%d 写真が削除されました。';
 $lang['%d photos were deleted'] = '%d 写真が削除されました。';
 // --------- Starting below: New or revised $lang ---- from Colibri
 $lang['Categories descending alphanumerically ordered'] = 'カテゴリーは英数字の降順';
-$lang['Categories sorted in descending order ⇑'] = 'カテゴリは英数字の降順 ⇑';
+$lang['Categories sorted in descending order &uArr;'] = 'カテゴリは英数字の降順 ⇑';
 $lang['Unable to check for upgrade.'] = 'アップグレードを確認できません。';
 $lang['Processing treatment.'] = '処理中';
 $lang['Please wait...'] = 'しばらくお待ち下さい...';
