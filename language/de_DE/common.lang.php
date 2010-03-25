@@ -371,4 +371,21 @@ $lang['Sent by'] = 'Gesendet von';
 // --------- Starting below: New or revised $lang ---- from Colibri (2.1)
 $lang['Are you sure?'] = 'Sind Sie sicher?';
 $lang['delete this comment'] = 'Diesen Kommentar löschen';
+$lang['Email address is missing'] = 'Emailadresse fehlt';
+$lang['Cookies are blocked or not supported by your browser. You must enable cookies to connect.'] = 'Cookies werden geblockt oder nicht von ihrem Browser unterstützt. Sie müssen sie erlauben um sich zu verbinden.';
+$lang['Some info about this picture'] = 'Ein paar Infos über dieses Bild';
+$lang['Some more (technical) info about this picture'] = 'Ein paar weitere (technische) Infos über dieses Bild';
+$lang['edit this comment'] = 'editiere diesen Kommentar';
+$lang['Edit a comment'] = 'Editiere einen Kommentar';
+$lang['(!) This comment requires validation'] = '(!) Dieser Kommentar sollte überprüft werden';
+$lang['Welcome'] = 'Willkommen';
+$lang['Welcome to your Piwigo photo gallery!'] = 'Willkommen in deiner Piwigo Fotogalerie!';
+$lang['... or browse your empty gallery'] = '... oder durchsuche deine leere Galerie';
+$lang['... or please deactivate this message, I will find my way by myself'] = '... oder deaktiviere diese Nachricht, Ich finde mich selbst zurecht';
+$lang['Hello %s, your Piwigo photo gallery is empty!'] = 'Hallo %s, deine Piwigo Fotogalerie ist leer!';
+$lang['I want to add photos'] = 'Ich möchte Fotos hinzufügen';
+$lang['Manage this user comment: %s'] = 'Verwalte diesen Benutzerkommentar: %s';
+$lang['This author modified following comment:'] = 'Dieser Autor veränderte folgenden Kommentar:';
+$lang['This author removed the comment with id %d'] = 'Dieser Autor löschte den Kommentar mit der ID %d';
+$lang['validate this comment'] = 'überprüfe diesen Kommentar';
 ?>

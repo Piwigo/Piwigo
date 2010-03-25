@@ -56,9 +56,6 @@ $lang['Password [confirm]'] = 'Passwort [Bestätigung]';
 $lang['verification'] = 'Wiederholen Sie das eingegebene Passwort';
 $lang['Copy the text in pink between hyphens and paste it into the file "local/config/database.inc.php"(Warning : database.inc.php must only contain what is in pink, no line return or space character)'] = 'Kopieren Sie den rosa Text ohne die Bindestriche und fügen Sie ihn in die Datei "include / mysql.inc.php" auf dem Webserver ein (Warnung: die Datei "mysql.inc.php" darf nur die rosa Zeichen enthalten, nicht mehr und nicht weniger)';
 $lang['Need help ? Ask your question on <a href="%s">Piwigo message board</a>.'] = 'Brauchen Sie Hilfe? Stellen Sie Ihre Frage auf der <a href="%s"> Forum Piwigo </ a>.';
-$lang['install_end_message'] = 'Die Konfiguration der Piwigo abgeschlossen ist, hier ist der nächste Schritt<br /><br />
-* Gehen Sie zum Anmelden auf die Startseite: [ <a href="./identification.php">Identifizierung</a> ] und verwenden Sie die Login / Passwort für Webmaster<br />
-* diesem Login ermöglicht Ihnen den Zugang zu den Verwaltungs-Panel und der Bilder- und Benutzerverwaltung.';
 $lang['Webmaster mail address'] = 'Webmaster Mail-Adresse';
 $lang['Visitors will be able to contact site administrator with this mail'] = 'Kontakt E-Mailadresse (nur für angemeldete Benutzer sichtbar)';
 
@@ -74,4 +71,11 @@ $lang['Hope to see you back soon.'] = 'Wir hoffen, Sie sind bald wieder zurück.
 
 $lang['The next step of the installation is now possible'] = 'Der nächste Schritt der Installation ist nun möglich';
 $lang['next step'] = 'nächster Schritt';
+$lang['Database type'] = 'Datenbanktyp';
+$lang['The type of database your piwigo data will be store in'] = 'Der Typ der Datenbank, die Piwigo-Daten werden gespeichert in';
+$lang['The configuration of Piwigo is finished, here is the next step<br><br>
+* go to the identification page and use the login/password given for webmaster<br>
+* this login will enable you to access to the administration panel and to the instructions in order to place pictures in your directories'] = 'Die Konfiguration der Piwigo ist beendet, hier ist der nächste Schritt<br><br>
+* gehe zur Anmeldeseiote und logge dich ein mit dem Zugangsdaten für den Webmaster<br>
+* diese Logindaten ermöglichen den Zugriff auf das Administrationspanel und die Anleitung und die Instruktionen, um Bilder in Ihre Verzeichnisse zu legen';
 ?>
