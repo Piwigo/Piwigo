@@ -205,6 +205,10 @@ $validated_keys = array(
 	'localhost, sql.multimania.com, toto.freesurf.fr',
 	'Upgrade',
 	'SQL queries',
+ 	'letters',
+	'This author removed the comment with id %d',
+	'',
+	'',
 	),
 	'pl_PL' => array(
  	'',
