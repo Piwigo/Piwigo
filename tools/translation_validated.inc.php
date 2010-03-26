@@ -214,7 +214,7 @@ $validated_keys = array(
 	'pixels',
 	'Download',
 	'Piwigo Uploader',
-	'',
+	'Download,',
 	),
 	'pl_PL' => array(
  	'',
