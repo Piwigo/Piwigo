@@ -22,6 +22,9 @@
 // +-----------------------------------------------------------------------+
 
 $lang['Upgrade'] = 'Upgrade';
+$lang['This page proposes to upgrade your database corresponding to your old version of Piwigo to the current version.
+The upgrade assistant thinks you are currently running a <strong>release %s</strong> (or equivalent).'] = 'Deze pagina stelt voor om uw
+huidige oude Piwigo-database te converteren naar de nieuwe versie. De upgrade-assistant denkt dat u momenteel gebruik maakt van <strong>release %s</strong> (of equivalent).';
 $lang['Upgrade from version %s to %s'] = 'Upgrade van versie %s naar versie %s';
 $lang['Statistics'] = 'Statistieken';
 $lang['total upgrade time'] = 'totale upgrade tijd';
@@ -29,14 +32,13 @@ $lang['total SQL time'] = 'totale SQL tijd';
 $lang['SQL queries'] = 'SQL queries';
 $lang['Upgrade informations'] = 'Upgrade informatie';
 $lang['Perform a maintenance check in [Administration>Specials>Maintenance] if you encounter any problem.'] = 'Voor een onderhoudscontrole uit [Administratie>Speciaal>Onderhoud] indien u problemen ondervindt.';
+$lang['As a precaution, following plugins have been disabled. You must check for plugins upgrade before reactiving them:'] = 'Als voorzorgsmaatregel zijn de volgende plugins gedeactiveerd. Voordat u ze reactiveert moet u deze plugins op upgrades controleren:';
 $lang['Only administrator can run upgrade: please sign in below.'] = 'Alleen de administrator kan een upgrade uitvoeren: hieronder kunt u inloggen.';
 $lang['You do not have access rights to run upgrade'] = 'U bent niet gerechtigd om een upgrade uit te voeren';
 $lang['All sub-categories of private categories become private'] = 'Alle sub-categorieën van private categorieën worden private';
 $lang['User permissions and group permissions have been erased'] = 'Gebruikers- en groepsrechten zijn verwijderd';
 $lang['Only thumbnails prefix and webmaster mail address have been saved from previous configuration'] = 'Alleen de thumbnails prefix en het email-adres van de webmaster zijn bewaard gebleven van de voriger configuratie';
-$lang['This page proposes to upgrade your database corresponding to your old version of Piwigo to the current version.
-The upgrade assistant thinks you are currently running a <strong>release %s</strong> (or equivalent).'] = 'Deze pagina stelt voor om uw
-huidige oude Piwigo-database te converteren naar de nieuwe versie. De upgrade-assistant denkt dat u momenteel gebruik maakt van <strong>release %s</strong> (of equivalent).';
 $lang['In <i>%s</i>, before <b>?></b>, insert:'] = 'In <i>%s</i>, voor <b>?></b>, voeg toe:';
+
 
 ?>

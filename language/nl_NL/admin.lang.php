@@ -743,6 +743,9 @@ $lang['Activate field "%s"'] = 'Activeer veld "%s"';
 $lang['Photo Properties'] = 'Foto-Eigenschappen';
 $lang['Allow user customization'] = 'Sta gebruikers-aanpassingen toe';
 $lang['Languages'] = 'Talen';
-
+$lang['Execution time is out, treatment must be continued [Estmated time: %d seconds].'] = 'Uitvoerings-tijd overschreden, de afhandeling moet verder gaan [Geschatte tijd: %d seconden].';
+$lang['Installed Languages'] = 'Geïnstalleerde talen';
+$lang['Add New Language'] = 'Voeg een nieuwe taal toe';
+$lang['Language has been successfully installed'] = 'Taal is succesvol geïnstalleerd';
 
 ?>
