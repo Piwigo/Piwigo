@@ -654,4 +654,23 @@ $lang['Cannot delete the old permalink !'] = 'Non è possibile cancellare questo
 $lang['Deleted on'] = 'Cancellati su';
 $lang['Last hit'] = 'ultimo punteggio';
 $lang['Hit'] = 'punteggio';
+$lang['Upload Form'] = 'Modulo di trasferimento';
+$lang['Upload Photos'] = 'Aggiungete le vostre foto';
+$lang['Drop into category'] = 'Scegliere una categoria';
+$lang['+ Add an upload box'] = '+ Aggiungere un altro campo di upload';
+$lang['Upload'] = 'Trasferire';
+$lang['Create the "%s" directory at the root of your Piwigo installation'] = 'Creare la directory "% s" alla radice della vostra installazione Piwigo';
+$lang['Give write access (chmod 777) to "%s" directory at the root of your Piwigo installation'] = 'Dare i permessi in scrittura (chmod 777) nella directory "% s" alla radice della vostra installazione Piwigo';
+$lang['existing category'] = 'categoria esistente';
+$lang['create a new category'] = 'creare una nuova categoria';
+$lang['Category name'] = 'Nome della categoria';
+$lang['Category "%s" has been added'] = 'La categoria "%s" è stata aggiunta';
+$lang['Uploaded Photos'] = 'foto aggiunte ';
+$lang['%d photos uploaded'] = '%d foto aggiunte';
+$lang['Privacy level set to "%s"'] = 'Livello di confidenzialitàt "%s"';
+$lang['Category "%s" now contains %d photos'] = 'La categoria "%s" contiene oramai %d foto';
+$lang['Manage this set of %d photos'] = 'Gestire questo lotto di %d foto';
+$lang['Select files'] = 'Scegliere i file';
+$lang['JPEG files or ZIP archives with JPEG files inside please.'] = 'File JPEG o archivi ZIP con dentro dei file JPEG per cortesia.';
+
 ?>

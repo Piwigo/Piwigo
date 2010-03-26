@@ -642,4 +642,22 @@ $lang['Number of downloads'] = 'Počet stažení';
 
 
 // --------- Starting below: New or revised $lang ---- from Colibri
+$lang['Upload Form'] = 'Nahrávací formulář';
+$lang['Upload Photos'] = 'Nahrát fotografie';
+$lang['Drop into category'] = 'Zpět do kategorie';
+$lang['+ Add an upload box'] = '+ Přidat upload box';
+$lang['Upload'] = 'Nahrát';
+$lang['Create the "%s" directory at the root of your Piwigo installation'] = 'Vytvořte "%s" adresáře v kořenovém adresáři instalace Piwigo';
+$lang['Give write access (chmod 777) to "%s" directory at the root of your Piwigo installation'] = 'Povolte zápis (chmod 777,644,atd.) do "%s" adresáře v kořenovém adresáři instalace Piwigo';
+$lang['existing category'] = 'stávající kategorie';
+$lang['create a new category'] = 'Založit novou Kategorii';
+$lang['Category name'] = 'Název kategorie';
+$lang['Category "%s" has been added'] = 'Kategorie "%s" přidána';
+$lang['Uploaded Photos'] = 'Nahrát fotky';
+$lang['%d photos uploaded'] = '%d fotek nahráno';
+$lang['Privacy level set to "%s"'] = 'Uroveň soukromí údajú nastaven na "%s"';
+$lang['Category "%s" now contains %d photos'] = 'Kategorie "%s" nyní obsahuje %d fotografií';
+$lang['Manage this set of %d photos'] = 'Spravovat tento soubor %d fotografií';
+$lang['Select files'] = 'Výběr souborů';
+$lang['JPEG files or ZIP archives with JPEG files inside please.'] = 'JPEG soubory nebo ZIP archivy s JPEG soubory prosím.';
 ?>
