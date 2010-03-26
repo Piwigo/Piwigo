@@ -66,6 +66,8 @@ function prepare_conf_upgrade()
   define('IMAGE_TAG_TABLE', $prefixeTable.'image_tag');
   define('PLUGINS_TABLE', $prefixeTable.'plugins');
   define('OLD_PERMALINKS_TABLE', $prefixeTable.'old_permalinks');
+  define('THEMES_TABLE', $prefixeTable.'themes');
+  define('LANGUAGES_TABLE', $prefixeTable.'languages');
 }
 
 // Deactivate all non-standard plugins
@@ -211,6 +213,21 @@ SELECT id
 
   // which upgrades need to be applied?
   return (count(array_diff($existing, $applied)) > 0);
+}
+
+function upgrade_db_connect()
+{
+  global $conf;
+
+  try
+  {
+    $pwg_db_link = pwg_db_connect($conf['db_host'], $conf['db_user'],
+                                  $conf['db_password'], $conf['db_base']);
+  }
+  catch (Exception $e)
+  {
+    my_error(l10n($e->getMessage()), true); 
+  }
 }
 
 ?>

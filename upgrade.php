@@ -38,30 +38,15 @@ if ($php_end_tag === false)
 
 include_once(PHPWG_ROOT_PATH.'include/functions.inc.php');
 include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
-include_once(PHPWG_ROOT_PATH.'admin/include/functions_upgrade.php');
 
 include(PHPWG_ROOT_PATH.'local/config/database.inc.php');
 include(PHPWG_ROOT_PATH . 'include/config_default.inc.php');
 @include(PHPWG_ROOT_PATH. 'local/config/config.inc.php');
-include(PHPWG_ROOT_PATH .'include/dblayer/functions_'.$conf['dblayer'].'.inc.php');
 
-prepare_conf_upgrade();
-
+// $conf is not used for users tables - define cannot be re-defined
+define('USERS_TABLE', $prefixeTable.'users');
 include_once(PHPWG_ROOT_PATH.'include/constants.php');
 define('PREFIX_TABLE', $prefixeTable);
-
-// Database connection
-try
-{
-  $pwg_db_link = pwg_db_connect($conf['db_host'], $conf['db_user'],
-                                $conf['db_password'], $conf['db_base']);
-}
-catch (Exception $e)
-{
-  my_error(l10n($e->getMessage(), true)); 
-}
-
-pwg_db_check_charset();
 
 // +-----------------------------------------------------------------------+
 // |                              functions                                |
@@ -148,6 +133,9 @@ function print_time($message)
 // +-----------------------------------------------------------------------+
 // |                             language                                  |
 // +-----------------------------------------------------------------------+
+include(PHPWG_ROOT_PATH . 'admin/include/languages.class.php');
+$languages = new languages('utf-8');
+
 if (isset($_GET['language']))
 {
   $language = strip_tags($_GET['language']);
@@ -156,7 +144,7 @@ else
 {
   $language = 'en_UK';
   // Try to get browser language
-  foreach (get_languages('utf-8') as $language_code => $language_name)
+  foreach ($languages->fs_languages as $language_code => $language_name)
   {
     if (substr($language_code,0,2) == @substr($_SERVER["HTTP_ACCEPT_LANGUAGE"],0,2))
     {
@@ -205,6 +193,16 @@ if (version_compare(PHP_VERSION, REQUIRED_PHP_VERSION, '<'))
 {
   include(PHPWG_ROOT_PATH.'install/php5_apache_configuration.php');
 }
+
+// +-----------------------------------------------------------------------+
+// |                          database connection                          |
+// +-----------------------------------------------------------------------+
+include_once(PHPWG_ROOT_PATH.'admin/include/functions_upgrade.php');
+include(PHPWG_ROOT_PATH .'include/dblayer/functions_'.$conf['dblayer'].'.inc.php');
+
+upgrade_db_connect();
+
+pwg_db_check_charset();
 
 // +-----------------------------------------------------------------------+
 // |                        template initialization                        |

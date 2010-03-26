@@ -139,7 +139,7 @@ function activate_all_themes()
   }
 }
 
-function try_db_connection(&$infos, &$errors)
+function install_db_connect(&$infos, &$errors)
 {
   try
   {

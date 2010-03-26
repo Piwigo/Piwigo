@@ -183,7 +183,6 @@ elseif (@file_exists($config_file))
 include(PHPWG_ROOT_PATH . 'include/constants.php');
 include(PHPWG_ROOT_PATH . 'include/functions.inc.php');
 include(PHPWG_ROOT_PATH . 'admin/include/functions.php');
-include(PHPWG_ROOT_PATH . 'admin/include/functions_upgrade.php');
 
 include(PHPWG_ROOT_PATH . 'admin/include/languages.class.php');
 $languages = new languages('utf-8');
@@ -259,10 +258,11 @@ if (!isset($step))
 //---------------------------------------------------------------- form analyze
 include(PHPWG_ROOT_PATH .'include/dblayer/functions_'.$dblayer.'.inc.php');
 include(PHPWG_ROOT_PATH . 'admin/include/functions_install.inc.php');
+include(PHPWG_ROOT_PATH . 'admin/include/functions_upgrade.php');
 
 if ( isset( $_POST['install'] ))
 {
-  if (try_db_connection($infos, $errors))
+  if (install_db_connect($infos, $errors))
   {
     $required_version = constant('REQUIRED_'.strtoupper($dblayer).'_VERSION');
     if ( version_compare(pwg_get_db_version(), $required_version, '>=') )
