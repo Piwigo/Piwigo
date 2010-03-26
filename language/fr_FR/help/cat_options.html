@@ -7,13 +7,12 @@
   <dt>Autorisation à l'ajout</dt>
 
   <dd>Rendre les catégories autorisées à l'ajout par les visiteurs. Cette
-option n'est pas disponible pour les catégories virtuelles et
-distantes.</dd>
+option n'est disponible que pour les catégories physiques locales.</dd>
   
-  <dt>Commentaires utilisateur</dt>
+  <dt>Commentaires utilisateurs</dt>
 
-  <dd>Autoriser les utilisateurs à ajouter des commentaires dans les catégories sélectionnée.
-Par héritage, une image est commentable si elle appartient à au moins une catégorie commentable.</dd>
+  <dd>Autoriser les utilisateurs à ajouter des commentaires dans les catégories sélectionnées.
+Une image sera commentable si elle appartient à au moins une catégorie commentable.</dd>
   
   <dt>Verrouiller</dt>
 
@@ -24,10 +23,9 @@ catégories parentes sont déverrouillées.</dd>
 
   <dt>Publique / Privée</dt>
 
-  <dd>Gestion du statut des catégories. Les permissions ne sont possibles
-que pour les catégories privées. Une fois qu'une catégorie est privée, vous
-devez explicitement autoriser les utilisateurs ou les groupes à y
-accéder. Lorsqu'une catégorie devient privée, toutes les catégories enfant
+  <dd>Les permissions n'existent que pour les catégories privées. Une fois qu'une catégorie est privée, il vous faut
+explicitement autoriser les utilisateurs ou les groupes à y
+accéder. Lorsqu'une catégorie devient privée, toutes les catégories enfants
 deviennent privées. Lorsqu'une catégorie devient publique, toutes les
 catégories parentes deviennent publiques.</dd>
 
@@ -35,8 +33,7 @@ catégories parentes deviennent publiques.</dd>
 
   <dd>Cette option est disponible uniquement si le paramètre de
 configuration <code>allow_random_representative</code> (voir <span
-class="filename">include/config_default.inc.php</span>) est
-<em>true</em>. Chaque catégorie peut-être représentée au hasard ou par une
-miniature fixe unique.</dd>
+class="filename">include/config_default.inc.php</span>) vaut
+<em>true</em>. Chaque catégorie peut-être représentée par une image prise au hasard ou par une seule miniature fixe.</dd>
 
 </dl>

@@ -7,8 +7,8 @@
   <li><strong>nom</strong>: renommer la catégorie (virtuellement pour 
   une catégorie physique).</li>
 
-  <li><strong>description</strong>: donner une idée du contenu de la catégorie,
-  cette indication figurera sous la page des miniatures.</li>
+  <li><strong>description</strong>: un texte bref donnant une idée du contenu de la catégorie,
+  cette indication figurera en bas de la page des miniatures.</li>
 
 </ul>
 
@@ -52,33 +52,32 @@ class="pwgScreen">Administration, Catégories, Propriétés</span>).</p>
 
 <p>Indiquer si le tri s'applique également aux sous-catégories.</p>
 
-<p>Sélectionner les colonnes du tri à utiliser pour cette catégorie.</p>
+<p>Sélectionner les critères de tri à utiliser pour cette catégorie.</p>
 <ul>
 <li><strong>Date de création</strong>: Date de prise de vue</li>
 <li><strong>Date d'ajout</strong>: Date de la synchronisation</li>
-<li><strong>Note moyenne (*)</strong>: laquelle moyenne pourrait être modifiée par le visiteur</li>
+<li><strong>Note moyenne (*)</strong>: cette moyenne peut être modifiée par la notation du visiteur</li>
 <li><strong>Plus vues (*)</strong>: La visite en cours peut changer l'ordre des plus vues</li>
 <li><strong>Nom du fichier</strong>: Nom du fichier donné dans les champs d'informations ci-dessus</li>
 <li><strong>Id</strong>: Id interne (les catégories récentes ont un "Id" plus grand que les précédentes).</li>
 
 </ul>
-<p><strong>(*)</strong>Attention: testez-vous même ces tris qui peuvent donner des résultats imprévisibles.</p>
+<p><strong>(*)</strong>Attention: testez-vous même ces tris qui peuvent donner des résultats imprévus.</p>
 
 
 <h3>Représentant</h3>
 
-<p>Le représentant d'une catégorie est la miniature affichée pour
-représenter la catégorie sur la page principale (<span
-class="pwgScreen">category.php</span>) lorsqu'une catégorie contient
-uniquement des sous-catégories et pas d'éléments directs (comme à la
+<p>Le représentant d'une catégorie est la miniature affichée sur la page principale (<span
+class="pwgScreen">category.php</span>) pour
+représenter la catégorie lorsque celle-ci ne contient
+que des sous-catégories et aucun élément direct (comme à la
 racine)</p>
 
-<p>Il existe 4 moyens de choisir le représentant d'une catégorie:</p>
+<p>Il existe 4 moyens différents de choisir le représentant d'une catégorie:</p>
 
 <ul>
 
-  <li><span class="pwgScreen">Page d'affichage des images</span>: dans la barre des boutons
-d'action, l'un d'eux permet de choisir l'élément affiché comme représentant
+  <li><span class="pwgScreen">Page d'affichage des images</span>: un des boutons d'action permet de choisir l'élément courant comme représentant
 de la catégorie affichée. Ce bouton d'action n'est disponible que pour les
 administrateurs.</li>
 
@@ -96,11 +95,11 @@ Représentant</span>. Voir l'aide de cet écran pour les détails.</li>
 
 </ul>
 
-<p>La représentation dépend du paramètre de configuration
+<p>Le choix d'un représentant dépend du paramètre de configuration
 <code>allow_random_representative</code> (voir <span
 class="filename">include/config_default.inc.php</span>).</p>
 
-<p>Par défaut (<code>allow_random_representative</code> à false) chaque
+<p>Par défaut (<code>allow_random_representative</code> à false), chaque
 catégorie contenant au moins un élément est représenté par un élément
 fixe. Une fois fixé (à la création de la catégorie), le représentant change
 uniquement lorsque l'administrateur le demande. Si le représentant ne
@@ -112,10 +111,9 @@ est à true, une catégorie contenant des éléments peut ne pas avoir de
 représentant fixe. Utiliser simplement le bouton <strong>Supprimer le
 représentant</strong>.</p>
 
-<p>Si la catégorie ne contient aucun élément (mais uniquement des 
-sous-catégories) elle peut quand même être représentée par n'importe quel 
+<p>Si la catégorie ne contient que des sous-catégories et aucun élément, elle peut cependant être représentée par n'importe quel 
 élément grâce à l'écran <span class="pwgScreen">Modifier les informations 
-d'une image</span>. La seule option du présent écran est le bouton
+d'une image</span>. La seule option disponible sur le présent écran est le bouton
 <strong>Supprimer le représentant</strong>.</p>
 
 <h3>Associer tous les éléments de la catégorie à une nouvelle catégorie</h3>
@@ -125,7 +123,7 @@ d'une image</span>. La seule option du présent écran est le bouton
 <li><strong>Nom de la catégorie virtuelle</strong>: Nom de la nouvelle catégorie à créer, 
 toutes les images de la catégorie en cours seront liées à la nouvelle.</li>
 
-<li><strong>Catégorie parente</strong>: Où la nouvelle catégorie doit être, 
+<li><strong>Catégorie parente</strong>: A quel endroit la nouvelle catégorie doit être placée, 
 laisser vide pour la créer sur la page d'accueil.</li>
 
 </ul>

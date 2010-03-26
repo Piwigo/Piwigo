@@ -5,10 +5,10 @@
 <ul>
 
   <li><strong>name</strong>: rename the category (a virtual rename in case 
-  of physical category).</li>
+  of a physical category).</li>
 
-  <li><strong>description</strong>: give a general idea of the content,
-  this text will be display under the thumbnail page.</li>
+  <li><strong>description</strong>: short text giving a general idea of the content,
+  this text will be displayed at the bottom of the thumbnails page.</li>
 
 </ul>
 
@@ -21,23 +21,23 @@ changing its parent category.</p>
 
 <ul>
 
-  <li><strong>Access type</strong>: Permission management. If you make a
+  <li><strong>Access type</strong>: Permissions management. If you make a
   category private, all its child categories becomes private. If you make a
   category public, all its parent categories becomes public.</li>
 
   <li><strong>Lock</strong>: The category and its sub-categories will
-  temporary been disabled for maintenance.</li>
+  be temporary disabled for maintenance.</li>
 
   <li><strong>Comments</strong>: Authorize users to comment elements of this
   category.</li>
 
   <li><strong>Authorize upload</strong>: Authorize users to upload
-  files. This option is available only if category is physical (not
-  virtual).</li>
+  images files. This option is available for physical (not
+  virtual) categories only .</li>
 
 </ul>
 
-<p>You can also manage these options with "Properties"
+<p>You can also manage these options on the "Properties"
 management screen (screens <span class="pwgScreen">Upload</span>, <span
 class="pwgScreen">Comments</span>, <span class="pwgScreen">Lock</span>,
 <span class="pwgScreen">Public/Private</span>, <span
@@ -46,39 +46,38 @@ class="pwgScreen">Administration, Categories, Properties</span>).</p>
 
 <h3>Sort order</h3>
 
-<p>Choose if the default sort order will be used.</p>
+<p>Use the default images sort order.</p>
 
-<p>Indicate if this sort order will be applied to subcategories.</p>
+<p>Indicate whether this sort order will apply to subcategories also.</p>
 
-<p>Select specific sort by columns to use with this category.</p>
+<p>Select specific sorting criteria to be used with this category.</p>
 <ul>
-<li><strong>Creation date</strong>: Picture creation date</li>
+<li><strong>Creation date</strong>: Picture shooting date</li>
 <li><strong>Post date</strong>: Synchronization date</li>
-<li><strong>Average rate (*)</strong>: Average rate could be changed by the visitor</li>
-<li><strong>Most visited (*)</strong>: The current visit change the most visited order</li>
-<li><strong>File name</strong>: Given name in informations field</li>
+<li><strong>Average rate (*)</strong>: Average rate could be changed by the visitor rating</li>
+<li><strong>Most visited (*)</strong>: The current visit might change the most visited order</li>
+<li><strong>File name</strong>: Name given in information field</li>
 <li><strong>Id</strong>: Internal Id (recent categories have an higher id than previous ones.</li>
 
 </ul>
-<p><strong>(*)</strong>Take care and test it for your self since it can give unpredictable results.</p>
+<p><strong>(*)</strong>Warning: Be sure to test these sort orders by yourself as they can give unexpected results.</p>
 
 
 <h3>Representant</h3>
 
-<p>The representant of the category is the thumbnail displayed to represent
-the category on main page (<span class="pwgScreen">category.php</span>) when
-a category contains only sub-categories (just as the root category).</p>
+<p>The category representative is the thumbnail displayed on the main page (<span class="pwgScreen">category.php</span>) to represent
+the category when
+it contains only sub-categories and no direct element (just as the root category).</p>
 
-<p>There are 4 ways to set the representative picture of a category :</p>
+<p>There are 4 different ways to set the representative picture of a category :</p>
 
 <ul>
 
-  <li><span class="pwgScreen">Picture page</span>: in the action buttons bar,
-  one of them let you set the displayed picture as representative for the
+  <li><span class="pwgScreen">Picture page</span>: one of the action buttons let you set the current picture as the representative for the
   displayed category. This button is available only for administrators.</li>
 
   <li><span class="pwgScreen">Modify informations about a picture</span> in
-  administration. This screen can be reach from <span
+  administration. This screen can be reached from <span
   class="pwgScreen">picture.php</span> or <span class="pwgScreen">Batch
   management</span> in <em>unit mode</em>. See the help of this screen for
   details.</li>
@@ -86,43 +85,41 @@ a category contains only sub-categories (just as the root category).</p>
   <li><span class="pwgScreen">Administration, Categories, Properties,
   Representative</span>. See the help of this screen for details.</li>
 
-  <li><span class="pwgScreen">Edit a category</span> (this screen).</li>
+  <li><span class="pwgScreen">Edit a category</span> (the present screen).</li>
 
 </ul>
 
-<p>The representation depends on configuration parameter
-<code>allow_random_representative</code> (see <span
+<p>The choice of a representative depends on the 
+<code>allow_random_representative</code> configuration parameter (see <span
 class="filename">include/config_default.inc.php</span>).</p>
 
-<p>In default mode (<code>allow_random_representative</code> set to false)
+<p>In default mode (<code>allow_random_representative</code> set to false),
 each category containing at least one element is represented by a fixed
 element. Once set (at category creation), the representative changes only
-when an administrator ask for it. If the representant is not appropriate,
+when an administrator ask for it. If the representative is not appropriate,
 you can ask to <strong>Find a new representant by random</strong>.</p>
 
-<p>If configuration parameter <code>allow_random_representative</code> is
-set to true, a category containing elements can have no fixed
+<p>If the <code>allow_random_representative</code> configuration parameter is
+set to true, a category containing elements may have no fixed
 representant. Just use <strong>Delete representant</strong> button.</p>
 
-<p>If the category contains no element (but only sub-categories) it can be
-represented by any element thanks to screen <span class="pwgScreen">Modify
-informations about a picture</span>. The only option on the current screen
-is to <strong>Delete representant</strong> button, after using this button,
-no representant option to set anymore.</p>
+<p>If the category contains only sub-categories and no element, it can nonetheless be represented by any element thanks to <span class="pwgScreen">Modify
+informations about a picture</span> screen. The only option on the current screen
+is the <strong>Delete representant</strong> button.</p>
 
 <h3>Link all category elements to a new category</h3>
 
 <ul>
 
-<li><strong>Virtual category name</strong>: New category name to be created, 
+<li><strong>Virtual category name</strong>: Name of the new category to be created, 
 all pictures of the current category will be linked to the new one.</li>
 
 <li><strong>Parent category</strong>: Where the new category will be, 
-leave empty to create it from home.</li>
+leave empty to create it at root.</li>
 
 </ul>
 
-<h3>Link all category elements to some existing categories</h3>
+<h3>Link all category elements to existing categories</h3>
 
 <ul>
 
@@ -134,8 +131,8 @@ leave empty to create it from home.</li>
 
 <ul>
 
-<li><strong>Group</strong>: addressees group</li>
+<li><strong>Group</strong>: recipients group</li>
 
-<li><strong>Mail content</strong>: Free text to be sent to them.</li>
+<li><strong>Mail content</strong>: Free text to send to them.</li>
 
 </ul>  
