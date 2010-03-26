@@ -25,7 +25,7 @@ $lang['locfiledit_onglet_localconf'] = 'Helyi beállítások';
 $lang['locfiledit_onglet_css'] = 'CSS';
 $lang['locfiledit_onglet_tpl'] = 'Sablonok';
 $lang['locfiledit_onglet_lang'] = 'Nyelv';
-$lang['locfiledit_onglet_plug'] = 'Egyedi Plugin';
+$lang['locfiledit_onglet_plug'] = 'Egyedi bővítmény';
 $lang['locfiledit_cant_save'] = 'Az fájl nem írható. Ellenőrizze a könyvtár "include/" írhatóságát (chmod)';
 $lang['locfiledit_newfile'] = 'Nincs ilyen fájl a LocalFiles Editor létre tudja hozni';
 $lang['locfiledit_save_config'] = 'A fájl módosítása sikeres.';
@@ -40,7 +40,7 @@ $lang['locfiledit_restore_confirm'] = 'Biztosan ezt akarja?
 A változtatás nem vonható vissza.';
 $lang['locfiledit_bak_loaded1'] = 'Biztonsági másolat betöltve.';
 $lang['locfiledit_bak_loaded2'] = 'Mentett fájl visszaállítása.';
-$lang['locfiledit_syntax_error'] = 'Syntax error! A fájl mentése meghiusult.';
+$lang['locfiledit_syntax_error'] = 'Syntax error! A fájl mentése meghiúsult.';
 $lang['locfiledit_enable_editarea'] = 'Szerkesztő megnyitása';
 $lang['locfiledit_disable_editarea'] = 'Szerkesztő bezárása';
 $lang['locfiledit_new_tpl'] = 'Új fájl létrehozása';
@@ -52,6 +52,6 @@ $lang['locfiledit_filename_error'] = 'Nem használható fájlnév vagy karakter.
 $lang['locfiledit_file_already_exists'] = 'Ilyen fájl már létezik.';
 $lang['locfiledit_model_error'] = 'A típust ki kell választani.';
 $lang['locfiledit_empty_filename'] = 'A fájlnevet ki kell tölteni.';
-/* TODO */ $lang['locfiledit_webmaster_only'] = 'Only webmasters can create or modify local files.';
+/* TODO */ $lang['locfiledit_webmaster_only'] = 'Csak a webmesterek hozhatnak létre, vagy módosíthatnak helyi fájlokat.';
 
 ?>
