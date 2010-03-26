@@ -58,10 +58,21 @@ $lang['Keep it confidential, it enables you to access administration panel'] = '
 $lang['Password [confirm]'] = 'Wachtwoord [bevestigen]';
 $lang['verification'] = 'verificatie';
 $lang['Need help ? Ask your question on <a href="%s">Piwigo message board</a>.'] = 'Hulp nodig ? stel uw vraag op het <a href="%s" target="_blank">Piwigo forum</a>.';
-$lang['install_end_message'] = 'Het installeren van Piwigo is klaar, de volgende stap is<br /><br />
-* Ga naar de Administratie-pagina en gebruik de eerder opgegeven gebruikersnaam met bijbehorend wachtwoord<br />
-* Deze gebruikersnaam geeft u toegang tot de beheermodule en tot de instructies waarmee u afbeeldingen op uw website kunt plaatsen';
 $lang['Webmaster mail address'] = 'Email-adres van de webbeheerder';
 $lang['Visitors will be able to contact site administrator with this mail'] = 'Met dit email-adres kunnen bezoekers contact opnemen met de beheerder';
+$lang['Database type'] = 'Database type';
+$lang['The type of database your piwigo data will be store in'] = 'Het type database waarin uw Piwigo-gegevens worden opgeslagen';
+$lang['The configuration of Piwigo is finished, here is the next step<br><br> * go to the identification page and use the login/password given for webmaster<br>
+* this login will enable you to access to the administration panel and to the instructions in order to place pictures in your directories'] = 'De configuratie van Piwigo is klaar. De volgende stap<br><br>
+* ga naar de identificatie-pagina en gebruik de verkregen webbeheerders login/password combinatie<br> * Deze login leidt u naar het administratiescherm en de instructies voor het beschikbaar stellen van afbeeldingen in uw directories';
+$lang['PHP 5 is required'] = 'PHP 5 is vereist';
+$lang['It appears your webhost is currently running PHP %s.'] = 'Het lijkt er op dat uw webhost momenteel gebruik maakt van PHP %s.';
+$lang['Piwigo may try to switch your configuration to PHP 5 by creating or modifying a .htaccess file.'] = 'Piwigo kan proberen uw configuratie om te zetten naar PHP 5 door het aanmaken of wijzigen van een .htaccess bestand.';
+$lang['Note you can change your configuration by yourself and restart Piwigo after that.'] = 'Opmerking: u kunt uw configuratie ook zelf aanpassen en daarna Piwigo opnieuw opstarten.';
+$lang['Try to configure PHP 5'] = 'Probeer PHP 5 te configureren';
+$lang['Sorry!'] = 'Sorry!';
+$lang['Piwigo was not able to configure PHP 5.'] = 'Piwigo kon PHP 5 niet configureren.';
+$lang['You may referer to your hosting provider\'s support and see how you could switch to PHP 5 by yourself.'] = 'Neem contact op met de support van uw hosting provider en probeer met hen te bepalen hoe u kunt omschakelen naar PHP 5.';
+$lang['Hope to see you back soon.'] = 'Hope to see you back soon.';
 
 ?>
