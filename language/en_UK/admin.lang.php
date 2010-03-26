@@ -758,4 +758,5 @@ $lang['Language has been successfully installed'] = 'Language has been successfu
 $lang['Select:'] = 'Select:';
 $lang['None'] = 'None';
 $lang['Invert'] = 'Invert';
+$lang['Impossible to deactivate this theme, you need at least one theme.'] = 'Impossible to deactivate this theme, you need at least one theme.';
 ?>

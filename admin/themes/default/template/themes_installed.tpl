@@ -13,7 +13,13 @@
     <div class="themeName">{$theme.name}{if $theme.is_default} <em>({'default'|@translate})</em>{/if}</div>
     <div class="themeShot"><img src="{$theme.screenshot}"></div>
     <div class="themeActions">
+
+{if $theme.deactivable}
       <a href="{$deactivate_baseurl}{$theme.id}" title="{'Forbid this theme to users'|@translate}">{'Deactivate'|@translate}</a>
+{else}
+      <span title="{$theme.deactivate_tooltip}">{'Deactivate'|@translate}</span>
+{/if}
+      
 {if not $theme.is_default}
       | <a href="{$set_default_baseurl}{$theme.id}" title="{'Set as default theme for unregistered and new users'|@translate}">{'Default'|@translate}</a>
 {/if}

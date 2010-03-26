@@ -117,6 +117,16 @@ INSERT INTO ".THEMES_TABLE."
           break;
         }
 
+        // you can't deactivate the last theme
+        if (count($this->db_themes_by_id) <= 1)
+        {
+          array_push(
+            $errors,
+            l10n('Impossible to deactivate this theme, you need at least one theme.')
+            );
+          break;
+        }
+
         if ($theme_id == get_default_theme())
         {
           // find a random theme to replace
@@ -227,6 +237,8 @@ DELETE
 
   function set_default_theme($theme_id)
   {
+    global $conf;
+    
     // first we need to know which users are using the current default theme
     $default_theme = get_default_theme();
     
@@ -236,7 +248,12 @@ SELECT
   FROM '.USER_INFOS_TABLE.'
   WHERE theme = "'.$default_theme.'"
 ;';
-    $user_ids = array_from_query($query, 'user_id');
+    $user_ids = array_unique(
+      array_merge(
+        array_from_query($query, 'user_id'),
+        array($conf['guest_id'], $conf['default_user_id'])
+        )
+      );
 
     // $user_ids can't be empty, at least the default user has the default
     // theme

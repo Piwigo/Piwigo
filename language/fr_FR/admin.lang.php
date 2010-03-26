@@ -763,4 +763,5 @@ $lang['Allow user customization'] = "Permettre la personnalisation de l'affichag
 $lang['Select:'] = 'Sélectionner:';
 $lang['None'] = 'Rien';
 $lang['Invert'] = 'Inverser';
+$lang['Impossible to deactivate this theme, you need at least one theme.'] = 'Impossible de désactiver ce thème, il doit rester au moins un thème activé.';
 ?>

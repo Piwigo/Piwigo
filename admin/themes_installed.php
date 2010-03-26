@@ -77,6 +77,14 @@ foreach ($themes->fs_themes as $theme_id => $fs_theme)
 
   if (in_array($theme_id, $db_theme_ids))
   {
+    $fs_theme['deactivable'] = true;
+    
+    if (count($db_theme_ids) <= 1)
+    {
+      $fs_theme['deactivable'] = false;
+      $fs_theme['deactivate_tooltip'] = l10n('Impossible to deactivate this theme, you need at least one theme.');
+    }
+    
     if ($theme_id == $default_theme)
     {
       $fs_theme['is_default'] = true;
