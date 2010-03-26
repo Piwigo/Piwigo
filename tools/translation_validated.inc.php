@@ -210,7 +210,10 @@ $validated_keys = array(
 	'Database type',
 	'Sorry!',
 	'Hope to see you back soon.',
-	'',
+	'Hit',
+	'pixels',
+	'Download',
+	'Piwigo Uploader',
 	'',
 	),
 	'pl_PL' => array(

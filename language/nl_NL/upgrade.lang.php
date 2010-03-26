@@ -39,5 +39,4 @@ The upgrade assistant thinks you are currently running a <strong>release %s</str
 huidige oude Piwigo-database te converteren naar de nieuwe versie. De upgrade-assistant denkt dat u momenteel gebruik maakt van <strong>release %s</strong> (of equivalent).';
 $lang['In <i>%s</i>, before <b>?></b>, insert:'] = 'In <i>%s</i>, voor <b>?></b>, voeg toe:';
 
-
 ?>
