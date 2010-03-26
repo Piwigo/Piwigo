@@ -36,6 +36,23 @@ class languages
   }
 
   /**
+   * Set tabsheet for languages pages.
+   * @param string selected page.
+   */
+  function set_tabsheet($selected)
+  {
+    include_once(PHPWG_ROOT_PATH.'admin/include/tabsheet.class.php');
+
+    $link = get_root_url().'admin.php?page=';
+
+    $tabsheet = new tabsheet();
+    $tabsheet->add('languages_installed', l10n('Installed Languages'), $link.'languages_installed');
+    $tabsheet->add('languages_new', l10n('Add New Language'), $link.'languages_new');
+    $tabsheet->select($selected);
+    $tabsheet->assign();
+  }
+
+  /**
    * Perform requested actions
    * @param string - action
    * @param string - language id
@@ -170,6 +187,164 @@ UPDATE '.USER_INFOS_TABLE.'
     {
       $this->db_languages[ $row['id'] ] = $row['name'];
     }
+  }
+
+  /**
+   * Retrieve PEM server datas to $server_languages
+   */
+  function get_server_languages()
+  {
+    global $user;
+
+    $pem_category_id = 8;
+
+    // Retrieve PEM versions
+    $version = PHPWG_VERSION;
+    $versions_to_check = array();
+    $url = PEM_URL . '/api/get_version_list.php?category_id='.$pem_category_id.'&format=php';
+    if (fetchRemote($url, $result) and $pem_versions = @unserialize($result))
+    {
+      if (!preg_match('/^\d+\.\d+\.\d+/', $version))
+      {
+        $version = $pem_versions[0]['name'];
+      }
+      $branch = substr($version, 0, strrpos($version, '.'));
+      foreach ($pem_versions as $pem_version)
+      {
+        if (strpos($pem_version['name'], $branch) === 0)
+        {
+          $versions_to_check[] = $pem_version['id'];
+        }
+      }
+    }
+    if (empty($versions_to_check))
+    {
+      return false;
+    }
+
+    // Retrieve PEM languages infos
+    $url = PEM_URL . '/api/get_revision_list.php?category_id='.$pem_category_id.'&format=php&last_revision_only=true';
+    $url .= '&version=' . implode(',', $versions_to_check);
+    $url .= '&lang='.$user['language'];
+
+    if (fetchRemote($url, $result))
+    {
+      $pem_languages = @unserialize($result);
+      if (!is_array($pem_languages))
+      {
+        return false;
+      }
+      foreach ($pem_languages as $language)
+      {
+        if (preg_match('/^.*? \[[A-Z]{2}\]$/', $language['extension_name'])
+          and !in_array($language['extension_name'], $this->fs_languages))
+        {
+          $this->server_languages[] = $language;
+        }
+      }
+      return true;
+    }
+    return false;
+  }
+
+  /**
+   * Extract language files from archive
+   *
+   * @param string - install or upgrade
+   * @param string - remote revision identifier (numeric)
+   * @param string - language id or extension id
+   */
+  function extract_language_files($action, $revision, $dest='')
+  {
+    if ($archive = tempnam( PHPWG_ROOT_PATH.'language', 'zip'))
+    {
+      $url = PEM_URL . '/download.php?rid=' . $revision;
+      $url .= '&origin=piwigo_' . $action;
+
+      if ($handle = @fopen($archive, 'wb') and fetchRemote($url, $handle))
+      {
+        fclose($handle);
+        include(PHPWG_ROOT_PATH.'admin/include/pclzip.lib.php');
+        $zip = new PclZip($archive);
+        if ($list = $zip->listContent())
+        {
+          foreach ($list as $file)
+          {
+            // we search iso.txt in archive
+            if (basename($file['filename']) == 'iso.txt'
+              and (!isset($main_filepath)
+              or strlen($file['filename']) < strlen($main_filepath)))
+            {
+              $main_filepath = $file['filename'];
+            }
+          }
+          if (isset($main_filepath))
+          {
+            $root = basename(dirname($main_filepath)); // iso.txt path in archive
+            if (preg_match('/^[a-z]{2}_[A-Z]{2}$/', $root))
+            {
+              if ($action == 'install')
+              {
+                $dest = $root;
+              }
+              $extract_path = PHPWG_ROOT_PATH.'language/'.$dest;
+              if (
+                $result = $zip->extract(
+                  PCLZIP_OPT_PATH, $extract_path,
+                  PCLZIP_OPT_REMOVE_PATH, $root,
+                  PCLZIP_OPT_REPLACE_NEWER
+                  )
+                )
+              {
+                foreach ($result as $file)
+                {
+                  if ($file['stored_filename'] == $main_filepath)
+                  {
+                    $status = $file['status'];
+                    break;
+                  }
+                }
+                if ($status == 'ok')
+                {
+                  $this->fs_languages = $this->get_fs_languages();
+                  $this->perform_action('activate', $dest);
+                }
+                if (file_exists($extract_path.'/obsolete.list')
+                  and $old_files = file($extract_path.'/obsolete.list', FILE_IGNORE_NEW_LINES)
+                  and !empty($old_files))
+                {
+                  array_push($old_files, 'obsolete.list');
+                  foreach($old_files as $old_file)
+                  {
+                    $path = $extract_path.'/'.$old_file;
+                    if (is_file($path))
+                    {
+                      @unlink($path);
+                    }
+                    elseif (is_dir($path))
+                    {
+                      if (!$this->deltree($path))
+                      {
+                        $this->send_to_trash($path);
+                      }
+                    }
+                  }
+                }
+              }
+              else $status = 'extract_error';
+            }
+            else $status = 'archive_error';
+          }
+          else $status = 'archive_error';
+        }
+        else $status = 'archive_error';
+      }
+      else $status = 'dl_archive_error';
+    }
+    else $status = 'temp_path_error';
+
+    @unlink($archive);
+    return $status;
   }
 
   /**

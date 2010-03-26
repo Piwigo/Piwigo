@@ -752,4 +752,7 @@ $lang['Activate field "%s"'] = 'Activate field "%s"';
 $lang['Photo Properties'] = 'Photo properties';
 $lang['Allow user customization'] = 'Allow user customization';
 $lang['Languages'] = 'Languages';
+$lang['Installed Languages'] = 'Installed Languages';
+$lang['Add New Language'] = 'Add New Language';
+$lang['Language has been successfully installed'] = 'Language has been successfully installed';
 ?>
