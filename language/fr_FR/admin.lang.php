@@ -742,8 +742,6 @@ $lang['Upgrade from %s to %s'] = 'Mis à jour de %s vers %s';
 $lang['Visit Gallery'] = 'Visiter la galerie';
 $lang['Visit Piwigo project website'] = 'Visiter le site web du projet Piwigo';
 
-$lang['pLoader stands for <em>Piwigo Uploader</em>. From your computer, pLoader prepares your photos and transfer them to your Piwigo photo gallery.'] = 'pLoader signifie <em>Piwigo Uploader</em>. Depuis votre ordinateur, pLoader prépare vos photos et les transfère vers votre galerie photo Piwigo.';
-
 $lang['Guest Settings'] = 'Paramètres invité';
 $lang['Main Page'] = 'Page principale';
 $lang['Photo Page'] = 'Page de la photo';
@@ -760,7 +758,7 @@ $lang['Installed Languages'] = 'Langues installées';
 $lang['Add New Language'] = 'Ajouter une langue';
 $lang['Language has been successfully installed'] = 'La langue a été installée avec succès';
 $lang['Allow user customization'] = "Permettre la personnalisation de l'affichage";
-$lang['Select:'] = 'Sélectionner:';
+$lang['Select:'] = 'Sélectionner :';
 $lang['None'] = 'Rien';
 $lang['Invert'] = 'Inverser';
 $lang['Impossible to deactivate this theme, you need at least one theme.'] = 'Impossible de désactiver ce thème, il doit rester au moins un thème activé.';
