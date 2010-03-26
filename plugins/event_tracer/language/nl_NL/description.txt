@@ -1,0 +1,1 @@
+Voor ontwikkelaars. Geef alle calls naar het trigger_event weer.
