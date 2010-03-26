@@ -6,26 +6,25 @@
  En théorie, cette information doit toujours être correcte, mais parfois une erreur peut 
  survenir et l'information en cache devient fausse.</p>
 
-<p>Des informations deviennent inutiles avec le temps. 
+<p>Certaines informations deviennent inutiles avec le temps. 
 Les supprimer de la base de données libère de l'espace disque.</p>
 
 <ul>
 
   <li><strong>Mettre à jour les informations des catégories :</strong> 
-  Pour chaque catégorie, les informations à contrôler et/ou mettre à jour sont les suivantes : 
+  Pour chaque catégorie, les informations suivantes sont contrôlées, et mises à jour le cas échéant  : 
   liste des catégories mères, nombre d'éléments, date du dernier élément, position parmi les 
   catégories soeurs, position dans l'arbre complet des catégories. Cette action vérifie 
   également la cohérence des représentants.</li>
 
   <li><strong>Mettre à jour les informations des images :</strong>
-Pour chaque image, les informations à mettre à jour sont : chemin complet vers le 
-fichier, note moyenne. Attention : ne pas confondre avec les méta-données qui sont 
+Pour chaque image, les informations mises àjour sont : chemin complet vers le 
+fichier et note moyenne. Attention, ne pas confondre : les méta-données sont 
 synchronisées sur l'écran <span class="pwgScreen">Administration, Catégories, Synchroniser</span> 
-ou sur l'écran <span class="pwgScreen">Modifier les informations d'une image</span> 
-(accessible depuis la page de visualisation d'une image <span class="pwgScreen">picture.php</span>).</li>
+ou sur l'écran <span class="pwgScreen">Modifier les informations d'une image</span> (accessible depuis la page de visualisation d'une image <span class="pwgScreen">picture.php</span>).</li>
 
   <li><strong>Réparer et optimiser la base de données :</strong>
-Pour chaque table de la base de données Piwigo les opérations de ré-ordonnancement, de réparation et d'optimisation sont effectuées.
+Effectue des opérations de ré-ordonnancement, réparation et optimisation sur  chaque table de la base de données.
   </li>
 
 </ul>
@@ -34,14 +33,14 @@ Pour chaque table de la base de données Piwigo les opérations de ré-ordonnanc
   <li><strong>Purger le détail de l'historique :</strong>
 Supprime toutes les lignes de la table <code>history</code>. L'écran <span class="pwgScreen">
 Administration, Spéciales, Historique</span> ne montre alors plus aucune information sur le passé. 
-<em>Attention</em> : toutes les données seront perdues et il n'existe aucun moyen de les récupérer.
+<em>Attention</em> : toutes les données seront perdues, sans aucun possibilité de récupération.
   </li>
 
-  <li><strong>Purger le sommaire de l'historique :</strong>
+  <li><strong>Purger la synthèse de l'historique :</strong>
 Supprime toutes les informations  récapitulatives (obtenues à partir du détail de l'historique).
   </li>
 
-  <li><strong>Purger les sessions :</strong> Supprimer les sessions expirées..</li>
+  <li><strong>Purger les sessions :</strong> Supprimer les sessions expirées.</li>
 
   <li><strong>Purger les flux de notification jamais utilisés</strong></li>
   

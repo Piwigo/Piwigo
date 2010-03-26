@@ -1,28 +1,29 @@
 <h2>Thumbnails creation</h2>
 
-<p>This page let you create missing thumbnails.</p>
+<p>This page let you create missing thumbnails. It is advised not to use this functionality if your gallery is hosted on a shared server.</p>
 
 <dl>
 
   <dt>GD version</dt>
 
   <dd>GD is the picture manipulating library for PHP. Choose the version
-  installed on your server. If you choose the wrong, you'll just have errors
-  messages, come back with your browser and choose the other version. If no
-  version works, it means your server doesn't support GD.</dd>
+  installed on your server. You will be warned by an error message, should you choose the wrong one; just come back to the previous page with your browser and choose the other version. If no
+  version works, then  your server does not support GD.</dd>
 
   <dt>Width and height</dt>
 
-  <dd>Maximum dimensions that thumbnails can take. Aspect ratio is
-  maintained.</dd>
+  <dd>Maximum thumbnails dimensions. Original aspect ratio is
+  preserved. Default values can be modified using configuration settings <code>tn_width</code> et
+<code>tn_height</code> (see <span
+class="filename">include/config_default.inc.php</span> file).</dd>
 
   <dt>Number of thumbnails to create</dt>
 
-  <dd>Do not try to miniaturize too many pictures in the same time. Indeed, miniaturization uses a lot of CPU. If you installed Piwigo on a free provider, a too high CPU load can sometime lead to the deletion of your website.</dd>
+  <dd>Do not try to miniaturize too many pictures at once. The miniaturization process does use a lot of CPU. If your Piwigo gallery is hosted by a free provider, too high CPU a load might lead to the withdrawal of your website.</dd>
 
   <dt>File format</dt>
 
-  <dd>Only JPEG file format is supported for thumbnail creation. Thumbnails
-  can be created only from PNG and JPEG pictures.</dd>
+  <dd>Thumbnails are created in JPEG file format. They
+  can be created from PNG and JPEG pictures only.</dd>
 
 </dl>
