@@ -38,49 +38,26 @@ check_status(ACCESS_ADMINISTRATOR);
 // |                                actions                                |
 // +-----------------------------------------------------------------------+
 
-if (isset($_POST))
+if (!empty($_POST) and !is_adviser())
 {
-  $to_validate = array();
-  $to_reject = array();
-
-  if (isset($_POST['submit']) and !is_adviser())
+  if (empty($_POST['comments']))
   {
-    foreach (explode(',', $_POST['list']) as $comment_id)
+    array_push(
+      $page['errors'],
+      l10n('Select at least one comment')
+      );
+  }
+  else
+  {
+    check_input_parameter('comments', $_POST, true, PATTERN_ID);
+    
+    if (isset($_POST['validate']))
     {
-      if (isset($_POST['action-'.$comment_id]))
-      {
-        switch ($_POST['action-'.$comment_id])
-        {
-          case 'reject' :
-          {
-            array_push($to_reject, $comment_id);
-            break;
-          }
-          case 'validate' :
-          {
-            array_push($to_validate, $comment_id);
-            break;
-          }
-        }
-      }
-    }
-  }
-  else if (isset($_POST['validate-all']) and !empty($_POST['list']) and !is_adviser())
-  {
-    $to_validate = explode(',', $_POST['list']);
-  }
-  else if (isset($_POST['reject-all']) and !empty($_POST['list']) and !is_adviser())
-  {
-    $to_reject = explode(',', $_POST['list']);
-  }
-
-  if (count($to_validate) > 0)
-  {
-    $query = '
+      $query = '
 UPDATE '.COMMENTS_TABLE.'
   SET validated = \'true\'
     , validation_date = NOW()
-  WHERE id IN ('.implode(',', $to_validate).')
+  WHERE id IN ('.implode(',', $_POST['comments']).')
 ;';
     pwg_query($query);
 
@@ -88,27 +65,28 @@ UPDATE '.COMMENTS_TABLE.'
       $page['infos'],
       l10n_dec(
         '%d user comment validated', '%d user comments validated',
-        count($to_validate)
+        count($_POST['comments'])
         )
       );
-  }
+    }
 
-  if (count($to_reject) > 0)
-  {
-    $query = '
+    if (isset($_POST['reject']))
+    {
+      $query = '
 DELETE
   FROM '.COMMENTS_TABLE.'
-  WHERE id IN ('.implode(',', $to_reject).')
+  WHERE id IN ('.implode(',', $_POST['comments']).')
 ;';
-    pwg_query($query);
+      pwg_query($query);
 
-    array_push(
-      $page['infos'],
-      l10n_dec(
-        '%d user comment rejected', '%d user comments rejected',
-        count($to_reject)
-        )
-      );
+      array_push(
+        $page['infos'],
+        l10n_dec(
+          '%d user comment rejected', '%d user comments rejected',
+          count($_POST['comments'])
+          )
+        );
+    }
   }
 }
 

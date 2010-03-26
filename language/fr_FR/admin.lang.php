@@ -760,4 +760,7 @@ $lang['Installed Languages'] = 'Langues installées';
 $lang['Add New Language'] = 'Ajouter une langue';
 $lang['Language has been successfully installed'] = 'La langue a été installée avec succès';
 $lang['Allow user customization'] = "Permettre la personnalisation de l'affichage";
+$lang['Select:'] = 'Sélectionner:';
+$lang['None'] = 'Rien';
+$lang['Invert'] = 'Inverser';
 ?>

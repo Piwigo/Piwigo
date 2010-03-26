@@ -788,3 +788,6 @@ h2:lang(en) { text-transform:capitalize; }
 }
 
 .content .infos li, .content .errors li { list-style-type:square; }
+
+.checkActions {text-align:left;padding:0;margin:0;}
+.comment A:hover {border:none;}

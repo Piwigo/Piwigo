@@ -755,4 +755,7 @@ $lang['Languages'] = 'Languages';
 $lang['Installed Languages'] = 'Installed Languages';
 $lang['Add New Language'] = 'Add New Language';
 $lang['Language has been successfully installed'] = 'Language has been successfully installed';
+$lang['Select:'] = 'Select:';
+$lang['None'] = 'None';
+$lang['Invert'] = 'Invert';
 ?>
