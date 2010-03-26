@@ -372,8 +372,8 @@ $lang['Cookies are blocked or not supported by your browser. You must enable coo
 
 $lang['Some info about this picture'] = "Informations sur cette image";
 $lang['Some more (technical) info about this picture'] = "Informations (techniques) sur cette image";
-$lang['edit this comment'] = "editer ce commentaire";
-$lang['Edit a comment'] = "Editer un commentaire";
+$lang['edit this comment'] = "éditer ce commentaire";
+$lang['Edit a comment'] = "Éditer un commentaire";
 $lang['Are you sure?'] = "Etes-vous sûr ?";
 $lang['(!) This comment requires validation'] = '(!) Ce commentaire doit être validé';
 $lang['Welcome'] = 'Bienvenue';
