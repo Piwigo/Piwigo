@@ -10,18 +10,6 @@ INPUT[type="submit"], INPUT[type="reset"]  { color:#999; border: 1px solid #666;
 input.rateButton, legend, h3 { color: #666; }
 h2 { color: #ccc; }
 
-/* .content .infos { color: #f70; border:0; background-color: transparent; */
-/* padding:5px 60px 0pt 10pt; min-height: 48px; text-align:left; background-position:left top;} */
-
-.content .infos { color: #008200; border:0; background: transparent url(../clear/icon/infos.png) no-repeat 5px 5px;
-padding:5px 70px 0pt 30px; min-height: 54px; background-color:#c2f5c2;}
-
-
-.content .infos .submit {margin-left:30px;}
-
-.content .errors { color: #f33; border:0; background: #ffd5dc url(../clear/icon/errors.png) no-repeat 5px 5px;
-padding:5px 60px 0pt 30px; min-height: 54px; text-align:left; }
-
 .header_notes { background: transparent url(../../icon/note.png) no-repeat right top;
 border:0; font-weight:bold; min-height: 48px;
 padding:15px 60px 0 0; position:absolute; right:0;

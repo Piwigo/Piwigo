@@ -9,14 +9,6 @@ INPUT[type="submit"], INPUT[type="reset"]  { color:#666; border: 1px solid #777;
 input.rateButton, legend, h3 { color: #777; }
 h2 { color: #777; }
 
-.content .infos { color: #0a0; border:0; background: transparent url(icon/infos.png) no-repeat 5px 5px;
-padding:5px 70px 0pt 30px; min-height: 54px; background-color:#c2f5c2;}
-
-.content .infos .submit {margin-left:30px;}
-.content .infos li, .content .errors li { list-style-type:square; }
-
-.content .errors { color: #f22; border:0; background: transparent url(icon/errors.png) no-repeat left top;
-padding:5px 60px 0pt 30px; min-height: 54px; text-align:left; font-weight:bold; background-position:5px 5px; background-color: #ffd5dc;}
 
 #copyright { color:#777; margin:5px auto 0px 240px; text-align:center; 
 padding-bottom: 15px; }

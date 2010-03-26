@@ -774,20 +774,31 @@ h2:lang(en) { text-transform:capitalize; }
 /**
  * Informations box in administration
  */
-.infos {
+.infos, .errors {
   text-align: left;
   margin: 5px;
   padding: 10px 50px 10px 10px;
   font-weight:bold;
+  background-repeat: no-repeat;
+  background-position: 5px 5px;
+  padding:5px 70px 0pt 30px;
+  min-height: 54px;
 }
 
-.errors { /* Errors display */
-  text-align: left;
-  margin: 5px;
-  font-weight:bold;
+.infos {
+  color: #0a0;
+  background-color:#c2f5c2;
+  background-image: url(icon/infos.png);
 }
 
-.content .infos li, .content .errors li { list-style-type:square; }
+.errors {
+  color: #f22;
+  background-color: #ffd5dc;
+  background-image: url(icon/errors.png);
+}
+
+.infos li, .errors li { list-style-type:square; }
+.infos .submit {margin-left:30px;}
 
 .checkActions {text-align:left;padding:0;margin:0;}
 .comment A:hover {border:none;}
