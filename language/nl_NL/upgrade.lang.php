@@ -34,7 +34,8 @@ $lang['You do not have access rights to run upgrade'] = 'U bent niet gerechtigd 
 $lang['All sub-categories of private categories become private'] = 'Alle sub-categorieën van private categorieën worden private';
 $lang['User permissions and group permissions have been erased'] = 'Gebruikers- en groepsrechten zijn verwijderd';
 $lang['Only thumbnails prefix and webmaster mail address have been saved from previous configuration'] = 'Alleen de thumbnails prefix en het email-adres van de webmaster zijn bewaard gebleven van de voriger configuratie';
-$lang['This page proposes to upgrade your database corresponding to your old version of Piwigo to the current version. The upgrade assistant thinks you are currently running a <strong>release %s</strong> (or equivalent).'] = 'Deze pagina stelt voor om uw
+$lang['This page proposes to upgrade your database corresponding to your old version of Piwigo to the current version.
+The upgrade assistant thinks you are currently running a <strong>release %s</strong> (or equivalent).'] = 'Deze pagina stelt voor om uw
 huidige oude Piwigo-database te converteren naar de nieuwe versie. De upgrade-assistant denkt dat u momenteel gebruik maakt van <strong>release %s</strong> (of equivalent).';
 $lang['In <i>%s</i>, before <b>?></b>, insert:'] = 'In <i>%s</i>, voor <b>?></b>, voeg toe:';
 

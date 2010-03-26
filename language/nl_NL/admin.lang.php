@@ -645,11 +645,7 @@ $lang['No element in this category'] = 'Geen element in deze categorie';
 $lang['Images manual order was saved'] = 'De handmatige sortering van de afbeeldingen is bewaard';
 $lang['ranks'] = 'rangen';
 $lang['Piwigo Announcements Newsletter'] = 'Piwigo Aankondigings Nieuwsbrief';
-$lang['Keep in touch with Piwigo project, subscribe to Piwigo Announcement Newsletter. You will receive emails when a new release is
-available (sometimes including a security bug fix, it\'s important to know and upgrade) and when major events happen to the project. Only a
-few emails a year.'] = 'Hou contact met het Piwigo project, abonneer u op de Piwigo Aankondigings Nieuwsbrief. Dan ontvangt u een email
-wanneer een nieuwe Piwigo-release beschikbaar komt, wanneer een belangrijke beveiligings bugfix nodig is of wanneer belangrijke
-ontwikkelingen binnen het Piwigo-project plaatsvinden. Alles bij elkaar een paar emails per jaar.';
+$lang['Keep in touch with Piwigo project, subscribe to Piwigo Announcement Newsletter. You will receive emails when a new release is available (sometimes including a security bug fix, it\'s important to know and upgrade) and when major events happen to the project. Only a few emails a year.'] = 'Hou contact met het Piwigo project, abonneer u op de Piwigo Aankondigings Nieuwsbrief. Dan ontvangt u een email wanneer een nieuwe Piwigo-release beschikbaar komt, wanneer een belangrijke beveiligings bugfix nodig is of wanneer belangrijke ontwikkelingen binnen het Piwigo-project plaatsvinden. Alles bij elkaar een paar emails per jaar.';
 $lang['Subscribe %s'] = 'Abonneer %s';
 $lang['Subscribe %s to Piwigo Announcements Newsletter'] = 'Abonneer %s op de Piwigo Aankondigings Nieuwsbrief';
 $lang['Purge search history'] = 'Verwijder de Zoek-geschiedenis';
@@ -736,9 +732,7 @@ $lang['Theme has been successfully installed'] = 'Thema is succesvol geinstallee
 $lang['Upgrade from %s to %s'] = 'Upgrade van %s naar %s';
 $lang['Visit Gallery'] = 'Bezoek Galerie';
 $lang['Visit Piwigo project website'] = 'Bezoek de website van het Piwigo project';
-$lang['pLoader stands for <em>Piwigo Uploader</em>. From your computer, pLoader prepares your photos and transfer them to your Piwigo photo
-gallery.'] = 'pLoader is een afkorting van <em>Piwigo Uploader</em>. pLoader maakt uw foto\'s op uw computer klaar en zet ze dan over naar
-uw Piwigo fotogalerie.';
+$lang['pLoader stands for <em>Piwigo Uploader</em>. From your computer, pLoader prepares your photos and transfer them to your Piwigo photo gallery.'] = 'pLoader is een afkorting van <em>Piwigo Uploader</em>. pLoader maakt uw foto\'s op uw computer klaar en zet ze dan over naar uw Piwigo fotogalerie.';
 $lang['Guest Settings'] = 'Bezoeker-Instellingen';
 $lang['Main Page'] = 'Hoofd-pagina';
 $lang['Photo Page'] = 'Foto-pagina';
