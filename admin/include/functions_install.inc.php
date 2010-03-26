@@ -138,4 +138,21 @@ function activate_all_themes()
     $themes->perform_action('activate', $theme_id);
   }
 }
+
+function try_db_connection(&$infos, &$errors)
+{
+  try
+  {
+    $pwg_db_link = pwg_db_connect($_POST['dbhost'], $_POST['dbuser'], 
+                                  $_POST['dbpasswd'], $_POST['dbname']);
+ 
+    array_push( $infos, l10n('Parameters are correct') );
+    return true;
+  }
+  catch (Exception $e)
+  {
+    array_push( $errors, l10n($e->getMessage()));
+  }
+  return false;
+}
 ?>

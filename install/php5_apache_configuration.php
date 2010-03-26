@@ -79,12 +79,44 @@ function openPage()
 <link rel="stylesheet" type="text/css" href="admin/themes/roma/default-colors.css">
 <link rel="stylesheet" type="text/css" href="admin/themes/roma/theme.css">
 <style type="text/css">
+body {
+  background:url("admin/themes/roma/images/bottom-left-bg.jpg") no-repeat fixed left bottom #111111;
+}
+
 .content {
-  width: 800px;
-  min-height: 0px !important;
-  margin: auto;
-  padding: 25px;
-  text-align: left;
+ background:url("admin/themes/roma/images/fillet.png") repeat-x scroll left top #222222;
+ width: 800px;
+ min-height: 0px !important;
+ margin: auto;
+ text-align: left;
+ padding: 25px;
+}
+
+#headbranch  {
+  background:url("admin/themes/roma/images/top-left-bg.jpg") no-repeat scroll left top transparent;
+}
+
+#theHeader {
+  display: block;
+  background:url("admin/themes/roma/images/piwigo_logo_sombre_214x100.png") no-repeat scroll 245px top transparent;
+}
+
+.content h2 {
+  display:block;
+  font-size:28px;
+  height:104px;
+  width:54%;
+  color:#666666;
+  letter-spacing:-1px;
+  margin:0 30px 3px 20px;
+  overflow:hidden;
+  position:absolute;
+  right:0;
+  text-align:right;
+  top:0;
+  width:770px;
+  text-align:right;
+  text-transform:none; 
 }
 
 table { margin: 0 0 15px 0; }
@@ -142,7 +174,7 @@ else
     <td>'.l10n('Language').'</td>
     <td>
       <select name="language" onchange="document.location = \''.$script.'.php?language=\'+this.options[this.selectedIndex].value;">';
-  foreach (get_languages('utf-8') as $code => $name)
+  foreach ($languages->fs_languages as $code => $name)
   {
     echo '
       <option label="'.$name.'" value="'.$code.'" '.($code == $language ? 'selected="selected"' : '') .'>'.$name.'</option>';

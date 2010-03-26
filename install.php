@@ -24,8 +24,6 @@
 //----------------------------------------------------------- include
 define('PHPWG_ROOT_PATH','./');
 
-include(PHPWG_ROOT_PATH . 'admin/include/functions_install.inc.php');
-
 @set_magic_quotes_runtime(0); // Disable magic_quotes_runtime
 //
 // addslashes to vars if magic_quotes_gpc is off this is a security
@@ -182,7 +180,6 @@ elseif (@file_exists($config_file))
   }
 }
 
-include(PHPWG_ROOT_PATH .'include/dblayer/functions_'.$dblayer.'.inc.php');
 include(PHPWG_ROOT_PATH . 'include/constants.php');
 include(PHPWG_ROOT_PATH . 'include/functions.inc.php');
 include(PHPWG_ROOT_PATH . 'admin/include/functions.php');
@@ -260,15 +257,13 @@ if (!isset($step))
   $step = 1;
 }
 //---------------------------------------------------------------- form analyze
+include(PHPWG_ROOT_PATH .'include/dblayer/functions_'.$dblayer.'.inc.php');
+include(PHPWG_ROOT_PATH . 'admin/include/functions_install.inc.php');
+
 if ( isset( $_POST['install'] ))
 {
-  try
+  if (try_db_connection($infos, $errors))
   {
-    $pwg_db_link = pwg_db_connect($_POST['dbhost'], $_POST['dbuser'], 
-                                  $_POST['dbpasswd'], $_POST['dbname']);
- 
-    array_push( $infos, l10n('Parameters are correct') );
-    
     $required_version = constant('REQUIRED_'.strtoupper($dblayer).'_VERSION');
     if ( version_compare(pwg_get_db_version(), $required_version, '>=') )
     {
@@ -295,10 +290,7 @@ if ( isset( $_POST['install'] ))
       }
     }
   }
-  catch (Exception $e)
-  {
-    array_push( $errors, l10n($e->getMessage()));
-  }
+
   $webmaster = trim(preg_replace( '/\s{2,}/', ' ', $admin_name ));
   if ( empty($webmaster))
     array_push( $errors, l10n('enter a login for webmaster') );
