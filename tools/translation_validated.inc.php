@@ -73,6 +73,11 @@ $validated_keys = array(
 	'DEMO',
 	'BUGS',
 	'step1_host_info',
+	'',
+	'General',
+	'Local',
+	'Demo',
+	'Bugs',
     ),
   'ja_JP' => array(
  	'About',
