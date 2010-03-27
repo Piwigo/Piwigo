@@ -82,6 +82,12 @@ TD {
   height: 2.5em;
 }
 
+.infos {
+  background-color:transparent;
+  border:none;
+  color:#999;
+}
+
 .sql_content, .infos a {
   color: #ff3363;
 }
@@ -221,8 +227,7 @@ TD {
 </form>
 {else}
 <p>
-  <input type="button" name="Home" value="{'Home'|@translate}" onClick="window.open('index.php');">
-  <input type="button" name="Administration" value="{'Administration'|@translate}" onClick="window.open('admin.php');">
+  <input type="button" name="Home" value="{'Visit Gallery'|@translate}" onClick="window.open('index.php');">
 </p>
 
 {if !isset($migration)}
