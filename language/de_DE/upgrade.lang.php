@@ -29,7 +29,6 @@ $lang['total SQL time'] = 'gesamte SQL Zeit';
 $lang['SQL queries'] = 'SQL Anfragen';
 $lang['Upgrade informations'] = 'Upgrade Informationen';
 $lang['Perform a maintenance check in [Administration>Specials>Maintenance] if you encounter any problem.'] = 'Führen Sie eine Datenbanküberprüfung durch in [Verwaltung>Erweiterte Einstellungen>Wartung] falls ein Problem auftritt.';
-$lang['As a precaution, following plugins have been deactivated. You must check for plugins upgrade before reactiving them:'] = 'Als Vorsichtsmaßnahme wurden folgende Plugins deaktiviert. Prüfen Sie, ob ein Update verfügbar ist oder die Plugins kompatibel zur neuen Version sind, bevor Sie diese wieder aktivieren:';
 $lang['Only administrator can run upgrade: please sign in below.'] = 'Nur Administratoren dürfen ein Upgrade durchführen. Bitte loggen Sie sich ein';
 $lang['You do not have access rights to run upgrade'] = 'Sie haben nicht die erforderlichen Rechte ein Upgrade durchzuführen';
 $lang['All sub-categories of private categories become private'] = 'Alle Unterkategorien von privaten Kategorien bekommen den Status "private Kategorie"';
@@ -39,5 +38,6 @@ $lang['This page proposes to upgrade your database corresponding to your old ver
 The upgrade assistant thinks you are currently running a <strong>release %s</strong> (or equivalent).'] = 'Diese Seite hat vor, Ihre Datenbank entsprechend Ihrer alten Version von Piwigo zur gegenwärtigen Version zu aktualisieren.
 Der Upgradeassistent ist der Meinung sie haben folgende Version installiert <strong>release %s</strong> (oder identisch).';
 $lang['In <i>%s</i>, before <b>?></b>, insert:'] = 'In <i>%s</i>, vor <b>?></b>, einfügen:';
+$lang['As a precaution, following plugins have been deactivated. You must check for plugins upgrade before reactiving them:'] = 'Als Vorsichtsmaßnahme wurden folgende Plugins deaktiviert. Prüfen Sie, ob für diese Plugins ein Update verfügbar ist oder die Plugins kompatibel zur neuen Version sind, bevor Sie diese wieder aktivieren:';
 
 ?>

@@ -747,4 +747,13 @@ $lang['Activate icon "%s"'] = 'Aktiviere Icon "%s"';
 $lang['Activate field "%s"'] = 'Aktiviere  Bereich "%s"';
 $lang['Photo Properties'] = 'Fotoeigenschaften';
 $lang['Allow user customization'] = 'Erlaube Anpassungen durch Benutzer';
+$lang['Execution time is out, treatment must be continued [Estmated time: %d seconds].'] = 'Zeit für die Ausführung ist abgelaufen, der Prozess muss fortgesetzt werden [Noch benötigte Zeit: %d Sekunden].';
+$lang['Languages'] = 'Sprachen';
+$lang['Installed Languages'] = 'Installierte Sprachen';
+$lang['Add New Language'] = 'Füge eine neue Sprache hinzu';
+$lang['Language has been successfully installed'] = 'Sprachdateien wurden erfolgreich installiert';
+$lang['Select:'] = 'Auswahl:';
+$lang['None'] = 'Nichts';
+$lang['Invert'] = 'Umkehren';
+$lang['Impossible to deactivate this theme, you need at least one theme.'] = 'Es ist nicht möglich dieses Thema zu deaktivieren, du benötigst mindestens ein Thema.';
 ?>
