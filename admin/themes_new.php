@@ -53,15 +53,24 @@ if (!is_writable($themes_dir))
 // |                       perform installation                            |
 // +-----------------------------------------------------------------------+
 
-if (isset($_GET['revision']) and isset($_GET['extension']) and !is_adviser())
+if (isset($_GET['revision']) and isset($_GET['extension']))
 {
-  $install_status = $themes->extract_theme_files(
-    'install',
-    $_GET['revision'],
-    $_GET['extension']
-    );
-  
-  redirect($base_url.'&installstatus='.$install_status);
+  if (!is_webmaster())
+  {
+    array_push($page['errors'], l10n('Webmaster status is required.'));
+  }
+  else
+  {
+    check_pwg_token();
+
+    $install_status = $themes->extract_theme_files(
+      'install',
+      $_GET['revision'],
+      $_GET['extension']
+      );
+    
+    redirect($base_url.'&installstatus='.$install_status);
+  }
 }
 
 // +-----------------------------------------------------------------------+
@@ -112,6 +121,7 @@ if ($themes->get_server_themes(true)) // only new themes
     $url_auto_install = htmlentities($base_url)
       . '&amp;revision=' . $theme['revision_id']
       . '&amp;extension=' . $theme['extension_id']
+      . '&amp;pwg_token='.get_pwg_token()
       ;
 
     $template->append(

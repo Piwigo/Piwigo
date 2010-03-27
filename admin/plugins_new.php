@@ -36,13 +36,20 @@ $base_url = get_root_url().'admin.php?page='.$page['page'].'&order='.$order;
 $plugins = new plugins();
 
 //------------------------------------------------------automatic installation
-if (isset($_GET['revision']) and isset($_GET['extension']) and !is_adviser())
+if (isset($_GET['revision']) and isset($_GET['extension']))
 {
-  check_pwg_token();
-  
-  $install_status = $plugins->extract_plugin_files('install', $_GET['revision'], $_GET['extension']);
+  if (!is_webmaster())
+  {
+    array_push($page['errors'], l10n('Webmaster status is required.'));
+  }
+  else
+  {
+    check_pwg_token();
+    
+    $install_status = $plugins->extract_plugin_files('install', $_GET['revision'], $_GET['extension']);
 
-  redirect($base_url.'&installstatus='.$install_status);
+    redirect($base_url.'&installstatus='.$install_status);
+  }
 }
 
 //--------------------------------------------------------------install result

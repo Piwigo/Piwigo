@@ -37,30 +37,37 @@ $plugins = new plugins();
 //-----------------------------------------------------------automatic upgrade
 if (isset($_GET['plugin']) and isset($_GET['revision']) and !is_adviser())
 {
-  check_pwg_token();
-  
-  $plugin_id = $_GET['plugin'];
-  $revision = $_GET['revision'];
-
-  if (isset($plugins->db_plugins_by_id[$plugin_id])
-    and $plugins->db_plugins_by_id[$plugin_id]['state'] == 'active')
+  if (!is_webmaster())
   {
-    $plugins->perform_action('deactivate', $plugin_id);
-
-    redirect($base_url
-      . '&revision=' . $revision
-      . '&plugin=' . $plugin_id
-      . '&pwg_token='.get_pwg_token()
-      . '&reactivate=true');
+    array_push($page['errors'], l10n('Webmaster status is required.'));
   }
-
-  $upgrade_status = $plugins->extract_plugin_files('upgrade', $revision, $plugin_id);
-
-  if (isset($_GET['reactivate']))
+  else
   {
-    $plugins->perform_action('activate', $plugin_id);
+    check_pwg_token();
+    
+    $plugin_id = $_GET['plugin'];
+    $revision = $_GET['revision'];
+
+    if (isset($plugins->db_plugins_by_id[$plugin_id])
+      and $plugins->db_plugins_by_id[$plugin_id]['state'] == 'active')
+    {
+      $plugins->perform_action('deactivate', $plugin_id);
+
+      redirect($base_url
+        . '&revision=' . $revision
+        . '&plugin=' . $plugin_id
+        . '&pwg_token='.get_pwg_token()
+        . '&reactivate=true');
+    }
+
+    $upgrade_status = $plugins->extract_plugin_files('upgrade', $revision, $plugin_id);
+
+    if (isset($_GET['reactivate']))
+    {
+      $plugins->perform_action('activate', $plugin_id);
+    }
+    redirect($base_url.'&plugin='.$plugin_id.'&upgradestatus='.$upgrade_status);
   }
-  redirect($base_url.'&plugin='.$plugin_id.'&upgradestatus='.$upgrade_status);
 }
 
 //--------------------------------------------------------------upgrade result

@@ -58,11 +58,18 @@ if (!is_writable($languages_dir))
 
 if (isset($_GET['revision']) and !is_adviser())
 {
-  check_pwg_token();
+  if (!is_webmaster())
+  {
+    array_push($page['errors'], l10n('Webmaster status is required.'));
+  }
+  else
+  {
+    check_pwg_token();
 
-  $install_status = $languages->extract_language_files('install', $_GET['revision']);
-  
-  redirect($base_url.'&installstatus='.$install_status);
+    $install_status = $languages->extract_language_files('install', $_GET['revision']);
+
+    redirect($base_url.'&installstatus='.$install_status);
+  }
 }
 
 // +-----------------------------------------------------------------------+
