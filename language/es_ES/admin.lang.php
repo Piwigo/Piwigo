@@ -751,5 +751,5 @@ $lang['Select:'] = 'Seleccionar:';
 $lang['None'] = 'Nada';
 $lang['Invert'] = 'Invertir';
 $lang['Impossible to deactivate this theme, you need at least one theme.'] = 'Imposible desactivar este tema, debe quedar por lo menos un tema acelerado.';
-
+$lang['Webmaster status is required.'] = 'Usted debe tener el status de "webmaster".';
 ?>

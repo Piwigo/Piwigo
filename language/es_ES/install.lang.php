@@ -74,11 +74,6 @@ $lang['next step'] = 'Etapa siguiente';
 
 $lang['Database type'] = 'Tipo de base de datos';
 $lang['The type of database your piwigo data will be store in'] = 'La base de datos en la cual será almacenado su dato Piwigo';
-$lang['The configuration of Piwigo is finished, here is the next step<br><br>
-* go to the identification page and use the login/password given for webmaster<br>
-* this login will enable you to access to the administration panel and to the instructions in order to place pictures in your directories'] = 'La configuración de Piwigo, plaza a la siguiente etapa :<br><br>
-* Vaya sobre la página de identificación y conéctese con pseudo y la palabra de paso cogidos para el webmaster<br>
-* Esto le permite acceder a la parte administración y a las instrucciones para cargar imágenes en los repertorios.';
-
+$lang['Congratulations, Piwigo installation is completed'] = 'Félicitation, Piwigo está completamente instalado';
 
 ?>
