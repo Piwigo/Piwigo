@@ -258,7 +258,6 @@ $lang['Manage'] = 'Verwalten';
 $lang['maximum height'] = 'maximale Höhe';
 $lang['maximum width'] = 'maximale Breite';
 $lang['Execution time is out, treatment must be continue [Estmated time: %d second].'] = 'Ausführungszeit ist beendet, Vorgang muss manuell fortgesetzt werden [Verstrichene Zeit: %d Sekunde].';
-$lang['Execution time is out, treatment must be continue [Estmated time: %d seconds].'] = 'Ausführungszeit ist beendet, Vorgang muss manuell fortgesetzt werden [Verstrichene Zeit: %d Sekunden].';
 $lang['Prepared time for list of users to send mail is limited. Others users are not listed.'] = 'Die vorgesehene Zeit zum versenden von E-Mail ist begrenzt. Andere Benutzer werden nicht aufgelistet.';
 $lang['Time to send mail is limited. Others mails are skipped.'] = 'Die Zeit zum E-Mail versenden ist begrenzt. Nicht abgearbeitete Mails werden übersprungen';
 $lang['To send ?'] = 'Info-Mail schicken?';

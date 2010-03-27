@@ -78,7 +78,9 @@ $validated_keys = array(
 	'Local',
 	'Demo',
 	'Bugs',
-    ),
+	'localhost, sql.multimania.com, toto.freesurf.fr',
+	'Piwigo Uploader',
+	),
   'ja_JP' => array(
  	'About',
 	'Since',
