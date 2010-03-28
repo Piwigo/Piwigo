@@ -59,11 +59,6 @@ $lang['Keep it confidential, it enables you to access administration panel'] = "
 $lang['Password [confirm]'] = "Mot de passe [Confirmer]";
 $lang['verification'] = "vérification";
 $lang['Need help ? Ask your question on <a href="%s">Piwigo message board</a>.'] = "Besoin d'aide ? Posez votre question sur le <a href=\"%s\">forum de Piwigo</a>.";
-$lang['The configuration of Piwigo is finished, here is the next step<br><br>
-* go to the identification page and use the login/password given for webmaster<br>
-* this login will enable you to access to the administration panel and to the instructions in order to place pictures in your directories'] = "La configuration de Piwigo, place à la prochaine étape<br><br>
-* allez sur la page d'identification et connectez-vous avec le pseudo et le mot de passe saisis pour le webmaster<br>
-* ceci vous permet d'accéder à la partie administration et aux instructions pour charger des images dans les répertoires.";
 $lang['Webmaster mail address'] = "Adresse e-mail de l'Administrateur";
 $lang['Visitors will be able to contact site administrator with this mail'] = "Les visiteurs pourront contacter l'administrateur du site par ce mail";
 $lang['PHP 5 is required'] = "PHP 5 est requis";
@@ -75,4 +70,5 @@ $lang['Sorry!'] = "Désolé!";
 $lang['Piwigo was not able to configure PHP 5.'] = "Piwigo n'a pas pu configurer PHP 5.";
 $lang['You may referer to your hosting provider\'s support and see how you could switch to PHP 5 by yourself.'] = "Il vous faut contacter le support de votre hébergeur pour savoir comment configurer vous-même PHP 5.";
 $lang['Hope to see you back soon.'] = "En espérant vous revoir très prochainement.";
+$lang['Congratulations, Piwigo installation is completed'] = 'Félicitations, l\'installation de Piwigo est terminée';
 ?>
