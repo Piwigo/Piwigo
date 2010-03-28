@@ -694,7 +694,7 @@ SELECT
   $result = pwg_query($query);
   while ($row = pwg_db_fetch_assoc($result))
   {
-    if (file_exists($conf['themes_dir'].'/'.$row['name'].'/'.'themeconf.inc.php'))
+    if (file_exists($conf['themes_dir'].'/'.$row['id'].'/'.'themeconf.inc.php'))
     {
       $themes[ $row['id'] ] = $row['name'];
     }
