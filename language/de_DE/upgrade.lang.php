@@ -38,6 +38,6 @@ $lang['This page proposes to upgrade your database corresponding to your old ver
 The upgrade assistant thinks you are currently running a <strong>release %s</strong> (or equivalent).'] = 'Diese Seite hat vor, Ihre Datenbank entsprechend Ihrer alten Version von Piwigo zur gegenwärtigen Version zu aktualisieren.
 Der Upgradeassistent ist der Meinung sie haben folgende Version installiert <strong>release %s</strong> (oder identisch).';
 $lang['In <i>%s</i>, before <b>?></b>, insert:'] = 'In <i>%s</i>, vor <b>?></b>, einfügen:';
-$lang['As a precaution, following plugins have been disabled. You must check for plugins upgrade before reactiving them:'] = 'Als Vorsichtsmaßnahme wurden folgende Plugins deaktiviert. Prüfen Sie, ob für diese Plugins ein Update verfügbar ist oder die Plugins kompatibel zur neuen Version sind, bevor Sie diese wieder aktivieren:';
+$lang['As a precaution, following plugins have been disabled. You must check for plugins upgrade before reactiving them:'] = 'Als Vorsichtsmaßnahme wurden folgende Plugins abgeschaltet. Prüfen Sie, ob ein Pluginupdate verfügbar ist, bevor Sie diese wieder aktivieren:';
 
 ?>
