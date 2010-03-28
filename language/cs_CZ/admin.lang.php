@@ -637,7 +637,6 @@ $lang['Note: Only deletes photos added with pLoader'] = 'Poznámka: odstraní po
 $lang['Delete selected photos'] = 'Vymazat vybrané fotografie';
 $lang['%d photo was deleted'] = '%d fotografie vymazána';
 $lang['%d photos were deleted'] = '%d fotografií vymazáno';
-$lang['Bound template'] = 'Hraniční šablona';
 $lang['Downloads'] = 'Staženo';
 $lang['Released on'] = 'Vydáno';
 $lang['Number of downloads'] = 'Počet stažení';

@@ -638,7 +638,6 @@ $lang['Note: Only deletes photos added with pLoader'] = 'Obavjest: Briše samo s
 $lang['Delete selected photos'] = 'Briši odabrane slike';
 $lang['%d photo was deleted'] = '%d slika je izbrisana';
 $lang['%d photos were deleted'] = '%d slike su izbrisane';
-$lang['Bound template'] = 'Poveži predložak';
 $lang['Downloads'] = 'Preuzimanja';
 $lang['Released on'] = 'Objavljeno dana';
 $lang['Number of downloads'] = 'Broj preuzimanja';

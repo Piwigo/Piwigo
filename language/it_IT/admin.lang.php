@@ -640,7 +640,6 @@ $lang['Note: Only deletes photos added with pLoader'] = 'Nota: solo le foto agiu
 $lang['Delete selected photos'] = 'Sopprimere le foto';
 $lang['%d photo was deleted'] = '%d foto cancellata';
 $lang['%d photos were deleted'] = '%d foto cancellate';
-$lang['Bound template'] = 'Template legato';
 $lang['Downloads'] = 'Downloads';
 $lang['Released on'] = 'Aggiunto il';
 $lang['Number of downloads'] = 'Totale dei downloads';

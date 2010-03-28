@@ -638,7 +638,6 @@ $lang['Note: Only deletes photos added with pLoader'] = 'Figyelem: Csak pLoader 
 $lang['Delete selected photos'] = 'Kijelölt képek törlése';
 $lang['%d photo was deleted'] = '%d kép törölve';
 $lang['%d photos were deleted'] = '%d kép törölve';
-$lang['Bound template'] = 'Rögzített sablonok';
 $lang['Downloads'] = 'Letöltés';
 $lang['Released on'] = 'Released on';
 $lang['Number of downloads'] = 'Letöltések száma';

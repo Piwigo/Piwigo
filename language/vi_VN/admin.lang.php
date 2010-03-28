@@ -637,7 +637,6 @@ $lang['Note: Only deletes photos added with pLoader'] = 'Chú ý: Chỉ xóa nh�
 $lang['Delete selected photos'] = 'Xóa các hình được chọn';
 $lang['%d photo was deleted'] = '%d hình đã được xóa';
 $lang['%d photos were deleted'] = 'Có %d hình đã được xóa';
-$lang['Bound template'] = 'Template biên';
 $lang['Downloads'] = 'Downloads';
 $lang['Released on'] = 'Phát hành vào';
 $lang['Number of downloads'] = 'Số lần download';

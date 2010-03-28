@@ -637,7 +637,6 @@ $lang['Note: Only deletes photos added with pLoader'] = 'Bitte beachten: Nur üb
 $lang['Delete selected photos'] = 'Lösche ausgewählte Fotos';
 $lang['%d photo was deleted'] = '%d Foto wurde gelöscht';
 $lang['%d photos were deleted'] = '%d Fotos wurden gelöscht';
-$lang['Bound template'] = 'Verbundenes Template';
 $lang['Downloads'] = 'Downloads';
 $lang['Released on'] = 'Veröffentlicht am';
 $lang['Number of downloads'] = 'Anzahl der Downloads';

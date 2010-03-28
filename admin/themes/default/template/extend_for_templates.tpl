@@ -8,7 +8,7 @@
       <th>{'Replacers (customized templates)'|@translate}</th>
       <th>{'Original templates'|@translate}</th>
       <th>{'Optional URL keyword'|@translate}</th>
-      <th>{'Bound template'|@translate}</th>
+      <th>{'Bound Theme'|@translate}</th>
     </tr>
     {foreach from=$extents item=tpl name=extent_loop}
     <tr class="{if $smarty.foreach.extent_loop.index is odd}row1{else}row2{/if}">

@@ -223,7 +223,7 @@ class Template {
       }
 
       if ((stripos(implode('',array_keys($_GET)), '/'.$param) !== false or $param == 'N/A')
-        and ($thm == $theme)
+        and ($thm == $theme or $thm == 'N/A')
         and (!isset($this->extents[$handle]) or $overwrite)
         and file_exists($dir . $filename))
       {

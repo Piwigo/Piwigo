@@ -637,7 +637,6 @@ $lang['Note: Only deletes photos added with pLoader'] = '注意: 只有通过pLo
 $lang['Delete selected photos'] = '删除图片';
 $lang['%d photo was deleted'] = '%d 图片被删除';
 $lang['%d photos were deleted'] = '%d 图片被删除';
-$lang['Bound template'] = '模板绑定';
 $lang['Downloads'] = '下载';
 $lang['Released on'] = '发布于';
 $lang['Number of downloads'] = '下载次数';

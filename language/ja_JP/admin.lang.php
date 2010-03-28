@@ -643,7 +643,6 @@ $lang['Categories sorted in descending order &uArr;'] = 'カテゴリは英数�
 $lang['Unable to check for upgrade.'] = 'アップグレードを確認できません。';
 $lang['Processing treatment.'] = '処理中';
 $lang['Please wait...'] = 'しばらくお待ち下さい...';
-$lang['Bound template'] = 'バインドしたテンプレート';
 $lang['Downloads'] = 'ダウンロード';
 $lang['Released on'] = '発行';
 $lang['Number of downloads'] = 'ダウンロードの件数';

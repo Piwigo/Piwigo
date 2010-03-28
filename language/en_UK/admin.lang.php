@@ -640,7 +640,6 @@ $lang['Note: Only deletes photos added with pLoader'] = "Note: Only photos added
 $lang['Delete selected photos'] = "Delete selected photos";
 $lang['%d photo was deleted'] = "%d photo deleted";
 $lang['%d photos were deleted'] = "%d photos deleted";
-$lang['Bound template'] = "Template attached";
 $lang['Downloads'] = "Downloads";
 $lang['Released on'] = "Released on";
 $lang['Number of downloads'] = "Number of downloads";
@@ -760,4 +759,5 @@ $lang['None'] = 'None';
 $lang['Invert'] = 'Invert';
 $lang['Impossible to deactivate this theme, you need at least one theme.'] = 'Impossible to deactivate this theme, you need at least one theme.';
 $lang['Webmaster status is required.'] = 'Webmaster status is required.';
+$lang['Bound Theme'] = 'Bound Theme';
 ?>
