@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | Piwigo - a PHP based picture gallery                                  |
 // +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2009 Piwigo Team                  http://piwigo.org |
+// | Copyright(C) 2008-2010 Piwigo Team                  http://piwigo.org |
 // | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
 // | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
 // +-----------------------------------------------------------------------+
@@ -20,6 +20,8 @@
 // | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
+
+
 
 $lang['%d association'] = '%d associazione';
 $lang['%d associations'] = '%d associazioni';
@@ -301,6 +303,8 @@ $lang['New elements added'] = 'Nuovi elementi aggiunti';
 $lang['Subscribe to notification by mail'] = 'Sottoscrivere alla notifica via email';
 $lang['Unsubscribe from notification by mail'] = 'Cancella dalla notifica via email';
 $lang['Parameter'] = 'Parametri';
+$lang['Processing treatment.'] = 'Trattamento in corso.';
+$lang['Please wait...'] = 'Pazzientare prego ...';
 $lang['Continue processing treatment'] = 'Continuare il trattamento in corso...';
 $lang['Complementary mail content'] = 'Contenuto aggiuntivo dell\'email';
 $lang['Add detailed content'] = 'Invia contenuto dettagliato';
@@ -465,7 +469,6 @@ $lang['Advanced features'] = 'Funzioni avanzate';
 $lang['Not linked elements'] = 'Elementi sciolti';
 $lang['Specials'] = 'Speciale';
 $lang['Files with same name in more than one physical category'] = 'File con stesso nome in più di una categoria fisica';
-
 $lang['Overall'] = 'Vista globale';
 $lang['Year'] = 'Anno';
 $lang['Month'] = 'Mese';
@@ -505,7 +508,6 @@ $lang['Hour'] = 'Ora';
 $lang['guest'] = 'ospite';
 $lang['default values'] = 'valore di default';
 $lang['High filesize'] = 'Dimenzione del file Alta Risoluzione';
-// --------- Starting below: New or revised $lang ---- from version 1.7.1
 $lang['Guest cannot be deleted'] = 'L\'utente "ospite" non può essere cancellato';
 $lang['Default user cannot be deleted'] = 'L\'utente di default non può essere cancellato';
 $lang['Purge history detail'] = '"Ripulire" i dettagli dalla cronoligia';
@@ -536,7 +538,6 @@ $lang['Main "webmaster" user status is incorrect'] = 'Lo statuto del\'utente "we
 $lang['User "%s" created with "%s" like password'] = 'L\'utente "%s" creato con la password "%s"';
 $lang['Status of user "%s" updated'] = 'Statuto del\'utente "%s" aggiornato';
 $lang['add new elements to caddie'] = 'aggiungere i nuovi elementi al cestino';
-// --------- Starting below: New or revised $lang ---- from Butterfly
 $lang['No display'] = 'Nessuna visualizzazione';
 $lang['Classic display'] = 'Visualizzazione classica';
 $lang['Hoverbox display'] = 'Visualizzazione durante il passaggio del mouse';
@@ -587,12 +588,6 @@ $lang['Please check "plugins" folder and sub-folders permissions (CHMOD).'] = 'V
 $lang['Can\'t connect to server.'] = 'Non è possibile connettersi al server.';
 $lang['Purge compiled templates'] = '"Ripulire" i templates compilati';
 $lang['Caddie is currently empty'] = 'Il cestino è attualente vuoto.';
-$lang['Demo'] = 'Demo';
-$lang['Piwigo home'] = 'Home Piwigo';
-$lang['Support'] = 'Forum';
-$lang['Bugs'] = 'Bugs';
-$lang['Extensions'] = 'Estensioni';
-$lang['Documentation'] = 'Documentazione';
 $lang['Upload'] = 'Upload';
 $lang['Show upload link every time'] = 'Sempre visualizzare il link per aggiungere le immagini';
 $lang['User access level to upload'] = 'Livello d\'accesso utente per l\'upload';
@@ -602,14 +597,20 @@ $lang['ACCESS_2'] = 'Accesso agli iscritti';
 $lang['ACCESS_3'] = 'Accesso agli amministratori';
 $lang['ACCESS_4'] = 'Accesso agli webmaster';
 $lang['ACCESS_5'] = 'Nessun accesso';
+$lang['Demo'] = 'Demo';
+$lang['Piwigo home'] = 'Home Piwigo';
+$lang['Support'] = 'Forum';
+$lang['Bugs'] = 'Bugs';
+$lang['Extensions'] = 'Estensioni';
+$lang['Documentation'] = 'Documentazione';
 $lang['A new version of Piwigo is available.'] = 'Una nuova versione di Piwigo è disponibile.';
 $lang['Piwigo Administration'] = 'Amministrazione di Piwigo';
 $lang['Piwigo version'] = 'Versione di Piwigo';
 $lang['You are running the latest version of Piwigo.'] = 'State già usando l\'ultima versione di Piwigo.';
 $lang['The version of %s [%s] installed is not compatible with the version required [%s]'] = 'La versione di %s [%s] installata non è compatible con la versione richiesta [%s]';
 $lang['You need to upgrade your system to take full advantage of the application else the application will not work correctly, or not at all'] = 'Dovete aggiornare il vostro sistema per potere proffittare pienamente del\'applicazione se no l\'applicazione non funzionera correttamente, o non funzionera per niente';
-$lang['Deleted on'] = 'Cancellato il';
-$lang['Last hit'] = 'Ultimo accesso';
+$lang['Deleted on'] = 'Cancellati su';
+$lang['Last hit'] = 'Ultimo punteggio';
 $lang['Hits'] = 'Uso';
 $lang['GD library is missing'] = 'la biblioteca GD è manquante';
 $lang['Templates'] = 'Templates (modelli)';
@@ -643,17 +644,34 @@ $lang['Bound template'] = 'Template legato';
 $lang['Downloads'] = 'Downloads';
 $lang['Released on'] = 'Aggiunto il';
 $lang['Number of downloads'] = 'Totale dei downloads';
-// --------- Starting below: New or revised $lang ---- from Colibri
 $lang['Piwigo Announcements Newsletter'] = 'Newsletter Piwigo';
 $lang['Keep in touch with Piwigo project, subscribe to Piwigo Announcement Newsletter. You will receive emails when a new release is available (sometimes including a security bug fix, it\'s important to know and upgrade) and when major events happen to the project. Only a few emails a year.'] = 'Rimanete in contatto con il progetto abbonandovi alla newsletter. Riceverete un mail ogni volta che una nuova versione sarà disponibile (avvolte un bug di sicurezza è corretto, è importante esserne al corrente ed aggiornare il prodotto) o che soppravvenga un evento importante sul progetto. Solo qualche mail all\'anno';
 $lang['Subscribe %s'] = 'Abbonare %s';
 $lang['Subscribe %s to Piwigo Announcements Newsletter'] = 'Abbonare %s alla newsletter Piwigo';
 $lang['Purge search history'] = '"Ripulire" la cronologia delle ricerche';
 $lang['Hide'] = 'Nascondere';
+$lang['Password is missing. Please enter the password.'] = 'Campo password vuoto. Vogliate inserire la password prego ...';
+$lang['Password confirmation is missing. Please confirm the chosen password.'] = 'Campo conferma della password vuoto. Vogliate confermare la password prego ...';
+$lang['Password confirmation error.'] = 'Errore di conferma della password.';
+$lang['Allow users to edit theirs owns comments'] = 'Autorizzare gli utenti a modificare i propri commenti';
+$lang['Allow users to delete theirs owns comments'] = 'Autorizzare gli utenti a cancellare i propri commenti';
+$lang['Email administrators when a comment is modified'] = 'Notificare gli amministratori quando un commento viene modificato';
+$lang['Email administrators when a comment is deleted'] = 'Notificare gli amministratori quando un commento viene cancellato';
 $lang['Cannot delete the old permalink !'] = 'Non è possibile cancellare questo vecchio permalink !';
-$lang['Deleted on'] = 'Cancellati su';
-$lang['Last hit'] = 'ultimo punteggio';
 $lang['Hit'] = 'punteggio';
+
+$lang['Tools'] = 'Tools';
+$lang['Photos'] = 'Foto';
+$lang['Themes'] = 'Temi';
+$lang['Instructions to use Piwigo'] = 'Help per usare Piwigo';
+$lang['Order alphanumerically'] = 'Ordinamento alfanumerico';
+$lang['Order alphanumerically reverse'] = 'Ordinamento alfanumerico inverso';
+$lang['Installed Themes'] = 'Temi dettagliati';
+$lang['Add New Theme'] = 'Aggiungere un tema';
+$lang['Forbid this theme to users'] = 'Vietare questo tema agli utenti';
+$lang['Set as default theme for unregistered and new users'] = 'Tema di default per gli ospiti e i nuovi utenti';
+$lang['unknown'] = 'sconosciuto';
+
 $lang['Upload Form'] = 'Modulo di trasferimento';
 $lang['Upload Photos'] = 'Aggiungete le vostre foto';
 $lang['Drop into category'] = 'Scegliere una categoria';
@@ -665,12 +683,84 @@ $lang['existing category'] = 'categoria esistente';
 $lang['create a new category'] = 'creare una nuova categoria';
 $lang['Category name'] = 'Nome della categoria';
 $lang['Category "%s" has been added'] = 'La categoria "%s" è stata aggiunta';
-$lang['Uploaded Photos'] = 'foto aggiunte ';
+$lang['Uploaded Photos'] = 'Foto aggiunte ';
 $lang['%d photos uploaded'] = '%d foto aggiunte';
 $lang['Privacy level set to "%s"'] = 'Livello di confidenzialitàt "%s"';
 $lang['Category "%s" now contains %d photos'] = 'La categoria "%s" contiene oramai %d foto';
 $lang['Manage this set of %d photos'] = 'Gestire questo lotto di %d foto';
 $lang['Select files'] = 'Scegliere i file';
 $lang['JPEG files or ZIP archives with JPEG files inside please.'] = 'File JPEG o archivi ZIP con dentro dei file JPEG per cortesia.';
+$lang['Everybody'] = 'Tutti';
+$lang['Who can see these photos?'] = 'Chi può vedere queste foto?';
+$lang['... or switch to the old style form'] = '... o passare sul modulo "vecchia maniera"';
+$lang['... or switch to the multiple files form'] = '... o passare sul modulo multi-file';
 
+$lang['The websize maximum width must be a number between %d and %d'] = 'Larghezza massima per la foto taglia web deve essere un numero tra %d e %d';
+$lang['The websize maximum height must be a number between %d and %d'] = 'L\'altezza massima per la foto taglia web deve essere un numero tra %d e %d';
+$lang['The websize image quality must be a number between %d and %d'] = 'La qualità dell\'immagine per la foto taglia web deve essere un numero tra %d e %d';
+$lang['The thumbnail maximum width must be a number between %d and %d'] = 'La larghezza massima per la miniatura deve essere un numero tra %d e %d';
+$lang['The thumbnail maximum height must be a number between %d and %d'] = 'L\'altezza massima per la miniatura deve essere un numero tra %d e %d';
+$lang['The thumbnail image quality must be a number between %d and %d'] = 'La qualità d\'immagine per la miniatura deve essere un numero tra %d e %d';
+
+$lang['Settings'] = 'Configurazione';
+$lang['Web size photo'] = 'Foto taglia web';
+$lang['Resize'] = 'Ridimenzionare';
+$lang['Maximum Width'] = 'Larghezza massima';
+$lang['pixels'] = 'pixels';
+$lang['Maximum Height'] = 'Altezza massima';
+$lang['Image Quality'] = 'Qualità dell\'immagine';
+$lang['Thumbnail'] = 'Miniatura';
+$lang['Save Settings'] = 'Registrare i parametri';
+$lang['Your configuration settings are saved'] = 'La vostra configurazione è stata registrata';
+
+$lang['Active Themes'] = 'Temi attivati';
+$lang['Add write access to the "%s" directory'] = 'Aggiungere l\'accesso in scrittura per la directory "%s"';
+$lang['Administration Home'] = 'Home amministrazione';
+$lang['Categories ordered alphanumerically'] = 'Categorie ortinate in modo alfanumerico';
+$lang['Categories ordered alphanumerically reverse'] = 'Categorie ortinate in modo alfanumerico inverso';
+$lang['Change Admin Colors'] = 'Modificare i colori dell\'amministrzione';
+$lang['Delete this theme'] = 'Cancellare questo tema';
+$lang['Directory does not exist'] = 'La directory non esiste';
+$lang['Download,'] = 'Caricare,';
+$lang['FTP + Synchronization'] = 'FTP + Sincronizzazione';
+$lang['Get Support on Piwigo Forum'] = 'Ottenere del aiuto sul forum Piwigo';
+$lang['Help Me'] = 'Aiuto';
+$lang['Impossible to activate this theme, the parent theme is missing: %s'] = 'Non è stato possibile attivare questo tema, manca il tema principale (superiore): %s';
+$lang['Impossible to delete this theme. Other themes depends on it: %s'] = 'Questo tema non può essere cancellato, altri temi ne dipendono : %s';
+$lang['Inactive Themes'] = 'Temi disattivati';
+$lang['Install on your computer,'] = 'Installare sul vostro computer,';
+$lang['Make this theme available to users'] = 'Rendere questo tema disponibile agli utenti';
+$lang['Page end'] = 'Fine pagina';
+$lang['Piwigo Uploader'] = 'Piwigo Uploader';
+$lang['Processing treatment.'] = 'Trattamento in corso.';
+$lang['Please wait...'] = 'Attendere prego ...';
+$lang['Read Piwigo Documentation'] = 'Leggere la documentazione Piwigo';
+$lang['Start pLoader and add your photos.'] = 'Avviare pLoader e aggiungere le vostre foto.';
+$lang['Switch to clear or dark colors for administration'] = 'Scegliere il colore chiaro o scuro per l\'amministrazione';
+$lang['Theme has been successfully installed'] = 'Il tema è stato installato con successo';
+$lang['Upgrade from %s to %s'] = 'Aggiornamento da %s verso %s';
+$lang['Visit Gallery'] = 'Visitare la galleria';
+$lang['Visit Piwigo project website'] = 'Visitare il sito web del progetto Piwigo';
+
+$lang['Guest Settings'] = 'Parametri ospite';
+$lang['Main Page'] = 'Pagina principale';
+$lang['Photo Page'] = 'Pagina della foto';
+$lang['Activate Navigation Bar'] = 'Attivare barra di navigazione';
+$lang['Activate Navigation Thumbnails'] = 'Attivare le miniature di navigazione';
+$lang['Activate icon "%s"'] = 'Attivare l\'icona "%s"';
+$lang['Activate field "%s"'] = 'Attivare il champo "%s"';
+$lang['Photo Properties'] = 'Propriétés de la photo';
+
+
+$lang['pLoader stands for <em>Piwigo Uploader</em>. From your computer, pLoader prepares your photos and transfer them to your Piwigo photo gallery.'] = 'pLoader signifie <em>Piwigo Uploader</em>. Dal vostro computer, pLoader prepara le vostre foto e le trasferisce verso la vostra galleria foto Piwigo.';
+$lang['Languages'] = 'Lingue';
+$lang['Installed Languages'] = 'Lingue installate';
+$lang['Add New Language'] = 'Aggiungere una lingua';
+$lang['Language has been successfully installed'] = 'La lingua è stata installata con successo';
+$lang['Allow user customization'] = 'Permettere la personalizzazione della visualizzazione';
+$lang['Select:'] = 'Selezzionare :';
+$lang['None'] = 'Niente';
+$lang['Invert'] = 'Invertire';
+$lang['Impossible to deactivate this theme, you need at least one theme.'] = 'Non è possibile disattivare questo tema, deve rimanere almeno un tema attivo.';
+$lang['Webmaster status is required.'] = 'Dovete avere lo stato di "webmaster".';
 ?>
