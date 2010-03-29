@@ -740,7 +740,6 @@ $template->assign(
 
     'LEVEL_SEPARATOR' => $conf['level_separator'],
 
-    'U_HOME' => make_index_url(),
     'U_UP' => $url_up,
     'DISPLAY_NAV_BUTTONS' => $conf['picture_navigation_icons'],
     'DISPLAY_NAV_THUMB' => $conf['picture_navigation_thumb']

@@ -40,7 +40,7 @@ function get_cat_display_name($cat_informations,
 {
   global $conf;
 
-  $output = '<a href="'.PHPWG_ROOT_PATH.$conf['home_page'].'">'.l10n('Home').'</a>';
+  $output = '<a href="'.get_absolute_root_url().$conf['home_page'].'">'.l10n('Home').'</a>';
 
   foreach ($cat_informations as $cat)
   {
