@@ -21,24 +21,24 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
+
+
 $lang['Upgrade'] = 'Aggiornamento';
-$lang['introduction message'] = 'Questa pagina vi propone di aggiornare la vostra base dati corrispondente alla vecchia versione verso la nuova versione.
-L\'assistente all\'aggiornamento ha identificato il vostro prodotto come essendo una <strong>versione %s</strong> (o equivalente).';
-$lang['Upgrade from version %s to %s'] = 'Aggiornamento dalla versione %s alla %s';
+$lang['This page proposes to upgrade your database corresponding to your old version of Piwigo to the current version.
+The upgrade assistant thinks you are currently running a <strong>release %s</strong> (or equivalent).'] = 'Questa pagina vi propone di aggiornare la vostra base dati corrispondente alla vecchia versione di Piwigo verso la nuova versione.
+L\'assistente all\'aggiornamento ha identificato il vostro prodotto attuale come essendo una <strong>versione %s</strong> (o equivalente).';
+$lang['Upgrade from version %s to %s'] = 'Aggiornamento dalla versione %s alla versione %s';
 $lang['Statistics'] = 'Statistiche';
-$lang['total upgrade time'] = 'tempo totale per aggiornamento';
+$lang['total upgrade time'] = 'tempo totale per l\'aggiornamento';
 $lang['total SQL time'] = 'tempo totale delle esecuzioni SQL';
 $lang['SQL queries'] = 'numero delle esecuzioni SQL';
-$lang['Upgrade informations'] = 'Informazioni sul\'aggiornamento';
+$lang['Upgrade informations'] = 'Informazioni sull\'aggiornamento';
 $lang['Perform a maintenance check in [Administration>Specials>Maintenance] if you encounter any problem.'] = 'Se riscontrate dei problemi, effettuare una manutezione in [Amministrazione>Speciale>Manutenzione].';
 $lang['As a precaution, following plugins have been deactivated. You must check for plugins upgrade before reactiving them:'] = 'Per precauzione, i plugins sono stati disattivati. Verificate se non esistono degli aggiornamenti prima di riattivarli:';
 $lang['Only administrator can run upgrade: please sign in below.'] = 'Solo un\'amministratore può eseguire l\'aggiornamento: identificatevi.';
 $lang['You do not have access rights to run upgrade'] = 'Non avete le autorizzazioni necessarie per effettuare l\'aggiornamento';
-$lang['in include/mysql.inc.php, before ?>, insert:'] = 'Nel file <i>include/mysql.inc.php</i>, prima di <b>?></b>, inserire:';
-
-// Upgrade informations from upgrade_1.3.1.php
+$lang['In <i>%s</i>, before <b>?></b>, insert:'] = 'Nel file <i>%s</i>, prima di <b>?></b>, inserire:';
 $lang['All sub-categories of private categories become private'] = 'Tutte le sottocategorie delle categorie private diventono private';
 $lang['User permissions and group permissions have been erased'] = 'I permessi degli utenti e dei gruppi sono stati cancellati';
-$lang['Only thumbnails prefix and webmaster mail address have been saved from previous configuration'] = 'Solo il prefisso delle miniature e l\'email del webmaster sono stati recuperati dalla precedente configurazione';
-
+$lang['Only thumbnails prefix and webmaster mail address have been saved from previous configuration'] = 'Solo il prefisso delle miniature e l\'indirizzo Email del webmaster sono stati recuperati dalla precedente configurazione';
 ?>

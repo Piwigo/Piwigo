@@ -595,7 +595,7 @@ $lang['ACCESS_0'] = 'Accesso libero';
 $lang['ACCESS_1'] = 'Accesso a tutti';
 $lang['ACCESS_2'] = 'Accesso agli iscritti';
 $lang['ACCESS_3'] = 'Accesso agli amministratori';
-$lang['ACCESS_4'] = 'Accesso agli webmaster';
+$lang['ACCESS_4'] = 'Accesso ai webmaster';
 $lang['ACCESS_5'] = 'Nessun accesso';
 $lang['Demo'] = 'Demo';
 $lang['Piwigo home'] = 'Home Piwigo';
@@ -762,4 +762,6 @@ $lang['None'] = 'Niente';
 $lang['Invert'] = 'Invertire';
 $lang['Impossible to deactivate this theme, you need at least one theme.'] = 'Non è possibile disattivare questo tema, deve rimanere almeno un tema attivo.';
 $lang['Webmaster status is required.'] = 'Dovete avere lo stato di "webmaster".';
+$lang['Bound Theme'] = 'Tema legato';
+$lang['Allow rating'] = 'Autorizzare le votazioni';
 ?>
