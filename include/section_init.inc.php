@@ -237,7 +237,7 @@ if ('categories' == $page['section'])
   }
   else
   {
-    $page['title'] = l10n('Home');
+    $page['title'] = '<a href="'.PHPWG_ROOT_PATH.$conf['home_page'].'">'.l10n('Home').'</a>';
   }
 
   if

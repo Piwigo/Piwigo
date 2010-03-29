@@ -40,8 +40,8 @@ function get_cat_display_name($cat_informations,
 {
   global $conf;
 
-  $output = '';
-  $is_first = true;
+  $output = '<a href="'.PHPWG_ROOT_PATH.$conf['home_page'].'">'.l10n('Home').'</a>';
+
   foreach ($cat_informations as $cat)
   {
     is_array($cat) or trigger_error(
@@ -54,14 +54,7 @@ function get_cat_display_name($cat_informations,
       'get_cat_display_name'
       );
 
-    if ($is_first)
-    {
-      $is_first = false;
-    }
-    else
-    {
-      $output.= $conf['level_separator'];
-    }
+    $output.= $conf['level_separator'];
 
     if ( !isset($url) )
     {
