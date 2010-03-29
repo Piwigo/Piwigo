@@ -1,16 +1,29 @@
+/* generic colors - clear */
+.gcText { color: #777777; }                 /* used for text */
+.gcText2 { color: #777777; }                /* used for table header */
+.gcText3 { color: #555555; }                /* used for tabs text */
+.gcLink { color: #005E89; }                 /* used for link */
+.gcLinkHover { color: #D54E21; }            /* used for link */
+.gcBgPage { background-color: #F9F9F9; }               /* used for page background */
+.gcBgTabSheet { background-color: #F1F1F1; }           /* used inside tabsheet & menu */
+.gcBgTableRow1 { background-color: #DDDDDD; }            /* used in for tables rows background */
+.gcBgTableRow2 { background-color: #EEEEEE; }            /* used in tables rows & some widgets background */
+.gcBorder    { border-color: #AAAAAA; }            /* used for borders */
+.gcBorder2   { border-color: #666666; }            /* used for widgets borders */
+
 /* text color */
 .theme_title { left: 15px; color: #000; text-align: left;}
 body, h3, dt, h2, .throw, .content, label,
 input.rateButtonSelected /* <= why IE doesn't inherit this ? */ { color:#777; }
 th { color: #888; }
-INPUT, select, textarea { color:#666; background-color: #ccc; }  
-input[type="radio"], input[type="checkbox"] { background-color: transparent; }  
+INPUT, select, textarea { color:#666; background-color: #ccc; }
+input[type="radio"], input[type="checkbox"] { background-color: transparent; }
 INPUT[type="submit"], INPUT[type="reset"]  { color:#666; border: 1px solid #777; background-color: #bbb; padding: 1px 15px; }
 input.rateButton, legend, h3 { color: #777; }
 h2 { color: #777; }
 
 
-#copyright { color:#777; margin:5px auto 0px 240px; text-align:center; 
+#copyright { color:#777; margin:5px auto 0px 240px; text-align:center;
 padding-bottom: 15px; }
 .header_notes { background: transparent url(icon/note.png) no-repeat right top;
 border:0; font-weight:bold; min-height: 48px;
@@ -21,12 +34,12 @@ body { margin: 0; padding: 0; background:#f9f9f9 }
 /* #the_page { margin: 0; padding: 0; z-index: 1; top:0px; */
 /* padding-top: 0; min-height: 100%; width:100%; position:absolute; left:0px; } */
 #headbranch { width: 233px; height: 240px; margin: 0; padding: 0;
-position:absolute; left:0px; top:0px; z-index: 0; 
+position:absolute; left:0px; top:0px; z-index: 0;
 background:transparent }
 #theHeader { display:none; height:40px; margin: 0; padding: 0;
 background:transparent }
-h3, #imageToolBar a:hover, .row2, .content { background-color: #ddd; }
-.throw, .row1 { background-color:#eee; }
+h3, #imageToolBar a:hover, .content, .throw, .row1 { background-color: #ddd; }
+.row2 { background-color:#eeeeee; }
 .throw em { font-style: normal; color: #0cc9c; }
 #content { background: #f1f1f1; min-height: 467px;}
 .content { padding:0 5px 5px; margin: 0 10px 0 252px; z-index:99; border: 1px solid #aaa;}
@@ -44,7 +57,7 @@ h3, #imageToolBar a:hover, .row2, .content { background-color: #ddd; }
 .instructionBlockHeaderCollapsed, .instructionBlockHeaderExpanded {background-color:#eee; background-position:15px center;
 background-repeat:no-repeat; color:#999; cursor:pointer; font-size:110%; overflow:hidden; padding:8px 41px;}
 .instructionBlockHeaderCollapsed span, .instructionBlockHeaderExpanded span {border-bottom: none; }
- 
+
 .instructionBlockHeaderCollapsed { background-image: url(icon/expand.gif);}
 .instructionBlockHeaderExpanded { background-image: url(icon/collapse.gif);}
 .instructionBlockContent { padding:0 15px 15px;}
@@ -55,14 +68,14 @@ SPAN.pwgScreen { font-style:italic; border-bottom:1px dotted #666}
 .content ul.thumbnails span.wrap2 { -moz-border-radius-bottomleft:4px; -moz-border-radius-bottomright:4px; -moz-border-radius-topleft:4px; -moz-border-radius-topright:4px; }
 .content ul.thumbnails span.wrap1 { margin:0 12px 5px; }
 
-/* borders */ 
+/* borders */
 fieldset { border: 2px solid #ddd; }
 INPUT, SELECT, TEXTAREA { border: 1px solid #999; }
 input:focus, select:focus, textarea:focus, input.focus, form .focus { background-color:#bbb;color: #666; }
 TEXTAREA { cursor:text; font-size: 13px; }
 .content UL.thumbnails SPAN.wrap2 {
-  border: 1px solid #555555;	/* thumbnails border color and style */
-  border-radius: 4px 4px;	/* round corners with CSS3 compliant browsers */
+  border: 1px solid #555555;  /* thumbnails border color and style */
+  border-radius: 4px 4px; /* round corners with CSS3 compliant browsers */
 }
 .tagSelection label { padding-right:12px; }
 .tagSelection LI.tagSelected {background-color:#dbe8f3;}
@@ -80,10 +93,10 @@ a.Piwigo {
   font-family: verdana, arial, helvetica, sans-serif !important;
   font-size: 11px; font-weight: normal; letter-spacing: 0;
   color : #0cc; text-decoration: none; border: 0; }
-a.Piwigo:hover  span.Piwigo  { 
-  border-bottom: 1px solid #0cc9c; 
+a.Piwigo:hover  span.Piwigo  {
+  border-bottom: 1px solid #0cc9c;
 }
-TABLE.table2 { border: 2px solid #eee; }
+TABLE.table2 { border: 2px solid #dddddd; }
 
 *, *:focus, *:active, input:active, a:active, input:focus, a:focus { outline: none; -moz-outline-width: 0px; }
 a { color:#005E89; border-width: 0; }
@@ -94,7 +107,7 @@ ul.actions, .content form#waiting  {text-align:center;}
 border:0; color:#ccc; font-size:24px; height:30px; left:0; margin:0; padding:10px 0 0; position:absolute;
 text-align:center; top:0; width:100%; z-index:99; }
 .HelpActions a { border:0; margin:-14px 14px 0 0; position:absolute; right:0; }
-.HelpActions li {list-style-image:none; list-style-position:outside; 
+.HelpActions li {list-style-image:none; list-style-position:outside;
 list-style-type:none; text-align:center; text-indent:0pt; }
 #content.content div.comment a.illustration{ margin-right: 30px;}
 /* tabsheets are often used in admin  pages => No specific css files */
@@ -126,7 +139,7 @@ margin-top:4px; padding-bottom:3px; padding-top:3px; top:1px;
 #menubar {
 display:inline; float:left; left:0; margin: 10px 0 0 10px; min-height:475px; height:475px; /* should be 477 */
 padding:0; width:207px; z-index:99; text-align: left; }
-#menubar ul.scroll { height:163px; overflow-y:auto; 
+#menubar ul.scroll { height:163px; overflow-y:auto;
  /* Only IE family supports colored scrollbar */
  scrollbar-face-color: #ddd; scrollbar-shadow-color: #bbb; scrollbar-highlight-color: #fff;
  scrollbar-3dlight-color: #d6d6d6; scrollbar-darkshadow-color: #ccc; scrollbar-track-color: #eee;
@@ -188,7 +201,7 @@ color:#0cc9c; background-color:#ddd; border-color: #0cc9c; }
 input[type="button"]:hover, input[type="submit"]:hover, input[type="reset"]:hover {
 color:#666; border-color: #999; }
 .bigbutton { background:transparent url(images/quickLocalSync.png) no-repeat scroll left top; display: block;
-color:#eee; font-size:28px; height:161px; margin: 0 20px 0 auto; padding:0 18px 0; text-align:center; width:625px; 
+color:#eee; font-size:28px; height:161px; margin: 0 20px 0 auto; padding:0 18px 0; text-align:center; width:625px;
 position:relative;  z-index: 50;}
 .bigtext { display:block; font-weight:bold; left:225px; position:relative; top:35px; width:320px;  z-index: 55; cursor:pointer; }
 .bigbutton:hover { color: #fff; }

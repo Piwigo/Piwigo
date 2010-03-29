@@ -1,3 +1,16 @@
+/* generic colors - roma */
+.gcText { color: #666666; }                 /* used for text */
+.gcText2 { color: #FF3366; }                /* used for table header */
+.gcText3 { color: #FF3366; }                /* used for tabs text */
+.gcLink { color: #FF7700; }                 /* used for link */
+.gcLinkHover { color: #FF3333; }            /* used for link */
+.gcBgPage { background-color: #111111; }               /* used for page background */
+.gcBgTabSheet { background-color: #222222; }           /* used inside tabsheet & menu */
+.gcBgTableRow1 { background-color: #111111; }            /* used in for tables rows background */
+.gcBgTableRow2 { background-color: #222222; }            /* used in tables rows & some widgets background */
+.gcBorder    { border-color: #FF3363; }            /* used for borders */
+.gcBorder2   { border-color: #666666; }            /* used for widgets borders */
+
 /* text color */
 body, h3, dt, h2, .throw, .content, label,
 input.rateButtonSelected /* <= why IE doesn't inherit this ? */ { color:#666; }
