@@ -31,8 +31,8 @@
 {if isset($U_UP)          }<link rel="up" title="{'Thumbnails'|@translate}" href="{$U_UP}" >{/if}
 
 {foreach from=$themes item=theme}
-{if isset($theme.local_head)}{include file=$theme.local_head}{/if}
 <link rel="stylesheet" type="text/css" href="{$ROOT_URL}themes/{$theme.id}/theme.css">
+{if isset($theme.local_head)}{include file=$theme.local_head}{/if}
 {/foreach}
 
 {if isset($U_PREFETCH)          }<link rel="prefetch" href="{$U_PREFETCH}">{/if}
