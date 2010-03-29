@@ -223,7 +223,7 @@ $validated_keys = array(
 	'Piwigo Uploader',
 	'Download,',
 	),
-	'sr_SR' => array(
+	'sr_RS' => array(
  	'%d Kb',
 	'Filter',
 	'Webmaster',
