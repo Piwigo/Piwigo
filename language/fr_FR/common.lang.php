@@ -388,4 +388,4 @@ $lang['This author modified following comment:'] = 'Cet auteur a modifié le com
 $lang['This author removed the comment with id %d'] = 'Cet auteur a supprimé le commentaire portant l\'identifiant %d';
 $lang['delete this comment'] = "supprimer ce commentaire";
 $lang['validate this comment'] = 'valider ce commentaire';
- ?>
+?>
