@@ -1949,6 +1949,7 @@ function get_active_menu($menu_page)
     case 'menubar':
     case 'themes_new':
     case 'themes_installed':
+    case 'theme':
     case 'languages_installed':
       return 5;
   }

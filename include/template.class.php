@@ -576,7 +576,7 @@ class Template {
 
   function load_themeconf($dir)
   {
-    global $themeconfs, $conf, $page;
+    global $themeconfs, $conf;
 
     $dir = realpath($dir);
     if (!isset($themeconfs[$dir]))
