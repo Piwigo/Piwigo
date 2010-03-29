@@ -114,12 +114,13 @@ class themes
 
         if (empty($errors))
         {
-          $query = "
-INSERT INTO ".THEMES_TABLE."
-  SET id = '".$theme_id."'
-    , version = '".$this->fs_themes[$theme_id]['version']."'
-    , name = '".$this->fs_themes[$theme_id]['name']."'
-;";
+          $query = '
+INSERT INTO '.THEMES_TABLE.'
+  (id, version, name)
+  VALUES(\''.$theme_id.'\',
+         \''.$this->fs_themes[$theme_id]['version'].'\',
+         \''.$this->fs_themes[$theme_id]['name'].'\')
+;';
           pwg_query($query);
         }
         break;

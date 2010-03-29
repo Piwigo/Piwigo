@@ -78,11 +78,11 @@ class languages
           break;
         }
 
-        $query = "
-INSERT INTO ".LANGUAGES_TABLE."
-  SET id = '".$language_id."',
-      name = '".$this->fs_languages[$language_id]."'
-;";
+        $query = '
+INSERT INTO '.LANGUAGES_TABLE.'
+  (id, name)
+  VALUES(\''.$language_id.'\', \''.$this->fs_languages[$language_id].'\')
+;';
         pwg_query($query);
         break;
 

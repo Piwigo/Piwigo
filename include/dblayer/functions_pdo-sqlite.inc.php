@@ -174,7 +174,7 @@ function pwg_db_changes(PDOStatement $result=null)
 
 function pwg_db_num_rows(PDOStatement $result) 
 { 
-  return $result->columnCount();
+  return $result->rowCount();
 }
 
 function pwg_db_fetch_assoc($result)

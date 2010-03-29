@@ -380,7 +380,10 @@ INSERT INTO '.$prefixeTable.'config (param,value,comment)
 
     // PWG_CHARSET is required for building the fs_themes array in the
     // themes class
-    define('PWG_CHARSET', $pwg_charset);
+    if (!defined('PWG_CHARSET'))
+    {
+      define('PWG_CHARSET', $pwg_charset);
+    }
     activate_all_themes();
 
     $insert = array(

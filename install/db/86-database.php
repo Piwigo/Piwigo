@@ -56,7 +56,7 @@ foreach ($themes_to_activate as $theme)
 {
   $query = '
 INSERT INTO '.PREFIX_TABLE.'themes
-  SET id = "'.$theme.'"
+  (id) VALUES(\''.$theme.'\'
 ;';
   pwg_query($query);
 }

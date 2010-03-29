@@ -253,6 +253,20 @@ CREATE INDEX "images_i5" ON "piwigo_images" ("date_creation");
 CREATE INDEX "images_i1" ON "piwigo_images" ("storage_category_id");
 
 -----------------------------------------------------------------------------
+-- Table structure for table `piwigo_languages`
+-----------------------------------------------------------------------------
+
+DROP TABLE IF EXISTS "piwigo_languages";
+CREATE TABLE "piwigo_languages" (
+  "id" varchar(64) NOT NULL default '',
+  "version" varchar(64) NOT NULL default '0',
+  "name" varchar(64) default NULL,
+  PRIMARY KEY  ("id")
+);
+
+COMMENT ON TABLE "piwigo_languages" IS '';
+
+-----------------------------------------------------------------------------
 -- piwigo_old_permalinks
 -----------------------------------------------------------------------------
 
