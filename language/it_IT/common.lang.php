@@ -337,7 +337,7 @@ $lang['Waiting page: %s'] = 'Pagina in attesa: %s';
 $lang['Picture uploaded by %s'] = 'Immagine caricata da %s';
 // --------- Starting below: New or revised $lang ---- from version 1.7.1
 $lang['Bad status for user "guest", using default status. Please notify the webmaster.'] = 'Lo status del\'utente "guest" non è conforme, viene usato lo status di default. Vogliate avvertire il webmaster.';
-// --------- Starting below: New or revised $lang ---- from Butterfly (1.8)
+// --------- Starting below: New or revised $lang ---- from Butterfly (2.0)
 $lang['Administrator, webmaster and special user cannot use this method'] = 'Amministratore, webmaster et utente speciale non possono utilizzare questo metodo';
 $lang['a user use already this mail address'] = 'un utente usa già questo indirizzo mail';
 $lang['Category results for'] = 'Risultato delle categorie per';
@@ -369,7 +369,23 @@ $lang['Reset to default values'] = 'Ripristinare le impostazioni predefinite';
 $lang['delete all images from your favorites'] = 'cancellare tutte le immagini dai vostri favoriti';
 $lang['Sent by'] = 'Mandato da';
 $lang['Cookies are blocked or not supported by your browser. You must enable cookies to connect.'] = 'I cookies sono bloccati o non sopportati dal vostro browser. Dovete attivare i cookie per connettervi.';
+
+$lang['Some info about this picture'] = 'Informazioni su quest\'immagine';
+$lang['Some more (technical) info about this picture'] = 'Informazioni (tecniche) su quest\'immagine';
+$lang['edit this comment'] = 'modificare questo commento';
+$lang['Edit a comment'] = 'Modificare un commento';
 $lang['Are you sure?'] = 'Sei sicuro?';
-$lang['delete this comment'] = 'cancellare commenti';
+$lang['(!) This comment requires validation'] = '(!) Questo commento deve essere convalidato';
+$lang['Welcome'] = 'Benvenuto';
+$lang['Welcome to your Piwigo photo gallery!'] = 'Benvenuto sulla vostra galleria Piwigo !';
+$lang['... or browse your empty gallery'] = '... o navigate nella nostra galleria vuota';
+$lang['... or please deactivate this message, I will find my way by myself'] = '... o disattivare questo messaggio, cè la farò dasolo';
+$lang['Hello %s, your Piwigo photo gallery is empty!'] = 'Salve %s, la vostra galleria Piwigo è vuota!';
+$lang['I want to add photos'] = 'Voglio aggiungere delle immagini';
+$lang['Manage this user comment: %s'] = 'Gestire questo commento: %s';
+$lang['Email address is missing. Please specify an email address.'] = 'Manca l\'indirizzo Email. Vogliate specificarne uno.';
+$lang['This author modified following comment:'] = 'Questo autore a modificato il commento seguente:';
+$lang['This author removed the comment with id %d'] = 'Questo autore a cancellato il commento con  l\'ID %d';
+$lang['delete this comment'] = 'cancellare questo commento';
 $lang['validate this comment'] = 'convalidare questo commento';
 ?>
