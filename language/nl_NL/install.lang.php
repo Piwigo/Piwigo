@@ -74,5 +74,6 @@ $lang['Sorry!'] = 'Sorry!';
 $lang['Piwigo was not able to configure PHP 5.'] = 'Piwigo kon PHP 5 niet configureren.';
 $lang['You may referer to your hosting provider\'s support and see how you could switch to PHP 5 by yourself.'] = 'Neem contact op met de support van uw hosting provider en probeer met hen te bepalen hoe u kunt omschakelen naar PHP 5.';
 $lang['Hope to see you back soon.'] = 'Hope to see you back soon.';
+$lang['Congratulations, Piwigo installation is completed'] = 'Gefeliciteerd, de Piwigo installatie is afgerond';
 
 ?>
