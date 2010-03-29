@@ -760,4 +760,5 @@ $lang['Invert'] = 'Invert';
 $lang['Impossible to deactivate this theme, you need at least one theme.'] = 'Impossible to deactivate this theme, you need at least one theme.';
 $lang['Webmaster status is required.'] = 'Webmaster status is required.';
 $lang['Bound Theme'] = 'Bound Theme';
+$lang['Allow rating'] = "Allow rating";
 ?>

@@ -763,4 +763,5 @@ $lang['Invert'] = 'Inverser';
 $lang['Impossible to deactivate this theme, you need at least one theme.'] = 'Impossible de désactiver ce thème, il doit rester au moins un thème activé.';
 $lang['Webmaster status is required.'] = 'Vous devez avoir le status de "webmaster".';
 $lang['Bound Theme'] = 'Thème rattaché';
+$lang['Allow rating'] = "Permettre les notations";
 ?>

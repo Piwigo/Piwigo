@@ -48,7 +48,7 @@
 
     <li>
       <label>
-        <span class="property">{'Rating'|@translate}</span>
+        <span class="property">{'Allow rating'|@translate}</span>
         <input type="checkbox" name="rate" {if ($main.rate)}checked="checked"{/if}>
       </label>
     </li>
