@@ -13,7 +13,7 @@
     <div class="themeName">{$theme.name}{if $theme.is_default} <em>({'default'|@translate})</em>{/if}</div>
     <div class="themeShot"><img src="{$theme.screenshot}"></div>
     <div class="themeActions">
-
+      <div>
 {if $theme.deactivable}
       <a href="{$deactivate_baseurl}{$theme.id}" title="{'Forbid this theme to users'|@translate}">{'Deactivate'|@translate}</a>
 {else}
@@ -23,6 +23,10 @@
 {if not $theme.is_default}
       | <a href="{$set_default_baseurl}{$theme.id}" title="{'Set as default theme for unregistered and new users'|@translate}">{'Default'|@translate}</a>
 {/if}
+{if isset($theme.admin_uri)}
+      <br><a href="{$theme.admin_uri}" title="{'Configuration'|@translate}">{'Configuration'|@translate}</a>
+{/if}
+      </div>
     </div> <!-- themeActions -->
   </div>
 {/foreach}
@@ -39,7 +43,7 @@
     <div class="themeName">{$theme.name}</div>
     <div class="themeShot"><img src="{$theme.screenshot}"></div>
     <div class="themeActions">
-
+      <div>
   {if $theme.activable}
       <a href="{$activate_baseurl}{$theme.id}" title="{'Make this theme available to users'|@translate}">{'Activate'|@translate}</a>
   {else}
@@ -53,7 +57,7 @@
   {else}
       <span title="{$theme.delete_tooltip}">{'Delete'|@translate}</span>
   {/if}
-
+      </div>
     </div>
     
   </div>

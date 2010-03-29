@@ -70,6 +70,8 @@ class themes
       $crt_db_theme = $this->db_themes_by_id[$theme_id];
     }
 
+    $file_to_include = PHPWG_THEMES_PATH.'/'.$theme_id.'/admin/maintain.inc.php';
+
     $errors = array();
 
     switch ($action)
@@ -100,14 +102,26 @@ class themes
           
           break;
         }
-        
-        $query = "
+
+        if (file_exists($file_to_include))
+        {
+          include($file_to_include);
+          if (function_exists('theme_activate'))
+          {
+            theme_activate($theme_id, $this->fs_themes[$theme_id]['version'], $errors);
+          }
+        }
+
+        if (empty($errors))
+        {
+          $query = "
 INSERT INTO ".THEMES_TABLE."
   SET id = '".$theme_id."'
     , version = '".$this->fs_themes[$theme_id]['version']."'
     , name = '".$this->fs_themes[$theme_id]['name']."'
 ;";
-        pwg_query($query);
+          pwg_query($query);
+        }
         break;
 
       case 'deactivate':
@@ -150,7 +164,16 @@ SELECT
 
           $this->set_default_theme($new_theme);
         }
-        
+
+        if (file_exists($file_to_include))
+        {
+          include($file_to_include);
+          if (function_exists('theme_deactivate'))
+          {
+            theme_deactivate($theme_id);
+          }
+        }
+
         $query = "
 DELETE
   FROM ".THEMES_TABLE."
@@ -374,7 +397,13 @@ SELECT
               .'/images/missing_screenshot.png'
               ;
           }
-          
+
+          $admin_file = $path.'/admin/admin.inc.php';
+          if (file_exists($admin_file))
+          {
+            $theme['admin_uri'] = get_root_url().'admin.php?page=theme&theme='.$file;
+          }
+
           // IMPORTANT SECURITY !
           $theme = array_map('htmlspecialchars', $theme);
           $this->fs_themes[$file] = $theme;

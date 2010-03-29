@@ -749,11 +749,12 @@ BODY#thePopuphelpPage {
   height: 4em;    /* legend height (don't set auto to be Gecko friendly)*/
 }
 
-.themeBox {display:inline-block; text-align:center; height:180px; background-color:#eee; margin:5px; -moz-border-radius:5px;}
+.themeBox {display:inline-table; text-align:center; height:192px; background-color:#eee; margin:5px; -moz-border-radius:5px; overflow:hidden; }
 
 .themeBox IMG {border:1px solid white; margin:0 15px;}
 .themeName {font-size:1.1em; margin:5px 0;}
-.themeActions {margin:5px 0; font-size:12px;}
+.themeActions {display: table-row; font-size:12px; height: 43px; }
+.themeActions DIV {display: table-cell; vertical-align: middle; line-height:18px; }
 .themeActions A {}
 
 #themesContent .themeBox IMG {width:150px; height:120px;}

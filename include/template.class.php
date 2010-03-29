@@ -94,7 +94,7 @@ class Template {
   {
     $this->set_template_dir($root.'/'.$theme.'/'.$path);
 
-    include($root.'/'.$theme.'/themeconf.inc.php');
+    $themeconf = $this->load_themeconf($root.'/'.$theme);
 
     if (isset($themeconf['parent']) and $themeconf['parent'] != $theme)
     {
@@ -572,6 +572,21 @@ class Template {
     }
 
     return $source;
+  }
+
+  function load_themeconf($dir)
+  {
+    global $themeconfs, $conf, $page;
+
+    $dir = realpath($dir);
+    if (!isset($themeconfs[$dir]))
+    {
+      $themeconf = array();
+      include($dir.'/themeconf.inc.php');
+      // Put themeconf in cache
+      $themeconfs[$dir] = $themeconf;
+    }
+    return $themeconfs[$dir];
   }
 }
 

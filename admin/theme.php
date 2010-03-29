@@ -21,33 +21,26 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
-//----------------------------------------------------------- include
-define('PHPWG_ROOT_PATH','./');
-include_once( PHPWG_ROOT_PATH.'include/common.inc.php' );
-
-// +-----------------------------------------------------------------------+
-// | Check Access and exit when user status is not ok                      |
-// +-----------------------------------------------------------------------+
-check_status(ACCESS_GUEST);
-
-//----------------------------------------------------- template initialization
-//
-// Start output of page
-//
-$title= l10n('About Piwigo');
-$page['body_id'] = 'theAboutPage';
-include(PHPWG_ROOT_PATH.'include/page_header.php');
-
-$template->set_filename('about', 'about.tpl');
-
-$template->assign('ABOUT_MESSAGE', load_language('about.html','', array('return'=>true)) );
-
-$theme_about = load_language('about.html', PHPWG_THEMES_PATH.$user['theme'].'/', array('return' => true));
-if ( $theme_about !== false )
+if( !defined("PHPWG_ROOT_PATH") )
 {
-  $template->assign('THEME_ABOUT', $theme_about);
+  die ("Hacking attempt!");
 }
 
-$template->pparse('about');
-include(PHPWG_ROOT_PATH.'include/page_tail.php');
+include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
+check_status(ACCESS_ADMINISTRATOR);
+
+if (empty($_GET['theme']))
+{
+  die('Invalid theme URL');
+}
+
+$filename = PHPWG_THEMES_PATH.$_GET['theme'].'/admin/admin.inc.php';
+if (is_file($filename))
+{
+  include_once($filename);
+}
+else
+{
+  die('Missing file '.$filename);
+}
 ?>
