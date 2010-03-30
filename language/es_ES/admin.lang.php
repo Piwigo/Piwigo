@@ -751,4 +751,13 @@ $lang['None'] = 'Nada';
 $lang['Invert'] = 'Invertir';
 $lang['Impossible to deactivate this theme, you need at least one theme.'] = 'Imposible desactivar este tema, debe quedar por lo menos un tema acelerado.';
 $lang['Webmaster status is required.'] = 'Usted debe tener el status de "webmaster".';
+$lang['Bound Theme'] = 'Tema relacionado';
+$lang['Allow rating'] = "Permitir las notaciones";
+$lang['Select at least one comment'] = 'Seleccione por lo menos un comentario';
+$lang['Active Plugins'] = 'Plugins activar';
+$lang['Inactive Plugins'] = 'Plugins desactivar';
+$lang['Missing Plugins'] = 'Plugins ausentes';
+$lang['Uninstalled Plugins'] = 'Plugins no instalados';
+$lang['By %s'] = 'Para %s';
+$lang['Visit plugin site'] = 'Visite la sitio del plugin';
 ?>
