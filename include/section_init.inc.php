@@ -237,7 +237,7 @@ if ('categories' == $page['section'])
   }
   else
   {
-    $page['title'] = '<a href="'.PHPWG_ROOT_PATH.$conf['home_page'].'">'.l10n('Home').'</a>';
+    $page['title'] = '<a href="'.get_absolute_root_url().$conf['home_page'].'">'.l10n('Home').'</a>';
   }
 
   if
