@@ -761,4 +761,11 @@ $lang['Impossible to deactivate this theme, you need at least one theme.'] = 'Im
 $lang['Webmaster status is required.'] = 'Webmaster status is required.';
 $lang['Bound Theme'] = 'Bound Theme';
 $lang['Allow rating'] = "Allow rating";
+$lang['Select at least one comment'] = 'Select at least one comment';
+$lang['Active Plugins'] = 'Active Plugins';
+$lang['Inactive Plugins'] = 'Inactive Plugins';
+$lang['Missing Plugins'] = 'Missing Plugins';
+$lang['Uninstalled Plugins'] = 'Uninstalled Plugins';
+$lang['By %s'] = 'By %s';
+$lang['Visit plugin site'] = 'Visit plugin site';
 ?>

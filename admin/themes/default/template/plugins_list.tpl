@@ -8,16 +8,16 @@
 <fieldset>
   <legend>
   {if $plugin_state == 'active'}
-  Active Plugins
+  {'Active Plugins'|@translate}
 
   {elseif $plugin_state == 'inactive'}
-  Inactive Plugins
+  {'Inactive Plugins'|@translate}
 
   {elseif $plugin_state == 'uninstalled'}
-  Uninstalled Plugins
+  {'Uninstalled Plugins'|@translate}
 
   {elseif $plugin_state == 'missing'}
-  Missing Plugins
+  {'Missing Plugins'|@translate}
 
   {/if}
   </legend>
@@ -48,18 +48,18 @@
     {/if}
         </td>
         <td>
-          Version {$plugin.VERSION}
+          {'Version'|@translate} {$plugin.VERSION}
     {if not empty($plugin.AUTHOR)}
-          | By 
       {if not empty($plugin.AUTHOR_URL)}
-          <a href="{$plugin.AUTHOR_URL}">{$plugin.AUTHOR}</a>
+        {assign var='author' value='<a href="%s">%s</a>'|@sprintf:$plugin.AUTHOR_URL:$plugin.AUTHOR}
       {else}
-          {$plugin.AUTHOR}
+        {assign var='author' value=$plugin.AUTHOR}
       {/if}
+          | {'By %s'|@translate|@sprintf:$author}
     {/if}
 
     {if not empty($plugin.VISIT_URL)}
-          | <a class="externalLink" href="{$plugin.VISIT_URL}">Visit plugin site</a>
+          | <a class="externalLink" href="{$plugin.VISIT_URL}">{'Visit plugin site'|@translate}</a>
     {/if}
         </td>
       </tr>
