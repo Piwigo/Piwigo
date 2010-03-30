@@ -338,6 +338,7 @@ $conf['uniqueness_mode'] = 'md5sum';
 // home_page : relative url of the homepage. Empty by default.
 // It points to the index of the gallery.
 // This parameter is used if home page is not index.php of the gallery.
+// We suggest avoid the names "index.htm" or "index.html" if you set $conf['php_extension_in_urls'] to false.
 $conf['home_page'] = '';
 
 // +-----------------------------------------------------------------------+
