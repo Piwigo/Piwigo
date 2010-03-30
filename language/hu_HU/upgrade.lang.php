@@ -29,10 +29,10 @@ $lang['Statistics'] = 'Statisztikák';
 $lang['total upgrade time'] = 'teljes frissítési idő';
 $lang['total SQL time'] = 'teljes SQL idő';
 $lang['SQL queries'] = 'SQL lekérdezés';
-$lang['Upgrade informations'] = 'Információk frissítése';
+$lang['Upgrade informations'] = 'Frissítési információk';
 $lang['Perform a maintenance check in [Administration>Specials>Maintenance] if you encounter any problem.'] = 'Végezze el a karbantartás ellenőrzést [Adminisztráció>Speciális összetevők>Karbantartás] ha bármilyen problémával találkozna.';
 $lang['As a precaution, following plugins have been deactivated. You must check for plugins upgrade before reactiving them:'] = 'Elővigyázatosságból a bővítmények ki vannak kapcsolva. Újraaktiválás előtt ellenőrizze, hogy a bővítmények kompatibilisek az új verzióval, ill. ellenőrizze, hogy elérhetők-e frissítések:';
-$lang['Only administrator can run upgrade: please sign in below.'] = 'A frissítés csak rendszergazda jogosultsággal futtatható: kérjük jelentkezzen be.';
+$lang['Only administrator can run upgrade: please sign in below.'] = 'A frissítés csak rendszergazda jogosultsággal futtatható, kérjük jelentkezzen be.';
 $lang['You do not have access rights to run upgrade'] = 'Önnek nincs jogosultsága a frissítés elvégzéséhez';
 $lang['in include/mysql.inc.php, before ?>, insert:'] = 'In <i>include/mysql.inc.php</i>, before <b>?></b>, insert:';
 
@@ -40,5 +40,11 @@ $lang['in include/mysql.inc.php, before ?>, insert:'] = 'In <i>include/mysql.inc
 $lang['All sub-categories of private categories become private'] = 'A magán kategóriák valamennyi alkategóriája magánkategóriává válik.';
 $lang['User permissions and group permissions have been erased'] = 'A felhasználói és csoport jogosultságok törlésre kerültek';
 $lang['Only thumbnails prefix and webmaster mail address have been saved from previous configuration'] = 'Csak a bélyegképek prefixe és a webmester email címe került mentésre az előző konfigurációból.';
+// missing translations 2.1.0 RC1
+$lang['This page proposes to upgrade your database corresponding to your old version of Piwigo to the current version.
+The upgrade assistant thinks you are currently running a <strong>release %s</strong> (or equivalent).'] = 'Ez az oldal felajánlja az adatbázis frissítését, frissítse a Piwigot a régi verzióról az új verzióra.
+A frissítési asszisztens szerint jelenleg a <strong>%s verzió</strong> fut (vagy azzal egyenértékű).';
+$lang['As a precaution, following plugins have been disabled. You must check for plugins upgrade before reactiving them:'] = 'Elővigyázatosságból a bővítmények ki vannak kapcsolva. Újraaktiválás előtt a bővítmény frissítéseket ellenőrizni kell:';
+$lang['In <i>%s</i>, before <b>?></b>, insert:'] = 'In <i>%s</i>, before <b>?></b>, insert:';
 
 ?>
