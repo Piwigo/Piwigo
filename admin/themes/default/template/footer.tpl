@@ -51,6 +51,13 @@
         'fadeOut' : 200,
     });
   });
+
+  $(document).ready(function() {
+    $("a.externalLink").click(function() {
+      window.open($(this).attr("href"));
+      return false;
+    });
+  });
 </script>
 {/literal}
 

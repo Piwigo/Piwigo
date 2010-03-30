@@ -803,3 +803,8 @@ h2:lang(en) { text-transform:capitalize; }
 
 .checkActions {text-align:left;padding:0;margin:0;}
 .comment A:hover {border:none;}
+
+.pluginBox {margin-bottom:10px;-moz-border-radius:5px;}
+.pluginBox table {width:99%}
+.pluginBox td {text-align:left;}
+.pluginBoxNameCell {width:150px; vertical-align:top;}

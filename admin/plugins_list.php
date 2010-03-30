@@ -58,48 +58,35 @@ $plugins->set_tabsheet($page['page']);
 
 //---------------------------------------------------------------Order options
 $link = get_root_url().'admin.php?page='.$page['page'].'&amp;order=';
-$template->assign('order_options',
+
+$template->assign(
+  'order_options',
   array(
     $link.'name' => l10n('Name'),
     $link.'status' => l10n('Status'),
     $link.'author' => l10n('Author'),
-    $link.'id' => 'Id'));
+    $link.'id' => 'Id')
+  );
+
 $template->assign('order_selected', $link.$order);
 
 // +-----------------------------------------------------------------------+
 // |                     start template output                             |
 // +-----------------------------------------------------------------------+
+
 $plugins->sort_fs_plugins($order);
 
 foreach($plugins->fs_plugins as $plugin_id => $fs_plugin)
 {
-  $display_name = $fs_plugin['name'];
-  if (!empty($fs_plugin['uri']))
-  {
-    $display_name = '<a href="' . $fs_plugin['uri']
-                    . '" onclick="window.open(this.href); return false;">'
-                    . $display_name . '</a>';
-  }
-  $desc = $fs_plugin['description'];
-  if (!empty($fs_plugin['author']))
-  {
-    $desc .= ' (<em>';
-    if (!empty($fs_plugin['author uri']))
-    {
-      $desc .= '<a href="' . $fs_plugin['author uri'] . '">'
-               . $fs_plugin['author'] . '</a>';
-    }
-    else
-    {
-      $desc .= $fs_plugin['author'];
-    }
-    $desc .= '</em>)';
-  }
-  $tpl_plugin =
-    array('NAME' => $display_name,
-          'VERSION' => $fs_plugin['version'],
-          'DESCRIPTION' => $desc,
-          'U_ACTION' => sprintf($action_url, $plugin_id));
+  $tpl_plugin = array(
+    'NAME' => $fs_plugin['name'],
+    'VISIT_URL' => $fs_plugin['uri'],
+    'VERSION' => $fs_plugin['version'],
+    'DESC' => $fs_plugin['description'],
+    'AUTHOR' => $fs_plugin['author'],
+    'AUTHOR_URL' => $fs_plugin['author uri'],
+    'U_ACTION' => sprintf($action_url, $plugin_id)
+    );
 
   if (isset($plugins->db_plugins_by_id[$plugin_id]))
   {
@@ -109,25 +96,37 @@ foreach($plugins->fs_plugins as $plugin_id => $fs_plugin)
   {
     $tpl_plugin['STATE'] = 'uninstalled';
   }
+
   $template->append('plugins', $tpl_plugin);
 }
 
 $missing_plugin_ids = array_diff(
-    array_keys($plugins->db_plugins_by_id), array_keys($plugins->fs_plugins)
-    );
+  array_keys($plugins->db_plugins_by_id),
+  array_keys($plugins->fs_plugins)
+  );
 
 foreach($missing_plugin_ids as $plugin_id)
 {
-  $template->append( 'plugins',
-      array(
-        'NAME' => $plugin_id,
-        'VERSION' => $plugins->db_plugins_by_id[$plugin_id]['version'],
-        'DESCRIPTION' => "ERROR: THIS PLUGIN IS MISSING BUT IT IS INSTALLED! UNINSTALL IT NOW !",
-        'U_ACTION' => sprintf($action_url, $plugin_id),
-        'STATE' => 'missing'
+  $template->append(
+    'plugins',
+    array(
+      'NAME' => $plugin_id,
+      'VERSION' => $plugins->db_plugins_by_id[$plugin_id]['version'],
+      'DESC' => "ERROR: THIS PLUGIN IS MISSING BUT IT IS INSTALLED! UNINSTALL IT NOW !",
+      'U_ACTION' => sprintf($action_url, $plugin_id),
+      'STATE' => 'missing',
       )
     );
 }
 
+$template->append('plugin_states', 'active');
+$template->append('plugin_states', 'inactive');
+$template->append('plugin_states', 'uninstalled');
+
+if (count($missing_plugin_ids) > 0)
+{
+  $template->append('plugin_states', 'missing');
+}
+  
 $template->assign_var_from_handle('ADMIN_CONTENT', 'plugins');
 ?>

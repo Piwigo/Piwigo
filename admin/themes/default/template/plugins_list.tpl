@@ -8,81 +8,72 @@
   <h2>{'Plugins'|@translate}</h2>
 </div>
 
-
 {if isset($plugins)}
-<table class="table2 plugins">
-<thead>
-  <tr class="throw">
-    <td>{'Name'|@translate}</td>
-    <td>{'Actions'|@translate}</td>
-    <td>{'Version'|@translate}</td>
-    <td>{'Description'|@translate}</td>
-  </tr>
-</thead>
 
-{foreach from=$plugins item=plugin name=plugins_loop}
-  <tr class="{if $smarty.foreach.plugins_loop.index is odd}row1{else}row2{/if}">
-  <td class="pluginState{if $plugin.STATE != 'uninstalled'} {$plugin.STATE}{/if}">
-    {$plugin.NAME}
-  </td>
-  <td>
-    <ul class="pluginsActions">
+{foreach from=$plugin_states item=plugin_state}
+<fieldset>
+  <legend>
+  {if $plugin_state == 'active'}
+  Active Plugins
+
+  {elseif $plugin_state == 'inactive'}
+  Inactive Plugins
+
+  {elseif $plugin_state == 'uninstalled'}
+  Uninstalled Plugins
+
+  {elseif $plugin_state == 'missing'}
+  Missing Plugins
+
+  {/if}
+  </legend>
+  {foreach from=$plugins item=plugin name=plugins_loop}
+    {if $plugin.STATE == $plugin_state}
+  <div class="pluginBox">
+    <table>
+      <tr>
+        <td class="pluginBoxNameCell">{$plugin.NAME}</td>
+        <td>{$plugin.DESC}</td>
+      </tr>
+      <tr>
+        <td>
     {if $plugin.STATE == 'active'}
-      <li>
-        <a href="{$plugin.U_ACTION}&amp;action=deactivate">
-          <img src="{$themeconf.admin_icon_dir}/plug_deactivate.png" alt="{'Deactivate'|@translate}" title="{'Deactivate'|@translate}">
-        </a>
-      </li>
-      <li>
-          <img src="{$themeconf.admin_icon_dir}/plug_uninstall_grey.png" alt="{'Uninstall'|@translate}" title="{'Uninstall'|@translate}">
-      </li>
+          <a href="{$plugin.U_ACTION}&amp;action=deactivate">{'Deactivate'|@translate}</a>
+
+    {elseif $plugin_state == 'inactive'}
+          <a href="{$plugin.U_ACTION}&amp;action=activate">{'Activate'|@translate}</a>
+          | <a href="{$plugin.U_ACTION}&amp;action=uninstall" onclick="return confirm('{'Are you sure?'|@translate|@escape:'javascript'}');">{'Uninstall'|@translate}</a>
+
+    {elseif $plugin_state == 'uninstalled'}
+          <a href="{$plugin.U_ACTION}&amp;action=install">{'Install'|@translate}</a>
+          | <a href="{$plugin.U_ACTION}&amp;action=delete" onclick="return confirm('{'Are you sure you want to delete this plugin?'|@translate|@escape:'javascript'}');">{'Delete'|@translate}</a>
+
+    {elseif $plugin_state == 'missing'}
+          <a href="{$plugin.U_ACTION}&amp;action=uninstall" onclick="return confirm('{'Are you sure?'|@translate|@escape:'javascript'}');">{'Uninstall'|@translate}</a>
+
     {/if}
-    {if $plugin.STATE == 'inactive'}
-      <li>
-        <a href="{$plugin.U_ACTION}&amp;action=activate">
-          <img src="{$themeconf.admin_icon_dir}/plug_activate.png" alt="{'Activate'|@translate}" title="{'Activate'|@translate}">
-        </a>
-      </li>
-      <li>
-        <a href="{$plugin.U_ACTION}&amp;action=uninstall" onclick="return confirm('{'Are you sure?'|@translate|@escape:'javascript'}');">
-          <img src="{$themeconf.admin_icon_dir}/plug_uninstall.png" alt="{'Uninstall'|@translate}" title="{'Uninstall'|@translate}">
-        </a>
-      </li>
+        </td>
+        <td>
+          Version {$plugin.VERSION}
+    {if not empty($plugin.AUTHOR)}
+          | By 
+      {if not empty($plugin.AUTHOR_URL)}
+          <a href="{$plugin.AUTHOR_URL}">{$plugin.AUTHOR}</a>
+      {else}
+          {$plugin.AUTHOR}
+      {/if}
     {/if}
-    {if $plugin.STATE == 'missing'}
-      <li>
-          <img src="{$themeconf.admin_icon_dir}/plug_deactivate_grey.png" alt="{'Deactivate'|@translate}" title="{'Deactivate'|@translate}">
-      </li>
-      <li>
-        <a href="{$plugin.U_ACTION}&amp;action=uninstall" onclick="return confirm('{'Are you sure?'|@translate|@escape:'javascript'}');">
-          <img src="{$themeconf.admin_icon_dir}/plug_uninstall.png" alt="{'Uninstall'|@translate}" title="{'Uninstall'|@translate}">
-        </a>
-      </li>
+
+    {if not empty($plugin.VISIT_URL)}
+          | <a class="externalLink" href="{$plugin.VISIT_URL}">Visit plugin site</a>
     {/if}
-    {if $plugin.STATE == 'uninstalled'}
-      <li>
-          <img src="{$themeconf.admin_icon_dir}/plug_activate_grey.png" alt="{'Activate'|@translate}" title="{'Activate'|@translate}">
-      </li>
-      <li>
-        <a href="{$plugin.U_ACTION}&amp;action=install" onclick="return confirm('{'Are you sure?'|@translate|@escape:'javascript'}');">
-          <img src="{$themeconf.admin_icon_dir}/plug_install.png" alt="{'Install'|@translate}" title="{'Install'|@translate}">
-        </a>
-      </li>
-      <li>
-        <a href="{$plugin.U_ACTION}&amp;action=delete" onclick="return confirm('{'Are you sure you want to delete this plugin?'|@translate|@escape:'javascript'}');">
-          <img src="{$themeconf.admin_icon_dir}/plug_delete.png" alt="{'Delete'|@translate}" title="{'Delete'|@translate}">
-        </a>
-      </li>
-    {else}
-      <li>
-        <img src="{$themeconf.admin_icon_dir}/plug_delete_grey.png" alt="{'Delete'|@translate}" title="{'Delete'|@translate}">
-      </li>
+        </td>
+      </tr>
+    </table>
+  </div>
     {/if}
-    </ul>
-  </td>
-  <td style="text-align:center;">{$plugin.VERSION}</td>
-  <td>{$plugin.DESCRIPTION}</td>
-  </tr>
+  {/foreach}
+</fieldset>
 {/foreach}
-</table>
+
 {/if}
