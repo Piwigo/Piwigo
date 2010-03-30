@@ -30,8 +30,7 @@ include_once(PHPWG_ROOT_PATH.'admin/include/plugins.class.php');
 
 $template->set_filenames(array('plugins' => 'plugins_list.tpl'));
 
-$order = isset($_GET['order']) ? $_GET['order'] : 'name';
-$base_url = get_root_url().'admin.php?page='.$page['page'].'&amp;order='.$order;
+$base_url = get_root_url().'admin.php?page='.$page['page'];
 $action_url = $base_url.'&amp;plugin='.'%s'.'&amp;pwg_token='.get_pwg_token();
 
 $plugins = new plugins();
@@ -56,25 +55,11 @@ if (isset($_GET['action']) and isset($_GET['plugin']) and !is_adviser())
 //--------------------------------------------------------------------Tabsheet
 $plugins->set_tabsheet($page['page']);
 
-//---------------------------------------------------------------Order options
-$link = get_root_url().'admin.php?page='.$page['page'].'&amp;order=';
-
-$template->assign(
-  'order_options',
-  array(
-    $link.'name' => l10n('Name'),
-    $link.'status' => l10n('Status'),
-    $link.'author' => l10n('Author'),
-    $link.'id' => 'Id')
-  );
-
-$template->assign('order_selected', $link.$order);
-
 // +-----------------------------------------------------------------------+
 // |                     start template output                             |
 // +-----------------------------------------------------------------------+
 
-$plugins->sort_fs_plugins($order);
+$plugins->sort_fs_plugins('name');
 
 foreach($plugins->fs_plugins as $plugin_id => $fs_plugin)
 {

@@ -1,10 +1,4 @@
 <div class="titrePage">
-<span class="sort">
-{'Sort order'|@translate} : 
-  <select onchange="document.location = this.options[this.selectedIndex].value;" style="width:200px">
-        {html_options options=$order_options selected=$order_selected}
-  </select>
-</span>
   <h2>{'Plugins'|@translate}</h2>
 </div>
 
