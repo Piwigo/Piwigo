@@ -105,17 +105,8 @@ if ($plugins->get_server_plugins(true))
 
   foreach($plugins->server_plugins as $plugin)
   {
-    list($date, ) = explode(' ', $plugin['revision_date']);
-
-    $ext_desc = '<i>'.l10n('Downloads').':</i> '.$plugin['extension_nb_downloads']."\r\n"
-      ."\r\n"
-      .$plugin['extension_description'];
-
-    $rev_desc = '<i>'.l10n('Version').':</i> '.$plugin['revision_name']."\r\n"
-      .'<i>'.l10n('Released on').':</i> '.$date."\r\n"
-      .'<i>'.l10n('Downloads').':</i> '.$plugin['revision_nb_downloads']."\r\n"
-      ."\r\n"
-      .$plugin['revision_description'];
+    $ext_desc = trim($plugin['extension_description'], " \n\r");
+    list($small_desc) = explode("\n", wordwrap($ext_desc, 200));
 
     $url_auto_install = htmlentities($base_url)
       . '&amp;revision=' . $plugin['revision_id']
@@ -124,13 +115,14 @@ if ($plugins->get_server_plugins(true))
     ;
 
     $template->append('plugins', array(
+      'ID' => $plugin['extension_id'],
       'EXT_NAME' => $plugin['extension_name'],
       'EXT_URL' => PEM_URL.'/extension_view.php?eid='.$plugin['extension_id'],
-      'EXT_DESC' => $ext_desc,
+      'SMALL_DESC' => trim($small_desc, " \r\n"),
+      'BIG_DESC' => $ext_desc,
       'VERSION' => $plugin['revision_name'],
-      'DATE' => $date,
-      'VER_DESC' => $rev_desc,
       'AUTHOR' => $plugin['author_name'],
+      'DOWNLOADS' => $plugin['revision_nb_downloads'],
       'URL_INSTALL' => $url_auto_install,
       'URL_DOWNLOAD' => $plugin['download_url'] . '&amp;origin=piwigo_download'));
   }

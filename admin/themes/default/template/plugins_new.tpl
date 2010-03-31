@@ -1,11 +1,20 @@
-{known_script id="jquery" src=$ROOT_URL|@cat:"themes/default/js/jquery.packed.js"}
-{known_script id="jquery.cluetip" src=$ROOT_URL|@cat:"themes/default/js/plugins/jquery.cluetip.packed.js"}
+{known_script id="jquery.ui" src=$ROOT_URL|@cat:"themes/default/js/ui/packed/ui.core.packed.js" }
+{known_script id="jquery.ui.effects" src=$ROOT_URL|@cat:"themes/default/js/ui/packed/effects.core.packed.js" }
+{known_script id="jquery.ui.blind" src=$ROOT_URL|@cat:"themes/default/js/ui/packed/effects.blind.packed.js" }
 
 <script type="text/javascript">
 jQuery().ready(function(){ldelim}
-  jQuery('.cluetip').cluetip({ldelim}
-    width: 300,
-    splitTitle: '|'
+  jQuery("td[id^='desc_']").click(function() {ldelim}
+    id = this.id.split('_');
+    if ($(this).hasClass('bigdesc')) {ldelim}
+      $("#bigdesc_"+id[1]).toggle('blind', 1);
+      $(this).removeClass('bigdesc');
+    } else {ldelim}
+      $("#bigdesc_"+id[1]).toggle('blind', 50);
+      $(this).addClass('bigdesc');
+    }
+    $("#smalldesc_"+id[1]).toggle('blind', 1);
+    return false;
   });
 });
 </script>
@@ -20,28 +29,36 @@ jQuery().ready(function(){ldelim}
   <h2>{'Plugins'|@translate}</h2>
 </div>
 
-{if isset($plugins)}
-<br>
-<table class="table2 plugins">
-<thead>
-  <tr class="throw">
-    <td>{'Name'|@translate}</td>
-    <td>{'Version'|@translate}</td>
-    <td>{'Date'|@translate}</td>
-    <td>{'Author'|@translate}</td>
-    <td>{'Actions'|@translate}</td>
-  </tr>
-</thead>
 {foreach from=$plugins item=plugin name=plugins_loop}
-  <tr class="{if $smarty.foreach.plugins_loop.index is odd}row1{else}row2{/if}">
-    <td><a href="{$plugin.EXT_URL}" class="externalLink cluetip" title="{$plugin.EXT_NAME}|{$plugin.EXT_DESC|htmlspecialchars|nl2br}">{$plugin.EXT_NAME}</a></td>
-    <td style="text-align:center;"><a href="{$plugin.EXT_URL}" class="externalLink cluetip" title="{$plugin.EXT_NAME}|{$plugin.VER_DESC|htmlspecialchars|nl2br}">{$plugin.VERSION}</a></td>
-    <td>{$plugin.DATE}</td>
-    <td>{$plugin.AUTHOR}</td>
-    <td style="text-align:center;"><a href="{$plugin.URL_INSTALL}" onclick="return confirm('{'Are you sure you want to install this plugin?'|@translate|@escape:javascript}');">{'Automatic installation'|@translate}</a>
-      / <a href="{$plugin.URL_DOWNLOAD}">{'Download file'|@translate}</a>
-    </td>
-  </tr>
-{/foreach}
-</table>
+<div class="pluginBox" id="plugin_{$plugin.ID}"}>
+  <table>
+    <tr>
+      <td class="pluginBoxNameCell">{$plugin.EXT_NAME}</td>
+{if $plugin.BIG_DESC != $plugin.SMALL_DESC}
+      <td id="desc_{$plugin.ID}" class="pluginDesc">
+        <span id="smalldesc_{$plugin.ID}">
+          <img src="{$ROOT_URL}{$themeconf.admin_icon_dir}/plus.gif">{$plugin.SMALL_DESC}...
+        </span>
+        <span id="bigdesc_{$plugin.ID}" style="display:none;">
+          <img src="{$ROOT_URL}{$themeconf.admin_icon_dir}/minus.gif">{$plugin.BIG_DESC|@nl2br}<br>&nbsp;
+        </span>
+      </td>
+{else}
+      <td>{$plugin.BIG_DESC|@nl2br}</td>
 {/if}
+    </tr>
+    <tr>
+      <td>
+        <a href="{$plugin.URL_INSTALL}" onclick="return confirm('{'Are you sure you want to install this plugin?'|@translate|@escape:javascript}');">{'Install'|@translate}</a>
+        |  <a href="{$plugin.URL_DOWNLOAD}">{'Download'|@translate}</a>
+      </td>
+      <td>
+        {'Version'|@translate} {$plugin.VERSION}
+        | {'By %s'|@translate|@sprintf:$plugin.AUTHOR}
+        | <a class="externalLink" href="{$plugin.EXT_URL}">{'Visit plugin site'|@translate}</a>
+        <em>{'Downloads'|@translate}: {$plugin.DOWNLOADS}</em>
+      </td>
+    </tr>
+  </table>
+</div>
+{/foreach}
