@@ -50,7 +50,6 @@ function pwg_db_connect($host, $user, $password, $database)
   $link->sqliteCreateFunction('md5', 'md5', 1);
   $link->sqliteCreateFunction('if', 'pwg_if', 3);
 
-  $link->sqliteCreateAggregate('std', 'pwg_std_step', 'pwg_std_finalize');
   $link->sqliteCreateFunction('regexp', 'pwg_regexp', 2);
 
   return $link;
@@ -565,33 +564,5 @@ function pwg_regexp($pattern, $string)
 {
   $pattern = sprintf('`%s`', $pattern);
   return preg_match($pattern, $string);
-}
-
-function pwg_std_step(&$values, $rownumber, $value) 
-{
-  $values[] = $value;
-
-  return $values;
-}
-
-function pwg_std_finalize(&$values, $rownumber) 
-{
-  if (count($values)<=1)
-  {
-    return 0;
-  }
-
-  $total = 0;
-  $total_square = 0;
-  foreach ($values as $value)
-  {
-    $total += $value;
-    $total_square += pow($value, 2);
-  }
-
-  $mean = $total/count($values);
-  $var = $total_square/count($values) - pow($mean, 2);
-  
-  return sqrt($var);
 }
 ?>
