@@ -21,27 +21,27 @@ su tutte le pagine.</li>
   <li><strong>URL della galleria</strong>: usato per i flussi RSS.</li>
 
   <li><strong>Blocco galleria</strong>: Bloccare la galleria per 
-la manutenzione. Solo gli amministratori avranno accesso alla galleria.</li>
+la manutenzione. Solo gli amministratori avranno accesso
+alla galleria.</li>
 
   <li><strong>Voto</strong>: Il voto delle immagini è possibile.</li>
 
-  <li><strong>Voto degli utenti</strong>: Anche gli ospiti (utenti non registrati)
-possono dare un voto alle immagini.</li>
-
-  <li><strong>Notificare gli amministratori quando un nuovo utente si iscrive</strong>: Gli amministratori vengono avvisati ad ogni nuovo iscritto.</li>
+  <li><strong>Voto degli ospiti</strong>: Anche gli ospiti (utenti non registrati) possono dare un voto alle immagini.</li>
 
   <li><strong>Autorizzare l'iscrizione di nuovi utenti</strong>: Iscrizione libera per tutti.</li>
 
-  <li><strong>Notificare agli amministratori quando un'immagine è caricata</strong>: Gli amministratori verranno avvisati della messa a disposizione di una nuova immagine.</li>
+  <li><strong>L'indirizzo Email è obbligatorio per tutti gli utenti</strong>: L'indirizzo Email sarà verificato durante l'iscrizzione o durante l'aggiornamento dei profili salvo se l'aggiornamente viene effettuato nella parte amministrazione.</li>
+
+  <li><strong>Notificare agli amministratori quando un'nuovo utente si registra</strong>: Gli amministratori riceveranno una Email ad ogni nuova iscrizzione.</li>
 
 </ul>
 
 <h3>Cronologia</h3>
 
   <p>le visite delle pagine <span
-class="pwgScreen">category.php</span> e <span
+class="pwgScreen">index.php</span> e <span
 class="pwgScreen">picture.php</span> sono
-registrate nella tabella <code>history</code> table.</p>
+registrate nella tabella <code>history</code>.</p>
   
   <p>Le visite sono visualizzate nello schermo <span class="pwgScreen">Amministrazione, Speciale, Cronologia</span>.</p>
 
@@ -63,9 +63,10 @@ possono registrare i commenti.</li>
   <li><strong>Numero di commenti utente per pagina</strong>.</li>
 
   <li><strong>Convalida</strong>: un amministratore deve autorizzare 
-i commenti utenti prima che questi possano essere visibili nella parte pubblica. 
-La convalida dei commenti utente avviene nello schermo <span 
-class="pwgScreen">Amministrazione, Immagini, Commenti</span>.</li>
+i commenti degli utenti prima che questi possano essere visibili nella
+parte pubblica. La convalida dei commenti utente avviene nello
+schermo <span class="pwgScreen">Amministrazione, Immagini,
+Commenti</span>.</li>
 
   <li><strong>Notificare agli amministratori quando un commento è registrato</strong>:
 Invio di un'email agli amministratori quando un utente registra un commento.</li>
@@ -85,8 +86,9 @@ La convalida dei commenti utente ha luogo nello schermo <span class="pwgScreen">
 
 <h3>Visualizzazione di default</h3>
 <p>Modificare le opzioni di visualizzazione di default per gli utenti non 
-collegati. Una volta effettuato il collegamento, queste opzioni sono personalizzabili 
-(modificabile su <span class="pwgScreen">profilo</span>).</p>
+connessi. Una volta effettuata la connessione, queste opzioni sono
+personalizzabili nella videata <span
+class="pwgScreen">profilo</span>).</p>
 
 <p>È possibile cambiare le impostazioni per gli utenti esistenti,
 in quest'altro schermo: <span class="pwgScreen">Amministrazion,
@@ -111,20 +113,23 @@ a 1 giorno.</li>
 
   <li><strong>Espandere le categorie</strong>: Espandere di default tutte
 le categorie nel menu? <em>Attenzion</em>: questa opzione è consumatrice
-di risorse se avete molte categorie e sottocategorie.</li>
+di risorse se avete molte categorie e
+sottocategorie.</li>
 
   <li><strong>Mostrare il numero di commenti</strong>: Mostrare il numero
-di commenti sotto ogni miniatura. Consuma delle risorse.</li>
+di commenti sotto ogni miniatura.
+Consuma delle risorse.</li>
 
   <li><strong>Mostrare il numero di visite</strong>: visualizza il numero 
-di visualizzazioni del immagine sotto la miniatura. 
-Valido solo se il parametro è : <br />
-$conf['show_nb_hits'] = true; <br />
-N.B.: Di default il parametro è a false.</li>
+  di visualizzazioni del immagine sotto la miniatura nella paggina delle miniature. 
+  Valido solo se il parametro di configurazzione avanzata è : <br>
+  $conf['show_nb_hits'] = true; <br>
+  N.B.: Di default il parametro è a false.</li>
 
   <li><strong>Larghezza massima delle immagini</strong>: di visualizzazione.
-Se l'immagine è più larga, allora quest'ultima verra ridimensionata.
-Se pensate che sia necessario cambiare questo parametro allora sarebbe meglio
+Se l'immagine è più larga che il parametro inserito, allora quest'ultima
+verra ridimensionata. Se pensate che sia necessario cambiare questo parametro
+(per una visualizzazione di default) allora sarebbe meglio
 ridimensionare le immagini.</li>
 
   <li><strong>Altezza massima delle immagini</strong>: stessi consigli che
