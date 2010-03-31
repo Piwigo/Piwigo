@@ -22,11 +22,11 @@
   *}
 
   {'Powered by'|@translate}
-  <a href="{$PHPWG_URL}" title="{'Visit Piwigo project website'|@translate}">
+  <a class="externalLink" href="{$PHPWG_URL}" title="{'Visit Piwigo project website'|@translate}">
   <span class="Piwigo">Piwigo</span></a>
   {$VERSION}
-  | <a class="external" href="{$pwgmenu.WIKI}" title="{'Read Piwigo Documentation'|@translate}" onclick="window.open(this.href, ''); return false;">{'Documentation'|@translate}</a>
-  | <a class="external" href="{$pwgmenu.FORUM}" title="{'Get Support on Piwigo Forum'|@translate}" onclick="window.open(this.href, ''); return false;">{'Support'|@translate}</a>
+  | <a class="externalLink" href="{$pwgmenu.WIKI}" title="{'Read Piwigo Documentation'|@translate}">{'Documentation'|@translate}</a>
+  | <a class="externalLink" href="{$pwgmenu.FORUM}" title="{'Get Support on Piwigo Forum'|@translate}">{'Support'|@translate}</a>
   </div> <!-- piwigoInfos -->
 
   <div id="pageInfos">

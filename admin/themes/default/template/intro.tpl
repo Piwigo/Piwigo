@@ -17,7 +17,7 @@ jQuery().ready(function(){ldelim}
     <ul>
       <li><a href="{$U_CHECK_UPGRADE}">{'Check for upgrade'|@translate}</a></li>
 {if isset($SUBSCRIBE_BASE_URL)}
-      <li><a href="{$SUBSCRIBE_BASE_URL}{$EMAIL}" onclick="window.open(this.href); return false;" class="cluetip" title="{'Piwigo Announcements Newsletter'|@translate}|{'Keep in touch with Piwigo project, subscribe to Piwigo Announcement Newsletter. You will receive emails when a new release is available (sometimes including a security bug fix, it\'s important to know and upgrade) and when major events happen to the project. Only a few emails a year.'|@translate|htmlspecialchars|nl2br}">{'Subscribe %s to Piwigo Announcements Newsletter'|@translate|@sprintf:$EMAIL}</a></li>
+      <li><a href="{$SUBSCRIBE_BASE_URL}{$EMAIL}" class="externalLink cluetip" title="{'Piwigo Announcements Newsletter'|@translate}|{'Keep in touch with Piwigo project, subscribe to Piwigo Announcement Newsletter. You will receive emails when a new release is available (sometimes including a security bug fix, it\'s important to know and upgrade) and when major events happen to the project. Only a few emails a year.'|@translate|htmlspecialchars|nl2br}">{'Subscribe %s to Piwigo Announcements Newsletter'|@translate|@sprintf:$EMAIL}</a></li>
 {/if}
     </ul>
   </dd>
@@ -26,8 +26,7 @@ jQuery().ready(function(){ldelim}
   <dd>
     <ul>
       <li>{'Operating system'|@translate}: {$OS}</li>
-      <li>PHP: {$PHP_VERSION} (<a href="{$U_PHPINFO}" onclick="window.open(this.href, ''); 
-          return false;">{'Show info'|@translate}</a>)  [{$PHP_DATATIME}]</li>
+      <li>PHP: {$PHP_VERSION} (<a href="{$U_PHPINFO}" class="externalLink">{'Show info'|@translate}</a>)  [{$PHP_DATATIME}]</li>
       <li>{$DB_ENGINE}: {$DB_VERSION} [{$DB_DATATIME}]</li>
     </ul>
   </dd>

@@ -27,8 +27,8 @@ jQuery().ready(function(){ldelim}
 </thead>
 {foreach from=$languages item=language name=languages_loop}
   <tr class="{if $smarty.foreach.languages_loop.index is odd}row1{else}row2{/if}">
-    <td><a href="{$language.EXT_URL}" onclick="window.open(this.href); return false;" class="cluetip" title="{$language.EXT_NAME}|{$language.EXT_DESC|htmlspecialchars|nl2br}">{$language.EXT_NAME}</a></td>
-    <td style="text-align:center;"><a href="{$language.EXT_URL}" onclick="window.open(this.href); return false;" class="cluetip" title="{$language.EXT_NAME}|{$language.VER_DESC|htmlspecialchars|nl2br}">{$language.VERSION}</a></td>
+    <td><a href="{$language.EXT_URL}" class="externalLink cluetip" title="{$language.EXT_NAME}|{$language.EXT_DESC|htmlspecialchars|nl2br}">{$language.EXT_NAME}</a></td>
+    <td style="text-align:center;"><a href="{$language.EXT_URL}" class="externalLink cluetip" title="{$language.EXT_NAME}|{$language.VER_DESC|htmlspecialchars|nl2br}">{$language.VERSION}</a></td>
     <td>{$language.DATE}</td>
     <td>{$language.AUTHOR}</td>
     <td style="text-align:center;"><a href="{$language.URL_INSTALL}">{'Install'|@translate}</a>

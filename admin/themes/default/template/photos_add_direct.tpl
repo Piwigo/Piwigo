@@ -92,7 +92,7 @@ jQuery(document).ready(function() {
   <legend>{'Uploaded Photos'|@translate}</legend>
   <div>
   {foreach from=$thumbnails item=thumbnail}
-    <a href="{$thumbnail.link}" onclick="window.open(this.href); return false;">
+    <a href="{$thumbnail.link}" class="externalLink">
       <img src="{$thumbnail.src}" alt="{$thumbnail.file}" title="{$thumbnail.title}" class="thumbnail">
     </a>
   {/foreach}
