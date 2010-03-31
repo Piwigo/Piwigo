@@ -1,1 +1,0 @@
-Dla deweloperów. Wyświetla wszystkie wywołania trigger_event
