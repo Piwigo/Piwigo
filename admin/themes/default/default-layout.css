@@ -808,3 +808,9 @@ h2:lang(en) { text-transform:capitalize; }
 .pluginBox table {width:99%}
 .pluginBox td {text-align:left;}
 .pluginBoxNameCell {width:150px; vertical-align:top;}
+
+.languageBoxes {min-height:0;text-align:left;}
+.languageBox {display:inline-table; text-align:center; width:200px; height:40px; margin:5px; -moz-border-radius:5px; overflow:hidden; }
+.languageName {font-size:1.1em; margin:5px 0;}
+.languageActions {display: table-row; font-size:12px; }
+.languageActions DIV {display: table-cell; vertical-align: middle; line-height:18px; }

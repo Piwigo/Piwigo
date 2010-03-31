@@ -230,7 +230,7 @@ html>body #menubar {min-height:522px; height:522px;} /* IE 7 and modern browsers
 
 .themeBox {background-color:#333;}
 .themeBox IMG {border:1px solid #666;}
-.themeName {color:white;}
+.themeName {color:#ccc;}
 .themeActions A {border-bottom:none;}
 .themeDefault {background-color:#555;}
 
@@ -242,3 +242,7 @@ html>body #menubar {min-height:522px; height:522px;} /* IE 7 and modern browsers
 
 .pluginBox {background-color:#333;color:#999}
 .pluginBoxNameCell {color:#ccc;}
+
+.languageBox {background-color:#333;}
+.languageName {color:#ccc;}
+.languageDefault {background-color:#555; color:#aaa;}

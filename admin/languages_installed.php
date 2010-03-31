@@ -52,17 +52,56 @@ if (isset($_GET['action']) and isset($_GET['language']) and !is_adviser())
 // +-----------------------------------------------------------------------+
 $default_language = get_default_language();
 
+$tpl_languages = array();
+
 foreach($languages->fs_languages as $language_id => $language_name)
 {
-  $template->append('languages', array(
-    'ID' => $language_id,
-    'NAME' => $language_name,
-    'U_ACTION' => $base_url.'&amp;language='.$language_id,
-    'STATE' => isset($languages->db_languages[$language_id]) ? 'active' : '',
-    'IS_DEFAULT' => $language_id == $default_language,
+  $language = array(
+    'id' => $language_id,
+    'name' => $language_name,
+    'u_action' => $base_url.'&amp;language='.$language_id,
+    );
+
+  if (in_array($language_id, array_keys($languages->db_languages)))
+  {
+    $language['state'] = 'active';
+    $language['deactivable'] = true;
+    
+    if (count($languages->db_languages) <= 1)
+    {
+      $language['deactivable'] = false;
+      $language['deactivate_tooltip'] = l10n('Impossible to deactivate this language, you need at least one language.');
+    }
+
+    if ($language_id == $default_language)
+    {
+      $language['deactivable'] = false;
+      $language['deactivate_tooltip'] = l10n('Impossible to deactivate this language, first set another language as default.');
+    }
+  }
+  else
+  {
+    $language['state'] = 'inactive';
+  }
+  
+  if ($language_id == $default_language)
+  {
+    $language['is_default'] = true;
+    array_unshift($tpl_languages, $language);
+  }
+  else
+  {
+    array_push($tpl_languages, $language);
+  }
+}
+
+$template->assign(
+  array(
+    'languages' => $tpl_languages,
     )
   );
-}
+$template->append('language_states', 'active');
+$template->append('language_states', 'inactive');
 
 
 $missing_language_ids = array_diff(

@@ -45,7 +45,7 @@
 {literal}
 <script type='text/javascript'>
   $(function() {
-    $('#pwgHead A, #footer A, .themeActions A, .themeActions SPAN').tipTip({
+    $('#pwgHead A, #footer A, .themeActions A, .themeActions SPAN, .languageActions A, .languageActions SPAN').tipTip({
         'delay' : 0,
         'fadeIn' : 200,
         'fadeOut' : 200,
