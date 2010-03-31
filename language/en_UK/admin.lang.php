@@ -768,4 +768,12 @@ $lang['Missing Plugins'] = 'Missing Plugins';
 $lang['Uninstalled Plugins'] = 'Uninstalled Plugins';
 $lang['By %s'] = 'By %s';
 $lang['Visit plugin site'] = 'Visit plugin site';
+$lang['Active Languages'] = 'Active Languages';
+$lang['Delete this language'] = 'Delete this language';
+$lang['Forbid this language to users'] = 'Forbid this language to users';
+$lang['Impossible to deactivate this language, first set another language as default.'] = 'Impossible to deactivate this language, first set another language as default.';
+$lang['Impossible to deactivate this language, you need at least one language.'] = 'Impossible to deactivate this language, you need at least one language.';
+$lang['Inactive Languages'] = 'Inactive Languages';
+$lang['Make this language available to users'] = 'Make this language available to users';
+$lang['Set as default language for unregistered and new users'] = 'Set as default language for unregistered and new users';
 ?>
