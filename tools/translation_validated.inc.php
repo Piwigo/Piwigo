@@ -186,6 +186,12 @@ $validated_keys = array(
 	'Admin: %s',
 	'Rank',
 	'cloud',
+	'Pause of slideshow',
+	'Database type',
+	'Installation',
+	'Webmaster login',
+	'localhost, sql.multimania.com, toto.freesurf.fr',
+	'Webmaster password',
 	),	
   'nl_NL' => array(
  	'%d Kb',
