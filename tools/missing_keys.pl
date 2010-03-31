@@ -14,20 +14,57 @@ my $type = $ARGV[1];       # common, admin, install, upgrade
 find(\&used_keys, $piwigo_dir);
 load_registered_keys($type);
 
-foreach my $key (sort keys %used_keys) {
-    # print "{".$key."}", ' is used', "\n";
+# foreach my $key (sort keys %used_keys) {
+#     # print "{".$key."}", ' is used', "\n";
 
-    if (not defined $registered_keys{$key}) {
-        # print "{".$key."}", ' is missing', "\n";
-        print '$lang[\''.$key.'\'] = \''.$key.'\';', "\n";
-    }
-}
-
-# foreach my $key (sort keys %registered_keys) {
-#     if (not defined $used_keys{$key}) {
-#         print "{".$key."}", ' is not used anywhere', "\n";
+#     if (not defined $registered_keys{$key}) {
+#         # print "{".$key."}", ' is missing', "\n";
+#         print '$lang[\''.$key.'\'] = \''.$key.'\';', "\n";
 #     }
 # }
+
+my %ignore_keys = (
+    '%d new image' => 1,
+    '%d new images' => 1,
+    '%d category updated' => 1,
+    '%d categories updated' => 1,
+    '%d new comment' => 1,
+    '%d new comments' => 1,
+    '%d comment to validate' => 1,
+    '%d comments to validate' => 1,
+    '%d new user' => 1,
+    '%d new users' => 1,
+    '%d waiting element' => 1,
+    '%d waiting elements' => 1,
+    'user_status_admin' => '',
+    'user_status_generic' => '',
+    'user_status_guest' => '',
+    'user_status_normal' => '',
+    'user_status_webmaster' => '',
+    'Level 0' => '',
+    'Level 1' => '',
+    'Level 2' => '',
+    'Level 4' => '',
+    'Level 8' => '',
+    'ACCESS_0' => '',
+    'ACCESS_1' => '',
+    'ACCESS_2' => '',
+    'ACCESS_3' => '',
+    'ACCESS_4' => '',
+    'ACCESS_5' => '',
+    'month' => '',
+    'day' => '',
+    'chronology_monthly_calendar' => '',
+    'chronology_monthly_list' => '',
+    'chronology_weekly_list' => '',
+);
+
+
+foreach my $key (sort keys %registered_keys) {
+    if (not defined $used_keys{$key} and not defined $ignore_keys{$key}) {
+        print "{".$key."}", ' is not used anywhere', "\n";
+    }
+}
 
 sub used_keys {
     if ($File::Find::name !~ m/(tpl|php)$/) {
@@ -40,7 +77,7 @@ sub used_keys {
 
     if ('upgrade' eq $type) {
         if ($File::Find::name !~ m{upgrade\.(tpl|php)$}) {
-            return 0;
+            # return 0;
         }
     }
 
@@ -91,28 +128,30 @@ sub used_keys {
     }
 
     if (-f) {
+        my $big_string = '';
         open(my $fhi, '<', $File::Find::name);
         while (<$fhi>) {
-            if ($File::Find::name =~ m/tpl$/) {
-                while (m/\{(['"])(.+?)\1\|\@translate/g) {
-                    $used_keys{$2}++;
-                }
-            }
+            chomp;
+            s{//.*$}{};
+            $big_string.= $_;
+        }
+        close($fhi);
 
-            if ($File::Find::name =~ m/php$/) {
-                while (m/l10n \s* \( \s* (['"]) (.+?) \1 \s* \)/xg) {
-                    $used_keys{$2}++;
-                }
+        while ($big_string =~ m/\{(['"])(.+?)\1\|\@translate/g) {
+            $used_keys{$2}++;
+        }
 
-                while (m/l10n_args \s* \( \s* (['"]) (.+?) \1 \s* ,/xg) {
-                    $used_keys{$2}++;
-                }
+        while ($big_string =~ m/l10n \s* \( \s* (['"]) (.+?) \1 \s* \)/xg) {
+            $used_keys{$2}++;
+        }
 
-                while (m/l10n_dec \s* \( \s* (['"]) (.+?) \1 \s* ,\s* (['"]) (.+?) \3 \s* ,/xg) {
-                    $used_keys{$2}++;
-                    $used_keys{$4}++;
-                }
-            }
+        while ($big_string =~ m/l10n_args \s* \( \s* (['"]) (.+?) \1 \s* ,/xg) {
+            $used_keys{$2}++;
+        }
+
+        while ($big_string =~ m/l10n_dec \s* \( \s* (['"]) (.+?) \1 \s* ,\s* (['"]) (.+?) \3 \s* ,/xg) {
+            $used_keys{$2}++;
+            $used_keys{$4}++;
         }
     }
 }
