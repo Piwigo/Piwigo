@@ -29,6 +29,8 @@ jQuery().ready(function(){ldelim}
   <h2>{'Plugins'|@translate}</h2>
 </div>
 
+<fieldset>
+<legend></legend>
 {foreach from=$plugins item=plugin name=plugins_loop}
 <div class="pluginBox" id="plugin_{$plugin.ID}"}>
   <table>
@@ -37,10 +39,10 @@ jQuery().ready(function(){ldelim}
 {if $plugin.BIG_DESC != $plugin.SMALL_DESC}
       <td id="desc_{$plugin.ID}" class="pluginDesc">
         <span id="smalldesc_{$plugin.ID}">
-          <img src="{$ROOT_URL}{$themeconf.admin_icon_dir}/plus.gif">{$plugin.SMALL_DESC}...
+          <img src="{$ROOT_URL}{$themeconf.admin_icon_dir}/plus.gif" alt="">{$plugin.SMALL_DESC}...
         </span>
         <span id="bigdesc_{$plugin.ID}" style="display:none;">
-          <img src="{$ROOT_URL}{$themeconf.admin_icon_dir}/minus.gif">{$plugin.BIG_DESC|@nl2br}<br>&nbsp;
+          <img src="{$ROOT_URL}{$themeconf.admin_icon_dir}/minus.gif" alt="">{$plugin.BIG_DESC|@nl2br}<br>&nbsp;
         </span>
       </td>
 {else}
@@ -53,12 +55,13 @@ jQuery().ready(function(){ldelim}
         |  <a href="{$plugin.URL_DOWNLOAD}">{'Download'|@translate}</a>
       </td>
       <td>
+        <em>{'Downloads'|@translate}: {$plugin.DOWNLOADS}</em>
         {'Version'|@translate} {$plugin.VERSION}
         | {'By %s'|@translate|@sprintf:$plugin.AUTHOR}
         | <a class="externalLink" href="{$plugin.EXT_URL}">{'Visit plugin site'|@translate}</a>
-        <em>{'Downloads'|@translate}: {$plugin.DOWNLOADS}</em>
       </td>
     </tr>
   </table>
 </div>
 {/foreach}
+</fieldset>

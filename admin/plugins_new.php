@@ -122,7 +122,7 @@ if ($plugins->get_server_plugins(true))
       'BIG_DESC' => $ext_desc,
       'VERSION' => $plugin['revision_name'],
       'AUTHOR' => $plugin['author_name'],
-      'DOWNLOADS' => $plugin['revision_nb_downloads'],
+      'DOWNLOADS' => $plugin['extension_nb_downloads'],
       'URL_INSTALL' => $url_auto_install,
       'URL_DOWNLOAD' => $plugin['download_url'] . '&amp;origin=piwigo_download'));
   }
