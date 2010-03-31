@@ -28,7 +28,7 @@ $lang_info['direction'] = 'ltr';
 $lang_info['code'] = 'nl';
 $lang_info['zero_plural'] = true;
 
-$lang['%.2f (rated %d times, standard deviation = %.2f)'] = '%.2f (waardering %d aantal x, standaard deviation = %.2f)';
+$lang['%.2f (rated %d times)'] = '%.2f (waardering %d aantal x)';
 $lang['%d Kb'] = '%d Kb';
 $lang['%d category updated'] = '%d categorie bijgewerkt';
 $lang['%d categories updated'] = '%d categorieën bijgewerkt';

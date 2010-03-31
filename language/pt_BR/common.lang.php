@@ -28,7 +28,7 @@ $lang_info['direction'] = 'ltr';
 $lang_info['code'] = 'pt';
 $lang_info['zero_plural'] = false;
 
-$lang['%.2f (rated %d times, standard deviation = %.2f)'] = '%.2f (avaliada %d vezes, margem de erro = %.2f)';
+$lang['%.2f (rated %d times)'] = '%.2f (avaliada %d vezes)';
 $lang['%d Kb'] = '%d Kb';
 $lang['%d category updated'] = '%d categoria atualizada';
 $lang['%d categories updated'] = '%d categorias atualizadas';

@@ -33,7 +33,6 @@ if ($conf['rate'])
     $query = '
 SELECT COUNT(rate) AS count
      , ROUND(AVG(rate),2) AS average
-     , ROUND(STD(rate),2) AS std
   FROM '.RATE_TABLE.'
   WHERE element_id = '.$picture['current']['id'].'
 ;';
@@ -41,7 +40,7 @@ SELECT COUNT(rate) AS count
   }
   else
   { // avg rate null -> no rate -> no need to query db
-    $row = array( 'count'=>0, 'average'=>NULL, 'std'=>NULL );
+    $row = array( 'count'=>0, 'average'=>NULL );
   }
   $template->assign('rate_summary', $row);
 

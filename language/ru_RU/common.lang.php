@@ -28,7 +28,7 @@ $lang_info['direction'] = 'ltr';
 $lang_info['code'] = 'ru';
 $lang_info['zero_plural'] = true;
 
-$lang['%.2f (rated %d times, standard deviation = %.2f)'] = '%.2f (%d оценок, разброс = %.2f)';
+$lang['%.2f (rated %d times)'] = '%.2f (%d оценок)';
 $lang['%d Kb'] = '%d Kb';
 $lang['%d category updated'] = '%d категория дополнена';
 $lang['%d categories updated'] = 'категорий дополнено: %d';

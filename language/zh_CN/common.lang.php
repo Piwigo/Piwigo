@@ -28,7 +28,7 @@ $lang_info['direction'] = 'ltr';
 $lang_info['code'] = 'cn';
 $lang_info['zero_plural'] = false;
 
-$lang['%.2f (rated %d times, standard deviation = %.2f)'] = '%.2f (标注 %d 次, 标准差 = %.2f)';
+$lang['%.2f (rated %d times)'] = '%.2f (标注 %d 次)';
 $lang['%d Kb'] = '%d KB';
 $lang['%d category updated'] = '%d 类已更新';
 $lang['%d categories updated'] = '%d 等多类已更新';

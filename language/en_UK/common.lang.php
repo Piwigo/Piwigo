@@ -28,7 +28,7 @@ $lang_info['code'] = "en";
 $lang_info['zero_plural'] = "1";
 
 
-$lang['%.2f (rated %d times, standard deviation = %.2f)'] = "%.2f (rated %d times, standard deviation = %.2f)";
+$lang['%.2f (rated %d times)'] = "%.2f (rated %d times)";
 $lang['%d Kb'] = "%d Kb";
 $lang['%d category updated'] = "%d category updated";
 $lang['%d categories updated'] = "%d categories updated";

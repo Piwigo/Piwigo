@@ -32,7 +32,7 @@ $lang_info['direction'] = 'ltr';
 $lang_info['code'] = 'cz';
 $lang_info['zero_plural'] = true;
 
-$lang['%.2f (rated %d times, standard deviation = %.2f)'] = '%.2f (hodnoceno %d krát, standardní odchylka = %.2f)';
+$lang['%.2f (rated %d times)'] = '%.2f (hodnoceno %d krát)';
 $lang['%d Kb'] = '%d Kb';
 $lang['%d category updated'] = '%d kategorie aktualizována';
 $lang['%d categories updated'] = '%d kategorie aktualizovány';

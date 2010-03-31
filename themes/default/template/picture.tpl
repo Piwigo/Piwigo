@@ -186,8 +186,8 @@ y.callService(
 		<td class="label">{'Average rate'|@translate}</td>
 		<td class="value" id="ratingSummary">
 		{if $rate_summary.count}
-			{assign var='rate_text' value='%.2f (rated %d times, standard deviation = %.2f)'|@translate }
-			{$pwg->sprintf($rate_text, $rate_summary.average, $rate_summary.count, $rate_summary.std) }
+			{assign var='rate_text' value='%.2f (rated %d times)'|@translate }
+			{$pwg->sprintf($rate_text, $rate_summary.average, $rate_summary.count) }
 		{else}
 			{'no rate'|@translate}
 		{/if}
@@ -215,7 +215,7 @@ y.callService(
 			<script type="text/javascript">
 			makeNiceRatingForm( {ldelim}rootUrl: '{$ROOT_URL|@escape:"javascript"}', image_id: {$current.id},
 			updateRateText: "{'Update your rating'|@translate|@escape:'javascript'}", updateRateElement: document.getElementById("updateRate"),
-			ratingSummaryText: "{'%.2f (rated %d times, standard deviation = %.2f)'|@translate|@escape:'javascript'}", ratingSummaryElement: document.getElementById("ratingSummary") {rdelim} );
+			ratingSummaryText: "{'%.2f (rated %d times)'|@translate|@escape:'javascript'}", ratingSummaryElement: document.getElementById("ratingSummary") {rdelim} );
 			</script>
 			</div>
 			</form>

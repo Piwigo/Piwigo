@@ -28,7 +28,7 @@ $lang_info['direction'] = 'ltr';
 $lang_info['code'] = 'ja';
 $lang_info['zero_plural'] = true;
 
-$lang['%.2f (rated %d times, standard deviation = %.2f)'] = '%.2f (評価 %d 回、標準偏差 = %.2f)';
+$lang['%.2f (rated %d times)'] = '%.2f (評価 %d 回)';
 $lang['%d Kb'] = '%d Kb';
 $lang['%d category updated'] = '%d 件のカテゴリが更新されました。';
 $lang['%d categories updated'] = '%d 件のカテゴリが更新されました。';

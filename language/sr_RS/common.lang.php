@@ -28,7 +28,7 @@ $lang_info['direction'] = 'ltr';
 $lang_info['code'] = 'sr';
 $lang_info['zero_plural'] = true;
 
-$lang['%.2f (rated %d times, standard deviation = %.2f)'] = '%.2f (ocenjeno %d puta, standardno odstupanje = %.2f)';
+$lang['%.2f (rated %d times)'] = '%.2f (ocenjeno %d puta)';
 $lang['%d Kb'] = '%d Kb';
 $lang['%d category updated'] = '%d kategorija obnovljena';
 $lang['%d categories updated'] = '%d kategorije obnovljene';

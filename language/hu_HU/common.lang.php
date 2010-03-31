@@ -28,7 +28,7 @@ $lang_info['direction'] = 'ltr';
 $lang_info['code'] = 'hu';
 $lang_info['zero_plural'] = false;
 
-$lang['%.2f (rated %d times, standard deviation = %.2f)'] = '%.2f (értékelve %d alkalommal, szórás = %.2f)';
+$lang['%.2f (rated %d times)'] = '%.2f (értékelve %d alkalommal)';
 $lang['%d Kb'] = '%d Kb';
 $lang['%d category updated'] = '%d kategória frissítés';
 $lang['%d categories updated'] = '%d kategória frissítve';

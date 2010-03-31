@@ -28,7 +28,7 @@ $lang_info['direction'] = 'ltr';
 $lang_info['code'] = 'da';
 $lang_info['zero_plural'] = true;
 
-$lang['%.2f (rated %d times, standard deviation = %.2f)'] = '%.2f (bedømt %d gange, standard afvigelse = %.2f)';
+$lang['%.2f (rated %d times)'] = '%.2f (bedømt %d gange)';
 $lang['%d Kb'] = '%d Kb';
 $lang['%d category updated'] = '%d kategori opdateret';
 $lang['%d categories updated'] = '%d kategorier opdateret';

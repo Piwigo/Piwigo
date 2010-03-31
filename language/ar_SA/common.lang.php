@@ -28,7 +28,7 @@ $lang_info['direction'] = 'rtl';
 $lang_info['code'] = 'ar';
 $lang_info['zero_plural'] = true;
 
-$lang['%.2f (rated %d times, standard deviation = %.2f)'] = '%.2f (قيمت %d مرة, standard deviation = %.2f)';
+$lang['%.2f (rated %d times)'] = '%.2f (قيمت %d مرة)';
 $lang['%d Kb'] = '%d كيلوبايت';
 $lang['%d category updated'] = '%d تصنيف محدث';
 $lang['%d categories updated'] = '%d تصنيفات محدثة';
