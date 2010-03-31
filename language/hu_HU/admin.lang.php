@@ -700,7 +700,7 @@ $lang['Save Settings'] = 'Beállítások mentése';
 $lang['Your configuration settings are saved'] = 'A beállítások mentése sikeres';
 // --------- missing translations ---- from version 2.1.0 RC1
 $lang['Categories sorted in descending order ⇑'] = 'Kategóriák csökkenő sorrendben ⇑';
-$lang['Unable to check for upgrade.'] = 'Unable to check for upgrade.';
+$lang['Unable to check for upgrade.'] = 'A frissítés sikertelen.';
 $lang['Execution time is out, treatment must be continued [Estmated time: %d seconds].'] = 'Időtúllépés esetén a műveletet folytatni kell [Becsült idő: %d másodperc].';
 $lang['Processing treatment.'] = 'Feldolgozás.';
 $lang['Please wait...'] = 'Kérem várjon...';
@@ -716,7 +716,7 @@ $lang['Forbid this theme to users'] = 'A téma tiltása felhasználók részére
 $lang['Set as default theme for unregistered and new users'] = 'Téma beállítása alapértelmezettként nem regisztrált és új felhasználók részére';
 $lang['unknown'] = 'ismeretlen';
 $lang['Active Themes'] = 'Aktív Téma';
-$lang['Add write access to the "%s" directory'] = 'Add write access to the "%s" directory';
+$lang['Add write access to the "%s" directory'] = 'Adjon írási jogot a(z) "%s" könytárnak';
 $lang['Administration Home'] = 'Adminisztrációs oldal';
 $lang['Categories ordered alphanumerically'] = 'A kategóriák ABC sorrendbe rendezve';
 $lang['Categories ordered alphanumerically reverse'] = 'A kategóriák fordított ABC sorrendbe rendezve';
@@ -732,7 +732,7 @@ $lang['Impossible to delete this theme. Other themes depends on it: %s'] = 'Ez a
 $lang['Inactive Themes'] = 'Inaktív Témák';
 $lang['Install on your computer,'] = 'Telepítse számítógépére,';
 $lang['Make this theme available to users'] = 'A téma elérhetővé tétele a felhasználók számára';
-$lang['Page end'] = 'Page end';
+$lang['Page end'] = 'Oldal vége';
 $lang['Piwigo Uploader'] = 'Piwigo Uploader';
 $lang['Read Piwigo Documentation'] = 'A Piwigo Dokumentációját itt érheti el';
 $lang['Start pLoader and add your photos.'] = 'Indítsa el a pLoader programot és töltse fel képeit.';
@@ -759,5 +759,16 @@ $lang['Select:'] = 'Kiválaszt:';
 $lang['None'] = 'Egyik sem';
 $lang['Invert'] = 'Felcserél';
 $lang['Impossible to deactivate this theme, you need at least one theme.'] = 'Nem lehet kikapcsolni ezt a témát, szükség van legalább még egy aktív témára.';
+// --------- folytatas $lang ---- from version 2.1.0 RC1
+$lang['Webmaster status is required.'] = 'Webmester jogosultság szükséges.';
+$lang['Bound Theme'] = 'Fix Téma';
+$lang['Allow rating'] = 'Értékelés engedélyezése';
+$lang['Select at least one comment'] = 'Legalább egy hozzászólást ki kell választani';
+$lang['Active Plugins'] = 'Bekapcsolt Bővítmények';
+$lang['Inactive Plugins'] = 'Kikapcsolt Bővítmények';
+$lang['Missing Plugins'] = 'Hiányzó Bővítmények';
+$lang['Uninstalled Plugins'] = 'Törölt Bővítmények';
+$lang['By %s'] = '%s által';
+$lang['Visit plugin site'] = 'Ugrás a bővítmények weboldalra';
 
 ?>
