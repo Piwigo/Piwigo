@@ -36,27 +36,27 @@ $help_section_title = null;
 $tabs = array(
   array(
     'code' => 'add_photos',
-    'label' => 'Add Photos',
+    'label' => l10n('Add Photos'),
     ),
   array(
     'code' => 'permissions',
-    'label' => 'Permissions',
+    'label' => l10n('Permissions'),
     ),
   array(
     'code' => 'groups',
-    'label' => 'Groups',
+    'label' => l10n('Groups'),
     ),
   array(
     'code' => 'user_upload',
-    'label' => 'User Upload',
+    'label' => l10n('User Upload'),
     ),
   array(
     'code' => 'virtual_links',
-    'label' => 'Virtual Links',
+    'label' => l10n('Virtual Links'),
     ),
   array(
     'code' => 'misc',
-    'label' => 'Miscellaneous',
+    'label' => l10n('Miscellaneous'),
     ),
   );
 
@@ -75,10 +75,10 @@ foreach ($tabs as $tab)
   if ($tab['code'] == $section)
   {
     $selected_tab = $tab['code'];
-    $help_section_title = l10n($tab['label']);
+    $help_section_title = $tab['label'];
   }
   
-  $tabsheet->add($tab['code'], l10n($tab['label']), $link.$tab['code']);
+  $tabsheet->add($tab['code'], $tab['label'], $link.$tab['code']);
 }
 $tabsheet->select($selected_tab);
 $tabsheet->assign();
