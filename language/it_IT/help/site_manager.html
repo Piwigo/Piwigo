@@ -5,17 +5,19 @@ immagazzinare le immagini della vostra galleria. Ciò può essere utile
 se la vostra galleria è installata su uno spazio limitato e avete
 una grande quantità d'immagini da mostrare.</p>
 
+
 <ol>
 
   <li>modificare il file <span
-class="filename">tools/create_listing_file.php</span> agendo
+class="filename">tools/create_listing_file_local.inc.php</span> agendo
 sui parametri come <code>$conf['prefix_thumbnail']</code> o
 <code>$conf['use_exif']</code>.</li>
 
-  <li>piazzare il file <span
-class="filename">tools/create_listing_file.php</span> modificato sul Vostro sito
+  <li>via FTP, piazzare i file <span
+class="filename">tools/create_listing_file.php</span> e <span
+class="filename">tools/create_listing_file_local.inc.php</span> (modificato) sul Vostro sito
 remoto, nella stessa directory che le categorie che compongono la vostra galleria
-(come la directory <span class="filename">galleries</span> di questo sito), per FTP.
+(come la directory <span class="filename">galleries</span> di questo sito).
 Per esempio, supponiamo che potete accedere a <span
 class="filename">http://esempio.it/galleries/create_listing_file.php</span>.</li>
 
@@ -33,11 +35,13 @@ class="filename">http://esempio.it/galleries</span>.</li>
 per generare il file di listing remoto</li>
 
       <li><strong>sincronizzare</strong> : legge il file remoto <span
-class="filename">listing.xml</span> e sincronizza con la base dati locale.</li>
+class="filename">listing.xml</span> e sincronizza con la base dati 
+locale.</li>
 
-      <li><strong>pulire</strong> : cancella il file di listing remoto.</li>
+      <li><strong>pulire</strong> : cancella il file di listing 
+remoto.</li>
 
-      <li><strong>Cancellare</strong> : cancella il sito remoto (e tutte le 
+      <li><strong>cancellare</strong> : cancella il sito remoto (e tutte le 
 relative categorie ed elementi associati) dalla base dati.</li>
 
     </ol>
