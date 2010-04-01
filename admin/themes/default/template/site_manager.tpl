@@ -26,7 +26,7 @@
 </form>
 {/if}
 {if isset($local_listing.U_SYNCHRONIZE)}
-&nbsp;<a href="{$local_listing.U_SYNCHRONIZE}" title="{'synchronize'|@translate}">{'synchronize'|@translate}</a>
+&nbsp;<a href="{$local_listing.U_SYNCHRONIZE}" title="{'read local listing.xml and update'|@translate}">{'synchronize'|@translate}</a>
 <br><br>
 {/if}
 {/if}
@@ -41,16 +41,16 @@
   <tr style="text-align:left" class="{if $smarty.foreach.site.index is odd}row1{else}row2{/if}"><td>
     <a href="{$site.NAME}">{$site.NAME}</a><br>({$site.TYPE}, {$site.CATEGORIES} {'Categories'|@translate}, {$pwg->l10n_dec('%d image','%d images',$site.IMAGES)})
   </td><td>
-    [<a href="{$site.U_SYNCHRONIZE}" title="{'synchronize'|@translate}">{'synchronize'|@translate}</a>]
+    [<a href="{$site.U_SYNCHRONIZE}" title="{'update the database from files'|@translate}">{'synchronize'|@translate}</a>]
     {if isset($site.U_DELETE)}
       [<a href="{$site.U_DELETE}" onclick="return confirm('{'Are you sure?'|@translate|escape:'javascript'}');"
-                title="{'delete'|@translate}" {$TAG_INPUT_ENABLED}>{'delete'|@translate}</a>]
+                title="{'delete this site and all its attached elements'|@translate}" {$TAG_INPUT_ENABLED}>{'delete'|@translate}</a>]
     {/if}
     {if isset($site.remote)}
       <br>
-      [<a href="{$site.remote.U_TEST}" title="{'test'|@translate}" {$TAG_INPUT_ENABLED}>{'test'|@translate}</a>]
-      [<a href="{$site.remote.U_GENERATE}" title="{'generate listing'|@translate}" {$TAG_INPUT_ENABLED}>{'generate listing'|@translate}</a>]
-      [<a href="{$site.remote.U_CLEAN}" title="{'clean'|@translate}" {$TAG_INPUT_ENABLED}>{'clean'|@translate}</a>]
+      [<a href="{$site.remote.U_TEST}" title="{'test this remote site'|@translate}" {$TAG_INPUT_ENABLED}>{'test'|@translate}</a>]
+      [<a href="{$site.remote.U_GENERATE}" title="{'generate file listing.xml on remote site'|@translate}" {$TAG_INPUT_ENABLED}>{'generate listing'|@translate}</a>]
+      [<a href="{$site.remote.U_CLEAN}" title="{'remove remote listing.xml file'|@translate}" {$TAG_INPUT_ENABLED}>{'clean'|@translate}</a>]
     {/if}
     {if not empty($site.plugin_links)}
         <br>

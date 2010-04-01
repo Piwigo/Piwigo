@@ -54,16 +54,16 @@
         {if cat_admin_access($category.ID)}
         <li><a href="{$category.U_JUMPTO}" title="{'jump to category'|@translate}"><img src="{$themeconf.admin_icon_dir}/category_jump-to.png" class="button" alt="{'jump to category'|@translate}"></a></li>
         {/if}
-        <li><a href="{$category.U_EDIT}" title="{'edit'|@translate}"><img src="{$themeconf.admin_icon_dir}/category_edit.png" class="button" alt="{'edit'|@translate}"></a></li>
+        <li><a href="{$category.U_EDIT}" title="{'edit category informations'|@translate}"><img src="{$themeconf.admin_icon_dir}/category_edit.png" class="button" alt="{'edit'|@translate}"></a></li>
         {if isset($category.U_MANAGE_ELEMENTS) }
-        <li><a href="{$category.U_MANAGE_ELEMENTS}" title="{'elements'|@translate}"><img src="{$themeconf.admin_icon_dir}/category_elements.png" class="button" alt="{'elements'|@translate}"></a></li>
+        <li><a href="{$category.U_MANAGE_ELEMENTS}" title="{'manage category elements'|@translate}"><img src="{$themeconf.admin_icon_dir}/category_elements.png" class="button" alt="{'elements'|@translate}"></a></li>
         {/if}
-        <li><a href="{$category.U_CHILDREN}" title="{'sub-categories'|@translate}"><img src="{$themeconf.admin_icon_dir}/category_children.png" class="button" alt="{'sub-categories'|@translate}"></a></li>
+        <li><a href="{$category.U_CHILDREN}" title="{'manage sub-categories'|@translate}"><img src="{$themeconf.admin_icon_dir}/category_children.png" class="button" alt="{'sub-categories'|@translate}"></a></li>
         {if isset($category.U_MANAGE_PERMISSIONS) }
-        <li><a href="{$category.U_MANAGE_PERMISSIONS}" title="{'Permissions'|@translate}" ><img src="{$themeconf.admin_icon_dir}/category_Permissions.png" class="button" alt="{'Permissions'|@translate}"></a></li>
+        <li><a href="{$category.U_MANAGE_PERMISSIONS}" title="{'edit category permissions'|@translate}" ><img src="{$themeconf.admin_icon_dir}/category_Permissions.png" class="button" alt="{'Permissions'|@translate}"></a></li>
         {/if}
         {if isset($category.U_DELETE) }
-        <li><a href="{$category.U_DELETE}" onclick="return confirm('{'Are you sure?'|@translate|@escape:javascript}');"><img src="{$themeconf.admin_icon_dir}/category_delete.png" class="button" alt="{'delete'|@translate}"></a></li>
+        <li><a href="{$category.U_DELETE}" title="{'delete category'|@translate}" onclick="return confirm('{'Are you sure?'|@translate|@escape:javascript}');"><img src="{$themeconf.admin_icon_dir}/category_delete.png" class="button" alt="{'delete'|@translate}"></a></li>
         {/if}
       </ul>
 
