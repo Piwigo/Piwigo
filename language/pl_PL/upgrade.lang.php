@@ -21,7 +21,7 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
-$lang['Upgrade'] = 'Upgrade';
+$lang['Upgrade'] = 'Aktualizacja';
 $lang['introduction message'] = 'Strona służy do wykonania aktualizacji bazy danych Piwigo do aktualnej wersji.
 Asystent aktualizacji odgadł, że aktualnie używasz <strong>wersji %s</strong> (lub podobnej).';
 $lang['Upgrade from version %s to %s'] = 'Aktualizacja z wersji %s do %s';
@@ -40,5 +40,9 @@ $lang['in include/mysql.inc.php, before ?>, insert:'] = 'W pliku <i>include/mysq
 $lang['All sub-categories of private categories become private'] = 'Wszystkie podkategorie kategorii prywatnych staną się prywatne';
 $lang['User permissions and group permissions have been erased'] = 'Uprawnienia użytkowników oraz grup zostały usunięte';
 $lang['Only thumbnails prefix and webmaster mail address have been saved from previous configuration'] = 'Z poprzedniej konfiguracji zostały zapisane tylko prefixy miniatur oraz adres email administratora.';
-
+//For version 2.1.0
+$lang['This page proposes to upgrade your database corresponding to your old version of Piwigo to the current version.
+The upgrade assistant thinks you are currently running a <strong>release %s</strong> (or equivalent).'] = 'Ta strona proponuje aktualizację Twojej bazy danych Piwigo do nowej wersji. Asystent aktualizacji myśli, że aktualnie uzywasz <strong>wersji %s</strong> (lub równoważnej).';
+$lang['As a precaution, following plugins have been disabled. You must check for plugins upgrade before reactiving them:'] = 'Jako zabezpieczenie, nastepujące wtyczki zostały zdeaktywowane. Przed ich aktywacją musisz sprawdzić czy nie ma nowszych wersji:';
+$lang['In <i>%s</i>, before <b>?></b>, insert:'] = 'W <i>%s</i>, przed <b>?></b>, włóż:';
 ?>
