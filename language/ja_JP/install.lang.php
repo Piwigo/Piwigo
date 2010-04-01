@@ -62,11 +62,6 @@ $lang['Webmaster mail address'] = 'ウェブマスタメールアドレス';
 $lang['Visitors will be able to contact site administrator with this mail'] = 'ビジターは、このメールアドレスでサイト管理者に連絡することができます。';
 $lang['Database type'] = 'データベース種';
 $lang['The type of database your piwigo data will be store in'] = 'あなたのPiwigoデータが保存されているデータベース種';
-$lang['The configuration of Piwigo is finished, here is the next step<br><br>
-* go to the identification page and use the login/password given for webmaster<br>
-* this login will enable you to access to the administration panel and to the instructions in order to place pictures in your directories'] = 'Piwigoの設定は完了しました。これは次のステップです。 <br><br>
-*アイデンティフィケーション・ページへ進み、ウェブマスター用のユーザー名とパスワードを使ってください。<br>
-* このログインはアドミニストレーション・パネルや写真をディレクトリーに追加するための説明書にアクセスできるようになります。';
 $lang['PHP 5 is required'] = 'PHP 5は必要';
 $lang['It appears your webhost is currently running PHP %s.'] = 'あなたのウェブホストは現在PHP %sを使っているらしいです。';
 $lang['Piwigo may try to switch your configuration to PHP 5 by creating or modifying a .htaccess file.'] = 'Piwigoは.htaccess ファイルを作成するか、変更しようとしてPHP 5に設定してみます。';
@@ -76,4 +71,5 @@ $lang['Sorry!'] = '申し訳ありません!';
 $lang['Piwigo was not able to configure PHP 5.'] = 'PiwigoはPHP 5に設定できませんでした。';
 $lang['You may referer to your hosting provider\'s support and see how you could switch to PHP 5 by yourself.'] = 'あなたのホームページ・プロバイダーのサポートに参照し、自分でPHP 5に変更方法を見られます。';
 $lang['Hope to see you back soon.'] = 'またお越し下さい';
+$lang['Congratulations, Piwigo installation is completed'] = 'おめでとうございました。Piwigo のインストール完了しました。';
 ?>
