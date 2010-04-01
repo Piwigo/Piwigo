@@ -772,5 +772,4 @@ $lang['Impossible to deactivate this language, you need at least one language.']
 $lang['Inactive Languages'] = '無効な言語';
 $lang['Make this language available to users'] = 'この言語をユーザーに利用できる。';
 $lang['Set as default language for unregistered and new users'] = '登録されてないユーザーと新しいユーザーのためにデフォルト言語を設定する。';
-$lang['download'] = 'ダウンロード';
 ?>

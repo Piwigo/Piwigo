@@ -452,7 +452,6 @@ $lang['user_status_generic'] = 'Genérico';
 $lang['user_status_guest'] = 'Invitado';
 $lang['user_status_normal'] = 'Visitante';
 $lang['user_status_webmaster'] = 'Webmestre';
-$lang['username'] = 'nombre usuario';
 $lang['Users'] = 'Usuarios';
 $lang['Virtual category'] = 'Categoría virtual';
 $lang['Waiting'] = 'En espera';
@@ -770,5 +769,8 @@ $lang['Make this language available to users'] = 'Devolver esta idioma disponibl
 $lang['Set as default language for unregistered and new users'] = 'Idioma por defecto para los invitados y los nuevos usuarios';
 $lang['Miscellaneous'] = 'Mas informaciones';
 $lang['User Upload'] = 'Añadir por los usuarios';
-$lang['Virtual Links'] = 'Lazos virtuales';
+$lang['Virtual Links'] = 'Enlaces virtuales';
+$lang['Download'] = 'Descargar';
+$lang['Add Photos'] = 'Añadir fotos';
+$lang['The following tag was deleted'] = 'La etiquetas siguiente ha sido suprimida';
 ?>
