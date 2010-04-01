@@ -1951,6 +1951,7 @@ function get_active_menu($menu_page)
     case 'themes_installed':
     case 'theme':
     case 'languages_installed':
+    case 'languages_new':
       return 5;
   }
   return 0;
