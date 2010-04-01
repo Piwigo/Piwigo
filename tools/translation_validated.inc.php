@@ -251,14 +251,20 @@ $validated_keys = array(
 	'Piwigo Uploader',
 	'Download,',
 	),
-	'sr_RS' => array(
+  'sr_RS' => array(
  	'%d Kb',
 	'Filter',
 	'Webmaster',
 	'IP: %s',
 	),
-	'pl_PL' => array(
- 	'',
+  'pl_PL' => array(
+	'',
+	),
+  'tr_TR' => array(
+ 	'%d hit',
+	'N/A',
+	'Webmaster',
+	'IP: %s',
 	'',
 	),
   );
