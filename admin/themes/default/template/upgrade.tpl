@@ -124,7 +124,7 @@ textarea { margin-left: 20px; }
 {/if}
 
 {if isset($upgrade)}
-<h2>{'Upgrade from %s to %s'|@translate|@sprintf:$upgrade.VERSION:$RELEASE}</h2>
+<h2>{'Upgrade from version %s to %s'|@translate|@sprintf:$upgrade.VERSION:$RELEASE}</h2>
 
 <p><b>{'Statistics'|@translate}</b></p>
 <ul>

@@ -80,7 +80,7 @@ SELECT user_id,
   $feed_row = pwg_db_fetch_assoc(pwg_query($query));
   if ( empty($feed_row) )
   {
-    page_not_found('Unknown/missing feed identifier');
+    page_not_found(l10n('Unknown feed identifier'));
   }
   if ($feed_row['user_id']!=$user['id'])
   { // new user

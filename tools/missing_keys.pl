@@ -57,6 +57,12 @@ my %ignore_keys = (
     'chronology_monthly_calendar' => '',
     'chronology_monthly_list' => '',
     'chronology_weekly_list' => '',
+    'public' => '',
+    'private' => '',
+    'none' => '',
+    'other' => '',
+    'high' => '',
+    'Waiting page: %s' => '',
 );
 
 

@@ -19,7 +19,7 @@
       {/if}
 
       {if isset($U_CADDIE) }
-      <li><a href="{$U_CADDIE}" title="{'caddie'|@translate}"><img src="{$ROOT_URL}{$themeconf.icon_dir}/caddie_add.png" class="button" alt="{'caddie'|@translate}"></a></li>
+      <li><a href="{$U_CADDIE}" title="{'add to caddie'|@translate}"><img src="{$ROOT_URL}{$themeconf.icon_dir}/caddie_add.png" class="button" alt="{'caddie'|@translate}"></a></li>
       {/if}
 
       {if isset($U_EDIT) }

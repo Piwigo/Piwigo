@@ -6,7 +6,7 @@
 
 	<ul>
 	{if isset($U_REGISTER)}
-	<li><a href="{$U_REGISTER}" title="{'Register'|@translate}" rel="nofollow">{'Register'|@translate}</a></li>
+	<li><a href="{$U_REGISTER}" title="{'Create a new account'|@translate}" rel="nofollow">{'Register'|@translate}</a></li>
 	{/if}
 
 	{if isset($U_LOGIN)}
@@ -18,11 +18,11 @@
 	{/if}
 
 	{if isset($U_PROFILE)}
-	<li><a href="{$U_PROFILE}" title="{'Customize'|@translate}">{'Customize'|@translate}</a></li>
+	<li><a href="{$U_PROFILE}" title="{'customize the appareance of the gallery'|@translate}">{'Customize'|@translate}</a></li>
 	{/if}
 
 	{if isset($U_ADMIN)}
-	<li><a href="{$U_ADMIN}" title="{'Administration'|@translate}">{'Administration'|@translate}</a></li>
+	<li><a href="{$U_ADMIN}" title="{'available for administrators only'|@translate}">{'Administration'|@translate}</a></li>
 	{/if}
 	</ul>
 
@@ -52,7 +52,7 @@
 	<ul class="actions">
 		<li><a href="{$U_LOST_PASSWORD}" title="{'Forgot your password?'|@translate}" rel="nofollow"><img src="{$ROOT_URL}{$themeconf.icon_dir}/lost_password.png" class="button" alt="{'Forgot your password?'|@translate}"></a></li>
 		{if isset($U_REGISTER)}
-		<li><a href="{$U_REGISTER}" title="{'Register'|@translate}" rel="nofollow"><img src="{$ROOT_URL}{$themeconf.icon_dir}/register.png" class="button" alt="{'Register'|@translate}"></a></li>
+		<li><a href="{$U_REGISTER}" title="{'Create a new account'|@translate}" rel="nofollow"><img src="{$ROOT_URL}{$themeconf.icon_dir}/register.png" class="button" alt="{'Register'|@translate}"></a></li>
 		{/if}
 	</ul>
 	</div>

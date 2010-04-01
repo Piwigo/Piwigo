@@ -3,11 +3,11 @@
 	<div class="titrePage">
 		<ul class="categoryActions">
 		{if $display_mode == 'letters'}
-			<li><a href="{$U_CLOUD}" title="{'cloud'|@translate}" rel="nofollow"><img src="{$themeconf.icon_dir}/tag_cloud.png" class="button" alt="{'cloud'|@translate}"></a></li>
+			<li><a href="{$U_CLOUD}" title="{'show tag cloud'|@translate}" rel="nofollow"><img src="{$themeconf.icon_dir}/tag_cloud.png" class="button" alt="{'cloud'|@translate}"></a></li>
 		{/if}
 
 		{if $display_mode == 'cloud'}
-			<li><a href="{$U_LETTERS}" title="{'letters'|@translate}" rel="nofollow"><img src="{$themeconf.icon_dir}/tag_letters.png" class="button" alt="{'letters'|@translate}"></a></li>
+			<li><a href="{$U_LETTERS}" title="{'group by letters'|@translate}" rel="nofollow"><img src="{$themeconf.icon_dir}/tag_letters.png" class="button" alt="{'letters'|@translate}"></a></li>
 		{/if}
 
 			<li><a href="{$U_HOME}" title="{'Home'|@translate}"><img src="{$themeconf.icon_dir}/home.png" class="button" alt="{'Home'|@translate}"></a></li>

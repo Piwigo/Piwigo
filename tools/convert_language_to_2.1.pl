@@ -42,10 +42,19 @@ my %ignore_keys = (
 );
 
 my %remove_keys = (
+    common => {
+        'You can\'t upload pictures in this category' => '',
+        'display pictures added on' => '',
+    },
     admin => {
         'nbm_content_goto_2' => '',
         'nbm_content_hello_2' => '',
         'nbm_redirect_msg' => '',
+
+        'username' => '',
+        'No tag defined. Use Administration>Pictures>Tags' => '',
+        'Remote site url must start by http or https and must only contain characters among "/", "a-zA-Z0-9", "-" or "_"' => '',
+        'path' => '',
     },
     upgrade => {
         'Are you sure?' => '',
