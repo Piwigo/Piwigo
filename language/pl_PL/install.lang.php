@@ -73,4 +73,8 @@ $lang['Sorry!'] = 'Niestety!';
 $lang['Piwigo was not able to configure PHP 5.'] = 'Piwigo nie mógł skonfigurować Twojego PHP 5.';
 $lang["You may referer to your hosting provider's support and see how you could switch to PHP 5 by yourself."] = "Możesz skontaktować się z działem wsparcia Twojego providera aby dowiedzieć się jak włączyć PHP 5.";
 $lang['Hope to see you back soon.'] = 'Do zobaczenia wkrótce.';
+//For 2.1.0
+$lang['Database type'] = 'Typ bazy danych';
+$lang['The type of database your piwigo data will be store in'] = 'Typ bazy danych Twojego Piwigo zostanie zapisany w';
+$lang['Congratulations, Piwigo installation is completed'] = 'Gratulacje, instlacja Piwigo zakończona sukcesem';
 ?>
