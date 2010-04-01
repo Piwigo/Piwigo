@@ -647,4 +647,7 @@ $lang['Subscribe %s'] = 'Assinar %s';
 $lang['Subscribe %s to Piwigo Announcements Newsletter'] = 'Fazer %s assinar o boletim (newsletter) sobre anúncios do Piwigo';
 $lang['Purge search history'] = 'Limpar o histórico da pesquisa';
 $lang['Hide'] = 'Esconder';
+$lang['Miscellaneous'] = 'Outras informações';
+$lang['User Upload'] = 'Upload de usuários';
+$lang['Virtual Links'] = 'Links virtuais';
 ?>

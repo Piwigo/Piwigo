@@ -1,0 +1,126 @@
+<fieldset>
+  <legend>Snelle start</legend>
+
+<ol>
+  <!--TODO--><li>Create a directory on your computer.</li>  
+
+  <!--TODO--><li>Copy some photos inside this directory, resize them for web display. <em>Warning</em>: the name of directories and files must contain only letters, figures, "-", "_" or ".". No blank space, no accentuated characters.</li>
+
+  <!--TODO--><li>With a FTP client, copy your directory in the "galleries" directory of your Piwigo installation.</li>
+
+  <!--TODO--><li>Logon your gallery and go to <span class="pwgScreen">Administration &raquo; Pictures &raquo; Thumbnails</span> to create missing thumbnails.</li>
+
+  <!--TODO--><li>Go to <span class="pwgScreen">Administration</span> and click on the big Synchronization button.</li>
+</ol>
+
+<!--TODO-->Congratulations! You have successfuly created the first category of your photo gallery.
+
+</fieldset>
+<fieldset>
+  <legend><!--TODO-->Directories and files organization</legend>
+
+<ul>
+
+  <li>
+
+    <p>Categorie mappen zijn in de Piwigo map "galleries". Bekijk de mapstructuur van een kleine gallerie (maar met een hoop mogelijkheden) :</p>
+
+    <pre>
+.
+|-- admin
+|-- doc
+|-- galleries
+|   |-- categorie-1
+|   |   |-- categorie-1.1
+|   |   |   |-- categorie-1.1.1
+|   |   |   |   |-- categorie-1.1.1.1
+|   |   |   |   |   |-- pwg_high
+|   |   |   |   |   |   +-- wedding.jpg
+|   |   |   |   |   |-- thumbnail
+|   |   |   |   |   |   +-- TN-wedding.jpg
+|   |   |   |   |   +-- wedding.jpg
+|   |   |   |   +-- categorie-1.1.1.2
+|   |   |   +-- categorie-1.1.2
+|   |   |-- categorie-1.2
+|   |   |   |-- pookie.jpg
+|   |   |   +-- thumbnail
+|   |   |       +-- TN-pookie.jpg
+|   |   +-- categorie-1.3
+|   +-- categorie-2
+|       |-- piglet.gif
+|       |-- pwg_representative
+|       |   +-- video.jpg
+|       |-- thumbnail
+|       |   +-- TN-piglet.jpg
+|       +-- video.avi
+|-- include
+|-- install
+|-- language
+|-- template
++-- tool</pre>
+
+  </li>
+  
+  <li>Eigenlijk, een categorie is gepresenteerd door een map op welke level in
+  Piwigo map "galleries". Elke categorie kan zoveel submappen als jij wilt bevatten.
+  In het voorbeeld hierboven, categorie-1.1.1.1 is op nivo 4 van de trap.</li>
+
+  <li>Eigenlijk, een element is gepresenteerd door een bestand. Een bestand kan een
+  Piwigo element zijn als de extenstie is <code>file_ext</code>
+  configuration parameter mofenlijkheden (zie <span
+  class="filename">include/config_default.inc.php</span> file). Een bestand kan
+  een afbeelding zijn als de extensie gelijk is aan <code>picture_ext</code>
+  configuration parameter possibilities.</li>
+
+  <li>Afbeeldings elementen moeten een link naar een thumbnail hebben.(zie sectie hieronder
+  over thumbnails)</li>
+
+  <li>Afbeeldings elementen kunnen gekoppeld zijn aan hoge kwaliteit bestanden. Zoals 
+  in het voorbeeld wedding.jpg hierboven. Er is geen andere naamsaanpassing nodig voor de
+   hoge kwaliteit afbeelding verplicht.
+  </li>
+
+  <li>Niet afbeeldings elementen (video, geluid, tekstbestanden, wat je wil...) worden 
+  standaard vertegenwoordigt door een ikoontje die overeenkomt met de bestandsextensie.
+   Optioneel, je kan zelf een associatie met een thumbnail en een bestand opgeven (zie video.avi in het voorbeeld hierboven).</li>
+
+  <li><em>Waarshuwing</em> : de naam van de mappen en bestanden moeten bestaan uit de letters en koppeltekens "-", "_" of ".". Geen spaties en geen accenten
+ op de karakters</li>
+
+  <li><em>Advies</em> : Een categorie kan elementen en sub-categorieën hebben
+op het zelfde moment. Desalnietemin, word je geadviseerd om te kiezen uit categorieën die elementen bevatten <strong>of</strong> categorieën
+die sub-categorieën bevatten.</li>
+
+  <li>Als bestanden, thumbnails en representativev corrct zijn geplaatst in
+ mappen ga dan naar: <span class="pwgScreen">Administratie &raquo; Categorieën &raquo; Synchronizeren</span></li>
+
+</ul>
+
+</fieldset>
+<fieldset>
+  <legend>Thumbnails</legend>
+
+<ul>
+
+  <li>Zoals eerde gemeld, elk element of afbeeldingstype moet geassociateerd worden met een thumbnail.</li>
+
+  <li>Thumbnails worden opgeslagen in een sub-directory "thumbnail" of de categorie map. De thumbnail is een afbeelding (zelfde bestandsnaam extensies mogelijk
+  als de afbeeldingbestanden) welke is prefixed met een geconfigureerde
+  "Thumbnail prefix" (zie administratie paneel, Configuratie, Algemeen).</li>
+
+  <li>Thumbnails hoeven niet de zelfde extensie te hebben als het geassocieerde
+  afbeelding (een afbeelding met .jpg extensie kan een thumbnail hebben met .GIF
+  extentie als voorbeeld).</li>
+
+  <li>Advies: gebruik een ecterne module voor het maken van thumbnails.</li>
+
+  <li>Je kunt ook de pagina thumbnail maken gebruiken (<span
+  class="pwgScreen">Administratie, Afbeeldingen, Thumbnails</span>), maar dat word niet aangeraden.
+   De thumbnail kwaliteit kan slecht zijn en het gebruikt een hoge CPU kracht welke een probleem kan zijn bij gratis webhost.</li>
+
+  <li>Als je er voor kiest om de thumbnails te laten maken door de webhoster, dan dien je de rechten toe te wijzen op die mappen om de thumbnail te kunnen maken.
+  De correcte rechten op de mappen en sub-mappen zijn gebruiker/goep/wereld (ook wel 777)
+</li>
+
+</ul>
+</fieldset>

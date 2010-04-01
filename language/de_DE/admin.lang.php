@@ -754,4 +754,7 @@ $lang['Select:'] = 'Auswahl:';
 $lang['None'] = 'Nichts';
 $lang['Invert'] = 'Umkehren';
 $lang['Impossible to deactivate this theme, you need at least one theme.'] = 'Es ist nicht möglich dieses Thema zu deaktivieren, du benötigst mindestens ein Thema.';
+$lang['Miscellaneous'] = 'Verschiedenes';
+$lang['User Upload'] = 'Hinzufügen von Benutzers';
+$lang['Virtual Links'] = 'Virtuellen Verbindungen';
 ?>

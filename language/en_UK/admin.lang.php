@@ -459,7 +459,6 @@ $lang['user_status_generic'] = "Generic";
 $lang['user_status_guest'] = "Guest";
 $lang['user_status_normal'] = "User";
 $lang['user_status_webmaster'] = "Webmaster";
-$lang['username'] = "username";
 $lang['Users'] = "Users";
 $lang['Virtual category'] = "Virtual category";
 $lang['Waiting'] = "Pending";
@@ -776,4 +775,10 @@ $lang['Impossible to deactivate this language, you need at least one language.']
 $lang['Inactive Languages'] = 'Inactive Languages';
 $lang['Make this language available to users'] = 'Make this language available to users';
 $lang['Set as default language for unregistered and new users'] = 'Set as default language for unregistered and new users';
+$lang['Add Photos'] = 'Add Photos';
+$lang['Download'] = 'Download';
+$lang['The following tag was deleted'] = 'The following tag was deleted';
+$lang['Miscellaneous'] = 'Miscellaneous';
+$lang['User Upload'] = 'User Upload';
+$lang['Virtual Links'] = 'Virtual Links';
 ?>

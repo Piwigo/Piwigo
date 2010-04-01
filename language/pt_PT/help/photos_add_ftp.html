@@ -1,0 +1,105 @@
+<fieldset>
+  <legend>Início Rápido</legend>
+
+<ol>
+  <li>Crie um diretório no seu computador.</li>  
+
+  <li>Copie algumas fotos para esse diretório, altere o tamanho delas para serem exibidas na rede. <em>Cuidado</em>: o nome dos diretórios e dos arquivos devem conter apenas letras, números, "-", "_" ou ".". Não use espaço em branco, e nem caracteres acentuados.</li>
+
+  <li>Com a ajuda de um programa de FTP, copie o seu diretório para o diretório "galleries" da sua instalação Piwigo.</li>
+
+  <li>Faça o login na sua galeria e vá até <span class="pwgScreen">Administração &raquo; Imagens &raquo; Miniatruras</span> para criar alguma miniatura que esteja faltando.</li>
+
+  <li>Vá até <span class="pwgScreen">Administração</span> e clique no grande botão escrito "Sincronização".</li>
+</ol>
+
+Parabéns! Você acabou de criar a primeira categoria da sua galeria de fotos.
+
+</fieldset>
+<fieldset>
+  <legend>Organização de diretórios e arquivos</legend>
+<ul>
+
+  <li>
+
+    <p>Os diretórios das categorias estão no diretório "galleries" no Piwigo. Segue aqui a árvore de diretórios de uma pequena galeria (mas
+    usando muitos recursos) :</p>
+
+    <pre>
+.
+|-- admin
+|-- doc
+|-- galleries
+|   |-- category-1
+|   |   |-- category-1.1
+|   |   |   |-- category-1.1.1
+|   |   |   |   |-- category-1.1.1.1
+|   |   |   |   |   |-- pwg_high
+|   |   |   |   |   |   +-- wedding.jpg
+|   |   |   |   |   |-- thumbnail
+|   |   |   |   |   |   +-- TN-wedding.jpg
+|   |   |   |   |   +-- wedding.jpg
+|   |   |   |   +-- category-1.1.1.2
+|   |   |   +-- category-1.1.2
+|   |   |-- category-1.2
+|   |   |   |-- pookie.jpg
+|   |   |   +-- thumbnail
+|   |   |       +-- TN-pookie.jpg
+|   |   +-- category-1.3
+|   +-- category-2
+|       |-- piglet.gif
+|       |-- pwg_representative
+|       |   +-- video.jpg
+|       |-- thumbnail
+|       |   +-- TN-piglet.jpg
+|       +-- video.avi
+|-- include
+|-- install
+|-- language
+|-- template
++-- tool</pre>
+
+  </li>
+  
+  <li>Cada diretório sob "galleries" produz uma categoria. Não há limite de profundidade.</li>
+
+  <li>Basicamente, um item é representado por um arquivo. Um arquivo pode ser um
+  iten Piwigo se sua extensão estiver entre as possibilidades dos parâmetros de configuração <code>file_ext</code> (veja o arquivo <span
+  class="filename">include/config_default.inc.php</span> ). Um arquivo pode
+  ser uma imagem se a sua extensão estiver entre as possibilidades dos parâmetros de configuração <code>picture_ext</code>.</li>
+
+  <li>Os itens fotográficos devem ter uma miniatura associada (veja a seção abaixo
+  sobre miniaturas)</li>
+
+  <li>Os itens fotográficos podem ter um arquivo de alta definição associado. Assim como para
+  wedding.jpg no exemplo acima. Não use prefixo nas imagens de alta definição.</li>
+
+  <li>Outros itens (video, sons, arquivos de texto, o que você quiser...) são
+  por padrão representados por um ícone correspondente à extensão do nome de arquivo. Você tem a opção de associar uma miniatura e um arquivo representativo (veja video.avi no exemplo acima).</li>
+
+  <li><em>Atenção</em>: o nome dos diretórios e dos arquivos devem conter apenas letras, números, "-", "_" ou ".". Não use espaço em branco e nem caracteres acentuados.</li>
+
+  <li>Uma vez que os arquivos, as miniaturas e representativos estiverem corretamente alocados nos diretórios,
+  vá até : <span class="pwgScreen">Administração &raquo; Categorias &raquo;
+  Sincronizar</span></li>
+
+</ul>
+
+</fieldset>
+<fieldset>
+  <legend>Miniaturas (Thumbnails)</legend>
+<ul>
+
+  <li>Cada foto deve ter a sua miniatura.</li>
+
+  <li>As miniaturas estão armazenadas no subdiretório "thumbnail" no diretório das categorias. 
+      A miniatura tem o mesmo nome de arquivo que a foto correspondente, com <em>TN-</em> como prefixo.</li>
+
+  <li><em>Aviso</em>: use um módulo externo para a criação das miniaturas.</li>
+
+  <li>Even if it is not recommended (qualidade da imagem, carregamento do servidor, etc), você pode usar a página <span class="pwgScreen">Administração &raquo; Imagens &raquo; Miniaturas</span> para criar as miniaturas.</li>
+
+  <li>Dê acesso de escrita para todos os diretórios das categorias.</li>
+
+</ul>
+</fieldset>

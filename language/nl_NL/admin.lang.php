@@ -768,5 +768,7 @@ $lang['Impossible to deactivate this language, you need at least one language.']
 $lang['Inactive Languages'] = 'Niet actieve talen';
 $lang['Make this language available to users'] = 'Stel deze taal beschikbaar aan gebruikers';
 $lang['Set as default language for unregistered and new users'] = 'Stel in als standaardtaal voor niet geregistreerde en nieuwe gebruikers';
-
+$lang['Miscellaneous'] = 'Diverse';
+$lang['User Upload'] = 'Upload door gebruikers';
+$lang['Virtual Links'] = 'Virtuele Links';
 ?>

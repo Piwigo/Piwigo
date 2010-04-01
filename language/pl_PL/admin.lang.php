@@ -648,6 +648,7 @@ $lang['Subscribe %s'] = 'Zapisz %s';
 $lang['Subscribe %s to Piwigo Announcements Newsletter'] = 'Zapisz %s do angielskiej wersji Newsletter Piwigo';
 $lang['Purge search history'] = 'Usuń historię przeszukiwań';
 $lang['Hide'] = 'Ukryj';
+$lang['Miscellaneous'] = 'Informacje różne';
 //For 2.1.0
 $lang['Categories descending alphanumerically ordered'] = 'Kategorie sortowane alfanumerycznie malejąco';
 $lang['Categories sorted in descending order ⇑'] = 'Kategorie sortowane malejąco ⇑';

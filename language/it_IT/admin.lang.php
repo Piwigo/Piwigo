@@ -779,4 +779,7 @@ $lang['Impossible to deactivate this language, you need at least one language.']
 $lang['Inactive Languages'] = 'Lingue disattivate';
 $lang['Make this language available to users'] = 'Rendere questa lingua disponibile agli utenti';
 $lang['Set as default language for unregistered and new users'] = 'Lingua di default per gli ospiti e nuovi utenti';
+$lang['User Upload'] = 'Immagini dagli utenti';
+$lang['Miscellaneous'] = 'Informazioni';
+$lang['Virtual Links'] = 'Collegamenti virtuali';
 ?>

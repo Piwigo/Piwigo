@@ -744,4 +744,7 @@ $lang['Activate icon "%s"'] = '"%s"のアイコンを有効する';
 $lang['Activate field "%s"'] = '"%s"のフィールドを有効する';
 $lang['Photo Properties'] = '写真のプロパティ';
 $lang['Allow user customization'] = 'ユーザーのカスタマイズを有効にする';
+$lang['Miscellaneous'] = 'その他の情報';
+$lang['User Upload'] = 'ユーザによるアップロード';
+$lang['Virtual Links'] = 'バーチャルのリンク';
 ?>

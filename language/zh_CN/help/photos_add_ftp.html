@@ -1,0 +1,96 @@
+<fieldset>
+  <legend>快速开始</legend>
+
+<ol>
+  <li>在你的电脑里创建一个文件夹。</li>  
+
+  <li>复制一些图片到此文件夹，调整它们的大小以适合网上浏览。 <em>注意</em>: 文件名和文件夹必须以字母、数字、 "-"、 "_" 或者 "." 组成。没有空格，没有特别的符号。</li>
+
+  <li>使用FTP客户端，复制你的文件夹到 Piwigo 的 "galleries" 文件夹里。</li>
+
+  <li>登录你的相册，进入 <span class="pwgScreen">管理员 &raquo; 图片 &raquo; 缩略图</span> 以创建你的缩略图。</li>
+
+  <li>进入 <span class="pwgScreen">管理员</span> 然后点击“快速同步”的大按钮。</li>
+</ol>
+
+恭喜！你已成功地为你的相册创建了第一个类别。
+
+</fieldset>
+<fieldset>
+  <legend>文件夹与文件结构</legend>
+<ul>
+
+  <li>
+
+    <p>类别文件夹均放在 Piwigo 的 "galleries" 文件夹里。以下的文件夹树里有一个很小的相册(但使用了很多功能) :</p>
+
+    <pre>
+.
+|-- admin
+|-- doc
+|-- galleries
+|   |-- category-1
+|   |   |-- category-1.1
+|   |   |   |-- category-1.1.1
+|   |   |   |   |-- category-1.1.1.1
+|   |   |   |   |   |-- pwg_high
+|   |   |   |   |   |   +-- wedding.jpg
+|   |   |   |   |   |-- thumbnail
+|   |   |   |   |   |   +-- TN-wedding.jpg
+|   |   |   |   |   +-- wedding.jpg
+|   |   |   |   +-- category-1.1.1.2
+|   |   |   +-- category-1.1.2
+|   |   |-- category-1.2
+|   |   |   |-- pookie.jpg
+|   |   |   +-- thumbnail
+|   |   |       +-- TN-pookie.jpg
+|   |   +-- category-1.3
+|   +-- category-2
+|       |-- piglet.gif
+|       |-- pwg_representative
+|       |   +-- video.jpg
+|       |-- thumbnail
+|       |   +-- TN-piglet.jpg
+|       +-- video.avi
+|-- include
+|-- install
+|-- language
+|-- template
++-- tool</pre>
+
+  </li>
+  
+  <li>每个在 "galleries" 下面的文件夹都是一个产品类别。没有级别限制，即可以添加无限子级别。</li>
+
+  <li>基本上，一个文件代表一个元素。如果文件的扩展名存在于 <code>file_ext</code> 参数配置里，其将可作为 Piwigo 的一个元素(参见 <span class="filename">include/config_default.inc.php</span> 文件)。如果文件的扩展名存在于 <code>picture_ext</code> 参数配置里，其将作为一个图片。</li>
+
+  <li>图片元素必须要有一张对应的缩略图 (参见以下缩略图的相关说明)</li>
+
+  <li>图片元素可以有一个高品质的文件与其关联。如以上 wedding.jpg 的例子。高品质图片不需要前缀。</li>
+
+  <li>非图片元素 (如视频，声频，文本文件，一切你想到的...) 均以文件扩展名的默认图标显示。或者，你可以用一张缩略图来代表这个文件 (参见 video.avi 的例子)。</li>
+
+  <li><em>注意</em>: 文件名和文件夹必须以字母、数字、 "-"、 "_" 或者 "." 组成。没有空格，没有特别的符号。</li>
+
+  <li>一旦文件、缩略图都放到其正确的位置后，进入 : <span class="pwgScreen">管理员 &raquo; 类 &raquo;
+  同步</span></li>
+
+</ul>
+
+</fieldset>
+<fieldset>
+  <legend>缩略图</legend>
+<ul>
+
+  <li>每个图片必须要有一张缩略图。</li>
+
+  <li>缩略图保存在类别文件夹里名为 "thumbnail" 的子文件夹。缩略图文件名与图片的文件名一致，将会以 <em>TN-</em> 为前缀</li>
+
+  <li><em>建议</em>: 使用外部工具来创建缩略图。</li>
+
+  <li>你可以使用<span class="pwgScreen">管理员 &raquo; 图片 &raquo; 缩略图</span> 页面来创建缩略图。即使这是不被推荐的 (考虑到图片品质，网络服务器资源读取等问题)。</li>
+
+  <li>分配给所有类别文件夹写权限。</li>
+
+</ul>
+</fieldset>
