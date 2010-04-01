@@ -63,6 +63,14 @@ my %ignore_keys = (
     'other' => '',
     'high' => '',
     'Waiting page: %s' => '',
+    'Admin: %s' => '',
+    'Manage this user comment: %s' => '',
+    'Main "guest" user does not exist' => '',
+    'Main "guest" user status is incorrect' => '',
+    'Main "webmaster" user does not exist' => '',
+    'Main "webmaster" user status is incorrect' => '',
+    'Default user does not exist' => '',
+    '(!) This comment requires validation' => '',
 );
 
 

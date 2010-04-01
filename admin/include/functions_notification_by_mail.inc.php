@@ -405,7 +405,7 @@ function do_subscribe_unsubscribe_notification_by_mail($is_admin_request, $is_su
         // set env nbm user
         set_user_on_env_nbm($nbm_user, true);
 
-        $subject = '['.$conf['gallery_title'].']: '.($is_subscribe ? l10n('Unsubscribe from notification by mail'): l10n('Unsubscribe from notification by mail'));
+        $subject = '['.$conf['gallery_title'].']: '.($is_subscribe ? l10n('Subscribe to notification by mail'): l10n('Unsubscribe from notification by mail'));
 
         // Assign current var for nbm mail
         assign_vars_nbm_mail_content($nbm_user);

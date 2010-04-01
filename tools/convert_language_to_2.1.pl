@@ -45,6 +45,9 @@ my %remove_keys = (
     common => {
         'You can\'t upload pictures in this category' => '',
         'display pictures added on' => '',
+        'Email address is missing' => '',
+        'Delete: %s' => '',
+        'All tags must match' => '',
     },
     admin => {
         'nbm_content_goto_2' => '',
@@ -55,10 +58,34 @@ my %remove_keys = (
         'No tag defined. Use Administration>Pictures>Tags' => '',
         'Remote site url must start by http or https and must only contain characters among "/", "a-zA-Z0-9", "-" or "_"' => '',
         'path' => '',
+        'Unable to retrieve server informations since allow_url_fopen is disabled.' => '',
+        'The following tag were deleted' => '',
+        'Remote site' => '',
+        'Piwigo home' => '',
+        'Move up' => '',
+        'Instructions' => '',
+        'Hits' => '',
+        'General' => '',
+        'Gallery description' => '',
+        'Extensions' => '',
+        'Demo' => '',
+        'Categories ascending alphanumerically ordered' => '',
+        'Categories descending alphanumerically ordered' => '',
+        'Categories sorted in ascending order ⇓' => '',
+        'Categories sorted in ascending order &dArr;' => '',
+        'Categories sorted in descending order ⇑' => '',
+        'Categories sorted in descending order &uArr;' => '',
+        'Bugs' => '',
+        'Automatic installation' => '',
     },
     upgrade => {
         'Are you sure?' => '',
+        'In <i>%s</i>, before <b>?></b>, insert:' => '',
     },
+    install => {
+        'Parameters are correct' => '',
+        'Installation finished' => '',
+    }
 );
 
 my %to_copy = ();

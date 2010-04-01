@@ -103,20 +103,20 @@ class c13y_internal
     $c13y_users = array();
     $c13y_users[$conf['guest_id']] = array(
       'status' => 'guest',
-      'l10n_non_existent' => 'c13y_guest_non_existent',
-      'l10n_bad_status' => 'c13y_bad_guest_status');
+      'l10n_non_existent' => 'Main "guest" user does not exist',
+      'l10n_bad_status' => 'Main "guest" user status is incorrect');
 
     if ($conf['guest_id'] != $conf['default_user_id'])
     {
       $c13y_users[$conf['default_user_id']] = array(
         'password' => null,
-        'l10n_non_existent' => 'c13y_default_non_existent');
+        'l10n_non_existent' => 'Default user does not exist');
     }
 
     $c13y_users[$conf['webmaster_id']] = array(
       'status' => 'webmaster',
-      'l10n_non_existent' => 'c13y_webmaster_non_existent',
-      'l10n_bad_status' => 'c13y_bad_webmaster_status');
+      'l10n_non_existent' => 'Main "webmaster" user does not exist',
+      'l10n_bad_status' => 'Main "webmaster" user status is incorrect');
 
       $query = '
   select u.'.$conf['user_fields']['id'].' as id, ui.status

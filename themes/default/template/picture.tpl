@@ -59,7 +59,7 @@
       <a href="{$U_SET_AS_REPRESENTATIVE}" title="{'set as category representative'|@translate}"><img src="{$ROOT_URL}{$themeconf.icon_dir}/representative.png" class="button" alt="{'representative'|@translate}"></a>
     {/if}
     {if isset($U_ADMIN) }
-      <a href="{$U_ADMIN}" title="{'edit'|@translate}"><img src="{$ROOT_URL}{$themeconf.icon_dir}/preferences.png" class="button" alt="{'edit'|@translate}"></a>
+      <a href="{$U_ADMIN}" title="{'Modify information'|@translate}"><img src="{$ROOT_URL}{$themeconf.icon_dir}/preferences.png" class="button" alt="{'edit'|@translate}"></a>
     {/if}
     {if isset($U_CADDIE) }{*caddie management BEGIN*}
 <script type="text/javascript">
