@@ -51,7 +51,11 @@ else
 }
 
 $types = array('none', 'picture', 'high', 'other');
-$display_thumbnails = array('No display', 'Classic display', 'Hoverbox display');
+
+$display_thumbnails = array('no_display_thumbnail' => l10n('No display'),
+                            'display_thumbnail_classic' => l10n('Classic display'),
+                            'display_thumbnail_hoverbox' => l10n('Hoverbox display')
+  );
 
 // +-----------------------------------------------------------------------+
 // | Check Access and exit when user status is not ok                      |
@@ -116,13 +120,20 @@ if (isset($_POST['submit']))
 
   $search['fields']['display_thumbnail'] = $_POST['display_thumbnail'];
   // Display choise are also save to one cookie
-  $cookie_val = ($_POST['display_thumbnail']!=$display_thumbnails[2] and in_array($_POST['display_thumbnail'], $display_thumbnails)) ? $_POST['display_thumbnail']:null;
-  pwg_set_cookie_var('history_display_thumbnail', $cookie_val, strtotime('+1 month') );
+  if (!empty($_POST['display_thumbnail'])
+      and isset($display_thumbnails[$_POST['display_thumbnail']]))
+  {
+    $cookie_val = $_POST['display_thumbnail'];
+  }
+  else
+  {
+    $cookie_val = null;
+  }
+  
+  pwg_set_cookie_var('display_thumbnail', $cookie_val, strtotime('+1 month') );
 
   // TODO manage inconsistency of having $_POST['image_id'] and
   // $_POST['filename'] simultaneously
-
-  // echo '<pre>'; print_r($search); echo '</pre>';
 
   if (!empty($search))
   {
@@ -624,7 +635,7 @@ else
   $form['types'] = $types;
   // Hoverbox by default
   $form['display_thumbnail'] =
-    pwg_get_cookie_var('history_display_thumbnail', $display_thumbnails[2]);
+    pwg_get_cookie_var('display_thumbnail', 'no_display_thumbnail');
 }
 
 
@@ -671,12 +682,8 @@ $template->assign(
   )
 );
 
-$template->assign(
-  array(
-      'display_thumbnail_values' => $display_thumbnails,
-      'display_thumbnail_selected' => array($form['display_thumbnail']),
-    )
-  );
+$template->assign('display_thumbnails', $display_thumbnails);
+$template->assign('display_thumbnail_selected', $form['display_thumbnail']);
 
 // +-----------------------------------------------------------------------+
 // |                           html code display                           |

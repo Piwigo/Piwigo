@@ -76,7 +76,7 @@
   <label>
     {'Thumbnails'|@translate}
     <select name="display_thumbnail">
-      {html_options values=$display_thumbnail_values output=$display_thumbnail_values|translate selected=$display_thumbnail_selected}
+      {html_options options=$display_thumbnails selected=$display_thumbnail_selected}
     </select>
   </label>
 
