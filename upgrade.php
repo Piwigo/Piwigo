@@ -297,7 +297,7 @@ if (isset($_POST['submit']) and check_upgrade())
       if (!@file_put_contents($config_file, $config_file_contents))
       {
         array_push($page['infos'],
-		   l10n_args('in <i>%s</i>, before <b>?></b>, insert:', 
+		   l10n_args('In <i>%s</i>, before <b>?></b>, insert:', 
 			     'local/config/database.inc.php') . 
 		   '<p><textarea rows="4" cols="40">' .
 		   implode("\r\n" , $mysql_changes).'</textarea></p>'

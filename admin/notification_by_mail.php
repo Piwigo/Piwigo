@@ -81,8 +81,8 @@ function do_timeout_treatment($post_keyname, $check_key_treated = array())
 
       $must_repost = true;
       array_push($page['errors'],
-        l10n_dec('Execution time is out, treatment must be continue [Estmated time: %d second].',
-                 'Execution time is out, treatment must be continue [Estmated time: %d seconds].',
+        l10n_dec('Execution time is out, treatment must be continue [Estimated time: %d second].',
+                 'Execution time is out, treatment must be continue [Estimated time: %d seconds].',
                   $time_refresh));
     }
   }
