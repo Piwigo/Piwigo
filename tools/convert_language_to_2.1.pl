@@ -43,11 +43,13 @@ my %ignore_keys = (
 
 my %remove_keys = (
     common => {
-        'You can\'t upload pictures in this category' => '',
+        "You can\\'t upload pictures in this category" => '',
         'display pictures added on' => '',
         'Email address is missing' => '',
         'Delete: %s' => '',
         'All tags must match' => '',
+        'Validate: %s' => '',
+        'Upgrade from %s to %s' => '',
     },
     admin => {
         'nbm_content_goto_2' => '',
@@ -77,6 +79,9 @@ my %remove_keys = (
         'Categories sorted in descending order &uArr;' => '',
         'Bugs' => '',
         'Automatic installation' => '',
+        'Upgrade from version %s to %s' => '',
+        'Upgrade from %s to %s' => '',
+        'Upload Form' => '',
     },
     upgrade => {
         'Are you sure?' => '',
@@ -85,6 +90,8 @@ my %remove_keys = (
     install => {
         'Parameters are correct' => '',
         'Installation finished' => '',
+        'The next step of the installation is now possible' => '',
+        'next step' => '',
     }
 );
 

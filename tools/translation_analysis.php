@@ -113,6 +113,8 @@ foreach ($languages as $language)
         }
       }
 
+      echo '<h3>'.$file.'.lang.php</h3>';
+      
       if ('' != $output_missing or '' != $output_duplicated)
       {
         $output = '';
@@ -124,7 +126,6 @@ foreach ($languages as $language)
         {
           $output.= "\n// untranslated yet\n".$output_duplicated;
         }
-        echo '<h3>'.$file.'.lang.php</h3>';
         echo '<textarea style="width:100%;height:250px;">'.$output.'</textarea>';
       }
 
