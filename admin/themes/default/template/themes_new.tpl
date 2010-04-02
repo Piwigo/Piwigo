@@ -2,7 +2,7 @@
   <h2>{'Add New Theme'|@translate}</h2>
 </div>
 
-{if isset($themes)}
+{if not empty($new_themes)}
 <div class="themeBoxes">
 {foreach from=$new_themes item=theme name=themes_loop}
   <div class="themeBox">
@@ -12,4 +12,6 @@
   </div>
 {/foreach}
 </div> <!-- themeBoxes -->
+{else}
+<p>{'There is no other theme available.'|@translate}</p>
 {/if}

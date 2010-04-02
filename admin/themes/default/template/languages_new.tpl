@@ -37,4 +37,6 @@ jQuery().ready(function(){ldelim}
   </tr>
 {/foreach}
 </table>
+{else}
+<p>{'There is no other language available.'|@translate}</p>
 {/if}

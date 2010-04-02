@@ -29,6 +29,7 @@ jQuery().ready(function(){ldelim}
   <h2>{'Plugins'|@translate}</h2>
 </div>
 
+{if not empty($plugins)}
 <fieldset>
 <legend></legend>
 {foreach from=$plugins item=plugin name=plugins_loop}
@@ -65,3 +66,6 @@ jQuery().ready(function(){ldelim}
 </div>
 {/foreach}
 </fieldset>
+{else}
+<p>{'There is no other plugin available.'|@translate}</p>
+{/if}

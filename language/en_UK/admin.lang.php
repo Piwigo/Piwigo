@@ -759,4 +759,7 @@ $lang['The following tag was deleted'] = 'The following tag was deleted';
 $lang['Miscellaneous'] = 'Miscellaneous';
 $lang['User Upload'] = 'User Upload';
 $lang['Virtual Links'] = 'Virtual Links';
+$lang['There is no other language available.'] = 'There is no other language available.';
+$lang['There is no other plugin available.'] = 'There is no other plugin available.';
+$lang['There is no other theme available.'] = 'There is no other theme available.';
 ?>
