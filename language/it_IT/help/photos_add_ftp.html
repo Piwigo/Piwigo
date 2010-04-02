@@ -2,16 +2,21 @@
   <legend>Presa in mano rapida</legend>
 
 <ol>
-  <li>Create una directory sul vostro PC.</li>  
+  <li>Create una directory sul vostro PC.</li>
+
   <li>Copiate qualche foto in questa directory, e ridimenzionatele per la visualizzazione sul web. <em>Attenzione</em>: il nome delle directories e dei files deve contenere solo delle lettre, cifre e i caratteri "-", "_" o ".". Nessuno sazio o caratteri accentuati.</li>
+
   <li>Con un cliente FTP, copiate la directory in nella directory "galleries" del vostro Piwigo.</li>
-  <li>Connettetevi alla vostra galleria e andate a <span class="pwgScreen">Amministrazione &raquo; Immagini &raquo; Miniature</span> per creare le miniature mancanti.</li>
+
+  <li>Connettetevi alla vostra galleria Piwigo e andate a <span class="pwgScreen">Amministrazione &raquo; Immagini &raquo; Miniature</span> per creare le miniature mancanti.</li>
+
   <li>Andare a <span class="pwgScreen">Amministrazione</span> e cliccare sul grosso pulzante Sincronizzazione.</li>
 </ol>
 
 <p>Bravo! Avete appena creato la prima categoria della vosrta galleria.</p>
 
 </fieldset>
+
 <fieldset>
   <legend>Organizzazione delle directories e dei files</legend>
 
@@ -19,9 +24,7 @@
 
   <li>
 
-    <p>Nella directory "galleries" si trovano le categorie di Piwigo.
-Qui di seguito potete vedere lo schema di un albero di una piccola galleria
-(ma che usa moltissime funzionalità:</p>
+    <p>Nella directory "galleries" si trovano le categorie di Piwigo. Qui di seguito potete vedere lo schema di un albero di una piccola galleria (ma che usa moltissime funzionalità) : </p>
   
 <pre>
 .
@@ -59,55 +62,50 @@ Qui di seguito potete vedere lo schema di un albero di una piccola galleria
 
   </li>
   
-  <li>In linea di massima, una categoria è rappresentata da una directory
-che si trova a qualsiasi livello della directory "galleries" di
-Piwigo. Ogni categoria può contenere altretanti sottolivelli che
-si desidera. Nell'esempio qui sopra, categoria-1.1.1.1 si trova al 4 livello
-di profondità.</li>
+  <li>Eccezzione fatta per "thumbnail", "pwg_high" o "pwg_representative" (vedi spiegazzioni qui sotto), ogni directory inserita in "galleries" genera una categoria. Il numero di livelli (profondità) non è limitato.</li>
 
-  <li>Un elemento è invece rappresentato da un file. Un file può essere un
-elemento di Piwigo se la sua estensione è tra quelle previste tra
-le possibilità previste nel parametro di configuarzione <code>file_ext</code>
-(vedi file <span class="filename">include/config_default.inc.php</span>).
-Un file è considerato come un immagine se la sua estensione si trova tra
-quelle previste nel file <code>picture_ext</code>.</li>
+  <li>Un elemento è invece rappresentato da un file. Un file può essere un elemento di Piwigo se la sua estensione è presente tra le possibilità previste nel parametro di configuarzione <code>file_ext</code> (vedi 
+file <span class="filename">include/config.inc.php</span>). Un file è considerato come un immagine 
+se la sua estensione è presente tra quelle previste nel parametro di configuarzione 
+<code>picture_ext</code>.</li>
 
-  <li>Ogni elemento di tipo immagine deve essere associato ad una miniatura
-(vedi la sezione più in basso riguardante le miniature)</li>
+  <li>Ad ogni elemento di tipo immagine deve essere associato una miniatura
+(vedi la sezione più in basso riguardante le miniature).</li>
 
   <li>Gli elementi di tipo immagine possono avere un'immagine associata
-in alta qualità. Come per il file <span class="filename">matrimonio.jpg</span>
+in alta risoluzzione. Come per il file <span class="filename">matrimonio.jpg</span>
 nell'esempio proposto. Nessun prefisso è necessario prima del nome del
 file.</li>
 
   <li>Gli elementi che non sono delle immagini (video, suoni, file di testo o
 quant'altro...) sono generalmente rappresentati con un'icona corrispondente
-all'estensione del file. In modo opzionale è possibile associare una miniatura
-e un file rappresentativo (come per il file <span class="filename">video.avi</span>
-nell'esempio proposto).</li>
+all'estensione del file. In modo opzionale, è possibile associare una miniatura
+ed un file rappresentativo (come per il file <span 
+class="filename">video.avi</span> nell'esempio proposto).</li>
 
-  <li><em>Attenzione</em>: il nome delle directory o del file deve essere
+  <li><em>Attenzione</em>: il nome d'una directory o di un'file deve essere
 composto da lettere, numeri o caratteri come "-", "_" o ".". Nessuno spazio
-ne caratteri con gli accenti.</li>
+ne caratteri accentuati.</li>
 
-  <li><em>Consiglio</em>: una categoria può contenere elementi e
-sottocategorie nello stesso tempo. Ad ogni modo è altamente consigliato di
-scegliere per ciascuna categoria quelle che contengono elementi <strong>e</strong>
-quelle che invece contengono sottocategorie.</li>
+  <li><em>Conseil</em> : une catégorie peut contenir des éléments et des
+sous-catégories à la fois. Néanmoins, il est fortement conseillé pour chaque
+catégorie de choisir entre contenir des éléments <strong>ou bien</strong>
+des sous-catégories.</li>
 
   <li>Una volta che i file, le miniature e i file rappresentativi sono
 correttamente piazzati nelle directory, andare nello schermo <span
-class="pwgScreen">Amministrazione &raquo; Generale &raquo; Sincronizza</span>.</li>
+class="pwgScreen">Amministrazione &raquo; Generale &raquo; Sincronizzare</span>.</li>
 
 </ul>
 
 </fieldset>
+
 <fieldset>
   <legend>Miniature</legend>
 
 <ul>
-
-  <li>Come detto prima, ciascun elemento immagine deve essere associato
+  
+  <li>Come detto prima, ogni elemento di tipo immagine deve essere associato
 ad una miniatura.</li>
 
   <li>Le miniature si trovano nella sottodirectory "thumbnail" di ogni
@@ -116,7 +114,7 @@ immagine (stesso nome del file) con un prefisso che può essere
 personalizzato dal parametro di configurazione <code>prefix_thumbnail</code>
 (vedi <span class="filename">include/config.inc.php</span>).</li>
 
-  <li>Non è necessario che le miniature abbiano la stessa estensione
+  <li>Non è necessario che la miniatura abbia la stessa estensione
 dell'immagine che rappresenta (per esempio, un'immagine ".JPG" può avere
 come miniatura un'immagine ".GIF").</li>
 
@@ -126,9 +124,9 @@ creazione delle miniature.</li>
   <li>È anche possibile usare la creazione delle miniature integrata a
 Piwigo, ma ciò non è raccomandato in quanto la qualità delle miniature
 può essere scadente ed il processo potrebbe utilizzare troppe risorse del
-server (ciò può essere un problema per un servizio di web hosting gratuito.</li>
+server (ciò può essere un problema per un provider mutualizzato).</li>
 
-  <li>Se decidete comunque di usare il server per la creazione
+  <li>Se decidete comunque di usare il server web per la creazione
 delle miniature è necessario dare gli accessi in scrittura su tutte
 le directory.</li>
 
