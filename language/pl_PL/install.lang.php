@@ -32,11 +32,8 @@ $lang['mail address must be like xxx@yyy.eee (example : jack@altern.org)'] = 'ad
 $lang['Webmaster login'] = 'Logowanie Webmastera';
 $lang['It will be shown to the visitors. It is necessary for website administration'] = 'To będize wyświetlone dla odwiedzających i jest konieczne do celów administracyjnych ';
 
-$lang['Parameters are correct'] = 'Parametry są poprawne';
 $lang['Connection to server succeed, but it was impossible to connect to database'] = 'Połączenie do serwera powiodło się, ale nie było możliwe połączenie do bazy danych';
 $lang['Can\'t connect to server'] = 'Nie można połączyć sie do serwera';
-$lang['The next step of the installation is now possible'] = 'Teraz mozliwy jest następny krok instalacji';
-$lang['next step'] = 'następny krok';
 $lang['Copy the text in pink between hyphens and paste it into the file "local/config/database.inc.php"(Warning : database.inc.php must only contain what is in pink, no line return or space character)'] = 'Skopiuj tekst zaznaczony na różowo pomiędzy cudzysłowiami i wklej do pliku "include/mysql.inc.php"(Uwaga : mysql.inc.php musi zawierać tylko to co jest na różowo bez żadnych znaków końca linii czy spacji)';
 
 $lang['Host'] = 'MySQL host';
@@ -52,15 +49,11 @@ $lang['database tables names will be prefixed with it (enables you to manage bet
 $lang['enter a login for webmaster'] = 'wprowadź nazwę użytkownika posiadającego uprawnienia Webmaster';
 $lang['webmaster login can\'t contain characters \' or "'] = 'login nie może zawierać nastepujących znaków \' lub "';
 $lang['please enter your password again'] = 'wprowadź hasło jeszcze raz';
-$lang['Installation finished'] = 'Instalacja zakończona';
 $lang['Webmaster password'] = 'Hasło użytkownika Webmaster';
 $lang['Keep it confidential, it enables you to access administration panel'] = 'Zachowaj hasło, umożliwia ono dostep do panelu administracyjnego';
 $lang['Password [confirm]'] = 'Hasło [potwierdź]';
 $lang['verification'] = 'weryfikacja';
 $lang['Need help ? Ask your question on <a href="%s">Piwigo message board</a>.'] = 'Potrzebujesz pomocy ? Zadaj pytanie na <a href="%s">Forum Piwigo</a>.';
-$lang['install_end_message'] = 'Konfiguracja Piwigo została zakończona, następny krok to<br /><br />
-* przejdź do strony logowania : [ <a href="identification.php">logowanie</a> ] i wprowadź użytkownika/hasło będącego webmaster\'em<br />
-* logowanie to umożliwi Ci dostęp do panelu administracyjnego oraz instrukcji jak umieszczaćzdjęcia w katalogach';
 $lang['Webmaster mail address'] = 'Adres email Webmaster\'a';
 $lang['Visitors will be able to contact site administrator with this mail'] = 'Z jego pomocą odwiedzający będą mogli się skontaktować z administratorem strony';
 

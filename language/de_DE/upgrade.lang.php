@@ -37,7 +37,6 @@ $lang['Only thumbnails prefix and webmaster mail address have been saved from pr
 $lang['This page proposes to upgrade your database corresponding to your old version of Piwigo to the current version.
 The upgrade assistant thinks you are currently running a <strong>release %s</strong> (or equivalent).'] = 'Diese Seite hat vor, Ihre Datenbank entsprechend Ihrer alten Version von Piwigo zur gegenwärtigen Version zu aktualisieren.
 Der Upgradeassistent ist der Meinung sie haben folgende Version installiert <strong>release %s</strong> (oder identisch).';
-$lang['In <i>%s</i>, before <b>?></b>, insert:'] = 'In <i>%s</i>, vor <b>?></b>, einfügen:';
 $lang['As a precaution, following plugins have been disabled. You must check for plugins upgrade before reactiving them:'] = 'Als Vorsichtsmaßnahme wurden folgende Plugins abgeschaltet. Prüfen Sie, ob ein Pluginupdate verfügbar ist, bevor Sie diese wieder aktivieren:';
 
 ?>

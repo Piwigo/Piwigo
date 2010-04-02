@@ -65,7 +65,6 @@ $lang['Caddie management'] = 'ادارة السلة';
 $lang['Caddie'] = 'السلة';
 $lang['Categories authorized thanks to group associations'] = 'تم المصادقة عى الألبومات ، شكرا لله';
 $lang['Categories manual order was saved'] = 'طلب الألبومات اليدوية تم حفظه';
-$lang['Categories ascending alphanumerically ordered'] = 'طلب الألبوم حرفيا';
 $lang['Category elements associated to the following categories: %s'] = 'تنصيف العناصر المرتبطة الى الفئات التالية: %s';
 $lang['Check for upgrade failed for unknown reasons.'] = 'لم يتم التحدث لاسباب غير معروفه.';
 $lang['Check for upgrade'] = 'التأكد من التحديثات';
@@ -96,7 +95,6 @@ $lang['Empty caddie'] = 'الساعد فارغ';
 $lang['Environment'] = 'البيئة';
 $lang['Form'] = 'نموذج';
 $lang['Gallery URL'] = 'عنوان المعرض';
-$lang['Gallery description'] = 'وصف المعرض';
 $lang['Gallery title'] = 'عنوان المعرض';
 $lang['Grant selected groups'] = 'تصريح المجموعه المختارة';
 $lang['Grant selected users'] = 'تصريح المستخدم المختار';
@@ -123,14 +121,12 @@ $lang['Name'] = 'الاسم';
 $lang['New name'] = 'اسم جديد';
 $lang['New parent category'] = 'ألبوم فرعي جديد';
 $lang['New tag'] = 'كلمة جديد';
-$lang['No tag defined. Use Administration>Pictures>Tags'] = 'لا يعرف الوسم. استخدام الإدارة> صور> علامات';
 $lang['Number of comments per page'] = 'عدد التلعيقات في الصفحة';
 $lang['Number of rates'] = 'عدد التقيمات';
 $lang['Number of thumbnails to create'] = 'عدد المصغرات المنشأة';
 $lang['Only private categories are listed'] = 'فقط للألبومات المدرجة';
 $lang['Operating system'] = 'نظام المعالجة';
 $lang['Options'] = 'الخيارات';
-$lang['Categories sorted in ascending order &dArr;'] = 'طلب حرفي/رقم';
 $lang['Other private categories'] = 'ألبومات أخرى مدرجة';
 $lang['Page banner'] = 'عنوان المعرض ( أعلى الصفحة) يمكنك استخدام HTML';
 $lang['Parent category'] = 'الألبوم الرئيسي';
@@ -174,7 +170,6 @@ $lang['Tag "%s" already exists'] = 'الكلمات  "%s" موجودة بالفع
 $lang['Tag "%s" was added'] = 'تم اضافة هذه الكلمة "%s"';
 $lang['Tag selection'] = 'اختيار الكلمات الدلائلية';
 $lang['Take selected elements out of caddie'] = 'أخرج هذه العناصر من السلة';
-$lang['The following tag were deleted'] = 'مجموع الكلمات تم حذفها';
 $lang['The %d following tags were deleted'] = 'تم حذف هذه الكلمات %d مسبقا';
 $lang['Unable to check for upgrade.'] = 'لا يمكن التأكد عن تحديثات جديدة';
 $lang['Uninstall'] = 'إلغاء التثبيت';
@@ -235,7 +230,6 @@ $lang['File'] = 'ملف';
 $lang['Filesize'] = 'حجم الملف';
 $lang['first element added on %s'] = ' اول ما اضيف في  %s';
 $lang['Forbidden'] = 'ممنوع';
-$lang['General'] = 'العام';
 $lang['global mode'] = 'النمط الشائع';
 $lang['group "%s" added'] = 'المجموعه  "%s"  أضيفت';
 $lang['group "%s" deleted'] = 'المجموعه  "%s"  جذفت';
@@ -244,7 +238,6 @@ $lang['group'] = 'المجموعة';
 $lang['The name of a group must not contain " or \' or be empty.'] = 'لا تستخدم الترقيم "/" و لا تترك اسم المجموع فارغ';
 $lang['This name is already used by another group.'] = 'هذا الاسم مستخدم من قبل مجموعه أ×خرى.';
 $lang['Groups'] = 'مجموعات';
-$lang['Instructions'] = 'التوجيهات';
 $lang[''] = '';
 $lang['High definition'] = 'ابعاد الارتفاع';
 $lang['jump to category'] = 'اغفز للمجموعة';
@@ -329,7 +322,6 @@ $lang['Send mail on HTML format'] = 'ارسال البريد بصيغة HTML';
 $lang['Include display of recent pictures group by dates'] = 'تضمين عرض الصور الاخير حسب تاريخها';
 $lang['Available only with HTML format'] = 'متاح فقط بصيغة HTML';
 $lang['no write access'] = 'حرية التنفيذ مقيدة';
-$lang['path'] = 'مســار';
 $lang['Permissions'] = 'أذونات';
 $lang['private'] = 'خاص';
 $lang['Properties'] = 'خصائص';
@@ -338,7 +330,6 @@ $lang['Purge never used notification feeds'] = 'عدم تسهيل استخدام
 $lang['Purge sessions'] = 'تبسط او تسهيل الجلسات';
 $lang['randomly represented'] = 'تمثيل عشوائي';
 $lang['registration date'] = 'تاريخ التسجيل';
-$lang['Remote site'] = 'الموقع البعيد';
 $lang['clean'] = 'نظـيف';
 $lang['remove remote listing.xml file'] = 'ازالة .xml البعيد';
 $lang['generate listing'] = 'إنشــاء قائمة';
@@ -348,7 +339,6 @@ $lang['A local listing.xml file has been found for'] = 'ملف القائمة ا
 $lang['read local listing.xml and update'] = 'قراءة ملف القائمة الملحي.xml و تحديثه';
 $lang['test'] = 'أختبار';
 $lang['test this remote site'] = 'اختبر هذا الموقع البعيد';
-$lang['Remote site url must start by http or https and must only contain characters among "/", "a-zA-Z0-9", "-" or "_"'] = 'رابط الموقع البعيد يجب أن يبدأ بها النص المتشعب أو https فقط ، ويجب أن تحتوي على أحرف بين "/" ، "أ زا - Z0 - 9" و "--" أو "_"';
 $lang['remove tags'] = 'ازالة الكلمات الدلائلية';
 $lang['Repair and optimize database'] = 'اصلاح و تحسين قاعدة البيانات';
 $lang['selection'] = 'الاختيار';
@@ -405,7 +395,6 @@ $lang['for this file format'] = 'لتنسيق هذا الملف';
 $lang['unit mode'] = 'نمط موحد';
 $lang['Unlocked'] = 'غيرمقفل';
 $lang['unset'] = 'غير مهيأ';
-$lang['Move up'] = 'نقل للاعلى';
 $lang['Update categories informations'] = 'تحديث ملعومات الألبومات';
 $lang['Update images informations'] = 'تحديث معلومات الصور';
 $lang['Synchronize'] = 'التزامن';
@@ -454,7 +443,6 @@ $lang['user_status_generic'] = 'عام';
 $lang['user_status_guest'] = 'ضيف محترم';
 $lang['user_status_normal'] = 'مستخدم';
 $lang['user_status_webmaster'] = 'مسؤول الموقع';
-$lang['username'] = 'اسم المستخدم';
 $lang['Users'] = 'مستخدم';
 $lang['Virtual category'] = 'ألبوم افتراضي';
 $lang['Waiting'] = 'تحت الانتظار';
@@ -565,7 +553,6 @@ $lang['Plugin versions can\'t be checked'] = 'اضافات يمكن فحص تح�
 $lang['Current<br>version'] = 'الحالي<br>الاصدار';
 $lang['Available<br>version'] = 'المتوفر<br>الاصدار';
 $lang['Automatic upgrade'] = 'تحديث آلي';
-$lang['Automatic installation'] = 'تثبيت آلي';
 $lang['Download file'] = 'تنزيل الملف';
 $lang['Plugin list'] = 'قائمة الاضافات';
 $lang['Check for updates'] = 'فحص للتحديث';
@@ -595,11 +582,7 @@ $lang['ACCESS_2'] = 'للمشتركين فقط';
 $lang['ACCESS_3'] = 'للمدراء';
 $lang['ACCESS_4'] = 'لمدير الموقع';
 $lang['ACCESS_5'] = 'ليس لاحد';
-$lang['Demo'] = 'عرض تجريبي';
-$lang['Piwigo home'] = 'Piwigoموقع';
 $lang['Support'] = 'الدعم الفني';
-$lang['Bugs'] = 'علّـه';
-$lang['Extensions'] = 'الامتداد';
 $lang['Documentation'] = 'الوثائق';
 $lang['A new version of Piwigo is available.'] = 'هناك نسخة جديدة من Piwigo متاحة.';
 $lang['Piwigo Administration'] = 'Piwigo الإدارة';
@@ -609,7 +592,6 @@ $lang['The version of %s [%s] installed is not compatible with the version requi
 $lang['You need to upgrade your system to take full advantage of the application else the application will not work correctly, or not at all'] = 'انت بحاجة لتطوير النظام للتمع بكل امتيازات هذا البرنامج او انك لن تتمكن من تشغيل البرنامج على الاطلاق';
 $lang['Deleted on'] = 'محذزف';
 $lang['Last hit'] =  'النقرة الاخيرة';
-$lang['Hits'] = 'نقرات';
 $lang['GD library is missing'] = '  مفقودة GD مكتبة ';
 $lang['Templates'] = 'النماذج';
 $lang['Extend for templates'] = 'توسيع النماذج';
@@ -632,7 +614,6 @@ $lang['No element in this category'] = 'لا يوجد صور في الالبوم
 $lang['Images manual order was saved'] = 'تم حفظ الصور المطلوبة يديويا';
 $lang['ranks'] = 'الترتيب';
 $lang['Drag to re-order'] = 'أسحب لتغيير';
-$lang['Unable to retrieve server informations since allow_url_fopen is disabled.'] = ' allow_url_fopen غير قادر على استرجاع المعلومات من ';
 $lang['Quick Local Synchronization'] = 'فحص سريع للمستجدات';
 $lang['No photo can be deleted'] = 'لا صور يمكن حذفها';
 $lang['Note: Only deletes photos added with pLoader'] = 'pLoader ملاحظة :فقط يمكنك حذف الصورالمحملة عن طريق برنامج';

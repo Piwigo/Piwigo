@@ -175,7 +175,6 @@ $lang['day'][5] = 'Friday';
 $lang['day'][6] = 'Saturday';
 $lang['default_sort'] = 'Default';
 $lang['del_favorites_hint'] = 'delete this image from your favorites';
-$lang['delete'] = 'Delete';
 $lang['descending'] = 'descending';
 $lang['download'] = 'download';
 $lang['download_hint'] = 'download this file';

@@ -32,7 +32,6 @@ $lang['mail address must be like xxx@yyy.eee (example : jack@altern.org)'] = 'Di
 $lang['Webmaster login'] = 'Administrator';
 $lang['It will be shown to the visitors. It is necessary for website administration'] = 'Benutzername des Administrators';
 
-$lang['Parameters are correct'] = 'Die Parameter sind korrekt ausgefüllt';
 $lang['Connection to server succeed, but it was impossible to connect to database'] = 'Die Verbindung zum Server ist OK, aber nicht die Verbindung zu dieser Datenbank';
 $lang['Can\'t connect to server'] = 'Es konnte keine Verbindung zum Datenbankserver aufgebaut werden';
 
@@ -49,7 +48,6 @@ $lang['database tables names will be prefixed with it (enables you to manage bet
 $lang['enter a login for webmaster'] = 'gib bitte einen Benutzernamen für den Webmaster an';
 $lang['webmaster login can\'t contain characters \' or "'] = 'der Benutzername des Webmasters darf nicht die Zeichen \' und " enthalten';
 $lang['please enter your password again'] = 'Bitte wählen Sie ein Passwort';
-$lang['Installation finished'] = 'Installation abgeschlossen';
 $lang['Webmaster password'] = 'Passwort';
 $lang['Keep it confidential, it enables you to access administration panel'] = 'Administratorpasswort';
 $lang['Password [confirm]'] = 'Passwort [Bestätigung]';
@@ -69,8 +67,6 @@ $lang['Piwigo was not able to configure PHP 5.'] = 'Piwigo ist nicht in der Lage
 $lang["You may referer to your hosting provider's support and see how you could switch to PHP 5 by yourself."] = "Sie können Kontakt zu ihrem Hosting-Provider aufnehmen und um Unterstützung bitten zur Umstellung auf PHP 5.";
 $lang['Hope to see you back soon.'] = 'Wir hoffen, Sie sind bald wieder zurück.';
 
-$lang['The next step of the installation is now possible'] = 'Der nächste Schritt der Installation ist nun möglich';
-$lang['next step'] = 'nächster Schritt';
 $lang['Database type'] = 'Datenbanktyp';
 $lang['The type of database your piwigo data will be store in'] = 'Der Typ der Datenbank, die Piwigo-Daten werden gespeichert in';
 $lang['The configuration of Piwigo is finished, here is the next step<br><br>

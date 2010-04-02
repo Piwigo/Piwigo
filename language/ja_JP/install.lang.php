@@ -32,11 +32,8 @@ $lang['mail address must be like xxx@yyy.eee (example : jack@altern.org)'] = '�
 $lang['Webmaster login'] = 'ウェブマスタログイン';
 $lang['It will be shown to the visitors. It is necessary for website administration'] = 'ウェブマスタは、ビジターに表示されます。ウェブサイト管理に必要です。';
 
-$lang['Parameters are correct'] = 'パラメータに問題はありません。';
 $lang['Connection to server succeed, but it was impossible to connect to database'] = 'サーバへ接続することができましたが、データベースに接続できません。';
 $lang['Can\'t connect to server'] = 'サーバに接続できません。';
-$lang['The next step of the installation is now possible'] = 'インストールの次のステップへ進むことができます。';
-$lang['next step'] = '次のステップ';
 $lang['Copy the text in pink between hyphens and paste it into the file "local/config/database.inc.php"(Warning : database.inc.php must only contain what is in pink, no line return or space character)'] = 'ハイフンの間のピンクのテキストをコピーして、ファイル「include/mysql.inc.php」の中に貼り付けてください (警告 : mysql.inc.phpには、ピンクのテキストのみ貼り付けてください。改行またはスペースを含まないでください)。';
 
 $lang['Host'] = 'MySQLホスト';
@@ -52,7 +49,6 @@ $lang['database tables names will be prefixed with it (enables you to manage bet
 $lang['enter a login for webmaster'] = 'ウェブマスタのユーザIDを入力してください。';
 $lang['webmaster login can\'t contain characters \' or "'] = 'ウェブマスタのユーザIDには、「\'」または「"」を含まないでください。';
 $lang['please enter your password again'] = 'もう一度あなたのパスワードを入力してください。';
-$lang['Installation finished'] = 'インストールが終了しました。';
 $lang['Webmaster password'] = 'ウェブマスタパスワード';
 $lang['Keep it confidential, it enables you to access administration panel'] = 'ウェブマスタパスワードは、内密にしてください。ウェブマスタパスワードを使用して、あなたは管理パネルにアクセスすることができます。';
 $lang['Password [confirm]'] = 'パスワード [もう一度]';

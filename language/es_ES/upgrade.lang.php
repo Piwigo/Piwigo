@@ -38,7 +38,6 @@ $lang['All sub-categories of private categories become private'] = 'Todas las su
 $lang['User permissions and group permissions have been erased'] = 'Las autorizaciones de los usuarios y de los grupos han sido borradas';
 $lang['Only thumbnails prefix and webmaster mail address have been saved from previous configuration'] = 'Sólo el prefijo de las miniaturas y el email  del webmestre han sido salvaguardados por la configuración precedente';
 
-$lang['In <i>%s</i>, before <b>?></b>, insert:'] = 'En el fichero <i>%s</i>, antes <b>?></b>, inserte:';
 
 $lang['This page proposes to upgrade your database corresponding to your old version of Piwigo to the current version.
 The upgrade assistant thinks you are currently running a <strong>release %s</strong> (or equivalent).'] = 'Esta página le propone poner al día la base de datos de su antigua versión de piwigo hacia la nueva versión.

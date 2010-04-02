@@ -32,7 +32,6 @@ $lang['mail address must be like xxx@yyy.eee (example : jack@altern.org)'] = '�
 $lang['Webmaster login'] = '管理员';
 $lang['It will be shown to the visitors. It is necessary for website administration'] = '所有用户都能看到此帐户。必须提供此帐户来管理网站';
 
-$lang['Parameters are correct'] = '输入参数正确';
 $lang['Connection to server succeed, but it was impossible to connect to database'] = '服务器连接正常，但是无法连接到数据库';
 $lang['Can\'t connect to server'] = '无法连接到服务器';
 
@@ -49,16 +48,12 @@ $lang['database tables names will be prefixed with it (enables you to manage bet
 $lang['enter a login for webmaster'] = '请输入网管名';
 $lang['webmaster login can\'t contain characters \' or "'] = '网管名不应包含字符 " 和 \'';
 $lang['please enter your password again'] = '请再次输入密码';
-$lang['Installation finished'] = '安装结束';
 $lang['Webmaster password'] = '密码';
 $lang['Keep it confidential, it enables you to access administration panel'] = '请小心保管好此密码，它允许你操作管理板块。';
 $lang['Password [confirm]'] = '密码 [ 确认 ]';
 $lang['verification'] = '核实';
 $lang['Copy the text in pink between hyphens and paste it into the file "local/config/database.inc.php"(Warning : database.inc.php must only contain what is in pink, no line return or space character)'] = '请拷贝短横线之间的粉红色文字并粘贴到位于Piwigo安装目录下的include文件夹里的mysql.inc.php文件中（每行不允许有空格或回车）';
 $lang['Need help ? Ask your question on <a href="%s">Piwigo message board</a>.'] = '需要帮助？ 请到<a href="%s">Piwigo论坛</a>提出你的问题.';
-$lang['install_end_message'] = '程序配置正确，继续完成下面步骤<br /><br />
-* 请到登录页面并且用网管帐号登录<br />
-* 进入管理页面并会告知如何把图片移到文件夹中。';
 $lang['Webmaster mail address'] = '管理员Email地址';
 $lang['Visitors will be able to contact site administrator with this mail'] = '游客通过此Email跟你联系';
 

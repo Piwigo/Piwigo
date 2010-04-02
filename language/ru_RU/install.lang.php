@@ -32,11 +32,8 @@ $lang['mail address must be like xxx@yyy.eee (example : jack@altern.org)'] = 'а
 $lang['Webmaster login'] = 'Логин вебмастера';
 $lang['It will be shown to the visitors. It is necessary for website administration'] = 'Он будет показан посетителям. Необходим для администрирования сайта';
 
-$lang['Parameters are correct'] = 'Все прошло успешно';
 $lang['Connection to server succeed, but it was impossible to connect to database'] = 'Успешно соединились с сервером, но невозможно подключиться к базе данных';
 $lang['Can\'t connect to server'] = 'Невозможно соединиться с сервером';
-$lang['The next step of the installation is now possible'] = 'Можно переходить к следующему шагу';
-$lang['next step'] = 'следующий шаг';
 $lang['Copy the text in pink between hyphens and paste it into the file "local/config/database.inc.php"(Warning : database.inc.php must only contain what is in pink, no line return or space character)'] = 'Скопируйте текст с розового поля между дефисами и вставьте его в файл "include/mysql.inc.php"(Внимание: mysql.inc.php должен содержать только это, ни пустых строк, ни пробелов быть не должно)';
 
 $lang['Host'] = 'Хост MySQL';
@@ -52,15 +49,11 @@ $lang['database tables names will be prefixed with it (enables you to manage bet
 $lang['enter a login for webmaster'] = 'нужно ввести логин для вебмастера';
 $lang['webmaster login can\'t contain characters \' or "'] = 'логин вебмастера не должен содержать символы  \' или "';
 $lang['please enter your password again'] = 'еще раз пароль';
-$lang['Installation finished'] = 'Установка завершена';
 $lang['Webmaster password'] = 'Пароль вебмастера';
 $lang['Keep it confidential, it enables you to access administration panel'] = 'Не сообщайте его никому, он необходим для доступа к панели администрирования';
 $lang['Password [confirm]'] = 'Повторите пароль';
 $lang['verification'] = 'еще раз для исключения опечатки';
 $lang['Need help ? Ask your question on <a href="%s">Piwigo message board</a>.'] = 'Нужна помощь? Задайте свои вопросы на <a href="%s">Форуме Piwigo</a>.';
-$lang['install_end_message'] = 'Настройка Piwigo закончена, переходите к следующему шагу<br /><br />
-* перейдите на страницу [ <a href="identification.php">идентификации</a> ] и введите логин и пароль вебмастера<br />
-* это позволит получить доступ к панели администрирования и инструкциям по размещению фотографий в папках';
 $lang['Webmaster mail address'] = 'Электронная почта вебмастера';
 $lang['Visitors will be able to contact site administrator with this mail'] = 'Будет использоваться для контакта посетителей с администратором';
 ?>

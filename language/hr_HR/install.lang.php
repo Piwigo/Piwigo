@@ -32,11 +32,8 @@ $lang['mail address must be like xxx@yyy.eee (example : jack@altern.org)'] = 'e-
 $lang['Webmaster login'] = 'Webmaster-ova prijava';
 $lang['It will be shown to the visitors. It is necessary for website administration'] = 'Biti će prikazano posjetiteljima. Potrebno je za upravljanje web mjestom';
 
-$lang['Parameters are correct'] = 'Postavke su ispravne';
 $lang['Connection to server succeed, but it was impossible to connect to database'] = 'Povezivanje sa poslužiteljem uspješno, ali je nemoguće povezivanje sa bazom podataka';
 $lang['Can\'t connect to server'] = 'Ne mogu se povezati sa poslužiteljem';
-$lang['The next step of the installation is now possible'] = 'Slijedeći korak ugradbe je omogućen';
-$lang['next step'] = 'slijedeći korak';
 $lang['Copy the text in pink between hyphens and paste it into the file "local/config/database.inc.php"(Warning : database.inc.php must only contain what is in pink, no line return or space character)'] = 'Kopirajte ružičasti tekst između crtica i prebacite ga u "include/mysql.inc.php"(Pozor : mysql.inc.php mora sadržavati samo ružičasti tekst, bez znakova novog reda ili razmaka)';
 
 $lang['Host'] = 'MySQL poslužitelj';
@@ -52,15 +49,11 @@ $lang['database tables names will be prefixed with it (enables you to manage bet
 $lang['enter a login for webmaster'] = 'upišite korisničko ime za webmaster-a';
 $lang['webmaster login can\'t contain characters \' or "'] = 'webmaster-ovo korisničko ime ne može sadržavati znakove \' ili "';
 $lang['please enter your password again'] = 'molimo upišite zaporku ponovo';
-$lang['Installation finished'] = 'Ugradba završena';
 $lang['Webmaster password'] = 'Webmaster-ova zaporka';
 $lang['Keep it confidential, it enables you to access administration panel'] = 'Čuvajte je na sigurnom mjestu, ona omogućava pristup upravnoj ploči';
 $lang['Password [confirm]'] = 'Zaporka [potvrdi]';
 $lang['verification'] = 'ovjera';
 $lang['Need help ? Ask your question on <a href="%s">Piwigo message board</a>.'] = 'Trebate pomoć? Pitajte na <a href="%s">Piwigo message board</a>.';
-$lang['install_end_message'] = 'Postava Piwigo-a je završena, slijedeći korak je<br /><br />
-* idite na prijavnicu i koristite korisničko ime/zaporku danu za webmaster-a<br />
-* ova prijava će vam omogućiti pristup upravnoj ploči i uputama za pohranu slika u mape';
 $lang['Webmaster mail address'] = 'Webmaster-ova e-mail adresa';
 $lang['Visitors will be able to contact site administrator with this mail'] = 'Posjetitelji će moći pisati upravitelju galerije preko ove adrese';
 ?>

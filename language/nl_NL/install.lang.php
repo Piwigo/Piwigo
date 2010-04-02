@@ -32,11 +32,8 @@ $lang['mail address must be like xxx@yyy.eee (example : jack@altern.org)'] = 'Em
 $lang['Webmaster login'] = 'Login webbeheerder';
 $lang['It will be shown to the visitors. It is necessary for website administration'] = 'Het wordt getoond aan de bezoekers. Het is ook noodzakelijk voor de administratie van de website';
 
-$lang['Parameters are correct'] = 'Parameters zijn correct';
 $lang['Connection to server succeed, but it was impossible to connect to database'] = 'De verbinding met de server is geslaagd, maar het is niet mogelijk om verbinding te krijgen met de database';
 $lang['Can\'t connect to server'] = 'Geen verbinding met de server';
-$lang['The next step of the installation is now possible'] = 'Het is nu mogelijk om verder te gaan met de volgende stap van de installatie';
-$lang['next step'] = 'volgende stap';
 $lang['Copy the text in pink between hyphens and paste it into the file "local/config/database.inc.php"(Warning : database.inc.php must only contain what is in pink, no line return or space character)'] = 'Kopieer de tekst tussen de lijnen en plak deze in het bestand "include/mysql.inc.php" (Waarschuwing: mysql.inc.php mag alleen het roze gedeelte bevatten, geen return of extra spatie).';
 
 $lang['Host'] = 'MySQL host';
@@ -52,7 +49,6 @@ $lang['database tables names will be prefixed with it (enables you to manage bet
 $lang['enter a login for webmaster'] = 'Geef een gebruikersnaam voor de beheerder';
 $lang['webmaster login can\'t contain characters \' or "'] = 'De gebruikersnaam mag geen \' of " bevatten';
 $lang['please enter your password again'] = 'Vul a.u.b. nogmaals uw wachtwoord in';
-$lang['Installation finished'] = 'Installatie voltooid';
 $lang['Webmaster password'] = 'Wachtwoord webbeheerder';
 $lang['Keep it confidential, it enables you to access administration panel'] = 'Hou dit vertrouwlijk, het geeft toegang tot de beheermodule';
 $lang['Password [confirm]'] = 'Bevestig wachtwoord';

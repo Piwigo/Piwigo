@@ -47,7 +47,6 @@ $lang['%d new users'] = '%d مستخدمين جدد';
 $lang['%d waiting element'] = '%d انتظار العنصر';
 $lang['%d waiting elements'] = '%d انتظار الصور';
 $lang['About'] = 'لماذا؟؟';
-$lang['All tags must match'] = 'تطابق جميع الكلمات';
 $lang['All tags'] = 'كل الكلمات الدلائلية';
 $lang['Any tag'] = 'أي كلمة';
 $lang['At least one listed rule must be satisfied.'] = 'على الاقل واحده لهذه يجب ان تكو مستوفية.';
@@ -145,7 +144,6 @@ $lang['caddie'] = 'السلة';
 $lang['Calendar'] = 'التقويم';
 $lang['All'] = 'الجميع';
 $lang['display each day with pictures, month per month'] = 'أعرض جميع صور هذا اليوم ،شهريا';
-$lang['display pictures added on'] = 'عرض الصور التي اضيفت في .. ';
 $lang['View'] = 'عرض';
 $lang['chronology_monthly_calendar'] = 'تقويم شهري';
 $lang['chronology_monthly_list'] = 'القائم الشهرية';
@@ -316,7 +314,6 @@ $lang['can\'t upload the picture on the server'] = 'تستطيع\'t تحميل �
 $lang['the username must be given'] = 'اسم المستخدم ضروري';
 $lang['A picture\'s name already used'] = 'الصورة\'s الاسم موجود مسبقا';
 $lang['You must choose a picture fileformat for the image'] = 'يجب ان تختار نسق او متداد الصورة';
-$lang['You can\'t upload pictures in this category'] = 'تستطيع\'t تحميل الصورةفي الألبوم';
 $lang['Name of the picture'] = 'اسم الصورة';
 $lang['Upload a picture'] = 'تحمـيل صورة جـديدة';
 $lang['Picture uploaded with success, an administrator will validate it as soon as possible'] = 'تم تحميل الصورة ، و سيتم عرضها في اسرع وقت بعد اطلاع الادارة عليها';
@@ -328,8 +325,6 @@ $lang['IP: %s'] = 'IP: %s';
 $lang['Browser: %s'] = 'استعراض: %s';
 $lang['Author: %s'] = 'بواسطة: %s';
 $lang['Comment: %s'] = 'تعليق: %s';
-$lang['Delete: %s'] = 'حذف: %s';
-$lang['Validate: %s'] = 'مُـصدق: %s';
 $lang['Comment by %s'] = 'كاتب التعليق  %s';
 $lang['User: %s'] = 'المستخدم: %s';
 $lang['Email: %s'] = 'البريد الالكتروني: %s';

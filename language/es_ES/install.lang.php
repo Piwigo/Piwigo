@@ -32,7 +32,6 @@ $lang['mail address must be like xxx@yyy.eee (example : jack@altern.org)'] = 'La
 $lang['Webmaster login'] = 'Administrador';
 $lang['It will be shown to the visitors. It is necessary for website administration'] = 'Este identificador aparecerá a todos sus visitantes. Le sirvira para administrar el sitio';
 
-$lang['Parameters are correct'] = 'Los parámetros entrados son correctos';
 $lang['Connection to server succeed, but it was impossible to connect to database'] = 'La conexión al servidor es O.K., pero es imposible conectarse a esta base de datos';
 $lang['Can\'t connect to server'] = 'Imposible conectarse al servidor';
 
@@ -49,7 +48,6 @@ $lang['database tables names will be prefixed with it (enables you to manage bet
 $lang['enter a login for webmaster'] = 'Por favor, escriba un pseudo para el webmaster';
 $lang['webmaster login can\'t contain characters \' or "'] = 'El pseudo del webmaster no debe contener carácter " y \'';
 $lang['please enter your password again'] = 'Por favor, ponga su contraseña';
-$lang['Installation finished'] = 'Instalación finalizada';
 $lang['Webmaster password'] = 'Contraseña';
 $lang['Keep it confidential, it enables you to access administration panel'] = 'Debe quedar confidencial, permite acceder al panel de administración.';
 $lang['Password [confirm]'] = 'Contraseña [Confirmar]';
@@ -69,8 +67,6 @@ $lang['Piwigo was not able to configure PHP 5.'] = 'Piwigo no pudo configurar PH
 $lang["You may referer to your hosting provider's support and see how you could switch to PHP 5 by yourself."] = 'Usted debe ponerse en contacto con su alojador web con el fin de saber cómo configurar PHP 5';
 $lang['Hope to see you back soon.'] = 'Esperando verle  muy pronto...';
 
-$lang['The next step of the installation is now possible'] = 'Puede seguir con la instalación sigiente';
-$lang['next step'] = 'Etapa siguiente';
 
 $lang['Database type'] = 'Tipo de base de datos';
 $lang['The type of database your piwigo data will be store in'] = 'La base de datos en la cual será almacenado su dato Piwigo';
