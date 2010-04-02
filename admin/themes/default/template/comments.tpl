@@ -1,9 +1,11 @@
 {literal}
 <script>
 $(document).ready(function(){
-  $(".checkComment").click(function () {
-    var checkbox = $(this).children("input[type=checkbox]");
-    $(checkbox).attr('checked', !$(checkbox).is(':checked'));
+  $(".checkComment").click(function(event) {
+    if (event.target.type !== 'checkbox') {
+      var checkbox = $(this).children("input[type=checkbox]");
+      $(checkbox).attr('checked', !$(checkbox).is(':checked'));
+    }
   });
 
   $("#commentSelectAll").click(function () {
