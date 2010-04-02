@@ -112,12 +112,12 @@ textarea { margin-left: 20px; }
 {/if}
 
 <p style="text-align: center;">
-<input class="submit" type="submit" name="submit" value="{'Upgrade from %s to %s'|@translate|@sprintf:$introduction.CURRENT_RELEASE:$RELEASE}">
+<input class="submit" type="submit" name="submit" value="{'Upgrade from version %s to %s'|@translate|@sprintf:$introduction.CURRENT_RELEASE:$RELEASE}">
 </p>
 </form>
 <!--
 <p style="text-align: center;">
-<a href="{$introduction.RUN_UPGRADE_URL}">{'Upgrade from %s to %s'|@translate|@sprintf:$introduction.CURRENT_RELEASE:$RELEASE}</a>
+<a href="{$introduction.RUN_UPGRADE_URL}">{'Upgrade from version %s to %s'|@translate|@sprintf:$introduction.CURRENT_RELEASE:$RELEASE}</a>
 </p>
 -->
 
