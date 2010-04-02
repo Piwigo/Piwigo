@@ -679,7 +679,7 @@ $lang['Save Settings'] = 'Beállítások mentése';
 $lang['Your configuration settings are saved'] = 'A beállítások mentése sikeres';
 // --------- missing translations ---- from version 2.1.0 RC1
 $lang['Categories sorted in descending order ⇑'] = 'Kategóriák csökkenő sorrendben ⇑';
-$lang['Unable to check for upgrade.'] = 'Unable to check for upgrade.';
+$lang['Unable to check for upgrade.'] = 'A frissítés sikertelen.';
 $lang['Execution time is out, treatment must be continue [Estimated time: %d seconds].'] = 'Időtúllépés esetén a műveletet folytatni kell [Becsült idő: %d másodperc].';
 $lang['Processing treatment.'] = 'Feldolgozás.';
 $lang['Please wait...'] = 'Kérem várjon...';
@@ -746,7 +746,15 @@ $lang['Active Plugins'] = 'Bekapcsolt Bővítmények';
 $lang['Inactive Plugins'] = 'Kikapcsolt Bővítmények';
 $lang['Missing Plugins'] = 'Hiányzó Bővítmények';
 $lang['Uninstalled Plugins'] = 'Törölt Bővítmények';
-$lang['By %s'] = '%s által';
+$lang['By %s'] = 'Szerző: %s';
 $lang['Visit plugin site'] = 'Ugrás a bővítmények weboldalra';
+$lang['Active Languages'] = 'Bekapcsolt nyelvek';
+$lang['Delete this language'] = 'Nyelv törlése';
+$lang['Forbid this language to users'] = 'A nyelv tiltása';
+$lang['Impossible to deactivate this language, first set another language as default.'] = 'Ezt a nyelvet jelenleg nem lehet kikapcsolni, előbb válasszon egy másik nyelvet alapértelmezettnek.';
+$lang['Impossible to deactivate this language, you need at least one language.'] = 'Ezt a nyelvet jelenleg nem lehet kikapcsolni, legalább egy nyelvre szükség van.';
+$lang['Inactive Languages'] = 'Kikapcsolt nyelvek';
+$lang['Make this language available to users'] = 'A nyelv engedélyezése';
+$lang['Set as default language for unregistered and new users'] = 'Nyelv beállítása alapértelmezettként nem regisztrált és új felhasználók részére';
 
 ?>
