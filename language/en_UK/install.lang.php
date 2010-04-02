@@ -67,4 +67,8 @@ $lang['Piwigo was not able to configure PHP 5.'] = "Piwigo was not able to confi
 $lang['You may referer to your hosting provider\'s support and see how you could switch to PHP 5 by yourself.'] = "You should refer to your hosting provider's support and see how you can switch to PHP 5 by yourself.";
 $lang['Hope to see you back soon.'] = "Hope to see you back soon.";
 $lang['Congratulations, Piwigo installation is completed'] = 'Congratulations, Piwigo installation is completed';
+$lang['An alternate solution is to copy the text in the box above and paste it into the file "local/config/database.inc.php" (Warning : database.inc.php must only contain what is in the textarea, no line return or space character)'] = 'An alternate solution is to copy the text in the box above and paste it into the file "local/config/database.inc.php" (Warning : database.inc.php must only contain what is in the textarea, no line return or space character)';
+$lang['Creation of config file local/config/database.inc.php failed.'] = 'Creation of config file local/config/database.inc.php failed.';
+$lang['Download the config file'] = 'Download the config file';
+$lang['You can download the config file and upload it to local/config directory of your installation.'] = 'You can download the config file and upload it to local/config directory of your installation.';
 ?>
