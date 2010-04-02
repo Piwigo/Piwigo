@@ -335,17 +335,13 @@ define(\'DB_COLLATE\', \'\');
       @fputs($fh, $file_content, strlen($file_content));
       @fclose($fh);
 
-      $error_copy = l10n('Creation of config file local/config/database.inc.php failed.');
-      $error_copy .= sprintf('<br><a href="install.php?dl=%s">%s</a> %s',
-                             $tmp_filename,
-                             l10n('You can download the config file'),
-                             l10n('and upload it to local/config directory of your installation.')
+      $template->assign(
+        array(
+          'config_creation_failed' => true,
+          'config_url' => 'install.php?dl='.$tmp_filename,
+          'config_file_content' => $file_content,
+          )
         );
-
-      $error_copy .= '<br><br>';
-      $error_copy .= l10n('An alternate solution is to copy the text in the box above and paste it into the file "local/config/database.inc.php" (Warning : database.inc.php must only contain what is in the textarea, no line return or space character)');
-      $error_copy .= '<br><br>';
-      $error_copy .= '<textarea rows="15" cols="70">' . $file_content . '</textarea>';
     }
     @fputs($fp, $file_content, strlen($file_content));
     @fclose($fp);
@@ -443,10 +439,10 @@ if ($step == 3)
   {
     $html_content = htmlentities( $file_content, ENT_QUOTES );
     $html_content = nl2br( $html_content );
-    $error_copy = l10n('Copy the text in pink between hyphens and paste it into the file "local/config/database.inc.php"(Warning : database.inc.php must only contain what is in pink, no line return or space character)');
-    $error_copy .= '<br>--------------------------------------------------------------------<br>';
-    $error_copy .= '<span class="sql_content">' . $html_content . '</span>';
-    $error_copy .= '<br>--------------------------------------------------------------------<br>';
+    
+    $error_copy = l10n('An alternate solution is to copy the text in the box above and paste it into the file "local/config/database.inc.php" (Warning : database.inc.php must only contain what is in the textarea, no line return or space character)');
+    $error_copy .= '<br><br>';
+    $error_copy .= '<textarea rows="15" cols="70">'.$html_content.'</textarea>';
   } 
   else 
   {
@@ -462,7 +458,8 @@ if ($step == 3)
     array(
       'T_CONTENT_ENCODING' => 'utf-8',
       'migration' => true
-	  ));
+      )
+    );
 }
 else
 {

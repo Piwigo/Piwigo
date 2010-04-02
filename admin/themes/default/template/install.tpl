@@ -91,6 +91,16 @@ TD {
 .sql_content, .infos a {
   color: #ff3363;
 }
+
+.config_creation_failed {
+  text-align:left;
+  border:3px solid #F20D00;
+  color:#999;
+  margin:20px;
+  padding:0px 20px 5px 20px;
+  background-image:url(admin/themes/default/icon/errors.png);
+  background-repeat:no-repeat;
+}
 </style>
 {/literal}
 <title>Piwigo {$RELEASE} - {'Installation'|@translate}</title>
@@ -103,6 +113,26 @@ TD {
 <div id="content" class="content">
 
 <h2>Piwigo {$RELEASE} - {'Installation'|@translate}</h2>
+
+{if isset($config_creation_failed)}
+<div class="config_creation_failed">
+  <p style="margin-left:30px;">
+    <strong>{'Creation of config file local/config/database.inc.php failed.'|@translate}</strong>
+  </p>
+  <ul>
+    <li>
+      <p>{'You can download the config file and upload it to local/config directory of your installation.'|@translate}</p>
+      <p style="text-align:center">
+          <input type="button" value="{'Download the config file'|@translate}" onClick="window.open('{$config_url}');">
+      </p>
+    </li>
+    <li>
+      <p>{'An alternate solution is to copy the text in the box above and paste it into the file "local/config/database.inc.php" (Warning : database.inc.php must only contain what is in the textarea, no line return or space character)'|@translate}</p>
+      <textarea rows="15" cols="70">{$config_file_content}</textarea>
+    </li>
+  </ul>
+</div>
+{/if}
 
 {if isset($errors)}
 <div class="errors">
