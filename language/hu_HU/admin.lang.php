@@ -756,5 +756,15 @@ $lang['Impossible to deactivate this language, you need at least one language.']
 $lang['Inactive Languages'] = 'Kikapcsolt nyelvek';
 $lang['Make this language available to users'] = 'A nyelv engedélyezése';
 $lang['Set as default language for unregistered and new users'] = 'Nyelv beállítása alapértelmezettként nem regisztrált és új felhasználók részére';
+// --------- folytatas $lang ---- from version 2.1.0 RC1
+$lang['Add Photos'] = 'Képek hozzáadása';
+$lang['Download'] = 'Letöltés';
+$lang['The following tag was deleted'] = 'Címke törlése sikeres';
+$lang['Miscellaneous'] = 'Egyéb';
+$lang['User Upload'] = 'Feltöltés';
+$lang['Virtual Links'] = 'Virtuális Linkek';
+$lang['There is no other language available.'] = 'Egyéb nyelv nem áll rendelkezésre.';
+$lang['There is no other plugin available.'] = 'Egyéb bővítmény nem áll rendelkezésre.';
+$lang['There is no other theme available.'] = 'Egyéb téma nem áll rendelkezésre.';
 
 ?>
