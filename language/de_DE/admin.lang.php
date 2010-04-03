@@ -753,5 +753,11 @@ $lang['Impossible to deactivate this language, you need at least one language.']
 $lang['Inactive Languages'] = 'Deaktivierte Sprachen';
 $lang['Make this language available to users'] = 'Aktiviere diese Sprache für Benutzer';
 $lang['Set as default language for unregistered and new users'] = 'Als Standardsprache für neue und unregistrierte User festlegen';
+$lang['delete'] = 'lösche';
+$lang['Add Photos'] = 'Füge Fotos hinzu';
+$lang['The following tag was deleted'] = 'Folgender Tag wurde gelöscht';
+$lang['There is no other language available.'] = 'Es ist keine weitere Sprache verfügbar.';
+$lang['There is no other plugin available.'] = 'Es ist kein weiteres Plugin verfügbar.';
+$lang['There is no other theme available.'] = 'Es ist kein weiteres Thema verfügbar.';
 
 ?>
