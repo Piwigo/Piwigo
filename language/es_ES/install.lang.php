@@ -72,4 +72,9 @@ $lang['Database type'] = 'Tipo de base de datos';
 $lang['The type of database your piwigo data will be store in'] = 'La base de datos en la cual será almacenado su dato Piwigo';
 $lang['Congratulations, Piwigo installation is completed'] = 'Félicitation, Piwigo está completamente instalado';
 
+$lang['An alternate solution is to copy the text in the box above and paste it into the file "local/config/database.inc.php" (Warning : database.inc.php must only contain what is in the textarea, no line return or space character)'] = 'Una solución alternativa es copiar el texto en la zona más abajo and de pegarlo en el fichero  "local/config/database.inc.php" (Atención: database.inc.php debe contener sólo lo que se encuentra en la zona, no de regreso a la línea, ningún espacio';
+$lang['Creation of config file local/config/database.inc.php failed.'] = 'La creación del fichero de configuración local/config/database.inc.php fue suspendido.';
+$lang['Download the config file'] = 'Descargar el fichero de configuración';
+$lang['You can download the config file and upload it to local/config directory of your installation.'] = 'Usted puede descargar el fichero de configuración y carga en el repertorio local/config de su instalación Piwigo.';
+
 ?>
