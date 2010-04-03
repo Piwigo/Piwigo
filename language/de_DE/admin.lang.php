@@ -735,4 +735,23 @@ $lang['Miscellaneous'] = 'Verschiedenes';
 $lang['User Upload'] = 'Hinzufügen von Benutzers';
 $lang['Virtual Links'] = 'Virtuellen Verbindungen';
 $lang['Download'] = 'Herunterladen';
+$lang['Webmaster status is required.'] = 'Sie benötigen Webmaster-berechtigung.';
+$lang['Bound Theme'] = 'Gebundenes Layout';
+$lang['Allow rating'] = 'Abstimmung zulassen';
+$lang['Select at least one comment'] = 'Wählen Sie mindestens ein Kommentar aus';
+$lang['Active Plugins'] = 'Aktivierte Plugins';
+$lang['Inactive Plugins'] = 'Deaktivierte Plugins';
+$lang['Missing Plugins'] = 'Fehlende Plugins';
+$lang['Uninstalled Plugins'] = 'Deinstallierte Plugins';
+$lang['By %s'] = 'Von %s';
+$lang['Visit plugin site'] = 'Besuche die Plugin Website';
+$lang['Active Languages'] = 'Aktivierte Sprachen';
+$lang['Delete this language'] = 'Lösche diese Sprache';
+$lang['Forbid this language to users'] = 'Verbiete Benutzern, diese Sprache auszuwählen';
+$lang['Impossible to deactivate this language, first set another language as default.'] = 'Sie müssen zuerst eine neue Standardsprache wählen, bevor Sie diese Sprache deaktivieren.';
+$lang['Impossible to deactivate this language, you need at least one language.'] = 'Sie können diese Sprache nicht deaktvieren, da mindestens eine Sprache benötigt wird.';
+$lang['Inactive Languages'] = 'Deaktivierte Sprachen';
+$lang['Make this language available to users'] = 'Aktiviere diese Sprache für Benutzer';
+$lang['Set as default language for unregistered and new users'] = 'Als Standardsprache für neue und unregistrierte User festlegen';
+
 ?>
