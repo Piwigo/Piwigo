@@ -171,7 +171,6 @@ $lang['Tag "%s" was added'] = 'Tag "%s" został dodany';
 $lang['Tag selection'] = 'Wybór tagu';
 $lang['Take selected elements out of caddie'] = 'Usuń wybrane elementy z koszyka';
 $lang['The %d following tags were deleted'] = '%d tagów zostało usuniętych';
-$lang['Unable to check for upgrade since allow_url_fopen is disabled.'] = 'Nie można sprawdzić aktualizacji z powodu wyłączonej funkcji allow_url_fopen.';
 $lang['Uninstall'] = 'Odinstaluj';
 $lang['Use the default image sort order (defined in the configuration file)']='Uzyj domyślnego sortowania obrazów (zdefiniowane w pliku konfiguracyjnym)';
 $lang['User comments validation'] = 'Zatwierdzanie komentarzy użytkowników';
@@ -632,7 +631,6 @@ $lang['Hide'] = 'Ukryj';
 $lang['Miscellaneous'] = 'Informacje różne';
 //For 2.1.0
 $lang['Unable to check for upgrade.'] = 'Nie można sprawdzić aktualizacji.';
-$lang['Execution time is out, treatment must be continued [Estmated time: %d seconds].'] = 'Przekroczono czas wykonywania, obróbka musi być kontynuowana [Przewidywany czas: %d sekund].';
 $lang['Processing treatment.'] = 'Przetwarzanie obróbki.';
 $lang['Please wait...'] = 'Proszę czekać...';
 $lang['Password is missing. Please enter the password.'] = 'Brak hasła. Prosżę wprowadzić hasło.';

@@ -22,8 +22,6 @@
 // +-----------------------------------------------------------------------+
 
 $lang['Upgrade'] = 'Aktualizacja';
-$lang['introduction message'] = 'Strona służy do wykonania aktualizacji bazy danych Piwigo do aktualnej wersji.
-Asystent aktualizacji odgadł, że aktualnie używasz <strong>wersji %s</strong> (lub podobnej).';
 $lang['Upgrade from version %s to %s'] = 'Aktualizacja z wersji %s do %s';
 $lang['Statistics'] = 'Statystyki';
 $lang['total upgrade time'] = 'sumaryczny czas aktualizacji';
@@ -31,10 +29,8 @@ $lang['total SQL time'] = 'symaryczny czas SQL';
 $lang['SQL queries'] = 'zapytań SQL';
 $lang['Upgrade informations'] = 'Informacje o aktualizacji';
 $lang['Perform a maintenance check in [Administration>Specials>Maintenance] if you encounter any problem.'] = 'Jeżeli napotkasz jakiś problem wykonaj weryfikację przez [Administracja>Specjalne>Maintenance].';
-$lang['As a precaution, following plugins have been deactivated. You must check for plugins upgrade before reactiving them:'] = 'W ramach zabezpieczenia zostąły deaktywowane następujące wtyczki. Przed ich ponowną aktywacją musisz sprawdzić dostępność aktualizacji dla nich:';
 $lang['Only administrator can run upgrade: please sign in below.'] = 'Tylko administrator może wykonać aktualizację: zaloguj się poniżej.';
 $lang['You do not have access rights to run upgrade'] = 'Nie masz uprawnień do wykonania aktualizacji';
-$lang['in include/mysql.inc.php, before ?>, insert:'] = 'W pliku <i>include/mysql.inc.php</i>, przed <b>?></b>, wstaw:';
 
 // Upgrade informations from upgrade_1.3.1.php
 $lang['All sub-categories of private categories become private'] = 'Wszystkie podkategorie kategorii prywatnych staną się prywatne';
