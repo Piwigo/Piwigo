@@ -274,6 +274,13 @@
 
     <li>
       <label>
+        <span class="property">{'download this file'|@translate|@ucfirst|@string_format:$pwg->l10n('Activate icon "%s"')}</span>
+        <input type="checkbox" name="picture_download_icon" {if ($display.picture_download_icon)}checked="checked"{/if}>
+      </label>
+    </li>
+
+    <li>
+      <label>
         <span class="property">{'add this image to your favorites'|@translate|@ucfirst|@string_format:$pwg->l10n('Activate icon "%s"')}</span>
         <input type="checkbox" name="picture_favorite_icon" {if ($display.picture_favorite_icon)}checked="checked"{/if}>
       </label>

@@ -86,6 +86,7 @@ $display_checkboxes = array(
     'picture_metadata_icon',
     'picture_slideshow_icon',
     'picture_favorite_icon',
+    'picture_download_icon',
     'picture_navigation_icons',
     'picture_navigation_thumb',
   );
