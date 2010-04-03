@@ -765,4 +765,5 @@ $lang['Virtual Links'] = 'Liens virtuels';
 $lang['There is no other language available.'] = 'Il n\'y a pas d\'autre langue disponible.';
 $lang['There is no other plugin available.'] = 'Il n\'y a pas d\'autre plugin disponible.';
 $lang['There is no other theme available.'] = 'Il n\'y a pas d\'autre thème disponible.';
+$lang['delete'] = 'effacer';
 ?>
