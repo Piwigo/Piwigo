@@ -367,23 +367,23 @@ $lang['Sent by'] = 'Küldte';
 $lang['Cookies are blocked or not supported by your browser. You must enable cookies to connect.'] = 'A cookie-k le vannak tiltva vagy a böngésző nem támogatja. Engedélyezni kell a cookie-kat a csatlakozáshoz.';
 $lang['Are you sure?'] = 'Biztos vagy benne?';
 $lang['delete this comment'] = 'Hozzászólás törlése';
-$lang['Email address is missing. Please specify an email address.'] = 'E-mail cím hiányzik. Kérem írja be az email címet.';
+$lang['Email address is missing. Please specify an email address.'] = 'E-mail cím hiányzik. Kérem írja be az e-mail címet.';
 // --------- Starting below: Új vagy javított $lang ---- Tőle: Colibri (2.1.0 RC1)
 $lang['Email address is missing'] = 'E-mail cím hiányzik';
-$lang['Some info about this picture'] = 'Information about this picture';
-$lang['Some more (technical) info about this picture'] = 'More (technical) information about this picture';
+$lang['Some info about this picture'] = 'Kép információi';
+$lang['Some more (technical) info about this picture'] = 'További (technikai) adatok a képhez';
 $lang['edit this comment'] = 'Hozzászólás módosítása';
 $lang['Edit a comment'] = 'A hozzászólás módosítása';
-$lang['(!) This comment requires validation'] = '(!) This comment requires validation';
+$lang['(!) This comment requires validation'] = '(!) Ezt a hozzászólást engedélyezni kell';
 $lang['Welcome'] = 'Üdvözlöm';
 $lang['Welcome to your Piwigo photo gallery!'] = 'Üdvözlöm a Piwigo képgalériában!';
-$lang['... or browse your empty gallery'] = '... or browse your empty gallery';
-$lang['... or please deactivate this message, I will find my way by myself'] = '... or please deactivate this message, I will find my way by myself';
+$lang['... or browse your empty gallery'] = '... vagy keresse meg az üres galériákat';
+$lang['... or please deactivate this message, I will find my way by myself'] = '... vagy kérem kikapcsolni ezt az üzenetet, eligazodom magam is';
 $lang['Hello %s, your Piwigo photo gallery is empty!'] = 'Szia %s, ez a Piwigo képgaléria üres!';
-$lang['I want to add photos'] = 'I want to add photos';
-$lang['Manage this user comment: %s'] = 'Manage this user comment: %s';
-$lang['This author modified following comment:'] = 'This author modified following comment:';
-$lang['This author removed the comment with id %d'] = 'This author removed the comment with id %d';
-$lang['validate this comment'] = 'validate this comment';
+$lang['I want to add photos'] = 'Szeretnék képeket feltölteni';
+$lang['Manage this user comment: %s'] = 'A következő szerző kezelheti a hozzászólásait: %s';
+$lang['This author modified following comment:'] = 'A szerző a következő hozzászólást módosította:';
+$lang['This author removed the comment with id %d'] = 'A szerző a következő hozzászólást törölte id %d';
+$lang['validate this comment'] = 'hozzászólás engedélyezése';
 
 ?>
