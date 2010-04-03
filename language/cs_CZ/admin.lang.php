@@ -622,9 +622,6 @@ $lang['Downloads'] = 'Staženo';
 $lang['Released on'] = 'Vydáno';
 $lang['Number of downloads'] = 'Počet stažení';
 
-
-
-
 // --------- Starting below: New or revised $lang ---- from Colibri
 $lang['Upload Photos'] = 'Nahrát fotografie';
 $lang['Drop into category'] = 'Zpět do kategorie';
