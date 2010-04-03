@@ -195,7 +195,7 @@ $validated_keys = array(
 	'pixels',
 	'Piwigo Uploader',
 	'localhost, sql.multimania.com, toto.freesurf.fr',
-	'Email',
+	'email',
 	'',
     ),
 
@@ -208,6 +208,7 @@ $validated_keys = array(
 	),
 
   'it_IT' => array(
+	'No',
 	'',
 	),
 	

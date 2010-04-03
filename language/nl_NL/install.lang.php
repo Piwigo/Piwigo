@@ -58,9 +58,6 @@ $lang['Webmaster mail address'] = 'Email-adres van de webbeheerder';
 $lang['Visitors will be able to contact site administrator with this mail'] = 'Met dit email-adres kunnen bezoekers contact opnemen met de beheerder';
 $lang['Database type'] = 'Database type';
 $lang['The type of database your piwigo data will be store in'] = 'Het type database waarin uw Piwigo-gegevens worden opgeslagen';
-$lang['The configuration of Piwigo is finished, here is the next step<br><br>
-* go to the identification page and use the login/password given for webmaster<br>
-* this login will enable you to access to the administration panel and to the instructions in order to place pictures in your directories'] = 'De configuratie van Piwigo is klaar. De volgende stap<br><br> * ga naar de identificatie-pagina en gebruik de verkregen webbeheerders login/password combinatie<br> * Deze login leidt u naar het administratiescherm en de instructies voor het beschikbaar stellen van afbeeldingen in uw directories';
 $lang['PHP 5 is required'] = 'PHP 5 is vereist';
 $lang['It appears your webhost is currently running PHP %s.'] = 'Het lijkt er op dat uw webhost momenteel gebruik maakt van PHP %s.';
 $lang['Piwigo may try to switch your configuration to PHP 5 by creating or modifying a .htaccess file.'] = 'Piwigo kan proberen uw configuratie om te zetten naar PHP 5 door het aanmaken of wijzigen van een .htaccess bestand.';
