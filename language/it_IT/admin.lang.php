@@ -762,4 +762,8 @@ $lang['Miscellaneous'] = 'Informazioni';
 $lang['The following tag was deleted'] = 'Il tag seguente è stato cancellato';
 $lang['User Upload'] = 'Immagini dagli utenti';
 $lang['Virtual Links'] = 'Collegamenti virtuali';
+$lang['There is no other language available.'] = 'Non ci sono altre lingue disponibili.';
+$lang['There is no other plugin available.'] = 'Non ci sono altri plugin disponibili.';
+$lang['There is no other theme available.'] = 'Non ci sono altri temi disponibili.';
+$lang['delete'] = 'cancellare';
 ?>
