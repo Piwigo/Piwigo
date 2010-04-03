@@ -734,4 +734,6 @@ $lang['Impossible to deactivate this theme, you need at least one theme.'] = 'Es
 $lang['Miscellaneous'] = 'Verschiedenes';
 $lang['User Upload'] = 'Hinzufügen von Benutzers';
 $lang['Virtual Links'] = 'Virtuellen Verbindungen';
+$lang['Congratulations, Piwigo installation is completed'] = 'Glückwunsch, Sie haben Piwigo erfolgreich installiert';
+
 ?>

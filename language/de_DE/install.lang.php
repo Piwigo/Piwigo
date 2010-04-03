@@ -69,9 +69,5 @@ $lang['Hope to see you back soon.'] = 'Wir hoffen, Sie sind bald wieder zurück.
 
 $lang['Database type'] = 'Datenbanktyp';
 $lang['The type of database your piwigo data will be store in'] = 'Der Typ der Datenbank, die Piwigo-Daten werden gespeichert in';
-$lang['The configuration of Piwigo is finished, here is the next step<br><br>
-* go to the identification page and use the login/password given for webmaster<br>
-* this login will enable you to access to the administration panel and to the instructions in order to place pictures in your directories'] = 'Die Konfiguration der Piwigo ist beendet, hier ist der nächste Schritt<br><br>
-* gehe zur Anmeldeseiote und logge dich ein mit dem Zugangsdaten für den Webmaster<br>
-* diese Logindaten ermöglichen den Zugriff auf das Administrationspanel und die Anleitung und die Instruktionen, um Bilder in Ihre Verzeichnisse zu legen';
+$lang['Congratulations, Piwigo installation is completed'] = 'Glückwunsch, Sie haben Piwigo erfolgreich installiert';
 ?>
