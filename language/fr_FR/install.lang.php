@@ -68,7 +68,7 @@ $lang['You may referer to your hosting provider\'s support and see how you could
 $lang['Hope to see you back soon.'] = "En espérant vous revoir très prochainement.";
 $lang['Congratulations, Piwigo installation is completed'] = 'Félicitations, l\'installation de Piwigo est terminée';
 
-$lang['An alternate solution is to copy the text in the box above and paste it into the file "local/config/database.inc.php" (Warning : database.inc.php must only contain what is in the textarea, no line return or space character)'] = 'Une solution alternative est de copier le text dans la zone ci-dessous and de le coller dans le fichier "local/config/database.inc.php" (Attention: database.inc.php ne doit contenir que ce qui se trouve dans la zone, pas de retour à la ligne, pas d\'espace';
+$lang['An alternate solution is to copy the text in the box above and paste it into the file "local/config/database.inc.php" (Warning : database.inc.php must only contain what is in the textarea, no line return or space character)'] = 'Une solution alternative est de copier le text dans la zone ci-dessous et de le coller dans le fichier "local/config/database.inc.php" (Attention: database.inc.php ne doit contenir que ce qui se trouve dans la zone, pas de retour à la ligne, pas d\'espace)';
 $lang['Creation of config file local/config/database.inc.php failed.'] = 'La création du fichier de configuration local/config/database.inc.php a échoué.';
 $lang['Download the config file'] = 'Télécharger le fichier de configuration';
 $lang['You can download the config file and upload it to local/config directory of your installation.'] = 'Vous pouvez télécharger le fichier de configuration et le transférer dans le répertoire local/config de votre installation Piwigo.';
