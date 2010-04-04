@@ -328,7 +328,7 @@ $lang['Registration of %s'] = 'Bejegyezte: %s';
 $lang['Category: %s'] = 'Kategória: %s';
 $lang['Picture name: %s'] = 'Kép neve: %s';
 $lang['Creation date: %s'] = 'Létrehozás dátuma: %d';
-$lang['Waiting page: %s'] = 'Várakozás oldalra: %s';
+$lang['Waiting page: %s'] = 'Tovább a jóváhagyásra váró képek oldalra: %s';
 $lang['Picture uploaded by %s'] = 'A képet feltöltötte: %s';
 // --------- Starting below: New or revised $lang ---- from version 1.7.1
 $lang['Bad status for user "guest", using default status. Please notify the webmaster.'] = 'Rossz felhasználói állapot "vendég", az alapértelmezett állapot. Kérjük, küldjön értesítést a webmesternek.';
@@ -381,7 +381,7 @@ $lang['... or browse your empty gallery'] = '... vagy keresse meg az üres galé
 $lang['... or please deactivate this message, I will find my way by myself'] = '... vagy kérem kikapcsolni ezt az üzenetet, eligazodom magam is';
 $lang['Hello %s, your Piwigo photo gallery is empty!'] = 'Szia %s, ez a Piwigo képgaléria üres!';
 $lang['I want to add photos'] = 'Szeretnék képeket feltölteni';
-$lang['Manage this user comment: %s'] = 'A következő szerző kezelheti a hozzászólásait: %s';
+$lang['Manage this user comment: %s'] = 'Itt kezelheti a felhasználó hozzászólását: %s';
 $lang['This author modified following comment:'] = 'A szerző a következő hozzászólást módosította:';
 $lang['This author removed the comment with id %d'] = 'A szerző a következő hozzászólást törölte id %d';
 $lang['validate this comment'] = 'hozzászólás engedélyezése';
