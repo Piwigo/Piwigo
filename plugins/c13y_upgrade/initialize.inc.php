@@ -61,7 +61,7 @@ limit 0,1
   }
 
   /* Check plugin included in Piwigo sources */
-  $included_plugins = array('dew', 'UpToDate', 'PluginsManager');
+  $included_plugins = array('dew', 'UpToDate', 'PluginsManager', 'LinkRoot');
   $query = '
 select
   id
