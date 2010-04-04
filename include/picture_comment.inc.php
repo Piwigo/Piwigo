@@ -88,11 +88,23 @@ elseif ( isset($_POST['content']) )
 
 if ($page['show_comments'])
 {
+  if ( !is_admin() )
+  {
+    $validated_clause = '  AND validated = \'true\'';
+  }
+  else
+  {
+    $validated_clause = '';
+  }
+
   // number of comments for this picture
   $query = '
-SELECT COUNT(*) AS nb_comments
+SELECT
+    COUNT(*) AS nb_comments
   FROM '.COMMENTS_TABLE.'
-  WHERE image_id='.$page['image_id']." AND validated = 'true'";
+  WHERE image_id = '.$page['image_id']
+  .$validated_clause.'
+;';
   $row = pwg_db_fetch_assoc( pwg_query( $query ) );
 
   // navigation bar creation
@@ -118,23 +130,21 @@ SELECT COUNT(*) AS nb_comments
 
   if ($row['nb_comments'] > 0)
   {
-    if ( !is_admin() )
-    {
-      $validated_clause = '  AND validated = \'true\'';
-    }
-    else
-    {
-      $validated_clause = '';
-    }
-
     $query = '
-SELECT com.id,author,author_id,'.$conf['user_fields']['username'].' AS username,
-  date,image_id,content,validated
+SELECT
+    com.id,
+    author,
+    author_id,
+    '.$conf['user_fields']['username'].' AS username,
+    date,
+    image_id,
+    content,
+    validated
   FROM '.COMMENTS_TABLE.' AS com
   LEFT JOIN '.USERS_TABLE.' AS u
     ON u.'.$conf['user_fields']['id'].' = author_id
-  WHERE image_id = '.$page['image_id'].
-$validated_clause.'
+  WHERE image_id = '.$page['image_id'].'
+    '.$validated_clause.'
   ORDER BY date ASC
   LIMIT '.$conf['nb_comment_page'].' OFFSET '.$page['start'].'
 ;';
