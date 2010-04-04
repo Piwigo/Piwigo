@@ -366,7 +366,7 @@ UPDATE '.CATEGORIES_TABLE.'
 
       check_input_parameter('comment_to_validate', $_GET, false, PATTERN_ID);
       
-      $author_id = get_comment_author_id($_GET['comment_to_delete']);
+      $author_id = get_comment_author_id($_GET['comment_to_validate']);
       
       if (can_manage_comment('validate', $author_id))
       {
