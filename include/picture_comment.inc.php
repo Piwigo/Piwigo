@@ -211,9 +211,17 @@ $validated_clause.'
     }
   }
 
-  if (!is_a_guest()
-      or (is_a_guest() and $conf['comments_forall'])
-      or (empty($edit_comment)))
+  $show_add_comment_form = true;
+  if (isset($edit_comment))
+  {
+    $show_add_comment_form = false;
+  }
+  if (is_a_guest() and !$conf['comments_forall'])
+  {
+    $show_add_comment_form = false;
+  }
+
+  if ($show_add_comment_form)
   {
     $key = get_comment_post_key($page['image_id']);
     $content = '';
