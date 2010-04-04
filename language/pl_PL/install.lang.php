@@ -70,4 +70,8 @@ $lang['Hope to see you back soon.'] = 'Do zobaczenia wkrótce.';
 $lang['Database type'] = 'Typ bazy danych';
 $lang['The type of database your piwigo data will be store in'] = 'Typ bazy danych Twojego Piwigo zostanie zapisany w';
 $lang['Congratulations, Piwigo installation is completed'] = 'Gratulacje, instlacja Piwigo zakończona sukcesem';
+$lang['An alternate solution is to copy the text in the box above and paste it into the file "local/config/database.inc.php" (Warning : database.inc.php must only contain what is in the textarea, no line return or space character)'] = 'Alternatywnym rozwiązaniem jest skopiować tekst z powyższego textbox i wkleić do pliku "local/config/database.inc.php" (Uwaga : database.inc.php musi zawierać to co jest w textbox i nie może zawierać znaków spacji oraz enter)';
+$lang['Creation of config file local/config/database.inc.php failed.'] = 'Nie powiodło sięstworzenie pliku konfiguracyjnego local/config/database.inc.php.';
+$lang['Download the config file'] = 'Pobierz plik konfiguracyjny';
+$lang['You can download the config file and upload it to local/config directory of your installation.'] = 'Możesz pobrać plik konfiguracyjny i wgrać go do katalogu lokalnego/z konfiguracją.';
 ?>
