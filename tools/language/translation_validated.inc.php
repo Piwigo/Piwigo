@@ -283,7 +283,21 @@ $validated_keys = array(
 	),
 
   'pl_PL' => array(
-	'',
+ 	'%d Kb',
+	'RSS feed',
+	'Webmaster',
+	'IP: %s',
+	'Tag',
+	'Powered by',
+	'Email: %s',
+	'Admin: %s',
+	'%d tag',
+	'Status',
+	'test',
+	'status',
+	'user_status_admin',
+	'user_status_webmaster',
+	'localhost, sql.multimania.com, toto.freesurf.fr',	
 	),
 
   'pt_BR' => array(
