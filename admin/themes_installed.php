@@ -78,13 +78,13 @@ foreach ($themes->fs_themes as $theme_id => $fs_theme)
   if (in_array($theme_id, $db_theme_ids))
   {
     $fs_theme['deactivable'] = true;
-    
+
     if (count($db_theme_ids) <= 1)
     {
       $fs_theme['deactivable'] = false;
       $fs_theme['deactivate_tooltip'] = l10n('Impossible to deactivate this theme, you need at least one theme.');
     }
-    
+
     if ($theme_id == $default_theme)
     {
       $fs_theme['is_default'] = true;
@@ -92,6 +92,7 @@ foreach ($themes->fs_themes as $theme_id => $fs_theme)
     }
     else
     {
+      $fs_theme['is_default'] = false;
       array_push($active_themes, $fs_theme);
     }
   }
@@ -99,12 +100,12 @@ foreach ($themes->fs_themes as $theme_id => $fs_theme)
   {
     // is the theme "activable" ?
     $fs_theme['activable'] = true;
-    
+
     $missing_parent = $themes->missing_parent_theme($theme_id);
     if (isset($missing_parent))
     {
       $fs_theme['activable'] = false;
-      
+
       $fs_theme['activate_tooltip'] = sprintf(
         l10n('Impossible to activate this theme, the parent theme is missing: %s'),
         $missing_parent
@@ -115,17 +116,17 @@ foreach ($themes->fs_themes as $theme_id => $fs_theme)
     $children = $themes->get_children_themes($theme_id);
 
     $fs_theme['deletable'] = true;
-    
+
     if (count($children) > 0)
     {
       $fs_theme['deletable'] = false;
-      
+
       $fs_theme['delete_tooltip'] = sprintf(
         l10n('Impossible to delete this theme. Other themes depends on it: %s'),
         implode(', ', $children)
         );
     }
-    
+
     array_push($inactive_themes, $fs_theme);
   }
 }

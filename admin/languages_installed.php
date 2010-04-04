@@ -66,7 +66,7 @@ foreach($languages->fs_languages as $language_id => $language_name)
   {
     $language['state'] = 'active';
     $language['deactivable'] = true;
-    
+
     if (count($languages->db_languages) <= 1)
     {
       $language['deactivable'] = false;
@@ -83,7 +83,7 @@ foreach($languages->fs_languages as $language_id => $language_name)
   {
     $language['state'] = 'inactive';
   }
-  
+
   if ($language_id == $default_language)
   {
     $language['is_default'] = true;
@@ -91,6 +91,7 @@ foreach($languages->fs_languages as $language_id => $language_name)
   }
   else
   {
+    $language['is_default'] = false;
     array_push($tpl_languages, $language);
   }
 }
