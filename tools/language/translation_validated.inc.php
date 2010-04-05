@@ -327,6 +327,7 @@ $validated_keys = array(
 	'localhost, sql.multimania.com, toto.freesurf.fr',	
 	'IP',		
 	'Menu',			
+	'',
 	),
 
   'pt_BR' => array(
