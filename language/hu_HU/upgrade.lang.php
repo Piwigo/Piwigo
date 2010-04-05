@@ -22,8 +22,6 @@
 // +-----------------------------------------------------------------------+
 
 $lang['Upgrade'] = 'Frissítés';
-$lang['introduction message'] = 'Ez az oldal felajánlja az adatbázis frissítést, hogy a Piwigo régi és új verziója megfeleljenek egymásnak.
-A frissítő asszisztens megállapította, hogy a jelenlegi verzió: <strong> %s verzió</strong> (vagy azzal egyező).';
 $lang['Upgrade from version %s to %s'] = 'Verziófrissítés %s verzióról %s verzióra';
 $lang['Statistics'] = 'Statisztikák';
 $lang['total upgrade time'] = 'teljes frissítési idő';
@@ -31,10 +29,8 @@ $lang['total SQL time'] = 'teljes SQL idő';
 $lang['SQL queries'] = 'SQL lekérdezés';
 $lang['Upgrade informations'] = 'Frissítési információk';
 $lang['Perform a maintenance check in [Administration>Specials>Maintenance] if you encounter any problem.'] = 'Végezze el a karbantartás ellenőrzést [Adminisztráció>Speciális összetevők>Karbantartás] ha bármilyen problémával találkozna.';
-$lang['As a precaution, following plugins have been deactivated. You must check for plugins upgrade before reactiving them:'] = 'Elővigyázatosságból a bővítmények ki vannak kapcsolva. Újraaktiválás előtt ellenőrizze, hogy a bővítmények kompatibilisek az új verzióval, ill. ellenőrizze, hogy elérhetők-e frissítések:';
 $lang['Only administrator can run upgrade: please sign in below.'] = 'A frissítés csak rendszergazda jogosultsággal futtatható, kérjük jelentkezzen be.';
 $lang['You do not have access rights to run upgrade'] = 'Önnek nincs jogosultsága a frissítés elvégzéséhez';
-$lang['in include/mysql.inc.php, before ?>, insert:'] = 'In <i>include/mysql.inc.php</i>, before <b>?></b>, insert:';
 
 // Upgrade informations from upgrade_1.3.1.php
 $lang['All sub-categories of private categories become private'] = 'A magán kategóriák valamennyi alkategóriája magánkategóriává válik.';

@@ -369,7 +369,6 @@ $lang['Are you sure?'] = 'Biztos vagy benne?';
 $lang['delete this comment'] = 'Hozzászólás törlése';
 $lang['Email address is missing. Please specify an email address.'] = 'E-mail cím hiányzik. Kérem írja be az e-mail címet.';
 // --------- Starting below: Új vagy javított $lang ---- Tőle: Colibri (2.1.0 RC1)
-$lang['Email address is missing'] = 'E-mail cím hiányzik';
 $lang['Some info about this picture'] = 'Kép információi';
 $lang['Some more (technical) info about this picture'] = 'További (technikai) adatok a képhez';
 $lang['edit this comment'] = 'Hozzászólás módosítása';

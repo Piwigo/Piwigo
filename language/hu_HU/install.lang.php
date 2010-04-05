@@ -55,11 +55,6 @@ $lang['Keep it confidential, it enables you to access administration panel'] = '
 $lang['Password [confirm]'] = 'Jelszó [megerősítés]';
 $lang['verification'] = 'jelszó egyezőségének ellenőrzése';
 $lang['Need help ? Ask your question on <a href="%s">Piwigo message board</a>.'] = 'Segítségre van szüksége ? Kérdéseit itt teheti fel: <a href="%s">Piwigo üzenőfal</a>.';
-$lang['The configuration of Piwigo is finished, here is the next step<br><br>
-* go to the identification page and use the login/password given for webmaster<br>
-* this login will enable you to access to the administration panel and to the instructions in order to place pictures in your directories'] = 'A Piwigo konfigurálása befejeződött, jöhet a következő lépés:<br><br>
-* menjen a Főoldalra és használja a webmester felhasználónév/jelszó párost. <br>
-* A felhasználónév/jelszó segítségével eléri az adminisztrációs felületet, kövesse az utasításokat és töltse fel képeit a könytárakba';
 $lang['Webmaster mail address'] = 'Webmester email cím';
 $lang['Visitors will be able to contact site administrator with this mail'] = 'A látogatók ezen az email címen tudják felvenni a kapcsolatot az adminisztrátorral';
 $lang['PHP 5 is required'] = 'PHP 5 szükséges';
