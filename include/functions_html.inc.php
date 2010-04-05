@@ -199,7 +199,6 @@ function parse_comment_content($content)
   $replacement = '<span style="font-style:italic;">$1$2</span>';
   $content = preg_replace($pattern, $replacement, $content);
 
-  $content = '<div>'.$content.'</div>';
   return $content;
 }
 
@@ -457,18 +456,18 @@ function set_status_header($code, $text='')
       case 503: $text='Service unavailable';break;
     }
   }
-	$protocol = $_SERVER["SERVER_PROTOCOL"];
-	if ( ('HTTP/1.1' != $protocol) && ('HTTP/1.0' != $protocol) )
-		$protocol = 'HTTP/1.0';
+  $protocol = $_SERVER["SERVER_PROTOCOL"];
+  if ( ('HTTP/1.1' != $protocol) && ('HTTP/1.0' != $protocol) )
+    $protocol = 'HTTP/1.0';
 
-	if ( version_compare( phpversion(), '4.3.0', '>=' ) )
+  if ( version_compare( phpversion(), '4.3.0', '>=' ) )
   {
-		header( "$protocol $code $text", true, $code );
-	}
+    header( "$protocol $code $text", true, $code );
+  }
   else
   {
-		header( "$protocol $code $text" );
-	}
+    header( "$protocol $code $text" );
+  }
   trigger_action('set_status_header', $code, $text);
 }
 

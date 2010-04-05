@@ -40,16 +40,16 @@
       {if isset($comment.IN_EDIT)}
       <a name="edit_comment"></a>
       <form  method="post" action="{$comment.U_EDIT}" class="filter" id="editComment">
-	<fieldset>
-	  <legend>{'Edit a comment'|@translate}</legend>
-	  <label>{'Comment'|@translate}<textarea name="content" id="contenteditid" rows="5" cols="80">{$comment.CONTENT|@escape}</textarea></label>
-	  <input type="hidden" name="key" value="{$comment.KEY}">
-	  <input type="hidden" name="image_id" value="{$comment.IMAGE_ID|@default:$current.id}">
-	  <input class="submit" type="submit" value="{'Submit'|@translate}">
-	</fieldset>
+  <fieldset>
+    <legend>{'Edit a comment'|@translate}</legend>
+    <label>{'Comment'|@translate}<textarea name="content" id="contenteditid" rows="5" cols="80">{$comment.CONTENT|@escape}</textarea></label>
+    <input type="hidden" name="key" value="{$comment.KEY}">
+    <input type="hidden" name="image_id" value="{$comment.IMAGE_ID|@default:$current.id}">
+    <input class="submit" type="submit" value="{'Submit'|@translate}">
+  </fieldset>
       </form>
-      {else}      
-      <blockquote>{$comment.CONTENT}</blockquote>
+      {else}
+      <blockquote><div>{$comment.CONTENT}</div></blockquote>
       {/if}
     </div>
   </div>
