@@ -339,7 +339,7 @@ $validated_keys = array(
 	),
 
   'ru_RU' => array(
-	'',
+	'IP',
 	),
 	
   'sr_RS' => array(
