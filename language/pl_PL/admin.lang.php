@@ -755,4 +755,6 @@ $lang['The following tag was deleted'] = 'Ten tag został usunięty';
 $lang['User Upload'] = 'Upload użytkowników';
 $lang['Virtual Links'] = 'Wirtualne linki';
 $lang['There is no other language available.'] = 'Nie ma dostepnego innego języka.';
+$lang['There is no other plugin available.'] = 'Nie ma dostepnej innej wtyczki.';
+$lang['There is no other theme available.'] = 'Nie ma dostępnego innego tematu.';
 ?>
