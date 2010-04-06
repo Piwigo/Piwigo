@@ -511,7 +511,7 @@ $lang['Go to %s or %s for more informations'] = 'Ga naar %s of %s voor meer info
 $lang['the forum'] = 'het forum';
 $lang['the wiki'] = 'de wiki';
 $lang['%s value is not correct file because exif are not supported'] = '%s waarde is niet een correct bestand omdat exif niet ondersteund wordt';
-$lang['%s must be to set to false in your local/config/config.inc.php file'] = '%s moet aangepast worden naar false in uw config_local.inc.php bestand';
+$lang['%s must be to set to false in your local/config/config.inc.php file'] = '%s moet aangepast worden naar false in uw local/config/config.inc.php bestand';
 $lang['Main "guest" user does not exist'] = 'Hoofd "gast" gebruiker bestaat niet meer';
 $lang['Main "guest" user status is incorrect'] = 'Hoofd "gast" gebruikersstatus is niet correct';
 $lang['Default user does not exist'] = 'Standaard gebruiker bestaat niet meer';
@@ -748,4 +748,11 @@ $lang['Set as default language for unregistered and new users'] = 'Stel in als s
 $lang['Miscellaneous'] = 'Diverse';
 $lang['User Upload'] = 'Upload door gebruikers';
 $lang['Virtual Links'] = 'Virtuele Links';
+$lang['Add Photos'] = 'Afbeeldingen toevoegen';
+$lang['Download'] = 'Download';
+$lang['The following tag was deleted'] = 'De volgende tag werd verwijderd';
+$lang['There is no other language available.'] = 'Er is geen andere taal beschikbaar.';
+$lang['There is no other plugin available.'] = 'Er is geen andere plugin beschikbaar.';
+$lang['There is no other theme available.'] = 'Er is geen andere thema beschikbaar.';
+
 ?>

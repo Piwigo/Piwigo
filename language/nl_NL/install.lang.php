@@ -66,7 +66,11 @@ $lang['Try to configure PHP 5'] = 'Probeer PHP 5 te configureren';
 $lang['Sorry!'] = 'Sorry!';
 $lang['Piwigo was not able to configure PHP 5.'] = 'Piwigo kon PHP 5 niet configureren.';
 $lang['You may referer to your hosting provider\'s support and see how you could switch to PHP 5 by yourself.'] = 'Neem contact op met de support van uw hosting provider en probeer met hen te bepalen hoe u kunt omschakelen naar PHP 5.';
-$lang['Hope to see you back soon.'] = 'Hope to see you back soon.';
+$lang['Hope to see you back soon.'] = 'Hoop u snel weer te zien op deze site !.';
 $lang['Congratulations, Piwigo installation is completed'] = 'Gefeliciteerd, de Piwigo installatie is afgerond';
+$lang['An alternate solution is to copy the text in the box above and paste it into the file "local/config/database.inc.php" (Warning : database.inc.php must only contain what is in the textarea, no line return or space character)'] = 'Als alternatieve oplossing kunt de tekst in de bovenstaande box kopieren en plakken in bestand "local/config/database.inc.php" (Opgelet : in database.inc.php mag alleen datgene staan dat in het tekstgebied staat, geen return- of spatie-tekens)';
+$lang['Creation of config file local/config/database.inc.php failed.'] = 'Het aanmaken van config-bestand local/config/database.inc.php is mislukt.';
+$lang['Download the config file'] = 'Download het config-bestand';
+$lang['You can download the config file and upload it to local/config directory of your installation.'] = 'U kunt het config-bestand downloaden en het uploaden naar de local/config directory van uw Piwigo-installatie.';
 
 ?>
