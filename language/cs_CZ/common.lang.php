@@ -366,7 +366,30 @@ $lang['show tag cloud'] = 'zobrazit klíčová slova v bublině';
 $lang['cloud'] = 'bublina';
 // --------- Starting below: New or revised $lang ---- from Colibri (2.1)
 
-
 $lang['Are you sure?'] = 'Jste si jistý?';
 $lang['delete this comment'] = 'vymazat tento komentář';
+
+// missing translations 2.1.0
+$lang['Reset to default values'] = 'Obnovit výchozí hodnoty';
+$lang['delete all images from your favorites'] = 'vymazat všechny obrázky z Vašich oblíbených';
+$lang['Sent by'] = 'Posláno';
+$lang['Cookies are blocked or not supported by your browser. You must enable cookies to connect.'] = 'Cookies jsou buď blokovány, nebo nejsou povoleny ve Vašem prohlížeči. Musíte povolit cookies, aby bylo možné se přihlásit.';
+$lang['Some info about this picture'] = 'Informace o této fotografii';
+$lang['Some more (technical) info about this picture'] = 'Více informací o této fotografii (technické)';
+$lang['edit this comment'] = 'upravit tento komentář';
+$lang['Edit a comment'] = 'Upravit komentář';
+$lang['(!) This comment requires validation'] = '(!) Tento komentář vyžaduje kontrolu';
+$lang['Welcome'] = 'Vítejte';
+$lang['Welcome to your Piwigo photo gallery!'] = 'Vítejte ve Vaší Piwigo foto galerii!';
+$lang['... or browse your empty gallery'] = '... nebo prohlížejte Vaši prázdnou galerii';
+$lang['... or please deactivate this message, I will find my way by myself'] = '... nebo prosím zrušte tuto zprávu, program najde způsob sám';
+$lang['Hello %s, your Piwigo photo gallery is empty!'] = 'Vítejte %s, Vaše Piwigo foto galerie je prázdná!';
+$lang['I want to add photos'] = 'Chci přidat fotografie';
+$lang['Manage this user comment: %s'] = 'Spravujte tento uživatelský komentář: %s';
+$lang['This author modified following comment:'] = 'Tento autor upravil následující komentář:';
+$lang['This author removed the comment with id %d'] = 'Tento autor smazal komentář s identifikátorem %d';
+$lang['validate this comment'] = 'zkontrolovat tento komentář';
+$lang['%d Kb'] = '%d Kb';
+$lang['IP: %s'] = 'IP: %s';
+
 ?>
