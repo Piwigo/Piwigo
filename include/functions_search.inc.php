@@ -252,7 +252,7 @@ SELECT DISTINCT(id)
         }
         else
         {
-          $items = array_intersect($items, $tag_items);
+          $items = array_values( array_intersect($items, $tag_items) );
         }
         break;
       case 'OR':

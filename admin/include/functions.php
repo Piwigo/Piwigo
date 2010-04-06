@@ -247,7 +247,7 @@ SELECT
   {
     update_category($category_ids);
   }
-  
+
   trigger_action('delete_elements', $ids);
 }
 
@@ -920,7 +920,7 @@ SELECT DISTINCT(storage_category_id)
   {
     $query = '
 UPDATE '.IMAGES_TABLE.'
-  SET path = '.pwg_db_concat(array($fulldirs[$cat_id],'\'/\'','file')).'
+  SET path = '.pwg_db_concat(array("'".$fulldirs[$cat_id]."/'",'file')).'
   WHERE storage_category_id = '.$cat_id.'
 ;';
     pwg_query($query);
@@ -1292,7 +1292,7 @@ DELETE
  */
 function add_tags($tags, $images)
 {
-  if (count($tags) == 0 or count($tags) == 0)
+  if (count($tags) == 0 or count($images) == 0)
   {
     return;
   }
@@ -1903,7 +1903,7 @@ function get_active_menu($menu_page)
       return 0;
     }
   }
-  
+
   switch ($menu_page)
   {
     case 'photos_add':
@@ -1923,7 +1923,7 @@ function get_active_menu($menu_page)
     case 'cat_perm':
     case 'permalinks':
       return 1;
-      
+
     case 'user_list':
     case 'user_perm':
     case 'group_list':
@@ -1936,7 +1936,7 @@ function get_active_menu($menu_page)
     case 'plugins_new':
     case 'plugin':
       return 3;
-      
+
     case 'stats':
     case 'history':
     case 'maintenance':
@@ -1971,7 +1971,7 @@ function get_fckb_taglist($query)
         )
       );
   }
-  
+
   return $taglist;
 }
 
@@ -1983,7 +1983,7 @@ function get_fckb_tag_ids($raw_tags)
   // or "1234" (numeric characters only)
 
   $tag_ids = array();
-  
+
   foreach ($raw_tags as $raw_tag)
   {
     if (preg_match('/^~~(\d+)~~$/', $raw_tag, $matches))
@@ -1994,7 +1994,7 @@ function get_fckb_tag_ids($raw_tags)
     {
       // we have to create a new tag
       array_push(
-        $tag_ids, 
+        $tag_ids,
         tag_id_from_tag_name($raw_tag)
         );
     }

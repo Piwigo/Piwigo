@@ -39,7 +39,7 @@ $plugins = new plugins();
 if (isset($_GET['action']) and isset($_GET['plugin']) and !is_adviser())
 {
   check_pwg_token();
-  
+
   $page['errors'] = $plugins->perform_action($_GET['action'], $_GET['plugin']);
 
   if (empty($page['errors']))
@@ -69,7 +69,7 @@ foreach($plugins->fs_plugins as $plugin_id => $fs_plugin)
     'VERSION' => $fs_plugin['version'],
     'DESC' => $fs_plugin['description'],
     'AUTHOR' => $fs_plugin['author'],
-    'AUTHOR_URL' => $fs_plugin['author uri'],
+    'AUTHOR_URL' => @$fs_plugin['author uri'],
     'U_ACTION' => sprintf($action_url, $plugin_id)
     );
 
@@ -112,6 +112,6 @@ if (count($missing_plugin_ids) > 0)
 {
   $template->append('plugin_states', 'missing');
 }
-  
+
 $template->assign_var_from_handle('ADMIN_CONTENT', 'plugins');
 ?>
