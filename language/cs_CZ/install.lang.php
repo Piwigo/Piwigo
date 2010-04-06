@@ -59,4 +59,22 @@ $lang['verification'] = 'kontrola';
 $lang['Need help ? Ask your question on <a href="%s">Piwigo message board</a>.'] = 'Potřebujete pomoc ? Zeptejte se na <a href="%s">Piwigo fóru</a>.';
 $lang['Webmaster mail address'] = 'E-mail správce';
 $lang['Visitors will be able to contact site administrator with this mail'] = 'Návštěvníci mohou pomocí tohoto e-mailu správce kontaktovat';
+
+// missing translations 2.1.0
+$lang['Database type'] = 'Typ databáze';
+$lang['The type of database your piwigo data will be store in'] = 'Typ databáze Vaší Piwigo databáze bude uložen';
+$lang['PHP 5 is required'] = 'Je nutný PHP 5';
+$lang['It appears your webhost is currently running PHP %s.'] = 'Na Vašem webhostingu je PHP %s.';
+$lang['Piwigo may try to switch your configuration to PHP 5 by creating or modifying a .htaccess file.'] = 'Piwigo se může pokusit změnit Vaše nastavení na PHP 5 tím, že vytvoří nebo změní soubor .htaccess.';
+$lang['Note you can change your configuration by yourself and restart Piwigo after that.'] = 'Případně můžete změnit Vaši konfirguraci sami a potom restartovat Piwigo .';
+$lang['Try to configure PHP 5'] = 'Pokuste se změnit Vaše nastavení na PHP 5';
+$lang['Sorry!'] = 'Bohužel!';
+$lang['Piwigo was not able to configure PHP 5.'] = 'Piwigo nebylo schopno změnit Vaše nastavení na PHP 5.';
+$lang['You may referer to your hosting provider\'s support and see how you could switch to PHP 5 by yourself.'] = 'Obraťte se na poskytovatele Vašeho webhostingu, aby jste zjistili, jak můžete změnit Vaše nastavení na PHP 5.';
+$lang['Hope to see you back soon.'] = 'Věříme, že se brzy uvidíme.';
+$lang['Congratulations, Piwigo installation is completed'] = 'Gratulujeme, Piwigo instalace je ukončena';
+$lang['An alternate solution is to copy the text in the box above and paste it into the file "local/config/database.inc.php" (Warning : database.inc.php must only contain what is in the textarea, no line return or space character)'] = 'Náhradním řešením je zkopírovat text z boxu výše a vložit jej do souboru "local/config/database.inc.php" (Upozornění : soubor database.inc.php smí obsahovat jen to, co je v tomto boxu, žádné znaky odřádkování nebo mezery)';
+$lang['Creation of config file local/config/database.inc.php failed.'] = 'Vytvoření souboru local/config/database.inc.php se nepodařilo.';
+$lang['Download the config file'] = 'Stáhnout konfigurační soubor';
+$lang['You can download the config file and upload it to local/config directory of your installation.'] = 'Můžete stáhnout konfigurační soubor a nahrát jej do adrešáře local/config Vaší instalace.';
 ?>
