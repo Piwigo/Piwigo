@@ -225,6 +225,7 @@ $validated_keys = array(
 	'Permalinks',
 	'Plugins',
 	'Plugin',
+	'Tools',
 	'Tag',
 	'Tags',
 	'%d tag',
