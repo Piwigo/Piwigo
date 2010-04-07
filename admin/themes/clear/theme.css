@@ -186,6 +186,24 @@ body .ui-resizable-autohide .ui-resizable-handle { display: none; } /* use 'body
 .ui-resizable-sw { cursor: sw-resize; width: 9px; height: 9px; left: 0px; bottom: 0px; background: transparent url(images/resizable-sw.gif); }
 .ui-resizable-nw { cursor: nw-resize; width: 9px; height: 9px; left: 0px; top: 0px; background: transparent url(images/resizable-nw.gif); }
 .ui-resizable-ne { cursor: ne-resize; width: 9px; height: 9px; right: 0px; top: 0px; background: transparent url(images/resizable-ne.gif); }
+
+#ui-datepicker-div {background-color: #fff; border:2px solid #aaa;-moz-border-radius:5px;}
+#ui-datepicker-div .ui-datepicker-title {color:black;}
+#ui-datepicker-div .ui-icon-circle-triangle-w {background: transparent url(icon/prev.png) no-repeat; color:transparent;}
+#ui-datepicker-div .ui-icon-circle-triangle-e {background: transparent url(icon/next.png) no-repeat; color:transparent;}
+
+#ui-datepicker-div A.ui-datepicker-prev,
+#ui-datepicker-div A.ui-datepicker-next
+{
+  background-color:transparent;
+}
+
+#ui-datepicker-div A.ui-datepicker-prev:hover,
+#ui-datepicker-div A.ui-datepicker-next:hover
+{
+  background-color:#eee;border:1px solid #aaa;-moz-border-radius:5px;
+}
+
 #ui-datepicker-div .ui-datepicker-control, #ui-datepicker-div  a { background-color: #eee; color: #08f !important;}
 #ui-datepicker-div .ui-datepicker-days-row { background-color: #bbb;}
 #ui-datepicker-div .ui-datepicker-week-end-cell, #ui-datepicker-div .ui-datepicker-week-end-cell  a { background-color: #ddd; color: #0cc; border-color: #bbb; border-top-color: #ddd; border-left-color: #ddd;}
@@ -198,6 +216,7 @@ body .ui-resizable-autohide .ui-resizable-handle { display: none; } /* use 'body
 #ui-datepicker-div .ui-datepicker-current-day { background-color: #eee !important; border-color: #bbb; border-top-color: #eee; border-left-color: #eee;}
 #ui-datepicker-div .ui-datepicker-days-cell { background-color:#bbb; border:1px solid #ddd; border-top-color: #bbb; border-left-color: #bbb;}
 td img.ui-datepicker-trigger { margin:-3px 5px 2px; }
+
 INPUT[type="text"].large  { width: 317px; }
 input[type="button"], input[type="submit"], input[type="reset"] {
 color:#0cc9c; background-color:#ddd; border-color: #0cc9c; }
