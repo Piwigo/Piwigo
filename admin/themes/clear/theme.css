@@ -205,7 +205,7 @@ body .ui-resizable-autohide .ui-resizable-handle { display: none; } /* use 'body
 #ui-datepicker-div .ui-datepicker-header { background-color:#bbb;}
 #ui-datepicker-div .ui-datepicker-current-day { background-color: #eee !important; border-color: #bbb; border-top-color: #eee; border-left-color: #eee;}
 #ui-datepicker-div .ui-datepicker-days-cell { background-color:#bbb; border:1px solid #ddd; border-top-color: #bbb; border-left-color: #bbb;}
-td img.ui-datepicker-trigger { margin:-3px 5px 2px; }
+img.ui-datepicker-trigger { vertical-align: middle; margin:-3px 5px 2px 5px;}
 
 INPUT[type="text"].large  { width: 317px; }
 input[type="button"], input[type="submit"], input[type="reset"] {
