@@ -771,6 +771,62 @@ function pwg_send_mail($result, $to, $subject, $content, $headers)
   }
 }
 
+function move_ccs_rules_to_body($content)
+{
+  // We search all css rules in style tags
+  preg_match('#<style>(.*?)</style>#s', $content, $matches);
+
+  if (!empty($matches[1]))
+  {
+    preg_match_all('#([^\n]*?)\{(.*?)\}#s', $matches[1], $matches);
+
+    $selectors = array();
+    $unknow_selectors = '';
+
+    foreach ($matches[1] as $key => $value)
+    {
+      $selects = explode(',', $value);
+      $style = trim($matches[2][$key], ' ;');
+
+      foreach($selects as $select)
+      {
+        $select = trim($select);
+        $selectors[$select][] = $style;
+      }
+    }
+    foreach ($selectors as $selector => $style)
+    {
+      if (!preg_match('/^(#|\.|)([A-Za-z0-9_-]*)$/', $selector, $matches))
+      {
+        $unknow_selectors .= $selector.' {'.implode('; ', $style).";}\n";
+      }
+      else switch ($matches[1])
+      {
+        case '#':
+          $content = preg_replace('|id="'.$matches[2].'"|', 'id="'.$matches[2].'" style="'.implode('; ', $style).';"', $content);
+          break;
+        case '.':
+          $content = preg_replace('|class="'.$matches[2].'"|', 'class="'.$matches[2].'" style="'.implode('; ', $style).';"', $content);
+          break;
+        default:
+          $content = preg_replace('#<'.$matches[2].'( |>)#', '<'.$matches[2].' style="'.implode('; ', $style).';"$1', $content);
+          break;
+      }
+    }
+
+    // Keep unknow tags in page head
+    if (!empty($unknow_selectors))
+    {
+      $content = preg_replace('#<style>.*?</style>#s', "<style type=\"text/css\">\n$unknow_selectors</style>", $content);
+    }
+    else
+    {
+      $content = preg_replace('#<style>.*?</style>#s', '', $content);
+    }
+  }
+  return $content;
+}
+
 /*Testing block*/
 /*function pwg_send_mail_test($result, $to, $subject, $content, $headers, $args)
 {
@@ -800,6 +856,7 @@ add_event_handler('send_mail', 'pwg_send_mail_test', EVENT_HANDLER_PRIORITY_NEUT
 
 
 add_event_handler('send_mail', 'pwg_send_mail', EVENT_HANDLER_PRIORITY_NEUTRAL, 5);
+add_event_handler('send_mail_content', 'move_ccs_rules_to_body');
 trigger_action('functions_mail_included');
 
 ?>

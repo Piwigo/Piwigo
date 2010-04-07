@@ -2,7 +2,7 @@
 
 body {ldelim} font-family: Univers, Helvetica, Optima; font-size:12px; margin:0px; padding:0px; }
 #the_page {ldelim} margin:0px; padding:0px; text-align:left;}
-#content {ldelim} margin:0px; padding:82px 0px 0px 62px; width:732px;}
+#content {ldelim} margin:0px; padding:30px 0px 0px 30px; width:732px;}
 hr {ldelim} width:632px; margin-left:0;}
 #copyright {ldelim} font-size:10px; margin:0px; padding:48px 0px 32px 62px;}
 .PWG {ldelim} font-family:verdana, sans-serif !important; font-size:0.9em; font-weight:normal; letter-spacing:0px;}
