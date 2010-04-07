@@ -97,7 +97,8 @@ LI.categoryLi {
 
 FORM#categoryOrdering UL.categoryActions {
 	float: right;
-	margin-top: 5px;
+        height:45px;
+        line-height:45px;
 }
 /* */
 
