@@ -192,6 +192,19 @@ body .ui-resizable-autohide .ui-resizable-handle { display: none; } /* use 'body
 .ui-resizable-sw { cursor: sw-resize; width: 9px; height: 9px; left: 0px; bottom: 0px; background: transparent url(images/resizable-sw.gif); }
 .ui-resizable-nw { cursor: nw-resize; width: 9px; height: 9px; left: 0px; top: 0px; background: transparent url(images/resizable-nw.gif); }
 .ui-resizable-ne { cursor: ne-resize; width: 9px; height: 9px; right: 0px; top: 0px; background: transparent url(images/resizable-ne.gif); }
+
+#ui-datepicker-div {background-color: #555; border:2px solid #333;}
+#ui-datepicker-div .ui-datepicker-title {color:white;}
+#ui-datepicker-div .ui-icon-circle-triangle-w {background: transparent url(icon/prev.png) no-repeat;}
+#ui-datepicker-div .ui-icon-circle-triangle-e {background: transparent url(icon/next.png) no-repeat;}
+#ui-datepicker-div A.ui-datepicker-prev:hover,
+#ui-datepicker-div A.ui-datepicker-next:hover
+{
+  background-color:#eee;border:1px solid #aaa;
+}
+.ui-datepicker th {color:#ccc;}
+.ui-state-disabled {color:#aaa;}
+
 #ui-datepicker-div .ui-datepicker-control, #ui-datepicker-div  a { background-color: #111; color: #f70 !important;}
 #ui-datepicker-div .ui-datepicker-days-row { background-color: #444;}
 #ui-datepicker-div .ui-datepicker-week-end-cell, #ui-datepicker-div .ui-datepicker-week-end-cell  a { background-color: #222; color: #f33; border-color: #444; border-top-color: #222; border-left-color: #222;}

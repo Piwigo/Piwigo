@@ -187,21 +187,14 @@ body .ui-resizable-autohide .ui-resizable-handle { display: none; } /* use 'body
 .ui-resizable-nw { cursor: nw-resize; width: 9px; height: 9px; left: 0px; top: 0px; background: transparent url(images/resizable-nw.gif); }
 .ui-resizable-ne { cursor: ne-resize; width: 9px; height: 9px; right: 0px; top: 0px; background: transparent url(images/resizable-ne.gif); }
 
-#ui-datepicker-div {background-color: #fff; border:2px solid #aaa;-moz-border-radius:5px;}
+#ui-datepicker-div {background-color: #fff; border:2px solid #aaa;}
 #ui-datepicker-div .ui-datepicker-title {color:black;}
-#ui-datepicker-div .ui-icon-circle-triangle-w {background: transparent url(icon/prev.png) no-repeat; color:transparent;}
-#ui-datepicker-div .ui-icon-circle-triangle-e {background: transparent url(icon/next.png) no-repeat; color:transparent;}
-
-#ui-datepicker-div A.ui-datepicker-prev,
-#ui-datepicker-div A.ui-datepicker-next
-{
-  background-color:transparent;
-}
-
+#ui-datepicker-div .ui-icon-circle-triangle-w {background: transparent url(icon/prev.png) no-repeat;}
+#ui-datepicker-div .ui-icon-circle-triangle-e {background: transparent url(icon/next.png) no-repeat;}
 #ui-datepicker-div A.ui-datepicker-prev:hover,
 #ui-datepicker-div A.ui-datepicker-next:hover
 {
-  background-color:#eee;border:1px solid #aaa;-moz-border-radius:5px;
+  background-color:#eee;border:1px solid #aaa;
 }
 
 #ui-datepicker-div .ui-datepicker-control, #ui-datepicker-div  a { background-color: #eee; color: #08f !important;}

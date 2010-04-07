@@ -817,3 +817,8 @@ h2:lang(en) { text-transform:capitalize; }
 .languageName {font-size:1.1em; margin:5px 0;}
 .languageActions {display: table-row; font-size:12px; }
 .languageActions DIV {display: table-cell; vertical-align: middle; line-height:18px; }
+
+#ui-datepicker-div {-moz-border-radius:5px;}
+#ui-datepicker-div .ui-icon-circle-triangle-w, #ui-datepicker-div .ui-icon-circle-triangle-e {color:transparent;}
+#ui-datepicker-div A.ui-datepicker-prev, #ui-datepicker-div A.ui-datepicker-next {background-color:transparent;}
+#ui-datepicker-div A.ui-datepicker-prev:hover, #ui-datepicker-div A.ui-datepicker-next:hover {-moz-border-radius:5px;}
