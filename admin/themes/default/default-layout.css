@@ -823,3 +823,15 @@ h2:lang(en) { text-transform:capitalize; }
 #ui-datepicker-div .ui-icon-circle-triangle-w, #ui-datepicker-div .ui-icon-circle-triangle-e {color:transparent;}
 #ui-datepicker-div A.ui-datepicker-prev, #ui-datepicker-div A.ui-datepicker-next {background-color:transparent;}
 #ui-datepicker-div A.ui-datepicker-prev:hover, #ui-datepicker-div A.ui-datepicker-next:hover {-moz-border-radius:5px;}
+
+.HelpActions {
+  float:right;
+  margin:0;
+  padding:0;
+  padding-top:2px;
+  padding-left:3px;
+}
+
+.HelpActions a { border:0; margin:0; }
+.HelpActions a:hover {border:0;}
+.HelpActions li {list-style-image:none; list-style-position:outside; list-style-type:none; text-align:center; text-indent:0pt; }

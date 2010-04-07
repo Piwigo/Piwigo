@@ -109,9 +109,6 @@ ul.actions, .content form#waiting  {text-align:center;}
 .header_msgs { background:transparent url(images/header_msgs-bg.gif) repeat scroll right top;
 border:0; color:#ccc; font-size:24px; height:30px; left:0; margin:0; padding:10px 0 0; position:absolute;
 text-align:center; top:0; width:100%; z-index:99; }
-.HelpActions a { border:0; margin:-14px 14px 0 0; position:absolute; right:0; }
-.HelpActions li {list-style-image:none; list-style-position:outside;
-list-style-type:none; text-align:center; text-indent:0pt; }
 #content.content div.comment a.illustration{ margin-right: 30px;}
 /* tabsheets are often used in admin  pages => No specific css files */
 .tabsheet {
