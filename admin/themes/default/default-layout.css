@@ -469,7 +469,9 @@ UL.tagSelection LI {
 
 /* jQuery datepicker */
 img.ui-datepicker-trigger {
-	cursor : pointer;
+  cursor : pointer;
+  vertical-align: middle; 
+  margin:-3px 5px 2px 5px;
 }
 
 /* jQuery FCBKcomplete */

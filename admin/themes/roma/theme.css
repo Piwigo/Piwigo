@@ -213,7 +213,6 @@ body .ui-resizable-autohide .ui-resizable-handle { display: none; } /* use 'body
 #ui-datepicker-div .ui-datepicker-header { background-color:#444;}
 #ui-datepicker-div .ui-datepicker-current-day { background-color: #111 !important; border-color: #444; border-top-color: #111; border-left-color: #111;}
 #ui-datepicker-div .ui-datepicker-days-cell { background-color:#444; border:1px solid #222; border-top-color: #444; border-left-color: #444;}
-img.ui-datepicker-trigger {vertical-align: middle; margin:3px 5px 2px 5px; }
 INPUT[type="text"].large  { width: 317px; }
 input[type="button"], input[type="submit"], input[type="reset"] {
 color:#ff3363; background-color:#222; border-color: #ff3363; }
