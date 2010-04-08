@@ -222,7 +222,10 @@ $user_where_clause.'
 ;';
   $result = pwg_query($query);
   if ($result) {
-    email_admin('delete', array('author' => $GLOBALS['user']['username']));
+    email_admin('delete', 
+                array('author' => $GLOBALS['user']['username'],
+                      'comment_id' => $comment_id
+                  ));
   }
 }
 
