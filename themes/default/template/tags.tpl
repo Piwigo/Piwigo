@@ -19,7 +19,7 @@
 	{if $display_mode == 'cloud'}
 	<div id="fullTagCloud">
 		{foreach from=$tags item=tag}
-		<span><a href="{$tag.URL}" class="tagLevel{$tag.level}" title="{$tag.counter}">{$tag.name}</a></span>
+		<span><a href="{$tag.URL}" class="tagLevel{$tag.level}" title="{$pwg->l10n_dec('%d image', '%d images', $tag.counter)}">{$tag.name}</a></span>
 		{/foreach}
 	</div>
 	{/if}
