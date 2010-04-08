@@ -102,6 +102,7 @@ $display_info_checkboxes = array(
     'categories',
     'visits',
     'average_rate',
+    'privacy_level',
   );
 
 //------------------------------ verification and registration of modifications
