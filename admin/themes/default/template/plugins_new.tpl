@@ -6,14 +6,16 @@
 jQuery().ready(function(){ldelim}
   jQuery("td[id^='desc_']").click(function() {ldelim}
     id = this.id.split('_');
+    nb_lines = jQuery("#bigdesc_"+id[1]).html().split('<br>').length;
+
+    $("#smalldesc_"+id[1]).toggle('blind', 1);
     if ($(this).hasClass('bigdesc')) {ldelim}
       $("#bigdesc_"+id[1]).toggle('blind', 1);
       $(this).removeClass('bigdesc');
     } else {ldelim}
-      $("#bigdesc_"+id[1]).toggle('blind', 50);
+      $("#bigdesc_"+id[1]).toggle('blind', 50 + (nb_lines * 30));
       $(this).addClass('bigdesc');
     }
-    $("#smalldesc_"+id[1]).toggle('blind', 1);
     return false;
   });
 });
@@ -34,7 +36,7 @@ jQuery().ready(function(){ldelim}
 <fieldset>
 <legend></legend>
 {foreach from=$plugins item=plugin name=plugins_loop}
-<div class="pluginBox" id="plugin_{$plugin.ID}"}>
+<div class="pluginBox" id="plugin_{$plugin.ID}">
   <table>
     <tr>
       <td class="pluginBoxNameCell">{$plugin.EXT_NAME}</td>
