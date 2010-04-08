@@ -87,6 +87,7 @@ FORM#quickconnect FIELDSET DIV {
 
 #menubar #menuTagCloud SPAN {
 	white-space: nowrap;
+	margin-right: 5px;
 }
 
 /**
