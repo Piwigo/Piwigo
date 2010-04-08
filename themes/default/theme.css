@@ -647,11 +647,11 @@ UL.tagSelection LI {
 }
 
 
-.tagLevel5 { font-size: 150%; }
-.tagLevel4 { font-size: 140%; }
-.tagLevel3 { font-size: 120%; }
-.tagLevel2 { font-size: 100%; }
-.tagLevel1 { font-size: 90%; }
+.tagLevel5 { font-size: 150% !important; }
+.tagLevel4 { font-size: 140% !important; }
+.tagLevel3 { font-size: 120% !important; }
+.tagLevel2 { font-size: 100% !important; }
+.tagLevel1 { font-size: 90%  !important; }
 
 
 /* Popup help page */
