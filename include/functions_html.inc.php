@@ -411,25 +411,29 @@ function get_tags_content_title()
       .$page['tags'][$i]['name']
       .'</a>';
 
-    if ( count($page['tags'])>2 )
+    $remove_url = null;
+    if (count($page['tags']) == 1)
+    {
+      $remove_url = get_root_url().'tags.php';
+    }
+    else
     {
       $other_tags = $page['tags'];
-      unset ( $other_tags[$i] );
-      $title.=
-        '<a href="'
-        .make_index_url(
-          array(
-            'tags' => $other_tags
-            )
+      unset($other_tags[$i]);
+      $remove_url = make_index_url(
+        array(
+          'tags' => $other_tags
           )
-        .'" style="border:none;" title="'
-        .l10n('remove this tag from the list')
-        .'"><img src="'
-        .get_root_url().get_themeconf('icon_dir').'/remove_s.png'
-        .'" alt="x" style="vertical-align:bottom;" class="button">'
-        .'</a>';
+        );
     }
-
+    
+    $title.=
+      '<a href="'.$remove_url.'" style="border:none;" title="'
+      .l10n('remove this tag from the list')
+      .'"><img src="'
+        .get_root_url().get_themeconf('icon_dir').'/remove_s.png'
+      .'" alt="x" style="vertical-align:bottom;" class="button">'
+      .'</a>';
   }
   return $title;
 }
