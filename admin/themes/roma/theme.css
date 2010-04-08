@@ -26,11 +26,16 @@ INPUT[type="submit"], INPUT[type="reset"]  { color:#999; border: 1px solid #666;
 input.rateButton, legend, h3 { color: #666; }
 h2 { color: #ccc; }
 
-.header_notes { background: transparent url(../../icon/note.png) no-repeat right top;
-border:0; font-weight:bold; min-height: 48px;
-padding:15px 60px 0 0; position:absolute; right:0;
-text-align:right; top:90px; width:550px;  }
+.header_notes { 
+  background: transparent url(../default/icon/note.png) no-repeat right top;
+  border: none; 
+  min-height: 48px;
+  padding: 15px 60px 0 0;  
+  right: 0;
+  width: 550px;  
+}
 html, body { min-height: 100%; }
+
 body { margin: 0; padding: 0;
 background-color:#111111; }
 /* #the_page { margin: 0; padding: 0; z-index: 1; top:0px; */

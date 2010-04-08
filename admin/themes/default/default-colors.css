@@ -44,14 +44,14 @@ INPUT.radio, INPUT.checkbox {
  * Header notes box in public/administration
  */
 .header_notes {
-  border: 1px solid #666; 
-  text-align: center;
-  background-image: url(icon/note.png);
-  background-repeat: no-repeat;
-  background-position: top left;
+  border: 1px solid #666;
+  background: transparent url(icon/note.png) no-repeat right top;
   font-weight: bold;
-  margin: 14px;
-  padding: 5px 00px 0px 0px;
+  margin: 14px 24px 14px 14px;
+  padding: 5px 0 0 0;
+  top: 90px; 
+  position: absolute;
+  text-align: right;
 }
 
 LEGEND {
