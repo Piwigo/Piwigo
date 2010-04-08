@@ -2,15 +2,13 @@
 <dd>
 	<div id="menuTagCloud">
 		{foreach from=$block->data item=tag}
-		<span>
-			{if !empty($tag.U_ADD) }
-			<a href="{$tag.U_ADD}"
+		<span style="margin-right:5px;">
+			<a class="tagLevel{$tag.level}" href="{$tag.U_ADD}"
 				title="{$pwg->l10n_dec('%d image is also linked to current tags', '%d images are also linked to current tags', $tag.counter)}"
 				rel="nofollow">
-				<img src="{$ROOT_URL}{$themeconf.icon_dir}/add_tag.png" alt="+">
+				+{$tag.name}
 			</a>
-			{/if}
-			<a href="{$tag.URL}" class="tagLevel{$tag.level}" title="{'See images linked to this tag only'|@translate}">{$tag.name}</a>{* there should be no space between end of a and span elements to avoid IE8 bug https://connect.microsoft.com/IE/feedback/ViewFeedback.aspx?FeedbackID=366567 *}</span>
+                </span>
 		{/foreach}
 	</div>
 </dd>

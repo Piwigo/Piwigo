@@ -112,29 +112,27 @@ function initialize_menu()
   $block = $menu->get_block('mbTags');
   if ( $block!=null and 'tags'==@$page['section'] and !empty($page['items']) )
   {
-    $tags = get_common_tags($page['items'],
-          $conf['menubar_tag_cloud_items_number'], $page['tag_ids']);
+    $tags = get_common_tags(
+      $page['items'],
+      $conf['menubar_tag_cloud_items_number'],
+      $page['tag_ids']
+      );
     $tags = add_level_to_tags($tags);
 
     foreach ($tags as $tag)
     {
-      $block->data[] =
-        array_merge( $tag,
-          array(
-            'URL' => make_index_url(
-              array(
-                'tags' => array($tag)
+      $block->data[] = array_merge(
+        $tag,
+        array(
+          'U_ADD' => make_index_url(
+            array(
+              'tags' => array_merge(
+                $page['tags'],
+                array($tag)
                 )
-              ),
-            'U_ADD' => make_index_url(
-                  array(
-                    'tags' => array_merge(
-                      $page['tags'],
-                      array($tag)
-                      )
-                    )
-                  ),
-            )
+              )
+            ),
+          )
         );
     }
     $block->template = 'menubar_tags.tpl';
