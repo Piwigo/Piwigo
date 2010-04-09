@@ -18,7 +18,7 @@ jQuery(document).ready(function(){
     }
 
     var nbFiles = 0;
-    if ($("uploadBoxes").size() == 1) {
+    if ($("#uploadBoxes").size() == 1) {
       $("input[name^=image_upload]").each(function() {
         if ($(this).val() != "") {
           nbFiles++;
