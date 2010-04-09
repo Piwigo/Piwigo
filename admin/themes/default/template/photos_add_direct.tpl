@@ -10,6 +10,7 @@
 jQuery(document).ready(function(){
   function checkUploadStart() {
     var nbErrors = 0;
+    $("#formErrors").hide();
     $("#formErrors li").hide();
 
     if ($("input[name=category_type]:checked").val() == "new" && $("input[name=category_name]").val() == "") {
