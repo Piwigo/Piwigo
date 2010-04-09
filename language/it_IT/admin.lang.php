@@ -519,7 +519,7 @@ $lang['%s must be to set to false in your local/config/config.inc.php file'] = '
 $lang['Main "guest" user does not exist'] = 'L\'utente "ospite" principale non esiste più';
 $lang['Main "guest" user status is incorrect'] = 'Lo statuto del\'utente "ospite" principale non è corretto';
 $lang['Default user does not exist'] = 'L\'utente di default non esiste più';
-$lang['Main "webmaster" user does not exist'] = 'L\'utente "webmaster" principal non esiste più';
+$lang['Main "webmaster" user does not exist'] = 'L\'utente "webmaster" principale non esiste più';
 $lang['Main "webmaster" user status is incorrect'] = 'Lo statuto del\'utente "webmaster" principal non è corretto';
 $lang['User "%s" created with "%s" like password'] = 'L\'utente "%s" creato con la password "%s"';
 $lang['Status of user "%s" updated'] = 'Statuto del\'utente "%s" aggiornato';
@@ -766,4 +766,5 @@ $lang['There is no other language available.'] = 'Non ci sono altre lingue dispo
 $lang['There is no other plugin available.'] = 'Non ci sono altri plugin disponibili.';
 $lang['There is no other theme available.'] = 'Non ci sono altri temi disponibili.';
 $lang['delete'] = 'cancellare';
+$lang['Add another set of photos'] = 'Aggiungi un altro set di foto';
 ?>
