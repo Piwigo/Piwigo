@@ -148,8 +148,7 @@ var buttonText = 'Browse';
   </div>
   <p id="batchLink"><a href="{$batch_link}">{$batch_label}</a></p>
 </fieldset>
-<p><a href="">Add another set of photos</a></p>
-{else}
+{/if}
 
 <div id="formErrors" class="errors" style="display:none">
   <ul>
@@ -241,7 +240,6 @@ var buttonText = 'Browse';
     </p>
 {/if}
 </form>
-{/if} {* empty($thumbnails) *}
-{/if} {* $setup_errors *}
+{/if}
 
 </div> <!-- photosAddContent -->

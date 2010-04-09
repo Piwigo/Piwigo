@@ -355,17 +355,7 @@ $template->append(
   'head_elements',
   '<link rel="stylesheet" type="text/css" href="'.$uploadify_path.'/uploadify.css">'."\n"
   );
-
-// $page['thumbnails'] = array(
-//   array(
-//     'src' => 'http://localhost/piwigo/dev/trunk/upload/2006/08/16/thumbnail/TN-20060816234638-f9bebf5a.jpg',
-//     ),
-//   array(
-//     'src' => 'http://localhost/piwigo/dev/trunk/upload/2005/10/04/thumbnail/TN-20051004000000-864a003c.jpg',
-//     ),
-//   );
-// $page['batch_link'] = PHOTOS_ADD_BASE_URL.'&batch=1460,3307';
-
+ 
 if (isset($page['thumbnails']))
 {
   $template->assign(
