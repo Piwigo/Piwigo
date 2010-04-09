@@ -724,7 +724,6 @@ $lang['Allow user customization'] = 'ユーザーのカスタマイズを有効�
 $lang['Miscellaneous'] = 'その他の情報';
 $lang['User Upload'] = 'ユーザによるアップロード';
 $lang['Virtual Links'] = 'バーチャルのリンク';
-$lang['Execution time is out, treatment must be continued [Estmated time: %d seconds].'] = '実行時間超過、処理は続けなければなりません。 [予定時刻： %d 妙].';
 $lang['Languages'] = '言語';
 $lang['Installed Languages'] = 'インストールされた言語';
 $lang['Add New Language'] = '新しい言語を追加する';
@@ -751,4 +750,10 @@ $lang['Impossible to deactivate this language, you need at least one language.']
 $lang['Inactive Languages'] = '無効な言語';
 $lang['Make this language available to users'] = 'この言語をユーザーに利用できる。';
 $lang['Set as default language for unregistered and new users'] = '登録されてないユーザーと新しいユーザーのためにデフォルト言語を設定する。';
+$lang['Add Photos'] = '写真を追加します。';
+$lang['Download'] = 'ダウンロード';
+$lang['The following tag was deleted'] = '次のタグは削除されました。';
+$lang['There is no other language available.'] = 'その他の言語がありません。';
+$lang['There is no other plugin available.'] = 'その他のプラグインがありません。';
+$lang['There is no other theme available.'] = 'その他のテーマがありません。';
 ?>

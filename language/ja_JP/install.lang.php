@@ -68,4 +68,8 @@ $lang['Piwigo was not able to configure PHP 5.'] = 'PiwigoはPHP 5に設定で�
 $lang['You may referer to your hosting provider\'s support and see how you could switch to PHP 5 by yourself.'] = 'あなたのホームページ・プロバイダーのサポートに参照し、自分でPHP 5に変更方法を見られます。';
 $lang['Hope to see you back soon.'] = 'またお越し下さい';
 $lang['Congratulations, Piwigo installation is completed'] = 'おめでとうございました。Piwigo のインストール完了しました。';
+$lang['An alternate solution is to copy the text in the box above and paste it into the file "local/config/database.inc.php" (Warning : database.inc.php must only contain what is in the textarea, no line return or space character)'] = 'その他の解決は、上のボックスにあるテクストをコピーし、"local/config/database.inc.php"に貼り付けます。（注意：database.inc.php は上のテクスト内容以外のこと（エンターキーやスペースなど）を含まないでください。)';
+$lang['Creation of config file local/config/database.inc.php failed.'] = 'local/config/database.inc.php のconfig ファイル作成失敗しました。';
+$lang['Download the config file'] = 'config ファイルをダウンロードします。';
+$lang['You can download the config file and upload it to local/config directory of your installation.'] = 'config ファイルをダウンロードし、インストールされた local/config ディレクトリーにアップロードすることができます。';
 ?>
