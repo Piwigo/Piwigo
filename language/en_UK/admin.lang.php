@@ -761,4 +761,5 @@ $lang['Virtual Links'] = 'Virtual Links';
 $lang['There is no other language available.'] = 'There is no other language available.';
 $lang['There is no other plugin available.'] = 'There is no other plugin available.';
 $lang['There is no other theme available.'] = 'There is no other theme available.';
+$lang['Add another set of photos'] = 'Add another set of photos';
 ?>

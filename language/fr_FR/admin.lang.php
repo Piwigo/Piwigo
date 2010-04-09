@@ -766,4 +766,5 @@ $lang['There is no other language available.'] = 'Il n\'y a pas d\'autre langue 
 $lang['There is no other plugin available.'] = 'Il n\'y a pas d\'autre plugin disponible.';
 $lang['There is no other theme available.'] = 'Il n\'y a pas d\'autre thème disponible.';
 $lang['delete'] = 'effacer';
+$lang['Add another set of photos'] = 'Ajouter d\'autres photos';
 ?>
