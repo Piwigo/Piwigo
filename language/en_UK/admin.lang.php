@@ -240,7 +240,6 @@ $lang['group'] = "group";
 $lang['The name of a group must not contain " or \' or be empty.'] = "The name of a group must not contain \" or ' or be empty.";
 $lang['This name is already used by another group.'] = "This name is already used by another group.";
 $lang['Groups'] = "Groups";
-$lang[''] = "";
 $lang['High definition'] = "High definition";
 $lang['jump to category'] = "jump to category";
 $lang['jump to image'] = "jump to image";

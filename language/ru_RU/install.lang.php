@@ -56,4 +56,21 @@ $lang['verification'] = 'еще раз для исключения опечат�
 $lang['Need help ? Ask your question on <a href="%s">Piwigo message board</a>.'] = 'Нужна помощь? Задайте свои вопросы на <a href="%s">Форуме Piwigo</a>.';
 $lang['Webmaster mail address'] = 'Электронная почта вебмастера';
 $lang['Visitors will be able to contact site administrator with this mail'] = 'Будет использоваться для контакта посетителей с администратором';
+
+$lang['Database type'] = 'Тип базы данных';
+$lang['The type of database your piwigo data will be store in'] = 'Тип базы данных будет храниться в';
+$lang['PHP 5 is required'] = 'Требуется PHP 5';
+$lang['It appears your webhost is currently running PHP %s.'] = 'Кажется, что Ваш хостинг в настоящее время под управлением  PHP %s.';
+$lang['Piwigo may try to switch your configuration to PHP 5 by creating or modifying a .htaccess file.'] = 'Piwigo может попытаться переключить Вашу конфигурацию на PHP 5, создавая или изменяя .htaccess файл.';
+$lang['Note you can change your configuration by yourself and restart Piwigo after that.'] = 'Отметьте, что Вы можете изменить конфигурацию самостоятельно и перезапустите Piwigo после этого.';
+$lang['Try to configure PHP 5'] = 'Попытаться переконфигурировать PHP 5';
+$lang['Sorry!'] = 'Извините!';
+$lang['Piwigo was not able to configure PHP 5.'] = 'Piwigo не в состоянии переконфигурировать PHP 5.';
+$lang['You may referer to your hosting provider\'s support and see how you could switch to PHP 5 by yourself.'] = 'Вы должны обратиться к своему провайдеру за поддержой и разъяснениями  как Вы можете переключиться на PHP 5.';
+$lang['Hope to see you back soon.'] = 'Надеемся скоро увидеть Вас вновь.';
+$lang['Congratulations, Piwigo installation is completed'] = 'Поздравляем, установка Piwigo полностью завершена';
+$lang['An alternate solution is to copy the text in the box above and paste it into the file "local/config/database.inc.php" (Warning : database.inc.php must only contain what is in the textarea, no line return or space character)'] = 'Альтернативное решение состоит в том, чтобы скопировать текст в блоке выше и вставить это в файл "local/config/database.inc.php"   (Предупреждение: database.inc.php должен только содержать то, что находится в textarea, без линий возврата строки или пробелов)';
+$lang['Creation of config file local/config/database.inc.php failed.'] = 'Создать файл конфигурации local/config/database.inc.php не удалось.';
+$lang['Download the config file'] = 'Загрузить файл конфигурации';
+$lang['You can download the config file and upload it to local/config directory of your installation.'] = 'Вы можете загрузить файл конфигурации и передать его в local/config directory.';
 ?>

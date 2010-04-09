@@ -22,8 +22,6 @@
 // +-----------------------------------------------------------------------+
 
 $lang['Upgrade'] = 'Обновление';
-$lang['introduction message'] = 'Эта страница предлагает привести в соответствие вашу базу данных и текущую версию.
-Ассистент обновления считает, что сейчас работает <strong>релиз %s</strong> (или эквивалент).';
 $lang['Upgrade from version %s to %s'] = 'Обновление с версии %s до %s';
 $lang['Statistics'] = 'Статистика';
 $lang['total upgrade time'] = 'общее время обновления';
@@ -31,14 +29,17 @@ $lang['total SQL time'] = 'общее время SQL';
 $lang['SQL queries'] = 'SQL запросы';
 $lang['Upgrade informations'] = 'Информация об обновлениях';
 $lang['Perform a maintenance check in [Administration>Specials>Maintenance] if you encounter any problem.'] = 'Выполните обслуживание [Администирирование> Специальное> Обслуживание] если вы столкнулись с какими-либо проблемами.';
-$lang['As a precaution, following plugins have been deactivated. You must check for plugins upgrade before reactiving them:'] = 'В качестве предосторожности, следующие плагины были отключены. Проверьте обновления плагинов перед их активацией:';
 $lang['Only administrator can run upgrade: please sign in below.'] = 'Только администратор может запустить обновление: проверьте ниже.';
 $lang['You do not have access rights to run upgrade'] = 'У вас нет прав на запуск обновлений';
-$lang['in include/mysql.inc.php, before ?>, insert:'] = 'В <i>include/mysql.inc.php</i>, перед <b>?></b>, вставьте:';
 
 // Upgrade informations from upgrade_1.3.1.php
 $lang['All sub-categories of private categories become private'] = 'Все подкатегории приватных категорий будут приватными';
 $lang['User permissions and group permissions have been erased'] = 'Разрешения пользователей и групп были стерты';
 $lang['Only thumbnails prefix and webmaster mail address have been saved from previous configuration'] = 'Только префикс эскизов и адрес почты вебмастера были сохранены от предыдущей конфигурации';
+
+$lang['This page proposes to upgrade your database corresponding to your old version of Piwigo to the current version.
+The upgrade assistant thinks you are currently running a <strong>release %s</strong> (or equivalent).'] = 'Эта страница предлагает модернизировать базу данных от Вашей старой версии Piwigo до новой версии.
+Помощник обновления думает, что Вы используете в настоящее время <b> выпуск %s </b> (или эквивалентный).';
+$lang['As a precaution, following plugins have been disabled. You must check for plugins upgrade before reactiving them:'] = 'Желательно, чтобы следующие плагины были дезактивированы. Вы должны проверить обновления плагинов прежде, чем активировать их снова:';
 
 ?>
