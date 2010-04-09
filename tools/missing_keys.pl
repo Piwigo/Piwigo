@@ -14,14 +14,14 @@ my $type = $ARGV[1];       # common, admin, install, upgrade
 find(\&used_keys, $piwigo_dir);
 load_registered_keys($type);
 
-# foreach my $key (sort keys %used_keys) {
-#     # print "{".$key."}", ' is used', "\n";
+foreach my $key (sort keys %used_keys) {
+    # print "{".$key."}", ' is used', "\n";
 
-#     if (not defined $registered_keys{$key}) {
-#         # print "{".$key."}", ' is missing', "\n";
-#         print '$lang[\''.$key.'\'] = \''.$key.'\';', "\n";
-#     }
-# }
+    if (not defined $registered_keys{$key}) {
+        # print "{".$key."}", ' is missing', "\n";
+        print '$lang[\''.$key.'\'] = \''.$key.'\';', "\n";
+    }
+}
 
 my %ignore_keys = (
     '%d new image' => 1,
@@ -74,11 +74,11 @@ my %ignore_keys = (
 );
 
 
-foreach my $key (sort keys %registered_keys) {
-    if (not defined $used_keys{$key} and not defined $ignore_keys{$key}) {
-        print "{".$key."}", ' is not used anywhere', "\n";
-    }
-}
+# foreach my $key (sort keys %registered_keys) {
+#     if (not defined $used_keys{$key} and not defined $ignore_keys{$key}) {
+#         print "{".$key."}", ' is not used anywhere', "\n";
+#     }
+# }
 
 sub used_keys {
     if ($File::Find::name !~ m/(tpl|php)$/) {

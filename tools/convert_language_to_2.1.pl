@@ -92,6 +92,7 @@ my %remove_keys = (
         'Installation finished' => '',
         'The next step of the installation is now possible' => '',
         'next step' => '',
+        'install_end_message' => '',
     }
 );
 
