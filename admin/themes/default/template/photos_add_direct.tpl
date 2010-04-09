@@ -1,21 +1,62 @@
 {known_script id="jquery" src=$ROOT_URL|@cat:"themes/default/js/jquery.packed.js"}
 
+{if $upload_mode eq 'multiple'}
+<script type="text/javascript" src="{$uploadify_path}/swfobject.js"></script>
+<script type="text/javascript" src="{$uploadify_path}/jquery.uploadify.v2.1.0.min.js"></script>
+{/if}
+
 {literal}
-<script>
-$(document).ready(function(){
+<script type="text/javascript">
+jQuery(document).ready(function(){
+  function checkUploadStart() {
+    var nbErrors = 0;
+    $("#formErrors li").hide();
+
+    if ($("input[name=category_type]:checked").val() == "new" && $("input[name=category_name]").val() == "") {
+      $("#formErrors #emptyCategoryName").show();
+      nbErrors++;
+    }
+
+    var nbFiles = 0;
+    if ($("uploadBoxes").size() == 1) {
+      $("input[name^=image_upload]").each(function() {
+        if ($(this).val() != "") {
+          nbFiles++;
+        }
+      });
+    }
+    else {
+      nbFiles = $(".uploadifyQueueItem").size();
+    }
+
+    if (nbFiles == 0) {
+      $("#formErrors #noPhoto").show();
+      nbErrors++;
+    }
+
+    if (nbErrors != 0) {
+      $("#formErrors").show();
+      return false;
+    }
+    else {
+      return true;
+    }
+
+  }
 
   $("input[name=category_type]").click(function () {
     $("[id^=category_type_]").hide();
     $("#category_type_"+$(this).attr("value")).show();
   });
-});
-</script>
-{/literal}
 
+  $("#hideErrors").click(function() {
+    $("#formErrors").hide();
+    return false;
+  });
+
+{/literal}
 {if $upload_mode eq 'html'}
 {literal}
-<script type="text/javascript">
-$(document).ready(function(){
   function addUploadBox() {
     var uploadBox = '<p class="file"><input type="file" size="60" name="image_upload[]" /></p>';
     $(uploadBox).appendTo("#uploadBoxes");
@@ -26,15 +67,13 @@ $(document).ready(function(){
   $("#addUploadBox A").click(function () {
     addUploadBox();
   });
-});
-</script>
+
+  $("#uploadForm").submit(function() {
+    return checkUploadStart();
+  });
 {/literal}
-
 {elseif $upload_mode eq 'multiple'}
-<script type="text/javascript" src="{$uploadify_path}/swfobject.js"></script>
-<script type="text/javascript" src="{$uploadify_path}/jquery.uploadify.v2.1.0.min.js"></script>
 
-<script type="text/javascript">
 var uploadify_path = '{$uploadify_path}';
 var upload_id = '{$upload_id}';
 var session_id = '{$session_id}';
@@ -42,7 +81,6 @@ var pwg_token = '{$pwg_token}';
 var buttonText = 'Browse';
 
 {literal}
-jQuery(document).ready(function() {
   jQuery("#uploadify").uploadify({
     'uploader'       : uploadify_path + '/uploadify.swf',
     'script'         : uploadify_path + '/uploadify.php',
@@ -57,6 +95,8 @@ jQuery(document).ready(function() {
     'displayData'    : 'speed',
     'buttonText'     : buttonText,
     'multi'          : true,
+    'fileDesc'       : 'Photo files (*.jpg,*.jpeg)',
+    'fileExt'        : '*.jpg;*.JPG;*.jpeg;*.JPEG',
     'onAllComplete'  : function(event, data) {
       if (data.errors) {
         return false;
@@ -66,10 +106,19 @@ jQuery(document).ready(function() {
       }
     }
   });
-});
+
+  $("input[type=button]").click(function() {
+    if (!checkUploadStart()) {
+      return false;
+    }
+
+    $("#uploadify").uploadifyUpload();
+  });
+
 {/literal}
-</script>
 {/if}
+});
+</script>
 
 <div class="titrePage">
   <h2>{'Upload Photos'|@translate}</h2>
@@ -101,6 +150,13 @@ jQuery(document).ready(function() {
 </fieldset>
 {/if}
 
+<div id="formErrors" class="errors" style="display:none">
+  <ul>
+    <li id="emptyCategoryName">{'The name of a category should not be empty'|@translate}</li>
+    <li id="noPhoto">{'Select at least one picture'|@translate}</li>
+  </ul>
+  <div class="hideButton" style="text-align:center"><a href="#" id="hideErrors">{'Hide'|@translate}</a></div>
+</div>
 
 <form id="uploadForm" enctype="multipart/form-data" method="post" action="{$F_ACTION}" class="properties">
 {if $upload_mode eq 'multiple'}
@@ -179,7 +235,7 @@ jQuery(document).ready(function() {
 
     </fieldset>
     <p>
-      <input class="submit" type="button" value="{'Upload'|@translate}" onclick="javascript:jQuery('#uploadify').uploadifyUpload()"/>
+      <input class="submit" type="button" value="{'Upload'|@translate}"/>
       <input type="submit" name="submit_upload" style="display:none"/>
     </p>
 {/if}
