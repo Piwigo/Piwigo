@@ -379,6 +379,36 @@ if (isset($page['thumbnails']))
   }
 }
 
+// categories
+//
+// we need to know the category in which the last photo was added
+$selected_category = array();
+$selected_parent = array();
+
+$query = '
+SELECT
+    category_id,
+    id_uppercat
+  FROM '.IMAGES_TABLE.' AS i
+    JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON image_id = i.id
+    JOIN '.CATEGORIES_TABLE.' AS c ON category_id = c.id
+  ORDER BY i.id DESC
+  LIMIT 1
+;';
+$result = pwg_query($query);
+if (pwg_db_num_rows($result) > 0)
+{
+  $row = pwg_db_fetch_assoc($result);
+  
+  $selected_category = array($row['category_id']);
+
+  if (!empty($row['id_uppercat']))
+  {
+    $selected_parent = array($row['id_uppercat']);
+  }
+}
+
+// existing category
 $query = '
 SELECT id,name,uppercats,global_rank
   FROM '.CATEGORIES_TABLE.'
@@ -386,9 +416,17 @@ SELECT id,name,uppercats,global_rank
 
 display_select_cat_wrapper(
   $query,
-  array(),
+  $selected_category,
   'category_options'
   );
+
+// new category
+display_select_cat_wrapper(
+  $query,
+  $selected_parent,
+  'category_parent_options'
+  );
+
 
 // image level options
 $tpl_options = array();

@@ -172,7 +172,7 @@ var buttonText = 'Browse';
 
       <div id="category_type_existing" style="display:none" class="category_selection">
         <select class="categoryDropDown" name="category">
-          {html_options options=$category_options}
+          {html_options options=$category_options selected=$category_options_selected}
         </select>
       </div>
 
@@ -183,7 +183,7 @@ var buttonText = 'Browse';
             <td>
               <select class="categoryDropDown" name="category_parent">
                 <option value="0">------------</option>
-                {html_options options=$category_options}
+                {html_options options=$category_parent_options selected=$category_parent_options_selected}
               </select>
             </td>
           </tr>
