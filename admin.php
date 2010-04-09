@@ -106,7 +106,6 @@ $template->assign(
     'U_SITES'=> $link_start.'remote_site',
     'U_MAINTENANCE'=> $link_start.'maintenance',
     'U_NOTIFICATION_BY_MAIL'=> $link_start.'notification_by_mail',
-    'U_ADVANCED_FEATURE'=> $link_start.'advanced_feature',
     'U_CONFIG_GENERAL'=> $link_start.'configuration',
     'U_CONFIG_DISPLAY'=> $conf_link.'default',
     'U_CONFIG_EXTENTS'=> $link_start.'extend_for_templates',

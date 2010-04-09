@@ -145,6 +145,36 @@ $template->assign(
   );
 
 // +-----------------------------------------------------------------------+
+// | Define advanced features                                              |
+// +-----------------------------------------------------------------------+
+
+$advanced_features = array();
+
+array_push(
+  $advanced_features,
+  array(
+    'CAPTION' => l10n('Not linked elements'),
+    'URL' => get_root_url().'admin.php?page=element_set&amp;cat=not_linked'
+    )
+  );
+
+array_push(
+  $advanced_features,
+  array(
+    'CAPTION' => l10n('Files with same name in more than one physical category'),
+    'URL' => get_root_url().'admin.php?page=element_set&amp;cat=duplicates'
+    )
+  );
+
+//$advanced_features is array of array composed of CAPTION & URL
+$advanced_features = trigger_event(
+  'get_admin_advanced_features_links',
+  $advanced_features
+  );
+
+$template->assign('advanced_features', $advanced_features);
+
+// +-----------------------------------------------------------------------+
 // |                           sending html code                           |
 // +-----------------------------------------------------------------------+
 

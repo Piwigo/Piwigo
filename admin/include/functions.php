@@ -1940,7 +1940,6 @@ function get_active_menu($menu_page)
     case 'stats':
     case 'history':
     case 'maintenance':
-    case 'advanced_feature':
     case 'thumbnail':
       return 4;
 

@@ -73,7 +73,6 @@ jQuery().ready(function(){ldelim}
         <li><a href="{$U_HISTORY_STAT}">{'History'|@translate}</a></li>
         <li><a href="{$U_THUMBNAILS}">{'Thumbnails'|@translate}</a></li>
         <li><a href="{$U_MAINTENANCE}">{'Maintenance'|@translate}</a></li>
-        <li><a href="{$U_ADVANCED_FEATURE}">{'Advanced features'|@translate}</a></li>
       </ul>
     </dd>
   </dl>
