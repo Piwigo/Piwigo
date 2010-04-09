@@ -341,6 +341,10 @@ $validated_keys = array(
 
   'ru_RU' => array(
 	'IP',
+	'IP: %s',
+	'localhost, sql.multimania.com, toto.freesurf.fr',
+	'',
+	'',
 	),
 	
   'sr_RS' => array(
