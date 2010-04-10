@@ -38,7 +38,7 @@ $lang['Copy the text in pink between hyphens and paste it into the file "local/c
 $lang['Database type'] = "Adatbázis típusa";
 $lang['The type of database your piwigo data will be store in'] = "Az adatbázis típusa a Piwigo adatok tárolására";
 $lang['Host'] = 'MySQL host';
-$lang['localhost, sql.multimania.com, toto.freesurf.fr'] = 'localhost, sql.multimania.com, toto.freesurf.fr';
+$lang['localhost, sql.multimania.com, toto.freesurf.fr'] = 'localhost, sql, stb.';
 $lang['User'] = 'Felhasználó név';
 $lang['user login given by your host provider'] = 'a tárhelyszolgáltató által adott felhasználónév';
 $lang['Password'] = 'Jelszó';
