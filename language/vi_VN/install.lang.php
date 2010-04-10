@@ -32,7 +32,6 @@ $lang['Webmaster login'] = 'Đăng nhập của Webmaster';
 $lang['It will be shown to the visitors. It is necessary for website administration'] = 'Khách thăm quan gallery sẽ thấy được thông tin của Webmaster. Điều này cần thiết cho Quản trị Webmaster';
 $lang['Connection to server succeed, but it was impossible to connect to database'] = 'Kết nối thành công vào máy chủ, nhưng không thể kết nối vào cơ sở dữ liệu.';
 $lang['Can\'t connect to server'] = 'Không thể kết nối vào máy chủ';
-$lang['Copy the text in pink between hyphens and paste it into the file "local/config/database.inc.php"(Warning : database.inc.php must only contain what is in pink, no line return or space character)'] = 'Copy đoạn chữ màu hồng giữa các dấu gạch nối và dán nó vào file mysql.inc.php theo đường dẫn sau "include/mysql.inc.php"(Lưu ý: file mysql.inc.php chỉ được copy vào những chữ màu hồng, không được chèn thêm hàng hoặc ký tự đặc biệt )';
 
 $lang['Host'] = 'Máy chủ MySQL';
 $lang['localhost, sql.multimania.com, toto.freesurf.fr'] = 'localhost, sql.multimania.com, toto.freesurf.fr';

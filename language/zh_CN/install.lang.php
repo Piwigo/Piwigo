@@ -52,7 +52,6 @@ $lang['Webmaster password'] = '密码';
 $lang['Keep it confidential, it enables you to access administration panel'] = '请小心保管好此密码，它允许你操作管理板块。';
 $lang['Password [confirm]'] = '密码 [ 确认 ]';
 $lang['verification'] = '核实';
-$lang['Copy the text in pink between hyphens and paste it into the file "local/config/database.inc.php"(Warning : database.inc.php must only contain what is in pink, no line return or space character)'] = '请拷贝短横线之间的粉红色文字并粘贴到位于Piwigo安装目录下的include文件夹里的mysql.inc.php文件中（每行不允许有空格或回车）';
 $lang['Need help ? Ask your question on <a href="%s">Piwigo message board</a>.'] = '需要帮助？ 请到<a href="%s">Piwigo论坛</a>提出你的问题.';
 $lang['Webmaster mail address'] = '管理员Email地址';
 $lang['Visitors will be able to contact site administrator with this mail'] = '游客通过此Email跟你联系';

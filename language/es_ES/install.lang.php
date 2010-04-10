@@ -52,7 +52,6 @@ $lang['Webmaster password'] = 'Contraseña';
 $lang['Keep it confidential, it enables you to access administration panel'] = 'Debe quedar confidencial, permite acceder al panel de administración.';
 $lang['Password [confirm]'] = 'Contraseña [Confirmar]';
 $lang['verification'] = 'Comprobación';
-$lang['Copy the text in pink between hyphens and paste it into the file "local/config/database.inc.php"(Warning : database.inc.php must only contain what is in pink, no line return or space character)'] = 'Copie el texto en rosa entre los guillones y pegúelo en el fichero mysql.inc.php que se encuentra en el repertorio " include " a la base del lugar donde usted instaló  Piwigo (el fichero mysql.inc.php debe contener SÓLO lo que está en rosa entre las rayas, ninguna vuelta a la línea o espacio es autorizado)';
 $lang['Need help ? Ask your question on <a href="%s">Piwigo message board</a>.'] = '¿ Necesidad de ayuda? Plantee su pregunta sobre él <a href="%s">foro de Piwigo</a>.';
 $lang['Webmaster mail address'] = 'E-mail del Administrador';
 $lang['Visitors will be able to contact site administrator with this mail'] = 'Los visitantes podrán ponerse en contacto con usted por este mail';

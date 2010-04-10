@@ -32,7 +32,6 @@ $lang['Webmaster login'] = 'Webmaster login';
 $lang['It will be shown to the visitors. It is necessary for website administration'] = 'Det vil blive vist til de besøgende. Det er nødvendigt for website administration';
 $lang['Connection to server succeed, but it was impossible to connect to database'] = 'Forbindelse til server oprettet, men det var ikke muligt at forbinde til databasen';
 $lang['Can\'t connect to server'] = 'Kan ikke forbinde til serveren';
-$lang['Copy the text in pink between hyphens and paste it into the file "local/config/database.inc.php"(Warning : database.inc.php must only contain what is in pink, no line return or space character)'] = 'Kopier teksten i pink mellem bindestregerne og kopier det ind i filen "include/mysql.inc.php"(Advarsel : mysql.inc.php må kun indeholde det i pink, ingen linieskift eller mellemrum)';
 $lang['Host'] = 'MySQL host';
 $lang['localhost, sql.multimania.com, toto.freesurf.fr'] = 'localhost, sql.multimania.com, toto.freesurf.fr';
 $lang['User'] = 'Bruger';

@@ -34,7 +34,6 @@ $lang['Webmaster login'] = 'Webmester';
 $lang['It will be shown to the visitors. It is necessary for website administration'] = 'A látogatók látni fogják. Szükséges a weboldal adminisztrációjához';
 $lang['Connection to server succeed, but it was impossible to connect to database'] = 'A kapcsolat a kiszolgálóval rendben, de nem sikerült csatlakozni az adatbázishoz';
 $lang['Can\'t connect to server'] = 'Nem sikerült kapcsolódni a szerverhez';
-$lang['Copy the text in pink between hyphens and paste it into the file "local/config/database.inc.php"(Warning : database.inc.php must only contain what is in pink, no line return or space character)'] = 'Másolja ki a rózsaszín kötőjelek közötti szöveget, majd illessze be az "include/mysql.inc.php" fájlba (Figyelem! Csak a rózsaszín szövegrészt tartalmazza! Sortörések és üres karakterek nélkül!)';
 $lang['Database type'] = "Adatbázis típusa";
 $lang['The type of database your piwigo data will be store in'] = "Az adatbázis típusa a Piwigo adatok tárolására";
 $lang['Host'] = 'MySQL host';

@@ -37,7 +37,6 @@ $lang['It will be shown to the visitors. It is necessary for website administrat
 
 $lang['Connection to server succeed, but it was impossible to connect to database'] = 'Spojení na server se podařilo, ale nebylo možné připojit databázi';
 $lang['Can\'t connect to server'] = 'Nebylo možné se připojit k serveru';
-$lang['Copy the text in pink between hyphens and paste it into the file "local/config/database.inc.php"(Warning : database.inc.php must only contain what is in pink, no line return or space character)'] = 'Zkopírujte růžový text mezi čárkami a vložte jej do souboru "include/mysql.inc.php"(Varování : mysql.inc.php musí obsahovat jen text, který je růžový, bez dalších odřádkování, nebo mezer)';
 
 $lang['Host'] = 'MySQL server';
 $lang['localhost, sql.multimania.com, toto.freesurf.fr'] = 'localhost, sql.multimania.com, toto.freesurf.cz';

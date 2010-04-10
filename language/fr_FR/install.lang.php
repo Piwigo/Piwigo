@@ -30,11 +30,10 @@ $lang['Database configuration'] = "Configuration de la base de données";
 $lang['Admin configuration'] = "Configuration du compte administrateur";
 $lang['Start Install'] = "Démarrer l'installation";
 $lang['mail address must be like xxx@yyy.eee (example : jack@altern.org)'] = "L'adresse mail doit être de la forme xxx@yyy.eee (exemple : jack@altern.org)";
-$lang['Webmaster login'] = "Identifiant de l\'administrateur";
+$lang['Webmaster login'] = "Identifiant de l'administrateur";
 $lang['It will be shown to the visitors. It is necessary for website administration'] = "Cet identifiant apparaîtra à tous vos visiteurs. Il vous sert pour administrer le site";
 $lang['Connection to server succeed, but it was impossible to connect to database'] = "La connexion au serveur est OK, mais la connection à cette base de données est impossible";
 $lang['Can\'t connect to server'] = "Impossible de se connecter au serveur";
-$lang['Copy the text in pink between hyphens and paste it into the file "local/config/database.inc.php"(Warning : database.inc.php must only contain what is in pink, no line return or space character)'] = "Copiez le texte en rose entre les tirets et collez-le dans le fichier \"local/config/database.inc.php\" (Attention : le fichier database.inc.php ne doit comporter QUE ce qui est en rose entre les tirets, sans aucun retour à la ligne ou espace supplémentaire)";
 $lang['Database type'] = "Type de base de données";
 $lang['The type of database your piwigo data will be store in'] = "La base de données dans laquelle seront stockées vos données Piwigo";
 $lang['Host'] = "Hôte";
@@ -55,7 +54,7 @@ $lang['Keep it confidential, it enables you to access administration panel'] = "
 $lang['Password [confirm]'] = "Mot de passe [Confirmer]";
 $lang['verification'] = "vérification";
 $lang['Need help ? Ask your question on <a href="%s">Piwigo message board</a>.'] = "Besoin d'aide ? Posez votre question sur le <a href=\"%s\">forum de Piwigo</a>.";
-$lang['Webmaster mail address'] = "Adresse e-mail de l'Administrateur";
+$lang['Webmaster mail address'] = "Adresse e-mail de l'administrateur";
 $lang['Visitors will be able to contact site administrator with this mail'] = "Les visiteurs pourront contacter l'administrateur du site par ce mail";
 $lang['PHP 5 is required'] = "PHP 5 est requis";
 $lang['It appears your webhost is currently running PHP %s.'] = "Apparemment, la version PHP de votre hébergeur est PHP %s.";
@@ -68,7 +67,7 @@ $lang['You may referer to your hosting provider\'s support and see how you could
 $lang['Hope to see you back soon.'] = "En espérant vous revoir très prochainement.";
 $lang['Congratulations, Piwigo installation is completed'] = 'Félicitations, l\'installation de Piwigo est terminée';
 
-$lang['An alternate solution is to copy the text in the box above and paste it into the file "local/config/database.inc.php" (Warning : database.inc.php must only contain what is in the textarea, no line return or space character)'] = 'Une solution alternative est de copier le text dans la zone ci-dessous et de le coller dans le fichier "local/config/database.inc.php" (Attention: database.inc.php ne doit contenir que ce qui se trouve dans la zone, pas de retour à la ligne, pas d\'espace)';
+$lang['An alternate solution is to copy the text in the box above and paste it into the file "local/config/database.inc.php" (Warning : database.inc.php must only contain what is in the textarea, no line return or space character)'] = 'Une solution alternative est de copier le texte dans la zone ci-dessous et de le coller dans le fichier "local/config/database.inc.php" (Attention: database.inc.php ne doit contenir que ce qui se trouve dans la zone, pas de retour à la ligne, pas d\'espace)';
 $lang['Creation of config file local/config/database.inc.php failed.'] = 'La création du fichier de configuration local/config/database.inc.php a échoué.';
 $lang['Download the config file'] = 'Télécharger le fichier de configuration';
 $lang['You can download the config file and upload it to local/config directory of your installation.'] = 'Vous pouvez télécharger le fichier de configuration et le transférer dans le répertoire local/config de votre installation Piwigo.';

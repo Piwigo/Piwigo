@@ -34,7 +34,6 @@ $lang['Webmaster login'] = 'Login dell\'amministratore';
 $lang['It will be shown to the visitors. It is necessary for website administration'] = 'Questo login verrà mostrato agli ospiti. Sarà necessario per amministrare il vostro sito';
 $lang['Connection to server succeed, but it was impossible to connect to database'] = 'Connessione al server riuscita, ma purtroppo non è stato possibile connettersi a questa base dati';
 $lang['Can\'t connect to server'] = 'Non è stato possibile connettersi al server';
-$lang['Copy the text in pink between hyphens and paste it into the file "local/config/database.inc.php"(Warning : database.inc.php must only contain what is in pink, no line return or space character)'] = 'Copiate il testo in rosa trà i trattini e mettetelo nel file \"local/config/database.inc.php\" (Attenzione : il file database.inc.php non deve contenere altro CHE ciò che è in rosa tra i trattini, nessun ritorno a capo o spazio è autorizzato)';
 $lang['Database type'] = 'Tipo base dati';
 $lang['The type of database your piwigo data will be store in'] = 'Base dati nella quale saranno inseriti i dati di Piwigo';
 $lang['Host'] = 'Host';
