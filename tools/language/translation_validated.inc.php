@@ -338,6 +338,15 @@ $validated_keys = array(
   'pt_PT' => array(
 	'',
 	),
+	
+  'ro_RO' => array(
+	'%d Kb',
+	'N/A',
+	'RSS feed',
+	'Webmaster',
+	'Calendar',
+	'Contact',
+	),
 
   'ru_RU' => array(
 	'IP',
