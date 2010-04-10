@@ -364,4 +364,6 @@ $lang['display a calendar by creation date'] = 'oluşturma tarihini takvimde gö
 $lang['set as category representative'] = 'varsayılan kategori yap';
 $lang['slideshow'] = 'slayt gösterisi';
 $lang['the beginning'] = 'başlangıç';
+$lang['Email address is missing. Please specify an email address.'] = 'E-Posta Adresi Kayıp. Lütfen E-Posta adresinizi doğrulayınız..';
+
 ?>
