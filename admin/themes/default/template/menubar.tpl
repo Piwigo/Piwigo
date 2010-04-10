@@ -37,7 +37,10 @@ for (var i=0; i<rows.length; i++) {
     <tbody>
     {foreach from=$blocks item=block name="block_loop"}
 	<tr class="{if $smarty.foreach.block_loop.index is odd}row1{else}row2{/if}">
-	  <td>{$block.reg->get_id()}</td>
+	  <td>
+            <img src="{$themeconf.admin_icon_dir}/cat_move.png" class="button drag_button" alt="{'Drag to re-order'|@translate}" title="{'Drag to re-order'|@translate}">
+            {$block.reg->get_id()}
+          </td>
 	  <td>{$block.reg->get_owner()}</td>
 	  <td>{$block.reg->get_name()|@translate}</td>
 	  <td><input type="text" name="pos_{$block.reg->get_id()}" value={math equation="abs(pos)" pos=$block.pos} size="2"></td>
