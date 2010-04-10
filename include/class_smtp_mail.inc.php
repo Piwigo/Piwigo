@@ -164,6 +164,7 @@ class smtp_mail
       $this->server_write('DATA'."\r\n");
       $this->server_parse('354');
 
+      $this->server_write('Date: '.date('D, j M Y H:i:s O')."\r\n");
       $this->server_write('Subject:'.$subject."\r\n".(empty($to_header) ? "" : $to_header."\r\n").$headers."\r\n\r\n".$message."\r\n");
       $this->server_write('.'."\r\n");
       $this->server_parse('250');
