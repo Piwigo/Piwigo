@@ -146,7 +146,7 @@ function install_db_connect(&$infos, &$errors)
     $pwg_db_link = pwg_db_connect($_POST['dbhost'], $_POST['dbuser'], 
                                   $_POST['dbpasswd'], $_POST['dbname']);
  
-    return true;
+    return $pwg_db_link;
   }
   catch (Exception $e)
   {

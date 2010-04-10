@@ -1012,15 +1012,15 @@ function conf_update_param($param, $value)
   $query = '
 DELETE
   FROM '.CONFIG_TABLE.'
-  WHERE param = "'.$param.'"
+  WHERE param = \''.$param.'\'
 ;';
   pwg_query($query);
 
   $query = '
 INSERT
   INTO '.CONFIG_TABLE.'
-  SET param = "'.$param.'"
-    , value = "'.$value.'"
+  (param, value)
+  VALUES(\''.$param.'\', \''.$value.'\')
 ;';
   pwg_query($query);
 }

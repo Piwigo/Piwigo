@@ -262,7 +262,7 @@ include(PHPWG_ROOT_PATH . 'admin/include/functions_upgrade.php');
 
 if ( isset( $_POST['install'] ))
 {
-  if (install_db_connect($infos, $errors))
+  if ($pwg_db_link = install_db_connect($infos, $errors))
   {
     $required_version = constant('REQUIRED_'.strtoupper($dblayer).'_VERSION');
     if ( version_compare(pwg_get_db_version(), $required_version, '>=') )
