@@ -759,5 +759,6 @@ $lang['The following tag was deleted'] = 'Folgender Tag wurde gelöscht';
 $lang['There is no other language available.'] = 'Es ist keine weitere Sprache verfügbar.';
 $lang['There is no other plugin available.'] = 'Es ist kein weiteres Plugin verfügbar.';
 $lang['There is no other theme available.'] = 'Es ist kein weiteres Thema verfügbar.';
+$lang['Add another set of photos'] = 'Füge eine weitere Fotoserie hinzu';
 
 ?>
