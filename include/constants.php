@@ -30,7 +30,6 @@ define('PHPWG_THEMES_PATH', $conf['themes_dir'].'/');
 
 // Required versions
 define('REQUIRED_PHP_VERSION', '5.0.0');
-define('REQUIRED_MYSQL_VERSION', '4.1.22');
 
 // Access codes
 define('ACCESS_FREE', 0);
