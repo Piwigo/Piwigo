@@ -293,6 +293,10 @@ FORM P {
 	margin-bottom: 2em;
 }
 
+form p.field {
+  text-align: left;
+}
+
 FORM FIELDSET P {
 	margin-top: 1em;
 	margin-bottom: 0;

@@ -84,6 +84,9 @@ function save_images_order($category_id, $images)
 // |                       global mode form submission                     |
 // +-----------------------------------------------------------------------+
 
+$image_order_choices = array('default', 'rank', 'user_define');
+$image_order_choice = 'default';
+
 if (isset($_POST['submit']))
 {
   asort($_POST['rank_of_image'], SORT_NUMERIC);
@@ -97,6 +100,40 @@ if (isset($_POST['submit']))
     $page['infos'],
     l10n('Images manual order was saved')
     );
+
+  $image_order = null;
+  if (!empty($_POST['image_order_choice']) 
+      && in_array($_POST['image_order_choice'], $image_order_choices))
+  {
+    $image_order_choice = $_POST['image_order_choice'];
+  }
+      
+  if ($image_order_choice=='user_define')
+  {
+    for ($i=1; $i<=3; $i++)
+    {
+      if ( !empty($_POST['order_field_'.$i]) )
+      {
+        if (! empty($image_order) )
+        {
+          $image_order .= ',';
+        }
+        $image_order .= $_POST['order_field_'.$i];
+        if ($_POST['order_direction_'.$i]=='DESC')
+        {
+          $image_order .= ' DESC';
+        }
+      }
+    }
+  }
+  elseif ($image_order_choice=='rank')
+  {
+    $image_order = 'rank';
+  }
+  $query = '
+UPDATE '.CATEGORIES_TABLE.' SET image_order=\''.$image_order.'\'
+  WHERE id='.$page['category_id'];
+  pwg_query($query);
 }
 
 // +-----------------------------------------------------------------------+
@@ -108,14 +145,21 @@ $template->set_filenames(
 
 $base_url = get_root_url().'admin.php';
 
-// $form_action = $base_url.'?page=element_set_global';
-
 $query = '
-SELECT uppercats
+SELECT *
   FROM '.CATEGORIES_TABLE.'
   WHERE id = '.$page['category_id'].'
 ;';
 $category = pwg_db_fetch_assoc(pwg_query($query));
+
+if ($category['image_order']=='rank')
+{
+  $image_order_choice = 'rank';
+}
+elseif ($category['image_order']!='') 
+{
+  $image_order_choice = 'user_define';
+}
 
 // Navigation path
 $navigation = get_cat_display_name_cache(
@@ -173,6 +217,56 @@ while ($row = pwg_db_fetch_assoc($result))
 
   $current_rank++;
 }
+
+// image order management
+$sort_fields = array(
+  '' => '',
+  'date_creation' => l10n('Creation date'),
+  'date_available' => l10n('Post date'),
+  'average_rate' => l10n('Average rate'),
+  'hit' => l10n('Most visited'),
+  'file' => l10n('File name'),
+  'id' => 'Id',
+  'rank' => l10n('Rank'),
+  );
+
+$sort_directions = array(
+  'ASC' => l10n('ascending'),
+  'DESC' => l10n('descending'),
+  );
+
+$template->assign('image_order_field_options', $sort_fields);
+$template->assign('image_order_direction_options', $sort_directions);
+
+$matches = array();
+if ( !empty( $category['image_order'] ) )
+{
+  preg_match_all('/([a-z_]+) *(?:(asc|desc)(?:ending)?)? *(?:, *|$)/i',
+    $category['image_order'], $matches);
+}
+
+for ($i=0; $i<3; $i++) // 3 fields
+{
+  $tpl_image_order_select = array(
+      'ID' => $i+1,
+      'FIELD' => array(''),
+      'DIRECTION' => array('ASC'),
+    );
+
+  if ( isset($matches[1][$i]) )
+  {
+    $tpl_image_order_select['FIELD'] = array($matches[1][$i]);
+  }
+
+  if (isset($matches[2][$i]) and strcasecmp($matches[2][$i],'DESC')==0)
+  {
+    $tpl_image_order_select['DIRECTION'] = array('DESC');
+  }
+  $template->append( 'image_orders', $tpl_image_order_select);
+}
+
+$template->assign('image_order_choice', $image_order_choice);
+
 
 // +-----------------------------------------------------------------------+
 // |                          sending html code                            |
