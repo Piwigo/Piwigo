@@ -627,7 +627,7 @@ function pwg_mail($to, $args = array())
     {
       if (!isset($conf_mail[$cache_key]['theme']))
       {
-        $conf_mail[$cache_key]['theme'] = get_mail_template($content_type);
+        $conf_mail[$cache_key]['theme'] = get_mail_template($content_type, $args['theme']);
       }
 
       $conf_mail[$cache_key]['theme']->set_filename('mail_header', 'header.tpl');
