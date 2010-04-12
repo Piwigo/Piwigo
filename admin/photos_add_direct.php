@@ -329,17 +329,18 @@ $template->assign(
   );
 
 $upload_modes = array('html', 'multiple');
+$upload_mode = isset($conf['upload_mode']) ? $conf['upload_mode'] : 'multiple';
 
-$upload_mode = 'multiple';
-$upload_switch = 'html';
 if (isset($_GET['upload_mode']) and in_array($_GET['upload_mode'], $upload_modes))
 {
-  $index_of_upload_mode = array_flip($upload_modes);
-  $upload_mode_index = $index_of_upload_mode[ $_GET['upload_mode'] ];
-
   $upload_mode = $_GET['upload_mode'];
-  $upload_switch = $upload_modes[ ($upload_mode_index + 1) % 2 ];
+  conf_update_param('upload_mode', $upload_mode);
 }
+
+// what is the upload switch mode
+$index_of_upload_mode = array_flip($upload_modes);
+$upload_mode_index = $index_of_upload_mode[$upload_mode];
+$upload_switch = $upload_modes[ ($upload_mode_index + 1) % 2 ];
 
 $template->assign(
     array(
