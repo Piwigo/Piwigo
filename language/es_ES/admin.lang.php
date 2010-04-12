@@ -754,4 +754,7 @@ $lang['The following tag was deleted'] = 'La etiquetas siguiente ha sido suprimi
 $lang['There is no other language available.'] = 'No hay otra idiomaa disponible';
 $lang['There is no other plugin available.'] = 'No hay otra plugin disponible';
 $lang['There is no other theme available.'] = 'No hay otra thema disponible';
+$lang['By rank'] = 'Por la fila';
+$lang['Manual order'] = 'Orden manual';
+$lang['Add another set of photos'] = 'Añadir otras fotos';
 ?>
