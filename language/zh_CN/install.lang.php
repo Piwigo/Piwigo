@@ -65,4 +65,11 @@ $lang['Sorry!'] = '对不起!';
 $lang['Piwigo was not able to configure PHP 5.'] = 'Piwigo不能设置PHP 5.';
 $lang["You may referer to your hosting provider's support and see how you could switch to PHP 5 by yourself."] = '你应该联系你的主机管理员并向其请教如何设置PHP 5.';
 $lang['Hope to see you back soon.'] = '希望下次再见到你...';
+$lang['Database type'] = '数据库类型';
+$lang['The type of database your piwigo data will be store in'] = '用来存放您的 Piwigo 数据的数据库的类型';
+$lang['Congratulations, Piwigo installation is completed'] = '恭喜，Piwigo 已安装完成。';
+$lang['An alternate solution is to copy the text in the box above and paste it into the file "local/config/database.inc.php" (Warning : database.inc.php must only contain what is in the textarea, no line return or space character)'] = '另一个解决办法是，将以上文本框里的文本拷贝到 "local/config/database.inc.php" 文件里（注意：database.inc.php 必须只能包含此文本框里的内容，没有换行或者空格字符）';
+$lang['Creation of config file local/config/database.inc.php failed.'] = '创建 local/config/database.inc.php 文件失败.';
+$lang['Download the config file'] = '下载配置文件';
+$lang['You can download the config file and upload it to local/config directory of your installation.'] = '您可以下载配置文件，然后上传到 local/config 目录以完成您的安装.';
 ?>
