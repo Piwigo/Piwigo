@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | Piwigo - a PHP based picture gallery                                  |
 // +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2010 Piwigo Team                  http://piwigo.org |
+// | Copyright(C) 2008-2009 Piwigo Team                  http://piwigo.org |
 // | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
 // | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
 // +-----------------------------------------------------------------------+
@@ -28,7 +28,7 @@ $lang_info['direction'] = 'ltr';
 $lang_info['code'] = 'hr';
 $lang_info['zero_plural'] = true;
 
-$lang['%.2f (rated %d times)'] = '%.2f (ocijenjeno %d puta)';
+$lang['%.2f (rated %d times, standard deviation = %.2f)'] = '%.2f (ocijenjeno %d puta, standardno odstupanje = %.2f)';
 $lang['%d Kb'] = '%d Kb';
 $lang['%d category updated'] = '%d skupina obnovljena';
 $lang['%d categories updated'] = '%d skupine obnovljene';
@@ -47,6 +47,7 @@ $lang['%d new users'] = '%d novi korisnici';
 $lang['%d waiting element'] = '%d stavka na čekanju';
 $lang['%d waiting elements'] = '%d stavke na čekanju';
 $lang['About'] = 'O...';
+$lang['All tags must match'] = 'Svi tagovi se moraju poklapati';
 $lang['All tags'] = 'Svi tagovi';
 $lang['Any tag'] = 'Bilo koji tag';
 $lang['At least one listed rule must be satisfied.'] = 'Najmanje jedno od navedenih pravila mora biti zadovoljeno.';
@@ -144,6 +145,7 @@ $lang['caddie'] = 'ladica';
 $lang['Calendar'] = 'Kalendar';
 $lang['All'] = 'Sve';
 $lang['display each day with pictures, month per month'] = 'prikaz svakog dana sa slikama, mjesec po mjesec';
+$lang['display pictures added on'] = 'prikaz slika dodanih na';
 $lang['View'] = 'Pogledaj';
 $lang['chronology_monthly_calendar'] = 'Mjesečni kalendar';
 $lang['chronology_monthly_list'] = 'Mjesečni popis';
@@ -309,6 +311,7 @@ $lang['can\'t upload the picture on the server'] = 'ne mogu prebaciti sliku na p
 $lang['the username must be given'] = 'mora se upisati korisničko ime';
 $lang['A picture\'s name already used'] = 'Naziv slike već postoji';
 $lang['You must choose a picture fileformat for the image'] = 'Morate odabrati oblik zapisa za sliku';
+$lang['You can\'t upload pictures in this category'] = 'Ne možete prebacivati slike u ovu skupinu';
 $lang['Name of the picture'] = 'Naziv slike';
 $lang['Upload a picture'] = 'Prebaci sliku';
 $lang['Picture uploaded with success, an administrator will validate it as soon as possible'] = 'Slika uspješno prebačena, upravitelj će ovjeriti prebačaj uskoro';
@@ -320,6 +323,8 @@ $lang['IP: %s'] = 'IP: %s';
 $lang['Browser: %s'] = 'Preglednik: %s';
 $lang['Author: %s'] = 'Autor: %s';
 $lang['Comment: %s'] = 'Komentar: %s';
+$lang['Delete: %s'] = 'Izbriši: %s';
+$lang['Validate: %s'] = 'Ovjeri: %s';
 $lang['Comment by %s'] = 'Komentirao-la %s';
 $lang['User: %s'] = 'Korisnik: %s';
 $lang['Email: %s'] = 'E-mail: %s';
@@ -362,4 +367,24 @@ $lang['show tag cloud'] = 'prikaži tag oblak';
 $lang['cloud'] = 'oblak';
 $lang['Are you sure?'] = 'Sigurni ste?';
 $lang['delete this comment'] = 'izbriši ovaj komentar';
+// piwigo 2.1
+$lang['Reset to default values'] = 'Povratak na pretpostavljene vrijednosti';
+$lang['delete all images from your favorites'] = 'izbriši sve slike iz omiljenih';
+$lang['Sent by'] = 'Poslano od';
+$lang['Cookies are blocked or not supported by your browser. You must enable cookies to connect.'] = 'Kolačići su onemogućeni ili nisu podržani od vašeg preglednika. Morate ih omogućiti za prijavu.';
+$lang['Some info about this picture'] = 'Podatci o ovoj slici';
+$lang['Some more (technical) info about this picture'] = 'Više (tehničkih) podataka o ovoj slici';
+$lang['edit this comment'] = 'uredi ovaj komentar';
+$lang['Edit a comment'] = 'Uredi komentar';
+$lang['(!) This comment requires validation'] = '(!) Ovaj komentar zahtijeva ovjeru';
+$lang['Welcome'] = 'Dobrodošli';
+$lang['Welcome to your Piwigo photo gallery!'] = 'Dobrodošli u vašu Piwigo galeriju slika!';
+$lang['... or browse your empty gallery'] = '... ili pregledajte praznu galeriju';
+$lang['... or please deactivate this message, I will find my way by myself'] = '... ili možete isključiti ovu poruku, nekako ću se snaći sam';
+$lang['Hello %s, your Piwigo photo gallery is empty!'] = 'Zdravo %s, vaša Piwigo galerija je prazna!';
+$lang['I want to add photos'] = 'Želim dodati slike';
+$lang['Manage this user comment: %s'] = 'Upravljanje ovim korisničkim komentarom: %s';
+$lang['This author modified following comment:'] = 'Ovaj autor je promijenio slijedeći komentar:';
+$lang['This author removed the comment with id %d'] = 'Ovaj autor je uklonio komentar sa id %d';
+$lang['validate this comment'] = 'ovjeri ovaj komentar';
 ?>

@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | Piwigo - a PHP based picture gallery                                  |
 // +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2010 Piwigo Team                  http://piwigo.org |
+// | Copyright(C) 2008-2009 Piwigo Team                  http://piwigo.org |
 // | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
 // | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
 // +-----------------------------------------------------------------------+
@@ -32,8 +32,12 @@ $lang['mail address must be like xxx@yyy.eee (example : jack@altern.org)'] = 'e-
 $lang['Webmaster login'] = 'Webmaster-ova prijava';
 $lang['It will be shown to the visitors. It is necessary for website administration'] = 'Biti će prikazano posjetiteljima. Potrebno je za upravljanje web mjestom';
 
+$lang['Parameters are correct'] = 'Postavke su ispravne';
 $lang['Connection to server succeed, but it was impossible to connect to database'] = 'Povezivanje sa poslužiteljem uspješno, ali je nemoguće povezivanje sa bazom podataka';
 $lang['Can\'t connect to server'] = 'Ne mogu se povezati sa poslužiteljem';
+$lang['The next step of the installation is now possible'] = 'Slijedeći korak ugradbe je omogućen';
+$lang['next step'] = 'slijedeći korak';
+$lang['Copy the text in pink between hyphens and paste it into the file "local/config/database.inc.php"(Warning : database.inc.php must only contain what is in pink, no line return or space character)'] = 'Kopirajte ružičasti tekst između crtica i prebacite ga u "include/mysql.inc.php"(Pozor : mysql.inc.php mora sadržavati samo ružičasti tekst, bez znakova novog reda ili razmaka)';
 
 $lang['Host'] = 'MySQL poslužitelj';
 $lang['localhost, sql.multimania.com, toto.freesurf.fr'] = 'localhost, sql.multimania.com, toto.freesurf.fr';
@@ -48,11 +52,34 @@ $lang['database tables names will be prefixed with it (enables you to manage bet
 $lang['enter a login for webmaster'] = 'upišite korisničko ime za webmaster-a';
 $lang['webmaster login can\'t contain characters \' or "'] = 'webmaster-ovo korisničko ime ne može sadržavati znakove \' ili "';
 $lang['please enter your password again'] = 'molimo upišite zaporku ponovo';
+$lang['Installation finished'] = 'Ugradba završena';
 $lang['Webmaster password'] = 'Webmaster-ova zaporka';
 $lang['Keep it confidential, it enables you to access administration panel'] = 'Čuvajte je na sigurnom mjestu, ona omogućava pristup upravnoj ploči';
 $lang['Password [confirm]'] = 'Zaporka [potvrdi]';
 $lang['verification'] = 'ovjera';
 $lang['Need help ? Ask your question on <a href="%s">Piwigo message board</a>.'] = 'Trebate pomoć? Pitajte na <a href="%s">Piwigo message board</a>.';
+$lang['install_end_message'] = 'Postava Piwigo-a je završena, slijedeći korak je<br /><br />
+* idite na prijavnicu i koristite korisničko ime/zaporku danu za webmaster-a<br />
+* ova prijava će vam omogućiti pristup upravnoj ploči i uputama za pohranu slika u mape';
 $lang['Webmaster mail address'] = 'Webmaster-ova e-mail adresa';
 $lang['Visitors will be able to contact site administrator with this mail'] = 'Posjetitelji će moći pisati upravitelju galerije preko ove adrese';
+
+// piwigo 2.1
+$lang['Database type'] = 'Vrsta baze podataka';
+$lang['The type of database your piwigo data will be store in'] = 'Vrsta baze podataka u kojoj će se pohraniti vaši Piwigo podatci';
+$lang['PHP 5 is required'] = 'PHP 5 je obvezan';
+$lang['It appears your webhost is currently running PHP %s.'] = 'Čini se da vaše web mjesto trenutno koristi PHP inačicu %s.';
+$lang['Piwigo may try to switch your configuration to PHP 5 by creating or modifying a .htaccess file.'] = 'Piwigo će pokušati podesiti sustavne postavke na PHP 5 izradom ili prilagodbom .htaccess zapisa.';
+$lang['Note you can change your configuration by yourself and restart Piwigo after that.'] = 'Ne zaboravite da možete i sami promijeniti postavke te potom ponovo pokrenuti Piwigo.';
+$lang['Try to configure PHP 5'] = 'Pokušaj podešavanja PHP 5';
+$lang['Sorry!'] = 'Nažalost!';
+$lang['Piwigo was not able to configure PHP 5.'] = 'Piwigo nije u mogućnosti podesiti PHP 5.';
+$lang['You may referer to your hosting provider\'s support and see how you could switch to PHP 5 by yourself.'] = 'Trebate se obratiti vašem davatelju usluge smještaja za upute na koji se način možete prebaciti na PHP 5 samostalno.';
+$lang['Hope to see you back soon.'] = 'Do skorog viđenja.';
+$lang['Congratulations, Piwigo installation is completed'] = 'Čestitamo, Piwigo ugradnja je dovršena';
+$lang['An alternate solution is to copy the text in the box above and paste it into the file "local/config/database.inc.php" (Warning : database.inc.php must only contain what is in the textarea, no line return or space character)'] = 'Druga mogućnost je da kopirate tekst u prostoru poviše i prebacite ga u zapis "local/config/database.inc.php" (Pozor :u database.inc.php smije se prebaciti samo tekst iz kućice bez znakova novog reda ili praznog prostora)';
+$lang['Creation of config file local/config/database.inc.php failed.'] = 'Izrada local/config/database.inc.php nije uspjela.';
+$lang['Download the config file'] = 'Preuzmi zapis podešavanja';
+$lang['You can download the config file and upload it to local/config directory of your installation.'] = 'Možete preuzeti zapis sustavnog podešavanja i prebaciti ga u local/config mapu vaše ugradnje.';
+
 ?>
