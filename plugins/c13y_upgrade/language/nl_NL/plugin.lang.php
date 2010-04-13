@@ -21,7 +21,7 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
-$lang['c13y_upgrade_no_anomaly'] = 'Geen afwijkingen geconstateerd na de applicatie-upgrade, de "Controleer upgrades" plugin is gedeactiveerd.';
+$lang['c13y_upgrade_no_anomaly'] = 'Geen afwijkingen geconstateerd na de applicatie-upgrade, de "Check upgrades" plugin is gedeactiveerd.';
 $lang['c13y_dbl_email_user'] = 'Gebruikers met hetzelfde email-adres';
 $lang['c13y_correction_dbl_email_user'] = 'Verwijder dubbele gebruikers';
 $lang['c13y_obsolete_plugin'] = 'Verouderde plugin';
