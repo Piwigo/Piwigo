@@ -22,8 +22,6 @@
 // +-----------------------------------------------------------------------+
 
 $lang['Upgrade'] = 'Nadogradnja';
-$lang['introduction message'] = 'Ova stranica nudi nadogradnju vaše baze podataka sa starije inačice Piwigo-a na trenutnu inačicu.
-Sustav nadogradnje smatra da trenutno koristite  <strong>izdanje %s</strong> (ili odgovarajuće).';
 $lang['Upgrade from version %s to %s'] = 'Nadogradnja sa inačice %s na %s';
 $lang['Statistics'] = 'Statistika';
 $lang['total upgrade time'] = 'sveukupno vrijeme nadogradnje';
@@ -31,10 +29,8 @@ $lang['total SQL time'] = 'sveukupno SQL vrijeme';
 $lang['SQL queries'] = 'SQL upita';
 $lang['Upgrade informations'] = 'Podaci o nadogradnji';
 $lang['Perform a maintenance check in [Administration>Specials>Maintenance] if you encounter any problem.'] = 'Izvršite radnu provjeru [Uprava>Posebnosti>Održavanje] u slučaju bilo kakvih problema.';
-$lang['As a precaution, following plugins have been deactivated. You must check for plugins upgrade before reactiving them:'] = 'Za svaki slučaj, slijedeći dodaci su isključeni. Morate provjeriti imaju li dodaci nadogradnje prije nego ih ponovo uključite:';
 $lang['Only administrator can run upgrade: please sign in below.'] = 'Samo upravnik može pokrenuti nadogradnju: molimo, prijavite se dolje.';
 $lang['You do not have access rights to run upgrade'] = 'Nemate pristupna prava za pokretanje nadogradnje';
-$lang['in include/mysql.inc.php, before ?>, insert:'] = 'U <i>include/mysql.inc.php</i>, prije <b>?></b>, ubacite:';
 
 // Upgrade informations from upgrade_1.3.1.php
 $lang['All sub-categories of private categories become private'] = 'Sve podskupine osobnih skupina postaju osobne';
