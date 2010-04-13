@@ -238,7 +238,6 @@ $lang['group'] = 'grupa';
 $lang['The name of a group must not contain " or \' or be empty.'] = 'Naziv grupe ne može sadržati  " ili \' ili biti prazan.';
 $lang['This name is already used by another group.'] = 'Ovaj naziv već koristi druga grupa.';
 $lang['Groups'] = 'Grupe';
-$lang[''] = '';
 $lang['High definition'] = 'Visoka rezolucija';
 $lang['jump to category'] = 'skok u kategoriju';
 $lang['jump to image'] = 'skok na sliku';
@@ -756,4 +755,7 @@ $lang['Virtual Links'] = 'Virtualne veze';
 $lang['There is no other language available.'] = 'Drugi jezik nije dostupan.';
 $lang['There is no other plugin available.'] = 'Drugi dodatak nije dostupan.';
 $lang['There is no other theme available.'] = 'Druga tema nije dostupna.';
+$lang['By rank'] = 'Po rangu';
+$lang['Manual order'] = 'Ručno poređano';
+$lang['Add another set of photos'] = 'Dodaj drugi set fotografija';
 ?>
