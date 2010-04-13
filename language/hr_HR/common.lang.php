@@ -367,4 +367,24 @@ $lang['show tag cloud'] = 'prikaži tag oblak';
 $lang['cloud'] = 'oblak';
 $lang['Are you sure?'] = 'Sigurni ste?';
 $lang['delete this comment'] = 'izbriši ovaj komentar';
+// piwigo 2.1
+$lang['Reset to default values'] = 'Povratak na pretpostavljene vrijednosti';
+$lang['delete all images from your favorites'] = 'izbriši sve slike iz omiljenih';
+$lang['Sent by'] = 'Poslano od';
+$lang['Cookies are blocked or not supported by your browser. You must enable cookies to connect.'] = 'Kolačići su onemogućeni ili nisu podržani od vašeg preglednika. Morate ih omogućiti za prijavu.';
+$lang['Some info about this picture'] = 'Podatci o ovoj slici';
+$lang['Some more (technical) info about this picture'] = 'Više (tehničkih) podataka o ovoj slici';
+$lang['edit this comment'] = 'uredi ovaj komentar';
+$lang['Edit a comment'] = 'Uredi komentar';
+$lang['(!) This comment requires validation'] = '(!) Ovaj komentar zahtijeva ovjeru';
+$lang['Welcome'] = 'Dobrodošli';
+$lang['Welcome to your Piwigo photo gallery!'] = 'Dobrodošli u vašu Piwigo galeriju slika!';
+$lang['... or browse your empty gallery'] = '... ili pregledajte praznu galeriju';
+$lang['... or please deactivate this message, I will find my way by myself'] = '... ili možete isključiti ovu poruku, nekako ću se snaći sam';
+$lang['Hello %s, your Piwigo photo gallery is empty!'] = 'Zdravo %s, vaša Piwigo galerija je prazna!';
+$lang['I want to add photos'] = 'Želim dodati slike';
+$lang['Manage this user comment: %s'] = 'Upravljanje ovim korisničkim komentarom: %s';
+$lang['This author modified following comment:'] = 'Ovaj autor je promijenio slijedeći komentar:';
+$lang['This author removed the comment with id %d'] = 'Ovaj autor je uklonio komentar sa id %d';
+$lang['validate this comment'] = 'ovjeri ovaj komentar';
 ?>

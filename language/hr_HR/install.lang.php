@@ -63,4 +63,23 @@ $lang['install_end_message'] = 'Postava Piwigo-a je završena, slijedeći korak 
 * ova prijava će vam omogućiti pristup upravnoj ploči i uputama za pohranu slika u mape';
 $lang['Webmaster mail address'] = 'Webmaster-ova e-mail adresa';
 $lang['Visitors will be able to contact site administrator with this mail'] = 'Posjetitelji će moći pisati upravitelju galerije preko ove adrese';
+
+// piwigo 2.1
+$lang['Database type'] = 'Vrsta baze podataka';
+$lang['The type of database your piwigo data will be store in'] = 'Vrsta baze podataka u kojoj će se pohraniti vaši Piwigo podatci';
+$lang['PHP 5 is required'] = 'PHP 5 je obvezan';
+$lang['It appears your webhost is currently running PHP %s.'] = 'Čini se da vaše web mjesto trenutno koristi PHP inačicu %s.';
+$lang['Piwigo may try to switch your configuration to PHP 5 by creating or modifying a .htaccess file.'] = 'Piwigo će pokušati podesiti sustavne postavke na PHP 5 izradom ili prilagodbom .htaccess zapisa.';
+$lang['Note you can change your configuration by yourself and restart Piwigo after that.'] = 'Ne zaboravite da možete i sami promijeniti postavke te potom ponovo pokrenuti Piwigo.';
+$lang['Try to configure PHP 5'] = 'Pokušaj podešavanja PHP 5';
+$lang['Sorry!'] = 'Nažalost!';
+$lang['Piwigo was not able to configure PHP 5.'] = 'Piwigo nije u mogućnosti podesiti PHP 5.';
+$lang['You may referer to your hosting provider\'s support and see how you could switch to PHP 5 by yourself.'] = 'Trebate se obratiti vašem davatelju usluge smještaja za upute na koji se način možete prebaciti na PHP 5 samostalno.';
+$lang['Hope to see you back soon.'] = 'Do skorog viđenja.';
+$lang['Congratulations, Piwigo installation is completed'] = 'Čestitamo, Piwigo ugradnja je dovršena';
+$lang['An alternate solution is to copy the text in the box above and paste it into the file "local/config/database.inc.php" (Warning : database.inc.php must only contain what is in the textarea, no line return or space character)'] = 'Druga mogućnost je da kopirate tekst u prostoru poviše i prebacite ga u zapis "local/config/database.inc.php" (Pozor :u database.inc.php smije se prebaciti samo tekst iz kućice bez znakova novog reda ili praznog prostora)';
+$lang['Creation of config file local/config/database.inc.php failed.'] = 'Izrada local/config/database.inc.php nije uspjela.';
+$lang['Download the config file'] = 'Preuzmi zapis podešavanja';
+$lang['You can download the config file and upload it to local/config directory of your installation.'] = 'Možete preuzeti zapis sustavnog podešavanja i prebaciti ga u local/config mapu vaše ugradnje.';
+
 ?>

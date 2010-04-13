@@ -41,4 +41,9 @@ $lang['All sub-categories of private categories become private'] = 'Sve podskupi
 $lang['User permissions and group permissions have been erased'] = 'Korisničke i grupne dozvole su izbrisane';
 $lang['Only thumbnails prefix and webmaster mail address have been saved from previous configuration'] = 'Jedino su predznaci poveznih sličica i webmaster-ova e-mail adresa sačuvane iz prethodne postave';
 
+// piwigo 2.1
+$lang['This page proposes to upgrade your database corresponding to your old version of Piwigo to the current version.
+The upgrade assistant thinks you are currently running a <strong>release %s</strong> (or equivalent).'] = 'Na ovoj stranici imate prijedlog nadogradnje baze podataka sa vaše starije inačice na novu. Pomoćnik nadogradnje smatra da trenutno koristite <strong>inačicu %s</strong> (ili sličnu).';
+$lang['As a precaution, following plugins have been disabled. You must check for plugins upgrade before reactiving them:'] = 'Kao mjera predostrožnosti, slijedeći dodaci su isključeni. Provjerite dostupne nadogradnje dodataka prije njihovog ponovnog uključenja:';
+
 ?>
