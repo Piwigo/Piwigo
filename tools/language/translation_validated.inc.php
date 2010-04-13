@@ -196,11 +196,18 @@ $validated_keys = array(
 	'Piwigo Uploader',
 	'localhost, sql.multimania.com, toto.freesurf.fr',
 	'email',
-	'',
     ),
 
   'hr_HR' => array(
-	'',
+	'%d Kb',
+	'Filter',
+	'Tag',
+	'Webmaster',
+	'IP: %s',
+	'%d tag',
+	'user_status_webmaster',
+	'IP',
+	'localhost, sql.multimania.com, toto.freesurf.fr',
 	),
 	
   'hu_HU' => array(

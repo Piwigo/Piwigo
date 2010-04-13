@@ -756,4 +756,6 @@ $lang['Execution time is out, treatment must be continue [Estimated time: %d sec
 $lang['By rank'] = 'Po poretku';
 $lang['Manual order'] = 'Ručni poredak';
 $lang['Add another set of photos'] = 'Dodaj još jedan skup slika';
+$lang['Path'] = 'Putanja';
+$lang['Download file'] = 'Preuzmi zapis';
 ?>
