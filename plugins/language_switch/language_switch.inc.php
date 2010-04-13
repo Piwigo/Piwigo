@@ -70,10 +70,9 @@ class language_controler {
         'url' => str_replace(array('=&amp;','?&amp;'),array('&amp;','?'),
                  add_url_params( $url_starting, array('lang'=> $code) )),
         'alt' => ucwords( $displayname ),
-        'img' => get_root_url().'plugins/language_switch/icons/' . $code . '.jpg',
+        'img' => get_root_url().'language/' . $code . '/' . $code . '.jpg',
         );
-      if ( $code !== $user['language'] and 
-          file_exists(dirname(__FILE__) . '/icons/' . $code . '.jpg') ) 
+      if ( $code !== $user['language'] ) 
         $lsw['flags'][$code] = $qlc ;
       else $lsw['Active'] = $qlc;
     }
