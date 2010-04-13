@@ -751,6 +751,9 @@ $lang['Virtual Links'] = 'Prividne Poveznice';
 $lang['There is no other language available.'] = 'Neme dostupnih drugih jezika.';
 $lang['There is no other plugin available.'] = 'Nema dostupnih drugih dodataka.';
 $lang['There is no other theme available.'] = 'Nema dostupnih drugih tema.';
-$lang['Path'] = 'Putanja';
-$lang['Download file'] = 'Preuzmi zapis';
+$lang['Execution time is out, treatment must be continue [Estimated time: %d second].'] = 'Vrijeme izvršenja je isteklo, postupak se mora nastaviti [Procijenjeno vrijeme: %d sekunda].';
+$lang['Execution time is out, treatment must be continue [Estimated time: %d seconds].'] = 'Vrijeme izvršenja je premašeno, postupak se mora nastaviti [Procijenjeno vrijeme: %d sekunda].';
+$lang['By rank'] = 'Po poretku';
+$lang['Manual order'] = 'Ručni poredak';
+$lang['Add another set of photos'] = 'Dodaj još jedan skup slika';
 ?>
