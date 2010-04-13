@@ -361,6 +361,10 @@ $validated_keys = array(
 	'Filter',
 	'Webmaster',
 	'IP: %s',
+	'user_status_admin',
+	'user_status_webmaster',
+	'IP',
+	'Element',
 	),
 	
   'tr_TR' => array(
