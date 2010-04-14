@@ -1,9 +1,12 @@
 {known_script id="jquery" src=$ROOT_URL|@cat:"themes/default/js/jquery.packed.js"}
+{known_script id="jquery.jgrowl" src=$ROOT_URL|@cat:"themes/default/js/plugins/jquery.jgrowl_minimized.js"}
 
 {if $upload_mode eq 'multiple'}
 <script type="text/javascript" src="{$uploadify_path}/swfobject.js"></script>
 <script type="text/javascript" src="{$uploadify_path}/jquery.uploadify.v2.1.0.min.js"></script>
 {/if}
+
+<link rel="stylesheet" type="text/css" href="{$ROOT_URL}admin/themes/default/uploadify.jGrowl.css">
 
 {literal}
 <script type="text/javascript">
@@ -105,6 +108,75 @@ var buttonText = 'Browse';
       else {
         $("input[name=submit_upload]").click();
       }
+    },
+    onError: function (event, queueID ,fileObj, errorObj) {
+      var msg;
+      if (errorObj.status == 404) {
+        alert('Could not find upload script.');
+        msg = 'Could not find upload script.';
+      }
+      else if (errorObj.type === "HTTP") {
+        msg = errorObj.type+": "+errorObj.status;
+      }
+      else if (errorObj.type ==="File Size") {
+        msg = fileObj.name+'<br>'+errorObj.type+' Limit: '+Math.round(errorObj.sizeLimit/1024)+'KB';
+      }
+      else {
+        msg = errorObj.type+": "+errorObj.text;
+      }
+
+      $.jGrowl(
+        '<p></p>'+msg,
+        {
+          theme:  'error',
+          header: 'ERROR',
+          sticky: true
+        }
+      );
+
+      $("#fileUploadgrowl" + queueID).fadeOut(
+        250,
+        function() {
+          $("#fileUploadgrowl" + queueID).remove()
+        }
+      );
+      return false;
+    },
+    onCancel: function (a, b, c, d) {
+      var msg = "Cancelled uploading: "+c.name;
+      $.jGrowl(
+        '<p></p>'+msg,
+        {
+          theme:  'warning',
+          header: 'Cancelled Upload',
+          life:   4000,
+          sticky: false
+        }
+      );
+    },
+    onClearQueue: function (a, b) {
+      var msg = "Cleared "+b.fileCount+" files from queue";
+      $.jGrowl(
+        '<p></p>'+msg,
+        {
+          theme:  'warning',
+          header: 'Cleared Queue',
+          life:   4000,
+          sticky: false
+        }
+      );
+    },
+    onComplete: function (a, b ,c, d, e) {
+      var size = Math.round(c.size/1024);
+      $.jGrowl(
+        '<p></p>'+c.name+' - '+size+'KB',
+        {
+          theme:  'success',
+          header: 'Upload Complete',
+          life:   4000,
+          sticky: false
+        }
+      );
     }
   });
 
