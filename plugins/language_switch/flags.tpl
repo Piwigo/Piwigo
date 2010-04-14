@@ -34,7 +34,7 @@
 	</div>
 </li>
 {html_head}
-{if $themeconf.template=='yoga' and $themeconf.theme=='Sylvia'}
+{if $themeconf.name == 'Sylvia'}
 <link rel="stylesheet" type="text/css" href="{$ROOT_URL}{$LANGUAGE_SWITCH_PATH|@cat:'language_switch.css'}"> 
 {else}
 <link rel="stylesheet" type="text/css" href="{$ROOT_URL}{$LANGUAGE_SWITCH_PATH|@cat:'language_switch-default.css'}"> 
