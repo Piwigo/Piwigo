@@ -769,4 +769,6 @@ $lang['There is no other plugin available.'] = 'Il n\'y a pas d\'autre plugin di
 $lang['There is no other theme available.'] = 'Il n\'y a pas d\'autre thème disponible.';
 $lang['delete'] = 'effacer';
 $lang['Add another set of photos'] = 'Ajouter d\'autres photos';
+
+$lang['Order of menubar items has been updated successfully.'] = 'L\'ordre des éléments du menu a été mis à jour avec succès.';
 ?>

@@ -673,4 +673,6 @@ $lang['Installed Themes'] = "Installed Themes";
 $lang['Add New Theme'] = "Add New Theme";
 $lang['Forbid this theme to users'] = "Forbid this theme to users";
 $lang['Set as default theme for unregistered and new users'] = "Set as default theme for unregistered and new users";
+
+$lang['Order of menubar items has been updated successfully.'] = 'Order of menubar items has been updated successfully.';
 ?>
