@@ -729,7 +729,7 @@ $lang['Active Plugins'] = '激活插件';
 $lang['Inactive Plugins'] = '停用插件';
 $lang['Missing Plugins'] = '丢失的插件';
 $lang['Uninstalled Plugins'] = '未安装的插件';
-$lang['By %s'] = 'By %s';
+$lang['By %s'] = '按 %s';
 $lang['Visit plugin site'] = '浏览插件网站';
 $lang['Active Languages'] = '激活语言';
 $lang['Delete this language'] = '删除此语言';
@@ -749,7 +749,8 @@ $lang['There is no other language available.'] = '没有其他可用的语言.';
 $lang['There is no other plugin available.'] = '没有其他可用的插件.';
 $lang['There is no other theme available.'] = '没有其他可用的主题.';
 $lang['Add another set of photos'] = '添加另一组相片';
-
+$lang['By rank'] = '按等级';
+$lang['Manual order'] = '手工排序';
 
 
 
