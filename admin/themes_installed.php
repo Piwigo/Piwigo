@@ -99,7 +99,14 @@ foreach ($themes->fs_themes as $theme_id => $fs_theme)
   else
   {
     // is the theme "activable" ?
-    $fs_theme['activable'] = true;
+    if (isset($fs_theme['activable']) and !$fs_theme['activable'])
+    {
+      $fs_theme['activate_tooltip'] = l10n('This theme was not designed to be directly activated');
+    }
+    else
+    {
+      $fs_theme['activable'] = true;
+    }
 
     $missing_parent = $themes->missing_parent_theme($theme_id);
     if (isset($missing_parent))

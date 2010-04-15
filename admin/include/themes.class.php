@@ -382,6 +382,10 @@ SELECT
           {
             $theme['parent'] = $val[1];
           }
+          if (preg_match('/["\']activable["\'].*?(true|false)/', $theme_data, $val))
+          {
+            $theme['activable'] = get_boolean($val[1]);
+          }
 
           // screenshot
           $screenshot_path = $path.'/screenshot.png';

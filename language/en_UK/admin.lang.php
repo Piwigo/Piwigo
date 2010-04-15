@@ -764,6 +764,6 @@ $lang['There is no other language available.'] = 'There is no other language ava
 $lang['There is no other plugin available.'] = 'There is no other plugin available.';
 $lang['There is no other theme available.'] = 'There is no other theme available.';
 $lang['Add another set of photos'] = 'Add another set of photos';
-
 $lang['Order of menubar items has been updated successfully.'] = 'Order of menubar items has been updated successfully.';
+$lang['This theme was not designed to be directly activated'] = 'This theme was not designed to be directly activated';
 ?>
