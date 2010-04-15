@@ -360,7 +360,6 @@ $validated_keys = array(
 	'IP: %s',
 	'localhost, sql.multimania.com, toto.freesurf.fr',
 	'',
-	'',
 	),
 	
   'sr_RS' => array(
@@ -372,6 +371,8 @@ $validated_keys = array(
 	'user_status_webmaster',
 	'IP',
 	'Element',
+	'Host',
+	'localhost, sql.multimania.com, toto.freesurf.fr',
 	),
 	
   'tr_TR' => array(
