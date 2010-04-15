@@ -751,14 +751,9 @@ $lang['There is no other theme available.'] = '没有其他可用的主题.';
 $lang['Add another set of photos'] = '添加另一组相片';
 $lang['By rank'] = '按等级';
 $lang['Manual order'] = '手工排序';
-
-
-
-// --------- Starting below: New or revised $lang ---- from Colibri (2.1)
-/*TO CHECK*/$lang['Piwigo Announcements Newsletter'] = 'Piwigo公告时事通讯';
-/*TO CHECK*/$lang['Subscribe %s'] = '订阅%s';
-/*TO CHECK*/$lang['Subscribe %s to Piwigo Announcements Newsletter'] = '订阅%s Piwigo中国公告时事通讯';
-/*TO CHECK*/$lang['Purge search history'] = '清除查寻历史';
-/*TO CHECK*/$lang['Hide'] = '皮';
-
+$lang['Piwigo Announcements Newsletter'] = 'Piwigo最新消息公告';
+$lang['Subscribe %s'] = '订阅%s';
+$lang['Subscribe %s to Piwigo Announcements Newsletter'] = '订阅%s Piwigo中国最新消息公告';
+$lang['Purge search history'] = '清除查寻历史记录';
+$lang['Hide'] = '隐藏';
 ?>
