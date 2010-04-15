@@ -29,6 +29,7 @@ if (
   !(defined('IN_ADMIN') and IN_ADMIN)   // no message inside administration
   and script_basename() != 'identification' // keep the ability to login
   and script_basename() != 'ws'             // keep the ability to discuss with web API
+  and script_basename() != 'popuphelp'      // keep the ability to display help popups
   and !isset($_SESSION['no_photo_yet'])     // temporary hide
   )
 {
