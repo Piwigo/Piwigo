@@ -198,7 +198,7 @@ BODY {
 }
 .content div.thumbnailCategory { 
 	background:transparent url(images/cat_bottom-left.gif) no-repeat scroll left bottom; 
-	padding: 0; 
+	padding: 0 0 2px; 
 	margin:0; 
 }
 .content .thumbnailCategory div.illustration { 
