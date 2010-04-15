@@ -765,5 +765,7 @@ $lang['There is no other theme available.'] = 'Egyéb téma nem áll rendelkezé
 $lang['Add another set of photos'] = 'További kép hozzáadása';
 $lang['By rank'] = 'Értékelés szerint';
 $lang['Manual order'] = 'Kézi rendezés';
+// --------- missing translations ---- from version 2.1.0 RC2
+$lang['Order of menubar items has been updated successfully.'] = 'A menüsor elemei sikeresen frissítve.';
 
 ?>
