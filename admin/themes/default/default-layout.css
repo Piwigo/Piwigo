@@ -732,6 +732,9 @@ BODY#thePopuphelpPage {
   min-width: 0;
 }
 
+#thePopuphelpPage #pwgHead {display:none}
+#thePopuphelpPage #footer  {display:none}
+
 /* Set some sizes according to your maximum thumbnail width and height */
 .content UL.thumbnails SPAN,
 .content UL.thumbnails SPAN.wrap2 A,
