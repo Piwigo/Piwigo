@@ -42,9 +42,6 @@
     {if isset($U_SLIDESHOW_START) }
       <a href="{$U_SLIDESHOW_START}" title="{'slideshow'|@translate}" rel="nofollow"><img src="{$ROOT_URL}{$themeconf.icon_dir}/start_slideshow.png" class="button" alt="{'slideshow'|@translate}"></a>
     {/if}
-    {if isset($U_SLIDESHOW_STOP) }
-      <a href="{$U_SLIDESHOW_STOP}" title="{'stop the slideshow'|@translate}" rel="nofollow"><img src="{$ROOT_URL}{$themeconf.icon_dir}/stop_slideshow.png" class="button" alt="{'stop the slideshow'|@translate}"></a>
-    {/if}
     {if isset($U_METADATA) }
       <a href="{$U_METADATA}" title="{'Show file metadata'|@translate}" rel="nofollow"><img src="{$ROOT_URL}{$themeconf.icon_dir}/metadata.png" class="button" alt="metadata"></a>
     {/if}
