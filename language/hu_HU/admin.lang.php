@@ -767,5 +767,6 @@ $lang['By rank'] = 'Értékelés szerint';
 $lang['Manual order'] = 'Kézi rendezés';
 // --------- missing translations ---- from version 2.1.0 RC2
 $lang['Order of menubar items has been updated successfully.'] = 'A menüsor elemei sikeresen frissítve.';
+$lang['This theme was not designed to be directly activated'] = 'Ezt a témát úgy tervezték, hogy közvetlenül nem aktiválható';
 
 ?>
