@@ -40,8 +40,10 @@ function get_cat_display_name($cat_informations,
 {
   global $conf;
 
-  $output = '<a href="'.get_absolute_root_url().$conf['home_page'].'">'.l10n('Home').'</a>';
-
+  //$output = '<a href="'.get_absolute_root_url().$conf['home_page'].'">'.l10n('Home').'</a>';
+  $output = '';
+  $is_first = true;
+  
   foreach ($cat_informations as $cat)
   {
     is_array($cat) or trigger_error(
@@ -53,8 +55,12 @@ function get_cat_display_name($cat_informations,
       $cat['name'],
       'get_cat_display_name'
       );
-
-    $output.= $conf['level_separator'];
+    
+    if (!$is_first)
+    {
+      $output.= $conf['level_separator'];
+      $is_first = false;
+    }
 
     if ( !isset($url) )
     {

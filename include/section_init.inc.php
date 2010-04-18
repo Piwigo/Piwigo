@@ -219,6 +219,8 @@ $forbidden = get_sql_condition_FandF(
 // +-----------------------------------------------------------------------+
 if ('categories' == $page['section'])
 {
+  $page['title'] = '<a href="'.get_absolute_root_url().$conf['home_page'].'">'.l10n('Home').'</a>';
+
   if (isset($page['category']))
   {
     $page = array_merge(
@@ -231,13 +233,9 @@ if ('categories' == $page['section'])
               'main_page_category_description'
             ),
         'title'             =>
-          get_cat_display_name($page['category']['upper_names'], '', false),
+          $page['title'].$conf['level_separator'].get_cat_display_name($page['category']['upper_names'], '', false),
         )
       );
-  }
-  else
-  {
-    $page['title'] = '<a href="'.get_absolute_root_url().$conf['home_page'].'">'.l10n('Home').'</a>';
   }
 
   if
