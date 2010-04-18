@@ -233,7 +233,7 @@ $action.= '&amp;section='.$page['section'];
 
 $template->assign(
   array(
-    'U_HELP' => get_root_url().'popuphelp.php?page=configuration',
+    'U_HELP' => get_root_url().'admin/popuphelp.php?page=configuration',
     'F_ACTION'=>$action
     ));
 

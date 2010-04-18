@@ -159,7 +159,7 @@ $template->set_filenames(array('group_list' => 'group_list.tpl'));
 $template->assign(
   array(
     'F_ADD_ACTION' => get_root_url().'admin.php?page=group_list',
-    'U_HELP' => get_root_url().'popuphelp.php?page=group_list',
+    'U_HELP' => get_root_url().'admin/popuphelp.php?page=group_list',
     'PWG_TOKEN' => get_pwg_token(),
     )
   );

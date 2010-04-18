@@ -205,7 +205,7 @@ SELECT galleries_url
 
 $template->assign(
   array(
-    'U_HELP'    => get_root_url().'popuphelp.php?page=site_manager',
+    'U_HELP'    => get_root_url().'admin/popuphelp.php?page=site_manager',
     'F_ACTION'  => get_root_url().'admin.php'.get_query_string_diff(array('action','site','pwg_token')),
     'PWG_TOKEN' => get_pwg_token(),
     )

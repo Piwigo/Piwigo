@@ -21,84 +21,62 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
-if (!defined('PHPWG_ROOT_PATH'))
-{
-  die('Hacking attempt!');
-}
+// +-----------------------------------------------------------------------+
+// |                           initialization                              |
+// +-----------------------------------------------------------------------+
 
-include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
+define('PHPWG_ROOT_PATH', '../');
+define('PWG_HELP', true);
+define('IN_ADMIN', true);
+include_once( PHPWG_ROOT_PATH.'include/common.inc.php' );
 
 // +-----------------------------------------------------------------------+
 // | Check Access and exit when user status is not ok                      |
 // +-----------------------------------------------------------------------+
 check_status(ACCESS_ADMINISTRATOR);
 
-// +-----------------------------------------------------------------------+
-// |                               functions                               |
-// +-----------------------------------------------------------------------+
+$page['body_id'] = 'thePopuphelpPage';
+$title = l10n('Piwigo Help');
+$page['page_banner'] = '<h1>'.$title.'</h1>';
+$page['meta_robots']=array('noindex'=>1, 'nofollow'=>1);
+include(PHPWG_ROOT_PATH.'include/page_header.php');
 
-
-// +-----------------------------------------------------------------------+
-// |                          categories movement                          |
-// +-----------------------------------------------------------------------+
-
-if (isset($_POST['submit']))
+if
+  (
+    isset($_GET['page'])
+    and preg_match('/^[a-z_]*$/', $_GET['page'])
+  )
 {
-  if (count($_POST['selection']) > 0)
+  $help_content =
+    load_language('help/'.$_GET['page'].'.html', '', array('return'=>true) );
+
+  if ($help_content == false)
   {
-    // TODO: tests
-    move_categories($_POST['selection'], $_POST['parent']);
+    $help_content = '';
   }
-  else
-  {
-    array_push(
-      $page['errors'],
-      l10n('Select at least one category')
-      );
-  }
+
+  $help_content = trigger_event(
+    'get_popup_help_content', $help_content, $_GET['page']);
+}
+else
+{
+  die('Hacking attempt!');
 }
 
-// +-----------------------------------------------------------------------+
-// |                       template initialization                         |
-// +-----------------------------------------------------------------------+
-$template->set_filename('cat_move', 'cat_move.tpl');
+$template->set_filename('popuphelp','popuphelp.tpl');
 
 $template->assign(
-  array(
-    'U_HELP' => get_root_url().'admin/popuphelp.php?page=cat_move',
-    'F_ACTION' => get_root_url().'admin.php?page=cat_move',
-    )
-  );
-  
-// +-----------------------------------------------------------------------+
-// |                          Categories display                           |
-// +-----------------------------------------------------------------------+
-
-$query = '
-SELECT id,name,uppercats,global_rank
-  FROM '.CATEGORIES_TABLE.'
-  WHERE dir IS NULL
-;';
-display_select_cat_wrapper(
-  $query,
-  array(),
-  'category_to_move_options'
-  );
-
-$query = '
-SELECT id,name,uppercats,global_rank
-  FROM '.CATEGORIES_TABLE.'
-;';
-
-display_select_cat_wrapper(
-  $query,
-  array(),
-  'category_parent_options'
-  );
+  array
+  (
+    'HELP_CONTENT' => $help_content
+  ));
 
 // +-----------------------------------------------------------------------+
-// |                          sending html code                            |
+// |                           html code display                           |
 // +-----------------------------------------------------------------------+
 
-$template->assign_var_from_handle('ADMIN_CONTENT', 'cat_move');
+$template->pparse('popuphelp');
+
+include(PHPWG_ROOT_PATH.'include/page_tail.php');
+
 ?>

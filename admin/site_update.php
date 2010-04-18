@@ -846,7 +846,7 @@ $template->assign(
     'L_RESULT_UPDATE'=>$result_title.l10n('Search for new images in the directories'),
     'L_RESULT_METADATA'=>$result_title.l10n('Metadata synchronization results'),
     'METADATA_LIST' => $used_metadata,
-    'U_HELP' => get_root_url().'popuphelp.php?page=synchronize',
+    'U_HELP' => get_root_url().'admin/popuphelp.php?page=synchronize',
     ));
 
 // +-----------------------------------------------------------------------+

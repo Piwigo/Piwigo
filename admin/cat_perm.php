@@ -202,7 +202,7 @@ $template->assign(
         $page['cat'],
         'admin.php?page=cat_modify&amp;cat_id='
         ),
-    'U_HELP' => get_root_url().'popuphelp.php?page=cat_perm',
+    'U_HELP' => get_root_url().'admin/popuphelp.php?page=cat_perm',
     'F_ACTION' => get_root_url().'admin.php?page=cat_perm&amp;cat='.$page['cat']
     )
   );

@@ -382,7 +382,7 @@ $template->assign(
   array(
     'L_STAT_TITLE' => implode($conf['level_separator'], $title_parts),
     'PERIOD_LABEL' => $period_label,
-    'U_HELP' => get_root_url().'popuphelp.php?page=history',
+    'U_HELP' => get_root_url().'admin/popuphelp.php?page=history',
     'F_ACTION' => $base_url,
     )
   );

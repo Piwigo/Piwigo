@@ -173,7 +173,7 @@ while ( $row = pwg_db_fetch_assoc($result) )
   $deleted_permalinks[] = $row;
 }
 $template->assign('deleted_permalinks', $deleted_permalinks);
-$template->assign('U_HELP', get_root_url().'popuphelp.php?page=permalinks');
+$template->assign('U_HELP', get_root_url().'admin/popuphelp.php?page=permalinks');
 
 $template->assign_var_from_handle('ADMIN_CONTENT', 'permalinks');
 ?>

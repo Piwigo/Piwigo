@@ -140,7 +140,7 @@ $template->assign(
     'U_MAINT_C13Y' => $start_url.'c13y',
 	'U_MAINT_SEARCH' => $start_url.'search',
     'U_MAINT_COMPILED_TEMPLATES' => $start_url.'compiled-templates',
-    'U_HELP' => PHPWG_ROOT_PATH.'popuphelp.php?page=maintenance',
+    'U_HELP' => get_root_url().'admin/popuphelp.php?page=maintenance',
     )
   );
 

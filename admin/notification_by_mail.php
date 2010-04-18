@@ -582,7 +582,7 @@ $template->assign
 (
   array
   (
-    'U_HELP' => add_url_params(get_root_url().'popuphelp.php', array('page' => 'notification_by_mail')),
+    'U_HELP' => get_root_url().'admin/popuphelp.php?page=notification_by_mail',
     'F_ACTION'=> $base_url.get_query_string_diff(array())
   )
 );

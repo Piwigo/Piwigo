@@ -172,7 +172,7 @@ $base_url = PHPWG_ROOT_PATH.'admin.php?page=extend_for_templates';
 
 $template->assign(
   array(
-    'U_HELP' => get_root_url().'popuphelp.php?page=extend_for_templates',
+    'U_HELP' => get_root_url().'admin/popuphelp.php?page=extend_for_templates',
     ));
 ksort($tpl_extension);
 foreach ($tpl_extension as $file => $conditions)    

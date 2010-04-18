@@ -151,7 +151,7 @@ $base_url = PHPWG_ROOT_PATH.'admin.php?page=cat_options&amp;section=';
 
 $template->assign(
   array(
-    'U_HELP' => PHPWG_ROOT_PATH.'/popuphelp.php?page=cat_options',
+    'U_HELP' => get_root_url().'admin/popuphelp.php?page=cat_options',
     'F_ACTION'=>$base_url.$page['section']
    )
  );

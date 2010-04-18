@@ -170,7 +170,7 @@ history_tabsheet();
 
 $template->assign(
   array(
-    'U_HELP' => PHPWG_ROOT_PATH.'popuphelp.php?page=history',
+    'U_HELP' => get_root_url().'admin/popuphelp.php?page=history',
     'F_ACTION' => get_root_url().'admin.php?page=history'
     )
   );

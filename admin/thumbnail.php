@@ -162,15 +162,14 @@ if (!function_exists('gd_info'))
 // +-----------------------------------------------------------------------+
 $template->set_filenames( array('thumbnail'=>'thumbnail.tpl') );
 
-$template->assign(array(
-  'U_HELP' => PHPWG_ROOT_PATH.'popuphelp.php?page=thumbnail',
-  ));
+$template->assign(
+  array('U_HELP' => get_root_url().'admin/popuphelp.php?page=thumbnail')
+  );
 // +-----------------------------------------------------------------------+
 // |                   search pictures without thumbnails                  |
 // +-----------------------------------------------------------------------+
 $wo_thumbnails = array();
 $thumbnalized = array();
-
 
 // what is the directory to search in ?
 $query = '

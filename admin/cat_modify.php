@@ -257,7 +257,7 @@ $template->assign(
     'MAIL_CONTENT' => empty($_POST['mail_content'])
         ? '' : stripslashes($_POST['mail_content']),
     'U_CHILDREN' => $cat_list_url.'&amp;parent_id='.$category['id'],
-    'U_HELP' => get_root_url().'popuphelp.php?page=cat_modify',
+    'U_HELP' => get_root_url().'admin/popuphelp.php?page=cat_modify',
 
     'F_ACTION' => $form_action,
     )

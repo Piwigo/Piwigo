@@ -516,7 +516,7 @@ else
 
 $template->assign(
   array(
-    'U_HELP' => get_root_url().'popuphelp.php?page=user_list',
+    'U_HELP' => get_root_url().'admin/popuphelp.php?page=user_list',
 
     'F_ADD_ACTION' => $base_url,
     'F_USERNAME' => @htmlentities($_GET['username']),
