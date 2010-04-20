@@ -26,8 +26,8 @@
 <h3>{$CATEGORIES_NAV}</h3>
 
 <form id="addVirtual" action="{$F_ACTION}" method="post">
-  <input type="hidden" name="pwg_token" value="{$PWG_TOKEN}" />
   <p>
+    <input type="hidden" name="pwg_token" value="{$PWG_TOKEN}">
     {'Add a virtual category'|@translate} : <input type="text" name="virtual_name">
     <input class="submit" type="submit" value="{'Submit'|@translate}" name="submitAdd" {$TAG_INPUT_ENABLED}>
     {if count($categories)>9 }
@@ -39,8 +39,8 @@
 
 {if count($categories) }
 <form id="categoryOrdering" action="{$F_ACTION}" method="post">
-  <input type="hidden" name="pwg_token" value="{$PWG_TOKEN}" />
   <p>
+    <input type="hidden" name="pwg_token" value="{$PWG_TOKEN}">
     <input class="submit" name="submitOrder" type="submit" value="{'Save order'|@translate}" {$TAG_INPUT_ENABLED}>
     <input class="submit" name="submitOrderAlphaNum" type="submit" value="{'Order alphanumerically'|@translate}" {$TAG_INPUT_ENABLED}>
 	<input class="submit" name="submitOrderAlphaNumReverse" type="submit" value="{'Order alphanumerically reverse'|@translate}" {$TAG_INPUT_ENABLED}>

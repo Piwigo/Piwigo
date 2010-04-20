@@ -252,11 +252,11 @@ y.callService(
 {if isset($metadata)}
 <table id="Metadata" class="infoTable2" summary="{'Some more (technical) info about this picture'|@translate}">
 {foreach from=$metadata item=meta}
-  <tr id="{$meta.TITLE}">
+  <tr>
     <th colspan="2">{$meta.TITLE}</th>
   </tr>
   {foreach from=$meta.lines item=value key=label}
-  <tr id="{$label}" >
+  <tr>
     <td class="label">{$label}</td>
     <td class="value">{$value}</td>
   </tr>

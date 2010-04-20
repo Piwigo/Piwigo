@@ -1,3 +1,4 @@
+{html_head}
 {literal}
 <script type="text/javascript">
 $().ready(function(){
@@ -14,7 +15,7 @@ $().ready(function(){
 });
 </script>
 
-<style>
+<style type="text/css">
 #pLoaderPage {
   width:600px;
   margin:0 auto;
@@ -46,6 +47,7 @@ $().ready(function(){
 }
 </style>
 {/literal}
+{/html_head}
 
 <div class="titrePage">
   <h2>{'Piwigo Uploader'|@translate}</h2>
@@ -62,19 +64,19 @@ $().ready(function(){
   <tr>
     <td>
       <a href="{$URL_DOWNLOAD_WINDOWS}">
-        <img src="http://piwigo.org/screenshots/windows.png"/>
+        <img src="http://piwigo.org/screenshots/windows.png" alt="windows">
         <br>Windows
       </a>
     <td>
     <td>
       <a href="{$URL_DOWNLOAD_MAC}">
-        <img src="http://piwigo.org/screenshots/mac.png" />
+        <img src="http://piwigo.org/screenshots/mac.png" alt="mac">
         <br>Mac
       </a>
     <td>
     <td>
       <a href="{$URL_DOWNLOAD_LINUX}">
-        <img src="http://piwigo.org/screenshots/linux.png" />
+        <img src="http://piwigo.org/screenshots/linux.png" alt="linux">
         <br>Linux
       </a>
     <td>

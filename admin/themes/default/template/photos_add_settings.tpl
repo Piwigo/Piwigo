@@ -1,5 +1,5 @@
 {literal}
-<script>
+<script type="text/javascript">
 $(document).ready(function(){
   function toggleResizeFields() {
     var checkbox = $("#websize_resize");

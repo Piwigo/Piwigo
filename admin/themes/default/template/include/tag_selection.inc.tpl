@@ -1,5 +1,5 @@
 {literal}
-<script>
+<script type="text/javascript">
 $(document).ready(function(){
   $(".tagSelection label").click(function () {
     var parent = $(this).parent('li');

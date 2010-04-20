@@ -5,8 +5,6 @@
 </div>
 
 <form action="{$F_ACTION}" method="post">
-  <input type="hidden" name="pwg_token" value="{$PWG_TOKEN}" />
-
   {if isset($EDIT_TAGS_LIST)}
   <fieldset>
     <legend>{'Edit tags'|@translate}</legend>
@@ -25,6 +23,7 @@
     </table>
 
     <p>
+      <input type="hidden" name="pwg_token" value="{$PWG_TOKEN}">
       <input class="submit" type="submit" name="submit" value="{'Submit'|@translate}" {$TAG_INPUT_ENABLED}>
       <input class="submit" type="reset" value="{'Reset'|@translate}">
     </p>

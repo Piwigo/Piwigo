@@ -1,5 +1,5 @@
 {literal}
-<script>
+<script type="text/javascript">
 $(document).ready(function(){
   $(".checkComment").click(function(event) {
     if (event.target.type !== 'checkbox') {

@@ -5,8 +5,9 @@
 <script type="text/javascript" src="{$uploadify_path}/swfobject.js"></script>
 <script type="text/javascript" src="{$uploadify_path}/jquery.uploadify.v2.1.0.min.js"></script>
 {/if}
-
+{html_head}
 <link rel="stylesheet" type="text/css" href="{$ROOT_URL}admin/themes/default/uploadify.jGrowl.css">
+{/html_head}
 
 {literal}
 <script type="text/javascript">
@@ -62,7 +63,7 @@ jQuery(document).ready(function(){
 {if $upload_mode eq 'html'}
 {literal}
   function addUploadBox() {
-    var uploadBox = '<p class="file"><input type="file" size="60" name="image_upload[]" /></p>';
+    var uploadBox = '<p class="file"><input type="file" size="60" name="image_upload[]"></p>';
     $(uploadBox).appendTo("#uploadBoxes");
   }
 
@@ -233,13 +234,12 @@ var buttonText = 'Browse';
 </div>
 
 <form id="uploadForm" enctype="multipart/form-data" method="post" action="{$F_ACTION}" class="properties">
-{if $upload_mode eq 'multiple'}
-<input name="upload_id" value="{$upload_id}" type="hidden">
-{/if}
-
     <fieldset>
       <legend>{'Drop into category'|@translate}</legend>
-      
+      {if $upload_mode eq 'multiple'}
+      <input name="upload_id" value="{$upload_id}" type="hidden">
+      {/if}
+
       <label><input type="radio" name="category_type" value="existing"> {'existing category'|@translate}</label>
       <label><input type="radio" name="category_type" value="new" checked="checked"> {'create a new category'|@translate}</label>
 
@@ -294,13 +294,11 @@ var buttonText = 'Browse';
     </fieldset>
 
     <p>
-      <input class="submit" type="submit" name="submit_upload" value="{'Upload'|@translate}" {$TAG_INPUT_ENABLED}/>
+      <input class="submit" type="submit" name="submit_upload" value="{'Upload'|@translate}" {$TAG_INPUT_ENABLED}>
     </p>
 {elseif $upload_mode eq 'multiple'}
-    </table>
-
     <p>
-      <input type="file" name="uploadify" id="uploadify" />
+      <input type="file" name="uploadify" id="uploadify">
     </p>
 
     <p><a href="{$switch_url}">{'... or switch to the old style form'|@translate}</a></p>
@@ -309,8 +307,8 @@ var buttonText = 'Browse';
 
     </fieldset>
     <p>
-      <input class="submit" type="button" value="{'Upload'|@translate}"/>
-      <input type="submit" name="submit_upload" style="display:none"/>
+      <input class="submit" type="button" value="{'Upload'|@translate}">
+      <input type="submit" name="submit_upload" style="display:none">
     </p>
 {/if}
 </form>

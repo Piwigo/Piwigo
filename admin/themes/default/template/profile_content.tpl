@@ -63,13 +63,13 @@
       </li>
       <li>
         <span class="property">
-          <label for="Language">{'Language'|@translate}</label>
+          <label for="language">{'Language'|@translate}</label>
         </span>
         {html_options id=language name=language options=$language_options selected=$language_selection}
       </li>
       <li>
         <span class="property">
-          <label for="Recent period">{'Recent period'|@translate}</label>
+          <label for="recent_period">{'Recent period'|@translate}</label>
         </span>
         <input type="text" size="3" maxlength="2" name="recent_period" id="recent_period" value="{$RECENT_PERIOD}">
       </li>
@@ -87,13 +87,13 @@
       </li>
       <li>
         <span class="property">
-          <label for="Maximum width of the pictures">{'Maximum width of the pictures'|@translate}</label>
+          <label for="maxwidth">{'Maximum width of the pictures'|@translate}</label>
         </span>
         <input type="text" size="4" maxlength="4" name="maxwidth" id="maxwidth" value="{$MAXWIDTH}">
       </li>
       <li>
         <span class="property">
-          <label for="Maximum height of the pictures">{'Maximum height of the pictures'|@translate}</label>
+          <label for="maxheight">{'Maximum height of the pictures'|@translate}</label>
         </span>
         <input type="text" size="4" maxlength="4" name="maxheight" id="maxheight" value="{$MAXHEIGHT}">
       </li>

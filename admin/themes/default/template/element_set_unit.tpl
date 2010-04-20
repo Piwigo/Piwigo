@@ -3,6 +3,7 @@
 {include file='include/datepicker.inc.tpl'}
 
 {known_script id="jquery.fcbkcomplete" src=$ROOT_URL|@cat:"themes/default/js/plugins/jquery.fcbkcomplete.js"}
+{html_head}
 <script type="text/javascript">
   var tag_boxes_selector = "";
 {foreach from=$elements item=element name=element}
@@ -28,7 +29,7 @@
   });
 </script>
 {/literal}
-
+{/html_head}
 
 <h2>{'Batch management'|@translate}</h2>
 

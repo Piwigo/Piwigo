@@ -140,10 +140,10 @@ foreach ($themes->fs_themes as $theme_id => $fs_theme)
 
 $template->assign(
     array(
-      'activate_baseurl' => $base_url.'&action=activate&theme=',
-      'deactivate_baseurl' => $base_url.'&action=deactivate&theme=',
-      'set_default_baseurl' => $base_url.'&action=set_default&theme=',
-      'delete_baseurl' => $base_url.'&action=delete&theme=',
+      'activate_baseurl' => $base_url.'&amp;action=activate&amp;theme=',
+      'deactivate_baseurl' => $base_url.'&amp;action=deactivate&amp;theme=',
+      'set_default_baseurl' => $base_url.'&amp;action=set_default&amp;theme=',
+      'delete_baseurl' => $base_url.'&amp;action=delete&amp;theme=',
 
       'active_themes' => $active_themes,
       'inactive_themes' => $inactive_themes,
