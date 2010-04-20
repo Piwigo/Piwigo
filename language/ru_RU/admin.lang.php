@@ -756,4 +756,9 @@ $lang['Modify information'] = 'Информация по изменению';
 $lang['There is no other language available.'] = 'Нет других доступных языков.';
 $lang['There is no other plugin available.'] = 'Нет других доступных плагинов.';
 $lang['There is no other theme available.'] = 'Нет других доступных тем.';
+$lang['By rank'] = 'По рейтингу';
+$lang['Manual order'] = 'Сортировать вручную';
+$lang['Add another set of photos'] = 'Добавить фотографии';
+$lang['Order of menubar items has been updated successfully.'] = 'Порядок расположения элементов меню изменен успешно.';
+$lang['This theme was not designed to be directly activated'] = 'В этой теме не предусмотрена активация напрямую';
 ?>
