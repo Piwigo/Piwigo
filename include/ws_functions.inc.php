@@ -900,7 +900,7 @@ UPDATE '.IMAGES_TABLE.'
   SET level='.(int)$params['level'].'
   WHERE id IN ('.implode(',',$params['image_id']).')';
   $result = pwg_query($query);
-  $affected_rows = pwg_db_changes();
+  $affected_rows = pwg_db_changes($result);
   if ($affected_rows)
   {
     include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
