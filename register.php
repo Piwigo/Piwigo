@@ -76,8 +76,8 @@ $template->assign(array(
   'U_HOME' => make_index_url(),
 
   'F_ACTION' => 'register.php',
-  'F_LOGIN' => $login,
-  'F_EMAIL' => $email
+  'F_LOGIN' => htmlspecialchars($login, ENT_QUOTES, 'utf-8'),
+  'F_EMAIL' => htmlspecialchars($email, ENT_QUOTES, 'utf-8')
   ));
 
 //-------------------------------------------------------------- errors display
