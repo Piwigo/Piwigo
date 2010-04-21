@@ -29,6 +29,8 @@ include_once( PHPWG_ROOT_PATH.'include/common.inc.php' );
 include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
 include_once(PHPWG_ROOT_PATH.'admin/include/functions_plugins.inc.php');
 
+trigger_action('loc_begin_admin');
+
 // +-----------------------------------------------------------------------+
 // | Check Access and exit when user status is not ok                      |
 // +-----------------------------------------------------------------------+
@@ -168,6 +170,9 @@ if (count($page['infos']) != 0)
   $template->assign( 'pwgmenu', pwg_URL() );
 
 include(PHPWG_ROOT_PATH.'include/page_header.php');
+
+trigger_action('loc_end_admin');
+
 $template->pparse('admin');
 
 // +-----------------------------------------------------------------------+

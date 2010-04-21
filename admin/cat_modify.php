@@ -33,6 +33,8 @@ include_once(PHPWG_ROOT_PATH.'include/functions_mail.inc.php');
 // +-----------------------------------------------------------------------+
 check_status(ACCESS_ADMINISTRATOR);
 
+trigger_action('loc_begin_cat_modify');
+
 //---------------------------------------------------------------- verification
 if ( !isset( $_GET['cat_id'] ) || !is_numeric( $_GET['cat_id'] ) )
 {
@@ -554,6 +556,8 @@ SELECT
       simple_hash_from_query($query, 'id', 'name')
     );
 }
+
+trigger_action('loc_end_cat_modify');
 
 //----------------------------------------------------------- sending html code
 $template->assign_var_from_handle('ADMIN_CONTENT', 'categories');

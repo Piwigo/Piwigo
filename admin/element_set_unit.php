@@ -39,6 +39,8 @@ include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
 // +-----------------------------------------------------------------------+
 check_status(ACCESS_ADMINISTRATOR);
 
+trigger_action('loc_begin_element_set_unit');
+
 // +-----------------------------------------------------------------------+
 // |                        unit mode form submission                      |
 // +-----------------------------------------------------------------------+
@@ -253,6 +255,8 @@ SELECT
 
   $template->assign('ELEMENT_IDS', implode(',', $element_ids));
 }
+
+trigger_action('loc_end_element_set_unit');
 
 // +-----------------------------------------------------------------------+
 // |                           sending html code                           |

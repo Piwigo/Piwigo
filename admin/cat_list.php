@@ -33,6 +33,8 @@ include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
 // +-----------------------------------------------------------------------+
 check_status(ACCESS_ADMINISTRATOR);
 
+trigger_action('loc_begin_cat_list');
+
 if (!empty($_POST) or isset($_GET['delete']))
 {
   check_pwg_token();
@@ -284,6 +286,9 @@ foreach ($categories as $category)
   }
   $template->append('categories', $tpl_cat);
 }
+
+trigger_action('loc_end_cat_list');
+
 // +-----------------------------------------------------------------------+
 // |                          sending html code                            |
 // +-----------------------------------------------------------------------+

@@ -39,6 +39,8 @@ include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
 // +-----------------------------------------------------------------------+
 check_status(ACCESS_ADMINISTRATOR);
 
+trigger_action('loc_begin_element_set_global');
+
 // +-----------------------------------------------------------------------+
 // |                         deletion form submission                      |
 // +-----------------------------------------------------------------------+
@@ -475,6 +477,8 @@ SELECT id,path,tn_ext,file,filesize,level
       );
   }
 }
+
+trigger_action('loc_end_element_set_global');
 
 //----------------------------------------------------------- sending html code
 $template->assign_var_from_handle('ADMIN_CONTENT', 'element_set_global');
