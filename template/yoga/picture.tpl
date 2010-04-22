@@ -29,8 +29,7 @@
 
 <div id="imageHeaderBar">
   <div class="browsePath">
-    <a href="{$U_HOME}" rel="home">{'home'|@translate}</a>
-    {if !$IS_HOME}{$LEVEL_SEPARATOR}{$SECTION_TITLE}{/if}
+    {$SECTION_TITLE}
     {$LEVEL_SEPARATOR}{$current.TITLE}
   </div>
   <div class="imageNumber">{$PHOTO}</div>

@@ -43,9 +43,6 @@
 // |                                 misc                                  |
 // +-----------------------------------------------------------------------+
 
-// home_page : relative url of your homepage. Empty by default. It points to the index of the gallery.
-$conf['home_page'] = '';
-
 // order_by : how to change the order of display for images in a category ?
 //
 // There are several fields that can order the display :
@@ -328,6 +325,12 @@ $conf['double_password_type_in_admin'] = false;
 // how should we check for unicity when adding a photo. Can be 'md5sum' or
 // 'filename'
 $conf['uniqueness_mode'] = 'md5sum';
+
+// home_page : relative url of the homepage. Empty by default.
+// It points to the index of the gallery.
+// This parameter is used if home page is not index.php of the gallery.
+// We suggest avoid the names "index.htm" or "index.html" if you set $conf['php_extension_in_urls'] to false.
+$conf['home_page'] = '';
 
 // +-----------------------------------------------------------------------+
 // |                               metadata                                |

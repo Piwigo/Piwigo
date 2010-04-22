@@ -239,7 +239,8 @@ function get_cat_display_name($cat_informations,
 {
   global $conf;
 
-  $output = '<a href="'.PHPWG_ROOT_PATH.$conf['home_page'].'">'.l10n('no_category').'</a>';
+  $output = '';
+  $is_first = true;
 
   foreach ($cat_informations as $cat)
   {
@@ -253,7 +254,14 @@ function get_cat_display_name($cat_informations,
       'get_cat_display_name'
       );
 
-    $output.= $conf['level_separator'];
+    if ($is_first)
+    {
+      $is_first=false;
+    }
+    else
+    {
+      $output.= $conf['level_separator'];
+    }
 
     if ( !isset($url) )
     {

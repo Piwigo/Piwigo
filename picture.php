@@ -692,7 +692,6 @@ $template->assign(
 
     'LEVEL_SEPARATOR' => $conf['level_separator'],
 
-    'U_HOME' => make_index_url(),
     'U_UP' => $url_up,
     'U_METADATA' => $url_metadata,
     )
