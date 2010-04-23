@@ -757,4 +757,9 @@ $lang['Virtual Links'] = 'Wirtualne linki';
 $lang['There is no other language available.'] = 'Nie ma dostepnego innego języka.';
 $lang['There is no other plugin available.'] = 'Nie ma dostepnej innej wtyczki.';
 $lang['There is no other theme available.'] = 'Nie ma dostępnego innego tematu.';
+$lang['By rank'] = 'Po rankingu';
+$lang['Manual order'] = 'Sortowanie ręczne';
+$lang['Add another set of photos'] = 'Dodaj inny zbiór zdjęć';
+$lang['Order of menubar items has been updated successfully.'] = 'Kolejność elementów paska menu została zaktualizowana pomyslnie.';
+$lang['This theme was not designed to be directly activated'] = 'Temat nie został zprojektowany tak, by aktywować bezpośrednio.';
 ?>
