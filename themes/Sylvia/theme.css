@@ -427,3 +427,11 @@ input[type="button"]:hover, input[type="submit"]:hover, input[type="reset"]:hove
 tr.tagLine, fieldset.tagLetter, legend.tagLetterLegend {
 	border-color: #666666;
 }
+
+#the_page .content div.thumbnailCategory div.description {
+  height:158px;
+}
+
+#the_page .content div.thumbnailCategory div.description .text {
+  height:122px !important;
+}
