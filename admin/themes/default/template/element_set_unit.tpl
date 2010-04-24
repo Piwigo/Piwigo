@@ -101,6 +101,16 @@
         </script>
       </td>
     </tr>
+    <tr>
+      <td><strong>{'Minimum privacy level'|@translate}</strong></td>
+      <td>
+        <label><input type="radio" name="level_action" value="leave" checked="checked">{'leave'|@translate}</label>
+        <label><input type="radio" name="level_action" value="set" id="level_action_set">{'set to'|@translate}</label>
+        <select onchange="document.getElementById('level_action_set').checked = true;" name="level-{$element.ID}" size="1">
+          {html_options options=$level_options selected=$element.LEVEL}
+        </select>
+      </td>
+    </tr>
 
     <tr>
       <td><strong>{'Tags'|@translate}</strong></td>

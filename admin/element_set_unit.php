@@ -62,44 +62,45 @@ SELECT id, date_creation
   {
     $data = array();
 
-    $data{'id'} = $row['id'];
-    $data{'name'} = $_POST['name-'.$row['id']];
-    $data{'author'} = $_POST['author-'.$row['id']];
+    $data['id'] = $row['id'];
+    $data['name'] = $_POST['name-'.$row['id']];
+    $data['author'] = $_POST['author-'.$row['id']];
+    $data['level'] = $_POST['level-'.$row['id']];
 
-    foreach (array('name', 'author') as $field)
+    foreach (array('name', 'author', 'level') as $field)
     {
       if (!empty($_POST[$field.'-'.$row['id']]))
       {
-        $data{$field} = strip_tags($_POST[$field.'-'.$row['id']]);
+        $data[$field] = strip_tags($_POST[$field.'-'.$row['id']]);
       }
     }
 
     if ($conf['allow_html_descriptions'])
     {
-      $data{'comment'} = @$_POST['description-'.$row['id']];
+      $data['comment'] = @$_POST['description-'.$row['id']];
     }
     else
     {
-      $data{'comment'} = strip_tags(@$_POST['description-'.$row['id']]);
+      $data['comment'] = strip_tags(@$_POST['description-'.$row['id']]);
     }
 
     if (isset($_POST['date_creation_action-'.$row['id']]))
     {
       if ('set' == $_POST['date_creation_action-'.$row['id']])
       {
-        $data{'date_creation'} =
+        $data['date_creation'] =
           $_POST['date_creation_year-'.$row['id']]
             .'-'.$_POST['date_creation_month-'.$row['id']]
             .'-'.$_POST['date_creation_day-'.$row['id']];
       }
       else if ('unset' == $_POST['date_creation_action-'.$row['id']])
       {
-        $data{'date_creation'} = '';
+        $data['date_creation'] = '';
       }
     }
     else
     {
-      $data{'date_creation'} = $row['date_creation'];
+      $data['date_creation'] = $row['date_creation'];
     }
 
     array_push($datas, $data);
@@ -116,7 +117,7 @@ SELECT id, date_creation
     IMAGES_TABLE,
     array(
       'primary' => array('id'),
-      'update' => array('name','author','comment','date_creation')
+      'update' => array('name','author','level','comment','date_creation')
       ),
     $datas
     );
@@ -137,22 +138,25 @@ $month_list = $lang['month'];
 $month_list[0]='------------';
 ksort($month_list);
 
+$tpl_options = array();
+foreach ($conf['available_permission_levels'] as $level)
+{
+  $tpl_options[$level] = l10n( sprintf('Level %d', $level) );
+}
+
 $template->assign(
   array(
     'CATEGORIES_NAV'=>$page['title'],
-
     'U_ELEMENTS_PAGE'
     =>$base_url.get_query_string_diff(array('display','start')),
-
     'U_GLOBAL_MODE'
     =>
     $base_url
     .get_query_string_diff(array('mode','display'))
     .'&amp;mode=global',
-
-    'F_ACTION'=>$base_url.get_query_string_diff(array()),
-    
-    'month_list' => $month_list
+    'F_ACTION'=>$base_url.get_query_string_diff(array()),    
+    'month_list' => $month_list,
+    'level_options' => $tpl_options
     )
   );
 
@@ -195,7 +199,7 @@ if (count($page['cat_elements_id']) > 0)
   $element_ids = array();
 
   $query = '
-SELECT id,path,tn_ext,name,date_creation,comment,author,file
+SELECT id,path,tn_ext,name,date_creation,comment,author,level,file
   FROM '.IMAGES_TABLE.'
   WHERE id IN ('.implode(',', $page['cat_elements_id']).')
   '.$conf['order_by'].'
@@ -205,7 +209,6 @@ SELECT id,path,tn_ext,name,date_creation,comment,author,file
 
   while ($row = pwg_db_fetch_assoc($result))
   {
-    // echo '<pre>'; print_r($row); echo '</pre>';
     array_push($element_ids, $row['id']);
 
     $src = get_thumbnail_url($row);
@@ -235,19 +238,18 @@ SELECT
       array(
         'ID' => $row['id'],
         'TN_SRC' => $src,
-        'LEGEND' =>
-          !empty($row['name']) ?
+        'LEGEND' => !empty($row['name']) ?
             $row['name'] : get_name_from_file($row['file']),
         'U_EDIT' =>
             PHPWG_ROOT_PATH.'admin.php?page=picture_modify'.
             '&amp;image_id='.$row['id'],
-        'NAME' => @$row['name'],
-        'AUTHOR' => @$row['author'],
-        'DESCRIPTION' => @$row['comment'],
+        'NAME' => !empty($row['name'])?$row['name']:'',
+        'AUTHOR' => !empty($row['author'])?$row['author']:'',
+        'LEVEL' => !empty($row['level'])?$row['level']:'',
+        'DESCRIPTION' => !empty($row['comment'])?$row['comment']:'',
         'DATE_CREATION_YEAR' => $year,
         'DATE_CREATION_MONTH' => (int)$month,
         'DATE_CREATION_DAY' => (int)$day,
-
         'TAGS' => $tag_selection,
         )
       );
