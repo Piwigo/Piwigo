@@ -151,5 +151,5 @@ $template->assign(
 // |                           sending html code                           |
 // +-----------------------------------------------------------------------+
 
-$template->assign_var_from_handle('ADMIN_CONTENT', 'plugin_admin_content');
+$template->assign_var_from_handle('ADMIN_CONTENT', 'photos_add');
 ?>

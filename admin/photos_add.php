@@ -190,7 +190,7 @@ $tabsheet->assign();
 
 $template->set_filenames(
   array(
-    'plugin_admin_content' => 'photos_add_'.$page['tab'].'.tpl'
+    'photos_add' => 'photos_add_'.$page['tab'].'.tpl'
     )
   );
 
