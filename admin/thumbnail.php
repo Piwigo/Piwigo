@@ -32,9 +32,15 @@ check_status(ACCESS_ADMINISTRATOR);
 // RatioResizeImg creates a new picture (a thumbnail since it is supposed to
 // be smaller than original picture !) in the sub directory named
 // "thumbnail".
-function RatioResizeImg($path, $newWidth, $newHeight, $tn_ext)
+function RatioResizeImg($info, $path, $newWidth, $newHeight, $tn_ext)
 {
   global $conf, $lang, $page;
+
+  if ($info !== false)
+  {
+    //someone hooked us - so we skip
+    return $info;
+  }
 
   if (!function_exists('gd_info'))
   {
@@ -157,6 +163,9 @@ if (!function_exists('gd_info'))
   array_push($page['errors'], l10n('GD library is missing'));
 }
 
+// add default event handler for thumbnail resize
+add_event_handler('thumbnail_resize', 'RatioResizeImg', EVENT_HANDLER_PRIORITY_NEUTRAL, 5);
+
 // +-----------------------------------------------------------------------+
 // |                       template initialization                         |
 // +-----------------------------------------------------------------------+
@@ -251,7 +260,14 @@ if (isset($_POST['submit']))
       }
       
       $starttime = get_moment();
-      if ($info = RatioResizeImg($path,$_POST['width'],$_POST['height'],'jpg'))
+      if ($info = trigger_event('thumbnail_resize',
+            false,
+            $path,
+            $_POST['width'],
+            $_POST['height'],
+            'jpg'
+            )
+         )
       {
         $endtime = get_moment();
         $info['time'] = ($endtime - $starttime) * 1000;

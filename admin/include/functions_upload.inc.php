@@ -17,6 +17,10 @@ include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
 //
 // 4) register in database
 
+// add default event handler for image and thumbnail resize
+add_event_handler('upload_image_resize', 'pwg_image_resize', EVENT_HANDLER_PRIORITY_NEUTRAL, 6);
+add_event_handler('upload_thumbnail_resize', 'pwg_image_resize', EVENT_HANDLER_PRIORITY_NEUTRAL, 6);
+
 function add_uploaded_file($source_filepath, $original_filename=null, $categories=null, $level=null)
 {
   global $conf;
@@ -60,7 +64,8 @@ function add_uploaded_file($source_filepath, $original_filename=null, $categorie
     rename($file_path, $high_path);
     $high_infos = pwg_image_infos($high_path);
     
-    pwg_image_resize(
+    trigger_event('upload_image_resize',
+      false,
       $high_path,
       $file_path,
       $conf['upload_form_websize_maxwidth'],
@@ -75,7 +80,8 @@ function add_uploaded_file($source_filepath, $original_filename=null, $categorie
   $thumb_dir = dirname($thumb_path);
   prepare_directory($thumb_dir);
   
-  pwg_image_resize(
+  trigger_event('upload_thumbnail_resize',
+    false,
     $file_path,
     $thumb_path,
     $conf['upload_form_thumb_maxwidth'],
@@ -169,8 +175,14 @@ function need_resize($image_filepath, $max_width, $max_height)
   return false;
 }
 
-function pwg_image_resize($source_filepath, $destination_filepath, $max_width, $max_height, $quality)
+function pwg_image_resize($result, $source_filepath, $destination_filepath, $max_width, $max_height, $quality)
 {
+  if ($result !== false)
+  {
+    //someone hooked us - so we skip
+    return $result;
+  }
+
   if (!function_exists('gd_info'))
   {
     return false;
