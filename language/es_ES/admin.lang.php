@@ -757,4 +757,6 @@ $lang['There is no other theme available.'] = 'No hay otra thema disponible';
 $lang['By rank'] = 'Por la fila';
 $lang['Manual order'] = 'Orden manual';
 $lang['Add another set of photos'] = 'Añadir otras fotos';
+$lang['Order of menubar items has been updated successfully.'] = 'La orden de los elementos del menú ha sido actualizada con éxito.';
+$lang['This theme was not designed to be directly activated'] = 'Este tema no es concebido por ser acelerado directamente';
 ?>
