@@ -240,7 +240,6 @@ $lang['group'] = 'gruppo';
 $lang['The name of a group must not contain " or \' or be empty.'] = 'Il nome del gruppo non deve contenere " o \' e non deve essere vuoto.';
 $lang['This name is already used by another group.'] = 'Questo nome è già usato per un altro gruppo.';
 $lang['Groups'] = 'Gruppi';
-$lang[''] = '';
 $lang['High definition'] = 'Alta definizione';
 $lang['jump to category'] = 'Andare alla categoria';
 $lang['jump to image'] = 'Andare al\'immagine';
@@ -769,4 +768,6 @@ $lang['There is no other plugin available.'] = 'Non ci sono altri plugin disponi
 $lang['There is no other theme available.'] = 'Non ci sono altri temi disponibili.';
 $lang['delete'] = 'cancellare';
 $lang['Add another set of photos'] = 'Aggiungi un altro set di foto';
+$lang['Order of menubar items has been updated successfully.'] = 'L\'ordine degli elementi della barra dei menu è stato aggiornato con successo.';
+$lang['This theme was not designed to be directly activated'] = 'Questo tema non è stato progettato per essere attivato direttamente';
 ?>

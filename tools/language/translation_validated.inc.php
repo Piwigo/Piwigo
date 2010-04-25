@@ -244,7 +244,8 @@ $validated_keys = array(
 	'Downloads',
 	'Download',
 	'Piwigo Uploader',
-	'',
+	'email',
+	'user_status_webmaster',
 	),
 	
   'ja_JP' => array(
