@@ -761,5 +761,5 @@ $lang['By rank'] = 'Po rankingu';
 $lang['Manual order'] = 'Sortowanie ręczne';
 $lang['Add another set of photos'] = 'Dodaj inny zbiór zdjęć';
 $lang['Order of menubar items has been updated successfully.'] = 'Kolejność elementów paska menu została zaktualizowana pomyslnie.';
-$lang['This theme was not designed to be directly activated'] = 'Temat nie został zprojektowany tak, by aktywować bezpośrednio.';
+$lang['This theme was not designed to be directly activated'] = 'Temat nie został zprojektowany tak, by aktywować go bezpośrednio.';
 ?>
