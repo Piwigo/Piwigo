@@ -221,7 +221,7 @@
       <label><input type="radio" name="theme_action" value="leave" checked="checked"> {'leave'|@translate}</label>
       <label><input type="radio" name="theme_action" value="set" id="theme_action_set"> {'set to'|@translate}</label>
       <select onchange="document.getElementById('theme_action_set').checked = true;" name="theme" size="1">
-        {html_options values=$theme_options output=$theme_options selected=$theme_selected}
+        {html_options options=$theme_options selected=$theme_selected}
       </select>
     </td>
   </tr>
