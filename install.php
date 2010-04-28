@@ -262,34 +262,8 @@ include(PHPWG_ROOT_PATH . 'admin/include/functions_upgrade.php');
 
 if ( isset( $_POST['install'] ))
 {
-  if ($pwg_db_link = install_db_connect($infos, $errors))
-  {
-    $required_version = constant('REQUIRED_'.strtoupper($dblayer).'_VERSION');
-    if ( version_compare(pwg_get_db_version(), $required_version, '>=') )
-    {
-      $pwg_charset = 'utf-8';
-      $pwg_db_charset = 'utf8';
-      if ($dblayer=='mysql')
-      {
-        $install_charset_collate = "DEFAULT CHARACTER SET $pwg_db_charset";
-        pwg_query('SET NAMES "'.$pwg_db_charset.'"');
-      }
-      else 
-      {
-        $install_charset_collate = '';
-      }
-    }
-    else
-    {
-      $pwg_charset = 'iso-8859-1';
-      $pwg_db_charset = 'latin1';
-      $install_charset_collate = '';
-      if ( !array_key_exists($language, $languages->get_fs_languages($pwg_charset) ) )
-      {
-        $language='en_UK';
-      }
-    }
-  }
+  install_db_connect($infos, $errors);
+  pwg_db_check_charset();
 
   $webmaster = trim(preg_replace( '/\s{2,}/', ' ', $admin_name ));
   if ( empty($webmaster))
@@ -320,8 +294,8 @@ $conf[\'db_host\'] = \''.$dbhost.'\';
 $prefixeTable = \''.$prefixeTable.'\';
 
 define(\'PHPWG_INSTALLED\', true);
-define(\'PWG_CHARSET\', \''.$pwg_charset.'\');
-define(\'DB_CHARSET\', \''.$pwg_db_charset.'\');
+define(\'PWG_CHARSET\', \'utf-8\');
+define(\'DB_CHARSET\', \'utf8\');
 define(\'DB_COLLATE\', \'\');
 
 ?'.'>';
@@ -350,13 +324,15 @@ define(\'DB_COLLATE\', \'\');
     execute_sqlfile(
       PHPWG_ROOT_PATH.'install/piwigo_structure-'.$dblayer.'.sql',
       DEFAULT_PREFIX_TABLE,
-      $prefixeTable
+      $prefixeTable,
+      $dblayer
       );
     // We fill the tables with basic informations
     execute_sqlfile(
       PHPWG_ROOT_PATH.'install/config.sql',
       DEFAULT_PREFIX_TABLE,
-      $prefixeTable
+      $prefixeTable,
+      $dblayer
       );
 
     $query = '
@@ -366,7 +342,7 @@ INSERT INTO '.$prefixeTable.'config (param,value,comment)
     pwg_query($query);
 
     // fill languages table
-    foreach ($languages->get_fs_languages($pwg_charset) as $language_code => $language_name)
+    foreach ($languages->get_fs_languages() as $language_code => $language_name)
     {
       $languages->perform_action('activate', $language_code);
     }
@@ -378,9 +354,9 @@ INSERT INTO '.$prefixeTable.'config (param,value,comment)
     // themes class
     if (!defined('PWG_CHARSET'))
     {
-      define('PWG_CHARSET', $pwg_charset);
+      define('PWG_CHARSET', 'utf-8');
     }
-    activate_all_themes();
+    activate_core_themes();
 
     $insert = array(
       'id' => 1,

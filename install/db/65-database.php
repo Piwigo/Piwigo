@@ -165,7 +165,7 @@ SELECT language FROM '.USER_INFOS_TABLE.'
   $all_tables = array();
   $query = 'SHOW TABLES LIKE "'.$prefixeTable.'%"';
   $result = pwg_query($query);
-  while ( $row=pwg_db_fetch_assoc($result) )
+  while ( $row=pwg_db_fetch_row($result) )
   {
     array_push($all_tables, $row[0]);
   }

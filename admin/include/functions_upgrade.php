@@ -76,8 +76,6 @@ function deactivate_non_standard_plugins()
   global $page;
 
   $standard_plugins = array(
-    'add_index',
-    'admin_advices',
     'admin_multi_view',
     'c13y_upgrade',
     'event_tracer',
@@ -221,13 +219,45 @@ function upgrade_db_connect()
 
   try
   {
-    $pwg_db_link = pwg_db_connect($conf['db_host'], $conf['db_user'],
-                                  $conf['db_password'], $conf['db_base']);
+    $pwg_db_link = pwg_db_connect($conf['db_host'], $conf['db_user'], $conf['db_password'], $conf['db_base']);
+    if ($pwg_db_link)
+    {
+      pwg_db_check_version();
+    }
   }
   catch (Exception $e)
   {
     my_error(l10n($e->getMessage()), true); 
   }
+}
+
+/**
+ *  Get languages defined in the language directory
+ */  
+function get_fs_languages($target_charset = null)
+{
+  if ( empty($target_charset) )
+  {
+    $target_charset = get_pwg_charset();
+  }
+  $target_charset = strtolower($target_charset);
+  
+  $dir = opendir(PHPWG_ROOT_PATH.'language');
+  
+  while ($file = readdir($dir))
+  {
+    $path = PHPWG_ROOT_PATH.'language/'.$file;
+    if (!is_link($path) and is_dir($path) and file_exists($path.'/iso.txt'))
+    {
+      list($language_name) = @file($path.'/iso.txt');
+      
+      $languages[$file] = convert_charset($language_name, $target_charset);
+    }
+  }
+  closedir($dir);
+  @asort($languages);
+  
+  return $languages;
 }
 
 ?>

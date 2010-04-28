@@ -47,6 +47,7 @@ include(PHPWG_ROOT_PATH . 'include/config_default.inc.php');
 define('USERS_TABLE', $prefixeTable.'users');
 include_once(PHPWG_ROOT_PATH.'include/constants.php');
 define('PREFIX_TABLE', $prefixeTable);
+define('UPGRADES_PATH', PHPWG_ROOT_PATH.'install/db');
 
 // +-----------------------------------------------------------------------+
 // |                              functions                                |
@@ -201,8 +202,10 @@ include_once(PHPWG_ROOT_PATH.'admin/include/functions_upgrade.php');
 include(PHPWG_ROOT_PATH .'include/dblayer/functions_'.$conf['dblayer'].'.inc.php');
 
 upgrade_db_connect();
-
 pwg_db_check_charset();
+
+list($dbnow) = pwg_db_fetch_row(pwg_query('SELECT NOW();'));
+define('CURRENT_DATE', $dbnow);
 
 // +-----------------------------------------------------------------------+
 // |                        template initialization                        |
@@ -260,6 +263,10 @@ else if (!in_array('md5sum', $columns_of[PREFIX_TABLE.'images']))
 {
   $current_release = '1.7.0';
 }
+else if (!in_array(PREFIX_TABLE.'themes', $tables))
+{
+  $current_release = '2.0.0';
+}
 else
 {
   die('No upgrade required, the database structure is up to date');
@@ -296,12 +303,15 @@ if (isset($_POST['submit']) and check_upgrade())
 
       if (!@file_put_contents($config_file, $config_file_contents))
       {
-        array_push($page['infos'],
-		   l10n_args('In <i>%s</i>, before <b>?></b>, insert:', 
-			     'local/config/database.inc.php') . 
-		   '<p><textarea rows="4" cols="40">' .
-		   implode("\r\n" , $mysql_changes).'</textarea></p>'
-		   );
+        array_push(
+          $page['infos'],
+          sprintf(
+            l10n('In <i>%s</i>, before <b>?></b>, insert:'),
+            'local/config/database.inc.php'
+            )
+          .'<p><textarea rows="4" cols="40">'
+          .implode("\r\n" , $mysql_changes).'</textarea></p>'
+          );
       }
     }
 
@@ -367,7 +377,15 @@ REPLACE INTO '.PLUGINS_TABLE.'
 // +-----------------------------------------------------------------------+
 else
 {
-  foreach (get_languages('utf-8') as $language_code => $language_name)
+  if (!defined('PWG_CHARSET'))
+  {
+    define('PWG_CHARSET', 'utf-8');
+  }
+
+  include_once(PHPWG_ROOT_PATH.'admin/include/languages.class.php');
+  $languages = new languages();
+  
+  foreach ($languages->fs_languages as $language_code => $language_name)
   {
     if ($language == $language_code)
     {

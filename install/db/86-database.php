@@ -26,40 +26,10 @@ if (!defined('PHPWG_ROOT_PATH'))
   die('Hacking attempt!');
 }
 
-$upgrade_description = 'Automatically activate core themes and used themes.';
+$upgrade_description = 'Automatically activate core themes.';
 
-$themes_core = array('Sylvia', 'dark', 'clear');
-
-$query = '
-SELECT
-    DISTINCT(theme)
-  FROM '.PREFIX_TABLE.'user_infos
-;';
-$themes_used = array_from_query($query, 'theme');
-
-$query = '
-SELECT
-    id
-  FROM '.PREFIX_TABLE.'themes
-;';
-$themes_active = array_from_query($query, 'id');
-
-
-$themes_to_activate = array_diff(
-  array_unique(array_merge($themes_used, $themes_core)),
-  $themes_active
-  );
-
-// echo '<pre>'; print_r($themes_to_activate); echo '</pre>'; exit();
-
-foreach ($themes_to_activate as $theme)
-{
-  $query = '
-INSERT INTO '.PREFIX_TABLE.'themes
-  (id) VALUES(\''.$theme.'\'
-;';
-  pwg_query($query);
-}
+include_once(PHPWG_ROOT_PATH . 'admin/include/functions_install.inc.php');
+activate_core_themes();
 
 echo
 "\n"

@@ -33,7 +33,7 @@
  * @param string replacing
  * @return void
  */
-function execute_sqlfile($filepath, $replaced, $replacing)
+function execute_sqlfile($filepath, $replaced, $replacing, $dblayer)
 {
   $sql_lines = file($filepath);
   $query = '';
@@ -54,12 +54,11 @@ function execute_sqlfile($filepath, $replaced, $replacing)
       // we don't execute "DROP TABLE" queries
       if (!preg_match('/^DROP TABLE/i', $query))
       {
-        global $install_charset_collate;
-        if ( !empty($install_charset_collate) )
+        if ('mysql' == $dblayer)
         {
           if ( preg_match('/^(CREATE TABLE .*)[\s]*;[\s]*/im', $query, $matches) )
           {
-            $query = $matches[1].' '.$install_charset_collate.';';
+            $query = $matches[1].' DEFAULT CHARACTER SET utf8'.';';
           }
         }
         pwg_query($query);
@@ -125,17 +124,20 @@ function available_engines()
 }
 
 /**
- * Automatically activate all themes in the "themes" directory.
+ * Automatically activate all core themes in the "themes" directory.
  *
  * @return void
  */
-function activate_all_themes()
+function activate_core_themes()
 {
   include_once(PHPWG_ROOT_PATH.'admin/include/themes.class.php');
   $themes = new themes();
   foreach ($themes->fs_themes as $theme_id => $fs_theme)
   {
-    $themes->perform_action('activate', $theme_id);
+    if (in_array($theme_id, array('Sylvia', 'clear', 'dark')))
+    {
+      $themes->perform_action('activate', $theme_id);
+    }
   }
 }
 
@@ -143,15 +145,15 @@ function install_db_connect(&$infos, &$errors)
 {
   try
   {
-    $pwg_db_link = pwg_db_connect($_POST['dbhost'], $_POST['dbuser'], 
-                                  $_POST['dbpasswd'], $_POST['dbname']);
- 
-    return $pwg_db_link;
+    $pwg_db_link = pwg_db_connect($_POST['dbhost'], $_POST['dbuser'], $_POST['dbpasswd'], $_POST['dbname']);
+    if ($pwg_db_link)
+    {
+      pwg_db_check_version();
+    }
   }
   catch (Exception $e)
   {
     array_push( $errors, l10n($e->getMessage()));
   }
-  return false;
 }
 ?>

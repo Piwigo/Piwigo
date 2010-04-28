@@ -694,7 +694,7 @@ SELECT
   $result = pwg_query($query);
   while ($row = pwg_db_fetch_assoc($result))
   {
-    if (file_exists($conf['themes_dir'].'/'.$row['id'].'/'.'themeconf.inc.php'))
+    if (check_theme_installed($row['id']))
     {
       $themes[ $row['id'] ] = $row['name'];
     }
@@ -704,6 +704,13 @@ SELECT
   $themes = trigger_event('get_pwg_themes', $themes);
 
   return $themes;
+}
+
+function check_theme_installed($theme_id)
+{
+  global $conf;
+
+  return file_exists($conf['themes_dir'].'/'.$theme_id.'/'.'themeconf.inc.php');
 }
 
 /* Returns the PATH to the thumbnail to be displayed. If the element does not
@@ -1148,8 +1155,12 @@ function get_filter_page_value($value_name)
  */
 function get_pwg_charset()
 {
-  defined('PWG_CHARSET') or fatal_error('PWG_CHARSET undefined');
-  return PWG_CHARSET;
+  $pwg_charset = 'utf-8';
+  if (defined('PWG_CHARSET'))
+  {
+    $pwg_charset = PWG_CHARSET;
+  }
+  return $pwg_charset;
 }
 
 /**

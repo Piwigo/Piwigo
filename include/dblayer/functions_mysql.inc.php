@@ -52,18 +52,26 @@ function pwg_db_connect($host, $user, $password, $database)
 
 function pwg_db_check_charset() 
 {
-  defined('PWG_CHARSET') and defined('DB_CHARSET')
-    or fatal_error('PWG_CHARSET and/or DB_CHARSET is not defined');
-  if ( version_compare(mysql_get_server_info(), '4.1.0', '>=') )
+  $db_charset = 'utf8';
+  if (defined('DB_CHARSET') and DB_CHARSET != '')
   {
-    if (DB_CHARSET!='')
-    {
-      pwg_query('SET NAMES "'.DB_CHARSET.'"');
-    }
+    $db_charset = DB_CHARSET;
   }
-  elseif ( strtolower(PWG_CHARSET)!='iso-8859-1' )
+  pwg_query('SET NAMES "'.$db_charset.'"');
+}
+
+function pwg_db_check_version()
+{
+  $current_mysql = pwg_get_db_version();
+  if (version_compare($current_mysql, REQUIRED_MYSQL_VERSION, '<'))
   {
-    fatal_error('PWG supports only iso-8859-1 charset on MySql version '.mysql_get_server_info());
+    fatal_error(
+      sprintf(
+        'your MySQL version is too old, you have "%s" and you need at least "%s"',
+        $current_mysql,
+        REQUIRED_MYSQL_VERSION
+        )
+      );
   }
 }
 
