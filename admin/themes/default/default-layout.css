@@ -102,6 +102,43 @@ FORM#categoryOrdering UL.categoryActions {
 }
 /* */
 
+/* menuOrdering */
+FORM#menuOrdering {
+	padding-left: 1em;
+	padding-right: 1em;
+}
+FORM#menuOrdering p {
+	text-align: left;
+	margin: 0 10px;
+}
+FORM#menuOrdering p span {
+	float:right;
+}
+FORM#menuOrdering input {
+	vertical-align: middle;
+  margin:0 10px;
+}
+FORM#menuOrdering .menuAuthor {
+  margin: 5px 0 0 40px;
+}
+FORM#menuOrdering .menuSubmit {
+  margin: 20px 0;
+}
+
+UL.menuUl {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+LI.menuLi {
+	width: 100%;
+	border: 1px solid #666;
+	padding: 12px 0;
+	margin-bottom: 5px;
+}
+/* */
+
 FORM#catModify TABLE { width: auto; }
 
 FIELDSET.elementEdit A {

@@ -95,8 +95,8 @@ INPUT[type="submit"]:hover , INPUT[type="reset"]:hover  { cursor: pointer; }
 INPUT.bigbutton:hover { background-color: #ddd;  color:#0cc; border: 0; }
 .throw  { font-size: 120%; line-height: 26px; padding-top: 10px; font-weight: bold; color: #0cc9c; }
 label { cursor:pointer }
-.categoryLi { background: #ddd }
-.virtual_cat { background: #ccc !important; }
+.categoryLi, .menuLi { background: #ddd }
+.virtual_cat, .menuLi_hidden { background: #ccc !important; }
 a.Piwigo {
   font-family: verdana, arial, helvetica, sans-serif !important;
   font-size: 11px; font-weight: normal; letter-spacing: 0;
