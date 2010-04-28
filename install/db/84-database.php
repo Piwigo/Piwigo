@@ -47,10 +47,31 @@ while ($row = pwg_db_fetch_assoc($result))
 {
   list($user_template, $user_theme) = explode('/', $row['theme']);
 
-  if ($user_template != 'yoga')
+  switch ($user_template)
   {
-    $user_theme = 'Sylvia'; // We can find better!
+    case 'yoga':
+      break;
+
+    case 'gally':
+      $user_theme = 'gally-'.$user_theme;
+      break;
+
+    case 'floPure':
+      $user_theme = 'Pure_'.$user_theme;
+      break;
+
+    case 'floOs':
+      $user_theme = 'OS_'.$user_theme;
+      break;
+
+    case 'simple':
+      $user_theme = 'simple-'.$user_theme;
+      break;
+
+    default:
+      $user_theme = 'Sylvia';
   }
+
   array_push($users, array(
     'user_id' => $row['user_id'],
     'theme' => $user_theme
