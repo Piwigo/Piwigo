@@ -28,6 +28,7 @@
 
 	{if isset($U_LOGIN)}
 	<form method="post" action="{$U_LOGIN}" id="quickconnect">
+        <input type="hidden" name="redirect" value="{$U_REDIRECT}">
 	<fieldset>
 	<legend>{'Quick connect'|@translate}</legend>
 	<div>
