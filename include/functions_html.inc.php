@@ -361,10 +361,15 @@ function page_not_found($msg, $alternate_url=null)
  * this method can be called at any time (does not use template/language/user etc...)
  * @param string msg a message to display
  */
-function fatal_error($msg)
+function fatal_error($msg, $title=null, $show_trace=true)
 {
+  if (empty($title))
+  {
+    $title = 'Piwigo encountered a non recoverable error';
+  }
+  
   $btrace_msg = '';
-  if (function_exists('debug_backtrace'))
+  if ($show_trace and function_exists('debug_backtrace'))
   {
     $bt = debug_backtrace();
     for ($i=1; $i<count($bt); $i++)
@@ -377,7 +382,7 @@ function fatal_error($msg)
   }
 
   $display = "<meta http-equiv='Content-Type' content='text/html; charset=utf-8'>
-<h1>Piwigo encountered a non recoverable error</h1>
+<h1>$title</h1>
 <pre style='font-size:larger;background:white;color:red;padding:1em;margin:0;clear:both;display:block;width:auto;height:auto;overflow:auto'>
 <b>$msg</b>
 $btrace_msg

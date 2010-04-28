@@ -52,6 +52,18 @@ class Template {
     $this->smarty->compile_check = $conf['template_compile_check'];
     $this->smarty->force_compile = $conf['template_force_compile'];
 
+    if (!is_writable($conf['local_data_dir']))
+    {
+      load_language('admin.lang');
+      fatal_error(
+        sprintf(
+          l10n('Give write access (chmod 777) to "%s" directory at the root of your Piwigo installation'),
+          basename($conf['local_data_dir'])
+          ),
+        l10n('an error happened'),
+        false // show trace
+        );
+    }
     $compile_dir = $conf['local_data_dir'].'/templates_c';
     mkgetdir( $compile_dir );
 
