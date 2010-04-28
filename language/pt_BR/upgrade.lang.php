@@ -34,8 +34,7 @@ $lang['Perform a maintenance check in [Administration>Specials>Maintenance] if y
 $lang['As a precaution, following plugins have been deactivated. You must check for plugins upgrade before reactiving them:'] = 'Por precaução, os seguintes plugins foram desativados. Você deve checar por atualizações dos plugins antes de reativá-los:';
 $lang['Only administrator can run upgrade: please sign in below.'] = 'Apenas administrador pode realizar o upgrade: por favor, faça o login logo abaixo.';
 $lang['You do not have access rights to run upgrade'] = 'Você não tem permissões de acesso para realizar o upgrade';
-$lang['in include/mysql.inc.php, before ?>, insert:'] = 'Em <i>include/mysql.inc.php</i>, antes de <b>?></b>, insira:';
-
+$lang['In <i>%s</i>, before <b>?></b>, insert:'] = 'Em <i>%s</i>, antes de <b>?></b>, insira:';
 // Upgrade informations from upgrade_1.3.1.php
 $lang['All sub-categories of private categories become private'] = 'All sub-categories of private categories become private';
 $lang['User permissions and group permissions have been erased'] = 'Permissões de usuário e de grupo foram apagadas.';
