@@ -112,7 +112,7 @@ class Template {
     {
       if (!isset($themeconf['load_parent_css']))
       {
-        $themeconf['load_parent_css'] = true;
+        $themeconf['load_parent_css'] = $load_css;
       }
       $this->set_theme($root, $themeconf['parent'], $path, $themeconf['load_parent_css']);
     }
