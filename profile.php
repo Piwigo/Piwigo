@@ -97,11 +97,14 @@ function save_profile_from_post($userdata, &$errors)
   $special_user = in_array($userdata['id'], array($conf['guest_id'], $conf['default_user_id']));
   if ($special_user)
   {
-    unset($_POST['mail_address'],
-          $_POST['password'],
-          $_POST['use_new_pwd'],
-          $_POST['passwordConf']
-          );
+    unset(
+      $_POST['mail_address'],
+      $_POST['password'],
+      $_POST['use_new_pwd'],
+      $_POST['passwordConf'],
+      $_POST['theme'],
+      $_POST['language']
+      );
   }
 
   if ($conf['allow_user_customization'] or defined('IN_ADMIN'))

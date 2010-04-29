@@ -55,6 +55,7 @@
         </span>
         <input type="text" size="3" maxlength="2" name="nb_line_page" id="nb_line_page" value="{$NB_ROW_PAGE}" >
       </li>
+{if not $SPECIAL_USER}
       <li>
         <span class="property">
           <label for="template">{'Interface theme'|@translate}</label>
@@ -67,6 +68,7 @@
         </span>
         {html_options id=language name=language options=$language_options selected=$language_selection}
       </li>
+{/if}
       <li>
         <span class="property">
           <label for="recent_period">{'Recent period'|@translate}</label>
