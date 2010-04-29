@@ -14,8 +14,10 @@
 <link rel="shortcut icon" type="image/x-icon" href="{$ROOT_URL}{$themeconf.icon_dir}/favicon.ico">
 
 {foreach from=$themes item=theme}
-{if isset($theme.local_head)}{include file=$theme.local_head}{/if}
+{if $theme.load_css}
 <link rel="stylesheet" type="text/css" href="{$ROOT_URL}admin/themes/{$theme.id}/theme.css">
+{/if}
+{if isset($theme.local_head)}{include file=$theme.local_head}{/if}
 {/foreach}
 
 {known_script id="jquery" src=$ROOT_URL|@cat:"themes/default/js/jquery.packed.js" now=1} {*jQuery is always available by default*}
