@@ -320,7 +320,7 @@ switch ($page['section'])
   }
   case 'default' :
   {
-    $edit_user = build_user($conf['default_user_id'], false);
+    $edit_user = build_user($conf['guest_id'], false);
     include_once(PHPWG_ROOT_PATH.'profile.php');
 
     $errors = array();
