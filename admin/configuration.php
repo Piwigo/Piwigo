@@ -329,7 +329,7 @@ switch ($page['section'])
       if (save_profile_from_post($edit_user, $errors))
       {
         // Reload user
-        $edit_user = build_user($conf['default_user_id'], false);
+        $edit_user = build_user($conf['guest_id'], false);
         array_push($page['infos'], l10n('Information data registered in database'));
       }
     }
