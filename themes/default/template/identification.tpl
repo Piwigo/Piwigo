@@ -21,7 +21,7 @@
   <fieldset>
     <legend>{'Connection settings'|@translate}</legend>
 
-    <input type="hidden" name="redirect" value="{$U_REDIRECT}">
+    <input type="hidden" name="redirect" value="{$U_REDIRECT|urlencode}">
 
     <ul>
       <li>

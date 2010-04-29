@@ -54,7 +54,7 @@ if (isset($_POST['login']))
   }
   else
   { 
-    $redirect_to = isset($_POST['redirect']) ? $_POST['redirect'] : '';
+    $redirect_to = isset($_POST['redirect']) ? urldecode($_POST['redirect']) : '';
     $remember_me = isset($_POST['remember_me']) and $_POST['remember_me']==1;
     if ( try_log_user($_POST['username'], $_POST['password'], $remember_me) )
     {

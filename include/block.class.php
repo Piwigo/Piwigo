@@ -134,7 +134,6 @@ class BlockManager
     global $template;
 
     $template->set_filename('menubar', $file);
-    $template->assign(array('U_REDIRECT' => $_SERVER['REQUEST_URI']));
     trigger_action('blockmanager_apply', array(&$this) );
 
     foreach( $this->display_blocks as $id=>$block)
