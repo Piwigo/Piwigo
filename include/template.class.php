@@ -67,7 +67,9 @@ class Template {
           false // show trace
           );
       }
-      conf_update_param('local_data_dir_checked', 'true');
+      if (function_exists('pwg_query')) {
+        conf_update_param('local_data_dir_checked', 'true');
+      }
     }
     
     $compile_dir = $conf['local_data_dir'].'/templates_c';
