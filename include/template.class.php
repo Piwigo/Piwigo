@@ -110,7 +110,7 @@ class Template {
   /**
    * Load theme's parameters.
    */
-  function set_theme($root, $theme, $path, $load_css=true)
+  function set_theme($root, $theme, $path, $load_css=true, $load_local_head=true)
   {
     $this->set_template_dir($root.'/'.$theme.'/'.$path);
 
@@ -118,18 +118,20 @@ class Template {
 
     if (isset($themeconf['parent']) and $themeconf['parent'] != $theme)
     {
-      if (!isset($themeconf['load_parent_css']))
-      {
-        $themeconf['load_parent_css'] = $load_css;
-      }
-      $this->set_theme($root, $themeconf['parent'], $path, $themeconf['load_parent_css']);
+      $this->set_theme(
+        $root,
+        $themeconf['parent'],
+        $path,
+        isset($themeconf['load_parent_css']) ? $themeconf['load_parent_css'] : $load_css,
+        isset($themeconf['load_parent_local_head']) ? $themeconf['load_parent_local_head'] : $load_local_head
+      );
     }
 
     $tpl_var = array(
       'id' => $theme,
       'load_css' => $load_css,
     );
-    if (!empty($themeconf['local_head']) )
+    if (!empty($themeconf['local_head']) and $load_local_head)
     {
       $tpl_var['local_head'] = realpath($root.'/'.$theme.'/'.$themeconf['local_head'] );
     }
