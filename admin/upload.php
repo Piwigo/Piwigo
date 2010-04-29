@@ -27,7 +27,6 @@ if( !defined("PHPWG_ROOT_PATH") )
 }
 
 include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
-include_once(PHPWG_ROOT_PATH.'admin/include/functions_waiting.inc.php');
 
 // +-----------------------------------------------------------------------+
 // | Check Access and exit when user status is not ok                      |
@@ -136,9 +135,6 @@ DELETE
 
 //----------------------------------------------------- template initialization
 $template->set_filenames(array('upload'=>'upload.tpl'));
-
-// TabSheet initialization
-waiting_tabsheet();
 
 $template->assign(array(
   'F_ACTION'=>str_replace( '&', '&amp;', $_SERVER['REQUEST_URI'])

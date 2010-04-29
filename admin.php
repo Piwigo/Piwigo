@@ -118,7 +118,7 @@ $template->assign(
     'U_MOVE'=> $link_start.'cat_move',
     'U_CAT_OPTIONS'=> $link_start.'cat_options',
     'U_CAT_UPDATE'=> $link_start.'site_update&amp;site=1',
-    'U_WAITING'=> $link_start.'comments',
+    'U_WAITING'=> $link_start.'upload',
     'U_RATING'=> $link_start.'rating',
     'U_CADDIE'=> $link_start.'element_set&amp;cat=caddie',
     'U_RECENT_SET'=> $link_start.'element_set&amp;cat=recent',
@@ -133,6 +133,7 @@ $template->assign(
     'U_PLUGINS'=> $link_start.'plugins_list',
     'U_ADD_PHOTOS' => $link_start.'photos_add',
     'U_CHANGE_THEME' => PHPWG_ROOT_PATH.'admin.php?change_theme=1',
+    'U_PENDING_COMMENTS' => $link_start.'comments',
     )
   );
 

@@ -1908,7 +1908,6 @@ function get_active_menu($menu_page)
   {
     case 'photos_add':
     case 'upload':
-    case 'comments': // really needs to be moved somewhere else
     case 'rating':
     case 'tags':
     case 'picture_modify':
@@ -1941,6 +1940,7 @@ function get_active_menu($menu_page)
     case 'history':
     case 'maintenance':
     case 'thumbnail':
+    case 'comments':
       return 4;
 
     case 'configuration':

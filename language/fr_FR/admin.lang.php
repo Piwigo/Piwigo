@@ -771,4 +771,5 @@ $lang['delete'] = 'effacer';
 $lang['Add another set of photos'] = 'Ajouter d\'autres photos';
 $lang['Order of menubar items has been updated successfully.'] = 'L\'ordre des éléments du menu a été mis à jour avec succès.';
 $lang['This theme was not designed to be directly activated'] = 'Ce thème n\'est pas conçu pour être activé directement';
+$lang['Pending Comments'] = 'Commentaires en attente';
 ?>
