@@ -40,4 +40,5 @@ $lang['You do not have access rights to run upgrade'] = 'Non avete le autorizzaz
 $lang['All sub-categories of private categories become private'] = 'Tutte le sottocategorie delle categorie private diventono private';
 $lang['User permissions and group permissions have been erased'] = 'I permessi degli utenti e dei gruppi sono stati cancellati';
 $lang['Only thumbnails prefix and webmaster mail address have been saved from previous configuration'] = 'Solo il prefisso delle miniature e l\'indirizzo Email del webmaster sono stati recuperati dalla precedente configurazione';
+$lang['In <i>%s</i>, before <b>?></b>, insert:'] = 'Nel file <i>%s</i>, prima di <b>?></b>, inserite:';
 ?>
