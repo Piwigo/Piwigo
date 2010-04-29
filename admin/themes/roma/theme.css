@@ -128,7 +128,7 @@ text-align:center; top:0; width:100%; z-index:99; }
 .tabsheet {
 background-color:#111111; border:0px none; border-bottom:1px solid #ff3363; display:table;
 font-family:verdana,arial,helvetica,sans-serif; font-size:8px;
-list-style-image:none; padding: 0; position:relative; text-decoration:none;
+list-style-type:none; list-style-image:none; padding: 0; position:relative; text-decoration:none;
 top:-2px; white-space:nowrap; margin: 0 0 0 -5px; padding-left:10px;
 width:100%; }
 .tabsheet li { background:#222222; float:left; margin:0 6px 0 0; overflow:hidden; text-align:right; border:1px solid #ff3363; border-bottom:none; position:relative; top:11px; -moz-border-radius-topleft:5px; -moz-border-radius-topright:5px;}

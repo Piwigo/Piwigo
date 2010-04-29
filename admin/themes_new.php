@@ -139,5 +139,9 @@ else
   array_push($page['errors'], l10n('Can\'t connect to server.'));
 }
 
+$template->assign('default_screenshot',
+  get_root_url().'admin/themes/'.$conf['admin_theme'].'/images/missing_screenshot.png'
+);
+
 $template->assign_var_from_handle('ADMIN_CONTENT', 'themes');
 ?>

@@ -119,7 +119,7 @@ text-align:center; top:0; width:100%; z-index:99; }
 .tabsheet {
 background-color:#f9f9f9; border:1px solid #f9f9f9; border-bottom:1px solid #aaa; display:table;
 font-family:verdana,arial,helvetica,sans-serif; font-size:8px;
-list-style-image:none; padding: 0; position:relative; text-decoration:none;
+list-style-type:none; list-style-image:none; padding: 0; position:relative; text-decoration:none;
 top:-2px; white-space:nowrap; margin: 0 0 0 -6px; padding-left:10px;
 width:100%; }
 .tabsheet li { background:#f1f1f1; float:left; margin:0 6px 0 0; overflow:hidden; text-align:right; border:1px solid #aaa; border-bottom:none; position:relative; top:11px; -moz-border-radius-topleft:5px; -moz-border-radius-topright:5px;}
