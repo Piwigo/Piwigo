@@ -1,3 +1,35 @@
+<fieldset>
+<legend>Permissions par photo</legend>
+
+<p>Chaque photo a un <strong>niveau de confidentialité</strong> (un verrou). Chaque utilisateur a également un niveau de confidentialité (une clef). Il y a 5 niveaux de confidentialité :
+<ol>
+  <li>Aucun</li>
+  <li><em>Contacts</em></li>
+  <li><em>Amis</em> (qui est davantage qu'un contact)</li>
+  <li><em>Famille</em> (qui est davantage qu'un ami)</li>
+  <li><em>Admins</em> (qui recouvre tous les autres niveaux)</li>
+</ol>
+
+<p>Les niveaux supérieurs disposent des droits pour accéder aux niveaux inférieurs. Pour un utilisateur donné, plus haut est son niveau de confidentialité, plus il peut voir de photos.</p>
+
+<p>Par exemple, si la photo "mariage_pierre-0024.jpg" a le niveau de confidentialité <em>"Famille"</em>, alors :</p>
+<ul>
+  <li>Pierre (qui est un <em>Admin</em>) peut la voir car <em>"Admins"</em> donne tous les droits</li>
+  <li>Vanessa (qui est une membre de la <em>Famille</em>) peut la voir également</li>
+  <li>Marie (qui n'est qu'une <em>Amie</em>) elle ne peut pas la voir</li>
+</ul>
+
+<p>Un utilisateur qui ne dispose pas des permissions pour voir le contenu d’une catégorie ne verra pas du tout la catégorie, pas même son titre. Même principe pour un tag.</p>
+
+<p>Vous pouvez assigner le niveau de confidentialité d'un utilisateur sur l'écran <span class="pwgScreen">Administration &raquo; Utilisateurs &raquo; Gérer</span>.</p>
+
+</fieldset>
+
+<fieldset>
+<legend>Permissions par catégorie</legend>
+
+<p>Si les niveaux de confidentialité ne correspondent pas exactement à vos besoins, vous pouvez également gérer les permissions par catégorie et pour un utilisateur ou un groupe donné. Vous pouvez gérer les permissions par photo et par catégorie en même temps, sans conflit.</p>
+
 <p>Vous pouvez interdire l'accès aux catégories. Passez le type d'accès de la catégorie à "privée" si vous souhaitez gérer les permissions.</p>
   
 <p>Vous pouvez rendre une catégorie privée en l'éditant (<span
@@ -12,3 +44,5 @@ class="pwgScreen">Administration &raquo; Catégories &raquo; Propriétés &raquo
   <li><span class="pwgScreen">Administration &raquo; Utilisateurs &raquo; Groupes &raquo; action Permissions</span> (1 lien par groupe)</li>
   <li><span class="pwgScreen">Administration &raquo; Catégories &raquo; Gérer &raquo; Modifier les permissions</span> (1 lien par catégorie)</li>
 </ul>
+
+</fieldset>
