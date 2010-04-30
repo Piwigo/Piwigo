@@ -377,7 +377,7 @@
 
     <li>
       <label>
-        <span class="property">{'Privacy level'|@translate} ({'available for administrators only'|@translate})</span>
+        <span class="property">{'Who can see this photo?'|@translate} ({'available for administrators only'|@translate})</span>
         <input type="checkbox" name="picture_informations[privacy_level]" {if ($display.picture_informations.privacy_level)}checked="checked"{/if}>
       </label>
     </li>

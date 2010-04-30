@@ -671,6 +671,7 @@ $lang['Select files'] = 'Choisir des fichiers';
 $lang['JPEG files or ZIP archives with JPEG files inside please.'] = 'Fichiers JPEG ou archives ZIP contenant des fichiers JPEG s\'il vous plaît.';
 $lang['Everybody'] = 'Tout le monde';
 $lang['Who can see these photos?'] = 'Qui peut voir ces photos ?';
+$lang['Who can see this photo?'] = 'Qui peut voir cette photo ?';
 $lang['... or switch to the old style form'] = '... ou utiliser le formulaire "à l\'ancienne"';
 $lang['... or switch to the multiple files form'] = '... ou utiliser le formulaire multi-fichiers';
 

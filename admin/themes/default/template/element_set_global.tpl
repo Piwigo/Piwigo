@@ -185,12 +185,12 @@
       </tr>
 
     <tr>
-      <td>{'Minimum privacy level'|@translate}</td>
+      <td>{'Who can see these photos?'|@translate}</td>
       <td>
         <label><input type="radio" name="level_action" value="leave" checked="checked">{'leave'|@translate}</label>
         <label><input type="radio" name="level_action" value="set" id="level_action_set">{'set to'|@translate}</label>
         <select onchange="document.getElementById('level_action_set').checked = true;" name="level" size="1">
-          {html_options options=$level_options}
+          {html_options options=$level_options selected=$level_options_selected}
         </select>
       </td>
     </tr>

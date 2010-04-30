@@ -409,14 +409,10 @@ $template->assign( array(
   );
 
 // image level options
-$tpl_options = array();
-foreach ($conf['available_permission_levels'] as $level)
-{
-  $tpl_options[$level] = l10n( sprintf('Level %d', $level) );
-}
 $template->assign(
     array(
-      'level_options'=> $tpl_options,
+      'level_options'=> get_privacy_level_options(),
+      'level_options_selected' => 0,
     )
   );
 

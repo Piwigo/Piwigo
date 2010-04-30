@@ -222,7 +222,7 @@ y.callService(
 
 {if $display_info.privacy_level and isset($available_permission_levels) }
 	<tr id="Privacy">
-		<td class="label">{'Privacy level'|@translate}:</td>
+		<td class="label">{'Who can see this photo?'|@translate}</td>
 		<td class="value"> 
 <script type="text/javascript">
 {literal}function setPrivacyLevel(selectElement, rootUrl, id, level)
@@ -240,9 +240,7 @@ y.callService(
 }{/literal}
 </script>
 	<select onchange="setPrivacyLevel(this, '{$ROOT_URL|@escape:'javascript'}', {$current.id}, this.options[selectedIndex].value)">
-	{foreach from=$available_permission_levels item=level}
-		<option value="{$level}"{if $current.level==$level} selected="selected"{/if}>{$pwg->l10n($pwg->sprintf('Level %d',$level))}</option>
-	{/foreach}
+          {html_options options=$available_permission_levels selected=$current.level}
 	</select>
 	</td></tr>
 {/if}

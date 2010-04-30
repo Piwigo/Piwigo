@@ -430,44 +430,10 @@ display_select_cat_wrapper(
 
 
 // image level options
-$tpl_options = array();
-foreach (array_reverse($conf['available_permission_levels']) as $level)
-{
-  $label = null;
-  
-  if (0 == $level)
-  {
-    $label = l10n('Everybody');
-  }
-  else
-  {
-    $labels = array();
-    $sub_levels = array_reverse($conf['available_permission_levels']);
-    foreach ($sub_levels as $sub_level)
-    {
-      if ($sub_level == 0 or $sub_level < $level)
-      {
-        break;
-      }
-      array_push(
-        $labels,
-        l10n(
-          sprintf(
-            'Level %d',
-            $sub_level
-            )
-          )
-        );
-    }
-    
-    $label = implode(', ', $labels);
-  }
-  $tpl_options[$level] = $label;
-}
 $selected_level = isset($_POST['level']) ? $_POST['level'] : 0;
 $template->assign(
     array(
-      'level_options'=> $tpl_options,
+      'level_options'=> get_privacy_level_options(),
       'level_options_selected' => array($selected_level)
     )
   );

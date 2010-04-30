@@ -102,7 +102,7 @@
       </td>
     </tr>
     <tr>
-      <td><strong>{'Minimum privacy level'|@translate}</strong></td>
+      <td><strong>{'Who can see this photo?'|@translate}</strong></td>
       <td>
         <select name="level-{$element.ID}">
           {html_options options=$level_options selected=$element.LEVEL}

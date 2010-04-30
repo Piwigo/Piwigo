@@ -890,11 +890,7 @@ else
   $cat_selected = array();
 }
 
-$tpl_introduction['privacy_level_options']=array();
-foreach ($conf['available_permission_levels'] as $level)
-{
-  $tpl_introduction['privacy_level_options'][$level] = l10n( sprintf('Level %d', $level) );
-}
+$tpl_introduction['privacy_level_options'] = get_privacy_level_options();
 
 $template->assign('introduction', $tpl_introduction);
 

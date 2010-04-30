@@ -670,6 +670,7 @@ $lang['Select files'] = 'Select files';
 $lang['JPEG files or ZIP archives with JPEG files inside please.'] = 'JPEG files or ZIP archives with JPEG files inside please.';
 $lang['Everybody'] = 'Everybody';
 $lang['Who can see these photos?'] = 'Who can see these photos?';
+$lang['Who can see this photo?'] = 'Who can see this photo?';
 $lang['... or switch to the old style form'] = '... or switch to the old style form';
 $lang['... or switch to the multiple files form'] = '... or switch to the multiple files form';
 

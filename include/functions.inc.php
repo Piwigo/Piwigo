@@ -1524,4 +1524,46 @@ function check_input_parameter($param_name, $param_array, $is_array, $pattern)
     }
   }
 }
+
+
+function get_privacy_level_options()
+{
+  global $conf;
+  
+  $options = array();
+  foreach (array_reverse($conf['available_permission_levels']) as $level)
+  {
+    $label = null;
+  
+    if (0 == $level)
+    {
+      $label = l10n('Everybody');
+    }
+    else
+    {
+      $labels = array();
+      $sub_levels = array_reverse($conf['available_permission_levels']);
+      foreach ($sub_levels as $sub_level)
+      {
+        if ($sub_level == 0 or $sub_level < $level)
+        {
+          break;
+        }
+        array_push(
+          $labels,
+          l10n(
+            sprintf(
+              'Level %d',
+              $sub_level
+              )
+            )
+          );
+      }
+      
+      $label = implode(', ', $labels);
+    }
+    $options[$level] = $label;
+  }
+  return $options;
+}
 ?>

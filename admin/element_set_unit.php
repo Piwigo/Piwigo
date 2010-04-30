@@ -138,12 +138,6 @@ $month_list = $lang['month'];
 $month_list[0]='------------';
 ksort($month_list);
 
-$tpl_options = array();
-foreach ($conf['available_permission_levels'] as $level)
-{
-  $tpl_options[$level] = l10n( sprintf('Level %d', $level) );
-}
-
 $template->assign(
   array(
     'CATEGORIES_NAV'=>$page['title'],
@@ -156,7 +150,7 @@ $template->assign(
     .'&amp;mode=global',
     'F_ACTION'=>$base_url.get_query_string_diff(array()),    
     'month_list' => $month_list,
-    'level_options' => $tpl_options
+    'level_options' => get_privacy_level_options(),
     )
   );
 
@@ -245,7 +239,7 @@ SELECT
             '&amp;image_id='.$row['id'],
         'NAME' => !empty($row['name'])?$row['name']:'',
         'AUTHOR' => !empty($row['author'])?$row['author']:'',
-        'LEVEL' => !empty($row['level'])?$row['level']:'',
+        'LEVEL' => !empty($row['level'])?$row['level']:'0',
         'DESCRIPTION' => !empty($row['comment'])?$row['comment']:'',
         'DATE_CREATION_YEAR' => $year,
         'DATE_CREATION_MONTH' => (int)$month,

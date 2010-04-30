@@ -259,15 +259,10 @@ if ($row['has_high'] == 'true')
 }
 
 // image level options
-$tpl_options = array();
-foreach ($conf['available_permission_levels'] as $level)
-{
-  $tpl_options[$level] = l10n( sprintf('Level %d', $level) ).' ('.$level.')';
-}
 $selected_level = isset($_POST['level']) ? $_POST['level'] : $row['level'];
 $template->assign(
     array(
-      'level_options'=> $tpl_options,
+      'level_options'=> get_privacy_level_options(),
       'level_options_selected' => array($selected_level)
     )
   );
