@@ -116,13 +116,16 @@ border:0; color:#ccc; font-size:24px; height:30px; left:0; margin:0; padding:10p
 text-align:center; top:0; width:100%; z-index:99; }
 #content.content div.comment a.illustration{ margin-right: 30px;}
 /* tabsheets are often used in admin  pages => No specific css files */
-.tabsheet {
-background-color:#f9f9f9; border:1px solid #f9f9f9; border-bottom:1px solid #aaa; display:table;
-font-family:verdana,arial,helvetica,sans-serif; font-size:8px;
-list-style-type:none; list-style-image:none; padding: 0; position:relative; text-decoration:none;
-top:-2px; white-space:nowrap; margin: 0 0 0 -6px; padding-left:10px;
-width:100%; }
-.tabsheet li { background:#f1f1f1; float:left; margin:0 6px 0 0; overflow:hidden; text-align:right; border:1px solid #aaa; border-bottom:none; position:relative; top:11px; -moz-border-radius-topleft:5px; -moz-border-radius-topright:5px;}
+.tabsheet { 
+  display: table;
+  margin: 0;
+  padding: 0 0 0 35px;
+  list-style-type:none; 
+  list-style-image:none;
+  white-space: nowrap;
+}
+
+.tabsheet li { background:#f1f1f1; float:left; margin:0 6px 0 0; overflow:hidden; text-align:right; border:1px solid #aaa; border-bottom:none; position:relative; top:11px; -moz-border-radius-topleft:5px; -moz-border-radius-topright:5px;-webkit-border-top-left-radius:5px; -webkit-border-top-right-radius:5px;}
 .tabsheet a {
 display:block; font-size:11px; border:0;
 font-weight:bold; overflow:hidden; padding:6px;

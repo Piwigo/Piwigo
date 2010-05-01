@@ -91,11 +91,11 @@ jQuery().ready(function(){ldelim}
   </dl>
 </div> <!-- menubar -->
 
-<div id="content" class="content">
+{if isset($TABSHEET)}
+{$TABSHEET}
+{/if}
 
-  {if isset($TABSHEET)}
-  {$TABSHEET}
-  {/if}
+<div id="content" class="content{if isset($TABSHEET)} with-tabs{/if}">
   {if isset($U_HELP)}
   <ul class="HelpActions">
     <li><a href="{$U_HELP}" onclick="popuphelp(this.href); return false;" title="{'Help'|@translate}"><img src="{$ROOT_URL}{$themeconf.admin_icon_dir}/help.png" class="button" alt="(?)"></a></li>
