@@ -140,28 +140,29 @@ else if ('not_linked' == $_GET['cat'])
   // we are searching elements not linked to any virtual category
   $query = '
 SELECT id
+  FROM '.IMAGES_TABLE.'
+;';
+  $all_elements = array_from_query($query, 'id');
+
+  $linked_to_virtual = array();
+
+  $query = '
+SELECT id
   FROM '.CATEGORIES_TABLE.'
   WHERE dir IS NULL
 ;';
   $virtual_categories = array_from_query($query, 'id');
-
   if (!empty($virtual_categories))
   {
-    $query = '
-SELECT DISTINCT(image_id)
-  FROM '.IMAGE_CATEGORY_TABLE.'
-;';
-    $all_elements = array_from_query($query, 'image_id');
-
     $query = '
 SELECT DISTINCT(image_id)
   FROM '.IMAGE_CATEGORY_TABLE.'
   WHERE category_id IN ('.implode(',', $virtual_categories).')
 ;';
     $linked_to_virtual = array_from_query($query, 'image_id');
-
-    $page['cat_elements_id'] = array_diff($all_elements, $linked_to_virtual);
   }
+
+  $page['cat_elements_id'] = array_diff($all_elements, $linked_to_virtual);
 }
 else if ('duplicates' == $_GET['cat'])
 {
