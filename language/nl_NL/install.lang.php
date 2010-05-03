@@ -52,7 +52,7 @@ $lang['Webmaster password'] = 'Wachtwoord webbeheerder';
 $lang['Keep it confidential, it enables you to access administration panel'] = 'Hou dit vertrouwlijk, het geeft toegang tot de beheermodule';
 $lang['Password [confirm]'] = 'Bevestig wachtwoord';
 $lang['verification'] = 'verificatie';
-$lang['Need help ? Ask your question on <a href="%s">Piwigo message board</a>.'] = 'Hulp nodig ? stel uw vraag op het <a href="%s" target="_blank">Piwigo forum</a>.';
+$lang['Need help ? Ask your question on <a href="%s">Piwigo message board</a>.'] = 'Hulp nodig ? Stel uw vraag op het <a href="%s" target="_blank">Piwigo forum</a>.';
 $lang['Webmaster mail address'] = 'Email-adres van de webbeheerder';
 $lang['Visitors will be able to contact site administrator with this mail'] = 'Met dit email-adres kunnen bezoekers contact opnemen met de beheerder';
 $lang['Database type'] = 'Database type';
