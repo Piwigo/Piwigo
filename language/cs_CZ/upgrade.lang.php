@@ -44,7 +44,7 @@ $lang['Only thumbnails prefix and webmaster mail address have been saved from pr
 $lang['This page proposes to upgrade your database corresponding to your old version of Piwigo to the current version.
 The upgrade assistant thinks you are currently running a <strong>release %s</strong> (or equivalent).'] = 'Navrhujeme aktualizovat databázi Vaší galerie Piwigo ze starší na novou verzi.
 Asistent aktualizace se domnívá, že aktuálně používáte <strong>verzi %s</strong> (nebo odpovídající).';
-$lang['As a precaution, following plugins have been disabled. You must check for plugins upgrade before reactiving them:'] = 'Jako předběžné opatření byly deaktivovány následující doplňky. Prosím zkontrolujte aktualizace těchto doplňků předtím než je znovu aktivujete:';
+$lang['As a precaution, following plugins have been deactivated. You must check for plugins upgrade before reactiving them:'] = 'Jako předběžné opatření byly deaktivovány následující doplňky. Prosím zkontrolujte aktualizace těchto doplňků předtím než je znovu aktivujete:';
 $lang['In <i>%s</i>, before <b>?></b>, insert:'] = 'V <i>%s</i>, před <b>?></b>, vložením:';
 
 ?>

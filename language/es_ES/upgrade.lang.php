@@ -29,7 +29,7 @@ $lang['total SQL time'] = 'tiempo total de la demanda SQL';
 $lang['SQL queries'] = 'número de demanda SQL';
 $lang['Upgrade informations'] = 'Informaciones sobre la actualización';
 $lang['Perform a maintenance check in [Administration>Specials>Maintenance] if you encounter any problem.'] = 'Por favor, efectúes un mantenimiento en [Administración>Especiales>Mantenimiento] si usted encuentra problemas.';
-$lang['As a precaution, following plugins have been disabled. You must check for plugins upgrade before reactiving them:'] = 'Por precaución, el plugins siguiente han sido desactivados. Verifique si existen unas actualización antes de reactivarlos:';
+$lang['As a precaution, following plugins have been deactivated. You must check for plugins upgrade before reactiving them:'] = 'Por precaución, el plugins siguiente han sido desactivados. Verifique si existen unas actualización antes de reactivarlos:';
 $lang['Only administrator can run upgrade: please sign in below.'] = 'Sólo un administrador puede lanzar la actualización: por favor, identifiqúese más abajo.';
 $lang['You do not have access rights to run upgrade'] = 'Usted no tiene los derechos necessaires para lanzar la actualización.';
 

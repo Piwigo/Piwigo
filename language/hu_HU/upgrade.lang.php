@@ -40,6 +40,6 @@ $lang['Only thumbnails prefix and webmaster mail address have been saved from pr
 $lang['This page proposes to upgrade your database corresponding to your old version of Piwigo to the current version.
 The upgrade assistant thinks you are currently running a <strong>release %s</strong> (or equivalent).'] = 'Ez az oldal felajánlja az adatbázis frissítését, frissítse a Piwigot a régi verzióról az új verzióra.
 A frissítési asszisztens szerint jelenleg a <strong>%s verzió</strong> fut (vagy azzal egyenértékű).';
-$lang['As a precaution, following plugins have been disabled. You must check for plugins upgrade before reactiving them:'] = 'Elővigyázatosságból a bővítmények ki vannak kapcsolva. Újraaktiválás előtt a bővítmény frissítéseket ellenőrizni kell:';
+$lang['As a precaution, following plugins have been deactivated. You must check for plugins upgrade before reactiving them:'] = 'Elővigyázatosságból a bővítmények ki vannak kapcsolva. Újraaktiválás előtt a bővítmény frissítéseket ellenőrizni kell:';
 
 ?>

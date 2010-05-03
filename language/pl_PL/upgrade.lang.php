@@ -39,5 +39,5 @@ $lang['Only thumbnails prefix and webmaster mail address have been saved from pr
 //For version 2.1.0
 $lang['This page proposes to upgrade your database corresponding to your old version of Piwigo to the current version.
 The upgrade assistant thinks you are currently running a <strong>release %s</strong> (or equivalent).'] = 'Ta strona proponuje aktualizację Twojej bazy danych Piwigo do nowej wersji. Asystent aktualizacji myśli, że aktualnie uzywasz <strong>wersji %s</strong> (lub równoważnej).';
-$lang['As a precaution, following plugins have been disabled. You must check for plugins upgrade before reactiving them:'] = 'Jako zabezpieczenie, nastepujące wtyczki zostały zdeaktywowane. Przed ich aktywacją musisz sprawdzić czy nie ma nowszych wersji:';
+$lang['As a precaution, following plugins have been deactivated. You must check for plugins upgrade before reactiving them:'] = 'Jako zabezpieczenie, nastepujące wtyczki zostały zdeaktywowane. Przed ich aktywacją musisz sprawdzić czy nie ma nowszych wersji:';
 ?>
