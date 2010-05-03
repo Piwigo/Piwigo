@@ -16,7 +16,7 @@ print_r($_POST);
 print_r($user);
 $tmp = ob_get_contents(); 
 ob_end_clean();
-error_log($tmp, 3, "/tmp/php-".date('YmdHis').'-'.sprintf('%020u', rand()).".log");
+// error_log($tmp, 3, "/tmp/php-".date('YmdHis').'-'.sprintf('%020u', rand()).".log");
 
 $image_id = add_uploaded_file(
   $_FILES['Filedata']['tmp_name'],
