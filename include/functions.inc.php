@@ -381,10 +381,17 @@ function remove_accents($string)
  */
 function str2url($str)
 {
+  $raw = $str;
+  
   $str = remove_accents($str);
   $str = preg_replace('/[^a-z0-9_\s\'\:\/\[\],-]/','',strtolower($str));
   $str = preg_replace('/[\s\'\:\/\[\],-]+/',' ',trim($str));
   $res = str_replace(' ','_',$str);
+
+  if (empty($res))
+  {
+    $res = $raw;
+  }
 
   return $res;
 }
