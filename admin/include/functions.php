@@ -1913,8 +1913,6 @@ function get_active_menu($menu_page)
     case 'picture_modify':
       return 0;
 
-    case 'site_manager':
-    case 'site_update':
     case 'cat_list':
     case 'cat_modify':
     case 'cat_move':
@@ -1936,6 +1934,8 @@ function get_active_menu($menu_page)
     case 'plugin':
       return 3;
 
+    case 'site_manager':
+    case 'site_update':
     case 'stats':
     case 'history':
     case 'maintenance':
