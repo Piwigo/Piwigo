@@ -31,7 +31,7 @@ function add_uploaded_file($source_filepath, $original_filename=null, $categorie
   
   // upload directory hierarchy
   $upload_dir = sprintf(
-    PHPWG_ROOT_PATH.'upload/%s/%s/%s',
+    PHPWG_ROOT_PATH.$conf['upload_dir'].'/%s/%s/%s',
     $year,
     $month,
     $day
@@ -96,7 +96,7 @@ function add_uploaded_file($source_filepath, $original_filename=null, $categorie
     'file' => isset($original_filename) ? $original_filename : basename($file_path),
     'date_available' => $dbnow,
     'tn_ext' => 'jpg',
-    'path' => preg_replace('/^.*?upload/', './upload', $file_path),
+    'path' => preg_replace('#^'.preg_quote(PHPWG_ROOT_PATH).'#', '', $file_path),
     'filesize' => $file_infos['filesize'],
     'width' => $file_infos['width'],
     'height' => $file_infos['height'],

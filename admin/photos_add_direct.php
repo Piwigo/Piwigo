@@ -119,7 +119,7 @@ if (isset($_POST['submit_upload']))
       $extension = pathinfo($_FILES['image_upload']['name'][$idx], PATHINFO_EXTENSION);
       if ('zip' == strtolower($extension))
       {
-        $upload_dir = PHPWG_ROOT_PATH.'upload/buffer';
+        $upload_dir = $conf['upload_dir'].'/buffer';
         prepare_directory($upload_dir);
         
         $temporary_archive_name = date('YmdHis').'-'.generate_key(10);

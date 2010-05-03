@@ -761,8 +761,10 @@ $conf['light_slideshow'] = true;
 // or other plugin variables etc
 $conf['local_data_dir'] = dirname(dirname(__FILE__)).'/_data';
 
-// where should the API add photos?
-$conf['upload_dir'] = PHPWG_ROOT_PATH.'upload';
+// where should the API/UploadForm add photos? This path must be relative to
+// the Piwigo installation directory (but can be outside, as long as it's
+// reachable from your webserver).
+$conf['upload_dir'] = './upload';
 
 // where should the user be guided when there is no photo in his gallery yet?
 $conf['no_photo_yet_url'] = 'admin.php?page=photos_add';
