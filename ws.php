@@ -276,6 +276,13 @@ function ws_addDefaultMethods( $arr )
     );
 
   $service->addMethod(
+    'pwg.images.checkUpload',
+    'ws_images_checkUpload',
+    null,
+    'check if Piwigo is ready for upload'
+    );
+
+  $service->addMethod(
     'pwg.images.setInfo',
     'ws_images_setInfo',
     array(

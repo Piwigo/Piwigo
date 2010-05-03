@@ -2126,4 +2126,52 @@ function ws_logfile($string)
     FILE_APPEND
     );
 }
+
+function ws_images_checkUpload($params, &$service)
+{
+  global $conf;
+
+  if (!is_admin() or is_adviser())
+  {
+    return new PwgError(401, 'Access denied');
+  }
+
+  $relative_dir = preg_replace('#^'.PHPWG_ROOT_PATH.'#', '', $conf['upload_dir']);
+
+  $ret['message'] = null;
+  $ret['ready_for_upload'] = true;
+  
+  if (!is_dir($conf['upload_dir']))
+  {
+    if (!is_writable(dirname($conf['upload_dir'])))
+    {
+      $ret['message'] = sprintf(
+        l10n('Create the "%s" directory at the root of your Piwigo installation'),
+        $relative_dir
+        );
+    }
+  }
+  else
+  {
+    if (!is_writable($conf['upload_dir']))
+    {
+      @chmod($conf['upload_dir'], 0777);
+      
+      if (!is_writable($conf['upload_dir']))
+      {
+        $ret['message'] = sprintf(
+          l10n('Give write access (chmod 777) to "%s" directory at the root of your Piwigo installation'),
+          $relative_dir
+          );
+      }
+    }
+  }
+
+  if (!empty($ret['message']))
+  {
+    $ret['ready_for_upload'] = false;
+  }
+  
+  return $ret;
+}
 ?>
