@@ -49,6 +49,12 @@ jQuery(document).ready(function(){
 
   }
 
+  if ($("select[name=category] option").length == 0) {
+    $('input[name=category_type][value=existing]').attr('disabled', true);
+    $('input[name=category_type]').attr('checked', false);
+    $('input[name=category_type][value=new]').attr('checked', true);
+  }
+
   $("input[name=category_type]").click(function () {
     $("[id^=category_type_]").hide();
     $("#category_type_"+$(this).attr("value")).show();
