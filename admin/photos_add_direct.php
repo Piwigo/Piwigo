@@ -444,39 +444,10 @@ $template->assign(
 
 $setup_errors = array();
 
-$upload_base_dir = 'upload';
-$upload_dir = PHPWG_ROOT_PATH.$upload_base_dir;
-
-if (!is_dir($upload_dir))
+$error_message = ready_for_upload_message();
+if (!empty($error_message))
 {
-  if (!is_writable(PHPWG_ROOT_PATH))
-  {
-    array_push(
-      $setup_errors,
-      sprintf(
-        l10n('Create the "%s" directory at the root of your Piwigo installation'),
-        $upload_base_dir
-        )
-      );
-  }
-}
-else
-{
-  if (!is_writable($upload_dir))
-  {
-    @chmod($upload_dir, 0777);
-
-    if (!is_writable($upload_dir))
-    {
-      array_push(
-        $setup_errors,
-        sprintf(
-          l10n('Give write access (chmod 777) to "%s" directory at the root of your Piwigo installation'),
-          $upload_base_dir
-          )
-        );
-    }
-  }
+  array_push($setup_errors, $error_message);
 }
 
 $template->assign(
