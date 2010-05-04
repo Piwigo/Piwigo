@@ -1,3 +1,35 @@
+<fieldset>
+<legend>Permisos para fotos</legend>
+
+<p>Cada foto tiene un <strong>nivel de privacidad</strong> (un cierre). Igual que cada usuario tiene su nivel de privacidad(una llave).Hay 5 niveles de privacidad:</p>
+<ol>
+  <li>Ninguno</li>
+  <li><em>Contactos</em></li>
+  <li><em>Amigos (que es superior al de un contacto)</em></li>
+  <li><em>Familia (que es superior al de un amigo)</em></li>
+  <li><em>Admins (que es superior al de otros niveles)</em></li>
+</ol>
+
+<p>Los niveles altos tienen permisos sobre los niveles bajos. Para  un usuario dado, mas alto sera el nivel de privacidad,  mas fotos pueda ver.</p>
+
+<p>Por ejemplo, si la foto "Boda_pedro-0024.jpg"tiene el nivel de privacidad<em>"Familia"</em>, entonces:</p>
+<ul>
+  <li>Pedro (que es un <em>"Admin"</em>) puede ver la foto porque<em>"Admins"</em> puede ver todas las fotos</li>
+  <li>Beth (que es un miembro de<em>"Familia"</em>) puede ver también la foto</li>
+  <li>Maria (que solo es <em>"Amigos"</em>) no puede ver la foto</li>
+</ul>
+
+<p>Un usuario que no tiene permiso para ver el contenido de una categoría no verá la categoría en sí misma, ni siquiera su título. El mismo principio se aplica a una etiqueta.</p>
+
+<p>Puede establecer el nivel de privacidad de un usuario en <span class="pwgScreen">Administración &raquo; Usuarios &raquo; Gestion</span> pantalla.</p>
+
+</fieldset>
+
+<fieldset>
+<legend>Permisos de las categorías</legend>
+
+<p>Si los niveles de privacidad no se ajustan a sus necesidades, también puede administrar los permisos de las categorías para un usuario o un grupo. Puede administrar los permisos en las fotos y las categorías al mismo tiempo, sin conflicto.</p>
+
 <p>Usted puede prohibir el acceso a las categorías. Pase el tipo de acceso a "intimidad" si usted desea administrar los permisos</p>
 
 <p>Usted puede devolver una categoría particular editándola (<span
