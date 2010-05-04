@@ -25,6 +25,36 @@ INPUT[type="submit"], INPUT[type="reset"]  { color:#666; border: 1px solid #777;
 input.rateButton, legend, h3 { color: #777; }
 h2 { color: #777; }
 
+INPUT[type="text"], INPUT[type="password"], INPUT[type="button"],
+INPUT[type="submit"], INPUT[type="reset"], INPUT[type="file"] {
+	background-color: #ddd;
+}
+
+INPUT.text, INPUT.password, INPUT.button,
+INPUT.submit, INPUT.reset, INPUT.file,
+SELECT, TEXTAREA {
+	background-color: #ddd;
+}
+
+INPUT:focus, SELECT:focus, TEXTAREA:focus, INPUT.focus, FORM .focus, INPUT.submit:hover {
+  background-color: #eee;
+  color: #666;
+}
+
+INPUT, SELECT, TEXTAREA { border: 1px solid #999; }
+
+INPUT[type="submit"]:hover, INPUT[type="reset"]:hover { cursor: pointer; }
+
+input[type="button"], input[type="submit"], input[type="reset"] {
+  background-color:#ddd;
+  border-color: #0cc9c;
+}
+
+input[type="button"]:hover, input[type="submit"]:hover, input[type="reset"]:hover {
+  color:#666;
+  border-color: #999;
+}
+
 
 #copyright { color:#777; margin:5px auto 0px 240px; text-align:center;
 padding-bottom: 15px; }
@@ -78,8 +108,6 @@ SPAN.pwgScreen { font-style:italic; border-bottom:1px dotted #666}
 
 /* borders */
 fieldset { border: 2px solid #ddd; }
-INPUT, SELECT, TEXTAREA { border: 1px solid #999; }
-input:focus, select:focus, textarea:focus, input.focus, form .focus { background-color:#bbb;color: #666; }
 TEXTAREA { cursor:text; font-size: 13px; }
 .content UL.thumbnails SPAN.wrap2 {
   border: 1px solid #555555;  /* thumbnails border color and style */
@@ -91,7 +119,6 @@ TEXTAREA { cursor:text; font-size: 13px; }
 
 .content ul.categoryActions a img { margin-left: 10px; }
 ul.thumbnails input { border:3px double #666; color:#666; font-size:10px; margin:0; background-color:#bbb; text-align: center;}
-INPUT[type="submit"]:hover , INPUT[type="reset"]:hover  { cursor: pointer; }
 INPUT.bigbutton:hover { background-color: #ddd;  color:#0cc; border: 0; }
 .throw  { font-size: 120%; line-height: 26px; padding-top: 10px; font-weight: bold; color: #0cc9c; }
 label { cursor:pointer }
@@ -171,8 +198,8 @@ position:relative; padding: 5px 1px 4px 5px; font-size: 13px; color: #777; }
 #adminHome:hover {background-color:#d0d0d0;}
 
 /* jQuery tooltips */
-.cluetip-default #cluetip-outer { border-color: #999; color: #999; background-color: #ddd; }
-.cluetip-default h3#cluetip-title { color: #0cc9c; background-color: #eee; }
+.cluetip-default #cluetip-outer { border-color:#999; color: #777; background-color: #eee; }
+.cluetip-default h3#cluetip-title { color: #0cc9c; background-color: #ddd; }
 /* jQuery ui resizable */
 .ui-resizable { position: relative; }
 .ui-wrapper { border: 0; }
@@ -216,10 +243,6 @@ body .ui-resizable-autohide .ui-resizable-handle { display: none; } /* use 'body
 img.ui-datepicker-trigger{margin:-2px 10px 1px -2px;}
 
 INPUT[type="text"].large  { width: 317px; }
-input[type="button"], input[type="submit"], input[type="reset"] {
-color:#0cc9c; background-color:#ddd; border-color: #0cc9c; }
-input[type="button"]:hover, input[type="submit"]:hover, input[type="reset"]:hover {
-color:#666; border-color: #999; }
 .bigbutton { background:transparent url(images/quickLocalSync.png) no-repeat scroll left top; display: block;
 color:#eee; font-size:28px; height:161px; margin: 0 20px 0 auto; padding:0 18px 0; text-align:center; width:625px;
 position:relative;  z-index: 50;}
