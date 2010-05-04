@@ -58,7 +58,6 @@ if ($conf['apache_authentication'])
     if (isset($_SERVER[$server_key]))
     {
       $remote_user = $_SERVER[$server_key];
-      echo $server_key;
       break;
     }
   }
