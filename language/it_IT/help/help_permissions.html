@@ -1,3 +1,35 @@
+<fieldset>
+<legend>Permessi per foto</legend>
+
+<p>Ogni foto a un <strong>livello di confidenzialità</strong>. Ogni utente a anche esso un livello di confidenzialità. Esistono 5 livelli di confidenzalità :
+<ol>
+  <li>Nessuno</li>
+  <li><em>Contatti</em></li>
+  <li><em>Amici</em> (che è più che un semplice contatto)</li>
+  <li><em>Famiglia</em> (che è più che un amico)</li>
+  <li><em>Admins</em> (che ricopre tutti gli altri livelli)</li>
+</ol>
+
+<p>I livelli superiori dispongono delle autorizzazioni per accedere ai livelli inferiori. Per un dato utente, più alto è il suo livello di confidenzialità, più foto potra vedere.</p>
+
+<p>Per esempio, se la foto "matrimonio_pietro-0024.jpg" a il livello di confidenzialità <em>"Famiglia"</em>, allora :</p>
+<ul>
+  <li>Pietro (che è <em>Admins</em>) può vederla visto che <em>"Admins"</em> ha tutti i diritti</li>
+  <li>Vanessa (che è <em>Famiglia</em>) può vederla anchessa</li>
+  <li>Maria (che è <em>Amici</em>) non potrà vederla</li>
+</ul>
+
+<p>Un'utente che non dispone delle autorizzazioni per vedere il contenuto di una categoria non vedrà la categoria. Stesso principio per un'tag.</p>
+
+<p>Potete attribuire un livello di confidenzialità a un'utente sulla schermata <span class="pwgScreen">Amministrazione &raquo; Utenti &raquo; Gestire</span>.</p>
+
+</fieldset>
+
+<fieldset>
+<legend>Autorizzazioni per categoria</legend>
+
+<p>Se i livelli di confidenzialità non corrispondono esattamente ai vostri bisogni, potete anche gestir le autorizzazioni per categoria e per un'utente o un gruppo di utenti. Potete gestire le autorizzazioni per foto e per categorianello stesso tempo e senza conflitti.</p>
+
 <p>Potete vietare l'accesso alle categorie. Settate il tipo d'accesso a "privato" se desiderate gestire i permessi</p>
 
 <p>Potete rendere una categoria privata modificandola (<span
@@ -12,3 +44,5 @@ class="pwgScreen">Amministrazione &raquo; Categorie &raquo; Proprietà &raquo; P
   <li><span class="pwgScreen">Amministrazione &raquo; Utenti &raquo; Gruppi &raquo; azione Permessi</span> (un' link per gruppo)</li>
   <li><span class="pwgScreen">Amministrazione &raquo; Categorie &raquo; Gestire &raquo; Modificare i permessi</span> (un' link per categoria)</li>
 </ul>
+
+</fieldset>
