@@ -1,12 +1,50 @@
-<p>你可以禁止访问某类别。如果你想管理访问权限，可以将类别的访问类型改为“私有”。</p>
+<fieldset>
+<legend>相片的权限</legend>
 
-<p>你可以在修改某个类别的时候设置其为私有的 (<span class="pwgScreen">管理员 &raquo; 类 &raquo; 管理 &raquo; 修改</span>) 或者通过设置选项去设置你的整个类别树 (<span class="pwgScreen">管理员 &raquo; 类 &raquo; 属性 &raquo; 公共 / 私有</span>).</p>
+<p>每张相片都有一个 <strong>私有级别</strong> (一个锁). 每个用户也有一个私有级别 (一个钥匙). 共有5个私有级别:</p>
+<ol>
+  <li>没有</li>
+  <li><em>联系人</em></li>
+  <li><em>朋友 (比联系人高级)</em></li>
+  <li><em>家庭 (比朋友高级)</em></li>
+  <li><em>管理员 (比任何级别都要高)</em></li>
+</ol>
 
-<p>当类别被设为私有时，你可以通过以下3个界面去管理组和用户的权限:</p>
+<p>高级别的拥有低级别的权限。一个拥有权限的用户，其私有级别越高，所能看到的相片也越多。</p>
 
+<p>例如，如果这张相片 "peter_wedding-0024.jpg" 拥有 <em>"家庭"</em> 的私有级别, 那么:</p>
 <ul>
-  <li><span class="pwgScreen">管理员 &raquo; 身份认证 &raquo; 用户 &raquo; 权限操作</span> (每个用户一个链接)</li>
-  <li><span class="pwgScreen">管理员 &raquo; 身份认证 &raquo; 组 &raquo; 权限操作</span> (每个组一个链接)</li>
-  <li><span class="pwgScreen">管理员 &raquo; 类 &raquo; 管理 &raquo; 修改 类的权限操作</span> (每个类一个链接)</li>
+  <li>Peter (是一个 <em>"管理员"</em>) 将可以看到此相片，因为 <em>"管理员"</em> 能看到所有相片</li>
+  <li>Beth (是一个 <em>"家庭"</em> 成员) 将可以看到此相片</li>
+  <li>Mary (只是一个 <em>"朋友"</em>) 将不能看到此相片</li>
 </ul>
 
+<p>如果一个用户没有看到类别内容的权限，那么他也不能看到自己的类别，甚至是它的标题。同样的规则也适用于标签。</p>
+
+<p>您可以在 <span class="pwgScreen">管理员 &raquo; 用户 &raquo; 管理</span> 的界面里为用户设置私有级别。</p>
+
+</fieldset>
+
+<fieldset>
+<legend>类别的权限</legend>
+
+<p>如果私有级别不能满足您的需要，您也可以设置类别上的权限以管理用户或组。您可以同时设置相片和类别上的权限，这并没有冲突。</p>
+
+<p>如果您想禁止类别的访问，可以改变类别访问类型为 "私有" </p>
+
+<p>您可以通过
+(<span class="pwgScreen">管理员 &raquo; 类别 &raquo; 管理 &raquo; 修改</span>) 将某个类别设置为私有，或者通过设置选项
+(<span class="pwgScreen">管理员 &raquo; 类别 &raquo; 属性 &raquo; 公有 / 私有</span>) 设置全局的类别属性.</p>
+
+<p>当类别被设置为私有时，您可以通过以下3个界面对用户组和用户的权限进行管理:</p>
+
+<ul>
+
+  <li><span class="pwgScreen">管理员 &raquo; 用户 &raquo; 管理 &raquo;  权限设置</span> (每个用户一个链接)</li>
+
+  <li><span class="pwgScreen">管理员 &raquo; 用户 &raquo; 组 &raquo;  权限设置</span> (每个组一个链接)</li>
+
+  <li><span class="pwgScreen">管理员 &raquo; 类别 &raquo; 管理 &raquo; 权限设置</span> (每个类别一个链接)</li>
+
+</ul>
+</fieldset>
