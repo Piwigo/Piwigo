@@ -50,12 +50,26 @@ if (session_id()=="")
 }
 
 // using Apache authentication override the above user search
-if ($conf['apache_authentication'] and isset($_SERVER['REMOTE_USER']))
+if ($conf['apache_authentication'])
 {
-  if (!($user['id'] = get_userid($_SERVER['REMOTE_USER'])))
+  $remote_user = null;
+  foreach (array('REMOTE_USER', 'REDIRECT_REMOTE_USER') as $server_key)
   {
-    register_user($_SERVER['REMOTE_USER'], '', '', false);
-    $user['id'] = get_userid($_SERVER['REMOTE_USER']);
+    if (isset($_SERVER[$server_key]))
+    {
+      $remote_user = $_SERVER[$server_key];
+      echo $server_key;
+      break;
+    }
+  }
+
+  if (isset($remote_user))
+  {
+    if (!($user['id'] = get_userid($remote_user)))
+    {
+      register_user($remote_user, '', '', false);
+      $user['id'] = get_userid($remote_user);
+    }
   }
 }
 
