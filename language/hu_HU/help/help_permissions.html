@@ -1,3 +1,33 @@
+<fieldset>
+<legend>Jogosultságok a képekhez</legend>
+
+<p>Minden képhez tartozik <strong>hozzáférési szint</strong> (zárolás). Minden felhasználóhoz tartozik hozzáférési szint (egy kulcs). A jelenlegi 5 hozzáférési szint:</p>
+<ol>
+  <li>Egyik sem</li>
+  <li><em>Kapcsolattartók</em></li>
+  <li><em>Barátok (magasabb mint a Kapcsolattartók)</em></li>
+  <li><em>Család (magasabb mint a Barátok)</em></li>
+  <li><em>Adminisztrátor (magasabb minden más szintnél)</em></li>
+</ol>
+
+<p>Magasabb hozzáférési szint tulajdonosa jogosult az alacsonyabb hozzáférési szint megtekintésére. Minél magasabb a felhasználó hozzáférési szintje, annál több képet tekinthet meg.</p>
+
+<p>Például ha a "peter_wedding-0024.jpg" kép hozzáférési szintje <em>"Család"</em>, akkor:</p>
+<ul>
+  <li>Péter (aki <em>"Adminisztrátor"</em>) látni fogja a képet, mert az <em>"Adminisztrátorok"</em> láthatják az összes képet</li>
+  <li>Betti (aki a <em>"Család"</em> tagja) látni fogja a képet</li>
+  <li>Marika (aki a <em>"Barátok"</em> tagja) nem fogja látni a képet</li>
+</ul>
+
+<p>Egy felhasználó akinek nincs jogosultsága a kategória tartalmának megtekintéséhez, nem látja sem a kategóriát, sem a kategória címét. Ugyanez az elv érvényes a címkére is.</p>
+
+<p>Az egyes felhasználókhoz tartozó hozzáférési szint az <span class="pwgScreen">Adminisztráció &raquo; Felhasználók &raquo; Kezelés</span> lapon állítható be.</p>
+
+</fieldset>
+
+<fieldset>
+<legend>Jogosultságok a kategóriákhoz</legend>
+
 <p>Szabályozható a kategóriákhoz történő hozzáférés. A kategóriákhoz történő hozzáférés jogosultjainak kezeléséhez a kategória típusát "Privát" szintre kell váltani.</p>
 
 <p>Egy kategória privát kategóriává történő módosítása elvégezhető a kategória szerkesztésével
