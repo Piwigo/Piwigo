@@ -1,14 +1,31 @@
-<p>Do poszczególnych kategorii można zabronić dostępu. Kategorie mogą być "publiczne" lub
-"prywatne". Uprawnienia (dla grup i użytkowników) mogą być ustawione tylko dla kategorii "prywatnych".</p>
+<fieldset>
+<legend>Uprawnienia dla zdjęć</legend>
 
-<li>Możesz ustawić kategorię jako "prywatna" dla pojedynczej kategorii (<span
-class="pwgScreen">Administracja &raquo; Kategorie &raquo; Zarządzaj &raquo; edycja</span>) lub przez ustawienie opcji dla całego drzewa (<span class="pwgScreen">Administracja &raquo; Kategories &raquo; Właściwości &raquo; Publiczna / Prywatna</span>).</p>
+<p>Każde zdjęcie posiada <strong>poziom prywatności</strong> (blokadę). Każdy użytkownik także posiada poziom prywatności (klucz). Jest 5 poziomów prywatności:</p>
+<ol>
+  <li>Brak</li>
+  <li><em>Kontakty</em></li>
+  <li><em>Przyjaciele (który jest wyższy niż Kontakty)</em></li>
+  <li><em>Rodzina (który jest wyższy niż Przyjaciele)</em></li>
+  <li><em>Administratorzy (który jest wyższy niż każdy inny poziom)</em></li>
+</ol>
 
-<p>Po ustawieniu kateogrii kako prywatna, możesz zarządzać uprawnieniami dla grup i użytkowników przy pomocy następujących 3 ekranów :</p>
+<p>Wyższe poziomy posiadają uprawnienia do niższych poziomów. Jeżeli dany użytkownik posiada wyższy poziom prywatności, to może oglądać więcej zdjęć.</p>
 
+<p>Na przykład jeżeli zdjęcie "peter_wedding-0024.jpg" poziada poziom prywatności <em>"Rodzina"</em>, to:</p>
 <ul>
-  <li><span class="pwgScreen">Administracja &raquo; Użytkownicy &raquo; Zarządzaj &raquo; akcja uprawnienia</span> (jeden link per użytkownik)</li>
-  <li><span class="pwgScreen">Administracja &raquo; Użytkownicy &raquo; Grupy &raquo; akcja uprawnienia</span> (jeden link per grupa)</li>
-  <li><span class="pwgScreen">Administracja &raquo; Kategorie &raquo; Zarządzaj &raquo; akcja edycja uprawnień kategorii</span> (jeden link per kategoria)</li>
+  <li>Piotr (który posiada poziom <em>"Administratorem"</em>) będzie widział zdjęcie ponieważ <em>"Administratorzy"</em> mogą oglądać wszystkie zdjęcia</li>
+  <li>Beata (która posiada poziom <em>"Rodzina"</em>) także będzie widzieć zdjęcie</li>
+  <li>Maria (która poziada poziom tylko <em>"Przyjaciel"</em>) nie będzie widziąła zdjęcia</li>
 </ul>
 
+<p>Użytkownik, który nie posiada uprawnień do oglądania zawartości danej kategorii, nie będzie widział nawet tej kategorii. Ta sama zasada dotyczy tagów.</p>
+
+<p>Możesz ustawić poziom prywatności dla użytkownika w: <span class="pwgScreen">Administracja&raquo; Użytkownicy &raquo; Zarządzaj</span> .</p>
+
+</fieldset>
+
+<fieldset>
+<legend>Uprawnienia na kategoriach</legend>
+
+<p>Jeżeli poziomy prywatności nie bardzo pasują do Twoich potrzeb, możesz także zarządzać uprawnieniami na kategoriach dla użytkowników oraz grup. W tym samym czasie możesz zarządzać uprawnieniami dla zdjęć oraz kategorii, nie powodując konfliktów.</p>
