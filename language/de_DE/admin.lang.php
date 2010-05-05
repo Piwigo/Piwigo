@@ -667,6 +667,7 @@ $lang['Select files'] = 'Wähle Dateien aus';
 $lang['JPEG files or ZIP archives with JPEG files inside please.'] = 'JPEG Dateien oder ZIP Archive, die JPEG Dateien enthalten bitte.';
 $lang['Everybody'] = 'Jedermann';
 $lang['Who can see these photos?'] = 'Wer soll die Fotos sehen können?';
+$lang['Who can see this photo?'] = 'Wer soll dieses Foto sehen können?';
 $lang['... or switch to the old style form'] = '... oder schalte um auf das alte Formular';
 $lang['... or switch to the multiple files form'] = '... oder schalte um auf Mehrfachauswahl';
 $lang['The websize maximum width must be a number between %d and %d'] = 'Die maximale Breite muss eine Zahl zwischen %d und %d sein';
