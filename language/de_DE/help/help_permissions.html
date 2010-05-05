@@ -1,17 +1,54 @@
-<p>Du kannst den Zugriff auf bestimmte Kategorien beschränken. Die Kategorien können
-öffentlich oder privat sein. Zugriffsbeschränkungen für bestimmte Benutzer oder Gruppen
-können nur für private Kategorien eingerichtet werden.</p>
+<fieldset>
+<legend>Berechtigungen für Fotos</legend>
 
-<p>So kannst du eine einzelne öffentliche Kategorie in eine private ändern (<span
-class = "pwgScreen">Verwaltung &raquo; Kategorien &raquo; Verwalten &raquo; Bearbeiten (Icon rechts)</span>) oder
-alle Kategorien verwalten (<span class = "pwgScreen">Verwaltung &raquo; Kategorien &raquo; Eigenschaften &raquo; Public / Private</span>).</p>
+<p>Jedem Foto ist eine <strong>Berechtigungsstufe</strong> (eine Sperre) zugewiesen, genauso wie jeder Benutzer eine gewisse Berechtigungsstufe besitzt (ein Schlüssel). Es gibt fünf Berechtigungsstufen:</p>
+<ol>
+  <li>Keine Berechtigung</li>
+  <li><em>Kontakte</em></li>
+  <li><em>Freunde (eine Stufe höher als Kontakte)</em></li>
+  <li><em>Familie (eine Stufe höher als Freunde)</em></li>
+  <li><em>Administratoren (die höchste Berechtigungsstufe)</em></li>
+</ol>
 
-<p>Wenn eine Ketegorie privat ist, kannst du die Berechtigungen für Gruppen und Benutzer auf 3
-unterschiedlichen Seiten einstellen:</p>
+<p>Eine höhere Stufe erbt alle Berechtigungen der niedrigeren Stufen. Für einen Benutzer gilt: Je höher seine Berechtigungsstufe, desto mehr Fotos kann er sehn.</p>
 
+<p>Ein Beispiel: Wenn dem Foto "peter_hochzeit-0024.jpg" die Berechtigungsstufe <em>"Familie"</em> zugewiesen ist, dann:</p>
 <ul>
-  <li><span class="pwgScreen">Verwaltung  &raquo; Verwaltung &raquo; Benutzer &raquo; Aktionen</span> (jeweils ein Limk pro Benutzer)</li>
-  <li><span class="pwgScreen">Verwaltung  &raquo; Verwaltung &raquo; Gruppen &raquo; Aktionen</span> (jeweils ein Link pro Gruppe)</li>
-  <li><span class="pwgScreen">Administration &raquo; Kategorien &raquo; Verwalten &raquo; Berechtigung für Kategorie ändern</span> (jeweils ein Link pro Kategorie)</li>
+  <li>kann Peter (der ein <em>"Administrator"</em> ist) das Foto sehn, weil <em>"Administratoren"</em> alle Fotos sehen können</li>
+  <li>kann Elisabeth (die Teil der <em>"Familie"</em> ist) das Foto ebenfalls sehen</li>
+  <li>kann Marie (die nur ein <em>"Freund"</em> ist) das Foto nicht sehen</li>
 </ul>
 
+<p>Ein Benutzer der keine Berechtigungen hat, den Inhalt einer Kategorie zu sehen, kann weder die Kategorie selbst, noch den Titel der Kategorie sehn. Das selbe Prinzip wird auch auf Bezeichnungen angewendet.</p>
+
+<p>Sie können die Berechtigungsstufe eines Benutzers unter <span class="pwgScreen">Administration &raquo; Benutzer &raquo; Verwalten</span> sehn.</p>
+
+</fieldset>
+
+<fieldset>
+<legend>Berechtigungen für Kategorien</legend>
+
+<p>Wenn die definierten Berechtigungsstufen nicht Ihren Bedürfnissen entsprechen, haben Sie auch die Möglichkeit, Benutzern oder Gruppen Berechtigungen auf Kategorien zu vergeben. Sie können problemlos Berechtigungen für Kategorien und Fotos parallel verwenden.</p>
+
+<p>Um Berechtigungen einer Kategorie zu verwalten, müssen Sie die Zugangsart der Kategorie auf "privat" setzen.</p>
+
+<p>Sie können eine Kategorie auf "privat" setzen, indem Sie eine einzelne Kategorie bearbeiten
+(<span class="pwgScreen">Administration &raquo; Kategorien &raquo; Verwalten
+&raquo; Bearbeiten</span>) oder indem Sie Eigenschaften für alle Kategorien festlegen
+(<span class="pwgScreen">Administration &raquo; Kategorien &raquo;
+Eigenschaften &raquo; Öffentlich / Privat</span>).</p>
+
+<p>Wenn eine Kategorie als "privat" markiert ist, können Sie die Berechtigungen für Benutzer und Gruppen an drei unterschiedlichen Stellen vornehmen:</p>
+
+<ul>
+
+  <li><span class="pwgScreen">Administration &raquo; Benutzer &raquo; Verwalten &raquo;
+  Aktionen, Berechtigungen</span> (jeweils ein Link pro Benutzer)</li>
+
+  <li><span class="pwgScreen">Administration &raquo; Benutzer &raquo; Gruppen &raquo;
+  Aktionen, Berechtigungen</span> (jeweils ein Link pro Gruppe)</li>
+
+  <li><span class="pwgScreen">Administration &raquo; Kategorien &raquo; Verwalten &raquo; Aktionen, Berechtigungen für Kategorie ändern</span> (jeweils ein Link pro Kategorie)</li>
+
+</ul>
+</fieldset>
