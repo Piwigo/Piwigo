@@ -112,9 +112,39 @@ WHERE id IN ("' . implode('","', $plugins) . '")
 }
 
 // Check access rights
-function check_upgrade_access_rights($current_release, $username, $password)
+function check_upgrade_access_rights()
 {
-  global $conf, $page;
+  global $conf, $page, $current_release;
+
+  if (version_compare($current_release, '2.0', '>=') and isset($_COOKIE[session_name()]))
+  {
+    // Check if user is already connected as webmaster
+    session_start();
+    if (!empty($_SESSION['pwg_uid']))
+    {
+      $query = '
+SELECT status
+  FROM '.USER_INFOS_TABLE.'
+  WHERE user_id = '.$_SESSION['pwg_uid'].'
+;';
+      pwg_query($query);
+
+      $row = pwg_db_fetch_assoc(pwg_query($query));
+      if (isset($row['status']) and $row['status'] == 'webmaster')
+      {
+        define('PHPWG_IN_UPGRADE', true);
+        return;
+      }
+    }
+  }
+
+  if (!isset($_POST['username']) or !isset($_POST['password']))
+  {
+    return;
+  }
+
+  $username = $_POST['password'];
+  $password = $_POST['password'];
 
   if(!@get_magic_quotes_gpc())
   {
@@ -230,34 +260,4 @@ function upgrade_db_connect()
     my_error(l10n($e->getMessage()), true); 
   }
 }
-
-/**
- *  Get languages defined in the language directory
- */  
-function get_fs_languages($target_charset = null)
-{
-  if ( empty($target_charset) )
-  {
-    $target_charset = get_pwg_charset();
-  }
-  $target_charset = strtolower($target_charset);
-  
-  $dir = opendir(PHPWG_ROOT_PATH.'language');
-  
-  while ($file = readdir($dir))
-  {
-    $path = PHPWG_ROOT_PATH.'language/'.$file;
-    if (!is_link($path) and is_dir($path) and file_exists($path.'/iso.txt'))
-    {
-      list($language_name) = @file($path.'/iso.txt');
-      
-      $languages[$file] = convert_charset($language_name, $target_charset);
-    }
-  }
-  closedir($dir);
-  @asort($languages);
-  
-  return $languages;
-}
-
 ?>

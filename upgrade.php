@@ -36,9 +36,6 @@ if ($php_end_tag === false)
   die('Cannot find php end tag in '.$config_file);
 }
 
-include_once(PHPWG_ROOT_PATH.'include/functions.inc.php');
-include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
-
 include(PHPWG_ROOT_PATH.'local/config/database.inc.php');
 include(PHPWG_ROOT_PATH . 'include/config_default.inc.php');
 @include(PHPWG_ROOT_PATH. 'local/config/config.inc.php');
@@ -48,6 +45,9 @@ define('USERS_TABLE', $prefixeTable.'users');
 include_once(PHPWG_ROOT_PATH.'include/constants.php');
 define('PREFIX_TABLE', $prefixeTable);
 define('UPGRADES_PATH', PHPWG_ROOT_PATH.'install/db');
+
+include_once(PHPWG_ROOT_PATH.'include/functions.inc.php');
+include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
 
 // +-----------------------------------------------------------------------+
 // |                              functions                                |
@@ -279,12 +279,10 @@ $page['infos'] = array();
 $page['errors'] = array();
 $mysql_changes = array();
 
-if (isset($_POST['username']) and isset($_POST['password']))
-{
-  check_upgrade_access_rights($current_release, $_POST['username'], $_POST['password']);
-}
+check_upgrade_access_rights();
 
-if (isset($_POST['submit']) and check_upgrade())
+if ((isset($_POST['submit']) or isset($_GET['now']))
+  and check_upgrade())
 {
   $upgrade_file = PHPWG_ROOT_PATH.'install/upgrade_'.$current_release.'.php';
   if (is_file($upgrade_file))
