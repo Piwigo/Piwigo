@@ -64,6 +64,21 @@ function pwg_db_connect($host, $user, $password, $database)
   return $link;
 }
 
+function pwg_db_check_version()
+{
+  $current_version = pwg_get_db_version();
+  if (version_compare($current_version, REQUIRED_SQLITE_VERSION, '<'))
+  {
+    fatal_error(
+      sprintf(
+        'your database version is too old, you have "%s" and you need at least "%s"',
+        $current_version,
+        REQUIRED_SQLITE_VERSION
+        )
+      );
+  }
+}
+
 function pwg_db_check_charset() 
 {
   return true;

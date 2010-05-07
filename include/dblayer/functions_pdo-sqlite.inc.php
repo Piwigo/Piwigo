@@ -21,7 +21,7 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
-define('REQUIRED_PDO-SQLITE_VERSION', '3.0.0');
+define('REQUIRED_PDO_SQLITE_VERSION', '3.0.0');
 define('DB_ENGINE', 'SQLite');
 
 define('DB_REGEX_OPERATOR', 'REGEXP');
@@ -53,6 +53,21 @@ function pwg_db_connect($host, $user, $password, $database)
   $link->sqliteCreateFunction('regexp', 'pwg_regexp', 2);
 
   return $link;
+}
+
+function pwg_db_check_version()
+{
+  $current_version = pwg_get_db_version();
+  if (version_compare($current_version, REQUIRED_PDO_SQLITE_VERSION, '<'))
+  {
+    fatal_error(
+      sprintf(
+        'your database version is too old, you have "%s" and you need at least "%s"',
+        $current_version,
+        REQUIRED_PDO_SQLITE_VERSION
+        )
+      );
+  }
 }
 
 function pwg_db_check_charset() 

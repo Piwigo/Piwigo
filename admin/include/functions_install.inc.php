@@ -143,6 +143,8 @@ function activate_core_themes()
 
 function install_db_connect(&$infos, &$errors)
 {
+  global $pwg_db_link;
+  
   try
   {
     $pwg_db_link = pwg_db_connect($_POST['dbhost'], $_POST['dbuser'], $_POST['dbpasswd'], $_POST['dbname']);

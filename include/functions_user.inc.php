@@ -298,7 +298,7 @@ SELECT ui.*, uc.*, t.name AS theme_name
     LEFT JOIN '.THEMES_TABLE.' AS t ON t.id = ui.theme
   WHERE ui.user_id = \''.$user_id.'\'';
     $result = pwg_query($query);
-    if (pwg_db_num_rows($result) > 0)
+    if ($result)
     {
       break;
     }
