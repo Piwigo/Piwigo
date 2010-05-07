@@ -29,7 +29,19 @@
 include_once(PHPWG_ROOT_PATH.'/include/functions_metadata.inc.php');
 if (($conf['show_exif']) and (function_exists('read_exif_data')))
 {
-  if ($exif = @read_exif_data($picture['current']['image_path']))
+  $exif_mapping = array();
+  foreach ($conf['show_exif_fields'] as $field)
+  {
+    $exif_mapping[$field] = $field;
+  }
+
+  $exif = get_exif_data($picture['current']['image_path'], $exif_mapping);
+  if (count($exif) == 0 and $picture['current']['has_high'])
+  {
+    $exif = get_exif_data($picture['current']['high_url'], $exif_mapping);
+  }
+  
+  if (count($exif) > 0)
   {
     $exif = trigger_event('format_exif_data', $exif, $picture['current'] );
 
@@ -72,8 +84,11 @@ if (($conf['show_exif']) and (function_exists('read_exif_data')))
 
 if ($conf['show_iptc'])
 {
-  $iptc = get_iptc_data($picture['current']['image_path'],
-                        $conf['show_iptc_mapping']);
+  $iptc = get_iptc_data($picture['current']['image_path'], $conf['show_iptc_mapping']);
+  if (count($iptc) == 0 and $picture['current']['has_high'])
+  {
+    $iptc = get_iptc_data($picture['current']['high_url'], $conf['show_iptc_mapping']);
+  }
 
   if (count($iptc) > 0)
   {
