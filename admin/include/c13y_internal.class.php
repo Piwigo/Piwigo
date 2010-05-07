@@ -47,7 +47,7 @@ class c13y_internal
     $db_version = pwg_get_db_version();
     $check_list[] = array('type' => $conf['dblayer'],
 			  'current' => $db_version, 
-			  'required' => constant('REQUIRED_'.strtoupper($conf['dblayer']).'_VERSION')
+			  'required' => constant('REQUIRED_'.str_replace('-', '_', strtoupper($conf['dblayer'])).'_VERSION')
 			  );
 
     foreach ($check_list as $elem)
