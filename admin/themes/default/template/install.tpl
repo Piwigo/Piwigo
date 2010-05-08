@@ -20,6 +20,10 @@ $(function() {
     if ($option_selected=='sqlite' || $option_selected=='pdo-sqlite') {
        $('input[name=dbhost],input[name=dbuser],input[name=dbpasswd]').parent().parent().hide();
     }
+    if ($option_selected=='mysql') {
+        $('#experimentalDbEngines').hide();
+    }
+
     $('#dblayer').change(function() {
         $db = this;
         if ($db.value=='sqlite' || $db.value=='pdo-sqlite') {
@@ -27,8 +31,23 @@ $(function() {
         } else {
            $('input[name=dbhost],input[name=dbuser],input[name=dbpasswd]').parent().parent().show();
         }
+
+        if ($db.value=='mysql') {
+            $('#experimentalDbEngines').hide();
+        }
+        else {
+            $('#experimentalDbEngines').show();
+        }
       });
   });
+
+$(document).ready(function() {
+  $("a.externalLink").click(function() {
+    window.open($(this).attr("href"));
+    return false;
+  });
+});
+
 </script>
 
 <style type="text/css">
@@ -71,9 +90,10 @@ body {
   text-transform:none; 
 }
 
-.table2 {
+table.table2 {
   width: 100%;
   margin-bottom: 1em !important;
+  border:0;
 }
 
 TD {
@@ -101,6 +121,8 @@ TD {
   background-image:url(admin/themes/default/icon/errors.png);
   background-repeat:no-repeat;
 }
+
+#experimentalDbEngines TD {border:2px solid #666;background-color:#444; color:#ccc;}
 </style>
 {/literal}
 <title>Piwigo {$RELEASE} - {'Installation'|@translate}</title>
@@ -193,6 +215,12 @@ TD {
     <input type="hidden" name="dbengine" value="{$F_DB_LAYER}">
     </td>
     {/if}
+    </tr>
+    <tr id="experimentalDbEngines">
+      <td colspan="3">
+      {'SQLite and PostgreSQL are currently in experimental state.'|@translate}
+      <a href="http://piwigo.org/forum/viewtopic.php?id=15927" class="externalLink">{'Learn more'|@translate}</a>
+      </td>
     </tr>
     <tr>
       <td style="width: 30%;">{'Host'|@translate}</td>

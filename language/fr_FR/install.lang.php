@@ -71,4 +71,6 @@ $lang['An alternate solution is to copy the text in the box above and paste it i
 $lang['Creation of config file local/config/database.inc.php failed.'] = 'La création du fichier de configuration local/config/database.inc.php a échoué.';
 $lang['Download the config file'] = 'Télécharger le fichier de configuration';
 $lang['You can download the config file and upload it to local/config directory of your installation.'] = 'Vous pouvez télécharger le fichier de configuration et le transférer dans le répertoire local/config de votre installation Piwigo.';
+$lang['SQLite and PostgreSQL are currently in experimental state.'] = 'Les types SQLite et PostgreSQL sont actuellement en phase expérimentale.';
+$lang['Learn more'] = 'En savoir plus';
 ?>
