@@ -169,8 +169,7 @@ SELECT i.id,
        i.average_rate,
        MAX(r.date)          AS recently_rated,
        COUNT(r.rate)        AS nb_rates,
-       SUM(r.rate)          AS sum_rates,
-       ROUND(STD(r.rate),2) AS std_rates
+       SUM(r.rate)          AS sum_rates
   FROM '.RATE_TABLE.' AS r
     LEFT JOIN '.IMAGES_TABLE.' AS i ON r.element_id = i.id
   WHERE 1 = 1 ' . $page['user_filter'] . '
@@ -206,7 +205,6 @@ ORDER BY date DESC;';
        'U_THUMB' => $thumbnail_src,
        'U_URL' => $image_url,
        'AVG_RATE' => $image['average_rate'],
-       'STD_RATE' => $image['std_rates'],
        'SUM_RATE' => $image['sum_rates'],
        'NB_RATES' => (int)$image['nb_rates'],
        'NB_RATES_TOTAL' => (int)$nb_rates,

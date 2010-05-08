@@ -38,7 +38,6 @@
   <td>{'File'|@translate}</td>
   <td>{'Number of rates'|@translate}</td>
   <td>{'Average rate'|@translate}</td>
-  <td>{'Controversy'|@translate}</td>
   <td>{'Sum of rates'|@translate}</td>
   <td>{'Rate'|@translate}</td>
   <td>{'Username'|@translate}</td>
@@ -50,7 +49,6 @@
   <td rowspan="{$image.NB_RATES_TOTAL+1}"><a href="{$image.U_URL}"><img src="{$image.U_THUMB}" alt="{$image.FILE}" title="{$image.FILE}"></a></td>
   <td rowspan="{$image.NB_RATES_TOTAL+1}"><strong>{$image.NB_RATES}/{$image.NB_RATES_TOTAL}</strong></td>
   <td rowspan="{$image.NB_RATES_TOTAL+1}"><strong>{$image.AVG_RATE}</strong></td>
-  <td rowspan="{$image.NB_RATES_TOTAL+1}"><strong>{$image.STD_RATE}</strong></td>
   <td rowspan="{$image.NB_RATES_TOTAL+1}" style="border-right: 1px solid;" ><strong>{$image.SUM_RATE}</strong></td>
 </tr>
 {foreach from=$image.rates item=rate name=rate}

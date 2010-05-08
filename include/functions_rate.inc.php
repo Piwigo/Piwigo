@@ -120,7 +120,6 @@ INSERT
   $query = '
 SELECT COUNT(rate) AS count
      , ROUND(AVG(rate),2) AS average
-     , ROUND(STD(rate),2) AS stdev
   FROM '.RATE_TABLE.'
   WHERE element_id = '.$image_id.'
 ;';
