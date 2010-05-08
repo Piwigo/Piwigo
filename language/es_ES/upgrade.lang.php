@@ -39,8 +39,7 @@ $lang['User permissions and group permissions have been erased'] = 'Las autoriza
 $lang['Only thumbnails prefix and webmaster mail address have been saved from previous configuration'] = 'Sólo el prefijo de las miniaturas y el email  del webmestre han sido salvaguardados por la configuración precedente';
 
 
-$lang['This page proposes to upgrade your database corresponding to your old version of Piwigo to the current version.
-The upgrade assistant thinks you are currently running a <strong>release %s</strong> (or equivalent).'] = 'Esta página le propone poner al día la base de datos de su antigua versión de piwigo hacia la nueva versión.
+$lang['This page proposes to upgrade your database corresponding to your old version of Piwigo to the current version. The upgrade assistant thinks you are currently running a <strong>release %s</strong> (or equivalent).'] = 'Esta página le propone poner al día la base de datos de su antigua versión de piwigo hacia la nueva versión.
 El asistente de postura al día piensa que usted dispone actualmente del <strong>versión %s</strong> (o equivalente).';
 
 ?>

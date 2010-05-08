@@ -23,8 +23,7 @@
 
 
 $lang['Upgrade'] = "升级";
-$lang['This page proposes to upgrade your database corresponding to your old version of Piwigo to the current version.
-The upgrade assistant thinks you are currently running a <strong>release %s</strong> (or equivalent).'] = "此页面将把您的 Piwigo 旧版本的数据库升级为新版本。
+$lang['This page proposes to upgrade your database corresponding to your old version of Piwigo to the current version. The upgrade assistant thinks you are currently running a <strong>release %s</strong> (or equivalent).'] = "此页面将把您的 Piwigo 旧版本的数据库升级为新版本。
 升级助手将会认为您正在运行 <strong>版本 %s</strong> (或者相同的版本).";
 $lang['Upgrade from version %s to %s'] = "从 %s 版升级到 %s";
 $lang['Statistics'] = "统计";

@@ -37,4 +37,6 @@ $lang['All sub-categories of private categories become private'] = 'Tất cả c
 $lang['User permissions and group permissions have been erased'] = 'Sự cho phép người dùng và nhóm người dùng đã được xóa bỏ.';
 $lang['Only thumbnails prefix and webmaster mail address have been saved from previous configuration'] = 'Chỉ có hình thu nhỏ đứng trước và địa chỉ email của webmaster mới được lưu lại từ cấu hình của phiên bản cũ.';
 
+//For version 2.1.0
+$lang['This page proposes to upgrade your database corresponding to your old version of Piwigo to the current version. The upgrade assistant thinks you are currently running a <strong>release %s</strong> (or equivalent).'] = "This page proposes to upgrade the database from your Piwigo old version to the new version. The upgrade assistant thinks you are currently running a <strong>release %s</strong> (or equivalent).";
 ?>

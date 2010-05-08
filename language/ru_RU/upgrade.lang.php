@@ -37,8 +37,7 @@ $lang['All sub-categories of private categories become private'] = 'Все по�
 $lang['User permissions and group permissions have been erased'] = 'Разрешения пользователей и групп были стерты';
 $lang['Only thumbnails prefix and webmaster mail address have been saved from previous configuration'] = 'Только префикс эскизов и адрес почты вебмастера были сохранены от предыдущей конфигурации';
 
-$lang['This page proposes to upgrade your database corresponding to your old version of Piwigo to the current version.
-The upgrade assistant thinks you are currently running a <strong>release %s</strong> (or equivalent).'] = 'Эта страница предлагает модернизировать базу данных от Вашей старой версии Piwigo до новой версии.
+$lang['This page proposes to upgrade your database corresponding to your old version of Piwigo to the current version. The upgrade assistant thinks you are currently running a <strong>release %s</strong> (or equivalent).'] = 'Эта страница предлагает модернизировать базу данных от Вашей старой версии Piwigo до новой версии.
 Помощник обновления думает, что Вы используете в настоящее время <b> выпуск %s </b> (или эквивалентный).';
 $lang['As a precaution, following plugins have been deactivated. You must check for plugins upgrade before reactiving them:'] = 'Желательно, чтобы следующие плагины были дезактивированы. Вы должны проверить обновления плагинов прежде, чем активировать их снова:';
 

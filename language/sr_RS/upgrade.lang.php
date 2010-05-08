@@ -24,8 +24,7 @@
 
 
 $lang['Upgrade'] = "Nadogradnja";
-$lang['This page proposes to upgrade your database corresponding to your old version of Piwigo to the current version.
-The upgrade assistant thinks you are currently running a <strong>release %s</strong> (or equivalent).'] = "Ova stranica predlaže nadogradnju baze sa Piwigo stare verzije na novu.
+$lang['This page proposes to upgrade your database corresponding to your old version of Piwigo to the current version. The upgrade assistant thinks you are currently running a <strong>release %s</strong> (or equivalent).'] = "Ova stranica predlaže nadogradnju baze sa Piwigo stare verzije na novu.
 Asistent nadogradnje procenjuje da trenutno koristite <strong>izdanje %s</strong> (ili ekvivalentnu).";
 $lang['Upgrade from version %s to %s'] = "Nadogradnja sa verzije %s na %s";
 $lang['Statistics'] = "Statistika";

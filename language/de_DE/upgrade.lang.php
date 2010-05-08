@@ -34,8 +34,7 @@ $lang['You do not have access rights to run upgrade'] = 'Sie haben nicht die erf
 $lang['All sub-categories of private categories become private'] = 'Alle Unterkategorien von privaten Kategorien bekommen den Status "private Kategorie"';
 $lang['User permissions and group permissions have been erased'] = 'Alle Benutzer- und Gruppenberechtigungen/beschränkungen wurden entfernt';
 $lang['Only thumbnails prefix and webmaster mail address have been saved from previous configuration'] = 'Es wurden nur die Thumbnail-Präfixe und die Mailadresse des Webmasters übernommen';
-$lang['This page proposes to upgrade your database corresponding to your old version of Piwigo to the current version.
-The upgrade assistant thinks you are currently running a <strong>release %s</strong> (or equivalent).'] = 'Diese Seite hat vor, Ihre Datenbank entsprechend Ihrer alten Version von Piwigo zur gegenwärtigen Version zu aktualisieren.
+$lang['This page proposes to upgrade your database corresponding to your old version of Piwigo to the current version. The upgrade assistant thinks you are currently running a <strong>release %s</strong> (or equivalent).'] = 'Diese Seite hat vor, Ihre Datenbank entsprechend Ihrer alten Version von Piwigo zur gegenwärtigen Version zu aktualisieren.
 Der Upgradeassistent ist der Meinung sie haben folgende Version installiert <strong>release %s</strong> (oder identisch).';
 $lang['As a precaution, following plugins have been deactivated. You must check for plugins upgrade before reactiving them:'] = 'Als Vorsichtsmaßnahme wurden folgende Plugins abgeschaltet. Prüfen Sie, ob ein Pluginupdate verfügbar ist, bevor Sie diese wieder aktivieren:';
 

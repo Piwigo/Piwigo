@@ -92,7 +92,7 @@ textarea { margin-left: 20px; }
   </tr>
 </table>
 
-<p>{'introduction message'|@translate|@sprintf:$introduction.CURRENT_RELEASE}</p>
+<p>{'This page proposes to upgrade your database corresponding to your old version of Piwigo to the current version. The upgrade assistant thinks you are currently running a <strong>release %s</strong> (or equivalent).'|@translate|@sprintf:$introduction.CURRENT_RELEASE}</p>
 {if isset($login)}
 <p>{'Only administrator can run upgrade: please sign in below.'|@translate}</p>
 {/if}
