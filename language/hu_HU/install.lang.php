@@ -66,9 +66,10 @@ $lang['Piwigo was not able to configure PHP 5.'] = 'Piwigo nem tudta beállítan
 $lang["You may referer to your hosting provider's support and see how you could switch to PHP 5 by yourself."] = "Lehet, hogy a tárhely szolgáltató támogatja a PHP 5-öt. A bekapcsoláshoz keresse meg őket.";
 $lang['Hope to see you back soon.'] = 'Remélem később viszontlátjuk.';
 $lang['Congratulations, Piwigo installation is completed'] = 'Gratulálunk, a Piwigo telepítése sikeresen befejeződött';
-// missing translations 2.1.0RC1
 $lang['An alternate solution is to copy the text in the box above and paste it into the file "local/config/database.inc.php" (Warning : database.inc.php must only contain what is in the textarea, no line return or space character)'] = 'Egy lehetséges megoldás a szöveget az alul lévő dobozba másolni, és beilleszteni a "local/config/database.inc.php" fájlba. (Figyelem: database.inc.php csak azt tartalmazhatja amit a szövegterület, soremelés vagy üres karakterhely nélkül)';
 $lang['Creation of config file local/config/database.inc.php failed.'] = 'A local/config/database.inc.php konfigurációs fájl létrehozása sikertelen.';
 $lang['Download the config file'] = 'Konfigurációs fájl letöltése';
 $lang['You can download the config file and upload it to local/config directory of your installation.'] = 'Letöltheti a konfigurációs fájlt és töltse fel a telepítésének local/config könyvtárába.';
+$lang['SQLite and PostgreSQL are currently in experimental state.'] = 'SQLite és PostgreSQL jelenleg kísérleti állapotban.';
+$lang['Learn more'] = 'Bővebben';
 ?>
