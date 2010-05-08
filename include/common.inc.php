@@ -81,6 +81,7 @@ foreach( array(
   'array_intersect_key', //PHP 5 >= 5.1.0RC1
   'hash_hmac', //(hash) - enabled by default as of PHP 5.1.2
   'preg_last_error', // PHP 5 >= 5.2.0
+  'json_encode', // PHP 5 >= 5.2.0
   ) as $func)
 {
   if (!function_exists($func))

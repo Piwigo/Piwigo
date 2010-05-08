@@ -21,33 +21,32 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
-class PwgJsonEncoder extends PwgResponseEncoder
-{
-  function encodeResponse($response)
-  {
-    $respClass = strtolower( @get_class($response) );
-    if ($respClass=='pwgerror')
-    {
-      return json_encode(
-        array(
-          'stat' => 'fail',
-          'err' => $response->code(),
-          'message' => $response->message(),
-          )
-      );
-    }
-    parent::flattenResponse($response);
-    return json_encode(
-        array(
-          'stat' => 'ok',
-          'result' => $response,
-      )
-    );
-  }
-
-  function getContentType()
-  {
-    return 'text/plain';
+function json_encode($data) {
+  switch (gettype($data)) {
+    case 'boolean':
+      return ($data ? 'true' : 'false');
+    case 'null':
+    case 'NULL':
+      return 'null';
+    case 'integer':
+    case 'double':
+      return $data;
+    case 'string':
+      return '"'. str_replace(array("\\",'"',"/","\n","\r","\t"), array("\\\\",'\"',"\\/","\\n","\\r","\\t"), $data) .'"';
+    case 'object':
+    case 'array':
+      if ($data === array()) return '[]'; # empty array
+      if (range(0, count($data) - 1) !== array_keys($data) ) { # string keys, unordered, non-incremental keys, .. - whatever, make object
+        $out = "\n".'{';
+        foreach($data as $key => $value) {
+          $out .= json_encode((string) $key) . ':' . json_encode($value) . ',';
+        }
+        $out = substr($out, 0, -1) . "\n". '}';
+      }else{
+        # regular array
+        $out = "\n".'[' . join("\n".',', array_map('json_encode', $data)) ."\n".']';
+      }
+      return $out;
   }
 }
 
