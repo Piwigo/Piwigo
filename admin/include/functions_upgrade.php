@@ -143,7 +143,7 @@ SELECT status
     return;
   }
 
-  $username = $_POST['password'];
+  $username = $_POST['username'];
   $password = $_POST['password'];
 
   if(!@get_magic_quotes_gpc())
