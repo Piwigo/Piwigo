@@ -759,4 +759,6 @@ $lang['Manual order'] = 'Orden manual';
 $lang['Add another set of photos'] = 'Añadir otras fotos';
 $lang['Order of menubar items has been updated successfully.'] = 'La orden de los elementos del menú ha sido actualizada con éxito.';
 $lang['This theme was not designed to be directly activated'] = 'Este tema no es concebido por ser acelerado directamente';
+$lang['Who can see this photo?'] = '¿Quien puede ver esta foto?';
+$lang['Pending Comments'] = 'Comentarios pendientes';
 ?>

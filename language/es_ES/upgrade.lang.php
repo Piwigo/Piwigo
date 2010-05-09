@@ -41,5 +41,5 @@ $lang['Only thumbnails prefix and webmaster mail address have been saved from pr
 
 $lang['This page proposes to upgrade your database corresponding to your old version of Piwigo to the current version. The upgrade assistant thinks you are currently running a <strong>release %s</strong> (or equivalent).'] = 'Esta página le propone poner al día la base de datos de su antigua versión de piwigo hacia la nueva versión.
 El asistente de postura al día piensa que usted dispone actualmente del <strong>versión %s</strong> (o equivalente).';
-
+$lang['In <i>%s</i>, before <b>?></b>, insert:'] = 'En <i>%s</i>, antes <b>?></b>, insertar:';
 ?>
