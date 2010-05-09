@@ -1,3 +1,35 @@
+<fieldset>
+<legend>Oprávnění na fotografiích</legend>
+
+<p>Každá fotografie má <strong>úroveň soukromí</strong> (zámek). Každý uživatel má úroveň přístupu (klíč). Existuje 5 úrovní:</p>
+<ol>
+  <li>Žádná</li>
+  <li><em>Kontakty</em></li>
+  <li><em>Přátelé (vyšší než kontakty)</em></li>
+  <li><em>Rodina (vyšší než přátelé)</em></li>
+  <li><em>Adminstrátoři (nejvyšší)</em></li>
+</ol>
+
+<p>Vyšší úrovně mají oprávnění na nižší úrovně. Pro daného uživatele to znamená, že čím vyšší úroveň přístupu má, tím více fotografií vidí.</p>
+
+<p>Například, pokud fotografie "svatba-0024.jpg" má úroveň soukromí <em>"Rodina"</em> tak:</p>
+<ul>
+  <li>Petr (který je <em>"Administrátor"</em>) jej uvidí, protože <em>"Administrátoři"</em> mohou vidět všechny fotografie</li>
+  <li>Bára (která je <em>"Rodina"</em>) také uvidí</li>
+  <li>Marie (která je jen <em>"Přítel"</em>) ale fotografii neuvidí</li>
+</ul>
+
+<p>Uživatel, který nemá právo vidět obsah kategorie, neuvidí ani kategorii jako takovou a tedy ani její název. Stejný princip platí pro klíčová slova.</p>
+
+<p>Úroveň přístupu (klíč) můžete nastavit na obrazovce <span class="pwgScreen">Administrace &raquo; Uživatelé &raquo; Správa</span>.</p>
+
+</fieldset>
+
+<fieldset>
+<legend>Oprávnění na kategoriích</legend>
+
+<p>Pokud Vám výše popsané úrovně soukromí nevyhovují, můžete také spravovat oprávnění pro uživatele a pro skupiny. Můžete spravovat oprávnění pro uživatele i pro skupiny najednou, bez rizika, že by došlo ke konfliktům.</p>
+
 <p>Můžete zakázat přístup do kategorií. Přepněte přístup do kategorie na 
 "soukromý" pokud chcete řídit přístup.</p>
 
@@ -19,3 +51,4 @@ Vlastnosti &raquo; Veřejná / Soukromá</span>).</p>
   <li><span class="pwgScreen">Administrace &raquo; Kategorie &raquo; Správa &raquo; editovat</span></li>
 
 </ul>
+</fieldset>
