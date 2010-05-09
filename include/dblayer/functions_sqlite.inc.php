@@ -443,7 +443,19 @@ function pwg_db_cast_to_text($string)
  */
 function get_enums($table, $field)
 {
-  return array();
+  $Enums['categories']['status'] = array('public', 'private');
+  $Enums['history']['section'] = array('categories','tags','search','list','favorites','most_visited','best_rated','recent_pics','recent_cats');
+  $Enums['user_infos']['status'] = array('webmaster','admin','normal','generic','guest');
+  $Enums['image']['type'] = array('picture','high','other');
+  $Enums['plugins']['state'] = array('active', 'inactive');
+  $Enums['user_cache_image']['access_type'] = array('NOT IN','IN');
+
+  $table = str_replace($GLOBALS['prefixeTable'], '', $table);
+  if (isset($Enums[$table][$field])) {
+    return $Enums[$table][$field];
+  } else {
+    return array();
+  }
 }
 
 // get_boolean transforms a string to a boolean value. If the string is

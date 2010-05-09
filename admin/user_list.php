@@ -592,7 +592,6 @@ $template->assign('language_options', get_languages());
 $template->assign('language_selected',
     isset($_POST['pref_submit']) ? $_POST['language'] : get_default_language());
 
-//Log::getInstance()->debug($status);
 // Status options
 foreach (get_enums(USER_INFOS_TABLE, 'status') as $status)
 {
