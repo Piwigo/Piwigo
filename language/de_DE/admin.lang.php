@@ -72,7 +72,7 @@ $lang['Comments for all'] = 'Kommentare für alle erlaubt';
 $lang['Controversy'] = 'Abweichung';
 $lang['Current name'] = 'Derzeitiger Name';
 $lang['Database'] = 'Datenbank';
-$lang['Deactivate'] = 'Deaktiviere';
+$lang['Deactivate'] = 'Deaktivieren';
 $lang['Delete Representant'] = 'Lösche Vorschaubild';
 $lang['Delete selected tags'] = 'Lösche markierte Tags';
 $lang['Delete selected users'] = 'Lösche markierte Benutzer';
@@ -762,4 +762,5 @@ $lang['By rank'] = 'Nach Rangfolge';
 $lang['Manual order'] = 'Manuelle Sortierung';
 $lang['Order of menubar items has been updated successfully.'] = 'Die Reihenfolge der Menüelemente wurde erfolgreich angepasst.';
 $lang['This theme was not designed to be directly activated'] = 'Dieses Layout kann nicht direkt aktiviert werden';
+$lang['Pending Comments'] = 'Freizugebende Kommentare';
 ?>
