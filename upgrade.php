@@ -179,6 +179,9 @@ else if ('hu_HU' == $language) {
 else if ('ru_RU' == $language) {
   define('PHPWG_DOMAIN', 'ru.piwigo.org');
 }
+else if ('nl_NL' == $language) {
+  define('PHPWG_DOMAIN', 'nl.piwigo.org');
+}
 else {
   define('PHPWG_DOMAIN', 'piwigo.org');
 }

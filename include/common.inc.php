@@ -122,7 +122,7 @@ load_plugins();
 
 include(PHPWG_ROOT_PATH.'include/user.inc.php');
 
-if (in_array( substr($user['language'],0,2), array('fr','it','de','es','pl','hu','ru') ) )
+if (in_array( substr($user['language'],0,2), array('fr','it','de','es','pl','hu','ru','nl') ) )
 {
   define('PHPWG_DOMAIN', substr($user['language'],0,2).'.piwigo.org');
 }
