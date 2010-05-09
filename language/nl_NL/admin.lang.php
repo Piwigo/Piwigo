@@ -759,5 +759,6 @@ $lang['By rank'] = 'Op rank';
 $lang['Manual order'] = 'Handmatige volgorde';
 $lang['Order of menubar items has been updated successfully.'] = 'De volgorde van menu-items is succesvol aangepast.';
 $lang['This theme was not designed to be directly activated'] = 'Dit thema is niet ontworpen om direct geactiveerd te worden';
-
+$lang['Who can see this photo?'] = 'Wie mag deze afbeelding zien?';
+$lang['Pending Comments'] = 'Nog niet goedgekeurde commentaren';
 ?>
