@@ -76,4 +76,6 @@ $lang['An alternate solution is to copy the text in the box above and paste it i
 $lang['Creation of config file local/config/database.inc.php failed.'] = 'Vytvoření souboru local/config/database.inc.php se nepodařilo.';
 $lang['Download the config file'] = 'Stáhnout konfigurační soubor';
 $lang['You can download the config file and upload it to local/config directory of your installation.'] = 'Můžete stáhnout konfigurační soubor a nahrát jej do adrešáře local/config Vaší instalace.';
+$lang['SQLite and PostgreSQL are currently in experimental state.'] = 'SQLite a PostgreSQL se aktuálně teprve testují.';
+$lang['Learn more'] = 'Zjistit více';
 ?>
