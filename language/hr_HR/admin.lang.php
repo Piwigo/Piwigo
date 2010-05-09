@@ -758,4 +758,6 @@ $lang['Manual order'] = 'Ručni poredak';
 $lang['Add another set of photos'] = 'Dodaj još jedan skup slika';
 $lang['Path'] = 'Putanja';
 $lang['Download file'] = 'Preuzmi zapis';
+$lang['Order of menubar items has been updated successfully.'] = 'Redoslijed  stavki izborne trake je uspješno obnovljen.';
+$lang['This theme was not designed to be directly activated'] = 'Ova tema nije zamišljena za neposrednu postavu'; 
 ?>
