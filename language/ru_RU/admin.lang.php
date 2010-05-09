@@ -761,4 +761,6 @@ $lang['Manual order'] = 'Сортировать вручную';
 $lang['Add another set of photos'] = 'Добавить фотографии';
 $lang['Order of menubar items has been updated successfully.'] = 'Порядок расположения элементов меню изменен успешно.';
 $lang['This theme was not designed to be directly activated'] = 'В этой теме не предусмотрена активация напрямую';
+$lang['Who can see this photo?'] = 'Кто может смотреть эту фотографию?';
+$lang['Pending Comments'] = 'Ожидающие комментарии';
 ?>
