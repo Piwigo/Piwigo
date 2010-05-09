@@ -73,4 +73,6 @@ $lang['An alternate solution is to copy the text in the box above and paste it i
 $lang['Creation of config file local/config/database.inc.php failed.'] = 'Nie powiodło sięstworzenie pliku konfiguracyjnego local/config/database.inc.php.';
 $lang['Download the config file'] = 'Pobierz plik konfiguracyjny';
 $lang['You can download the config file and upload it to local/config directory of your installation.'] = 'Możesz pobrać plik konfiguracyjny i wgrać go do katalogu lokalnego/z konfiguracją.';
+$lang['SQLite and PostgreSQL are currently in experimental state.'] = 'Wsparcie dla SQLite oraz PostgreSQL jest eksperymentalne.';
+$lang['Learn more'] = 'Dowiedz się więcej';
 ?>
