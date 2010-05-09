@@ -91,7 +91,10 @@ $validated_keys = array(
 	),
 
   'es_AR' => array(
-	'',
+	'%d Kb',
+	'Webmaster',
+	'IP: %s',
+	'No',
 	),
 
   'es_ES' => array(
