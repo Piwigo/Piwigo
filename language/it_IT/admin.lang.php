@@ -240,6 +240,7 @@ $lang['group'] = 'gruppo';
 $lang['The name of a group must not contain " or \' or be empty.'] = 'Il nome del gruppo non deve contenere " o \' e non deve essere vuoto.';
 $lang['This name is already used by another group.'] = 'Questo nome è già usato per un altro gruppo.';
 $lang['Groups'] = 'Gruppi';
+$lang[''] = "";
 $lang['High definition'] = 'Alta definizione';
 $lang['jump to category'] = 'Andare alla categoria';
 $lang['jump to image'] = 'Andare al\'immagine';
@@ -670,6 +671,7 @@ $lang['Select files'] = 'Scegliere i file';
 $lang['JPEG files or ZIP archives with JPEG files inside please.'] = 'File JPEG o archivi ZIP con dentro dei file JPEG per cortesia.';
 $lang['Everybody'] = 'Tutti';
 $lang['Who can see these photos?'] = 'Chi può vedere queste foto?';
+$lang['Who can see this photo?'] = 'Chi può vedere questa foto?';
 $lang['... or switch to the old style form'] = '... o passare sul modulo "vecchia maniera"';
 $lang['... or switch to the multiple files form'] = '... o passare sul modulo multi-file';
 
