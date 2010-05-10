@@ -756,4 +756,10 @@ $lang['The following tag was deleted'] = '次のタグは削除されました�
 $lang['There is no other language available.'] = 'その他の言語がありません。';
 $lang['There is no other plugin available.'] = 'その他のプラグインがありません。';
 $lang['There is no other theme available.'] = 'その他のテーマがありません。';
+$lang['By rank'] = '順番';
+$lang['Manual order'] = 'マニュアル順番';
+$lang['Add another set of photos'] = 'その他の写真を追加します';
+$lang['Order of menubar items has been updated successfully.'] = 'ニューの順番は正常に更新されました。';
+$lang['This theme was not designed to be directly activated'] = 'このテーマは直接有効化になりません。';
+$lang['Pending Comments'] = 'コメントを確認待ち';
 ?>

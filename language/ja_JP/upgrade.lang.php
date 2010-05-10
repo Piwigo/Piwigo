@@ -39,4 +39,5 @@ $lang['All sub-categories of private categories become private'] = 'プライベ
 $lang['User permissions and group permissions have been erased'] = 'ユーザパーミッションおよびグループパーミッションが削除されました。';
 $lang['Only thumbnails prefix and webmaster mail address have been saved from previous configuration'] = '以前の設定より、サムネイル接頭辞およびウェブマスターのメールアドレスのみ保存されました。';
 $lang['As a precaution, following plugins have been deactivated. You must check for plugins upgrade before reactiving them:'] = '予防措置として、次のプラグインは無効になりました。再有効になる前に、プラグインのアップグレードを確認しなければなりません。:';
+$lang['In <i>%s</i>, before <b>?></b>, insert:'] = '<i>%s</i>に、 <b>?></b>の前に入力:';
 ?>
