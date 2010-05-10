@@ -756,4 +756,6 @@ $lang['Subscribe %s'] = '订阅%s';
 $lang['Subscribe %s to Piwigo Announcements Newsletter'] = '订阅%s Piwigo中国最新消息公告';
 $lang['Purge search history'] = '清除查寻历史记录';
 $lang['Hide'] = '隐藏';
+$lang['Order of menubar items has been updated successfully.'] = '所有项目已被更新.';
+$lang['This theme was not designed to be directly activated'] = '此主题并未设计为直接激活';
 ?>
