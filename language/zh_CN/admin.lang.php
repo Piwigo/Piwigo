@@ -758,4 +758,6 @@ $lang['Purge search history'] = '清除查寻历史记录';
 $lang['Hide'] = '隐藏';
 $lang['Order of menubar items has been updated successfully.'] = '所有项目已被更新.';
 $lang['This theme was not designed to be directly activated'] = '此主题并未设计为直接激活';
+$lang['Who can see this photo?'] = '有哪些人能看这些相片?';
+$lang['Pending Comments'] = '待批的评论';
 ?>

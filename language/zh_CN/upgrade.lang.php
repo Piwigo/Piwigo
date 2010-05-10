@@ -38,5 +38,5 @@ $lang['You do not have access rights to run upgrade'] = "您没有执行升级�
 $lang['All sub-categories of private categories become private'] = "所有私有类别下的子类别都将成为私有。";
 $lang['User permissions and group permissions have been erased'] = "用户和组的权限已被清除";
 $lang['Only thumbnails prefix and webmaster mail address have been saved from previous configuration'] = "在前一个配置操作中，只有缩略图的前缀和网站管理员的邮件地址被保存了。";
-
+$lang['In <i>%s</i>, before <b>?></b>, insert:'] = '在 <i>%s</i>, 之前 <b>?></b>, 插入:';
 ?>
