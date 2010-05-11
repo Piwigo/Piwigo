@@ -433,6 +433,14 @@ $validated_keys = array(
 	),
 	
   'vi_VN' => array(
+	'%d Kb',
+	'',
+	'',
+	'',
+	'',
+	'',
+	'',
+	'',
 	'',
 	),
 	
