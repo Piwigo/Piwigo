@@ -357,7 +357,7 @@ CREATE INDEX "tags_i1" ON "piwigo_tags" ("url_name");
 -- piwigo_themes
 -----------------------------------------------------------------------------
 
-DROP TABLE IF EXISTS "piwigo_themes" CASCADE;
+DROP TABLE IF EXISTS "piwigo_themes";
 CREATE TABLE "piwigo_themes"
 (
   "id" varchar(64) default '' NOT NULL,
