@@ -25,8 +25,8 @@
 
 $lang['%d association'] = '%d associazione';
 $lang['%d associations'] = '%d associazioni';
-$lang['%d category including'] = '%d categoria di cui ';
-$lang['%d categories including'] = '%d categorie di cui ';
+$lang['%d category including'] = '%d categoria compresa';
+$lang['%d categories including'] = '%d categorie comprese ';
 $lang['%d physical'] = '%d fisica';
 $lang['%d physical'] = '%d fisiche';
 $lang[' and %d virtual'] = ' e %d virtuale';
