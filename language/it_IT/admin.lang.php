@@ -683,7 +683,7 @@ $lang['The thumbnail image quality must be a number between %d and %d'] = 'La qu
 
 $lang['Settings'] = 'Configurazione';
 $lang['Web size photo'] = 'Dimensione foto';
-$lang['Resize'] = 'Ridimenzionare';
+$lang['Resize'] = 'Ridimensionare';
 $lang['Maximum Width'] = 'Larghezza massima';
 $lang['pixels'] = 'pixels';
 $lang['Maximum Height'] = 'Altezza massima';

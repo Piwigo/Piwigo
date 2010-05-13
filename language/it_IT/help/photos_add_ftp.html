@@ -1,30 +1,30 @@
 <fieldset>
-  <legend>Presa in mano rapida</legend>
+  <legend>Guida rapida</legend>
 
 <ol>
   <li>Create una directory sul vostro PC.</li>
 
-  <li>Copiate qualche foto in questa directory, e ridimenzionatele per la visualizzazione sul web. <em>Attenzione</em>: il nome delle directories e dei files deve contenere solo delle lettre, cifre e i caratteri "-", "_" o ".". Nessuno sazio o caratteri accentuati.</li>
+  <li>Copiate qualche foto in questa directory, e ridimensionatele per la visualizzazione sul web. <em>Attenzione</em>: il nome delle directory e dei files deve essere solamente formato da lettere, cifre e/o i simboli "-", "_" o ".". Nessuno spazio o caratteri accentati.</li>
 
-  <li>Con un cliente FTP, copiate la directory in nella directory "galleries" del vostro Piwigo.</li>
+  <li>Con un client FTP, caricate la directory nella directory "galleries" della vostra gallery Piwigo .</li>
 
-  <li>Connettetevi alla vostra galleria Piwigo e andate a <span class="pwgScreen">Amministrazione &raquo; Immagini &raquo; Miniature</span> per creare le miniature mancanti.</li>
+  <li>Connettetevi alla vostra gallery Piwigo e andate in <span class="pwgScreen">Amministrazione &raquo; Immagini &raquo; Miniature</span> per creare le miniature mancanti.</li>
 
-  <li>Andare a <span class="pwgScreen">Amministrazione</span> e cliccare sul grosso pulzante Sincronizzazione.</li>
+  <li>Andate in <span class="pwgScreen">Amministrazione</span> e cliccare sul grosso pulsante Sincronizzazione.</li>
 </ol>
 
-<p>Bravo! Avete appena creato la prima categoria della vosrta galleria.</p>
+<p>Bene! Avete appena creato la prima categoria della vostra gallery.</p>
 
 </fieldset>
 
 <fieldset>
-  <legend>Organizzazione delle directories e dei files</legend>
+  <legend>Organizzazione delle directory e dei files</legend>
 
 <ul>
 
   <li>
 
-    <p>Nella directory "galleries" si trovano le categorie di Piwigo. Qui di seguito potete vedere lo schema di un albero di una piccola galleria (ma che usa moltissime funzionalità) : </p>
+    <p>Nella directory "galleries" si trovano le categorie di Piwigo. Qui di seguito potete vedere lo schema di un albero di una piccola gallery (ma che usa moltissime funzionalit&agrave;�) : </p>
   
 <pre>
 .
@@ -62,9 +62,9 @@
 
   </li>
   
-  <li>Eccezzione fatta per "thumbnail", "pwg_high" o "pwg_representative" (vedi spiegazzioni qui sotto), ogni directory inserita in "galleries" genera una categoria. Il numero di livelli (profondità) non è limitato.</li>
+  <li>Ad eccezzione di "thumbnail", "pwg_high" o "pwg_representative" (vedi spiegazioni qui sotto), ogni directory inserita in "galleries" genera una categoria. Il numero di livelli (profondit&#224;�) non &#232; limitato.</li>
 
-  <li>Un elemento è invece rappresentato da un file. Un file può essere un elemento di Piwigo se la sua estensione è presente tra le possibilità previste nel parametro di configuarzione <code>file_ext</code> (vedi 
+  <li>Un elemento &#232; invece rappresentato da un file. Un file pu&#242; essere un elemento di Piwigo se la sua estensione &#232; presente tra le possibilità previste nel parametro di configuarzione <code>file_ext</code> (vedi
 file <span class="filename">include/config.inc.php</span>). Un file è considerato come un immagine 
 se la sua estensione è presente tra quelle previste nel parametro di configuarzione 
 <code>picture_ext</code>.</li>
