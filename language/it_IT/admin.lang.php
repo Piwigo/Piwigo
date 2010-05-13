@@ -626,8 +626,8 @@ $lang['Number of downloads'] = 'Totale dei downloads';
 $lang['Piwigo Announcements Newsletter'] = 'Newsletter Piwigo';
 $lang['Keep in touch with Piwigo project, subscribe to Piwigo Announcement Newsletter. You will receive emails when a new release is available (sometimes including a security bug fix, it\'s important to know and upgrade) and when major events happen to the project. Only a few emails a year.'] = 'Rimanete in contatto con il progetto abbonandovi alla newsletter. Riceverete un mail ogni volta che una nuova versione sarà disponibile (a volte un bug di sicurezza è corretto, è importante esserne al corrente ed aggiornare il prodotto) o che sopravvenga un evento importante sul progetto. Solo qualche mail all\'anno';
 $lang['Subscribe %s'] = 'Abbonare %s';
-$lang['Subscribe %s to Piwigo Announcements Newsletter'] = 'Abbonare %s alla newsletter Piwigo';
-$lang['Purge search history'] = '"Ripulire" la cronologia delle ricerche';
+$lang['Subscribe %s to Piwigo Announcements Newsletter'] = 'Iscrivere %s alla newsletter Piwigo';
+$lang['Purge search history'] = '"Pulire" la cronologia delle ricerche';
 $lang['Hide'] = 'Nascondere';
 $lang['Password is missing. Please enter the password.'] = 'Campo password vuoto. Vogliate inserire la password prego ...';
 $lang['Password confirmation is missing. Please confirm the chosen password.'] = 'Campo conferma della password vuoto. Vogliate confermare la password prego ...';
@@ -682,14 +682,14 @@ $lang['The thumbnail maximum height must be a number between %d and %d'] = 'L\'a
 $lang['The thumbnail image quality must be a number between %d and %d'] = 'La qualità d\'immagine per la miniatura deve essere un numero tra %d e %d';
 
 $lang['Settings'] = 'Configurazione';
-$lang['Web size photo'] = 'Foto taglia web';
+$lang['Web size photo'] = 'Dimensione foto';
 $lang['Resize'] = 'Ridimenzionare';
 $lang['Maximum Width'] = 'Larghezza massima';
 $lang['pixels'] = 'pixels';
 $lang['Maximum Height'] = 'Altezza massima';
 $lang['Image Quality'] = 'Qualità dell\'immagine';
 $lang['Thumbnail'] = 'Miniatura';
-$lang['Save Settings'] = 'Registrare i parametri';
+$lang['Save Settings'] = 'Salvare impostazioni';
 $lang['Your configuration settings are saved'] = 'La vostra configurazione è stata registrata';
 
 $lang['Active Themes'] = 'Temi attivati';
@@ -730,7 +730,7 @@ $lang['Activate field "%s"'] = 'Attivare il champo "%s"';
 $lang['Photo Properties'] = 'Proprietà dell\'immagine';
 
 
-$lang['pLoader stands for <em>Piwigo Uploader</em>. From your computer, pLoader prepares your photos and transfer them to your Piwigo photo gallery.'] = 'pLoader signifie <em>Piwigo Uploader</em>. Dal vostro computer, pLoader prepara le vostre foto e le trasferisce verso la vostra galleria foto Piwigo.';
+$lang['pLoader stands for <em>Piwigo Uploader</em>. From your computer, pLoader prepares your photos and transfer them to your Piwigo photo gallery.'] = 'pLoader significa <em>Piwigo Uploader</em>. Dal vostro computer, pLoader prepara le vostre foto e le trasferisce verso la vostra galleria foto Piwigo.';
 $lang['Languages'] = 'Lingue';
 $lang['Installed Languages'] = 'Lingue installate';
 $lang['Add New Language'] = 'Aggiungere una lingua';
