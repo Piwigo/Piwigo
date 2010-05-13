@@ -6,14 +6,14 @@
 
   <li>Copiate qualche foto in questa directory e ridimensionatele per la visualizzazione sul web. <em>Attenzione</em>: il nome delle directory e dei files deve essere solamente formato da lettere, cifre e/o i simboli "-", "_" o ".". Nessuno spazio o caratteri accentati.</li>
 
-  <li>Con un client FTP, caricate la directory nella directory "galleries" della vostra gallery Piwigo.</li>
+  <li>Con un client FTP, caricate la directory nella directory "galleries" della vostra galleria Piwigo.</li>
 
-  <li>Connettetevi alla vostra gallery Piwigo e andate in <span class="pwgScreen">Amministrazione &raquo; Immagini &raquo; Miniature</span> per creare le miniature mancanti.</li>
+  <li>Connettetevi alla vostra galleria Piwigo e andate in <span class="pwgScreen">Amministrazione &raquo; Immagini &raquo; Miniature</span> per creare le miniature mancanti.</li>
 
   <li>Andate in <span class="pwgScreen">Amministrazione</span> e cliccate sul grosso pulsante Sincronizzazione.</li>
 </ol>
 
-<p>Bene! Avete appena creato la prima categoria della vostra gallery.</p>
+<p>Bene! Avete appena creato la prima categoria della vostra galleria.</p>
 
 </fieldset>
 
@@ -24,7 +24,7 @@
 
   <li>
 
-    <p>Nella directory "galleries" si trovano le categorie di Piwigo. Qui di seguito potete vedere lo schema di un albero di una piccola gallery (ma che usa moltissime funzionalità) : </p>
+    <p>Nella directory "galleries" si trovano le categorie di Piwigo. Qui di seguito potete vedere lo schema ad albero di una piccola galleria (ma che usa moltissime funzionalità) : </p>
   
 <pre>
 .
@@ -66,7 +66,7 @@
 
   <li>Un elemento è invece rappresentato da un file. Un file può essere un elemento di Piwigo se la sua estensione è presente tra le possibilità previste nel parametro di configuarzione <code>file_ext</code> (vedi
 file <span class="filename">include/config.inc.php</span>). Un file è considerato come un immagine
-se la sua estensione è presente tra quelle previste nel parametro di configuarzione 
+se la sua estensione è presente tra quelle previste nel parametro di configurazione
 <code>picture_ext</code>.</li>
 
   <li>Ad ogni elemento di tipo immagine deve essere associato una miniatura
@@ -78,22 +78,19 @@ nell'esempio proposto. Nessun prefisso è necessario prima del nome del
 file.</li>
 
   <li>Gli elementi che non sono delle immagini (video, suoni, file di testo o
-quant'altro...) sono generalmente rappresentati con un'icona corrispondente
+quant'altro) sono generalmente rappresentati con un'icona corrispondente
 all'estensione del file. In modo opzionale, è possibile associare una miniatura
 ed un file rappresentativo (come per il file <span 
 class="filename">video.avi</span> nell'esempio proposto).</li>
 
-  <li><em>Attenzione</em>: il nome d'una directory o di un'file deve essere
-composto da lettere, numeri o caratteri come "-", "_" o ".". Nessuno spazio
-ne caratteri accentuati.</li>
+  <li><em>Attenzione</em>: il nome di una directory o di un file deve essere
+composto da lettere, numeri o simboli come "-", "_" o ".". Nessun spazio
+ne caratteri accentati.</li>
 
-  <li><em>Conseil</em> : une catégorie peut contenir des éléments et des
-sous-catégories à la fois. Néanmoins, il est fortement conseillé pour chaque
-catégorie de choisir entre contenir des éléments <strong>ou bien</strong>
-des sous-catégories.</li>
+  <li><em>Suggerimento</em>: una categoria può contenere elementi e sub-categorie assieme. Tuttavia, è fortemente raccomandato per ciascuna categoria scegliere se inserire elementi o sub-categorie.</li>
 
   <li>Una volta che i file, le miniature e i file rappresentativi sono
-correttamente piazzati nelle directory, andare nello schermo <span
+correttamente inseriti nelle directory, andare alla pagina <span
 class="pwgScreen">Amministrazione &raquo; Generale &raquo; Sincronizzare</span>.</li>
 
 </ul>
@@ -118,17 +115,15 @@ personalizzato dal parametro di configurazione <code>prefix_thumbnail</code>
 dell'immagine che rappresenta (per esempio, un'immagine ".JPG" può avere
 come miniatura un'immagine ".GIF").</li>
 
-  <li>È altamente consigliato di usare un software esterno per la
+  <li>È altamente consigliato utilizzare un software esterno per la
 creazione delle miniature.</li>
 
-  <li>È anche possibile usare la creazione delle miniature integrata a
+  <li>È anche possibile utilizzare la creazione delle miniature integrata a
 Piwigo, ma ciò non è raccomandato in quanto la qualità delle miniature
 può essere scadente ed il processo potrebbe utilizzare troppe risorse del
-server (ciò può essere un problema per un provider mutualizzato).</li>
+server (e che potrebbe essere un serio problema su un server condiviso).</li>
 
-  <li>Se decidete comunque di usare il server web per la creazione
-delle miniature è necessario dare gli accessi in scrittura su tutte
-le directory.</li>
+  <li>Se si sceglie di utilizzare il webserver per generare le miniature, è necessario consentire l'accesso in scrittura su tutte le directory categoria.</li>
 
 </ul>
 
