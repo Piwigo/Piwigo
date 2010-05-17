@@ -27,7 +27,7 @@
 
 // ****** Gallery configuration ****** //
 // Script version
-$conf['version'] = 'Colibri';
+$conf['version'] = '2.1.0';
 
 // URL of main gallery
 // Example : http://www.my.domain/my/directory
