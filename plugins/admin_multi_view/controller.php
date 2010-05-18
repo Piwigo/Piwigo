@@ -130,7 +130,9 @@ $users_html.= '</select>';
 // | templates                                                             |
 $my_theme = '';
 $themes_html='<select onchange="document.location = this.options[this.selectedIndex].value;">';
-foreach (get_pwg_themes() as $pwg_theme)
+include_once(PHPWG_ROOT_PATH.'admin/include/themes.class.php');
+$themes = new themes();
+foreach ($themes->fs_themes as $pwg_theme => $fs_theme)
 {
   $selected = $pwg_theme == pwg_get_session_var( 'multiview_theme', $view_as_user['theme'] ) ? 'selected="selected"' : '';
   $my_theme = $selected == '' ? $my_theme : 'themes/'.$view_as_user['theme'];
