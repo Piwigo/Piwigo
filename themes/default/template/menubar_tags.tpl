@@ -10,7 +10,7 @@
 				rel="nofollow">+
 			{else}
 				href="{$tag.URL}"
-				title="{'See elements linked to this tag only'|@translate}">
+				title="{'See images linked to this tag only'|@translate}">
 			{/if}
 				{$tag.name}</a></span>
 {* ABOVE there should be no space between text, </a> and </span> elements to avoid IE8 bug https://connect.microsoft.com/IE/feedback/ViewFeedback.aspx?FeedbackID=366567 *}
