@@ -30,7 +30,7 @@
   </label>
 
   <label>
-  {'group'|@translate}
+  {'Group'|@translate}
   {html_options name=group options=$group_options selected=$group_selected}
   </label>
 
