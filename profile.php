@@ -105,6 +105,8 @@ function save_profile_from_post($userdata, &$errors)
       $_POST['theme'],
       $_POST['language']
       );
+    $_POST['theme'] = get_default_theme();
+    $_POST['language'] = get_default_language();
   }
 
   if ($conf['allow_user_customization'] or defined('IN_ADMIN'))
