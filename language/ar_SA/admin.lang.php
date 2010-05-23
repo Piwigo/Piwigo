@@ -616,7 +616,6 @@ $lang['ranks'] = 'الترتيب';
 $lang['Drag to re-order'] = 'أسحب لتغيير';
 $lang['Quick Local Synchronization'] = 'فحص سريع للمستجدات';
 $lang['No photo can be deleted'] = 'لا صور يمكن حذفها';
-$lang['Note: Only deletes photos added with pLoader'] = 'pLoader ملاحظة :فقط يمكنك حذف الصورالمحملة عن طريق برنامج';
 $lang['Delete selected photos'] = 'حذف الصورالمختارة';
 $lang['%d photo was deleted'] = ' صورة محذوفة %d';
 $lang['%d photos were deleted'] = ' صور محذوفة %d';

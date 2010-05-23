@@ -605,7 +605,6 @@ $lang['overrides existing values with empty ones'] = 'overschrijft de bestaande 
 $lang['Drag to re-order'] = 'Sleep om volgorde te veranderen';
 $lang['Quick Local Synchronization'] = 'Snelle lokale Synchronisatie';
 $lang['No photo can be deleted'] = 'Geen enkele foto kan verwijderd worden';
-$lang['Note: Only deletes photos added with pLoader'] = 'Noot: Alleen foto\'s die met pLoader geplaatst zijn kunnen verwijderd worden';
 $lang['Delete selected photos'] = 'Verwijder geselecteerde foto\'s';
 $lang['%d photo was deleted'] = '%d foto is verwijderd';
 $lang['%d photos were deleted'] = '%d foto\'s zijn verwijderd';

@@ -611,7 +611,6 @@ $lang['ranks'] = 'Reihenfolge';
 $lang['Drag to re-order'] = 'Klicken und Ziehen um eine neue Reihenfolge festzulegen';
 $lang['Quick Local Synchronization'] = 'Schnelle Synchronisierung';
 $lang['No photo can be deleted'] = 'Kein Foto kann gelöscht werden';
-$lang['Note: Only deletes photos added with pLoader'] = 'Bitte beachten: Nur über pLoader hochgeladene Fotos können damit entfernt werden';
 $lang['Delete selected photos'] = 'Lösche ausgewählte Fotos';
 $lang['%d photo was deleted'] = '%d Foto wurde gelöscht';
 $lang['%d photos were deleted'] = '%d Fotos wurden gelöscht';

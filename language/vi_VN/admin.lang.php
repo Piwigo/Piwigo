@@ -614,7 +614,6 @@ $lang['ranks'] = 'xếp hạng';
 $lang['Drag to re-order'] = 'Kéo rê để sắp xếp lại';
 $lang['Quick Local Synchronization'] = 'Đồng bộ hóa cục bộ nhanh';
 $lang['No photo can be deleted'] = 'Không có hình nào có thể bị xóa';
-$lang['Note: Only deletes photos added with pLoader'] = 'Chú ý: Chỉ xóa những hình mà được thêm vào bằng pLoader';
 $lang['Delete selected photos'] = 'Xóa các hình được chọn';
 $lang['%d photo was deleted'] = '%d hình đã được xóa';
 $lang['%d photos were deleted'] = 'Có %d hình đã được xóa';

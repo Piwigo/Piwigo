@@ -240,6 +240,7 @@ $lang['group'] = "group";
 $lang['The name of a group must not contain " or \' or be empty.'] = "The name of a group must not contain \" or ' or be empty.";
 $lang['This name is already used by another group.'] = "This name is already used by another group.";
 $lang['Groups'] = "Groups";
+
 $lang['High definition'] = "High definition";
 $lang['jump to category'] = "jump to category";
 $lang['jump to image'] = "jump to image";
@@ -616,7 +617,7 @@ $lang['Manual order'] = 'Manual order';
 $lang['Drag to re-order'] = "Click-and-drag to re-order";
 $lang['Quick Local Synchronization'] = "Quick Local Synchronization";
 $lang['No photo can be deleted'] = "No photo can be deleted";
-$lang['Note: Only deletes photos added with pLoader'] = "Note: Only photos added with pLoader can be deleted";
+$lang['Note: Only deletes photos added with API'] = "Note: photo deletion does not apply to photos added by synchronization. For photos added by synchronization, remove them from the filesystem and then perform another synchronization.";
 $lang['Delete selected photos'] = "Delete selected photos";
 $lang['%d photo was deleted'] = "%d photo deleted";
 $lang['%d photos were deleted'] = "%d photos deleted";

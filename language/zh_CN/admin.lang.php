@@ -613,7 +613,6 @@ $lang['ranks'] = '顺序';
 $lang['Drag to re-order'] = '拖放进行排序';
 $lang['Quick Local Synchronization'] = '快速同步';
 $lang['No photo can be deleted'] = '没有图片可以删除';
-$lang['Note: Only deletes photos added with pLoader'] = '注意: 只有通过pLoader上传的图片才能被删除';
 $lang['Delete selected photos'] = '删除图片';
 $lang['%d photo was deleted'] = '%d 图片被删除';
 $lang['%d photos were deleted'] = '%d 图片被删除';

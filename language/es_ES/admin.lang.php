@@ -611,7 +611,6 @@ $lang['ranks'] = 'Filas';
 $lang['Drag to re-order'] = 'Hacer clic deslizar para reorganizar';
 $lang['Quick Local Synchronization'] = 'Sincronización Rápida';
 $lang['No photo can be deleted'] = 'Ninguna foto puede ser suprimida';
-$lang['Note: Only deletes photos added with pLoader'] = 'Nota: Solo las fotos añadidas con pLoader pueden ser suprimidas';
 $lang['Delete selected photos'] = 'Suprimir las fotos';
 $lang['%d photo was deleted'] = '%d foto ha sido suprimida';
 $lang['%d photos were deleted'] = '%d fotos han sido suprimidas';

@@ -616,7 +616,6 @@ $lang['Manual order'] = 'Ordinamento manuale';
 $lang['Drag to re-order'] = 'Clicca e trascina per riorganizzare';
 $lang['Quick Local Synchronization'] = 'Sincronizzazione rapida';
 $lang['No photo can be deleted'] = 'Nessuna foto può essere eliminata';
-$lang['Note: Only deletes photos added with pLoader'] = 'Nota: solo le foto agiunte con pLoader possono essere rimosse';
 $lang['Delete selected photos'] = 'Sopprimere le foto';
 $lang['%d photo was deleted'] = '%d foto cancellata';
 $lang['%d photos were deleted'] = '%d foto cancellate';

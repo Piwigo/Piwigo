@@ -612,7 +612,6 @@ $lang['ranks'] = 'порядок';
 $lang['Drag to re-order'] = 'Перетащите чтобы изменить порядок';
 $lang['Quick Local Synchronization'] = 'Быстрая синхронизация';
 $lang['No photo can be deleted'] = 'Нет фото для удаления';
-$lang['Note: Only deletes photos added with pLoader'] = 'Заметьте: Удаление только фото добавленных с помощью pLoader';
 $lang['Delete selected photos'] = 'Удалить выбранные фото';
 $lang['%d photo was deleted'] = '%d фото удалено';
 $lang['%d photos were deleted'] = '%d фото удалено';

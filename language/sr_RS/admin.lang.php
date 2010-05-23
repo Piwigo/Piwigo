@@ -614,7 +614,6 @@ $lang['ranks'] = 'poredak';
 $lang['Drag to re-order'] = 'Povuci za preređivanje';
 $lang['Quick Local Synchronization'] = 'Brza Lokalna Sinhronizacija';
 $lang['No photo can be deleted'] = 'Nema slike koja se može brisati';
-$lang['Note: Only deletes photos added with pLoader'] = 'Obaveštenje: Briše samo slike dodate sa pLoader-om';
 $lang['Delete selected photos'] = 'Briši odabrane slike';
 $lang['%d photo was deleted'] = '%d slika je izbrisana';
 $lang['%d photos were deleted'] = '%d slike su izbrisane';
