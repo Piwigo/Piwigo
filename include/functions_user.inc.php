@@ -267,6 +267,7 @@ function getuserdata($user_id, $use_cache)
 
   $userdata = array();
 
+  // retrieve basic user data
   $query = '
 SELECT ';
   $is_first = true;
@@ -289,26 +290,29 @@ SELECT ';
 
   $row = pwg_db_fetch_assoc(pwg_query($query));
 
-  while (true)
-  {
-    $query = '
-SELECT ui.*, uc.*, t.name AS theme_name
+  // retrieve additional user data
+  $query = '
+SELECT
+    COUNT(1) AS counter,
+    ui.*,
+    uc.*,
+    t.name AS theme_name
   FROM '.USER_INFOS_TABLE.' AS ui
     LEFT JOIN '.USER_CACHE_TABLE.' AS uc ON ui.user_id = uc.user_id
     LEFT JOIN '.THEMES_TABLE.' AS t ON t.id = ui.theme
-  WHERE ui.user_id = \''.$user_id.'\'';
+  WHERE ui.user_id = \''.$user_id.'\'
+;';
+  $result = pwg_query($query);
+  $user_infos_row = pwg_db_fetch_assoc($result);
+  if (0 == $user_infos_row['counter']) {
+    create_user_infos($user_id);
+    
     $result = pwg_query($query);
-    if ($result)
-    {
-      break;
-    }
-    else
-    {
-      create_user_infos($user_id);
-    }
+    $user_infos_row = pwg_db_fetch_assoc($result);
   }
 
-  $row = array_merge($row, pwg_db_fetch_assoc($result));
+  // then merge basic + additional user data
+  $row = array_merge($row, $user_infos_row);
 
   foreach ($row as $key => $value)
   {
