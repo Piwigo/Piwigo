@@ -294,7 +294,7 @@ function access_denied()
   {
     echo '<meta http-equiv="Content-Type" content="text/html; charset=utf-8">';
     echo '<div style="text-align:center;">'.l10n('You are not authorized to access the requested page').'<br>';
-    echo '<a href="'.get_root_url().'Identification.php">'.l10n('Identification').'</a>&nbsp;';
+    echo '<a href="'.get_root_url().'identification.php">'.l10n('Identification').'</a>&nbsp;';
     echo '<a href="'.make_index_url().'">'.l10n('Home').'</a></div>';
     echo str_repeat( ' ', 512); //IE6 doesn't error output if below a size
     exit();
