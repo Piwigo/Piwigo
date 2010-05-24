@@ -26,6 +26,6 @@ $lang['c13y_upgrade_no_anomaly'] = 'Nincs rendellenesség a frissítés után, "
 $lang['c13y_dbl_email_user'] = 'Felhasználók azonos e-mail címmel';
 $lang['c13y_correction_dbl_email_user'] = 'Duplikált felhasználók törlése';
 $lang['c13y_obsolete_plugin'] = 'Elavult bővítmény';
-$lang['c13y_correction_obsolete_plugin'] = '"%s" bővítmény nem kompatibilis a a használt verzióval, el kell távolítani.';
+$lang['c13y_correction_obsolete_plugin'] = '"%s" bővítmény nem kompatibilis a használt verzióval, el kell távolítani.';
 
 ?>
