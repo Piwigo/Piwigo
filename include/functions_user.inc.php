@@ -301,10 +301,11 @@ SELECT
     LEFT JOIN '.USER_CACHE_TABLE.' AS uc ON ui.user_id = uc.user_id
     LEFT JOIN '.THEMES_TABLE.' AS t ON t.id = ui.theme
   WHERE ui.user_id = \''.$user_id.'\'
+  GROUP BY ui.user_id
 ;';
   $result = pwg_query($query);
   $user_infos_row = pwg_db_fetch_assoc($result);
-  if (0 == $user_infos_row['counter']) {
+  if (!isset($user_infos_row['counter']) or 0 == $user_infos_row['counter']) {
     create_user_infos($user_id);
     
     $result = pwg_query($query);
