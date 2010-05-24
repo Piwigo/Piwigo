@@ -613,7 +613,6 @@ $lang['ranks'] = 'posições (ranks)';
 $lang['Drag to re-order'] = 'Arraste para reordenar';
 $lang['Quick Local Synchronization'] = 'Sincronização Local Rápida';
 $lang['No photo can be deleted'] = 'Nenhuma foto pode ser apagada';
-$lang['Note: Only deletes photos added with pLoader'] = 'Note: O sistema apenas apaga as fotos que foram adicionadas com o pLoader';
 $lang['Delete selected photos'] = 'Apagar as fotos selecionadas';
 $lang['%d photo was deleted'] = '%d foto foi apagada';
 $lang['%d photos were deleted'] = '%d fotos foram apagadas';

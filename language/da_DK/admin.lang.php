@@ -615,7 +615,6 @@ $lang['ranks']     =     'Rangerer';
 $lang['Drag to re-order']     =     'Klik-og-træk for at re-order';
 $lang['Quick Local Synchronization']     =     'Quick Lokal synkronisering';
 $lang['No photo can be deleted']     =     'Intet foto kan slettes';
-$lang['Note: Only deletes photos added with pLoader']     =     'Note: Kun billeder tilføjet med pLoader kan slettes';
 $lang['Delete selected photos']     =     'Slet valgte billeder';
 $lang['%d photo was deleted']     =     ' %d billede slettet';
 $lang['%d photos were deleted']     =     ' %d billeder slettet';

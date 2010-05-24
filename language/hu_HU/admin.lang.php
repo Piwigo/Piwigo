@@ -612,7 +612,6 @@ $lang['ranks'] = 'Rangok';
 $lang['Drag to re-order'] = 'Húzással átrendezheti';
 $lang['Quick Local Synchronization'] = 'Helyi szinkronizálás';
 $lang['No photo can be deleted'] = 'Nincs törölhető kép';
-$lang['Note: Only deletes photos added with pLoader'] = 'Figyelem: Csak pLoader képet lehet eltávolítani';
 $lang['Delete selected photos'] = 'Kijelölt képek törlése';
 $lang['%d photo was deleted'] = '%d kép törölve';
 $lang['%d photos were deleted'] = '%d kép törölve';

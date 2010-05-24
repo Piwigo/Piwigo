@@ -614,7 +614,6 @@ $lang['ranks'] = 'hodnocení';
 $lang['Drag to re-order'] = 'Pořadí změníte táhnutím myši';
 $lang['Quick Local Synchronization'] = 'Rychlá místní synchronizace';
 $lang['No photo can be deleted'] = 'Fotografie nemůže být vymazána';
-$lang['Note: Only deletes photos added with pLoader'] = 'Poznámka: odstraní pouze fotografie přidané pomocí pLoaderu';
 $lang['Delete selected photos'] = 'Vymazat vybrané fotografie';
 $lang['%d photo was deleted'] = '%d fotografie vymazána';
 $lang['%d photos were deleted'] = '%d fotografií vymazáno';

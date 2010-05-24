@@ -614,7 +614,6 @@ $lang['ranks'] = 'ランク';
 $lang['Drag to re-order'] = 'ドラッグして並び替え';
 $lang['Quick Local Synchronization'] = 'クイックローカル同期';
 $lang['No photo can be deleted'] = '写真は削除されませんでした。';
-$lang['Note: Only deletes photos added with pLoader'] = '注意: pLoaderに追加された写真のみ削除します。';
 $lang['Delete selected photos'] = '選択した写真を削除する';
 $lang['%d photo was deleted'] = '%d 写真が削除されました。';
 $lang['%d photos were deleted'] = '%d 写真が削除されました。';

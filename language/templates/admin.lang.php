@@ -636,7 +636,6 @@ $lang['Drag to re-order'] = 'Drag to re-order';
 $lang['Unable to retrieve server informations since allow_url_fopen is disabled.'] = 'Unable to retrieve server informations since allow_url_fopen is disabled.';
 $lang['Quick Local Synchronization'] = 'Quick Local Synchronization';
 $lang['No photo can be deleted'] = 'No photo can be deleted';
-$lang['Note: Only deletes photos added with pLoader'] = 'Note: Only deletes photos added with pLoader';
 $lang['Delete selected photos'] = 'Delete selected photos';
 $lang['%d photo was deleted'] = '%d photo was deleted';
 $lang['%d photos were deleted'] = '%d photos were deleted';

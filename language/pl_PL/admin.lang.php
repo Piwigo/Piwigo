@@ -614,7 +614,6 @@ $lang['ranks'] = 'rankingi';
 $lang['Drag to re-order'] = 'Przesuń aby zreorganizować';
 $lang['Quick Local Synchronization'] = 'Szybka synchronizacja lokalna';
 $lang['No photo can be deleted'] = 'Żadne zdjęcie nie zostało usunięte';
-$lang['Note: Only deletes photos added with pLoader'] = 'Info: Usuwa tylko zdjęcia dodane przez pLoader';
 $lang['Delete selected photos'] = 'Usuń zaznaczone zdjęcie';
 $lang['%d photo was deleted'] = '%d zdjęcie zostało usunięte';
 $lang['%d photos were deleted'] = '%d zdjęć zostało usuniętych';
