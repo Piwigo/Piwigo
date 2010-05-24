@@ -85,7 +85,7 @@
   {if isset($show_delete_form) }
   <fieldset>
     <legend>{'Deletions'|@translate}</legend>
-    <p style="font-style:italic">{'Note: Only deletes photos added with pLoader'|@translate}</p>
+    <p style="font-style:italic">{'Note: photo deletion does not apply to photos added by synchronization. For photos added by synchronization, remove them from the filesystem and then perform another synchronization.'|@translate}</p>
     <p>
       {'target'|@translate}
       <label><input type="radio" name="target_deletion" value="all"> {'all'|@translate}</label>
