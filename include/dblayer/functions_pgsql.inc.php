@@ -510,13 +510,13 @@ function get_boolean( $string )
  */
 function boolean_to_string($var)
 {
-  if (!empty($var) && ($var == 't'))
+  if (is_bool($var))
   {
-    return 'true';
+    return $var ? 'true' : 'false';
   }
   else
   {
-    return 'false';
+    return $var;
   }
 }
 
