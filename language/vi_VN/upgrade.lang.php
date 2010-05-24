@@ -28,7 +28,7 @@ $lang['total upgrade time'] = 'tổng thời gian nâng cấp';
 $lang['total SQL time'] = 'tổng thời gian truy vấn SQL';
 $lang['SQL queries'] = 'Truy vấn SQL';
 $lang['Upgrade informations'] = 'Thông tin bản nâng cấp';
-$lang['Perform a maintenance check in [Administration>Specials>Maintenance] if you encounter any problem.'] = 'Chạy chế độ kiểm tra bảo trì trong mục [Administration>Specials>Maintenance] trong trường hợp bạn gặp lỗi.';
+$lang['Perform a maintenance check in [Administration>Tools>Maintenance] if you encounter any problem.'] = 'Chạy chế độ kiểm tra bảo trì trong mục [Administration>Tools>Maintenance] trong trường hợp bạn gặp lỗi.';
 $lang['Only administrator can run upgrade: please sign in below.'] = 'Chỉ có Quản trị mới có thể nâng cấp: vui lòng đăng nhập trước.';
 $lang['You do not have access rights to run upgrade'] = 'Bạn không có đủ quyền hạn để có thể nâng cấp hệ thống';
 

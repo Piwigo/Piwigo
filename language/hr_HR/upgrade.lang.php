@@ -28,7 +28,7 @@ $lang['total upgrade time'] = 'sveukupno vrijeme nadogradnje';
 $lang['total SQL time'] = 'sveukupno SQL vrijeme';
 $lang['SQL queries'] = 'SQL upita';
 $lang['Upgrade informations'] = 'Podaci o nadogradnji';
-$lang['Perform a maintenance check in [Administration>Specials>Maintenance] if you encounter any problem.'] = 'Izvršite radnu provjeru [Uprava>Posebnosti>Održavanje] u slučaju bilo kakvih problema.';
+$lang['Perform a maintenance check in [Administration>Tools>Maintenance] if you encounter any problem.'] = 'Izvršite radnu provjeru [Uprava>Alati>Održavanje] u slučaju bilo kakvih problema.';
 $lang['Only administrator can run upgrade: please sign in below.'] = 'Samo upravnik može pokrenuti nadogradnju: molimo, prijavite se dolje.';
 $lang['You do not have access rights to run upgrade'] = 'Nemate pristupna prava za pokretanje nadogradnje';
 

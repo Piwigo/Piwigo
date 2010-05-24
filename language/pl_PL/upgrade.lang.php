@@ -28,7 +28,7 @@ $lang['total upgrade time'] = 'sumaryczny czas aktualizacji';
 $lang['total SQL time'] = 'symaryczny czas SQL';
 $lang['SQL queries'] = 'zapytań SQL';
 $lang['Upgrade informations'] = 'Informacje o aktualizacji';
-$lang['Perform a maintenance check in [Administration>Specials>Maintenance] if you encounter any problem.'] = 'Jeżeli napotkasz jakiś problem wykonaj weryfikację przez [Administracja>Specjalne>Maintenance].';
+$lang['Perform a maintenance check in [Administration>Tools>Maintenance] if you encounter any problem.'] = 'Jeżeli napotkasz jakiś problem wykonaj weryfikację przez [Administracja>Narzędzia>Maintenance].';
 $lang['Only administrator can run upgrade: please sign in below.'] = 'Tylko administrator może wykonać aktualizację: zaloguj się poniżej.';
 $lang['You do not have access rights to run upgrade'] = 'Nie masz uprawnień do wykonania aktualizacji';
 
