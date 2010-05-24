@@ -55,7 +55,7 @@ $lang['Password [confirm]'] = 'Password [confermare]';
 $lang['verification'] = 'verifica';
 $lang['Need help ? Ask your question on <a href="%s">Piwigo message board</a>.'] = 'Bisogno di un aiuto? Visitate il <a href=\"%s\">forum di Piwigo</a>.';
 $lang['Webmaster mail address'] = 'Indirizzo email del Webmaster';
-$lang['Visitors will be able to contact site administrator with this mail'] = 'I visitatori saranno in grado di contattarvi usando questa mail';
+$lang['Visitors will be able to contact site administrator with this mail'] = 'I visitatori saranno in grado di contattarvi usando questa email';
 $lang['PHP 5 is required'] = 'PHP 5 √® necessario';
 $lang['It appears your webhost is currently running PHP %s.'] = 'Sembra che la versione del vostro server sia PHP %s.';
 $lang['Piwigo may try to switch your configuration to PHP 5 by creating or modifying a .htaccess file.'] = 'Piwigo tenter√ di cambiare la configurazione di PHP 5 creando o modificando il file .htaccess.';
