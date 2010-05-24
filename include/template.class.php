@@ -135,6 +135,7 @@ class Template {
     {
       $tpl_var['local_head'] = realpath($root.'/'.$theme.'/'.$themeconf['local_head'] );
     }
+    $themeconf['id'] = $theme;
     $this->smarty->append('themes', $tpl_var);
     $this->smarty->append('themeconf', $themeconf, true);
   }
