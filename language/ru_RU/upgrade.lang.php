@@ -28,7 +28,7 @@ $lang['total upgrade time'] = 'общее время обновления';
 $lang['total SQL time'] = 'общее время SQL';
 $lang['SQL queries'] = 'SQL запросы';
 $lang['Upgrade informations'] = 'Информация об обновлениях';
-$lang['Perform a maintenance check in [Administration>Specials>Maintenance] if you encounter any problem.'] = 'Выполните обслуживание [Администирирование> Специальное> Обслуживание] если вы столкнулись с какими-либо проблемами.';
+$lang['Perform a maintenance check in [Administration>Specials>Maintenance] if you encounter any problem.'] = 'Выполните обслуживание [Администирирование> Инструменты> Обслуживание] если вы столкнулись с какими-либо проблемами.';
 $lang['Only administrator can run upgrade: please sign in below.'] = 'Только администратор может запустить обновление: проверьте ниже.';
 $lang['You do not have access rights to run upgrade'] = 'У вас нет прав на запуск обновлений';
 

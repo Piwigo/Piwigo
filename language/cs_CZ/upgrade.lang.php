@@ -31,7 +31,7 @@ $lang['total upgrade time'] = 'celkový čas aktualizace';
 $lang['total SQL time'] = 'celkový čas SQL';
 $lang['SQL queries'] = 'SQL dotazy';
 $lang['Upgrade informations'] = 'Informace o aktualizaci';
-$lang['Perform a maintenance check in [Administration>Specials>Maintenance] if you encounter any problem.'] = 'Proveďte kontrolu údržby v [Administrace>Ostatní>Údržba] pokud dojde k problému.';
+$lang['Perform a maintenance check in [Administration>Tools>Maintenance] if you encounter any problem.'] = 'Proveďte kontrolu údržby v [Administrace>Nástroje>Údržba] pokud dojde k problému.';
 $lang['Only administrator can run upgrade: please sign in below.'] = 'Jen administrátor smí spustit aktualizaci: prosím přihlašte se níže.';
 $lang['You do not have access rights to run upgrade'] = 'nemáte přístupová práva na spuštění upgrade';
 

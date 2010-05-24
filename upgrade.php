@@ -343,7 +343,7 @@ if ((isset($_POST['submit']) or isset($_GET['now']))
       );
 
     array_push($page['infos'],
-      l10n('Perform a maintenance check in [Administration>Specials>Maintenance] if you encounter any problem.')
+      l10n('Perform a maintenance check in [Administration>Tools>Maintenance] if you encounter any problem.')
       );
 
     // Save $page['infos'] in order to restore after maintenance actions
