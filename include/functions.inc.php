@@ -382,7 +382,7 @@ function remove_accents($string)
 function str2url($str)
 {
   $raw = $str;
-  
+
   $str = remove_accents($str);
   $str = preg_replace('/[^a-z0-9_\s\'\:\/\[\],-]/','',strtolower($str));
   $str = preg_replace('/[\s\'\:\/\[\],-]+/',' ',trim($str));
@@ -1266,18 +1266,18 @@ function load_language($filename, $dirname = '',
           {
             if ( is_array($v) )
             {
-              $func = create_function('$v', 'return convert_charset($v, "'.$target_charset.'");' );
+              $func = create_function('$v', 'return convert_charset($v, "utf-8", "'.$target_charset.'");' );
               $lang[$k] = array_map($func, $v);
             }
             else
-              $lang[$k] = convert_charset($v, $target_charset);
+              $lang[$k] = convert_charset($v, 'utf-8', $target_charset);
           }
         }
         if ( is_array($load_lang_info) )
         {
           foreach ($load_lang_info as $k => $v)
           {
-            $lang_info[$k] = convert_charset($v, $target_charset);
+            $lang_info[$k] = convert_charset($v, 'utf-8', $target_charset);
           }
         }
       }
@@ -1291,7 +1291,7 @@ function load_language($filename, $dirname = '',
     else
     {
       $content = @file_get_contents($source_file);
-      $content = convert_charset($content, $target_charset);
+      $content = convert_charset($content, 'utf-8', $target_charset);
       return $content;
     }
   }
@@ -1299,27 +1299,30 @@ function load_language($filename, $dirname = '',
 }
 
 /**
- * converts a string from utf-8 character set to another character set
+ * converts a string from a character set to another character set
  * @param string str the string to be converted
+ * @param string source_charset the character set in which the string is encoded
  * @param string dest_charset the destination character set
  */
-function convert_charset($str, $dest_charset)
+function convert_charset($str, $source_charset, $dest_charset)
 {
-  if ($dest_charset=='utf-8')
-  {
+  if ($source_charset==$dest_charset)
     return $str;
+  if ($source_charset=='iso-8859-1' and $dest_charset=='utf-8')
+  {
+    return utf8_encode($str);
   }
-  if ($dest_charset=='iso-8859-1')
+  if ($source_charset=='utf-8' and $dest_charset=='iso-8859-1')
   {
     return utf8_decode($str);
   }
   if (function_exists('iconv'))
   {
-    return iconv('utf-8', $dest_charset, $str);
+    return iconv($source_charset, $dest_charset, $str);
   }
   if (function_exists('mb_convert_encoding'))
   {
-    return mb_convert_encoding( $str, $dest_charset, 'utf-8' );
+    return mb_convert_encoding( $str, $dest_charset, $source_charset );
   }
   return $str; //???
 }
@@ -1536,12 +1539,12 @@ function check_input_parameter($param_name, $param_array, $is_array, $pattern)
 function get_privacy_level_options()
 {
   global $conf;
-  
+
   $options = array();
   foreach (array_reverse($conf['available_permission_levels']) as $level)
   {
     $label = null;
-  
+
     if (0 == $level)
     {
       $label = l10n('Everybody');
@@ -1566,7 +1569,7 @@ function get_privacy_level_options()
             )
           );
       }
-      
+
       $label = implode(', ', $labels);
     }
     $options[$level] = $label;
