@@ -102,6 +102,7 @@ $template->set_filenames(array('admin' => 'admin.tpl'));
 $template->assign(
   array(
     'USERNAME' => $user['username'],
+    'ENABLE_SYNCHRONIZATION' => $conf['enable_synchronization'],
     'U_SITE_MANAGER'=> $link_start.'site_manager',
     'U_HISTORY_STAT'=> $link_start.'stats',
     'U_FAQ'=> $link_start.'help',

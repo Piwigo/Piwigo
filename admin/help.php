@@ -33,31 +33,33 @@ $link = get_root_url().'admin.php?page=help&section=';
 $selected = null;
 $help_section_title = null;
 
-$tabs = array(
-  array(
-    'code' => 'add_photos',
-    'label' => l10n('Add Photos'),
-    ),
-  array(
-    'code' => 'permissions',
-    'label' => l10n('Permissions'),
-    ),
-  array(
-    'code' => 'groups',
-    'label' => l10n('Groups'),
-    ),
-  array(
+$tabs = array();
+$tabs[] = array(
+  'code' => 'add_photos',
+  'label' => l10n('Add Photos'),
+  );
+$tabs[] = array(
+  'code' => 'permissions',
+  'label' => l10n('Permissions'),
+  );
+$tabs[] = array(
+  'code' => 'groups',
+  'label' => l10n('Groups'),
+  );
+if ($conf['enable_synchronization'])
+{
+  $tabs[] = array(
     'code' => 'user_upload',
     'label' => l10n('User Upload'),
-    ),
-  array(
-    'code' => 'virtual_links',
-    'label' => l10n('Virtual Links'),
-    ),
-  array(
-    'code' => 'misc',
-    'label' => l10n('Miscellaneous'),
-    ),
+    );
+}
+$tabs[] = array(
+  'code' => 'virtual_links',
+  'label' => l10n('Virtual Links'),
+  );
+$tabs[] = array(
+  'code' => 'misc',
+  'label' => l10n('Miscellaneous'),
   );
 
 if (!isset($_GET['section']))

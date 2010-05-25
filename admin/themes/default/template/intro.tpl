@@ -59,7 +59,7 @@ jQuery().ready(function(){ldelim}
   </dd>
 </dl>
 
-
+{if $ENABLE_SYNCHRONIZATION}
 <form name="QuickSynchro" action="{$U_CAT_UPDATE}" method="post" id="QuickSynchro" style="display: block; text-align:right;">
 <div>
 <input type="hidden" name="sync" value="files" checked="checked">
@@ -75,3 +75,4 @@ jQuery().ready(function(){ldelim}
 <input type="submit" value="" name="submit">
 </div>
 </form>
+{/if}

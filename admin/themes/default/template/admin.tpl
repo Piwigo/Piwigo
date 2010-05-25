@@ -19,7 +19,9 @@ jQuery().ready(function(){ldelim}
     <dd>
       <ul>
         <li><a href="{$U_ADD_PHOTOS}">{'Add'|@translate}</a></li>
+{if $ENABLE_SYNCHRONIZATION}
         <li><a href="{$U_WAITING}">{'Waiting'|@translate}</a></li>
+{/if}
         <li><a href="{$U_RATING}">{'Rating'|@translate}</a></li>
         <li><a href="{$U_TAGS}">{'Tags'|@translate}</a></li>
         <li><a href="{$U_CADDIE}">{'Caddie'|@translate}</a></li>
@@ -68,10 +70,14 @@ jQuery().ready(function(){ldelim}
     <dt class="rdion"><span>{'Tools'|@translate}&nbsp;</span></dt>
     <dd>
       <ul>
+{if $ENABLE_SYNCHRONIZATION}
         <li><a href="{$U_CAT_UPDATE}">{'Synchronize'|@translate}</a></li>
         <li><a href="{$U_SITE_MANAGER}">{'Site manager'|@translate}</a></li>
+{/if}
         <li><a href="{$U_HISTORY_STAT}">{'History'|@translate}</a></li>
+{if $ENABLE_SYNCHRONIZATION}
         <li><a href="{$U_THUMBNAILS}">{'Thumbnails'|@translate}</a></li>
+{/if}
         <li><a href="{$U_MAINTENANCE}">{'Maintenance'|@translate}</a></li>
         <li><a href="{$U_PENDING_COMMENTS}">{'Pending Comments'|@translate}</a></li>
       </ul>
