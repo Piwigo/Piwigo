@@ -98,7 +98,7 @@ INSERT INTO '.LANGUAGES_TABLE.'
           array_push($errors, 'CANNOT DEACTIVATE - LANGUAGE IS DEFAULT LANGUAGE');
           break;
         }
-        
+
         $query = "
 DELETE
   FROM ".LANGUAGES_TABLE."
@@ -147,7 +147,7 @@ UPDATE '.USER_INFOS_TABLE.'
 
   /**
   *  Get languages defined in the language directory
-  */  
+  */
   function get_fs_languages($target_charset = null)
   {
     if ( empty($target_charset) )
@@ -165,7 +165,7 @@ UPDATE '.USER_INFOS_TABLE.'
       {
         list($language_name) = @file($path.'/iso.txt');
 
-        $languages[$file] = convert_charset($language_name, $target_charset);
+        $languages[$file] = convert_charset($language_name, 'utf-8', $target_charset);
       }
     }
     closedir($dir);
