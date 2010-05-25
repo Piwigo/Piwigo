@@ -206,13 +206,6 @@ else
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=<?php echo get_pwg_charset() ?>">
 <title>Controller</title>
-<?php
-// Controller will be displayed  with  the **real admin template** (without Any if it has been removed)
-if ( $my_theme !== '') {
-  $my_theme = get_root_url().$my_theme.'/theme.css';
-  echo '<link rel="stylesheet" type="text/css" href="' . $my_theme .'">';
-}
-?>
 
 </head>
 <body>
