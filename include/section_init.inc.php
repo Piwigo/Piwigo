@@ -336,7 +336,7 @@ SELECT DISTINCT image_id'.get_extra_fields($conf['order_by']).'
     $page = array_merge(
       $page,
       array(
-        'title' => get_tags_content_title(),
+        'title' => '<a href="'.get_absolute_root_url().$conf['home_page'].'">'.l10n('Home').'</a>'.$conf['level_separator'].get_tags_content_title(),
         'items' => $items,
         )
       );
@@ -358,7 +358,7 @@ SELECT DISTINCT image_id'.get_extra_fields($conf['order_by']).'
       $page,
       array(
         'items' => $search_result['items'],
-        'title' => '<a href="'.duplicate_index_url(array('start'=>0)).'">'
+        'title' => '<a href="'.get_absolute_root_url().$conf['home_page'].'">'.l10n('Home').'</a>'.$conf['level_separator'].'<a href="'.duplicate_index_url(array('start'=>0)).'">'
                   .l10n('Search results').'</a>',
         )
       );
@@ -373,7 +373,7 @@ SELECT DISTINCT image_id'.get_extra_fields($conf['order_by']).'
     $page = array_merge(
       $page,
       array(
-	'title' => l10n('Favorites')
+	'title' => '<a href="'.get_absolute_root_url().$conf['home_page'].'">'.l10n('Home').'</a>'.$conf['level_separator'].l10n('Favorites')
 	    )
     );
 
@@ -453,7 +453,7 @@ SELECT DISTINCT(id)'.get_extra_fields($conf['order_by']).'
     $page = array_merge(
       $page,
       array(
-        'title' => '<a href="'.duplicate_index_url(array('start'=>0)).'">'
+        'title' => '<a href="'.get_absolute_root_url().$conf['home_page'].'">'.l10n('Home').'</a>'.$conf['level_separator'].'<a href="'.duplicate_index_url(array('start'=>0)).'">'
                   .l10n('Recent pictures').'</a>',
         'items' => array_from_query($query, 'id'),
         )
@@ -467,7 +467,7 @@ SELECT DISTINCT(id)'.get_extra_fields($conf['order_by']).'
     $page = array_merge(
       $page,
       array(
-        'title' => l10n('Recent categories'),
+        'title' => '<a href="'.get_absolute_root_url().$conf['home_page'].'">'.l10n('Home').'</a>'.$conf['level_separator'].l10n('Recent categories'),
         )
       );
   }
@@ -491,7 +491,7 @@ SELECT DISTINCT(id), hit, file
     $page = array_merge(
       $page,
       array(
-        'title' => '<a href="'.duplicate_index_url(array('start'=>0)).'">'
+        'title' => '<a href="'.get_absolute_root_url().$conf['home_page'].'">'.l10n('Home').'</a>'.$conf['level_separator'].'<a href="'.duplicate_index_url(array('start'=>0)).'">'
                   .$conf['top_number'].' '.l10n('Most visited').'</a>',
         'items' => array_from_query($query, 'id'),
         )
@@ -517,7 +517,7 @@ SELECT DISTINCT(id), average_rate
     $page = array_merge(
       $page,
       array(
-        'title' => '<a href="'.duplicate_index_url(array('start'=>0)).'">'
+        'title' => '<a href="'.get_absolute_root_url().$conf['home_page'].'">'.l10n('Home').'</a>'.$conf['level_separator'].'<a href="'.duplicate_index_url(array('start'=>0)).'">'
                   .$conf['top_number'].' '.l10n('Best rated').'</a>',
         'items' => array_from_query($query, 'id'),
         )
@@ -540,7 +540,7 @@ SELECT DISTINCT(id)'.get_extra_fields($conf['order_by']).'
     $page = array_merge(
       $page,
       array(
-        'title' => '<a href="'.duplicate_index_url(array('start'=>0)).'">'
+        'title' => '<a href="'.get_absolute_root_url().$conf['home_page'].'">'.l10n('Home').'</a>'.$conf['level_separator'].'<a href="'.duplicate_index_url(array('start'=>0)).'">'
                     .l10n('Random pictures').'</a>',
         'items' => array_from_query($query, 'id'),
         )
