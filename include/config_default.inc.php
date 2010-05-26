@@ -780,4 +780,7 @@ $conf['ploader_download_mac'] = 'http://piwigo.org/ext/download.php?eid=353';
 
 // pLoader direct download url for linux
 $conf['ploader_download_linux'] = 'http://piwigo.org/ext/download.php?eid=269';
+
+// enable the synchronization method for adding photos
+$conf['enable_synchronization'] = true;
 ?>

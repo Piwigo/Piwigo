@@ -61,5 +61,15 @@
 </script>
 {/literal}
 
+{if not $ENABLE_SYNCHRONIZATION}
+{literal}
+<script type='text/javascript'>
+  $(document).ready(function() {
+    $("#helpSynchro").hide();
+  });
+</script>
+{/literal}
+{/if}
+
 </body>
 </html>

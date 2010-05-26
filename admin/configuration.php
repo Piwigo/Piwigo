@@ -221,7 +221,10 @@ $tabsheet->add('main', l10n('Main'), $conf_link.'main');
 $tabsheet->add('display', l10n('Display'), $conf_link.'display');
 $tabsheet->add('history', l10n('History'), $conf_link.'history');
 $tabsheet->add('comments', l10n('Comments'), $conf_link.'comments');
-$tabsheet->add('upload', l10n('Upload'), $conf_link.'upload');
+if ($conf['enable_synchronization'])
+{
+  $tabsheet->add('upload', l10n('Upload'), $conf_link.'upload');
+}
 $tabsheet->add('default', l10n('Guest Settings'), $conf_link.'default');
 // TabSheet selection
 $tabsheet->select($page['section']);

@@ -152,11 +152,18 @@ $tabs = array(
     'code' => 'ploader',
     'label' => l10n('Piwigo Uploader'),
     ),
-  array(
-    'code' => 'ftp',
-    'label' => l10n('FTP + Synchronization'),
-    ),
   );
+
+if ($conf['enable_synchronization'])
+{
+  array_push(
+    $tabs,
+    array(
+      'code' => 'ftp',
+      'label' => l10n('FTP + Synchronization'),
+      )
+    );
+}
 
 $tab_codes = array_map(
   create_function('$a', 'return $a["code"];'),
