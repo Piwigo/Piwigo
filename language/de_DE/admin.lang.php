@@ -69,7 +69,6 @@ $lang['Category elements associated to the following categories: %s'] = 'Kategor
 $lang['Check for upgrade failed for unknown reasons.'] = 'Suche nach einem Upgrade nicht möglich.';
 $lang['Check for upgrade'] = 'Prüfe ob eine neue Version der Bildergalerie verfügbar ist.';
 $lang['Comments for all'] = 'Kommentare für alle erlaubt';
-$lang['Controversy'] = 'Abweichung';
 $lang['Current name'] = 'Derzeitiger Name';
 $lang['Database'] = 'Datenbank';
 $lang['Deactivate'] = 'Deaktivieren';

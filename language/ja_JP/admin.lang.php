@@ -69,7 +69,6 @@ $lang['Category elements associated to the following categories: %s'] = '以下�
 $lang['Check for upgrade failed for unknown reasons.'] = '不明な理由により、アップグレードのチェックが失敗しました。';
 $lang['Check for upgrade'] = 'アップグレードをチェックする';
 $lang['Comments for all'] = 'すべてのユーザにコメントを許可する';
-$lang['Controversy'] = '論争';
 $lang['Current name'] = '現在の名称';
 $lang['Database'] = 'データベース';
 $lang['Deactivate'] = '無効化';

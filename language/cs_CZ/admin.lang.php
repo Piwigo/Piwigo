@@ -72,7 +72,6 @@ $lang['Category elements associated to the following categories: %s'] = 'Položk
 $lang['Check for upgrade failed for unknown reasons.'] = 'Zjištění možnosti aktualizace se nezdařilo';
 $lang['Check for upgrade'] = 'Zjistit možnost aktualizace';
 $lang['Comments for all'] = 'Komentáře pro všechny';
-$lang['Controversy'] = 'Kontroverze';
 $lang['Current name'] = 'Současný název';
 $lang['Database'] = 'Databáze';
 $lang['Deactivate'] = 'Deaktivovat';

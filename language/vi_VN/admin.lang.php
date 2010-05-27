@@ -70,7 +70,6 @@ $lang['Category elements associated to the following categories: %s'] = 'Các th
 $lang['Check for upgrade failed for unknown reasons.'] = 'Quá trình dò tìm phiên bản nâng cấp bị lỗi, không xác định được nguyên nhân.';
 $lang['Check for upgrade'] = 'Dò tìm phiên bản mới';
 $lang['Comments for all'] = 'Cho mọi đối tượng được phép gởi bình luận';
-$lang['Controversy'] = 'Tranh luận';
 $lang['Current name'] = 'Tên hiện tại';
 $lang['Database'] = 'Cơ sở dữ liệu';
 $lang['Deactivate'] = 'Bỏ kích hoạt';

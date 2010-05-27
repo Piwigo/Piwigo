@@ -69,7 +69,6 @@ $lang['Category elements associated to the following categories: %s'] = 'تنص�
 $lang['Check for upgrade failed for unknown reasons.'] = 'لم يتم التحدث لاسباب غير معروفه.';
 $lang['Check for upgrade'] = 'التأكد من التحديثات';
 $lang['Comments for all'] = 'يسمح للجميع بالتعليق دون استثناء و دون طائفية :)';
-$lang['Controversy'] = 'التعليقات';
 $lang['Current name'] = 'الاسم الحالي';
 $lang['Database'] = 'قاعدة البيانات';
 $lang['Deactivate'] = 'تعطيل';

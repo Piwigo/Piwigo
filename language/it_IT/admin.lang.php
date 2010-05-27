@@ -71,7 +71,6 @@ $lang['Category elements associated to the following categories: %s'] = 'Gli ele
 $lang['Check for upgrade failed for unknown reasons.'] = 'La verifica dell\'ultima versione sul server è fallita per le ragioni sconosciute.';
 $lang['Check for upgrade'] = 'Ultima versione ?';
 $lang['Comments for all'] = 'Commenti per tutti';
-$lang['Controversy'] = 'Controversia';
 $lang['Current name'] = 'Nome attuale';
 $lang['Database'] = 'Database';
 $lang['Deactivate'] = 'Disattivare';
