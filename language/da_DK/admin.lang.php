@@ -71,7 +71,6 @@ $lang['Category elements associated to the following categories: %s']     =     
 $lang['Check for upgrade failed for unknown reasons.']     =     'Check for opgradering mislykkedes af ukendte årsager.';
 $lang['Check for upgrade'] = 'Tjek efter opgradering';
 $lang['Comments for all']     =     'Kommentarer til alle';
-$lang['Controversy'] = 'Kontrovers';
 $lang['Current name']     =     'Nuværende navn';
 $lang['Database']     =     'Database';
 $lang['Deactivate']     =     'Deaktiver';

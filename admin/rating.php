@@ -134,11 +134,9 @@ $available_order_by= array(
     array(l10n('Average rate'), 'average_rate DESC'),
     array(l10n('Number of rates'), 'nb_rates DESC'),
     array(l10n('Sum of rates'), 'sum_rates DESC'),
-    array(l10n('Controversy'), 'std_rates DESC'),
     array(l10n('File name'), 'file DESC'),
     array(l10n('Creation date'), 'date_creation DESC'),
     array(l10n('Post date'), 'date_available DESC'),
-
   );
 
 for ($i=0; $i<count($available_order_by); $i++)

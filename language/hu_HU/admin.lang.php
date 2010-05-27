@@ -69,7 +69,6 @@ $lang['Category elements associated to the following categories: %s'] = 'A kateg
 $lang['Check for upgrade failed for unknown reasons.'] = 'A program frissítése ismeretlen okból nem sikerült.';
 $lang['Check for upgrade'] = 'Frissítés keresése';
 $lang['Comments for all'] = 'Bárki hozzászólhat';
-$lang['Controversy'] = 'Szórás';
 $lang['Current name'] = 'Név';
 $lang['Database'] = 'Adatbázis';
 $lang['Deactivate'] = 'Kikapcsolás';

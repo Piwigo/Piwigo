@@ -69,7 +69,6 @@ $lang['Category elements associated to the following categories: %s'] = 'Stavke 
 $lang['Check for upgrade failed for unknown reasons.'] = 'Provjera nadogradnje neuspješna iz nepoznatog razloga.';
 $lang['Check for upgrade'] = 'Provjera nadogradnje';
 $lang['Comments for all'] = 'Komentari za sve';
-$lang['Controversy'] = 'Osporavanja';
 $lang['Current name'] = 'Trenutni naziv';
 $lang['Database'] = 'Baza podataka';
 $lang['Deactivate'] = 'Isključi';

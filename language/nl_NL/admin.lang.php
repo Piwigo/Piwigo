@@ -69,7 +69,6 @@ $lang['Category elements associated to the following categories: %s'] = 'Categor
 $lang['Check for upgrade failed for unknown reasons.'] = 'Upgradecontrole is door onbekende reden niet (goed) uitgevoerd.';
 $lang['Check for upgrade'] = 'Upgradecontrole';
 $lang['Comments for all'] = 'Iedereen mag commentaar geven (ook gasten)';
-$lang['Controversy'] = 'Controversieel';
 $lang['Current name'] = 'Huidige naam';
 $lang['Database'] = 'Database';
 $lang['Deactivate'] = 'Deactiveer';

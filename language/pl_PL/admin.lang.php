@@ -69,7 +69,6 @@ $lang['Category elements associated to the following categories: %s'] = 'Element
 $lang['Check for upgrade failed for unknown reasons.'] = 'Sprawdzenie aktualizacji nie powiodło się z nieznanych powodów.';
 $lang['Check for upgrade'] = 'Sprawdź aktualizacje';
 $lang['Comments for all'] = 'Komentarze dla wszystkich';
-$lang['Controversy'] = 'Kontorversyjność';
 $lang['Current name'] = 'Bieżąca nazwa';
 $lang['Database'] = 'Baza danych';
 $lang['Deactivate'] = 'Deaktywuj';

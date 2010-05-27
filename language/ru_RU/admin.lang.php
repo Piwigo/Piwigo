@@ -69,7 +69,6 @@ $lang['Category elements associated to the following categories: %s'] = 'Фот�
 $lang['Check for upgrade failed for unknown reasons.'] = 'Проверка обновлений не удалась по неизвестным причинам.';
 $lang['Check for upgrade'] = 'Проверить обновления';
 $lang['Comments for all'] = 'Комментарии для всех';
-$lang['Controversy'] = 'Противоречие';
 $lang['Current name'] = 'Текущее название';
 $lang['Database'] = 'База данных';
 $lang['Deactivate'] = 'Выключить';

@@ -69,7 +69,6 @@ $lang['Category elements associated to the following categories: %s'] = '本类�
 $lang['Check for upgrade failed for unknown reasons.'] = '因未知原因导致更新检测失败.';
 $lang['Check for upgrade'] = '检测更新';
 $lang['Comments for all'] = '对所有成员进行评论';
-$lang['Controversy'] = '辩论';
 $lang['Current name'] = '现用名';
 $lang['Database'] = '数据库';
 $lang['Deactivate'] = '注销';
