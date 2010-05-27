@@ -168,6 +168,10 @@ function mkgetdir($dir, $flags=MKGETDIR_DEFAULT)
 {
   if ( !is_dir($dir) )
   {
+    if (substr(PHP_OS, 0, 3) == 'WIN')
+    {
+      $dir = str_replace('/', DIRECTORY_SEPARATOR, $dir);
+    }
     $umask = umask(0);
     $mkd = @mkdir($dir, 0755, ($flags&MKGETDIR_RECURSIVE) ? true:false );
     umask($umask);

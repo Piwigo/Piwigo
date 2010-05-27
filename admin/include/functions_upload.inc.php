@@ -141,6 +141,10 @@ function add_uploaded_file($source_filepath, $original_filename=null, $categorie
 function prepare_directory($directory)
 {
   if (!is_dir($directory)) {
+    if (substr(PHP_OS, 0, 3) == 'WIN')
+    {
+      $directory = str_replace('/', DIRECTORY_SEPARATOR, $directory);
+    }
     umask(0000);
     $recursive = true;
     if (!@mkdir($directory, 0777, $recursive))
