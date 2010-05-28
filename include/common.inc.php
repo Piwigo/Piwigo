@@ -118,6 +118,10 @@ catch (Exception $e)
 pwg_db_check_charset();
 
 load_conf_from_db();
+if ('http://piwigo.org/demo' == $conf['gallery_url'])
+{
+  conf_update_param('gallery_url', '');
+}
 load_plugins();
 
 include(PHPWG_ROOT_PATH.'include/user.inc.php');
