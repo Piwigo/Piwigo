@@ -219,8 +219,6 @@ $forbidden = get_sql_condition_FandF(
 // +-----------------------------------------------------------------------+
 if ('categories' == $page['section'])
 {
-  $page['title'] = '<a href="'.get_absolute_root_url().$conf['home_page'].'">'.l10n('Home').'</a>';
-
   if (isset($page['category']))
   {
     $page = array_merge(
@@ -232,11 +230,12 @@ if ('categories' == $page['section'])
               $page['category']['comment'],
               'main_page_category_description'
             ),
-        'title'             =>
-          $page['title'].$conf['level_separator'].get_cat_display_name($page['category']['upper_names'], '', false),
+        'title'             => get_cat_display_name($page['category']['upper_names'], '', false),
         )
       );
   }
+  else
+    $page['title'] = ''; // will be set later
 
   if
     (
@@ -373,8 +372,8 @@ SELECT DISTINCT image_id'.get_extra_fields($conf['order_by']).'
     $page = array_merge(
       $page,
       array(
-	'title' => l10n('Favorites')
-	    )
+        'title' => l10n('Favorites')
+      )
     );
 
     if (!empty($_GET['action']) && ($_GET['action'] == 'remove_all_from_favorites'))
@@ -556,6 +555,16 @@ if (isset($page['chronology_field']))
 {
   include_once( PHPWG_ROOT_PATH.'include/functions_calendar.inc.php' );
   initialize_calendar();
+}
+
+// title update
+if (isset($page['title']))
+{
+  if (!empty($page['title']))
+	{
+	  $page['title'] = $conf['level_separator'].$page['title'];
+	}
+  $page['title'] = '<a href="'.get_gallery_home_url().'">'.l10n('Home').'</a>'.$page['title'];
 }
 
 // add meta robots noindex, nofollow to avoid unnecesary robot crawls
