@@ -381,7 +381,7 @@ function do_action_send_mail_notification($action = 'list_to_send', $check_key_l
                 array
                 (
                   'GOTO_GALLERY_TITLE' => $conf['gallery_title'],
-                  'GOTO_GALLERY_URL' => $conf['gallery_url'],
+                  'GOTO_GALLERY_URL' => get_gallery_home_url(),
                   'SEND_AS_NAME'      => $env_nbm['send_as_name'],
                 )
               );

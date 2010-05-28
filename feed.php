@@ -110,7 +110,7 @@ $rss->encoding=get_pwg_charset();
 $rss->title = $conf['gallery_title'];
 $rss->title.= ' (as '.stripslashes($user['username']).')';
 
-$rss->link = $conf['gallery_url'];
+$rss->link = get_gallery_home_url();
 
 // +-----------------------------------------------------------------------+
 // |                            Feed creation                              |
@@ -125,7 +125,7 @@ if (!$image_only)
   {
     $item = new FeedItem();
     $item->title = sprintf(l10n('New on %s'), format_date($dbnow) );
-    $item->link = $conf['gallery_url'];
+    $item->link = get_gallery_home_url();
 
     // content creation
     $item->description = '<ul>';

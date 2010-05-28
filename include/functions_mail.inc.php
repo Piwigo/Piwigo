@@ -150,38 +150,6 @@ function get_strict_email_list($email_list)
   return implode(',', $result);
 }
 
-/**
- * Returns an completed array template/theme
- * completed with get_default_theme()
- *
- * @params:
- *   - args: incompleted array of template/theme
- *       o template: template to use [default get_default_theme()]
- *       o theme: template to use [default get_default_theme()]
- */
-function get_array_template_theme($args = array())
-{
-  global $conf;
-
-  $res = array();
-
-  if (empty($args['template']) or empty($args['theme']))
-  {
-    list($res['template'], $res['theme']) = explode('/', get_default_theme());
-  }
-
-  if (!empty($args['template']))
-  {
-    $res['template'] = $args['template'];
-  }
-
-  if (!empty($args['theme']))
-  {
-    $res['theme'] = $args['theme'];
-  }
-
-  return $res;
-}
 
 /**
  * Return an new mail template
@@ -641,9 +609,7 @@ function pwg_mail($to, $args = array())
           'CONTENT_ENCODING' => get_pwg_charset(),
 
           // Footer
-          'GALLERY_URL' =>
-            isset($page['gallery_url']) ?
-                  $page['gallery_url'] : $conf['gallery_url'],
+          'GALLERY_URL' => get_gallery_home_url(),
           'GALLERY_TITLE' =>
             isset($page['gallery_title']) ?
                   $page['gallery_title'] : $conf['gallery_title'],
@@ -828,13 +794,13 @@ function move_ccs_rules_to_body($content)
 }
 
 /*Testing block*/
-/*function pwg_send_mail_test($result, $to, $subject, $content, $headers, $args)
+function pwg_send_mail_test($result, $to, $subject, $content, $headers, $args)
 {
     global $conf, $user, $lang_info;
     $dir = $conf['local_data_dir'].'/tmp';
     if ( mkgetdir( $dir,  MKGETDIR_DEFAULT&~MKGETDIR_DIE_ON_ERROR) )
     {
-      $filename = $dir.'/mail.'.stripslashes($user['username']).'.'.$lang_info['code'].'.'.$args['template'].'.'.$args['theme'];
+      $filename = $dir.'/mail.'.stripslashes($user['username']).'.'.$lang_info['code'].'.'.$args['theme'].'-'.date('YmdHis');
       if ($args['content_format'] == 'text/plain')
       {
         $filename .= '.txt';
@@ -852,7 +818,8 @@ function move_ccs_rules_to_body($content)
     }
     return $result;
 }
-add_event_handler('send_mail', 'pwg_send_mail_test', EVENT_HANDLER_PRIORITY_NEUTRAL+10, 6);*/
+if ($conf['debug_mail'])
+  add_event_handler('send_mail', 'pwg_send_mail_test', EVENT_HANDLER_PRIORITY_NEUTRAL+10, 6);
 
 
 add_event_handler('send_mail', 'pwg_send_mail', EVENT_HANDLER_PRIORITY_NEUTRAL, 5);

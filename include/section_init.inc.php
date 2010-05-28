@@ -219,8 +219,6 @@ $forbidden = get_sql_condition_FandF(
 // +-----------------------------------------------------------------------+
 if ('categories' == $page['section'])
 {
-  $page['title'] = '<a href="'.get_absolute_root_url().$conf['home_page'].'">'.l10n('Home').'</a>';
-
   if (isset($page['category']))
   {
     $page = array_merge(
@@ -232,11 +230,12 @@ if ('categories' == $page['section'])
               $page['category']['comment'],
               'main_page_category_description'
             ),
-        'title'             =>
-          $page['title'].$conf['level_separator'].get_cat_display_name($page['category']['upper_names'], '', false),
+        'title'             => get_cat_display_name($page['category']['upper_names'], '', false),
         )
       );
   }
+  else
+    $page['title'] = ''; // will be set later
 
   if
     (
@@ -336,7 +335,7 @@ SELECT DISTINCT image_id'.get_extra_fields($conf['order_by']).'
     $page = array_merge(
       $page,
       array(
-        'title' => '<a href="'.get_absolute_root_url().$conf['home_page'].'">'.l10n('Home').'</a>'.$conf['level_separator'].get_tags_content_title(),
+        'title' => get_tags_content_title(),
         'items' => $items,
         )
       );
@@ -358,7 +357,7 @@ SELECT DISTINCT image_id'.get_extra_fields($conf['order_by']).'
       $page,
       array(
         'items' => $search_result['items'],
-        'title' => '<a href="'.get_absolute_root_url().$conf['home_page'].'">'.l10n('Home').'</a>'.$conf['level_separator'].'<a href="'.duplicate_index_url(array('start'=>0)).'">'
+        'title' => '<a href="'.duplicate_index_url(array('start'=>0)).'">'
                   .l10n('Search results').'</a>',
         )
       );
@@ -373,8 +372,8 @@ SELECT DISTINCT image_id'.get_extra_fields($conf['order_by']).'
     $page = array_merge(
       $page,
       array(
-	'title' => '<a href="'.get_absolute_root_url().$conf['home_page'].'">'.l10n('Home').'</a>'.$conf['level_separator'].l10n('Favorites')
-	    )
+        'title' => l10n('Favorites')
+      )
     );
 
     if (!empty($_GET['action']) && ($_GET['action'] == 'remove_all_from_favorites'))
@@ -453,7 +452,7 @@ SELECT DISTINCT(id)'.get_extra_fields($conf['order_by']).'
     $page = array_merge(
       $page,
       array(
-        'title' => '<a href="'.get_absolute_root_url().$conf['home_page'].'">'.l10n('Home').'</a>'.$conf['level_separator'].'<a href="'.duplicate_index_url(array('start'=>0)).'">'
+        'title' => '<a href="'.duplicate_index_url(array('start'=>0)).'">'
                   .l10n('Recent pictures').'</a>',
         'items' => array_from_query($query, 'id'),
         )
@@ -467,7 +466,7 @@ SELECT DISTINCT(id)'.get_extra_fields($conf['order_by']).'
     $page = array_merge(
       $page,
       array(
-        'title' => '<a href="'.get_absolute_root_url().$conf['home_page'].'">'.l10n('Home').'</a>'.$conf['level_separator'].l10n('Recent categories'),
+        'title' => l10n('Recent categories'),
         )
       );
   }
@@ -491,7 +490,7 @@ SELECT DISTINCT(id), hit, file
     $page = array_merge(
       $page,
       array(
-        'title' => '<a href="'.get_absolute_root_url().$conf['home_page'].'">'.l10n('Home').'</a>'.$conf['level_separator'].'<a href="'.duplicate_index_url(array('start'=>0)).'">'
+        'title' => '<a href="'.duplicate_index_url(array('start'=>0)).'">'
                   .$conf['top_number'].' '.l10n('Most visited').'</a>',
         'items' => array_from_query($query, 'id'),
         )
@@ -517,7 +516,7 @@ SELECT DISTINCT(id), average_rate
     $page = array_merge(
       $page,
       array(
-        'title' => '<a href="'.get_absolute_root_url().$conf['home_page'].'">'.l10n('Home').'</a>'.$conf['level_separator'].'<a href="'.duplicate_index_url(array('start'=>0)).'">'
+        'title' => '<a href="'.duplicate_index_url(array('start'=>0)).'">'
                   .$conf['top_number'].' '.l10n('Best rated').'</a>',
         'items' => array_from_query($query, 'id'),
         )
@@ -540,7 +539,7 @@ SELECT DISTINCT(id)'.get_extra_fields($conf['order_by']).'
     $page = array_merge(
       $page,
       array(
-        'title' => '<a href="'.get_absolute_root_url().$conf['home_page'].'">'.l10n('Home').'</a>'.$conf['level_separator'].'<a href="'.duplicate_index_url(array('start'=>0)).'">'
+        'title' => '<a href="'.duplicate_index_url(array('start'=>0)).'">'
                     .l10n('Random pictures').'</a>',
         'items' => array_from_query($query, 'id'),
         )
@@ -556,6 +555,16 @@ if (isset($page['chronology_field']))
 {
   include_once( PHPWG_ROOT_PATH.'include/functions_calendar.inc.php' );
   initialize_calendar();
+}
+
+// title update
+if (isset($page['title']))
+{
+  if (!empty($page['title']))
+	{
+	  $page['title'] = $conf['level_separator'].$page['title'];
+	}
+  $page['title'] = '<a href="'.get_gallery_home_url().'">'.l10n('Home').'</a>'.$page['title'];
 }
 
 // add meta robots noindex, nofollow to avoid unnecesary robot crawls

@@ -93,7 +93,7 @@ function quote_check_key_list($check_key_list = array())
 }
 
 /*
- * Execute all main queries to get list of user 
+ * Execute all main queries to get list of user
  *
  * Type are the type of list 'subscribe', 'send'
  *
@@ -110,7 +110,7 @@ function get_user_notifications($action, $check_key_list = array(), $enabled_fil
     $quoted_check_key_list = quote_check_key_list($check_key_list);
     if (count($quoted_check_key_list) != 0 )
     {
-      $query_and_check_key = ' and 
+      $query_and_check_key = ' and
     check_key in ('.implode(",", $quoted_check_key_list).') ';
     }
     else
@@ -131,7 +131,7 @@ from
   '.USERS_TABLE.' as U
 where
   N.user_id =  U.'.$conf['user_fields']['id'];
-  
+
     if ($action == 'send')
     {
       // No mail empty and all users enabled
@@ -418,7 +418,7 @@ function do_subscribe_unsubscribe_notification_by_mail($is_admin_request, $is_su
           (
             $section_action_by => true,
             'GOTO_GALLERY_TITLE' => $conf['gallery_title'],
-            'GOTO_GALLERY_URL' => $conf['gallery_url'],
+            'GOTO_GALLERY_URL' => get_gallery_home_url(),
           )
         );
 

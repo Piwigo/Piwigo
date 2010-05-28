@@ -58,7 +58,7 @@ function get_absolute_root_url($with_scheme=true)
   $url = '';
   if ($with_scheme)
   {
-    if (isset($_SERVER['HTTPS']) && 
+    if (isset($_SERVER['HTTPS']) &&
 	((strtolower($_SERVER['HTTPS']) == 'on') or ($_SERVER['HTTPS'] == 1)))
     {
       $url .= 'https://';
@@ -727,4 +727,23 @@ function embellish_url($url)
   return $url;
 }
 
+/**
+ * Returns the 'home page' of this gallery
+ */
+function get_gallery_home_url()
+{
+  global $conf;
+  if (!empty($conf['gallery_url']))
+  {
+    if (url_is_remote($conf['gallery_url']) or strncmp($conf['gallery_url'], '/', 1)==0)
+    {
+      return $conf['gallery_url'];
+    }
+    return get_root_url().$conf['gallery_url'];
+  }
+  else
+  {
+    return make_index_url();
+  }
+}
 ?>

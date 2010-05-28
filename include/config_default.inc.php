@@ -328,18 +328,12 @@ $conf['double_password_type_in_admin'] = false;
 // Define if logins must be case sentitive or not at users registration. ie :
 // If set true, the login "user" will equal "User" or "USER" or "user",
 // etc. ... And it will be impossible to use such login variation to create a
-// new user account. 
+// new user account.
 $conf['insensitive_case_logon'] = false;
 
 // how should we check for unicity when adding a photo. Can be 'md5sum' or
 // 'filename'
 $conf['uniqueness_mode'] = 'md5sum';
-
-// home_page : relative url of the homepage. Empty by default.
-// It points to the index of the gallery.
-// This parameter is used if home page is not index.php of the gallery.
-// We suggest avoid the names "index.htm" or "index.html" if you set $conf['php_extension_in_urls'] to false.
-$conf['home_page'] = '';
 
 // +-----------------------------------------------------------------------+
 // |                               metadata                                |
@@ -463,6 +457,9 @@ $conf['debug_l10n'] = false;
 
 // activate template debugging - a new window will appear
 $conf['debug_template'] = false;
+
+// save copies of sent mails into local data dir
+$conf['debug_mail'] = false;
 
 // die_on_sql_error: if an SQL query fails, should everything stop?
 $conf['die_on_sql_error'] = true;

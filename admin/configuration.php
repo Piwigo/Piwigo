@@ -114,10 +114,6 @@ if (isset($_POST['submit']) and !is_adviser())
   {
     case 'main' :
     {
-      if ( !url_is_remote($_POST['gallery_url']) )
-      {
-        array_push($page['errors'], l10n('The gallery URL is not valid.'));
-      }
       foreach( $main_checkboxes as $checkbox)
       {
         $_POST[$checkbox] = empty($_POST[$checkbox])?'false':'true';

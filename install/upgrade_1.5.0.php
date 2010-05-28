@@ -318,8 +318,8 @@ foreach ($queries as $query)
 //
 $params = array(
   'gallery_url' => array(
-    'http://piwigo.org/demo',
-    'URL given in RSS feed'
+    '',
+    'Optional alternate homepage for the gallery'
     ),
   'rate' => array(
     'true',
