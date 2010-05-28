@@ -611,6 +611,7 @@ $lang['ranks'] = 'Rangok';
 $lang['Drag to re-order'] = 'Húzással átrendezheti';
 $lang['Quick Local Synchronization'] = 'Helyi szinkronizálás';
 $lang['No photo can be deleted'] = 'Nincs törölhető kép';
+$lang['Note: photo deletion does not apply to photos added by synchronization. For photos added by synchronization, remove them from the filesystem and then perform another synchronization.'] = "Megjegyzés: a képek törlése nem vonatkozik a szinkronizálással hozzáadott képekre. A szinkronizálással hozzáadott képeket törölni kell a fájlrendszerből, majd ismételt szinkronizálás szükséges.";
 $lang['Delete selected photos'] = 'Kijelölt képek törlése';
 $lang['%d photo was deleted'] = '%d kép törölve';
 $lang['%d photos were deleted'] = '%d kép törölve';
