@@ -52,7 +52,6 @@ $lang['All tags'] = 'All tags';
 $lang['Any tag'] = 'Any tag';
 $lang['At least one listed rule must be satisfied.'] = 'At least one listed rule must be satisfied.';
 $lang['At least one tag must match'] = 'At least one tag must match';
-$lang['Author'] = 'Author';
 $lang['Average rate'] = 'Average rate';
 $lang['Categories'] = 'Categories';
 $lang['Category'] = 'Category';
