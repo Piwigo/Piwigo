@@ -158,7 +158,7 @@ INSERT INTO '.COMMENTS_TABLE.'
   VALUES (
     "'.$comm['author'].'",
     '.$comm['author_id'].',
-    "'.$comm['content'].'",
+    "'.pwg_db_real_escape_string($comm['content']).'",
     NOW(),
     "'.($comment_action=='validate' ? 'true':'false').'",
     '.($comment_action=='validate' ? 'NOW()':'NULL').',
