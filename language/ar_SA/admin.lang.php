@@ -236,7 +236,6 @@ $lang['group "%s" updated'] = 'المجموعه  "%s"  تم تحميلها';
 $lang['group'] = 'المجموعة';
 $lang['The name of a group must not contain " or \' or be empty.'] = 'لا تستخدم الترقيم "/" و لا تترك اسم المجموع فارغ';
 $lang['This name is already used by another group.'] = 'هذا الاسم مستخدم من قبل مجموعه أ×خرى.';
-$lang['Groups'] = 'مجموعات';
 $lang[''] = '';
 $lang['High definition'] = 'ابعاد الارتفاع';
 $lang['jump to category'] = 'اغفز للمجموعة';
@@ -298,7 +297,6 @@ $lang['Send mail as'] = 'أرسل بريد كـ ';
 $lang['Send mail to users'] = 'ارسل بريد للمستخدمين';
 $lang['Send'] = 'أرسل';
 $lang['Options'] = 'خيارات';
-$lang['Send'] = 'أرســل';
 $lang['Subscribed'] = 'مشترك';
 $lang['Subscribe'] = 'اشتـراك';
 $lang['Parameters'] = 'البارامترات';
@@ -323,7 +321,6 @@ $lang['Available only with HTML format'] = 'متاح فقط بصيغة HTML';
 $lang['no write access'] = 'حرية التنفيذ مقيدة';
 $lang['Permissions'] = 'أذونات';
 $lang['private'] = 'خاص';
-$lang['Properties'] = 'خصائص';
 $lang['public'] = 'العام';
 $lang['Purge never used notification feeds'] = 'عدم تسهيل استخدام التغذية الراجعه ';
 $lang['Purge sessions'] = 'تبسط او تسهيل الجلسات';
@@ -359,7 +356,6 @@ $lang['status'] = 'الحالة';
 $lang['Directory'] = 'الدليل';
 $lang['sub-categories'] = 'الألبوم الفرعي';
 $lang['synchronize metadata'] = 'مزامنة البيانات الوصفية';
-$lang['synchronize'] = 'المزامنة';
 $lang['target'] = 'الهـدف';
 $lang['Thumbnail'] = 'المــصغرة';
 $lang['title'] = 'العنوان';
@@ -442,7 +438,6 @@ $lang['user_status_generic'] = 'عام';
 $lang['user_status_guest'] = 'ضيف محترم';
 $lang['user_status_normal'] = 'مستخدم';
 $lang['user_status_webmaster'] = 'مسؤول الموقع';
-$lang['Users'] = 'مستخدم';
 $lang['Virtual category'] = 'ألبوم افتراضي';
 $lang['Waiting'] = 'تحت الانتظار';
 $lang['default'] = 'افتراضي';
@@ -459,7 +454,6 @@ $lang['Day'] = 'يوم';
 $lang['Pages seen'] = 'صفحة مشاهده';
 $lang['Pictures'] = 'الصور';
 $lang['Time'] = 'الوقت';
-$lang['User'] = 'المستخدم';
 $lang['IP'] = 'IP';
 $lang['Element'] = 'عنصر';
 $lang['Section'] = 'القسم';
@@ -467,7 +461,6 @@ $lang['Tags'] = 'كلمات دلائلية';
 $lang['Save page visits by guests'] = 'حفظ الصفحات المشاهده من قبل الضيوف';
 $lang['Save page visits by users'] = 'حفظ الصفحة المشاهدة من قبل المستخدمين';
 $lang['Save page visits by administrators'] = 'حفظ الصفحة المشاهدو من قبل الادارة العامة';
-$lang['Properties'] = 'الخصائص';
 $lang['An information email was sent to group "%s"'] = 'معلومات تم ارسالها الي المجموعة "%s';
 $lang['Send an information email to group members'] = 'أرسل الملعومات الي أعضاء المجموعة';
 $lang['Group'] = 'Group';
@@ -480,7 +473,6 @@ $lang['none'] = 'لا شيء';
 $lang['high'] = 'الارتفاع';
 $lang['other'] = 'آخــر';
 $lang['Element type'] = 'نوع العنـصر';
-$lang['User'] = 'مســتخدم';
 $lang['Image id'] = 'هوية الصورة';
 $lang['Summary'] = 'ملخص';
 $lang['%d line filtered'] = '%d خط مـُرشح';
@@ -572,7 +564,6 @@ $lang['Please check "plugins" folder and sub-folders permissions (CHMOD).'] = '�
 $lang['Can\'t connect to server.'] = 'يمكن\'لا الاتصال بالخادم.';
 $lang['Purge compiled templates'] = 'معالجة جميع النماذج';
 $lang['Caddie is currently empty'] = '    الــسلة خاليــة   ';
-$lang['Upload'] = 'تحميل';
 $lang['Show upload link every time'] = 'اظهر رابط التحميل في كل وقت';
 $lang['User access level to upload'] = 'مستوى موصول المستخدمين للتحميل';
 $lang['ACCESS_0'] = 'حرية الوصول';
