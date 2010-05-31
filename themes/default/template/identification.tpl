@@ -21,8 +21,6 @@
   <fieldset>
     <legend>{'Connection settings'|@translate}</legend>
 
-    <input type="hidden" name="redirect" value="{$U_REDIRECT|urlencode}">
-
     <ul>
       <li>
         <span class="property">
@@ -41,7 +39,7 @@
       {if $authorize_remembering }
       <li>
         <span class="property">
-          <label for="Auto login">{'Auto login'|@translate}</label>
+          <label for="remember_me">{'Auto login'|@translate}</label>
         </span>
         <input tabindex="3" type="checkbox" name="remember_me" id="remember_me" value="1">
       </li>
@@ -49,7 +47,10 @@
     </ul>
   </fieldset>
 
-  <p><input class="submit" tabindex="4" type="submit" name="login" value="{'Submit'|@translate}"></p>
+  <p>
+    <input type="hidden" name="redirect" value="{$U_REDIRECT|urlencode}">
+    <input class="submit" tabindex="4" type="submit" name="login" value="{'Submit'|@translate}">
+  </p>
 
   <p>
     {if isset($U_REGISTER) }
