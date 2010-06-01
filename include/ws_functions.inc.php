@@ -548,8 +548,8 @@ SELECT DISTINCT image_id
   }
 
   $comm = array(
-    'author' => trim( stripslashes($params['author']) ),
-    'content' => trim( stripslashes($params['content']) ),
+    'author' => trim( $params['author'] ),
+    'content' => trim( $params['content'] ),
     'image_id' => $params['image_id'],
    );
 
@@ -1356,7 +1356,7 @@ function ws_session_getStatus($params, &$service)
   global $user;
   $res = array();
   $res['username'] = is_a_guest() ? 'guest' : stripslashes($user['username']);
-  foreach ( array('status', 'template', 'theme', 'language') as $k )
+  foreach ( array('status', 'theme', 'language') as $k )
   {
     $res[$k] = $user[$k];
   }

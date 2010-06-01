@@ -158,7 +158,7 @@ INSERT INTO '.COMMENTS_TABLE.'
   VALUES (
     "'.$comm['author'].'",
     '.$comm['author_id'].',
-    "'.pwg_db_real_escape_string($comm['content']).'",
+    "'.$comm['content'].'",
     NOW(),
     "'.($comment_action=='validate' ? 'true':'false').'",
     '.($comment_action=='validate' ? 'NOW()':'NULL').',
@@ -257,21 +257,6 @@ function update_user_comment($comment, $post_key)
     $comment_action='reject';
   }
 
-/* ? this is a MySql Error - author_id is not defined
-  if ($comment_action!='reject' and $conf['anti-flood_time']>0 )
-  { // anti-flood system
-    $reference_date = time() - $conf['anti-flood_time'];
-    $query = '
-SELECT id FROM '.COMMENTS_TABLE.'
-  WHERE date > FROM_UNIXTIME('.$reference_date.')
-    AND author_id = '.$comm['author_id'];
-    if ( pwg_db_num_rows( pwg_query( $query ) ) > 0 )
-    {
-      //?? array_push( $infos, l10n('Anti-flood system : please wait for a moment before trying to post another comment') );
-      $comment_action='reject';
-    }
-  }
-*/
   // perform more spam check
   $comment_action =
     trigger_event('user_comment_check',
