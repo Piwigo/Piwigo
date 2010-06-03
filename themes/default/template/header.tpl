@@ -53,7 +53,7 @@
 
 </head>
 
-<body id="{$BODY_ID}" {if isset($BODY_CLASS)}class="{$BODY_CLASS}"{/if}>
+<body id="{$BODY_ID}">
 <div id="the_page">
 
 {if not empty($header_msgs)}
