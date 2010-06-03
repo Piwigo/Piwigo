@@ -599,6 +599,7 @@ else
 if ($page['slideshow'] and $conf['light_slideshow'])
 {
   $template->set_filenames( array('slideshow' => 'slideshow.tpl'));
+  $template->assign('BODY_CLASS', 'slideshow');
 }
 else
 {
