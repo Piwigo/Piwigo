@@ -116,14 +116,17 @@ check_status(ACCESS_ADMINISTRATOR);
 $query = '
 SELECT
     date,
-    HOUR(time) AS hour,
+    hour(time) AS hour,
     MAX(id) AS max_id,
     COUNT(*) AS nb_pages
   FROM '.HISTORY_TABLE.'
   WHERE summarized = \'false\'
   GROUP BY
+    date,
+    hour
+  ORDER BY
     date ASC,
-    HOUR(time) ASC
+    hour ASC
 ;';
 $result = pwg_query($query);
 
