@@ -60,14 +60,14 @@ if (($conf['show_exif']) and (function_exists('read_exif_data')))
       else
       {
         $tokens = explode(';', $field);
-        if (isset($exif[$field]))
+        if (isset($exif[$tokens[0]][$tokens[1]]))
         {
           $key = $tokens[1];
-          if (isset($lang['exif_field_'.$key]))
+          if (isset($lang['exif_field_'.$tokens[1]]))
           {
-            $key = $lang['exif_field_'.$key];
+            $key = $lang['exif_field_'.$tokens[1]];
           }
-          $tpl_meta['lines'][$key] = $exif[$field];
+          $tpl_meta['lines'][$key] = $exif[$tokens[0]][$tokens[1]];
         }
       }
     }
