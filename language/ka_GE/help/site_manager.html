@@ -1,0 +1,39 @@
+<h2>დაშორებული საიტები</h2>
+
+<p>Piwigo გთავაზობთ შესაძლებლობას გამოიყენოთ რამდენიმე სერვერი, რომლებზეც შეინახავთ თქვენს ფოტოებს, რომლისგანაც შედგება თქვენი გალერეა. ეს ძალიან მოსახერხებელია, თუკი გაქვთ ფოტოების ძალზე დიდი რაოდენობა, რომლის გამოყენებასაც აპირებთ გალერეაში და სერვერზე ადგილი შეზღუდულია.</p>
+
+<ol>
+
+  <li>რედაქტირება გაუკეთეთ ფაილს <span class="filename">tools/create_listing_file.php</span>,
+  შეცვალეთ სექციის პარამეტრები
+  <code>$conf['prefix_thumbnail']</code> ან
+  <code>$conf['use_exif']</code>.</li>
+
+  <li>მოათავსეთ შეცვლილი ფაილი <span class="filename">tools/create_listing_file.php</span>
+  დაშორებულ სერვერზე, ფოლდერში სადაც დევს კატეგორიის ფოლდერები (როგორც ფოლდერი <span class="filename">galleries</span> ამ ვებ საიტზე) FTP-ს გამოყებებით. მაგალითად, ვთქვათ, თქვენ შეგიძლიათ მიმართოთ <span
+  class="filename">http://example.com/galleries/create_listing_file.php</span>.</li>
+
+  <li>გადადით<span class="pwgScreen">ადმინისტრირება, გალერეა, საიტების მართვა</span>. შექმენით ახალი საიტი, მაგალითად <span class="filename">http://example.com/galleries</span>.</li>
+
+  <li>ახალი დაშორებული საიტი დარეგისტრირებულია. თქვენ შეგიძლიათ ჩაატაროოთ 4 მოქმედება:
+
+    <ol>
+
+      <li><strong>ლისტინგის გენერირება</strong>: ჩართავს მოთხოვნას ლისტინგის ფაილს გენერაციაზე</li>
+
+      <li><strong>სინქრონიზაცია</strong>: კითხულობს დაშორებულ ფაილს <span class="filename">listing.xml</span> და ახდენს მონაცემთა ბაზასთან სინქრონიზაციას.</li>
+
+      <li><strong>გასუფთავება</strong>: ასუფთავებს დაშორებულ ფაილს <span class="filename">listing.xml</span>.</li>
+
+      <li><strong>წაშლა</strong>: შლის საიტს (ყველა კატეგორიას და ელემენტებს) მონაცემთა ბაზაში.</li>
+
+    </ol>
+  </li>
+</ol>
+
+<!-- <p>You can do all this by hand by generating yourself the <span
+class="filename">listing.xml</span> file, moving it from your distant server
+to you local Piwigo root directory and opening the remote site
+management screen : Piwigo will propose you to use the found
+listing.xml file.</p>-->
+
