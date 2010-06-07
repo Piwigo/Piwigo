@@ -117,31 +117,25 @@ function get_exif_data($filename, $map)
   // Read EXIF data
   if ($exif = @read_exif_data($filename))
   {
-		if ($map != null)
-		{
-			foreach ($map as $key => $field)
-			{
-				if (strpos($field, ';') === false)
-				{
-					if (isset($exif[$field]))
-					{
-						$result[$key] = $exif[$field];
-					}
-				}
-				else
-				{
-					$tokens = explode(';', $field);
-					if (isset($exif[$tokens[0]][$tokens[1]]))
-					{
-						$result[$key] = $exif[$tokens[0]][$tokens[1]];
-					}
-				}
-			}
-		}
-		else
-		{
-			$result = $exif;
-		}
+    $exif = trigger_event('format_exif_data', $exif, $filename );
+    foreach ($map as $key => $field)
+    {
+      if (strpos($field, ';') === false)
+      {
+        if (isset($exif[$field]))
+        {
+          $result[$key] = $exif[$field];
+        }
+      }
+      else
+      {
+        $tokens = explode(';', $field);
+        if (isset($exif[$tokens[0]][$tokens[1]]))
+        {
+          $result[$key] = $exif[$tokens[0]][$tokens[1]];
+        }
+      }
+    }
   }
 
   return $result;

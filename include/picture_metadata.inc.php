@@ -29,15 +29,20 @@
 include_once(PHPWG_ROOT_PATH.'/include/functions_metadata.inc.php');
 if (($conf['show_exif']) and (function_exists('read_exif_data')))
 {
-  $exif = get_exif_data($picture['current']['image_path'], null);
+  $exif_mapping = array();
+  foreach ($conf['show_exif_fields'] as $field)
+  {
+    $exif_mapping[$field] = $field;
+  }
+
+  $exif = get_exif_data($picture['current']['image_path'], $exif_mapping);
   if (count($exif) == 0 and $picture['current']['has_high'])
   {
-    $exif = get_exif_data($picture['current']['high_url'], null);
+    $exif = get_exif_data($picture['current']['high_url'], $exif_mapping);
   }
+  
   if (count($exif) > 0)
   {
-    $exif = trigger_event('format_exif_data', $exif, $picture['current'] );
-
     $tpl_meta = array(
         'TITLE' => 'EXIF Metadata',
         'lines' => array(),
@@ -60,14 +65,14 @@ if (($conf['show_exif']) and (function_exists('read_exif_data')))
       else
       {
         $tokens = explode(';', $field);
-        if (isset($exif[$tokens[0]][$tokens[1]]))
+        if (isset($exif[$field]))
         {
           $key = $tokens[1];
-          if (isset($lang['exif_field_'.$tokens[1]]))
+          if (isset($lang['exif_field_'.$key]))
           {
-            $key = $lang['exif_field_'.$tokens[1]];
+            $key = $lang['exif_field_'.$key];
           }
-          $tpl_meta['lines'][$key] = $exif[$tokens[0]][$tokens[1]];
+          $tpl_meta['lines'][$key] = $exif[$field];
         }
       }
     }
