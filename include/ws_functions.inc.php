@@ -1143,7 +1143,7 @@ SELECT
   FROM '.IMAGES_TABLE.'
   WHERE id = '.$params['image_id'].'
 ;';
-  list($file_path, $original_sum) = mysql_fetch_row(pwg_query($query));
+  list($file_path, $original_sum) = pwg_db_fetch_row(pwg_query($query));
 
   // TODO only files added with web API can be updated with web API
 
@@ -1712,10 +1712,10 @@ SELECT
   WHERE id = '.$params['image_id'].'
 ;';
   $result = pwg_query($query);
-  if (mysql_num_rows($result) == 0) {
+  if (pwg_db_num_rows($result) == 0) {
     return new PwgError(404, "image_id not found");
   }
-  list($path) = mysql_fetch_row($result);
+  list($path) = pwg_db_fetch_row($result);
 
   $ret = array();
 

@@ -50,7 +50,7 @@ having count(*) > 1
 limit 0,1
 ;';
 
-  if (mysql_fetch_array(pwg_query($query)))
+  if (pwg_db_fetch_array(pwg_query($query)))
   {
     $to_deactivate = false;
     $c13y->add_anomaly(
@@ -80,7 +80,7 @@ where
 ;';
 
   $result = pwg_query($query);
-  while ($row = mysql_fetch_assoc($result))
+  while ($row = pwg_db_fetch_assoc($result))
   {
     $to_deactivate = false;
 
