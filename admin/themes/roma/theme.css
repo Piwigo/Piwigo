@@ -149,24 +149,24 @@ margin-top:4px; padding-bottom:3px; padding-top:3px; top:1px;
 /* menubar is on all admin pages => No specific css file */
 #menubar {
 background:transparent url(images/menuBoxBottom_new.png) no-repeat scroll left bottom;
-border:0; display:inline; float:left; left:0; margin: 10px 0 0 10px; min-height:522px; height:522px; /* should be 477 */
+border:0; display:inline; float:left; left:0; margin: 10px 0 0 10px; 
 padding:0; width:230px; z-index:99; text-align: left; }
-#menubar ul.scroll { height:163px; overflow-y:auto;
+#menubar ul.scroll { overflow-y:auto;
  /* Only IE family supports colored scrollbar */
  scrollbar-face-color: #222; scrollbar-shadow-color: #444; scrollbar-highlight-color: #000;
  scrollbar-3dlight-color: #292929; scrollbar-darkshadow-color: #333; scrollbar-track-color: #111;
  scrollbar-arrow-color: #ff3333; }
-
 #menubar dd {
 background: transparent url(images/menubar-detail.png) repeat-y top left;
-margin: 10px 0 0 0; padding: 0; height:232px; }
+margin: 0; padding: 0 0 10px 0; }
 #menubar dl {
 background:transparent url(images/menuBoxTop_new.png) no-repeat scroll left top;
 width: 207px; border:0; margin: 0; padding: 0; display: block; min-height:35px; }
 #menubar dl.first {
 background:transparent url(images/menubar-top.png) no-repeat scroll left 1px; }
+#menubar dl.last { padding: 0 0 24px 0;}
 #menubar dt { margin: 0; display: block; background: none; left:10px; font-weight:bold;
-position:relative; padding: 5px 1px 4px 5px; top:-10px; font-size: 13px; color: #666;  outline:none;}
+position:relative; padding: 5px 1px 4px 5px; top:-8px; font-size: 13px; color: #666;  outline:none;}
 #menubar dt  span { background-color: #111; cursor:pointer; }
 #menubar li { margin: 0 0 0 6px; }
 #menubar li.external { list-style-image:url(images/external_inactive.png); padding:10px 0px 0pt 10px; }
@@ -232,7 +232,6 @@ position:relative;  z-index: 50;}
 display:block; height:85px; left:225px; position:relative; top:-42px; width:313px; z-index:99; padding:0;}
 .bigbutton input:hover { cursor:pointer; background:transparent url(images/transparent.gif) repeat scroll left top; border:0; padding:0;}
 /* hacks */
-html>body #menubar {min-height:522px; height:522px;} /* IE 7 and modern browsers */
 * html[lang="en"] body .content h2 , *+html[lang="en"] body .content h2 { text-transform:capitalize; } /* IE */
 *+html  .bigtext { left: 70px; }
 *+html  .bigbutton input, * html  .bigbutton input  { left:0px; position:relative; top:-40px; }

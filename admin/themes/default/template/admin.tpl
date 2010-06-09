@@ -7,6 +7,7 @@ jQuery().ready(function(){ldelim}
   jQuery('#menubar').accordion({ldelim}
     header: "dt.rdion",
     event: "click",
+    autoHeight: false,
     active: {$ACTIVE_MENU}
   });
 });
