@@ -314,7 +314,7 @@ UPDATE '.$tablename.'
         pwg_query($query);
       }
     } // foreach update
-  } // if mysql_ver or count<X
+  } 
   else
   {
     $all_fields = array_merge($dbfields['primary'], $dbfields['update']);
@@ -326,7 +326,7 @@ CREATE TABLE '.$temporary_tablename.'
     pwg_query($query);
     mass_inserts($temporary_tablename, $all_fields, $datas);
     if ( $flags & MASS_UPDATES_SKIP_EMPTY )
-      $func_set = create_function('$s, $t', 'return "$s = IFNULL(t2.$s, '.$tablename.'.$s)";');
+      $func_set = create_function('$s', 'return "$s = NULLIF(t2.$s, '.$tablename.'.$s)";');
     else
       $func_set = create_function('$s', 'return "$s = t2.$s";');
 
@@ -343,7 +343,7 @@ FROM '.$temporary_tablename.' AS t2
       implode(
         "\n    AND ",
         array_map(
-          create_function('$s, $t', 'return "'.$tablename.'.$s = t2.$s";'),
+          create_function('$s', 'return "'.$tablename.'.$s = t2.$s";'),
           $dbfields['primary']
           )
         );
@@ -585,7 +585,7 @@ function pwg_db_get_weekday($date)
 }
 
 // my_error returns (or send to standard output) the message concerning the
-// error occured for the last mysql query.
+// error occured for the last pgsql query.
 function my_error($header, $die)
 {
   $error = '[pgsql error]'.pg_last_error()."\n";

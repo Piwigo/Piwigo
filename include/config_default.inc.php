@@ -514,6 +514,10 @@ $conf['apache_authentication'] = false;
 // piwigo_users table.
 $conf['users_table'] = $prefixeTable.'users';
 
+// If you decide to use external authentication 
+// change conf below by $conf['external_authentification'] = true;
+$conf['external_authentification'] = false;
+
 // Other tables can be changed, if you define associated constants
 // Example:
 //   define('USER_INFOS_TABLE', 'pwg_main'.'user_infos');

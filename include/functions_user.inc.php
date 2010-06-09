@@ -290,26 +290,40 @@ SELECT ';
 
   $row = pwg_db_fetch_assoc(pwg_query($query));
 
-  // retrieve additional user data
+  // retrieve user info
   $query = '
 SELECT
-    COUNT(1) AS counter,
     ui.*,
     uc.*,
     t.name AS theme_name
   FROM '.USER_INFOS_TABLE.' AS ui
     LEFT JOIN '.USER_CACHE_TABLE.' AS uc ON ui.user_id = uc.user_id
     LEFT JOIN '.THEMES_TABLE.' AS t ON t.id = ui.theme
-  WHERE ui.user_id = \''.$user_id.'\'
-  GROUP BY ui.user_id
+  WHERE ui.user_id = '.$user_id.'
 ;';
+
   $result = pwg_query($query);
   $user_infos_row = pwg_db_fetch_assoc($result);
-  if (!isset($user_infos_row['counter']) or 0 == $user_infos_row['counter']) {
-    create_user_infos($user_id);
+
+  // retrieve additional user data ?
+  if ($conf['external_authentification'])
+  {
+    $query = '
+SELECT
+    COUNT(1) AS counter,
+  FROM '.USER_INFOS_TABLE.' AS ui
+    LEFT JOIN '.USER_CACHE_TABLE.' AS uc ON ui.user_id = uc.user_id
+    LEFT JOIN '.THEMES_TABLE.' AS t ON t.id = ui.theme
+  WHERE ui.user_id = '.$user_id.'
+  GROUP BY ui.user_id
+;';
+    if (pwg_db_fetch_row(pwg_query($query))!=1)
+    {
+      create_user_infos($user_id);
     
-    $result = pwg_query($query);
-    $user_infos_row = pwg_db_fetch_assoc($result);
+      $result = pwg_query($user_info_query);
+      $user_infos_row = pwg_db_fetch_assoc($result);      
+    }
   }
 
   // then merge basic + additional user data
