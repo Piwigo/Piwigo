@@ -237,7 +237,7 @@ SELECT
   FROM '.IMAGES_TABLE.'
   WHERE id = '.$image_id.'
 ;';
-    $image_infos = mysql_fetch_assoc(pwg_query($query));
+    $image_infos = pwg_db_fetch_assoc(pwg_query($query));
 
     $thumbnail['file'] = $image_infos['file'];
     
@@ -297,7 +297,7 @@ SELECT
   FROM '.IMAGE_CATEGORY_TABLE.'
   WHERE category_id = '.$category_id.'
 ;';
-      list($count) = mysql_fetch_row(pwg_query($query));
+      list($count) = pwg_db_fetch_row(pwg_query($query));
       $category_name = get_cat_display_name_from_id($category_id, 'admin.php?page=cat_modify&amp;cat_id=');
       
       // information

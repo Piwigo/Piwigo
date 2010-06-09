@@ -26,7 +26,7 @@ function add_uploaded_file($source_filepath, $original_filename=null, $categorie
   global $conf;
 
   // current date
-  list($dbnow) = mysql_fetch_row(pwg_query('SELECT NOW();'));
+  list($dbnow) = pwg_db_fetch_row(pwg_query('SELECT NOW();'));
   list($year, $month, $day) = preg_split('/[^\d]/', $dbnow, 4);
   
   // upload directory hierarchy
@@ -120,7 +120,7 @@ function add_uploaded_file($source_filepath, $original_filename=null, $categorie
     array($insert)
     );
   
-  $image_id = mysql_insert_id();
+  $image_id = pwg_db_insert_id();
 
   if (isset($categories) and count($categories) > 0)
   {
