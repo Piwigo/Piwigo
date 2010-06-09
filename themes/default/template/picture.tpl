@@ -240,7 +240,9 @@ y.callService(
 }{/literal}
 </script>
 	<select onchange="setPrivacyLevel(this, '{$ROOT_URL|@escape:'javascript'}', {$current.id}, this.options[selectedIndex].value)">
-          {html_options options=$available_permission_levels selected=$current.level}
+		{foreach from=$available_permission_levels item=label key=level}
+		<option label="{$label}" value="{$level}"{if $level == $current.level} selected="selected"{/if}>{$label}</option>
+		{/foreach}
 	</select>
 	</td></tr>
 {/if}
