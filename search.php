@@ -39,7 +39,7 @@ if (isset($_POST['submit']))
   {
     if (!is_array($post_value))
     {
-      $_POST[$post_key] = mysql_real_escape_string($post_value);
+      $_POST[$post_key] = pwg_db_real_escape_string($post_value);
     }
   }  
   
@@ -106,13 +106,11 @@ if (isset($_POST['submit']))
   if (!empty($_POST['start_year']))
   {
     $search['fields'][$type_date.'-after'] = array(
-      'date' => join(
-        '-',
-        array(
-          $_POST['start_year'],
-          $_POST['start_month'] != 0 ? $_POST['start_month'] : '01',
-          $_POST['start_day']   != 0 ? $_POST['start_day']   : '01',
-          )
+      'date' => sprintf(
+	'%d-%02d-%02d',
+	$_POST['start_year'],
+	$_POST['start_month'] != 0 ? $_POST['start_month'] : '01',
+	$_POST['start_day']   != 0 ? $_POST['start_day']   : '01'
         ),
       'inc' => true,
       );
@@ -121,14 +119,12 @@ if (isset($_POST['submit']))
   if (!empty($_POST['end_year']))
   {
     $search['fields'][$type_date.'-before'] = array(
-      'date' => join(
-        '-',
-        array(
-          $_POST['end_year'],
-          $_POST['end_month'] != 0 ? $_POST['end_month'] : '12',
-          $_POST['end_day']   != 0 ? $_POST['end_day']   : '31',
-          )
-        ),
+      'date' => sprintf(
+	'%d-%02d-%02d',
+	$_POST['end_year'],
+	$_POST['end_month'] != 0 ? $_POST['end_month'] : '12',
+	$_POST['end_day']   != 0 ? $_POST['end_day']   : '31'
+      ),
       'inc' => true,
       );
   }
