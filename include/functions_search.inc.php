@@ -223,7 +223,7 @@ function get_regular_search_results($search, $images_where)
   if (!empty($search_clause))
   {
     $query = '
-SELECT DISTINCT(id)
+SELECT id
   FROM '.IMAGES_TABLE.' i
     INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON id = ic.image_id
   WHERE '.$search_clause;
