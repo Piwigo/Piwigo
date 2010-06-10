@@ -1,0 +1,101 @@
+<h2>Configuration pour "étendre" les templates</h2>
+
+<h3>Objectif</h3>
+<p>Définir les conditions de remplacement de chaque template (modèle) à partir de template-extension
+(template appelé "replacer" (remplaçant)).</p>
+
+<p>Les "Templates d'origine" provenant de ./template/yoga (ou de tout autre dossier que "yoga")
+ sont remplacés par un remplaçant si celui-ci est lié à son template d'origine
+ (et de façon facultative, quand l'adresse (URL) demandée contient un URL contains un "Paramètre facultatif de l'URL").</p>
+
+<p>Les "Paramètres facultatif de l'URL" sont ceux que vous pouvez trouver après le nom du module dans l'adresse (URL).</p>
+
+<p>Ainsi un "Paramètre facultatif de l'URL" peut être un "permalink" (lien permanent) actif
+(voir les permalinks dans notre documentation pour plus d'information).</p>
+
+<p>Lire les `<a href="#warnings">mises en garde</a>` sur les conditions d'utilisation.</p>
+
+<h3>Qu'est-ce que les extensions des modèles?</h3>
+
+<p>Cet outil de configuration est à la fois puissant pour les débutants et pour les utilisateurs avancés.
+Par FTP, dans le dossier template-extension, le Webmaster pourra dupliquer une bonne partie des fichiers
+ .tpl distribués ("Templates d'origine") avec un nom différent  
+ ("replacer" (remplaçant)).
+ 
+ "Templates d'origine", actuellement les modèles d'origine supportés sont:</p>
+<ul>
+  <li><span class="filename">index.tpl</span></li>
+  <li><span class="filename">mainpage_categories.tpl</span> and/or <span class="filename">thumbnails.tpl</span></li>
+  <li><span class="filename">menubar.tpl</span></li>
+  <li><span class="filename">header.tpl</span> and/or <span class="filename">footer.tpl</span></li>
+  <li><span class="filename">picture_content.tpl</span> and/or <span class="filename">picture.tpl</span></li>
+  <!-- <li><span class="filename">slideshow.tpl</span></li> -->
+  <li><span class="filename">profile.tpl</span> and/or <span class="filename">profile_content.tpl</span></li>
+  <li><span class="filename">tags.tpl</span></li>
+  <li><span class="filename">upload.tpl</span></li>
+  <li><span class="filename">about.tpl</span></li>
+  <li><span class="filename">popuphelp.tpl</span></li>
+  <li><span class="filename">search.tpl</span> and/or <span class="filename">search_rules.tpl</span></li>
+  <li><span class="filename">nbm.tpl</span> and/or <span class="filename">notification.tpl</span></li>
+  <li><span class="filename">identification.tpl</span> and/or <span class="filename">register.tpl</span></li>
+  <li><span class="filename">redirect.tpl</span></li>
+</ul>
+
+<h3>Où puis-je trouver les "Templates d'origine"?</h3>
+
+<p>Les modèles distribués d'origine sont dans template/yoga/ 
+(ne pas les modifier directement à cet endroit pour des raisons d'évolution). Ainsi à partir des "templates d'origine", 
+tout webmaster pourra créer ses "replacers (modèles personalisés)".</p>
+
+<h3>Où dois-je enregistrer les "remplaçants"?</h3>
+
+<p>Les <strong>Replacers (templates modifiés)</strong> peuvent être placés dans le dossier 
+template-extension (ou ses sous-dossiers).
+Les remplaçants peuvent avoir n'importe quel nom de fichier avec l'extension .tpl. Par exemple: <span
+class="filename">template-extension/my-extension/video.tpl</span>.</p>
+
+
+<h3>Comment puis-je activer mes "remplaçants"?</h3>
+<p>Un <strong>template d'origine</strong> devrait être associé à chaque
+ <strong>replacer (modèle modifié)</strong> à fin d'activer les remplacements correspondants.
+ Activer les remplaçants est la fonction de "Etendre les templates" dans les menus de Configuration de l'Administration.</p>
+
+<p>Si vous sélectionnez un <strong>Paramètre facultatif de l'URL</strong> alors les remplacements 
+ne seront réalisés que sur les pages utilisant ce mot clé. Par exemple: <span
+  class="pwgScreen">index.php?/<strong>most_visited</strong></span></p>
+  
+<p>Les utilisateurs avancés utiliseront les permalinks (permaliens, liens permanents) en tant que 
+<strong>paramètre facultatif de l'URL</strong>. </p>
+
+<p>Si vous sélectionnez un <strong>Template rattaché</strong> alors les remplacements ne seront réalisés que sur ce template.</p>
+
+<h3>Comment puis-je désactiver mes "replacers"?</h3>
+<ul>
+<li>Déselectionner le "template d'origine".</li>
+<li>Par FTP supprimer le "remplaçant".</li>
+</ul>
+<a name="warnings"></a>
+<h3>Mises en garde</h3>
+<ul>
+
+  <li>Le <strong>template d'origine</strong> doit être le véritable template "d'origine"
+  autrement vous pourriez avoir des résultats imprévisibles!</li>
+
+  <li>Si plusieurs <strong>remplaçants (templates modifiés)</strong> ont le même
+  <strong>template d'origine</strong> et le même <strong>paramètre facultatif
+  de l'URL</strong> alors seulement le dernier remplaçant sera actif.</li>
+
+  <li>Ne pas sélectionner de <strong>paramètre facultatif de l'URL</strong> 
+  activera le template de remplacement à chaque utilisation du template.
+  Comme mentionné ci-dessus, l'ordre peut inhiber les remplaçants précédents.</li>
+
+  <li>Sous-dossiers:
+  Les sous-dossiers sont ignorés mais ils sont utiles pour modifier l'ordre des remplaçants.<br>
+distributed-samples: pour vos tests sont distributés! 
+<strong>Ne pas les modifier</strong>, créez les votres!
+</li>
+
+  <li>A la suppression d'un remplaçant le <strong>template d'origine</strong> sera 
+  immédiatement réactivé.</li>
+
+</ul>
