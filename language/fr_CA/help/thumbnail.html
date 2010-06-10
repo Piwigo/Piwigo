@@ -1,0 +1,33 @@
+<h2>Création des miniatures</h2>
+
+<p>Création des miniatures manquantes. L'utilisation de cette fonctionnalité
+est déconseillée si votre galerie est hébergée sur un serveur
+mutualisé (ressources machine partagées).</p>
+
+<dl>
+
+  <dt>Version de GD</dt>
+
+  <dd>GD est une librairie graphique de manipulation d'images pour
+PHP. Choisissez la version installée sur votre serveur. Le système vous signalera par un message d'erreur si vous choisissez une mauvaise version ; revenez alors sur la page précédente et choisissez l'autre version. Si aucune version ne fonctionne, cela
+signifie que GD n'est pas disponible.</dd>
+
+  <dt>Largeur et hauteur</dt>
+
+  <dd>Dimensions maximales des miniatures peuvent prendre. Le rapport
+largeur/hauteur original est conservé. Les valeurs par défaut sont
+modifiables grâce aux paramètres de configuration <code>tn_width</code> et
+<code>tn_height</code> (voir le fichier <span
+class="filename">include/config_default.inc.php</span>).</dd>
+  
+  <dt>Nombre de miniatures à créer</dt>
+
+  <dd>N'essayez pas de miniaturiser un trop grand nombre d'images à la
+fois. Le traitement de miniaturisation nécessite en effet une utilisation intensive du processeur. Si votre galerie Piwigo est chez un hébergeur gratuit, une charge processeur trop importante est susceptible d'entraîner la suppression de votre site.</dd>
+
+  <dt>Format de fichier</dt>
+
+  <dd>Les miniatures sont créées au format JPEG. Seuls les images aux formats PNG et
+JPEG peuvent être miniaturisées.</dd>
+
+</dl>

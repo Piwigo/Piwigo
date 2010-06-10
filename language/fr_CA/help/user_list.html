@@ -1,0 +1,33 @@
+<h2>Liste des utilisateurs</h2>
+
+<p>Permet la gestion des propriétés des utilisateurs enregistrés, à l'exception des permissions, qui sont gérées via d'autres écrans.</p>
+
+<h3>Ajouter un utilisateur</h3>
+
+<p>L'administrateur peut ajouter manuellement des utilisateurs.</p>
+
+<h3>Liste des utilisateurs</h3>
+
+<p>La liste peut être filtrée avec le nom d'utilisateur (* = passe-partout), avec le
+groupe ou encore le statut. La liste peut être triée par date
+d'enregistrement ou nom d'utilisateur, en ordre croissant ou
+décroissant.</p>
+
+<p>Cet écran permet la modification simultanée de plusieurs utilisateurs
+avec les actions suivantes :</p>
+
+<ul>
+  <li>supprimer des utilisateurs (nécessite une confirmation)</li>
+  <li>changer le statut</li>
+  <li>associer ou dissocier des groupes</li>
+  <li>modifier les propriétés d'affichage</li>
+  <li>modifier les propriétés annexes</li>
+</ul>
+
+<p>Les utilisateurs modifiés sont ceux sélectionnés (comportement par défaut) ou l'ensemble des utilisateurs de la liste filtrée.</p>
+
+<h3>Conseiller</h3>
+<p>Définition d'un utilisateur conseiller: a accès à tous les écrans autorisés par ses propres autorisations, mais en mode lecture (ou simulation) seule.</p>
+
+<p>L'activation du mode conseiller est effectué par la variable $conf['allow_adviser'].</p>
+<p>Si cette variable est à 'true', un utilisateur pourra être défini comme un conseiller</p>
