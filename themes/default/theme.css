@@ -317,6 +317,9 @@ DIV#comments DIV.description {
 	margin: 0;			/* important reset the margins */
 	display: table-cell;/* block prevents vertical-align here */
 	vertical-align: middle;/* Ok with Opera and Geko not IE6 */
+	border-radius: 4px 4px;	/* round corners with CSS3 compliant browsers */
+	-moz-border-radius: 4px;	/* round corners with Geko */
+	-webkit-border-radius: 4px; /* Safari webkit project */
 }
 .content UL.thumbnails SPAN.wrap2 A,
 .content UL.thumbnails LABEL {

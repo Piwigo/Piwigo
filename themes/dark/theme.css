@@ -53,7 +53,6 @@ FIELDSET, INPUT, SELECT, TEXTAREA,
 
 .content UL.thumbnails SPAN.wrap2 {
 	border: 1px solid #aaaaaa;	/* thumbnails border color and style */
-	border-radius: 4px 4px;	/* round corners with CSS3 compliant browsers */
 }
 
 .content UL.thumbnails SPAN.wrap2:hover,
