@@ -1,8 +1,0 @@
-
-/* All directives not supported by IE */
-/* can be overiden in any theme but not hidden to IE */
-
-.content UL.thumbnails SPAN.wrap2 {
-  -moz-border-radius: 4px;	/* round corners with Geko */
-  -webkit-border-radius: 4px; /* Safari webkit project */
-}
