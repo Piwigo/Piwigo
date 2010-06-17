@@ -284,7 +284,7 @@ SELECT
 
     $query = '
 UPDATE '.USER_INFOS_TABLE.'
-  SET theme = "'.$theme_id.'"
+  SET theme = \''.$theme_id.'\'
   WHERE user_id IN ('.implode(',', $user_ids).')
 ;';
     pwg_query($query);
