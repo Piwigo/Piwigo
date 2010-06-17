@@ -151,7 +151,7 @@ INSERT INTO '.THEMES_TABLE.'
 SELECT
     id
   FROM '.THEMES_TABLE.'
-  WHERE id != "'.$theme_id.'"
+  WHERE id != \''.$theme_id.'\'
 ;';
           $result = pwg_query($query);
           if (pwg_db_num_rows($result) == 0)
@@ -270,7 +270,7 @@ DELETE
 SELECT
     user_id
   FROM '.USER_INFOS_TABLE.'
-  WHERE theme = "'.$default_theme.'"
+  WHERE theme = \''.$default_theme.'\'
 ;';
     $user_ids = array_unique(
       array_merge(
