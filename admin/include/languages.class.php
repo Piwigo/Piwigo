@@ -99,11 +99,11 @@ INSERT INTO '.LANGUAGES_TABLE.'
           break;
         }
 
-        $query = "
+        $query = '
 DELETE
-  FROM ".LANGUAGES_TABLE."
-  WHERE id= '".$language_id."'
-;";
+  FROM '.LANGUAGES_TABLE.'
+  WHERE id= \''.$language_id.'\'
+;';
         pwg_query($query);
         break;
 
@@ -122,8 +122,8 @@ DELETE
         // Set default language to user who are using this language
         $query = '
 UPDATE '.USER_INFOS_TABLE.'
-  SET language = "'.get_default_language().'"
-  WHERE language = "'.$language_id.'"
+  SET language = \''.get_default_language().'\'
+  WHERE language = \''.$language_id.'\'
 ;';
         pwg_query($query);
 
@@ -136,7 +136,7 @@ UPDATE '.USER_INFOS_TABLE.'
       case 'set_default':
         $query = '
 UPDATE '.USER_INFOS_TABLE.'
-  SET language = "'.$language_id.'"
+  SET language = \''.$language_id.'\'
   WHERE user_id = '.$conf['default_user_id'].'
 ;';
         pwg_query($query);

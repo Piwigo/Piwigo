@@ -87,7 +87,7 @@ function deactivate_non_standard_plugins()
 SELECT id
 FROM '.PREFIX_TABLE.'plugins
 WHERE state = "active"
-AND id NOT IN ("' . implode('","', $standard_plugins) . '")
+AND id NOT IN (\'' . implode('\',\'', $standard_plugins) . '\')
 ;';
 
   $result = pwg_query($query);
@@ -102,7 +102,7 @@ AND id NOT IN ("' . implode('","', $standard_plugins) . '")
     $query = '
 UPDATE '.PREFIX_TABLE.'plugins
 SET state="inactive"
-WHERE id IN ("' . implode('","', $plugins) . '")
+WHERE id IN (\'' . implode('\',\'', $plugins) . '\')
 ;';
     pwg_query($query);
 
@@ -162,7 +162,7 @@ SELECT status
     $query = '
 SELECT password, status
 FROM '.USERS_TABLE.'
-WHERE username = "'.$username.'"
+WHERE username = \''.$username.'\'
 ;';
   }
   else
@@ -172,7 +172,7 @@ SELECT u.password, ui.status
 FROM '.USERS_TABLE.' AS u
 INNER JOIN '.USER_INFOS_TABLE.' AS ui
 ON u.'.$conf['user_fields']['id'].'=ui.user_id
-WHERE '.$conf['user_fields']['username'].'="'.$username.'"
+WHERE '.$conf['user_fields']['username'].'=\''.$username.'\'
 ;';
   }
   $row = pwg_db_fetch_assoc(pwg_query($query));
