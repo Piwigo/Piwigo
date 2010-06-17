@@ -92,8 +92,8 @@ if (isset($_POST['submit']))
   if (isset($_POST['image_order_subcats']))
   {
     $query = '
-UPDATE '.CATEGORIES_TABLE.' SET image_order='.(isset($image_order) ? 'NULL':"'$image_order'").'
-  WHERE uppercats LIKE "'.$cat_info['uppercats'].',%"';
+UPDATE '.CATEGORIES_TABLE.' SET image_order='.(isset($image_order) ? 'NULL':'\''.$image_order.'\'').'
+  WHERE uppercats LIKE \''.$cat_info['uppercats'].',%\'';
     pwg_query($query);
   }
 

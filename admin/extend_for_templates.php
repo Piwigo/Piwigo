@@ -139,10 +139,10 @@ if (isset($_POST['submit']) and !is_adviser())
   $conf['extents_for_templates'] = serialize($replacements);
   $tpl_extension = $replacements;
   /* ecrire la nouvelle conf */
-  $query = "
-UPDATE ".CONFIG_TABLE."
-  SET value = '". $conf['extents_for_templates'] ."'
-WHERE param = 'extents_for_templates';";
+  $query = '
+UPDATE '.CONFIG_TABLE.'
+  SET value = \''. $conf['extents_for_templates'] .'\'
+WHERE param = \'extents_for_templates\';';
   if (pwg_query($query))
   {
     array_push($page['infos'], 

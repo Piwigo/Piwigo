@@ -175,11 +175,11 @@ SELECT
           }
         }
 
-        $query = "
+        $query = '
 DELETE
-  FROM ".THEMES_TABLE."
-  WHERE id= '".$theme_id."'
-;";
+  FROM '.THEMES_TABLE.'
+  WHERE id= \''.$theme_id.'\'
+;';
         pwg_query($query);
         break;
 
@@ -300,7 +300,7 @@ SELECT
     $clauses = array();
     if (!empty($id))
     {
-      $clauses[] = "id = '".$id."'";
+      $clauses[] = 'id = \''.$id.'\'';
     }
     if (count($clauses) > 0)
     {

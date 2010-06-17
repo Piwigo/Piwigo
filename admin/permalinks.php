@@ -96,7 +96,7 @@ elseif ( isset($_GET['delete_permanent']) and !is_adviser() )
 {
   $query = '
 DELETE FROM '.OLD_PERMALINKS_TABLE.'
-  WHERE permalink="'.$_GET['delete_permanent'].'"
+  WHERE permalink=\''.$_GET['delete_permanent'].'\'
   LIMIT 1';
   $result = pwg_query($query);
   if (pwg_db_changes($result)==0)

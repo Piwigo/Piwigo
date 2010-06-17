@@ -183,7 +183,7 @@ $thumbnalized = array();
 // what is the directory to search in ?
 $query = '
 SELECT galleries_url FROM '.SITES_TABLE.'
-  WHERE galleries_url NOT LIKE "http://%"
+  WHERE galleries_url NOT LIKE \'http://%\'
 ;';
 $result = pwg_query($query);
 while ( $row=pwg_db_fetch_assoc($result) )
