@@ -219,7 +219,6 @@ $lang['Browser: %s'] = 'Web Tarayıcı: %s';
 $lang['display all elements in all sub-categories'] = 'Tüm kategorilerdeki ve alt kategorilerdeki içeriği göster';
 $lang['return to normal view mode'] = 'normal görüntü moduna geri dön';
 $lang['display a calendar by posted date'] = 'gönderme gününü takvimde göster';
-$lang['month'] = 'sıra';
 $lang['Most visited'] = 'En çok görüntülenen';
 $lang['display most visited pictures'] = 'en çok görüntülenen imajları göster';
 $lang['The number of images per row must be a not null scalar'] = 'Her sıra için gösterilen imaj sayısı 0 dan farklı bir tam sayı olmalıdır';
@@ -365,5 +364,16 @@ $lang['set as category representative'] = 'varsayılan kategori yap';
 $lang['slideshow'] = 'slayt gösterisi';
 $lang['the beginning'] = 'başlangıç';
 $lang['Email address is missing. Please specify an email address.'] = 'E-Posta Adresi Kayıp. Lütfen E-Posta adresinizi doğrulayınız..';
-
+$lang['month'][10] = "Ekim";
+$lang['month'][11] = "Kasım";
+$lang['month'][12] = "Aralık";
+$lang['month'][1] = "Ocak";
+$lang['month'][2] = "Şubat";
+$lang['month'][3] = "Mart";
+$lang['month'][4] = "Nisan";
+$lang['month'][5] = "Mayıs";
+$lang['month'][6] = "Haziran";
+$lang['month'][7] = "Temmuz";
+$lang['month'][8] = "Ağustos";
+$lang['month'][9] = "Eylül";
 ?>
