@@ -46,7 +46,6 @@ function pwg_db_connect($host, $user, $password, $database)
   }
 
   $link->sqliteCreateFunction('now', 'pwg_now', 0);
-  $link->sqliteCreateFunction('hour', 'pwg_hour', 1);
   $link->sqliteCreateFunction('unix_timestamp', 'pwg_unix_timestamp', 0);
   $link->sqliteCreateFunction('md5', 'md5', 1);
   $link->sqliteCreateFunction('if', 'pwg_if', 3);
@@ -502,6 +501,12 @@ function pwg_db_get_recent_period($period, $date='CURRENT_DATE')
   return $d;
 }
 
+function pwg_db_get_hour($date)
+{
+  return 'strftime(\'%H\', '.$date.')';
+}
+
+
 function pwg_db_get_date_YYYYMM($date)
 {
   return 'strftime(\'%Y%m\','.$date.')';
@@ -569,11 +574,6 @@ function my_error($header, $die)
 function pwg_now()
 {
   return date('Y-m-d H:i:s');
-}
-
-function pwg_hour($datetime)
-{
-  return strftime('%H', $datetime);
 }
 
 function pwg_unix_timestamp()

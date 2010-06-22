@@ -580,6 +580,11 @@ SELECT '.pwg_db_get_recent_period_expression($period);
   return $d;
 }
 
+function pwg_db_get_hour($date) 
+{
+  return 'hour('.$date.')';
+}
+
 function pwg_db_get_date_YYYYMM($date)
 {
   return 'DATE_FORMAT('.$date.', \'%Y%m\')';
