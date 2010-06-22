@@ -449,14 +449,12 @@ WHERE tablename like \''.$prefixeTable.'%\'';
 
 function pwg_db_concat($array)
 {
-  $string = implode($array, ',');
-  return 'ARRAY_TO_STRING(ARRAY['.$string.'])';
+  return implode($array, ' || ');
 }
 
 function pwg_db_concat_ws($array, $separator)
 {
-  $string = implode($array, ',');
-  return 'ARRAY_TO_STRING(ARRAY['.$string.'],\''.$separator.'\')';
+  return implode($array, ' || \''.$separator.'\' || ');
 }
 
 function pwg_db_cast_to_text($string)

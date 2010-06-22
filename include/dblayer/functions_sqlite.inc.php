@@ -425,9 +425,7 @@ function pwg_db_concat($array)
 
 function pwg_db_concat_ws($array, $separator)
 {
-  $glue = sprintf(' || \'%s\' || ', $separator);
-
-  return implode($array, $glue);
+  return implode($array, ' || \''.$separator.'\' || ');
 }
 
 function pwg_db_cast_to_text($string)
