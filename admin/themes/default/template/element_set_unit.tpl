@@ -23,7 +23,7 @@
       filter_hide: true,
       firstselected: true,
       filter_selected: true,
-      maxitems: 10,
+      maxitems: 100,
       newel: true
     });
   });
