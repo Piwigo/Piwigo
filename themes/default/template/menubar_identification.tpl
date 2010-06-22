@@ -28,7 +28,6 @@
 
 	{if isset($U_LOGIN)}
 	<form method="post" action="{$U_LOGIN}" id="quickconnect">
-        <input type="hidden" name="redirect" value="{$smarty.server.REQUEST_URI|@urlencode}">
 	<fieldset>
 	<legend>{'Quick connect'|@translate}</legend>
 	<div>
@@ -49,6 +48,7 @@
 	{/if}
 
 	<div>
+        <input type="hidden" name="redirect" value="{$smarty.server.REQUEST_URI|@urlencode}">
 	<input class="submit" type="submit" name="login" value="{'Submit'|@translate}">
 	<ul class="actions">
 		<li><a href="{$U_LOST_PASSWORD}" title="{'Forgot your password?'|@translate}" rel="nofollow"><img src="{$ROOT_URL}{$themeconf.icon_dir}/lost_password.png" class="button" alt="{'Forgot your password?'|@translate}"></a></li>
