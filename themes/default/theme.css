@@ -25,7 +25,7 @@
 /* H2 properties copied here */
 #menubar DT {
 	font-weight: bold;
-	padding: 5px 5px 5px 5px;
+	padding: 5px;
 	font-size: 120%;
 	text-align: center;
 }
@@ -219,7 +219,7 @@ DIV.calImg {
 
 .calBackDate {
 	padding-left: 4px;
-	padding-top: 0px;
+	padding-top: 0;
 	z-index: 2;
 	position: absolute;
 	vertical-align: top;
@@ -252,7 +252,7 @@ DIV.calImg {
 
 .content DIV.thumbnailCategory {
 	display:block;
-	padding: 2px 0px 0px 2px;
+	padding: 2px 0 0 2px;
 	margin: 5px;
 }
 
@@ -627,7 +627,7 @@ UL.actions A, UL.actions IMG {
 
 UL.tagSelection {
 	width: 99%;
-	margin: 1em 0 1em 0;
+	margin: 1em 0;
 	padding: 0;
 }
 
@@ -642,7 +642,7 @@ UL.tagSelection LI {
 	font-size: 120%;
 	text-align: justify;
 	padding: 0;
-	margin: 1em 2em 1em 2em;
+	margin: 1em 2em;
 }
 
 #fullTagCloud SPAN {
@@ -813,7 +813,7 @@ INPUT.rateButton, INPUT.rateButtonSelected, INPUT.rateButtonStarFull, INPUT.rate
 	padding: 10px 50px 10px 10px;
 }
 
-/* Informations box in administration */
+/* Informations box */
 .infos {
 	color: #002000;
 	background-color: #98fb98; /* palegreen */
@@ -834,16 +834,16 @@ INPUT.rateButton, INPUT.rateButtonSelected, INPUT.rateButtonStarFull, INPUT.rate
 	padding: 1px;
 }
 
-/* Header notes box in public/administration */
+/* Header notes box */
 .header_notes {
-	border: 1px solid #aaaaaa; /* border color and style */
+	border: 1px solid #aaa;
 	text-align: center;
 	background-image: url(icon/note.png);
 	background-repeat: no-repeat;
 	background-position: top left;
 	font-weight: bold;
 	margin: 14px;
-	padding: 5px 00px 0px 0px;
+	padding: 5px 0 0 0;
 }
 
 LEGEND {
