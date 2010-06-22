@@ -116,7 +116,7 @@ check_status(ACCESS_ADMINISTRATOR);
 $query = '
 SELECT
     date,
-    hour(time) AS hour,
+    '.pwg_db_get_hour('time').' AS hour,
     MAX(id) AS max_id,
     COUNT(*) AS nb_pages
   FROM '.HISTORY_TABLE.'
