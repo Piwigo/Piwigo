@@ -35,16 +35,9 @@ function makeNiceRatingForm(options)
 		if (i>0 && rateButton.previousSibling.nodeType == 3 /*TEXT_NODE*/)
 			rateButton.parentNode.removeChild(rateButton.previousSibling);
 
-		if(window.addEventListener){ // Mozilla, Netscape, Firefox
-			rateButton.addEventListener("click", updateRating, false );
-			rateButton.addEventListener("mouseout", resetRatingStarDisplay, false );
-			rateButton.addEventListener("mouseover", updateRatingStarDisplayEvt, false );
-		}
-		else if(window.attachEvent) { // IE
-			rateButton.attachEvent("onclick", updateRating);
-			rateButton.attachEvent("onmouseout", resetRatingStarDisplay);
-			rateButton.attachEvent("onmouseover", updateRatingStarDisplayEvt);
-		}
+		pwgAddEventListener(rateButton, "click", updateRating);
+		pwgAddEventListener(rateButton, "mouseout", resetRatingStarDisplay);
+		pwgAddEventListener(rateButton, "mouseover", updateRatingStarDisplayEvt);
 	}
 	resetRatingStarDisplay();
 }
@@ -88,8 +81,8 @@ function updateRating(e)
 				if (gRatingOptions.ratingSummaryElement)
 				{
 					var t = gRatingOptions.ratingSummaryText;
-					var args =[result.average, result.count, result.stdev], idx = 0, rexp = new RegExp( /%\.?\d*[sdf]/ );
-					_xxx = t.match( rexp );
+					var args =[result.average, result.count], idx = 0, rexp = new RegExp( /%\.?\d*[sdf]/ );
+					//_xxx = t.match( rexp );
 					while (idx<args.length) t=t.replace(rexp, args[idx++]);
 					gRatingOptions.ratingSummaryElement.innerHTML = t;
 				}

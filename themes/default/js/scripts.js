@@ -1,42 +1,30 @@
 function SelectAll( formulaire )
 {
-var len = formulaire.elements.length;
-var i=0;
-for( i = 0; i < len; i++)
+var elts = formulaire.elements;
+for(var i=0; i <elts.length; i++)
 {
-	if ( formulaire.elements[i].type=='checkbox'
-		&& formulaire.elements[i].name != 'copie')
-	{
-		formulaire.elements[i].checked = true;
-	}
+	if (elts[i].type=='checkbox')
+		elts[i].checked = true;
 }
 }
 
 function DeselectAll( formulaire )
 {
-var len = formulaire.elements.length;
-var i=0;
-for( i = 0; i < len; i++)
+var elts = formulaire.elements;
+for(var i=0; i <elts.length; i++)
 {
-	if ( formulaire.elements[i].type=='checkbox'
-		&& formulaire.elements[i].name != 'copie')
-	{
-	formulaire.elements[i].checked = false;
-	}
+	if (elts[i].type=='checkbox')
+		elts[i].checked = false;
 }
 }
 
 function Inverser( formulaire )
 {
-var len = formulaire.elements.length;
-var i=0;
-for( i=0; i<len; i++)
+var elts = formulaire.elements;
+for(var i=0; i <elts.length; i++)
 {
-	if ( formulaire.elements[i].type=='checkbox'
-		&& formulaire.elements[i].name != 'copie')
-	{
-	formulaire.elements[i].checked = !formulaire.elements[i].checked;
-	}
+	if (elts[i].type=='checkbox')
+		elts[i].checked = !elts[i].checked;
 }
 }
 
@@ -46,21 +34,14 @@ function phpWGOpenWindow(theURL,winName,features)
 	img.src = theURL;
 	if (img.complete)
 	{
-		var width=img.width +40;
-		var height=img.height +40;
+		var width=img.width+40, height=img.height+40;
 	}
 	else
 	{
-		var width=640;
-		var height=480;
-		img.onload = resizeWindowToFit;
+		var width=640, height=480;
+		img.onload = function () { newWin.resizeTo( img.width+50, img.height+100); };
 	}
 	newWin = window.open(theURL,winName,features+',left=2,top=1,width=' + width + ',height=' + height);
-}
-
-function resizeWindowToFit()
-{
-	newWin.resizeTo( img.width+50, img.height+100);
 }
 
 function popuphelp(url)
@@ -70,15 +51,12 @@ function popuphelp(url)
 	);
 }
 
-
-
 Function.prototype.pwgBind = function() {
-	var __method = this, object = arguments[0], args = new Array();
-	for (var i=1; i<arguments.length; i++)
-		args[i-1] = arguments[i];
-	return function() { return __method.apply(object, args); }
+		var __method = this, object = arguments[0], args = Array.prototype.slice.call(arguments,1);
+		return function() {
+				return __method.apply(object, args.concat(arguments) );
+		}
 }
-
 function PwgWS(urlRoot)
 {
 	this.urlRoot = urlRoot;
@@ -144,8 +122,8 @@ PwgWS.prototype = {
 
 	onStateChange: function() {
 		var readyState = this.transport.readyState;
-		if (readyState == 4)
-			this.respondToReadyState(this.transport.readyState);
+		if (readyState==4)
+			this.respondToReadyState(readyState);
 	},
 
 	dispatchError: function( httpCode, text )
@@ -185,4 +163,12 @@ PwgWS.prototype = {
 	transport: null,
 	urlRoot: null,
 	options: {}
+}
+
+function pwgAddEventListener(elem, evt, fn)
+{
+	if (window.attachEvent)
+		elem.attachEvent('on'+evt, fn);
+	else
+		elem.addEventListener(evt, fn, false);
 }
