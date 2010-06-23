@@ -512,6 +512,10 @@ function boolean_to_string($var)
   {
     return $var ? 'true' : 'false';
   }
+  elseif ($var=='t' || $var=='f')
+  {
+    return ($var=='t') ? 'true' : 'false';
+  }
   else
   {
     return $var;

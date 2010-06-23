@@ -410,6 +410,7 @@ $result = pwg_query($query);
 $related_categories = array();
 while ($row = pwg_db_fetch_assoc($result))
 {
+  $row['commentable'] = boolean_to_string($row['commentable']);
   array_push($related_categories, $row);
 }
 usort($related_categories, 'global_rank_compare');
