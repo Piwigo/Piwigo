@@ -156,11 +156,11 @@ SELECT id FROM '.COMMENTS_TABLE.'
 INSERT INTO '.COMMENTS_TABLE.'
   (author, author_id, content, date, validated, validation_date, image_id)
   VALUES (
-    "'.$comm['author'].'",
+    \''.$comm['author'].'\',
     '.$comm['author_id'].',
-    "'.$comm['content'].'",
+    \''.$comm['content'].'\',
     NOW(),
-    "'.($comment_action=='validate' ? 'true':'false').'",
+    \''.($comment_action=='validate' ? 'true':'false').'\',
     '.($comment_action=='validate' ? 'NOW()':'NULL').',
     '.$comm['image_id'].'
   )
@@ -352,7 +352,7 @@ function validate_user_comment($comment_id)
 {
   $query = '
 UPDATE '.COMMENTS_TABLE.'
-  SET validated = "true"
+  SET validated = \'true\'
     , validation_date = NOW()
   WHERE id = '.$comment_id.'
 ;';
