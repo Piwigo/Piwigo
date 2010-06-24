@@ -359,14 +359,13 @@ $element_ids = array();
 $category_ids = array();
 
 $query = '
-SELECT com.id AS comment_id
-     , com.image_id
-     , ic.category_id
-     , com.author
-     , com.author_id
-     , com.date
-     , com.content
-     , com.validated
+SELECT com.id AS comment_id,
+       com.image_id,
+       com.author,
+       com.author_id,
+       com.date,
+       com.content,
+       com.validated
   FROM '.IMAGE_CATEGORY_TABLE.' AS ic
     INNER JOIN '.COMMENTS_TABLE.' AS com
     ON ic.image_id = com.image_id
@@ -374,7 +373,13 @@ SELECT com.id AS comment_id
     ON u.'.$conf['user_fields']['id'].' = com.author_id
   WHERE '.implode('
     AND ', $page['where_clauses']).'
-  GROUP BY comment_id
+  GROUP BY comment_id,
+       com.image_id,
+       com.author,
+       com.author_id,
+       com.date,
+       com.content,
+       com.validated
   ORDER BY '.$page['sort_by'].' '.$page['sort_order'];
 if ('all' != $page['items_number'])
 {
@@ -388,7 +393,6 @@ while ($row = pwg_db_fetch_assoc($result))
 {
   array_push($comments, $row);
   array_push($element_ids, $row['image_id']);
-  array_push($category_ids, $row['category_id']);
 }
 
 if (count($comments) > 0)
@@ -408,11 +412,23 @@ SELECT id, name, file, path, tn_ext
 
   // retrieving category informations
   $query = '
-SELECT id, name, permalink, uppercats
-  FROM '.CATEGORIES_TABLE.'
-  WHERE id IN ('.implode(',', $category_ids).')
+SELECT c.id, name, permalink, uppercats, com.id as comment_id
+  FROM '.CATEGORIES_TABLE.' AS c
+  LEFT JOIN '.IMAGE_CATEGORY_TABLE.' AS ic
+  ON c.id=ic.category_id
+  LEFT JOIN '.COMMENTS_TABLE.' AS com
+  ON ic.image_id=com.image_id
+  '.get_sql_condition_FandF
+    (
+      array
+      (
+	'forbidden_categories' => 'c.id',
+	'visible_categories' => 'c.id'
+       ),
+      'WHERE'
+     ).'
 ;';
-  $categories = hash_from_query($query, 'id');
+  $categories = hash_from_query($query, 'comment_id');
 
   foreach ($comments as $comment)
   {
@@ -431,7 +447,7 @@ SELECT id, name, permalink, uppercats
     // link to the full size picture
     $url = make_picture_url(
       array(
-        'category' => $categories[ $comment['category_id'] ],
+        'category' => $categories[ $comment['comment_id'] ],
         'image_id' => $comment['image_id'],
         'image_file' => $elements[$comment['image_id']]['file'],
         )
