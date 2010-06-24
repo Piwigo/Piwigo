@@ -71,40 +71,78 @@ function custom_notification_query($action, $type, $start, $end)
       $query = '
   FROM '.COMMENTS_TABLE.' AS c
      , '.IMAGE_CATEGORY_TABLE.' AS ic
-  WHERE c.image_id = ic.image_id
-    AND c.validation_date > \''.$start.'\'
-    AND c.validation_date <= \''.$end.'\'
-      '.get_std_sql_where_restrict_filter('AND').'
+  WHERE c.image_id = ic.image_id';
+      if (!empty($start))
+      {
+	$query .= '
+    AND c.validation_date > \''.$start.'\'';
+      }
+      if (!empty($end))
+      {
+	$query .= '      
+    AND c.validation_date <= \''.$end.'\'';
+      }
+      $query .= get_std_sql_where_restrict_filter('AND').'
 ;';
       break;
     case 'unvalidated_comments':
       $query = '
   FROM '.COMMENTS_TABLE.'
-  WHERE date> \''.$start.'\' AND date <= \''.$end.'\'
-    AND validated = \'false\'
+  WHERE 1=1';
+      if (!empty($start))
+      {
+	$query .= ' AND date> \''.$start.'\'';
+      }
+      if (!empty($end))
+      {      
+	$query .= ' AND date <= \''.$end.'\'';
+      }
+      $query .= ' AND validated = \'false\'
 ;';
       break;
     case 'new_elements':
       $query = '
   FROM '.IMAGES_TABLE.' INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON image_id = id
-  WHERE date_available > \''.$start.'\'
-    AND date_available <= \''.$end.'\'
-      '.get_std_sql_where_restrict_filter('AND', 'id').'
+  WHERE 1=1';
+      if (!empty($start))
+      {
+	$query .= ' AND date_available > \''.$start.'\'';
+      }
+      if (!empty($end))
+      {
+	$query .= ' AND date_available <= \''.$end.'\'';
+      }
+      $query .= get_std_sql_where_restrict_filter('AND', 'id').'
 ;';
       break;
     case 'updated_categories':
       $query = '
   FROM '.IMAGES_TABLE.' INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON image_id = id
-  WHERE date_available > \''.$start.'\'
-    AND date_available <= \''.$end.'\'
-      '.get_std_sql_where_restrict_filter('AND', 'id').'
+  WHERE 1=1';
+      if (!empty($start))
+      {
+	$query .= ' AND date_available > \''.$start.'\'';
+      }
+      if (!empty($end))
+      {
+	$query .= ' AND date_available <= \''.$end.'\'';
+      }
+      $query .= get_std_sql_where_restrict_filter('AND', 'id').'
 ;';
       break;
     case 'new_users':
       $query = '
   FROM '.USER_INFOS_TABLE.'
-  WHERE registration_date > \''.$start.'\'
-    AND registration_date <= \''.$end.'\'
+  WHERE 1=1';
+      if (!empty($start))
+      {
+	$query .= ' AND registration_date > \''.$start.'\'';
+      }
+      if (!empty($end))
+      {
+	$query .= ' AND registration_date <= \''.$end.'\'';
+      }
+      $query .= '
 ;';
       break;
     case 'waiting_elements':
@@ -458,10 +496,10 @@ SELECT date_available,
     if ($max_elements>0)
     { // get some thumbnails ...
       $query = '
-SELECT DISTINCT id, path, name, tn_ext, file
+SELECT id, path, name, tn_ext, file
   FROM '.IMAGES_TABLE.' i INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON id=image_id
   '.$where_sql.'
-    AND date_available="'.$dates[$i]['date_available'].'"
+    AND date_available=\''.$dates[$i]['date_available'].'\'
     AND tn_ext IS NOT NULL
   ORDER BY '.DB_RANDOM_FUNCTION.'()
   LIMIT '.$max_elements.'
@@ -477,12 +515,12 @@ SELECT DISTINCT id, path, name, tn_ext, file
     if ($max_cats>0)
     {// get some categories ...
       $query = '
-SELECT DISTINCT c.uppercats, COUNT(DISTINCT i.id) img_count
+SELECT c.uppercats, COUNT(DISTINCT i.id) img_count
   FROM '.IMAGES_TABLE.' i INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON i.id=image_id
     INNER JOIN '.CATEGORIES_TABLE.' c ON c.id=category_id
   '.$where_sql.'
-    AND date_available="'.$dates[$i]['date_available'].'"
-  GROUP BY category_id
+    AND date_available=\''.$dates[$i]['date_available'].'\'
+  GROUP BY category_id, c.uppercats
   ORDER BY img_count DESC
   LIMIT '.$max_cats.'
 ;';
