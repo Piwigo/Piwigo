@@ -367,7 +367,7 @@ SELECT com.id AS comment_id,
        com.content,
        com.validated
   FROM '.IMAGE_CATEGORY_TABLE.' AS ic
-    LEFT JOIN '.COMMENTS_TABLE.' AS com
+    INNER JOIN '.COMMENTS_TABLE.' AS com
     ON ic.image_id = com.image_id
     LEFT JOIN '.USERS_TABLE.' As u
     ON u.'.$conf['user_fields']['id'].' = com.author_id
@@ -418,6 +418,15 @@ SELECT c.id, name, permalink, uppercats, com.id as comment_id
   ON c.id=ic.category_id
   LEFT JOIN '.COMMENTS_TABLE.' AS com
   ON ic.image_id=com.image_id
+  '.get_sql_condition_FandF
+    (
+      array
+      (
+	'forbidden_categories' => 'c.id',
+	'visible_categories' => 'c.id'
+       ),
+      'WHERE'
+     ).'
 ;';
   $categories = hash_from_query($query, 'comment_id');
 
