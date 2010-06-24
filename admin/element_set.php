@@ -195,7 +195,8 @@ elseif ('recent'== $_GET['cat'])
   $page['title'] = l10n('Recent pictures');
   $query = 'SELECT MAX(date_available) AS date
   FROM '.IMAGES_TABLE;
-  if ($row = pwg_db_fetch_assoc( pwg_query($query) ) )
+  $row = pwg_db_fetch_assoc(pwg_query($query));
+  if (!empty($row['date']))
   {
     $query = 'SELECT id
   FROM '.IMAGES_TABLE.'
