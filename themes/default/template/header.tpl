@@ -34,7 +34,7 @@
 {if $theme.load_css}
 <link rel="stylesheet" type="text/css" href="{$ROOT_URL}themes/{$theme.id}/theme.css">
 {/if}
-{if isset($theme.local_head)}{include file=$theme.local_head}{/if}
+{if !empty($theme.local_head)}{include file=$theme.local_head}{/if}
 {/foreach}
 
 {if isset($U_PREFETCH)          }<link rel="prefetch" href="{$U_PREFETCH}">{/if}
