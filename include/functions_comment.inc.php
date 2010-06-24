@@ -133,10 +133,10 @@ SELECT COUNT(*) AS user_exists
 
   if ($comment_action!='reject' and $conf['anti-flood_time']>0 )
   { // anti-flood system
-    $reference_date = time() - $conf['anti-flood_time'];
+    $reference_date = date('c', time() - $conf['anti-flood_time']);
     $query = '
 SELECT id FROM '.COMMENTS_TABLE.'
-  WHERE date > FROM_UNIXTIME('.$reference_date.')
+  WHERE date > \''.$reference_date.'\'
     AND author_id = '.$comm['author_id'];
     if ( pwg_db_num_rows( pwg_query( $query ) ) > 0 )
     {
