@@ -126,7 +126,7 @@ if ($conf['show_newsletter_subscription']) {
 
 $php_current_timestamp = date("Y-m-d H:i:s");
 $db_version = pwg_get_db_version();
-list($db_current_timestamp) = pwg_db_fetch_row(pwg_query('SELECT CURRENT_TIMESTAMP;'));
+list($db_current_date) = pwg_db_fetch_row(pwg_query('SELECT now();'));
 
 $query = '
 SELECT COUNT(*)
@@ -215,7 +215,7 @@ $template->assign(
     'U_CHECK_UPGRADE' => PHPWG_ROOT_PATH.'admin.php?action=check_upgrade',
     'U_PHPINFO' => PHPWG_ROOT_PATH.'admin.php?action=phpinfo',
     'PHP_DATATIME' => $php_current_timestamp,
-    'DB_DATATIME' => $db_current_timestamp,
+    'DB_DATATIME' => $db_current_date,
     )
   );
 

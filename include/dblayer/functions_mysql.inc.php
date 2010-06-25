@@ -560,7 +560,6 @@ function boolean_to_string($var)
  *
  */
 
-
 function pwg_db_get_recent_period_expression($period, $date='CURRENT_DATE')
 {
   if ($date!='CURRENT_DATE')
@@ -578,6 +577,11 @@ SELECT '.pwg_db_get_recent_period_expression($period);
   list($d) = pwg_db_fetch_row(pwg_query($query));
 
   return $d;
+}
+
+function pwg_db_get_flood_period_expression($seconds)
+{
+  return 'SUBDATE(now(), INTERVAL '.$seconds.' SECOND)';
 }
 
 function pwg_db_get_hour($date) 
