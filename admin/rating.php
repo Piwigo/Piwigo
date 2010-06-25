@@ -171,7 +171,12 @@ SELECT i.id,
   FROM '.RATE_TABLE.' AS r
     LEFT JOIN '.IMAGES_TABLE.' AS i ON r.element_id = i.id
   WHERE 1 = 1 ' . $page['user_filter'] . '
-  GROUP BY r.element_id
+  GROUP BY i.id,
+        i.path,
+        i.file,
+        i.tn_ext,
+        i.average_rate,
+        r.element_id
   ORDER BY ' . $available_order_by[$order_by_index][1] .'
   LIMIT '.$elements_per_page.' OFFSET '.$start.'
 ;';
