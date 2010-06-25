@@ -511,6 +511,11 @@ function pwg_db_get_recent_period($period, $date='CURRENT_DATE')
   return $d;
 }
 
+function pwg_db_get_flood_period_expression($seconds)
+{
+  return 'datetime(\'now\', \'localtime\', \''.-$seconds.' seconds\')';
+}
+
 function pwg_db_get_hour($date)
 {
   return 'strftime(\'%H\', '.$date.')';

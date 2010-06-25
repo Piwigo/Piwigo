@@ -133,12 +133,14 @@ SELECT COUNT(*) AS user_exists
 
   if ($comment_action!='reject' and $conf['anti-flood_time']>0 )
   { // anti-flood system
-    $reference_date = date('c', time() - $conf['anti-flood_time']);
+    $reference_date = pwg_db_get_flood_period_expression($conf['anti-flood_time']);
+
     $query = '
-SELECT id FROM '.COMMENTS_TABLE.'
-  WHERE date > \''.$reference_date.'\'
+SELECT count(1) FROM '.COMMENTS_TABLE.'
+  WHERE date > '.$reference_date.'
     AND author_id = '.$comm['author_id'];
-    if ( pwg_db_num_rows( pwg_query( $query ) ) > 0 )
+    list($counter) = pwg_db_fetch_row(pwg_query($query));
+    if ( $counter > 0 )
     {
       array_push( $infos, l10n('Anti-flood system : please wait for a moment before trying to post another comment') );
       $comment_action='reject';
