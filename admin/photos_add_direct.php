@@ -450,6 +450,11 @@ if (!empty($error_message))
   array_push($setup_errors, $error_message);
 }
 
+if (!function_exists('gd_info'))
+{
+  array_push($setup_errors, l10n('GD library is missing'));
+}
+
 $template->assign(
     array(
       'setup_errors'=> $setup_errors,
