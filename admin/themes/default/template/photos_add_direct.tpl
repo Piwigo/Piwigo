@@ -106,8 +106,8 @@ var buttonText = 'Browse';
     'displayData'    : 'speed',
     'buttonText'     : buttonText,
     'multi'          : true,
-    'fileDesc'       : 'Photo files (*.jpg,*.jpeg)',
-    'fileExt'        : '*.jpg;*.JPG;*.jpeg;*.JPEG',
+    'fileDesc'       : 'Photo files (*.jpg,*.jpeg,*.png)',
+    'fileExt'        : '*.jpg;*.JPG;*.jpeg;*.JPEG;*.png;*.PNG',
     'onAllComplete'  : function(event, data) {
       if (data.errors) {
         return false;
