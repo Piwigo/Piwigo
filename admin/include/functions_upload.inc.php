@@ -42,7 +42,17 @@ function add_uploaded_file($source_filepath, $original_filename=null, $categorie
   $date_string = preg_replace('/[^\d]/', '', $dbnow);
   $random_string = substr($md5sum, 0, 8);
   $filename_wo_ext = $date_string.'-'.$random_string;
-  $file_path = $upload_dir.'/'.$filename_wo_ext.'.jpg';
+  $file_path = $upload_dir.'/'.$filename_wo_ext.'.';
+
+  list($width, $height, $type) = getimagesize($source_filepath);
+  if (IMAGETYPE_PNG == $type)
+  {
+    $file_path.= 'png';
+  }
+  else
+  {
+    $file_path.= 'jpg';
+  }
 
   prepare_directory($upload_dir);
   if (is_uploaded_file($source_filepath))
@@ -198,11 +208,11 @@ function pwg_image_resize($result, $source_filepath, $destination_filepath, $max
   $source_image = null;
   if (in_array($extension, array('jpg', 'jpeg')))
   {
-    $source_image = @imagecreatefromjpeg($source_filepath);
+    $source_image = imagecreatefromjpeg($source_filepath);
   }
   else if ($extension == 'png')
   {
-    $source_image = @imagecreatefrompng($source_filepath);
+    $source_image = imagecreatefrompng($source_filepath);
   }
   else
   {
@@ -252,7 +262,15 @@ function pwg_image_resize($result, $source_filepath, $destination_filepath, $max
     $source_height
     );
   
-  imagejpeg($destination_image, $destination_filepath, $quality);
+  $extension = strtolower(get_extension($destination_filepath));
+  if ($extension == 'png')
+  {
+    imagepng($destination_image, $destination_filepath);
+  }
+  else
+  {
+    imagejpeg($destination_image, $destination_filepath, $quality);
+  }
   // freeing memory ressources
   imagedestroy($source_image);
   imagedestroy($destination_image);
