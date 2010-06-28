@@ -414,8 +414,6 @@ SELECT image_id
 	$template->assign(
 	  'favorite',
 	  array(
-	    'FAVORITE_IMG'  =>
-	    get_root_url().get_themeconf('icon_dir').'/del_all_favorites.png',
 	    'U_FAVORITE'    => add_url_params(
 	      make_index_url( array('section'=>'favorites') ),
 	      array('action'=>'remove_all_from_favorites')

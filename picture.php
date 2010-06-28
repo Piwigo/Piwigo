@@ -312,13 +312,13 @@ UPDATE '.CATEGORIES_TABLE.'
     case 'edit_comment' :
     {
       check_pwg_token();
-  
+
       include_once(PHPWG_ROOT_PATH.'include/functions_comment.inc.php');
 
       check_input_parameter('comment_to_edit', $_GET, false, PATTERN_ID);
 
       $author_id = get_comment_author_id($_GET['comment_to_edit']);
-      
+
       if (can_manage_comment('edit', $author_id))
       {
         if (!empty($_POST['content']))
@@ -331,7 +331,7 @@ UPDATE '.CATEGORIES_TABLE.'
               ),
             $_POST['key']
             );
-          
+
           redirect($url_self);
         }
         else
@@ -344,35 +344,35 @@ UPDATE '.CATEGORIES_TABLE.'
     case 'delete_comment' :
     {
       check_pwg_token();
-  
+
       include_once(PHPWG_ROOT_PATH.'include/functions_comment.inc.php');
-      
+
       check_input_parameter('comment_to_delete', $_GET, false, PATTERN_ID);
 
       $author_id = get_comment_author_id($_GET['comment_to_delete']);
-      
+
       if (can_manage_comment('delete', $author_id))
       {
         delete_user_comment($_GET['comment_to_delete']);
       }
-      
+
       redirect($url_self);
     }
     case 'validate_comment' :
     {
       check_pwg_token();
-  
+
       include_once(PHPWG_ROOT_PATH.'include/functions_comment.inc.php');
 
       check_input_parameter('comment_to_validate', $_GET, false, PATTERN_ID);
-      
+
       $author_id = get_comment_author_id($_GET['comment_to_validate']);
-      
+
       if (can_manage_comment('validate', $author_id))
       {
         validate_user_comment($_GET['comment_to_validate']);
       }
-      
+
       redirect($url_self);
     }
 
@@ -796,39 +796,19 @@ SELECT COUNT(*) AS nb_fav
   WHERE image_id = '.$page['image_id'].'
     AND user_id = '.$user['id'].'
 ;';
-  $result = pwg_query($query);
-  $row = pwg_db_fetch_assoc($result);
+  $row = pwg_db_fetch_assoc( pwg_query($query) );
+	$is_favorite = $row['nb_fav'] != 0;
 
-  if ($row['nb_fav'] == 0)
-  {
-    $template->assign(
-      'favorite',
-      array(
-        'FAVORITE_IMG'  =>
-          get_root_url().get_themeconf('icon_dir').'/favorite.png',
-        'FAVORITE_HINT' => l10n('add this image to your favorites'),
-        'U_FAVORITE'    => add_url_params(
-          $url_self,
-          array('action'=>'add_to_favorites')
-          ),
-        )
-      );
-  }
-  else
-  {
-    $template->assign(
-      'favorite',
-      array(
-        'FAVORITE_IMG'  =>
-          get_root_url().get_themeconf('icon_dir').'/del_favorite.png',
-        'FAVORITE_HINT' => l10n('delete this image from your favorites'),
-        'U_FAVORITE'    => add_url_params(
-          $url_self,
-          array('action'=>'remove_from_favorites')
-          ),
-        )
-      );
-  }
+  $template->assign(
+    'favorite',
+    array(
+			'IS_FAVORITE' => $is_favorite,
+      'U_FAVORITE'    => add_url_params(
+        $url_self,
+        array('action'=> !$is_favorite ? 'add_to_favorites' : 'remove_from_favorites' )
+        ),
+      )
+    );
 }
 
 //--------------------------------------------------------- picture information

@@ -15,7 +15,7 @@
       {/if}
 
       {if isset($favorite) }
-      <li><a href="{$favorite.U_FAVORITE}" title="{'delete all images from your favorites'|@translate}"><img src="{$favorite.FAVORITE_IMG}" class="button" alt="favorite" title="{'delete all images from your favorites'|@translate}"></a></li>
+      <li><a href="{$favorite.U_FAVORITE}" title="{'delete all images from your favorites'|@translate}"><img src="{$ROOT_URL}{$themeconf.icon_dir}/del_all_favorites.png" class="button" alt="favorite" title="{'delete all images from your favorites'|@translate}"></a></li>
       {/if}
 
       {if isset($U_CADDIE) }
