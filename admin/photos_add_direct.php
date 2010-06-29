@@ -443,6 +443,7 @@ $template->assign(
 // +-----------------------------------------------------------------------+
 
 $setup_errors = array();
+$setup_warnings = array();
 
 $error_message = ready_for_upload_message();
 if (!empty($error_message))
@@ -455,9 +456,18 @@ if (!function_exists('gd_info'))
   array_push($setup_errors, l10n('GD library is missing'));
 }
 
+if ($conf['use_exif'] and !function_exists('read_exif_data'))
+{
+  array_push(
+    $setup_warnings,
+    l10n('Exif extension not available, admin should disable exif use')
+    );
+}
+
 $template->assign(
     array(
       'setup_errors'=> $setup_errors,
+      'setup_warnings' => $setup_warnings,
     )
   );
 
