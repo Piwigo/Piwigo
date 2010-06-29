@@ -487,11 +487,11 @@ $template->assign(
   );
 
 // +-----------------------------------------------------------------------+
-// |                             setup errors                              |
+// |                         setup errors/warnings                         |
 // +-----------------------------------------------------------------------+
 
+// Errors
 $setup_errors = array();
-$setup_warnings = array();
 
 $error_message = ready_for_upload_message();
 if (!empty($error_message))
@@ -504,32 +504,49 @@ if (!function_exists('gd_info'))
   array_push($setup_errors, l10n('GD library is missing'));
 }
 
-if ($conf['use_exif'] and !function_exists('read_exif_data'))
+$template->assign(
+  array(
+    'setup_errors'=> $setup_errors,
+    )
+  );
+
+// Warnings
+if (isset($_GET['hide_warnings']))
 {
-  array_push(
-    $setup_warnings,
-    l10n('Exif extension not available, admin should disable exif use')
-    );
+  $_SESSION['upload_hide_warnings'] = true;
 }
 
-if (get_ini_size('upload_max_filesize') > get_ini_size('post_max_size'))
+if (!isset($_SESSION['upload_hide_warnings']))
 {
-  array_push(
-    $setup_warnings,
-    sprintf(
-      l10n('In your php.ini file, the upload_max_filesize (%sB) is bigger than post_max_size (%sB), you should change this setting'),
-      get_ini_size('upload_max_filesize', false),
-      get_ini_size('post_max_size', false)
+  $setup_warnings = array();
+  
+  if ($conf['use_exif'] and !function_exists('read_exif_data'))
+  {
+    array_push(
+      $setup_warnings,
+      l10n('Exif extension not available, admin should disable exif use')
+      );
+  }
+
+  if (get_ini_size('upload_max_filesize') > get_ini_size('post_max_size'))
+  {
+    array_push(
+      $setup_warnings,
+      sprintf(
+        l10n('In your php.ini file, the upload_max_filesize (%sB) is bigger than post_max_size (%sB), you should change this setting'),
+        get_ini_size('upload_max_filesize', false),
+        get_ini_size('post_max_size', false)
+        )
+      );
+  }
+
+  $template->assign(
+    array(
+      'setup_warnings' => $setup_warnings,
+      'hide_warnings_link' => PHOTOS_ADD_BASE_URL.'&amp;upload_mode='.$upload_mode.'&amp;hide_warnings=1'
       )
     );
 }
-
-$template->assign(
-    array(
-      'setup_errors'=> $setup_errors,
-      'setup_warnings' => $setup_warnings,
-    )
-  );
 
 // +-----------------------------------------------------------------------+
 // |                           sending html code                           |
