@@ -216,6 +216,17 @@ var buttonText = 'Browse';
 </div>
 {else}
 
+  {if count($setup_warnings) > 0}
+<div class="warnings">
+  <ul>
+    {foreach from=$setup_warnings item=warning}
+    <li>{$warning}</li>
+    {/foreach}
+  </ul>
+</div>
+  {/if}
+
+
 {if !empty($thumbnails)}
 <fieldset>
   <legend>{'Uploaded Photos'|@translate}</legend>

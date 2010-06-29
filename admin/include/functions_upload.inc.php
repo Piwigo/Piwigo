@@ -141,6 +141,10 @@ function add_uploaded_file($source_filepath, $original_filename=null, $categorie
   }
   
   // update metadata from the uploaded file (exif/iptc)
+  if ($conf['use_exif'] and !function_exists('read_exif_data'))
+  {
+    $conf['use_exif'] = false;
+  }
   update_metadata(array($image_id=>$file_path));
   
   invalidate_user_cache();
