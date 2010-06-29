@@ -299,4 +299,82 @@ function is_valid_image_extension($extension)
 {
   return in_array(strtolower($extension), array('jpg', 'jpeg', 'png'));
 }
+
+function file_upload_error_message($error_code)
+{
+  switch ($error_code) {
+    case UPLOAD_ERR_INI_SIZE:
+      return sprintf(
+        l10n('The uploaded file exceeds the upload_max_filesize directive in php.ini: %sB'),
+        get_ini_size('upload_max_filesize', false)
+        );
+    case UPLOAD_ERR_FORM_SIZE:
+      return l10n('The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form');
+    case UPLOAD_ERR_PARTIAL:
+      return l10n('The uploaded file was only partially uploaded');
+    case UPLOAD_ERR_NO_FILE:
+      return l10n('No file was uploaded');
+    case UPLOAD_ERR_NO_TMP_DIR:
+      return l10n('Missing a temporary folder');
+    case UPLOAD_ERR_CANT_WRITE:
+      return l10n('Failed to write file to disk');
+    case UPLOAD_ERR_EXTENSION:
+      return l10n('File upload stopped by extension');
+    default:
+      return l10n('Unknown upload error');
+  }
+}
+
+function get_ini_size($ini_key, $in_bytes=true)
+{
+  $size = ini_get($ini_key);
+
+  if ($in_bytes)
+  {
+    $size = convert_shortand_notation_to_bytes($size);
+  }
+  
+  return $size;
+}
+
+function convert_shortand_notation_to_bytes($value)
+{
+  $suffix = substr($value, -1);
+  $multiply_by = null;
+  
+  if ('K' == $suffix)
+  {
+    $multiply_by = 1024;
+  }
+  else if ('M' == $suffix)
+  {
+    $multiply_by = 1024*1024;
+  }
+  else if ('G' == $suffix)
+  {
+    $multiply_by = 1024*1024*1024;
+  }
+  
+  if (isset($multiply_by))
+  {
+    $value = substr($value, 0, -1);
+    $value*= $multiply_by;
+  }
+
+  return $value;
+}
+
+function add_upload_error($upload_id, $error_message)
+{
+  if (!isset($_SESSION['uploads_error']))
+  {
+    $_SESSION['uploads_error'] = array();
+  }
+  if (!isset($_SESSION['uploads_error'][$upload_id]))
+  {
+    $_SESSION['uploads_error'][$upload_id] = array();
+  }
+
+  array_push($_SESSION['uploads_error'][$upload_id], $error_message);
+}
 ?>

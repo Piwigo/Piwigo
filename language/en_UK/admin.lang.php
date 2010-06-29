@@ -758,4 +758,16 @@ $lang['Add another set of photos'] = 'Add another set of photos';
 $lang['Order of menubar items has been updated successfully.'] = 'Order of menubar items has been updated successfully.';
 $lang['This theme was not designed to be directly activated'] = 'This theme was not designed to be directly activated';
 $lang['Pending Comments'] = 'Pending Comments';
+$lang['In your php.ini file, the upload_max_filesize (%sB) is bigger than post_max_size (%sB), you should change this setting'] = 'In your php.ini file, the upload_max_filesize (%sB) is bigger than post_max_size (%sB), you should change this setting';
+$lang['Exif extension not available, admin should disable exif use'] = 'Exif extension not available, admin should disable exif use';
+$lang['The uploaded file exceeds the upload_max_filesize directive in php.ini: %sB'] = 'The uploaded file exceeds the upload_max_filesize directive in php.ini: %sB';
+$lang['The uploaded files exceed the post_max_size directive in php.ini: %sB'] = 'The uploaded files exceed the post_max_size directive in php.ini: %sB';
+$lang['The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form'] = 'The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form';
+$lang['The uploaded file was only partially uploaded'] = 'The uploaded file was only partially uploaded';
+$lang['No file was uploaded'] = 'No file was uploaded';
+$lang['Missing a temporary folder'] = 'Missing a temporary folder';
+$lang['Failed to write file to disk'] = 'Failed to write file to disk';
+$lang['File upload stopped by extension'] = 'File upload stopped by extension';
+$lang['Unknown upload error'] = 'Unknown upload error';
+$lang['Error on file "%s" : %s'] = 'Error on file "%s" : %s';
 ?>

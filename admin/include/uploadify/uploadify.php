@@ -11,12 +11,34 @@ include_once(PHPWG_ROOT_PATH.'admin/include/functions_upload.inc.php');
 check_pwg_token();
 
 ob_start();
+echo '$_FILES'."\n";
 print_r($_FILES);
+echo '$_POST'."\n";
 print_r($_POST);
+echo '$user'."\n";
 print_r($user);
 $tmp = ob_get_contents(); 
 ob_end_clean();
 // error_log($tmp, 3, "/tmp/php-".date('YmdHis').'-'.sprintf('%020u', rand()).".log");
+
+if ($_FILES['Filedata']['error'] !== UPLOAD_ERR_OK)
+{
+  $error_message = file_upload_error_message($_FILES['Filedata']['error']);
+  
+  add_upload_error(
+    $_POST['upload_id'],
+    sprintf(
+      l10n('Error on file "%s" : %s'),
+      $_FILES['Filedata']['name'],
+      $error_message
+      )
+    );
+
+  echo "File Size Error";
+  exit();
+}
+
+ob_start();
 
 $image_id = add_uploaded_file(
   $_FILES['Filedata']['tmp_name'],
@@ -39,6 +61,13 @@ array_push(
   $_SESSION['uploads'][ $_POST['upload_id'] ],
   $image_id
   );
+
+$output = ob_get_contents(); 
+ob_end_clean();
+if (!empty($output))
+{
+  add_upload_error($_POST['upload_id'], $output);
+}
 
 echo "1";
 ?>

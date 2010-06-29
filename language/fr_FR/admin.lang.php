@@ -762,4 +762,16 @@ $lang['Add another set of photos'] = 'Ajouter d\'autres photos';
 $lang['Order of menubar items has been updated successfully.'] = 'L\'ordre des éléments du menu a été mis à jour avec succès.';
 $lang['This theme was not designed to be directly activated'] = 'Ce thème n\'est pas conçu pour être activé directement';
 $lang['Pending Comments'] = 'Commentaires en attente';
+$lang['In your php.ini file, the upload_max_filesize (%sB) is bigger than post_max_size (%sB), you should change this setting'] = 'Dans votre fichier php.ini, la variable upload_max_filesize (%sB) est plus grande que post_max_size (%sB), vous devriez modifier ce paramétrage';
+$lang['Exif extension not available, admin should disable exif use'] = 'L\'extension Exif n\'est pas disponible, un administrateur devrait désactiver l\'utilisation des métadonnées Exif';
+$lang['The uploaded file exceeds the upload_max_filesize directive in php.ini: %sB'] = 'Le poids du fichier transféré dépasse la valeur de upload_max_filesize définie dans votre fichier php.ini: %sB';
+$lang['The uploaded files exceed the post_max_size directive in php.ini: %sB'] = 'Le poids total des fichiers transférés dépasse la valeur de post_max_size dans votre fichier php.ini: %sB';
+$lang['The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form'] = 'Le poids du fichier transféré dépasse la valeur de MAX_FILE_SIZE définie dans le formulaire HTML';
+$lang['The uploaded file was only partially uploaded'] = 'Le fichier n\é até que partiellement transféré';
+$lang['No file was uploaded'] = 'Aucun fichier n\'a été transféré';
+$lang['Missing a temporary folder'] = 'Impossible de trouver le répertoire temporaire';
+$lang['Failed to write file to disk'] = 'Échec à l\'écriture du fichier sur le serveur';
+$lang['File upload stopped by extension'] = 'Le transfert du fichier a été arrêté par une extension';
+$lang['Unknown upload error'] = 'Erreur inconnue survenue lors du transfert';
+$lang['Error on file "%s" : %s'] = 'Erreur sur le fichier "%s" : %s';
 ?>
