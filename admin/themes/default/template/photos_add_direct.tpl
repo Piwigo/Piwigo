@@ -49,6 +49,26 @@ jQuery(document).ready(function(){
 
   }
 
+  function humanReadableFileSize(bytes) {
+    var byteSize = Math.round(bytes / 1024 * 100) * .01;
+    var suffix = 'KB';
+
+    if (byteSize > 1000) {
+      byteSize = Math.round(byteSize *.001 * 100) * .01;
+      suffix = 'MB';
+    }
+
+    var sizeParts = byteSize.toString().split('.');
+    if (sizeParts.length > 1) {
+      byteSize = sizeParts[0] + '.' + sizeParts[1].substr(0,2);
+    }
+    else {
+      byteSize = sizeParts[0];
+    }
+
+    return byteSize+suffix;
+  }
+
   if ($("select[name=category] option").length == 0) {
     $('input[name=category_type][value=existing]').attr('disabled', true);
     $('input[name=category_type]').attr('checked', false);
@@ -90,6 +110,7 @@ var upload_id = '{$upload_id}';
 var session_id = '{$session_id}';
 var pwg_token = '{$pwg_token}';
 var buttonText = 'Browse';
+var sizeLimit = {$upload_max_filesize};
 
 {literal}
   jQuery("#uploadify").uploadify({
@@ -108,6 +129,7 @@ var buttonText = 'Browse';
     'multi'          : true,
     'fileDesc'       : 'Photo files (*.jpg,*.jpeg,*.png)',
     'fileExt'        : '*.jpg;*.JPG;*.jpeg;*.JPEG;*.png;*.PNG',
+    'sizeLimit'      : sizeLimit,
     'onAllComplete'  : function(event, data) {
       if (data.errors) {
         return false;
@@ -118,18 +140,23 @@ var buttonText = 'Browse';
     },
     onError: function (event, queueID ,fileObj, errorObj) {
       var msg;
-      if (errorObj.status == 404) {
-        alert('Could not find upload script.');
-        msg = 'Could not find upload script.';
-      }
-      else if (errorObj.type === "HTTP") {
-        msg = errorObj.type+": "+errorObj.status;
+
+      if (errorObj.type === "HTTP") {
+        if (errorObj.info === 404) {
+          alert('Could not find upload script.');
+          msg = 'Could not find upload script.';
+        }
+        else {
+          msg = errorObj.type+": "+errorObj.info;
+        }
       }
       else if (errorObj.type ==="File Size") {
-        msg = fileObj.name+'<br>'+errorObj.type+' Limit: '+Math.round(errorObj.sizeLimit/1024)+'KB';
+        msg = "File too big";
+        msg = msg + '<br>'+fileObj.name+': '+humanReadableFileSize(fileObj.size);
+        msg = msg + '<br>Limit: '+humanReadableFileSize(sizeLimit);
       }
       else {
-        msg = errorObj.type+": "+errorObj.text;
+        msg = errorObj.type+": "+errorObj.info;
       }
 
       $.jGrowl(
@@ -239,7 +266,7 @@ var buttonText = 'Browse';
   </div>
   <p id="batchLink"><a href="{$batch_link}">{$batch_label}</a></p>
 </fieldset>
-<p><a href="">{'Add another set of photos'|@translate}</a></p>
+<p><a href="{$another_upload_link}">{'Add another set of photos'|@translate}</a></p>
 {else}
 
 <div id="formErrors" class="errors" style="display:none">
@@ -250,7 +277,7 @@ var buttonText = 'Browse';
   <div class="hideButton" style="text-align:center"><a href="#" id="hideErrors">{'Hide'|@translate}</a></div>
 </div>
 
-<form id="uploadForm" enctype="multipart/form-data" method="post" action="{$F_ACTION}" class="properties">
+<form id="uploadForm" enctype="multipart/form-data" method="post" action="{$form_action}" class="properties">
     <fieldset>
       <legend>{'Drop into category'|@translate}</legend>
       {if $upload_mode eq 'multiple'}

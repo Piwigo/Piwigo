@@ -62,15 +62,33 @@ DELETE FROM '.CADDIE_TABLE.'
 // |                             process form                              |
 // +-----------------------------------------------------------------------+
 
-if (isset($_POST['submit_upload']))
+if (isset($_GET['processed']))
 {
 //   echo '<pre>POST'."\n"; print_r($_POST); echo '</pre>';
 //   echo '<pre>FILES'."\n"; print_r($_FILES); echo '</pre>';
 //   echo '<pre>SESSION'."\n"; print_r($_SESSION); echo '</pre>';
 //   exit();
+
+  // sometimes, you have submitted the form but you have nothing in $_POST
+  // and $_FILES. This may happen when you have an HTML upload and you
+  // exceeded the post_max_size (but not the upload_max_size)
+  if (!isset($_POST['submit_upload']))
+  {
+    array_push(
+      $page['errors'],
+      sprintf(
+        l10n('The uploaded files exceed the post_max_size directive in php.ini: %sB'),
+        ini_get('post_max_size')
+        )
+      );
+  }
   
   $category_id = null;
-  if ('existing' == $_POST['category_type'])
+  if (!isset($_POST['category_type']))
+  {
+    // nothing to do, we certainly have the post_max_size issue
+  }
+  elseif ('existing' == $_POST['category_type'])
   {
     $category_id = $_POST['category'];
   }
@@ -193,6 +211,19 @@ if (isset($_POST['submit_upload']))
         // TODO: if $image_id is not an integer, something went wrong
       }
     }
+    else
+    {
+      $error_message = file_upload_error_message($error);
+      
+      array_push(
+        $page['errors'],
+        sprintf(
+          l10n('Error on file "%s" : %s'),
+          $_FILES['image_upload']['name'][$idx],
+          $error_message
+          )
+        );
+    }
   }
   
   $endtime = get_moment();
@@ -204,21 +235,32 @@ if (isset($_POST['submit_upload']))
   if (isset($_POST['upload_id']))
   {
     // we're on a multiple upload, with uploadify and so on
-    $image_ids = $_SESSION['uploads'][ $_POST['upload_id'] ];
+    if (isset($_SESSION['uploads_error'][ $_POST['upload_id'] ]))
+    {
+      foreach ($_SESSION['uploads_error'][ $_POST['upload_id'] ] as $error)
+      {
+        array_push($page['errors'], $error);
+      }
+    }
 
-    associate_images_to_categories(
-      $image_ids,
-      array($category_id)
-      );
+    if (isset($_SESSION['uploads'][ $_POST['upload_id'] ]))
+    {
+      $image_ids = $_SESSION['uploads'][ $_POST['upload_id'] ];
 
-    $query = '
+      associate_images_to_categories(
+        $image_ids,
+        array($category_id)
+        );
+
+      $query = '
 UPDATE '.IMAGES_TABLE.'
   SET level = '.$_POST['level'].'
   WHERE id IN ('.implode(', ', $image_ids).')
 ;';
-    pwg_query($query);
+      pwg_query($query);
     
-    invalidate_user_cache();
+      invalidate_user_cache();
+    }
   }
   
   $page['thumbnails'] = array();
@@ -325,6 +367,10 @@ $template->assign(
     array(
       'F_ADD_ACTION'=> PHOTOS_ADD_BASE_URL,
       'uploadify_path' => $uploadify_path,
+      'upload_max_filesize' => min(
+        get_ini_size('upload_max_filesize'),
+        get_ini_size('post_max_size')
+        ),
     )
   );
 
@@ -345,10 +391,12 @@ $upload_switch = $upload_modes[ ($upload_mode_index + 1) % 2 ];
 $template->assign(
     array(
       'upload_mode' => $upload_mode,
+      'form_action' => PHOTOS_ADD_BASE_URL.'&amp;upload_mode='.$upload_mode.'&amp;processed=1',
       'switch_url' => PHOTOS_ADD_BASE_URL.'&amp;upload_mode='.$upload_switch,
       'upload_id' => md5(rand()),
       'session_id' => session_id(),
       'pwg_token' => get_pwg_token(),
+      'another_upload_link' => PHOTOS_ADD_BASE_URL.'&amp;upload_mode='.$upload_mode,
     )
   );
 
@@ -461,6 +509,18 @@ if ($conf['use_exif'] and !function_exists('read_exif_data'))
   array_push(
     $setup_warnings,
     l10n('Exif extension not available, admin should disable exif use')
+    );
+}
+
+if (get_ini_size('upload_max_filesize') > get_ini_size('post_max_size'))
+{
+  array_push(
+    $setup_warnings,
+    sprintf(
+      l10n('In your php.ini file, the upload_max_filesize (%sB) is bigger than post_max_size (%sB), you should change this setting'),
+      get_ini_size('upload_max_filesize', false),
+      get_ini_size('post_max_size', false)
+      )
     );
 }
 
