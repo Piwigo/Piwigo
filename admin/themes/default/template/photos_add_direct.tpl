@@ -250,6 +250,7 @@ var sizeLimit = {$upload_max_filesize};
     <li>{$warning}</li>
     {/foreach}
   </ul>
+  <div class="hideButton" style="text-align:center"><a href="{$hide_warnings_link}">{'Hide'|@translate}</a></div>
 </div>
   {/if}
 
