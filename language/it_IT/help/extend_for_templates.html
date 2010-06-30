@@ -1,26 +1,25 @@
-<h2>Configurazione per "l'estenzione" dei templates</h2>
+<h2>Configurazione per "l'estensione" dei templates</h2>
 
 <h3>Scopo</h3>
 <p>Definire le condizioni di sostituzione per ogni template (modello) dalla directory template-extension
-(template chiamato il "replacer" (rimpiazzante)).</p>
+(template chiamato il "replacer" ("modelli personalizzato" / "sostituto")).</p>
 
-<p>I "templates originali" da ./template/yoga (o qualunque altra directory che yoga) sarà sostituito 
-da un rimpiazzante se quest'ultimo è collegato al "template originale" (e in modo facoltativo, 
+<p>I "templates originali" da ./template/yoga (o qualunque altra directory che yoga) saranno rimpiazzati 
+da un sostituto se quest'ultimo è collegato al "template originale" (e in modo facoltativo, 
 quando l'URL richiesta contiene un "parametro facoltativo dell'URL").</p>
 
-<p>I "parametri facoltativi dell'URL" sono quelli che potete trovare dopo il nome del modulo nel indirizzo (URL).</p>
+<p>I "parametri facoltativi dell'URL" sono quelli che potete trovare dopo il nome del modulo nell'indirizzo (URL).</p>
 
 <p>Quindi un "parametro facoltativo dell'URL" può essere un "permalink" attivo (per maggiore informazioni 
-vedere i permalinks della nostra documentazione).</p>
+vedere i permalinks nella nostra documentazione).</p>
 
 <p>Leggere: `<a href="#warnings">Avvertimenti</a> sulle condizioni d'uso.</p>
 
 <h3>Che cosa sono le estensioni dei template?</h3>
 
-<p>Quest'attrezzo di configurazione è potente per i principianti ma anche per gli esperti.
+<p>Questo tool di configurazione è potente sia per i principianti che per gli utenti esperti.
 Trammite FTP, nella directory template-estensione, il Webmaster può duplicare i file
- .tpl ("template originali") con un nome
- diverso (rimpiazzante).
+ .tpl ("template originali") con un nome diverso (sostituto).
 
  "Template originali", attualmente i modelli d'origine sopportati sono:</p>
 <ul>
@@ -44,58 +43,58 @@ Trammite FTP, nella directory template-estensione, il Webmaster può duplicare i 
 <h3>Dove posso trovare i "templates originali"?</h3>
 
 <p>I templates originali sono in template/yoga/
-(non modificare i templetes originali per evitare problemi durante gli aggiornamenti futuri). Dunque con
-i "templates originali", il webmaster può creare il suo "replacers (modelli personalizzati)".</p>
+(non modificare i templates originali per evitare problemi durante gli aggiornamenti futuri). Così, con
+i "templates originali", il webmaster può creare i suoi "replacers (modelli personalizzati)".</p>
 
-<h3>Dove posso salvare i "rimpiazzanti"?</h3>
+<h3>Dove posso salvare i "modelli personalizzati"?</h3>
 
 <p><strong>I templates personalizzati</strong> possono essere salvati nella directory 
 template-extension (o sottodirectory).
-I "rimpiazzanti" possono avere qualunque nome con l'estenzione .tpl. Per esempio: <span
+I "modelli personalizzati" possono avere qualunque nome con l'estensione .tpl. Per esempio: <span
 class="filename">template-extension/my-extension/video.tpl</span>.</p>
 
 
-<h3>Come posso attivare i miei "rimpiazzanti"?</h3>
+<h3>Come posso attivare i miei "modelli personalizzati"?</h3>
 <p>Un <strong>template originale</strong> dovrebbe essere assegnato a 
- <strong>un replacer (modello personalizzato)</strong> per potere attivare i rimpiazzanti associati.
- Attivare i rimpiazzanti è la funzione "Estende i templetes" nel menu di Configurazione del Amministrazione.</p>
+ <strong>un replacer (modello personalizzato)</strong> per potere attivare i modelli personalizzati associati.
+ Attivare i modelli personalizzati è la funzione "Estende i templates" nel menu di Configurazione dell'Amministrazione.</p>
 
-<p>Se selezionate un <strong>Parametro facoltativo del URL</strong> i rimpiazzanti saranno utilizzati 
+<p>Se selezionate un <strong>Parametro facoltativo del URL</strong> i modelli personalizzati saranno utilizzati 
 unicamente sulle pagine con questa parola chiave. Per esempio: <span
   class="pwgScreen">index.php?/<strong>most_visited</strong></span></p>
   
 <p>Gli utenti esperti useranno i permalinks (link permanenti) come
 <strong>parametro facoltativo del URL</strong>. </p>
 
-<p>Se selezionate un <strong>template legato</strong>, i rimpazzamenti avranno luogo unicamente su questo template.</p>
+<p>Se selezionate un <strong>template legato</strong>, i modelli personalizzati avranno luogo unicamente su questo template.</p>
 
-<h3>Come posso disattivare mio "rimpiazzante"?</h3>
+<h3>Come posso disattivare mio "sostituto"?</h3>
 <ul>
-<li>Deselezzionare il "templete originale".</li>
-<li>Con l'FTP cancellare il "rimpiazzante".</li>
+<li>Deselezionare il "template originale".</li>
+<li>Con l'FTP cancellare il "sostituto".</li>
 </ul>
 <a name="warnings"></a>
 <h3>Avvertenze</h3>
 <ul>
 
-  <li>Il <strong>templete d'origine</strong> deve essere il vero templete "originale"
-  altrimenti potrete avere dei risultati innattesi!</li>
+  <li>Il <strong>template d'origine</strong> deve essere il vero template "originale"
+  altrimenti potreste avere dei risultati inattesi!</li>
 
-  <li>Se diversi <strong>replacers (templetes personalizzati)</strong> hanno lo stesso 
-  <strong>templete originale</strong> e lo stesso <strong>parametro facoltativo del URL</strong> 
-  solo l'ultimo rimpiazzante satà attivo.</li>
+  <li>Se diversi <strong>replacers (templates personalizzati)</strong> hanno lo stesso 
+  <strong>template originale</strong> e lo stesso <strong>parametro facoltativo del URL</strong> 
+  solo l'ultimo sostituto satà attivo.</li>
 
   <li>Non selezionare <strong>il parametro facoltativo del URL</strong> 
-  attiverà il rimpiazzante ad ogni uso del templete.
-  Come detto precedente, l'ordine può annullare i rimpiazzanti precedenti.</li>
+  attiverà il sostituto ad ogni uso del template.
+  Come detto precedente, l'ordine può annullare i modelli personalizzati precedenti.</li>
 
   <li>Le sottodirectory:
-  Le sottodirectory sono ignorate ma sono utili per cambiare l'ordine dei rimpiazzanti.<br />
+  Le sottodirectory sono ignorate, ma sono utili per cambiare l'ordine dei modelli personalizzati.<br />
 distributed-samples: sono distribuite per le vostre prove! 
 <strong>Non modificateli</strong>, create i vostri! 
 </li>
 
-  <li>Alla cancellazione di un rimpiazzante il <strong>templete originale</strong>
-  è immediatamente riattivato.</li>
+  <li>Alla cancellazione di un sostituto, il <strong>template originale</strong>
+  sarà immediatamente riattivato.</li>
 
 </ul>

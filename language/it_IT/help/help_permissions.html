@@ -1,25 +1,25 @@
 <fieldset>
 <legend>Autorizzazioni per le foto</legend>
 
-<p>Ogni foto a un <strong>livello di privacy</strong>. Ogni utente a anche esso un livello di privacy. Ci sono 5 livelli di privacy:
+<p>Ogni foto ha un <strong>livello di privacy</strong>. Anche ciascun utente ha un livello di privacy. Ci sono 5 livelli di privacy:
 <ol>
   <li>Nessuno</li>
   <li><em>Contatti</em></li>
-  <li><em>Amici</em> (che è superiore al semplice contatto)</li>
-  <li><em>Famiglia</em> (che è superiore ad un amico)</li>
-  <li><em>Admins</em> (che è superiore a tutti gli altri livelli)</li>
+  <li><em>Amici</em> (superiore al livello Contatti)</li>
+  <li><em>Famiglia</em> (superiore al livello Amici)</li>
+  <li><em>Amministratori</em> (superiore a tutti gli altri livelli)</li>
 </ol>
 
-<p>I livelli superiori dispongono delle autorizzazioni per accedere ai livelli inferiori. Per un dato utente, maggiore è il suo livello di privacy, più foto potr&#xe0; vedere.</p>
+<p>I livelli superiori dispongono delle autorizzazioni per accedere ai livelli inferiori. Per un dato utente, maggiore è il suo livello di privacy, più foto potrà vedere.</p>
 
-<p>Ad esempio, se il livello di privacy della foto "matrimonio_pietro-0024.jpg" è impostato su <em>"Famiglia"</em>, allora avrete:</p>
+<p>Ad esempio, se il livello di privacy della foto "matrimonio_pietro-0024.jpg" fosse impostato su <em>"Famiglia"</em>, allora potreste avere una situazione simile:</p>
 <ul>
-  <li>Pietro (che è un <em>Admins</em>) può vederla visto che <em>"Admins"</em> può vedere tutte le foto</li>
-  <li>Vanessa (che è un membro <em>Famiglia</em>) vedr&#xe0; anche lei la foto</li>
-  <li>Maria (che è solo un'<em>Amica</em>) non potr&#xe0; vederla</li>
+  <li>Pietro che ha livello di privacy impostato su <em>Amministratore</em>, può vederla visto che il livello <em>"Amministratori"</em> permette di vedere tutte le foto</li>;
+  <li>Vanessa che ha livello di privacy impostato su <em>Famiglia</em>, vedrà anche lei la foto, perchè il livello <em>Famiglia</em> è il livello minimo richiesto</li>;
+  <li>Maria che ha livello di privacy impostato su <em>Amica</em>, non potrà vederla, perchè il livello <em>Amica</em> è inferiore al livello <em>Famiglia</em> che è quello minimo necessario</li>.
 </ul>
 
-<p>Un utente che non dispone delle autorizzazioni per vedere il contenuto di una categoria non vedrà la categoria e nemmeno il suo titolo. Lo stesso principio si applica a un tag.</p>
+<p>Un utente che non dispone delle autorizzazioni per vedere il contenuto di una categoria, non vedrà la categoria e nemmeno il suo titolo. Lo stesso principio si applica a un tag.</p>
 
 <p>E' possibile impostare il livello di privacy di un utente nella schermata <span class="pwgScreen">Amministrazione &raquo; Utenti &raquo; Gestire</span>.</p>
 
@@ -28,9 +28,9 @@
 <fieldset>
 <legend>Autorizzazioni per le categorie</legend>
 
-<p>Se i livelli di privacy non corrispondono esattamente ai vostri bisogni, potete anche gestire le autorizzazioni per le categorie per un utente o un gruppo. E' possibile gestire le autorizzazioni per le foto e le categorie contemporaneamente, senza conflitti.</p>
+<p>Se i livelli di privacy non corrispondono esattamente ai vostri bisogni, potete anche gestire le autorizzazioni per le categorie, per un utente o per un gruppo. E' possibile gestire le autorizzazioni per le foto e le categorie contemporaneamente, senza conflitti.</p>
 
-<p>Potete vietare l'accesso alle categorie. Impostare il tipo d'accesso a "privato" se desiderate gestire i permessi</p>
+<p>Potete vietare l'accesso alle categorie. Impostate il tipo d'accesso a "privato" se desiderate vietare l'accesso alla categoria</p>
 
 <p>Potete rendere una categoria privata modificando la singola categoria (<span
 class="pwgScreen">Amministrazione &raquo; Categorie &raquo; Gestire &raquo; Modificare</span>) o 
