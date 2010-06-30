@@ -4,13 +4,13 @@
 <ol>
   <li>Create una directory sul vostro PC.</li>
 
-  <li>Copiate qualche foto in questa directory e ridimensionatele per la visualizzazione sul web. <em>Attenzione</em>: il nome delle directory e dei files deve essere solamente formato da lettere, cifre e/o i simboli "-", "_" o ".". Nessuno spazio o caratteri accentati.</li>
+  <li>Copiate qualche foto in questa directory e ridimensionatele per la visualizzazione sul web. <em>Attenzione</em>: il nome delle directory e dei files deve essere solamente formato da lettere, cifre e/o i simboli "-", "_" o ".". Non utilizzare spazio o caratteri accentati.</li>
 
-  <li>Con un client FTP, caricate la directory nella directory "galleries" della vostra galleria Piwigo.</li>
+  <li>Con un client FTP (tipo FIlezilla), caricate la directory in cui avete messo le foto, nella directory "galleries" della vostra galleria Piwigo.</li>
 
   <li>Connettetevi alla vostra galleria Piwigo e andate in <span class="pwgScreen">Amministrazione &raquo; Immagini &raquo; Miniature</span> per creare le miniature mancanti.</li>
 
-  <li>Andate in <span class="pwgScreen">Amministrazione</span> e cliccate sul grosso pulsante Sincronizzazione.</li>
+  <li>Andate in <span class="pwgScreen">Amministrazione</span> e cliccate sul pulsante Sincronizzazione.</li>
 </ol>
 
 <p>Bene! Avete appena creato la prima categoria della vostra galleria.</p>
@@ -62,14 +62,14 @@
 
   </li>
   
-  <li>Ad eccezzione di "thumbnail", "pwg_high" o "pwg_representative" (vedi spiegazioni qui sotto), ogni directory inserita in "galleries" genera una categoria. Il numero di livelli (profondità) non è limitato.</li>
+  <li>Ad eccezzione di "thumbnail" (miniature), "pwg_high" o "pwg_representative" (vedi spiegazioni qui sotto), ogni directory inserita in "galleries" genera una categoria. Il numero di livelli (profondità) è illimitato.</li>
 
   <li>Un elemento è invece rappresentato da un file. Un file può essere un elemento di Piwigo se la sua estensione è presente tra le possibilità previste nel parametro di configuarzione <code>file_ext</code> (vedi
 file <span class="filename">include/config.inc.php</span>). Un file è considerato come un immagine
 se la sua estensione è presente tra quelle previste nel parametro di configurazione
 <code>picture_ext</code>.</li>
 
-  <li>Ad ogni elemento di tipo immagine deve essere associato una miniatura
+  <li>Ad ogni elemento di tipo immagine deve essere associata una miniatura
 (vedi la sezione più in basso riguardante le miniature).</li>
 
   <li>Gli elementi di tipo immagine possono avere un'immagine associata
@@ -78,16 +78,16 @@ nell'esempio proposto. Nessun prefisso è necessario prima del nome del
 file.</li>
 
   <li>Gli elementi che non sono delle immagini (video, suoni, file di testo o
-quant'altro) sono generalmente rappresentati con un'icona corrispondente
+altro) sono generalmente rappresentati con un'icona corrispondente
 all'estensione del file. In modo opzionale, è possibile associare una miniatura
 ed un file rappresentativo (come per il file <span 
 class="filename">video.avi</span> nell'esempio proposto).</li>
 
   <li><em>Attenzione</em>: il nome di una directory o di un file deve essere
-composto da lettere, numeri o simboli come "-", "_" o ".". Nessun spazio
-ne caratteri accentati.</li>
+composto da lettere, numeri o simboli come "-", "_" o ".". Non utilizzate spazio
+e caratteri accentati.</li>
 
-  <li><em>Suggerimento</em>: una categoria può contenere elementi e sub-categorie assieme. Tuttavia, è fortemente raccomandato per ciascuna categoria scegliere se inserire elementi o sub-categorie.</li>
+  <li><em>Suggerimento</em>: una categoria può contenere elementi e sub-categorie assieme. Tuttavia, è fortemente raccomandato scegliere per ciascuna categoria se inserire elementi o sub-categorie.</li>
 
   <li>Una volta che i file, le miniature e i file rappresentativi sono
 correttamente inseriti nelle directory, andare alla pagina <span
@@ -103,7 +103,7 @@ class="pwgScreen">Amministrazione &raquo; Generale &raquo; Sincronizzare</span>.
 <ul>
   
   <li>Come detto prima, ogni elemento di tipo immagine deve essere associato
-ad una miniatura.</li>
+ad una miniatura (thumbnail).</li>
 
   <li>Le miniature si trovano nella sottodirectory "thumbnail" di ogni
 directory che rappresenta una categoria. La miniatura è un file di tipo
@@ -120,8 +120,8 @@ creazione delle miniature.</li>
 
   <li>È anche possibile utilizzare la creazione delle miniature integrata a
 Piwigo, ma ciò non è raccomandato in quanto la qualità delle miniature
-può essere scadente ed il processo potrebbe utilizzare troppe risorse del
-server (e che potrebbe essere un serio problema su un server condiviso).</li>
+potrebbe essere scadente ed il processo potrebbe utilizzare troppe risorse del
+server (e potrebbe essere un serio problema su un server condiviso).</li>
 
   <li>Se si sceglie di utilizzare il webserver per generare le miniature, è necessario consentire l'accesso in scrittura su tutte le directory categoria.</li>
 

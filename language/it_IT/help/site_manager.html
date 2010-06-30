@@ -3,7 +3,7 @@
 <p>Piwigo offre la possibilità di usare diversi server per
 immagazzinare le immagini della vostra galleria. Ciò può essere utile
 se la vostra galleria è installata su uno spazio limitato e avete
-una grande quantità d'immagini da mostrare.</p>
+una grande quantità di immagini da mostrare.</p>
 
 
 <ol>
@@ -13,16 +13,16 @@ class="filename">tools/create_listing_file_local.inc.php</span> agendo
 sui parametri come <code>$conf['prefix_thumbnail']</code> o
 <code>$conf['use_exif']</code>.</li>
 
-  <li>via FTP, piazzare i file <span
+  <li>via FTP, caricare i file <span
 class="filename">tools/create_listing_file.php</span> e <span
 class="filename">tools/create_listing_file_local.inc.php</span> (modificato) sul Vostro sito
-remoto, nella stessa directory che le categorie che compongono la vostra galleria
+remoto, nella stessa directory con le categorie che compongono la vostra galleria
 (come la directory <span class="filename">galleries</span> di questo sito).
-Per esempio, supponiamo che potete accedere a <span
+Per esempio, supponiamo che possiate accedere a <span
 class="filename">http://esempio.it/galleries/create_listing_file.php</span>.</li>
 
-  <li>andare su <span class="pwgScreen">Amministrazione, Categorie,
-Gestione dei siti</span>. Richiedere la creazione di un nuovo sito, per esempio <span
+  <li>andate su <span class="pwgScreen">Amministrazione, Categorie,
+Gestione dei siti</span>. Richiedete la creazione di un nuovo sito, per esempio <span
 class="filename">http://esempio.it/galleries</span>.</li>
 
   <li>
@@ -35,14 +35,13 @@ class="filename">http://esempio.it/galleries</span>.</li>
 per generare il file di listing remoto</li>
 
       <li><strong>sincronizzare</strong> : legge il file remoto <span
-class="filename">listing.xml</span> e sincronizza con la base dati 
-locale.</li>
+class="filename">listing.xml</span> e sincronizza con il database locale.</li>
 
       <li><strong>pulire</strong> : cancella il file di listing 
 remoto.</li>
 
       <li><strong>cancellare</strong> : cancella il sito remoto (e tutte le 
-relative categorie ed elementi associati) dalla base dati.</li>
+relative categorie ed elementi associati) dal database.</li>
 
     </ol>
   </li>
