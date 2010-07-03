@@ -36,7 +36,7 @@ function get_available_tags()
 {
   // we can find top fatter tags among reachable images
   $query = '
-SELECT tag_id, COUNT(DISTINCT(it.image_id)) counter
+SELECT tag_id, COUNT(DISTINCT(it.image_id)) AS counter
   FROM '.IMAGE_CATEGORY_TABLE.' ic
     INNER JOIN '.IMAGE_TAG_TABLE.' it ON ic.image_id=it.image_id'.get_sql_condition_FandF
     (
@@ -223,7 +223,7 @@ function get_common_tags($items, $max_tags, $excluded_tag_ids=null)
     return array();
   }
   $query = '
-SELECT t.*, count(*) counter
+SELECT t.*, count(*) AS counter
   FROM '.IMAGE_TAG_TABLE.'
     INNER JOIN '.TAGS_TABLE.' t ON tag_id = id
   WHERE image_id IN ('.implode(',', $items).')';

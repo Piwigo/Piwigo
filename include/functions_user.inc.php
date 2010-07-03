@@ -678,10 +678,10 @@ function compute_categories_data(&$cats)
  */
 function get_computed_categories($userdata, $filter_days=null)
 {
-  $query = 'SELECT c.id cat_id, global_rank';
+  $query = 'SELECT c.id AS cat_id, global_rank';
   // Count by date_available to avoid count null
   $query .= ',
-  MAX(date_available) date_last, COUNT(date_available) nb_images
+  MAX(date_available) AS date_last, COUNT(date_available) AS nb_images
 FROM '.CATEGORIES_TABLE.' as c
   LEFT JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON ic.category_id = c.id
   LEFT JOIN '.IMAGES_TABLE.' AS i
