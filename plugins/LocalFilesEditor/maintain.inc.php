@@ -27,7 +27,7 @@ function plugin_install()
 
   $query = '
 INSERT INTO ' . CONFIG_TABLE . ' (param,value,comment)
-VALUES ("LocalFilesEditor" , "off" , "LocalFiles Editor plugin parameters");';
+VALUES (\'LocalFilesEditor\' , \'off\' , \'LocalFiles Editor plugin parameters\');';
 
   pwg_query($query);
 }
@@ -36,7 +36,7 @@ function plugin_uninstall()
 {
   global $prefixeTable;
 
-  $query = 'DELETE FROM ' . CONFIG_TABLE . ' WHERE param="LocalFilesEditor" LIMIT 1;';
+  $query = 'DELETE FROM ' . CONFIG_TABLE . ' WHERE param=\'LocalFilesEditor\' LIMIT 1;';
   pwg_query($query);
 }
 

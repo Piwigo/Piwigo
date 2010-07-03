@@ -86,7 +86,7 @@ function deactivate_non_standard_plugins()
   $query = '
 SELECT id
 FROM '.PREFIX_TABLE.'plugins
-WHERE state = "active"
+WHERE state = \'active\'
 AND id NOT IN (\'' . implode('\',\'', $standard_plugins) . '\')
 ;';
 
@@ -101,7 +101,7 @@ AND id NOT IN (\'' . implode('\',\'', $standard_plugins) . '\')
   {
     $query = '
 UPDATE '.PREFIX_TABLE.'plugins
-SET state="inactive"
+SET state=\'inactive\'
 WHERE id IN (\'' . implode('\',\'', $plugins) . '\')
 ;';
     pwg_query($query);
