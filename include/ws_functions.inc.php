@@ -285,7 +285,7 @@ SELECT id, name, permalink, image_order
     $order_by = empty($order_by) ? $conf['order_by'] : 'ORDER BY '.$order_by;
 
     $query = '
-SELECT i.*, GROUP_CONCAT(category_id) cat_ids
+SELECT i.*, GROUP_CONCAT(category_id) AS cat_ids
   FROM '.IMAGES_TABLE.' i
     INNER JOIN '.IMAGE_CATEGORY_TABLE.' ON i.id=image_id
   WHERE '. implode('
@@ -693,7 +693,7 @@ SELECT COUNT(rate) AS count
   }
 
   $query = '
-SELECT COUNT(id) nb_comments
+SELECT COUNT(id) AS nb_comments
   FROM '.COMMENTS_TABLE.'
   WHERE '.$where_comments;
   list($nb_comments) = array_from_query($query, 'nb_comments');
@@ -1454,7 +1454,7 @@ function ws_tags_getImages($params, &$service)
     else
     {
       $query = '
-SELECT image_id, GROUP_CONCAT(tag_id) tag_ids
+SELECT image_id, GROUP_CONCAT(tag_id) AS tag_ids
   FROM '.IMAGE_TAG_TABLE.'
   WHERE tag_id IN ('.implode(',',$tag_ids).')
   GROUP BY image_id';

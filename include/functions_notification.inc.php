@@ -476,8 +476,8 @@ function get_recent_post_dates($max_dates, $max_elements, $max_cats)
 
   $query = '
 SELECT date_available,
-      COUNT(DISTINCT id) nb_elements,
-      COUNT(DISTINCT category_id) nb_cats
+      COUNT(DISTINCT id) AS nb_elements,
+      COUNT(DISTINCT category_id) AS nb_cats
   FROM '.IMAGES_TABLE.' i INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON id=image_id
   '.$where_sql.'
   GROUP BY date_available
@@ -515,7 +515,7 @@ SELECT id, path, name, tn_ext, file
     if ($max_cats>0)
     {// get some categories ...
       $query = '
-SELECT c.uppercats, COUNT(DISTINCT i.id) img_count
+SELECT c.uppercats, COUNT(DISTINCT i.id) AS img_count
   FROM '.IMAGES_TABLE.' i INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON i.id=image_id
     INNER JOIN '.CATEGORIES_TABLE.' c ON c.id=category_id
   '.$where_sql.'
