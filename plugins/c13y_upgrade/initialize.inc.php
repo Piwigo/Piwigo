@@ -47,7 +47,7 @@ where
 group by
   upper('.$conf['user_fields']['email'].')
 having count(*) > 1
-limit 0,1
+limit 1
 ;';
 
   if (pwg_db_fetch_row(pwg_query($query)))

@@ -431,7 +431,7 @@ SELECT id, permalink, 0 AS is_old
       {
         $query='
 UPDATE '.OLD_PERMALINKS_TABLE.' SET last_hit=NOW(), hit=hit+1
-  WHERE permalink="'.$permalinks[$i].'" AND cat_id='.$cat_id.'
+  WHERE permalink=\''.$permalinks[$i].'\' AND cat_id='.$cat_id.'
   LIMIT 1';
         pwg_query($query);
       }
