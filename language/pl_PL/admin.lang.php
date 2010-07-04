@@ -752,4 +752,17 @@ $lang['Order of menubar items has been updated successfully.'] = 'Kolejność el
 $lang['This theme was not designed to be directly activated'] = 'Temat nie został zprojektowany tak, by aktywować go bezpośrednio.';
 $lang['Who can see this photo?'] = 'Kto może oglądać o zdjęcie?';
 $lang['Pending Comments'] = 'Oczekujące komentarze';
+$lang['Note: photo deletion does not apply to photos added by synchronization. For photos added by synchronization, remove them from the filesystem and then perform another synchronization.'] = 'Info: usunięcie zdjęcia nie dotyczy zdjęć dodanych podczas synchroniazacji. Zdjęcia dodanew ten sposób należy usunąć z systemu plików, a następnie wykonać synchronizację.';
+$lang['In your php.ini file, the upload_max_filesize (%sB) is bigger than post_max_size (%sB), you should change this setting'] = 'W twoim pliku php.ini, parametr upload_max_filesize (%sB) jest większy niż post_max_size (%sB), powinieneś zmienić toe ustawienia';
+$lang['Exif extension not available, admin should disable exif use'] = 'Rozszerzenie exif jest nie dostępne, administrato powinien usunąć korzystanie z exif';
+$lang['The uploaded file exceeds the upload_max_filesize directive in php.ini: %sB'] = 'Wgrywany plik przekracza rozmiar zdefiniowany w parametrze upload_max_filesize w pliku php.ini: %sB';
+$lang['The uploaded files exceed the post_max_size directive in php.ini: %sB'] = 'Wgrywany plik przekracza rozmiar zdefiniowany w parametrze post_max_size w pliku php.ini: %sB';
+$lang['The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form'] = 'Wgrywany plik przekracza rozmiar zdefiniowany w parametrze MAX_FILE_SIZE w formularzu HTML';
+$lang['The uploaded file was only partially uploaded'] = 'Plik został wgrany tylko częściowo';
+$lang['No file was uploaded'] = 'Nie został wgrany żaden plik';
+$lang['Missing a temporary folder'] = 'Brak katalogu tymczasowego';
+$lang['Failed to write file to disk'] = 'Błąd zapisu na dysku';
+$lang['File upload stopped by extension'] = 'Wgrywanie pliku zostało zatrzymane przez rozszerzenie';
+$lang['Unknown upload error'] = 'Nieznany błąd podczas wgrywania';
+$lang['Error on file "%s" : %s'] = 'Błąd w pliku"%s" : %s';
 ?>
