@@ -769,4 +769,6 @@ $lang['Failed to write file to disk'] = 'Failed to write file to disk';
 $lang['File upload stopped by extension'] = 'File upload stopped by extension';
 $lang['Unknown upload error'] = 'Unknown upload error';
 $lang['Error on file "%s" : %s'] = 'Error on file "%s" : %s';
+
+$lang['Menu Management'] = 'Menu Management';
 ?>
