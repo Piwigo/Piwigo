@@ -259,7 +259,7 @@ if ('categories' == $page['section'])
 SELECT id
   FROM '.CATEGORIES_TABLE.'
   WHERE
-    uppercats LIKE "'.$page['category']['uppercats'].',%" '
+    uppercats LIKE \''.$page['category']['uppercats'].',%\' '
     .get_sql_condition_FandF(
       array
         (

@@ -406,7 +406,7 @@ function get_cat_id_from_permalinks( $permalinks, &$idx )
   foreach($permalinks as $permalink)
   {
     if ( !empty($in) ) $in.=', ';
-    $in .= '"'.$permalink.'"';
+    $in .= '\''.$permalink.'\'';
   }
   $query ='
 SELECT cat_id AS id, permalink, 1 AS is_old

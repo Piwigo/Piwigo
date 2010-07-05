@@ -393,7 +393,7 @@ function get_qsearch_like_clause($q, $field, $before='%', $after='%')
       continue;
     if ( strlen($tokens[$i])==0)
       continue;
-    $clauses[] = $field.' LIKE "'.$before.addslashes($tokens[$i]).$after.'"';
+    $clauses[] = $field.' LIKE \''.$before.addslashes($tokens[$i]).$after.'\'';
   }
 
   return count($clauses) ? '('.implode(' OR ', $clauses).')' : null;
@@ -434,7 +434,7 @@ function get_quick_search_results($q, $super_order_by, $images_where='')
 
 
   // Step 1 - first we find matches in #images table ===========================
-  $where_clauses='MATCH(i.name, i.comment) AGAINST( "'.$q.'" IN BOOLEAN MODE)';
+  $where_clauses='MATCH(i.name, i.comment) AGAINST( \''.$q.'\' IN BOOLEAN MODE)';
   if (!empty($q_like_clause))
   {
     $where_clauses .= '
@@ -452,7 +452,7 @@ function get_quick_search_results($q, $super_order_by, $images_where='')
       );
   $query = '
 SELECT i.id,
-    MATCH(i.name, i.comment) AGAINST( "'.$q.'" IN BOOLEAN MODE) AS weight
+    MATCH(i.name, i.comment) AGAINST( \''.$q.'\' IN BOOLEAN MODE) AS weight
   FROM '.IMAGES_TABLE.' i
   WHERE '.implode("\n AND ", $where_clauses);
 
@@ -505,7 +505,7 @@ SELECT id, name, permalink, nb_images
   FROM '.CATEGORIES_TABLE.'
     INNER JOIN '.USER_CACHE_CATEGORIES_TABLE.' ON id=cat_id
   WHERE user_id='.$user['id'].'
-    AND MATCH(name, comment) AGAINST( "'.$q.'" IN BOOLEAN MODE)'.
+    AND MATCH(name, comment) AGAINST( \''.$q.'\' IN BOOLEAN MODE)'.
   get_sql_condition_FandF (
       array( 'visible_categories' => 'cat_id' ), "\n    AND"
     );

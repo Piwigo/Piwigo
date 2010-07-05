@@ -37,8 +37,8 @@ if (isset($_POST['editarea']) and in_array($_POST['editarea'], $possible_values)
   }
   $query = '
 UPDATE ' . CONFIG_TABLE . '
-SET value = "' . $_POST['editarea'] . '"
-WHERE param="LocalFilesEditor"
+SET value = \'' . $_POST['editarea'] . '\'
+WHERE param=\'LocalFilesEditor\'
 LIMIT 1';
   pwg_query($query);
 }

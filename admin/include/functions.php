@@ -294,7 +294,7 @@ DELETE FROM '.$table.'
   // destruction of the user
   $query = '
 DELETE FROM '.SESSIONS_TABLE.'
-  WHERE data LIKE "pwg_uid|i:'.(int)$user_id.';%"
+  WHERE data LIKE \'pwg_uid|i:'.(int)$user_id.';%\'
 ;';
   pwg_query($query);
 

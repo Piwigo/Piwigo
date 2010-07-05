@@ -47,7 +47,7 @@ function get_cat_id_from_old_permalink($permalink)
 SELECT c.id
   FROM '.OLD_PERMALINKS_TABLE.' op INNER JOIN '.CATEGORIES_TABLE.' c
     ON op.cat_id=c.id
-  WHERE op.permalink="'.$permalink.'"
+  WHERE op.permalink=\''.$permalink.'\'
   LIMIT 1';
   $result = pwg_query($query);
   $cat_id = null;
