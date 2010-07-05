@@ -36,11 +36,11 @@ include_once(PHPWG_ROOT_PATH.'include/functions_notification.inc.php');
  * @param string mysql datetime format
  * @return int timestamp
  */
-function mysqldt_to_ts($mysqldt)
+function datetime_to_ts($datetime)
 {
-  $date = explode_mysqldt($mysqldt);
-  return mktime($date['hour'], $date['minute'], $date['second'],
-                $date['month'], $date['day'], $date['year']);
+  $date = strptime($datetime, '%Y-%m-%d %H:%M:%S');
+  return mktime($date['tm_hour'], $date['tm_min'], $date['tm_sec'],
+                $date['tm_mon'], $date['tm_mday'], 1900+$date['tm_year']);
 }
 
 /**
@@ -136,7 +136,7 @@ if (!$image_only)
     $item->description.= '</ul>';
     $item->descriptionHtmlSyndicated = true;
 
-    $item->date = mysqldt_to_ts($dbnow);
+    $item->date = $dbnow;
     $item->author = $conf['rss_feed_author'];
     $item->guid= sprintf('%s', $dbnow);;
 
@@ -154,7 +154,7 @@ UPDATE '.USER_FEED_TABLE.'
 if ( !empty($feed_id) and empty($news) )
 {// update the last check from time to time to avoid deletion by maintenance tasks
   if ( !isset($feed_row['last_check'])
-    or time()-mysqldt_to_ts($feed_row['last_check']) > 30*24*3600 )
+    or time()-datetime_to_ts($feed_row['last_check']) > 30*24*3600 )
   {
     $query = '
 UPDATE '.USER_FEED_TABLE.'
@@ -188,7 +188,7 @@ foreach($dates as $date_detail)
 
   $item->descriptionHtmlSyndicated = true;
 
-  $item->date = mysqldt_to_ts($date);
+  $item->date = $date;
   $item->author = $conf['rss_feed_author'];
   $item->guid= sprintf('%s', 'pics-'.$date);;
 
