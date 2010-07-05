@@ -608,27 +608,6 @@ function get_html_description_recent_post_date($date_detail)
 }
 
 /**
- * explodes a MySQL datetime format (2005-07-14 23:01:37) in fields "year",
- * "month", "day", "hour", "minute", "second".
- *
- * @param string mysql datetime format
- * @return array
- */
-function explode_mysqldt($mysqldt)
-{
-  $date = array();
-  list($date['year'],
-       $date['month'],
-       $date['day'],
-       $date['hour'],
-       $date['minute'],
-       $date['second'])
-    = preg_split('/[-: ]/', $mysqldt);
-
-  return $date;
-}
-
-/**
  * returns title about recently published elements grouped by post date
  * @param $date_detail: selected date computed by get_recent_post_dates function
  */
@@ -637,10 +616,10 @@ function get_title_recent_post_date($date_detail)
   global $lang;
 
   $date = $date_detail['date_available'];
-  $exploded_date = explode_mysqldt($date);
+  $exploded_date = strptime($date, '%Y-%m-%d %H:%M:%S');
 
   $title = l10n_dec('%d new image', '%d new images', $date_detail['nb_elements']);
-  $title .= ' ('.$lang['month'][(int)$exploded_date['month']].' '.$exploded_date['day'].')';
+  $title .= ' ('.$lang['month'][(int)$exploded_date['tm_mon']].' '.$exploded_date['tm_mday'].')';
 
   return $title;
 }
