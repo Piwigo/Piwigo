@@ -1100,7 +1100,7 @@ function log_user($user_id, $remember_me)
   if ( session_id()!="" )
   { // we regenerate the session for security reasons
     // see http://www.acros.si/papers/session_fixation.pdf
-    session_regenerate_id();
+    session_regenerate_id(true);
   }
   else
   {
