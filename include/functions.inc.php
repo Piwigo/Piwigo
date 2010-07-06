@@ -32,18 +32,6 @@ include_once( PHPWG_ROOT_PATH .'include/functions_url.inc.php' );
 include_once( PHPWG_ROOT_PATH .'include/functions_plugins.inc.php' );
 
 //----------------------------------------------------------- generic functions
-function get_extra_fields($order_by_fields)
-{
-  $fields = str_ireplace(array(' order by ', ' desc', ' asc'),
-			 array('', '', ''),
-			 $order_by_fields
-			 );
-  if (!empty($fields))
-  {
-    $fields = ','.$fields;
-  }
-  return $fields;
-}
 
 // The function get_moment returns a float value coresponding to the number
 // of seconds since the unix epoch (1st January 1970) and the microseconds
@@ -583,17 +571,13 @@ function redirect_html( $url , $msg = '', $refresh_time = 0)
 {
   global $user, $template, $lang_info, $conf, $lang, $t2, $page, $debug;
 
-  if (!isset($lang_info))
+  if (!isset($lang_info) || !isset($template) )
   {
     $user = build_user( $conf['guest_id'], true);
     load_language('common.lang');
     trigger_action('loading_lang');
     load_language('lang', PHPWG_ROOT_PATH.'local/', array('no_fallback'=>true, 'local'=>true) );
     $template = new Template(PHPWG_ROOT_PATH.'themes', get_default_theme());
-  }
-  else
-  {
-    $template = new Template(PHPWG_ROOT_PATH.'themes', $user['theme']);
   }
 
   if (empty($msg))

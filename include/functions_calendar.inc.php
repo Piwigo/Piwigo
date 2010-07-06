@@ -258,7 +258,7 @@ WHERE id IN (' . implode(',',$page['items']) .')';
 
   if ($must_show_list)
   {
-    $query = 'SELECT DISTINCT id '.get_extra_fields($conf['order_by']);
+    $query = 'SELECT DISTINCT id ';
     $query .= ','.$calendar->date_field;
     $query .= $calendar->inner_sql.'
   '.$calendar->get_date_where();
