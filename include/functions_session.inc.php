@@ -175,7 +175,7 @@ function pwg_session_gc()
   $query = '
 DELETE
   FROM '.SESSIONS_TABLE.'
-  WHERE UNIX_TIMESTAMP(NOW()) - UNIX_TIMESTAMP(expiration) > '
+  WHERE '.pwg_db_date_to_ts('NOW()').' - '.pwg_db_date_to_ts('expiration').' > '
   .$conf['session_length'].'
 ;';
   pwg_query($query);
