@@ -561,6 +561,11 @@ function pwg_db_get_weekday($date)
   return 'strftime(\'%w\',date('.$date.',\'-1 DAY\'))';
 }
 
+function pwg_db_date_to_ts($date) 
+{
+  return 'UNIX_TIMESTAMP('.$date.')';
+}
+
 // my_error returns (or send to standard output) the message concerning the
 // error occured for the last mysql query.
 function my_error($header, $die)

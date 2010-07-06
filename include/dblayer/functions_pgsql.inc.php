@@ -596,6 +596,11 @@ function pwg_db_get_weekday($date)
   return 'EXTRACT(ISODOW FROM '.$date.')::INTEGER - 1';
 }
 
+function pwg_db_date_to_ts($date) 
+{
+  return 'EXTRACT(EPOCH FROM '.$date.')';
+}
+
 // my_error returns (or send to standard output) the message concerning the
 // error occured for the last pgsql query.
 function my_error($header, $die)
