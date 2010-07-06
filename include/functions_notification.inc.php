@@ -79,7 +79,7 @@ function custom_notification_query($action, $type, $start, $end)
       }
       if (!empty($end))
       {
-	$query .= '      
+	$query .= '
     AND c.validation_date <= \''.$end.'\'';
       }
       $query .= get_std_sql_where_restrict_filter('AND').'
@@ -94,7 +94,7 @@ function custom_notification_query($action, $type, $start, $end)
 	$query .= ' AND date> \''.$start.'\'';
       }
       if (!empty($end))
-      {      
+      {
 	$query .= ' AND date <= \''.$end.'\'';
       }
       $query .= ' AND validated = \'false\'
@@ -619,9 +619,20 @@ function get_title_recent_post_date($date_detail)
   $exploded_date = strptime($date, '%Y-%m-%d %H:%M:%S');
 
   $title = l10n_dec('%d new image', '%d new images', $date_detail['nb_elements']);
-  $title .= ' ('.$lang['month'][(int)$exploded_date['tm_mon']].' '.$exploded_date['tm_mday'].')';
+  $title .= ' ('.$lang['month'][1+$exploded_date['tm_mon']].' '.$exploded_date['tm_mday'].')';
 
   return $title;
 }
 
+if(!function_exists("strptime"))
+{
+		function strptime($date, $fmt)
+		{
+			if ($fmt != '%Y-%m-%d %H:%M:%S')
+				die('Invalid strptime format '.$fmt);
+			list($y,$m,$d,$H,$M,$S) = preg_split('/[-: ]/', $date);
+			$res = localtime( mktime($H,$M,$S,$m,$d,$y), true );
+			return $res;
+		}
+ }
 ?>
