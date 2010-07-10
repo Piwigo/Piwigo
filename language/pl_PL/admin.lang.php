@@ -765,4 +765,5 @@ $lang['Failed to write file to disk'] = 'Błąd zapisu na dysku';
 $lang['File upload stopped by extension'] = 'Wgrywanie pliku zostało zatrzymane przez rozszerzenie';
 $lang['Unknown upload error'] = 'Nieznany błąd podczas wgrywania';
 $lang['Error on file "%s" : %s'] = 'Błąd w pliku"%s" : %s';
+$lang['Menu Management'] = 'Menu';
 ?>

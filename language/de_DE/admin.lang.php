@@ -753,4 +753,5 @@ $lang['Manual order'] = 'Manuelle Sortierung';
 $lang['Order of menubar items has been updated successfully.'] = 'Die Reihenfolge der Menüelemente wurde erfolgreich angepasst.';
 $lang['This theme was not designed to be directly activated'] = 'Dieses Layout kann nicht direkt aktiviert werden';
 $lang['Pending Comments'] = 'Freizugebende Kommentare';
+$lang['Menu Management'] = 'Menü';
 ?>

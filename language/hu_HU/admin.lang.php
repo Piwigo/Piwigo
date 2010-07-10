@@ -758,4 +758,5 @@ $lang['Order of menubar items has been updated successfully.'] = 'A menüsor ele
 $lang['This theme was not designed to be directly activated'] = 'Ezt a témát úgy tervezték, hogy közvetlenül nem aktiválható';
 $lang['Pending Comments'] = 'Hozzászólások (függőben)';
 $lang['Who can see this photo?'] = 'Ki láthatja ezt a képet?';
+$lang['Menu Management'] = 'Menü';
 ?>

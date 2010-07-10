@@ -619,4 +619,5 @@ $lang['Hide'] = 'Esconder';
 $lang['Miscellaneous'] = 'Outras informações';
 $lang['User Upload'] = 'Upload de usuários';
 $lang['Virtual Links'] = 'Links virtuais';
+$lang['Menu Management'] = 'Menu';
 ?>

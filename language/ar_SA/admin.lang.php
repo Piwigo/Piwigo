@@ -619,4 +619,5 @@ $lang['Subscribe %s'] = 'Subscribe %s';
 $lang['Subscribe %s to Piwigo Announcements Newsletter'] = 'اشترك  %s لـ اعلانات Piwigo الإخبارية';
 $lang['Purge search history'] = 'معالجة احصائيات البحث';
 $lang['Hide'] = 'أخفاء';
+$lang['Menu Management'] = 'القائمة الرئيسية';
 ?>

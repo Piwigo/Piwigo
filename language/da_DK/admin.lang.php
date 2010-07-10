@@ -753,5 +753,5 @@ $lang['Add another set of photos'] = 'Tilføj en anden gruppe fotos';
 $lang['Order of menubar items has been updated successfully.'] = 'Bestilling på menubars er opdateret.';
 $lang['This theme was not designed to be directly activated'] = 'Dette tema er ikke designet til at blive aktiveret direkte';
 $lang['Pending Comments'] = 'Ventende kommentarer';
-
+$lang['Menu Management'] = 'Menu';
 ?>

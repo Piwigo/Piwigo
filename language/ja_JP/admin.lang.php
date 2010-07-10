@@ -750,4 +750,5 @@ $lang['Add another set of photos'] = 'その他の写真を追加します';
 $lang['Order of menubar items has been updated successfully.'] = 'ニューの順番は正常に更新されました。';
 $lang['This theme was not designed to be directly activated'] = 'このテーマは直接有効化になりません。';
 $lang['Pending Comments'] = 'コメントを確認待ち';
+$lang['Menu Management'] = 'メニュー';
 ?>

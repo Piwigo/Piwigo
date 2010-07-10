@@ -763,4 +763,5 @@ $lang['Order of menubar items has been updated successfully.'] = 'მენი�
 $lang['This theme was not designed to be directly activated'] = 'ამ თემაში არ არის გათვლილი პირდაპირი აქტივაცია';
 $lang['Who can see this photo?'] = 'ვის შეუძლია ამ ფოტოს ნახვა?';
 $lang['Pending Comments'] = 'კომენტარის მოლოდინში';
+$lang['Menu Management'] = 'მენიუ';
 ?>

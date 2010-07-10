@@ -774,6 +774,5 @@ $lang['Failed to write file to disk'] = 'Échec à l\'écriture du fichier sur l
 $lang['File upload stopped by extension'] = 'Le transfert du fichier a été arrêté par une extension';
 $lang['Unknown upload error'] = 'Erreur inconnue survenue lors du transfert';
 $lang['Error on file "%s" : %s'] = 'Erreur sur le fichier "%s" : %s';
-
-$lang['Menu Management'] = 'Gestion des menus';
+$lang['Menu Management'] = 'Menus';
 ?>

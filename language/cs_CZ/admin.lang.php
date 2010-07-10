@@ -755,10 +755,9 @@ $lang['Add another set of photos'] = 'Přidat další množinu fotografií';
 $lang['Unable to check for upgrade.'] = 'Není možno ověřit zda exituje nová verze.';
 $lang['user_status_generic'] = 'Všeobecné';
 $lang['IP'] = 'IP';
-// missing translations
 $lang['By rank'] = 'Podle hodnoceni';
 $lang['Manual order'] = 'Řazeno ručně';
 $lang['Order of menubar items has been updated successfully.'] = 'Pořadí položek v menu bylo úspěšně aktualizováno.';
 $lang['This theme was not designed to be directly activated'] = 'Toto téma nebylo navrženo tak, aby bylo přímo aktivovatelné';
-
+$lang['Menu Management'] = 'Další funkce';
 ?>
