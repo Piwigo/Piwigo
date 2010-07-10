@@ -760,4 +760,5 @@ $lang['Add another set of photos'] = 'Aggiungi un altro set di foto';
 $lang['Order of menubar items has been updated successfully.'] = 'L\'ordine degli elementi della barra dei menu è stato aggiornato con successo.';
 $lang['This theme was not designed to be directly activated'] = 'Questo tema non è stato progettato per essere attivato direttamente';
 $lang['Pending Comments'] = 'Commenti in attesa';
+$lang['Menu Management'] = 'Menu';
 ?>

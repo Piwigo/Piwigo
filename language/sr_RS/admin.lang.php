@@ -748,4 +748,5 @@ $lang['By rank'] = 'Po rangu';
 $lang['Manual order'] = 'Ručno poređano';
 $lang['Add another set of photos'] = 'Dodaj drugi set fotografija';
  $lang['Order of menubar items has been updated successfully.'] = ' Poredak elemenata u izborniku je uspešno ažuriran.';
+$lang['Menu Management'] = 'Izbornik';
 ?>

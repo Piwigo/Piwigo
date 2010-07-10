@@ -751,4 +751,5 @@ $lang['Order of menubar items has been updated successfully.'] = 'Порядок
 $lang['This theme was not designed to be directly activated'] = 'В этой теме не предусмотрена активация напрямую';
 $lang['Who can see this photo?'] = 'Кто может смотреть эту фотографию?';
 $lang['Pending Comments'] = 'Проверка комментариев';
+$lang['Menu Management'] = 'Меню';
 ?>

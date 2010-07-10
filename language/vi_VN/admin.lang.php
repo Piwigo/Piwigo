@@ -616,4 +616,5 @@ $lang['Subscribe %s'] = 'Đăng ký nhận tin %s';
 $lang['Subscribe %s to Piwigo Announcements Newsletter'] = 'Đăng ký %s nhận bản tin của Piwigo';
 $lang['Purge search history'] = 'Dọn dẹp bản ghi tìm kiếm';
 $lang['Hide'] = 'Ẩn';
+$lang['Menu Management'] = 'Trình đơn';
 ?>
