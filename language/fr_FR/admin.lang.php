@@ -720,7 +720,7 @@ $lang['Activate field "%s"'] = 'Activer le champ "%s"';
 $lang['Photo Properties'] = 'Propriétés de la photo';
 
 
-$lang['pLoader stands for <em>Piwigo Uploader</em>. From your computer, pLoader prepares your photos and transfer them to your Piwigo photo gallery.'] = 'pLoader signifie <em>Piwigo Uploader</em>. Depuis votre ordinateur, pLoader prépare vos photos et les transfert vers votre galerie photo Piwigo.';
+$lang['pLoader stands for <em>Piwigo Uploader</em>. From your computer, pLoader prepares your photos and transfer them to your Piwigo photo gallery.'] = 'pLoader signifie <em>Piwigo Uploader</em>. Depuis votre ordinateur, pLoader prépare vos photos et les transfère vers votre galerie photo Piwigo.';
 $lang['Languages'] = 'Langues';
 $lang['Installed Languages'] = 'Langues installées';
 $lang['Add New Language'] = 'Ajouter une langue';
