@@ -66,11 +66,11 @@ $lang['Caddie management'] = 'Gestió del carret';
 $lang['Caddie'] = 'Carret';
 
 
-\\???
+
 $lang['Categories authorized thanks to group associations'] = 'Categories authorized thanks to group associations';  
 $lang['Categories manual order was saved'] = 'Categories manual order was saved';
 $lang['Category elements associated to the following categories: %s'] = 'Category elements associated to the following categories: %s';
-\\???
+
 
 
 $lang['Check for upgrade failed for unknown reasons.'] = 'Check for upgrade failed for unknown reasons.';
