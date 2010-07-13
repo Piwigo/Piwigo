@@ -754,4 +754,5 @@ $lang['Active Languages'] = 'Aktif Diller';
 $lang['Delete this language'] = 'Bu dili sil';
 $lang['Forbid this language to users'] = 'Kullanıcılar için bu dili yasakla';
 $lang['Impossible to deactivate this language, first set another language as default.'] = 'Bu dili devre dışı bırakmak imkansız, önce varsayılan olarak başka bir dil ayarla.';
+$lang['Menu Management'] = 'Menüler';
 ?>
