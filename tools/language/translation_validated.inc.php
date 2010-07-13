@@ -429,6 +429,10 @@ $validated_keys = array(
 	'N/A',
 	'Webmaster',
 	'IP: %s',
+	'Permalink',
+	'IP',
+	'',
+	'',
 	'',
 	),
 	
