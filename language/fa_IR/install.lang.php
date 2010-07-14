@@ -63,8 +63,7 @@ $lang['Note you can change your configuration by yourself and restart Piwigo aft
 $lang['Try to configure PHP 5'] = "پيکربندي PHP 5 را انجام دهيد";
 $lang['Sorry!'] = "شرمنده!";
 $lang['Piwigo was not able to configure PHP 5.'] = "Piwigo قادر به پيکربندي PHP 5 نيست.";
-$lang['You may referer to your hosting provider\'s support and see how you could switch to PHP 5 by 
-yourself.'] = "شما باید با سرویس‌دهنده میزبانی(web hosting) خود تماس بگیرید و از آن‌ا بپرسید که چگونه می‌توانید تنظیمات خود را به PHP5 تغییر دهید.";
+$lang['You may referer to your hosting provider\'s support and see how you could switch to PHP 5 by yourself.'] = "شما باید با سرویس‌دهنده میزبانی(web hosting) خود تماس بگیرید و از آن‌ا بپرسید که چگونه می‌توانید تنظیمات خود را به PHP5 تغییر دهید.";
 $lang['Hope to see you back soon.'] = "به امید دیدار";
 $lang['Congratulations, Piwigo installation is completed'] = 'Piwigo با موفقیت نصب شد.';
 $lang['An alternate solution is to copy the text in the box above and paste it into the file "local/config/database.inc.php" (Warning : database.inc.php must only contain what is in the textarea, no line return or space character)'] = 'یک راه دیگر این است که شما این متن را کپی کنید وبا نام database.inc.php در آدرس :"local/config/database.inc.php" قرار دهید.';
