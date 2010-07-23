@@ -55,11 +55,30 @@ if (!empty($_POST) or isset($_GET['delete']))
  */
 function save_categories_order($categories)
 {
+  $current_rank_for_id_uppercat = array();
   $current_rank = 0;
+  
   $datas = array();
-  foreach ($categories as $id)
+  foreach ($categories as $category)
   {
-    array_push($datas, array('id' => $id, 'rank' => ++$current_rank));
+    if (is_array($category))
+    {
+      $id = $category['id'];
+      $id_uppercat = $category['id_uppercat'];
+
+      if (!isset($current_rank_for_id_uppercat[$id_uppercat]))
+      {
+        $current_rank_for_id_uppercat[$id_uppercat] = 0;
+      }
+      $current_rank = ++$current_rank_for_id_uppercat[$id_uppercat];
+    }
+    else
+    {
+      $id = $category;
+      $current_rank++;
+    }
+    
+    array_push($datas, array('id' => $id, 'rank' => $current_rank));
   }
   $fields = array('primary' => array('id'), 'update' => array('rank'));
   mass_updates(CATEGORIES_TABLE, $fields, $datas);
@@ -111,59 +130,69 @@ else if (isset($_POST['submitAdd']))
 // save manual category ordering
 else if (isset($_POST['submitOrder']))
 {
-  asort($_POST['catOrd'], SORT_NUMERIC);
-  save_categories_order(array_keys($_POST['catOrd']));
+  if ('manual' == $_POST['order_type'])
+  {
+    asort($_POST['catOrd'], SORT_NUMERIC);
+    save_categories_order(array_keys($_POST['catOrd']));
 
-  array_push(
-    $page['infos'],
-    l10n('Categories manual order was saved')
-    );
-}
-// sort categories alpha-numerically
-else if (isset($_POST['submitOrderAlphaNum']))
-{
-  $query = '
-SELECT id, name
+    array_push(
+      $page['infos'],
+      l10n('Categories manual order was saved')
+      );
+  }
+  else
+  {
+    $query = '
+SELECT id
   FROM '.CATEGORIES_TABLE.'
   WHERE id_uppercat '.
     (!isset($_GET['parent_id']) ? 'IS NULL' : '= '.$_GET['parent_id']).'
 ;';
-  $result = pwg_query($query);
-  while ($row = pwg_db_fetch_assoc($result))
-  {
-    $categories[ $row['id'] ] = strtolower($row['name']);
-  }
+    $category_ids = array_from_query($query, 'id');
 
-  asort($categories, SORT_REGULAR);
-  save_categories_order(array_keys($categories));
+    if (isset($_POST['recursive']))
+    {
+      $category_ids = get_subcat_ids($category_ids);
+    }
 
-  array_push(
-    $page['infos'],
-    l10n('Categories ordered alphanumerically')
-    );
-}
-// sort categories alpha-numerically reverse
-else if (isset($_POST['submitOrderAlphaNumReverse']))
-{
-  $query = '
-SELECT id, name
+    $categories = array();
+    $names = array();
+    $id_uppercats = array();
+  
+    $query = '
+SELECT id, name, id_uppercat
   FROM '.CATEGORIES_TABLE.'
-  WHERE id_uppercat '.
-    (!isset($_GET['parent_id']) ? 'IS NULL' : '= '.$_GET['parent_id']).'
+  WHERE id IN ('.implode(',', $category_ids).')
 ;';
-  $result = pwg_query($query);
-  while ($row = pwg_db_fetch_assoc($result))
-  {
-    $categories[ $row['id'] ] = strtolower($row['name']);
+    $result = pwg_query($query);
+    while ($row = pwg_db_fetch_assoc($result))
+    {
+      array_push(
+        $categories,
+        array(
+          'id' => $row['id'],
+          'id_uppercat' => $row['id_uppercat'],
+          )
+        );
+      array_push(
+        $names,
+        $row['name']
+        );
+    }
+
+    array_multisort(
+      $names,
+      SORT_REGULAR,
+      'asc' == $_POST['ascdesc'] ? SORT_ASC : SORT_DESC,
+      $categories
+      );
+    save_categories_order($categories);
+
+    array_push(
+      $page['infos'],
+      l10n('Categories automatically sorted')
+      );
   }
-
-  arsort($categories, SORT_REGULAR);
-  save_categories_order(array_keys($categories));
-
-  array_push(
-    $page['infos'],
-    l10n('Categories ordered alphanumerically reverse')
-    );
 }
 
 // +-----------------------------------------------------------------------+

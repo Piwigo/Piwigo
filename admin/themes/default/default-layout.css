@@ -69,6 +69,11 @@ TABLE.plugins ul.pluginsActions {
 TABLE.plugins ul.pluginsActions li { display: inline; }
 
 /* categoryOrdering */
+FORM#categoryOrdering .orderParams {
+  line-height:30px;
+  margin-bottom:10px;
+}
+
 SELECT.categoryList {
 	width: 100%;
 }

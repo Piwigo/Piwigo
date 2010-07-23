@@ -18,6 +18,13 @@
         document.getElementsByName('catOrd[' + cat[1] + ']')[0].value = i;
       }
     });
+
+    jQuery("input[name=order_type]").click(function () {ldelim}
+      jQuery("#automatic_order_params").hide();
+      if (jQuery("input[name=order_type]:checked").val() == "automatic") {ldelim}
+        jQuery("#automatic_order_params").show();
+      }
+    });
   });
 </script>
 
@@ -39,12 +46,21 @@
 
 {if count($categories) }
 <form id="categoryOrdering" action="{$F_ACTION}" method="post">
-  <p>
-    <input type="hidden" name="pwg_token" value="{$PWG_TOKEN}">
+  <input type="hidden" name="pwg_token" value="{$PWG_TOKEN}">
+
+  <div class="orderParams">
     <input class="submit" name="submitOrder" type="submit" value="{'Save order'|@translate}" {$TAG_INPUT_ENABLED}>
-    <input class="submit" name="submitOrderAlphaNum" type="submit" value="{'Order alphanumerically'|@translate}" {$TAG_INPUT_ENABLED}>
-	<input class="submit" name="submitOrderAlphaNumReverse" type="submit" value="{'Order alphanumerically reverse'|@translate}" {$TAG_INPUT_ENABLED}>
-  </p>
+    <label><input type="radio" name="order_type" value="manual" checked="checked"> {'manual order'|@translate}</label>
+    <label><input type="radio" name="order_type" value="automatic"> {'automatic order'|@translate}</label>
+    <span id="automatic_order_params" style="display:none">
+      <select name="ascdesc">
+        <option value="asc">{'ascending'|@translate}</option>
+        <option value="desc">{'descending'|@translate}</option>
+      </select>
+      <label><input type="checkbox" name="recursive"> {'apply to sub-categories'|@translate}</label>
+    </span>
+  </div>
+
   <ul class="categoryUl">
 
     {foreach from=$categories item=category}
@@ -85,11 +101,5 @@
     </li>
     {/foreach}
   </ul>
-  <p>
-    <input class="submit" name="submitOrder" type="submit" value="{'Save order'|@translate}" {$TAG_INPUT_ENABLED}>
-    <input class="submit" name="submitOrderAlphaNum" type="submit" value="{'Order alphanumerically'|@translate}" {$TAG_INPUT_ENABLED}>
-	<input class="submit" name="submitOrderAlphaNumReverse" type="submit" value="{'Order alphanumerically reverse'|@translate}" {$TAG_INPUT_ENABLED}>
-  </p>
-
 </form>
 {/if}
