@@ -760,22 +760,23 @@ function move_ccs_rules_to_body($content)
         $selectors[$select][] = $style;
       }
     }
+
     foreach ($selectors as $selector => $style)
     {
       if (!preg_match('/^(#|\.|)([A-Za-z0-9_-]*)$/', $selector, $matches))
       {
-        $unknow_selectors .= $selector.' {'.implode('; ', $style).";}\n";
+        $unknow_selectors .= $selector.' {'.implode(";\n", $style).";}\n";
       }
       else switch ($matches[1])
       {
         case '#':
-          $content = preg_replace('|id="'.$matches[2].'"|', 'id="'.$matches[2].'" style="'.implode('; ', $style).';"', $content);
+          $content = preg_replace('|id="'.$matches[2].'"|', 'id="'.$matches[2].'" style="'.implode(";\n", $style).";\"\n", $content);
           break;
         case '.':
-          $content = preg_replace('|class="'.$matches[2].'"|', 'class="'.$matches[2].'" style="'.implode('; ', $style).';"', $content);
+          $content = preg_replace('|class="'.$matches[2].'"|', 'class="'.$matches[2].'" style="'.implode(";\n", $style).";\"\n", $content);
           break;
         default:
-          $content = preg_replace('#<'.$matches[2].'( |>)#', '<'.$matches[2].' style="'.implode('; ', $style).';"$1', $content);
+          $content = preg_replace('#<'.$matches[2].'( |>)#', '<'.$matches[2].' style="'.implode(";\n", $style).";\"\n$1", $content);
           break;
       }
     }
