@@ -144,6 +144,8 @@ foreach ($pictures as $row)
       $name = str_replace('_', ' ', get_filename_wo_extension($row['file']));
     }
 
+    $name = trigger_event('render_element_description', $name);
+
     switch ($page['section'])
     {
       case 'best_rated' :
