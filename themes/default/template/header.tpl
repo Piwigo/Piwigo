@@ -5,7 +5,7 @@
 <meta name="generator" content="Piwigo (aka PWG), see piwigo.org">
 {if isset($meta_ref) } 
 {if isset($INFO_AUTHOR)}
-<meta name="author" content="{$INFO_AUTHOR|@replace:'"':' '}">
+<meta name="author" content="{$INFO_AUTHOR|@strip_tags:false|@replace:'"':' '}">
 {/if}
 {if isset($related_tags)}
 <meta name="keywords" content="{foreach from=$related_tags item=tag name=tag_loop}{if !$smarty.foreach.tag_loop.first}, {/if}{$tag.name}{/foreach}">

@@ -67,7 +67,7 @@ SELECT id, date_creation
     $data['author'] = $_POST['author-'.$row['id']];
     $data['level'] = $_POST['level-'.$row['id']];
 
-    foreach (array('name', 'author', 'level') as $field)
+    foreach (array('name', 'level') as $field)
     {
       if (!empty($_POST[$field.'-'.$row['id']]))
       {
@@ -238,7 +238,7 @@ SELECT
             PHPWG_ROOT_PATH.'admin.php?page=picture_modify'.
             '&amp;image_id='.$row['id'],
         'NAME' => !empty($row['name'])?$row['name']:'',
-        'AUTHOR' => !empty($row['author'])?$row['author']:'',
+        'AUTHOR' => !empty($row['author'])?htmlspecialchars($row['author']):'',
         'LEVEL' => !empty($row['level'])?$row['level']:'0',
         'DESCRIPTION' => !empty($row['comment'])?$row['comment']:'',
         'DATE_CREATION_YEAR' => $year,

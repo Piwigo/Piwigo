@@ -236,7 +236,11 @@ $template->assign(
 
     'REGISTRATION_DATE' => format_date($row['date_available']),
 
-    'AUTHOR' => isset($_POST['author']) ? $_POST['author'] : @$row['author'],
+    'AUTHOR' => htmlspecialchars(
+      isset($_POST['author'])
+        ? stripslashes($_POST['author'])
+        : @$row['author']
+      ),
 
     'DESCRIPTION' =>
       htmlspecialchars( isset($_POST['description']) ?
