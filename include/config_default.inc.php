@@ -631,8 +631,9 @@ $conf['full_tag_cloud_items_number'] = 200;
 // cloud in the menubar. Only the most represented tags will be shown
 $conf['menubar_tag_cloud_items_number'] = 100;
 
-// content_tag_cloud_items_number: number of tags to show in the tag
-// cloud on the content page. Only the most represented tags will be shown
+// content_tag_cloud_items_number: number of related tags to show in the tag
+// cloud on the content page, when the current section is not a set of
+// tags. Only the most represented tags will be shown
 $conf['content_tag_cloud_items_number'] = 12;
 
 // tags_levels: number of levels to use for display. Each level is bind to a
