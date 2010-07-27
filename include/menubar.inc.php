@@ -143,7 +143,7 @@ function initialize_menu()
     else
     {
       $selection = array_slice( $page['items'], $page['start'], $page['nb_image_page'] );
-      $tags = add_level_to_tags( get_common_tags($selection, 12) );
+      $tags = add_level_to_tags( get_common_tags($selection, $conf['content_tag_cloud_items_number']) );
       foreach ($tags as $tag)
       {
         $block->data[] =
