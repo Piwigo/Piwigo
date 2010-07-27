@@ -511,6 +511,8 @@ while ($row = pwg_db_fetch_assoc($result))
     $picture[$i]['name'] = str_replace('_', ' ', $file_wo_ext);
   }
 
+  $picture[$i]['name'] = trigger_event('render_element_description', $picture[$i]['name']);
+
   $picture[$i]['url'] = duplicate_picture_url(
     array(
       'image_id' => $row['id'],
