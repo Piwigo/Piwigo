@@ -524,6 +524,8 @@ DELETE FROM ' . PLUGINS_TABLE . ' WHERE id=\'' . $plugin_id . '\'';
    */
   function plugin_version_compare($a, $b)
   {
+    if (strtolower($a) == 'auto') return false;
+
     $pattern = array('/([a-z])/ei', '/\.+/', '/\.\Z|\A\./');
     $replacement = array( "'.'.intval('\\1', 36).'.'", '.', '');
 
