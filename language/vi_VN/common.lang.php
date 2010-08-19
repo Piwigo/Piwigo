@@ -22,7 +22,7 @@
 // +-----------------------------------------------------------------------+
 
 // Langage informations
-$lang_info['language_name'] = 'Vietnamese';
+$lang_info['language_name'] = 'Tiếng Việt';
 $lang_info['country'] = 'Việt Nam';
 $lang_info['direction'] = 'ltr';
 $lang_info['code'] = 'vn';
