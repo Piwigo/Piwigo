@@ -752,7 +752,6 @@ $lang['Order of menubar items has been updated successfully.'] = 'Kolejność el
 $lang['This theme was not designed to be directly activated'] = 'Temat nie został zprojektowany tak, by aktywować go bezpośrednio.';
 $lang['Who can see this photo?'] = 'Kto może oglądać o zdjęcie?';
 $lang['Pending Comments'] = 'Oczekujące komentarze';
-$lang['Note: photo deletion does not apply to photos added by synchronization. For photos added by synchronization, remove them from the filesystem and then perform another synchronization.'] = 'Info: usunięcie zdjęcia nie dotyczy zdjęć dodanych podczas synchroniazacji. Zdjęcia dodanew ten sposób należy usunąć z systemu plików, a następnie wykonać synchronizację.';
 $lang['In your php.ini file, the upload_max_filesize (%sB) is bigger than post_max_size (%sB), you should change this setting'] = 'W twoim pliku php.ini, parametr upload_max_filesize (%sB) jest większy niż post_max_size (%sB), powinieneś zmienić toe ustawienia';
 $lang['Exif extension not available, admin should disable exif use'] = 'Rozszerzenie exif jest nie dostępne, administrato powinien usunąć korzystanie z exif';
 $lang['The uploaded file exceeds the upload_max_filesize directive in php.ini: %sB'] = 'Wgrywany plik przekracza rozmiar zdefiniowany w parametrze upload_max_filesize w pliku php.ini: %sB';

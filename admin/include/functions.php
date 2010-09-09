@@ -131,50 +131,67 @@ DELETE FROM '.USER_CACHE_CATEGORIES_TABLE.'
 //    - all the comments related to elements
 //    - all the links between categories and elements
 //    - all the favorites associated to elements
+// @return number of deleted elements
 function delete_elements($ids, $physical_deletion=false)
 {
   if (count($ids) == 0)
   {
-    return;
+    return 0;
   }
   trigger_action('begin_delete_elements', $ids);
 
   if ($physical_deletion)
   {
     include_once(PHPWG_ROOT_PATH.'include/functions_picture.inc.php');
+    $new_ids=array();
 
-    // we can currently delete physically only photo with no
-    // storage_category_id (added via pLoader)
-    //
-    // we assume that the element is a photo, with no representative
     $query = '
 SELECT
     id,
     path,
     tn_ext,
-    has_high
+    has_high,
+    representative_ext
   FROM '.IMAGES_TABLE.'
   WHERE id IN ('.implode(',', $ids).')
-    AND storage_category_id IS NULL
 ;';
     $result = pwg_query($query);
     while ($row = pwg_db_fetch_assoc($result))
     {
-      $file_path = $row['path'];
-      $thumbnail_path = get_thumbnail_path($row);
-      $high_path = null;
-      if (isset($row['has_high']) and get_boolean($row['has_high']))
+      if (url_is_remote($row['path']))
+        continue;
+      $files = array();
+      $files[] = get_element_path($row);
+      if (!empty($row['tn_ext']))
+        $files[] = get_thumbnail_path($row);
+      if (!empty($row['has_high']) and get_boolean($row['has_high']))
+        $files[] = get_high_path($row);
+      if (!empty($row['representative_ext']))
       {
-        $high_path = get_high_path($row);
+        $pi = pathinfo($row['path']);
+        $file_wo_ext = get_filename_wo_extension($pi['basename']);
+        $files[] = PHPWG_ROOT_PATH.$pi['dirname'].'/pwg_representative/'.$file_wo_ext.'.'.$element_info['representative_ext'];
       }
 
-      foreach (array($file_path, $thumbnail_path, $high_path) as $path)
+      $ok = true;
+      foreach ($files as $path)
       {
-        if (isset($path) and is_file($path) and !unlink($path))
+        if (is_file($path) and !unlink($path))
         {
-          die('"'.$path.'" cannot be removed');
+          $ok = false;
+          trigger_error('"'.$path.'" cannot be removed', E_USER_WARNING);
+          break;
         }
       }
+      if ($ok)
+        $new_ids[] += $row['id'];
+      else
+        break;
+    }
+    $ids = $new_ids;
+    if (count($ids)==0)
+    {
+      return 0;
     }
   }
 
@@ -249,6 +266,7 @@ SELECT
   }
 
   trigger_action('delete_elements', $ids);
+  return count($ids);
 }
 
 // The delete_user function delete a user identified by the $user_id

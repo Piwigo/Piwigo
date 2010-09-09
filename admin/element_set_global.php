@@ -77,33 +77,20 @@ if (isset($_POST['delete']))
       }
     }
 
-    // filter selection on photos that have no storage_category_id (ie that
-    // were added via pLoader)
     if (count($collection) > 0)
     {
-      $query = '
-SELECT
-    id
-  FROM '.IMAGES_TABLE.'
-  WHERE id IN ('.implode(',', $collection).')
-    AND storage_category_id IS NULL
-;';
-      $deletables = array_from_query($query, 'id');
-
-      if (count($deletables) > 0)
+      $deleted_count = delete_elements($collection, true);
+      if ($deleted_count > 0)
       {
-        $physical_deletion = true;
-        delete_elements($deletables, $physical_deletion);
-
         array_push(
           $page['infos'],
           sprintf(
             l10n_dec(
               '%d photo was deleted',
               '%d photos were deleted',
-              count($deletables)
+              $deleted_count
               ),
-            count($deletables)
+            $deleted_count
             )
           );
       }
@@ -321,9 +308,7 @@ $template->assign('IN_CADDIE', 'caddie' == $_GET['cat'] ? true : false );
 // |                            deletion form                              |
 // +-----------------------------------------------------------------------+
 
-// we can only remove photos that have no storage_category_id, in other
-// word, it currently (Butterfly) means that the photo was added with
-// pLoader
+// we can only remove photos that are not remote
 if (count($page['cat_elements_id']) > 0)
 {
   $query = '
@@ -331,7 +316,7 @@ SELECT
     COUNT(*)
   FROM '.IMAGES_TABLE.'
   WHERE id IN ('.implode(',', $page['cat_elements_id']).')
-    AND storage_category_id IS NULL
+    AND path NOT LIKE "http%"
 ;';
   list($counter) = pwg_db_fetch_row(pwg_query($query));
 

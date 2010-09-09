@@ -606,7 +606,6 @@ $lang['Manual order'] = 'Manual order';
 $lang['Drag to re-order'] = "Click-and-drag to re-order";
 $lang['Quick Local Synchronization'] = "Quick Local Synchronization";
 $lang['No photo can be deleted'] = "No photo can be deleted";
-$lang['Note: photo deletion does not apply to photos added by synchronization. For photos added by synchronization, remove them from the filesystem and then perform another synchronization.'] = "Note: photo deletion does not apply to photos added by synchronization. For photos added by synchronization, remove them from the filesystem and then perform another synchronization.";
 $lang['Delete selected photos'] = "Delete selected photos";
 $lang['%d photo was deleted'] = "%d photo deleted";
 $lang['%d photos were deleted'] = "%d photos deleted";

@@ -617,7 +617,6 @@ $lang['Manual order'] = 'Ordre manuel';
 $lang['Drag to re-order'] = "Cliquer-glisser pour ré-organiser";
 $lang['Quick Local Synchronization'] = "Synchronisation rapide";
 $lang['No photo can be deleted'] = "Aucune photo ne peut être supprimée";
-$lang['Note: photo deletion does not apply to photos added by synchronization. For photos added by synchronization, remove them from the filesystem and then perform another synchronization.'] = "Note : Cette suppression des photos ne s'applique pas pour les photos ajoutées à l'aide de la synchronisation (méthode classique par chargement FTP). Pour ces photos, supprimez-les de votre serveur et refaites une synchronisation.";
 $lang['Delete selected photos'] = "Supprimer les photos sélectionnées";
 $lang['%d photo was deleted'] = "%d photo a été supprimée";
 $lang['%d photos were deleted'] = "%d photos ont été supprimées";
