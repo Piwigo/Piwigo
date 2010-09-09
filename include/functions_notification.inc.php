@@ -496,7 +496,7 @@ SELECT date_available,
     if ($max_elements>0)
     { // get some thumbnails ...
       $query = '
-SELECT id, path, name, tn_ext, file
+SELECT DISTINCT id, path, name, tn_ext, file
   FROM '.IMAGES_TABLE.' i INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON id=image_id
   '.$where_sql.'
     AND date_available=\''.$dates[$i]['date_available'].'\'
@@ -515,7 +515,7 @@ SELECT id, path, name, tn_ext, file
     if ($max_cats>0)
     {// get some categories ...
       $query = '
-SELECT c.uppercats, COUNT(DISTINCT i.id) AS img_count
+SELECT DISTINCT c.uppercats, COUNT(DISTINCT i.id) AS img_count
   FROM '.IMAGES_TABLE.' i INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON i.id=image_id
     INNER JOIN '.CATEGORIES_TABLE.' c ON c.id=category_id
   '.$where_sql.'
