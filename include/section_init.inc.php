@@ -61,6 +61,10 @@ else
     $rewritten = $key;
     break;
   }
+  
+  // the $_GET keys are not protected in include/common.inc.php, only the values
+  $rewritten = pwg_db_real_escape_string($rewritten);
+  
   $page['root_path'] = PHPWG_ROOT_PATH;
 }
 
