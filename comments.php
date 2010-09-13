@@ -104,6 +104,8 @@ $page['where_clauses'] = array();
 // which category to filter on ?
 if (isset($_GET['cat']) and 0 != $_GET['cat'])
 {
+  check_input_parameter('cat', $_GET, false, PATTERN_ID);
+  
   $page['where_clauses'][] =
     'category_id IN ('.implode(',', get_subcat_ids(array($_GET['cat']))).')';
 }
