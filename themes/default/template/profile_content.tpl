@@ -103,6 +103,7 @@
 {/if}
 
   <p class="bottomButtons">
+    <input type="hidden" name="pwg_token" value="{$PWG_TOKEN}">
     <input class="submit" type="submit" name="validate" value="{'Submit'|@translate}">
     <input class="submit" type="reset" name="reset" value="{'Reset'|@translate}">
     {if $ALLOW_USER_CUSTOMIZATION}
