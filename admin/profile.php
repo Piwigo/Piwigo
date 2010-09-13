@@ -25,8 +25,12 @@ if( !defined("PHPWG_ROOT_PATH") ) die ("Hacking attempt!");
 
 $edit_user = build_user( $_GET['user_id'], false );
 
-include_once(PHPWG_ROOT_PATH.'profile.php');
+if (!empty($_POST))
+{
+  check_pwg_token();
+}
 
+include_once(PHPWG_ROOT_PATH.'profile.php');
 
 $errors = array();
 if ( !is_adviser() )
