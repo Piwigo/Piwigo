@@ -477,7 +477,7 @@ Request format: ".@$this->_requestFormat." Response format: ".@$this->_responseF
 
     if ( $method==null )
     {
-      return new PwgError(WS_ERR_INVALID_METHOD, 'Method name "'.$methodName.'" is not valid');
+      return new PwgError(WS_ERR_INVALID_METHOD, 'Method name is not valid');
     }
 
     // parameter check and data coercion !
