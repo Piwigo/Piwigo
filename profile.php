@@ -36,6 +36,11 @@ if (!defined('PHPWG_ROOT_PATH'))
   // +-----------------------------------------------------------------------+
   check_status(ACCESS_CLASSIC);
 
+  if (!empty($_POST))
+  {
+    check_pwg_token();
+  }
+
   $userdata = $user;
 
   trigger_action('loc_begin_profile');
@@ -289,6 +294,7 @@ function load_profile_in_template($url_action, $url_redirect, $userdata)
   // allow plugins to add their own form data to content
   trigger_action( 'load_profile_in_template', $userdata );
 
+  $template->assign('PWG_TOKEN', get_pwg_token());
   $template->assign_var_from_handle('PROFILE_CONTENT', 'profile_content');
 }
 ?>
