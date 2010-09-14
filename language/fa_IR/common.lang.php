@@ -21,8 +21,8 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
-$lang_info['language_name'] = "Farsi";
-$lang_info['country'] = "Iran";
+$lang_info['language_name'] = "فارسی";
+$lang_info['country'] = "ایران";
 $lang_info['direction'] = "rtl";
 $lang_info['code'] = "Fa";
 $lang_info['zero_plural'] = "1";
