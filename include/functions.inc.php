@@ -579,6 +579,10 @@ function redirect_html( $url , $msg = '', $refresh_time = 0)
     load_language('lang', PHPWG_ROOT_PATH.'local/', array('no_fallback'=>true, 'local'=>true) );
     $template = new Template(PHPWG_ROOT_PATH.'themes', get_default_theme());
   }
+	elseif (defined('IN_ADMIN') and IN_ADMIN)
+	{
+		$template = new Template(PHPWG_ROOT_PATH.'themes', get_default_theme());
+	}
 
   if (empty($msg))
   {
