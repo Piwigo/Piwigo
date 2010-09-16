@@ -75,7 +75,7 @@
         <input type="text" size="3" maxlength="2" name="recent_period" id="recent_period" value="{$RECENT_PERIOD}">
       </li>
       <li>
-        <span class="property">{'Expand all categories'|@translate}</span>
+        <span class="property">{'Expand all albums'|@translate}</span>
         {html_radios name='expand' options=$radio_options selected=$EXPAND}
       </li>
       <li>

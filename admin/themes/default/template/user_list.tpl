@@ -248,7 +248,7 @@
   </tr>
 
   <tr>
-    <td>{'Expand all categories'|@translate}</td>
+    <td>{'Expand all albums'|@translate}</td>
     <td>
       <label><input type="radio" name="expand" value="leave" checked="checked"> {'leave'|@translate}</label>
       / {'set to'|@translate}

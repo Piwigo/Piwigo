@@ -218,7 +218,7 @@ SELECT id_uppercat, MAX(rank)+1 AS next_rank
   {
     array_push($fs_fulldirs, $basedir);
   }
-  // If $_POST['subcats-included'] != 1 ("Search in subcategories" is unchecked)
+  // If $_POST['subcats-included'] != 1 ("Search in sub-albums" is unchecked)
   // $db_fulldirs doesn't include any subdirectories and $fs_fulldirs does
   // So $fs_fulldirs will be limited to the selected basedir
   // (if that one is in $fs_fulldirs)

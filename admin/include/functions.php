@@ -1152,7 +1152,7 @@ DELETE FROM '.$table.'
   array_push(
     $page['infos'],
     l10n_dec(
-      '%d category moved', '%d categories moved',
+      '%d album moved', '%d albums moved',
       count($categories)
       )
     );

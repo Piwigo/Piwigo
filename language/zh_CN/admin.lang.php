@@ -23,14 +23,14 @@
 
 $lang['%d association'] = '%d 相关';
 $lang['%d associations'] = '%d 相关';
-$lang['%d category including'] = '包含 %d 类';
-$lang['%d categories including'] = '包含 %d 等类';
+$lang['%d album including'] = '包含 %d 类';
+$lang['%d albums including'] = '包含 %d 等类';
 $lang['%d physical'] = '物理 %d';
 $lang['%d physical'] = '物理 %d ';
 $lang[' and %d virtual'] = ' 和 虚拟 %d ';
 $lang[' and %d virtual'] = ' 和 虚拟 %d ';
-$lang['%d category moved'] = '%d 类已迁移';
-$lang['%d categories moved'] = '%d 等类已迁移';
+$lang['%d album moved'] = '%d 类已迁移';
+$lang['%d albums moved'] = '%d 等类已迁移';
 $lang['%d group'] = '%d 组';
 $lang['%d groups'] = '%d 组';
 $lang['%d member'] = '%d 成员';
@@ -596,7 +596,7 @@ $lang['overrides existing values with empty ones'] = '用空数据来删除已�
 $lang['manage image ranks'] = '管理图片排序';
 $lang['Manage image ranks'] = '管理图片排序';
 $lang['Edit ranks'] = '修改排序方式';
-$lang['No element in this category'] = '该类中没有图片';
+$lang['No element in this album'] = '该类中没有图片';
 $lang['Images manual order was saved'] = '图片手动排序已保存';
 $lang['ranks'] = '顺序';
 $lang['Drag to re-order'] = '拖放进行排序';

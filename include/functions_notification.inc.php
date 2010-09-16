@@ -436,7 +436,7 @@ function news($start, $end, $exclude_img_cats=false, $add_url=false)
   if (!$exclude_img_cats)
   {
     add_news_line( $news,
-      nb_updated_categories($start, $end), '%d category updated', '%d categories updated',
+      nb_updated_categories($start, $end), '%d album updated', '%d albums updated',
       make_index_url(array('section'=>'recent_cats')), $add_url );
   }
 
@@ -585,7 +585,7 @@ function get_html_description_recent_post_date($date_detail)
 
   $description .=
         '<li>'
-        .l10n_dec('%d category updated', '%d categories updated',
+        .l10n_dec('%d album updated', '%d albums updated',
                   $date_detail['nb_cats'])
         .'</li>';
 

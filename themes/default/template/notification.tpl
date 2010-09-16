@@ -11,7 +11,7 @@
     <h2>{'Notification'|@translate}</h2>
   </div>
 
-  <p>{'The RSS notification feed provides notification on news from this website : new pictures, updated categories, new comments. Use a RSS feed reader.'|@translate}</p>
+  <p>{'The RSS notification feed provides notification on news from this website : new pictures, updated albums, new comments. Use a RSS feed reader.'|@translate}</p>
 
   <dl>
     <dt>

@@ -258,7 +258,7 @@ if ( isset( $_POST['submit'] ) and !isset( $_GET['waiting_id'] ) )
 
       $keyargs_content = array
       (
-        get_l10n_args('Category: %s', get_cat_display_name($category['upper_names'], null, false)),
+        get_l10n_args('Album: %s', get_cat_display_name($category['upper_names'], null, false)),
         get_l10n_args('Picture name: %s', $_FILES['picture']['name']),
         get_l10n_args('User: %s', $_POST['username']),
         get_l10n_args('Email: %s', $_POST['mail_address']),

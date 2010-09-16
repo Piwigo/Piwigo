@@ -483,12 +483,12 @@ function get_display_images_count($cat_nb_images, $cat_count_images, $cat_count_
       //no descendant categories or descendants do not contain images
       if (! $short_message)
       {
-        $display_text.= ' '.l10n('in this category');
+        $display_text.= ' '.l10n('in this album');
       }
     }
     else
     {
-      $display_text.= ' '.l10n_dec('in %d sub-category', 'in %d sub-categories', $cat_count_categories);
+      $display_text.= ' '.l10n_dec('in %d sub-album', 'in %d sub-albums', $cat_count_categories);
     }
   }
 

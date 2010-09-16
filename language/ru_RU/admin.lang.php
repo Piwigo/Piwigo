@@ -23,14 +23,14 @@
 
 $lang['%d association'] = '%d связь';
 $lang['%d associations'] = '%d связей';
-$lang['%d category including'] = '%d категория добавлена ';
-$lang['%d categories including'] = 'категорий добавлено: %d';
+$lang['%d album including'] = '%d категория добавлена ';
+$lang['%d albums including'] = 'категорий добавлено: %d';
 $lang['%d physical'] = '%d реальная';
 $lang['%d physical'] = '%d реальных';
 $lang[' and %d virtual'] = ' и %d виртуальная';
 $lang[' and %d virtual'] = ' и %d виртуальных';
-$lang['%d category moved'] = '%d категория перемещена';
-$lang['%d categories moved'] = '%d категорий перемещено';
+$lang['%d album moved'] = '%d категория перемещена';
+$lang['%d albums moved'] = '%d категорий перемещено';
 $lang['%d group'] = '%d группа';
 $lang['%d groups'] = '%d групп';
 $lang['%d member'] = '%d участник';
@@ -595,7 +595,7 @@ $lang['overrides existing values with empty ones'] = 'замена сущест�
 $lang['manage image ranks'] = 'управление порядком изображений';
 $lang['Manage image ranks'] = 'Управление порядком изображений';
 $lang['Edit ranks'] = 'Изменить порядок';
-$lang['No element in this category'] = 'Пустая категория';
+$lang['No element in this album'] = 'Пустая категория';
 $lang['Images manual order was saved'] = 'Указанный порядок изображений сохранен';
 $lang['ranks'] = 'порядок';
 $lang['Drag to re-order'] = 'Перетащите чтобы изменить порядок';

@@ -468,7 +468,7 @@ SELECT DISTINCT(id)
     $page = array_merge(
       $page,
       array(
-        'title' => l10n('Recent categories'),
+        'title' => l10n('Recent albums'),
         )
       );
   }

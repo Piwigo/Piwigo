@@ -23,14 +23,14 @@
 
 $lang['%d association'] = '%d hozzárendelés (fizikai és virtuális)';
 $lang['%d associations'] = '%d hozzárendelés (fizikai és virtuális)';
-$lang['%d category including'] = '%d kategória ';
-$lang['%d categories including'] = '%d kategória ';
+$lang['%d album including'] = '%d kategória ';
+$lang['%d albums including'] = '%d kategória ';
 $lang['%d physical'] = '%d fizikai';
 $lang['%d physical'] = '%d fizikai';
 $lang[' and %d virtual'] = ' és %d virtuális';
 $lang[' and %d virtual'] = ' és %d virtuális';
-$lang['%d category moved'] = '%d Kategória áthelyezése';
-$lang['%d categories moved'] = '%d Kategória áthelyezése';
+$lang['%d album moved'] = '%d Kategória áthelyezése';
+$lang['%d albums moved'] = '%d Kategória áthelyezése';
 $lang['%d group'] = '%d csoport';
 $lang['%d groups'] = '%d csoport';
 $lang['%d member'] = '%d tag';
@@ -595,7 +595,7 @@ $lang['overrides existing values with empty ones'] = 'Felülírja a meglévő ü
 $lang['manage image ranks'] = 'Kép rangok kezelése';
 $lang['Manage image ranks'] = 'Kép rangok kezelése';
 $lang['Edit ranks'] = 'Rangok módosítása';
-$lang['No element in this category'] = 'Nincs elem ebben a kategóriában';
+$lang['No element in this album'] = 'Nincs elem ebben a kategóriában';
 $lang['Images manual order was saved'] = 'Kép információk mentve';
 $lang['ranks'] = 'Rangok';
 $lang['Drag to re-order'] = 'Húzással átrendezheti';

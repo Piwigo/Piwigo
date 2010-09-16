@@ -23,14 +23,14 @@
 
 $lang['%d association'] = '%d associação';
 $lang['%d associations'] = '%d associações';
-$lang['%d category including'] = '%d categoria incluída ';
-$lang['%d categories including'] = '%d categorias incluídas ';
+$lang['%d album including'] = '%d categoria incluída ';
+$lang['%d albums including'] = '%d categorias incluídas ';
 $lang['%d physical'] = '%d físico';
 $lang['%d physical'] = '%d físico';
 $lang[' and %d virtual'] = ' e %d virtual';
 $lang[' and %d virtual'] = ' e %d virtual';
-$lang['%d category moved'] = '%d categoria movida';
-$lang['%d categories moved'] = '%d categorias movidas';
+$lang['%d album moved'] = '%d categoria movida';
+$lang['%d albums moved'] = '%d categorias movidas';
 $lang['%d group'] = '%d grupo';
 $lang['%d groups'] = '%d grupos';
 $lang['%d member'] = '%d membro';
@@ -597,7 +597,7 @@ $lang['overrides existing values with empty ones'] = 'sobrepor os valores existe
 $lang['manage image ranks'] = 'gerenciar posições (image ranks)';
 $lang['Manage image ranks'] = 'Gerenciar posições (image ranks)';
 $lang['Edit ranks'] = 'Editar posições (ranks)';
-$lang['No element in this category'] = 'Nenhum item nesta categoria';
+$lang['No element in this album'] = 'Nenhum item nesta categoria';
 $lang['Images manual order was saved'] = 'A ordem manual das imagens foi salva';
 $lang['ranks'] = 'posições (ranks)';
 $lang['Drag to re-order'] = 'Arraste para reordenar';

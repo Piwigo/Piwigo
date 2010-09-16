@@ -78,5 +78,5 @@
 
 
 {else}
-<div class="infos"><p>{'No element in this category'|@translate}</p></div>
+<div class="infos"><p>{'No element in this album'|@translate}</p></div>
 {/if}

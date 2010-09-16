@@ -25,14 +25,14 @@
 
 $lang['%d association'] = "%d association";
 $lang['%d associations'] = "%d associations";
-$lang['%d category including'] = "%d category including";
-$lang['%d categories including'] = "%d categories including";
+$lang['%d album including'] = "%d album including";
+$lang['%d albums including'] = "%d albums including";
 $lang['%d physical'] = " %d physical";
 $lang['%d physical'] = " %d physical";
 $lang[' and %d virtual'] = " and %d virtual";
 $lang[' and %d virtual'] = " and %d virtual";
-$lang['%d category moved'] = "%d category moved";
-$lang['%d categories moved'] = "%d categories moved";
+$lang['%d album moved'] = "%d album moved";
+$lang['%d albums moved'] = "%d albums moved";
 $lang['%d group'] = "%d group";
 $lang['%d groups'] = "%d groups";
 $lang['%d member'] = "%d member";
@@ -598,7 +598,7 @@ $lang['overrides existing values with empty ones'] = "overrides existing values 
 $lang['manage image ranks'] = "manage image ranks";
 $lang['Manage image ranks'] = "Manage image ranks";
 $lang['Edit ranks'] = "Edit ranks";
-$lang['No element in this category'] = "No element in this category";
+$lang['No element in this album'] = "No element in this album";
 $lang['Images manual order was saved'] = "Images manual order saved";
 $lang['ranks'] = "ranks";
 $lang['By rank'] = 'By rank';

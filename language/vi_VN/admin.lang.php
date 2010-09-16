@@ -23,14 +23,14 @@
 
 $lang['%d association'] = '%d kết hợp';
 $lang['%d associations'] = '%d kết hợp';
-$lang['%d category including'] = '%d đề mục bao gồm ';
-$lang['%d categories including'] = '%d đề mục bao gồm ';
+$lang['%d album including'] = '%d đề mục bao gồm ';
+$lang['%d albums including'] = '%d đề mục bao gồm ';
 $lang['%d physical'] = '%d physical';
 $lang['%d physical'] = '%d physical';
 $lang[' and %d virtual'] = ' và %d thư mục ảo';
 $lang[' and %d virtual'] = ' và %d thư mục ảo';
-$lang['%d category moved'] = '%d đề mục đã được chuyển';
-$lang['%d categories moved'] = '%d đề mục đã được chuyển';
+$lang['%d album moved'] = '%d đề mục đã được chuyển';
+$lang['%d albums moved'] = '%d đề mục đã được chuyển';
 $lang['%d group'] = '%d nhóm';
 $lang['%d groups'] = '%d nhóm';
 $lang['%d member'] = '%d thành viên';
@@ -597,7 +597,7 @@ $lang['overrides existing values with empty ones'] = 'ghi đè giá trị đang 
 $lang['manage image ranks'] = 'Quản lý xếp hạng hình ảnh';
 $lang['Manage image ranks'] = 'Quản lý xếp hạng hình ảnh';
 $lang['Edit ranks'] = 'Biên tập xếp hạng';
-$lang['No element in this category'] = 'Không có thành phần nào trong đề mục này';
+$lang['No element in this album'] = 'Không có thành phần nào trong đề mục này';
 $lang['Images manual order was saved'] = 'Sắp xếp hình ảnh thủ công đã được lưu';
 $lang['ranks'] = 'xếp hạng';
 $lang['Drag to re-order'] = 'Kéo rê để sắp xếp lại';

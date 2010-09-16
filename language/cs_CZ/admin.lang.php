@@ -26,14 +26,14 @@
 
 $lang['%d association'] = '%d spojení';
 $lang['%d associations'] = '%d spojení';
-$lang['%d category including'] = '%d kategorie obsahující ';
-$lang['%d categories including'] = '%d kategorií obsahujících ';
+$lang['%d album including'] = '%d kategorie obsahující ';
+$lang['%d albums including'] = '%d kategorií obsahujících ';
 $lang['%d physical'] = '%d fyzický';
 $lang['%d physical'] = '%d fyzických';
 $lang[' and %d virtual'] = 'a %d virtuální';
 $lang[' and %d virtual'] = 'a %d virtuálních';
-$lang['%d category moved'] = '%d kategorie přesunuta';
-$lang['%d categories moved'] = '%d kategorií přesunuto';
+$lang['%d album moved'] = '%d kategorie přesunuta';
+$lang['%d albums moved'] = '%d kategorií přesunuto';
 $lang['%d group'] = '%d skupina';
 $lang['%d groups'] = '%d skupin';
 $lang['%d member'] = '%d účastník';
@@ -599,7 +599,7 @@ $lang['overrides existing values with empty ones'] = 'nahradit stávající hodn
 $lang['manage image ranks'] = 'spravovat hodnocení fotografií';
 $lang['Manage image ranks'] = 'Spravovat hodnocení fotografií';
 $lang['Edit ranks'] = 'Upravit hodnocení';
-$lang['No element in this category'] = 'Kategorie neobsahuje žádné položky';
+$lang['No element in this album'] = 'Kategorie neobsahuje žádné položky';
 $lang['Images manual order was saved'] = 'Pořadí fotografií bylo uloženo';
 $lang['ranks'] = 'hodnocení';
 $lang['Drag to re-order'] = 'Pořadí změníte táhnutím myši';

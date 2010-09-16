@@ -70,7 +70,7 @@ $conf['order_by'] = ' ORDER BY date_available DESC, file ASC, id ASC';
 // #image_category.rank column
 //
 // $conf['order_by_inside_category'] = ' ORDER BY rank';
-// will sort images by the manually defined rank of images in this category.
+// will sort images by the manually defined rank of images in this album.
 $conf['order_by_inside_category'] = $conf['order_by'];
 
 // file_ext : file extensions (case sensitive) authorized

@@ -35,7 +35,7 @@
       {/if}
 
       {if isset($U_MODE_FLAT) }
-      <li><a href="{$U_MODE_FLAT}" title="{'display all elements in all sub-categories'|@translate}" rel="nofollow"><img src="{$ROOT_URL}{$themeconf.icon_dir}/flat.png" class="button" alt="{'display all elements in all sub-categories'|@translate}"></a></li>
+      <li><a href="{$U_MODE_FLAT}" title="{'display all elements in all sub-albums'|@translate}" rel="nofollow"><img src="{$ROOT_URL}{$themeconf.icon_dir}/flat.png" class="button" alt="{'display all elements in all sub-albums'|@translate}"></a></li>
       {/if}
 
       {if isset($U_MODE_NORMAL) }
@@ -74,7 +74,7 @@
 {if !empty($PLUGIN_INDEX_CONTENT_BEGIN)}{$PLUGIN_INDEX_CONTENT_BEGIN}{/if}
 
 {if !empty($category_search_results) }
-<div style="font-size:16px;margin:10px 16px">{'Category results for'|@translate} <strong>{$QUERY_SEARCH}</strong> :
+<div style="font-size:16px;margin:10px 16px">{'Album results for'|@translate} <strong>{$QUERY_SEARCH}</strong> :
   <em><strong>
   {foreach from=$category_search_results item=res name=res_loop}
   {if !$smarty.foreach.res_loop.first} &mdash; {/if}

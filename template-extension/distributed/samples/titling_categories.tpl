@@ -28,7 +28,7 @@ p.Nb_images {ldelim} text-align: left; color: #444; }
        <div class="illustration">
           <a href="{$cat.URL}">
             <img src="{$cat.TN_SRC}" alt="{$cat.ALT}" 
-            title="{'shows images at the root of this category'|@translate}">
+            title="{'shows images at the root of this album'|@translate}">
           </a>
         </div>
         <div class="description">

@@ -23,14 +23,14 @@
 
 $lang['%d association'] = '関連:%d';
 $lang['%d associations'] = '関連:%d';
-$lang['%d category including'] = 'カテゴリ:%d  - ';
-$lang['%d categories including'] = 'カテゴリ:%d  - ';
+$lang['%d album including'] = 'カテゴリ:%d  - ';
+$lang['%d albums including'] = 'カテゴリ:%d  - ';
 $lang['%d physical'] = '物理ディレクトリ:%d ';
 $lang['%d physical'] = '物理ディレクトリ:%d ';
 $lang[' and %d virtual'] = 'バーチャルディレクトリ:%d ';
 $lang[' and %d virtual'] = 'バーチャルディレクトリ:%d ';
-$lang['%d category moved'] = '%d 件のカテゴリが移動されました。';
-$lang['%d categories moved'] = '%d 件のカテゴリが移動されました。';
+$lang['%d album moved'] = '%d 件のカテゴリが移動されました。';
+$lang['%d albums moved'] = '%d 件のカテゴリが移動されました。';
 $lang['%d group'] = 'グループ:%d';
 $lang['%d groups'] = 'グループ:%d';
 $lang['%d member'] = 'メンバー:%d';
@@ -597,7 +597,7 @@ $lang['overrides existing values with empty ones'] = '既存の値を空白に�
 $lang['manage image ranks'] = 'イメージランクを管理する';
 $lang['Manage image ranks'] = 'イメージランクを管理する';
 $lang['Edit ranks'] = 'ランクを編集する';
-$lang['No element in this category'] = 'このカテゴリには、エレメントがありません。';
+$lang['No element in this album'] = 'このカテゴリには、エレメントがありません。';
 $lang['Images manual order was saved'] = 'イメージ手動並び替えが保存されました。';
 $lang['ranks'] = 'ランク';
 $lang['Drag to re-order'] = 'ドラッグして並び替え';

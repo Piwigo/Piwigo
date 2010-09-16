@@ -23,14 +23,14 @@
 
 $lang['%d association'] = '%d associatie';
 $lang['%d associations'] = '%d associaties';
-$lang['%d category including'] = '%d categorie waarvan ';
-$lang['%d categories including'] = '%d categorieën waarvan ';
+$lang['%d album including'] = '%d categorie waarvan ';
+$lang['%d albums including'] = '%d categorieën waarvan ';
 $lang['%d physical'] = '%d fysiek';
 $lang['%d physical'] = '%d fysiek';
 $lang[' and %d virtual'] = ' en %d virtueel';
 $lang[' and %d virtual'] = ' en %d virtueel';
-$lang['%d category moved'] = '%d categorie verplaatst';
-$lang['%d categories moved'] = '%d categorieën verplaatst';
+$lang['%d album moved'] = '%d categorie verplaatst';
+$lang['%d albums moved'] = '%d categorieën verplaatst';
 $lang['%d group'] = '%d groep';
 $lang['%d groups'] = '%d groepen';
 $lang['%d member'] = '%d lid';
@@ -607,7 +607,7 @@ $lang['Correction the anomaly will cancel the fact that it\'s ignored'] = 'Het c
 $lang['manage image ranks'] = 'bewerk de afbeeldingsrangen';
 $lang['Manage image ranks'] = 'Bewerk de afbeeldingsrangen';
 $lang['Edit ranks'] = 'Bewerk de rangen';
-$lang['No element in this category'] = 'Geen element in deze categorie';
+$lang['No element in this album'] = 'Geen element in deze categorie';
 $lang['Images manual order was saved'] = 'De handmatige sortering van de afbeeldingen is bewaard';
 $lang['ranks'] = 'Rangen';
 $lang['Piwigo Announcements Newsletter'] = 'Piwigo Aankondigings Nieuwsbrief';

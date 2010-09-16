@@ -102,7 +102,7 @@
     </select>
     </li>
 
-    <li><label><input type="checkbox" name="subcats-included" value="1" {if $introduction.subcats_included}checked="checked"{/if}> {'Search in subcategories'|@translate}</label></li>
+    <li><label><input type="checkbox" name="subcats-included" value="1" {if $introduction.subcats_included}checked="checked"{/if}> {'Search in sub-albums'|@translate}</label></li>
     </ul>
   </fieldset>
 

@@ -25,14 +25,14 @@
 
 $lang['%d association'] = '%d tilknytning';
 $lang['%d associations'] = '%d tilknytninger';
-$lang['%d category including'] = '%d Kategori inklusiv';
-$lang['%d categories including'] = '%d kategorier inklusiv';
+$lang['%d album including'] = '%d Kategori inklusiv';
+$lang['%d albums including'] = '%d kategorier inklusiv';
 $lang['%d physical'] = '%d Fysisk';
 $lang['%d physical'] = '%d Fysisk';
 $lang[' and %d virtual'] = ' Og  %d virtuel';
 $lang[' and %d virtual'] = ' Og  %d virtuel';
-$lang['%d category moved'] = '%d Kategori flyttet';
-$lang['%d categories moved'] = ' %d kategorier flyttet';
+$lang['%d album moved'] = '%d Kategori flyttet';
+$lang['%d albums moved'] = ' %d kategorier flyttet';
 $lang['%d group'] = '%d Gruppe';
 $lang['%d groups'] = '%d grupper';
 $lang['%d member'] = '%d medlem';
@@ -599,7 +599,7 @@ $lang['overrides existing values with empty ones']     =     'Tilsidesætter eks
 $lang['manage image ranks']     =     'Styre image ranking';
 $lang['Manage image ranks']     =     'Administrer image ranking';
 $lang['Edit ranks']     =     'Edit rækker';
-$lang['No element in this category']     =     'Ingen element i denne Kategori';
+$lang['No element in this album']     =     'Ingen element i denne Kategori';
 $lang['Images manual order was saved']     =     'Billeder manual gemt orden';
 $lang['ranks']     =     'Rangerer';
 $lang['Drag to re-order']     =     'Klik-og-træk for at re-order';

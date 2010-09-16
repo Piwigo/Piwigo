@@ -200,7 +200,7 @@ $template->assign(
     'DB_VERSION' => $db_version,
     'DB_ELEMENTS' => l10n_dec('%d image', '%d images', $nb_elements),
     'DB_CATEGORIES' =>
-      l10n_dec('%d category including', '%d categories including',
+      l10n_dec('%d album including', '%d albums including',
         $nb_categories).
       l10n_dec('%d physical', '%d physical',
         $nb_physical).

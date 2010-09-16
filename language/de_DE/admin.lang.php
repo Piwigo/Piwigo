@@ -23,14 +23,14 @@
 
 $lang['%d association'] = '%d Element wird insgesamt angezeigt (physisch und virtuell)';
 $lang['%d associations'] = '%d Elemente werden insgesamt angezeigt (physisch und virtuell)';
-$lang['%d category including'] = '%d Kategorie enthalten';
-$lang['%d categories including'] = '%d Kategorien enthalten ';
+$lang['%d album including'] = '%d Kategorie enthalten';
+$lang['%d albums including'] = '%d Kategorien enthalten ';
 $lang['%d physical'] = '%d physisch';
 $lang['%d physical'] = '%d physische';
 $lang[' and %d virtual'] = ' und %d virtuell';
 $lang[' and %d virtual'] = ' und %d virtuelle';
-$lang['%d category moved'] = '%d Kategorie verschoben';
-$lang['%d categories moved'] = '%d Kategorien verschoben';
+$lang['%d album moved'] = '%d Kategorie verschoben';
+$lang['%d albums moved'] = '%d Kategorien verschoben';
 $lang['%d group'] = '%d Gruppe';
 $lang['%d groups'] = '%d Gruppe';
 $lang['%d member'] = '%d Mitglied';
@@ -596,7 +596,7 @@ $lang['overrides existing values with empty ones'] = 'Löscht alle Werte in der 
 $lang['manage image ranks'] = 'Verwaltung der Reihenfolge der Bilder';
 $lang['Manage image ranks'] = 'Verwalten Sie die Reihenfolge der Bilder';
 $lang['Edit ranks'] = 'Die Reihenfolge ändern';
-$lang['No element in this category'] = 'Kein Element in dieser Kategorie';
+$lang['No element in this album'] = 'Kein Element in dieser Kategorie';
 $lang['Images manual order was saved'] = 'Die manuelle Reihenfolge der Bilder wurde gespeichert';
 $lang['ranks'] = 'Reihenfolge';
 $lang['Drag to re-order'] = 'Klicken und Ziehen um eine neue Reihenfolge festzulegen';

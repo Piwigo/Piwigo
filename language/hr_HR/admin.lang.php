@@ -23,14 +23,14 @@
 
 $lang['%d association'] = '%d poveznica';
 $lang['%d associations'] = '%d poveznica';
-$lang['%d category including'] = '%d skupina obuhvata ';
-$lang['%d categories including'] = '%d skupine obuhvata ';
+$lang['%d album including'] = '%d skupina obuhvata ';
+$lang['%d albums including'] = '%d skupine obuhvata ';
 $lang['%d physical'] = '%d stvarna';
 $lang['%d physical'] = '%d stvarnih';
 $lang[' and %d virtual'] = ' i %d nestvrana';
 $lang[' and %d virtual'] = ' i %d nestvarnih';
-$lang['%d category moved'] = '%d skupina premještena';
-$lang['%d categories moved'] = '%d skupina premješteno';
+$lang['%d album moved'] = '%d skupina premještena';
+$lang['%d albums moved'] = '%d skupina premješteno';
 $lang['%d group'] = '%d grupa';
 $lang['%d groups'] = '%d grupa';
 $lang['%d member'] = '%d član';
@@ -593,7 +593,7 @@ $lang['overrides existing values with empty ones'] = 'prekucava postojeće vrije
 $lang['manage image ranks'] = 'upravljanje poretkom slika';
 $lang['Manage image ranks'] = 'Uprava poretkom';
 $lang['Edit ranks'] = 'Uredi poredak';
-$lang['No element in this category'] = 'Nema stavke u ovoj skupini';
+$lang['No element in this album'] = 'Nema stavke u ovoj skupini';
 $lang['Images manual order was saved'] = 'Pohranjen je izvorni redoslijed slika';
 $lang['ranks'] = 'poretci';
 $lang['Drag to re-order'] = 'Povuci za preslagivanje';

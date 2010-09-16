@@ -118,13 +118,13 @@
 
 <fieldset>
   <legend>{'Search Options'|@translate}</legend>
-  <label>{'Search in Categories'|@translate}
+  <label>{'Search in albums'|@translate}
     <select class="categoryList" name="cat[]" multiple="multiple" >
       {html_options options=$category_options selected=$category_options_selected}
     </select>
   </label>
   <ul>
-    <li><label>{'Search in subcategories'|@translate}</label></li>
+    <li><label>{'Search in sub-albums'|@translate}</label></li>
     <li><label>
       <input type="radio" name="subcats-included" value="1" checked="checked">{'Yes'|@translate}
     </label></li>

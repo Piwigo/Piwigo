@@ -227,7 +227,7 @@
 
     <li>
       <label>
-        <span class="property">{'display all elements in all sub-categories'|@translate|@ucfirst|@string_format:$pwg->l10n('Activate icon "%s"')}</span>
+        <span class="property">{'display all elements in all sub-albums'|@translate|@ucfirst|@string_format:$pwg->l10n('Activate icon "%s"')}</span>
         <input type="checkbox" name="index_flat_icon" {if ($display.index_flat_icon)}checked="checked"{/if}>
       </label>
     </li>

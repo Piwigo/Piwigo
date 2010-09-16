@@ -208,8 +208,8 @@ function initialize_menu()
     $block->data['recent_cats'] =
       array(
         'URL' => make_index_url(array('section' => 'recent_cats')),
-        'TITLE' => l10n('display recently updated categories'),
-        'NAME' => l10n('Recent categories'),
+        'TITLE' => l10n('display recently updated albums'),
+        'NAME' => l10n('Recent albums'),
       );
 
 

@@ -23,14 +23,14 @@
 
 $lang['%d association'] = '%d مجموعه';
 $lang['%d associations'] = '%d جمعيات';
-$lang['%d category including'] = '%d ألبوم متضمن ';
-$lang['%d categories including'] = '%d ألبومات متضامنه ';
+$lang['%d album including'] = '%d ألبوم متضمن ';
+$lang['%d albums including'] = '%d ألبومات متضامنه ';
 $lang['%d physical'] = '%d طبيعين';
 $lang['%d physical'] = '%d طبيعي';
 $lang[' and %d virtual'] = ' و %d افتراضي';
 $lang[' and %d virtual'] = ' و %d أفترضي';
-$lang['%d category moved'] = '%d نقل الألبوم';
-$lang['%d categories moved'] = '%d نقل الألبومات';
+$lang['%d album moved'] = '%d نقل الألبوم';
+$lang['%d albums moved'] = '%d نقل الألبومات';
 $lang['%d group'] = '%d مجموعه';
 $lang['%d groups'] = '%d مجموعات';
 $lang['%d member'] = '%d عدد';
@@ -600,7 +600,7 @@ $lang['overrides existing values with empty ones'] = 'overrides existing values 
 $lang['manage image ranks'] = 'إدارة ترتيب الصور';
 $lang['Manage image ranks'] = 'إدارة ترتيب الصور';
 $lang['Edit ranks'] = 'تحرير الترتيب';
-$lang['No element in this category'] = 'لا يوجد صور في الالبوم';
+$lang['No element in this album'] = 'لا يوجد صور في الالبوم';
 $lang['Images manual order was saved'] = 'تم حفظ الصور المطلوبة يديويا';
 $lang['ranks'] = 'الترتيب';
 $lang['Drag to re-order'] = 'أسحب لتغيير';
