@@ -316,7 +316,7 @@ SELECT
     COUNT(*)
   FROM '.IMAGES_TABLE.'
   WHERE id IN ('.implode(',', $page['cat_elements_id']).')
-    AND path NOT LIKE "http%"
+    AND path NOT LIKE \'http%\'
 ;';
   list($counter) = pwg_db_fetch_row(pwg_query($query));
 
