@@ -1258,7 +1258,7 @@ UPDATE
   pwg_query($query);
 
   return array(
-    'info' => l10n('Virtual category added'),
+    'info' => l10n('Virtual album added'),
     'id'   => $inserted_id,
     );
 }

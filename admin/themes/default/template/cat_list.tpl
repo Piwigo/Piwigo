@@ -35,7 +35,7 @@
 <form id="addVirtual" action="{$F_ACTION}" method="post">
   <p>
     <input type="hidden" name="pwg_token" value="{$PWG_TOKEN}">
-    {'Add a virtual category'|@translate} : <input type="text" name="virtual_name">
+    {'Add a virtual album'|@translate} : <input type="text" name="virtual_name">
     <input class="submit" type="submit" value="{'Submit'|@translate}" name="submitAdd" {$TAG_INPUT_ENABLED}>
     {if count($categories)>9 }
     <a href="#EoP" class="button" style="border:0;">
@@ -57,7 +57,7 @@
         <option value="asc">{'ascending'|@translate}</option>
         <option value="desc">{'descending'|@translate}</option>
       </select>
-      <label><input type="checkbox" name="recursive"> {'apply to sub-categories'|@translate}</label>
+      <label><input type="checkbox" name="recursive"> {'Apply to sub-albums'|@translate}</label>
     </span>
   </div>
 

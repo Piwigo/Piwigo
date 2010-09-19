@@ -139,7 +139,7 @@ elseif (isset($_POST['submitAdd']))
   }
   else
   {
-    // Virtual category creation succeeded
+    // Virtual album creation succeeded
     //
     // Add the information in the information list
     array_push($page['infos'], $output_create['info']);

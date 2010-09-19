@@ -56,7 +56,7 @@
 {if isset($move_cat_options) }
 <fieldset id="move">
   <legend>{'Move'|@translate}</legend>
-  {'Parent category'|@translate}
+  {'Parent album'|@translate}
   <select class="categoryDropDown" name="parent">
     <option value="0">------------</option>
     {html_options options=$move_cat_options selected=$move_cat_options_selected }
@@ -102,7 +102,7 @@
   <label for="image_order_default">{'Use the default image sort order (defined in the configuration file)'|@translate}</label>
   <br>
   <input type="checkbox" name="image_order_subcats" id="image_order_subcats">
-  <label for="image_order_subcats">{'Apply to subcategories'|@translate}</label>
+  <label for="image_order_subcats">{'Apply to sub-albums'|@translate}</label>
   <br>
   
   {foreach from=$image_orders item=order}
@@ -156,12 +156,12 @@
 
   <table>
     <tr>
-      <td>{'Virtual category name'|@translate}</td>
+      <td>{'Virtual album name'|@translate}</td>
       <td><input type="text" class="large" name="virtual_name"></td>
     </tr>
 
     <tr>
-      <td>{'Parent category'|@translate}</td>
+      <td>{'Parent album'|@translate}</td>
       <td>
         <select class="categoryDropDown" name="parent">
           <option value="0">------------</option>

@@ -253,7 +253,7 @@ SELECT id,name,uppercats,global_rank
 ;';
     $template->assign(
       array(
-        'L_SECTION' => l10n('Lock categories'),
+        'L_SECTION' => l10n('Lock albums'),
         'L_CAT_OPTIONS_TRUE' => l10n('Unlocked'),
         'L_CAT_OPTIONS_FALSE' => l10n('Locked'),
         )
@@ -275,8 +275,8 @@ SELECT id,name,uppercats,global_rank
     $template->assign(
       array(
         'L_SECTION' => l10n('Manage authorizations for selected categories'),
-        'L_CAT_OPTIONS_TRUE' => l10n('Public category'),
-        'L_CAT_OPTIONS_FALSE' => l10n('Private category'),
+        'L_CAT_OPTIONS_TRUE' => l10n('Public'),
+        'L_CAT_OPTIONS_FALSE' => l10n('Private'),
         )
       );
     break;

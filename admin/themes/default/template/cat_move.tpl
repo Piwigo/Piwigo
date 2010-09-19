@@ -2,7 +2,7 @@
 {include file='include/resize.inc.tpl'}
 
 <div class="titrePage">
-  <h2>{'Move categories'|@translate}</h2>
+  <h2>{'Move albums'|@translate}</h2>
 </div>
 
 <form method="post" action="{$F_ACTION}" class="filter" id="catMove">
@@ -18,7 +18,7 @@
     </label>
 
     <label>
-      {'New parent category'|@translate}
+      {'New parent album'|@translate}
 
       <select class="categoryDropDown" name="parent">
         <option value="0">------------</option>

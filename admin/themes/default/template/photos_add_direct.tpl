@@ -297,7 +297,7 @@ var sizeLimit = {$upload_max_filesize};
       <div id="category_type_new" class="category_selection">
         <table>
           <tr>
-            <td>{'Parent category'|@translate}</td>
+            <td>{'Parent album'|@translate}</td>
             <td>
               <select class="categoryDropDown" name="category_parent">
                 <option value="0">------------</option>

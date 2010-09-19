@@ -74,13 +74,13 @@
 {/if}
 
       <tr>
-        <td><strong>{'Storage category'|@translate}</strong></td>
+        <td><strong>{'Storage album'|@translate}</strong></td>
         <td>{$STORAGE_CATEGORY}</td>
       </tr>
 
       {if isset($related_categories) }
       <tr>
-        <td><strong>{'Linked categories'|@translate}</strong></td>
+        <td><strong>{'Linked albums'|@translate}</strong></td>
         <td>
           <ul>
             {foreach from=$related_categories item=name}

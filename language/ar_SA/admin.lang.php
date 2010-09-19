@@ -57,14 +57,14 @@ $lang['Add group'] = 'اضافة مجموعه';
 $lang['Add selected elements to caddie'] = 'اضافة المحدد الي السلة';
 $lang['Add'] = 'أضف';
 $lang['Allow user registration'] = 'السماح للمستخدمين بالتسجيل';
-$lang['Apply to subcategories'] = 'التطبيق على الألبوم الفرعي';
+$lang['Apply to sub-albums'] = 'التطبيق على الألبوم الفرعي';
 $lang['Associated'] = 'مرتبط';
 $lang['Association to categories'] = 'الربط الي الألبومات';
 $lang['Batch management'] = 'ادارة التحويل';
 $lang['Caddie management'] = 'ادارة السلة';
 $lang['Caddie'] = 'السلة';
 $lang['Categories authorized thanks to group associations'] = 'تم المصادقة عى الألبومات ، شكرا لله';
-$lang['Categories manual order was saved'] = 'طلب الألبومات اليدوية تم حفظه';
+$lang['Album manual order was saved'] = 'طلب الألبومات اليدوية تم حفظه';
 $lang['Category elements associated to the following categories: %s'] = 'تنصيف العناصر المرتبطة الى الفئات التالية: %s';
 $lang['Check for upgrade failed for unknown reasons.'] = 'لم يتم التحدث لاسباب غير معروفه.';
 $lang['Check for upgrade'] = 'التأكد من التحديثات';
@@ -105,7 +105,7 @@ $lang['Informations'] = 'المعلومات';
 $lang['Install'] = 'تثبيت';
 $lang['Link all category elements to a new category'] = 'اربط جميع عناصر الألبومات بالألبوم الجديد';
 $lang['Link all category elements to some existing categories'] = 'اربط جميع عناصر الألبوم للقائمة الألبومات المشابهه';
-$lang['Linked categories'] = 'ربط الألبومات';
+$lang['Linked albums'] = 'ربط الألبومات';
 $lang['Lock gallery'] = 'اغلاق المعرض';
 $lang['Maintenance'] = 'صيانة';
 $lang['Manage permissions for a category'] = 'ادراة تصاريح الألبومات';
@@ -114,11 +114,11 @@ $lang['Manage permissions for user "%s"'] = 'ادارة تصاريح المشت�
 $lang['Manage tags'] = 'ادارة الكلمات الدلائلية';
 $lang['Members'] = 'الاعضاء';
 $lang['Metadata synchronized from file'] = 'تزامن البيانات الوصفية للملف';
-$lang['Move categories'] = 'نقل الألبومات';
+$lang['Move albums'] = 'نقل الألبومات';
 $lang['Move'] = 'نقل';
 $lang['Name'] = 'الاسم';
 $lang['New name'] = 'اسم جديد';
-$lang['New parent category'] = 'ألبوم فرعي جديد';
+$lang['New parent album'] = 'ألبوم فرعي جديد';
 $lang['New tag'] = 'كلمة جديد';
 $lang['Number of comments per page'] = 'عدد التلعيقات في الصفحة';
 $lang['Number of rates'] = 'عدد التقيمات';
@@ -128,7 +128,7 @@ $lang['Operating system'] = 'نظام المعالجة';
 $lang['Options'] = 'الخيارات';
 $lang['Other private categories'] = 'ألبومات أخرى مدرجة';
 $lang['Page banner'] = 'عنوان المعرض ( أعلى الصفحة) يمكنك استخدام HTML';
-$lang['Parent category'] = 'الألبوم الرئيسي';
+$lang['Parent album'] = 'الألبوم الرئيسي';
 $lang['Path'] = 'مسار';
 $lang['Permalink'] = 'رابط دائم';
 $lang['Permalink %s has been previously used by category %s. Delete from the permalink history first'] = 'الرابط الدائم %sكان يستخدم من قبل الألبوم سابقا أحذفه   اولا من تاريخ %sالرابط الدائم';
@@ -163,7 +163,7 @@ $lang['Show info'] = 'اعرض المعلومات';
 $lang['Site manager'] = 'إدارة الموقع';
 $lang['Status'] = 'الحالة';
 $lang['Statistics'] = 'الأحصائيات';
-$lang['Storage category'] = 'مخزن الألبومات';
+$lang['Storage album'] = 'مخزن الألبومات';
 $lang['Sum of rates'] = 'مجموع التييم';
 $lang['Tag "%s" already exists'] = 'الكلمات  "%s" موجودة بالفعل';
 $lang['Tag "%s" was added'] = 'تم اضافة هذه الكلمة "%s"';
@@ -181,7 +181,7 @@ $lang['Validation'] = 'التصريح';
 $lang['Version'] = 'الاصدار';
 $lang['Virtual categories movement'] = 'نقل الألبومات';
 $lang['Virtual categories to move'] = 'لنقل الألبومات';
-$lang['Virtual category name'] = 'أسم الألبوم';
+$lang['Virtual album name'] = 'أسم الألبوم';
 $lang['Webmaster cannot be deleted'] = 'لا يمكنك حذف مدير الموقع';
 $lang['You are running on development sources, no check possible.'] = 'ربما لا يمكن تطوير المصادر';
 $lang['You cannot delete your account'] = "لا تستطيع حذف حسابك";
@@ -192,18 +192,18 @@ $lang['Adviser'] = 'مرشد';
 $lang['associate to category'] = 'المرتبط بهذا الألبوم';
 $lang['associate to group'] = 'مرتبط بهذه المجموعه';
 $lang['Authorized'] = 'المرخص';
-$lang['Add a virtual category'] = 'انشاء ألبوم';
+$lang['Add a virtual album'] = 'انشاء ألبوم';
 $lang['Authorize users to add comments on selected categories'] = 'السماح للمستخدمين باضافة تعليق على ألبومات معينة';
 $lang['The name of a category should not be empty'] = 'لا يمكن ان  تبقي اسم الألبوم خالي';
-$lang['Lock categories'] = 'قفل الألبوم';
-$lang['Private category'] = 'ألبوم خاص';
-$lang['Public category'] = 'ألبوم عام';
+$lang['Lock albums'] = 'قفل الألبوم';
+$lang['Private'] = 'ألبوم خاص';
+$lang['Public'] = 'ألبوم عام';
 $lang['Find a new representant by random'] = 'اظهر  جديد التواصيف او التمثيل بطريقة عشوائية';
 $lang['Public / Private'] = 'العام/ الخاص';
 $lang['Manage authorizations for selected categories'] = 'ادارة  تصريح التعليقات على الألبومات';
 $lang['Select uploadable categories'] = 'اختيارالألبوم المحمل';
-$lang['Virtual category added'] = 'الألبوم المضاف';
-$lang['Virtual category deleted'] = 'الألبوم المحذوف';
+$lang['Virtual album added'] = 'الألبوم المضاف';
+$lang['Virtual album deleted'] = 'الألبوم المحذوف';
 $lang['Category'] = 'الألبوم';
 $lang['Access type'] = 'طريقة الدخول';
 $lang['Comments'] = 'التعليقات';

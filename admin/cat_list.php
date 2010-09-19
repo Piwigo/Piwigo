@@ -106,7 +106,7 @@ $navigation.= '</a>';
 if (isset($_GET['delete']) and is_numeric($_GET['delete']) and !is_adviser())
 {
   delete_categories(array($_GET['delete']));
-  array_push($page['infos'], l10n('Virtual category deleted'));
+  array_push($page['infos'], l10n('Virtual album deleted'));
   update_global_rank();
   redirect(get_root_url().'admin.php?page=cat_list');
 }
@@ -137,7 +137,7 @@ else if (isset($_POST['submitOrder']))
 
     array_push(
       $page['infos'],
-      l10n('Categories manual order was saved')
+      l10n('Album manual order was saved')
       );
   }
   else
