@@ -211,7 +211,7 @@ SELECT id,name,uppercats,global_rank
 ;';
     $template->assign(
       array(
-        'L_SECTION' => l10n('Select uploadable categories'),
+        'L_SECTION' => l10n('Select uploadable albums'),
         'L_CAT_OPTIONS_TRUE' => l10n('Authorized'),
         'L_CAT_OPTIONS_FALSE' => l10n('Forbidden'),
         )
@@ -232,7 +232,7 @@ SELECT id,name,uppercats,global_rank
 ;';
     $template->assign(
       array(
-        'L_SECTION' => l10n('Authorize users to add comments on selected categories'),
+        'L_SECTION' => l10n('Authorize users to add comments on selected albums'),
         'L_CAT_OPTIONS_TRUE' => l10n('Authorized'),
         'L_CAT_OPTIONS_FALSE' => l10n('Forbidden'),
         )
@@ -274,7 +274,7 @@ SELECT id,name,uppercats,global_rank
 ;';
     $template->assign(
       array(
-        'L_SECTION' => l10n('Manage authorizations for selected categories'),
+        'L_SECTION' => l10n('Manage authorizations for selected albums'),
         'L_CAT_OPTIONS_TRUE' => l10n('Public'),
         'L_CAT_OPTIONS_FALSE' => l10n('Private'),
         )

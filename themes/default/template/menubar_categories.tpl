@@ -5,7 +5,7 @@
   {if isset($U_STOP_FILTER)}
   <a href="{$U_STOP_FILTER}" title="{'return to the display of all images'|@translate}"><img src="{$ROOT_URL}{$themeconf.icon_dir}/stop_filter.png" class="button" alt="stop filter"></a>
   {/if}
-	<a href="{$block->data.U_CATEGORIES}">{'Categories'|@translate}</a>
+	<a href="{$block->data.U_CATEGORIES}">{'Albums'|@translate}</a>
 </dt>
 <dd>
 {assign var='ref_level' value=0}

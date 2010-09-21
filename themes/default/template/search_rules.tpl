@@ -34,7 +34,7 @@
 
   {if isset($search_categories) }
   <li>
-    <p>{'Categories'|@translate}</p>
+    <p>{'Albums'|@translate}</p>
 
     <ul>
       {foreach from=$search_categories item=v}

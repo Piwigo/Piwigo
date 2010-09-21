@@ -159,7 +159,7 @@ y.callService(
   {/if}
   {if $display_info.categories}
   <tr id="Categories">
-    <td class="label">{'Categories'|@translate}</td>
+    <td class="label">{'Albums'|@translate}</td>
     <td class="value">
       {if isset($related_categories)}
       <ul>

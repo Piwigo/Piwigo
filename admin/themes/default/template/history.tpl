@@ -112,7 +112,7 @@
   <th>{'Element'|@translate}</th>
   <th>{'Element type'|@translate}</th>
   <th>{'Section'|@translate}</th>
-  <th>{'Category'|@translate}</th>
+  <th>{'Album'|@translate}</th>
   <th>{'Tags'|@translate}</th>
 </tr>
 {if !empty($search_results) }

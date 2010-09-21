@@ -356,7 +356,7 @@
 
     <li>
       <label>
-        <span class="property">{'Categories'|@translate}</span>
+        <span class="property">{'Albums'|@translate}</span>
         <input type="checkbox" name="picture_informations[categories]" {if ($display.picture_informations.categories)}checked="checked"{/if}>
       </label>
     </li>

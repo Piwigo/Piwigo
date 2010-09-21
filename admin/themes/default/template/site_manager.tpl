@@ -39,7 +39,7 @@
 	</tr>
   {foreach from=$sites item=site name=site}
   <tr style="text-align:left" class="{if $smarty.foreach.site.index is odd}row1{else}row2{/if}"><td>
-    <a href="{$site.NAME}">{$site.NAME}</a><br>({$site.TYPE}, {$site.CATEGORIES} {'Categories'|@translate}, {$pwg->l10n_dec('%d image','%d images',$site.IMAGES)})
+    <a href="{$site.NAME}">{$site.NAME}</a><br>({$site.TYPE}, {$site.CATEGORIES} {'Albums'|@translate}, {$pwg->l10n_dec('%d image','%d images',$site.IMAGES)})
   </td><td>
     [<a href="{$site.U_SYNCHRONIZE}" title="{'update the database from files'|@translate}">{'synchronize'|@translate}</a>]
     {if isset($site.U_DELETE)}

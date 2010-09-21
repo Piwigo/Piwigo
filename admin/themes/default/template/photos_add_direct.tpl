@@ -280,13 +280,13 @@ var sizeLimit = {$upload_max_filesize};
 
 <form id="uploadForm" enctype="multipart/form-data" method="post" action="{$form_action}" class="properties">
     <fieldset>
-      <legend>{'Drop into category'|@translate}</legend>
+      <legend>{'Drop into album'|@translate}</legend>
       {if $upload_mode eq 'multiple'}
       <input name="upload_id" value="{$upload_id}" type="hidden">
       {/if}
 
-      <label><input type="radio" name="category_type" value="existing"> {'existing category'|@translate}</label>
-      <label><input type="radio" name="category_type" value="new" checked="checked"> {'create a new category'|@translate}</label>
+      <label><input type="radio" name="category_type" value="existing"> {'existing album'|@translate}</label>
+      <label><input type="radio" name="category_type" value="new" checked="checked"> {'create a new album'|@translate}</label>
 
       <div id="category_type_existing" style="display:none" class="category_selection">
         <select class="categoryDropDown" name="category">

@@ -7,7 +7,7 @@
 <form action="{$F_ACTION}" method="post" id="waiting">
   <table style="width:99%;" >
     <tr class="throw">
-      <td style="width:20%;">{'Category'|@translate}</td>
+      <td style="width:20%;">{'Album'|@translate}</td>
       <td style="width:20%;">{'Date'|@translate}</td>
       <td style="width:20%;">{'File'|@translate}</td>
       <td style="width:20%;">{'Thumbnail'|@translate}</td>

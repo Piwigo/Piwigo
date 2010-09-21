@@ -166,7 +166,7 @@ SELECT DISTINCT(image_id)
 }
 else if ('duplicates' == $_GET['cat'])
 {
-  $page['title'] = l10n('Files with same name in more than one physical category');
+  $page['title'] = l10n('Files with same name in more than one physical album');
   $template->assign(array('U_ACTIVE_MENU' => 5 ));
 
   // we are searching related elements twice or more to physical categories

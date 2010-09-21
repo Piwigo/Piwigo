@@ -173,7 +173,7 @@
 
 <form id="associations" method="post" action="{$F_ACTION}#associations">
   <fieldset>
-    <legend>{'Association to categories'|@translate}</legend>
+    <legend>{'Linked albums'|@translate}</legend>
 
     <table class="doubleSelect">
       <tr>
@@ -200,7 +200,7 @@
 
 <form id="representation" method="post" action="{$F_ACTION}#representation">
   <fieldset>
-    <legend>{'Representation of categories'|@translate}</legend>
+    <legend>{'Representation of albums'|@translate}</legend>
 
     <table class="doubleSelect">
       <tr>

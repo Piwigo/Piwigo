@@ -87,7 +87,7 @@ SELECT permalink
     {
       $page['errors'][] = 
         sprintf( 
-          l10n('Permalink %s has been previously used by category %s. Delete from the permalink history first'),
+          l10n('Permalink %s has been previously used by album %s. Delete from the permalink history first'),
           $permalink, $old_cat_id
         );
       return false;
@@ -156,7 +156,7 @@ function set_cat_permalink( $cat_id, $permalink, $save )
     {
       $page['errors'][] = 
         sprintf( 
-          l10n('Permalink %s is already used by category %s'),
+          l10n('Permalink %s is already used by album %s'),
           $permalink, $existing_cat_id 
         );
       return false;
@@ -169,7 +169,7 @@ function set_cat_permalink( $cat_id, $permalink, $save )
   {
     $page['errors'][] = 
       sprintf( 
-        l10n('Permalink %s has been previously used by category %s. Delete from the permalink history first'),
+        l10n('Permalink %s has been previously used by album %s. Delete from the permalink history first'),
         $permalink, $old_cat_id
       );
     return false;

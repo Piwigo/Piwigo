@@ -1062,7 +1062,7 @@ SELECT uppercats
       {
         array_push(
           $page['errors'],
-          l10n('You cannot move a album in its own sub album')
+          l10n('You cannot move an album in its own sub album')
           );
         return;
       }

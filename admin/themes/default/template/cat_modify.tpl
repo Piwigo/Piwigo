@@ -3,7 +3,7 @@
 {include file='include/resize.inc.tpl'}
 
 <div class="titrePage">
-  <h2>{'Edit a category'|@translate}</h2>
+  <h2>{'Edit album'|@translate}</h2>
 </div>
 
 <h3>{$CATEGORIES_NAV}</h3>
@@ -183,7 +183,7 @@
 
   <table>
     <tr>
-      <td>{'Categories'|@translate}</td>
+      <td>{'Albums'|@translate}</td>
       <td>
         <select class="categoryList" name="destinations[]" multiple="multiple" size="5">
           {html_options options=$category_destination_options }

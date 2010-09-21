@@ -5,4 +5,4 @@
   {$DOUBLE_SELECT}
 </form>
 
-<p>{'Only private categories are listed'|@translate}</p>
+<p>{'Only private albums are listed'|@translate}</p>

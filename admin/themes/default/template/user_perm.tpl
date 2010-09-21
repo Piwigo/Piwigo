@@ -2,7 +2,7 @@
 
 {if isset($categories_because_of_groups) }
 <fieldset>
-  <legend>{'Categories authorized thanks to group associations'|@translate}</legend>
+  <legend>{'Albums authorized thanks to group associations'|@translate}</legend>
 
   <ul>
     {foreach from=$categories_because_of_groups item=cat }
@@ -14,7 +14,7 @@
 
 
 <fieldset>
-  <legend>{'Other private categories'|@translate}</legend>
+  <legend>{'Other private albums'|@translate}</legend>
 
   <form method="post" action="{$F_ACTION}">
     {$DOUBLE_SELECT}

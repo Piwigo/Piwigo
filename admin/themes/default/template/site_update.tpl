@@ -8,9 +8,9 @@
 {if isset($update_result)}
 <h3>{$L_RESULT_UPDATE}</h3>
 <ul>
-  <li class="update_summary_new">{$update_result.NB_NEW_CATEGORIES} {'categories added in the database'|@translate}</li>
+  <li class="update_summary_new">{$update_result.NB_NEW_CATEGORIES} {'albums added in the database'|@translate}</li>
   <li class="update_summary_new">{$update_result.NB_NEW_ELEMENTS} {'elements added in the database'|@translate}</li>
-  <li class="update_summary_del">{$update_result.NB_DEL_CATEGORIES} {'categories deleted in the database'|@translate}</li>
+  <li class="update_summary_del">{$update_result.NB_DEL_CATEGORIES} {'albums deleted in the database'|@translate}</li>
   <li class="update_summary_del">{$update_result.NB_DEL_ELEMENTS} {'elements deleted in the database'|@translate}</li>
   <li>{$update_result.NB_UPD_ELEMENTS} {'elements updated in the database'|@translate}</li>
   <li class="update_summary_err">{$update_result.NB_ERRORS} {'errors during synchronization'|@translate}</li>
@@ -67,7 +67,7 @@
 
 			<li><label><input type="radio" name="sync" value="files" {if 'files'==$introduction.sync}checked="checked"{/if}> {'directories + files'|@translate}</label>
 				<ul style="padding-left:3em">
-					<li><label><input type="checkbox" name="display_info" value="1" {if $introduction.display_info}checked="checked"{/if}> {'display maximum informations (added categories and elements, deleted categories and elements)'|@translate}</label></li>
+					<li><label><input type="checkbox" name="display_info" value="1" {if $introduction.display_info}checked="checked"{/if}> {'display maximum informations (added albums and elements, deleted albums and elements)'|@translate}</label></li>
 					<li><label><input type="checkbox" name="add_to_caddie" value="1" {if $introduction.add_to_caddie}checked="checked"{/if}> {'add new elements to caddie'|@translate}</label></li>
 					<li><label>{'Who can see these photos?'|@translate} <select name="privacy_level">{html_options options=$introduction.privacy_level_options selected=$introduction.privacy_level_selected}</select></label></li>
 				</ul>
@@ -94,7 +94,7 @@
   </fieldset>
 
   <fieldset id="catSubset">
-    <legend>{'reduce to single existing categories'|@translate}</legend>
+    <legend>{'reduce to single existing albums'|@translate}</legend>
     <ul>
     <li>
     <select class="categoryList" name="cat" size="10">

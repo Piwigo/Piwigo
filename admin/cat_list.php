@@ -190,7 +190,7 @@ SELECT id, name, id_uppercat
 
     array_push(
       $page['infos'],
-      l10n('Categories automatically sorted')
+      l10n('Albums automatically sorted')
       );
   }
 }

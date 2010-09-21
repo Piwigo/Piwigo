@@ -520,7 +520,7 @@ function register_default_menubar_blocks( $menu_ref_arr )
   if ($menu->get_id() != 'menubar')
     return;
   $menu->register_block( new RegisteredBlock( 'mbLinks', 'Links', 'piwigo'));
-  $menu->register_block( new RegisteredBlock( 'mbCategories', 'Categories', 'piwigo'));
+  $menu->register_block( new RegisteredBlock( 'mbCategories', 'Albums', 'piwigo'));
   $menu->register_block( new RegisteredBlock( 'mbTags', 'Related tags', 'piwigo'));
   $menu->register_block( new RegisteredBlock( 'mbSpecials', 'Specials', 'piwigo'));
   $menu->register_block( new RegisteredBlock( 'mbMenu', 'Menu', 'piwigo'));

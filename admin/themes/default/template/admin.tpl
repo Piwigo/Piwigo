@@ -31,7 +31,7 @@ jQuery().ready(function(){ldelim}
     </dd>
   </dl>
   <dl>
-    <dt class="rdion"><span>{'Categories'|@translate}&nbsp;</span></dt>
+    <dt class="rdion"><span>{'Albums'|@translate}&nbsp;</span></dt>
     <dd>
       <ul>
         <li><a href="{$U_CATEGORIES}">{'Manage'|@translate}</a></li>

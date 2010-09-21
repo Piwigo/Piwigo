@@ -4,7 +4,7 @@
 
 <form method="post" action="">
 <fieldset><legend>{'Add/delete a permalink'|@translate}</legend>
-  <label>{'Category'|@translate}:
+  <label>{'Album'|@translate}:
     <select name="cat_id">
       <option value="0">------</option>
       {html_options options=$categories selected=$categories_selected}
@@ -29,7 +29,7 @@
 <table class="table2">
 	<tr class="throw">
 		<td>Id {$SORT_ID}</td>
-		<td>{'Category'|@translate} {$SORT_NAME}</td>
+		<td>{'Album'|@translate} {$SORT_NAME}</td>
 		<td>{'Permalink'|@translate} {$SORT_PERMALINK}</td>
 	</tr>
 {foreach from=$permalinks item=permalink name="permalink_loop"}
@@ -45,7 +45,7 @@
 <table class="table2">
 	<tr class="throw">
 		<td>Id {$SORT_OLD_CAT_ID}</td>
-		<td>{'Category'|@translate}</td>
+		<td>{'Album'|@translate}</td>
 		<td>{'Permalink'|@translate} {$SORT_OLD_PERMALINK}</td>
 		<td>{'Deleted on'|@translate} {$SORT_OLD_DATE_DELETED}</td>
 		<td>{'Last hit'|@translate} {$SORT_OLD_LAST_HIT}</td>

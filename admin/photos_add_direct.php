@@ -112,7 +112,7 @@ if (isset($_GET['processed']))
       array_push(
         $page['infos'],
         sprintf(
-          l10n('Category "%s" has been added'),
+          l10n('Album "%s" has been added'),
           '<em>'.$category_name.'</em>'
           )
         );
@@ -346,7 +346,7 @@ SELECT
       array_push(
         $page['infos'],
         sprintf(
-          l10n('Category "%s" now contains %d photos'),
+          l10n('Album "%s" now contains %d photos'),
           '<em>'.$category_name.'</em>',
           $count
           )
@@ -457,7 +457,7 @@ if (pwg_db_num_rows($result) > 0)
   }
 }
 
-// existing category
+// existing album
 $query = '
 SELECT id,name,uppercats,global_rank
   FROM '.CATEGORIES_TABLE.'
