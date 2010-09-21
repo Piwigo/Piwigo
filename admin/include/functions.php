@@ -1062,7 +1062,7 @@ SELECT uppercats
       {
         array_push(
           $page['errors'],
-          l10n('You cannot move a category in its own sub category')
+          l10n('You cannot move a album in its own sub album')
           );
         return;
       }
@@ -1172,7 +1172,7 @@ function create_virtual_category($category_name, $parent_id=null)
   // is the given category name only containing blank spaces ?
   if (preg_match('/^\s*$/', $category_name))
   {
-    return array('error' => l10n('The name of a category should not be empty'));
+    return array('error' => l10n('The name of an album must not be empty'));
   }
 
   $parent_id = !empty($parent_id) ? $parent_id : 'NULL';

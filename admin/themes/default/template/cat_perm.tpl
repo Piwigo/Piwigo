@@ -1,5 +1,5 @@
 <div class="titrePage">
-  <h2>{'Manage permissions for a category'|@translate}</h2>
+  <h2>{'Edit album permissions'|@translate}</h2>
 </div>
 
 <h3>{$CATEGORIES_NAV}</h3>

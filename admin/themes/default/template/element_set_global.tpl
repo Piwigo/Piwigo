@@ -104,7 +104,7 @@
     <table>
 
       <tr>
-        <td>{'associate to category'|@translate}</td>
+        <td>{'Associate to album'|@translate}</td>
         <td>
           <select style="width:400px" name="associate" size="1">
             <option value="0">------------</option>
@@ -114,7 +114,7 @@
       </tr>
 
       <tr>
-        <td>{'dissociate from category'|@translate}</td>
+        <td>{'Dissociate from album'|@translate}</td>
         <td>
           <select style="width:400px" name="dissociate" size="1">
             <option value="0">------------</option>

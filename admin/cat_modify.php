@@ -111,7 +111,7 @@ UPDATE '.CATEGORIES_TABLE.' SET image_order='.(isset($image_order) ? 'NULL':'\''
     move_categories( array($_GET['cat_id']), $_POST['parent'] );
   }
 
-  array_push($page['infos'], l10n('Category informations updated successfully.'));
+  array_push($page['infos'], l10n('Album updated successfully'));
 }
 elseif (isset($_POST['set_random_representant']))
 {
@@ -154,7 +154,7 @@ elseif (isset($_POST['submitAdd']))
     array_push(
       $page['infos'],
       sprintf(
-        l10n('Category elements associated to the following categories: %s'),
+        l10n('Album elements associated to the following albums: %s'),
         '<ul><li>'
         .get_cat_display_name_from_id($output_create['id'])
         .'</li></ul>'
@@ -183,7 +183,7 @@ elseif (isset($_POST['submitDestinations'])
   array_push(
     $page['infos'],
     sprintf(
-      l10n('Category elements associated to the following categories: %s'),
+      l10n('Album elements associated to the following albums: %s'),
       '<ul><li>'.implode('</li><li>', $category_names).'</li></ul>'
       )
     );
@@ -273,7 +273,7 @@ if ('private' == $category['status'])
     );
 }
 
-// manage category elements link
+// manage album elements link
 if ($category['has_images'])
 {
   $template->assign(

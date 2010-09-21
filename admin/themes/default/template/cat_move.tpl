@@ -7,10 +7,10 @@
 
 <form method="post" action="{$F_ACTION}" class="filter" id="catMove">
   <fieldset>
-    <legend>{'Virtual categories movement'|@translate}</legend>
+    <legend>{'Move albums'|@translate}</legend>
 
     <label>
-      {'Virtual categories to move'|@translate}
+      {'Virtual albums to move'|@translate}
 
       <select class="categoryList" name="selection[]" multiple="multiple">
         {html_options options=$category_to_move_options}

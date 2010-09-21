@@ -53,7 +53,7 @@ if (isset($_POST['submit']))
   {
     array_push(
       $page['errors'],
-      l10n('Select at least one category')
+      l10n('Select at least one album')
       );
   }
 }

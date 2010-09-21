@@ -272,7 +272,7 @@ var sizeLimit = {$upload_max_filesize};
 
 <div id="formErrors" class="errors" style="display:none">
   <ul>
-    <li id="emptyCategoryName">{'The name of a category should not be empty'|@translate}</li>
+    <li id="emptyCategoryName">{'The name of an album must not be empty'|@translate}</li>
     <li id="noPhoto">{'Select at least one picture'|@translate}</li>
   </ul>
   <div class="hideButton" style="text-align:center"><a href="#" id="hideErrors">{'Hide'|@translate}</a></div>
@@ -306,7 +306,7 @@ var sizeLimit = {$upload_max_filesize};
             </td>
           </tr>
           <tr>
-            <td>{'Category name'|@translate}</td>
+            <td>{'Album name'|@translate}</td>
             <td>
               <input type="text" name="category_name" value="{$F_CATEGORY_NAME}" style="width:400px">
             </td>

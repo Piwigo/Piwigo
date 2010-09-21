@@ -9,7 +9,7 @@
 </ul>
 
 <ul>
-  <li><a href="{$U_MAINT_CATEGORIES}" {$TAG_INPUT_ENABLED}>{'Update categories informations'|@translate}</a></li>
+  <li><a href="{$U_MAINT_CATEGORIES}" {$TAG_INPUT_ENABLED}>{'Update albums informations'|@translate}</a></li>
   <li><a href="{$U_MAINT_IMAGES}" {$TAG_INPUT_ENABLED}>{'Update images informations'|@translate}</a></li>
   <li><a href="{$U_MAINT_DATABASE}" {$TAG_INPUT_ENABLED}>{'Repair and optimize database'|@translate}</a></li>
 </ul>

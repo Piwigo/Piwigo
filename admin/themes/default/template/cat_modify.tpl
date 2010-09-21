@@ -10,18 +10,18 @@
 
 <ul class="categoryActions">
   {if cat_admin_access($CAT_ID)}
-  <li><a href="{$U_JUMPTO}" title="{'jump to category'|@translate}"><img src="{$themeconf.admin_icon_dir}/category_jump-to.png" class="button" alt="{'jump to category'|@translate}"></a></li>
+  <li><a href="{$U_JUMPTO}" title="{'jump to album'|@translate}"><img src="{$themeconf.admin_icon_dir}/category_jump-to.png" class="button" alt="{'jump to album'|@translate}"></a></li>
   {/if}
   {if isset($U_MANAGE_ELEMENTS) }
-  <li><a href="{$U_MANAGE_ELEMENTS}" title="{'elements'|@translate}"><img src="{$ROOT_URL}{$themeconf.admin_icon_dir}/category_elements.png" class="button" alt="{'elements'|@translate}"></a></li>
+  <li><a href="{$U_MANAGE_ELEMENTS}" title="{'manage album elements'|@translate}"><img src="{$ROOT_URL}{$themeconf.admin_icon_dir}/category_elements.png" class="button" alt="{'elements'|@translate}"></a></li>
   <li><a href="{$U_MANAGE_RANKS}" title="{'manage image ranks'|@translate}"><img src="{$ROOT_URL}{$themeconf.admin_icon_dir}/ranks.png" class="button" alt="{'ranks'|@translate}"></a></li>
   {/if}
-  <li><a href="{$U_CHILDREN}" title="{'sub-categories'|@translate}"><img src="{$ROOT_URL}{$themeconf.admin_icon_dir}/category_children.png" class="button" alt="{'sub-categories'|@translate}"></a></li>
+  <li><a href="{$U_CHILDREN}" title="{'manage sub-albums'|@translate}"><img src="{$ROOT_URL}{$themeconf.admin_icon_dir}/category_children.png" class="button" alt="{'sub-categories'|@translate}"></a></li>
   {if isset($U_MANAGE_PERMISSIONS) }
-  <li><a href="{$U_MANAGE_PERMISSIONS}" title="{'Permissions'|@translate}"><img src="{$ROOT_URL}{$themeconf.admin_icon_dir}/category_permissions.png" class="button" alt="{'Permissions'|@translate}"></a></li>
+  <li><a href="{$U_MANAGE_PERMISSIONS}" title="{'edit album permissions'|@translate}"><img src="{$ROOT_URL}{$themeconf.admin_icon_dir}/category_permissions.png" class="button" alt="{'Permissions'|@translate}"></a></li>
   {/if}
   {if isset($U_DELETE) }
-  <li><a href="{$U_DELETE}" title="{'delete'|@translate}"><img src="{$ROOT_URL}{$themeconf.admin_icon_dir}/category_delete.png" class="button" alt="{'delete'|@translate}" onclick="return confirm('{'Are you sure?'|@translate|@escape:javascript}');"></a></li>
+  <li><a href="{$U_DELETE}" title="{'delete album'|@translate}"><img src="{$ROOT_URL}{$themeconf.admin_icon_dir}/category_delete.png" class="button" alt="{'delete album'|@translate}" onclick="return confirm('{'Are you sure?'|@translate|@escape:javascript}');"></a></li>
   {/if}
 </ul>
 
@@ -152,7 +152,7 @@
 <form action="{$F_ACTION}" method="POST" id="links">
 
 <fieldset id="linkAllNew">
-  <legend>{'Link all category elements to a new category'|@translate}</legend>
+  <legend>{'Link all album elements to a new album'|@translate}</legend>
 
   <table>
     <tr>
@@ -179,7 +179,7 @@
 </fieldset>
 
 <fieldset id="linkAllExist">
-  <legend>{'Link all category elements to some existing categories'|@translate}</legend>
+  <legend>{'Link all album elements to some existing albums'|@translate}</legend>
 
   <table>
     <tr>
