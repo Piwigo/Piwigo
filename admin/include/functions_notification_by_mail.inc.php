@@ -360,6 +360,8 @@ function do_subscribe_unsubscribe_notification_by_mail($is_admin_request, $is_su
 {
   global $conf, $page, $env_nbm, $conf;
 
+  set_make_full_url();
+
   $check_key_treated = array();
   $updated_data_count = 0;
   $error_on_updated_data_count = 0;
@@ -495,6 +497,8 @@ function do_subscribe_unsubscribe_notification_by_mail($is_admin_request, $is_su
                '%d users were not updated.',
                $error_on_updated_data_count));
   }
+
+  unset_make_full_url();
 
   return $check_key_treated;
 }
