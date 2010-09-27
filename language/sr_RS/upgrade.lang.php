@@ -36,7 +36,7 @@ $lang['Perform a maintenance check in [Administration>Tools>Maintenance] if you 
 $lang['As a precaution, following plugins have been deactivated. You must check for plugins upgrade before reactiving them:'] = "Kao meru predostrožnost, dati dodaci su deaktivirani. Morate proveriti za nadogradnju dodataka pre nego ih ponovo aktivirate :";
 $lang['Only administrator can run upgrade: please sign in below.'] = "Samo administrator može da pokrene nadogradnju: prijavite se ispod.";
 $lang['You do not have access rights to run upgrade'] = "Nemate pristupna prava da pokrenete nadogradnju";
-$lang['All sub-categories of private categories become private'] = "Sve podkategorije privatnih kategorija postaju privatne";
+$lang['All sub-albums of private albums become private'] = "Sve podkategorije privatnih kategorija postaju privatne";
 $lang['User permissions and group permissions have been erased'] = "Korisničke i grupne dozvole su obrisane";
 $lang['Only thumbnails prefix and webmaster mail address have been saved from previous configuration'] = "Samo prefix za povezne sličice i webmaster e-mail adresa su sačuvane iz prethodne konfiguracije";
 ?>

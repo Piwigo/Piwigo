@@ -602,7 +602,7 @@ array_push($mysql_changes, 'define(\'PHPWG_INSTALLED\', true);');
 $page['infos'] = array_merge(
   $page['infos'],
   array(
-    l10n('All sub-categories of private categories become private'),
+    l10n('All sub-albums of private albums become private'),
     l10n('User permissions and group permissions have been erased'),
     l10n('Only thumbnails prefix and webmaster mail address have been saved from previous configuration')
     )

@@ -485,7 +485,7 @@ SELECT id, file, path, tn_ext
   pwg_mail_group(
     $_POST['group'],
     get_str_email_format(true), /* TODO add a checkbox in order to choose format*/
-    get_l10n_args('[%s] Come to visit the category %s',
+    get_l10n_args('[%s] Visit album %s',
       array($conf['gallery_title'], $category['name'])),
     'cat_group_info',
     array

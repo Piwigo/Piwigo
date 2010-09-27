@@ -36,7 +36,7 @@ $lang['Perform a maintenance check in [Administration>Tools>Maintenance] if you 
 $lang['As a precaution, following plugins have been deactivated. You must check for plugins upgrade before reactiving them:'] = "Par précaution, les plugins suivants ont été désactivés. Vérifiez s'il existe des mises à jour avant de les réactiver:";
 $lang['Only administrator can run upgrade: please sign in below.'] = "Seul un administrateur peut lancer la mise à jour: veuillez vous identifier ci-dessous.";
 $lang['You do not have access rights to run upgrade'] = "Vous n'avez pas les droits nécessaires pour lancer la mise à jour.";
-$lang['All sub-categories of private categories become private'] = "Toutes les sous-catégories de catégories privées deviennent privées";
+$lang['All sub-albums of private albums become private'] = "Toutes les sous-catégories de catégories privées deviennent privées";
 $lang['User permissions and group permissions have been erased'] = "Les permissions des utilisateurs et des groupes ont été effacées";
 $lang['Only thumbnails prefix and webmaster mail address have been saved from previous configuration'] = "Seuls le préfixe des miniatures et l'adresse email du webmestre ont étés conservés de la précédente configuration";
 $lang['In <i>%s</i>, before <b>?></b>, insert:'] = 'Dans le fichier <i>%s</i>, avant <b>?></b>, insérez:';

@@ -351,7 +351,7 @@ $lang['synchronize'] = 'التزامن';
 $lang['update the database from files'] = 'تحديث قاعدة البيانات من الملف';
 $lang['status'] = 'الحالة';
 $lang['Directory'] = 'الدليل';
-$lang['sub-categories'] = 'الألبوم الفرعي';
+$lang['sub-albums'] = 'الألبوم الفرعي';
 $lang['synchronize metadata'] = 'مزامنة البيانات الوصفية';
 $lang['target'] = 'الهـدف';
 $lang['Thumbnail'] = 'المــصغرة';
@@ -402,7 +402,7 @@ $lang['Errors caption'] = 'أخطاء في الايجاد';
 $lang['Detailed informations'] = 'ملعومات محذوفة';
 $lang['File/directory read error'] = 'خطأ في قراءة ملف/دليل';
 $lang['The file or directory cannot be accessed (either it does not exist or the access is denied)'] = 'ملف أو دليل لا يمكن الوصول إليها (أي أنه لا وجود لها ، أو منعوا من الدخول)';
-$lang['a picture filetype requires a thumbnail. The thumbnail must be present in the sub-directory "thumbnail" of the category directory. The thumbnail filename must start with the configured thumbnail prefix and the extension must be among the following list :'] = 'صورة من الملفات تتطلب المصغرة. الصورة المصغرة يجب أن يكون موجودا في الدليل الفرعي "المصغرة" من فئة الدليل. اسم ملف الصورة المصغرة يجب أن تبدأ مع تهيئتها المصغرة البادئة والتمديد يجب أن تكون ضمن القائمة التالية :';
+$lang['a picture filetype requires a thumbnail. The thumbnail must be present in the sub-directory "thumbnail" of the album directory. The thumbnail filename must start with the configured thumbnail prefix and the extension must be among the following list :'] = 'صورة من الملفات تتطلب المصغرة. الصورة المصغرة يجب أن يكون موجودا في الدليل الفرعي "المصغرة" من فئة الدليل. اسم ملف الصورة المصغرة يجب أن تبدأ مع تهيئتها المصغرة البادئة والتمديد يجب أن تكون ضمن القائمة التالية :';
 $lang['missing thumbnail'] = 'مصغرات مفقودة';
 $lang['albums deleted in the database'] = 'الألبومات محذوفة من قاعدة البيانات';
 $lang['elements deleted in the database'] = 'الصور محذوفة من قاعدة البيانات';
@@ -435,7 +435,7 @@ $lang['user_status_generic'] = 'عام';
 $lang['user_status_guest'] = 'ضيف محترم';
 $lang['user_status_normal'] = 'مستخدم';
 $lang['user_status_webmaster'] = 'مسؤول الموقع';
-$lang['Virtual category'] = 'ألبوم افتراضي';
+$lang['Virtual album'] = 'ألبوم افتراضي';
 $lang['Waiting'] = 'تحت الانتظار';
 $lang['default'] = 'افتراضي';
 $lang['Toggle \'default group\' property'] = 'ترجيح \'مجموعة افتراضية\' الخصوصية';
@@ -461,10 +461,10 @@ $lang['Save page visits by administrators'] = 'حفظ الصفحة المشاه�
 $lang['An information email was sent to group "%s"'] = 'معلومات تم ارسالها الي المجموعة "%s';
 $lang['Send an information email to group members'] = 'أرسل الملعومات الي أعضاء المجموعة';
 $lang['Group'] = 'Group';
-$lang['[%s] Come to visit the category %s'] = 'ألبوم تم تحديثه [%s]';
+$lang['[%s] Visit album %s'] = 'ألبوم تم تحديثه [%s]';
 $lang['Hello,'] = '  السلام عليكم و رحمة الله و بركاته,';
 $lang['See you soon.'] = 'زيارتك للمعرض تعني لي الكثير ..';
-$lang['Come to discover the category:'] = ' البوم يحتوي صور جديدة :';
+$lang['Discover album:'] = ' البوم يحتوي صور جديدة :';
 $lang['Mail content'] = 'محتوى البريد';
 $lang['none'] = 'لا شيء';
 $lang['high'] = 'الارتفاع';

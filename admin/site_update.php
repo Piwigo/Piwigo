@@ -60,7 +60,7 @@ $error_labels = array(
     ),
   'PWG-UPDATE-2' => array(
     l10n('missing thumbnail'),
-    l10n('a picture filetype requires a thumbnail. The thumbnail must be present in the sub-directory "thumbnail" of the category directory. The thumbnail filename must start with the configured thumbnail prefix and the extension must be among the following list :').implode(',', $conf['picture_ext'])
+    l10n('a picture filetype requires a thumbnail. The thumbnail must be present in the sub-directory "thumbnail" of the album directory. The thumbnail filename must start with the configured thumbnail prefix and the extension must be among the following list :').implode(',', $conf['picture_ext'])
     ),
   'PWG-ERROR-NO-FS' => array(
     l10n('File/directory read error'),

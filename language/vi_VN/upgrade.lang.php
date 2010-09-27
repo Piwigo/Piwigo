@@ -33,7 +33,7 @@ $lang['Only administrator can run upgrade: please sign in below.'] = 'Chỉ có 
 $lang['You do not have access rights to run upgrade'] = 'Bạn không có đủ quyền hạn để có thể nâng cấp hệ thống';
 
 // Upgrade informations from upgrade_1.3.1.php
-$lang['All sub-categories of private categories become private'] = 'Tất cả các đề mục con của những đề mục riêng đều được gán thuộc tính riêng tư.';
+$lang['All sub-albums of private albums become private'] = 'Tất cả các đề mục con của những đề mục riêng đều được gán thuộc tính riêng tư.';
 $lang['User permissions and group permissions have been erased'] = 'Sự cho phép người dùng và nhóm người dùng đã được xóa bỏ.';
 $lang['Only thumbnails prefix and webmaster mail address have been saved from previous configuration'] = 'Chỉ có hình thu nhỏ đứng trước và địa chỉ email của webmaster mới được lưu lại từ cấu hình của phiên bản cũ.';
 

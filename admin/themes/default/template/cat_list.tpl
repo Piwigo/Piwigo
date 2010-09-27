@@ -74,7 +74,7 @@
         {if isset($category.U_MANAGE_ELEMENTS) }
         <li><a href="{$category.U_MANAGE_ELEMENTS}" title="{'manage album elements'|@translate}"><img src="{$themeconf.admin_icon_dir}/category_elements.png" class="button" alt="{'elements'|@translate}"></a></li>
         {/if}
-        <li><a href="{$category.U_CHILDREN}" title="{'manage sub-albums'|@translate}"><img src="{$themeconf.admin_icon_dir}/category_children.png" class="button" alt="{'sub-categories'|@translate}"></a></li>
+        <li><a href="{$category.U_CHILDREN}" title="{'manage sub-albums'|@translate}"><img src="{$themeconf.admin_icon_dir}/category_children.png" class="button" alt="{'sub-albums'|@translate}"></a></li>
         {if isset($category.U_MANAGE_PERMISSIONS) }
         <li><a href="{$category.U_MANAGE_PERMISSIONS}" title="{'edit album permissions'|@translate}" ><img src="{$themeconf.admin_icon_dir}/category_permissions.png" class="button" alt="{'Permissions'|@translate}"></a></li>
         {/if}
@@ -87,7 +87,7 @@
       <img src="{$themeconf.admin_icon_dir}/cat_move.png" class="button drag_button" style="display:none;" alt="{'Drag to re-order'|@translate}" title="{'Drag to re-order'|@translate}">
       <strong><a href="{$category.U_CHILDREN}" title="{'manage sub-albums'|@translate}">{$category.NAME}</a></strong>
       {if $category.IS_VIRTUAL}
-      <img src="{$themeconf.admin_icon_dir}/virt_category.png" class="button" alt="{'Virtual category'|@translate}">
+      <img src="{$themeconf.admin_icon_dir}/virt_category.png" class="button" alt="{'Virtual album'|@translate}">
       {/if}
       </p>
 
