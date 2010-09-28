@@ -17,7 +17,7 @@
     <label>{'Author'|@translate}<input type="text" name="author" value="{$F_AUTHOR}"></label>
 
     <label>
-      {'Category'|@translate}
+      {'Album'|@translate}
       <select name="cat">
         <option value="0">------------</option>
         {html_options options=$categories selected=$categories_selected}
