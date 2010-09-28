@@ -33,7 +33,7 @@ $lang['Only administrator can run upgrade: please sign in below.'] = 'A frissít
 $lang['You do not have access rights to run upgrade'] = 'Önnek nincs jogosultsága a frissítés elvégzéséhez';
 
 // Upgrade informations from upgrade_1.3.1.php
-$lang['All sub-albums of private albums become private'] = 'A magán kategóriák valamennyi alkategóriája magánkategóriává válik.';
+$lang['All sub-albums of private albums become private'] = 'Az összes belső album privát albummá válik';
 $lang['User permissions and group permissions have been erased'] = 'A felhasználói és csoport jogosultságok törlésre kerültek';
 $lang['Only thumbnails prefix and webmaster mail address have been saved from previous configuration'] = 'Csak a bélyegképek prefixe és a webmester email címe került mentésre az előző konfigurációból.';
 // missing translations 2.1.0 RC1
