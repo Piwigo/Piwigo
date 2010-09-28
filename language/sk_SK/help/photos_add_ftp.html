@@ -1,0 +1,102 @@
+<fieldset>
+  <legend>Rýchly návod</legend>
+
+<ol>
+  <li>Vytvorte kategóriu (adresár) na Vašom počítači.</li>  
+
+  <li>Skopírujte nejaké fotografie do tohto adresára, zmeňte ich veľkosť pre zobrazenie na webe. <em>Varovanie</em>: názvy adresárov a súborov musia obsahovať len písmena, čísla, "-", "_" alebo ".". Žiadne medzery alebo znaky s diakritikou.</li>
+
+  <li>Pomocou FTP skopírujte Váš adresár do adresára "galleries" vašej inštalácie  Piwigo.</li>
+
+  <li>Prihláste sa do Vašej Piwigo galérie a prejdite na <span class="pwgScreen">Administrácia &raquo; Nástroje &raquo; Náhľady</span> aby ste vytvorili chýbajúce náhľady.</li>
+
+  <li>Choďte na <span class="pwgScreen">Adminstrácia</span> a stlačte veľké tlačidlo Rýchla miestna synchronizácia.</li>
+</ol>
+
+Gratulujeme! Práve ste vytvorili vašu prvú galériu fotografií vo Vašej Piwigo galérii.
+</fieldset>
+
+<fieldset>
+  <legend>Organizácia súborov a adresárov</legend>
+
+<ul>
+
+  <li>
+
+    <p>Adresáre kategórií sú v Piwigo adresári 
+    "galleries". Tu je ukážka malej adresárovej štruktúry Piwigo (ktorá ale využívá veľa vlastností Piwigo):</p>
+
+    <pre>
+.
+|-- admin
+|-- doc
+|-- galleries
+|   |-- kategoria-1
+|   |   |-- kategoria-1.1
+|   |   |   |-- kategoria-1.1.1
+|   |   |   |   |-- kategoria-1.1.1.1
+|   |   |   |   |   |-- pwg_high
+|   |   |   |   |   |   +-- svatba.jpg
+|   |   |   |   |   |-- thumbnail
+|   |   |   |   |   |   +-- TN-svatba.jpg
+|   |   |   |   |   +-- svatba.jpg
+|   |   |   |   +-- kategoria-1.1.1.2
+|   |   |   +-- kategoria-1.1.2
+|   |   |-- kategoria-1.2
+|   |   |   |-- slon.jpg
+|   |   |   +-- thumbnail
+|   |   |       +-- TN-slon.jpg
+|   |   +-- kategoria-1.3
+|   +-- kategoria-2
+|       |-- teliatko.gif
+|       |-- pwg_representative
+|       |   +-- video.jpg
+|       |-- thumbnail
+|       |   +-- TN-teliatko.jpg
+|       +-- video.avi
+|-- include
+|-- install
+|-- language
+|-- template
++-- tool</pre>
+
+  </li>
+
+  <li>Okrem adresárov pomenovaných "thumbnail", "pwg-high" alebo "pwg_representative" (čítajte vysvetlenie nižšie), každý adresár v "galleries" vytvorí kategóriu. Nie je tu omedzenie hĺbky adresárov.</li>
+
+  <li>Každý element kategórie je reprezentovaný súborom. Súbor môže byť elementom Piwigo pokiaľ jeho prípona odpovedá parametru konfigurácie <code>file_ext</code>
+  (viz. súbor <span
+  class="filename">include/config_default.inc.php</span>). Súbor môže byť obrázok (fotografia) ak jeho prípona je uvedená v parametri <code>picture_ext</code>.</li>
+
+  <li>Obrázky musia mať priradený náhľad (viz. sekcia o náhľadoch nižšie)</li>
+
+  <li>Obrázky môžu mať priradenú verziu vo vysokej kvalite. Ako napríklad svatba.jpg v príklade vyššie. Verzia vo vysokej kvalite nemá, na rozdiel od náhľadu, žiaden prefix v názve.</li>
+
+  <li>Elementy, ktoré nie sú obrázky (video, zvuk, textové súbory, čokoľvek chcete...) majú ako východzí náhľad ikonu, ktorá odpovedá ich prípone. Voliteľne môžete priradiť náhľad a reprezentatívny súbor (viď. video.avi v príklade vyššie).</li>
+
+  <li><em>Varovanie</em>: názvy adresárov a súborov musia obsahovať len písmená, čísla, "-", "_" alebo ".". Žiadne medzery alebo znaky s diakritikou.</li>
+
+  <li>Keď sú elementy, obrázky, náhľady a reprezentatívne súbory umiestnené v adresárovej štruktúre, prejdite na: <span class="pwgScreen">Administrácia &raquo; Kategória &raquo;
+  Synchronizácia</span></li>
+
+</ul>
+</fieldset>
+
+<fieldset>
+  <legend>Náhľady</legend>
+<ul>
+
+  <li>Všetky obrázky (fotografie) musia mať priradený náhľad.</li>
+
+  <li>Náhľady sú umiestnené v podadresári "thumbnail", ktorý je v adresári kategórie. Náhľad má rovnaký názov ako jemu odpovídajúci obrázok s prefixom podľa konfiguračného parametra <code>prefix_thumbnail</code> (viď. <span class="filename">include/config.inc.php</span>).</li>
+
+  <li>Náhľad nemusí mať nutne rovnakú príponu ako jemu odpovedajúcí obrázok (napríklad ".jpg", obrázok môže mať náhľad s ".GIF" príponou).</li>
+
+  <li>Odporúčame použiť externú aplikáciu pre tvorbu náhľadov.</li>
+
+  <li>Vytváranie náhľadov pomocou Piwigo môže viesť k zlej kvalite vytvorených náhľadov, protože tá závisí na zdrojoch servra (a toto môže byť na zdielaných servroch (webhosting) problém).
+
+  <li>Pokiaľ budete aj tak vytvárať náhľady pomocou Piwigo na servri, tak musíte povoliť prístup pre zápis do všetkých adresárov "galleries" a všetkých podadresárov.</li>
+
+</ul>
+</fieldset>
