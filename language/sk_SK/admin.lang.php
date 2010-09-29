@@ -758,4 +758,17 @@ $lang['Manual order'] = 'Radené ručne';
 $lang['Order of menubar items has been updated successfully.'] = 'Poradie položiek v menu bolo úspešne aktualizované.';
 $lang['This theme was not designed to be directly activated'] = 'Táto téma nebola navrhnutá tak, aby bola priamo aktivovateľná';
 $lang['Menu Management'] = 'Ďalšie funkcie';
+$lang['Note: photo deletion does not apply to photos added by synchronization. For photos added by synchronization, remove them from the filesystem and then perform another synchronization.'] = 'Poznámka: vymazanie fotky sa neuplatňuje na fotky pridné synchronizáciou. Fotky pridané synchronizáciou musíte odstrániť zo súborového systému a potom vykonať ďalšiu synchronizáciu.';
+$lang['In your php.ini file, the upload_max_filesize (%sB) is bigger than post_max_size (%sB), you should change this setting'] = 'V súbore php.ini, upload_max_filesize (%sB) je väčší ako post_max_size (%sB), mali by ste zmeniť toto nastavenie';
+$lang['Exif extension not available, admin should disable exif use'] = 'Doplnok Exif nie je dostupný, administrátor by mal deaktivovať jeho použitie';
+$lang['The uploaded file exceeds the upload_max_filesize directive in php.ini: %sB'] = 'Nanrané súbory presahujú upload_max_filesize ako je uvedené v php.ini: %sB';
+$lang['The uploaded files exceed the post_max_size directive in php.ini: %sB'] = 'Nanrané súbory presahujú post_max_size ako je uvedené v php.ini: %sB';
+$lang['The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form'] = 'Nahraný súbor presahuje MAX_FILE_SIZE ako je uvedené v HTML formulári';
+$lang['The uploaded file was only partially uploaded'] = 'Súbor bol iba čiastočne nahraný';
+$lang['No file was uploaded'] = 'Súbor nebol nahraný';
+$lang['Missing a temporary folder'] = 'Chýbajúci dočaný adresár';
+$lang['Failed to write file to disk'] = 'Chyba zápisu súboru na disk';
+$lang['File upload stopped by extension'] = 'Nahrávanie súboru zastavené doplnkom';
+$lang['Unknown upload error'] = 'Neznáma chyba nahrávania';
+$lang['Error on file "%s" : %s'] = 'Chyba súboru "%s" : %s';
 ?>
