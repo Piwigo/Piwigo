@@ -32,13 +32,14 @@ $lang['total SQL time'] = 'celkový čas SQL';
 $lang['SQL queries'] = 'SQL dotazy';
 $lang['Upgrade informations'] = 'Informácie o aktualizácii';
 $lang['Perform a maintenance check in [Administration>Tools>Maintenance] if you encounter any problem.'] = 'Preveďte kontrolu údržby v [Administrácia>Nástroje>Údržba] pokiaľ príde k problému.';
-$lang['Only administrator can run upgrade: please sign in below.'] = 'Len administrátor môže spustiť aktualizáciu: prosím prihláste sa nížšie.';
-$lang['You do not have access rights to run upgrade'] = 'nemáte prístupové práva na spustenie upgrade';
+$lang['Only administrator can run upgrade: please sign in below.'] = 'Len administrátor môže spustiť aktualizáciu: prosím prihláste sa nižšie.'; 
+$lang['You do not have access rights to run upgrade'] = 'Nemáte prístupové práva na spustenie aktualizácie';
+
 
 // Upgrade informations from upgrade_1.3.1.php
-$lang['All sub-categories of private categories become private'] = 'Všetky pod-ketegórie privátnych kategórií sa stanú privátnymi';
+$lang['All sub-categories of private categories become private'] = 'Všetky podkategórie súkromných kategórií sa stanú súkromnými';
 $lang['User permissions and group permissions have been erased'] = 'Používateľské oprávnenia a oprávnenia skupín boli vymazané';
-$lang['Only thumbnails prefix and webmaster mail address have been saved from previous configuration'] = 'Z predchádzajúcej konfigurárie boli zachované len predpony náhľadov a email adresa správcu.';
+$lang['Only thumbnails prefix and webmaster mail address have been saved from previous configuration'] = 'Z predchádzajúcej konfigurácie boli zachované len predpony náhľadov a email webmastera.';
 
 // missing translations 2.1.0
 $lang['This page proposes to upgrade your database corresponding to your old version of Piwigo to the current version. The upgrade assistant thinks you are currently running a <strong>release %s</strong> (or equivalent).'] = 'Navrhujeme aktualizovať databázu Vašej galérie Piwigo zo staršej na novú verziu.
