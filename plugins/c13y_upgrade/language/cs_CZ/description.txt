@@ -1,0 +1,1 @@
+Kontroluje integritu aktualizací.

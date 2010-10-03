@@ -22,10 +22,10 @@
 // +-----------------------------------------------------------------------+
 
 // --------- Starting below: New or revised $lang ---- from Butterfly (1.8)
-$lang['c13y_upgrade_no_anomaly'] = 'Po aktualizaci aplikace nebyla detekována žádná anomálie. Doplnìk "Kontrola aktualizací" byl deaktivován.';
-$lang['c13y_dbl_email_user'] = 'Uživatelé se stejnou e-mail adresou';
-$lang['c13y_correction_dbl_email_user'] = 'Zrušit duplicitní uživatele';
-$lang['c13y_obsolete_plugin'] = 'Zastaralý doplnìk';
-$lang['c13y_correction_obsolete_plugin'] = 'Doplnìk "%s" byl souèástí této verze aplikace a musí být odinstalován.';
+$lang['c13y_upgrade_no_anomaly'] = 'Po aktualizaci aplikace nebyla detekovÃ¡na Å¾Ã¡dnÃ¡ anomÃ¡lie. DoplnÃ¬k "Kontrola aktualizacÃ­" byl deaktivovÃ¡n.';
+$lang['c13y_dbl_email_user'] = 'UÅ¾ivatelÃ© se stejnou e-mail adresou';
+$lang['c13y_correction_dbl_email_user'] = 'ZruÅ¡it duplicitnÃ­ uÅ¾ivatele';
+$lang['c13y_obsolete_plugin'] = 'ZastaralÃ½ doplnÃ¬k';
+$lang['c13y_correction_obsolete_plugin'] = 'DoplnÃ¬k "%s" byl souÃ¨Ã¡stÃ­ tÃ©to verze aplikace a musÃ­ bÃ½t odinstalovÃ¡n.';
 
 ?>
