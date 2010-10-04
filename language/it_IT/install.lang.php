@@ -53,7 +53,7 @@ $lang['Webmaster password'] = 'Password del webmaster';
 $lang['Keep it confidential, it enables you to access administration panel'] = 'Da conservare con cura. Permette l\'accesso al pannello d\'amministrazione';
 $lang['Password [confirm]'] = 'Password [confermare]';
 $lang['verification'] = 'verifica';
-$lang['Need help ? Ask your question on <a href="%s">Piwigo message board</a>.'] = 'Avete bisogno di aiuto? Visitate il <a href=\"%s\">forum di Piwigo</a>.';
+$lang['Need help ? Ask your question on <a href="%s">Piwigo message board</a>.'] = 'Avete bisogno di aiuto? Visitate il <a href="%s">forum di Piwigo</a>.';
 $lang['Webmaster mail address'] = 'Indirizzo email del Webmaster';
 $lang['Visitors will be able to contact site administrator with this mail'] = 'I visitatori saranno in grado di contattarvi usando questa email';
 $lang['PHP 5 is required'] = 'E\' richiesto PHP 5';
