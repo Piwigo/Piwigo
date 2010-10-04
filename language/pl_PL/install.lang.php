@@ -30,26 +30,26 @@ $lang['Start Install'] = 'Rozpoczęcie instalacji';
 $lang['mail address must be like xxx@yyy.eee (example : jack@altern.org)'] = 'adres email musi być w postaci xxx@yyy.eee (np : jack@altern.org)';
 
 $lang['Webmaster login'] = 'Logowanie Webmastera';
-$lang['It will be shown to the visitors. It is necessary for website administration'] = 'To będize wyświetlone dla odwiedzających i jest konieczne do celów administracyjnych ';
+$lang['It will be shown to the visitors. It is necessary for website administration'] = 'To będzie wyświetlone dla odwiedzających i jest konieczne do celów administracyjnych ';
 
 $lang['Connection to server succeed, but it was impossible to connect to database'] = 'Połączenie do serwera powiodło się, ale nie było możliwe połączenie do bazy danych';
-$lang['Can\'t connect to server'] = 'Nie można połączyć sie do serwera';
+$lang['Can\'t connect to server'] = 'Nie można połączyć się do serwera';
 
 $lang['Host'] = 'MySQL host';
 $lang['localhost, sql.multimania.com, toto.freesurf.fr'] = 'localhost, sql.multimania.com, toto.freesurf.fr';
-$lang['User'] = 'Uzytkownik';
+$lang['User'] = 'Użytkownik';
 $lang['user login given by your host provider'] = 'login użytkownika dostarczona przez provider\'a';
 $lang['Password'] = 'Hasło';
 $lang['user password given by your host provider'] = 'hasło użytkownika dostarczona przez provider\'a';
-$lang['Database name'] = 'NAzwa bazy danych';
+$lang['Database name'] = 'Nazwa bazy danych';
 $lang['also given by your host provider'] = 'także dostarczona przez provider\'a';
 $lang['Database table prefix'] = 'Prefix tabel bazy danych';
-$lang['database tables names will be prefixed with it (enables you to manage better your tables)'] = 'tabele w bazie dnaych będą miały taki prefix (ułatwia to zarządzanie tabelami)';
+$lang['database tables names will be prefixed with it (enables you to manage better your tables)'] = 'tabele w bazie danych będą miały taki prefix (ułatwia to zarządzanie tabelami)';
 $lang['enter a login for webmaster'] = 'wprowadź nazwę użytkownika posiadającego uprawnienia Webmaster';
-$lang['webmaster login can\'t contain characters \' or "'] = 'login nie może zawierać nastepujących znaków \' lub "';
+$lang['webmaster login can\'t contain characters \' or "'] = 'login nie może zawierać następujących znaków \' lub "';
 $lang['please enter your password again'] = 'wprowadź hasło jeszcze raz';
 $lang['Webmaster password'] = 'Hasło użytkownika Webmaster';
-$lang['Keep it confidential, it enables you to access administration panel'] = 'Zachowaj hasło, umożliwia ono dostep do panelu administracyjnego';
+$lang['Keep it confidential, it enables you to access administration panel'] = 'Zachowaj hasło, umożliwia ono dostęp do panelu administracyjnego';
 $lang['Password [confirm]'] = 'Hasło [potwierdź]';
 $lang['verification'] = 'weryfikacja';
 $lang['Need help ? Ask your question on <a href="%s">Piwigo message board</a>.'] = 'Potrzebujesz pomocy ? Zadaj pytanie na <a href="%s">Forum Piwigo</a>.';
@@ -63,14 +63,14 @@ $lang['Note you can change your configuration by yourself and restart Piwigo aft
 $lang['Try to configure PHP 5'] = 'Spróbuj skonfigurować PHP 5';
 $lang['Sorry!'] = 'Niestety!';
 $lang['Piwigo was not able to configure PHP 5.'] = 'Piwigo nie mógł skonfigurować Twojego PHP 5.';
-$lang["You may referer to your hosting provider's support and see how you could switch to PHP 5 by yourself."] = "Możesz skontaktować się z działem wsparcia Twojego providera aby dowiedzieć się jak włączyć PHP 5.";
+$lang['You may referer to your hosting provider's support and see how you could switch to PHP 5 by yourself.'] = 'Możesz skontaktować się z działem wsparcia Twojego providera aby dowiedzieć się jak włączyć PHP 5.';
 $lang['Hope to see you back soon.'] = 'Do zobaczenia wkrótce.';
 //For 2.1.0
 $lang['Database type'] = 'Typ bazy danych';
 $lang['The type of database your piwigo data will be store in'] = 'Typ bazy danych Twojego Piwigo zostanie zapisany w';
-$lang['Congratulations, Piwigo installation is completed'] = 'Gratulacje, instlacja Piwigo zakończona sukcesem';
+$lang['Congratulations, Piwigo installation is completed'] = 'Gratulacje, instalacja Piwigo zakończona sukcesem';
 $lang['An alternate solution is to copy the text in the box above and paste it into the file "local/config/database.inc.php" (Warning : database.inc.php must only contain what is in the textarea, no line return or space character)'] = 'Alternatywnym rozwiązaniem jest skopiować tekst z powyższego textbox i wkleić do pliku "local/config/database.inc.php" (Uwaga : database.inc.php musi zawierać to co jest w textbox i nie może zawierać znaków spacji oraz enter)';
-$lang['Creation of config file local/config/database.inc.php failed.'] = 'Nie powiodło sięstworzenie pliku konfiguracyjnego local/config/database.inc.php.';
+$lang['Creation of config file local/config/database.inc.php failed.'] = 'Nie powiodło się stworzenie pliku konfiguracyjnego local/config/database.inc.php.';
 $lang['Download the config file'] = 'Pobierz plik konfiguracyjny';
 $lang['You can download the config file and upload it to local/config directory of your installation.'] = 'Możesz pobrać plik konfiguracyjny i wgrać go do katalogu lokalnego/z konfiguracją.';
 $lang['SQLite and PostgreSQL are currently in experimental state.'] = 'Wsparcie dla SQLite oraz PostgreSQL jest eksperymentalne.';
