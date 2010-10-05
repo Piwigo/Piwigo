@@ -63,4 +63,13 @@ $lang['Sorry!'] = 'Rất tiếc!';
 $lang['Piwigo was not able to configure PHP 5.'] = 'Piwigo không thể cấu hình cho PHP 5.';
 $lang["You may referer to your hosting provider's support and see how you could switch to PHP 5 by yourself."] = "Bạn nên yêu cầu hỗ trợ từ nhà cung cấp máy chủ và tìm hiểu xem nếu có thể tự chuyển được sang phiên bản PHP 5.";
 $lang['Hope to see you back soon.'] = 'Hi vọng nhận được phản hồi của bạn sớm.';
+$lang['Database type'] = 'Dạng cơ sở dữ liệu';
+$lang['The type of database your piwigo data will be store in'] = 'Dạng cơ sở dữ liệu Piwigo của bạn sẽ được lưu vào';
+$lang['Congratulations, Piwigo installation is completed'] = 'Xin chúc mừng, việc cài đặt Piwigo đã hoàn tất';
+$lang['An alternate solution is to copy the text in the box above and paste it into the file "local/config/database.inc.php" (Warning : database.inc.php must only contain what is in the textarea, no line return or space character)'] = 'Một giải pháp khác là chép những dòng text trên và dán chúng vào tệp tin nằm vị trí "local/config/database.inc.php" (Cảnh báo: tệp tin database.inc.php chỉ có những nội dung trong phạm vi nhập text, không được thêm hàng hoặc ký tự nào khác)';
+$lang['Creation of config file local/config/database.inc.php failed.'] = 'Việc tạo ra tệp tin cấu hình local/config/database.inc.php đã bị lỗi.';
+$lang['Download the config file'] = 'Tải tệp tin cấu hình xuống';
+$lang['You can download the config file and upload it to local/config directory of your installation.'] = 'Bạn có thể tải tệp tin cấu hình và upload nó vào thư mục local/config của thư mục cài đặt Piwigo.';
+$lang['SQLite and PostgreSQL are currently in experimental state.'] = 'SQLite và PostgreSQL hiện đang được thử nghiệm.';
+$lang['Learn more'] = 'Tìm hiểu thêm';
 ?>

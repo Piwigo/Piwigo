@@ -747,5 +747,20 @@ $lang['There is no other language available.'] = 'Không có gói ngôn ngữ n�
 $lang['There is no other plugin available.'] = 'Không có plugin nào có thể dùng được.';
 $lang['There is no other theme available.'] = 'Không có gói giao diện nào có thể dùng được.';
 $lang['Add another set of photos'] = 'Thêm vào bộ ảnh khác';
+$lang['Order of menubar items has been updated successfully.'] = 'Vị trí của các mục trong thanh menubar đã được cập nhật thành công.';
+$lang['This theme was not designed to be directly activated'] = 'Giao diện này không được thiết kế để có thể kích hoạt trực tiếp';
+$lang['Pending Comments'] = 'Lời bình đang chờ';
+$lang['In your php.ini file, the upload_max_filesize (%sB) is bigger than post_max_size (%sB), you should change this setting'] = 'Trong tệp tin php.ini, biến upload_max_filesize (%sB) thì lớn hơn biến post_max_size (%sB), bạn nên thay đổi thiết lập này';
+$lang['Exif extension not available, admin should disable exif use'] = 'Nếu phần mở rộng Exif không tồn tại thì Quản trị viên nên vô hiệu hóa việc sử dụng Exif';
+$lang['The uploaded file exceeds the upload_max_filesize directive in php.ini: %sB'] = 'Tệp tin gởi lên đã vượt quá giá trị hướng dẫn của biến upload_max_filesize ở tệp tin php.ini: %sB';
+$lang['The uploaded files exceed the post_max_size directive in php.ini: %sB'] = 'Tệp tin gởi lên đã vượt quá giá trị hướng dẫn của biến post_max_size ở tệp tin php.ini: %sB';
+$lang['The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form'] = 'Tệp tin gởi lên đã vượt quá giá trị hướng dẫn của biến MAX_FILE_SIZE đã được định ra trong form HTML';
+$lang['The uploaded file was only partially uploaded'] = 'Tệp tin gởi lên chỉ được gởi một phần (không hoàn chỉnh)';
+$lang['No file was uploaded'] = 'Không có tệp tin nào được gởi lên';
+$lang['Missing a temporary folder'] = 'Còn thiếu một thư mục tạm';
+$lang['Failed to write file to disk'] = 'Bị lỗi khi ghi tệp tin lên đĩa';
+$lang['File upload stopped by extension'] = 'Quá trình gởi tệp tin đã dừng lại bởi phần mở rộng của tệp tin';
+$lang['Unknown upload error'] = 'Lỗi gởi hình không xác định được';
+$lang['Error on file "%s" : %s'] = 'Có lỗi ở tệp tin "%s" : %s';
 
 ?>
