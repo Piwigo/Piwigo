@@ -411,6 +411,12 @@ $validated_keys = array(
 	'',
 	),
 	
+  'sk_SK' => array(
+	'%d Kb',
+	'Filter',
+	'IP: %s',
+	'IP',
+	),
   'sr_RS' => array(
  	'%d Kb',
 	'Filter',
