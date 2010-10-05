@@ -444,12 +444,12 @@ $validated_keys = array(
 	
   'vi_VN' => array(
 	'%d Kb',
-	'',
-	'',
-	'',
-	'',
-	'',
-	'',
+	'Caddie',
+	'Form',
+	'Plugins',
+	'user_status_webmaster',
+	'Templates',
+	'pixels',
 	'',
 	'',
 	),

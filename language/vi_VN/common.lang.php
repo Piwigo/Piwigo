@@ -378,4 +378,5 @@ $lang['Email address is missing. Please specify an email address.'] = 'Còn thi�
 $lang['This author modified following comment:'] = 'Tác giả này đã soạn lại lời bình sau:';
 $lang['This author removed the comment with id %d'] = 'Tác giả này đã xóa bỏ lời bình có ID là %d';
 $lang['validate this comment'] = 'xác nhận lời bình này';
+$lang['show tag cloud'] = 'hiển thị thẻ mây';
 ?>

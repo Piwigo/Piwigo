@@ -39,4 +39,7 @@ $lang['Only thumbnails prefix and webmaster mail address have been saved from pr
 
 //For version 2.1.0
 $lang['This page proposes to upgrade your database corresponding to your old version of Piwigo to the current version. The upgrade assistant thinks you are currently running a <strong>release %s</strong> (or equivalent).'] = "This page proposes to upgrade the database from your Piwigo old version to the new version. The upgrade assistant thinks you are currently running a <strong>release %s</strong> (or equivalent).";
+
+$lang['As a precaution, following plugins have been deactivated. You must check for plugins upgrade before reactiving them:'] = 'Nhằm đề phòng, những plugins sau đây đã bị vô hiệu hóa. Bạn phải kiểm tra bản nâng cấp của plugin trước khi kích hoạt lại chúng:';
+$lang['In <i>%s</i>, before <b>?></b>, insert:'] = 'Trong <i>%s</i>, trước <b>?></b>, chèn vào:';
 ?>
