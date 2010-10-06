@@ -450,7 +450,7 @@ $validated_keys = array(
 	'user_status_webmaster',
 	'Templates',
 	'pixels',
-	'',
+	'localhost, sql.multimania.com, toto.freesurf.fr',
 	'',
 	),
 	

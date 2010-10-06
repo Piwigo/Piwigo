@@ -38,7 +38,7 @@ $lang['User permissions and group permissions have been erased'] = 'Sự cho ph�
 $lang['Only thumbnails prefix and webmaster mail address have been saved from previous configuration'] = 'Chỉ có hình thu nhỏ đứng trước và địa chỉ email của webmaster mới được lưu lại từ cấu hình của phiên bản cũ.';
 
 //For version 2.1.0
-$lang['This page proposes to upgrade your database corresponding to your old version of Piwigo to the current version. The upgrade assistant thinks you are currently running a <strong>release %s</strong> (or equivalent).'] = "This page proposes to upgrade the database from your Piwigo old version to the new version. The upgrade assistant thinks you are currently running a <strong>release %s</strong> (or equivalent).";
+$lang['This page proposes to upgrade your database corresponding to your old version of Piwigo to the current version. The upgrade assistant thinks you are currently running a <strong>release %s</strong> (or equivalent).'] = 'Trang này này nhằm mục đích nâng cấp cơ sở dữ liệu từ phiên bản Piwigo cũ của bạn lên phiên bản mới. Phần hỗ trợ nâng cấp hiểu rằng bạn đang sử dụng <strong>phiên bản %s</strong> (hoặc tương đương).';
 
 $lang['As a precaution, following plugins have been deactivated. You must check for plugins upgrade before reactiving them:'] = 'Nhằm đề phòng, những plugins sau đây đã bị vô hiệu hóa. Bạn phải kiểm tra bản nâng cấp của plugin trước khi kích hoạt lại chúng:';
 $lang['In <i>%s</i>, before <b>?></b>, insert:'] = 'Trong <i>%s</i>, trước <b>?></b>, chèn vào:';
