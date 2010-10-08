@@ -1,1 +1,1 @@
-Edituje lokální soubory z administraèního panelu.
+Editujte lokální soubory z administračního panelu.
