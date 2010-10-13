@@ -130,7 +130,7 @@ function add_uploaded_file($source_filepath, $original_filename=null, $categorie
     array($insert)
     );
   
-  $image_id = pwg_db_insert_id();
+  $image_id = pwg_db_insert_id(IMAGES_TABLE);
 
   if (isset($categories) and count($categories) > 0)
   {
