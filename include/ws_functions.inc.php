@@ -1360,6 +1360,7 @@ function ws_session_getStatus($params, &$service)
   {
     $res[$k] = $user[$k];
   }
+  $res['pwg_token'] = get_pwg_token();
   $res['charset'] = get_pwg_charset();
   return $res;
 }
