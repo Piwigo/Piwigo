@@ -25,7 +25,7 @@
 $lang_info['language_name'] = 'Srpski';
 $lang_info['country'] = 'Srbija';
 $lang_info['direction'] = 'ltr';
-$lang_info['code'] = 'sr';
+$lang_info['code'] = 'sh';
 $lang_info['zero_plural'] = true;
 
 $lang['%.2f (rated %d times)'] = '%.2f (ocenjeno %d puta)';
