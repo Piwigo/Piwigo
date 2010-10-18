@@ -135,7 +135,7 @@ $lang['Permalink %s has been previously used by category %s. Delete from the per
 $lang['The permalink name must be composed of a-z, A-Z, 0-9, "-", "_" or "/". It must not be numeric or start with number followed by "-"'] = 'השם Permalink חייב להיות מורכב a-z, A-Z, 0-9, "-", "_" או "/".הוא חייב לא להיות מספרי או להתחיל עם מספר "-"';
 $lang['Permalink %s is already used by category %s'] = 'Permalink "%s" "נמצא כבר בשימוש על ידי הקטגוריה "%s"';
 $lang['Permalink history'] = 'ההיסטוריה Permalinks';
-$lang['Permalinks'] = 'Permalinks';
+$lang['Permalinks'] = 'קישורים מפנים';
 $lang['Permission denied'] = 'ההרשאה נדחתה';
 $lang['Permission granted thanks to a group'] = 'ההרשאה ניתנה בזכות הקבוצה';
 $lang['Permission granted'] = 'ניתנה הרשאה';
@@ -760,7 +760,7 @@ $lang['In your php.ini file, the upload_max_filesize (%sB) is bigger than post_m
 $lang['Exif extension not available, admin should disable exif use'] = 'סיומת Exif לא נתמכת, פנה למנהל על מנת שיאשר שימוש בסיומת Exif';
 $lang['The uploaded file exceeds the upload_max_filesize directive in php.ini: %sB'] = 'The uploaded file exceeds the upload_max_filesize directive in php.ini: "%s "B';
 $lang['The uploaded files exceed the post_max_size directive in php.ini: %sB'] = 'The uploaded files exceed the post_max_size directive in php.ini: "%s "B';
-$lang['The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form'] = 'The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form';
+$lang['The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form'] = 'הקובץ שבועלה חורג מה MAX_FILE_SIZE האפשרי שצויין בקובץ html';
 $lang['The uploaded file was only partially uploaded'] = 'הקובץ הועלה חלקית';
 $lang['No file was uploaded'] = 'לא הועלה קובץ';
 $lang['Missing a temporary folder'] = 'חסר תיקיה זמנית';
