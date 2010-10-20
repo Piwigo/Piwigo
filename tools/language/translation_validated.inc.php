@@ -304,9 +304,16 @@ $validated_keys = array(
 	'IP',
 	'Sent by',
 	'%d Kb',
-	'',
 	),
 
+  'lv_LV' => array(
+ 	'%d Kb',
+	'N/A',
+	'Menu',
+ 	'IP: %s',
+	'IP',
+	),
+	
   'nl_NL' => array(
  	'%d Kb',
 	'Filter',
