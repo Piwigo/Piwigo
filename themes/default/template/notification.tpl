@@ -1,7 +1,3 @@
-{html_head}
-<link rel="alternate" type="application/rss+xml" title="{'Image only RSS feed'|@translate}" href="{$U_FEED_IMAGE_ONLY}">
-<link rel="alternate" type="application/rss+xml" title="{'Complete RSS feed (images, comments)'|@translate}" href="{$U_FEED}">
-{/html_head}
 <div id="content" class="content">
 
   <div class="titrePage">
