@@ -21,8 +21,6 @@
 <title>{$GALLERY_TITLE} | {$PAGE_TITLE}</title>{else}
 <title>{$PAGE_TITLE} | {$GALLERY_TITLE}</title>{/if}
 <link rel="shortcut icon" type="image/x-icon" href="{$ROOT_URL}{$themeconf.icon_dir}/favicon.ico">
-<link rel="alternate" type="application/rss+xml" title="{'Image only RSS feed'|@translate}" href="{$U_FEED_IMAGE_ONLY}">
-<link rel="alternate" type="application/rss+xml" title="{'Complete RSS feed (images, comments)'|@translate}" href="{$U_FEED}"> 
 
 <link rel="start" title="{'Home'|@translate}" href="{$U_HOME}" >
 <link rel="search" title="{'Search'|@translate}" href="{$ROOT_URL}search.php" >
