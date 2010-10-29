@@ -105,9 +105,15 @@ $page['where_clauses'] = array();
 if (isset($_GET['cat']) and 0 != $_GET['cat'])
 {
   check_input_parameter('cat', $_GET, false, PATTERN_ID);
+
+  $category_ids = get_subcat_ids(array($_GET['cat']));
+  if (empty($category_id))
+  {
+    $category_ids = array(-1);
+  }
   
   $page['where_clauses'][] =
-    'category_id IN ('.implode(',', get_subcat_ids(array($_GET['cat']))).')';
+    'category_id IN ('.implode(',', $category_ids).')';
 }
 
 // search a particular author
