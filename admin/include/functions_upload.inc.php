@@ -103,7 +103,7 @@ function add_uploaded_file($source_filepath, $original_filename=null, $categorie
 
   // database registration
   $insert = array(
-    'file' => isset($original_filename) ? $original_filename : basename($file_path),
+    'file' => pwg_db_real_escape_string(isset($original_filename) ? $original_filename : basename($file_path)),
     'date_available' => $dbnow,
     'tn_ext' => 'jpg',
     'path' => preg_replace('#^'.preg_quote(PHPWG_ROOT_PATH).'#', '', $file_path),
