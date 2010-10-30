@@ -504,7 +504,7 @@ SELECT c.id, name, permalink, uppercats, com.id as comment_id
       if (isset($edit_comment) and ($comment['comment_id'] == $edit_comment))
       {
 	$tpl_comment['IN_EDIT'] = true;
-	$key = get_comment_post_key($comment['image_id']);
+	$key = get_ephemeral_key(2, $comment['image_id']);
 	$tpl_comment['KEY'] = $key;
 	$tpl_comment['IMAGE_ID'] = $comment['image_id'];
 	$tpl_comment['CONTENT'] = $comment['content'];

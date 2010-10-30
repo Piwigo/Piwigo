@@ -1333,25 +1333,37 @@ function secure_directory($dir)
 }
 
 /**
- * returns a "secret key" that is to be sent back when a user enters a comment
+ * returns a "secret key" that is to be sent back when a user posts a form
  *
- * @param int image_id
+ * @param int valid_after_seconds - key validity start time from now
  */
-function get_comment_post_key($image_id)
+function get_ephemeral_key($valid_after_seconds, $aditionnal_data_to_hash = '')
 {
-  global $conf;
+	global $conf;
+	$time = round(microtime(true), 1);
+	return $time.':'.$valid_after_seconds.':'
+		.hash_hmac(
+			'md5', 
+			$time.substr($_SERVER['REMOTE_ADDR'],0,5).$valid_after_seconds.$aditionnal_data_to_hash, 
+			$conf['secret_key']);
+}
 
-  $time = time();
-
-  return sprintf(
-    '%s:%s',
-    $time,
-    hash_hmac(
-      'md5',
-      $time.':'.$image_id,
-      $conf['secret_key']
-      )
-    );
+function verify_ephemeral_key($key, $aditionnal_data_to_hash = '')
+{
+	global $conf;
+	$time = microtime(true);
+	$key = explode( ':', @$key );
+	if ( count($key)!=3
+		or $key[0]>$time-(float)$key[1] // page must have been retrieved more than X sec ago
+		or $key[0]<$time-3600 // 60 minutes expiration
+		or hash_hmac(
+			  'md5', $key[0].substr($_SERVER['REMOTE_ADDR'],0,5).$key[1].$aditionnal_data_to_hash, $conf['secret_key']
+			) != $key[2]
+	  )
+	{
+		return false;
+	}
+	return true;
 }
 
 /**

@@ -119,14 +119,7 @@ SELECT COUNT(*) AS user_exists
     $comment_action='reject';
   }
 
-  $key = explode( ':', @$key );
-  if ( count($key)!=2
-        or $key[0]>time()-2 // page must have been retrieved more than 2 sec ago
-        or $key[0]<time()-3600 // 60 minutes expiration
-        or hash_hmac(
-              'md5', $key[0].':'.$comm['image_id'], $conf['secret_key']
-            ) != $key[1]
-      )
+  if ( !verify_ephemeral_key(@$key, $comm['image_id']) )
   {
     $comment_action='reject';
   }
@@ -248,13 +241,7 @@ function update_user_comment($comment, $post_key)
 
   $comment_action = 'validate';
 
-  $key = explode( ':', $post_key );
-  if ( count($key)!=2
-       or $key[0]>time()-2 // page must have been retrieved more than 2 sec ago
-       or $key[0]<time()-3600 // 60 minutes expiration
-       or hash_hmac('md5', $key[0].':'.$comment['image_id'], $conf['secret_key']
-		    ) != $key[1]
-       )
+  if ( !verify_ephemeral_key($post_key, $comment['image_id']) )
   {
     $comment_action='reject';
   }

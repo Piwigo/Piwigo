@@ -54,6 +54,7 @@
   </fieldset>
 
   <p class="bottomButtons">
+		<input type="hidden" name="key" value="{$F_KEY}" >
     <input class="submit" type="submit" name="submit" value="{'Register'|@translate}">
     <input class="submit" type="reset" value="{'Reset'|@translate}">
   </p>

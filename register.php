@@ -40,13 +40,19 @@ if (!$conf['allow_user_registration'])
 $errors = array();
 if (isset($_POST['submit']))
 {
+  if (!verify_ephemeral_key(@$_POST['key']))
+  {
+		set_status_header(403);
+    array_push($errors, 'Invalid/expired form key');
+  }
+
   if ($_POST['password'] != $_POST['password_conf'])
   {
     array_push($errors, l10n('please enter your password again'));
   }
 
   $errors =
-      register_user(htmlspecialchars($_POST['login'],ENT_COMPAT,'utf-8'),
+      register_user($_POST['login'],
                     $_POST['password'],
                     $_POST['mail_address'],
                     true,
@@ -58,10 +64,15 @@ if (isset($_POST['submit']))
     log_user($user_id, false);
     redirect(make_index_url());
   }
+	$registration_post_key = get_ephemeral_key(2);
+}
+else
+{
+	$registration_post_key = get_ephemeral_key(6);
 }
 
-$login = !empty($_POST['login'])?$_POST['login']:'';
-$email = !empty($_POST['mail_address'])?$_POST['mail_address']:'';
+$login = !empty($_POST['login'])?htmlspecialchars(stripslashes($_POST['login'])):'';
+$email = !empty($_POST['mail_address'])?htmlspecialchars(stripslashes($_POST['mail_address'])):'';
 
 //----------------------------------------------------- template initialization
 //
@@ -74,10 +85,10 @@ include(PHPWG_ROOT_PATH.'include/page_header.php');
 $template->set_filenames( array('register'=>'register.tpl') );
 $template->assign(array(
   'U_HOME' => make_index_url(),
-
+	'F_KEY' => $registration_post_key,
   'F_ACTION' => 'register.php',
-  'F_LOGIN' => htmlspecialchars($login, ENT_QUOTES, 'utf-8'),
-  'F_EMAIL' => htmlspecialchars($email, ENT_QUOTES, 'utf-8')
+  'F_LOGIN' => $login,
+  'F_EMAIL' => $email
   ));
 
 //-------------------------------------------------------------- errors display

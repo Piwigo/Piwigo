@@ -725,7 +725,7 @@ SELECT id, date, author, content
       )
   {
     $comment_post_data['author'] = stripslashes($user['username']);
-    $comment_post_data['key'] = get_comment_post_key($params['image_id']);
+    $comment_post_data['key'] = get_ephemeral_key(2, $params['image_id']);
   }
 
   $ret = $image_row;

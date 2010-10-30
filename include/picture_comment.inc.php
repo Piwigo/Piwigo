@@ -198,7 +198,7 @@ SELECT
 	if (isset($edit_comment) and ($row['id'] == $edit_comment))
 	{
 	  $tpl_comment['IN_EDIT'] = true;
-	  $key = get_comment_post_key($page['image_id']);
+	  $key = get_comment_post_key(2, $page['image_id']);
 	  $tpl_comment['KEY'] = $key;
 	  $tpl_comment['CONTENT'] = $row['content'];
 	}
@@ -233,7 +233,7 @@ SELECT
 
   if ($show_add_comment_form)
   {
-    $key = get_comment_post_key($page['image_id']);
+    $key = get_ephemeral_key(3, $page['image_id']);
     $content = '';
     if ('reject'===@$comment_action)
     {
