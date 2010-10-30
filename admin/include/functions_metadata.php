@@ -38,7 +38,18 @@ function get_sync_iptc_data($file)
     {
       if (preg_match('/(\d{4})(\d{2})(\d{2})/', $value, $matches))
       {
-        $iptc[$pwg_key] = $matches[1].'-'.$matches[2].'-'.$matches[3];
+        $year = $matches[1];
+        $month = $matches[2];
+        $day = $matches[3];
+
+        if (!checkdate($month, $day, $year))
+        {
+          // we suppose the year is correct
+          $month = 1;
+          $day = 1;
+        }
+        
+        $iptc[$pwg_key] = $year.'-'.$month.'-'.$day;
       }
     }
   }
