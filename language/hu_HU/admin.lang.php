@@ -755,4 +755,19 @@ $lang['This theme was not designed to be directly activated'] = 'Ezt a témát �
 $lang['Pending Comments'] = 'Hozzászólások (függőben)';
 $lang['Who can see this photo?'] = 'Ki láthatja ezt a képet?';
 $lang['Menu Management'] = 'Menü';
+// missing translations
+$lang['Note: photo deletion does not apply to photos added by synchronization. For photos added by synchronization, remove them from the filesystem and then perform another synchronization.'] = 'Megjegyzés: a kép törlése nem vonatkozik a szinkronizálással hozzáadott képekre. A szinkronizálással hozzáadott képeket el kell távolítani a fájlrendszerből, majd ismételt szinkronizálást kell végrehajtani.';
+$lang['In your php.ini file, the upload_max_filesize (%sB) is bigger than post_max_size (%sB), you should change this setting'] = 'A php.ini fájlban az upload_max_filesize (% sB) nagyobb, mint a post_max_size (% sB), módosítania kell a beállítást';
+$lang['Exif extension not available, admin should disable exif use'] = 'Exif-kiterjesztés nem érhető el, az adminisztrátor tiltsa le az exif használatát';
+$lang['The uploaded file exceeds the upload_max_filesize directive in php.ini: %sB'] = 'A feltöltendő fájl meghaladja a php.ini-ben megadott upload_max_filesize értéket: %sB';
+$lang['The uploaded files exceed the post_max_size directive in php.ini: %sB'] = 'A feltöltendő fájlok meghaladják a php.ini-ben megadott post_max_size értéket: %sB';
+$lang['The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form'] = 'A feltöltendő fájl meghaladja a HTML formában megadott MAX_FILE_SIZE értéket';
+$lang['The uploaded file was only partially uploaded'] = 'A feltöltendő fájl csak részben töltődött fel';
+$lang['No file was uploaded'] = 'A feltöltés sikertelen';
+$lang['Missing a temporary folder'] = 'Hiányzik a temporary mappa';
+$lang['Failed to write file to disk'] = 'Nem sikerült a fájlt a lemezre írni';
+$lang['File upload stopped by extension'] = 'Fájlfeltöltést leállította a kiterjesztés';
+$lang['Unknown upload error'] = 'Ismeretlen feltöltési hiba';
+$lang['Error on file "%s" : %s'] = 'Hibás a fájl "%s" : %s';
+
 ?>
