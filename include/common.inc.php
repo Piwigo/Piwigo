@@ -133,7 +133,15 @@ else {
   define('PHPWG_DOMAIN', 'piwigo.org');
 }
 define('PHPWG_URL', 'http://'.PHPWG_DOMAIN);
-define('PEM_URL', 'http://'.PHPWG_DOMAIN.'/ext');
+
+if(isset($conf['alternative_pem_url']) and $conf['alternative_pem_url']!='')
+{
+  define('PEM_URL', $conf['alternative_pem_url']);
+}
+else
+{
+  define('PEM_URL', 'http://'.PHPWG_DOMAIN.'/ext');
+}
 
 
 // language files

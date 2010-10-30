@@ -514,7 +514,7 @@ $conf['apache_authentication'] = false;
 // piwigo_users table.
 $conf['users_table'] = $prefixeTable.'users';
 
-// If you decide to use external authentication 
+// If you decide to use external authentication
 // change conf below by $conf['external_authentification'] = true;
 $conf['external_authentification'] = false;
 
@@ -785,4 +785,9 @@ $conf['ploader_download_linux'] = 'http://piwigo.org/ext/download.php?eid=269';
 
 // enable the synchronization method for adding photos
 $conf['enable_synchronization'] = true;
+
+// PEM url
+$conf['alternative_pem_url'] = '';
+
+
 ?>
