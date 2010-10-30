@@ -194,7 +194,23 @@ if (count($page['cat_elements_id']) > 0)
 
   $query = '
 SELECT id,path,tn_ext,name,date_creation,comment,author,level,file
-  FROM '.IMAGES_TABLE.'
+  FROM '.IMAGES_TABLE;
+
+  if (is_numeric($_GET['cat']))
+  {
+    $category_info = get_cat_info($_GET['cat']);
+    
+    $conf['order_by'] = $conf['order_by_inside_category'];
+    if (!empty($category_info['image_order']))
+    {
+      $conf['order_by'] = ' ORDER BY '.$category_info['image_order'];
+    }
+
+    $query.= '
+    JOIN '.IMAGE_CATEGORY_TABLE.' ON id = image_id';
+  }
+
+  $query.= '
   WHERE id IN ('.implode(',', $page['cat_elements_id']).')
   '.$conf['order_by'].'
   LIMIT '.$page['nb_images'].' OFFSET '.$page['start'].'
