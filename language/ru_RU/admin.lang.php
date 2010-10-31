@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 // +-----------------------------------------------------------------------+
 // | Piwigo - a PHP based picture gallery                                  |
 // +-----------------------------------------------------------------------+
@@ -634,7 +634,7 @@ $lang['Add New Theme'] = 'Добавить новую тему';
 $lang['Forbid this theme to users'] = 'Запретить использование этой темы пользователям';
 $lang['Set as default theme for unregistered and new users'] = 'Установить тему по умолчанию для новых и незарегистрированных пользователей';
 $lang['unknown'] = 'неизвестен';
-$lang['Upload Photos'] = 'Загрзить фотографии';
+$lang['Upload Photos'] = 'Загрузить фотографии';
 $lang['Drop into album'] = 'Закинуть в альбом';
 $lang['+ Add an upload box'] = '+ Добавить поле для загрузки';
 $lang['Create the "%s" directory at the root of your Piwigo installation'] = 'Создайте "%s" каталог в корне установленной Вами Piwigo';
