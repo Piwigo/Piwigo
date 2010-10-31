@@ -68,7 +68,6 @@ $lang['Current password is wrong'] = 'La password non è esatta';
 $lang['Dimensions'] = 'Dimensioni';
 $lang['Display'] = 'Visualizzazione';
 $lang['Each listed rule must be satisfied.'] = 'Tutti i criteri devono essere soddisfatti';
-$lang['Email address is missing. Please specify an email address.'] = 'Manca l\'indirizzo email';
 $lang['Email address'] = 'Indirizzo email';
 $lang['Enter your personnal informations'] = 'Inserire le informazioni personali';
 $lang['Error sending email'] = 'Errore durante l\'invio dell\'email';
