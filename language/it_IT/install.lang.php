@@ -63,7 +63,7 @@ $lang['Note you can change your configuration by yourself and restart Piwigo aft
 $lang['Try to configure PHP 5'] = 'Provare a configurare PHP 5';
 $lang['Sorry!'] = 'Spiacente!';
 $lang['Piwigo was not able to configure PHP 5.'] = 'Piwigo non è stato in grado di configurare PHP 5';
-$lang["You may referer to your hosting provider's support and see how you could switch to PHP 5 by yourself."] = 'Dovete contattare il votro provider per chiedere come passare a PHP 5.';
+$lang['You may referer to your hosting provider\'s support and see how you could switch to PHP 5 by yourself.'] = 'Dovete contattare il votro provider per chiedere come passare a PHP 5.';
 $lang['Hope to see you back soon.'] = 'Speriamo di rivedervi presto.';
 $lang['Congratulations, Piwigo installation is completed'] = 'Congratulazioni, l\'installazione di Piwigo è completata';
 
