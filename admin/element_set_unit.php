@@ -211,7 +211,15 @@ SELECT id,path,tn_ext,name,date_creation,comment,author,level,file
   }
 
   $query.= '
-  WHERE id IN ('.implode(',', $page['cat_elements_id']).')
+  WHERE id IN ('.implode(',', $page['cat_elements_id']).')';
+
+  if (is_numeric($_GET['cat']))
+  {
+    $query.= '
+    AND category_id = '.$_GET['cat'];
+  }
+
+  $query.= '
   '.$conf['order_by'].'
   LIMIT '.$page['nb_images'].' OFFSET '.$page['start'].'
 ;';
