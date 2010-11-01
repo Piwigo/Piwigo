@@ -405,6 +405,7 @@ function ws_categories_getList($params, &$service)
 
   $query = '
 SELECT id, name, permalink, uppercats, global_rank,
+    comment,
     nb_images, count_images AS total_nb_images,
     date_last, max_date_last, count_categories AS nb_categories
   FROM '.CATEGORIES_TABLE.'
@@ -431,6 +432,14 @@ SELECT id, name, permalink, uppercats, global_rank,
       trigger_event(
         'render_category_name',
         $row['name'],
+        'ws_categories_getList'
+        )
+      );
+    
+    $row['comment'] = strip_tags(
+      trigger_event(
+        'render_category_description',
+        $row['comment'],
         'ws_categories_getList'
         )
       );
@@ -482,6 +491,7 @@ SELECT
 SELECT
     id,
     name,
+    comment,
     uppercats,
     global_rank
   FROM '.CATEGORIES_TABLE.'
@@ -497,6 +507,13 @@ SELECT
       trigger_event(
         'render_category_name',
         $row['name'],
+        'ws_categories_getAdminList'
+        )
+      );
+    $row['comment'] = strip_tags(
+      trigger_event(
+        'render_category_description',
+        $row['comment'],
         'ws_categories_getAdminList'
         )
       );
