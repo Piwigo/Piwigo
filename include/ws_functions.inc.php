@@ -1806,6 +1806,8 @@ function ws_images_setInfo($params, &$service)
     return new PwgError(WS_ERR_INVALID_PARAM, "Invalid image_id");
   }
 
+  include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
+
   $query='
 SELECT *
   FROM '.IMAGES_TABLE.'
@@ -1861,7 +1863,6 @@ SELECT *
   {
     $update['id'] = $params['image_id'];
 
-    include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
     mass_updates(
       IMAGES_TABLE,
       array(
@@ -1884,8 +1885,6 @@ SELECT *
   // and now, let's create tag associations
   if (isset($params['tag_ids']))
   {
-    include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
-
     $tag_ids = explode(',', $params['tag_ids']);
 
     if ('replace' == $params['multiple_value_mode'])
