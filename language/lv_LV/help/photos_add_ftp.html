@@ -1,0 +1,98 @@
+<fieldset>
+<legend>Ātrais Starts</legend>
+
+<ol>
+<li>Izveidot mapi Jūsu datorā.</li>
+
+<li>Kopēt dažus attēlus šīs mapes iekšienē, piemērot tos rādīšanai internetā.
+<em>Brīdinājums</em>: mapju un failu nosaukumi jāveido tikai no burtiem, cipariem, "-", "_" vai ".". Nav pieļaujami tukšumi vai apakšsvītras.</li>
+
+<li>Izmantojot FTP klientu, iekopējiet Jūsu mapi Piwigo instalācijas "galleries" mapē.</li>
+
+<li>Ielogojaties Jūsu galerijā un ejiet uz <span class="pwgScreen">Administrēšanu
+&raquo; Attēlu &raquo; Sīkbildēm</span>, lai izveidotu trūkstošās sīkbildes.</li>
+
+<li>Ejiet uz <span class="pwgScreen">Administrēšanu</span> un klikšķiniet uz lielās Sinhronizācijas pogas.</li>
+</ol> Apsveicam! Jūs esat sekmīgi izveidojis Jūsu fotogalerijas pirmo kategoriju.
+</fieldset>
+
+<fieldset>
+<legend>Mapju un failu organizācija</legend>
+
+<ul>
+
+<li>
+
+<p>Kategoriju mapes atrodas Piwigo mapē "galleries". Tālāk seko ļoti mazas (bet ar ļoti daudz iespējām) galerijas mapju koks:</ p>
+
+<pre>
+.
+|-- admin
+|-- doc
+|-- galleries
+|   |-- category-1
+|   |   |-- category-1.1
+|   |   |   |-- category-1.1.1
+|   |   |   |   |-- category-1.1.1.1
+|   |   |   |   |   |-- pwg_high
+|   |   |   |   |   |   +-- wedding.jpg
+|   |   |   |   |   |-- thumbnail
+|   |   |   |   |   |   +-- TN-wedding.jpg
+|   |   |   |   |   +-- wedding.jpg
+|   |   |   |   +-- category-1.1.1.2
+|   |   |   +-- category-1.1.2
+|   |   |-- category-1.2
+|   |   |   |-- pookie.jpg
+|   |   |   +-- thumbnail
+|   |   |       +-- TN-pookie.jpg
+|   |   +-- category-1.3
+|   +-- category-2
+|       |-- piglet.gif
+|       |-- pwg_representative
+|       |   +-- video.jpg
+|       |-- thumbnail
+|       |   +-- TN-piglet.jpg
+|       +-- video.avi
+|-- include
+|-- install
+|-- language
+|-- template
++-- tool</pre>
+
+</li>
+
+<li>Izņemot ar nosaukumu "thumbnail", "pwg-high" vai "pwg_representative" (skatīt skaidrojumu zemāk), katra mape zem "galleries" veido kategoriju. To dziļumam nav ierobežojumu.</li>
+
+<li>Pamatā elementu pārstāv fails. Fails var būt Piwigo elements, ja tā paplašinājums ir starp <code>file_ext</code> konfigurācijas parametru iespējām (skatīt <span class="filename">include/config_default.inc.php</span> failu). Fails var būt attēls, ja tā paplašinājums ir starp <code>picture_ext</code> konfigurācijas parametru iespējām.</li>
+
+<li>Attēliem jābūt asociētiem ar savām sīkbildēm (skatīt sīkbilžu sekciju zemāk)</li>
+
+<li>Attēli var būt asociēti ar liela izmēra failiem augstai izšķirtsējai. Kā, piemēram, attēlam wedding.jpg augstāk. Bez prefiksa augstas izšķirtsējas attēlam.</li>
+
+<li>Pēc noklusējuma ikonai, kas pārstāv faila nosaukuma paplašinājumu, nav nekādu papildus attēla elementu (video, skaņu, tekstu, jebkas...) . Ar papildus izvēli, Jūs varat sasaistīt sīkbildi un pārstāvošo failu (skatīt video.avi augstāk piemērā).</li>
+
+<li><em>Brīdinājums</em>: mapju un failu nosaukumi jāveido tikai no burtiem, cipariem, "-", "_" vai ".". Nav pieļaujami tukšumi vai apakšsvītras.</li>
+
+<li>Kolīdz faili, sīkbildes un pārstāvības ir korekti saliktas mapēs, ejam uz: <span class="pwgScreen">Administrēšanu &raquo; Kategorijām &raquo; Sinchronizšānu</span></li>
+
+</ul>
+</fieldset>
+
+<fieldset>
+<legend>Sīkbildes</legend>
+<ul>
+
+<li>Katram attēkam ir jābūt savai sīkbildei.</li>
+
+<li>Sīkbildes glabājas "thumbnail" kategorijas mapes apakšmapē. Sīkbildei ir tāds pats faila nosaukums kā tās pārstāvētajam attēlam, ar konfigurācijas parametriem <code>prefix_thumbnail</code> kā prefikss (skatīt <span class="filename">include/config.inc.php</span>).</li>
+
+<li>Sīkbilžu failiem nav jābūt ar tādu pašu paplašinājumu kā to pārstāvētajiem attēliem (piem. ".jpg" attēlam var būt ".GIF" paplašinājums).</li>
+
+<li>Sīkbilžu izveidošanai ieteicams izmantot ārējo moduli.</li>
+
+<li>Nav ieteicams izmantot Piwigo integrēto sīkbilžu veidošanas instrumentu, jo ar to veidoto sīkbilžu kvalitāte ir zema un tas stipri noslogo serveri ( tas rada nopietnas problēmas šārētiem serveriem).
+
+<li>Ja sīkbilžu veidošanai esat nolēmis izmantot webserveri, Jums jāatļauj rakstīšanas tiesības visām mapēm.</li>
+
+</ul>
+</fieldset>
