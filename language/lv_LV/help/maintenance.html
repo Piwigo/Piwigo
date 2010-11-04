@@ -1,0 +1,45 @@
+<h2>Apkalpošana</h2>
+
+<p>Lai optimizētu lapas ģenerēšanas laiku, Piwigo izmanto kešatmiņu kā informācijas starpnieku. Piemēram, tā vietā, lai katru reizi ielādējot lapu skaitītu cik attēlu ir attiecīgajā kategorijā, šī informācija tiek glabāta datu bāzē. Teorētiski šai informācijai parasti būtu jābūt korektai, bet dažreiz gadās, ka kešatmiņā esošā informācija ir kļūdaina.</p>
+
+<p>Laikam ejot, daļa informācijas kļūst nevajadzīga. Izdzēšot nevajadzīgo informāciju no datu bāzes, ietaupīsiet savu diska telpu.</p>
+
+<ul>
+
+<li>
+<strong>Nesasaistītie elementi:</strong>
+     Tiek rādīti attēli, kuri nav sasaistīti ne ar vienu virtuālo kategoriju.
+</li>
+<li>
+<strong>Faili ar vienādiem nosaukumiem vairāk kā vienā fiziskā kategorijā:</strong>
+     Parāda attēlus vai failus, kuri atrasti vairākās kategorijās ar vienādiem faila vārdiem.
+</li>
+
+</ul>
+
+<ul>
+
+<li><strong>Atjaunina informāciju par kategoriju:</strong> Katru kategoriju raksturojošo informāciju pārbauda un, ja nepieciešams atjaunina: pamata kategoriju sarakstu, attēlu skaitu, pēdējo attēla datumu, vietu starp radniecīgām kategorijām, atrašanās vietu starp visām kategorijām. Šī darbība pārbauda arī pārstāvēto attēlu pastāvību.</li>
+
+<li><strong>Atjaunina informāciju par attēlu:</strong> Par katru attēlu atjaunināmā informācija ir: pilns ceļš līdz failam, vidējais novērtējums. <em>Brīdinājums</em>, nesajauciet: metadatu informācija ir jāsinhronizē no <span class="pwgScreen">Administrēšanas, Kategorijas, Sinchronizācijas</span>, vai izmantojot katra attēla modifikācijas ekrānu (līdz <span class="pwgScreen">Attēlam</span> piemēram).</li>
+
+<li><strong>Salabo un optimizē datu bāzi:</strong>
+   Veic pārkārtošanas, labošanas un optimizācijas operācijas katrai datu bāzes tabulai.
+</li>
+</ul>
+
+<ul>
+<li><strong>Dzēš vecos datus:</strong> Dzēš visas rindas no
+<code>vēstures</code> tabulas. Logs <span class="pwgScreen">Administratēšana,
+   Speciālais, Vēsture</span> vairāk nerādīs informāciju par pagājušo vēsturi. <em>Brīdinājums</em>: visi dati neatgriezeniski tiks pazaudēti.</li>
+
+<li><strong>Izdēš vēstures kopsavilkumu:</strong> Dzēš informācijas kopsavilkumu par apmeklējumu vēsturi. Šā kopsavilkuma pamatā vēsturiskās detaļas.</li>
+
+<li><strong>Dzēš sesijas:</strong> Dzēš lietotāju izbeigušās sesijas.</li>
+
+<li><strong> Dzēš neizmantotās paziņojumu plūsmas </strong></li>
+
+<li><strong>Dzēš meklēšanas vēsturi</strong></li>
+
+<li><strong>Dzēš izveidotās paraugveidnes</strong></li>
+</ul>
