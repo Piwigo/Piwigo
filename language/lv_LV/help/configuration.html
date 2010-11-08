@@ -1,0 +1,108 @@
+<h2>Konfigurācija</h2>
+
+<p>Šajā logā administrators var veikt sistēmas pamatkonfigurāciju. Patiešām, šis logs dod piekļuvi tikai vienkāršākajiem konfigurācijas parametriem, kas ir gluži pietiekami lielākajam administratoru skaitam. Ja vēlaties vairāk (modernizētus) konfigurācijas parametrus, lasiet failu <span
+class="filename">include/config_default.inc.php</span>.</p>
+
+<p>Šis logs ir sadalīts vairākās sekcijās, sagrupējot konfigurācijas parametrus pēc tēmām.</p>
+
+
+<h3>Galvenais</h3>
+<ul>
+<li><strong>Galerijas virsraksts</strong>: izmantots RSS padevē un e-pasta paziņojumos.</li>
+
+<li><strong>Lapas baneris</strong>: tiek atainots katras publiskās lapas augšā.</li>
+
+<li><strong>Galerijas URL</strong>: izmantots RSS padevē.</li>
+
+<li><strong>Bloķēt galeriju</strong>: Bloķē visu galeriju uz apkopes laiku. Tikai lietotāji ar administratora tiesībām var piekļūt galerijai.</li>
+
+<li><strong>Novērtējums</strong>: Attēla novērtēšanas funkcija ir iespējota.</li>
+
+<li><strong>Viesu veiktais novērtējums</strong>: Pat nepiereģistrēti lietotāji var vērtēt attēlus.</li>
+
+<li><strong>Atļauj lietotāja reģistrāciju</strong>: Ikviens var reģistrēties.</li>
+
+<li><strong>Visiem lietotājiem nepieciešama pasta adrese</strong>: pasta adrese tiks pārbaudīta reģistrējoties vai pie profila atjaunināšanas, izņemot, ja attiecīgās darbības veic administrators.</li>
+
+<li><strong>Izsūta e-pastu administratoram, kad reģistrējas jauns lietotājs</strong>:
+par katru jauna lietotāja reģistrēšanos ar e-pastu tiks paziņots administratoram.</li>
+
+</ul>
+
+<h3>Vēsture</h3>
+
+<p>Lapas apmeklējumu skaits <span
+   class="pwgScreen">category.php</span> un <span
+   class="pwgScreen">picture.php</span> tiks saglabāts <code>history</code> tabulā.</p>
+
+<p>Apmeklējumi tiks parādīti <span class="pwgScreen">Administrēšanā, Speciālos, Vēsturē</span>.</p>
+
+<ul>
+<li><strong>Saglabāt viesu lapu apmeklējumus</strong>: viesu veiktais lapu apmeklējumu skaits tiks ierakstīts.</li>
+
+<li><strong>Saglabāt lietotāju veiktos lapu apmeklējumus</strong>: reģistrēto lietotāju veiktais lapu apmeklējumu skaits tiks ierakstīts.</li>
+
+<li><strong>Saglabāt administratoru lapu apmeklējumus</strong>: administratoru veiktais lapu apmeklējumu skaits tiks ierakstīts.</li>
+
+</ul>
+
+<h3>Komentāri</h3>
+<ul>
+
+<li><strong>Komentāri visiem</strong>: Pat nereģistrēts viesis var komentēt.</li>
+
+<li><strong>Komentāru skaits lapā</strong>.</li>
+
+<li><strong>Apstiprināšana</strong>: administratoram jāapstiprina lietotāju komentāri pirms tie kļūst redzami web lapā. Lietotāju komentāru apstiprināšana notiek logā <span class="pwgScreen">Administrēšana, Attēli, Komentāri</span>.</li>
+
+<li><strong> Izsūta e-pastu administratoram, kad ievadīts derīgs komentārs</strong>:
+Izsūta e-pastu administratoram, kad lietotājs ievada komentāru un tas tiek pārbaudīts.</li>
+
+<li><strong> Izsūta e-pastu administratoram, kad komentāram nepieciešama apstiprināšana</strong>:
+Izsūta e-pastu administratoram , kad administratoram jāpārbauda un jāakceptē lietotāja ievadītais komentārs.
+Lietotāju komentāru apstiprināšana notiek logā <span
+class="pwgScreen">Administrēšana, Attēli, Komentāri</span>.</li>
+
+</ul>
+
+<h3>Augšupielāde</h3>
+<ul>
+ <li><strong>Rāda augšupielādes saiti katru reizi</strong>: ja eksistē augšuplādējamas kategorijas, augšupielādes saite tiek rādīta katrai kategorijai.</li>
+ <li><strong>Lietotāja piekļuves līmenis augšupielādei</strong>:
+Aizliedz augšupielādi dažām lietotāju kategorijām.</li>
+<li><strong> Izsūta e-pastu administratoram, kad tiek augšuplādēts attēls </strong>:
+Administratoram ar e-pastu paziņo katru reizi, kad lietotājs augšupielādē attēlu.</li>
+</ul>
+
+<h3>Attēlošana pēc noklusējuma</h3>
+
+<p>Šeit Jūs varat mainīt attēlošanas iespējas, ko lieto viesis, lietotājs pēc noklusēšanas, kas nav iekonektējies. Kad iekonektējas, tiek lietoti lietotāja paša istatījumi (modificējami <span class="pwgScreen">profilā</span>).</p>
+
+<p>Iespējams izmainīt atainošanas iespējas visiem eksistējošiem lietotājiem, jāieiet <span class="pwgScreen">Administrēšana, Identifikācija, Lietotāji</span> logā, kur var izvēlēties lietotāju sarakstu.</p>
+
+<ul>
+
+<li><strong>Valoda</strong>: pielietojams tikai Piwigo etiķetēm. Kategoriju un attēlu nosaukumi, kā arī visi aprakstošie komentāru lauki nav lokalizējami (tulkojami).</li>
+
+<li><strong>Attēlu skaits rindā</strong></li>
+
+<li><strong>Rindu skaits lapā</strong></li>
+
+<li><strong>Interfeisa tēma</strong></li>
+
+<li><strong>Tekošais periods</strong>: Dienās. Laika sprīdis, kurā attēls tiek rādīts kā jauns. Jābūt lielākam par 1 dienu.</li>
+
+<li><strong>Izvērst visas kategorijas</strong>: Pēc noklusējuma izvērst visas kategorijas izvēlnē <em>Brīdinājums</em>: šī darbība ir resursietilpīga un, ja Jūsu kategoriju koks satur daudz kategoriju, var tikt ģenerēts liels skaits izvēlņu.</li>
+
+<li><strong>Rāda komentāru skaitu</strong>: Sīkbilžu lapā rāda komentāru skaitu katram attēlam. Resursu patērējošs.</li>
+
+<li><strong>Rāda apmeklējumu skaitu</strong>: sīkbilžu lapā zem attiecīgās sīkbildes rāda cik reižu katrs attēls apskatīts.
+   Tikai tad, kad papildus konfigurācijas parametrs ir: <br>
+   $conf['show_nb_hits'] = true; <br>
+Zināšanai: false ir pēc noklusējuma.</li>
+
+<li><strong>Attēlu maksimālais platums</strong>: maksimālais attēlojamais platums. Attēli, kas pārsniedz šo lielumu, tiks pārveidoti, lai tos var parādīt. Labāk apsverat iespēju modificēt attēla platumu pašiem, nekā izmantot šo noklusējuma variantu.</li>
+
+<li><strong>Attēlu maksimālais augstums</strong>: attiecināms tas pats, kas pieminēts attēlu maksimālajā platumā.</li>
+
+</ul>
