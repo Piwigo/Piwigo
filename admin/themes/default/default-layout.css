@@ -612,7 +612,7 @@ ul.holder li.bit-box-focus a.closebutton, ul.holder li.bit-box-focus a.closebutt
 }
 
 html, body {height:100%; margin:0; padding:0;}
-#the_page {min-height:100%; position:relative; padding:0;margin:0;}
+#the_page {min-height:100%; position:absolute; width:100%; padding:0;margin:0;}
 #pwgMain {padding:10px;padding-bottom:60px;}
 
 #footer {
@@ -761,6 +761,7 @@ html, body {height:100%; margin:0; padding:0;}
 /* Set the width of the menubar for the galery */
 #menubar {
   width: 18em;
+  margin: 10px 0 50px 10px !important;
 }
 .content {
   margin-left: 20em;  /* = #menubar width + 2em */
