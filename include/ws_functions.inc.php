@@ -580,7 +580,7 @@ SELECT DISTINCT image_id
   {
     case 'reject':
       array_push($infos, l10n('Your comment has NOT been registered because it did not pass the validation rules') );
-      return new PwgError(403, implode("\n", $infos) );
+      return new PwgError(403, implode("; ", $infos) );
     case 'validate':
     case 'moderate':
       $ret = array(
