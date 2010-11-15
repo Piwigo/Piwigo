@@ -131,7 +131,7 @@ SELECT COUNT(*) AS user_exists
     $comment_action='reject';
   }
 
-  if ($comment_action!='reject' and $conf['anti-flood_time']>0 )
+  if ($comment_action!='reject' and $conf['anti-flood_time']>0 and !is_admin())
   { // anti-flood system
     $reference_date = pwg_db_get_flood_period_expression($conf['anti-flood_time']);
 
