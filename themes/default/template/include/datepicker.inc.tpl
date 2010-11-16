@@ -11,7 +11,7 @@
 {/if}
 
 {html_head}
-<link rel="stylesheet" type="text/css" href="{$ROOT_URL}themes/default/js/ui/themes/ui.datepicker.css">
+<link rel="stylesheet" type="text/css" href="{$ROOT_URL}themes/default/js/ui/theme/ui.datepicker.css">
 {/html_head}
 
 <script type="text/javascript">
