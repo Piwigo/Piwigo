@@ -74,8 +74,8 @@ TABLE.calMonth TBODY TD, TABLE.calMonth TBODY TD DIV.calImg {ldelim}
  		{else}
  			<td class="calDayCellEmpty">{$day.DAY}
  		{/if}
- 	{else}
- 		<td class="calDayCellBlank">
+ 	{else}{*blank cell first or last row only*}
+ 		<td>
  	{/if}
  	</td>
  	{/foreach} {*day in week*}
