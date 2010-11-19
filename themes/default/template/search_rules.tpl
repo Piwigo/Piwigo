@@ -1,5 +1,14 @@
 <div id="content" class="content">
-<h2>{'Search rules'|@translate}</h2>
+  <div class="titrePage">
+	<ul class="categoryActions">
+	  <li>
+		<a href="#" onclick="window.close();" title="{'Close this window'|@translate}">
+		  <img src="{$ROOT_URL}{$themeconf.icon_dir}/exit.png" class="button" alt="exit">
+		</a>
+	  </li>
+	</ul>
+  <h2>{'Search rules'|@translate}</h2>
+  </div>
 
 {if isset($INTRODUCTION) }
 <p>{$INTRODUCTION}</p>
@@ -46,12 +55,9 @@
   
 </ul>
 
+<p>
+    <a href="#" onclick="window.close();">{'Close this window'|@translate}</a>
+</p>
+
 </div> <!-- content -->
 
-<ul class="categoryActions">
-	<li>
-		<a href="#" onclick="window.close();" title="{'Close this window'|@translate}">
-			<img src="{$ROOT_URL}{$themeconf.icon_dir}/exit.png" class="button" alt="exit">
-		</a>
-	</li>
-</ul>

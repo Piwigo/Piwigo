@@ -139,11 +139,7 @@ UL.categoryActions {
 	text-indent: 0;
 	list-style: none;
 	text-align: center;
-}
-
-.content DIV.titrePage UL.categoryActions {
 	float: right;
-	text-align: center;
 }
 
 .content DIV.titrePage {
@@ -155,7 +151,7 @@ UL.categoryActions {
 }
 
 .content UL.categoryActions A IMG, UL.categoryActions A {
-	border: none;
+	border: 0;
 	margin-bottom: -5px;
 }
 
@@ -169,6 +165,7 @@ UL.categoryActions {
 SPAN.calItem, SPAN.calItemEmpty {
 	font-weight: bold;
 	margin: 0 1px;
+	border: 1px solid gray;
 }
 
 SPAN.calItem A { border:0 }
@@ -193,10 +190,11 @@ TABLE.calMonth {
 	margin-bottom: 10px;	/*<-IE ignores this */
 }
 
-TD.calDayCellFull, TD.calDayCellEmpty, TD.calDayCellBlank {
+TD.calDayCellFull, TD.calDayCellEmpty {
 	vertical-align: top;
-  font-weight: bold;
-  font-size: 18px;
+	font-weight: bold;
+	font-size: 18px;
+	border: 1px solid gray;
 }
 
 TD.calDayHead {
@@ -848,12 +846,6 @@ INPUT.rateButton, INPUT.rateButtonSelected, INPUT.rateButtonStarFull, INPUT.rate
 
 LEGEND {
 	font-style: italic;
-}
-
-/*calendar*/
-SPAN.calItem, SPAN.calItemEmpty, 
-TD.calDayCellEmpty, TD.calDayCellFull {
-	border: 1px solid gray;
 }
 
 #piwigoAbout {width:600px;margin:0 auto;}
