@@ -15,15 +15,14 @@
 .gcBorderInput { border-color:#666666; }           /* used for inputs */
 
 /* text color */
-body, h3, dt, h2, .throw, .content, label,
-input.rateButtonSelected /* <= why IE doesn't inherit this ? */ { color:#666; }
+body, h3, dt, h2, .throw, .content, label { color:#666; }
 INPUT, select, textarea { color:#999; background-color: #444; }
 option[disabled] { background-color: #999; color: #444; }
 input[type="radio"], input[type="checkbox"] { background-color: transparent; }
 /* INPUT[type="checkbox"], INPUT[type="radio"]
 { color:#999; background-color: #eee; }  */
 INPUT[type="submit"], INPUT[type="reset"]  { color:#999; border: 1px solid #666; background-color: #444; padding: 1px 15px; }
-input.rateButton, legend, h3 { color: #666; }
+legend, h3 { color: #666; }
 h2 { color: #ccc; }
 
 .header_notes { 
