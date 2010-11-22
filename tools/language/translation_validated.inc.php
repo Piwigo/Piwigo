@@ -424,7 +424,7 @@ $validated_keys = array(
 	'IP: %s',
 	'IP',
 	),
-  'sr_RS' => array(
+  'sh_RS' => array(
  	'%d Kb',
 	'Filter',
 	'Webmaster',
@@ -435,6 +435,25 @@ $validated_keys = array(
 	'Element',
 	'Host',
 	'localhost, sql.multimania.com, toto.freesurf.fr',
+	),
+	
+  'sv_SE' => array(
+ 	'%d association',
+	'Plugins',
+	'Position',
+	'Representant',
+	'Status',
+	'Version',
+	'High definition',
+	'test',
+	'status',
+	'Piwigo administration',
+	'GD version',
+	'user_status_webmaster',
+	'IP',
+	'Element',
+	'Piwigo Administration',
+	'Piwigo version',
 	),
 	
   'tr_TR' => array(
