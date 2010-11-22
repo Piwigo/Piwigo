@@ -28,7 +28,7 @@ $lang['total upgrade time'] = 'teljes frissítési idő';
 $lang['total SQL time'] = 'teljes SQL idő';
 $lang['SQL queries'] = 'SQL lekérdezés';
 $lang['Upgrade informations'] = 'Frissítési információk';
-$lang['Perform a maintenance check in [Administration>Specials>Maintenance] if you encounter any problem.'] = 'Végezze el a karbantartás ellenőrzést [Adminisztráció>Speciális összetevők>Karbantartás] ha bármilyen problémával találkozna.';
+$lang['Perform a maintenance check in [Administration>Tools>Maintenance] if you encounter any problem.'] = 'Végezze el a karbantartás ellenőrzést [Adminisztráció>Eszközök>Karbantartás] ha bármilyen problémával találkozna.';
 $lang['Only administrator can run upgrade: please sign in below.'] = 'A frissítés csak rendszergazda jogosultsággal futtatható, kérjük jelentkezzen be.';
 $lang['You do not have access rights to run upgrade'] = 'Önnek nincs jogosultsága a frissítés elvégzéséhez';
 
