@@ -130,6 +130,9 @@ BODY#theNBMPage .content
 	font-size: 110%;
 }
 
+.content DIV.titrePage {
+	padding: 0 0 3px;
+}
 
 /* actions */
 UL.categoryActions {
@@ -142,15 +145,11 @@ UL.categoryActions {
 	float: right;
 }
 
-.content DIV.titrePage {
-	padding: 0 0 3px;
-}
-
-.content UL.categoryActions LI {
+UL.categoryActions LI {
 	display: inline;
 }
 
-.content UL.categoryActions A IMG, UL.categoryActions A {
+ UL.categoryActions A IMG, UL.categoryActions A {
 	border: 0;
 	margin-bottom: -5px;
 }
@@ -171,7 +170,7 @@ SPAN.calItem, SPAN.calItemEmpty {
 SPAN.calItem A { border:0 }
 
 .content DIV.calendarCalBar {
-	margin: 10px 10px;
+	margin: 10px;
 	text-align: left;
 }
 
@@ -185,7 +184,7 @@ SPAN.calCal { margin: 0 2px; }
 
 /* nice looking month calendar*/
 TABLE.calMonth {
-	border: none;
+	border: 0;
 	border-collapse: collapse;
 	margin-bottom: 10px;	/*<-IE ignores this */
 }
@@ -322,7 +321,7 @@ DIV#comments DIV.description {
 .content UL.thumbnails SPAN.wrap2 A,
 .content UL.thumbnails LABEL {
 	display: block;
-	border-bottom: none;
+	border-bottom: 0;
 }
 .content UL.thumbnails IMG {
 	margin-bottom: -4px;  /* why ??? something wrong with Geko and Opera ignored by IE6*/
@@ -366,7 +365,7 @@ DIV#comments DIV.description {
 
 #imageToolBar A, #imageToolBar IMG {
 	display: block;
-	border: none;
+	border: 0;
 	margin: 0; padding: 0;
 }
 #imageToolBar A { width: 48px; }
@@ -382,7 +381,7 @@ DIV#comments DIV.description {
 #theImage>IMG {
 	display: block;
 	margin: 0 auto;
-	border: none;
+	border: 0;
 }
 
 #linkPrev {
@@ -454,7 +453,7 @@ H1 {
 
 H2 {
 	margin: 0;
-	padding: 5px 0.5em 5px 0.5em;
+	padding: 5px 0.5em;
 	text-align: left;
 	font-size: 120%;
 }
@@ -468,7 +467,7 @@ A:hover {
 }
 
 IMG {
-	border: none;
+	border: 0;
 }
 
 HR.separation {
@@ -769,14 +768,14 @@ BODY#thePopuphelpPage {
 /* IE <= 6 is so bad with this that you can't merge with the following rule */
 INPUT[type="text"], INPUT[type="password"], INPUT[type="button"],
 INPUT[type="submit"], INPUT[type="reset"], INPUT[type="file"] {
-	color:black;
+	color: #000;
 	background-color: #d3d3d3;	/* lightgrey */
 }
 
 INPUT.text, INPUT.password, INPUT.button,
 INPUT.submit, INPUT.reset, INPUT.file,
 SELECT, TEXTAREA {
-	color:black;
+	color: #000;
 	background-color: #d3d3d3;	/* lightgrey */
 }
 
