@@ -6,6 +6,7 @@
 	margin: 0 0 10px 1em;
 	padding: 0;
 	display: inline;
+	width: 18em;
 }
 
 #menubar DL, #menubar DT, #menubar DD {
@@ -47,12 +48,9 @@
 	margin-bottom: 0;
 }
 
-#menubar LI.selected A {
+/*IE6 needs override because of > selector*/
+#menubar LI.selected>A {
 	font-weight: bold;
-}
-
-#menubar LI.selected LI A {
-	font-weight: normal;
 }
 
 #menubar .menuInfoCatByChild {
@@ -94,24 +92,12 @@ FORM#quickconnect FIELDSET DIV {
  * Content
  */
 .content {
-	margin-right: 1em;
-	margin-bottom: 1em; /* when it's longer than menu bar */
+	margin: 1em;
 }
 
-BODY#theCommentsPage .content,
-BODY#theUploadPage .content,
-BODY#theRegisterPage .content,
-BODY#theIdentificationPage .content,
-BODY#theProfilePage .content,
-BODY#theSearchPage .content,
-BODY#theAboutPage .content,
-BODY#thePopuphelpPage .content,
-BODY#thePasswordPage .content,
-BODY#theNotificationPage .content,
-BODY#theTagsPage .content,
-BODY#theNBMPage .content
+BODY#theCategoryPage .content
 {
-	margin: 1em;
+	margin-left: 20em;  /* = #menubar width + 2em */
 }
 
 .content H2 { margin-bottom: 3px;} /*<- for IE otherwise calendar select is displaced to middle of page*/
@@ -155,32 +141,32 @@ UL.categoryActions LI {
 }
 
 /* begin chronology/calendar elements*/
-.content DIV.calendarViews {
+.content .calendarViews {
 	display: block;
 	float: right;
 	margin: 2px 0 0;
 }
 
-SPAN.calItem, SPAN.calItemEmpty {
+.calItem, .calItemEmpty {
 	font-weight: bold;
 	margin: 0 1px;
 	border: 1px solid gray;
 }
 
-SPAN.calItem A { border:0 }
+.calItem A { border:0 }
 
-.content DIV.calendarCalBar {
+.content .calendarCalBar {
 	margin: 10px;
 	text-align: left;
 }
 
-SPAN.calCalHead {
+.calCalHead {
 	font-weight: bold;
 	font-size: 110%;
 	margin: 0 2px;
 }
 
-SPAN.calCal { margin: 0 2px; }
+.calCal { margin: 0 2px; }
 
 /* nice looking month calendar*/
 TABLE.calMonth {
@@ -712,13 +698,6 @@ IMG.ui-datepicker-trigger {
 	cursor : pointer;
 }
 
-/* Set the width of the menubar for the galery */
-#menubar {
-  width: 18em;
-}
-.content {
-  margin-left: 20em;  /* = #menubar width + 2em */
-}
 /* Set minimum width of the page before getting a scrollbar */
 /* IE5 and IE6 don't get that */
 BODY {
@@ -760,7 +739,7 @@ BODY#thePopuphelpPage {
 }
 
 /* So that non-links are slightly greyed out */
-.content .navigationBar, SPAN.calItemEmpty, TD.calDayCellEmpty {
+.content .navigationBar, .calItemEmpty, TD.calDayCellEmpty {
 	color: #b0b0b0;
 }
 

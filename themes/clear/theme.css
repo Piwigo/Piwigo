@@ -67,7 +67,7 @@ A.navThumb, A.navThumb:hover {
 }
 
 /*calendar elements*/
-SPAN.calItem, SPAN.calItemEmpty
+.calItem, .calItemEmpty
 {
   border: 1px solid silver;
 }
