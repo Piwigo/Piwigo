@@ -9,6 +9,6 @@ BODY {
 	background: #fff;
 }
 
-.content {
-	margin: 0;
+BODY#theCategoryPage .content {
+	margin: 0 !important; 
 }

@@ -54,9 +54,35 @@
         </table>
 
         <p>
+			{literal}
+			<script type="text/javascript">
+			jQuery(document).ready(function(){
+
+				jQuery("#checkAllLink").click(function () {
+					jQuery("#c13y input[type=checkbox]").attr('checked', true);
+					return false;
+				});
+
+				jQuery("#uncheckAllLink").click(function () {
+					jQuery("#c13y input[type=checkbox]").attr('checked', false);
+					return false;
+				});
+
+			});
+			function DeselectAll( formulaire )
+			{
+				var elts = formulaire.elements;
+				for(var i=0; i <elts.length; i++)
+				{
+					if (elts[i].type=='checkbox')
+						elts[i].checked = false;
+				}
+			}
+			</script>
+			{/literal}
           {if $c13y_show_submit_ignore}
-              <a href="#" onclick="SelectAll(document.getElementById('c13y')); return false;">{'Check all'|@translate}</a>
-            / <a href="#" onclick="DeselectAll(document.getElementById('c13y')); return false;">{'Uncheck all'|@translate}</a>
+              <a href="#" id="checkAllLink">{'Check all'|@translate}</a>
+            / <a href="#" id="uncheckAllLink">{'Uncheck all'|@translate}</a>
           {/if}
           {if isset($c13y_do_check)}
             / <a href="#" onclick="DeselectAll(document.getElementById('c13y'));

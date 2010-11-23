@@ -1,5 +1,22 @@
 
 {include file='include/autosize.inc.tpl'}
+{literal}
+<script type="text/javascript">
+jQuery(document).ready(function(){
+
+	jQuery("#checkAllLink").click(function () {
+		jQuery("#notification_by_mail input[type=checkbox]").attr('checked', true);
+		return false;
+	});
+
+	jQuery("#uncheckAllLink").click(function () {
+		jQuery("#notification_by_mail input[type=checkbox]").attr('checked', false);
+		return false;
+	});
+
+});
+</script>
+{/literal}
 
 <div class="titrePage">
   <h2>{'Send mail to users'|@translate} {$TABSHEET_TITLE}</h2>
@@ -97,8 +114,8 @@
         {/foreach}
       </table>
       <p>
-          <a href="#" onclick="SelectAll(document.getElementById('notification_by_mail')); return false;">{'Check all'|@translate}</a>
-        / <a href="#" onclick="DeselectAll(document.getElementById('notification_by_mail')); return false;">{'Uncheck all'|@translate}</a>
+          <a href="#" id="checkAllLink">{'Check all'|@translate}</a>
+        / <a href="#" id="uncheckAllLink">{'Uncheck all'|@translate}</a>
       </p>
     </fieldset>
 

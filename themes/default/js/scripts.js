@@ -1,33 +1,3 @@
-function SelectAll( formulaire )
-{
-var elts = formulaire.elements;
-for(var i=0; i <elts.length; i++)
-{
-	if (elts[i].type=='checkbox')
-		elts[i].checked = true;
-}
-}
-
-function DeselectAll( formulaire )
-{
-var elts = formulaire.elements;
-for(var i=0; i <elts.length; i++)
-{
-	if (elts[i].type=='checkbox')
-		elts[i].checked = false;
-}
-}
-
-function Inverser( formulaire )
-{
-var elts = formulaire.elements;
-for(var i=0; i <elts.length; i++)
-{
-	if (elts[i].type=='checkbox')
-		elts[i].checked = !elts[i].checked;
-}
-}
-
 function phpWGOpenWindow(theURL,winName,features)
 {
 	img = new Image();
@@ -62,7 +32,7 @@ function PwgWS(urlRoot)
 	this.urlRoot = urlRoot;
 	this.options = {
 		method: "GET",
-		async:  true,
+		async: true,
 		onFailure: null,
 		onSuccess: null
 	};
