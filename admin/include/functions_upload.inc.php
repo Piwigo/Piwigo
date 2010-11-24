@@ -183,6 +183,9 @@ function prepare_directory($directory)
 
 function need_resize($image_filepath, $max_width, $max_height)
 {
+  // TODO : the resize check should take the orientation into account. If a
+  // rotation must be applied to the resized photo, then we should test
+  // invert width and height.
   list($width, $height) = getimagesize($image_filepath);
   
   if ($width > $max_width or $height > $max_height)
@@ -191,6 +194,48 @@ function need_resize($image_filepath, $max_width, $max_height)
   }
 
   return false;
+}
+
+function get_resize_dimensions($width, $height, $max_width, $max_height, $rotation=null)
+{
+  $rotate_for_dimensions = false;
+  if (isset($rotation) and in_array(abs($rotation), array(90, 270)))
+  {
+    $rotate_for_dimensions = true;
+  }
+
+  if ($rotate_for_dimensions)
+  {
+    list($width, $height) = array($height, $width);
+  }
+  
+  $ratio_width  = $width / $max_width;
+  $ratio_height = $height / $max_height;
+  
+  // maximal size exceeded ?
+  if ($ratio_width > 1 or $ratio_height > 1)
+  {
+    if ($ratio_width < $ratio_height)
+    { 
+      $destination_width = ceil($width / $ratio_height);
+      $destination_height = $max_height;
+    }
+    else
+    { 
+      $destination_width = $max_width; 
+      $destination_height = ceil($height / $ratio_width);
+    }
+  }
+
+  if ($rotate_for_dimensions)
+  {
+    list($destination_width, $destination_height) = array($destination_height, $destination_width);
+  }
+  
+  return array(
+    'width' => $destination_width,
+    'height'=> $destination_height,
+    );
 }
 
 function pwg_image_resize($result, $source_filepath, $destination_filepath, $max_width, $max_height, $quality)
@@ -222,36 +267,45 @@ function pwg_image_resize($result, $source_filepath, $destination_filepath, $max
   {
     die('unsupported file extension');
   }
+
+  $rotation = null;
+  if (function_exists('imagerotate'))
+  {
+    $exif = exif_read_data($source_filepath);
+    if (isset($exif['Orientation']) and preg_match('/^\s*(\d)/', $exif['Orientation'], $matches))
+    {
+      $orientation = $matches[1];
+      if (in_array($orientation, array(3, 4)))
+      {
+        $rotation = 180;
+      }
+      elseif (in_array($orientation, array(5, 6)))
+      {
+        $rotation = 270;
+      }
+      elseif (in_array($orientation, array(7, 8)))
+      {
+        $rotation = 90;
+      }
+    }
+  }
   
   // width/height
   $source_width  = imagesx($source_image); 
   $source_height = imagesy($source_image);
   
-  $ratio_width  = $source_width / $max_width;
-  $ratio_height = $source_height / $max_height;
-  
-  // maximal size exceeded ?
-  if ($ratio_width > 1 or $ratio_height > 1)
-  {
-    if ($ratio_width < $ratio_height)
-    { 
-      $destination_width = ceil($source_width / $ratio_height);
-      $destination_height = $max_height; 
-    }
-    else
-    { 
-      $destination_width = $max_width; 
-      $destination_height = ceil($source_height / $ratio_width);
-    }
-  }
-  else
+  $resize_dimensions = get_resize_dimensions($source_width, $source_height, $max_width, $max_height, $rotation);
+
+  // testing on height is useless in theory: if width is unchanged, there
+  // should be no resize, because width/height ratio is not modified.
+  if ($resize_dimensions['width'] == $source_width and $resize_dimensions['height'] == $source_height)
   {
     // the image doesn't need any resize! We just copy it to the destination
     copy($source_filepath, $destination_filepath);
     return true;
   }
   
-  $destination_image = imagecreatetruecolor($destination_width, $destination_height);
+  $destination_image = imagecreatetruecolor($resize_dimensions['width'], $resize_dimensions['height']);
   
   imagecopyresampled(
     $destination_image,
@@ -260,11 +314,17 @@ function pwg_image_resize($result, $source_filepath, $destination_filepath, $max
     0,
     0,
     0,
-    $destination_width,
-    $destination_height,
+    $resize_dimensions['width'],
+    $resize_dimensions['height'],
     $source_width,
     $source_height
     );
+
+  // rotation occurs only on resized photo to avoid useless memory use
+  if (isset($rotation))
+  {
+    $destination_image = imagerotate($destination_image, $rotation, 0);
+  }
   
   $extension = strtolower(get_extension($destination_filepath));
   if ($extension == 'png')
