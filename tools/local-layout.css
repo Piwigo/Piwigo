@@ -4,7 +4,7 @@ BODY {
   background-attachment:fixed;
 }
 
-.content UL.thumbnails SPAN.wrap2 {
+UL.thumbnails SPAN.wrap2 {
   height: 200px; /* max thumbnail height + 2px */
 }
 

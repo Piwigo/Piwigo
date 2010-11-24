@@ -1,7 +1,7 @@
 
 /* text color */
 BODY, H1, H3,
-INPUT.rateButtonSelected /* <= why IE doesn't inherit this ? */ {
+.rateButtonSelected /* <= why IE doesn't inherit this ? */ {
 	color:#d0d0d0;
 }
 
@@ -51,11 +51,11 @@ FIELDSET, INPUT, SELECT, TEXTAREA,
 	border: 1px solid gray;
 }
 
-.content UL.thumbnails SPAN.wrap2 {
+UL.thumbnails SPAN.wrap2 {
 	border: 1px solid #aaaaaa;	/* thumbnails border color and style */
 }
 
-.content UL.thumbnails SPAN.wrap2:hover,
+UL.thumbnails SPAN.wrap2:hover,
 .content UL.thumbnailCategories DIV.thumbnailCategory:hover,
 .content UL.thumbnailCategories DIV.thumbnailCategory:hover A {
 	background-color: #faebd7;
@@ -65,9 +65,9 @@ FIELDSET, INPUT, SELECT, TEXTAREA,
 
 
 /* links */
-A, INPUT.rateButton {
+A, .rateButton {
 	color: #fff;
-	border: none;
+	border: 0;
 }
 
 A:hover {

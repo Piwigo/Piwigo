@@ -1,10 +1,10 @@
-.content UL.thumbnails {
+UL.thumbnails {
   margin: 0; padding: 0; list-style: none;
   text-align: center;	/* to center the whole collection in .content */
   float: left;
 }
-.content UL.thumbnails LI { display: inline }
-.content ul.thumbnails li.rank-of-image { 
+UL.thumbnails LI { display: inline }
+UL.thumbnails li.rank-of-image { 
   float: left;
   background-color: #111;
   border: 1px solid #666;
@@ -16,7 +16,7 @@
   cursor: move;
   margin: 10px;
 }
-.content ul.thumbnails li.rank-of-image img {
+UL.thumbnails li.rank-of-image img {
   margin: 0 20px;
   padding: 4px 2px;
   float: left;
@@ -29,34 +29,34 @@
 .clip {
   position:absolute;
 }
-.content ul.thumbnails li.rank-of-image input {
+UL.thumbnails li.rank-of-image input {
   height: 12px; 
   width: 50px;
   position: relative;
   top: 4px;  
 }
-.content UL.thumbnails SPAN.wrap1 {
+UL.thumbnails SPAN.wrap1 {
   margin: 0 5px 5px 5px;
   display: table-cell; display: inline-table;
   display: inline-block; /* Why 3 display option ??? */
   vertical-align: top;		/* OK with Opera and IE6 not Geko */
   text-align: center;		/* to center the thumbnail and legend in Geko/Opera */
 }
-.content UL.thumbnails SPAN.wrap2 {
+UL.thumbnails SPAN.wrap2 {
   margin: 0;			/* important reset the margins */
   display: table-cell;		/* block prevents vertical-align here */
   vertical-align: middle;	/* Ok with Opera and Geko not IE6 */
 }
-.content UL.thumbnails LABEL { display: block; border-bottom: none; }
-.content UL.thumbnails IMG {
+UL.thumbnails LABEL { display: block; border-bottom: none; }
+UL.thumbnails IMG {
   margin-bottom: -4px;  /* why ??? something wrong with Geko and Opera ignored by IE6*/
 }
-.content UL.thumbnails LABEL { position: relative; }
-.content UL.thumbnails INPUT {
+UL.thumbnails LABEL { position: relative; }
+UL.thumbnails INPUT {
   position: relative;	/* <= Opera can handle relative here */
   top: -20px;
 }
-:root .content UL.thumbnails INPUT { /* hide from Opera */
+:root UL.thumbnails INPUT { /* hide from Opera */
   position: absolute;	/* <= Opera hide 1 checkbox over 2 !!! */
   left: 2px; top: 2px;
 }

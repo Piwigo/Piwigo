@@ -95,7 +95,7 @@ FORM#quickconnect FIELDSET DIV {
 	margin: 1em;
 }
 
-BODY#theCategoryPage .content
+#theCategoryPage .content
 {
 	margin-left: 20em;  /* = #menubar width + 2em */
 }
@@ -135,7 +135,7 @@ UL.categoryActions LI {
 	display: inline;
 }
 
- UL.categoryActions A IMG, UL.categoryActions A {
+UL.categoryActions A IMG, UL.categoryActions A {
 	border: 0;
 	margin-bottom: -5px;
 }
@@ -188,14 +188,14 @@ TD.calDayHead {
 	text-align: center;
 }
 
-DIV.calImg {
+.calImg {
 	overflow: hidden;
 	vertical-align: bottom;
 	z-index: 1;
 	position: relative; /*<- this required by IE*/
 }
 
-.calImg img {
+.calImg IMG {
 	position: relative;
 	border: 0;
 }
@@ -275,28 +275,28 @@ DIV#comments DIV.description {
 }
 
 /* Thumbnails */
-.content UL.thumbnails SPAN.thumbLegend {
+UL.thumbnails SPAN.thumbLegend {
 	font-size: 90%;
 	overflow: hidden;/* oversized legend is clipped */
 }
 
 /* Thumbnail "elastic" layout */
-.content UL.thumbnails {
+UL.thumbnails {
 	margin: 0;
 	padding: 0;
 	list-style: none;
 	text-align: center;	/* to center the whole collection in .content */
 }
-.content UL.thumbnails LI { display: inline }
+UL.thumbnails LI { display: inline }
 
-.content UL.thumbnails SPAN.wrap1 {
+UL.thumbnails SPAN.wrap1 {
 	margin: 0 5px 5px 5px;
 	display: table-cell; display: inline-table;
 	display: inline-block;/* Why 3 display option ??? */
 	vertical-align: top;	/* OK with Opera and IE6 not Geko */
 	text-align: center;		/* to center the thumbnail and legend in Geko/Opera */
 }
-.content UL.thumbnails SPAN.wrap2 {
+UL.thumbnails SPAN.wrap2 {
 	margin: 0;			/* important reset the margins */
 	display: table-cell;/* block prevents vertical-align here */
 	vertical-align: middle;/* Ok with Opera and Geko not IE6 */
@@ -304,12 +304,12 @@ DIV#comments DIV.description {
 	-moz-border-radius: 4px;	/* round corners with Geko */
 	-webkit-border-radius: 4px; /* Safari webkit project */
 }
-.content UL.thumbnails SPAN.wrap2 A,
-.content UL.thumbnails LABEL {
+UL.thumbnails SPAN.wrap2 A,
+UL.thumbnails LABEL {
 	display: block;
 	border-bottom: 0;
 }
-.content UL.thumbnails IMG {
+UL.thumbnails IMG {
 	margin-bottom: -4px;  /* why ??? something wrong with Geko and Opera ignored by IE6*/
 }
 
@@ -426,6 +426,11 @@ BODY {
 	padding: 0;
 	font-size: 0.8em;
 	font-family: Arial,Helvetica,sans-serif;
+	min-width: 60em;  /* ~ 3* #menubar width; width of the page before getting a scrollbar; IE6 doesn't get that*/
+}
+
+#thePopuphelpPage {
+	min-width: 0; /*reset the min width*/
 }
 
 
@@ -615,9 +620,9 @@ UL.tagSelection {
 }
 
 UL.tagSelection LI {
-        display:inline-block;
-        width:150px!important;
-        overflow:hidden;
+	display:inline-block;
+	width:150px!important;
+	overflow:hidden;
 	white-space: nowrap;
 }
 
@@ -642,20 +647,21 @@ UL.tagSelection LI {
 
 
 /* Popup help page */
-BODY#thePopuphelpPage #copyright {
+#thePopuphelpPage #copyright {
 	display: none;
 }
 
-#theNotificationPage p { padding: 0.5em; }
-BODY#thePopuphelpPage .content P {
+#thePopuphelpPage P {
 	text-align: justify;
 	padding: 0.5em;
 }
 
-BODY#thePopuphelpPage .content OL LI,
-BODY#thePopuphelpPage .content UL LI
-{
+#thePopuphelpPage LI {
 	margin-bottom: 0.5em;
+}
+
+#theNotificationPage P {
+	padding: 0.5em;
 }
 
 TR.tagLine {
@@ -690,31 +696,25 @@ TABLE.tagLetterContent {
 
 #theHeader {text-align: center;}
 
-#theNotificationPage DL,
-#thePopuphelpPage DL { margin: 0 25px 25px; }
+#theNotificationPage DL, #thePopuphelpPage DL {
+	margin: 0 25px 25px; 
+}
+
 .content #comments UL.thumbnailCategories LI { width:99%; }
+
 /* jQuery datepicker */
 IMG.ui-datepicker-trigger {
 	cursor : pointer;
 }
 
-/* Set minimum width of the page before getting a scrollbar */
-/* IE5 and IE6 don't get that */
-BODY {
-  min-width: 60em;  /* ~ 3* #menubar width */
-}
-BODY#thePopuphelpPage {
-  min-width: 0;
-}
-
 /* Set some sizes according to your maximum thumbnail width and height */
-.content UL.thumbnails SPAN,
-.content UL.thumbnails SPAN.wrap2 A,
-.content UL.thumbnails LABEL,
+UL.thumbnails SPAN,
+UL.thumbnails SPAN.wrap2 A,
+UL.thumbnails LABEL,
 .content DIV.thumbnailCategory DIV.illustration {
   width: 140px;      /* max thumbnail width + 2px */
 }
-.content UL.thumbnails SPAN.wrap2,
+UL.thumbnails SPAN.wrap2,
 .content DIV.thumbnailCategory DIV.description {
   height: 140px;    /* max thumbnail height + 2px */
 }
@@ -726,7 +726,7 @@ BODY#thePopuphelpPage {
 }
 
 /* Set defaults for thumbnails legend */
-.content UL.thumbnails SPAN.thumbLegend {
+UL.thumbnails SPAN.thumbLegend {
   display: block;  /* display: none; if you don't want legend */
   height: 4em;    /* legend height (don't set auto to be Gecko friendly)*/
 }
@@ -772,7 +772,7 @@ INPUT.radio, INPUT.checkbox {
 }
 
 /* rate buttons displayed like links */
-INPUT.rateButton, INPUT.rateButtonSelected, INPUT.rateButtonStarFull, INPUT.rateButtonStarEmpty {
+.rateButton, .rateButtonSelected, .rateButtonStarFull, .rateButtonStarEmpty {
 	color:inherit;
 	background-color:transparent !important;	/* Konqueror doesn't accept transparent here */
 }

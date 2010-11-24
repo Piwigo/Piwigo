@@ -7,7 +7,7 @@
 #comments .thumbnailCategories hr {display:none;}
 #comments form.filter input[type="submit"] { margin-top:1.8em; }
 /*  Sylvia Theme is close to the Roma Admin theme */
-BODY, H1, H3, DT, INPUT.rateButtonSelected, H2, #menubar DT { 
+BODY, H1, H3, DT, .rateButtonSelected, H2, #menubar DT { 
 	color:#666; 
 }
 #imageHeaderBar, #imageToolBar A:hover { 
@@ -175,10 +175,10 @@ BODY {
 	min-height:466px; 
 }
 
-.content { 
+#theCategoryPage .content { 
 	border: 1px solid #000; 
 	border-top: 0; 
-	margin:21px 7px 0 290px; 
+	margin:21px 7px 0 290px !important; 
 	padding-top:7px; 
 }
 .content h2 { 
@@ -292,11 +292,11 @@ input[type="radio"], input[type="checkbox"], input[type="button"].rateButtonStar
 	background-color:#444;
 	color:#999; 
 }
-.content UL.thumbnails SPAN.wrap2 {
+UL.thumbnails SPAN.wrap2 {
 	border: 1px solid #666;	/* thumbnails border color and style */
 	border-radius: 4px 4px;	/* round corners with CSS3 compliant browsers */ 
 }
-.content UL.thumbnails SPAN.wrap2:hover { 
+UL.thumbnails SPAN.wrap2:hover { 
 	color:#666;
 	background-color:#111; 
 	border:1px solid #ff3363;	/* thumbnails border color when mouse cursor is over it */ 
@@ -315,7 +315,7 @@ input[type="radio"], input[type="checkbox"], input[type="button"].rateButtonStar
 .calItemEmpty, td.calDayCellEmpty, td.calDayCellFull {
 	border:1px solid #666;
 }
-A, INPUT.rateButton { 
+A, .rateButton { 
 	color:#f70; 
 	border-width: 0; 
 }

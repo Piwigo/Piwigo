@@ -23,4 +23,4 @@ ul.categoryActions { margin: 0 2px; width: auto; list-style-position:outside;
   margin-right: 0.5em; overflow: visible; /*avoid a very strange margin behaviour (all browsers) */ }
 
   /* not used but should be */
-body#thePopuphelpPage .content { margin: 1em; }
+#thePopuphelpPage .content { margin: 1em; }

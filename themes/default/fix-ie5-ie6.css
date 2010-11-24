@@ -9,20 +9,20 @@
 }
 
 /* fix IE with another layout for thumbnails */
-.content UL.thumbnails SPAN.wrap2 {
+UL.thumbnails SPAN.wrap2 {
   display: block;
   position: relative;
   text-align: left;
 }
-.content UL.thumbnails SPAN.wrap2 A,
-.content UL.thumbnails SPAN.wrap2 SPAN {
+UL.thumbnails SPAN.wrap2 A,
+UL.thumbnails SPAN.wrap2 SPAN {
   overflow: visible;
   position: absolute;
   top: 50%;
   text-align: center;
 }
 
-.content UL.thumbnails IMG.thumbnail {
+UL.thumbnails IMG.thumbnail {
   position: relative;
   top: -50%;
   /*\*//*/

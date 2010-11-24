@@ -100,15 +100,15 @@ background-repeat:no-repeat; color:#999; cursor:pointer; font-size:110%; overflo
 .instructionBlockContent { padding:0 15px 15px;}
 SPAN.pwgScreen { font-style:italic; border-bottom:1px dotted #666}
 
-.content ul.thumbnails span.wrap2:hover { background-color:#eee; border:1px solid #0cc9c; color:#999; }
-.content ul.thumbnails span.wrap2 { border:1px solid #999; padding: 4px; }
-.content ul.thumbnails span.wrap2 { -moz-border-radius-bottomleft:4px; -moz-border-radius-bottomright:4px; -moz-border-radius-topleft:4px; -moz-border-radius-topright:4px; }
-.content ul.thumbnails span.wrap1 { margin:0 12px 5px; }
+UL.thumbnails span.wrap2:hover { background-color:#eee; border:1px solid #0cc9c; color:#999; }
+UL.thumbnails span.wrap2 { border:1px solid #999; padding: 4px; }
+UL.thumbnails span.wrap2 { -moz-border-radius:4px; }
+UL.thumbnails span.wrap1 { margin:0 12px 5px; }
 
 /* borders */
 fieldset { border: 2px solid #ddd; }
 TEXTAREA { cursor:text; font-size: 13px; }
-.content UL.thumbnails SPAN.wrap2 {
+UL.thumbnails SPAN.wrap2 {
   border: 1px solid #555555;  /* thumbnails border color and style */
   border-radius: 4px 4px; /* round corners with CSS3 compliant browsers */
 }

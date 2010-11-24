@@ -1,7 +1,7 @@
 
 /* text color */
 BODY, H1, H2, H3, DT,
-INPUT.rateButtonSelected /* <= why IE doesn't inherit this ? */ {
+.rateButtonSelected /* <= why IE doesn't inherit this ? */ {
 	color:#696969;	/* dimgray */
 }
 
@@ -36,11 +36,11 @@ FIELDSET, INPUT, SELECT, TEXTAREA,
   border: 1px solid gray;
 }
 
-.content UL.thumbnails SPAN.wrap2 {
+UL.thumbnails SPAN.wrap2 {
   border: 1px solid #aaaaaa;	/* thumbnails border color and style */
 }
 
-.content UL.thumbnails SPAN.wrap2:hover,
+UL.thumbnails SPAN.wrap2:hover,
 .content UL.thumbnailCategories DIV.thumbnailCategory:hover,
 .content UL.thumbnailCategories DIV.thumbnailCategory:hover A {
   background-color: #faebd7;
@@ -49,12 +49,12 @@ FIELDSET, INPUT, SELECT, TEXTAREA,
 }
 
 /* links */
-A, INPUT.rateButton {
+A, .rateButton {
     color: #005e89;
     background: transparent;
 }
 
-A:hover, INPUT.rateButton:hover {
+A:hover, .rateButton:hover {
     color: #858460;
 }
 

@@ -771,7 +771,7 @@ html, body {height:100%; margin:0; padding:0;}
 BODY {
   min-width: 60em;  /* ~ 3* #menubar width */
 }
-BODY#thePopuphelpPage {
+#thePopuphelpPage {
   min-width: 0;
 }
 
@@ -779,13 +779,13 @@ BODY#thePopuphelpPage {
 #thePopuphelpPage #footer  {display:none}
 
 /* Set some sizes according to your maximum thumbnail width and height */
-.content UL.thumbnails SPAN,
-.content UL.thumbnails SPAN.wrap2 A,
-.content UL.thumbnails LABEL,
+UL.thumbnails SPAN,
+UL.thumbnails SPAN.wrap2 A,
+UL.thumbnails LABEL,
 .content DIV.thumbnailCategory DIV.illustration {
   width: 140px;      /* max thumbnail width + 2px */
 }
-.content UL.thumbnails SPAN.wrap2,
+UL.thumbnails SPAN.wrap2,
 .content DIV.thumbnailCategory DIV.description {
   height: 140px;    /* max thumbnail height + 2px */
 }
@@ -797,7 +797,7 @@ BODY#thePopuphelpPage {
 }
 
 /* Set defaults for thumbnails legend */
-.content UL.thumbnails SPAN.thumbLegend {
+UL.thumbnails SPAN.thumbLegend {
   display: block;  /* display: none; if you don't want legend */
   height: 4em;    /* legend height (don't set auto to be Gecko friendly)*/
 }
