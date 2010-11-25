@@ -7,7 +7,7 @@
 #comments .thumbnailCategories hr {display:none;}
 #comments form.filter input[type="submit"] { margin-top:1.8em; }
 /*  Sylvia Theme is close to the Roma Admin theme */
-BODY, H1, H3, DT, .rateButtonSelected, H2, #menubar DT { 
+BODY, H1, H3, DT, INPUT.rateButtonSelected, H2, #menubar DT { 
 	color:#666; 
 }
 #imageHeaderBar, #imageToolBar A:hover { 

@@ -1,7 +1,7 @@
 
 /* text color */
 BODY, H1, H3,
-.rateButtonSelected /* <= why IE doesn't inherit this ? */ {
+INPUT.rateButtonSelected /* <= why IE doesn't inherit this ? */ {
 	color:#d0d0d0;
 }
 
@@ -65,7 +65,7 @@ UL.thumbnails SPAN.wrap2:hover,
 
 
 /* links */
-A, .rateButton {
+A, INPUT.rateButton {
 	color: #fff;
 	border: 0;
 }

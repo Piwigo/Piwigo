@@ -300,7 +300,7 @@ UL.thumbnails SPAN.wrap2 {
 	margin: 0;			/* important reset the margins */
 	display: table-cell;/* block prevents vertical-align here */
 	vertical-align: middle;/* Ok with Opera and Geko not IE6 */
-	border-radius: 4px 4px;	/* round corners with CSS3 compliant browsers */
+	border-radius: 4px;	/* round corners with CSS3 compliant browsers */
 	-moz-border-radius: 4px;	/* round corners with Geko */
 	-webkit-border-radius: 4px; /* Safari webkit project */
 }
@@ -399,6 +399,8 @@ TABLE.infoTable TD.value UL {
 .rateButton, .rateButtonSelected, .rateButtonStarFull, .rateButtonStarEmpty  {
 	padding:0;
 	border:0;
+	color:inherit;
+	background-color:transparent !important;	/* Konqueror doesn't accept transparent here */
 }
 
 .rateButton, .rateButtonStarFull, .rateButtonStarEmpty {
@@ -417,6 +419,7 @@ TABLE.infoTable TD.value UL {
 .rateButtonStarEmpty {
 	background: url('icon/rating-stars.gif') no-repeat scroll; background-position:0 center; width:16px;
 }
+
 
 /**
  * Default Layout
@@ -651,17 +654,12 @@ UL.tagSelection LI {
 	display: none;
 }
 
-#thePopuphelpPage P {
-	text-align: justify;
+#thePopuphelpPage P, #theNotificationPage P {
 	padding: 0.5em;
 }
 
-#thePopuphelpPage LI {
-	margin-bottom: 0.5em;
-}
-
-#theNotificationPage P {
-	padding: 0.5em;
+#theNotificationPage DL, #thePopuphelpPage DL {
+	margin: 0 25px 25px; 
 }
 
 TR.tagLine {
@@ -695,10 +693,6 @@ TABLE.tagLetterContent {
 }
 
 #theHeader {text-align: center;}
-
-#theNotificationPage DL, #thePopuphelpPage DL {
-	margin: 0 25px 25px; 
-}
 
 .content #comments UL.thumbnailCategories LI { width:99%; }
 
@@ -771,11 +765,6 @@ INPUT.radio, INPUT.checkbox {
 	border: none;	/* <= IE6 needs this */
 }
 
-/* rate buttons displayed like links */
-.rateButton, .rateButtonSelected, .rateButtonStarFull, .rateButtonStarEmpty {
-	color:inherit;
-	background-color:transparent !important;	/* Konqueror doesn't accept transparent here */
-}
 
 .errors { /* Errors display */
 	color: red;
