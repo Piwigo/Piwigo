@@ -91,3 +91,16 @@ function updateRating(e)
 	);
 	return false;
 }
+
+(function() {
+if (typeof _pwgRatingAutoQueue!="undefined" && _pwgRatingAutoQueue.length)
+{
+    for (var i=0; i<_pwgRatingAutoQueue.length; i++)
+        makeNiceRatingForm(_pwgRatingAutoQueue[i]);
+}
+_pwgRatingAutoQueue = {
+	push: function(opts) {
+		makeNiceRatingForm(opts);
+	}
+}
+})();

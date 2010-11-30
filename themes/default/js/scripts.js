@@ -51,124 +51,135 @@ function popuphelp(url)
 	);
 }
 
-Function.prototype.pwgBind = function() {
-		var __method = this, object = arguments[0], args = Array.prototype.slice.call(arguments,1);
-		return function() {
-				return __method.apply(object, args.concat(arguments) );
-		}
+function pwgBind(object, method) {
+	var args = Array.prototype.slice.call(arguments,2);
+	return function() {
+			return method.apply(object, args.concat(Array.prototype.slice.call(arguments,0)) );
+	}
 }
+
 function PwgWS(urlRoot)
 {
 	this.urlRoot = urlRoot;
 	this.options = {
 		method: "GET",
-		async:  true,
+		async: true,
 		onFailure: null,
 		onSuccess: null
 	};
 };
 
 PwgWS.prototype = {
-
 	callService : function(method, parameters, options)
 	{
 		if (options)
 		{
-			for (var property in options)
-				this.options[property] = options[property];
+			for (var prop in options)
+				this.options[prop] = options[prop];
 		}
-		try { this.transport = new XMLHttpRequest();}
+		try { this.xhr = new XMLHttpRequest();}
 		catch(e) {
-			try { this.transport = new ActiveXObject('Msxml2.XMLHTTP'); }
+			try { this.xhr = new ActiveXObject('Msxml2.XMLHTTP'); }
 			catch(e) {
-				try { this.transport = new ActiveXObject('Microsoft.XMLHTTP'); }
+				try { this.xhr = new ActiveXObject('Microsoft.XMLHTTP'); }
 				catch (e){
-					dispatchError(0, "Cannot create request object");
+					this.error(0, "Cannot create request object");
+					return;
 				}
 			}
 		}
-		this.transport.onreadystatechange = this.onStateChange.pwgBind(this);
+		this.xhr.onreadystatechange = pwgBind(this, this.onStateChange);
 
 		var url = this.urlRoot+"ws.php?format=json";
 
 		var body = "method="+method;
 		if (parameters)
 		{
-			for (var property in parameters)
+			for (var prop in parameters)
 			{
-				if ( typeof parameters[property] == 'object' && parameters[property])
+				if ( typeof parameters[prop] == 'object' && parameters[prop])
 				{
-					for (var i=0; i<parameters[property].length; i++)
-						body += "&"+property+"[]="+encodeURIComponent(parameters[property][i]);
+					for (var i=0; i<parameters[prop].length; i++)
+						body += "&"+prop+"[]="+encodeURIComponent(parameters[prop][i]);
 				}
 				else
-					body += "&"+property+"="+encodeURIComponent(parameters[property]);
+					body += "&"+prop+"="+encodeURIComponent(parameters[prop]);
 			}
 		}
 
 		if (this.options.method == "POST" )
-		{
-			this.transport.open(this.options.method, url, this.options.async);
-			this.transport.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-			this.transport.send(body);
-		}
+			this.xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 		else
 		{
 			url += "&"+body;
-			this.transport.open(this.options.method, url, this.options.async);
-			this.transport.send(null);
+			body = null;
+		}
+		this.xhr.open(this.options.method, url, this.options.async);
+		try {
+			this.xhr.send(body);
+		} catch(e) {
+			this.error(0, e.message);
 		}
 	},
 
 	onStateChange: function() {
-		var readyState = this.transport.readyState;
+		var readyState = this.xhr.readyState;
 		if (readyState==4)
-			this.respondToReadyState(readyState);
+		{
+			try {
+				this.respondToReadyState(readyState);
+			} finally {
+				this.cleanup();
+			}
+		}
 	},
 
-	dispatchError: function( httpCode, text )
+	error: function( httpCode, text )
 	{
 		!this.options.onFailure || this.options.onFailure( httpCode, text);
+		this.cleanup();
 	},
 
 	respondToReadyState: function(readyState)
 	{
-		var transport = this.transport;
-		if (readyState==4 && transport.status == 200)
+		var xhr = this.xhr;
+		if (readyState==4 && xhr.status == 200)
 		{
 			var resp;
 			try {
-				eval('resp = ' + transport.responseText);
+				resp = window.JSON && window.JSON.parse ? window.JSON.parse( xhr.responseText ) : (new Function("return " + xhr.responseText))();
 			}
 			catch (e) {
-				this.dispatchError( 200, e.message + '\n' + transport.responseText.substr(0,512) );
+				this.error( 200, e.message + '\n' + xhr.responseText.substr(0,512) );
 			}
 			if (resp!=null)
 			{
 				if (resp.stat==null)
-					this.dispatchError( 200, "Invalid response" );
+					this.error( 200, "Invalid response" );
 				else if (resp.stat=='ok')
-				{
-					if (this.options.onSuccess) this.options.onSuccess( resp.result );
-				}
+					!this.options.onSuccess || this.options.onSuccess( resp.result );
 				else
-					this.dispatchError( 200, resp.err + " " + resp.message);
+					this.error( 200, resp.err + " " + resp.message);
 			}
 		}
-		if (readyState==4 && transport.status != 200)
-			this.dispatchError( transport.status, transport.statusText );
+		if (readyState==4 && xhr.status != 200)
+			this.error( xhr.status, xhr.statusText );
 	},
 
+	cleanup: function()
+	{
+		if (this.xhr) this.xhr.onreadystatechange = null;
+		this.xhr = null;
+		this.options.onFailure = this.options.onSuccess = null;
+	},
 
-	transport: null,
-	urlRoot: null,
-	options: {}
+	xhr: null
 }
 
 function pwgAddEventListener(elem, evt, fn)
 {
-	if (window.attachEvent)
-		elem.attachEvent('on'+evt, fn);
-	else
+	if (window.addEventListener)
 		elem.addEventListener(evt, fn, false);
+	else
+		elem.attachEvent('on'+evt, fn);		
 }
