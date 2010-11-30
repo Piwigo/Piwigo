@@ -2,7 +2,7 @@ var gRatingOptions, gRatingButtons, gUserRating;
 
 function makeNiceRatingForm(options)
 {
-	gRatingOptions = options || {};
+	gRatingOptions = options;
 	var form = document.getElementById('rateForm');
 	if (!form) return; //? template changed
 
@@ -36,14 +36,11 @@ function makeNiceRatingForm(options)
 			rateButton.parentNode.removeChild(rateButton.previousSibling);
 
 		pwgAddEventListener(rateButton, "click", updateRating);
-		pwgAddEventListener(rateButton, "mouseout", resetRatingStarDisplay);
-		pwgAddEventListener(rateButton, "mouseover", updateRatingStarDisplayEvt);
+		pwgAddEventListener(rateButton, "mouseout", function() {updateRatingStarDisplay( gUserRating );});
+		pwgAddEventListener(rateButton, "mouseover", function(e) {
+			updateRatingStarDisplay( e.target ? e.target.initialRateValue : e.srcElement.initialRateValue);
+			});
 	}
-	resetRatingStarDisplay();
-}
-
-function resetRatingStarDisplay()
-{
 	updateRatingStarDisplay( gUserRating );
 }
 
@@ -51,12 +48,6 @@ function updateRatingStarDisplay(userRating)
 {
 	for (var i=0; i<gRatingButtons.length; i++)
 		gRatingButtons[i].className = (userRating!=="" && userRating>=gRatingButtons[i].initialRateValue ) ? "rateButtonStarFull" : "rateButtonStarEmpty";
-}
-
-function updateRatingStarDisplayEvt(e)
-{
-	updateRatingStarDisplay(
-		e.target ? e.target.initialRateValue : e.srcElement.initialRateValue);
 }
 
 function updateRating(e)
@@ -90,3 +81,16 @@ function updateRating(e)
 	);
 	return false;
 }
+
+(function() {
+if (typeof _pwgRatingAutoQueue!="undefined" && _pwgRatingAutoQueue.length)
+{
+    for (var i=0; i<_pwgRatingAutoQueue.length; i++)
+        makeNiceRatingForm(_pwgRatingAutoQueue[i]);
+}
+_pwgRatingAutoQueue = {
+	push: function(opts) {
+		makeNiceRatingForm(opts);
+	}
+}
+})();

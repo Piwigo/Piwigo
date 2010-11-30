@@ -208,11 +208,15 @@ y.callService(
 			  <input type="submit" name="rate" value="{$mark}" class="rateButton" title="{$mark}">
 			{/if}
 			{/foreach}
-			<script type="text/javascript" src="{$ROOT_URL}themes/default/js/rating.js"></script>
 			<script type="text/javascript">
-			makeNiceRatingForm( {ldelim}rootUrl: '{$ROOT_URL|@escape:"javascript"}', image_id: {$current.id},
-			updateRateText: "{'Update your rating'|@translate|@escape:'javascript'}", updateRateElement: document.getElementById("updateRate"),
-			ratingSummaryText: "{'%.2f (rated %d times)'|@translate|@escape:'javascript'}", ratingSummaryElement: document.getElementById("ratingSummary") {rdelim} );
+				var _pwgRatingAutoQueue = _pwgRatingAutoQueue || [];
+				_pwgRatingAutoQueue.push(  {ldelim}rootUrl: '{$ROOT_URL|@escape:"javascript"}', image_id: {$current.id},
+					updateRateText: "{'Update your rating'|@translate|@escape:'javascript'}", updateRateElement: document.getElementById("updateRate"),
+					ratingSummaryText: "{'%.2f (rated %d times)'|@translate|@escape:'javascript'}", ratingSummaryElement: document.getElementById("ratingSummary") {rdelim} );
+				(function () {ldelim}
+				var s = document.createElement('script'); s.type = 'text/javascript'; s.async = true; s.src = '{$ROOT_URL}themes/default/js/rating.js';
+				var s0 = document.getElementsByTagName('script')[0]; s0.parentNode.insertBefore(s, s0);
+				})();
 			</script>
 			</div>
 			</form>
