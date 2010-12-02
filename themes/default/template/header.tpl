@@ -40,11 +40,14 @@
 {if isset($U_PREFETCH)          }<link rel="prefetch" href="{$U_PREFETCH}">{/if}
 
 {if not empty($page_refresh)    }<meta http-equiv="refresh" content="{$page_refresh.TIME};url={$page_refresh.U_REFRESH}">{/if}
-
+{*
 <script type="text/javascript" src="{$ROOT_URL}themes/default/js/scripts.js"></script>
+*}
 <!--[if lt IE 7]>
 <script type="text/javascript" src="{$ROOT_URL}themes/default/js/pngfix.js"></script>
 <![endif]-->
+
+{get_combined_scripts load='header'}
 
 {if not empty($head_elements)}
 	{foreach from=$head_elements item=elt}{$elt}

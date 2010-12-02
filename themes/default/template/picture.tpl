@@ -59,6 +59,7 @@
       <a href="{$U_ADMIN}" title="{'Modify information'|@translate}"><img src="{$ROOT_URL}{$themeconf.icon_dir}/preferences.png" class="button" alt="{'edit'|@translate}"></a>
     {/if}
     {if isset($U_CADDIE) }{*caddie management BEGIN*}
+{combine_script id='core.scripts' load='async' path='themes/default/js/scripts.js'}
 <script type="text/javascript">
 {literal}function addToCadie(aElement, rootUrl, id)
 {
@@ -208,15 +209,17 @@ y.callService(
 			  <input type="submit" name="rate" value="{$mark}" class="rateButton" title="{$mark}">
 			{/if}
 			{/foreach}
+			{combine_script id='core.scripts' load='async' path='themes/default/js/scripts.js'}
+			{combine_script id='rating' load='async' require='core.scripts' path='themes/default/js/rating.js'}
 			<script type="text/javascript">
 				var _pwgRatingAutoQueue = _pwgRatingAutoQueue || [];
 				_pwgRatingAutoQueue.push(  {ldelim}rootUrl: '{$ROOT_URL|@escape:"javascript"}', image_id: {$current.id},
 					updateRateText: "{'Update your rating'|@translate|@escape:'javascript'}", updateRateElement: document.getElementById("updateRate"),
 					ratingSummaryText: "{'%.2f (rated %d times)'|@translate|@escape:'javascript'}", ratingSummaryElement: document.getElementById("ratingSummary") {rdelim} );
-				(function () {ldelim}
+				/*(function () {ldelim}
 				var s = document.createElement('script'); s.type = 'text/javascript'; s.async = true; s.src = '{$ROOT_URL}themes/default/js/rating.js';
 				var s0 = document.getElementsByTagName('script')[0]; s0.parentNode.insertBefore(s, s0);
-				})();
+				})();*/
 			</script>
 			</div>
 			</form>
@@ -228,6 +231,7 @@ y.callService(
 	<tr id="Privacy">
 		<td class="label">{'Who can see this photo?'|@translate}</td>
 		<td class="value"> 
+{combine_script id='core.scripts' load='async' path='themes/default/js/scripts.js'}
 <script type="text/javascript">
 {literal}function setPrivacyLevel(selectElement, rootUrl, id, level)
 {

@@ -18,6 +18,7 @@
   <a href="mailto:{$CONTACT_MAIL}?subject={'A comment on your site'|@translate|@escape:url}">{'Webmaster'|@translate}</a>
   {/if}
 
+{get_combined_scripts load='footer'}
 
 {if isset($footer_elements)}
 {foreach from=$footer_elements item=v}

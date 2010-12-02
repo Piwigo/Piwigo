@@ -1,26 +1,25 @@
 
 {* Example of resizeable *}
-{*
+
 {include file='include/resize.inc.tpl'}
-*}
+
 
 {* Example of datepicker *}
-{*
+
 {include file='include/datepicker.inc.tpl'}
 
-{literal}
-<script type="text/javascript">
+{footer_script}{literal}
   pwg_initialization_datepicker("#start_day", "#start_month", "#start_year", "#start_linked_date", null, null, "#end_linked_date");
   pwg_initialization_datepicker("#end_day", "#end_month", "#end_year", "#end_linked_date", null, "#start_linked_date", null);
  jQuery().ready(function(){ $(".date_today").hide(); });
-</script>
-{/literal}
-*}
+{/literal}{/footer_script}
+
 
 <div id="content" class="content">
 
   <div class="titrePage">
     <ul class="categoryActions">
+			{combine_script id='core.scripts' load='async' path='themes/default/js/scripts.js'}
       <li><a href="{$U_HELP}" onclick="popuphelp(this.href); return false;" title="{'Help'|@translate}" rel="nofollow"><img src="{$ROOT_URL}{$themeconf.icon_dir}/help.png" class="button" alt="(?)"></a></li>
       <li><a href="{$U_HOME}" title="{'Home'|@translate}" rel="Home"><img src="{$ROOT_URL}{$themeconf.icon_dir}/home.png" class="button" alt="{'Home'|@translate}"></a></li>
     </ul>

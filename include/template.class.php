@@ -43,10 +43,14 @@ class Template {
   // used by html_head smarty block to add content before </head>
   var $html_head_elements = array();
 
+  var $scriptLoader;
+  var $html_footer_raw_script = array();
+
   function Template($root = ".", $theme= "", $path = "template")
   {
     global $conf, $lang_info;
 
+    $this->scriptLoader = new ScriptLoader;
     $this->smarty = new Smarty;
     $this->smarty->debugging = $conf['debug_template'];
     $this->smarty->compile_check = $conf['template_compile_check'];
@@ -82,6 +86,9 @@ class Template {
     $this->smarty->register_modifier( 'explode', array('Template', 'mod_explode') );
     $this->smarty->register_modifier( 'get_extent', array(&$this, 'get_extent') );
     $this->smarty->register_block('html_head', array(&$this, 'block_html_head') );
+    $this->smarty->register_function('combine_script', array(&$this, 'func_combine_script') );
+    $this->smarty->register_function('get_combined_scripts', array(&$this, 'func_get_combined_scripts') );
+    $this->smarty->register_block('footer_script', array(&$this, 'block_footer_script') );
     $this->smarty->register_function('known_script', array(&$this, 'func_known_script') );
     $this->smarty->register_prefilter( array('Template', 'prefilter_white_space') );
     if ( $conf['compiled_template_cache_language'] )
@@ -376,6 +383,26 @@ class Template {
 
   function flush()
   {
+    if (!$this->scriptLoader->did_head())
+    {
+      $search = "\n</head>";
+      $pos = strpos( $this->output, $search );
+      if ($pos !== false)
+      {
+          $scripts = $this->scriptLoader->get_head_scripts();
+          $content = array();
+          foreach ($scripts as $id => $script)
+          {
+              $content[]=
+                  '<script type="text/javascript" src="'
+                  . Template::make_script_src($script)
+                  .'"></script>';
+          }
+
+          $this->output = substr_replace( $this->output, "\n".implode( "\n", $content ), $pos, 0 );
+      } //else maybe error or warning ?
+    }
+    
     if ( count($this->html_head_elements) )
     {
       $search = "\n</head>";
@@ -470,6 +497,119 @@ class Template {
       }
       $repeat = false;
       $this->block_html_head(null, $content, $smarty, $repeat);
+    }
+  }
+  
+  function func_combine_script($params, &$smarty)
+  {
+    if (!isset($params['id']))
+    {
+      $smarty->trigger_error("combine_script: missing 'id' parameter", E_USER_ERROR);
+    }
+    $load = 0;
+    if (isset($params['load']))
+    {
+      switch ($params['load'])
+      {
+        case 'header': break;
+        case 'footer': $load=1; break;
+        case 'async': $load=2; break;
+        default: $smarty->trigger_error("combine_script: invalid 'load' parameter", E_USER_ERROR);
+      }
+    }
+    $this->scriptLoader->add( $params['id'], $load, 
+      empty($params['require']) ? array() : explode( ',', $params['require'] ), 
+      @$params['path'], 
+      isset($params['version']) ? $params['version'] : 0 );
+  }
+
+
+  function func_get_combined_scripts($params, &$smarty)
+  {
+    if (!isset($params['load']))
+    {
+      $smarty->trigger_error("get_combined_scripts: missing 'load' parameter", E_USER_ERROR);
+    }
+    $load = $params['load']=='header' ? 0 : 1;
+    $content = array();
+    
+    if ($load==0)
+    {
+      if ($this->scriptLoader->did_head())
+        fatal_error('get_combined_scripts several times header');
+        
+      $scripts = $this->scriptLoader->get_head_scripts();
+      foreach ($scripts as $id => $script)
+      {
+          $content[]=
+              '<script type="text/javascript" src="'
+              . Template::make_script_src($script)
+              .'"></script>';
+      }
+    }
+    else
+    {
+      if (!$this->scriptLoader->did_head())
+        fatal_error('get_combined_scripts didn\'t call header');
+      $scripts = $this->scriptLoader->get_footer_scripts();
+      foreach ($scripts[0] as $id => $script)
+      {
+        $content[]=
+          '<script type="text/javascript" src="'
+          . Template::make_script_src($script)
+          .'"></script>';
+      }
+      if (count($this->html_footer_raw_script))
+      {
+        $content[]= '<script type="text/javascript">';
+        $content = array_merge($content, $this->html_footer_raw_script);
+        $content[]= '</script>';
+      }
+
+      if (count($scripts[1]))
+      {
+        $content[]= '<script type="text/javascript">';
+        $content[]= '(function() {
+  var after = document.getElementsByTagName(\'script\')[document.getElementsByTagName(\'script\').length-1];
+  var s;';
+        foreach ($scripts[1] as $id => $script)
+        {
+          $content[]=
+            's=document.createElement(\'script\'); s.type = \'text/javascript\'; s.async = true; s.src = \''
+            . Template::make_script_src($script)
+            .'\';';
+          $content[]= 'after = after.parentNode.insertBefore(s, after);';
+        }
+        $content[]= '})();';
+        $content[]= '</script>';
+      }
+    }
+    return implode("\n", $content);
+  }
+
+
+  private static function make_script_src( $script )
+  {
+    $ret = '';
+    if ( url_is_remote($script->path) )
+      $ret = $script->path;
+    else
+    {
+      $ret = get_root_url().$script->path;
+      if ($script->version!==false)
+      {
+        $ret.= '?v'. ($script->version ? $script->version : PHPWG_VERSION);
+      }
+    }
+    return $ret;
+  }
+
+  function block_footer_script($params, $content, &$smarty, &$repeat)
+  {
+    $content = trim($content);
+    if ( !empty($content) )
+    { // second call
+      $this->html_footer_raw_script[] = $content;
     }
   }
 
@@ -641,6 +781,201 @@ class PwgTemplateAdapter
   {
     $args = func_get_args();
     return call_user_func_array('sprintf',  $args );
+  }
+}
+
+
+final class Script
+{
+  public $load_mode;
+  public $precedents = array();
+  public $path;
+  public $version;
+  public $extra = array();
+
+  function Script($load_mode, $precedents, $path, $version)
+  {
+    $this->load_mode = $load_mode;
+    $this->precedents = $precedents;
+    $this->path = $path;
+    $this->version = $version;
+  }
+
+  function set_path($path)
+  {
+    if (!empty($path))
+      $this->path = $path;
+  }
+}
+
+
+/** Manage a list of required scripts for a page, by optimizing their loading location (head, bottom, async)
+and later on by combining them in a unique file respecting at the same time dependencies.*/
+class ScriptLoader
+{
+  private $registered_scripts;
+  private $did_head;
+  private static $known_paths = array(
+      'core.scripts' => 'themes/default/js/scripts.js',
+      'jquery' => 'themes/default/js/jquery.min.js',
+      'jquery.ui' => 'themes/default/js/ui/packed/ui.core.packed.js'
+    );
+
+  function __construct()
+  {
+    $this->clear();
+  }
+
+  function clear()
+  {
+    $this->registered_scripts = array();
+    $this->did_head = false;
+  }
+
+  function add($id, $load_mode, $require, $path, $version=0)
+  {
+    if ($this->did_head && $load_mode==0 )
+    {
+      trigger_error("Attempt to add a new script $id but the head has been written", E_USER_WARNING);
+    }
+    if (! isset( $this->registered_scripts[$id] ) )
+    {
+      $script = new Script($load_mode, $require, $path, $version);
+      self::fill_well_known($id, $script);
+      $this->registered_scripts[$id] = $script;
+    }
+    else
+    {
+      $script = & $this->registered_scripts[$id];
+      if (count($require))
+      {
+        $script->precedents = array_unique( array_merge($script->precedents, $require) );
+      }
+      $script->set_path($path);
+      if ($version && version_compare($script->version, $version)<0 )
+        $script->version = $version;
+      if ($load_mode < $script->load_mode)
+        $script->load_mode = $load_mode;
+    }
+  }
+
+  function did_head()
+  {
+    return $this->did_head;
+  }
+
+  private static function fill_well_known($id, $script)
+  {
+    if ( empty($script->path) && isset(self::$known_paths[$id]))
+    {
+      $script->path = self::$known_paths[$id];
+    }
+    if ( strncmp($id, 'jquery.', 7)==0 )
+    {
+      if ( !in_array('jquery', $script->precedents ) )
+        $script->precedents[] = 'jquery';
+      if ( strncmp($id, 'jquery.ui.', 10)==0 && !in_array('jquery.ui', $script->precedents ) )
+        $script->precedents[] = 'jquery.ui';
+    }
+  }
+
+  function get_head_scripts()
+  {
+    do
+    {
+      $changed = false;
+      foreach( $this->registered_scripts as $id => $script)
+      {
+        $load = $script->load_mode;
+        if ($load==0)
+          continue;
+        if ($load==2)
+          $load=1; // we are async -> a predecessor cannot be async because the script execution order is not guaranteed
+        foreach( $script->precedents as $precedent)
+        {
+          if ( !isset($this->registered_scripts[$precedent] ) )
+          {
+            trigger_error("Script $id requires undefined script $precedent", E_USER_WARNING);
+            continue;
+          }
+          if ( $this->registered_scripts[$precedent]->load_mode > $load )
+          {
+            $this->registered_scripts[$precedent]->load_mode = $load;
+            $changed = true;
+          }
+        }
+      }
+    }
+    while ($changed);
+
+    foreach( array_keys($this->registered_scripts) as $id )
+    {
+      $this->compute_script_topological_order($id);
+    }
+
+    uasort($this->registered_scripts, array('ScriptLoader', 'cmp_by_mode_and_order'));
+
+    $result = array();
+    foreach( $this->registered_scripts as $id => $script)
+    {
+      if ($script->load_mode > 0)
+        break;
+      if ( !empty($script->path) )
+        $result[$id] = $script;
+      else
+        trigger_error("Script $id has an undefined path", E_USER_WARNING);
+    }
+    $this->did_head = true;
+    return $result;
+  }
+
+  function get_footer_scripts()
+  {
+    if (!$this->did_head)
+    {
+      trigger_error("Attempt to write footer scripts without header scripts", E_USER_WARNING);
+    }
+    $result = array( array(), array() );
+    foreach( $this->registered_scripts as $id => $script)
+    {
+      if ($script->load_mode > 0)
+      {
+        if ( !empty( $script->path ) )
+        {
+          $result[$script->load_mode-1][$id] = $script;
+        }
+        else
+          trigger_error("Script $id has an undefined path", E_USER_WARNING);
+      }
+    }
+    return $result;
+  }
+
+  private function compute_script_topological_order($script_id)
+  {
+    if (!isset($this->registered_scripts[$script_id]))
+    {
+      trigger_error("Undefined script $script_id is required by someone", E_USER_WARNING);
+      return 0;
+    }
+    $script = & $this->registered_scripts[$script_id];
+    if (isset($script->extra['order']))
+      return $script->extra['order'];
+    if (count($script->precedents) == 0)
+      return ($script->extra['order'] = 0);
+    $max = 0;
+    foreach( $script->precedents as $precedent)
+      $max = max($max, $this->compute_script_topological_order($precedent) );
+    $max++;
+    return ($script->extra['order'] = $max);
+  }
+
+  private static function cmp_by_mode_and_order($s1, $s2)
+  {
+    $ret = $s1->load_mode - $s2->load_mode;
+    if (!$ret)
+      $ret = $s1->extra['order'] - $s2->extra['order'];
+    return $ret;
   }
 }
 

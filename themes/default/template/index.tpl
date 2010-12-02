@@ -27,6 +27,7 @@
       {/if}
 
       {if isset($U_SEARCH_RULES) }
+			{combine_script id='core.scripts' load='async' path='themes/default/js/scripts.js'}
       <li><a href="{$U_SEARCH_RULES}" onclick="popuphelp(this.href); return false;" title="{'Search rules'|@translate}" rel="nofollow"><img src="{$ROOT_URL}{$themeconf.icon_dir}/search_rules.png" class="button" alt="(?)"></a></li>
       {/if}
 
