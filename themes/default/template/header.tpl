@@ -30,24 +30,25 @@
 {if isset($last.U_IMG)    }<link rel="last" title="{'Last'|@translate}" href="{$last.U_IMG}" >{/if}
 {if isset($U_UP)          }<link rel="up" title="{'Thumbnails'|@translate}" href="{$U_UP}" >{/if}
 
+
+{get_combined_css}
+
 {foreach from=$themes item=theme}
 {if $theme.load_css}
-<link rel="stylesheet" type="text/css" href="{$ROOT_URL}themes/{$theme.id}/theme.css">
+{combine_css path="themes/`$theme.id`/theme.css" order=-10}
 {/if}
-{if !empty($theme.local_head)}{include file=$theme.local_head}{/if}
+{if !empty($theme.local_head)}{include file=$theme.local_head load_css=$theme.load_css}{/if}
 {/foreach}
+
 
 {if isset($U_PREFETCH)          }<link rel="prefetch" href="{$U_PREFETCH}">{/if}
 
 {if not empty($page_refresh)    }<meta http-equiv="refresh" content="{$page_refresh.TIME};url={$page_refresh.U_REFRESH}">{/if}
-{*
-<script type="text/javascript" src="{$ROOT_URL}themes/default/js/scripts.js"></script>
-*}
+
+{get_combined_scripts load='header'}
 <!--[if lt IE 7]>
 <script type="text/javascript" src="{$ROOT_URL}themes/default/js/pngfix.js"></script>
 <![endif]-->
-
-{get_combined_scripts load='header'}
 
 {if not empty($head_elements)}
 	{foreach from=$head_elements item=elt}{$elt}

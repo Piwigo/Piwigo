@@ -43,9 +43,13 @@ class Template {
   // used by html_head smarty block to add content before </head>
   var $html_head_elements = array();
 
+  const COMBINED_SCRIPTS_TAG = '<!-- COMBINED_SCRIPTS -->';
   var $scriptLoader;
   var $html_footer_raw_script = array();
 
+  const COMBINED_CSS_TAG = '<!-- COMBINED_CSS -->';
+  var $css_by_priority = array();
+  
   function Template($root = ".", $theme= "", $path = "template")
   {
     global $conf, $lang_info;
@@ -88,6 +92,8 @@ class Template {
     $this->smarty->register_block('html_head', array(&$this, 'block_html_head') );
     $this->smarty->register_function('combine_script', array(&$this, 'func_combine_script') );
     $this->smarty->register_function('get_combined_scripts', array(&$this, 'func_get_combined_scripts') );
+    $this->smarty->register_function('combine_css', array(&$this, 'func_combine_css') );
+    $this->smarty->register_function('get_combined_css', array(&$this, 'func_get_combined_css') );
     $this->smarty->register_block('footer_script', array(&$this, 'block_footer_script') );
     $this->smarty->register_function('known_script', array(&$this, 'func_known_script') );
     $this->smarty->register_prefilter( array('Template', 'prefilter_white_space') );
@@ -385,8 +391,7 @@ class Template {
   {
     if (!$this->scriptLoader->did_head())
     {
-      $search = "\n</head>";
-      $pos = strpos( $this->output, $search );
+      $pos = strpos( $this->output, self::COMBINED_SCRIPTS_TAG );
       if ($pos !== false)
       {
           $scripts = $this->scriptLoader->get_head_scripts();
@@ -399,10 +404,34 @@ class Template {
                   .'"></script>';
           }
 
-          $this->output = substr_replace( $this->output, "\n".implode( "\n", $content ), $pos, 0 );
+          $this->output = substr_replace( $this->output, "\n".implode( "\n", $content ), $pos, strlen(self::COMBINED_SCRIPTS_TAG) );
       } //else maybe error or warning ?
     }
     
+    if(!empty($this->css_by_priority))
+    {
+      ksort($this->css_by_priority);
+      $combiner = new FileCombiner('css');
+      foreach ($this->css_by_priority as $files)
+      {
+        foreach ($files as $file_ver)
+        {
+          $combiner->add( $file_ver[0], $file_ver[1] );
+        }
+      }
+      if ( $combiner->combine( $out_file, $out_version) )
+      {
+        $href = get_root_url() . $out_file;
+        if ($out_version !== false)
+          $href .= '?v' . ($out_version ? $out_version : PHPWG_VERSION);
+        // trigger the event for eventual use of a cdn
+        $href = trigger_event('combined_css', $href, $out_file, $out_version);
+        $this->output = str_replace(self::COMBINED_CSS_TAG,
+          '<link rel="stylesheet" type="text/css" href="'.$href.'">',
+          $this->output );
+      }
+    }
+
     if ( count($this->html_head_elements) )
     {
       $search = "\n</head>";
@@ -535,17 +564,7 @@ class Template {
     
     if ($load==0)
     {
-      if ($this->scriptLoader->did_head())
-        fatal_error('get_combined_scripts several times header');
-        
-      $scripts = $this->scriptLoader->get_head_scripts();
-      foreach ($scripts as $id => $script)
-      {
-          $content[]=
-              '<script type="text/javascript" src="'
-              . Template::make_script_src($script)
-              .'"></script>';
-      }
+      return self::COMBINED_SCRIPTS_TAG;
     }
     else
     {
@@ -612,6 +631,21 @@ class Template {
       $this->html_footer_raw_script[] = $content;
     }
   }
+  
+  function func_combine_css($params, &$smarty)
+  {
+    !empty($params['path']) || fatal_error('combine_css missing path');
+    $order = (int)@$params['order'];
+    $version = isset($params['version']) ? $params['version'] : 0;
+    $this->css_by_priority[$order][] = array( $params['path'], $version);
+    //var_export( $this->css_by_priority ); echo "<br>";
+  }
+
+  function func_get_combined_css($params, &$smarty)
+  {
+    return self::COMBINED_CSS_TAG;
+  }
+
 
  /**
    * This function allows to declare a Smarty prefilter from a plugin, thus allowing
@@ -723,22 +757,23 @@ class Template {
   static function prefilter_local_css($source, &$smarty)
   {
     $css = array();
-
     foreach ($smarty->get_template_vars('themes') as $theme)
     {
-      if (file_exists(PHPWG_ROOT_PATH.'local/css/'.$theme['id'].'-rules.css'))
+      $f = 'local/css/'.$theme['id'].'-rules.css';
+      if (file_exists(PHPWG_ROOT_PATH.$f))
       {
-        array_push($css, '<link rel="stylesheet" type="text/css" href="{$ROOT_URL}local/css/'.$theme['id'].'-rules.css">');
+        array_push($css, "{combine_css path='$f' order=10}");
       }
     }
-    if (file_exists(PHPWG_ROOT_PATH.'local/css/rules.css'))
+    $f = 'local/css/rules.css';
+    if (file_exists(PHPWG_ROOT_PATH.$f))
     {
-      array_push($css, '<link rel="stylesheet" type="text/css" href="{$ROOT_URL}local/css/rules.css">');
+      array_push($css, "{combine_css path='$f' order=10}");
     }
 
     if (!empty($css))
     {
-      $source = str_replace("\n</head>", "\n".implode( "\n", $css )."\n</head>", $source);
+      $source = str_replace("\n{get_combined_css}", "\n".implode( "\n", $css )."\n{get_combined_css}", $source);
     }
 
     return $source;
@@ -976,6 +1011,124 @@ class ScriptLoader
     if (!$ret)
       $ret = $s1->extra['order'] - $s2->extra['order'];
     return $ret;
+  }
+}
+
+
+/*Allows merging of javascript and css files into a single one.*/
+final class FileCombiner
+{
+  const OUT_SUB_DIR = 'local/combined/';
+  private $type; // js or css
+  private $files = array();
+  private $versions = array();
+
+  function FileCombiner($type)
+  {
+    $this->type = $type;
+  }
+
+  function add($file, $version)
+  {
+    $this->files[] = $file;
+    $this->versions[] = $version;
+  }
+
+  function clear()
+  {
+    $this->files = array();
+    $this->versions = array();
+  }
+
+  function combine(&$out_file, &$out_version)
+  {
+    //var_export($this);
+    if (count($this->files) == 0)
+    {
+      return false;
+    }
+    if (count($this->files) == 1)
+    {
+      $out_file = $this->files[0];
+      $out_version = $this->versions[0];
+      $this->clear();
+      return 1;
+    }
+
+    global $conf;
+    $key = array();
+
+    for ($i=0; $i<count($this->files); $i++)
+    {
+      $key[] = $this->files[$i];
+      $key[] = $this->versions[$i];
+      if ($conf['template_compile_check']) $key[] = filemtime( PHPWG_ROOT_PATH . $this->files[$i] );
+    }
+    $key = join('>', $key);
+
+    $file = base_convert(crc32($key),10,36);
+    $file = self::OUT_SUB_DIR . $file . '.' . $this->type;
+    if (file_exists( PHPWG_ROOT_PATH . $file ) )
+    {
+      $out_file = $file;
+      $out_version = false;
+      $this->clear();
+      return 2;
+    }
+
+    $output = '';
+    if ($conf['debug_template'])
+      $output .= "/*".join("\n", $this->files)."*/\n";
+    foreach ($this->files as $input_file)
+    {
+      $output .= "/* BEGIN $input_file */\n";
+      if ($this->type == "css")
+      {
+        $output .= $this->process_css($input_file);
+      }
+      else
+        $output .= file_get_contents(PHPWG_ROOT_PATH . $input_file);
+      $output .= "\n";
+    }
+
+    file_put_contents( PHPWG_ROOT_PATH . $file,  $output );
+    $out_file = $file;
+    $out_version = false;
+    $this->clear();
+    return 2;
+  }
+
+  private function process_css($file)
+  {
+    static $PATTERN = "#url\(\s*['|\"]{0,1}(.*?)['|\"]{0,1}\s*\)#";
+    $css = file_get_contents(PHPWG_ROOT_PATH . $file);
+    if (preg_match_all($PATTERN, $css, $matches, PREG_SET_ORDER))
+    {
+      $search = $replace = array();
+      foreach ($matches as $match)
+      {
+        if ( !url_is_remote($match[1]) || $match[1][0] != '/')
+        {
+          $relative = dirname($file) . "/$match[1]";
+          $search[] = $match[0];
+          $replace[] = "url('" . get_absolute_root_url(false) . $relative . "')";
+        }
+      }
+      $css = str_replace($search, $replace, $css);
+    }
+
+    $imports = preg_match_all("#@import\s*['|\"]{0,1}(.*?)['|\"]{0,1};#", $css, $matches, PREG_SET_ORDER);
+    if ($imports)
+    {
+      $search = $replace = array();
+      foreach ($matches as $match)
+      {
+        $search[] = $match[0];
+        $replace[] = $this->process_css(dirname($file) . "/$match[1]");
+      }
+      $css = str_replace($search, $replace, $css);
+    }
+    return $css;
   }
 }
 

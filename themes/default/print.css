@@ -1,3 +1,4 @@
+@media print {
 #menubar, .content .navigationBar, UL.categoryActions, .content .calendarViews, .calendarBar,
 #imageToolBar, .navThumb, #addComment {
 	display: none;
@@ -11,4 +12,5 @@ BODY {
 
 #theCategoryPage .content {
 	margin: 0 !important; 
+}
 }

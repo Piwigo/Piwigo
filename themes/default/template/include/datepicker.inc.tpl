@@ -10,9 +10,7 @@
 {combine_script id="jquery.ui.datepicker-$lang_info.code" path=$datepicker_language}
 {/if}
 
-{html_head}
-<link rel="stylesheet" type="text/css" href="{$ROOT_URL}themes/default/js/ui/theme/ui.datepicker.css">
-{/html_head}
+{combine_css path="themes/default/js/ui/theme/ui.datepicker.css"}
 
 {footer_script}
 function pwg_initialization_datepicker(day, month, year, linked_date, checked_on_change, min_linked_date, max_linked_date)
