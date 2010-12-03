@@ -13,11 +13,12 @@
 <title>{$GALLERY_TITLE} :: {$PAGE_TITLE}</title>
 <link rel="shortcut icon" type="image/x-icon" href="{$ROOT_URL}{$themeconf.icon_dir}/favicon.ico">
 
+{get_combined_css}
 {foreach from=$themes item=theme}
 {if $theme.load_css}
-<link rel="stylesheet" type="text/css" href="{$ROOT_URL}admin/themes/{$theme.id}/theme.css">
+{combine_css path="admin/themes/`$theme.id`/theme.css" order=-10}
 {/if}
-{if isset($theme.local_head)}{include file=$theme.local_head}{/if}
+{if !empty($theme.local_head)}{include file=$theme.local_head load_css=$theme.load_css}{/if}
 {/foreach}
 
 {known_script id="jquery" src=$ROOT_URL|@cat:"themes/default/js/jquery.packed.js" now=1} {*jQuery is always available by default*}
