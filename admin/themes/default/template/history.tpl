@@ -1,12 +1,10 @@
 
 {include file='include/datepicker.inc.tpl'}
 
-{literal}
-<script type="text/javascript">
-  pwg_initialization_datepicker("#start_day", "#start_month", "#start_year", "#start_linked_date", null, null, "#end_linked_date");
-  pwg_initialization_datepicker("#end_day", "#end_month", "#end_year", "#end_linked_date", null, "#start_linked_date", null);
-</script>
-{/literal}
+{footer_script}{literal}
+	pwg_initialization_datepicker("#start_day", "#start_month", "#start_year", "#start_linked_date", null, null, "#end_linked_date");
+	pwg_initialization_datepicker("#end_day", "#end_month", "#end_year", "#end_linked_date", null, "#start_linked_date", null);
+{/literal}{/footer_script}
 
 <div class="titrePage">
   <h2>{'History'|@translate} {$TABSHEET_TITLE}</h2>

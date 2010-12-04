@@ -84,7 +84,7 @@ SELECT '.implode(',', $fields).'
   }
   $template->set_filename('profile', 'profile.tpl');
   trigger_action('loc_end_profile');
-  $template->parse('profile');
+  $template->pparse('profile');
   include(PHPWG_ROOT_PATH.'include/page_tail.php');
 }
 

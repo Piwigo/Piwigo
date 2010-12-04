@@ -45,11 +45,10 @@ class Template {
 
   const COMBINED_SCRIPTS_TAG = '<!-- COMBINED_SCRIPTS -->';
   var $scriptLoader;
-  var $html_footer_raw_script = array();
 
   const COMBINED_CSS_TAG = '<!-- COMBINED_CSS -->';
   var $css_by_priority = array();
-  
+
   function Template($root = ".", $theme= "", $path = "template")
   {
     global $conf, $lang_info;
@@ -79,7 +78,7 @@ class Template {
         conf_update_param('local_data_dir_checked', 'true');
       }
     }
-    
+
     $compile_dir = $conf['local_data_dir'].'/templates_c';
     mkgetdir( $compile_dir );
 
@@ -187,6 +186,7 @@ class Template {
       $this->smarty->clear_compiled_tpl();
       $this->smarty->compile_id = $save_compile_id;
       file_put_contents($this->smarty->compile_dir.'/index.htm', 'Not allowed!');
+      FileCombiner::clear_combined_files();
   }
 
   function get_themeconf($val)
@@ -407,7 +407,7 @@ class Template {
           $this->output = substr_replace( $this->output, "\n".implode( "\n", $content ), $pos, strlen(self::COMBINED_SCRIPTS_TAG) );
       } //else maybe error or warning ?
     }
-    
+
     if(!empty($this->css_by_priority))
     {
       ksort($this->css_by_priority);
@@ -528,7 +528,7 @@ class Template {
       $this->block_html_head(null, $content, $smarty, $repeat);
     }
   }
-  
+
   function func_combine_script($params, &$smarty)
   {
     if (!isset($params['id']))
@@ -546,9 +546,9 @@ class Template {
         default: $smarty->trigger_error("combine_script: invalid 'load' parameter", E_USER_ERROR);
       }
     }
-    $this->scriptLoader->add( $params['id'], $load, 
-      empty($params['require']) ? array() : explode( ',', $params['require'] ), 
-      @$params['path'], 
+    $this->scriptLoader->add( $params['id'], $load,
+      empty($params['require']) ? array() : explode( ',', $params['require'] ),
+      @$params['path'],
       isset($params['version']) ? $params['version'] : 0 );
   }
 
@@ -561,7 +561,7 @@ class Template {
     }
     $load = $params['load']=='header' ? 0 : 1;
     $content = array();
-    
+
     if ($load==0)
     {
       return self::COMBINED_SCRIPTS_TAG;
@@ -578,10 +578,10 @@ class Template {
           . Template::make_script_src($script)
           .'"></script>';
       }
-      if (count($this->html_footer_raw_script))
+      if (count($this->scriptLoader->inline_scripts))
       {
         $content[]= '<script type="text/javascript">';
-        $content = array_merge($content, $this->html_footer_raw_script);
+        $content = array_merge($content, $this->scriptLoader->inline_scripts);
         $content[]= '</script>';
       }
 
@@ -628,10 +628,10 @@ class Template {
     $content = trim($content);
     if ( !empty($content) )
     { // second call
-      $this->html_footer_raw_script[] = $content;
+      $this->scriptLoader->add_inline( $content, @$params['require'] );
     }
   }
-  
+
   function func_combine_css($params, &$smarty)
   {
     !empty($params['path']) || fatal_error('combine_css missing path');
@@ -841,6 +841,11 @@ final class Script
     if (!empty($path))
       $this->path = $path;
   }
+  
+  function is_remote()
+  {
+    return url_is_remote( $this->path );
+  }
 }
 
 
@@ -849,7 +854,11 @@ and later on by combining them in a unique file respecting at the same time depe
 class ScriptLoader
 {
   private $registered_scripts;
+  public $inline_scripts;
+
   private $did_head;
+  private $head_done_scripts;
+
   private static $known_paths = array(
       'core.scripts' => 'themes/default/js/scripts.js',
       'jquery' => 'themes/default/js/jquery.min.js',
@@ -864,7 +873,22 @@ class ScriptLoader
   function clear()
   {
     $this->registered_scripts = array();
+    $this->inline_scripts = array();
+    $this->head_done_scripts = array();
     $this->did_head = false;
+  }
+
+  function add_inline($code, $require)
+  {
+    if(!empty($require))
+    {
+      if(!isset($this->registered_scripts[$require]))
+        fatal_error("inline script not found require $require");
+      $s = $this->registered_scripts[$require];
+      if($s->load_mode==2)
+        $s->load_mode=1; // until now the implementation does not allow executing inline script depending on another async script
+    }
+    $this->inline_scripts[] = $code;
   }
 
   function add($id, $load_mode, $require, $path, $version=0)
@@ -899,6 +923,91 @@ class ScriptLoader
     return $this->did_head;
   }
 
+  function get_head_scripts()
+  {
+    self::check_load_dep($this->registered_scripts);
+    foreach( array_keys($this->registered_scripts) as $id )
+    {
+      $this->compute_script_topological_order($id);
+    }
+
+    uasort($this->registered_scripts, array('ScriptLoader', 'cmp_by_mode_and_order'));
+
+    foreach( $this->registered_scripts as $id => $script)
+    {
+      if ($script->load_mode > 0)
+        break;
+      if ( !empty($script->path) )
+        $this->head_done_scripts[$id] = $script;
+      else
+        trigger_error("Script $id has an undefined path", E_USER_WARNING);
+    }
+    $this->did_head = true;
+    return $this->head_done_scripts;
+  }
+
+  function get_footer_scripts()
+  {
+    if (!$this->did_head)
+    {
+      trigger_error("Attempt to write footer scripts without header scripts", E_USER_ERROR );
+    }
+    
+    $todo = array();
+    foreach( $this->registered_scripts as $id => $script)
+    {
+      if (!isset($this->head_done_scripts[$id]))
+      {
+        $todo[$id] = $script;
+      }
+    }
+    foreach( array_keys($todo) as $id )
+    {
+      $this->compute_script_topological_order($id);
+    }
+
+    uasort($todo, array('ScriptLoader', 'cmp_by_mode_and_order'));
+
+    
+    $result = array( array(), array() );
+    foreach( $todo as $id => $script)
+    {
+      $result[$script->load_mode-1][$id] = $script;
+    }
+    return $result;
+  }
+
+  private static function check_load_dep($scripts)
+  {
+    do
+    {
+      $changed = false;
+      foreach( $scripts as $id => $script)
+      {
+        $load = $script->load_mode;
+        if ($load==0)
+          continue;
+        foreach( $script->precedents as $precedent)
+        {
+          if ( !isset($scripts[$precedent] ) )
+            continue;
+          if ( $scripts[$precedent]->load_mode > $load )
+          {
+            $scripts[$precedent]->load_mode = $load;
+            $changed = true;
+          }
+          if ($load==2 && $scripts[$precedent]->load_mode==2 && $script->is_remote() )
+          {// we are async -> a predecessor cannot be async unlesss it can be merged; otherwise script execution order is not guaranteed
+            $scripts[$precedent]->load_mode = 1;
+            $changed = true;
+          }
+        }
+      }
+    }
+    while ($changed);
+  }
+  
+  
   private static function fill_well_known($id, $script)
   {
     if ( empty($script->path) && isset(self::$known_paths[$id]))
@@ -912,78 +1021,6 @@ class ScriptLoader
       if ( strncmp($id, 'jquery.ui.', 10)==0 && !in_array('jquery.ui', $script->precedents ) )
         $script->precedents[] = 'jquery.ui';
     }
-  }
-
-  function get_head_scripts()
-  {
-    do
-    {
-      $changed = false;
-      foreach( $this->registered_scripts as $id => $script)
-      {
-        $load = $script->load_mode;
-        if ($load==0)
-          continue;
-        if ($load==2)
-          $load=1; // we are async -> a predecessor cannot be async because the script execution order is not guaranteed
-        foreach( $script->precedents as $precedent)
-        {
-          if ( !isset($this->registered_scripts[$precedent] ) )
-          {
-            trigger_error("Script $id requires undefined script $precedent", E_USER_WARNING);
-            continue;
-          }
-          if ( $this->registered_scripts[$precedent]->load_mode > $load )
-          {
-            $this->registered_scripts[$precedent]->load_mode = $load;
-            $changed = true;
-          }
-        }
-      }
-    }
-    while ($changed);
-
-    foreach( array_keys($this->registered_scripts) as $id )
-    {
-      $this->compute_script_topological_order($id);
-    }
-
-    uasort($this->registered_scripts, array('ScriptLoader', 'cmp_by_mode_and_order'));
-
-    $result = array();
-    foreach( $this->registered_scripts as $id => $script)
-    {
-      if ($script->load_mode > 0)
-        break;
-      if ( !empty($script->path) )
-        $result[$id] = $script;
-      else
-        trigger_error("Script $id has an undefined path", E_USER_WARNING);
-    }
-    $this->did_head = true;
-    return $result;
-  }
-
-  function get_footer_scripts()
-  {
-    if (!$this->did_head)
-    {
-      trigger_error("Attempt to write footer scripts without header scripts", E_USER_WARNING);
-    }
-    $result = array( array(), array() );
-    foreach( $this->registered_scripts as $id => $script)
-    {
-      if ($script->load_mode > 0)
-      {
-        if ( !empty( $script->path ) )
-        {
-          $result[$script->load_mode-1][$id] = $script;
-        }
-        else
-          trigger_error("Script $id has an undefined path", E_USER_WARNING);
-      }
-    }
-    return $result;
   }
 
   private function compute_script_topological_order($script_id)
@@ -1008,9 +1045,16 @@ class ScriptLoader
   private static function cmp_by_mode_and_order($s1, $s2)
   {
     $ret = $s1->load_mode - $s2->load_mode;
-    if (!$ret)
-      $ret = $s1->extra['order'] - $s2->extra['order'];
-    return $ret;
+    if ($ret) return $ret;
+    
+    $ret = $s1->extra['order'] - $s2->extra['order'];
+    if ($ret) return $ret;
+    
+    if ($s1->extra['order']==0 and ($s1->is_remote() xor $s2->is_remote()) )
+    {
+      return $s1->is_remote() ? -1 : 1;
+    }
+    return strcmp($s1->id,$s2->id);
   }
 }
 
@@ -1026,6 +1070,17 @@ final class FileCombiner
   function FileCombiner($type)
   {
     $this->type = $type;
+  }
+  
+  static function clear_combined_files()
+  {
+    $dir = opendir(PHPWG_ROOT_PATH.self::OUT_SUB_DIR);
+    while ($file = readdir($dir))
+    {
+      if ( get_extension($file)=='js' || get_extension($file)=='css')
+        unlink(PHPWG_ROOT_PATH.self::OUT_SUB_DIR.$file);
+    }
+    closedir($dir);
   }
 
   function add($file, $version)
@@ -1077,8 +1132,7 @@ final class FileCombiner
     }
 
     $output = '';
-    if ($conf['debug_template'])
-      $output .= "/*".join("\n", $this->files)."*/\n";
+    $output .= "/* ".count($this->files)."\n".join("\n", $this->files)."*/\n";
     foreach ($this->files as $input_file)
     {
       $output .= "/* BEGIN $input_file */\n";

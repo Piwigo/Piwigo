@@ -1,16 +1,14 @@
-{known_script id="jquery" src=$ROOT_URL|@cat:"themes/default/js/jquery.packed.js"}
-{known_script id="jquery.jgrowl" src=$ROOT_URL|@cat:"themes/default/js/plugins/jquery.jgrowl_minimized.js"}
+{combine_script id='jquery.jgrowl' load='footer' require='jquery' path='themes/default/js/plugins/jquery.jgrowl_minimized.js' }
 
 {if $upload_mode eq 'multiple'}
 <script type="text/javascript" src="{$uploadify_path}/swfobject.js"></script>
-<script type="text/javascript" src="{$uploadify_path}/jquery.uploadify.v2.1.0.min.js"></script>
+{combine_script id='jquery.uploadify' load='footer' require='jquery' path='admin/include/uploadify/jquery.uploadify.v2.1.0.min.js' }
 {/if}
 {html_head}
 <link rel="stylesheet" type="text/css" href="{$ROOT_URL}admin/themes/default/uploadify.jGrowl.css">
 {/html_head}
 
-{literal}
-<script type="text/javascript">
+{footer_script}{literal}
 jQuery(document).ready(function(){
   function checkUploadStart() {
     var nbErrors = 0;
@@ -225,7 +223,7 @@ var sizeLimit = {$upload_max_filesize};
 {/literal}
 {/if}
 });
-</script>
+{/footer_script}
 
 <div class="titrePage">
   <h2>{'Upload Photos'|@translate}</h2>

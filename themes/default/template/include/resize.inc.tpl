@@ -1,9 +1,9 @@
-{combine_script id='jquery' load='footer' path='themes/default/js/jquery.packed.js'}
-{combine_script id='jquery.ui' load='footer' require='jquery' path='themes/default/js/ui/packed/ui.core.packed.js'}
-{combine_script id='jquery.ui.resizable' load='footer' require='jquery.ui' path='themes/default/js/ui/packed/ui.resizable.packed.js'}
+{combine_script id='jquery' load='async' path='themes/default/js/jquery.packed.js'}
+{combine_script id='jquery.ui' load='async' require='jquery' path='themes/default/js/ui/packed/ui.core.packed.js'}
+{combine_script id='jquery.ui.resizable' load='async' require='jquery.ui' path='themes/default/js/ui/packed/ui.resizable.packed.js'}
 
 {* Resize possible *}
-{footer_script}{literal}
+{footer_script require='jquery.ui.resizable'}{literal}
   jQuery().ready(function(){
     // Resize possible for list
     jQuery(".categoryList").resizable({
@@ -18,4 +18,3 @@
     });
   });
 {/literal}{/footer_script}
-

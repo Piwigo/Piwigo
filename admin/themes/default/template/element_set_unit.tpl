@@ -2,34 +2,31 @@
 {include file='include/autosize.inc.tpl'}
 {include file='include/datepicker.inc.tpl'}
 
-{known_script id="jquery.fcbkcomplete" src=$ROOT_URL|@cat:"themes/default/js/plugins/jquery.fcbkcomplete.js"}
-{html_head}
-<script type="text/javascript">
-  var tag_boxes_selector = "";
+{combine_script id='jquery.fcbkcomplete' load='async' require='jquery' path='themes/default/js/plugins/jquery.fcbkcomplete.js'}
+{footer_script require='jquery.fcbkcomplete'}
+var tag_boxes_selector = "";
 {foreach from=$elements item=element name=element}
-  {if $smarty.foreach.element.first}
-  var prefix = "";
-  {else}
-  prefix = ", ";
-  {/if}
-  tag_boxes_selector = tag_boxes_selector + prefix + "#tags-" + {$element.ID};
+{if $smarty.foreach.element.first}
+var prefix = "";
+{else}
+prefix = ", ";
+{/if}
+	tag_boxes_selector = tag_boxes_selector + prefix + "#tags-" + {$element.ID};
 {/foreach}
 {literal}
-  $(document).ready(function() {
-    $(tag_boxes_selector).fcbkcomplete({
-      json_url: "admin.php?fckb_tags=1",
-      cache: false,
-      filter_case: false,
-      filter_hide: true,
-      firstselected: true,
-      filter_selected: true,
-      maxitems: 100,
-      newel: true
-    });
-  });
-</script>
-{/literal}
-{/html_head}
+jQuery(document).ready(function() {
+	$(tag_boxes_selector).fcbkcomplete({
+		json_url: "admin.php?fckb_tags=1",
+		cache: false,
+		filter_case: false,
+		filter_hide: true,
+		firstselected: true,
+		filter_selected: true,
+		maxitems: 100,
+		newel: true
+	});
+});
+{/literal}{/footer_script}
 
 <h2>{'Batch management'|@translate}</h2>
 
@@ -96,9 +93,9 @@
                maxlength="4"
                value="{$element.DATE_CREATION_YEAR}">
         <input id="date_creation_linked_date-{$element.ID}" name="date_creation_linked_date-{$element.ID}" type="hidden" size="10" disabled="disabled">
-        <script type="text/javascript">
+        {footer_script}
           pwg_initialization_datepicker("#date_creation_day-{$element.ID}", "#date_creation_month-{$element.ID}", "#date_creation_year-{$element.ID}", "#date_creation_linked_date-{$element.ID}", "#date_creation_action_set-{$element.ID}");
-        </script>
+        {/footer_script}
       </td>
     </tr>
     <tr>

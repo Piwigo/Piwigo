@@ -30,9 +30,7 @@
 {if isset($last.U_IMG)    }<link rel="last" title="{'Last'|@translate}" href="{$last.U_IMG}" >{/if}
 {if isset($U_UP)          }<link rel="up" title="{'Thumbnails'|@translate}" href="{$U_UP}" >{/if}
 
-
 {get_combined_css}
-
 {foreach from=$themes item=theme}
 {if $theme.load_css}
 {combine_css path="themes/`$theme.id`/theme.css" order=-10}

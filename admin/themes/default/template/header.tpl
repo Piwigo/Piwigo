@@ -21,9 +21,12 @@
 {if !empty($theme.local_head)}{include file=$theme.local_head load_css=$theme.load_css}{/if}
 {/foreach}
 
-{known_script id="jquery" src=$ROOT_URL|@cat:"themes/default/js/jquery.packed.js" now=1} {*jQuery is always available by default*}
+<!-- BEGIN get_combined_scripts -->
+{get_combined_scripts load='header'}
+<!-- END get_combined_scripts -->
 
-<script type="text/javascript" src="{$ROOT_URL}themes/default/js/scripts.js"></script>
+{combine_script id='jquery' path='themes/default/js/jquery.packed.js}
+
 <!--[if lt IE 7]>
 <script type="text/javascript" src="{$ROOT_URL}themes/default/js/pngfix.js"></script>
 <![endif]-->

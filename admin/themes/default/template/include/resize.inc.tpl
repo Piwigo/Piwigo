@@ -1,10 +1,9 @@
-{known_script id="jquery" src=$ROOT_URL|@cat:"themes/default/js/jquery.packed.js"}
-{known_script id="jquery.ui" src=$ROOT_URL|@cat:"themes/default/js/ui/packed/ui.core.packed.js"}
-{known_script id="jquery.ui.resizable" src=$ROOT_URL|@cat:"themes/default/js/ui/packed/ui.resizable.packed.js"}
+{combine_script id='jquery' load='async' path='themes/default/js/jquery.packed.js'}
+{combine_script id='jquery.ui' load='async' require='jquery' path='themes/default/js/ui/packed/ui.core.packed.js'}
+{combine_script id='jquery.ui.resizable' load='async' require='jquery.ui' path='themes/default/js/ui/packed/ui.resizable.packed.js'}
 
 {* Resize possible *}
-{literal}
-<script type="text/javascript">
+{footer_script require='jquery.ui.resizable'}{literal}
   jQuery().ready(function(){
     // Resize possible for list
     jQuery(".categoryList").resizable({
@@ -18,5 +17,4 @@
       ghost: true
     });
   });
-</script>
-{/literal}
+{/literal}{/footer_script}

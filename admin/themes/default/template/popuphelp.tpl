@@ -1,5 +1,3 @@
-{known_script id="jquery.tipTip" src=$ROOT_URL|@cat:"themes/default/js/plugins/jquery.tipTip.minified.js" }
-
 <div id="content" class="content">
 {$HELP_CONTENT}
 </div> <!-- content -->

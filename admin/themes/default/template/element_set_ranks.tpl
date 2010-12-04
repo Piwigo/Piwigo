@@ -1,28 +1,20 @@
-{known_script id="jquery" src=$ROOT_URL|@cat:"themes/default/js/jquery.packed.js"}
-{known_script id="jquery.ui" src=$ROOT_URL|@cat:"themes/default/js/ui/packed/ui.core.packed.js" }
-{known_script id="jquery.ui.sortable" src=$ROOT_URL|@cat:"themes/default/js/ui/packed/ui.sortable.packed.js" }
-{html_head}
-{literal}
-<script type="text/javascript">
-  $(function() {
-  $('ul.thumbnails')
-  .sortable(
-  { revert: true,
-  opacity: 0.7,
-  handle: $('.rank-of-image').add('.rank-of-image img'),
-  update: function() {
-  $(this).find('li').each(function(i) { 
-  $(this).find("input[name^=rank_of_image]")
-  .each(function() { $(this).attr('value', (i+1)*10)});
-  });
-  $('#image_order_rank').attr('checked', true);
-  }
-  });
-  });
-
-</script>
-{/literal}
-{/html_head}
+{combine_script id='jquery.ui' load='async' require='jquery' path='themes/default/js/ui/packed/ui.core.packed.js' }
+{combine_script id='jquery.ui.sortable' load='async' require='jquery.ui' path='themes/default/js/ui/packed/ui.sortable.packed.js' }
+{footer_script require='jquery.ui.sortable'}{literal}
+jQuery(document).ready(function() {
+	jQuery('ul.thumbnails').sortable( { 
+		revert: true,	opacity: 0.7,
+		handle: $('.rank-of-image').add('.rank-of-image img'),
+		update: function() {
+			$(this).find('li').each(function(i) { 
+			$(this).find("input[name^=rank_of_image]")
+			.each(function() { $(this).attr('value', (i+1)*10)});
+			});
+			$('#image_order_rank').attr('checked', true);
+			}
+	});
+});
+{/literal}{/footer_script}
 
 <h2>{'Manage image ranks'|@translate}</h2>
 

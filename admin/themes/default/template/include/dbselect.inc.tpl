@@ -1,22 +1,18 @@
-{known_script id="jquery" src=$ROOT_URL|@cat:"themes/default/js/jquery.packed.js"}
-{known_script id="jquery.ui" src=$ROOT_URL|@cat:"themes/default/js/ui/packed/ui.core.packed.js"}
-{known_script id="jquery.ui.resizable" src=$ROOT_URL|@cat:"themes/default/js/ui/packed/ui.resizable.packed.js"}
-
-{* Resize possible *}
-{literal}
-<script type="text/javascript">
-  jQuery().ready(function(){
-    // Resize possible for double select list
-    jQuery(".doubleSelect select.categoryList").resizable({
-      handles: "w,e",
-      animate: true,
-      animateDuration: "slow",
-      animateEasing: "swing",
-      preventDefault: true,
-      preserveCursor: true,
-      autoHide: true,
-      ghost: true
-    });
-  });
-</script>
-{/literal}
+{combine_script id='jquery' load='async' path='themes/default/js/jquery.packed.js'}
+{combine_script id='jquery.ui' load='async' require='jquery' path='themes/default/js/ui/packed/ui.core.packed.js' }
+{combine_script id='jquery.ui.resizable' load='async' require='jquery.ui' path='themes/default/js/ui/packed/ui.resizable.packed.js' }
+{footer_script require='jquery.ui.resizable'}{literal}
+jQuery(document).ready(function(){
+	// Resize possible for double select list
+	jQuery(".doubleSelect select.categoryList").resizable({
+		handles: "w,e",
+		animate: true,
+		animateDuration: "slow",
+		animateEasing: "swing",
+		preventDefault: true,
+		preserveCursor: true,
+		autoHide: true,
+		ghost: true
+	});
+});
+{/literal}{/footer_script}

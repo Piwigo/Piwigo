@@ -1,32 +1,30 @@
-{known_script id="jquery" src=$ROOT_URL|@cat:"themes/default/js/jquery.packed.js"}
-{known_script id="jquery.ui" src=$ROOT_URL|@cat:"themes/default/js/ui/packed/ui.core.packed.js" }
-{known_script id="jquery.ui.sortable" src=$ROOT_URL|@cat:"themes/default/js/ui/packed/ui.sortable.packed.js" }
+{combine_script id='jquery.ui' load='async' require='jquery' path='themes/default/js/ui/packed/ui.core.packed.js' }
+{combine_script id='jquery.ui.sortable' load='async' require='jquery.ui' path='themes/default/js/ui/packed/ui.sortable.packed.js' }
+{footer_script require='jquery.ui.sortable'}
+jQuery(document).ready(function(){ldelim}
+	jQuery(".catPos").hide();
+	jQuery(".drag_button").show();
+	jQuery(".categoryLi").css("cursor","move");
+	jQuery(".categoryUl").sortable({ldelim}
+		axis: "y",
+		opacity: 0.8
+	});
+	jQuery("#categoryOrdering").submit(function(){ldelim}
+		ar = jQuery('.categoryUl').sortable('toArray');
+		for(i=0;i<ar.length;i++) {ldelim}
+			cat = ar[i].split('cat_');
+			document.getElementsByName('catOrd[' + cat[1] + ']')[0].value = i;
+		}
+	});
 
-<script type="text/javascript">
-  jQuery().ready(function(){ldelim}
-    jQuery(".catPos").hide();
-    jQuery(".drag_button").show();
-    jQuery(".categoryLi").css("cursor","move");
-    jQuery(".categoryUl").sortable({ldelim}
-      axis: "y",
-      opacity: 0.8
-    });
-    jQuery("#categoryOrdering").submit(function(){ldelim}
-      ar = jQuery('.categoryUl').sortable('toArray');
-      for(i=0;i<ar.length;i++) {ldelim}
-        cat = ar[i].split('cat_');
-        document.getElementsByName('catOrd[' + cat[1] + ']')[0].value = i;
-      }
-    });
-
-    jQuery("input[name=order_type]").click(function () {ldelim}
-      jQuery("#automatic_order_params").hide();
-      if (jQuery("input[name=order_type]:checked").val() == "automatic") {ldelim}
-        jQuery("#automatic_order_params").show();
-      }
-    });
-  });
-</script>
+	jQuery("input[name=order_type]").click(function () {ldelim}
+		jQuery("#automatic_order_params").hide();
+		if (jQuery("input[name=order_type]:checked").val() == "automatic") {ldelim}
+			jQuery("#automatic_order_params").show();
+		}
+	});
+});
+{/footer_script}
 
 <h2>{'Album list management'|@translate}</h2>
 

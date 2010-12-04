@@ -42,17 +42,25 @@
 </div> <!-- footer -->
 </div> <!-- the_page -->
 
+
+{combine_script id='jquery.tipTip' load='async' path='themes/default/js/plugins/jquery.tipTip.minified.js'}
+{footer_script require='jquery.tipTip'}
+jQuery(document).ready(function() {ldelim}
+	jQuery('#pwgHead A, #footer A, .themeActions A, .themeActions SPAN, .languageActions A, .languageActions SPAN').tipTip({ldelim}
+			'delay' : 0,
+			'fadeIn' : 200,
+			'fadeOut' : 200,
+	});
+});
+{/footer_script}
+
+<!-- BEGIN get_combined_scripts -->
+{get_combined_scripts load='footer'}
+<!-- END get_combined_scripts -->
+
 {literal}
 <script type='text/javascript'>
-  $(function() {
-    $('#pwgHead A, #footer A, .themeActions A, .themeActions SPAN, .languageActions A, .languageActions SPAN').tipTip({
-        'delay' : 0,
-        'fadeIn' : 200,
-        'fadeOut' : 200,
-    });
-  });
-
-  $(document).ready(function() {
+  jQuery(document).ready(function() {
     $("a.externalLink").click(function() {
       window.open($(this).attr("href"));
       return false;

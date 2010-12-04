@@ -1,13 +1,10 @@
-{known_script id="jquery" src=$ROOT_URL|@cat:"themes/default/js/jquery.packed.js"}
-{known_script id="jquery.autogrow" src=$ROOT_URL|@cat:"themes/default/js/plugins/jquery.autogrow-textarea.js"}
-
+{combine_script id='jquery' load='async' path='themes/default/js/jquery.packed.js'}
+{combine_script id='jquery.autogrow' load='async' require='jquery' path='themes/default/js/plugins/jquery.autogrow-textarea.js'}
 {* Auto size and auto grow textarea *}
-{literal}
-<script type="text/javascript">
-  jQuery().ready(function(){
-    jQuery('textarea').css('overflow-y', 'hidden');
-    // Auto size and auto grow for all text area
-    jQuery('textarea').autogrow();
-  });
-</script>
-{/literal}
+{footer_script require='jquery.autogrow'}{literal}
+jQuery(document).ready(function(){
+	jQuery('textarea').css('overflow-y', 'hidden');
+	// Auto size and auto grow for all text area
+	jQuery('textarea').autogrow();
+});
+{/literal}{/footer_script}

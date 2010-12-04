@@ -1,17 +1,15 @@
-{known_script id="jquery.ui" src=$ROOT_URL|@cat:"themes/default/js/ui/packed/ui.core.packed.js" }
-{known_script id="jquery.ui.accordion" src=$ROOT_URL|@cat:"themes/default/js/ui/packed/ui.accordion.packed.js" }
-{known_script id="jquery.tipTip" src=$ROOT_URL|@cat:"themes/default/js/plugins/jquery.tipTip.minified.js" }
-
-<script type="text/javascript">
-jQuery().ready(function(){ldelim}
-  jQuery('#menubar').accordion({ldelim}
-    header: "dt.rdion",
-    event: "click",
-    autoHeight: false,
-    active: {$ACTIVE_MENU}
-  });
+{combine_script id='jquery.ui' load='header' require='jquery' path='themes/default/js/ui/packed/ui.core.packed.js' }
+{combine_script id='jquery.ui.accordion' load='header' require='jquery.ui' path='themes/default/js/ui/packed/ui.accordion.packed.js' }
+{footer_script require='jquery.ui.accordion'}
+jQuery(document).ready(function(){ldelim}
+	jQuery('#menubar').accordion({ldelim}
+		header: "dt.rdion",
+		event: "click",
+		autoHeight: false,
+		active: {$ACTIVE_MENU}
+	});
 });
-</script>
+{/footer_script}
 
 <div id="menubar">
   <div id="adminHome"><a href="{$U_ADMIN}">{'Administration Home'|@translate}</a></div>
@@ -104,6 +102,7 @@ jQuery().ready(function(){ldelim}
   {$TABSHEET}
   {/if}
   {if isset($U_HELP)}
+	{combine_script id='core.scripts' load='async' path='themes/default/js/scripts.js'}
   <ul class="HelpActions">
     <li><a href="{$U_HELP}" onclick="popuphelp(this.href); return false;" title="{'Help'|@translate}"><img src="{$ROOT_URL}{$themeconf.admin_icon_dir}/help.png" class="button" alt="(?)"></a></li>
   </ul>

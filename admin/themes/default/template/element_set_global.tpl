@@ -1,29 +1,26 @@
 {include file='include/tag_selection.inc.tpl'}
 {include file='include/datepicker.inc.tpl'}
 
-{literal}
-<script type="text/javascript">
-  pwg_initialization_datepicker("#date_creation_day", "#date_creation_month", "#date_creation_year", "#date_creation_linked_date", "#date_creation_action_set");
+{footer_script}{literal}
+	pwg_initialization_datepicker("#date_creation_day", "#date_creation_month", "#date_creation_year", "#date_creation_linked_date", "#date_creation_action_set");
 </script>
-{/literal}
+{/literal}{/footer_script}
 
-{known_script id="jquery.fcbkcomplete" src=$ROOT_URL|@cat:"themes/default/js/plugins/jquery.fcbkcomplete.js"}
-{literal}
-<script type="text/javascript">
-  $(document).ready(function() {
-    $("#tags").fcbkcomplete({
-      json_url: "admin.php?fckb_tags=1",
-      cache: false,
-      filter_case: false,
-      filter_hide: true,
-      firstselected: true,
-      filter_selected: true,
-      maxitems: 100,
-      newel: true
-    });
-  });
-</script>
-{/literal}
+{combine_script id='jquery.fcbkcomplete' load='async' require='jquery' path='themes/default/js/plugins/jquery.fcbkcomplete.js'}
+{footer_script require='jquery.fcbkcomplete'}{literal}
+jQuery(document).ready(function() {
+	jQuery("#tags").fcbkcomplete({
+		json_url: "admin.php?fckb_tags=1",
+		cache: false,
+		filter_case: false,
+		filter_hide: true,
+		firstselected: true,
+		filter_selected: true,
+		maxitems: 100,
+		newel: true
+	});
+});
+{/literal}{/footer_script}
 
 <h2>{'Batch management'|@translate}</h2>
 

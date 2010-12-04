@@ -1,15 +1,14 @@
-{known_script id="jquery" src=$ROOT_URL|@cat:"themes/default/js/jquery.packed.js"}
-{known_script id="jquery.cluetip" src=$ROOT_URL|@cat:"themes/default/js/plugins/jquery.cluetip.packed.js"}
+{combine_script id='jquery.cluetip' load='async' require='jquery' path='themes/default/js/plugins/jquery.cluetip.packed.js'}
 
-<script type="text/javascript">
+{footer_script require='jquery.cluetip'}
 jQuery().ready(function(){ldelim}
-  jQuery('.cluetip').cluetip({ldelim}
-    width: 300,
-    splitTitle: '|',
-    positionBy: 'bottomTop'
-  });
+	jQuery('.cluetip').cluetip({ldelim}
+		width: 300,
+		splitTitle: '|',
+		positionBy: 'bottomTop'
+	});
 });
-</script>
+{/footer_script}
 
 <h2>{'Piwigo administration'|@translate}</h2>
 <dl style="padding-top: 30px;">

@@ -1,25 +1,24 @@
-{known_script id="jquery.ui" src=$ROOT_URL|@cat:"themes/default/js/ui/packed/ui.core.packed.js" }
-{known_script id="jquery.ui.effects" src=$ROOT_URL|@cat:"themes/default/js/ui/packed/effects.core.packed.js" }
-{known_script id="jquery.ui.blind" src=$ROOT_URL|@cat:"themes/default/js/ui/packed/effects.blind.packed.js" }
+{combine_script id='jquery.ui' load='async' require='jquery' path='themes/default/js/ui/packed/ui.core.packed.js' }
+{combine_script id='jquery.ui.effects' load='async' require='jquery.ui' path='themes/default/js/ui/packed/effects.core.packed.js' }
+{combine_script id='jquery.ui.effects.blind' load='async' require='jquery.ui.effects' path='themes/default/js/ui/packed/effects.blind.packed.js' }
 
-<script type="text/javascript">
-jQuery().ready(function(){ldelim}
-  jQuery("td[id^='desc_']").click(function() {ldelim}
-    id = this.id.split('_');
-    nb_lines = jQuery("#bigdesc_"+id[1]).html().split('<br>').length;
+{footer_script require='jquery.ui.effects.blind'}
+jQuery(document).ready(function(){ldelim}
+	jQuery("td[id^='desc_']").click(function() {ldelim}
+		id = this.id.split('_');
+		nb_lines = jQuery("#bigdesc_"+id[1]).html().split('<br>').length;
 
-    $("#smalldesc_"+id[1]).toggle('blind', 1);
-    if ($(this).hasClass('bigdesc')) {ldelim}
-      $("#bigdesc_"+id[1]).toggle('blind', 1);
-      $(this).removeClass('bigdesc');
-    } else {ldelim}
-      $("#bigdesc_"+id[1]).toggle('blind', 50 + (nb_lines * 30));
-      $(this).addClass('bigdesc');
-    }
-    return false;
-  });
+		jQuery("#smalldesc_"+id[1]).toggle('blind', 1);
+		if (jQuery(this).hasClass('bigdesc')) {ldelim}
+			jQuery("#bigdesc_"+id[1]).toggle('blind', 1);
+		} else {ldelim}
+			jQuery("#bigdesc_"+id[1]).toggle('blind', 50 + (nb_lines * 30));
+		}
+		jQuery(this).toggleClass('bigdesc');
+		return false;
+	});
 });
-</script>
+{/footer_script}
 
 <div class="titrePage">
 <span class="sort">
