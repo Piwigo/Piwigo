@@ -822,14 +822,16 @@ class PwgTemplateAdapter
 
 final class Script
 {
+  public $id;
   public $load_mode;
   public $precedents = array();
   public $path;
   public $version;
   public $extra = array();
 
-  function Script($load_mode, $precedents, $path, $version)
+  function Script($id, $load_mode, $precedents, $path, $version)
   {
+    $this->id = $id;
     $this->load_mode = $load_mode;
     $this->precedents = $precedents;
     $this->path = $path;
@@ -899,7 +901,7 @@ class ScriptLoader
     }
     if (! isset( $this->registered_scripts[$id] ) )
     {
-      $script = new Script($load_mode, $require, $path, $version);
+      $script = new Script($id, $load_mode, $require, $path, $version);
       self::fill_well_known($id, $script);
       $this->registered_scripts[$id] = $script;
     }
