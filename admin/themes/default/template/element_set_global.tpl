@@ -3,7 +3,6 @@
 
 {footer_script}{literal}
 	pwg_initialization_datepicker("#date_creation_day", "#date_creation_month", "#date_creation_year", "#date_creation_linked_date", "#date_creation_action_set");
-</script>
 {/literal}{/footer_script}
 
 {combine_script id='jquery.fcbkcomplete' load='async' require='jquery' path='themes/default/js/plugins/jquery.fcbkcomplete.js'}

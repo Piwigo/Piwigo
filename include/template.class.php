@@ -396,7 +396,7 @@ class Template {
       {
           $scripts = $this->scriptLoader->get_head_scripts();
           $content = array();
-          foreach ($scripts as $id => $script)
+          foreach ($scripts as $script)
           {
               $content[]=
                   '<script type="text/javascript" src="'
@@ -411,25 +411,39 @@ class Template {
     if(!empty($this->css_by_priority))
     {
       ksort($this->css_by_priority);
-      $combiner = new FileCombiner('css');
-      foreach ($this->css_by_priority as $files)
+
+			global $conf;
+			$css = array();
+			if ($conf['template_combine_files'])
+			{
+				$combiner = new FileCombiner('css');
+				foreach ($this->css_by_priority as $files)
+				{
+					foreach ($files as $file_ver)
+						$combiner->add( $file_ver[0], $file_ver[1] );
+				}
+				if ( $combiner->combine( $out_file, $out_version) )
+					$css[] = array($out_file, $out_version);
+			}
+			else
+			{
+				foreach ($this->css_by_priority as $files)
+					$css = array_merge($css, $files);
+			}
+			
+			$content = array();
+      foreach( $css as $file_ver )
       {
-        foreach ($files as $file_ver)
-        {
-          $combiner->add( $file_ver[0], $file_ver[1] );
-        }
-      }
-      if ( $combiner->combine( $out_file, $out_version) )
-      {
-        $href = get_root_url() . $out_file;
-        if ($out_version !== false)
-          $href .= '?v' . ($out_version ? $out_version : PHPWG_VERSION);
+        $href = get_root_url() . $file_ver[0];
+        if ($file_ver[1] !== false)
+          $href .= '?v' . ($file_ver[1] ? $file_ver[1] : PHPWG_VERSION);
         // trigger the event for eventual use of a cdn
-        $href = trigger_event('combined_css', $href, $out_file, $out_version);
-        $this->output = str_replace(self::COMBINED_CSS_TAG,
-          '<link rel="stylesheet" type="text/css" href="'.$href.'">',
-          $this->output );
+        $href = trigger_event('combined_css', $href, $file_ver[0], $file_ver[1]);
+				$content[] = '<link rel="stylesheet" type="text/css" href="'.$href.'">';
       }
+      $this->output = str_replace(self::COMBINED_CSS_TAG,
+          implode( "\n", $content ),
+          $this->output );
     }
 
     if ( count($this->html_head_elements) )
@@ -568,14 +582,12 @@ class Template {
     }
     else
     {
-      if (!$this->scriptLoader->did_head())
-        fatal_error('get_combined_scripts didn\'t call header');
       $scripts = $this->scriptLoader->get_footer_scripts();
-      foreach ($scripts[0] as $id => $script)
+      foreach ($scripts[0] as $script)
       {
         $content[]=
           '<script type="text/javascript" src="'
-          . Template::make_script_src($script)
+          . self::make_script_src($script)
           .'"></script>';
       }
       if (count($this->scriptLoader->inline_scripts))
@@ -595,7 +607,7 @@ class Template {
         {
           $content[]=
             's=document.createElement(\'script\'); s.type = \'text/javascript\'; s.async = true; s.src = \''
-            . Template::make_script_src($script)
+            . self::make_script_src($script)
             .'\';';
           $content[]= 'after = after.parentNode.insertBefore(s, after);';
         }
@@ -610,7 +622,7 @@ class Template {
   private static function make_script_src( $script )
   {
     $ret = '';
-    if ( url_is_remote($script->path) )
+    if ( $script->is_remote() )
       $ret = $script->path;
     else
     {
@@ -620,6 +632,8 @@ class Template {
         $ret.= '?v'. ($script->version ? $script->version : PHPWG_VERSION);
       }
     }
+    // trigger the event for eventual use of a cdn
+    $ret = trigger_event('combined_script', $ret, $script);
     return $ret;
   }
 
@@ -638,7 +652,6 @@ class Template {
     $order = (int)@$params['order'];
     $version = isset($params['version']) ? $params['version'] : 0;
     $this->css_by_priority[$order][] = array( $params['path'], $version);
-    //var_export( $this->css_by_priority ); echo "<br>";
   }
 
   function func_get_combined_css($params, &$smarty)
@@ -829,13 +842,14 @@ final class Script
   public $version;
   public $extra = array();
 
-  function Script($id, $load_mode, $precedents, $path, $version)
+  function Script($load_mode, $id, $path, $version, $precedents)
   {
     $this->id = $id;
     $this->load_mode = $load_mode;
-    $this->precedents = $precedents;
-    $this->path = $path;
+    $this->id = $id;
+    $this->set_path($path);
     $this->version = $version;
+    $this->precedents = $precedents;
   }
 
   function set_path($path)
@@ -843,7 +857,7 @@ final class Script
     if (!empty($path))
       $this->path = $path;
   }
-  
+
   function is_remote()
   {
     return url_is_remote( $this->path );
@@ -901,7 +915,7 @@ class ScriptLoader
     }
     if (! isset( $this->registered_scripts[$id] ) )
     {
-      $script = new Script($id, $load_mode, $require, $path, $version);
+      $script = new Script($load_mode, $id, $path, $version, $require);
       self::fill_well_known($id, $script);
       $this->registered_scripts[$id] = $script;
     }
@@ -945,16 +959,15 @@ class ScriptLoader
         trigger_error("Script $id has an undefined path", E_USER_WARNING);
     }
     $this->did_head = true;
-    return $this->head_done_scripts;
+    return self::do_combine($this->head_done_scripts, 0);
   }
 
   function get_footer_scripts()
   {
-    if (!$this->did_head)
+    /*if (!$this->did_head)
     {
       trigger_error("Attempt to write footer scripts without header scripts", E_USER_ERROR );
-    }
-    
+    }*/
     $todo = array();
     foreach( $this->registered_scripts as $id => $script)
     {
@@ -970,17 +983,36 @@ class ScriptLoader
 
     uasort($todo, array('ScriptLoader', 'cmp_by_mode_and_order'));
 
-    
     $result = array( array(), array() );
     foreach( $todo as $id => $script)
     {
       $result[$script->load_mode-1][$id] = $script;
     }
-    return $result;
+    return array( self::do_combine($result[0],1), self::do_combine($result[1],2) );
   }
 
+	private static function do_combine($scripts, $load_mode)
+	{
+		global $conf;
+		if (count($scripts)<2 or !$conf['template_combine_files'])
+			return $scripts;
+		$combiner = new FileCombiner('js');
+		foreach ($scripts as $script)
+		{
+			if ($script->is_remote()) fatal_error("NOT IMPLEMENTED");// TODO - we cannot combine remote scripts
+			$combiner->add( $script->path, $script->version );
+		}
+		if ( $combiner->combine( $out_file, $out_version) )
+		{
+			return array( 'combi' => new Script($load_mode, 'combi', $out_file, $out_version, array() ) );
+		}
+		return null;
+	}
+	
+	// checks that if B depends on A, then B->load_mode >= A->load_mode in order to respect execution order
   private static function check_load_dep($scripts)
   {
+		global $conf;
     do
     {
       $changed = false;
@@ -998,7 +1030,7 @@ class ScriptLoader
             $scripts[$precedent]->load_mode = $load;
             $changed = true;
           }
-          if ($load==2 && $scripts[$precedent]->load_mode==2 && $script->is_remote() )
+          if ($load==2 && $scripts[$precedent]->load_mode==2 && ($script->is_remote() or !$conf['template_combine_files']) )
           {// we are async -> a predecessor cannot be async unlesss it can be merged; otherwise script execution order is not guaranteed
             $scripts[$precedent]->load_mode = 1;
             $changed = true;
@@ -1008,8 +1040,8 @@ class ScriptLoader
     }
     while ($changed);
   }
-  
-  
+
+
   private static function fill_well_known($id, $script)
   {
     if ( empty($script->path) && isset(self::$known_paths[$id]))
@@ -1048,10 +1080,10 @@ class ScriptLoader
   {
     $ret = $s1->load_mode - $s2->load_mode;
     if ($ret) return $ret;
-    
+
     $ret = $s1->extra['order'] - $s2->extra['order'];
     if ($ret) return $ret;
-    
+
     if ($s1->extra['order']==0 and ($s1->is_remote() xor $s2->is_remote()) )
     {
       return $s1->is_remote() ? -1 : 1;
@@ -1073,7 +1105,7 @@ final class FileCombiner
   {
     $this->type = $type;
   }
-  
+
   static function clear_combined_files()
   {
     $dir = opendir(PHPWG_ROOT_PATH.self::OUT_SUB_DIR);
@@ -1099,7 +1131,6 @@ final class FileCombiner
 
   function combine(&$out_file, &$out_version)
   {
-    //var_export($this);
     if (count($this->files) == 0)
     {
       return false;
@@ -1139,11 +1170,9 @@ final class FileCombiner
     {
       $output .= "/* BEGIN $input_file */\n";
       if ($this->type == "css")
-      {
-        $output .= $this->process_css($input_file);
-      }
+        $output .= self::process_css($input_file);
       else
-        $output .= file_get_contents(PHPWG_ROOT_PATH . $input_file);
+				$output .= self::process_js($input_file);
       $output .= "\n";
     }
 
@@ -1154,7 +1183,17 @@ final class FileCombiner
     return 2;
   }
 
-  private function process_css($file)
+	private static function process_js($file)
+	{
+		$js = file_get_contents(PHPWG_ROOT_PATH . $file);
+		if (strpos($file, '.min')===false and strpos($file, '.packed')===false )
+		{
+			//TODO minify javascript with some php lib from www...
+		}
+		return $js;
+	}
+	
+  private static function process_css($file)
   {
     static $PATTERN = "#url\(\s*['|\"]{0,1}(.*?)['|\"]{0,1}\s*\)#";
     $css = file_get_contents(PHPWG_ROOT_PATH . $file);
@@ -1180,7 +1219,7 @@ final class FileCombiner
       foreach ($matches as $match)
       {
         $search[] = $match[0];
-        $replace[] = $this->process_css(dirname($file) . "/$match[1]");
+        $replace[] = self::process_css(dirname($file) . "/$match[1]");
       }
       $css = str_replace($search, $replace, $css);
     }

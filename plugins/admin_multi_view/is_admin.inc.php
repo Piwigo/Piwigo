@@ -25,7 +25,9 @@ if (! defined('MULTIVIEW_CONTROLLER') )
     $conf['debug_l10n'] = true;
   if (pwg_get_session_var( 'multiview_debug_template', 0 ))
     $conf['debug_template'] = true;
-  if (pwg_get_session_var( 'multiview_no_history', 0 ))
+  if (!pwg_get_session_var( 'multiview_template_combine_files', 1 ))
+    $conf['template_combine_files'] = false;
+		if (pwg_get_session_var( 'multiview_no_history', 0 ))
   {
     add_event_handler( 'pwg_log_allowed', create_function( '', 'return false;' ) );
   }

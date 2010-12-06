@@ -11,6 +11,7 @@ if (!is_admin() or !function_exists('multiview_user_init') )
   pwg_unset_session_var( 'multiview_show_queries' );
   pwg_unset_session_var( 'multiview_debug_l10n' );
   pwg_unset_session_var( 'multiview_debug_template' );
+	pwg_unset_session_var( 'multiview_template_combine_files' );
   pwg_unset_session_var( 'multiview_no_history' );
 ?>
 
@@ -84,6 +85,16 @@ if ( isset($_GET['debug_template']) )
     pwg_unset_session_var( 'multiview_debug_template' );
   $refresh_main = true;
 }
+
+if ( isset($_GET['template_combine_files']) )
+{
+  if ( $_GET['template_combine_files']==0 )
+    pwg_set_session_var( 'multiview_template_combine_files', 0 );
+  else
+    pwg_unset_session_var( 'multiview_template_combine_files' );
+  $refresh_main = true;
+}
+
 
 if ( isset($_GET['no_history']) )
 {
@@ -194,6 +205,17 @@ if (!$conf['debug_template'])
 }
 
 // +-----------------------------------------------------------------------+
+// | template combine files                                                |
+$template_combine_files_html='';
+if ($conf['template_combine_files'])
+{
+  if ( pwg_get_session_var( 'multiview_template_combine_files', 1 ) )
+    $template_combine_files_html.='<a href="'.$my_url.'?template_combine_files=0">Don\'t combine js&amp;css</a>';
+  else
+    $template_combine_files_html.='<a href="'.$my_url.'?template_combine_files=1">Combine js&amp;css</a>';
+}
+
+// +-----------------------------------------------------------------------+
 // | no history                                                            |
 $no_history_html='';
 if ( !pwg_get_session_var( 'multiview_no_history', 0 ) )
@@ -224,7 +246,7 @@ if (window.opener==null) {
 
 <tr><td>Lang</td><td><?php echo $lang_html; ?></td></tr>
 </table>
-<?php echo implode( "<br/>\n", array($show_queries_html, $debug_l10n_html, $debug_template_html, $no_history_html) ); ?>
+<?php echo implode( "<br/>\n", array($show_queries_html, $debug_l10n_html, $debug_template_html, $template_combine_files_html, $no_history_html) ); ?>
 
 <script type="text/javascript">
 <?php
