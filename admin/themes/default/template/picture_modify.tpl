@@ -30,7 +30,7 @@ pwg_initialization_datepicker("#date_creation_day", "#date_creation_month", "#da
   {if isset($U_JUMPTO) }
   <li><a href="{$U_JUMPTO}" title="{'jump to image'|@translate}"><img src="{$themeconf.admin_icon_dir}/category_jump-to.png" class="button" alt="{'jump to image'|@translate}"></a></li>
   {/if}
-  {if !url_is_remote($path)}
+  {if !url_is_remote($PATH)}
   <li><a href="{$U_SYNC}" title="{'synchronize'|@translate}" {$TAG_INPUT_ENABLED}><img src="{$themeconf.admin_icon_dir}/sync_metadata.png" class="button" alt="{'synchronize'|@translate}"></a></li>
   {/if}
 </ul>
