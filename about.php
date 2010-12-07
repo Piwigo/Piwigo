@@ -38,6 +38,8 @@ $title= l10n('About Piwigo');
 $page['body_id'] = 'theAboutPage';
 include(PHPWG_ROOT_PATH.'include/page_header.php');
 
+trigger_action('loc_begin_about');
+
 $template->set_filename('about', 'about.tpl');
 
 $template->assign('ABOUT_MESSAGE', load_language('about.html','', array('return'=>true)) );
