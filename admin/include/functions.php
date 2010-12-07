@@ -1719,6 +1719,23 @@ function fetchRemote($src, &$dest, $user_agent='Piwigo', $step=0)
     }
   }
 
+  // Send anonymous data to piwigo server
+  if ($_SERVER['HTTP_HOST'] != 'localhost' and $step==0
+    and preg_match('#^http://(?:[a-z]+\.)?piwigo\.org#', $src))
+  {
+    global $conf;
+
+    $src = add_url_params($src, array(
+      'uuid' => hash_hmac('md5', get_absolute_root_url(), $conf['secret_key']),
+      'os' => urlencode(PHP_OS),
+      'phpversion' => urlencode(phpversion()),
+      'dbengine' => urlencode(DB_ENGINE),
+      'dbversion' => urlencode(pwg_get_db_version()),
+      )
+    );
+    $src = str_replace('&amp;', '&', $src);
+  }
+
   // After 3 redirections, return false
   if ($step > 3) return false;
 
