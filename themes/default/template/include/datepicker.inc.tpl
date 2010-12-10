@@ -4,10 +4,10 @@
 {combine_script id='jquery.ui.datepicker' load='footer' require='jquery.ui' path='themes/default/js/ui/packed/ui.datepicker.packed.js'}
 {combine_script id='datepicker.js' load='footer' require='jquery.ui.datepicker' path='themes/default/js/datepicker.js'}
 
-{assign var="datepicker_language" value="themes/default/js/ui/i18n/ui.datepicker-"|@cat:$lang_info.code|@cat:".js"}
+{assign var="datepicker_language" value="themes/default/js/ui/i18n/ui.datepicker-`$lang_info.code`.js"}
 
 {if "PHPWG_ROOT_PATH"|@constant|@cat:$datepicker_language|@file_exists}
-{combine_script id="jquery.ui.datepicker-$lang_info.code" path=$datepicker_language}
+{combine_script id="jquery.ui.datepicker-$lang_info.code" load='footer' path=$datepicker_language}
 {/if}
 
 {combine_css path="themes/default/js/ui/theme/ui.datepicker.css"}

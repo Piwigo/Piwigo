@@ -1,3 +1,4 @@
+@import "iconset.css";
 /**
  * Menubar
  */
@@ -817,3 +818,4 @@ LEGEND {
 
 #piwigoAbout {width:600px;margin:0 auto;}
 #linkToPiwigo {text-align:center;}
+
