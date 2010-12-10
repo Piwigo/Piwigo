@@ -749,4 +749,18 @@ $lang['This theme was not designed to be directly activated'] = '此主题并未
 $lang['Who can see this photo?'] = '有哪些人能看这些相片?';
 $lang['Pending Comments'] = '待批的评论';
 $lang['Menu Management'] = '菜单';
+$lang['Note: photo deletion does not apply to photos added by synchronization. For photos added by synchronization, remove them from the filesystem and then perform another synchronization.'] = '注意：不能删除通过同步添加的相片。要删除同步的相片，需要直接在物理文件系统中删除，然后再次同步。';
+$lang['In your php.ini file, the upload_max_filesize (%sB) is bigger than post_max_size (%sB), you should change this setting'] = '在你的 php.ini 文件, 如果 upload_max_filesize (%sB) 大于 post_max_size (%sB), 那么你需要修改此项';
+$lang['Exif extension not available, admin should disable exif use'] = 'Exif 扩展不能使用，管理员应该禁用 exif 功能。';
+$lang['The uploaded file exceeds the upload_max_filesize directive in php.ini: %sB'] = '上传文件超过了在 php.ini 文件里的 upload_max_filesize 限制: %sB';
+$lang['The uploaded files exceed the post_max_size directive in php.ini: %sB'] = '上传文件超过了在 php.ini 文件里的 post_max_size 限制: %sB';
+$lang['The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form'] = '上传文件超过了在 HTML 表单指定的 MAX_FILE_SIZE 的限制';
+$lang['The uploaded file was only partially uploaded'] = '上传文件只上传了一部分';
+$lang['No file was uploaded'] = '没有文件被上传';
+$lang['Missing a temporary folder'] = '缺少临时文件目录';
+$lang['Failed to write file to disk'] = '文件写入失败';
+$lang['File upload stopped by extension'] = '扩展使文件上传停止';
+$lang['Unknown upload error'] = '未知上传错误';
+$lang['Error on file "%s" : %s'] = '文件上的错误 "%s" : %s';
+
 ?>
