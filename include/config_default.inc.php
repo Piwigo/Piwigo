@@ -485,6 +485,10 @@ $conf['template_force_compile'] = false;
 // gives an empty value '' to deactivate
 $conf['show_php_errors'] = E_ALL;
 
+// sends your hosting PHP and MySQL versions to piwigo.org as anonymously as
+// possible, for statistics purpose. No personnal data are transmitted
+$conf['send_hosting_technical_details'] = true;
+
 // +-----------------------------------------------------------------------+
 // |                            authentication                             |
 // +-----------------------------------------------------------------------+

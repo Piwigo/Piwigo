@@ -116,9 +116,11 @@ SELECT COUNT(id) AS count
       if ( ! isset($_POST['no_check']) )
       {
         $clf_url = $url.'create_listing_file.php';
-        $clf_url.= '?action=test';
-        $clf_url.= '&version='.PHPWG_VERSION;
-        if (fetchRemote($clf_url, $result))
+        $get_data = array(
+          'action' => 'test',
+          'version' => PHPWG_VERSION,
+        );
+        if (fetchRemote($clf_url, $result, $get_data))
         {
           $lines = explode("\r\n", $result);
           $first_line = strip_tags($lines[0]);

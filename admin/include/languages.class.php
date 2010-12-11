@@ -196,13 +196,16 @@ UPDATE '.USER_INFOS_TABLE.'
   {
     global $user;
 
-    $pem_category_id = 8;
+    $get_data = array(
+      'category_id' => 8,
+      'format' => 'php',
+    );
 
     // Retrieve PEM versions
     $version = PHPWG_VERSION;
     $versions_to_check = array();
-    $url = PEM_URL . '/api/get_version_list.php?category_id='.$pem_category_id.'&format=php';
-    if (fetchRemote($url, $result) and $pem_versions = @unserialize($result))
+    $url = PEM_URL . '/api/get_version_list.php';
+    if (fetchRemote($url, $result, $get_data, get_hosting_technical_details()) and $pem_versions = @unserialize($result))
     {
       if (!preg_match('/^\d+\.\d+\.\d+/', $version))
       {
@@ -223,11 +226,15 @@ UPDATE '.USER_INFOS_TABLE.'
     }
 
     // Retrieve PEM languages infos
-    $url = PEM_URL . '/api/get_revision_list.php?category_id='.$pem_category_id.'&format=php&last_revision_only=true';
-    $url .= '&version=' . implode(',', $versions_to_check);
-    $url .= '&lang='.$user['language'];
+    $url = PEM_URL . '/api/get_revision_list.php';
+    $get_data = array_merge($get_data, array(
+      'last_revision_only' => 'true',
+      'version' => implode(',', $versions_to_check),
+      'lang' => $user['language'],
+      )
+    );
 
-    if (fetchRemote($url, $result))
+    if (fetchRemote($url, $result, $get_data))
     {
       $pem_languages = @unserialize($result);
       if (!is_array($pem_languages))
@@ -258,10 +265,13 @@ UPDATE '.USER_INFOS_TABLE.'
   {
     if ($archive = tempnam( PHPWG_ROOT_PATH.'language', 'zip'))
     {
-      $url = PEM_URL . '/download.php?rid=' . $revision;
-      $url .= '&origin=piwigo_' . $action;
+      $url = PEM_URL . '/download.php';
+      $get_data = array(
+        'rid' => $revision,
+        'origin' => 'piwigo_'.$action,
+      );
 
-      if ($handle = @fopen($archive, 'wb') and fetchRemote($url, $handle))
+      if ($handle = @fopen($archive, 'wb') and fetchRemote($url, $handle, $get_data))
       {
         fclose($handle);
         include(PHPWG_ROOT_PATH.'admin/include/pclzip.lib.php');
