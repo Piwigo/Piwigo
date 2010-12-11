@@ -1722,18 +1722,13 @@ function fetchRemote($src, &$dest, $get_data=array(), $post_data=array(), $user_
   // After 3 redirections, return false
   if ($step > 3) return false;
 
-  // Initialization
-  $method  = empty($post_data) ? 'GET' : 'POST';
-  $request = empty($post_data) ? '' : http_build_query($post_data, '', '&');
-  $src     = add_url_params($src, $get_data, '&');
-
   // Send anonymous data to piwigo server
   if ($_SERVER['HTTP_HOST'] != 'localhost' and $step==0
     and preg_match('#^http://(?:[a-z]+\.)?piwigo\.org#', $src))
   {
     global $conf;
 
-    $src = add_url_params($src, array(
+    $post_data = array_merge($post_data, array(
       'uuid' => hash_hmac('md5', get_absolute_root_url(), $conf['secret_key']),
       'os' => urlencode(PHP_OS),
       'pwgversion' => urlencode(PHPWG_VERSION),
@@ -1742,8 +1737,12 @@ function fetchRemote($src, &$dest, $get_data=array(), $post_data=array(), $user_
       'dbversion' => urlencode(pwg_get_db_version()),
       )
     );
-    $src = str_replace('&amp;', '&', $src);
   }
+
+  // Initialization
+  $method  = empty($post_data) ? 'GET' : 'POST';
+  $request = empty($post_data) ? '' : http_build_query($post_data, '', '&');
+  $src     = add_url_params($src, $get_data, '&');
 
   // Initialize $dest
   is_resource($dest) or $dest = '';
