@@ -1704,6 +1704,8 @@ function cat_admin_access($category_id)
  */
 function fetchRemote($src, &$dest, $get_data=array(), $post_data=array(), $user_agent='Piwigo', $step=0)
 {
+  global $conf;
+
   // Try to retrieve data from local file?
   if (!url_is_remote($src))
   {
@@ -1723,11 +1725,10 @@ function fetchRemote($src, &$dest, $get_data=array(), $post_data=array(), $user_
   if ($step > 3) return false;
 
   // Send anonymous data to piwigo server
-  if ($_SERVER['HTTP_HOST'] != 'localhost' and $step==0
+  if ($conf['send_hosting_technical_details']
+    and $_SERVER['HTTP_HOST'] != 'localhost' and $step==0
     and preg_match('#^http://(?:[a-z]+\.)?piwigo\.org#', $src))
   {
-    global $conf;
-
     $post_data = array_merge($post_data, array(
       'uuid' => hash_hmac('md5', get_absolute_root_url(), $conf['secret_key']),
       'os' => urlencode(PHP_OS),
