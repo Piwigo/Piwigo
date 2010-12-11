@@ -447,13 +447,16 @@ SELECT
   {
     global $user;
 
-    $pem_category_id = 10;
+    $get_data = array(
+      'category_id' => 10,
+      'format' => 'php',
+    );
 
     // Retrieve PEM versions
     $version = PHPWG_VERSION;
     $versions_to_check = array();
-    $url = PEM_URL . '/api/get_version_list.php?category_id='.$pem_category_id.'&format=php';
-    if (fetchRemote($url, $result) and $pem_versions = @unserialize($result))
+    $url = PEM_URL . '/api/get_version_list.php';
+    if (fetchRemote($url, $result, $get_data) and $pem_versions = @unserialize($result))
     {
       if (!preg_match('/^\d+\.\d+\.\d+/', $version))
       {
@@ -484,17 +487,27 @@ SELECT
     }
 
     // Retrieve PEM themes infos
-    $url = PEM_URL . '/api/get_revision_list.php?category_id='.$pem_category_id.'&format=php&last_revision_only=true';
-    $url .= '&version=' . implode(',', $versions_to_check);
-    $url .= '&lang=' . substr($user['language'], 0, 2);
-    $url .= '&get_nb_downloads=true';
+    $url = PEM_URL . '/api/get_revision_list.php';
+    $get_data = array_merge($get_data, array(
+      'last_revision_only' => 'true',
+      'version' => implode(',', $versions_to_check),
+      'lang' => substr($user['language'], 0, 2),
+      'get_nb_downloads' => 'true',
+      )
+    );
 
     if (!empty($themes_to_check))
     {
-      $url .= $new ? '&extension_exclude=' : '&extension_include=';
-      $url .= implode(',', $themes_to_check);
+      if ($new)
+      {
+        $get_data['extension_exclude'] = implode(',', $themes_to_check);
+      }
+      else
+      {
+        $get_data['extension_include'] = implode(',', $themes_to_check);
+      }
     }
-    if (fetchRemote($url, $result))
+    if (fetchRemote($url, $result, $get_data))
     {
       $pem_themes = @unserialize($result);
       if (!is_array($pem_themes))
@@ -546,10 +559,13 @@ SELECT
   {
     if ($archive = tempnam( PHPWG_THEMES_PATH, 'zip'))
     {
-      $url = PEM_URL . '/download.php?rid=' . $revision;
-      $url .= '&origin=piwigo_' . $action;
+      $url = PEM_URL . '/download.php';
+      $get_data = array(
+        'rid' => $revision,
+        'origin' => 'piwigo_'.$action,
+      );
 
-      if ($handle = @fopen($archive, 'wb') and fetchRemote($url, $handle))
+      if ($handle = @fopen($archive, 'wb') and fetchRemote($url, $handle, $get_data))
       {
         fclose($handle);
         include(PHPWG_ROOT_PATH.'admin/include/pclzip.lib.php');
