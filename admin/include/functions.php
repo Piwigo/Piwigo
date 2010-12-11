@@ -1704,8 +1704,6 @@ function cat_admin_access($category_id)
  */
 function fetchRemote($src, &$dest, $get_data=array(), $post_data=array(), $user_agent='Piwigo', $step=0)
 {
-  global $conf;
-
   // Try to retrieve data from local file?
   if (!url_is_remote($src))
   {
@@ -1723,22 +1721,6 @@ function fetchRemote($src, &$dest, $get_data=array(), $post_data=array(), $user_
 
   // After 3 redirections, return false
   if ($step > 3) return false;
-
-  // Send anonymous data to piwigo server
-  if ($conf['send_hosting_technical_details']
-    and $_SERVER['HTTP_HOST'] != 'localhost' and $step==0
-    and preg_match('#^http://(?:[a-z]+\.)?piwigo\.org#', $src))
-  {
-    $post_data = array_merge($post_data, array(
-      'uuid' => hash_hmac('md5', get_absolute_root_url(), $conf['secret_key']),
-      'os' => urlencode(PHP_OS),
-      'pwgversion' => urlencode(PHPWG_VERSION),
-      'phpversion' => urlencode(phpversion()),
-      'dbengine' => urlencode(DB_ENGINE),
-      'dbversion' => urlencode(pwg_get_db_version()),
-      )
-    );
-  }
 
   // Initialization
   $method  = empty($post_data) ? 'GET' : 'POST';
@@ -2061,5 +2043,25 @@ function get_fckb_tag_ids($raw_tags)
   }
 
   return $tag_ids;
+}
+
+function get_hosting_technical_details()
+{
+  global $conf;
+
+  $details = array();
+  if ($conf['send_hosting_technical_details'] and $_SERVER['HTTP_HOST'] != 'localhost')
+  {
+    $details = array(
+      'uuid' => hash_hmac('md5', get_absolute_root_url(), $conf['secret_key']),
+      'os' => urlencode(PHP_OS),
+      'pwgversion' => urlencode(PHPWG_VERSION),
+      'phpversion' => urlencode(phpversion()),
+      'dbengine' => urlencode(DB_ENGINE),
+      'dbversion' => urlencode(pwg_get_db_version()),
+    );
+  }
+
+  return $details;
 }
 ?>
