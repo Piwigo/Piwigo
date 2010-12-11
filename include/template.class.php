@@ -1143,9 +1143,11 @@ final class FileCombiner
       return 1;
     }
 
+    $is_css = $this->type == "css";
     global $conf;
     $key = array();
-
+    if ($is_css) 
+      $key[] = get_absolute_root_url(false);//because we modify bg url
     for ($i=0; $i<count($this->files); $i++)
     {
       $key[] = $this->files[$i];
@@ -1156,7 +1158,21 @@ final class FileCombiner
 
     $file = base_convert(crc32($key),10,36);
     $file = self::OUT_SUB_DIR . $file . '.' . $this->type;
-    if (file_exists( PHPWG_ROOT_PATH . $file ) )
+    
+    $exists = file_exists( PHPWG_ROOT_PATH . $file );
+    if ($exists)
+    {
+      $is_reload =
+        (isset($_SERVER['HTTP_CACHE_CONTROL']) && strpos($_SERVER['HTTP_CACHE_CONTROL'], 'max-age=0') !== false)
+        || (isset($_SERVER['HTTP_PRAGMA']) && strpos($_SERVER['HTTP_PRAGMA'], 'no-cache'));
+      if ($is_reload)
+      {// the user pressed F5 in the browser
+        if ($is_css || $conf['template_compile_check']==false)
+          $exists = false; // we foce regeneration of css because @import sub-files are never checked for modification
+      }
+    }
+
+    if ($exists)
     {
       $out_file = $file;
       $out_version = false;
@@ -1169,10 +1185,10 @@ final class FileCombiner
     foreach ($this->files as $input_file)
     {
       $output .= "/* BEGIN $input_file */\n";
-      if ($this->type == "css")
+      if ($is_css)
         $output .= self::process_css($input_file);
       else
-				$output .= self::process_js($input_file);
+        $output .= self::process_js($input_file);
       $output .= "\n";
     }
 
@@ -1183,16 +1199,16 @@ final class FileCombiner
     return 2;
   }
 
-	private static function process_js($file)
-	{
-		$js = file_get_contents(PHPWG_ROOT_PATH . $file);
-		if (strpos($file, '.min')===false and strpos($file, '.packed')===false )
-		{
-			//TODO minify javascript with some php lib from www...
-		}
-		return $js;
-	}
-	
+  private static function process_js($file)
+  {
+    $js = file_get_contents(PHPWG_ROOT_PATH . $file);
+    if (strpos($file, '.min')===false and strpos($file, '.packed')===false )
+    {
+      //TODO minify javascript with some php lib from www...
+    }
+    return $js;
+  }
+  
   private static function process_css($file)
   {
     static $PATTERN = "#url\(\s*['|\"]{0,1}(.*?)['|\"]{0,1}\s*\)#";
