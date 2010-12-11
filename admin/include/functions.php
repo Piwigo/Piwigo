@@ -1702,7 +1702,7 @@ function cat_admin_access($category_id)
  * @param global $dest: can be a file ressource or string
  * @return bool
  */
-function fetchRemote($src, &$dest, $user_agent='Piwigo', $step=0)
+function fetchRemote($src, &$dest, $get_data=array(), $post_data=array(), $user_agent='Piwigo', $step=0)
 {
   // Try to retrieve data from local file?
   if (!url_is_remote($src))
@@ -1718,6 +1718,14 @@ function fetchRemote($src, &$dest, $user_agent='Piwigo', $step=0)
       return false;
     }
   }
+
+  // After 3 redirections, return false
+  if ($step > 3) return false;
+
+  // Initialization
+  $method  = empty($post_data) ? 'GET' : 'POST';
+  $request = empty($post_data) ? '' : http_build_query($post_data, '', '&');
+  $src     = add_url_params($src, $get_data, '&');
 
   // Send anonymous data to piwigo server
   if ($_SERVER['HTTP_HOST'] != 'localhost' and $step==0
@@ -1737,9 +1745,6 @@ function fetchRemote($src, &$dest, $user_agent='Piwigo', $step=0)
     $src = str_replace('&amp;', '&', $src);
   }
 
-  // After 3 redirections, return false
-  if ($step > 3) return false;
-
   // Initialize $dest
   is_resource($dest) or $dest = '';
 
@@ -1751,6 +1756,11 @@ function fetchRemote($src, &$dest, $user_agent='Piwigo', $step=0)
     @curl_setopt($ch, CURLOPT_HEADER, 1);
     @curl_setopt($ch, CURLOPT_USERAGENT, $user_agent);
     @curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    if ($method == 'POST')
+    {
+      @curl_setopt($ch, CURLOPT_POST, 1);
+      @curl_setopt($ch, CURLOPT_POSTFIELDS, $post_data);
+    }
     $content = @curl_exec($ch);
     $header_length = @curl_getinfo($ch, CURLINFO_HEADER_SIZE);
     $status = @curl_getinfo($ch, CURLINFO_HTTP_CODE);
@@ -1759,7 +1769,7 @@ function fetchRemote($src, &$dest, $user_agent='Piwigo', $step=0)
     {
       if (preg_match('/Location:\s+?(.+)/', substr($content, 0, $header_length), $m))
       {
-        return fetchRemote($m[1], $dest, $user_agent, $step+1);
+        return fetchRemote($m[1], $dest, array(), array(), $user_agent, $step+1);
       }
       $content = substr($content, $header_length);
       is_resource($dest) ? @fwrite($dest, $content) : $dest = $content;
@@ -1770,7 +1780,15 @@ function fetchRemote($src, &$dest, $user_agent='Piwigo', $step=0)
   // Try file_get_contents to read remote file
   if (ini_get('allow_url_fopen'))
   {
-    $content = @file_get_contents($src);
+    $opts = array(
+      'http' => array(
+        'method' => $method,
+        'content' => $request,
+        'user_agent' => $user_agent,
+      )
+    );
+    $context = @stream_context_create($opts);
+    $content = @file_get_contents($src, false, $context);
     if ($content !== false)
     {
       is_resource($dest) ? @fwrite($dest, $content) : $dest = $content;
@@ -1789,13 +1807,16 @@ function fetchRemote($src, &$dest, $user_agent='Piwigo', $step=0)
     return false;
   }
 
-  fwrite($s,
-    "GET ".$path." HTTP/1.0\r\n"
-    ."Host: ".$host."\r\n"
-    ."User-Agent: ".$user_agent."\r\n"
-    ."Accept: */*\r\n"
-    ."\r\n"
-  );
+  $http_request  = $method." ".$path." HTTP/1.0\r\n";
+  $http_request .= "Host: ".$host."\r\n";
+  $http_request .= "Content-Type: application/x-www-form-urlencoded;\r\n";
+  $http_request .= "Content-Length: ".strlen($request)."\r\n";
+  $http_request .= "User-Agent: ".$user_agent."\r\n";
+  $http_request .= "Accept: */*\r\n";
+  $http_request .= "\r\n";
+  $http_request .= $request;
+
+  fwrite($s, $http_request);
 
   $i = 0;
   $in_content = false;
@@ -1828,7 +1849,7 @@ function fetchRemote($src, &$dest, $user_agent='Piwigo', $step=0)
       if (preg_match('/Location:\s+?(.+)$/',rtrim($line,"\r\n"),$m))
       {
         fclose($s);
-        return fetchRemote(trim($m[1]),$dest,$user_agent,$step+1);
+        return fetchRemote(trim($m[1]),$dest,array(),array(),$user_agent,$step+1);
       }
       $i++;
       continue;

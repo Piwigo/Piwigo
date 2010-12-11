@@ -89,7 +89,7 @@ function get_absolute_root_url($with_scheme=true)
  * @param array params
  * @return string
  */
-function add_url_params($url, $params)
+function add_url_params($url, $params, $arg_separator='&amp;' )
 {
   if ( !empty($params) )
   {
@@ -100,11 +100,11 @@ function add_url_params($url, $params)
       if ($is_first)
       {
         $is_first = false;
-        $url .= ( strpos($url, '?')===false ) ? '?' :'&amp;';
+        $url .= ( strpos($url, '?')===false ) ? '?' : $arg_separator;
       }
       else
       {
-        $url .= '&amp;';
+        $url .= $arg_separator;
       }
       $url .= $param;
       if (isset($val))
