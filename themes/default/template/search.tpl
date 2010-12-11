@@ -1,11 +1,10 @@
-
 {* Example of resizeable *}
-
+{*
 {include file='include/resize.inc.tpl'}
-
+*}
 
 {* Example of datepicker *}
-
+{*
 {include file='include/datepicker.inc.tpl'}
 
 {footer_script}{literal}
@@ -13,18 +12,22 @@
   pwg_initialization_datepicker("#end_day", "#end_month", "#end_year", "#end_linked_date", null, "#start_linked_date", null);
  jQuery().ready(function(){ $(".date_today").hide(); });
 {/literal}{/footer_script}
-
+*}
 
 <div id="content" class="content">
 
-  <div class="titrePage">
-    <ul class="categoryActions">
+	<div class="titrePage">
+		<ul class="categoryActions">
 			{combine_script id='core.scripts' load='async' path='themes/default/js/scripts.js'}
-      <li><a href="{$U_HELP}" onclick="popuphelp(this.href); return false;" title="{'Help'|@translate}" rel="nofollow"><img src="{$ROOT_URL}{$themeconf.icon_dir}/help.png" class="button" alt="(?)"></a></li>
-      <li><a href="{$U_HOME}" title="{'Home'|@translate}" rel="Home"><img src="{$ROOT_URL}{$themeconf.icon_dir}/home.png" class="button" alt="{'Home'|@translate}"></a></li>
-    </ul>
-    <h2>{'Search'|@translate}</h2>
-  </div>
+			<li><a href="{$U_HELP}" onclick="popuphelp(this.href); return false;" title="{'Help'|@translate}" class="pwg-state-default pwg-button">
+				<span class="pwg-icon pwg-icon-help">&nbsp;</span><span class="pwg-button-text">{'Help'|@translate}</span>
+			</a></li>
+			<li><a href="{$U_HOME}" title="{'Home'|@translate}" class="pwg-state-default pwg-button">
+				<span class="pwg-icon pwg-icon-home">&nbsp;</span><span class="pwg-button-text">{'Home'|@translate}</span>
+			</a></li>
+		</ul>
+		<h2>{'Search'|@translate}</h2>
+	</div>
 
 {if isset($errors) }
 <div class="errors">

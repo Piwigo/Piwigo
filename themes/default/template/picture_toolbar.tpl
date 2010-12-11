@@ -56,6 +56,37 @@ y.callService(
 
 	<div class="navigationButtons" style="float:right">
 {if $DISPLAY_NAV_BUTTONS or isset($slideshow)}
+{if isset($slideshow)}
+  {if isset($slideshow.U_INC_PERIOD)}
+		<a href="{$slideshow.U_INC_PERIOD}" title="{'Accelerate diaporama speed'|@translate}" class="pwg-state-default pwg-button">
+			<span class="pwg-icon pwg-icon-clock-minus">&nbsp;</span><span class="pwg-button-text">{'Accelerate diaporama speed'|@translate}</span>
+		</a>
+	{else}
+		<span class="pwg-state-disabled pwg-button">
+			<span class="pwg-icon pwg-icon-clock-minus">&nbsp;</span><span class="pwg-button-text">{'Accelerate diaporama speed'|@translate}</span>
+		</span>
+	{/if}
+  {if isset($slideshow.U_DEC_PERIOD)}
+		<a href="{$slideshow.U_DEC_PERIOD}" title="{'Accelerate diaporama speed'|@translate}" class="pwg-state-default pwg-button">
+			<span class="pwg-icon pwg-icon-clock-plus">&nbsp;</span><span class="pwg-button-text">{'Accelerate diaporama speed'|@translate}</span>
+		</a>
+	{else}
+		<span class="pwg-state-disabled pwg-button">
+			<span class="pwg-icon pwg-icon-clock-plus">&nbsp;</span><span class="pwg-button-text">{'Accelerate diaporama speed'|@translate}</span>
+		</span>
+	{/if}
+{/if}
+{if isset($slideshow.U_START_REPEAT)}
+		<a href="{$slideshow.U_START_REPEAT}" title="{'Repeat the slideshow'|@translate}" class="pwg-state-default pwg-button">
+			<span class="pwg-icon pwg-icon-repeat-play">&nbsp;</span><span class="pwg-button-text">{'Repeat the slideshow'|@translate}</span>
+		</a>
+{/if}
+{if isset($slideshow.U_STOP_REPEAT)}
+		<a href="{$slideshow.U_STOP_REPEAT}" title="{'Not repeat the slideshow'|@translate}" class="pwg-state-default pwg-button">
+			<span class="pwg-icon pwg-icon-repeat-stop">&nbsp;</span><span class="pwg-button-text">{'Not repeat the slideshow'|@translate}</span>
+		</a>
+{/if}
+
 {if isset($first)}
 		<a href="{$first.U_IMG}" title="{'First'|@translate} : {$first.TITLE}" class="pwg-state-default pwg-button">
 			<span class="pwg-icon pwg-icon-arrowstop-w">&nbsp;</span><span class="pwg-button-text">{'First'|@translate}</span>

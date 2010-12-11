@@ -1,6 +1,8 @@
 .pwg-icon {
-	display: block; text-indent: -99999px; overflow: hidden; background-repeat: no-repeat;
-	width: 26px; height: 26px; background-image: url(sprite.png); 
+	display: block; /*IE6*/
+	display: inline-block; /*IE6 does not get it*/
+	text-indent: -99999px; overflow: hidden; background-repeat: no-repeat;
+	width: 26px; height: 26px; background-image: url(sprite.png);
 }
 .pwg-button-text { display:none; }
 
@@ -16,22 +18,24 @@ a.pwg-state-default, a.pwg-state-default:visited, a.pwg-state-default:hover {
 
 .pwg-button {
 	display: inline-block;
+	vertical-align: middle;
 }
 
 .pwg-icon-home {background-position: -26px 0}
 .pwg-icon-camera {background-position: -52px 0}
 .pwg-icon-calendar {background-position: -78px 0}
 .pwg-icon-save {background-position: -104px 0}
+.pwg-icon-cloud {background-position: -130px 0}
+.pwg-icon-letters {background-position: -156px 0}
 
 .pwg-icon-arrow-n {background-position: 0 -26px}
 .pwg-icon-arrow-e {background-position: -26px -26px}
 .pwg-icon-arrow-s {background-position: -52px -26px}
 .pwg-icon-arrow-w {background-position: -78px -26px}
-
-.pwg-icon-arrowstop-n {background-position: 0 -52px}
-.pwg-icon-arrowstop-e {background-position: -26px -52px}
-.pwg-icon-arrowstop-s {background-position: -52px -52px}
-.pwg-icon-arrowstop-w {background-position: -78px -52px}
+.pwg-icon-arrowstop-n {background-position: -104px -26px}
+.pwg-icon-arrowstop-e {background-position: -130px -26px}
+.pwg-icon-arrowstop-s {background-position: -156px -26px}
+.pwg-icon-arrowstop-w {background-position: -182px -26px}
 
 .pwg-icon-caddie {background-position: 0 -78px}
 .pwg-icon-caddie-add {background-position: -26px -78px}
@@ -41,18 +45,21 @@ a.pwg-state-default, a.pwg-state-default:visited, a.pwg-state-default:hover {
 .pwg-icon-favorite-del {background-position: -130px -78px}
 
 .pwg-icon-camera-info {background-position: 0 -104px}
+.pwg-icon-camera-representative {background-position: -26px -104px}
+.pwg-icon-edit {background-position: -52px -104px}
+.pwg-icon-register {background-position: -78px -104px}
+.pwg-icon-lost-password {background-position: -104px -104px}
 
 .pwg-icon-slideshow {background-position: 0 -130px}
 .pwg-icon-play {background-position: -26px -130px}
 .pwg-icon-pause {background-position: -52px -130px}
+.pwg-icon-stop {background-position: -78px -130px}
+.pwg-icon-clock-plus {background-position: -104px -130px}
+.pwg-icon-clock-minus {background-position: -130px -130px}
+.pwg-icon-repeat-play {background-position: -156px -130px}
+.pwg-icon-repeat-stop {background-position: -182px -130px}
 
 /*
-.pwg-icon-representative
-.pwg-icon-edit
-.pwg-icon-register
-.pwg-icon-lost-password
-.pwg-icon-cloud
-.pwg-icon-letters
 .pwg-icon-camera-calendar
 flat
 normal

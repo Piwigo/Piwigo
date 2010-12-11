@@ -6,7 +6,9 @@
 
   <div class="titrePage">
     <ul class="categoryActions">
-      <li><a href="{$U_HOME}" title="{'Home'|@translate}"><img src="{$ROOT_URL}{$themeconf.icon_dir}/home.png" class="button" alt="{'Home'|@translate}"></a></li>
+		<li><a href="{$U_HOME}" title="{'Home'|@translate}" class="pwg-state-default pwg-button">
+			<span class="pwg-icon pwg-icon-home">&nbsp;</span><span class="pwg-button-text">{'Home'|@translate}</span>
+		</a></li>
     </ul>
     <h2>{'Notification'|@translate}</h2>
   </div>
