@@ -1707,7 +1707,11 @@ function fetchRemote($src, &$dest, $get_data=array(), $post_data=array(), $user_
   // Initialization
   $method  = empty($post_data) ? 'GET' : 'POST';
   $request = empty($post_data) ? '' : http_build_query($post_data, '', '&');
-  $src     = add_url_params($src, $get_data, '&');
+  if (!empty($get_data))
+  {
+    $src .= strpos($src, '?') === false ? '?' : '&';
+    $src .= http_build_query($get_data, '', '&');
+  }
 
   // Initialize $dest
   is_resource($dest) or $dest = '';
@@ -1723,7 +1727,7 @@ function fetchRemote($src, &$dest, $get_data=array(), $post_data=array(), $user_
     if ($method == 'POST')
     {
       @curl_setopt($ch, CURLOPT_POST, 1);
-      @curl_setopt($ch, CURLOPT_POSTFIELDS, $post_data);
+      @curl_setopt($ch, CURLOPT_POSTFIELDS, $request);
     }
     $content = @curl_exec($ch);
     $header_length = @curl_getinfo($ch, CURLINFO_HEADER_SIZE);
@@ -1747,10 +1751,13 @@ function fetchRemote($src, &$dest, $get_data=array(), $post_data=array(), $user_
     $opts = array(
       'http' => array(
         'method' => $method,
-        'content' => $request,
         'user_agent' => $user_agent,
       )
     );
+    if ($method == 'POST')
+    {
+      $opts['http']['content'] = $request;
+    }
     $context = @stream_context_create($opts);
     $content = @file_get_contents($src, false, $context);
     if ($content !== false)
@@ -1773,8 +1780,11 @@ function fetchRemote($src, &$dest, $get_data=array(), $post_data=array(), $user_
 
   $http_request  = $method." ".$path." HTTP/1.0\r\n";
   $http_request .= "Host: ".$host."\r\n";
-  $http_request .= "Content-Type: application/x-www-form-urlencoded;\r\n";
-  $http_request .= "Content-Length: ".strlen($request)."\r\n";
+  if ($method == 'POST')
+  {
+    $http_request .= "Content-Type: application/x-www-form-urlencoded;\r\n";
+    $http_request .= "Content-Length: ".strlen($request)."\r\n";
+  }
   $http_request .= "User-Agent: ".$user_agent."\r\n";
   $http_request .= "Accept: */*\r\n";
   $http_request .= "\r\n";
