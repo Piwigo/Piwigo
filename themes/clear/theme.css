@@ -50,8 +50,9 @@ UL.thumbnails SPAN.wrap2:hover,
 
 /* links */
 A, INPUT.rateButton {
-    color: #005e89;
-    background: transparent;
+	color: #005e89;
+	background: transparent;
+	border-bottom: 1px dotted #005e89;
 }
 
 A:hover, INPUT.rateButton:hover {

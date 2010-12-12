@@ -1,14 +1,12 @@
 <div id="content" class="content">
-  <div class="titrePage">
+	<div class="titrePage">
 	<ul class="categoryActions">
-	  <li>
-		<a href="#" onclick="window.close();" title="{'Close this window'|@translate}">
-		  <img src="{$ROOT_URL}{$themeconf.icon_dir}/exit.png" class="button" alt="exit">
-		</a>
-	  </li>
+		<li><a href="#" onclick="window.close();" title="{'Close this window'|@translate} class="pwg-state-default pwg-button">
+			<span class="pwg-icon pwg-icon-close">&nbsp;</span><span class="pwg-button-text">exit</span>
+		</a></li>
 	</ul>
-  <h2>{'Search rules'|@translate}</h2>
-  </div>
+	<h2>{'Search rules'|@translate}</h2>
+	</div>
 
 {if isset($INTRODUCTION) }
 <p>{$INTRODUCTION}</p>

@@ -6,13 +6,13 @@
 }
 .pwg-button-text { display:none; }
 
-a.pwg-state-default, a.pwg-state-default:visited, a.pwg-state-default:hover {
+A.pwg-state-default, A.pwg-state-default:visited, A.pwg-state-default:hover {
 	text-decoration: none !important;
 }
 
 .pwg-state-disabled .pwg-icon {
 	opacity: .5;
-	-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";!
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
 	filter: alpha(opacity=50);
 }
 
@@ -23,10 +23,11 @@ a.pwg-state-default, a.pwg-state-default:visited, a.pwg-state-default:hover {
 
 .pwg-icon-home {background-position: -26px 0}
 .pwg-icon-camera {background-position: -52px 0}
-.pwg-icon-calendar {background-position: -78px 0}
-.pwg-icon-save {background-position: -104px 0}
-.pwg-icon-cloud {background-position: -130px 0}
-.pwg-icon-letters {background-position: -156px 0}
+.pwg-icon-save {background-position: -78px 0}
+.pwg-icon-cloud {background-position: -104px 0}
+.pwg-icon-letters {background-position: -130px 0}
+.pwg-icon-calendar {background-position: -156px 0}
+.pwg-icon-camera-calendar {background-position: -182px 0}
 
 .pwg-icon-arrow-n {background-position: 0 -26px}
 .pwg-icon-arrow-e {background-position: -26px -26px}
@@ -37,6 +38,11 @@ a.pwg-state-default, a.pwg-state-default:visited, a.pwg-state-default:hover {
 .pwg-icon-arrowstop-s {background-position: -156px -26px}
 .pwg-icon-arrowstop-w {background-position: -182px -26px}
 
+.pwg-icon-close {background-position: 0 -52px}
+.pwg-icon-category-edit {background-position: -26px -52px}
+.pwg-icon-category-view-normal {background-position: -156px -52px}
+.pwg-icon-category-view-flat {background-position: -182px -52px}
+
 .pwg-icon-caddie {background-position: 0 -78px}
 .pwg-icon-caddie-add {background-position: -26px -78px}
 .pwg-icon-caddie-del {background-position: -52px -78px}
@@ -45,7 +51,7 @@ a.pwg-state-default, a.pwg-state-default:visited, a.pwg-state-default:hover {
 .pwg-icon-favorite-del {background-position: -130px -78px}
 
 .pwg-icon-camera-info {background-position: 0 -104px}
-.pwg-icon-camera-representative {background-position: -26px -104px}
+.pwg-icon-representative {background-position: -26px -104px}
 .pwg-icon-edit {background-position: -52px -104px}
 .pwg-icon-register {background-position: -78px -104px}
 .pwg-icon-lost-password {background-position: -104px -104px}
@@ -58,23 +64,6 @@ a.pwg-state-default, a.pwg-state-default:visited, a.pwg-state-default:hover {
 .pwg-icon-clock-minus {background-position: -130px -130px}
 .pwg-icon-repeat-play {background-position: -156px -130px}
 .pwg-icon-repeat-stop {background-position: -182px -130px}
-
-/*
-.pwg-icon-camera-calendar
-flat
-normal
-filter-plus
-filter-minus
-
-.pwg-icon-stop
-
-.pwg-icon-time
-.pwg-icon-time-plus
-.pwg-icon-time-minus
-.pwg-icon-repeat
-.pwg-icon-repeat-yes
-.pwg-icon-repeat-no
-*/
 
 
 A.pwg-button {
