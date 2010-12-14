@@ -6,7 +6,7 @@ INPUT.rateButtonSelected /* <= why IE doesn't inherit this ? */ {
 }
 
 H2, #menubar DT {
-	color: #fff48e;
+	color: #ffff80;
 }
 
 
@@ -67,9 +67,17 @@ UL.thumbnails SPAN.wrap2:hover,
 /* links */
 A, INPUT.rateButton {
 	color: #fff;
-	border: 0;
 }
 
 A:hover {
-	color: #FFF48E;
+	color: #ffff80;
 }
+
+.pwg-icon {
+	background-image: url(images/s26_outline_ffffff.png);
+}
+
+A:hover .pwg-icon {
+	background-image: url(images/s26_outline_ffff80.png);
+}
+

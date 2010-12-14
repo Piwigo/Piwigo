@@ -1,4 +1,3 @@
-
 {* Example of resizeable *}
 {*
 {include file='include/autosize.inc.tpl'}
@@ -38,51 +37,63 @@
 </div>
 
 <div id="imageToolBar">
-  <div class="randomButtons">
-    {if isset($U_SLIDESHOW_START) }
-      <a href="{$U_SLIDESHOW_START}" title="{'slideshow'|@translate}" rel="nofollow"><img src="{$ROOT_URL}{$themeconf.icon_dir}/start_slideshow.png" class="button" alt="{'slideshow'|@translate}"></a>
-    {/if}
-    {if isset($U_METADATA) }
-      <a href="{$U_METADATA}" title="{'Show file metadata'|@translate}" rel="nofollow"><img src="{$ROOT_URL}{$themeconf.icon_dir}/metadata.png" class="button" alt="metadata"></a>
-    {/if}
-    {if isset($current.U_DOWNLOAD) }
-      <a href="{$current.U_DOWNLOAD}" title="{'download this file'|@translate}"><img src="{$ROOT_URL}{$themeconf.icon_dir}/save.png" class="button" alt="{'download'|@translate}"></a>
-    {/if}
-    {if isset($PLUGIN_PICTURE_ACTIONS)}{$PLUGIN_PICTURE_ACTIONS}{/if}
-    {if isset($favorite) }
-      <a href="{$favorite.U_FAVORITE}" title="{if $favorite.IS_FAVORITE}{'delete this image from your favorites'|@translate}{else}{'add this image to your favorites'|@translate}{/if}"><img src="{$ROOT_URL}{$themeconf.icon_dir}/{if $favorite.IS_FAVORITE}del_favorite{else}favorite{/if}.png" class="button" alt="favorite" title="{if $favorite.IS_FAVORITE}{'delete this image from your favorites'|@translate}{else}{'add this image to your favorites'|@translate}{/if}"></a>
-    {/if}
-    {if !empty($U_SET_AS_REPRESENTATIVE) }
-      <a href="{$U_SET_AS_REPRESENTATIVE}" title="{'set as album representative'|@translate}"><img src="{$ROOT_URL}{$themeconf.icon_dir}/representative.png" class="button" alt="{'representative'|@translate}"></a>
-    {/if}
-    {if isset($U_ADMIN) }
-      <a href="{$U_ADMIN}" title="{'Modify information'|@translate}"><img src="{$ROOT_URL}{$themeconf.icon_dir}/preferences.png" class="button" alt="{'edit'|@translate}"></a>
-    {/if}
-    {if isset($U_CADDIE) }{*caddie management BEGIN*}
-{combine_script id='core.scripts' load='async' path='themes/default/js/scripts.js'}
+	<div class="actionButtons">
+{if isset($U_SLIDESHOW_START)}
+		<a href="{$U_SLIDESHOW_START}" title="{'slideshow'|@translate}" class="pwg-state-default pwg-button" rel="nofollow">
+			<span class="pwg-icon pwg-icon-slideshow">&nbsp;</span><span class="pwg-button-text">{'slideshow'|@translate}</span>
+		</a>
+{/if}
+{if isset($U_METADATA)}
+		<a href="{$U_METADATA}" title="{'Show file metadata'|@translate}" class="pwg-state-default pwg-button" rel="nofollow">
+			<span class="pwg-icon pwg-icon-camera-info">&nbsp;</span><span class="pwg-button-text">{'Show file metadata'|@translate}</span>
+		</a>
+{/if}
+{if isset($current.U_DOWNLOAD)}
+		<a href="{$current.U_DOWNLOAD}" title="{'download this file'|@translate}" class="pwg-state-default pwg-button" rel="nofollow">
+			<span class="pwg-icon pwg-icon-save">&nbsp;</span><span class="pwg-button-text">{'download'|@translate}</span>
+		</a>
+{/if}
+{if isset($PLUGIN_PICTURE_ACTIONS)}{$PLUGIN_PICTURE_ACTIONS}{/if}
+{if isset($favorite)}
+		<a href="{$favorite.U_FAVORITE}" title="{if $favorite.IS_FAVORITE}{'delete this image from your favorites'|@translate}{else}{'add this image to your favorites'|@translate}{/if}" class="pwg-state-default pwg-button" rel="nofollow">
+			<span class="pwg-icon pwg-icon-favorite-{if $favorite.IS_FAVORITE}del{else}add{/if}">&nbsp;</span><span class="pwg-button-text">{'Favorites'|@translate}</span>
+		</a>
+{/if}
+{if isset($U_SET_AS_REPRESENTATIVE)}
+		<a href="{$U_SET_AS_REPRESENTATIVE}" title="{'set as category representative'|@translate}" class="pwg-state-default pwg-button" rel="nofollow">
+			<span class="pwg-icon pwg-icon-representative">&nbsp;</span><span class="pwg-button-text">{'representative'|@translate}</span>
+		</a>
+{/if}
+{if isset($U_ADMIN)}
+		<a href="{$U_ADMIN}" title="{'Modify information'|@translate}" class="pwg-state-default pwg-button" rel="nofollow">
+			<span class="pwg-icon pwg-icon-edit">&nbsp;</span><span class="pwg-button-text">{'edit'|@translate}</span>
+		</a>
+{/if}
+{if isset($U_CADDIE)}{*caddie management BEGIN*}
 <script type="text/javascript">
 {literal}function addToCadie(aElement, rootUrl, id)
 {
 if (aElement.disabled) return;
-aElement.disabled=true; 
+aElement.disabled=true;
 var y = new PwgWS(rootUrl);
 
 y.callService(
-  "pwg.caddie.add", {image_id: id} ,
-  {
-    onFailure: function(num, text) { alert(num + " " + text); document.location=aElement.href; },
-    onSuccess: function(result) { aElement.disabled = false; }
-  }
-  );
+	"pwg.caddie.add", {image_id: id} ,
+	{
+		onFailure: function(num, text) { alert(num + " " + text); document.location=aElement.href; },
+		onSuccess: function(result) { aElement.disabled = false; }
+	}
+	);
 }{/literal}
 </script>
-      <a href="{$U_CADDIE}" onclick="addToCadie(this, '{$ROOT_URL|@escape:'javascript'}', {$current.id}); return false;" title="{'add to caddie'|@translate}"><img src="{$ROOT_URL}{$themeconf.icon_dir}/caddie_add.png" class="button" alt="{'caddie'|@translate}"></a>
-    {/if}{*caddie management END*}
-  </div>
-  {include file='picture_nav_buttons.tpl'|@get_extent:'picture_nav_buttons'}
-</div> <!-- imageToolBar -->
+		<a href="{$U_CADDIE}" onclick="addToCadie(this, '{$ROOT_URL|@escape:'javascript'}', {$current.id}); return false;" title="{'add to caddie'|@translate}" class="pwg-state-default pwg-button" rel="nofollow">
+			<span class="pwg-icon pwg-icon-caddie-add">&nbsp;</span><span class="pwg-button-text">{'caddie'|@translate}</span>
+		</a>
+{/if}{*caddie management END*}
+	</div>   
 
-{include file='picture_toolbar.tpl'}
+	{include file='picture_nav_buttons.tpl'|@get_extent:'picture_nav_buttons'}
+</div> <!-- imageToolBar -->
 
 <div id="theImage">
 {$ELEMENT_CONTENT}

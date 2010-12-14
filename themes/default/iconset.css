@@ -65,11 +65,9 @@ A.pwg-state-default, A.pwg-state-default:visited, A.pwg-state-default:hover {
 .pwg-icon-repeat-play {background-position: -156px -130px}
 .pwg-icon-repeat-stop {background-position: -182px -130px}
 
+.pwg-icon-map {background-position: 0 -156px}
 
-A.pwg-button {
-	border: 1px solid blue;
-}
 
-.pwg-state-default:hover {
-	border-color: green;
+A.pwg-state-default:hover {
+	border: 0 !important; /*don't add bottom border on hover*/
 }

@@ -14,8 +14,6 @@
   {include file='picture_nav_buttons.tpl'|@get_extent:'picture_nav_buttons'}
 </div>
 
-{include file='picture_toolbar.tpl'}
-
 <div id="theImage">
   {$ELEMENT_CONTENT}
   {if isset($COMMENT_IMG)}
