@@ -128,7 +128,6 @@ $lang['You are not authorized to access the requested page'] = 'Bạn không đ�
 $lang['add to caddie'] = 'thêm vào caddie';
 $lang['add this image to your favorites'] = 'thêm hình này vào danh sách ưa thích của mình';
 $lang['Administration'] = 'Điều hành viên';
-$lang['Adviser mode enabled'] = 'Chế độ hỗ trợ được kích hoạt';
 $lang['all'] = 'tất cả';
 $lang['ascending'] = 'từ dưới lên';
 $lang['author(s) : %s'] = 'tác giả: %s';

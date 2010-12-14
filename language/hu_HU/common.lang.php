@@ -129,7 +129,6 @@ $lang['You are not authorized to access the requested page'] = 'Önnek nincs jog
 $lang['add to caddie'] = 'Kosárba tesz';
 $lang['add this image to your favorites'] = 'Kedvencekhez ad';
 $lang['Administration'] = 'Adminisztráció';
-$lang['Adviser mode enabled'] = 'Tanácsadói mód engedélyezve';
 $lang['all'] = 'összes';
 $lang['ascending'] = 'növekvő';
 $lang['author(s) : %s'] = 'Szerző(k) : %s';

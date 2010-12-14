@@ -138,7 +138,6 @@ $lang['You are not authorized to access the requested page'] = 'You are not auth
 $lang['add to caddie'] = 'Додај ја фотографијата во календарот';
 $lang['add this image to your favorites'] = 'Додај ја фотографијата во твоите омилени';
 $lang['Administration'] = 'Администрација';
-$lang['Adviser mode enabled'] = 'Adviser mode enabled';
 $lang['all'] = 'сите';
 $lang['ascending'] = 'хоризонтален ред';
 $lang['author(s) : %s'] = 'автор(и) : %s';

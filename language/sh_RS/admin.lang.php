@@ -186,7 +186,6 @@ $lang['You cannot delete your account'] = "Ne možete izbrisati svoj nalog";
 $lang['You cannot move an album in its own sub album'] = 'Ne možete premestiti kategoriju u njenu podkategoriju';
 $lang['You need to confirm deletion'] = 'Potvrdi brisanje';
 $lang['add tags'] = 'dodaj oznake';
-$lang['Adviser'] = 'Savetnik';
 $lang['Associate to album'] = 'poveži sa kategorijom';
 $lang['associate to group'] = 'poveži sa grupom';
 $lang['Authorized'] = 'Ovlašćeno';

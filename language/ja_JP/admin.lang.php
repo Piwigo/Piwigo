@@ -185,7 +185,6 @@ $lang['You cannot delete your account'] = "あなた自身のアカウントを�
 $lang['You cannot move an album in its own sub album'] = 'あなたは、カテゴリをサブカテゴリに移動できません。';
 $lang['You need to confirm deletion'] = 'あなたは、削除を確認する必要があります。';
 $lang['add tags'] = 'タグを追加する';
-$lang['Adviser'] = 'アドバイザ';
 $lang['Associate to album'] = 'カテゴリに関連付ける';
 $lang['associate to group'] = 'グループに関連付ける';
 $lang['Authorized'] = '承認';

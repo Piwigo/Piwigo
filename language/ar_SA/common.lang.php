@@ -129,7 +129,6 @@ $lang['You are not authorized to access the requested page'] = 'لم تقم بت
 $lang['add to caddie'] = 'اضفها الي السلة';
 $lang['add this image to your favorites'] = 'اضف هذه الصوة لمفضلتك ';
 $lang['Administration'] = 'الإدارة';
-$lang['Adviser mode enabled'] = 'تمكين اسلوب الزوار';
 $lang['all'] = 'كل';
 $lang['ascending'] = 'تصاعدي';
 $lang['author(s) : %s'] = 'الكتاب(s) : %s';

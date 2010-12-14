@@ -186,7 +186,6 @@ $lang['You cannot delete your account'] = "你不能删除自己本身帐号";
 $lang['You cannot move an album in its own sub album'] = '您不能将一个相册移动到其子相册里';
 $lang['You need to confirm deletion'] = '你必须确认删除操作';
 $lang['add tags'] = '增加标签';
-$lang['Adviser'] = '顾问';
 $lang['Associate to album'] = '联合到相册';
 $lang['associate to group'] = '关联到组';
 $lang['Authorized'] = '授权';

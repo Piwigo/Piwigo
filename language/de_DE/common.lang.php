@@ -129,7 +129,6 @@ $lang['You are not authorized to access the requested page'] = 'Sie sind nicht b
 $lang['add to caddie'] = 'in den Sammelkorb';
 $lang['add this image to your favorites'] = 'Dieses Bild zu Ihren Favoriten hinzugefügt';
 $lang['Administration'] = 'Administration';
-$lang['Adviser mode enabled'] = 'Berater-Modus aktiv';
 $lang['all'] = 'alle';
 $lang['ascending'] = 'wachsende';
 $lang['author(s) : %s'] = 'Autor(en) : %s';

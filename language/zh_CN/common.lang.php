@@ -129,7 +129,6 @@ $lang['You are not authorized to access the requested page'] = '你无权访问�
 $lang['add to caddie'] = '放入购物篮';
 $lang['add this image to your favorites'] = '把图片放到收藏夹';
 $lang['Administration'] = '管理员';
-$lang['Adviser mode enabled'] = '激活建议模式';
 $lang['all'] = '所有';
 $lang['ascending'] = '升序';
 $lang['author(s) : %s'] = '拥有者 : %s';

@@ -128,7 +128,6 @@ $lang['You are not authorized to access the requested page'] = "You are not auth
 $lang['add to caddie'] = "add to caddie";
 $lang['add this image to your favorites'] = "add this image to your favorites";
 $lang['Administration'] = "Administration";
-$lang['Adviser mode enabled'] = "Adviser mode enabled";
 $lang['all'] = "all";
 $lang['ascending'] = "ascending";
 $lang['author(s) : %s'] = "author(s) : %s";

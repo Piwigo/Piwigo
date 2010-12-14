@@ -127,7 +127,6 @@ $lang['You are not authorized to access the requested page'] = 'Bu sayfaya eriş
 $lang['add to caddie'] = 'Yardımcıya Ekle';
 $lang['add this image to your favorites'] = 'Bu resimi favorilerinize ekleyin';
 $lang['Administration'] = 'Yönetim';
-$lang['Adviser mode enabled'] = 'Danışman Modu Aktif';
 $lang['all'] = 'Hepsi';
 $lang['ascending'] = 'Artan';
 $lang['author(s) : %s'] = 'Yazar(lar) : %s';

@@ -186,7 +186,6 @@ $lang['You cannot delete your account'] = "لا تستطيع حذف حسابك";
 $lang['You cannot move an album in its own sub album'] = 'لايمكن حذف ألبوم يحتوي على ألبوم فرعي';
 $lang['You need to confirm deletion'] = 'تحتاج  تأكيد الحذف';
 $lang['add tags'] = 'اضافةكلمة دلائلية';
-$lang['Adviser'] = 'مرشد';
 $lang['Associate to album'] = 'المرتبط بهذا الألبوم';
 $lang['associate to group'] = 'مرتبط بهذه المجموعه';
 $lang['Authorized'] = 'المرخص';

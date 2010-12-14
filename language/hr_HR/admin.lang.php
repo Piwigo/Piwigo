@@ -185,7 +185,6 @@ $lang['You cannot delete your account'] = "Ne možete izbrisati svoj račun";
 $lang['You cannot move an album in its own sub album'] = 'Ne možete premjestiti skupinu u njenu vlastitu podskupinu';
 $lang['You need to confirm deletion'] = 'trebate potvrditi brisanje';
 $lang['add tags'] = 'dodaj tagove';
-$lang['Adviser'] = 'Savjetnik';
 $lang['Associate to album'] = 'poveži sa skupinom';
 $lang['associate to group'] = 'poveži sa grupom';
 $lang['Authorized'] = 'Ovlašteno';

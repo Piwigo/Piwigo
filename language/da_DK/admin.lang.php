@@ -188,7 +188,6 @@ $lang['You cannot delete your account']     =     'Du kan ikke slette din konto'
 $lang['You cannot move an album in its own sub album']     =     'Du kan ikke flytte en Kategori i dets eget under-kategori';
 $lang['You need to confirm deletion']     =     'Du skal bekræfte sletning';
 $lang['add tags']     =     'Tilføj tags';
-$lang['Adviser']     =     'Rådgiver';
 $lang['Associate to album']     =     'Associeret til Kategori';
 $lang['associate to group']     =     'Associeret til Gruppe';
 $lang['Authorized']     =     'Autoriseret';

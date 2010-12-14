@@ -187,7 +187,6 @@ $lang['You cannot delete your account'] = "Du kannst deinen eigenen Acount nicht
 $lang['You cannot move an album in its own sub album'] = 'Sie können ein Album nicht in seinem eigenen Sub-Album verschieben.';
 $lang['You need to confirm deletion'] = 'Löschen bitte bestätigen';
 $lang['add tags'] = 'Tags hinzufügen';
-$lang['Adviser'] = 'Berater';
 $lang['Associate to album'] = 'Mit einem Album verbinden';
 $lang['associate to group'] = 'Mit Gruppe verbinden';
 $lang['Authorized'] = 'Freigegebenes Album';

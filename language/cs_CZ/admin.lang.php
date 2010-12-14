@@ -189,7 +189,6 @@ $lang['You cannot delete your account'] = 'Nemůžete smazat svůj účet';
 $lang['You cannot move an album in its own sub album'] = 'Nemůžete přesunout album do jeho vlastního sub alba';
 $lang['You need to confirm deletion'] = 'Je nutné potvrdit vymazání';
 $lang['add tags'] = 'Přidat klíčová slova';
-$lang['Adviser'] = 'Průvodce';
 $lang['Associate to album'] = 'přiřadit k album';
 $lang['associate to group'] = 'Přiřadit ke skupině';
 $lang['Authorized'] = 'Autorizováno';

@@ -186,7 +186,6 @@ $lang['You cannot delete your account'] = "U kunt uw account niet verwijderen";
 $lang['You cannot move an album in its own sub album'] = 'U kunt een categorie niet verplaatsen naar zijn eigen sub-categorie';
 $lang['You need to confirm deletion'] = 'U moet de verwijdering bevestigen';
 $lang['add tags'] = 'Toevoegen tags';
-$lang['Adviser'] = 'Adviseur';
 $lang['Associate to album'] = 'Link aan categorie';
 $lang['associate to group'] = 'Link aan groep';
 $lang['Authorized'] = 'Toegestaan';

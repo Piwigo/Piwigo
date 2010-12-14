@@ -185,7 +185,6 @@ $lang['You cannot delete your account'] = "Nem törölheti a fiókját";
 $lang['You cannot move an album in its own sub album'] = 'Az albumot lehetetlen a belső albumjába helyezni';
 $lang['You need to confirm deletion'] = 'A törléshez megerősítés szükséges';
 $lang['add tags'] = 'Címke hozzáadása';
-$lang['Adviser'] = 'Tanácsadó';
 $lang['Associate to album'] = 'Hozzárendelés albumhoz';
 $lang['associate to group'] = 'Hozzárendelés csoporthoz';
 $lang['Authorized'] = 'Engedélyezve';

@@ -185,7 +185,6 @@ $lang['You cannot delete your account'] = "Вы не можете удалить
 $lang['You cannot move an album in its own sub album'] = 'Вы не можете переместить альбом в его собственный внутренний альбом';
 $lang['You need to confirm deletion'] = 'Вам нужно подтвердить удаление';
 $lang['add tags'] = 'добавить слова';
-$lang['Adviser'] = 'Помощник';
 $lang['Associate to album'] = 'ассоциация с альбомом';
 $lang['associate to group'] = 'привязать к группе';
 $lang['Authorized'] = 'Разрешено';

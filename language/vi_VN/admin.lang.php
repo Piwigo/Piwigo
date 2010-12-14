@@ -188,7 +188,6 @@ $lang['You cannot delete your account'] = "Bạn không thể tự xoá tài kho
 $lang['You cannot move an album in its own sub album'] = 'Bạn không thể dời một đề mục vào trong đề mục con của chính nó.';
 $lang['You need to confirm deletion'] = 'Bạn cần được xác nhận để xoá';
 $lang['add tags'] = 'Thêm các tags';
-$lang['Adviser'] = 'Tư vấn';
 $lang['Associate to album'] = 'Kết hợp với đề mục';
 $lang['associate to group'] = 'kết hợp với nhóm người dùng';
 $lang['Authorized'] = 'Được cho phép';
