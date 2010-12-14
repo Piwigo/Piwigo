@@ -32,7 +32,7 @@ $upgrade_description = 'Remove adviser status.';
 $query = "
 UPDATE ".USER_INFOS_TABLE."
 SET status = 'normal'
-WHERE (status = 'webmaster' OR status = 'admin')
+WHERE status IN ('webmaster', 'admin')
   AND adviser = 'true'
 ;";
 

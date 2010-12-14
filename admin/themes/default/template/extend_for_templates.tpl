@@ -28,10 +28,8 @@
     </tr>
     {/foreach}
   </table>
-  {if !is_adviser()}
   <p>
     <input class="submit" type="submit" value="{'Submit'|@translate}" name="submit">
   </p>
-  {/if}
 </form>
 {/if}

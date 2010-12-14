@@ -120,19 +120,6 @@
         </select>
       </td>
     </tr>
-
-    {if isset($adviser)}
-    <tr>
-      <td>{'Adviser'|@translate}</td>
-      <td>
-        <label><input type="radio" name="adviser" value="leave" checked="checked"> {'leave'|@translate}</label>
-        / {'set to'|@translate}
-        <label><input type="radio" name="adviser" value="true">{'Yes'|@translate}</label>
-        <label><input type="radio" name="adviser" value="false">{'No'|@translate}</label>
-      </td>
-    </tr>
-    {/if}
-
   </table>
 </fieldset>
 

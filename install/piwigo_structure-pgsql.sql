@@ -568,7 +568,6 @@ CREATE TABLE "piwigo_user_infos"
   "nb_image_line" INTEGER default 5 NOT NULL,
   "nb_line_page" INTEGER default 3 NOT NULL,
   "status" USER_INFOS_STATUS default 'guest'::USER_INFOS_STATUS,
-  "adviser" BOOLEAN default false,
   "language" VARCHAR(50) default 'en_UK' NOT NULL,
   "maxwidth" INTEGER,
   "maxheight" INTEGER,

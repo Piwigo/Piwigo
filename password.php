@@ -65,12 +65,8 @@ SELECT '.$conf['user_fields']['id'].' AS id
 FROM '.USERS_TABLE.' as u
   INNER JOIN '.USER_INFOS_TABLE.' AS ui
       ON u.'.$conf['user_fields']['id'].' = ui.user_id
-WHERE '
-  .$conf['user_fields']['email'].' = \''.$mail_address.'\' AND
-  (
-    ui.status = \'normal\' OR
-    (ui.status in (\'admin\', \'webmaster\') AND ui.adviser = \'true\')
-  )
+WHERE '.$conf['user_fields']['email'].' = \''.$mail_address.'\'
+  AND ui.status = \'normal\'
 ;';
     $result = pwg_query($query);
 

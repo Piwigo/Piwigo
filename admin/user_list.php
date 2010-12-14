@@ -86,7 +86,6 @@ SELECT DISTINCT u.'.$conf['user_fields']['id'].' AS id,
                 u.'.$conf['user_fields']['username'].' AS username,
                 u.'.$conf['user_fields']['email'].' AS email,
                 ui.status,
-                ui.adviser,
                 ui.enabled_high,
                 ui.level
   FROM '.USERS_TABLE.' AS u
@@ -392,11 +391,6 @@ DELETE FROM '.USER_GROUP_TABLE.'
 
   $true_false_fields = array('expand', 'show_nb_comments',
                        'show_nb_hits', 'enabled_high');
-  if ($conf['allow_adviser'])
-  {
-    array_push($formfields, 'adviser');
-    array_push($true_false_fields, 'adviser');
-  }
 
   foreach ($formfields as $formfield)
   {
@@ -458,12 +452,6 @@ DELETE FROM '.USER_GROUP_TABLE.'
             $data['status'] = 'guest';
           }
         }
-
-        // could not be adivser
-        if (isset($data['adviser']))
-        {
-          $data['adviser'] = 'false';
-        }
       }
 
       array_push($datas, $data);
@@ -522,12 +510,6 @@ $template->assign(
     'F_USERNAME' => @htmlentities($_GET['username']),
     'F_FILTER_ACTION' => get_root_url().'admin.php'
     ));
-
-// Hide radio-button if not allow to assign adviser
-if ($conf['allow_adviser'])
-{
-  $template->assign('adviser', true);
-}
 
 // Display or Hide double password type
 $template->assign('Double_Password', $conf['double_password_type_in_admin'] );
@@ -707,9 +689,7 @@ foreach ($visible_user_list as $local_user)
           ? '<br>['.l10n('guest').']' : '')
         .($local_user['id'] == $conf['default_user_id']
           ? '<br>['.l10n('default values').']' : ''),
-      'STATUS' => l10n('user_status_'.
-        $local_user['status']).(($local_user['adviser'] == 'true')
-        ? '<br>['.l10n('Adviser').']' : ''),
+      'STATUS' => l10n('user_status_'.$local_user['status']),
       'EMAIL' => get_email_address_as_display_text($local_user['email']),
       'GROUPS' => $groups_string,
       'PROPERTIES' => implode( ', ', $properties),
