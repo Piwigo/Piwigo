@@ -15,7 +15,7 @@
       <li><label><input type="checkbox" name="deny_groups[]" value="{$id}"> {$all_groups[$id]}</label></li>
       {/foreach}
     </ul>
-    <input class="submit" type="submit" name="deny_groups_submit" value="{'Deny selected groups'|@translate}" {$TAG_INPUT_ENABLED}>
+    <input class="submit" type="submit" name="deny_groups_submit" value="{'Deny selected groups'|@translate}">
   </fieldset>
 
   <fieldset>
@@ -25,7 +25,7 @@
       <li><label><input type="checkbox" name="grant_groups[]" value="{$id}"> {$all_groups[$id]}</label></li>
       {/foreach}
     </ul>
-    <input class="submit" type="submit" name="grant_groups_submit" value="{'Grant selected groups'|@translate}" {$TAG_INPUT_ENABLED}>
+    <input class="submit" type="submit" name="grant_groups_submit" value="{'Grant selected groups'|@translate}">
   </fieldset>
 
   <h4>{'Users'|@translate}</h4>
@@ -37,7 +37,7 @@
       <li><label><input type="checkbox" name="deny_users[]" value="{$id}"> {$all_users[$id]}</label></li>
       {/foreach}
     </ul>
-    <input class="submit" type="submit" name="deny_users_submit" value="{'Deny selected users'|@translate}" {$TAG_INPUT_ENABLED}>
+    <input class="submit" type="submit" name="deny_users_submit" value="{'Deny selected users'|@translate}">
   </fieldset>
 
   <fieldset>
@@ -58,7 +58,7 @@
       <li><label><input type="checkbox" name="grant_users[]" value="{$id}"> {$all_users[$id]}</label></li>
       {/foreach}
     </ul>
-    <input class="submit" type="submit" name="grant_users_submit" value="{'Grant selected users'|@translate}" {$TAG_INPUT_ENABLED}>
+    <input class="submit" type="submit" name="grant_users_submit" value="{'Grant selected users'|@translate}">
   </fieldset>
 
 </form>

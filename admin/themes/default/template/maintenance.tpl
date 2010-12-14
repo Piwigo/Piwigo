@@ -4,25 +4,25 @@
 
 <ul>
   {foreach from=$advanced_features item=feature}
-    <li><a href="{$feature.URL}" {$TAG_INPUT_ENABLED}>{$feature.CAPTION}</a></li>
+    <li><a href="{$feature.URL}">{$feature.CAPTION}</a></li>
   {/foreach}
 </ul>
 
 <ul>
-  <li><a href="{$U_MAINT_CATEGORIES}" {$TAG_INPUT_ENABLED}>{'Update albums informations'|@translate}</a></li>
-  <li><a href="{$U_MAINT_IMAGES}" {$TAG_INPUT_ENABLED}>{'Update images informations'|@translate}</a></li>
-  <li><a href="{$U_MAINT_DATABASE}" {$TAG_INPUT_ENABLED}>{'Repair and optimize database'|@translate}</a></li>
+  <li><a href="{$U_MAINT_CATEGORIES}">{'Update albums informations'|@translate}</a></li>
+  <li><a href="{$U_MAINT_IMAGES}">{'Update images informations'|@translate}</a></li>
+  <li><a href="{$U_MAINT_DATABASE}">{'Repair and optimize database'|@translate}</a></li>
 </ul>
 
 <ul>
-  <li><a href="{$U_MAINT_HISTORY_DETAIL}" onclick="return confirm('{'Purge history detail'|@translate}');" {$TAG_INPUT_ENABLED}>{'Purge history detail'|@translate}</a></li>
-  <li><a href="{$U_MAINT_HISTORY_SUMMARY}" onclick="return confirm('{'Purge history summary'|@translate}');" {$TAG_INPUT_ENABLED}>{'Purge history summary'|@translate}</a></li>
-  <li><a href="{$U_MAINT_SESSIONS}" {$TAG_INPUT_ENABLED}>{'Purge sessions'|@translate}</a></li>
-  <li><a href="{$U_MAINT_FEEDS}" {$TAG_INPUT_ENABLED}>{'Purge never used notification feeds'|@translate}</a></li>
-  <li><a href="{$U_MAINT_SEARCH}"onclick="return confirm('{'Purge search history'|@translate}');" {$TAG_INPUT_ENABLED}>{'Purge search history'|@translate}</a></li>
-  <li><a href="{$U_MAINT_COMPILED_TEMPLATES}" {$TAG_INPUT_ENABLED}>{'Purge compiled templates'|@translate}</a></li>
+  <li><a href="{$U_MAINT_HISTORY_DETAIL}" onclick="return confirm('{'Purge history detail'|@translate}');">{'Purge history detail'|@translate}</a></li>
+  <li><a href="{$U_MAINT_HISTORY_SUMMARY}" onclick="return confirm('{'Purge history summary'|@translate}');">{'Purge history summary'|@translate}</a></li>
+  <li><a href="{$U_MAINT_SESSIONS}">{'Purge sessions'|@translate}</a></li>
+  <li><a href="{$U_MAINT_FEEDS}">{'Purge never used notification feeds'|@translate}</a></li>
+  <li><a href="{$U_MAINT_SEARCH}"onclick="return confirm('{'Purge search history'|@translate}');">{'Purge search history'|@translate}</a></li>
+  <li><a href="{$U_MAINT_COMPILED_TEMPLATES}">{'Purge compiled templates'|@translate}</a></li>
 </ul>
 
 <ul>
-  <li><a href="{$U_MAINT_C13Y}" {$TAG_INPUT_ENABLED}>{'Reinitialize check integrity'|@translate}</a></li>
+  <li><a href="{$U_MAINT_C13Y}">{'Reinitialize check integrity'|@translate}</a></li>
 </ul>

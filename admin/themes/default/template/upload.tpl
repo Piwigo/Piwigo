@@ -42,9 +42,9 @@
 
   <p class="bottomButtons">
     <input type="hidden" name="list" value="{$LIST}">
-    <input class="submit" type="submit" name="submit" value="{'Submit'|@translate}" {$TAG_INPUT_ENABLED}>
-    <input class="submit" type="submit" name="validate-all" value="{'Validate All'|@translate}" {$TAG_INPUT_ENABLED}>
-    <input class="submit" type="submit" name="reject-all" value="{'Reject All'|@translate}" {$TAG_INPUT_ENABLED}>
+    <input class="submit" type="submit" name="submit" value="{'Submit'|@translate}">
+    <input class="submit" type="submit" name="validate-all" value="{'Validate All'|@translate}">
+    <input class="submit" type="submit" name="reject-all" value="{'Reject All'|@translate}">
     <input class="submit" type="reset" value="{'Reset'|@translate}">
   </p>
 

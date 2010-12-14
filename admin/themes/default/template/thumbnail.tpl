@@ -92,7 +92,7 @@
     </ul>
   </fieldset>
 
-  <p><input class="submit" type="submit" name="submit" value="{'Submit'|@translate}" {$TAG_INPUT_ENABLED}></p>
+  <p><input class="submit" type="submit" name="submit" value="{'Submit'|@translate}"></p>
 </form>
 {/if} {*isset params*}
 

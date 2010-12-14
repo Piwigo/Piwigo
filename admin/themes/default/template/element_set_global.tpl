@@ -88,7 +88,7 @@ jQuery(document).ready(function() {
     </p>
     <p>
     <label><input type="checkbox" name="confirm_deletion" value="1"> {'confirm'|@translate}</label>
-    <input class="submit" type="submit" value="{'Delete selected photos'|@translate}" name="delete" {$TAG_INPUT_ENABLED}>
+    <input class="submit" type="submit" value="{'Delete selected photos'|@translate}" name="delete">
     </p>
   </fieldset>
   {/if}
@@ -199,7 +199,7 @@ jQuery(document).ready(function() {
     </p>
 
 
-    <p><input class="submit" type="submit" value="{'Submit'|@translate}" name="submit" {$TAG_INPUT_ENABLED}></p>
+    <p><input class="submit" type="submit" value="{'Submit'|@translate}" name="submit"></p>
 
   </fieldset>
 

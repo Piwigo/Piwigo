@@ -90,7 +90,7 @@
 
   <fieldset id="syncSimulate">
     <legend></legend>
-    <ul><li><label><input type="checkbox" name="simulate" value="1" checked="checked" {$TAG_INPUT_ENABLED}> {'only perform a simulation (no change in database will be made)'|@translate}</label></li></ul>
+    <ul><li><label><input type="checkbox" name="simulate" value="1" checked="checked"> {'only perform a simulation (no change in database will be made)'|@translate}</label></li></ul>
   </fieldset>
 
   <fieldset id="catSubset">

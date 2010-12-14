@@ -20,7 +20,7 @@
   </label>
 
   <p>
-    <input type="submit" class="submit" name="set_permalink" value="{'Submit'|@translate}" {$TAG_INPUT_ENABLED}>
+    <input type="submit" class="submit" name="set_permalink" value="{'Submit'|@translate}">
   </p>
   </fieldset>
 </form>
@@ -60,7 +60,7 @@
 		<td>{$permalink.date_deleted}</td>
 		<td>{$permalink.last_hit}</td>
 		<td>{$permalink.hit}</td>
-		<td><a href="{$permalink.U_DELETE}" {$TAG_INPUT_ENABLED}><img src="{$ROOT_URL}{$themeconf.admin_icon_dir}/delete.png" alt="[{'Delete'|@translate}]" class="button"></a></td>
+		<td><a href="{$permalink.U_DELETE}"><img src="{$ROOT_URL}{$themeconf.admin_icon_dir}/delete.png" alt="[{'Delete'|@translate}]" class="button"></a></td>
 	</tr>
 {/foreach}
 </table>

@@ -117,7 +117,7 @@
 </fieldset>
 
 <p style="text-align:center;">
-  <input class="submit" type="submit" value="{'Submit'|@translate}" name="submit" {$TAG_INPUT_ENABLED}>
+  <input class="submit" type="submit" value="{'Submit'|@translate}" name="submit">
   <input class="submit" type="reset" value="{'Reset'|@translate}" name="reset">
 </p>
 
@@ -135,7 +135,7 @@
       </td>
       <td>
         {if $representant.ALLOW_SET_RANDOM }
-        <p><input class="submit" type="submit" name="set_random_representant" value="{'Find a new representant by random'|@translate}" {$TAG_INPUT_ENABLED}></p>
+        <p><input class="submit" type="submit" name="set_random_representant" value="{'Find a new representant by random'|@translate}"></p>
         {/if}
 
         {if isset($representant.ALLOW_DELETE) }
@@ -172,7 +172,7 @@
   </table>
 
   <p>
-    <input class="submit" type="submit" value="{'Submit'|@translate}" name="submitAdd" {$TAG_INPUT_ENABLED}>
+    <input class="submit" type="submit" value="{'Submit'|@translate}" name="submitAdd">
     <input class="submit" type="reset" value="{'Reset'|@translate}" name="reset">
   </p>
 
@@ -193,7 +193,7 @@
   </table>
 
   <p>
-    <input class="submit" type="submit" value="{'Submit'|@translate}" name="submitDestinations" {$TAG_INPUT_ENABLED}>
+    <input class="submit" type="submit" value="{'Submit'|@translate}" name="submitDestinations">
     <input class="submit" type="reset" value="{'Reset'|@translate}" name="reset">
   </p>
 
@@ -222,7 +222,7 @@
   </table>
 
   <p>
-    <input class="submit" type="submit" value="{'Submit'|@translate}" name="submitEmail" {$TAG_INPUT_ENABLED}>
+    <input class="submit" type="submit" value="{'Submit'|@translate}" name="submitEmail">
     <input class="submit" type="reset" value="{'Reset'|@translate}" name="reset">
   </p>
 

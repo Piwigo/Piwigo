@@ -13,7 +13,7 @@
 		<label>{'Password'|@translate} <input type="text" name="password"></label>
 		{/if}
 		<label>{'Email address'|@translate} <input type="text" name="email"></label>
-    <label>&nbsp; <input class="submit" type="submit" name="submit_add" value="{'Submit'|@translate}" {$TAG_INPUT_ENABLED}></label>
+    <label>&nbsp; <input class="submit" type="submit" name="submit_add" value="{'Submit'|@translate}"></label>
   </fieldset>
 </form>
 
@@ -103,7 +103,7 @@
 <fieldset>
   <legend>{'Deletions'|@translate}</legend>
   <label><input type="checkbox" name="confirm_deletion" value="1"> {'confirm'|@translate}</label>
-  <input class="submit" type="submit" value="{'Delete selected users'|@translate}" name="delete" {$TAG_INPUT_ENABLED}>
+  <input class="submit" type="submit" value="{'Delete selected users'|@translate}" name="delete">
 </fieldset>
 
 <fieldset>
@@ -312,7 +312,7 @@
 </p>
 
 <p>
-  <input class="submit" type="submit" value="{'Submit'|@translate}" name="pref_submit" {$TAG_INPUT_ENABLED}>
+  <input class="submit" type="submit" value="{'Submit'|@translate}" name="pref_submit">
   <input class="submit" type="reset" value="{'Reset'|@translate}" name="pref_reset">
 </p>
 

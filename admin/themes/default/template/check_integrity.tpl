@@ -95,10 +95,10 @@
 
         <p>
           {if $c13y_show_submit_automatic_correction}
-            <input class="submit" type="submit" value="{'Apply selected corrections'|@translate}" name="Apply selected corrections" {$TAG_INPUT_ENABLED}>
+            <input class="submit" type="submit" value="{'Apply selected corrections'|@translate}" name="Apply selected corrections">
           {/if}
           {if $c13y_show_submit_ignore}
-            <input class="submit" type="submit" value="{'Ignore selected anomalies'|@translate}" name="Ignore selected anomalies" {$TAG_INPUT_ENABLED}>
+            <input class="submit" type="submit" value="{'Ignore selected anomalies'|@translate}" name="Ignore selected anomalies">
           {/if}
           <input class="submit" type="submit" value="{'Refresh'|@translate}" name="Refresh">
           </p>

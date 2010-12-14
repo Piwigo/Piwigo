@@ -31,7 +31,7 @@ pwg_initialization_datepicker("#date_creation_day", "#date_creation_month", "#da
   <li><a href="{$U_JUMPTO}" title="{'jump to image'|@translate}"><img src="{$themeconf.admin_icon_dir}/category_jump-to.png" class="button" alt="{'jump to image'|@translate}"></a></li>
   {/if}
   {if !url_is_remote($PATH)}
-  <li><a href="{$U_SYNC}" title="{'synchronize'|@translate}" {$TAG_INPUT_ENABLED}><img src="{$themeconf.admin_icon_dir}/sync_metadata.png" class="button" alt="{'synchronize'|@translate}"></a></li>
+  <li><a href="{$U_SYNC}" title="{'synchronize'|@translate}"><img src="{$themeconf.admin_icon_dir}/sync_metadata.png" class="button" alt="{'synchronize'|@translate}"></a></li>
   {/if}
 </ul>
 
@@ -159,7 +159,7 @@ pwg_initialization_datepicker("#date_creation_day", "#date_creation_month", "#da
     </table>
 
     <p style="text-align:center;">
-      <input class="submit" type="submit" value="{'Submit'|@translate}" name="submit" {$TAG_INPUT_ENABLED}>
+      <input class="submit" type="submit" value="{'Submit'|@translate}" name="submit">
       <input class="submit" type="reset" value="{'Reset'|@translate}" name="reset">
     </p>
 
@@ -178,7 +178,7 @@ pwg_initialization_datepicker("#date_creation_day", "#date_creation_month", "#da
           <select class="categoryList" name="cat_associated[]" multiple="multiple" size="30">
             {html_options options=$associated_options}
           </select>
-          <p><input class="submit" type="submit" value="&raquo;" name="dissociate" style="font-size:15px;" {$TAG_INPUT_ENABLED}></p>
+          <p><input class="submit" type="submit" value="&raquo;" name="dissociate" style="font-size:15px;"></p>
         </td>
 
         <td>
@@ -186,7 +186,7 @@ pwg_initialization_datepicker("#date_creation_day", "#date_creation_month", "#da
           <select class="categoryList" name="cat_dissociated[]" multiple="multiple" size="30">
             {html_options options=$dissociated_options}
           </select>
-          <p><input class="submit" type="submit" value="&laquo;" name="associate" style="font-size:15px;" {$TAG_INPUT_ENABLED}></p>
+          <p><input class="submit" type="submit" value="&laquo;" name="associate" style="font-size:15px;"></p>
         </td>
       </tr>
     </table>
@@ -205,7 +205,7 @@ pwg_initialization_datepicker("#date_creation_day", "#date_creation_month", "#da
           <select class="categoryList" name="cat_elected[]" multiple="multiple" size="30">
             {html_options options=$elected_options}
           </select>
-          <p><input class="submit" type="submit" value="&raquo;" name="dismiss" style="font-size:15px;" {$TAG_INPUT_ENABLED}></p>
+          <p><input class="submit" type="submit" value="&raquo;" name="dismiss" style="font-size:15px;"></p>
         </td>
 
         <td>
@@ -213,7 +213,7 @@ pwg_initialization_datepicker("#date_creation_day", "#date_creation_month", "#da
           <select class="categoryList" name="cat_dismissed[]" multiple="multiple" size="30">
             {html_options options=$dismissed_options}
           </select>
-          <p><input class="submit" type="submit" value="&laquo;" name="elect" style="font-size:15px;" {$TAG_INPUT_ENABLED}></p>
+          <p><input class="submit" type="submit" value="&laquo;" name="elect" style="font-size:15px;"></p>
         </td>
       </tr>
     </table>

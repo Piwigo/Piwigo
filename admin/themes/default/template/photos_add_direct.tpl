@@ -337,7 +337,7 @@ var sizeLimit = {$upload_max_filesize};
     </fieldset>
 
     <p>
-      <input class="submit" type="submit" name="submit_upload" value="{'Upload'|@translate}" {$TAG_INPUT_ENABLED}>
+      <input class="submit" type="submit" name="submit_upload" value="{'Upload'|@translate}">
     </p>
 {elseif $upload_mode eq 'multiple'}
     <p>

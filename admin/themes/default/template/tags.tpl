@@ -24,7 +24,7 @@
 
     <p>
       <input type="hidden" name="pwg_token" value="{$PWG_TOKEN}">
-      <input class="submit" type="submit" name="submit" value="{'Submit'|@translate}" {$TAG_INPUT_ENABLED}>
+      <input class="submit" type="submit" name="submit" value="{'Submit'|@translate}">
       <input class="submit" type="reset" value="{'Reset'|@translate}">
     </p>
   </fieldset>
@@ -38,7 +38,7 @@
       <input type="text" name="add_tag">
     </label>
     
-    <p><input class="submit" type="submit" name="add" value="{'Submit'|@translate}" {$TAG_INPUT_ENABLED}></p>
+    <p><input class="submit" type="submit" name="add" value="{'Submit'|@translate}"></p>
   </fieldset>
 
   <fieldset>
@@ -49,7 +49,7 @@
     <p>
       <input type="hidden" name="pwg_token" value="{$PWG_TOKEN}">
       <input class="submit" type="submit" name="edit" value="{'Edit selected tags'|@translate}">
-      <input class="submit" type="submit" name="delete" value="{'Delete selected tags'|@translate}" onclick="return confirm('{'Are you sure?'|@translate}');" {$TAG_INPUT_ENABLED}>
+      <input class="submit" type="submit" name="delete" value="{'Delete selected tags'|@translate}" onclick="return confirm('{'Are you sure?'|@translate}');">
     </p>
   </fieldset>
 

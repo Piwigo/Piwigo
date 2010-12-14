@@ -34,7 +34,7 @@ jQuery(document).ready(function(){ldelim}
   <p>
     <input type="hidden" name="pwg_token" value="{$PWG_TOKEN}">
     {'Add a virtual album'|@translate} : <input type="text" name="virtual_name">
-    <input class="submit" type="submit" value="{'Submit'|@translate}" name="submitAdd" {$TAG_INPUT_ENABLED}>
+    <input class="submit" type="submit" value="{'Submit'|@translate}" name="submitAdd">
     {if count($categories)>9 }
     <a href="#EoP" class="button" style="border:0;">
 		<img src="{$themeconf.admin_icon_dir}/page_end.png" title="{'Page end'|@translate}" class="button" alt="page_end" style="margin-bottom:-0.6em;"></a>
@@ -47,7 +47,7 @@ jQuery(document).ready(function(){ldelim}
   <input type="hidden" name="pwg_token" value="{$PWG_TOKEN}">
 
   <div class="orderParams">
-    <input class="submit" name="submitOrder" type="submit" value="{'Save order'|@translate}" {$TAG_INPUT_ENABLED}>
+    <input class="submit" name="submitOrder" type="submit" value="{'Save order'|@translate}">
     <label><input type="radio" name="order_type" value="manual" checked="checked"> {'manual order'|@translate}</label>
     <label><input type="radio" name="order_type" value="automatic"> {'automatic order'|@translate}</label>
     <span id="automatic_order_params" style="display:none">

@@ -26,7 +26,7 @@ jQuery(document).ready(function(){
   {if isset($REPOST_SUBMIT_NAME)}
   <fieldset>
     <div class="infos">
-      <input class="submit" type="submit" value="{'Continue processing treatment'|@translate}" name="{$REPOST_SUBMIT_NAME}" {$TAG_INPUT_ENABLED}>
+      <input class="submit" type="submit" value="{'Continue processing treatment'|@translate}" name="{$REPOST_SUBMIT_NAME}">
     </div>
   </fieldset>
   {/if}
@@ -74,7 +74,7 @@ jQuery(document).ready(function(){
   </fieldset>
 
   <p>
-    <input class="submit" type="submit" value="{'Submit'|@translate}" name="param_submit" {$TAG_INPUT_ENABLED}>
+    <input class="submit" type="submit" value="{'Submit'|@translate}" name="param_submit">
     <input class="submit" type="reset" value="{'Reset'|@translate}" name="param_reset">
   </p>
   {/if}{* isset $param*}
@@ -130,7 +130,7 @@ jQuery(document).ready(function(){
     </fieldset>
 
     <p>
-      <input class="submit" type="submit" value="{'Send'|@translate}" name="send_submit" {$TAG_INPUT_ENABLED}>
+      <input class="submit" type="submit" value="{'Send'|@translate}" name="send_submit">
     </p>
     {/if}
   {/if}{* isset $send*}

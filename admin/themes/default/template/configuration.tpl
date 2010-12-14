@@ -387,7 +387,7 @@
 
 {if !isset($default)}
   <p>
-    <input class="submit" type="submit" name="submit" value="{'Submit'|@translate}" {$TAG_INPUT_ENABLED}>
+    <input class="submit" type="submit" name="submit" value="{'Submit'|@translate}">
     <input class="submit" type="reset" name="reset" value="{'Reset'|@translate}">
   </p>
 </form>

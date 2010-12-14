@@ -22,7 +22,7 @@ jQuery(document).ready(function() {
 
 {if !empty($thumbnails)}
 <form action="{$F_ACTION}" method="post">
-  <p><input class="submit" type="submit" value="{'Submit'|@translate}" name="submit" {$TAG_INPUT_ENABLED}></p>
+  <p><input class="submit" type="submit" value="{'Submit'|@translate}" name="submit"></p>
   <fieldset>
     <legend>{'Edit ranks'|@translate}</legend>
     {if !empty($thumbnails)}
@@ -65,7 +65,7 @@ jQuery(document).ready(function() {
       </p>
       {/foreach}
   </fieldset>
-  <p><input class="submit" type="submit" value="{'Submit'|@translate}" name="submit" {$TAG_INPUT_ENABLED}></p>
+  <p><input class="submit" type="submit" value="{'Submit'|@translate}" name="submit"></p>
 </form>
 
 

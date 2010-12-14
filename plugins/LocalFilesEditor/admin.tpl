@@ -81,9 +81,9 @@ function unloadEditarea() {ldelim}
 
 <br>
 
-<input class="submit" type="submit" value="{'locfiledit_save_file'|@translate}" name="submit" {$TAG_INPUT_ENABLED}/>
+<input class="submit" type="submit" value="{'locfiledit_save_file'|@translate}" name="submit"/>
 {if isset ($restore)}
-<input class="submit" type="submit" value="{'locfiledit_restore'|@translate}" name="restore" onclick="return confirm('{'locfiledit_restore_confirm'|@translate|escape:'javascript'}');" {$TAG_INPUT_ENABLED}/>
+<input class="submit" type="submit" value="{'locfiledit_restore'|@translate}" name="restore" onclick="return confirm('{'locfiledit_restore_confirm'|@translate|escape:'javascript'}');"/>
 {/if}
 
 {if isset ($restore_infos)}

@@ -60,8 +60,8 @@ jQuery(document).ready(function(){ldelim}
     {/foreach}
   </ul>
   <p class="menuSubmit">
-    <input type="submit" name="submit" value="{'Submit'|@translate}" {$TAG_INPUT_ENABLED}>
-    <input type="submit" name="reset" value="{'Reset'|@translate}" {$TAG_INPUT_ENABLED}>
+    <input type="submit" name="submit" value="{'Submit'|@translate}">
+    <input type="submit" name="reset" value="{'Reset'|@translate}">
   </p>
 
 </form>

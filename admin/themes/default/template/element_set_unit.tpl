@@ -131,7 +131,7 @@ jQuery(document).ready(function() {
 {/foreach}
 
 <p>
-  <input class="submit" type="submit" value="{'Submit'|@translate}" name="submit" {$TAG_INPUT_ENABLED}>
+  <input class="submit" type="submit" value="{'Submit'|@translate}" name="submit">
   <input class="submit" type="reset" value="{'Reset'|@translate}">
 </p>
 {/if}

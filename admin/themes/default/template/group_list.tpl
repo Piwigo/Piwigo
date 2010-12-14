@@ -11,7 +11,7 @@
     <input type="text" id="groupname" name="groupname" maxlength="50" size="20">
 
     <p>
-      <input class="submit" type="submit" name="submit_add" value="{'Add'|@translate}" {$TAG_INPUT_ENABLED}>
+      <input class="submit" type="submit" name="submit_add" value="{'Add'|@translate}">
       <input type="hidden" name="pwg_token" value="{$PWG_TOKEN}"> 
     </p>
   </fieldset>
@@ -33,10 +33,10 @@
         <img src="{$ROOT_URL}{$themeconf.admin_icon_dir}/permissions.png" class="button" style="border:none" alt="{'Permissions'|@translate}" title="{'Permissions'|@translate}"></a>
       <a href="{$group.U_DELETE}" onclick="return confirm('{'delete'|@translate|@escape:'javascript'}' 
 				+ '\n\n' + '{'Are you sure?'|@translate|@escape:'javascript'}');">
-        <img src="{$ROOT_URL}{$themeconf.admin_icon_dir}/delete.png" class="button" style="border:none" alt="{'Delete'|@translate}" title="{'Delete'|@translate}" {$TAG_INPUT_ENABLED}></a>
+        <img src="{$ROOT_URL}{$themeconf.admin_icon_dir}/delete.png" class="button" style="border:none" alt="{'Delete'|@translate}" title="{'Delete'|@translate}"></a>
       <a href="{$group.U_ISDEFAULT}" onclick="return confirm('{'Toggle \'default group\' property'|@translate|@escape:'javascript'}' 
 				+'\n\n' + '{'Are you sure?'|@translate|@escape:'javascript'}');">
-        <img src="{$ROOT_URL}{$themeconf.admin_icon_dir}/toggle_is_default_group.png" class="button" style="border:none" alt="{'Toggle \'default group\' property'|@translate}" title="{'Toggle \'default group\' property'|@translate}" {$TAG_INPUT_ENABLED}></a>
+        <img src="{$ROOT_URL}{$themeconf.admin_icon_dir}/toggle_is_default_group.png" class="button" style="border:none" alt="{'Toggle \'default group\' property'|@translate}" title="{'Toggle \'default group\' property'|@translate}"></a>
     </td>
   </tr>
   {/foreach}

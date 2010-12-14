@@ -63,8 +63,8 @@ $(document).ready(function(){
   </p>
 
   <p class="bottomButtons">
-    <input class="submit" type="submit" name="validate" value="{'Validate'|@translate}" {$TAG_INPUT_ENABLED}>
-    <input class="submit" type="submit" name="reject" value="{'Reject'|@translate}" {$TAG_INPUT_ENABLED}>
+    <input class="submit" type="submit" name="validate" value="{'Validate'|@translate}">
+    <input class="submit" type="submit" name="reject" value="{'Reject'|@translate}">
   </p>
 
 </form>

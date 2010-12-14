@@ -21,7 +21,7 @@
     {'Create this site'|@translate}:
     <input type="hidden" name="no_check" value="1">
     <input type="hidden" name="galleries_url" value="{$local_listing.URL}">
-    <input type="submit" name="submit" value="{'Submit'|@translate}" {$TAG_INPUT_ENABLED}>
+    <input type="submit" name="submit" value="{'Submit'|@translate}">
   </p>
 </form>
 {/if}
@@ -44,18 +44,18 @@
     [<a href="{$site.U_SYNCHRONIZE}" title="{'update the database from files'|@translate}">{'synchronize'|@translate}</a>]
     {if isset($site.U_DELETE)}
       [<a href="{$site.U_DELETE}" onclick="return confirm('{'Are you sure?'|@translate|escape:'javascript'}');"
-                title="{'delete this site and all its attached elements'|@translate}" {$TAG_INPUT_ENABLED}>{'delete'|@translate}</a>]
+                title="{'delete this site and all its attached elements'|@translate}">{'delete'|@translate}</a>]
     {/if}
     {if isset($site.remote)}
       <br>
-      [<a href="{$site.remote.U_TEST}" title="{'test this remote site'|@translate}" {$TAG_INPUT_ENABLED}>{'test'|@translate}</a>]
-      [<a href="{$site.remote.U_GENERATE}" title="{'generate file listing.xml on remote site'|@translate}" {$TAG_INPUT_ENABLED}>{'generate listing'|@translate}</a>]
-      [<a href="{$site.remote.U_CLEAN}" title="{'remove remote listing.xml file'|@translate}" {$TAG_INPUT_ENABLED}>{'clean'|@translate}</a>]
+      [<a href="{$site.remote.U_TEST}" title="{'test this remote site'|@translate}">{'test'|@translate}</a>]
+      [<a href="{$site.remote.U_GENERATE}" title="{'generate file listing.xml on remote site'|@translate}">{'generate listing'|@translate}</a>]
+      [<a href="{$site.remote.U_CLEAN}" title="{'remove remote listing.xml file'|@translate}">{'clean'|@translate}</a>]
     {/if}
     {if not empty($site.plugin_links)}
         <br>
       {foreach from=$site.plugin_links item=plugin_link}
-        [<a href="{$plugin_link.U_HREF}" title='{$plugin_link.U_HINT}' {$TAG_INPUT_ENABLED}>{$plugin_link.U_CAPTION}</a>]
+        [<a href="{$plugin_link.U_HREF}" title='{$plugin_link.U_HINT}'>{$plugin_link.U_CAPTION}</a>]
       {/foreach}
     {/if}
   </td></tr>
@@ -70,6 +70,6 @@
     <input type="text" name="galleries_url" id="galleries_url">
   </p>
   <p>
-    <input class="submit" type="submit" name="submit" value="{'Submit'|@translate}" {$TAG_INPUT_ENABLED}>
+    <input class="submit" type="submit" name="submit" value="{'Submit'|@translate}">
   </p>
 </form>
