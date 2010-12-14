@@ -106,7 +106,7 @@ $display_info_checkboxes = array(
   );
 
 //------------------------------ verification and registration of modifications
-if (isset($_POST['submit']) and !is_adviser())
+if (isset($_POST['submit']))
 {
   $int_pattern = '/^\d+$/';
 
@@ -323,14 +323,11 @@ switch ($page['section'])
     include_once(PHPWG_ROOT_PATH.'profile.php');
 
     $errors = array();
-    if ( !is_adviser() )
+    if (save_profile_from_post($edit_user, $errors))
     {
-      if (save_profile_from_post($edit_user, $errors))
-      {
-        // Reload user
-        $edit_user = build_user($conf['guest_id'], false);
-        array_push($page['infos'], l10n('Information data registered in database'));
-      }
+      // Reload user
+      $edit_user = build_user($conf['guest_id'], false);
+      array_push($page['infos'], l10n('Information data registered in database'));
     }
     $page['errors'] = array_merge($page['errors'], $errors);
 

@@ -77,80 +77,77 @@ class check_integrity
     }
 
     // Treatments
-    if (!is_adviser())
+    if (isset($_POST['c13y_submit_correction']) and isset($_POST['c13y_selection']))
     {
-      if (isset($_POST['c13y_submit_correction']) and isset($_POST['c13y_selection']))
+      $corrected_count = 0;
+      $not_corrected_count = 0;
+
+      foreach ($this->retrieve_list as $i => $c13y)
       {
-        $corrected_count = 0;
-        $not_corrected_count = 0;
+        if (!empty($c13y['correction_fct']) and
+            $c13y['is_callable'] and
+            in_array($c13y['id'], $_POST['c13y_selection']))
+        {
+          if (is_array($c13y['correction_fct_args']))
+          {
+            $args = $c13y['correction_fct_args'];
+          }
+          else
+          if (!is_null($c13y['correction_fct_args']))
+          {
+            $args = array($c13y['correction_fct_args']);
+          }
+          else
+          {
+            $args = array();
+          }
+          $this->retrieve_list[$i]['corrected'] = call_user_func_array($c13y['correction_fct'], $args);
+
+          if ($this->retrieve_list[$i]['corrected'])
+          {
+            $corrected_count += 1;
+          }
+          else
+          {
+            $not_corrected_count += 1;
+          }
+        }
+      }
+
+      if ($corrected_count > 0)
+      {
+        $page['infos'][] =
+          l10n_dec('%d anomaly has been corrected.', '%d anomalies have been detected corrected.',
+            $corrected_count);
+      }
+      if ($not_corrected_count > 0)
+      {
+        $page['errors'][] =
+          l10n_dec('%d anomaly has not been corrected.', '%d anomalies have not been corrected.',
+            $not_corrected_count);
+      }
+    }
+    else
+    {
+      if (isset($_POST['c13y_submit_ignore']) and isset($_POST['c13y_selection']))
+      {
+        $ignored_count = 0;
 
         foreach ($this->retrieve_list as $i => $c13y)
         {
-          if (!empty($c13y['correction_fct']) and
-              $c13y['is_callable'] and
-              in_array($c13y['id'], $_POST['c13y_selection']))
+          if (in_array($c13y['id'], $_POST['c13y_selection']))
           {
-            if (is_array($c13y['correction_fct_args']))
-            {
-              $args = $c13y['correction_fct_args'];
-            }
-            else
-            if (!is_null($c13y['correction_fct_args']))
-            {
-              $args = array($c13y['correction_fct_args']);
-            }
-            else
-            {
-              $args = array();
-            }
-            $this->retrieve_list[$i]['corrected'] = call_user_func_array($c13y['correction_fct'], $args);
-
-            if ($this->retrieve_list[$i]['corrected'])
-            {
-              $corrected_count += 1;
-            }
-            else
-            {
-              $not_corrected_count += 1;
-            }
+            $this->build_ignore_list[] = $c13y['id'];
+            $this->retrieve_list[$i]['ignored'] = true;
+            $ignored_count += 1;
           }
         }
 
-        if ($corrected_count > 0)
+        if ($ignored_count > 0)
         {
           $page['infos'][] =
-            l10n_dec('%d anomaly has been corrected.', '%d anomalies have been detected corrected.',
-              $corrected_count);
-        }
-        if ($not_corrected_count > 0)
-        {
-          $page['errors'][] =
-            l10n_dec('%d anomaly has not been corrected.', '%d anomalies have not been corrected.',
-              $not_corrected_count);
-        }
-      }
-      else
-      {
-        if (isset($_POST['c13y_submit_ignore']) and isset($_POST['c13y_selection']))
-        {
-          $ignored_count = 0;
-
-          foreach ($this->retrieve_list as $i => $c13y)
-          {
-            if (in_array($c13y['id'], $_POST['c13y_selection']))
-            {
-              $this->build_ignore_list[] = $c13y['id'];
-              $this->retrieve_list[$i]['ignored'] = true;
-              $ignored_count += 1;
-            }
-          }
-
-          if ($ignored_count > 0)
-          {
-            $page['infos'][] =
-              l10n_dec('%d anomaly has been ignored.', '%d anomalies have been ignored.',
-                $ignored_count);
-          }
+            l10n_dec('%d anomaly has been ignored.', '%d anomalies have been ignored.',
+              $ignored_count);
         }
       }
     }

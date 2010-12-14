@@ -892,7 +892,7 @@ SELECT * FROM '.IMAGES_TABLE.'
 
 function ws_images_setPrivacyLevel($params, &$service)
 {
-  if (!is_admin() || is_adviser() )
+  if (!is_admin())
   {
     return new PwgError(401, 'Access denied');
   }
@@ -935,7 +935,7 @@ function ws_images_add_chunk($params, &$service)
   // type {thumb, file, high}
   // position
 
-  if (!is_admin() || is_adviser() )
+  if (!is_admin())
   {
     return new PwgError(401, 'Access denied');
   }
@@ -1139,7 +1139,7 @@ function ws_images_addFile($params, &$service)
   // sum
 
   global $conf;
-  if (!is_admin() || is_adviser() )
+  if (!is_admin())
   {
     return new PwgError(401, 'Access denied');
   }
@@ -1208,7 +1208,7 @@ SELECT
 function ws_images_add($params, &$service)
 {
   global $conf;
-  if (!is_admin() || is_adviser() )
+  if (!is_admin())
   {
     return new PwgError(401, 'Access denied');
   }
@@ -1584,7 +1584,7 @@ LIMIT '.(int)$params['per_page'].' OFFSET '.(int)($params['per_page']*$params['p
 
 function ws_categories_add($params, &$service)
 {
-  if (!is_admin() or is_adviser())
+  if (!is_admin())
   {
     return new PwgError(401, 'Access denied');
   }
@@ -1608,7 +1608,7 @@ function ws_categories_add($params, &$service)
 
 function ws_tags_add($params, &$service)
 {
-  if (!is_admin() or is_adviser())
+  if (!is_admin())
   {
     return new PwgError(401, 'Access denied');
   }
@@ -1629,7 +1629,7 @@ function ws_images_exist($params, &$service)
 {
   global $conf;
   
-  if (!is_admin() or is_adviser())
+  if (!is_admin())
   {
     return new PwgError(401, 'Access denied');
   }
@@ -1705,7 +1705,7 @@ SELECT
 
 function ws_images_checkFiles($params, &$service)
 {
-  if (!is_admin() or is_adviser())
+  if (!is_admin())
   {
     return new PwgError(401, 'Access denied');
   }
@@ -1790,7 +1790,7 @@ function file_path_for_type($file_path, $type='thumb')
 function ws_images_setInfo($params, &$service)
 {
   global $conf;
-  if (!is_admin() || is_adviser() )
+  if (!is_admin())
   {
     return new PwgError(401, 'Access denied');
   }
@@ -2073,7 +2073,7 @@ SELECT
 function ws_categories_setInfo($params, &$service)
 {
   global $conf;
-  if (!is_admin() || is_adviser() )
+  if (!is_admin())
   {
     return new PwgError(401, 'Access denied');
   }
@@ -2147,7 +2147,7 @@ function ws_images_checkUpload($params, &$service)
 {
   global $conf;
 
-  if (!is_admin() or is_adviser())
+  if (!is_admin())
   {
     return new PwgError(401, 'Access denied');
   }

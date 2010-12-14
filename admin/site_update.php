@@ -108,7 +108,7 @@ if (isset($_POST['submit']))
   }
 
   // shall we simulate only
-  if ((isset($_POST['simulate']) and $_POST['simulate'] == 1) or is_adviser())
+  if (isset($_POST['simulate']) and $_POST['simulate'] == 1)
   {
     $simulate = true;
   }

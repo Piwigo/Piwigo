@@ -83,8 +83,7 @@ $template->set_filenames(array('site_manager'=>'site_manager.tpl'));
 // +-----------------------------------------------------------------------+
 // |                        new site creation form                         |
 // +-----------------------------------------------------------------------+
-if (isset($_POST['submit']) and !empty($_POST['galleries_url'])
-    and !is_adviser() )
+if (isset($_POST['submit']) and !empty($_POST['galleries_url']))
 {
   $is_remote = url_is_remote( $_POST['galleries_url'] );
   $url = preg_replace('/[\/]*$/', '', $_POST['galleries_url']);
@@ -167,7 +166,7 @@ if (isset($_GET['site']) and is_numeric($_GET['site']))
 {
   $page['site'] = $_GET['site'];
 }
-if (isset($_GET['action']) and isset($page['site']) and !is_adviser())
+if (isset($_GET['action']) and isset($page['site']))
 {
   $query = '
 SELECT galleries_url

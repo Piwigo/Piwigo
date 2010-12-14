@@ -36,7 +36,7 @@ $themes = new themes();
 // |                          perform actions                              |
 // +-----------------------------------------------------------------------+
 
-if (isset($_GET['action']) and isset($_GET['theme']) and !is_adviser())
+if (isset($_GET['action']) and isset($_GET['theme']))
 {
   $page['errors'] = $themes->perform_action($_GET['action'], $_GET['theme']);
 

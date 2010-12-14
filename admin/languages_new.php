@@ -56,7 +56,7 @@ if (!is_writable($languages_dir))
 // |                       perform installation                            |
 // +-----------------------------------------------------------------------+
 
-if (isset($_GET['revision']) and !is_adviser())
+if (isset($_GET['revision']))
 {
   if (!is_webmaster())
   {

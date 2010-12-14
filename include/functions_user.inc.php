@@ -1319,14 +1319,12 @@ function check_status($access_type, $user_status = '')
 }
 
 /*
- * Return if current user is an adviser
- * @return bool
+ * Adviser status is depreciated from piwigo 2.2
+ * @return false
 */
 function is_adviser()
 {
-  global $user;
-
-  return ($user['adviser'] == 'true');
+  return false;
 }
 
 /*
@@ -1384,14 +1382,7 @@ function get_email_address_as_display_text($email_address)
   }
   else
   {
-    if (defined('IN_ADMIN') and is_adviser())
-    {
-      return 'adviser.mode@'.$_SERVER['SERVER_NAME'];
-    }
-    else
-    {
-      return $email_address;
-    }
+    return $email_address;
   }
 }
 

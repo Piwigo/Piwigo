@@ -37,7 +37,7 @@ check_status(ACCESS_ADMINISTRATOR);
 // |                                actions                                |
 // +-----------------------------------------------------------------------+
 
-if (!empty($_POST) and !is_adviser())
+if (!empty($_POST))
 {
   if (empty($_POST['comments']))
   {

@@ -103,7 +103,7 @@ $navigation.= '</a>';
 // |                    virtual categories management                      |
 // +-----------------------------------------------------------------------+
 // request to delete a virtual category / not for an adviser
-if (isset($_GET['delete']) and is_numeric($_GET['delete']) and !is_adviser())
+if (isset($_GET['delete']) and is_numeric($_GET['delete']))
 {
   delete_categories(array($_GET['delete']));
   array_push($page['infos'], l10n('Virtual album deleted'));

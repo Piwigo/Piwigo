@@ -207,11 +207,6 @@ if ($conf['check_upgrade_feed'])
   }
 }
 
-if (is_adviser())
-{
-  $header_msgs[] = l10n('Adviser mode enabled');
-}
-
 if (count($header_msgs) > 0)
 {
   $template->assign('header_msgs', $header_msgs);

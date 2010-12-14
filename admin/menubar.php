@@ -64,7 +64,7 @@ foreach ($mb_conf as $id => $pos)
     unset($mb_conf[$id]);
 }
 
-if ( isset($_POST['reset']) and !is_adviser())
+if ( isset($_POST['reset']))
 {
   $mb_conf = array();
   $query = '
@@ -85,7 +85,7 @@ foreach ($reg_blocks as $id => $block)
 }
 
 
-if ( isset($_POST['submit']) and !is_adviser() )
+if ( isset($_POST['submit']) )
 {
   foreach ( $mb_conf as $id => $pos )
   {

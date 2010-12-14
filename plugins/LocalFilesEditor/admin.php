@@ -164,7 +164,7 @@ switch ($page['tab'])
 
   case 'tpl':
     // New file form creation
-    if ($newfile_page and !is_adviser())
+    if ($newfile_page)
     {
       $filename = isset($_POST['tpl_name']) ? $_POST['tpl_name'] : '';
       $selected['model'] = isset($_POST['tpl_model']) ? $_POST['tpl_model'] : '0';
@@ -280,7 +280,7 @@ switch ($page['tab'])
 // +-----------------------------------------------------------------------+
 // |                           Load backup file
 // +-----------------------------------------------------------------------+
-if (isset($_POST['restore']) and !is_adviser())
+if (isset($_POST['restore']))
 {
   $edited_file = $_POST['edited_file'];
   $content_file = file_get_contents(get_bak_file($edited_file));
@@ -292,7 +292,7 @@ if (isset($_POST['restore']) and !is_adviser())
 // +-----------------------------------------------------------------------+
 // |                            Save file
 // +-----------------------------------------------------------------------+
-if (isset($_POST['submit']) and !is_adviser())
+if (isset($_POST['submit']))
 {
   if (!is_webmaster())
   {

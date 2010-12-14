@@ -38,7 +38,7 @@ if (!empty($_POST))
 // |                                edit tags                              |
 // +-----------------------------------------------------------------------+
 
-if (isset($_POST['submit']) and !is_adviser())
+if (isset($_POST['submit']))
 {
   $query = '
 SELECT name
@@ -104,7 +104,7 @@ SELECT id, name
 // |                               delete tags                             |
 // +-----------------------------------------------------------------------+
 
-if (isset($_POST['delete']) and isset($_POST['tags']) and !is_adviser())
+if (isset($_POST['delete']) and isset($_POST['tags']))
 {
   $query = '
 SELECT name
@@ -141,7 +141,7 @@ DELETE
 // |                               add a tag                               |
 // +-----------------------------------------------------------------------+
 
-if (isset($_POST['add']) and !empty($_POST['add_tag']) and !is_adviser())
+if (isset($_POST['add']) and !empty($_POST['add_tag']))
 {
   $tag_name = $_POST['add_tag'];
 

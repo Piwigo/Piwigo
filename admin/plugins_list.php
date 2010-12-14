@@ -36,7 +36,7 @@ $action_url = $base_url.'&amp;plugin='.'%s'.'&amp;pwg_token='.get_pwg_token();
 $plugins = new plugins();
 
 //--------------------------------------------------perform requested actions
-if (isset($_GET['action']) and isset($_GET['plugin']) and !is_adviser())
+if (isset($_GET['action']) and isset($_GET['plugin']))
 {
   check_pwg_token();
 

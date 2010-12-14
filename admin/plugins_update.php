@@ -35,7 +35,7 @@ $base_url = get_root_url().'admin.php?page='.$page['page'];
 $plugins = new plugins();
 
 //-----------------------------------------------------------automatic upgrade
-if (isset($_GET['plugin']) and isset($_GET['revision']) and !is_adviser())
+if (isset($_GET['plugin']) and isset($_GET['revision']))
 {
   if (!is_webmaster())
   {

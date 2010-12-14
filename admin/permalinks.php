@@ -83,7 +83,7 @@ if (!defined('PHPWG_ROOT_PATH')) die('Hacking attempt!');
 include_once(PHPWG_ROOT_PATH.'admin/include/functions_permalinks.php');
 
 $selected_cat = array();
-if ( isset($_POST['set_permalink']) and $_POST['cat_id']>0 and !is_adviser() )
+if ( isset($_POST['set_permalink']) and $_POST['cat_id']>0 )
 {
   $permalink = $_POST['permalink'];
   if ( empty($permalink) )
@@ -92,7 +92,7 @@ if ( isset($_POST['set_permalink']) and $_POST['cat_id']>0 and !is_adviser() )
     set_cat_permalink($_POST['cat_id'], $permalink, isset($_POST['save']) );
   $selected_cat = array( $_POST['cat_id'] );
 }
-elseif ( isset($_GET['delete_permanent']) and !is_adviser() )
+elseif ( isset($_GET['delete_permanent']) )
 {
   $query = '
 DELETE FROM '.OLD_PERMALINKS_TABLE.'

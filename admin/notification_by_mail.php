@@ -506,7 +506,7 @@ switch ($page['mode'])
 {
   case 'param' :
   {
-    if (isset($_POST['param_submit']) and !is_adviser())
+    if (isset($_POST['param_submit']))
     {
       $updated_param_count = 0;
       // Update param
@@ -539,26 +539,23 @@ where
   }
   case 'subscribe' :
   {
-    if (!is_adviser())
+    if (isset($_POST['falsify']) and isset($_POST['cat_true']))
     {
-      if (isset($_POST['falsify']) and isset($_POST['cat_true']))
-      {
-        $check_key_treated = unsubscribe_notification_by_mail(true, $_POST['cat_true']);
-        do_timeout_treatment('cat_true', $check_key_treated);
-      }
-      else
-      if (isset($_POST['trueify']) and isset($_POST['cat_false']))
-      {
-        $check_key_treated = subscribe_notification_by_mail(true, $_POST['cat_false']);
-        do_timeout_treatment('cat_false', $check_key_treated);
-      }
+      $check_key_treated = unsubscribe_notification_by_mail(true, $_POST['cat_true']);
+      do_timeout_treatment('cat_true', $check_key_treated);
+    }
+    else
+    if (isset($_POST['trueify']) and isset($_POST['cat_false']))
+    {
+      $check_key_treated = subscribe_notification_by_mail(true, $_POST['cat_false']);
+      do_timeout_treatment('cat_false', $check_key_treated);
     }
     break;
   }
 
   case 'send' :
   {
-    if (isset($_POST['send_submit']) and isset($_POST['send_selection']) and isset($_POST['send_customize_mail_content']) and !is_adviser())
+    if (isset($_POST['send_submit']) and isset($_POST['send_selection']) and isset($_POST['send_customize_mail_content']))
     {
       $check_key_treated = do_action_send_mail_notification('send', $_POST['send_selection'], stripslashes($_POST['send_customize_mail_content']));
       do_timeout_treatment('send_selection', $check_key_treated);

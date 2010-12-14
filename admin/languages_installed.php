@@ -37,7 +37,7 @@ $languages->get_db_languages();
 $languages->set_tabsheet($page['page']);
 
 //--------------------------------------------------perform requested actions
-if (isset($_GET['action']) and isset($_GET['language']) and !is_adviser())
+if (isset($_GET['action']) and isset($_GET['language']))
 {
   $page['errors'] = $languages->perform_action($_GET['action'], $_GET['language']);
 

@@ -117,7 +117,7 @@ $available_templates = array_merge(
 // |                            selected templates                         |
 // +-----------------------------------------------------------------------+
 
-if (isset($_POST['submit']) and !is_adviser())
+if (isset($_POST['submit']))
 {
   $replacements = array();
   $i = 0;

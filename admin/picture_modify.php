@@ -40,7 +40,7 @@ check_input_parameter('cat_id', $_GET, false, PATTERN_ID);
 // |                          synchronize metadata                         |
 // +-----------------------------------------------------------------------+
 
-if (isset($_GET['sync_metadata']) and !is_adviser())
+if (isset($_GET['sync_metadata']))
 {
   $query = '
 SELECT path
@@ -70,7 +70,7 @@ if (isset($_POST['date_creation_action'])
   }
 }
 
-if (isset($_POST['submit']) and count($page['errors']) == 0 and !is_adviser())
+if (isset($_POST['submit']) and count($page['errors']) == 0)
 {
   $data = array();
   $data{'id'} = $_GET['image_id'];
@@ -124,7 +124,6 @@ if (isset($_POST['submit']) and count($page['errors']) == 0 and !is_adviser())
 if (isset($_POST['associate'])
     and isset($_POST['cat_dissociated'])
     and count($_POST['cat_dissociated']) > 0
-    and !is_adviser()
   )
 {
   associate_images_to_categories(
@@ -136,7 +135,6 @@ if (isset($_POST['associate'])
 if (isset($_POST['dissociate'])
     and isset($_POST['cat_associated'])
     and count($_POST['cat_associated']) > 0
-    and !is_adviser()
   )
 {
   $query = '
@@ -152,7 +150,6 @@ DELETE FROM '.IMAGE_CATEGORY_TABLE.'
 if (isset($_POST['elect'])
     and isset($_POST['cat_dismissed'])
     and count($_POST['cat_dismissed']) > 0
-    and !is_adviser()
   )
 {
   $datas = array();
@@ -170,7 +167,6 @@ if (isset($_POST['elect'])
 if (isset($_POST['dismiss'])
     and isset($_POST['cat_elected'])
     and count($_POST['cat_elected']) > 0
-    and !is_adviser()
   )
 {
   set_random_representant($_POST['cat_elected']);

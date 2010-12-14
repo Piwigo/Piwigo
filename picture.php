@@ -276,7 +276,7 @@ DELETE FROM '.FAVORITES_TABLE.'
     }
     case 'set_as_representative' :
     {
-      if (is_admin() and !is_adviser() and isset($page['category']))
+      if (is_admin() and isset($page['category']))
       {
         $query = '
 UPDATE '.CATEGORIES_TABLE.'

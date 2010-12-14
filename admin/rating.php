@@ -70,7 +70,7 @@ if (isset($_GET['users']))
   }
 }
 
-if (isset($_GET['del']) and !is_adviser())
+if (isset($_GET['del']))
 {
   $del_params = urldecode( $_GET['del'] );
   parse_str($del_params, $vars);

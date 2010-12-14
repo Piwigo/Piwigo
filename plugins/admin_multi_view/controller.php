@@ -30,8 +30,6 @@ $refresh_main = false;
 
 if ( isset($_GET['view_as']) )
 {
-  if ( is_adviser() and $user['id']!=$_GET['view_as'] and $conf['guest_id']!=$_GET['view_as'])
-    die('security error');
   if ($user['id']===$_GET['view_as'])
     pwg_unset_session_var( 'multiview_as' );
   else
@@ -111,14 +109,7 @@ $my_url = get_root_url().'plugins/'.basename(dirname(__FILE__)).'/'.basename(__F
 // | users                                                                 |
 $query = '
 SELECT '.$conf['user_fields']['id'].' AS id,'.$conf['user_fields']['username'].' AS username
-FROM '.USERS_TABLE;
-if (is_adviser())
-{
-  $query .='
-  WHERE '.$conf['user_fields']['id']. ' IN ('.$user['id'].','.$conf['guest_id'].')
-';
-}
-$query .='
+FROM '.USERS_TABLE.'
   ORDER BY CONVERT('.$conf['user_fields']['username'].',CHAR)
 ;';
 $user_map = simple_hash_from_query($query, 'id', 'username');

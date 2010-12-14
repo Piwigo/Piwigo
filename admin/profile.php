@@ -33,10 +33,7 @@ if (!empty($_POST))
 include_once(PHPWG_ROOT_PATH.'profile.php');
 
 $errors = array();
-if ( !is_adviser() )
-{
-  save_profile_from_post($edit_user, $errors);
-}
+save_profile_from_post($edit_user, $errors);
 
 load_profile_in_template(
   get_root_url().'admin.php?page=profile&amp;user_id='.$edit_user['id'],

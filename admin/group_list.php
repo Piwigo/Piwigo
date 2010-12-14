@@ -42,7 +42,7 @@ if (!empty($_POST) or isset($_GET['delete']) or isset($_GET['toggle_is_default']
 // |                             delete a group                            |
 // +-----------------------------------------------------------------------+
 
-if (isset($_GET['delete']) and is_numeric($_GET['delete']) and !is_adviser())
+if (isset($_GET['delete']) and is_numeric($_GET['delete']))
 {
   // destruction of the access linked to the group
   $query = '
@@ -85,7 +85,7 @@ DELETE
 // |                              add a group                              |
 // +-----------------------------------------------------------------------+
 
-if (isset($_POST['submit_add']) and !is_adviser())
+if (isset($_POST['submit_add']))
 {
   if (empty($_POST['groupname']))
   {
@@ -127,7 +127,7 @@ INSERT INTO '.GROUPS_TABLE.'
 // | toggle is default group property                                      |
 // +-----------------------------------------------------------------------+
 
-if (isset($_GET['toggle_is_default']) and is_numeric($_GET['toggle_is_default']) and !is_adviser())
+if (isset($_GET['toggle_is_default']) and is_numeric($_GET['toggle_is_default']))
 {
   $query = '
 SELECT name, is_default

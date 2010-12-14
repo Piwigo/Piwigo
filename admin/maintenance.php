@@ -37,7 +37,7 @@ check_status(ACCESS_ADMINISTRATOR);
 // |                                actions                                |
 // +-----------------------------------------------------------------------+
 
-$action = (isset($_GET['action']) and !is_adviser()) ? $_GET['action'] : '';
+$action = isset($_GET['action']) ? $_GET['action'] : '';
 
 switch ($action)
 {

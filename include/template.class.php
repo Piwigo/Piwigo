@@ -353,8 +353,7 @@ class Template {
     }
 
     $this->smarty->assign( 'ROOT_URL', get_root_url() );
-    $this->smarty->assign( 'TAG_INPUT_ENABLED',
-      ((is_adviser()) ? 'disabled="disabled" onclick="return false;"' : ''));
+    $this->smarty->assign( 'TAG_INPUT_ENABLED', '');
 
     $save_compile_id = $this->smarty->compile_id;
     $this->load_external_filters($handle);
