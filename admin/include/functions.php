@@ -2064,11 +2064,11 @@ function get_hosting_technical_details()
   {
     $details = array(
       'uuid' => hash_hmac('md5', get_absolute_root_url(), $conf['secret_key']),
-      'os' => urlencode(PHP_OS),
-      'pwgversion' => urlencode(PHPWG_VERSION),
-      'phpversion' => urlencode(phpversion()),
-      'dbengine' => urlencode(DB_ENGINE),
-      'dbversion' => urlencode(pwg_get_db_version()),
+      'os' => PHP_OS,
+      'pwgversion' => PHPWG_VERSION,
+      'phpversion' => phpversion(),
+      'dbengine' => DB_ENGINE,
+      'dbversion' => pwg_get_db_version(),
     );
   }
 
