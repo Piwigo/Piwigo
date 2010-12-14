@@ -555,9 +555,6 @@ $conf['browser_language'] = true;
 // webmaster_id : webmaster'id.
 $conf['webmaster_id'] = 1;
 
-// allow to use adviser mode
-$conf['allow_adviser'] = false;
-
 // does the guest have access ?
 // (not a security feature, set your categories "private" too)
 // If false it'll be redirected from index.php to identification.php
