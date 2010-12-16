@@ -74,10 +74,10 @@ A:hover {
 }
 
 .pwg-icon {
-	background-image: url(images/s26_outline_ffffff.png);
+	background-image: url(../default/s26/outline_ffffff.png);
 }
 
 A:hover .pwg-icon {
-	background-image: url(images/s26_outline_ffff80.png);
+	background-image: url(../default/s26/outline_ffff80.png);
 }
 

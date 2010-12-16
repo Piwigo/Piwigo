@@ -2,7 +2,7 @@
 	display: block; /*IE6*/
 	display: inline-block; /*IE6 does not get it*/
 	text-indent: -99999px; overflow: hidden; background-repeat: no-repeat;
-	width: 26px; height: 26px; background-image: url(sprite.png);
+	width: 26px; height: 26px; background-image: url(s26/outline_808080.png);
 }
 .pwg-button-text { display:none; }
 
@@ -66,8 +66,5 @@ A.pwg-state-default, A.pwg-state-default:visited, A.pwg-state-default:hover {
 .pwg-icon-repeat-stop {background-position: -182px -130px}
 
 .pwg-icon-map {background-position: 0 -156px}
+.pwg-icon-globe {background-position: -26px -156px}
 
-
-A.pwg-state-default:hover {
-	border: 0 !important; /*don't add bottom border on hover*/
-}

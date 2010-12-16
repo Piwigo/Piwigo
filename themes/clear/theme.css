@@ -56,11 +56,11 @@ A, INPUT.rateButton {
 }
 
 A:hover, INPUT.rateButton:hover {
-    color: #858460;
+    color: #808060;
 }
 
-#imageToolBar A, #imageToolBar A:hover {
-    border-bottom: none;
+A.pwg-state-default {
+	border: 0;
 }
 
 A.navThumb, A.navThumb:hover {
@@ -73,5 +73,13 @@ A.navThumb, A.navThumb:hover {
   border: 1px solid silver;
 }
 
-#qsearchInput { color: #d3d3d3; }
-#qsearchInput:focus { color: #005e89; }
+#qsearchInput { color: #005e89; }
+
+.pwg-icon {
+	background-image: url(../default/s26/outline_005e89.png);
+}
+
+A:hover .pwg-icon {
+	background-image: url(../default/s26/outline_808060.png);
+}
+

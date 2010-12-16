@@ -403,11 +403,11 @@ TABLE.infoTable TD.value UL {
 }
 
 .rateButtonStarFull {
-	background: url('icon/rating-stars.gif') no-repeat scroll; background-position:-16px center; width:16px;
+	background: url('icon/rating-stars.gif') no-repeat -16px center; width:16px;
 }
 
 .rateButtonStarEmpty {
-	background: url('icon/rating-stars.gif') no-repeat scroll; background-position:0 center; width:16px;
+	background: url('icon/rating-stars.gif') no-repeat 0 center; width:16px;
 }
 
 
@@ -754,23 +754,17 @@ INPUT.radio, INPUT.checkbox {
 
 .errors { /* Errors display */
 	color: red;
-	background-color: #ffe1e1;
 	font-weight: bold;
 	margin: 5px;
 	border: 1px solid red;
-	background-image: url(icon/errors.png);
-	background-repeat: no-repeat;
-	background-position: top right;
+	background: #ffe1e1 url(icon/errors.png) no-repeat top right;
 	padding: 10px 50px 10px 10px;
 }
 
 /* Informations box */
 .infos {
 	color: #002000;
-	background-color: #98fb98; /* palegreen */
-	background-image: url(icon/infos.png);
-	background-repeat: no-repeat;
-	background-position: top right;
+	background: #98fb98 url(icon/infos.png) no-repeat top right;
 	margin: 5px;
 	padding: 10px 50px 10px 10px;
 }
