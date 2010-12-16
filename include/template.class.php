@@ -523,6 +523,12 @@ class Template {
         return;
     }
     $id = $params['id'];
+    trigger_error("known_script is deprecated $id ".@$params['src'], E_USER_WARNING);
+    if ('jquery'==$id)
+    {
+      $this->scriptLoader->add($id, 0, array(), null);
+      return;
+    }
     if (! isset( $this->known_scripts[$id] ) )
     {
       if (!isset($params['src']))

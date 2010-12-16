@@ -12,7 +12,7 @@
 <link rel="stylesheet" type="text/css" href="{$ROOT_URL}admin/themes/{$theme.id}/theme.css">
 {/foreach}
 
-<script type="text/javascript" src="themes/default/js/jquery.packed.js"></script>
+<script type="text/javascript" src="themes/default/js/jquery.min.js"></script>
 {literal}
 <script type="text/javascript">
 $(function() {
