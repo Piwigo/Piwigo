@@ -90,6 +90,12 @@ else
 $page['errors'] = array();
 $page['infos']  = array();
 
+if (isset($_SESSION['page_infos']))
+{
+  $page['infos'] = array_merge($page['infos'], $_SESSION['page_infos']);
+  unset($_SESSION['page_infos']);
+}
+
 $link_start = PHPWG_ROOT_PATH.'admin.php?page=';
 $conf_link = $link_start.'configuration&amp;section=';
 //----------------------------------------------------- template initialization

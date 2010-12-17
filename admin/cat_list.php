@@ -106,9 +106,15 @@ $navigation.= '</a>';
 if (isset($_GET['delete']) and is_numeric($_GET['delete']))
 {
   delete_categories(array($_GET['delete']));
-  array_push($page['infos'], l10n('Virtual album deleted'));
+  $_SESSION['page_infos'] = array(l10n('Virtual album deleted'));
   update_global_rank();
-  redirect(get_root_url().'admin.php?page=cat_list');
+
+  $redirect_url = get_root_url().'admin.php?page=cat_list';
+  if (isset($_GET['parent_id']))
+  {
+    $redirect_url.= '&parent_id='.$_GET['parent_id'];
+  }  
+  redirect($redirect_url);
 }
 // request to add a virtual category
 else if (isset($_POST['submitAdd']))
