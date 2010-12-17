@@ -448,6 +448,9 @@ A {
 A:hover {
 	border-bottom: 1px solid #858460;
 }
+A.pwg-state-default:hover {
+	border-bottom: 0; /*reset above for icons*/
+}
 
 IMG {
 	border: 0;

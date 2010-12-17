@@ -1,14 +1,10 @@
 .pwg-icon {
 	display: block; /*IE6*/
 	display: inline-block; /*IE6 does not get it*/
-	text-indent: -99999px; overflow: hidden; background-repeat: no-repeat;
+	text-indent: -9999px; overflow: hidden; background-repeat: no-repeat;
 	width: 26px; height: 26px; background-image: url(s26/outline_808080.png);
 }
 .pwg-button-text { display:none; }
-
-A.pwg-state-default, A.pwg-state-default:visited, A.pwg-state-default:hover {
-	text-decoration: none !important;
-}
 
 .pwg-state-disabled .pwg-icon {
 	opacity: .5;
