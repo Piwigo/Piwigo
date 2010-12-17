@@ -398,7 +398,7 @@ class Template {
           {
               $content[]=
                   '<script type="text/javascript" src="'
-                  . Template::make_script_src($script)
+                  . self::make_script_src($script)
                   .'"></script>';
           }
 
@@ -995,28 +995,28 @@ class ScriptLoader
     return array( self::do_combine($result[0],1), self::do_combine($result[1],2) );
   }
 
-	private static function do_combine($scripts, $load_mode)
-	{
-		global $conf;
-		if (count($scripts)<2 or !$conf['template_combine_files'])
-			return $scripts;
-		$combiner = new FileCombiner('js');
-		foreach ($scripts as $script)
-		{
-			if ($script->is_remote()) fatal_error("NOT IMPLEMENTED");// TODO - we cannot combine remote scripts
-			$combiner->add( $script->path, $script->version );
-		}
-		if ( $combiner->combine( $out_file, $out_version) )
-		{
-			return array( 'combi' => new Script($load_mode, 'combi', $out_file, $out_version, array() ) );
-		}
-		return null;
-	}
-	
-	// checks that if B depends on A, then B->load_mode >= A->load_mode in order to respect execution order
+  private static function do_combine($scripts, $load_mode)
+  {
+    global $conf;
+    if (count($scripts)<2 or !$conf['template_combine_files'])
+      return $scripts;
+    $combiner = new FileCombiner('js');
+    foreach ($scripts as $script)
+    {
+      if ($script->is_remote()) fatal_error("NOT IMPLEMENTED");// TODO - we cannot combine remote scripts
+      $combiner->add( $script->path, $script->version );
+    }
+    if ( $combiner->combine( $out_file, $out_version) )
+    {
+      return array( 'combi' => new Script($load_mode, 'combi', $out_file, $out_version, array() ) );
+    }
+    return null;
+  }
+  
+  // checks that if B depends on A, then B->load_mode >= A->load_mode in order to respect execution order
   private static function check_load_dep($scripts)
   {
-		global $conf;
+    global $conf;
     do
     {
       $changed = false;
@@ -1061,13 +1061,14 @@ class ScriptLoader
     }
   }
 
-  private function compute_script_topological_order($script_id)
+  private function compute_script_topological_order($script_id, $recursion_limiter=0)
   {
     if (!isset($this->registered_scripts[$script_id]))
     {
       trigger_error("Undefined script $script_id is required by someone", E_USER_WARNING);
       return 0;
     }
+    $recursion_limiter<5 or fatal_error("combined script circular dependency");
     $script = & $this->registered_scripts[$script_id];
     if (isset($script->extra['order']))
       return $script->extra['order'];
@@ -1075,7 +1076,7 @@ class ScriptLoader
       return ($script->extra['order'] = 0);
     $max = 0;
     foreach( $script->precedents as $precedent)
-      $max = max($max, $this->compute_script_topological_order($precedent) );
+      $max = max($max, $this->compute_script_topological_order($precedent, $recursion_limiter+1) );
     $max++;
     return ($script->extra['order'] = $max);
   }
@@ -1208,12 +1209,21 @@ final class FileCombiner
     $js = file_get_contents(PHPWG_ROOT_PATH . $file);
     if (strpos($file, '.min')===false and strpos($file, '.packed')===false )
     {
-      //TODO minify javascript with some php lib from www...
+      require_once(PHPWG_ROOT_PATH.'include/jsmin.class.php');
+      try { $js = JSMin::minify($js); } catch(Exception $e) {}
     }
     return $js;
   }
   
   private static function process_css($file)
+  {
+    $css = self::process_css_rec($file);
+    require_once(PHPWG_ROOT_PATH.'include/cssmin.class.php');
+    $css = CssMin::minify($css, array('emulate-css3-variables'=>false));
+    return $css;
+  }
+  
+  private static function process_css_rec($file)
   {
     static $PATTERN = "#url\(\s*['|\"]{0,1}(.*?)['|\"]{0,1}\s*\)#";
     $css = file_get_contents(PHPWG_ROOT_PATH . $file);
@@ -1239,7 +1249,7 @@ final class FileCombiner
       foreach ($matches as $match)
       {
         $search[] = $match[0];
-        $replace[] = self::process_css(dirname($file) . "/$match[1]");
+        $replace[] = self::process_css_rec(dirname($file) . "/$match[1]");
       }
       $css = str_replace($search, $replace, $css);
     }
