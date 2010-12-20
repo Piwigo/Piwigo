@@ -754,4 +754,17 @@ $lang['Order of menubar items has been updated successfully.'] = 'Die Reihenfolg
 $lang['This theme was not designed to be directly activated'] = 'Dieses Layout kann nicht direkt aktiviert werden';
 $lang['Pending Comments'] = 'Freizugebende Kommentare';
 $lang['Menu Management'] = 'Menü';
+$lang['Note: photo deletion does not apply to photos added by synchronization. For photos added by synchronization, remove them from the filesystem and then perform another synchronization.'] = 'Hinweis: Fotos entfernen funktioniert nicht bei Fotos, die durch Synchonisation hinzugefügt wurden (per FTP hochgeldaen). Um diese Bilder zu entfernen, löschen sie diese aus dem Dateisystem und führen Sie eine erneute Synchronisation durch.';
+$lang['In your php.ini file, the upload_max_filesize (%sB) is bigger than post_max_size (%sB), you should change this setting'] = 'In Ihrer php.ini Datei ist der upload_max_filesize (%sB) größer als post_max_size (%sB), Sie sollten diese Einstellung ändern';
+$lang['Exif extension not available, admin should disable exif use'] = 'Exif Erweiterung nicht verfügbar, der Admin sollte die Exif-Verwendung deaktivieren';
+$lang['The uploaded file exceeds the upload_max_filesize directive in php.ini: %sB'] = 'Die hochgeladene Datei überschreitet die upload_max_filesize Einstellung in der php.ini: %sB';
+$lang['The uploaded files exceed the post_max_size directive in php.ini: %sB'] = 'Die hochgeladenen Dateien überschreiten die post_max_size Einstellung in php.ini: %sB';
+$lang['The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form'] = 'Die hochgeladene Datei überschreitet die MAX_FILE_SIZE Einstellung, die in der HTML-Form angegeben wurde';
+$lang['The uploaded file was only partially uploaded'] = 'Die hochgeladene Datei wurde nur teilweise übertragen';
+$lang['No file was uploaded'] = 'Keine Datei wurde hochgeladen';
+$lang['Missing a temporary folder'] = 'Ein temporärer Ordner wird vermisst';
+$lang['Failed to write file to disk'] = 'Es ist nicht möglich die Datei zu schreiben';
+$lang['File upload stopped by extension'] = 'Das Hochladen der Datei wurde infolgedessen gestoppt';
+$lang['Unknown upload error'] = 'Unbekannter Fehler beim hochladen';
+$lang['Error on file "%s" : %s'] = 'Fehler bei Datei "%s" : %s';
 ?>
