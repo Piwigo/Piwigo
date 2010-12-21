@@ -18,8 +18,8 @@ include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
 // 4) register in database
 
 // add default event handler for image and thumbnail resize
-add_event_handler('upload_image_resize', 'pwg_image_resize', EVENT_HANDLER_PRIORITY_NEUTRAL, 6);
-add_event_handler('upload_thumbnail_resize', 'pwg_image_resize', EVENT_HANDLER_PRIORITY_NEUTRAL, 6);
+add_event_handler('upload_image_resize', 'pwg_image_resize', EVENT_HANDLER_PRIORITY_NEUTRAL, 7);
+add_event_handler('upload_thumbnail_resize', 'pwg_image_resize', EVENT_HANDLER_PRIORITY_NEUTRAL, 7);
 
 function add_uploaded_file($source_filepath, $original_filename=null, $categories=null, $level=null)
 {
@@ -74,13 +74,15 @@ function add_uploaded_file($source_filepath, $original_filename=null, $categorie
     rename($file_path, $high_path);
     $high_infos = pwg_image_infos($high_path);
     
-    trigger_event('upload_image_resize',
+    trigger_event(
+      'upload_image_resize',
       false,
       $high_path,
       $file_path,
       $conf['upload_form_websize_maxwidth'],
       $conf['upload_form_websize_maxheight'],
-      $conf['upload_form_websize_quality']
+      $conf['upload_form_websize_quality'],
+      false
       );
   }
 
@@ -90,13 +92,15 @@ function add_uploaded_file($source_filepath, $original_filename=null, $categorie
   $thumb_dir = dirname($thumb_path);
   prepare_directory($thumb_dir);
   
-  trigger_event('upload_thumbnail_resize',
+  trigger_event(
+    'upload_thumbnail_resize',
     false,
     $file_path,
     $thumb_path,
     $conf['upload_form_thumb_maxwidth'],
     $conf['upload_form_thumb_maxheight'],
-    $conf['upload_form_thumb_quality']
+    $conf['upload_form_thumb_quality'],
+    true
     );
   
   $thumb_infos = pwg_image_infos($thumb_path);
@@ -238,7 +242,7 @@ function get_resize_dimensions($width, $height, $max_width, $max_height, $rotati
     );
 }
 
-function pwg_image_resize($result, $source_filepath, $destination_filepath, $max_width, $max_height, $quality)
+function pwg_image_resize($result, $source_filepath, $destination_filepath, $max_width, $max_height, $quality, $strip_metadata=false)
 {
   if ($result !== false)
   {
@@ -246,6 +250,18 @@ function pwg_image_resize($result, $source_filepath, $destination_filepath, $max
     return $result;
   }
 
+  if (extension_loaded('imagick'))
+  {
+    return pwg_image_resize_im($source_filepath, $destination_filepath, $max_width, $max_height, $quality, $strip_metadata);
+  }
+  else
+  {
+    return pwg_image_resize_gd($source_filepath, $destination_filepath, $max_width, $max_height, $quality);
+  }
+}
+
+function pwg_image_resize_gd($source_filepath, $destination_filepath, $max_width, $max_height, $quality)
+{
   if (!function_exists('gd_info'))
   {
     return false;
@@ -271,23 +287,7 @@ function pwg_image_resize($result, $source_filepath, $destination_filepath, $max
   $rotation = null;
   if (function_exists('imagerotate'))
   {
-    $exif = exif_read_data($source_filepath);
-    if (isset($exif['Orientation']) and preg_match('/^\s*(\d)/', $exif['Orientation'], $matches))
-    {
-      $orientation = $matches[1];
-      if (in_array($orientation, array(3, 4)))
-      {
-        $rotation = 180;
-      }
-      elseif (in_array($orientation, array(5, 6)))
-      {
-        $rotation = 270;
-      }
-      elseif (in_array($orientation, array(7, 8)))
-      {
-        $rotation = 90;
-      }
-    }
+    $rotation = get_rotation_angle($source_filepath);
   }
   
   // width/height
@@ -341,6 +341,89 @@ function pwg_image_resize($result, $source_filepath, $destination_filepath, $max
 
   // everything should be OK if we are here!
   return true;
+}
+
+function pwg_image_resize_im($source_filepath, $destination_filepath, $max_width, $max_height, $quality, $strip_metadata=false)
+{
+  // extension of the picture filename
+  $extension = strtolower(get_extension($source_filepath));
+  if (!in_array($extension, array('jpg', 'jpeg', 'png')))
+  {
+    die('[Imagick] unsupported file extension');
+  }
+
+  $image = new Imagick($source_filepath);
+
+  $rotation = null;
+  if (function_exists('imagerotate'))
+  {
+    $rotation = get_rotation_angle($source_filepath);
+  }
+  
+  // width/height
+  $source_width  = $image->getImageWidth();
+  $source_height = $image->getImageHeight();
+  
+  $resize_dimensions = get_resize_dimensions($source_width, $source_height, $max_width, $max_height, $rotation);
+
+  // testing on height is useless in theory: if width is unchanged, there
+  // should be no resize, because width/height ratio is not modified.
+  if ($resize_dimensions['width'] == $source_width and $resize_dimensions['height'] == $source_height)
+  {
+    // the image doesn't need any resize! We just copy it to the destination
+    copy($source_filepath, $destination_filepath);
+    return true;
+  }
+
+  $image->setImageCompressionQuality($quality);
+  $image->setInterlaceScheme(Imagick::INTERLACE_LINE);
+  
+  if ($strip_metadata)
+  {
+    // we save a few kilobytes. For example a thumbnail with metadata
+    // weights 25KB, without metadata 7KB.
+    $image->stripImage();
+  }
+  
+  $image->resizeImage($resize_dimensions['width'], $resize_dimensions['height'], Imagick::FILTER_LANCZOS, 0.9);
+
+  if (isset($rotation))
+  {
+    $image->rotateImage(new ImagickPixel(), -$rotation);
+    $image->setImageOrientation(Imagick::ORIENTATION_TOPLEFT);
+  }
+
+  $image->writeImage($destination_filepath);
+  $image->destroy();
+
+  // everything should be OK if we are here!
+  return true;
+}
+
+function get_rotation_angle($source_filepath)
+{
+  $rotation = null;
+  
+  $exif = exif_read_data($source_filepath);
+  
+  if (isset($exif['Orientation']) and preg_match('/^\s*(\d)/', $exif['Orientation'], $matches))
+  {
+    $orientation = $matches[1];
+    if (in_array($orientation, array(3, 4)))
+    {
+      $rotation = 180;
+    }
+    elseif (in_array($orientation, array(5, 6)))
+    {
+      $rotation = 270;
+    }
+    elseif (in_array($orientation, array(7, 8)))
+    {
+      $rotation = 90;
+    }
+  }
+
+  return $rotation;
 }
 
 function pwg_image_infos($path)
