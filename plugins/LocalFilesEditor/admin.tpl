@@ -63,12 +63,14 @@ function unloadEditarea() {ldelim}
   {/if}
 {/if}
 
+{if !empty($show_default)}
 {foreach from=$show_default item=file name=default_loop}
 <span class="top_right">
 <a href="{$file.SHOW_DEFAULT}" onclick="window.open( this.href, 'local_file', 'location=no,toolbar=no,menubar=no,status=no,resizable=yes,scrollbars=yes,width=800,height=600' ); return false;">{'locfiledit_show_default'|@translate} "{$file.FILE}"</a>
 </span>
 {if !($smarty.foreach.default_loop.last)}<br>{/if}
 {/foreach}
+{/if}
 
 {if isset ($zone_edit)}
 <b>{$zone_edit.FILE_NAME}</b>
