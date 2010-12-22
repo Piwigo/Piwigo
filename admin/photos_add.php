@@ -103,6 +103,43 @@ $upload_form_config = array(
     'can_be_null' => false,
     'error_message' => l10n('The thumbnail image quality must be a number between %d and %d'),
     ),
+  
+  'hd_keep' => array(
+    'default' => true,
+    'can_be_null' => false,
+    ),
+  
+  'hd_resize' => array(
+    'default' => false,
+    'can_be_null' => false,
+    ),
+  
+  'hd_maxwidth' => array(
+    'default' => 2000,
+    'min' => 500,
+    'max' => 20000,
+    'pattern' => '/^\d+$/',
+    'can_be_null' => false,
+    'error_message' => l10n('The high definition maximum width must be a number between %d and %d'),
+    ),
+  
+  'hd_maxheight' => array(
+    'default' => 2000,
+    'min' => 500,
+    'max' => 20000,
+    'pattern' => '/^\d+$/',
+    'can_be_null' => false,
+    'error_message' => l10n('The high definition maximum height must be a number between %d and %d'),
+    ),
+  
+  'hd_quality' => array(
+    'default' => 95,
+    'min' => 50,
+    'max' => 100,
+    'pattern' => '/^\d+$/',
+    'can_be_null' => false,
+    'error_message' => l10n('The high definition image quality must be a number between %d and %d'),
+    ),
   );
 
 $inserts = array();

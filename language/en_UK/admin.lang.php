@@ -764,4 +764,9 @@ $lang['Menu Management'] = 'Menus';
 $lang['automatic order'] = 'automatic order';
 $lang['manual order'] = 'manual order';
 $lang['Albums automatically sorted'] = 'Albums automatically sorted';
+
+$lang['Keep high definition'] = 'Keep high definition';
+$lang['The high definition maximum width must be a number between %d and %d'] = 'The high definition maximum width must be a number between %d and %d';
+$lang['The high definition maximum height must be a number between %d and %d'] = 'The high definition maximum height must be a number between %d and %d';
+$lang['The high definition image quality must be a number between %d and %d'] = 'The high definition image quality must be a number between %d and %d';
 ?>

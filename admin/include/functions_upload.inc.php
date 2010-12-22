@@ -84,6 +84,33 @@ function add_uploaded_file($source_filepath, $original_filename=null, $categorie
       $conf['upload_form_websize_quality'],
       false
       );
+
+    if (is_imagick())
+    {
+      if ($conf['upload_form_hd_keep'])
+      {
+        $need_resize = need_resize($high_path, $conf['upload_form_hd_maxwidth'], $conf['upload_form_hd_maxheight']);
+        
+        if ($conf['upload_form_hd_resize'] and $need_resize)
+        {
+          pwg_image_resize(
+            false,
+            $high_path,
+            $high_path,
+            $conf['upload_form_hd_maxwidth'],
+            $conf['upload_form_hd_maxheight'],
+            $conf['upload_form_hd_quality'],
+            false
+            );
+          $high_infos = pwg_image_infos($high_path);
+        }
+      }
+      else
+      {
+        unlink($high_path);
+        $high_infos = null;
+      }
+    }
   }
 
   $file_infos = pwg_image_infos($file_path);
@@ -250,7 +277,7 @@ function pwg_image_resize($result, $source_filepath, $destination_filepath, $max
     return $result;
   }
 
-  if (extension_loaded('imagick'))
+  if (is_imagick())
   {
     return pwg_image_resize_im($source_filepath, $destination_filepath, $max_width, $max_height, $quality, $strip_metadata);
   }
@@ -519,5 +546,15 @@ function add_upload_error($upload_id, $error_message)
   }
 
   array_push($_SESSION['uploads_error'][$upload_id], $error_message);
+}
+
+function is_imagick()
+{
+  if (extension_loaded('imagick'))
+  {
+    return true;
+  }
+
+  return false;
 }
 ?>

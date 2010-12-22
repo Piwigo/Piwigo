@@ -1,20 +1,48 @@
 {literal}
 <script type="text/javascript">
 $(document).ready(function(){
-  function toggleResizeFields() {
-    var checkbox = $("#websize_resize");
-    var needToggle = $("input[name^=websize_]").not(checkbox).parents('tr');
+  function toggleResizeFields(prefix) {
+    var checkbox = $("#"+prefix+"_resize");
+    var needToggle = $("input[name^="+prefix+"_]").not(checkbox).not($("#hd_keep")).parents('tr');
+
 
     if ($(checkbox).is(':checked')) {
       needToggle.show();
+
+      if (prefix == "websize") {
+        $("#hd_keep").parents("fieldset").show();
+      }
+    }
+    else {
+      needToggle.hide();
+
+      if (prefix == "websize") {
+        $("#hd_keep").parents("fieldset").hide();
+      }
+    }
+  }
+
+  toggleResizeFields("websize");
+  $("#websize_resize").click(function () {toggleResizeFields("websize")});
+
+  toggleResizeFields("hd");
+  $("#hd_resize").click(function () {toggleResizeFields("hd")});
+
+  function toggleHdFields() {
+    var checkbox = $("#hd_keep");
+    var needToggle = $("input[name^=hd_]").not(checkbox).parents('tr');
+
+    if ($(checkbox).is(':checked')) {
+      needToggle.show();
+      toggleResizeFields("hd");
     }
     else {
       needToggle.hide();
     }
   }
 
-  toggleResizeFields();
-  $("#websize_resize").click(function () {toggleResizeFields()});
+  toggleHdFields();
+  $("#hd_keep").click(function () {toggleHdFields()});
 });
 </script>
 {/literal}
@@ -68,6 +96,35 @@ $(document).ready(function(){
       </tr>
     </table>
   </fieldset>
+
+{if $MANAGE_HD}
+  <fieldset>
+    <legend>{'High definition'|@translate}</legend>
+
+    <table>
+      <tr>
+        <th><label for="hd_keep">{'Keep high definition'|@translate}</label></th>
+        <td><input type="checkbox" name="hd_keep" id="hd_keep" {$values.hd_keep}></td>
+      </tr>
+      <tr>
+        <th><label for="hd_resize">{'Resize'|@translate}</label></th>
+        <td><input type="checkbox" name="hd_resize" id="hd_resize" {$values.hd_resize}></td>
+      </tr>
+      <tr>
+        <th>{'Maximum Width'|@translate}</th>
+        <td><input type="text" name="hd_maxwidth" value="{$values.hd_maxwidth}" size="4" maxlength="4"> {'pixels'|@translate}</td>
+      </tr>
+      <tr>
+        <th>{'Maximum Height'|@translate}</th>
+        <td><input type="text" name="hd_maxheight" value="{$values.hd_maxheight}" size="4" maxlength="4"> {'pixels'|@translate}</td>
+      </tr>
+      <tr>
+        <th>{'Image Quality'|@translate}</th>
+        <td><input type="text" name="hd_quality" value="{$values.hd_quality}" size="3" maxlength="3"> %</td>
+      </tr>
+    </table>
+  </fieldset>
+{/if}
 
   <p>
     <input class="submit" type="submit" name="submit" value="{'Save Settings'|@translate}"/>

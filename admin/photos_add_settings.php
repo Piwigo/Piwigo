@@ -45,26 +45,32 @@ if (isset($_POST['submit']))
   // let's care about the specific checkbox that disable/enable other
   // settings
   $field = 'websize_resize';
+  $fields[] = $field;
   
-  if (empty($_POST[$field]))
-  {
-    $value = false;
-  }
-  else
+  if (!empty($_POST[$field]))
   {
     $fields[] = 'websize_maxwidth';
     $fields[] = 'websize_maxheight';
     $fields[] = 'websize_quality';
+  }
 
-    $value = true;
+  // hd_keep
+  $field = 'hd_keep';
+  $fields[] = $field;
+  
+  if (!empty($_POST[$field]))
+  {
+    $field = 'hd_resize';
+    $fields[] = $field;
+    
+    if (!empty($_POST[$field]))
+    {
+      $fields[] = 'hd_maxwidth';
+      $fields[] = 'hd_maxheight';
+      $fields[] = 'hd_quality';
+    }
   }
   
-  $updates[] = array(
-    'param' => 'upload_form_'.$field,
-    'value' => boolean_to_string($value),
-    );
-  $form_values[$field] = $value;;
-
   // and now other fields, processed in a generic way
   $fields[] = 'thumb_maxwidth';
   $fields[] = 'thumb_maxheight';
@@ -77,9 +83,24 @@ if (isset($_POST['submit']))
     {
       $value = $_POST[$field];
     }
-    $form_values[$field] = $value;
     
-    if ($upload_form_config[$field]['can_be_null'] and empty($value))
+    if (is_bool($upload_form_config[$field]['default']))
+    {
+      if (isset($value))
+      {
+        $value = true;
+      }
+      else
+      {
+        $value = false;
+      }
+
+      $updates[] = array(
+        'param' => 'upload_form_'.$field,
+        'value' => boolean_to_string($value)
+        );
+    }
+    elseif ($upload_form_config[$field]['can_be_null'] and empty($value))
     {
       $updates[] = array(
         'param' => 'upload_form_'.$field,
@@ -111,6 +132,8 @@ if (isset($_POST['submit']))
           );
       }
     }
+    
+    $form_values[$field] = $value;
   }
 
   if (count($page['errors']) == 0)
@@ -135,13 +158,18 @@ if (isset($_POST['submit']))
 // |                             template init                             |
 // +-----------------------------------------------------------------------+
 
-// specific case, "websize_resize" is a checkbox
-$field = 'websize_resize';
-$form_values[$field] = $form_values[$field] ? 'checked="checked"' : '';
+foreach (array_keys($upload_form_config) as $field)
+{
+  if (is_bool($upload_form_config[$field]['default']))
+  {
+    $form_values[$field] = $form_values[$field] ? 'checked="checked"' : '';
+  }
+}
 
 $template->assign(
     array(
       'F_ADD_ACTION'=> PHOTOS_ADD_BASE_URL,
+      'MANAGE_HD' => is_imagick(),
       'values' => $form_values
     )
   );
