@@ -769,4 +769,9 @@ $lang['Menu Management'] = 'Menu';
 $lang['automatic order'] = 'Ordinamento automatico';
 $lang['manual order'] = 'Ordinamento manuel';
 $lang['Albums automatically sorted'] = 'Le categorie sono state ordinate automaticamente';
+
+$lang['Keep high definition'] = 'Mantenere l\'alta definizione';
+$lang['The high definition maximum width must be a number between %d and %d'] = 'La larghezza massima per l\'HD deve essere un numero compreso tra %d e %d';
+$lang['The high definition maximum height must be a number between %d and %d'] = 'L\'altezza massima per l\'HD deve essere un numero compreso tra %d e %d';
+$lang['The high definition image quality must be a number between %d and %d'] = 'La qualità dell\'immagine per l\'alta definizione deve essere un numero compreso tra %d e %d';
 ?>
