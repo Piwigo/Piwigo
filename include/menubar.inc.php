@@ -41,7 +41,7 @@ function initialize_menu()
 //--------------------------------------------------------------- external links
   if ( ($block=$menu->get_block('mbLinks')) and !empty($conf['links']) )
   {
-    $data = array();
+    $block->data = array();
     foreach ($conf['links'] as $url => $url_data)
     {
       if (!is_array($url_data))
@@ -69,11 +69,13 @@ function initialize_menu()
               'FEATURES' => (isset($url_data['nw_features']) ? $url_data['nw_features'] : '')
             );
         }
-        $data[] = $tpl_var;
+        $block->data[] = $tpl_var;
       }
     }
-    $block->template = 'menubar_links.tpl';
-    $block->data = $data;
+    if ( !empty($block->data) )
+    {
+      $block->template = 'menubar_links.tpl';
+    }
   }
 
 //-------------------------------------------------------------- categories
