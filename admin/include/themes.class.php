@@ -456,7 +456,7 @@ SELECT
     $version = PHPWG_VERSION;
     $versions_to_check = array();
     $url = PEM_URL . '/api/get_version_list.php';
-    if (fetchRemote($url, $result, $get_data, get_hosting_technical_details()) and $pem_versions = @unserialize($result))
+    if (fetchRemote($url, $result, $get_data) and $pem_versions = @unserialize($result))
     {
       if (!preg_match('/^\d+\.\d+\.\d+/', $version))
       {
