@@ -1,0 +1,1 @@
+Editácia lokálnych súborov z panelu administrátora.
