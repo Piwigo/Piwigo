@@ -52,11 +52,16 @@ DELETE FROM '.SITES_TABLE.'
 
 // The function delete_categories deletes the categories identified by the
 // (numeric) key of the array $ids. It also deletes (in the database) :
-//    - all the elements of the category (delete_elements, see further)
+//    - all the elements physically linked to the category (delete_elements, see further)
 //    - all the links between elements and this category
 //    - all the restrictions linked to the category
 // The function works recursively.
-function delete_categories($ids)
+//
+// the $photo_deletion_mode is for photos virtually linked to the categorty
+//   * no_delete : delete no photo, may create orphans
+//   * delete_orphans : delete photos that are no longer linked to any category
+//   * force_delete : delete photos even if they are linked to another category
+function delete_categories($ids, $photo_deletion_mode='no_delete')
 {
   if (count($ids) == 0)
   {
@@ -67,7 +72,7 @@ function delete_categories($ids)
   // sub-categories must be so
   $ids = get_subcat_ids($ids);
 
-  // destruction of all the related elements
+  // destruction of all photos physically linked to the category
   $query = '
 SELECT id
   FROM '.IMAGES_TABLE.'
@@ -81,6 +86,38 @@ SELECT id
     array_push($element_ids, $row['id']);
   }
   delete_elements($element_ids);
+
+  // now, should we delete photos that are virtually linked to the category?
+  if ('delete_orphans' == $photo_deletion_mode or 'force_delete' == $photo_deletion_mode)
+  {
+    $query = '
+SELECT
+    DISTINCT(image_id)
+  FROM '.IMAGE_CATEGORY_TABLE.'
+  WHERE category_id IN ('.implode(',', $ids).')
+;';
+    $image_ids_linked = array_from_query($query, 'image_id');
+    
+    if ('delete_orphans' == $photo_deletion_mode)
+    {
+      $query = '
+SELECT
+    DISTINCT(image_id)
+  FROM '.IMAGE_CATEGORY_TABLE.'
+  WHERE image_id IN ('.implode(',', $image_ids_linked).')
+    AND category_id NOT IN ('.implode(',', $ids).')
+;';
+      $image_ids_not_orphans = array_from_query($query, 'image_id');
+      $image_ids_to_delete = array_diff($image_ids_linked, $image_ids_not_orphans);
+    }
+
+    if ('force_delete' == $photo_deletion_mode)
+    {
+      $image_ids_to_delete = $image_ids_linked;
+    }
+
+    delete_elements($image_ids_to_delete, true);
+  }
 
   // destruction of the links between images and this category
   $query = '
