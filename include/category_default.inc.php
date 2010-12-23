@@ -123,6 +123,7 @@ foreach ($pictures as $row)
       'FILE_SIZE' => $row['filesize'],
       'FILE_WIDTH' => $row['width'],
       'FILE_HEIGHT' => $row['height'],
+	  'FILE_RAGE' => $row['average_rate'],
       'FILE_METADATE' => $row['date_metadata_update'],
       'FILE_HAS_HD' => ($row['has_high'] and $user['enabled_high']=='true') ?
                 true:false, /* lack of include/functions_picture.inc.php */
