@@ -2464,4 +2464,79 @@ function ws_images_checkUpload($params, &$service)
   
   return $ret;
 }
+
+function ws_plugins_getList($params, &$service)
+{
+  global $conf;
+  
+  if (!is_admin())
+  {
+    return new PwgError(401, 'Access denied');
+  }
+
+  include_once(PHPWG_ROOT_PATH.'admin/include/plugins.class.php');
+  $plugins = new plugins();
+  $plugins->sort_fs_plugins('name');
+  $plugin_list = array();
+
+  foreach($plugins->fs_plugins as $plugin_id => $fs_plugin)
+  {
+    if (isset($plugins->db_plugins_by_id[$plugin_id]))
+    {
+      $state = $plugins->db_plugins_by_id[$plugin_id]['state'];
+    }
+    else
+    {
+      $state = 'uninstalled';
+    }
+
+    array_push(
+      $plugin_list,
+      array(
+        'id' => $plugin_id,
+        'name' => $fs_plugin['name'],
+        'version' => $fs_plugin['version'],
+        'state' => $state,
+        'description' => $fs_plugin['description'],
+        )
+      );
+  }
+
+  return $plugin_list;
+}
+
+function ws_plugins_performAction($params, &$service)
+{
+  global $template;
+  
+  if (!is_admin())
+  {
+    return new PwgError(401, 'Access denied');
+  }
+
+  if (empty($params['pwg_token']) or get_pwg_token() != $params['pwg_token'])
+  {
+    return new PwgError(403, 'Invalid security token');
+  }
+
+  define('IN_ADMIN', true);
+  include_once(PHPWG_ROOT_PATH.'admin/include/plugins.class.php');
+  $plugins = new plugins();
+  $errors = $plugins->perform_action($params['action'], $params['plugin']);
+
+  
+  if (!empty($errors))
+  {
+    return new PwgError(500, $errors);
+  }
+  else
+  {
+    if (in_array($params['action'], array('activate', 'deactivate')))
+    {
+      $template->delete_compiled_templates();
+    }
+    return true;
+  }
+}
+
 ?>

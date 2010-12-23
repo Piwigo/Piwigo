@@ -368,6 +368,26 @@ function ws_addDefaultMethods( $arr )
       ),
     'POST method only.'
     );
+  
+  $service->addMethod(
+    'pwg.plugins.getList',
+    'ws_plugins_getList',
+    array(),
+    'get the list of plugin with id, name, version, state and description
+<br>administration status required'
+    );
+
+  $service->addMethod(
+    'pwg.plugins.performAction',
+    'ws_plugins_performAction',
+    array(
+      'action' => array('default' => null),
+      'plugin' => array('default' => null),
+      'pwg_token' => array('default' => null),
+      ),
+    'install/activate/deactivate/uninstall/delete a plugin
+<br>administration status required'
+    );
 }
 
 add_event_handler('ws_add_methods', 'ws_addDefaultMethods');
