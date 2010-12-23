@@ -35,7 +35,7 @@ $lang['Perform a maintenance check in [Administration>Tools>Maintenance] if you 
 $lang['As a precaution, following plugins have been deactivated. You must check for plugins upgrade before reactiving them:'] = "Piesardzības nolūkos tiek atslēgti sekojoši spraudņi. Pirms tos atkal pieslēgt, pārbaudiet vai nav pieejami to uzlabojumi:";
 $lang['Only administrator can run upgrade: please sign in below.'] = "Uzlabojumu var veikt tikai administrators: lūdzu veiciet pierakstīšanos zemāk.";
 $lang['You do not have access rights to run upgrade'] = "Jums nav pieejas tiesību, lai veiktu uzlabojumu";
-$lang['All sub-categories of private categories become private'] = "Visas privāto kategoriju apakškategorijas kļūst privātas";
+$lang['All sub-albums of private albums become private'] = 'Visi privātā albūma apakšalbūmi kļūst privāti';
 $lang['User permissions and group permissions have been erased'] = "Lietotāju un grupu piekļuves tiesības ir izdzēstas";
 $lang['Only thumbnails prefix and webmaster mail address have been saved from previous configuration'] = "No iepriekšējās konfigurācijas ir saglabāti tikai sīkbilžu prefiksi un webmāstera e-pasta adreses";
 $lang['In <i>%s</i>, before <b>?></b>, insert:'] = 'In <i>%s</i>, before <b>?></b>, insert:';

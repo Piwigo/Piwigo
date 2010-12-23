@@ -33,7 +33,7 @@ $lang['Perform a maintenance check in [Administration>Tools>Maintenance] if you 
 $lang['As a precaution, following plugins have been deactivated. You must check for plugins upgrade before reactiving them:'] = "Bir önlem olarak, asagidaki eklentiler devre disi olmustur.Onlari aktif etmeden önce eklentileri yükseltme için kontrol etmelisiniz";
 $lang['Only administrator can run upgrade: please sign in below.'] = "Sadece yönetici güncelleme çalistirabilir: Asagidan giris yapin.";
 $lang['You do not have access rights to run upgrade'] = "Güncelleme çalistirmak için yetkiniz yok";
-$lang['All sub-categories of private categories become private'] = "Özel kategorilerin tüm alt kategorileri de özel olur";
+$lang['All sub-albums of private albums become private'] = 'Ã–zel albÃ¼mlerin alt albÃ¼mleri de Ã¶zel olur';
 $lang['User permissions and group permissions have been erased'] = "Kullanicilar ve gruplarin izinleri silinmistir";
 $lang['Only thumbnails prefix and webmaster mail address have been saved from previous configuration'] = "Sadece küçük resim ön eki ve site yöneticisi posta adresiniz önceki yapilandirman kaydedili";
 $lang['In <i>%s</i>, before <b>?></b>, insert:'] = '<i>%s</i> içine, <b>?></b> önce, ekleyin:';
