@@ -2036,24 +2036,4 @@ function get_fckb_tag_ids($raw_tags)
 
   return $tag_ids;
 }
-
-function get_hosting_technical_details()
-{
-  global $conf;
-
-  $details = array();
-  if ($conf['send_hosting_technical_details'] and $_SERVER['HTTP_HOST'] != 'localhost')
-  {
-    $details = array(
-      'uuid' => hash_hmac('md5', get_absolute_root_url(), $conf['secret_key']),
-      'os' => PHP_OS,
-      'pwgversion' => PHPWG_VERSION,
-      'phpversion' => phpversion(),
-      'dbengine' => DB_ENGINE,
-      'dbversion' => pwg_get_db_version(),
-    );
-  }
-
-  return $details;
-}
 ?>
