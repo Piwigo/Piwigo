@@ -64,17 +64,17 @@
 }
 
 /* quickconnect form */
-FORM#quickconnect {
+#quickconnect {
 	margin: 5px;
 	padding: 0;
 }
 
-FORM#quickconnect FIELDSET {
+#quickconnect FIELDSET {
 	margin: 0;
 	padding: 0; /*IE6 requires padding 0*/
 }
 
-FORM#quickconnect FIELDSET DIV {
+#quickconnect FIELDSET DIV {
 	margin: 8px 5px;
 	padding: 0;
 }
@@ -117,7 +117,7 @@ FORM#quickconnect FIELDSET DIV {
 	font-size: 110%;
 }
 
-.content DIV.titrePage {
+.content .titrePage {
 	padding: 0 0 3px;
 }
 
@@ -215,7 +215,7 @@ TD.calDayHead {
 }
 
 /* Category thumbnails on main page, CSS code inspired from MOD subcatify */
-.content UL.thumbnailCategories {
+UL.thumbnailCategories {
 	margin: 0;
 	padding: 0;
 	list-style: none;
@@ -223,25 +223,25 @@ TD.calDayHead {
 	width: 100%;
 }
 
-.content UL.thumbnailCategories LI {
+UL.thumbnailCategories LI {
 	margin:0;
 	padding:0;
 	float:left;
 }
 
-.content DIV.thumbnailCategory {
+.thumbnailCategory {
 	display:block;
 	padding: 2px 0 0 2px;
 	margin: 5px;
 }
 
-.content DIV.thumbnailCategory DIV.description {
+.thumbnailCategory .description {
 	font-size: 90%;
 	overflow: auto;
 	/*width: inherit;*/
 }
 
-.content DIV.thumbnailCategory DIV.description H3 {
+.thumbnailCategory .description H3 {
 	text-align: left;
 	background: transparent;
 	margin: 0;
@@ -249,11 +249,11 @@ TD.calDayHead {
 	font-size: 120%;
 }
 
-.content DIV.thumbnailCategory DIV.description P {
+.thumbnailCategory .description P {
 	margin: 0;
 }
 
-.content DIV.thumbnailCategory DIV.illustration {
+.thumbnailCategory DIV.illustration {
 	text-align: left;
 	margin: 2px 0 0 2px;
 	float: left;
@@ -261,12 +261,12 @@ TD.calDayHead {
 
 
 /* User comments */
-DIV#comments {
+#comments {
 	padding-left: 5px;
 	padding-right: 5px;
 }
 
-DIV#comments DIV.description {
+#comments .description {
 	font-size: 100%;
 }
 
@@ -383,8 +383,6 @@ TABLE.infoTable TD.value UL {
 	padding: 0 0 0 1.5em;
 	list-style-type: square;
 }
-
-.thumbnailCategories LI { list-style: none; }
 
 .rateButton, .rateButtonSelected, .rateButtonStarFull, .rateButtonStarEmpty  {
 	padding:0;
@@ -676,7 +674,7 @@ TABLE.tagLetterContent {
 
 #theHeader {text-align: center;}
 
-.content #comments UL.thumbnailCategories LI { width:99%; }
+#comments UL.thumbnailCategories LI { width:99%; }
 
 /* jQuery datepicker */
 IMG.ui-datepicker-trigger {
@@ -687,17 +685,17 @@ IMG.ui-datepicker-trigger {
 UL.thumbnails SPAN,
 UL.thumbnails SPAN.wrap2 A,
 UL.thumbnails LABEL,
-.content DIV.thumbnailCategory DIV.illustration {
+.thumbnailCategory DIV.illustration {
   width: 140px;      /* max thumbnail width + 2px */
 }
 UL.thumbnails SPAN.wrap2,
-.content DIV.thumbnailCategory DIV.description {
+.content .thumbnailCategory .description {
   height: 140px;    /* max thumbnail height + 2px */
 }
 
 
 /* Category thumbnails on main page */
-.content UL.thumbnailCategories LI {
+UL.thumbnailCategories LI {
   width: 49.7%;    /* 49.7% for 2 per line, 33.2% for 3 per line*/
 }
 

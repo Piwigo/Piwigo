@@ -1,7 +1,7 @@
-.content div.thumbnailCategory div.illustration { 
+.content .thumbnailCategory div.illustration { 
 	width:165px !important; /* Usable range 162px-360px , optimal : Thumbnail width + 40px */ 
 }
-#comments div.thumbnailCategory div.illustration { 
+#comments .thumbnailCategory div.illustration { 
 	width:220px !important; /* Usable range 219px-360px , optimal : Thumbnail width + 95px */ 
 }
 #comments .thumbnailCategories hr {display:none;}
@@ -196,7 +196,7 @@ BODY {
 	margin: 0; 
 	padding:0; 
 }
-.content div.thumbnailCategory { 
+.content .thumbnailCategory { 
 	background:transparent url(images/cat_bottom-left.gif) no-repeat scroll left bottom; 
 	padding: 0 0 2px; 
 	margin:0; 
@@ -211,24 +211,24 @@ BODY {
 	margin: 0; 
 	padding:20px 0 0 8px; 
 }
-.content .thumbnailCategory div.description { 
+.content .thumbnailCategory .description { 
 	background:transparent url(images/cat_top-right.gif) no-repeat scroll right top;
 	margin: 0; 
 	padding:15px 10px 3px 0; 
 	overflow-x: hidden !important; 
 }
-.content .thumbnailCategory div.description .text { 
+.content .thumbnailCategory .description .text { 
 	display:block; 
 	margin:10px 2px 0 0;
 	overflow: auto; 
 	overflow-x:hidden; 
 	padding:0 0 5px; 
 }
-.content div.thumbnailCategory div.description p.dates { 
+.content .thumbnailCategory .description p.dates { 
 	margin: 0 15px 0 15px; 
 	text-align: right; 
 }
-.content .thumbnailCategory div.description H3 { 
+.content .thumbnailCategory .description H3 { 
 	display: block; 
 }
 .content ul.thumbnailCategories li:hover { 
@@ -303,7 +303,7 @@ UL.thumbnails SPAN.wrap2:hover {
 }
 #comments ul.actions li, #comments ul.actions li:hover { 
 	background:transparent none;
- 	padding: 0 22px; 
+ 	margin-right: 22px;
 	clear:both; 
 	list-style-type:none; 
 }
@@ -402,12 +402,12 @@ input[type="button"]:hover, input[type="submit"]:hover, input[type="reset"]:hove
   color: #666;
 }
 #theCommentsPage .content ul.thumbnailCategories li,
-#theCommentsPage .content div.thumbnailCategory ,
-#theCommentsPage .content div.thumbnailCategory div.description,
+#theCommentsPage .content .thumbnailCategory ,
+#theCommentsPage .content .thumbnailCategory .description,
 #theCommentsPage .content .thumbnailCategory div.illustration { 
 	background-image: none;
 }
-#theCommentsPage .content div.thumbnailCategory {
+#theCommentsPage .content .thumbnailCategory {
 	padding: 15px 2px 6px 12px; 
 	border: 1px solid #666; 
 }
@@ -421,14 +421,14 @@ input[type="button"]:hover, input[type="submit"]:hover, input[type="reset"]:hove
 #theCommentsPage .content ul.thumbnailCategories li:hover { 
 	background-color: transparent; 
 }
-#theCommentsPage div#comments {
+#theCommentsPage #comments {
 	padding: 0 0 5px 10px;
 }
 tr.tagLine, fieldset.tagLetter, legend.tagLetterLegend {
 	border-color: #666;
 }
 
-#the_page .content div.thumbnailCategory div.description {
+#the_page .content .thumbnailCategory .description {
   height:158px;
 }
 

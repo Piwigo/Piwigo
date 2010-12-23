@@ -45,7 +45,7 @@ H1, #theHeader {
 
 
 /* fix quickconnect layout */
-FORM#quickconnect FIELDSET {
+#quickconnect FIELDSET {
   width: 99%;	/* correct an ugly 1 or 2 px misalignement with IE */
 }
 
