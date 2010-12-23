@@ -146,21 +146,15 @@ function prepare_upload_configuration()
   
     if (!isset($conf[$param_name]))
     {
-      $param_value = boolean_to_string($param['default']);
+      $conf[$param_name] = $param['default'];
       
       array_push(
         $inserts,
         array(
           'param' => $param_name,
-          'value' => $param_value,
+          'value' => boolean_to_string($param['default']),
           )
         );
-
-      $conf[$param_name] = $param_value;
-      if (is_bool($param['default']))
-      {
-        $conf[$param_name] = get_boolean($param_value);
-      }
     }
   }
   
