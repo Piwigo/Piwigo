@@ -2308,6 +2308,127 @@ SELECT id
   update_global_rank();
 }
 
+function ws_categories_move($params, &$service)
+{
+  global $conf, $page;
+  
+  if (!is_admin() || is_adviser() )
+  {
+    return new PwgError(401, 'Access denied');
+  }
+
+  if (!$service->isPost())
+  {
+    return new PwgError(405, "This method requires HTTP POST");
+  }
+
+  if (empty($params['pwg_token']) or get_pwg_token() != $params['pwg_token'])
+  {
+    return new PwgError(403, 'Invalid security token');
+  }
+
+  $params['category_id'] = preg_split(
+    '/[\s,;\|]/',
+    $params['category_id'],
+    -1,
+    PREG_SPLIT_NO_EMPTY
+    );
+  $params['category_id'] = array_map('intval', $params['category_id']);
+
+  $category_ids = array();
+  foreach ($params['category_id'] as $category_id)
+  {
+    if ($category_id > 0)
+    {
+      array_push($category_ids, $category_id);
+    }
+  }
+
+  if (count($category_ids) == 0)
+  {
+    return new PwgError(403, 'Invalid category_id input parameter, no category to move');
+  }
+
+  // we can't move physical categories
+  $categories_in_db = array();
+  
+  $query = '
+SELECT
+    id,
+    name,
+    dir
+  FROM '.CATEGORIES_TABLE.'
+  WHERE id IN ('.implode(',', $category_ids).')
+;';
+  $result = pwg_query($query);
+  while ($row = pwg_db_fetch_assoc($result))
+  {
+    $categories_in_db[$row['id']] = $row;
+    // we break on error at first physical category detected
+    if (!empty($row['dir']))
+    {
+      $row['name'] = strip_tags(
+        trigger_event(
+          'render_category_name',
+          $row['name'],
+          'ws_categories_move'
+          )
+        );
+      
+      return new PwgError(
+        403,
+        sprintf(
+          'Category %s (%u) is not a virtual category, you cannot move it',
+          $row['name'],
+          $row['id']
+          )
+        );
+    }
+  }
+
+  if (count($categories_in_db) != count($category_ids))
+  {
+    $unknown_category_ids = array_diff($category_ids, array_keys($categories_in_db));
+    
+    return new PwgError(
+      403,
+      sprintf(
+        'Category %u does not exist',
+        $unknown_category_ids[0]
+        )
+      );
+  }
+
+  // does this parent exists? This check should be made in the
+  // move_categories function, not here
+  //
+  // 0 as parent means "move categories at gallery root"
+  if (!is_numeric($params['parent']))
+  {
+    return new PwgError(403, 'Invalid parent input parameter');
+  }
+  
+  if (0 != $params['parent']) {
+    $params['parent'] = intval($params['parent']);
+    $subcat_ids = get_subcat_ids(array($params['parent']));
+    if (count($subcat_ids) == 0)
+    {
+      return new PwgError(403, 'Unknown parent category id');
+    }
+  }
+
+  $page['infos'] = array();
+  $page['errors'] = array();
+  include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
+  move_categories($category_ids, $params['parent']);
+  invalidate_user_cache();
+
+  if (count($page['errors']) != 0)
+  {
+    return new PwgError(403, implode('; ', $page['errors']));
+  }
+}
+
 function ws_logfile($string)
 {
   global $conf;

@@ -277,6 +277,17 @@ function ws_addDefaultMethods( $arr )
     );
 
   $service->addMethod(
+    'pwg.categories.move',
+    'ws_categories_move',
+    array(
+      'category_id'=>array('default'=>0),
+      'parent'=>array('default'=>0),
+      'pwg_token' => array('default' => null),
+      ),
+    'Move categories. You can give several category_ids, comma separated. Set parent as 0 to move to gallery root. Only virtual categories can be moved.'
+    );
+  
+  $service->addMethod(
     'pwg.tags.getAdminList',
     'ws_tags_getAdminList',
     array(),
