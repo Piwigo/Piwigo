@@ -21,37 +21,37 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
-$lang['locfiledit_onglet_localconf'] = 'Local config';
+$lang['locfiledit_onglet_localconf'] = 'Lokal Ayarlar';
 $lang['locfiledit_onglet_css'] = 'CSS';
-$lang['locfiledit_onglet_tpl'] = 'Templates';
-$lang['locfiledit_onglet_lang'] = 'Languages';
-$lang['locfiledit_onglet_plug'] = 'Personal Plugin';
-$lang['locfiledit_cant_save'] = 'Current file isn\'t writeable. Check if a directory "include/" is writeable (chmod).';
-$lang['locfiledit_newfile'] = 'File is not existing and will be created by LocalFiles Editor';
-$lang['locfiledit_save_config'] = 'File written successfully.';
-$lang['locfiledit_show_default'] = 'Display reference file: ';
-$lang['locfiledit_save_bak'] = 'Backup copy will be created on save.';
-$lang['locfiledit_saved_bak'] = 'Backup file created (%s)';
-$lang['locfiledit_save_file'] = 'Save file';
-$lang['locfiledit_choose_file'] = 'Choose the file to be edited';
-$lang['locfiledit_edit'] = 'Edit';
-$lang['locfiledit_restore'] = 'Restore the backup file';
-$lang['locfiledit_restore_confirm'] = 'Please confirm?
-Restore won\'t be effective till next save.';
-$lang['locfiledit_bak_loaded1'] = 'Backup file loaded.';
-$lang['locfiledit_bak_loaded2'] = 'You must save file to restore it.';
-$lang['locfiledit_syntax_error'] = 'Syntax error! File can\'t be saved.';
-$lang['locfiledit_enable_editarea'] = 'Enable Editarea';
-$lang['locfiledit_disable_editarea'] = 'Disable Editarea';
-$lang['locfiledit_new_tpl'] = 'Create new file';
-$lang['locfiledit_new_filename'] = 'File name';
+$lang['locfiledit_onglet_tpl'] = 'Sablonlar';
+$lang['locfiledit_onglet_lang'] = 'Dil Destegi';
+$lang['locfiledit_onglet_plug'] = 'Kisisel Plugin';
+$lang['locfiledit_cant_save'] = 'Seçili dosyanin yazilabilirlik izni yok. Lütfen "include/" klasörünü yazilabilir yapiniz (chmod).';
+$lang['locfiledit_newfile'] = 'Böyle bir dosya bulunamadi ya da Lokal dosya editörü ile yaratildi';
+$lang['locfiledit_save_config'] = 'Dosya basariyla yazildi.';
+$lang['locfiledit_show_default'] = 'Referans dosyayi göster: ';
+$lang['locfiledit_save_bak'] = 'Yedekleme dosyasi basariyla kaydedildi.';
+$lang['locfiledit_saved_bak'] = 'Yedekleme dosyasi yaratildi (%s)';
+$lang['locfiledit_save_file'] = 'Dosyayi kaydet';
+$lang['locfiledit_choose_file'] = 'Editlenen dosyayi seç';
+$lang['locfiledit_edit'] = 'Editle';
+$lang['locfiledit_restore'] = 'Yedekleme dosyasini geri yükle';
+$lang['locfiledit_restore_confirm'] = 'Lütfen onayla? 
+bir sonraki kaydetmeye kadar geri yükleme yapilamayacak.';
+$lang['locfiledit_bak_loaded1'] = 'yedekleme dosyasi yüklendi.';
+$lang['locfiledit_bak_loaded2'] = 'Geri yükledikten sonra save etmeyi unutmayiniz.';
+$lang['locfiledit_syntax_error'] = 'Syntax error! Dosya kayit edilemiyor.';
+$lang['locfiledit_enable_editarea'] = 'Editleme açik';
+$lang['locfiledit_disable_editarea'] = 'Editleme kapali';
+$lang['locfiledit_new_tpl'] = 'Yeni Dosya Yarat';
+$lang['locfiledit_new_filename'] = 'Dosya Adi';
 $lang['locfiledit_model'] = 'Model';
-$lang['locfiledit_empty_page'] = 'Empty page';
-$lang['locfiledit_parent_directory'] = 'Parent directory';
-$lang['locfiledit_filename_error'] = 'Forbidden characters in file name.';
-$lang['locfiledit_file_already_exists'] = 'File already exists.';
-$lang['locfiledit_model_error'] = 'You must choose a model.';
-$lang['locfiledit_empty_filename'] = 'You must fill file name.';
-$lang['locfiledit_webmaster_only'] = 'Only webmasters can create or modify local files.';
+$lang['locfiledit_empty_page'] = 'Bos Sayfa';
+$lang['locfiledit_parent_directory'] = 'Üst Klasör';
+$lang['locfiledit_filename_error'] = 'Dosya adinda tanimlanamayan karakterler kullanilmis.';
+$lang['locfiledit_file_already_exists'] = 'Bu dosya zaten var.';
+$lang['locfiledit_model_error'] = 'Model seçmek zorundasin.';
+$lang['locfiledit_empty_filename'] = 'Adi doldurmak zorundasin.';
+$lang['locfiledit_webmaster_only'] = 'Sadece yöneticiler dosyalari degistirebilir .';
 
 ?>

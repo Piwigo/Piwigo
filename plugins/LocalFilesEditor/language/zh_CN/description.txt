@@ -1,1 +1,1 @@
-Edit local files from administration panel.
+通过管理员面板修改本地文件

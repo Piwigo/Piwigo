@@ -1,1 +1,1 @@
-Edit local files from administration panel.
+Уреди локалне датотеке преко администрационе странице.

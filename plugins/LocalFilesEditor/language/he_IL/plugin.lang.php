@@ -21,37 +21,37 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
-$lang['locfiledit_onglet_localconf'] = 'Local config';
-$lang['locfiledit_onglet_css'] = 'CSS';
-$lang['locfiledit_onglet_tpl'] = 'Templates';
-$lang['locfiledit_onglet_lang'] = 'Languages';
-$lang['locfiledit_onglet_plug'] = 'Personal Plugin';
-$lang['locfiledit_cant_save'] = 'Current file isn\'t writeable. Check if a directory "include/" is writeable (chmod).';
-$lang['locfiledit_newfile'] = 'File is not existing and will be created by LocalFiles Editor';
-$lang['locfiledit_save_config'] = 'File written successfully.';
-$lang['locfiledit_show_default'] = 'Display reference file: ';
-$lang['locfiledit_save_bak'] = 'Backup copy will be created on save.';
-$lang['locfiledit_saved_bak'] = 'Backup file created (%s)';
-$lang['locfiledit_save_file'] = 'Save file';
-$lang['locfiledit_choose_file'] = 'Choose the file to be edited';
-$lang['locfiledit_edit'] = 'Edit';
-$lang['locfiledit_restore'] = 'Restore the backup file';
-$lang['locfiledit_restore_confirm'] = 'Please confirm?
-Restore won\'t be effective till next save.';
-$lang['locfiledit_bak_loaded1'] = 'Backup file loaded.';
-$lang['locfiledit_bak_loaded2'] = 'You must save file to restore it.';
-$lang['locfiledit_syntax_error'] = 'Syntax error! File can\'t be saved.';
-$lang['locfiledit_enable_editarea'] = 'Enable Editarea';
-$lang['locfiledit_disable_editarea'] = 'Disable Editarea';
-$lang['locfiledit_new_tpl'] = 'Create new file';
-$lang['locfiledit_new_filename'] = 'File name';
-$lang['locfiledit_model'] = 'Model';
-$lang['locfiledit_empty_page'] = 'Empty page';
-$lang['locfiledit_parent_directory'] = 'Parent directory';
-$lang['locfiledit_filename_error'] = 'Forbidden characters in file name.';
-$lang['locfiledit_file_already_exists'] = 'File already exists.';
-$lang['locfiledit_model_error'] = 'You must choose a model.';
-$lang['locfiledit_empty_filename'] = 'You must fill file name.';
-$lang['locfiledit_webmaster_only'] = 'Only webmasters can create or modify local files.';
+$lang['locfiledit_onglet_localconf'] = 'הגדרות מקומיות';
+$lang['locfiledit_onglet_css'] = 'גיליונות סגנון מדורגים(CSS)';
+$lang['locfiledit_onglet_tpl'] = 'תבניות';
+$lang['locfiledit_onglet_lang'] = 'ספות';
+$lang['locfiledit_onglet_plug'] = 'תוסף אישי';
+$lang['locfiledit_cant_save'] = 'לא ניתן לשנות את הקובץ. בדוק אם לתיקיה "include/" יש הרשאות לכתיבה (chmod).';
+$lang['locfiledit_newfile'] = 'הקובץ לא קיים, הקובץ ייווצר על ידי עורך הקבצים המקומיים (localfile)';
+$lang['locfiledit_save_config'] = 'הקובץ נכתב בהצלחה.';
+$lang['locfiledit_show_default'] = 'הצג את ההפניה לקובץ: ';
+$lang['locfiledit_save_bak'] = 'עותק גיבוי יווצר בעת השמירה.';
+$lang['locfiledit_saved_bak'] = 'קובץ גיבוי שנוצר (%s)';
+$lang['locfiledit_save_file'] = 'שמור קובץ';
+$lang['locfiledit_choose_file'] = 'בחר את הקובץ לעריכה';
+$lang['locfiledit_edit'] = 'ערוך';
+$lang['locfiledit_restore'] = 'שחזר את קובץ הגיבוי';
+$lang['locfiledit_restore_confirm'] = 'אשר בבקשה? שיחזור קובץ הגיבוי לא יהיה אפקטיבי עד השמירה הבאה.';
+$lang['locfiledit_bak_loaded1'] = 'קובץ גיבוי נטען.';
+$lang['locfiledit_bak_loaded2'] = 'אתה חייב לשמור את הקובץ בכדי לשחזר.';
+$lang['locfiledit_syntax_error'] = 'שגיאה תחבירית! לא ניתן לשמור את הקובץ.';
+$lang['locfiledit_enable_editarea'] = 'אפשר עריכה';
+$lang['locfiledit_disable_editarea'] = 'בטל עריכה';
+$lang['locfiledit_new_tpl'] = 'צור קובץ חדש';
+$lang['locfiledit_new_filename'] = 'שם הקובץ';
+$lang['locfiledit_model'] = 'דגם';
+$lang['locfiledit_empty_page'] = 'דף ריק';
+$lang['locfiledit_parent_directory'] = 'מקור';
+$lang['locfiledit_filename_error'] = 'אסור תווים בשם הקובץ.';
+$lang['locfiledit_file_already_exists'] = 'הקובץ כבר קיים.';
+$lang['locfiledit_model_error'] = 'אתה חייב לחבחור דגם.';
+$lang['locfiledit_empty_filename'] = 'אתה חייב למלא את שם הקובץ.';
+$lang['locfiledit_webmaster_only'] = 'רק מנהל האתר יכול ליצור או לשנות קבצים מקומיים.';
+$lang['locfiledit_filename_error'] = 'אסור להשתמש בתווים מסויימים בשם הקובץ.';
 
 ?>

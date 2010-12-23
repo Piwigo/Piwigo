@@ -1,1 +1,1 @@
-Edit local files from administration panel.
+Chỉnh sửa những tệp tin trên máy từ bảng điều khiển Quản trị viên.

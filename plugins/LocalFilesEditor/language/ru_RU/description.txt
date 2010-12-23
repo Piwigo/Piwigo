@@ -1,1 +1,1 @@
-Edit local files from administration panel.
+Позволяет редактировать локальные файлы из панели администрирования.

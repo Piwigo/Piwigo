@@ -21,37 +21,37 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
-$lang['locfiledit_onglet_localconf'] = 'Local config';
+$lang['locfiledit_onglet_localconf'] = 'ლოკალური კონფიგურაცია';
 $lang['locfiledit_onglet_css'] = 'CSS';
-$lang['locfiledit_onglet_tpl'] = 'Templates';
-$lang['locfiledit_onglet_lang'] = 'Languages';
-$lang['locfiledit_onglet_plug'] = 'Personal Plugin';
-$lang['locfiledit_cant_save'] = 'Current file isn\'t writeable. Check if a directory "include/" is writeable (chmod).';
-$lang['locfiledit_newfile'] = 'File is not existing and will be created by LocalFiles Editor';
-$lang['locfiledit_save_config'] = 'File written successfully.';
-$lang['locfiledit_show_default'] = 'Display reference file: ';
-$lang['locfiledit_save_bak'] = 'Backup copy will be created on save.';
-$lang['locfiledit_saved_bak'] = 'Backup file created (%s)';
-$lang['locfiledit_save_file'] = 'Save file';
-$lang['locfiledit_choose_file'] = 'Choose the file to be edited';
-$lang['locfiledit_edit'] = 'Edit';
-$lang['locfiledit_restore'] = 'Restore the backup file';
-$lang['locfiledit_restore_confirm'] = 'Please confirm?
-Restore won\'t be effective till next save.';
-$lang['locfiledit_bak_loaded1'] = 'Backup file loaded.';
-$lang['locfiledit_bak_loaded2'] = 'You must save file to restore it.';
-$lang['locfiledit_syntax_error'] = 'Syntax error! File can\'t be saved.';
-$lang['locfiledit_enable_editarea'] = 'Enable Editarea';
-$lang['locfiledit_disable_editarea'] = 'Disable Editarea';
-$lang['locfiledit_new_tpl'] = 'Create new file';
-$lang['locfiledit_new_filename'] = 'File name';
-$lang['locfiledit_model'] = 'Model';
-$lang['locfiledit_empty_page'] = 'Empty page';
-$lang['locfiledit_parent_directory'] = 'Parent directory';
-$lang['locfiledit_filename_error'] = 'Forbidden characters in file name.';
-$lang['locfiledit_file_already_exists'] = 'File already exists.';
-$lang['locfiledit_model_error'] = 'You must choose a model.';
-$lang['locfiledit_empty_filename'] = 'You must fill file name.';
-$lang['locfiledit_webmaster_only'] = 'Only webmasters can create or modify local files.';
+$lang['locfiledit_onglet_tpl'] = 'შაბლონები';
+$lang['locfiledit_onglet_lang'] = 'ენები';
+$lang['locfiledit_onglet_plug'] = 'პერსონალური პლაგინი';
+$lang['locfiledit_cant_save'] = 'ეს ფაილი არ არის ჩაწერის უფლებით. შეამოწმეთ დირექტორია "include/" არის თუ არა შესაბამისი (chmod)–ით.';
+$lang['locfiledit_newfile'] = 'ფაილი არ არსებობს და შეიქმნება LocalFiles რედაქტორის მიერ ';
+$lang['locfiledit_save_config'] = 'ფაილი წარმატებით წაიკითხა.';
+$lang['locfiledit_show_default'] = 'ვნახოთ გასასწორებელი ფაილი: ';
+$lang['locfiledit_save_bak'] = 'სარეზერვო ასლი შეიქმნა და შეინახა.';
+$lang['locfiledit_saved_bak'] = 'სარეზერვო ასლი შეიქმნა (%s) –ით';
+$lang['locfiledit_save_file'] = 'შევინახოთ ფაილი';
+$lang['locfiledit_choose_file'] = 'აირჩიეთ ფაილი რედაქტირებისათვის';
+$lang['locfiledit_edit'] = 'რედაქტირება';
+$lang['locfiledit_restore'] = 'სარეზერვო ფაილის აღდგენა';
+$lang['locfiledit_restore_confirm'] = 'გთხოვთ დაადასტუროთ?
+აღდგენა არ იქნება ეფექტური მომდევნო შენახვამდე.';
+$lang['locfiledit_bak_loaded1'] = 'სარეზერვო ფაილის ჩატვირთვა.';
+$lang['locfiledit_bak_loaded2'] = 'თქვენ უნდა შეინახოთ ფაილი, რომ აღდგინოთ.';
+$lang['locfiledit_syntax_error'] = 'სინტაქსური შეცდომა! ფაილი ვერ შეინახება.';
+$lang['locfiledit_enable_editarea'] = 'ჩავრთოთ გასასწორებელი ველი';
+$lang['locfiledit_disable_editarea'] = 'გამოვრთოთ გასასწორებელი ველი';
+$lang['locfiledit_new_tpl'] = 'შევქმნათ ახალი ფაილი';
+$lang['locfiledit_new_filename'] = 'ფაილის სახელი';
+$lang['locfiledit_model'] = 'მოდელი';
+$lang['locfiledit_empty_page'] = 'ცარიელი გვერდი';
+$lang['locfiledit_parent_directory'] = 'მშობლიური დირექტორია';
+$lang['locfiledit_filename_error'] = 'აკრძალული სიმბოლოები ფაილის სახელში.';
+$lang['locfiledit_file_already_exists'] = 'ფაილი უკვე არსებობს.';
+$lang['locfiledit_model_error'] = 'თქვენ უნდა აირჩიოთ მოდელი.';
+$lang['locfiledit_empty_filename'] = 'თქვენ უნდა შეავსოთ ფაილის სახელი.';
+$lang['locfiledit_webmaster_only'] = 'მხოლოდ ვებოსტატებს შეუძლიათ შექმნან ან გადააკეთონ ლოკალური ფაილები.';
 
 ?>

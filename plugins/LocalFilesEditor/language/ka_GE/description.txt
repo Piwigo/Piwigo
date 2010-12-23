@@ -1,1 +1,1 @@
-Edit local files from administration panel.
+ლოკალური ფაილების შეცვლა ადმინისტრაციული პანელიდან.

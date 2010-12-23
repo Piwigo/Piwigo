@@ -21,37 +21,36 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
-$lang['locfiledit_onglet_localconf'] = 'Local config';
+$lang['locfiledit_onglet_localconf'] = 'Cấu hình cục bộ';
 $lang['locfiledit_onglet_css'] = 'CSS';
 $lang['locfiledit_onglet_tpl'] = 'Templates';
-$lang['locfiledit_onglet_lang'] = 'Languages';
-$lang['locfiledit_onglet_plug'] = 'Personal Plugin';
-$lang['locfiledit_cant_save'] = 'Current file isn\'t writeable. Check if a directory "include/" is writeable (chmod).';
-$lang['locfiledit_newfile'] = 'File is not existing and will be created by LocalFiles Editor';
-$lang['locfiledit_save_config'] = 'File written successfully.';
-$lang['locfiledit_show_default'] = 'Display reference file: ';
-$lang['locfiledit_save_bak'] = 'Backup copy will be created on save.';
-$lang['locfiledit_saved_bak'] = 'Backup file created (%s)';
-$lang['locfiledit_save_file'] = 'Save file';
-$lang['locfiledit_choose_file'] = 'Choose the file to be edited';
-$lang['locfiledit_edit'] = 'Edit';
-$lang['locfiledit_restore'] = 'Restore the backup file';
-$lang['locfiledit_restore_confirm'] = 'Please confirm?
-Restore won\'t be effective till next save.';
-$lang['locfiledit_bak_loaded1'] = 'Backup file loaded.';
-$lang['locfiledit_bak_loaded2'] = 'You must save file to restore it.';
-$lang['locfiledit_syntax_error'] = 'Syntax error! File can\'t be saved.';
-$lang['locfiledit_enable_editarea'] = 'Enable Editarea';
-$lang['locfiledit_disable_editarea'] = 'Disable Editarea';
-$lang['locfiledit_new_tpl'] = 'Create new file';
-$lang['locfiledit_new_filename'] = 'File name';
-$lang['locfiledit_model'] = 'Model';
-$lang['locfiledit_empty_page'] = 'Empty page';
-$lang['locfiledit_parent_directory'] = 'Parent directory';
-$lang['locfiledit_filename_error'] = 'Forbidden characters in file name.';
-$lang['locfiledit_file_already_exists'] = 'File already exists.';
-$lang['locfiledit_model_error'] = 'You must choose a model.';
-$lang['locfiledit_empty_filename'] = 'You must fill file name.';
-$lang['locfiledit_webmaster_only'] = 'Only webmasters can create or modify local files.';
+$lang['locfiledit_onglet_lang'] = 'Ngôn ngữ';
+$lang['locfiledit_onglet_plug'] = 'Plugin cá nhân';
+$lang['locfiledit_cant_save'] = 'Tệp tin hiện tại không được phép ghi. Kiểm tra nếu thư mục "include/" có thể ghi được (chmod).';
+$lang['locfiledit_newfile'] = 'Tệp tin không tồn tại và sẽ được tạo ra bởi LocalFiles Editor';
+$lang['locfiledit_save_config'] = 'Tệp tin đã được ghi thành công.';
+$lang['locfiledit_show_default'] = 'Hiển thị tệp tin tham khảo: ';
+$lang['locfiledit_save_bak'] = 'Bản sao backup sẽ được tạo ra để dự phòng.';
+$lang['locfiledit_saved_bak'] = 'Tệp tin backup file được tạo ra (%s)';
+$lang['locfiledit_save_file'] = 'Lưu tệp tin';
+$lang['locfiledit_choose_file'] = 'Chọn tệp tin để hiệu chỉnh';
+$lang['locfiledit_edit'] = 'Hiệu chỉnh';
+$lang['locfiledit_restore'] = 'Phục hồi tệp tin backup';
+$lang['locfiledit_restore_confirm'] = 'Vui lòng xác nhận? Việc phục hồi sẽ không có hiệu lực cho đến lần dự phòng tiếp theo.';
+$lang['locfiledit_bak_loaded1'] = 'Tệp tin backup đã được nạp.';
+$lang['locfiledit_bak_loaded2'] = 'Bạn phải lưu lại tệp tin để phục hồi nó.';
+$lang['locfiledit_syntax_error'] = 'Lỗi cú pháp! Tệp tin không thể được lưu.';
+$lang['locfiledit_enable_editarea'] = 'Kích hoạt vùng nhập dữ liệu';
+$lang['locfiledit_disable_editarea'] = 'Tắt vùng nhập dữ liệu';
+$lang['locfiledit_new_tpl'] = 'Tạo tệp tin mới';
+$lang['locfiledit_new_filename'] = 'Tên tệp tin';
+$lang['locfiledit_model'] = 'Mô hình';
+$lang['locfiledit_empty_page'] = 'Trang trống';
+$lang['locfiledit_parent_directory'] = 'Thư mục gốc';
+$lang['locfiledit_filename_error'] = 'Ký tự bị cấm trong tên tệp tin.';
+$lang['locfiledit_file_already_exists'] = 'Tệp tin đã có.';
+$lang['locfiledit_model_error'] = 'Bạn phải chọn một mô hình.';
+$lang['locfiledit_empty_filename'] = 'Bạn phải điền đủ tên tệp tin.';
+$lang['locfiledit_webmaster_only'] = 'Chỉ có webmasters mới có thể tạo hoặc biên tập tệp tin trên máy.';
 
 ?>

@@ -1,1 +1,1 @@
-Edit local files from administration panel.
+ערוך קבצים מקומיים מהפאנל ניהול.
