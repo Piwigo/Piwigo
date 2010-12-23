@@ -43,7 +43,7 @@ function get_cat_display_name($cat_informations,
   //$output = '<a href="'.get_absolute_root_url().$conf['home_page'].'">'.l10n('Home').'</a>';
   $output = '';
   $is_first=true;
-  
+
   foreach ($cat_informations as $cat)
   {
     is_array($cat) or trigger_error(
@@ -185,8 +185,9 @@ SELECT id, name, permalink
  * @param string content
  * @return string
  */
-function parse_comment_content($content)
+function render_comment_content($content)
 {
+  $content = htmlspecialchars($content);
   $pattern = '/(https?:\/\/\S*)/';
   $replacement = '<a href="$1" rel="nofollow">$1</a>';
   $content = preg_replace($pattern, $replacement, $content);
@@ -367,7 +368,7 @@ function fatal_error($msg, $title=null, $show_trace=true)
   {
     $title = 'Piwigo encountered a non recoverable error';
   }
-  
+
   $btrace_msg = '';
   if ($show_trace and function_exists('debug_backtrace'))
   {
@@ -440,7 +441,7 @@ function get_tags_content_title()
           )
         );
     }
-    
+
     $title.=
       '<a href="'.$remove_url.'" style="border:none;" title="'
       .l10n('remove this tag from the list')
@@ -478,14 +479,7 @@ function set_status_header($code, $text='')
   if ( ('HTTP/1.1' != $protocol) && ('HTTP/1.0' != $protocol) )
     $protocol = 'HTTP/1.0';
 
-  if ( version_compare( phpversion(), '4.3.0', '>=' ) )
-  {
-    header( "$protocol $code $text", true, $code );
-  }
-  else
-  {
-    header( "$protocol $code $text" );
-  }
+  header( "$protocol $code $text", true, $code );
   trigger_action('set_status_header', $code, $text);
 }
 
@@ -495,22 +489,6 @@ function set_status_header($code, $text='')
 function render_category_literal_description($desc)
 {
   return strip_tags($desc, '<span><p><a><br><b><i><small><big><strong><em>');
-}
-
-/** returns the argument_ids array with new sequenced keys based on related
- * names. Sequence is not case sensitive.
- * Warning: By definition, this function breaks original keys
- */
-function order_by_name($element_ids,$name)
-{
-  $ordered_element_ids = array();
-  foreach ($element_ids as $k_id => $element_id)
-  {
-    $key = strtolower($name[$element_id]) .'-'. $name[$element_id] .'-'. $k_id;
-    $ordered_element_ids[$key] = $element_id;
-  }
-  ksort($ordered_element_ids);
-  return $ordered_element_ids;
 }
 
 /*event handler for menu*/

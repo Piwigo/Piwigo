@@ -735,7 +735,7 @@ function get_gallery_home_url()
   global $conf;
   if (!empty($conf['gallery_url']))
   {
-    if (url_is_remote($conf['gallery_url']) or strncmp($conf['gallery_url'], '/', 1)==0)
+    if (url_is_remote($conf['gallery_url']) or $conf['gallery_url'][0]=='/' )
     {
       return $conf['gallery_url'];
     }

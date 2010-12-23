@@ -2054,4 +2054,21 @@ function get_fckb_tag_ids($raw_tags)
 
   return $tag_ids;
 }
+
+/** returns the argument_ids array with new sequenced keys based on related
+ * names. Sequence is not case sensitive.
+ * Warning: By definition, this function breaks original keys
+ */
+function order_by_name($element_ids,$name)
+{
+  $ordered_element_ids = array();
+  foreach ($element_ids as $k_id => $element_id)
+  {
+    $key = strtolower($name[$element_id]) .'-'. $name[$element_id] .'-'. $k_id;
+    $ordered_element_ids[$key] = $element_id;
+  }
+  ksort($ordered_element_ids);
+  return $ordered_element_ids;
+}
+
 ?>
