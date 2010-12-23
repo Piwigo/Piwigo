@@ -66,6 +66,9 @@ if (isset($_GET['plugin']) and isset($_GET['revision']) and !is_adviser())
     {
       $plugins->perform_action('activate', $plugin_id);
     }
+
+    $template->delete_compiled_templates();
+
     redirect($base_url.'&plugin='.$plugin_id.'&upgradestatus='.$upgrade_status);
   }
 }
