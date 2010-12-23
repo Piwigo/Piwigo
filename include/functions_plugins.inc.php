@@ -119,26 +119,16 @@ function trigger_event($event, $data=null)
   {
     return $data;
   }
-  $args = array_slice(func_get_args(), 2);
+  $args = func_get_args();
 
   foreach ($pwg_event_handlers[$event] as $priority => $handlers)
   {
     foreach($handlers as $handler)
     {
-      $all_args = array_merge( array($data), $args);
       $function_name = $handler['function'];
       $accepted_args = $handler['accepted_args'];
-
-      if ( $accepted_args == 1 )
-        $the_args = array($data);
-      elseif ( $accepted_args > 1 )
-        $the_args = array_slice($all_args, 0, $accepted_args);
-      elseif ( $accepted_args == 0 )
-        $the_args = NULL;
-      else
-        $the_args = $all_args;
-
-      $data = call_user_func_array($function_name, $the_args);
+      $args[1] = $data;
+      $data = call_user_func_array($function_name, array_slice($args,1,$accepted_args) );
     }
   }
   trigger_action('trigger',
@@ -159,26 +149,16 @@ function trigger_action($event, $data=null)
   {
     return;
   }
-  $args = array_slice(func_get_args(), 2);
+  $args = func_get_args();
 
   foreach ($pwg_event_handlers[$event] as $priority => $handlers)
   {
     foreach($handlers as $handler)
     {
-      $all_args = array_merge( array($data), $args);
       $function_name = $handler['function'];
       $accepted_args = $handler['accepted_args'];
 
-      if ( $accepted_args == 1 )
-        $the_args = array($data);
-      elseif ( $accepted_args > 1 )
-        $the_args = array_slice($all_args, 0, $accepted_args);
-      elseif ( $accepted_args == 0 )
-        $the_args = NULL;
-      else
-        $the_args = $all_args;
-
-      call_user_func_array($function_name, $the_args);
+      call_user_func_array($function_name, array_slice($args,1,$accepted_args) );
     }
   }
 }

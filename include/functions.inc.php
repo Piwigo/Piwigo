@@ -735,15 +735,14 @@ function get_thumbnail_path($element_info)
  */
 function get_thumbnail_url($element_info)
 {
-  $path = get_thumbnail_location($element_info);
-  if ( !url_is_remote($path) )
+  $loc = $url = get_thumbnail_location($element_info);
+  if ( !url_is_remote($loc) )
   {
-    $path = embellish_url(get_root_url().$path);
+    $url = (get_root_url().$loc);
   }
-
   // plugins want another url ?
-  $path = trigger_event('get_thumbnail_url', $path, $element_info);
-  return $path;
+  $url = trigger_event('get_thumbnail_url', $url, $element_info, $loc);
+  return embellish_url($url);
 }
 
 /* returns the relative path of the thumnail with regards to to the root
@@ -766,10 +765,9 @@ function get_thumbnail_location($element_info)
   {
     $path = get_themeconf('mime_icon_dir')
         .strtolower(get_extension($element_info['path'])).'.png';
+    // plugins want another location ?
+    $path = trigger_event( 'get_thumbnail_location', $path, $element_info);
   }
-
-  // plugins want another location ?
-  $path = trigger_event( 'get_thumbnail_location', $path, $element_info);
   return $path;
 }
 
