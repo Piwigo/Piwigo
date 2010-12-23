@@ -34,7 +34,7 @@ $lang['Only administrator can run upgrade: please sign in below.'] = 'Sólo un a
 $lang['You do not have access rights to run upgrade'] = 'Usted no tiene los derechos necessaires para lanzar la actualización.';
 
 // Upgrade informations from upgrade_1.3.1.php
-$lang['All sub-albums of private albums become private'] = 'Todos los sub-àlbumes de los àlbumes privados son privados';
+$lang['All sub-categories of private categories become private'] = 'Todas las subcategorías de categorías privadas se vuelven privadas';
 $lang['User permissions and group permissions have been erased'] = 'Las autorizaciones de los usuarios y de los grupos han sido borradas';
 $lang['Only thumbnails prefix and webmaster mail address have been saved from previous configuration'] = 'Sólo el prefijo de las miniaturas y el email  del webmestre han sido salvaguardados por la configuración precedente';
 

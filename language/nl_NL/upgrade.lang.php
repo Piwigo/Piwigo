@@ -34,7 +34,7 @@ $lang['Perform a maintenance check in [Administration>Specials>Maintenance] if y
 $lang['As a precaution, following plugins have been deactivated. You must check for plugins upgrade before reactiving them:'] = 'Als voorzorgsmaatregel zijn de volgende plugins gedeactiveerd. Voordat u ze reactiveert moet u deze plugins op upgrades controleren:';
 $lang['Only administrator can run upgrade: please sign in below.'] = 'Alleen de administrator kan een upgrade uitvoeren: hieronder kunt u inloggen.';
 $lang['You do not have access rights to run upgrade'] = 'U bent niet gerechtigd om een upgrade uit te voeren';
-$lang['All sub-albums of private albums become private'] = 'Alle sub-categorieën van private categorieën worden private';
+$lang['All sub-categories of private categories become private'] = 'Alle sub-categorieën van private categorieën worden private';
 $lang['User permissions and group permissions have been erased'] = 'Gebruikers- en groepsrechten zijn verwijderd';
 $lang['Only thumbnails prefix and webmaster mail address have been saved from previous configuration'] = 'Alleen het voorvoegsel (prefix) van de mini-afbeelding en het email-adres van de webbeheerder zijn bewaard gebleven van de vorige configuratie';
 $lang['In <i>%s</i>, before <b>?></b>, insert:'] = 'In <i>%s</i>, voor <b>?></b>, voeg tussen:';

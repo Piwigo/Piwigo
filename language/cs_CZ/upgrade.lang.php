@@ -36,7 +36,7 @@ $lang['Only administrator can run upgrade: please sign in below.'] = 'Jen admini
 $lang['You do not have access rights to run upgrade'] = 'nemáte přístupová práva na spuštění upgrade';
 
 // Upgrade informations from upgrade_1.3.1.php
-$lang['All sub-albums of private albums become private'] = 'Všechny sub-alba privátních alb zůstanou privatní';
+$lang['All sub-categories of private categories become private'] = 'Všechny pod-ketegorie privátních kategorií se stanou privátními';
 $lang['User permissions and group permissions have been erased'] = 'Uživatelská oprávnění a oprávnění skupin byla vymazána';
 $lang['Only thumbnails prefix and webmaster mail address have been saved from previous configuration'] = 'Z předchozí konfigurace byly zachovány pouze předpony náhledů a email adresa správce.';
 

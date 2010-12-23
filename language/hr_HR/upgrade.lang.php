@@ -33,7 +33,7 @@ $lang['Only administrator can run upgrade: please sign in below.'] = 'Samo uprav
 $lang['You do not have access rights to run upgrade'] = 'Nemate pristupna prava za pokretanje nadogradnje';
 
 // Upgrade informations from upgrade_1.3.1.php
-$lang['All sub-albums of private albums become private'] = 'Sve podskupine osobnih skupina postaju osobne';
+$lang['All sub-categories of private categories become private'] = 'Sve podskupine osobnih skupina postaju osobne';
 $lang['User permissions and group permissions have been erased'] = 'Korisničke i grupne dozvole su izbrisane';
 $lang['Only thumbnails prefix and webmaster mail address have been saved from previous configuration'] = 'Jedino su predznaci poveznih sličica i webmaster-ova e-mail adresa sačuvane iz prethodne postave';
 

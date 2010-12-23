@@ -1,0 +1,85 @@
+<h2>Plašāk par veidņu konfigurēšanu</h2>
+
+<h3>Mērķis</h3>
+<p>Definē aizvietošanas apstākļus katrai veidnei, ņemot vērā veidnes paplašinājumu (veidne saukta "replacer" - aizvietotājs).</p>
+
+<p>"original template" no ./template/yoga (vai jebkura cita, kā yoga)
+ tiks aizvietota ar "replacer", ja šī aizvietotājveidne ir sasaistīta ar "original template" (un izvēles kārtā, kad pieprasītais URL satur "optional URL keyword").</p>
+
+<p>"Optional URL keywords" (papildus URL atslēgvārdi) ir tie, pēc kuriem var atrast moduļa nosaukumu iekš URL.</p>
+
+<p>TādēlTherefore "Optional URL keywords" var darboties kā aktīvas pastāvīgās saites "permalink" (skatīt informāciju par pastāvīgajām saitēm permalinkiem mūsu dokumentācijā).</p>
+
+<p>Nolasīt: `<a href="#warnings">Warning</a>` lietošanas apstākļus.</p>
+
+<h3>Kādi ir veidņu paplašinājumi?</h3>
+
+<p>Šis konfigurēšanas rīks ir pietiekami jaudīgs priekš iesācējiem un arī priekš zinošiem lietotājiem.
+Izmantojot FTP, veidņu-paplašinājumu mapē, Webmāsters var nodublēt lielu daudzumu izplatīto .tpl failu ("original template") ar dažādiem nosaukumiem ("replacer").
+ 
+ "Original templates", patrreizējās oriģinālās atbalstītās veidnes ir:</p>
+<ul>
+  <li><span class="filename">index.tpl</span></li>
+  <li><span class="filename">mainpage_categories.tpl</span> un/vai <span class="filename">thumbnails.tpl</span></li>
+  <li><span class="filename">menubar.tpl</span></li>
+  <li><span class="filename">header.tpl</span> un/vai <span class="filename">footer.tpl</span></li>
+  <li><span class="filename">picture_content.tpl</span> un/vai <span class="filename">picture.tpl</span></li>
+  <!-- <li><span class="filename">slideshow.tpl</span></li> -->
+  <li><span class="filename">profile.tpl</span> un/vai <span class="filename">profile_content.tpl</span></li>
+  <li><span class="filename">tags.tpl</span></li>
+  <li><span class="filename">upload.tpl</span></li>
+  <li><span class="filename">about.tpl</span></li>
+  <li><span class="filename">popuphelp.tpl</span></li>
+  <li><span class="filename">search.tpl</span> un/vai <span class="filename">search_rules.tpl</span></li>
+  <li><span class="filename">nbm.tpl</span> un/vai <span class="filename">notification.tpl</span></li>
+  <li><span class="filename">identification.tpl</span> un/vai <span class="filename">register.tpl</span></li>
+  <li><span class="filename">redirect.tpl</span></li>
+</ul>
+
+<h3>Kur var atrast veidņu pirmavotus "original templates"?</h3>
+
+<p>Izdalēmās oriģinālās veidnes ir atrodamas template/yoga/
+(nerediģējiet tās šai vietnē). Tādējādi lietojot "original templates", jebkurš webmāsters var izveidot savas "replacers (customized templates)" veidnes.</p>
+
+<h3>Kur var ieglabāt aizvietotājveidnes "replacers"?</h3>
+
+<p><strong>aizvietotājveidnes Replacers (pielāgotās veidnes)</strong> jāizvieto veidņu-paplašinājumu (template-extension) mapē (vai tās apakšmapēs).
+Aizvietotājveidnes nosaukums var būt jebkāds bet ar .tpl paplašinājumu. Piemēram: <span
+class="filename">template-extension/my-extension/video.tpl</span>.</p>
+
+
+<h3>Kā aktivizēt savas aizvietotājveidnes "replacers"?</h3>
+<p>Lai aktivizētu radniecīgās<strong>aizvietotājveidnes (pielāgotās veidnes)</strong> tām katrai jābūt piesaistītai <strong>oriģinājajai veidnei</strong>.
+ Šis ir "Extend for templates" uzdevums Konfigurēšanas Administrēšanas izvēlnē.</p>
+
+<p>Ja esta izvēlējies <strong>papildus URL atslēgvārdu</strong>, tad aizvietošanas notiks tikai lapās, kas sakritīs ar šo atslēgvārdu. Piemēram: <span
+  class="pwgScreen">index.php?/<strong>most_visited</strong></span></p>
+ 
+<p>Pieredzējuši lietotāji kā <strong>papildus URL atslēgvārdu</strong> var lietot permalinkus – pastāvīgās saites. </p>
+
+<p>Ja esat izvēlējies <strong>Saistīto veidni</strong> tad aizvietošanas notiks tikai šajā veidnē.</p>
+
+<h3>Kā var deaktivizēt savas aizvietotājveidnes "replacers"?</h3>
+<ul>
+<li>Atselektējiet radniecīgās "Original templates".</li>
+<li>Izmantojot FTP, izdzēšat aizstājējvaidnes "replacers".</li>
+</ul>
+<a name="warnings"></a>
+<h3>Brīdinājumi</h3>
+<ul>
+
+  <li><strong>Oriģinālajām veidnēm</strong> ir jābūt "original" veidnēm, pretējā gadījumā sagaidāmi neparedzami rezultāti!</li>
+
+  <li>No dažām<strong>aizstājējveidnēm (pielāgotām veidnēm)</strong> ar to pašu<strong>Oriģinālo veidni</strong> un to pašu <strong>papildus URL atslēgvārdu</strong> aktīva ir tikai pēdējā aizstājējveidne.</li>
+
+  <li>Atselektētais <strong>papildus URL atslēgvārds</strong> aktivizēs aizstājējveidni jebkurā veidnes lietošanas gadījumā. Kā iepriekšējā punktā, jaunākā aizstājējveidne izpildās pirmā, ignorējot pārējās rindā esošās.</li>
+
+  <li>Apakšmapes:
+Apakšmapes tiek ignorētas, bet tās ir lietderīgas veicot izmaiņas patrreizējā rindā.<br>
+izplatāmās-veidnes: tiek izplatītas testēšanas nolūkos!
+<strong>Nerediģējiet tās</strong> izveidojiet paši savas.
+</li>
+
+  <li>Izdzēšot aizstājējveidni <strong>Oriģinālā veidne </strong>nekavējoties tiek no jauna aktivizēta.</li>
+
+</ul>

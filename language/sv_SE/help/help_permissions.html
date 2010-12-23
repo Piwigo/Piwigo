@@ -1,0 +1,57 @@
+<fieldset>
+<legend>Behörigheter på bilder</legend>
+
+<p>Varje bild har en <strong>behörighetsnivå</strong> .(Låsbar), Varje användare har också en behörighetsnivå (ett ID). Det finns 5 behörighetsnivåer:</p>
+<ol>
+  <li>Ingen</li>
+  <li><em>Kontakter</em></li>
+  <li><em>Vänner (vilket är högre än en kontakter)</em></li>
+  <li><em>Familj (vilket är högre än en vänner)</em></li>
+  <li><em>Administratörer (vilket är högre än någon annan nivå)</em></li>
+</ol>
+
+<p>Högre nivåer har behörighet på lägre nivåer. Ju höre behörighet användaren har, ju mer bilder kan användaren se.</p>
+
+<p>Till exempel, om foto "peter_wedding-0024.jpg" Har <em>"Familj"</em> behörighetsnivå, då:</p>
+<ul>
+  <li>Peter (som är en <em>"administratör"</em>) kommer att se bilden eftersom <em>"Adminstratör"</em> kan se alla bilder</li>
+  <li>Beth (som är en <em>"Familj"</em> member) kommer också se bilden</li>
+  <li>Mary (som är en <em>"Vänner"</em>) kommer inte se bilden</li>
+</ul>
+
+<p>En användare som inte har någon behörighet att visa innehållet i en kategori, kommer att se kategorin själv, inte ens dess titel. Samma princip gäller för en taggar</p>
+
+<p>Du kan ställa in behörighetsnivån för en användare på <span class="pwgScreen">Administration &raquo; Användare &raquo; Hantera</span> skärmen.</p>
+
+</fieldset>
+
+<fieldset>
+<legend>Behörigheter på Kategorier</legend>
+
+<p>Om behörighets niverna inte passar dina behov, kan du hantera även sätta behörigheter på kategorier för en användare eller en grupp. Du kan hantera behörigheter på bilder och kategorier samtidigt, utan konflikter.</p>
+
+<p>Du kan förbjuda tillgång till kategorier. Byt kategori åtkomst typ till
+"Privat" om du vill hantera behörigheter.</p>
+
+<p>Du kan ange en kategori som "privat" genom att redigera en kategori
+(<span class="pwgScreen">Administration &raquo; Kategorier &raquo; Hantera
+&raquo; Editera</span>) eller genom att ange alternativ för hela din kategori trädet
+(<span class="pwgScreen">Administration &raquo; Kategorier &raquo;
+Engenskaper &raquo; Publik / Privat</span>).</p>
+
+<p>När kategorin är privat, kan du hantera behörigheter för grupper och
+användare med dessa 3 menyer:</p>
+
+<ul>
+
+  <li><span class="pwgScreen">Administration &raquo; Användare &raquo; hantera &raquo;
+  behörigheter</span> (en länk per användare)</li>
+
+  <li><span class="pwgScreen">Administration &raquo; Användare &raquo; Grupper &raquo;
+  behörigheter</span> (en länk per grupp)</li>
+
+  <li><span class="pwgScreen">Administration &raquo; kategorier &raquo; hantera &raquo; editera
+  Kategori behörighet</span> (en länk per kategori)</li>
+
+</ul>
+</fieldset>

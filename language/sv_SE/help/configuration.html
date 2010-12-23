@@ -1,0 +1,132 @@
+<h2>Konfiguration</h2>
+
+<p>Denna meny låter administratören utföra grundläggande konfiguration. Faktum är att denna
+meny visar endast enkel konfigurering parametrar som bör räcka för
+de allra flesta administratörer. Om du vill se andra otaliga (och
+avancerad) konfigurationsparametrar, läsa filen  <span
+class="filename">include/config_default.inc.php</span>.</p>
+
+<p>Den här meny är uppdelad i flera avsnitt, omgruppera konfiguration
+parametrar efter tema.</p>
+
+
+<h3>Huvudsakliga</h3>
+<ul>
+  <li><strong>Galleri titel</strong>: används i RSS-feed och noteringar av
+e-post.</li>
+
+  <li><strong>Sid banner</strong>: Visas högst upp på varje public sida.</li>
+
+  <li><strong>Galleri URL</strong>: används för RSS-flöde.</li>
+
+  <li><strong>Stäng galleri</strong>: stänger hela galleriet för
+   underhåll. Endast administratörer användare kommer att kunna nå
+   galleriet.</li>
+
+  <li><strong>Betyg</strong>: Funktionen för att sätta betyg är aktiverad.</li>
+
+  <li><strong>Bestyg av gäster</strong>: Även oregistrerade användare kan betygsätta bilder.</li>
+
+  <li><strong>Tillåt användare registrering</strong>: Vem som helst kan registrera sig.</li>
+
+  <li><strong>E-post är obligatoriskt för alla användare</strong>: e-postadress kommer att kontrolleras vid registrering eller profil uppdatering, förutom om åtgärden görs av en administratör.</li>
+
+  <li><strong>Skicka e-post när nya användare regestrerar sig</strong>: administratörer kommer att meddelas via e-post för varje ny registrering.</li>
+
+</ul>
+
+<h3>Historia</h3>
+
+  <p>Besök på sidorna <span
+  class="pwgScreen">category.php</span> Och <span
+  class="pwgScreen">picture.php</span> kommer att sparas i
+  <code>historisk</code> tabell.</p>
+
+  <p>Besök kommer att visas i <span
+  class="pwgScreen">Administration, Erbjudande, Historik</span>.</p>
+
+<ul>
+  <li><strong>Spara sidan som gäster har besökt</strong>: Sidor som besökts av gäster kommer att registreras.</li>
+
+  <li><strong>Spara sidan som registrerade användare har besökt</strong>: Sidor som besökts av användare kommer att registreras.</li>
+
+  <li><strong>Spara sidan som administratörer har besökt</strong>: Sidor som besökts av administratörer kommer att registreras.</li>
+
+</ul>
+
+<h3>Comments</h3>
+<ul>
+
+  <li><strong>Kommentarer till allal</strong>: Även oregistrerade gäster kan skicka
+   kommentarer.</li>
+
+  <li><strong>Antal kommentarer per sida</strong>.</li>
+
+  <li><strong>Validering</strong>: en administratör måste validera användarens kommentarer innan de blir synliga på webbplatsen. Användarens kommentarer valideras i
+  menyn administration <span class="pwgScreen">Administration, bilder,
+  Komentarer</span>.</li>
+
+  <li><strong>Skickar e-post till admins när en komentar godkänns</strong>:
+Skickar ett mejl till administratörer när en användare anger en kommentar och den här kommentaren är godkänd.</li>
+
+  <li><strong>Skickar e-post till admins när en kommentar kräver validering</strong>:
+Skickar ett mejl till administratörer när en användare anger en kommentar som kräver godkännande av admin.
+Kommentarer validering sker på Menyn <span class="pwgScreen">Administration, bilder, Kommentarer </span>.</li>
+
+</ul>
+
+<h3>Ladda upp</h3>
+<ul>
+  <li><strong>Visa upp laddnings länk varje gång</strong>: Om uppladdade kategorier finns redan, kommer en uppladdning länk visas för varje kategor.</li>
+  <li><strong>Användarnas behörighets nivå för uppladdning</strong>: Begränsar uppladdning till vissa kategorier av användare</li>
+  <li><strong>Skickar e-post till admin när en bild är uppladdad</strong>: Administratörer kommer att meddelas via e-post varje gång en bild laddas upp av en användare.</li>
+</ul>
+
+<h3>Standard display</h3>
+
+<p>Här kan du ändra visningsalternativ som används av gäst, standard användare som inte har loggat in.
+När användaren har loggat in så får användaren sina egna alternativ
+(modifiable in <span class="pwgScreen">Profil</span>).</p>
+
+<p>Det är möjligt att ändra visningsalternativ för alla befintliga användare, på <span class="pwgScreen">Administration,
+Inloggnings id, Användare</span> menyn, där du kan välja en lista med
+användare.</p>
+
+<ul>
+
+  <li><strong>Språk /strong>: används på Piwigo
+   etiketter bara. Kategori namn, namn på bild och alla beskrivande fält är inte
+   lokala.</li>
+
+  <li><strong>Antal bilder per rad</strong></li>
+
+  <li><strong>Antal rader per sida</strong></li>
+
+  <li><strong>Tema för gränssnitt</strong></li>
+
+  <li><strong>Senaste perioden</strong>: Sorterat på dagar. Period under vilken en bild är
+   visas som nya. Måste vara större än 1 dag.</li>
+
+  <li><strong>Expandera alla kategorier</strong>: Expandera alla kategorier som
+   standard i menyn <em>Varning</em>: det här alternativet är resurs krävande
+   och kan generera stora menyn om ditt kategori träd innehåller många
+   kategorier.</li>
+
+  <li><strong>Visa antal kommentarer</strong>: visa antalet kommentarer
+   för varje bild på miniatyrerna sidan. Resurs krävande.</li>
+
+  <li><strong>Visa antal träffar</strong>: visa träffar på bilder
+  under miniatyrbilden på miniatyrerna sida.
+  Först när avancerad konfiguration parameter: <br>
+  $conf['show_nb_hits'] = Sant; <br>
+  Notice: Inte aktiverat som standard.</li>
+
+  <li><strong>Maximal bredd på bilderna</strong>: visa max bredden.
+  Bilder som är större än den här inställningen kommer att ändras på
+   i visningsläget. Välj hälldre att ändra bredden på dina bilder,
+   det skulle vara en bättre praxis.</li>
+
+  <li><strong>Maximal höjd på bilderna</strong>: Samma anmärkningar som för
+maximal bredd inställningen.</li>
+
+</ul>
