@@ -221,6 +221,23 @@ function ws_addDefaultMethods( $arr )
     );
 
   $service->addMethod(
+    'pwg.images.addSimple',
+    'ws_images_addSimple',
+    array(
+      'category' => array('default' => null),
+      'name' => array('default' => null),
+      'author' => array('default' => null),
+      'comment' => array('default' => null),
+      'level' => array(
+        'default' => 0,
+        'maxValue' => $conf['available_permission_levels']
+        ),
+      'tags' => array('default' => null),
+      ),
+    'POST method only.<br>Use the <b>image</b> field for uploading file.<br>Set the form encoding to "form-data"<br><b>category</b> is the numeric identifier of the destination category.'
+    );
+  
+  $service->addMethod(
     'pwg.categories.getAdminList',
     'ws_categories_getAdminList',
     array(),

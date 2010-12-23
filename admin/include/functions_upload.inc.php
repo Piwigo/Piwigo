@@ -1,30 +1,197 @@
 <?php
-// TODO
-// * check md5sum (already exists?)
+// +-----------------------------------------------------------------------+
+// | Piwigo - a PHP based picture gallery                                  |
+// +-----------------------------------------------------------------------+
+// | Copyright(C) 2008-2010 Piwigo Team                  http://piwigo.org |
+// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
+// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
+// +-----------------------------------------------------------------------+
+// | This program is free software; you can redistribute it and/or modify  |
+// | it under the terms of the GNU General Public License as published by  |
+// | the Free Software Foundation                                          |
+// |                                                                       |
+// | This program is distributed in the hope that it will be useful, but   |
+// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
+// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
+// | General Public License for more details.                              |
+// |                                                                       |
+// | You should have received a copy of the GNU General Public License     |
+// | along with this program; if not, write to the Free Software           |
+// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
+// | USA.                                                                  |
+// +-----------------------------------------------------------------------+
 
-include_once(PHPWG_ROOT_PATH.'include/common.inc.php');
-include_once(PHPWG_ROOT_PATH.'include/ws_functions.inc.php');
 include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
-
-// Here is the plan
-//
-// 1) move uploaded file to upload/2010/01/22/20100122003814-449ada00.jpg
-//
-// 2) if taller than max_height or wider than max_width, move to pwg_high
-//    + web sized creation
-//
-// 3) thumbnail creation from web sized
-//
-// 4) register in database
 
 // add default event handler for image and thumbnail resize
 add_event_handler('upload_image_resize', 'pwg_image_resize', EVENT_HANDLER_PRIORITY_NEUTRAL, 7);
 add_event_handler('upload_thumbnail_resize', 'pwg_image_resize', EVENT_HANDLER_PRIORITY_NEUTRAL, 7);
 
-function add_uploaded_file($source_filepath, $original_filename=null, $categories=null, $level=null)
+function get_upload_form_config()
+{
+  // default configuration for upload
+  $upload_form_config = array(
+    'websize_resize' => array(
+      'default' => true,
+      'can_be_null' => false,
+      ),
+    
+    'websize_maxwidth' => array(
+      'default' => 800,
+      'min' => 100,
+      'max' => 1600,
+      'pattern' => '/^\d+$/',
+      'can_be_null' => true,
+      'error_message' => l10n('The websize maximum width must be a number between %d and %d'),
+      ),
+  
+    'websize_maxheight' => array(
+      'default' => 600,
+      'min' => 100,
+      'max' => 1200,
+      'pattern' => '/^\d+$/',
+      'can_be_null' => true,
+      'error_message' => l10n('The websize maximum height must be a number between %d and %d'),
+      ),
+  
+    'websize_quality' => array(
+      'default' => 95,
+      'min' => 50,
+      'max' => 100,
+      'pattern' => '/^\d+$/',
+      'can_be_null' => false,
+      'error_message' => l10n('The websize image quality must be a number between %d and %d'),
+      ),
+  
+    'thumb_maxwidth' => array(
+      'default' => 128,
+      'min' => 50,
+      'max' => 300,
+      'pattern' => '/^\d+$/',
+      'can_be_null' => false,
+      'error_message' => l10n('The thumbnail maximum width must be a number between %d and %d'),
+      ),
+  
+    'thumb_maxheight' => array(
+      'default' => 96,
+      'min' => 50,
+      'max' => 300,
+      'pattern' => '/^\d+$/',
+      'can_be_null' => false,
+      'error_message' => l10n('The thumbnail maximum height must be a number between %d and %d'),
+      ),
+  
+    'thumb_quality' => array(
+      'default' => 95,
+      'min' => 50,
+      'max' => 100,
+      'pattern' => '/^\d+$/',
+      'can_be_null' => false,
+      'error_message' => l10n('The thumbnail image quality must be a number between %d and %d'),
+      ),
+  
+    'hd_keep' => array(
+      'default' => true,
+      'can_be_null' => false,
+      ),
+  
+    'hd_resize' => array(
+      'default' => false,
+      'can_be_null' => false,
+      ),
+  
+    'hd_maxwidth' => array(
+      'default' => 2000,
+      'min' => 500,
+      'max' => 20000,
+      'pattern' => '/^\d+$/',
+      'can_be_null' => false,
+      'error_message' => l10n('The high definition maximum width must be a number between %d and %d'),
+      ),
+  
+    'hd_maxheight' => array(
+      'default' => 2000,
+      'min' => 500,
+      'max' => 20000,
+      'pattern' => '/^\d+$/',
+      'can_be_null' => false,
+      'error_message' => l10n('The high definition maximum height must be a number between %d and %d'),
+      ),
+  
+    'hd_quality' => array(
+      'default' => 95,
+      'min' => 50,
+      'max' => 100,
+      'pattern' => '/^\d+$/',
+      'can_be_null' => false,
+      'error_message' => l10n('The high definition image quality must be a number between %d and %d'),
+      ),
+    );
+
+  return $upload_form_config;
+}
+
+/*
+ * automatic fill of configuration parameters
+ */
+function prepare_upload_configuration()
 {
   global $conf;
 
+  $inserts = array();
+  
+  foreach (get_upload_form_config() as $param_shortname => $param)
+  {
+    $param_name = 'upload_form_'.$param_shortname;
+  
+    if (!isset($conf[$param_name]))
+    {
+      $param_value = boolean_to_string($param['default']);
+      
+      array_push(
+        $inserts,
+        array(
+          'param' => $param_name,
+          'value' => $param_value,
+          )
+        );
+
+      $conf[$param_name] = $param_value;
+      if (is_bool($param['default']))
+      {
+        $conf[$param_name] = get_boolean($param_value);
+      }
+    }
+  }
+  
+  if (count($inserts) > 0)
+  {
+    mass_inserts(
+      CONFIG_TABLE,
+      array_keys($inserts[0]),
+      $inserts
+      );
+  }
+}
+
+function add_uploaded_file($source_filepath, $original_filename=null, $categories=null, $level=null)
+{
+  // Here is the plan
+  //
+  // 1) move uploaded file to upload/2010/01/22/20100122003814-449ada00.jpg
+  //
+  // 2) if taller than max_height or wider than max_width, move to pwg_high
+  //    + web sized creation
+  //
+  // 3) thumbnail creation from web sized
+  //
+  // 4) register in database
+  
+  // TODO
+  // * check md5sum (already exists?)
+  
+  global $conf;
+  
   // current date
   list($dbnow) = pwg_db_fetch_row(pwg_query('SELECT NOW();'));
   list($year, $month, $day) = preg_split('/[^\d]/', $dbnow, 4);
@@ -89,20 +256,23 @@ function add_uploaded_file($source_filepath, $original_filename=null, $categorie
     {
       if ($conf['upload_form_hd_keep'])
       {
-        $need_resize = need_resize($high_path, $conf['upload_form_hd_maxwidth'], $conf['upload_form_hd_maxheight']);
-        
-        if ($conf['upload_form_hd_resize'] and $need_resize)
+        if ($conf['upload_form_hd_resize'])
         {
-          pwg_image_resize(
-            false,
-            $high_path,
-            $high_path,
-            $conf['upload_form_hd_maxwidth'],
-            $conf['upload_form_hd_maxheight'],
-            $conf['upload_form_hd_quality'],
-            false
-            );
-          $high_infos = pwg_image_infos($high_path);
+          $need_resize = need_resize($high_path, $conf['upload_form_hd_maxwidth'], $conf['upload_form_hd_maxheight']);
+        
+          if ($need_resize)
+          {
+            pwg_image_resize(
+              false,
+              $high_path,
+              $high_path,
+              $conf['upload_form_hd_maxwidth'],
+              $conf['upload_form_hd_maxheight'],
+              $conf['upload_form_hd_quality'],
+              false
+              );
+            $high_infos = pwg_image_infos($high_path);
+          }
         }
       }
       else
@@ -556,5 +726,65 @@ function is_imagick()
   }
 
   return false;
+}
+
+function ready_for_upload_message()
+{
+  global $conf;
+
+  $relative_dir = preg_replace('#^'.PHPWG_ROOT_PATH.'#', '', $conf['upload_dir']);
+
+  if (!is_dir($conf['upload_dir']))
+  {
+    if (!is_writable(dirname($conf['upload_dir'])))
+    {
+      return sprintf(
+        l10n('Create the "%s" directory at the root of your Piwigo installation'),
+        $relative_dir
+        );
+    }
+  }
+  else
+  {
+    if (!is_writable($conf['upload_dir']))
+    {
+      @chmod($conf['upload_dir'], 0777);
+      
+      if (!is_writable($conf['upload_dir']))
+      {
+        return sprintf(
+          l10n('Give write access (chmod 777) to "%s" directory at the root of your Piwigo installation'),
+          $relative_dir
+          );
+      }
+    }
+  }
+
+  return null;
+}
+
+function file_path_for_type($file_path, $type='thumb')
+{
+  // resolve the $file_path depending on the $type
+  if ('thumb' == $type) {
+    $file_path = get_thumbnail_location(
+      array(
+        'path' => $file_path,
+        'tn_ext' => 'jpg',
+        )
+      );
+  }
+
+  if ('high' == $type) {
+    @include_once(PHPWG_ROOT_PATH.'include/functions_picture.inc.php');
+    $file_path = get_high_location(
+      array(
+        'path' => $file_path,
+        'has_high' => 'true'
+        )
+      );
+  }
+
+  return $file_path;
 }
 ?>

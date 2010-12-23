@@ -43,134 +43,9 @@ check_status(ACCESS_ADMINISTRATOR);
 // |                          Load configuration                           |
 // +-----------------------------------------------------------------------+
 
-// automatic fill of configuration parameters
-$upload_form_config = array(
-  'websize_resize' => array(
-    'default' => true,
-    'can_be_null' => false,
-    ),
-  
-  'websize_maxwidth' => array(
-    'default' => 800,
-    'min' => 100,
-    'max' => 1600,
-    'pattern' => '/^\d+$/',
-    'can_be_null' => true,
-    'error_message' => l10n('The websize maximum width must be a number between %d and %d'),
-    ),
-  
-  'websize_maxheight' => array(
-    'default' => 600,
-    'min' => 100,
-    'max' => 1200,
-    'pattern' => '/^\d+$/',
-    'can_be_null' => true,
-    'error_message' => l10n('The websize maximum height must be a number between %d and %d'),
-    ),
-  
-  'websize_quality' => array(
-    'default' => 95,
-    'min' => 50,
-    'max' => 100,
-    'pattern' => '/^\d+$/',
-    'can_be_null' => false,
-    'error_message' => l10n('The websize image quality must be a number between %d and %d'),
-    ),
-  
-  'thumb_maxwidth' => array(
-    'default' => 128,
-    'min' => 50,
-    'max' => 300,
-    'pattern' => '/^\d+$/',
-    'can_be_null' => false,
-    'error_message' => l10n('The thumbnail maximum width must be a number between %d and %d'),
-    ),
-  
-  'thumb_maxheight' => array(
-    'default' => 96,
-    'min' => 50,
-    'max' => 300,
-    'pattern' => '/^\d+$/',
-    'can_be_null' => false,
-    'error_message' => l10n('The thumbnail maximum height must be a number between %d and %d'),
-    ),
-  
-  'thumb_quality' => array(
-    'default' => 95,
-    'min' => 50,
-    'max' => 100,
-    'pattern' => '/^\d+$/',
-    'can_be_null' => false,
-    'error_message' => l10n('The thumbnail image quality must be a number between %d and %d'),
-    ),
-  
-  'hd_keep' => array(
-    'default' => true,
-    'can_be_null' => false,
-    ),
-  
-  'hd_resize' => array(
-    'default' => false,
-    'can_be_null' => false,
-    ),
-  
-  'hd_maxwidth' => array(
-    'default' => 2000,
-    'min' => 500,
-    'max' => 20000,
-    'pattern' => '/^\d+$/',
-    'can_be_null' => false,
-    'error_message' => l10n('The high definition maximum width must be a number between %d and %d'),
-    ),
-  
-  'hd_maxheight' => array(
-    'default' => 2000,
-    'min' => 500,
-    'max' => 20000,
-    'pattern' => '/^\d+$/',
-    'can_be_null' => false,
-    'error_message' => l10n('The high definition maximum height must be a number between %d and %d'),
-    ),
-  
-  'hd_quality' => array(
-    'default' => 95,
-    'min' => 50,
-    'max' => 100,
-    'pattern' => '/^\d+$/',
-    'can_be_null' => false,
-    'error_message' => l10n('The high definition image quality must be a number between %d and %d'),
-    ),
-  );
+prepare_upload_configuration();
 
-$inserts = array();
-
-foreach ($upload_form_config as $param_shortname => $param)
-{
-  $param_name = 'upload_form_'.$param_shortname;
-  
-  if (!isset($conf[$param_name]))
-  {
-    $param_value = boolean_to_string($param['default']);
-    
-    array_push(
-      $inserts,
-      array(
-        'param' => $param_name,
-        'value' => $param_value,
-        )
-      );
-    $conf[$param_name] = $param_value;
-  }
-}
-
-if (count($inserts) > 0)
-{
-  mass_inserts(
-    CONFIG_TABLE,
-    array_keys($inserts[0]),
-    $inserts
-    );
-}
+$upload_form_config = get_upload_form_config();
 
 // +-----------------------------------------------------------------------+
 // |                                 Tabs                                  |
@@ -237,11 +112,6 @@ $template->set_filenames(
     'photos_add' => 'photos_add_'.$page['tab'].'.tpl'
     )
   );
-
-// $template->append(
-//   'head_elements',
-//   '<link rel="stylesheet" type="text/css" href="'.UPLOAD_FORM_PATH.'upload.css">'."\n"
-//   );
 
 // +-----------------------------------------------------------------------+
 // |                             Load the tab                              |

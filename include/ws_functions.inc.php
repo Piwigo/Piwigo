@@ -1076,6 +1076,8 @@ function merge_chunks($output_filepath, $original_sum, $type)
  */
 function add_file($file_path, $type, $original_sum, $file_sum)
 {
+  include_once(PHPWG_ROOT_PATH.'admin/include/functions_upload.inc.php');
+  
   $file_path = file_path_for_type($file_path, $type);
 
   $upload_dir = dirname($file_path);
@@ -1335,6 +1337,101 @@ SELECT
   update_metadata(array($image_id=>$file_path));
   
   invalidate_user_cache();
+}
+
+function ws_images_addSimple($params, &$service)
+{
+  global $conf;
+  if (!is_admin() || is_adviser() )
+  {
+    return new PwgError(401, 'Access denied');
+  }
+
+  if (!$service->isPost())
+  {
+    return new PwgError(405, "This method requires HTTP POST");
+  }
+
+  // category
+  $params['category'] = (int)$params['category'];
+  if ($params['category'] <= 0)
+  {
+    return new PwgError(WS_ERR_INVALID_PARAM, "Invalid category_id");
+  }
+
+  include_once(PHPWG_ROOT_PATH.'admin/include/functions_upload.inc.php');
+  prepare_upload_configuration();
+
+  $image_id = add_uploaded_file(
+    $_FILES['image']['tmp_name'],
+    $_FILES['image']['name'],
+    array($params['category']),
+    8
+    );
+
+  $info_columns = array(
+    'name',
+    'author',
+    'comment',
+    'level',
+    'date_creation',
+    );
+
+  foreach ($info_columns as $key)
+  {
+    if (isset($params[$key]))
+    {
+      $update[$key] = $params[$key];
+    }
+  }
+
+  if (count(array_keys($update)) > 0)
+  {
+    $update['id'] = $image_id;
+
+    include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
+    mass_updates(
+      IMAGES_TABLE,
+      array(
+        'primary' => array('id'),
+        'update'  => array_diff(array_keys($update), array('id'))
+        ),
+      array($update)
+      );
+  }
+
+
+  if (isset($params['tags']) and !empty($params['tags']))
+  {
+    $tag_ids = array();
+    $tag_names = explode(',', $params['tags']);
+    foreach ($tag_names as $tag_name)
+    {
+      $tag_id = tag_id_from_tag_name($tag_name);
+      array_push($tag_ids, $tag_id);
+    }
+
+    add_tags($tag_ids, array($image_id));
+  }
+
+  $query = '
+SELECT id, name, permalink
+  FROM '.CATEGORIES_TABLE.'
+  WHERE id = '.$params['category'].'
+;';
+  $result = pwg_query($query);
+  $category = pwg_db_fetch_assoc($result);
+
+  return array(
+    'image_id' => $image_id,
+    'url' => make_picture_url(
+      array(
+        'image_id' => $image_id,
+        'section' => 'categories',
+        'category' => $category
+        )
+      ),
+    );
 }
 
 /**
@@ -1744,6 +1841,7 @@ SELECT
     }
 
     if (isset($params[$param_name.'_sum'])) {
+      include_once(PHPWG_ROOT_PATH.'admin/include/functions_upload.inc.php');
       $type_path = file_path_for_type($path, $type);
       if (!is_file($type_path)) {
         $ret[$param_name] = 'missing';
@@ -1760,31 +1858,6 @@ SELECT
   }
 
   return $ret;
-}
-
-function file_path_for_type($file_path, $type='thumb')
-{
-  // resolve the $file_path depending on the $type
-  if ('thumb' == $type) {
-    $file_path = get_thumbnail_location(
-      array(
-        'path' => $file_path,
-        'tn_ext' => 'jpg',
-        )
-      );
-  }
-
-  if ('high' == $type) {
-    @include_once(PHPWG_ROOT_PATH.'include/functions_picture.inc.php');
-    $file_path = get_high_location(
-      array(
-        'path' => $file_path,
-        'has_high' => 'true'
-        )
-      );
-  }
-
-  return $file_path;
 }
 
 function ws_images_setInfo($params, &$service)
@@ -2152,6 +2225,7 @@ function ws_images_checkUpload($params, &$service)
     return new PwgError(401, 'Access denied');
   }
 
+  include_once(PHPWG_ROOT_PATH.'admin/include/functions_upload.inc.php');
   $ret['message'] = ready_for_upload_message();
   $ret['ready_for_upload'] = true;
   
@@ -2161,40 +2235,5 @@ function ws_images_checkUpload($params, &$service)
   }
   
   return $ret;
-}
-
-function ready_for_upload_message()
-{
-  global $conf;
-
-  $relative_dir = preg_replace('#^'.PHPWG_ROOT_PATH.'#', '', $conf['upload_dir']);
-
-  if (!is_dir($conf['upload_dir']))
-  {
-    if (!is_writable(dirname($conf['upload_dir'])))
-    {
-      return sprintf(
-        l10n('Create the "%s" directory at the root of your Piwigo installation'),
-        $relative_dir
-        );
-    }
-  }
-  else
-  {
-    if (!is_writable($conf['upload_dir']))
-    {
-      @chmod($conf['upload_dir'], 0777);
-      
-      if (!is_writable($conf['upload_dir']))
-      {
-        return sprintf(
-          l10n('Give write access (chmod 777) to "%s" directory at the root of your Piwigo installation'),
-          $relative_dir
-          );
-      }
-    }
-  }
-
-  return null;
 }
 ?>
