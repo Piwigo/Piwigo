@@ -1342,7 +1342,7 @@ SELECT
 function ws_images_addSimple($params, &$service)
 {
   global $conf;
-  if (!is_admin() || is_adviser() )
+  if (!is_admin())
   {
     return new PwgError(401, 'Access denied');
   }
@@ -1992,7 +1992,7 @@ SELECT *
 function ws_images_delete($params, &$service)
 {
   global $conf;
-  if (!is_admin() || is_adviser() )
+  if (!is_admin())
   {
     return new PwgError(401, 'Access denied');
   }
@@ -2243,7 +2243,7 @@ function ws_categories_setInfo($params, &$service)
 function ws_categories_delete($params, &$service)
 {
   global $conf;
-  if (!is_admin() || is_adviser() )
+  if (!is_admin())
   {
     return new PwgError(401, 'Access denied');
   }
@@ -2312,7 +2312,7 @@ function ws_categories_move($params, &$service)
 {
   global $conf, $page;
   
-  if (!is_admin() || is_adviser() )
+  if (!is_admin())
   {
     return new PwgError(401, 'Access denied');
   }
