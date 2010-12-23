@@ -236,7 +236,17 @@ function ws_addDefaultMethods( $arr )
       ),
     'POST method only.<br>Use the <b>image</b> field for uploading file.<br>Set the form encoding to "form-data"<br><b>category</b> is the numeric identifier of the destination category.'
     );
-  
+
+  $service->addMethod(
+    'pwg.images.delete',
+    'ws_images_delete',
+    array(
+      'image_id'=>array('default'=>0),
+      'pwg_token' => array('default' => null),
+      ),
+    'Delete photos. You can give several image_ids, comma separated'
+    );
+
   $service->addMethod(
     'pwg.categories.getAdminList',
     'ws_categories_getAdminList',
@@ -252,6 +262,18 @@ function ws_addDefaultMethods( $arr )
       'parent' => array('default' => null),
       ),
     'administration method only'
+    );
+
+  $service->addMethod(
+    'pwg.categories.delete',
+    'ws_categories_delete',
+    array(
+      'category_id'=>array('default'=>0),
+      'pwg_token' => array('default' => null),
+      'photo_deletion_mode' => array('default' => 'delete_orphans'),
+      ),
+    'Delete categories. You can give several category_ids, comma separated.
+<br><b>photo_deletion_mode</b> can be "no_delete" (may create orphan photos), "delete_orphans" (default mode, only deletes photos linked to no other album) or "force_delete" (delete all photos, even those linked to other albums)'
     );
 
   $service->addMethod(

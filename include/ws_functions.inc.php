@@ -1989,6 +1989,45 @@ SELECT *
   invalidate_user_cache();
 }
 
+function ws_images_delete($params, &$service)
+{
+  global $conf;
+  if (!is_admin() || is_adviser() )
+  {
+    return new PwgError(401, 'Access denied');
+  }
+
+  if (!$service->isPost())
+  {
+    return new PwgError(405, "This method requires HTTP POST");
+  }
+
+  if (empty($params['pwg_token']) or get_pwg_token() != $params['pwg_token'])
+  {
+    return new PwgError(403, 'Invalid security token');
+  }
+
+  $params['image_id'] = preg_split(
+    '/[\s,;\|]/',
+    $params['image_id'],
+    -1,
+    PREG_SPLIT_NO_EMPTY
+    );
+  $params['image_id'] = array_map('intval', $params['image_id']);
+
+  $image_ids = array();
+  foreach ($params['image_id'] as $image_id)
+  {
+    if ($image_id > 0)
+    {
+      array_push($image_ids, $image_id);
+    }
+  }
+
+  include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
+  delete_elements($image_ids, true);
+}
+
 function ws_add_image_category_relations($image_id, $categories_string, $replace_mode=false)
 {
   // let's add links between the image and the categories
@@ -2199,6 +2238,74 @@ function ws_categories_setInfo($params, &$service)
       );
   }
 
+}
+
+function ws_categories_delete($params, &$service)
+{
+  global $conf;
+  if (!is_admin() || is_adviser() )
+  {
+    return new PwgError(401, 'Access denied');
+  }
+
+  if (!$service->isPost())
+  {
+    return new PwgError(405, "This method requires HTTP POST");
+  }
+
+  if (empty($params['pwg_token']) or get_pwg_token() != $params['pwg_token'])
+  {
+    return new PwgError(403, 'Invalid security token');
+  }
+
+  $modes = array('no_delete', 'delete_orphans', 'force_delete');
+  if (!in_array($params['photo_deletion_mode'], $modes))
+  {
+    return new PwgError(
+      500,
+      '[ws_categories_delete]'
+      .' invalid parameter photo_deletion_mode "'.$params['photo_deletion_mode'].'"'
+      .', possible values are {'.implode(', ', $modes).'}.'
+      );
+  }
+
+  $params['category_id'] = preg_split(
+    '/[\s,;\|]/',
+    $params['category_id'],
+    -1,
+    PREG_SPLIT_NO_EMPTY
+    );
+  $params['category_id'] = array_map('intval', $params['category_id']);
+
+  $category_ids = array();
+  foreach ($params['category_id'] as $category_id)
+  {
+    if ($category_id > 0)
+    {
+      array_push($category_ids, $category_id);
+    }
+  }
+
+  if (count($category_ids) == 0)
+  {
+    return;
+  }
+
+  $query = '
+SELECT id
+  FROM '.CATEGORIES_TABLE.'
+  WHERE id IN ('.implode(',', $category_ids).')
+;';
+  $category_ids = array_from_query($query, 'id');
+
+  if (count($category_ids) == 0)
+  {
+    return;
+  }
+  
+  include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
+  delete_categories($category_ids, $params['photo_deletion_mode']);
+  update_global_rank();
 }
 
 function ws_logfile($string)
