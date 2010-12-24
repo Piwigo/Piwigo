@@ -35,7 +35,7 @@ $lang['Perform a maintenance check in [Administration>Tools>Maintenance] if you 
 $lang['As a precaution, following plugins have been deactivated. You must check for plugins upgrade before reactiving them:'] = "هشدار ، پلاگین‌های زیر در حال حاضر از کار افتاده‌اند ، قبل از فعال کردن مجدد آنان 'چک آپدیت' را کلیک کنید:";
 $lang['Only administrator can run upgrade: please sign in below.'] = "فقط مدیران می‌توانند سیستم را آپگرید کنند";
 $lang['You do not have access rights to run upgrade'] = "شما دسترسی لازم برای آپگرید را ندارید";
-$lang['All sub-categories of private categories become private'] = "تمام زیر دسته‌های مربوط به دسته‌های شخصی ، شخصی شدند";
+$lang['All sub-albums of private albums become private'] = "تمام زیر دسته‌های مربوط به دسته‌های شخصی ، شخصی شدند";
 $lang['User permissions and group permissions have been erased'] = "مجوزهای کاربران و گروه‌ها حذف شد";
 $lang['Only thumbnails prefix and webmaster mail address have been saved from previous configuration'] = "فقط پیشوند عکس‌ریزه‌ها(thumbnails) و آدرس ایمیل وب‌مستر از نسخه قدیمی باقی خواهد ماند";
 $lang['In <i>%s</i>, before <b>?></b>, insert:'] = 'در <i>%s</i>, قبل از <b>?></b>, اضافه کنید:';
