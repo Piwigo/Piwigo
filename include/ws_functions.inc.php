@@ -2539,4 +2539,36 @@ function ws_plugins_performAction($params, &$service)
   }
 }
 
+function ws_themes_performAction($params, &$service)
+{
+  global $template;
+  
+  if (!is_admin() || is_adviser() )
+  {
+    return new PwgError(401, 'Access denied');
+  }
+
+  if (empty($params['pwg_token']) or get_pwg_token() != $params['pwg_token'])
+  {
+    return new PwgError(403, 'Invalid security token');
+  }
+
+  define('IN_ADMIN', true);
+  include_once(PHPWG_ROOT_PATH.'admin/include/themes.class.php');
+  $themes = new themes();
+  $errors = $themes->perform_action($params['action'], $params['theme']);
+  
+  if (!empty($errors))
+  {
+    return new PwgError(500, $errors);
+  }
+  else
+  {
+    if (in_array($params['action'], array('activate', 'deactivate')))
+    {
+      $template->delete_compiled_templates();
+    }
+    return true;
+  }
+}
 ?>
