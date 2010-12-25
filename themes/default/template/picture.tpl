@@ -60,7 +60,7 @@
 		</a>
 {/if}
 {if isset($U_SET_AS_REPRESENTATIVE)}
-		<a href="{$U_SET_AS_REPRESENTATIVE}" title="{'set as category representative'|@translate}" class="pwg-state-default pwg-button" rel="nofollow">
+		<a href="{$U_SET_AS_REPRESENTATIVE}" title="{'set as album representative'|@translate}" class="pwg-state-default pwg-button" rel="nofollow">
 			<span class="pwg-icon pwg-icon-representative">&nbsp;</span><span class="pwg-button-text">{'representative'|@translate}</span>
 		</a>
 {/if}
@@ -70,7 +70,7 @@
 		</a>
 {/if}
 {if isset($U_CADDIE)}{*caddie management BEGIN*}
-<script type="text/javascript">
+{footer_script}
 {literal}function addToCadie(aElement, rootUrl, id)
 {
 if (aElement.disabled) return;
@@ -85,7 +85,7 @@ y.callService(
 	}
 	);
 }{/literal}
-</script>
+{/footer_script}
 		<a href="{$U_CADDIE}" onclick="addToCadie(this, '{$ROOT_URL|@escape:'javascript'}', {$current.id}); return false;" title="{'add to caddie'|@translate}" class="pwg-state-default pwg-button" rel="nofollow">
 			<span class="pwg-icon pwg-icon-caddie-add">&nbsp;</span><span class="pwg-button-text">{'caddie'|@translate}</span>
 		</a>
@@ -241,7 +241,7 @@ y.callService(
 		<td class="label">{'Who can see this photo?'|@translate}</td>
 		<td class="value"> 
 {combine_script id='core.scripts' load='async' path='themes/default/js/scripts.js'}
-<script type="text/javascript">
+{footer_script}
 {literal}function setPrivacyLevel(selectElement, rootUrl, id, level)
 {
 selectElement.disabled = true;
@@ -255,7 +255,7 @@ y.callService(
 	}
 	);
 }{/literal}
-</script>
+{/footer_script}
 	<select onchange="setPrivacyLevel(this, '{$ROOT_URL|@escape:'javascript'}', {$current.id}, this.options[selectedIndex].value)">
 		{foreach from=$available_permission_levels item=label key=level}
 		<option label="{$label}" value="{$level}"{if $level == $current.level} selected="selected"{/if}>{$label}</option>

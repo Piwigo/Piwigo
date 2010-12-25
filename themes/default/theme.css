@@ -507,53 +507,53 @@ FIELDSET {
 	overflow: hidden; /* <- makes Opera happy */
 }
 
-FORM.filter FIELDSET UL {
+FORM.filter UL {
   margin: 0;
 }
-FORM.filter FIELDSET UL,
-FORM.filter FIELDSET LABEL {
+FORM.filter UL,
+FORM.filter LABEL {
 	display: block;
 	float: left;
 	margin-right: 1em;
 	padding: 0;
 }
 
-FORM.filter FIELDSET LI {
+FORM.filter LI {
 	list-style: none;
 	margin-bottom: 0.5em;
 }
 
-FORM.filter FIELDSET LI LABEL {
+FORM.filter LI LABEL {
 	display: inline;
 	float: none;
 }
 
-FORM.filter FIELDSET UL.tagSelection LABEL {
+FORM.filter UL.tagSelection LABEL {
 	display: inline;
 	float: none;
 	margin-right:0.5em;/*reduce from above*/
 }
 
 /* cannot use FIELDSET>LABEL because of IE<=6 */
-FORM.filter FIELDSET LABEL INPUT,
-FORM.filter FIELDSET LABEL SELECT,
-FORM.filter FIELDSET LABEL SPAN,
-FORM.filter FIELDSET LABEL TEXTAREA {
+FORM.filter LABEL INPUT,
+FORM.filter LABEL SELECT,
+FORM.filter LABEL SPAN,
+FORM.filter LABEL TEXTAREA {
   display: block;
   margin: 0.5em 0;
 }
 FORM.filter FIELDSET * LABEL INPUT,
 FORM.filter FIELDSET * LABEL SELECT,
 FORM.filter FIELDSET * LABEL TEXTAREA,
-FORM.filter FIELDSET LABEL SPAN INPUT,
-FORM.filter FIELDSET LABEL SPAN SELECT,
-FORM.filter FIELDSET LABEL SPAN TEXTAREA {
+FORM.filter LABEL SPAN INPUT,
+FORM.filter LABEL SPAN SELECT,
+FORM.filter LABEL SPAN TEXTAREA {
 	display: inline;
 	vertical-align: top;
 	margin: 0 0.5em 0 0;
 }
 
-FORM.filter FIELDSET UL.tagSelection LI LABEL INPUT {
+FORM.filter UL.tagSelection LI LABEL INPUT {
 	margin-right:0;
 }
 

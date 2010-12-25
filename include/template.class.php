@@ -596,9 +596,10 @@ class Template {
       }
       if (count($this->scriptLoader->inline_scripts))
       {
-        $content[]= '<script type="text/javascript">';
+        $content[]= '<script type="text/javascript">//<![CDATA[ 
+';
         $content = array_merge($content, $this->scriptLoader->inline_scripts);
-        $content[]= '</script>';
+        $content[]= '//]]></script>';
       }
 
       if (count($scripts[1]))
@@ -1170,7 +1171,7 @@ final class FileCombiner
       $is_reload =
         (isset($_SERVER['HTTP_CACHE_CONTROL']) && strpos($_SERVER['HTTP_CACHE_CONTROL'], 'max-age=0') !== false)
         || (isset($_SERVER['HTTP_PRAGMA']) && strpos($_SERVER['HTTP_PRAGMA'], 'no-cache'));
-      if ($is_reload)
+      if (is_admin() && $is_reload)
       {// the user pressed F5 in the browser
         if ($is_css || $conf['template_compile_check']==false)
           $exists = false; // we foce regeneration of css because @import sub-files are never checked for modification
