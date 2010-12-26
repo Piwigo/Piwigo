@@ -7,9 +7,11 @@
 <meta http-equiv="Content-Style-Type" content="text/css">
 <link rel="shortcut icon" type="image/x-icon" href="{$ROOT_URL}{$themeconf.icon_dir}/favicon.ico">
 
+{get_combined_css}
 {foreach from=$themes item=theme}
-{if isset($theme.local_head)}{include file=$theme.local_head}{/if}
-<link rel="stylesheet" type="text/css" href="{$ROOT_URL}admin/themes/{$theme.id}/theme.css">
+{if $theme.load_css}
+{combine_css path="admin/themes/`$theme.id`/theme.css" order=-10}
+{/if}
 {/foreach}
 
 <script type="text/javascript" src="themes/default/js/jquery.min.js"></script>
@@ -52,92 +54,110 @@ $(document).ready(function() {
 
 <style type="text/css">
 body {
-  background:url("admin/themes/roma/images/bottom-left-bg.jpg") no-repeat fixed left bottom #111111;
+  font-size:12px;
 }
 
 .content {
- background:url("admin/themes/roma/images/fillet.png") repeat-x scroll left top #222222;
  width: 800px;
  margin: auto;
  text-align: center;
- padding: 5px;
-}
-
-#headbranch  {
-  background:url("admin/themes/roma/images/top-left-bg.jpg") no-repeat scroll left top transparent;
+ padding:0;
+ background-color:transparent !important;
+ border:none;
 }
 
 #theHeader {
   display: block;
-  background:url("admin/themes/roma/images/piwigo_logo_sombre_214x100.png") no-repeat scroll 245px top transparent;
+  background:url("admin/themes/clear/images/piwigo_logo_big.png") no-repeat scroll center 20px transparent;
+  height:100px;
+}
+
+fieldset {
+  margin-top:20px;
+  background-color:#f1f1f1;
+}
+
+legend {
+  font-weight:bold;
+  letter-spacing:2px;
 }
 
 .content h2 {
   display:block;
-  font-size:28px;
-  height:104px;
-  width:54%;
-  color:#666666;
-  letter-spacing:-1px;
-  margin:0 30px 3px 20px;
-  overflow:hidden;
-  position:absolute;
-  right:0;
-  text-align:right;
-  top:0;
-  width:770px;
-  text-align:right;
-  text-transform:none; 
+  font-size:20px;
+  text-align:center;
+  /* margin-top:5px; */
 }
 
 table.table2 {
   width: 100%;
-  margin-bottom: 1em !important;
   border:0;
 }
 
-TD {
+table.table2 td {
   text-align: left;
-  padding: 0.1em 0.5em;
-  height: 2.5em;
+  padding: 5px 2px;
 }
 
-.infos {
-  background-color:transparent;
+table.table2 td.fieldname {
+  font-weight:normal;
+}
+
+table.table2 td.fielddesc {
+  padding-left:10px;
+  font-style:italic;
+}
+
+input[type="submit"], input[type="button"] {
+  font-size:14px;
+  font-weight:bold;
+  letter-spacing:2px;
   border:none;
-  color:#999;
+  background-color:#666666;
+  color:#fff;
+  padding:5px;
+  -moz-border-radius:5px;
+}
+
+input[type="submit"]:hover, input[type="button"]:hover {
+  background-color:#ff7700;
+  color:white;
+}
+
+input[type="text"], input[type="password"], select {
+  background-color:#ddd;
+  border:2px solid #ccc;
+  -moz-border-radius:5px;
+  padding:2px;
+}
+
+input[type="text"]:focus, input[type="password"]:focus, select:focus {
+  background-color:#fff;
+  border:2px solid #ff7700;
 }
 
 .sql_content, .infos a {
   color: #ff3363;
 }
 
-.config_creation_failed {
-  text-align:left;
-  border:3px solid #F20D00;
-  color:#999;
-  margin:20px;
-  padding:0px 20px 5px 20px;
-  background-image:url(admin/themes/default/icon/errors.png);
-  background-repeat:no-repeat;
+.errors {
+  padding-bottom:5px;
 }
 
-#experimentalDbEngines TD {border:2px solid #666;background-color:#444; color:#ccc;}
 </style>
 {/literal}
 <title>Piwigo {$RELEASE} - {'Installation'|@translate}</title>
 </head>
 
 <body>
-<div id="headbranch"></div> {* Dummy block for double background management *}
 <div id="the_page">
 <div id="theHeader"></div>
 <div id="content" class="content">
 
-<h2>Piwigo {$RELEASE} - {'Installation'|@translate}</h2>
+<h2>{'Version'|@translate} {$RELEASE} - {'Installation'|@translate}</h2>
 
 {if isset($config_creation_failed)}
-<div class="config_creation_failed">
+<div class="errors">
   <p style="margin-left:30px;">
     <strong>{'Creation of config file local/config/database.inc.php failed.'|@translate}</strong>
   </p>
@@ -179,10 +199,10 @@ TD {
 {if isset($install)}
 <form method="POST" action="{$F_ACTION}" name="install_form">
 
+<fieldset>
+  <legend>{'Basic configuration'|@translate}</legend>
+
   <table class="table2">
-    <tr class="throw">
-      <th colspan="2">{'Basic configuration'|@translate}</th>
-    </tr>
     <tr>
       <td style="width: 30%">{'Default gallery language'|@translate}</td>
       <td>
@@ -192,13 +212,15 @@ TD {
       </td>
     </tr>
   </table>
+</fieldset>
+
+<fieldset>
+  <legend>{'Database configuration'|@translate}</legend>
+
   <table class="table2">
-    <tr class="throw">
-      <th colspan="3">{'Database configuration'|@translate}</th>
-    </tr>
     {if count($F_DB_ENGINES)>1}
     <tr>
-      <td style="width: 30%;">{'Database type'|@translate}</td>
+      <td style="width: 30%;" class="fieldname">{'Database type'|@translate}</td>
       <td>
 	<select name="dblayer" id="dblayer">
 	  {foreach from=$F_DB_ENGINES key=k item=v}
@@ -209,7 +231,7 @@ TD {
 	  {/foreach}
 	</select>    
       </td>
-      <td>{'The type of database your piwigo data will be store in'|@translate}</td>
+      <td class="fielddesc">{'The type of database your piwigo data will be store in'|@translate}</td>
     {else}
     <td colspan="3">
     <input type="hidden" name="dbengine" value="{$F_DB_LAYER}">
@@ -218,70 +240,71 @@ TD {
     </tr>
     <tr id="experimentalDbEngines">
       <td colspan="3">
+<div class="warnings">
       {'SQLite and PostgreSQL are currently in experimental state.'|@translate}
       <a href="http://piwigo.org/forum/viewtopic.php?id=15927" class="externalLink">{'Learn more'|@translate}</a>
+</div>
       </td>
     </tr>
     <tr>
-      <td style="width: 30%;">{'Host'|@translate}</td>
-      <td align=center><input type="text" name="dbhost" value="{$F_DB_HOST}"></td>
-      <td>{'localhost, sql.multimania.com, toto.freesurf.fr'|@translate}</td>
+      <td style="width: 30%;" class="fieldname">{'Host'|@translate}</td>
+      <td><input type="text" name="dbhost" value="{$F_DB_HOST}"></td>
+      <td class="fielddesc">{'localhost, sql.multimania.com, toto.freesurf.fr'|@translate}</td>
     </tr>
     <tr>
-      <td>{'User'|@translate}</td>
-      <td align=center><input type="text" name="dbuser" value="{$F_DB_USER}"></td>
-      <td>{'user login given by your host provider'|@translate}</td>
+      <td class="fieldname">{'User'|@translate}</td>
+      <td><input type="text" name="dbuser" value="{$F_DB_USER}"></td>
+      <td class="fielddesc">{'user login given by your host provider'|@translate}</td>
     </tr>
     <tr>
-      <td>{'Password'|@translate}</td>
-      <td align=center><input type="password" name="dbpasswd" value=""></td>
-      <td>{'user password given by your host provider'|@translate}</td>
+      <td class="fieldname">{'Password'|@translate}</td>
+      <td><input type="password" name="dbpasswd" value=""></td>
+      <td class="fielddesc">{'user password given by your host provider'|@translate}</td>
     </tr>
     <tr>
-      <td>{'Database name'|@translate}</td>
-      <td align=center><input type="text" name="dbname" value="{$F_DB_NAME}"></td>
-      <td>{'also given by your host provider'|@translate}</td>
+      <td class="fieldname">{'Database name'|@translate}</td>
+      <td><input type="text" name="dbname" value="{$F_DB_NAME}"></td>
+      <td class="fielddesc">{'also given by your host provider'|@translate}</td>
     </tr>
     <tr>
-      <td>{'Database table prefix'|@translate}</td>
-      <td align=center><input type="text" name="prefix" value="{$F_DB_PREFIX}"></td>
-      <td>{'database tables names will be prefixed with it (enables you to manage better your tables)'|@translate}</td>
+      <td class="fieldname">{'Database table prefix'|@translate}</td>
+      <td><input type="text" name="prefix" value="{$F_DB_PREFIX}"></td>
+      <td class="fielddesc">{'database tables names will be prefixed with it (enables you to manage better your tables)'|@translate}</td>
     </tr>
   </table>
+
+</fieldset>
+<fieldset>
+  <legend>{'Admin configuration'|@translate}</legend>
 
   <table class="table2">
-    <tr class="throw">
-      <th colspan="3">{'Admin configuration'|@translate}</th>
+    <tr>
+      <td style="width: 30%;" class="fieldname">{'Webmaster login'|@translate}</td>
+      <td><input type="text" name="admin_name" value="{$F_ADMIN}"></td>
+      <td class="fielddesc">{'It will be shown to the visitors. It is necessary for website administration'|@translate}</td>
     </tr>
     <tr>
-      <td style="width: 30%;">{'Webmaster login'|@translate}</td>
-      <td align="center"><input type="text" name="admin_name" value="{$F_ADMIN}"></td>
-      <td>{'It will be shown to the visitors. It is necessary for website administration'|@translate}</td>
+      <td class="fieldname">{'Webmaster password'|@translate}</td>
+      <td><input type="password" name="admin_pass1" value=""></td>
+      <td class="fielddesc">{'Keep it confidential, it enables you to access administration panel'|@translate}</td>
     </tr>
     <tr>
-      <td>{'Webmaster password'|@translate}</td>
-      <td align="center"><input type="password" name="admin_pass1" value=""></td>
-      <td>{'Keep it confidential, it enables you to access administration panel'|@translate}</td>
+      <td class="fieldname">{'Password [confirm]'|@translate}</td>
+      <td><input type="password" name="admin_pass2" value=""></td>
+      <td class="fielddesc">{'verification'|@translate}</td>
     </tr>
     <tr>
-      <td>{'Password [confirm]'|@translate}</td>
-      <td align="center"><input type="password" name="admin_pass2" value=""></td>
-      <td>{'verification'|@translate}</td>
-    </tr>
-    <tr>
-      <td>{'Webmaster mail address'|@translate}</td>
-      <td align="center"><input type="text" name="admin_mail" value="{$F_ADMIN_EMAIL}"></td>
-      <td>{'Visitors will be able to contact site administrator with this mail'|@translate}</td>
+      <td class="fieldname">{'Webmaster mail address'|@translate}</td>
+      <td><input type="text" name="admin_mail" value="{$F_ADMIN_EMAIL}"></td>
+      <td class="fielddesc">{'Visitors will be able to contact site administrator with this mail'|@translate}</td>
     </tr>
   </table>
 
-  <table>
-    <tr>
-      <td style="text-align: center;">
-        <input class="submit" type="submit" name="install" value="{'Start Install'|@translate}">
-      </td>
-    </tr>
-  </table>
+</fieldset>
+
+  <div style="text-align:center; margin:20px 0 10px 0">
+    <input class="submit" type="submit" name="install" value="{'Start Install'|@translate}">
+  </div>
 </form>
 {else}
 <p>
