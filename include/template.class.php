@@ -410,26 +410,26 @@ class Template {
     {
       ksort($this->css_by_priority);
 
-			global $conf;
-			$css = array();
-			if ($conf['template_combine_files'])
-			{
-				$combiner = new FileCombiner('css');
-				foreach ($this->css_by_priority as $files)
-				{
-					foreach ($files as $file_ver)
-						$combiner->add( $file_ver[0], $file_ver[1] );
-				}
-				if ( $combiner->combine( $out_file, $out_version) )
-					$css[] = array($out_file, $out_version);
-			}
-			else
-			{
-				foreach ($this->css_by_priority as $files)
-					$css = array_merge($css, $files);
-			}
-			
-			$content = array();
+      global $conf;
+      $css = array();
+      if ($conf['template_combine_files'])
+      {
+        $combiner = new FileCombiner('css');
+        foreach ($this->css_by_priority as $files)
+        {
+          foreach ($files as $file_ver)
+            $combiner->add( $file_ver[0], $file_ver[1] );
+        }
+        if ( $combiner->combine( $out_file, $out_version) )
+          $css[] = array($out_file, $out_version);
+      }
+      else
+      {
+        foreach ($this->css_by_priority as $files)
+          $css = array_merge($css, $files);
+      }
+      
+      $content = array();
       foreach( $css as $file_ver )
       {
         $href = get_root_url() . $file_ver[0];
@@ -437,7 +437,7 @@ class Template {
           $href .= '?v' . ($file_ver[1] ? $file_ver[1] : PHPWG_VERSION);
         // trigger the event for eventual use of a cdn
         $href = trigger_event('combined_css', $href, $file_ver[0], $file_ver[1]);
-				$content[] = '<link rel="stylesheet" type="text/css" href="'.$href.'">';
+        $content[] = '<link rel="stylesheet" type="text/css" href="'.$href.'">';
       }
       $this->output = str_replace(self::COMBINED_CSS_TAG,
           implode( "\n", $content ),
@@ -969,10 +969,6 @@ class ScriptLoader
 
   function get_footer_scripts()
   {
-    /*if (!$this->did_head)
-    {
-      trigger_error("Attempt to write footer scripts without header scripts", E_USER_ERROR );
-    }*/
     $todo = array();
     foreach( $this->registered_scripts as $id => $script)
     {
@@ -1002,16 +998,25 @@ class ScriptLoader
     if (count($scripts)<2 or !$conf['template_combine_files'])
       return $scripts;
     $combiner = new FileCombiner('js');
+    $result = array();
     foreach ($scripts as $script)
     {
-      if ($script->is_remote()) fatal_error("NOT IMPLEMENTED");// TODO - we cannot combine remote scripts
-      $combiner->add( $script->path, $script->version );
+      if ($script->is_remote())
+      {
+        if ( $combiner->combine( $out_file, $out_version) )
+        {
+          $results[] = new Script($load_mode, 'combi', $out_file, $out_version, array() );
+        }
+        $results[] = $script;
+      }
+      else
+        $combiner->add( $script->path, $script->version );
     }
     if ( $combiner->combine( $out_file, $out_version) )
     {
-      return array( 'combi' => new Script($load_mode, 'combi', $out_file, $out_version, array() ) );
+      $results[] = new Script($load_mode, 'combi', $out_file, $out_version, array() );
     }
-    return null;
+    return $results;
   }
   
   // checks that if B depends on A, then B->load_mode >= A->load_mode in order to respect execution order
