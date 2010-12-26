@@ -388,6 +388,17 @@ function ws_addDefaultMethods( $arr )
     'install/activate/deactivate/uninstall/delete a plugin
 <br>administration status required'
     );
+
+  $service->addMethod(
+    'pwg.themes.performAction',
+    'ws_themes_performAction',
+    array(
+      'action' => array('default' => null),
+      'themes' => array('default' => null),
+      'pwg_token' => array('default' => null),
+      ),
+    'activate/deactivate/delete/set_default a theme<br>administration status required'
+    );
 }
 
 add_event_handler('ws_add_methods', 'ws_addDefaultMethods');
