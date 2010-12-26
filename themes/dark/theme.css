@@ -51,13 +51,13 @@ FIELDSET, INPUT, SELECT, TEXTAREA,
 	border: 1px solid gray;
 }
 
-UL.thumbnails SPAN.wrap2 {
+.thumbnails .wrap2 {
 	border: 1px solid #aaaaaa;	/* thumbnails border color and style */
 }
 
-UL.thumbnails SPAN.wrap2:hover,
-.content UL.thumbnailCategories .thumbnailCategory:hover,
-.content UL.thumbnailCategories .thumbnailCategory:hover A {
+.thumbnails .wrap2:hover,
+.content .thumbnailCategories .thumbnailCategory:hover,
+.content .thumbnailCategories .thumbnailCategory:hover A {
 	background-color: #faebd7;
 	border-color: yellow;	/* thumbnails border color when mouse cursor is over it */
 	color: black;

@@ -122,7 +122,7 @@
 }
 
 /* actions */
-UL.categoryActions {
+.categoryActions {
 	margin: 0 2px;
 	width: auto;
 	padding: 0;
@@ -132,7 +132,7 @@ UL.categoryActions {
 	float: right;
 }
 
-UL.categoryActions LI {
+.categoryActions LI {
 	display: inline;
 }
 
@@ -215,7 +215,7 @@ TD.calDayHead {
 }
 
 /* Category thumbnails on main page, CSS code inspired from MOD subcatify */
-UL.thumbnailCategories {
+.thumbnailCategories {
 	margin: 0;
 	padding: 0;
 	list-style: none;
@@ -223,7 +223,7 @@ UL.thumbnailCategories {
 	width: 100%;
 }
 
-UL.thumbnailCategories LI {
+.thumbnailCategories LI {
 	margin:0;
 	padding:0;
 	float:left;
@@ -271,28 +271,28 @@ UL.thumbnailCategories LI {
 }
 
 /* Thumbnails */
-UL.thumbnails SPAN.thumbLegend {
+.thumbnails SPAN.thumbLegend {
 	font-size: 90%;
 	overflow: hidden;/* oversized legend is clipped */
 }
 
 /* Thumbnail "elastic" layout */
-UL.thumbnails {
+.thumbnails {
 	margin: 0;
 	padding: 0;
 	list-style: none;
 	text-align: center;	/* to center the whole collection in .content */
 }
-UL.thumbnails LI { display: inline }
+.thumbnails LI { display: inline }
 
-UL.thumbnails SPAN.wrap1 {
+.thumbnails .wrap1 {
 	margin: 0 5px 5px 5px;
 	display: table-cell; display: inline-table;
 	display: inline-block;/* Why 3 display option ??? */
 	vertical-align: top;	/* OK with Opera and IE6 not Geko */
 	text-align: center;		/* to center the thumbnail and legend in Geko/Opera */
 }
-UL.thumbnails SPAN.wrap2 {
+.thumbnails .wrap2 {
 	margin: 0;			/* important reset the margins */
 	display: table-cell;/* block prevents vertical-align here */
 	vertical-align: middle;/* Ok with Opera and Geko not IE6 */
@@ -300,12 +300,12 @@ UL.thumbnails SPAN.wrap2 {
 	-moz-border-radius: 4px;	/* round corners with Geko */
 	-webkit-border-radius: 4px; /* Safari webkit project */
 }
-UL.thumbnails SPAN.wrap2 A,
-UL.thumbnails LABEL {
+.thumbnails .wrap2 A,
+.thumbnails LABEL {
 	display: block;
 	border-bottom: 0;
 }
-UL.thumbnails IMG {
+.thumbnails IMG {
 	margin-bottom: -4px;  /* why ??? something wrong with Geko and Opera ignored by IE6*/
 }
 
@@ -507,75 +507,75 @@ FIELDSET {
 	overflow: hidden; /* <- makes Opera happy */
 }
 
-FORM.filter UL {
+.filter UL {
   margin: 0;
 }
-FORM.filter UL,
-FORM.filter LABEL {
+.filter UL,
+.filter LABEL {
 	display: block;
 	float: left;
 	margin-right: 1em;
 	padding: 0;
 }
 
-FORM.filter LI {
+.filter LI {
 	list-style: none;
 	margin-bottom: 0.5em;
 }
 
-FORM.filter LI LABEL {
+.filter LI LABEL {
 	display: inline;
 	float: none;
 }
 
-FORM.filter UL.tagSelection LABEL {
+.filter .tagSelection LABEL {
 	display: inline;
 	float: none;
 	margin-right:0.5em;/*reduce from above*/
 }
 
 /* cannot use FIELDSET>LABEL because of IE<=6 */
-FORM.filter LABEL INPUT,
-FORM.filter LABEL SELECT,
-FORM.filter LABEL SPAN,
-FORM.filter LABEL TEXTAREA {
+.filter LABEL INPUT,
+.filter LABEL SELECT,
+.filter LABEL SPAN,
+.filter LABEL TEXTAREA {
   display: block;
   margin: 0.5em 0;
 }
-FORM.filter FIELDSET * LABEL INPUT,
-FORM.filter FIELDSET * LABEL SELECT,
-FORM.filter FIELDSET * LABEL TEXTAREA,
-FORM.filter LABEL SPAN INPUT,
-FORM.filter LABEL SPAN SELECT,
-FORM.filter LABEL SPAN TEXTAREA {
+.filter FIELDSET * LABEL INPUT,
+.filter FIELDSET * LABEL SELECT,
+.filter FIELDSET * LABEL TEXTAREA,
+.filter LABEL SPAN INPUT,
+.filter LABEL SPAN SELECT,
+.filter LABEL SPAN TEXTAREA {
 	display: inline;
 	vertical-align: top;
 	margin: 0 0.5em 0 0;
 }
 
-FORM.filter UL.tagSelection LI LABEL INPUT {
+.filter .tagSelection LI LABEL INPUT {
 	margin-right:0;
 }
 
 
-FORM.filter INPUT[type="submit"] {
+.filter INPUT[type="submit"] {
 	margin-top: 1em;
 }
 
-FORM.properties UL {
+.properties UL {
 	list-style-type: none;
 	margin: 0;
 	padding: 0;
 }
 
-FORM.properties LI {
+.properties LI {
 	margin-bottom: 0.5em;
 	padding: 0;
 	line-height: 1.8em;
 	clear: left;
 }
 
-FORM.properties SPAN.property {
+.properties SPAN.property {
 	font-weight: bold;
 	float: left;
 	width: 50%;
@@ -585,24 +585,24 @@ FORM.properties SPAN.property {
 }
 
 /* button tools */
-UL.actions {
+.actions {
 	text-indent: 0;
 	list-style: none;
 }
-UL.actions LI {
+.actions LI {
 	display: inline;
 }
-UL.actions A, UL.actions IMG {
+.actions A, .actions IMG {
 	border: none;
 }
 
-UL.tagSelection {
+.tagSelection {
 	width: 99%;
 	margin: 1em 0;
 	padding: 0;
 }
 
-UL.tagSelection LI {
+.tagSelection LI {
 	display:inline-block;
 	width:150px!important;
 	overflow:hidden;
@@ -674,7 +674,7 @@ TABLE.tagLetterContent {
 
 #theHeader {text-align: center;}
 
-#comments UL.thumbnailCategories LI { width:99%; }
+#comments .thumbnailCategories LI { width:99%; }
 
 /* jQuery datepicker */
 IMG.ui-datepicker-trigger {
@@ -682,25 +682,25 @@ IMG.ui-datepicker-trigger {
 }
 
 /* Set some sizes according to your maximum thumbnail width and height */
-UL.thumbnails SPAN,
-UL.thumbnails SPAN.wrap2 A,
-UL.thumbnails LABEL,
+.thumbnails SPAN,
+.thumbnails .wrap2 A,
+.thumbnails LABEL,
 .thumbnailCategory DIV.illustration {
   width: 140px;      /* max thumbnail width + 2px */
 }
-UL.thumbnails SPAN.wrap2,
+.thumbnails .wrap2,
 .content .thumbnailCategory .description {
   height: 140px;    /* max thumbnail height + 2px */
 }
 
 
 /* Category thumbnails on main page */
-UL.thumbnailCategories LI {
+.thumbnailCategories LI {
   width: 49.7%;    /* 49.7% for 2 per line, 33.2% for 3 per line*/
 }
 
 /* Set defaults for thumbnails legend */
-UL.thumbnails SPAN.thumbLegend {
+.thumbnails SPAN.thumbLegend {
   display: block;  /* display: none; if you don't want legend */
   height: 4em;    /* legend height (don't set auto to be Gecko friendly)*/
 }

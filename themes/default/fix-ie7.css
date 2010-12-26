@@ -1,19 +1,19 @@
 /* fix IE with another layout for thumbnails */
 
-UL.thumbnails SPAN.wrap2 {
+.thumbnails .wrap2 {
   display: block;
   position: relative;
   text-align: left;
 }
-UL.thumbnails SPAN.wrap2 A,
-UL.thumbnails SPAN.wrap2 SPAN {
+.thumbnails .wrap2 A,
+.thumbnails .wrap2 SPAN {
   overflow: visible;
   position: absolute;
   top: 50%;
   text-align: center;
 }
 
-UL.thumbnails IMG.thumbnail {
+.thumbnails IMG.thumbnail {
   position: relative;
   top: -50%;   
   margin-top: 2%;
