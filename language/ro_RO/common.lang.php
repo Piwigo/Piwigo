@@ -131,7 +131,6 @@ $lang['You are not authorized to access the requested page'] = 'Nu sunteţi auto
 $lang['add to caddie'] = 'adaugă în cărucior';
 $lang['add this image to your favorites'] = 'adăuga această imagine la favorite';
 $lang['Administration'] = 'Administraţie';
-$lang['Adviser mode enabled'] = 'Mod de consilier activat';
 $lang['all'] = 'tot';
 $lang['ascending'] = 'ascendent';
 $lang['author(s) : %s'] = 'autor(i) : %s';
