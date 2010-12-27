@@ -14,7 +14,11 @@
 {/if}
 {/foreach}
 
-<script type="text/javascript" src="themes/default/js/jquery.min.js"></script>
+<!-- BEGIN get_combined_scripts -->
+{get_combined_scripts load='header'}
+<!-- END get_combined_scripts -->
+
+{combine_script id='jquery' path='themes/default/js/jquery.min.js'}
 {literal}
 <script type="text/javascript">
 $(function() {
@@ -47,6 +51,10 @@ $(document).ready(function() {
   $("a.externalLink").click(function() {
     window.open($(this).attr("href"));
     return false;
+  });
+
+  $("#admin_mail").keyup(function() {
+    $(".adminEmail").text($(this).val());
   });
 });
 
@@ -146,6 +154,20 @@ input[type="text"]:focus, input[type="password"]:focus, select:focus {
 
 </style>
 {/literal}
+
+{combine_script id='jquery.cluetip' load='async' require='jquery' path='themes/default/js/plugins/jquery.cluetip.packed.js'}
+
+{footer_script require='jquery.cluetip'}
+jQuery().ready(function(){ldelim}
+	jQuery('.cluetip').cluetip({ldelim}
+		width: 300,
+		splitTitle: '|',
+		positionBy: 'bottomTop'
+	});
+});
+{/footer_script}
+
+
 <title>Piwigo {$RELEASE} - {'Installation'|@translate}</title>
 </head>
 
@@ -295,8 +317,18 @@ input[type="text"]:focus, input[type="password"]:focus, select:focus {
     </tr>
     <tr>
       <td class="fieldname">{'Webmaster mail address'|@translate}</td>
-      <td><input type="text" name="admin_mail" value="{$F_ADMIN_EMAIL}"></td>
+      <td><input type="text" name="admin_mail" id="admin_mail" value="{$F_ADMIN_EMAIL}"></td>
       <td class="fielddesc">{'Visitors will be able to contact site administrator with this mail'|@translate}</td>
+    </tr>
+    <tr>
+      <td>{'Options'|@translate}</options>
+      <td colspan="2">
+<label>
+<input type="checkbox" name="newsletter_subscribe"{if $F_NEWSLETTER_SUBSCRIBE} checked="checked"{/if}>
+<span class="cluetip" title="{'Piwigo Announcements Newsletter'|@translate}|{'Keep in touch with Piwigo project, subscribe to Piwigo Announcement Newsletter. You will receive emails when a new release is available (sometimes including a security bug fix, it\'s important to know and upgrade) and when major events happen to the project. Only a few emails a year.'|@translate|htmlspecialchars|nl2br}">{'Subscribe %s to Piwigo Announcements Newsletter'|@translate|@sprintf:$EMAIL}</span>
+</label>
+<br>
+      </td>
     </tr>
   </table>
 
@@ -310,21 +342,14 @@ input[type="text"]:focus, input[type="password"]:focus, select:focus {
 <p>
   <input type="button" name="Home" value="{'Visit Gallery'|@translate}" onClick="window.open('index.php');">
 </p>
-
-{if !isset($migration)}
-<div class="infos">
-  <ul>
-    <li>{'Keep in touch with Piwigo project, subscribe to Piwigo Announcement Newsletter. You will receive emails when a new release is available (sometimes including a security bug fix, it\'s important to know and upgrade) and when major events happen to the project. Only a few emails a year.'|@translate}</li>
-  </ul>
-</div>
-
-<p>
-  <input type="button" name="subscribe" value="{'Subscribe %s'|@translate|@sprintf:$F_ADMIN_EMAIL}" onClick="window.open('{$SUBSCRIBE_BASE_URL}{$F_ADMIN_EMAIL}');">
-</p>
-{/if}
 {/if}
 </div> {* content *}
 <div style="text-align: center">{$L_INSTALL_HELP}</div>
 </div> {* the_page *}
+
+<!-- BEGIN get_combined_scripts -->
+{get_combined_scripts load='footer'}
+<!-- END get_combined_scripts -->
+
 </body>
 </html>

@@ -143,6 +143,12 @@ $admin_pass1 = (!empty($_POST['admin_pass1'])) ? $_POST['admin_pass1'] : '';
 $admin_pass2 = (!empty($_POST['admin_pass2'])) ? $_POST['admin_pass2'] : '';
 $admin_mail = (!empty($_POST['admin_mail'])) ? $_POST['admin_mail'] : '';
 
+$is_newsletter_subscribe = true;
+if (isset($_POST['install']))
+{
+  $is_newsletter_subscribe = isset($_POST['newsletter_subscribe']);
+}
+
 $infos = array();
 $errors = array();
 
@@ -381,6 +387,16 @@ INSERT INTO '.$prefixeTable.'config (param,value,comment)
       array_keys($datas[0]),
       $datas
       );
+
+    if ($is_newsletter_subscribe)
+    {
+      fetchRemote(
+        get_newsletter_subscribe_base_url($language).$admin_mail,
+        $result,
+        array(),
+        array('origin' => 'installation')
+        );
+    }
   }
 }
 
@@ -410,6 +426,8 @@ $template->assign(
     'F_DB_PREFIX' => $prefixeTable,
     'F_ADMIN' => $admin_name,
     'F_ADMIN_EMAIL' => $admin_mail,
+    'EMAIL' => '<span class="adminEmail">'.$admin_mail.'</span>',
+    'F_NEWSLETTER_SUBSCRIBE' => $is_newsletter_subscribe,
     'L_INSTALL_HELP' => sprintf(l10n('Need help ? Ask your question on <a href="%s">Piwigo message board</a>.'), PHPWG_URL.'/forum'),
     ));
 
@@ -450,11 +468,6 @@ else
     $user = build_user(1, true);
     log_user($user['id'], false);
   }
-
-  $template->assign(
-    'SUBSCRIBE_BASE_URL',
-    get_newsletter_subscribe_base_url($language)
-    );
 }
 if (count($errors) != 0)
 {
