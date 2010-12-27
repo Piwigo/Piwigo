@@ -133,7 +133,6 @@ $lang['You are not authorized to access the requested page'] = 'Nemáte oprávne
 $lang['add to caddie'] = 'Pridať do košíku';
 $lang['add this image to your favorites'] = 'Pridať túto fotografiu k obľúbeným';
 $lang['Administration'] = 'Administrácia';
-$lang['Adviser mode enabled'] = 'Aktivovaný mód sprievodcu';
 $lang['all'] = 'všetko';
 $lang['ascending'] = 'vzostupne';
 $lang['author(s) : %s'] = 'autor : %s';
