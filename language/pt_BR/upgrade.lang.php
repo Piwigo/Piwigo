@@ -22,15 +22,13 @@
 // +-----------------------------------------------------------------------+
 
 $lang['Upgrade'] = 'Upgrade';
-$lang['introduction message'] = 'Esta página se propõe a fazer um upgrade em sua base de dados em relação a sua versão antiga do Piwigo para a versão atual.
-O assistente de upgrade acha que você está atualmente rodando a<strong>versão %s</strong> (ou equivalente).';
 $lang['Upgrade from version %s to %s'] = 'Atualizar da versão %s para a %s';
 $lang['Statistics'] = 'Estatísticas';
 $lang['total upgrade time'] = 'tempo total do upgrade';
 $lang['total SQL time'] = 'tempo total do SQL';
 $lang['SQL queries'] = 'Consultas SQL';
 $lang['Upgrade informations'] = 'Informações do upgrade';
-$lang['Perform a maintenance check in [Administration>Specials>Maintenance] if you encounter any problem.'] = 'Executa uma avaliação de rotina em [Administração>Tools>Manutenção] se você encontrar algum problema.';
+$lang['Perform a maintenance check in [Administration>Tools>Maintenance] if you encounter any problem.'] = 'Executa uma avaliação de rotina em [Administração>Tools>Manutenção] se você encontrar algum problema.';
 $lang['As a precaution, following plugins have been deactivated. You must check for plugins upgrade before reactiving them:'] = 'Por precaução, os seguintes plugins foram desativados. Você deve checar por atualizações dos plugins antes de reativá-los:';
 $lang['Only administrator can run upgrade: please sign in below.'] = 'Apenas administrador pode realizar o upgrade: por favor, faça o login logo abaixo.';
 $lang['You do not have access rights to run upgrade'] = 'Você não tem permissões de acesso para realizar o upgrade';
