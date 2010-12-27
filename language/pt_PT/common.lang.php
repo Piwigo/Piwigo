@@ -129,7 +129,6 @@ $lang['You are not authorized to access the requested page'] = 'Acesso proibido'
 $lang['add to caddie'] = 'Acrescentar ao carrinho';
 $lang['add this image to your favorites'] = 'Acrescentar aos favoritos';
 $lang['Administration'] = 'Administração';
-$lang['Adviser mode enabled'] = 'Modo de aviso ativo';
 $lang['all'] = 'tudo';
 $lang['ascending'] = 'crescente';
 $lang['author(s) : %s'] = 'autor(es) : %s';
