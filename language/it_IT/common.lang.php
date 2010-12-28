@@ -278,7 +278,7 @@ $lang['Search results'] = 'Risultato della ricerca';
 $lang['Search in sub-albums'] = 'Cercare nei sub album';
 $lang['searched words : %s'] = 'parole cercate : %s';
 $lang['Contact'] = 'Contattare';
-$lang['set as album representative'] = 'Impostare come rappresentativo per l'\album';
+$lang['set as album representative'] = 'Impostare come rappresentativo per l\'album';
 $lang['Show number of comments'] = 'Mostrare il numero dei commenti';
 $lang['Show number of hits'] = 'Mostrare il numero di visualizzazioni';
 $lang['slideshow'] = 'Avviare la proiezione di diapositive';
@@ -359,7 +359,6 @@ $lang['Reset to default values'] = 'Ripristinare le impostazioni predefinite';
 $lang['delete all images from your favorites'] = 'Cancellare tutte le immagini dai vostri favoriti';
 $lang['Sent by'] = 'Mandato da';
 $lang['Cookies are blocked or not supported by your browser. You must enable cookies to connect.'] = 'I cookies sono bloccati o non supportati dal vostro browser. Dovete attivare i cookie per connettervi.';
-
 $lang['Some info about this picture'] = 'Alcune informazioni su questa foto';
 $lang['Some more (technical) info about this picture'] = 'Alcune informazioni (tecniche) su questa foto';
 $lang['edit this comment'] = 'Modificare questo commento';
