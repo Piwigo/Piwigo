@@ -133,7 +133,6 @@ $lang['You are not authorized to access the requested page'] = 'Nemáte oprávn�
 $lang['add to caddie'] = 'Přidat do košíku';
 $lang['add this image to your favorites'] = 'Přidat tuto fotografii k oblíbeným';
 $lang['Administration'] = 'Administrace';
-$lang['Adviser mode enabled'] = 'Aktivován mód průvodce';
 $lang['all'] = 'vše';
 $lang['ascending'] = 'vzestupně';
 $lang['author(s) : %s'] = 'autor : %s';
@@ -388,16 +387,6 @@ $lang['This author removed the comment with id %d'] = 'Tento autor smazal koment
 $lang['validate this comment'] = 'zkontrolovat tento komentář';
 $lang['%d Kb'] = '%d Kb';
 $lang['IP: %s'] = 'IP: %s';
-// exif
-$lang['exif_field_Make'] = 'Značka';
-$lang['exif_field_Model'] = 'Model';
-$lang['exif_field_DateTimeOriginal'] = 'Vytvořeno';
-$lang['exif_field_ApertureFNumber'] = 'Clona';
-$lang['exif_field_ExposureTime'] = 'Čas';
-$lang['exif_field_ISOSpeedRatings'] = 'ISO';
-$lang['exif_field_FocalLength'] = 'Ohnisko';
-$lang['exif_field_ExposureBiasValue'] = 'Korekce';
-$lang['exif_field_ExposureProgram'] = 'Program';
-$lang['exif_field_Flash'] = 'Blesk';
+
 
 ?>
