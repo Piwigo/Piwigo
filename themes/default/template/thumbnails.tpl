@@ -12,7 +12,7 @@
 		<span class="thumbLegend">
 		{if isset($thumbnail.NAME)}{$thumbnail.NAME}{/if}
 		{if !empty($thumbnail.icon_ts)}
-		<img title="{$thumbnail.icon_ts.TITLE}" src="{$ROOT_URL}{$themeconf.icon_dir}/recent.png" class="icon" alt="(!)">
+		<img title="{$thumbnail.icon_ts.TITLE}" src="{$ROOT_URL}{$themeconf.icon_dir}/recent.png" alt="(!)">
 		{/if}
 		{if isset($thumbnail.NB_COMMENTS)}
 		<span class="{if 0==$thumbnail.NB_COMMENTS}zero {/if}nb-comments">

@@ -135,7 +135,7 @@ BODY {
 #menubar #mbIdentification form { 
 	background:transparent url(images/menuId_sides.gif) repeat-y scroll left bottom; 
 }
-#menubar #mbIdentification  .actions, #menubar #mbIdentification form  p { 
+#menubar #mbIdentification form  p { 
 	background:transparent none repeat-y scroll left bottom; 
 }
 #menubar #mbIdentification p { 
@@ -300,12 +300,6 @@ input[type="radio"], input[type="checkbox"], input[type="button"].rateButtonStar
 	color:#666;
 	background-color:#111; 
 	border:1px solid #ff3363;	/* thumbnails border color when mouse cursor is over it */ 
-}
-#comments .actions li, #comments .actions li:hover { 
-	background:transparent none;
- 	margin-right: 22px;
-	clear:both; 
-	list-style-type:none; 
 }
 .calItem {
 	border:1px solid #666; 

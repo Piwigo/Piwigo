@@ -79,12 +79,12 @@
 	padding: 0;
 }
 
-#menubar #menuTagCloud {
+#menuTagCloud {
 	text-align: center;
 	margin: 5px 0;
 }
 
-#menubar #menuTagCloud SPAN {
+#menuTagCloud SPAN {
 	white-space: nowrap;
 	margin-right: 5px;
 }
@@ -372,15 +372,15 @@ TD.calDayHead {
 	margin-left: 10px;
 }
 
-TABLE.infoTable .label {
+.infoTable .label {
 	font-weight: bold;
 	text-align: right;
 	padding-right: 0.5em;
 }
 
-TABLE.infoTable TD.value UL {
+.infoTable UL {
 	margin: 0;
-	padding: 0 0 0 1.5em;
+	padding: 0 0 0 1em;
 	list-style-type: square;
 }
 
@@ -585,13 +585,6 @@ FIELDSET {
 }
 
 /* button tools */
-.actions {
-	text-indent: 0;
-	list-style: none;
-}
-.actions LI {
-	display: inline;
-}
 .actions A, .actions IMG {
 	border: none;
 }
@@ -722,24 +715,18 @@ INPUT[type="submit"], INPUT[type="reset"], INPUT[type="file"] {
 	background-color: #d3d3d3;	/* lightgrey */
 }
 
-INPUT.text, INPUT.password, INPUT.button,
-INPUT.submit, INPUT.reset, INPUT.file,
 SELECT, TEXTAREA {
 	color: #000;
 	background-color: #d3d3d3;	/* lightgrey */
 }
 
-INPUT:focus, SELECT:focus, TEXTAREA:focus, INPUT.focus, FORM .focus {
+INPUT:focus, SELECT:focus, TEXTAREA:focus {
 	background-color: #f5f5f5;	/* whitesmoke */
 }
 
 /* some theme set a border on INPUT  which is not pretty for radio/checkbox */
 INPUT[type="radio"], INPUT[type="checkbox"] {
 	border: none;	/* <= Opera needs this */
-}
-
-INPUT.radio, INPUT.checkbox {
-	border: none;	/* <= IE6 needs this */
 }
 
 

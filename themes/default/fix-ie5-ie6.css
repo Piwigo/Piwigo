@@ -50,5 +50,5 @@ H1, #theHeader {
 }
 
 .pwg-icon {
-	display: inline;
+	display: block;
 }

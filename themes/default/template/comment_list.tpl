@@ -12,29 +12,23 @@
 	{/if}
 	<div class="description"{if isset($comment.IN_EDIT)} style="height:200px"{/if}>
 		{if isset($comment.U_DELETE) or isset($comment.U_VALIDATE) or isset($comment.U_EDIT) }
-		<ul class="actions" style="float:right">
+		<div class="actions" style="float:right">
 		{if isset($comment.U_DELETE)}
-		<li>
 			<a href="{$comment.U_DELETE}" title="{'delete this comment'|@translate}" onclick="return confirm('{'Are you sure?'|@translate|@escape:javascript}');">
-				<img src="{$ROOT_URL}{$themeconf.icon_dir}/delete.png" class="button" alt="[delete]">
+				<img src="{$ROOT_URL}{$themeconf.icon_dir}/delete.png" alt="[delete]">
 			</a>
-		</li>
 		{/if}
 		{if isset($comment.U_EDIT) and !isset($comment.IN_EDIT)}
-		<li>
 			<a class="editComment" href="{$comment.U_EDIT}#edit_comment" title="{'edit this comment'|@translate}">
-				<img src="{$ROOT_URL}{$themeconf.icon_dir}/edit.png" class="button" alt="[edit]">
+				<img src="{$ROOT_URL}{$themeconf.icon_dir}/edit.png" alt="[edit]">
 			</a>
-		</li>
 		{/if}
 		{if isset($comment.U_VALIDATE)}
-		<li>
 			<a href="{$comment.U_VALIDATE}" title="{'validate this comment'|@translate}">
-				<img src="{$ROOT_URL}{$themeconf.icon_dir}/validate_s.png" class="button" alt="[validate]">
+				<img src="{$ROOT_URL}{$themeconf.icon_dir}/validate_s.png" alt="[validate]">
 			</a>
-		</li>
 		{/if}
-		</ul>
+		</div>
 		{/if}
 
 		<span class="author">{$comment.AUTHOR}</span> - <span class="date">{$comment.DATE}</span>
