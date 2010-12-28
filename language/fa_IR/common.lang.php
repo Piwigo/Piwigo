@@ -128,7 +128,6 @@ $lang['You are not authorized to access the requested page'] = "شما مجاز 
 $lang['add to caddie'] = "add to caddie";
 $lang['add this image to your favorites'] = "افزودن این عکس به علاقه مندی‌های من";
 $lang['Administration'] = "مدیریت";
-$lang['Adviser mode enabled'] = "راهنما فعال";
 $lang['all'] = "همه";
 $lang['ascending'] = "ascending";
 $lang['author(s) : %s'] = "نویسنده(ها) : %s";
