@@ -129,7 +129,6 @@ $lang['You are not authorized to access the requested page'] = 'Niste ovlašteni
 $lang['add to caddie'] = 'dodaj u ladicu';
 $lang['add this image to your favorites'] = 'dodaj ovu sliku u omiljene';
 $lang['Administration'] = 'Uprava';
-$lang['Adviser mode enabled'] = 'Savjetnički modul omogućen';
 $lang['all'] = 'sve';
 $lang['ascending'] = 'uzlazno';
 $lang['author(s) : %s'] = 'autor(i) : %s';
