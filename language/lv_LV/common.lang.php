@@ -128,7 +128,6 @@ $lang['You are not authorized to access the requested page'] = "Jūs neēsat aut
 $lang['add to caddie'] = "pievienot caddie";
 $lang['add this image to your favorites'] = "pievienot šo attēlu jūsu izlasei";
 $lang['Administration'] = "Administrēšana";
-$lang['Adviser mode enabled'] = "Ieslēgts padomdēvēja režīms";
 $lang['all'] = "visi";
 $lang['ascending'] = "augšupejošs";
 $lang['author(s) : %s'] = "autors(i) : %s";
