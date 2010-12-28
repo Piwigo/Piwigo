@@ -129,7 +129,6 @@ $lang['You are not authorized to access the requested page'] = 'あなたは、�
 $lang['add to caddie'] = 'キャディに追加する';
 $lang['add this image to your favorites'] = 'このイメージをあなたのお気に入りに追加する';
 $lang['Administration'] = '管理';
-$lang['Adviser mode enabled'] = 'アドバイザーモードが有効にされました。';
 $lang['all'] = 'すべて';
 $lang['ascending'] = '昇順';
 $lang['author(s) : %s'] = '作者 : %s';
