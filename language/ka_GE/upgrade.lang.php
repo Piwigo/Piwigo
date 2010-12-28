@@ -28,7 +28,7 @@ $lang['total upgrade time'] = 'განახლების საერთო
 $lang['total SQL time'] = 'SQL საერთო დრო';
 $lang['SQL queries'] = 'SQL მოთხოვნა';
 $lang['Upgrade informations'] = 'ინფორმაცია განახლებებზე';
-$lang['Perform a maintenance check in [Administration>tools>Maintenance] if you encounter any problem.'] = 'განახორციელეთ მომსახურება [ადმინისტრირება>სპეციალური>მომსახურება] თუკი შეგექმნათ რაიმე პრობლემა.';
+$lang['Perform a maintenance check in [Administration>Tools>Maintenance] if you encounter any problem.'] = 'განახორციელეთ მომსახურება [ადმინისტრირება>ინსტრუმენტები>მომსახურება] თუკი შეგექმნათ რაიმე პრობლემა.';
 $lang['Only administrator can run upgrade: please sign in below.'] = 'მხოლოდ ადმინისტრტორს შეუძლია განახლების გაშვება: შეამოწმეთ ქვევით.';
 $lang['You do not have access rights to run upgrade'] = 'თქვენ არ გაქვთ განახლების გაშვების უფლება';
 

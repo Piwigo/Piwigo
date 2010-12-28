@@ -129,7 +129,6 @@ $lang['You are not authorized to access the requested page'] = 'თქვენ 
 $lang['add to caddie'] = 'კალათაში დამატება';
 $lang['add this image to your favorites'] = ' დავამატოთეს ფოტო რჩეულებში';
 $lang['Administration'] = 'ადმინისტრირება';
-$lang['Adviser mode enabled'] = 'ჩავრთოთ შეხსენებები';
 $lang['all'] = 'ყველა';
 $lang['ascending'] = 'ზრდის მიხედვით';
 $lang['author(s) : %s'] = 'ავტორი(ები) : %s';
