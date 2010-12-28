@@ -127,7 +127,6 @@ $lang['You are not authorized to access the requested page'] = 'אינך מור�
 $lang['add to caddie'] = 'הוסף לסל';
 $lang['add this image to your favorites'] = 'הוסף תמונה זאת למועדפים שלך';
 $lang['Administration'] = 'מנהל ראשי';
-$lang['Adviser mode enabled'] = 'הפעל מצב ייעוץ';
 $lang['all'] = 'הכול';
 $lang['ascending'] = 'עולה';
 $lang['author(s) : %s'] = 'מחבר/ים : %';
