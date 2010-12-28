@@ -129,7 +129,6 @@ $lang['You are not authorized to access the requested page'] = 'Du har ikke till
 $lang['add to caddie'] = 'tilføj til caddie';
 $lang['add this image to your favorites'] = 'tilføj dette foto til dine favoritter';
 $lang['Administration'] = 'Administration';
-$lang['Adviser mode enabled'] = 'Rådgivnings mode aktiveret';
 $lang['all'] = 'alle';
 $lang['ascending'] = 'venter';
 $lang['author(s) : %s'] = 'forfatter(e) : %s';
