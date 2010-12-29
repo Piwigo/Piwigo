@@ -57,24 +57,7 @@ h3, #imageToolBar a:hover, .row2, .content { background-color: #222; }
 
 .content dl, dd { margin:5px; }
 .content div.titrePage {}
-.instructions { height:450px; overflow:scroll; padding:0 20px 0; text-align:left; margin-bottom: 20px;
-font-size:14px; line-height:21px; }
-.instructions { overflow-y:scroll; overflow-x:hidden; }
-.instructions  h3 { text-align: center; margin: 30px 0 0 0; }
 
-.instructions { text-align:left; padding-top:5px;}
-.instructions LI { margin-bottom:5px; }
-.instructionBlock {border: 1px solid #666; margin: 5px; overflow: hidden;}
-.instructionBlockHeaderCollapsed, .instructionBlockHeaderExpanded {background-color:#111; background-position:15px center;
-background-repeat:no-repeat; color:#444; cursor:pointer; font-size:110%; overflow:hidden; padding:8px 41px;}
-.instructionBlockHeaderCollapsed span, .instructionBlockHeaderExpanded span {border-bottom: 1px solid #444; }
- .instructionBlockHeaderCollapsed:hover span, .instructionBlockHeaderExpanded:hover span,
- .instructionBlockHeaderCollapsed:focus span, .instructionBlockHeaderExpanded:focus span { border-bottom-color: #111; }
-
-.instructionBlockHeaderCollapsed { background-image: url(../../icon/expand.png);}
-.instructionBlockHeaderExpanded { background-image: url(../../icon/collapse.png);}
-.instructionBlockContent { padding:0 15px 15px;}
-SPAN.pwgScreen { font-style:italic; border-bottom:1px dotted #666}
 
 UL.thumbnails span.wrap2:hover { background-color:#111; border:1px solid #FF3363; color:#666; }
 UL.thumbnails span.wrap2 { border:1px solid #666; padding: 4px; }

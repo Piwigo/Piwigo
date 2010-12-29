@@ -43,30 +43,8 @@ TABLE.languages {
 }
 TABLE.plugins A { border: 0; }
 TABLE.plugins TR TD { padding: 4px 10px; }
-TABLE.plugins TR TD.pluginState { padding: 4px 16px; }
 TABLE.languages TR TD { padding: 7px 20px; }
 
-TABLE.plugins TR TD.active,
-TABLE.languages TR TD.active {
-	background: url(icon/plugin_active.gif) no-repeat center left;
-	background-color: inherit; /* IE need it */
-}
-
-TABLE.plugins TR TD.inactive {
-	background: url(icon/plugin_inactive.gif) no-repeat center left;
-	background-color: inherit; /* IE need it */
-}
-
-TABLE.plugins ul.pluginsActions {
-	float: left;
-	padding: 0;
-	margin: 0;
-	width: 60px;
-	list-style: none;
-	text-align: center;
-}
-
-TABLE.plugins ul.pluginsActions li { display: inline; }
 
 /* categoryOrdering */
 FORM#categoryOrdering .orderParams {
@@ -289,7 +267,6 @@ float:left;
 #pwgHead {color:#aaa;}
 #pwgHead A {color:#ccc;}
 #pwgHead A:hover {color:#fff;border-bottom:1px solid #fff}
-#pwgHead A#instructions:hover {border:none;}
 
 #headActions {float:right; height:46px; line-height:46px; margin-right:10px;}
 

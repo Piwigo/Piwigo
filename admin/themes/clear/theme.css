@@ -88,16 +88,6 @@ h3, #imageToolBar a:hover, .content, .throw, .row1 { background-color: #ddd; }
 .content dl, dd { margin:5px; }
 .content div.titrePage { height:40px; }
 
-.instructions { text-align:left; padding-top:5px;}
-.instructions LI { margin-bottom:5px; }
-.instructionBlock {border: 1px solid #999; margin: 5px; overflow: hidden;}
-.instructionBlockHeaderCollapsed, .instructionBlockHeaderExpanded {background-color:#eee; background-position:15px center;
-background-repeat:no-repeat; color:#999; cursor:pointer; font-size:110%; overflow:hidden; padding:8px 41px;}
-.instructionBlockHeaderCollapsed span, .instructionBlockHeaderExpanded span {border-bottom: none; }
-
-.instructionBlockHeaderCollapsed { background-image: url(icon/expand.gif);}
-.instructionBlockHeaderExpanded { background-image: url(icon/collapse.gif);}
-.instructionBlockContent { padding:0 15px 15px;}
 SPAN.pwgScreen { font-style:italic; border-bottom:1px dotted #666}
 
 UL.thumbnails span.wrap2:hover { background-color:#eee; border:1px solid #0cc9c; color:#999; }
