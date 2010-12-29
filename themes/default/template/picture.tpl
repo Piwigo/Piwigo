@@ -1,73 +1,70 @@
-{* Example of resizeable *}
-{*
+{* Example of resizeable
 {include file='include/autosize.inc.tpl'}
 *}
 
 {if isset($errors)}
 <div class="errors">
-  <ul>
-    {foreach from=$errors item=error}
-    <li>{$error}</li>
-    {/foreach}
-  </ul>
+	<ul>
+		{foreach from=$errors item=error}
+		<li>{$error}</li>
+		{/foreach}
+	</ul>
 </div>
 {/if}
-
 {if isset($infos)}
 <div class="infos">
-  <ul>
-    {foreach from=$infos item=info}
-    <li>{$info}</li>
-    {/foreach}
-  </ul>
+	<ul>
+		{foreach from=$infos item=info}
+		<li>{$info}</li>
+		{/foreach}
+	</ul>
 </div>
 {/if}
 
 {if !empty($PLUGIN_PICTURE_BEFORE)}{$PLUGIN_PICTURE_BEFORE}{/if}
 
 <div id="imageHeaderBar">
-  <div class="browsePath">
-    {$SECTION_TITLE}
-    {$LEVEL_SEPARATOR}{$current.TITLE}
-  </div>
-  <div class="imageNumber">{$PHOTO}</div>
-  {if $SHOW_PICTURE_NAME_ON_TITLE }
-  <h2>{$current.TITLE}</h2>
-  {/if}
+	<div class="browsePath">
+		{$SECTION_TITLE} {$LEVEL_SEPARATOR}{$current.TITLE}
+	</div>
+	<div class="imageNumber">{$PHOTO}</div>
+	{if $SHOW_PICTURE_NAME_ON_TITLE}
+	<h2>{$current.TITLE}</h2>
+	{/if}
 </div>
 
 <div id="imageToolBar">
-	<div class="actionButtons">
+<div class="actionButtons">
 {if isset($U_SLIDESHOW_START)}
-		<a href="{$U_SLIDESHOW_START}" title="{'slideshow'|@translate}" class="pwg-state-default pwg-button" rel="nofollow">
-			<span class="pwg-icon pwg-icon-slideshow">&nbsp;</span><span class="pwg-button-text">{'slideshow'|@translate}</span>
-		</a>
+	<a href="{$U_SLIDESHOW_START}" title="{'slideshow'|@translate}" class="pwg-state-default pwg-button" rel="nofollow">
+		<span class="pwg-icon pwg-icon-slideshow">&nbsp;</span><span class="pwg-button-text">{'slideshow'|@translate}</span>
+	</a>
 {/if}
 {if isset($U_METADATA)}
-		<a href="{$U_METADATA}" title="{'Show file metadata'|@translate}" class="pwg-state-default pwg-button" rel="nofollow">
-			<span class="pwg-icon pwg-icon-camera-info">&nbsp;</span><span class="pwg-button-text">{'Show file metadata'|@translate}</span>
-		</a>
+	<a href="{$U_METADATA}" title="{'Show file metadata'|@translate}" class="pwg-state-default pwg-button" rel="nofollow">
+		<span class="pwg-icon pwg-icon-camera-info">&nbsp;</span><span class="pwg-button-text">{'Show file metadata'|@translate}</span>
+	</a>
 {/if}
 {if isset($current.U_DOWNLOAD)}
-		<a href="{$current.U_DOWNLOAD}" title="{'download this file'|@translate}" class="pwg-state-default pwg-button" rel="nofollow">
-			<span class="pwg-icon pwg-icon-save">&nbsp;</span><span class="pwg-button-text">{'download'|@translate}</span>
-		</a>
+	<a href="{$current.U_DOWNLOAD}" title="{'download this file'|@translate}" class="pwg-state-default pwg-button" rel="nofollow">
+		<span class="pwg-icon pwg-icon-save">&nbsp;</span><span class="pwg-button-text">{'download'|@translate}</span>
+	</a>
 {/if}
 {if isset($PLUGIN_PICTURE_ACTIONS)}{$PLUGIN_PICTURE_ACTIONS}{/if}
 {if isset($favorite)}
-		<a href="{$favorite.U_FAVORITE}" title="{if $favorite.IS_FAVORITE}{'delete this image from your favorites'|@translate}{else}{'add this image to your favorites'|@translate}{/if}" class="pwg-state-default pwg-button" rel="nofollow">
-			<span class="pwg-icon pwg-icon-favorite-{if $favorite.IS_FAVORITE}del{else}add{/if}">&nbsp;</span><span class="pwg-button-text">{'Favorites'|@translate}</span>
-		</a>
+	<a href="{$favorite.U_FAVORITE}" title="{if $favorite.IS_FAVORITE}{'delete this image from your favorites'|@translate}{else}{'add this image to your favorites'|@translate}{/if}" class="pwg-state-default pwg-button" rel="nofollow">
+		<span class="pwg-icon pwg-icon-favorite-{if $favorite.IS_FAVORITE}del{else}add{/if}">&nbsp;</span><span class="pwg-button-text">{'Favorites'|@translate}</span>
+	</a>
 {/if}
 {if isset($U_SET_AS_REPRESENTATIVE)}
-		<a href="{$U_SET_AS_REPRESENTATIVE}" title="{'set as album representative'|@translate}" class="pwg-state-default pwg-button" rel="nofollow">
-			<span class="pwg-icon pwg-icon-representative">&nbsp;</span><span class="pwg-button-text">{'representative'|@translate}</span>
-		</a>
+	<a href="{$U_SET_AS_REPRESENTATIVE}" title="{'set as album representative'|@translate}" class="pwg-state-default pwg-button" rel="nofollow">
+		<span class="pwg-icon pwg-icon-representative">&nbsp;</span><span class="pwg-button-text">{'representative'|@translate}</span>
+	</a>
 {/if}
 {if isset($U_ADMIN)}
-		<a href="{$U_ADMIN}" title="{'Modify information'|@translate}" class="pwg-state-default pwg-button" rel="nofollow">
-			<span class="pwg-icon pwg-icon-edit">&nbsp;</span><span class="pwg-button-text">{'edit'|@translate}</span>
-		</a>
+	<a href="{$U_ADMIN}" title="{'Modify information'|@translate}" class="pwg-state-default pwg-button" rel="nofollow">
+		<span class="pwg-icon pwg-icon-edit">&nbsp;</span><span class="pwg-button-text">{'edit'|@translate}</span>
+	</a>
 {/if}
 {if isset($U_CADDIE)}{*caddie management BEGIN*}
 {footer_script}
@@ -76,7 +73,6 @@
 if (aElement.disabled) return;
 aElement.disabled=true;
 var y = new PwgWS(rootUrl);
-
 y.callService(
 	"pwg.caddie.add", {image_id: id} ,
 	{
@@ -86,11 +82,11 @@ y.callService(
 	);
 }{/literal}
 {/footer_script}
-		<a href="{$U_CADDIE}" onclick="addToCadie(this, '{$ROOT_URL|@escape:'javascript'}', {$current.id}); return false;" title="{'add to caddie'|@translate}" class="pwg-state-default pwg-button" rel="nofollow">
-			<span class="pwg-icon pwg-icon-caddie-add">&nbsp;</span><span class="pwg-button-text">{'caddie'|@translate}</span>
-		</a>
+	<a href="{$U_CADDIE}" onclick="addToCadie(this, '{$ROOT_URL}', {$current.id}); return false;" title="{'add to caddie'|@translate}" class="pwg-state-default pwg-button" rel="nofollow">
+		<span class="pwg-icon pwg-icon-caddie-add">&nbsp;</span><span class="pwg-button-text">{'caddie'|@translate}</span>
+	</a>
 {/if}{*caddie management END*}
-	</div>   
+</div>
 
 	{include file='picture_nav_buttons.tpl'|@get_extent:'picture_nav_buttons'}
 </div> <!-- imageToolBar -->
@@ -102,110 +98,109 @@ y.callService(
 <p>{$COMMENT_IMG}</p>
 {/if}
 
-{if isset($U_SLIDESHOW_STOP) }
+{if isset($U_SLIDESHOW_STOP)}
 <p>
-  [ <a href="{$U_SLIDESHOW_STOP}">{'stop the slideshow'|@translate}</a> ]
+	[ <a href="{$U_SLIDESHOW_STOP}">{'stop the slideshow'|@translate}</a> ]
 </p>
 {/if}
 
 </div>
 
 {if $DISPLAY_NAV_THUMB}
-{if isset($previous) }
+{if isset($previous)}
 <a class="navThumb" id="linkPrev" href="{$previous.U_IMG}" title="{'Previous'|@translate} : {$previous.TITLE}" rel="prev">
-  <img src="{$previous.THUMB_SRC}" alt="{$previous.TITLE}">
+	<img src="{$previous.THUMB_SRC}" alt="{$previous.TITLE}">
 </a>
 {/if}
-{if isset($next) }
+{if isset($next)}
 <a class="navThumb" id="linkNext" href="{$next.U_IMG}" title="{'Next'|@translate} : {$next.TITLE}" rel="next">
-  <img src="{$next.THUMB_SRC}" alt="{$next.TITLE}">
+	<img src="{$next.THUMB_SRC}" alt="{$next.TITLE}">
 </a>
 {/if}
 {/if}
 
 <table id="standard" class="infoTable" summary="{'Some info about this picture'|@translate}">
-  {if $display_info.author}
-  <tr id="Author">
-    <td class="label">{'Author'|@translate}</td>
-    <td class="value">{if isset($INFO_AUTHOR)}{$INFO_AUTHOR}{else}{'N/A'|@translate}{/if}</td>
-  </tr>
-  {/if}
-  {if $display_info.created_on}
-  <tr id="datecreate">
-    <td class="label">{'Created on'|@translate}</td>
-    <td class="value">{if isset($INFO_CREATION_DATE)}{$INFO_CREATION_DATE}{else}{'N/A'|@translate}{/if}</td>
-  </tr>
-  {/if}
-  {if $display_info.posted_on}
-  <tr id="datepost">
-    <td class="label">{'Posted on'|@translate}</td>
-    <td class="value">{$INFO_POSTED_DATE}</td>
-  </tr>
-  {/if}
-  {if $display_info.dimensions}
-  <tr id="Dimensions">
-    <td class="label">{'Dimensions'|@translate}</td>
-    <td class="value">{if isset($INFO_DIMENSIONS)}{$INFO_DIMENSIONS}{else}{'N/A'|@translate}{/if}</td>
-  </tr>
-  {/if}
-  {if $display_info.file}
-  <tr id="File">
-    <td class="label">{'File'|@translate}</td>
-    <td class="value">{$INFO_FILE}</td>
-  </tr>
-  {/if}
-  {if $display_info.filesize}
-  <tr id="Filesize">
-    <td class="label">{'Filesize'|@translate}</td>
-    <td class="value">{if isset($INFO_FILESIZE)}{$INFO_FILESIZE}{else}{'N/A'|@translate}{/if}</td>
-  </tr>
-  {/if}
-  {if $display_info.tags}
-  <tr id="Tags">
-    <td class="label">{'Tags'|@translate}</td>
-    <td class="value">
-      {if isset($related_tags)}
-        {foreach from=$related_tags item=tag name=tag_loop}{if !$smarty.foreach.tag_loop.first}, {/if}
-        <a href="{$tag.URL}">{$tag.name}</a>{/foreach}
-      {/if}
-    </td>
-  </tr>
-  {/if}
-  {if $display_info.categories}
-  <tr id="Categories">
-    <td class="label">{'Albums'|@translate}</td>
-    <td class="value">
-      {if isset($related_categories)}
-      <ul>
-        {foreach from=$related_categories item=cat}
-        <li>{$cat}</li>
-        {/foreach}
-      </ul>
-      {/if}
-    </td>
-  </tr>
-  {/if}
-  {if $display_info.visits}
-  <tr id="Visits">
-    <td class="label">{'Visits'|@translate}</td>
-    <td class="value">{$INFO_VISITS}</td>
-  </tr>
-  {/if}
+	{if $display_info.author}
+	<tr id="Author">
+		<td class="label">{'Author'|@translate}</td>
+		<td class="value">{if isset($INFO_AUTHOR)}{$INFO_AUTHOR}{else}{'N/A'|@translate}{/if}</td>
+	</tr>
+	{/if}
+	{if $display_info.created_on}
+	<tr id="datecreate">
+		<td class="label">{'Created on'|@translate}</td>
+		<td class="value">{if isset($INFO_CREATION_DATE)}{$INFO_CREATION_DATE}{else}{'N/A'|@translate}{/if}</td>
+	</tr>
+	{/if}
+	{if $display_info.posted_on}
+	<tr id="datepost">
+		<td class="label">{'Posted on'|@translate}</td>
+		<td class="value">{$INFO_POSTED_DATE}</td>
+	</tr>
+	{/if}
+	{if $display_info.dimensions}
+	<tr id="Dimensions">
+		<td class="label">{'Dimensions'|@translate}</td>
+		<td class="value">{if isset($INFO_DIMENSIONS)}{$INFO_DIMENSIONS}{else}{'N/A'|@translate}{/if}</td>
+	</tr>
+	{/if}
+	{if $display_info.file}
+	<tr id="File">
+		<td class="label">{'File'|@translate}</td>
+		<td class="value">{$INFO_FILE}</td>
+	</tr>
+	{/if}
+	{if $display_info.filesize}
+	<tr id="Filesize">
+		<td class="label">{'Filesize'|@translate}</td>
+		<td class="value">{if isset($INFO_FILESIZE)}{$INFO_FILESIZE}{else}{'N/A'|@translate}{/if}</td>
+	</tr>
+	{/if}
+	{if $display_info.tags}
+	<tr id="Tags">
+		<td class="label">{'Tags'|@translate}</td>
+		<td class="value">
+			{if isset($related_tags)}
+				{foreach from=$related_tags item=tag name=tag_loop}{if !$smarty.foreach.tag_loop.first}, {/if}<a href="{$tag.URL}">{$tag.name}</a>{/foreach}
+			{/if}
+		</td>
+	</tr>
+	{/if}
+	{if $display_info.categories}
+	<tr id="Categories">
+		<td class="label">{'Albums'|@translate}</td>
+		<td class="value">
+			{if isset($related_categories)}
+			<ul>
+				{foreach from=$related_categories item=cat}
+				<li>{$cat}</li>
+				{/foreach}
+			</ul>
+			{/if}
+		</td>
+	</tr>
+	{/if}
+	{if $display_info.visits}
+	<tr id="Visits">
+		<td class="label">{'Visits'|@translate}</td>
+		<td class="value">{$INFO_VISITS}</td>
+	</tr>
+	{/if}
 
-{if $display_info.average_rate and isset($rate_summary) }
+{if $display_info.average_rate and isset($rate_summary)}
 	<tr id="Average">
 		<td class="label">{'Average rate'|@translate}</td>
 		<td class="value" id="ratingSummary">
 		{if $rate_summary.count}
-			{assign var='rate_text' value='%.2f (rated %d times)'|@translate }
-			{$pwg->sprintf($rate_text, $rate_summary.average, $rate_summary.count) }
+			{assign var='rate_text' value='%.2f (rated %d times)'|@translate}
+			{$pwg->sprintf($rate_text, $rate_summary.average, $rate_summary.count)}
 		{else}
 			{'no rate'|@translate}
 		{/if}
 		</td>
 	</tr>
 {/if}
-  
+
 {if isset($rating)}
 	<tr id="rating">
 		<td class="label">
@@ -213,33 +208,32 @@ y.callService(
 		</td>
 		<td class="value">
 			<form action="{$rating.F_ACTION}" method="post" id="rateForm" style="margin:0;">
-			<div>&nbsp;
+			<div>
 			{foreach from=$rating.marks item=mark name=rate_loop}
-			{if !$smarty.foreach.rate_loop.first} | {/if}
 			{if isset($rating.USER_RATE) && $mark==$rating.USER_RATE}
-			  <input type="button" name="rate" value="{$mark}" class="rateButtonSelected" title="{$mark}">
+				<input type="button" name="rate" value="{$mark}" class="rateButtonSelected" title="{$mark}">
 			{else}
-			  <input type="submit" name="rate" value="{$mark}" class="rateButton" title="{$mark}">
+				<input type="submit" name="rate" value="{$mark}" class="rateButton" title="{$mark}">
 			{/if}
 			{/foreach}
 			{combine_script id='core.scripts' load='async' path='themes/default/js/scripts.js'}
 			{combine_script id='rating' load='async' require='core.scripts' path='themes/default/js/rating.js'}
-			<script type="text/javascript">
-				var _pwgRatingAutoQueue = _pwgRatingAutoQueue || [];
-				_pwgRatingAutoQueue.push(  {ldelim}rootUrl: '{$ROOT_URL|@escape:"javascript"}', image_id: {$current.id},
+			{footer_script}
+				var _pwgRatingAutoQueue = _pwgRatingAutoQueue||[];
+				_pwgRatingAutoQueue.push( {ldelim}rootUrl: '{$ROOT_URL}', image_id: {$current.id},
 					updateRateText: "{'Update your rating'|@translate|@escape:'javascript'}", updateRateElement: document.getElementById("updateRate"),
-					ratingSummaryText: "{'%.2f (rated %d times)'|@translate|@escape:'javascript'}", ratingSummaryElement: document.getElementById("ratingSummary") {rdelim} );
-			</script>
+					ratingSummaryText: "{'%.2f (rated %d times)'|@translate|@escape:'javascript'}", ratingSummaryElement: document.getElementById("ratingSummary"){rdelim} );
+			{/footer_script}
 			</div>
 			</form>
 		</td>
 	</tr>
 {/if}
 
-{if $display_info.privacy_level and isset($available_permission_levels) }
+{if $display_info.privacy_level and isset($available_permission_levels)}
 	<tr id="Privacy">
 		<td class="label">{'Who can see this photo?'|@translate}</td>
-		<td class="value"> 
+		<td class="value">
 {combine_script id='core.scripts' load='async' path='themes/default/js/scripts.js'}
 {footer_script}
 {literal}function setPrivacyLevel(selectElement, rootUrl, id, level)
@@ -256,7 +250,7 @@ y.callService(
 	);
 }{/literal}
 {/footer_script}
-	<select onchange="setPrivacyLevel(this, '{$ROOT_URL|@escape:'javascript'}', {$current.id}, this.options[selectedIndex].value)">
+	<select onchange="setPrivacyLevel(this, '{$ROOT_URL}', {$current.id}, this.options[selectedIndex].value)">
 		{foreach from=$available_permission_levels item=label key=level}
 		<option label="{$label}" value="{$level}"{if $level == $current.level} selected="selected"{/if}>{$label}</option>
 		{/foreach}
@@ -269,35 +263,34 @@ y.callService(
 {if isset($metadata)}
 <table id="Metadata" class="infoTable2" summary="{'Some more (technical) info about this picture'|@translate}">
 {foreach from=$metadata item=meta}
-  <tr>
-    <th colspan="2">{$meta.TITLE}</th>
-  </tr>
-  {foreach from=$meta.lines item=value key=label}
-  <tr>
-    <td class="label">{$label}</td>
-    <td class="value">{$value}</td>
-  </tr>
-  {/foreach}
+	<tr>
+		<th colspan="2">{$meta.TITLE}</th>
+	</tr>
+	{foreach from=$meta.lines item=value key=label}
+	<tr>
+		<td class="label">{$label}</td>
+		<td class="value">{$value}</td>
+	</tr>
+	{/foreach}
 {/foreach}
 </table>
 {/if}
-
 
 <hr class="separation">
 
 {if isset($COMMENT_COUNT)}
 <div id="comments">
-  {if $COMMENT_COUNT > 0}
+	{if $COMMENT_COUNT > 0}
 		<h3>{$pwg->l10n_dec('%d comment', '%d comments',$COMMENT_COUNT)}</h3>
-  {/if}
-  {if !empty($navbar) }{include file='navigation_bar.tpl'|@get_extent:'navbar'}{/if}
+	{/if}
+	{if !empty($navbar)}{include file='navigation_bar.tpl'|@get_extent:'navbar'}{/if}
 
 	{if isset($comments)}
 		{include file='comment_list.tpl'}
 	{/if}
 
 	{if isset($comment_add)}
-	<form  method="post" action="{$comment_add.F_ACTION}" class="filter" id="addComment">
+	<form method="post" action="{$comment_add.F_ACTION}" class="filter" id="addComment">
 	<fieldset>
 		<legend>{'Add a comment'|@translate}</legend>
 		{if $comment_add.SHOW_AUTHOR}
@@ -310,6 +303,6 @@ y.callService(
 	</form>
 	{/if}
 </div>
-{/if} {*comments*}
+{/if}{*comments*}
 
 {if !empty($PLUGIN_PICTURE_AFTER)}{$PLUGIN_PICTURE_AFTER}{/if}

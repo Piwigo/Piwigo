@@ -92,7 +92,7 @@ class Template {
     $this->smarty->register_function('combine_script', array(&$this, 'func_combine_script') );
     $this->smarty->register_function('get_combined_scripts', array(&$this, 'func_get_combined_scripts') );
     $this->smarty->register_function('combine_css', array(&$this, 'func_combine_css') );
-    $this->smarty->register_function('get_combined_css', array(&$this, 'func_get_combined_css') );
+    $this->smarty->register_compiler_function('get_combined_css', array(&$this, 'func_get_combined_css') );
     $this->smarty->register_block('footer_script', array(&$this, 'block_footer_script') );
     $this->smarty->register_function('known_script', array(&$this, 'func_known_script') );
     $this->smarty->register_prefilter( array('Template', 'prefilter_white_space') );
@@ -442,6 +442,7 @@ class Template {
       $this->output = str_replace(self::COMBINED_CSS_TAG,
           implode( "\n", $content ),
           $this->output );
+			$this->css_by_priority = array();
     }
 
     if ( count($this->html_head_elements) )
@@ -606,12 +607,12 @@ class Template {
       {
         $content[]= '<script type="text/javascript">';
         $content[]= '(function() {
-  var after = document.getElementsByTagName(\'script\')[document.getElementsByTagName(\'script\').length-1];
-  var s;';
+var after = document.getElementsByTagName(\'script\')[document.getElementsByTagName(\'script\').length-1];
+var s;';
         foreach ($scripts[1] as $id => $script)
         {
           $content[]=
-            's=document.createElement(\'script\'); s.type = \'text/javascript\'; s.async = true; s.src = \''
+            's=document.createElement(\'script\'); s.type=\'text/javascript\'; s.async=true; s.src=\''
             . self::make_script_src($script)
             .'\';';
           $content[]= 'after = after.parentNode.insertBefore(s, after);';
@@ -661,7 +662,7 @@ class Template {
 
   function func_get_combined_css($params, &$smarty)
   {
-    return self::COMBINED_CSS_TAG;
+    return 'echo '.var_export(self::COMBINED_CSS_TAG,true);
   }
 
 
@@ -735,13 +736,13 @@ class Template {
     $rdq = preg_quote($rd, '#');
 
     $regex = array();
-    $tags = array('if', 'foreach', 'section');
+    $tags = array('if','foreach','section','footer_script');
     foreach($tags as $tag)
     {
       array_push($regex, "#^[ \t]+($ldq$tag"."[^$ld$rd]*$rdq)\s*$#m");
       array_push($regex, "#^[ \t]+($ldq/$tag$rdq)\s*$#m");
     }
-    $tags = array('include', 'else', 'html_head');
+    $tags = array('include','else','combine_script','html_head');
     foreach($tags as $tag)
     {
       array_push($regex, "#^[ \t]+($ldq$tag"."[^$ld$rd]*$rdq)\s*$#m");
@@ -1191,8 +1192,7 @@ final class FileCombiner
       return 2;
     }
 
-    $output = '';
-    $output .= "/* ".count($this->files)."\n".join("\n", $this->files)."*/\n";
+    $output = "/* ".join("\n", $this->files)."*/\n";
     foreach ($this->files as $input_file)
     {
       $output .= "/* BEGIN $input_file */\n";
@@ -1226,6 +1226,7 @@ final class FileCombiner
     $css = self::process_css_rec($file);
     require_once(PHPWG_ROOT_PATH.'include/cssmin.class.php');
     $css = CssMin::minify($css, array('emulate-css3-variables'=>false));
+		$css = trigger_event('combined_css_postfilter', $css);
     return $css;
   }
   
@@ -1242,7 +1243,7 @@ final class FileCombiner
         {
           $relative = dirname($file) . "/$match[1]";
           $search[] = $match[0];
-          $replace[] = "url('" . get_absolute_root_url(false) . $relative . "')";
+          $replace[] = 'url('.embellish_url(get_absolute_root_url(false)).$relative.')';
         }
       }
       $css = str_replace($search, $replace, $css);
