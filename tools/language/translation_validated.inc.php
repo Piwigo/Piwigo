@@ -337,7 +337,6 @@ $validated_keys = array(
 	'Representant',
 	'Site manager',
 	'Status',
-	'',
 	'email',
 	'Parameter',
 	'Parameters',
@@ -365,7 +364,24 @@ $validated_keys = array(
 	'Piwigo Uploader',
 	'Download,',
 	),
-
+	
+  'no_NO' => array(
+ 	'IP: %s',
+	'Browser: %s',
+	'Email: %s',
+	'Admin: %s',
+	'Pause of slideshow',
+	'Album',
+	'Filter',
+	'N/A',
+	'Webmaster',
+	'%d Kb',
+	'representative',
+	'slideshow',
+	'Album: %s',
+	'Album results for',
+	),
+	
   'pl_PL' => array(
  	'%d Kb',
 	'RSS feed',
