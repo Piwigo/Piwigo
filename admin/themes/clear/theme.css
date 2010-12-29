@@ -1,19 +1,19 @@
-/* generic colors - clear */
-.gcText { color: #777777; }                 /* used for text */
-.gcText2 { color: #777777; }                /* used for table header */
-.gcText3 { color: #555555; }                /* used for tabs text */
-.gcTextInput { color:#666666; }             /* used for inputs */
-.gcLink { color: #005E89; }                 /* used for link */
-.gcLinkHover { color: #D54E21; }            /* used for link */
-.gcBgPage { background-color: #F9F9F9; }               /* used for page background */
-.gcBgTabSheet { background-color: #F1F1F1; }           /* used inside tabsheet & menu */
-.gcBgTableRow1 { background-color: #DDDDDD; }            /* used in for tables rows background */
-.gcBgTableRow2 { background-color: #EEEEEE; }            /* used in tables rows & some widgets background */
-.gcBgInput { background-color:#CCCCCC; }                      /* used for inputs */
-.gcBorder    { border-color: #AAAAAA; }            /* used for borders */
-.gcBorder2   { border-color: #666666; }            /* used for widgets borders */
-.gcBorderInput { border-color:#777777; }           /* used for inputs */
-
+/* generic colors - clear
+.gcText { color: #777777; }                 used for text
+.gcText2 { color: #777777; }                used for table header
+.gcText3 { color: #555555; }                used for tabs text
+.gcTextInput { color:#666666; }             used for inputs
+.gcLink { color: #005E89; }                 used for link
+.gcLinkHover { color: #D54E21; }            used for link
+.gcBgPage { background-color: #F9F9F9; }               used for page background
+.gcBgTabSheet { background-color: #F1F1F1; }           used inside tabsheet & menu
+.gcBgTableRow1 { background-color: #DDDDDD; }            used in for tables rows background
+.gcBgTableRow2 { background-color: #EEEEEE; }            used in tables rows & some widgets background
+.gcBgInput { background-color:#CCCCCC; }                      used for inputs
+.gcBorder    { border-color: #AAAAAA; }            used for borders
+.gcBorder2   { border-color: #666666; }            used for widgets borders
+.gcBorderInput { border-color:#777777; }           used for inputs
+*/
 /* text color */
 .theme_title { left: 15px; color: #000; text-align: left;}
 body, h3, dt, h2, .throw, .content, label { color:#777; }
@@ -88,7 +88,6 @@ h3, #imageToolBar a:hover, .content, .throw, .row1 { background-color: #ddd; }
 .content dl, dd { margin:5px; }
 .content div.titrePage { height:40px; }
 
-SPAN.pwgScreen { font-style:italic; border-bottom:1px dotted #666}
 
 UL.thumbnails span.wrap2:hover { background-color:#eee; border:1px solid #0cc9c; color:#999; }
 UL.thumbnails span.wrap2 { border:1px solid #999; padding: 4px; }
