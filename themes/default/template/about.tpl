@@ -16,5 +16,10 @@
    <li>{$THEME_ABOUT}</li>
   </ul>
   {/if}
+  {if not empty($about_msgs)}
+    {foreach from=$about_msgs item=elt}
+    {$elt}
+    {/foreach}
+  {/if}
   </div>
 </div>
