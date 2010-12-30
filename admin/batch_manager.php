@@ -193,33 +193,7 @@ $page['cat_elements_id'] = $current_set;
 //  // To element_set_(global|unit).php, we must provide the elements id of the
 //  // managed category in $page['cat_elements_id'] array.
 //  $page['cat_elements_id'] = array();
-//  if (is_numeric($_GET['cat']))
-//  {
-//    $page['title'] =
-//      get_cat_display_name_from_id(
-//        $_GET['cat'],
-//        PHPWG_ROOT_PATH.'admin.php?page=cat_modify&amp;cat_id=',
-//        false
-//        );
-//  
-//    $query = '
-//  SELECT image_id
-//    FROM '.IMAGE_CATEGORY_TABLE.'
-//    WHERE category_id = '.$_GET['cat'].'
-//  ;';
-//    $page['cat_elements_id'] = array_from_query($query, 'image_id');
-//  }
-//  else if ('caddie' == $_GET['cat'])
-//  {
-//    $page['title'] = l10n('caddie');
-//  
-//    $query = '
-//  SELECT element_id
-//    FROM '.CADDIE_TABLE.'
-//    WHERE user_id = '.$user['id'].'
-//  ;';
-//    $page['cat_elements_id'] = array_from_query($query, 'element_id');
-//  }
+
 //  else if ('not_linked' == $_GET['cat'])
 //  {
 //    $page['title'] = l10n('Not linked elements');
@@ -277,20 +251,6 @@ $page['cat_elements_id'] = $current_set;
 //  ;';
 //  
 //    $page['cat_elements_id'] = array_from_query($query, 'id');
-//  }
-//  elseif ('recent'== $_GET['cat'])
-//  {
-//    $page['title'] = l10n('Recent pictures');
-//    $query = 'SELECT MAX(date_available) AS date
-//    FROM '.IMAGES_TABLE;
-//    $row = pwg_db_fetch_assoc(pwg_query($query));
-//    if (!empty($row['date']))
-//    {
-//      $query = 'SELECT id
-//    FROM '.IMAGES_TABLE.'
-//    WHERE date_available BETWEEN '.pwg_db_get_recent_period_expression(1, $row['date']).' AND \''.$row['date'].'\'';
-//      $page['cat_elements_id'] = array_from_query($query, 'id');
-//    }
 //  }
 
 // +-----------------------------------------------------------------------+
