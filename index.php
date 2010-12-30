@@ -26,12 +26,21 @@ define('PHPWG_ROOT_PATH','./');
 include_once( PHPWG_ROOT_PATH.'include/common.inc.php' );
 include(PHPWG_ROOT_PATH.'include/section_init.inc.php');
 
-trigger_action('loc_begin_index');
-
-// +-----------------------------------------------------------------------+
-// | Check Access and exit when user status is not ok                      |
-// +-----------------------------------------------------------------------+
+// Check Access and exit when user status is not ok
 check_status(ACCESS_GUEST);
+
+if (!isset($page['start']))
+{
+  $page['start'] = 0;
+}
+
+// access authorization check
+if (isset($page['category']))
+{
+  check_restrictions($page['category']['id']);
+}
+
+trigger_action('loc_begin_index');
 
 //---------------------------------------------- change of image display order
 if (isset($_GET['image_order']))
@@ -52,17 +61,6 @@ if (isset($_GET['image_order']))
     );
 }
 //-------------------------------------------------------------- initialization
-// detection of the start picture to display
-if (!isset($page['start']))
-{
-  $page['start'] = 0;
-}
-
-// access authorization check
-if (isset($page['category']))
-{
-  check_restrictions($page['category']['id']);
-}
 
 $page['navigation_bar'] = array();
 if (count($page['items']) > $user['nb_image_page'])
@@ -255,7 +253,7 @@ if ( $conf['index_sort_order_input']
 }
 
 // category comment
-if (isset($page['comment']) and $page['comment'] != '')
+if ($page['start']==0 and !isset($page['chronology_field']) and !empty($page['comment']) )
 {
   $template->assign('CONTENT_DESCRIPTION', $page['comment'] );
 }

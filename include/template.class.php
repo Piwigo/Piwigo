@@ -428,7 +428,7 @@ class Template {
         foreach ($this->css_by_priority as $files)
           $css = array_merge($css, $files);
       }
-      
+
       $content = array();
       foreach( $css as $file_ver )
       {
@@ -597,7 +597,7 @@ class Template {
       }
       if (count($this->scriptLoader->inline_scripts))
       {
-        $content[]= '<script type="text/javascript">//<![CDATA[ 
+        $content[]= '<script type="text/javascript">//<![CDATA[
 ';
         $content = array_merge($content, $this->scriptLoader->inline_scripts);
         $content[]= '//]]></script>';
@@ -978,6 +978,7 @@ class ScriptLoader
         $todo[$id] = $script;
       }
     }
+
     foreach( array_keys($todo) as $id )
     {
       $this->compute_script_topological_order($id);
@@ -1019,7 +1020,7 @@ class ScriptLoader
     }
     return $results;
   }
-  
+
   // checks that if B depends on A, then B->load_mode >= A->load_mode in order to respect execution order
   private static function check_load_dep($scripts)
   {
@@ -1041,7 +1042,7 @@ class ScriptLoader
             $scripts[$precedent]->load_mode = $load;
             $changed = true;
           }
-          if ($load==2 && $scripts[$precedent]->load_mode==2 && ($script->is_remote() or !$conf['template_combine_files']) )
+          if ($load==2 && $scripts[$precedent]->load_mode==2 && ($scripts[$precedent]->is_remote() or !$conf['template_combine_files']) )
           {// we are async -> a predecessor cannot be async unlesss it can be merged; otherwise script execution order is not guaranteed
             $scripts[$precedent]->load_mode = 1;
             $changed = true;
@@ -1158,7 +1159,7 @@ final class FileCombiner
     $is_css = $this->type == "css";
     global $conf;
     $key = array();
-    if ($is_css) 
+    if ($is_css)
       $key[] = get_absolute_root_url(false);//because we modify bg url
     for ($i=0; $i<count($this->files); $i++)
     {
@@ -1170,7 +1171,7 @@ final class FileCombiner
 
     $file = base_convert(crc32($key),10,36);
     $file = self::OUT_SUB_DIR . $file . '.' . $this->type;
-    
+
     $exists = file_exists( PHPWG_ROOT_PATH . $file );
     if ($exists)
     {
@@ -1220,16 +1221,16 @@ final class FileCombiner
     }
     return $js;
   }
-  
+
   private static function process_css($file)
   {
     $css = self::process_css_rec($file);
     require_once(PHPWG_ROOT_PATH.'include/cssmin.class.php');
     $css = CssMin::minify($css, array('emulate-css3-variables'=>false));
-		$css = trigger_event('combined_css_postfilter', $css);
+    $css = trigger_event('combined_css_postfilter', $css);
     return $css;
   }
-  
+
   private static function process_css_rec($file)
   {
     static $PATTERN = "#url\(\s*['|\"]{0,1}(.*?)['|\"]{0,1}\s*\)#";
@@ -1243,7 +1244,7 @@ final class FileCombiner
         {
           $relative = dirname($file) . "/$match[1]";
           $search[] = $match[0];
-          $replace[] = 'url('.embellish_url(get_absolute_root_url(false)).$relative.')';
+          $replace[] = 'url('.embellish_url(get_absolute_root_url(false).$relative).')';
         }
       }
       $css = str_replace($search, $replace, $css);

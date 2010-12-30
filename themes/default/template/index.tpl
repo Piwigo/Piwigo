@@ -3,11 +3,11 @@
 <div id="content" class="content">
 <div class="titrePage">
 	<ul class="categoryActions">
-		{if !empty($image_orders) }
+		{if !empty($image_orders)}
 		<li>
 		{'Sort order'|@translate}:
 		<select onchange="document.location = this.options[this.selectedIndex].value;">
-			{foreach from=$image_orders item=image_order }
+			{foreach from=$image_orders item=image_order}
 			<option value="{$image_order.URL}"{if $image_order.SELECTED} selected="selected"{/if}>{$image_order.DISPLAY}</option>
 			{/foreach}
 		</select>
@@ -75,52 +75,55 @@
 </div>
 {/if}
 
-{if isset($chronology.TITLE) }
+{if isset($chronology.TITLE)}
 <h2>{$chronology.TITLE}</h2>
 {/if}
 
-</div> <!-- titrePage -->
+</div><!-- titrePage -->
 
 {if !empty($PLUGIN_INDEX_CONTENT_BEGIN)}{$PLUGIN_INDEX_CONTENT_BEGIN}{/if}
 
-{if !empty($category_search_results) }
+{if !empty($category_search_results)}
 <div style="font-size:16px;margin:10px 16px">{'Album results for'|@translate} <strong>{$QUERY_SEARCH}</strong> :
-  <em><strong>
-  {foreach from=$category_search_results item=res name=res_loop}
-  {if !$smarty.foreach.res_loop.first} &mdash; {/if}
-  {$res}
-  {/foreach}
-  </strong></em>
+	<em><strong>
+	{foreach from=$category_search_results item=res name=res_loop}
+	{if !$smarty.foreach.res_loop.first} &mdash; {/if}
+	{$res}
+	{/foreach}
+	</strong></em>
 </div>
 {/if}
 
-{if !empty($tag_search_results) }
+{if !empty($tag_search_results)}
 <div style="font-size:16px;margin:10px 16px">{'Tag results for'|@translate} <strong>{$QUERY_SEARCH}</strong> :
-  <em><strong>
-  {foreach from=$tag_search_results item=res name=res_loop}
-  {if !$smarty.foreach.res_loop.first} &mdash; {/if}
-  {$res}
-  {/foreach}
-  </strong></em>
+	<em><strong>
+	{foreach from=$tag_search_results item=res name=res_loop}
+	{if !$smarty.foreach.res_loop.first} &mdash; {/if}
+	{$res}
+	{/foreach}
+	</strong></em>
 </div>
 {/if}
 
-{if isset($FILE_CHRONOLOGY_VIEW) }
+{if isset($FILE_CHRONOLOGY_VIEW)}
 {include file=$FILE_CHRONOLOGY_VIEW}
 {/if}
 
-{if !empty($CATEGORIES) }{$CATEGORIES}{/if}
-{if !empty($THUMBNAILS) }{$THUMBNAILS}{/if}
-
-{if !empty($navbar) }{include file='navigation_bar.tpl'|@get_extent:'navbar'}{/if}
-
-{if !empty($CONTENT_DESCRIPTION) }
+{if !empty($CONTENT_DESCRIPTION)}
 <div class="additional_info">
-  {$CONTENT_DESCRIPTION}
+	{$CONTENT_DESCRIPTION}
 </div>
 {/if}
 
-{if !empty($PLUGIN_INDEX_CONTENT_END) }{$PLUGIN_INDEX_CONTENT_END}{/if}
-</div> <!-- content -->
+{if !empty($CATEGORIES)}{$CATEGORIES}{/if}
+{if !empty($THUMBNAILS)}
+<ul class="thumbnails" id="thumbnails">
+{$THUMBNAILS}
+</ul>
+{/if}
 
+{if !empty($navbar)}{include file='navigation_bar.tpl'|@get_extent:'navbar'}{/if}
+
+{if !empty($PLUGIN_INDEX_CONTENT_END)}{$PLUGIN_INDEX_CONTENT_END}{/if}
+</div><!-- content -->
 {if !empty($PLUGIN_INDEX_CONTENT_AFTER)}{$PLUGIN_INDEX_CONTENT_AFTER}{/if}
