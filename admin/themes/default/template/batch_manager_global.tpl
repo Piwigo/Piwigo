@@ -495,9 +495,6 @@ a.removeFilter:hover {background: url(admin/themes/default/icon/remove_filter_ho
 
     <!-- delete -->
     <div id="action_delete" class="bulkAction">
-{if $ENABLE_SYNCHRONIZATION}
-    <p style="font-style:italic;width:500px;">{'Note: photo deletion does not apply to photos added by synchronization. For photos added by synchronization, remove them from the filesystem and then perform another synchronization.'|@translate}</p>
-{/if}
     <p><label><input type="checkbox" name="confirm_deletion" value="1"> {'Are you sure?'|@translate}</label></p>
     </div>
 

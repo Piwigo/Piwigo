@@ -151,6 +151,8 @@ DELETE
 
       // we remove the dissociated images if we are currently displaying the
       // category to dissociate from.
+      //
+      // TODO we can display the photo of a given album without the $_GET['cat']
       if (is_numeric($_GET['cat']) and $_POST['dissociate'] == $_GET['cat'])
       {
         $page['cat_elements_id'] = array_diff(
@@ -269,35 +271,22 @@ DELETE
   {
     if (isset($_POST['confirm_deletion']) and 1 == $_POST['confirm_deletion'])
     {
-      // filter selection on photos that have no storage_category_id (ie
-      // that were added via pLoader)
-      $query = '
-SELECT id
-  FROM '.IMAGES_TABLE.'
-  WHERE id IN ('.implode(',', $collection).')
-    AND storage_category_id IS NULL
-;';
-      $deletables = array_from_query($query, 'id');
-
-      if (count($deletables) > 0)
+      $deleted_count = delete_elements($collection, true);
+      if ($deleted_count > 0)
       {
-        $physical_deletion = true;
-        delete_elements($deletables, $physical_deletion);
-
-        array_push(
-          $page['infos'],
+        $_SESSION['page_infos'] = array(
           sprintf(
             l10n_dec(
               '%d photo was deleted',
               '%d photos were deleted',
-              count($deletables)
+              $deleted_count
               ),
-            count($deletables)
+            $deleted_count
             )
           );
 
-        // we have to remove the deleted photos from the current set
-        $page['cat_elements_id'] = array_diff($page['cat_elements_id'], $deletables);
+        $redirect_url = get_root_url().'admin.php?page='.$_GET['page'];
+        redirect($redirect_url);
       }
       else
       {
