@@ -430,9 +430,9 @@ SELECT id,name,uppercats,global_rank
 ;';
 display_select_cat_wrapper($query, $selected_category, 'filter_category_options', true);
 
-// Dissociate from a category : categories listed for dissociation can
-// only represent virtual links. Links to physical categories can't be
-// broken
+// Dissociate from a category : categories listed for dissociation can only
+// represent virtual links. We can't create orphans. Links to physical
+// categories can't be broken.
 if (count($page['cat_elements_id']) > 0)
 {
   $query = '
@@ -527,10 +527,41 @@ if (count($page['cat_elements_id']) > 0)
     );
   $template->assign('navbar', $nav_bar);
 
+  $is_category = false;
+  if (isset($_SESSION['bulk_manager_filter']['category'])
+      and !isset($_SESSION['bulk_manager_filter']['category_recursive']))
+  {
+    $is_category = true;
+  }
+
   $query = '
 SELECT id,path,tn_ext,file,filesize,level,name
-  FROM '.IMAGES_TABLE.'
-  WHERE id IN ('.implode(',', $page['cat_elements_id']).')
+  FROM '.IMAGES_TABLE;
+  
+  if ($is_category)
+  {
+    $category_info = get_cat_info($_SESSION['bulk_manager_filter']['category']);
+    
+    $conf['order_by'] = $conf['order_by_inside_category'];
+    if (!empty($category_info['image_order']))
+    {
+      $conf['order_by'] = ' ORDER BY '.$category_info['image_order'];
+    }
+
+    $query.= '
+    JOIN '.IMAGE_CATEGORY_TABLE.' ON id = image_id';
+  }
+
+  $query.= '
+  WHERE id IN ('.implode(',', $page['cat_elements_id']).')';
+
+  if ($is_category)
+  {
+    $query.= '
+    AND category_id = '.$_SESSION['bulk_manager_filter']['category'];
+  }
+
+  $query.= '
   '.$conf['order_by'].'
   LIMIT '.$page['nb_images'].' OFFSET '.$page['start'].'
 ;';
