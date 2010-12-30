@@ -326,8 +326,8 @@ $(document).ready(function() {
 .actionButtons {text-align:left;}
 #filterList {padding-left:5px;}
 #filterList li {margin-bottom:5px; list-style-type:none;}
-a.removeFilter {background: url(plugins/bulk_manager/remove_filter.png) no-repeat top left;width:7px;height:7px;display:inline-block}
-a.removeFilter:hover {background: url(plugins/bulk_manager/remove_filter_hover.png); border:none;}
+a.removeFilter {background: url(admin/themes/default/icon/remove_filter.png) no-repeat top left;width:7px;height:7px;display:inline-block}
+a.removeFilter:hover {background: url(admin/themes/default/icon/remove_filter_hover.png); border:none;}
 .removeFilter span {display:none}
 #applyFilterBlock {margin-top:20px;}
 .useFilterCheckbox {display:none}
