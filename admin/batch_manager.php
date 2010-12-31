@@ -54,7 +54,7 @@ if (isset($_POST['submitFilter']))
 
   if (isset($_POST['filter_prefilter_use']))
   {
-    $prefilters = array('caddie', 'last import', 'with no album', 'with no tag', 'with no virtual album');
+    $prefilters = array('caddie', 'last import', 'with no album', 'with no tag', 'with no virtual album', 'duplicates');
     if (in_array($_POST['filter_prefilter'], $prefilters))
     {
       $_SESSION['bulk_manager_filter']['prefilter'] = $_POST['filter_prefilter'];
@@ -173,6 +173,32 @@ SELECT id
     array_push(
       $filter_sets,
       array_diff($all_elements, $linked_to_virtual)
+      );
+  }
+
+  if ('duplicates' == $_SESSION['bulk_manager_filter']['prefilter'])
+  {
+    // we could use the group_concat MySQL function to retrieve the list of
+    // image_ids but it would not be compatible with PostgreSQL, so let's
+    // perform 2 queries instead. We hope there are not too many duplicates.
+    
+    $query = '
+SELECT file
+  FROM '.IMAGES_TABLE.'
+  GROUP BY file
+  HAVING COUNT(*) > 1
+;';
+    $duplicate_files = array_from_query($query, 'file');
+    
+    $query = '
+SELECT id
+  FROM '.IMAGES_TABLE.'
+  WHERE file IN (\''.implode("','", $duplicate_files).'\')
+;';
+
+    array_push(
+      $filter_sets,
+      array_from_query($query, 'id')
       );
   }
 }

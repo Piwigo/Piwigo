@@ -527,6 +527,13 @@ if (count($page['cat_elements_id']) > 0)
     $is_category = true;
   }
 
+  if (isset($_SESSION['bulk_manager_filter']['prefilter'])
+      and 'duplicates' == $_SESSION['bulk_manager_filter']['prefilter'])
+  {
+    $conf['order_by'] = ' ORDER BY file, id';
+  }
+
+
   $query = '
 SELECT id,path,tn_ext,file,filesize,level,name
   FROM '.IMAGES_TABLE;

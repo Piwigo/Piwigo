@@ -356,8 +356,8 @@ a.removeFilter:hover {background: url(admin/themes/default/icon/remove_filter_ho
 {if $ENABLE_SYNCHRONIZATION}
           <option value="with no virtual album" {if $filter.prefilter eq 'with no virtual album'}selected="selected"{/if}>with no virtual album</option>
 {/if}
+          <option value="duplicates" {if $filter.prefilter eq 'duplicates'}selected="selected"{/if}>duplicates</option>
 <!--          <option value="with no album">with no album</option> -->
-<!--          <option value="with no virtual album">with no virtual album</option> -->
 <!--          <option value="with no tag">with no tag</option> -->
         </select>
       </li>
