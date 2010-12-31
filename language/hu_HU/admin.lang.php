@@ -438,7 +438,6 @@ $lang['Advanced features'] = 'Speciális funkciók';
 $lang['Not linked elements'] = 'Nem kapcsolódó elemek';
 $lang['Specials'] = 'Speciális összetevők';
 $lang['Files with same name in more than one physical album'] = 'Keresse meg az azonos nevű fájlokat';
-
 $lang['Overall'] = 'Teljes';
 $lang['Year'] = 'Év';
 $lang['Month'] = 'Hónap';
@@ -603,7 +602,6 @@ $lang['%d photos were deleted'] = '%d kép törölve';
 $lang['Downloads'] = 'Letöltés';
 $lang['Released on'] = 'Felszabadítva';
 $lang['Number of downloads'] = 'Letöltések száma';
-// --------- Starting below: New or revised $lang ---- from Colibri
 $lang['Piwigo Announcements Newsletter'] = 'Piwigo Hirdetmények Hírlevél';
 $lang['Keep in touch with Piwigo project, subscribe to Piwigo Announcement Newsletter. You will receive emails when a new release is available (sometimes including a security bug fix, it\'s important to know and upgrade) and when major events happen to the project. Only a few emails a year.'] = 'Tartsa a kapcsolatot Piwigo projekttel, iratkozzon fel a Piwigo Hírlevélre. Levélben értesítjük ha újabb kiadás érhető el, (beleértve a biztonsági hibák javítását, valamint a frissítéseket) valamint ha nagyobb esemény történik a projektben. Csak néhány levél évente.';
 $lang['Subscribe %s'] = 'Feliratkozás %s';
@@ -657,7 +655,6 @@ $lang['Image Quality'] = 'Kép minőség';
 $lang['Thumbnail'] = 'Bélyegkép';
 $lang['Save Settings'] = 'Beállítások mentése';
 $lang['Your configuration settings are saved'] = 'A beállítások mentése sikeres';
-// --------- missing translations ---- from version 2.1.0 RC1
 $lang['Unable to check for upgrade.'] = 'A frissítés sikertelen.';
 $lang['Execution time is out, treatment must be continue [Estimated time: %d seconds].'] = 'Időtúllépés esetén a műveletet folytatni kell [Becsült idő: %d másodperc].';
 $lang['Processing treatment.'] = 'Feldolgozás.';
@@ -712,7 +709,6 @@ $lang['Select:'] = 'Kiválaszt:';
 $lang['None'] = 'Egyik sem';
 $lang['Invert'] = 'Felcserél';
 $lang['Impossible to deactivate this theme, you need at least one theme.'] = 'Nem lehet kikapcsolni ezt a témát, szükség van legalább még egy aktív témára.';
-// --------- folytatas $lang ---- from version 2.1.0 RC1
 $lang['Webmaster status is required.'] = 'Webmester jogosultság szükséges.';
 $lang['Bound Theme'] = 'Fix Téma';
 $lang['Allow rating'] = 'Értékelés engedélyezése';
@@ -731,7 +727,6 @@ $lang['Impossible to deactivate this language, you need at least one language.']
 $lang['Inactive Languages'] = 'Kikapcsolt nyelvek';
 $lang['Make this language available to users'] = 'A nyelv engedélyezése';
 $lang['Set as default language for unregistered and new users'] = 'Nyelv beállítása alapértelmezettként nem regisztrált és új felhasználók részére';
-// --------- folytatas $lang ---- from version 2.1.0 RC1
 $lang['Add Photos'] = 'Képek hozzáadása';
 $lang['Download'] = 'Letöltés';
 $lang['The following tag was deleted'] = 'Címke törlése sikeres';
@@ -744,13 +739,11 @@ $lang['There is no other theme available.'] = 'Egyéb téma nem áll rendelkezé
 $lang['Add another set of photos'] = 'További kép hozzáadása';
 $lang['By rank'] = 'Értékelés szerint';
 $lang['Manual order'] = 'Kézi rendezés';
-// --------- missing translations ---- from version 2.1.0 RC2
 $lang['Order of menubar items has been updated successfully.'] = 'A menüsor elemei sikeresen frissítve.';
 $lang['This theme was not designed to be directly activated'] = 'Ezt a témát úgy tervezték, hogy közvetlenül nem aktiválható';
 $lang['Pending Comments'] = 'Hozzászólások (függőben)';
 $lang['Who can see this photo?'] = 'Ki láthatja ezt a képet?';
 $lang['Menu Management'] = 'Menü';
-// missing translations
 $lang['In your php.ini file, the upload_max_filesize (%sB) is bigger than post_max_size (%sB), you should change this setting'] = 'A php.ini fájlban az upload_max_filesize (% sB) nagyobb, mint a post_max_size (% sB), módosítania kell a beállítást';
 $lang['Exif extension not available, admin should disable exif use'] = 'Exif-kiterjesztés nem érhető el, az adminisztrátor tiltsa le az exif használatát';
 $lang['The uploaded file exceeds the upload_max_filesize directive in php.ini: %sB'] = 'A feltöltendő fájl meghaladja a php.ini-ben megadott upload_max_filesize értéket: %sB';
@@ -763,5 +756,12 @@ $lang['Failed to write file to disk'] = 'Nem sikerült a fájlt a lemezre írni'
 $lang['File upload stopped by extension'] = 'Fájlfeltöltést leállította a kiterjesztés';
 $lang['Unknown upload error'] = 'Ismeretlen feltöltési hiba';
 $lang['Error on file "%s" : %s'] = 'Hibás a fájl "%s" : %s';
+$lang['automatic order'] = 'automatikus rendezés';
+$lang['manual order'] = 'kézi rendezés';
+$lang['Albums automatically sorted'] = 'Automatikusan rendezett albumok';
+$lang['Keep high definition'] = 'Nagy felbontás megtartása';
+$lang['The high definition maximum width must be a number between %d and %d'] = 'A nagy felbontás maximális szélessége %d és %d között legyen';
+$lang['The high definition maximum height must be a number between %d and %d'] = 'A nagy felbontás maximális magassága %d és %d között legyen';
+$lang['The high definition image quality must be a number between %d and %d'] = 'A nagy felbontás maximális képminősége %d és %d között legyen';
 
 ?>

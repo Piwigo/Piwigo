@@ -259,7 +259,8 @@ $validated_keys = array(
 	),
 	
   'hu_HU' => array(
-	'',
+	'Album',
+	'Album: %s',
 	),
 
   'it_IT' => array(
