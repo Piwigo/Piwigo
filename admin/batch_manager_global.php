@@ -191,8 +191,8 @@ DELETE
       );
   }
 
-  // name
-  if ('name' == $action)
+  // title
+  if ('title' == $action)
   {
     $datas = array();
     foreach ($collection as $image_id)
@@ -201,7 +201,7 @@ DELETE
         $datas,
         array(
           'id' => $image_id,
-          'name' => $_POST['name']
+          'name' => $_POST['title']
           )
         );
     }

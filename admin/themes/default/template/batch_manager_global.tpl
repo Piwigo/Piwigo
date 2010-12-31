@@ -174,10 +174,6 @@ $(document).ready(function() {
       $(wrap2).addClass("thumbSelected"); 
     });
 
-    if (nb_thumbs_page < nb_thumbs_set) {
-      $("#selectSetMessage").show();
-    }
-
     checkPermitAction();
 
     return false;
@@ -198,7 +194,6 @@ $(document).ready(function() {
   });
 
   $("#selectInvert").click(function () {
-    $("#selectSetMessage").hide();
     $("input[name=setSelected]").attr('checked', false);
 
     $(".thumbnails label").each(function() {
@@ -233,12 +228,12 @@ $(document).ready(function() {
     }
   });
 
-  $("input[name=remove_name]").click(function () {
+  $("input[name=remove_title]").click(function () {
     if ($(this).is(':checked')) {
-      $("input[name=name]").hide();
+      $("input[name=title]").hide();
     }
     else {
-      $("input[name=name]").show();
+      $("input[name=title]").show();
     }
   });
 
@@ -338,7 +333,7 @@ a.removeFilter:hover {background: url(admin/themes/default/icon/remove_filter_ho
     <a href="{$U_UNIT_MODE}">Switch to unit mode</a>
   </p>
 
-<h2>{'Batch manager'|@translate}</h2>
+<h2>{'Batch Manager'|@translate}</h2>
 
   <form action="{$F_ACTION}" method="post">
 
@@ -347,16 +342,16 @@ a.removeFilter:hover {background: url(admin/themes/default/icon/remove_filter_ho
 
     <ul id="filterList">
       <li id="filter_prefilter" {if !isset($filter.prefilter)}style="display:none"{/if}>
-        <a href="#" class="removeFilter" title="remove this filter"><span>[x]</span></a>
+        <a href="#" class="removeFilter" title="{'remove this filter'|@translate}"><span>[x]</span></a>
         <input type="checkbox" name="filter_prefilter_use" class="useFilterCheckbox" {if isset($filter.prefilter)}checked="checked"{/if}>
-        predefined filter
+        {'predefined filter'|@translate}
         <select name="filter_prefilter">
-          <option value="caddie" {if $filter.prefilter eq 'caddie'}selected="selected"{/if}>caddie</option>
-          <option value="last import" {if $filter.prefilter eq 'last import'}selected="selected"{/if}>last import</option>
+          <option value="caddie" {if $filter.prefilter eq 'caddie'}selected="selected"{/if}>{'caddie'|@translate}</option>
+          <option value="last import" {if $filter.prefilter eq 'last import'}selected="selected"{/if}>{'last import'|@translate}</option>
 {if $ENABLE_SYNCHRONIZATION}
-          <option value="with no virtual album" {if $filter.prefilter eq 'with no virtual album'}selected="selected"{/if}>with no virtual album</option>
+          <option value="with no virtual album" {if $filter.prefilter eq 'with no virtual album'}selected="selected"{/if}>{'with no virtual album'|@translate}</option>
 {/if}
-          <option value="duplicates" {if $filter.prefilter eq 'duplicates'}selected="selected"{/if}>duplicates</option>
+          <option value="duplicates" {if $filter.prefilter eq 'duplicates'}selected="selected"{/if}>{'duplicates'|@translate}</option>
 <!--          <option value="with no album">with no album</option> -->
 <!--          <option value="with no tag">with no tag</option> -->
         </select>
@@ -364,7 +359,7 @@ a.removeFilter:hover {background: url(admin/themes/default/icon/remove_filter_ho
       <li id="filter_category" {if !isset($filter.category)}style="display:none"{/if}>
         <a href="#" class="removeFilter" title="remove this filter"><span>[x]</span></a>
         <input type="checkbox" name="filter_category_use" class="useFilterCheckbox" {if isset($filter.category)}checked="checked"{/if}>
-        album
+        {'album'|@translate}
         <select style="width:400px" name="filter_category" size="1">
           {html_options options=$filter_category_options selected=$filter_category_options_selected}
         </select>
@@ -382,18 +377,18 @@ a.removeFilter:hover {background: url(admin/themes/default/icon/remove_filter_ho
 
     <p class="actionButtons" style="">
       <select id="addFilter">
-        <option value="-1">Add a filter</option>
+        <option value="-1">{'Add a filter'|@translate}</option>
         <option disabled="disabled">------------------</option>
-        <option value="filter_prefilter">predefined filter</option>
-        <option value="filter_category">album</option>
+        <option value="filter_prefilter">{'predefined filter'|@translate}</option>
+        <option value="filter_category">{'album'|@translate}</option>
         <option value="filter_level">{'Who can see these photos?'|@translate}</option>
       </select>
 <!--      <input id="removeFilters" class="submit" type="submit" value="Remove all filters" name="removeFilters"> -->
-      <a id="removeFilters" href="">Remove all filters</a>
+      <a id="removeFilters" href="">{'Remove all filters'|@translate}</a>
     </p>
 
     <p class="actionButtons" id="applyFilterBlock">
-      <input id="applyFilter" class="submit" type="submit" value="Refresh photo set" name="submitFilter">
+      <input id="applyFilter" class="submit" type="submit" value="{'Refresh photo set'|@translate}" name="submitFilter">
     </p>
 
   </fieldset>
@@ -405,8 +400,12 @@ a.removeFilter:hover {background: url(admin/themes/default/icon/remove_filter_ho
   {if !empty($thumbnails)}
   <p id="checkActions">
     {'Select:'|@translate}
-    <a href="#" id="selectAll">{'All'|@translate}</a>
-    (<a href="#" id="selectSet">or the whole set</a>),
+{if $nb_thumbs_set > $nb_thumbs_page}
+    <a href="#" id="selectAll">{'The whole page'|@translate}</a>,
+    <a href="#" id="selectSet">{'The whole set'|@translate}</a>,
+{else}
+    <a href="#" id="selectAll">{'All'|@translate}</a>,
+{/if}
     <a href="#" id="selectNone">{'None'|@translate}</a>,
     <a href="#" id="selectInvert">{'Invert'|@translate}</a>
 
@@ -455,44 +454,44 @@ a.removeFilter:hover {background: url(admin/themes/default/icon/remove_filter_ho
       &middot; <a href="{$U_DISPLAY}&amp;display=50">50</a>
       &middot; <a href="{$U_DISPLAY}&amp;display=100">100</a>
       &middot; <a href="{$U_DISPLAY}&amp;display=all">{'all'|@translate}</a>
-      thumbnails per page
+      {'thumbnails per page'|@translate}
     </div>
   </div>
   {/if}
 
   {else}
-  <div>No photo in the current set.</div>
+  <div>{'No photo in the current set.'|@translate}</div>
   {/if}
   </fieldset>
 
   <fieldset id="action">
 
     <legend>{'Action'|@translate}</legend>
-      <div id="forbidAction"{if count($selection) != 0}style="display:none"{/if}>No photo selected, no action possible.</div>
+      <div id="forbidAction"{if count($selection) != 0}style="display:none"{/if}>{'No photo selected, no action possible.'|@translate}</div>
       <div id="permitAction"{if count($selection) == 0}style="display:none"{/if}>
 
     <select name="selectAction">
-      <option value="-1">Choose an action</option>
+      <option value="-1">{'Choose an action'|@translate}</option>
       <option disabled="disabled">------------------</option>
   {if isset($show_delete_form) }
       <option value="delete">{'Delete selected photos'|@translate}</option>
   {/if}
-      <option value="associate">{'associate to category'|@translate}</option>
+      <option value="associate">{'Associate to album'|@translate}</option>
   {if !empty($dissociate_options)}
-      <option value="dissociate">{'dissociate from category'|@translate}</option>
+      <option value="dissociate">{'Dissociate from album'|@translate}</option>
   {/if}
       <option value="add_tags">{'add tags'|@translate}</option>
   {if !empty($DEL_TAG_SELECTION)}
       <option value="del_tags">{'remove tags'|@translate}</option>
   {/if}
       <option value="author">{'Set author'|@translate}</option>
-      <option value="name">{'Set title'|@translate}</option>
+      <option value="title">{'Set title'|@translate}</option>
       <option value="date_creation">{'Set creation date'|@translate}</option>
       <option value="level">{'Who can see these photos?'|@translate}</option>
   {if ($IN_CADDIE)}
       <option value="remove_from_caddie">{'Remove from caddie'|@translate}</option>
   {else}
-      <option value="add_to_caddie">{'Add to caddie'|@translate}</option>
+      <option value="add_to_caddie">{'add to caddie'|@translate}</option>
   {/if}
     </select>
 
@@ -529,21 +528,21 @@ a.removeFilter:hover {background: url(admin/themes/default/icon/remove_filter_ho
 
     <!-- author -->
     <div id="action_author" class="bulkAction">
-    <label><input type="checkbox" name="remove_author"> remove author</label><br>
-    {assign var='authorDefaultValue' value='Type here the author name'}
+    <label><input type="checkbox" name="remove_author"> {'remove author'|@translate}</label><br>
+    {assign var='authorDefaultValue' value='Type here the author name'|@translate}
 <input type="text" class="large" name="author" value="{$authorDefaultValue}" onfocus="this.value=(this.value=='{$authorDefaultValue}') ? '' : this.value;" onblur="this.value=(this.value=='') ? '{$authorDefaultValue}' : this.value;">
     </div>    
 
-    <!-- name -->
-    <div id="action_name" class="bulkAction">
-    <label><input type="checkbox" name="remove_name"> remove name</label><br>
-    {assign var='nameDefaultValue' value='Type here the name name'}
-<input type="text" class="large" name="name" value="{$nameDefaultValue}" onfocus="this.value=(this.value=='{$nameDefaultValue}') ? '' : this.value;" onblur="this.value=(this.value=='') ? '{$nameDefaultValue}' : this.value;">
+    <!-- title -->
+    <div id="action_title" class="bulkAction">
+    <label><input type="checkbox" name="remove_title"> {'remove title'|@translate}</label><br>
+    {assign var='titleDefaultValue' value='Type here the title'|@translate}
+<input type="text" class="large" name="title" value="{$titleDefaultValue}" onfocus="this.value=(this.value=='{$titleDefaultValue}') ? '' : this.value;" onblur="this.value=(this.value=='') ? '{$titleDefaultValue}' : this.value;">
     </div>
 
     <!-- date_creation -->
     <div id="action_date_creation" class="bulkAction">
-      <label><input type="checkbox" name="remove_date_creation"> remove creation date</label><br>
+      <label><input type="checkbox" name="remove_date_creation"> {'remove creation date'|@translate}</label><br>
       <div id="set_date_creation">
           <select id="date_creation_day" name="date_creation_day">
              <option value="0">--</option>

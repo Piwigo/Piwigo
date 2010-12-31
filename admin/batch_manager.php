@@ -247,37 +247,6 @@ foreach ($filter_sets as $set)
 }
 $page['cat_elements_id'] = $current_set;
 
-//  // To element_set_(global|unit).php, we must provide the elements id of the
-//  // managed category in $page['cat_elements_id'] array.
-//  $page['cat_elements_id'] = array();
-
-//  else if ('duplicates' == $_GET['cat'])
-//  {
-//    $page['title'] = l10n('Files with same name in more than one physical category');
-//    $template->assign(array('U_ACTIVE_MENU' => 5 ));
-//  
-//    // we are searching related elements twice or more to physical categories
-//    // 1 - Retrieve Files
-//    $query = '
-//  SELECT DISTINCT(file)
-//    FROM '.IMAGES_TABLE.'
-//   GROUP BY file
-//  HAVING COUNT(DISTINCT storage_category_id) > 1
-//  ;';
-//  
-//    $duplicate_files = array_from_query($query, 'file');
-//    $duplicate_files[]='Nofiles';
-//    // 2 - Retrives related picture ids
-//    $query = '
-//  SELECT id, file
-//    FROM '.IMAGES_TABLE.'
-//  WHERE file IN (\''.implode("','", $duplicate_files).'\')
-//  ORDER BY file, id
-//  ;';
-//  
-//    $page['cat_elements_id'] = array_from_query($query, 'id');
-//  }
-
 // +-----------------------------------------------------------------------+
 // |                       first element to display                        |
 // +-----------------------------------------------------------------------+
