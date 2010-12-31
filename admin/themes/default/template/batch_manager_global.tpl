@@ -353,6 +353,9 @@ a.removeFilter:hover {background: url(admin/themes/default/icon/remove_filter_ho
         <select name="filter_prefilter">
           <option value="caddie" {if $filter.prefilter eq 'caddie'}selected="selected"{/if}>caddie</option>
           <option value="last import" {if $filter.prefilter eq 'last import'}selected="selected"{/if}>last import</option>
+{if $ENABLE_SYNCHRONIZATION}
+          <option value="with no virtual album" {if $filter.prefilter eq 'with no virtual album'}selected="selected"{/if}>with no virtual album</option>
+{/if}
 <!--          <option value="with no album">with no album</option> -->
 <!--          <option value="with no virtual album">with no virtual album</option> -->
 <!--          <option value="with no tag">with no tag</option> -->

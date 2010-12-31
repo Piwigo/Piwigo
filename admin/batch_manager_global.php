@@ -120,6 +120,14 @@ DELETE
       $collection,
       array($_POST['associate'])
       );
+
+    $_SESSION['page_infos'] = array(
+      l10n('Information data registered in database')
+      );
+    
+    // let's refresh the page because we the current set might be modified
+    $redirect_url = get_root_url().'admin.php?page='.$_GET['page'];
+    redirect($redirect_url);
   }
 
   if ('dissociate' == $action)
@@ -149,20 +157,16 @@ DELETE
 ';
       pwg_query($query);
 
-      // we remove the dissociated images if we are currently displaying the
-      // category to dissociate from.
-      //
-      // TODO we can display the photo of a given album without the $_GET['cat']
-      if (is_numeric($_GET['cat']) and $_POST['dissociate'] == $_GET['cat'])
-      {
-        $page['cat_elements_id'] = array_diff(
-          $page['cat_elements_id'],
-          $dissociables
-          );
-      }
+      update_category($_POST['dissociate']);
+      
+      $_SESSION['page_infos'] = array(
+        l10n('Information data registered in database')
+        );
+      
+      // let's refresh the page because we the current set might be modified
+      $redirect_url = get_root_url().'admin.php?page='.$_GET['page'];
+      redirect($redirect_url);
     }
-
-    update_category($_POST['dissociate']);
   }
 
   // author

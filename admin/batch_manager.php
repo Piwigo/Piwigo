@@ -54,7 +54,7 @@ if (isset($_POST['submitFilter']))
 
   if (isset($_POST['filter_prefilter_use']))
   {
-    $prefilters = array('caddie', 'last import', 'with no album', 'with no tag');
+    $prefilters = array('caddie', 'last import', 'with no album', 'with no tag', 'with no virtual album');
     if (in_array($_POST['filter_prefilter'], $prefilters))
     {
       $_SESSION['bulk_manager_filter']['prefilter'] = $_POST['filter_prefilter'];
@@ -144,6 +144,37 @@ SELECT id
         );
     }
   }
+
+  if ('with no virtual album' == $_SESSION['bulk_manager_filter']['prefilter'])
+  {
+    // we are searching elements not linked to any virtual category
+    $query = '
+ SELECT id
+   FROM '.IMAGES_TABLE.'
+ ;';
+    $all_elements = array_from_query($query, 'id');
+ 
+    $query = '
+ SELECT id
+   FROM '.CATEGORIES_TABLE.'
+   WHERE dir IS NULL
+ ;';
+    $virtual_categories = array_from_query($query, 'id');
+    if (!empty($virtual_categories))
+    {
+      $query = '
+ SELECT DISTINCT(image_id)
+   FROM '.IMAGE_CATEGORY_TABLE.'
+   WHERE category_id IN ('.implode(',', $virtual_categories).')
+ ;';
+      $linked_to_virtual = array_from_query($query, 'image_id');
+    }
+
+    array_push(
+      $filter_sets,
+      array_diff($all_elements, $linked_to_virtual)
+      );
+  }
 }
 
 if (isset($_SESSION['bulk_manager_filter']['category']))
@@ -194,38 +225,6 @@ $page['cat_elements_id'] = $current_set;
 //  // managed category in $page['cat_elements_id'] array.
 //  $page['cat_elements_id'] = array();
 
-//  else if ('not_linked' == $_GET['cat'])
-//  {
-//    $page['title'] = l10n('Not linked elements');
-//    $template->assign(array('U_ACTIVE_MENU' => 5 ));
-//  
-//    // we are searching elements not linked to any virtual category
-//    $query = '
-//  SELECT id
-//    FROM '.IMAGES_TABLE.'
-//  ;';
-//    $all_elements = array_from_query($query, 'id');
-//  
-//    $linked_to_virtual = array();
-//  
-//    $query = '
-//  SELECT id
-//    FROM '.CATEGORIES_TABLE.'
-//    WHERE dir IS NULL
-//  ;';
-//    $virtual_categories = array_from_query($query, 'id');
-//    if (!empty($virtual_categories))
-//    {
-//      $query = '
-//  SELECT DISTINCT(image_id)
-//    FROM '.IMAGE_CATEGORY_TABLE.'
-//    WHERE category_id IN ('.implode(',', $virtual_categories).')
-//  ;';
-//      $linked_to_virtual = array_from_query($query, 'image_id');
-//    }
-//  
-//    $page['cat_elements_id'] = array_diff($all_elements, $linked_to_virtual);
-//  }
 //  else if ('duplicates' == $_GET['cat'])
 //  {
 //    $page['title'] = l10n('Files with same name in more than one physical category');
