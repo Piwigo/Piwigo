@@ -1,0 +1,104 @@
+<h2>Konfigurace</h2>
+
+<p>Na této stránce lze provádět základní nastavení. Výběr nastavení by měl stačit většině správců. Další nastavení naleznete v souboru <span
+class="filename">include/config_default.inc.php</span>.</p>
+
+<p>Stránka je rozdělena do několika záložek seskupujících jednotlivá nastavení podle typu.</p>
+
+
+<h3>Hlavní</h3>
+<ul>
+<li><strong>Název galerie</strong>: používá se v RSS vláknech emailových upozorněních.</li>
+
+<li><strong>Banner stránky</strong>: zobrazuje se nahoře na každé veřejné stránce.</li>
+
+<li><strong>URL galerie</strong>: používá se RSS vláknech.</li>
+
+<li><strong>Zamknout galerii</strong>: Uzavře galerii pro provedení údržby. Pouze uživatelé s oprávněním administrátor bude mít přístup ke galerii.</li>
+
+<li><strong>Povolit hodnocení</strong>: Hodnocení obrázků je povoleno.</li>
+
+<li><strong>Hodnocení hosty</strong>: Hodnotit obrázky může i neregistrovaný uživatel.</li>
+
+<li><strong>Povolit registraci uživatelů</strong>: Kdokoliv se může registrovat jako uživatel.</li>
+
+<li><strong>E-mailová adresa je povinná pro všechny uživatele</strong>: e-mailová adresa bude zkontrolována při registraci nebo aktualizaci profilu, vyjma situací kdy akci provedl administrátor.</li>
+
+<li><strong>Poslat e-mail administrátorovi při registraci nového uživatele</strong>: administrátoři budou upozorněni na každou novou registraci uživatele..</li>
+
+</ul>
+
+<h3>Historie</h3>
+
+<p>Návštěva stránek <span   class="pwgScreen">category.php</span> a <span class="pwgScreen">picture.php</span> bude uložena v tabulce <code>historie</code>.</p>
+
+<p>Návštěvy se zobrazují v menu:<span
+  class="pwgScreen">Administrace, Nástroje, Historie</span>.</p>
+
+<ul>
+<li><strong>Ukládat stránky navštívené hosty</strong>: uloží se návštěvy hostů.</li>
+
+<li><strong>Ukládat stránky navštívené uživateli</strong>: uloží se návštěvy registrovaných uživatelů.</li>
+
+<li><strong>Ukládat stránky navštívené administrátory</strong>: uloží se stránky navštívené administrátory.</li>
+
+</ul>
+
+<h3>Komentáře uživatelů</h3>
+<ul>
+
+<li><strong>Komentáře pro všechny</strong>: I neregistrovaný uživatel může zanechat komentář.</li>
+
+<li><strong>Počet komentářů na stránce</strong>.</li>
+
+<li><strong>Schválení</strong>: Před zobrazením na stránkách musí být každý komentář schválen administrátorem. Schvalování komentářů možno provést v menu<span class="pwgScreen">Administrace, nástroje, nevyřízené komentáře</span>.</li>
+
+<li><strong>Poslat e-mail administrátorovi při vložení nového komentáře</strong>:
+Pokud je zadán komentář nevyžadující schváleni pošle se administrátorovi email.</li>
+
+<li><strong>Poslat e-mail administrátorovi při vložení nového komentáře vyžadujícího schválení.</strong>:
+Pokud je zadán komentář nevyžadující schváleni pošle se administrátorovi email.
+Schvalování komentářů možno provést na stránce: <span class="pwgScreen">Administrace, nástroje, nevyřízené komentáře</span>.</li>
+
+</ul>
+
+<h3>Nahrát fotografie</h3>
+<ul>
+<li><strong>Vždy zobrazit odkaz pro nahrání fotografie</strong>: Pokud je do kategorie možno nahrát obrázek, zobrazí se odkaz nahraj obrázek.</li>
+<li><strong>Povolit uživatelům nahrávat fotografie na server</strong>: povolí nahrát obrázek na stránky jen vymezené skupině uživatelů.</li>
+<li><strong>Poslat e-mail administrátorovi při nahrání nové fotografie.</strong>: O každém nahrání nového obrázku uživatelem, bude administrátor informován emailem.</li>
+</ul>
+
+<h3>Nastavení pro hosty</h3>
+
+<p>Zde se nastavuje výchozí vzhled stránky pro hosty a nepřihlášené uživatele. Po přihlášení dojde k automatickému načtení hodnot nastavených přihlášeným uživatelem.
+(nastavení po přihlášení uživatele na hlavní stránce  <span class="pwgScreen">upravit</span>).</p>
+
+<p>Administrátor může měnit vzhled stránky pro jakéhokoliv registrovaného uživatele. <span class="pwgScreen">Administrace,
+uživatelé, Správa</span>: zde je možno vybrat ze seznamu uživatelů.</p>
+
+<ul>
+
+<li><strong>Jazyk</strong>: týká se pouze Piwigo systémových textů. Jména kategorii, jména obrázku a všechny popisná pole nejsou lokalizována.</li>
+
+<li><strong>Počet fotografií v řádku</strong></li>
+
+<li><strong>Počet řádků na stránce</strong></li>
+
+<li><strong>Vzhled uživatelského rozhraní</strong></li>
+
+<li><strong>Doba, po kterou jsou fotografie zobrazeny jako nově přidané</strong>: Ve dnech. musí být větší než jeden den.</li>
+
+<li><strong>Rozbalit všechny kategorie</strong>: Rozbalí všechny kategorie. <em>UPOZORNĚNÍ</em>: tato volba je náročná na systémové zdroje a pokud strom kategorií obsahuje velké množství položek, může vygenerovat rozsáhlé menu.</li>
+
+<li><strong>Ukázat počet komentářů</strong>: Na stránce s náhledy zobrazí počet komentářů u každého obrázku. Zpomaluje systém.</li>
+
+<li><strong>Ukázat počet zobrazení</strong>: zobrazí počet návštěv přímo pod náhledem obrázku. Volba je funkční pouze pokud je rozšířený konfigurační parametr: <br>
+  $conf['show_nb_hits'] = true; <br>
+  poznámka: výchozí hodnota je false.</li>
+
+<li><strong>Maximální šířka fotografií</strong>: maximální zobrazená šířka. Obrázky větší než tento parametr budou zmenšeny. Lepší, než-li používat tuto volbu, je rovnou před nahráním obrázky zmenšit, snižují se nároky na webový prostor a zrychluje načítání fotografie.</li>
+
+<li><strong>Maximální výška fotografií</strong>: maximální zobrazená výška. Obrázky větší než tento parametr budou zmenšeny. Lepší, než-li používat tuto volbu, je rovnou před nahráním obrázky zmenšit, snižují se nároky na webový prostor a zrychluje načítání fotografie..</li>
+
+</ul> 
