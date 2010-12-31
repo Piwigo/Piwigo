@@ -33,6 +33,7 @@ if (!defined('PHPWG_ROOT_PATH'))
 }
 
 include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
+include_once(PHPWG_ROOT_PATH.'admin/include/tabsheet.class.php');
 
 // +-----------------------------------------------------------------------+
 // | Check Access and exit when user status is not ok                      |
@@ -268,22 +269,49 @@ else
 }
 
 // +-----------------------------------------------------------------------+
+// |                                 Tabs                                  |
+// +-----------------------------------------------------------------------+
+
+$tabs = array(
+  array(
+    'code' => 'global',
+    'label' => l10n('global mode'),
+    ),
+  array(
+    'code' => 'unit',
+    'label' => l10n('unit mode'),
+    ),
+  );
+
+$tab_codes = array_map(
+  create_function('$a', 'return $a["code"];'),
+  $tabs
+  );
+
+if (isset($_GET['mode']) and in_array($_GET['mode'], $tab_codes))
+{
+  $page['tab'] = $_GET['mode'];
+}
+else
+{
+  $page['tab'] = $tabs[0]['code'];
+}
+
+$tabsheet = new tabsheet();
+foreach ($tabs as $tab)
+{
+  $tabsheet->add(
+    $tab['code'],
+    $tab['label'],
+    get_root_url().'admin.php?page='.$_GET['page'].'&amp;mode='.$tab['code']
+    );
+}
+$tabsheet->select($page['tab']);
+$tabsheet->assign();
+
+// +-----------------------------------------------------------------------+
 // |                         open specific mode                            |
 // +-----------------------------------------------------------------------+
 
-$_GET['mode'] = !empty($_GET['mode']) ? $_GET['mode'] : 'global';
-
-switch ($_GET['mode'])
-{
-  case 'global' :
-  {
-    include(dirname(__FILE__).'/batch_manager_global.php');
-    break;
-  }
-  case 'unit' :
-  {
-    include(PHPWG_ROOT_PATH.'admin/element_set_unit.php');
-    break;
-  }
-}
+include(PHPWG_ROOT_PATH.'admin/batch_manager_'.$page['tab'].'.php');
 ?>

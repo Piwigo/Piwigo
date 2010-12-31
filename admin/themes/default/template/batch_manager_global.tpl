@@ -329,10 +329,6 @@ a.removeFilter:hover {background: url(admin/themes/default/icon/remove_filter_ho
 </style>
 {/literal}
 
-  <p style="float:left; font-size:90%;margin:5px 0 0 0;padding:0;">
-    <a href="{$U_UNIT_MODE}">Switch to unit mode</a>
-  </p>
-
 <h2>{'Batch Manager'|@translate}</h2>
 
   <form action="{$F_ACTION}" method="post">

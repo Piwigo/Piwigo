@@ -314,17 +314,8 @@ $base_url = get_root_url().'admin.php';
 $template->assign(
   array(
     'filter' => $_SESSION['bulk_manager_filter'],
-    
     'selection' => $collection,
-    
     'U_DISPLAY'=>$base_url.get_query_string_diff(array('display')),
-
-    'U_UNIT_MODE'
-    =>
-    $base_url
-    .get_query_string_diff(array('mode','display'))
-    .'&amp;mode=unit',
-
     'F_ACTION'=>$base_url.get_query_string_diff(array('cat')),
    )
  );
