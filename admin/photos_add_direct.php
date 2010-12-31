@@ -55,7 +55,7 @@ DELETE FROM '.CADDIE_TABLE.'
     $inserts
     );
 
-  redirect(get_root_url().'admin.php?page=element_set&cat=caddie');
+  redirect(get_root_url().'admin.php?page=batch_manager&cat=caddie');
 }
 
 // +-----------------------------------------------------------------------+
@@ -294,7 +294,7 @@ SELECT
     // a function get_image_name($name, $file) (if name is null, then
     // compute a temporary name from filename) that would be also used in
     // picture.php. UPDATE: in fact, "get_name_from_file($file)" already
-    // exists and is used twice (element_set_unit + comments, but not in
+    // exists and is used twice (batch_manager_unit + comments, but not in
     // picture.php I don't know why) with the same pattern if
     // (empty($name)) {$name = get_name_from_file($file)}, a clean
     // function get_image_name($name, $file) would be better

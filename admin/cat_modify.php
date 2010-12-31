@@ -278,7 +278,7 @@ if ($category['has_images'])
 {
   $template->assign(
     'U_MANAGE_ELEMENTS',
-    $base_url.'element_set&amp;cat='.$category['id']
+    $base_url.'batch_manager&amp;cat='.$category['id']
     );
   $template->assign(
     'U_MANAGE_RANKS',

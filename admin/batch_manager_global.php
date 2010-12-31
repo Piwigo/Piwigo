@@ -42,7 +42,6 @@ check_status(ACCESS_ADMINISTRATOR);
 
 trigger_action('loc_begin_element_set_global');
 
-// the $_POST['selection'] was already checked in element_set.php
 check_input_parameter('del_tags', $_POST, true, PATTERN_ID);
 check_input_parameter('associate', $_POST, false, PATTERN_ID);
 check_input_parameter('dissociate', $_POST, false, PATTERN_ID);

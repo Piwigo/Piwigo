@@ -1981,19 +1981,6 @@ function get_active_menu($menu_page)
     return $page['active_menu'];
   }
 
-  // specific cases
-  if ('element_set' == $menu_page)
-  {
-    if (isset($_GET['cat']) and is_numeric($_GET['cat']))
-    {
-      return 1;
-    }
-    else
-    {
-      return 0;
-    }
-  }
-
   switch ($menu_page)
   {
     case 'photos_add':
@@ -2001,6 +1988,7 @@ function get_active_menu($menu_page)
     case 'rating':
     case 'tags':
     case 'picture_modify':
+    case 'batch_manager':
       return 0;
 
     case 'cat_list':
