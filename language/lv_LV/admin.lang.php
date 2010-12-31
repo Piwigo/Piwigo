@@ -745,5 +745,12 @@ $lang['File upload stopped by extension'] = 'Faila augšupielāde apturēta dē�
 $lang['Unknown upload error'] = 'Nezināma augšupielādes kļūda';
 $lang['Error on file "%s" : %s'] = 'Kļūda failā "%s" : %s';
 $lang['Menu Management'] = 'Izvēlnes Pārvalde';
+$lang['automatic order'] = 'automātiskais kārtojums';
+$lang['manual order'] = 'manuālais kārtojums';
+$lang['Albums automatically sorted'] = 'Albūmi ir automātiski  sakārtoti';
+$lang['Keep high definition'] = 'Palikt pie augstas izšķirtspējas';
+$lang['The high definition maximum width must be a number between %d and %d'] = 'Augstas izšķirtspējas attēla maksimālajam platumam jābūt starp %d un %d';
+$lang['The high definition maximum height must be a number between %d and %d'] = 'Augstas izšķirtspējas attēla maksimālajam augstumam jābūt starp %d un %d';
+$lang['The high definition image quality must be a number between %d and %d'] = 'Augstas izšķirtspējas attēla kvalitātei jābūt starp %d un %d';
 
 ?>
