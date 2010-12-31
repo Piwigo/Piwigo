@@ -572,7 +572,7 @@ a.removeFilter:hover {background: url(admin/themes/default/icon/remove_filter_ho
     </div>
 
     <p id="applyActionBlock" style="display:none" class="actionButtons">
-      <input id="applyAction" class="submit" type="submit" value="{'Apply action'|@translate}" name="submit" {$TAG_INPUT_ENABLED}> <span id="applyOnDetails"></span></p>
+      <input id="applyAction" class="submit" type="submit" value="{'Apply action'|@translate}" name="submit"> <span id="applyOnDetails"></span></p>
 
     </div> <!-- #permitAction -->
   </fieldset>
