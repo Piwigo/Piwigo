@@ -177,6 +177,21 @@ SELECT id
       );
   }
 
+  if ('with no album' == $_SESSION['bulk_manager_filter']['prefilter'])
+  {
+    $query = '
+SELECT
+    id
+  FROM '.IMAGES_TABLE.'
+    LEFT JOIN '.IMAGE_CATEGORY_TABLE.' ON id = image_id
+  WHERE category_id is null
+;';
+    array_push(
+      $filter_sets,
+      array_from_query($query, 'id')
+      );
+  }
+
   if ('duplicates' == $_SESSION['bulk_manager_filter']['prefilter'])
   {
     // we could use the group_concat MySQL function to retrieve the list of

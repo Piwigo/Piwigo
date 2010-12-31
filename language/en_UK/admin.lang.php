@@ -797,4 +797,5 @@ $lang['Type here the author name'] = 'Type here the author name';
 $lang['remove title'] = 'remove title';
 $lang['Type here the title'] = 'Type here the title';
 $lang['remove creation date'] = 'remove creation date';
+$lang['with no album'] = 'with no album';
 ?>

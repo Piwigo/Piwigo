@@ -802,4 +802,5 @@ $lang['Type here the author name'] = 'Entrez ici le nom de l\'auteur';
 $lang['remove title'] = 'supprimer le titre';
 $lang['Type here the title'] = 'Entrez ici le titre';
 $lang['remove creation date'] = 'supprimer la date de création';
+$lang['with no album'] = 'sans album';
 ?>
