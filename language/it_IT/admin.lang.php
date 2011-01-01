@@ -803,4 +803,5 @@ $lang['remove title'] = 'cancellare il titolo';
 $lang['Type here the title'] = 'Inserire qui il titolo';
 $lang['remove creation date'] = 'cancellare la data di creazione';
 $lang['with no album'] = 'senza album';
+$lang['with no tag'] = 'senza tag';
 ?>
