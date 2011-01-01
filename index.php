@@ -63,7 +63,7 @@ if (isset($_GET['image_order']))
 //-------------------------------------------------------------- initialization
 
 $page['navigation_bar'] = array();
-if (count($page['items']) > $user['nb_image_page'])
+if (count($page['items']) > $page['nb_image_page'])
 {
   $page['navigation_bar'] = create_navigation_bar(
     duplicate_index_url(array(), array('start')),

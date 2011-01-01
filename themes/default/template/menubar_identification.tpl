@@ -48,18 +48,18 @@
 	{/if}
 
 	<div>
-        <input type="hidden" name="redirect" value="{$smarty.server.REQUEST_URI|@urlencode}">
+	<input type="hidden" name="redirect" value="{$smarty.server.REQUEST_URI|@urlencode}">
 	<input class="submit" type="submit" name="login" value="{'Submit'|@translate}">
-	<ul class="categoryActions">
+	<span class="categoryActions">
 {if isset($U_REGISTER)}
-		<li><a href="{$U_REGISTER}" title="{'Create a new account'|@translate}" class="pwg-state-default pwg-button">
+		<a href="{$U_REGISTER}" title="{'Create a new account'|@translate}" class="pwg-state-default pwg-button">
 			<span class="pwg-icon pwg-icon-register">&nbsp;</span>
-		</a></li>
+		</a>
 {/if}
-		<li><a href="{$U_LOST_PASSWORD}" title="{'Forgot your password?'|@translate}" class="pwg-state-default pwg-button">
+		<a href="{$U_LOST_PASSWORD}" title="{'Forgot your password?'|@translate}" class="pwg-state-default pwg-button">
 			<span class="pwg-icon pwg-icon-lost-password">&nbsp;</span>
-		</a></li>
-	</ul>
+		</a>
+	</span>
 	</div>
 
 	</fieldset>

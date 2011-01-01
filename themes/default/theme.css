@@ -64,13 +64,9 @@
 }
 
 /* quickconnect form */
-#quickconnect {
-	margin: 5px;
-	padding: 0;
-}
 
 #quickconnect FIELDSET {
-	margin: 0;
+	margin: 0 5px 0 0;
 	padding: 0; /*IE6 requires padding 0*/
 }
 
