@@ -64,6 +64,25 @@ else if (isset($_POST['selection']))
 // |                       global mode form submission                     |
 // +-----------------------------------------------------------------------+
 
+// $page['prefilter'] is a shortcut to test if the current filter contains a
+// given prefilter. The idea is to make conditions simpler to write in the
+// code.
+$page['prefilter'] = 'none';
+if (isset($_SESSION['bulk_manager_filter']['prefilter']))
+{
+  $page['prefilter'] = $_SESSION['bulk_manager_filter']['prefilter'];
+}
+
+// $page['category'] is a shortcut to test if the current filter contains a
+// given category. The idea is the same as for prefilter
+$page['category'] = -1;
+if (isset($_SESSION['bulk_manager_filter']['category']))
+{
+  $page['category'] = $_SESSION['bulk_manager_filter']['category'];
+}
+
+$redirect_url = get_root_url().'admin.php?page='.$_GET['page'];
+
 if (isset($_POST['submit']))
 {
   // if the user tries to apply an action, it means that there is at least 1
@@ -85,6 +104,11 @@ DELETE
 ;';
     pwg_query($query);
 
+    if ('caddie' == $page['prefilter'])
+    {
+      redirect($redirect_url);
+    }
+    
     // if we are here in the code, it means that the user is currently
     // displaying the caddie content, so we have to remove the current
     // selection from the current set
@@ -95,6 +119,11 @@ DELETE
   {
     $tag_ids = get_fckb_tag_ids($_POST['add_tags']);
     add_tags($tag_ids, $collection);
+
+    if ('with no tag' == $page['prefilter'])
+    {
+      redirect(get_root_url().'admin.php?page='.$_GET['page']);
+    }
   }
 
   if ('del_tags' == $action)
@@ -125,8 +154,19 @@ DELETE
       );
     
     // let's refresh the page because we the current set might be modified
-    $redirect_url = get_root_url().'admin.php?page='.$_GET['page'];
-    redirect($redirect_url);
+    if ('with no album' == $page['prefilter'])
+    {
+      redirect($redirect_url);
+    }
+
+    if ('with no virtual album' == $page['prefilter'])
+    {
+      $category_info = get_cat_info($_POST['associate']);
+      if (empty($category_info['dir']))
+      {
+        redirect($redirect_url);
+      }
+    }
   }
 
   if ('dissociate' == $action)
@@ -163,7 +203,6 @@ DELETE
         );
       
       // let's refresh the page because we the current set might be modified
-      $redirect_url = get_root_url().'admin.php?page='.$_GET['page'];
       redirect($redirect_url);
     }
   }
@@ -261,6 +300,14 @@ DELETE
       array('primary' => array('id'), 'update' => array('level')),
       $datas
       );
+
+    if (isset($_SESSION['bulk_manager_filter']['level']))
+    {
+      if ($_POST['level'] < $_SESSION['bulk_manager_filter']['level'])
+      {
+        redirect($redirect_url);
+      }
+    }
   }
   
   // add_to_caddie
@@ -300,6 +347,29 @@ DELETE
     {
       array_push($page['errors'], l10n('You need to confirm deletion'));
     }
+  }
+
+  // synchronize metadata
+  if ('metadata' == $action)
+  {
+    $query = '
+SELECT id, path
+  FROM '.IMAGES_TABLE.'
+  WHERE id IN ('.implode(',', $collection).')
+;';
+    $id_to_path = array();
+    $result = pwg_query($query);
+    while ($row = pwg_db_fetch_assoc($result))
+    {
+      $id_to_path[$row['id']] = $row['path'];
+    }
+    
+    update_metadata($id_to_path);
+
+    array_push(
+      $page['infos'],
+      l10n('Metadata synchronized from file')
+      );
   }
 }
 
@@ -474,6 +544,17 @@ $template->assign(
     array(
       'level_options'=> get_privacy_level_options(),
       'level_options_selected' => 0,
+    )
+  );
+
+// metadata
+include_once( PHPWG_ROOT_PATH.'admin/site_reader_local.php');
+$site_reader = new LocalSiteReader('./');
+$used_metadata = implode( ', ', $site_reader->get_metadata_attributes());
+
+$template->assign(
+    array(
+      'used_metadata' => $used_metadata,
     )
   );
 

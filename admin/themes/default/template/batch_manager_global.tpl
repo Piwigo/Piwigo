@@ -348,8 +348,8 @@ a.removeFilter:hover {background: url(admin/themes/default/icon/remove_filter_ho
 {if $ENABLE_SYNCHRONIZATION}
           <option value="with no virtual album" {if $filter.prefilter eq 'with no virtual album'}selected="selected"{/if}>{'with no virtual album'|@translate}</option>
 {/if}
+          <option value="with no tag" {if $filter.prefilter eq 'with no tag'}selected="selected"{/if}>{'with no tag'|@translate}</option>
           <option value="duplicates" {if $filter.prefilter eq 'duplicates'}selected="selected"{/if}>{'duplicates'|@translate}</option>
-<!--          <option value="with no tag">with no tag</option> -->
         </select>
       </li>
       <li id="filter_category" {if !isset($filter.category)}style="display:none"{/if}>
@@ -484,6 +484,7 @@ a.removeFilter:hover {background: url(admin/themes/default/icon/remove_filter_ho
       <option value="title">{'Set title'|@translate}</option>
       <option value="date_creation">{'Set creation date'|@translate}</option>
       <option value="level">{'Who can see these photos?'|@translate}</option>
+      <option value="metadata">{'synchronize metadata'|@translate}</option>
   {if ($IN_CADDIE)}
       <option value="remove_from_caddie">{'Remove from caddie'|@translate}</option>
   {else}
@@ -564,6 +565,10 @@ a.removeFilter:hover {background: url(admin/themes/default/icon/remove_filter_ho
         <select name="level" size="1">
           {html_options options=$level_options selected=$level_options_selected}
         </select>
+    </div>
+
+    <!-- metadata -->
+    <div id="action_metadata" class="bulkAction">
     </div>
 
     <p id="applyActionBlock" style="display:none" class="actionButtons">
