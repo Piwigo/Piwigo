@@ -90,6 +90,13 @@ if (isset($_GET['cat']))
       );
   }
 
+  if ('recent' == $_GET['cat'])
+  {
+    $_SESSION['bulk_manager_filter'] = array(
+      'prefilter' => 'last import'
+      );
+  }
+
   if (is_numeric($_GET['cat']))
   {
     $_SESSION['bulk_manager_filter'] = array(
