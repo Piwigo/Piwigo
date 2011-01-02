@@ -52,7 +52,7 @@ $lang['Keep it confidential, it enables you to access administration panel'] = "
 $lang['Password [confirm]'] = "Parole [apstiprinat]";
 $lang['verification'] = "parbaude";
 $lang['Need help ? Ask your question on <a href="%s">Piwigo message board</a>.'] = "Vajag palidzibu? Uzdodiet savu jautajumu <a href=\"%s\">Piwigo sludinajumos</a>.";
-$lang['Webmaster mail address'] = "Webmaster mail address";
+$lang['Webmaster mail address'] = 'Webmāstera pasta adrese';
 $lang['Visitors will be able to contact site administrator with this mail'] = "Apmekletaji vares izmantot šo e-pastu, lai sazinatos ar lapas administratoru";
 $lang['PHP 5 is required'] = "nepieciešams PHP 5 ";
 $lang['It appears your webhost is currently running PHP %s.'] = "Jusu webhosts patlaban izmanto PHP %s.";
@@ -65,7 +65,7 @@ $lang['You may referer to your hosting provider\'s support and see how you could
 $lang['Hope to see you back soon.'] = "Ceram Jus redzet atkal.";
 $lang['Congratulations, Piwigo installation is completed'] = 'Apsveicam, Piwigo instalacija ir pabeigta';
 $lang['An alternate solution is to copy the text in the box above and paste it into the file "local/config/database.inc.php" (Warning : database.inc.php must only contain what is in the textarea, no line return or space character)'] = ' Alternativa ir iekopet tekstu lodzina augšpuse un ielimet to faila "local/config/database.inc.php" (Uzmanibu : database.inc.php drikst saturet tikai to kas ir teksta lodzina, ne enter ne tukšumus)';
-$lang['Creation of config file local/config/database.inc.php failed.'] = 'Creation of config file local/config/database.inc.php failed.';
+$lang['Creation of config file local/config/database.inc.php failed.'] = 'Konfigurācijas faila local/config/database.inc.php izveide ir nesekmīga.';
 $lang['Download the config file'] = 'Lejupladet config failu';
 $lang['You can download the config file and upload it to local/config directory of your installation.'] = 'Jums jalejupielade configuracijas fails un jaielade tas Jusu instalacijas local/config mape.';
 $lang['SQLite and PostgreSQL are currently in experimental state.'] = 'SQLite un PostgreSQL patlaban darbojas eksperimentala režima.';

@@ -38,5 +38,5 @@ $lang['You do not have access rights to run upgrade'] = "Jums nav pieejas tiesī
 $lang['All sub-albums of private albums become private'] = 'Visi privātā albūma apakšalbūmi kļūst privāti';
 $lang['User permissions and group permissions have been erased'] = "Lietotāju un grupu piekļuves tiesības ir izdzēstas";
 $lang['Only thumbnails prefix and webmaster mail address have been saved from previous configuration'] = "No iepriekšējās konfigurācijas ir saglabāti tikai sīkbilžu prefiksi un webmāstera e-pasta adreses";
-$lang['In <i>%s</i>, before <b>?></b>, insert:'] = 'In <i>%s</i>, before <b>?></b>, insert:';
+$lang['In <i>%s</i>, before <b>?></b>, insert:'] = 'Iekš <i>%s</i>, pirms <b>?></b>,ievietot:';
 ?>
