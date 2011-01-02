@@ -749,4 +749,37 @@ $lang['The high definition maximum width must be a number between %d and %d'] = 
 $lang['The high definition maximum height must be a number between %d and %d'] = 'Augstas izšķirtspējas attēla maksimālajam augstumam jābūt starp %d un %d';
 $lang['The high definition image quality must be a number between %d and %d'] = 'Augstas izšķirtspējas attēla kvalitātei jābūt starp %d un %d';
 
+$lang['Batch Manager'] = 'Sērijveida failu pārvaldnieks';
+$lang['include child albums'] = 'ietvert radniecīgos albūmus';
+$lang['Selection'] = 'Izvēle';
+$lang['Action'] = 'Darbība';
+$lang['Set author'] = 'Ievadīt autoru';
+$lang['Set title'] = 'Ievadīt virsrakstu';
+$lang['Set creation date'] = 'Ievadīt izveides datumu';
+$lang['Apply action'] = 'Veikt darbību';
+$lang['on the %d selected photos'] = 'uz %d atlasītajiem fotoattēliem';
+$lang['%d of %d photos selected'] = '%d no %d atlasītajiem fotoattēliem';
+$lang['No photo selected, %d photos in current set'] = 'Nav atlasītu foto, %d fotoattēli tekošajā sērijā';
+$lang['All %d photos are selected'] = 'Visi %d foto ir atlasīti';
+$lang['remove this filter'] = 'noņemt šo filtru';
+$lang['predefined filter'] = 'iepriekšdefinētais filtrs';
+$lang['last import'] = 'jaunākais imports';
+$lang['with no virtual album'] = 'bez virtuālā albūma';
+$lang['duplicates'] = 'dublikāti';
+$lang['Add a filter'] = 'Pievienot filtru';
+$lang['Remove all filters'] = 'Noņemt visus filtrus';
+$lang['Refresh photo set'] = 'Atjaunināt foto sēriju';
+$lang['The whole page'] = 'Visa lapa';
+$lang['The whole set'] = 'Visa sērija';
+$lang['thumbnails per page'] = 'sīkbildes lapā';
+$lang['No photo in the current set.'] = 'Nav fotoattēlu esošajā sērijā.';
+$lang['No photo selected, no action possible.'] = 'Nav atlasītu fotoattēlu, nekādas darbības nav iespējamas.';
+$lang['Choose an action'] = 'Izvēlēties darbību';
+$lang['remove author'] = 'izdzēst autoru';
+$lang['Type here the author name'] = 'Ievadīt autora vārdu šeit';
+$lang['remove title'] = 'dzēst nosaukumu';
+$lang['Type here the title'] = 'Ievadīt nosaukumu šeit';
+$lang['remove creation date'] = 'dzēst izveides datumu';
+$lang['with no album'] = 'bez albūma';
+
 ?>
