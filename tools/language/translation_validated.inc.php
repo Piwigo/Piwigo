@@ -307,6 +307,17 @@ $validated_keys = array(
 	'%d Kb',
 	'',
 	),
+	
+  'lv_LV' => array(
+ 	'%d Kb',
+	'N/A',
+	'IP: %s',
+	'IP',
+	'localhost, sql.multimania.com, toto.freesurf.fr',
+	'',
+	'',
+	'',
+	),
 
   'nl_NL' => array(
  	'%d Kb',
