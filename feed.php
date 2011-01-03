@@ -38,9 +38,7 @@ include_once(PHPWG_ROOT_PATH.'include/functions_notification.inc.php');
  */
 function datetime_to_ts($datetime)
 {
-  $date = strptime($datetime, '%Y-%m-%d %H:%M:%S');
-  return mktime($date['tm_hour'], $date['tm_min'], $date['tm_sec'],
-                $date['tm_mon'], $date['tm_mday'], 1900+$date['tm_year']);
+  return strtotime($datetime);
 }
 
 /**
@@ -136,7 +134,7 @@ if (!$image_only)
     $item->description.= '</ul>';
     $item->descriptionHtmlSyndicated = true;
 
-    $item->date = $dbnow;
+    $item->date = ts_to_iso8601(datetime_to_ts($dbnow));
     $item->author = $conf['rss_feed_author'];
     $item->guid= sprintf('%s', $dbnow);;
 
@@ -188,7 +186,7 @@ foreach($dates as $date_detail)
 
   $item->descriptionHtmlSyndicated = true;
 
-  $item->date = $date;
+  $item->date = ts_to_iso8601(datetime_to_ts($date));
   $item->author = $conf['rss_feed_author'];
   $item->guid= sprintf('%s', 'pics-'.$date);;
 
