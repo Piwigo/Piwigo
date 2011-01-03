@@ -789,4 +789,7 @@ $lang['Type here the title'] = 'Typ hier de titel';
 $lang['remove creation date'] = 'verwijder aanmaakdatum';
 $lang['with no album'] = 'zonder album';
 $lang['with no tag'] = 'zonder tag';
+$lang['Exif extension not available, admin should disable exif use'] = 'Exif extensie is niet beschikbaar, de administrator moet exif gebruik uitsluiten';
+$lang['The uploaded file exceeds the upload_max_filesize directive in php.ini: %sB'] = 'Het geuploade bestand is groter dan upload_max_filesize instelling in php.ini: %sB';
+$lang['include child albums'] = 'inclusief sub albums';
 ?>
