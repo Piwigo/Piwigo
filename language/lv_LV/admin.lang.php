@@ -781,5 +781,5 @@ $lang['remove title'] = 'dzēst nosaukumu';
 $lang['Type here the title'] = 'Ievadīt nosaukumu šeit';
 $lang['remove creation date'] = 'dzēst izveides datumu';
 $lang['with no album'] = 'bez albūma';
-
+$lang['with no tag'] = 'bez iezīmes (taga)';
 ?>
