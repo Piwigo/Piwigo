@@ -12,11 +12,11 @@ H2, #menubar DT {
 
 /* backgrounds */
 
-BODY, H3, #imageHeaderBar, #imageToolBar A:hover {
+BODY, H3, #imageToolBar A:hover {
 	background-color: #2f2f2f;
 }
 
-#menubar DL, .content, #imageToolBar, .header_notes {
+#menubar DL, .content, #imageToolBar, #imageHeaderBar, .header_notes {
 	background-color: #505050;
 }
 
@@ -26,14 +26,10 @@ H2, #menubar DT {
 
 #imageHeaderBar H2 {
 	background-image: none;
-	background-color: transparent;
-	border: none;
+	border: 0;
 }
 
 #imageHeaderBar {
-	background-image: url(images/tableh2_bg.png);
-	background-repeat: repeat-x;
-	background-position: center;
 	border-top: 1px solid #000;
 }
 
@@ -47,13 +43,11 @@ H2, #menubar DT, #imageToolBar {
 }
 
 FIELDSET, INPUT, SELECT, TEXTAREA,
-.content .thumbnailCategory {
+.content .thumbnailCategory ,
+.thumbnails .wrap2 {
 	border: 1px solid gray;
 }
 
-.thumbnails .wrap2 {
-	border: 1px solid #aaaaaa;	/* thumbnails border color and style */
-}
 
 .thumbnails .wrap2:hover,
 .content .thumbnailCategories .thumbnailCategory:hover,
