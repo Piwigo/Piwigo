@@ -261,6 +261,11 @@ if ($page['start']==0 and !isset($page['chronology_field']) and !empty($page['co
 // include menubar
 include( PHPWG_ROOT_PATH.'include/menubar.inc.php');
 
+if ( isset($page['category']['count_categories']) and $page['category']['count_categories']==0 )
+{// count_categories might be computed by menubar - if the case unassign flat link if no sub albums
+	$template->clear_assign('U_MODE_FLAT');
+}
+
 //------------------------------------------------------ main part : thumbnails
 if ( 0==$page['start']
     and !isset($page['flat'])

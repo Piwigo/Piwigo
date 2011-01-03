@@ -132,11 +132,6 @@
 	display: inline;
 }
 
-/*following rule not used directly but it is there for plugins*/
-.categoryActions IMG {
-	margin-bottom: -5px;
-}
-
 /* begin chronology/calendar elements*/
 .content .calendarViews {
 	display: block;

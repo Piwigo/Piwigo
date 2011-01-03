@@ -8,7 +8,7 @@
 		</a></li>
 {/if}
 {if $display_mode == 'cloud'}
-		<li><a href="{$U_LETTERS}" title="{'group by letters'|@translate}" class="pwg-state-default pwg-button">
+		<li><a href="{$U_LETTERS}" title="{'group by letters'|@translate}" class="pwg-state-default pwg-button" rel="nofollow">
 			<span class="pwg-icon pwg-icon-letters">&nbsp;</span><span class="pwg-button-text">{'letters'|@translate}</span>
 		</a></li>
 {/if}

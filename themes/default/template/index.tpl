@@ -51,12 +51,12 @@
 		</a></li>
 {/if}
 {if isset($U_MODE_POSTED)}
-		<li><a href="{$U_MODE_POSTED}" title="{'display a calendar by posted date'|@translate}" class="pwg-state-default pwg-button">
+		<li><a href="{$U_MODE_POSTED}" title="{'display a calendar by posted date'|@translate}" class="pwg-state-default pwg-button" rel="nofollow">
 			<span class="pwg-icon pwg-icon-camera-calendar">&nbsp;</span><span class="pwg-button-text">{'Calendar'|@translate}</span>
 		</a></li>
 {/if}
 {if isset($U_MODE_CREATED)}
-		<li><a href="{$U_MODE_CREATED}" title="{'display a calendar by creation date'|@translate}" class="pwg-state-default pwg-button">
+		<li><a href="{$U_MODE_CREATED}" title="{'display a calendar by creation date'|@translate}" class="pwg-state-default pwg-button" rel="nofollow">
 			<span class="pwg-icon pwg-icon-camera-calendar">&nbsp;</span><span class="pwg-button-text">{'Calendar'|@translate}</span>
 		</a></li>
 {/if}

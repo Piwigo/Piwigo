@@ -2,6 +2,7 @@
 	display: inline-block; /*IE6 does not get this correctly*/
 	text-indent: -9999px; overflow: hidden; background-repeat: no-repeat;
 	width: 26px; height: 26px; background-image: url(s26/outline_808080.png);
+	vertical-align: bottom;
 }
 .pwg-button-text { display:none; }
 
@@ -13,7 +14,7 @@
 
 .pwg-button {
 	display: inline-block;
-	vertical-align: middle;
+	vertical-align: top;
 }
 
 .pwg-icon-home {background-position: -26px 0}
