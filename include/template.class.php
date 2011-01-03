@@ -899,6 +899,11 @@ class ScriptLoader
     $this->head_done_scripts = array();
     $this->did_head = false;
   }
+	
+	function get_all()
+	{
+		return $this->registered_scripts;
+	}
 
   function add_inline($code, $require)
   {

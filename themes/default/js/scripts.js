@@ -77,14 +77,14 @@ PwgWS.prototype = {
 			}
 		}
 
-		if (this.options.method == "POST" )
-			this.xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-		else
+		if (this.options.method != "POST" )
 		{
 			url += "&"+body;
 			body = null;
 		}
 		this.xhr.open(this.options.method, url, this.options.async);
+		if (this.options.method == "POST" )
+			this.xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 		try {
 			this.xhr.send(body);
 		} catch(e) {
