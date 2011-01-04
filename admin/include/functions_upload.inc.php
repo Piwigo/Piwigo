@@ -184,7 +184,7 @@ function add_uploaded_file($source_filepath, $original_filename=null, $categorie
   // TODO
   // * check md5sum (already exists?)
   
-  global $conf;
+  global $conf, $user;
   
   // current date
   list($dbnow) = pwg_db_fetch_row(pwg_query('SELECT NOW();'));
@@ -306,6 +306,7 @@ function add_uploaded_file($source_filepath, $original_filename=null, $categorie
     'width' => $file_infos['width'],
     'height' => $file_infos['height'],
     'md5sum' => $md5sum,
+    'added_by' => $user['id'],
     );
 
   if (isset($high_infos))

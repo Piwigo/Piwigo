@@ -1209,7 +1209,7 @@ SELECT
 
 function ws_images_add($params, &$service)
 {
-  global $conf;
+  global $conf, $user;
   if (!is_admin())
   {
     return new PwgError(401, 'Access denied');
@@ -1284,6 +1284,7 @@ SELECT
     'width' => $file_infos['width'],
     'height' => $file_infos['height'],
     'md5sum' => $params['original_sum'],
+    'added_by' => $user['id'],
     );
 
   $info_columns = array(

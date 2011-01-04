@@ -235,6 +235,7 @@ CREATE TABLE "piwigo_images"
   "high_filesize" INTEGER,
   "level" INTEGER default 0 NOT NULL,
   "md5sum" CHAR(32),
+  "added_by" INTEGER default 0 NOT NULL,
   PRIMARY KEY ("id")
 );
 

@@ -449,6 +449,7 @@ SELECT file,storage_category_id
           ? $fs[$path]['tn_ext']
           : null,
         'storage_category_id' => $db_fulldirs[$dirname],
+        'added_by' => $user['id'],
         );
 
       if ( $_POST['privacy_level']!=0 )
