@@ -282,7 +282,7 @@ TD.calDayHead {
 .thumbnails LI { display: inline }
 
 .thumbnails .wrap1 {
-	margin: 0 5px 5px 5px;
+	margin: 0 7px 5px 7px;
 	display: table-cell; display: inline-table;
 	display: inline-block;/* Why 3 display option ??? */
 	vertical-align: top;	/* OK with Opera and IE6 not Geko */

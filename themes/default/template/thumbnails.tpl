@@ -1,6 +1,5 @@
-
 {if !empty($thumbnails)}
-{foreach from=$thumbnails item=thumbnail}
+{strip}{foreach from=$thumbnails item=thumbnail}
 	<li>
 	<span class="wrap1">
 		<span class="wrap2">
@@ -29,5 +28,5 @@
 		</span>
 	</span>
 	</li>
-{/foreach}
+{/foreach}{/strip}
 {/if}
