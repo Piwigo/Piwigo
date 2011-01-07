@@ -233,7 +233,6 @@ $lang['group "%s" updated'] = "groupe \"%s\" mis à jour";
 $lang['group'] = "groupe";
 $lang['The name of a group must not contain " or \' or be empty.'] = "Le nom du groupe ne doit pas contenir \" ou ' et ne doit pas être vide.";
 $lang['This name is already used by another group.'] = "Ce nom est déjà utilisé par un autre groupe.";
-$lang[''] = "";
 $lang['High definition'] = "Haute définition";
 $lang['jump to album'] = 'Se rendre dans l\'album';
 $lang['jump to image'] = "Se rendre à l'image";

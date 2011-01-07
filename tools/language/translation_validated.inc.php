@@ -230,7 +230,6 @@ $validated_keys = array(
 	'%d images',
 	'Configuration',
 	'Instructions',
-	'',
 	'Permissions',
 	'Local',
 	'[Simulation]',
@@ -244,6 +243,10 @@ $validated_keys = array(
 	'Piwigo Uploader',
 	'localhost, sql.multimania.com, toto.freesurf.fr',
 	'email',
+	'Albums',
+	'Album',
+	'Menu Management',
+	'Action',
     ),
 
   'hr_HR' => array(
