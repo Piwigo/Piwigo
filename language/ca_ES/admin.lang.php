@@ -59,19 +59,12 @@ $lang['Add'] = 'Afegeix';
 $lang['Allow user registration'] = 'Permet el registre d\'usuaris';
 $lang['Apply to sub-albums'] = 'Aplica a les subcategories';
 $lang['Associated'] = 'Associat';
-$lang['Association to categories'] = 'Associació de categories';
 $lang['Batch management'] = 'Gestió per lots';
 $lang['Caddie management'] = 'Gestió del carret';
 $lang['Caddie'] = 'Carret';
-
-
-
 $lang['Albums authorized thanks to group associations'] = 'Categories authorized thanks to group associations';  
 $lang['Album manual order was saved'] = 'Categories manual order was saved';
 $lang['Album elements associated to the following albums: %s'] = 'Category elements associated to the following categories: %s';
-
-
-
 $lang['Check for upgrade failed for unknown reasons.'] = 'Check for upgrade failed for unknown reasons.';
 $lang['Check for upgrade'] = 'Comprova si hi ha actualitzacions';
 $lang['Comments for all'] = 'Comentaris per a tots';
@@ -174,8 +167,6 @@ $lang['Sum of rates'] = 'Suma de valoracions';
 $lang['Tag "%s" already exists'] = 'L\'etiqueta "%s" ja existeix';
 $lang['Tag "%s" was added'] = 'L\'etiqueta "%s" estaba afegida';
 $lang['Tag selection'] = 'Selecció d\'etiquetes';
-$lang['Take selected elements out of caddie'] = 'Treu els elements seleccionats fora del carret';
-$lang['The following tag were deleted'] = 'La següent etiqueta estava eliminada';
 $lang['The %d following tags were deleted'] = 'Les etiquetes següents %d estaven eliminades';
 $lang['Unable to check for upgrade.'] = 'No es pot verificar per actualitzar.';
 $lang['Uninstall'] = 'Desinstal·lar';
@@ -186,11 +177,6 @@ $lang['Validate All'] = 'Valida\'ls tots';
 $lang['Validate'] = 'Valida';
 $lang['Validation'] = 'Validació';
 $lang['Version'] = 'Versió';
-
-
-
-
-$lang['Virtual categories movement'] = 'Virtual categories movement';
 $lang['Virtual albums to move'] = 'Virtual categories to move';
 $lang['Virtual album name'] = 'Virtual category name';
 $lang['Webmaster cannot be deleted'] = 'Webmaster cannot be deleted';
@@ -199,7 +185,6 @@ $lang['You cannot delete your account'] = "You cannot delete your account";
 $lang['You cannot move an album in its own sub album'] = 'You cannot move a category in its own sub category';
 $lang['You need to confirm deletion'] = 'You need to confirm deletion';
 $lang['add tags'] = 'add tags';
-$lang['Adviser'] = 'Adviser';
 $lang['Associate to album'] = 'associate to category';
 $lang['associate to group'] = 'associate to group';
 $lang['Authorized'] = 'Authorized';
@@ -215,7 +200,6 @@ $lang['Manage authorizations for selected albums'] = 'Manage authorizations for 
 $lang['Select uploadable albums'] = 'Select uploadable categories';
 $lang['Virtual album added'] = 'Virtual category added';
 $lang['Virtual album deleted'] = 'Virtual category deleted';
-$lang['Album'] = 'Category';
 $lang['Access type'] = 'Tipus d\'accès';
 $lang['Comments'] = 'Comentaris';
 $lang['Information data registered in database'] = 'Informació de les dades registrades de la base de dades';
@@ -240,7 +224,6 @@ $lang['File'] = 'Fitxer';
 $lang['Filesize'] = 'Mida del fitxer';
 $lang['first element added on %s'] = 'primer element afegit a %s';
 $lang['Forbidden'] = 'Prohibit';
-$lang['General'] = 'General';
 $lang['global mode'] = 'mode global';
 $lang['group "%s" added'] = 'grup "%s" afegit';
 $lang['group "%s" deleted'] = 'grup "%s" eliminat';
@@ -249,8 +232,6 @@ $lang['group'] = 'grup';
 $lang['The name of a group must not contain " or \' or be empty.'] = 'El nom d\'un grup no pot contenir " o \' o ser buit.';
 $lang['This name is already used by another group.'] = 'Aquest nom ja està en us per un altre grup.';
 $lang['Groups'] = 'Grups';
-$lang['Instructions'] = 'Instruccions';
-$lang[''] = '';
 $lang['High definition'] = 'Alta definició';
 $lang['jump to album'] = 'salta a la categoria';
 $lang['jump to image'] = 'salta a la imatge';
@@ -264,16 +245,10 @@ $lang['maximum height'] = 'màxima alçada';
 $lang['maximum width'] = 'màxima amplada';
 $lang['Execution time is out, treatment must be continue [Estimated time: %d second].'] = 'El temps d\'execució s\'ha acabat, el tractament ha de continuar [Temps estimat: %d segon].';
 $lang['Execution time is out, treatment must be continue [Estimated time: %d seconds].'] = 'El temps d\'execució s\'ha acabat, el tractament ha de continuar [Temps estimat: %d segons].';
-
-
-
 $lang['Prepared time for list of users to send mail is limited. Others users are not listed.'] = 'Prepared time for list of users to send mail is limited. Others users are not listed.';
 $lang['Time to send mail is limited. Others mails are skipped.'] = 'Time to send mail is limited. Others mails are skipped.';
 $lang['To send ?'] = 'To send ?';
 $lang['Last send'] = 'Last send';
-
-
-
 $lang['email'] = 'correu electrònic';
 $lang['User'] = 'Usuari';
 $lang['Complementary mail content'] = 'Contingut complementari del correu';
@@ -344,15 +319,10 @@ $lang['Permissions'] = 'Permisos';
 $lang['private'] = 'privat';
 $lang['Properties'] = 'Propietats';
 $lang['public'] = 'públic';
-
-
 $lang['Purge never used notification feeds'] = 'Purge never used notification feeds';
 $lang['Purge sessions'] = 'Purge sessions';
-
-
 $lang['randomly represented'] = 'representació aleatòria';
 $lang['registration date'] = 'data de registre';
-$lang['Remote site'] = 'Lloc remot';
 $lang['clean'] = 'neteja';
 $lang['remove remote listing.xml file'] = 'elimina el fitxer remot listing.xml';
 $lang['generate listing'] = 'genera llistat';
@@ -362,17 +332,10 @@ $lang['A local listing.xml file has been found for'] = 'S\'ha trobat un fitxer l
 $lang['read local listing.xml and update'] = 'llegeix el fitxer local listing.xml i actualitza';
 $lang['test'] = 'test';
 $lang['test this remote site'] = 'testeja aquest lloc remot';
-$lang['Remote site url must start by http or https and must only contain characters among "/", "a-zA-Z0-9", "-" or "_"'] = 'La url del lloc remot ha de començar per http o https i només pot contenir caràcters "/", "a-zA-Z0-9", "-" o "_"';
 $lang['remove tags'] = 'elimina etiquetes';
 $lang['Repair and optimize database'] = 'Repara i optimitza la base de dades';
 $lang['selection'] = 'selecciona';
-
-
-
-
 $lang['set to'] = 'set to';
-
-
 $lang['singly represented'] = 'representa per separat';
 $lang['This site already exists'] = 'Aquest lloc ja existeix';
 $lang['Create a new site : (give its URL to create_listing_file.php)'] = 'Crea un nou lloc : (dóna aquesta URL per create_listing_file.php)';
@@ -425,7 +388,6 @@ $lang['for this file format'] = 'per aquest format de fitxer';
 $lang['unit mode'] = 'mode unit';
 $lang['Unlocked'] = 'Desbloquejat';
 $lang['unset'] = 'no definit';
-$lang['Move up'] = 'Mou amunt';
 $lang['Update albums informations'] = 'Actualitza la informació de les categories';
 $lang['Update images informations'] = 'Actualitza la informació de les imatges';
 $lang['Synchronize'] = 'Sincronitza';
@@ -441,13 +403,7 @@ $lang['Errors caption'] = 'Títol de l\'error';
 $lang['Detailed informations'] = 'Informació detallada';
 $lang['File/directory read error'] = 'Error de lectura del Fitxer/directori';
 $lang['The file or directory cannot be accessed (either it does not exist or the access is denied)'] = 'No es pot accedir al fitxer o directori (potser no existeix o l\'accès està denegat)';
-
-
-
 $lang['a picture filetype requires a thumbnail. The thumbnail must be present in the sub-directory "thumbnail" of the album directory. The thumbnail filename must start with the configured thumbnail prefix and the extension must be among the following list :'] = 'a picture filetype requires a thumbnail. The thumbnail must be present in the sub-directory "thumbnail" of the category directory. The thumbnail filename must start with the configured thumbnail prefix and the extension must be among the following list :';
-
-
-
 $lang['missing thumbnail'] = 'falta la miniatura';
 $lang['albums deleted in the database'] = 'categories eliminades de la base de dades';
 $lang['elements deleted in the database'] = 'elements eliminats de la base de dades';
@@ -485,9 +441,7 @@ $lang['Waiting'] = 'S\'està esperant';
 $lang['default'] = 'predeterminat';
 $lang['Toggle \'default group\' property'] = 'Commuta la propietat \'grup predeterminat\'';
 $lang['Advanced features'] = 'Funcions avançades';
-$lang['Not linked elements'] = 'No s\'han enllaçat elements';
 $lang['Specials'] = 'Especials';
-$lang['Files with same name in more than one physical album'] = 'Fitxers amb el mateix nom en més d\'una categoria física';
 $lang['Overall'] = 'Global';
 $lang['Year'] = 'Any';
 $lang['Month'] = 'Mes';
@@ -527,7 +481,6 @@ $lang['Hour'] = 'Hora';
 $lang['guest'] = 'invitat';
 $lang['default values'] = 'valors predeterminats';
 $lang['High filesize'] = 'High filesize';
-// --------- Starting below: New or revised $lang ---- from version 1.7.1
 $lang['Guest cannot be deleted'] = 'Visitant no es pot eliminar';
 $lang['Default user cannot be deleted'] = 'l\'usuari predeterminat no es pot eliminar';
 $lang['Purge history detail'] = 'Purga l\'historial del detall';
@@ -555,12 +508,9 @@ $lang['Main "guest" user status is incorrect'] = 'L\'estat de l\'usuari principa
 $lang['Default user does not exist'] = 'L\'usuari predeterminat no existeix';
 $lang['Main "webmaster" user does not exist'] = 'El principal usuari "webmaster" no existeix';
 $lang['Main "webmaster" user status is incorrect'] = 'L\'estat de l\'usuari principal "webmaster" és incorrecte';
-
-
 $lang['User "%s" created with "%s" like password'] = 'S\'ha creat l\'usuari "%s" amb contrasenya "%s"';
 $lang['Status of user "%s" updated'] = 'S\'ha actualitzat l\'estat de l\'usuari "%s"';
 $lang['add new elements to caddie'] = 'afegeix nous elements al carret';
-// --------- Starting below: New or revised $lang ---- from Butterfly
 $lang['No display'] = 'Sense visualització';
 $lang['Classic display'] = 'Visualització clàssica';
 $lang['Hoverbox display'] = 'Visualització Hoverbox';
@@ -581,9 +531,7 @@ $lang['Apply selected corrections'] = 'Aplica les correccions seleccionades';
 $lang['Ignore selected anomalies'] = 'Ignora les anomalies seleccionades';
 $lang['Refresh'] = 'Refresca';
 $lang['The anomaly will be ignored until next application version'] = 'L\'anomalia serà ignorada fins a la següent versió de l\'aplicació';
-
 $lang['Correction the anomaly will cancel the fact that it\'s ignored'] = 'Correction the anomaly will cancel the fact that it\'s ignored';
-
 $lang['%d anomaly has been ignored.'] = 'S\'ha ignorat l\'anomalia %d.';
 $lang['%d anomalies have been ignored.'] = 'S\'han ignorat les anomalies %d.';
 $lang['Plugins which need upgrade'] = 'Connectors que necessiten actualitzar-se';
@@ -592,7 +540,6 @@ $lang['Plugin versions can\'t be checked'] = 'Versions dels plugins que no s\'ha
 $lang['Current<br>version'] = 'Versió<br>actual';
 $lang['Available<br>version'] = 'Versió<br>disponible';
 $lang['Automatic upgrade'] = 'Actualització automàtica';
-$lang['Automatic installation'] = 'Instal·lació automàtica';
 $lang['Download file'] = 'Descarrega fitxer';
 $lang['Plugin list'] = 'Llista de connectors';
 $lang['Check for updates'] = 'Comprova les actualitzacións';
@@ -610,15 +557,8 @@ $lang['Can\'t download archive.'] = 'No es pot descarregar l\'arxiu.';
 $lang['Can\'t read or extract archive.'] = 'No es pot llegir o extreure l\'arxiu.';
 $lang['An error occured during extraction (%s).'] = 'Hi ha hagut un error durant l\'extracció (%s).';
 $lang['Please check "plugins" folder and sub-folders permissions (CHMOD).'] = 'Si us plau reviseu els permisos de la carpeta "plugins" i les seves subcarpetes (CHMOD).';
-
-
-
-
-
-
 $lang['Can\'t connect to server.'] = 'No es pot conectar al servidor.';
 $lang['Purge compiled templates'] = 'Elimina les plantilles compilades';
-$lang['Caddie is currently empty'] = 'Actualment el carret està buit';
 $lang['Upload'] = 'Penja';
 $lang['Show upload link every time'] = 'Mostra l\'enllaç de penjar cada vegada';
 $lang['User access level to upload'] = 'Nivell d\'accés d\'usuari per penjar';
@@ -628,11 +568,7 @@ $lang['ACCESS_2'] = 'Accés als qui estan subscripts';
 $lang['ACCESS_3'] = 'Accés als administradors';
 $lang['ACCESS_4'] = 'Accés als webmasters';
 $lang['ACCESS_5'] = 'Sense accés';
-$lang['Demo'] = 'Demo';
-$lang['Piwigo home'] = 'Inici de Piwigo';
 $lang['Support'] = 'Soport';
-$lang['Bugs'] = 'Errors';
-$lang['Extensions'] = 'Extensions';
 $lang['Documentation'] = 'Documentació';
 $lang['A new version of Piwigo is available.'] = 'Hi ha una nova versió de Piwigo disponible.';
 $lang['Piwigo Administration'] = 'Administració de Piwigo';
@@ -644,8 +580,6 @@ $lang['Deleted on'] = 'Eliminada el';
 $lang['Last hit'] =  'Última visualització';
 $lang['GD library is missing'] = 'No es troba la llibreria GD';
 $lang['Templates'] = 'Plantilles';
-
-
 $lang['Extend for templates'] = 'Extend for templates';
 $lang['Replacement of original templates by customized templates from template-extension subfolder'] = 'Replacement of original templates by customized templates from template-extension subfolder';
 $lang['Replacers (customized templates)'] = 'Replacers (customized templates)';
@@ -675,7 +609,6 @@ $lang['%d photos were deleted'] = 'S\'han eliminat les fotos %d';
 $lang['Downloads'] = 'Baixades';
 $lang['Released on'] = 'Versió del ';
 $lang['Number of downloads'] = 'Número de baixades';
-// --------- Starting below: New or revised $lang ---- from Colibri
 $lang['Piwigo Announcements Newsletter'] = 'Piwigo Announcements Newsletter';
 $lang['Keep in touch with Piwigo project, subscribe to Piwigo Announcement Newsletter. You will receive emails when a new release is available (sometimes including a security bug fix, it\'s important to know and upgrade) and when major events happen to the project. Only a few emails a year.'] = 'Keep in touch with Piwigo project, subscribe to Piwigo Announcement Newsletter. You will receive emails when a new release is available (sometimes including a security bug fix, it\'s important to know and upgrade) and when major events happen to the project. Only a few emails a year.';
 $lang['Subscribe %s'] = 'Subscribe %s';
@@ -693,18 +626,13 @@ $lang['Cannot delete the old permalink !'] = 'No es pot eliminar l\'antic enlla�
 $lang['Deleted on'] = 'Eliminat el';
 $lang['Last hit'] = 'Última visita';
 $lang['Hit'] = 'Visita';
-
 $lang['Tools'] = "Eines";
 $lang['Photos'] = "Fotos";
 $lang['Themes'] = "Temes";
 $lang['Instructions to use Piwigo'] = "Instruccions per utilitzar Piwigo";
-$lang['Order alphanumerically'] = "Ordena alfabéticament";
-$lang['Order alphanumerically reverse'] = "Ordena alfabéticament descendentment";
 $lang['Installed Themes'] = "Temes instal·lats";
 $lang['Add New Theme'] = "Afegeix un nou tema";
-
 $lang['Forbid this theme to users'] = "Prohibir aquest tema als usuaris";
 $lang['Set as default theme for unregistered and new users'] = "Col·locar el tema com a predeterminat per a tots que no es registren i per als nous usuaris";
-
 $lang['Order of menubar items has been updated successfully.'] = 'L\'ordre dels els ítems de la barra del menú s\'ha actualitzat amb éxit.';
 ?>
