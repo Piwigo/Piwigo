@@ -250,7 +250,11 @@ $validated_keys = array(
 	'Menu Management',
 	'Action',
     ),
-
+	
+  'he_IL' => array(
+	'localhost, sql.multimania.com, toto.freesurf.fr',
+	),
+	
   'hr_HR' => array(
 	'%d Kb',
 	'Filter',
