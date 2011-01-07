@@ -112,7 +112,6 @@ $validated_keys = array(
 	'Position',
 	'Status',
 	'Version',
-	'',
 	'High definition',
 	'Parameter',
 	'private',
@@ -133,6 +132,9 @@ $validated_keys = array(
 	'Download,',
 	'Piwigo Uploader',
 	'[Simulation]',
+	'Album',
+	'Album: %s',
+	'',
 	),
 
   'es_AR' => array(
