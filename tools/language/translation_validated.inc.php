@@ -161,7 +161,7 @@ $validated_keys = array(
 	'DEMO',
 	'BUGS',
 	'step1_host_info',
-	'',
+	'Albums',
 	'General',
 	'Local',
 	'Demo',
