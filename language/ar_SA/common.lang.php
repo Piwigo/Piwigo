@@ -331,9 +331,7 @@ $lang['Picture name: %s'] = 'اسم الصورة: %s';
 $lang['Creation date: %s'] = 'التاريخ الاصلي للصورة: %s';
 $lang['Waiting page: %s'] = 'صفحة تنتظر: %s';
 $lang['Picture uploaded by %s'] = 'حملت الصورة بواسطة  %s';
-// --------- Starting below: New or revised $lang ---- from version 1.7.1
 $lang['Bad status for user "guest", using default status. Please notify the webmaster.'] = 'وضغ سيئ للضيف "ضيف", استخدم الحالة الافرتاضية. يرجى ابلاغ المسؤول عن الموقع.';
-// --------- Starting below: New or revised $lang ---- from Butterfly (2.0)
 $lang['Administrator, webmaster and special user cannot use this method'] = 'خاصية للادارة فقط لايمكنك استخدامها';
 $lang['a user use already this mail address'] = 'هذا البريد مسجل لدينامن قبل';
 $lang['Album results for'] = 'نتيجة البحث في الالبومات عن:';
@@ -363,4 +361,23 @@ $lang['show tag cloud'] = 'عرض سحابة الكلمات';
 $lang['cloud'] = 'سحابة';
 $lang['Are you sure?'] = 'هل انت متأكد?';
 $lang['delete this comment'] = 'حذف هذا التعليق';
+$lang['Reset to default values'] = 'ارجع للقيم الافتراضية';
+$lang['delete all images from your favorites'] = 'احذف كل الصور من مفضلتي';
+$lang['Sent by'] = 'أرسل بواسطة : ';
+$lang['Cookies are blocked or not supported by your browser. You must enable cookies to connect.'] = 'ملفات الارتباط محضورة في متصفحك أو غير معتمده ،يجب تمكين الكوكيز للتمكن من التسجيل';
+$lang['Some info about this picture'] = 'معلومات عن هذه الصورة';
+$lang['Some more (technical) info about this picture'] = 'معلومات أكثر ( تقنية ) عن هذه الصورة';
+$lang['edit this comment'] = 'عدل هذا التعليق';
+$lang['Edit a comment'] = 'حرر تعليق';
+$lang['(!) This comment requires validation'] = '(!) التعليق يحتاج تصريح';
+$lang['Welcome'] = 'مرحبا بك';
+$lang['Welcome to your Piwigo photo gallery!'] = ' Piwigo مرحبا بك في  معرض الصور الخاص بك';
+$lang['... or browse your empty gallery'] = '... أومتصفح معرض الصور فارغ';
+$lang['... or please deactivate this message, I will find my way by myself'] = '... أو يرجى تعطيل هذه الرسالة ، وسوف أجد طريقي بنفسي';
+$lang['Hello %s, your Piwigo photo gallery is empty!'] = 'مرحبا بك %s، معرض الصور Piwigo فارغ ';
+$lang['I want to add photos'] = 'أريد أن اضيف صور';
+$lang['Manage this user comment: %s'] = ' %s حرر تعليق المستخدم :';
+$lang['This author modified following comment:'] = 'هذا الكاتب عدل في تعليقه : ';
+$lang['This author removed the comment with id %d'] = 'هذا الكاتب أزال تعليقه : %d';
+$lang['validate this comment'] = 'السماح بهذا التعليق ';
 ?>
