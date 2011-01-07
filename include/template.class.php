@@ -548,6 +548,18 @@ class Template {
     }
   }
 
+  /**
+    * combine_script smarty function allows inclusion of a javascript file in the current page.
+    * The engine will combine several js files into a single one in order to reduce the number of
+    * required http requests.
+    * param id - required
+    * param path - required - the path to js file RELATIVE to piwigo root dir
+    * param load - optional - header|footer|async, default header
+    * param require - optional - comma separated list of script ids required to be loaded and executed
+        before this one
+    * param version - optional - plugins could use this and change it in order to force a
+        browser refresh
+    */
   function func_combine_script($params, &$smarty)
   {
     if (!isset($params['id']))
@@ -652,6 +664,14 @@ var s;';
     }
   }
 
+  /**
+    * combine_css smarty function allows inclusion of a css stylesheet file in the current page.
+    * The engine will combine several css files into a single one in order to reduce the number of
+    * required http requests.
+    * param path - required - the path to css file RELATIVE to piwigo root dir
+    * param version - optional - plugins could use this and change it in order to force a
+        browser refresh
+    */
   function func_combine_css($params, &$smarty)
   {
     !empty($params['path']) || fatal_error('combine_css missing path');
@@ -899,11 +919,11 @@ class ScriptLoader
     $this->head_done_scripts = array();
     $this->did_head = false;
   }
-	
-	function get_all()
-	{
-		return $this->registered_scripts;
-	}
+
+  function get_all()
+  {
+    return $this->registered_scripts;
+  }
 
   function add_inline($code, $require)
   {
@@ -1198,10 +1218,10 @@ final class FileCombiner
       return 2;
     }
 
-    $output = "/* ".join("\n", $this->files)."*/\n";
+    $output = '';
     foreach ($this->files as $input_file)
     {
-      $output .= "/* BEGIN $input_file */\n";
+      $output .= "/*BEGIN $input_file */\n";
       if ($is_css)
         $output .= self::process_css($input_file);
       else
