@@ -775,7 +775,7 @@ $lang['All %d photos are selected'] = 'Összes, %d kép kiválasztva';
 $lang['remove this filter'] = 'a szűrő eltávolítása';
 $lang['predefined filter'] = 'előre definiált szűrő';
 $lang['last import'] = 'utoljára feltöltött';
-$lang['with no virtual album'] = 'nem virtuális albumoknál';
+$lang['with no virtual album'] = 'nem virtuális albumok';
 $lang['duplicates'] = 'duplikált';
 $lang['Add a filter'] = 'Szűrő hozzáadása';
 $lang['Remove all filters'] = 'Összes szűrő törlése';
@@ -791,7 +791,7 @@ $lang['Type here the author name'] = 'Írd be a szerző nevét';
 $lang['remove title'] = 'cím törlése';
 $lang['Type here the title'] = 'Írd be a kép címét';
 $lang['remove creation date'] = 'készités dátumának törlése';
-$lang['with no album'] = 'with no album';
-$lang['with no tag'] = 'with no tag';
+$lang['with no album'] = 'albumhoz nem rendelt';
+$lang['with no tag'] = 'nincs címke';
 
 ?>
