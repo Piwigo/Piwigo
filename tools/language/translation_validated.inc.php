@@ -468,6 +468,18 @@ $validated_keys = array(
 	'',
 	),
 	
+  'sk_SK' => array(
+	'%d Kb',
+	'Album',
+	'Filter',
+	'Webmaster',
+	'IP: %s',
+	'Album: %s',
+	'test',
+	'user_status_webmaster',
+	'IP',
+	),
+	
   'sr_RS' => array(
  	'%d Kb',
 	'Filter',
