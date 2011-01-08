@@ -1,7 +1,9 @@
 <?php
 $validated_keys = array(
   'ar_SA' => array(
-	'',
+	'IP: %s',
+	'IP',
+	'the wiki',
 	),
 	
   'cs_CZ' => array(

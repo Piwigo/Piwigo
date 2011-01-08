@@ -231,7 +231,6 @@ $lang['group "%s" updated'] = 'المجموعه  "%s"  تم تحميلها';
 $lang['group'] = 'المجموعة';
 $lang['The name of a group must not contain " or \' or be empty.'] = 'لا تستخدم الترقيم "/" و لا تترك اسم المجموع فارغ';
 $lang['This name is already used by another group.'] = 'هذا الاسم مستخدم من قبل مجموعه أ×خرى.';
-$lang[''] = '';
 $lang['High definition'] = 'ابعاد الارتفاع';
 $lang['jump to album'] = 'اغفز للمجموعة';
 $lang['jump to image'] = 'اغفز للصورة';
@@ -455,7 +454,7 @@ $lang['Save page visits by users'] = 'حفظ الصفحة المشاهدة من 
 $lang['Save page visits by administrators'] = 'حفظ الصفحة المشاهدو من قبل الادارة العامة';
 $lang['An information email was sent to group "%s"'] = 'معلومات تم ارسالها الي المجموعة "%s';
 $lang['Send an information email to group members'] = 'أرسل الملعومات الي أعضاء المجموعة';
-$lang['Group'] = 'Group';
+$lang['Group'] = 'مجموعه';
 $lang['[%s] Visit album %s'] = 'ألبوم تم تحديثه [%s]';
 $lang['Hello,'] = '  السلام عليكم و رحمة الله و بركاته,';
 $lang['See you soon.'] = 'زيارتك للمعرض تعني لي الكثير ..';
@@ -584,7 +583,7 @@ $lang['Optimizations have been completed with some errors.'] = 'اكتملت ع�
 $lang['Modify information'] = 'تعديل المعلومات';
 $lang['edit album'] = 'تحرير ملعومات الالبوم';
 $lang['nothing'] = 'لا شيء';
-$lang['overrides existing values with empty ones'] = 'overrides existing values with empty ones';
+$lang['overrides existing values with empty ones'] = 'استبدل القيم الموجودة بقيم فارغة';
 $lang['manage image ranks'] = 'إدارة ترتيب الصور';
 $lang['Manage image ranks'] = 'إدارة ترتيب الصور';
 $lang['Edit ranks'] = 'تحرير الترتيب';
@@ -602,7 +601,7 @@ $lang['Released on'] = 'Released on تمكين استخدام';
 $lang['Number of downloads'] = 'عدد التنزيلات';
 $lang['Piwigo Announcements Newsletter'] = 'اعلانات Piwigo الإخبارية';
 $lang['Keep in touch with Piwigo project, subscribe to Piwigo Announcement Newsletter. You will receive emails when a new release is available (sometimes including a security bug fix, it\'s important to know and upgrade) and when major events happen to the project. Only a few emails a year.'] = 'البقاء على اتصال مع Piwigo المشروع ، الاشتراك في النشرة Piwigo إعلان. سوف تتلقى رسائل البريد الإلكتروني عندما يتوفر الإصدار الجديد (في بعض الأحيان بما في تثبيت الأمن علة ، / / من المهم معرفة والارتقاء) ، وعندما يحدث الأحداث الرئيسية لهذا المشروع. سوى عدد قليل من الرسائل الإلكترونية في السنة.';
-$lang['Subscribe %s'] = 'Subscribe %s';
+$lang['Subscribe %s'] = ' %s اشتراك ';
 $lang['Subscribe %s to Piwigo Announcements Newsletter'] = 'اشترك  %s لـ اعلانات Piwigo الإخبارية';
 $lang['Purge search history'] = 'معالجة احصائيات البحث';
 $lang['Hide'] = 'أخفاء';
@@ -645,7 +644,7 @@ $lang['Album "%s" now contains %d photos'] = ' الألبوم "%s" يحوي ال
 $lang['Manage this set of %d photos'] = '%d إدارة اعدادت صور';
 $lang['Select files'] = 'اختيار الملفات';
 $lang['JPEG files or ZIP archives with JPEG files inside please.'] = 'ملفات صور JPEG النقطيبة و ملفات مضغوطةZIP فقط';
-$lang['Everybody'] = 'Everybody';
+$lang['Everybody'] = 'الجميع';
 $lang['Who can see these photos?'] = 'من يمكنه رؤية هذه الصور';
 $lang['Who can see this photo?'] = 'من يمكنه رؤية هذه الصورة؟';
 $lang['... or switch to the old style form'] = '... أو اظهر الواجهة القديمة ';
@@ -660,7 +659,7 @@ $lang['Settings'] = 'الإعدادت';
 $lang['Web size photo'] = 'مقاس صورة ويب';
 $lang['Resize'] = 'تغيير المقاس';
 $lang['Maximum Width'] = 'الحد الأعلى لعرض الصورة';
-$lang['pixels'] = 'pixels';
+$lang['pixels'] = 'بكسل ';
 $lang['Maximum Height'] = 'الحد الاعلى لطول الصورة';
 $lang['Image Quality'] = 'جودة الصورة';
 $lang['Save Settings'] = 'حفظ الإعدادات';
@@ -674,7 +673,7 @@ $lang['Directory does not exist'] = 'المجلد غير موجود';
 $lang['Download,'] = ',تحميل';
 $lang['FTP + Synchronization'] = 'أف تي بي + التزامن ';
 $lang['Get Support on Piwigo Forum'] = 'أحصل على الدعم الفني من منتدى Piwigo';
-$lang['Help Me'] = 'Help Me';
+$lang['Help Me'] = 'ساعدني';
 $lang['Impossible to activate this theme, the parent theme is missing: %s'] = ' %s لا يمكن تفعيل هذه الواجهة شيء ما مفقود ';
 $lang['Impossible to delete this theme. Other themes depends on it: %s'] = ' %sلا يمكن حذف هذه الواجهة لرتباطها  بأشياء أخرى : ';
 $lang['Inactive Themes'] = 'الواجهات المفعلة';
