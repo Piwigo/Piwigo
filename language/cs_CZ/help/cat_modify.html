@@ -1,0 +1,115 @@
+<h2>Editovat kategorii</h2>
+
+<h3>Informace</h3>
+
+<ul>
+
+<li><strong>Adresář</strong>: přejmenování kategorie (virtuální kategorie se přejmenovává stejně jako fyzická).</li>
+
+<li><strong>popis</strong>: krátký text popisující obsah kategorie, který bude zobrazen vespod stránky s náhledy.</li>
+
+</ul>
+
+<h3>Přesun</h3>
+
+<p>Virtuální kategorii je možné přesunout. Přesunem kategorie se rozumí změna její rodičovské (nadřazené) kategorie.</p>
+
+<h3>Volby</h3>
+
+<ul>
+
+<li><strong>Druh přístupu</strong>: Povolení přístupu. nastavením kategorie jako soukromé, stávají se soukromé i všechny příslušné podkategorie. Nastavíte-li kategorii jako veřejnou, nastaví se jako veřejné i všechny kategorie nadřazené.</li>
+
+<li><strong>Zamknout</strong>: Kategorie včetně podkategorií bude zamčena z důvodu údržby.</li>
+
+<li><strong>Komentáře uživatelů</strong>: Umožní uživatelům přidávat komentáře k jednotlivým položkám kategorie.</li>
+
+<li><strong>Povolit nahrávání fotografií</strong>: Umožní uživatelům přidávat do kategorie obrázky. Tato volba je přístupná pouze pro fyzické (ne virtuální) kategorie.</li>
+
+</ul>
+
+<p>Tyto volby jsou také dostupné v nastavení "Vlastnosti" (záložky <span class="pwgScreen">Nahrát fotografie</span>, <span
+class="pwgScreen">Komentáře uživatelů</span>, <span class="pwgScreen">Zamknout</span>,
+<span class="pwgScreen">Veřejná/soukromá</span>, <span
+class="pwgScreen">Reprezentant</span> dostupné z <span
+class="pwgScreen">Administrace, Kategorie, Nastavení</span>).</p>
+
+<h3>Směr řazení</h3>
+
+<p>Použít výchozí řazení.</p>
+
+<p>Použít na podkategorie. Určí jestli toto řazení bude použito i na podkategorie.</p>
+
+<p>Vyberte specifická kriteria použitá pro řazení této kategorie.</p>
+<ul>
+<li><strong>Datum vytvoření</strong>: Datum pořízení obrázku</li>
+<li><strong>Datum zveřejnění</strong>: Datum provedení synchronizace.</li>
+<li><strong>Průměrné hodnocení (*)</strong>: průměr je ovlivněn návštěvnickým hodnocením.</li>
+<li><strong>Nejčastěji navštěvované (*)</strong>: Počet návštěv ovlivní řazení.</li>
+<li><strong>Název souboru</strong>: Jméno souboru určené v políčku informace.</li>
+<li><strong>Id</strong>: Vnitřní ID (Novější prvky mají vyšší hodnotu).</li>
+
+</ul>
+<p><strong>(*)</strong>Upozornění: Vlastní nastavení řazení určitě otestujte, ne vždy to může vypadat tak jak očekáváte.</p>
+
+
+<h3>Reprezentant</h3>
+
+<p>Reprezentant kategorie je náhled představující kategorii, zobrazený na hlavní stránce (<span class="pwgScreen">category.php</span>), v případě že kategorie obsahuje pouze podkategorie a nemá jiný obsah (stejně jako kořenová kategorie).</p>
+
+<p>Reprezentanta kategorie je možné nastavit čtyřmi způsoby:</p>
+
+<ul>
+
+<li><span class="pwgScreen">Stránka s obrázky</span>: Jedním tlačítkem u obrázku nastavíte reprezentanta kategorie. Tlačítko je dostupné pouze administrátorům.</li>
+
+<li><span class="pwgScreen">Úpravou informace u obrázku</span> v administraci. Dostupné v <span
+  class="pwgScreen">picture.php</span> nebo ve <span class="pwgScreen">správě dávkových úkonu (administrace/fotografie/košík)</span> v <em>módu jednotlivě</em>. Více v příslušné nápovědě.</li>
+
+<li><span class="pwgScreen">Administrace, Kategorie, Nastavení,
+  Reprezentant</span>. Viz nápověda v příslušném menu.</li>
+
+<li><span class="pwgScreen">Editace galerie</span> (zde v tomto nastavení).</li>
+
+</ul>
+
+<p>Volba reprezentanta záleží na
+<code>allow_random_representative</code> konfiguračním parametru (v souboru <span
+class="filename">include/config_default.inc.php</span>).</p>
+
+<p>Výchozí hodnota (<code>allow_random_representative</code> je nastavena na "false"),
+každá kategorie obsahující alespoň jeden prvek má nastaveného fixního reprezentanta. Reprezentant je náhodně zvolen (jednou při vytvoření kategorie), další změna nastane pouze na vyžádání administrátorem. Pokud reprezentant nevyhovuje,
+můžete použít tlačítko <strong>Najít reprezentativní obrázek pomocí náhodného výběru</strong>.</p>
+
+<p>Pokud je konfigurační parametr <code>allow_random_representative</code> nastaven na "true", Kategorie nemusí obsahovat fixního reprezentanta. Stačí použít tlačítko <strong>Smazat reprezentanta</strong>.</p>
+
+<p>Jestliže kategorie obsahuje pouze podkategorie a žádný jiný obsah, může být reprezentována jakýmkoliv prvkem pomocí nastavení<span class="pwgScreen">Upravit informace o obrázku</span>. Jediná volba v tomto nastavení je tlačítko <strong>Smazat reprezentanta</strong>.</p>
+
+<h3>Napojit všechny položky na novou kategorii</h3>
+
+<ul>
+
+<li><strong>Název virtuální kategorie</strong>: jméno nově vytvořené virtuální kategorie,
+všechny obrázky aktuální kategorie budou přiřazeny do kategorie nově vzniklé.</li>
+
+<li><strong>Rodičovská kategorie</strong>: umístění nové kategorie. Prázdný výběr umístí novou kategorii do kořenové kategorie. </li>
+
+</ul>
+
+<h3>Napojit všechny položky na některé existující kategorie</h3>
+
+<ul>
+
+<li><strong>Kategorie</strong>: Vyberte cílovou kategorii.</li>
+
+</ul>
+
+<h3>Poslat informační e-mail uživatelům skupiny</h3>
+
+<ul>
+
+<li><strong>Skupina</strong>: skupina adresátů</li>
+
+<li><strong>Obsah e-mailu</strong>: Libovolný text e-mailu k odeslání.</li>
+
+</ul> 
