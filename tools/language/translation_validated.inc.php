@@ -4,6 +4,7 @@ $validated_keys = array(
 	'IP: %s',
 	'IP',
 	'the wiki',
+	'localhost, sql.multimania.com, toto.freesurf.fr',
 	),
 	
   'cs_CZ' => array(
