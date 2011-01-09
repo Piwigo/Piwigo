@@ -422,8 +422,9 @@ $validated_keys = array(
 	'Element',
 	'Tags',
 	'Element type',
-	'',
-	'',
+	'Database type',
+	'Host',
+	'localhost, sql.multimania.com, toto.freesurf.fr',
 	),
 	
   'pl_PL' => array(
