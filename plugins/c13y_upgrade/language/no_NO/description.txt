@@ -1,0 +1,1 @@
+Sjekker integriteten til oppdateringer.
