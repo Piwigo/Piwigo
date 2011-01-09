@@ -1,0 +1,108 @@
+<h2>Beállítások</h2>
+
+<p>Az adminisztrátoroknak ezen az oldalon lehetőségük van a galéria alapvető jellemzőinek beállítására. Valójában itt tényleg csak az alapvető jellemzők megváltoztatására van lehetőség, ezek az adminisztrátorok túlnyomó többségét ki is elégítik. További (speciális) beállításokra is mód nyílik, melyek az <span
+class="filename">include/config_default.inc.php</span> fájlban találhatók.</p>
+
+<p>Az oldal több csoportba rendezve tartalmazza a beállítási lehetőségeket.</p>
+
+
+<h3>Általános</h3>
+<ul>
+  <li><strong>Galéria címe</strong>: RSS hírcsatornához és e-mailekhez.</li>
+
+  <li><strong>Oldal fejléc</strong>: Minden nyilvános oldal tetején megjelenik.</li>
+
+  <li><strong>Galéria URL</strong>: RSS hírcsatorna használatához.</li>
+
+  <li><strong>Galéria lezárása</strong>: Galéria zárolása karbantartás esetén. Csak az adminisztrátorok érik el az oldalt.</li>
+
+  <li><strong>Értékelés engedélyezése</strong>: Képek értékelésének engedélyezése.</li>
+
+  <li><strong>Vendégek által értékelhető</strong>: A nem regisztrált felhasználók is értékelhetik a képet.</li>
+
+  <li><strong>Regisztráció engedélyezése</strong>: A vendégek regisztrálhatnak.</li>
+
+  <li><strong>Az e-mail cím kötelező minden felhasználó számára</strong>: A regisztrációs profilban ill. profil módosításakor megadott e-mail cím ellenőrzésre kerül. Kivételt képez, ha az ellenőrzést az adminisztrátor hajtja végre.</li>
+
+  <li><strong>E-mail küldés, ha egy új felhasználó regisztrál</strong>: Az adminisztrátorok levélben kapnak értesítést ha egy új felhasználó regisztrált.</li>
+
+</ul>
+
+<h3>Statisztikák</h3>
+
+  <p>Az oldallátogatások (<span
+  class="pwgScreen">category.php</span> és <span
+  class="pwgScreen">picture.php</span>) mentésre kerülnek a
+  <code>history</code> táblába.</p>
+
+  <p>A látogatások megtekinthetők az <span
+  class="pwgScreen">Adminisztráció, Eszközök, Statisztikák</span> oldalon.</p>
+
+<ul>
+  <li><strong>Vendégek általi oldallátogatások mentése</strong>: A vendégek általi oldallátogatások kerülnek mentésre.</li>
+
+  <li><strong>Felhasználók általi oldallátogatások mentése</strong>: A regisztrált felhasználók általi oldallátogatások kerülnek mentésre.</li>
+
+  <li><strong>Adminisztrátorok általi oldallátogatások mentése</strong>: Az adminisztrátorok általi oldallátogatások kerülnek mentésre.</li>
+
+</ul>
+
+<h3>Hozzászólások</h3>
+<ul>
+
+  <li><strong>Bárki hozzászólhat</strong>: A nem regisztrált vendég felhasználók is írhatnak hozzászólásokat.</li>
+
+  <li><strong>Hozzászólások száma oldalanként</strong>.</li>
+
+  <li><strong>Engedélyezés szükséges</strong>: Egy adminisztrátornak jóvá kell hagynia a hozzászólást, mielőtt az a honlapon megjelenne. A felhasználói hozzászólások jóváhagyása az <span class="pwgScreen">Adminisztráció, Képek,
+  Hozzászólások</span> oldalon történik.</li>
+
+  <li><strong>E-mail küldés, ha egy érvényes hozzászólás érkezik</strong>: Az adminisztrátorok e-mailben értesítést kapnak amennyiben új hozzászólás érkezik és jóváhagyásra kerül.</li>
+
+  <li><strong>E-mail küldés, ha egy hozzászólás jóváhagyásra vár</strong>:
+Egy e-mail küldése az adminisztrátornak, amennyiben egy felhasználó hozzászólást küld, és azt az adminisztrátornak engedélyezni kell.
+A felhasználói hozzászólások jóváhagyása az <span class="pwgScreen">Adminisztráció, Képek, Hozzászólások</span> oldalon történik.</li>
+
+</ul>
+
+<h3>Feltöltés</h3>
+<ul>
+  <li><strong>Jelenjen meg a Kép hozzáadása menüpont</strong>: Ha léteznek feltölthető kategóriák, a feltöltő link megjelenik a Kategóriák menüben.</li>
+  <li><strong>Felhasználói szint beállítása a feltöltéshez</strong>: Azon felhasználói szint beállítása, akik feltölthetnek képeket az egyes kategóriákba.</li>
+  <li><strong>Email-küldés, ha valaki képet töltött fel</strong>: Az adminisztrátor e-mailben értesítést kap amennyiben a felhasználók képeket töltöttek fel.</li>
+</ul>
+
+<h3>Alapértelmezett megjelenítés</h3>
+
+<p>Itt lehet megváltoztatni a galéria alapértelmezett megjelenését. A látogatók a beállításoknak megfelető kinézetben látják a galériát. Regisztráció és bejelentkezés után a felhasználó egyéni beállításokat alkalmazhat
+(a beállítások módosíthatók a <span class="pwgScreen">profilban</span>).</p>
+
+<p>A regisztrált felhasználók beállításait az
+<span class="pwgScreen">Adminisztráció, Felhasználók, Kezelés</span> oldalon módosíthatjuk, ahol a felhasználói listából lehet kiválasztani a módosítani kívánt felhasználót.</p>
+
+<ul>
+
+  <li><strong>Nyelv</strong>: Csak a Piwigo felületre vonatkozik. Album neve, kép neve és leírása mező nem honosított.</li>
+
+  <li><strong>Képek száma soronként</strong></li>
+
+  <li><strong>Sorok száma oldalanként</strong></li>
+
+  <li><strong>Téma felület</strong></li>
+
+  <li><strong>Elmúlt napban</strong>: Napok száma. Az az időszak, mely alatt a feltöltött kép újként jelenik meg. A napok számának nagyobbnak kell lenni 1-nél.</li>
+
+  <li><strong>Összes album kibontása</strong>: Az albumok menüben az összes album alapértelmezésben kibontásra kerül. <em>Figyelem</em>: az opció nagy erőforrás fogyasztást valamint hatalmas menüt eredményez amennyiben sok album található a galériában.</li>
+
+  <li><strong>Hozzászólások számának mutatása</strong>: A megjelenítendő hozzászólások darabszáma a kép és bélyegképek oldalon. Erőforrásokat fogyaszt.</li>
+
+  <li><strong>Találatok számának megjelenítése</strong>: Képek megtekintésének száma a bélyegképek alatt a bélyegképek oldalon.
+  Csak abban az esetben, ha a speciális paraméter beállítás: <br>
+  $conf['show_nb_hits'] = true; <br>
+  Megjegyzés: alapértelmezés szerint false.</li>
+
+  <li><strong>Maximális képszélesség</strong>: A kép maximális szélessége megjelenítéskor. Amennyiben a kép szélessége nagyobb a megadottnál, megjelenítéskor átméretezésre kerül. Ezen lehetőség választása helyett javasoljuk inkább a képek átméretezését. Ez a megoldás javasolt.</li>
+
+  <li><strong>Maximális képmagasság</strong>: Értelmezése megegyezik a maximális képszélességnél leírtakkal.</li>
+
+</ul>
