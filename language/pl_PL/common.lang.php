@@ -379,6 +379,5 @@ $lang['Manage this user comment: %s'] = 'Zarządzaj komentarzami tego użytkowni
 $lang['This author modified following comment:'] = 'Ten autor zmodyfikował następujący komentarz:';
 $lang['This author removed the comment with id %d'] = 'Ten autor usunął komentarz o id %d';
 $lang['validate this comment'] = 'potwierdź ten komentarz';
-$lang['Album'] = 'Album';
-$lang['Album: %s'] = 'Albumy: %s';
+
 ?>
