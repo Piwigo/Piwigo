@@ -1,0 +1,57 @@
+<fieldset>
+<legend>Rettigheter på bilder</legend>
+
+<p>Hvert bilde har et <strong>tilgangs nivå</strong> (en lås). Hver bruker har også et tilgangs nivå (en nøkkel). Det er 5 private nivåer:</p>
+<ol>
+  <li>Ingen</li>
+  <li><em>Kontakter</em></li>
+  <li><em>Venner (som er høyere en en kontakt)</em></li>
+  <li><em>Familie (som er høyere en en venn)</em></li>
+  <li><em>Administrator (som er høyere en alle andre nivåer)</em></li>
+</ol>
+
+<p>Høyere nivåer har rettigheter på lavere nivåer. For en gitt bruker, jo høyere tilgangs nivå, jo fler bilder kan han se.</p>
+
+<p>For eksempel, om bildet "peter_bryllup-0024.jpg" har <em>"Familie"</em> tilgangs nivå, vil:</p>
+<ul>
+  <li>Peter (som er en <em>"Administrator"</em>) kunne se bildet fordi <em>"Administratorer"</em> kan se alle bilder</li>
+  <li>Beth (som er <em>"Familie"</em> medlem) vil også kunne se bildet</li>
+  <li>Mary (som kun er <em>"venn"</em>) vil ikke kunne se bildet</li>
+</ul>
+
+<p>En bruker som ikke har noen rettigheter til å se innholdet i en kategori vil heller ikke se selve kategorien, selv ikke tittelen. Samme prinsipp gjelder Tagger. Om
+
+ingen rettigheter, vil de ikke synes. </p>
+
+<p>Du kan sette rettighets nivå på en bruker i <span class="pwgScreen">Administrasjon &raquo; Brukere &raquo; Behandle</span> Bildet.</p>
+
+</fieldset>
+
+<fieldset>
+<legend>Rettigheter på kategorier</legend>
+
+<p>Om private nivåer ikke oppfyller dine behov, kan du også behandle rettigheter på kategorier for en bruker eller en gruppe. Du kan behandle rettigheter på foto og
+
+kategorier samtidig, uten at dette gir konflikter.</p>
+
+<p>Du kan nekte tilgang til kategorier. Bytt kategori tillgangs type til "privat" om du ønsker å behandle rettigheter.</p>
+
+<p>Du kan sette en kategori til privat ved å redigere en enkel kategori (<span class="pwgScreen">Administrasjon &raquo; kategorier &raquo; Behandle &raquo;
+
+redigere</span>) eller ved å endre alternativer for hele kategori strukturen (treet)(<span class="pwgScreen">Administrasjon &raquo; Kategori &raquo;
+Egenskaper &raquo; Offentlig / Privat</span>).</p>
+
+<p>Når kategorien er privat, kan du behandle rettigheter for grupper og brukere i 3 vinduer:</p>
+
+<ul>
+
+  <li><span class="pwgScreen">Administrasjon &raquo; Brukere &raquo; Behandle &raquo;
+  rettigheter action</span> (en link per bruker)</li>
+
+  <li><span class="pwgScreen">Administrasjon &raquo; Bruker &raquo; Grupper &raquo;
+  rettigheter action</span> (en link per gruppe)</li>
+
+  <li><span class="pwgScreen">Administrasjon &raquo; kategori &raquo; Behandle &raquo; rediger kategori rettigheter action</span> (en link per kategori)</li>
+
+</ul>
+</fieldset>
