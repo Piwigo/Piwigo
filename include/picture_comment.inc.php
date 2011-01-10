@@ -187,7 +187,7 @@ SELECT
       }
       if (can_manage_comment('edit', $row['author_id']))
       {
-	$tpl_comment['U_EDIT'] = add_url_params(
+        $tpl_comment['U_EDIT'] = add_url_params(
           $url_self,
           array(
             'action'=>'edit_comment',
@@ -195,27 +195,27 @@ SELECT
             'pwg_token' => get_pwg_token(),
             )
           );
-	if (isset($edit_comment) and ($row['id'] == $edit_comment))
-	{
-	  $tpl_comment['IN_EDIT'] = true;
-	  $key = get_comment_post_key(2, $page['image_id']);
-	  $tpl_comment['KEY'] = $key;
-	  $tpl_comment['CONTENT'] = $row['content'];
-	}
+          if (isset($edit_comment) and ($row['id'] == $edit_comment))
+          {
+            $tpl_comment['IN_EDIT'] = true;
+            $key = get_ephemeral_key(2, $page['image_id']);
+            $tpl_comment['KEY'] = $key;
+            $tpl_comment['CONTENT'] = $row['content'];
+          }
       }
       if (is_admin())
       {
-	if ($row['validated'] != 'true')
-	{
-	  $tpl_comment['U_VALIDATE'] = add_url_params(
-            $url_self,
-            array(
-              'action' => 'validate_comment',
-              'comment_to_validate' => $row['id'],
-              'pwg_token' => get_pwg_token(),
-              )
-            );
-	}
+        if ($row['validated'] != 'true')
+        {
+          $tpl_comment['U_VALIDATE'] = add_url_params(
+                  $url_self,
+                  array(
+                    'action' => 'validate_comment',
+                    'comment_to_validate' => $row['id'],
+                    'pwg_token' => get_pwg_token(),
+                    )
+                  );
+        }
       }
       $template->append('comments', $tpl_comment);
     }
