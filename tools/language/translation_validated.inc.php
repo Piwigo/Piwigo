@@ -1,7 +1,10 @@
 <?php
 $validated_keys = array(
   'ar_SA' => array(
-	'',
+	'IP: %s',
+	'IP',
+	'the wiki',
+	'localhost, sql.multimania.com, toto.freesurf.fr',
 	),
 	
   'cs_CZ' => array(

@@ -236,7 +236,6 @@ $lang['group "%s" updated'] = 'المجموعه  "%s"  تم تحميلها';
 $lang['group'] = 'المجموعة';
 $lang['The name of a group must not contain " or \' or be empty.'] = 'لا تستخدم الترقيم "/" و لا تترك اسم المجموع فارغ';
 $lang['This name is already used by another group.'] = 'هذا الاسم مستخدم من قبل مجموعه أ×خرى.';
-$lang[''] = '';
 $lang['High definition'] = 'ابعاد الارتفاع';
 $lang['jump to category'] = 'اغفز للمجموعة';
 $lang['jump to image'] = 'اغفز للصورة';
@@ -427,8 +426,7 @@ $lang['synchronize files structure with database'] = 'مزامنة الملفا�
 $lang['synchronize files metadata with database elements informations'] = 'مزامنة الملعومات التفصيلة مع الصور الموجودة في قاعدة البيانات';
 $lang['even already synchronized elements'] = 'سبق التزامن مع الصور';
 $lang['Used metadata'] = 'معومات التفصيلة مُـستخدمة';
-$lang['The name of directories and files must be composed of letters, numbers, "-", "_" or "."'] = '	
-اسم الأدلة والملفات يجب أن تكون مكونة من الحروف والأرقام ، "--" ، "_" أو "."';
+$lang['The name of directories and files must be composed of letters, numbers, "-", "_" or "."'] = 'اسم الأدلة والملفات يجب أن تكون مكونة من الحروف والأرقام ، "--" ، "_" أو "."';
 $lang['wrong filename'] = 'خطأ فادح  في اسم الملف';
 $lang['Upload'] = 'تحميل';
 $lang['user "%s" added'] = ' تم اضافة المستخدم"%s"  بنجاح';
@@ -446,7 +444,6 @@ $lang['Advanced features'] = 'مميزات متقدمة';
 $lang['Not linked elements'] = 'عناصر غير مربوطة';
 $lang['Specials'] = 'خــاص';
 $lang['Files with same name in more than one physical category'] = 'ملفات تحمل نفس الاسم في أكثر من ألبوم ';
-
 $lang['Overall'] = 'اجماليا';
 $lang['Year'] = 'سنة';
 $lang['Month'] = 'شهر';
@@ -463,7 +460,7 @@ $lang['Save page visits by users'] = 'حفظ الصفحة المشاهدة من 
 $lang['Save page visits by administrators'] = 'حفظ الصفحة المشاهدو من قبل الادارة العامة';
 $lang['An information email was sent to group "%s"'] = 'معلومات تم ارسالها الي المجموعة "%s';
 $lang['Send an information email to group members'] = 'أرسل الملعومات الي أعضاء المجموعة';
-$lang['Group'] = 'Group';
+$lang['Group'] = 'مجموعه';
 $lang['[%s] Come to visit the category %s'] = 'ألبوم تم تحديثه [%s]';
 $lang['Hello,'] = '  السلام عليكم و رحمة الله و بركاته,';
 $lang['See you soon.'] = 'زيارتك للمعرض تعني لي الكثير ..';
@@ -483,7 +480,6 @@ $lang['Hour'] = 'سـاعـة';
 $lang['guest'] = 'ضيف';
 $lang['default values'] = 'قيم أفتراضية';
 $lang['High filesize'] = 'ارتفاع حجم الملف';
-// --------- Starting below: New or revised $lang ---- from version 1.7.1
 $lang['Guest cannot be deleted'] = 'هل انت جاد بطرد الضيف و حذفه (لايمكن ذلك)';
 $lang['Default user cannot be deleted'] = 'المستخدم الافتراضي لا يمكن حذفه';
 $lang['Purge history detail'] = 'معالجة تفاصيل السجل';
@@ -514,7 +510,6 @@ $lang['Main "webmaster" user status is incorrect'] = 'الرئيسية حالة 
 $lang['User "%s" created with "%s" like password'] = 'المستخدم "%s" أنشأ مع  "%s" مثل كلمة المرور';
 $lang['Status of user "%s" updated'] = 'تم نحديث حالة المستخدم"%s" ';
 $lang['add new elements to caddie'] = 'اضف صور جديدة الى السلة';
-// --------- Starting below: New or revised $lang ---- from Butterfly
 $lang['No display'] = 'لم يعرض';
 $lang['Classic display'] = 'عرض عادي';
 $lang['Hoverbox display'] = 'عرض مربعات عائمة';
@@ -585,8 +580,7 @@ $lang['Last hit'] =  'النقرة الاخيرة';
 $lang['GD library is missing'] = '  مفقودة GD مكتبة ';
 $lang['Templates'] = 'النماذج';
 $lang['Extend for templates'] = 'توسيع النماذج';
-$lang['Replacement of original templates by customized templates from template-extension subfolder'] =
- 'استبدال النماذج الأصلية من خلال نماذج من قالب مخصص في المجلد الفرعي';
+$lang['Replacement of original templates by customized templates from template-extension subfolder'] = 'استبدال النماذج الأصلية من خلال نماذج من قالب مخصص في المجلد الفرعي';
 $lang['Replacers (customized templates)'] = 'تبديل(نماذج مخصصة)';
 $lang['Original templates'] = 'نماذج اصلية';
 $lang['Optional URL keyword'] = 'الكلمات الاساسية URL خيارات';
@@ -596,7 +590,7 @@ $lang['Optimizations have been completed with some errors.'] = 'اكتملت ع�
 $lang['Modify information'] = 'تعديل المعلومات';
 $lang['edit category informations'] = 'تحرير ملعومات الالبوم';
 $lang['nothing'] = 'لا شيء';
-$lang['overrides existing values with empty ones'] = 'overrides existing values with empty ones';
+$lang['overrides existing values with empty ones'] = 'استبدل القيم الموجودة بقيم فارغة';
 $lang['manage image ranks'] = 'إدارة ترتيب الصور';
 $lang['Manage image ranks'] = 'إدارة ترتيب الصور';
 $lang['Edit ranks'] = 'تحرير الترتيب';
@@ -612,12 +606,153 @@ $lang['%d photos were deleted'] = ' صور محذوفة %d';
 $lang['Downloads'] = 'تنزيل';
 $lang['Released on'] = 'Released on تمكين استخدام';
 $lang['Number of downloads'] = 'عدد التنزيلات';
-// --------- Starting below: New or revised $lang ---- from Colibri
 $lang['Piwigo Announcements Newsletter'] = 'اعلانات Piwigo الإخبارية';
 $lang['Keep in touch with Piwigo project, subscribe to Piwigo Announcement Newsletter. You will receive emails when a new release is available (sometimes including a security bug fix, it\'s important to know and upgrade) and when major events happen to the project. Only a few emails a year.'] = 'البقاء على اتصال مع Piwigo المشروع ، الاشتراك في النشرة Piwigo إعلان. سوف تتلقى رسائل البريد الإلكتروني عندما يتوفر الإصدار الجديد (في بعض الأحيان بما في تثبيت الأمن علة ، / / من المهم معرفة والارتقاء) ، وعندما يحدث الأحداث الرئيسية لهذا المشروع. سوى عدد قليل من الرسائل الإلكترونية في السنة.';
-$lang['Subscribe %s'] = 'Subscribe %s';
+$lang['Subscribe %s'] = ' %s اشتراك ';
 $lang['Subscribe %s to Piwigo Announcements Newsletter'] = 'اشترك  %s لـ اعلانات Piwigo الإخبارية';
 $lang['Purge search history'] = 'معالجة احصائيات البحث';
 $lang['Hide'] = 'أخفاء';
 $lang['Menu Management'] = 'القائمة الرئيسية';
+$lang['Processing treatment.'] = 'معالجة العرض';
+$lang['Please wait...'] = 'لحظات الانتظار أشغلها بالإستغفار ..';
+$lang['By rank'] = 'حسب المنزلة';
+$lang['Manual order'] = 'دليل النظام';
+$lang['Password is missing. Please enter the password.'] = 'لم تكتب كلمة المرور، فضلا ً أكتب كلمة المرور';
+$lang['Password confirmation is missing. Please confirm the chosen password.'] = 'لم يتم تأكيد كلمة المرور، فضلا ً لا أمر أكد المرور رحم الله والديك';
+$lang['Password confirmation error.'] = 'خطأ في تأكيد كلمة المرور';
+$lang['Allow users to edit theirs owns comments'] = 'اسمح للمستخدم بتحريرتعليقه الخاص';
+$lang['Allow users to delete theirs owns comments'] = 'اسمح للمستخدم بحذف تعليقه الخاص';
+$lang['Email administrators when a comment is modified'] = 'ابلغ المديرعن تعديل التعليم ';
+$lang['Email administrators when a comment is deleted'] = 'ابلغ المدير عند حذف تعليق عن طريق البريد';
+$lang['Cannot delete the old permalink !'] = 'الروابط الدائمة و القديمة لا يمكن حذفها';
+$lang['Hit'] = 'نقرة';
+$lang['Tools'] = 'أدوات';
+$lang['Photos'] = 'الصور';
+$lang['Themes'] = 'واجهة العرض';
+$lang['Instructions to use Piwigo'] = 'دليل استخدام Piwigo';
+$lang['Installed Themes'] = 'تثبيت واجهات العرض';
+$lang['Add New Theme'] = 'اضف واجهة جديدة';
+$lang['Forbid this theme to users'] = 'امنع هذه الواجهة عن المستخدمين';
+$lang['Set as default theme for unregistered and new users'] = 'اجعلها كواجهة افتراضية لغير المسجلين و المستخدمين الجدد';
+$lang['unknown'] = 'غير معروف';
+$lang['Upload Photos'] = 'رفع الصور';
+$lang['Drop into category'] = 'اتركها داخل الالبوم';
+$lang['+ Add an upload box'] = '+ اضف عن طريق برنامج الرفع';
+$lang['Create the "%s" directory at the root of your Piwigo installation'] = 'إنشاء "%s" دليل على جذر التثبيت الخاص Piwigo';
+$lang['Give write access (chmod 777) to "%s" directory at the root of your Piwigo installation'] = 'اعطي تصريح الكتابة (chmod 777) على مجلد "%s" الذي ثبت فيه المعرض  ';
+$lang['existing category'] = 'الالبومات الموجودة';
+$lang['create a new category'] = 'انشأ ألبوم جديد ';
+$lang['Category name'] = 'أسم الألبوم';
+$lang['Category "%s" has been added'] = 'تم اضافته"%s"الألبوم ';
+$lang['Uploaded Photos'] = 'رفع الصور';
+$lang['%d photos uploaded'] = 'صور تم رفعها %d';
+$lang['Privacy level set to "%s"'] = '"%s"اعد مستوى الخصوصية ';
+$lang['Category "%s" now contains %d photos'] = ' الألبوم "%s" يحوي الآن %d صورة ';
+$lang['Manage this set of %d photos'] = '%d إدارة اعدادت صور';
+$lang['Select files'] = 'اختيار الملفات';
+$lang['JPEG files or ZIP archives with JPEG files inside please.'] = 'ملفات صور JPEG النقطيبة و ملفات مضغوطةZIP فقط';
+$lang['Everybody'] = 'الجميع';
+$lang['Who can see these photos?'] = 'من يمكنه رؤية هذه الصور';
+$lang['Who can see this photo?'] = 'من يمكنه رؤية هذه الصورة؟';
+$lang['... or switch to the old style form'] = '... أو اظهر الواجهة القديمة ';
+$lang['... or switch to the multiple files form'] = '... أو التحول إلى شكل ملفات متعددة';
+$lang['The websize maximum width must be a number between %d and %d'] = '%d و %d الحد الأعلى لعرض صورة الويب يجب أن تكون';
+$lang['The websize maximum height must be a number between %d and %d'] = '%d و %d الحد الأعلى لطول صورة الويب يجب أن تكون بين ';
+$lang['The websize image quality must be a number between %d and %d'] = '%d و %d جودة صورة الوب يجب أن تكون بين ';
+$lang['The thumbnail maximum width must be a number between %d and %d'] = '%d و %d الحد الأعلى لعرض مصغرات الصور يجب أن يكون بين';
+$lang['The thumbnail maximum height must be a number between %d and %d'] = '%d و %dالحد الأعلى لطول  مصغرات الصور يجب ان يكون بين ';
+$lang['The thumbnail image quality must be a number between %d and %d'] = '%d و %dجودة مصغرات الصور يجب ان تكون بين ';
+$lang['Settings'] = 'الإعدادت';
+$lang['Web size photo'] = 'مقاس صورة ويب';
+$lang['Resize'] = 'تغيير المقاس';
+$lang['Maximum Width'] = 'الحد الأعلى لعرض الصورة';
+$lang['pixels'] = 'بكسل ';
+$lang['Maximum Height'] = 'الحد الاعلى لطول الصورة';
+$lang['Image Quality'] = 'جودة الصورة';
+$lang['Save Settings'] = 'حفظ الإعدادات';
+$lang['Your configuration settings are saved'] = 'تم حفظ الإعدادت ';
+$lang['Active Themes'] = 'تنشيط الواجهة';
+$lang['Add write access to the "%s" directory'] = ' "%s" اعطي تصريح الوصول و الكتابة على المجلد ';
+$lang['Administration Home'] = 'الأدارة الرئيسية';
+$lang['Change Admin Colors'] = 'تغير الوان لوحة التحكم';
+$lang['Delete this theme'] = 'أحذف هذه الواجهة';
+$lang['Directory does not exist'] = 'المجلد غير موجود';
+$lang['Download,'] = ',تحميل';
+$lang['FTP + Synchronization'] = 'أف تي بي + التزامن ';
+$lang['Get Support on Piwigo Forum'] = 'أحصل على الدعم الفني من منتدى Piwigo';
+$lang['Help Me'] = 'ساعدني';
+$lang['Impossible to activate this theme, the parent theme is missing: %s'] = ' %s لا يمكن تفعيل هذه الواجهة شيء ما مفقود ';
+$lang['Impossible to delete this theme. Other themes depends on it: %s'] = ' %sلا يمكن حذف هذه الواجهة لرتباطها  بأشياء أخرى : ';
+$lang['Inactive Themes'] = 'الواجهات المفعلة';
+$lang['Install on your computer,'] = 'التثبيب على جهاز الكمبيوتر,';
+$lang['Make this theme available to users'] = 'أجعل هذه الواجهة متاحة للمستخدمين';
+$lang['Page end'] = 'نهاية الصفحة';
+$lang['Piwigo Uploader'] = 'برنامج piwigo للتحميل الصور';
+$lang['Read Piwigo Documentation'] = 'وثائق عن Piwigo';
+$lang['Start pLoader and add your photos.'] = 'بدء pLoader وإضافة الصور الخاصة بك.';
+$lang['Switch to clear or dark colors for administration'] = 'تغير لون لوحة التحكم أسود أو ابيض';
+$lang['Theme has been successfully installed'] = 'تم تثبيت واجهة المعرض بنجاح';
+$lang['Visit Gallery'] = 'معاينة المعرض';
+$lang['Visit Piwigo project website'] = 'زيارة الموقع الرئيسي لمشروع Piwigo ';
+$lang['pLoader stands for <em>Piwigo Uploader</em>. From your computer, pLoader prepares your photos and transfer them to your Piwigo photo gallery.'] = 'pLoader اعتمد على <em>Piwigo Uploader</em>. من الكمبيوتر ، pLoader تستعد صورك وتحويلها الى معرض الصور الخاص بك Piwigo.';
+$lang['Guest Settings'] = 'اعدادت الضيوف';
+$lang['Main Page'] = 'صفحة رئيسية';
+$lang['Photo Page'] = 'صفحة الصورة';
+$lang['Activate Navigation Bar'] = 'اظهار لوح تبديل و اظهار الصور';
+$lang['Activate Navigation Thumbnails'] = 'تنشيط امكانية المشاهدة عن طريق المصغرات أسف صفحة الصورة';
+$lang['Activate icon "%s"'] = 'اظهار ايقونة  "%s"';
+$lang['Activate field "%s"'] = '"%s"تنشيط الحقل ';
+$lang['Photo Properties'] = 'خصائص الصور';
+$lang['Allow user customization'] = 'السماح للمستخدم بتغيير خصائص العرض';
+$lang['Languages'] = 'اللغة';
+$lang['Installed Languages'] = 'تثبيت لغة';
+$lang['Add New Language'] = 'اضف لغة جديدة';
+$lang['Language has been successfully installed'] = 'تم تثبيت اللغة بنجاح';
+$lang['Select:'] = 'أختيار:';
+$lang['None'] = 'لا شيء';
+$lang['Invert'] = 'عكس';
+$lang['Impossible to deactivate this theme, you need at least one theme.'] = 'لا يمكن حذف الواجهة لانها الأخيرة ، لابد من وجود واجهة واحدة ';
+$lang['Webmaster status is required.'] = 'تم تغير حالة المدير العالم .';
+$lang['Bound Theme'] = 'واجهة إلزامية';
+$lang['Allow rating'] = 'السماح بالتوصويت';
+$lang['Select at least one comment'] = 'أختر تعليقا واحدا على الأقل';
+$lang['Active Plugins'] = 'تنشيط الإضافات';
+$lang['Inactive Plugins'] = 'تعطيل الإضافات';
+$lang['Missing Plugins'] = 'إضافات مفقودة';
+$lang['Uninstalled Plugins'] = 'اضافات غير مثبته';
+$lang['By %s'] = ' %s بواسطة';
+$lang['Visit plugin site'] = 'زيارة موقع الاضافة';
+$lang['Active Languages'] = 'تنشيط اللغة';
+$lang['Delete this language'] = 'اخذف هذه اللغة';
+$lang['Forbid this language to users'] = 'أمنع هذه اللغة عن المستخدمين';
+$lang['Impossible to deactivate this language, first set another language as default.'] = 'لا يمكن تعطيل هذه اللغة ، أولا ً قم باختيار لغة أخرى كلغة افتراضية';
+$lang['Impossible to deactivate this language, you need at least one language.'] = ' لا يمكن تعطيل هذه اللغة ، يجب اختيار لغة واحدة على الأقل';
+$lang['Inactive Languages'] = 'تعطيل اللغات';
+$lang['Make this language available to users'] = 'اجعل هذه اللغة متاحة للمستخدمين';
+$lang['Set as default language for unregistered and new users'] = 'اجعلها كلغة افتراضية لغير المسجلين و المستخدمين الجدد';
+$lang['Add Photos'] = 'أضف صور';
+$lang['Download'] = 'تحميل';
+$lang['The following tag was deleted'] = 'هذه الكلمات الدلائلية حُـذفت';
+$lang['Miscellaneous'] = 'متفرقات';
+$lang['User Upload'] = 'مستخدم الرفع';
+$lang['Virtual Links'] = 'روابط ظاهرة';
+$lang['There is no other language available.'] = 'ليس هناك لغة أخرى متاحة.';
+$lang['There is no other plugin available.'] = 'ليس هناك اضافة أخرى متاحة.';
+$lang['There is no other theme available.'] = 'ليس هناك واجهة عرض أخرى متاحة.';
+$lang['Add another set of photos'] = 'اضف مجوعة أخرى من الصور';
+$lang['Order of menubar items has been updated successfully.'] = 'تم تحديث ترتيب العناصر بنجاح';
+$lang['This theme was not designed to be directly activated'] = 'لم يتم تصميم هذه الواجهة لتفعيلها مباشرة';
+$lang['Pending Comments'] = 'تعليقات تحت الانتظار';
+$lang['In your php.ini file, the upload_max_filesize (%sB) is bigger than post_max_size (%sB), you should change this setting'] = 'ملف PHP.ini the upload_max_filesize (%sB) أكبر منpost_max_size (%sB), يتوجب عليك تغير الاعدادت';
+$lang['Exif extension not available, admin should disable exif use'] = 'خاصية Exif غير متاحة ، ينبغي على المدير تعطيلها';
+$lang['The uploaded file exceeds the upload_max_filesize directive in php.ini: %sB'] = 'الملف الذي تم تحميله يتجاوز upload_max_filesize  مباشرة في php.ini: %sB';
+$lang['The uploaded files exceed the post_max_size directive in php.ini: %sB'] = 'الملف الذي تم تحميلة يتجاوز post_max_size مباشرة في php.ini: %sB';
+$lang['The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form'] = 'الملف الذي تم تحميلة يتجاور  MAX_FILE_SIZE التوجيه الذي تم تحديده في شكل أتش تي أم أل';
+$lang['The uploaded file was only partially uploaded'] = 'الملف الذي رُفع ، تم رفه جزئيا ً ';
+$lang['No file was uploaded'] = 'لم يتم رفع الملفات';
+$lang['Missing a temporary folder'] = 'مجلد الملفات المؤقته مفقود';
+$lang['Failed to write file to disk'] = 'فشل في كتابة الملف للقرص';
+$lang['File upload stopped by extension'] = 'تم يقاف رفع الملفات بسبب امتداد الملفات';
+$lang['Unknown upload error'] = 'خطأ غير معروف في رفع الملفات';
+$lang['Error on file "%s" : %s'] = ' "%s" : %s خطأ في الملف';
 ?>
