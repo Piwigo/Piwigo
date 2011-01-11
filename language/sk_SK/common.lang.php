@@ -312,7 +312,6 @@ $lang['You must choose a picture fileformat for the image'] = 'Je nutné zvoliť
 $lang['Name of the picture'] = 'Názov fotografie';
 $lang['Upload a picture'] = 'Nahrať fotografiu';
 $lang['Picture uploaded with success, an administrator will validate it as soon as possible'] = 'Fotografia bola úspešne pridaná, zobrazí sa po schválení administrátorom';
-$lang['Upload a picture'] = 'Nahrať fotografiu';
 $lang['useful when password forgotten'] = 'užitočné pri zabudnutí hesla';
 $lang['Quick search'] = 'Rýchle hľadanie';
 $lang['Connected user: %s'] = 'Pripojený používateľ: %s';

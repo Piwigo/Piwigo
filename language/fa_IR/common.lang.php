@@ -192,7 +192,6 @@ $lang['See last users comments'] = "نمایش آخرین نظرات کاربر�
 $lang['customize the appareance of the gallery'] = "سفارشی کردن نمایش گالری";
 $lang['search'] = "جستجو";
 $lang['Home'] = "خانه";
-$lang['Identification'] = "شناسایی";
 $lang['in this album'] = "در این دسته";
 $lang['in %d sub-album'] = "در زیر دسته %d";
 $lang['in %d sub-albums'] = "در زیر دسته‌های %d";
@@ -307,7 +306,6 @@ $lang['You must choose a picture fileformat for the image'] = "شما باید �
 $lang['Name of the picture'] = "نام تصویر";
 $lang['Upload a picture'] = "آپلود یک تصویر";
 $lang['Picture uploaded with success, an administrator will validate it as soon as possible'] = "تصویر با موفقیت آپلود شد؛ زمانی که مدیر تصویر شما را تایید کرد، تصویر شما نمایش داده می‌شود.";
-$lang['Upload a picture'] = "آپلود یک تصویر";
 $lang['useful when password forgotten'] = "قابل استفاده برای گذرواژه فراموش شده";
 $lang['Quick search'] = "جستجوی سریع";
 $lang['Connected user: %s'] = "کاربرهای متصل شده به سیستم: %s";

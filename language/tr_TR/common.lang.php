@@ -192,7 +192,6 @@ $lang['See last users comments'] = 'Son Yorumları Gör';
 $lang['customize the appareance of the gallery'] = 'Galeri görünümünü düzenle';
 $lang['search'] = 'Arama';
 $lang['Home'] = 'Anasayfa';
-$lang['Identification'] = 'Kimlik';
 $lang['in this album'] = ' bu albüm içinde';
 $lang['in %d sub-album'] = 'bu %d alt-albümiçinde';
 $lang['in %d sub-albums'] = 'bu %d alt-albümler içinde';

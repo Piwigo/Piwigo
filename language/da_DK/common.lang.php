@@ -308,7 +308,6 @@ $lang['You must choose a picture fileformat for the image'] = 'Du skal vælget e
 $lang['Name of the picture'] = 'Navn på fotoet';
 $lang['Upload a picture'] = 'Upload et foto';
 $lang['Picture uploaded with success, an administrator will validate it as soon as possible'] = 'Fotoet er uploaded, en administrator vil validere det hurtigst muligt';
-$lang['Upload a picture'] = 'Upload et foto';
 $lang['useful when password forgotten'] = 'nyttigt ved glemt password';
 $lang['Quick search'] = 'Hurtig søg';
 $lang['Connected user: %s'] = 'Tilsluttede bruger: %s';

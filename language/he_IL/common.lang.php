@@ -306,7 +306,6 @@ $lang['You must choose a picture fileformat for the image'] = "אתה חייב �
 $lang['Name of the picture'] = "שם התמונה";
 $lang['Upload a picture'] = "העלה תמונה";
 $lang['Picture uploaded with success, an administrator will validate it as soon as possible'] = "התמונה הועלתה בהצלחה, מנהל האתר יבחן זאת בזמן הקרוב";
-$lang['Upload a picture'] = "העלה תמונה";
 $lang['useful when password forgotten'] = "שימושי במקרה ששכחת את הסיסמה";
 $lang['Quick search'] = "חיפוש מהיר";
 $lang['Connected user: %s'] = "משתמש מחובר: %s";

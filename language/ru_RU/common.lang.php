@@ -308,7 +308,6 @@ $lang['You must choose a picture fileformat for the image'] = 'Вы должны
 $lang['Name of the picture'] = 'Название фотографии';
 $lang['Upload a picture'] = 'Загрузка фотографии';
 $lang['Picture uploaded with success, an administrator will validate it as soon as possible'] = 'Фотография успешно загружена, администратор утвердит это как можно скорее';
-$lang['Upload a picture'] = 'Загрузка фотографии';
 $lang['useful when password forgotten'] = 'для восстановления потерянного пароля';
 $lang['Quick search'] = 'Быстрый поиск';
 $lang['Connected user: %s'] = 'Подключены пользователи: %s';

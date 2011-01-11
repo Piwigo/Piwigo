@@ -318,7 +318,6 @@ $lang['You must choose a picture fileformat for the image'] = 'Мора да и�
 $lang['Name of the picture'] = 'Тип на воздухоплов';
 $lang['Upload a picture'] = 'Додај фотографија';
 $lang['Picture uploaded with success, an administrator will validate it as soon as possible'] = 'Фотографијата беше успешно прикачена за серверот, следи прегледување од администратор.';
-$lang['Upload a picture'] = 'Додај фотографија';
 $lang['useful when password forgotten'] = 'Внесете постоечка и валидна e-mail адреса';
 $lang['Quick search'] = 'Брзо пребарување';
 $lang['Connected user: %s'] = 'Приклучен корисник: %s';

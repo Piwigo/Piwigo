@@ -133,7 +133,7 @@
 }
 
 /* begin chronology/calendar elements*/
-.content .calendarViews {
+.calendarViews {
 	display: block;
 	float: right;
 	margin: 2px 0 0;
@@ -147,7 +147,7 @@
 
 .calItem A { border:0 }
 
-.content .calendarCalBar {
+.calendarCalBar {
 	margin: 10px;
 	text-align: left;
 }

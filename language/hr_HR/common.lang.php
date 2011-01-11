@@ -193,7 +193,6 @@ $lang['See last users comments'] = 'Pregled zadnjih korisničkih komentara';
 $lang['customize the appareance of the gallery'] = 'prilagodite izgled vaše galerije';
 $lang['search'] = 'pretraži';
 $lang['Home'] = 'Naslovnica';
-$lang['Identification'] = 'Prijavnica';
 $lang['in this album'] = 'u ovoj skupini';
 $lang['in %d sub-album'] = 'u %d podskupini';
 $lang['in %d sub-albums'] = 'u %d podskupinama';

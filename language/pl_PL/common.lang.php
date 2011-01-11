@@ -308,7 +308,6 @@ $lang['You must choose a picture fileformat for the image'] = 'Musisz wybrać fo
 $lang['Name of the picture'] = 'Nazwa zdjęcia';
 $lang['Upload a picture'] = 'Wgraj zdjęcie';
 $lang['Picture uploaded with success, an administrator will validate it as soon as possible'] = 'Zdjęcie wgrane pomyślnie. Zostanie zaakceptowane przez administratora tak szybko jak to możliwe';
-$lang['Upload a picture'] = 'Wgraj zdjęcie';
 $lang['useful when password forgotten'] = 'przydatne gdy zostanie zapomniane hasło';
 $lang['Quick search'] = 'Szybkie wyszukiwanie';
 $lang['Connected user: %s'] = 'Zalogowany użytkownik: %s';

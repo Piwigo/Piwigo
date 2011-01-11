@@ -193,7 +193,6 @@ $lang['See last users comments'] = 'Ver os últimos comentários de usuários';
 $lang['customize the appareance of the gallery'] = 'personalisar a aparência da galeria';
 $lang['search'] = 'Pesquisar';
 $lang['Home'] = 'Início';
-$lang['Identification'] = 'identificação';
 $lang['in this album'] = 'nesta categoria';
 $lang['in %d sub-album'] = 'em %d subcategoria';
 $lang['in %d sub-albums'] = 'em %d subcategorias';
