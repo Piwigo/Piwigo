@@ -803,4 +803,5 @@ $lang['Type here the title'] = 'Entrez ici le titre';
 $lang['remove creation date'] = 'supprimer la date de création';
 $lang['with no album'] = 'sans album';
 $lang['with no tag'] = 'sans tag';
+$lang['Week starts on'] = 'La semaine commence le';
 ?>

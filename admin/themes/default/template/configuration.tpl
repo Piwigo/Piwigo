@@ -87,6 +87,15 @@
         <input type="checkbox" name="email_admin_on_new_user" {if ($main.email_admin_on_new_user)}checked="checked"{/if}>
       </label>
     </li>
+
+    <li>
+      <label>
+        <span class="property">
+          {'Week starts on'|@translate}
+          {html_options name="week_starts_on" options=$main.week_starts_on_options selected=$main.week_starts_on_options_selected}
+        </span>
+      </label>
+    </li>
   </ul>
 </fieldset>
 {/if}

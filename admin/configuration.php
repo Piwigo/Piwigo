@@ -246,6 +246,11 @@ switch ($page['section'])
         'CONF_GALLERY_TITLE' => htmlspecialchars($conf['gallery_title']),
         'CONF_PAGE_BANNER' => htmlspecialchars($conf['page_banner']),
         'CONF_GALLERY_URL' => $conf['gallery_url'],
+        'week_starts_on_options' => array(
+          'sunday' => $lang['day'][0],
+          'monday' => $lang['day'][1],
+          ),
+        'week_starts_on_options_selected' => $conf['week_starts_on'],
         ));
 
     foreach ($main_checkboxes as $checkbox)

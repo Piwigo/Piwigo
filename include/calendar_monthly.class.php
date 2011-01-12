@@ -330,7 +330,7 @@ function build_year_calendar(&$tpl_var)
 
 function build_month_calendar(&$tpl_var)
 {
-  global $page;
+  global $page, $lang, $conf;
 
   $query='SELECT '.pwg_db_get_dayofmonth($this->date_field).' as period,
             COUNT(DISTINCT id) as count';
@@ -368,9 +368,12 @@ SELECT id, file,tn_ext,path, width, height, '.pwg_db_get_dayofweek($this->date_f
     $items[$day]['width'] = $row['width'];
     $items[$day]['height'] = $row['height'];
     $items[$day]['dow'] = $row['dow'];
-  }
 
-  global $lang, $conf;
+    if ('sunday' == $conf['week_starts_on'])
+    {
+      $items[$day]['dow']++;
+    }
+  }
 
   if ( !empty($items)
       and $conf['calendar_month_cell_width']>0
@@ -395,7 +398,11 @@ SELECT id, file,tn_ext,path, width, height, '.pwg_db_get_dayofweek($this->date_f
     {
       $first_day_dow -= 1;
     }
-    array_push( $wday_labels, array_shift($wday_labels) );
+
+    if ('monday' == $conf['week_starts_on'])
+    {
+      array_push( $wday_labels, array_shift($wday_labels) );
+    }
     // END - pass now in week starting Monday
 
     $cell_width = $conf['calendar_month_cell_width'];

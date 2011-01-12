@@ -799,4 +799,5 @@ $lang['Type here the title'] = 'Type here the title';
 $lang['remove creation date'] = 'remove creation date';
 $lang['with no album'] = 'with no album';
 $lang['with no tag'] = 'with no tag';
+$lang['Week starts on'] = 'Week starts on';
 ?>
