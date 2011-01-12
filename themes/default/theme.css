@@ -70,7 +70,7 @@
 	padding: 0; /*IE6 requires padding 0*/
 }
 
-#quickconnect FIELDSET DIV {
+#quickconnect DIV {
 	margin: 8px 5px;
 	padding: 0;
 }
