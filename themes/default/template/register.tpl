@@ -46,7 +46,7 @@
       </li>
       <li>
         <span class="property">
-          <label for="mail_address">{'Mail address'|@translate}</label>
+          <label for="mail_address">{'Email address'|@translate}</label>
         </span>
         <input type="text" name="mail_address" id="mail_address" value="{$F_EMAIL}" >
         ({'useful when password forgotten'|@translate})

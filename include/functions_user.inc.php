@@ -61,7 +61,7 @@ where upper('.$conf['user_fields']['email'].') = upper(\''.$mail_address.'\')
     list($count) = pwg_db_fetch_row(pwg_query($query));
     if ($count != 0)
     {
-      return l10n('a user use already this mail address');
+      return l10n('this email address is already in use');
     }
   }
 }
