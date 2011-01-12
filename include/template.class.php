@@ -186,7 +186,6 @@ class Template {
       $this->smarty->clear_compiled_tpl();
       $this->smarty->compile_id = $save_compile_id;
       file_put_contents($this->smarty->compile_dir.'/index.htm', 'Not allowed!');
-      FileCombiner::clear_combined_files();
   }
 
   function get_themeconf($val)

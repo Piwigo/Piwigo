@@ -215,8 +215,8 @@ if ($page['current_rank'] != $page['last_rank'])
 $url_up = duplicate_index_url(
   array(
     'start' =>
-      floor($page['current_rank'] / $user['nb_image_page'])
-      * $user['nb_image_page']
+      floor($page['current_rank'] / $page['nb_image_page'])
+      * $page['nb_image_page']
     ),
   array(
     'start',

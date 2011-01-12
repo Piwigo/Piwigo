@@ -112,6 +112,7 @@ DELETE
   case 'compiled-templates' :
   {
     $template->delete_compiled_templates();
+    FileCombiner::clear_combined_files();
     break;
   }
   default :
