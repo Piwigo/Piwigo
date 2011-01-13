@@ -26,7 +26,6 @@ CREATE TABLE "piwigo_categories"
   "status" VARCHAR(50) default 'public',
   "site_id" INTEGER default 1,
   "visible" BOOLEAN default true,
-  "uploadable" BOOLEAN default false,
   "representative_picture_id" INTEGER,
   "uppercats" TEXT,
   "commentable" BOOLEAN default true,
@@ -536,23 +535,3 @@ CREATE TABLE piwigo_comments
 
 CREATE INDEX "comments_i2" ON "piwigo_comments" ("validation_date");
 CREATE INDEX "comments_i1" ON "piwigo_comments" ("image_id");
-
------------------------------------------------------------------------------
--- piwigo_waiting
------------------------------------------------------------------------------
-
-DROP TABLE IF EXISTS piwigo_waiting;
-CREATE TABLE piwigo_waiting
-(
-  "id" INTEGER NOT NULL,
-  "storage_category_id" INTEGER default 0 NOT NULL,
-  "file" VARCHAR(255) default '' NOT NULL,
-  "username" VARCHAR(255) default '' NOT NULL,
-  "mail_address" VARCHAR(255) default '' NOT NULL,
-  "date" INTEGER default 0 NOT NULL,
-  "tn_ext" CHAR(3),
-  "validated" BOOLEAN default false,
-  "infos" TEXT,
-  PRIMARY KEY ("id")
-);
-

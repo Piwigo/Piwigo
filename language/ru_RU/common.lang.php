@@ -44,8 +44,6 @@ $lang['%d new image'] = '%d новый элемент';
 $lang['%d new images'] = '%d новых элементов';
 $lang['%d new user'] = '%d новый посетитель';
 $lang['%d new users'] = '%d новые посетители';
-$lang['%d waiting element'] = '%d элемент в очереди';
-$lang['%d waiting elements'] = '%d элементов в очереди';
 $lang['About'] = 'О движке';
 $lang['All tags'] = 'Все слова';
 $lang['Any tag'] = 'Любое из слов';
@@ -321,7 +319,6 @@ $lang['Registration of %s'] = 'Регистрация %s';
 $lang['Album: %s'] = 'Альбом: %s';
 $lang['Picture name: %s'] = 'Название: %s';
 $lang['Creation date: %s'] = 'Дата съемки: %s';
-$lang['Waiting page: %s'] = 'Страница ожидания: %s';
 $lang['Picture uploaded by %s'] = 'Фотография загружена %s';
 // --------- Starting below: New or revised $lang ---- from version 1.7.1
 $lang['Bad status for user "guest", using default status. Please notify the webmaster.'] = 'Неверный статус пользователя "гость", используйте статус по умолчанию. Пожалуйста сообщите вебмастеру.';

@@ -60,11 +60,6 @@ $history_checkboxes = array(
     'history_guest'
    );
 
-$upload_checkboxes = array(
-    'upload_link_everytime',
-    'email_admin_on_picture_uploaded',
-   );
-
 $comments_checkboxes = array(
     'comments_forall',
     'comments_validation',
@@ -144,14 +139,6 @@ if (isset($_POST['submit']))
       }
       break;
     }
-    case 'upload' :
-    {
-      foreach( $upload_checkboxes as $checkbox)
-      {
-        $_POST[$checkbox] = empty($_POST[$checkbox])?'false':'true';
-      }
-      break;
-    }
     case 'default' :
     {
       // Never go here
@@ -217,10 +204,6 @@ $tabsheet->add('main', l10n('Main'), $conf_link.'main');
 $tabsheet->add('display', l10n('Display'), $conf_link.'display');
 $tabsheet->add('history', l10n('History'), $conf_link.'history');
 $tabsheet->add('comments', l10n('Comments'), $conf_link.'comments');
-if ($conf['enable_synchronization'])
-{
-  $tabsheet->add('upload', l10n('Upload'), $conf_link.'upload');
-}
 $tabsheet->add('default', l10n('Guest Settings'), $conf_link.'default');
 // TabSheet selection
 $tabsheet->select($page['section']);
@@ -292,28 +275,6 @@ switch ($page['section'])
     {
       $template->append(
           'comments',
-          array(
-            $checkbox => $conf[$checkbox]
-            ),
-          true
-        );
-    }
-    break;
-  }
-  case 'upload' :
-  {
-    $template->assign(
-      'upload',
-      array(
-        'upload_user_access_options'=> get_user_access_level_html_options(ACCESS_GUEST),
-        'upload_user_access_options_selected' => array($conf['upload_user_access'])
-        )
-      );
-    //Necessary for merge_block_vars
-    foreach ($upload_checkboxes as $checkbox)
-    {
-      $template->append(
-          'upload',
           array(
             $checkbox => $conf[$checkbox]
             ),

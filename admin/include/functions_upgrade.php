@@ -54,7 +54,6 @@ function prepare_conf_upgrade()
   define('USERS_TABLE', $prefixeTable.'users');
   define('USER_INFOS_TABLE', $prefixeTable.'user_infos');
   define('USER_FEED_TABLE', $prefixeTable.'user_feed');
-  define('WAITING_TABLE', $prefixeTable.'waiting');
   define('RATE_TABLE', $prefixeTable.'rate');
   define('USER_CACHE_TABLE', $prefixeTable.'user_cache');
   define('USER_CACHE_CATEGORIES_TABLE', $prefixeTable.'user_cache_categories');

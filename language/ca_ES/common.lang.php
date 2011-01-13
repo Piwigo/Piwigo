@@ -44,8 +44,6 @@ $lang['%d new image'] = '%d nova imatge';
 $lang['%d new images'] = '%d noves imatges';
 $lang['%d new user'] = '%d nou usuari';
 $lang['%d new users'] = '%d nous usuaris';
-$lang['%d waiting element'] = '%d s\'està esperant l\'element';
-$lang['%d waiting elements'] = '%d s\'estan esperant els elements';
 $lang['About'] = 'Quant a';
 $lang['All tags'] = 'Totes les etiquetes';
 $lang['Any tag'] = 'Qualsevol etiqueta';
@@ -320,7 +318,6 @@ $lang['Registration of %s'] = 'Registrat de %s';
 $lang['Album: %s'] = 'Categoria: %s';
 $lang['Picture name: %s'] = 'Nom de la imatge: %s';
 $lang['Creation date: %s'] = 'Data de creació: %s';
-$lang['Waiting page: %s'] = 'Pàgina d\'espera: %s';
 $lang['Picture uploaded by %s'] = 'Imatge carregada per %s';
 // --------- Starting below: New or revised $lang ---- from version 1.7.1
 $lang['Bad status for user "guest", using default status. Please notify the webmaster.'] = 'Estat erroni de l\'usuari "invitat", s\'està utilitzant l\'estat predeterminat. Si us plau informeu-ho a l\'administrador de la web.';

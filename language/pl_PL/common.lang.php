@@ -44,8 +44,6 @@ $lang['%d new image'] = '%d nowy element';
 $lang['%d new images'] = '%d nowych elementów';
 $lang['%d new user'] = '%d nowy użytkownik';
 $lang['%d new users'] = '%d nowi użytkownicy';
-$lang['%d waiting element'] = '%d oczekujący element';
-$lang['%d waiting elements'] = '%d oczekujących elementów';
 $lang['About'] = 'O Piwigo';
 $lang['All tags'] = 'Wszystkie tagi';
 $lang['Any tag'] = 'Dowolny tag';
@@ -321,7 +319,6 @@ $lang['Registration of %s'] = 'Rejestracja %s';
 $lang['Album: %s'] = 'Album: %s';
 $lang['Picture name: %s'] = 'Nazwa zdjęcia: %s';
 $lang['Creation date: %s'] = 'Data utworzenia: %s';
-$lang['Waiting page: %s'] = 'Strona oczekująca: %s';
 $lang['Picture uploaded by %s'] = 'Zdjęcie wgrane przez %s';
 // --------- Starting below: New or revised $lang ---- from version 1.7.1
 $lang['Bad status for user "guest", using default status. Please notify the webmaster.'] = 'Zły status dla użytkownika "gość", używam domyślnego';

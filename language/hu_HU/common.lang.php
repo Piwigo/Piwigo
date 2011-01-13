@@ -44,8 +44,6 @@ $lang['%d new image'] = '%d új elem';
 $lang['%d new images'] = '%d új elem';
 $lang['%d new user'] = '%d új felhasználó';
 $lang['%d new users'] = '%d új felhasználó';
-$lang['%d waiting element'] = '%d várakozó elem';
-$lang['%d waiting elements'] = '%d várakozó elem';
 $lang['About'] = 'Impresszum';
 $lang['All tags'] = 'Összes címke';
 $lang['Any tag'] = 'Bármely címke';
@@ -322,7 +320,6 @@ $lang['Registration of %s'] = 'Bejegyezte: %s';
 $lang['Album: %s'] = 'Album: %s';
 $lang['Picture name: %s'] = 'Kép neve: %s';
 $lang['Creation date: %s'] = 'Létrehozás dátuma: %d';
-$lang['Waiting page: %s'] = 'Tovább a jóváhagyásra váró képek oldalra: %s';
 $lang['Picture uploaded by %s'] = 'A képet feltöltötte: %s';
 // --------- Starting below: New or revised $lang ---- from version 1.7.1
 $lang['Bad status for user "guest", using default status. Please notify the webmaster.'] = 'Rossz felhasználói állapot "vendég", az alapértelmezett állapot. Kérjük, küldjön értesítést a webmesternek.';

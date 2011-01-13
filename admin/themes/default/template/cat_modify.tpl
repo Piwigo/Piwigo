@@ -85,14 +85,6 @@
         {html_radios name='commentable' values='false,true'|@explode output='No,Yes'|@explode|translate selected=$CAT_COMMENTABLE}
       </td>
     </tr>
-    {if isset($SHOW_UPLOADABLE) }
-    <tr>
-      <td><strong>{'Authorize upload'|@translate}</strong>
-      <td>
-        {html_radios name='uploadable' values='false,true'|@explode output='No,Yes'|@explode|translate selected=$CAT_UPLOADABLE}
-      </td>
-    </tr>
-    {/if}
   </table>
 </fieldset>
 

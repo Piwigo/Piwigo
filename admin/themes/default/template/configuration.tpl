@@ -187,29 +187,6 @@
 </fieldset>
 {/if}
 
-{if isset($upload)}
-<fieldset id="uploadConf">
-  <legend></legend>
-  <ul>
-    <li>
-      <label><span class="property">{'Show upload link every time'|@translate}</span>
-      <input type="checkbox" name="upload_link_everytime" {if ($upload.upload_link_everytime)}checked="checked"{/if}></label>
-    </li>
-    <li>
-      <label><span class="property">{'User access level to upload'|@translate}</span>
-      {html_options name="upload_user_access" options=$upload.upload_user_access_options selected=$upload.upload_user_access_options_selected}
-      </label>
-    </li>
-    <li>
-      <label>
-        <span class="property">{'Email admins when a picture is uploaded'|@translate}</span>
-        <input type="checkbox" name="email_admin_on_picture_uploaded" {if ($upload.email_admin_on_picture_uploaded)}checked="checked"{/if}>
-      </label>
-    </li>
-  </ul>
-</fieldset>
-{/if}
-
 </div> <!-- configContent -->
 
 {if isset($default)}

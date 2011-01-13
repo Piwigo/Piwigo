@@ -47,16 +47,6 @@ if (isset($_POST['falsify'])
 {
   switch ($_GET['section'])
   {
-    case 'upload' :
-    {
-      $query = '
-UPDATE '.CATEGORIES_TABLE.'
-  SET uploadable = \'false\'
-  WHERE id IN ('.implode(',', $_POST['cat_true']).')
-;';
-      pwg_query($query);
-      break;
-    }
     case 'comments' :
     {
       $query = '
@@ -95,16 +85,6 @@ else if (isset($_POST['trueify'])
 {
   switch ($_GET['section'])
   {
-    case 'upload' :
-    {
-      $query = '
-UPDATE '.CATEGORIES_TABLE.'
-  SET uploadable = \'true\'
-  WHERE id IN ('.implode(',', $_POST['cat_false']).')
-;';
-      pwg_query($query);
-      break;
-    }
     case 'comments' :
     {
       $query = '
@@ -162,10 +142,6 @@ $tabsheet = new tabsheet();
 $opt_link = $link_start.'cat_options&amp;section=';
 $tabsheet->add('status', l10n('Public / Private'), $opt_link.'status');
 $tabsheet->add('visible', l10n('Lock'), $opt_link.'visible');
-if ($conf['enable_synchronization'])
-{
-  $tabsheet->add('upload', l10n('Upload'), $opt_link.'upload');
-}
 $tabsheet->add('comments', l10n('Comments'), $opt_link.'comments');
 if ($conf['allow_random_representative'])
 {
@@ -182,8 +158,8 @@ $tabsheet->assign();
 
 // for each section, categories in the multiselect field can be :
 //
-// - true : uploadable for upload section
-// - false : un-uploadable for upload section
+// - true : commentable for comment section
+// - false : un-commentable for comment section
 // - NA : (not applicable) for virtual categories
 //
 // for true and false status, we associates an array of category ids,
@@ -193,31 +169,6 @@ $cats_true = array();
 $cats_false = array();
 switch ($page['section'])
 {
-  case 'upload' :
-  {
-    $query_true = '
-SELECT id,name,uppercats,global_rank
-  FROM '.CATEGORIES_TABLE.'
-  WHERE uploadable = \'true\'
-    AND dir IS NOT NULL
-    AND site_id = 1
-;';
-    $query_false = '
-SELECT id,name,uppercats,global_rank
-  FROM '.CATEGORIES_TABLE.'
-  WHERE uploadable = \'false\'
-    AND dir IS NOT NULL
-    AND site_id = 1
-;';
-    $template->assign(
-      array(
-        'L_SECTION' => l10n('Select uploadable albums'),
-        'L_CAT_OPTIONS_TRUE' => l10n('Authorized'),
-        'L_CAT_OPTIONS_FALSE' => l10n('Forbidden'),
-        )
-      );
-    break;
-  }
   case 'comments' :
   {
     $query_true = '

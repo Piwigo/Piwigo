@@ -240,9 +240,6 @@ SELECT id_uppercat, MAX(rank)+1 AS next_rank
         'site_id'     => $site_id,
         'commentable' =>
           boolean_to_string($conf['newcat_default_commentable']),
-        'uploadable'  => $site_is_remote
-          ? 'false'
-          : boolean_to_string($conf['newcat_default_uploadable']),
         'status'      => $conf['newcat_default_status'],
         'visible'     => boolean_to_string($conf['newcat_default_visible']),
         );
@@ -312,7 +309,7 @@ SELECT id_uppercat, MAX(rank)+1 AS next_rank
     {
       $dbfields = array(
         'id','dir','name','site_id','id_uppercat','uppercats','commentable',
-        'uploadable','visible','status','rank','global_rank'
+        'visible','status','rank','global_rank'
         );
       mass_inserts(CATEGORIES_TABLE, $dbfields, $inserts);
     }
@@ -359,7 +356,6 @@ if (isset($_POST['submit']) and $_POST['sync'] == 'files'
   $cat_ids = array_diff(array_keys($db_categories), $to_delete);
 
   $db_elements = array();
-  $db_unvalidated = array();
 
   if (count($cat_ids) > 0)
   {
@@ -373,26 +369,6 @@ SELECT id, path
         "\n"
         ).')';
     $db_elements = simple_hash_from_query($query, 'id', 'path');
-
-    // searching the unvalidated waiting elements (they must not be taken into
-    // account)
-    $query = '
-SELECT file,storage_category_id
-  FROM '.WAITING_TABLE.'
-  WHERE storage_category_id IN (
-'.wordwrap(implode(', ', $cat_ids), 80, "\n").')
-    AND validated = \'false\'';
-    $result = pwg_query($query);
-    while ($row = pwg_db_fetch_assoc($result))
-    {
-      array_push(
-        $db_unvalidated,
-        array_search(
-          $row['storage_category_id'],
-          $db_fulldirs)
-        .'/'.$row['file']
-        );
-    }
   }
 
   // next element id available
@@ -403,7 +379,7 @@ SELECT file,storage_category_id
   $inserts = array();
   $insert_links = array();
 
-  foreach (array_diff(array_keys($fs), $db_elements, $db_unvalidated) as $path)
+  foreach (array_diff(array_keys($fs), $db_elements) as $path)
   {
     $insert = array();
     // storage category must exist
@@ -529,60 +505,6 @@ SELECT file,storage_category_id
   $template->append('footer_elements', '<!-- scanning files : '
     . get_elapsed_time($start_files, get_moment())
     . ' -->' );
-
-  // retrieving informations given by uploaders
-  if (!$simulate and count($cat_ids) > 0)
-  {
-    $query = '
-SELECT id,file,storage_category_id,infos
-  FROM '.WAITING_TABLE.'
-  WHERE storage_category_id IN (
-'.wordwrap(implode(', ', $cat_ids), 80, "\n").')
-    AND validated = \'true\'';
-    $result = pwg_query($query);
-
-    $datas = array();
-    $fields =
-      array(
-        'primary' => array('id'),
-        'update'  => array('date_creation', 'author', 'name', 'comment')
-        );
-
-    $waiting_to_delete = array();
-
-    while ($row = pwg_db_fetch_assoc($result))
-    {
-      $data = array();
-
-      $query = '
-SELECT id
-  FROM '.IMAGES_TABLE.'
-  WHERE storage_category_id = '.$row['storage_category_id'].'
-    AND file = \''.$row['file'].'\'';
-      list($data['id']) = pwg_db_fetch_row(pwg_query($query));
-
-      foreach ($fields['update'] as $field)
-      {
-        $data[$field] = addslashes( getAttribute($row['infos'], $field) );
-      }
-
-      array_push($datas, $data);
-      array_push($waiting_to_delete, $row['id']);
-    }
-
-    if (count($datas) > 0)
-    {
-      mass_updates(IMAGES_TABLE, $fields, $datas);
-
-      // delete now useless waiting elements
-      $query = '
-DELETE
-  FROM '.WAITING_TABLE.'
-  WHERE id IN ('.implode(',', $waiting_to_delete).')
-;';
-      pwg_query($query);
-    }
-  }
 }
 
 // +-----------------------------------------------------------------------+

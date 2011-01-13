@@ -30,7 +30,6 @@ CREATE TABLE `piwigo_categories` (
   `status` enum('public','private') NOT NULL default 'public',
   `site_id` tinyint(4) unsigned default '1',
   `visible` enum('true','false') NOT NULL default 'true',
-  `uploadable` enum('true','false') NOT NULL default 'false',
   `representative_picture_id` mediumint(8) unsigned default NULL,
   `uppercats` varchar(255) NOT NULL default '',
   `commentable` enum('true','false') NOT NULL default 'true',
@@ -445,22 +444,4 @@ CREATE TABLE `piwigo_users` (
   `mail_address` varchar(255) default NULL,
   PRIMARY KEY  (`id`),
   UNIQUE KEY `users_ui1` (`username`)
-) TYPE=MyISAM;
-
---
--- Table structure for table `piwigo_waiting`
---
-
-DROP TABLE IF EXISTS `piwigo_waiting`;
-CREATE TABLE `piwigo_waiting` (
-  `id` int(10) unsigned NOT NULL auto_increment,
-  `storage_category_id` smallint(5) unsigned NOT NULL default '0',
-  `file` varchar(255) NOT NULL default '',
-  `username` varchar(255) NOT NULL default '',
-  `mail_address` varchar(255) NOT NULL default '',
-  `date` int(10) unsigned NOT NULL default '0',
-  `tn_ext` char(3) default NULL,
-  `validated` enum('true','false') NOT NULL default 'false',
-  `infos` text,
-  PRIMARY KEY  (`id`)
 ) TYPE=MyISAM;

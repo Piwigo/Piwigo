@@ -37,10 +37,6 @@ jQuery().ready(function(){ldelim}
     <ul>
       <li>
         {$DB_ELEMENTS}
-        {if isset($waiting)}
-        (<a href="{$waiting.URL}">{$waiting.INFO}</a>)
-        {/if}
-
         {if isset($first_added)}
         ({$first_added.DB_DATE})
         {/if}

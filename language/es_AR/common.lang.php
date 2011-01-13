@@ -44,8 +44,6 @@ $lang['%d new image'] = '%d nueva imagen';
 $lang['%d new images'] = '%d nuevas imágenes';
 $lang['%d new user'] = '%d nuevo usuario';
 $lang['%d new users'] = '%d nuevos usuarios';
-$lang['%d waiting element'] = '%d elemento en espera';
-$lang['%d waiting elements'] = '%d elementos en espera';
 $lang['About'] = 'Acerca de';
 $lang['All tags'] = 'Todos los tags';
 $lang['Any tag'] = 'Cualquier tag';
@@ -320,7 +318,6 @@ $lang['Registration of %s'] = 'Registro de %s';
 $lang['Album: %s'] = 'Categoría: %s';
 $lang['Picture name: %s'] = 'Nombre de la imagen: %s';
 $lang['Creation date: %s'] = 'Fecha de creación: %d';
-$lang['Waiting page: %s'] = 'Página en espera: %s';
 $lang['Picture uploaded by %s'] = 'Imagen subida por %s';
 // --------- Starting below: New or revised $lang ---- from version 1.7.1
 $lang['Bad status for user "guest", using default status. Please notify the webmaster.'] = 'El estatuto de usuario "huésped" no corresponde, se utilizará el estatuto por defecto. Por favor avísele al webmaster.';

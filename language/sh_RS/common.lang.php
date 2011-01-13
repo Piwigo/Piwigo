@@ -44,8 +44,6 @@ $lang['%d new image'] = '%d nova slika';
 $lang['%d new images'] = '%d nove slike';
 $lang['%d new user'] = '%d novi korisnik';
 $lang['%d new users'] = '%d novi korisnici';
-$lang['%d waiting element'] = '%d stavka na čekanju';
-$lang['%d waiting elements'] = '%d stavke na čekanju';
 $lang['About'] = 'O...';
 $lang['All tags'] = 'Svi tagovi';
 $lang['Any tag'] = 'Bilo koji tag';
@@ -321,7 +319,6 @@ $lang['Registration of %s'] = 'Prijava od %s';
 $lang['Album: %s'] = 'Kategorija: %s';
 $lang['Picture name: %s'] = 'Naziv slike: %s';
 $lang['Creation date: %s'] = 'Datum izrade: %s';
-$lang['Waiting page: %s'] = 'Stranica čekanja: %s';
 $lang['Picture uploaded by %s'] = 'Sliku prebacio %s';
 // --------- Starting below: New or revised $lang ---- from version 1.7.1
 $lang['Bad status for user "guest", using default status. Please notify the webmaster.'] = 'Loš status za korisnika "guest", koristi se podrazumevani status. Molimo obavestite webmaster-a.';

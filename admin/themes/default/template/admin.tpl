@@ -18,9 +18,6 @@ jQuery(document).ready(function(){ldelim}
     <dd>
       <ul>
         <li><a href="{$U_ADD_PHOTOS}">{'Add'|@translate}</a></li>
-{if $ENABLE_SYNCHRONIZATION}
-        <li><a href="{$U_WAITING}">{'Waiting'|@translate}</a></li>
-{/if}
         <li><a href="{$U_RATING}">{'Rating'|@translate}</a></li>
         <li><a href="{$U_TAGS}">{'Tags'|@translate}</a></li>
         <li><a href="{$U_CADDIE}">{'Caddie'|@translate}</a></li>

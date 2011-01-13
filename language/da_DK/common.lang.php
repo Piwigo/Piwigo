@@ -44,8 +44,6 @@ $lang['%d new image'] = '%d nyt element';
 $lang['%d new images'] = '%d nye elementer';
 $lang['%d new user'] = '%d ny bruger';
 $lang['%d new users'] = '%d nye brugere';
-$lang['%d waiting element'] = '%d ventende element';
-$lang['%d waiting elements'] = '%d ventende elements';
 $lang['About'] = 'Om';
 $lang['All tags'] = 'Alle tags';
 $lang['Any tag'] = 'Enhver tag';
@@ -321,7 +319,6 @@ $lang['Registration of %s'] = 'Registrering af %s';
 $lang['Album: %s'] = 'kategori: %s';
 $lang['Picture name: %s'] = 'Foto navn: %s';
 $lang['Creation date: %s'] = 'Oprettelses dag: %s';
-$lang['Waiting page: %s'] = 'ventende side: %s';
 $lang['Picture uploaded by %s'] = 'Foto uploaded af %s';
 // --------- Starting below: New or revised $lang ---- from version 1.7.1
 $lang['Bad status for user "guest", using default status. Please notify the webmaster.'] = 'Forket status for gæste bruger. Kontakt webmaster.';

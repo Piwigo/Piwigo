@@ -54,7 +54,7 @@ function get_std_sql_where_restrict_filter($prefix_condition, $img_field='ic.ima
  * Execute custom notification query
  *
  * @param string action ('count' or 'info')
- * @param string type of query ('new_comments', 'unvalidated_comments', 'new_elements', 'updated_categories', 'new_users', 'waiting_elements')
+ * @param string type of query ('new_comments', 'unvalidated_comments', 'new_elements', 'updated_categories', 'new_users')
  * @param string start (mysql datetime format)
  * @param string end (mysql datetime format)
  *
@@ -145,12 +145,6 @@ function custom_notification_query($action, $type, $start, $end)
       $query .= '
 ;';
       break;
-    case 'waiting_elements':
-      $query = '
-  FROM '.WAITING_TABLE.'
-  WHERE validated = \'false\'
-;';
-      break;
     default:
       // stop this function and return nothing
       return;
@@ -177,9 +171,6 @@ function custom_notification_query($action, $type, $start, $end)
         case 'new_users':
           $field_id = 'user_id';
           break;
-        case 'waiting_elements':
-          $field_id = 'id';
-          break;
     }
     $query = 'SELECT count(distinct '.$field_id.') as CountId
 '.$query;
@@ -204,9 +195,6 @@ function custom_notification_query($action, $type, $start, $end)
           break;
         case 'new_users':
           $fields = array('user_id');
-          break;
-        case 'waiting_elements':
-          $fields = array('id');
           break;
       }
 
@@ -347,26 +335,6 @@ function new_users($start, $end)
 }
 
 /**
- * currently waiting pictures
- *
- * @return count waiting ids
- */
-function nb_waiting_elements()
-{
-  return custom_notification_query('count', 'waiting_elements', '', '');
-}
-
-/**
- * currently waiting pictures
- *
- * @return array waiting ids
- */
-function waiting_elements()
-{
-  return custom_notification_query('info', 'waiting_elements', $start, $end);
-}
-
-/**
  * There are new between two dates ?
  *
  * Informations : number of new comments, number of new elements, number of
@@ -386,8 +354,7 @@ function news_exists($start, $end)
           (nb_new_elements($start, $end) > 0) or
           (nb_updated_categories($start, $end) > 0) or
           ((is_admin()) and (nb_unvalidated_comments($start, $end) > 0)) or
-          ((is_admin()) and (nb_new_users($start, $end) > 0)) or
-          ((is_admin()) and (nb_waiting_elements() > 0))
+          ((is_admin()) and (nb_new_users($start, $end) > 0)))
         );
 }
 
@@ -453,10 +420,6 @@ function news($start, $end, $exclude_img_cats=false, $add_url=false)
     add_news_line( $news,
         nb_new_users($start, $end), '%d new user', '%d new users',
         get_root_url().'admin.php?page=user_list', $add_url );
-
-    add_news_line( $news,
-        nb_waiting_elements(), '%d waiting element', '%d waiting elements',
-        get_root_url().'admin.php?page=upload', $add_url );
   }
 
   return $news;

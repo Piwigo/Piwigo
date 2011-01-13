@@ -48,8 +48,6 @@ $lang['%d new image'] = '%d nový objekt';
 $lang['%d new images'] = '%d nových objektů';
 $lang['%d new user'] = '%d nový uživatel';
 $lang['%d new users'] = '%d nových uživatelů';
-$lang['%d waiting element'] = '%d čekající objekt';
-$lang['%d waiting elements'] = '%d čekajících objektů';
 $lang['About'] = 'O galerii';
 $lang['All tags'] = 'Všechna klíčová slova';
 $lang['Any tag'] = 'Kterékoliv klíčové slovo';
@@ -325,7 +323,6 @@ $lang['Registration of %s'] = 'Registrace %s';
 $lang['Album: %s'] = 'Album: %s';
 $lang['Picture name: %s'] = '*Název fotografie: %s';
 $lang['Creation date: %s'] = 'Datum vytvoření: %s';
-$lang['Waiting page: %s'] = 'Čekání na stránku: %s';
 $lang['Picture uploaded by %s'] = 'Fotografie nahrána %s';
 
 $lang['Bad status for user "guest", using default status. Please notify the webmaster.'] = 'Špatný stav pro uživatele "host", bude použit výchozí stav. Prosím informujte administrátora.';

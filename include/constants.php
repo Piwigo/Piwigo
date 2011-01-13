@@ -77,8 +77,6 @@ if (!defined('USER_INFOS_TABLE'))
   define('USER_INFOS_TABLE', $prefixeTable.'user_infos');
 if (!defined('USER_FEED_TABLE'))
   define('USER_FEED_TABLE', $prefixeTable.'user_feed');
-if (!defined('WAITING_TABLE'))
-  define('WAITING_TABLE', $prefixeTable.'waiting');
 if (!defined('RATE_TABLE'))
   define('RATE_TABLE', $prefixeTable.'rate');
 if (!defined('USER_CACHE_TABLE'))

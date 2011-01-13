@@ -44,8 +44,6 @@ $lang['%d new image'] = '%d ახალი ელემენტი';
 $lang['%d new images'] = '%d ახალი ელემენტები';
 $lang['%d new user'] = '%d ახალი მნახველი';
 $lang['%d new users'] = '%d ახალი მნახველები';
-$lang['%d waiting element'] = '%d ელემენტი რიგში';
-$lang['%d waiting elements'] = '%d ელემენტები რიგში';
 $lang['About'] = 'საიტის ძრავი';
 $lang['All tags'] = 'ყველა სიტყვა';
 $lang['Any tag'] = 'ნებისმიერი სიტყვა';
@@ -324,7 +322,6 @@ $lang['Registration of %s'] = 'რეგისტრაცია %s';
 $lang['Album: %s'] = 'კატეგორია: %s';
 $lang['Picture name: %s'] = 'სახელი: %s';
 $lang['Creation date: %s'] = 'გადაღების დრო: %s';
-$lang['Waiting page: %s'] = 'მოცდის გვერდი: %s';
 $lang['Picture uploaded by %s'] = 'ფოტო ატვირთულია %s';
 // --------- Starting below: New or revised $lang ---- from version 1.7.1
 $lang['Bad status for user "guest", using default status. Please notify the webmaster.'] = 'მომხმარებლის არასწორი სტატუსი "სტუმარი", გამოიყენეთ ძირითადი სტატუსი. გთხოვთ შეატყობინოთ ადმინისტრატორს.';

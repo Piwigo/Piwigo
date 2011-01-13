@@ -239,25 +239,6 @@ SELECT MIN(date_available)
     );
 }
 
-// waiting elements
-$query = '
-SELECT COUNT(*)
-  FROM '.WAITING_TABLE.'
-  WHERE validated=\'false\'
-;';
-list($nb_waiting) = pwg_db_fetch_row(pwg_query($query));
-
-if ($nb_waiting > 0)
-{
-  $template->assign(
-    'waiting',
-    array(
-      'URL' => PHPWG_ROOT_PATH.'admin.php?page=upload',
-      'INFO' => sprintf(l10n('%d waiting for validation'), $nb_waiting)
-      )
-    );
-}
-
 // unvalidated comments
 $query = '
 SELECT COUNT(*)

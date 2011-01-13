@@ -121,10 +121,6 @@ $conf['calendar_month_cell_height']=80;
 // or not ?
 $conf['newcat_default_commentable'] = true;
 
-// newcat_default_uploadable : at creation, must a category be uploadable or
-// not ?
-$conf['newcat_default_uploadable'] = false;
-
 // newcat_default_visible : at creation, must a category be visible or not ?
 // Warning : if the parent category is invisible, the category is
 // automatically create invisible. (invisible = locked)
@@ -555,30 +551,6 @@ $conf['webmaster_id'] = 1;
 // (not a security feature, set your categories "private" too)
 // If false it'll be redirected from index.php to identification.php
 $conf['guest_access'] = true;
-
-// +-----------------------------------------------------------------------+
-// |                                upload                                 |
-// +-----------------------------------------------------------------------+
-
-// upload_maxfilesize: maximum filesize for the uploaded pictures. In
-// kilobytes.
-$conf['upload_maxfilesize'] = 200;
-
-// upload_maxheight: maximum height authorized for the uploaded images. In
-// pixels.
-$conf['upload_maxheight'] = 800;
-
-// upload_maxwidth: maximum width authorized for the uploaded images. In
-// pixels.
-$conf['upload_maxwidth'] = 800;
-
-// upload_maxheight_thumbnail: maximum height authorized for the uploaded
-// thumbnails
-$conf['upload_maxheight_thumbnail'] = 128;
-
-// upload_maxwidth_thumbnail: maximum width authorized for the uploaded
-// thumbnails
-$conf['upload_maxwidth_thumbnail'] = 128;
 
 // +-----------------------------------------------------------------------+
 // |                               history                                 |

@@ -69,8 +69,6 @@ if (isset($_POST['submit']))
       'id' => $_GET['cat_id'],
       'name' => @$_POST['name'],
       'commentable' => isset($_POST['commentable'])?$_POST['commentable']:'false',
-      'uploadable' =>
-        isset($_POST['uploadable']) ? $_POST['uploadable'] : 'false',
       'comment' =>
         $conf['allow_html_descriptions'] ?
           @$_POST['comment'] : strip_tags(@$_POST['comment']),
@@ -245,7 +243,6 @@ $template->assign(
     'CAT_STATUS'        => $category['status'],
     'CAT_VISIBLE'       => boolean_to_string($category['visible']),
     'CAT_COMMENTABLE'   => boolean_to_string($category['commentable']),
-    'CAT_UPLOADABLE'    => boolean_to_string($category['uploadable']),
 
     'IMG_ORDER_DEFAULT'  => empty($category['image_order']) ?
                               'checked="checked"' : '',
@@ -304,10 +301,6 @@ else
                                     $category['cat_full_dir'] )
       )
     );
-  if (!url_is_remote($category['cat_full_dir']) )
-  {
-    $template->assign('SHOW_UPLOADABLE', true);
-  }
 }
 
 // image order management

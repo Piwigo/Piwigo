@@ -44,8 +44,6 @@ $lang['%d new image'] = '新しいイメージ: %d';
 $lang['%d new images'] = '新しいイメージ: %d';
 $lang['%d new user'] = '新しいユーザ: %d';
 $lang['%d new users'] = '新しいユーザ: %d';
-$lang['%d waiting element'] = '待ちエレメント: %d';
-$lang['%d waiting elements'] = '待ちエレメント: %d';
 $lang['About'] = 'About';
 $lang['All tags'] = 'すべてのタグ';
 $lang['Any tag'] = 'すべてのtag';
@@ -320,7 +318,6 @@ $lang['Registration of %s'] = '%s の登録';
 $lang['Album: %s'] = 'カテゴリ: %s';
 $lang['Picture name: %s'] = '写真名: %s';
 $lang['Creation date: %s'] = '作成日: %s';
-$lang['Waiting page: %s'] = '待ちページ: %s';
 $lang['Picture uploaded by %s'] = '%s によりアップロードされた写真';
 // --------- Starting below: New or revised $lang ---- from version 1.7.1
 $lang['Bad status for user "guest", using default status. Please notify the webmaster.'] = 'デフォルトステータスの使用に関して、ユーザ「ゲスト」は正しくないステータスです。ウェブマスタにご連絡ください。';

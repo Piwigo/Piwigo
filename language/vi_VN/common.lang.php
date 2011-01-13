@@ -44,8 +44,6 @@ $lang['%d new image'] = '%d hình mới';
 $lang['%d new images'] = '%d hình mới';
 $lang['%d new user'] = '%d thành viên mới';
 $lang['%d new users'] = '%d thành viên mới';
-$lang['%d waiting element'] = '%d chi tiết hình đang chờ';
-$lang['%d waiting elements'] = '%d chi tiết hình đang chờ';
 $lang['About'] = 'Thông tin về Piwgo';
 $lang['All tags'] = 'Tất cả các tags';
 $lang['Any tag'] = 'Tất cả các tag';
@@ -319,7 +317,6 @@ $lang['Registration of %s'] = 'Mục đăng ký của %s';
 $lang['Album: %s'] = 'Đề mục: %s';
 $lang['Picture name: %s'] = 'Tên hình: %s';
 $lang['Creation date: %s'] = 'Ngày gởi: %s';
-$lang['Waiting page: %s'] = 'Trang đợi: %s';
 $lang['Picture uploaded by %s'] = 'Hình được gởi bởi %s';
 // --------- Starting below: New or revised $lang ---- from version 1.7.1
 $lang['Bad status for user "guest", using default status. Please notify the webmaster.'] = 'Status xấu đối với thành viên đăng thuộc nhóm "khách", sử dụng status mặc định. Thông báo ngay cho Quản trị';

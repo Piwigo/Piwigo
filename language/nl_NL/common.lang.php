@@ -44,8 +44,6 @@ $lang['%d new image'] = '%d nieuwe afbeelding';
 $lang['%d new images'] = '%d nieuwe afbeeldingen';
 $lang['%d new user'] = '%d nieuwe gebruiker';
 $lang['%d new users'] = '%d nieuwe gebruikers';
-$lang['%d waiting element'] = '%d wachtende afbeelding';
-$lang['%d waiting elements'] = '%d wachtende afbeeldingen';
 $lang['About'] = 'Over';
 $lang['All tags'] = 'Alle tags';
 $lang['Any tag'] = 'Elke tag';
@@ -320,7 +318,6 @@ $lang['Registration of %s'] = 'Registratie van %s';
 $lang['Album: %s'] = 'Categorie: %s';
 $lang['Picture name: %s'] = 'Afbeeldingsnaam: %s';
 $lang['Creation date: %s'] = 'Aanmaakdatum: %s';
-$lang['Waiting page: %s'] = 'Wacht pagina: %s';
 $lang['Picture uploaded by %s'] = 'Afbeelding ge-uploaded door %s';
 // --------- Starting below: New or revised $lang ---- from version 1.7.1
 $lang['Bad status for user "guest", using default status. Please notify the webmaster.'] = 'Foutieve status voor gebruiker "guest", gebruik standaard status. Waarschuw de webbeheerder.';

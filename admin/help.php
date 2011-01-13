@@ -46,13 +46,6 @@ $tabs[] = array(
   'code' => 'groups',
   'label' => l10n('Groups'),
   );
-if ($conf['enable_synchronization'])
-{
-  $tabs[] = array(
-    'code' => 'user_upload',
-    'label' => l10n('User Upload'),
-    );
-}
 $tabs[] = array(
   'code' => 'virtual_links',
   'label' => l10n('Virtual Links'),
