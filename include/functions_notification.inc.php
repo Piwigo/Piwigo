@@ -354,8 +354,7 @@ function news_exists($start, $end)
           (nb_new_elements($start, $end) > 0) or
           (nb_updated_categories($start, $end) > 0) or
           ((is_admin()) and (nb_unvalidated_comments($start, $end) > 0)) or
-          ((is_admin()) and (nb_new_users($start, $end) > 0)))
-        );
+          ((is_admin()) and (nb_new_users($start, $end) > 0)));
 }
 
 /**
@@ -530,7 +529,7 @@ function get_html_description_recent_post_date($date_detail)
         .l10n_dec('%d new image', '%d new images', $date_detail['nb_elements'])
         .' ('
         .'<a href="'.make_index_url(array('section'=>'recent_pics')).'">'
-          .l10n('Recent pictures').'</a>'
+          .l10n('Recent photos').'</a>'
         .')'
         .'</li><br>';
 
