@@ -26,7 +26,7 @@ galerie.</li>
 
   <li><strong>Notation</strong>: La notation des photos est possible.</li>
 
-  <li><strong>Notation par les visiteurs</strong>: Même les utilisateurs non enregistrés peuvent noter les images.</li>
+  <li><strong>Notation par les visiteurs</strong>: Même les utilisateurs non enregistrés peuvent noter les photos</li>
 
   <li><strong>Permettre l'enregistrement des utilisateurs</strong>: L'inscription est libre pour tous.</li>
 
@@ -43,7 +43,7 @@ class="pwgScreen">index.php</span> et <span
 class="pwgScreen">picture.php</span> sont
 enregistrées dans la table <code>history</code>.</p>
 
-  <p>Les visites sont affichées dans l'écran <span class="pwgScreen">Administration, Spéciales, Historique</span>.</p>
+  <p>Les visites sont affichées dans l'écran <span class="pwgScreen">Administration &raquo; Outils &raquo; Historique</span>.</p>
 
 <ul>
   <li><strong>Enregistrer les pages visitées par les invités</strong>: les visites des pages par les invités sont enregistrées.</li>
@@ -65,23 +65,22 @@ utilisateurs non enregistrés peuvent enregistrer des commentaires.</li>
   <li><strong>Validation</strong>: un administrateur doit valider les
 commentaires utilisateurs avant qu'ils puissent devenir visibles dans la
 partie publique. La validation des commentaires utilisateurs a lieu dans
-l'écran <span class="pwgScreen">Administration, Images,
-Commentaires</span>.</li>
+l'écran <span class="pwgScreen">Administration &raquo; Outils &raquo; Commentaires en attente</span>.</li>
 
   <li><strong>Notifier les administrateurs quand un commentaire est enregistré</strong>:
 Envoi un courriel aux administrateurs lorsqu'un utilisateur enregistre un commentaire qui est validé.</li>
 
   <li><strong>Notifier les administrateurs quand un commentaire requiert sa validation </strong>:
 Envoi un courriel aux administrateurs lorsqu'un utilisateur enregistre un commentaire qui demande une validation de la part des administrateurs.
-La validation des commentaires utilisateurs a lieu dans l'écran <span class="pwgScreen">Administration, Images, Commentaires</span>.</li>
+La validation des commentaires utilisateurs a lieu dans l'écran <span class="pwgScreen">Administration &raquo; Outils &raquo; Commentaires en attente</span>.</li>
 
 </ul>
 
 <h3>Ajout de photos</h3>
 <ul>
-  <li><strong>Afficher le lien d'ajout de photo tout le temps</strong>: S'il existe des catégories permettant l'ajout de photo, le lien correspondant sera affiché quelque soit la catégorie.</li>
+  <li><strong>Afficher le lien d'ajout de photo tout le temps</strong>: S'il existe des albums permettant l'ajout de photo, le lien correspondant sera affiché quelque soit l'album.</li>
   <li><strong>Niveau d'accès utilisateur pour ajouter des photos</strong>: Permet de restreindre l'ajout à certains utilisateurs</li>
-  <li><strong>Notifier les administrateurs quand une image est ajoutée</strong>: Les administrateurs recevront un courriel à chaque image ajoutée par un utilisateur.</li>
+  <li><strong>Notifier les administrateurs quand une photo est ajoutée</strong>: Les administrateurs recevront un courriel à chaque photo ajoutée par un utilisateur.</li>
 </ul>
 
 <h3>Affichage par défaut</h3>
@@ -91,14 +90,14 @@ l'utilisateur, qu'il peut modifier dans l'écran <span
 class="pwgScreen">profile</span>.</p>
 
 <p>Il est possible de changer ces options pour les utilisateurs existants,
-mais il s'agit d'un autre écran : <span class="pwgScreen">Administration,
-Identification, Utilisateurs</span>, dans lequel vous pouvez modifier ces
+mais il s'agit d'un autre écran : <span class="pwgScreen">Administration &raquo; 
+Utilisateurs, Gérer</span>, dans lequel vous pouvez modifier ces
 options pour une liste d'utilisateurs sélectionnés.</p>
 
 <ul>
 
   <li><strong>Langue</strong>: ne concerne que les libellés de
-Piwigo. Les noms de catégories, d'image et les descriptions ne sont
+Piwigo. Les noms d'albums, de photo et les descriptions ne sont
 pas localisés (ie multilingue).</li>
 
   <li><strong>Nombre de miniatures par ligne</strong></li>
@@ -108,31 +107,31 @@ pas localisés (ie multilingue).</li>
   <li><strong>Thème de l'interface</strong></li>
 
   <li><strong>Période récente</strong>: en jours. Période pendant laquelle
-une image est considérée comment nouvelle. Cette période doit être
+une photo est considérée comment nouvelle. Cette période doit être
 supérieure à 1 jour.</li>
 
-  <li><strong>Développer toutes les catégories</strong>: développer toutes
-les catégories dans le menu? <em>Attention</em>: cette option est
-susceptible de consommer inutilement des ressources si votre arbre de
-catégories contient de nombreux éléments.</li>
+  <li><strong>Développer toutes les albums</strong>: développer toutes
+les albums dans le menu? <em>Attention</em>: cette option est
+susceptible de consommer inutilement des ressources si votre arbre d'album
+ contient de nombreux éléments.</li>
 
   <li><strong>Montrer le nombre de commentaires</strong>: montrer les nombre
 de commentaires utilisateur en dessous de chaque miniature. Consomme des
 ressources.</li>
 
   <li><strong>Montrer le nombre de visualisations  </strong>: affiche les 
-  « hits » relevés sur une image sous sa miniature dans la page de miniatures.
+  « hits » relevés sur une photo sous sa miniature dans la page de miniatures.
   Uniquement valable si le paramètre de configuration avancée est :<br>
   $conf['show_nb_hits'] = true; <br>
   N.B.: par defaut il est à false.</li>
 
-  <li><strong>Largeur maximum des images</strong>: à l'affichage. Si l'image
+  <li><strong>Largeur maximum des photos</strong>: à l'affichage. Si la photo
 est plus large que ce paramètre, alors elle sera redimensionnée à
 l'affichage. Si vous pensez nécessaire de modifier ce paramétrage (donc pour
 un affichage par défaut), il serait pertinent de redimensionner directement
-vos images stockées.</li>
+vos photos stockées.</li>
 
-  <li><strong>Hauteur maximum des images</strong>: même remarque que pour la
+  <li><strong>Hauteur maximum des photos</strong>: même remarque que pour la
 largeur.</li>
 
 </ul>
