@@ -198,7 +198,7 @@ $template->assign(
     'PHP_VERSION' => phpversion(),
     'DB_ENGINE' => $conf['dblayer'],
     'DB_VERSION' => $db_version,
-    'DB_ELEMENTS' => l10n_dec('%d image', '%d images', $nb_elements),
+    'DB_ELEMENTS' => l10n_dec('%d photo', '%d photos', $nb_elements),
     'DB_CATEGORIES' =>
       l10n_dec('%d album including', '%d albums including',
         $nb_categories).

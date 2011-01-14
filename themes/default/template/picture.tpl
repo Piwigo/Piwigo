@@ -52,7 +52,7 @@
 {/if}
 {if isset($PLUGIN_PICTURE_ACTIONS)}{$PLUGIN_PICTURE_ACTIONS}{/if}
 {if isset($favorite)}
-	<a href="{$favorite.U_FAVORITE}" title="{if $favorite.IS_FAVORITE}{'delete this image from your favorites'|@translate}{else}{'add this image to your favorites'|@translate}{/if}" class="pwg-state-default pwg-button" rel="nofollow">
+	<a href="{$favorite.U_FAVORITE}" title="{if $favorite.IS_FAVORITE}{'delete this photo from your favorites'|@translate}{else}{'add this photo to your favorites'|@translate}{/if}" class="pwg-state-default pwg-button" rel="nofollow">
 		<span class="pwg-icon pwg-icon-favorite-{if $favorite.IS_FAVORITE}del{else}add{/if}">&nbsp;</span><span class="pwg-button-text">{'Favorites'|@translate}</span>
 	</a>
 {/if}
@@ -204,7 +204,7 @@ y.callService(
 {if isset($rating)}
 	<tr id="rating">
 		<td class="label">
-			<span id="updateRate">{if isset($rating.USER_RATE)}{'Update your rating'|@translate}{else}{'Rate this picture'|@translate}{/if}</span>
+			<span id="updateRate">{if isset($rating.USER_RATE)}{'Update your rating'|@translate}{else}{'Rate this photo'|@translate}{/if}</span>
 		</td>
 		<td class="value">
 			<form action="{$rating.F_ACTION}" method="post" id="rateForm" style="margin:0;">

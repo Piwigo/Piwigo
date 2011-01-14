@@ -15,8 +15,8 @@
 		{/if}
 
 {if isset($favorite)}
-		<li><a href="{$favorite.U_FAVORITE}" title="{'delete all images from your favorites'|@translate}" class="pwg-state-default pwg-button" rel="nofollow">
-			<span class="pwg-icon pwg-icon-favorite-del">&nbsp;</span><span class="pwg-button-text">{'delete all images from your favorites'|@translate}</span>
+		<li><a href="{$favorite.U_FAVORITE}" title="{'delete all photos from your favorites'|@translate}" class="pwg-state-default pwg-button" rel="nofollow">
+			<span class="pwg-icon pwg-icon-favorite-del">&nbsp;</span><span class="pwg-button-text">{'delete all photos from your favorites'|@translate}</span>
 		</a></li>
 {/if}
 {if isset($U_CADDIE)}

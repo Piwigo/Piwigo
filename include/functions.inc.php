@@ -1434,7 +1434,7 @@ function get_icon($date, $is_child_date = false)
   if (!isset($cache['get_icon']['title']))
   {
     $cache['get_icon']['title'] = sprintf(
-      l10n('images posted during the last %d days'),
+      l10n('photos posted during the last %d days'),
       $user['recent_period']
       );
   }

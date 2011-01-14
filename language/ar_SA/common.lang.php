@@ -40,8 +40,8 @@ $lang['%d comment'] = ' التعليقات %d ';
 $lang['%d comments'] = ' عدد التعليقات %d ';
 $lang['%d hit'] = ' المشاهد %d ';
 $lang['%d hits'] = ' المشاهدين %d ';
-$lang['%d new image'] = '%d صورة جديدة';
-$lang['%d new images'] = '%d صور جديدة';
+$lang['%d new photo'] = '%d صورة جديدة';
+$lang['%d new photos'] = '%d صور جديدة';
 $lang['%d new user'] = '%d مسخدم جديد';
 $lang['%d new users'] = '%d مستخدمين جدد';
 $lang['About'] = 'لماذا؟؟';
@@ -107,7 +107,7 @@ $lang['Retrieve password'] = 'استرجاع كلمة المرور';
 $lang['Search rules'] = 'قواعد البحث';
 $lang['Search tags'] = 'كلمات البحث';
 $lang['Search'] = 'بحث';
-$lang['See available tags'] = 'أنظر في الكلمات الدلائلية';
+$lang['display available tags'] = 'أنظر في الكلمات الدلائلية';
 $lang['Send new password'] = 'ارسال كلمة مرور جديدة';
 $lang['Since'] = 'منذ';
 $lang['Sort by'] = 'ترتيب حسب ..';
@@ -124,7 +124,7 @@ $lang['Week %d'] = 'اسبوع %d';
 $lang['About Piwigo'] = 'لماذا هذا المعرض؟ ';
 $lang['You are not authorized to access the requested page'] = 'لم تقم بتسجيل الدخول او انك غير مشترك  او .. غير مصرح لك';
 $lang['add to caddie'] = 'اضفها الي السلة';
-$lang['add this image to your favorites'] = 'اضف هذه الصوة لمفضلتك ';
+$lang['add this photo to your favorites'] = 'اضف هذه الصوة لمفضلتك ';
 $lang['Administration'] = 'الإدارة';
 $lang['all'] = 'كل';
 $lang['ascending'] = 'تصاعدي';
@@ -135,11 +135,11 @@ $lang['posted before %s (%s)'] = 'اضيفت قبل %s (%s)';
 $lang['posted between %s (%s) and %s (%s)'] = 'اضيفت بين %s (%s) و %s (%s)';
 $lang['posted on %s'] = 'اضيفت لـ . %s';
 $lang['Best rated'] = 'افضل تصويت';
-$lang['display best rated items'] = 'اعرض الصور الاكثر تقيما من قبل المشاهدين';
+$lang['display best rated photos'] = 'اعرض الصور الاكثر تقيما من قبل المشاهدين';
 $lang['caddie'] = 'السلة';
 $lang['Calendar'] = 'التقويم';
 $lang['All'] = 'الجميع';
-$lang['display each day with pictures, month per month'] = 'أعرض جميع صور هذا اليوم ،شهريا';
+$lang['display each day with photos, month per month'] = 'أعرض جميع صور هذا اليوم ،شهريا';
 $lang['View'] = 'عرض';
 $lang['chronology_monthly_calendar'] = 'تقويم شهري';
 $lang['chronology_monthly_list'] = 'القائم الشهرية';
@@ -171,7 +171,7 @@ $lang['day'][4] = 'الخميس';
 $lang['day'][5] = 'الجمعه';
 $lang['day'][6] = 'السبت';
 $lang['Default'] = 'افتراضي';
-$lang['delete this image from your favorites'] = 'أزل هذه الصورة من مفضلتك';
+$lang['delete this photo from your favorites'] = 'أزل هذه الصورة من مفضلتك';
 $lang['Delete'] = 'أحذف';
 $lang['descending'] = 'تنازلي';
 $lang['download'] = 'تحميل';
@@ -179,8 +179,8 @@ $lang['download this file'] = 'تحميل هذا الملف';
 $lang['edit'] = 'تحرير';
 $lang['wrong date'] = 'تاريخ خطأ';
 $lang['excluded'] = 'استبعاد';
-$lang['My favorites'] = 'مفضلتي';
-$lang['display my favorites pictures'] = 'اعرض صور المفضلة';
+$lang['Your favorites'] = 'مفضلتي';
+$lang['display your favorites photos'] = 'اعرض صور المفضلة';
 $lang['Favorites'] = 'المفضلات';
 $lang['First'] = 'الأولى';
 $lang['The gallery is locked for maintenance. Please, come back later.'] = 'مغلق للصيانة و التحديث .. نرجوا اعادة الزيارة مرة أخرى.';
@@ -188,8 +188,8 @@ $lang['Page generated in'] = 'صفحة أنشئت في ..';
 $lang['guest'] = 'ضيف';
 $lang['Hello'] = 'مرحبا بك.';
 $lang['available for administrators only'] = 'متاح للأدارين فقط';
-$lang['shows images at the root of this album'] = 'اعرض  جميع صور هذا الالبوم';
-$lang['See last users comments'] = 'شاهد آخر التعليقات';
+$lang['display this album'] = 'اعرض  جميع صور هذا الالبوم';
+$lang['display last user comments'] = 'شاهد آخر التعليقات';
 $lang['customize the appareance of the gallery'] = 'تخصيص معلوماتك الشخصية';
 $lang['search'] = 'بحث';
 $lang['Home'] = 'الرئيسية';
@@ -226,14 +226,14 @@ $lang['month'][7] = 'جولاي';
 $lang['month'][8] = 'أغسطس';
 $lang['month'][9] = 'سبتمبر';
 $lang['Most visited'] = 'الصور الأكثر مشاهدة';
-$lang['display most visited pictures'] = 'أعرض الصور الاكثر مشاهدة';
+$lang['display most visited photos'] = 'أعرض الصور الاكثر مشاهدة';
 $lang['The number of images per row must be a not null scalar'] = 'عدد الصور لكل صف لا يجب ان يكون فارغ';
 $lang['Number of images per row'] = 'عدد الصورلكل صف';
 $lang['The number of rows per page must be a not null scalar'] = 'عدد الصورلكل صف لا يجب ان يكون فارغ';
 $lang['Number of rows per page'] = 'عدد الصفوف في الصفحة';
 $lang['Unknown identifier'] = 'معرف مجهول';
 $lang['New password'] = 'كلمة مرور جديدة';
-$lang['Rate this picture'] = 'قيم هذه الصورة';
+$lang['Rate this photo'] = 'قيم هذه الصورة';
 $lang['Next'] = 'التالي';
 $lang['no rate'] = 'لم يتم تقيم الصورة';
 $lang['Elements posted within the last %d day.'] = 'عناصراضيفت في آخر  %d يوم.';
@@ -246,13 +246,13 @@ $lang['Show file metadata'] = 'اظهر الملعومات الفوتوغراف�
 $lang['Powered by'] = 'بدعم من';
 $lang['Preferences'] = 'التفضيلات';
 $lang['Previous'] = 'الصورة السابقة';
-$lang['Random pictures'] = 'صورة عشوائية';
-$lang['display a set of random pictures'] = 'عرض مجموعة من الصورة العشوائية';
+$lang['Random photos'] = 'صورة عشوائية';
+$lang['display a set of random photos'] = 'عرض مجموعة من الصورة العشوائية';
 $lang['Recent albums'] = 'الألبومات الأخيرة';
 $lang['display recently updated albums'] = 'عرض احدث الألبومات الحالية';
 $lang['Recent period'] = 'الفترة الاخيرة';
-$lang['Recent pictures'] = 'الصور الاخيرة';
-$lang['display most recent pictures'] = 'عرض أحدث الصور';
+$lang['Recent photos'] = 'الصور الاخيرة';
+$lang['display most recent photos'] = 'عرض أحدث الصور';
 $lang['Redirection...'] = 'إعادة التوجيه .....';
 $lang['Please, enter a login'] = 'من فضلك ، سجل دخولك';
 $lang['login mustn\'t end with a space character'] = 'login mustn\'t end with a space character';
@@ -287,8 +287,8 @@ $lang['slideshow'] = 'عرض الشرائح';
 $lang['stop the slideshow'] = 'ايقاف العرض';
 $lang['Specials'] = 'احصائيات';
 $lang['SQL queries in'] = 'استفسارات في SQL';
-$lang['display only recently posted images'] = 'اعرض الصور المضافة حديثا';
-$lang['return to the display of all images'] = 'العدوة لعرض جميع الصورة';
+$lang['display only recently posted photos'] = 'اعرض الصور المضافة حديثا';
+$lang['return to the display of all photos'] = 'العدوة لعرض جميع الصورة';
 $lang['the beginning'] = 'البداية';
 $lang['Interface theme'] = 'واجة العرض';
 $lang['Thumbnails'] = 'الصور المصغرة';
@@ -341,12 +341,12 @@ $lang['Accelerate diaporama speed'] = 'تعجيل سرعة العرض';
 $lang['Submit'] = 'أرســل';
 $lang['Yes'] = 'نعم';
 $lang['No'] = 'لا';
-$lang['%d image']=' صورة %d';
-$lang['%d images']='مجموع الصور%d';
-$lang['%d image is also linked to current tags'] = '%d صورة لها ارتباط بالكلمات';
-$lang['%d images are also linked to current tags'] = '%d صور لها اتباط بــ';
-$lang['See images linked to this tag only'] = 'شاهد الصورة التي لها اتباط بالكلمات الدلائلية ';
-$lang['images posted during the last %d days'] = 'صور الايــ%dــام الاخيرة ';
+$lang['%d photo']=' صورة %d';
+$lang['%d photos']='مجموع الصور%d';
+$lang['%d photo is also linked to current tags'] = '%d صورة لها ارتباط بالكلمات';
+$lang['%d photos are also linked to current tags'] = '%d صور لها اتباط بــ';
+$lang['display photos linked to this tag'] = 'شاهد الصورة التي لها اتباط بالكلمات الدلائلية ';
+$lang['photos posted during the last %d days'] = 'صور الايــ%dــام الاخيرة ';
 $lang['Choose an image'] = 'اختر الصورة';
 $lang['Piwigo Help'] = 'الدعم الفني ';
 $lang['Rank'] = 'الألبوم';
@@ -357,7 +357,7 @@ $lang['cloud'] = 'سحابة';
 $lang['Are you sure?'] = 'هل انت متأكد?';
 $lang['delete this comment'] = 'حذف هذا التعليق';
 $lang['Reset to default values'] = 'ارجع للقيم الافتراضية';
-$lang['delete all images from your favorites'] = 'احذف كل الصور من مفضلتي';
+$lang['delete all photos from your favorites'] = 'احذف كل الصور من مفضلتي';
 $lang['Sent by'] = 'أرسل بواسطة : ';
 $lang['Cookies are blocked or not supported by your browser. You must enable cookies to connect.'] = 'ملفات الارتباط محضورة في متصفحك أو غير معتمده ،يجب تمكين الكوكيز للتمكن من التسجيل';
 $lang['Some info about this picture'] = 'معلومات عن هذه الصورة';

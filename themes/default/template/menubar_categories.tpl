@@ -1,9 +1,9 @@
 <dt>
   {if isset($U_START_FILTER)}
-  <a href="{$U_START_FILTER}" title="{'display only recently posted images'|@translate}" rel="nofollow"><img src="{$ROOT_URL}{$themeconf.icon_dir}/start_filter.png" class="button" alt="start filter"></a>
+  <a href="{$U_START_FILTER}" title="{'display only recently posted photos'|@translate}" rel="nofollow"><img src="{$ROOT_URL}{$themeconf.icon_dir}/start_filter.png" class="button" alt="start filter"></a>
   {/if}
   {if isset($U_STOP_FILTER)}
-  <a href="{$U_STOP_FILTER}" title="{'return to the display of all images'|@translate}"><img src="{$ROOT_URL}{$themeconf.icon_dir}/stop_filter.png" class="button" alt="stop filter"></a>
+  <a href="{$U_STOP_FILTER}" title="{'return to the display of all photos'|@translate}"><img src="{$ROOT_URL}{$themeconf.icon_dir}/stop_filter.png" class="button" alt="stop filter"></a>
   {/if}
 	<a href="{$block->data.U_CATEGORIES}">{'Albums'|@translate}</a>
 </dt>
@@ -35,5 +35,5 @@
 		</li>
 	</ul>
 	{/if}
-	<p class="totalImages">{$pwg->l10n_dec('%d image', '%d images', $block->data.NB_PICTURE)}</p>
+	<p class="totalImages">{$pwg->l10n_dec('%d photo', '%d photos', $block->data.NB_PICTURE)}</p>
 </dd>

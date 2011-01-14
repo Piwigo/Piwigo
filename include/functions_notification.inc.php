@@ -395,7 +395,7 @@ function news($start, $end, $exclude_img_cats=false, $add_url=false)
   if (!$exclude_img_cats)
   {
     add_news_line( $news,
-      nb_new_elements($start, $end), '%d new image', '%d new images',
+      nb_new_elements($start, $end), '%d new photo', '%d new photos',
       make_index_url(array('section'=>'recent_pics')), $add_url );
   }
 
@@ -526,7 +526,7 @@ function get_html_description_recent_post_date($date_detail)
 
   $description .=
         '<li>'
-        .l10n_dec('%d new image', '%d new images', $date_detail['nb_elements'])
+        .l10n_dec('%d new photo', '%d new photos', $date_detail['nb_elements'])
         .' ('
         .'<a href="'.make_index_url(array('section'=>'recent_pics')).'">'
           .l10n('Recent photos').'</a>'
@@ -558,8 +558,8 @@ function get_html_description_recent_post_date($date_detail)
           '<li>'
           .get_cat_display_name_cache($cat['uppercats'])
           .' ('.
-          l10n_dec('%d new image',
-                   '%d new images', $cat['img_count']).')'
+          l10n_dec('%d new photo',
+                   '%d new photos', $cat['img_count']).')'
           .'</li>';
   }
   $description .= '</ul>';
@@ -580,7 +580,7 @@ function get_title_recent_post_date($date_detail)
   $date = $date_detail['date_available'];
   $exploded_date = strptime($date, '%Y-%m-%d %H:%M:%S');
 
-  $title = l10n_dec('%d new image', '%d new images', $date_detail['nb_elements']);
+  $title = l10n_dec('%d new photo', '%d new photos', $date_detail['nb_elements']);
   $title .= ' ('.$lang['month'][1+$exploded_date['tm_mon']].' '.$exploded_date['tm_mday'].')';
 
   return $title;

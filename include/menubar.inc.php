@@ -169,15 +169,15 @@ function initialize_menu()
       $block->data['favorites'] =
         array(
           'URL' => make_index_url(array('section' => 'favorites')),
-          'TITLE' => l10n('display my favorites pictures'),
-          'NAME' => l10n('My favorites')
+          'TITLE' => l10n('display your favorites photos'),
+          'NAME' => l10n('Your favorites')
           );
     }
 
     $block->data['most_visited'] =
       array(
         'URL' => make_index_url(array('section' => 'most_visited')),
-        'TITLE' => l10n('display most visited pictures'),
+        'TITLE' => l10n('display most visited photos'),
         'NAME' => l10n('Most visited')
       );
 
@@ -186,7 +186,7 @@ function initialize_menu()
        $block->data['best_rated'] =
         array(
           'URL' => make_index_url(array('section' => 'best_rated')),
-          'TITLE' => l10n('display best rated items'),
+          'TITLE' => l10n('display best rated photos'),
           'NAME' => l10n('Best rated')
         );
     }
@@ -194,16 +194,16 @@ function initialize_menu()
     $block->data['random'] =
       array(
         'URL' => get_root_url().'random.php',
-        'TITLE' => l10n('display a set of random pictures'),
-        'NAME' => l10n('Random pictures'),
+        'TITLE' => l10n('display a set of random photos'),
+        'NAME' => l10n('Random photos'),
         'REL'=> 'rel="nofollow"'
       );
 
     $block->data['recent_pics'] =
       array(
         'URL' => make_index_url(array('section' => 'recent_pics')),
-        'TITLE' => l10n('display most recent pictures'),
-        'NAME' => l10n('Recent pictures'),
+        'TITLE' => l10n('display most recent photos'),
+        'NAME' => l10n('Recent photos'),
       );
 
     $block->data['recent_cats'] =
@@ -225,7 +225,7 @@ function initialize_menu()
                'chronology_view' => 'calendar'
             )
           ),
-        'TITLE' => l10n('display each day with pictures, month per month'),
+        'TITLE' => l10n('display each day with photos, month per month'),
         'NAME' => l10n('Calendar'),
         'REL'=> 'rel="nofollow"'
       );
@@ -243,7 +243,7 @@ function initialize_menu()
     // tags link
     $block->data['tags'] =
       array(
-        'TITLE' => l10n('See available tags'),
+        'TITLE' => l10n('display available tags'),
         'NAME' => l10n('Tags'),
         'URL'=> get_root_url().'tags.php',
       );
@@ -260,7 +260,7 @@ function initialize_menu()
     // comments link
     $block->data['comments'] =
       array(
-        'TITLE'=>l10n('See last users comments'),
+        'TITLE'=>l10n('display last user comments'),
         'NAME'=>l10n('Comments'),
         'URL'=> get_root_url().'comments.php',
       );

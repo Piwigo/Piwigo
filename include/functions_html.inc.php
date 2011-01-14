@@ -421,7 +421,7 @@ function get_tags_content_title()
           )
         )
       .'" title="'
-      .l10n('See images linked to this tag only')
+      .l10n('display photos linked to this tag')
       .'">'
       .$page['tags'][$i]['name']
       .'</a>';

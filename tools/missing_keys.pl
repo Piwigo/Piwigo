@@ -24,8 +24,8 @@ load_registered_keys($type);
 # }
 
 my %ignore_keys = (
-    '%d new image' => 1,
-    '%d new images' => 1,
+    '%d new photo' => 1,
+    '%d new photos' => 1,
     '%d category updated' => 1,
     '%d categories updated' => 1,
     '%d new comment' => 1,

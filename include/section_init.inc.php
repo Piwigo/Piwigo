@@ -455,7 +455,7 @@ SELECT DISTINCT(id)
       $page,
       array(
         'title' => '<a href="'.duplicate_index_url(array('start'=>0)).'">'
-                  .l10n('Recent pictures').'</a>',
+                  .l10n('Recent photos').'</a>',
         'items' => array_from_query($query, 'id'),
         )
       );
@@ -542,7 +542,7 @@ SELECT DISTINCT(id)
       $page,
       array(
         'title' => '<a href="'.duplicate_index_url(array('start'=>0)).'">'
-                    .l10n('Random pictures').'</a>',
+                    .l10n('Random photos').'</a>',
         'items' => array_from_query($query, 'id'),
         )
       );

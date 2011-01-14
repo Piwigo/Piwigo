@@ -199,7 +199,7 @@
   <ul>
     <li>
       <label>
-        <span class="property">{'display only recently posted images'|@translate|@ucfirst|@string_format:$pwg->l10n('Activate icon "%s"')}</span>
+        <span class="property">{'display only recently posted photos'|@translate|@ucfirst|@string_format:$pwg->l10n('Activate icon "%s"')}</span>
         <input type="checkbox" name="menubar_filter_icon" {if ($display.menubar_filter_icon)}checked="checked"{/if}>
       </label>
     </li>
@@ -267,7 +267,7 @@
 
     <li>
       <label>
-        <span class="property">{'add this image to your favorites'|@translate|@ucfirst|@string_format:$pwg->l10n('Activate icon "%s"')}</span>
+        <span class="property">{'add this photo to your favorites'|@translate|@ucfirst|@string_format:$pwg->l10n('Activate icon "%s"')}</span>
         <input type="checkbox" name="picture_favorite_icon" {if ($display.picture_favorite_icon)}checked="checked"{/if}>
       </label>
     </li>
