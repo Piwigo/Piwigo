@@ -1,0 +1,117 @@
+<h2>Konfigurasjon</h2>
+
+<p>Dette skjermbildet lar administratorer gjøre standard konfigurasjon. Men, dette bildet viser bare de enkle konfigurasjons
+parametrene som bør være nok for de fleste administratorer.
+Om du ønsker å se flere (og avanserte) konfigurasjons parametere, les filen <span
+class="filename">include/config_default.inc.php</span>.</p>
+
+<p>Dette skjermbildet er delt opp i flere seksjoner, omgrupper konfigurasjons
+parametere etter temaer.</p>
+
+
+<h3>Hovedside</h3>
+<ul>
+  <li><strong>Galleri tittel</strong>: brukt i RSS mating og nyhetsbrev via email.</li>
+
+  <li><strong>Side banner</strong>: Vises på toppen av hver offentlige side.</li>
+
+  <li><strong>Galleri URL</strong>: brukes til RSS mating.</li>
+
+  <li><strong>Lås gallery</strong>: Låser hele galleriet for vedlikehold.
+  Kun administratorer brukere vil kunne nå galleriet.</li>
+
+  <li><strong>Stemming</strong>: Bilde avstemming er aktiv.</li>
+
+  <li><strong>Stemmer fra gjester</strong>: Selv uregistrerte brukere kan gi stemmer på bilder.</li>
+
+  <li><strong>Tillat bruker registrering</strong>: Alle kan registrere seg.</li>
+
+  <li><strong>Mail addresse er et krav for alle brukere</strong>: mail addresse blir sjekket ved registrering eller ved profil oppdatering,
+  unntak er om dette blir gjort av en administrator.</li>
+
+  <li><strong>Mailer administrator når en ny bruker registrerer seg</strong>: administratorer vil bli kontaktet via mail for hver registrering.</li>
+
+</ul>
+
+<h3>Historie</h3>
+
+  <p>Besøk på sider <span
+  class="pwgScreen">Album.php</span> og <span
+  class="pwgScreen">bilde.php</span> vil bli lagret i
+  <code>historie</code> tabellen.</p>
+
+  <p>Besøk vil vises i <span
+  class="pwgScreen">Administrasjon, verktøy, Historie</span>.</p>
+
+<ul>
+  <li><strong>Lagre sider besøkt av gjester</strong>: sider besøkt av gjester vil bli logget.</li>
+
+  <li><strong>Lagre sider besøkt av brukere</strong>: sider besøkt av brukere vil bli logget.</li>
+
+  <li><strong>Lagre sider besøk besøkt av administratorer</strong>: sider besøkt av administratorer vil bli logget.</li>
+
+</ul>
+
+<h3>Kommentarer</h3>
+<ul>
+
+  <li><strong>Kommentarer for alle</strong>: Selv uregistrerte gjester kan poste kommentarer.</li>
+
+  <li><strong>Antall kommentarer per side</strong>.</li>
+
+  <li><strong>Validering</strong>: en administrator må validere brukeres kommentarer før de blir synlige på siden. Brukers    kommentar validering gjøres i skjermbilde <span class="pwgScreen">Administrasjon, Verktøy,
+  Ventende kommentarer</span>.</li>
+
+  <li><strong>Email administrator når en reell kommentar blir lagt til</strong>:
+Sender en email til administratorer når en bruker legger inn en kommentar.</li>
+
+  <li><strong>Email administratorer når en kommentar trenger godkjenning</strong>:
+Sender en email til administratorer når en bruker legger inn en kommentar som krever godkjenning fra en administrator.
+Brukers kommentar godkjenning gjøres i skjermbildet <span class="pwgScreen">Administrasjon, Verktøy, Ventende kommentarer</span>.</li>
+
+</ul>
+
+<h3>Last opp</h3>
+<ul>
+  <li><strong>Viser opplastings link hver gang</strong>: Om opplastede album eksisterer, en opplasting link vil vises for hvert album.</li>
+  <li><strong>Brukers tilgangsnivå for opplasting</strong>: Begrenser opplasting til noen album til brukere</li>
+  <li><strong>Email administratorer når et bilde er lastet</strong>: Administratorer blir informert via mail hver gang et bilde blir
+    lastet opp av en bruker.</li>
+</ul>
+
+<h3>Instillinger for gjester</h3>
+
+<p>Her kan du endre visnings alternativene brukt av gjester, standad bruker som ikke er innlogget. Ved innlogging, blir disse alternativene overstyrt av brukerens egne alternativer (redigerbare i <span class="pwgScreen">profil</span>).</p>
+
+<p>Det er mulig å endre visningsalternativene for alle eksisterende brukere, gjøres via <span class="pwgScreen">Administrasjon &raquo;
+Brukere &raquo; Behandle</span> skjermbildet, hvor du kan velge en liste av brukere.</p>
+
+
+<ul>
+
+  <li><strong>Språk</strong>: Endrer kun tekst i Piwigo programmet. Album navn, bilde navn og alle beskrivende felt er ikke berørt.</li>
+
+  <li><strong>Antall bilder per rad</strong></li>
+
+  <li><strong>Antall rader per side</strong></li>
+
+<li><strong>Siste periode</strong>: Etter dager. Periode et bilde sakl vises som nytt. Må være mer en 1 dag.</li>
+
+
+  <li><strong>Vis alle album</strong>: Viser alle album som standard i menyen <em>Advarsel</em>: dette alternativet er ressurskrevende og kan generere en lang meny om ditt album tre inneholder mange album.</li>
+
+  <li><strong>Vis antall kommentarer</strong>: Viser antall kommentarer for hvert bilde i miniatyrbilde siden. Ressurs krevende.</li>
+
+  <li><strong>Vis antall hit </strong>: viser antall treff på bilder like under miniatyrbildet i miniatyrbilde siden.
+  Kun når avansert konfigurasjons parameter er satt til: <br>
+  $conf['show_nb_hits'] = true; <br>
+  Noter: false er standard.</li>
+
+  <li><strong>Bildets maksimum bredde</strong>: maksimum vist bredde. Bilder større en denne instillingen vil bli tilpasset ved visning.
+  Heller en å velge dette alternativet, bør du overveie å modifisere bredden på dine bilder; Det vil være en mye bedre kjøre regel.</li>
+
+  <li><strong>Bildets maksimum høyde</strong>: samme kjøre regler som for maksimium bredde instillinger.</li>
+
+  <li><strong>Grensesnitt tema</strong></li>
+
+</ul>
