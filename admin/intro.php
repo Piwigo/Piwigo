@@ -232,7 +232,7 @@ SELECT MIN(date_available)
     array(
       'DB_DATE' =>
       sprintf(
-        l10n('first element added on %s'),
+        l10n('first photo added on %s'),
         format_date($first_date)
         )
       )

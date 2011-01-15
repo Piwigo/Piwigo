@@ -52,7 +52,6 @@ $lang['Add/delete a permalink'] = 'اضافة/حذف الرابط الدائم';
 $lang['Add a tag'] = 'اضافة كلمة دلائلية';
 $lang['Add a user'] = 'اضافة مستخدم';
 $lang['Add group'] = 'اضافة مجموعه';
-$lang['Add selected elements to caddie'] = 'اضافة المحدد الي السلة';
 $lang['Add'] = 'أضف';
 $lang['Allow user registration'] = 'السماح للمستخدمين بالتسجيل';
 $lang['Apply to sub-albums'] = 'التطبيق على الألبوم الفرعي';
@@ -82,7 +81,6 @@ $lang['Does not represent'] = 'لا يمكن الرد';
 $lang['Edit all picture informations'] = 'تحرير معلومات جميع الصور';
 $lang['Edit selected tags'] = 'تحرير الكلمات المختارة';
 $lang['Edit tags'] = 'تحرير الكلمات الدلائلية';
-$lang['Elements'] = 'العناصر';
 $lang['Email admins when a new user registers'] = 'ارسل للمدير عند تسجيل مستخدم جديد';
 $lang['Email admins when a valid comment is entered'] = 'اعلم المدير عند اي تعليق جديد';
 $lang['Email admins when a comment requires validation'] = 'اعلم المدير للمصادقة على تعليقات جديدة';
@@ -152,7 +150,7 @@ $lang['Represents'] = 'يُـمثل';
 $lang['Save order'] = 'حفظ المطلوب';
 $lang['Save to permalink history'] = 'حفظ في سجل الرابط الدائم';
 $lang['Select at least one album'] = 'اختر على الاقل ألبوم واحد يا أخي';
-$lang['Select at least one picture'] = 'اختر على الاقل صورة واحدة يا حبيبي';
+$lang['Select at least one photo'] = 'اختر على الاقل صورة واحدة يا حبيبي';
 $lang['Select at least one user'] = 'اختر  عضوا واحد على الاقل';
 $lang['Show info'] = 'اعرض المعلومات';
 $lang['Site manager'] = 'إدارة الموقع';
@@ -210,12 +208,12 @@ $lang['Dissociate from album'] = 'فصل من الألبوم';
 $lang['dissociate from group'] = 'فصل من المجموعه';
 $lang['edit album permissions'] = 'تحرير تصاريح الألبوم';
 $lang['Album updated successfully'] = 'تم تحديث معلومات الألبومات بنجاح منقط النظير.';
-$lang['elements per page'] = 'عدد في كل صفحة';
+$lang['photos per page'] = 'عدد في كل صفحة';
 $lang['elements'] = 'عناصر';
 $lang['High definition enabled'] = 'تمكين ابعاد الارتفاع';
 $lang['File'] = 'ملف';
 $lang['Filesize'] = 'حجم الملف';
-$lang['first element added on %s'] = ' اول ما اضيف في  %s';
+$lang['first photo added on %s'] = ' اول ما اضيف في  %s';
 $lang['Forbidden'] = 'ممنوع';
 $lang['global mode'] = 'النمط الشائع';
 $lang['group "%s" added'] = 'المجموعه  "%s"  أضيفت';
@@ -226,7 +224,7 @@ $lang['The name of a group must not contain " or \' or be empty.'] = 'لا تس�
 $lang['This name is already used by another group.'] = 'هذا الاسم مستخدم من قبل مجموعه أ×خرى.';
 $lang['High definition'] = 'ابعاد الارتفاع';
 $lang['jump to album'] = 'اغفز للمجموعة';
-$lang['jump to image'] = 'اغفز للصورة';
+$lang['jump to photo'] = 'اغفز للصورة';
 $lang['leave'] = 'تـَرك';
 $lang['Lock'] = 'قفل';
 $lang['Locked'] = 'مقفول';
@@ -303,7 +301,7 @@ $lang['User %s [%s] was not added to the subscription list.'] = 'المستخد�
 $lang['User %s [%s] added.'] = 'المستخدم %s [%s]تم اضافة.';
 $lang['Warning: subscribing or unsubscribing will send mails to users'] = 'تحذير : سيتم اعلام المشتركين باالاغلاء و الاشتراك';
 $lang['Send mail on HTML format'] = 'ارسال البريد بصيغة HTML';
-$lang['Include display of recent pictures group by dates'] = 'تضمين عرض الصور الاخير حسب تاريخها';
+$lang['Include display of recent photos grouped by dates'] = 'تضمين عرض الصور الاخير حسب تاريخها';
 $lang['Available only with HTML format'] = 'متاح فقط بصيغة HTML';
 $lang['no write access'] = 'حرية التنفيذ مقيدة';
 $lang['Permissions'] = 'أذونات';
@@ -348,7 +346,6 @@ $lang['Thumbnail'] = 'المــصغرة';
 $lang['title'] = 'العنوان';
 $lang['Album list management'] = 'إدارة الألبومات';
 $lang['Piwigo configuration'] = 'تهيئة المعرض';
-$lang['Piwigo administration'] = 'أدارة المعرض';
 $lang['Edit album'] = 'تحرير الألبوم';
 $lang['Group management'] = 'ادارة المجموعات';
 $lang['User list'] = 'قائمة المستخدم';
@@ -381,7 +378,7 @@ $lang['Update images informations'] = 'تحديث معلومات الصور';
 $lang['Synchronize'] = 'التزامن';
 $lang['reduce to single existing albums'] = 'تقليص الألبومات الحاليه';
 $lang['Choose an option'] = 'اختر واحد من الخيارات';
-$lang['display maximum informations (added albums and elements, deleted albums and elements)'] = 'الحد الاقصى لعرض الملعومات (حذف ،اضافة صور او ألبومات)';
+$lang['display maximum informations (added albums and photos, deleted albums and photos)'] = 'الحد الاقصى لعرض الملعومات (حذف ،اضافة صور او ألبومات)';
 $lang['Piwigo version differs on the remote site'] = 'الاصدار في هذا الموقع مختلف عن اصدار المعرض الحالي';
 $lang['Version of create_listing_file.php on the remote site and Piwigo must be the same'] = 'يجب ان يكون اصدار create_listing_file.php على الموقع البعيد نفس الاصدار';
 $lang['listing.xml file was not found'] = 'ملف القائمة.xml غير موجود';
@@ -394,13 +391,13 @@ $lang['The file or directory cannot be accessed (either it does not exist or the
 $lang['a picture filetype requires a thumbnail. The thumbnail must be present in the sub-directory "thumbnail" of the album directory. The thumbnail filename must start with the configured thumbnail prefix and the extension must be among the following list :'] = 'صورة من الملفات تتطلب المصغرة. الصورة المصغرة يجب أن يكون موجودا في الدليل الفرعي "المصغرة" من فئة الدليل. اسم ملف الصورة المصغرة يجب أن تبدأ مع تهيئتها المصغرة البادئة والتمديد يجب أن تكون ضمن القائمة التالية :';
 $lang['missing thumbnail'] = 'مصغرات مفقودة';
 $lang['albums deleted in the database'] = 'الألبومات محذوفة من قاعدة البيانات';
-$lang['elements deleted in the database'] = 'الصور محذوفة من قاعدة البيانات';
+$lang['photos deleted from the database'] = 'الصور محذوفة من قاعدة البيانات';
 $lang['images candidates for metadata synchronization'] = 'تزامن المعلومات التفصيلة للصور المرشحه';
 $lang['elements informations synchronized with files metadata'] = 'ملعومات الصور متزامنة مع المعلومات التفصيلة للصور';
 $lang['errors during synchronization'] = 'أخطاء اثناء التزامن';
 $lang['albums added in the database'] = 'ألبومات اضيفت في قاعدة البيانات';
-$lang['elements added in the database'] = 'صور اضيفت في قاعدة البيانات';
-$lang['elements updated in the database'] = 'تم تحديث الصور في قاعدة البيانات';
+$lang['photos added in the database'] = 'صور اضيفت في قاعدة البيانات';
+$lang['photos updated in the database'] = 'تم تحديث الصور في قاعدة البيانات';
 $lang['Search for new images in the directories'] = 'البحث عن صور جديدة في الألبومات';
 $lang['added'] = 'تمت الاضافة';
 $lang['deleted'] = 'تم الحذف للاسف الشديد';
@@ -411,7 +408,7 @@ $lang['directories + files'] = 'مجلدات + ملفات';
 $lang['only directories'] = 'فقط المجلدات';
 $lang['synchronize files structure with database'] = 'مزامنة الملفات مع هيكل قاعدة البيانات';
 $lang['synchronize files metadata with database elements informations'] = 'مزامنة الملعومات التفصيلة مع الصور الموجودة في قاعدة البيانات';
-$lang['even already synchronized elements'] = 'سبق التزامن مع الصور';
+$lang['even already synchronized photos'] = 'سبق التزامن مع الصور';
 $lang['Used metadata'] = 'معومات التفصيلة مُـستخدمة';
 $lang['The name of directories and files must be composed of letters, numbers, "-", "_" or "."'] = '	
 اسم الأدلة والملفات يجب أن تكون مكونة من الحروف والأرقام ، "--" ، "_" أو "."';
@@ -495,11 +492,10 @@ $lang['Main "webmaster" user does not exist'] = 'الرئيسية "مدير ال
 $lang['Main "webmaster" user status is incorrect'] = 'الرئيسية حالة مدير الموقع " غير موجودة';
 $lang['User "%s" created with "%s" like password'] = 'المستخدم "%s" أنشأ مع  "%s" مثل كلمة المرور';
 $lang['Status of user "%s" updated'] = 'تم نحديث حالة المستخدم"%s" ';
-$lang['add new elements to caddie'] = 'اضف صور جديدة الى السلة';
+$lang['add new photos to caddie'] = 'اضف صور جديدة الى السلة';
 $lang['No display'] = 'لم يعرض';
 $lang['Classic display'] = 'عرض عادي';
 $lang['Hoverbox display'] = 'عرض مربعات عائمة';
-$lang['Thumbnails'] = 'Tعمل المصغرات';
 $lang['Mail address is obligatory for all users'] = 'عنوان البريد الإلكتروني إلزامي لجميع المستخدمين';
 $lang['Minimum privacy level'] = 'الحد الأدنى لمستوى الخصوصية';
 $lang['Privacy level'] = 'مستوى الخصوصية';
@@ -574,8 +570,8 @@ $lang['Modify information'] = 'تعديل المعلومات';
 $lang['edit album'] = 'تحرير ملعومات الالبوم';
 $lang['nothing'] = 'لا شيء';
 $lang['overrides existing values with empty ones'] = 'استبدل القيم الموجودة بقيم فارغة';
-$lang['manage image ranks'] = 'إدارة ترتيب الصور';
-$lang['Manage image ranks'] = 'إدارة ترتيب الصور';
+$lang['manage photo ranks'] = 'إدارة ترتيب الصور';
+$lang['Manage photo ranks'] = 'إدارة ترتيب الصور';
 $lang['Edit ranks'] = 'تحرير الترتيب';
 $lang['No element in this album'] = 'لا يوجد صور في الالبوم';
 $lang['Images manual order was saved'] = 'تم حفظ الصور المطلوبة يديويا';
@@ -596,7 +592,7 @@ $lang['Subscribe %s to Piwigo Announcements Newsletter'] = 'اشترك  %s لـ 
 $lang['Purge search history'] = 'معالجة احصائيات البحث';
 $lang['Hide'] = 'أخفاء';
 $lang['Menu Management'] = 'القائمة الرئيسية';
-$lang['Processing treatment.'] = 'معالجة العرض';
+$lang['Operation in progress'] = 'معالجة العرض';
 $lang['Please wait...'] = 'لحظات الانتظار أشغلها بالإستغفار ..';
 $lang['By rank'] = 'حسب المنزلة';
 $lang['Manual order'] = 'دليل النظام';

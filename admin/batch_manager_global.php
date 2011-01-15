@@ -89,7 +89,7 @@ if (isset($_POST['submit']))
   // photo in the selection
   if (count($collection) == 0)
   {
-    array_push($page['errors'], l10n('Select at least one picture'));
+    array_push($page['errors'], l10n('Select at least one photo'));
   }
 
   $action = $_POST['selectAction'];

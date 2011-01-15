@@ -62,7 +62,7 @@ jQuery(document).ready(function(){
       </tr>
       <tr>
         <td>
-          <label>{'Include display of recent pictures group by dates'|@translate}</label>
+          <label>{'Include display of recent photos grouped by dates'|@translate}</label>
           <br><i><small>{'Available only with HTML format'|@translate}</small></i>
         </td>
         <td>

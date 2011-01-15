@@ -33,7 +33,7 @@ jQuery(document).ready(function() {
 <form action="{$F_ACTION}" method="POST">
 <fieldset>
   <legend>{'Display options'|@translate}</legend>
-  <p>{'elements per page'|@translate} :
+  <p>{'photos per page'|@translate} :
       <a href="{$U_ELEMENTS_PAGE}&amp;display=5">5</a>
     | <a href="{$U_ELEMENTS_PAGE}&amp;display=10">10</a>
     | <a href="{$U_ELEMENTS_PAGE}&amp;display=50">50</a>

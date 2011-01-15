@@ -28,7 +28,7 @@ pwg_initialization_datepicker("#date_creation_day", "#date_creation_month", "#da
 
 <ul class="categoryActions">
   {if isset($U_JUMPTO) }
-  <li><a href="{$U_JUMPTO}" title="{'jump to image'|@translate}"><img src="{$themeconf.admin_icon_dir}/category_jump-to.png" class="button" alt="{'jump to image'|@translate}"></a></li>
+  <li><a href="{$U_JUMPTO}" title="{'jump to photo'|@translate}"><img src="{$themeconf.admin_icon_dir}/category_jump-to.png" class="button" alt="{'jump to photo'|@translate}"></a></li>
   {/if}
   {if !url_is_remote($PATH)}
   <li><a href="{$U_SYNC}" title="{'synchronize'|@translate}"><img src="{$themeconf.admin_icon_dir}/sync_metadata.png" class="button" alt="{'synchronize'|@translate}"></a></li>

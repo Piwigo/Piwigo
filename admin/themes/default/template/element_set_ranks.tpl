@@ -16,7 +16,7 @@ jQuery(document).ready(function() {
 });
 {/literal}{/footer_script}
 
-<h2>{'Manage image ranks'|@translate}</h2>
+<h2>{'Manage photo ranks'|@translate}</h2>
 
 <h3>{$CATEGORIES_NAV}</h3>
 

@@ -9,10 +9,10 @@
 <h3>{$L_RESULT_UPDATE}</h3>
 <ul>
   <li class="update_summary_new">{$update_result.NB_NEW_CATEGORIES} {'albums added in the database'|@translate}</li>
-  <li class="update_summary_new">{$update_result.NB_NEW_ELEMENTS} {'elements added in the database'|@translate}</li>
+  <li class="update_summary_new">{$update_result.NB_NEW_ELEMENTS} {'photos added in the database'|@translate}</li>
   <li class="update_summary_del">{$update_result.NB_DEL_CATEGORIES} {'albums deleted in the database'|@translate}</li>
-  <li class="update_summary_del">{$update_result.NB_DEL_ELEMENTS} {'elements deleted in the database'|@translate}</li>
-  <li>{$update_result.NB_UPD_ELEMENTS} {'elements updated in the database'|@translate}</li>
+  <li class="update_summary_del">{$update_result.NB_DEL_ELEMENTS} {'photos deleted from the database'|@translate}</li>
+  <li>{$update_result.NB_UPD_ELEMENTS} {'photos updated in the database'|@translate}</li>
   <li class="update_summary_err">{$update_result.NB_ERRORS} {'errors during synchronization'|@translate}</li>
 </ul>
 {/if}
@@ -67,8 +67,8 @@
 
 			<li><label><input type="radio" name="sync" value="files" {if 'files'==$introduction.sync}checked="checked"{/if}> {'directories + files'|@translate}</label>
 				<ul style="padding-left:3em">
-					<li><label><input type="checkbox" name="display_info" value="1" {if $introduction.display_info}checked="checked"{/if}> {'display maximum informations (added albums and elements, deleted albums and elements)'|@translate}</label></li>
-					<li><label><input type="checkbox" name="add_to_caddie" value="1" {if $introduction.add_to_caddie}checked="checked"{/if}> {'add new elements to caddie'|@translate}</label></li>
+					<li><label><input type="checkbox" name="display_info" value="1" {if $introduction.display_info}checked="checked"{/if}> {'display maximum informations (added albums and photos, deleted albums and photos)'|@translate}</label></li>
+					<li><label><input type="checkbox" name="add_to_caddie" value="1" {if $introduction.add_to_caddie}checked="checked"{/if}> {'add new photos to caddie'|@translate}</label></li>
 					<li><label>{'Who can see these photos?'|@translate} <select name="privacy_level">{html_options options=$introduction.privacy_level_options selected=$introduction.privacy_level_selected}</select></label></li>
 				</ul>
 			</li>
@@ -80,7 +80,7 @@
 		<label><input type="checkbox" name="sync_meta" {if $introduction.sync_meta}checked="checked"{/if}> {'synchronize metadata'|@translate} ({$METADATA_LIST})</label>
 		<ul style="padding-left:3em">
 	  		<li>
-	  			<label><input type="checkbox" name="meta_all" {if $introduction.meta_all}checked="checked"{/if}> {'even already synchronized elements'|@translate}</label>
+	  			<label><input type="checkbox" name="meta_all" {if $introduction.meta_all}checked="checked"{/if}> {'even already synchronized photos'|@translate}</label>
 	  		</li>
 	  		<li>
 	  			<label><input type="checkbox" name="meta_empty_overrides" {if $introduction.meta_empty_overrides}checked="checked"{/if}> {'overrides existing values with empty ones'|@translate}</label>

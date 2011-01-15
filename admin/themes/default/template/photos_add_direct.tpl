@@ -271,7 +271,7 @@ var sizeLimit = {$upload_max_filesize};
 <div id="formErrors" class="errors" style="display:none">
   <ul>
     <li id="emptyCategoryName">{'The name of an album must not be empty'|@translate}</li>
-    <li id="noPhoto">{'Select at least one picture'|@translate}</li>
+    <li id="noPhoto">{'Select at least one photo'|@translate}</li>
   </ul>
   <div class="hideButton" style="text-align:center"><a href="#" id="hideErrors">{'Hide'|@translate}</a></div>
 </div>

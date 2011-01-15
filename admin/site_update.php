@@ -476,7 +476,7 @@ SELECT id, path
         $insert_links
         );
 
-      // add new elements to caddie
+      // add new photos to caddie
       if (isset($_POST['add_to_caddie']) and $_POST['add_to_caddie'] == 1)
       {
         fill_caddie($caddiables);

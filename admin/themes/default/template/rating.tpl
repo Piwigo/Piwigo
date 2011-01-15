@@ -1,4 +1,4 @@
-<h2>{'elements'|@translate} [{$NB_ELEMENTS} {'elements'|@translate}]</h2>
+<h2>{$NB_ELEMENTS} {'Photos'|@translate}</h2>
 
 <form action="{$F_ACTION}" method="GET" id="update" class="filter">
   <fieldset>
