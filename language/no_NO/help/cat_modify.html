@@ -1,0 +1,134 @@
+<h2>Rediger album</h2>
+
+<h3>Informasjon</h3>
+
+<ul>
+
+  <li><strong>navn</strong>: gi nytt navn til album (en virtuell navneendring om dette er et fysisk album).</li>
+
+  <li><strong>Beskrivelse</strong>: kort tekst som gir en ide om innholdet,
+  denne teksten vil vises i bunnen av miniatyr bildene.</li>
+
+</ul>
+
+<h3>Flytte</h3>
+
+<p>Om albumet er virtuelt, kan du flytte det. Flytting av album betyr å endre dets tillhørende mappe/album.</p>
+
+<h3>Alternativer</h3>
+
+<ul>
+
+  <li><strong>Tilgangstype type</strong>: Rettighets behandler. Om du gjør et album privat, vil alle dens under albums også bli
+
+private.
+   Om du gjør et album tilgjengelig for alle, vil alle bundne album bli tilgjengelig for alle.</li>
+
+  <li><strong>Lås</strong>: Albumet og dets under-album vil bli midlertidig utilgjengelig for vedlikehold .</li>
+
+  <li><strong>Comments</strong>: Autoriser brukere for å kunne kommentere dette albumet.</li>
+
+  <li><strong>Autoriser opplastinger</strong>: Autoriser brukere til å laste opp bilde filer. Dette alternativet er kun
+
+tilgjengelig for fysiske (ikke virtuelle) album.</li>
+
+</ul>
+
+<p>Du kan også redigere disse alternativene via "egenskaper" i
+Album menyen (Arkfane <span class="pwgScreen">Last opp</span>, <span
+class="pwgScreen">Kommentarer</span>, <span class="pwgScreen">Lås</span>,
+<span class="pwgScreen">Offentlig/Privat</span>, <span
+class="pwgScreen">Alternativer</span> tilgjengelig fra <span
+class="pwgScreen">Administrasjon &raquo; Album &raquo; Egenskaper</span>).</p>
+
+<h3>Sorterings rekkefølge</h3>
+
+<p>Bruk standard bilde sorterings rekkefølge.</p>
+
+<p>Indikerer om denne sortering rekkefølgen vil gjelde under album også.</p>
+
+<p>Velg spesifiserte sorterings rekkefølge på disse album.</p>
+<ul>
+<li><strong>Opprettelses dato</strong>: Dato for når bilder er tatt</li>
+<li><strong>Post dato</strong>: Synkroniserings dato</li>
+<li><strong>Gjennomsnittlige rangering (*)</strong>: Gjennomsittlig rangering kan bli endret av besøkendes rangering </li>
+<li><strong>Mest besøkte (*)</strong>: Det forrige besøket kan endre mest besøkte rekkefølgen</li>
+<li><strong>Fil navn</strong>: Navn som er satt i informasjons feltet</li>
+<li><strong>Id</strong>: Intern Id (siste album har en høyere id en den før der igjen.</li>
+
+</ul>
+<p><strong>(*)</strong>Advarsel: Vær nøye med å test dise sorterings rekkefølgene selv da de kan gi uventede resultater.</p>
+
+
+<h3>Representanter</h3>
+
+<p>Albumets representat er miniatyr bildet som vises på hoved siden (<span class="pwgScreen">category.php</span>) for å
+
+representere albumet når det kun består av under album og ingen bilder direkte(akkurat som et grunn album).</p>
+Bilder fra et album :</p>
+
+<ul>
+
+  <li><span class="pwgScreen">Bilde side</span>: en av knappene lar deg sette gjeldende bilde som representant for gjeldende
+
+vist album. Knappen er kun synlig for administratorer.</li>
+
+  <li><span class="pwgScreen">Endre informasjon om et bilde</span> i
+  administrasjon. Dette skjermbildet kan nåes fra <span
+  class="pwgScreen">bilder.php</span> eller <span class="pwgScreen">Batch
+  behandler</span> i <em>unit modus</em>. Se hjelpefilen på dette skjermbildet for detaljer.</li>
+
+  <li><span class="pwgScreen">Administrasjon &raquo; Album &raquo; Egenskaper,
+  Representanter</span>. Se hjelpefilen på dette skjermbildet for detaljer.</li>
+
+  <li><span class="pwgScreen">Rediger album</span> (forrige skjermbilde).</li>
+
+</ul>
+
+<p>Valget for en representant avhenger av <code>allow_random_representative</code> konfigurasjons parametere (se <span
+class="filename">include/config_default.inc.php</span>).</p>
+
+<p>I standard modus (<code>godkjenn_tilfeldig_representativer</code> satt til usant(false)),
+vil hvert album som inneholder minst et element bli representert av et satt
+ellement. Når dette er satt (ved album opprettelse), vil representanten kun endres når en administrator ber om det.
+Om det representative bildet ikke passer,
+kan du få et nytt bilde i<strong>Finn en ny tilfeldig representant</strong>.</p>
+
+<p>Om <code>godkjenn_tilfeldig-representant</code> konfigurasjons parametere er sat til sant, kan en kategori bestående av
+
+bilder ikke ha noen satt representant. Bare bruk <strong>Slett representant</strong> knappen.</p>
+
+<p>Om albumet består av kun under album og ingen bilder, kan det alikevell bli representert av hvilket som helst element takket
+
+være <span class="pwgScreen">Endre informasjon om bildet</span> skjermbildet. Det eneste alterantivet på gjeldende skjermbilde
+
+er <strong>Slett representant</strong> knappen.</
+
+
+<h3>Link alle album elementer til et nytt album</h3>
+
+<ul>
+
+<li><strong>Virtuelle album navn</strong>: Navnet på det nye albumet som blir laget,
+alle bilder i det forrige albumet vil bli linket til det nye.</li>
+
+<li><strong>Forrige album</strong>: Hvor det nye albumet vil være,
+La dette være tomt for å legge den på root.</li>
+
+</ul>
+
+<h3>Link alle album bilder til eksisterende albums</h3>
+
+<ul>
+
+<li><strong>Album</strong>: Velg hvor albumet skal ligge.</li>
+
+</ul>
+
+<h3>Send en informasjons email til gruppe medlemmer</h3>
+
+<ul>
+
+<li><strong>Gruppe</strong>: tilgjengelige grupper</li>
+
+<li><strong>Mail innhold</strong>: Fri tekst som skal sendes.</li>
