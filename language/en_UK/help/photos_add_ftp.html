@@ -8,7 +8,7 @@
 
   <li>With a FTP client, copy your directory in the "galleries" directory of your Piwigo installation.</li>
 
-  <li>Logon your gallery and go to <span class="pwgScreen">Administration &raquo; Pictures &raquo; Thumbnails</span> to create missing thumbnails.</li>
+  <li>Logon your gallery and go to <span class="pwgScreen">Administration &raquo; Tools &raquo; Thumbnails</span> to create missing thumbnails.</li>
 
   <li>Go to <span class="pwgScreen">Administration</span> and click on the big Synchronization button.</li>
 </ol>
@@ -63,7 +63,7 @@ Congratulations! You have successfully created the first album of your photo gal
 
   </li>
 
-  <li>Except for those named "thumbnail", "pwg-high" or "pwg_representative" (see explanations below), each directory under "galleries" produces a category. There is no limit on deepness.</li>
+  <li>Except for those named "thumbnail", "pwg-high" or "pwg_representative" (see explanations below), each directory under "galleries" produces a album. There is no limit on deepness.</li>
 
   <li>Basically, an element is represented by a file. A file can be a
   Piwigo element if its extension is among <code>file_ext</code>
@@ -72,20 +72,20 @@ Congratulations! You have successfully created the first album of your photo gal
   be a picture if its extension is among <code>picture_ext</code>
   configuration parameter possibilities.</li>
 
-  <li>Picture elements must have an associated thumbnail (see section below
+  <li>Photo elements must have an associated thumbnail (see section below
   about thumbnails)</li>
 
-  <li>Picture elements can have a high quality file associated. As for
+  <li>Photo elements can have a high quality file associated. As for
   wedding.jpg in the example above. No prefix on the high quality picture.</li>
 
-  <li>Non picture elements (video, sounds, file texts, whatever you want...) are represented by default by an icon corresponding to the filename
+  <li>No photo elements (video, sounds, file texts, whatever you want...) are represented by default by an icon corresponding to the filename
   extension. Optionally, you can associate a thumbnail and a representative
   file (see video.avi in the example above).</li>
 
   <li><em>Warning</em>: the name of directories and files must contain only letters, figures, "-", "_" or ".". No blank space, nor accentuated characters.</li>
 
   <li>Once files, thumbnails and representatives are correctly placed in the
-  directories, go to: <span class="pwgScreen">Administration &raquo; Categories &raquo;
+  directories, go to: <span class="pwgScreen">Administration &raquo; Tools &raquo;
   Synchronize</span></li>
 
 </ul>
@@ -97,7 +97,7 @@ Congratulations! You have successfully created the first album of your photo gal
 
   <li>Each photo must have its thumbnail.</li>
 
-  <li>Thumbnails are stored in the "thumbnail" sub-directory of the category
+  <li>Thumbnails are stored in the "thumbnail" sub-directory of the album
   directory. The thumbnail has the same filename as the corresponding photo, with configuration parameter <code>prefix_thumbnail</code> as prefix (see <span class="filename">include/config.inc.php</span>).</li>
 
   <li>Thumbnails files have not necessary the same extension as the associated image (eg a ".jpg" image may have a ".GIF" extension).</li>
@@ -106,7 +106,7 @@ Congratulations! You have successfully created the first album of your photo gal
 
   <li>The usage of the thumbnails creation tool integrated in Piwigo is not advisable, because the resulting quality might be disappointing and this will lie heavily on the server ressources (and that could be a serious problem on a shared server).
 
-  <li>If you choose to use the webserver to generate thumbnails, you must allow write access on all category directories.</li>
+  <li>If you choose to use the webserver to generate thumbnails, you must allow write access on all albums directories.</li>
 
 </ul>
 </fieldset>
