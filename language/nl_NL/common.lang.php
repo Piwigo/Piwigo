@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | Piwigo - a PHP based picture gallery                                  |
 // +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2010 Piwigo Team                  http://piwigo.org |
+// | Copyright(C) 2008-2011 Piwigo Team                  http://piwigo.org |
 // | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
 // | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
 // +-----------------------------------------------------------------------+
@@ -54,7 +54,7 @@ $lang['Average rate'] = 'Gemiddelde waardering';
 $lang['Albums'] = 'Categorieën';
 $lang['Album'] = 'Categorie';
 $lang['Close this window'] = 'Sluit dit venster';
-$lang['Complete RSS feed (images, comments)'] = 'Complete RSS feed (afbeeldingen, commentaar)';
+$lang['Complete RSS feed (photos, comments)'] = 'Complete RSS feed (afbeeldingen, commentaar)';
 $lang['Confirm Password'] = 'Bevestig wachtwoord';
 $lang['Connection settings'] = 'Verbindings-instellingen';
 $lang['Login'] = 'Verbinding';
@@ -79,7 +79,7 @@ $lang['Forgot your password?'] = 'Wachtwoord vergeten?';
 $lang['Go through the gallery as a visitor'] = 'Ga naar de galerie als gast';
 $lang['Help'] = 'Help';
 $lang['Identification'] = 'Administratie';
-$lang['Image only RSS feed'] = 'Alleen RSS feed mbt afbeeldingen';
+$lang['Photos only RSS feed'] = 'Alleen RSS feed mbt afbeeldingen';
 $lang['Keyword'] = 'Sleutelwoord';
 $lang['Links'] = 'Links';
 $lang['N/A'] = 'Niet bekend';
@@ -114,7 +114,7 @@ $lang['Sort by'] = 'Sorteren op';
 $lang['Sort order'] = 'Sorteervolgorde';
 $lang['Tag'] = 'Tag';
 $lang['Tags'] = 'Tags';
-$lang['The RSS notification feed provides notification on news from this website : new pictures, updated albums, new comments. Use a RSS feed reader.'] = 'De RSS feed geeft meldingen als er nieuws is op deze website: nieuwe afbeeldingen, bijgewerkte categorieën, nieuw commentaar. Gebruik hiervoor een rss lezer.';
+$lang['The RSS notification feed provides notification on news from this website : new photos, updated albums, new comments. Use a RSS feed reader.'] = 'De RSS feed geeft meldingen als er nieuws is op deze website: nieuwe afbeeldingen, bijgewerkte categorieën, nieuw commentaar. Gebruik hiervoor een rss lezer.';
 $lang['Unknown feed identifier'] = 'Onbekende feed identifier';
 $lang['User comments'] = 'Gebruikers-commentaar';
 $lang['Username'] = 'Gebruikersnaam';
@@ -202,12 +202,12 @@ $lang['Last'] = 'Laatste';
 $lang['Logout'] = 'Loguit';
 $lang['E-mail address'] = 'Email-adres';
 $lang['obligatory'] = 'verplicht';
-$lang['Maximum height of the pictures'] = 'Maximale hoogte van de afbeelding';
+$lang['Maximum photo height'] = 'Maximale hoogte van de afbeelding';
 $lang['Maximum height must be a number superior to 50'] = 'Maximale hoogte moet meer zijn dan 50';
-$lang['Maximum width of the pictures'] = 'Maximale breedte van de afbeelding';
+$lang['Maximum photo width'] = 'Maximale breedte van de afbeelding';
 $lang['Maximum width must be a number superior to 50'] = 'Maximale breedte moet meer zijn dan 50';
 $lang['display a calendar by creation date'] = 'Toon afbeeldingen gesorteerd op aanmaakdatum';
-$lang['display all elements in all sub-albums'] = 'Toon alle afbeeldingen in alle sub-categorieën';
+$lang['display all photos in all sub-albums'] = 'Toon alle afbeeldingen in alle sub-categorieën';
 $lang['return to normal view mode'] = 'Terug naar de standaardweergave';
 $lang['display a calendar by posted date'] = 'Toon afbeeldingen gesorteerd op plaatsingsdatum';
 $lang['month'][10] = 'Oktober';
@@ -224,8 +224,8 @@ $lang['month'][8] = 'Augustus';
 $lang['month'][9] = 'September';
 $lang['Most visited'] = 'Meest bekeken';
 $lang['display most visited photos'] = 'Toon de meest bekeken afbeelding';
-$lang['The number of images per row must be a not null scalar'] = 'Het aantal afbeeldingen per rij mag geen ongeldige deling zijn';
-$lang['Number of images per row'] = 'Aantal afbeeldingen per rij';
+$lang['The number of photos per row must be a not null scalar'] = 'Het aantal afbeeldingen per rij mag geen ongeldige deling zijn';
+$lang['Number of photos per row'] = 'Aantal afbeeldingen per rij';
 $lang['The number of rows per page must be a not null scalar'] = 'Het aantal rijen per pagina mag geen ongeldige deling zijn';
 $lang['Number of rows per page'] = 'Aantal rijen per pagina';
 $lang['Unknown identifier'] = 'Onbekend herkenningsteken';
@@ -233,12 +233,12 @@ $lang['New password'] = 'Nieuw wachtwoord';
 $lang['Rate this photo'] = 'Waardeer deze afbeelding';
 $lang['Next'] = 'Volgende';
 $lang['no rate'] = 'geen waardering';
-$lang['Elements posted within the last %d day.'] = 'Toon alleen afbeeldingen geplaatst in de laatste %s dag.';
-$lang['Elements posted within the last %d days.'] = 'Toon alleen afbeeldingen geplaatst in de laatste %s dagen.';
+$lang['Photos posted within the last %d day.'] = 'Toon alleen afbeeldingen geplaatst in de laatste %s dag.';
+$lang['Photos posted within the last %d days.'] = 'Toon alleen afbeeldingen geplaatst in de laatste %s dagen.';
 $lang['password updated'] = 'wachtwoord bijgewerkt';
 $lang['Recent period must be a positive integer value'] = 'Recente periode moet een positieve waarde zijn';
-$lang['picture'] = 'afbeelding';
-$lang['Click on the picture to see it in high definition'] = 'Klik op de afbeelding om het te bekijken in een groter formaat';
+$lang['photo'] = 'afbeelding';
+$lang['Click on the photo to see it in high definition'] = 'Klik op de afbeelding om het te bekijken in een groter formaat';
 $lang['Show file metadata'] = 'Toon bestands metadata';
 $lang['Powered by'] = 'Powered by';
 $lang['Preferences'] = 'Voorkeuren';
@@ -357,8 +357,6 @@ $lang['Reset to default values'] = 'Reset naar standaardwaarden';
 $lang['delete all photos from your favorites'] = 'verwijder al de afbeeldingen van uw favorieten';
 $lang['Sent by'] = 'Verstuurd door';
 $lang['Cookies are blocked or not supported by your browser. You must enable cookies to connect.'] = 'Cookies worden geblokkeerd of worden niet ondersteund door uw browser. Om verbinding te kunnen maken dient u er voor te zorgen dat het gebruik van cookies mogelijk is.';
-$lang['Some info about this picture'] = 'Enige informatie over deze afbeelding';
-$lang['Some more (technical) info about this picture'] = 'Nog wat meer (technische) informatie over deze afbeelding';
 $lang['edit this comment'] = 'Dit commentaar wijzigen';
 $lang['Edit a comment'] = 'een commentaar wijzigen';
 $lang['(!) This comment requires validation'] = '(!) Dit commentaar moet nog gevakideerd worden';

@@ -41,8 +41,8 @@
 		</a></li>
 {/if}
 {if isset($U_MODE_FLAT)}
-		<li><a href="{$U_MODE_FLAT}" title="{'display all elements in all sub-albums'|@translate}" class="pwg-state-default pwg-button" rel="nofollow">
-			<span class="pwg-icon pwg-icon-category-view-flat">&nbsp;</span><span class="pwg-button-text">{'display all elements in all sub-albums'|@translate}</span>
+		<li><a href="{$U_MODE_FLAT}" title="{'display all photos in all sub-albums'|@translate}" class="pwg-state-default pwg-button" rel="nofollow">
+			<span class="pwg-icon pwg-icon-category-view-flat">&nbsp;</span><span class="pwg-button-text">{'display all photos in all sub-albums'|@translate}</span>
 		</a></li>
 {/if}
 {if isset($U_MODE_NORMAL)}

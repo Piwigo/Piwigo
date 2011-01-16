@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | Piwigo - a PHP based picture gallery                                  |
 // +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2010 Piwigo Team                  http://piwigo.org |
+// | Copyright(C) 2008-2011 Piwigo Team                  http://piwigo.org |
 // | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
 // | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
 // +-----------------------------------------------------------------------+
@@ -53,7 +53,7 @@ $lang['Average rate'] = 'Velocitat mitjana';
 $lang['Albums'] = 'Categories';
 $lang['Album'] = 'Categoria';
 $lang['Close this window'] = 'Tanca aquesta finestra';
-$lang['Complete RSS feed (images, comments)'] = 'Canal RSS complet (imatges, comentaris)';
+$lang['Complete RSS feed (photos, comments)'] = 'Canal RSS complet (imatges, comentaris)';
 $lang['Confirm Password'] = 'Confirma la contrasenya';
 $lang['Connection settings'] = 'Paràmetres de connexió';
 $lang['Login'] = 'Inici de sessió';
@@ -77,7 +77,7 @@ $lang['Forgot your password?'] = 'Has oblidat la contrasenya?';
 $lang['Go through the gallery as a visitor'] = 'Entra a la galeria com a visitant';
 $lang['Help'] = 'Ajuda';
 $lang['Identification'] = 'Identificació';
-$lang['Image only RSS feed'] = 'Canal RSS només d\imatges';
+$lang['Photos only RSS feed'] = 'Canal RSS només d\imatges';
 $lang['Keyword'] = 'Paraula clau';
 $lang['Links'] = 'Enllaços';
 $lang['N/A'] = 'N/A';
@@ -112,7 +112,7 @@ $lang['Sort by'] = 'Ordena per';
 $lang['Sort order'] = 'Ordenar';  //??
 $lang['Tag'] = 'Etiqueta';
 $lang['Tags'] = 'Etiquetes';
-$lang['The RSS notification feed provides notification on news from this website : new pictures, updated albums, new comments. Use a RSS feed reader.'] = 'Els avisos per canal RSS aporten avisos de notícies d\'aquest lloc web : imatges noves, categories actualitzades, comentaris nous. Utilitzeu un lector de canal de RSS.';
+$lang['The RSS notification feed provides notification on news from this website : new photos, updated albums, new comments. Use a RSS feed reader.'] = 'Els avisos per canal RSS aporten avisos de notícies d\'aquest lloc web : imatges noves, categories actualitzades, comentaris nous. Utilitzeu un lector de canal de RSS.';
 $lang['Unknown feed identifier'] = 'Identificador de canal desconegut';
 $lang['User comments'] = 'Comentaris dels usuaris';
 $lang['Username'] = 'Nom d\'usuari';
@@ -198,12 +198,12 @@ $lang['Last'] = 'Última';
 $lang['Logout'] = 'Sortida';
 $lang['E-mail address'] = 'Adreça de correu electrònic';
 $lang['obligatory'] = 'Obligatori';
-$lang['Maximum height of the pictures'] = 'Alçada màxima de les imatges';
+$lang['Maximum photo height'] = 'Alçada màxima de les imatges';
 $lang['Maximum height must be a number superior to 50'] = 'L\'alçada màxima ha de ser un número superior a 50';
-$lang['Maximum width of the pictures'] = 'Amplada màxima de les imatges';
+$lang['Maximum photo width'] = 'Amplada màxima de les imatges';
 $lang['Maximum width must be a number superior to 50'] = 'L\'amplada màxima ha de ser un número superior a 50';
 $lang['display a calendar by creation date'] = 'visualitza un calendari per data de creació';
-$lang['display all elements in all sub-albums'] = 'visualitza tots els elements de totes les sub-categories';
+$lang['display all photos in all sub-albums'] = 'visualitza tots els elements de totes les sub-categories';
 $lang['return to normal view mode'] = 'Torna a la vista normal';
 $lang['display a calendar by posted date'] = 'visualitza un calendari per data de publicació';
 $lang['month'][10] = 'Octubre';
@@ -220,8 +220,8 @@ $lang['month'][8] = 'Agost';
 $lang['month'][9] = 'Setembre';
 $lang['Most visited'] = 'Més visitades';
 $lang['display most visited photos'] = 'visualitza les imatges més visitades';
-$lang['The number of images per row must be a not null scalar'] = 'El nombre d\'imatges per fila ha de ser un escalar no nul';
-$lang['Number of images per row'] = 'Nombre d\'imatges per fila';
+$lang['The number of photos per row must be a not null scalar'] = 'El nombre d\'imatges per fila ha de ser un escalar no nul';
+$lang['Number of photos per row'] = 'Nombre d\'imatges per fila';
 $lang['The number of rows per page must be a not null scalar'] = 'El nombre de files per pàgina ha de ser un escalar no nul';
 $lang['Number of rows per page'] = 'Nombre de files per pàgina';
 $lang['Unknown identifier'] = 'identificador desconegut';
@@ -230,12 +230,12 @@ $lang['Rate this photo'] = 'Valoreu aquesta imatge';
 $lang['Next'] = 'Següent';
 $lang['Home'] = 'Inici';
 $lang['no rate'] = 'no valorada';
-$lang['Elements posted within the last %d day.'] = 'Elements publicats en els últims %d dies.';
-$lang['Elements posted within the last %d days.'] = 'Elements publicats en els últims %d dies.';
+$lang['Photos posted within the last %d day.'] = 'Elements publicats en els últims %d dies.';
+$lang['Photos posted within the last %d days.'] = 'Elements publicats en els últims %d dies.';
 $lang['password updated'] = 'contrasenya actualitzada';
 $lang['Recent period must be a positive integer value'] = 'El periode recent ha de ser un valor enter positiu';
-/* DEPRECATED USED IN comments.php FOR image_id ? */ $lang['picture'] = 'imatge';
-$lang['Click on the picture to see it in high definition'] = 'Cliqueu sobre la imatge per veure-la en alta definició.';
+/* DEPRECATED USED IN comments.php FOR image_id ? */ $lang['photo'] = 'imatge';
+$lang['Click on the photo to see it in high definition'] = 'Cliqueu sobre la imatge per veure-la en alta definició.';
 $lang['Show file metadata'] = 'Mostra el fitxer de les metadades';
 $lang['Powered by'] = 'Impulsat per';
 $lang['Preferences'] = 'Preferències';
@@ -355,8 +355,6 @@ $lang['delete all photos from your favorites'] = 'elimina totes les imatges de l
 $lang['Sent by'] = 'Enviat per';
 $lang['Cookies are blocked or not supported by your browser. You must enable cookies to connect.'] = 'Les galetes estan bloquejades o el navegador no en permet l\'ús. Heu d\'habilitar les galetes per poder-vos connectar.';
 
-$lang['Some info about this picture'] = "Una mica d'informació sobre aquesta imatge";
-$lang['Some more (technical) info about this picture'] = "Una mica més d'informació (tècnica) sobre aquesta imatge";
 $lang['edit this comment'] = "edita aquest comentari";
 $lang['Edit a comment'] = "Edita un comentari";
 

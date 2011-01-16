@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | Piwigo - a PHP based picture gallery                                  |
 // +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2010 Piwigo Team                  http://piwigo.org |
+// | Copyright(C) 2008-2011 Piwigo Team                  http://piwigo.org |
 // | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
 // | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
 // +-----------------------------------------------------------------------+
@@ -54,7 +54,7 @@ $lang['Average rate'] = '平均評価';
 $lang['Albums'] = 'カテゴリ';
 $lang['Album'] = 'カテゴリ';
 $lang['Close this window'] = 'このウィンドウを閉じる';
-$lang['Complete RSS feed (images, comments)'] = '完全なRSSフィード (イメージ、コメント)';
+$lang['Complete RSS feed (photos, comments)'] = '完全なRSSフィード (イメージ、コメント)';
 $lang['Confirm Password'] = 'パスワードをもう一度';
 $lang['Connection settings'] = '接続設定';
 $lang['Login'] = 'ログイン';
@@ -79,7 +79,7 @@ $lang['Forgot your password?'] = 'パスワードを忘れましたか?';
 $lang['Go through the gallery as a visitor'] = 'ビジターとしてギャラリーにアクセスする';
 $lang['Help'] = 'ヘルプ';
 $lang['Identification'] = 'アイデンティフィケーション';
-$lang['Image only RSS feed'] = 'イメージ限定RSSフィード';
+$lang['Photos only RSS feed'] = 'イメージ限定RSSフィード';
 $lang['Keyword'] = 'キーワード';
 $lang['Links'] = 'リンク';
 $lang['N/A'] = 'なし';
@@ -114,7 +114,7 @@ $lang['Sort by'] = '並び替え';
 $lang['Sort order'] = '並び順';
 $lang['Tag'] = 'タグ';
 $lang['Tags'] = 'タグ';
-$lang['The RSS notification feed provides notification on news from this website : new pictures, updated albums, new comments. Use a RSS feed reader.'] = 'RSS通知フィードでは、このウェブサイトからニュースを通知します : 新しい写真、更新カテゴリ、新しいコメント。RSSフィードリーダーをお使いください。';
+$lang['The RSS notification feed provides notification on news from this website : new photos, updated albums, new comments. Use a RSS feed reader.'] = 'RSS通知フィードでは、このウェブサイトからニュースを通知します : 新しい写真、更新カテゴリ、新しいコメント。RSSフィードリーダーをお使いください。';
 $lang['Unknown feed identifier'] = '不明なフィードIDです。';
 $lang['User comments'] = 'ユーザコメント';
 $lang['Username'] = 'ユーザ名';
@@ -201,12 +201,12 @@ $lang['Last'] = '最後へ';
 $lang['Logout'] = 'ログアウト';
 $lang['E-mail address'] = 'メールアドレス';
 $lang['obligatory'] = '必須';
-$lang['Maximum height of the pictures'] = '写真の最大高';
+$lang['Maximum photo height'] = '写真の最大高';
 $lang['Maximum height must be a number superior to 50'] = '最大高は、50以上に設定してください。';
-$lang['Maximum width of the pictures'] = '写真の最大幅';
+$lang['Maximum photo width'] = '写真の最大幅';
 $lang['Maximum width must be a number superior to 50'] = '最大幅は、50以上に設定してください。';
 $lang['display a calendar by creation date'] = '作成日のカレンダーを表示する';
-$lang['display all elements in all sub-albums'] = 'すべてのサブカテゴリのエレメント表示する';
+$lang['display all photos in all sub-albums'] = 'すべてのサブカテゴリのエレメント表示する';
 $lang['return to normal view mode'] = 'ノーマルビューモードに戻る';
 $lang['display a calendar by posted date'] = '投稿日のカレンダーを表示する';
 $lang['month'][10] = '10月';
@@ -223,8 +223,8 @@ $lang['month'][8] = '8月';
 $lang['month'][9] = '9月';
 $lang['Most visited'] = '最多アクセス';
 $lang['display most visited photos'] = '最もアクセスされた写真を表示します。';
-$lang['The number of images per row must be a not null scalar'] = '1行あたりのイメージ数には、空白以外の値を設定してください。';
-$lang['Number of images per row'] = '1行あたりのイメージ数';
+$lang['The number of photos per row must be a not null scalar'] = '1行あたりのイメージ数には、空白以外の値を設定してください。';
+$lang['Number of photos per row'] = '1行あたりのイメージ数';
 $lang['The number of rows per page must be a not null scalar'] = '1ページあたりの行数には、空白以外の値を設定してください。';
 $lang['Number of rows per page'] = '1ページあたりの行数';
 $lang['Unknown identifier'] = '不明なID';
@@ -232,12 +232,12 @@ $lang['New password'] = '新しいパスワード';
 $lang['Rate this photo'] = 'この写真を評する';
 $lang['Next'] = '次へ';
 $lang['no rate'] = '評価なし';
-$lang['Elements posted within the last %d day.'] = '直近 %d 日に投稿されたエレメントのみ表示します。';
-$lang['Elements posted within the last %d days.'] = '直近 %d 日に投稿されたエレメントのみ表示します。';
+$lang['Photos posted within the last %d day.'] = '直近 %d 日に投稿されたエレメントのみ表示します。';
+$lang['Photos posted within the last %d days.'] = '直近 %d 日に投稿されたエレメントのみ表示します。';
 $lang['password updated'] = 'パスワードが更新されました。';
 $lang['Recent period must be a positive integer value'] = '最近の期間には正の整数を設定してください。';
-/* DEPRECATED USED IN comments.php FOR image_id ? */ $lang['picture'] = '写真';
-$lang['Click on the picture to see it in high definition'] = '高解像度の写真を表示するには、写真をクリックしてください。';
+/* DEPRECATED USED IN comments.php FOR image_id ? */ $lang['photo'] = '写真';
+$lang['Click on the photo to see it in high definition'] = '高解像度の写真を表示するには、写真をクリックしてください。';
 $lang['Show file metadata'] = 'ファイルメタデータを表示する';
 $lang['Powered by'] = 'Powered by';
 $lang['Preferences'] = 'プリファレンス';
@@ -355,8 +355,6 @@ $lang['Reset to default values'] = 'デフォルトにリセットする';
 $lang['delete all photos from your favorites'] = 'お気に入りから画像を全て削除する。';
 $lang['Sent by'] = 'Sent by';
 $lang['Cookies are blocked or not supported by your browser. You must enable cookies to connect.'] = 'あなたのブラウザーでは、クッキーの設定が有効にされていません。ブラウザのクッキーが有効になっていることも確認しておいてください。';
-$lang['Some info about this picture'] = 'この写真による情報';
-$lang['Some more (technical) info about this picture'] = 'この写真の詳細情報';
 $lang['edit this comment'] = 'このコメントに編集';
 $lang['Edit a comment'] = 'コメントを編集';
 $lang['(!) This comment requires validation'] = '(!) このコメントは有効が必要';

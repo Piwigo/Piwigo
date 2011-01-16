@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | Piwigo - a PHP based picture gallery                                  |
 // +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2010 Piwigo Team                  http://piwigo.org |
+// | Copyright(C) 2008-2011 Piwigo Team                  http://piwigo.org |
 // | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
 // | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
 // +-----------------------------------------------------------------------+
@@ -96,7 +96,7 @@ $lang['month'][9] = 'September';
 $lang['Albums'] = 'Album';
 $lang['Album'] = 'Album';
 $lang['Close this window'] = 'Lukk dette vinduet';
-$lang['Complete RSS feed (images, comments)'] = 'Komplett RSS mating (bilder, kommentarer)';
+$lang['Complete RSS feed (photos, comments)'] = 'Komplett RSS mating (bilder, kommentarer)';
 $lang['Confirm Password'] = 'Bekreft Passord';
 $lang['Connection settings'] = 'Tilkoblings innstillinger';
 $lang['Login'] = 'Logg inn';
@@ -120,7 +120,7 @@ $lang['Forgot your password?'] = 'Glemt passord?';
 $lang['Go through the gallery as a visitor'] = 'Naviger galleriet som gjest';
 $lang['Help'] = 'Hjelp';
 $lang['Identification'] = 'Identifikasjon';
-$lang['Image only RSS feed'] = 'Bare bilder RSS feed';
+$lang['Photos only RSS feed'] = 'Bare bilder RSS feed';
 $lang['Keyword'] = 'Nøkkelord';
 $lang['Links'] = 'Linker';
 $lang['N/A'] = 'N/A';
@@ -176,7 +176,7 @@ $lang['Sort by'] = 'Sorter etter';
 $lang['Sort order'] = 'Sorter alfabetisk';
 $lang['Tag'] = 'Ord';
 $lang['Tags'] = 'Ord';
-$lang['The RSS notification feed provides notification on news from this website : new pictures, updated albums, new comments. Use a RSS feed reader.'] = 'RSS mater gir varsling om nye aktiviteter fra denne web siden: nye bilder, oppdaterte album, nye kommentarer. For å bli brukt i en RSS leser.';
+$lang['The RSS notification feed provides notification on news from this website : new photos, updated albums, new comments. Use a RSS feed reader.'] = 'RSS mater gir varsling om nye aktiviteter fra denne web siden: nye bilder, oppdaterte album, nye kommentarer. For å bli brukt i en RSS leser.';
 $lang['Unknown feed identifier'] = 'ukjent mater gjenkjenner';
 $lang['User comments'] = 'Bruker kommentarer';
 $lang['Username'] = 'Brukernavn';
@@ -255,18 +255,18 @@ $lang['Last'] = 'Sist';
 $lang['Logout'] = 'Logg ut';
 $lang['E-mail address'] = 'E-mail addresse';
 $lang['obligatory'] = 'obligatorisk';
-$lang['Maximum height of the pictures'] = 'Bildets maksimum høyde';
+$lang['Maximum photo height'] = 'Bildets maksimum høyde';
 $lang['Maximum height must be a number superior to 50'] = 'Maksimum høyde må være et tall større en 50';
-$lang['Maximum width of the pictures'] = 'Bildets maksimums bredde';
+$lang['Maximum photo width'] = 'Bildets maksimums bredde';
 $lang['Maximum width must be a number superior to 50'] = 'Maksimum bredde må være et tall større en 50';
 $lang['display a calendar by creation date'] = 'vis en kalender fra opprettelses dato';
-$lang['display all elements in all sub-albums'] = 'vis alle elementer i alle grunn-albumer';
+$lang['display all photos in all sub-albums'] = 'vis alle elementer i alle grunn-albumer';
 $lang['return to normal view mode'] = 'tilbake til normalvisning';
 $lang['display a calendar by posted date'] = 'vis en kalender etter dato postet';
 $lang['Most visited'] = 'Mest besøkte';
 $lang['display most visited photos'] = 'vis mest besøkte bilder';
-$lang['The number of images per row must be a not null scalar'] = 'Antall bilder per rad må være større en null';
-$lang['Number of images per row'] = 'Antall bilder per rad';
+$lang['The number of photos per row must be a not null scalar'] = 'Antall bilder per rad må være større en null';
+$lang['Number of photos per row'] = 'Antall bilder per rad';
 $lang['The number of rows per page must be a not null scalar'] = 'Antall rader per side må være større en null';
 $lang['Number of rows per page'] = 'Antall rader per side';
 $lang['Unknown identifier'] = 'Ukjent identifier';
@@ -274,12 +274,12 @@ $lang['New password'] = 'Nytt passord';
 $lang['Rate this photo'] = 'Gi karakter på dette bildet';
 $lang['Next'] = 'Neste';
 $lang['no rate'] = 'ingen karakter';
-$lang['Elements posted within the last %d day.'] = 'Elementer posted kun de % siste dager.';
-$lang['Elements posted within the last %d days.'] = 'Elementer posted kun de % siste dager.';
+$lang['Photos posted within the last %d day.'] = 'Elementer posted kun de % siste dager.';
+$lang['Photos posted within the last %d days.'] = 'Elementer posted kun de % siste dager.';
 $lang['password updated'] = 'passord oppdatert';
 $lang['Recent period must be a positive integer value'] = 'Siste periode må være en positiv verdi';
-$lang['picture'] = 'bilde';
-$lang['Click on the picture to see it in high definition'] = 'Klikk på bildet for å se det i høy oppløsning';
+$lang['photo'] = 'bilde';
+$lang['Click on the photo to see it in high definition'] = 'Klikk på bildet for å se det i høy oppløsning';
 $lang['Show file metadata'] = 'Vis filens metadata';
 $lang['Powered by'] = 'Drevet av';
 $lang['Preferences'] = 'Referanser';
@@ -349,8 +349,6 @@ $lang['Name of the picture'] = 'Bilde navn';
 $lang['Picture uploaded with success, an administrator will validate it as soon as possible'] = 'Bildet er lastet opp, en administrator vil godkjenne det så snart som mulig';
 $lang['Album: %s'] = 'Album: %s';
 $lang['Album results for'] = 'Album results for';
-$lang['Some info about this picture'] = 'Informatson om dette bildet';
-$lang['Some more (technical) info about this picture'] = 'Mer (teknisk) informasjon om dette bildet';
 $lang['edit this comment'] = 'Endre denne kommentaren';
 $lang['Edit a comment'] = 'Endre en kommentar';
 $lang['Are you sure?'] = 'Er du sikker?';

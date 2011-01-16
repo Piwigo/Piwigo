@@ -46,7 +46,7 @@
     <ul>
       <li>
         <span class="property">
-          <label for="nb_image_line">{'Number of images per row'|@translate}</label>
+          <label for="nb_image_line">{'Number of photos per row'|@translate}</label>
         </span>
         <input type="text" size="3" maxlength="2" name="nb_image_line" id="nb_image_line" value="{$NB_IMAGE_LINE}">
       </li>
@@ -88,13 +88,13 @@
       </li>
       <li>
         <span class="property">
-          <label for="Maximum width of the pictures">{'Maximum width of the pictures'|@translate}</label>
+          <label for="maxwidth">{'Maximum photo width'|@translate}</label>
         </span>
         <input type="text" size="4" maxlength="4" name="maxwidth" id="maxwidth" value="{$MAXWIDTH}">
       </li>
       <li>
         <span class="property">
-          <label for="Maximum height of the pictures">{'Maximum height of the pictures'|@translate}</label>
+          <label for="maxheight">{'Maximum photo height'|@translate}</label>
         </span>
         <input type="text" size="4" maxlength="4" name="maxheight" id="maxheight" value="{$MAXHEIGHT}">
       </li>

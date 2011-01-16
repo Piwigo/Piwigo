@@ -7,5 +7,5 @@
 	{/if}>
 {if isset($high) }
 </a>
-  <p>{'Click on the picture to see it in high definition'|@translate}</p>
+  <p>{'Click on the photo to see it in high definition'|@translate}</p>
 {/if}

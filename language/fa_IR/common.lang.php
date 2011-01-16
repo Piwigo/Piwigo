@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | Piwigo - a PHP based picture gallery                                  |
 // +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2010 Piwigo Team                  http://piwigo.org |
+// | Copyright(C) 2008-2011 Piwigo Team                  http://piwigo.org |
 // | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
 // | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
 // +-----------------------------------------------------------------------+
@@ -54,7 +54,7 @@ $lang['Average rate'] = "Average rate";
 $lang['Albums'] = "دسته‌ها";
 $lang['Album'] = "دسته";
 $lang['Close this window'] = "بستن این پنجره";
-$lang['Complete RSS feed (images, comments)'] = "خوراک RSS کامل (عکس ها, نظرات)";
+$lang['Complete RSS feed (photos, comments)'] = "خوراک RSS کامل (عکس ها, نظرات)";
 $lang['Confirm Password'] = "تایید گذرواژه";
 $lang['Connection settings'] = "تنظیمات اتصال";
 $lang['Login'] = "ورود";
@@ -78,7 +78,7 @@ $lang['Forgot your password?'] = "گذرواژه خود را فراموش کرد
 $lang['Go through the gallery as a visitor'] = "هدایت بازدید کننده به گالری";
 $lang['Help'] = "کمک";
 $lang['Identification'] = "شناسایی";
-$lang['Image only RSS feed'] = "Images only RSS feed";
+$lang['Photos only RSS feed'] = "Images only RSS feed";
 $lang['Keyword'] = "کلید واژه‌ها";
 $lang['Links'] = "لینک‌ها";
 $lang['N/A'] = "N/A";
@@ -113,7 +113,7 @@ $lang['Sort by'] = "مرتب سازی با";
 $lang['Sort order'] = "Sort order";
 $lang['Tag'] = "برچسب";
 $lang['Tags'] = "برچسب‌ها";
-$lang['The RSS notification feed provides notification on news from this website : new pictures, updated albums, new comments. Use a RSS feed reader.'] = "سرویس‌دهنده جدید RSS جدیدترین چیزهای سایت شما را از قبیل عکس‌های جدید ، دسته‌های بروز رسنای شده ‌، نظرات جدید را با یک خواننده RSS نمایش می‌دهد.";
+$lang['The RSS notification feed provides notification on news from this website : new photos, updated albums, new comments. Use a RSS feed reader.'] = "سرویس‌دهنده جدید RSS جدیدترین چیزهای سایت شما را از قبیل عکس‌های جدید ، دسته‌های بروز رسنای شده ‌، نظرات جدید را با یک خواننده RSS نمایش می‌دهد.";
 $lang['Unknown feed identifier'] = "خوراک خور شناسایی نشد!";
 $lang['User comments'] = "نطرات کاربران";
 $lang['Username'] = "نام‌کاربری";
@@ -200,12 +200,12 @@ $lang['Last'] = "آخرین";
 $lang['Logout'] = "خروج";
 $lang['E-mail address'] = "آدرس ایمیل";
 $lang['obligatory'] = "اجباری";
-$lang['Maximum height of the pictures'] = "حداکثر طول تصویر";
+$lang['Maximum photo height'] = "حداکثر طول تصویر";
 $lang['Maximum height must be a number superior to 50'] = "حداکثر طول تصویر باید عددی بزرگتر از 50 باشد";
-$lang['Maximum width of the pictures'] = "حداکثر عرض تصویر";
+$lang['Maximum photo width'] = "حداکثر عرض تصویر";
 $lang['Maximum width must be a number superior to 50'] = "حداکثر عرض تصویر باید عددی بزرگتر از 50 باشد";
 $lang['display a calendar by creation date'] = "نمایش یک تقویم بر اساس تاریخ ایجاد";
-$lang['display all elements in all sub-albums'] = "نمایش تمام تصاویر";
+$lang['display all photos in all sub-albums'] = "نمایش تمام تصاویر";
 $lang['return to normal view mode'] = "بازگشت به حالت عادی";
 $lang['display a calendar by posted date'] = "نمایش یک تقویم براساس تاریخ ارسال";
 $lang['month'][10] = "اکتبر";
@@ -222,8 +222,8 @@ $lang['month'][8] = "آگوست";
 $lang['month'][9] = "سپتامبر";
 $lang['Most visited'] = "بیشترین بازدید";
 $lang['display most visited photos'] = "نمایش عکس‌هایی که بیشترین بازدید را داشته‌اند.";
-$lang['The number of images per row must be a not null scalar'] = "تعداد عکس‌هایی که در هر سطر نمایش داده می‌شود که باید یک عدد غیر صفر باشد.";
-$lang['Number of images per row'] = "تعداد عکس‌هایی که در هر سطر نمایش داده می‌شود";
+$lang['The number of photos per row must be a not null scalar'] = "تعداد عکس‌هایی که در هر سطر نمایش داده می‌شود که باید یک عدد غیر صفر باشد.";
+$lang['Number of photos per row'] = "تعداد عکس‌هایی که در هر سطر نمایش داده می‌شود";
 $lang['The number of rows per page must be a not null scalar'] = "تعداد عکس‌هایی که در هر صفحه نمایش داده می‌شود که باید یک عدد غیر صفر باشد.";
 $lang['Number of rows per page'] = "تعداد عکس‌هایی که در هر صفحه نمایش داده می‌شود";
 $lang['Unknown identifier'] = "ناشناخته!";
@@ -231,12 +231,12 @@ $lang['New password'] = "گذرواژه جدید";
 $lang['Rate this photo'] = "امتیاز دادن به این تصویر";
 $lang['Next'] = "بعدی";
 $lang['no rate'] = "بدون امتیاز";
-$lang['Elements posted within the last %d day.'] = "فقط پست‌هایی را نمایش بده که در %d روز قبل ارسال شده‌اند.";
-$lang['Elements posted within the last %d days.'] = "فقط پست‌هایی را نمایش بده که در %d روز قبل ارسال شده‌اند.";
+$lang['Photos posted within the last %d day.'] = "فقط پست‌هایی را نمایش بده که در %d روز قبل ارسال شده‌اند.";
+$lang['Photos posted within the last %d days.'] = "فقط پست‌هایی را نمایش بده که در %d روز قبل ارسال شده‌اند.";
 $lang['password updated'] = "گذرواژه بروزرسانی شد";
 $lang['Recent period must be a positive integer value'] = "Recent period must be a positive integer value";
-$lang['picture'] = "عکس";
-$lang['Click on the picture to see it in high definition'] = "روی تصاویر کلیک کنید تا آن‌ها را با بالاترین کیفیت مشاهده نمایید.";
+$lang['photo'] = "عکس";
+$lang['Click on the photo to see it in high definition'] = "روی تصاویر کلیک کنید تا آن‌ها را با بالاترین کیفیت مشاهده نمایید.";
 $lang['Show file metadata'] = "نمایش فایل ابرداده(metadata)";
 $lang['Powered by'] = "به قدرت رسیده توسط";
 $lang['Preferences'] = "تنظیمات";
@@ -351,8 +351,6 @@ $lang['delete all photos from your favorites'] = "حذف تمام تصاویر �
 $lang['Sent by'] = "ارسال به وسیله";
 $lang['Cookies are blocked or not supported by your browser. You must enable cookies to connect.'] = "شما در تنظیمات مرورگر خود کوکی ها را بلاک کردید یا مرورگر شما از کوکی پشتیبانی نمی‌کند. برای ورود به محیط کاربری باید کوکی‌ها فعال باشند.";
 
-$lang['Some info about this picture'] = "اطلاعات این تصویر";
-$lang['Some more (technical) info about this picture'] = "اطلاعات اضافی درباره‌ی این تصویر";
 $lang['edit this comment'] = "ویرایش این نظر";
 $lang['Edit a comment'] = "ویرایش یک نظر";
 $lang['Are you sure?'] = "شما مطمئن هستید؟";

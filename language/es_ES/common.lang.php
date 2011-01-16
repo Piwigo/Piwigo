@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | Piwigo - a PHP based picture gallery                                  |
 // +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2010 Piwigo Team                  http://piwigo.org |
+// | Copyright(C) 2008-2011 Piwigo Team                  http://piwigo.org |
 // | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
 // | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
 // +-----------------------------------------------------------------------+
@@ -54,7 +54,7 @@ $lang['Average rate'] = 'Valoración promedio';
 $lang['Albums'] = 'Albums';
 $lang['Album'] = 'Álbum';
 $lang['Close this window'] = 'Cerrar la ventana';
-$lang['Complete RSS feed (images, comments)'] = 'Flujo RSS completo (imágenes, comentarios)';
+$lang['Complete RSS feed (photos, comments)'] = 'Flujo RSS completo (imágenes, comentarios)';
 $lang['Confirm Password'] = 'Confirmar la contraseña';
 $lang['Connection settings'] = 'Datos de conexión';
 $lang['Login'] = 'Identificarse';
@@ -79,7 +79,7 @@ $lang['Forgot your password?'] = '¿Olvidó su contraseña?';
 $lang['Go through the gallery as a visitor'] = 'Recorrer la galería como visitante';
 $lang['Help'] = 'Ayuda';
 $lang['Identification'] = 'Identificación';
-$lang['Image only RSS feed'] = 'Contenido RSS: sólo imagen';
+$lang['Photos only RSS feed'] = 'Contenido RSS: sólo imagen';
 $lang['Keyword'] = 'Palabra clave';
 $lang['Links'] = 'Enlaces';
 $lang['N/A'] = 'no disponible';
@@ -114,7 +114,7 @@ $lang['Sort by'] = 'Clasificar según';
 $lang['Sort order'] = 'Orden de Clasificación';
 $lang['Tag'] = 'Etiqueta';
 $lang['Tags'] = 'Etiquetas';
-$lang['The RSS notification feed provides notification on news from this website : new pictures, updated albums, new comments. Use a RSS feed reader.'] = 'El flujo RSS notifica los eventos de la galeria : fotos nuevas, àlbumes actualizados, nuevos comentarios usuario. Para utilizar con un lecteur de flujo RSS.';
+$lang['The RSS notification feed provides notification on news from this website : new photos, updated albums, new comments. Use a RSS feed reader.'] = 'El flujo RSS notifica los eventos de la galeria : fotos nuevas, àlbumes actualizados, nuevos comentarios usuario. Para utilizar con un lecteur de flujo RSS.';
 $lang['Unknown feed identifier'] = 'Identificador de RSS desconocido';
 $lang['User comments'] = 'Comentarios del usuario';
 $lang['Username'] = 'Nombre del usuario';
@@ -201,12 +201,12 @@ $lang['Last'] = 'Última página';
 $lang['Logout'] = 'Desconexión';
 $lang['E-mail address'] = $lang['Email address'];
 $lang['obligatory'] = 'obligatorio';
-$lang['Maximum height of the pictures'] = 'Altura máxima de las imágenes';
+$lang['Maximum photo height'] = 'Altura máxima de las imágenes';
 $lang['Maximum height must be a number superior to 50'] = 'La altura máxima de las imágenes no debe ser superioror a 50';
-$lang['Maximum width of the pictures'] = 'Ancho máxima de las imágenes';
+$lang['Maximum photo width'] = 'Ancho máxima de las imágenes';
 $lang['Maximum width must be a number superior to 50'] = 'El ancho máximo de las imágenes no debe ser superior a 50';
 $lang['display a calendar by creation date'] = 'mostrar las imágenes en un calendario, por fecha de subida';
-$lang['display all elements in all sub-albums'] = 'Ver todas las fotos de los abumes y sub-albumes';
+$lang['display all photos in all sub-albums'] = 'Ver todas las fotos de los abumes y sub-albumes';
 $lang['return to normal view mode'] = 'Volver a la vista normal';
 $lang['display a calendar by posted date'] = 'Mostrar las imágenes en un calendario por fecha de agregación';
 $lang['month'][10] = 'Octubre';
@@ -223,8 +223,8 @@ $lang['month'][8] = 'Agosto';
 $lang['month'][9] = 'Septiembre';
 $lang['Most visited'] = 'Imágenes más vistas';
 $lang['display most visited photos'] = 'mostrar las imágenes más vistas';
-$lang['The number of images per row must be a not null scalar'] = 'El número de imágenes por línea debe ser un número entero no nulo';
-$lang['Number of images per row'] = 'Número de miniaturas por línea';
+$lang['The number of photos per row must be a not null scalar'] = 'El número de imágenes por línea debe ser un número entero no nulo';
+$lang['Number of photos per row'] = 'Número de miniaturas por línea';
 $lang['The number of rows per page must be a not null scalar'] = 'El número de líneas por página debe ser un numero entero no nulo';
 $lang['Number of rows per page'] = 'Número de líneas por pagina';
 $lang['Unknown identifier'] = 'Identificador desconocido';
@@ -232,12 +232,12 @@ $lang['New password'] = 'Nueva contraseña';
 $lang['Rate this photo'] = 'De una calificación a esta imagen';
 $lang['Next'] = 'Página siguiente';
 $lang['no rate'] = 'no valorada';
-$lang['Elements posted within the last %d day.'] = 'Sólo muestra las imágenes incorporadas desde el día %d .';
-$lang['Elements posted within the last %d days.'] = 'Sólo muestra las imágenes incorporadas desde los últimos %d dias.';
+$lang['Photos posted within the last %d day.'] = 'Sólo muestra las imágenes incorporadas desde el día %d .';
+$lang['Photos posted within the last %d days.'] = 'Sólo muestra las imágenes incorporadas desde los últimos %d dias.';
 $lang['password updated'] = 'contraseña actualizada';
 $lang['Recent period must be a positive integer value'] = 'El período debe ser un número entero positivo';
-$lang['picture'] = 'imagen';
-$lang['Click on the picture to see it in high definition'] = 'Hacer clic sobre la imagen para verla en alta resolución';
+$lang['photo'] = 'imagen';
+$lang['Click on the photo to see it in high definition'] = 'Hacer clic sobre la imagen para verla en alta resolución';
 $lang['Show file metadata'] = 'Mostrar los meta-datos del fichero';
 $lang['Powered by'] = 'Distribuido por';
 $lang['Preferences'] = 'Preferencias';
@@ -356,8 +356,6 @@ $lang['Cookies are blocked or not supported by your browser. You must enable coo
 $lang['delete all photos from your favorites'] = 'Suprimir todas las imágenes de sus favoritos';
 $lang['Are you sure?'] = '¿Seguro?';
 $lang['delete this comment'] = 'Borrar este comentario';
-$lang['Some info about this picture'] = 'Informaciones sobre esta imagen';
-$lang['Some more (technical) info about this picture'] = 'Informaciones (técnicas) sobre esta imagen';
 $lang['edit this comment'] = 'editar este comentario';
 $lang['Edit a comment'] = 'Editar un comentario';
 $lang['(!) This comment requires validation'] = '(!) Este comentario debe ser validado';

@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | Piwigo - a PHP based picture gallery                                  |
 // +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2010 Piwigo Team                  http://piwigo.org |
+// | Copyright(C) 2008-2011 Piwigo Team                  http://piwigo.org |
 // | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
 // | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
 // +-----------------------------------------------------------------------+
@@ -54,7 +54,7 @@ $lang['Average rate'] = 'Средний балл';
 $lang['Albums'] = 'Альбомы';
 $lang['Album'] = 'Альбом';
 $lang['Close this window'] = 'Закрыть это окно';
-$lang['Complete RSS feed (images, comments)'] = 'Полная RSS лента (фотографии, комментарии)';
+$lang['Complete RSS feed (photos, comments)'] = 'Полная RSS лента (фотографии, комментарии)';
 $lang['Confirm Password'] = 'Повторите пароль';
 $lang['Connection settings'] = 'Настройки соединения';
 $lang['Login'] = 'Авторизация';
@@ -79,7 +79,7 @@ $lang['Forgot your password?'] = 'Забыли пароль?';
 $lang['Go through the gallery as a visitor'] = 'Войти в галерею как посетитель';
 $lang['Help'] = 'Помощь';
 $lang['Identification'] = 'Идентификация';
-$lang['Image only RSS feed'] = 'RSS лента только с фотографиями';
+$lang['Photos only RSS feed'] = 'RSS лента только с фотографиями';
 $lang['Keyword'] = 'Ключевые слова';
 $lang['Links'] = 'Ссылки';
 $lang['N/A'] = 'не определен';
@@ -114,7 +114,7 @@ $lang['Sort by'] = 'Признак сортировки';
 $lang['Sort order'] = 'Порядок сортировки';
 $lang['Tag'] = 'Слово';
 $lang['Tags'] = 'Ключевые слова';
-$lang['The RSS notification feed provides notification on news from this website : new pictures, updated albums, new comments. Use a RSS feed reader.'] = 'Канал RSS обеспечивает уведомление о новых событиях на сайте: новые изображения, обновленные альбомы, новые комментарии. Читается RSS читалкой.';
+$lang['The RSS notification feed provides notification on news from this website : new photos, updated albums, new comments. Use a RSS feed reader.'] = 'Канал RSS обеспечивает уведомление о новых событиях на сайте: новые изображения, обновленные альбомы, новые комментарии. Читается RSS читалкой.';
 $lang['Unknown feed identifier'] = 'Неизвестный идентификатор ленты';
 $lang['User comments'] = 'Комментарии посетителей';
 $lang['Username'] = 'Имя пользователя';
@@ -202,12 +202,12 @@ $lang['Last'] = 'Последняя';
 $lang['Logout'] = 'Выход';
 $lang['E-mail address'] = 'E-mail адрес';
 $lang['obligatory'] = 'обязательный';
-$lang['Maximum height of the pictures'] = 'Максимальная высота изображения';
+$lang['Maximum photo height'] = 'Максимальная высота изображения';
 $lang['Maximum height must be a number superior to 50'] = 'Максимальная высота изображения должна быть больше 50';
-$lang['Maximum width of the pictures'] = 'Максимальная ширина изображения';
+$lang['Maximum photo width'] = 'Максимальная ширина изображения';
 $lang['Maximum width must be a number superior to 50'] = 'Максимальная ширина изображения должна быть больше 50';
 $lang['display a calendar by creation date'] = 'показывает календарь по дате создания';
-$lang['display all elements in all sub-albums'] = 'показать все элементы во всех альбомах и всех вложенных альбомах';
+$lang['display all photos in all sub-albums'] = 'показать все элементы во всех альбомах и всех вложенных альбомах';
 $lang['return to normal view mode'] = 'возвращение к нормальному режиму';
 $lang['display a calendar by posted date'] = 'показывает календарь по дате отправления';
 $lang['month'][10] = 'Октябрь';
@@ -224,8 +224,8 @@ $lang['month'][8] = 'Август';
 $lang['month'][9] = 'Сентябрь';
 $lang['Most visited'] = 'По популярности';
 $lang['display most visited photos'] = 'показать наиболее популярные фотографии';
-$lang['The number of images per row must be a not null scalar'] = 'Число фотографий в строке должно быть не нулевым целым положительным';
-$lang['Number of images per row'] = 'Число фотографий в строке';
+$lang['The number of photos per row must be a not null scalar'] = 'Число фотографий в строке должно быть не нулевым целым положительным';
+$lang['Number of photos per row'] = 'Число фотографий в строке';
 $lang['The number of rows per page must be a not null scalar'] = 'Число строк на странице должно быть не нулевым целым положительным';
 $lang['Number of rows per page'] = 'Число строк на странице';
 $lang['Unknown identifier'] = 'Неизвестный идентификатор';
@@ -233,12 +233,12 @@ $lang['New password'] = 'Новый пароль';
 $lang['Rate this photo'] = 'Оцените это изображение';
 $lang['Next'] = 'Следующая';
 $lang['no rate'] = 'не оценено';
-$lang['Elements posted within the last %d day.'] = 'Показывает только фотографии, опубликованные за последние %s дня.';
-$lang['Elements posted within the last %d days.'] = 'Показывает только фотографии, опубликованные за последние %s дней.';
+$lang['Photos posted within the last %d day.'] = 'Показывает только фотографии, опубликованные за последние %s дня.';
+$lang['Photos posted within the last %d days.'] = 'Показывает только фотографии, опубликованные за последние %s дней.';
 $lang['password updated'] = 'пароль изменен';
 $lang['Recent period must be a positive integer value'] = 'Последний период должен быть положительным целым числом';
-/* DEPRECATED USED IN comments.php FOR image_id ? */ $lang['picture'] = 'изображение';
-$lang['Click on the picture to see it in high definition'] = 'Нажмите на изображение, чтобы увидеть его в большом разрешении';
+/* DEPRECATED USED IN comments.php FOR image_id ? */ $lang['photo'] = 'изображение';
+$lang['Click on the photo to see it in high definition'] = 'Нажмите на изображение, чтобы увидеть его в большом разрешении';
 $lang['Show file metadata'] = 'Показать метаданные';
 $lang['Powered by'] = 'Скрипт';
 $lang['Preferences'] = 'Предпочтение';
@@ -356,8 +356,6 @@ $lang['Reset to default values'] = 'Восстановить значения п
 $lang['delete all photos from your favorites'] = 'удалить все изображения из избранных';
 $lang['Sent by'] = 'Отправить';
 $lang['Cookies are blocked or not supported by your browser. You must enable cookies to connect.'] = 'Ваш браузер не поддерживает или блокирует куки. Разрешите использовать куки в настройках.';
-$lang['Some info about this picture'] = 'Информация об изображении';
-$lang['Some more (technical) info about this picture'] = 'Информация об изображении (техническая)';
 $lang['edit this comment'] = 'редактировать этот комментарий';
 $lang['Edit a comment'] = 'Редактировать комментарий';
 $lang['(!) This comment requires validation'] = '(!) Этот комментарий ждет проверки';

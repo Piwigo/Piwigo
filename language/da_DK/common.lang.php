@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | Piwigo - a PHP based picture gallery                                  |
 // +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2010 Piwigo Team                  http://piwigo.org |
+// | Copyright(C) 2008-2011 Piwigo Team                  http://piwigo.org |
 // | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
 // | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
 // +-----------------------------------------------------------------------+
@@ -54,7 +54,7 @@ $lang['Average rate'] = 'Gennemsnitlig karakter';
 $lang['Albums'] = 'kategorier';
 $lang['Album'] = 'kategori';
 $lang['Close this window'] = 'Luk dette vindue';
-$lang['Complete RSS feed (images, comments)'] = 'Komplet RSS feed (fotos, kommentarer)';
+$lang['Complete RSS feed (photos, comments)'] = 'Komplet RSS feed (fotos, kommentarer)';
 $lang['Confirm Password'] = 'Bekræft Password';
 $lang['Connection settings'] = 'Connection settings';
 $lang['Login'] = 'Login';
@@ -79,7 +79,7 @@ $lang['Forgot your password?'] = 'Glemt dit password?';
 $lang['Go through the gallery as a visitor'] = 'Kig i galleriet som gæst';
 $lang['Help'] = 'Hjælp';
 $lang['Identification'] = 'Identifikation';
-$lang['Image only RSS feed'] = 'Kun foto RSS feed';
+$lang['Photos only RSS feed'] = 'Kun foto RSS feed';
 $lang['Keyword'] = 'Nøgleord';
 $lang['Links'] = 'Links';
 $lang['N/A'] = 'N/A';
@@ -114,7 +114,7 @@ $lang['Sort by'] = 'Sorter ';
 $lang['Sort order'] = 'Sorterings orden';
 $lang['Tag'] = 'Tag';
 $lang['Tags'] = 'Tags';
-$lang['The RSS notification feed provides notification on news from this website : new pictures, updated albums, new comments. Use a RSS feed reader.'] = 'RSS feed giver besked om nyheder fra denne side : nye fotos, opdaterede kategorier, nye kommentarer. Brug em RSS læser.';
+$lang['The RSS notification feed provides notification on news from this website : new photos, updated albums, new comments. Use a RSS feed reader.'] = 'RSS feed giver besked om nyheder fra denne side : nye fotos, opdaterede kategorier, nye kommentarer. Brug em RSS læser.';
 $lang['Unknown feed identifier'] = 'Ukendt feed identifikation';
 $lang['User comments'] = 'Bruger kommentarer';
 $lang['Username'] = 'Brugernavn';
@@ -202,12 +202,12 @@ $lang['Last'] = 'Sidste';
 $lang['Logout'] = 'Logout';
 $lang['E-mail address'] = 'E-mail addresse';
 $lang['obligatory'] = 'obligatorisk';
-$lang['Maximum height of the pictures'] = 'Maksimum højde på fotos';
+$lang['Maximum photo height'] = 'Maksimum højde på fotos';
 $lang['Maximum height must be a number superior to 50'] = 'Maksimum højde skal være højere end 50';
-$lang['Maximum width of the pictures'] = 'Maksimum bredde på fotos';
+$lang['Maximum photo width'] = 'Maksimum bredde på fotos';
 $lang['Maximum width must be a number superior to 50'] = 'Maksimum bredde skal være højere end 50';
 $lang['display a calendar by creation date'] = 'viser en kalender med oprettelses datoer';
-$lang['display all elements in all sub-albums'] = 'viser alle elementer i alle sub-kategorier';
+$lang['display all photos in all sub-albums'] = 'viser alle elementer i alle sub-kategorier';
 $lang['return to normal view mode'] = 'tilbage til normal visning';
 $lang['display a calendar by posted date'] = 'viser en kalender med oprettelse datoer';
 $lang['month'][10] = 'Oktober';
@@ -224,8 +224,8 @@ $lang['month'][8] = 'August';
 $lang['month'][9] = 'September';
 $lang['Most visited'] = 'Mest sete';
 $lang['display most visited photos'] = 'vis mest sete fotos';
-$lang['The number of images per row must be a not null scalar'] = 'Antallet af fotos pr. række må ikke være nul';
-$lang['Number of images per row'] = 'antallet af fotos pr. række';
+$lang['The number of photos per row must be a not null scalar'] = 'Antallet af fotos pr. række må ikke være nul';
+$lang['Number of photos per row'] = 'antallet af fotos pr. række';
 $lang['The number of rows per page must be a not null scalar'] = 'Antallet af rækker pr. side må ikke være nul';
 $lang['Number of rows per page'] = 'Antallet af rækker pr. side';
 $lang['Unknown identifier'] = 'Ukendt identifier';
@@ -233,12 +233,12 @@ $lang['New password'] = 'Nyt password';
 $lang['Rate this photo'] = 'Bedøm dette foto';
 $lang['Next'] = 'Næste';
 $lang['no rate'] = 'ingen bedømmelse';
-$lang['Elements posted within the last %d day.'] = 'Elementer oprettet indenfor de %d dage.';
-$lang['Elements posted within the last %d days.'] = 'Elementer oprettet indenfor de %d dage.';
+$lang['Photos posted within the last %d day.'] = 'Elementer oprettet indenfor de %d dage.';
+$lang['Photos posted within the last %d days.'] = 'Elementer oprettet indenfor de %d dage.';
 $lang['password updated'] = 'password opdateret';
 $lang['Recent period must be a positive integer value'] = 'Seneste periode skal være et positivt heltal værdi';
-/* DEPRECATED USED IN comments.php FOR image_id ? */ $lang['picture'] = 'foto';
-$lang['Click on the picture to see it in high definition'] = 'klik på fotoet for at se det i høj opløsning';
+/* DEPRECATED USED IN comments.php FOR image_id ? */ $lang['photo'] = 'foto';
+$lang['Click on the photo to see it in high definition'] = 'klik på fotoet for at se det i høj opløsning';
 $lang['Show file metadata'] = 'Vis fotoets metadata';
 $lang['Powered by'] = 'Powered by';
 $lang['Preferences'] = 'Præferencer';
@@ -354,8 +354,6 @@ $lang['Reset to default values'] = 'Reset til default';
 $lang['delete all photos from your favorites'] = 'slet alle filer fra dine favoritter';
 $lang['Sent by'] = 'Sent af';
 $lang['Cookies are blocked or not supported by your browser. You must enable cookies to connect.'] = 'Cookies er blokkeret eller ikke supporteret af din browser. Aktiver cookies for at komme på.';
-$lang['Some info about this picture'] = 'Informationer om dette foto';
-$lang['Some more (technical) info about this picture'] = 'Flere (tekniske) informationer om dette foto';
 $lang['edit this comment'] = 'ret denne kommentar';
 $lang['Edit a comment'] = 'Rediger en kommentar';
 $lang['Are you sure?'] = 'Er du sikker?';

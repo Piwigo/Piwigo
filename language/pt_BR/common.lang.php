@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | Piwigo - a PHP based picture gallery                                  |
 // +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2010 Piwigo Team                  http://piwigo.org |
+// | Copyright(C) 2008-2011 Piwigo Team                  http://piwigo.org |
 // | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
 // | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
 // +-----------------------------------------------------------------------+
@@ -54,7 +54,7 @@ $lang['Average rate'] = 'Nota média';
 $lang['Albums'] = 'Categorias';
 $lang['Album'] = 'Categoria';
 $lang['Close this window'] = 'Fechar esta janela';
-$lang['Complete RSS feed (images, comments)'] = 'RSS completo';
+$lang['Complete RSS feed (photos, comments)'] = 'RSS completo';
 $lang['Confirm Password'] = 'Confirmar senha';
 $lang['Connection settings'] = 'dados da conexão';
 $lang['Login'] = 'Conexão';
@@ -79,7 +79,7 @@ $lang['Forgot your password?'] = 'Esqueceu sua senha?';
 $lang['Go through the gallery as a visitor'] = 'Percorer a galeria como visitante';
 $lang['Help'] = 'Ajuda';
 $lang['Identification'] = 'Identificação';
-$lang['Image only RSS feed'] = 'RSS das imagens';
+$lang['Photos only RSS feed'] = 'RSS das imagens';
 $lang['Keyword'] = 'Palavra chave';
 $lang['Links'] = 'Links';
 $lang['N/A'] = 'Não disponível';
@@ -114,7 +114,7 @@ $lang['Sort by'] = 'Listado por';
 $lang['Sort order'] = 'Ordem de exibição';
 $lang['Tag'] = 'Tag';
 $lang['Tags'] = 'Tags';
-$lang['The RSS notification feed provides notification on news from this website : new pictures, updated albums, new comments. Use a RSS feed reader.'] = 'O RSS notifica dos eventos da galeria : novas imagens, categorias actualizadas, Novos comentários usários. Use um leitor de fluxos RSS.';
+$lang['The RSS notification feed provides notification on news from this website : new photos, updated albums, new comments. Use a RSS feed reader.'] = 'O RSS notifica dos eventos da galeria : novas imagens, categorias actualizadas, Novos comentários usários. Use um leitor de fluxos RSS.';
 $lang['Unknown feed identifier'] = 'identificador de fluxo RSS desconhecido';
 $lang['User comments'] = 'Comentários de usuário';
 $lang['Username'] = 'Nome de usuário';
@@ -201,12 +201,12 @@ $lang['Last'] = 'Última página';
 $lang['Logout'] = 'Desconectar (logout)';
 $lang['E-mail address'] = 'E-mail address';
 $lang['obligatory'] = 'obrigatório';
-$lang['Maximum height of the pictures'] = 'Altura máxima das imagens';
+$lang['Maximum photo height'] = 'Altura máxima das imagens';
 $lang['Maximum height must be a number superior to 50'] = 'A altura máxima das imagens deve ser um número superior a 50';
-$lang['Maximum width of the pictures'] = 'Largura máxima das imagens';
+$lang['Maximum photo width'] = 'Largura máxima das imagens';
 $lang['Maximum width must be a number superior to 50'] = 'A largura máxima das imagens deve ser um número superior a 50';
 $lang['display a calendar by creation date'] = 'Mostra um calendário ordenado pela data de criação';
-$lang['display all elements in all sub-albums'] = 'Mostra todos os elementos em todas as subcategorias';
+$lang['display all photos in all sub-albums'] = 'Mostra todos os elementos em todas as subcategorias';
 $lang['return to normal view mode'] = 'voltar à exibição normal';
 $lang['display a calendar by posted date'] = 'Mostrar um calendário por data de envio das imagens';
 $lang['month'][10] = 'outubro';
@@ -223,8 +223,8 @@ $lang['month'][8] = 'agosto';
 $lang['month'][9] = 'setembro';
 $lang['Most visited'] = 'Mais visitadas';
 $lang['display most visited photos'] = 'Mostra as imagens mais visitadas';
-$lang['The number of images per row must be a not null scalar'] = 'O número de imagens por linha deve ser inteiro e não nulo';
-$lang['Number of images per row'] = 'Número de imagens por linha';
+$lang['The number of photos per row must be a not null scalar'] = 'O número de imagens por linha deve ser inteiro e não nulo';
+$lang['Number of photos per row'] = 'Número de imagens por linha';
 $lang['The number of rows per page must be a not null scalar'] = 'O número de linhas por página deve ser inteiro e não nulo';
 $lang['Number of rows per page'] = 'Número de linhas por página';
 $lang['Unknown identifier'] = 'Origem desconhecida';
@@ -232,12 +232,12 @@ $lang['New password'] = 'Senha nova';
 $lang['Rate this photo'] = 'Dê uma nota a esta imagem';
 $lang['Next'] = 'Página seguinte';
 $lang['no rate'] = 'nenhuma nota';
-$lang['Elements posted within the last %d day.'] = 'Imagens adicionadas a partir do últimos %d dia.';
-$lang['Elements posted within the last %d days.'] = 'Imagens adicionadas a partir dos últimos %d dias';
+$lang['Photos posted within the last %d day.'] = 'Imagens adicionadas a partir do últimos %d dia.';
+$lang['Photos posted within the last %d days.'] = 'Imagens adicionadas a partir dos últimos %d dias';
 $lang['password updated'] = 'senha atualizada';
 $lang['Recent period must be a positive integer value'] = 'O período deve ser um número inteiro positivo';
-$lang['picture'] = 'imagem';
-$lang['Click on the picture to see it in high definition'] = 'Clique na imagem para vê-la em alta definição';
+$lang['photo'] = 'imagem';
+$lang['Click on the photo to see it in high definition'] = 'Clique na imagem para vê-la em alta definição';
 $lang['Show file metadata'] = 'Mostrar os metadados do arquivo.';
 $lang['Powered by'] = 'Powered by';
 $lang['Preferences'] = 'Preferências';

@@ -41,7 +41,7 @@ $sort_order = array(
 // sort_by : database fields proposed for sorting comments list
 $sort_by = array(
   'date' => l10n('comment date'),
-  'image_id' => l10n('picture')
+  'image_id' => l10n('photo')
   );
 
 // items_number : list of number of items to display per page

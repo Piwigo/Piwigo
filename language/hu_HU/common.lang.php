@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | Piwigo - a PHP based picture gallery                                  |
 // +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2010 Piwigo Team                  http://piwigo.org |
+// | Copyright(C) 2008-2011 Piwigo Team                  http://piwigo.org |
 // | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
 // | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
 // +-----------------------------------------------------------------------+
@@ -54,7 +54,7 @@ $lang['Average rate'] = 'Átlagos pontszám';
 $lang['Albums'] = 'Albumok';
 $lang['Album'] = 'Album';
 $lang['Close this window'] = 'Ablak bezárása';
-$lang['Complete RSS feed (images, comments)'] = 'Teljes RSS (képek, hozzászólások)';
+$lang['Complete RSS feed (photos, comments)'] = 'Teljes RSS (képek, hozzászólások)';
 $lang['Confirm Password'] = 'Jelszó megerősítése';
 $lang['Connection settings'] = 'Kapcsolat beállításai';
 $lang['Login'] = 'Bejelentkezés';
@@ -79,7 +79,7 @@ $lang['Forgot your password?'] = 'Elfelejtette a jelszavát?';
 $lang['Go through the gallery as a visitor'] = 'Megtekintés látogatóként';
 $lang['Help'] = 'Segítség';
 $lang['Identification'] = 'Belépés';
-$lang['Image only RSS feed'] = 'Képek RSS';
+$lang['Photos only RSS feed'] = 'Képek RSS';
 $lang['Keyword'] = 'Kulcsszó';
 $lang['Links'] = 'Kapcsolódó linkek';
 $lang['N/A'] = 'Nincs adat';
@@ -114,7 +114,7 @@ $lang['Sort by'] = 'Rendezés';
 $lang['Sort order'] = 'Rendezési sorrend';
 $lang['Tag'] = 'Címke';
 $lang['Tags'] = 'Címkék';
-$lang['The RSS notification feed provides notification on news from this website : new pictures, updated albums, new comments. Use a RSS feed reader.'] = 'Az RSS értesítő a következő -az oldallal kapcsolatos- információkat tartalmazza: új fotók, új albumok, új kommentek.';
+$lang['The RSS notification feed provides notification on news from this website : new photos, updated albums, new comments. Use a RSS feed reader.'] = 'Az RSS értesítő a következő -az oldallal kapcsolatos- információkat tartalmazza: új fotók, új albumok, új kommentek.';
 $lang['Unknown feed identifier'] = 'Ismeretlen RSS azonosító';
 $lang['User comments'] = 'Felhasználói hozzászólások';
 $lang['Username'] = 'Felhasználónév';
@@ -202,12 +202,12 @@ $lang['Last'] = 'Utolsó oldal';
 $lang['Logout'] = 'Kijelentkezés';
 $lang['E-mail address'] = 'E-mail cím';
 $lang['obligatory'] = 'szükséges';
-$lang['Maximum height of the pictures'] = 'Maximális képmagasság';
+$lang['Maximum photo height'] = 'Maximális képmagasság';
 $lang['Maximum height must be a number superior to 50'] = 'A képmagasságnak 50-nél nagyobbnak kell lennie!';
-$lang['Maximum width of the pictures'] = 'Maximális képszélesség';
+$lang['Maximum photo width'] = 'Maximális képszélesség';
 $lang['Maximum width must be a number superior to 50'] = 'A maximális képszélességnek 50-nél nagyobbnak kell lennie!';
 $lang['display a calendar by creation date'] = 'Naptár megjelenítése a készítés dátuma szerint';
-$lang['display all elements in all sub-albums'] = 'Megjelenik az összes elem (belső albumok is)';
+$lang['display all photos in all sub-albums'] = 'Megjelenik az összes elem (belső albumok is)';
 $lang['return to normal view mode'] = 'Visszatérés a normál kinézethez';
 $lang['display a calendar by posted date'] = 'Naptár megjelenítése a feltöltés dátuma szerint';
 $lang['month'][10] = 'Október';
@@ -224,8 +224,8 @@ $lang['month'][8] = 'Augusztus';
 $lang['month'][9] = 'Szeptember';
 $lang['Most visited'] = 'Legtöbbször nézett';
 $lang['display most visited photos'] = 'A leglátogatottabb képek megjelenítése';
-$lang['The number of images per row must be a not null scalar'] = 'A soronkénti képek száma nem lehet 0!';
-$lang['Number of images per row'] = 'Képek száma soronként';
+$lang['The number of photos per row must be a not null scalar'] = 'A soronkénti képek száma nem lehet 0!';
+$lang['Number of photos per row'] = 'Képek száma soronként';
 $lang['The number of rows per page must be a not null scalar'] = 'Az oldalankénti sorok száma nem lehet 0!';
 $lang['Number of rows per page'] = 'Sorok száma oldalanként';
 $lang['Unknown identifier'] = 'Ismeretlen azonosító';
@@ -233,12 +233,12 @@ $lang['New password'] = 'Új jelszó';
 $lang['Rate this photo'] = 'Értékeld a képet';
 $lang['Next'] = 'Következő';
 $lang['no rate'] = 'még nincs értékelve';
-$lang['Elements posted within the last %d day.'] = 'Az alábbi elemek kerültek fel az elmúlt % d napban.';
-$lang['Elements posted within the last %d days.'] = 'Az alábbi elemek kerültek fel az elmúlt % d napban.';
+$lang['Photos posted within the last %d day.'] = 'Az alábbi elemek kerültek fel az elmúlt % d napban.';
+$lang['Photos posted within the last %d days.'] = 'Az alábbi elemek kerültek fel az elmúlt % d napban.';
 $lang['password updated'] = 'Jelszó frissítve';
 $lang['Recent period must be a positive integer value'] = 'Kell egy pozitív egész érték';
-$lang['picture'] = 'kép';
-$lang['Click on the picture to see it in high definition'] = 'Az eredeti méret megnyitásához kattints a képre!';
+$lang['photo'] = 'kép';
+$lang['Click on the photo to see it in high definition'] = 'Az eredeti méret megnyitásához kattints a képre!';
 $lang['Show file metadata'] = 'Meta adatok megjelenítése';
 $lang['Powered by'] = 'Az oldal motorja:';
 $lang['Preferences'] = 'Beállítások';
@@ -360,8 +360,6 @@ $lang['Are you sure?'] = 'Biztos vagy benne?';
 $lang['delete this comment'] = 'Hozzászólás törlése';
 $lang['Email address is missing. Please specify an email address.'] = 'E-mail cím hiányzik. Kérem írja be az e-mail címet.';
 // --------- Starting below: Új vagy javított $lang ---- Tőle: Colibri (2.1.0 RC1)
-$lang['Some info about this picture'] = 'Kép információi';
-$lang['Some more (technical) info about this picture'] = 'További (technikai) adatok a képhez';
 $lang['edit this comment'] = 'Hozzászólás módosítása';
 $lang['Edit a comment'] = 'A hozzászólás módosítása';
 $lang['(!) This comment requires validation'] = '(!) Ezt a hozzászólást engedélyezni kell';

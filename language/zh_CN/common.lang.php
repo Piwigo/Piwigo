@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | Piwigo - a PHP based picture gallery                                  |
 // +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2010 Piwigo Team                  http://piwigo.org |
+// | Copyright(C) 2008-2011 Piwigo Team                  http://piwigo.org |
 // | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
 // | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
 // +-----------------------------------------------------------------------+
@@ -54,7 +54,7 @@ $lang['Average rate'] = '评分';
 $lang['Albums'] = '相册';
 $lang['Album'] = '相册';
 $lang['Close this window'] = '关闭窗口';
-$lang['Complete RSS feed (images, comments)'] = '完整RSS回馈(图片, 评论等)';
+$lang['Complete RSS feed (photos, comments)'] = '完整RSS回馈(图片, 评论等)';
 $lang['Confirm Password'] = '重复输入密码';
 $lang['Connection settings'] = '连接设置';
 $lang['Login'] = '连接';
@@ -79,7 +79,7 @@ $lang['Forgot your password?'] = '忘记密码?';
 $lang['Go through the gallery as a visitor'] = '以游客身份浏览图库';
 $lang['Help'] = '帮助';
 $lang['Identification'] = '身份鉴别';
-$lang['Image only RSS feed'] = '图片RSS';
+$lang['Photos only RSS feed'] = '图片RSS';
 $lang['Keyword'] = '关键字';
 $lang['Links'] = '链接';
 $lang['N/A'] = '不存在';
@@ -114,7 +114,7 @@ $lang['Sort by'] = '排序';
 $lang['Sort order'] = '排序规则';
 $lang['Tag'] = '标签';
 $lang['Tags'] = '标签簇';
-$lang['The RSS notification feed provides notification on news from this website : new pictures, updated albums, new comments. Use a RSS feed reader.'] = 'RSS提要，从这个网站上提供新事件的通知：新相片，更新相册，新评论。要使用 RSS 阅读器查看new pictures, updated albums, new comments. To be used with a RSS feed reader.';
+$lang['The RSS notification feed provides notification on news from this website : new photos, updated albums, new comments. Use a RSS feed reader.'] = 'RSS提要，从这个网站上提供新事件的通知：新相片，更新相册，新评论。要使用 RSS 阅读器查看new photos, updated albums, new comments. To be used with a RSS feed reader.';
 $lang['Unknown feed identifier'] = '未知流标识';
 $lang['User comments'] = '用户评论';
 $lang['Username'] = '用户名';
@@ -201,12 +201,12 @@ $lang['Last'] = '最后';
 $lang['Logout'] = '注销';
 $lang['E-mail address'] = $lang['Email address'];
 $lang['obligatory'] = '必需';
-$lang['Maximum height of the pictures'] = '图片的最大长度';
+$lang['Maximum photo height'] = '图片的最大长度';
 $lang['Maximum height must be a number superior to 50'] = '图片最大长度必须大于50';
-$lang['Maximum width of the pictures'] = '图片的最大宽度';
+$lang['Maximum photo width'] = '图片的最大宽度';
 $lang['Maximum width must be a number superior to 50'] = '图片最大宽度必须大于50';
 $lang['display a calendar by creation date'] = '通过创建时间显示日历';
-$lang['display all elements in all sub-albums'] = '显示所有相册和子相册的相片';
+$lang['display all photos in all sub-albums'] = '显示所有相册和子相册的相片';
 $lang['return to normal view mode'] = '返回到普通模式显示';
 $lang['display a calendar by posted date'] = '通过发送时间来显示日历';
 $lang['month'][10] = '十月';
@@ -223,8 +223,8 @@ $lang['month'][8] = '八月';
 $lang['month'][9] = '九月';
 $lang['Most visited'] = '最受喜欢';
 $lang['display most visited photos'] = '显示查看次数最多的图片';
-$lang['The number of images per row must be a not null scalar'] = '每行图片数必须是非零整数';
-$lang['Number of images per row'] = '每行图片数';
+$lang['The number of photos per row must be a not null scalar'] = '每行图片数必须是非零整数';
+$lang['Number of photos per row'] = '每行图片数';
 $lang['The number of rows per page must be a not null scalar'] = '每页总行数必须是非零整数';
 $lang['Number of rows per page'] = '每页行数';
 $lang['Unknown identifier'] = '帐户不存在';
@@ -232,12 +232,12 @@ $lang['New password'] = '新密码';
 $lang['Rate this photo'] = '对图片投票';
 $lang['Next'] = '下一页';
 $lang['no rate'] = '没有被投票';
-$lang['Elements posted within the last %d day.'] = '只显示最近 %d 天的图片.';
-$lang['Elements posted within the last %d days.'] = '只显示最近 %d 天的图片.';
+$lang['Photos posted within the last %d day.'] = '只显示最近 %d 天的图片.';
+$lang['Photos posted within the last %d days.'] = '只显示最近 %d 天的图片.';
 $lang['password updated'] = '密码已更新';
 $lang['Recent period must be a positive integer value'] = '再次发表间隔时间必须是正整数';
-$lang['picture'] = '图片';
-$lang['Click on the picture to see it in high definition'] = '点击查看大图片';
+$lang['photo'] = '图片';
+$lang['Click on the photo to see it in high definition'] = '点击查看大图片';
 $lang['Show file metadata'] = '显示文件的元数据';
 $lang['Powered by'] = '基于';
 $lang['Preferences'] = '使用偏好';
@@ -355,8 +355,6 @@ $lang['Reset to default values'] = '重置为默认值';
 $lang['delete all photos from your favorites'] = '删除您的收藏里所有相片';
 $lang['Sent by'] = 'Sent by';
 $lang['Cookies are blocked or not supported by your browser. You must enable cookies to connect.'] = '您的浏览器已关闭或者不支持Cookies. 您必须开启 cookies 才能登录.';
-$lang['Some info about this picture'] = '关于此相片的信息';
-$lang['Some more (technical) info about this picture'] = '更多关于此相片 (技术性的) 的信息';
 $lang['edit this comment'] = '修改此评论';
 $lang['Edit a comment'] = '修改一个评论';
 $lang['(!) This comment requires validation'] = '(!) 此评论需要审核';

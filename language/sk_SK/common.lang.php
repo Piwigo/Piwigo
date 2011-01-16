@@ -5,7 +5,7 @@
 // +-----------------------------------------------------------------------+
 // | Copyright(C) 2009     Pavel Budka & Petr Jirsa    http://pbudka.co.cc |
 // +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2010 Piwigo Team                  http://piwigo.org |
+// | Copyright(C) 2008-2011 Piwigo Team                  http://piwigo.org |
 // | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
 // | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
 // +-----------------------------------------------------------------------+
@@ -58,7 +58,7 @@ $lang['Average rate'] = 'Priemerné hodnotenie';
 $lang['Albums'] = 'Albumy';
 $lang['Album'] = 'Album';
 $lang['Close this window'] = 'Zatvoriť okno';
-$lang['Complete RSS feed (images, comments)'] = 'Kompletné RSS vlákno (fotografie, komentáre)';
+$lang['Complete RSS feed (photos, comments)'] = 'Kompletné RSS vlákno (fotografie, komentáre)';
 $lang['Confirm Password'] = 'Potvrdiť heslo';
 $lang['Connection settings'] = 'Nastavenie prihlasovacích údajov';
 $lang['Login'] = 'Prihlásiť sa';
@@ -83,7 +83,7 @@ $lang['Forgot your password?'] = 'Zabudnuté heslo?';
 $lang['Go through the gallery as a visitor'] = 'Prechádzať galériu ako hosť';
 $lang['Help'] = 'Nápoveda';
 $lang['Identification'] = 'Identifikácia';
-$lang['Image only RSS feed'] = 'RSS vlákno len s fotografiami';
+$lang['Photos only RSS feed'] = 'RSS vlákno len s fotografiami';
 $lang['Keyword'] = 'Kľúčové slovo';
 $lang['Links'] = 'Odkazy';
 $lang['N/A'] = 'nezadané';
@@ -118,7 +118,7 @@ $lang['Sort by'] = 'Zoradiť podľa';
 $lang['Sort order'] = 'Smer zoradenia';
 $lang['Tag'] = 'Kľúčové slovo';
 $lang['Tags'] = 'Kľúčové slová';
-$lang['The RSS notification feed provides notification on news from this website : new pictures, updated albums, new comments. Use a RSS feed reader.'] = 'RSS vlákno informuje o novinkách na týchto stránkach: nové fotografie, aktualizované albumy, komentáre. Použite RSS čítačku.';
+$lang['The RSS notification feed provides notification on news from this website : new photos, updated albums, new comments. Use a RSS feed reader.'] = 'RSS vlákno informuje o novinkách na týchto stránkach: nové fotografie, aktualizované albumy, komentáre. Použite RSS čítačku.';
 $lang['Unknown feed identifier'] = 'Neznámý identifikátor vlákna';
 $lang['User comments'] = 'Komentáre používateľov';
 $lang['Username'] = 'Používateľské meno';
@@ -206,12 +206,12 @@ $lang['Last'] = 'Koniec';
 $lang['Logout'] = 'Odhlásiť sa';
 $lang['E-mail address'] = 'E-mailová adresa';
 $lang['obligatory'] = 'povinné';
-$lang['Maximum height of the pictures'] = 'Maximálna výška fotografií';
+$lang['Maximum photo height'] = 'Maximálna výška fotografií';
 $lang['Maximum height must be a number superior to 50'] = 'Maximálna výška musí byť číslo väčšie ako 50';
-$lang['Maximum width of the pictures'] = 'Maximálna šírka fotografií';
+$lang['Maximum photo width'] = 'Maximálna šírka fotografií';
 $lang['Maximum width must be a number superior to 50'] = 'Maximálna šírka musí byť číslo väčšie ako 50';
 $lang['display a calendar by creation date'] = 'zobraziť v kalendári podľa dátumu vytvorenia';
-$lang['display all elements in all sub-albums'] = 'zobraziť všetky objekty v podalbumoch';
+$lang['display all photos in all sub-albums'] = 'zobraziť všetky objekty v podalbumoch';
 $lang['return to normal view mode'] = 'návrat do normálneho zobrazenia';
 $lang['display a calendar by posted date'] = 'zobraziť v kalendári podľa dátumu vloženia';
 $lang['month'][10] = 'Október';
@@ -228,8 +228,8 @@ $lang['month'][8] = 'August';
 $lang['month'][9] = 'September';
 $lang['Most visited'] = 'Najčastejšie zobrazované';
 $lang['display most visited photos'] = 'najčastejšie zobrazované fotografie';
-$lang['The number of images per row must be a not null scalar'] = 'Počet fotografií v riadku musí byť číslo väčšie ako 0.';
-$lang['Number of images per row'] = 'Počet fotografií v riadku';
+$lang['The number of photos per row must be a not null scalar'] = 'Počet fotografií v riadku musí byť číslo väčšie ako 0.';
+$lang['Number of photos per row'] = 'Počet fotografií v riadku';
 $lang['The number of rows per page must be a not null scalar'] = 'Počet riadkov na stránke musí byť číslo väčšie ako 0.';
 $lang['Number of rows per page'] = 'Počet riadkov na stránke';
 $lang['Unknown identifier'] = 'Neznámy identifikátor';
@@ -237,12 +237,12 @@ $lang['New password'] = 'Nové heslo';
 $lang['Rate this photo'] = 'Ohodnotiť túto fotografiu';
 $lang['Next'] = 'Nasledujúca';
 $lang['no rate'] = 'bez hodnotenia';
-$lang['Elements posted within the last %d day.'] = 'Fotografie vložené behom posledného %d dňa.';
-$lang['Elements posted within the last %d days.'] = 'Fotografie vložené behom posledných %d dní.';
+$lang['Photos posted within the last %d day.'] = 'Fotografie vložené behom posledného %d dňa.';
+$lang['Photos posted within the last %d days.'] = 'Fotografie vložené behom posledných %d dní.';
 $lang['password updated'] = 'heslo aktualizované';
 $lang['Recent period must be a positive integer value'] = 'Aktuálny interval musí byť číslo väčšie ako 0.';
-/* DEPRECATED USED IN comments.php FOR image_id ? */ $lang['picture'] = 'fotografia';
-$lang['Click on the picture to see it in high definition'] = 'Pre zobrazenie vo vyššom rozlíšení kliknite na fotografiu';
+/* DEPRECATED USED IN comments.php FOR image_id ? */ $lang['photo'] = 'fotografia';
+$lang['Click on the photo to see it in high definition'] = 'Pre zobrazenie vo vyššom rozlíšení kliknite na fotografiu';
 $lang['Show file metadata'] = 'Zobraziť metadata';
 $lang['Powered by'] = 'Publikované pomocou aplikácie';
 $lang['Preferences'] = 'Nastavenia';
@@ -358,8 +358,6 @@ $lang['Reset to default values'] = 'Obnoviť východzie hodnoty';
 $lang['delete all photos from your favorites'] = 'vymazať všetky obrázky z Vašich obľúbených';
 $lang['Sent by'] = 'Poslané';
 $lang['Cookies are blocked or not supported by your browser. You must enable cookies to connect.'] = 'Cookies sú buď blokované, alebo nie sú povolené vo Vašom prehliadači. Musíte povoliť cookies, aby bolo možné sa prihlásiť.';
-$lang['Some info about this picture'] = 'Informácie o tejto fotografii';
-$lang['Some more (technical) info about this picture'] = 'Viac informácií o tejto fotografii (technické)';
 $lang['edit this comment'] = 'upraviť tento komentár';
 $lang['Edit a comment'] = 'Upraviť komentár';
 $lang['(!) This comment requires validation'] = '(!) Tento komentár vyžaduje kontrolu';

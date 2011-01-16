@@ -120,7 +120,7 @@ function save_profile_from_post($userdata, &$errors)
     if (empty($_POST['nb_image_line'])
         or (!preg_match($int_pattern, $_POST['nb_image_line'])))
     {
-      $errors[] = l10n('The number of images per row must be a not null scalar');
+      $errors[] = l10n('The number of photos per row must be a not null scalar');
     }
 
     if (empty($_POST['nb_line_page'])

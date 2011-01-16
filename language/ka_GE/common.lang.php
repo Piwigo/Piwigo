@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | Piwigo - a PHP based picture gallery                                  |
 // +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2010 Piwigo Team                  http://piwigo.org |
+// | Copyright(C) 2008-2011 Piwigo Team                  http://piwigo.org |
 // | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
 // | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
 // +-----------------------------------------------------------------------+
@@ -54,7 +54,7 @@ $lang['Average rate'] = 'საშუალო ქულა';
 $lang['Albums'] = 'გალერეა';
 $lang['Album'] = 'გალერეა';
 $lang['Close this window'] = 'დავხუროთ ეს ფანჯარა';
-$lang['Complete RSS feed (images, comments)'] = 'სრული RSS ლენტა (ფოტოები, კომენტარები)';
+$lang['Complete RSS feed (photos, comments)'] = 'სრული RSS ლენტა (ფოტოები, კომენტარები)';
 $lang['Confirm Password'] = 'გაიმეორეთ პაროლი';
 $lang['Connection settings'] = 'დაკავშირების გასწორება';
 $lang['Login'] = 'ავტორიზაცია';
@@ -79,7 +79,7 @@ $lang['Forgot your password?'] = 'დაგავიწყდათ პარო
 $lang['Go through the gallery as a visitor'] = 'შევიდეთ გალერეაში როგორც სტუმარი';
 $lang['Help'] = 'დახმარება';
 $lang['Identification'] = 'იდენტიფიკაცია';
-$lang['Image only RSS feed'] = 'RSS ლენტი ფოტოებით';
+$lang['Photos only RSS feed'] = 'RSS ლენტი ფოტოებით';
 $lang['Keyword'] = 'ძირითადი სიტყვები';
 $lang['Links'] = 'ბმულები';
 $lang['N/A'] = 'გაურკვეველია';
@@ -114,7 +114,7 @@ $lang['Sort by'] = 'სორტირება';
 $lang['Sort order'] = 'სორტირების წესი';
 $lang['Tag'] = 'სიტყვა';
 $lang['Tags'] = 'საძიებო სიტყვები';
-$lang['The RSS notification feed provides notification on news from this website : new pictures, updated albums, new comments. Use a RSS feed reader.'] = 'RSS შეტყობინებები გიამბობენ ახალ ფოტოებზე, გალერეის განახლებაზე, ახალ კომენტარებზე. ამისათვის გამოიყენეთ RSS-წამკითხველი.';
+$lang['The RSS notification feed provides notification on news from this website : new photos, updated albums, new comments. Use a RSS feed reader.'] = 'RSS შეტყობინებები გიამბობენ ახალ ფოტოებზე, გალერეის განახლებაზე, ახალ კომენტარებზე. ამისათვის გამოიყენეთ RSS-წამკითხველი.';
 $lang['Unknown feed identifier'] = 'ლენტის გაურკვეველი იდენტიფიკატორი';
 $lang['User comments'] = 'მნახველების კომენტარები';
 $lang['Username'] = 'მომხმარებლის სახელი';
@@ -202,12 +202,12 @@ $lang['Last'] = 'ბოლო';
 $lang['Logout'] = 'გამოსვლა';
 $lang['E-mail address'] = 'E-mail მისამართი';
 $lang['obligatory'] = 'აუცილებელი';
-$lang['Maximum height of the pictures'] = 'სურათის მაქსიმალური სიმაღლე';
+$lang['Maximum photo height'] = 'სურათის მაქსიმალური სიმაღლე';
 $lang['Maximum height must be a number superior to 50'] = 'სურათის მაქსიმალური სიმაღლე უნდა იყოს 50–ზე მეტი';
-$lang['Maximum width of the pictures'] = 'სურათის მაქსიმალური სიგანე';
+$lang['Maximum photo width'] = 'სურათის მაქსიმალური სიგანე';
 $lang['Maximum width must be a number superior to 50'] = 'სურათის მაქსიმალური სიგანე უნდა იყოს 50–ზე მეტი';
 $lang['display a calendar by creation date'] = ' ვნახოთ კალენდარი შექმნის თარიღით';
-$lang['display all elements in all sub-albums'] = ' ვნახოთ ყველა ფოტო ყველა ქვეკატეგორიებში';
+$lang['display all photos in all sub-albums'] = ' ვნახოთ ყველა ფოტო ყველა ქვეკატეგორიებში';
 $lang['return to normal view mode'] = 'ჩვეულებრივ რეჯიმში დაბრუნება';
 $lang['display a calendar by posted date'] = ' ვნახოთ კალენდარი გაგზავნის დროის მიხედვით';
 $lang['month'][10] = 'ოქტომბერი';
@@ -224,8 +224,8 @@ $lang['month'][8] = 'აგვისტო';
 $lang['month'][9] = 'სექტემბერი';
 $lang['Most visited'] = 'პოპულარურობის მიხედვით';
 $lang['display most visited photos'] = 'ვნახოთ ყველაზე პოპულარული ფოტოები';
-$lang['The number of images per row must be a not null scalar'] = 'ფოტოების რიცხვი არ უნდა იყოს ნულის ტოლი';
-$lang['Number of images per row'] = 'ფოტოების რაოდენობა სტრიქონში';
+$lang['The number of photos per row must be a not null scalar'] = 'ფოტოების რიცხვი არ უნდა იყოს ნულის ტოლი';
+$lang['Number of photos per row'] = 'ფოტოების რაოდენობა სტრიქონში';
 $lang['The number of rows per page must be a not null scalar'] = 'სტრიქონთა რაოდენობა არ უნდა იყოს ნულის ტოლი';
 $lang['Number of rows per page'] = 'სტრიქონთა რიცხვი გვერდზე';
 $lang['Unknown identifier'] = 'უცნობი იდენტიფიკატორი';
@@ -234,12 +234,12 @@ $lang['Rate this photo'] = 'შეაფასეთ ეს ფოტო';
 $lang['Next'] = 'შემდეგი';
 $lang['Home'] = 'დასაწყისი';
 $lang['no rate'] = 'არ არის შეფასებული';
-$lang['Elements posted within the last %d day.'] = 'ვნახოთ ფოტოები, გამოქვეყნებული ბოლო %s დღეში.';
-$lang['Elements posted within the last %d days.'] = 'ვნახოთ ფოტოები, გამოქვეყნებული ბოლო %s დღეში.';
+$lang['Photos posted within the last %d day.'] = 'ვნახოთ ფოტოები, გამოქვეყნებული ბოლო %s დღეში.';
+$lang['Photos posted within the last %d days.'] = 'ვნახოთ ფოტოები, გამოქვეყნებული ბოლო %s დღეში.';
 $lang['password updated'] = 'პაროლი შეცვლილია';
 $lang['Recent period must be a positive integer value'] = 'ბოლო პერიოდი უნდა იყოს დადებითი ციფრი';
-/* DEPRECATED USED IN comments.php FOR image_id ? */ $lang['picture'] = 'ფოტო';
-$lang['Click on the picture to see it in high definition'] = 'დაკლიკეთ ფოტოზე, რათა ნახოთ იგი დიდი ფორმატით';
+/* DEPRECATED USED IN comments.php FOR image_id ? */ $lang['photo'] = 'ფოტო';
+$lang['Click on the photo to see it in high definition'] = 'დაკლიკეთ ფოტოზე, რათა ნახოთ იგი დიდი ფორმატით';
 $lang['Show file metadata'] = 'ვნახოთ მეტამონაცემები';
 $lang['Powered by'] = 'სკრიპტი';
 $lang['Preferences'] = 'უპირატესი';
@@ -359,8 +359,6 @@ $lang['Reset to default values'] = 'აღვადგინოთ ძირი�
 $lang['delete all photos from your favorites'] = 'გადავაგდოთ ყველა ფოტო რჩეულიდან';
 $lang['Sent by'] = 'გაგზავნა';
 $lang['Cookies are blocked or not supported by your browser. You must enable cookies to connect.'] = 'თქვენს როუზერს არ აქვს კუკების(Cookies) მხარდაჭერა, ან ბლოკავს მათ. გთხოვთ ჩართოთ ან გაასწოროთ იგი.';
-$lang['Some info about this picture'] = 'ინფორმაცია ფოტოზე';
-$lang['Some more (technical) info about this picture'] = 'ინფორმაცია ფოტოზე (ტექნიკური)';
 $lang['edit this comment'] = 'ამ კომენტარის რედაქტირება';
 $lang['Edit a comment'] = 'კომენტარის რედაქტირება';
 $lang['(!) This comment requires validation'] = '(!) ეს კომენტარი ელოდება შემოწმებას';

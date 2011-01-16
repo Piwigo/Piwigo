@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | Piwigo - a PHP based picture gallery                                  |
 // +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2010 Piwigo Team                  http://piwigo.org |
+// | Copyright(C) 2008-2011 Piwigo Team                  http://piwigo.org |
 // | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
 // | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
 // +-----------------------------------------------------------------------+
@@ -54,7 +54,7 @@ $lang['Average rate'] = 'Xếp hạng trung bình';
 $lang['Albums'] = 'Đề mục';
 $lang['Album'] = 'Đề mục';
 $lang['Close this window'] = 'Đóng';
-$lang['Complete RSS feed (images, comments)'] = 'Bản RSS feed đầy đủ (gồm hình ảnh và lời bình)';
+$lang['Complete RSS feed (photos, comments)'] = 'Bản RSS feed đầy đủ (gồm hình ảnh và lời bình)';
 $lang['Confirm Password'] = 'Xác nhận lại mật khẩu';
 $lang['Connection settings'] = 'Thiết lập cài đặt';
 $lang['Login'] = 'Đăng nhập';
@@ -78,7 +78,7 @@ $lang['Forgot your password?'] = 'Bạn quên mật khẩu?';
 $lang['Go through the gallery as a visitor'] = 'Xem gallery như một khách thăm quan';
 $lang['Help'] = 'Trợ giúp';
 $lang['Identification'] = 'Định danh';
-$lang['Image only RSS feed'] = 'Chỉ hiện hình ảnh trên RSS feed';
+$lang['Photos only RSS feed'] = 'Chỉ hiện hình ảnh trên RSS feed';
 $lang['Keyword'] = 'Từ khoá';
 $lang['Links'] = 'Liên kết';
 $lang['N/A'] = 'Không có';
@@ -113,7 +113,7 @@ $lang['Sort by'] = 'Sắp xếp theo';
 $lang['Sort order'] = 'Vị trí sắp xếp';
 $lang['Tag'] = 'Thẻ';
 $lang['Tags'] = 'Thẻ';
-$lang['The RSS notification feed provides notification on news from this website : new pictures, updated albums, new comments. Use a RSS feed reader.'] = 'Bản thông báo RSS feed cung cấp thông báo về tin tức và cập nhật trên trang này bao gồm: hình ảnh mới, đề mục được cập nhật và lời bình mới. Hãy sử dụng trình đọc RSS Feed.';
+$lang['The RSS notification feed provides notification on news from this website : new photos, updated albums, new comments. Use a RSS feed reader.'] = 'Bản thông báo RSS feed cung cấp thông báo về tin tức và cập nhật trên trang này bao gồm: hình ảnh mới, đề mục được cập nhật và lời bình mới. Hãy sử dụng trình đọc RSS Feed.';
 $lang['Unknown feed identifier'] = 'Nguồn cung cấp tin không xác nhận';
 $lang['User comments'] = 'Bình luận của thành viên';
 $lang['Username'] = 'Tên đăng nhập';
@@ -200,12 +200,12 @@ $lang['Last'] = 'Cuối';
 $lang['Logout'] = 'Thoát';
 $lang['E-mail address'] = 'Địa chỉ email';
 $lang['obligatory'] = 'Phần bắt buộc';
-$lang['Maximum height of the pictures'] = 'Chiều cao tối đa của hình';
+$lang['Maximum photo height'] = 'Chiều cao tối đa của hình';
 $lang['Maximum height must be a number superior to 50'] = 'Chiều cao tối đa của hình phải trên 50 pixel';
-$lang['Maximum width of the pictures'] = 'Chiều rộng tối đa của hình';
+$lang['Maximum photo width'] = 'Chiều rộng tối đa của hình';
 $lang['Maximum width must be a number superior to 50'] = 'Chiều rộng tối đa của hình phải trên 50 pixel';
 $lang['display a calendar by creation date'] = 'hiển thị lịch theo ngày gởi hình';
-$lang['display all elements in all sub-albums'] = 'hiển thị mọi thành phần có trong tất cả mục nhỏ';
+$lang['display all photos in all sub-albums'] = 'hiển thị mọi thành phần có trong tất cả mục nhỏ';
 $lang['return to normal view mode'] = 'chuyện lại chế độ xem hình bình thường';
 $lang['display a calendar by posted date'] = 'hiển thị lịch theo ngày gởi hình';
 $lang['month'][10] = 'Tháng Mười';
@@ -222,8 +222,8 @@ $lang['month'][8] = 'Tháng Tám';
 $lang['month'][9] = 'Tháng Chín';
 $lang['Most visited'] = 'Hình được xem nhiều nhất';
 $lang['display most visited photos'] = 'hiển thị những hình được xem nhiều nhất';
-$lang['The number of images per row must be a not null scalar'] = 'Số hình mỗi hàng phải là đại lượng vô hướng không rỗng';
-$lang['Number of images per row'] = 'Số hình trên mỗi hàng';
+$lang['The number of photos per row must be a not null scalar'] = 'Số hình mỗi hàng phải là đại lượng vô hướng không rỗng';
+$lang['Number of photos per row'] = 'Số hình trên mỗi hàng';
 $lang['The number of rows per page must be a not null scalar'] = 'Số hàng mỗi trang phải là đại lượng vô hướng không rỗng';
 $lang['Number of rows per page'] = 'Số hàng trên mỗi trang';
 $lang['Unknown identifier'] = 'Định danh không xác định';
@@ -231,12 +231,12 @@ $lang['New password'] = 'Mật khẩu mới';
 $lang['Rate this photo'] = 'Đánh giá hình này';
 $lang['Next'] = 'Tiếp theo';
 $lang['no rate'] = 'không có đánh giá';
-$lang['Elements posted within the last %d day.'] = 'Thành phần được gởi trong vòng %d ngày cuối.';
-$lang['Elements posted within the last %d days.'] = 'Các thành phần được gởi trong %d ngày cuối.';
+$lang['Photos posted within the last %d day.'] = 'Thành phần được gởi trong vòng %d ngày cuối.';
+$lang['Photos posted within the last %d days.'] = 'Các thành phần được gởi trong %d ngày cuối.';
 $lang['password updated'] = 'mật khẩu đã được cập nhật';
 $lang['Recent period must be a positive integer value'] = 'Chu kỳ gần đây phải có giá trị là số nguyên dương';
-/* DEPRECATED USED IN comments.php FOR image_id ? */ $lang['picture'] = 'hình ảnh';
-$lang['Click on the picture to see it in high definition'] = 'Click lên hình để xem ở định dạng cao';
+/* DEPRECATED USED IN comments.php FOR image_id ? */ $lang['photo'] = 'hình ảnh';
+$lang['Click on the photo to see it in high definition'] = 'Click lên hình để xem ở định dạng cao';
 $lang['Show file metadata'] = 'Hiển thị metadata của hình';
 $lang['Powered by'] = 'Sản phẩm của';
 $lang['Preferences'] = 'Tuỳ chọn thêm';
@@ -354,8 +354,6 @@ $lang['Sent by'] = 'Được gởi bởi';
 $lang['Are you sure?'] = 'Bạn có chắc không?';
 $lang['delete this comment'] = 'xóa bỏ lời bình này';
 $lang['Cookies are blocked or not supported by your browser. You must enable cookies to connect.'] = 'Cookies đã bị chặn lại hoặc không được trình duyệt web trên  máy bạn hỗ trợ. Bạn phải mở cookie để tiếp tục.';
-$lang['Some info about this picture'] = 'Thông tin về hình ảnh';
-$lang['Some more (technical) info about this picture'] = 'Thêm một số thông tin kỹ thuật về hình ảnh';
 $lang['edit this comment'] = 'biên tập lại lời bình này';
 $lang['Edit a comment'] = 'Biên tập một lời bình';
 $lang['(!) This comment requires validation'] = '(!) Lời bình này yêu cầu sự xác nhận';

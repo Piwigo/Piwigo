@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | Piwigo - a PHP based picture gallery                                  |
 // +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2010 Piwigo Team                  http://piwigo.org |
+// | Copyright(C) 2008-2011 Piwigo Team                  http://piwigo.org |
 // | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
 // | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
 // +-----------------------------------------------------------------------+
@@ -62,7 +62,7 @@ $lang['Dimensions'] = 'Dimenzije';
 $lang['Display'] = 'Zaslon';
 $lang['%d new photo'] = '%d nova slika';
 $lang['%d new photos'] = '%d novih slik';
-$lang['Complete RSS feed (images, comments)'] = 'RSS vir (slike, komentarji)';
+$lang['Complete RSS feed (photos, comments)'] = 'RSS vir (slike, komentarji)';
 $lang['Login'] = 'Prijava';
 $lang['Each listed rule must be satisfied.'] = 'Vsa pravila morajo biti izpolnjena.';
 $lang['Email address'] = 'E-pošta';
@@ -77,7 +77,7 @@ $lang['Forgot your password?'] = 'Si pozabil geslo?';
 $lang['Go through the gallery as a visitor'] = 'Obiskaj galerijo kot obiskovalec';
 $lang['Help'] = 'Pomoč';
 $lang['Identification'] = 'Identifikacija';
-$lang['Image only RSS feed'] = 'RSS vir (samo slike)';
+$lang['Photos only RSS feed'] = 'RSS vir (samo slike)';
 $lang['Keyword'] = 'Ključna beseda';
 $lang['Links'] = 'Povezave';
 $lang['N/A'] = 'N/A';
@@ -157,7 +157,7 @@ $lang['Sort by'] = 'Uredi po';
 $lang['Sort order'] = 'Urejeno po';
 $lang['Tag'] = 'Označba';
 $lang['Tags'] = 'Označbe';
-$lang['The RSS notification feed provides notification on news from this website : new pictures, updated albums, new comments. Use a RSS feed reader.'] = 'RSS viri omogočajo prijavo na dogodke te spletne strani, kot so: nove slike, nove kategorije, novi komentarji. Za uporabo je potreben RSS odjemalec.';
+$lang['The RSS notification feed provides notification on news from this website : new photos, updated albums, new comments. Use a RSS feed reader.'] = 'RSS viri omogočajo prijavo na dogodke te spletne strani, kot so: nove slike, nove kategorije, novi komentarji. Za uporabo je potreben RSS odjemalec.';
 $lang['Default'] = 'Privzeto';
 $lang['delete this photo from your favorites'] = 'odstrani to sliko iz svojih priljubljenih';
 $lang['Delete'] = 'Odstrani';
@@ -192,13 +192,13 @@ $lang['Last'] = 'Zadnji';
 $lang['Logout'] = 'Odjava';
 $lang['E-mail address'] = 'E-pošta';
 $lang['obligatory'] = 'obvezno';
-$lang['Maximum height of the pictures'] = 'Maksimalna velikost slik';
+$lang['Maximum photo height'] = 'Maksimalna velikost slik';
 $lang['Maximum height must be a number superior to 50'] = 'Maksimalna velikost mora biti vecja od 50';
-$lang['Maximum width of the pictures'] = 'Maksimalna dolžina slik';
+$lang['Maximum photo width'] = 'Maksimalna dolžina slik';
 $lang['Most visited'] = 'Najbolj obiskana';
 $lang['display most visited photos'] = 'prikaži najbolj obiskane slike';
-$lang['The number of images per row must be a not null scalar'] = 'Število slik v vrstici, mora biti ne prazno celo število.';
-$lang['Number of images per row'] = 'Število slik v vrstici';
+$lang['The number of photos per row must be a not null scalar'] = 'Število slik v vrstici, mora biti ne prazno celo število.';
+$lang['Number of photos per row'] = 'Število slik v vrstici';
 $lang['The number of rows per page must be a not null scalar'] = 'Število vrstic na strani, mora biti ne prazno celo število.';
 $lang['Number of rows per page'] = 'Število vrstic na stran';
 $lang['Unknown identifier'] = 'Neznan';
@@ -206,12 +206,12 @@ $lang['New password'] = 'Novo geslo';
 $lang['Rate this photo'] = 'Glasuj';
 $lang['Next'] = 'Naprej';
 $lang['no rate'] = 'brez glasa';
-$lang['Elements posted within the last %d day.'] = 'Elementi naloženi znotraj zadnjega %d dneva.';
-$lang['Elements posted within the last %d days.'] = 'Elementi naloženi znotraj zadnjih %d  dni.';
+$lang['Photos posted within the last %d day.'] = 'Elementi naloženi znotraj zadnjega %d dneva.';
+$lang['Photos posted within the last %d days.'] = 'Elementi naloženi znotraj zadnjih %d  dni.';
 $lang['password updated'] = 'geslo spremenjeno';
 $lang['Recent period must be a positive integer value'] = 'Novo obdobje more biti pozitivno celo število';
-$lang['picture'] = 'slika';
-$lang['Click on the picture to see it in high definition'] = 'Za ogled  v originalni velikosti, kliknite na sliko';
+$lang['photo'] = 'slika';
+$lang['Click on the photo to see it in high definition'] = 'Za ogled  v originalni velikosti, kliknite na sliko';
 $lang['Show file metadata'] = 'Prikaži mete podatke datoteke';
 $lang['Powered by'] = 'Powered by';
 $lang['Preferences'] = 'Nastavitve';
@@ -251,7 +251,7 @@ $lang['Contact'] = 'Kontakt';
 $lang['set as album representative'] = 'set as category representative';
 $lang['Maximum width must be a number superior to 50'] = 'Maksimalna dolžina mora biti večje od 50';
 $lang['display a calendar by creation date'] = 'prikaži kolendar po datumo nastanka';
-$lang['display all elements in all sub-albums'] = 'prikaži vse elemente v kategorijah in pod-kategorijah';
+$lang['display all photos in all sub-albums'] = 'prikaži vse elemente v kategorijah in pod-kategorijah';
 $lang['return to normal view mode'] = 'vrni se v normalni način';
 $lang['display a calendar by posted date'] = 'prikaži kolendar po datumo odpošiljanja';
 $lang['Show number of comments'] = 'Prikaži število komentarjev';
@@ -349,8 +349,6 @@ $lang['Reset to default values'] = 'Resetiraj na privzete vrednosti';
 $lang['delete all photos from your favorites'] = 'odstrani vse slike iz svojih priljubljenih';
 $lang['Sent by'] = 'Poslano od';
 $lang['Cookies are blocked or not supported by your browser. You must enable cookies to connect.'] = 'Piškotki so blokirani ali niso podprti s strani vašega brskalnika. Za prijavo je potrebno omogočiti piškotke.';
-$lang['Some info about this picture'] = 'Informacije o tej sliki';
-$lang['Some more (technical) info about this picture'] = 'Več  (tehničnih) informacij o tej sliki';
 $lang['edit this comment'] = 'uredi ta komentar';
 $lang['Edit a comment'] = 'Uredi komentar';
 $lang['Are you sure?'] = 'Ali ste prepričani?';

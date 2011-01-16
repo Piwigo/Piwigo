@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | Piwigo - a PHP based picture gallery                                  |
 // +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2010 Piwigo Team                  http://piwigo.org |
+// | Copyright(C) 2008-2011 Piwigo Team                  http://piwigo.org |
 // | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
 // | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
 // +-----------------------------------------------------------------------+
@@ -54,7 +54,7 @@ $lang['Average rate'] = "Vidējais novērtejums";
 $lang['Albums'] = 'Albūmi';
 $lang['Album'] = 'Albūms';
 $lang['Close this window'] = "Aizveriet šo logu";
-$lang['Complete RSS feed (images, comments)'] = "Pabeidziet RSS padevi (attēli, komentāri)";
+$lang['Complete RSS feed (photos, comments)'] = "Pabeidziet RSS padevi (attēli, komentāri)";
 $lang['Confirm Password'] = "Apstiprināt paroli";
 $lang['Connection settings'] = "Savienojuma iestatījumi";
 $lang['Login'] = "Ielogoties";
@@ -78,7 +78,7 @@ $lang['Forgot your password?'] = "Aizmirsāt paroli?";
 $lang['Go through the gallery as a visitor'] = "Skatīt galeriju ka apmeklētājam";
 $lang['Help'] = "Palīgs";
 $lang['Identification'] = "Identifikācija";
-$lang['Image only RSS feed'] = "Tkai RSS piegādes attēli";
+$lang['Photos only RSS feed'] = "Tkai RSS piegādes attēli";
 $lang['Keyword'] = "Atslēgvārds";
 $lang['Links'] = "Saites";
 $lang['N/A'] = "N/A";
@@ -113,7 +113,7 @@ $lang['Sort by'] = "Sarindot pēc";
 $lang['Sort order'] = "Rindošanas secība";
 $lang['Tag'] = "Tags";
 $lang['Tags'] = "Tagi";
-$lang['The RSS notification feed provides notification on news from this website : new pictures, updated albums, new comments. Use a RSS feed reader.'] = 'RSS nodrošina informāciju par jauniem notikumiem uz šīs web lapas: jauni attēli, atjaunināti albūmi, jauni komentāri. Lietojam ar RSS info lasītāju.';
+$lang['The RSS notification feed provides notification on news from this website : new photos, updated albums, new comments. Use a RSS feed reader.'] = 'RSS nodrošina informāciju par jauniem notikumiem uz šīs web lapas: jauni attēli, atjaunināti albūmi, jauni komentāri. Lietojam ar RSS info lasītāju.';
 $lang['Unknown feed identifier'] = "Nezināms piegādes identifikators";
 $lang['User comments'] = "Lietotāja komentāri";
 $lang['Username'] = "Lietotājvārds";
@@ -200,12 +200,12 @@ $lang['Last'] = "Pēdējais";
 $lang['Logout'] = "Iziet";
 $lang['E-mail address'] = "E-pasta adreses";
 $lang['obligatory'] = "obligāts";
-$lang['Maximum height of the pictures'] = "Attēla maksimālais augstums";
+$lang['Maximum photo height'] = "Attēla maksimālais augstums";
 $lang['Maximum height must be a number superior to 50'] = "Maksimālajam augstumam jābūt lielākam par 50";
-$lang['Maximum width of the pictures'] = "Attēla maksimālais platums";
+$lang['Maximum photo width'] = "Attēla maksimālais platums";
 $lang['Maximum width must be a number superior to 50'] = "Maksimālajam platumam jābūt lielākam par 50";
 $lang['display a calendar by creation date'] = "rāda kalendārā izveides datumu";
-$lang['display all elements in all sub-albums'] = 'rādīt visus elementus visos albūmos un apakšalbūmos';
+$lang['display all photos in all sub-albums'] = 'rādīt visus elementus visos albūmos un apakšalbūmos';
 $lang['return to normal view mode'] = "atgriezties normālajā apskates režīmā";
 $lang['display a calendar by posted date'] = "rāda kalendārā iesniegšanas datumu";
 $lang['month'][10] = "Oktobris";
@@ -222,8 +222,8 @@ $lang['month'][8] = "Augusts";
 $lang['month'][9] = "Septembris";
 $lang['Most visited'] = "Visapmeklētākie";
 $lang['display most visited photos'] = "parādīt visapmeklētākos attēlus";
-$lang['The number of images per row must be a not null scalar'] = "Attēlu skaitam rindā jābut lielākam par 0 un veselam skaitlim";
-$lang['Number of images per row'] = "Attēlu skaits rindā";
+$lang['The number of photos per row must be a not null scalar'] = "Attēlu skaitam rindā jābut lielākam par 0 un veselam skaitlim";
+$lang['Number of photos per row'] = "Attēlu skaits rindā";
 $lang['The number of rows per page must be a not null scalar'] = "Rindu skaitam lapā jābut lielākam par 0 un veselam skaitlim";
 $lang['Number of rows per page'] = "Rindu skaits lapā";
 $lang['Unknown identifier'] = "Nezināms identifikators";
@@ -231,12 +231,12 @@ $lang['New password'] = "Jauna parole";
 $lang['Rate this photo'] = "Vērtējiet šo attēlu";
 $lang['Next'] = "Nākamais";
 $lang['no rate'] = "nav novērtējuma";
-$lang['Elements posted within the last %d day.'] = "Attēli, kas publicēti tikai %d dienā.";
-$lang['Elements posted within the last %d days.'] = "Attēli, kas publicēti tikai %d dienās.";
+$lang['Photos posted within the last %d day.'] = "Attēli, kas publicēti tikai %d dienā.";
+$lang['Photos posted within the last %d days.'] = "Attēli, kas publicēti tikai %d dienās.";
 $lang['password updated'] = "parole izmainīta";
 $lang['Recent period must be a positive integer value'] = "Tekošajam periodam jābūt veselam skaitlim";
-$lang['picture'] = "attēls";
-$lang['Click on the picture to see it in high definition'] = "Uzklišķiniet uz attēla, lai apskatītu to HD režīmā";
+$lang['photo'] = "attēls";
+$lang['Click on the photo to see it in high definition'] = "Uzklišķiniet uz attēla, lai apskatītu to HD režīmā";
 $lang['Show file metadata'] = "Parādīt faila metadatus";
 $lang['Powered by'] = "Skripts";
 $lang['Preferences'] = 'Izvēles';
@@ -351,8 +351,6 @@ $lang['delete all photos from your favorites'] = "izdzēst visus attēlus on jū
 $lang['Sent by'] = "Aizūtījis";
 $lang['Cookies are blocked or not supported by your browser. You must enable cookies to connect.'] = "Jūsu pārlūks ir bloķējis sīklietotnes - cookies. Lai varētu ielogoties ir jāaktevizē sīklietotnes.";
 
-$lang['Some info about this picture'] = "Informācija par šo attēlu";
-$lang['Some more (technical) info about this picture'] = "Vairāk (tehniskas) informācijas par šo attēlu";
 $lang['edit this comment'] = "labot šo komentāru";
 $lang['Edit a comment'] = "Labot komentāru";
 $lang['Are you sure?'] = "Esat pārliecināts?";

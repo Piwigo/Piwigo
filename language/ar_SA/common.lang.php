@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | Piwigo - a PHP based picture gallery                                  |
 // +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2010 Piwigo Team                  http://piwigo.org |
+// | Copyright(C) 2008-2011 Piwigo Team                  http://piwigo.org |
 // | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
 // | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
 // +-----------------------------------------------------------------------+
@@ -54,7 +54,7 @@ $lang['Average rate'] = 'متوسط التصويت';
 $lang['Albums'] = 'الألبومات';
 $lang['Album'] = 'الألبوم';
 $lang['Close this window'] = 'اغلق هذه النافذة';
-$lang['Complete RSS feed (images, comments)'] = 'تابع تحديثات الموقع من صور جديدة و تعليقات  عبر الاشتراك في هذه الخدمة RSS';
+$lang['Complete RSS feed (photos, comments)'] = 'تابع تحديثات الموقع من صور جديدة و تعليقات  عبر الاشتراك في هذه الخدمة RSS';
 $lang['Confirm Password'] = 'تأكيد كلمة المرور';
 $lang['Connection settings'] = 'اعداد الاتصال';
 $lang['Login'] = 'دخول';
@@ -79,7 +79,7 @@ $lang['Forgot your password?'] = 'هل نسيت كلمة المرور?';
 $lang['Go through the gallery as a visitor'] = 'ادخل معرض الصور كأحد الزوار';
 $lang['Help'] = 'مساعدة';
 $lang['Identification'] = 'الخصوصية';
-$lang['Image only RSS feed'] = 'التغذية الراجعه للصورةRSS';
+$lang['Photos only RSS feed'] = 'التغذية الراجعه للصورةRSS';
 $lang['Keyword'] = 'كلمة مفتاحية';
 $lang['Links'] = 'روابط';
 $lang['N/A'] = 'غير معروف';
@@ -114,7 +114,7 @@ $lang['Sort by'] = 'ترتيب حسب ..';
 $lang['Sort order'] = 'طريقة العرض';
 $lang['Tag'] = 'كلمة دلائلية';
 $lang['Tags'] = 'الكلمات الدلائلية';
-$lang['The RSS notification feed provides notification on news from this website : new pictures, updated albums, new comments. Use a RSS feed reader.'] = 'استخدم خدمةالتغذية الراجعه RSS للحصول التحديثات الجديدة من تعليقات و اضافات في هذا الموقع';
+$lang['The RSS notification feed provides notification on news from this website : new photos, updated albums, new comments. Use a RSS feed reader.'] = 'استخدم خدمةالتغذية الراجعه RSS للحصول التحديثات الجديدة من تعليقات و اضافات في هذا الموقع';
 $lang['Unknown feed identifier'] = 'التغذية غير معرفة';
 $lang['User comments'] = 'آخر التلعيقات في المعرض';
 $lang['Username'] = 'أسم المستخدم';
@@ -205,12 +205,12 @@ $lang['Last'] = 'الأخيرة';
 $lang['Logout'] = 'خروج';
 $lang['E-mail address'] = 'اليريد الالكتروني';
 $lang['obligatory'] = 'ضروري';
-$lang['Maximum height of the pictures'] = 'الارتفاع الاقصى للصورة';
+$lang['Maximum photo height'] = 'الارتفاع الاقصى للصورة';
 $lang['Maximum height must be a number superior to 50'] = 'يجب ان يكون اقصى ارتفاع للصورة يتعدى الـ50';
-$lang['Maximum width of the pictures'] = 'العرض الاقضى للصورة';
+$lang['Maximum photo width'] = 'العرض الاقضى للصورة';
 $lang['Maximum width must be a number superior to 50'] = 'يجب ان يكون العرض الاقصى للصورة يتعدى الـ50';
 $lang['display a calendar by creation date'] = 'عرض التقويم حسب الألبومات';
-$lang['display all elements in all sub-albums'] = 'عرض جميع الصور ';
+$lang['display all photos in all sub-albums'] = 'عرض جميع الصور ';
 $lang['return to normal view mode'] = 'العودة لنمط العرض العادي';
 $lang['display a calendar by posted date'] = 'عرض التقويم حسب تاريخ الصورة المضافة';
 $lang['month'][10] = 'أكتوبر';
@@ -227,8 +227,8 @@ $lang['month'][8] = 'أغسطس';
 $lang['month'][9] = 'سبتمبر';
 $lang['Most visited'] = 'الصور الأكثر مشاهدة';
 $lang['display most visited photos'] = 'أعرض الصور الاكثر مشاهدة';
-$lang['The number of images per row must be a not null scalar'] = 'عدد الصور لكل صف لا يجب ان يكون فارغ';
-$lang['Number of images per row'] = 'عدد الصورلكل صف';
+$lang['The number of photos per row must be a not null scalar'] = 'عدد الصور لكل صف لا يجب ان يكون فارغ';
+$lang['Number of photos per row'] = 'عدد الصورلكل صف';
 $lang['The number of rows per page must be a not null scalar'] = 'عدد الصورلكل صف لا يجب ان يكون فارغ';
 $lang['Number of rows per page'] = 'عدد الصفوف في الصفحة';
 $lang['Unknown identifier'] = 'معرف مجهول';
@@ -236,12 +236,12 @@ $lang['New password'] = 'كلمة مرور جديدة';
 $lang['Rate this photo'] = 'قيم هذه الصورة';
 $lang['Next'] = 'التالي';
 $lang['no rate'] = 'لم يتم تقيم الصورة';
-$lang['Elements posted within the last %d day.'] = 'عناصراضيفت في آخر  %d يوم.';
-$lang['Elements posted within the last %d days.'] = 'صور ادخلت في آخر %d الايام.';
+$lang['Photos posted within the last %d day.'] = 'عناصراضيفت في آخر  %d يوم.';
+$lang['Photos posted within the last %d days.'] = 'صور ادخلت في آخر %d الايام.';
 $lang['password updated'] = 'تم تغير كلمة المرور ';
 $lang['Recent period must be a positive integer value'] = 'يجب أن تكون القيمة ايجابية في الفترة السابقة';
-/* DEPRECATED USED IN comments.php FOR image_id ? */ $lang['picture'] = 'صورة';
-$lang['Click on the picture to see it in high definition'] = 'اضغط على الصورة كي ترى الابعاد الحقيقية لها';
+/* DEPRECATED USED IN comments.php FOR image_id ? */ $lang['photo'] = 'صورة';
+$lang['Click on the photo to see it in high definition'] = 'اضغط على الصورة كي ترى الابعاد الحقيقية لها';
 $lang['Show file metadata'] = 'اظهر الملعومات الفوتوغرافية للصورة';
 $lang['Powered by'] = 'بدعم من';
 $lang['Preferences'] = 'التفضيلات';
@@ -360,8 +360,6 @@ $lang['Reset to default values'] = 'ارجع للقيم الافتراضية';
 $lang['delete all photos from your favorites'] = 'احذف كل الصور من مفضلتي';
 $lang['Sent by'] = 'أرسل بواسطة : ';
 $lang['Cookies are blocked or not supported by your browser. You must enable cookies to connect.'] = 'ملفات الارتباط محضورة في متصفحك أو غير معتمده ،يجب تمكين الكوكيز للتمكن من التسجيل';
-$lang['Some info about this picture'] = 'معلومات عن هذه الصورة';
-$lang['Some more (technical) info about this picture'] = 'معلومات أكثر ( تقنية ) عن هذه الصورة';
 $lang['edit this comment'] = 'عدل هذا التعليق';
 $lang['Edit a comment'] = 'حرر تعليق';
 $lang['(!) This comment requires validation'] = '(!) التعليق يحتاج تصريح';

@@ -183,7 +183,7 @@
 
 <table>
   <tr>
-    <td>{'Number of images per row'|@translate}</td>
+    <td>{'Number of photos per row'|@translate}</td>
     <td>
       <label><input type="radio" name="nb_image_line_action" value="leave" checked="checked"> {'leave'|@translate}</label>
       <label><input type="radio" name="nb_image_line_action" value="set" id="nb_image_line_action_set"> {'set to'|@translate}</label>
@@ -265,7 +265,7 @@
   </tr>
 
   <tr>
-    <td>{'Maximum width of the pictures'|@translate}</td>
+    <td>{'Maximum photo width'|@translate}</td>
     <td>
       <label><input type="radio" name="maxwidth_action" value="leave" checked="checked"> {'leave'|@translate}</label>
       <label><input type="radio" name="maxwidth_action" value="unset"> {'unset'|@translate}</label>
@@ -277,7 +277,7 @@
 
 
   <tr>
-    <td>{'Maximum height of the pictures'|@translate}</td>
+    <td>{'Maximum photo height'|@translate}</td>
     <td>
       <label><input type="radio" name="maxheight_action" value="leave" checked="checked"> {'leave'|@translate}</label>
       <label><input type="radio" name="maxheight_action" value="unset"> {'unset'|@translate}</label>

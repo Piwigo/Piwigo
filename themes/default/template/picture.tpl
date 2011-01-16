@@ -119,7 +119,7 @@ y.callService(
 {/if}
 {/if}
 
-<table id="standard" class="infoTable" summary="{'Some info about this picture'|@translate}">
+<table id="standard" class="infoTable">
 	{if $display_info.author}
 	<tr id="Author">
 		<td class="label">{'Author'|@translate}</td>
@@ -261,7 +261,7 @@ y.callService(
 </table>
 
 {if isset($metadata)}
-<table id="Metadata" class="infoTable2" summary="{'Some more (technical) info about this picture'|@translate}">
+<table id="Metadata" class="infoTable2">
 {foreach from=$metadata item=meta}
 	<tr>
 		<th colspan="2">{$meta.TITLE}</th>

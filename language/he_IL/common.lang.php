@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | Piwigo - a PHP based picture gallery                                  |
 // +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2010 Piwigo Team                  http://piwigo.org |
+// | Copyright(C) 2008-2011 Piwigo Team                  http://piwigo.org |
 // | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
 // | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
 // +-----------------------------------------------------------------------+
@@ -53,7 +53,7 @@ $lang['Average rate'] = "דירוג ממוצע";
 $lang['Albums'] = "קטגוריות";
 $lang['Album'] = "קטגוריה";
 $lang['Close this window'] = "סגור חלון זה";
-$lang['Complete RSS feed (images, comments)'] = "עדכון RSS (תמונות, הערות)";
+$lang['Complete RSS feed (photos, comments)'] = "עדכון RSS (תמונות, הערות)";
 $lang['Confirm Password'] = "אשר סיסמה";
 $lang['Connection settings'] = "הגדרות חיבור";
 $lang['Login'] = "התחברות";
@@ -77,7 +77,7 @@ $lang['Forgot your password?'] = "שכחת את הסיסמה?";
 $lang['Go through the gallery as a visitor'] = "נווט בגלריה כמבקר";
 $lang['Help'] = "עזרה";
 $lang['Identification'] = "הזדהות";
-$lang['Image only RSS feed'] = "תמונות בלבד RSS ";
+$lang['Photos only RSS feed'] = "תמונות בלבד RSS ";
 $lang['Keyword'] = "מילות מפתח";
 $lang['Links'] = "קישורים";
 $lang['N/A'] = "N/A לא ידוע";
@@ -112,7 +112,7 @@ $lang['Sort by'] = "מיין לפי";
 $lang['Sort order'] = "לפי הסדר";
 $lang['Tag'] = "תווית";
 $lang['Tags'] = "תוויות";
-$lang['The RSS notification feed provides notification on news from this website : new pictures, updated albums, new comments. Use a RSS feed reader.'] = "ה-RSS מספק התראה על אירועים חדשים מאתר זה: תמונות חדשות, קטגוריות מעודכן, הערות חדשות. כדי להשתמש עם קורא RSS.";
+$lang['The RSS notification feed provides notification on news from this website : new photos, updated albums, new comments. Use a RSS feed reader.'] = "ה-RSS מספק התראה על אירועים חדשים מאתר זה: תמונות חדשות, קטגוריות מעודכן, הערות חדשות. כדי להשתמש עם קורא RSS.";
 $lang['Unknown feed identifier'] = 'מזהה לא ידוע';
 $lang['User comments'] = 'תגובות משתמש';
 $lang['Username'] = 'שם משתמש';
@@ -200,12 +200,12 @@ $lang['Last'] = "אחרון";
 $lang['Logout'] = "התנתק";
 $lang['E-mail address'] = "כתובת דואר אלקטרוני";
 $lang['obligatory'] = "הכרחי";
-$lang['Maximum height of the pictures'] = "גובה מקסימלי לתמונה";
+$lang['Maximum photo height'] = "גובה מקסימלי לתמונה";
 $lang['Maximum height must be a number superior to 50'] = "הגובהה המקסימלי חייב להיות מעל 50";
-$lang['Maximum width of the pictures'] = "רוחב  מקסימלי לתמונה";
+$lang['Maximum photo width'] = "רוחב  מקסימלי לתמונה";
 $lang['Maximum width must be a number superior to 50'] = "הרוחב המקסימלי חייב להיות מעל 50";
 $lang['display a calendar by creation date'] = "הצג לוח שנה לפי תאריך יצירה";
-$lang['display all elements in all sub-albums'] = "הצג את כל הפריטים בכל הקטגוריות ובכל התת קטגוריות";
+$lang['display all photos in all sub-albums'] = "הצג את כל הפריטים בכל הקטגוריות ובכל התת קטגוריות";
 $lang['return to normal view mode'] = "חזור לתצוגה רגילה";
 $lang['display a calendar by posted date'] = "הצג לוח שנה לפי תאריך פרסום";
 $lang['month'][10] = "אוקטובר";
@@ -222,8 +222,8 @@ $lang['month'][8] = "אוגוסט";
 $lang['month'][9] = "ספטמבר";
 $lang['Most visited'] = "הכי נצפה";
 $lang['display most visited photos'] = "הצג את התמונות הנצפות ביותר";
-$lang['The number of images per row must be a not null scalar'] = 'מספר התמונות בכל שורה חייב להיות מספר שלם שונה מאפס';
-$lang['Number of images per row'] = 'מספר התמונות בכל שורה';
+$lang['The number of photos per row must be a not null scalar'] = 'מספר התמונות בכל שורה חייב להיות מספר שלם שונה מאפס';
+$lang['Number of photos per row'] = 'מספר התמונות בכל שורה';
 $lang['The number of rows per page must be a not null scalar'] = 'מספר שורות בכל דף חייב להיות מספר שלם שונה מאפס';
 $lang['Number of rows per page'] = "מספר שורות לעמוד";
 $lang['Unknown identifier'] = 'מזהה לא ידוע';
@@ -231,12 +231,12 @@ $lang['New password'] = "סיסמה חדשה";
 $lang['Rate this photo'] = "דרג תמונה זאת";
 $lang['Next'] = "הבא";
 $lang['no rate'] = "לא דורג";
-$lang['Elements posted within the last %d day.'] = "פריטים שנוספו ב %d ימים האחרונים.";
-$lang['Elements posted within the last %d days.'] = "פריטים שנוספו ב %d ימים האחרונים.";
+$lang['Photos posted within the last %d day.'] = "פריטים שנוספו ב %d ימים האחרונים.";
+$lang['Photos posted within the last %d days.'] = "פריטים שנוספו ב %d ימים האחרונים.";
 $lang['password updated'] = "הסיסמה עודכנה";
 $lang['Recent period must be a positive integer value'] = 'התמונות האחרונות חייב להיות מספר שלם חיובי';
-$lang['picture'] = "תמונה";
-$lang['Click on the picture to see it in high definition'] = "לחץ על הצמונה על מנת לראות אותה באיכות גבוהה";
+$lang['photo'] = "תמונה";
+$lang['Click on the photo to see it in high definition'] = "לחץ על הצמונה על מנת לראות אותה באיכות גבוהה";
 $lang['Show file metadata'] = "הראה את המידע על הקובץ";
 $lang['Powered by'] = "נוצר על ידי";
 $lang['Preferences'] = "העדפות";
@@ -351,8 +351,6 @@ $lang['delete all photos from your favorites'] = "מחק את כל התמונו�
 $lang['Sent by'] = "נשלח על ידי";
 $lang['Cookies are blocked or not supported by your browser. You must enable cookies to connect.'] = "הדפדפן שלך חוסם קוקיז או לא תומך בהם. אתה חייב להפעיל את ה קוקיז בשביל להתחבר.";
 
-$lang['Some info about this picture'] = "מידע על התמונה הזאת";
-$lang['Some more (technical) info about this picture'] = "עוד מידע תכני על התמונה הזאת";
 $lang['edit this comment'] = "ערוך תגובה זאת";
 $lang['Edit a comment'] = "ערוך תגובה";
 $lang['Are you sure?'] = "האם אתה בטוח?";
