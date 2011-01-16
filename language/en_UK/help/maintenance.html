@@ -1,8 +1,8 @@
 <h2>Maintenance</h2>
 
 <p>To optimize page generation time, Piwigo uses cached
-information. For example, instead of counting the number of pictures
-contained in each category at each page reload, this information is stored
+information. For example, instead of counting the number of photos
+contained in each album at each page reload, this information is stored
 in the database. In theory, this information should always be correct, but
 sometimes an error can occur and cached information becomes wrong.</p>
 
@@ -12,30 +12,30 @@ information from database make you save disk space.</p>
 <ul>
 
   <li>
-    <strong>Unlinked elements:</strong>
-    Display images which are not associated to any virtual category.
+    <strong>Unlinked photos:</strong>
+    Display photos which are not associated to any virtual album.
   </li>
   <li>
-    <strong>Files with the same name in more than one physical category:</strong>
-    Display images or files which are found with the same filename in several categories.
+    <strong>Files with the same name in more than one physical album:</strong>
+    Display photos or files which are found with the same filename in several albums.
   </li>
 
 </ul>
 
 <ul>
 
-  <li><strong>Update albums informations:</strong> For each category,
+  <li><strong>Update albums informations:</strong> For each album,
   the following information is checked, and updated if necessary : list of parent
-  categories, number of pictures, last picture date, position among
-  brother categories, position among all categories. This action also checks
-  the representative picture consistency.</li>
+  albums, number of photos, last photo date, position among
+  brother albums, position among all albums. This action also checks
+  the representative photos consistency.</li>
 
-  <li><strong>Update images information:</strong> For each picture,
+  <li><strong>Update photos information:</strong> For each photo,
   information updated is : full path to file, average
   rate. <em>Warning</em>, do not mix up: metadata information
-  must be synchronized from <span class="pwgScreen">Administration,
-  Categories, Synchronize</span>, or on the modification screen of a
-  single picture (through <span class="pwgScreen">Picture</span> for
+  must be synchronized from <span class="pwgScreen">Administration &raquo;
+  Tools &raquo; Synchronize</span>, or on the modification screen of a
+  single photo (through <span class="pwgScreen">Photo</span> for
   example).</li>
 
   <li><strong>Repair and optimize the database:</strong>
