@@ -549,9 +549,6 @@ FIELDSET {
 	margin: 0 0.5em 0 0;
 }
 
-.filter .tagSelection LI LABEL INPUT {
-	margin-right:0;
-}
 
 
 .filter INPUT[type="submit"] {

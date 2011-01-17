@@ -618,8 +618,7 @@ class Template {
       {
         $content[]= '<script type="text/javascript">';
         $content[]= '(function() {
-var after = document.getElementsByTagName(\'script\')[document.getElementsByTagName(\'script\').length-1];
-var s;';
+var s,after = document.getElementsByTagName(\'script\')[document.getElementsByTagName(\'script\').length-1];';
         foreach ($scripts[1] as $id => $script)
         {
           $content[]=

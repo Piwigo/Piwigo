@@ -258,7 +258,7 @@ function get_html_tag_selection(
 
     $output.=
       '>'
-      .' '. $tag['name']
+      .$tag['name']
       .'</label>'
       .'</li>'
       ."\n"

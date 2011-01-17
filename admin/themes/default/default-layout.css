@@ -400,10 +400,6 @@ FORM.filter FIELDSET LABEL SPAN TEXTAREA {
 	margin: 0 0.5em 0 0;
 }
 
-FORM.filter FIELDSET UL.tagSelection LI LABEL INPUT {
-	margin-right:0;
-}
-
 /* following declaration is important to avoid strange FF behaviour */
 FORM.filter FIELDSET LABEL SPAN SELECT {
 	margin: 0;
