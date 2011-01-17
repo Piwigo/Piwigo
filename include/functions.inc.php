@@ -575,7 +575,7 @@ function redirect_html( $url , $msg = '', $refresh_time = 0)
     $user = build_user( $conf['guest_id'], true);
     load_language('common.lang');
     trigger_action('loading_lang');
-    load_language('lang', PHPWG_ROOT_PATH.'local/', array('no_fallback'=>true, 'local'=>true) );
+    load_language('lang', PHPWG_ROOT_PATH.PWG_LOCAL_DIR, array('no_fallback'=>true, 'local'=>true) );
     $template = new Template(PHPWG_ROOT_PATH.'themes', get_default_theme());
   }
 	elseif (defined('IN_ADMIN') and IN_ADMIN)

@@ -114,8 +114,22 @@ else
   $prefixeTable = DEFAULT_PREFIX_TABLE;
 }
 
+if (is_file(PHPWG_ROOT_PATH .'local/config/multisite.inc.php'))
+{
+  include(PHPWG_ROOT_PATH .'local/config/multisite.inc.php');
+  define('PWG_LOCAL_DIR', $conf['local_dir_site']);
+}
+else
+{
+  define('PWG_LOCAL_DIR', 'local/');
+}
+
 include(PHPWG_ROOT_PATH . 'include/config_default.inc.php');
 @include(PHPWG_ROOT_PATH. 'local/config/config.inc.php');
+if (isset($conf['local_dir_site']))
+{
+  @include(PHPWG_ROOT_PATH.PWG_LOCAL_DIR. 'config/config.inc.php');
+}
 
 // download database config file if exists
 if (!empty($_GET['dl']) && file_exists($conf['local_data_dir'].'/pwg_'.$_GET['dl']))
@@ -152,7 +166,7 @@ if (isset($_POST['install']))
 $infos = array();
 $errors = array();
 
-$config_file = PHPWG_ROOT_PATH . 'local/config/database.inc.php';
+$config_file = PHPWG_ROOT_PATH.PWG_LOCAL_DIR .'config/database.inc.php';
 if (@file_exists($config_file))
 {
   include($config_file);

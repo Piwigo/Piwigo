@@ -32,9 +32,24 @@ define('PHPWG_ROOT_PATH', './');
 include_once(PHPWG_ROOT_PATH.'include/functions.inc.php');
 include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
 include_once(PHPWG_ROOT_PATH.'admin/include/functions_upgrade.php');
-include(PHPWG_ROOT_PATH.'local/config/database.inc.php');
+
+if (is_file(PHPWG_ROOT_PATH .'local/config/multisite.inc.php'))
+{
+  include(PHPWG_ROOT_PATH .'local/config/multisite.inc.php');
+  define('PWG_LOCAL_DIR', $conf['local_dir_site']);
+}
+else
+{
+  define('PWG_LOCAL_DIR', 'local/');
+}
+
+include(PHPWG_ROOT_PATH.PWG_LOCAL_DIR .'config/database.inc.php');
 include(PHPWG_ROOT_PATH . 'include/config_default.inc.php');
 @include(PHPWG_ROOT_PATH. 'local/config/config.inc.php');
+if (isset($conf['local_dir_site']))
+{
+  @include(PHPWG_ROOT_PATH.PWG_LOCAL_DIR. 'config/config.inc.php');
+}
 include(PHPWG_ROOT_PATH .'include/dblayer/functions_'.$conf['dblayer'].'.inc.php');
 
 // +-----------------------------------------------------------------------+

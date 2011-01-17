@@ -797,13 +797,13 @@ var s;';
     $css = array();
     foreach ($smarty->get_template_vars('themes') as $theme)
     {
-      $f = 'local/css/'.$theme['id'].'-rules.css';
+      $f = PWG_LOCAL_DIR.'css/'.$theme['id'].'-rules.css';
       if (file_exists(PHPWG_ROOT_PATH.$f))
       {
         array_push($css, "{combine_css path='$f' order=10}");
       }
     }
-    $f = 'local/css/rules.css';
+    $f = PWG_LOCAL_DIR.'css/rules.css';
     if (file_exists(PHPWG_ROOT_PATH.$f))
     {
       array_push($css, "{combine_css path='$f' order=10}");
@@ -1133,7 +1133,7 @@ class ScriptLoader
 /*Allows merging of javascript and css files into a single one.*/
 final class FileCombiner
 {
-  const OUT_SUB_DIR = 'local/combined/';
+  const OUT_SUB_DIR = PWG_COMBINED_DIR;
   private $type; // js or css
   private $files = array();
   private $versions = array();

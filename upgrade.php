@@ -24,7 +24,17 @@
 define('PHPWG_ROOT_PATH', './');
 
 // load config file
-$config_file = PHPWG_ROOT_PATH.'local/config/database.inc.php';
+if (is_file(PHPWG_ROOT_PATH .'local/config/multisite.inc.php'))
+{
+  include(PHPWG_ROOT_PATH .'local/config/multisite.inc.php');
+  define('PWG_LOCAL_DIR', $conf['local_dir_site']);
+}
+else
+{
+  define('PWG_LOCAL_DIR', 'local/');
+}
+
+$config_file = PHPWG_ROOT_PATH.PWG_LOCAL_DIR.'config/database.inc.php';
 $config_file_contents = @file_get_contents($config_file);
 if ($config_file_contents === false)
 {
@@ -36,9 +46,13 @@ if ($php_end_tag === false)
   die('Cannot find php end tag in '.$config_file);
 }
 
-include(PHPWG_ROOT_PATH.'local/config/database.inc.php');
+include($config_file);
 include(PHPWG_ROOT_PATH . 'include/config_default.inc.php');
 @include(PHPWG_ROOT_PATH. 'local/config/config.inc.php');
+if (isset($conf['local_dir_site']))
+{
+  @include(PHPWG_ROOT_PATH.PWG_LOCAL_DIR. 'config/config.inc.php');
+}
 
 // $conf is not used for users tables - define cannot be re-defined
 define('USERS_TABLE', $prefixeTable.'users');
@@ -308,7 +322,7 @@ if ((isset($_POST['submit']) or isset($_GET['now']))
           $page['infos'],
           sprintf(
             l10n('In <i>%s</i>, before <b>?></b>, insert:'),
-            'local/config/database.inc.php'
+            PWG_LOCAL_DIR.'config/database.inc.php'
             )
           .'<p><textarea rows="4" cols="40">'
           .implode("\r\n" , $mysql_changes).'</textarea></p>'

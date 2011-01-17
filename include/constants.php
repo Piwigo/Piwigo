@@ -27,6 +27,7 @@ define('PHPWG_DEFAULT_LANGUAGE', 'en_UK');
 define('PHPWG_DEFAULT_TEMPLATE', 'Sylvia');
 
 define('PHPWG_THEMES_PATH', $conf['themes_dir'].'/');
+define('PWG_COMBINED_DIR', PWG_LOCAL_DIR.'combined/');
 
 // Required versions
 define('REQUIRED_PHP_VERSION', '5.0.0');

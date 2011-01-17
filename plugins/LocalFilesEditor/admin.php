@@ -130,7 +130,7 @@ if (isset($_POST['create_tpl']))
 switch ($page['tab'])
 {
   case 'localconf':
-    $edited_file = PHPWG_ROOT_PATH . "local/config/config.inc.php";
+    $edited_file = PHPWG_ROOT_PATH.PWG_LOCAL_DIR . "config/config.inc.php";
     $content_file = file_exists($edited_file) ?
       file_get_contents($edited_file) : $new_file['localconf'];
 	
@@ -145,14 +145,14 @@ switch ($page['tab'])
     $selected = 0; 
     $options[] = l10n('locfiledit_choose_file');
     $options[] = '----------------------';
-    $value = PHPWG_ROOT_PATH . "local/css/rules.css";
+    $value = PHPWG_ROOT_PATH.PWG_LOCAL_DIR . "css/rules.css";
     $options[$value] = 'local / css / rules.css';
     if ($edited_file == $value) $selected = $value;
     $options[] = '----------------------';
 	
     foreach (get_dirs($conf['themes_dir']) as $theme_id)
     {
-      $value = PHPWG_ROOT_PATH . 'local/css/'.$theme_id.'-rules.css';
+      $value = PHPWG_ROOT_PATH.PWG_LOCAL_DIR . 'css/'.$theme_id.'-rules.css';
       $options[$value] = 'local / css / '.$theme_id.'-rules.css';
       if ($edited_file == $value) $selected = $value;
     }
@@ -247,7 +247,7 @@ switch ($page['tab'])
     $options[] = '----------------------';
     foreach (get_languages() as $language_code => $language_name)
     {
-      $value = PHPWG_ROOT_PATH.'local/language/'.$language_code.'.lang.php';
+      $value = PHPWG_ROOT_PATH.PWG_LOCAL_DIR.'language/'.$language_code.'.lang.php';
       if ($edited_file == $value)
       {
         $selected = $value;

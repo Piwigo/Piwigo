@@ -70,7 +70,17 @@ $header_msgs = array();
 $header_notes = array();
 $filter = array();
 
-@include(PHPWG_ROOT_PATH .'local/config/database.inc.php');
+if (is_file(PHPWG_ROOT_PATH .'local/config/multisite.inc.php'))
+{
+  include(PHPWG_ROOT_PATH .'local/config/multisite.inc.php');
+  define('PWG_LOCAL_DIR', $conf['local_dir_site']);
+}
+else
+{
+  define('PWG_LOCAL_DIR', 'local/');
+}
+
+@include(PHPWG_ROOT_PATH.PWG_LOCAL_DIR .'config/database.inc.php');
 if (!defined('PHPWG_INSTALLED'))
 {
   header('Location: install.php');
@@ -92,6 +102,10 @@ foreach( array(
 
 include(PHPWG_ROOT_PATH . 'include/config_default.inc.php');
 @include(PHPWG_ROOT_PATH. 'local/config/config.inc.php');
+if (isset($conf['local_dir_site']))
+{
+  @include(PHPWG_ROOT_PATH.PWG_LOCAL_DIR. 'config/config.inc.php');
+}
 include(PHPWG_ROOT_PATH .'include/dblayer/functions_'.$conf['dblayer'].'.inc.php');
 
 if(isset($conf['show_php_errors']) && !empty($conf['show_php_errors']))
@@ -151,7 +165,7 @@ if ( is_admin() || (defined('IN_ADMIN') and IN_ADMIN) )
   load_language('admin.lang');
 }
 trigger_action('loading_lang');
-load_language('lang', PHPWG_ROOT_PATH.'local/', array('no_fallback'=>true, 'local'=>true) );
+load_language('lang', PHPWG_ROOT_PATH.PWG_LOCAL_DIR, array('no_fallback'=>true, 'local'=>true) );
 
 // only now we can set the localized username of the guest user (and not in
 // include/user.inc.php)

@@ -223,7 +223,7 @@ function switch_lang_to($language)
     // Translations are in admin file too
     load_language('admin.lang', '', array('language'=>$language) );
     trigger_action('loading_lang');
-    load_language('lang', PHPWG_ROOT_PATH.'local/',
+    load_language('lang', PHPWG_ROOT_PATH.PWG_LOCAL_DIR,
       array('language'=>$language, 'no_fallback'=>true, 'local'=>true)
     );
 
