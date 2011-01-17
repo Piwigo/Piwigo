@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | Piwigo - a PHP based picture gallery                                  |
 // +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2010 Piwigo Team                  http://piwigo.org |
+// | Copyright(C) 2008-2011 Piwigo Team                  http://piwigo.org |
 // | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
 // | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
 // +-----------------------------------------------------------------------+
@@ -80,7 +80,6 @@ $lang['Description'] = "Description";
 $lang['Display options'] = "Options d'affichage";
 $lang['Dissociated'] = "Dissociée de";
 $lang['Does not represent'] = "Ne représente pas";
-$lang['Edit all picture informations'] = "Modifier toutes les informations liées à cette image";
 $lang['Edit selected tags'] = "Éditer les mots clés sélectionnés";
 $lang['Edit tags'] = "Éditer les mots clés";
 $lang['Email admins when a new user registers'] = "Notifier les administrateurs lors de l'inscription d'un utilisateur";
@@ -99,8 +98,8 @@ $lang['Guests'] = "Invités";
 $lang['History'] = "Historique";
 $lang['Informations'] = "Informations";
 $lang['Install'] = "Installer";
-$lang['Link all album elements to a new album'] = "Associer tous les éléments de la catégorie à une nouvelle catégorie";
-$lang['Link all album elements to some existing albums'] = "Associer tous les éléments de la catégorie à des catégories existantes";
+$lang['Link all album photos to a new album'] = "Associer tous les éléments de la catégorie à une nouvelle catégorie";
+$lang['Link all album photos to some existing albums'] = "Associer tous les éléments de la catégorie à des catégories existantes";
 $lang['Linked albums'] = "Catégories associées";
 $lang['Lock gallery'] = "Verrouiller la galerie";
 $lang['Maintenance'] = "Maintenance";
@@ -166,7 +165,7 @@ $lang['Tag selection'] = "Sélection de mots clés";
 $lang['The %d following tags were deleted'] = "Les %d mots clés suivants ont été supprimés";
 $lang['Unable to check for upgrade.'] = "Impossible de connaître la dernière version.";
 $lang['Uninstall'] = "Désinstaller";
-$lang['Use the default image sort order (defined in the configuration file)'] = "Utiliser l'ordre de tri des images par défaut (défini dans le fichier de configuration)";
+$lang['Use the default photo sort order (defined in the configuration file)'] = "Utiliser l'ordre de tri des images par défaut (défini dans le fichier de configuration)";
 $lang['User comments validation'] = "Validation des commentaires d'utilisateurs";
 $lang['Users'] = "Utilisateurs";
 $lang['Validate'] = "Valider";
@@ -247,7 +246,7 @@ $lang['Complementary mail content'] = "Contenu complémentaire au courriel	";
 $lang['See you soon,'] = "À bientôt,";
 $lang['Go to'] = "Rendez-vous sur";
 $lang['Hello'] = "Bonjour";
-$lang['New elements were added'] = "De nouveaux éléments ont été ajoutés";
+$lang['New photos were added'] = "De nouveaux éléments ont été ajoutés";
 $lang['on'] = "le";
 $lang['between'] = "entre le";
 $lang['and'] = "et le";
@@ -273,7 +272,7 @@ $lang['There is no available subscribers to mail.'] = "Il n'y a pas d'utilisateu
 $lang['Subscribers could be listed (available) only if there is new elements to notify.'] = "Un utilisateur peut être notifié seulement si de nouveaux éléments sont disponibles pour cet utilisateur.";
 $lang['Anyway only webmasters can see this tab and never administrators.'] = "Seul le webmaster a accès à cet onglet, pas les administrateurs.";
 $lang['No user to send notifications by mail.'] = "Pas d'utilisateur pour envoyer des notifications par courriels.";
-$lang['New elements added'] = "Nouveaux éléments ajoutés";
+$lang['New photos added'] = "Nouveaux éléments ajoutés";
 $lang['Subscribe to notification by mail'] = "Inscription à la notification par courriel";
 $lang['Unsubscribe from notification by mail'] = "Désinscription à la notification par courriel";
 $lang['Parameter'] = "Paramétrage";
@@ -354,7 +353,7 @@ $lang['Piwigo configuration'] = "Configuration de Piwigo";
 $lang['Edit album'] = "Modifier une catégorie";
 $lang['Group management'] = "Gestion des groupes";
 $lang['User list'] = "Liste des utilisateurs";
-$lang['Modify informations about a picture'] = "Modifier les informations d'une image";
+$lang['Edit photo information'] = "Modifier les informations d'une image";
 $lang['Thumbnail creation'] = "Création des miniatures";
 $lang['Database synchronization with files'] = "Synchronisation de la base à partir des fichiers de";
 $lang['all'] = "Tout";
@@ -379,7 +378,7 @@ $lang['unit mode'] = "Mode unitaire";
 $lang['Unlocked'] = "Déverrouillées";
 $lang['unset'] = "vider";
 $lang['Update albums informations'] = "Mettre à jour les informations des catégories";
-$lang['Update images informations'] = "Mettre à jour les informations des images";
+$lang['Update photos information'] = "Mettre à jour les informations des images";
 $lang['Synchronize'] = "Synchroniser";
 $lang['reduce to single existing albums'] = "Traiter uniquement une catégorie";
 $lang['Choose an option'] = "Choisir une option";
@@ -397,7 +396,7 @@ $lang['a picture filetype requires a thumbnail. The thumbnail must be present in
 $lang['missing thumbnail'] = "miniature manquante";
 $lang['albums deleted in the database'] = "catégories supprimées de la base de données";
 $lang['photos deleted from the database'] = "éléments supprimés de la base de données";
-$lang['images candidates for metadata synchronization'] = "images candidates à la synchronisation avec les méta-données";
+$lang['photos candidates for metadata synchronization'] = "images candidates à la synchronisation avec les méta-données";
 $lang['elements informations synchronized with files metadata'] = "informations des images synchronisées avec les méta-données";
 $lang['errors during synchronization'] = "erreurs survenues durant la synchronisation";
 $lang['albums added in the database'] = "catégories ajoutées dans la base de données";
@@ -582,7 +581,7 @@ $lang['overrides existing values with empty ones'] = "Écraser les données exis
 $lang['manage photo ranks'] = "gérer l'ordre des images";
 $lang['Manage photo ranks'] = "Gérer l'ordre des images";
 $lang['Edit ranks'] = "Modifier l'ordre";
-$lang['No element in this album'] = "Aucun élément dans cette catégorie";
+$lang['No photo in this album'] = "Aucun élément dans cette catégorie";
 $lang['Images manual order was saved'] = "L'ordre manuel des images a été sauvegardé";
 $lang['ranks'] = "rangs";
 $lang['By rank'] = "Par le rang";
@@ -605,8 +604,8 @@ $lang['Hide'] = "Masquer";
 $lang['Password is missing. Please enter the password.'] = "Le mot de passe manque. Veuillez saisir le mot de passe.";
 $lang['Password confirmation is missing. Please confirm the chosen password.'] = "La confirmation du mot de passe manque. Veuillez confirmer le mot de passe choisi.";
 $lang['Password confirmation error.'] = "Erreur de confirmation du mot de passe.";
-$lang['Allow users to edit theirs owns comments'] = "Autoriser les utilisateurs à modifier leurs propres commentaires";
-$lang['Allow users to delete theirs owns comments'] = "Autoriser les utilisateurs à supprimer leurs propres commentaires";
+$lang['Allow users to edit their own comments'] = "Autoriser les utilisateurs à modifier leurs propres commentaires";
+$lang['Allow users to delete their own comments'] = "Autoriser les utilisateurs à supprimer leurs propres commentaires";
 $lang['Email administrators when a comment is modified'] = "Notifier les administrateurs quand un commentaire est modifié";
 $lang['Email administrators when a comment is deleted'] = "Notifier les administrateurs quand un commentaire est supprimé";
 $lang['Cannot delete the old permalink !'] = "Impossible de supprimer cet ancien lien permanent !";

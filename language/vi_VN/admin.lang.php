@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | Piwigo - a PHP based picture gallery                                  |
 // +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2010 Piwigo Team                  http://piwigo.org |
+// | Copyright(C) 2008-2011 Piwigo Team                  http://piwigo.org |
 // | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
 // | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
 // +-----------------------------------------------------------------------+
@@ -78,7 +78,6 @@ $lang['Description'] = 'Miêu tả';
 $lang['Display options'] = 'Hiển thị tuỳ chọn';
 $lang['Dissociated'] = 'Không kết hợp';
 $lang['Does not represent'] = 'Không làm đại diện';
-$lang['Edit all picture informations'] = 'Biên tập tất cả thông tin về hình ảnh';
 $lang['Edit selected tags'] = 'Biên tập các tag đã chọn';
 $lang['Edit tags'] = 'Biên tập tags';
 $lang['Email admins when a new user registers'] = 'Gởi email cho quản trị khi có một thành viên mới đăng ký';
@@ -97,8 +96,8 @@ $lang['Guests'] = 'Khách';
 $lang['History'] = 'Bản ghi';
 $lang['Informations'] = 'Thông tin';
 $lang['Install'] = 'Cài đặt';
-$lang['Link all album elements to a new album'] = 'Liên kết tất cả các thành phần của đề mục này với một đề mục mới';
-$lang['Link all album elements to some existing albums'] = 'Liên kết tất cả các thành phần của đề mục này với một số đề mục trước';
+$lang['Link all album photos to a new album'] = 'Liên kết tất cả các thành phần của đề mục này với một đề mục mới';
+$lang['Link all album photos to some existing albums'] = 'Liên kết tất cả các thành phần của đề mục này với một số đề mục trước';
 $lang['Linked albums'] = 'Đã liên kết các đề mục trên';
 $lang['Lock gallery'] = 'Tạm khoá gallery';
 $lang['Maintenance'] = 'Bảo trì';
@@ -164,7 +163,7 @@ $lang['Tag selection'] = 'Chọn tag';
 $lang['The %d following tags were deleted'] = 'Các tag %d sau đã bị xoá';
 $lang['Unable to check for upgrade.'] = 'Không thể dò tìm bản nâng cấp.';
 $lang['Uninstall'] = 'Tháo bỏ';
-$lang['Use the default image sort order (defined in the configuration file)']='Sử dụng tính năng sắp xếp vị trí hình ảnh mặc định (được chỉ ra trong file cấu hình)';
+$lang['Use the default photo sort order (defined in the configuration file)']='Sử dụng tính năng sắp xếp vị trí hình ảnh mặc định (được chỉ ra trong file cấu hình)';
 $lang['User comments validation'] = 'Xác nhận lời bình của thành viên';
 $lang['Users'] = 'Thành viên';
 $lang['Validate'] = 'Xác nhận';
@@ -244,7 +243,7 @@ $lang['Complementary mail content'] = 'Nội dung email được bổ sung';
 $lang['See you soon,'] = 'Hẹn gặp lại bạn,';
 $lang['Go to'] = 'Đi đến ';
 $lang['Hello'] = 'Xin chào ';
-$lang['New elements were added'] = 'Thành phần mới đã được thêm ';
+$lang['New photos were added'] = 'Thành phần mới đã được thêm ';
 $lang['on'] = ' vào ';
 $lang['between'] = 'giữa ';
 $lang['and'] = ' và ';
@@ -270,7 +269,7 @@ $lang['There is no available subscribers to mail.'] = 'Không có đăng ký nh�
 $lang['Subscribers could be listed (available) only if there is new elements to notify.'] = 'Người đăng ký có thể được liệt kê ra nếu như chỉ gởi thông báo khi có thành phần mới thêm vào.';
 $lang['Anyway only webmasters can see this tab and never administrators.'] = 'Dù sao thì chỉ có webmasters có thể xem được tab này còn đối với quản trị thì không.';
 $lang['No user to send notifications by mail.'] = 'Không có người dùng nào cần gởi email thông báo.';
-$lang['New elements added'] = 'Thành phần mới đã được thêm';
+$lang['New photos added'] = 'Thành phần mới đã được thêm';
 $lang['Subscribe to notification by mail'] = 'Đăng ký nhận thông báo qua email';
 $lang['Unsubscribe from notification by mail'] = 'Bỏ đăng ký nhận thông báo qua email';
 $lang['Parameter'] = 'Tham số';
@@ -348,7 +347,7 @@ $lang['Piwigo configuration'] = 'Cấu hình Piwigo';
 $lang['Edit album'] = 'Biên tập một đề mục';
 $lang['Group management'] = 'Quản lý nhóm';
 $lang['User list'] = 'Danh sách thành viên';
-$lang['Modify informations about a picture'] = 'Chỉnh sửa thông tin của hình ảnh';
+$lang['Edit photo information'] = 'Chỉnh sửa thông tin của hình ảnh';
 $lang['Thumbnail creation'] = 'Khởi tạo hình thu nhỏ';
 $lang['Database synchronization with files'] = 'Đồng bộ hóa cơ sở dữ liệu với tệp tin';
 $lang['all'] = 'tất cả';
@@ -373,7 +372,7 @@ $lang['unit mode'] = 'chế độ đơn vị hình';
 $lang['Unlocked'] = 'Bỏ khóa';
 $lang['unset'] = 'không đặt';
 $lang['Update albums informations'] = 'Cập nhật thông tin của đề mục';
-$lang['Update images informations'] = 'Cập nhật thông tin của hình ảnh';
+$lang['Update photos information'] = 'Cập nhật thông tin của hình ảnh';
 $lang['Synchronize'] = 'Đồng bộ hóa';
 $lang['reduce to single existing albums'] = 'rút gọn về đề mục đơn đang tồn tại';
 $lang['Choose an option'] = 'Chọn một tùy chọn';
@@ -391,7 +390,7 @@ $lang['a picture filetype requires a thumbnail. The thumbnail must be present in
 $lang['missing thumbnail'] = 'thiếu hình thu nhỏ';
 $lang['albums deleted in the database'] = 'đã xóa các đề mục trong cơ sở dữ liệu';
 $lang['photos deleted from the database'] = 'đã xóa các thành phần trong cơ sở dữ liệu';
-$lang['images candidates for metadata synchronization'] = 'hình ảnh được bình chọn cho việc đồng bộ hóa metadata';
+$lang['photos candidates for metadata synchronization'] = 'hình ảnh được bình chọn cho việc đồng bộ hóa metadata';
 $lang['elements informations synchronized with files metadata'] = 'thông tin những thành phần được đồng bộ hóa với metadata của file';
 $lang['errors during synchronization'] = 'lỗi xuất hiện trong quá trình đồng bộ hóa';
 $lang['albums added in the database'] = 'đề mục được thêm vào cơ sở dữ liệu';
@@ -573,7 +572,7 @@ $lang['overrides existing values with empty ones'] = 'ghi đè giá trị đang 
 $lang['manage photo ranks'] = 'Quản lý xếp hạng hình ảnh';
 $lang['Manage photo ranks'] = 'Quản lý xếp hạng hình ảnh';
 $lang['Edit ranks'] = 'Biên tập xếp hạng';
-$lang['No element in this album'] = 'Không có thành phần nào trong đề mục này';
+$lang['No photo in this album'] = 'Không có thành phần nào trong đề mục này';
 $lang['Images manual order was saved'] = 'Sắp xếp hình ảnh thủ công đã được lưu';
 $lang['ranks'] = 'xếp hạng';
 $lang['Drag to re-order'] = 'Kéo rê để sắp xếp lại';
@@ -600,8 +599,8 @@ $lang['Manual order'] = 'Sắp xếp thủ công';
 $lang['Password is missing. Please enter the password.'] = 'Thiếu mật khẩu. Vui lòng nhập mật khẩu.';
 $lang['Password confirmation is missing. Please confirm the chosen password.'] = 'Xác nhận mật khẩu bị thiếu. Vui lòng xác nhận lại mật khẩu đã chọn.';
 $lang['Password confirmation error.'] = 'Lỗi xác nhận mật khẩu.';
-$lang['Allow users to edit theirs owns comments'] = 'Cho phép người dùng chỉnh sửa lời bình luận riêng của họ';
-$lang['Allow users to delete theirs owns comments'] = 'Cho phép người dùng xóa lời bình luận riêng của họ';
+$lang['Allow users to edit their own comments'] = 'Cho phép người dùng chỉnh sửa lời bình luận riêng của họ';
+$lang['Allow users to delete their own comments'] = 'Cho phép người dùng xóa lời bình luận riêng của họ';
 $lang['Email administrators when a comment is modified'] = 'Gởi email cho Quản trị viên có một lời bình luận được chỉnh sửa';
 $lang['Email administrators when a comment is deleted'] = 'Gởi email cho Quản trị viên có một lời bình luận bị xóa';
 $lang['Cannot delete the old permalink !'] = 'Liên kết cố định cũ thì không thể bị xóa!';

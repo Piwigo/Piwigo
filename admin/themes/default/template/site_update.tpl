@@ -21,7 +21,7 @@
 <h3>{$L_RESULT_METADATA}</h3>
 <ul>
   <li>{$metadata_result.NB_ELEMENTS_DONE} {'elements informations synchronized with files metadata'|@translate}</li>
-  <li>{$metadata_result.NB_ELEMENTS_CANDIDATES} {'images candidates for metadata synchronization'|@translate}</li>
+  <li>{$metadata_result.NB_ELEMENTS_CANDIDATES} {'photos candidates for metadata synchronization'|@translate}</li>
   <li>{'Used metadata'|@translate} : {$METADATA_LIST}</li>
 </ul>
 {/if}

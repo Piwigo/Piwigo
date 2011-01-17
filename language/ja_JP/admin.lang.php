@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | Piwigo - a PHP based picture gallery                                  |
 // +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2010 Piwigo Team                  http://piwigo.org |
+// | Copyright(C) 2008-2011 Piwigo Team                  http://piwigo.org |
 // | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
 // | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
 // +-----------------------------------------------------------------------+
@@ -78,7 +78,6 @@ $lang['Description'] = '説明';
 $lang['Display options'] = '表示オプション';
 $lang['Dissociated'] = '関連なし';
 $lang['Does not represent'] = '非表示';
-$lang['Edit all picture informations'] = 'すべての写真情報を編集する';
 $lang['Edit selected tags'] = '選択したタグを編集する';
 $lang['Edit tags'] = 'タグを編集する';
 $lang['Elements'] = 'エレメント';
@@ -98,8 +97,8 @@ $lang['Guests'] = 'ゲスト';
 $lang['History'] = '履歴';
 $lang['Informations'] = '情報';
 $lang['Install'] = 'インストール';
-$lang['Link all album elements to a new album'] = 'すべてのカテゴリエレメントを新しいカテゴリにリンクする';
-$lang['Link all album elements to some existing albums'] = 'すべてのカテゴリエレメントを既存のカテゴリにリンクする';
+$lang['Link all album photos to a new album'] = 'すべてのカテゴリエレメントを新しいカテゴリにリンクする';
+$lang['Link all album photos to some existing albums'] = 'すべてのカテゴリエレメントを既存のカテゴリにリンクする';
 $lang['Linked albums'] = 'リンクカテゴリ';
 $lang['Lock gallery'] = 'ギャラリーをロックする';
 $lang['Maintenance'] = 'メンテナンス';
@@ -164,7 +163,7 @@ $lang['Tag "%s" was added'] = 'タグ "%s" が追加されました。';
 $lang['Tag selection'] = 'タグ選択';
 $lang['The %d following tags were deleted'] = '次の %d 件のタグが削除されました。';
 $lang['Uninstall'] = 'アンインストール';
-$lang['Use the default image sort order (defined in the configuration file)']='デフォルトの (設定ファイルで定義された) イメージ並び順を使用する';
+$lang['Use the default photo sort order (defined in the configuration file)']='デフォルトの (設定ファイルで定義された) イメージ並び順を使用する';
 $lang['User comments validation'] = 'ユーザコメント承認';
 $lang['Users'] = 'ユーザ';
 $lang['Validate'] = '承認';
@@ -245,7 +244,7 @@ $lang['Complementary mail content'] = '補足的なメールコンテンツ';
 $lang['See you soon,'] = 'それでは ';
 $lang['Go to'] = '移動 ';
 $lang['Hello'] = 'こんにちは ';
-$lang['New elements were added'] = '新しいエレメントが追加されました:';
+$lang['New photos were added'] = '新しいエレメントが追加されました:';
 $lang['on'] = ' ';
 $lang['between'] = ' ';
 $lang['and'] = ' - ';
@@ -271,7 +270,7 @@ $lang['There is no available subscribers to mail.'] = 'メールを送信でき�
 $lang['Subscribers could be listed (available) only if there is new elements to notify.'] = '通知する新しいエレメントがある場合、ユーザが利用できます。';
 $lang['Anyway only webmasters can see this tab and never administrators.'] = 'ユーザはメール購読できません (このタブは、ウェブマスタにのみ表示されます)。';
 $lang['No user to send notifications by mail.'] = '通知メールを送信できるユーザは存在しません。';
-$lang['New elements added'] = '新しいエレメントが追加されました。';
+$lang['New photos added'] = '新しいエレメントが追加されました。';
 $lang['Subscribe to notification by mail'] = '通知メールを購読する';
 $lang['Unsubscribe from notification by mail'] = '通知メールを購読解除する';
 $lang['Parameter'] = 'パラメータ';
@@ -349,7 +348,7 @@ $lang['Piwigo configuration'] = 'Piwigo設定';
 $lang['Edit album'] = 'カテゴリを編集する';
 $lang['Group management'] = 'グループ管理';
 $lang['User list'] = 'ユーザリスト';
-$lang['Modify informations about a picture'] = '写真情報を修正する';
+$lang['Edit photo information'] = '写真情報を修正する';
 $lang['Thumbnail creation'] = 'サムネイル作成';
 $lang['Database synchronization with files'] = 'ファイルおよびデータベースの同期化';
 $lang['all'] = 'すべて';
@@ -374,7 +373,7 @@ $lang['unit mode'] = 'ユニットモード';
 $lang['Unlocked'] = '未ロック';
 $lang['unset'] = '設定解除';
 $lang['Update albums informations'] = 'カテゴリ情報を更新する';
-$lang['Update images informations'] = 'イメージ情報を更新する';
+$lang['Update photos information'] = 'イメージ情報を更新する';
 $lang['Synchronize'] = '同期化';
 $lang['reduce to single existing albums'] = '既存の単一カテゴリに減らす';
 $lang['Choose an option'] = 'オプションの選択';
@@ -392,7 +391,7 @@ $lang['a picture filetype requires a thumbnail. The thumbnail must be present in
 $lang['missing thumbnail'] = 'サムネイルがありません。';
 $lang['albums deleted in the database'] = 'カテゴリがデータベースから削除されました。';
 $lang['photos deleted from the database'] = 'エレメントがデータベースから削除されました。';
-$lang['images candidates for metadata synchronization'] = 'メタデータ同期化候補のイメージ';
+$lang['photos candidates for metadata synchronization'] = 'メタデータ同期化候補のイメージ';
 $lang['elements informations synchronized with files metadata'] = 'ファイルメタデータに同期化されたエレメント情報';
 $lang['errors during synchronization'] = '同期化中にエラーが発生しました。';
 $lang['albums added in the database'] = 'カテゴリがデータベースに追加されました。';
@@ -575,7 +574,7 @@ $lang['overrides existing values with empty ones'] = '既存の値を空白に�
 $lang['manage photo ranks'] = 'イメージランクを管理する';
 $lang['Manage photo ranks'] = 'イメージランクを管理する';
 $lang['Edit ranks'] = 'ランクを編集する';
-$lang['No element in this album'] = 'このカテゴリには、エレメントがありません。';
+$lang['No photo in this album'] = 'このカテゴリには、エレメントがありません。';
 $lang['Images manual order was saved'] = 'イメージ手動並び替えが保存されました。';
 $lang['ranks'] = 'ランク';
 $lang['Drag to re-order'] = 'ドラッグして並び替え';
@@ -600,8 +599,8 @@ $lang['Hide'] = '隠す';
 $lang['Password is missing. Please enter the password.'] = 'パスワードがありません。パスワードを入力して下さい。';
 $lang['Password confirmation is missing. Please confirm the chosen password.'] = 'パスワードの再確認がありません。パスワードの再確認を確認して下さい。';
 $lang['Password confirmation error.'] = 'パスワードの確認エラー';
-$lang['Allow users to edit theirs owns comments'] = 'ユーザーは自分のコメントを編集できるようにする';
-$lang['Allow users to delete theirs owns comments'] = 'ユーザーは自分のコメントを削除できるようにする';
+$lang['Allow users to edit their own comments'] = 'ユーザーは自分のコメントを編集できるようにする';
+$lang['Allow users to delete their own comments'] = 'ユーザーは自分のコメントを削除できるようにする';
 $lang['Email administrators when a comment is modified'] = 'コメントが変更された時、管理人にメールを送信する';
 $lang['Email administrators when a comment is deleted'] = 'コメントが削除された時、管理人にメールを送信する';
 $lang['Cannot delete the old permalink !'] = '旧パーマリンクを削除できません!';

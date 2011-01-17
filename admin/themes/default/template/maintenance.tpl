@@ -10,7 +10,7 @@
 
 <ul>
   <li><a href="{$U_MAINT_CATEGORIES}">{'Update albums informations'|@translate}</a></li>
-  <li><a href="{$U_MAINT_IMAGES}">{'Update images informations'|@translate}</a></li>
+  <li><a href="{$U_MAINT_IMAGES}">{'Update photos information'|@translate}</a></li>
   <li><a href="{$U_MAINT_DATABASE}">{'Repair and optimize database'|@translate}</a></li>
 </ul>
 

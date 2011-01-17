@@ -313,7 +313,7 @@ function do_action_send_mail_notification($action = 'list_to_send', $check_key_l
 
             if ($exist_data)
             {
-              $subject = '['.$conf['gallery_title'].']: '.l10n('New elements added');
+              $subject = '['.$conf['gallery_title'].']: '.l10n('New photos added');
 
               // Assign current var for nbm mail
               assign_vars_nbm_mail_content($nbm_user);

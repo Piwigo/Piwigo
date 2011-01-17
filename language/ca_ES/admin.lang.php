@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | Piwigo - a PHP based picture gallery                                  |
 // +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2010 Piwigo Team                  http://piwigo.org |
+// | Copyright(C) 2008-2011 Piwigo Team                  http://piwigo.org |
 // | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
 // | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
 // +-----------------------------------------------------------------------+
@@ -78,7 +78,6 @@ $lang['Description'] = 'Descripció';
 $lang['Display options'] = 'Visualitza opcions';
 $lang['Dissociated'] = 'Desassòcia';
 $lang['Does not represent'] = 'No representis';
-$lang['Edit all picture informations'] = 'Edita totes les informacions de les imatges';
 $lang['Edit selected tags'] = 'Edita les etiquetes seleccionades';
 $lang['Edit tags'] = 'Edita etiquetes';
 $lang['Email admins when a new user registers'] = 'Envia un correu electrònic als administradors quan un usuari nou es registri';
@@ -97,8 +96,8 @@ $lang['Guests'] = 'Invitats';
 $lang['History'] = 'Història';
 $lang['Informations'] = 'Informacions';
 $lang['Install'] = 'Instal·la';
-$lang['Link all album elements to a new album'] = 'Enllaça tots els elements de la categoria a la nova categoria';
-$lang['Link all album elements to some existing albums'] = 'Enllaça tots els elements de la categoria a algunes categories existents';
+$lang['Link all album photos to a new album'] = 'Enllaça tots els elements de la categoria a la nova categoria';
+$lang['Link all album photos to some existing albums'] = 'Enllaça tots els elements de la categoria a algunes categories existents';
 $lang['Linked albums'] = 'Categories enllaçades';
 $lang['Lock gallery'] = 'Tancar galeria';
 $lang['Maintenance'] = 'Manteniment';
@@ -164,7 +163,7 @@ $lang['Tag selection'] = 'Selecció d\'etiquetes';
 $lang['The %d following tags were deleted'] = 'Les etiquetes següents %d estaven eliminades';
 $lang['Unable to check for upgrade.'] = 'No es pot verificar per actualitzar.';
 $lang['Uninstall'] = 'Desinstal·lar';
-$lang['Use the default image sort order (defined in the configuration file)']='Utilitza l\'ordenació predeterminada  (definida en el fitxer de configuració)';
+$lang['Use the default photo sort order (defined in the configuration file)']='Utilitza l\'ordenació predeterminada  (definida en el fitxer de configuració)';
 $lang['User comments validation'] = 'Validació dels comentaris d\'usuari';
 $lang['Users'] = 'Usuaris';
 $lang['Validate'] = 'Valida';
@@ -246,7 +245,7 @@ $lang['Complementary mail content'] = 'Contingut complementari del correu';
 $lang['See you soon,'] = 'Fins aviat,';
 $lang['Go to'] = 'Ves a';
 $lang['Hello'] = 'Hola';
-$lang['New elements were added'] = 'S\'han afegit nous elements';
+$lang['New photos were added'] = 'S\'han afegit nous elements';
 $lang['on'] = 'sobre';
 $lang['between'] = 'entre';
 $lang['and'] = 'i';
@@ -272,7 +271,7 @@ $lang['There is no available subscribers to mail.'] = 'No hi ha subscriptors per
 $lang['Subscribers could be listed (available) only if there is new elements to notify.'] = 'Els subscriptors es poden llistar (disponible) només si hi ha nous elements per a notificar.';
 $lang['Anyway only webmasters can see this tab and never administrators.'] = 'De totes formes només els webmasters poden veure aquesta pestanya i mai els administradors.';
 $lang['No user to send notifications by mail.'] = 'No hi ha usuaris per enviar notificacions per correu..';
-$lang['New elements added'] = 'Nous elements afegits';
+$lang['New photos added'] = 'Nous elements afegits';
 $lang['Subscribe to notification by mail'] = 'Subscriure per notificar per correu';
 $lang['Unsubscribe from notification by mail'] = 'Donar-se de baixa de les notificacions per correu';
 $lang['Parameter'] = 'Paràmetre';
@@ -353,7 +352,7 @@ $lang['Piwigo configuration'] = 'Configuració del Piwigo';
 $lang['Edit album'] = 'Edita una categoria';
 $lang['Group management'] = 'Gestió de grups';
 $lang['User list'] = 'Llista d\'usuaris';
-$lang['Modify informations about a picture'] = 'Modifica la informació sobre una imatge';
+$lang['Edit photo information'] = 'Modifica la informació sobre una imatge';
 $lang['Thumbnail creation'] = 'Creació de miniatures';
 $lang['Database synchronization with files'] = 'Sincronització de la base de dades amb fitxers';
 $lang['all'] = 'totes';
@@ -378,7 +377,7 @@ $lang['unit mode'] = 'mode unit';
 $lang['Unlocked'] = 'Desbloquejat';
 $lang['unset'] = 'no definit';
 $lang['Update albums informations'] = 'Actualitza la informació de les categories';
-$lang['Update images informations'] = 'Actualitza la informació de les imatges';
+$lang['Update photos information'] = 'Actualitza la informació de les imatges';
 $lang['Synchronize'] = 'Sincronitza';
 $lang['reduce to single existing albums'] = 'reduce to single existing categories';
 $lang['Choose an option'] = 'Escolliu una opció';
@@ -396,7 +395,7 @@ $lang['a picture filetype requires a thumbnail. The thumbnail must be present in
 $lang['missing thumbnail'] = 'falta la miniatura';
 $lang['albums deleted in the database'] = 'categories eliminades de la base de dades';
 $lang['photos deleted from the database'] = 'elements eliminats de la base de dades';
-$lang['images candidates for metadata synchronization'] = 'imatges candidates per la sincronització de metadades';
+$lang['photos candidates for metadata synchronization'] = 'imatges candidates per la sincronització de metadades';
 $lang['elements informations synchronized with files metadata'] = 'elements d\'informació sincronitzats amb fitxers de metadades';
 $lang['errors during synchronization'] = 'errors durant la sincronització';
 $lang['albums added in the database'] = 'categories afegides a la base de dades';
@@ -581,7 +580,7 @@ $lang['overrides existing values with empty ones'] = 'overrides existing values 
 $lang['manage photo ranks'] = 'gestiona els rànquings de les imatges';
 $lang['Manage photo ranks'] = 'Gestiona els rànquings de les imatges';
 $lang['Edit ranks'] = 'Edita els rànquings';
-$lang['No element in this album'] = 'No hi ha cap element en aquesta categoria';
+$lang['No photo in this album'] = 'No hi ha cap element en aquesta categoria';
 $lang['Images manual order was saved'] = 'S\'ha guardat l\'ordre manual de les imatges';
 $lang['ranks'] = 'rànquings';
 $lang['By rank'] = 'Per rànquing';
@@ -604,8 +603,8 @@ $lang['Hide'] = 'Hide';
 $lang['Password is missing. Please enter the password.'] = 'Falta la contrasenya. Si us plau introduïu la contrasenya.';
 $lang['Password confirmation is missing. Please confirm the chosen password.'] = 'Falta la confirmació de la contrasenya. Si us plau introduïu la confirmació de la contrasenya.';
 $lang['Password confirmation error.'] = 'Error en la confirmació de la contrasenya.';
-$lang['Allow users to edit theirs owns comments'] = 'Permetre als usuaris l\'edició dels seus propis comentaris';
-$lang['Allow users to delete theirs owns comments'] = 'Permetre als usuaris l\'eliminació dels seus propis comentaris';
+$lang['Allow users to edit their own comments'] = 'Permetre als usuaris l\'edició dels seus propis comentaris';
+$lang['Allow users to delete their own comments'] = 'Permetre als usuaris l\'eliminació dels seus propis comentaris';
 $lang['Email administrators when a comment is modified'] = 'Enviar un correu electrònic als administradors quan es modifiqui un comentari';
 $lang['Email administrators when a comment is deleted'] = 'Enviar un correu electrònic als administradors quan s\'afegeixi un comentari';
 $lang['Cannot delete the old permalink !'] = 'No es pot eliminar l\'antic enllaç permanent !';

@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | Piwigo - a PHP based picture gallery                                  |
 // +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2010 Piwigo Team                  http://piwigo.org |
+// | Copyright(C) 2008-2011 Piwigo Team                  http://piwigo.org |
 // | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
 // | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
 // +-----------------------------------------------------------------------+
@@ -78,7 +78,6 @@ $lang['Description'] = 'الوصف';
 $lang['Display options'] = 'عرض الخيارت';
 $lang['Dissociated'] = 'فصل';
 $lang['Does not represent'] = 'لا يمكن الرد';
-$lang['Edit all picture informations'] = 'تحرير معلومات جميع الصور';
 $lang['Edit selected tags'] = 'تحرير الكلمات المختارة';
 $lang['Edit tags'] = 'تحرير الكلمات الدلائلية';
 $lang['Email admins when a new user registers'] = 'ارسل للمدير عند تسجيل مستخدم جديد';
@@ -97,8 +96,8 @@ $lang['Guests'] = 'الضيوف';
 $lang['History'] = 'السجـل';
 $lang['Informations'] = 'المعلومات';
 $lang['Install'] = 'تثبيت';
-$lang['Link all album elements to a new album'] = 'اربط جميع عناصر الألبومات بالألبوم الجديد';
-$lang['Link all album elements to some existing albums'] = 'اربط جميع عناصر الألبوم للقائمة الألبومات المشابهه';
+$lang['Link all album photos to a new album'] = 'اربط جميع عناصر الألبومات بالألبوم الجديد';
+$lang['Link all album photos to some existing albums'] = 'اربط جميع عناصر الألبوم للقائمة الألبومات المشابهه';
 $lang['Linked albums'] = 'ربط الألبومات';
 $lang['Lock gallery'] = 'اغلاق المعرض';
 $lang['Maintenance'] = 'صيانة';
@@ -164,7 +163,7 @@ $lang['Tag selection'] = 'اختيار الكلمات الدلائلية';
 $lang['The %d following tags were deleted'] = 'تم حذف هذه الكلمات %d مسبقا';
 $lang['Unable to check for upgrade.'] = 'لا يمكن التأكد عن تحديثات جديدة';
 $lang['Uninstall'] = 'إلغاء التثبيت';
-$lang['Use the default image sort order (defined in the configuration file)']='استخدام الصورة الافتراضية من أجل نوع (المحددة في ملف)';
+$lang['Use the default photo sort order (defined in the configuration file)']='استخدام الصورة الافتراضية من أجل نوع (المحددة في ملف)';
 $lang['User comments validation'] = 'تعليقات تنتظر التصريح';
 $lang['Users'] = 'المستخدمين';
 $lang['Validate'] = 'تصريح';
@@ -245,7 +244,7 @@ $lang['Complementary mail content'] = 'استكمال محتويات البري�
 $lang['See you soon,'] = 'ستسعدنا جدا  زيارتك';
 $lang['Go to'] = 'يمكنك زيارتنا من خلال هذا الرابط ';
 $lang['Hello'] = 'السلام عليكم و رحمة الله و بركاته ';
-$lang['New elements were added'] = 'هناك صور جديدة في المعرض';
+$lang['New photos were added'] = 'هناك صور جديدة في المعرض';
 $lang['on'] = 'صور واحدة جديدة ';
 $lang['between'] = ' بين ';
 $lang['and'] = ' و ';
@@ -271,7 +270,7 @@ $lang['There is no available subscribers to mail.'] = 'ليس هناك مشتر�
 $lang['Subscribers could be listed (available) only if there is new elements to notify.'] = 'ممكنه لقائمة المشتركين فقط إذا كان مصرح لهم  بالعلم بمستجدات المعرض.';
 $lang['Anyway only webmasters can see this tab and never administrators.'] = 'متاح فقط لمسؤول المعرض المشاهدة.';
 $lang['No user to send notifications by mail.'] = 'لا يوجد مستخدمين للارسال.';
-$lang['New elements added'] = 'هناك صور جديدة في المعرض';
+$lang['New photos added'] = 'هناك صور جديدة في المعرض';
 $lang['Subscribe to notification by mail'] = ' تم اضافة بريدك';
 $lang['Unsubscribe from notification by mail'] = 'تم الغاء بريدك ';
 $lang['Parameter'] = 'نموذج الارسال';
@@ -349,7 +348,7 @@ $lang['Piwigo configuration'] = 'تهيئة المعرض';
 $lang['Edit album'] = 'تحرير الألبوم';
 $lang['Group management'] = 'ادارة المجموعات';
 $lang['User list'] = 'قائمة المستخدم';
-$lang['Modify informations about a picture'] = 'تعديل معلومات عن الصورة';
+$lang['Edit photo information'] = 'تعديل معلومات عن الصورة';
 $lang['Thumbnail creation'] = 'إنشاء المصغرات';
 $lang['Database synchronization with files'] = 'قاعدة بيانت المزامنة مع الملفات';
 $lang['all'] = 'الكل';
@@ -374,7 +373,7 @@ $lang['unit mode'] = 'نمط موحد';
 $lang['Unlocked'] = 'غيرمقفل';
 $lang['unset'] = 'غير مهيأ';
 $lang['Update albums informations'] = 'تحديث ملعومات الألبومات';
-$lang['Update images informations'] = 'تحديث معلومات الصور';
+$lang['Update photos information'] = 'تحديث معلومات الصور';
 $lang['Synchronize'] = 'التزامن';
 $lang['reduce to single existing albums'] = 'تقليص الألبومات الحاليه';
 $lang['Choose an option'] = 'اختر واحد من الخيارات';
@@ -392,7 +391,7 @@ $lang['a picture filetype requires a thumbnail. The thumbnail must be present in
 $lang['missing thumbnail'] = 'مصغرات مفقودة';
 $lang['albums deleted in the database'] = 'الألبومات محذوفة من قاعدة البيانات';
 $lang['photos deleted from the database'] = 'الصور محذوفة من قاعدة البيانات';
-$lang['images candidates for metadata synchronization'] = 'تزامن المعلومات التفصيلة للصور المرشحه';
+$lang['photos candidates for metadata synchronization'] = 'تزامن المعلومات التفصيلة للصور المرشحه';
 $lang['elements informations synchronized with files metadata'] = 'ملعومات الصور متزامنة مع المعلومات التفصيلة للصور';
 $lang['errors during synchronization'] = 'أخطاء اثناء التزامن';
 $lang['albums added in the database'] = 'ألبومات اضيفت في قاعدة البيانات';
@@ -573,7 +572,7 @@ $lang['overrides existing values with empty ones'] = 'استبدل القيم ا
 $lang['manage photo ranks'] = 'إدارة ترتيب الصور';
 $lang['Manage photo ranks'] = 'إدارة ترتيب الصور';
 $lang['Edit ranks'] = 'تحرير الترتيب';
-$lang['No element in this album'] = 'لا يوجد صور في الالبوم';
+$lang['No photo in this album'] = 'لا يوجد صور في الالبوم';
 $lang['Images manual order was saved'] = 'تم حفظ الصور المطلوبة يديويا';
 $lang['ranks'] = 'الترتيب';
 $lang['Drag to re-order'] = 'أسحب لتغيير';
@@ -599,8 +598,8 @@ $lang['Manual order'] = 'دليل النظام';
 $lang['Password is missing. Please enter the password.'] = 'لم تكتب كلمة المرور، فضلا ً أكتب كلمة المرور';
 $lang['Password confirmation is missing. Please confirm the chosen password.'] = 'لم يتم تأكيد كلمة المرور، فضلا ً لا أمر أكد المرور رحم الله والديك';
 $lang['Password confirmation error.'] = 'خطأ في تأكيد كلمة المرور';
-$lang['Allow users to edit theirs owns comments'] = 'اسمح للمستخدم بتحريرتعليقه الخاص';
-$lang['Allow users to delete theirs owns comments'] = 'اسمح للمستخدم بحذف تعليقه الخاص';
+$lang['Allow users to edit their own comments'] = 'اسمح للمستخدم بتحريرتعليقه الخاص';
+$lang['Allow users to delete their own comments'] = 'اسمح للمستخدم بحذف تعليقه الخاص';
 $lang['Email administrators when a comment is modified'] = 'ابلغ المديرعن تعديل التعليم ';
 $lang['Email administrators when a comment is deleted'] = 'ابلغ المدير عند حذف تعليق عن طريق البريد';
 $lang['Cannot delete the old permalink !'] = 'الروابط الدائمة و القديمة لا يمكن حذفها';
@@ -762,7 +761,6 @@ $lang['Remove all filters'] = 'احذف جميع المُرشحات';
 $lang['Refresh photo set'] = 'حدث مجموعة الصور';
 $lang['The whole page'] = 'صفحة كاملة';
 $lang['The whole set'] = 'مجموعة كلمة';
-$lang['thumbnails per page'] = ' المصغرات في كل صفحة';
 $lang['No photo in the current set.'] = 'لا صور في المجموعة الحالية';
 $lang['No photo selected, no action possible.'] = 'لا توجد صور محددة ، أي إجراء ممكن';
 $lang['Choose an action'] = 'اختر اجراء';

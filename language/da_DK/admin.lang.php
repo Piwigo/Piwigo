@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | Piwigo - a PHP based picture gallery                                  |
 // +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2010 Piwigo Team                  http://piwigo.org |
+// | Copyright(C) 2008-2011 Piwigo Team                  http://piwigo.org |
 // | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
 // | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
 // +-----------------------------------------------------------------------+
@@ -80,7 +80,6 @@ $lang['Description']     =     'Beskrivelse';
 $lang['Display options'] = 'Vis muligheder';
 $lang['Dissociated']     =     'Skille';
 $lang['Does not represent']     =     'Er ikke repræsenterer';
-$lang['Edit all picture informations']     =     'Rediger alle billede information';
 $lang['Edit selected tags']     =     'Rediger valgte tags';
 $lang['Edit tags'] = 'Ændre tags';
 $lang['Email admins when a new user registers']     =     'Email admins, når en ny bruger registrerer sig';
@@ -99,8 +98,8 @@ $lang['Guests']     =     'Gæster';
 $lang['History']     =     'Historie';
 $lang['Informations'] = 'Informationer';
 $lang['Install']     =     'Installer';
-$lang['Link all album elements to a new album']     =     'Link alle Kategori elementer til en ny Kategori';
-$lang['Link all album elements to some existing albums']     =     'Link alle Kategori elementer til nogle eksisterende kategorier';
+$lang['Link all album photos to a new album']     =     'Link alle Kategori elementer til en ny Kategori';
+$lang['Link all album photos to some existing albums']     =     'Link alle Kategori elementer til nogle eksisterende kategorier';
 $lang['Linked albums']     =     'Linkede kategorier';
 $lang['Lock gallery']     =     'Lås galleri';
 $lang['Maintenance']     =     'Vedligeholdelse';
@@ -166,7 +165,7 @@ $lang['Tag selection']     =     'Tags valg';
 $lang['The %d following tags were deleted']     =     'Følgende %d tags er blevet slettet';
 $lang['Unable to check for upgrade.']     = 'Kunne ikke kontrollere for opgradering.';
 $lang['Uninstall'] = 'Afinstaller';
-$lang['Use the default image sort order (defined in the configuration file)']     =     'Brug standard image sorteringsrækkefølge (defineret i konfigurationsfilen)';
+$lang['Use the default photo sort order (defined in the configuration file)']     =     'Brug standard image sorteringsrækkefølge (defineret i konfigurationsfilen)';
 $lang['User comments validation']     =     'Bruger kommentarer validering';
 $lang['Users']     =     'Brugere';
 $lang['Validate']     =     'Godkend';
@@ -246,7 +245,7 @@ $lang['Complementary mail content']     =     'Supplerende mail-indhold';
 $lang['See you soon,']     =     'Ses snart,';
 $lang['Go to']     =     'Gå til';
 $lang['Hello']     =     'Hej';
-$lang['New elements were added']     =     'Nye elementer er blevet tilføjet';
+$lang['New photos were added']     =     'Nye elementer er blevet tilføjet';
 $lang['on']     =     'På';
 $lang['between']     =     'Mellem';
 $lang['and']     =     'Og';
@@ -272,7 +271,7 @@ $lang['There is no available subscribers to mail.']     =     'Der er ingen abon
 $lang['Subscribers could be listed (available) only if there is new elements to notify.']     =     'Abonnenter kunne være opført (tilgængelige) kun hvis der er nye elementer til at anmelde.';
 $lang['Anyway only webmasters can see this tab and never administrators.']     =     'Kun webmastere kan se dette faneblad, ingen administratorer.';
 $lang['No user to send notifications by mail.']     =     'Ingen bruger skal anmeldes via mail.';
-$lang['New elements added']     =     'Nye elementer tilføjet';
+$lang['New photos added']     =     'Nye elementer tilføjet';
 $lang['Subscribe to notification by mail']     =     'Abonner på notfikation med mail';
 $lang['Unsubscribe from notification by mail']     =     'Afmeld fra notifikation med mail';
 $lang['Parameter']     =     'Parameter';
@@ -351,7 +350,7 @@ $lang['Piwigo configuration']     =     'Piwigo konfiguration';
 $lang['Edit album']     =     'Edit en Kategori';
 $lang['Group management']     =     'Grupper forvaltning';
 $lang['User list']     =     'Brugere liste';
-$lang['Modify informations about a picture']     =     'Rediger billede information';
+$lang['Edit photo information']     =     'Rediger billede information';
 $lang['Thumbnail creation']     =     'Thumbnail oprettelse';
 $lang['Database synchronization with files']     =     'Database synkronisering med filer';
 $lang['all']     =     'Alle';
@@ -376,7 +375,7 @@ $lang['unit mode']     =     'Single-mode';
 $lang['Unlocked'] = 'Låst op';
 $lang['unset']     =     'Unset';
 $lang['Update albums informations']     =     'Update kategorier information';
-$lang['Update images informations']     =     'Update billeder information';
+$lang['Update photos information']     =     'Update billeder information';
 $lang['Synchronize']     =     'Synkroniser';
 $lang['reduce to single existing albums']     =     'Reduceres til én eksisterende kategorier';
 $lang['Choose an option']     =     'Vælg en option';
@@ -394,7 +393,7 @@ $lang['a picture filetype requires a thumbnail. The thumbnail must be present in
 $lang['missing thumbnail']     =     'Manglende thumbnail';
 $lang['albums deleted in the database']     =     'Kategorier slettet i databasen';
 $lang['photos deleted from the database']     =     'Elementer slettet i databasen';
-$lang['images candidates for metadata synchronization']     =     'Billeder kandidater til metadata synkronisering';
+$lang['photos candidates for metadata synchronization']     =     'Billeder kandidater til metadata synkronisering';
 $lang['elements informations synchronized with files metadata']     =     'Elementer informationer synkroniseret med filer metadata';
 $lang['errors during synchronization']     =     'Fejl under synkroniseringen';
 $lang['albums added in the database']     =     'Kategorier tilføjet i databasen';
@@ -574,7 +573,7 @@ $lang['overrides existing values with empty ones']     =     'Tilsidesætter eks
 $lang['manage photo ranks']     =     'Styre image ranking';
 $lang['Manage photo ranks']     =     'Administrer image ranking';
 $lang['Edit ranks']     =     'Edit rækker';
-$lang['No element in this album']     =     'Ingen element i denne Kategori';
+$lang['No photo in this album']     =     'Ingen element i denne Kategori';
 $lang['Images manual order was saved']     =     'Billeder manual gemt orden';
 $lang['ranks']     =     'Rangerer';
 $lang['Drag to re-order']     =     'Klik-og-træk for at re-order';
@@ -595,8 +594,8 @@ $lang['Hide']     =     'Skjul';
 $lang['Password is missing. Please enter the password.']     =     'Kodeordet er savnet. Indtast venligst password.';
 $lang['Password confirmation is missing. Please confirm the chosen password.']     =     'Password bekræftelse mangler. Bekræft den valgte adgangskode.';
 $lang['Password confirmation error.']     =     'Password bekræftelse fejl.';
-$lang['Allow users to edit theirs owns comments']     =     'Tillad brugere at redigere deres egne kommentarer';
-$lang['Allow users to delete theirs owns comments']     =     'Tillad brugere at slette deres egne kommentarer';
+$lang['Allow users to edit their own comments']     =     'Tillad brugere at redigere deres egne kommentarer';
+$lang['Allow users to delete their own comments']     =     'Tillad brugere at slette deres egne kommentarer';
 $lang['Email administrators when a comment is modified']     =     'Email administratorer, når en kommentar er modificeret';
 $lang['Email administrators when a comment is deleted']     =     'Email administratorer, når en kommentar er slettet';
 $lang['Cannot delete the old permalink !']     =     'Den gamle permalink kan ikke slettes!';

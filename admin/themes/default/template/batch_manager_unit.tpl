@@ -50,7 +50,7 @@ jQuery(document).ready(function() {
 <fieldset class="elementEdit">
   <legend>{$element.LEGEND}</legend>
 
-  <a href="{$element.U_EDIT}"><img src="{$element.TN_SRC}" alt="" title="{'Edit all picture informations'|@translate}"></a>
+  <a href="{$element.U_EDIT}"><img src="{$element.TN_SRC}" alt="" title="{'Edit photo information'|@translate}"></a>
 
   <table>
 

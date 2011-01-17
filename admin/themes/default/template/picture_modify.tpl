@@ -22,7 +22,7 @@ jQuery(document).ready(function() {
 pwg_initialization_datepicker("#date_creation_day", "#date_creation_month", "#date_creation_year", "#date_creation_linked_date", "#date_creation_action_set");
 {/footer_script}
 
-<h2>{'Modify informations about a picture'|@translate}</h2>
+<h2>{'Edit photo information'|@translate}</h2>
 
 <img src="{$TN_SRC}" alt="{'Thumbnail'|@translate}" class="Thumbnail">
 

@@ -160,13 +160,13 @@
 
     <li>
       <label>
-        <span class="property">{'Allow users to edit theirs owns comments'|@translate}</span>
+        <span class="property">{'Allow users to edit their own comments'|@translate}</span>
         <input type="checkbox" name="user_can_edit_comment" {if ($comments.user_can_edit_comment)}checked="checked"{/if}>
       </label>
     </li>
     <li>
       <label>
-        <span class="property">{'Allow users to delete theirs owns comments'|@translate}</span>
+        <span class="property">{'Allow users to delete their own comments'|@translate}</span>
         <input type="checkbox" name="user_can_delete_comment" {if ($comments.user_can_delete_comment)}checked="checked"{/if}>
       </label>
     </li>

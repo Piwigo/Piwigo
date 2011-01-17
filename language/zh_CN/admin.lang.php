@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | Piwigo - a PHP based picture gallery                                  |
 // +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2010 Piwigo Team                  http://piwigo.org |
+// | Copyright(C) 2008-2011 Piwigo Team                  http://piwigo.org |
 // | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
 // | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
 // +-----------------------------------------------------------------------+
@@ -78,7 +78,6 @@ $lang['Description'] = '描述';
 $lang['Display options'] = '显示选项';
 $lang['Dissociated'] = '取消联系';
 $lang['Does not represent'] = '不需描绘';
-$lang['Edit all picture informations'] = '编辑修改跟本图片相关的所有信息';
 $lang['Edit selected tags'] = '编辑所选标签';
 $lang['Edit tags'] = '编辑标签';
 $lang['Email admins when a new user registers'] = '一旦用户注册就通知管理员';
@@ -97,8 +96,8 @@ $lang['Guests'] = '游客';
 $lang['History'] = '历史';
 $lang['Informations'] = '信息';
 $lang['Install'] = '安装';
-$lang['Link all album elements to a new album'] = '链接所有相册的相片到新的相册';
-$lang['Link all album elements to some existing albums'] = '链接所有相册的相片到现有的相册';
+$lang['Link all album photos to a new album'] = '链接所有相册的相片到新的相册';
+$lang['Link all album photos to some existing albums'] = '链接所有相册的相片到现有的相册';
 $lang['Linked albums'] = '已链接相册';
 $lang['Lock gallery'] = '冻结图库';
 $lang['Maintenance'] = '维护';
@@ -164,7 +163,7 @@ $lang['Tag selection'] = '标签选择';
 $lang['The %d following tags were deleted'] = '下面标签 %d 已删除';
 $lang['Unable to check for upgrade.'] = '不能检测更新.';
 $lang['Uninstall'] = '卸载';
-$lang['Use the default image sort order (defined in the configuration file)']='使用默认图片排序(在配置文件中定义)';
+$lang['Use the default photo sort order (defined in the configuration file)']='使用默认图片排序(在配置文件中定义)';
 $lang['User comments validation'] = '确认用户评论';
 $lang['Users'] = '用户';
 $lang['Validate'] = '确认';
@@ -244,7 +243,7 @@ $lang['Complementary mail content'] = '邮件附件';
 $lang['See you soon,'] = '再见,';
 $lang['Go to'] = '转至 ';
 $lang['Hello'] = '你好 ';
-$lang['New elements were added'] = '加入一些新图片';
+$lang['New photos were added'] = '加入一些新图片';
 $lang['on'] = '时间: ';
 $lang['between'] = '时间: ';
 $lang['and'] = ' 至 ';
@@ -270,7 +269,7 @@ $lang['There is no available subscribers to mail.'] = '没有用户需要邮件�
 $lang['Subscribers could be listed (available) only if there is new elements to notify.'] = '只有当有新图片时,才能使用用户邮件通知功能.';
 $lang['Anyway only webmasters can see this tab and never administrators.'] = '任何人都不能使用此标签(网管除外).';
 $lang['No user to send notifications by mail.'] = '没有邮件通知用户.';
-$lang['New elements added'] = '新图片已加入';
+$lang['New photos added'] = '新图片已加入';
 $lang['Subscribe to notification by mail'] = '注册邮件通知功能';
 $lang['Unsubscribe from notification by mail'] = '注销邮件通知功能';
 $lang['Parameter'] = '设置';
@@ -347,7 +346,7 @@ $lang['Piwigo configuration'] = '配置Piwigo';
 $lang['Edit album'] = '修改一个相册';
 $lang['Group management'] = '组管理';
 $lang['User list'] = '用户名单';
-$lang['Modify informations about a picture'] = '修改图片信息';
+$lang['Edit photo information'] = '修改图片信息';
 $lang['Thumbnail creation'] = '创建缩略图';
 $lang['Database synchronization with files'] = '根据文件来同步数据库';
 $lang['all'] = '所有';
@@ -372,7 +371,7 @@ $lang['unit mode'] = '单一模式';
 $lang['Unlocked'] = '解锁';
 $lang['unset'] = '清空';
 $lang['Update albums informations'] = '上传相册信息';
-$lang['Update images informations'] = '更新图信息';
+$lang['Update photos information'] = '更新图信息';
 $lang['Synchronize'] = '同步';
 $lang['reduce to single existing albums'] = '减少现有的单独相册';
 $lang['Choose an option'] = '选择一个选项';
@@ -390,7 +389,7 @@ $lang['a picture filetype requires a thumbnail. The thumbnail must be present in
 $lang['missing thumbnail'] = '缺少缩略图';
 $lang['albums deleted in the database'] = '相册已从数据库删除';
 $lang['photos deleted from the database'] = '图片已从数据库中删除';
-$lang['images candidates for metadata synchronization'] = '对应同步元数据的候选图片';
+$lang['photos candidates for metadata synchronization'] = '对应同步元数据的候选图片';
 $lang['elements informations synchronized with files metadata'] = '附有元数据的同步图片信息informations des images synchronisées avec les méta-données';
 $lang['errors during synchronization'] = '同步期间发生错误';
 $lang['albums added in the database'] = '相册已添加到数据库';
@@ -572,7 +571,7 @@ $lang['overrides existing values with empty ones'] = '用空数据来删除已�
 $lang['manage photo ranks'] = '管理图片排序';
 $lang['Manage photo ranks'] = '管理图片排序';
 $lang['Edit ranks'] = '修改排序方式';
-$lang['No element in this album'] = '没有相片在此相册里';
+$lang['No photo in this album'] = '没有相片在此相册里';
 $lang['Images manual order was saved'] = '图片手动排序已保存';
 $lang['ranks'] = '顺序';
 $lang['Drag to re-order'] = '拖放进行排序';
@@ -590,8 +589,8 @@ $lang['Keep in touch with Piwigo project, subscribe to Piwigo Announcement Newsl
 $lang['Password is missing. Please enter the password.'] = '密码没有输入，请输入密码。';
 $lang['Password confirmation is missing. Please confirm the chosen password.'] = '密码确认未完成，请确认所选定的密码。';
 $lang['Password confirmation error.'] = '请确认错误。';
-$lang['Allow users to edit theirs owns comments'] = '允许用户修改自己的评论';
-$lang['Allow users to delete theirs owns comments'] = '允许用户删除自己的评论';
+$lang['Allow users to edit their own comments'] = '允许用户修改自己的评论';
+$lang['Allow users to delete their own comments'] = '允许用户删除自己的评论';
 $lang['Email administrators when a comment is modified'] = '当评论被修改后，发邮件通知管理员';
 $lang['Email administrators when a comment is deleted'] = '当评论被删除后，发邮件通知管理员';
 $lang['Cannot delete the old permalink !'] = '旧的固定链接不能被删除!';

@@ -91,7 +91,7 @@
 <fieldset id="image_order">
   <legend>{'Sort order'|@translate}</legend>
   <input type="checkbox" name="image_order_default" id="image_order_default" {$IMG_ORDER_DEFAULT}>
-  <label for="image_order_default">{'Use the default image sort order (defined in the configuration file)'|@translate}</label>
+  <label for="image_order_default">{'Use the default photo sort order (defined in the configuration file)'|@translate}</label>
   <br>
   <input type="checkbox" name="image_order_subcats" id="image_order_subcats">
   <label for="image_order_subcats">{'Apply to sub-albums'|@translate}</label>
@@ -144,7 +144,7 @@
 <form action="{$F_ACTION}" method="POST" id="links">
 
 <fieldset id="linkAllNew">
-  <legend>{'Link all album elements to a new album'|@translate}</legend>
+  <legend>{'Link all album photos to a new album'|@translate}</legend>
 
   <table>
     <tr>
@@ -171,7 +171,7 @@
 </fieldset>
 
 <fieldset id="linkAllExist">
-  <legend>{'Link all album elements to some existing albums'|@translate}</legend>
+  <legend>{'Link all album photos to some existing albums'|@translate}</legend>
 
   <table>
     <tr>

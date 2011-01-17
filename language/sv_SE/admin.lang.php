@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | Piwigo - a PHP based picture gallery                                  |
 // +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2010 Piwigo Team                  http://piwigo.org |
+// | Copyright(C) 2008-2011 Piwigo Team                  http://piwigo.org |
 // | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
 // | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
 // +-----------------------------------------------------------------------+
@@ -78,7 +78,6 @@ $lang['Description'] = 'Beskrivning';
 $lang['Display options'] = 'Visa alternativ';
 $lang['Dissociated'] = 'Skiljd';
 $lang['Does not represent'] = 'Representerar inte';
-$lang['Edit all picture informations'] = 'Ändra all bild information';
 $lang['Edit selected tags'] = 'Ändra markerade taggar';
 $lang['Edit tags'] = 'Ändra taggar';
 $lang['Elements'] = 'Element';
@@ -98,8 +97,8 @@ $lang['Guests'] = 'Gäster';
 $lang['History'] = 'Histori';
 $lang['Informations'] = 'Information';
 $lang['Install'] = 'Installera';
-$lang['Link all album elements to a new album'] = 'Länka alla kategori element till en ny kategori';
-$lang['Link all album elements to some existing albums'] = 'Länka alla kategori element till existerande kategorier';
+$lang['Link all album photos to a new album'] = 'Länka alla kategori element till en ny kategori';
+$lang['Link all album photos to some existing albums'] = 'Länka alla kategori element till existerande kategorier';
 $lang['Linked albums'] = 'Länkade kategorier';
 $lang['Lock gallery'] = 'Lås galleri';
 $lang['Maintenance'] = 'Underhåll';
@@ -165,7 +164,7 @@ $lang['Tag selection'] = 'Tagg markering';
 $lang['The %d following tags were deleted'] = 'Följande %d taggar har blivit borttagna';
 $lang['Unable to check for upgrade.'] = 'Fel uppstod under sökning efter uppdatering.';
 $lang['Uninstall'] = 'Avinstallera';
-$lang['Use the default image sort order (defined in the configuration file)'] = 'Använd standard ordning för bild sortering (definerad i konfigurationsfilen)';
+$lang['Use the default photo sort order (defined in the configuration file)'] = 'Använd standard ordning för bild sortering (definerad i konfigurationsfilen)';
 $lang['User comments validation'] = 'Validera användar kommentarer';
 $lang['Users'] = 'Användare';
 $lang['Validate'] = 'Godkänn';
@@ -245,7 +244,7 @@ $lang['Complementary mail content'] = 'Kompletterande mail innehåll';
 $lang['See you soon,'] = 'Vi ses,';
 $lang['Go to'] = 'Gå till';
 $lang['Hello'] = 'Hallå';
-$lang['New elements were added'] = 'Nya element har blivit tillagda';
+$lang['New photos were added'] = 'Nya element har blivit tillagda';
 $lang['on'] = 'på';
 $lang['between'] = 'mellan';
 $lang['and'] = 'och';
@@ -271,7 +270,7 @@ $lang['There is no available subscribers to mail.'] = 'Det finns inga prenumeran
 $lang['Subscribers could be listed (available) only if there is new elements to notify.'] = 'Prenumeranter kan listas (tillgänglig) enbart om det finns nya element att meddela.';
 $lang['Anyway only webmasters can see this tab and never administrators.'] = 'Ändå, enbart webmaster kan se denna flik, inte administratörer.';
 $lang['No user to send notifications by mail.'] = 'Ingen användare att meddela via e-mail.';
-$lang['New elements added'] = 'Nya element tillagda';
+$lang['New photos added'] = 'Nya element tillagda';
 $lang['Subscribe to notification by mail'] = 'Anmäl till notifikation via e-mail';
 $lang['Unsubscribe from notification by mail'] = 'Avanmäl notifikation via e-mail';
 $lang['Parameter'] = 'Inställningar';
@@ -349,7 +348,7 @@ $lang['Piwigo configuration'] = 'Piwigo konfiguration';
 $lang['Edit album'] = 'Ändra en kategori';
 $lang['Group management'] = 'Grupp hantering';
 $lang['User list'] = 'Användarlista';
-$lang['Modify informations about a picture'] = 'Modifiera bildinformation';
+$lang['Edit photo information'] = 'Modifiera bildinformation';
 $lang['Thumbnail creation'] = 'Skapa miniatyrer';
 $lang['Database synchronization with files'] = 'Synkronisera databas med filer';
 $lang['all'] = 'alla';
@@ -374,7 +373,7 @@ $lang['unit mode'] = 'enkel läge';
 $lang['Unlocked'] = 'Upplåst';
 $lang['unset'] = 'obestämd';
 $lang['Update albums informations'] = 'Uppdatera information för kategori';
-$lang['Update images informations'] = 'Uppdatera information för bilder';
+$lang['Update photos information'] = 'Uppdatera information för bilder';
 $lang['Synchronize'] = 'Synkronisera';
 $lang['reduce to single existing albums'] = 'reducera till enstaka existerande kategorier';
 $lang['Choose an option'] = 'Välj ett alternativ';
@@ -392,7 +391,7 @@ $lang['a picture filetype requires a thumbnail. The thumbnail must be present in
 $lang['missing thumbnail'] = 'miniatyrbild saknas';
 $lang['albums deleted in the database'] = 'kategorier borttagna ur databasen';
 $lang['photos deleted from the database'] = 'element borttagna ur databasen';
-$lang['images candidates for metadata synchronization'] = 'bild kandidater för metadata synkronisering';
+$lang['photos candidates for metadata synchronization'] = 'bild kandidater för metadata synkronisering';
 $lang['elements informations synchronized with files metadata'] = 'element informationer synkroniserade med filernas metadata';
 $lang['errors during synchronization'] = 'fel uppstod under synkronisering';
 $lang['albums added in the database'] = 'kategorier tillagda i databas';
@@ -571,7 +570,7 @@ $lang['overrides existing values with empty ones'] = 'skriver över existerande 
 $lang['manage photo ranks'] = 'hantera bild betygsättning';
 $lang['Manage photo ranks'] = 'Hantera bild betygsättning';
 $lang['Edit ranks'] = 'Ändra betygsättning';
-$lang['No element in this album'] = 'Inga element i denna kategori';
+$lang['No photo in this album'] = 'Inga element i denna kategori';
 $lang['Images manual order was saved'] = 'Manuell bild ordning sparad';
 $lang['ranks'] = 'betyg';
 $lang['By rank'] = 'Efter betyg';
@@ -594,8 +593,8 @@ $lang['Hide'] = 'Göm';
 $lang['Password is missing. Please enter the password.'] = 'Lösenord saknas. Ange lösenord.';
 $lang['Password confirmation is missing. Please confirm the chosen password.'] = 'Bekräftelse av lösenord saknas. Vänligen bekräfta ditt valda lösenord.';
 $lang['Password confirmation error.'] = 'Fel uppstod när lösenord skulle bekräftas.';
-$lang['Allow users to edit theirs owns comments'] = 'Tillåt användare att ändra egna kommentarer';
-$lang['Allow users to delete theirs owns comments'] = 'Tillåt användare att ta bort egna kommentarer';
+$lang['Allow users to edit their own comments'] = 'Tillåt användare att ändra egna kommentarer';
+$lang['Allow users to delete their own comments'] = 'Tillåt användare att ta bort egna kommentarer';
 $lang['Email administrators when a comment is modified'] = 'Notifiera administratör när en kommentar läggs till';
 $lang['Email administrators when a comment is deleted'] = 'Notifiera administratör när kommentar tas bort';
 $lang['Cannot delete the old permalink !'] = 'Kan inte ta bort gammal permalänk!';

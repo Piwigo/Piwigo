@@ -450,7 +450,7 @@ a.removeFilter:hover {background: url(admin/themes/default/icon/remove_filter_ho
       &middot; <a href="{$U_DISPLAY}&amp;display=50">50</a>
       &middot; <a href="{$U_DISPLAY}&amp;display=100">100</a>
       &middot; <a href="{$U_DISPLAY}&amp;display=all">{'all'|@translate}</a>
-      {'thumbnails per page'|@translate}
+      {'photos per page'|@translate}
     </div>
   </div>
   {/if}

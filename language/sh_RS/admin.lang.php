@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | Piwigo - a PHP based picture gallery                                  |
 // +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2010 Piwigo Team                  http://piwigo.org |
+// | Copyright(C) 2008-2011 Piwigo Team                  http://piwigo.org |
 // | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
 // | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
 // +-----------------------------------------------------------------------+
@@ -78,7 +78,6 @@ $lang['Description'] = 'Opis';
 $lang['Display options'] = 'Mogućnosti prikaza';
 $lang['Dissociated'] = 'Odvojeno';
 $lang['Does not represent'] = 'Ne predstavlja';
-$lang['Edit all picture informations'] = 'Uredi sve podatke o slici';
 $lang['Edit selected tags'] = 'Uredi odabrane oznake';
 $lang['Edit tags'] = 'Uredi oznake';
 $lang['Email admins when a new user registers'] = 'E-mail administratorima pri upisu novih korisnika';
@@ -97,8 +96,8 @@ $lang['Guests'] = 'Gostiju';
 $lang['History'] = 'Istorija';
 $lang['Informations'] = 'Informacije';
 $lang['Install'] = 'Instaliraj';
-$lang['Link all album elements to a new album'] = 'Poveži sve elemente kategorije sa novom kategorijom';
-$lang['Link all album elements to some existing albums'] = 'Poveži sve elemente kategorije sa nekom postojećom kategorijom';
+$lang['Link all album photos to a new album'] = 'Poveži sve elemente kategorije sa novom kategorijom';
+$lang['Link all album photos to some existing albums'] = 'Poveži sve elemente kategorije sa nekom postojećom kategorijom';
 $lang['Linked albums'] = 'Povezane kategorije';
 $lang['Lock gallery'] = 'Zaključaj galeriju';
 $lang['Maintenance'] = 'Održavanje';
@@ -164,7 +163,7 @@ $lang['Tag selection'] = 'Izbor oznake';
 $lang['The %d following tags were deleted'] = 'Sledeće %d oznake su izbrisane';
 $lang['Unable to check for upgrade.'] = 'Ne mogu proveriti za nadogradnju.';
 $lang['Uninstall'] = 'Ukloni';
-$lang['Use the default image sort order (defined in the configuration file)']='Koristi podrazumevani redosled slaganja slika (određeno u datoteci za podešavanje)';
+$lang['Use the default photo sort order (defined in the configuration file)']='Koristi podrazumevani redosled slaganja slika (određeno u datoteci za podešavanje)';
 $lang['User comments validation'] = 'Overa korisničkih komentara';
 $lang['Users'] = 'Korisnici';
 $lang['Validate'] = 'Overi';
@@ -244,7 +243,7 @@ $lang['Complementary mail content'] = 'Poptpuni sadržaj e-mail poruke';
 $lang['See you soon,'] = 'Vidimo se uskoro,';
 $lang['Go to'] = 'Idi na ';
 $lang['Hello'] = 'Pozdrav ';
-$lang['New elements were added'] = 'Novi elementi su dodati ';
+$lang['New photos were added'] = 'Novi elementi su dodati ';
 $lang['on'] = ' na ';
 $lang['between'] = 'između ';
 $lang['and'] = ' i ';
@@ -270,7 +269,7 @@ $lang['There is no available subscribers to mail.'] = 'Nema dostupnih primaoca z
 $lang['Subscribers could be listed (available) only if there is new elements to notify.'] = 'Pretplatnici mogu biti izlistani (dostupni) samo ako ima novih elemenata za obaveštenje.';
 $lang['Anyway only webmasters can see this tab and never administrators.'] = 'U svakom slučaju samo webmaster može pristupiti ovoj tabli a nikad administratori.';
 $lang['No user to send notifications by mail.'] = 'Nema korisnika za slanje e-mail obaveštenja.';
-$lang['New elements added'] = 'Novi elementi dodati';
+$lang['New photos added'] = 'Novi elementi dodati';
 $lang['Subscribe to notification by mail'] = 'Pretplatite se za e-mail obaveštenja';
 $lang['Unsubscribe from notification by mail'] = 'Uklonite se iz sistema primanja e-mail obaveštenja';
 $lang['Parameter'] = 'Stavka';
@@ -348,7 +347,7 @@ $lang['Piwigo configuration'] = 'Piwigo podešavanja';
 $lang['Edit album'] = 'Uredi kategoriju';
 $lang['Group management'] = 'Upravljanje grupama';
 $lang['User list'] = 'Lista korisnika';
-$lang['Modify informations about a picture'] = 'Promena podataka o slici';
+$lang['Edit photo information'] = 'Promena podataka o slici';
 $lang['Thumbnail creation'] = 'Izrada poveznih sličica';
 $lang['Database synchronization with files'] = 'Sinhronizacija baze podataka sa datotekama';
 $lang['all'] = 'sve';
@@ -373,7 +372,7 @@ $lang['unit mode'] = 'pojedinačni način';
 $lang['Unlocked'] = 'Otključano';
 $lang['unset'] = 'razdešeno';
 $lang['Update albums informations'] = 'Obnovi podatke o kategorijama';
-$lang['Update images informations'] = 'Obnovi podatke o slikama';
+$lang['Update photos information'] = 'Obnovi podatke o slikama';
 $lang['Synchronize'] = 'Sinhronizuj';
 $lang['reduce to single existing albums'] = 'umanji na jednu postojeću kategoriju-e';
 $lang['Choose an option'] = 'Izaberite mogućnost';
@@ -391,7 +390,7 @@ $lang['a picture filetype requires a thumbnail. The thumbnail must be present in
 $lang['missing thumbnail'] = 'nedostajuće povezne sličice';
 $lang['albums deleted in the database'] = 'kategorije izbrisane iz baze podataka';
 $lang['photos deleted from the database'] = 'elementi izbrisani iz baze podataka';
-$lang['images candidates for metadata synchronization'] = 'slika kandidata za sinhronizaciju meta podataka';
+$lang['photos candidates for metadata synchronization'] = 'slika kandidata za sinhronizaciju meta podataka';
 $lang['elements informations synchronized with files metadata'] = 'podataka elemenata sinhronizovano sa meta podacima datoteke';
 $lang['errors during synchronization'] = 'grešaka tokom sinhronizacije';
 $lang['albums added in the database'] = 'kategorija dodato u bazu podataka';
@@ -574,7 +573,7 @@ $lang['overrides existing values with empty ones'] = 'prekucava postojeće vredn
 $lang['manage photo ranks'] = 'upravljanje poretkom slika';
 $lang['Manage photo ranks'] = 'Upravljanje poretkom';
 $lang['Edit ranks'] = 'Uredi poredak';
-$lang['No element in this album'] = 'Nema elemenata u ovoj kategoriji';
+$lang['No photo in this album'] = 'Nema elemenata u ovoj kategoriji';
 $lang['Images manual order was saved'] = 'Sačuvan je podešenii redosled slika';
 $lang['ranks'] = 'poredak';
 $lang['Drag to re-order'] = 'Povuci za preređivanje';
@@ -598,8 +597,8 @@ $lang['Please wait...'] = 'Molim sačekajte...';
 $lang['Password is missing. Please enter the password.'] = 'Lozinka nedostaje. Molim unesite lozinku.';
 $lang['Password confirmation is missing. Please confirm the chosen password.'] = 'Potvrda lozinke nedostaje. Molim potvrdite izabranu lozinku.';
 $lang['Password confirmation error.'] = 'Greška pri potvrdi lozinke.';
-$lang['Allow users to edit theirs owns comments'] = 'Dozvoli korisnicima da uređuju svoje komentare';
-$lang['Allow users to delete theirs owns comments'] = 'Dozvoli korisnicima da brišu svoje komentare';
+$lang['Allow users to edit their own comments'] = 'Dozvoli korisnicima da uređuju svoje komentare';
+$lang['Allow users to delete their own comments'] = 'Dozvoli korisnicima da brišu svoje komentare';
 $lang['Email administrators when a comment is modified'] = 'Pošalji e-mail administratoru kada je komentar izmenjen';
 $lang['Email administrators when a comment is deleted'] = 'Pošalji e-mail administratoru kada je komentar izbrisan';
 $lang['Cannot delete the old permalink !'] = 'Stari link se ne može obrisati!';

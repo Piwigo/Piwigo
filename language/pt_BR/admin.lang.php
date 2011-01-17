@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | Piwigo - a PHP based picture gallery                                  |
 // +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2010 Piwigo Team                  http://piwigo.org |
+// | Copyright(C) 2008-2011 Piwigo Team                  http://piwigo.org |
 // | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
 // | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
 // +-----------------------------------------------------------------------+
@@ -78,7 +78,6 @@ $lang['Description'] = 'Descrição';
 $lang['Display options'] = 'Mostrar opções';
 $lang['Dissociated'] = 'Desassociados';
 $lang['Does not represent'] = 'Não representa';
-$lang['Edit all picture informations'] = 'Editar todas as informações da imagem';
 $lang['Edit selected tags'] = 'Editar tags selecionadas';
 $lang['Edit tags'] = 'Editar tags';
 $lang['Email admins when a new user registers'] = 'Notificar os administradores quando um novo usuário se registrar';
@@ -97,8 +96,8 @@ $lang['Guests'] = 'Visitantes';
 $lang['History'] = 'Histórico';
 $lang['Informations'] = 'Informações';
 $lang['Install'] = 'Instalar';
-$lang['Link all album elements to a new album'] = 'Vincular (lincar) todos os itens da categoria a uma nova categoria';
-$lang['Link all album elements to some existing albums'] = 'Vincular (lincar) todos os itens da categoria a alguma(s) categoria existente';
+$lang['Link all album photos to a new album'] = 'Vincular (lincar) todos os itens da categoria a uma nova categoria';
+$lang['Link all album photos to some existing albums'] = 'Vincular (lincar) todos os itens da categoria a alguma(s) categoria existente';
 $lang['Linked albums'] = 'Categorias vinculadas (Linked)';
 $lang['Lock gallery'] = 'Trancar a  galeria';
 $lang['Maintenance'] = 'Manutenção';
@@ -164,7 +163,7 @@ $lang['Tag selection'] = 'Seleção de tag';
 $lang['The %d following tags were deleted'] = 'As %d tags seguintes foram apagadas';
 $lang['Unable to check for upgrade.'] = 'Não foi possível checar as atualizações.';
 $lang['Uninstall'] = 'Desinstalar';
-$lang['Use the default image sort order (defined in the configuration file)']='Usar a ordem de exibição padrão (definida no arquivo de configuração)';
+$lang['Use the default photo sort order (defined in the configuration file)']='Usar a ordem de exibição padrão (definida no arquivo de configuração)';
 $lang['User comments validation'] = 'Validação dos comentários de usuário';
 $lang['Users'] = 'Usuários';
 $lang['Validate'] = 'Aprovar';
@@ -245,7 +244,7 @@ $lang['Complementary mail content'] = 'Conteúdo complementar da correspondênci
 $lang['See you soon,'] = 'Até breve,';
 $lang['Go to'] = 'Ir à(ao) ';
 $lang['Hello'] = 'Olá ';
-$lang['New elements were added'] = 'Novos itens foram adicionados ';
+$lang['New photos were added'] = 'Novos itens foram adicionados ';
 $lang['on'] = ' em ';
 $lang['between'] = 'entre ';
 $lang['and'] = ' e ';
@@ -271,7 +270,7 @@ $lang['There is no available subscribers to mail.'] = 'Não há assinante algum 
 $lang['Subscribers could be listed (available) only if there is new elements to notify.'] = 'Assinantes poderiam ser listados (disponíveis) apenas se houver novos itens para notificar.';
 $lang['Anyway only webmasters can see this tab and never administrators.'] = 'Em todo caso, apenas webmasters podem ver esta tab e nunca administradores.';
 $lang['No user to send notifications by mail.'] = 'Nenhum usuário para enviar notificações por email.';
-$lang['New elements added'] = 'Novos itens adicionados';
+$lang['New photos added'] = 'Novos itens adicionados';
 $lang['Subscribe to notification by mail'] = 'Assinar as notificações por email';
 $lang['Unsubscribe from notification by mail'] = 'Cancelar a assinatura das notificações por email';
 $lang['Parameter'] = 'Parâmetro';
@@ -349,7 +348,7 @@ $lang['Piwigo configuration'] = 'Configuração Piwigo';
 $lang['Edit album'] = 'Editar uma categoria';
 $lang['Group management'] = 'Gerenciamento de grupo';
 $lang['User list'] = 'Lista de usuário';
-$lang['Modify informations about a picture'] = 'Modificar informações sobre uma imagem';
+$lang['Edit photo information'] = 'Modificar informações sobre uma imagem';
 $lang['Thumbnail creation'] = 'Criação de thumbnail (miniatura)';
 $lang['Database synchronization with files'] = 'Sincronização da base de dados com os arquivos';
 $lang['all'] = 'tudo';
@@ -374,7 +373,7 @@ $lang['unit mode'] = 'modo unitário';
 $lang['Unlocked'] = 'Destrancado (Unlocked)';
 $lang['unset'] = 'sem valor (não ajustado)';
 $lang['Update albums informations'] = 'Atualizar as informações das categorias';
-$lang['Update images informations'] = 'Atualizar as informações das imagens';
+$lang['Update photos information'] = 'Atualizar as informações das imagens';
 $lang['Synchronize'] = 'Sincronizar';
 $lang['reduce to single existing albums'] = 'reduzir as categorias existentes em apenas uma';
 $lang['Choose an option'] = 'Escolher uma opção';
@@ -392,7 +391,7 @@ $lang['a picture filetype requires a thumbnail. The thumbnail must be present in
 $lang['missing thumbnail'] = 'está faltando thumbnail (miniatura)';
 $lang['albums deleted in the database'] = 'categorias apagadas da base de dados';
 $lang['photos deleted from the database'] = 'itens apagados da base de dados';
-$lang['images candidates for metadata synchronization'] = 'imagens candidatas para a sincronização com o metadado';
+$lang['photos candidates for metadata synchronization'] = 'imagens candidatas para a sincronização com o metadado';
 $lang['elements informations synchronized with files metadata'] = 'as informações dos itens foram sincronizados com o metadado dos arquivos';
 $lang['errors during synchronization'] = 'erros durante a sincronização';
 $lang['albums added in the database'] = 'categorias adicionadas à base de dados';
@@ -575,7 +574,7 @@ $lang['overrides existing values with empty ones'] = 'sobrepor os valores existe
 $lang['manage photo ranks'] = 'gerenciar posições (image ranks)';
 $lang['Manage photo ranks'] = 'Gerenciar posições (image ranks)';
 $lang['Edit ranks'] = 'Editar posições (ranks)';
-$lang['No element in this album'] = 'Nenhum item nesta categoria';
+$lang['No photo in this album'] = 'Nenhum item nesta categoria';
 $lang['Images manual order was saved'] = 'A ordem manual das imagens foi salva';
 $lang['ranks'] = 'posições (ranks)';
 $lang['Drag to re-order'] = 'Arraste para reordenar';

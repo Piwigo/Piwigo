@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | Piwigo - a PHP based picture gallery                                  |
 // +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2010 Piwigo Team                  http://piwigo.org |
+// | Copyright(C) 2008-2011 Piwigo Team                  http://piwigo.org |
 // | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
 // | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
 // +-----------------------------------------------------------------------+
@@ -76,7 +76,6 @@ $lang['Description'] = 'Tanim / açiklama';
 $lang['Display options'] = 'Görüntü özellikleri';
 $lang['Dissociated'] = 'Ayrismis';
 $lang['Does not represent'] = 'Temsil edilmiyor / Karsiligi yok';
-$lang['Edit all picture informations'] = 'Tüm imajlarin açiklamalarini degistir';
 $lang['Edit selected tags'] = 'seçilen etiketleri degistir';
 $lang['Edit tags'] = 'etiketleri degistir';
 $lang['Email admins when a new user registers'] = 'Yeni kullanici kaydi oldugunda yöneticiye e-posta gönder';
@@ -95,8 +94,8 @@ $lang['Guests'] = 'Ziyaretçiler';
 $lang['History'] = 'Geçmis';
 $lang['Informations'] = 'Bilgiler';
 $lang['Install'] = 'Kur';
-$lang['Link all album elements to a new album'] = 'Bütün albüm resimlerini yeni albümü bağla';
-$lang['Link all album elements to some existing albums'] = 'Bütün albüm resimlerini olan albümlere bağla';
+$lang['Link all album photos to a new album'] = 'Bütün albüm resimlerini yeni albümü bağla';
+$lang['Link all album photos to some existing albums'] = 'Bütün albüm resimlerini olan albümlere bağla';
 $lang['Linked albums'] = 'bağlanan albümler';
 $lang['Lock gallery'] = 'galeriyi kilitle';
 $lang['Maintenance'] = 'Bakim';
@@ -162,7 +161,7 @@ $lang['Tag selection'] = 'Etiket seçme';
 $lang['The %d following tags were deleted'] = 'Asagidaki %d etiketler silindi';
 $lang['Unable to check for upgrade.'] = 'Yükseltme kontrolü yapilamiyor.';
 $lang['Uninstall'] = 'Kaldir';
-$lang['Use the default image sort order (defined in the configuration file)'] = 'Varsayilan görüntü siralama düzenini kullan';
+$lang['Use the default photo sort order (defined in the configuration file)'] = 'Varsayilan görüntü siralama düzenini kullan';
 $lang['User comments validation'] = 'Kullanici yorumlari dogrulama';
 $lang['Users'] = 'Kullanicilar';
 $lang['Validate'] = 'Dogrula';
@@ -242,7 +241,7 @@ $lang['Complementary mail content'] = 'Tamamlayici posta içerigini';
 $lang['See you soon,'] = 'Yakinda görüsürüz,';
 $lang['Go to'] = 'Git';
 $lang['Hello'] = 'Merhaba';
-$lang['New elements were added'] = 'Yeni içerikler eklendi';
+$lang['New photos were added'] = 'Yeni içerikler eklendi';
 $lang['on'] = 'üzerinde';
 $lang['between'] = 'arasinda';
 $lang['and'] = 've';
@@ -268,7 +267,7 @@ $lang['There is no available subscribers to mail.'] = 'Hiç posta abonesi yok.';
 $lang['Subscribers could be listed (available) only if there is new elements to notify.'] = 'Aboneler sadece yeni içerikler';
 $lang['Anyway only webmasters can see this tab and never administrators.'] = 'Bu sekmeyi sadece site yöneticisi görebilir diger yöneticiler degil göremez. ';
 $lang['No user to send notifications by mail.'] = 'Posta ile ildiri gördermek için hiç kullanici yok';
-$lang['New elements added'] = 'Yeni içerik eklendi';
+$lang['New photos added'] = 'Yeni içerik eklendi';
 $lang['Subscribe to notification by mail'] = 'Posta ile abone bildirimi';
 $lang['Unsubscribe from notification by mail'] = 'Bildiri aboneliginden çik';
 $lang['Parameter'] = 'Ayarlar';
@@ -346,7 +345,7 @@ $lang['Piwigo configuration'] = 'Piwigo yapilandirma';
 $lang['Edit album'] = 'albüm düzenle';
 $lang['Group management'] = 'Grup yönetimi';
 $lang['User list'] = 'Kullanicilar listesi';
-$lang['Modify informations about a picture'] = 'Resim bilgilerini düzenle';
+$lang['Edit photo information'] = 'Resim bilgilerini düzenle';
 $lang['Thumbnail creation'] = 'Thumbnail olusturma';
 $lang['Database synchronization with files'] = 'Dosya ile veritabani senkronize';
 $lang['all'] = 'tüm';
@@ -372,7 +371,7 @@ $lang['Unlocked'] = 'Kilitsiz';
 $lang['unset'] = 'Kaldirmak';
 $lang['Month'] = 'Sıra';
 $lang['Update albums informations'] = 'albümlerin bilgilerini güncelle';
-$lang['Update images informations'] = 'Resimlerin bilgilerini güncelle';
+$lang['Update photos information'] = 'Resimlerin bilgilerini güncelle';
 $lang['Synchronize'] = 'Senkronize';
 $lang['reduce to single existing albums'] = 'mevcut albümleri küçült';
 $lang['Choose an option'] = 'Bir seçenek seç';
@@ -390,7 +389,7 @@ $lang['a picture filetype requires a thumbnail. The thumbnail must be present in
 $lang['missing thumbnail'] = 'thumbnail eksik';
 $lang['albums deleted in the database'] = 'veri tabanından silinen albümler';
 $lang['photos deleted from the database'] = 'elemanlar veritabanında silindi';
-$lang['images candidates for metadata synchronization'] = 'metadata senkronizasyon için görüntüleri adayları';
+$lang['photos candidates for metadata synchronization'] = 'metadata senkronizasyon için görüntüleri adayları';
 $lang['elements informations synchronized with files metadata'] = 'elemanları bilgiler dosyaları ile metadata senkronize edildi';
 $lang['errors during synchronization'] = 'Senkronizasyon sırasında hatalar';
 $lang['albums added in the database'] = 'veri tabanına eklenen albümler';
@@ -568,7 +567,7 @@ $lang['overrides existing values with empty ones'] = 'boş olan değerleri geçe
 $lang['manage photo ranks'] = 'resim rütbesini yönet';
 $lang['Manage photo ranks'] = 'Resim rütbesini yönet';
 $lang['Edit ranks'] = 'Rütbeleri yönet';
-$lang['No element in this album'] = 'albümde eleman yok';
+$lang['No photo in this album'] = 'albümde eleman yok';
 $lang['Images manual order was saved'] = 'Resimlerin elle sırlandırılması kayıt edildi';
 $lang['ranks'] = 'rütbeler';
 $lang['By rank'] = 'Rütbece';
@@ -591,8 +590,8 @@ $lang['Hide'] = 'Gizle';
 $lang['Password is missing. Please enter the password.'] = 'Şifre eksik. Lütfen şifrenizi girin.';
 $lang['Password confirmation is missing. Please confirm the chosen password.'] = 'Şifre doğrulama eksik. Lütfen seçtiğiniz şifreyi onaylayın.';
 $lang['Password confirmation error.'] = 'Şifre doğrulama hatası.';
-$lang['Allow users to edit theirs owns comments'] = 'Kullanıcıların kendi yorumlarını düzenlemesine izin ver';
-$lang['Allow users to delete theirs owns comments'] = 'Kullanıcıların kendi yorumlarını silmesine izin ver';
+$lang['Allow users to edit their own comments'] = 'Kullanıcıların kendi yorumlarını düzenlemesine izin ver';
+$lang['Allow users to delete their own comments'] = 'Kullanıcıların kendi yorumlarını silmesine izin ver';
 $lang['Email administrators when a comment is modified'] = 'Yöneticilere yorum düzenlendiği zaman e-posta yolla.';
 $lang['Email administrators when a comment is deleted'] = 'Yöneticilere yorum silindiği zaman e-posta yolla.';
 $lang['Cannot delete the old permalink !'] = 'Eski permalink silinemez!';
