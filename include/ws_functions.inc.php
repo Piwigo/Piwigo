@@ -1558,69 +1558,48 @@ function ws_tags_getImages($params, &$service)
   $tag_ids = array_keys($tags_by_id);
 
 
-  $image_ids = array();
-  $image_tag_map = array();
+  $where_clauses = ws_std_image_sql_filter($params);
+  if (!empty($where_clauses))
+  {
+    $where_clauses = implode( ' AND ', $where_clauses);
+  }
+  $image_ids = get_image_ids_for_tags(
+    $tag_ids,
+    $params['tag_mode_and'] ? 'AND' : 'OR',
+    $where_clauses,
+    ws_std_image_sql_order($params) );
 
-  if ( !empty($tag_ids) )
+
+  $image_ids = array_slice($image_ids, (int)($params['per_page']*$params['page']), (int)$params['per_page'] );
+  
+  $image_tag_map = array();
+  if ( !empty($image_ids) and !$params['tag_mode_and'] )
   { // build list of image ids with associated tags per image
-    if ($params['tag_mode_and'])
-    {
-      $image_ids = get_image_ids_for_tags( $tag_ids );
-    }
-    else
-    {
-      $query = '
+    $query = '
 SELECT image_id, GROUP_CONCAT(tag_id) AS tag_ids
   FROM '.IMAGE_TAG_TABLE.'
-  WHERE tag_id IN ('.implode(',',$tag_ids).')
+  WHERE tag_id IN ('.implode(',',$tag_ids).') AND image_id IN ('.implode(',',$image_ids).')
   GROUP BY image_id';
-      $result = pwg_query($query);
-      while ( $row=pwg_db_fetch_assoc($result) )
-      {
-        $row['image_id'] = (int)$row['image_id'];
-        array_push( $image_ids, $row['image_id'] );
-        $image_tag_map[ $row['image_id'] ] = explode(',', $row['tag_ids']);
-      }
+    $result = pwg_query($query);
+    while ( $row=pwg_db_fetch_assoc($result) )
+    {
+      $row['image_id'] = (int)$row['image_id'];
+      array_push( $image_ids, $row['image_id'] );
+      $image_tag_map[ $row['image_id'] ] = explode(',', $row['tag_ids']);
     }
   }
 
   $images = array();
-  if ( !empty($image_ids))
+  if (!empty($image_ids))
   {
-    $where_clauses = ws_std_image_sql_filter($params);
-    $where_clauses[] = get_sql_condition_FandF(
-        array
-          (
-            'forbidden_categories' => 'category_id',
-            'visible_categories' => 'category_id',
-            'visible_images' => 'i.id'
-          ),
-        '', true
-      );
-    $where_clauses[] = 'id IN ('.implode(',',$image_ids).')';
-
-    $order_by = ws_std_image_sql_order($params);
-    if (empty($order_by))
-    {
-      $order_by = $conf['order_by'];
-    }
-    else
-    {
-      $order_by = 'ORDER BY '.$order_by;
-    }
-
-    $query = '
-SELECT DISTINCT i.* FROM '.IMAGES_TABLE.' i
-  INNER JOIN '.IMAGE_CATEGORY_TABLE.' ON i.id=image_id
-  WHERE '. implode('
-    AND ', $where_clauses).'
-'.$order_by.'
-LIMIT '.(int)$params['per_page'].' OFFSET '.(int)($params['per_page']*$params['page']);
-
-    $result = pwg_query($query);
+    $rank_of = array_flip($image_ids);
+    $result = pwg_query('
+SELECT * FROM '.IMAGES_TABLE.'
+  WHERE id IN ('.implode(',',$image_ids).')');
     while ($row = pwg_db_fetch_assoc($result))
     {
       $image = array();
+      $image['rank'] = $rank_of[ $row['id'] ];
       foreach ( array('id', 'width', 'height', 'hit') as $k )
       {
         if (isset($row[$k]))
@@ -1664,6 +1643,8 @@ LIMIT '.(int)$params['per_page'].' OFFSET '.(int)($params['per_page']*$params['p
             );
       array_push($images, $image);
     }
+    usort($images, 'rank_compare');
+    unset($rank_of);
   }
 
   return array( 'images' =>
@@ -2544,7 +2525,7 @@ function ws_themes_performAction($params, &$service)
 {
   global $template;
   
-  if (!is_admin() || is_adviser() )
+  if (!is_admin())
   {
     return new PwgError(401, 'Access denied');
   }

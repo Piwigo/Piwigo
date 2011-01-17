@@ -160,52 +160,45 @@ function add_level_to_tags($tags)
  *
  * @param array tag ids
  * @param string mode
+ * @param string extra_images_where_sql - optionally apply a sql where filter to retrieved images
+ * @param string order_by - optionally overwrite default photo order
  * @return array
  */
-function get_image_ids_for_tags($tag_ids, $mode = 'AND')
+function get_image_ids_for_tags($tag_ids, $mode='AND', $extra_images_where_sql='', $order_by='')
 {
-  switch ($mode)
+  global $conf;
+  if (empty($tag_ids))
   {
-    case 'AND':
-    {
-      // strategy is to list images associated to each tag
-      $tag_images = array();
-
-      foreach ($tag_ids as $tag_id)
-      {
-        $query = '
-SELECT image_id
-  FROM '.IMAGE_TAG_TABLE.'
-  WHERE tag_id = '.$tag_id.'
-;';
-        $tag_images[$tag_id] = array_from_query($query, 'image_id');
-      }
-
-      // then we calculate the intersection, the images that are associated to
-      // every tags
-      $items = array_shift($tag_images);
-      foreach ($tag_images as $images)
-      {
-        $items = array_intersect($items, $images);
-      }
-      return $items;
-      break;
-    }
-    case 'OR':
-    {
-      $query = '
-SELECT DISTINCT image_id
-  FROM '.IMAGE_TAG_TABLE.'
-  WHERE tag_id IN ('.implode(',', $tag_ids).')
-;';
-      return array_from_query($query, 'image_id');
-      break;
-    }
-    default:
-    {
-      die('get_image_ids_for_tags: unknown mode, only AND & OR are supported');
-    }
+    return array();
   }
+
+  $query = 'SELECT id
+  FROM '.IMAGES_TABLE.' i 
+    INNER JOIN '.IMAGE_CATEGORY_TABLE.' ic ON id=ic.image_id
+    INNER JOIN '.IMAGE_TAG_TABLE.' it ON id=it.image_id
+    WHERE tag_id IN ('.implode(',', $tag_ids).')'
+    .get_sql_condition_FandF
+    (
+      array
+        (
+          'forbidden_categories' => 'category_id',
+          'visible_categories' => 'category_id',
+          'visible_images' => 'id'
+        ),
+      "\n  AND"
+    )
+  .(empty($extra_images_where_sql) ? '' : " \nAND (".$extra_images_where_sql.')')
+  .'
+  GROUP BY id';
+  
+  if ($mode=='AND' and count($tag_ids)>1)
+  {
+    $query .= '
+  HAVING COUNT(DISTINCT tag_id)='.count($tag_ids);
+  }
+  $query .= "\n".(empty($order_by) ? $conf['order_by'] : $order_by);
+
+  return array_from_query($query, 'id');
 }
 
 /**

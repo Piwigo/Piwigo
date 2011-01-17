@@ -321,21 +321,6 @@ else
 
     $items = get_image_ids_for_tags($page['tag_ids']);
 
-    // permissions depends on category, so to only keep images that are
-    // reachable to the connected user, we need to check category
-    // associations
-    if (!empty($items) )
-    {
-      $query = '
-SELECT DISTINCT image_id
-  FROM '.IMAGE_CATEGORY_TABLE.' INNER JOIN '.IMAGES_TABLE.' ON image_id=id
-  WHERE image_id IN ('.implode(',', $items).')
-    '.$forbidden.
-    $conf['order_by'].'
-;';
-      $items =  array_from_query($query, 'image_id');
-    }
-
     $page = array_merge(
       $page,
       array(

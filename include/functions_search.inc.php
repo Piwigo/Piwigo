@@ -231,23 +231,18 @@ SELECT DISTINCT(id)
     {
       $query .= "\n  AND ".$images_where;
     }
-    if (empty($tag_items) or $search['mode']=='AND')
-    { // directly use forbidden and order by
-      $query .= $forbidden.'
+    $query .= $forbidden.'
   '.$conf['order_by'];
-    }
     $items = array_from_query($query, 'id');
   }
 
   if ( !empty($tag_items) )
   {
-    $need_permission_check = false;
     switch ($search['mode'])
     {
       case 'AND':
         if (empty($search_clause))
         {
-          $need_permission_check = true;
           $items = $tag_items;
         }
         else
@@ -263,26 +258,7 @@ SELECT DISTINCT(id)
             $tag_items
             )
           );
-        if ( $before_count < count($items) )
-        {
-          $need_permission_check = true;
-        }
         break;
-    }
-    if ($need_permission_check and count($items) )
-    {
-      $query = '
-SELECT DISTINCT(id)
-  FROM '.IMAGES_TABLE.' i
-    INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON id = ic.image_id
-  WHERE id IN ('.implode(',', $items).') '.$forbidden;
-      if (!empty($images_where))
-      {
-        $query .= "\n  AND ".$images_where;
-      }
-      $query .= '
-  '.$conf['order_by'];
-      $items = array_from_query($query, 'id');
     }
   }
 
