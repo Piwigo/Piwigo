@@ -28,12 +28,5 @@
 {/foreach}
 {'</li></ul>'|@str_repeat:$ref_level}
 
-	{if isset($block->data.U_UPLOAD)}
-	<ul>
-		<li>
-			<a href="{$block->data.U_UPLOAD}">{'Upload a picture'|@translate}</a>
-		</li>
-	</ul>
-	{/if}
 	<p class="totalImages">{$pwg->l10n_dec('%d photo', '%d photos', $block->data.NB_PICTURE)}</p>
 </dd>

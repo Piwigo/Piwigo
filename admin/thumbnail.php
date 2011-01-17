@@ -142,8 +142,8 @@ function RatioResizeImg($info, $path, $newWidth, $newHeight, $tn_ext)
   // error
   else
   {
-    echo l10n('Picture unreachable or no support')." ";
-    if ( isset( $extenstion ) )
+    echo l10n('Photo unreachable or no support')." ";
+    if ( isset( $extension ) )
     {
       echo l10n('for the file format').' '.$extension;
     }

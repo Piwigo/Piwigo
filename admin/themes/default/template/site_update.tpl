@@ -20,7 +20,7 @@
 {if isset($metadata_result)}
 <h3>{$L_RESULT_METADATA}</h3>
 <ul>
-  <li>{$metadata_result.NB_ELEMENTS_DONE} {'elements informations synchronized with files metadata'|@translate}</li>
+  <li>{$metadata_result.NB_ELEMENTS_DONE} {'photos informations synchronized with files metadata'|@translate}</li>
   <li>{$metadata_result.NB_ELEMENTS_CANDIDATES} {'photos candidates for metadata synchronization'|@translate}</li>
   <li>{'Used metadata'|@translate} : {$METADATA_LIST}</li>
 </ul>
@@ -76,7 +76,7 @@
 	</fieldset>
 
 	<fieldset id="syncMetadata">
-		<legend>{'synchronize files metadata with database elements informations'|@translate}</legend>
+		<legend>{'synchronize files metadata with database photos informations'|@translate}</legend>
 		<label><input type="checkbox" name="sync_meta" {if $introduction.sync_meta}checked="checked"{/if}> {'synchronize metadata'|@translate} ({$METADATA_LIST})</label>
 		<ul style="padding-left:3em">
 	  		<li>

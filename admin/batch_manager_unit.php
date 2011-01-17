@@ -122,7 +122,7 @@ SELECT id, date_creation
     $datas
     );
 
-  array_push($page['infos'], l10n('Picture informations updated'));
+  array_push($page['infos'], l10n('Photo informations updated'));
 }
 
 // +-----------------------------------------------------------------------+

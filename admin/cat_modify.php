@@ -152,7 +152,7 @@ elseif (isset($_POST['submitAdd']))
     array_push(
       $page['infos'],
       sprintf(
-        l10n('Album elements associated to the following albums: %s'),
+        l10n('Album photos associated to the following albums: %s'),
         '<ul><li>'
         .get_cat_display_name_from_id($output_create['id'])
         .'</li></ul>'
@@ -181,7 +181,7 @@ elseif (isset($_POST['submitDestinations'])
   array_push(
     $page['infos'],
     sprintf(
-      l10n('Album elements associated to the following albums: %s'),
+      l10n('Album photos associated to the following albums: %s'),
       '<ul><li>'.implode('</li><li>', $category_names).'</li></ul>'
       )
     );

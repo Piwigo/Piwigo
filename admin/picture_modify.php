@@ -118,7 +118,7 @@ if (isset($_POST['submit']) and count($page['errors']) == 0)
   }
   set_tags($tag_ids, $_GET['image_id']);
 
-  array_push($page['infos'], l10n('Picture informations updated'));
+  array_push($page['infos'], l10n('Photo informations updated'));
 }
 // associate the element to other categories than its storage category
 if (isset($_POST['associate'])

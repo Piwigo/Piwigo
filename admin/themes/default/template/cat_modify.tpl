@@ -13,7 +13,7 @@
   <li><a href="{$U_JUMPTO}" title="{'jump to album'|@translate}"><img src="{$themeconf.admin_icon_dir}/category_jump-to.png" class="button" alt="{'jump to album'|@translate}"></a></li>
   {/if}
   {if isset($U_MANAGE_ELEMENTS) }
-  <li><a href="{$U_MANAGE_ELEMENTS}" title="{'manage album elements'|@translate}"><img src="{$ROOT_URL}{$themeconf.admin_icon_dir}/category_elements.png" class="button" alt="{'elements'|@translate}"></a></li>
+  <li><a href="{$U_MANAGE_ELEMENTS}" title="{'manage album photos'|@translate}"><img src="{$ROOT_URL}{$themeconf.admin_icon_dir}/category_elements.png" class="button" alt="{'Photos'|@translate}"></a></li>
   <li><a href="{$U_MANAGE_RANKS}" title="{'manage photo ranks'|@translate}"><img src="{$ROOT_URL}{$themeconf.admin_icon_dir}/ranks.png" class="button" alt="{'ranks'|@translate}"></a></li>
   {/if}
   <li><a href="{$U_CHILDREN}" title="{'manage sub-albums'|@translate}"><img src="{$ROOT_URL}{$themeconf.admin_icon_dir}/category_children.png" class="button" alt="{'sub-albums'|@translate}"></a></li>
@@ -122,7 +122,7 @@
         {if isset($representant.picture) }
         <a href="{$representant.picture.URL}"><img src="{$representant.picture.SRC}" alt="" class="miniature"></a>
         {else}
-        <img src="{$ROOT_URL}{$themeconf.admin_icon_dir}/category_representant_random.png" class="button" alt="{'Random picture'|@translate}" class="miniature">
+        <img src="{$ROOT_URL}{$themeconf.admin_icon_dir}/category_representant_random.png" class="button" alt="{'Random photo'|@translate}" class="miniature">
         {/if}
       </td>
       <td>

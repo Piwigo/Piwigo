@@ -28,7 +28,7 @@
     <td colspan="2">{'General statistics'|@translate}</td>
   </tr>
   <tr>
-    <td>{'number of miniaturized pictures'|@translate}</td>
+    <td>{'number of miniaturized photos'|@translate}</td>
     <td style="text-align:center;">{$results.TN_NB}</td>
   </tr>
   <tr>
@@ -97,7 +97,7 @@
 {/if} {*isset params*}
 
 {if !empty($remainings) }
-<div class="admin">{$TOTAL_NB_REMAINING} {'pictures without thumbnail (jpeg and png only)'|@translate}</div>
+<div class="admin">{$TOTAL_NB_REMAINING} {'photos without thumbnail (jpeg and png only)'|@translate}</div>
 <table style="width:100%;">
   <tr class="throw">
     <td>&nbsp;</td>

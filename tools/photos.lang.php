@@ -8,7 +8,6 @@ $lang['display each day with pictures, month per month'] = 'display each day wit
 $lang['delete this image from your favorites'] = 'delete this photo from your favorites';
 $lang['display my favorites pictures'] = 'display your favorites photos';
 $lang['shows images at the root of this album'] = 'display this album';
-$lang['See last users comments'] = 'display last user comments';
 $lang['display most visited pictures'] = 'display most visited photos';
 $lang['Rate this picture'] = 'Rate this photo';
 $lang['Random pictures'] = 'Random photos';
@@ -38,8 +37,17 @@ $lang['picture'] = 'photo';
 $lang['Click on the picture to see it in high definition'] = 'Click on the photo to see it in high definition';
 
 // admin
+$lang['Edit all picture informations'] = 'Edit photo information';
 $lang['Include display of recent pictures group by dates'] = 'Include display of recent photos grouped by dates';
+$lang['Link all album elements to a new album'] = 'Link all album photos to a new album';
+$lang['Link all album elements to some existing albums'] = 'Link all album photos to some existing albums';
 $lang['Manage image ranks'] = 'Manage photo ranks';
+$lang['New elements added'] = 'New photos added';
+$lang['New elements were added'] = 'New photos were added';
+$lang['No element in this album'] = 'No photo in this album';
+$lang['Select at least one picture'] = 'Select at least one photo';
+$lang['Update images informations'] = 'Update photos information';
+$lang['Use the default image sort order (defined in the configuration file)'] = 'Use the default photo sort order (defined in the configuration file)';
 $lang['add new elements to caddie'] = 'add new photos to caddie';
 $lang['display maximum informations (added albums and elements, deleted albums and elements)'] = 'display maximum informations (added albums and photos, deleted albums and photos)';
 $lang['elements added in the database'] = 'photos added in the database';
@@ -48,7 +56,17 @@ $lang['elements per page'] = 'photos per page';
 $lang['elements updated in the database'] = 'photos updated in the database';
 $lang['even already synchronized elements'] = 'even already synchronized photos';
 $lang['first element added on %s'] = 'first photo added on %s';
+$lang['images candidates for metadata synchronization'] = 'photos candidates for metadata synchronization';
 $lang['jump to image'] = 'jump to photo';
 $lang['manage image ranks'] = 'manage photo ranks';
-$lang['Select at least one picture'] = 'Select at least one photo';
+
+
+$lang['manage album photos'] = 'manage album elements';
+$lang['synchronize files metadata with database elements informations'] = 'synchronize files metadata with database photos informations';
+$lang['elements informations synchronized with files metadata'] = 'photos informations synchronized with files metadata';
+$lang['number of miniaturized pictures'] = 'number of miniaturized photos';
+$lang['Picture informations updated'] = 'Photo informations updated';
+$lang['Picture unreachable or no support'] = 'Photo unreachable or no support';
+$lang['pictures without thumbnail (jpeg and png only)'] = 'photos without thumbnail (jpeg and png only)';
+$lang['Random picture'] = 'Random photo';
 ?>

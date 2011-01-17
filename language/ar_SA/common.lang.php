@@ -297,19 +297,7 @@ $lang['A comment on your site'] = 'استفسار مهم';
 $lang['today'] = 'اليوم';
 $lang['Update your rating'] = 'تحديث تقييمك';
 $lang['wrong filename'] = 'اسم الملف غير صحيح';
-$lang['the filesize of the picture must not exceed :'] = 'حجم الملف يجب ان لا يتجاوز : ';
-$lang['the picture must be to the fileformat jpg, gif or png'] = 'يجب ان يكون متداد الصور  jpg,  أو png';
-$lang['the height of the picture must not exceed :'] = 'الحد الاعلى لرتفاع الصورة   ';
-$lang['Optional, but recommended : choose a thumbnail to associate to'] = 'تم تحميل الصورة ،، يمكنك اختيار صورة مصغره لها ( غير مهم )';
-$lang['the width of the picture must not exceed :'] = 'الحد الاعلى لرتفاع الصورة: ';
-$lang['can\'t upload the picture on the server'] = 'تستطيع\'t تحميل الصورعلى الخادم';
 $lang['the username must be given'] = 'اسم المستخدم ضروري';
-$lang['A picture\'s name already used'] = 'الصورة\'s الاسم موجود مسبقا';
-$lang['You must choose a picture fileformat for the image'] = 'يجب ان تختار نسق او متداد الصورة';
-$lang['Name of the picture'] = 'اسم الصورة';
-$lang['Upload a picture'] = 'تحمـيل صورة جـديدة';
-$lang['Picture uploaded with success, an administrator will validate it as soon as possible'] = 'تم تحميل الصورة ، و سيتم عرضها في اسرع وقت بعد اطلاع الادارة عليها';
-$lang['Upload a picture'] = 'تحميل الصورة';
 $lang['useful when password forgotten'] = ' ضرورية في حال نسيانك كلمة المرور';
 $lang['Quick search'] = 'بحث سريع';
 $lang['Connected user: %s'] = 'الاتصال بالمستخدم: %s';
@@ -323,8 +311,6 @@ $lang['Email: %s'] = 'البريد الالكتروني: %s';
 $lang['Admin: %s'] = 'المدير: %s';
 $lang['Registration of %s'] = 'تسجيل  %s';
 $lang['Album: %s'] = 'الألبوم: %s';
-$lang['Picture name: %s'] = 'اسم الصورة: %s';
-$lang['Creation date: %s'] = 'التاريخ الاصلي للصورة: %s';
 $lang['Picture uploaded by %s'] = 'حملت الصورة بواسطة  %s';
 $lang['Bad status for user "guest", using default status. Please notify the webmaster.'] = 'وضغ سيئ للضيف "ضيف", استخدم الحالة الافرتاضية. يرجى ابلاغ المسؤول عن الموقع.';
 $lang['Administrator, webmaster and special user cannot use this method'] = 'خاصية للادارة فقط لايمكنك استخدامها';
@@ -347,7 +333,6 @@ $lang['%d photo is also linked to current tags'] = '%d صورة لها ارتب�
 $lang['%d photos are also linked to current tags'] = '%d صور لها اتباط بــ';
 $lang['display photos linked to this tag'] = 'شاهد الصورة التي لها اتباط بالكلمات الدلائلية ';
 $lang['photos posted during the last %d days'] = 'صور الايــ%dــام الاخيرة ';
-$lang['Choose an image'] = 'اختر الصورة';
 $lang['Piwigo Help'] = 'الدعم الفني ';
 $lang['Rank'] = 'الألبوم';
 $lang['group by letters'] = 'عرض الكلمات في مجموعات';

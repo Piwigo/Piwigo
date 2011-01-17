@@ -70,7 +70,7 @@ jQuery(document).ready(function(){ldelim}
         {/if}
         <li><a href="{$category.U_EDIT}" title="{'edit album'|@translate}"><img src="{$themeconf.admin_icon_dir}/category_edit.png" class="button" alt="{'edit'|@translate}"></a></li>
         {if isset($category.U_MANAGE_ELEMENTS) }
-        <li><a href="{$category.U_MANAGE_ELEMENTS}" title="{'manage album elements'|@translate}"><img src="{$themeconf.admin_icon_dir}/category_elements.png" class="button" alt="{'elements'|@translate}"></a></li>
+        <li><a href="{$category.U_MANAGE_ELEMENTS}" title="{'manage album photos'|@translate}"><img src="{$themeconf.admin_icon_dir}/category_elements.png" class="button" alt="{'Photos'|@translate}"></a></li>
         {/if}
         <li><a href="{$category.U_CHILDREN}" title="{'manage sub-albums'|@translate}"><img src="{$themeconf.admin_icon_dir}/category_children.png" class="button" alt="{'sub-albums'|@translate}"></a></li>
         {if isset($category.U_MANAGE_PERMISSIONS) }
