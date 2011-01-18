@@ -1225,7 +1225,6 @@ SELECT MAX(rank)
     'name' => $category_name,
     'rank' => ++$current_rank,
     'commentable' => boolean_to_string($conf['newcat_default_commentable']),
-    'uploadable' => 'false',
     );
 
   if ($parent_id != 'NULL')
@@ -1276,7 +1275,7 @@ SELECT id, uppercats, global_rank, visible, status
     CATEGORIES_TABLE,
     array(
       'site_id', 'name', 'id_uppercat', 'rank', 'commentable',
-      'uploadable', 'visible', 'status', 'global_rank',
+      'visible', 'status', 'global_rank',
       ),
     array($insert)
     );
@@ -1984,7 +1983,6 @@ function get_active_menu($menu_page)
   switch ($menu_page)
   {
     case 'photos_add':
-    case 'upload':
     case 'rating':
     case 'tags':
     case 'picture_modify':
