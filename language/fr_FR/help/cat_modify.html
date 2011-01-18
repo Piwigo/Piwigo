@@ -1,58 +1,52 @@
-<h2>Modifier une catégorie</h2>
+<h2>Modifier un album</h2>
 
 <h3>Informations</h3>
 
 <ul>
 
-  <li><strong>nom</strong>: renommer la catégorie (virtuellement pour 
-  une catégorie physique).</li>
+  <li><strong>nom</strong>: renommer l'album catégorie (virtuellement pour 
+  un album physique).</li>
 
-  <li><strong>description</strong>: un texte bref donnant une idée du contenu de la catégorie,
+  <li><strong>description</strong>: un texte bref donnant une idée du contenu de l'album,
   cette indication figurera en bas de la page des miniatures.</li>
 
 </ul>
 
 <h3>Déplacer</h3>
 
-<p>Si la catégorie est virtuelle, vous pouvez la déplacer. Déplacer une
-catégorie signifie changer sa catégorie parente.</p>
+<p>Si l'album est virtuel, vous pouvez la déplacer. Déplacer un
+album signifie changer son album parent.</p>
 
 <h3>Options</h3>
 
 <ul>
 
   <li><strong>Type d'accès</strong>: gestion des permissions. Si vous rendez
-une catégorie privée, toutes ses catégories filles deviennent privées. Si
-vous rendez une catégorie publique, toutes ses catégories mères deviennent
+un album privé, tous ses albums filles deviennent privés. Si
+vous rendez un album publique, tous ses albums mères deviennent
 publiques.</li>
 
-  <li><strong>Verrouiller</strong>: la catégorie et toutes ses catégories
-filles deviennent temporairement inaccessibles pour maintenance.</li>
+  <li><strong>Verrouiller</strong>: l'album et tous ses sous-album deviennent temporairement inaccessibles pour maintenance.</li>
 
   <li><strong>Commentaires</strong>: autorise les utilisateurs à commenter
-les éléments de cette catégorie.</li>
-
-  <li><strong>Autoriser l'ajout d'images</strong>: autorise les utilisateurs
-à télécharger des fichiers. Cette option n'est disponible que si la
-catégorie est physique (et non virtuelle).</li>
-
+les éléments de cet album.</li>
+  
 </ul>
 
 <p>Vous pouvez aussi gérer ces options par la gestion des "Propriétés" 
-(écrans <span class="pwgScreen">Ajout</span>, <span
-class="pwgScreen">Commentaires</span>, <span
+(écrans <span class="pwgScreen">Commentaires</span>, <span
 class="pwgScreen">Verrouiller</span>, <span
 class="pwgScreen">Publique/Privée</span>, <span
 class="pwgScreen">Représentant</span> disponibles à partir d' <span
-class="pwgScreen">Administration, Catégories, Propriétés</span>).</p>
+class="pwgScreen">Administration &raquo; Albums &raquo; Propriétés</span>).</p>
 
 <h3>Ordre de tri</h3>
 
-<p>Utiliser l'ordre de tri des images par défaut.</p>
+<p>Utiliser l'ordre de tri des photos par défaut.</p>
 
-<p>Indiquer si le tri s'applique également aux sous-catégories.</p>
+<p>Indiquer si le tri s'applique également aux sous-albums.</p>
 
-<p>Sélectionner les critères de tri à utiliser pour cette catégorie.</p>
+<p>Sélectionner les critères de tri à utiliser pour cet album.</p>
 <ul>
 <li><strong>Date de création</strong>: Date de prise de vue</li>
 <li><strong>Date d'ajout</strong>: Date de la synchronisation</li>
@@ -67,30 +61,30 @@ class="pwgScreen">Administration, Catégories, Propriétés</span>).</p>
 
 <h3>Représentant</h3>
 
-<p>Le représentant d'une catégorie est la miniature affichée sur la page principale (<span
+<p>Le représentant d'un album est la miniature affichée sur la page principale (<span
 class="pwgScreen">category.php</span>) pour
-représenter la catégorie lorsque celle-ci ne contient
-que des sous-catégories et aucun élément direct (comme à la
+représenter l'album lorsque celui-ci ne contient
+que des sous-albums et aucune photo direct (comme à la
 racine)</p>
 
-<p>Il existe 4 moyens différents de choisir le représentant d'une catégorie:</p>
+<p>Il existe 4 moyens différents de choisir le représentant d'un album:</p>
 
 <ul>
 
-  <li><span class="pwgScreen">Page d'affichage des images</span>: un des boutons d'action permet de choisir l'élément courant comme représentant
-de la catégorie affichée. Ce bouton d'action n'est disponible que pour les
+  <li><span class="pwgScreen">Page d'affichage des photos</span>: un des boutons d'action permet de choisir la photo courante comme représentant
+de l'album affiché. Ce bouton d'action n'est disponible que pour les
 administrateurs.</li>
 
-  <li><span class="pwgScreen">Modifier les informations d'une image</span>
+  <li><span class="pwgScreen">Modifier les informations d'une photo</span>
 dans l'administration. Cet écran peut être atteint depuis <span
 class="pwgScreen">picture.php</span> ou <span class="pwgScreen">Gestion par
 lot</span> dans le <em>mode unitaire</em>. Voir l'aide de cet écran pour les
 détails.</li>
 
-  <li><span class="pwgScreen">Administration, Catégories, Propriétés,
+  <li><span class="pwgScreen">Administration &raquo; Albums &raquo; Propriétés,
 Représentant</span>. Voir l'aide de cet écran pour les détails.</li>
 
-  <li><span class="pwgScreen">Modifier une catégorie</span> (le présent
+  <li><span class="pwgScreen">Modifier un album</span> (le présent
 écran).</li>
 
 </ul>
@@ -100,39 +94,39 @@ Représentant</span>. Voir l'aide de cet écran pour les détails.</li>
 class="filename">include/config_default.inc.php</span>).</p>
 
 <p>Par défaut (<code>allow_random_representative</code> à false), chaque
-catégorie contenant au moins un élément est représenté par un élément
-fixe. Une fois fixé (à la création de la catégorie), le représentant change
+album contenant au moins une photo est représenté par un élément
+fixe. Une fois fixé (à la création de l'album), le représentant change
 uniquement lorsque l'administrateur le demande. Si le représentant ne
 convient pas, vous pouvez demander à <strong>Trouver un nouveau représentant
 au hasard</strong>.</p>
 
 <p>Si le paramètre de configuration <code>allow_random_representative</code>
-est à true, une catégorie contenant des éléments peut ne pas avoir de
+est à true, l'album contenant des photos peut ne pas avoir de
 représentant fixe. Utiliser simplement le bouton <strong>Supprimer le
 représentant</strong>.</p>
 
-<p>Si la catégorie ne contient que des sous-catégories et aucun élément, elle peut cependant être représentée par n'importe quel 
-élément grâce à l'écran <span class="pwgScreen">Modifier les informations 
-d'une image</span>. La seule option disponible sur le présent écran est le bouton
+<p>Si l'album ne contient que des sous-albums et aucune photo, elle peut cependant être représentée par n'importe quel 
+photo grâce à l'écran <span class="pwgScreen">Modifier les informations 
+d'une photo</span>. La seule option disponible sur le présent écran est le bouton
 <strong>Supprimer le représentant</strong>.</p>
 
-<h3>Associer tous les éléments de la catégorie à une nouvelle catégorie</h3>
+<h3>Associer toutes les photos de l'album à un nouvelle album</h3>
 
 <ul>
 
-<li><strong>Nom de la catégorie virtuelle</strong>: Nom de la nouvelle catégorie à créer, 
-toutes les images de la catégorie en cours seront liées à la nouvelle.</li>
+<li><strong>Nom de l'album virtuel</strong>: Nom du nouvelle album à créer, 
+toutes les photos de l'album en cours seront liées à celui-ci.</li>
 
-<li><strong>Catégorie parente</strong>: A quel endroit la nouvelle catégorie doit être placée, 
-laisser vide pour la créer sur la page d'accueil.</li>
+<li><strong>Album parent</strong>: A quel endroit le nouvelle album doit être placé, 
+laisser vide pour le créer sur la page d'accueil.</li>
 
 </ul>
 
-<h3>Associer tous les éléments de la catégorie à des catégories existantes</h3>
+<h3>Associer toutes les photos de l'album à des albums existantes</h3>
 
 <ul>
 
-<li><strong>Catégories</strong>: Choisir la catégorie de destination.</li>
+<li><strong>Albums</strong>: Choisir l'album de destination.</li>
 
 </ul>
 
