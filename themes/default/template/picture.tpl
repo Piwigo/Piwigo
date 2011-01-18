@@ -35,38 +35,38 @@
 
 <div id="imageToolBar">
 <div class="actionButtons">
-{if isset($U_SLIDESHOW_START)}
+{strip}{if isset($U_SLIDESHOW_START)}
 	<a href="{$U_SLIDESHOW_START}" title="{'slideshow'|@translate}" class="pwg-state-default pwg-button" rel="nofollow">
 		<span class="pwg-icon pwg-icon-slideshow">&nbsp;</span><span class="pwg-button-text">{'slideshow'|@translate}</span>
 	</a>
-{/if}
-{if isset($U_METADATA)}
+{/if}{/strip}
+{strip}{if isset($U_METADATA)}
 	<a href="{$U_METADATA}" title="{'Show file metadata'|@translate}" class="pwg-state-default pwg-button" rel="nofollow">
 		<span class="pwg-icon pwg-icon-camera-info">&nbsp;</span><span class="pwg-button-text">{'Show file metadata'|@translate}</span>
 	</a>
-{/if}
-{if isset($current.U_DOWNLOAD)}
+{/if}{/strip}
+{strip}{if isset($current.U_DOWNLOAD)}
 	<a href="{$current.U_DOWNLOAD}" title="{'download this file'|@translate}" class="pwg-state-default pwg-button" rel="nofollow">
 		<span class="pwg-icon pwg-icon-save">&nbsp;</span><span class="pwg-button-text">{'download'|@translate}</span>
 	</a>
-{/if}
+{/if}{/strip}
 {if isset($PLUGIN_PICTURE_ACTIONS)}{$PLUGIN_PICTURE_ACTIONS}{/if}
-{if isset($favorite)}
+{strip}{if isset($favorite)}
 	<a href="{$favorite.U_FAVORITE}" title="{if $favorite.IS_FAVORITE}{'delete this photo from your favorites'|@translate}{else}{'add this photo to your favorites'|@translate}{/if}" class="pwg-state-default pwg-button" rel="nofollow">
 		<span class="pwg-icon pwg-icon-favorite-{if $favorite.IS_FAVORITE}del{else}add{/if}">&nbsp;</span><span class="pwg-button-text">{'Favorites'|@translate}</span>
 	</a>
-{/if}
-{if isset($U_SET_AS_REPRESENTATIVE)}
+{/if}{/strip}
+{strip}{if isset($U_SET_AS_REPRESENTATIVE)}
 	<a href="{$U_SET_AS_REPRESENTATIVE}" title="{'set as album representative'|@translate}" class="pwg-state-default pwg-button" rel="nofollow">
 		<span class="pwg-icon pwg-icon-representative">&nbsp;</span><span class="pwg-button-text">{'representative'|@translate}</span>
 	</a>
-{/if}
-{if isset($U_ADMIN)}
+{/if}{/strip}
+{strip}{if isset($U_ADMIN)}
 	<a href="{$U_ADMIN}" title="{'Modify information'|@translate}" class="pwg-state-default pwg-button" rel="nofollow">
 		<span class="pwg-icon pwg-icon-edit">&nbsp;</span><span class="pwg-button-text">{'edit'|@translate}</span>
 	</a>
-{/if}
-{if isset($U_CADDIE)}{*caddie management BEGIN*}
+{/if}{/strip}
+{strip}{if isset($U_CADDIE)}{*caddie management BEGIN*}
 {footer_script}
 {literal}function addToCadie(aElement, rootUrl, id)
 {
@@ -85,11 +85,11 @@ y.callService(
 	<a href="{$U_CADDIE}" onclick="addToCadie(this, '{$ROOT_URL}', {$current.id}); return false;" title="{'add to caddie'|@translate}" class="pwg-state-default pwg-button" rel="nofollow">
 		<span class="pwg-icon pwg-icon-caddie-add">&nbsp;</span><span class="pwg-button-text">{'caddie'|@translate}</span>
 	</a>
-{/if}{*caddie management END*}
+{/if}{/strip}{*caddie management END*}
 </div>
 
 	{include file='picture_nav_buttons.tpl'|@get_extent:'picture_nav_buttons'}
-</div> <!-- imageToolBar -->
+</div>{*<!-- imageToolBar -->*}
 
 <div id="theImage">
 {$ELEMENT_CONTENT}
@@ -120,6 +120,7 @@ y.callService(
 {/if}
 
 <table id="standard" class="infoTable">
+{strip}
 	{if $display_info.author}
 	<tr id="Author">
 		<td class="label">{'Author'|@translate}</td>
@@ -216,7 +217,7 @@ y.callService(
 				<input type="submit" name="rate" value="{$mark}" class="rateButton" title="{$mark}">
 			{/if}
 			{/foreach}
-			{combine_script id='core.scripts' load='async' path='themes/default/js/scripts.js'}
+			{strip}{combine_script id='core.scripts' load='async' path='themes/default/js/scripts.js'}
 			{combine_script id='rating' load='async' require='core.scripts' path='themes/default/js/rating.js'}
 			{footer_script}
 				var _pwgRatingAutoQueue = _pwgRatingAutoQueue||[];
@@ -224,6 +225,7 @@ y.callService(
 					updateRateText: "{'Update your rating'|@translate|@escape:'javascript'}", updateRateElement: document.getElementById("updateRate"),
 					ratingSummaryText: "{'%.2f (rated %d times)'|@translate|@escape:'javascript'}", ratingSummaryElement: document.getElementById("ratingSummary"){rdelim} );
 			{/footer_script}
+			{/strip}
 			</div>
 			</form>
 		</td>
@@ -257,7 +259,7 @@ y.callService(
 	</select>
 	</td></tr>
 {/if}
-
+{/strip}
 </table>
 
 {if isset($metadata)}

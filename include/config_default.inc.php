@@ -601,7 +601,7 @@ $conf['full_tag_cloud_items_number'] = 200;
 
 // menubar_tag_cloud_items_number: number of tags to show in the tag
 // cloud in the menubar. Only the most represented tags will be shown
-$conf['menubar_tag_cloud_items_number'] = 100;
+$conf['menubar_tag_cloud_items_number'] = 20;
 
 // content_tag_cloud_items_number: number of related tags to show in the tag
 // cloud on the content page, when the current section is not a set of
