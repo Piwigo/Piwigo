@@ -70,8 +70,6 @@
 </div>
 {/if}
 
-<div id="theHeader">{*$PAGE_BANNER*}</div>
-
 {if not empty($header_notes)}
 <div class="header_notes">
   {foreach from=$header_notes item=elt}

@@ -73,8 +73,6 @@ body { margin: 0; padding: 0; background:#f9f9f9 }
 #headbranch { width: 233px; height: 240px; margin: 0; padding: 0;
 position:absolute; left:0px; top:0px; z-index: 0;
 background:transparent }
-#theHeader { display:none; height:40px; margin: 0; padding: 0;
-background:transparent }
 h3, #imageToolBar a:hover, .content, .throw, .row1 { background-color: #ddd; }
 .row2 { background-color:#eeeeee; }
 .throw em { font-style: normal; color: #0cc9c; }
@@ -255,6 +253,7 @@ display:block; height:85px; left:225px; position:relative; top:-42px; width:313p
 #pwgHead, #footer {color:#666;}
 #pwgHead A, #footer A {color:#444;}
 #pwgHead A:hover, #footer A:hover {color:black; border-color:black;}
+#footer { background-image: url(images/piwigo_logo_small.png);}
 
 .pluginBox {background-color:#ddd;color:#333}
 .pluginBoxNameCell {font-weight:bold;}

@@ -42,8 +42,6 @@ background-color:#111111; }
 #headbranch { width: 233px; height: 240px; margin: 0; padding: 0;
 position:absolute; left:0px; top:0px; z-index: 0;
 }
-#theHeader { display:none;min-height:105px; margin: 0; padding: 0;
-background:transparent url(images/piwigo_logo_sombre_214x100.png) no-repeat scroll 245px top; }
 h3, #imageToolBar a:hover, .row2, .content { background-color: #222; }
 .throw, .row1 { background-color:#111; }
 .throw em { font-style: normal; color: #ff3363; }
@@ -234,6 +232,7 @@ display:block; height:85px; left:225px; position:relative; top:-42px; width:313p
 #helpContent, #pLoaderPage, #ftpPage, #ftpPage LEGEND {color:#aaa;}
 
 #pwgHead, #footer {background-color:#222;}
+#footer {background-image: url(images/piwigo_logo_small.png);}
 
 .pluginBox {background-color:#333;color:#999}
 .pluginBoxNameCell {color:#ccc;}

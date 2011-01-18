@@ -593,7 +593,7 @@ html, body {height:100%; margin:0; padding:0;}
   bottom:0;
   width:100%;
   height:46px;
-  background: url(images/logo.png) no-repeat bottom left;
+  background: url(images/logo.png) no-repeat 2px 1px;
   background-color:#464646;
   color:#aaa;
   line-height:46px;
@@ -614,7 +614,7 @@ html, body {height:100%; margin:0; padding:0;}
 #adminHome A {display:block; font-size:1.1em; font-weight:bold;}
 #adminHome A {border:none;}
 
-#piwigoInfos {float:left; margin-left:100px;}
+#piwigoInfos {float:left; margin-left:200px;}
 #pageInfos {float:right; margin-right:10px;}
 
 /* TipTip CSS - Version 1.2 */
