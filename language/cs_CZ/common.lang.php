@@ -1,6 +1,6 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based picture gallery                                  |
+// | Piwigo - a PHP based photo gallery                                    |
 // | Czech language localization                                           |
 // +-----------------------------------------------------------------------+
 // | Copyright(C) 2009     Pavel Budka & Petr Jirsa    http://pbudka.co.cc |
