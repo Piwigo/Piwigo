@@ -412,14 +412,15 @@ if (count($page['cat_elements_id']) > 0)
 {
   $query = '
 SELECT
-    COUNT(*)
+    id
   FROM '.IMAGES_TABLE.'
   WHERE id IN ('.implode(',', $page['cat_elements_id']).')
-    AND storage_category_id IS NULL
+    AND file NOT LIKE \'http%\'
+  LIMIT 1
 ;';
-  list($counter) = pwg_db_fetch_row(pwg_query($query));
+  ;
 
-  if ($counter > 0)
+  if ( pwg_db_fetch_row(pwg_query($query)) )
   {
     $template->assign('show_delete_form', true);
   }

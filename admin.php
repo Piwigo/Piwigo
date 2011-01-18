@@ -69,8 +69,10 @@ if (isset($_GET['change_theme']))
 // +-----------------------------------------------------------------------+
 // |                    synchronize user informations                      |
 // +-----------------------------------------------------------------------+
-
-sync_users();
+if (mt_rand(0,9)==0)
+{
+  sync_users();
+}
 
 // +-----------------------------------------------------------------------+
 // |                            variables init                             |
@@ -197,12 +199,17 @@ if (
         'cat_move',     // ?only POST
         'cat_options',  // ?only POST; public/private; lock/unlock
         'cat_perm',     // ?only POST
-        'element_set',  // ?only POST; associate/dissociate
         'picture_modify', // ?only POST; associate/dissociate
         'user_list',    // ?only POST; group assoc
         'user_perm',
         'group_perm',
         'group_list',   // delete group
+      )
+    )
+    or ( isset($_POST) and in_array($page['page'],
+        array(
+          'batch_manager',  // associate/dissociate; delete; set level
+        )
       )
     )
   )
