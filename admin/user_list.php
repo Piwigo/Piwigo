@@ -432,6 +432,21 @@ DELETE FROM '.USER_GROUP_TABLE.'
         }
       }
 
+      // if the status is getting greater or equal to "admin", then level
+      // automatically switches to "admin" (8), unless the level is also
+      // defined in the same batch action.
+      if (isset($data['status']) and in_array($data['status'], array('webmaster', 'admin')))
+      {
+        if (!isset($data['level']))
+        {
+          $data['level'] = 8;
+          if (!in_array('level', $dbfields['update']))
+          {
+            array_push($dbfields['update'], 'level');
+          }
+        }
+      }
+
       // special users checks
       if
         (
