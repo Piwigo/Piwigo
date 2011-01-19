@@ -126,5 +126,15 @@ jQuery(document).ready(function(){ldelim}
   </div>
   {/if}
 
+  {if isset($warnings)}
+  <div class="warnings">
+    <ul>
+      {foreach from=$warnings item=warning}
+      <li>{$warning}</li>
+      {/foreach}
+    </ul>
+  </div>
+  {/if}
+
   {$ADMIN_CONTENT}
 </div>

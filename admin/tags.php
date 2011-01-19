@@ -138,6 +138,19 @@ DELETE
 }
 
 // +-----------------------------------------------------------------------+
+// |                           delete orphan tags                          |
+// +-----------------------------------------------------------------------+
+
+if (isset($_GET['action']) and 'delete_orphans' == $_GET['action'])
+{
+  check_pwg_token();
+  
+  delete_orphan_tags();
+  $_SESSION['page_infos'] = array(l10n('Orphan tags deleted'));
+  redirect(get_root_url().'admin.php?page=tags');
+}
+
+// +-----------------------------------------------------------------------+
 // |                               add a tag                               |
 // +-----------------------------------------------------------------------+
 
@@ -198,6 +211,31 @@ $template->assign(
     'PWG_TOKEN' => get_pwg_token(),
     )
   );
+
+// +-----------------------------------------------------------------------+
+// |                              orphan tags                              |
+// +-----------------------------------------------------------------------+
+
+$orphan_tags = get_orphan_tags();
+
+$orphan_tag_names = array();
+foreach ($orphan_tags as $tag)
+{
+  array_push($orphan_tag_names, $tag['name']);
+}
+
+if (count($orphan_tag_names) > 0)
+{
+  array_push(
+    $page['warnings'],
+    sprintf(
+      l10n('You have %d orphan tags: %s.').' <a href="%s">'.l10n('Delete orphan tags').'</a>',
+      count($orphan_tag_names),
+      implode(', ', $orphan_tag_names),
+      get_root_url().'admin.php?page=tags&amp;action=delete_orphans&amp;pwg_token='.get_pwg_token()
+      )
+    );
+}
 
 // +-----------------------------------------------------------------------+
 // |                             form creation                             |

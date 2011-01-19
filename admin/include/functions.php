@@ -364,6 +364,54 @@ DELETE FROM '.USERS_TABLE.'
 }
 
 /**
+ * Deletes all tags linked to no photo
+ */
+function delete_orphan_tags()
+{
+  $orphan_tags = get_orphan_tags();
+  
+  if (count($orphan_tags) > 0)
+  {
+    $orphan_tag_ids = array();
+    foreach ($orphan_tags as $tag)
+    {
+      array_push($orphan_tag_ids, $tag['id']);
+    }
+
+    $query = '
+DELETE
+  FROM '.TAGS_TABLE.'
+  WHERE id IN ('.implode(',', $orphan_tag_ids).')
+;';
+    pwg_query($query);
+  }
+}
+
+/**
+ * Get all tags (id + name) linked to no photo
+ */
+function get_orphan_tags()
+{
+  $orphan_tags = array();
+  
+  $query = '
+SELECT
+    id,
+    name
+  FROM '.TAGS_TABLE.'
+    LEFT JOIN '.IMAGE_TAG_TABLE.' ON id = tag_id
+  WHERE tag_id IS NULL
+;';
+  $result = pwg_query($query);
+  while ($row = pwg_db_fetch_assoc($result))
+  {
+    array_push($orphan_tags, $row);
+  }
+
+  return $orphan_tags;
+}
+
+/**
  * Verifies that the representative picture really exists in the db and
  * picks up a random represantive if possible and based on config.
  *

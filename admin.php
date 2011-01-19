@@ -91,6 +91,7 @@ else
 
 $page['errors'] = array();
 $page['infos']  = array();
+$page['warnings']  = array();
 
 if (isset($_SESSION['page_infos']))
 {
@@ -174,6 +175,11 @@ if (count($page['errors']) != 0)
 if (count($page['infos']) != 0)
 {
   $template->assign('infos', $page['infos']);
+}
+
+if (count($page['warnings']) != 0)
+{
+  $template->assign('warnings', $page['warnings']);
 }
 
 // Add the Piwigo Official menu

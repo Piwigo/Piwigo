@@ -559,6 +559,7 @@ $lang['Extend for templates'] = "Etendre les templates";
 $lang['Replacement of original templates by customized templates from template-extension subfolder'] = "Remplacement des templates d'origine par vos templates personnalisés issus du dossier template-extension";
 $lang['Replacers (customized templates)'] = "Remplaçants (templates modifiés)";
 $lang['Original templates'] = "Templates d'origine";
+$lang['Orphan tags deleted'] = 'Tags orphelins supprimés';
 $lang['Optional URL keyword'] = "Paramètre facultatif de l'URL";
 $lang['Templates configuration has been recorded.'] = "La configuration des templates a été enregistrée.";
 $lang['All optimizations have been successfully completed.'] = "Toutes les optimisations ont été réalisées avec succès.";
@@ -781,4 +782,6 @@ $lang['remove creation date'] = 'supprimer la date de création';
 $lang['with no album'] = 'sans album';
 $lang['with no tag'] = 'sans tag';
 $lang['Week starts on'] = 'La semaine commence le';
+$lang['You have %d orphan tags: %s.'] = 'Vous avez %d tags orphelins: %s.';
+$lang['Delete orphan tags'] = 'Supprimer les tags orphelins';
 ?>

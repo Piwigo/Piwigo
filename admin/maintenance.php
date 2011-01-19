@@ -55,6 +55,11 @@ switch ($action)
     update_average_rate();
     break;
   }
+  case 'delete_orphan_tags' :
+  {
+    delete_orphan_tags();
+    break;
+  }
   case 'history_detail' :
   {
     $query = '
@@ -133,13 +138,14 @@ $template->assign(
   array(
     'U_MAINT_CATEGORIES' => $start_url.'categories',
     'U_MAINT_IMAGES' => $start_url.'images',
+    'U_MAINT_ORPHAN_TAGS' => $start_url.'delete_orphan_tags',
     'U_MAINT_HISTORY_DETAIL' => $start_url.'history_detail',
     'U_MAINT_HISTORY_SUMMARY' => $start_url.'history_summary',
     'U_MAINT_SESSIONS' => $start_url.'sessions',
     'U_MAINT_FEEDS' => $start_url.'feeds',
     'U_MAINT_DATABASE' => $start_url.'database',
     'U_MAINT_C13Y' => $start_url.'c13y',
-	'U_MAINT_SEARCH' => $start_url.'search',
+    'U_MAINT_SEARCH' => $start_url.'search',
     'U_MAINT_COMPILED_TEMPLATES' => $start_url.'compiled-templates',
     'U_HELP' => get_root_url().'admin/popuphelp.php?page=maintenance',
     )
