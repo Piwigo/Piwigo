@@ -37,33 +37,33 @@
 <div class="actionButtons">
 {strip}{if isset($U_SLIDESHOW_START)}
 	<a href="{$U_SLIDESHOW_START}" title="{'slideshow'|@translate}" class="pwg-state-default pwg-button" rel="nofollow">
-		<span class="pwg-icon pwg-icon-slideshow">&nbsp;</span><span class="pwg-button-text">{'slideshow'|@translate}</span>
+		<span class="pwg-icon pwg-icon-slideshow"> </span><span class="pwg-button-text">{'slideshow'|@translate}</span>
 	</a>
 {/if}{/strip}
 {strip}{if isset($U_METADATA)}
 	<a href="{$U_METADATA}" title="{'Show file metadata'|@translate}" class="pwg-state-default pwg-button" rel="nofollow">
-		<span class="pwg-icon pwg-icon-camera-info">&nbsp;</span><span class="pwg-button-text">{'Show file metadata'|@translate}</span>
+		<span class="pwg-icon pwg-icon-camera-info"> </span><span class="pwg-button-text">{'Show file metadata'|@translate}</span>
 	</a>
 {/if}{/strip}
 {strip}{if isset($current.U_DOWNLOAD)}
 	<a href="{$current.U_DOWNLOAD}" title="{'download this file'|@translate}" class="pwg-state-default pwg-button" rel="nofollow">
-		<span class="pwg-icon pwg-icon-save">&nbsp;</span><span class="pwg-button-text">{'download'|@translate}</span>
+		<span class="pwg-icon pwg-icon-save"> </span><span class="pwg-button-text">{'download'|@translate}</span>
 	</a>
 {/if}{/strip}
 {if isset($PLUGIN_PICTURE_ACTIONS)}{$PLUGIN_PICTURE_ACTIONS}{/if}
 {strip}{if isset($favorite)}
 	<a href="{$favorite.U_FAVORITE}" title="{if $favorite.IS_FAVORITE}{'delete this photo from your favorites'|@translate}{else}{'add this photo to your favorites'|@translate}{/if}" class="pwg-state-default pwg-button" rel="nofollow">
-		<span class="pwg-icon pwg-icon-favorite-{if $favorite.IS_FAVORITE}del{else}add{/if}">&nbsp;</span><span class="pwg-button-text">{'Favorites'|@translate}</span>
+		<span class="pwg-icon pwg-icon-favorite-{if $favorite.IS_FAVORITE}del{else}add{/if}"> </span><span class="pwg-button-text">{'Favorites'|@translate}</span>
 	</a>
 {/if}{/strip}
 {strip}{if isset($U_SET_AS_REPRESENTATIVE)}
 	<a href="{$U_SET_AS_REPRESENTATIVE}" title="{'set as album representative'|@translate}" class="pwg-state-default pwg-button" rel="nofollow">
-		<span class="pwg-icon pwg-icon-representative">&nbsp;</span><span class="pwg-button-text">{'representative'|@translate}</span>
+		<span class="pwg-icon pwg-icon-representative"> </span><span class="pwg-button-text">{'representative'|@translate}</span>
 	</a>
 {/if}{/strip}
 {strip}{if isset($U_ADMIN)}
 	<a href="{$U_ADMIN}" title="{'Modify information'|@translate}" class="pwg-state-default pwg-button" rel="nofollow">
-		<span class="pwg-icon pwg-icon-edit">&nbsp;</span><span class="pwg-button-text">{'edit'|@translate}</span>
+		<span class="pwg-icon pwg-icon-edit"> </span><span class="pwg-button-text">{'edit'|@translate}</span>
 	</a>
 {/if}{/strip}
 {strip}{if isset($U_CADDIE)}{*caddie management BEGIN*}
@@ -83,7 +83,7 @@ y.callService(
 }{/literal}
 {/footer_script}
 	<a href="{$U_CADDIE}" onclick="addToCadie(this, '{$ROOT_URL}', {$current.id}); return false;" title="{'add to caddie'|@translate}" class="pwg-state-default pwg-button" rel="nofollow">
-		<span class="pwg-icon pwg-icon-caddie-add">&nbsp;</span><span class="pwg-button-text">{'caddie'|@translate}</span>
+		<span class="pwg-icon pwg-icon-caddie-add"> </span><span class="pwg-button-text">{'caddie'|@translate}</span>
 	</a>
 {/if}{/strip}{*caddie management END*}
 </div>
@@ -300,7 +300,7 @@ y.callService(
 		{/if}
 		<label>{'Comment'|@translate}<textarea name="content" id="contentid" rows="5" cols="80">{$comment_add.CONTENT}</textarea></label>
 		<input type="hidden" name="key" value="{$comment_add.KEY}">
-		<input class="submit" type="submit" value="{'Submit'|@translate}">
+		<input type="submit" value="{'Submit'|@translate}">
 	</fieldset>
 	</form>
 	{/if}
