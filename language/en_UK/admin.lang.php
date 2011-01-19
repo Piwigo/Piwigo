@@ -215,6 +215,7 @@ $lang['default values'] = "default values";
 $lang['default'] = "default";
 $lang['delete album'] = "delete album";
 $lang['Delete orphan tags'] = 'Delete orphan tags';
+$lang['delete photo'] = 'delete photo';
 $lang['Delete Representant'] = "Delete Representant";
 $lang['Delete selected photos'] = "Delete selected photos";
 $lang['Delete selected tags'] = "Delete selected tags";

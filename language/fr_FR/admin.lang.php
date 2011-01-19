@@ -784,4 +784,5 @@ $lang['with no tag'] = 'sans tag';
 $lang['Week starts on'] = 'La semaine commence le';
 $lang['You have %d orphan tags: %s.'] = 'Vous avez %d tags orphelins: %s.';
 $lang['Delete orphan tags'] = 'Supprimer les tags orphelins';
+$lang['delete photo'] = 'supprimer la photo';
 ?>

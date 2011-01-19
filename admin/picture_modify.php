@@ -37,6 +37,58 @@ check_input_parameter('image_id', $_GET, false, PATTERN_ID);
 check_input_parameter('cat_id', $_GET, false, PATTERN_ID);
 
 // +-----------------------------------------------------------------------+
+// |                             delete photo                              |
+// +-----------------------------------------------------------------------+
+
+if (isset($_GET['delete']))
+{
+  check_pwg_token();
+
+  delete_elements(array($_GET['image_id']), true);
+
+  // where to redirect the user now?
+  //
+  // 1. if a category is available in the URL, use it
+  // 2. else use the first reachable linked category
+  // 3. redirect to gallery root
+
+  if (isset($_GET['cat_id']))
+  {
+    redirect(
+      make_index_url(
+        array(
+          'category' => get_cat_info($_GET['cat_id'])
+          )
+        )
+      );
+  }
+
+  $query = '
+SELECT category_id
+  FROM '.IMAGE_CATEGORY_TABLE.'
+  WHERE image_id = '.$_GET['image_id'].'
+;';
+
+  $authorizeds = array_diff(
+    array_from_query($query, 'category_id'),
+    explode(',', calculate_permissions($user['id'], $user['status']))
+    );
+  
+  foreach ($authorizeds as $category_id)
+  {
+    redirect(
+      make_index_url(
+        array(
+          'category' => get_cat_info($category_id)
+          )
+        )
+      );
+  }
+
+  redirect(make_index_url());
+}
+
+// +-----------------------------------------------------------------------+
 // |                          synchronize metadata                         |
 // +-----------------------------------------------------------------------+
 
@@ -209,14 +261,15 @@ $template->set_filenames(
     )
   );
 
+$admin_url_start = get_root_url().'admin.php?page=picture_modify';
+$admin_url_start.= '&amp;image_id='.$_GET['image_id'];
+$admin_url_start.= isset($_GET['cat_id']) ? '&amp;cat_id='.$_GET['cat_id'] : '';
+
 $template->assign(
   array(
     'tags' => $tags,
-    'U_SYNC' =>
-        get_root_url().'admin.php?page=picture_modify'.
-        '&amp;image_id='.$_GET['image_id'].
-        (isset($_GET['cat_id']) ? '&amp;cat_id='.$_GET['cat_id'] : '').
-        '&amp;sync_metadata=1',
+    'U_SYNC' => $admin_url_start.'&amp;sync_metadata=1',
+    'U_DELETE' => $admin_url_start.'&amp;delete=1&amp;pwg_token='.get_pwg_token(),
 
     'PATH'=>$row['path'],
 
