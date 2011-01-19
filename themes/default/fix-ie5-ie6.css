@@ -49,6 +49,24 @@ H1, #theHeader {
   width: 99%;	/* correct an ugly 1 or 2 px misalignement with IE */
 }
 
+.filter LABEL INPUT,
+.filter LABEL SELECT,
+.filter LABEL SPAN,
+.filter LABEL TEXTAREA {
+  display: block;
+  margin: 0.5em 0;
+}
+.filter FIELDSET * LABEL INPUT,
+.filter FIELDSET * LABEL SELECT,
+.filter FIELDSET * LABEL TEXTAREA,
+.filter LABEL SPAN INPUT,
+.filter LABEL SPAN SELECT,
+.filter LABEL SPAN TEXTAREA {
+	display: inline;
+	vertical-align: top;
+	margin: 0 0.5em 0 0;
+}
+
 .pwg-icon {
 	display: block;
 }

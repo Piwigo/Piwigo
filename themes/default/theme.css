@@ -530,24 +530,26 @@ FIELDSET {
 	margin-right:0.5em;/*reduce from above*/
 }
 
-/* cannot use FIELDSET>LABEL because of IE<=6 */
-.filter LABEL INPUT,
-.filter LABEL SELECT,
-.filter LABEL SPAN,
-.filter LABEL TEXTAREA {
-  display: block;
-  margin: 0.5em 0;
+/*IE6 needs override because of > selector*/
+.filter LABEL>INPUT,
+.filter LABEL>SELECT,
+.filter LABEL>SPAN,
+.filter LABEL>TEXTAREA {
+	display: block;
+	margin: 0.5em 0;
 }
-.filter FIELDSET * LABEL INPUT,
-.filter FIELDSET * LABEL SELECT,
-.filter FIELDSET * LABEL TEXTAREA,
-.filter LABEL SPAN INPUT,
-.filter LABEL SPAN SELECT,
-.filter LABEL SPAN TEXTAREA {
+
+.filter FIELDSET * LABEL>INPUT,
+.filter FIELDSET * LABEL>SELECT,
+.filter FIELDSET * LABEL>TEXTAREA,
+.filter SPAN>INPUT,
+.filter SPAN>SELECT,
+.filter SPAN>TEXTAREA {
 	display: inline;
 	vertical-align: top;
 	margin: 0 0.5em 0 0;
 }
+
 
 
 
