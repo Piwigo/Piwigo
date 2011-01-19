@@ -61,7 +61,7 @@ $lang['jump to image'] = 'jump to photo';
 $lang['manage image ranks'] = 'manage photo ranks';
 
 
-$lang['manage album photos'] = 'manage album elements';
+$lang['manage album elements'] = 'manage album photos';
 $lang['synchronize files metadata with database elements informations'] = 'synchronize files metadata with database photos informations';
 $lang['elements informations synchronized with files metadata'] = 'photos informations synchronized with files metadata';
 $lang['number of miniaturized pictures'] = 'number of miniaturized photos';
