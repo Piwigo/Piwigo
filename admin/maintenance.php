@@ -31,7 +31,13 @@ include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
 // +-----------------------------------------------------------------------+
 // | Check Access and exit when user status is not ok                      |
 // +-----------------------------------------------------------------------+
+
 check_status(ACCESS_ADMINISTRATOR);
+
+if (isset($_GET['action']))
+{
+  check_pwg_token();
+}
 
 // +-----------------------------------------------------------------------+
 // |                                actions                                |
@@ -132,21 +138,21 @@ DELETE
 
 $template->set_filenames(array('maintenance'=>'maintenance.tpl'));
 
-$start_url = get_root_url().'admin.php?page=maintenance&amp;action=';
+$url_format = get_root_url().'admin.php?page=maintenance&amp;action=%s&amp;pwg_token='.get_pwg_token();
 
 $template->assign(
   array(
-    'U_MAINT_CATEGORIES' => $start_url.'categories',
-    'U_MAINT_IMAGES' => $start_url.'images',
-    'U_MAINT_ORPHAN_TAGS' => $start_url.'delete_orphan_tags',
-    'U_MAINT_HISTORY_DETAIL' => $start_url.'history_detail',
-    'U_MAINT_HISTORY_SUMMARY' => $start_url.'history_summary',
-    'U_MAINT_SESSIONS' => $start_url.'sessions',
-    'U_MAINT_FEEDS' => $start_url.'feeds',
-    'U_MAINT_DATABASE' => $start_url.'database',
-    'U_MAINT_C13Y' => $start_url.'c13y',
-    'U_MAINT_SEARCH' => $start_url.'search',
-    'U_MAINT_COMPILED_TEMPLATES' => $start_url.'compiled-templates',
+    'U_MAINT_CATEGORIES' => sprintf($url_format, 'categories'),
+    'U_MAINT_IMAGES' => sprintf($url_format, 'images'),
+    'U_MAINT_ORPHAN_TAGS' => sprintf($url_format, 'delete_orphan_tags'),
+    'U_MAINT_HISTORY_DETAIL' => sprintf($url_format, 'history_detail'),
+    'U_MAINT_HISTORY_SUMMARY' => sprintf($url_format, 'history_summary'),
+    'U_MAINT_SESSIONS' => sprintf($url_format, 'sessions'),
+    'U_MAINT_FEEDS' => sprintf($url_format, 'feeds'),
+    'U_MAINT_DATABASE' => sprintf($url_format, 'database'),
+    'U_MAINT_C13Y' => sprintf($url_format, 'c13y'),
+    'U_MAINT_SEARCH' => sprintf($url_format, 'search'),
+    'U_MAINT_COMPILED_TEMPLATES' => sprintf($url_format, 'compiled-templates'),
     'U_HELP' => get_root_url().'admin/popuphelp.php?page=maintenance',
     )
   );
