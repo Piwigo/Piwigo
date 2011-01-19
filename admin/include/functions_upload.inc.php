@@ -594,6 +594,13 @@ function pwg_image_resize_im($source_filepath, $destination_filepath, $max_width
 
 function get_rotation_angle($source_filepath)
 {
+  global $conf;
+
+  if (!$conf['upload_form_automatic_rotation'])
+  {
+    return null;
+  }
+  
   $rotation = null;
   
   $exif = exif_read_data($source_filepath);

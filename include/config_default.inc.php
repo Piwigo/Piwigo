@@ -761,5 +761,7 @@ $conf['enable_synchronization'] = true;
 // PEM url
 $conf['alternative_pem_url'] = '';
 
-
+// based on the EXIF "orientation" tag, should we rotate photos added in the
+// upload form or through pwg.images.addSimple web API method?
+$conf['upload_form_automatic_rotation'] = true;
 ?>
