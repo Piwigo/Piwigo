@@ -8,12 +8,12 @@
 
   <li>Avec un client FTP, copiez le répertoire dans le répertoire "galleries" de votre installation de Piwigo.</li>
 
-  <li>Connectez-vous à votre galerie Piwigo et rendez-vous sur <span class="pwgScreen">Administration &raquo; Images &raquo; Miniatures</span> pour créer les miniatures manquantes.</li>
+  <li>Connectez-vous à votre galerie Piwigo et rendez-vous sur <span class="pwgScreen">Administration &raquo; Outils &raquo; Miniatures</span> pour créer les miniatures manquantes.</li>
 
   <li>Rendez-vous sur <span class="pwgScreen">Administration</span> et cliquez sur le gros bouton de synchronisation.</li>
 </ol>
 
-<p>Bravo ! Vous avez créé avec succès la première catégorie de votre galerie.</p>
+<p>Bravo ! Vous avez créé avec succès le premier album de votre galerie.</p>
 
 </fieldset>
 
@@ -24,7 +24,7 @@
 
   <li>
 
-    <p>Les répertoires représentant les catégories se trouvent dans le répertoire "galleries". Ci-dessous l'arbre des répertoires d'une très petite galerie (mais utilisant de nombreuses fonctionnalités) : </p>
+    <p>Les répertoires représentant les albums se trouvent dans le répertoire "galleries". Ci-dessous l'arbre des répertoires d'une très petite galerie (mais utilisant de nombreuses fonctionnalités) : </p>
   
 <pre>
 .
@@ -62,22 +62,22 @@
 
   </li>
   
-  <li>A l'exception de ceux appelés "thumbnail", "pwg_high" ou "pwg_representative" (voir explications ci-dessous), chaque répertoire dans "galleries" génère une catégorie. Le nombre de niveaux (profondeur) n'est pas limité.</li>
+  <li>A l'exception de ceux appelés "thumbnail", "pwg_high" ou "pwg_representative" (voir explications ci-dessous), chaque répertoire dans "galleries" génère un album. Le nombre de niveaux (profondeur) n'est pas limité.</li>
 
-  <li>Fondamentalement, un élément est représenté par un fichier. Pour Piwigo, un fichier peut être un élément si son extension figure dans la liste du paramètre de configuration <code>file_ext</code> (voir
+  <li>Fondamentalement, une photo est représenté par un fichier. Pour Piwigo, un fichier peut être une photo si son extension figure dans la liste du paramètre de configuration <code>file_ext</code> (voir
 fichier <span class="filename">include/config.inc.php</span>). Un fichier
-peut être une image si son extension figure dans la liste du paramètre de configuration
+peut être une photo si son extension figure dans la liste du paramètre de configuration
 <code>picture_ext</code>.</li>
 
-  <li>Les éléments de type image doivent avoir une miniature associée (voir la
+  <li>Les éléments de type photo doivent avoir une miniature associée (voir la
 section suivante à propos des miniatures).</li>
 
-  <li>Les éléments de type image peuvent avoir un image en grand format
+  <li>Les éléments de type photo peuvent avoir une photo en grand format
 associé. Comme pour le fichier <span class="filename">mariage.jpg</span>
 dans l'exemple ci-dessus. Aucun préfixe n'est nécessaire sur le nom du
 fichier.</li>
 
-  <li>Les éléments autres que les images (vidéos, sons, fichiers texte, tout ce que vous
+  <li>Les éléments autres que les photos (vidéos, sons, fichiers texte, tout ce que vous
 voulez...) sont représentés par défaut par une icône correspondant à
 l'extension du nom du fichier. Optionnellement, une miniature et un
 représentant peuvent être associés (voir le fichier <span
@@ -87,14 +87,14 @@ class="filename">video.avi</span> dans l'exemple).</li>
 être composé que de lettres, de chiffres, de "-", "_" ou ".". Pas d'espace
 ou de caractères accentués.</li>
 
-  <li><em>Conseil</em> : une catégorie peut contenir des éléments et des
-sous-catégories à la fois. Néanmoins, il est fortement conseillé pour chaque
-catégorie de choisir entre contenir des éléments <strong>ou bien</strong>
-des sous-catégories.</li>
+  <li><em>Conseil</em> : un album peut contenir des photos et des
+sous-album à la fois. Néanmoins, il est fortement conseillé pour chaque
+album de choisir entre contenir des photos <strong>ou bien</strong>
+des sous-album.</li>
 
   <li>Une fois que les fichiers, les miniatures et les représentants sont
 correctement placés dans les répertoires, se rendre sur l'écran <span
-class="pwgScreen">Administration &raquo; Catégories &raquo; Synchroniser</span>.</li>
+class="pwgScreen">Administration &raquo; Outils &raquo; Synchroniser</span>.</li>
 
 </ul>
 
@@ -105,17 +105,17 @@ class="pwgScreen">Administration &raquo; Catégories &raquo; Synchroniser</span>
 
 <ul>
   
-  <li>Comme mentionné précédemment, chaque élément de type image doit être
+  <li>Comme mentionné précédemment, chaque élément de type photo doit être
 associé à une miniature.</li>
 
   <li>Les miniatures sont stockées dans le sous-répertoire "thumbnail" de
 chaque répertoire représentant une catégorie. Une miniature est un fichier
-de type image (même extension du nom du fichier) dont le nom de fichier est
+de type photo (même extension du nom du fichier) dont le nom de fichier est
 préfixé par le paramètre de configuration <code>prefix_thumbnail</code>
 (voir <span class="filename">include/config.inc.php</span>).</li>
 
   <li>Les miniatures n'ont pas besoin d'avoir la même extension que leur
-image associée (une image avec ".jpg" comme extension peut avoir une
+photo associée (une photo avec ".jpg" comme extension peut avoir une
 miniature en ".GIF" par exemple).</li>
 
   <li>Il est conseillé d'utiliser un outil externe pour la création des
