@@ -507,14 +507,13 @@ $validated_keys = array(
 	
   'vi_VN' => array(
 	'%d Kb',
-	'',
-	'',
-	'',
-	'',
-	'',
-	'',
-	'',
-	'',
+	'Caddie',
+	'Form',
+	'Plugins',
+	'user_status_webmaster',
+	'Templates',
+	'pixels',
+	'localhost, sql.multimania.com, toto.freesurf.fr',
 	),
 	
   'zh_CN' => array(

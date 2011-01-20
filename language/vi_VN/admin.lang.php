@@ -769,5 +769,11 @@ $lang['Type here the title'] = 'Nhập tiêu đề vào đây';
 $lang['remove creation date'] = 'bỏ ngày tháng khởi tạo';
 $lang['with no album'] = 'với không album hình nào';
 $lang['with no tag'] = 'với không thẻ nào';
+$lang['Album photos associated to the following albums: %s'] = 'Ảnh được kết hợp với những albums sau: %s';
+$lang['Delete orphan tags'] = 'Xóa các thẻ riêng lẽ';
+$lang['delete photo'] = 'xóa ảnh';
+$lang['Orphan tags deleted'] = 'Thẻ riêng lẽ đã được xóa';
+$lang['Week starts on'] = 'Tuần lễ bắt đầu vào';
+$lang['You have %d orphan tags: %s.'] = 'Bạn có %d thẻ riêng lẽ: %s.';
 
 ?>
