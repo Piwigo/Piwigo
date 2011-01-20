@@ -772,4 +772,10 @@ $lang['Type here the title'] = 'Sem napíšte názov';
 $lang['remove creation date'] = 'odstrániť dátum vytvorenia';
 $lang['with no album'] = 'bez albumu';
 $lang['with no tag'] = 'bez kľúčového slova';
+$lang['Album photos associated to the following albums: %s'] = 'Fotografie prepojené na nasledujúce albumy: %s';
+$lang['Delete orphan tags'] = 'Vymazanie nepriradených kľúčových slov';
+$lang['delete photo'] = 'vymazať fotografiu';
+$lang['Orphan tags deleted'] = 'Nepriradené kľúčové slová boli vymazané';
+$lang['Week starts on'] = 'Týždenné spustenie';
+$lang['You have %d orphan tags: %s.'] = 'Máte %d nepriradených kľúčových slov: %s.';
 ?>

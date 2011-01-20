@@ -310,7 +310,6 @@ $lang['Email: %s'] = 'E-mail: %s';
 $lang['Admin: %s'] = 'Administrátor: %s';
 $lang['Registration of %s'] = 'Registrácia %s';
 $lang['Album: %s'] = 'Album: %s';
-$lang['Picture uploaded by %s'] = 'Fotografia nahraná %s';
 $lang['Bad status for user "guest", using default status. Please notify the webmaster.'] = 'Zlý stav pre používateľa "hosť", bude použitý východzí stav. Prosím informujte webmastra.';
 $lang['Administrator, webmaster and special user cannot use this method'] = 'Administrátor, webmaster a špeciálny používateľ nemôžu použiť túto metódu.';
 $lang['this email address is already in use'] = 'táto e-mailová adresa je už používaná';
