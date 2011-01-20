@@ -497,6 +497,25 @@ $validated_keys = array(
 	'localhost, sql.multimania.com, toto.freesurf.fr',
 	),
 	
+  'sv_SE' => array(
+ 	'%d association',
+	'Plugins',
+	'Position',
+	'Representant',
+	'Status',
+	'Version',
+	'High definition',
+	'test',
+	'status',
+	'Piwigo administration',
+	'GD version',
+	'user_status_webmaster',
+	'IP',
+	'Element',
+	'Piwigo Administration',
+	'Piwigo version',
+	),
+	
   'tr_TR' => array(
  	'%d hit',
 	'N/A',
