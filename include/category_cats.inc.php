@@ -27,90 +27,68 @@
  *
  */
 
-if ($page['section']=='recent_cats')
-{
-  // $user['forbidden_categories'] including with USER_CACHE_CATEGORIES_TABLE
-  $query = '
+// $user['forbidden_categories'] including with USER_CACHE_CATEGORIES_TABLE
+$query = '
 SELECT
-  c.*, nb_images, date_last, max_date_last, count_images, count_categories
-  FROM '.CATEGORIES_TABLE.' c INNER JOIN '.USER_CACHE_CATEGORIES_TABLE.'
-  ON id = cat_id and user_id = '.$user['id'].'
-  WHERE date_last >= '.pwg_db_get_recent_period_expression($user['recent_period']).'
-'.get_sql_condition_FandF
-  (
-    array
-      (
-        'visible_categories' => 'id',
-      ),
-    'AND'
-  ).'
-;';
+    c.*,
+    user_representative_picture_id,
+    nb_images,
+    date_last,
+    max_date_last,
+    count_images,
+    count_categories
+  FROM '.CATEGORIES_TABLE.' c
+    INNER JOIN '.USER_CACHE_CATEGORIES_TABLE.' ucc ON id = cat_id AND user_id = '.$user['id'];
+
+if ('recent_cats' == $page['section'])
+{
+  $query.= '
+  WHERE date_last >= '.pwg_db_get_recent_period_expression($user['recent_period']);
 }
 else
 {
-  // $user['forbidden_categories'] including with USER_CACHE_CATEGORIES_TABLE
-  $query = '
-SELECT
-  c.*, nb_images, date_last, max_date_last, count_images, count_categories
-  FROM '.CATEGORIES_TABLE.' c INNER JOIN '.USER_CACHE_CATEGORIES_TABLE.'
-  ON id = cat_id and user_id = '.$user['id'].'
-  WHERE id_uppercat '.
-  (!isset($page['category']) ? 'is NULL' : '= '.$page['category']['id']).'
-'.get_sql_condition_FandF
-  (
-    array
-      (
-        'visible_categories' => 'id',
-      ),
-    'AND'
-  ).'
-  ORDER BY rank
-;';
+  $query.= '
+  WHERE id_uppercat '.(!isset($page['category']) ? 'is NULL' : '= '.$page['category']['id']);
 }
+
+$query.= get_sql_condition_FandF(
+  array(
+    'visible_categories' => 'id',
+    ),
+  'AND'
+  );
+
+if ('recent_cats' != $page['section'])
+{
+  $query.= '
+  ORDER BY rank';
+}
+
+$query.= '
+;';
 
 $result = pwg_query($query);
 $categories = array();
 $category_ids = array();
 $image_ids = array();
+$user_representative_updates_for = array();
 
 while ($row = pwg_db_fetch_assoc($result))
 {
   $row['is_child_date_last'] = @$row['max_date_last']>@$row['date_last'];
 
-  if (isset($row['representative_picture_id'])
-      and is_numeric($row['representative_picture_id']))
+  if (!empty($row['user_representative_picture_id']))
+  {
+    $image_id = $row['user_representative_picture_id'];
+  }
+  else if (!empty($row['representative_picture_id']))
   { // if a representative picture is set, it has priority
     $image_id = $row['representative_picture_id'];
   }
   else if ($conf['allow_random_representative'])
-  {// searching a random representant among elements in sub-categories
-    if ($row['count_images']>0)
-    {
-      $query = '
-SELECT image_id
-  FROM '.CATEGORIES_TABLE.' AS c INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic
-    ON ic.category_id = c.id';
-      $query.= '
-  WHERE (c.id='.$row['id'].' OR uppercats LIKE \''.$row['uppercats'].',%\')'
-    .get_sql_condition_FandF
-    (
-      array
-        (
-          'forbidden_categories' => 'c.id',
-          'visible_categories' => 'c.id',
-          'visible_images' => 'image_id'
-        ),
-      "\n  AND"
-    ).'
-  ORDER BY '.DB_RANDOM_FUNCTION.'()
-  LIMIT 1
-;';
-      $subresult = pwg_query($query);
-      if (pwg_db_num_rows($subresult) > 0)
-      {
-        list($image_id) = pwg_db_fetch_row($subresult);
-      }
-    }
+  {
+    // searching a random representant among elements in sub-categories
+    $image_id = get_random_image_in_category($row);
   }
   else
   { // searching a random representant among representant of sub-categories
@@ -143,6 +121,11 @@ SELECT image_id
 
   if (isset($image_id))
   {
+    if ($row['user_representative_picture_id'] != $image_id)
+    {
+      $user_representative_updates_for[ $user['id'].'#'.$row['id'] ] = $image_id;
+    }
+    
     $row['representative_picture_id'] = $image_id;
     array_push($image_ids, $image_id);
     array_push($categories, $row);
@@ -193,17 +176,98 @@ if ($page['section']=='recent_cats')
 if (count($categories) > 0)
 {
   $thumbnail_src_of = array();
+  $new_image_ids = array();
 
   $query = '
-SELECT id, path, tn_ext
+SELECT id, path, tn_ext, level
   FROM '.IMAGES_TABLE.'
   WHERE id IN ('.implode(',', $image_ids).')
 ;';
   $result = pwg_query($query);
   while ($row = pwg_db_fetch_assoc($result))
   {
-    $thumbnail_src_of[$row['id']] = get_thumbnail_url($row);
+    if ($row['level'] <= $user['level'])
+    {
+      $thumbnail_src_of[$row['id']] = get_thumbnail_url($row);
+    }
+    else
+    {
+      // problem: we must not display the thumbnail of a photo which has a
+      // higher privacy level than user privacy level
+      //
+      // * what is the represented category?
+      // * find a random photo matching user permissions
+      // * register it at user_representative_picture_id
+      // * set it as the representative_picture_id for the category
+
+      foreach ($categories as &$category)
+      {
+        if ($row['id'] == $category['representative_picture_id'])
+        {
+          if ($category['count_images']>0)
+          {
+            // searching a random representant among elements in sub-categories
+            $image_id = get_random_image_in_category($category);
+
+            if (isset($image_id))
+            {
+              if (!in_array($image_id, $image_ids))
+              {
+                array_push($new_image_ids, $image_id);
+              }
+              
+              $user_representative_updates_for[ $user['id'].'#'.$category['id'] ] = $image_id;
+
+              $category['representative_picture_id'] = $image_id;
+            }
+          }
+        }
+      }
+      unset($category);
+    }
   }
+
+  if (count($new_image_ids) > 0)
+  {
+    $query = '
+SELECT id, path, tn_ext
+  FROM '.IMAGES_TABLE.'
+  WHERE id IN ('.implode(',', $new_image_ids).')
+;';
+    $result = pwg_query($query);
+    while ($row = pwg_db_fetch_assoc($result))
+    {
+      $thumbnail_src_of[$row['id']] = get_thumbnail_url($row);
+    }
+  }
+}
+
+if (count($user_representative_updates_for))
+{
+  $updates = array();
+  
+  foreach ($user_representative_updates_for as $user_cat => $image_id)
+  {
+    list($user_id, $cat_id) = explode('#', $user_cat);
+    
+    array_push(
+      $updates,
+      array(
+        'user_id' => $user_id,
+        'cat_id' => $cat_id,
+        'user_representative_picture_id' => $image_id,
+        )
+      );
+  }
+
+  mass_updates(
+    USER_CACHE_CATEGORIES_TABLE,
+    array(
+      'primary' => array('user_id', 'cat_id'),
+      'update'  => array('user_representative_picture_id')
+      ),
+    $updates
+    );
 }
 
 if (count($categories) > 0)

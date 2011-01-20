@@ -514,6 +514,7 @@ CREATE TABLE "piwigo_user_cache_categories"
   "nb_images" INTEGER default 0 NOT NULL,
   "count_images" INTEGER default 0,
   "count_categories" INTEGER default 0,
+  "user_representative_picture_id" INTEGER,
   PRIMARY KEY ("user_id","cat_id")
 );
 

@@ -368,6 +368,7 @@ CREATE TABLE `piwigo_user_cache_categories` (
   `nb_images` mediumint(8) unsigned NOT NULL default '0',
   `count_images` mediumint(8) unsigned default '0',
   `count_categories` mediumint(8) unsigned default '0',
+  `user_representative_picture_id` mediumint(8) unsigned default NULL,
   PRIMARY KEY  (`user_id`,`cat_id`)
 ) TYPE=MyISAM;
 

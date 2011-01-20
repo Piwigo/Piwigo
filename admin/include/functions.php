@@ -883,17 +883,6 @@ function get_fs($path, $recursive = true)
 }
 
 /**
- * stupidly returns the current microsecond since Unix epoch
- */
-function micro_seconds()
-{
-  $t1 = explode(' ', microtime());
-  $t2 = explode('.', $t1[0]);
-  $t2 = $t1[1].substr($t2[1], 0, 6);
-  return $t2;
-}
-
-/**
  * synchronize base users list and related users list
  *
  * compares and synchronizes base users table (USERS_TABLE) with its child

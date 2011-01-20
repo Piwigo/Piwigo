@@ -33,6 +33,17 @@ include_once( PHPWG_ROOT_PATH .'include/functions_plugins.inc.php' );
 
 //----------------------------------------------------------- generic functions
 
+/**
+ * stupidly returns the current microsecond since Unix epoch
+ */
+function micro_seconds()
+{
+  $t1 = explode(' ', microtime());
+  $t2 = explode('.', $t1[0]);
+  $t2 = $t1[1].substr($t2[1], 0, 6);
+  return $t2;
+}
+
 // The function get_moment returns a float value coresponding to the number
 // of seconds since the unix epoch (1st January 1970) and the microseconds
 // are precised : e.g. 1052343429.89276600

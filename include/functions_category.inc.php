@@ -495,4 +495,42 @@ function get_display_images_count($cat_nb_images, $cat_count_images, $cat_count_
   return $display_text;
 }
 
+/**
+ * Find a random photo among all photos below a given album in the tree (not
+ * only photo directly associated to the album but also to sub-albums)
+ *
+ * we need $category['uppercats'], $category['id'], $category['count_images']
+ */
+function get_random_image_in_category($category)
+{
+  $image_id = null;
+  if ($category['count_images']>0)
+  {
+    $query = '
+SELECT image_id
+  FROM '.CATEGORIES_TABLE.' AS c
+    INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON ic.category_id = c.id
+  WHERE (c.id='.$category['id'].' OR uppercats LIKE \''.$category['uppercats'].',%\')'
+    .get_sql_condition_FandF
+    (
+      array
+        (
+          'forbidden_categories' => 'c.id',
+          'visible_categories' => 'c.id',
+          'visible_images' => 'image_id',
+        ),
+      "\n  AND"
+    ).'
+  ORDER BY '.DB_RANDOM_FUNCTION.'()
+  LIMIT 1
+;';
+    $result = pwg_query($query);
+    if (pwg_db_num_rows($result) > 0)
+    {
+      list($image_id) = pwg_db_fetch_row($result);
+    }
+  }
+
+  return $image_id;
+}
 ?>

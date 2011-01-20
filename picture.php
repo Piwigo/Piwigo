@@ -284,6 +284,14 @@ UPDATE '.CATEGORIES_TABLE.'
   WHERE id = '.$page['category']['id'].'
 ;';
         pwg_query($query);
+
+        $query = '
+UPDATE '.USER_CACHE_CATEGORIES_TABLE.'
+  SET user_representative_picture_id = NULL
+  WHERE user_id = '.$user['id'].'
+    AND cat_id = '.$page['category']['id'].'
+;';
+        pwg_query($query);
       }
 
       redirect($url_self);
