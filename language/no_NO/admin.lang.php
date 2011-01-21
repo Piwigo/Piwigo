@@ -77,7 +77,6 @@ $lang['Dissociated'] = 'Adskilt';
 $lang['Does not represent'] = 'Er ikke gjeldende';
 $lang['Edit selected tags'] = 'Rediger valgte tag';
 $lang['Edit tags'] = 'Rediger tag';
-$lang['Elements'] = 'Elementer';
 $lang['Email admins when a new user registers'] = 'Email administrator når en ny bruker registreres';
 $lang['Email admins when a valid comment is entered'] = 'Email administrator når en kommentar blir lagt til';
 $lang['Email admins when a comment requires validation'] = 'Email administrator når en kommentar trenger godkjenning';
@@ -762,5 +761,10 @@ $lang['Type here the title'] = 'Skriv tittel her';
 $lang['remove creation date'] = 'fjern  opprettelse dato';
 $lang['with no album'] = 'uten album';
 $lang['with no tag'] = 'uten tag';
-
+$lang['Album photos associated to the following albums: %s'] = 'Album bilder assosiert til følgende album: %s';
+$lang['Delete orphan tags'] = 'Slett foreldreløse tagger';
+$lang['delete photo'] = 'slett bilde';
+$lang['Orphan tags deleted'] = 'Foreldreløse  tagger slettet';
+$lang['Week starts on'] = 'Uke starter på';
+$lang['You have %d orphan tags: %s.'] = 'Du har %d foreldreløse tagger: %s.';
 ?>

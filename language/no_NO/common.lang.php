@@ -39,7 +39,6 @@ $lang['User: %s'] = "Bruker: %s";
 $lang['Email: %s'] = "Email: %s";
 $lang['Admin: %s'] = "Admin: %s";
 $lang['Registration of %s'] = "Registrering av %s";
-$lang['Picture uploaded by %s'] = "Bilde opplastet av %s";
 $lang['Bad status for user "guest", using default status. Please notify the webmaster.'] = "Feil status for bruker \"gjest\", default status vil bli brukt. Vennligst kontakt webmaster.";
 $lang['Administrator, webmaster and special user cannot use this method'] = "Administrator, webmaster og spesial bruker kan ikke bruke denne metoden";
 $lang['this email address is already in use'] = "En annen bruker har allerede denne mail addressen";
