@@ -4,27 +4,19 @@
 
 <dl>
 
-  <dt>Comments</dt>
-  <dd>Authorize users to add comments on selected albums.
-Selects the albums which are commentable. 
-An photo is commentable if it belongs to at least one album that is commentable.</dd>
+<dt>Comments</dt>
+<dd>A photo can receive comments from your visitors if it belongs to an album with comments activated.</dd>
 
-  <dt>Lock</dt>
-  <dd>Selected albums will be temporaly disabled for maintenance. If
-  you lock a album, all its child albums become locked. If you unlock
-  a album, all its parent albums become unlocked.</dd>
+<dt>Lock</dt>
+<dd>Locked albums are disabled for maintenance. Only administrators can view them in the gallery.</dd>
 
-  <dt>Public / private</dt>
-  <dd>Authorizations exist for private albums only. When albums are
-  private, you will have to grant users and/or groups access to
-  them. If you make a album private, all its child albums becomes
-  private. If you make a album public, all its parent albums becomes
-  public</dd>
+<dt>Public / private</dt>
+<dd>Once an album become private, give access rights to users and groups</dd>
 
-  <dt>Representative</dt>
-  <dd>This option can be managed only if you set 
-  <code>allow_random_representative</code> (see <span
-  class="filename">include/config_defaults.inc.php</span>) configuration parameter to
-  <em>true</em>. Each album can be represented by a random photo or by a photo chosen as unique representative.</dd>
+<dt>Representative</dt>
+<dd>This option is available when you set the configuration setting
+<code>allow_random_representative</code> (see <span
+ class="filename">include/config_defaults.inc.php</span>) to
+<em>true</em>. Each album can be represented by a random photo or by a photo chosen as a unique representative.</dd>
 
 </dl>
