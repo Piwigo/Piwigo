@@ -769,5 +769,11 @@ $lang['Type here the title'] = 'Skriv rubriken här';
 $lang['remove creation date'] = 'Ta bort skapande datum ';
 $lang['with no album'] = 'utan album';
 $lang['with no tag'] = 'utan tagg';
+$lang['Album photos associated to the following albums: %s'] = 'Album bilder associerade till följande album: %s';
+$lang['Delete orphan tags'] = 'Ta bort anonyma taggar';
+$lang['delete photo'] = 'Ta bort bild';
+$lang['Orphan tags deleted'] = 'Anonyma taggar är readerade';
+$lang['Week starts on'] = 'Veckan börjar på';
+$lang['You have %d orphan tags: %s.'] = 'Du har %d anonyma taggar: %s.';
 
 ?>
