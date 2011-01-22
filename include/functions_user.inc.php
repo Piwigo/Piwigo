@@ -154,7 +154,6 @@ SELECT MAX('.$conf['user_fields']['id'].') + 1
         $conf['user_fields']['email'] => $mail_address
         );
 
-    include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
     mass_inserts(USERS_TABLE, array_keys($insert), array($insert));
 
     // Assign by default groups
@@ -184,7 +183,6 @@ SELECT id
 
     if (count($inserts) != 0)
     {
-      include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
       mass_inserts(USER_GROUP_TABLE, array('user_id', 'group_id'), $inserts);
     }
 
@@ -417,7 +415,6 @@ DELETE FROM '.USER_CACHE_CATEGORIES_TABLE.'
   WHERE user_id = '.$userdata['id'];
       pwg_query($query);
 
-      include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
       mass_inserts
       (
         USER_CACHE_CATEGORIES_TABLE,
@@ -1022,9 +1019,7 @@ function create_user_infos($arg_id, $override_values = null)
       array_push($inserts, $insert);
     }
 
-    include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
     mass_inserts(USER_INFOS_TABLE, array_keys($inserts[0]), $inserts);
-
   }
 }
 

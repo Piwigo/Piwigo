@@ -813,8 +813,6 @@ function fill_caddie($elements_id)
 {
   global $user;
 
-  include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
-
   $query = '
 SELECT element_id
   FROM '.CADDIE_TABLE.'

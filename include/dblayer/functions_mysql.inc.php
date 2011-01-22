@@ -77,9 +77,7 @@ function pwg_db_check_version()
 
 function pwg_get_db_version() 
 {
-  list($mysql_version) = pwg_db_fetch_row(pwg_query('SELECT VERSION();'));
-  
-  return $mysql_version;
+  return mysql_get_server_info();
 }
 
 function pwg_query($query)
@@ -222,8 +220,8 @@ function mass_updates($tablename, $dbfields, $datas, $flags=0)
   if (count($datas) == 0)
     return;
   // depending on the MySQL version, we use the multi table update or N update queries
-  if (count($datas) < 10 or version_compare(mysql_get_server_info(), '4.0.4') < 0)
-  { // MySQL is prior to version 4.0.4, multi table update feature is not available
+  if (count($datas) < 10)
+  {
     foreach ($datas as $data)
     {
       $query = '

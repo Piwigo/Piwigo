@@ -50,7 +50,7 @@
 {/if}
 {if isset($U_MODE_POSTED)}
 		<li>{strip}<a href="{$U_MODE_POSTED}" title="{'display a calendar by posted date'|@translate}" class="pwg-state-default pwg-button" rel="nofollow">
-			<span class="pwg-icon pwg-icon-camera-calendar"> </span><span class="pwg-button-text">{'Calendar'|@translate}</span>
+			<span class="pwg-icon pwg-icon-calendar"> </span><span class="pwg-button-text">{'Calendar'|@translate}</span>
 		</a>{/strip}</li>
 {/if}
 {if isset($U_MODE_CREATED)}
