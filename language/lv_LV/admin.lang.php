@@ -762,4 +762,10 @@ $lang['Type here the title'] = 'Ievadīt nosaukumu šeit';
 $lang['remove creation date'] = 'dzēst izveides datumu';
 $lang['with no album'] = 'bez albūma';
 $lang['with no tag'] = 'bez iezīmes (taga)';
+$lang['Album photos associated to the following albums: %s'] = 'Albūma fotoattēli saistīti ar sekojošiem albūmiem: %s';
+$lang['Delete orphan tags'] = 'Dzēst nepiesaistītās cilnes (iezīmes)';
+$lang['delete photo'] = 'Dzēst fotoattēlu';
+$lang['Orphan tags deleted'] = 'Nepiesaistītās cilnes izdzēstas';
+$lang['Week starts on'] = 'Nedēļa sākas ar';
+$lang['You have %d orphan tags: %s.'] = 'Jums ir %d nepiesaistīto cilņu: %s.';
 ?>

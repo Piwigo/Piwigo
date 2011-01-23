@@ -304,7 +304,6 @@ $lang['Email: %s'] = "E-pasts: %s";
 $lang['Admin: %s'] = "Admins: %s";
 $lang['Registration of %s'] = "Reģistrācija %s";
 $lang['Album: %s'] = 'Albūms: %s';
-$lang['Picture uploaded by %s'] = "Attēlu augšupielādējis %s";
 $lang['Bad status for user "guest", using default status. Please notify the webmaster.'] = "Lietotāja \"viesis\" nepareizs satuss, lietojiet statusu pēc noklusējuma. Lūdzu informējiet webmasteru.";
 $lang['Administrator, webmaster and special user cannot use this method'] = 'Administrātors, webmāsters un īpašais lietotājs var izmantot šo metodi';
 $lang['this email address is already in use'] = "cits lietotājs jau lieto šo pasta adresi";
@@ -336,7 +335,6 @@ $lang['Reset to default values'] = "Iestatīt noklusējuma vērtības";
 $lang['delete all photos from your favorites'] = 'dzēst visus fotoattēlus no favorītiem';
 $lang['Sent by'] = "Aizūtījis";
 $lang['Cookies are blocked or not supported by your browser. You must enable cookies to connect.'] = "Jūsu pārlūks ir bloķējis sīklietotnes - cookies. Lai varētu ielogoties ir jāaktevizē sīklietotnes.";
-
 $lang['edit this comment'] = "labot šo komentāru";
 $lang['Edit a comment'] = "Labot komentāru";
 $lang['Are you sure?'] = "Esat pārliecināts?";
