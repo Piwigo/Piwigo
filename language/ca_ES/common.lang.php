@@ -305,10 +305,7 @@ $lang['Email: %s'] = 'Email: %s';
 $lang['Admin: %s'] = 'Admin: %s';
 $lang['Registration of %s'] = 'Registrat de %s';
 $lang['Album: %s'] = 'Categoria: %s';
-$lang['Picture uploaded by %s'] = 'Imatge carregada per %s';
-// --------- Starting below: New or revised $lang ---- from version 1.7.1
 $lang['Bad status for user "guest", using default status. Please notify the webmaster.'] = 'Estat erroni de l\'usuari "invitat", s\'està utilitzant l\'estat predeterminat. Si us plau informeu-ho a l\'administrador de la web.';
-// --------- Starting below: New or revised $lang ---- from Butterfly (2.0)
 $lang['Administrator, webmaster and special user cannot use this method'] = 'L\'administrador, l\'administrador de la web i els usuaris especials no poden utilitzar aquest mètode';
 $lang['this email address is already in use'] = 'un usuari ja utilitza aquesta adreça de correu';
 $lang['Album results for'] = 'Resultats de la categoria per';
@@ -336,14 +333,11 @@ $lang['letters'] = 'lletres';
 $lang['show tag cloud'] = 'mostra el núbol d\'etiquetes';
 $lang['cloud'] = 'núbol';
 $lang['Reset to default values'] = 'Reinicia als valors predeterminats';
-// --------- Starting below: New or revised $lang ---- from Colibri (2.1)
 $lang['delete all photos from your favorites'] = 'elimina totes les imatges de les preferides';
 $lang['Sent by'] = 'Enviat per';
 $lang['Cookies are blocked or not supported by your browser. You must enable cookies to connect.'] = 'Les galetes estan bloquejades o el navegador no en permet l\'ús. Heu d\'habilitar les galetes per poder-vos connectar.';
-
 $lang['edit this comment'] = "edita aquest comentari";
 $lang['Edit a comment'] = "Edita un comentari";
-
 $lang['Are you sure?'] = 'Esteu segurs?';
 $lang['delete this comment'] = 'elimina aquest comentari';
 $lang['Email address is missing. Please specify an email address.'] = 'Falta l\'adreça de correu. Si us plau especifiqueu una adreça de correu.';

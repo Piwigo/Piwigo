@@ -310,10 +310,7 @@ $lang['Email: %s'] = 'E-mail: %s';
 $lang['Admin: %s'] = 'Administrátor: %s';
 $lang['Registration of %s'] = 'Registrace %s';
 $lang['Album: %s'] = 'Album: %s';
-$lang['Picture uploaded by %s'] = 'Fotografie nahrána %s';
-
 $lang['Bad status for user "guest", using default status. Please notify the webmaster.'] = 'Špatný stav pro uživatele "host", bude použit výchozí stav. Prosím informujte administrátora.';
-
 $lang['Administrator, webmaster and special user cannot use this method'] = 'Administrátor nemůže použít tuto metodu.';
 $lang['this email address is already in use'] = 'Tato e-mailová adresa je již používána';
 $lang['Album results for'] = 'Alba výsledky pro';
@@ -340,12 +337,8 @@ $lang['group by letters'] = 'Seskupit podle písmen';
 $lang['letters'] = 'písmena';
 $lang['show tag cloud'] = 'Zobrazit klíčová slova v bublině';
 $lang['cloud'] = 'bublina';
-// --------- Starting below: New or revised $lang ---- from Colibri (2.1)
-
 $lang['Are you sure?'] = 'Jste si jistý?';
 $lang['delete this comment'] = 'vymazat tento komentář';
-
-// missing translations 2.1.0
 $lang['Reset to default values'] = 'Obnovit výchozí hodnoty';
 $lang['delete all photos from your favorites'] = 'vymazat všechny obrázky z Vašich oblíbených';
 $lang['Sent by'] = 'Posláno';
@@ -365,6 +358,4 @@ $lang['This author removed the comment with id %d'] = 'Tento autor smazal koment
 $lang['validate this comment'] = 'zkontrolovat tento komentář';
 $lang['%d Kb'] = '%d Kb';
 $lang['IP: %s'] = 'IP: %s';
-
-
 ?>

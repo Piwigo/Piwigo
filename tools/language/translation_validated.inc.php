@@ -244,6 +244,7 @@ $validated_keys = array(
 	'Extensions',
 	'Documentation',
 	'Photos',
+	'photo',
 	'pixels',
 	'Piwigo Uploader',
 	'localhost, sql.multimania.com, toto.freesurf.fr',

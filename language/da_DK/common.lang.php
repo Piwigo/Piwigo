@@ -306,10 +306,7 @@ $lang['Email: %s'] = 'Email: %s';
 $lang['Admin: %s'] = 'Admin: %s';
 $lang['Registration of %s'] = 'Registrering af %s';
 $lang['Album: %s'] = 'kategori: %s';
-$lang['Picture uploaded by %s'] = 'Foto uploaded af %s';
-// --------- Starting below: New or revised $lang ---- from version 1.7.1
 $lang['Bad status for user "guest", using default status. Please notify the webmaster.'] = 'Forket status for gæste bruger. Kontakt webmaster.';
-// --------- Starting below: New or revised $lang ---- from Butterfly (2.0)
 $lang['Administrator, webmaster and special user cannot use this method'] = 'Administrator, webmaster and specielle brugere akn ikke bruge denne metode';
 $lang['this email address is already in use'] = 'en bruger bruger allerede denne mail addresse';
 $lang['Album results for'] = 'kategori resulter for';

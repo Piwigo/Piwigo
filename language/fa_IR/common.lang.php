@@ -304,7 +304,6 @@ $lang['Email: %s'] = "Email: %s";
 $lang['Admin: %s'] = "Admin: %s";
 $lang['Registration of %s'] = "Registration of %s";
 $lang['Album: %s'] = "Category: %s";
-$lang['Picture uploaded by %s'] = "تصویر توسط %s آپلود شده";
 $lang['Bad status for user "guest", using default status. Please notify the webmaster.'] = "وضعیت بد برای کاربر \"میهمان\" ، وضعیت پیش‌فرض . لطفا این موضوع را با وبمستر(مدیر‌سایت) در میان بگذارید.";
 $lang['Administrator, webmaster and special user cannot use this method'] = "مدیر ، وب‌مستر و کاربر ویژه نمی‌توانند از این متد استفاده نمایند.";
 $lang['this email address is already in use'] = "یک کاربر دیگر این آدرس ایمیل را در سیستم ثبت کرده است.";
@@ -336,7 +335,6 @@ $lang['Reset to default values'] = "بازگرداندن به مقدارهای �
 $lang['delete all photos from your favorites'] = "حذف تمام تصاویر از علاقه‌مندی‌های شما";
 $lang['Sent by'] = "ارسال به وسیله";
 $lang['Cookies are blocked or not supported by your browser. You must enable cookies to connect.'] = "شما در تنظیمات مرورگر خود کوکی ها را بلاک کردید یا مرورگر شما از کوکی پشتیبانی نمی‌کند. برای ورود به محیط کاربری باید کوکی‌ها فعال باشند.";
-
 $lang['edit this comment'] = "ویرایش این نظر";
 $lang['Edit a comment'] = "ویرایش یک نظر";
 $lang['Are you sure?'] = "شما مطمئن هستید؟";
