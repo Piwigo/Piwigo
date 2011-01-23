@@ -304,10 +304,7 @@ $lang['Email: %s'] = 'Email: %s';
 $lang['Admin: %s'] = 'Amministrazione: %s';
 $lang['Registration of %s'] = 'Registrazione di %s';
 $lang['Album: %s'] = 'Album: %s';
-$lang['Picture uploaded by %s'] = 'Immagine caricata da %s';
-// --------- Starting below: New or revised $lang ---- from version 1.7.1
 $lang['Bad status for user "guest", using default status. Please notify the webmaster.'] = 'Lo status dell\'utente "guest" non è conforme, viene usato lo status di default. Per favore avvisa il webmaster.';
-// --------- Starting below: New or revised $lang ---- from Butterfly (2.0)
 $lang['Administrator, webmaster and special user cannot use this method'] = 'Amministratore, webmaster e utente speciale non possono utilizzare questo metodo';
 $lang['this email address is already in use'] = 'un utente usa già questo indirizzo mail';
 $lang['Album results for'] = 'Risultati degli album per';

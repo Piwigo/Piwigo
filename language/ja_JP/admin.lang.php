@@ -79,7 +79,6 @@ $lang['Dissociated'] = '関連なし';
 $lang['Does not represent'] = '非表示';
 $lang['Edit selected tags'] = '選択したタグを編集する';
 $lang['Edit tags'] = 'タグを編集する';
-$lang['Elements'] = 'エレメント';
 $lang['Email admins when a new user registers'] = '新しいユーザ登録時、管理者にメールする';
 $lang['Email admins when a valid comment is entered'] = '有効なコメントが入力された場合、管理者にメールする';
 $lang['Email admins when a comment requires validation'] = 'コメントの承認が必要な場合、管理者にメールする';

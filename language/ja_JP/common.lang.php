@@ -305,10 +305,7 @@ $lang['Email: %s'] = 'メールアドレス: %s';
 $lang['Admin: %s'] = '管理者: %s';
 $lang['Registration of %s'] = '%s の登録';
 $lang['Album: %s'] = 'カテゴリ: %s';
-$lang['Picture uploaded by %s'] = '%s によりアップロードされた写真';
-// --------- Starting below: New or revised $lang ---- from version 1.7.1
 $lang['Bad status for user "guest", using default status. Please notify the webmaster.'] = 'デフォルトステータスの使用に関して、ユーザ「ゲスト」は正しくないステータスです。ウェブマスタにご連絡ください。';
-// --------- Starting below: New or revised $lang ---- from Butterfly (2.0)
 $lang['Administrator, webmaster and special user cannot use this method'] = '管理者、ウェブマスタおよび特別ユーザは、この方法を使用できません。';
 $lang['this email address is already in use'] = 'このメールアドレスは、すでに他のユーザに使用されています。';
 $lang['Album results for'] = 'カテゴリ検索結果:';

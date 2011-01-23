@@ -79,7 +79,6 @@ $lang['Dissociated'] = 'Nincs hozzárendelve';
 $lang['Does not represent'] = 'Nem képviseli';
 $lang['Edit selected tags'] = 'Kiválasztott címkék javítása';
 $lang['Edit tags'] = 'Címkék javítása';
-$lang['Elements'] = 'Elemek';
 $lang['Email admins when a new user registers'] = 'Email-küldés, ha egy új felhasználó regisztrál';
 $lang['Email admins when a valid comment is entered'] = 'Email-küldés, ha egy érvényes hozzászólás érkezik ';
 $lang['Email admins when a comment requires validation'] = 'Email-küldés, ha egy hozzászólás jóváhagyásra vár ';

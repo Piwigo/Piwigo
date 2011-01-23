@@ -305,10 +305,7 @@ $lang['Email: %s'] = 'E-mail: %s';
 $lang['Admin: %s'] = 'Upravitelj: %s';
 $lang['Registration of %s'] = 'Upis od %s';
 $lang['Album: %s'] = 'Skupina: %s';
-$lang['Picture uploaded by %s'] = 'Sliku prebacio %s';
-// --------- Starting below: New or revised $lang ---- from version 1.7.1
 $lang['Bad status for user "guest", using default status. Please notify the webmaster.'] = 'Loš status za korisnika "guest", koristi se pretpostavljeni status. Molimo obavjestite webmaster-a.';
-// --------- Starting below: New or revised $lang ---- from Butterfly (2.0)
 $lang['Administrator, webmaster and special user cannot use this method'] = 'Upravitelj, webmaster i posebni korisnik ne mogu koristiti ovu metodu';
 $lang['this email address is already in use'] = 'korisnik već koristi ovu e-mail adresu';
 $lang['Album results for'] = 'Ishodi skupine za ';

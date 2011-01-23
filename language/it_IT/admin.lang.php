@@ -81,7 +81,6 @@ $lang['Dissociated'] = 'Dissociata da';
 $lang['Does not represent'] = 'Non rappresenta';
 $lang['Edit selected tags'] = 'Modificare i tags selezionati';
 $lang['Edit tags'] = 'Modificare i tags';
-$lang['Elements'] = 'Elementi';
 $lang['Email admins when a new user registers'] = 'Notificare gli amministratori dell\'iscrizione di un nuovo utente';
 $lang['Email admins when a valid comment is entered'] = 'Notificare gli amministratori della presenza di un nuovo commento';
 $lang['Email admins when a comment requires validation'] = 'Notificare gli amministratori quando un commento richiede un\'approvazione';
