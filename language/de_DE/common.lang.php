@@ -306,10 +306,7 @@ $lang['Email: %s'] = 'E-Mail: %s';
 $lang['Admin: %s'] = 'Verwaltung: %s';
 $lang['Registration of %s'] = 'Registrierung von %s';
 $lang['Album: %s'] = 'Album: %s';
-$lang['Picture uploaded by %s'] = 'Bild hochgeladen von %s';
-// --------- Starting below: New or revised $lang ---- from version 1.7.1
 $lang['Bad status for user "guest", using default status. Please notify the webmaster.'] = 'Status der Benutzer "guest" nicht entspricht, Verwendung des Standard. Bitte kontaktieren Sie den Webmaster.';
-// --------- Starting below: New or revised $lang ---- from Butterfly (2.0)
 $lang['Administrator, webmaster and special user cannot use this method'] = 'Administrator, Webmaster und spezieller Benutzer können nicht diese Methode verwenden';
 $lang['this email address is already in use'] = 'Diese E-Mail-Adresse wird bereits verwendet';
 $lang['Album results for'] = 'Albumresultate für';
@@ -339,7 +336,6 @@ $lang['cloud'] = 'Wolke';
 $lang['Reset to default values'] = 'Zurücksetzen auf Standardwerte';
 $lang['delete all photos from your favorites'] = 'lösche alle Fotos von der Favoritenliste';
 $lang['Sent by'] = 'Gesendet von';
-// --------- Starting below: New or revised $lang ---- from Colibri (2.1)
 $lang['Are you sure?'] = 'Sind Sie sicher?';
 $lang['delete this comment'] = 'Diesen Kommentar löschen';
 $lang['Cookies are blocked or not supported by your browser. You must enable cookies to connect.'] = 'Cookies werden geblockt oder nicht von ihrem Browser unterstützt. Sie müssen sie erlauben um sich zu verbinden.';

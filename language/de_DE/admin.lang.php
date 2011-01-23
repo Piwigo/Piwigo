@@ -771,4 +771,10 @@ $lang['Type here the title'] = 'Geben Sie hier den Titel ein';
 $lang['remove creation date'] = 'Entferne das Erstellungsdatum';
 $lang['with no album'] = 'ohne Album';
 $lang['with no tag'] = 'ohne Tag';
+$lang['Album photos associated to the following albums: %s'] = 'Albumfotos findet man in folgenden Alben: %s';
+$lang['Delete orphan tags'] = 'Lösche verwaiste Tags';
+$lang['delete photo'] = 'lösche Foto';
+$lang['Orphan tags deleted'] = 'Verwaiste Tags gelöscht';
+$lang['Week starts on'] = 'Die Woche beginnt mit';
+$lang['You have %d orphan tags: %s.'] = 'Sie haben %d verwaiste Tags: %s.';
 ?>
