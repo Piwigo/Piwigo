@@ -97,26 +97,29 @@ SELECT
   WHERE category_id IN ('.implode(',', $ids).')
 ;';
     $image_ids_linked = array_from_query($query, 'image_id');
-    
-    if ('delete_orphans' == $photo_deletion_mode)
+
+    if (count($image_ids_linked) > 0)
     {
-      $query = '
+      if ('delete_orphans' == $photo_deletion_mode)
+      {
+        $query = '
 SELECT
     DISTINCT(image_id)
   FROM '.IMAGE_CATEGORY_TABLE.'
   WHERE image_id IN ('.implode(',', $image_ids_linked).')
     AND category_id NOT IN ('.implode(',', $ids).')
 ;';
-      $image_ids_not_orphans = array_from_query($query, 'image_id');
-      $image_ids_to_delete = array_diff($image_ids_linked, $image_ids_not_orphans);
-    }
+        $image_ids_not_orphans = array_from_query($query, 'image_id');
+        $image_ids_to_delete = array_diff($image_ids_linked, $image_ids_not_orphans);
+      }
 
-    if ('force_delete' == $photo_deletion_mode)
-    {
-      $image_ids_to_delete = $image_ids_linked;
-    }
+      if ('force_delete' == $photo_deletion_mode)
+      {
+        $image_ids_to_delete = $image_ids_linked;
+      }
 
-    delete_elements($image_ids_to_delete, true);
+      delete_elements($image_ids_to_delete, true);
+    }
   }
 
   // destruction of the links between images and this category
