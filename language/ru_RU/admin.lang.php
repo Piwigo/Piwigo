@@ -771,4 +771,10 @@ $lang['Type here the title'] = 'напечатайте название здес
 $lang['remove creation date'] = 'удалить дату создания';
 $lang['with no album'] = 'без каких-либо альбомов';
 $lang['with no tag'] = 'без каких-либо меток';
+$lang['Album photos associated to the following albums: %s'] = 'Фотографии этого альбома связаны со следущими альбомами: %s';
+$lang['Delete orphan tags'] = 'Удалить неривязанные метки';
+$lang['delete photo'] = 'удалить фотографию';
+$lang['Orphan tags deleted'] = 'Непривязанные метки удалены';
+$lang['Week starts on'] = 'Неделя начинается с';
+$lang['You have %d orphan tags: %s.'] = 'У Вас есть %d непривязанных  меток: %s.';
 ?>
