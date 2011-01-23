@@ -768,4 +768,10 @@ $lang['Type here the title'] = 'Introduzca el título aquí';
 $lang['remove creation date'] = 'eliminar la fecha de creación';
 $lang['with no album'] = 'sin album';
 $lang['with no tag'] = 'sin etiqueta';
+$lang['Album photos associated to the following albums: %s'] = 'Las fotos del álbum se han asociado con los àlbumes sigientes: %s';
+$lang['Delete orphan tags'] = 'Eliminar las etiquetas huerfanas ';
+$lang['delete photo'] = 'Eliminar la foto';
+$lang['Orphan tags deleted'] = 'Etiquetas huerfanas eliminadas';
+$lang['Week starts on'] = 'La semana empieza el';
+$lang['You have %d orphan tags: %s.'] = 'Tiene %d etiquetas huerfanas: %s.';
 ?>
