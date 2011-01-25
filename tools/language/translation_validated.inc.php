@@ -461,6 +461,14 @@ $validated_keys = array(
 	'IP: %s',
 	'Email: %s',
 	'localhost, sql.multimania.com, toto.freesurf.fr',
+	'Permalinks',
+	'Plugins',
+	'Local',
+	'user_status_webmaster',
+	'IP',
+	'Downloads',
+	'Download',
+	'Download,',	
 	),
 	
   'ro_RO' => array(
