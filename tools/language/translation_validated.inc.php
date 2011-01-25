@@ -454,7 +454,12 @@ $validated_keys = array(
 	),
 	
   'pt_PT' => array(
-	'',
+	'%d Kb',
+	'Links',
+	'Webmaster',
+	'Powered by',
+	'IP: %s',
+	'Email: %s',
 	),
 	
   'ro_RO' => array(
