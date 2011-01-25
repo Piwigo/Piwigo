@@ -450,7 +450,7 @@ $validated_keys = array(
 	),
 
   'pt_BR' => array(
-	'',
+	'localhost, sql.multimania.com, toto.freesurf.fr',
 	),
 	
   'pt_PT' => array(
@@ -460,6 +460,7 @@ $validated_keys = array(
 	'Powered by',
 	'IP: %s',
 	'Email: %s',
+	'localhost, sql.multimania.com, toto.freesurf.fr',
 	),
 	
   'ro_RO' => array(
