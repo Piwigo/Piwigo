@@ -305,10 +305,7 @@ $lang['Email: %s'] = 'Email: %s';
 $lang['Admin: %s'] = 'Administração: %s';
 $lang['Registration of %s'] = 'Registro de %s';
 $lang['Album: %s'] = 'Categoria: %s';
-$lang['Picture uploaded by %s'] = 'Imagem enviada por %s';
-// --------- Starting below: New or revised $lang ---- from version 1.7.1
 $lang['Bad status for user "guest", using default status. Please notify the webmaster.'] = 'Status ruim para o usuário "guest", será usado status padrão. Por favor, avise o administrador do site.';
-// --------- Starting below: New or revised $lang ---- from Butterfly (2.0)
 $lang['Administrator, webmaster and special user cannot use this method'] = 'Administrador, webmaster e utilizador especial não podem utilizar este método';
 $lang['this email address is already in use'] = 'um outro usuário já utiliza este email';
 $lang['Album results for'] = 'Resultados da categoria para';
@@ -337,4 +334,22 @@ $lang['show tag cloud'] = 'mostar a nuvem de tags';
 $lang['cloud'] = 'nuvem';
 $lang['Are you sure?'] = 'Você tem certeza?';
 $lang['delete this comment'] = 'apagar este comentário';
+$lang['Reset to default values'] = 'Repor valores por defeito';
+$lang['delete all photos from your favorites'] = 'apagar todas as imagens dos seus favoritos';
+$lang['Sent by'] = 'Enviado por';
+$lang['Cookies are blocked or not supported by your browser. You must enable cookies to connect.'] = 'Os cookies estão bloqueados ou não são suportados pelo seu navegador. Deverá activar os cookies para Iniciar Sessão.';
+$lang['edit this comment'] = 'editar este comentário';
+$lang['Edit a comment'] = 'Editar um comentário';
+$lang['(!) This comment requires validation'] = '(!) Este cometário requer validação';
+$lang['Welcome'] = 'Bem-vindo';
+$lang['Welcome to your Piwigo photo gallery!'] = 'Bem-vindo à sua galeria de fotos Piwigo!';
+$lang['... or browse your empty gallery'] = '... ou navegue a sua galeria vazia';
+$lang['... or please deactivate this message, I will find my way by myself'] = '... ou, desactive esta mensagem, por favor, eu encontro o meu caminho sozinho';
+$lang['Hello %s, your Piwigo photo gallery is empty!'] = 'Olá %s, a sua galeria de fotos Piwigo está vazia!';
+$lang['I want to add photos'] = 'Eu quero adicionar fotos';
+$lang['Manage this user comment: %s'] = 'Gerir comentários deste utilizador: %s';
+$lang['This author modified following comment:'] = 'Este autor modificou o seguinte comentário:';
+$lang['This author removed the comment with id %d'] = 'Este autor removeu o comentário com o ID %d';
+$lang['validate this comment'] = 'validar este comentário';
+
 ?>
