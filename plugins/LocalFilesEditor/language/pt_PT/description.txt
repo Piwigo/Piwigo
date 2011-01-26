@@ -1,0 +1,1 @@
+Editar ficheiros locais a partir do Painel Administrativo de Piwigo.
