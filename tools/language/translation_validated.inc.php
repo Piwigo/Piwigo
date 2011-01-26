@@ -533,6 +533,13 @@ $validated_keys = array(
 	'Element',
 	'Piwigo Administration',
 	'Piwigo version',
+	'IP: %s',
+	'Admin: %s',
+	'Filter',
+	'Administration',
+	'%d Kb',
+	'Installation',
+	'localhost, sql.multimania.com, toto.freesurf.fr',
 	),
 	
   'tr_TR' => array(
