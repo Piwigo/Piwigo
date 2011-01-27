@@ -401,6 +401,7 @@ $lang['deleted'] = 'تم الحذف للاسف الشديد';
 $lang['Metadata synchronization results'] = 'نتائج تزامن المعلومات التفصيلية';
 $lang['only perform a simulation (no change in database will be made)'] = 'اداة للمحاكاة فقط (لن يتم أي تغير في قاعدة البيانات)';
 $lang['[Simulation]'] = '[محاكات]';
+$lang['Simulation'] = 'محاكات';
 $lang['directories + files'] = 'مجلدات + ملفات';
 $lang['only directories'] = 'فقط المجلدات';
 $lang['synchronize files structure with database'] = 'مزامنة الملفات مع هيكل قاعدة البيانات';

@@ -405,6 +405,7 @@ $lang['deleted'] = 'eliminades';
 $lang['Metadata synchronization results'] = 'Resultats de la sincronització de les metadades';
 $lang['only perform a simulation (no change in database will be made)'] = 'realitza només una simulació (no es farà cap canvi a la base de dades)';
 $lang['[Simulation]'] = '[Simulació]';
+$lang['Simulation'] = 'Simulació';
 $lang['directories + files'] = 'directoris + fitxers';
 $lang['only directories'] = 'només directoris';
 $lang['synchronize files structure with database'] = 'sincronitza l\'estructura de fitxers amb la base de dades';

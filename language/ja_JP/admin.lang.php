@@ -400,6 +400,7 @@ $lang['deleted'] = '削除済み';
 $lang['Metadata synchronization results'] = 'メタデータ同期化結果';
 $lang['only perform a simulation (no change in database will be made)'] = 'シミュレーションのみ実行する (データベースは更新されません)';
 $lang['[Simulation]'] = '[シミュレーション]';
+$lang['Simulation'] = 'シミュレーション';
 $lang['directories + files'] = 'ディレクトリ + ファイル';
 $lang['only directories'] = 'ディレクトリのみ';
 $lang['synchronize files structure with database'] = 'ファイル構造とデータベースを同期化する';

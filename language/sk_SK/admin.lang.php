@@ -399,6 +399,7 @@ $lang['added'] = 'pridané';
 $lang['Metadata synchronization results'] = 'Výsledky synchronizácie metadat';
 $lang['only perform a simulation (no change in database will be made)'] = 'len simulácia pridania (nebudú urobené žiadne zmeny v databáze)';
 $lang['[Simulation]'] = '[Simulácia]';
+$lang['Simulation'] = 'Simulácia';
 $lang['directories + files'] = 'adresáre + súbory';
 $lang['only directories'] = 'len adresáre';
 $lang['synchronize files structure with database'] = 'synchronizovať štruktúru súborov s databázou';

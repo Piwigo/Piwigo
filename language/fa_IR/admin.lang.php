@@ -404,6 +404,7 @@ $lang['deleted'] = "حذف شد";
 $lang['Metadata synchronization results'] = "نتیج همگام‌سازی ابرداده(metadata)";
 $lang['only perform a simulation (no change in database will be made)'] = "فقط انجام یک شبیه‌سازی (هیچ چیزی در پایگاه داده تغییر نمی‌کند)";
 $lang['[Simulation]'] = "[شبیه‌سازی]";
+$lang['Simulation'] = "شبیه‌سازی";
 $lang['directories + files'] = "دایرکتوری + فایل‌ها";
 $lang['only directories'] = "فقط دایرکتوری‌ها";
 $lang['synchronize files structure with database'] = "همگام‌سازی ساختار(structure) فایل‌ها با پایگاه‌داده";

@@ -403,6 +403,7 @@ $lang['deleted']     =     'Slettet';
 $lang['Metadata synchronization results']     =     'Metadata synkronisering resultater';
 $lang['only perform a simulation (no change in database will be made)']     =     'Kun udføre en simulering (intet vil blive ændret i databasen)';
 $lang['[Simulation]']     =     '[Simulation]';
+$lang['Simulation']     =     'Simulation';
 $lang['directories + files']     =     'Mapper + filer';
 $lang['only directories']     =     'Mapper kun';
 $lang['synchronize files structure with database']     =     'Synkronisere filer struktur med databasen';

@@ -397,6 +397,7 @@ $lang['added'] = 'pievienots';
 $lang['Metadata synchronization results'] = 'Metadatu sinhronizācijas rezultāti';
 $lang['only perform a simulation (no change in database will be made)'] = 'veikt tikai testēšanu (nekas nemainās datu bāzē)';
 $lang['[Simulation]'] = '[Simulācija]';
+$lang['Simulation'] = 'Simulācija';
 $lang['directories + files'] = 'mapes un faili';
 $lang['only directories'] = 'tikai mapes';
 $lang['synchronize files structure with database'] = 'sinhronizēt failu struktūru ar datubāzi';

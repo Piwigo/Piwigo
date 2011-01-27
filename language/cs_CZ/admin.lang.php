@@ -403,6 +403,7 @@ $lang['deleted'] = 'smazáno';
 $lang['Metadata synchronization results'] = 'Výsledky synchronizace metadat';
 $lang['only perform a simulation (no change in database will be made)'] = 'pouze simulace přidání (nebudou učiněny žádné změny v databázi)';
 $lang['[Simulation]'] = '[Simulace]';
+$lang['Simulation'] = 'Simulace';
 $lang['directories + files'] = 'adresáře + soubory';
 $lang['only directories'] = 'pouze adresáře';
 $lang['synchronize files structure with database'] = 'synchronizovat strukturu souborů s databází';

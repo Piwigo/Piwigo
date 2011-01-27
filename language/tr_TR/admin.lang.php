@@ -398,6 +398,7 @@ $lang['added'] = 'eklendi';
 $lang['Metadata synchronization results'] = 'Metadata senkronizasyon sonuçları';
 $lang['only perform a simulation (no change in database will be made)'] = 'sadece veritabanında değişecektir) bir simülasyon (hiçbir şey yapılmayacak)';
 $lang['[Simulation]'] = '[Simülasyon]';
+$lang['Simulation'] = 'Simülasyon';
 $lang['directories + files'] = 'dizinler + resimler';
 $lang['only directories'] = 'sadece dizinler';
 $lang['synchronize files structure with database'] = 'veritabanı ile dosya yapısı senkronize et';

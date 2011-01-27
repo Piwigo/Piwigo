@@ -400,6 +400,7 @@ $lang['deleted'] = 'đã xóa';
 $lang['Metadata synchronization results'] = 'Kết quả đồng bộ hóa metadata';
 $lang['only perform a simulation (no change in database will be made)'] = 'chỉ thực hiện công đoạn giả lập (không có sự thay đổi nào đối với cơ sở dữ liệu)';
 $lang['[Simulation]'] = '[Giả lập]';
+$lang['Simulation'] = 'Giả lập';
 $lang['directories + files'] = 'thư mục + tệp tin';
 $lang['only directories'] = 'chỉ áp dụng cho các thư mục';
 $lang['synchronize files structure with database'] = 'đồng bộ hóa cấu trúc file với cơ sở dữ liệu';

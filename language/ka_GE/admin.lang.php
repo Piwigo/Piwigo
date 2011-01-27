@@ -401,6 +401,7 @@ $lang['deleted'] = 'წაშლილია';
 $lang['Metadata synchronization results'] = 'მეტამონაცემების სინქრონიზაციის შედეგები';
 $lang['only perform a simulation (no change in database will be made)'] = 'მხოლოდ ტესტირება (არ შევიტანოთ ცვლილებები მონაცემთა ბაზაში)';
 $lang['[Simulation]'] = '[ტესტი]';
+$lang['Simulation'] = 'ტესტი';
 $lang['directories + files'] = 'ფაილები და ფოლდერები';
 $lang['only directories'] = 'მხოლოდ ფოლდერები';
 $lang['synchronize files structure with database'] = 'ფაილების სტრუქტურის სინქრონიზაცია მონაცემთა ბაზასთან';

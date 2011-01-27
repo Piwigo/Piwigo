@@ -398,6 +398,7 @@ $lang['deleted'] = 'törölve';
 $lang['Metadata synchronization results'] = 'Meta adatok szinkronizálásának eredménye';
 $lang['only perform a simulation (no change in database will be made)'] = 'Csak szimuláció végrehajtása (az adatbázisban nem történik változás)';
 $lang['[Simulation]'] = '[Szimuláció]';
+$lang['Simulation'] = 'Szimuláció';
 $lang['directories + files'] = 'Mappák + fájlok';
 $lang['only directories'] = 'Csak mappák';
 $lang['synchronize files structure with database'] = 'Fájlok-mappák szinkronizálása az adatbázissal';

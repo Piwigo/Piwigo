@@ -399,6 +399,7 @@ $lang['added'] = 'tillagd';
 $lang['Metadata synchronization results'] = 'Resultat för synkronisering av metadata';
 $lang['only perform a simulation (no change in database will be made)'] = 'Utför enbart simulering (inget kommer att ändras i databasen)';
 $lang['[Simulation]'] = '[Simulering]';
+$lang['Simulation'] = 'Simulering';
 $lang['directories + files'] = 'Kataloger + filer';
 $lang['only directories'] = 'bara kataloger';
 $lang['synchronize files structure with database'] = 'synkronisera filstruktur med databas';

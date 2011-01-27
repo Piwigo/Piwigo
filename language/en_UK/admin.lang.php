@@ -608,6 +608,7 @@ $lang['Set title'] = 'Set title';
 $lang['set to'] = "set to";
 $lang['Settings'] = 'Settings';
 $lang['Show info'] = "Show info";
+$lang['Simulation'] = "Simulation";
 $lang['singly represented'] = "fixed representative";
 $lang['Site manager'] = "Site manager";
 $lang['Specials'] = "Specials";

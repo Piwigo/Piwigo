@@ -396,6 +396,7 @@ $lang['deleted'] = 'izbrisano';
 $lang['Metadata synchronization results'] = 'Ishodi usklađivanja meta podataka';
 $lang['only perform a simulation (no change in database will be made)'] = 'izvrši samo oponašanje (nema promjena u bazi podataka)';
 $lang['[Simulation]'] = '[Oponašanje]';
+$lang['Simulation'] = 'Oponašanje';
 $lang['directories + files'] = 'mape + zapise';
 $lang['only directories'] = 'samo mape';
 $lang['synchronize files structure with database'] = 'uskladi sastav zapisa sa bazom podataka';

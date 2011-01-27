@@ -397,6 +397,7 @@ $lang['deleted'] = 'gelöscht';
 $lang['Metadata synchronization results'] = 'Metadata Synchronisierung Ergebnisse';
 $lang['only perform a simulation (no change in database will be made)'] = 'nur Simulation (es werden keine Elemente in der Datenbank verändert)';
 $lang['[Simulation]'] = '[Simulation]';
+$lang['Simulation'] = 'Simulation';
 $lang['directories + files'] = 'Ordner und Dateien';
 $lang['only directories'] = 'Nur Ordner';
 $lang['synchronize files structure with database'] = 'Syncronisiere Dateistruktur mit der Datenbank';

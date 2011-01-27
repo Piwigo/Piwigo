@@ -397,6 +397,7 @@ $lang['added'] = 'lagt til';
 $lang['Metadata synchronization results'] = 'Metadatas synkroniserings resultat';
 $lang['only perform a simulation (no change in database will be made)'] = 'Utfør kun en simulering (ingen forandringer blir gjort i databasen)';
 $lang['[Simulation]'] = '[Simulering]';
+$lang['Simulation'] = 'Simulering';
 $lang['directories + files'] = 'mapper + filer';
 $lang['only directories'] = 'kun mapper';
 $lang['synchronize files structure with database'] = 'Synkroniser filstruktur med databasen';

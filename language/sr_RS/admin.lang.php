@@ -400,6 +400,7 @@ $lang['deleted'] = 'обрисано';
 $lang['Metadata synchronization results'] = 'Резултат усклађивања мета података';
 $lang['only perform a simulation (no change in database will be made)'] = 'изврши само симулацију (нема промена у бази података)';
 $lang['[Simulation]'] = '[Симулација]';
+$lang['Simulation'] = 'Симулација';
 $lang['directories + files'] = 'директоријуме + датотеке';
 $lang['only directories'] = 'само директоријуме';
 $lang['synchronize files structure with database'] = 'усклади структуру датотеке са базом података';

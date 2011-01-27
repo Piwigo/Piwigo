@@ -399,6 +399,7 @@ $lang['deleted'] = '已删除';
 $lang['Metadata synchronization results'] = '元数据更新结果';
 $lang['only perform a simulation (no change in database will be made)'] = '只进行模拟操作(不会改变数据库中的任何内容)';
 $lang['[Simulation]'] = '[模拟]';
+$lang['Simulation'] = '模拟';
 $lang['directories + files'] = '文件夹 + 文件';
 $lang['only directories'] = '只对文件夹';
 $lang['synchronize files structure with database'] = '同步文件结构和数据库';
