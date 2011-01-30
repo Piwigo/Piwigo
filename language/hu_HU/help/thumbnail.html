@@ -1,0 +1,25 @@
+<h2>Bélyegképek létrehozása</h2>
+
+<p>Ezen az oldalon létrehozhatók a hiányzó bélyegképek. Amennyiben a galéria megosztott szerveren található, nem javasoljuk használatát.</p>
+
+<dl>
+
+  <dt>GD verzió</dt>
+
+  <dd>Könyvtárban lévő képek szerkesztése a PHP-ben telepített GD támogatással. Ki kell választani a szerverre telepített verziót. Hibaüzenet esetén csak vissza kell térni a böngészőben az előző oldalra és a másik verziót választani. Amennyiben egyik verzió sem működik, a szerveren nincs GD támogatás.</dd>
+
+  <dt>Szélesség és magasság</dt>
+
+  <dd>Bélyegképek maximális mérete. Az eredeti képarány megmarad. Az alapértelmezett értékek megváltoztathatók a konfigurációs fájlban <code>tn_width</code> és
+<code>tn_height</code> (lásd <span
+class="filename">include/config_default.inc.php</span> fájl).</dd>
+
+  <dt>Létrehozandó bélyegképek száma</dt>
+
+  <dd>Nem ajánlott egyszerre túl sok bélyegképet létrehozni. A bélyegképek létrehozásának folyamata magas CPU terheléssel jár. Amennyiben a Piwigo galéria ingyenes tárhelyre van telepítve, a nagy CPU terlelés akár a honlap szolgáltató általi tiltását is eredményezheti.</dd>
+
+  <dt>Fájl formátum</dt>
+
+  <dd>A létrehozott bélyegképek formátuma JPEG formátumú. Csak PNG és JPEG képekről készíthetők bélyegképek.</dd>
+
+</dl>
