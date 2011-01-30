@@ -8,7 +8,7 @@
   
   <li>Másold fel FTP program segítségével a "galeries" mappába az így létrehozott mappádat.</li>
   
-  <li>Lépj be a galériába és menj az <span class="pwgScreen">Adminisztráció &raquo; Képek &raquo; Bélyegképek</span> oldalra, hogy létrehozd a hiányzó bélyegképeket.</li>
+  <li>Lépj be a galériába és menj az <span class="pwgScreen">Adminisztráció &raquo; Eszköszök &raquo; Bélyegképek</span> oldalra, hogy létrehozd a hiányzó bélyegképeket.</li>
   
   <li>Menj vissza az <span class="pwgScreen">Adminisztráció</span> menübe és kattints a "Szinkronizálás" gombra.</li>
 </ol>
@@ -63,7 +63,7 @@ Gratulálunk, ezzel létrehoztad az első album képtárat.
 
   </li>
   
-<li>Minden új alkönyvtár a "galeries" könyvtárban létrehoz egy új albumot. A könyvtárak mélysége nincs korlátozva.
+<li>Minden új alkönyvtár a "galeries" könyvtárban létrehoz egy új albumot, kivételek a "thumbnail", "pwg-high" és "pwg_representative" (a magyarázatot lásd alább). A könyvtárak mélysége nincs korlátozva.
     A fenti példában a Kategorie-1.1.1.1 könyvtár 4 mélység szintű.</li>
 
   <li>Alapvetően, egy elemet egy fájl határoz meg. Egy fájl Piwigo elem lehet, ha kiterjesztése a <code>file_ext</code> 
@@ -84,8 +84,7 @@ Gratulálunk, ezzel létrehoztad az első album képtárat.
   valamint a következő karaktereket tartalmazhatják: "-", "_" vagy ".". 
   Nem lehet üres hely és soremelés karakter.</li>
 
-  <li>Once files, thumbnails and representatives are correctly placed in the
-  directories, go to : <span class="pwgScreen">Adminisztráció &raquo; Albumok &raquo;
+  <li>A bélyegképek és album képviselők helyükre tételének útvonala: <span class="pwgScreen">Adminisztráció &raquo; Eszközök &raquo;
   Szinkronizálás</span></li>
 
 </ul>
@@ -98,12 +97,14 @@ Gratulálunk, ezzel létrehoztad az első album képtárat.
   <li>Minden képnek rendelkeznie kell egy hozzá tartozó bélyegképpel.</li>
 
   <li>A bélyegképek az album könyvtár "thumbnail" alkönyvtárában kerülnek eltárolásra.
-   A bélyegkép neve megegyezik a kép fájlnevével, egy <em>TN-</em> előtaggal kiegészítve.</li>
+   A bélyegkép neve megegyezik a kép fájlnevével, egy a konfigurációs paraméterekben <code>prefix_thumbnail</code> megadott előtaggal kiegészítve (lásd <span class="filename">include/config.inc.php</span>).</li>
 
-  <li><em>Advise</em>: egy külső modul a bélyegképek létrehozásához.</li>
+  <li>A kép és a hozzárendelt bélyegkép kiterjesztése eltérő lehet (például egy ".GIF" kiterjesztésű képhez tartozhat ".jpg" kiterjesztésű bélyegkép).</li>
+
+  <li><em>Javaslat</em>: külső modul használata a bélyegképek létrehozásához.</li>
 
   <li>Használhatod, bár nem ajánlott (kép minőség, web szerver erőforrásainak terhelése): <span
-  class="pwgScreen">Adminisztráció &raquo; Eszközök &raquo; Bélyegkép</span> oldalon, bélyegképek létrehozása.</li>
+  class="pwgScreen">Adminisztráció &raquo; Eszközök &raquo; Bélyegképek</span> oldalon a bélyegképek létrehozását.</li>
 
   <li>Adj írási jogot az összes album könyvtárnak.</li>
 
