@@ -116,7 +116,7 @@ table.table2 td.fielddesc {
   font-style:italic;
 }
 
-input[type="submit"], input[type="button"] {
+input[type="submit"], input[type="button"], a.bigButton {
   font-size:14px;
   font-weight:bold;
   letter-spacing:2px;
@@ -127,7 +127,7 @@ input[type="submit"], input[type="button"] {
   -moz-border-radius:5px;
 }
 
-input[type="submit"]:hover, input[type="button"]:hover {
+input[type="submit"]:hover, input[type="button"]:hover, a.bigButton:hover {
   background-color:#ff7700;
   color:white;
 }
@@ -340,7 +340,7 @@ jQuery().ready(function(){ldelim}
 </form>
 {else}
 <p>
-  <input type="button" name="Home" value="{'Visit Gallery'|@translate}" onClick="window.open('index.php');">
+  <a class="bigButton" href="index.php">{'Visit Gallery'|@translate}</a>
 </p>
 {/if}
 </div> {* content *}
