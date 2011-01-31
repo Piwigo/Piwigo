@@ -546,11 +546,7 @@ function pwg_image_resize_im($source_filepath, $destination_filepath, $max_width
 
   $image = new Imagick($source_filepath);
 
-  $rotation = null;
-  if (function_exists('imagerotate'))
-  {
-    $rotation = get_rotation_angle($source_filepath);
-  }
+  $rotation = get_rotation_angle($source_filepath);
   
   // width/height
   $source_width  = $image->getImageWidth();
