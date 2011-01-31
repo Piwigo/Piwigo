@@ -547,7 +547,8 @@ $validated_keys = array(
 	'N/A',
 	'Webmaster',
 	'IP: %s',
-	'',
+	'Host',
+	'localhost, sql.multimania.com, toto.freesurf.fr',
 	),
 	
   'vi_VN' => array(
