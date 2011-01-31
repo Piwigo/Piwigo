@@ -601,6 +601,11 @@ function get_rotation_angle($source_filepath)
     return null;
   }
   
+  if (!function_exists('exif_read_data'))
+  {
+    return null;
+  }
+
   $rotation = null;
   
   $exif = exif_read_data($source_filepath);
