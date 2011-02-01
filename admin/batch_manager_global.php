@@ -210,6 +210,11 @@ DELETE
   // author
   if ('author' == $action)
   {
+    if (isset($_POST['remove_author']))
+    {
+      $_POST['author'] = null;
+    }
+    
     $datas = array();
     foreach ($collection as $image_id)
     {
@@ -232,6 +237,11 @@ DELETE
   // title
   if ('title' == $action)
   {
+    if (isset($_POST['remove_title']))
+    {
+      $_POST['title'] = null;
+    }
+    
     $datas = array();
     foreach ($collection as $image_id)
     {
@@ -260,6 +270,11 @@ DELETE
       $_POST['date_creation_month'],
       $_POST['date_creation_day']
       );
+
+    if (isset($_POST['remove_date_creation']))
+    {
+      $date_creation = null;
+    }
 
     $datas = array();
     foreach ($collection as $image_id)
