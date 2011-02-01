@@ -2,17 +2,33 @@
 {combine_script id='jquery.ui.sortable' load='async' require='jquery.ui' path='themes/default/js/ui/packed/ui.sortable.packed.js' }
 {footer_script require='jquery.ui.sortable'}{literal}
 jQuery(document).ready(function() {
-	jQuery('ul.thumbnails').sortable( { 
-		revert: true,	opacity: 0.7,
-		handle: $('.rank-of-image').add('.rank-of-image img'),
-		update: function() {
-			$(this).find('li').each(function(i) { 
-			$(this).find("input[name^=rank_of_image]")
-			.each(function() { $(this).attr('value', (i+1)*10)});
-			});
-			$('#image_order_rank').attr('checked', true);
-			}
-	});
+  function checkOrderOptions() {
+    jQuery("#image_order_user_define_options").hide();
+    if (jQuery("input[name=image_order_choice]:checked").val() == "user_define") {
+      jQuery("#image_order_user_define_options").show();
+    }        
+  }
+
+  jQuery('ul.thumbnails').sortable( { 
+    revert: true, opacity: 0.7,
+    handle: $('.rank-of-image').add('.rank-of-image img'),
+    update: function() {
+      $(this).find('li').each(function(i) { 
+        $(this).find("input[name^=rank_of_image]").each(function() {
+          $(this).attr('value', (i+1)*10)
+        });
+      });
+
+      $('#image_order_rank').attr('checked', true);
+      checkOrderOptions();
+    }
+  });
+
+  jQuery("input[name=image_order_choice]").click(function () {
+    checkOrderOptions();
+  });
+
+  checkOrderOptions();
 });
 {/literal}{/footer_script}
 
@@ -54,6 +70,7 @@ jQuery(document).ready(function() {
     <p class="field">
       <input type="radio" name="image_order_choice" id="image_order_user_define" value="user_define"{if $image_order_choice=='user_define'} checked="checked"{/if}>
       <label for="image_order_user_define">{'Manual order'|@translate}</label>
+      <div id="image_order_user_define_options">
       {foreach from=$image_orders item=order}
       <p class="field">
         <select name="order_field_{$order.ID}">
@@ -64,6 +81,7 @@ jQuery(document).ready(function() {
         </select>      
       </p>
       {/foreach}
+      </div>
   </fieldset>
   <p><input class="submit" type="submit" value="{'Submit'|@translate}" name="submit"></p>
 </form>
