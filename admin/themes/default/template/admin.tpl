@@ -20,7 +20,6 @@ jQuery(document).ready(function(){ldelim}
         <li><a href="{$U_ADD_PHOTOS}">{'Add'|@translate}</a></li>
         <li><a href="{$U_RATING}">{'Rating'|@translate}</a></li>
         <li><a href="{$U_TAGS}">{'Tags'|@translate}</a></li>
-        <li><a href="{$U_CADDIE}">{'Caddie'|@translate}</a></li>
         <li><a href="{$U_RECENT_SET}">{'Recent photos'|@translate}</a></li>
         <li><a href="{$U_BATCH}">{'Batch Manager'|@translate}</a></li>
       </ul>

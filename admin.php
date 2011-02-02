@@ -129,7 +129,6 @@ $template->assign(
     'U_CAT_OPTIONS'=> $link_start.'cat_options',
     'U_CAT_UPDATE'=> $link_start.'site_update&amp;site=1',
     'U_RATING'=> $link_start.'rating',
-    'U_CADDIE'=> $link_start.'batch_manager&amp;cat=caddie',
     'U_RECENT_SET'=> $link_start.'batch_manager&amp;cat=recent',
     'U_BATCH'=> $link_start.'batch_manager',
     'U_TAGS'=> $link_start.'tags',
