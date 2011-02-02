@@ -50,7 +50,7 @@ check_input_parameter('selection', $_POST, true, PATTERN_ID);
 if (isset($_POST['submitFilter']))
 {
   // echo '<pre>'; print_r($_POST); echo '</pre>';
-  
+
   $_SESSION['bulk_manager_filter'] = array();
 
   if (isset($_POST['filter_prefilter_use']))
@@ -59,7 +59,7 @@ if (isset($_POST['submitFilter']))
     if (in_array($_POST['filter_prefilter'], $prefilters))
     {
       $_SESSION['bulk_manager_filter']['prefilter'] = $_POST['filter_prefilter'];
-    }    
+    }
   }
 
   if (isset($_POST['filter_category_use']))
@@ -161,7 +161,7 @@ SELECT id
    FROM '.IMAGES_TABLE.'
  ;';
     $all_elements = array_from_query($query, 'id');
- 
+
     $query = '
  SELECT id
    FROM '.CATEGORIES_TABLE.'
@@ -220,7 +220,7 @@ SELECT
     // we could use the group_concat MySQL function to retrieve the list of
     // image_ids but it would not be compatible with PostgreSQL, so let's
     // perform 2 queries instead. We hope there are not too many duplicates.
-    
+
     $query = '
 SELECT file
   FROM '.IMAGES_TABLE.'
@@ -228,7 +228,7 @@ SELECT file
   HAVING COUNT(*) > 1
 ;';
     $duplicate_files = array_from_query($query, 'file');
-    
+
     $query = '
 SELECT id
   FROM '.IMAGES_TABLE.'
@@ -245,7 +245,7 @@ SELECT id
 if (isset($_SESSION['bulk_manager_filter']['category']))
 {
   $categories = array();
-  
+
   if (isset($_SESSION['bulk_manager_filter']['category_recursive']))
   {
     $categories = get_subcat_ids(array($_SESSION['bulk_manager_filter']['category']));
@@ -254,7 +254,7 @@ if (isset($_SESSION['bulk_manager_filter']['category']))
   {
     $categories = array($_SESSION['bulk_manager_filter']['category']);
   }
-  
+
   $query = '
  SELECT DISTINCT(image_id)
    FROM '.IMAGE_CATEGORY_TABLE.'
@@ -326,7 +326,7 @@ $tab_codes = array_map(
   $tabs
   );
 
-if (isset($_GET['mode']) and in_array($_GET['mode'], $tab_codes))
+if (isset($_GET['mode']))
 {
   $page['tab'] = $_GET['mode'];
 }
@@ -335,21 +335,24 @@ else
   $page['tab'] = $tabs[0]['code'];
 }
 
-$tabsheet = new tabsheet();
-foreach ($tabs as $tab)
+if (in_array($page['tab'], $tab_codes))
 {
-  $tabsheet->add(
-    $tab['code'],
-    $tab['label'],
-    get_root_url().'admin.php?page='.$_GET['page'].'&amp;mode='.$tab['code']
-    );
-}
-$tabsheet->select($page['tab']);
-$tabsheet->assign();
+  $tabsheet = new tabsheet();
+  foreach ($tabs as $tab)
+  {
+    $tabsheet->add(
+      $tab['code'],
+      $tab['label'],
+      get_root_url().'admin.php?page='.$_GET['page'].'&amp;mode='.$tab['code']
+      );
+  }
+  $tabsheet->select($page['tab']);
+  $tabsheet->assign();
 
 // +-----------------------------------------------------------------------+
 // |                         open specific mode                            |
 // +-----------------------------------------------------------------------+
 
-include(PHPWG_ROOT_PATH.'admin/batch_manager_'.$page['tab'].'.php');
+  include(PHPWG_ROOT_PATH.'admin/batch_manager_'.$page['tab'].'.php');
+}
 ?>
