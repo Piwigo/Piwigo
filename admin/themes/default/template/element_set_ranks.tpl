@@ -36,12 +36,13 @@ jQuery(document).ready(function() {
 
 <h3>{$CATEGORIES_NAV}</h3>
 
-{if !empty($thumbnails)}
 <form action="{$F_ACTION}" method="post">
+{if !empty($thumbnails)}
   <p><input class="submit" type="submit" value="{'Submit'|@translate}" name="submit"></p>
   <fieldset>
-    <legend>{'Edit ranks'|@translate}</legend>
+    <legend>{'Manual order'|@translate}</legend>
     {if !empty($thumbnails)}
+    <p>{'Drag to re-order'|@translate}</p>
     <ul class="thumbnails">
       {foreach from=$thumbnails item=thumbnail}
       <li class="rank-of-image">
@@ -50,12 +51,13 @@ jQuery(document).ready(function() {
 	    <img src="{$thumbnail.TN_SRC}" class="thumbnail" alt="">
 	  </div>
 	</div>
-        <input type="text" name="rank_of_image[{$thumbnail.ID}]" value="{$thumbnail.RANK}">
+        <input type="text" name="rank_of_image[{$thumbnail.ID}]" value="{$thumbnail.RANK}" style="display:none">
       </li>
       {/foreach}
     </ul>
     {/if}
   </fieldset>
+{/if}
 
   <fieldset>
     <legend>{'Sort order'|@translate}</legend>
@@ -65,11 +67,11 @@ jQuery(document).ready(function() {
     </p>
     <p class="field">
       <input type="radio" name="image_order_choice" id="image_order_rank" value="rank"{if $image_order_choice=='rank'} checked="checked"{/if}>
-      <label for="image_order_rank">{'By rank'|@translate}</label>
+      <label for="image_order_rank">{'manual order'|@translate}</label>
     </p>
     <p class="field">
       <input type="radio" name="image_order_choice" id="image_order_user_define" value="user_define"{if $image_order_choice=='user_define'} checked="checked"{/if}>
-      <label for="image_order_user_define">{'Manual order'|@translate}</label>
+      <label for="image_order_user_define">{'automatic order'|@translate}</label>
       <div id="image_order_user_define_options">
       {foreach from=$image_orders item=order}
       <p class="field">
@@ -83,10 +85,12 @@ jQuery(document).ready(function() {
       {/foreach}
       </div>
   </fieldset>
-  <p><input class="submit" type="submit" value="{'Submit'|@translate}" name="submit"></p>
+  <p>
+    <input class="submit" type="submit" value="{'Submit'|@translate}" name="submit">
+
+    <label>
+      <input type="checkbox" name="image_order_subcats" id="image_order_subcats">
+      {'Apply to sub-albums'|@translate}
+    </label>
+  </p>
 </form>
-
-
-{else}
-<div class="infos"><p>{'No photo in this album'|@translate}</p></div>
-{/if}

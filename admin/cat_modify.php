@@ -44,26 +44,6 @@ if ( !isset( $_GET['cat_id'] ) || !is_numeric( $_GET['cat_id'] ) )
 //--------------------------------------------------------- form criteria check
 if (isset($_POST['submit']))
 {
-  $image_order = null;
-  if ( !isset($_POST['image_order_default']) )
-  {
-    for ($i=1; $i<=3; $i++)
-    {
-      if ( !empty($_POST['order_field_'.$i]) )
-      {
-        if (! empty($image_order) )
-        {
-          $image_order .= ',';
-        }
-        $image_order .= $_POST['order_field_'.$i];
-        if ($_POST['order_direction_'.$i]=='DESC')
-        {
-          $image_order .= ' DESC';
-        }
-      }
-    }
-  }
-
   $data =
     array(
       'id' => $_GET['cat_id'],
@@ -72,7 +52,6 @@ if (isset($_POST['submit']))
       'comment' =>
         $conf['allow_html_descriptions'] ?
           @$_POST['comment'] : strip_tags(@$_POST['comment']),
-      'image_order' => $image_order,
       );
 
   mass_updates(
@@ -86,14 +65,6 @@ if (isset($_POST['submit']))
 
   // retrieve cat infos before continuing (following updates are expensive)
   $cat_info = get_cat_info($_GET['cat_id']);
-
-  if (isset($_POST['image_order_subcats']))
-  {
-    $query = '
-UPDATE '.CATEGORIES_TABLE.' SET image_order='.(isset($image_order) ? 'NULL':'\''.$image_order.'\'').'
-  WHERE uppercats LIKE \''.$cat_info['uppercats'].',%\'';
-    pwg_query($query);
-  }
 
   if ($cat_info['visible'] != get_boolean( $_POST['visible'] ) )
   {
@@ -244,9 +215,6 @@ $template->assign(
     'CAT_VISIBLE'       => boolean_to_string($category['visible']),
     'CAT_COMMENTABLE'   => boolean_to_string($category['commentable']),
 
-    'IMG_ORDER_DEFAULT'  => empty($category['image_order']) ?
-                              'checked="checked"' : '',
-
     'U_JUMPTO' => make_index_url(
       array(
         'category' => $category
@@ -277,11 +245,12 @@ if ($category['has_images'])
     'U_MANAGE_ELEMENTS',
     $base_url.'batch_manager&amp;cat='.$category['id']
     );
-  $template->assign(
-    'U_MANAGE_RANKS',
-    $base_url.'element_set_ranks&amp;cat_id='.$category['id']
-    );
 }
+
+$template->assign(
+  'U_MANAGE_RANKS',
+  $base_url.'element_set_ranks&amp;cat_id='.$category['id']
+  );
 
 if ($category['is_virtual'])
 {
@@ -302,55 +271,6 @@ else
       )
     );
 }
-
-// image order management
-
-$sort_fields = array(
-  '' => '',
-  'date_creation' => l10n('Creation date'),
-  'date_available' => l10n('Post date'),
-  'average_rate' => l10n('Average rate'),
-  'hit' => l10n('Most visited'),
-  'file' => l10n('File name'),
-  'id' => 'Id',
-  'rank' => l10n('Rank'),
-  );
-
-$sort_directions = array(
-  'ASC' => l10n('ascending'),
-  'DESC' => l10n('descending'),
-  );
-
-$template->assign( 'image_order_field_options', $sort_fields);
-$template->assign( 'image_order_direction_options', $sort_directions);
-
-$matches = array();
-if ( !empty( $category['image_order'] ) )
-{
-  preg_match_all('/([a-z_]+) *(?:(asc|desc)(?:ending)?)? *(?:, *|$)/i',
-    $category['image_order'], $matches);
-}
-
-for ($i=0; $i<3; $i++) // 3 fields
-{
-  $tpl_image_order_select = array(
-      'ID' => $i+1,
-      'FIELD' => array(''),
-      'DIRECTION' => array('ASC'),
-    );
-
-  if ( isset($matches[1][$i]) )
-  {
-    $tpl_image_order_select['FIELD'] = array($matches[1][$i]);
-  }
-
-  if (isset($matches[2][$i]) and strcasecmp($matches[2][$i],'DESC')==0)
-  {
-    $tpl_image_order_select['DIRECTION'] = array('DESC');
-  }
-  $template->append( 'image_orders', $tpl_image_order_select);
-}
-
 
 // representant management
 if ($category['has_images']

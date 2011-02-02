@@ -89,17 +89,20 @@ $image_order_choice = 'default';
 
 if (isset($_POST['submit']))
 {
-  asort($_POST['rank_of_image'], SORT_NUMERIC);
+  if (isset($_POST['rank_of_image']))
+  {
+    asort($_POST['rank_of_image'], SORT_NUMERIC);
   
-  save_images_order(
-    $page['category_id'],
-    array_keys($_POST['rank_of_image'])
-    );
+    save_images_order(
+      $page['category_id'],
+      array_keys($_POST['rank_of_image'])
+      );
 
-  array_push(
-    $page['infos'],
-    l10n('Images manual order was saved')
-    );
+    array_push(
+      $page['infos'],
+      l10n('Images manual order was saved')
+      );
+  }
 
   $image_order = null;
   if (!empty($_POST['image_order_choice']) 
@@ -134,6 +137,19 @@ if (isset($_POST['submit']))
 UPDATE '.CATEGORIES_TABLE.' SET image_order=\''.$image_order.'\'
   WHERE id='.$page['category_id'];
   pwg_query($query);
+
+  if (isset($_POST['image_order_subcats']))
+  {
+    $cat_info = get_cat_info($page['category_id']);
+    
+    $query = '
+UPDATE '.CATEGORIES_TABLE.'
+  SET image_order = '.(isset($image_order) ? '\''.$image_order.'\'' : 'NULL').'
+  WHERE uppercats LIKE \''.$cat_info['uppercats'].',%\'';
+    pwg_query($query);
+  }
+
+  array_push($page['infos'], l10n('Your configuration settings are saved'));
 }
 
 // +-----------------------------------------------------------------------+

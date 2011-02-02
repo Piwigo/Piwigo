@@ -261,3 +261,7 @@ display:block; height:85px; left:225px; position:relative; top:-42px; width:313p
 .languageBox {background-color:#ddd;}
 .languageName {color:black;}
 .languageDefault {background-color:#dbe8f3;}
+
+UL.thumbnails li.rank-of-image { 
+  background-color: #ddd;
+}

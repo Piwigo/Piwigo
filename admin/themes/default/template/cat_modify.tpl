@@ -14,8 +14,8 @@
   {/if}
   {if isset($U_MANAGE_ELEMENTS) }
   <li><a href="{$U_MANAGE_ELEMENTS}" title="{'manage album photos'|@translate}"><img src="{$ROOT_URL}{$themeconf.admin_icon_dir}/category_elements.png" class="button" alt="{'Photos'|@translate}"></a></li>
-  <li><a href="{$U_MANAGE_RANKS}" title="{'manage photo ranks'|@translate}"><img src="{$ROOT_URL}{$themeconf.admin_icon_dir}/ranks.png" class="button" alt="{'ranks'|@translate}"></a></li>
   {/if}
+  <li><a href="{$U_MANAGE_RANKS}" title="{'manage photo ranks'|@translate}"><img src="{$ROOT_URL}{$themeconf.admin_icon_dir}/ranks.png" class="button" alt="{'ranks'|@translate}"></a></li>
   <li><a href="{$U_CHILDREN}" title="{'manage sub-albums'|@translate}"><img src="{$ROOT_URL}{$themeconf.admin_icon_dir}/category_children.png" class="button" alt="{'sub-albums'|@translate}"></a></li>
   {if isset($U_MANAGE_PERMISSIONS) }
   <li><a href="{$U_MANAGE_PERMISSIONS}" title="{'edit album permissions'|@translate}"><img src="{$ROOT_URL}{$themeconf.admin_icon_dir}/category_permissions.png" class="button" alt="{'Permissions'|@translate}"></a></li>
@@ -86,26 +86,6 @@
       </td>
     </tr>
   </table>
-</fieldset>
-
-<fieldset id="image_order">
-  <legend>{'Sort order'|@translate}</legend>
-  <input type="checkbox" name="image_order_default" id="image_order_default" {$IMG_ORDER_DEFAULT}>
-  <label for="image_order_default">{'Use the default photo sort order (defined in the configuration file)'|@translate}</label>
-  <br>
-  <input type="checkbox" name="image_order_subcats" id="image_order_subcats">
-  <label for="image_order_subcats">{'Apply to sub-albums'|@translate}</label>
-  <br>
-  
-  {foreach from=$image_orders item=order}
-    <select name="order_field_{$order.ID}">
-      {html_options options=$image_order_field_options selected=$order.FIELD }
-    </select>
-    <select name="order_direction_{$order.ID}">
-      {html_options options=$image_order_direction_options selected=$order.DIRECTION }
-    </select><br>
-  {/foreach}
-  
 </fieldset>
 
 <p style="text-align:center;">

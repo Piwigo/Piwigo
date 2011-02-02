@@ -6,19 +6,18 @@ UL.thumbnails {
 UL.thumbnails LI { display: inline }
 UL.thumbnails li.rank-of-image { 
   float: left;
-  background-color: #111;
-  border: 1px solid #666;
+  background-color: #333;
   color: #666;
-  -moz-border-radius: 4px;
+  -moz-border-radius: 5px;
   display: block;
   width: 104px;
-  height: 128px;
+  height: 104px;
   cursor: move;
   margin: 10px;
 }
 UL.thumbnails li.rank-of-image img {
   margin: 0 20px;
-  padding: 4px 2px;
+  padding: 8px 2px;
   float: left;
 }
 .clipwrapper {
@@ -30,10 +29,6 @@ UL.thumbnails li.rank-of-image img {
   position:absolute;
 }
 UL.thumbnails li.rank-of-image input {
-  height: 12px; 
-  width: 50px;
-  position: relative;
-  top: 4px;  
 }
 UL.thumbnails SPAN.wrap1 {
   margin: 0 5px 5px 5px;
