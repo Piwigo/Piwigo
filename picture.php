@@ -647,7 +647,8 @@ $picture = trigger_event('picture_pictures_data', $picture);
 
 
 if (isset($picture['next']['image_url'])
-    and $picture['next']['is_picture'] )
+    and $picture['next']['is_picture']
+    and strpos($_SERVER['HTTP_USER_AGENT'], 'Chrome/') === false)
 {
   $template->assign('U_PREFETCH', $picture['next']['image_url'] );
 }
