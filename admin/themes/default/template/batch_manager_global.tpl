@@ -166,6 +166,13 @@ $(document).ready(function() {
   });
 
   $("#selectAll").click(function () {
+    $("input[name=setSelected]").attr('checked', false);
+    selectPageThumbnails();
+    checkPermitAction();
+    return false;
+  });
+
+  function selectPageThumbnails() {
     $(".thumbnails label").each(function() {
       var wrap2 = $(this).children(".wrap2");
       var checkbox = $(this).children("input[type=checkbox]");
@@ -173,11 +180,7 @@ $(document).ready(function() {
       $(checkbox).attr('checked', true);
       $(wrap2).addClass("thumbSelected"); 
     });
-
-    checkPermitAction();
-
-    return false;
-  });
+  }
 
   $("#selectNone").click(function () {
     $("input[name=setSelected]").attr('checked', false);
@@ -214,6 +217,7 @@ $(document).ready(function() {
   });
 
   $("#selectSet").click(function () {
+    selectPageThumbnails();
     $("input[name=setSelected]").attr('checked', true);
     checkPermitAction();
     return false;
