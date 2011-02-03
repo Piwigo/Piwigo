@@ -812,47 +812,6 @@ function get_default_user_info($convert_str = true)
       unset($cache['default_user']['user_id']);
       unset($cache['default_user']['status']);
       unset($cache['default_user']['registration_date']);
-
-      // theme and language fields may be null in the database (see
-      // bug:1683) This is absolutely not nice to have this code in this
-      // very place, but it avoids a complexe upgrade with an "automatic
-      // fix" in the database => this code should be removed after branch
-      // 2.1 if a migration tasks performs the job the same way
-      if (empty($cache['default_user']['theme']))
-      {
-        mass_updates(
-          USER_INFOS_TABLE,
-          array(
-            'primary' => array('user_id'),
-            'update'  => array('theme')
-            ),
-          array(
-            array(
-              'user_id' => $conf['default_user_id'],
-              'theme' => PHPWG_DEFAULT_TEMPLATE
-              )
-            )
-          );
-        $cache['default_user']['theme'] = PHPWG_DEFAULT_TEMPLATE;
-      }
-      
-      if (empty($cache['default_user']['language']))
-      {
-        mass_updates(
-          USER_INFOS_TABLE,
-          array(
-            'primary' => array('user_id'),
-            'update'  => array('language')
-            ),
-          array(
-            array(
-              'user_id' => $conf['default_user_id'],
-              'language' => PHPWG_DEFAULT_LANGUAGE
-              )
-            )
-          );
-        $cache['default_user']['language'] = PHPWG_DEFAULT_LANGUAGE;
-      }
     }
   }
 
