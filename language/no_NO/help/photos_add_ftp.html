@@ -1,0 +1,143 @@
+<fieldset>
+  <legend>Hurtig veiledning</legend>
+
+<ol>
+  <li>Lag en mappe på din datamaskin.</li>
+
+  <li>Kopier noen bilder inn i denne mappen, endre størrelse til web visning. <em>Advarsel</em>:
+
+Navnet til mapper og filer må kun inneholde bokstaver, figurer, "-", "_" eller ".". Ingen blanke
+
+mellomrom, ei heller opphøyde karakterer.</li>
+
+  <li>Med en ftp klient, kopier mappen din inn i "galleries" mappen i din Piwigo installasjon.</li>
+
+  <li>Logg inn i ditt glleri og gå til <span class="pwgScreen">Administrasjon &raquo; Verktøy
+
+&raquo; Miniatyr bilder</span> for å lage manglende miniatyr bilder.</li>
+
+  <li>Gå til <span class="pwgScreen">Administrasjon</span> og klikk på den store synkroniserings
+
+knappen.</li>
+</ol>
+
+Gratulerer! Du har nå laget ditt første album i ditt foto galleri.
+</fieldset>
+
+<fieldset>
+  <legend>Mapper og fil organisering</legend>
+
+<ul>
+
+  <li>
+
+    <p>Album mapper er i Piwigo mappen "galleries". Her følger mappestrukturen til et veldig lite
+
+galleri (men bruker mange muligheter):</p>
+
+    <pre>
+.
+|-- admin
+|-- doc
+|-- gallerier
+|   |-- album-1
+|   |   |-- album-1.1
+|   |   |   |-- album-1.1.1
+|   |   |   |   |-- album-1.1.1.1
+|   |   |   |   |   |-- pwg_high
+|   |   |   |   |   |   +-- wedding.jpg
+|   |   |   |   |   |-- miniatyrbilder
+|   |   |   |   |   |   +-- TN-wedding.jpg
+|   |   |   |   |   +-- wedding.jpg
+|   |   |   |   +-- album-1.1.1.2
+|   |   |   +-- album-1.1.2
+|   |   |-- album-1.2
+|   |   |   |-- pookie.jpg
+|   |   |   +-- miniatyrbilder
+|   |   |       +-- TN-pookie.jpg
+|   |   +-- album-1.3
+|   +-- album-2
+|       |-- piglet.gif
+|       |-- pwg_representative
+|       |   +-- video.jpg
+|       |-- miniatyrbilder
+|       |   +-- TN-piglet.jpg
+|       +-- video.avi
+|-- include
+|-- install
+|-- language
+|-- template
++-- tool</pre>
+
+  </li>
+
+  <li>Untagen de med navnet "miniatyrbilder", "pwg-high" eller "pwg_representative" (se forklaring
+
+under), vil hver mappe under "gallerier" representerer et album. Det er ingen begrensning på dybden
+
+i strukturen.</li>
+
+  <li>Hovedsakelig, et element er representert av en fil. En fil kan være et Piwigo element om dets
+
+fil endelse er iblandt <code>file_ext</code>
+  konfigurasjons parametres muligheter(se <span
+  class="filename">inkluder/config_default.inc.php</span> file). En fil kan være et bilde om dets
+
+fil endelse er blandt <code>picture_ext</code>
+  konfigurasjons parametres muligheter.</li>
+
+  <li>Bilde elementer må ha et assosiert miniatyr bilde (se seksjonen under om miniatyr bilder)</li>
+
+  <li>Bilde elementer kan ha høy kvalitets filer assosiert. Som for eks wedding.jpg i eksempelet
+
+over. Ingen prefix på høy kvalitets bildet.</li>
+
+  <li>Ingen bilde elementer (video, lyder, fil tekster, hva du måtte ønske...) er representert som
+
+standard med et icon tillhørende fil endelsen. Valgfritt, kan du assosiere et miniatyr bilde
+
+og en representativ fil (se video.avi i eksempelet over).</li>
+
+  <li><em>Advarsel</em>: navnet på mapper og filer må kun inneholde bokstaver, figurer, "-", "_"
+
+eller ".". Ingen tomme mellomrom, ei heller opphøyde karakterer.</li>
+
+  <li>Når så filer, miniatyr bilder og representativer er korrekt plassert i mappene, gå til: <span
+
+class="pwgScreen">Administrasjon &raquo; Verktøy &raquo;
+  Synkroniser</span></li>
+
+</ul>
+</fieldset>
+
+<fieldset>
+  <legend>Miniatyr bilder</legend>
+<ul>
+
+  <li>Hvert bilde må ha sitt miniatyr bilde.</li>
+
+  <li>Miniatyr bilde blir lagret i "miniatyrbilde " under mappe i album
+  mappen. Miniatyr bildene har det samme filnavnet som bildet det passer opp mot, med konfigurasjons
+
+parametrene <code>prefix_thumbnail</code> som prefix (se <span
+
+class="filename">inkluder/config.inc.php</span>).</li>
+
+  <li>Miniatyr bilde filer bør ikke nødvendigvis ha samme fil endelse som det assosierte bildet (Eks
+
+".jpg" bilde kan ha ".GIF" endelse).</li>
+
+  <li>Det anbefales å bruker en ekstern modul for å lage miniatyr bilder.</li>
+
+  <li>Bruken av miniatyr bilde oprettelses verktøyet integrert i Piwigo er ikke anbefalt, Dette
+
+fordi den resulterte kvaliteten kan være skuffende og den vil bruke mye server ressurser (Dette kan
+
+være et stort problem på en delt server).
+
+  <li>Om du vleger å bruker web serveren til å lage miniatyr bilder, må du gi skrive rettigheter på
+
+alle album mappene.</li>
+
+</ul>
+</fieldset>
