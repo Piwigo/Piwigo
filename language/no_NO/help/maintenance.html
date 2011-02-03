@@ -1,0 +1,63 @@
+<h2>Vedlikehold</h2>
+
+<p>For å optimalisere side genererings tiden, bruker Piwigo mellomlagret informasjon. For eksempel, i stedet for å telle antall bilder i hvert
+
+album hver gang siden relastes, blir denne informasjonen lagret i databasen. I teorien bør denne infomasjonen alltid være korrekt, men ved noen
+
+anledninger kan en feil oppstå og den lagrede informasjonen blir feil.</p>
+
+<p>Noe informasjon blir ubrukelig ettersom tiden går. Sletting av disse unødige dataene vil frigjøre mere diskplass.</p>
+
+<ul>
+
+  <li>
+    <strong>Ulinkede bilder:</strong>
+    Vis bilder som ikke er assosiert til noen virtuelle album.
+  </li>
+  <li>
+    <strong>Filer med samme navn i mer en et fysisk album:</strong>
+    Vis bilder eller filer som er funnet med samme filnavn i flere album.
+  </li>
+
+</ul>
+
+<ul>
+
+  <li><strong>Oppdater album informasjon:</strong> For hvert album,
+  følgende informasjon blir sjekket og oppdatert ved behov: liste over hoved album, antall bilder, siste bilde dato, posisjon rundt relaterte
+
+album, posisjon iblandt alle album. Dette tiltaket sjekker også representative bilders ektehet.</li>
+
+  <li><strong>Oppdater bilde informasjon:</strong> For hvert bilde,
+  oppdatert informasjon er: full sti til filen, gjennomsnittlige stemmer. <em>Advarsel</em>, må ikke blandes med: metadata informasjon
+  må synkroniseres fra <span class="pwgScreen">Administrasjon &raquo;
+  Verktøy &raquo; Synkronisering</span>, eller i modifikasjons skjerm bildet til et enkelt bilde (gjennom <span class="pwgScreen">Bilder</span>
+
+for
+  eksempel).</li>
+
+  <li><strong>Reprer og optimaliser databasen:</strong>
+  Gjennomfør reorganisering, reparer og optimaliser rutiner i hver tabell i databasen.
+  </li>
+</ul>
+
+<ul>
+  <li><strong>Tøm historikk detaljer:</strong> Slett alle linjer fra <code>historik</code> tabellen. Skjermvindu <span
+
+class="pwgScreen">Administrasjon &raquo;
+  Verktøy &raquo; Historik</span> vil ikkke lenger vise informasjon for tidligere historikk. <em>Advarsel</em>: alle data vil bli borte uten
+
+noen mulighet for å få de tilbake.</li>
+
+  <li><strong>Tøm historikk sammendrag:</strong> Slett all informasjons historik om alle besøk. Dette sammendraget er kalkulert fra historikk
+
+detaljene.</li>
+
+  <li><strong>Tøm sesjon:</strong> Slett utgåtte bruker sesjoner.</li>
+
+  <li><strong>Tøm informasjons matinger som aldrig er brukt</strong></li>
+
+  <li><strong>Tøm søke historikk</strong></li>
+ 
+  <li><strong>Tøm kompilerte maler</strong></li> 
+</ul>
