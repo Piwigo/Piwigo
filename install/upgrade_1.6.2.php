@@ -77,7 +77,7 @@ CREATE TABLE `".PREFIX_TABLE."history` (
   `image_type` enum('picture','high','other') default NULL,
   PRIMARY KEY  (`id`),
   KEY `history_i1` (`summarized`)
-) TYPE=MyISAM
+) ENGINE=MyISAM
 ;",
 
 "
@@ -135,7 +135,7 @@ CREATE TABLE `".PREFIX_TABLE."history_summary` (
   `hour` tinyint(2) default NULL,
   `nb_pages` int(11) default NULL,
   PRIMARY KEY  (`id`)
-) TYPE=MyISAM
+) ENGINE=MyISAM
 ;",
 
 "
@@ -146,7 +146,7 @@ CREATE TABLE `".PREFIX_TABLE."old_permalinks` (
   `last_hit` datetime default NULL,
   `hit` int(10) unsigned NOT NULL default '0',
   PRIMARY KEY  (`permalink`)
-) TYPE=MyISAM
+) ENGINE=MyISAM
 ;",
 
 "
@@ -155,7 +155,7 @@ CREATE TABLE `".PREFIX_TABLE."plugins` (
   `state` enum('inactive','active') NOT NULL default 'inactive',
   `version` varchar(64) NOT NULL default '0',
   PRIMARY KEY  (`id`)
-) TYPE=MyISAM
+) ENGINE=MyISAM
 ;",
 
 "
@@ -166,7 +166,7 @@ CREATE TABLE `".PREFIX_TABLE."user_cache_categories` (
   `count_images` mediumint(8) unsigned default '0',
   `count_categories` mediumint(8) unsigned default '0',
   PRIMARY KEY  (`user_id`,`cat_id`)
-) TYPE=MyISAM
+) ENGINE=MyISAM
 ;",
 
 /* TABLE DROPPED BEFORE Butterfly/Piwigo release - see later DROP IF EXISTS
@@ -182,7 +182,7 @@ CREATE TABLE `".PREFIX_TABLE."ws_access` (
   `comment` varchar(255) default NULL,
   PRIMARY KEY  (`id`),
   UNIQUE KEY `ws_access_ui1` (`name`)
-) TYPE=MyISAM COMMENT='Access for Web Services'
+) ENGINE=MyISAM COMMENT='Access for Web Services'
 ;",*/
 
 "

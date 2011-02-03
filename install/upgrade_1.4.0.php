@@ -138,7 +138,7 @@ CREATE TABLE piwigo_caddie (
   user_id smallint(5) NOT NULL default '0',
   element_id mediumint(8) NOT NULL default '0',
   PRIMARY KEY  (user_id,element_id)
-) TYPE=MyISAM
+) ENGINE=MyISAM
 ;",
 
   "
@@ -147,7 +147,7 @@ CREATE TABLE piwigo_user_cache (
   need_update enum('true','false') NOT NULL default 'true',
   forbidden_categories text,
   PRIMARY KEY  (user_id)
-) TYPE=MyISAM
+) ENGINE=MyISAM
 ;",
 
   "
@@ -156,7 +156,7 @@ CREATE TABLE piwigo_user_feed (
   user_id smallint(5) NOT NULL default '0',
   last_check datetime default NULL,
   PRIMARY KEY  (id)
-) TYPE=MyISAM
+) ENGINE=MyISAM
 ;",
 
   "
@@ -174,7 +174,7 @@ CREATE TABLE piwigo_user_infos (
   template varchar(255) NOT NULL default 'yoga',
   registration_date datetime NOT NULL default '0000-00-00 00:00:00',
   UNIQUE KEY user_infos_ui1 (user_id)
-) TYPE=MyISAM
+) ENGINE=MyISAM
 ;"
   );
 

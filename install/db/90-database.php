@@ -34,7 +34,7 @@ CREATE TABLE ".PREFIX_TABLE."languages (
   `version` varchar(64) NOT NULL default '0',
   `name` varchar(64) default NULL,
   PRIMARY KEY  (`id`)
-)";
+) ENGINE=MyISAM";
 
 if (DB_CHARSET == 'utf8')
 {

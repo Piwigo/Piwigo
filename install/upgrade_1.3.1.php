@@ -55,7 +55,7 @@ CREATE TABLE phpwebgallery_config (
   value varchar(255) default NULL,
   comment varchar(255) default NULL,
   PRIMARY KEY  (param)
-) TYPE=MyISAM COMMENT='configuration table'
+) ENGINE=MyISAM COMMENT='configuration table'
 ;",
 
   "
@@ -279,7 +279,7 @@ CREATE TABLE phpwebgallery_rate (
   element_id mediumint(8) unsigned NOT NULL default '0',
   rate tinyint(2) unsigned NOT NULL default '0',
   PRIMARY KEY  (user_id,element_id)
-) TYPE=MyISAM
+) ENGINE=MyISAM
 ;",
 
   "
@@ -288,7 +288,7 @@ CREATE TABLE phpwebgallery_user_forbidden (
   need_update enum('true','false') NOT NULL default 'true',
   forbidden_categories text,
   PRIMARY KEY  (user_id)
-) TYPE=MyISAM
+) ENGINE=MyISAM
 ;",
 
   "
