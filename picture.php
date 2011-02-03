@@ -859,7 +859,7 @@ if (!empty($picture['current']['date_creation']))
       'chronology_field'=>'created',
       'chronology_style'=>'monthly',
       'chronology_view'=>'list',
-      'chronology_date' => explode('-', $picture['current']['date_creation'])
+      'chronology_date' => explode('-', substr($picture['current']['date_creation'], 0, 10))
       )
     );
   $infos['INFO_CREATION_DATE'] =

@@ -89,7 +89,11 @@ function get_sync_exif_data($file)
   {
     if (in_array($pwg_key, array('date_creation', 'date_available')))
     {
-      if (preg_match('/^(\d{4}).(\d{2}).(\d{2})/', $value, $matches))
+      if (preg_match('/^(\d{4}).(\d{2}).(\d{2}) (\d{2}).(\d{2}).(\d{2})/', $value, $matches))
+      {
+        $exif[$pwg_key] = $matches[1].'-'.$matches[2].'-'.$matches[3].' '.$matches[4].':'.$matches[5].':'.$matches[6];
+      }
+      elseif (preg_match('/^(\d{4}).(\d{2}).(\d{2})/', $value, $matches))
       {
         $exif[$pwg_key] = $matches[1].'-'.$matches[2].'-'.$matches[3];
       }

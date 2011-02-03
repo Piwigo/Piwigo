@@ -176,7 +176,7 @@ CREATE TABLE `piwigo_images` (
   `id` mediumint(8) unsigned NOT NULL auto_increment,
   `file` varchar(255) binary NOT NULL default '',
   `date_available` datetime NOT NULL default '0000-00-00 00:00:00',
-  `date_creation` date default NULL,
+  `date_creation` datetime default NULL,
   `tn_ext` varchar(4) default '',
   `name` varchar(255) default NULL,
   `comment` text,
