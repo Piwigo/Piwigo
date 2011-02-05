@@ -1,0 +1,35 @@
+<h2>Fjern sider</h2>
+
+<p>Piwigo gir mulighet for å bruker flere servere å lagre bilder som vil danne ditt galleri. Dette kan være nyttig om ditt galleri er installert på en server med begrenset plass og du har en stor mengde bilder å vise.</p>
+
+<ol>
+
+  <li>rediger file <span class="filename">verktøy/create_listing_file_local.inc.php</span>,
+  ved å modifisere seksjons parametrene <code>$conf['prefix_thumbnail']</code> eller
+  <code>$conf['use_exif']</code>.</li>
+
+  <li>ved bruk av ftp, plaser filene <span class="filename">verktøy/create_listing_file.php</span>
+  og <span class="filename">verktøy/create_listing_file_local.inc.php</span> (modifisert)
+  på din eksterne web side, i den samme mappen som dine album mapper (som mappen <span class="filename">gallerier</span> i web siden). For eksempel, la oss si at du kan gå inn på <span
+  class="filename">http://example.com/galleries/create_listing_file.php</span>.</li>
+
+  <li>gå til <span class="pwgScreen">administrasjons panelet &raquo; Verktøy &raquo; Side behandler</span>. Spør om å lage ny side, for eksempel <span
+  class="filename">http://example.com/galleries</span>.</li>
+
+  <li>en ny ekstern side blir da registrert. Du kan nå gjøre 4 tiltak :
+
+    <ol>
+
+      <li><strong>generere en liste</strong> : kjør en fjern forespørsel for generere en fjern fil liste</li>
+
+      <li><strong>synkroniser</strong> : leser den fjerne <span
+      class="filename">listing.xml</span> filen og synkroniserer den med database informasjonen</li>
+
+      <li><strong>Rens</strong> : fjerner fjern <span
+      class="filename">listing.xml</span> filer</li>
+
+      <li><strong>slett</strong> : sletter sidens (og alle relaterte album og bilder) i the databasen</li>
+
+    </ol>
+  </li>
+</ol>
