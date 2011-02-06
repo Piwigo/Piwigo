@@ -1,0 +1,92 @@
+
+<h2>Utvidelse for mal konfigurasjon</h2>
+
+<h3>Mål</h3>
+<p>Definere erstatnings status for hver malfra mal utvidelesen (mal kalt "replacer").</p>
+
+<p>"orginal mal" fra ./themes/default/template (eller hvilken som helst annet tema)
+vil bli erstattet av en "erstatter" om erstatteren er linket til denne "orginal malen"
+(eller, når den ønskede URL´en består av "valgfri URL nøkkelord").</p>
+
+<p>"Alternativ URL nøkkelord" er de du kan finne etter modilnavnets i URL´er.</p>
+
+<p>Derfor kan "Alternativ URL nøkkelord" være en aktiv "permalink"
+(se permalinker i vår dokumentasjon for videre forklaring).</p>
+
+<p>Les: `<a href="#warnings">Advarsel</a>` bruker tilrettelegginger.</p>
+
+<h3>Hva er mal utvidelser?</h3>
+
+<p>Dette konfigurasjons verktøyet er kraftfult både for nybegynnere og viderkommende brukere.
+Med FTP, i mal-utvideles mappen, kan web masteren duplikere en rekke av de distribuerte .tpl filene ("orginal male") med et annet navn
+("erstatter").
+
+"Orginal maler", tidligere orginalt støttede maler er:</p>
+<ul>
+  <li><span class="filename">index.tpl</span></li>
+  <li><span class="filename">mainpage_categories.tpl</span> and/or <span class="filename">thumbnails.tpl</span></li>
+  <li><span class="filename">menubar.tpl</span></li>
+  <li><span class="filename">header.tpl</span> and/or <span class="filename">footer.tpl</span></li>
+  <li><span class="filename">picture_content.tpl</span> and/or <span class="filename">picture.tpl</span></li>
+  <!-- <li><span class="filename">slideshow.tpl</span></li> -->
+  <li><span class="filename">profile.tpl</span> and/or <span class="filename">profile_content.tpl</span></li>
+  <li><span class="filename">tags.tpl</span></li>
+  <li><span class="filename">upload.tpl</span></li>
+  <li><span class="filename">about.tpl</span></li>
+  <li><span class="filename">popuphelp.tpl</span></li>
+  <li><span class="filename">search.tpl</span> and/or <span class="filename">search_rules.tpl</span></li>
+  <li><span class="filename">nbm.tpl</span> and/or <span class="filename">notification.tpl</span></li>
+  <li><span class="filename">identification.tpl</span> and/or <span class="filename">register.tpl</span></li>
+  <li><span class="filename">redirect.tpl</span></li>
+</ul>
+
+<h3>Hvor kan jeg finne "orginal maler"?</h3>
+
+<p>Distribuerte orginal maler er i /themes/default/template/
+(ikke rediger dem med tanke på opggradering). Så med "orginal maler",
+hvilken som helst webmaster kan lage sin "erstatter (modifiserte maler)".</p>
+
+<h3>Hvor bør jeg lagre "erstattere"?</h3>
+
+<p><strong>Erstattere (modifiserte maler)</strong> mæ ligge i template-extension mappenr (eller i sine under mapper).
+Erstattere kan ha hvilket som helst navn med .tpl ending. For eksempel: <span
+class="filename">template-extension/my-extension/video.tpl</span>.</p>
+
+
+<h3>Hvordan kan jeg aktivere min "erstatter"?</h3>
+<p>An <strong>orginal mal</strong> bør være knyttet til hver <strong>erstatter (egendefinert mal)</strong> for å aktivere de relaterte erstatningene.
+Dette er målet til "utvidelse for maler" i konfigurasjon administrasjons menyen.</p>
+
+<p>Du kan velge et <strong>alternativ URL nøkkel ord</strong> da vil erstatteren gjelde kun på de sidene med dette nøkkelordet. For eksempel: <span
+  class="pwgScreen">index.php?/<strong>mest_besøkte</strong></span></p>
+
+<p>Avanserte brukere vil bruke permalinker som <strong>alternative URL nøkkel ord</strong>. </p>
+
+<p>Om du velger en <strong>Bundet mal</strong> vil erstatningen kun gjelde på denne malen.</p>
+
+<h3>Hvordan kan jeg deaktivere min "erstatter"?</h3>
+<ul>
+<li>Velg bort relaterte "orginal maler".</li>
+<li>Med FTP slett "erstattere".</li>
+</ul>
+<a name="Advarsler"></a>
+<h3>Advarsler</h3>
+<ul>
+
+  <li><strong>Orginal mal</strong> må være den "orginale" malen ellers kan du få uventede resultater!</li>
+
+  <li>På flere <strong>erstattere (modifiserte maler)</strong> med samme<strong>Orginal mal</strong> og den samme <strong>valgfrie URL
+  nøkkel ord</strong> vil kun den siste erstatteren være aktiv.</li>
+
+  <li>Velg bort <strong>alternativ URL nøkkel ord</strong> vil aktivere erstatteren på hvem som helst mal i bruk. Som i forrige punkt,
+    rekkefølge kan overkjøre forrige valgte erstatter.</li>
+
+  <li>Undermapper:
+Undermapper blir ignorert men de er nyttige for å endre gjeldende rekkefølge.<br>
+distribuerte-eksempler: Disse er sendt med for utprøving!
+<strong>Ikke rediger dem</strong> Lag dine egne.
+</li>
+
+  <li>Ved sletting av en erstatter blir den<strong>Orginale malen</strong> umiddelbart reaktivert.</li>
+
+</ul>
