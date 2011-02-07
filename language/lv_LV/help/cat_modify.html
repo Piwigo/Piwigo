@@ -1,106 +1,45 @@
-<h2>Rediģēt kategoriju</h2>
-
-<h3>Informācija</h3>
-
-<ul>
-
-<li><strong>nosaukums</strong>: pārdēvē kategoriju (virtuāla pārdēvēšana fiziskas kategorijas gadījumā).</li>
-
-<li><strong>apraksts>: īss apraksts, kas dod galveno informāciju par saturu,
-   šis teksts izvietots sīkbilžu lapas apakšā.</li>
-
-</ul>
-
-<h3>Pārvietot</h3>
-
-<p>Ja kategorija ir virtuāla to var pārvietot. Pārvietot kategoriju nozīmē izmainīt tās pamatkategoriju.</p>
-
-<h3>Izvēles iespējas</h3>
-
-<ul>
-
-<li><strong>Piekļuves tips</strong>: Piekļuves atļauju pārvaldība. Ja padarāt kategoriju privātu, visas tai radniecīgās apakškategorijas kļūst privātas.Ja padarāt kategoriju publiski pieejamu, tad arī visas tai radniecīgās apakškategorijas kļūst pieejamas.</li>
-
-<li><strong>Bloķēšana</strong>: Kategorija un tās apakškategorijas uz profilakses laiku tiks slēgtas piekļuvei.</li>
-
-<li><strong>Komentāri</strong>: Ļauj lietotājiem komentēt šīs kategorijas elementus.</li>
-
-<li><strong>Atļauja augšupielādēt</strong>: Atļauj lietotājiem augšupielādēt attēlu failus. Šī iespēja dota tikai fiziskām (nevis virtuālām) kategorijām.</li>
-
-</ul>
-
-<p>Šīs iespējas pieejamas arī no "Properties" (rekvizītu) pārvaldes loga (logi <span class="pwgScreen">Augšuplāde</span>, <span class="pwgScreen">Komentāri</span>, <span class="pwgScreen">Boķēšana</span>, <span class="pwgScreen">Publisks/Privāts</span>, <span class="pwgScreen">Pārstāvis</span> pieejams no <span class="pwgScreen">Administrēšana, Kategorijas, Rekvizīti</span>).</p>
-
-<h3>Kārtošanas secība</h3>
-
-<p>Lieto attēlu kārtošanas secību pēc noklusējuma.</p>
-
-<p>Norāda vai šī lietu kārtošanas secība attiecas arī uz apakškategorijām.</p>
-
-<p>Izvēlas atbilstošus kārtošanas kritērijus šai kategorijai.</p>
-<ul>
-<li><strong>Izveides datums</strong>: Attēla uzņemšanas datums</li>
-<li><strong>Iesūtīšanas datums</strong>: Sinhronizācijas datums</li>
-<li><strong>Vidējai vērtējums (*)</strong>: Apmeklētāja novērtējums var izmainīt vidējo vērtējumu </li>
-<li><strong>Visvairāk apmeklētais (*)</strong>: Tekošais apmeklējums var izmainīt visvairāk apmeklēto secību</li>
-<li><strong>Faila nosaukums</strong>: Vārds, kas piešķirts informācijas laukā</li>
-<li><strong>Id</strong>: Iekšējais Id (tekošajām kategorijām ir augstāks id kā vecākajām</li>
-
-</ul>
-<p><strong>(*)</strong>Brīdinājums: ieteikums izmēģināt šos kārtošanas kritērijus, jo tie var dod arī neparedzamus rezultātus.</p>
-
-
-<h3>Pārstāvība</h3>
-
-<p>Kategoriju pārstāv sīkbilde galvenajā lapā (<span class="pwgScreen">category.php</span>) lai pārstāvētu kategoriju, kad tajā ir tikai apakškategorijas un neviena tieša elementa (tāpat kā pamatkategorija).</p>
-
-<p>Ir 4 dažādi veidi kā noformēt kategoriju pārstāvošo attēlu :</p>
-
-<ul>
-
-<li><span class="pwgScreen">Attēla lapa</span>: viena no pogām ļauj Jums iestatīt patlabanējo attēlu kā šo kategoriju reprezentējošo attēlu. Šī darbība pieejama tikai administratoriem.</li>
-
-<li><span class="pwgScreen">Informācijas par attēlu modificēšana</span> administrācijā. Šis logs pieejams no <span class="pwgScreen">picture.php</span> vai <span class="pwgScreen">Grupas vadības</span> <em> vienības režīmā </em>. Detaļas skatiet šī loga palīgā.</li>
-
-<li><span class="pwgScreen">Administrēšana, Kategorijas, Rekvizīti, Pārstāvība</span>. Detaļas skatiet šī loga palīgā.</li>
-
-<li><span class="pwgScreen">Kategorijas rediģēšana</span> (esošais logs).</li>
-
-</ul>
-
-<p>Pārstāvniecības izvēle atkarīga no <code>allow_random_representative</code> konfigurācijas parametriem failā (see <span class="filename">include/config_default.inc.php</span>).</p>
-
-<p>Noklusēšanas režīmā (<code>allow_random_representative</code> set to false),
-katra kategorija, kas satur vismaz vienu elementu, ir pārstāvēta ar fiksētu elementu. Kad pārstāvība noteikta (pie kategorijas izveides), to var nomainīt tikai administrators. Gadījuma, ja pārstāvība nav atbilstoša, Jūs varat mēģināt <strong>Atrast jaunu pārstāvi izmantojot nejaušu izvēli</strong>.</p>
-
-<p>Ja <code>allow_random_representative</code> konfigurācijas parametrs ir patiesā (true) stāvoklī, elementus saturošajai kategorijai var nebūt fiksētas pārstāvības. Vienkārši lietojiet <strong>Dzēst pārstāvi</strong> pogu.</p>
-
-<p>Ja kategorijā ir tikai apakškategorijas un neviena elementa, to tik un tā var pārstāvēt jebkurš elements ņemts no <span class="pwgScreen">Informācijas par attēlu modificēšanas</span> loga. Vienīgā aktīvā iespēja esošajā logā ir <strong>Dzēst pārstāvi</strong> poga.</p>
-
-<h3>Sasaistīt visus kategorijas elementus ar jaunu kategoriju</h3>
-
-<ul>
-
-<li><strong>Virtuālās kategorijas nosaukums</strong>: Jaunizveidojamās kategorijas nosaukums, visi esošās kategorijas attēli tiks sasaistīti ar jaunizveidoto kategoriju.</li>
-
-<li><strong>Pamatkategorija</strong>: Vieta, kur tiks veidota jauna kategorija, atstājiet tukšu, lai izveidotu to saknes mapē.</li>
-
-</ul>
-
-<h3>Sasaistīt visu kategoriju elementus ar esošajām kategorijām</h3>
-
-<ul>
-
-<li><strong>Kategorijas</strong>: Izvēlietie mērķa kategoriju.</li>
-
-</ul>
-
-<h3>Informācijas nosūtīšana ar e-pastu grupas biedriem</h3>
-
-<ul>
-
-<li><strong>Grupa</strong>: saņēmēju grupa</li>
-
-<li><strong>Pasta saturs</strong>: Brīvs teksta ziņojums priekš viņiem.</li>
-
-</ul>
+ <h2>Regiģēt albūmu</h2>
+ <h3>Informācija</h3>
+ <ul> <li><strong>nosaukums</strong>: pārsaukt albūmu (virtuāla pārsaukšana fiziska albūma gadījumā).</li>
+   <li><strong>apraksts</strong>: īss skaidrojošs teksts, kas raksturo satura pamatideju,    šis teksts tiek rādīts sīkbilžu lapas apakšpusē.</li>
+ </ul>
+ <h3>Pārvietošana</h3>
+ <p>Ja albūms ir virtuāls, to iespējams pārvietot. Albūma pārvietošana nozīmē tā pamatalbūma (parent album) izmaiņas.</p>
+ <h3>Izvēles iespējas </h3>
+ <ul> <li><strong>Piekļuves veids</strong>: Atļauju pārvaldīšana. Ja padarāt albūmu privātu, visi tam pakļautie  (child) albūmi kļūst privāti. Ja padarāt albūmu publisku, visi tā pamatalbūmi (parent) publiski.</li>
+   <li><strong>Bloķēšana</strong>: Albūms un visi tā apakšalbūmi uz laiku tiek slēgti apkalpošanas pasākumiem.</li>
+   <li><strong>Komentāri</strong>: Autorizē lietotājus šī albūma fotogrāfiju komentēšanai.</li>
+ </ul>
+ <p>Jūs varat pārvaldīt šīs opcijas arī no &quot;Properties&quot; (rekvizīti) pārvaldīšanas loga (logi Komentāri, Slēgt, <span class="pwgScreen">Publisks/Privāts</span>, <span class="pwgScreen">Pārstāvim pieejams no Administrāšana</span><span class="pwgScreen"> &raquo; Albūmi &raquo; Rekvizīti</span>).</p>
+ <h3>Kārtošanas secība </h3>
+ <p>Lietot attēlu kārtošanas secību pēc noklusējuma.</p>
+ <p>Norādiet, vai šī kārtošanas secība attiecināma arī uz apakšalbumiem.</p>
+ <p>Izvēlēties noteiktus kārtošanas kritērijus, kas būtu jāizmanto  šim albūmam.</p>
+ <ul> <li><strong>Izveides datums</strong>: Fotogrāfijas uzņemšanas datums</li>
+   <li><strong>Iesniegšanas datums</strong>: Sinhronizācijas datums</li>
+   <li><strong>Vidējais vērtējums (*)</strong>: Vidējais vērtējums var tikt izmainīts pēc apmeklētāju vērtējuma</li>
+   <li><strong>Visvairāk apmeklētie (*)</strong>: Tekošais vērtējums var izmainīt visvairāk apmeklēto secību</li>
+   <li><strong>Faila nosaukums</strong>: Nosaukums, kas dots informācijas laukā</li>
+   <li><strong>Id</strong>: Iekšējais Id (tekošajām kategorijām ir lielāks id, kā iepriekšējām).</li>
+ </ul>
+ <p><strong>(*)</strong>Brīdinājums: Pārliecinieties par šo kārtošanas secību darbības pareizību pats, jo pretējā gadījumā tas var dot neparedzētus rezultātus.</p>
+ <h3>Pārstāvība</h3>
+ <p>Albūma pārstāvis  ir galvenajā lapā attēlotais sīktēls  (<span class="pwgScreen">category.php</span>), lai pārstāvētu to, kad tajā ir tikai apakšalbūmi un tajā nav neviena attēla  (glauži kā saknes albūma gadījumā).</p>
+ albūma foto :</p>
+ <ul> <li><span class="pwgScreen">Foto lapa</span>: viena no darbības pogām ļauj iestatīt pašreizējo fotoattēlu kā attēlojamā albūma pārstāvi. Šī poga pieejama tikai administratoriem.</li>
+   <li><span class="pwgScreen">Modificēt informāciju par foto pārvaldē</span>. Šajā logā var nonākt no <span    class="pwgScreen">picture.php</span> vai no  Grupas (batch) vadības, kas atrodas <em>unit mode vienības režīmā</em>. Detaļām, skatīt palīdzībā par šī loga izmantošanu.</li>
+   <li><span class="pwgScreen">Administrēšana &raquo; Albūmi &raquo; Rekvizīti,    Pārstāvis</span>. Detaļas skatīt palīdzībā par šī loga izmantošanu.</li>
+   <li><span class="pwgScreen">Rediģēt albūmu</span> (šajā logā).</li>
+ </ul>
+ <p>Pārstāvja izvēle ir atkarīga no <code>allow_random_representative</code> konfigurācijas parametra (skatīt <span class="filename">include/config_default.inc.php</span>).</p>
+ <p>Noklusēšanas režīmā  (<code>allow_random_representative</code> ir iestatīts false), katrs albūms, kurā ir vismaz viens elements, ir pārstāvēts ar fiksētu elemntu. Reiz istatīts (pie albūma izveides), pārstāvi maina tikai tad, ja administrators to pieprasa. Ja pārstāvis ir neatbilstošs situācijai, jūs varat vaicāt pēc jauna  pārstāvja - <strong>Atrast jaunu pārstāvi, izmantojot nejaušu izvēli</strong>.</p> <p>Ja <code>allow_random_representative</code> konfigurācijas parametrs ir iestatīts stāvoklī true, fotogrāfijas saturošai kategorijai var būt nefiksēts pārstāvis. Lietojiet pogu <strong>Dzēst pārstāvi</strong>.</p>
+ <p>Ja albūmā ir tikai apakšalbūmi un nav neviena foto, tomēr, pateicoties Modificēyai informācijai par foto ekrānu, to var pārstāvēt jebkurš elements. Vienīgā izvēlne uz šī ekrāna ir poga <strong>Dzēst pārstāvi</strong>.</p>
+ <h3>Sasaistīt visas albūma fotogrāfijas ar jaunu albūmu</h3> <ul> <li><strong>Virtuālā albūma nosaukums</strong>: Jaunizveidotajā un jaunnosauktajā albūmā visas pašreizējās kategorijas fotogrāfijas būs sasaistītas ar jaunoizveidoto.</li>
+ <li><strong>Pamatalbūms</strong>: Atstājiet tukšu vietu, kur paredzēts izveidot jauno albūmu, lai to izveidotu saknē.</li> </ul>
+ <h3>Sasaistīt visas albūma fotogrāfijas ar eksistējošu albūmu</h3> <ul> <li><strong>Albums</strong>: Izvēlieties mērķalbūmu..</li> </ul>
+ <h3>Nosūtīt informāciju uz e-pastu grupas dalībniekiem</h3> <ul> <li><strong>Grupa</strong>: saņēmēju grupa </li>
+   <li><strong>Pasta saturs</strong>: Viņiem brīvā formā nosūtāmais teksta ziņojums </li> </ul> --------------------- Actual LV Version -------------------
+ <h2>Rediģēt kategoriju</h2> <h3>Informācija</h3> <ul> <li><strong>nosaukums</strong>: pārdēvē kategoriju (virtuāla pārdēvēšana fiziskas kategorijas gadījumā).</li>
+ <li><strong>apraksts</strong>: īss apraksts, kas sniedz galveno informāciju par saturu,     šis teksts izvietots sīkbilžu lapas apakšā.</li> </ul> <h3>Pārvietot</h3> <p>Ja kategorija ir virtuāla to var pārvietot. Pārvietot kategoriju nozīmē izmainīt tās pamatkategoriju.</p> <h3>Izvēles iespējas</h3> <ul> <li><strong>Piekļuves tips</strong>: Piekļuves atļauju pārvaldība. Ja padarāt kategoriju privātu, visas tai radniecīgās apakškategorijas kļūst privātas.Ja padarāt kategoriju publiski pieejamu, tad arī visas tai radniecīgās apakškategorijas kļūst pieejamas.</li> <li><strong>Bloķēšana</strong>: Kategorija un tās apakškategorijas uz profilakses laiku tiks slēgtas piekļuvei.</li> <li><strong>Komentāri</strong>: Ļauj lietotājiem komentēt šīs kategorijas elementus.</li> <li><strong>Atļauja augšupielādēt</strong>: Atļauj lietotājiem augšupielādēt attēlu failus. Šī iespēja dota tikai fiziskām (nevis virtuālām) kategorijām.</li> </ul> <p>Šīs iespējas pieejamas arī no "Properties" (rekvizītu) pārvaldes loga (logi <span class="pwgScreen">Augšuplāde</span>, <span class="pwgScreen">Komentāri</span>, <span class="pwgScreen">Boķēšana</span>, <span class="pwgScreen">Publisks/Privāts</span>, <span class="pwgScreen">Pārstāvis</span> pieejams no <span class="pwgScreen">Administrēšana, Kategorijas, Rekvizīti</span>).</p> <h3>Kārtošanas secība</h3> <p>Lieto attēlu kārtošanas secību pēc noklusējuma.</p> <p>Norāda vai šī lietu kārtošanas secība attiecas arī uz apakškategorijām.</p> <p>Izvēlas atbilstošus kārtošanas kritērijus šai kategorijai.</p> <ul> <li><strong>Izveides datums</strong>: Attēla uzņemšanas datums</li> <li><strong>Iesūtīšanas datums</strong>: Sinhronizācijas datums</li> <li><strong>Vidējai vērtējums (*)</strong>: Apmeklētāja novērtējums var izmainīt vidējo vērtējumu </li> <li><strong>Visvairāk apmeklētais (*)</strong>: Tekošais apmeklējums var izmainīt visvairāk apmeklēto secību</li> <li><strong>Faila nosaukums</strong>: Vārds, kas piešķirts informācijas laukā</li> <li><strong>Id</strong>: Iekšējais Id (tekošajām kategorijām ir augstāks id kā vecākajām</li> </ul> <p><strong>(*)</strong>Brīdinājums: ieteikums izmēģināt šos kārtošanas kritērijus, jo tie var dod arī neparedzamus rezultātus.</p> <h3>Pārstāvība</h3> <p>Kategoriju pārstāv sīkbilde galvenajā lapā (<span class="pwgScreen">category.php</span>) lai pārstāvētu kategoriju, kad tajā ir tikai apakškategorijas un neviena tieša elementa (tāpat kā pamatkategorija).</p> <p>Ir 4 dažādi veidi kā noformēt kategoriju pārstāvošo attēlu :</p> <ul> <li><span class="pwgScreen">Attēla lapa</span>: viena no pogām ļauj Jums iestatīt patlabanējo attēlu kā šo kategoriju reprezentējošo attēlu. Šī darbība pieejama tikai administratoriem.</li> <li><span class="pwgScreen">Informācijas par attēlu modificēšana</span> administrācijā. Šis logs pieejams no <span class="pwgScreen">picture.php</span> vai <span class="pwgScreen">Grupas vadības</span> <em> vienības režīmā </em>. Detaļas skatiet šī loga palīgā.</li> <li><span class="pwgScreen">Administrēšana, Kategorijas, Rekvizīti, Pārstāvība</span>. Detaļas skatiet šī loga palīgā.</li> <li><span class="pwgScreen">Kategorijas rediģēšana</span> (esošais logs).</li> </ul> <p>Pārstāvniecības izvēle atkarīga no <code>allow_random_representative</code> konfigurācijas parametriem failā (see <span class="filename">include/config_default.inc.php</span>).</p>
+ <p>Noklusēšanas režīmā (<code>allow_random_representative</code> set to false), katra kategorija, kas satur vismaz vienu elementu, ir pārstāvēta ar fiksētu elementu. Kad pārstāvība noteikta (pie kategorijas izveides), to var nomainīt tikai administrators. Gadījuma, ja pārstāvība nav atbilstoša, Jūs varat mēģināt <strong>Atrast jaunu pārstāvi, izmantojot nejaušu izvēli</strong>.</p> <p>Ja <code>allow_random_representative</code> konfigurācijas parametrs ir patiesā (true) stāvoklī, elementus saturošajai kategorijai var nebūt fiksētas pārstāvības. Vienkārši lietojiet <strong>Dzēst pārstāvi</strong> pogu.</p> <p>Ja kategorijā ir tikai apakškategorijas un neviena elementa, to tik un tā var pārstāvēt jebkurš elements ņemts no <span class="pwgScreen">Informācijas par attēlu modificēšanas</span> loga. Vienīgā aktīvā iespēja esošajā logā ir <strong>Dzēst pārstāvi</strong> poga.</p> <h3>Sasaistīt visus kategorijas elementus ar jaunu kategoriju</h3> <ul> <li><strong>Virtuālās kategorijas nosaukums</strong>: Jaunizveidojamās kategorijas nosaukumā, visi esošās kategorijas attēli tiks sasaistīti ar jaunizveidoto kategoriju.</li> <li><strong>Pamatkategorija</strong>: Vieta, kur tiks veidota jauna kategorija, atstājiet tukšu, lai izveidotu to saknes mapē.</li> </ul> <h3>Sasaistīt visu kategoriju elementus ar esošajām kategorijām</h3> <ul> <li><strong>Kategorijas</strong>: Izvēlieties mērķa kategoriju.</li> </ul> <h3>Informācijas nosūtīšana ar e-pastu grupas biedriem</h3> <ul> <li><strong>Grupa</strong>: saņēmēju grupa</li>
+   <li><strong>Pasta saturs</strong>: Viņiem brīvā formā nosūtāmais teksta ziņojums </li> </ul>
