@@ -152,7 +152,7 @@ $conf['tn_compression_level'] = 75;
 
 // show_version : shall the version of Piwigo be displayed at the
 // bottom of each page ?
-$conf['show_version'] = true;
+$conf['show_version'] = false;
 
 // meta_ref to reference multiple sets of incorporated pages or elements
 // Set it false to avoid referencing in google, and other search engines.
@@ -310,7 +310,7 @@ $conf['smtp_password'] = '';
 //
 // This configuration parameter is set to true in BSF branch and to false
 // elsewhere.
-$conf['check_upgrade_feed'] = true;
+$conf['check_upgrade_feed'] = false;
 
 // rate_items: available rates for a picture
 $conf['rate_items'] = array(0,1,2,3,4,5);
