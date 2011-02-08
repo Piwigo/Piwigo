@@ -205,15 +205,15 @@ if (
         'cat_options',  // ?only POST; public/private; lock/unlock
         'cat_perm',     // ?only POST
         'picture_modify', // ?only POST; associate/dissociate
-        'user_list',    // ?only POST; group assoc
         'user_perm',
         'group_perm',
         'group_list',   // delete group
       )
     )
-    or ( isset($_POST) and in_array($page['page'],
+    or ( !empty($_POST) and in_array($page['page'],
         array(
           'batch_manager',  // associate/dissociate; delete; set level
+          'user_list',    // group assoc; user level
         )
       )
     )
