@@ -51,7 +51,8 @@ else
   WHERE id_uppercat '.(!isset($page['category']) ? 'is NULL' : '= '.$page['category']['id']);
 }
 
-$query.= get_sql_condition_FandF(
+$query.= '
+    '.get_sql_condition_FandF(
   array(
     'visible_categories' => 'id',
     ),
