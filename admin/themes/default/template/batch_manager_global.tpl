@@ -490,7 +490,7 @@ a.removeFilter:hover {background: url(admin/themes/default/icon/remove_filter_ho
       <option value="level">{'Who can see these photos?'|@translate}</option>
       <option value="metadata">{'synchronize metadata'|@translate}</option>
   {if ($IN_CADDIE)}
-      <option value="remove_from_caddie">{'Empty caddie'|@translate}</option>
+      <option value="remove_from_caddie">{'Remove from caddie'|@translate}</option>
   {else}
       <option value="add_to_caddie">{'add to caddie'|@translate}</option>
   {/if}
