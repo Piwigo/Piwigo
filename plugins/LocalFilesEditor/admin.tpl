@@ -1,8 +1,6 @@
-{html_head}<link rel="stylesheet" type="text/css" href="{$LOCALEDIT_PATH}locfiledit.css">{/html_head}
-{known_script id="editarea" src=$LOCALEDIT_PATH|@cat:"editarea/edit_area_full.js"}
-<script type="text/javascript">
-var editarea = "{$LOAD_EDITAREA}";
-
+{html_head}<script type="text/javascript" src="{$ROOT_URL}plugins/LocalFilesEditor/editarea/edit_area_full.js"></script>{/html_head}
+{combine_css path="plugins/LocalFilesEditor/locfiledit.css"}
+{footer_script}
 function loadEditarea() {ldelim} 
   editAreaLoader.init({ldelim}
     id: "text"
@@ -21,7 +19,12 @@ function unloadEditarea() {ldelim}
   jQuery("#showedit").show();
   jQuery.post("plugins/LocalFilesEditor/update_config.php", {ldelim} editarea: "off"});
 }
-</script>
+
+jQuery("#editarea_buttons").show();
+{if $LOAD_EDITAREA == 'on'}
+if (document.getElementById("text") != null) loadEditarea();
+{/if}
+{/footer_script}
 
 <div class="titrePage">
   <h2>LocalFiles Editor</h2>
@@ -96,8 +99,3 @@ function unloadEditarea() {ldelim}
 {/if}
 </div>
 </form>
-
-<script type="text/javascript">
-jQuery("#editarea_buttons").show();
-if ((editarea == "on") && (document.getElementById("text") != null)) loadEditarea();
-</script>
