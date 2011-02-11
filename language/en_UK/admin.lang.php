@@ -562,6 +562,7 @@ $lang['Remote'] = "Remote";
 $lang['Remove all filters'] = 'Remove all filters';
 $lang['remove author'] = 'remove author';
 $lang['remove creation date'] = 'remove creation date';
+$lang['Remove from caddie'] = 'Remove from caddie';
 $lang['remove remote listing.xml file'] = "remove remote listing.xml file";
 $lang['remove tags'] = "remove tags";
 $lang['remove this filter'] = 'remove this filter';
