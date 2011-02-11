@@ -780,4 +780,5 @@ $lang['delete photo'] = 'kép törlése';
 $lang['Orphan tags deleted'] = 'Árva címkék törölve';
 $lang['Week starts on'] = 'A hét első napja';
 $lang['You have %d orphan tags: %s.'] = '%d árva címke található: %s.';
+$lang['Remove from caddie'] = 'Eltávolítás a kosárból';
 ?>
