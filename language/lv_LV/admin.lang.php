@@ -80,7 +80,6 @@ $lang['Edit tags'] = 'Rediģēt iezīmes';
 $lang['Email admins when a new user registers'] = 'Paziņot adminam, kad jauns lietotājs reģistrējas';
 $lang['Email admins when a valid comment is entered'] = 'Paziņot adminam, kad derīgs komentārs ievadīts';
 $lang['Email admins when a comment requires validation'] = 'Paziņot adminam, kad parādījies komentārs, kas jāpārbauda';
-$lang['Empty caddie'] = 'Tukšs grozs';
 $lang['Environment'] = 'Vide';
 $lang['Form'] = 'Forma';
 $lang['Gallery URL'] = 'Galerijas URL';

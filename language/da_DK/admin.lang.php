@@ -84,7 +84,6 @@ $lang['Edit tags'] = 'Ændre tags';
 $lang['Email admins when a new user registers']     =     'Email admins, når en ny bruger registrerer sig';
 $lang['Email admins when a valid comment is entered']     =     'Email admins når en gyldig kommentar er opført';
 $lang['Email admins when a comment requires validation']     =     'Email admins, når en kommentar kræver validering';
-$lang['Empty caddie']     =     'Tøm caddie';
 $lang['Environment']     =     'Miljø';
 $lang['Form']     =     'Form';
 $lang['Gallery URL']     =     'Gallery URL';

@@ -82,7 +82,6 @@ $lang['Edit tags'] = 'სიტყვების რედაქტირებ
 $lang['Email admins when a new user registers'] = 'შევატყობინოთ ადმინისტრატორს ახალი მომხმარებლის რეგისტრაცია';
 $lang['Email admins when a valid comment is entered'] = 'შევატყობინოთ ადმინისტრატორს ახალი კომენტარის შესახებ';
 $lang['Email admins when a comment requires validation'] = 'შევატყობინოთ ადმინისტრატორს შესამოწმებელი კომანტარის შესახებ';
-$lang['Empty caddie'] = 'გავასუფთაოთ კალათა';
 $lang['Environment'] = 'გარემოცვა';
 $lang['Form'] = 'მოქმედებები';
 $lang['Gallery URL'] = 'გალერეის მისამართი';

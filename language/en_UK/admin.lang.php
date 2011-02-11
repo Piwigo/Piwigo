@@ -267,7 +267,6 @@ $lang['Email admins when a comment requires validation'] = "Email admins when a 
 $lang['Email admins when a new user registers'] = "Email admins when a new user registers";
 $lang['Email admins when a valid comment is entered'] = "Email admins when a valid comment is entered";
 $lang['email'] = "Email";
-$lang['Empty caddie'] = "Empty caddie";
 $lang['Environment'] = "Environment";
 $lang['Error list'] = "List of errors";
 $lang['Error on file "%s" : %s'] = 'Error on file "%s" : %s';

@@ -80,7 +80,6 @@ $lang['Edit tags'] = 'etiketleri degiştir';
 $lang['Email admins when a new user registers'] = 'Yeni kullanıcı kaydı oldugunda yöneticiye e-posta gönder';
 $lang['Email admins when a valid comment is entered'] = 'Yeni yorum eklendiginde yöneticiye e-posta gönder';
 $lang['Email admins when a comment requires validation'] = 'Yorum onayı oldugunda yöneticiye e-posta gönder';
-$lang['Empty caddie'] = 'Yardımcı boş';
 $lang['Environment'] = 'Ortam / Çevre';
 $lang['Form'] = 'Biçim';
 $lang['Gallery URL'] = 'Galleri URL';

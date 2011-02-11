@@ -85,7 +85,6 @@ $lang['Edit tags'] = 'Upravit klíčová slova';
 $lang['Email admins when a new user registers'] = 'Poslat e-mail administrátorovi při registraci nového uživatele';
 $lang['Email admins when a valid comment is entered'] = 'Poslat e-mail administrátorovi při vložení nového komentáře';
 $lang['Email admins when a comment requires validation'] = 'Poslat e-mail administrátorovi při vložení nového komentáře vyžadujícího schválení.';
-$lang['Empty caddie'] = 'Odstranit obsah košíku';
 $lang['Environment'] = 'Prostředí';
 $lang['Form'] = 'Formulář';
 $lang['Gallery URL'] = 'URL galerie';

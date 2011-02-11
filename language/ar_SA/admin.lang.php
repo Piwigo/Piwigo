@@ -82,7 +82,6 @@ $lang['Edit tags'] = 'تحرير الكلمات الدلائلية';
 $lang['Email admins when a new user registers'] = 'ارسل للمدير عند تسجيل مستخدم جديد';
 $lang['Email admins when a valid comment is entered'] = 'اعلم المدير عند اي تعليق جديد';
 $lang['Email admins when a comment requires validation'] = 'اعلم المدير للمصادقة على تعليقات جديدة';
-$lang['Empty caddie'] = 'الساعد فارغ';
 $lang['Environment'] = 'البيئة';
 $lang['Form'] = 'نموذج';
 $lang['Gallery URL'] = 'عنوان المعرض';

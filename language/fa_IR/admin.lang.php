@@ -84,7 +84,6 @@ $lang['Edit tags'] = "ويرايش برچسب‌ها";
 $lang['Email admins when a new user registers'] = "ارسال ايميل به به مديران زماني که يک کاربر جديد ثبت نام مي‌کند";
 $lang['Email admins when a valid comment is entered'] = "ارسال ايميل به مديران زماني که يک نظر تاييد شده وارد سيستم مي‌شود.";
 $lang['Email admins when a comment requires validation'] = "ارسال ايميل به مديران زماني که يک نظر نياز به تاييد دارد";
-$lang['Empty caddie'] = "تمام محتویات سبد حذف شود.";
 $lang['Environment'] = "محيط(Environment)";
 $lang['Form'] = "فرم";
 $lang['Gallery URL'] = "URL گالري";

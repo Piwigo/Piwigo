@@ -82,7 +82,6 @@ $lang['Edit tags'] = 'Uredi oznake';
 $lang['Email admins when a new user registers'] = 'E-mail administratorima pri upisu novih korisnika';
 $lang['Email admins when a valid comment is entered'] = 'E-mail administratorima pri upisu novih komentara';
 $lang['Email admins when a comment requires validation'] = 'Email administratorima kada komentar treba overu';
-$lang['Empty caddie'] = 'Isprazni fioku';
 $lang['Environment'] = 'Okruženje';
 $lang['Form'] = 'Oblik';
 $lang['Gallery URL'] = 'URL Galerije';

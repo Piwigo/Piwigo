@@ -82,7 +82,6 @@ $lang['Edit tags'] = 'Edita etiquetes';
 $lang['Email admins when a new user registers'] = 'Envia un correu electrònic als administradors quan un usuari nou es registri';
 $lang['Email admins when a valid comment is entered'] = 'Envia un correu electrònic als administradors quan s\'hagi introduït un comentari vàlid';
 $lang['Email admins when a comment requires validation'] = 'Envia un correu electrònic als administradors quan un comentari requereixi validació';
-$lang['Empty caddie'] = 'Buida carret';
 $lang['Environment'] = 'Entorn';
 $lang['Form'] = 'Form';
 $lang['Gallery URL'] = 'URL de la galeria';

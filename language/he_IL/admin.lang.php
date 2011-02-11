@@ -82,7 +82,6 @@ $lang['Edit tags'] = 'ערוך תגיות';
 $lang['Email admins when a new user registers'] = 'שלח מייל למנהל כאשר נרשם משתמש חדש';
 $lang['Email admins when a valid comment is entered'] = 'שלח מייל למנהל כאשר נרשמת תגובה';
 $lang['Email admins when a comment requires validation'] = 'שלח מייל למנהל כאשר נדרש אימות לתגובה';
-$lang['Empty caddie'] = 'רוקן את הסל';
 $lang['Environment'] = 'סביבה';
 $lang['Form'] = 'טופס';
 $lang['Gallery URL'] = 'כתובת הגלריה';

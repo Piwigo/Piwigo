@@ -82,7 +82,6 @@ $lang['Edit tags'] = '编辑标签';
 $lang['Email admins when a new user registers'] = '一旦用户注册就通知管理员';
 $lang['Email admins when a valid comment is entered'] = '当用户发表评论时就通知管理员';
 $lang['Email admins when a comment requires validation'] = '当用户要求确认他的评论时通知管理员';
-$lang['Empty caddie'] = '清空购物篮';
 $lang['Environment'] = '环境';
 $lang['Form'] = '表单';
 $lang['Gallery URL'] = '图库URL';

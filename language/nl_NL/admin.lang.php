@@ -82,7 +82,6 @@ $lang['Edit tags'] = 'Bewerk tags';
 $lang['Email admins when a new user registers'] = 'Stuur email naar beheerders wanneer een nieuwe gebruiker zich heeft geregistreerd';
 $lang['Email admins when a valid comment is entered'] = 'Stuur email naar beheerders wannneer een geldig commentaar is ingevuld';
 $lang['Email admins when a comment requires validation'] = 'Stuur email naar beheerders wanneer een commantaar validatie nodig heeft';
-$lang['Empty caddie'] = 'Verwijder alle afbeeldingen uit het winkelmandje';
 $lang['Environment'] = 'Omgeving';
 $lang['Form'] = 'Formulier';
 $lang['Gallery URL'] = 'Galerie URL';

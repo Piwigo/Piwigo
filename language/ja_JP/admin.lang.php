@@ -82,7 +82,6 @@ $lang['Edit tags'] = 'タグを編集する';
 $lang['Email admins when a new user registers'] = '新しいユーザ登録時、管理者にメールする';
 $lang['Email admins when a valid comment is entered'] = '有効なコメントが入力された場合、管理者にメールする';
 $lang['Email admins when a comment requires validation'] = 'コメントの承認が必要な場合、管理者にメールする';
-$lang['Empty caddie'] = 'キャディーを空にする';
 $lang['Environment'] = '環境';
 $lang['Form'] = 'フォーム';
 $lang['Gallery URL'] = 'ギャラリーURI';

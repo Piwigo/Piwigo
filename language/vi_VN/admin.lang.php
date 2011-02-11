@@ -82,7 +82,6 @@ $lang['Edit tags'] = 'Biên tập tags';
 $lang['Email admins when a new user registers'] = 'Gởi email cho quản trị khi có một thành viên mới đăng ký';
 $lang['Email admins when a valid comment is entered'] = 'Gởi email cho quản trị khi có một lời bình đã xác nhận được gởi lên gallery.';
 $lang['Email admins when a comment requires validation'] = 'Gởi email cho quản trị khi có một mời bình cần được xác nhận';
-$lang['Empty caddie'] = 'Xoá hết trong caddie';
 $lang['Environment'] = 'Môi trường';
 $lang['Form'] = 'Form';
 $lang['Gallery URL'] = 'Địa chỉ website của gallery';

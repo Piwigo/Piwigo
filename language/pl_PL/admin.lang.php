@@ -82,7 +82,6 @@ $lang['Edit tags'] = 'Edytuj tagi';
 $lang['Email admins when a new user registers'] = 'Wyślij wiadomość do administratora gdy zarejestruje się nowy użytkownik';
 $lang['Email admins when a valid comment is entered'] = 'Wyślij wiadomość do administratora gdy zostanie wprowadzony poprawny komentarz';
 $lang['Email admins when a comment requires validation'] = 'Wyślij wiadomość do administratora gdy komentarz wymaga weryfikacji';
-$lang['Empty caddie'] = 'Wyczyść koszyk';
 $lang['Environment'] = 'Środowisko';
 $lang['Form'] = 'Formularz';
 $lang['Gallery URL'] = 'Adres URL galerii';

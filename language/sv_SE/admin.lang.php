@@ -82,7 +82,6 @@ $lang['Edit tags'] = 'Ändra taggar';
 $lang['Email admins when a new user registers'] = 'Sänd mail till admin när en ny användare registreas';
 $lang['Email admins when a valid comment is entered'] = 'Sänd mail till admin när en giltig kommentar är inlagd';
 $lang['Email admins when a comment requires validation'] = 'Sänd mail till admin när en kommentar väntar på godkännande';
-$lang['Empty caddie'] = 'Töm korg';
 $lang['Environment'] = 'Miljö';
 $lang['Form'] = 'Formulär';
 $lang['Gallery URL'] = 'Galleri URL';

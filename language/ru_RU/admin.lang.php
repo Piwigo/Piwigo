@@ -82,7 +82,6 @@ $lang['Edit tags'] = 'Редактировать слова';
 $lang['Email admins when a new user registers'] = 'Сообщать администратору когда зарегистрировался новый посетитель';
 $lang['Email admins when a valid comment is entered'] = 'Сообщать администратору когда появился комментарий';
 $lang['Email admins when a comment requires validation'] = 'Сообщать администратору когда появился комментарий для проверки';
-$lang['Empty caddie'] = 'Очистить корзину';
 $lang['Environment'] = 'Окружение';
 $lang['Form'] = 'Действия';
 $lang['Gallery URL'] = 'Адрес галереи';

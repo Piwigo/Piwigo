@@ -82,7 +82,6 @@ $lang['Edit tags'] = 'Bearbeite Tags';
 $lang['Email admins when a new user registers'] = 'sende eine E-Mail an den(die) Adminstrator(en) wenn sich ein neuer Benutzer registriert hat';
 $lang['Email admins when a valid comment is entered'] = 'sende eine E-Mail an den(die) Adminstrator(en) wenn ein Kommentar hinterlassen wurde';
 $lang['Email admins when a comment requires validation'] = 'sende eine E-Mail an den(die) Adminstrator(en) wenn ein Kommentar die Freischaltung durch den Admin erfordert';
-$lang['Empty caddie'] = 'leere Sammelkorb';
 $lang['Environment'] = 'Server-Daten';
 $lang['Form'] = 'Formular';
 $lang['Gallery URL'] = 'genaue URL zur Gallerie';

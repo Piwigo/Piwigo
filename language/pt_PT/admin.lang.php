@@ -82,7 +82,6 @@ $lang['Edit tags'] = 'Editar tags';
 $lang['Email admins when a new user registers'] = 'Notificar os administradores quando um novo usuário se registrar';
 $lang['Email admins when a valid comment is entered'] = 'Notificar os administradores quando um comentário aprovado for incluído';
 $lang['Email admins when a comment requires validation'] = 'Notificar os administradores quando um comentário necessitar uma aprovação';
-$lang['Empty caddie'] = 'Carrinho vazio';
 $lang['Environment'] = 'Arredores';
 $lang['Form'] = 'Formulário';
 $lang['Gallery URL'] = 'Endereço (URL) da galeria';
