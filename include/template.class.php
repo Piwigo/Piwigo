@@ -902,7 +902,7 @@ class ScriptLoader
   private static $known_paths = array(
       'core.scripts' => 'themes/default/js/scripts.js',
       'jquery' => 'themes/default/js/jquery.min.js',
-      'jquery.ui' => 'themes/default/js/ui/packed/ui.core.packed.js'
+      'jquery.ui' => 'themes/default/js/jquery.ui.min.js'
     );
 
   function __construct()

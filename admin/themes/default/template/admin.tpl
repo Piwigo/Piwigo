@@ -1,5 +1,5 @@
-{combine_script id='jquery.ui' load='header' require='jquery' path='themes/default/js/ui/packed/ui.core.packed.js' }
-{combine_script id='jquery.ui.accordion' load='header' require='jquery.ui' path='themes/default/js/ui/packed/ui.accordion.packed.js' }
+{combine_script id='jquery.ui' load='header' require='jquery' path='themes/default/js/jquery.ui.min.js' }
+{combine_script id='jquery.ui.accordion' load='header' require='jquery.ui' path='themes/default/js/ui/minified/jquery.ui.accordion.min.js' }
 {footer_script require='jquery.ui.accordion'}
 jQuery(document).ready(function(){ldelim}
 	jQuery('#menubar').accordion({ldelim}

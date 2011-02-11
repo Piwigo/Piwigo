@@ -1,6 +1,6 @@
-{combine_script id='jquery.ui' load='async' require='jquery' path='themes/default/js/ui/packed/ui.core.packed.js' }
-{combine_script id='jquery.ui.effects' load='async' require='jquery.ui' path='themes/default/js/ui/packed/effects.core.packed.js' }
-{combine_script id='jquery.ui.effects.blind' load='async' require='jquery.ui.effects' path='themes/default/js/ui/packed/effects.blind.packed.js' }
+{combine_script id='jquery.ui' load='async' require='jquery' path='themes/default/js/jquery.ui.min.js' }
+{combine_script id='jquery.ui.effects' load='async' require='jquery.ui' path='themes/default/js/ui/minified/jquery.effects.core.min.js' }
+{combine_script id='jquery.ui.effects.blind' load='async' require='jquery.ui.effects' path='themes/default/js/ui/minified/jquery.effects.blind.min.js' }
 
 {footer_script require='jquery.ui.effects.blind'}
 jQuery(document).ready(function(){ldelim}

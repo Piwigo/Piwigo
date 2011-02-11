@@ -1,5 +1,5 @@
-{combine_script id='jquery.ui' load='async' require='jquery' path='themes/default/js/ui/packed/ui.core.packed.js' }
-{combine_script id='jquery.ui.sortable' load='async' require='jquery.ui' path='themes/default/js/ui/packed/ui.sortable.packed.js' }
+{combine_script id='jquery.ui' load='async' require='jquery' path='themes/default/js/jquery.ui.min.js' }
+{combine_script id='jquery.ui.sortable' load='async' require='jquery.ui' path='themes/default/js/ui/minified/jquery.ui.sortable.min.js' }
 {footer_script require='jquery.ui.sortable'}
 jQuery(document).ready(function(){ldelim}
 	jQuery(".catPos").hide();
