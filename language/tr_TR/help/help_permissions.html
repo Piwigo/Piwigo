@@ -1,0 +1,54 @@
+<fieldset>
+<legend>Resim izinleri</legend>
+
+<p>Her resim bir <strong>gizlilik derecesine</strong> sahiptir. Her bir kullanıcı da gizlilik derecesine sahiptir. Tam olarak 5 gizlilik derecesi bulunmaktadır:</p>
+<ol>
+  <li>Hiç kimse</li>
+  <li><em>Kişiler</em></li>
+  <li><em>Arkadaşlar (kişilerden bir üst derecedir )</em></li>
+  <li><em>Aile (arkadaşlardan bir üst derecedir)</em></li>
+  <li><em>Yöneteciler (diğer derecelerden üst derecedir)</em></li>
+</ol>
+
+<p>Üst derecelerin alt derecelerde izinleri vardır. Bir kullanıcıya üst derece verilirse daha fazla resim görebilir.</p>
+
+<p>Örneğin, eğer resim "peter_wedding-0024.jpg"<em>"Aile"</em> gizlilik derecesine sahip ise:</p>
+<ul>
+  <li>Peter (kim ki bir <em>"Yönetici"</em>) bu resmi görecektir çünkü <em>"Yöneticiler"</em> bütün resimleri görebilir</li>
+  <li>Beth (kim ki bir <em>"Aile"</em> member) bu resmi görecektir</li>
+  <li>Mary (kim ki bir <em>"Arkadaşlar"</em>) bu resmi göremeyecektir</li>
+</ul>
+
+<p>Bir albümün içeriğini görme izni olmayan kullanıcı bu albümü, başlığını ve etiketlerini de göremez.</p>
+
+<p>Kullanıcı izinlerini <span class="pwgScreen">Yönetim &raquo; Kullanıcılar &raquo; Yönet</span> screen.</p>
+
+</fieldset>
+
+<fieldset>
+<legend>Albüm izinleri</legend>
+
+<p>Gizlilik seviyesi ihtiyaçlarınızı karşılamıyor ise, ayrıca bir kullanıcı veya grup için albüm izinleri ayarlayabilirsiniz. Resim ve albümler üzerinde çatışma olmadan izinler ayarlanabilir.</p>
+
+<p>Albümlere erişim yasaklanabilir. Albüm erişim iznine "özel" yaparak izinleri yönetebilirsiniz.</p>
+
+<p>Bir albümü düzenleyerek "özel" yapabilirsiniz
+(<span class="pwgScreen">Yönetim &raquo; Albümler &raquo; Yönet
+&raquo; düzen</span>) veya bütün albümlerin özelliklerini
+(<span class="pwgScreen">Yönetim &raquo; Albümler &raquo;
+Özellikler &raquo; Genel / Özel</span>) den ayarlayabilirsiniz.</p>
+
+<p>Bir albüm özel olduğu zaman gruplar ve kullanıcılar için izin ayarlarını 3 şekilde değiştirebilirsiniz:</p>
+
+<ul>
+
+  <li><span class="pwgScreen">Yönetim &raquo; Kullanıcılar &raquo; Yönet &raquo;
+  aksiyonlar, izinler</span> (one link per user)</li>
+
+  <li><span class="pwgScreen">Yönetim &raquo; Kullanıcılar &raquo; Gruplar &raquo;
+  aksiyonlar, izinler</span> (one link per group)</li>
+
+  <li><span class="pwgScreen">Yönetim &raquo; Albümler &raquo; Yönet &raquo; albüm izinlerini düzenleme</span> (her albüm için bir bağlantı)</li>
+
+</ul>
+</fieldset>

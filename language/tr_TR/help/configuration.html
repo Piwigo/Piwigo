@@ -1,0 +1,117 @@
+<h2>Yapılandırma</h2>
+
+<p>Bu ekranda yönetici temel yapılandırma yapabilir. Nitekim, bu ekran sadece basit yapılandırma parametreleri gösterir, yöneticilerin büyük çoğunluğu için yeterli olacaktır. Eğer diğer sayısız (ve ileri) yapılandırma parametrelerini görmek istiyorsanız <span
+class="filename">include/config_default.inc.php</span> dosyasını okuyunuz.</p>
+
+<p>Bu ekran birkaç bölüme ayrılmıştır, temaya göre yapılandırma parametrelerini yeniden gruplama.</p>
+
+
+<h3>Ana</h3>
+<ul>
+  <li><strong>Galeri başlığı</strong>: E-posta bildirimleri ile RSS beslemelerinde kullanılan.</li>
+
+  <li><strong>Sayfa afişi</strong>: her bir genel sayfanın üst kısmında görüntülenen.</li>
+
+  <li><strong>Galeri URLsi</strong>: RSS beslemelerinde kullanılan.</li>
+
+  <li><strong>Galeri Kilidi</strong>: Bakım için tüm galeriyi kilitle.
+  Sadece yöneticiler galeriye ulaşabilecektir.
+  </li>
+
+  <li><strong>Derecelendirme</strong>: Resim derecelendirme özelliği açıldı.</li>
+
+  <li><strong>Misafir Derecelendirmeleri</strong>: Kayıtlı olmayan kullanıcılar resimleri derecelendirebilir.</li>
+
+  <li><strong>Kullanıcı kaydına izin ver</strong>: Herkes kayıt olabilir..</li>
+
+  <li><strong>E-Posta adresi, tüm kullanıcılar için zorunludur</strong>: işlemin yönetici tarafından yapılması durumu hariç, kayıt ve profil güncellemede kontrol edilecektir .</li>
+
+  <li><strong>Yeni bir kullanıcı kayıt olduğunda yöneticiye e-posta gönder</strong>: yöneticiler her kayıt için bir e-posta ile bildirilir.</li>
+
+</ul>
+
+<h3>Geçmiş</h3>
+
+  <p>Sayfa ziyaretleri <span
+  class="pwgScreen">category.php</span> ve <span
+  class="pwgScreen">picture.php</span>
+  <code>geçmiş</code> tablosunda kayıt edilecektir.</p>
+
+  <p>Ziyaretler <span
+  class="pwgScreen">Yönetim &raquo; Araçlar &raquo; Geçmiş</span> bölümünde gösterilecektir.</p>
+
+<ul>
+  <li><strong>Misafirler tarafından ziyaret edilen sayfaları kaydet</strong>: misafirlerin sayfa ziyaretleri kayıt altına alınacaktır.</li>
+
+  <li><strong>Kayıtlı kullanıcılar tarafından ziyaret edilen sayfaları kaydet</strong>: Kayıtlı kullanıcıların sayfa ziyaretleri kayıt altına alınacatırk.</li>
+
+  <li><strong>Yöneticiler tarafından ziyaret edilen sayfaları kaydet</strong>: Yöneticilerin sayfa ziyaretleri kayıt altına alınacaktır.</li>
+
+</ul>
+
+<h3>Yorumlar</h3>
+<ul>
+
+  <li><strong>Herkes yorum yapabilir</strong>: Misafirler dahil herkes yorum yapabilir.</li>
+
+  <li><strong>Sayfa başına yorum sayısı</strong>.</li>
+
+  <li><strong>Onaylama</strong>: yorumlar bir yöneticinin onayından geçmeden sitede görünür hale gelemez. Kullanıcı yorumlarını doğrulama ekranı <span class="pwgScreen">Yönetim &raquo; Araçlar &raquo; Bekleyen Yorumlar</span> da yer alır.</li>
+
+  <li><strong>Bir yorum eklendiği zaman yöneticilere e-posta gönder</strong>:
+Bir kullanıcı yorum yaptığı ve bu yorum onaylandığı zaman yöneticilere e-posta gönder.</li>
+
+  <li><strong>Bir yorum onaylama beklediği zaman yöneticilere e-posta gönder</strong>:
+Bir kullanıcı yorum gönderdiği ve bu yorum yönetici onayı beklediği zaman yöneticilere e-posta gönder.
+Kullanıcı yorum doğrulama ekranı  <span class="pwgScreen">Yönetim, Araçlar, Yorumlar</span>.</li>
+
+</ul>
+
+<h3>Yükleme</h3>
+<ul>
+  <li><strong>Resim yükleme linkini her zaman göster</strong>: Yüklenebilir albüm varsa, bir yükleme linki her albümde görünecek.</li>
+  <li><strong>Yükleme için kullanıcı erişim seviyesi</strong>: Kullanıcıların bazı albümlere yüklemesini kısıtla</li>
+  <li><strong>Bir resim yüklendiği zaman yöneticilere e-posta gönder</strong>: Yöneticiler her yeni bir resim yüklendiğinde bir e-posta ile haberdar edilecektir.</li>
+</ul>
+
+<h3>Varsayılan Görüntüleme</h3>
+
+<p>Burada misafirler için galerinizin nasıl görüntülenmesi gerektiği ayarlarını yapabilirsiniz. Kullanıcı giriş yaptığı zaman kendi özel görüntüleme ayarları geçerli olacaktır.
+(Düzenleme için <span class="pwgScreen">profil</span>) ayarlarına giriniz.</p>
+
+<p>Kayıtlı kullanıcıların görüntüleme ayarlarını değiştirmek için <span class="pwgScreen">Yönetim &raquo;
+Kullanıcılar &raquo; Yönet</span> penceresine gidiniz ve görüntüleme ayarlarını değiştirmek istediğiniz kullanıcıları seçerek yeni ayarları yapınız.</p>
+
+<ul>
+
+  <li><strong>Dil</strong>: Sadece Piwigo etiketleri için geçerlidir.
+  Albüm ve resim isimleri ile açıklamaları kapsamaz.
+  </li>
+
+  <li><strong>Satır başına fotoğraf sayısı</strong></li>
+
+  <li><strong>Sayfa başına satır sayısı</strong></li>
+
+  <li><strong>Tema arayüzü</strong></li>
+
+  <li><strong>Son dönem</strong>: Gün olarak. Dönem sırasında eklenen resimler yeni olarak gösterilir.
+  1 günden fazla olmalıdır.
+  </li>
+
+  <li><strong>Bütün albümleri genişlet</strong>: Varsayılan olarak bütün albümleri menüde genişlet <em>Uyarı</em>: bu seçenek kaynakları tükertir (sayfa yavaşlar)
+  ve eğer çok fazla albümünüz varsa büyük bir menü oluşturur.</li>
+
+  <li><strong>Yorum sayısını göster</strong>: küçük resimler sayfadasındaki her resim için yorum sayısını göster. Kaynakları tükertir (sayfa yavaşlar).</li>
+
+  <li><strong>Ziyaret sayısını göster</strong>: ziyaret sayılarını küçük resimlerin altında göster.
+  Yalnızca gelişmiş yapılandırma parametresi: <br>
+  $conf['show_nb_hits'] = true; <br>
+  Not: false varsayılandır.</li>
+
+  <li><strong>resimlerin azami genişliği</strong>: azami görüntülenen genişlik.
+  Bu ayardan daha büyük olan resimler yeniden boyutlandırılacaktır.
+  Bu ayarı kullanmaktan ziyade, resimlerinizin genişliğini değiştirmek daha iyi bir uygulama olacaktır.</li>
+
+  <li><strong>resimlerin azami yüksekliği</strong>: genişlik için olan sözler bu özellik içinde geçerlidir.</li>
+
+</ul>
