@@ -1352,10 +1352,28 @@ function ws_images_addSimple($params, &$service)
   {
     return new PwgError(405, "This method requires HTTP POST");
   }
+  
+  $params['image_id'] = (int)$params['image_id'];
+  if ($params['image_id'] > 0)
+  {
+    include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
+
+    $query='
+SELECT *
+  FROM '.IMAGES_TABLE.'
+  WHERE id = '.$params['image_id'].'
+;';
+
+    $image_row = pwg_db_fetch_assoc(pwg_query($query));
+    if ($image_row == null)
+    {
+      return new PwgError(404, "image_id not found");
+    }
+  }
 
   // category
   $params['category'] = (int)$params['category'];
-  if ($params['category'] <= 0)
+  if ($params['category'] <= 0 and $params['image_id'] <= 0)
   {
     return new PwgError(WS_ERR_INVALID_PARAM, "Invalid category_id");
   }
@@ -1366,8 +1384,9 @@ function ws_images_addSimple($params, &$service)
   $image_id = add_uploaded_file(
     $_FILES['image']['tmp_name'],
     $_FILES['image']['name'],
-    array($params['category']),
-    8
+    $params['category'] > 0 ? array($params['category']) : null,
+    8,
+    $params['image_id'] > 0 ? $params['image_id'] : null
     );
 
   $info_columns = array(
@@ -1415,23 +1434,25 @@ function ws_images_addSimple($params, &$service)
     add_tags($tag_ids, array($image_id));
   }
 
-  $query = '
+  $url_params = array('image_id' => $image_id);
+
+  if ($params['category'] > 0)
+  {
+    $query = '
 SELECT id, name, permalink
   FROM '.CATEGORIES_TABLE.'
   WHERE id = '.$params['category'].'
 ;';
-  $result = pwg_query($query);
-  $category = pwg_db_fetch_assoc($result);
+    $result = pwg_query($query);
+    $category = pwg_db_fetch_assoc($result);
+
+    $url_params['section'] = 'categories';
+    $url_params['category'] = $category;
+  }
 
   return array(
     'image_id' => $image_id,
-    'url' => make_picture_url(
-      array(
-        'image_id' => $image_id,
-        'section' => 'categories',
-        'category' => $category
-        )
-      ),
+    'url' => make_picture_url($url_params),
     );
 }
 

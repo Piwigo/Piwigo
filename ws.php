@@ -233,8 +233,9 @@ function ws_addDefaultMethods( $arr )
         'maxValue' => $conf['available_permission_levels']
         ),
       'tags' => array('default' => null),
+      'image_id' => array('default' => null),
       ),
-    'POST method only.<br>Use the <b>image</b> field for uploading file.<br>Set the form encoding to "form-data"<br><b>category</b> is the numeric identifier of the destination category.'
+    'POST method only.<br>Use the <b>image</b> field for uploading file.<br>Set the form encoding to "form-data"<br><b>category</b> is the numeric identifier of the destination category.<br>You can update an existing photo if you define an existing image_id.'
     );
 
   $service->addMethod(

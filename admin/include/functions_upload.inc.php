@@ -168,7 +168,7 @@ function prepare_upload_configuration()
   }
 }
 
-function add_uploaded_file($source_filepath, $original_filename=null, $categories=null, $level=null)
+function add_uploaded_file($source_filepath, $original_filename=null, $categories=null, $level=null, $image_id=null)
 {
   // Here is the plan
   //
@@ -185,37 +185,68 @@ function add_uploaded_file($source_filepath, $original_filename=null, $categorie
   // * check md5sum (already exists?)
   
   global $conf, $user;
-  
-  // current date
-  list($dbnow) = pwg_db_fetch_row(pwg_query('SELECT NOW();'));
-  list($year, $month, $day) = preg_split('/[^\d]/', $dbnow, 4);
-  
-  // upload directory hierarchy
-  $upload_dir = sprintf(
-    PHPWG_ROOT_PATH.$conf['upload_dir'].'/%s/%s/%s',
-    $year,
-    $month,
-    $day
-    );
 
-  // compute file path
   $md5sum = md5_file($source_filepath);
-  $date_string = preg_replace('/[^\d]/', '', $dbnow);
-  $random_string = substr($md5sum, 0, 8);
-  $filename_wo_ext = $date_string.'-'.$random_string;
-  $file_path = $upload_dir.'/'.$filename_wo_ext.'.';
-
-  list($width, $height, $type) = getimagesize($source_filepath);
-  if (IMAGETYPE_PNG == $type)
+  $file_path = null;
+  
+  if (isset($image_id))
   {
-    $file_path.= 'png';
+    // we are performing an update
+    $query = '
+SELECT
+    path
+  FROM '.IMAGES_TABLE.'
+  WHERE id = '.$image_id.'
+;';
+    $result = pwg_query($query);
+    while ($row = pwg_db_fetch_assoc($result))
+    {
+      $file_path = $row['path'];
+    }
+    
+    if (!isset($file_path))
+    {
+      die('['.__FUNCTION__.'] this photo does not exist in the database');
+    }
+
+    // delete all physical files related to the photo (thumbnail, web site, HD)
+    delete_element_files(array($image_id));
   }
   else
   {
-    $file_path.= 'jpg';
+    // this photo is new
+    
+    // current date
+    list($dbnow) = pwg_db_fetch_row(pwg_query('SELECT NOW();'));
+    list($year, $month, $day) = preg_split('/[^\d]/', $dbnow, 4);
+  
+    // upload directory hierarchy
+    $upload_dir = sprintf(
+      PHPWG_ROOT_PATH.$conf['upload_dir'].'/%s/%s/%s',
+      $year,
+      $month,
+      $day
+      );
+
+    // compute file path
+    $date_string = preg_replace('/[^\d]/', '', $dbnow);
+    $random_string = substr($md5sum, 0, 8);
+    $filename_wo_ext = $date_string.'-'.$random_string;
+    $file_path = $upload_dir.'/'.$filename_wo_ext.'.';
+
+    list($width, $height, $type) = getimagesize($source_filepath);
+    if (IMAGETYPE_PNG == $type)
+    {
+      $file_path.= 'png';
+    }
+    else
+    {
+      $file_path.= 'jpg';
+    }
+
+    prepare_directory($upload_dir);
   }
 
-  prepare_directory($upload_dir);
   if (is_uploaded_file($source_filepath))
   {
     move_uploaded_file($source_filepath, $file_path);
@@ -296,37 +327,77 @@ function add_uploaded_file($source_filepath, $original_filename=null, $categorie
   
   $thumb_infos = pwg_image_infos($thumb_path);
 
-  // database registration
-  $insert = array(
-    'file' => pwg_db_real_escape_string(isset($original_filename) ? $original_filename : basename($file_path)),
-    'date_available' => $dbnow,
-    'tn_ext' => 'jpg',
-    'path' => preg_replace('#^'.preg_quote(PHPWG_ROOT_PATH).'#', '', $file_path),
-    'filesize' => $file_infos['filesize'],
-    'width' => $file_infos['width'],
-    'height' => $file_infos['height'],
-    'md5sum' => $md5sum,
-    'added_by' => $user['id'],
-    );
-
-  if (isset($high_infos))
+  if (isset($image_id))
   {
-    $insert['has_high'] = 'true';
-    $insert['high_filesize'] = $high_infos['filesize'];
-  }
+    $update = array(
+      'id' => $image_id,
+      'file' => pwg_db_real_escape_string(isset($original_filename) ? $original_filename : basename($file_path)),
+      'filesize' => $file_infos['filesize'],
+      'width' => $file_infos['width'],
+      'height' => $file_infos['height'],
+      'md5sum' => $md5sum,
+      'added_by' => $user['id'],
+      );
+    
+    if (isset($high_infos))
+    {
+      $update['has_high'] = 'true';
+      $update['high_filesize'] = $high_infos['filesize'];
+    }
+    else
+    {
+      $update['has_high'] = 'false';
+      $update['high_filesize'] = null;
+    }
 
-  if (isset($level))
-  {
-    $insert['level'] = $level;
+    if (isset($level))
+    {
+      $update['level'] = $level;
+    }
+
+    mass_updates(
+      IMAGES_TABLE,
+      array(
+        'primary' => array('id'),
+        'update' => array_keys($update)
+        ),
+      array($update)
+      );
   }
+  else
+  {
+    // database registration
+    $insert = array(
+      'file' => pwg_db_real_escape_string(isset($original_filename) ? $original_filename : basename($file_path)),
+      'date_available' => $dbnow,
+      'tn_ext' => 'jpg',
+      'path' => preg_replace('#^'.preg_quote(PHPWG_ROOT_PATH).'#', '', $file_path),
+      'filesize' => $file_infos['filesize'],
+      'width' => $file_infos['width'],
+      'height' => $file_infos['height'],
+      'md5sum' => $md5sum,
+      'added_by' => $user['id'],
+      );
+
+    if (isset($high_infos))
+    {
+      $insert['has_high'] = 'true';
+      $insert['high_filesize'] = $high_infos['filesize'];
+    }
+
+    if (isset($level))
+    {
+      $insert['level'] = $level;
+    }
   
-  mass_inserts(
-    IMAGES_TABLE,
-    array_keys($insert),
-    array($insert)
-    );
+    mass_inserts(
+      IMAGES_TABLE,
+      array_keys($insert),
+      array($insert)
+      );
   
-  $image_id = pwg_db_insert_id(IMAGES_TABLE);
+    $image_id = pwg_db_insert_id(IMAGES_TABLE);
+  }
 
   if (isset($categories) and count($categories) > 0)
   {
@@ -342,7 +413,7 @@ function add_uploaded_file($source_filepath, $original_filename=null, $categorie
     $conf['use_exif'] = false;
   }
   update_metadata(array($image_id=>$file_path));
-  
+
   invalidate_user_cache();
 
   return $image_id;

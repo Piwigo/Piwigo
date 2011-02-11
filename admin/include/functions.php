@@ -166,6 +166,80 @@ DELETE FROM '.USER_CACHE_CATEGORIES_TABLE.'
   trigger_action('delete_categories', $ids);
 }
 
+// Deletes all files (on disk) related to given image ids
+// @return image ids where files are deleted successfully
+function delete_element_files($ids)
+{
+  if (count($ids) == 0)
+  {
+    return 0;
+  }
+
+  include_once(PHPWG_ROOT_PATH.'include/functions_picture.inc.php');
+  
+  $new_ids = array();
+
+  $query = '
+SELECT
+    id,
+    path,
+    tn_ext,
+    has_high,
+    representative_ext
+  FROM '.IMAGES_TABLE.'
+  WHERE id IN ('.implode(',', $ids).')
+;';
+  $result = pwg_query($query);
+  while ($row = pwg_db_fetch_assoc($result))
+  {
+    if (url_is_remote($row['path']))
+    {
+      continue;
+    }
+    
+    $files = array();
+    $files[] = get_element_path($row);
+
+    if (!empty($row['tn_ext']))
+    {
+      $files[] = get_thumbnail_path($row);
+    }
+    
+    if (!empty($row['has_high']) and get_boolean($row['has_high']))
+    {
+      $files[] = get_high_path($row);
+    }
+    
+    if (!empty($row['representative_ext']))
+    {
+      $pi = pathinfo($row['path']);
+      $file_wo_ext = get_filename_wo_extension($pi['basename']);
+      $files[] = PHPWG_ROOT_PATH.$pi['dirname'].'/pwg_representative/'.$file_wo_ext.'.'.$row['representative_ext'];
+    }
+
+    $ok = true;
+    foreach ($files as $path)
+    {
+      if (is_file($path) and !unlink($path))
+      {
+        $ok = false;
+        trigger_error('"'.$path.'" cannot be removed', E_USER_WARNING);
+        break;
+      }
+    }
+    
+    if ($ok)
+    {
+      $new_ids[] += $row['id'];
+    }
+    else
+    {
+      break;
+    }
+  }
+  return $new_ids;
+}
+
 // The function delete_elements deletes the elements identified by the
 // (numeric) values of the array $ids. It also deletes (in the database) :
 //    - all the comments related to elements
@@ -182,53 +256,7 @@ function delete_elements($ids, $physical_deletion=false)
 
   if ($physical_deletion)
   {
-    include_once(PHPWG_ROOT_PATH.'include/functions_picture.inc.php');
-    $new_ids=array();
-
-    $query = '
-SELECT
-    id,
-    path,
-    tn_ext,
-    has_high,
-    representative_ext
-  FROM '.IMAGES_TABLE.'
-  WHERE id IN ('.implode(',', $ids).')
-;';
-    $result = pwg_query($query);
-    while ($row = pwg_db_fetch_assoc($result))
-    {
-      if (url_is_remote($row['path']))
-        continue;
-      $files = array();
-      $files[] = get_element_path($row);
-      if (!empty($row['tn_ext']))
-        $files[] = get_thumbnail_path($row);
-      if (!empty($row['has_high']) and get_boolean($row['has_high']))
-        $files[] = get_high_path($row);
-      if (!empty($row['representative_ext']))
-      {
-        $pi = pathinfo($row['path']);
-        $file_wo_ext = get_filename_wo_extension($pi['basename']);
-        $files[] = PHPWG_ROOT_PATH.$pi['dirname'].'/pwg_representative/'.$file_wo_ext.'.'.$element_info['representative_ext'];
-      }
-
-      $ok = true;
-      foreach ($files as $path)
-      {
-        if (is_file($path) and !unlink($path))
-        {
-          $ok = false;
-          trigger_error('"'.$path.'" cannot be removed', E_USER_WARNING);
-          break;
-        }
-      }
-      if ($ok)
-        $new_ids[] += $row['id'];
-      else
-        break;
-    }
-    $ids = $new_ids;
+    $ids = delete_element_files($ids);
     if (count($ids)==0)
     {
       return 0;
