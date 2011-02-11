@@ -84,6 +84,8 @@ WHERE '.$conf['user_fields']['email'].' = \''.$mail_address.'\'
           ."\n".l10n('Password').': '.$new_password
           ;
 
+        $infos = trigger_event('render_lost_password_mail_content', $infos);
+
         if (pwg_mail($row['email'],
               array('subject' => l10n('password updated'), 'content' => $infos)))
         {
