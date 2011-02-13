@@ -768,4 +768,5 @@ $lang['delete photo'] = 'Dzēst fotoattēlu';
 $lang['Orphan tags deleted'] = 'Nepiesaistītās cilnes izdzēstas';
 $lang['Week starts on'] = 'Nedēļa sākas ar';
 $lang['You have %d orphan tags: %s.'] = 'Jums ir %d nepiesaistīto cilņu: %s.';
+$lang['Remove from caddie'] = 'Izņemt no groza';
 ?>
