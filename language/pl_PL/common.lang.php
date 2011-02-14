@@ -306,10 +306,7 @@ $lang['Email: %s'] = 'Email: %s';
 $lang['Admin: %s'] = 'Admin: %s';
 $lang['Registration of %s'] = 'Rejestracja %s';
 $lang['Album: %s'] = 'Album: %s';
-$lang['Picture uploaded by %s'] = 'Zdjęcie wgrane przez %s';
-// --------- Starting below: New or revised $lang ---- from version 1.7.1
 $lang['Bad status for user "guest", using default status. Please notify the webmaster.'] = 'Zły status dla użytkownika "gość", używam domyślnego';
-// --------- Starting below: New or revised $lang ---- from Butterfly (2.0)
 $lang['Administrator, webmaster and special user cannot use this method'] = 'Administrator, webmaster i special user nie mogą używać tej metody';
 $lang['this email address is already in use'] = 'użytkownik już używa tego adresu email';
 $lang['Album results for'] = 'Wyniki albumu dla';
@@ -338,7 +335,6 @@ $lang['show tag cloud'] = 'pokazuj tag jako chmurkę';
 $lang['cloud'] = 'chmurka';
 $lang['Are you sure?'] = 'Jesteś pewien?';
 $lang['delete this comment'] = 'usuń ten komentarz';
-//For version 2.1.0
 $lang['Reset to default values'] = 'Resetuj do domyślnych wartości';
 $lang['delete all photos from your favorites'] = 'usuń wszystkie obrazy ze swoich ulubionych';
 $lang['Sent by'] = 'Wysłane przez';
