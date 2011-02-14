@@ -773,5 +773,6 @@ $lang['with no album'] = '没有相册';
 $lang['with no tag'] = '没有标签';
 $lang['with no virtual album'] = '没有虚拟相册';
 $lang['You have %d orphan tags: %s.'] = '您已 %d 无关联标签: %s.';
+$lang['Remove from caddie'] = '从购物蓝里移除';
 
 ?>
