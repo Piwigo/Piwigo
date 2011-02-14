@@ -306,10 +306,7 @@ $lang['Email: %s'] = 'Email: %s';
 $lang['Admin: %s'] = 'Beheerder: %s';
 $lang['Registration of %s'] = 'Registratie van %s';
 $lang['Album: %s'] = 'Categorie: %s';
-$lang['Picture uploaded by %s'] = 'Afbeelding ge-uploaded door %s';
-// --------- Starting below: New or revised $lang ---- from version 1.7.1
 $lang['Bad status for user "guest", using default status. Please notify the webmaster.'] = 'Foutieve status voor gebruiker "guest", gebruik standaard status. Waarschuw de webbeheerder.';
-// --------- Starting below: New or revised $lang ---- from Butterfly (1.8)
 $lang['Administrator, webmaster and special user cannot use this method'] = 'Administrator, webbeheerder en speciale gebruiker kunnen deze methode niet gebruiken';
 $lang['this email address is already in use'] = 'Een andere gebruiker maakt al gebruik van dit email-adres';
 $lang['Album results for'] = 'Categorie resultaten voor';
@@ -331,7 +328,6 @@ $lang['%d photos are also linked to current tags'] = '%d afbeeldingen zijn ook g
 $lang['display photos linked to this tag'] = 'Toon afbeeldingen gelinkt met deze tag';
 $lang['photos posted during the last %d days'] = 'Afbeelding ontvangen binnen de afgelopen %d dagen';
 $lang['Piwigo Help'] = 'Piwigo Help';
-// --------- Starting below: New or revised $lang ---- from Butterfly (2.0)
 $lang['Are you sure?'] = 'Weet u het zeker?';
 $lang['delete this comment'] = 'verwijder dit commentaar';
 $lang['Rank'] = 'Rang';
