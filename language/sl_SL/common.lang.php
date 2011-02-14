@@ -284,7 +284,6 @@ $lang['Email: %s'] = 'Email: %s';
 $lang['Admin: %s'] = 'Admin: %s';
 $lang['Registration of %s'] = 'Prijavljenih %s';
 $lang['Album: %s'] = 'Kategorija: %s';
-$lang['Picture uploaded by %s'] = 'Sliko naložil %s';
 $lang['Bad status for user "guest", using default status. Please notify the webmaster.'] = 'Nepravilen status uporabnika "guest", uporabljen bo privzeti status. Prosim obvestite skrbnika.';
 $lang['Administrator, webmaster and special user cannot use this method'] = 'Administrator, skrbnik in posebni uporabnik ne morejo uporabljati te metode';
 $lang['this email address is already in use'] = 'email uporablja že drug uporabnik';
