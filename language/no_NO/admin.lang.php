@@ -767,4 +767,5 @@ $lang['delete photo'] = 'slett bilde';
 $lang['Orphan tags deleted'] = 'Foreldreløse  tagger slettet';
 $lang['Week starts on'] = 'Uke starter på';
 $lang['You have %d orphan tags: %s.'] = 'Du har %d foreldreløse tagger: %s.';
+$lang['Remove from caddie'] = 'Fjern fra kurv';
 ?>
