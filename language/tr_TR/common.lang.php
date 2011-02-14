@@ -280,7 +280,6 @@ $lang['Category: %s'] = 'Kategori: %s';
 $lang['Picture name: %s'] = 'resim Adı: %s';
 $lang['Creation date: %s'] = 'Yaratma Tarihi: %s';
 $lang['Waiting page: %s'] = 'Beklenen Sayfa: %s';
-$lang['Picture uploaded by %s'] = 'resimi Gönderen %s';
 $lang['Bad status for user "guest", using default status. Please notify the webmaster.'] = 'Kullanıcı için kötü statü "ziyaretçi", varsayılan statü kullanılıyor. Lütfen webmaster\'a bildirin';
 $lang['Administrator, webmaster and special user cannot use this method'] = 'Yönetici, webmaster ve özel kullanıcı bu metodu kullanamaz';
 $lang['a user use already this mail address'] = 'bu e-posta adresi başka bir kullanıcı tarafından kullanılmaktadır.';

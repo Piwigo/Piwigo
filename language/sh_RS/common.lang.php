@@ -326,10 +326,7 @@ $lang['Category: %s'] = 'Kategorija: %s';
 $lang['Picture name: %s'] = 'Naziv slike: %s';
 $lang['Creation date: %s'] = 'Datum izrade: %s';
 $lang['Waiting page: %s'] = 'Stranica čekanja: %s';
-$lang['Picture uploaded by %s'] = 'Sliku prebacio %s';
-// --------- Starting below: New or revised $lang ---- from version 1.7.1
 $lang['Bad status for user "guest", using default status. Please notify the webmaster.'] = 'Loš status za korisnika "guest", koristi se podrazumevani status. Molimo obavestite webmaster-a.';
-// --------- Starting below: New or revised $lang ---- from Butterfly (2.0)
 $lang['Administrator, webmaster and special user cannot use this method'] = 'Administrator, webmaster i posebni korisnik ne mogu koristiti ovu metodu';
 $lang['a user use already this mail address'] = 'korisnik već koristi ovu e-mail adresu';
 $lang['Category results for'] = 'Rezultati kategorije za ';

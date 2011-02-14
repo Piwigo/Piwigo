@@ -45,7 +45,6 @@ $lang['Category: %s'] = 'Kategori: %s';
 $lang['Picture name: %s'] = 'Bild namn: %s';
 $lang['Creation date: %s'] = 'Skapad datum: %s';
 $lang['Waiting page: %s'] = 'Väntar på sidan: %s';
-$lang['Picture uploaded by %s'] = 'Bild upp laddad av %s';
 $lang['Bad status for user "guest", using default status. Please notify the webmaster.'] = 'dålig status för användare \"gäst\", default status kommer används Vanligen meddela webmastern..';
 $lang['Administrator, webmaster and special user cannot use this method'] = 'Administratör, webmaster och speciell användare kan inte använda denna metod';
 $lang['a user use already this mail address'] = 'annan användare använder redan denna e-post';
