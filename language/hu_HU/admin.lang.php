@@ -79,7 +79,6 @@ $lang['Dissociated'] = 'Nincs hozzárendelve';
 $lang['Does not represent'] = 'Nem képviseli';
 $lang['Edit selected tags'] = 'Kiválasztott címkék szerkesztése';
 $lang['Edit tags'] = 'Címkék szerkesztése';
-$lang['Elements'] = 'Elemek';
 $lang['Email admins when a new user registers'] = 'Email-küldés, ha egy új felhasználó regisztrál';
 $lang['Email admins when a valid comment is entered'] = 'Email-küldés, ha egy érvényes hozzászólás érkezik ';
 $lang['Email admins when a comment requires validation'] = 'Email-küldés, ha egy hozzászólás jóváhagyásra vár ';
@@ -455,7 +454,6 @@ $lang['Hour'] = 'Óra';
 $lang['guest'] = 'Vendég';
 $lang['default values'] = 'Alapértelmezett értékek';
 $lang['High filesize'] = 'Nagy fájlméret';
-// --------- Starting below: New or revised $lang ---- from version 1.7.1
 $lang['Guest cannot be deleted'] = 'A "vendég" felhasználót nem lehet törölni';
 $lang['Default user cannot be deleted'] = 'Alapértelmezett felhasználót nem lehet törölni';
 $lang['Purge history detail'] = 'Részletes előzmények törlése';
@@ -739,7 +737,6 @@ $lang['Keep high definition'] = 'Nagy felbontás megtartása';
 $lang['The high definition maximum width must be a number between %d and %d'] = 'A nagy felbontás maximális szélessége %d és %d között legyen';
 $lang['The high definition maximum height must be a number between %d and %d'] = 'A nagy felbontás maximális magassága %d és %d között legyen';
 $lang['The high definition image quality must be a number between %d and %d'] = 'A nagy felbontás maximális képminősége %d és %d között legyen';
-// --------- Starting below: New or revised $lang ---- from version 2.2
 $lang['Batch Manager'] = 'Kötegelt kezelés';
 $lang['include child albums'] = 'belső albumok is';
 $lang['Selection'] = 'Kiválasztás';
@@ -772,8 +769,6 @@ $lang['Type here the title'] = 'Írd be a kép címét';
 $lang['remove creation date'] = 'készités dátumának törlése';
 $lang['with no album'] = 'albumhoz nem rendelt';
 $lang['with no tag'] = 'nincs címke';
-
-// missing translations
 $lang['Album photos associated to the following albums: %s'] = 'Az albumban lévő képek hozzárendelve a következő albumokhoz: %s';
 $lang['Delete orphan tags'] = 'Árva címkék törlése';
 $lang['delete photo'] = 'kép törlése';
@@ -781,4 +776,5 @@ $lang['Orphan tags deleted'] = 'Árva címkék törölve';
 $lang['Week starts on'] = 'A hét első napja';
 $lang['You have %d orphan tags: %s.'] = '%d árva címke található: %s.';
 $lang['Remove from caddie'] = 'Eltávolítás a kosárból';
+$lang['[Simulation]'] = '[Szimuláció]';
 ?>

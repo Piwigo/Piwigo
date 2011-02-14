@@ -306,10 +306,7 @@ $lang['Email: %s'] = 'E-Mail: %s';
 $lang['Admin: %s'] = 'Adminisztrátor: %s';
 $lang['Registration of %s'] = 'Bejegyezte: %s';
 $lang['Album: %s'] = 'Album: %s';
-$lang['Picture uploaded by %s'] = 'A képet feltöltötte: %s';
-// --------- Starting below: New or revised $lang ---- from version 1.7.1
 $lang['Bad status for user "guest", using default status. Please notify the webmaster.'] = 'Rossz felhasználói állapot "vendég", az alapértelmezett állapot. Kérjük, küldjön értesítést a webmesternek.';
-// --------- Starting below: New or revised $lang ---- from Butterfly (2.0)
 $lang['Administrator, webmaster and special user cannot use this method'] = 'Adminisztrátor, webmester és különleges felhasználó nem használja ezt a módszert';
 $lang['this email address is already in use'] = 'Ezt az e-mail címet már egy másik felhasználó használja.';
 $lang['Album results for'] = 'Album eredményei';
@@ -337,14 +334,12 @@ $lang['letters'] = 'Betűrendben';
 $lang['show tag cloud'] = 'Címkefelhő mutatása';
 $lang['cloud'] = 'Felhő';
 $lang['Reset to default values'] = 'Alap értékek visszaállítása';
-// --------- Starting below: Új vagy javított $lang ---- Tőle: Colibri (2.1)
 $lang['delete all photos from your favorites'] = 'Minden kép törlése a kedvencekből';
 $lang['Sent by'] = 'Küldte';
 $lang['Cookies are blocked or not supported by your browser. You must enable cookies to connect.'] = 'A cookie-k le vannak tiltva vagy a böngésző nem támogatja. Engedélyezni kell a cookie-kat a csatlakozáshoz.';
 $lang['Are you sure?'] = 'Biztos vagy benne?';
 $lang['delete this comment'] = 'Hozzászólás törlése';
 $lang['Email address is missing. Please specify an email address.'] = 'E-mail cím hiányzik. Kérem írja be az e-mail címet.';
-// --------- Starting below: Új vagy javított $lang ---- Tőle: Colibri (2.1.0 RC1)
 $lang['edit this comment'] = 'Hozzászólás módosítása';
 $lang['Edit a comment'] = 'A hozzászólás módosítása';
 $lang['(!) This comment requires validation'] = '(!) Ezt a hozzászólást engedélyezni kell';
