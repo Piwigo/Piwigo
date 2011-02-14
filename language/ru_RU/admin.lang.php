@@ -775,4 +775,5 @@ $lang['delete photo'] = 'удалить фотографию';
 $lang['Orphan tags deleted'] = 'Непривязанные метки удалены';
 $lang['Week starts on'] = 'Неделя начинается с';
 $lang['You have %d orphan tags: %s.'] = 'У Вас есть %d непривязанных  меток: %s.';
+$lang['Remove from caddie'] = 'Очистить корзину';
 ?>
