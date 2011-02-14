@@ -297,7 +297,6 @@ $lang['Email: %s'] = 'E-mail : %s';
 $lang['Admin: %s'] = 'Administraţie : %s';
 $lang['Registration of %s'] = 'Înregistrare de %s';
 $lang['Album: %s'] = 'Categorie : %s';
-$lang['Picture uploaded by %s'] = 'Imagine adăugată de %s';
 $lang['Bad status for user "guest", using default status. Please notify the webmaster.'] = 'Statutul utilizatorului "invitat" este eronat, se vor folosi  parametrii impliciţi. Va rugăm sa informaţi webmasterul.';
 $lang['Administrator, webmaster and special user cannot use this method'] = 'Administratorul, webmasterul şi utilizatorul special nu pot folosi aceasta metodă';
 $lang['this email address is already in use'] = 'un alt utilizator foloseşte deja acest e-mail';
