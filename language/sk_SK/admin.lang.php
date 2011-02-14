@@ -778,4 +778,5 @@ $lang['delete photo'] = 'vymazať fotografiu';
 $lang['Orphan tags deleted'] = 'Nepriradené kľúčové slová boli vymazané';
 $lang['Week starts on'] = 'Týždenné spustenie';
 $lang['You have %d orphan tags: %s.'] = 'Máte %d nepriradených kľúčových slov: %s.';
+$lang['Remove from caddie'] = 'Vymazať z krabičky';
 ?>
