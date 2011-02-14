@@ -771,4 +771,11 @@ $lang['with no tag'] = 'zonder tag';
 $lang['Exif extension not available, admin should disable exif use'] = 'Exif extensie is niet beschikbaar, de administrator moet exif gebruik uitsluiten';
 $lang['The uploaded file exceeds the upload_max_filesize directive in php.ini: %sB'] = 'Het geuploade bestand is groter dan upload_max_filesize instelling in php.ini: %sB';
 $lang['include child albums'] = 'inclusief sub albums';
+$lang['Album photos associated to the following albums: %s'] = 'Fotoalbums verbonden met de volgende albums: %s';
+$lang['Delete orphan tags'] = 'Verwijder niet gebruikte labels';
+$lang['delete photo'] = 'verwijder afbeelding';
+$lang['Orphan tags deleted'] = 'Verwijderde niet gebruikte labels';
+$lang['Remove from caddie'] = 'Verwijder uit winkelwagen';
+$lang['Week starts on'] = 'De week begint op';
+$lang['You have %d orphan tags: %s.'] = 'U heeft %d niet gebruikte labels: %s.';
 ?>
