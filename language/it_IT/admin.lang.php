@@ -785,4 +785,5 @@ $lang['Week starts on'] = 'La settimana comincia il';
 $lang['You have %d orphan tags: %s.'] = 'Avete %d tags orfani : %s.';
 $lang['Delete orphan tags'] = 'Cancellare i tags orfani';
 $lang['delete photo'] = 'cancellare la foto';
+$lang['Remove from caddie'] = 'Rimuovere dal cestino';
 ?>
