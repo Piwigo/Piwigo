@@ -768,4 +768,5 @@ $lang['with no album'] = 'sıfır albüm ile';
 $lang['with no tag'] = 'sıfır etiket ile';
 $lang['with no virtual album'] = 'sıfır sanal albüm ile';
 $lang['You have %d orphan tags: %s.'] = '%d etkisiz etiketleriniz: %s.';
+$lang['Remove from caddie'] = 'Yardımcıdan sil';
 ?>
