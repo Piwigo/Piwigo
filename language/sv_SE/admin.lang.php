@@ -775,5 +775,6 @@ $lang['delete photo'] = 'Ta bort bild';
 $lang['Orphan tags deleted'] = 'Anonyma taggar är readerade';
 $lang['Week starts on'] = 'Veckan börjar på';
 $lang['You have %d orphan tags: %s.'] = 'Du har %d anonyma taggar: %s.';
+$lang['Remove from caddie'] = 'Ta bort från korg';
 
 ?>
