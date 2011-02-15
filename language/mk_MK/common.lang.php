@@ -335,6 +335,7 @@ $lang['Category: %s'] = 'Категорија: %s';
 $lang['Picture name: %s'] = 'Име на фотографијата: %s';
 $lang['Creation date: %s'] = 'Дата на создавање: %s';
 $lang['Waiting page: %s'] = 'Страна на чекање: %s';
+$lang['Picture uploaded by %s'] = 'Фотографијата е прикачена од %s';
 $lang['Bad status for user "guest", using default status. Please notify the webmaster.'] = 'Грешка при најавувањето како гостин.';
 $lang['Submit'] = 'Поднесува';
 $lang['Yes'] = 'Да';

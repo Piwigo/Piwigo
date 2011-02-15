@@ -316,6 +316,7 @@ $lang['Category: %s'] = 'Categorie : %s';
 $lang['Picture name: %s'] = 'Numele imaginii : %s';
 $lang['Creation date: %s'] = 'Data creării : %d';
 $lang['Waiting page: %s'] = 'Pagina de aşteptare : %s';
+$lang['Picture uploaded by %s'] = 'Imagine adăugată de %s';
 $lang['Bad status for user "guest", using default status. Please notify the webmaster.'] = 'Statutul utilizatorului "invitat" este eronat, se vor folosi  parametrii impliciţi. Va rugăm sa informaţi webmasterul.';
 $lang['Administrator, webmaster and special user cannot use this method'] = 'Administratorul, webmasterul şi utilizatorul special nu pot folosi aceasta metodă';
 $lang['a user use already this mail address'] = 'un alt utilizator foloseşte deja acest e-mail';

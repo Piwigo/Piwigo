@@ -303,6 +303,7 @@ $lang['Category: %s'] = 'Kategorija: %s';
 $lang['Picture name: %s'] = 'Ime slike: %s';
 $lang['Creation date: %s'] = 'Datum nastanka: %s';
 $lang['Waiting page: %s'] = 'Čakajoče strani: %s';
+$lang['Picture uploaded by %s'] = 'Sliko naložil %s';
 $lang['Bad status for user "guest", using default status. Please notify the webmaster.'] = 'Nepravilen status uporabnika "guest", uporabljen bo privzeti status. Prosim obvestite skrbnika.';
 $lang['Administrator, webmaster and special user cannot use this method'] = 'Administrator, skrbnik in posebni uporabnik ne morejo uporabljati te metode';
 $lang['a user use already this mail address'] = 'email uporablja že drug uporabnik';

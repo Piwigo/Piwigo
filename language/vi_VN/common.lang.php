@@ -325,7 +325,10 @@ $lang['Category: %s'] = 'Đề mục: %s';
 $lang['Picture name: %s'] = 'Tên hình: %s';
 $lang['Creation date: %s'] = 'Ngày gởi: %s';
 $lang['Waiting page: %s'] = 'Trang đợi: %s';
+$lang['Picture uploaded by %s'] = 'Hình được gởi bởi %s';
+// --------- Starting below: New or revised $lang ---- from version 1.7.1
 $lang['Bad status for user "guest", using default status. Please notify the webmaster.'] = 'Status xấu đối với thành viên đăng thuộc nhóm "khách", sử dụng status mặc định. Thông báo ngay cho Quản trị';
+// --------- Starting below: New or revised $lang ---- from Butterfly (2.0)
 $lang['Administrator, webmaster and special user cannot use this method'] = 'Quản trị viên và thành viên đặc biệt không thể sử dụng cách này';
 $lang['a user use already this mail address'] = 'đã có thành viên sử dụng địa chỉ email này';
 $lang['Category results for'] = 'Kết quả đề mục cho';
@@ -353,6 +356,7 @@ $lang['group by letters'] = 'phân nhóm theo ký tự';
 $lang['letters'] = 'ký tự';
 $lang['cloud'] = 'mây';
 $lang['Reset to default values'] = 'Thiết lập lại giá trị mặc định';
+// --------- Starting below: New or revised $lang ---- from Colibri (2.1)
 $lang['delete all images from your favorites'] = 'xoá tất cả hình từ danh sách ưa thích';
 $lang['Sent by'] = 'Được gởi bởi';
 $lang['Are you sure?'] = 'Bạn có chắc không?';

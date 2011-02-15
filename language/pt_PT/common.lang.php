@@ -326,7 +326,10 @@ $lang['Category: %s'] = 'Categoria: %s';
 $lang['Picture name: %s'] = 'Nome da imagem: %s';
 $lang['Creation date: %s'] = 'Data de criação: %d';
 $lang['Waiting page: %s'] = 'Página de espera: %s';
+$lang['Picture uploaded by %s'] = 'Imagem enviada por %s';
+// --------- Starting below: New or revised $lang ---- from version 1.7.1
 $lang['Bad status for user "guest", using default status. Please notify the webmaster.'] = 'Status ruim para o usuário "guest", será usado status padrão. Por favor, avise o administrador do site.';
+// --------- Starting below: New or revised $lang ---- from Butterfly (2.0)
 $lang['Administrator, webmaster and special user cannot use this method'] = 'Administrador, webmaster e utilizador especial não podem utilizar este método';
 $lang['a user use already this mail address'] = 'um outro usuário já utiliza este email';
 $lang['Category results for'] = 'Resultados da categoria para';

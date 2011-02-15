@@ -324,7 +324,10 @@ $lang['Category: %s'] = 'Categorie: %s';
 $lang['Picture name: %s'] = 'Afbeeldingsnaam: %s';
 $lang['Creation date: %s'] = 'Aanmaakdatum: %s';
 $lang['Waiting page: %s'] = 'Wacht pagina: %s';
+$lang['Picture uploaded by %s'] = 'Afbeelding ge-uploaded door %s';
+// --------- Starting below: New or revised $lang ---- from version 1.7.1
 $lang['Bad status for user "guest", using default status. Please notify the webmaster.'] = 'Foutieve status voor gebruiker "guest", gebruik standaard status. Waarschuw de webbeheerder.';
+// --------- Starting below: New or revised $lang ---- from Butterfly (1.8)
 $lang['Administrator, webmaster and special user cannot use this method'] = 'Administrator, webbeheerder en speciale gebruiker kunnen deze methode niet gebruiken';
 $lang['a user use already this mail address'] = 'Een andere gebruiker maakt al gebruik van dit email-adres';
 $lang['Category results for'] = 'Categorie resultaten voor';
@@ -347,6 +350,7 @@ $lang['See images linked to this tag only'] = 'Toon afbeeldingen gelinkt met dez
 $lang['images posted during the last %d days'] = 'Afbeelding ontvangen binnen de afgelopen %d dagen';
 $lang['Choose an image'] = 'Kies een afbeelding om';
 $lang['Piwigo Help'] = 'Piwigo Help';
+// --------- Starting below: New or revised $lang ---- from Butterfly (2.0)
 $lang['Are you sure?'] = 'Weet u het zeker?';
 $lang['delete this comment'] = 'verwijder dit commentaar';
 $lang['Name of the picture'] = 'Naam van de afbeelding';

@@ -330,7 +330,10 @@ $lang['Category: %s'] = 'Kategória: %s';
 $lang['Picture name: %s'] = '*Názov fotografie: %s';
 $lang['Creation date: %s'] = 'Dátum vytvorenia: %s';
 $lang['Waiting page: %s'] = 'Čakanie na stránku: %s';
+$lang['Picture uploaded by %s'] = 'Fotografia nahraná %s';
+
 $lang['Bad status for user "guest", using default status. Please notify the webmaster.'] = 'Zlý stav pre používateľa "hosť", bude použitý východzí stav. Prosím informujte webmastra.';
+
 $lang['Administrator, webmaster and special user cannot use this method'] = 'Administrátor, webmaster a špeciálny používateľ nemôžu použiť túto metódu.';
 $lang['a user use already this mail address'] = 'táto e-mailová adresa je už používaná';
 $lang['Category results for'] = 'Výsledky pre kategórie';
@@ -358,8 +361,12 @@ $lang['group by letters'] = 'zoskupiť podľa písmen';
 $lang['letters'] = 'písmená';
 $lang['show tag cloud'] = 'zobraziť kľúčové slová v bubline';
 $lang['cloud'] = 'bublina';
+// --------- Starting below: New or revised $lang ---- from Colibri (2.1)
+
 $lang['Are you sure?'] = 'Ste si istý?';
 $lang['delete this comment'] = 'vymazať tento komentár';
+
+// missing translations 2.1.0
 $lang['Reset to default values'] = 'Obnoviť východzie hodnoty';
 $lang['delete all images from your favorites'] = 'vymazať všetky obrázky z Vašich obľúbených';
 $lang['Sent by'] = 'Poslané';
