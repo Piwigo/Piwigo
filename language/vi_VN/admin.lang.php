@@ -775,5 +775,6 @@ $lang['delete photo'] = 'xóa ảnh';
 $lang['Orphan tags deleted'] = 'Thẻ riêng lẽ đã được xóa';
 $lang['Week starts on'] = 'Tuần lễ bắt đầu vào';
 $lang['You have %d orphan tags: %s.'] = 'Bạn có %d thẻ riêng lẽ: %s.';
+$lang['Remove from caddie'] = 'Bỏ ra khỏi caddie';
 
 ?>
