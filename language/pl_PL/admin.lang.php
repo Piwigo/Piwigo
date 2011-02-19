@@ -770,4 +770,11 @@ $lang['Type here the title'] = 'Wpisz tutaj tytuł';
 $lang['remove creation date'] = 'usuń datę stworzenia';
 $lang['with no album'] = 'bez albumu';
 $lang['with no tag'] = 'bez tagów';
+$lang['Album photos associated to the following albums: %s'] = 'Zdjęcia albumu są powiązane z następującymi albumami: %s';
+$lang['Delete orphan tags'] = 'Usuń niepowiązane tagi';
+$lang['delete photo'] = 'usuń zdjęcie';
+$lang['Orphan tags deleted'] = 'Niepowiązane tagi usunięto';
+$lang['Remove from caddie'] = 'Usuń z koszyk';
+$lang['Week starts on'] = 'Tydzień zaczyna się w';
+$lang['You have %d orphan tags: %s.'] = 'Masz %d niepowiązanych tagów: %s.';
 ?>
