@@ -134,8 +134,17 @@ function make_index_url($params = array())
   {
     $url .= '?';
   }
+
+  $url_before_params = $url;
+  
   $url.= make_section_in_url($params);
   $url = add_well_known_params_in_url($url, $params);
+
+  if ($url == $url_before_params)
+  {
+    $url = get_absolute_root_url();
+  }
+  
   return $url;
 }
 
