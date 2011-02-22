@@ -49,7 +49,7 @@ jQuery(document).ready(function() {ldelim}
 	jQuery('#pwgHead A, #footer A, .themeActions A, .themeActions SPAN, .languageActions A, .languageActions SPAN').tipTip({ldelim}
 			'delay' : 0,
 			'fadeIn' : 200,
-			'fadeOut' : 200,
+			'fadeOut' : 200
 	});
 });
 {/footer_script}
