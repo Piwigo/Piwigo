@@ -80,7 +80,7 @@ if (mt_rand(0,9)==0)
 
 // ?page=plugin-community-pendings is an clean alias of
 // ?page=plugin&section=community/admin.php&tab=pendings
-if (preg_match('/^plugin-([^-]*)(?:-(.*))?$/', $_GET['page'], $matches))
+if (isset($_GET['page']) and preg_match('/^plugin-([^-]*)(?:-(.*))?$/', $_GET['page'], $matches))
 {
   $_GET['page'] = 'plugin';
   $_GET['section'] = $matches[1].'/admin.php';
