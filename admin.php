@@ -78,6 +78,18 @@ if (mt_rand(0,9)==0)
 // |                            variables init                             |
 // +-----------------------------------------------------------------------+
 
+// ?page=plugin-community-pendings is an clean alias of
+// ?page=plugin&section=community/admin.php&tab=pendings
+if (preg_match('/^plugin-([^-]*)(?:-(.*))?$/', $_GET['page'], $matches))
+{
+  $_GET['page'] = 'plugin';
+  $_GET['section'] = $matches[1].'/admin.php';
+  if (isset($matches[2]))
+  {
+    $_GET['tab'] = $matches[2];
+  }
+}
+
 if (isset($_GET['page'])
     and preg_match('/^[a-z_]*$/', $_GET['page'])
     and is_file(PHPWG_ROOT_PATH.'admin/'.$_GET['page'].'.php'))
