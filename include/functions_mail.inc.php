@@ -277,38 +277,31 @@ function switch_lang_back()
  *
  * @return boolean (Ok or not)
  */
-function pwg_mail_notification_admins($keyargs_subject, $keyargs_content)
+function pwg_mail_notification_admins($keyargs_subject, $keyargs_content, $send_technical_details=true)
 {
+  global $conf, $user;
+  
   // Check arguments
-  if
-    (
-      empty($keyargs_subject) or
-      empty($keyargs_content)
-    )
+  if (empty($keyargs_subject) or empty($keyargs_content))
   {
     return false;
   }
 
-  global $conf, $user;
   $return = true;
 
   $admins = array();
 
   $query = '
-select
-  U.'.$conf['user_fields']['username'].' as username,
-  U.'.$conf['user_fields']['email'].' as mail_address
-from
-  '.USERS_TABLE.' as U,
-  '.USER_INFOS_TABLE.' as I
-where
-  I.user_id =  U.'.$conf['user_fields']['id'].' and
-  I.status in (\'webmaster\',  \'admin\') and
-  '.$conf['user_fields']['email'].' is not null and
-  I.user_id <> '.$user['id'].'
-order by
-  username
-';
+SELECT
+    u.'.$conf['user_fields']['username'].' AS username,
+    u.'.$conf['user_fields']['email'].' AS mail_address
+  FROM '.USERS_TABLE.' AS u
+    JOIN '.USER_INFOS_TABLE.' AS i ON i.user_id =  u.'.$conf['user_fields']['id'].'
+  WHERE i.status in (\'webmaster\',  \'admin\')
+    AND '.$conf['user_fields']['email'].' IS NOT NULL
+    AND i.user_id <> '.$user['id'].'
+  ORDER BY username
+;';
 
   $datas = pwg_query($query);
   if (!empty($datas))
@@ -324,29 +317,30 @@ order by
 
   if (count($admins) > 0)
   {
-    $keyargs_content_admin_info = array
-    (
+    $keyargs_content_admin_info = array(
       get_l10n_args('Connected user: %s', stripslashes($user['username'])),
       get_l10n_args('IP: %s', $_SERVER['REMOTE_ADDR']),
       get_l10n_args('Browser: %s', $_SERVER['HTTP_USER_AGENT'])
-    );
+      );
 
     switch_lang_to(get_default_language());
 
-    $return = pwg_mail
-    (
-      '',
-      array
-      (
-        'Bcc' => $admins,
-        'subject' => '['.$conf['gallery_title'].'] '.l10n_args($keyargs_subject),
-        'content' =>
-           l10n_args($keyargs_content)."\n\n"
-          .l10n_args($keyargs_content_admin_info)."\n",
-        'content_format' => 'text/plain'
-      )
-    ) and $return;
+    $content = l10n_args($keyargs_content)."\n";
+    if ($send_technical_details)
+    {
+      $content.= "\n".l10n_args($keyargs_content_admin_info)."\n";
+    }
 
+    $return = pwg_mail(
+      implode(', ', $admins),
+      array(
+        'subject' => '['.$conf['gallery_title'].'] '.l10n_args($keyargs_subject),
+        'content' => $content,
+        'content_format' => 'text/plain',
+        'email_format' => 'text/plain',
+        )
+      );
+    
     switch_lang_back();
   }
 
