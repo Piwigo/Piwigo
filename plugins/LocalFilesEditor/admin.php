@@ -25,7 +25,7 @@ if (!defined('PHPWG_ROOT_PATH')) die('Hacking attempt!');
 include_once(PHPWG_ROOT_PATH.'admin/include/tabsheet.class.php');
 include_once(LOCALEDIT_PATH.'functions.inc.php');
 load_language('plugin.lang', LOCALEDIT_PATH);
-$my_base_url = get_admin_plugin_menu_link(__FILE__);
+$my_base_url = get_root_url().'admin.php?page=plugin-'.basename(dirname(__FILE__));
 
 // +-----------------------------------------------------------------------+
 // |                            Tabssheet
@@ -38,19 +38,19 @@ else
 $tabsheet = new tabsheet();
 $tabsheet->add('localconf',
                l10n('locfiledit_onglet_localconf'),
-               $my_base_url.'&amp;tab=localconf');
+               $my_base_url.'-localconf');
 $tabsheet->add('css',
                l10n('locfiledit_onglet_css'),
-               $my_base_url.'&amp;tab=css');
+               $my_base_url.'-css');
 $tabsheet->add('tpl',
                l10n('locfiledit_onglet_tpl'),
-               $my_base_url.'&amp;tab=tpl');
+               $my_base_url.'-tpl');
 $tabsheet->add('lang',
                l10n('locfiledit_onglet_lang'),
-               $my_base_url.'&amp;tab=lang');
+               $my_base_url.'-lang');
 $tabsheet->add('plug',
                l10n('locfiledit_onglet_plug'),
-               $my_base_url.'&amp;tab=plug');
+               $my_base_url.'-plug');
 $tabsheet->select($page['tab']);
 $tabsheet->assign();
 
@@ -235,7 +235,7 @@ switch ($page['tab'])
     $template->assign('css_lang_tpl', array(
       'OPTIONS' => $options,
       'SELECTED' => $selected,
-      'NEW_FILE_URL' => $my_base_url.'&amp;tab=tpl&amp;newfile',
+      'NEW_FILE_URL' => $my_base_url.'-tpl&amp;newfile',
       'NEW_FILE_CLASS' => empty($edited_file) ? '' : 'top_right'));
 
     $editarea_options['syntax'] = 'html';
@@ -365,7 +365,7 @@ if (!empty($edited_file))
 }
 
 $template->assign(array(
-  'F_ACTION' => PHPWG_ROOT_PATH.'admin.php?page=plugin&amp;section=LocalFilesEditor%2Fadmin.php&amp;tab=' . $page['tab'],
+  'F_ACTION' => PHPWG_ROOT_PATH.'admin.php?page=plugin-LocalFilesEditor-'.$page['tab'],
   'LOCALEDIT_PATH' => LOCALEDIT_PATH,
   'LOAD_EDITAREA' => isset($conf['LocalFilesEditor']) ? $conf['LocalFilesEditor'] : 'off',
   'EDITAREA_OPTIONS' => $editarea_options));

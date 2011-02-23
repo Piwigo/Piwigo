@@ -35,9 +35,14 @@ define('LOCALEDIT_PATH' , PHPWG_PLUGINS_PATH . basename(dirname(__FILE__)) . '/'
 
 function localfiles_admin_menu($menu)
 {
-  array_push($menu, array(
-    'NAME' => 'LocalFiles Editor',
-    'URL' => get_admin_plugin_menu_link(LOCALEDIT_PATH . 'admin.php')));
+  array_push(
+    $menu,
+    array(
+      'NAME' => 'LocalFiles Editor',
+      'URL' => get_root_url().'admin.php?page=plugin-'.basename(dirname(__FILE__))
+      )
+    );
+  
   return $menu;
 }
 
