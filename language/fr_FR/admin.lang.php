@@ -612,7 +612,7 @@ $lang['Set as default theme for unregistered and new users'] = "Thème par défa
 $lang['unknown'] = 'inconnu';
 
 $lang['Upload Photos'] = 'Ajoutez des photos';
-$lang['Drop into album'] = 'Mettre dans un album';
+$lang['Drop into album'] = 'Choisir un album';
 $lang['+ Add an upload box'] = '+ Ajouter une autre boîte de transfert';
 $lang['Create the "%s" directory at the root of your Piwigo installation'] = 'Créez le répertoire "%s" à la racine de votre installation Piwigo';
 $lang['Give write access (chmod 777) to "%s" directory at the root of your Piwigo installation'] = 'Donnez les droits en écriture (chmod 777) sur le répertoire "%s" à la racine de votre installation Piwigo';
