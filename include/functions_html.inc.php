@@ -111,7 +111,9 @@ function get_cat_display_name($cat_informations,
  */
 function get_cat_display_name_cache($uppercats,
                                     $url = '',
-                                    $replace_space = true)
+                                    $replace_space = true,
+                                    $single_link = false,
+                                    $link_class = null)
 {
   global $cache, $conf;
 
@@ -125,6 +127,16 @@ SELECT id, name, permalink
   }
 
   $output = '';
+  if ($single_link)
+  {
+    $single_url = get_root_url().$url.array_pop(explode(',', $uppercats));
+    $output.= '<a href="'.$single_url.'"';
+    if (isset($link_class))
+    {
+      $output.= ' class="'.$link_class.'"';
+    }
+    $output.= '>';
+  }
   $is_first = true;
   foreach (explode(',', $uppercats) as $category_id)
   {
@@ -145,7 +157,7 @@ SELECT id, name, permalink
       $output.= $conf['level_separator'];
     }
 
-    if ( !isset($url) )
+    if ( !isset($url) or $single_link )
     {
       $output.= $cat['name'];
     }
@@ -166,6 +178,12 @@ SELECT id, name, permalink
 <a href="'.PHPWG_ROOT_PATH.$url.$category_id.'">'.$cat['name'].'</a>';
     }
   }
+  
+  if ($single_link and isset($single_url))
+  {
+    $output.= '</a>';
+  }
+
   if ($replace_space)
   {
     return replace_space($output);
