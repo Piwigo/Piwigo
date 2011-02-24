@@ -205,23 +205,17 @@ SELECT id, path, tn_ext, level
       {
         if ($row['id'] == $category['representative_picture_id'])
         {
-          if ($category['count_images']>0)
+          // searching a random representant among elements in sub-categories
+          $image_id = get_random_image_in_category($category);
+
+          if (isset($image_id) and !in_array($image_id, $image_ids))
           {
-            // searching a random representant among elements in sub-categories
-            $image_id = get_random_image_in_category($category);
-
-            if (isset($image_id))
-            {
-              if (!in_array($image_id, $image_ids))
-              {
-                array_push($new_image_ids, $image_id);
-              }
-              
-              $user_representative_updates_for[ $user['id'].'#'.$category['id'] ] = $image_id;
-
-              $category['representative_picture_id'] = $image_id;
-            }
+            array_push($new_image_ids, $image_id);
           }
+            
+          $user_representative_updates_for[ $user['id'].'#'.$category['id'] ] = $image_id;
+          
+          $category['representative_picture_id'] = $image_id;
         }
       }
       unset($category);
@@ -287,6 +281,11 @@ if (count($categories) > 0)
 
   foreach ($categories as $category)
   {
+    if (0 == $category['count_images'])
+    {
+      continue;
+    }
+    
     $category['name'] = trigger_event(
         'render_category_name',
         $category['name'],
