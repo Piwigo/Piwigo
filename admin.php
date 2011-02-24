@@ -21,11 +21,14 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
-//----------------------------------------------------------- include
+// +-----------------------------------------------------------------------+
+// | Basic constants and includes                                          |
+// +-----------------------------------------------------------------------+
+
 define('PHPWG_ROOT_PATH','./');
 define('IN_ADMIN', true);
-include_once( PHPWG_ROOT_PATH.'include/common.inc.php' );
 
+include_once(PHPWG_ROOT_PATH.'include/common.inc.php');
 include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
 include_once(PHPWG_ROOT_PATH.'admin/include/functions_plugins.inc.php');
 
@@ -34,7 +37,12 @@ trigger_action('loc_begin_admin');
 // +-----------------------------------------------------------------------+
 // | Check Access and exit when user status is not ok                      |
 // +-----------------------------------------------------------------------+
+
 check_status(ACCESS_ADMINISTRATOR);
+
+// +-----------------------------------------------------------------------+
+// | Direct actions                                                        |
+// +-----------------------------------------------------------------------+
 
 // tags
 if (isset($_GET['fckb_tags']))
@@ -67,15 +75,16 @@ if (isset($_GET['change_theme']))
 }
 
 // +-----------------------------------------------------------------------+
-// |                    synchronize user informations                      |
+// | Synchronize user informations                                         |
 // +-----------------------------------------------------------------------+
+
 if (mt_rand(0,9)==0)
 {
   sync_users();
 }
 
 // +-----------------------------------------------------------------------+
-// |                            variables init                             |
+// | Variables init                                                        |
 // +-----------------------------------------------------------------------+
 
 // ?page=plugin-community-pendings is an clean alias of
@@ -113,7 +122,11 @@ if (isset($_SESSION['page_infos']))
 
 $link_start = PHPWG_ROOT_PATH.'admin.php?page=';
 $conf_link = $link_start.'configuration&amp;section=';
-//----------------------------------------------------- template initialization
+
+// +-----------------------------------------------------------------------+
+// | Template init                                                         |
+// +-----------------------------------------------------------------------+
+
 $title = l10n('Piwigo Administration'); // for include/page_header.php
 $page['page_banner'] = '<h1>'.l10n('Piwigo Administration').'</h1>';
 $page['body_id'] = 'theAdminPage';
@@ -158,7 +171,10 @@ $template->assign(
     )
   );
 
-//---------------------------------------------------------------- plugin menus
+// +-----------------------------------------------------------------------+
+// | Plugin menu                                                           |
+// +-----------------------------------------------------------------------+
+
 $plugin_menu_links = trigger_event('get_admin_plugin_menu_links', array() );
 
 function UC_name_compare($a, $b)
@@ -168,43 +184,10 @@ function UC_name_compare($a, $b)
 usort($plugin_menu_links, 'UC_name_compare');
 $template->assign('plugin_menu_items', $plugin_menu_links);
 
-include(PHPWG_ROOT_PATH.'admin/'.$page['page'].'.php');
-
-//------------------------------------------------------------- content display
-
 // +-----------------------------------------------------------------------+
-// |                            errors & infos                             |
+// | Refresh permissions                                                   |
 // +-----------------------------------------------------------------------+
 
-$template->assign('ACTIVE_MENU', get_active_menu($page['page']));
-
-if (count($page['errors']) != 0)
-{
-  $template->assign('errors', $page['errors']);
-}
-
-if (count($page['infos']) != 0)
-{
-  $template->assign('infos', $page['infos']);
-}
-
-if (count($page['warnings']) != 0)
-{
-  $template->assign('warnings', $page['warnings']);
-}
-
-// Add the Piwigo Official menu
-  $template->assign( 'pwgmenu', pwg_URL() );
-
-include(PHPWG_ROOT_PATH.'include/page_header.php');
-
-trigger_action('loc_end_admin');
-
-$template->pparse('admin');
-
-// +-----------------------------------------------------------------------+
-// |                     order permission refreshment                      |
-// +-----------------------------------------------------------------------+
 // Only for pages witch change permissions
 if (
     in_array($page['page'],
@@ -233,6 +216,46 @@ if (
 {
   invalidate_user_cache();
 }
+
+// +-----------------------------------------------------------------------+
+// | Include specific page                                                 |
+// +-----------------------------------------------------------------------+
+
+include(PHPWG_ROOT_PATH.'admin/'.$page['page'].'.php');
+
+// +-----------------------------------------------------------------------+
+// | Errors, Infos & Warnings                                              |
+// +-----------------------------------------------------------------------+
+
+$template->assign('ACTIVE_MENU', get_active_menu($page['page']));
+
+if (count($page['errors']) != 0)
+{
+  $template->assign('errors', $page['errors']);
+}
+
+if (count($page['infos']) != 0)
+{
+  $template->assign('infos', $page['infos']);
+}
+
+if (count($page['warnings']) != 0)
+{
+  $template->assign('warnings', $page['warnings']);
+}
+
+// +-----------------------------------------------------------------------+
+// | Sending html code                                                     |
+// +-----------------------------------------------------------------------+
+
+// Add the Piwigo Official menu
+$template->assign( 'pwgmenu', pwg_URL() );
+
+include(PHPWG_ROOT_PATH.'include/page_header.php');
+
+trigger_action('loc_end_admin');
+
+$template->pparse('admin');
 
 include(PHPWG_ROOT_PATH.'include/page_tail.php');
 ?>
