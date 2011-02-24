@@ -14,6 +14,10 @@
 {/if}
 {/foreach}
 
+<!--[if IE 7]>
+  <link rel="stylesheet" type="text/css" href="{$ROOT_URL}admin/themes/default/fix-ie7.css">
+<![endif]-->
+
 <!-- BEGIN get_combined_scripts -->
 {get_combined_scripts load='header'}
 <!-- END get_combined_scripts -->
