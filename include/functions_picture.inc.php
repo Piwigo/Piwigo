@@ -65,6 +65,25 @@ function get_element_location($element_info)
 }
 
 
+/*
+ * Returns the name of a photo according to its name and its filename.
+ * @param name string
+ * @param filename string
+ * @return string
+ */
+function get_image_name($name, $filename)
+{
+  if (!empty($name))
+  {
+    return $name;
+  }
+  else
+  {
+    return get_name_from_file($filename);
+  }
+}
+
+
 /**
  * Returns the PATH to the image to be displayed in the picture page. If the
  * element is not a picture, then the representative image or the default
