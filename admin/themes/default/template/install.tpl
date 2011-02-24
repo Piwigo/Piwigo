@@ -12,6 +12,10 @@
 <link rel="stylesheet" type="text/css" href="{$ROOT_URL}admin/themes/{$theme.id}/theme.css">
 {/foreach}
 
+<!--[if IE 7]>
+  <link rel="stylesheet" type="text/css" href="{$ROOT_URL}admin/themes/default/fix-ie7.css">
+<![endif]-->
+
 <script type="text/javascript" src="themes/default/js/jquery.packed.js"></script>
 {literal}
 <script type="text/javascript">
