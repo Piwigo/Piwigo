@@ -36,7 +36,7 @@ BODY {
 	height:110px; 
 }
 #mbIdentification p, .totalImages { 
-	color:#333; 
+	color:#666; 
 }
 .header_msgs { 
 	background:transparent url(images/header_msgs-bg.gif) repeat scroll left top;
@@ -109,6 +109,9 @@ BODY {
 	color:#333; 
 	font-size: 16px; 
 	line-height: 15px; 
+}
+#menubar UL SPAN.menuInfoCat { 
+	color:#666;
 }
 #menubar LI { 
 	padding-left: 12px; 
