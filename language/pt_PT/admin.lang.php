@@ -774,4 +774,5 @@ $lang['with no tag'] = 'sem etiquetas';
 $lang['with no virtual album'] = 'sem álbum virtual';
 $lang['You have %d orphan tags: %s.'] = 'Tem %d etiquetas orfãs: %s.';
 $lang['Your configuration settings are saved'] = 'A sua configuração foi guardada';
+$lang['Remove from caddie'] = 'Remover do carrinho';
 ?>
