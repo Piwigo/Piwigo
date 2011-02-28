@@ -778,5 +778,5 @@ $lang['with no album'] = 'без албума';
 $lang['with no tag'] = 'без ознаке';
 $lang['with no virtual album'] = 'без виртуелног албума';
 $lang['You have %d orphan tags: %s.'] = 'Имате %d orphan ознака: %s.';
-
+$lang['predefined filter'] = 'предефинисани филтер';
 ?>
