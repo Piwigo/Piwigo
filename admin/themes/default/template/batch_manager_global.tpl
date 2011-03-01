@@ -139,7 +139,7 @@ $(document).ready(function() {
   $('img.thumbnail').tipTip({
     'delay' : 0,
     'fadeIn' : 200,
-    'fadeOut' : 200,
+    'fadeOut' : 200
   });
 
   $("[id^=action_]").hide();
