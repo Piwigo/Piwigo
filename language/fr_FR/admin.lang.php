@@ -786,4 +786,7 @@ $lang['You have %d orphan tags: %s.'] = 'Vous avez %d tags orphelins: %s.';
 $lang['Delete orphan tags'] = 'Supprimer les tags orphelins';
 $lang['delete photo'] = 'supprimer la photo';
 $lang['Remove from caddie'] = 'Retirer du panier';
+$lang['Themes which need upgrade'] = 'Thèmes à mettre à jour';
+$lang['Themes up to date'] = 'Thèmes à jour';
+$lang['Theme versions can\'t be checked'] = 'Impossible de vérifier les thèmes suivants';
 ?>

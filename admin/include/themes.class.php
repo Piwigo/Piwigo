@@ -52,6 +52,7 @@ class themes
 
     $tabsheet = new tabsheet();
     $tabsheet->add('themes_installed', l10n('Installed Themes'), $link.'themes_installed');
+    $tabsheet->add('themes_update', l10n('Check for updates'), $link.'themes_update');
     $tabsheet->add('themes_new', l10n('Add New Theme'), $link.'themes_new');
     $tabsheet->select($selected);
     $tabsheet->assign();

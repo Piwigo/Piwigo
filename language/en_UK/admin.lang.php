@@ -775,4 +775,7 @@ $lang['Your configuration settings are saved'] = 'Your configuration settings ar
 $lang['[%s] Visit album %s'] = "[%s] Visit album %s";
 $lang['[NBM] Problems or questions'] = "[NBM] Problems or questions";
 $lang['[Simulation]'] = "[Simulation]";
+$lang['Themes which need upgrade'] = 'Themes which need upgrade';
+$lang['Themes up to date'] = 'Themes up to date';
+$lang['Theme versions can\'t be checked'] = 'Theme versions can\'t be checked';
 ?>
