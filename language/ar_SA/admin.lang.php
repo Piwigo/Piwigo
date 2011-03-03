@@ -512,12 +512,6 @@ $lang['Correction the anomaly will cancel the fact that it\'s ignored'] = 'تص�
 $lang['%d anomaly has been ignored.'] = '%d تم تجاهل هذا الشيئ الشاذ.';
 $lang['%d anomalies have been ignored.'] = '%d تم تجاهل هذه الحلات الشاذه.';
 $lang['Plugins which need upgrade'] = 'اضافات تحتاج لتحديث';
-$lang['Plugins up to date'] = 'الإضافات حتى الآن';
-$lang['Plugin versions can\'t be checked'] = 'اضافات يمكن فحص تحديثاتها\'t ';
-$lang['Current<br>version'] = 'الحالي<br>الاصدار';
-$lang['Available<br>version'] = 'المتوفر<br>الاصدار';
-$lang['Automatic upgrade'] = 'تحديث آلي';
-$lang['Download file'] = 'تنزيل الملف';
 $lang['Plugin list'] = 'قائمة الاضافات';
 $lang['Check for updates'] = 'فحص للتحديث';
 $lang['Other plugins'] = 'اضافات أخرى';
