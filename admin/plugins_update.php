@@ -119,59 +119,32 @@ if ($plugins->get_server_plugins())
     {
       $plugin_info = $plugins->server_plugins[$fs_plugin['extension']];
 
-      list($date, ) = explode(' ', $plugin_info['revision_date']);
-
-      $ext_desc = '<i>'.l10n('Downloads').':</i> '.$plugin_info['extension_nb_downloads']."\r\n"
-        ."\r\n"
-        .$plugin_info['extension_description'];
-
-      $rev_desc = '<i>'.l10n('Version').':</i> '.$plugin_info['revision_name']."\r\n"
-        .'<i>'.l10n('Released on').':</i> '.$date."\r\n"
-        .'<i>'.l10n('Downloads').':</i> '.$plugin_info['revision_nb_downloads']."\r\n"
-        ."\r\n"
-        .$plugin_info['revision_description'];
-
-      if ($plugins->plugin_version_compare($fs_plugin['version'], $plugin_info['revision_name']))
+      if (!$plugins->plugin_version_compare($fs_plugin['version'], $plugin_info['revision_name']))
       {
-        // Plugin is up to date
-        $template->append('plugins_uptodate', array(
-          'URL' => PEM_URL.'/extension_view.php?eid='.$plugin_info['extension_id'],
-          'NAME' => $fs_plugin['name'],
-          'EXT_DESC' => $ext_desc,
-          'VERSION' => $fs_plugin['version'],
-          'VER_DESC' => $rev_desc));
-      }
-      else
-      {
-        // Plugin need upgrade
         $url_auto_update = $base_url
           . '&amp;revision=' . $plugin_info['revision_id']
           . '&amp;plugin=' . $plugin_id
           . '&amp;pwg_token='.get_pwg_token()
           ;
 
-        $template->append('plugins_not_uptodate', array(
+        $template->append('plugins', array(
+          'ID' => $plugin_info['extension_id'],
           'EXT_NAME' => $fs_plugin['name'],
           'EXT_URL' => PEM_URL.'/extension_view.php?eid='.$plugin_info['extension_id'],
-          'EXT_DESC' => $ext_desc,
-          'VERSION' => $fs_plugin['version'],
-          'NEW_VERSION' => $plugin_info['revision_name'],
-          'NEW_VER_DESC' => $rev_desc,
+          'EXT_DESC' => trim($plugin_info['extension_description'], " \n\r"),
+          'REV_DESC' => trim($plugin_info['revision_description'], " \n\r"),
+          'VERSION' => $plugin_info['revision_name'],
+          'AUTHOR' => $plugin_info['author_name'],
+          'DOWNLOADS' => $plugin_info['extension_nb_downloads'],
           'URL_UPDATE' => $url_auto_update,
           'URL_DOWNLOAD' => $plugin_info['download_url'] . '&amp;origin=piwigo_download'));
       }
-    }
-    else
-    {
-      // Can't check plugin
-      $template->append('plugins_cant_check', array(
-        'NAME' => $fs_plugin['name'],
-        'VERSION' => $fs_plugin['version']));
     }
   }
 }
 else
 {
+  $template->assign('SERVER_ERROR', true);
   array_push($page['errors'], l10n('Can\'t connect to server.'));
 }
 

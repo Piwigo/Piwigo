@@ -520,8 +520,6 @@ $lang['Please wait...'] = 'Please wait...';
 $lang['pLoader stands for <em>Piwigo Uploader</em>. From your computer, pLoader prepares your photos and transfer them to your Piwigo photo gallery.'] = 'pLoader stands for <em>Piwigo Uploader</em>. From your computer, pLoader prepares your photos and transfer them to your Piwigo photo gallery.';
 $lang['Plugin has been successfully copied'] = "The plugin has been successfully copied";
 $lang['Plugin list'] = "Plugins list";
-$lang['Plugin versions can\'t be checked'] = "Plugin which version cannot be checked";
-$lang['Plugins up to date'] = "Plugins up-to-date";
 $lang['Plugins which need upgrade'] = "Plugins to be upgraded";
 $lang['Plugins'] = "Plugins";
 $lang['Position'] = "Position";
@@ -776,6 +774,6 @@ $lang['[%s] Visit album %s'] = "[%s] Visit album %s";
 $lang['[NBM] Problems or questions'] = "[NBM] Problems or questions";
 $lang['[Simulation]'] = "[Simulation]";
 $lang['Themes which need upgrade'] = 'Themes which need upgrade';
-$lang['Themes up to date'] = 'Themes up to date';
-$lang['Theme versions can\'t be checked'] = 'Theme versions can\'t be checked';
+$lang['All themes are up to date.'] = 'All themes are up to date.';
+$lang['All plugins are up to date.'] = 'All plugins are up to date.';
 ?>
