@@ -1,10 +1,14 @@
 {combine_script id='jquery.ui' load='async' require='jquery' path='themes/default/js/jquery.ui.min.js' }
-{combine_script id='jquery.cluetip' load='async' require='jquery' path='themes/default/js/plugins/jquery.cluetip.packed.js'}
-{footer_script require='jquery.cluetip'}
-jQuery().ready(function(){ldelim}
-	jQuery('.cluetip').cluetip({ldelim}
-		width: 300,
-		splitTitle: '|'
+{combine_script id='jquery.ui.effects' load='async' require='jquery.ui' path='themes/default/js/ui/minified/jquery.effects.core.min.js' }
+{combine_script id='jquery.ui.effects.blind' load='async' require='jquery.ui.effects' path='themes/default/js/ui/minified/jquery.effects.blind.min.js' }
+
+{footer_script require='jquery.ui.effects.blind'}
+jQuery(document).ready(function(){ldelim}
+	jQuery("td[id^='desc_'], p[id^='revdesc_']").click(function() {ldelim}
+		id = this.id.split('_');
+		jQuery("#revdesc_"+id[1]).toggle('blind');
+    jQuery(".button_"+id[1]).toggle();
+		return false;
 	});
 });
 {/footer_script}
@@ -18,24 +22,34 @@ jQuery().ready(function(){ldelim}
 <fieldset>
 <legend>{'Plugins which need upgrade'|@translate}</legend>
 {foreach from=$plugins item=plugin name=plugins_loop}
-<div class="pluginBox" id="plugin_{$plugin.ID}">
+<div class="pluginBox">
   <table>
     <tr>
       <td class="pluginBoxNameCell">
-        <a href="{$plugin.EXT_URL}" class="externalLink cluetip" title="{$plugin.EXT_NAME}|{$plugin.EXT_DESC|htmlspecialchars|nl2br}">{$plugin.EXT_NAME}</a>
+        {$plugin.EXT_NAME}
       </td>
       <td>
-        <a href="{$plugin.URL_UPDATE}" onclick="return confirm('{'Are you sure to install this upgrade? You must verify if this version does not need uninstallation.'|@translate|@escape:javascript}');">{'Automatic upgrade'|@translate}</a>
-        | <a href="{$plugin.URL_DOWNLOAD}">{'Download file'|@translate}</a>
+        <a href="{$plugin.URL_UPDATE}" onclick="return confirm('{'Are you sure to install this upgrade? You must verify if this version does not need uninstallation.'|@translate|@escape:javascript}');">{'Install'|@translate}</a>
+        | <a href="{$plugin.URL_DOWNLOAD}">{'Download'|@translate}</a>
+        | <a class="externalLink" href="{$plugin.EXT_URL}">{'Visit plugin site'|@translate}</a>
       </td>
     </tr>
     <tr>
       <td>
-        <a href="{$plugin.EXT_URL}" class="externalLink cluetip" title="{'Version'|@translate} {$plugin.VERSION}|{$plugin.REV_DESC|htmlspecialchars|nl2br}"> {'Version'|@translate} {$plugin.VERSION}</a>
+        {'Version'|@translate} {$plugin.CURRENT_VERSION}
       </td>
-      <td>
+      <td class="pluginDesc" id="desc_{$plugin.ID}">
         <em>{'Downloads'|@translate}: {$plugin.DOWNLOADS}</em>
-        {'By %s'|@translate|@sprintf:$plugin.AUTHOR}
+        <img src="{$ROOT_URL}{$themeconf.admin_icon_dir}/plus.gif" alt="" class="button_{$plugin.ID}">
+        <img src="{$ROOT_URL}{$themeconf.admin_icon_dir}/minus.gif" alt="" class="button_{$plugin.ID}" style="display:none;">
+        {'New Version'|@translate} : {$plugin.NEW_VERSION}
+        | {'By %s'|@translate|@sprintf:$plugin.AUTHOR}
+      </td>
+    </tr>
+    <tr>
+      <td></td>
+      <td class="pluginDesc">
+        <p id="revdesc_{$plugin.ID}" style="display:none;">{$plugin.REV_DESC|htmlspecialchars|nl2br}</p>
       </td>
     </tr>
   </table>

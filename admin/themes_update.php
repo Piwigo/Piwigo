@@ -97,59 +97,35 @@ if ($themes->get_server_themes())
     {
       $theme_info = $themes->server_themes[$fs_theme['extension']];
 
-      list($date, ) = explode(' ', $theme_info['revision_date']);
-
-      $ext_desc = '<i>'.l10n('Downloads').':</i> '.$theme_info['extension_nb_downloads']."\r\n"
-        ."\r\n"
-        .$theme_info['extension_description'];
-
-      $rev_desc = '<i>'.l10n('Version').':</i> '.$theme_info['revision_name']."\r\n"
-        .'<i>'.l10n('Released on').':</i> '.$date."\r\n"
-        .'<i>'.l10n('Downloads').':</i> '.$theme_info['revision_nb_downloads']."\r\n"
-        ."\r\n"
-        .$theme_info['revision_description'];
-
-      if ($themes->theme_version_compare($fs_theme['version'], $theme_info['revision_name']))
+      if (!$themes->theme_version_compare($fs_theme['version'], $theme_info['revision_name']))
       {
-        // Plugin is up to date
-        $template->append('themes_uptodate', array(
-          'URL' => PEM_URL.'/extension_view.php?eid='.$theme_info['extension_id'],
-          'NAME' => $fs_theme['name'],
-          'EXT_DESC' => $ext_desc,
-          'VERSION' => $fs_theme['version'],
-          'VER_DESC' => $rev_desc));
-      }
-      else
-      {
-        // Plugin need upgrade
         $url_auto_update = $base_url
           . '&amp;revision=' . $theme_info['revision_id']
           . '&amp;theme=' . $theme_id
           . '&amp;pwg_token='.get_pwg_token()
           ;
 
-        $template->append('themes_not_uptodate', array(
+        $template->append('update_themes', array(
+          'ID' => $theme_info['extension_id'],
           'EXT_NAME' => $fs_theme['name'],
           'EXT_URL' => PEM_URL.'/extension_view.php?eid='.$theme_info['extension_id'],
-          'EXT_DESC' => $ext_desc,
-          'VERSION' => $fs_theme['version'],
+          'EXT_DESC' => trim($theme_info['extension_description'], " \n\r"),
+          'REV_DESC' => trim($theme_info['revision_description'], " \n\r"),
+          'CURRENT_VERSION' => $fs_theme['version'],
           'NEW_VERSION' => $theme_info['revision_name'],
-          'NEW_VER_DESC' => $rev_desc,
+          'AUTHOR' => $theme_info['author_name'],
+          'DOWNLOADS' => $theme_info['extension_nb_downloads'],
           'URL_UPDATE' => $url_auto_update,
-          'URL_DOWNLOAD' => $theme_info['download_url'] . '&amp;origin=piwigo_download'));
+          'URL_DOWNLOAD' => $theme_info['download_url'] . '&amp;origin=piwigo_download'
+          )
+        );
       }
-    }
-    else
-    {
-      // Can't check theme
-      $template->append('themes_cant_check', array(
-        'NAME' => $fs_theme['name'],
-        'VERSION' => $fs_theme['version']));
     }
   }
 }
 else
 {
+  $template->assign('SERVER_ERROR', true);
   array_push($page['errors'], l10n('Can\'t connect to server.'));
 }
 

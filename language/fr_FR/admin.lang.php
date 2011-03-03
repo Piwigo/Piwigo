@@ -789,4 +789,6 @@ $lang['Remove from caddie'] = 'Retirer du panier';
 $lang['Themes which need upgrade'] = 'Thèmes à mettre à jour';
 $lang['All themes are up to date.'] = 'Tous les thèmes sont à jour.';
 $lang['All plugins are up to date.'] = 'Tous les plugins sont à jour.';
+$lang['Visit theme site'] = 'Visitez le site du thème';
+$lang['New Version'] = 'Nouvelle version';
 ?>

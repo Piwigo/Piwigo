@@ -1,77 +1,62 @@
-{combine_script id='jquery.cluetip' load='async' require='jquery' path='themes/default/js/plugins/jquery.cluetip.packed.js'}
-{footer_script require='jquery.cluetip'}
-jQuery().ready(function(){ldelim}
-	jQuery('.cluetip').cluetip({ldelim}
-		width: 300,
-		splitTitle: '|'
+{combine_script id='jquery.ui' load='async' require='jquery' path='themes/default/js/jquery.ui.min.js' }
+{combine_script id='jquery.ui.effects' load='async' require='jquery.ui' path='themes/default/js/ui/minified/jquery.effects.core.min.js' }
+{combine_script id='jquery.ui.effects.blind' load='async' require='jquery.ui.effects' path='themes/default/js/ui/minified/jquery.effects.blind.min.js' }
+
+{footer_script require='jquery.ui.effects.blind'}
+jQuery(document).ready(function(){ldelim}
+	jQuery("td[id^='desc_'], p[id^='revdesc_']").click(function() {ldelim}
+		id = this.id.split('_');
+		jQuery("#revdesc_"+id[1]).toggle('blind');
+    jQuery(".button_"+id[1]).toggle();
+		return false;
 	});
 });
 {/footer_script}
 
 <div class="titrePage">
-  <h2>{'Check for updates'|@translate}</h2>
+  <h2>{'Themes'|@translate}</h2>
 </div>
 
-{if isset($themes_not_uptodate)}
-<br>
-<b>{'Themes which need upgrade'|@translate}</b>
-<table class="table2 themes">
-<thead>
-  <tr class="throw">
-    <td>{'Name'|@translate}</td>
-    <td>{'Current<br>version'|@translate}</td>
-    <td>{'Available<br>version'|@translate}</td>
-    <td>{'Actions'|@translate}</td>
-  </tr>
-</thead>
-{foreach from=$themes_not_uptodate item=theme name=themes_loop}
-  <tr class="{if $smarty.foreach.themes_loop.index is odd}row1{else}row2{/if}">
-    <td><a href="{$theme.EXT_URL}" class="externalLink cluetip" title="{$theme.EXT_NAME}|{$theme.EXT_DESC|htmlspecialchars|nl2br}">{$theme.EXT_NAME}</a></td>
-    <td style="text-align:center;">{$theme.VERSION}</td>
-    <td style="text-align:center;"><a href="{$theme.EXT_URL}" class="externalLink cluetip" title="{$theme.EXT_NAME}|{$theme.NEW_VER_DESC|htmlspecialchars|nl2br}">{$theme.NEW_VERSION}</a></td>
-    <td style="text-align:center;"><a href="{$theme.URL_UPDATE}" onclick="return confirm('{'Are you sure to install this upgrade? You must verify if this version does not need uninstallation.'|@translate|@escape:javascript}');">{'Automatic upgrade'|@translate}</a>
-      / <a href="{$theme.URL_DOWNLOAD}">{'Download file'|@translate}</a></td>
-  </tr>
+{if not empty($update_themes)}
+<div id="availablePlugins">
+<fieldset>
+<legend>{'Themes which need upgrade'|@translate}</legend>
+{foreach from=$update_themes item=theme name=themes_loop}
+<div class="pluginBox">
+  <table>
+    <tr>
+      <td class="pluginBoxNameCell">
+        {$theme.EXT_NAME}
+      </td>
+      <td>
+        <a href="{$theme.URL_UPDATE}" onclick="return confirm('{'Are you sure?'|@translate|@escape:javascript}');">{'Install'|@translate}</a>
+        | <a href="{$theme.URL_DOWNLOAD}">{'Download'|@translate}</a>
+        | <a class="externalLink" href="{$theme.EXT_URL}">{'Visit theme site'|@translate}</a>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        {'Version'|@translate} {$theme.CURRENT_VERSION}
+      </td>
+      <td class="pluginDesc" id="desc_{$theme.ID}">
+        <em>{'Downloads'|@translate}: {$theme.DOWNLOADS}</em>
+        <img src="{$ROOT_URL}{$themeconf.admin_icon_dir}/plus.gif" alt="" class="button_{$theme.ID}">
+        <img src="{$ROOT_URL}{$themeconf.admin_icon_dir}/minus.gif" alt="" class="button_{$theme.ID}" style="display:none;">
+        {'New Version'|@translate} : {$theme.NEW_VERSION}
+        | {'By %s'|@translate|@sprintf:$theme.AUTHOR}
+      </td>
+    </tr>
+    <tr>
+      <td></td>
+      <td class="pluginDesc">
+        <p id="revdesc_{$theme.ID}" style="display:none;">{$theme.REV_DESC|htmlspecialchars|nl2br}</p>
+      </td>
+    </tr>
+  </table>
+</div>
 {/foreach}
-</table>
-{/if}
-
-
-{if isset($themes_uptodate)}
-<br>
-<b>{'Themes up to date'|@translate}</b>
-<table class="table2 plugins">
-<thead>
-  <tr class="throw">
-    <td>{'Name'|@translate}</td>
-    <td>{'Version'|@translate}</td>
-  </tr>
-</thead>
-{foreach from=$themes_uptodate item=theme name=themes_loop}
-  <tr class="{if $smarty.foreach.themes_loop.index is odd}row1{else}row2{/if}">
-    <td><a href="{$theme.URL}" class="externalLink cluetip" title="{$theme.NAME}|{$theme.EXT_DESC|htmlspecialchars|nl2br}">{$theme.NAME}</a></td>
-    <td style="text-align:center;"><a href="{$theme.URL}" class="externalLink cluetip" title="{$theme.NAME}|{$theme.VER_DESC|htmlspecialchars|nl2br}">{$theme.VERSION}</a></td>
-  </tr>
-{/foreach}
-</table>
-{/if}
-
-
-{if isset($themes_cant_check)}
-<br>
-<b>{'Theme versions can\'t be checked'|@translate}</b>
-<table class="table2 plugins">
-<thead>
-  <tr class="throw">
-    <td>{'Name'|@translate}</td>
-    <td>{'Version'|@translate}</td>
-  </tr>
-</thead>
-{foreach from=$themes_cant_check item=theme name=themes_loop}
-  <tr class="{if $smarty.foreach.themes_loop.index is odd}row1{else}row2{/if}">
-    <td>{$theme.NAME}</td>
-    <td style="text-align:center;">{$theme.VERSION}</td>
-  </tr>
-{/foreach}
-</table>
+</fieldset>
+</div>
+{elseif not isset($SERVER_ERROR)}
+<p>{'All themes are up to date.'|@translate}</p>
 {/if}
