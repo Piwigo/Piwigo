@@ -775,5 +775,6 @@ $lang['All themes are up to date.'] = 'All themes are up to date.';
 $lang['All plugins are up to date.'] = 'All plugins are up to date.';
 $lang['All languages are up to date.'] = 'All languages are up to date.';
 $lang['Visit theme site'] = 'Visit theme site';
+$lang['Visit language site'] = 'Visit language site';
 $lang['New Version'] = 'New Version';
 ?>
