@@ -1,7 +1,7 @@
 <?php
 /*
 Theme Name: Sylvia
-Version: 1
+Version: 2.2.0
 Description: Dark background, flora and pink decorations.
 Theme URI: http://piwigo.org/ext/extension_view.php?eid=368
 Author: Piwigo team

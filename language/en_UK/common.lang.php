@@ -22,7 +22,7 @@
 // +-----------------------------------------------------------------------+
 /*
 Language Name: English [UK]
-Version: auto
+Version: 2.2.0
 Language URI: http://piwigo.org/ext/extension_view.php?eid=417
 Author: Piwigo team
 Author URI: http://piwigo.org
