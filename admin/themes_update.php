@@ -74,7 +74,7 @@ if (isset($_GET['theme']) and isset($_GET['revision']))
 
       default:
         array_push($page['errors'],
-          sprintf(l10n('An error occured during extraction (%s).'), $_GET['upgradestatus'])
+          sprintf(l10n('An error occured during extraction (%s).'), $upgrade_status)
         );
     }
 
