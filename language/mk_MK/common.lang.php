@@ -23,6 +23,13 @@
 // | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
+/*
+Language Name: Македонски [MK]
+Version: auto
+Language URI: http://piwigo.org/ext/extension_view.php?eid=428
+Author: Piwigo team
+Author URI: http://piwigo.org
+*/
 
 // Langage informations
 $lang_info['language_name'] = 'Македонски';

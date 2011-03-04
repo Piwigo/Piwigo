@@ -20,6 +20,13 @@
 // | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
+/*
+Language Name: فارسی [IR]
+Version: auto
+Language URI: http://piwigo.org/ext/extension_view.php?eid=419
+Author: Piwigo team
+Author URI: http://piwigo.org
+*/
 
 $lang_info['language_name'] = "فارسی";
 $lang_info['country'] = "ایران";

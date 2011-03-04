@@ -20,6 +20,13 @@
 // | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
+/*
+Language Name: עברית [IL]
+Version: auto
+Language URI: http://piwigo.org/ext/extension_view.php?eid=457
+Author: Piwigo team
+Author URI: http://piwigo.org
+*/
 
 $lang_info['language_name'] = "Hebrew";
 $lang_info['country'] = "Israel";
