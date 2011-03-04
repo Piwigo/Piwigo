@@ -770,8 +770,10 @@ $lang['[%s] Visit album %s'] = "[%s] Visit album %s";
 $lang['[NBM] Problems or questions'] = "[NBM] Problems or questions";
 $lang['[Simulation]'] = "[Simulation]";
 $lang['Themes which need upgrade'] = 'Themes which need upgrade';
+$lang['Languages which need upgrade'] = 'Languages which need upgrade';
 $lang['All themes are up to date.'] = 'All themes are up to date.';
 $lang['All plugins are up to date.'] = 'All plugins are up to date.';
+$lang['All languages are up to date.'] = 'All languages are up to date.';
 $lang['Visit theme site'] = 'Visit theme site';
 $lang['New Version'] = 'New Version';
 ?>

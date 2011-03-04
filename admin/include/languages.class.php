@@ -32,7 +32,7 @@ class languages
   */
   function languages($target_charset = null)
   {
-    $this->fs_languages = $this->get_fs_languages($target_charset);
+    $this->get_fs_languages($target_charset);
   }
 
   /**
@@ -47,6 +47,7 @@ class languages
 
     $tabsheet = new tabsheet();
     $tabsheet->add('languages_installed', l10n('Installed Languages'), $link.'languages_installed');
+    $tabsheet->add('languages_update', l10n('Check for updates'), $link.'languages_update');
     $tabsheet->add('languages_new', l10n('Add New Language'), $link.'languages_new');
     $tabsheet->select($selected);
     $tabsheet->assign();
@@ -170,6 +171,7 @@ UPDATE '.USER_INFOS_TABLE.'
             )
         {
           $language = array(
+              'name'=>$file,
               'code'=>$file,
               'version'=>'0',
               'uri'=>'',
@@ -211,8 +213,6 @@ UPDATE '.USER_INFOS_TABLE.'
     }
     closedir($dir);
     @uasort($this->fs_languages, 'name_compare');
-
-    return $this->fs_languages;
   }
 
   function get_db_languages()
@@ -282,6 +282,7 @@ UPDATE '.USER_INFOS_TABLE.'
       'last_revision_only' => 'true',
       'version' => implode(',', $versions_to_check),
       'lang' => $user['language'],
+      'get_nb_downloads' => 'true',
       )
     );
     if (!empty($languages_to_check))
@@ -307,10 +308,10 @@ UPDATE '.USER_INFOS_TABLE.'
       {
         if (preg_match('/^.*? \[[A-Z]{2}\]$/', $language['extension_name']))
         {
-          $this->server_languages[$language['extension_name']] = $language;
+          $this->server_languages[$language['extension_id']] = $language;
         }
       }
-      @ksort($this->server_languages);
+      @uasort($this->server_languages, array($this, 'extension_name_compare'));
       return true;
     }
     return false;
@@ -378,8 +379,11 @@ UPDATE '.USER_INFOS_TABLE.'
                 }
                 if ($status == 'ok')
                 {
-                  $this->fs_languages = $this->get_fs_languages();
-                  $this->perform_action('activate', $dest);
+                  $this->get_fs_languages();
+                  if ($action == 'install')
+                  {
+                    $this->perform_action('activate', $dest);
+                  }
                 }
                 if (file_exists($extract_path.'/obsolete.list')
                   and $old_files = file($extract_path.'/obsolete.list', FILE_IGNORE_NEW_LINES)
@@ -470,6 +474,24 @@ UPDATE '.USER_INFOS_TABLE.'
         break;
       }
     }
+  }
+
+  /**
+   * Sort functions
+   */
+  function language_version_compare($a, $b)
+  {
+    $pattern = array('/([a-z])/ei', '/\.+/', '/\.\Z|\A\./');
+    $replacement = array( "'.'.intval('\\1', 36).'.'", '.', '');
+
+    $array = preg_replace($pattern, $replacement, array($a, $b));
+
+    return version_compare($array[0], $array[1], '>=');
+  }
+
+  function extension_name_compare($a, $b)
+  {
+    return strcmp(strtolower($a['extension_name']), strtolower($b['extension_name']));
   }
 }
 ?>

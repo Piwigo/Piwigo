@@ -340,7 +340,7 @@ INSERT INTO '.$prefixeTable.'config (param,value,comment)
     pwg_query($query);
 
     // fill languages table
-    foreach ($languages->get_fs_languages() as $language_code => $fs_language)
+    foreach ($languages->fs_languages as $language_code => $fs_language)
     {
       $languages->perform_action('activate', $language_code);
     }
