@@ -80,8 +80,10 @@ class languages
 
         $query = '
 INSERT INTO '.LANGUAGES_TABLE.'
-  (id, name)
-  VALUES(\''.$language_id.'\', \''.$this->fs_languages[$language_id].'\')
+  (id, version, name)
+  VALUES(\''.$language_id.'\',
+         \''.$this->fs_languages[$language_id]['version'].'\',
+         \''.$this->fs_languages[$language_id]['name'].'\')
 ;';
         pwg_query($query);
         break;
@@ -157,21 +159,60 @@ UPDATE '.USER_INFOS_TABLE.'
     $target_charset = strtolower($target_charset);
 
     $dir = opendir(PHPWG_ROOT_PATH.'language');
-
     while ($file = readdir($dir))
     {
-      $path = PHPWG_ROOT_PATH.'language/'.$file;
-      if (!is_link($path) and is_dir($path) and file_exists($path.'/iso.txt'))
+      if ($file!='.' and $file!='..')
       {
-        list($language_name) = @file($path.'/iso.txt');
+        $path = PHPWG_ROOT_PATH.'language/'.$file;
+        if (is_dir($path) and !is_link($path)
+            and preg_match('/^[a-zA-Z0-9-_]+$/', $file )
+            and file_exists($path.'/common.lang.php')
+            )
+        {
+          $language = array(
+              'code'=>$file,
+              'version'=>'0',
+              'uri'=>'',
+              'author'=>'',
+            );
+          $plg_data = implode( '', file($path.'/common.lang.php') );
 
-        $languages[$file] = convert_charset($language_name, 'utf-8', $target_charset);
+          if ( preg_match("|Language Name: (.*)|", $plg_data, $val) )
+          {
+            $language['name'] = trim( $val[1] );
+            $language['name'] = convert_charset($language['name'], 'utf-8', $target_charset);
+          }
+          if (preg_match("|Version: (.*)|", $plg_data, $val))
+          {
+            $language['version'] = trim($val[1]);
+          }
+          if ( preg_match("|Language URI: (.*)|", $plg_data, $val) )
+          {
+            $language['uri'] = trim($val[1]);
+          }
+          if ( preg_match("|Author: (.*)|", $plg_data, $val) )
+          {
+            $language['author'] = trim($val[1]);
+          }
+          if ( preg_match("|Author URI: (.*)|", $plg_data, $val) )
+          {
+            $language['author uri'] = trim($val[1]);
+          }
+          if (!empty($language['uri']) and strpos($language['uri'] , 'extension_view.php?eid='))
+          {
+            list( , $extension) = explode('extension_view.php?eid=', $language['uri']);
+            if (is_numeric($extension)) $language['extension'] = $extension;
+          }
+          // IMPORTANT SECURITY !
+          $language = array_map('htmlspecialchars', $language);
+          $this->fs_languages[$file] = $language;
+        }
       }
     }
     closedir($dir);
-    @asort($languages);
+    @uasort($this->fs_languages, 'name_compare');
 
-    return $languages;
+    return $this->fs_languages;
   }
 
   function get_db_languages()
@@ -192,7 +233,7 @@ UPDATE '.USER_INFOS_TABLE.'
   /**
    * Retrieve PEM server datas to $server_languages
    */
-  function get_server_languages()
+  function get_server_languages($new=false)
   {
     global $user;
 
@@ -225,6 +266,16 @@ UPDATE '.USER_INFOS_TABLE.'
       return false;
     }
 
+    // Languages to check
+    $languages_to_check = array();
+    foreach($this->fs_languages as $fs_language)
+    {
+      if (isset($fs_language['extension']))
+      {
+        $languages_to_check[] = $fs_language['extension'];
+      }
+    }
+
     // Retrieve PEM languages infos
     $url = PEM_URL . '/api/get_revision_list.php';
     $get_data = array_merge($get_data, array(
@@ -233,6 +284,17 @@ UPDATE '.USER_INFOS_TABLE.'
       'lang' => $user['language'],
       )
     );
+    if (!empty($languages_to_check))
+    {
+      if ($new)
+      {
+        $get_data['extension_exclude'] = implode(',', $languages_to_check);
+      }
+      else
+      {
+        $get_data['extension_include'] = implode(',', $languages_to_check);
+      }
+    }
 
     if (fetchRemote($url, $result, $get_data))
     {
@@ -243,12 +305,12 @@ UPDATE '.USER_INFOS_TABLE.'
       }
       foreach ($pem_languages as $language)
       {
-        if (preg_match('/^.*? \[[A-Z]{2}\]$/', $language['extension_name'])
-          and !in_array($language['extension_name'], $this->fs_languages))
+        if (preg_match('/^.*? \[[A-Z]{2}\]$/', $language['extension_name']))
         {
-          $this->server_languages[] = $language;
+          $this->server_languages[$language['extension_name']] = $language;
         }
       }
+      @ksort($this->server_languages);
       return true;
     }
     return false;
@@ -280,8 +342,8 @@ UPDATE '.USER_INFOS_TABLE.'
         {
           foreach ($list as $file)
           {
-            // we search iso.txt in archive
-            if (basename($file['filename']) == 'iso.txt'
+            // we search common.lang.php in archive
+            if (basename($file['filename']) == 'common.lang.php'
               and (!isset($main_filepath)
               or strlen($file['filename']) < strlen($main_filepath)))
             {
@@ -290,7 +352,7 @@ UPDATE '.USER_INFOS_TABLE.'
           }
           if (isset($main_filepath))
           {
-            $root = basename(dirname($main_filepath)); // iso.txt path in archive
+            $root = basename(dirname($main_filepath)); // common.lang.php path in archive
             if (preg_match('/^[a-z]{2}_[A-Z]{2}$/', $root))
             {
               if ($action == 'install')

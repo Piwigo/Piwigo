@@ -159,7 +159,7 @@ else
 {
   $language = 'en_UK';
   // Try to get browser language
-  foreach ($languages->fs_languages as $language_code => $language_name)
+  foreach ($languages->fs_languages as $language_code => $fs_language)
   {
     if (substr($language_code,0,2) == @substr($_SERVER["HTTP_ACCEPT_LANGUAGE"],0,2))
     {
@@ -400,13 +400,13 @@ else
   include_once(PHPWG_ROOT_PATH.'admin/include/languages.class.php');
   $languages = new languages();
   
-  foreach ($languages->fs_languages as $language_code => $language_name)
+  foreach ($languages->fs_languages as $language_code => $fs_language)
   {
     if ($language == $language_code)
     {
       $template->assign('language_selection', $language_code);
     }
-    $languages_options[$language_code] = $language_name;
+    $languages_options[$language_code] = $fs_language['name'];
   }
   $template->assign('language_options', $languages_options);
 

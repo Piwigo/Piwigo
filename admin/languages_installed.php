@@ -54,13 +54,9 @@ $default_language = get_default_language();
 
 $tpl_languages = array();
 
-foreach($languages->fs_languages as $language_id => $language_name)
+foreach($languages->fs_languages as $language_id => $language)
 {
-  $language = array(
-    'id' => $language_id,
-    'name' => $language_name,
-    'u_action' => $base_url.'&amp;language='.$language_id,
-    );
+  $language['u_action'] = add_url_params($base_url, array('language' => $language_id));
 
   if (in_array($language_id, array_keys($languages->db_languages)))
   {

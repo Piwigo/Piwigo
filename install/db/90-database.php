@@ -49,7 +49,7 @@ include_once(PHPWG_ROOT_PATH.'admin/include/languages.class.php');
 
 $languages = new languages(PWG_CHARSET);
 
-foreach ($languages->fs_languages as $language_code => $language_name)
+foreach ($languages->fs_languages as $language_code => $fs_language)
 {
   $languages->perform_action('activate', $language_code);
 }

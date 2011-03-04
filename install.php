@@ -192,7 +192,7 @@ else
 {
   $language = 'en_UK';
   // Try to get browser language
-  foreach ($languages->fs_languages as $language_code => $language_name)
+  foreach ($languages->fs_languages as $language_code => $fs_language)
   {
     if (substr($language_code,0,2) == @substr($_SERVER["HTTP_ACCEPT_LANGUAGE"],0,2))
     {
@@ -340,7 +340,7 @@ INSERT INTO '.$prefixeTable.'config (param,value,comment)
     pwg_query($query);
 
     // fill languages table
-    foreach ($languages->get_fs_languages() as $language_code => $language_name)
+    foreach ($languages->get_fs_languages() as $language_code => $fs_language)
     {
       $languages->perform_action('activate', $language_code);
     }
@@ -417,13 +417,13 @@ INSERT INTO '.$prefixeTable.'config (param,value,comment)
 //------------------------------------------------------ start template output
 $dbengines = available_engines();
 
-foreach ($languages->fs_languages as $language_code => $language_name)
+foreach ($languages->fs_languages as $language_code => $fs_language)
 {
   if ($language == $language_code)
   {
     $template->assign('language_selection', $language_code);
   }
-  $languages_options[$language_code] = $language_name;
+  $languages_options[$language_code] = $fs_language['name'];
 }
 $template->assign('language_options', $languages_options);
 

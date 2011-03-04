@@ -174,10 +174,10 @@ else
     <td>'.l10n('Language').'</td>
     <td>
       <select name="language" onchange="document.location = \''.$script.'.php?language=\'+this.options[this.selectedIndex].value;">';
-  foreach ($languages->fs_languages as $code => $name)
+  foreach ($languages->fs_languages as $code => $fs_language)
   {
     echo '
-      <option label="'.$name.'" value="'.$code.'" '.($code == $language ? 'selected="selected"' : '') .'>'.$name.'</option>';
+      <option label="'.$fs_language['name'].'" value="'.$code.'" '.($code == $language ? 'selected="selected"' : '') .'>'.$fs_language['name'].'</option>';
   }
   echo '
       </select>

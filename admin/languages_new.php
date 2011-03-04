@@ -107,7 +107,7 @@ if (isset($_GET['installstatus']))
 // +-----------------------------------------------------------------------+
 // |                     start template output                             |
 // +-----------------------------------------------------------------------+
-if ($languages->get_server_languages())
+if ($languages->get_server_languages(true))
 {
   foreach($languages->server_languages as $language)
   {
