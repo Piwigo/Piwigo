@@ -121,8 +121,8 @@ a:hover, a:active { color: #f33; border-bottom: 1px solid #FF3363; cursor: point
 ul.actions, .content form#waiting  {text-align:center;}
 
 .header_msgs { background:transparent url(images/header_msgs-bg.gif) repeat scroll right top;
-border:0; color:#333; font-size:24px; height:30px; left:0; margin:0; padding:10px 0 0; position:absolute;
-text-align:center; top:0; width:100%; z-index:99; }
+border:0; color:#333; font-size:24px; height:30px; margin:0; padding:10px 0 0;
+text-align:center; width:100%; }
 #content.content div.comment a.illustration{ margin-right: 30px;}
 /* tabsheets are often used in admin  pages => No specific css files */
 .tabsheet {

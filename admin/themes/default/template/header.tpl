@@ -39,6 +39,14 @@
 
 <div id="the_page">
 
+{if not empty($header_msgs)}
+<div class="header_msgs">
+  {foreach from=$header_msgs item=elt}
+  {$elt}
+  {/foreach}
+</div>
+{/if}
+
 <div id="pwgHead">
   <h1>
     <a href="{$U_RETURN}" title="{'Visit Gallery'|@translate}">
@@ -57,14 +65,6 @@
 </div>
 
 <div style="clear:both;"></div>
-
-{if not empty($header_msgs)}
-<div class="header_msgs">
-  {foreach from=$header_msgs item=elt}
-  {$elt}
-  {/foreach}
-</div>
-{/if}
 
 <div id="theHeader">{*$PAGE_BANNER*}</div>
 
