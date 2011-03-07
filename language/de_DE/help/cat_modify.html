@@ -1,149 +1,131 @@
-<h2>Bearbeiten einer Kategorie</h2>
+<h2>Ein Album bearbeiten</h2>
 
 <h3>Informationen</h3>
 
 <ul>
 
-   <li><strong> Namen</strong>: Umbenennen der Kategorie (praktisch für
-   Kategorie Physik).</li>
+   <li><strong>Name</strong>: Umbenennen eines Albums (oder Erstellen eines virtuellen Names für ein physisches Album).</li>
 
-   <li><strong> Beschreibung</strong>: eine Vorstellung vom Inhalt der Kategorie,
-   Diese Angabe wird unter der Seite der Miniaturen.</li>
+   <li><strong>Beschreibung</strong>: kurze Beschreibung des Inhalts.
+   Dieser Text wird am unteren Rand der Vorschauseite angezeigt.</li>
 
 </ul>
 
-<h3>verschieben</h3>
+<h3>Verschieben</h3>
 
-<p>Wenn die virtuelle Klasse ist, können Sie diese zu verschieben. Verschieben eines
-Kategorie bedeutet, ändern Kategorie angeben.</p>
+<p>Sie können virtuelle Alben verschieben. Verschieben bedeutet, dass Sie dem Album ein
+neues Vorgängeralbum zuweisen.</p>
 
 <h3>Optionen</h3>
 
 <ul>
 
-   <li><strong>Art des Zugriffs:</strong> Verwaltung der Zugriffsrechte. Wenn du
-eine private, alle Mädchen werden private Gruppen. Wenn
-Sie besuchen eine öffentliche, allen Kategorien Mütter werden
-werden.</li>
+   <li><strong>Art des Zugriffs</strong>: Verwalten der Zugriffsrechte. Wenn Sie ein Album als privat markieren,
+  werden auch alle Unteralben als privat markiert. Ebenso werden alle Unteralben eines Albums als öffentlich markiert,
+  wenn sie es als öffentlich markieren.</li>
 
-   <li><strong> sperren</strong>: die Kategorie und alle Kategorien
-Mädchen werden für Wartungsarbeiten vorübergehend nicht erreichbar.</li>
+   <li><strong>Sperren</strong>: Das Album und alle Unteralben werden temporär gesperrt (z.B. für Wartungsarbeiten).</li>
 
-   <li><strong>Kommentare</strong>: die Benutzer kommentieren
-die Elemente dieser Kategorie.</li>
-
-   <li><strong>zulassen Hinzufügen von Bildern</strong>: die Benutzer
-zum Herunterladen von Dateien. Diese Option ist nur verfügbar, wenn die
-Kategorie Physik (und nicht-virtuelle).</li>
+   <li><strong>Kommentare</strong>: Erlauben Sie Benutzern, Fotos dieses Albums zu kommentieren.</li>
 
 </ul>
 
-<p>Sie können diese Optionen auch die Verwaltung durch die Verwaltung der "Eigenschaften"
-(Bildschirme <span class="pwgScreen">hinzufügen</span>, <span
-class = "pwgScreen">Kommentare</span>, <span
-class = "pwgScreen">"Schützen"</span>, <span
-class = "pwgScreen">Public / Private</span>, <span
-class = "pwgScreen">Vertreter</span> ab d '<span
-class = "pwgScreen">Verwaltung, Kategorien, Eigenschaften</span >).</p>
+<p>Sie können diese Optionen auch auf den Seiten zur Verwaltung der Eigenschaften
+(Seiten <span class = "pwgScreen">Kommentare</span>, <span
+class = "pwgScreen">Sperren</span>, <span
+class = "pwgScreen">Öffentlich/Privat</span>, <span
+class = "pwgScreen">Vertreter</span> zu finden unter <span
+class = "pwgScreen">Verwaltung &raquo; Alben &raquo; Eigenschaften</span >) verwalten.</p>
 
-<h3>Sortieren</h3>
+<h3>Sortierreihenfolge</h3>
 
-<p>Verwenden Sie die Sortierung der Bilder Standard.</p>
+<p>Verwenden Sie die Standardmethode zum Sortieren der Bilder.</p>
 
-<p>Angabe, ob die Sortierung gilt auch für die Unterkategorien.</p>
+<p>Geben Sie an, ob die Sortiermethode auch für Unteralben angewendet werden soll.</p>
 
-<p>Wählen Sie die Sortierung der Spalten zu verwenden, um diese Kategorie.</p>
+<p>Sortierkriterien für dieses Album auswählen.</p>
 <ul>
 <li><strong>Erstellungsdatum</strong>: Datum der Aufnahme</li>
 <li><strong>Datum:</strong>: Datum der Synchronisierung</li>
-<li><strong>Durchschnitt (*)</strong>: der Durchschnitt werden durch die Besucher</li>
-<li><strong>Weitere Ansichten (*)</strong>: Der Besuch der Kurse können die Reihenfolge der Ansichten</li>
-<li><strong>Dateiname</strong>: Name der Datei in den Informationen oben</li>
-<li><strong>Id:</strong> internen Id (die jüngsten sind "Id" größer als die früheren).</li>
+<li><strong>Durchschnittswertung (*)</strong>: Wird durch die Besucherwertung beeinflusst</li>
+<li><strong>Am öftesten besucht (*)</strong>: Wird durch die Anzahl der Aufrufe beinflusst</li>
+<li><strong>Dateiname</strong>: Name der Datei</li>
+<li><strong>ID:</strong> Interne ID (Neuere Alben haben eine höhere ID als ältere).</li>
 
 </ul>
-<p><strong>(*)</strong> Achtung: Testen Sie selbst, die diese Sortierungen können unvorhersehbare Ergebnisse.</p>
+<p><strong>(*)</strong> Achtung: Testen Sie die ausgewählte Sortiermethode, da sie unerwartete Ergebnisse liefern können.</p>
 
 
-<h3>Vertreter</h3>
+<h3>Vorschau</h3>
 
-<p>Der Vertreter einer Kategorie ist die Miniaturansicht angezeigt
-Vertretung der Kategorie auf der Hauptseite (<span
-class = "pwgScreen">category.php</span>), wenn eine Kategorie
-nur Unterkategorien und keine direkten Elemente (wie in der
-Stamm)</p>
+<p>Die Vorschau eines Albums ist die Miniaturansicht, die auf der Hauptseite
+(<span class = "pwgScreen">category.php</span>) angezeigt wird, wenn das Album selbst
+keine Bilder sondern nur Unteralben enthält.</p>
 
-<p>Es gibt 4 Möglichkeiten zur Auswahl der Vertreter einer Kategorie:</p>
+<p>Es gibt 4 Möglichkeiten zur Auswahl:</p>
 
 <ul>
 
-   <li><span class="pwgScreen">Seite beim Anzeigen von Bildern</span>: in der Schaltflächen
-Maßnahmen, die einer von ihnen können Sie das Element angezeigt als Vertreter
-der Kategorie angezeigt. Diese Schaltfläche ist nur für die
-Administratoren.</li>
+   <li><span class="pwgScreen">Bilderseite</span>: Eine der Aktionen zu einem Bild erlaubt es Ihnen, das gerade
+  angezeigt Bild als Vorschau für das Album zu definieren. Diese Aktion steht nur Administratoren
+  zur Verfügung.</li>
 
-   <li><span class="pwgScreen">Bearbeiten von Informationen zu einem Bild</span>
-in der Verwaltung. Dieser Bildschirm kann von <span
-class = "pwgScreen">picture.php</span> <span class="pwgScreen">oder Verwaltung von
-Los</span> im <em>Modus</em>. Finden Sie in der Hilfe auf diesem Bildschirm für die
-Details.</li>
+   <li><span class="pwgScreen">Bearbeiten von Bildinformationen</span>
+in der Verwaltung. Diese Funktion können Sie über <span
+class = "pwgScreen">picture.php</span> <span class="pwgScreen"> oder die Batchverwaltung
+</span> im <em>Einzelmodus</em> erreichen. Die Hilfe der angeführten Seiten bietet mehr Informationen
+  zu diesen Funktionen.</li>
 
-   <li><span class="pwgScreen">Verwaltung, Kategorien, Eigenschaften,
-Vertreter</span>. Finden Sie in der Hilfe für diesen Bildschirm, um die Details.</li>
+   <li><span class="pwgScreen">Verwaltung &raquo; Alben &raquo; Eigenschaften &raquo;
+Vorschaubild</span>. Details hierzu finden Sie in der Hilfe der angeführten Seite.</li>
 
-   <li><span class="pwgScreen">Bearbeiten einer Kategorie</span> (in diesem
-Bildschirm).</li>
+   <li><span class="pwgScreen">Bearbeiten eines Albums</span> (auf dieser Seite).</li>
 
 </ul>
 
-<p>Die Darstellung hängt von der Einstellung der Konfiguration
-<code>allow_random_representative</code> (siehe <span
-class = "filename">include / config_default.inc.php</span>).</p>
+<p>Die Wahl des Vorschaubilds wird durch die Option
+<code>allow_random_representative</code> beinflusst (siehe <span
+class="filename">include/config_default.inc.php</span>).</p>
 
-<p>Standard (<code>allow_random_representative</code> auf false) jeder
-Kategorie, die mindestens ein Element wird durch ein Element
-fest. Einmal festgelegt (die Einführung der Kategorie), in dem der Vertreter ändert
-nur, wenn der Administrator den Antrag. Wenn der Vertreter nicht
-ist nicht, Sie können zu <strong>fragen Ein neuer Vertreter
-Zufall</strong>.</p>
+<p>In der Standardeinstellung (<code>allow_random_representative</code> auf false), wird jedes Album,
+dass mindestens ein Element enthält, durch ein definiertes Vorschaubild repräsentiert. Einmal gesetzt
+(während der Albenerstellung), kann das Vorschaubild nur durch einen Administrator geändert werden.
+Passt das definierte Vorschaubild nicht, wählen Sie einfach die Funktion <strong>Bestimme ein neues
+ zufälliges Vorschaubild</strong>.</p>
 
-<p>Wenn die Einstellung <code>allow_random_representative</code>
-wahr ist, eine Kategorie enthalten, kann nicht von
-Vertreter bestimmt. Verwenden Sie einfach auf die Schaltfläche <strong> löschen
-Vertreter</strong>.</p>
+<p>Ist die Option <code>allow_random_representative</code> auf true gesetzt, kann ein Album mit Bildern
+kein definiertes Vorschaubild haben. Verwenden Sie in diesem Fall die Funktion <strong>Lösche Vorschaubild</strong>.</p>
 
-<p>Wenn die Kategorie enthält keine Anhaltspunkte (aber nur
-Unterkategorien) sie kann sich vertreten durch irgendeine
-Element auf dem Bildschirm durch <span class="pwgScreen">Informationen bearbeiten
-Ein Bild</span>. Die einzige Möglichkeit, dieses Fenster ist die Schaltfläche
-Vertreter <strong>löschen</strong>.</p>
+<p>Wenn das Album keine Bilder sondern nur Unteralben enthält, kann es dennoch von einem Element repräsentiert werden.
+Verwenden Sie hierzu die Funktion <strong>Lösche Vorschaubild</strong> auf der Seite
+<span class="pwgScreen">Information eines Bildes bearbeiten</span>.</p>
 
-<h3>Beteiligung aller Elemente der Klasse zu einer neuen Kategorie</h3>
+<h3>Verknüpfen aller Bilder eines Albums mit einem neuen Album</h3>
 
 <ul>
 
-<li><strong>Name der Kategorie virtuelle</strong>: Name der neuen Kategorie zu schaffen,
-Alle Bilder der Gruppe werden in Verbindung mit der neuen.</li>
+<li><strong>Virtueller Albumname</strong>: Name des neuzuerstellenden Albums.
+Alle Bilder des aktuellen Albums werden mit dem neuen Album verknüpft.</li>
 
-<li><strong>Branche</strong>: Wo die neue Kategorie muss,
-leer lassen, um die neue auf der Homepage.</li>
+<li><strong>Vorläuferalbum</strong>: Die Position des neuen Albums. Tragen Sie hier keinen Wert ein, um das Album
+an der Spitze Ihrer Alben einzufügen.</li>
 
 </ul>
 
-<h3>Beteiligung aller Elemente der Gruppe, zu der bestehenden Klassen</h3>
+<h3>Verknüpfen aller Bilder eines Albums mit einem existieren Album</h3>
 
 <ul>
 
-<li><strong>Kategorien</strong>: Kategorie wählen Ziel.</li>
+<li><strong>Alben</strong>: Wählen Sie das Zielalbum.</li>
 
 </ul>
 
-<h3>E-Mail senden Informationen an die Mitglieder einer Gruppe</h3>
+<h3>Senden einer Informationsmail an die Gruppenmitglieder</h3>
 
 <ul>
 
-<li><strong>Gruppe</strong>: Gruppe von Empfängern</li>
+<li><strong>Gruppe</strong>: Empfängergruppe</li>
 
-<li><strong>Inhalt der E-Mail:</strong> Text zu schicken.</li>
+<li><strong>Inhalt der E-Mail</strong>: Den zu sendendenen Text.</li>
 
 </ul>  
