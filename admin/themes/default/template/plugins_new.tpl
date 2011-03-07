@@ -1,8 +1,7 @@
-{combine_script id='jquery.ui' load='async' require='jquery' path='themes/default/js/jquery.ui.min.js' }
-{combine_script id='jquery.ui.effects' load='async' require='jquery.ui' path='themes/default/js/ui/minified/jquery.effects.core.min.js' }
-{combine_script id='jquery.ui.effects.blind' load='async' require='jquery.ui.effects' path='themes/default/js/ui/minified/jquery.effects.blind.min.js' }
+{combine_script id='jquery.effects' load='async' path='themes/default/js/ui/minified/jquery.effects.core.min.js' }
+{combine_script id='jquery.effects.blind' load='async' require='jquery.effects' path='themes/default/js/ui/minified/jquery.effects.blind.min.js' }
 
-{footer_script require='jquery.ui.effects.blind'}
+{footer_script require='jquery.effects.blind'}
 jQuery(document).ready(function(){ldelim}
 	jQuery("td[id^='desc_']").click(function() {ldelim}
 		id = this.id.split('_');

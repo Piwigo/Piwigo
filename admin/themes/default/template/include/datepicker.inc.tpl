@@ -1,5 +1,5 @@
 {combine_script id='jquery' load='footer' path='themes/default/js/jquery.min.js'}
-{combine_script id='jquery.ui' load='footer' require='jquery' path='themes/default/js/jquery.ui.min.js'}
+{combine_script id='jquery.ui' load='footer' require='jquery' path='themes/default/js/ui/minified/jquery.ui.core.min.js'}
 {combine_script id='jquery.ui.datepicker' load='footer' require='jquery.ui' path='themes/default/js/ui/minified/jquery.ui.datepicker.min.js'}
 {combine_script id='datepicker.js' load='footer' require='jquery.ui.datepicker' path='themes/default/js/datepicker.js'}
 
