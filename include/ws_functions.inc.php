@@ -68,13 +68,13 @@ function ws_std_image_sql_filter( $params, $tbl_name='' )
   {
     $clauses[] = $tbl_name.'hit<='.$params['f_max_hit'];
   }
-  if ( isset($params['f_min_date_posted']) )
+  if ( isset($params['f_min_date_available']) )
   {
-    $clauses[] = $tbl_name."date_available>='".$params['f_min_date_posted']."'";
+    $clauses[] = $tbl_name."date_available>='".$params['f_min_date_available']."'";
   }
-  if ( isset($params['f_max_date_posted']) )
+  if ( isset($params['f_max_date_available']) )
   {
-    $clauses[] = $tbl_name."date_available<'".$params['f_max_date_posted']."'";
+    $clauses[] = $tbl_name."date_available<'".$params['f_max_date_available']."'";
   }
   if ( isset($params['f_min_date_created']) )
   {
