@@ -770,5 +770,14 @@ $lang['Orphan tags deleted'] = 'Anonyma taggar är readerade';
 $lang['Week starts on'] = 'Veckan börjar på';
 $lang['You have %d orphan tags: %s.'] = 'Du har %d anonyma taggar: %s.';
 $lang['Remove from caddie'] = 'Ta bort från korg';
+$lang['Themes which need upgrade'] = 'Teman som behöver uppgraderas';
+$lang['Languages which need upgrade'] = 'Språk som behöver uppgradera';
+$lang['All themes are up to date.'] = 'Alla teman är uppdaterade.';
+$lang['All plugins are up to date.'] = 'Alla plugins are up to date.';
+$lang['All languages are up to date.'] = 'Alla språk är aktuella.';
+$lang['Visit theme site'] = 'Besök temats webbplats';
+$lang['Visit language site'] = 'Besök språkets webbplats';
+$lang['New Version'] = 'Ny version';
+
 
 ?>
