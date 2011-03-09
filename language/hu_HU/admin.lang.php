@@ -771,4 +771,13 @@ $lang['Week starts on'] = 'A hét első napja';
 $lang['You have %d orphan tags: %s.'] = '%d árva címke található: %s.';
 $lang['Remove from caddie'] = 'Eltávolítás a kosárból';
 $lang['[Simulation]'] = '[Szimuláció]';
+// missing translations
+$lang['Themes which need upgrade'] = 'Frissítést igénylő témák';
+$lang['Languages which need upgrade'] = 'Frissítést igénylő nyelvek';
+$lang['All themes are up to date.'] = 'Minden téma naprakész.';
+$lang['All plugins are up to date.'] = 'Minden bővítmény naprakész.';
+$lang['All languages are up to date.'] = 'Minden nyelv naprakész.';
+$lang['Visit theme site'] = 'Téma oldal meglátogatása';
+$lang['Visit language site'] = 'Nyelv oldal meglátogatása';
+$lang['New Version'] = 'Új verzió';
 ?>
