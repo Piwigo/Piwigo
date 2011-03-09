@@ -658,7 +658,10 @@ var s,after = document.getElementsByTagName(\'script\')[document.getElementsByTa
     $content = trim($content);
     if ( !empty($content) )
     { // second call
-      $this->scriptLoader->add_inline( $content, @$params['require'] );
+      $this->scriptLoader->add_inline(
+        $content,
+        empty($params['require']) ? array() : explode(',', $params['require'])
+      );
     }
   }
 
@@ -934,11 +937,14 @@ class ScriptLoader
   {
     if(!empty($require))
     {
-      if(!isset($this->registered_scripts[$require]))
-        fatal_error("inline script not found require $require");
-      $s = $this->registered_scripts[$require];
-      if($s->load_mode==2)
-        $s->load_mode=1; // until now the implementation does not allow executing inline script depending on another async script
+      foreach ($require as $id)
+      {
+        if(!isset($this->registered_scripts[$id]))
+          $this->load_known_required_script($id, 1) or fatal_error("inline script not found require $id");
+        $s = $this->registered_scripts[$id];
+        if($s->load_mode==2)
+          $s->load_mode=1; // until now the implementation does not allow executing inline script depending on another async script
+      }
     }
     $this->inline_scripts[] = $code;
   }
@@ -973,6 +979,13 @@ class ScriptLoader
     {
       foreach (self::$ui_core_dependencies as $script_id => $required_ids)
         $this->add($script_id, $load_mode, $required_ids, null, $version);
+    }
+
+    // Try to load undefined required script
+    foreach ($script->precedents as $script_id)
+    {
+      if (! isset( $this->registered_scripts[$script_id] ) )
+        $this->load_known_required_script($script_id, $load_mode);
     }
   }
 
@@ -1113,7 +1126,7 @@ class ScriptLoader
         $required_ids = array('jquery', 'jquery.effects');
 
         if ( empty($script->path) )
-          $script->path = dirname(self::$known_paths['jquery.ui'])."/$id.min.js";
+          $script->path = dirname(self::$known_paths['jquery.effects'])."/$id.min.js";
       }
 
       foreach ($required_ids as $required_id)
@@ -1122,6 +1135,16 @@ class ScriptLoader
           $script->precedents[] = $required_id;
       }
     }
+  }
+
+  private function load_known_required_script($id, $load_mode)
+  {
+    if ( isset(self::$known_paths[$id]) or strncmp($id, 'jquery.ui.', 10)==0 or strncmp($id, 'jquery.effetcs.', 15)==0 )
+    {
+      $this->add($id, $load_mode, array(), null);
+      return true;
+    }
+    return false;
   }
 
   private function compute_script_topological_order($script_id, $recursion_limiter=0)
