@@ -1,23 +1,20 @@
-{combine_script id='jquery.effects' load='async' path='themes/default/js/ui/minified/jquery.effects.core.min.js' }
-{combine_script id='jquery.effects.blind' load='async' require='jquery.effects' path='themes/default/js/ui/minified/jquery.effects.blind.min.js' }
-
-{footer_script require='jquery.effects.blind'}
-jQuery(document).ready(function(){ldelim}
-	jQuery("td[id^='desc_']").click(function() {ldelim}
+{footer_script require='jquery.effects.blind'}{literal}
+jQuery(document).ready(function(){
+	jQuery("td[id^='desc_']").click(function() {
 		id = this.id.split('_');
 		nb_lines = jQuery("#bigdesc_"+id[1]).html().split('<br>').length;
 
 		jQuery("#smalldesc_"+id[1]).toggle('blind', 1);
-		if (jQuery(this).hasClass('bigdesc')) {ldelim}
+		if (jQuery(this).hasClass('bigdesc')) {
 			jQuery("#bigdesc_"+id[1]).toggle('blind', 1);
-		} else {ldelim}
+		} else {
 			jQuery("#bigdesc_"+id[1]).toggle('blind', 50 + (nb_lines * 30));
 		}
 		jQuery(this).toggleClass('bigdesc');
 		return false;
 	});
 });
-{/footer_script}
+{/literal}{/footer_script}
 
 <div class="titrePage">
 <span class="sort">

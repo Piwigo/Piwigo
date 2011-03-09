@@ -1,31 +1,29 @@
-{combine_script id='jquery.ui' load='async' require='jquery' path='themes/default/js/ui/minified/jquery.ui.core.min.js' }
-{combine_script id='jquery.ui.sortable' load='async' require='jquery.ui' path='themes/default/js/ui/minified/jquery.ui.sortable.min.js' }
-{footer_script require='jquery.ui.sortable'}
-jQuery(document).ready(function(){ldelim}
+{footer_script require='jquery.ui.sortable'}{literal}
+jQuery(document).ready(function(){
 	jQuery(".menuPos").hide();
 	jQuery(".drag_button").show();
 	jQuery(".menuLi").css("cursor","move");
-	jQuery(".menuUl").sortable({ldelim}
+	jQuery(".menuUl").sortable({
 		axis: "y",
 		opacity: 0.8
 	});
-	jQuery("input[name^='hide_']").click(function() {ldelim}
+	jQuery("input[name^='hide_']").click(function() {
 		men = this.name.split('hide_');
-		if (this.checked) {ldelim}
+		if (this.checked) {
 			jQuery("#menu_"+men[1]).addClass('menuLi_hidden');
-		} else {ldelim}
+		} else {
 			jQuery("#menu_"+men[1]).removeClass('menuLi_hidden');
 		}
 	});
-	jQuery("#menuOrdering").submit(function(){ldelim}
+	jQuery("#menuOrdering").submit(function(){
 		ar = jQuery('.menuUl').sortable('toArray');
-		for(i=0;i<ar.length;i++) {ldelim}
+		for(i=0;i<ar.length;i++) {
 			men = ar[i].split('menu_');
 			document.getElementsByName('pos_' + men[1])[0].value = i+1;
 		}
 	});
 });
-{/footer_script}
+{/literal}{/footer_script}
 
 <div class="titrePage">
   <h2>{'Menu Management'|translate}</h2>

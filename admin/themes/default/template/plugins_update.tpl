@@ -1,16 +1,13 @@
-{combine_script id='jquery.effects' load='async' path='themes/default/js/ui/minified/jquery.effects.core.min.js' }
-{combine_script id='jquery.effects.blind' load='async' require='jquery.effects' path='themes/default/js/ui/minified/jquery.effects.blind.min.js' }
-
-{footer_script require='jquery.effects.blind'}
-jQuery(document).ready(function(){ldelim}
-	jQuery("td[id^='desc_'], p[id^='revdesc_']").click(function() {ldelim}
+{footer_script require='jquery.effects.blind'}{literal}
+jQuery(document).ready(function(){
+	jQuery("td[id^='desc_'], p[id^='revdesc_']").click(function() {
 		id = this.id.split('_');
 		jQuery("#revdesc_"+id[1]).toggle('blind');
     jQuery(".button_"+id[1]).toggle();
 		return false;
 	});
 });
-{/footer_script}
+{/literal}{/footer_script}
 
 <div class="titrePage">
   <h2>{'Plugins'|@translate}</h2>

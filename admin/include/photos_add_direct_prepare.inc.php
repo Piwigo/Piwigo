@@ -92,11 +92,6 @@ $template->assign(
     )
   );
 
-$template->append(
-  'head_elements',
-  '<link rel="stylesheet" type="text/css" href="'.$uploadify_path.'/uploadify.css">'."\n"
-  );
-
 // +-----------------------------------------------------------------------+
 // | Categories                                                            |
 // +-----------------------------------------------------------------------+

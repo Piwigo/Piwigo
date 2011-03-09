@@ -1,38 +1,37 @@
-{literal}
-<script type="text/javascript">
-$(document).ready(function(){
+{footer_script}{literal}
+jQuery(document).ready(function(){
   function toggleResizeFields(prefix) {
-    var checkbox = $("#"+prefix+"_resize");
-    var needToggle = $("input[name^="+prefix+"_]").not(checkbox).not($("#hd_keep")).parents('tr');
+    var checkbox = jQuery("#"+prefix+"_resize");
+    var needToggle = jQuery("input[name^="+prefix+"_]").not(checkbox).not(jQuery("#hd_keep")).parents('tr');
 
 
-    if ($(checkbox).is(':checked')) {
+    if (jQuery(checkbox).is(':checked')) {
       needToggle.show();
 
       if (prefix == "websize") {
-        $("#hd_keep").parents("fieldset").show();
+        jQuery("#hd_keep").parents("fieldset").show();
       }
     }
     else {
       needToggle.hide();
 
       if (prefix == "websize") {
-        $("#hd_keep").parents("fieldset").hide();
+        jQuery("#hd_keep").parents("fieldset").hide();
       }
     }
   }
 
   toggleResizeFields("websize");
-  $("#websize_resize").click(function () {toggleResizeFields("websize")});
+  jQuery("#websize_resize").click(function () {toggleResizeFields("websize")});
 
   toggleResizeFields("hd");
-  $("#hd_resize").click(function () {toggleResizeFields("hd")});
+  jQuery("#hd_resize").click(function () {toggleResizeFields("hd")});
 
   function toggleHdFields() {
-    var checkbox = $("#hd_keep");
-    var needToggle = $("input[name^=hd_]").not(checkbox).parents('tr');
+    var checkbox = jQuery("#hd_keep");
+    var needToggle = jQuery("input[name^=hd_]").not(checkbox).parents('tr');
 
-    if ($(checkbox).is(':checked')) {
+    if (jQuery(checkbox).is(':checked')) {
       needToggle.show();
       toggleResizeFields("hd");
     }
@@ -42,10 +41,9 @@ $(document).ready(function(){
   }
 
   toggleHdFields();
-  $("#hd_keep").click(function () {toggleHdFields()});
+  jQuery("#hd_keep").click(function () {toggleHdFields()});
 });
-</script>
-{/literal}
+{/literal}{/footer_script}
 
 <div class="titrePage">
   <h2>{'Upload Photos'|@translate}</h2>

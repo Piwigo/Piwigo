@@ -1,33 +1,31 @@
-{literal}
-<script type="text/javascript">
-$(document).ready(function(){
-  $(".checkComment").click(function(event) {
+{footer_script}{literal}
+jQuery(document).ready(function(){
+  jQuery(".checkComment").click(function(event) {
     if (event.target.type !== 'checkbox') {
-      var checkbox = $(this).children("input[type=checkbox]");
-      $(checkbox).attr('checked', !$(checkbox).is(':checked'));
+      var checkbox = jQuery(this).children("input[type=checkbox]");
+      jQuery(checkbox).attr('checked', !jQuery(checkbox).is(':checked'));
     }
   });
 
-  $("#commentSelectAll").click(function () {
-    $(".checkComment input[type=checkbox]").attr('checked', true);
+  jQuery("#commentSelectAll").click(function () {
+    jQuery(".checkComment input[type=checkbox]").attr('checked', true);
     return false;
   });
 
-  $("#commentSelectNone").click(function () {
-    $(".checkComment input[type=checkbox]").attr('checked', false);
+  jQuery("#commentSelectNone").click(function () {
+    jQuery(".checkComment input[type=checkbox]").attr('checked', false);
     return false;
   });
 
-  $("#commentSelectInvert").click(function () {
-    $(".checkComment input[type=checkbox]").each(function() {
-      $(this).attr('checked', !$(this).is(':checked'));
+  jQuery("#commentSelectInvert").click(function () {
+    jQuery(".checkComment input[type=checkbox]").each(function() {
+      jQuery(this).attr('checked', !$(this).is(':checked'));
     });
     return false;
   });
 
 });
-</script>
-{/literal}
+{/literal}{/footer_script}
 
 <div class="titrePage">
   <h2>{'Waiting'|@translate} {$TABSHEET_TITLE}</h2>

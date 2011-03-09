@@ -1,20 +1,19 @@
-{html_head}
-{literal}
-<script type="text/javascript">
-$().ready(function(){
-  $("#pLoaderPage  img").fadeTo("fast", 0.6);
+{footer_script}{literal}
+jQuery().ready(function(){
+  jQuery("#pLoaderPage  img").fadeTo("fast", 0.6);
 
-  $("#pLoaderPage  img").hover(
+  jQuery("#pLoaderPage  img").hover(
     function(){
-      $(this).fadeTo("fast", 1.0); // Opacity on hover
+      jQuery(this).fadeTo("fast", 1.0); // Opacity on hover
     },
     function(){
-      $(this).fadeTo("fast", 0.6); // Opacity on mouseout
+      jQuery(this).fadeTo("fast", 0.6); // Opacity on mouseout
     }
   );
 });
-</script>
+{/literal}{/footer_script}
 
+{html_head}{literal}
 <style type="text/css">
 #pLoaderPage {
   width:600px;
@@ -46,8 +45,7 @@ $().ready(function(){
   margin:20px;
 }
 </style>
-{/literal}
-{/html_head}
+{/literal}{/html_head}
 
 <div class="titrePage">
   <h2>{'Piwigo Uploader'|@translate}</h2>

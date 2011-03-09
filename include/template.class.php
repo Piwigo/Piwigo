@@ -1139,7 +1139,7 @@ class ScriptLoader
 
   private function load_known_required_script($id, $load_mode)
   {
-    if ( isset(self::$known_paths[$id]) or strncmp($id, 'jquery.ui.', 10)==0 or strncmp($id, 'jquery.effetcs.', 15)==0 )
+    if ( isset(self::$known_paths[$id]) or strncmp($id, 'jquery.ui.', 10)==0 or strncmp($id, 'jquery.effects.', 15)==0 )
     {
       $this->add($id, $load_mode, array(), null);
       return true;

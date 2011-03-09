@@ -1,44 +1,42 @@
-{combine_script id='jquery.jgrowl' load='footer' require='jquery' path='themes/default/js/plugins/jquery.jgrowl_minimized.js' }
-
 {if $upload_mode eq 'multiple'}
-<script type="text/javascript" src="{$uploadify_path}/swfobject.js"></script>
+{combine_script id='jquery.jgrowl' load='footer' require='jquery' path='themes/default/js/plugins/jquery.jgrowl_minimized.js' }
+{combine_script id='swfobject' load='footer' path='admin/include/uploadify/swfobject.js'}
 {combine_script id='jquery.uploadify' load='footer' require='jquery' path='admin/include/uploadify/jquery.uploadify.v2.1.0.min.js' }
+{combine_css path="admin/themes/default/uploadify.jGrowl.css"}
+{combine_css path="admin/include/uploadify/uploadify.css"}
 {/if}
-{html_head}
-<link rel="stylesheet" type="text/css" href="{$ROOT_URL}admin/themes/default/uploadify.jGrowl.css">
-{/html_head}
 
 {footer_script}{literal}
 jQuery(document).ready(function(){
   function checkUploadStart() {
     var nbErrors = 0;
-    $("#formErrors").hide();
-    $("#formErrors li").hide();
+    jQuery("#formErrors").hide();
+    jQuery("#formErrors li").hide();
 
-    if ($("input[name=category_type]:checked").val() == "new" && $("input[name=category_name]").val() == "") {
-      $("#formErrors #emptyCategoryName").show();
+    if (jQuery("input[name=category_type]:checked").val() == "new" && jQuery("input[name=category_name]").val() == "") {
+      jQuery("#formErrors #emptyCategoryName").show();
       nbErrors++;
     }
 
     var nbFiles = 0;
-    if ($("#uploadBoxes").size() == 1) {
-      $("input[name^=image_upload]").each(function() {
-        if ($(this).val() != "") {
+    if (jQuery("#uploadBoxes").size() == 1) {
+      jQuery("input[name^=image_upload]").each(function() {
+        if (jQuery(this).val() != "") {
           nbFiles++;
         }
       });
     }
     else {
-      nbFiles = $(".uploadifyQueueItem").size();
+      nbFiles = jQuery(".uploadifyQueueItem").size();
     }
 
     if (nbFiles == 0) {
-      $("#formErrors #noPhoto").show();
+      jQuery("#formErrors #noPhoto").show();
       nbErrors++;
     }
 
     if (nbErrors != 0) {
-      $("#formErrors").show();
+      jQuery("#formErrors").show();
       return false;
     }
     else {
@@ -67,19 +65,19 @@ jQuery(document).ready(function(){
     return byteSize+suffix;
   }
 
-  if ($("select[name=category] option").length == 0) {
-    $('input[name=category_type][value=existing]').attr('disabled', true);
-    $('input[name=category_type]').attr('checked', false);
-    $('input[name=category_type][value=new]').attr('checked', true);
+  if (jQuery("select[name=category] option").length == 0) {
+    jQuery('input[name=category_type][value=existing]').attr('disabled', true);
+    jQuery('input[name=category_type]').attr('checked', false);
+    jQuery('input[name=category_type][value=new]').attr('checked', true);
   }
 
-  $("input[name=category_type]").click(function () {
-    $("[id^=category_type_]").hide();
-    $("#category_type_"+$(this).attr("value")).show();
+  jQuery("input[name=category_type]").click(function () {
+    jQuery("[id^=category_type_]").hide();
+    jQuery("#category_type_"+jQuery(this).attr("value")).show();
   });
 
-  $("#hideErrors").click(function() {
-    $("#formErrors").hide();
+  jQuery("#hideErrors").click(function() {
+    jQuery("#formErrors").hide();
     return false;
   });
 
@@ -88,16 +86,16 @@ jQuery(document).ready(function(){
 {literal}
   function addUploadBox() {
     var uploadBox = '<p class="file"><input type="file" size="60" name="image_upload[]"></p>';
-    $(uploadBox).appendTo("#uploadBoxes");
+    jQuery(uploadBox).appendTo("#uploadBoxes");
   }
 
   addUploadBox();
 
-  $("#addUploadBox A").click(function () {
+  jQuery("#addUploadBox A").click(function () {
     addUploadBox();
   });
 
-  $("#uploadForm").submit(function() {
+  jQuery("#uploadForm").submit(function() {
     return checkUploadStart();
   });
 {/literal}
@@ -133,7 +131,7 @@ var sizeLimit = {$upload_max_filesize};
         return false;
       }
       else {
-        $("input[name=submit_upload]").click();
+        jQuery("input[name=submit_upload]").click();
       }
     },
     onError: function (event, queueID ,fileObj, errorObj) {
@@ -157,7 +155,7 @@ var sizeLimit = {$upload_max_filesize};
         msg = errorObj.type+": "+errorObj.info;
       }
 
-      $.jGrowl(
+      jQuery.jGrowl(
         '<p></p>'+msg,
         {
           theme:  'error',
@@ -166,17 +164,17 @@ var sizeLimit = {$upload_max_filesize};
         }
       );
 
-      $("#fileUploadgrowl" + queueID).fadeOut(
+      jQuery("#fileUploadgrowl" + queueID).fadeOut(
         250,
         function() {
-          $("#fileUploadgrowl" + queueID).remove()
+          jQuery("#fileUploadgrowl" + queueID).remove()
         }
       );
       return false;
     },
     onCancel: function (a, b, c, d) {
       var msg = "Cancelled uploading: "+c.name;
-      $.jGrowl(
+      jQuery.jGrowl(
         '<p></p>'+msg,
         {
           theme:  'warning',
@@ -188,7 +186,7 @@ var sizeLimit = {$upload_max_filesize};
     },
     onClearQueue: function (a, b) {
       var msg = "Cleared "+b.fileCount+" files from queue";
-      $.jGrowl(
+      jQuery.jGrowl(
         '<p></p>'+msg,
         {
           theme:  'warning',
@@ -200,7 +198,7 @@ var sizeLimit = {$upload_max_filesize};
     },
     onComplete: function (a, b ,c, d, e) {
       var size = Math.round(c.size/1024);
-      $.jGrowl(
+      jQuery.jGrowl(
         '<p></p>'+c.name+' - '+size+'KB',
         {
           theme:  'success',
@@ -212,12 +210,12 @@ var sizeLimit = {$upload_max_filesize};
     }
   });
 
-  $("input[type=button]").click(function() {
+  jQuery("input[type=button]").click(function() {
     if (!checkUploadStart()) {
       return false;
     }
 
-    $("#uploadify").uploadifyUpload();
+    jQuery("#uploadify").uploadifyUpload();
   });
 
 {/literal}

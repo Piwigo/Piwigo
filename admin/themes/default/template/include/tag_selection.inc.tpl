@@ -1,17 +1,15 @@
-{literal}
-<script type="text/javascript">
-$(document).ready(function(){
-  $(".tagSelection label").click(function () {
-    var parent = $(this).parent('li');
-    var checkbox = $(this).children("input[type=checkbox]");
+{footer_script require='jquery'}{literal}
+jQuery(document).ready(function(){
+  jQuery(".tagSelection label").click(function () {
+    var parent = jQuery(this).parent('li');
+    var checkbox = jQuery(this).children("input[type=checkbox]");
 
-    if ($(checkbox).is(':checked')) {
-       $(parent).addClass("tagSelected"); 
+    if (jQuery(checkbox).is(':checked')) {
+      jQuery(parent).addClass("tagSelected"); 
     }
     else {
-       $(parent).removeClass('tagSelected'); 
+      jQuery(parent).removeClass('tagSelected'); 
     }
   });
 });
-</script>
-{/literal}
+{/literal}{/footer_script}

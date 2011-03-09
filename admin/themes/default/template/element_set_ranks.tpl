@@ -1,5 +1,3 @@
-{combine_script id='jquery.ui' load='async' require='jquery' path='themes/default/js/ui/minified/jquery.ui.core.min.js' }
-{combine_script id='jquery.ui.sortable' load='async' require='jquery.ui' path='themes/default/js/ui/minified/jquery.ui.sortable.min.js' }
 {footer_script require='jquery.ui.sortable'}{literal}
 jQuery(document).ready(function() {
   function checkOrderOptions() {
@@ -11,15 +9,15 @@ jQuery(document).ready(function() {
 
   jQuery('ul.thumbnails').sortable( { 
     revert: true, opacity: 0.7,
-    handle: $('.rank-of-image').add('.rank-of-image img'),
+    handle: jQuery('.rank-of-image').add('.rank-of-image img'),
     update: function() {
-      $(this).find('li').each(function(i) { 
-        $(this).find("input[name^=rank_of_image]").each(function() {
-          $(this).attr('value', (i+1)*10)
+      jQuery(this).find('li').each(function(i) { 
+        jQuery(this).find("input[name^=rank_of_image]").each(function() {
+          jQuery(this).attr('value', (i+1)*10)
         });
       });
 
-      $('#image_order_rank').attr('checked', true);
+      jQuery('#image_order_rank').attr('checked', true);
       checkOrderOptions();
     }
   });

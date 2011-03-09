@@ -1,7 +1,6 @@
 
 {include file='include/autosize.inc.tpl'}
-{literal}
-<script type="text/javascript">
+{footer_script}{literal}
 jQuery(document).ready(function(){
 
 	jQuery("#checkAllLink").click(function () {
@@ -15,8 +14,7 @@ jQuery(document).ready(function(){
 	});
 
 });
-</script>
-{/literal}
+{/literal}{/footer_script}
 
 <div class="titrePage">
   <h2>{'Send mail to users'|@translate} {$TABSHEET_TITLE}</h2>
