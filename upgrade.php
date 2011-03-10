@@ -340,6 +340,8 @@ if ((isset($_POST['submit']) or isset($_GET['now']))
       deactivate_non_standard_plugins();
     }
 
+    deactivate_non_standard_themes();
+
     $page['upgrade_end'] = get_moment();
 
     $template->assign(

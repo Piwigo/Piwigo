@@ -38,4 +38,5 @@ $lang['This page proposes to upgrade your database corresponding to your old ver
 Der Upgradeassistent ist der Meinung sie haben folgende Version installiert <strong>release %s</strong> (oder identisch).';
 $lang['As a precaution, following plugins have been deactivated. You must check for plugins upgrade before reactiving them:'] = 'Als Vorsichtsmaßnahme wurden folgende Plugins abgeschaltet. Prüfen Sie, ob ein Pluginupdate verfügbar ist, bevor Sie diese wieder aktivieren:';
 $lang['In <i>%s</i>, before <b>?></b>, insert:'] = 'In der Datei <i>%s</i>, vor <b>?></b> folgendes einfügen:';
+$lang['As a precaution, following themes have been deactivated. You must check for themes upgrade before reactiving them:'] = 'Als Vorsichtsmaßnahme wurden folgende Themen abgeschaltet. Prüfen Sie, ob ein Pluginupdate verfügbar ist, bevor Sie diese wieder aktivieren:';
 ?>

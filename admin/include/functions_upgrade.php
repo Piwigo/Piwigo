@@ -110,6 +110,47 @@ WHERE id IN (\'' . implode('\',\'', $plugins) . '\')
   }
 }
 
+// Deactivate all non-standard themes
+function deactivate_non_standard_themes()
+{
+  global $page;
+
+  $standard_themes = array(
+    'clear',
+    'Sylvia',
+    'dark',
+    );
+
+  $query = '
+SELECT
+    id,
+    name
+  FROM '.PREFIX_TABLE.'themes
+  WHERE id NOT IN (\''.implode("','", $standard_themes).'\')
+;';
+  $result = pwg_query($query);
+  $theme_ids = array();
+  $theme_names = array();
+  while ($row = pwg_db_fetch_assoc($result))
+  {
+    array_push($theme_ids, $row['id']);
+    array_push($theme_names, $row['name']);
+  }
+
+  if (!empty($theme_ids))
+  {
+    $query = '
+DELETE
+  FROM '.PREFIX_TABLE.'themes
+  WHERE id IN (\''.implode("','", $theme_ids).'\')
+;';
+    pwg_query($query);
+
+    array_push($page['infos'],
+      l10n('As a precaution, following themes have been deactivated. You must check for themes upgrade before reactiving them:').'<p><i>'.implode(', ', $theme_names).'</i></p>');
+  }
+}
+
 // Check access rights
 function check_upgrade_access_rights()
 {
