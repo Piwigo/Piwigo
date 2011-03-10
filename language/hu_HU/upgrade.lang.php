@@ -41,5 +41,6 @@ $lang['This page proposes to upgrade your database corresponding to your old ver
 A frissítési asszisztens szerint jelenleg a <strong>%s verzió</strong> fut (vagy azzal egyenértékű).';
 $lang['As a precaution, following plugins have been deactivated. You must check for plugins upgrade before reactiving them:'] = 'Elővigyázatosságból a bővítmények ki vannak kapcsolva. Újraaktiválás előtt a bővítmény frissítéseket ellenőrizni kell:';
 $lang['In <i>%s</i>, before <b>?></b>, insert:'] = 'A(z) <i>%s</i>, elé <b>?></b>, beszúrni:';
+$lang['As a precaution, following themes have been deactivated. You must check for themes upgrade before reactiving them:'] = 'Elővigyázatosságból az alábbi témák kikapcsolásra kerültek. Frissítés előtt a témákat ellenőrizni kell, majd aktiválásra kerülhetnek:';
 
 ?>
