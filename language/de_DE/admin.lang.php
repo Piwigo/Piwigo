@@ -771,4 +771,13 @@ $lang['delete photo'] = 'lösche Foto';
 $lang['Orphan tags deleted'] = 'Verwaiste Tags gelöscht';
 $lang['Week starts on'] = 'Die Woche beginnt mit';
 $lang['You have %d orphan tags: %s.'] = 'Sie haben %d verwaiste Tags: %s.';
+$lang['Remove from caddie'] = 'Vom Sammelkorb entfernen';
+$lang['Themes which need upgrade'] = 'Themen, welche einen update brauchen';
+$lang['Languages which need upgrade'] = 'Sprachen, welche einen update brauchen';
+$lang['All themes are up to date.'] = 'Alle Themen sind auf dem neuesten Stand.';
+$lang['All plugins are up to date.'] = 'Alle Plug-Ins sind auf dem neuesten Stand.';
+$lang['All languages are up to date.'] = 'Alle Sprachen sind auf dem neuesten Stand.';
+$lang['Visit theme site'] = 'Die Themenseite besuchen';
+$lang['Visit language site'] = 'Die Sprachenseite besuchen';
+$lang['New Version'] = 'Neue Version';
 ?>
