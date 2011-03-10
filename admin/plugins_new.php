@@ -30,8 +30,7 @@ include_once(PHPWG_ROOT_PATH.'admin/include/plugins.class.php');
 
 $template->set_filenames(array('plugins' => 'plugins_new.tpl'));
 
-$order = isset($_GET['order']) ? $_GET['order'] : 'date';
-$base_url = get_root_url().'admin.php?page='.$page['page'].'&order='.$order;
+$base_url = get_root_url().'admin.php?page='.$page['page'];
 
 $plugins = new plugins();
 
@@ -86,22 +85,20 @@ if (isset($_GET['installstatus']))
 $plugins->set_tabsheet($page['page']);
 
 //---------------------------------------------------------------Order options
-$link = get_root_url().'admin.php?page='.$page['page'].'&amp;order=';
 $template->assign('order_options',
   array(
-    $link.'date' => l10n('Post date'),
-    $link.'revision' => l10n('Last revisions'),
-    $link.'name' => l10n('Name'),
-    $link.'author' => l10n('Author'),
-    $link.'downloads' => l10n('Number of downloads')));
-$template->assign('order_selected', $link.$order);
+    'date' => l10n('Post date'),
+    'revision' => l10n('Last revisions'),
+    'name' => l10n('Name'),
+    'author' => l10n('Author'),
+    'downloads' => l10n('Number of downloads')));
 
 // +-----------------------------------------------------------------------+
 // |                     start template output                             |
 // +-----------------------------------------------------------------------+
 if ($plugins->get_server_plugins(true))
 {
-  $plugins->sort_server_plugins($order);
+  $plugins->sort_server_plugins('date');
 
   foreach($plugins->server_plugins as $plugin)
   {
@@ -121,6 +118,7 @@ if ($plugins->get_server_plugins(true))
       'SMALL_DESC' => trim($small_desc, " \r\n"),
       'BIG_DESC' => $ext_desc,
       'VERSION' => $plugin['revision_name'],
+      'REVISION_DATE' => preg_replace('/[^0-9]/', '', $plugin['revision_date']),
       'AUTHOR' => $plugin['author_name'],
       'DOWNLOADS' => $plugin['extension_nb_downloads'],
       'URL_INSTALL' => $url_auto_install,
