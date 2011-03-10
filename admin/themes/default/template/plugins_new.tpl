@@ -1,4 +1,4 @@
-{combine_script id='jquery.sort' path='themes/default/js/plugins/jquery.sort.js'}
+{combine_script id='jquery.sort' load='footer' path='themes/default/js/plugins/jquery.sort.js'}
 
 {footer_script require='jquery.effects.blind,jquery.sort'}{literal}
 var sortOrder = 'date';
