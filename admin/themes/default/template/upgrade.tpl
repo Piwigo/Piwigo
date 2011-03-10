@@ -7,69 +7,135 @@
 <meta http-equiv="Content-Style-Type" content="text/css">
 <link rel="shortcut icon" type="image/x-icon" href="{$ROOT_URL}{$themeconf.icon_dir}/favicon.ico">
 
+{get_combined_css}
 {foreach from=$themes item=theme}
-{if isset($theme.local_head)}{include file=$theme.local_head}{/if}
-<link rel="stylesheet" type="text/css" href="{$ROOT_URL}admin/themes/{$theme.id}/theme.css">
+{if $theme.load_css}
+{combine_css path="admin/themes/`$theme.id`/theme.css" order=-10}
+{/if}
 {/foreach}
+
+<!--[if IE 7]>
+  <link rel="stylesheet" type="text/css" href="{$ROOT_URL}admin/themes/default/fix-ie7.css">
+<![endif]-->
+
+<!-- BEGIN get_combined_scripts -->
+{get_combined_scripts load='header'}
+<!-- END get_combined_scripts -->
 
 {literal}
 <style type="text/css">
 body {
-  background:url("admin/themes/roma/images/bottom-left-bg.jpg") no-repeat fixed left bottom #111111;
+  font-size:12px;
 }
 
 .content {
-  background:url("admin/themes/roma/images/fillet.png") repeat-x scroll left top #222222;
-  width: 800px;
-  min-height: 0px !important;
-  margin: auto;
-  text-align: left;
-  padding: 5px;
+ width: 800px;
+ margin: auto;
+ text-align: center;
+ padding:0;
+ background-color:transparent !important;
+ border:none;
 }
 
-#headbranch  {
-  background:url("admin/themes/roma/images/top-left-bg.jpg") no-repeat scroll left top transparent;
+#content {
+  min-height:0;
 }
 
 #theHeader {
   display: block;
-  background:url("admin/themes/roma/images/piwigo_logo_sombre_214x100.png") no-repeat scroll 245px top transparent;
+  background:url("admin/themes/clear/images/piwigo_logo_big.png") no-repeat scroll center 20px transparent;
+  height:100px;
+}
+
+fieldset {
+  margin-top:20px;
+  background-color:#f1f1f1;
+}
+
+legend {
+  font-weight:bold;
+  letter-spacing:2px;
+}
+
+form fieldset p {
+  text-align:left;
+  margin:10px;
 }
 
 .content h2 {
   display:block;
-  font-size:28px;
-  height:104px;
-  width:54%;
-  color:#666666;
-  letter-spacing:-1px;
-  margin:0 30px 3px 20px;
-  overflow:hidden;
-  position:absolute;
-  right:0;
-  text-align:right;
-  top:0;
-  width:770px;
-  text-align:right;
-  text-transform:none; 
+  font-size:20px;
+  text-align:center;
+  /* margin-top:5px; */
 }
 
-table { margin: 0px; }
-td {  padding: 3px 10px; }
-textarea { margin-left: 20px; }
+table.table2 {
+  width: 100%;
+  border:0;
+}
+
+table.table2 td {
+  text-align: left;
+  padding: 5px 2px;
+}
+
+table.table2 td.fieldname {
+  font-weight:normal;
+}
+
+table.table2 td.fielddesc {
+  padding-left:10px;
+  font-style:italic;
+}
+
+input[type="submit"], input[type="button"], a.bigButton {
+  font-size:14px;
+  font-weight:bold;
+  letter-spacing:2px;
+  border:none;
+  background-color:#666666;
+  color:#fff;
+  padding:5px;
+  -moz-border-radius:5px;
+}
+
+input[type="submit"]:hover, input[type="button"]:hover, a.bigButton:hover {
+  background-color:#ff7700;
+  color:white;
+}
+
+input[type="text"], input[type="password"], select {
+  background-color:#ddd;
+  border:2px solid #ccc;
+  -moz-border-radius:5px;
+  padding:2px;
+}
+
+input[type="text"]:focus, input[type="password"]:focus, select:focus {
+  background-color:#fff;
+  border:2px solid #ff7700;
+}
+
+.sql_content, .infos a {
+  color: #ff3363;
+}
+
+.errors {
+  padding-bottom:5px;
+}
+
 </style>
 {/literal}
 <title>Piwigo {$RELEASE} - {'Upgrade'|@translate}</title>
 </head>
 
 <body>
-<div id="headbranch"></div> {* Dummy block for double background management *}
 <div id="the_page">
 <div id="theHeader"></div>
 <div id="content" class="content">
 
 {if isset($introduction)}
-<h2>Piwigo {$RELEASE} - {'Upgrade'|@translate}</h2>
+<h2>{'Version'|@translate} {$RELEASE} - {'Upgrade'|@translate}</h2>
 
 {if isset($errors)}
 <div class="errors">
@@ -81,6 +147,9 @@ textarea { margin-left: 20px; }
 </div>
 {/if}
 
+<form method="POST" action="{$introduction.F_ACTION}" name="upgrade_form">
+
+<fieldset>
 <table>
   <tr>
     <td>{'Language'|@translate}</td>
@@ -97,7 +166,6 @@ textarea { margin-left: 20px; }
 <p>{'Only administrator can run upgrade: please sign in below.'|@translate}</p>
 {/if}
 
-<form method="POST" action="{$introduction.F_ACTION}" name="upgrade_form">
 {if isset($login)}
 <table>
   <tr>
@@ -110,7 +178,7 @@ textarea { margin-left: 20px; }
   </tr>
 </table>
 {/if}
-
+</fieldset>
 <p style="text-align: center;">
 <input class="submit" type="submit" name="submit" value="{'Upgrade from version %s to %s'|@translate|@sprintf:$introduction.CURRENT_RELEASE:$RELEASE}">
 </p>
@@ -126,23 +194,27 @@ textarea { margin-left: 20px; }
 {if isset($upgrade)}
 <h2>{'Upgrade from version %s to %s'|@translate|@sprintf:$upgrade.VERSION:$RELEASE}</h2>
 
-<p><b>{'Statistics'|@translate}</b></p>
+<fieldset>
+<legend>{'Statistics'|@translate}</legend>
 <ul>
   <li>{'total upgrade time'|@translate} : {$upgrade.TOTAL_TIME}</li>
   <li>{'total SQL time'|@translate} : {$upgrade.SQL_TIME}</li>
   <li>{'SQL queries'|@translate} : {$upgrade.NB_QUERIES}</li>
 </ul>
+</fieldset>
 
-<p><b>{'Upgrade informations'|@translate}</b></p>
+<fieldset>
+<legend>{'Upgrade informations'|@translate}</legend>
 <ul>
   {foreach from=$infos item=info}
   <li>{$info}</li>
   {/foreach}
 </ul>
+</fieldset>
 
-<form action="index.php" method="post">
-<p><input type="submit" name="submit" value="{'Home'|@translate}"></p>
-</form>
+<p>
+  <a class="bigButton" href="index.php">{'Home'|@translate}</a>
+</p>
 {/if}
 
 </div> {* content *}
