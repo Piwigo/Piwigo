@@ -37,5 +37,6 @@ $lang['All sub-albums of private albums become private'] = 'Alle grunn-album i p
 $lang['User permissions and group permissions have been erased'] = 'Bruker og gruppe rettigheter har blitt slettet';
 $lang['Only thumbnails prefix and webmaster mail address have been saved from previous configuration'] = 'Kun miniatyr bliders prefix and webmasters mail addresse har blitt lagret fra forrige konfigurasjon';
 $lang['In <i>%s</i>, before <b>?></b>, insert:'] = 'I <i>%s</i>, før <b>?></b>, sett inn:';
+$lang['As a precaution, following themes have been deactivated. You must check for themes upgrade before reactiving them:'] =  'Som en sikkerhet har følgende temaer blitt deaktivert. Du må sjekke om det finnes oppgraderinger til dem før aktivering:';
 
 ?>

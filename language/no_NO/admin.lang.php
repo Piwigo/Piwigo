@@ -762,4 +762,13 @@ $lang['Orphan tags deleted'] = 'Foreldreløse  tagger slettet';
 $lang['Week starts on'] = 'Uke starter på';
 $lang['You have %d orphan tags: %s.'] = 'Du har %d foreldreløse tagger: %s.';
 $lang['Remove from caddie'] = 'Fjern fra kurv';
+$lang['Themes which need upgrade'] = 'Temaer som trenger oppgradering'; 
+$lang['Languages which need upgrade'] = 'Språk som trenger oppgradering'; 
+$lang['All themes are up to date.'] = 'Alle temaer er oppdaterte.'; 
+$lang['All plugins are up to date.'] = 'Alle plugginene er oppdaterte.'; 
+$lang['All languages are up to date.'] = 'Alle språk er oppdaterte.'; 
+$lang['Visit theme site'] = 'Besøk tema side'; 
+$lang['Visit language site'] = 'Besøk språk side'; 
+$lang['New Version'] = 'Ny versjon';
+
 ?>
