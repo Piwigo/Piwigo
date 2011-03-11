@@ -39,4 +39,5 @@ $lang['All sub-albums of private albums become private'] = 'Visi privātā albū
 $lang['User permissions and group permissions have been erased'] = "Lietotāju un grupu piekļuves tiesības ir izdzēstas";
 $lang['Only thumbnails prefix and webmaster mail address have been saved from previous configuration'] = "No iepriekšējās konfigurācijas ir saglabāti tikai sīkbilžu prefiksi un webmāstera e-pasta adreses";
 $lang['In <i>%s</i>, before <b>?></b>, insert:'] = 'Iekš <i>%s</i>, pirms <b>?></b>,ievietot:';
+$lang['As a precaution, following themes have been deactivated. You must check for themes upgrade before reactiving them:'] = 'Piesardzības pasākumu dēļ, sekojošas tēmas ir deaktivētas. Pirms atkal tās aktivēt, jums jāpārbauda, vai nav pieejami šo tēmu jauninājumi:';
 ?>

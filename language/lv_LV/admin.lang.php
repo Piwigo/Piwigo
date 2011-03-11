@@ -763,4 +763,13 @@ $lang['Orphan tags deleted'] = 'Nepiesaistītās cilnes izdzēstas';
 $lang['Week starts on'] = 'Nedēļa sākas ar';
 $lang['You have %d orphan tags: %s.'] = 'Jums ir %d nepiesaistīto cilņu: %s.';
 $lang['Remove from caddie'] = 'Izņemt no groza';
+$lang['Themes which need upgrade'] = 'Tēmas, kurām nepieciešami jauninājumi';
+$lang['Languages which need upgrade'] = 'Valodas, kurām nepieciešami jauninājumi';
+$lang['All themes are up to date.'] = 'Visas tēmas ir atjauninātas.';
+$lang['All plugins are up to date.'] = 'Visi spraudņi ir atjaunināti.';
+$lang['All languages are up to date.'] = 'Visas valodas ir atjauninātas.';
+$lang['Visit theme site'] = 'Apmeklēt tēmu vietni';
+$lang['Visit language site'] = 'Apmeklēt valodu vietni';
+$lang['New Version'] = 'Jauna Versija';
+
 ?>
