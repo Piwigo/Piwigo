@@ -770,4 +770,12 @@ $lang['Orphan tags deleted'] = 'Непривязанные метки удале
 $lang['Week starts on'] = 'Неделя начинается с';
 $lang['You have %d orphan tags: %s.'] = 'У Вас есть %d непривязанных  меток: %s.';
 $lang['Remove from caddie'] = 'Очистить корзину';
+$lang['Themes which need upgrade'] = 'Темы, которые нужно обновить';
+$lang['Languages which need upgrade'] = 'Языки, которые нужно обновить';
+$lang['All themes are up to date.'] = 'Все темы обновлены до последней версии.';
+$lang['All plugins are up to date.'] = 'Все плагины обновлены до последней версии.';
+$lang['All languages are up to date.'] = 'Все языки обновлены до последней версии.';
+$lang['Visit theme site'] = 'Посмотреть полное описание темы';
+$lang['Visit language site'] = 'Посмотреть подробную страницу языка';
+$lang['New Version'] = 'Новая версия';
 ?>
