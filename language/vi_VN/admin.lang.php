@@ -770,5 +770,13 @@ $lang['Orphan tags deleted'] = 'Thẻ riêng lẽ đã được xóa';
 $lang['Week starts on'] = 'Tuần lễ bắt đầu vào';
 $lang['You have %d orphan tags: %s.'] = 'Bạn có %d thẻ riêng lẽ: %s.';
 $lang['Remove from caddie'] = 'Bỏ ra khỏi caddie';
+$lang['Themes which need upgrade'] = 'Giao diện cần bản nâng cấp';
+$lang['Languages which need upgrade'] = 'Ngôn ngữ cần nâng cấp';
+$lang['All themes are up to date.'] = 'Tất cả giao diện đều được cập nhật.';
+$lang['All plugins are up to date.'] = 'Tất cả plugins đều được cập nhật.';
+$lang['All languages are up to date.'] = 'Tất cả ngôn ngữ đều được cập nhật.';
+$lang['Visit theme site'] = 'Đến trang web của giao diện';
+$lang['Visit language site'] = 'Đến trang web của của ngôn ngữ';
+$lang['New Version'] = 'Phiên bản Mới';
 
 ?>
