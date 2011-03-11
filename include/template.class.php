@@ -1318,7 +1318,7 @@ final class FileCombiner
       require_once(PHPWG_ROOT_PATH.'include/jsmin.class.php');
       try { $js = JSMin::minify($js); } catch(Exception $e) {}
     }
-    return $js;
+    return trim($js, " \t\r\n;").";\n";
   }
 
   private static function process_css($file)
