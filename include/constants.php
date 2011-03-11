@@ -22,7 +22,7 @@
 // +-----------------------------------------------------------------------+
 
 // Default settings
-define('PHPWG_VERSION', 'Colibri');
+define('PHPWG_VERSION', '2.2.0RC4');
 define('PHPWG_DEFAULT_LANGUAGE', 'en_UK');
 define('PHPWG_DEFAULT_TEMPLATE', 'Sylvia');
 
