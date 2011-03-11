@@ -773,4 +773,12 @@ $lang['with no tag'] = 'без ознаке';
 $lang['with no virtual album'] = 'без виртуелног албума';
 $lang['You have %d orphan tags: %s.'] = 'Имате %d orphan ознака: %s.';
 $lang['predefined filter'] = 'предефинисани филтер';
+$lang['Themes which need upgrade'] = 'Теме које треба да унапредите';
+$lang['Languages which need upgrade'] = 'Језици које треба да унапредите';
+$lang['All themes are up to date.'] = 'Све теме су унапређене.';
+$lang['All plugins are up to date.'] = 'Сви додаци су унапређени.';
+$lang['All languages are up to date.'] = 'Сви језици су унапређени.';
+$lang['Visit theme site'] = 'Посетите страницу о теми';
+$lang['Visit language site'] = 'Посетите страницу о језику';
+$lang['New Version'] = 'Нова верзија'; 
 ?>
