@@ -773,4 +773,13 @@ $lang['Orphan tags deleted'] = 'Nepriradené kľúčové slová boli vymazané';
 $lang['Week starts on'] = 'Týždenné spustenie';
 $lang['You have %d orphan tags: %s.'] = 'Máte %d nepriradených kľúčových slov: %s.';
 $lang['Remove from caddie'] = 'Vymazať z krabičky';
+$lang['Themes which need upgrade'] = 'Témy potrebujúce aktualizáciu'; 
+$lang['Languages which need upgrade'] = 'Jazyky potrebujúce aktualizáciu '; 
+$lang['All themes are up to date.'] = 'Všetky témy sú aktuálne.'; 
+$lang['All plugins are up to date.'] = 'Všetky doplnky sú aktuálne.'; 
+$lang['All languages are up to date.'] = 'Všetky jazyky sú aktuálne.'; 
+$lang['Visit theme site'] = 'Navštívte stránku tém'; 
+$lang['Visit language site'] = 'Navštívte stránku jazykov'; 
+$lang['New Version'] = 'Nová verzia';
+
 ?>
