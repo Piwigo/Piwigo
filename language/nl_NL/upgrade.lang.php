@@ -38,5 +38,6 @@ $lang['All sub-albums of private albums become private'] = 'Alle sub-categorieën
 $lang['User permissions and group permissions have been erased'] = 'Gebruikers- en groepsrechten zijn verwijderd';
 $lang['Only thumbnails prefix and webmaster mail address have been saved from previous configuration'] = 'Alleen het voorvoegsel (prefix) van de mini-afbeelding en het email-adres van de webbeheerder zijn bewaard gebleven van de vorige configuratie';
 $lang['In <i>%s</i>, before <b>?></b>, insert:'] = 'In <i>%s</i>, voor <b>?></b>, voeg tussen:';
+$lang['As a precaution, following themes have been deactivated. You must check for themes upgrade before reactiving them:'] = 'Als voorzorgsmaatregel zijn de volgende thema\'s gedeactiveerd. Controleer of er nieuwe versies van deze thema\'s bestaan, voordat u ze reactiveerd:';
 
 ?>

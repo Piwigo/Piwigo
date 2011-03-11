@@ -772,4 +772,12 @@ $lang['Orphan tags deleted'] = 'Verwijderde niet gebruikte labels';
 $lang['Remove from caddie'] = 'Verwijder uit winkelwagen';
 $lang['Week starts on'] = 'De week begint op';
 $lang['You have %d orphan tags: %s.'] = 'U heeft %d niet gebruikte labels: %s.';
+$lang['Themes which need upgrade'] = 'Thema\'s die bijgewerkt moeten worden';
+$lang['Languages which need upgrade'] = 'Talen die bijgewerkt moeten worden';
+$lang['All themes are up to date.'] = 'Alle thema\'s zijn bijgewerkt.';
+$lang['All plugins are up to date.'] = 'Alle plugins zijn bijgewerkt.';
+$lang['All languages are up to date.'] = 'Alle talen zijn bijgewerkt.';
+$lang['Visit theme site'] = 'Bezoek de thema-webpagina';
+$lang['Visit language site'] = 'Bezoek de talen-webpagina';
+$lang['New Version'] = 'Nieuwe versie';
 ?>
