@@ -780,4 +780,12 @@ $lang['You have %d orphan tags: %s.'] = 'Avete %d tags orfani : %s.';
 $lang['Delete orphan tags'] = 'Cancellare i tags orfani';
 $lang['delete photo'] = 'cancellare la foto';
 $lang['Remove from caddie'] = 'Rimuovere dal cestino';
+$lang['Themes which need upgrade'] = 'Temi che necessitano un aggiornamento';
+$lang['Languages which need upgrade'] = 'Lingue che necessitano un aggiornamento ';
+$lang['All themes are up to date.'] = 'Tutti i temi sono aggiornati.';
+$lang['All plugins are up to date.'] = 'Tutti i plug-in sono aggiornati.';
+$lang['All languages are up to date.'] = 'Tutte le lingue sono aggiornate.';
+$lang['Visit theme site'] = 'Visitare il sito del tema';
+$lang['Visit language site'] = 'Visitare il sito della lingua';
+$lang['New Version'] = 'Nuova versione';
 ?>
