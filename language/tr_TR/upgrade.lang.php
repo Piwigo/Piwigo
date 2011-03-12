@@ -37,6 +37,6 @@ $lang['All sub-albums of private albums become private'] = 'Ã–zel albÃ¼mlerin al
 $lang['User permissions and group permissions have been erased'] = "Kullanicilar ve gruplarin izinleri silinmistir";
 $lang['Only thumbnails prefix and webmaster mail address have been saved from previous configuration'] = "Sadece küçük resim ön eki ve site yöneticisi posta adresiniz önceki yapilandirman kaydedili";
 $lang['In <i>%s</i>, before <b>?></b>, insert:'] = '<i>%s</i> içine, <b>?></b> önce, ekleyin:';
-
+$lang['As a precaution, following themes have been deactivated. You must check for themes upgrade before reactiving them:'] = 'Önlem olarak, asagidaki temalar devre disi olmustur. Tekrar etkinlestirmeden önce güncelleme yapmalisiniz:';
 
 ?>

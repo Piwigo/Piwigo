@@ -763,4 +763,12 @@ $lang['with no tag'] = 'sıfır etiket ile';
 $lang['with no virtual album'] = 'sıfır sanal albüm ile';
 $lang['You have %d orphan tags: %s.'] = '%d etkisiz etiketleriniz: %s.';
 $lang['Remove from caddie'] = 'Yardımcıdan sil';
+$lang['Themes which need upgrade'] = 'Güncellenmesi gereken temalar';
+$lang['Languages which need upgrade'] = 'Güncellenmesi gereken diller';
+$lang['All themes are up to date.'] = 'Bütün temalar güncel.';
+$lang['All plugins are up to date.'] = 'Bütün eklentiler güncel.';
+$lang['All languages are up to date.'] = 'Bütün diller güncel.';
+$lang['Visit theme site'] = 'Tema sitesine git';
+$lang['Visit language site'] = 'Dil sitesine git';
+$lang['New Version'] = 'Yeni Versiyon';
 ?>
