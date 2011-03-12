@@ -768,5 +768,13 @@ $lang['with no tag'] = '没有标签';
 $lang['with no virtual album'] = '没有虚拟相册';
 $lang['You have %d orphan tags: %s.'] = '您已 %d 无关联标签: %s.';
 $lang['Remove from caddie'] = '从购物蓝里移除';
+$lang['Themes which need upgrade'] = '需更新的主题';
+$lang['Languages which need upgrade'] = '需要更新的语言';
+$lang['All themes are up to date.'] = '所有主题已更新了.';
+$lang['All plugins are up to date.'] = '所有插件已更新了.';
+$lang['All languages are up to date.'] = '所有语言已更新了.';
+$lang['Visit theme site'] = '浏览主题网站';
+$lang['Visit language site'] = '浏览语言网站';
+$lang['New Version'] = '新版本';
 
 ?>
