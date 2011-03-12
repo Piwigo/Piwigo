@@ -1,6 +1,6 @@
 {footer_script require='jquery.effects.blind'}{literal}
-jQuery(document).ready(function(){ldelim}
-	jQuery("td[id^='desc_'], p[id^='revdesc_']").click(function() {ldelim}
+jQuery(document).ready(function(){
+	jQuery("td[id^='desc_'], p[id^='revdesc_']").click(function() {
 		id = this.id.split('_');
 		jQuery("#revdesc_"+id[1]).toggle('blind');
     jQuery(".button_"+id[1]).toggle();
