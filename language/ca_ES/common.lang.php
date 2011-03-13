@@ -348,4 +348,16 @@ $lang['Edit a comment'] = "Edita un comentari";
 $lang['Are you sure?'] = 'Esteu segurs?';
 $lang['delete this comment'] = 'elimina aquest comentari';
 $lang['Email address is missing. Please specify an email address.'] = 'Falta l\'adreça de correu. Si us plau especifiqueu una adreça de correu.';
+$lang['Delete'] = 'Elimina';
+$lang['(!) This comment requires validation'] = '(!) Aquest document necessita ser validat';
+$lang['Welcome'] = 'Benvingut';
+$lang['Welcome to your Piwigo photo gallery!'] = 'Benvinguts a la vostra galeria de fotos Piwigo!';
+$lang['... or browse your empty gallery'] = '... o navegueu per la vostra galeria buida';
+$lang['... or please deactivate this message, I will find my way by myself'] = '... o siusplau desactiveu aquest missatge,  Trobaré el meu camí per mi mateixf';
+$lang['Hello %s, your Piwigo photo gallery is empty!'] = 'Hola %s, la vostra galeria de fotos Piwigo és buida!';
+$lang['I want to add photos'] = 'Vull afegir fotos';
+$lang['Manage this user comment: %s'] = 'Gestiona aquest comentari d\'usuari: %s';
+$lang['This author modified following comment:'] = 'Aquest autor ha modificat el següent comentari:';
+$lang['This author removed the comment with id %d'] = 'Aquest autor ha eliminat el comentari amb id %d';
+$lang['validate this comment'] = 'valida aquest comentari';
 ?>
