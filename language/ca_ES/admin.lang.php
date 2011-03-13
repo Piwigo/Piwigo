@@ -784,7 +784,14 @@ $lang['with no tag'] = 'with no tag';
 $lang['with no virtual album'] = 'with no virtual album';
 $lang['You have %d orphan tags: %s.'] = 'You have %d orphan tags: %s.';
 $lang['Your configuration settings are saved'] = 'Your configuration settings are saved';
-
-
+$lang['Remove from caddie'] = 'Elimina del carret';
+$lang['Themes which need upgrade'] = 'Temes que necessiten actualitzar-se';
+$lang['Languages which need upgrade'] = 'Idiomes que necessiten actualitzar-se';
+$lang['All themes are up to date.'] = 'Tots els temes estan al dia.';
+$lang['All plugins are up to date.'] = 'Tots els connectors estan al dia.';
+$lang['All languages are up to date.'] = 'Tots els idiomes estan al dia.';
+$lang['Visit theme site'] = 'Visiteu el lloc web del tema';
+$lang['Visit language site'] = 'Visiteu el lloc web de l\'idioma';
+$lang['New Version'] = 'Versió nova';
 
 ?>
