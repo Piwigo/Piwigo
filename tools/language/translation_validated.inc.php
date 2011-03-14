@@ -566,6 +566,10 @@ $validated_keys = array(
 	'IP',
 	'localhost, sql.multimania.com, toto.freesurf.fr',
 	),
-	
+
+  'zh_TW' => array(
+	'IP',
+	'localhost, sql.multimania.com, toto.freesurf.fr',
+	),	
   );
 ?>

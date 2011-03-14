@@ -39,4 +39,6 @@ $lang['All sub-albums of private albums become private'] = '相冊裡的所有�
 $lang['User permissions and group permissions have been erased'] = "用戶和組的權限已被清除";
 $lang['Only thumbnails prefix and webmaster mail address have been saved from previous configuration'] = "在前一個配置操作中，只有縮略圖的前綴和網站管理員的郵件地址被保存了。";
 $lang['In <i>%s</i>, before <b>?></b>, insert:'] = '在 <i>%s</i>, 之前 <b>?></b>, 插入:';
+$lang['As a precaution, following themes have been deactivated. You must check for themes upgrade before reactiving them:'] = '為小心起見，以下主題已停用。假如要重新啟用它們，你必須先檢查有沒有可更新的主題:';
+
 ?>
