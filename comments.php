@@ -107,7 +107,7 @@ if (isset($_GET['cat']) and 0 != $_GET['cat'])
   check_input_parameter('cat', $_GET, false, PATTERN_ID);
 
   $category_ids = get_subcat_ids(array($_GET['cat']));
-  if (empty($category_id))
+  if (empty($category_ids))
   {
     $category_ids = array(-1);
   }
