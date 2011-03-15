@@ -771,4 +771,13 @@ $lang['Orphan tags deleted'] = 'Niepowiązane tagi usunięto';
 $lang['Remove from caddie'] = 'Usuń z koszyk';
 $lang['Week starts on'] = 'Tydzień zaczyna się w';
 $lang['You have %d orphan tags: %s.'] = 'Masz %d niepowiązanych tagów: %s.';
+$lang['Themes which need upgrade'] = 'Tematy wymagające aktualizacji';
+$lang['Languages which need upgrade'] = 'Języki wymagające aktualizacji';
+$lang['All themes are up to date.'] = 'Wszystkie tematy są aktualne.';
+$lang['All plugins are up to date.'] = 'Wszystkie wtyczki są aktualne.';
+$lang['All languages are up to date.'] = 'Wszystkie języki są aktualne.';
+$lang['Visit theme site'] = 'Odwiedź stronę temetu';
+$lang['Visit language site'] = 'Odwiedź stronę języka';
+$lang['New Version'] = 'Nowa wersja';
+
 ?>
