@@ -175,7 +175,7 @@ function ws_std_get_image_xml_attributes()
 function ws_getVersion($params, &$service)
 {
   global $conf;
-  if ($conf['show_version'])
+  if ($conf['show_version'] or is_admin() )
     return PHPWG_VERSION;
   else
     return new PwgError(403, 'Forbidden');
