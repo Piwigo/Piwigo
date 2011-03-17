@@ -1,8 +1,8 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based picture gallery                                  |
+// | Piwigo - a PHP based photo gallery                                    |
 // +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2010 Piwigo Team                  http://piwigo.org |
+// | Copyright(C) 2008-2011 Piwigo Team                  http://piwigo.org |
 // | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
 // | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
 // +-----------------------------------------------------------------------+
@@ -68,13 +68,13 @@ function ws_std_image_sql_filter( $params, $tbl_name='' )
   {
     $clauses[] = $tbl_name.'hit<='.$params['f_max_hit'];
   }
-  if ( isset($params['f_min_date_posted']) )
+  if ( isset($params['f_min_date_available']) )
   {
-    $clauses[] = $tbl_name."date_available>='".$params['f_min_date_posted']."'";
+    $clauses[] = $tbl_name."date_available>='".$params['f_min_date_available']."'";
   }
-  if ( isset($params['f_max_date_posted']) )
+  if ( isset($params['f_max_date_available']) )
   {
-    $clauses[] = $tbl_name."date_available<'".$params['f_max_date_posted']."'";
+    $clauses[] = $tbl_name."date_available<'".$params['f_max_date_available']."'";
   }
   if ( isset($params['f_min_date_created']) )
   {
@@ -175,7 +175,7 @@ function ws_std_get_image_xml_attributes()
 function ws_getVersion($params, &$service)
 {
   global $conf;
-  if ($conf['show_version'])
+  if ($conf['show_version'] or is_admin() )
     return PHPWG_VERSION;
   else
     return new PwgError(403, 'Forbidden');
@@ -742,7 +742,7 @@ SELECT id, date, author, content
       )
   {
     $comment_post_data['author'] = stripslashes($user['username']);
-    $comment_post_data['key'] = get_comment_post_key($params['image_id']);
+    $comment_post_data['key'] = get_ephemeral_key(2, $params['image_id']);
   }
 
   $ret = $image_row;
@@ -892,7 +892,7 @@ SELECT * FROM '.IMAGES_TABLE.'
 
 function ws_images_setPrivacyLevel($params, &$service)
 {
-  if (!is_admin() || is_adviser() )
+  if (!is_admin())
   {
     return new PwgError(401, 'Access denied');
   }
@@ -935,7 +935,7 @@ function ws_images_add_chunk($params, &$service)
   // type {thumb, file, high}
   // position
 
-  if (!is_admin() || is_adviser() )
+  if (!is_admin())
   {
     return new PwgError(401, 'Access denied');
   }
@@ -1076,6 +1076,8 @@ function merge_chunks($output_filepath, $original_sum, $type)
  */
 function add_file($file_path, $type, $original_sum, $file_sum)
 {
+  include_once(PHPWG_ROOT_PATH.'admin/include/functions_upload.inc.php');
+  
   $file_path = file_path_for_type($file_path, $type);
 
   $upload_dir = dirname($file_path);
@@ -1139,7 +1141,7 @@ function ws_images_addFile($params, &$service)
   // sum
 
   global $conf;
-  if (!is_admin() || is_adviser() )
+  if (!is_admin())
   {
     return new PwgError(401, 'Access denied');
   }
@@ -1207,8 +1209,8 @@ SELECT
 
 function ws_images_add($params, &$service)
 {
-  global $conf;
-  if (!is_admin() || is_adviser() )
+  global $conf, $user;
+  if (!is_admin())
   {
     return new PwgError(401, 'Access denied');
   }
@@ -1282,6 +1284,7 @@ SELECT
     'width' => $file_infos['width'],
     'height' => $file_infos['height'],
     'md5sum' => $params['original_sum'],
+    'added_by' => $user['id'],
     );
 
   $info_columns = array(
@@ -1335,6 +1338,122 @@ SELECT
   update_metadata(array($image_id=>$file_path));
   
   invalidate_user_cache();
+}
+
+function ws_images_addSimple($params, &$service)
+{
+  global $conf;
+  if (!is_admin())
+  {
+    return new PwgError(401, 'Access denied');
+  }
+
+  if (!$service->isPost())
+  {
+    return new PwgError(405, "This method requires HTTP POST");
+  }
+  
+  $params['image_id'] = (int)$params['image_id'];
+  if ($params['image_id'] > 0)
+  {
+    include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
+
+    $query='
+SELECT *
+  FROM '.IMAGES_TABLE.'
+  WHERE id = '.$params['image_id'].'
+;';
+
+    $image_row = pwg_db_fetch_assoc(pwg_query($query));
+    if ($image_row == null)
+    {
+      return new PwgError(404, "image_id not found");
+    }
+  }
+
+  // category
+  $params['category'] = (int)$params['category'];
+  if ($params['category'] <= 0 and $params['image_id'] <= 0)
+  {
+    return new PwgError(WS_ERR_INVALID_PARAM, "Invalid category_id");
+  }
+
+  include_once(PHPWG_ROOT_PATH.'admin/include/functions_upload.inc.php');
+  prepare_upload_configuration();
+
+  $image_id = add_uploaded_file(
+    $_FILES['image']['tmp_name'],
+    $_FILES['image']['name'],
+    $params['category'] > 0 ? array($params['category']) : null,
+    8,
+    $params['image_id'] > 0 ? $params['image_id'] : null
+    );
+
+  $info_columns = array(
+    'name',
+    'author',
+    'comment',
+    'level',
+    'date_creation',
+    );
+
+  foreach ($info_columns as $key)
+  {
+    if (isset($params[$key]))
+    {
+      $update[$key] = $params[$key];
+    }
+  }
+
+  if (count(array_keys($update)) > 0)
+  {
+    $update['id'] = $image_id;
+
+    include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
+    mass_updates(
+      IMAGES_TABLE,
+      array(
+        'primary' => array('id'),
+        'update'  => array_diff(array_keys($update), array('id'))
+        ),
+      array($update)
+      );
+  }
+
+
+  if (isset($params['tags']) and !empty($params['tags']))
+  {
+    $tag_ids = array();
+    $tag_names = explode(',', $params['tags']);
+    foreach ($tag_names as $tag_name)
+    {
+      $tag_id = tag_id_from_tag_name($tag_name);
+      array_push($tag_ids, $tag_id);
+    }
+
+    add_tags($tag_ids, array($image_id));
+  }
+
+  $url_params = array('image_id' => $image_id);
+
+  if ($params['category'] > 0)
+  {
+    $query = '
+SELECT id, name, permalink
+  FROM '.CATEGORIES_TABLE.'
+  WHERE id = '.$params['category'].'
+;';
+    $result = pwg_query($query);
+    $category = pwg_db_fetch_assoc($result);
+
+    $url_params['section'] = 'categories';
+    $url_params['category'] = $category;
+  }
+
+  return array(
+    'image_id' => $image_id,
+    'url' => make_picture_url($url_params),
+    );
 }
 
 /**
@@ -1460,69 +1579,48 @@ function ws_tags_getImages($params, &$service)
   $tag_ids = array_keys($tags_by_id);
 
 
-  $image_ids = array();
-  $image_tag_map = array();
+  $where_clauses = ws_std_image_sql_filter($params);
+  if (!empty($where_clauses))
+  {
+    $where_clauses = implode( ' AND ', $where_clauses);
+  }
+  $image_ids = get_image_ids_for_tags(
+    $tag_ids,
+    $params['tag_mode_and'] ? 'AND' : 'OR',
+    $where_clauses,
+    ws_std_image_sql_order($params) );
 
-  if ( !empty($tag_ids) )
+
+  $image_ids = array_slice($image_ids, (int)($params['per_page']*$params['page']), (int)$params['per_page'] );
+  
+  $image_tag_map = array();
+  if ( !empty($image_ids) and !$params['tag_mode_and'] )
   { // build list of image ids with associated tags per image
-    if ($params['tag_mode_and'])
-    {
-      $image_ids = get_image_ids_for_tags( $tag_ids );
-    }
-    else
-    {
-      $query = '
+    $query = '
 SELECT image_id, GROUP_CONCAT(tag_id) AS tag_ids
   FROM '.IMAGE_TAG_TABLE.'
-  WHERE tag_id IN ('.implode(',',$tag_ids).')
+  WHERE tag_id IN ('.implode(',',$tag_ids).') AND image_id IN ('.implode(',',$image_ids).')
   GROUP BY image_id';
-      $result = pwg_query($query);
-      while ( $row=pwg_db_fetch_assoc($result) )
-      {
-        $row['image_id'] = (int)$row['image_id'];
-        array_push( $image_ids, $row['image_id'] );
-        $image_tag_map[ $row['image_id'] ] = explode(',', $row['tag_ids']);
-      }
+    $result = pwg_query($query);
+    while ( $row=pwg_db_fetch_assoc($result) )
+    {
+      $row['image_id'] = (int)$row['image_id'];
+      array_push( $image_ids, $row['image_id'] );
+      $image_tag_map[ $row['image_id'] ] = explode(',', $row['tag_ids']);
     }
   }
 
   $images = array();
-  if ( !empty($image_ids))
+  if (!empty($image_ids))
   {
-    $where_clauses = ws_std_image_sql_filter($params);
-    $where_clauses[] = get_sql_condition_FandF(
-        array
-          (
-            'forbidden_categories' => 'category_id',
-            'visible_categories' => 'category_id',
-            'visible_images' => 'i.id'
-          ),
-        '', true
-      );
-    $where_clauses[] = 'id IN ('.implode(',',$image_ids).')';
-
-    $order_by = ws_std_image_sql_order($params);
-    if (empty($order_by))
-    {
-      $order_by = $conf['order_by'];
-    }
-    else
-    {
-      $order_by = 'ORDER BY '.$order_by;
-    }
-
-    $query = '
-SELECT DISTINCT i.* FROM '.IMAGES_TABLE.' i
-  INNER JOIN '.IMAGE_CATEGORY_TABLE.' ON i.id=image_id
-  WHERE '. implode('
-    AND ', $where_clauses).'
-'.$order_by.'
-LIMIT '.(int)$params['per_page'].' OFFSET '.(int)($params['per_page']*$params['page']);
-
-    $result = pwg_query($query);
+    $rank_of = array_flip($image_ids);
+    $result = pwg_query('
+SELECT * FROM '.IMAGES_TABLE.'
+  WHERE id IN ('.implode(',',$image_ids).')');
     while ($row = pwg_db_fetch_assoc($result))
     {
       $image = array();
+      $image['rank'] = $rank_of[ $row['id'] ];
       foreach ( array('id', 'width', 'height', 'hit') as $k )
       {
         if (isset($row[$k]))
@@ -1566,6 +1664,8 @@ LIMIT '.(int)$params['per_page'].' OFFSET '.(int)($params['per_page']*$params['p
             );
       array_push($images, $image);
     }
+    usort($images, 'rank_compare');
+    unset($rank_of);
   }
 
   return array( 'images' =>
@@ -1584,7 +1684,7 @@ LIMIT '.(int)$params['per_page'].' OFFSET '.(int)($params['per_page']*$params['p
 
 function ws_categories_add($params, &$service)
 {
-  if (!is_admin() or is_adviser())
+  if (!is_admin())
   {
     return new PwgError(401, 'Access denied');
   }
@@ -1608,7 +1708,7 @@ function ws_categories_add($params, &$service)
 
 function ws_tags_add($params, &$service)
 {
-  if (!is_admin() or is_adviser())
+  if (!is_admin())
   {
     return new PwgError(401, 'Access denied');
   }
@@ -1629,7 +1729,7 @@ function ws_images_exist($params, &$service)
 {
   global $conf;
   
-  if (!is_admin() or is_adviser())
+  if (!is_admin())
   {
     return new PwgError(401, 'Access denied');
   }
@@ -1705,7 +1805,7 @@ SELECT
 
 function ws_images_checkFiles($params, &$service)
 {
-  if (!is_admin() or is_adviser())
+  if (!is_admin())
   {
     return new PwgError(401, 'Access denied');
   }
@@ -1744,6 +1844,7 @@ SELECT
     }
 
     if (isset($params[$param_name.'_sum'])) {
+      include_once(PHPWG_ROOT_PATH.'admin/include/functions_upload.inc.php');
       $type_path = file_path_for_type($path, $type);
       if (!is_file($type_path)) {
         $ret[$param_name] = 'missing';
@@ -1762,35 +1863,10 @@ SELECT
   return $ret;
 }
 
-function file_path_for_type($file_path, $type='thumb')
-{
-  // resolve the $file_path depending on the $type
-  if ('thumb' == $type) {
-    $file_path = get_thumbnail_location(
-      array(
-        'path' => $file_path,
-        'tn_ext' => 'jpg',
-        )
-      );
-  }
-
-  if ('high' == $type) {
-    @include_once(PHPWG_ROOT_PATH.'include/functions_picture.inc.php');
-    $file_path = get_high_location(
-      array(
-        'path' => $file_path,
-        'has_high' => 'true'
-        )
-      );
-  }
-
-  return $file_path;
-}
-
 function ws_images_setInfo($params, &$service)
 {
   global $conf;
-  if (!is_admin() || is_adviser() )
+  if (!is_admin())
   {
     return new PwgError(401, 'Access denied');
   }
@@ -1914,6 +1990,45 @@ SELECT *
   }
 
   invalidate_user_cache();
+}
+
+function ws_images_delete($params, &$service)
+{
+  global $conf;
+  if (!is_admin())
+  {
+    return new PwgError(401, 'Access denied');
+  }
+
+  if (!$service->isPost())
+  {
+    return new PwgError(405, "This method requires HTTP POST");
+  }
+
+  if (empty($params['pwg_token']) or get_pwg_token() != $params['pwg_token'])
+  {
+    return new PwgError(403, 'Invalid security token');
+  }
+
+  $params['image_id'] = preg_split(
+    '/[\s,;\|]/',
+    $params['image_id'],
+    -1,
+    PREG_SPLIT_NO_EMPTY
+    );
+  $params['image_id'] = array_map('intval', $params['image_id']);
+
+  $image_ids = array();
+  foreach ($params['image_id'] as $image_id)
+  {
+    if ($image_id > 0)
+    {
+      array_push($image_ids, $image_id);
+    }
+  }
+
+  include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
+  delete_elements($image_ids, true);
 }
 
 function ws_add_image_category_relations($image_id, $categories_string, $replace_mode=false)
@@ -2073,7 +2188,7 @@ SELECT
 function ws_categories_setInfo($params, &$service)
 {
   global $conf;
-  if (!is_admin() || is_adviser() )
+  if (!is_admin())
   {
     return new PwgError(401, 'Access denied');
   }
@@ -2128,6 +2243,195 @@ function ws_categories_setInfo($params, &$service)
 
 }
 
+function ws_categories_delete($params, &$service)
+{
+  global $conf;
+  if (!is_admin())
+  {
+    return new PwgError(401, 'Access denied');
+  }
+
+  if (!$service->isPost())
+  {
+    return new PwgError(405, "This method requires HTTP POST");
+  }
+
+  if (empty($params['pwg_token']) or get_pwg_token() != $params['pwg_token'])
+  {
+    return new PwgError(403, 'Invalid security token');
+  }
+
+  $modes = array('no_delete', 'delete_orphans', 'force_delete');
+  if (!in_array($params['photo_deletion_mode'], $modes))
+  {
+    return new PwgError(
+      500,
+      '[ws_categories_delete]'
+      .' invalid parameter photo_deletion_mode "'.$params['photo_deletion_mode'].'"'
+      .', possible values are {'.implode(', ', $modes).'}.'
+      );
+  }
+
+  $params['category_id'] = preg_split(
+    '/[\s,;\|]/',
+    $params['category_id'],
+    -1,
+    PREG_SPLIT_NO_EMPTY
+    );
+  $params['category_id'] = array_map('intval', $params['category_id']);
+
+  $category_ids = array();
+  foreach ($params['category_id'] as $category_id)
+  {
+    if ($category_id > 0)
+    {
+      array_push($category_ids, $category_id);
+    }
+  }
+
+  if (count($category_ids) == 0)
+  {
+    return;
+  }
+
+  $query = '
+SELECT id
+  FROM '.CATEGORIES_TABLE.'
+  WHERE id IN ('.implode(',', $category_ids).')
+;';
+  $category_ids = array_from_query($query, 'id');
+
+  if (count($category_ids) == 0)
+  {
+    return;
+  }
+  
+  include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
+  delete_categories($category_ids, $params['photo_deletion_mode']);
+  update_global_rank();
+}
+
+function ws_categories_move($params, &$service)
+{
+  global $conf, $page;
+  
+  if (!is_admin())
+  {
+    return new PwgError(401, 'Access denied');
+  }
+
+  if (!$service->isPost())
+  {
+    return new PwgError(405, "This method requires HTTP POST");
+  }
+
+  if (empty($params['pwg_token']) or get_pwg_token() != $params['pwg_token'])
+  {
+    return new PwgError(403, 'Invalid security token');
+  }
+
+  $params['category_id'] = preg_split(
+    '/[\s,;\|]/',
+    $params['category_id'],
+    -1,
+    PREG_SPLIT_NO_EMPTY
+    );
+  $params['category_id'] = array_map('intval', $params['category_id']);
+
+  $category_ids = array();
+  foreach ($params['category_id'] as $category_id)
+  {
+    if ($category_id > 0)
+    {
+      array_push($category_ids, $category_id);
+    }
+  }
+
+  if (count($category_ids) == 0)
+  {
+    return new PwgError(403, 'Invalid category_id input parameter, no category to move');
+  }
+
+  // we can't move physical categories
+  $categories_in_db = array();
+  
+  $query = '
+SELECT
+    id,
+    name,
+    dir
+  FROM '.CATEGORIES_TABLE.'
+  WHERE id IN ('.implode(',', $category_ids).')
+;';
+  $result = pwg_query($query);
+  while ($row = pwg_db_fetch_assoc($result))
+  {
+    $categories_in_db[$row['id']] = $row;
+    // we break on error at first physical category detected
+    if (!empty($row['dir']))
+    {
+      $row['name'] = strip_tags(
+        trigger_event(
+          'render_category_name',
+          $row['name'],
+          'ws_categories_move'
+          )
+        );
+      
+      return new PwgError(
+        403,
+        sprintf(
+          'Category %s (%u) is not a virtual category, you cannot move it',
+          $row['name'],
+          $row['id']
+          )
+        );
+    }
+  }
+
+  if (count($categories_in_db) != count($category_ids))
+  {
+    $unknown_category_ids = array_diff($category_ids, array_keys($categories_in_db));
+    
+    return new PwgError(
+      403,
+      sprintf(
+        'Category %u does not exist',
+        $unknown_category_ids[0]
+        )
+      );
+  }
+
+  // does this parent exists? This check should be made in the
+  // move_categories function, not here
+  //
+  // 0 as parent means "move categories at gallery root"
+  if (!is_numeric($params['parent']))
+  {
+    return new PwgError(403, 'Invalid parent input parameter');
+  }
+  
+  if (0 != $params['parent']) {
+    $params['parent'] = intval($params['parent']);
+    $subcat_ids = get_subcat_ids(array($params['parent']));
+    if (count($subcat_ids) == 0)
+    {
+      return new PwgError(403, 'Unknown parent category id');
+    }
+  }
+
+  $page['infos'] = array();
+  $page['errors'] = array();
+  include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
+  move_categories($category_ids, $params['parent']);
+  invalidate_user_cache();
+
+  if (count($page['errors']) != 0)
+  {
+    return new PwgError(403, implode('; ', $page['errors']));
+  }
+}
+
 function ws_logfile($string)
 {
   global $conf;
@@ -2147,11 +2451,12 @@ function ws_images_checkUpload($params, &$service)
 {
   global $conf;
 
-  if (!is_admin() or is_adviser())
+  if (!is_admin())
   {
     return new PwgError(401, 'Access denied');
   }
 
+  include_once(PHPWG_ROOT_PATH.'admin/include/functions_upload.inc.php');
   $ret['message'] = ready_for_upload_message();
   $ret['ready_for_upload'] = true;
   
@@ -2163,38 +2468,110 @@ function ws_images_checkUpload($params, &$service)
   return $ret;
 }
 
-function ready_for_upload_message()
+function ws_plugins_getList($params, &$service)
 {
   global $conf;
-
-  $relative_dir = preg_replace('#^'.PHPWG_ROOT_PATH.'#', '', $conf['upload_dir']);
-
-  if (!is_dir($conf['upload_dir']))
+  
+  if (!is_admin())
   {
-    if (!is_writable(dirname($conf['upload_dir'])))
+    return new PwgError(401, 'Access denied');
+  }
+
+  include_once(PHPWG_ROOT_PATH.'admin/include/plugins.class.php');
+  $plugins = new plugins();
+  $plugins->sort_fs_plugins('name');
+  $plugin_list = array();
+
+  foreach($plugins->fs_plugins as $plugin_id => $fs_plugin)
+  {
+    if (isset($plugins->db_plugins_by_id[$plugin_id]))
     {
-      return sprintf(
-        l10n('Create the "%s" directory at the root of your Piwigo installation'),
-        $relative_dir
-        );
+      $state = $plugins->db_plugins_by_id[$plugin_id]['state'];
     }
+    else
+    {
+      $state = 'uninstalled';
+    }
+
+    array_push(
+      $plugin_list,
+      array(
+        'id' => $plugin_id,
+        'name' => $fs_plugin['name'],
+        'version' => $fs_plugin['version'],
+        'state' => $state,
+        'description' => $fs_plugin['description'],
+        )
+      );
+  }
+
+  return $plugin_list;
+}
+
+function ws_plugins_performAction($params, &$service)
+{
+  global $template;
+  
+  if (!is_admin())
+  {
+    return new PwgError(401, 'Access denied');
+  }
+
+  if (empty($params['pwg_token']) or get_pwg_token() != $params['pwg_token'])
+  {
+    return new PwgError(403, 'Invalid security token');
+  }
+
+  define('IN_ADMIN', true);
+  include_once(PHPWG_ROOT_PATH.'admin/include/plugins.class.php');
+  $plugins = new plugins();
+  $errors = $plugins->perform_action($params['action'], $params['plugin']);
+
+  
+  if (!empty($errors))
+  {
+    return new PwgError(500, $errors);
   }
   else
   {
-    if (!is_writable($conf['upload_dir']))
+    if (in_array($params['action'], array('activate', 'deactivate')))
     {
-      @chmod($conf['upload_dir'], 0777);
-      
-      if (!is_writable($conf['upload_dir']))
-      {
-        return sprintf(
-          l10n('Give write access (chmod 777) to "%s" directory at the root of your Piwigo installation'),
-          $relative_dir
-          );
-      }
+      $template->delete_compiled_templates();
     }
+    return true;
+  }
+}
+
+function ws_themes_performAction($params, &$service)
+{
+  global $template;
+  
+  if (!is_admin())
+  {
+    return new PwgError(401, 'Access denied');
   }
 
-  return null;
+  if (empty($params['pwg_token']) or get_pwg_token() != $params['pwg_token'])
+  {
+    return new PwgError(403, 'Invalid security token');
+  }
+
+  define('IN_ADMIN', true);
+  include_once(PHPWG_ROOT_PATH.'admin/include/themes.class.php');
+  $themes = new themes();
+  $errors = $themes->perform_action($params['action'], $params['theme']);
+  
+  if (!empty($errors))
+  {
+    return new PwgError(500, $errors);
+  }
+  else
+  {
+    if (in_array($params['action'], array('activate', 'deactivate')))
+    {
+      $template->delete_compiled_templates();
+    }
+    return true;
+  }
 }
 ?>
