@@ -1,0 +1,88 @@
+<h2>Konfigurace rozšíření šablony</h2>
+
+<h3>Cíl</h3>
+<p>Nahradit původní šablony uživatelskými z podadresáře template-extension.
+(šablona s názvem "replacer").</p>
+
+<p>Pro nahrazení původní šablony (např. z ./themes/default/template) "replacerem" je potřeb obě šablony propojit.
+ (případně pokud volaná URL obsahuje volitelné klíčové slovo).</p>
+
+<p>"Volitelná klíčová slova" jsou slova která se zobrazují v URL za jménem modulu.</p>
+
+<p>Proto mohou být "volitelná klíčová slova" zadána jako aktivní permanentní spojení
+(viz. dokumentace permanetní spojení).</p>
+
+<p> `<a href="#warnings">Upozonění</a>` podmínky použití.</p>
+
+<h3>Co jsou rozšíření šablony?</h3>
+
+<p>
+Pomocí  FTP, může webmaster v adresáři "template extension" duplikovat většinu z předinstalovaných .tpl souborů ("původní šablona") různým jménem ("replacer").
+
+ "Originální šablony", podporované šablony:</p>
+<ul>
+<li><span class="filename">index.tpl</span></li>
+<li><span class="filename">mainpage_categories.tpl</span> and/or <span class="filename">thumbnails.tpl</span></li>
+<li><span class="filename">menubar.tpl</span></li>
+<li><span class="filename">header.tpl</span> and/or <span class="filename">footer.tpl</span></li>
+<li><span class="filename">picture_content.tpl</span> and/or <span class="filename">picture.tpl</span></li>
+<!-- <li><span class="filename">slideshow.tpl</span></li> -->
+<li><span class="filename">profile.tpl</span> and/or <span class="filename">profile_content.tpl</span></li>
+<li><span class="filename">tags.tpl</span></li>
+<li><span class="filename">upload.tpl</span></li>
+<li><span class="filename">about.tpl</span></li>
+<li><span class="filename">popuphelp.tpl</span></li>
+<li><span class="filename">search.tpl</span> and/or <span class="filename">search_rules.tpl</span></li>
+<li><span class="filename">nbm.tpl</span> and/or <span class="filename">notification.tpl</span></li>
+<li><span class="filename">identification.tpl</span> and/or <span class="filename">register.tpl</span></li>
+<li><span class="filename">redirect.tpl</span></li>
+</ul>
+
+<h3>Kde najdu původní šablony?</h3>
+
+<p>Původní šablony jsou v /themes/default/template/
+(z duvodu možnosti upgrade šablon je není dobré editovat). Z původní šablony je možné vytvořit vlastní "replacer" (přizpůsobenou šablonu)".</p>
+
+<h3>Kam mohu uložit "replacer"?</h3>
+
+<p><strong>Replacer</strong> musí být umístěn v adresáři template-extension (nebo podadresáři).
+Replacer je možno pojmenovat libovolně, důležitá je koncovka .tpl. Například: <span
+class="filename">template-extension/my-extension/video.tpl</span>.</p>
+
+
+<h3>Jak aktivuju "replacer"?</h3>
+<p><strong>Původní šablona</strong> musí být přiřazena ke každému
+<strong>replaceru</strong> pro jeho aktivaci.
+ Toto je účelem "Rošíření šablony" v konfiguraci administrace.</p>
+
+<p>pokud vyberete <strong>volitelné klíčové slovo</strong> dojde k nahrazení pouze u stránek obsahující příslušné klíčové slovo. například: <span
+  class="pwgScreen">index.php?/<strong>most_visited</strong></span></p>
+
+<p>Zkušení uživatelé mohou použít permanetní spojení jako <strong>volitelné klíčové slovo</strong>. </p>
+
+<p>Pokud vyberete <strong>svázané téma</strong> nahrazení se provede pouze s příslušným tématem.</p>
+
+<h3>Jak deaktivovat "replacery"?</h3>
+<ul>
+<li>Odvyberte navázané "původní šablony".</li>
+<li>Přes FTP smažte "replacery".</li>
+</ul>
+<a name="warnings"></a>
+<h3>Upozornění</h3>
+<ul>
+
+<li><strong>Původní šablona</strong> musí být sktečně "původní" šablona, jinak nelze zaručit plnou funkčnost!</li>
+
+<li>Při použití několika <strong>replacerů</strong> se stejnou <strong>původní šablonou</strong> a stejným <strong>volitelným klíčovým slovem</strong> bude aktivní pouze poslední replacer.</li>
+
+<li>Odvybrání <strong>volitelného klíčového slova</strong> aktivuje replacer pri jakémkoliv použití původní šablony. Stejně jako v předchozím bodě, volba může potlačit předchozí replacery.</li>
+
+<li>Podadresáře:
+Podadresáře jsou igorovány ale hodí se na změnu současného uspořádání.<br>
+distribuované vzorky: určené pro účely testování!
+<strong>needitujte je</strong> vytvořte si vlastní.
+</li>
+
+<li>Smazáním replaceru se <strong>původní šablona</strong> ihned reaktivuje.</li>
+
+</ul>
