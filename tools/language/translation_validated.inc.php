@@ -490,6 +490,16 @@ $validated_keys = array(
 	'localhost, sql.multimania.com, toto.freesurf.fr',
 	'',
 	),
+
+  'sl_SL' => array(
+	'%d Kb',
+	'Filter',
+	'N/A',
+	'caddie',
+	'IP: %s',
+	'show tag cloud',
+	'cloud',
+	),
 	
   'sk_SK' => array(
 	'%d Kb',
