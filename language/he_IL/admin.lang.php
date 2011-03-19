@@ -511,7 +511,6 @@ $lang["Correction the anomaly will cancel the fact that it's ignored"] = 'תיק
 $lang['%d anomaly has been ignored.'] = '%d חריגה שהתעלמתה ממנה.';
 $lang['%d anomalies have been ignored.'] = '%d חריגות שהתעלמה מהן.';
 $lang['Plugins which need upgrade'] = 'תוספים שיש לעדכן';
-$lang["Plugin versions can't be checked"] = 'לא ניתן לבדוק את גירסת התוסף';
 $lang['Plugin list'] = 'רשימת תוספים';
 $lang['Check for updates'] = 'בדוק עדכונים';
 $lang['Other plugins'] = 'תוספים נוספים זמינים';
