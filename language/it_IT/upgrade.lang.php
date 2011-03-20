@@ -40,5 +40,5 @@ $lang['All sub-albums of private albums become private'] = 'Tutti i sub album de
 $lang['User permissions and group permissions have been erased'] = 'I permessi degli utenti e dei gruppi sono stati cancellati';
 $lang['Only thumbnails prefix and webmaster mail address have been saved from previous configuration'] = 'Solo il prefisso delle miniature e l\'indirizzo email del webmaster sono stati recuperati dalla precedente configurazione';
 $lang['In <i>%s</i>, before <b>?></b>, insert:'] = 'Nel file <i>%s</i>, prima di <b>?></b>, inserite:';
-$lang['As a precaution, following themes have been deactivated. You must check for themes upgrade before reactiving them:'] = 'Come precauzione sono stati disattivati i seguenti temi. È necessario verificare se esistono degli aggiornamenti, prima di riattivarli:';
+$lang['As a precaution, following themes have been deactivated. You must check for themes upgrade before reactiving them:'] = 'Per precauzione, sono stati disattivati i seguenti temi. È necessario verificare se esistono degli aggiornamenti prima di riattivarli:';
 ?>
