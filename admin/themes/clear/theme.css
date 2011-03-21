@@ -265,3 +265,7 @@ display:block; height:85px; left:225px; position:relative; top:-42px; width:313p
 UL.thumbnails li.rank-of-image { 
   background-color: #ddd;
 }
+
+#batchManagerGlobal ul.thumbnails span.wrap2 {background-color:#ddd;}
+#batchManagerGlobal .thumbSelected {background-color:#C2F5C2 !important}
+#batchManagerGlobal #selectedMessage {background-color:#C2F5C2;}

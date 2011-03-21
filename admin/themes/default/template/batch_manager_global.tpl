@@ -304,32 +304,7 @@ $(document).ready(function() {
 });
 {/literal}{/footer_script}
 
-{literal}
-<style>
-#action p {text-align:left;}
-.bulkAction {text-align:left;margin:15px 0;padding:0;}
-#action_del_tags ul.tagSelection {margin:0 !important; width:620px;}
-#selectAction {}
-#checkActions {text-align:left; margin:0 0 20px 0;}
-.content ul.thumbnails span.wrap1 {margin:5px}
-.content ul.thumbnails span.wrap2 {border:0;background-color:#ddd;}
-.content ul.thumbnails span.wrap2:hover {background-color:#7CBA0F;}
-.thumbSelected {background-color:#C2F5C2 !important}
-
-#selectedMessage {background-color:#C2F5C2; padding:5px; -moz-border-radius:5px;}
-#selectSet a {border-bottom:1px dotted}
-#applyOnDetails {font-style:italic;}
-
-.actionButtons {text-align:left;}
-#filterList {padding-left:5px;}
-#filterList li {margin-bottom:5px; list-style-type:none;}
-a.removeFilter {background: url(admin/themes/default/icon/remove_filter.png) no-repeat top left;width:7px;height:7px;display:inline-block}
-a.removeFilter:hover {background: url(admin/themes/default/icon/remove_filter_hover.png); border:none;}
-.removeFilter span {display:none}
-#applyFilterBlock {margin-top:20px;}
-.useFilterCheckbox {display:none}
-</style>
-{/literal}
+<div id="batchManagerGlobal">
 
 <h2>{'Batch Manager'|@translate}</h2>
 
@@ -580,3 +555,5 @@ a.removeFilter:hover {background: url(admin/themes/default/icon/remove_filter_ho
   </fieldset>
 
   </form>
+
+</div> <!-- #batchManagerGlobal -->

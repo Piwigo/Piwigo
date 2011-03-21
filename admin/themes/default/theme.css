@@ -1027,3 +1027,23 @@ LEGEND {
   letter-spacing: 1px;
   padding: 0 10px;
 }
+
+/* Batch Manager, global mode */
+#batchManagerGlobal #action p {text-align:left;}
+#batchManagerGlobal .bulkAction {text-align:left;margin:15px 0;padding:0;}
+#batchManagerGlobal #action_del_tags ul.tagSelection {margin:0 !important; width:620px;}
+#batchManagerGlobal #checkActions {text-align:left; margin:0 0 20px 0;}
+#batchManagerGlobal ul.thumbnails span.wrap1 {margin:5px}
+#batchManagerGlobal ul.thumbnails span.wrap2 {border:0}
+#batchManagerGlobal ul.thumbnails span.wrap2:hover {background-color:#7CBA0F;}
+#batchManagerGlobal #selectedMessage {padding:5px; -moz-border-radius:5px;-webkit-border-radius:5px;}
+#batchManagerGlobal #selectSet a {border-bottom:1px dotted}
+#batchManagerGlobal #applyOnDetails {font-style:italic;}
+#batchManagerGlobal .actionButtons {text-align:left;}
+#batchManagerGlobal #filterList {padding-left:5px;}
+#batchManagerGlobal #filterList li {margin-bottom:5px; list-style-type:none;}
+#batchManagerGlobal a.removeFilter {background: url(icon/remove_filter.png) no-repeat top left;width:7px;height:7px;display:inline-block}
+#batchManagerGlobal a.removeFilter:hover {background: url(icon/remove_filter_hover.png); border:none;}
+#batchManagerGlobal .removeFilter span {display:none}
+#batchManagerGlobal #applyFilterBlock {margin-top:20px;}
+#batchManagerGlobal .useFilterCheckbox {display:none}
