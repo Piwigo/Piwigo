@@ -4,7 +4,7 @@
 
 <ul>
 
-  <li><strong>nom</strong>: renommer l'album catégorie (virtuellement pour 
+  <li><strong>nom</strong>: renommer l'album (virtuellement pour 
   un album physique).</li>
 
   <li><strong>description</strong>: un texte bref donnant une idée du contenu de l'album,
@@ -22,8 +22,8 @@ album signifie changer son album parent.</p>
 <ul>
 
   <li><strong>Type d'accès</strong>: gestion des permissions. Si vous rendez
-un album privé, tous ses albums filles deviennent privés. Si
-vous rendez un album publique, tous ses albums mères deviennent
+un album privé, tous ses albums fils deviennent privés. Si
+vous rendez un album publique, tous ses albums parents deviennent
 publiques.</li>
 
   <li><strong>Verrouiller</strong>: l'album et tous ses sous-album deviennent temporairement inaccessibles pour maintenance.</li>
@@ -53,7 +53,7 @@ class="pwgScreen">Administration &raquo; Albums &raquo; Propriétés</span>).</p
 <li><strong>Note moyenne (*)</strong>: cette moyenne peut être modifiée par la notation du visiteur</li>
 <li><strong>Plus vues (*)</strong>: La visite en cours peut changer l'ordre des plus vues</li>
 <li><strong>Nom du fichier</strong>: Nom du fichier donné dans les champs d'informations ci-dessus</li>
-<li><strong>Id</strong>: Id interne (les catégories récentes ont un "Id" plus grand que les précédentes).</li>
+<li><strong>Id</strong>: Id interne (les albums récents ont un "Id" plus grand que les précédentes).</li>
 
 </ul>
 <p><strong>(*)</strong>Attention: testez-vous même ces tris qui peuvent donner des résultats imprévus.</p>
@@ -81,7 +81,7 @@ class="pwgScreen">picture.php</span> ou <span class="pwgScreen">Gestion par
 lot</span> dans le <em>mode unitaire</em>. Voir l'aide de cet écran pour les
 détails.</li>
 
-  <li><span class="pwgScreen">Administration &raquo; Albums &raquo; Propriétés,
+  <li><span class="pwgScreen">Administration &raquo; Albums &raquo; Propriétés &raquo;
 Représentant</span>. Voir l'aide de cet écran pour les détails.</li>
 
   <li><span class="pwgScreen">Modifier un album</span> (le présent
@@ -105,24 +105,24 @@ est à true, l'album contenant des photos peut ne pas avoir de
 représentant fixe. Utiliser simplement le bouton <strong>Supprimer le
 représentant</strong>.</p>
 
-<p>Si l'album ne contient que des sous-albums et aucune photo, elle peut cependant être représentée par n'importe quel 
+<p>Si l'album ne contient que des sous-albums et aucune photo, il peut cependant être représentée par n'importe quel 
 photo grâce à l'écran <span class="pwgScreen">Modifier les informations 
 d'une photo</span>. La seule option disponible sur le présent écran est le bouton
 <strong>Supprimer le représentant</strong>.</p>
 
-<h3>Associer toutes les photos de l'album à un nouvelle album</h3>
+<h3>Associer toutes les photos de l'album à un nouvel album</h3>
 
 <ul>
 
-<li><strong>Nom de l'album virtuel</strong>: Nom du nouvelle album à créer, 
+<li><strong>Nom de l'album virtuel</strong>: Nom du nouvel album à créer, 
 toutes les photos de l'album en cours seront liées à celui-ci.</li>
 
-<li><strong>Album parent</strong>: A quel endroit le nouvelle album doit être placé, 
+<li><strong>Album parent</strong>: A quel endroit le nouvel album doit être placé, 
 laisser vide pour le créer sur la page d'accueil.</li>
 
 </ul>
 
-<h3>Associer toutes les photos de l'album à des albums existantes</h3>
+<h3>Associer toutes les photos de l'album à des albums existants</h3>
 
 <ul>
 

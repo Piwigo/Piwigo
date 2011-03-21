@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | Piwigo - a PHP based photo gallery                                    |
 // +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2009 Piwigo Team                  http://piwigo.org |
+// | Copyright(C) 2008-2011 Piwigo Team                  http://piwigo.org |
 // | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
 // | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
 // +-----------------------------------------------------------------------+
@@ -191,7 +191,7 @@ $lang['Page generated in'] = 'Page fabriquée en';
 $lang['guest'] = 'visiteur';
 $lang['Hello'] = 'Bonjour';
 $lang['available for administrators only'] = 'disponible uniquement pour les administrateurs';
-$lang['display this album'] = 'montre les photos à la racine de cette album';
+$lang['display this album'] = 'montre les photos à la racine de cet album';
 $lang['display last user comments'] = 'Voir les derniers commentaires utilisateurs';
 $lang['customize the appareance of the gallery'] = 'personnaliser l\'apparence de la galerie';
 $lang['search'] = 'recherche';

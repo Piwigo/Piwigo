@@ -736,7 +736,7 @@ $lang['Error on file "%s" : %s'] = 'Erreur sur le fichier "%s" : %s';
 $lang['Menu Management'] = 'Menus';
 $lang['automatic order'] = 'ordre automatique';
 $lang['manual order'] = 'ordre manuel';
-$lang['Albums automatically sorted'] = 'Les catégories ont été triées automatiquement';
+$lang['Albums automatically sorted'] = 'Les albums ont été triés automatiquement';
 
 $lang['Keep high definition'] = 'Conserver la haute définition';
 $lang['The high definition maximum width must be a number between %d and %d'] = 'La largeur maximum pour la haute définition doit être un chiffre compris entre %d et %d';
@@ -744,7 +744,7 @@ $lang['The high definition maximum height must be a number between %d and %d'] =
 $lang['The high definition image quality must be a number between %d and %d'] = 'La qualité d\'image pour la haute définition doit être un chiffre compris entre %d et %d';
 
 $lang['Batch Manager'] = 'Gestion par lot';
-$lang['include child albums'] = 'inclure les sous albums';
+$lang['include child albums'] = 'inclure les sous-albums';
 $lang['Selection'] = 'Sélection';
 $lang['Action'] = 'Action';
 $lang['Set author'] = 'Définir l\'auteur';
