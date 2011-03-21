@@ -448,12 +448,20 @@ SELECT
           )
         );
 
-      $element = array(
-           'id' => $line['image_id'],
-           'file' => $file_of_image[$line['image_id']],
-           'path' => $path_of_image[$line['image_id']],
-           'tn_ext' => $tn_ext_of_image[$line['image_id']],
-           );
+      if (isset($file_of_image[$line['image_id']]))
+      {
+        $element = array(
+          'id' => $line['image_id'],
+          'file' => $file_of_image[$line['image_id']],
+          'path' => $path_of_image[$line['image_id']],
+          'tn_ext' => $tn_ext_of_image[$line['image_id']],
+          );
+        $thumbnail_display = $page['search']['fields']['display_thumbnail'];
+      }
+      else
+      {
+        $thumbnail_display = 'no_display_thumbnail';
+      }
 
       $image_title = '('.$line['image_id'].')';
 
@@ -468,7 +476,7 @@ SELECT
 
       $image_string = '';
 
-      switch ($page['search']['fields']['display_thumbnail'])
+      switch ($thumbnail_display)
       {
         case 'no_display_thumbnail':
         {
