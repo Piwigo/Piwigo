@@ -144,9 +144,16 @@ $(document).ready(function() {
 
   $("[id^=action_]").hide();
 
-  $("select[name=selectAction]").click(function () {
+  $("select[name=selectAction]").change(function () {
     $("[id^=action_]").hide();
     $("#action_"+$(this).attr("value")).show();
+
+    if ($(this).val() != -1) {
+      $("#applyActionBlock").show();
+    }
+    else {
+      $("#applyActionBlock").hide();
+    }
   });
 
   $(".wrap1 label").click(function () {
@@ -247,15 +254,6 @@ $(document).ready(function() {
     }
     else {
       $("#set_date_creation").show();
-    }
-  });
-
-  $("select[name=selectAction]").change(function() {
-    if ($(this).val() != -1) {
-      $("#applyActionBlock").show();
-    }
-    else {
-      $("#applyActionBlock").hide();
     }
   });
 
