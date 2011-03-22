@@ -382,7 +382,7 @@ function str2url($str)
 
   if (empty($res))
   {
-    $res = $raw;
+    $res = str_replace(' ','_', $raw);
   }
 
   return $res;
