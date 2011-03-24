@@ -794,7 +794,7 @@ function add_upload_error($upload_id, $error_message)
 
 function is_imagick()
 {
-  if (extension_loaded('imagick'))
+  if (class_exists('Imagick'))
   {
     return true;
   }
