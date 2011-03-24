@@ -28,13 +28,10 @@ $lang['Database configuration'] = 'Настройка базы данных';
 $lang['Admin configuration'] = 'Настройка администрирования';
 $lang['Start Install'] = 'Начать установку';
 $lang['mail address must be like xxx@yyy.eee (example : jack@altern.org)'] = 'адрес электронной почты должен быть похож на xxx@yyy.eee (например: jack@altern.org)';
-
 $lang['Webmaster login'] = 'Логин вебмастера';
 $lang['It will be shown to the visitors. It is necessary for website administration'] = 'Он будет показан посетителям. Необходим для администрирования сайта';
-
 $lang['Connection to server succeed, but it was impossible to connect to database'] = 'Успешно соединились с сервером, но невозможно подключиться к базе данных';
 $lang['Can\'t connect to server'] = 'Невозможно соединиться с сервером';
-
 $lang['Host'] = 'Хост MySQL';
 $lang['localhost, sql.multimania.com, toto.freesurf.fr'] = 'localhost, sql.multimania.com, toto.freesurf.fr';
 $lang['User'] = 'Пользователь';
@@ -55,7 +52,6 @@ $lang['verification'] = 'еще раз для исключения опечат�
 $lang['Need help ? Ask your question on <a href="%s">Piwigo message board</a>.'] = 'Нужна помощь? Задайте свои вопросы на <a href="%s">Форуме Piwigo</a>.';
 $lang['Webmaster mail address'] = 'Электронная почта вебмастера';
 $lang['Visitors will be able to contact site administrator with this mail'] = 'Будет использоваться для контакта посетителей с администратором';
-
 $lang['Database type'] = 'Тип базы данных';
 $lang['The type of database your piwigo data will be store in'] = 'Тип базы данных будет храниться в';
 $lang['PHP 5 is required'] = 'Требуется PHP 5';
