@@ -1,9 +1,10 @@
 <h2>Manutenzione</h2>
 
-<p>Per ottimizzare il tempo di generazione di una pagina, Piwigo utilizza una memoria cache. Per esempio, invece di contare il numero d'immagini contenute in ogni categoria
-ad ogni caricamento della pagina, queste informazioni vengono immagazzinate nel database. In teoria,
-questa informazione dovrebbe essere sempre corretta, ma a volte si può verificare 
-un errore e le informazioni memorizzate nella cache risulteranno errate.</p>
+<p>Per ottimizzare il tempo di generazione di una pagina, Piwigo utilizza una memoria cache.
+ Per esempio, invece di contare il numero d'immagini contenute in ogni album
+ ad ogni caricamento della pagina, queste informazioni vengono immagazzinate nel database.
+ In teoria, questa informazione dovrebbe essere sempre corretta, ma a volte si può verificare 
+ un errore e le informazioni memorizzate nella cache risulteranno errate.</p>
 
 <p>Alcune informazioni diventano inutili col tempo. Cancellare queste
 informazioni inutili dal database vi permette di liberare spazio sul disco.</p>
@@ -12,25 +13,27 @@ informazioni inutili dal database vi permette di liberare spazio sul disco.</p>
 
   <li>
     <strong>Elementi orfani:</strong>
-    Mostra le immagini che non sono associate ad una categoria virtuale.
+    Mostra le immagini che non sono associate ad un album virtuale.
   </li>
   <li>
-    <strong>File con lo stesso nome in più categorie fisiche:</strong>
-    Mostra le immagini o altri file con lo stesso nome, trovati in più categorie.
+    <strong>File con lo stesso nome in più album fisici:</strong>
+    Mostra le immagini o altri file con lo stesso nome, trovati in più album.
   </li>
 
 </ul>
 
 <ul>
 
-  <li><strong>Aggiornamento delle informazioni delle categorie:</strong> 
-  Per ogni categoria sono controllate e, se necessario, aggiornate le seguenti informazioni: 
-  elenco delle categorie madri, numero delle immagini, data dell'ultima immagine, posizione tra
-  delle categorie di stesso livello, posizione tra categorie madri e categorie figlie.
+  <li><strong>Aggiornamento delle informazioni degli album :</strong> 
+  Per ogni album, sono controllate e, se necessario, aggiornate le seguenti informazioni: 
+  elenco degli album padri, numero delle immagini, data dell'ultima immagine, posizione tra
+  gli album di stesso livello, posizione tra album padri e album figli.
   Quest'azione controlla anche la presenza delle immagini che fungono da copertina.</li>
 
-  <li><strong>Aggiornamento delle informazioni delle immagini:</strong> Per ogni
-immagine, le informazioni aggiornate sono: il percorso completo del file, il voto medio. <em>Attenzione</em>: da non confondere con i metadati sincronizzabili tramite la pagina <span class="pwgScreen">Amministrazione, Categorie, Sincronizzare</span>
+  <li><strong>Aggiornamento delle informazioni delle immagini:</strong>
+Per ogni immagine, le informazioni aggiornate sono: il percorso completo
+del file, il voto medio. Attenzione: da non confondere con i metadati
+sincronizzabili tramite la pagina <span class="pwgScreen">Amministrazione &raquo; Album &raquo; Sincronizzare</span>
 o nella pagina <span class="pwgScreen">Modificare le informazioni dell'immagine</span> (accessibile dalla pagina di visualizzazione di un'immagine <span class="pwgScreen">picture.php</span>).</li>
 
   <li><strong>Riparare e ottimizzare il database:</strong>
@@ -46,7 +49,9 @@ Amministrazione, Speciale, Cronologia</span> non mostrerà più nessuna informaz
 <em>Attenzione</em>: Tutte le informazioni saranno definitivamente perse e non sarà più possibile recuperarle.
   </li>
 
-  <li><strong>Ripulire il sommario della cronologia:</strong> cancella tutte le informazioni del sommario (ottenute dal dettaglio della cronologia).</li>
+  <li><strong>Ripulire il sommario della cronologia:</strong>
+Cancella tutte le informazioni del sommario (ottenute dal dettaglio della cronologia).
+  </li>
 
   <li><strong>Ripulire le sessioni scadute:</strong> cancella tutte le sessioni scadute.</li>
 

@@ -1,55 +1,59 @@
-<h2>Modificare una categoria</h2>
+<h2>Modificare un album</h2>
 
 <h3>Informazioni</h3>
 
 <ul>
 
-<li><strong>nome</strong>: rinominare la categoria (una ridenominazione virtuale in caso di categoria fisica).</li>
+  <li><strong>nome</strong>: rinominare l'album (virtualmente in caso
+  di un album fisico).</li>
 
-<li><strong>descrizione</strong>: da un'idea generale del contenuto, questo testo verrà visualizzato nella parte inferiore della pagina miniature.</li>
+  <li><strong>descrizione</strong>: da un'idea generale del contenuto,
+  questo testo verrà visualizzato nella parte inferiore della pagina miniature.</li>
 
 </ul>
 
 <h3>Spostare</h3>
 
-<p>Se la categoria è virtuale, potete spostarla. Spostare una categoria significa cambiare la categoria superiore.</p>
+<p>Se l'album è virtuale, potete spostarlo. Spostare un
+album significa cambiare l'album superiore.</p>
 
 <h3>Opzioni</h3>
 
 <ul>
 
-<li><strong>Tipo di accesso</strong>: Gestione dei permessi. Se rendete una categoria privata, tutte le categorie figlie diventono private. Se rendete una categoria pubblica, tutte le categorie genitore diventono pubbliche.</li>
+  <li><strong>Tipo di accesso</strong>: Gestione dei permessi. Se rendete
+un album privato, tutti gli album figli diventono privati. Se
+rendete un album pubblico, tutti gli album genitori diventono
+pubblichi.</li>
 
-<li><strong>Blocco</strong>: Le categorie e le loro sotto-categorie verranno disattivate temporaneamente per manutenzione.</li>
+  <li><strong>Blocco</strong>: Gli album e i sotto-album verranno disattivati temporaneamente per manutenzione.</li>
 
-<li><strong>Commenti</strong>: Autorizzare gli utenti a commentare gli elementi della categoria.</li>
-
-<li><strong>Autorizzare l'upload</strong>: Autorizzare gli utenti a caricare dei file. Questa opzione è disponibile solo se la categoria è una categoria fisica (non virtuale).</li>
+<li><strong>Commenti</strong>: Autorizzare gli utenti a commentare
+gli elementi di questo album.</li>
 
 </ul>
 
 <p>Potete anche gestire queste opzioni con la gestione delle "Proprietà"
-(schermo <span class="pwgScreen">Upload</span>, <span
-class="pwgScreen">Commenti</span>, <span
+(schermo <span class="pwgScreen">Commenti</span>, <span
 class="pwgScreen">Blocco</span>, <span
 class="pwgScreen">Pubblico/Privato</span>, <span
 class="pwgScreen">Rappresentativa</span> disponibile in <span
-class="pwgScreen">Amministrazione, Categorie, Proprietà</span>).</p>
+class="pwgScreen">Amministrazione &raquo; Album &raquo; Proprietà</span>).</p>
 
 <h3>Ordine di apparizione</h3>
 
 <p>Scegliere se il tipo di ordinamento predefinito sarà usato.</p>
 
-<p>Indicare se quest'ordinamento sarà applicato alle sottocategorie.</p>
+<p>Indicare se quest'ordinamento sarà applicato ai sotto-album.</p>
 
-<p>Scegliere le colonne per l'ordinamento da usare su questa categoria.</p>
+<p>Scegliere le colonne per l'ordinamento da usare su questo album.</p>
 <ul>
 <li><strong>Data di creazione</strong>: Data di creazione dell'immagine</li>
 <li><strong>Aggiunto il</strong>: Data di sincronizzazione</li>
-<li><strong>Voto medio (*)</strong>: Voto che potrebbe essere modificato da un utente</li>
+<li><strong>Voto medio (*)</strong>: Media che potrebbe essere modificata dal voto di un utente</li>
 <li><strong>Le più viste (*)</strong>: La visita attuale potrebbe modificare l'ordine delle foto più viste</li>
 <li><strong>Nome file</strong>: Nome inserito nei campi precedenti</li>
-<li><strong>Id</strong>: Id interno (le categorie le più recenti hanno un "Id" più grande delle precedenti.</li>
+<li><strong>Id</strong>: Id interno (gli album più recenti hanno un "Id" più grande dei precedenti.</li>
 
 </ul>
 <p><strong>(*)</strong>Attenzione: Effettuare qualche test, l'ordinamento scelto potrebbe darvi qualche sorpresa.</p>
@@ -57,48 +61,72 @@ class="pwgScreen">Amministrazione, Categorie, Proprietà</span>).</p>
 
 <h3>Copertina</h3>
 
-<p>La copertina di una categoria è la miniatura che appare per rappresentare la categoria sulla pagina principale (<span class="pwgScreen">category.php</span>) quando la categoria contiene solo delle sottocategorie e non direttamente delle immagini (come alla radice).</p>
+<p>La copertina di un album è la miniatura che appare per rappresentare l'album sulla pagina principale (<span
+class="pwgScreen">category.php</span>) quando
+l'album contiene solo dei sotto-album
+e non direttamente delle immagini (come
+alla radice).</p>
 
-<p>Esistono quattro modi per scegliere la copertina di una categoria:</p>
+<p>Esistono quattro modi per scegliere la copertina di un album:</p>
 
 <ul>
 
-<li><span class="pwgScreen">Pagina di visualizzazione delle immagini</span>: nella barra delle azioni, uno dei pulsanti permette di scegliere l'elemento visualizzato come copertina rappresentante la categoria visualizzata. Il pulsante in questione è visibile solo agli amministratori.</li>
+  <li><span class="pwgScreen">Pagina di visualizzazione delle immagini</span>: nella barra delle azioni, uno dei pulsanti permette di scegliere l'elemento visualizzato come copertina rappresentante
+l'album visualizzata. Il pulsante in questione è visibile solo
+agli amministratori.</li>
 
-<li><span class="pwgScreen">Modicare le informazioni di un'immagine</span> in amministrazione. Questo pagina può essere raggiunta tramite <span class="pwgScreen">picture.php</span> o <span class="pwgScreen">Gestione per lotti</span> con il <em>modo unitario</em>. Per i dettagli, vedi l'aiuto per questa pagina.</li>
+  <li><span class="pwgScreen">Modicare le informazioni di un'immagine</span>
+in amministrazione. Questa pagina può essere raggiunta tramite <span
+class="pwgScreen">picture.php</span> o <span class="pwgScreen">Gestione per
+lotti</span> con il <em>modo unitario</em>. Per i dettagli, vedi l'aiuto per
+questa pagina.</li>
 
-<li><span class="pwgScreen">Amministrazione, Categorie, Proprietà Copertina</span>. Per i dettagli, vedi l'aiuto per questa pagina.</li>
+  <li><span class="pwgScreen">Amministrazione &raquo; Album &raquo; Proprietà &raquo; 
+Copertina</span>. Per i dettagli, vedi l'aiuto per questa pagina.</li>
 
-<li><span class="pwgScreen">Modificare categoria</span> (questa pagina).</li>
+  <li><span class="pwgScreen">Modificare un album</span> (questa
+pagina).</li>
 
 </ul>
 
-<p>La copertina dipende dal parametro di configurazione
-<code>allow_random_representative</code> (vedi <span class="filename">include/config_default.inc.php</span>).</p>
+<p>La scelta della copertina dipende dal parametro di configurazione
+<code>allow_random_representative</code> (vedi <span
+class="filename">include/config_default.inc.php</span>).</p>
 
-<p>Di default (<code>allow_random_representative</code> impostato su "false") ogni categoria, contenente almeno un elemento, è rappresentata da un elemento fisso (copertina). Una volta impostata (nella categoria creazione), la copertina cambia solo se lo decide l'amministratore. Se la copertina non è appropriata, potete chiedere di <strong>scegliere una copertina a caso</strong>.</p>
+<p>Di default (<code>allow_random_representative</code> è impostato su "false"), ogni
+album contenente almeno un elemento, è rappresentato da un elemento
+fisso (copertina). Una volta impostata (alla creazione del album), la copertina cambia
+solo se lo decide l'amministratore. Se la copertina
+non è appropriata, potete chiedere di <strong>Scegliere una copertina
+a caso</strong>.</p>
 
 <p>Se il parametro di configurazione <code>allow_random_representative</code>
-è impostato su "true", una categoria contenente degli elementi può non avere una copertina fissa. Usare semplicemente il pulsante <strong>Cancellare copertina</strong>.</p>
+è impostato su "true", l'album contenente degli elementi può non avere
+una copertina fissa. Usare semplicemente il pulsante <strong>Cancellare
+copertina</strong>.</p>
 
-<p>Se la categoria non contiene nessun elemento (ma solo sottocategorie) può comunque essere rappresentata da un qualsiasi elemento. Utilizzare la pagina <span class="pwgScreen">Modicare le informazioni di un'immagine</span>. L'unica opzione di questa pagina è il pulsante
+<p>Se l'album non contiene nessun elemento (ma solo dei sotto-album) può comunque essere rappresentata da un qualsiasi
+elemento. Utilizzare la pagina <span class="pwgScreen">Modicare le informazioni
+di un'immagine</span>. L'unica opzione disponibile di questa pagina è il pulsante
 <strong>Cancellare copertina</strong>.</p>
 
-<h3>Associare tutti gli elementi di una categoria ad una nuova categoria</h3>
+<h3>Associare tutti gli elementi di un album ad un nuovo album</h3>
 
 <ul>
 
-<li><strong>Nome della categoria virtuale</strong>: Nome della nuova categoria da creare, tutti gli elementi dell'attuale categoria verranno associati alla nuova categoria.</li>
+<li><strong>Nome del album virtuale</strong>: Nome del nuovo album da creare,
+tutti gli elementi dell'attuale album verranno associati al nuovo album.</li>
 
-<li><strong>Categoria madre</strong>: Dove deve essere creata la nuova categoria, lasciare vuoto per crearla alla radice (root) del sito.</li>
+<li><strong>Album padre</strong>: Dove deve essere creato il nuovo album,
+lasciare vuoto per crearlo alla radice (root) del sito.</li>
 
 </ul>
 
-<h3>Associare tutti gli elementi della categoria attuale a delle categorie esistenti</h3>
+<h3>Associare tutti gli elementi del album attuale a degli album esistenti</h3>
 
 <ul>
 
-<li><strong>Categorie</strong>: Scegliere la categoria di destinazione.</li>
+<li><strong>Album</strong>: Scegliere l'album di destinazione.</li>
 
 </ul>
 

@@ -13,7 +13,7 @@
   <li>Andate in <span class="pwgScreen">Amministrazione</span> e cliccate sul pulsante Sincronizzazione.</li>
 </ol>
 
-<p>Bene! Avete appena creato la prima categoria della vostra galleria.</p>
+<p>Bene! Avete appena creato il primo album della vostra galleria.</p>
 
 </fieldset>
 
@@ -24,30 +24,30 @@
 
   <li>
 
-    <p>Nella directory "galleries" si trovano le categorie di Piwigo. Qui di seguito potete vedere lo schema ad albero di una piccola galleria (ma che usa moltissime funzionalità) : </p>
+    <p>Nella directory "galleries" si trovano gli album di Piwigo. Qui di seguito potete vedere lo schema ad albero di una piccola galleria (ma che usa moltissime funzionalità) : </p>
   
 <pre>
 .
 |-- admin
 |-- doc
 |-- galleries
-|   |-- categoria-1
-|   |   |-- categoria-1.1
-|   |   |   |-- categoria-1.1.1
-|   |   |   |   |-- categoria-1.1.1.1
+|   |-- album-1
+|   |   |-- album-1.1
+|   |   |   |-- album-1.1.1
+|   |   |   |   |-- album-1.1.1.1
 |   |   |   |   |   |-- pwg_high
 |   |   |   |   |   |   +-- matrimonio.jpg
 |   |   |   |   |   |-- thumbnail
 |   |   |   |   |   |   +-- TN-matrimonio.jpg
 |   |   |   |   |   +-- matrimonio.jpg
-|   |   |   |   +-- categoria-1.1.1.2
-|   |   |   +-- categoria-1.1.2
-|   |   |-- categoria-1.2
+|   |   |   |   +-- album-1.1.1.2
+|   |   |   +-- album-1.1.2
+|   |   |-- album-1.2
 |   |   |   |-- pookie.jpg
 |   |   |   +-- thumbnail
 |   |   |       +-- TN-pookie.jpg
-|   |   +-- categoria-1.3
-|   +-- categoria-2
+|   |   +-- album-1.3
+|   +-- album-2
 |       |-- porcello.gif
 |       |-- pwg_representative
 |       |   +-- video.jpg
@@ -57,12 +57,15 @@
 |-- include
 |-- install
 |-- language
-|-- template
+|-- local
+|-- plugins
+|-- template-extension
+|-- themes
 +-- tool</pre>
 
   </li>
   
-  <li>Ad eccezzione di "thumbnail" (miniature), "pwg_high" o "pwg_representative" (vedi spiegazioni qui sotto), ogni directory inserita in "galleries" genera una categoria. Il numero di livelli (profondità) è illimitato.</li>
+  <li>Ad eccezzione di "thumbnail" (miniature), "pwg_high" o "pwg_representative" (vedi spiegazioni qui sotto), ogni directory inserita in "galleries" genera un album. Il numero di livelli (profondità) è illimitato.</li>
 
   <li>Un elemento è invece rappresentato da un file. Un file può essere un elemento di Piwigo se la sua estensione è presente tra le possibilità previste nel parametro di configuarzione <code>file_ext</code> (vedi
 file <span class="filename">include/config.inc.php</span>). Un file è considerato come un immagine
@@ -87,7 +90,10 @@ class="filename">video.avi</span> nell'esempio proposto).</li>
 composto da lettere, numeri o simboli come "-", "_" o ".". Non utilizzate spazio
 e caratteri accentati.</li>
 
-  <li><em>Suggerimento</em>: una categoria può contenere elementi e sub-categorie assieme. Tuttavia, è fortemente raccomandato scegliere per ciascuna categoria se inserire elementi o sub-categorie.</li>
+  <li><em>Suggerimento</em>: un album può contenere elementi
+e sub album assieme. Tuttavia, è fortemente raccomandato scegliere,
+per ogni album, se inserire degli elementi <strong>o</strong>
+dei sub album.</li>
 
   <li>Una volta che i file, le miniature e i file rappresentativi sono
 correttamente inseriti nelle directory, andare alla pagina <span
@@ -106,7 +112,7 @@ class="pwgScreen">Amministrazione &raquo; Generale &raquo; Sincronizzare</span>.
 ad una miniatura (thumbnail).</li>
 
   <li>Le miniature si trovano nella sottodirectory "thumbnail" di ogni
-directory che rappresenta una categoria. La miniatura è un file di tipo
+directory che rappresenta un album. La miniatura è un file di tipo
 immagine (stesso nome del file) con un prefisso che può essere
 personalizzato dal parametro di configurazione <code>prefix_thumbnail</code>
 (vedi <span class="filename">include/config.inc.php</span>).</li>
@@ -123,7 +129,9 @@ Piwigo, ma ciò non è raccomandato in quanto la qualità delle miniature
 potrebbe essere scadente ed il processo potrebbe utilizzare troppe risorse del
 server (e potrebbe essere un serio problema su un server condiviso).</li>
 
-  <li>Se si sceglie di utilizzare il webserver per generare le miniature, è necessario consentire l'accesso in scrittura su tutte le directory categoria.</li>
+  <li>Se si sceglie di utilizzare il webserver per generare le miniature,
+è necessario consentire l'accesso in scrittura su tutte le
+directory.</li>
 
 </ul>
 

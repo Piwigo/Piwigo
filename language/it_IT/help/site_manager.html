@@ -16,12 +16,12 @@ sui parametri come <code>$conf['prefix_thumbnail']</code> o
   <li>via FTP, caricare i file <span
 class="filename">tools/create_listing_file.php</span> e <span
 class="filename">tools/create_listing_file_local.inc.php</span> (modificato) sul Vostro sito
-remoto, nella stessa directory con le categorie che compongono la vostra galleria
-(come la directory <span class="filename">galleries</span> di questo sito).
-Per esempio, supponiamo che possiate accedere a <span
+remoto, nella stessa directory con gli album che compongono la vostra galleria
+(come la directory <span class="filename">galleries</span> di
+questo sito). Per esempio, supponiamo che possiate accedere a <span
 class="filename">http://esempio.it/galleries/create_listing_file.php</span>.</li>
 
-  <li>andate su <span class="pwgScreen">Amministrazione, Categorie,
+  <li>andate su <span class="pwgScreen">Amministrazione &raquo; Tools &raquo;
 Gestione dei siti</span>. Richiedete la creazione di un nuovo sito, per esempio <span
 class="filename">http://esempio.it/galleries</span>.</li>
 
@@ -35,20 +35,17 @@ class="filename">http://esempio.it/galleries</span>.</li>
 per generare il file di listing remoto</li>
 
       <li><strong>sincronizzare</strong> : legge il file remoto <span
-class="filename">listing.xml</span> e sincronizza con il database locale.</li>
+class="filename">listing.xml</span> e sincronizza con il database
+locale.</li>
 
       <li><strong>pulire</strong> : cancella il file di listing 
 remoto.</li>
 
-      <li><strong>cancellare</strong> : cancella il sito remoto (e tutte le 
-relative categorie ed elementi associati) dal database.</li>
+      <li><strong>cancellare</strong> : cancella il sito remoto (e tutti gli elementi
+associati) dal database.</li>
 
     </ol>
-  </li>
-</ol>
 
-<!-- <p>Potete anche effettuare queste operazioni manualmente modificando
-il file <span class="filename">listing.xml</span> e spostandolo alla radice
-di Piwigo. Andare su <span class="pwgScreen">Amministrazion, Categorie,
-Gestione dei siti</span> : Piwigo rileva la presenza del file e propone
-di usarlo.</p>-->
+  </li>
+
+</ol>
