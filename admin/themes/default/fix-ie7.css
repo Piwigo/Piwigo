@@ -2,3 +2,7 @@
 #the_page { min-height:100%; position:relative; padding:0; margin:0; } 
 #menubar { margin: 0; }
 #footer { left: 0; }
+
+UL.thumbnails li.rank-of-image {
+	text-align:left;
+}

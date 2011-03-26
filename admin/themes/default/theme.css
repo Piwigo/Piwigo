@@ -54,6 +54,7 @@ UL.thumbnails li.rank-of-image img {
   position:relative;
   width: 96px;
   height: 96px;
+  margin: 3px;
 }
 .clip {
   position:absolute;
