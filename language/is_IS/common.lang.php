@@ -21,7 +21,7 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 /*
-Language Name: Icelandic [IS]
+Language Name: Íslenska [IS]
 Version: 2.2.0
 Language URI: http://piwigo.org/ext/extension_view.php?eid=
 Author: Piwigo team
