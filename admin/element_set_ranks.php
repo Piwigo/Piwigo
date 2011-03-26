@@ -223,8 +223,14 @@ while ($row = pwg_db_fetch_assoc($result))
 		'tn_src'	=> $src,
 		'rank'	=> $current_rank * 10,
 		);
-	$clipping[]= min($thumbnail_size[0]*0.75,$thumbnail_size[1]*0.75);
-
+	if ($thumbnail_size[0]<=128 and $thumbnail_size[1]<=128)
+	{
+		$clipping[]= min($thumbnail_size[0],$thumbnail_size[1]);
+	}
+	else
+	{
+		$clipping[]= min($thumbnail_size[0]*0.75,$thumbnail_size[1]*0.75);
+	}
   $current_rank++;
 }
 $clipping=array_sum($clipping)/count($clipping);

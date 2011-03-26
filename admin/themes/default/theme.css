@@ -45,11 +45,6 @@ UL.thumbnails li.rank-of-image {
   cursor: move;
   margin: 10px;
 }
-UL.thumbnails li.rank-of-image img {
-  margin: 0 20px;
-  padding: 8px 2px;
-  float: left;
-}
 .clipwrapper {
   position:relative;
   width: 96px;
