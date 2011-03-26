@@ -28,6 +28,13 @@ jQuery(document).ready(function() {
 
   checkOrderOptions();
 });
+jQuery(document).ready(function() {
+jQuery('.clipwrapper').tipTip({
+'delay' : 0,
+'fadeIn' : 200,
+'fadeOut' : 200
+});
+}); 
 {/literal}{/footer_script}
 
 <h2>{'Manage photo ranks'|@translate}</h2>
@@ -44,9 +51,9 @@ jQuery(document).ready(function() {
     <ul class="thumbnails">
       {foreach from=$thumbnails item=thumbnail}
       <li class="rank-of-image" style="width:{$thumbnail.CLIPING_li}px; height:{$thumbnail.CLIPING_li}px; ">
-        <div class="clipwrapper" style="width:{$thumbnail.CLIPING}px; height:{$thumbnail.CLIPING}px; ">
+        <div class="clipwrapper" style="width:{$thumbnail.CLIPING}px; height:{$thumbnail.CLIPING}px; " title="{$thumbnail.NAME|@replace:'"':' '}">
 	  <div class="clip" style="clip:rect({$thumbnail.CLIP_TOP}px {$thumbnail.CLIP_RIGHT}px {$thumbnail.CLIP_BOTTOM}px {$thumbnail.CLIP_LEFT}px);top:-{$thumbnail.CLIP_TOP}px;left:-{$thumbnail.CLIP_LEFT}px">
-	    <img src="{$thumbnail.TN_SRC}" class="thumbnail" alt="">
+	    <img src="{$thumbnail.TN_SRC}" class="thumbnail" alt="{$thumbnail.NAME|@replace:'"':' '}">
 	  </div>
 	</div>
         <input type="text" name="rank_of_image[{$thumbnail.ID}]" value="{$thumbnail.RANK}" style="display:none">

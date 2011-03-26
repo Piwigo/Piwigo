@@ -197,8 +197,10 @@ $template->assign(
 $query = '
 SELECT
     id,
+    file,
     path,
     tn_ext,
+    name,
     rank
   FROM '.IMAGES_TABLE.'
     JOIN '.IMAGE_CATEGORY_TABLE.' ON image_id = id
@@ -216,7 +218,17 @@ while ($row = pwg_db_fetch_assoc($result))
   $src = get_thumbnail_url($row);
 	
 	$thumbnail_size = getimagesize($src);
+  if ( !empty( $row['name'] ) )
+  {
+    $thumbnail_name = $row['name'];
+  }
+  else
+  {
+    $file_wo_ext = get_filename_wo_extension($row['file']);
+   	$thumbnail_name = str_replace('_', ' ', $file_wo_ext);
+  }
 	$thumbnail_info[] = array(
+		'name'	=> $thumbnail_name,
 		'width'	=> $thumbnail_size[0],
 		'height'	=> $thumbnail_size[1],
 		'id'	=> $row['id'],
@@ -242,6 +254,7 @@ foreach ($thumbnail_info as $thumbnails_info)
     'thumbnails',
     array(
       'ID' => $thumbnails_info['id'],
+      'NAME' => $thumbnails_info['name'],
       'TN_SRC' => $thumbnails_info['tn_src'],
       'RANK' => $thumbnails_info['rank'],
       'CLIPING' => round($clipping),
