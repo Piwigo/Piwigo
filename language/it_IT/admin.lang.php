@@ -222,7 +222,7 @@ $lang['The name of a group must not contain " or \' or be empty.'] = 'Il nome de
 $lang['This name is already used by another group.'] = 'Questo nome è già  usato per un altro gruppo.';
 $lang['High definition'] = 'Alta definizione';
 $lang['jump to album'] = 'Andare all\'album';
-$lang['jump to photo'] = 'Andare al\'immagine';
+$lang['jump to photo'] = 'Andare all\'immagine';
 $lang['leave'] = 'Abbandonare';
 $lang['Lock'] = 'Bloccare';
 $lang['Locked'] = 'Bloccate';
@@ -627,12 +627,12 @@ $lang['Who can see this photo?'] = 'Chi può vedere questa foto?';
 $lang['... or switch to the old style form'] = '... o passare sul modulo "vecchio stile"';
 $lang['... or switch to the multiple files form'] = '... o passare sul modulo multi-file';
 
-$lang['The websize maximum width must be a number between %d and %d'] = 'La larghezza massima per l\'immagine deve essere un numero tra %d e %d';
-$lang['The websize maximum height must be a number between %d and %d'] = 'L\'altezza massima per l\'immagine deve essere un numero tra %d e %d';
+$lang['The websize maximum width must be a number between %d and %d'] = 'La larghezza massima dell\'immagine deve essere un numero tra %d e %d';
+$lang['The websize maximum height must be a number between %d and %d'] = 'L\'altezza massima dell\'immagine deve essere un numero tra %d e %d';
 $lang['The websize image quality must be a number between %d and %d'] = 'La qualità dell\'immagine deve essere un numero tra %d e %d';
-$lang['The thumbnail maximum width must be a number between %d and %d'] = 'La larghezza massima per la miniatura deve essere un numero tra %d e %d';
-$lang['The thumbnail maximum height must be a number between %d and %d'] = 'L\'altezza massima per la miniatura deve essere un numero tra %d e %d';
-$lang['The thumbnail image quality must be a number between %d and %d'] = 'La qualità  d\'immagine per la miniatura deve essere un numero tra %d e %d';
+$lang['The thumbnail maximum width must be a number between %d and %d'] = 'La larghezza massima della miniatura deve essere un numero tra %d e %d';
+$lang['The thumbnail maximum height must be a number between %d and %d'] = 'L\'altezza massima della miniatura deve essere un numero tra %d e %d';
+$lang['The thumbnail image quality must be a number between %d and %d'] = 'La qualità  dell\'immagine per la miniatura deve essere un numero tra %d e %d';
 
 $lang['Settings'] = 'Configurazione';
 $lang['Web size photo'] = 'Dimensione foto';
