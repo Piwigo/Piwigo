@@ -4,7 +4,7 @@
   <div>
     <ul>
       <li>
-        <a rel="nofollow" href="#">
+        <a rel="nofollow" href="#" class="activeFlag">
           <img class="flags" src="{$lang_switch.Active.img}" alt="{$lang_switch.Active.alt}" title="{$lang_switch.Active.alt}"/>
         </a>
 <!--[if lte IE 6]>
@@ -15,11 +15,12 @@
               <td>
 <![endif]-->
         <ul class="flag-pan">
+         <li class="languageSwitchBoxTitle">{'Language'|@translate}</li>
 
 {foreach from=$lang_switch.flags key=code item=flag name=f}
           <li>
             <a rel="nofollow" href="{$SCRIPT_NAME}{$flag.url}">
-              <img class="flags" src="{$flag.img}" alt="{$flag.alt}" title="{$flag.alt}"/>
+              <img class="flags" src="{$flag.img}" alt="{$flag.alt}" title="{$flag.alt}"/> {$flag.title}
             </a>
           </li>
 {/foreach}

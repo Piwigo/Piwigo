@@ -70,11 +70,16 @@ class language_controler {
         'url' => str_replace(array('=&amp;','?&amp;'),array('&amp;','?'),
                  add_url_params( $url_starting, array('lang'=> $code) )),
         'alt' => ucwords( $displayname ),
+        'title' => substr($displayname, 0, -4), // remove [FR] or [RU]
         'img' => get_root_url().'language/' . $code . '/' . $code . '.jpg',
         );
-      if ( $code !== $user['language'] ) 
-        $lsw['flags'][$code] = $qlc ;
-      else $lsw['Active'] = $qlc;
+      
+      $lsw['flags'][$code] = $qlc ;
+      
+      if ($code == $user['language'])
+      {
+        $lsw['Active'] = $qlc;
+      }
     }
     $template->set_filename('language_flags', dirname(__FILE__) . '/flags.tpl');
     $lsw['side'] = ceil(sqrt(count($available_lang)));
