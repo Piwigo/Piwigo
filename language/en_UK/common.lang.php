@@ -358,4 +358,5 @@ $lang['This author modified following comment:'] = 'This author modified followi
 $lang['This author removed the comment with id %d'] = 'This author removed the comment with id %d';
 $lang['delete this comment'] = "delete this comment";
 $lang['validate this comment'] = 'validate this comment';
+$lang['html tags are not allowed in login'] = 'html tags are not allowed in login';
 ?>
