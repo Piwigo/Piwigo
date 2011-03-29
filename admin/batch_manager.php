@@ -55,7 +55,7 @@ if (isset($_POST['submitFilter']))
 
   if (isset($_POST['filter_prefilter_use']))
   {
-    $prefilters = array('caddie', 'last import', 'with no album', 'with no tag', 'with no virtual album', 'duplicates');
+    $prefilters = array('caddie', 'last import', 'with no album', 'with no tag', 'with no virtual album', 'duplicates', 'all photos');
     if (in_array($_POST['filter_prefilter'], $prefilters))
     {
       $_SESSION['bulk_manager_filter']['prefilter'] = $_POST['filter_prefilter'];
@@ -233,6 +233,19 @@ SELECT file
 SELECT id
   FROM '.IMAGES_TABLE.'
   WHERE file IN (\''.implode("','", $duplicate_files).'\')
+;';
+
+    array_push(
+      $filter_sets,
+      array_from_query($query, 'id')
+      );
+  }
+
+  if ('all photos' == $_SESSION['bulk_manager_filter']['prefilter'])
+  {
+    $query = '
+SELECT id
+  FROM '.IMAGES_TABLE.'
 ;';
 
     array_push(
