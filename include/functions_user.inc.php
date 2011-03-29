@@ -112,6 +112,10 @@ function register_user($login, $password, $mail_address,
   {
     array_push($errors, l10n('this login is already used'));
   }
+  if ($login != strip_tags($login))
+  {
+    array_push($errors, l10n('html tags are not allowed in login'));
+  }
   $mail_error = validate_mail_address(null, $mail_address);
   if ('' != $mail_error)
   {
