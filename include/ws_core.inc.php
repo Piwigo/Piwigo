@@ -371,6 +371,7 @@ Request format: ".@$this->_requestFormat." Response format: ".@$this->_responseF
 
     @header('Content-Type: '.$contentType.'; charset='.get_pwg_charset());
     print_r($encodedResponse);
+    trigger_action('sendResponse', $encodedResponse );
   }
 
   /**
