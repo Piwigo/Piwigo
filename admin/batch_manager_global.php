@@ -386,6 +386,8 @@ SELECT id, path
       l10n('Metadata synchronized from file')
       );
   }
+
+  trigger_action('element_set_global_action', $action, $collection);
 }
 
 // +-----------------------------------------------------------------------+

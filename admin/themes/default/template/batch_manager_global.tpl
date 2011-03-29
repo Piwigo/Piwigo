@@ -468,6 +468,11 @@ $(document).ready(function() {
   {else}
       <option value="add_to_caddie">{'add to caddie'|@translate}</option>
   {/if}
+  {if !empty($element_set_global_plugins_actions)}
+    {foreach from=$element_set_global_plugins_actions item=action}
+      <option value="{$action.ID}">{$action.NAME}</option>
+    {/foreach}
+  {/if}
     </select>
 
     <!-- delete -->
@@ -548,6 +553,15 @@ $(document).ready(function() {
     <!-- metadata -->
     <div id="action_metadata" class="bulkAction">
     </div>
+
+    <!-- plugins -->
+{if !empty($element_set_global_plugins_actions)}
+  {foreach from=$element_set_global_plugins_actions item=action}
+    <div id="action_{$action.ID}" class="bulkAction">
+    {if !empty($action.CONTENT)}{$action.CONTENT}{/if}
+    </div>
+  {/foreach}
+{/if}
 
     <p id="applyActionBlock" style="display:none" class="actionButtons">
       <input id="applyAction" class="submit" type="submit" value="{'Apply action'|@translate}" name="submit"> <span id="applyOnDetails"></span></p>
