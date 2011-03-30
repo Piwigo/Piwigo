@@ -20,6 +20,13 @@
 // | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
+/*
+Language Name: 中文 (繁體) [TW]
+Version: 2.2.0
+Language URI: http://piwigo.org/ext/extension_view.php?eid=524
+Author: Piwigo team
+Author URI: http://piwigo.org
+*/
 
 // Langage informations
 $lang_info['language_name'] = '中文';
