@@ -21,7 +21,7 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 /*
-Language Name: Español [AR]
+Language Name: Argentina [AR]
 Version: 2.2.0
 Language URI: http://piwigo.org/ext/extension_view.php?eid=418
 Author: Piwigo team
