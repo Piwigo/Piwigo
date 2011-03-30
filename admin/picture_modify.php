@@ -52,7 +52,7 @@ if (isset($_GET['delete']))
   // 2. else use the first reachable linked category
   // 3. redirect to gallery root
 
-  if (isset($_GET['cat_id']))
+  if (isset($_GET['cat_id']) and !empty($_GET['cat_id']))
   {
     redirect(
       make_index_url(
