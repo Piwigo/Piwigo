@@ -777,5 +777,4 @@ $lang['All languages are up to date.'] = 'All languages are up to date.';
 $lang['Visit theme site'] = 'Visit theme site';
 $lang['Visit language site'] = 'Visit language site';
 $lang['New Version'] = 'New Version';
-$lang['all photos'] = 'all photos';
 ?>

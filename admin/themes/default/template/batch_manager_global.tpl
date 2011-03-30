@@ -327,7 +327,7 @@ $(document).ready(function() {
 {/if}
           <option value="with no tag" {if $filter.prefilter eq 'with no tag'}selected="selected"{/if}>{'with no tag'|@translate}</option>
           <option value="duplicates" {if $filter.prefilter eq 'duplicates'}selected="selected"{/if}>{'duplicates'|@translate}</option>
-          <option value="all photos" {if $filter.prefilter eq 'all photos'}selected="selected"{/if}>{'all photos'|@translate}</option>
+          <option value="all photos" {if $filter.prefilter eq 'all photos'}selected="selected"{/if}>{'All'|@translate}</option>
         </select>
       </li>
       <li id="filter_category" {if !isset($filter.category)}style="display:none"{/if}>

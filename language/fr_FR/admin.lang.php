@@ -788,5 +788,4 @@ $lang['All languages are up to date.'] = 'Toutes les langues sont à jour.';
 $lang['Visit theme site'] = 'Visitez le site du thème';
 $lang['Visit language site'] = 'Visitez le site de la langue';
 $lang['New Version'] = 'Nouvelle version';
-$lang['all photos'] = 'toutes les photos';
 ?>
