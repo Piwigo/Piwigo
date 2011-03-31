@@ -379,4 +379,5 @@ $lang['This author modified following comment:'] = 'Questo autore ha modificato 
 $lang['This author removed the comment with id %d'] = 'Questo autore ha cancellato il commento con  l\'ID %d';
 $lang['delete this comment'] = 'Cancellare questo commento';
 $lang['validate this comment'] = 'Approvare questo commento';
+$lang['html tags are not allowed in login'] = 'I tag HTML non sono ammessi nel login';
 ?>
