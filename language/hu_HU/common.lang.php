@@ -360,5 +360,5 @@ $lang['Manage this user comment: %s'] = 'Itt kezelheti a felhasználó hozzász�
 $lang['This author modified following comment:'] = 'A szerző a következő hozzászólást módosította:';
 $lang['This author removed the comment with id %d'] = 'A szerző a következő hozzászólást törölte id %d';
 $lang['validate this comment'] = 'hozzászólás engedélyezése';
-
+$lang['html tags are not allowed in login'] = 'Belépéskor a html tag-ek nem engedélyezettek';
 ?>
