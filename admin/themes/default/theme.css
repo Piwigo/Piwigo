@@ -842,18 +842,18 @@ BODY {
 #thePopuphelpPage #pwgHead {display:none}
 #thePopuphelpPage #footer  {display:none}
 
-/* Set some sizes according to your maximum thumbnail width and height 
+/* Set some sizes according to your maximum thumbnail width and height */
 UL.thumbnails SPAN,
 UL.thumbnails SPAN.wrap2 A,
 UL.thumbnails LABEL,
 .content DIV.thumbnailCategory DIV.illustration {
-  width: 140px;
+  width: 140px;      /* max thumbnail width + 2px */
 }
 UL.thumbnails SPAN.wrap2,
 .content DIV.thumbnailCategory DIV.description {
-  height: 140px;
+  height: 140px;    /* max thumbnail height + 2px */
 }
-*/
+
 
 /* Category thumbnails on main page */
 .content UL.thumbnailCategories LI {
