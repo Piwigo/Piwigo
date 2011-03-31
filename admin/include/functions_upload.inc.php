@@ -239,6 +239,10 @@ SELECT
     {
       $file_path.= 'png';
     }
+    elseif (IMAGETYPE_GIF == $type)
+    {
+      $file_path.= 'gif';
+    }
     else
     {
       $file_path.= 'jpg';
@@ -478,6 +482,8 @@ function get_resize_dimensions($width, $height, $max_width, $max_height, $rotati
   
   $ratio_width  = $width / $max_width;
   $ratio_height = $height / $max_height;
+  $destination_width = $width; 
+  $destination_height = $height;
   
   // maximal size exceeded ?
   if ($ratio_width > 1 or $ratio_height > 1)
@@ -513,7 +519,9 @@ function pwg_image_resize($result, $source_filepath, $destination_filepath, $max
     return $result;
   }
 
-  if (is_imagick())
+  $extension = strtolower(get_extension($source_filepath));
+
+  if (is_imagick() and $extension != 'gif')
   {
     return pwg_image_resize_im($source_filepath, $destination_filepath, $max_width, $max_height, $quality, $strip_metadata);
   }
@@ -530,6 +538,8 @@ function pwg_image_resize_gd($source_filepath, $destination_filepath, $max_width
     return false;
   }
 
+  $gd_info = gd_info();
+
   // extension of the picture filename
   $extension = strtolower(get_extension($source_filepath));
 
@@ -542,9 +552,13 @@ function pwg_image_resize_gd($source_filepath, $destination_filepath, $max_width
   {
     $source_image = imagecreatefrompng($source_filepath);
   }
+  elseif ($extension == 'gif' and $gd_info['GIF Read Support'] and $gd_info['GIF Create Support'])
+  {
+    $source_image = imagecreatefromgif($source_filepath);
+  }
   else
   {
-    die('unsupported file extension');
+    die('[GD] unsupported file extension');
   }
 
   $rotation = null;
@@ -593,6 +607,10 @@ function pwg_image_resize_gd($source_filepath, $destination_filepath, $max_width
   if ($extension == 'png')
   {
     imagepng($destination_image, $destination_filepath);
+  }
+  elseif ($extension == 'gif')
+  {
+    imagegif($destination_image, $destination_filepath);
   }
   else
   {
@@ -667,6 +685,12 @@ function get_rotation_angle($source_filepath)
   {
     return null;
   }
+
+  list($width, $height, $type) = getimagesize($source_filepath);
+  if (IMAGETYPE_JPEG != $type)
+  {
+    return null;
+  }
   
   if (!function_exists('exif_read_data'))
   {
@@ -711,7 +735,7 @@ function pwg_image_infos($path)
 
 function is_valid_image_extension($extension)
 {
-  return in_array(strtolower($extension), array('jpg', 'jpeg', 'png'));
+  return in_array(strtolower($extension), array('jpg', 'jpeg', 'png', 'gif'));
 }
 
 function file_upload_error_message($error_code)
