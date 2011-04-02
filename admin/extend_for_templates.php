@@ -77,6 +77,8 @@ $relevant_parameters = array_merge($relevant_parameters, $permalinks);
 $eligible_templates = array(
     '----------'                 => 'N/A',
     'about.tpl'                  => 'about',
+    'comments.tpl'               => 'comments',
+    'comment_list.tpl'           => 'comment_list',
     'footer.tpl'                 => 'tail',
     'header.tpl'                 => 'header',
     'identification.tpl'         => 'identification',
@@ -89,9 +91,11 @@ $eligible_templates = array(
     'menubar_menu.tpl'           => 'mbMenu',
     'menubar_specials.tpl'       => 'mbSpecials',
     'menubar_tags.tpl'           => 'mbTags',
+	'month_calendar.tpl'         => 'month_calendar',
     'navigation_bar.tpl'         => 'navbar',
     'nbm.tpl'                    => 'nbm',
     'notification.tpl'           => 'notification',
+	'password.tpl'               => 'password',   
     'picture.tpl'                => 'picture',
     'picture_content.tpl'        => 'default_content',
     'picture_nav_buttons.tpl'    => 'picture_nav_buttons',
@@ -105,7 +109,7 @@ $eligible_templates = array(
     'slideshow.tpl'              => 'slideshow',
     'tags.tpl'                   => 'tags',
     'thumbnails.tpl'             => 'index_thumbnails',
-    'upload.tpl'                 => 'upload',);
+);
 
 $flip_templates = array_flip($eligible_templates);
 
