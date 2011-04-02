@@ -38,7 +38,7 @@ $plugins = new plugins();
 //--------------------------------------------------perform requested actions
 if (isset($_GET['action']) and isset($_GET['plugin']))
 {
-  if ($_GET['action'] == 'uninstall' AND !is_webmaster())
+  if (in_array($_GET['action'], array('install', 'uninstall')) AND !is_webmaster())
   {
     array_push($page['errors'], l10n('Webmaster status is required.'));
   }
