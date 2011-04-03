@@ -522,7 +522,7 @@ $template->assign(
     'U_HELP' => get_root_url().'admin/popuphelp.php?page=user_list',
 
     'F_ADD_ACTION' => $base_url,
-    'F_USERNAME' => @htmlentities($_GET['username']),
+    'F_USERNAME' => @htmlentities($_GET['username'], ENT_COMPAT, 'UTF-8'),
     'F_FILTER_ACTION' => get_root_url().'admin.php'
     ));
 
