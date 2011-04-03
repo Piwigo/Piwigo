@@ -38,17 +38,24 @@ $plugins = new plugins();
 //--------------------------------------------------perform requested actions
 if (isset($_GET['action']) and isset($_GET['plugin']))
 {
-  check_pwg_token();
-
-  $page['errors'] = $plugins->perform_action($_GET['action'], $_GET['plugin']);
-
-  if (empty($page['errors']))
+  if (in_array($_GET['action'], array('install', 'uninstall')) AND !is_webmaster())
   {
-    if ($_GET['action'] == 'activate' or $_GET['action'] == 'deactivate')
+    array_push($page['errors'], l10n('Webmaster status is required.'));
+  }
+  else
+  {
+    check_pwg_token();
+
+    $page['errors'] = $plugins->perform_action($_GET['action'], $_GET['plugin']);
+
+    if (empty($page['errors']))
     {
-      $template->delete_compiled_templates();
+      if ($_GET['action'] == 'activate' or $_GET['action'] == 'deactivate')
+      {
+        $template->delete_compiled_templates();
+      }
+      redirect($base_url);
     }
-    redirect($base_url);
   }
 }
 
