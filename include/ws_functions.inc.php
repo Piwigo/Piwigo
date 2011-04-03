@@ -181,6 +181,73 @@ function ws_getVersion($params, &$service)
     return new PwgError(403, 'Forbidden');
 }
 
+/**
+ * returns general informations (web service method)
+ */
+function ws_getInfos($params, &$service)
+{
+  global $conf;
+  
+  if ($conf['show_version'] or is_admin())
+  {
+    $infos['version'] = PHPWG_VERSION;
+  }
+	
+  $query = 'SELECT COUNT(*) FROM '.IMAGES_TABLE.';';
+  list($infos['nb_elements']) = pwg_db_fetch_row(pwg_query($query));
+
+  $query = 'SELECT COUNT(*) FROM '.CATEGORIES_TABLE.';';
+  list($infos['nb_categories']) = pwg_db_fetch_row(pwg_query($query));
+
+  $query = 'SELECT COUNT(*) FROM '.CATEGORIES_TABLE.' WHERE dir IS NULL;';
+  list($infos['nb_virtual']) = pwg_db_fetch_row(pwg_query($query));
+
+  $query = 'SELECT COUNT(*) FROM '.CATEGORIES_TABLE.' WHERE dir IS NOT NULL;';
+  list($infos['nb_physical']) = pwg_db_fetch_row(pwg_query($query));
+
+  $query = 'SELECT COUNT(*) FROM '.IMAGE_CATEGORY_TABLE.';';
+  list($infos['nb_image_category']) = pwg_db_fetch_row(pwg_query($query));
+
+  $query = 'SELECT COUNT(*) FROM '.TAGS_TABLE.';';
+  list($infos['nb_tags']) = pwg_db_fetch_row(pwg_query($query));
+
+  $query = 'SELECT COUNT(*) FROM '.IMAGE_TAG_TABLE.';';
+  list($infos['nb_image_tag']) = pwg_db_fetch_row(pwg_query($query));
+
+  $query = 'SELECT COUNT(*) FROM '.USERS_TABLE.';';
+  list($infos['nb_users']) = pwg_db_fetch_row(pwg_query($query));
+
+  $query = 'SELECT COUNT(*) FROM '.GROUPS_TABLE.';';
+  list($infos['nb_groups']) = pwg_db_fetch_row(pwg_query($query));
+
+  $query = 'SELECT COUNT(*) FROM '.COMMENTS_TABLE.';';
+  list($infos['nb_comments']) = pwg_db_fetch_row(pwg_query($query));
+
+  // first element
+  if ($infos['nb_elements'] > 0)
+  {
+    $query = 'SELECT MIN(date_available) FROM '.IMAGES_TABLE.';';
+    list($infos['first_date']) = pwg_db_fetch_row(pwg_query($query));
+  }
+
+  // unvalidated comments
+  if ($infos['nb_comments'] > 0 and is_admin())
+  {
+    $query = 'SELECT COUNT(*) FROM '.COMMENTS_TABLE.' WHERE validated=\'false\';';
+    list($infos['nb_unvalidated_comments']) = pwg_db_fetch_row(pwg_query($query));
+  }
+
+  foreach ($infos as $name => $value)
+  {
+    $output[] = array(
+      'name' => $name,
+      'value' => $value,
+    );
+  }
+
+  return array('infos' => new PwgNamedArray($output, 'item'));
+}
+
 function ws_caddie_add($params, &$service)
 {
   if (!is_admin())
