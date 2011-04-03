@@ -42,6 +42,9 @@ function ws_addDefaultMethods( $arr )
   $service = &$arr[0];
   $service->addMethod('pwg.getVersion', 'ws_getVersion', null,
       'retrieves the PWG version');
+	  
+  $service->addMethod('pwg.getInfos', 'ws_getInfos', null,
+      'retrieves general informations');
 
   $service->addMethod('pwg.caddie.add', 'ws_caddie_add',
       array(
