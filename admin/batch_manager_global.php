@@ -117,12 +117,19 @@ DELETE
 
   if ('add_tags' == $action)
   {
-    $tag_ids = get_fckb_tag_ids($_POST['add_tags']);
-    add_tags($tag_ids, $collection);
-
-    if ('with no tag' == $page['prefilter'])
+    if (empty($_POST['add_tags']))
     {
-      redirect(get_root_url().'admin.php?page='.$_GET['page']);
+      array_push($page['errors'], l10n('Select at least one tag'));
+    }
+    else
+    {
+      $tag_ids = get_fckb_tag_ids($_POST['add_tags']);
+      add_tags($tag_ids, $collection);
+
+      if ('with no tag' == $page['prefilter'])
+      {
+        redirect(get_root_url().'admin.php?page='.$_GET['page']);
+      }
     }
   }
 
