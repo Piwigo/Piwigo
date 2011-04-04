@@ -364,4 +364,6 @@ $lang['Manage this user comment: %s'] = ' %s حرر تعليق المستخدم 
 $lang['This author modified following comment:'] = 'هذا الكاتب عدل في تعليقه : ';
 $lang['This author removed the comment with id %d'] = 'هذا الكاتب أزال تعليقه : %d';
 $lang['validate this comment'] = 'السماح بهذا التعليق ';
+$lang['html tags are not allowed in login'] = 'اكواد html غير مسموحة في تسجيل الدخول';
+
 ?>
