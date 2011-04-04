@@ -37,5 +37,6 @@ $lang['All sub-albums of private albums become private'] = 'جميع البوم�
 $lang['User permissions and group permissions have been erased'] = 'تم مسح للمستخدمين وأذونات المجموعات';
 $lang['Only thumbnails prefix and webmaster mail address have been saved from previous configuration'] = 'تم حفظ بدائة الصور المصغرة ، و عنواين مدير الموقع حفظت من التكوين السابق';
 $lang['In <i>%s</i>, before <b>?></b>, insert:'] = 'في <i>%s</i>, قبل <b>?></b>, إدراج:';
+$lang['As a precaution, following themes have been deactivated. You must check for themes upgrade before reactiving them:'] = 'للاحتياط,الثيمات التالية تم الغاء تفعيلها.يجب ان تقوم بعملية تحديث للثيمات قبل تفعيلها';
 
 ?>
