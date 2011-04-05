@@ -186,12 +186,12 @@ function ws_getVersion($params, &$service)
  */
 function ws_getInfos($params, &$service)
 {
-  global $conf;
-  
-  if ($conf['show_version'] or is_admin())
+  if (!is_admin())
   {
-    $infos['version'] = PHPWG_VERSION;
+    return new PwgError(403, 'Forbidden');
   }
+
+  $infos['version'] = PHPWG_VERSION;
 	
   $query = 'SELECT COUNT(*) FROM '.IMAGES_TABLE.';';
   list($infos['nb_elements']) = pwg_db_fetch_row(pwg_query($query));
@@ -231,7 +231,7 @@ function ws_getInfos($params, &$service)
   }
 
   // unvalidated comments
-  if ($infos['nb_comments'] > 0 and is_admin())
+  if ($infos['nb_comments'] > 0)
   {
     $query = 'SELECT COUNT(*) FROM '.COMMENTS_TABLE.' WHERE validated=\'false\';';
     list($infos['nb_unvalidated_comments']) = pwg_db_fetch_row(pwg_query($query));
