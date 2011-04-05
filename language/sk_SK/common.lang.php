@@ -367,5 +367,6 @@ $lang['%d Kb'] = '%d Kb';
 $lang['IP: %s'] = 'IP: %s';
 $lang['%d new comment'] = '%d nový komentár';
 $lang['%d new comments'] = '%d nové komentáre';
+$lang['html tags are not allowed in login'] = 'html znaky nie sú povolené pri prihlásení';
 
 ?>
