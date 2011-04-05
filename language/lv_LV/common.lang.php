@@ -358,4 +358,5 @@ $lang['This author modified following comment:'] = 'Šis autors modificējis sek
 $lang['This author removed the comment with id %d'] = 'Šis autors izdz;esis komentāru ar id %d';
 $lang['delete this comment'] = "izdzēst šo komentāru";
 $lang['validate this comment'] = 'pārbaudīt šo komentāru';
+$lang['html tags are not allowed in login'] = 'html cilnes (tagi) loginā nav atļautas';
 ?>
