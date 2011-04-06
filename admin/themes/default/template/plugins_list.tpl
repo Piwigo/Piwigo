@@ -1,3 +1,16 @@
+{footer_script}
+var incompatible_msg = '{'WARNING! This plugin does not seem to be compatible with this version of Piwigo.'|@translate|@escape:'javascript'}';
+incompatible_msg += '\n';
+incompatible_msg += '{'Do you want to activate anyway?'|@translate|@escape:'javascript'}';
+
+{literal}
+jQuery(document).ready(function() {
+  jQuery('.incompatible').click(function() {
+    return confirm(incompatible_msg);
+  });
+});
+{/literal}{/footer_script}
+
 <div class="titrePage">
   <h2>{'Plugins'|@translate}</h2>
 </div>
@@ -19,6 +32,9 @@
   {elseif $plugin_state == 'missing'}
   {'Missing Plugins'|@translate}
 
+  {elseif $plugin_state == 'merged'}
+  {'Obsolete Plugins'|@translate}
+
   {/if}
   </legend>
   {foreach from=$plugins item=plugin name=plugins_loop}
@@ -35,14 +51,14 @@
           <a href="{$plugin.U_ACTION}&amp;action=deactivate">{'Deactivate'|@translate}</a>
 
     {elseif $plugin_state == 'inactive'}
-          <a href="{$plugin.U_ACTION}&amp;action=activate">{'Activate'|@translate}</a>
+          <a href="{$plugin.U_ACTION}&amp;action=activate" {if $plugin.INCOMPATIBLE}class="incompatible"{/if}>{'Activate'|@translate}</a>
           | <a href="{$plugin.U_ACTION}&amp;action=uninstall" onclick="return confirm('{'Are you sure?'|@translate|@escape:'javascript'}');">{'Uninstall'|@translate}</a>
 
     {elseif $plugin_state == 'uninstalled'}
           <a href="{$plugin.U_ACTION}&amp;action=install">{'Install'|@translate}</a>
           | <a href="{$plugin.U_ACTION}&amp;action=delete" onclick="return confirm('{'Are you sure you want to delete this plugin?'|@translate|@escape:'javascript'}');">{'Delete'|@translate}</a>
 
-    {elseif $plugin_state == 'missing'}
+    {elseif $plugin_state == 'missing' or $plugin_state == 'merged'}
           <a href="{$plugin.U_ACTION}&amp;action=uninstall" onclick="return confirm('{'Are you sure?'|@translate|@escape:'javascript'}');">{'Uninstall'|@translate}</a>
 
     {/if}

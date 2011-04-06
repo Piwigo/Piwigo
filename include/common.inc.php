@@ -156,6 +156,7 @@ else
 {
   define('PEM_URL', 'http://'.PHPWG_DOMAIN.'/ext');
 }
+define('MERGED_EXTENSIONS_URL', 'http://'.PHPWG_DOMAIN.'/download/merged_extensions.txt');
 
 
 // language files

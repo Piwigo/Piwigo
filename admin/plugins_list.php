@@ -67,9 +67,20 @@ $plugins->set_tabsheet($page['page']);
 // +-----------------------------------------------------------------------+
 
 $plugins->sort_fs_plugins('name');
+$plugins->get_merged_extensions();
+$plugins->get_incompatible_plugins();
+$merged_plugins = array();
 
 foreach($plugins->fs_plugins as $plugin_id => $fs_plugin)
 {
+  if (isset($_SESSION['incompatible_plugins'][$plugin_id])
+    and $fs_plugin['version'] != $_SESSION['incompatible_plugins'][$plugin_id])
+  {
+    // Incompatible plugins must be reinitilized
+    unset($_SESSION['incompatible_plugins']);
+    $plugins->get_incompatible_plugins();
+  }
+
   $tpl_plugin = array(
     'NAME' => $fs_plugin['name'],
     'VISIT_URL' => $fs_plugin['uri'],
@@ -77,8 +88,16 @@ foreach($plugins->fs_plugins as $plugin_id => $fs_plugin)
     'DESC' => $fs_plugin['description'],
     'AUTHOR' => $fs_plugin['author'],
     'AUTHOR_URL' => @$fs_plugin['author uri'],
-    'U_ACTION' => sprintf($action_url, $plugin_id)
+    'U_ACTION' => sprintf($action_url, $plugin_id),
+    'INCOMPATIBLE' => isset($_SESSION['incompatible_plugins'][$plugin_id]),
     );
+
+  if (isset($fs_plugin['extension']) and in_array($fs_plugin['extension'], $_SESSION['merged_extensions']))
+  {
+    $tpl_plugin['STATE'] = 'merged';
+    array_push($merged_plugins, $tpl_plugin);
+    continue;
+  }
 
   if (isset($plugins->db_plugins_by_id[$plugin_id]))
   {
@@ -92,32 +111,41 @@ foreach($plugins->fs_plugins as $plugin_id => $fs_plugin)
   $template->append('plugins', $tpl_plugin);
 }
 
+$template->append('plugin_states', 'active');
+$template->append('plugin_states', 'inactive');
+$template->append('plugin_states', 'uninstalled');
+
 $missing_plugin_ids = array_diff(
   array_keys($plugins->db_plugins_by_id),
   array_keys($plugins->fs_plugins)
   );
 
-foreach($missing_plugin_ids as $plugin_id)
-{
-  $template->append(
-    'plugins',
-    array(
-      'NAME' => $plugin_id,
-      'VERSION' => $plugins->db_plugins_by_id[$plugin_id]['version'],
-      'DESC' => "ERROR: THIS PLUGIN IS MISSING BUT IT IS INSTALLED! UNINSTALL IT NOW !",
-      'U_ACTION' => sprintf($action_url, $plugin_id),
-      'STATE' => 'missing',
-      )
-    );
-}
-
-$template->append('plugin_states', 'active');
-$template->append('plugin_states', 'inactive');
-$template->append('plugin_states', 'uninstalled');
-
 if (count($missing_plugin_ids) > 0)
 {
+  foreach($missing_plugin_ids as $plugin_id)
+  {
+    $template->append(
+      'plugins',
+      array(
+        'NAME' => $plugin_id,
+        'VERSION' => $plugins->db_plugins_by_id[$plugin_id]['version'],
+        'DESC' => "ERROR: THIS PLUGIN IS MISSING BUT IT IS INSTALLED! UNINSTALL IT NOW !",
+        'U_ACTION' => sprintf($action_url, $plugin_id),
+        'STATE' => 'missing',
+        )
+      );
+  }
   $template->append('plugin_states', 'missing');
+}
+
+if (count($merged_plugins) > 0)
+{
+  foreach($merged_plugins as $tpl_plugin)
+  {
+    $tpl_plugin['DESC'] = l10n("THIS PLUGIN IS NOW PART OF PIWIGO CORE. UNINSTALL IT NOW.");
+    $template->append('plugins', $tpl_plugin);
+  }
+  $template->append('plugin_states', 'merged');
 }
 
 $template->assign_var_from_handle('ADMIN_CONTENT', 'plugins');

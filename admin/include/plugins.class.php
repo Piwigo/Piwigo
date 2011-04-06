@@ -26,6 +26,7 @@ class plugins
   var $fs_plugins = array();
   var $db_plugins_by_id = array();
   var $server_plugins = array();
+  var $default_plugins = array('LocalFilesEditor', 'language_switch', 'c13y_upgrade', 'admin_multi_view');
 
   /**
    * Initialize $fs_plugins and $db_plugins_by_id
@@ -185,6 +186,9 @@ DELETE FROM ' . PLUGINS_TABLE . ' WHERE id=\'' . $plugin_id . '\'';
           array_push($errors, 'CANNOT DELETE - NO SUCH PLUGIN');
           break;
         }
+        $query = '
+DELETE FROM ' . PLUGINS_TABLE . ' WHERE id=\'' . $plugin_id . '\'';
+        pwg_query($query);
         if (!$this->deltree(PHPWG_PLUGINS_PATH . $plugin_id))
         {
           $this->send_to_trash(PHPWG_PLUGINS_PATH . $plugin_id);
@@ -283,23 +287,12 @@ DELETE FROM ' . PLUGINS_TABLE . ' WHERE id=\'' . $plugin_id . '\'';
     }
   }
 
-  /**
-   * Retrieve PEM server datas to $server_plugins
-   */
-  function get_server_plugins($new=false)
+  // Retrieve PEM versions
+  function get_versions_to_check($version=PHPWG_VERSION)
   {
-    global $user;
-
-    $get_data = array(
-      'category_id' => 12,
-      'format' => 'php',
-    );
-
-    // Retrieve PEM versions
-    $version = PHPWG_VERSION;
     $versions_to_check = array();
-    $url = PEM_URL . '/api/get_version_list.php';
-    if (fetchRemote($url, $result, $get_data) and $pem_versions = @unserialize($result))
+    $url = PEM_URL . '/api/get_version_list.php?category=12&format=php';
+    if (fetchRemote($url, $result) and $pem_versions = @unserialize($result))
     {
       if (!preg_match('/^\d+\.\d+\.\d+/', $version))
       {
@@ -314,6 +307,17 @@ DELETE FROM ' . PLUGINS_TABLE . ' WHERE id=\'' . $plugin_id . '\'';
         }
       }
     }
+    return $versions_to_check;
+  }
+
+  /**
+   * Retrieve PEM server datas to $server_plugins
+   */
+  function get_server_plugins($new=false)
+  {
+    global $user;
+
+    $versions_to_check = $this->get_versions_to_check();
     if (empty($versions_to_check))
     {
       return false;
@@ -331,12 +335,13 @@ DELETE FROM ' . PLUGINS_TABLE . ' WHERE id=\'' . $plugin_id . '\'';
 
     // Retrieve PEM plugins infos
     $url = PEM_URL . '/api/get_revision_list.php';
-    $get_data = array_merge($get_data, array(
+    $get_data = array(
+      'category_id' => 12,
+      'format' => 'php',
       'last_revision_only' => 'true',
       'version' => implode(',', $versions_to_check),
       'lang' => substr($user['language'], 0, 2),
       'get_nb_downloads' => 'true',
-      )
     );
 
     if (!empty($plugins_to_check))
@@ -362,6 +367,73 @@ DELETE FROM ' . PLUGINS_TABLE . ' WHERE id=\'' . $plugin_id . '\'';
         $this->server_plugins[$plugin['extension_id']] = $plugin;
       }
       return true;
+    }
+    return false;
+  }
+
+  function get_incompatible_plugins()
+  {
+    if (isset($_SESSION['incompatible_plugins']))
+    {
+      return $_SESSION['incompatible_plugins'];
+    }
+
+    $_SESSION['incompatible_plugins'] = array();
+
+    $versions_to_check = $this->get_versions_to_check();
+    if (empty($versions_to_check))
+    {
+      return false;
+    }
+
+    // Plugins to check
+    $plugins_to_check = array();
+    foreach($this->fs_plugins as $fs_plugin)
+    {
+      if (isset($fs_plugin['extension']))
+      {
+        $plugins_to_check[] = $fs_plugin['extension'];
+      }
+    }
+
+    // Retrieve PEM plugins infos
+    $url = PEM_URL . '/api/get_revision_list.php';
+    $get_data = array(
+      'category_id' => 12,
+      'format' => 'php',
+      'version' => implode(',', $versions_to_check),
+      'extension_include' => implode(',', $plugins_to_check),
+    );
+
+    if (fetchRemote($url, $result, $get_data))
+    {
+      $pem_plugins = @unserialize($result);
+      if (!is_array($pem_plugins))
+      {
+        return false;
+      }
+
+      $server_plugins = array();
+      foreach ($pem_plugins as $plugin)
+      {
+        if (!isset($server_plugins[$plugin['extension_id']]))
+        {
+          $server_plugins[$plugin['extension_id']] = array();
+        }
+        array_push($server_plugins[$plugin['extension_id']], $plugin['revision_name']);
+      }
+
+      foreach ($this->fs_plugins as $plugin_id => $fs_plugin)
+      {
+        if (isset($fs_plugin['extension'])
+          and !in_array($plugin_id, $this->default_plugins)
+          and $fs_plugin['version'] != 'auto'
+          and (!isset($server_plugins[$fs_plugin['extension']]) or !in_array($fs_plugin['version'], $server_plugins[$fs_plugin['extension']])))
+        {
+          $_SESSION['incompatible_plugins'][$plugin_id] = $fs_plugin['version'];
+        }
+      }
+      return $_SESSION['incompatible_plugins'];
     }
     return false;
   }
@@ -482,6 +554,30 @@ DELETE FROM ' . PLUGINS_TABLE . ' WHERE id=\'' . $plugin_id . '\'';
 
     @unlink($archive);
     return $status;
+  }
+
+  function get_merged_extensions($version=PHPWG_VERSION)
+  {
+    if (!isset($_SESSION['merged_extensions']))
+    {
+      $_SESSION['merged_extensions'] = array();
+      if (fetchRemote(MERGED_EXTENSIONS_URL, $result))
+      {
+        $rows = explode("\n", $result);
+        foreach ($rows as $row)
+        {
+          if (preg_match('/^(\d+\.\d+): *(.*)$/', $row, $match))
+          {
+            if (version_compare($version, $match[1], '>='))
+            {
+              $extensions = explode(',', trim($match[2]));
+              $_SESSION['merged_extensions'] = array_merge($_SESSION['merged_extensions'], $extensions);
+            }
+          }
+        }
+      }
+    }
+    return $_SESSION['merged_extensions'];
   }
   
   /**
