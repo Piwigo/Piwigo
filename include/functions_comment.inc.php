@@ -263,19 +263,59 @@ function update_user_comment($comment, $post_key)
       $user_where_clause = '   AND author_id = \''.
 	$GLOBALS['user']['id'].'\'';
     }
+    
+    // should the updated comment must be validated
+    if (!$conf['comments_update_validation'] or is_admin())
+    {
+      $comment_action='validate'; //one of validate, moderate, reject
+    }
+    else
+    {
+      $comment_action='moderate'; //one of validate, moderate, reject
+    }
+
     $query = '
 UPDATE '.COMMENTS_TABLE.'
   SET content = \''.$comment['content'].'\',
-      validation_date = now()
+      validated = \''.($comment_action=='validate' ? 'true':'false').'\',
+      validation_date = '.($comment_action=='validate' ? 'NOW()':'NULL').'
   WHERE id = '.$comment['comment_id'].
 $user_where_clause.'
 ;';
     $result = pwg_query($query);
-    if ($result) {
+    
+    // mail admin and ask to validate the comment
+    if ($result and $conf['email_admin_on_comment_validation'] and 'moderate' == $comment_action) 
+    {
+      include_once(PHPWG_ROOT_PATH.'include/functions_mail.inc.php');
+
+      $comment_url = get_absolute_root_url().'comments.php?comment_id='.$comment['comment_id'];
+
+      $keyargs_content = array
+      (
+        get_l10n_args('Author: %s', stripslashes($GLOBALS['user']['username']) ),
+        get_l10n_args('Comment: %s', stripslashes($comment['content']) ),
+        get_l10n_args('', ''),
+        get_l10n_args('Manage this user comment: %s', $comment_url),
+        get_l10n_args('', ''),
+        get_l10n_args('(!) This comment requires validation', ''),
+      );
+
+      pwg_mail_notification_admins
+      (
+        get_l10n_args('Comment by %s', stripslashes($GLOBALS['user']['username']) ),
+        $keyargs_content
+      );
+    }
+    // just mail admin
+    else if ($result)
+    {
       email_admin('edit', array('author' => $GLOBALS['user']['username'],
 				'content' => stripslashes($comment['content'])) );
     }
   }
+  
+  return $comment_action;
 }
 
 function email_admin($action, $comment)

@@ -3,6 +3,7 @@
 INSERT INTO piwigo_config (param,value,comment) VALUES ('nb_comment_page','10','number of comments to display on each page');
 INSERT INTO piwigo_config (param,value,comment) VALUES ('log','true','keep an history of visits on your website');
 INSERT INTO piwigo_config (param,value,comment) VALUES ('comments_validation','false','administrators validate users comments before becoming visible');
+INSERT INTO piwigo_config (param,value,comment) VALUES ('comments_update_validation','false','administrators validate users updated comments before becoming visible');
 INSERT INTO piwigo_config (param,value,comment) VALUES ('comments_forall','false','even guest not registered can post comments');
 INSERT INTO piwigo_config (param,value,comment) VALUES ('user_can_delete_comment','false','administrators can allow user delete their own comments');
 INSERT INTO piwigo_config (param,value,comment) VALUES ('user_can_edit_comment','false','administrators can allow user edit their own comments');

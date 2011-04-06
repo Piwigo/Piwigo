@@ -143,6 +143,13 @@
         <input type="checkbox" name="comments_validation" {if ($comments.comments_validation)}checked="checked"{/if}>
       </label>
     </li>
+    
+    <li>
+      <label>
+        <span class="property">{'Update Validation'|@translate}</span>
+        <input type="checkbox" name="comments_update_validation" {if ($comments.comments_update_validation)}checked="checked"{/if}>
+      </label>
+    </li>
 
     <li>
       <label>

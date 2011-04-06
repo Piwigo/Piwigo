@@ -63,6 +63,7 @@ $history_checkboxes = array(
 $comments_checkboxes = array(
     'comments_forall',
     'comments_validation',
+    'comments_update_validation',
     'email_admin_on_comment',
     'email_admin_on_comment_validation',
     'user_can_delete_comment',
