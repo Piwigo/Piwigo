@@ -69,7 +69,7 @@ $plugins->set_tabsheet($page['page']);
 $plugins->sort_fs_plugins('name');
 $plugins->get_merged_extensions();
 $plugins->get_incompatible_plugins();
-$merged_plugins = array();
+$merged_plugins = false;
 
 foreach($plugins->fs_plugins as $plugin_id => $fs_plugin)
 {
@@ -92,13 +92,6 @@ foreach($plugins->fs_plugins as $plugin_id => $fs_plugin)
     'INCOMPATIBLE' => isset($_SESSION['incompatible_plugins'][$plugin_id]),
     );
 
-  if (isset($fs_plugin['extension']) and in_array($fs_plugin['extension'], $_SESSION['merged_extensions']))
-  {
-    $tpl_plugin['STATE'] = 'merged';
-    array_push($merged_plugins, $tpl_plugin);
-    continue;
-  }
-
   if (isset($plugins->db_plugins_by_id[$plugin_id]))
   {
     $tpl_plugin['STATE'] = $plugins->db_plugins_by_id[$plugin_id]['state'];
@@ -108,12 +101,29 @@ foreach($plugins->fs_plugins as $plugin_id => $fs_plugin)
     $tpl_plugin['STATE'] = 'uninstalled';
   }
 
+  if (isset($fs_plugin['extension']) and in_array($fs_plugin['extension'], $_SESSION['merged_extensions']))
+  {
+    switch($tpl_plugin['STATE'])
+    {
+      case 'active': $plugins->perform_action('deactivate', $plugin_id);
+      case 'inactive': $plugins->perform_action('uninstall', $plugin_id);
+    }
+    $tpl_plugin['STATE'] = 'merged';
+    $tpl_plugin['DESC'] = l10n("THIS PLUGIN IS NOW PART OF PIWIGO CORE. UNINSTALL IT NOW.");
+    $merged_plugins = true;
+  }
+
   $template->append('plugins', $tpl_plugin);
 }
 
 $template->append('plugin_states', 'active');
 $template->append('plugin_states', 'inactive');
 $template->append('plugin_states', 'uninstalled');
+
+if ($merged_plugins)
+{
+  $template->append('plugin_states', 'merged');
+}
 
 $missing_plugin_ids = array_diff(
   array_keys($plugins->db_plugins_by_id),
@@ -136,16 +146,6 @@ if (count($missing_plugin_ids) > 0)
       );
   }
   $template->append('plugin_states', 'missing');
-}
-
-if (count($merged_plugins) > 0)
-{
-  foreach($merged_plugins as $tpl_plugin)
-  {
-    $tpl_plugin['DESC'] = l10n("THIS PLUGIN IS NOW PART OF PIWIGO CORE. UNINSTALL IT NOW.");
-    $template->append('plugins', $tpl_plugin);
-  }
-  $template->append('plugin_states', 'merged');
 }
 
 $template->assign_var_from_handle('ADMIN_CONTENT', 'plugins');

@@ -58,9 +58,11 @@ jQuery(document).ready(function() {
           <a href="{$plugin.U_ACTION}&amp;action=install">{'Install'|@translate}</a>
           | <a href="{$plugin.U_ACTION}&amp;action=delete" onclick="return confirm('{'Are you sure you want to delete this plugin?'|@translate|@escape:'javascript'}');">{'Delete'|@translate}</a>
 
-    {elseif $plugin_state == 'missing' or $plugin_state == 'merged'}
+    {elseif $plugin_state == 'missing'}
           <a href="{$plugin.U_ACTION}&amp;action=uninstall" onclick="return confirm('{'Are you sure?'|@translate|@escape:'javascript'}');">{'Uninstall'|@translate}</a>
 
+    {elseif $plugin_state == 'merged'}
+          <a href="{$plugin.U_ACTION}&amp;action=delete">{'Delete'|@translate}</a>
     {/if}
         </td>
         <td>
