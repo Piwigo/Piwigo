@@ -34,9 +34,8 @@ $lang['As a precaution, following plugins have been deactivated. You must check 
 $lang['Only administrator can run upgrade: please sign in below.'] = 'Apenas administrador pode realizar o upgrade: por favor, conecte-se aqui em baixo.';
 $lang['You do not have access rights to run upgrade'] = 'Você não tem permissões de acesso para realizar o upgrade';
 $lang['In <i>%s</i>, before <b>?></b>, insert:'] = 'Em <i>%s</i>, antes de <b>?></b>, insira:';
-// Upgrade informations from upgrade_1.3.1.php
 $lang['All sub-albums of private albums become private'] = 'Todas as subecategorias de categorias privadas tornam-se privadas';
 $lang['User permissions and group permissions have been erased'] = 'Permissões de usuário e de grupo foram apagadas.';
 $lang['Only thumbnails prefix and webmaster mail address have been saved from previous configuration'] = 'Apenas o prefixo das miniaturas (thumbnails) e o endereço de email do webmaster foram salvos da configuração anterior.';
-
+$lang['As a precaution, following themes have been deactivated. You must check for themes upgrade before reactiving them:'] = 'Como precau&ccedil;&atilde;o os seguintes temas foram desactivados. Dever&aacute; verificar por actualiza&ccedil;&otilde;es para os temas antes de os reactivar:';
 ?>
