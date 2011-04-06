@@ -779,4 +779,11 @@ $lang['All languages are up to date.'] = 'Minden nyelv naprakész.';
 $lang['Visit theme site'] = 'Téma oldal meglátogatása';
 $lang['Visit language site'] = 'Nyelv oldal meglátogatása';
 $lang['New Version'] = 'Új verzió';
+// missing translations
+$lang['Update Validation'] = 'Érvényesítés hozzászólás módosításakor';
+$lang['Obsolete Plugins'] = 'Elavult bővítmények';
+$lang['WARNING! This plugin does not seem to be compatible with this version of Piwigo.'] = 'FIGYELEM! Ez a bővítmény nem kompatibilis a Piwigo jelenleg futó verziójával.';
+$lang['Do you want to activate anyway?'] = 'Aktiváljuk mindenképp?';
+$lang['THIS PLUGIN IS NOW PART OF PIWIGO CORE! DELETE IT NOW.'] = 'EZ A BŐVÍTMÉNY MÁR BE VAN ÉPÍTVE A PIWIGO RENDSZERBE! ELTÁVOLÍTANDÓ!';
+$lang['ERROR: THIS PLUGIN IS MISSING BUT IT IS INSTALLED! UNINSTALL IT NOW.'] = 'HIBA: EZ A BŐVÍTMÉNY NEM ELÉRHETŐ, DE TELEPÍTVE VAN! ELTÁVOLÍTANDÓ!';
 ?>
