@@ -2109,7 +2109,7 @@ function get_fckb_taglist($query)
     array_push(
       $taglist,
       array(
-        'caption' => $row['tag_name'],
+        'key' => $row['tag_name'],
         'value' => '~~'.$row['tag_id'].'~~',
         )
       );
