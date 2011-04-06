@@ -1,7 +1,7 @@
 <h2>Manutenzione</h2>
 
 <p>Per ottimizzare il tempo di generazione di una pagina, Piwigo utilizza una memoria cache.
- Per esempio, invece di contare il numero d'immagini contenute in ogni album
+ Per esempio, invece di contare il numero di foto contenute in ogni album
  ad ogni caricamento della pagina, queste informazioni vengono immagazzinate nel database.
  In teoria, questa informazione dovrebbe essere sempre corretta, ma a volte si può verificare 
  un errore e le informazioni memorizzate nella cache risulteranno errate.</p>
@@ -13,11 +13,11 @@ informazioni inutili dal database vi permette di liberare spazio sul disco.</p>
 
   <li>
     <strong>Elementi orfani:</strong>
-    Mostra le immagini che non sono associate ad un album virtuale.
+    Mostra le foto che non sono associate ad un album virtuale.
   </li>
   <li>
     <strong>File con lo stesso nome in più album fisici:</strong>
-    Mostra le immagini o altri file con lo stesso nome, trovati in più album.
+    Mostra le foto o altri file con lo stesso nome, trovati in più album.
   </li>
 
 </ul>
@@ -26,15 +26,15 @@ informazioni inutili dal database vi permette di liberare spazio sul disco.</p>
 
   <li><strong>Aggiornamento delle informazioni degli album :</strong> 
   Per ogni album, sono controllate e, se necessario, aggiornate le seguenti informazioni: 
-  elenco degli album padri, numero delle immagini, data dell'ultima immagine, posizione tra
+  elenco degli album padri, numero di foto, data dell'ultima foto, posizione tra
   gli album di stesso livello, posizione tra album padri e album figli.
-  Quest'azione controlla anche la presenza delle immagini che fungono da copertina.</li>
+  Quest'azione controlla anche la presenza delle foto che fungono da copertina.</li>
 
-  <li><strong>Aggiornamento delle informazioni delle immagini:</strong>
-Per ogni immagine, le informazioni aggiornate sono: il percorso completo
+  <li><strong>Aggiornamento delle informazioni delle foto:</strong>
+Per ogni foto, le informazioni aggiornate sono: il percorso completo
 del file, il voto medio. Attenzione: da non confondere con i metadati
 sincronizzabili tramite la pagina <span class="pwgScreen">Amministrazione &raquo; Album &raquo; Sincronizzare</span>
-o nella pagina <span class="pwgScreen">Modificare le informazioni dell'immagine</span> (accessibile dalla pagina di visualizzazione di un'immagine <span class="pwgScreen">picture.php</span>).</li>
+o nella pagina <span class="pwgScreen">Modificare le informazioni della foto</span> (accessibile dalla pagina di visualizzazione di una foto <span class="pwgScreen">picture.php</span>).</li>
 
   <li><strong>Riparare e ottimizzare il database:</strong>
 Vengono eseguite le operazioni di riordinamento, riparazione ed ottimizzazione di ogni tabella del database.

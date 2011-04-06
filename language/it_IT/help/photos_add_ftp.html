@@ -67,20 +67,20 @@
   
   <li>Ad eccezzione di "thumbnail" (miniature), "pwg_high" o "pwg_representative" (vedi spiegazioni qui sotto), ogni directory inserita in "galleries" genera un album. Il numero di livelli (profondità) è illimitato.</li>
 
-  <li>Un elemento è invece rappresentato da un file. Un file può essere un elemento di Piwigo se la sua estensione è presente tra le possibilità previste nel parametro di configuarzione <code>file_ext</code> (vedi
-file <span class="filename">include/config.inc.php</span>). Un file è considerato come un'immagine
+  <li>Una foto è invece rappresentata da un file. Un file può essere una foto di Piwigo se la sua estensione è presente tra le possibilità previste nel parametro di configuarzione <code>file_ext</code> (vedi
+file <span class="filename">include/config.inc.php</span>). Un file è considerato come una foto
 se la sua estensione è presente tra quelle previste nel parametro di configurazione
 <code>picture_ext</code>.</li>
 
-  <li>Ad ogni elemento di tipo immagine deve essere associata una miniatura
+  <li>Ad ogni elemento di tipo foto deve essere associato una miniatura
 (vedi la sezione più in basso riguardante le miniature).</li>
 
-  <li>Gli elementi di tipo immagine possono avere un'immagine associata
-in alta risoluzione. Come per il file <span class="filename">matrimonio.jpg</span>
+  <li>Gli elementi di tipo foto possono avere una foto associata in alta
+risoluzione. Come per il file <span class="filename">matrimonio.jpg</span>
 nell'esempio proposto. Nessun prefisso è necessario prima del nome del
 file.</li>
 
-  <li>Gli elementi che non sono delle immagini (video, suoni, file di testo o
+  <li>Gli elementi che non sono delle foto (video, suoni, file di testo o
 altro) sono generalmente rappresentati con un'icona corrispondente
 all'estensione del file. In modo opzionale, è possibile associare una miniatura
 ed un file rappresentativo (come per il file <span 
@@ -90,9 +90,9 @@ class="filename">video.avi</span> nell'esempio proposto).</li>
 composto da lettere, numeri o simboli come "-", "_" o ".". Non utilizzate spazio
 e caratteri accentati.</li>
 
-  <li><em>Suggerimento</em>: un album può contenere elementi
-e sub-album assieme. Tuttavia, è fortemente raccomandato scegliere,
-per ogni album, se inserire degli elementi <strong>o</strong>
+  <li><em>Suggerimento</em>: un album può contenere delle foto e
+dei sub-album. Tuttavia, è fortemente raccomandato scegliere,
+per ogni album, se inserire delle foto <strong>o</strong>
 dei sub-album.</li>
 
   <li>Una volta che i file, le miniature e i file rappresentativi sono
@@ -108,18 +108,18 @@ class="pwgScreen">Amministrazione &raquo; Tools &raquo; Sincronizzare</span>.</l
 
 <ul>
   
-  <li>Come detto prima, ogni elemento di tipo immagine deve essere associato
+  <li>Come detto prima, ogni elemento di tipo foto deve essere associato
 ad una miniatura (thumbnail).</li>
 
   <li>Le miniature si trovano nella sottodirectory "thumbnail" di ogni
 directory che rappresenta un album. La miniatura è un file di tipo
-immagine (stesso nome del file) con un prefisso che può essere
+foto (stesso nome del file) con un prefisso che può essere
 personalizzato dal parametro di configurazione <code>prefix_thumbnail</code>
 (vedi <span class="filename">include/config.inc.php</span>).</li>
 
   <li>Non è necessario che la miniatura abbia la stessa estensione
-dell'immagine che rappresenta (per esempio, un'immagine ".JPG" può avere
-come miniatura un'immagine ".GIF").</li>
+della foto che rappresenta (per esempio, una foto ".JPG" può avere
+come miniatura una foto ".GIF").</li>
 
   <li>È altamente consigliato utilizzare un software esterno per la
 creazione delle miniature.</li>
