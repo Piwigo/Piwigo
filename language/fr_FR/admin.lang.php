@@ -169,7 +169,6 @@ $lang['User comments validation'] = "Validation des commentaires d'utilisateurs"
 $lang['Users'] = "Utilisateurs";
 $lang['Validate'] = "Valider";
 $lang['Validation'] = "Validation";
-$lang['Update Validation'] = "Validation quand un commentaire est modifié";
 $lang['Version'] = "Version";
 $lang['Virtual albums to move'] = 'Albums virtuels à déplacer';
 $lang['Virtual album name'] = 'Nom de l\'album virtuel';

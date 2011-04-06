@@ -362,6 +362,7 @@ UPDATE '.USER_CACHE_CATEGORIES_TABLE.'
               $infos
             );
             
+          unset($_POST['content']);
           break;
         }
         else

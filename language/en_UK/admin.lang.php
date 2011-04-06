@@ -729,7 +729,6 @@ $lang['user_status_normal'] = "User";
 $lang['user_status_webmaster'] = "Webmaster";
 $lang['Validate'] = "Validate";
 $lang['Validation'] = "Validation";
-$lang['Update Validation'] = "Validation when a comment is modified";
 $lang['Version of create_listing_file.php on the remote site and Piwigo must be the same'] = "Versions of create_listing_file.php on the remote site and Piwigo must be the same";
 $lang['Version'] = "Version";
 $lang['Virtual album added'] = "Virtual album added";

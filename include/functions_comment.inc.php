@@ -265,7 +265,7 @@ function update_user_comment($comment, $post_key)
     }
     
     // should the updated comment must be validated
-    if (!$conf['comments_update_validation'] or is_admin())
+    if (!$conf['comments_validation'] or is_admin())
     {
       $comment_action='validate'; //one of validate, moderate, reject
     }

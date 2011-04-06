@@ -38,55 +38,52 @@ foreach ($related_categories as $category)
   }
 }
 
-if (!isset($comment_action))
+if ( $page['show_comments'] and isset( $_POST['content'] ) )
 {
-  if ( $page['show_comments'] and isset( $_POST['content'] ) )
+  if ( is_a_guest() and !$conf['comments_forall'] )
   {
-    if ( is_a_guest() and !$conf['comments_forall'] )
-    {
-      die ('Session expired');
-    }
-
-    $comm = array(
-      'author' => trim( @$_POST['author'] ),
-      'content' => trim( $_POST['content'] ),
-      'image_id' => $page['image_id'],
-     );
-
-    include_once(PHPWG_ROOT_PATH.'include/functions_comment.inc.php');
-
-    $comment_action = insert_user_comment($comm, @$_POST['key'], $infos );
-
-    switch ($comment_action)
-    {
-      case 'moderate':
-        array_push( $infos, l10n('An administrator must authorize your comment before it is visible.') );
-      case 'validate':
-        array_push( $infos, l10n('Your comment has been registered'));
-        break;
-      case 'reject':
-        set_status_header(403);
-        array_push($infos, l10n('Your comment has NOT been registered because it did not pass the validation rules') );
-        break;
-      default:
-        trigger_error('Invalid comment action '.$comment_action, E_USER_WARNING);
-    }
-
-    $template->assign(
-        ($comment_action=='reject') ? 'errors' : 'infos',
-        $infos
-      );
-
-    // allow plugins to notify what's going on
-    trigger_action( 'user_comment_insertion',
-        array_merge($comm, array('action'=>$comment_action) )
-      );
+    die ('Session expired');
   }
-  elseif ( isset($_POST['content']) )
+
+  $comm = array(
+    'author' => trim( @$_POST['author'] ),
+    'content' => trim( $_POST['content'] ),
+    'image_id' => $page['image_id'],
+   );
+
+  include_once(PHPWG_ROOT_PATH.'include/functions_comment.inc.php');
+
+  $comment_action = insert_user_comment($comm, @$_POST['key'], $infos );
+
+  switch ($comment_action)
   {
-    set_status_header(403);
-    die('ugly spammer');
+    case 'moderate':
+      array_push( $infos, l10n('An administrator must authorize your comment before it is visible.') );
+    case 'validate':
+      array_push( $infos, l10n('Your comment has been registered'));
+      break;
+    case 'reject':
+      set_status_header(403);
+      array_push($infos, l10n('Your comment has NOT been registered because it did not pass the validation rules') );
+      break;
+    default:
+      trigger_error('Invalid comment action '.$comment_action, E_USER_WARNING);
   }
+
+  $template->assign(
+      ($comment_action=='reject') ? 'errors' : 'infos',
+      $infos
+    );
+
+  // allow plugins to notify what's going on
+  trigger_action( 'user_comment_insertion',
+      array_merge($comm, array('action'=>$comment_action) )
+    );
+}
+elseif ( isset($_POST['content']) )
+{
+  set_status_header(403);
+  die('ugly spammer');
 }
 
 if ($page['show_comments'])
