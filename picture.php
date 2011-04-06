@@ -189,6 +189,8 @@ function default_picture_content($content, $element_info)
 // |                            initialization                             |
 // +-----------------------------------------------------------------------+
 
+$infos = array();
+
 // caching first_rank, last_rank, current_rank in the displayed
 // section. This should also help in readability.
 $page['first_rank']   = 0;
@@ -331,7 +333,7 @@ UPDATE '.USER_CACHE_CATEGORIES_TABLE.'
       {
         if (!empty($_POST['content']))
         {
-          update_user_comment(
+          $comment_action = update_user_comment(
             array(
               'comment_id' => $_GET['comment_to_edit'],
               'image_id' => $page['image_id'],
@@ -340,7 +342,28 @@ UPDATE '.USER_CACHE_CATEGORIES_TABLE.'
             $_POST['key']
             );
 
-          redirect($url_self);
+          switch ($comment_action)
+          {
+            case 'moderate':
+              array_push($infos, l10n('An administrator must authorize your comment before it is visible.'));
+            case 'validate':
+              array_push($infos, l10n('Your comment has been registered'));
+              break;
+            case 'reject':
+              set_status_header(403);
+              array_push($infos, l10n('Your comment has NOT been registered because it did not pass the validation rules'));
+              break;
+            default:
+              trigger_error('Invalid comment action '.$comment_action, E_USER_WARNING);
+          }
+          
+          $template->assign(
+              ($comment_action=='reject') ? 'errors' : 'infos',
+              $infos
+            );
+            
+          unset($_POST['content']);
+          break;
         }
         else
         {
@@ -833,8 +856,6 @@ if (isset($picture['current']['comment'])
           $picture['current']['comment'])
       );
 }
-
-$infos = array();
 
 // author
 if (!empty($picture['current']['author']))
