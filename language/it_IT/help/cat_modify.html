@@ -29,7 +29,7 @@ pubblichi.</li>
   <li><strong>Blocco</strong>: Gli album e i sub-album verranno disattivati temporaneamente per manutenzione.</li>
 
 <li><strong>Commenti</strong>: Autorizzare gli utenti a commentare
-gli elementi di questo album.</li>
+le foto di quest'album.</li>
   
 </ul>
 
@@ -48,7 +48,7 @@ class="pwgScreen">Amministrazione &raquo; Album &raquo; Proprietà</span>).</p>
 
 <p>Scegliere le colonne per l'ordinamento da usare su quest'album.</p>
 <ul>
-<li><strong>Data di creazione</strong>: Data di creazione dell'immagine</li>
+<li><strong>Data di creazione</strong>: Data di creazione della foto</li>
 <li><strong>Aggiunto il</strong>: Data di sincronizzazione</li>
 <li><strong>Voto medio (*)</strong>: Media che potrebbe essere modificata dal voto di un utente</li>
 <li><strong>Le più viste (*)</strong>: La visita attuale potrebbe modificare l'ordine delle foto più viste</li>
@@ -64,18 +64,18 @@ class="pwgScreen">Amministrazione &raquo; Album &raquo; Proprietà</span>).</p>
 <p>La copertina di un album è la miniatura che appare per rappresentare l'album sulla pagina principale (<span
 class="pwgScreen">category.php</span>) quando
 l'album contiene solo dei sub-album
-e non direttamente delle immagini (come
+e non direttamente delle foto (come
 alla radice).</p>
 
 <p>Esistono quattro modi per scegliere la copertina di un album:</p>
 
 <ul>
 
-  <li><span class="pwgScreen">Pagina di visualizzazione delle immagini</span>: nella barra delle azioni, uno dei pulsanti permette di scegliere l'elemento visualizzato come copertina rappresentante
-l'album visualizzata. Il pulsante in questione è visibile solo
+  <li><span class="pwgScreen">Pagina di visualizzazione delle foto</span>: nella barra delle azioni, uno dei pulsanti permette di scegliere
+la foto da visualizzare come copertina rappresentante l'album visualizzato. Il pulsante in questione è visibile solo
 agli amministratori.</li>
 
-  <li><span class="pwgScreen">Modicare le informazioni di un'immagine</span>
+  <li><span class="pwgScreen">Modicare le informazioni di una foto</span>
 in amministrazione. Questa pagina può essere raggiunta tramite <span
 class="pwgScreen">picture.php</span> o <span class="pwgScreen">Gestione per
 lotti</span> con il <em>modo unitario</em>. Per i dettagli, vedi l'aiuto per
@@ -94,35 +94,35 @@ pagina).</li>
 class="filename">include/config_default.inc.php</span>).</p>
 
 <p>Di default (<code>allow_random_representative</code> è impostato su "false"), ogni
-album contenente almeno un elemento, è rappresentato da un elemento
+album contenente almeno una foto, è rappresentato da un elemento
 fisso (copertina). Una volta impostata (alla creazione del album), la copertina cambia
 solo se lo decide l'amministratore. Se la copertina
 non è appropriata, potete chiedere di <strong>Scegliere una copertina
 a caso</strong>.</p>
 
 <p>Se il parametro di configurazione <code>allow_random_representative</code>
-è impostato su "true", l'album contenente degli elementi può non avere
+è impostato su "true", l'album contenente delle foto può non avere
 una copertina fissa. Usare semplicemente il pulsante <strong>Cancellare
 copertina</strong>.</p>
 
-<p>Se l'album non contiene nessun elemento (ma solo dei sub-album) può comunque essere rappresentata da un qualsiasi
-elemento. Utilizzare la pagina <span class="pwgScreen">Modicare le informazioni
-di un'immagine</span>. L'unica opzione disponibile di questa pagina è il pulsante
+<p>Se l'album non contiene nessuna foto (ma solo dei sub-album) può comunque essere rappresentata da un qualsiasi
+foto. Utilizzare la pagina <span class="pwgScreen">Modicare le informazioni
+di una foto</span>. L'unica opzione disponibile di questa pagina è il pulsante
 <strong>Cancellare copertina</strong>.</p>
 
-<h3>Associare tutti gli elementi di un album ad un nuovo album</h3>
+<h3>Associare tutte le foto di un album ad un nuovo album</h3>
 
 <ul>
 
 <li><strong>Nome del album virtuale</strong>: Nome del nuovo album da creare,
-tutti gli elementi dell'attuale album verranno associati al nuovo album.</li>
+tutte le foto dell'attuale album verranno associate al nuovo album.</li>
 
 <li><strong>Album padre</strong>: Dove deve essere creato il nuovo album,
 lasciare vuoto per crearlo alla radice (root) del sito.</li>
 
 </ul>
 
-<h3>Associare tutti gli elementi del album attuale a degli album esistenti</h3>
+<h3>Associare tutte le foto del album attuale a degli album esistenti</h3>
 
 <ul>
 
