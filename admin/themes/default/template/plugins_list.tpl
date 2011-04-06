@@ -8,6 +8,11 @@ jQuery(document).ready(function() {
   jQuery('.incompatible').click(function() {
     return confirm(incompatible_msg);
   });
+  jQuery('.warning').tipTip({
+    'delay' : 0,
+    'fadeIn' : 200,
+    'fadeOut' : 200
+  });
 });
 {/literal}{/footer_script}
 
@@ -42,7 +47,9 @@ jQuery(document).ready(function() {
   <div class="pluginBox">
     <table>
       <tr>
-        <td class="pluginBoxNameCell">{$plugin.NAME}</td>
+        <td class="pluginBoxNameCell{if $plugin.INCOMPATIBLE} warning" title="{'WARNING! This plugin does not seem to be compatible with this version of Piwigo.'|@translate|@escape:'html'}{/if}">
+          {$plugin.NAME}
+        </td>
         <td>{$plugin.DESC}</td>
       </tr>
       <tr>

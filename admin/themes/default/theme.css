@@ -1043,3 +1043,9 @@ LEGEND {
 #batchManagerGlobal .removeFilter span {display:none}
 #batchManagerGlobal #applyFilterBlock {margin-top:20px;}
 #batchManagerGlobal .useFilterCheckbox {display:none}
+
+.warning {
+  background:url(icon/warning.png) no-repeat top left;
+  width: 130px;
+  padding-left: 20px;
+}
