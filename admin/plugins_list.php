@@ -109,7 +109,7 @@ foreach($plugins->fs_plugins as $plugin_id => $fs_plugin)
       case 'inactive': $plugins->perform_action('uninstall', $plugin_id);
     }
     $tpl_plugin['STATE'] = 'merged';
-    $tpl_plugin['DESC'] = l10n("THIS PLUGIN IS NOW PART OF PIWIGO CORE. UNINSTALL IT NOW.");
+    $tpl_plugin['DESC'] = l10n('THIS PLUGIN IS NOW PART OF PIWIGO CORE! DELETE IT NOW.');
     $merged_plugins = true;
   }
 
@@ -139,7 +139,7 @@ if (count($missing_plugin_ids) > 0)
       array(
         'NAME' => $plugin_id,
         'VERSION' => $plugins->db_plugins_by_id[$plugin_id]['version'],
-        'DESC' => "ERROR: THIS PLUGIN IS MISSING BUT IT IS INSTALLED! UNINSTALL IT NOW !",
+        'DESC' => l10n('ERROR: THIS PLUGIN IS MISSING BUT IT IS INSTALLED! UNINSTALL IT NOW.'),
         'U_ACTION' => sprintf($action_url, $plugin_id),
         'STATE' => 'missing',
         )

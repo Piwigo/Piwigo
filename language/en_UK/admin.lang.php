@@ -778,4 +778,9 @@ $lang['All languages are up to date.'] = 'All languages are up to date.';
 $lang['Visit theme site'] = 'Visit theme site';
 $lang['Visit language site'] = 'Visit language site';
 $lang['New Version'] = 'New Version';
+$lang['Obsolete Plugins'] = 'Obsolete Plugins';
+$lang['WARNING! This plugin does not seem to be compatible with this version of Piwigo.'] = 'WARNING! This plugin does not seem to be compatible with this version of Piwigo.';
+$lang['Do you want to activate anyway?'] = 'Do you want to activate anyway?';
+$lang['THIS PLUGIN IS NOW PART OF PIWIGO CORE! DELETE IT NOW.'] = 'THIS PLUGIN IS NOW PART OF PIWIGO CORE! UNINSTALL IT NOW!';
+$lang['ERROR: THIS PLUGIN IS MISSING BUT IT IS INSTALLED! UNINSTALL IT NOW.'] = 'ERROR: THIS PLUGIN IS MISSING BUT IT IS INSTALLED! UNINSTALL IT NOW.';
 ?>
