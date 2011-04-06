@@ -7,7 +7,7 @@
 jQuery(document).ready(function() {
 	jQuery("#tags").fcbkcomplete({
 		json_url: "admin.php?fckb_tags=1",
-		cache: false,
+		cache: true,
 		filter_case: false,
 		filter_hide: true,
 		firstselected: true,
