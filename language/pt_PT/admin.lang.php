@@ -769,4 +769,12 @@ $lang['with no virtual album'] = 'sem álbum virtual';
 $lang['You have %d orphan tags: %s.'] = 'Tem %d etiquetas orfãs: %s.';
 $lang['Your configuration settings are saved'] = 'A sua configuração foi guardada';
 $lang['Remove from caddie'] = 'Remover do carrinho';
+$lang['Themes which need upgrade'] = 'Temas que precisam ser actualizados';
+$lang['Languages which need upgrade'] = 'Idiomas que precisam ser actualizados';
+$lang['All themes are up to date.'] = 'Todos os Temas est&atilde;o actualizados.';
+$lang['All plugins are up to date.'] = 'Todas as extens&otilde;es est&atilde;o actualizadas.';
+$lang['All languages are up to date.'] = 'Todos os Idiomas est&atilde;o actualizados.';
+$lang['Visit theme site'] = 'Visitar s&iacute;tio do Tema';
+$lang['Visit language site'] = 'Visitar  s&iacute;tio do Idioma';
+$lang['New Version'] = 'Nova Vers&atilde;o'; 
 ?>
