@@ -776,5 +776,10 @@ $lang['All plugins are up to date.'] = 'Todas as extens&otilde;es est&atilde;o a
 $lang['All languages are up to date.'] = 'Todos os Idiomas est&atilde;o actualizados.';
 $lang['Visit theme site'] = 'Visitar s&iacute;tio do Tema';
 $lang['Visit language site'] = 'Visitar  s&iacute;tio do Idioma';
-$lang['New Version'] = 'Nova Vers&atilde;o'; 
+$lang['New Version'] = 'Nova Vers&atilde;o';
+$lang['Obsolete Plugins'] = 'Extensões Obsoletas';
+$lang['WARNING! This plugin does not seem to be compatible with this version of Piwigo.'] = 'ATENÇÃO! Esta extensão não parece ser compatível com esta versão Piwigo.';
+$lang['Do you want to activate anyway?'] = 'Deseja mesmo activar a extensão?';
+$lang['THIS PLUGIN IS NOW PART OF PIWIGO CORE! DELETE IT NOW.'] = 'ESTA EXTENSÃO AGORA É PARTE DO NÚCLEO DE PIWIGO! DESINSTALE-A IMEDIATAMENTE!';
+$lang['ERROR: THIS PLUGIN IS MISSING BUT IT IS INSTALLED! UNINSTALL IT NOW.'] = 'ERRO: ESTA EXTENSÃO NÃO EXISTE MAS ESTÁ INSTALADA! DESINSTALE-A AGORA.';
 ?>
