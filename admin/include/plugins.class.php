@@ -371,14 +371,15 @@ DELETE FROM ' . PLUGINS_TABLE . ' WHERE id=\'' . $plugin_id . '\'';
     return false;
   }
 
-  function get_incompatible_plugins()
+  function get_incompatible_plugins($actualize=false)
   {
-    if (isset($_SESSION['incompatible_plugins']))
+    if (isset($_SESSION['incompatible_plugins']) and !$actualize
+      and $_SESSION['incompatible_plugins']['~~expire~~'] > time())
     {
       return $_SESSION['incompatible_plugins'];
     }
 
-    $_SESSION['incompatible_plugins'] = array();
+    $_SESSION['incompatible_plugins'] = array('~~expire~~' => time() + 300);
 
     $versions_to_check = $this->get_versions_to_check();
     if (empty($versions_to_check))
@@ -558,25 +559,29 @@ DELETE FROM ' . PLUGINS_TABLE . ' WHERE id=\'' . $plugin_id . '\'';
 
   function get_merged_extensions($version=PHPWG_VERSION)
   {
-    if (!isset($_SESSION['merged_extensions']))
+    if (isset($_SESSION['merged_extensions']) and $_SESSION['merged_extensions']['~~expire~~'] > time())
     {
-      $_SESSION['merged_extensions'] = array();
-      if (fetchRemote(MERGED_EXTENSIONS_URL, $result))
+      return $_SESSION['merged_extensions'];
+    }
+
+    $_SESSION['merged_extensions'] = array('~~expire~~' => time() + 600);
+
+    if (fetchRemote(PHPWG_URL.'/download/merged_extensions.txt', $result))
+    {
+      $rows = explode("\n", $result);
+      foreach ($rows as $row)
       {
-        $rows = explode("\n", $result);
-        foreach ($rows as $row)
+        if (preg_match('/^(\d+\.\d+): *(.*)$/', $row, $match))
         {
-          if (preg_match('/^(\d+\.\d+): *(.*)$/', $row, $match))
+          if (version_compare($version, $match[1], '>='))
           {
-            if (version_compare($version, $match[1], '>='))
-            {
-              $extensions = explode(',', trim($match[2]));
-              $_SESSION['merged_extensions'] = array_merge($_SESSION['merged_extensions'], $extensions);
-            }
+            $extensions = explode(',', trim($match[2]));
+            $_SESSION['merged_extensions'] = array_merge($_SESSION['merged_extensions'], $extensions);
           }
         }
       }
     }
+
     return $_SESSION['merged_extensions'];
   }
   

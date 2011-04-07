@@ -77,8 +77,7 @@ foreach($plugins->fs_plugins as $plugin_id => $fs_plugin)
     and $fs_plugin['version'] != $_SESSION['incompatible_plugins'][$plugin_id])
   {
     // Incompatible plugins must be reinitilized
-    unset($_SESSION['incompatible_plugins']);
-    $plugins->get_incompatible_plugins();
+    $plugins->get_incompatible_plugins(true);
   }
 
   $tpl_plugin = array(
