@@ -186,9 +186,6 @@ DELETE FROM ' . PLUGINS_TABLE . ' WHERE id=\'' . $plugin_id . '\'';
           array_push($errors, 'CANNOT DELETE - NO SUCH PLUGIN');
           break;
         }
-        $query = '
-DELETE FROM ' . PLUGINS_TABLE . ' WHERE id=\'' . $plugin_id . '\'';
-        pwg_query($query);
         if (!$this->deltree(PHPWG_PLUGINS_PATH . $plugin_id))
         {
           $this->send_to_trash(PHPWG_PLUGINS_PATH . $plugin_id);
