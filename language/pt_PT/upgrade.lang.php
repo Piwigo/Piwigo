@@ -22,20 +22,21 @@
 // +-----------------------------------------------------------------------+
 
 $lang['Upgrade'] = 'Actualizar';
-$lang['This page proposes to upgrade your database corresponding to your old version of Piwigo to the current version. The upgrade assistant thinks you are currently running a <strong>release %s</strong> (or equivalent).'] = 'Esta página se propõe a fazer um upgrade em sua base de dados em relação a sua versão antiga do Piwigo para a versão atual. O assistente de upgrade acha que você está atualmente rodando a<strong>versão %s</strong> (ou equivalente).';
-$lang['Upgrade from version %s to %s'] = 'Atualizar da versão %s para a %s';
+$lang['This page proposes to upgrade your database corresponding to your old version of Piwigo to the current version. The upgrade assistant thinks you are currently running a <strong>release %s</strong> (or equivalent).'] = 'Recomendamos que faça uma actualização à sua base de dados para a versão mais recente. O assistente de actualização reconhece a sua versão como <strong>versão %s</strong> (ou equivalente).';
+$lang['Upgrade from version %s to %s'] = 'Actualizar da versão %s para a versão %s';
 $lang['Statistics'] = 'Estatísticas';
-$lang['total upgrade time'] = 'tempo total do upgrade';
-$lang['total SQL time'] = 'tempo total do SQL';
+$lang['total upgrade time'] = 'Tempo total de actualização';
+$lang['total SQL time'] = 'Tempo total de SQL';
 $lang['SQL queries'] = 'Consultas SQL';
-$lang['Upgrade informations'] = 'Informações do upgrade';
-$lang['Perform a maintenance check in [Administration>Tools>Maintenance] if you encounter any problem.'] = 'Executa uma avaliação de rotina em [Administração>Tools>Manutenção] se você encontrar algum problema.';
-$lang['As a precaution, following plugins have been deactivated. You must check for plugins upgrade before reactiving them:'] = 'Por precaução, os seguintes plugins foram desativados. Você deve procurar atualizações dos plugins antes de reativá-los:';
-$lang['Only administrator can run upgrade: please sign in below.'] = 'Apenas administrador pode realizar o upgrade: por favor, conecte-se aqui em baixo.';
-$lang['You do not have access rights to run upgrade'] = 'Você não tem permissões de acesso para realizar o upgrade';
+$lang['Upgrade informations'] = 'Informações da actualização';
+$lang['Perform a maintenance check in [Administration>Tools>Maintenance] if you encounter any problem.'] = 'Se encontrar algum problema durante a actualização execute uma avaliação de rotina em [Administração>Ferramentas>Manutenção].';
+$lang['As a precaution, following plugins have been deactivated. You must check for plugins upgrade before reactiving them:'] = 'Por precaução os seguintes plugins foram desactivados. Deve procurar actualizações dos plugins antes de reactivá-los:';
+$lang['Only administrator can run upgrade: please sign in below.'] = 'Apenas o administrador pode efectuar actualizações: por favor Inicie Sessão no formulário abaixo.';
+$lang['You do not have access rights to run upgrade'] = 'Você não tem permissões de acesso para efectuar a actualização';
 $lang['In <i>%s</i>, before <b>?></b>, insert:'] = 'Em <i>%s</i>, antes de <b>?></b>, insira:';
-$lang['All sub-albums of private albums become private'] = 'Todas as subecategorias de categorias privadas tornam-se privadas';
-$lang['User permissions and group permissions have been erased'] = 'Permissões de usuário e de grupo foram apagadas.';
-$lang['Only thumbnails prefix and webmaster mail address have been saved from previous configuration'] = 'Apenas o prefixo das miniaturas (thumbnails) e o endereço de email do webmaster foram salvos da configuração anterior.';
+$lang['All sub-albums of private albums become private'] = 'Todas as sub-categorias de categorias privadas tornam-se privadas também';
+$lang['User permissions and group permissions have been erased'] = 'Permissões de utilizador e de grupo foram apagadas.';
+$lang['Only thumbnails prefix and webmaster mail address have been saved from previous configuration'] = 'Apenas o prefixo das miniaturas e o endereço de email do webmaster foram salvos da configuração anterior.';
 $lang['As a precaution, following themes have been deactivated. You must check for themes upgrade before reactiving them:'] = 'Como precau&ccedil;&atilde;o os seguintes temas foram desactivados. Dever&aacute; verificar por actualiza&ccedil;&otilde;es para os temas antes de os reactivar:';
+
 ?>
