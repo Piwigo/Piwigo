@@ -157,7 +157,6 @@ else
   define('PEM_URL', 'http://'.PHPWG_DOMAIN.'/ext');
 }
 
-
 // language files
 load_language('common.lang');
 if ( is_admin() || (defined('IN_ADMIN') and IN_ADMIN) )
