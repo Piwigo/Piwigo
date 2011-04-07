@@ -788,4 +788,9 @@ $lang['All languages are up to date.'] = 'Tutte le lingue sono aggiornate.';
 $lang['Visit theme site'] = 'Visitare il sito del tema';
 $lang['Visit language site'] = 'Visitare il sito della lingua';
 $lang['New Version'] = 'Nuova versione';
+$lang['Obsolete Plugins'] = 'Plugins obsoleti';
+$lang['WARNING! This plugin does not seem to be compatible with this version of Piwigo.'] = 'ATTENZIONE! Questo plugin non sembra essere compatibile con questa versione di Piwigo.';
+$lang['Do you want to activate anyway?'] = 'Volete attivarlo comunque?';
+$lang['THIS PLUGIN IS NOW PART OF PIWIGO CORE! DELETE IT NOW.'] = 'QUESTO PLUGIN FA ORMAI PARTIE DEL CORE DI PIWIGO! CANCELLATELO.';
+$lang['ERROR: THIS PLUGIN IS MISSING BUT IT IS INSTALLED! UNINSTALL IT NOW.'] = 'ERRORE: QUESTO PLUGIN È MANCANTE MA TUTTORA INSTALLATO! CANCELLATELO.';
 ?>
