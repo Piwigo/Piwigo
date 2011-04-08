@@ -137,7 +137,7 @@ pwg_initialization_datepicker("#date_creation_day", "#date_creation_month", "#da
         <td>
 <select id="tags" name="tags">
 {foreach from=$tags item=tag}
-  <option value="{$tag.value}" class="selected">{$tag.caption}</option>
+  <option value="{$tag.value}" class="selected">{$tag.key}</option>
 {/foreach}
 </select>
         </td>
