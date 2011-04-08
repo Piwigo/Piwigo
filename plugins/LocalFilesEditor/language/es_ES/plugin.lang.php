@@ -23,35 +23,35 @@
 
 $lang['locfiledit_onglet_localconf'] = 'Configuración local';
 $lang['locfiledit_onglet_css'] = 'CSS';
-$lang['locfiledit_onglet_tpl'] = 'Templates';
+$lang['locfiledit_onglet_tpl'] = 'Plantillas';
 $lang['locfiledit_onglet_lang'] = 'Idiomas';
 $lang['locfiledit_onglet_plug'] = 'Plugin personal';
-$lang['locfiledit_cant_save'] = 'Imposible escribir el fichero. Verifique los permisos (chmod) del expediente "local/".';
-$lang['locfiledit_newfile'] = 'El fichero no existe y será creado en el momento del registro por LocalFiles Editor';
-$lang['locfiledit_save_config'] = 'El fichero ha sido registrado.';
-$lang['locfiledit_show_default'] = 'Fijar el fichero ';
-$lang['locfiledit_save_bak'] = 'Una copia de salvaguardia del fichero será creada en el momento del registro';
-$lang['locfiledit_saved_bak'] = 'Una copia de salvaguardia ha sido creada (%s)';
-$lang['locfiledit_save_file'] = 'Registrar el fichero';
-$lang['locfiledit_choose_file'] = 'Escoja un fichero que hay que editar';
+$lang['locfiledit_cant_save'] = 'No ha sido posible guardar el archivo. Verifique los permisos (chmod) del directorio "local/".';
+$lang['locfiledit_newfile'] = 'El archivo no existe y será creado la primera vez que lo guarde';
+$lang['locfiledit_save_config'] = 'El archivo ha sido guardado.';
+$lang['locfiledit_show_default'] = 'Editar el archivo ';
+$lang['locfiledit_save_bak'] = 'Antes de guardar, se creará una copia de seguridad';
+$lang['locfiledit_saved_bak'] = 'Se ha creado una copia de seguridad (%s)';
+$lang['locfiledit_save_file'] = 'Guardar el archivo';
+$lang['locfiledit_choose_file'] = 'Seleccione el archivo que desea editar';
 $lang['locfiledit_edit'] = 'Editar';
-$lang['locfiledit_restore'] = 'Cargar el fichero de salvaguardia';
-$lang['locfiledit_restore_confirm'] = '¿ Desea cargar el fichero de salvaguardia?
-Usted deberá luego hacer clic Registrar para restaurarlo.';
-$lang['locfiledit_bak_loaded1'] = 'Fichero cargado de salvaguardia';
-$lang['locfiledit_bak_loaded2'] = 'Usted debe registrarlo para salvaguardarlo.';
-$lang['locfiledit_syntax_error'] = '¡ Error de sintaxis! Imposible registrar el fichero.';
-$lang['locfiledit_enable_editarea'] = 'Acelerar Editarea';
-$lang['locfiledit_disable_editarea'] = 'Desactivar Editarea ';
-$lang['locfiledit_new_tpl'] = 'Crear un nuevo fichero ';
-$lang['locfiledit_new_filename'] = 'Nombre del fichero ';
+$lang['locfiledit_restore'] = 'Cargar la copia de seguridad';
+$lang['locfiledit_restore_confirm'] = '¿Confirma que desea cargar la copia de seguridad?
+Posteriormente deberá hacer clic en Guardar para restaurarla.';
+$lang['locfiledit_bak_loaded1'] = 'Se ha cargado la copia de seguridad';
+$lang['locfiledit_bak_loaded2'] = 'Para conservar la la copia de seguridad debe guardar el archivo.';
+$lang['locfiledit_syntax_error'] = 'Error de sintaxis. No es posible guardar el archivo.';
+$lang['locfiledit_enable_editarea'] = 'Activar el texto editado';
+$lang['locfiledit_disable_editarea'] = 'Desactivar el área de edición';
+$lang['locfiledit_new_tpl'] = 'Crear un nuevo archivo ';
+$lang['locfiledit_new_filename'] = 'Nombre del archivo ';
 $lang['locfiledit_model'] = 'Modelo ';
-$lang['locfiledit_empty_page'] = 'Página virgen';
-$lang['locfiledit_parent_directory'] = 'Expediente allegado';
-$lang['locfiledit_filename_error'] = 'Carácteres prohibidos en el nombre del fichero.';
-$lang['locfiledit_file_already_exists'] = 'El fichero ya existe.';
+$lang['locfiledit_empty_page'] = 'Página en blanco';
+$lang['locfiledit_parent_directory'] = 'Directorio de nivel superior';
+$lang['locfiledit_filename_error'] = 'El nombre de archivo tiene caracteres no permitidos.';
+$lang['locfiledit_file_already_exists'] = 'El archivo ya existe.';
 $lang['locfiledit_model_error'] = 'Por favor, seleccione un modelo.';
-/* TODO */ $lang['locfiledit_empty_filename'] = 'Por favor, indique un nombre de fichero.';
-/* TODO */ $lang['locfiledit_webmaster_only'] = 'Only webmasters can create or modify local files.';
+$lang['locfiledit_empty_filename'] = 'Por favor, indique un nombre de archivo.';
+$lang['locfiledit_webmaster_only'] = 'Sólo los administradores pueden crear o modificar fichero locales.';
 
 ?>
