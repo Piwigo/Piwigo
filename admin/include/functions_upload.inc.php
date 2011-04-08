@@ -347,11 +347,15 @@ SELECT
     {
       $update['has_high'] = 'true';
       $update['high_filesize'] = $high_infos['filesize'];
+      $update['high_width'] = $high_infos['width'];
+      $update['high_height'] = $high_infos['height'];
     }
     else
     {
       $update['has_high'] = 'false';
       $update['high_filesize'] = null;
+      $update['high_width'] = null;
+      $update['high_height'] = null;
     }
 
     if (isset($level))
@@ -387,6 +391,8 @@ SELECT
     {
       $insert['has_high'] = 'true';
       $insert['high_filesize'] = $high_infos['filesize'];
+      $insert['high_width'] = $high_infos['width'];
+      $insert['high_height'] = $high_infos['height'];
     }
 
     if (isset($level))

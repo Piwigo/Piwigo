@@ -919,11 +919,43 @@ if ($picture['current']['is_picture'] and isset($picture['current']['width']) )
   }
 }
 
+// hd size in pixels
+if ($picture['current']['is_picture'] AND $picture['current']['has_high'])
+{
+  if (!empty($picture['current']['high_width']))
+  {
+    $infos['INFO_DIMENSIONS'] = $picture['current']['high_width'].'*'.$picture['current']['high_height'];
+  }
+  else
+  {
+    $hi_size = @getimagesize($hi_url);
+    if ($hi_size !== false)
+    {
+      pwg_query('
+        UPDATE ' . IMAGES_TABLE . '
+        SET 
+          high_width = \'' . $hi_size[0].'\',
+          high_height = \''.$hi_size[1] .'\'
+        WHERE id = ' . $picture['current']['id'] . ';
+      ');
+      
+      $infos['INFO_DIMENSIONS'] = $hi_size[0].'*'.$hi_size[1];
+    }
+  }
+}
+
 // filesize
 if (!empty($picture['current']['filesize']))
 {
   $infos['INFO_FILESIZE'] =
     sprintf(l10n('%d Kb'), $picture['current']['filesize']);
+}
+
+// hd filesize
+if ($picture['current']['has_high'] and !empty($picture['current']['high_filesize']))
+{
+  $infos['INFO_FILESIZE'] =
+    sprintf(l10n('%d Kb'), $picture['current']['high_filesize']);
 }
 
 // number of visits

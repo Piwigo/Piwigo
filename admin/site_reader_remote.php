@@ -43,7 +43,7 @@ function RemoteSiteReader($url, $listing_url)
     'tn_ext', 'representative_ext', 'has_high',
     );
   $this->metadata_attributes = array(
-    'filesize', 'width', 'height', 'high_filesize'
+    'filesize', 'width', 'height', 'high_filesize', 'high_width', 'high_height',
     );
 
   if (!isset($listing_url))

@@ -738,6 +738,12 @@ function pwg_scan_file($file_full, &$line)
         
         $high_file = $file_dir.'/'.$conf['high'].'/'.$file_base;
         $element['high_filesize'] = floor(filesize($high_file) / 1024);
+        
+        if ($high_size = @getimagesize($high_file))
+        {
+          $element['high_width'] = $high_size[0];
+          $element['high_height'] = $high_size[1];
+        }
       }
       
       // get EXIF meta datas

@@ -232,6 +232,8 @@ CREATE TABLE "piwigo_images"
   "path" VARCHAR(255) default '' NOT NULL,
   "storage_category_id" INTEGER,
   "high_filesize" INTEGER,
+  "high_width" INTEGER,
+  "high_height" INTEGER,
   "level" INTEGER default 0 NOT NULL,
   "md5sum" CHAR(32),
   "added_by" INTEGER default 0 NOT NULL,
