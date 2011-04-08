@@ -23,21 +23,20 @@
 
 
 $lang['Upgrade'] = "升级";
-$lang['This page proposes to upgrade your database corresponding to your old version of Piwigo to the current version. The upgrade assistant thinks you are currently running a <strong>release %s</strong> (or equivalent).'] = "此页面将把您的 Piwigo 旧版本的数据库升级为新版本。
-升级助手将会认为您正在运行 <strong>版本 %s</strong> (或者相同的版本).";
-$lang['Upgrade from version %s to %s'] = "从 %s 版升级到 %s";
-$lang['Statistics'] = "统计";
-$lang['total upgrade time'] = "总共升级时间";
-$lang['total SQL time'] = "总共 SQL 时间";
+$lang['This page proposes to upgrade your database corresponding to your old version of Piwigo to the current version. The upgrade assistant thinks you are currently running a <strong>release %s</strong> (or equivalent).'] = "这个页面试图更新你的与Piwigo相关的数据库。 更新助手认为你现在正在运行 <strong>版本 %s</strong> （或相同的对应版本）。";
+$lang['Upgrade from version %s to %s'] = "从 %s 版本升级到 %s 版本";
+$lang['Statistics'] = "统计量";
+$lang['total upgrade time'] = "总升级时间";
+$lang['total SQL time'] = "总 SQL 时间";
 $lang['SQL queries'] = "SQL 查询";
 $lang['Upgrade informations'] = "升级信息";
-$lang['Perform a maintenance check in [Administration>Tools>Maintenance] if you encounter any problem.'] = "如果您遇到任何问题，请在[管理员>工具>维护]执行维护检测";
-$lang['As a precaution, following plugins have been deactivated. You must check for plugins upgrade before reactiving them:'] = "为了预防万一，以下插件已被停用。在您重新启用它们之前，必须先检查这些插件的更新:";
-$lang['Only administrator can run upgrade: please sign in below.'] = "只有管理员能运行升级操作：请先登录。";
-$lang['You do not have access rights to run upgrade'] = "您没有执行升级程序的权限";
-$lang['All sub-albums of private albums become private'] = '相册里的所有子相册都成为私有';
-$lang['User permissions and group permissions have been erased'] = "用户和组的权限已被清除";
-$lang['Only thumbnails prefix and webmaster mail address have been saved from previous configuration'] = "在前一个配置操作中，只有缩略图的前缀和网站管理员的邮件地址被保存了。";
-$lang['In <i>%s</i>, before <b>?></b>, insert:'] = '在 <i>%s</i>, 之前 <b>?></b>, 插入:';
-$lang['As a precaution, following themes have been deactivated. You must check for themes upgrade before reactiving them:'] = '作为预防措施，以下主题均已被停用。在您重新启用它们之前，请必须先检测一下是否有更新:';
+$lang['Perform a maintenance check in [Administration>Tools>Maintenance] if you encounter any problem.'] = "如果你遇上任何问题请到 [管理>工具>维护] 运行一次维护检查";
+$lang['As a precaution, following plugins have been deactivated. You must check for plugins upgrade before reactiving them:'] = "请注意,以下插件已被禁用，你在激活它们之前必须先检查插件的更新：";
+$lang['Only administrator can run upgrade: please sign in below.'] = "只有管理员才能运行更新，请在下面登入。";
+$lang['You do not have access rights to run upgrade'] = "你没有权限运行更新";
+$lang['All sub-albums of private albums become private'] = "所有私有相册的子相册均变为私有的";
+$lang['User permissions and group permissions have been erased'] = "用户权限和组权限已经删除";
+$lang['Only thumbnails prefix and webmaster mail address have been saved from previous configuration'] = "之前的设置只有预览图前缀和网管电子邮件地址被保存";
+$lang['In <i>%s</i>, before <b>?></b>, insert:'] = '在<i>%s</i>，在<b>?></b>之前，插入';
+$lang['As a precaution, following themes have been deactivated. You must check for themes upgrade before reactiving them:'] = '请注意,以下主题已被禁用，你在激活它们之前必须先检查主题的更新：';
 ?>
