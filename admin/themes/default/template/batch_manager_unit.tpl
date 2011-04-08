@@ -106,7 +106,7 @@ jQuery(document).ready(function() {
 
 <select id="tags-{$element.ID}" name="tags-{$element.ID}">
 {foreach from=$element.TAGS item=tag}
-  <option value="{$tag.value}" class="selected">{$tag.caption}</option>
+  <option value="{$tag.value}" class="selected">{$tag.key}</option>
 {/foreach}
 </select>
 
