@@ -1246,6 +1246,8 @@ SELECT
   if ('high' == $params['type'])
   {
     $update['high_filesize'] = $infos['filesize'];
+    $update['high_width'] = $infos['width'];
+    $update['high_height'] = $infos['height'];
     $update['has_high'] = 'true';
   }
 
@@ -1374,6 +1376,8 @@ SELECT
   {
     $insert['has_high'] = 'true';
     $insert['high_filesize'] = $high_infos['filesize'];
+    $insert['high_width'] = $high_infos['width'];
+    $insert['high_height'] = $high_infos['height'];
   }
 
   include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
