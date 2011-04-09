@@ -358,4 +358,5 @@ $lang['Manage this user comment: %s'] = 'Gestiona aquest comentari d\'usuari: %s
 $lang['This author modified following comment:'] = 'Aquest autor ha modificat el següent comentari:';
 $lang['This author removed the comment with id %d'] = 'Aquest autor ha eliminat el comentari amb id %d';
 $lang['validate this comment'] = 'valida aquest comentari';
+$lang['html tags are not allowed in login'] = "les etiquetes html no són permeses en les dades d'inici de sessió";
 ?>
