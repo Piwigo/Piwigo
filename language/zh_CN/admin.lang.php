@@ -776,5 +776,9 @@ $lang['All languages are up to date.'] = '所有语言已更新了.';
 $lang['Visit theme site'] = '浏览主题网站';
 $lang['Visit language site'] = '浏览语言网站';
 $lang['New Version'] = '新版本';
-
+$lang['Obsolete Plugins'] = '过期插件';
+$lang['WARNING! This plugin does not seem to be compatible with this version of Piwigo.'] = '警告，此插件并不适用于这个版本的Piwigo。';
+$lang['Do you want to activate anyway?'] = '你还是想激活吗？';
+$lang['THIS PLUGIN IS NOW PART OF PIWIGO CORE! DELETE IT NOW.'] = '这个插件现在已经是Piwigo核心的一部分，请马上删除它。';
+$lang['ERROR: THIS PLUGIN IS MISSING BUT IT IS INSTALLED! UNINSTALL IT NOW.'] = '错误：这个插件的实际内容已丢失但记录中它已被安装，请马上卸载它。';
 ?>

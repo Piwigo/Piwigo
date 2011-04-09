@@ -359,4 +359,5 @@ $lang['This author modified following comment:'] = '此作者修改了以下的�
 $lang['This author removed the comment with id %d'] = '此作者删除了 id 为 %d 的评论';
 $lang['validate this comment'] = '审核此评论';
 $lang['Sent by'] = '发送人';
+$lang['html tags are not allowed in login'] = '登录名中不允许使用html标签';
 ?>
