@@ -358,5 +358,6 @@ $lang['This author modified following comment:'] = 'این نویسنده این
 $lang['This author removed the comment with id %d'] = 'این نویسنده ، نظری با شناسه %d را حذف کرده است.';
 $lang['delete this comment'] = "حذف این نظر";
 $lang['validate this comment'] = 'تایید این نظر';
+$lang['html tags are not allowed in login'] = 'شما در فرم ورود مجاز به استفاده از كدهاي HTML نيستيد!';
 
 ?>
