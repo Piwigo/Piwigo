@@ -359,4 +359,5 @@ $lang['This author modified following comment:'] = 'Denne forfatter har ændret 
 $lang['This author removed the comment with id %d'] = 'Denne forfatter har fjernet denne kommentar med id %d';
 $lang['delete this comment'] = 'slet denne kommentar';
 $lang['validate this comment'] = 'godkend denne kommentar';
+$lang['html tags are not allowed in login'] = 'html tags er ikke tilladt i login';
 ?>
