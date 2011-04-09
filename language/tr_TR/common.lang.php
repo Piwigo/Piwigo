@@ -358,4 +358,5 @@ $lang['set as album representative'] = 'albüm temsilcisi oalrak ayarla';
 $lang['slideshow'] = 'slayt gösterisi';
 $lang['the beginning'] = 'başlangıç';
 $lang['Email address is missing. Please specify an email address.'] = 'E-Posta Adresi Kayıp. Lütfen E-Posta adresinizi doğrulayınız..';
+$lang['html tags are not allowed in login'] = 'girişte html etiketleri kullanılamaz';
 ?>
