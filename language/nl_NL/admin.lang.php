@@ -780,4 +780,10 @@ $lang['All languages are up to date.'] = 'Alle talen zijn bijgewerkt.';
 $lang['Visit theme site'] = 'Bezoek de thema-webpagina';
 $lang['Visit language site'] = 'Bezoek de talen-webpagina';
 $lang['New Version'] = 'Nieuwe versie';
+$lang['Obsolete Plugins'] = 'Verouderde Plugins';
+$lang['WARNING! This plugin does not seem to be compatible with this version of Piwigo.'] = 'WAARSCHUWING! Deze plugin lijkt niet compatibel met deze versie van Piwigo.';
+$lang['Do you want to activate anyway?'] = 'Wilt u desondanks activeren?';
+$lang['THIS PLUGIN IS NOW PART OF PIWIGO CORE! DELETE IT NOW.'] = 'DEZE PLUGIN IS NU ONDERDEEL VAN PIWIGO CORE! VERWIJDER DE PLUGIN NU.';
+$lang['ERROR: THIS PLUGIN IS MISSING BUT IT IS INSTALLED! UNINSTALL IT NOW.'] = 'FOUT: DEZE PLUGIN MIST MAAR IS GEINSTALEERD! DEINSTALLEER DE PLUGIN NU.';
+
 ?>
