@@ -364,4 +364,5 @@ $lang['New password confirmation does not correspond'] = 'Подтвержден
 $lang['Administrator, webmaster and special user cannot use this method'] = 'Администраторы, вебмастер и специальные пользователи не могут использовать этот метод';
 $lang['Reduce diaporama speed'] = 'Уменьшить скорость панорамы';
 $lang['Accelerate diaporama speed'] = 'Увеличить скорость панорамы';
+$lang['html tags are not allowed in login'] = 'html тэги не допустимы в логине';
 ?>
