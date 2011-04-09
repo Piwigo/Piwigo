@@ -778,4 +778,10 @@ $lang['All languages are up to date.'] = 'Все языки обновлены �
 $lang['Visit theme site'] = 'Посмотреть полное описание темы';
 $lang['Visit language site'] = 'Посмотреть подробную страницу языка';
 $lang['New Version'] = 'Новая версия';
+$lang['Obsolete Plugins'] = 'Устаревшие плагины';
+$lang['WARNING! This plugin does not seem to be compatible with this version of Piwigo.'] = 'ВНИМАНИЕ! По всей вероятности, этот плагин не совместим с данной версией Piwigo.';
+$lang['Do you want to activate anyway?'] = 'Всё равно хотите активировать?';
+$lang['THIS PLUGIN IS NOW PART OF PIWIGO CORE! DELETE IT NOW.'] = 'ЭТОТ ПЛАГИН СЕЙЧАС УЖЕ ЯВЛЯЕТСЯ ЧАСТЬЮ ЯДРА PIWIGO! УДАЛИТЕ ЕГО СЕЙЧАС!';
+$lang['ERROR: THIS PLUGIN IS MISSING BUT IT IS INSTALLED! UNINSTALL IT NOW.'] = 'ОШИБКА: НЕСМОТРЯ НА ТО, ЧТО ЭТОТ ПЛАГИН УСТАНОВЛЕН, ОН ПОТЕРЯЛСЯ! УДАЛИТЕ ЕГО СЕЙЧАС.';
+
 ?>
