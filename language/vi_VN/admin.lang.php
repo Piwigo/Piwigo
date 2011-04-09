@@ -778,5 +778,10 @@ $lang['All languages are up to date.'] = 'Tất cả ngôn ngữ đều được
 $lang['Visit theme site'] = 'Đến trang web của giao diện';
 $lang['Visit language site'] = 'Đến trang web của của ngôn ngữ';
 $lang['New Version'] = 'Phiên bản Mới';
+$lang['Obsolete Plugins'] = 'Những plugins đã cũ';
+$lang['WARNING! This plugin does not seem to be compatible with this version of Piwigo.'] = 'CẢNH BÁO! Plugin này có thể không tương thích với phiên bản Piwigo hiện tại.';
+$lang['Do you want to activate anyway?'] = 'Bạn vẫn muốn kích hoạt?';
+$lang['THIS PLUGIN IS NOW PART OF PIWIGO CORE! DELETE IT NOW.'] = 'PLUGIN NÀY GIỜ LÀ MỘT PHẦN CỦA NHÂN PIWIGO! GỠ BỎ NGAY!';
+$lang['ERROR: THIS PLUGIN IS MISSING BUT IT IS INSTALLED! UNINSTALL IT NOW.'] = 'LỖI: PLUGIN NÀY BỊ THIẾU NHƯNG NÓ ĐÃ ĐƯỢC CÀI ĐẶT! GỠ BỎ NGAY.';
 
 ?>
