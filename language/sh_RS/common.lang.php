@@ -358,4 +358,5 @@ $lang['This author modified following comment:'] = 'Ovaj autor je menjao tekući
 $lang['This author removed the comment with id %d'] = 'Ovaj autor je uklonio komentar sa identifikacijom %d';
 $lang['delete this comment'] = 'obriši ovaj komentar';
 $lang['validate this comment'] = 'Overi ovaj komentar';
+$lang['html tags are not allowed in login'] = 'html oznake nisu dozvoljene prilikom logovanja';
 ?>
