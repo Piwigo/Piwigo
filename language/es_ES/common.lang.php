@@ -358,5 +358,6 @@ $lang['Manage this user comment: %s'] = 'Administrar este comentario: %s';
 $lang['This author modified following comment:'] = 'Este autor modificó el comentario siguiente:';
 $lang['This author removed the comment with id %d'] = 'Este autor suprimió el comentario sustentador al que él identificaba %d';
 $lang['validate this comment'] = 'Validar este comentario';
+$lang['html tags are not allowed in login'] = 'Etiquetas HTML no están permitidas en el area de conección';
 
 ?>
