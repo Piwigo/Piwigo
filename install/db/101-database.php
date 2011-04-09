@@ -39,7 +39,7 @@ if ('mysql' == $conf['dblayer'])
 else if (in_array($conf['dblayer'], array('pgsql', 'sqlite', 'pdo-sqlite')))
 {
   pwg_query('
-    ALTER TABLE '.IMAGES_TABLE.' 
+    ALTER TABLE '.USER_INFOS_TABLE.' 
       ADD COLUMN "nb_image_page" INTEGER default 15 NOT NULL
   ;');
 }
