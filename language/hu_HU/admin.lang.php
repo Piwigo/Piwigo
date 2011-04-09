@@ -779,7 +779,6 @@ $lang['All languages are up to date.'] = 'Minden nyelv naprakész.';
 $lang['Visit theme site'] = 'Téma oldal meglátogatása';
 $lang['Visit language site'] = 'Nyelv oldal meglátogatása';
 $lang['New Version'] = 'Új verzió';
-// missing translations
 $lang['Obsolete Plugins'] = 'Elavult bővítmények';
 $lang['WARNING! This plugin does not seem to be compatible with this version of Piwigo.'] = 'FIGYELEM! Ez a bővítmény nem kompatibilis a Piwigo jelenleg futó verziójával.';
 $lang['Do you want to activate anyway?'] = 'Aktiváljuk mindenképp?';
