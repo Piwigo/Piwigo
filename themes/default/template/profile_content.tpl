@@ -46,15 +46,9 @@
     <ul>
       <li>
         <span class="property">
-          <label for="nb_image_line">{'Number of photos per row'|@translate}</label>
+          <label for="nb_image_page">{'Number of photos per page'|@translate}</label>
         </span>
-        <input type="text" size="3" maxlength="2" name="nb_image_line" id="nb_image_line" value="{$NB_IMAGE_LINE}">
-      </li>
-      <li>
-        <span class="property">
-          <label for="nb_line_page">{'Number of rows per page'|@translate}</label>
-        </span>
-        <input type="text" size="3" maxlength="2" name="nb_line_page" id="nb_line_page" value="{$NB_ROW_PAGE}" >
+        <input type="text" size="3" maxlength="2" name="nb_image_page" id="nb_image_page" value="{$NB_IMAGE_PAGE}">
       </li>
       <li>
         <span class="property">

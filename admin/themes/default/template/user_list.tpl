@@ -183,23 +183,13 @@
 
 <table>
   <tr>
-    <td>{'Number of photos per row'|@translate}</td>
+    <td>{'Number of photos per page'|@translate}</td>
     <td>
-      <label><input type="radio" name="nb_image_line_action" value="leave" checked="checked"> {'leave'|@translate}</label>
-      <label><input type="radio" name="nb_image_line_action" value="set" id="nb_image_line_action_set"> {'set to'|@translate}</label>
-      <input onmousedown="document.getElementById('nb_image_line_action_set').checked = true;"
-             size="3" maxlength="2" type="text" name="nb_image_line" value="{$NB_IMAGE_LINE}">
+      <label><input type="radio" name="nb_image_page_action" value="leave" checked="checked"> {'leave'|@translate}</label>
+      <label><input type="radio" name="nb_image_page_action" value="set" id="nb_image_page_action_set"> {'set to'|@translate}</label>
+      <input onmousedown="document.getElementById('nb_image_page_action_set').checked = true;"
+             size="3" maxlength="2" type="text" name="nb_image_page" value="{$NB_IMAGE_PAGE}">
     </td>
-  </tr>
-
-  <tr>
-    <td>{'Number of rows per page'|@translate}</td>
-    <td>
-      <label><input type="radio" name="nb_line_page_action" value="leave" checked="checked"> {'leave'|@translate}</label>
-      <label><input type="radio" name="nb_line_page_action" value="set" id="nb_line_page_action_set"> {'set to'|@translate}</label>
-      <input onmousedown="document.getElementById('nb_line_page_action_set').checked = true;"
-             size="3" maxlength="2" type="text" name="nb_line_page" value="{$NB_LINE_PAGE}">
-    <td>
   </tr>
 
   <tr>

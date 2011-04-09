@@ -404,8 +404,7 @@ CREATE TABLE `piwigo_user_group` (
 DROP TABLE IF EXISTS `piwigo_user_infos`;
 CREATE TABLE `piwigo_user_infos` (
   `user_id` smallint(5) NOT NULL default '0',
-  `nb_image_line` tinyint(1) unsigned NOT NULL default '5',
-  `nb_line_page` tinyint(3) unsigned NOT NULL default '3',
+  `nb_image_page` tinyint(3) unsigned NOT NULL default '15',
   `status` enum('webmaster','admin','normal','generic','guest') NOT NULL default 'guest',
   `language` varchar(50) NOT NULL default 'en_UK',
   `maxwidth` smallint(6) default NULL,

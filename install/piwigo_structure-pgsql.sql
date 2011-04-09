@@ -568,8 +568,7 @@ DROP TABLE IF EXISTS "piwigo_user_infos" CASCADE;
 CREATE TABLE "piwigo_user_infos"
 (
   "user_id" INTEGER default 0 NOT NULL,
-  "nb_image_line" INTEGER default 5 NOT NULL,
-  "nb_line_page" INTEGER default 3 NOT NULL,
+  "nb_image_page" INTEGER default 15 NOT NULL,
   "status" USER_INFOS_STATUS default 'guest'::USER_INFOS_STATUS,
   "language" VARCHAR(50) default 'en_UK' NOT NULL,
   "maxwidth" INTEGER,

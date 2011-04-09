@@ -49,7 +49,7 @@ if (!defined('PHPWG_ROOT_PATH'))
   if (isset($_POST['reset_to_default']))
   {
     $fields = array(
-      'nb_image_line', 'nb_line_page', 'maxwidth', 'maxheight', 'expand',
+      'nb_image_page', 'maxwidth', 'maxheight', 'expand',
       'show_nb_comments', 'show_nb_hits', 'recent_period', 'show_nb_hits'
       );
 
@@ -117,16 +117,10 @@ function save_profile_from_post($userdata, &$errors)
   if ($conf['allow_user_customization'] or defined('IN_ADMIN'))
   {
     $int_pattern = '/^\d+$/';
-    if (empty($_POST['nb_image_line'])
-        or (!preg_match($int_pattern, $_POST['nb_image_line'])))
+    if (empty($_POST['nb_image_page'])
+        or (!preg_match($int_pattern, $_POST['nb_image_page'])))
     {
-      $errors[] = l10n('The number of photos per row must be a not null scalar');
-    }
-
-    if (empty($_POST['nb_line_page'])
-        or (!preg_match($int_pattern, $_POST['nb_line_page'])))
-    {
-      $errors[] = l10n('The number of rows per page must be a not null scalar');
+      $errors[] = l10n('The number of photos per page must be a not null scalar');
     }
 
     if ($_POST['maxwidth'] != ''
@@ -216,7 +210,7 @@ function save_profile_from_post($userdata, &$errors)
     {
       // update user "additional" informations (specific to Piwigo)
       $fields = array(
-        'nb_image_line', 'nb_line_page', 'language', 'maxwidth', 'maxheight',
+        'nb_image_page', 'language', 'maxwidth', 'maxheight',
         'expand', 'show_nb_comments', 'show_nb_hits', 'recent_period', 'theme'
         );
 
@@ -261,8 +255,7 @@ function load_profile_in_template($url_action, $url_redirect, $userdata)
       'USERNAME'=>stripslashes($userdata['username']),
       'EMAIL'=>get_email_address_as_display_text(@$userdata['email']),
       'ALLOW_USER_CUSTOMIZATION'=>$conf['allow_user_customization'],
-      'NB_IMAGE_LINE'=>$userdata['nb_image_line'],
-      'NB_ROW_PAGE'=>$userdata['nb_line_page'],
+      'NB_IMAGE_PAGE'=>$userdata['nb_image_page'],
       'RECENT_PERIOD'=>$userdata['recent_period'],
       'MAXWIDTH'=>@$userdata['maxwidth'],
       'MAXHEIGHT'=>@$userdata['maxheight'],
