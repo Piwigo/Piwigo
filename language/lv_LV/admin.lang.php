@@ -771,5 +771,10 @@ $lang['All languages are up to date.'] = 'Visas valodas ir atjauninātas.';
 $lang['Visit theme site'] = 'Apmeklēt tēmu vietni';
 $lang['Visit language site'] = 'Apmeklēt valodu vietni';
 $lang['New Version'] = 'Jauna Versija';
+$lang['Obsolete Plugins'] = 'Nepiesaistītie Spraudņi';
+$lang['WARNING! This plugin does not seem to be compatible with this version of Piwigo.'] = 'UZMANĪBU! Šķiet, ka šis spraudnis nav saderīgs ar šo Piwigo versiju.';
+$lang['Do you want to activate anyway?'] = 'Vai vēlaties aktivēt jebkurā gadījumā?';
+$lang['THIS PLUGIN IS NOW PART OF PIWIGO CORE! DELETE IT NOW.'] = 'TAGAD ŠIS SPRAUDNIS IR PIWIGO KODOLA SASTĀVDAĻA! VAI NOINSTALĒT TO!';
+$lang['ERROR: THIS PLUGIN IS MISSING BUT IT IS INSTALLED! UNINSTALL IT NOW.'] = 'KĻŪDA: ŠIS SPRAUDNIS IZTRŪKST, BET TAS IR INSTALĒTS! VAI NOINSTALĒT TO';
 
 ?>
