@@ -359,5 +359,6 @@ $lang['Manage this user comment: %s'] = 'Valideer het volgende gebruikers-commen
 $lang['This author modified following comment:'] = 'Deze bewerker wijzigde het volgende commentaar:';
 $lang['This author removed the comment with id %d'] = 'This author removed the comment with id %d';
 $lang['validate this comment'] = 'Valideer dit commentaar';
+$lang['html tags are not allowed in login'] = 'html tags zijn niet toegestaan in login';
 
 ?>
