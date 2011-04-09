@@ -777,4 +777,9 @@ $lang['All languages are up to date.'] = 'كل اللغات محدثة';
 $lang['Visit theme site'] = 'زر موقع الثيمات';
 $lang['Visit language site'] = 'زر موقع اللغات';
 $lang['New Version'] = 'اصدار جديد';
+$lang['Obsolete Plugins'] = 'ادوات قديمة';
+$lang['WARNING! This plugin does not seem to be compatible with this version of Piwigo.'] = 'تحذير !! هذه الاضافة لا تبدو ناها متوافقة مع اصدار PIWIGO.';
+$lang['Do you want to activate anyway?'] = 'هل تريد تفعيلها بأي شكل تفعيلها';
+$lang['THIS PLUGIN IS NOW PART OF PIWIGO CORE! DELETE IT NOW.'] = 'هذه الاداة اصبحت جزءا من PIWIGO نفسها يجب ان تزيلها الان';
+$lang['ERROR: THIS PLUGIN IS MISSING BUT IT IS INSTALLED! UNINSTALL IT NOW.'] = 'خطأ : هذه الاداة مفقودة لكنها مثبتة, الغ تثبيتها الان';
 ?>
