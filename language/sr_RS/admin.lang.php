@@ -780,5 +780,10 @@ $lang['All plugins are up to date.'] = 'Сви додаци су унапређ�
 $lang['All languages are up to date.'] = 'Сви језици су унапређени.';
 $lang['Visit theme site'] = 'Посетите страницу о теми';
 $lang['Visit language site'] = 'Посетите страницу о језику';
-$lang['New Version'] = 'Нова верзија'; 
+$lang['New Version'] = 'Нова верзија';
+$lang['Obsolete Plugins'] = 'Застарели додаци';
+$lang['WARNING! This plugin does not seem to be compatible with this version of Piwigo.'] = 'Упозорење! Овај додатак није компатибилан са овом верзијом Piwigo.';
+$lang['Do you want to activate anyway?'] = 'Да ли ипак желите да је активирате?';
+$lang['THIS PLUGIN IS NOW PART OF PIWIGO CORE! DELETE IT NOW.'] = 'Овај додатак је сада део PIWIGO програма! Обришите га  ОДМАХ!';
+$lang['ERROR: THIS PLUGIN IS MISSING BUT IT IS INSTALLED! UNINSTALL IT NOW.'] = 'ГРЕШКА: Овај додатак недостаје, али је инсталиран! Уклоните(деинсталирате) га ОДМАХ.';
 ?>
