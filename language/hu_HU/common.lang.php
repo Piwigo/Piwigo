@@ -361,4 +361,6 @@ $lang['This author modified following comment:'] = 'A szerző a következő hozz
 $lang['This author removed the comment with id %d'] = 'A szerző a következő hozzászólást törölte id %d';
 $lang['validate this comment'] = 'hozzászólás engedélyezése';
 $lang['html tags are not allowed in login'] = 'Belépéskor a html tag-ek nem engedélyezettek';
+$lang['The number of photos per page must be a not null scalar'] = 'Az oldalankénti képek száma nem lehet 0, és pozitív egész szám kell legyen.';
+$lang['Number of photos per page'] = 'Képek száma oldalanként';
 ?>
