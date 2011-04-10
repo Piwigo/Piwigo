@@ -361,5 +361,6 @@ $lang['month'][6] = 'Iunie';
 $lang['month'][7] = 'Iulie';
 $lang['month'][8] = 'August';
 $lang['month'][9] = 'Septembrie';
+$lang['html tags are not allowed in login'] = 'tag-urile HTML nu sunt permise în login';
 
 ?>
