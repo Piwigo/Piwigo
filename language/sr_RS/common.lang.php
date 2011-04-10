@@ -230,10 +230,6 @@ $lang['month'][8] = 'Август';
 $lang['month'][9] = 'Септембар';
 $lang['Most visited'] = 'Најпосјећеније';
 $lang['display most visited photos'] = 'приказ најпосјећенијих слика';
-// $lang['The number of photos per row must be a not null scalar'] = 'број слика по реду мора бити целобројна вредност';
-// $lang['Number of photos per row'] = 'Број слика по реду';
-// $lang['The number of rows per page must be a not null scalar'] = 'Број редова по страници мора бити целобројна вредност';
-// $lang['Number of rows per page'] = 'Број редова по страници';
 $lang['Unknown identifier'] = 'Непозната ознака';
 $lang['New password'] = 'Нова лозинка';
 $lang['Rate this photo'] = 'Оцени ову слику';
@@ -358,4 +354,5 @@ $lang['This author modified following comment:'] = 'Овај аутор је м�
 $lang['This author removed the comment with id %d'] = 'Овај аутор је уклонио коментар са идентификацијом %d';
 $lang['delete this comment'] = 'обриши овај коментар';
 $lang['validate this comment'] = 'овери овај коментар';
+$lang['html tags are not allowed in login'] = 'html ознаке нису дозвољене овде';
 ?>
