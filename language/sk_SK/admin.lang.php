@@ -781,5 +781,10 @@ $lang['All languages are up to date.'] = 'Všetky jazyky sú aktuálne.';
 $lang['Visit theme site'] = 'Navštívte stránku tém'; 
 $lang['Visit language site'] = 'Navštívte stránku jazykov'; 
 $lang['New Version'] = 'Nová verzia';
+$lang['Obsolete Plugins'] = 'Zastaralé doplnky';
+$lang['WARNING! This plugin does not seem to be compatible with this version of Piwigo.'] = 'UPOZORNENIE! Tento doplnok nemusí byť kompatibilný s touto verziou Piwigo.';
+$lang['Do you want to activate anyway?'] = 'Chtete ho aj tak aktivovať?';
+$lang['THIS PLUGIN IS NOW PART OF PIWIGO CORE! DELETE IT NOW.'] = 'TENTO DOPLNOK JE TERAZ SÚČASŤOU JADRA PIWIGO! ODINŠTALUJTE HO TERAZ!';
+$lang['ERROR: THIS PLUGIN IS MISSING BUT IT IS INSTALLED! UNINSTALL IT NOW.'] = 'CHYBA: TENTO DOPLNOK CHÝBA ALE JE NAINŠTALOVANÝ! ODINŠTALUJTE HO TERAZ.';
 
 ?>
