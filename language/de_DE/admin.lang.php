@@ -780,4 +780,5 @@ $lang['All languages are up to date.'] = 'Alle Sprachen sind auf dem neuesten St
 $lang['Visit theme site'] = 'Die Themenseite besuchen';
 $lang['Visit language site'] = 'Die Sprachenseite besuchen';
 $lang['New Version'] = 'Neue Version';
+$lang['display'] = 'Zeige';
 ?>

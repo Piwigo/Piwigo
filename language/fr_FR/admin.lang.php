@@ -793,4 +793,5 @@ $lang['WARNING! This plugin does not seem to be compatible with this version of 
 $lang['Do you want to activate anyway?'] = 'Voulez-vous l\'activer quand même?';
 $lang['THIS PLUGIN IS NOW PART OF PIWIGO CORE! DELETE IT NOW.'] = 'CE PLUGIN FAIT DÉSORMAIS PARTIE DU CORE DE PIWIGO! SUPPRIMEZ-LE.';
 $lang['ERROR: THIS PLUGIN IS MISSING BUT IT IS INSTALLED! UNINSTALL IT NOW.'] = 'ERREUR: CE PLUGIN EST MANQUANT MAIS TOUJOURS INSTALLÉ! DÉSINSTALLEZ-LE.';
+$lang['display'] = 'Affichage';
 ?>
