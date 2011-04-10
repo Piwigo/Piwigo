@@ -779,5 +779,10 @@ $lang['All languages are up to date.'] = 'Wszystkie języki są aktualne.';
 $lang['Visit theme site'] = 'Odwiedź stronę temetu';
 $lang['Visit language site'] = 'Odwiedź stronę języka';
 $lang['New Version'] = 'Nowa wersja';
+$lang['Obsolete Plugins'] = 'Przestałe wtyczki';
+$lang['WARNING! This plugin does not seem to be compatible with this version of Piwigo.'] = 'UWAGA! Ta wtyczka wydaje się nie być kompatybilna z tą wersją Piwigo.';
+$lang['Do you want to activate anyway?'] = 'Czy jednak chcesz aktywować?';
+$lang['THIS PLUGIN IS NOW PART OF PIWIGO CORE! DELETE IT NOW.'] = 'TA WTYCZKA JEST TERAZ CZĘŚCIĄ PODSTAWOWEJ WERSJI PIWIGO! ODINSTALUJ JĄ TERAZ!';
+$lang['ERROR: THIS PLUGIN IS MISSING BUT IT IS INSTALLED! UNINSTALL IT NOW.'] = 'BŁĄD: BRAK WTYCZKI CHOĆ JEST ZAINSTALOWANA! ODINSTALUJ JĄ TERAZ.';
 
 ?>
