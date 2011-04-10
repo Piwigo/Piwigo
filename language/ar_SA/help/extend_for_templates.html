@@ -1,0 +1,92 @@
+<h2>توسع في اعدادت النماذج</h2>
+
+<h3>الهدف</h3>
+<p>تحديد الشروط البديلة لكل نموذج من ملحق - النماذج (النموذج يسمى "البدل").</p>
+
+<p>سيتم استبدال "./themes/default/template النموذج الأصلي" من (أو أي ثيم آخر) من قبل "البدل" إذا تم ربط البدل لهذا " النموذج الأصلي"(وبشكل اختياري ، عندما عنوان المطلوب يحتوي على
+"الكلمة اختياري عنوان الموقع").</p>
+
+<p>"كلمات عنوان الموقع الاختياري " هي تلك التي يمكنك أن تجد بعد اسم الوحدة النمطية في عناوين المواقع.</p>
+
+<p>ولذلك "كلمات عنوان الموقع الاختياري " يمكن أن تكون نشطة "الرابط الثابت"
+(انظر الرابط الدائم في الوثائق الخاصة بنا لمزيد من التوضيح).</p>
+
+<p>اقرأ: `<a href="#warnings">Warning</a>`شروط الاستخدام.</p>
+
+<h3>ماهي ملحقات النماذج؟</h3>
+
+<p>هذا التكوين هو أداة قوية للمبتدئين والمستخدمين المتقدمين. بواسطة بروتوكول نقل الملفات ، في المجلد template-extension ، لا يمكن لل مسؤول الموقع تكرار الكثير من الملفات. امتداد .tpl (" النموذج الأصلي") مع اسم مختلف ("البدل"). " النماذج الأصلية "، الحالية المدعومة هي </p>
+<ul>
+<li><span class="filename">index.tpl</span></li>
+<li><span class="filename">mainpage_categories.tpl</span> and/or <span
+class="filename">thumbnails.tpl</span></li>
+<li><span class="filename">menubar.tpl</span></li>
+<li><span class="filename">header.tpl</span> and/or <span
+class="filename">footer.tpl</span></li>
+<li><span class="filename">picture_content.tpl</span> and/or <span
+class="filename">picture.tpl</span></li>
+<!-- <li><span class="filename">slideshow.tpl</span></li> -->
+<li><span class="filename">profile.tpl</span> and/or <span
+class="filename">profile_content.tpl</span></li>
+<li><span class="filename">tags.tpl</span></li>
+<li><span class="filename">upload.tpl</span></li>
+<li><span class="filename">about.tpl</span></li>
+<li><span class="filename">popuphelp.tpl</span></li>
+<li><span class="filename">search.tpl</span> and/or <span
+class="filename">search_rules.tpl</span></li>
+<li><span class="filename">nbm.tpl</span> and/or <span
+class="filename">notification.tpl</span></li>
+<li><span class="filename">identification.tpl</span> and/or <span
+class="filename">register.tpl</span></li>
+<li><span class="filename">redirect.tpl</span></li>
+</ul>
+
+<h3>اين اجد النماذج الاصلية؟</h3>
+
+<p>النماذج الاصلية موزعة في /themes/default/template/
+(لا تعدل عليهم للاستخدام في عملية الترقية). ف مع النماذج الاصلية
+اي مسؤول موقع يستطيع انشاء اي بديل ويجهزه حسب ما يريد.</p>
+
+<h3>اين يجب ان احفظ البدائل</h3>
+
+<p><strong>البدائل(النماذج المشكلة)</strong> يجب ان توضع في اي فولدر او فولدر فرعي <span
+class="filename">template-extension/my-extension/video.tpl</span>.</p>
+
+
+<h3>كيف افعل النموذج البديل؟</h3>
+<p>اي <strong>نموذج اصلي</strong> يجب ان يكون موصول لكل
+<strong>بديل(نموذج مشكل)</strong> لتفعيل كل ابدائل ذات العلاقة
+وهذا هو الهدف من "توسيع لل نماذج" في تكوين
+قوائم الإدارة .</p>
+
+<p>اذا اخترت  <strong>كلمات الروابط الاختيارية</strong> وسوف يتم استبدال ثم تعمل فقط على صفحات مع هذه الكلمة الرئيسية. على سبيل المثال : <span
+   class="pwgScreen">index.php?/<strong>most_visited</strong></span></p>
+
+<p>المستخدمون المتقدمون سو يستخدمون الرابط الدائم ك <strong>كلمة الروابط الاختيارية</strong>. </p>
+
+<p>اذا اخترت <strong>نموذج محاط</strong> لاستبدال سوف تعمل فقط على هذا القالب.</p>
+
+<h3>كيف يمكن ان الغي"البدائل"؟</h3>
+<ul>
+<li>الغ اختيار "القالب الاصلي"</li>
+<li>بواسط بروتوكول FTP احذف "البدل"</li>
+</ul>
+<a name="warnings"></a>
+<h3>تحذيرات</h3>
+<ul>
+
+<li><strong>القالب الاصلي</strong> يجب أن يكون نموذج "الأصلي" يمكن أن يكون خلاف ذلك نتائج غير متوقعة!</li>
+
+<li>في العديد <strong>البدائل(القوالب المشكلة)</strong> التي هي تملك نفس<strong>القالب الاصلي</strong> ونفس<strong>الكلمات الاختيارية للرابط</strong>فقط البدل الاخير سوف يفعل</li>
+
+<li>الغير مختارة من  <strong>الكلمات الاختيارية للرابط</strong> سوف ينشط البديل عند أي استخدام للقالب. كما النقطة السابقة، الترتيب يمكن تجاوز بدائل مختارة سابقا.</li>
+
+<li>المجلدات الفرعية :
+يتم تجاهل المجلدات الفرعية كنها مفيدة لتغيير المجلد الحالي.<br>
+توزيع العينات : ويتم ذلك لغرض الاختبار!
+<strong>لا تقم بتعديلها</strong> قم بانشاء خاصتك
+</li>
+
+<li>في حالة حذف البديل <strong>القالب الاصلي</strong>مباشرة سوف يعاد تفعيلها</li>
+
+</ul>
