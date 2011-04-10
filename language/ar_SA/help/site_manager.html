@@ -1,0 +1,46 @@
+<h2>Remote sites</h2>
+
+<p>Piwigo offers the possibility to use several servers to store the
+photos which will compose your gallery. It can be useful if your gallery is
+installed on a limited space and you have a huge quantity of images to
+show.</p>
+
+<ol>
+
+  <li>edit file <span class="filename">tools/create_listing_file_local.inc.php</span>,
+  by modifying parameters section such as
+  <code>$conf['prefix_thumbnail']</code> or
+  <code>$conf['use_exif']</code>.</li>
+
+  <li>using ftp, place the files <span class="filename">tools/create_listing_file.php</span> 
+  and <span class="filename">tools/create_listing_file_local.inc.php</span> (modified)
+  on your distant website, in the same directory as your album
+  directories (as the directory <span class="filename">galleries</span> of
+  this website). For example, let's say that you can access <span
+  class="filename">http://example.com/galleries/create_listing_file.php</span>.</li>
+
+  <li>go to <span class="pwgScreen">administration panel &raquo; Tools &raquo; Site
+  manager</span>. Ask to create a new site, for example <span
+  class="filename">http://example.com/galleries</span>.</li>
+
+  <li>a new remote site is registered. You can perform 4 actions :
+
+    <ol>
+
+      <li><strong>generate listing</strong> : launches a distant request to
+      generate a distant file listing</li>
+
+      <li><strong>synchronize</strong> : reads the distant <span
+      class="filename">listing.xml</span> file and synchronizes with
+      database information</li>
+
+      <li><strong>clean</strong> : removes distant <span
+      class="filename">listing.xml</span> file</li>
+
+      <li><strong>delete</strong> : deletes the site (and all related
+      albums and photos) in the database</li>
+
+    </ol>
+  </li>
+</ol>
+
