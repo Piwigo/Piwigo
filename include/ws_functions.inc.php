@@ -2658,4 +2658,76 @@ function ws_themes_performAction($params, &$service)
     return true;
   }
 }
+
+function ws_images_resize($params, &$service)
+{
+  global $conf;
+
+  if (!is_admin())
+  {
+    return new PwgError(401, 'Access denied');
+  }
+
+  if (!in_array($params['type'], array('thumbnail', 'websize')))
+  {
+    return new PwgError(403, 'Unknown type (only "thumbnail" or "websize" are accepted');
+  }
+
+  $resize_params = array('maxwidth', 'maxheight', 'quality');
+  $type = $params['type'] == 'thumbnail' ? 'thumb' : 'websize';
+  foreach ($resize_params as $param)
+  {
+    if (empty($params[$param]))
+      $params[$param] = $conf['upload_form_'.$type.'_'.$param];
+  }
+
+  $query='
+SELECT id, path, tn_ext, has_high
+FROM '.IMAGES_TABLE.'
+WHERE id = '.(int)$params['image_id'].'
+;';
+  $image = pwg_db_fetch_assoc(pwg_query($query));
+
+  if ($image == null)
+  {
+    return new PwgError(403, "image_id not found");
+  }
+
+  include_once(PHPWG_ROOT_PATH.'admin/include/functions_upload.inc.php');
+
+  if (!is_valid_image_extension(get_extension($image['path'])))
+  {
+    return new PwgError(403, "image can't be resized");
+  }
+
+  if ($params['type'] == 'thumbnail' and !empty($image['tn_ext']))
+  {
+    trigger_event(
+      'upload_thumbnail_resize',
+      false,
+      $image['path'],
+      get_thumbnail_path($image),
+      $params['maxwidth'],
+      $params['maxheight'],
+      $params['quality'],
+      true
+    );
+    return true;
+  }
+  elseif (!empty($image['has_high']))
+  {
+    trigger_event(
+      'upload_image_resize',
+      false,
+      file_path_for_type($image['path'], 'high'),
+      $image['path'],
+      $params['maxwidth'],
+      $params['maxheight'],
+      $params['quality'],
+      false
+      );
+    return true;
+  }
+  return false;
+}
 ?>

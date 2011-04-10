@@ -403,6 +403,21 @@ function ws_addDefaultMethods( $arr )
       ),
     'activate/deactivate/delete/set_default a theme<br>administration status required'
     );
+
+  $service->addMethod(
+    'pwg.images.resize',
+    'ws_images_resize',
+    array(
+      'image_id' => array(),
+      'type' => array('default' => 'thumbnail'),
+      'maxwidth' => array('default' => null),
+      'maxheight' => array('default' => null),
+      'quality' => array('default' => null),
+    ),
+    'Regenerate thumbnails or websize photo with given arguments.
+<br>Argument "type" can be "thumbnail" or "websize". Default is "thumbnail".
+<br>If maxwidth, maxheight or quality are missing, default parameters of upload will be used.'
+);
 }
 
 add_event_handler('ws_add_methods', 'ws_addDefaultMethods');
