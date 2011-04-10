@@ -361,4 +361,5 @@ $lang['This author removed the comment with id %d'] = 'Ten autor usunął koment
 $lang['validate this comment'] = 'potwierdź ten komentarz';
 $lang['Album'] = 'Album';
 $lang['Album: %s'] = 'Albumy: %s';
+$lang['html tags are not allowed in login'] = 'znaczniki html nie są dozwolone w polu login';
 ?>

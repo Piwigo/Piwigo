@@ -784,5 +784,5 @@ $lang['WARNING! This plugin does not seem to be compatible with this version of 
 $lang['Do you want to activate anyway?'] = 'Czy jednak chcesz aktywować?';
 $lang['THIS PLUGIN IS NOW PART OF PIWIGO CORE! DELETE IT NOW.'] = 'TA WTYCZKA JEST TERAZ CZĘŚCIĄ PODSTAWOWEJ WERSJI PIWIGO! ODINSTALUJ JĄ TERAZ!';
 $lang['ERROR: THIS PLUGIN IS MISSING BUT IT IS INSTALLED! UNINSTALL IT NOW.'] = 'BŁĄD: BRAK WTYCZKI CHOĆ JEST ZAINSTALOWANA! ODINSTALUJ JĄ TERAZ.';
-
+$lang['display'] = 'wyświetlanie';
 ?>
