@@ -234,7 +234,7 @@ $lang['Prepared time for list of users to send mail is limited. Others users are
 $lang['Time to send mail is limited. Others mails are skipped.'] = 'O tempo para enviar email é limitado. Outros emails serão desconsiderados.';
 $lang['To send ?'] = 'Enviar ?';
 $lang['Last send'] = 'Enviado pela última vez';
-$lang['email'] = 'Email';
+$lang['email'] = 'E-mail';
 $lang['User'] = 'Utilizador';
 $lang['Complementary mail content'] = 'Conteúdo complementar da correspondência';
 $lang['See you soon,'] = 'Até breve,';
@@ -783,5 +783,4 @@ $lang['THIS PLUGIN IS NOW PART OF PIWIGO CORE! DELETE IT NOW.'] = 'ESTA EXTENSÃ
 $lang['ERROR: THIS PLUGIN IS MISSING BUT IT IS INSTALLED! UNINSTALL IT NOW.'] = 'ERRO: ESTA EXTENSÃO NÃO EXISTE MAS ESTÁ INSTALADA! DESINSTALE-A AGORA.';
 $lang['Simulation'] = 'Simulação';
 $lang['display'] = 'Mostrar';
-$lang['email'] = 'Email';
 ?>

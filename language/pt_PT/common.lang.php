@@ -177,8 +177,8 @@ $lang['day'][6] = 'Sábado';
 $lang['Default'] = 'Padrão';
 $lang['delete this photo from your favorites'] = 'Remover esta imagem dos favoritos';
 $lang['Delete'] = 'Apagar';
-$lang['descending'] = 'decrescente';
-$lang['download'] = 'download';
+$lang['descending'] = 'Decrescente';
+$lang['download'] = 'Transferir';
 $lang['download this file'] = 'fazer download deste ficheiro';
 $lang['edit'] = 'editar';
 $lang['wrong date'] = 'data errada';
@@ -359,5 +359,4 @@ $lang['This author modified following comment:'] = 'Este autor modificou o segui
 $lang['This author removed the comment with id %d'] = 'Este autor removeu o comentário com o ID %d';
 $lang['validate this comment'] = 'validar este comentário';
 $lang['html tags are not allowed in login'] = 'Etiquetas HTML n&atilde;o s&atilde;o permitidas no In&iacute;cio de Sess&atilde;o';
-$lang['download'] = 'Download';
 ?>
