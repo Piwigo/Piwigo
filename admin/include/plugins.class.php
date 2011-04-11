@@ -78,14 +78,8 @@ class plugins
     switch ($action)
     {
       case 'install':
-        if (!empty($crt_db_plugin))
+        if (!empty($crt_db_plugin) or !isset($this->fs_plugins[$plugin_id]))
         {
-          array_push($errors, 'CANNOT INSTALL - ALREADY INSTALLED');
-          break;
-        }
-        if (!isset($this->fs_plugins[$plugin_id]))
-        {
-          array_push($errors, 'CANNOT INSTALL - NO SUCH PLUGIN');
           break;
         }
         if (file_exists($file_to_include))
@@ -109,15 +103,13 @@ INSERT INTO ' . PLUGINS_TABLE . ' (id,version) VALUES (\''
       case 'activate':
         if (!isset($crt_db_plugin))
         {
-          array_push($errors, 'CANNOT ACTIVATE - NOT INSTALLED');
-          break;
+          $errors = $this->perform_action('install', $plugin_id);
         }
-        if ($crt_db_plugin['state'] != 'inactive')
+        elseif ($crt_db_plugin['state'] == 'active')
         {
-          array_push($errors, 'invalid current state ' . $crt_db_plugin['state']);
           break;
         }
-        if (file_exists($file_to_include))
+        if (empty($errors) and file_exists($file_to_include))
         {
           include_once($file_to_include);
           if (function_exists('plugin_activate'))
@@ -136,13 +128,9 @@ WHERE id=\'' . $plugin_id . '\'';
         break;
 
       case 'deactivate':
-        if (!isset($crt_db_plugin))
+        if (!isset($crt_db_plugin) or $crt_db_plugin['state'] != 'active')
         {
-          die ('CANNOT DEACTIVATE - NOT INSTALLED');
-        }
-        if ($crt_db_plugin['state'] != 'active')
-        {
-          die('invalid current state ' . $crt_db_plugin['state']);
+          break;
         }
         $query = '
 UPDATE ' . PLUGINS_TABLE . ' SET state=\'inactive\' WHERE id=\'' . $plugin_id . '\'';
@@ -160,7 +148,11 @@ UPDATE ' . PLUGINS_TABLE . ' SET state=\'inactive\' WHERE id=\'' . $plugin_id . 
       case 'uninstall':
         if (!isset($crt_db_plugin))
         {
-          die ('CANNOT UNINSTALL - NOT INSTALLED');
+          break;
+        }
+        if ($crt_db_plugin['state'] == 'active')
+        {
+          $this->perform_action('deactivate', $plugin_id);
         }
         $query = '
 DELETE FROM ' . PLUGINS_TABLE . ' WHERE id=\'' . $plugin_id . '\'';
@@ -175,15 +167,19 @@ DELETE FROM ' . PLUGINS_TABLE . ' WHERE id=\'' . $plugin_id . '\'';
         }
         break;
 
+      case 'restore':
+        $this->perform_action('uninstall', $plugin_id);
+        unset($this->db_plugins_by_id[$plugin_id]);
+        $errors = $this->perform_action('activate', $plugin_id);
+        break;
+
       case 'delete':
         if (!empty($crt_db_plugin))
         {
-          array_push($errors, 'CANNOT DELETE - PLUGIN IS INSTALLED');
-          break;
+          $this->perform_action('uninstall', $plugin_id);
         }
         if (!isset($this->fs_plugins[$plugin_id]))
         {
-          array_push($errors, 'CANNOT DELETE - NO SUCH PLUGIN');
           break;
         }
         if (!$this->deltree(PHPWG_PLUGINS_PATH . $plugin_id))

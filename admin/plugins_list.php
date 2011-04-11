@@ -97,16 +97,12 @@ foreach($plugins->fs_plugins as $plugin_id => $fs_plugin)
   }
   else
   {
-    $tpl_plugin['STATE'] = 'uninstalled';
+    $tpl_plugin['STATE'] = 'inactive';
   }
 
   if (isset($fs_plugin['extension']) and in_array($fs_plugin['extension'], $_SESSION['merged_extensions']))
   {
-    switch($tpl_plugin['STATE'])
-    {
-      case 'active': $plugins->perform_action('deactivate', $plugin_id);
-      case 'inactive': $plugins->perform_action('uninstall', $plugin_id);
-    }
+    $plugins->perform_action('uninstall', $plugin_id);
     $tpl_plugin['STATE'] = 'merged';
     $tpl_plugin['DESC'] = l10n('THIS PLUGIN IS NOW PART OF PIWIGO CORE! DELETE IT NOW.');
     $merged_plugins = true;
@@ -117,7 +113,6 @@ foreach($plugins->fs_plugins as $plugin_id => $fs_plugin)
 
 $template->append('plugin_states', 'active');
 $template->append('plugin_states', 'inactive');
-$template->append('plugin_states', 'uninstalled');
 
 if ($merged_plugins)
 {
