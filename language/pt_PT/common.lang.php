@@ -359,5 +359,5 @@ $lang['This author modified following comment:'] = 'Este autor modificou o segui
 $lang['This author removed the comment with id %d'] = 'Este autor removeu o comentário com o ID %d';
 $lang['validate this comment'] = 'validar este comentário';
 $lang['html tags are not allowed in login'] = 'Etiquetas HTML n&atilde;o s&atilde;o permitidas no In&iacute;cio de Sess&atilde;o';
-
+$lang['download'] = 'Download';
 ?>
