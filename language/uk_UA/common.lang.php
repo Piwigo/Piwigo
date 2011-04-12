@@ -358,5 +358,6 @@ $lang['Bad status for user "guest", using default status. Please notify the webm
 $lang['Administrator, webmaster and special user cannot use this method'] = "Адміністратор, вебмайстер та спеціальний користувач не можуть використовувати цей метод";
 $lang['N/A'] = 'невідомий';
 $lang['IP: %s'] = "IP: %s";
+$lang['html tags are not allowed in login'] = 'логін не повинен містити html тегів';
 
 ?>
