@@ -41,8 +41,6 @@ Atjaunošana nebus iespejama lidz nakamai saglabašanai.';
 $lang['locfiledit_bak_loaded1'] = 'Rezerves kopija ieladeta.';
 $lang['locfiledit_bak_loaded2'] = 'Jums jasaglaba fails lai to atjaunotu.';
 $lang['locfiledit_syntax_error'] = 'Sintakses kluda! Failu nav iespejams saglabat.';
-$lang['locfiledit_enable_editarea'] = 'Iespejot Redigešanas apgabalu';
-$lang['locfiledit_disable_editarea'] = 'Atspejot Redigešanas apgabalu';
 $lang['locfiledit_new_tpl'] = 'Izveidot jaunu failu';
 $lang['locfiledit_new_filename'] = 'Faila nosaukums';
 $lang['locfiledit_model'] = 'Modelis';
@@ -54,4 +52,6 @@ $lang['locfiledit_model_error'] = 'Jums jaizvelas modelis.';
 $lang['locfiledit_empty_filename'] = 'Jums jaieraksta faila nosaukums.';
 $lang['locfiledit_webmaster_only'] = 'Tikai webmasters var izveidot un modificet lokalos failus.';
 
+/*TODO*/$lang['locfiledit_enable_codemirror'] = 'Enable Codemirror';
+/*TODO*/$lang['locfiledit_disable_codemirror'] = 'Disable Codemirror';
 ?>

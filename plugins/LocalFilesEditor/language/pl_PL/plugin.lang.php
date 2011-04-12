@@ -41,8 +41,6 @@ Przywrócenie nie przyniesie efektu do następnego zapisu.';
 $lang['locfiledit_bak_loaded1'] = 'Plik kopii zapasowej wczytany.';
 $lang['locfiledit_bak_loaded2'] = 'Musisz zapisać plik aby go przywrócić.';
 $lang['locfiledit_syntax_error'] = 'Błąd skłądni! Plik nie może zostać zapisany.';
-$lang['locfiledit_enable_editarea'] = 'Włącz Pole Edycyjne';
-$lang['locfiledit_disable_editarea'] = 'Wyłącz Pole Edycyjne';
 $lang['locfiledit_new_tpl'] = 'Stwórz nowy plik';
 $lang['locfiledit_new_filename'] = 'Nazwa pliku';
 $lang['locfiledit_model'] = 'Model';
@@ -54,4 +52,6 @@ $lang['locfiledit_model_error'] = 'Musisz wybrać model.';
 $lang['locfiledit_empty_filename'] = 'Musisz wpisać nazwę pliku.';
 /* TODO */ $lang['locfiledit_webmaster_only'] = 'Only webmasters can create or modify local files.';
 
+/*TODO*/$lang['locfiledit_enable_codemirror'] = 'Enable Codemirror';
+/*TODO*/$lang['locfiledit_disable_codemirror'] = 'Disable Codemirror';
 ?>

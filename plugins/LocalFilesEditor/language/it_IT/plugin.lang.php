@@ -41,8 +41,6 @@ Dovrete in seguito cliccare sù Salvare per restaurarlo.';
 $lang['locfiledit_bak_loaded1'] = 'Copia di backup caricata';
 $lang['locfiledit_bak_loaded2'] = 'Dovete registrarlo per salvarlo.';
 $lang['locfiledit_syntax_error'] = 'Errore di sintassi! Impossible salvare il file.';
-$lang['locfiledit_enable_editarea'] = 'Attivare Editarea';
-$lang['locfiledit_disable_editarea'] = 'Disattivare Editarea';
 $lang['locfiledit_new_tpl'] = 'Creare un nuovo file';
 $lang['locfiledit_new_filename'] = 'Nom file';
 $lang['locfiledit_model'] = 'Modello';
@@ -54,4 +52,6 @@ $lang['locfiledit_model_error'] = 'Selezionare un modello.';
 $lang['locfiledit_empty_filename'] = 'Indicate un nome di file.';
 $lang['locfiledit_webmaster_only'] = 'Solo i webmasters sono autorizzati a creare o modificare i file locali.';
 
+/*TODO*/$lang['locfiledit_enable_codemirror'] = 'Enable Codemirror';
+/*TODO*/$lang['locfiledit_disable_codemirror'] = 'Disable Codemirror';
 ?>

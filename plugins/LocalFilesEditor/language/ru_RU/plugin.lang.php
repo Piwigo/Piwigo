@@ -40,8 +40,6 @@ $lang['locfiledit_restore_confirm'] = 'Пожалуйста, подтверди�
 $lang['locfiledit_bak_loaded1'] = 'Резервный файл загружен.';
 $lang['locfiledit_bak_loaded2'] = 'Вы должны сохранить файл, чтобы восстановить его.';
 $lang['locfiledit_syntax_error'] = 'Синтаксическая ошибка! Невозможно сохранить файл.';
-$lang['locfiledit_enable_editarea'] = 'Активировать разметку области редактирования';
-$lang['locfiledit_disable_editarea'] = 'Дезактивировать разметку области редактирования';
 $lang['locfiledit_new_tpl'] = 'Создать новый файл';
 $lang['locfiledit_new_filename'] = 'Имя файла';
 $lang['locfiledit_model'] = 'Модель';
@@ -53,4 +51,6 @@ $lang['locfiledit_model_error'] = 'Выберите модель.';
 $lang['locfiledit_empty_filename'] = 'Заполните поле "Имя файла".';
 $lang['locfiledit_webmaster_only'] = 'Только вэбмастеры могут создавать или редактировать локальные файлы.';
 
+/*TODO*/$lang['locfiledit_enable_codemirror'] = 'Enable Codemirror';
+/*TODO*/$lang['locfiledit_disable_codemirror'] = 'Disable Codemirror';
 ?>

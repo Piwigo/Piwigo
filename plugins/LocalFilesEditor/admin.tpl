@@ -1,28 +1,37 @@
-{html_head}<script type="text/javascript" src="{$ROOT_URL}plugins/LocalFilesEditor/editarea/edit_area_full.js"></script>{/html_head}
+{combine_script id="codemirror" path="plugins/LocalFilesEditor/codemirror/lib/codemirror.js"}
+{combine_script id="codemirror.xml" require="codemirror" path="plugins/LocalFilesEditor/codemirror/mode/xml/xml.js"}
+{combine_script id="codemirror.javascript" require="codemirror" path="plugins/LocalFilesEditor/codemirror/mode/javascript/javascript.js"}
+{combine_script id="codemirror.css" require="codemirror" path="plugins/LocalFilesEditor/codemirror/mode/css/css.js"}
+{combine_script id="codemirror.clike" require="codemirror" path="plugins/LocalFilesEditor/codemirror/mode/clike/clike.js"}
+{combine_script id="codemirror.htmlmixed" require="codemirror.xml,codemirror.javascript,codemirror.css" path="plugins/LocalFilesEditor/codemirror/mode/htmlmixed/htmlmixed.js"}
+{combine_script id="codemirror.php" require="codemirror.xml,codemirror.javascript,codemirror.css,codemirror.clike" path="plugins/LocalFilesEditor/codemirror/mode/php/php.js"}
+
+{combine_css path="plugins/LocalFilesEditor/codemirror/lib/codemirror.css"}
+{combine_css path="plugins/LocalFilesEditor/codemirror/mode/xml/xml.css"}
+{combine_css path="plugins/LocalFilesEditor/codemirror/mode/javascript/javascript.css"}
+{combine_css path="plugins/LocalFilesEditor/codemirror/mode/css/css.css"}
+{combine_css path="plugins/LocalFilesEditor/codemirror/mode/clike/clike.css"}
 {combine_css path="plugins/LocalFilesEditor/locfiledit.css"}
+
 {footer_script}
-function loadEditarea() {ldelim} 
-  editAreaLoader.init({ldelim}
-    id: "text"
-    {foreach from=$EDITAREA_OPTIONS key=option item=value}
-    , {$option}: {$value|editarea_quote}
-    {/foreach}
+function loadCodemirror() {ldelim}
+  editor = CodeMirror.fromTextArea(document.getElementById("text"), {ldelim}
+    matchBrackets: true,
+    mode: "{$CODEMIRROR_MODE}",
+    tabMode: "shift"
   });
-  jQuery("#showedit").hide();
-  jQuery("#hideedit").show();
+  jQuery("#showedit, #hideedit").toggle();
   jQuery.post("plugins/LocalFilesEditor/update_config.php", {ldelim} editarea: "on"});
 }
 
-function unloadEditarea() {ldelim} 
-  editAreaLoader.delete_instance("text");
-  jQuery("#hideedit").hide();
-  jQuery("#showedit").show();
+function unloadCodemirror() {ldelim} 
+  editor.toTextArea();
+  jQuery("#showedit, #hideedit").toggle();
   jQuery.post("plugins/LocalFilesEditor/update_config.php", {ldelim} editarea: "off"});
 }
 
-jQuery("#editarea_buttons").show();
-{if $LOAD_EDITAREA == 'on'}
-if (document.getElementById("text") != null) loadEditarea();
+{if $LOAD_CODEMIRROR == 'on'}
+if (document.getElementById("text") != null) loadCodemirror();
 {/if}
 {/footer_script}
 
@@ -66,10 +75,11 @@ if (document.getElementById("text") != null) loadEditarea();
   {/if}
 {/if}
 
+<div style="overflow:auto;"> {* top bar buttons *}
 {if !empty($show_default)}
 {foreach from=$show_default item=file name=default_loop}
 <span class="top_right">
-<a href="{$file.SHOW_DEFAULT}" onclick="window.open( this.href, 'local_file', 'location=no,toolbar=no,menubar=no,status=no,resizable=yes,scrollbars=yes,width=800,height=600' ); return false;">{'locfiledit_show_default'|@translate} "{$file.FILE}"</a>
+<a href="{$file.SHOW_DEFAULT}" onclick="window.open( this.href, 'local_file', 'location=no,toolbar=no,menubar=no,status=no,resizable=yes,scrollbars=yes,width=800,height=700' ); return false;">{'locfiledit_show_default'|@translate} "{$file.FILE}"</a>
 </span>
 {if !($smarty.foreach.default_loop.last)}<br>{/if}
 {/foreach}
@@ -78,10 +88,12 @@ if (document.getElementById("text") != null) loadEditarea();
 {if isset ($zone_edit)}
 <b>{$zone_edit.FILE_NAME}</b>
 
+</div> {* top bar buttons *}
+
 <textarea rows="30" cols="90" name="text" id="text">{$zone_edit.CONTENT_FILE}</textarea>
 <div id="editarea_buttons">
-<a href="javascript:loadEditarea();" id="showedit">[{'locfiledit_enable_editarea'|@translate}]</a>
-<a href="javascript:unloadEditarea();" id="hideedit">[{'locfiledit_disable_editarea'|@translate}]</a>
+<a href="javascript:loadCodemirror();" id="showedit">[{'locfiledit_enable_codemirror'|@translate}]</a>
+<a href="javascript:unloadCodemirror();" id="hideedit">[{'locfiledit_disable_codemirror'|@translate}]</a>
 </div>
 
 <br>

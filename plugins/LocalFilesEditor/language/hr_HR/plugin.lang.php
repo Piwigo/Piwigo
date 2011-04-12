@@ -19,10 +19,7 @@
 // | along with this program; if not, write to the Free Software           |
 // | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
 // | USA.                                                                  |
-// +-----------------------------------------------------------------------+
-
-
-$lang['locfiledit_onglet_localconf'] = 'Lokalno podešavanje';
+// +-----------------------------------------------------------------------+$lang['locfiledit_onglet_localconf'] = 'Lokalno podešavanje';
 $lang['locfiledit_onglet_css'] = 'CSS';
 $lang['locfiledit_onglet_tpl'] = 'Predlošci';
 $lang['locfiledit_onglet_lang'] = 'Jezici';
@@ -42,8 +39,6 @@ Vracanje kopije nece biti prihvaceno do sljedeceg spremanja.';
 $lang['locfiledit_bak_loaded1'] = 'Sigurnosna kopija datoteke ucitana.';
 $lang['locfiledit_bak_loaded2'] = 'Morate snimiti datoteku kako bi je vratili u prijašnje stanje.';
 $lang['locfiledit_syntax_error'] = 'Greška u sintaksi! Datoteka ne može biti spremljena.';
-$lang['locfiledit_enable_editarea'] = 'Aktiviraj prostor za uredivanje';
-$lang['locfiledit_disable_editarea'] = 'Deaktiviraj prostor za uredivanje';
 $lang['locfiledit_new_tpl'] = 'Kreiraj novu datoteku';
 $lang['locfiledit_new_filename'] = 'Naziv datoteke';
 $lang['locfiledit_model'] = 'Model';
@@ -55,4 +50,6 @@ $lang['locfiledit_model_error'] = 'Morate odabrati model.';
 $lang['locfiledit_empty_filename'] = 'Morate popuniti naziv datoteke.';
 $lang['locfiledit_webmaster_only'] = 'Samo webmasteri mogu kreirati ili mijenjati lokalne datoteke.';
 
+/*TODO*/$lang['locfiledit_enable_codemirror'] = 'Enable Codemirror';
+/*TODO*/$lang['locfiledit_disable_codemirror'] = 'Disable Codemirror';
 ?>

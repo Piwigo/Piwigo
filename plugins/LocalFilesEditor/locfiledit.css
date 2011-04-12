@@ -14,7 +14,8 @@
 
 #LocalFilesEditor TEXTAREA {
   margin: 0.5em 0;
-  width: 99.5%;
+  width: 99%;
+  height: 500px;
   float: left;
 }
 
@@ -22,7 +23,6 @@
   width: 100%;
   float: left;
   text-align: left;
-  display: none;
 }
 
 #LocalFilesEditor #hideedit {
@@ -31,4 +31,14 @@
 
 #LocalFilesEditor TD {
   padding: 0.5em;
+}
+
+.CodeMirror {
+  background-color: #DDDDDD;
+  font-size: 1.3em;
+  border: 1px solid #999999;
+  margin: 0.5em 0;
+  width: 99%;
+  min-height: 500px;
+  height: auto;
 }

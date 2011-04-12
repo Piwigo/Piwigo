@@ -41,8 +41,6 @@ Restore wordt pas effectief bij de volgende keer opslaan.';
 $lang['locfiledit_bak_loaded1'] = 'Backup-bestand geladen.';
 $lang['locfiledit_bak_loaded2'] = 'U moet het bestand opslaan om te kunnen restoren.';
 $lang['locfiledit_syntax_error'] = 'Syntax-fout! Bestand kan niet opgeslagen worden.';
-$lang['locfiledit_enable_editarea'] = 'Maak Edit-gebied atief';
-$lang['locfiledit_disable_editarea'] = 'Deactiveer Edit-gebied';
 $lang['locfiledit_new_tpl'] = 'Maak nieuw bestand aan';
 $lang['locfiledit_new_filename'] = 'Bestandsnaam';
 $lang['locfiledit_model'] = 'Model';
@@ -54,4 +52,6 @@ $lang['locfiledit_model_error'] = 'U moet een model kiezen.';
 $lang['locfiledit_empty_filename'] = 'U moet een bestandsnaam opgeven.';
 $lang['locfiledit_webmaster_only'] = 'Alleen webbeheerders kunnen lokale bestanden aanmaken of wijzigen.';
 
+/*TODO*/$lang['locfiledit_enable_codemirror'] = 'Enable Codemirror';
+/*TODO*/$lang['locfiledit_disable_codemirror'] = 'Disable Codemirror';
 ?>

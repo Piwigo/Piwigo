@@ -40,8 +40,6 @@ $lang['locfiledit_restore_confirm'] = 'Vui lòng xác nhận? Việc phục hồ
 $lang['locfiledit_bak_loaded1'] = 'Tệp tin backup đã được nạp.';
 $lang['locfiledit_bak_loaded2'] = 'Bạn phải lưu lại tệp tin để phục hồi nó.';
 $lang['locfiledit_syntax_error'] = 'Lỗi cú pháp! Tệp tin không thể được lưu.';
-$lang['locfiledit_enable_editarea'] = 'Kích hoạt vùng nhập dữ liệu';
-$lang['locfiledit_disable_editarea'] = 'Tắt vùng nhập dữ liệu';
 $lang['locfiledit_new_tpl'] = 'Tạo tệp tin mới';
 $lang['locfiledit_new_filename'] = 'Tên tệp tin';
 $lang['locfiledit_model'] = 'Mô hình';
@@ -53,4 +51,6 @@ $lang['locfiledit_model_error'] = 'Bạn phải chọn một mô hình.';
 $lang['locfiledit_empty_filename'] = 'Bạn phải điền đủ tên tệp tin.';
 $lang['locfiledit_webmaster_only'] = 'Chỉ có webmasters mới có thể tạo hoặc biên tập tệp tin trên máy.';
 
+/*TODO*/$lang['locfiledit_enable_codemirror'] = 'Enable Codemirror';
+/*TODO*/$lang['locfiledit_disable_codemirror'] = 'Disable Codemirror';
 ?>
