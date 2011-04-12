@@ -40,8 +40,6 @@ $lang['locfiledit_restore_confirm']     = 'Молимо Вас да потврд
 $lang['locfiledit_bak_loaded1']         = 'Резервна копија је учитана.';
 $lang['locfiledit_bak_loaded2']         = 'Морате да запамтите датотеку пре обнављања.';
 $lang['locfiledit_syntax_error']        = 'Синтаксна грешка! Датотека не може бити снимљена.';
-$lang['locfiledit_enable_editarea']     = 'Омогући област промене';
-$lang['locfiledit_disable_editarea']    = 'Онемогући област промене';
 $lang['locfiledit_new_tpl']             = 'Направи нову датотеку';
 $lang['locfiledit_new_filename']        = 'Име датотеке';
 $lang['locfiledit_model']               = 'Модел';
@@ -53,4 +51,6 @@ $lang['locfiledit_model_error']         = 'Морате изабрати мод�
 $lang['locfiledit_empty_filename']      = 'Морате уписати име датотеке.';
 $lang['locfiledit_webmaster_only']      = 'Само уредник интернет страница може да направи или уреди локалне датотеке.';
 
+/*TODO*/$lang['locfiledit_enable_codemirror'] = 'Enable Codemirror';
+/*TODO*/$lang['locfiledit_disable_codemirror'] = 'Disable Codemirror';
 ?>

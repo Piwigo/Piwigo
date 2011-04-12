@@ -41,8 +41,6 @@ $lang['locfiledit_restore_confirm'] = '確認して下さい?
 $lang['locfiledit_bak_loaded1'] = 'バックアップファイルは起動しました。';
 $lang['locfiledit_bak_loaded2'] = '復元するために、ファイルを保存する必要があります。';
 $lang['locfiledit_syntax_error'] = 'エラー! ファイルは保存できません。';
-$lang['locfiledit_enable_editarea'] = 'Enable Editarea';
-$lang['locfiledit_disable_editarea'] = 'Disable Editarea';
 $lang['locfiledit_new_tpl'] = '新しいファイルを作成する';
 $lang['locfiledit_new_filename'] = 'ファイル名';
 $lang['locfiledit_model'] = 'モデル';
@@ -54,4 +52,6 @@ $lang['locfiledit_model_error'] = 'モデルを選択する必要があります
 $lang['locfiledit_empty_filename'] = 'ファイル名を記入する必要があります。';
 $lang['locfiledit_webmaster_only'] = 'ローカルファイルはウェブマスターのみ作成するか、変更できます。';
 
+/*TODO*/$lang['locfiledit_enable_codemirror'] = 'Enable Codemirror';
+/*TODO*/$lang['locfiledit_disable_codemirror'] = 'Disable Codemirror';
 ?>

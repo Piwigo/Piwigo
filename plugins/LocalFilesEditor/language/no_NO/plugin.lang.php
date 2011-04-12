@@ -19,10 +19,7 @@
 // | along with this program; if not, write to the Free Software           |
 // | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
 // | USA.                                                                  |
-// +-----------------------------------------------------------------------+
-
-
-$lang['locfiledit_onglet_localconf'] = 'Lokal konfigurasjon';
+// +-----------------------------------------------------------------------+$lang['locfiledit_onglet_localconf'] = 'Lokal konfigurasjon';
 $lang['locfiledit_onglet_css'] = 'CSS';
 $lang['locfiledit_onglet_tpl'] = 'Maler (templates)';
 $lang['locfiledit_onglet_lang'] = 'Språk';
@@ -41,8 +38,6 @@ $lang['locfiledit_restore_confirm'] = 'Vennligst bekreft? Gjennoppretting vil ik
 $lang['locfiledit_bak_loaded1'] = 'Sikkerhetskopi lastet.';
 $lang['locfiledit_bak_loaded2'] = 'Du må lagre filen for å gjennopprette den.';
 $lang['locfiledit_syntax_error'] = 'Syntax feil! Filen kan ikke bli lagret.';
-$lang['locfiledit_enable_editarea'] = 'Aktiver redigeringsområde ';
-$lang['locfiledit_disable_editarea'] = 'Deaktiver redigeringsområde';
 $lang['locfiledit_new_tpl'] = 'Lag ny fil';
 $lang['locfiledit_new_filename'] = 'Fil navn';
 $lang['locfiledit_model'] = 'Modusl';
@@ -54,4 +49,6 @@ $lang['locfiledit_model_error'] = 'Du må velge en modell.';
 $lang['locfiledit_empty_filename'] = 'Du må fylle inn fil navnet.';
 $lang['locfiledit_webmaster_only'] = 'Kun webmaster kan lage eller endre lokale filer.';
 
+/*TODO*/$lang['locfiledit_enable_codemirror'] = 'Enable Codemirror';
+/*TODO*/$lang['locfiledit_disable_codemirror'] = 'Disable Codemirror';
 ?>

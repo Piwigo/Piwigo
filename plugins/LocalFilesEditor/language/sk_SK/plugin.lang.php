@@ -41,8 +41,6 @@ Obnova nebude účinná pokiaľ neuložíte.';
 $lang['locfiledit_bak_loaded1'] = 'Záložný súbor nahraný.';
 $lang['locfiledit_bak_loaded2'] = 'Musíte uložiť súbor na jeho obnovenie.';
 $lang['locfiledit_syntax_error'] = 'Syntaktický chyba! Súbor nemôže byť uložený.';
-$lang['locfiledit_enable_editarea'] = 'Povoliť editáciu';
-$lang['locfiledit_disable_editarea'] = 'Zakázať editáciu';
 $lang['locfiledit_new_tpl'] = 'Vytvorenie nového súboru';
 $lang['locfiledit_new_filename'] = 'Meno súboru';
 $lang['locfiledit_model'] = 'Model';
@@ -54,4 +52,6 @@ $lang['locfiledit_model_error'] = 'Musíte vybrať model.';
 $lang['locfiledit_empty_filename'] = 'Musíte zadať meno súboru.';
 $lang['locfiledit_webmaster_only'] = 'Len webmasteri môžu vytvoriť alebo modifikovať lokálne súbory.';
 
+/*TODO*/$lang['locfiledit_enable_codemirror'] = 'Enable Codemirror';
+/*TODO*/$lang['locfiledit_disable_codemirror'] = 'Disable Codemirror';
 ?>

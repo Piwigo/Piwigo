@@ -41,8 +41,6 @@ Wiederherstellung wird nicht wirksam sein bis zum nächsten speichern.';
 $lang['locfiledit_bak_loaded1'] = 'Backup-Datei geladen.';
 $lang['locfiledit_bak_loaded2'] = 'Sie müssen die Datei speichern um sie wiederherstellen zu können.';
 $lang['locfiledit_syntax_error'] = 'Syntax-Fehler! Datei kann nicht gespeichert werden.';
-$lang['locfiledit_enable_editarea'] = 'Aktiviere den Bearbeitungsbereich';
-$lang['locfiledit_disable_editarea'] = 'Deaktiviere den Bearbeitungsbereich';
 $lang['locfiledit_new_tpl'] = 'Erstelle eine neue Datei';
 $lang['locfiledit_new_filename'] = 'Dateiname';
 $lang['locfiledit_model'] = 'Modell';
@@ -54,4 +52,6 @@ $lang['locfiledit_model_error'] = 'Sie müssen ein Modell wählen.';
 $lang['locfiledit_empty_filename'] = 'Sie müssen einen Dateiname eingeben.';
 /* TODO */ $lang['locfiledit_webmaster_only'] = 'Only webmasters can create or modify local files.';
 
+/*TODO*/$lang['locfiledit_enable_codemirror'] = 'Enable Codemirror';
+/*TODO*/$lang['locfiledit_disable_codemirror'] = 'Disable Codemirror';
 ?>

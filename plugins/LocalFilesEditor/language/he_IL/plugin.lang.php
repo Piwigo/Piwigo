@@ -40,8 +40,6 @@ $lang['locfiledit_restore_confirm'] = 'אשר בבקשה? שיחזור קובץ 
 $lang['locfiledit_bak_loaded1'] = 'קובץ גיבוי נטען.';
 $lang['locfiledit_bak_loaded2'] = 'אתה חייב לשמור את הקובץ בכדי לשחזר.';
 $lang['locfiledit_syntax_error'] = 'שגיאה תחבירית! לא ניתן לשמור את הקובץ.';
-$lang['locfiledit_enable_editarea'] = 'אפשר עריכה';
-$lang['locfiledit_disable_editarea'] = 'בטל עריכה';
 $lang['locfiledit_new_tpl'] = 'צור קובץ חדש';
 $lang['locfiledit_new_filename'] = 'שם הקובץ';
 $lang['locfiledit_model'] = 'דגם';
@@ -54,4 +52,6 @@ $lang['locfiledit_empty_filename'] = 'אתה חייב למלא את שם הקו�
 $lang['locfiledit_webmaster_only'] = 'רק מנהל האתר יכול ליצור או לשנות קבצים מקומיים.';
 $lang['locfiledit_filename_error'] = 'אסור להשתמש בתווים מסויימים בשם הקובץ.';
 
+/*TODO*/$lang['locfiledit_enable_codemirror'] = 'Enable Codemirror';
+/*TODO*/$lang['locfiledit_disable_codemirror'] = 'Disable Codemirror';
 ?>

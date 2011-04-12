@@ -40,8 +40,6 @@ $lang['locfiledit_restore_confirm'] = 'Vänligen bekräfta? Återställning komm
 $lang['locfiledit_bak_loaded1'] = 'Säkerhetskopia laddad.';
 $lang['locfiledit_bak_loaded2'] = 'Du måste spara filen för att återställa den.';
 $lang['locfiledit_syntax_error'] = 'Syntax fel! Filen kan inte sparas.';
-$lang['locfiledit_enable_editarea'] = 'Aktivera Skrivfält';
-$lang['locfiledit_disable_editarea'] = 'Avaktivera Skrivfält';
 $lang['locfiledit_new_tpl'] = 'Skapa ny fil';
 $lang['locfiledit_new_filename'] = 'Fil namn';
 $lang['locfiledit_model'] = 'Modell';
@@ -53,4 +51,6 @@ $lang['locfiledit_model_error'] = 'Du måste välja en modell.';
 $lang['locfiledit_empty_filename'] = 'Du måste välja ett filnamn.';
 $lang['locfiledit_webmaster_only'] = 'Endast webmasters kan skapa eller ändra lokala filer.';
 
+/*TODO*/$lang['locfiledit_enable_codemirror'] = 'Enable Codemirror';
+/*TODO*/$lang['locfiledit_disable_codemirror'] = 'Disable Codemirror';
 ?>

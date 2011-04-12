@@ -41,8 +41,6 @@ O Restauro não será efectuado até Salvar a próxima vez.';
 $lang['locfiledit_bak_loaded1'] = 'Ficheiro de cópia de segurança carregado.';
 $lang['locfiledit_bak_loaded2'] = 'Deverá salvar o ficheiro para o restaurar.';
 $lang['locfiledit_syntax_error'] = 'Erro de sintaxe! Impossível salvar ficheiro.';
-$lang['locfiledit_enable_editarea'] = 'Activar Área de Edição';
-$lang['locfiledit_disable_editarea'] = 'Desactivar Área de Edição';
 $lang['locfiledit_new_tpl'] = 'Criar novo ficheiro';
 $lang['locfiledit_new_filename'] = 'Nome do ficheiro';
 $lang['locfiledit_model'] = 'Modelo';
@@ -54,4 +52,6 @@ $lang['locfiledit_model_error'] = 'Tem que escolher um Modelo.';
 $lang['locfiledit_empty_filename'] = 'Tem que preencher o Nome do ficheiro.';
 $lang['locfiledit_webmaster_only'] = 'Apenas webmasters podem criar ou modificar ficheiros locais.';
 
+/*TODO*/$lang['locfiledit_enable_codemirror'] = 'Enable Codemirror';
+/*TODO*/$lang['locfiledit_disable_codemirror'] = 'Disable Codemirror';
 ?>

@@ -40,8 +40,6 @@ $lang['locfiledit_restore_confirm'] = '请确认? 恢复在下一次保存前将
 $lang['locfiledit_bak_loaded1'] = '备份文件已加载.';
 $lang['locfiledit_bak_loaded2'] = '您必须保存文件以便将其恢复.';
 $lang['locfiledit_syntax_error'] = '语法错误! 文件不能被保存.';
-$lang['locfiledit_enable_editarea'] = '启用编辑区域';
-$lang['locfiledit_disable_editarea'] = '禁用编辑区域';
 $lang['locfiledit_new_tpl'] = '创建新文件';
 $lang['locfiledit_new_filename'] = '文件名';
 $lang['locfiledit_model'] = '模块';
@@ -53,4 +51,6 @@ $lang['locfiledit_model_error'] = '您必须选择一个模块.';
 $lang['locfiledit_empty_filename'] = '您必须填写文件名.';
 $lang['locfiledit_webmaster_only'] = '只有网站管理员才能创建或者修改本地文件.';
 
+/*TODO*/$lang['locfiledit_enable_codemirror'] = 'Enable Codemirror';
+/*TODO*/$lang['locfiledit_disable_codemirror'] = 'Disable Codemirror';
 ?>

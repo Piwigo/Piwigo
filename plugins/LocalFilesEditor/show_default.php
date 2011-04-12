@@ -38,14 +38,6 @@ if (isset($_GET['file']))
     
   $template->set_filename('show_default', dirname(__FILE__) . '/show_default.tpl');
   
-  // Editarea
-  $editarea_options = array(
-    'syntax' => 'php',
-    'start_highlight' => true,
-    'allow_toggle' => false,
-    'is_editable' => false,
-    'language' => substr($user['language'], 0, 2));
-
   $file = file_get_contents(PHPWG_ROOT_PATH . $path);
   $title = str_replace('/', ' / ', $path);
 
@@ -53,8 +45,10 @@ if (isset($_GET['file']))
     'TITLE' => $title,
     'DEFAULT_CONTENT' => $file,
     'LOCALEDIT_PATH' => LOCALEDIT_PATH,
-    'LOAD_EDITAREA' => isset($conf['LocalFilesEditor']) ? $conf['LocalFilesEditor'] : 'on',
-    'EDITAREA_OPTIONS' => $editarea_options));
+    'LOAD_CODEMIRROR' => isset($conf['LocalFilesEditor']) ? $conf['LocalFilesEditor'] : 'on',
+    'CODEMIRROR_MODE' => 'application/x-httpd-php'
+    )
+  );
 
   $page['body_id'] = 'thePopuphelpPage';
 

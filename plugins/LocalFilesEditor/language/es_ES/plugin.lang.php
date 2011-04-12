@@ -41,8 +41,6 @@ Posteriormente deberá hacer clic en Guardar para restaurarla.';
 $lang['locfiledit_bak_loaded1'] = 'Se ha cargado la copia de seguridad';
 $lang['locfiledit_bak_loaded2'] = 'Para conservar la la copia de seguridad debe guardar el archivo.';
 $lang['locfiledit_syntax_error'] = 'Error de sintaxis. No es posible guardar el archivo.';
-$lang['locfiledit_enable_editarea'] = 'Activar el texto editado';
-$lang['locfiledit_disable_editarea'] = 'Desactivar el área de edición';
 $lang['locfiledit_new_tpl'] = 'Crear un nuevo archivo ';
 $lang['locfiledit_new_filename'] = 'Nombre del archivo ';
 $lang['locfiledit_model'] = 'Modelo ';
@@ -54,4 +52,6 @@ $lang['locfiledit_model_error'] = 'Por favor, seleccione un modelo.';
 $lang['locfiledit_empty_filename'] = 'Por favor, indique un nombre de archivo.';
 $lang['locfiledit_webmaster_only'] = 'Sólo los administradores pueden crear o modificar fichero locales.';
 
+/*TODO*/$lang['locfiledit_enable_codemirror'] = 'Enable Codemirror';
+/*TODO*/$lang['locfiledit_disable_codemirror'] = 'Disable Codemirror';
 ?>

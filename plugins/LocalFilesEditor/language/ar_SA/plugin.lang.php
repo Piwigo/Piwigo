@@ -40,8 +40,6 @@ $lang['locfiledit_restore_confirm'] = 'نجرو التأكيد؟استعادة �
 $lang['locfiledit_bak_loaded1'] = 'تم تحميل التخسة الاحتياطية';
 $lang['locfiledit_bak_loaded2'] = 'يجب حفظه ليتم استعادته ';
 $lang['locfiledit_syntax_error'] = 'خطأ في تركيب الجمل ، لا / يمكن حفظ المف';
-$lang['locfiledit_enable_editarea'] = 'تمكين المحرر';
-$lang['locfiledit_disable_editarea'] = 'تعطيل المحرر';
 $lang['locfiledit_new_tpl'] = 'أنشأ ملف جديد';
 $lang['locfiledit_new_filename'] = 'أسم الملف';
 $lang['locfiledit_model'] = 'نموذج';
@@ -53,4 +51,6 @@ $lang['locfiledit_model_error'] = 'يجب أختيار نموذج';
 $lang['locfiledit_empty_filename'] = 'يجب كتابة أسم الملف';
 $lang['locfiledit_webmaster_only'] = 'فقط مدير الموقع يمكن استخدام محرر الملفات المحلي';
 
+/*TODO*/$lang['locfiledit_enable_codemirror'] = 'Enable Codemirror';
+/*TODO*/$lang['locfiledit_disable_codemirror'] = 'Disable Codemirror';
 ?>

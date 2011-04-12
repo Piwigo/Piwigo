@@ -41,8 +41,6 @@ A változtatás nem vonható vissza.';
 $lang['locfiledit_bak_loaded1'] = 'Biztonsági másolat betöltve.';
 $lang['locfiledit_bak_loaded2'] = 'Mentett fájl visszaállítása.';
 $lang['locfiledit_syntax_error'] = 'Syntax error! A fájl mentése meghiúsult.';
-$lang['locfiledit_enable_editarea'] = 'Szerkesztő megnyitása';
-$lang['locfiledit_disable_editarea'] = 'Szerkesztő bezárása';
 $lang['locfiledit_new_tpl'] = 'Új fájl létrehozása';
 $lang['locfiledit_new_filename'] = 'Fájl neve';
 $lang['locfiledit_model'] = 'Típus';
@@ -54,4 +52,6 @@ $lang['locfiledit_model_error'] = 'A típust ki kell választani.';
 $lang['locfiledit_empty_filename'] = 'A fájlnevet ki kell tölteni.';
 /* TODO */ $lang['locfiledit_webmaster_only'] = 'Csak a webmesterek hozhatnak létre, vagy módosíthatnak helyi fájlokat.';
 
+/*TODO*/$lang['locfiledit_enable_codemirror'] = 'Enable Codemirror';
+/*TODO*/$lang['locfiledit_disable_codemirror'] = 'Disable Codemirror';
 ?>

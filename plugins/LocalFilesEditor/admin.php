@@ -74,13 +74,6 @@ Author URI:
 */\n\n\n\n\n?>";
 $newfile_page = isset($_GET['newfile']) ? true : false;
 
-// Editarea options
-$editarea_options = array(
-  'language' => substr($user['language'], 0, 2),
-  'start_highlight' => true,
-  'allow_toggle' => false,
-  'toolbar' => 'search,fullscreen, |,select_font, |, undo, redo, change_smooth_selection, highlight, reset_highlight, |, help');
-
 // Edit selected file for CSS, template and language
 if ((isset($_POST['edit'])) and !is_numeric($_POST['file_to_edit']))
 {
@@ -138,7 +131,7 @@ switch ($page['tab'])
         array('SHOW_DEFAULT' => LOCALEDIT_PATH
                 . 'show_default.php?file=include/config_default.inc.php',
               'FILE' => 'config_default.inc.php')));
-    $editarea_options['syntax'] = 'php';
+    $codemirror_mode = 'application/x-httpd-php';
     break;
 
   case 'css':
@@ -159,7 +152,7 @@ switch ($page['tab'])
     $template->assign('css_lang_tpl', array(
         'OPTIONS' => $options,
         'SELECTED' => $selected));
-    $editarea_options['syntax'] = 'css';
+    $codemirror_mode = 'text/css';
     break;
 
   case 'tpl':
@@ -238,7 +231,7 @@ switch ($page['tab'])
       'NEW_FILE_URL' => $my_base_url.'-tpl&amp;newfile',
       'NEW_FILE_CLASS' => empty($edited_file) ? '' : 'top_right'));
 
-    $editarea_options['syntax'] = 'html';
+    $codemirror_mode = 'text/html';
     break;
 
   case 'lang':
@@ -266,14 +259,14 @@ switch ($page['tab'])
     $template->assign('css_lang_tpl', array(
         'OPTIONS' => $options,
         'SELECTED' => $selected));
-    $editarea_options['syntax'] = 'php';
+    $codemirror_mode = 'application/x-httpd-php';
     break;
     
   case 'plug':
     $edited_file = PHPWG_PLUGINS_PATH . "PersonalPlugin/main.inc.php";
     $content_file = file_exists($edited_file) ?
       file_get_contents($edited_file) : $new_file['plug'];
-    $editarea_options['syntax'] = 'php';
+    $codemirror_mode = 'application/x-httpd-php';
     break;
 }
 
@@ -367,8 +360,10 @@ if (!empty($edited_file))
 $template->assign(array(
   'F_ACTION' => PHPWG_ROOT_PATH.'admin.php?page=plugin-LocalFilesEditor-'.$page['tab'],
   'LOCALEDIT_PATH' => LOCALEDIT_PATH,
-  'LOAD_EDITAREA' => isset($conf['LocalFilesEditor']) ? $conf['LocalFilesEditor'] : 'off',
-  'EDITAREA_OPTIONS' => $editarea_options));
+  'LOAD_CODEMIRROR' => isset($conf['LocalFilesEditor']) ? $conf['LocalFilesEditor'] : 'off',
+  'CODEMIRROR_MODE' => @$codemirror_mode
+  )
+);
 
 $template->assign_var_from_handle('ADMIN_CONTENT', 'plugin_admin_content');
 

@@ -41,8 +41,6 @@ Restore won\'t be effective till next save.';
 $lang['locfiledit_bak_loaded1'] = 'Backup file loaded.';
 $lang['locfiledit_bak_loaded2'] = 'You must save file to restore it.';
 $lang['locfiledit_syntax_error'] = 'Syntax error! File can\'t be saved.';
-$lang['locfiledit_enable_editarea'] = 'Enable Editarea';
-$lang['locfiledit_disable_editarea'] = 'Disable Editarea';
 $lang['locfiledit_new_tpl'] = 'Create new file';
 $lang['locfiledit_new_filename'] = 'File name';
 $lang['locfiledit_model'] = 'Model';
@@ -54,4 +52,6 @@ $lang['locfiledit_model_error'] = 'You must choose a model.';
 $lang['locfiledit_empty_filename'] = 'You must fill file name.';
 $lang['locfiledit_webmaster_only'] = 'Only webmasters can create or modify local files.';
 
+$lang['locfiledit_enable_codemirror'] = 'Enable Codemirror';
+$lang['locfiledit_disable_codemirror'] = 'Disable Codemirror';
 ?>

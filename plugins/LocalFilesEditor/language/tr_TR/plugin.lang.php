@@ -41,8 +41,6 @@ bir sonraki kaydetmeye kadar geri yükleme yapilamayacak.';
 $lang['locfiledit_bak_loaded1'] = 'yedekleme dosyasi yüklendi.';
 $lang['locfiledit_bak_loaded2'] = 'Geri yükledikten sonra save etmeyi unutmayiniz.';
 $lang['locfiledit_syntax_error'] = 'Syntax error! Dosya kayit edilemiyor.';
-$lang['locfiledit_enable_editarea'] = 'Editleme açik';
-$lang['locfiledit_disable_editarea'] = 'Editleme kapali';
 $lang['locfiledit_new_tpl'] = 'Yeni Dosya Yarat';
 $lang['locfiledit_new_filename'] = 'Dosya Adi';
 $lang['locfiledit_model'] = 'Model';
@@ -54,4 +52,6 @@ $lang['locfiledit_model_error'] = 'Model seçmek zorundasin.';
 $lang['locfiledit_empty_filename'] = 'Adi doldurmak zorundasin.';
 $lang['locfiledit_webmaster_only'] = 'Sadece yöneticiler dosyalari degistirebilir .';
 
+/*TODO*/$lang['locfiledit_enable_codemirror'] = 'Enable Codemirror';
+/*TODO*/$lang['locfiledit_disable_codemirror'] = 'Disable Codemirror';
 ?>
