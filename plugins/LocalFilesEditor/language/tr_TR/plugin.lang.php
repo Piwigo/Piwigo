@@ -51,7 +51,4 @@ $lang['locfiledit_file_already_exists'] = 'Bu dosya zaten var.';
 $lang['locfiledit_model_error'] = 'Model seçmek zorundasin.';
 $lang['locfiledit_empty_filename'] = 'Adi doldurmak zorundasin.';
 $lang['locfiledit_webmaster_only'] = 'Sadece yöneticiler dosyalari degistirebilir .';
-
-/*TODO*/$lang['locfiledit_enable_codemirror'] = 'Enable Codemirror';
-/*TODO*/$lang['locfiledit_disable_codemirror'] = 'Disable Codemirror';
 ?>

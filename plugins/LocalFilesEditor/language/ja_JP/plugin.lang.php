@@ -51,7 +51,4 @@ $lang['locfiledit_file_already_exists'] = 'ファイルは既に存在してい�
 $lang['locfiledit_model_error'] = 'モデルを選択する必要があります。';
 $lang['locfiledit_empty_filename'] = 'ファイル名を記入する必要があります。';
 $lang['locfiledit_webmaster_only'] = 'ローカルファイルはウェブマスターのみ作成するか、変更できます。';
-
-/*TODO*/$lang['locfiledit_enable_codemirror'] = 'Enable Codemirror';
-/*TODO*/$lang['locfiledit_disable_codemirror'] = 'Disable Codemirror';
 ?>

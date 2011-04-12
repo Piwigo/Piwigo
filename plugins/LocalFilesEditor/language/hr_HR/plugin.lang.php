@@ -49,7 +49,4 @@ $lang['locfiledit_file_already_exists'] = 'Datoteka vec postoji.';
 $lang['locfiledit_model_error'] = 'Morate odabrati model.';
 $lang['locfiledit_empty_filename'] = 'Morate popuniti naziv datoteke.';
 $lang['locfiledit_webmaster_only'] = 'Samo webmasteri mogu kreirati ili mijenjati lokalne datoteke.';
-
-/*TODO*/$lang['locfiledit_enable_codemirror'] = 'Enable Codemirror';
-/*TODO*/$lang['locfiledit_disable_codemirror'] = 'Disable Codemirror';
 ?>

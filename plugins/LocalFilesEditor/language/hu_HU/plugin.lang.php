@@ -51,7 +51,4 @@ $lang['locfiledit_file_already_exists'] = 'Ilyen fájl már létezik.';
 $lang['locfiledit_model_error'] = 'A típust ki kell választani.';
 $lang['locfiledit_empty_filename'] = 'A fájlnevet ki kell tölteni.';
 /* TODO */ $lang['locfiledit_webmaster_only'] = 'Csak a webmesterek hozhatnak létre, vagy módosíthatnak helyi fájlokat.';
-
-/*TODO*/$lang['locfiledit_enable_codemirror'] = 'Enable Codemirror';
-/*TODO*/$lang['locfiledit_disable_codemirror'] = 'Disable Codemirror';
 ?>

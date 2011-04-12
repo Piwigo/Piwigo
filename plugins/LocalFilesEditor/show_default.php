@@ -45,7 +45,6 @@ if (isset($_GET['file']))
     'TITLE' => $title,
     'DEFAULT_CONTENT' => $file,
     'LOCALEDIT_PATH' => LOCALEDIT_PATH,
-    'LOAD_CODEMIRROR' => isset($conf['LocalFilesEditor']) ? $conf['LocalFilesEditor'] : 'on',
     'CODEMIRROR_MODE' => 'application/x-httpd-php'
     )
   );

@@ -50,7 +50,4 @@ $lang['locfiledit_file_already_exists'] = '文件已存在.';
 $lang['locfiledit_model_error'] = '您必须选择一个模块.';
 $lang['locfiledit_empty_filename'] = '您必须填写文件名.';
 $lang['locfiledit_webmaster_only'] = '只有网站管理员才能创建或者修改本地文件.';
-
-/*TODO*/$lang['locfiledit_enable_codemirror'] = 'Enable Codemirror';
-/*TODO*/$lang['locfiledit_disable_codemirror'] = 'Disable Codemirror';
 ?>
