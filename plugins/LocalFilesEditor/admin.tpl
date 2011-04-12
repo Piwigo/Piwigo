@@ -14,11 +14,12 @@
 {combine_css path="plugins/LocalFilesEditor/locfiledit.css"}
 
 {footer_script}
-var editor = CodeMirror.fromTextArea(document.getElementById("text"), {ldelim}
-  matchBrackets: true,
-  mode: "{$CODEMIRROR_MODE}",
-  tabMode: "shift"
-});
+if (document.getElementById("text") != null)
+  var editor = CodeMirror.fromTextArea(document.getElementById("text"), {ldelim}
+    matchBrackets: true,
+    mode: "{$CODEMIRROR_MODE}",
+    tabMode: "shift"
+  });
 {/footer_script}
 
 <div class="titrePage">
