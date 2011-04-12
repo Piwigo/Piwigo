@@ -30,8 +30,13 @@ include_once(PHPWG_ROOT_PATH.'admin/include/plugins.class.php');
 
 $template->set_filenames(array('plugins' => 'plugins_list.tpl'));
 
-$base_url = get_root_url().'admin.php?page='.$page['page'];
-$action_url = $base_url.'&amp;plugin='.'%s'.'&amp;pwg_token='.get_pwg_token();
+// TODO : use a session parameter
+$plugin_order = isset($_GET['plugin_order']) ? $_GET['plugin_order'] : 'state';
+$plugin_display = isset($_GET['plugin_display']) ? $_GET['plugin_display'] : 'compact';
+
+$base_url = get_root_url().'admin.php?page='.$page['page'].'&amp;plugin_order='.$plugin_order.'&amp;plugin_display='.$plugin_display;
+$pwg_token = get_pwg_token();
+$action_url = $base_url.'&amp;plugin='.'%s'.'&amp;pwg_token='.$pwg_token;
 
 $plugins = new plugins();
 
@@ -70,6 +75,7 @@ $plugins->sort_fs_plugins('name');
 $plugins->get_merged_extensions();
 $plugins->get_incompatible_plugins();
 $merged_plugins = false;
+$tpl_plugins = array();
 
 foreach($plugins->fs_plugins as $plugin_id => $fs_plugin)
 {
@@ -81,6 +87,7 @@ foreach($plugins->fs_plugins as $plugin_id => $fs_plugin)
   }
 
   $tpl_plugin = array(
+    'ID' => $plugin_id,
     'NAME' => $fs_plugin['name'],
     'VISIT_URL' => $fs_plugin['uri'],
     'VERSION' => $fs_plugin['version'],
@@ -108,7 +115,7 @@ foreach($plugins->fs_plugins as $plugin_id => $fs_plugin)
     $merged_plugins = true;
   }
 
-  $template->append('plugins', $tpl_plugin);
+  array_push($tpl_plugins, $tpl_plugin);
 }
 
 $template->append('plugin_states', 'active');
@@ -128,8 +135,8 @@ if (count($missing_plugin_ids) > 0)
 {
   foreach($missing_plugin_ids as $plugin_id)
   {
-    $template->append(
-      'plugins',
+    array_push(
+      $tpl_plugins,
       array(
         'NAME' => $plugin_id,
         'VERSION' => $plugins->db_plugins_by_id[$plugin_id]['version'],
@@ -141,6 +148,36 @@ if (count($missing_plugin_ids) > 0)
   }
   $template->append('plugin_states', 'missing');
 }
+
+// sort plugins : state or name
+if ($plugin_order == 'name')
+{
+  function cmp($a, $b)
+  { 
+    return strcasecmp($a['NAME'], $b['NAME']); 
+  } 
+}
+else
+{
+  function cmp($a, $b)
+  { 
+    $s = array('merged' => 0, 'missing' => 1, 'active' => 2, 'inactive' => 3);
+    
+    if($a['STATE'] == $b['STATE'])
+      return strcasecmp($a['NAME'], $b['NAME']); 
+    else
+      return $s[$a['STATE']] >= $s[$b['STATE']]; 
+  }
+  $plugin_order = 'state';
+}
+
+usort($tpl_plugins, 'cmp');
+$template->assign(array(
+  'plugin_order' => $plugin_order,
+  'plugin_display' => $plugin_display,
+  'plugins' => $tpl_plugins,
+  'PWG_TOKEN' => $pwg_token,
+));
 
 $template->assign_var_from_handle('ADMIN_CONTENT', 'plugins');
 ?>

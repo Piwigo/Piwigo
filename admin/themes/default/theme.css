@@ -927,13 +927,28 @@ h2:lang(en) { text-transform:capitalize; }
 .checkActions {text-align:left;padding:0;margin:0;}
 .comment A:hover {border:none;}
 
+.pluginBoxes {text-align:left;}
+.author-group {text-align:left;background:url('icon/remove_filter.png') left center no-repeat;padding-left:15px;margin-left:-15px;}
+
 .pluginBox {margin-bottom:10px;-moz-border-radius:5px;}
-.pluginBox table {width:99%}
+.pluginBox table {width:99%;}
 .pluginBox td {text-align:left;}
-.pluginBox td.pluginDesc {cursor:pointer;}
-.pluginBox td.pluginDesc img{vertical-align:middle;}
-.pluginBox td em{float:right;}
-.pluginBoxNameCell {width:150px; vertical-align:top;}
+.pluginBox td.pluginDesc img {vertical-align:middle;}
+.pluginBoxNameCell {width:180px; vertical-align:top;}
+.pluginBox.inactive, .pluginBox.uninstalled {margin-left:20px;opacity:0.65;filter:alpha(opacity=65);}
+.pluginsByState .pluginBox.inactive, .pluginsByState .pluginBox.uninstalled {margin-left:0px;opacity:0.8;filter:alpha(opacity=80);}
+
+.pluginMiniBox {display:inline-table; text-align:center; width:250px; height:40px; margin:5px; -moz-border-radius:5px; overflow:hidden; }
+.pluginMiniBoxNameCell {font-size:1.05em; margin:5px 0;}
+.pluginActions {display: table-row; font-size:12px; }
+.pluginActions DIV {display: table-cell; vertical-align: middle; line-height:18px; }
+.pluginMiniBox.inactive, .pluginMiniBox.uninstalled {opacity:0.65;filter:alpha(opacity=65);}
+.pluginsByState .pluginMiniBox.inactive, .pluginsByState .pluginMiniBox.uninstalled {opacity:0.8;filter:alpha(opacity=80);}
+
+.pluginMiniBoxDesc{float:right;margin:0 4px 0 -20px;}
+.pluginMiniBoxDesc:after{content:url(icon/help-min.png);}
+.warning:before {content:url(icon/warning.png);vertical-align:top;}
+fieldset.pluginsByName{border:none;}
 
 .languageBoxes {min-height:0;text-align:left;}
 .languageBox {display:inline-table; text-align:center; width:200px; height:40px; margin:5px; -moz-border-radius:5px; overflow:hidden; }
@@ -1043,9 +1058,3 @@ LEGEND {
 #batchManagerGlobal .removeFilter span {display:none}
 #batchManagerGlobal #applyFilterBlock {margin-top:20px;}
 #batchManagerGlobal .useFilterCheckbox {display:none}
-
-.warning {
-  background:url(icon/warning.png) no-repeat top left;
-  width: 130px;
-  padding-left: 20px;
-}

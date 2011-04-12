@@ -234,8 +234,12 @@ display:block; height:85px; left:225px; position:relative; top:-42px; width:313p
 #pwgHead, #footer {background-color:#222;}
 #footer {background-image: url(images/piwigo_logo_small.png);}
 
-.pluginBox {background-color:#333;color:#999}
-.pluginBoxNameCell {color:#ccc;}
+.pluginBox, .pluginMiniBox {background-color:#333;color:#999;border:1px solid #333;}
+.pluginBoxNameCell, .pluginMiniBoxNameCell {color:#ddd;}
+.pluginBox.active, .pluginMiniBox.active {border-color:#666;background-color:#383838;}
+.pluginBox.incompatible, .pluginMiniBox.incompatible {border-color:#800 !important;}
+.pluginBox.missing, .pluginBox.merged, .pluginMiniBox.missing, .pluginMiniBox.merged {background-color:#422;border:1px solid #800;}
+.plugin-delete {color:#f00;}
 
 .languageBox {background-color:#333;}
 .languageName {color:#ccc;}
