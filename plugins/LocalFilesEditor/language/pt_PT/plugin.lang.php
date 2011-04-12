@@ -51,7 +51,4 @@ $lang['locfiledit_file_already_exists'] = 'O ficheiro já existe.';
 $lang['locfiledit_model_error'] = 'Tem que escolher um Modelo.';
 $lang['locfiledit_empty_filename'] = 'Tem que preencher o Nome do ficheiro.';
 $lang['locfiledit_webmaster_only'] = 'Apenas webmasters podem criar ou modificar ficheiros locais.';
-
-/*TODO*/$lang['locfiledit_enable_codemirror'] = 'Enable Codemirror';
-/*TODO*/$lang['locfiledit_disable_codemirror'] = 'Disable Codemirror';
 ?>

@@ -50,7 +50,4 @@ $lang['locfiledit_file_already_exists'] = 'الملف الموجود';
 $lang['locfiledit_model_error'] = 'يجب أختيار نموذج';
 $lang['locfiledit_empty_filename'] = 'يجب كتابة أسم الملف';
 $lang['locfiledit_webmaster_only'] = 'فقط مدير الموقع يمكن استخدام محرر الملفات المحلي';
-
-/*TODO*/$lang['locfiledit_enable_codemirror'] = 'Enable Codemirror';
-/*TODO*/$lang['locfiledit_disable_codemirror'] = 'Disable Codemirror';
 ?>

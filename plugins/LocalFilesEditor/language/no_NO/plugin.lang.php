@@ -48,7 +48,4 @@ $lang['locfiledit_file_already_exists'] = 'Filen eksisterer allerede.';
 $lang['locfiledit_model_error'] = 'Du må velge en modell.';
 $lang['locfiledit_empty_filename'] = 'Du må fylle inn fil navnet.';
 $lang['locfiledit_webmaster_only'] = 'Kun webmaster kan lage eller endre lokale filer.';
-
-/*TODO*/$lang['locfiledit_enable_codemirror'] = 'Enable Codemirror';
-/*TODO*/$lang['locfiledit_disable_codemirror'] = 'Disable Codemirror';
 ?>

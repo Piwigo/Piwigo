@@ -51,7 +51,4 @@ $lang['locfiledit_model_error'] = 'אתה חייב לחבחור דגם.';
 $lang['locfiledit_empty_filename'] = 'אתה חייב למלא את שם הקובץ.';
 $lang['locfiledit_webmaster_only'] = 'רק מנהל האתר יכול ליצור או לשנות קבצים מקומיים.';
 $lang['locfiledit_filename_error'] = 'אסור להשתמש בתווים מסויימים בשם הקובץ.';
-
-/*TODO*/$lang['locfiledit_enable_codemirror'] = 'Enable Codemirror';
-/*TODO*/$lang['locfiledit_disable_codemirror'] = 'Disable Codemirror';
 ?>

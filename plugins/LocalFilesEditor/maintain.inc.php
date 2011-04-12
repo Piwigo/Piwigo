@@ -21,17 +21,6 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
-function plugin_install()
-{
-  global $prefixeTable;
-
-  $query = '
-INSERT INTO ' . CONFIG_TABLE . ' (param,value,comment)
-VALUES (\'LocalFilesEditor\' , \'off\' , \'LocalFiles Editor plugin parameters\');';
-
-  pwg_query($query);
-}
-
 function plugin_uninstall()
 {
   global $prefixeTable;

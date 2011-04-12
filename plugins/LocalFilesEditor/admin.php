@@ -360,7 +360,6 @@ if (!empty($edited_file))
 $template->assign(array(
   'F_ACTION' => PHPWG_ROOT_PATH.'admin.php?page=plugin-LocalFilesEditor-'.$page['tab'],
   'LOCALEDIT_PATH' => LOCALEDIT_PATH,
-  'LOAD_CODEMIRROR' => isset($conf['LocalFilesEditor']) ? $conf['LocalFilesEditor'] : 'off',
   'CODEMIRROR_MODE' => @$codemirror_mode
   )
 );

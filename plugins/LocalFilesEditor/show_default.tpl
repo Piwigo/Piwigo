@@ -19,38 +19,17 @@
 {combine_css path="plugins/LocalFilesEditor/locfiledit.css"}
 
 {footer_script}
-function loadCodemirror() {ldelim}
-  editor = CodeMirror.fromTextArea(document.getElementById("text"), {ldelim}
-    matchBrackets: true,
-    readOnly: true,
-    mode: "{$CODEMIRROR_MODE}",
-    tabMode: "shift"
-  });
-  jQuery("#showedit").hide();
-  jQuery("#hideedit").show();
-  jQuery.post("update_config.php", {ldelim} editarea: "on"});
-}
-
-function unloadCodemirror() {ldelim} 
-  editor.toTextArea();
-  jQuery("#hideedit").hide();
-  jQuery("#showedit").show();
-  jQuery.post("update_config.php", {ldelim} editarea: "off"});
-}
-
-{if $LOAD_CODEMIRROR == 'on'}
-if (document.getElementById("text") != null) loadCodemirror();
-{/if}
+var editor = CodeMirror.fromTextArea(document.getElementById("text"), {ldelim}
+  matchBrackets: true,
+  readOnly: true,
+  mode: "{$CODEMIRROR_MODE}",
+  tabMode: "shift"
+});
 {/footer_script}
 
 <div id="LocalFilesEditor">
 <div style="overflow:auto;"><b>{$TITLE}</b></div>
 
 <textarea id="text" rows="30" cols="90">{$DEFAULT_CONTENT}</textarea>
-
-<div id="editarea_buttons">
-<a href="javascript:loadCodemirror();" id="showedit">[{'locfiledit_enable_codemirror'|@translate}]</a>
-<a href="javascript:unloadCodemirror();" id="hideedit">[{'locfiledit_disable_codemirror'|@translate}]</a>
-</div>
 
 </div>

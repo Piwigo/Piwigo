@@ -19,22 +19,12 @@
   float: left;
 }
 
-#LocalFilesEditor #editarea_buttons {
-  width: 100%;
-  float: left;
-  text-align: left;
-}
-
-#LocalFilesEditor #hideedit {
-  display: none;
-}
-
 #LocalFilesEditor TD {
   padding: 0.5em;
 }
 
 .CodeMirror {
-  background-color: #DDDDDD;
+  background-color: #EEEEEE;
   font-size: 1.3em;
   border: 1px solid #999999;
   margin: 0.5em 0;

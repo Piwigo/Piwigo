@@ -51,7 +51,4 @@ $lang['locfiledit_file_already_exists'] = 'ფაილი უკვე არ�
 $lang['locfiledit_model_error'] = 'თქვენ უნდა აირჩიოთ მოდელი.';
 $lang['locfiledit_empty_filename'] = 'თქვენ უნდა შეავსოთ ფაილის სახელი.';
 $lang['locfiledit_webmaster_only'] = 'მხოლოდ ვებოსტატებს შეუძლიათ შექმნან ან გადააკეთონ ლოკალური ფაილები.';
-
-/*TODO*/$lang['locfiledit_enable_codemirror'] = 'Enable Codemirror';
-/*TODO*/$lang['locfiledit_disable_codemirror'] = 'Disable Codemirror';
 ?>
