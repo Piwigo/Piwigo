@@ -265,17 +265,34 @@ SELECT DISTINCT(id)
   return $items;
 }
 
+
+if (function_exists('mb_strtolower'))
+{
+  function transliterate($term)
+  {
+    return remove_accents( mb_strtolower($term) );
+  }
+}
+else
+{
+  function transliterate($term)
+  {
+    return remove_accents( strtolower($term) );
+  }
+}
+
+function is_word_char($ch)
+{
+  return ($ch>='0' && $ch<='9') || ($ch>='a' && $ch<='z') || ($ch>='A' && $ch<='Z') || ord($ch)>127;
+}
+
 /**
- * returns the LIKE sql clause corresponding to the quick search query $q
- * and the field $field. example q='john bill', field='file' will return
- * file LIKE '%john%' OR file LIKE '%bill%'. Special characters for MySql full
- * text search (+,<,>,~) are omitted. The query can contain a phrase:
- * 'Pierre "New York"' will return LIKE '%Pierre%' OR LIKE '%New York%'.
- * @param string q
- * @param string field
- * @return string
+ * analyzes and splits the quick/query search query $q into tokens
+ * q='john bill' => 2 tokens 'john' 'bill'
+ * Special characters for MySql full text search (+,<,>,~) appear in the token modifiers.
+ * The query can contain a phrase: 'Pierre "New York"' will return 'pierre' qnd 'new york'.
  */
-function get_qsearch_like_clause($q, $field, $before='%', $after='%')
+function analyse_qsearch($q, &$qtokens, &$qtoken_modifiers)
 {
   $q = stripslashes($q);
   $tokens = array();
@@ -292,27 +309,27 @@ function get_qsearch_like_clause($q, $field, $before='%', $after='%')
       case 0:
         if ($ch=='"')
         {
-          if (strlen($crt_token))
-          {
-            $tokens[] = $crt_token;
-            $token_modifiers[] = $crt_token_modifier;
-            $crt_token = "";
-            $crt_token_modifier = "";
-          }
+          $tokens[] = $crt_token; $token_modifiers[] = $crt_token_modifier;
+          $crt_token = ""; $crt_token_modifier = "q";
           $state=1;
         }
         elseif ( $ch=='*' )
         { // wild card
-          $crt_token .= '%';
+          if (strlen($crt_token))
+          {
+            $crt_token .= $ch;
+          }
+          else
+          {
+            $crt_token_modifier .= '*';
+          }
         }
         elseif ( strcspn($ch, '+-><~')==0 )
         { //special full text modifier
           if (strlen($crt_token))
           {
-            $tokens[] = $crt_token;
-            $token_modifiers[] = $crt_token_modifier;
-            $crt_token = "";
-            $crt_token_modifier = "";
+            $tokens[] = $crt_token; $token_modifiers[] = $crt_token_modifier;
+            $crt_token = ""; $crt_token_modifier = "";
           }
           $crt_token_modifier .= $ch;
         }
@@ -320,18 +337,12 @@ function get_qsearch_like_clause($q, $field, $before='%', $after='%')
         { // white space
           if (strlen($crt_token))
           {
-            $tokens[] = $crt_token;
-            $token_modifiers[] = $crt_token_modifier;
-            $crt_token = "";
-            $crt_token_modifier = "";
+            $tokens[] = $crt_token; $token_modifiers[] = $crt_token_modifier;
+            $crt_token = ""; $crt_token_modifier = "";
           }
         }
         else
         {
-          if ( strcspn($ch, '%_')==0)
-          {// escape LIKE specials %_
-            $ch = '\\'.$ch;
-          }
           $crt_token .= $ch;
         }
         break;
@@ -339,17 +350,11 @@ function get_qsearch_like_clause($q, $field, $before='%', $after='%')
         switch ($ch)
         {
           case '"':
-            $tokens[] = $crt_token;
-            $token_modifiers[] = $crt_token_modifier;
-            $crt_token = "";
-            $crt_token_modifier = "";
+            $tokens[] = $crt_token; $token_modifiers[] = $crt_token_modifier;
+            $crt_token = ""; $crt_token_modifier = "";
             $state=0;
             break;
           default:
-            if ( strcspn($ch, '%_')==0)
-            {// escape LIKE specials %_
-            	$ch = '\\'.$ch;
-            }
             $crt_token .= $ch;
         }
         break;
@@ -361,20 +366,48 @@ function get_qsearch_like_clause($q, $field, $before='%', $after='%')
     $token_modifiers[] = $crt_token_modifier;
   }
 
+  $qtokens = array();
+  $qtoken_modifiers = array();
+  for ($i=0; $i<count($tokens); $i++)
+  {
+    if (strstr($token_modifiers[$i], 'q')===false)
+    {
+      if ( substr($tokens[$i], -1)=='*' )
+      {
+        $tokens[$i] = rtrim($tokens[$i], '*');
+        $token_modifiers[$i] .= '*';
+      }
+    }
+    if ( strlen($tokens[$i])==0)
+      continue;
+    $qtokens[] = $tokens[$i];
+    $qtoken_modifiers[] = $token_modifiers[$i];
+  }
+}
+
+
+/**
+ * returns the LIKE sql clause corresponding to the quick search query 
+ * that has been split into tokens
+ * for example file LIKE '%john%' OR file LIKE '%bill%'.
+ */
+function get_qsearch_like_clause($tokens, $token_modifiers, $field)
+{
   $clauses = array();
   for ($i=0; $i<count($tokens); $i++)
   {
-    $tokens[$i] = trim($tokens[$i], '%');
+    $token = trim($tokens[$i], '%');
     if (strstr($token_modifiers[$i], '-')!==false)
       continue;
-    if ( strlen($tokens[$i])==0)
+    if ( strlen($token==0) )
       continue;
-    $clauses[] = $field.' LIKE \''.$before.addslashes($tokens[$i]).$after.'\'';
+    $token = addslashes($token);
+    $token = str_replace( array('%','_'), array('\\%','\\_'), $token); // escape LIKE specials %_
+    $clauses[] = $field.' LIKE \'%'.$token.'%\'';
   }
 
   return count($clauses) ? '('.implode(' OR ', $clauses).')' : null;
 }
-
 
 /**
  * returns the search results corresponding to a quick/query search.
@@ -395,6 +428,8 @@ function get_qsearch_like_clause($q, $field, $before='%', $after='%')
  */
 function get_quick_search_results($q, $super_order_by, $images_where='')
 {
+  global $user, $conf;
+
   $search_results =
     array(
       'items' => array(),
@@ -405,9 +440,11 @@ function get_quick_search_results($q, $super_order_by, $images_where='')
   {
     return $search_results;
   }
-  $q_like_field = '@@__db_field__@@'; //something never in a search
-  $q_like_clause = get_qsearch_like_clause($q, $q_like_field );
+  
+  analyse_qsearch($q, $tokens, $token_modifiers);
 
+  $q_like_field = '@@__db_field__@@'; //something never in a search
+  $q_like_clause = get_qsearch_like_clause($tokens, $token_modifiers, $q_like_field );
 
   // Step 1 - first we find matches in #images table ===========================
   $where_clauses='MATCH(i.name, i.comment) AGAINST( \''.$q.'\' IN BOOLEAN MODE)';
@@ -448,34 +485,126 @@ SELECT i.id,
 
 
   // Step 2 - search tags corresponding to the query $q ========================
-  if (!empty($q_like_clause))
-  { // search name and url name (without accents)
-    $query = '
-SELECT id, name, url_name
+  $transliterated_tokens = array();
+  $token_tags = array();
+  foreach ($tokens as $token)
+  {
+    $transliterated_tokens[] = transliterate($token);
+    $token_tags[] = array();
+  }
+
+  // Step 2.1 - find match tags for every token in the query search
+  $all_tags = array();
+  $query = '
+SELECT id, name, url_name, COUNT(image_id) AS nb_images
   FROM '.TAGS_TABLE.'
-  WHERE ('.str_replace($q_like_field, 'CONVERT(name, CHAR)', $q_like_clause).'
-    OR '.str_replace($q_like_field, 'url_name', $q_like_clause).')';
-    $tags = hash_from_query($query, 'id');
-    if ( !empty($tags) )
-    { // we got some tags; get the images
-      $search_results['qs']['matching_tags']=$tags;
+    INNER JOIN '.IMAGE_TAG_TABLE.' ON id=tag_id
+  GROUP BY id';
+  $result = pwg_query($query);
+  while ($tag = pwg_db_fetch_assoc($result))
+  {
+    $transliterated_tag = transliterate($tag['name']);
+
+    // find how this tag matches query tokens
+    for ($i=0; $i<count($tokens); $i++)
+    {
+      if (strstr($token_modifiers[$i], '-')!==false)
+        continue;// ignore this NOT token
+      $transliterated_token = $transliterated_tokens[$i];
+
+      $match = false;
+      $pos = 0;
+      while ( ($pos = strpos($transliterated_tag, $transliterated_token, $pos)) !== false)
+      {
+        if (strstr($token_modifiers[$i], '*')!==false)
+        {// wildcard in this token
+          $match = 1;
+          break;
+        }
+        $token_len = strlen($transliterated_token);
+
+        $word_begin = $pos;
+        while ($word_begin>0)
+        {
+          if (! is_word_char($transliterated_tag[$word_begin-1]) )
+            break;
+          $word_begin--;
+        }
+
+        $word_end = $pos + $token_len;
+        while ($word_end<strlen($transliterated_tag) && is_word_char($transliterated_tag[$word_end]) )
+          $word_end++;
+
+        $this_score = $token_len / ($word_end-$word_begin);
+        if ($token_len <= 2)
+        {// search for 1 or 2 characters must match exactly to avoid retrieving too much data
+          if ($token_len != $word_end-$word_begin)
+            $this_score = 0;
+        }
+        elseif ($token_len == 3)
+        {
+          if ($word_end-$word_begin > 4)
+            $this_score = 0;
+        }
+
+        if ($this_score>0)
+          $match = max($match, $this_score );
+        $pos++;
+      }
+
+      if ($match)
+      {
+        $tag_id = (int)$tag['id'];
+        $all_tags[$tag_id] = $tag;
+        $token_tags[$i][] = array('tag_id'=>$tag_id, 'score'=>$match);
+      }
+    }
+  }
+  $search_results['qs']['matching_tags']=$all_tags;
+
+  // Step 2.2 - reduce matching tags for every token in the query search
+  $score_cmp_fn = create_function('$a,$b', 'return 100*($b["score"]-$a["score"]);');
+  foreach ($token_tags as &$tt)
+  {
+    usort($tt, $score_cmp_fn);
+    $nb_images = 0;
+    $prev_score = 0;
+    for ($j=0; $j<count($tt); $j++)
+    {
+      if ($nb_images > 200 && $prev_score > $tt[$j]['score'] )
+      {// "many" images in previous tags and starting from this tag is less relevent
+        $tt = array_slice( $tt, 0, $j);
+        break;
+      }
+      $nb_images += $all_tags[ $tt[$j]['tag_id'] ]['nb_images'];
+      $prev_score = $tt[$j]['score'];
+    }
+  }
+
+  // Step 2.3 - get the images for tags
+  for ($i=0; $i<count($token_tags); $i++)
+  {
+    $tag_ids = array();
+    foreach($token_tags[$i] as $arr)
+      $tag_ids[] = $arr['tag_id'];
+
+    if (!empty($tag_ids))
+    {
       $query = '
-SELECT image_id, COUNT(tag_id) AS weight
+SELECT image_id
   FROM '.IMAGE_TAG_TABLE.'
-  WHERE tag_id IN ('.implode(',',array_keys($tags)).')
+  WHERE tag_id IN ('.implode(',',$tag_ids).')
   GROUP BY image_id';
       $result = pwg_query($query);
       while ($row = pwg_db_fetch_assoc($result))
       { // weight is important when sorting images by relevance
         $image_id=(int)$row['image_id'];
-        @$by_weights[$image_id] += $row['weight'];
+        @$by_weights[$image_id] += 1;
       }
     }
   }
 
-
   // Step 3 - search categories corresponding to the query $q ==================
-  global $user;
   $query = '
 SELECT id, name, permalink, nb_images
   FROM '.CATEGORIES_TABLE.'
@@ -531,7 +660,6 @@ SELECT id, name, permalink, nb_images
       null,true
     );
 
-  global $conf;
   $query = '
 SELECT DISTINCT(id)
   FROM '.IMAGES_TABLE.' i
