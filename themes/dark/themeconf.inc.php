@@ -1,7 +1,7 @@
 <?php
 /*
 Theme Name: dark
-Version: 2.2.0
+Version: 2.3.0
 Description: Dark background, grayscale.
 Theme URI: http://piwigo.org/ext/extension_view.php?eid=369
 Author: Piwigo team

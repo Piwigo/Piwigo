@@ -23,7 +23,7 @@
 
 /*
 Plugin Name: Check upgrades
-Version: 2.2.0
+Version: 2.3.0
 Description: Check integrity of upgrades.
 Plugin URI: http://piwigo.org/ext/extension_view.php?eid=287
 Author: Piwigo team
