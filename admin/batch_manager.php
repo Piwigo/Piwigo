@@ -55,11 +55,7 @@ if (isset($_POST['submitFilter']))
 
   if (isset($_POST['filter_prefilter_use']))
   {
-    $prefilters = array('caddie', 'last import', 'with no album', 'with no tag', 'with no virtual album', 'duplicates', 'all photos');
-    if (in_array($_POST['filter_prefilter'], $prefilters))
-    {
-      $_SESSION['bulk_manager_filter']['prefilter'] = $_POST['filter_prefilter'];
-    }
+    $_SESSION['bulk_manager_filter']['prefilter'] = $_POST['filter_prefilter'];
   }
 
   if (isset($_POST['filter_category_use']))
@@ -253,6 +249,8 @@ SELECT id
       array_from_query($query, 'id')
       );
   }
+
+  $filter_sets = trigger_event('bulk_manager_prefilter', $filter_sets, $_SESSION['bulk_manager_filter']['prefilter']);
 }
 
 if (isset($_SESSION['bulk_manager_filter']['category']))

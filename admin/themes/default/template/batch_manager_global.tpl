@@ -339,6 +339,9 @@ jQuery(window).load(function() {
           <option value="with no tag" {if $filter.prefilter eq 'with no tag'}selected="selected"{/if}>{'with no tag'|@translate}</option>
           <option value="duplicates" {if $filter.prefilter eq 'duplicates'}selected="selected"{/if}>{'duplicates'|@translate}</option>
           <option value="all photos" {if $filter.prefilter eq 'all photos'}selected="selected"{/if}>{'All'|@translate}</option>
+          {foreach from=$bulk_manager_plugins_prefilters item=plugin_prefilter}
+          <option value="{$plugin_prefilter.ID}" {if $filter.prefilter eq $plugin_prefilter.ID}selected="selected"{/if}>{$plugin_prefilter.NAME}</option>
+          {/foreach}
         </select>
       </li>
       <li id="filter_category" {if !isset($filter.category)}style="display:none"{/if}>
