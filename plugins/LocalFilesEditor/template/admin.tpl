@@ -11,7 +11,7 @@
 {combine_css path="plugins/LocalFilesEditor/codemirror/mode/javascript/javascript.css"}
 {combine_css path="plugins/LocalFilesEditor/codemirror/mode/css/css.css"}
 {combine_css path="plugins/LocalFilesEditor/codemirror/mode/clike/clike.css"}
-{combine_css path="plugins/LocalFilesEditor/locfiledit.css"}
+{combine_css path="plugins/LocalFilesEditor/template/locfiledit.css"}
 
 {footer_script}
 if (document.getElementById("text") != null)
@@ -62,26 +62,27 @@ if (document.getElementById("text") != null)
   {/if}
 {/if}
 
-<div style="overflow:auto;"> {* top bar buttons *}
+{if isset ($zone_edit)}
+<div id="title_bar">
+{/if}
+
 {if !empty($show_default)}
 {foreach from=$show_default item=file name=default_loop}
-<span class="top_right">
-<a href="{$file.SHOW_DEFAULT}" onclick="window.open( this.href, 'local_file', 'location=no,toolbar=no,menubar=no,status=no,resizable=yes,scrollbars=yes,width=800,height=700' ); return false;">{'locfiledit_show_default'|@translate} "{$file.FILE}"</a>
+<span class="default_file">
+<a href="{$file.URL}" onclick="window.open( this.href, 'local_file', 'location=no,toolbar=no,menubar=no,status=no,resizable=yes,scrollbars=yes,width=800,height=700' ); return false;">{'locfiledit_show_default'|@translate} "{$file.FILE}"</a>
 </span>
 {if !($smarty.foreach.default_loop.last)}<br>{/if}
 {/foreach}
 {/if}
 
 {if isset ($zone_edit)}
-<b>{$zone_edit.FILE_NAME}</b>
-
-</div> {* top bar buttons *}
+<span class="file_name">{$zone_edit.FILE_NAME}</span>
+</div> {* title_bar *}
 
 <textarea rows="30" cols="90" name="text" id="text">{$zone_edit.CONTENT_FILE}</textarea>
-
 <br>
-
 <input class="submit" type="submit" value="{'locfiledit_save_file'|@translate}" name="submit"/>
+
 {if isset ($restore)}
 <input class="submit" type="submit" value="{'locfiledit_restore'|@translate}" name="restore" onclick="return confirm('{'locfiledit_restore_confirm'|@translate|escape:'javascript'}');"/>
 {/if}
@@ -91,6 +92,6 @@ if (document.getElementById("text") != null)
 {'locfiledit_save_bak'|@translate}
 {/if}
 
-{/if}
+{/if} {* zone_edit *}
 </div>
 </form>

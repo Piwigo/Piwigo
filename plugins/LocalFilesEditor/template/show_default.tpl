@@ -1,8 +1,3 @@
-{html_head}
-<style type="text/css">#headbranch, #theHeader, #copyright {ldelim} display: none; }</style>
-{/html_head}
-{combine_script id="jquery"}
-
 {combine_script id="codemirror" path="plugins/LocalFilesEditor/codemirror/lib/codemirror.js"}
 {combine_script id="codemirror.xml" require="codemirror" path="plugins/LocalFilesEditor/codemirror/mode/xml/xml.js"}
 {combine_script id="codemirror.javascript" require="codemirror" path="plugins/LocalFilesEditor/codemirror/mode/javascript/javascript.js"}
@@ -16,20 +11,27 @@
 {combine_css path="plugins/LocalFilesEditor/codemirror/mode/javascript/javascript.css"}
 {combine_css path="plugins/LocalFilesEditor/codemirror/mode/css/css.css"}
 {combine_css path="plugins/LocalFilesEditor/codemirror/mode/clike/clike.css"}
-{combine_css path="plugins/LocalFilesEditor/locfiledit.css"}
+{combine_css path="plugins/LocalFilesEditor/template/locfiledit.css"}
 
 {footer_script}
 var editor = CodeMirror.fromTextArea(document.getElementById("text"), {ldelim}
-  matchBrackets: true,
   readOnly: true,
-  mode: "{$CODEMIRROR_MODE}",
-  tabMode: "shift"
+  mode: "application/x-httpd-php"
 });
 {/footer_script}
 
-<div id="LocalFilesEditor">
-<div style="overflow:auto;"><b>{$TITLE}</b></div>
+{html_head}
+<style type="text/css">
+#headbranch, #theHeader, #copyright {ldelim} display: none; }
+</style>
+{/html_head}
 
-<textarea id="text" rows="30" cols="90">{$DEFAULT_CONTENT}</textarea>
+<div id="LocalFilesEditor">
+
+<div id="title_bar">
+  <span class="file_name">{$TITLE}</span>
+</div>
+
+<textarea id="text" rows="30" cols="90" class="show_default_area">{$DEFAULT_CONTENT}</textarea>
 
 </div>

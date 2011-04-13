@@ -1,0 +1,32 @@
+#LocalFilesEditor {
+  text-align: center;
+  margin: 0 2em;
+}
+
+#LocalFilesEditor #title_bar {
+  overflow: auto;
+}
+
+#LocalFilesEditor .file_name {
+  font-weight: bold;
+  float: left;
+}
+
+#LocalFilesEditor .default_file  {
+  float: right;
+}
+
+#LocalFilesEditor TD {
+  padding: 0.5em;
+}
+
+#LocalFilesEditor TEXTAREA, .CodeMirror {
+  background-color: #EEEEEE;
+  font-family: monospace,Arial,sans-serif;
+  font-size: 1.2em;
+  border: 1px solid #999999;
+  margin: 0.5em 0;
+  width: 100%;
+  min-height: 500px;
+  height: auto;
+}
