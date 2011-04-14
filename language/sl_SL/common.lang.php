@@ -354,6 +354,7 @@ $lang['Email address is missing. Please specify an email address.'] = 'Manjka e-
 $lang['This author modified following comment:'] = 'Ta uporabnik je uredil naslednji komentar:';
 $lang['This author removed the comment with id %d'] = 'Ta uporabnik je odstranil komentar z id-jem %d';
 $lang['delete this comment'] = 'odstrani komentar';
-$lang['validate this comment'] = 'preveri komentar'; 
+$lang['validate this comment'] = 'preveri komentar';
+$lang['html tags are not allowed in login'] = 'pri prijavi niso dovoljene html značke';
 
 ?>
