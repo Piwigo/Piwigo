@@ -627,9 +627,9 @@ $lang['Who can see this photo?'] = 'Chi può vedere questa foto?';
 $lang['... or switch to the old style form'] = '... o passare sul modulo "vecchio stile"';
 $lang['... or switch to the multiple files form'] = '... o passare sul modulo multi-file';
 
-$lang['The websize maximum width must be a number between %d and %d'] = 'La larghezza massima della foto taglia web deve essere un numero tra %d e %d';
-$lang['The websize maximum height must be a number between %d and %d'] = 'L\'altezza massima della foto taglia web deve essere un numero tra %d e %d';
-$lang['The websize image quality must be a number between %d and %d'] = 'La qualità dell\'immagine per la foto taglia web deve essere un numero tra %d e %d';
+$lang['The websize maximum width must be a number between %d and %d'] = 'La larghezza massima della foto con dimenzioni per il web deve essere un numero tra %d e %d';
+$lang['The websize maximum height must be a number between %d and %d'] = 'L\'altezza massima della foto con dimenzioni per il web deve essere un numero tra %d e %d';
+$lang['The websize image quality must be a number between %d and %d'] = 'La qualità dell\'immagine per la foto con dimenzioni per il web deve essere un numero tra %d e %d';
 $lang['The thumbnail maximum width must be a number between %d and %d'] = 'La larghezza massima della miniatura deve essere un numero tra %d e %d';
 $lang['The thumbnail maximum height must be a number between %d and %d'] = 'L\'altezza massima della miniatura deve essere un numero tra %d e %d';
 $lang['The thumbnail image quality must be a number between %d and %d'] = 'La qualità  dell\'immagine per la miniatura deve essere un numero tra %d e %d';
