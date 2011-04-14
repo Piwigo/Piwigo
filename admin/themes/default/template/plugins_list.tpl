@@ -60,17 +60,19 @@ jQuery(document).ready(function() {
     'fadeIn' : 200,
     'fadeOut' : 200,
     'maxWidth':'250px'
-  }).click(function(){
-    return false;
+  });
+  jQuery('.plugin-restore').tipTip({
+    'delay' : 0,
+    'fadeIn' : 200,
+    'fadeOut' : 200
   });
   jQuery('.pluginMiniBoxDesc').tipTip({
     'delay' : 0,
     'fadeIn' : 200,
     'fadeOut' : 200,
     'maxWidth':'300px', /* not effective, TipTip bug */
+    'defaultPosition':'left',
     'keepAlive':true
-  }).click(function(){
-    return false;
   });
 });
 {/literal}
@@ -149,7 +151,7 @@ jQuery(document).ready(function() {
           <td>
           {if $plugin.STATE == 'active'}
             <a href="{$plugin.U_ACTION}&amp;action=deactivate">{'Deactivate'|@translate}</a>
-            | <a href="{$plugin.U_ACTION}&amp;action=restore" onclick="return confirm('{'Are you sure?'|@translate|@escape:'javascript'}');">{'Restore'|@translate}</a>
+            | <a href="{$plugin.U_ACTION}&amp;action=restore" class="plugin-restore" title="{'Restore default configuration. You will lost your plugin settings!'|@translate}" onclick="return confirm('{'Are you sure?'|@translate|@escape:'javascript'}');">{'Restore'|@translate}</a>
 
           {elseif $plugin.STATE == 'inactive'}
             <a href="{$plugin.U_ACTION}&amp;action=activate" {if $plugin.INCOMPATIBLE}class="incompatible"{/if}>{'Activate'|@translate}</a>
@@ -186,15 +188,14 @@ jQuery(document).ready(function() {
           
     <div id="{$plugin.ID}" class="pluginMiniBox {$plugin.STATE}{if $plugin.INCOMPATIBLE} incompatible{/if}">
       <div class="pluginMiniBoxNameCell">
-        {if $plugin.INCOMPATIBLE}<a class="warning" title="{'WARNING! This plugin does not seem to be compatible with this version of Piwigo.'|@translate|@escape:'html'}"></a>{/if}
-        {$plugin.NAME}
-        <a class="pluginMiniBoxDesc" title="{if !empty($author)}{'By %s'|@translate|@sprintf:$author} | {/if}{'Version'|@translate} {$version}<br/>{$plugin.DESC|@escape:'html'}"></a>
+        {if $plugin.INCOMPATIBLE}<span class="warning" title="{'WARNING! This plugin does not seem to be compatible with this version of Piwigo.'|@translate|@escape:'html'}"></span>{/if}
+        <span class="pluginMiniBoxDesc" title="{if !empty($author)}{'By %s'|@translate|@sprintf:$author} | {/if}{'Version'|@translate} {$version}<br/>{$plugin.DESC|@escape:'html'}">{$plugin.NAME}</span>
       </div>
       <div class="pluginActions">
         <div>
         {if $plugin.STATE == 'active'}
           <a href="{$plugin.U_ACTION}&amp;action=deactivate">{'Deactivate'|@translate}</a>
-          | <a href="{$plugin.U_ACTION}&amp;action=restore" onclick="return confirm('{'Are you sure?'|@translate|@escape:'javascript'}');">{'Restore'|@translate}</a>
+          | <a href="{$plugin.U_ACTION}&amp;action=restore" class="plugin-restore" title="{'Restore default configuration. You will lost all your settings !'|@translate}" onclick="return confirm('{'Are you sure?'|@translate|@escape:'javascript'}');">{'Restore'|@translate}</a>
 
         {elseif $plugin.STATE == 'inactive'}
           <a href="{$plugin.U_ACTION}&amp;action=activate" {if $plugin.INCOMPATIBLE}class="incompatible"{/if}>{'Activate'|@translate}</a>

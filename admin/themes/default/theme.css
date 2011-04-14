@@ -945,8 +945,6 @@ h2:lang(en) { text-transform:capitalize; }
 .pluginMiniBox.inactive, .pluginMiniBox.uninstalled {opacity:0.65;filter:alpha(opacity=65);}
 .pluginsByState .pluginMiniBox.inactive, .pluginsByState .pluginMiniBox.uninstalled {opacity:0.8;filter:alpha(opacity=80);}
 
-.pluginMiniBoxDesc{float:right;margin:0 4px 0 -20px;}
-.pluginMiniBoxDesc:after{content:url(icon/help-min.png);}
 .warning:before {content:url(icon/warning.png);vertical-align:top;}
 fieldset.pluginsByName{border:none;}
 

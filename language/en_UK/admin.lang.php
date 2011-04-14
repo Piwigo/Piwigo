@@ -572,6 +572,7 @@ $lang['Representative'] = "Representative";
 $lang['Represents'] = "Represents";
 $lang['Resize'] = 'Resize';
 $lang['Restore'] = "Restore";
+$lang['Restore default configuration. You will lost your plugin settings!'] = "Restore default configuration. You will lost your plugin settings!";
 $lang['Results of miniaturization'] = "Miniaturization process results";
 $lang['Save order'] = "Save order";
 $lang['Save page visits by administrators'] = "Record pages visited by administrators";
