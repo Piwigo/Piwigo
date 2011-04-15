@@ -330,17 +330,8 @@ jQuery(window).load(function() {
         <input type="checkbox" name="filter_prefilter_use" class="useFilterCheckbox" {if isset($filter.prefilter)}checked="checked"{/if}>
         {'predefined filter'|@translate}
         <select name="filter_prefilter">
-          <option value="caddie" {if $filter.prefilter eq 'caddie'}selected="selected"{/if}>{'caddie'|@translate}</option>
-          <option value="last import" {if $filter.prefilter eq 'last import'}selected="selected"{/if}>{'last import'|@translate}</option>
-          <option value="with no album" {if $filter.prefilter eq 'with no album'}selected="selected"{/if}>{'with no album'|@translate}</option>
-{if $ENABLE_SYNCHRONIZATION}
-          <option value="with no virtual album" {if $filter.prefilter eq 'with no virtual album'}selected="selected"{/if}>{'with no virtual album'|@translate}</option>
-{/if}
-          <option value="with no tag" {if $filter.prefilter eq 'with no tag'}selected="selected"{/if}>{'with no tag'|@translate}</option>
-          <option value="duplicates" {if $filter.prefilter eq 'duplicates'}selected="selected"{/if}>{'duplicates'|@translate}</option>
-          <option value="all photos" {if $filter.prefilter eq 'all photos'}selected="selected"{/if}>{'All'|@translate}</option>
-          {foreach from=$bulk_manager_plugins_prefilters item=plugin_prefilter}
-          <option value="{$plugin_prefilter.ID}" {if $filter.prefilter eq $plugin_prefilter.ID}selected="selected"{/if}>{$plugin_prefilter.NAME}</option>
+          {foreach from=$prefilters item=prefilter}
+          <option value="{$prefilter.ID}" {if $filter.prefilter eq $prefilter.ID}selected="selected"{/if}>{$prefilter.NAME}</option>
           {/foreach}
         </select>
       </li>
