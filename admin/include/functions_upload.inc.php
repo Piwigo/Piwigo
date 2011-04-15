@@ -490,13 +490,13 @@ function get_resize_dimensions($width, $height, $max_width, $max_height, $rotati
   {
     if ($ratio_width < $ratio_height)
     { 
-      $destination_width = ceil($width / $ratio_height);
+      $destination_width = round($width / $ratio_height);
       $destination_height = $max_height;
     }
     else
     { 
       $destination_width = $max_width; 
-      $destination_height = ceil($height / $ratio_width);
+      $destination_height = round($height / $ratio_width);
     }
   }
 
