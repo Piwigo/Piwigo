@@ -33,6 +33,15 @@ if (!defined('PHPWG_ROOT_PATH'))
 }
 
 include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
+include_once(PHPWG_ROOT_PATH.'admin/include/functions_upload.inc.php');
+prepare_upload_configuration();
+
+$upload_form_config = get_upload_form_config();
+foreach ($upload_form_config as $param_shortname => $param)
+{
+  $param_name = 'upload_form_'.$param_shortname;
+  $form_values[$param_shortname] = $conf[$param_name];
+}
 
 // +-----------------------------------------------------------------------+
 // | Check Access and exit when user status is not ok                      |
@@ -394,6 +403,61 @@ SELECT id, path
       );
   }
 
+  if ('regenerateThumbnails' == $action)
+  {
+    if ($_POST['regenerateSuccess'] != '0')
+      array_push($page['infos'], sprintf(l10n('%s thumbnails have been regenerated'), $_POST['regenerateSuccess']));
+
+    if ($_POST['regenerateError'] != '0')
+      array_push($page['warnings'], sprintf(l10n('%s thumbnails have been regenerated'), $_POST['regenerateError']));
+
+    // Update configuration
+    $fields = array('thumb_maxwidth', 'thumb_maxheight', 'thumb_quality');
+    $updates = array();
+    foreach ($fields as $field)
+    {
+      $value = null;
+      if (!empty($_POST[$field]))
+      {
+        $value = $_POST[$field];
+      }
+
+      if (preg_match($upload_form_config[$field]['pattern'], $value)
+        and $value >= $upload_form_config[$field]['min']
+        and $value <= $upload_form_config[$field]['max'])
+      {
+        $conf['upload_form_'.$field] = $value;
+         $updates[] = array(
+          'param' => 'upload_form_'.$field,
+          'value' => $value
+          );
+      }
+      else
+      {
+        $updates = null;
+        break;
+      }
+      $form_values[$field] = $value;
+    }
+    if (!empty($updates))
+    {
+      mass_updates(
+        CONFIG_TABLE,
+        array(
+          'primary' => array('param'),
+          'update' => array('value')
+          ),
+        $updates
+        );
+    }
+    function regenerateThumbnails_prefilter($content, $smarty)
+    {
+      return str_replace('{$thumbnail.TN_SRC}', '{$thumbnail.TN_SRC}?rand='.md5(uniqid(rand(), true)), $content);
+    }
+    $template->set_prefilter('batch_manager_global', 'regenerateThumbnails_prefilter');
+    $template->delete_compiled_templates();
+  }
+
   trigger_action('element_set_global_action', $action, $collection);
 }
 
@@ -430,6 +494,8 @@ $template->assign(
     'prefilters' => $prefilters,
     'filter' => $_SESSION['bulk_manager_filter'],
     'selection' => $collection,
+    'all_elements' => $page['cat_elements_id'],
+    'upload_form_settings' => $form_values,
     'U_DISPLAY'=>$base_url.get_query_string_diff(array('display')),
     'F_ACTION'=>$base_url.get_query_string_diff(array('cat')),
    )

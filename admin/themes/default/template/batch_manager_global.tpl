@@ -6,6 +6,8 @@
 {/literal}{/footer_script}
 
 {combine_script id='jquery.fcbkcomplete' load='footer' require='jquery' path='themes/default/js/plugins/jquery.fcbkcomplete.js'}
+{combine_script id='jquery.progressBar' load='footer' path='plugins/regenerateThumbnails/js/jquery.progressbar.min.js'}
+{combine_script id='jquery.ajaxmanager' load='footer' path='themes/default/js/plugins/jquery.ajaxmanager.js'}
 
 {footer_script require='jquery.fcbkcomplete'}{literal}
 jQuery(document).ready(function() {
@@ -26,11 +28,20 @@ jQuery(document).ready(function() {
 var nb_thumbs_page = {$nb_thumbs_page};
 var nb_thumbs_set = {$nb_thumbs_set};
 var applyOnDetails_pattern = "{'on the %d selected photos'|@translate}";
+var elements = new Array();
+var all_elements = [{','|@implode:$all_elements}];
 
 var selectedMessage_pattern = "{'%d of %d photos selected'|@translate}";
 var selectedMessage_none = "{'No photo selected, %d photos in current set'|@translate}";
 var selectedMessage_all = "{'All %d photos are selected'|@translate}";
+var regenerateThumbnailsMessage = "{'Thumbnails generation in progress...'|@translate}";
 {literal}
+var queuedManagerThumbnails = $.manageAjax.create('queued', { 
+	queue: true,  
+	cacheResponse: false,
+	maxRequests: 3
+});
+
 function str_repeat(i, m) {
         for (var o = []; m > 0; o[--m] = i);
         return o.join('');
@@ -76,6 +87,21 @@ function sprintf() {
                 f = f.substring(m[0].length);
         }
         return o.join('');
+}
+
+function progress(val, max, success) {
+  jQuery('#progressBar').progressBar(val, {
+    max: max,
+    textFormat: 'fraction',
+    boxImage: 'themes/default/images/progressbar.gif',
+    barImage: 'themes/default/images/progressbg_orange.gif'
+  });
+  type = success ? 'regenerateSuccess': 'regenerateError'
+  s = jQuery('[name="'+type+'"]').val();
+  jQuery('[name="'+type+'"]').val(++s);
+
+  if (val == max)
+    jQuery('#applyAction').click();
 }
 
 $(document).ready(function() {
@@ -300,6 +326,58 @@ $(document).ready(function() {
     return false;
   });
 
+  jQuery('#applyAction').click(function() {
+    if (jQuery('[name="selectAction"]').val() == 'regenerateThumbnails') {
+      if (elements.length != 0)
+        return true;
+
+      if (jQuery('input[name="setSelected"]').attr('checked'))
+        elements = all_elements;
+      else
+        jQuery('input[name="selection[]"]').each(function() {
+          if (jQuery(this).attr('checked')) {
+            elements.push(jQuery(this).val());
+          }
+        });
+
+      maxwidth = jQuery('input[name="thumb_maxwidth"]').val();
+      maxheight = jQuery('input[name="thumb_maxheight"]').val();
+      progressBar_max = elements.length;
+      todo = 0;
+
+      jQuery('#thumb_config').hide();
+      jQuery('#applyActionBlock').hide();
+      jQuery('select[name="selectAction"]').hide();
+      jQuery('#regenerationMsg').show();
+      jQuery('#regenerationText').html(regenerateThumbnailsMessage);
+      jQuery('#progressBar').progressBar(0, {
+        max: progressBar_max,
+        textFormat: 'fraction',
+        boxImage: 'themes/default/images/progressbar.gif',
+        barImage: 'themes/default/images/progressbg_orange.gif'
+      });
+
+      for (i=0;i<elements.length;i++) {
+        queuedManagerThumbnails.add({
+          type: 'GET', 
+          url: 'ws.php', 
+          data: {
+            method: 'pwg.images.resize',
+            type: 'thumbnail',
+            maxwidth: maxwidth,
+            maxheight: maxheight,
+            image_id: elements[i],
+            format: 'json'
+          },
+          dataType: 'json',
+          success: ( function(data) { progress(++todo, progressBar_max, data['result']) }),
+          error: ( function(data) { progress(++todo, progressBar_max, false) })
+        });
+      }
+      return false;
+    }
+  });
+
   checkPermitAction()
 });
 
@@ -473,6 +551,7 @@ jQuery(window).load(function() {
   {else}
       <option value="add_to_caddie">{'add to caddie'|@translate}</option>
   {/if}
+      <option value="regenerateThumbnails">{'Regenerate Thumbnails'|@translate}</option>
   {if !empty($element_set_global_plugins_actions)}
     {foreach from=$element_set_global_plugins_actions item=action}
       <option value="{$action.ID}">{$action.NAME}</option>
@@ -557,6 +636,32 @@ jQuery(window).load(function() {
 
     <!-- metadata -->
     <div id="action_metadata" class="bulkAction">
+    </div>
+
+    <!-- regenerate thumbnails -->
+    <div id="action_regenerateThumbnails" class="bulkAction">
+      <table style="margin-left:20px;" id="thumb_config">
+        <tr>
+          <th>{'Maximum Width'|@translate}</th>
+          <td><input type="text" name="thumb_maxwidth" value="{$upload_form_settings.thumb_maxwidth}" size="4" maxlength="4"> {'pixels'|@translate}</td>
+        </tr>
+        <tr>
+          <th>{'Maximum Height'|@translate}</th>
+          <td><input type="text" name="thumb_maxheight" value="{$upload_form_settings.thumb_maxheight}" size="4" maxlength="4"> {'pixels'|@translate}</td>
+        </tr>
+        <tr>
+          <th>{'Image Quality'|@translate}</th>
+          <td><input type="text" name="thumb_quality" value="{$upload_form_settings.thumb_quality}" size="3" maxlength="3"> %</td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- progress bar -->
+    <div id="regenerationMsg" style="display:none;">
+      <p id="regenerationText" style="margin-bottom:10px;"></p>
+      <span class="progressBar" id="progressBar"></span>
+      <input type="hidden" name="regenerateSuccess" value="0">
+      <input type="hidden" name="regenerateError" value="0">
     </div>
 
     <!-- plugins -->
