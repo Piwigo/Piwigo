@@ -404,8 +404,30 @@ $template->set_filenames(array('batch_manager_global' => 'batch_manager_global.t
 
 $base_url = get_root_url().'admin.php';
 
+$prefilters = array();
+
+array_push($prefilters,
+  array('ID' => 'caddie', 'NAME' => l10n('caddie')),
+  array('ID' => 'last import', 'NAME' => l10n('last import')),
+  array('ID' => 'with no album', 'NAME' => l10n('with no album')),
+  array('ID' => 'with no tag', 'NAME' => l10n('with no tag')),
+  array('ID' => 'duplicates', 'NAME' => l10n('duplicates')),
+  array('ID' => 'all photos', 'NAME' => l10n('All'))
+);
+
+if ($conf['enable_synchronization'])
+{
+  array_push($prefilters,
+    array('ID' => 'with no virtual album', 'NAME' => l10n('with no virtual album'))
+  );
+}
+
+$prefilters = trigger_event('get_batch_manager_prefilters', $prefilters);
+usort($prefilters, 'UC_name_compare');
+
 $template->assign(
   array(
+    'prefilters' => $prefilters,
     'filter' => $_SESSION['bulk_manager_filter'],
     'selection' => $collection,
     'U_DISPLAY'=>$base_url.get_query_string_diff(array('display')),
