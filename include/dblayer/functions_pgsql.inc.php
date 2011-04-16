@@ -91,7 +91,8 @@ function pwg_query($query)
 {
   global $conf,$page,$debug,$t2;
 
-  $replace_pattern = '`REPLACE INTO\s(\S*)\s*([^)]*\))\s*VALUES\(([^,]*),(.*)\)\s*`mi';  
+  $replace_pattern = '`REPLACE INTO\s(\S*)\s*([^)]*\))\s*VALUES\(([^,]*),(.*)\)\s*`mi';
+  $select_distinct_pattern = '/SELECT\s+DISTINCT\s*(\S[^;]*\S)\s*(FROM[^(;]+WHERE[^;]+)\s+ORDER\s+BY\s+([^;]*\S)\s*;?/i';
 
   $start = get_moment();
 
@@ -116,6 +117,76 @@ INSERT INTO '.$matches[1].'
   '.$matches[2].' VALUES('.$matches[3].','.$matches[4].')';
     }
     ( $result = pg_query($query)) or die($query."\n<br>".pg_last_error());      
+  }
+  elseif (preg_match($select_distinct_pattern, $query, $matches))
+  {
+    $select_fields_string='';
+    $distinct_fields_string='';
+    $orderby_fields_string='';
+    
+    foreach (preg_split( '/\s*,\s*/', $matches[1]) as $field)
+    {
+      $split_field = preg_split( '/\s*AS\s*/i', $field);
+      if (isset($split_field[1]))
+      {
+         $distinct_fields[ $split_field[1] ] = $field;
+      }
+      else
+      {
+        $distinct_fields[ $field ] = $field;
+      }
+    }
+    
+    foreach (preg_split( '/\s*,\s*/', $matches[3]) as $field)
+    {
+      $kv = preg_split( '/\s+/', $field );
+      $orderby_fields[ $kv[0] ] = $kv[1];
+    }
+    
+    foreach ($distinct_fields as $as_field => $field)
+    {
+      if ($distinct_fields_string)
+      {
+        $distinct_fields_string=$distinct_fields_string.', ';
+      }
+      
+      $distinct_fields_string=$distinct_fields_string.$as_field;
+      
+      if ($select_fields_string)
+      {
+        $select_fields_string=$select_fields_string.', ';
+      }
+      
+      $select_fields_string=$select_fields_string.$field;
+      
+      if ($orderby_fields_string)
+      {
+        $orderby_fields_string=$orderby_fields_string.', ';
+      }
+      
+      $orderby_fields_string=$orderby_fields_string.$as_field.' ';
+      
+      if (isset($orderby_fields[$as_field]))
+      {
+        $orderby_fields_string=$orderby_fields_string.$orderby_fields[$as_field];
+        unset($orderby_fields[$as_field]);
+      }
+      else
+      {
+        $orderby_fields_string=$orderby_fields_string.'ASC';
+      }
+     }
+    
+     foreach ($orderby_fields as $field => $order)
+     {
+       $orderby_fields_string=$orderby_fields_string.', '.$field.' '.$order;
+     }
+     
+     $query = '
+SELECT DISTINCT ON ('.$distinct_fields_string.') '.$select_fields_string.'
+   '.$matches[2].'
+   ORDER BY '.$orderby_fields_string;
+     ($result = pg_query($query)) or die($query."\n<br>".pg_last_error());
   }
   else 
   {
