@@ -359,4 +359,5 @@ $lang['Manage this user comment: %s'] = 'Verwalte diesen Benutzerkommentar: %s';
 $lang['This author modified following comment:'] = 'Dieser Autor veränderte folgenden Kommentar:';
 $lang['This author removed the comment with id %d'] = 'Dieser Autor löschte den Kommentar mit der ID %d';
 $lang['validate this comment'] = 'überprüfe diesen Kommentar';
+$lang['html tags are not allowed in login'] = ' HTML-Tags sind im Login nicht erlaubt';
 ?>
