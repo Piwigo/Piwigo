@@ -45,5 +45,5 @@ $lang['This page proposes to upgrade your database corresponding to your old ver
 Asistent aktualizace se domnívá, že aktuálně používáte <strong>verzi %s</strong> (nebo odpovídající).';
 $lang['As a precaution, following plugins have been deactivated. You must check for plugins upgrade before reactiving them:'] = 'Jako předběžné opatření byly deaktivovány následující doplňky. Prosím zkontrolujte aktualizace těchto doplňků předtím než je znovu aktivujete:';
 $lang['In <i>%s</i>, before <b>?></b>, insert:'] = 'V <i>%s</i>, před <b>?></b>, vložením:';
-
+$lang['As a precaution, following themes have been deactivated. You must check for themes upgrade before reactiving them:'] = 'Jako preventivní opatření, byli náseldující šablony deaktivovány. Musíte zkontrolovat nejprve jestli není nová verze předtím než je reaktivujete:';
 ?>
