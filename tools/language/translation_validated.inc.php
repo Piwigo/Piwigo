@@ -137,7 +137,7 @@ $validated_keys = array(
 	'[Simulation]',
 	'Album',
 	'Album: %s',
-	'',
+	'Remote',
 	),
 
   'es_AR' => array(
