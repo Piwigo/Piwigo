@@ -8,7 +8,10 @@ $validated_keys = array(
 	),
 	
   'cs_CZ' => array(
-	'',
+	'Album',
+	'IP: %s',
+	'Album: %s',
+	'IP',
 	),
 	
   'da_DK' => array(

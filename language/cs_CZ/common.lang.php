@@ -361,6 +361,7 @@ $lang['Manage this user comment: %s'] = 'Spravujte tento uživatelský komentá�
 $lang['This author modified following comment:'] = 'Tento autor upravil následující komentář:';
 $lang['This author removed the comment with id %d'] = 'Tento autor smazal komentář s identifikátorem %d';
 $lang['validate this comment'] = 'zkontrolovat tento komentář';
-$lang['%d Kb'] = '%d Kb';
+$lang['%d Kb'] = '%d KB';
 $lang['IP: %s'] = 'IP: %s';
+$lang['html tags are not allowed in login'] = 'html značky nejsou povoleny v loginu';
 ?>
