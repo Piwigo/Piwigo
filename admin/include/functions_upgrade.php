@@ -113,7 +113,7 @@ WHERE id IN (\'' . implode('\',\'', $plugins) . '\')
 // Deactivate all non-standard themes
 function deactivate_non_standard_themes()
 {
-  global $page;
+  global $page, $conf;
 
   $standard_themes = array(
     'clear',
@@ -148,6 +148,25 @@ DELETE
 
     array_push($page['infos'],
       l10n('As a precaution, following themes have been deactivated. You must check for themes upgrade before reactiving them:').'<p><i>'.implode(', ', $theme_names).'</i></p>');
+
+    // what is the default theme?
+    $query = '
+SELECT theme
+  FROM '.PREFIX_TABLE.'user_infos
+  WHERE user_id = '.$conf['default_user_id'].'
+;';
+    list($default_theme) = pwg_db_fetch_row(pwg_query($query));
+
+    // if the default theme has just been deactivated, let's set another core theme as default
+    if (in_array($default_theme, $theme_ids))
+    {
+      $query = '
+UPDATE '.PREFIX_TABLE.'user_infos
+  SET theme = \'Sylvia\'
+  WHERE user_id = '.$conf['default_user_id'].'
+;';
+      pwg_query($query);
+    }
   }
 }
 
