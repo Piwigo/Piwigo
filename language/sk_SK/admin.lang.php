@@ -786,5 +786,6 @@ $lang['WARNING! This plugin does not seem to be compatible with this version of 
 $lang['Do you want to activate anyway?'] = 'Chtete ho aj tak aktivovať?';
 $lang['THIS PLUGIN IS NOW PART OF PIWIGO CORE! DELETE IT NOW.'] = 'TENTO DOPLNOK JE TERAZ SÚČASŤOU JADRA PIWIGO! ODINŠTALUJTE HO TERAZ!';
 $lang['ERROR: THIS PLUGIN IS MISSING BUT IT IS INSTALLED! UNINSTALL IT NOW.'] = 'CHYBA: TENTO DOPLNOK CHÝBA ALE JE NAINŠTALOVANÝ! ODINŠTALUJTE HO TERAZ.';
+$lang['display'] = 'zobrazenie';
 
 ?>
