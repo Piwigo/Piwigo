@@ -776,4 +776,5 @@ $lang['WARNING! This plugin does not seem to be compatible with this version of 
 $lang['Do you want to activate anyway?'] = 'Yine de etkinleştirmek istiyor musunuz?';
 $lang['THIS PLUGIN IS NOW PART OF PIWIGO CORE! DELETE IT NOW.'] = 'Bu eklenti şimdi Piwigo\'nun kendi parçasıdır lütfen siliniz.!';
 $lang['ERROR: THIS PLUGIN IS MISSING BUT IT IS INSTALLED! UNINSTALL IT NOW.'] = 'Hata: Bu eklenti eksik, ama yüklenmiş. Lütfen siliniz.';
+$lang['display'] = 'göster';
 ?>
