@@ -355,4 +355,6 @@ $lang['slideshow'] = 'slayt gösterisi';
 $lang['the beginning'] = 'başlangıç';
 $lang['Email address is missing. Please specify an email address.'] = 'E-Posta Adresi Kayıp. Lütfen E-Posta adresinizi doğrulayınız..';
 $lang['html tags are not allowed in login'] = 'girişte html etiketleri kullanılamaz';
+$lang['The number of photos per page must be a not null scalar'] = 'Sayfa başına fotoğraf sayısı sıfırdan farklı bir tamsayı olmalıdır';
+$lang['Number of photos per page'] = 'Sayfa başına fotoğraf sayısı';
 ?>
