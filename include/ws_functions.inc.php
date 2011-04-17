@@ -2726,6 +2726,11 @@ WHERE id = '.(int)$params['image_id'].'
       $params['quality'],
       false
       );
+
+    $conf['use_exif'] = false;
+    $conf['use_iptc'] = false;
+    update_metadata(array($image['id'] => $image['path']));
+
     return true;
   }
   return false;

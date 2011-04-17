@@ -43,6 +43,12 @@ foreach ($upload_form_config as $param_shortname => $param)
   $form_values[$param_shortname] = $conf[$param_name];
 }
 
+// User cache must not be regenerated during simultaneous ajax requests
+if (!isset($user['need_update']) or !$user['need_update'])
+{
+  getuserdata($user['id'], true);
+}
+
 // +-----------------------------------------------------------------------+
 // | Check Access and exit when user status is not ok                      |
 // +-----------------------------------------------------------------------+
@@ -409,12 +415,27 @@ SELECT id, path
       array_push($page['infos'], sprintf(l10n('%s thumbnails have been regenerated'), $_POST['regenerateSuccess']));
 
     if ($_POST['regenerateError'] != '0')
-      array_push($page['warnings'], sprintf(l10n('%s thumbnails have been regenerated'), $_POST['regenerateError']));
+      array_push($page['warnings'], sprintf(l10n('%s thumbnails can not be regenerated'), $_POST['regenerateError']));
 
+    $update_fields = array('thumb_maxwidth', 'thumb_maxheight', 'thumb_quality');
+  }
+
+  if ('regenerateWebsize' == $action)
+  {
+    if ($_POST['regenerateSuccess'] != '0')
+      array_push($page['infos'], sprintf(l10n('%s photos have been regenerated'), $_POST['regenerateSuccess']));
+
+    if ($_POST['regenerateError'] != '0')
+      array_push($page['warnings'], sprintf(l10n('%s photos can not be regenerated'), $_POST['regenerateError']));
+
+    $update_fields = array('websize_maxwidth', 'websize_maxheight', 'websize_quality');
+  }
+
+  if (!empty($update_fields))
+  {
     // Update configuration
-    $fields = array('thumb_maxwidth', 'thumb_maxheight', 'thumb_quality');
     $updates = array();
-    foreach ($fields as $field)
+    foreach ($update_fields as $field)
     {
       $value = null;
       if (!empty($_POST[$field]))
@@ -450,11 +471,6 @@ SELECT id, path
         $updates
         );
     }
-    function regenerateThumbnails_prefilter($content, $smarty)
-    {
-      return str_replace('{$thumbnail.TN_SRC}', '{$thumbnail.TN_SRC}?rand='.md5(uniqid(rand(), true)), $content);
-    }
-    $template->set_prefilter('batch_manager_global', 'regenerateThumbnails_prefilter');
     $template->delete_compiled_templates();
   }
 
@@ -782,6 +798,12 @@ $template->assign(
     'nb_thumbs_set' => count($page['cat_elements_id']),
     )
   );
+
+function regenerateThumbnails_prefilter($content, $smarty)
+{
+  return str_replace('{$thumbnail.TN_SRC}', '{$thumbnail.TN_SRC}?rand='.md5(uniqid(rand(), true)), $content);
+}
+$template->set_prefilter('batch_manager_global', 'regenerateThumbnails_prefilter');
 
 trigger_action('loc_end_element_set_global');
 

@@ -35,13 +35,8 @@ var selectedMessage_pattern = "{'%d of %d photos selected'|@translate}";
 var selectedMessage_none = "{'No photo selected, %d photos in current set'|@translate}";
 var selectedMessage_all = "{'All %d photos are selected'|@translate}";
 var regenerateThumbnailsMessage = "{'Thumbnails generation in progress...'|@translate}";
+var regenerateWebsizeMessage = "{'Photos generation in progress...'|@translate}";
 {literal}
-var queuedManagerThumbnails = $.manageAjax.create('queued', { 
-	queue: true,  
-	cacheResponse: false,
-	maxRequests: 3
-});
-
 function str_repeat(i, m) {
         for (var o = []; m > 0; o[--m] = i);
         return o.join('');
@@ -327,55 +322,78 @@ $(document).ready(function() {
   });
 
   jQuery('#applyAction').click(function() {
-    if (jQuery('[name="selectAction"]').val() == 'regenerateThumbnails') {
-      if (elements.length != 0)
-        return true;
-
-      if (jQuery('input[name="setSelected"]').attr('checked'))
-        elements = all_elements;
-      else
-        jQuery('input[name="selection[]"]').each(function() {
-          if (jQuery(this).attr('checked')) {
-            elements.push(jQuery(this).val());
-          }
-        });
-
+    if (elements.length != 0)
+    {
+      return true;
+    }
+    else if (jQuery('[name="selectAction"]').val() == 'regenerateThumbnails')
+    {
+      type = 'thumbnail';
+      maxRequests = 3;
       maxwidth = jQuery('input[name="thumb_maxwidth"]').val();
       maxheight = jQuery('input[name="thumb_maxheight"]').val();
-      progressBar_max = elements.length;
-      todo = 0;
+      regenerationText = regenerateThumbnailsMessage;
+    }
+    else if(jQuery('[name="selectAction"]').val() == 'regenerateWebsize')
+    {
+      type = 'websize';
+      maxRequests = 1;
+      maxwidth = jQuery('input[name="websize_maxwidth"]').val();
+      maxheight = jQuery('input[name="websize_maxheight"]').val();
+      regenerationText = regenerateWebsizeMessage;
+    }
+    else return true;
 
-      jQuery('#thumb_config').hide();
-      jQuery('#applyActionBlock').hide();
-      jQuery('select[name="selectAction"]').hide();
-      jQuery('#regenerationMsg').show();
-      jQuery('#regenerationText').html(regenerateThumbnailsMessage);
-      jQuery('#progressBar').progressBar(0, {
-        max: progressBar_max,
-        textFormat: 'fraction',
-        boxImage: 'themes/default/images/progressbar.gif',
-        barImage: 'themes/default/images/progressbg_orange.gif'
+    jQuery('.bulkAction').hide();
+    jQuery('#regenerationText').html(regenerationText);
+
+    var queuedManager = jQuery.manageAjax.create('queued', { 
+      queue: true,  
+      cacheResponse: false,
+      maxRequests: maxRequests
+    });
+
+    if (jQuery('input[name="setSelected"]').attr('checked'))
+      elements = all_elements;
+    else
+      jQuery('input[name="selection[]"]').each(function() {
+        if (jQuery(this).attr('checked')) {
+          elements.push(jQuery(this).val());
+        }
       });
 
-      for (i=0;i<elements.length;i++) {
-        queuedManagerThumbnails.add({
-          type: 'GET', 
-          url: 'ws.php', 
-          data: {
-            method: 'pwg.images.resize',
-            type: 'thumbnail',
-            maxwidth: maxwidth,
-            maxheight: maxheight,
-            image_id: elements[i],
-            format: 'json'
-          },
-          dataType: 'json',
-          success: ( function(data) { progress(++todo, progressBar_max, data['result']) }),
-          error: ( function(data) { progress(++todo, progressBar_max, false) })
-        });
-      }
-      return false;
+    progressBar_max = elements.length;
+    todo = 0;
+
+    jQuery('#applyActionBlock').hide();
+    jQuery('select[name="selectAction"]').hide();
+    jQuery('#regenerationMsg').show();
+    
+    jQuery('#progressBar').progressBar(0, {
+      max: progressBar_max,
+      textFormat: 'fraction',
+      boxImage: 'themes/default/images/progressbar.gif',
+      barImage: 'themes/default/images/progressbg_orange.gif'
+    });
+
+    for (i=0;i<elements.length;i++) {
+      queuedManager.add({
+        type: 'GET', 
+        url: 'ws.php', 
+        data: {
+          method: 'pwg.images.resize',
+          type: type,
+          maxwidth: maxwidth,
+          maxheight: maxheight,
+          image_id: elements[i],
+          format: 'json'
+        },
+        dataType: 'json',
+        success: ( function(data) { progress(++todo, progressBar_max, data['result']) }),
+        error: ( function(data) { progress(++todo, progressBar_max, false) })
+      });
     }
+    return false;
   });
 
   checkPermitAction()
@@ -552,6 +570,7 @@ jQuery(window).load(function() {
       <option value="add_to_caddie">{'add to caddie'|@translate}</option>
   {/if}
       <option value="regenerateThumbnails">{'Regenerate Thumbnails'|@translate}</option>
+      <option value="regenerateWebsize">{'Regenerate Websize Photos'|@translate}</option>
   {if !empty($element_set_global_plugins_actions)}
     {foreach from=$element_set_global_plugins_actions item=action}
       <option value="{$action.ID}">{$action.NAME}</option>
@@ -640,7 +659,7 @@ jQuery(window).load(function() {
 
     <!-- regenerate thumbnails -->
     <div id="action_regenerateThumbnails" class="bulkAction">
-      <table style="margin-left:20px;" id="thumb_config">
+      <table style="margin-left:20px;">
         <tr>
           <th>{'Maximum Width'|@translate}</th>
           <td><input type="text" name="thumb_maxwidth" value="{$upload_form_settings.thumb_maxwidth}" size="4" maxlength="4"> {'pixels'|@translate}</td>
@@ -656,8 +675,31 @@ jQuery(window).load(function() {
       </table>
     </div>
 
+    <!-- regenerate websize -->
+    <div id="action_regenerateWebsize" class="bulkAction">
+      <p>
+        <img src="admin/themes/default/icon/warning.png" alt="!" style="vertical-align:middle;">
+        {'Only photos with HD can be regenerated!'|@translate}
+      </p>
+
+      <table style="margin:10px 20px;">
+        <tr>
+          <th>{'Maximum Width'|@translate}</th>
+          <td><input type="text" name="websize_maxwidth" value="{$upload_form_settings.websize_maxwidth}" size="4" maxlength="4"> {'pixels'|@translate}</td>
+        </tr>
+        <tr>
+          <th>{'Maximum Height'|@translate}</th>
+          <td><input type="text" name="websize_maxheight" value="{$upload_form_settings.websize_maxheight}" size="4" maxlength="4"> {'pixels'|@translate}</td>
+        </tr>
+        <tr>
+          <th>{'Image Quality'|@translate}</th>
+          <td><input type="text" name="websize_quality" value="{$upload_form_settings.websize_quality}" size="3" maxlength="3"> %</td>
+        </tr>
+      </table>
+    </div>
+
     <!-- progress bar -->
-    <div id="regenerationMsg" style="display:none;">
+    <div id="regenerationMsg" class="bulkAction">
       <p id="regenerationText" style="margin-bottom:10px;"></p>
       <span class="progressBar" id="progressBar"></span>
       <input type="hidden" name="regenerateSuccess" value="0">
