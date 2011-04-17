@@ -787,4 +787,13 @@ $lang['Do you want to activate anyway?'] = 'Do you want to activate anyway?';
 $lang['THIS PLUGIN IS NOW PART OF PIWIGO CORE! DELETE IT NOW.'] = 'THIS PLUGIN IS NOW PART OF PIWIGO CORE! UNINSTALL IT NOW!';
 $lang['ERROR: THIS PLUGIN IS MISSING BUT IT IS INSTALLED! UNINSTALL IT NOW.'] = 'ERROR: THIS PLUGIN IS MISSING BUT IT IS INSTALLED! UNINSTALL IT NOW.';
 $lang['display'] = 'display';
+$lang['Regenerate Thumbnails'] = 'Regenerate Thumbnails';
+$lang['Regenerate Websize Photos'] = 'Regenerate Websize Photos';
+$lang['Thumbnails generation in progress...'] = 'Thumbnails generation in progress...';
+$lang['Photos generation in progress...'] = 'Photos generation in progress...';
+$lang['%s thumbnails have been regenerated'] = '%s thumbnails have been regenerated';
+$lang['%s thumbnails can not be regenerated'] = '%s thumbnails can not be regenerated';
+$lang['%s photos have been regenerated'] = '%s photos have been regenerated';
+$lang['%s photos can not be regenerated'] = '%s photos can not be regenerated';
+$lang['Only photos with HD can be regenerated!'] = 'Only photos with HD can be regenerated!';
 ?>

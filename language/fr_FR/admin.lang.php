@@ -798,4 +798,13 @@ $lang['Compact'] = "Compact";
 $lang['Complete'] = "Complet";
 $lang['Restore'] = "Restaurer";
 $lang['Restore default configuration. You will lost your plugin settings!'] = "Restaurer la configuration par défaut? Vous perdrez vos réglages personnels !";
+$lang['Regenerate Thumbnails'] = 'Régénérer les miniatures';
+$lang['Regenerate Websize Photos'] = 'Régénérer les photos taille web';
+$lang['Thumbnails generation in progress...'] = 'Génération des miniatures en cours...';
+$lang['Photos generation in progress...'] = 'Génération des photos en cours...';
+$lang['%s thumbnails have been regenerated'] = '%s miniatures ont été régénérées';
+$lang['%s thumbnails can not be regenerated'] = '%s miniatures ne peuvent pas être régénérées';
+$lang['%s photos have been regenerated'] = '%s photos ont été régénérées';
+$lang['%s photos can not be regenerated'] = '%s photos ne peuvent pas être régénérées';
+$lang['Only photos with HD can be regenerated!'] = 'Seules les photos avec HD peuvent être régénérées';
 ?>
