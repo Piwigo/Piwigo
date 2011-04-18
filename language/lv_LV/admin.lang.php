@@ -777,4 +777,13 @@ $lang['Do you want to activate anyway?'] = 'Vai vēlaties aktivēt jebkurā gad�
 $lang['THIS PLUGIN IS NOW PART OF PIWIGO CORE! DELETE IT NOW.'] = 'TAGAD ŠIS SPRAUDNIS IR PIWIGO KODOLA SASTĀVDAĻA! VAI NOINSTALĒT TO!';
 $lang['ERROR: THIS PLUGIN IS MISSING BUT IT IS INSTALLED! UNINSTALL IT NOW.'] = 'KĻŪDA: ŠIS SPRAUDNIS IZTRŪKST, BET TAS IR INSTALĒTS! VAI NOINSTALĒT TO';
 $lang['display'] = 'attēlot';
+$lang['Regenerate Thumbnails'] = 'Reģenerēt Sīkbildes';
+$lang['Thumbnails generation in progress...'] = 'Notiek sīkbilžu ģenerēšanas (veidošanas) process...';
+$lang['%s thumbnails have been regenerated'] = '%s sīkbilžu reģenerēts';
+$lang['%s thumbnails can not be regenerated'] = '%s sīkbildes nav iespējams reģenerēt';
+$lang['Regenerate Websize Photos'] = 'Reģenerēt Webizmēra Fotogrāfijas';
+$lang['Photos generation in progress...'] = 'Notiek foto izveide...';
+$lang['%s photos have been regenerated'] = 'izveidotas %s fotogrāfijas';
+$lang['%s photos can not be regenerated'] = '%s fotogrāfijas nav iespējams reģenerēt';
+$lang['Only photos with HD can be regenerated!'] = 'Tikai HD kvalitātes fotogrāfijas iespējams reģenerēt!';
 ?>
