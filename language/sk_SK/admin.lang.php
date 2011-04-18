@@ -787,5 +787,14 @@ $lang['Do you want to activate anyway?'] = 'Chtete ho aj tak aktivovať?';
 $lang['THIS PLUGIN IS NOW PART OF PIWIGO CORE! DELETE IT NOW.'] = 'TENTO DOPLNOK JE TERAZ SÚČASŤOU JADRA PIWIGO! ODINŠTALUJTE HO TERAZ!';
 $lang['ERROR: THIS PLUGIN IS MISSING BUT IT IS INSTALLED! UNINSTALL IT NOW.'] = 'CHYBA: TENTO DOPLNOK CHÝBA ALE JE NAINŠTALOVANÝ! ODINŠTALUJTE HO TERAZ.';
 $lang['display'] = 'zobrazenie';
+$lang['Regenerate Thumbnails'] = 'Vytvorenie náhľadov';
+$lang['Thumbnails generation in progress...'] = 'Prebieha tvorba náhľadov...';
+$lang['%s thumbnails have been regenerated'] = '%s náhľadov bolo vytvorených';
+$lang['%s thumbnails can not be regenerated'] = '%s náhľadov nebolo vytvorených';
+$lang['Regenerate Websize Photos'] = 'Zlepšenie web veľkostí fotografií';
+$lang['Photos generation in progress...'] = 'Prebieha tvorba fotografií...';
+$lang['%s photos have been regenerated'] = '%s fotografií bolo vytvorených';
+$lang['%s photos can not be regenerated'] = '%s fotografií nebolo vytvorených';
+$lang['Only photos with HD can be regenerated!'] = 'Len forografie v HD môžu byť vytvorené!'; 
 
 ?>
