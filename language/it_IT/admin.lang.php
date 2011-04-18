@@ -524,9 +524,9 @@ $lang['Are you sure to install this upgrade? You must verify if this version doe
 $lang['%s has been successfully upgraded.'] = '%s è stato aggiornato con successo.';
 $lang['Plugin has been successfully copied'] = 'Il plugin è stato copiato con successo.';
 $lang['You might go to plugin list to install and activate it.'] = 'Recatevi nella lista dei plugins per installarlo ed attivarlo.';
-$lang['Can\'t create temporary file.'] = 'E\' impossibile creare un file temporaneo.';
-$lang['Can\'t download archive.'] = 'E\' impossibile scaricare l\'archivio.';
-$lang['Can\'t read or extract archive.'] = 'E\' impossibile leggere o eseguire l\'archivio.';
+$lang['Can\'t create temporary file.'] = 'È impossibile creare un file temporaneo.';
+$lang['Can\'t download archive.'] = 'È impossibile scaricare l\'archivio.';
+$lang['Can\'t read or extract archive.'] = 'È impossibile leggere o eseguire l\'archivio.';
 $lang['An error occured during extraction (%s).'] = 'Si è verificato un\'errore durante l\'estrazione del file (%s).';
 $lang['Please check "plugins" folder and sub-folders permissions (CHMOD).'] = 'Verificate i permessi della cartella "plugins" e delle sue sotto cartelle (CHMOD).';
 $lang['Can\'t connect to server.'] = 'Non è possibile connettersi al server.';

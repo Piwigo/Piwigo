@@ -31,7 +31,7 @@ $lang['Admin configuration'] = 'Configurazione dell\'utente "Amministratore"';
 $lang['Start Install'] = 'Inizia l\'installazione';
 $lang['mail address must be like xxx@yyy.eee (example : jack@altern.org)'] = 'L\'indirizzo email deve essere tipo xxx@yyy.eee (esempio: jack@altern.org)';
 $lang['Webmaster login'] = 'Nome utente webmaster';
-$lang['It will be shown to the visitors. It is necessary for website administration'] = 'Esso verrà mostrato ai visitatori. E\' necessario per amministrare il vostro sito';
+$lang['It will be shown to the visitors. It is necessary for website administration'] = 'Esso verrà mostrato ai visitatori. È necessario per amministrare il vostro sito';
 $lang['Connection to server succeed, but it was impossible to connect to database'] = 'Connessione al server riuscita, ma non è stato possibile connettersi al database';
 $lang['Can\'t connect to server'] = 'Impossibile connettersi al server';
 $lang['Database type'] = 'Tipo database';
@@ -56,7 +56,7 @@ $lang['verification'] = 'verifica';
 $lang['Need help ? Ask your question on <a href="%s">Piwigo message board</a>.'] = 'Avete bisogno di aiuto? Visitate il <a href=\"%s\">forum di Piwigo</a>.';
 $lang['Webmaster mail address'] = 'Indirizzo email del Webmaster';
 $lang['Visitors will be able to contact site administrator with this mail'] = 'I visitatori saranno in grado di contattarvi usando questa email';
-$lang['PHP 5 is required'] = 'E\' richiesto PHP 5';
+$lang['PHP 5 is required'] = 'È richiesto PHP 5';
 $lang['It appears your webhost is currently running PHP %s.'] = 'Sembra che la versione PHP del vostro server sia %s.';
 $lang['Piwigo may try to switch your configuration to PHP 5 by creating or modifying a .htaccess file.'] = 'Piwigo tenterà di cambiare la configurazione di PHP 5 creando o modificando il file .htaccess.';
 $lang['Note you can change your configuration by yourself and restart Piwigo after that.'] = 'Nota: potete cambiare manualmente la configurazione PHP e poi riavviare Piwigo.';
@@ -70,7 +70,7 @@ $lang['Congratulations, Piwigo installation is completed'] = 'Congratulazioni, l
 $lang['An alternate solution is to copy the text in the box above and paste it into the file "local/config/database.inc.php" (Warning : database.inc.php must only contain what is in the textarea, no line return or space character)'] = 'Una soluzione alternativa è quella di copiare il testo nella casella sopra e incollarlo nel file "local/config/database.inc.php" (Attenzione: database.inc.php deve contenere solo quello che c\'è nel box sopra, senza nessun ritorno a capo o spazio)';
 $lang['Creation of config file local/config/database.inc.php failed.'] = 'Creazione del file di configurazione local/config/database.inc.php fallita.';
 $lang['Download the config file'] = 'Scaricare il file di configurazione';
-$lang['You can download the config file and upload it to local/config directory of your installation.'] = 'E\' possibile scaricare il file di configurazione e caricarlo in local/config della vostra installazione di Piwigo.';
+$lang['You can download the config file and upload it to local/config directory of your installation.'] = 'È possibile scaricare il file di configurazione e caricarlo in local/config della vostra installazione di Piwigo.';
 $lang['SQLite and PostgreSQL are currently in experimental state.'] = 'SQLite e PostgreSQL sono attualmente in stato sperimentale.';
 $lang['Learn more'] = 'Per saperne di più';
 ?>
