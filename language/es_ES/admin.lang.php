@@ -782,4 +782,14 @@ $lang['WARNING! This plugin does not seem to be compatible with this version of 
 $lang['Do you want to activate anyway?'] = '¿Quiere activarlo de todos modos?';
 $lang['THIS PLUGIN IS NOW PART OF PIWIGO CORE! DELETE IT NOW.'] = 'ESTE PLUGIN ES AHORA PARTE DEL CORE DE PIWIGO! PUEDE DESINSTALARLO AHORA! ';
 $lang['ERROR: THIS PLUGIN IS MISSING BUT IT IS INSTALLED! UNINSTALL IT NOW.'] = 'ERROR: Este plugin FALTA PERO ESTÁ INSTALADO! DESINSTALAR YA!.';
+$lang['Regenerate Thumbnails'] = 'Volver a generar las miniaturas';
+$lang['Thumbnails generation in progress...'] = 'Generación de las miniaturas en curso...';
+$lang['%s thumbnails have been regenerated'] = '%s miniaturas fueron regeneradas.';
+$lang['%s thumbnails can not be regenerated'] = '%s miniaturas no pueden ser regeneradas';
+$lang['Regenerate Websize Photos'] = 'Volver a generar las fotos tamaño web';
+$lang['Photos generation in progress...'] = 'Generación de las fotos en curso...';
+$lang['%s photos have been regenerated'] = '%s fotos fueron regeneradas.';
+$lang['%s photos can not be regenerated'] = '%s fotos no pueden ser regeneradas';
+$lang['Only photos with HD can be regenerated!'] = 'Sólo las fotos de alta definición pueden ser regeneradas';
+
 ?>
