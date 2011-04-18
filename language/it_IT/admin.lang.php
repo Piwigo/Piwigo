@@ -797,5 +797,5 @@ $lang['display'] = 'Visualizzare';
 $lang['Compact'] = 'Compatto';
 $lang['Complete'] = 'Completo';
 $lang['Restore'] = 'Restaurare';
-
+$lang['Restore default configuration. You will lost your plugin settings!'] = 'Reimpostare la configurazione di defaut? Perderete tutte le vostre impostazioni!';
 ?>
