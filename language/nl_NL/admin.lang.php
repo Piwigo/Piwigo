@@ -785,4 +785,9 @@ $lang['WARNING! This plugin does not seem to be compatible with this version of 
 $lang['Do you want to activate anyway?'] = 'Wilt u desondanks activeren?';
 $lang['THIS PLUGIN IS NOW PART OF PIWIGO CORE! DELETE IT NOW.'] = 'DEZE PLUGIN IS NU ONDERDEEL VAN PIWIGO CORE! VERWIJDER DE PLUGIN NU.';
 $lang['ERROR: THIS PLUGIN IS MISSING BUT IT IS INSTALLED! UNINSTALL IT NOW.'] = 'FOUT: DEZE PLUGIN MIST MAAR IS GEINSTALEERD! DEINSTALLEER DE PLUGIN NU.';
+$lang['Regenerate Thumbnails'] = 'Hergenereer Thumbnails';
+$lang['Thumbnails generation in progress...'] = 'Bezig met genereren van thumbnails...';
+$lang['%s thumbnails have been regenerated'] = '%s thumbnails zijn opnieuw gegenereerd.';
+$lang['%s thumbnails can not be regenerated'] = '%s thumbnails kunnen niet opnieuw worden gegenereerd.';
+
 ?>
