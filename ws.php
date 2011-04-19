@@ -246,7 +246,7 @@ function ws_addDefaultMethods( $arr )
     'ws_images_delete',
     array(
       'image_id'=>array('default'=>0),
-      'pwg_token' => array('default' => null),
+      'pwg_token' => array(),
       ),
     'Delete photos. You can give several image_ids, comma separated'
     );
@@ -273,7 +273,7 @@ function ws_addDefaultMethods( $arr )
     'ws_categories_delete',
     array(
       'category_id'=>array('default'=>0),
-      'pwg_token' => array('default' => null),
+      'pwg_token' => array(),
       'photo_deletion_mode' => array('default' => 'delete_orphans'),
       ),
     'Delete categories. You can give several category_ids, comma separated.
@@ -286,7 +286,7 @@ function ws_addDefaultMethods( $arr )
     array(
       'category_id'=>array('default'=>0),
       'parent'=>array('default'=>0),
-      'pwg_token' => array('default' => null),
+      'pwg_token' => array(),
       ),
     'Move categories. You can give several category_ids, comma separated. Set parent as 0 to move to gallery root. Only virtual categories can be moved.'
     );
@@ -385,9 +385,9 @@ function ws_addDefaultMethods( $arr )
     'pwg.plugins.performAction',
     'ws_plugins_performAction',
     array(
-      'action' => array('default' => null),
-      'plugin' => array('default' => null),
-      'pwg_token' => array('default' => null),
+      'action' => array(),
+      'plugin' => array(),
+      'pwg_token' => array(),
       ),
     'install/activate/deactivate/uninstall/delete a plugin
 <br>administration status required'
@@ -397,9 +397,9 @@ function ws_addDefaultMethods( $arr )
     'pwg.themes.performAction',
     'ws_themes_performAction',
     array(
-      'action' => array('default' => null),
-      'themes' => array('default' => null),
-      'pwg_token' => array('default' => null),
+      'action' => array(),
+      'theme' => array(),
+      'pwg_token' => array(),
       ),
     'activate/deactivate/delete/set_default a theme<br>administration status required'
     );
