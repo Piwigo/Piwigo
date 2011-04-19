@@ -1,3 +1,4 @@
+{combine_script id='jquery.ui.accordion' load='header'}{*we load in the header because the accordion is on every admin page and usually all admin pages use the same header combined script but not the same footer script*}
 {footer_script require='jquery.ui.accordion'}
 jQuery(document).ready(function(){ldelim}
 	jQuery('#menubar').accordion({ldelim}

@@ -1101,8 +1101,8 @@ class ScriptLoader
       foreach( $scripts as $id => $script)
       {
         $load = $script->load_mode;
-        if ($load==0)
-          continue;
+        /*if ($load==0)
+          continue;*/
         foreach( $script->precedents as $precedent)
         {
           if ( !isset($scripts[$precedent] ) )
