@@ -796,4 +796,30 @@ $lang['%s thumbnails can not be regenerated'] = '%s thumbnails can not be regene
 $lang['%s photos have been regenerated'] = '%s photos have been regenerated';
 $lang['%s photos can not be regenerated'] = '%s photos can not be regenerated';
 $lang['Only photos with HD can be regenerated!'] = 'Only photos with HD can be regenerated!';
+
+$lang['Updates'] = 'Updates';
+$lang['Update in progress... Please wait.'] = 'Update in progress... Please wait.';
+$lang['Ignore this update'] = 'Ignore this update';
+$lang['Reset ignored updates'] = 'Reset ignored updates';
+$lang['Update All'] = 'Update All';
+$lang['ERROR'] = 'ERROR';
+$lang['Update Complete'] = 'Update Complete';
+$lang['Piwigo Update'] = 'Piwigo Update';
+$lang['Extensions Update'] = 'Extensions Update';
+$lang['All extensions are up to date.'] = 'All extensions are up to date.';
+$lang['Following plugins may not be compatible with the new version of Piwigo:'] = 'Following plugins may not be compatible with the new version of Piwigo:';
+$lang['Following themes may not be compatible with the new version of Piwigo:'] = 'Following themes may not be compatible with the new version of Piwigo:';
+$lang['I decide to update anyway'] = 'I decide to update anyway';
+$lang['Update to Piwigo %s'] = 'Update to Piwigo %s';
+$lang['Two updates are available'] = 'Two updates are available';
+$lang['This is a minor update, with only bug corrections.'] = 'This is a minor update, with only bug corrections.';
+$lang['This is a major update, with <a href="%s">new exciting features</a>.'] = 'This is a major update, with <a href="%s">new exciting features</a>.';
+$lang['Some themes and plugins may be not available yet.'] = 'Some themes and plugins may be not available yet.';
+$lang['You can update to Piwigo %s directly, without upgrading to Piwigo %s (recommended).'] = 'You can update to Piwigo %s directly, without upgrading to Piwigo %s (recommended).';
+$lang['Save Template Directory'] = 'Save template directory';
+$lang['Dump Database'] = 'Dump Database';
+$lang['Include history data (Warning: server memory limit may be exceeded)'] = 'Include history data (Warning: server memory limit may be exceeded)';
+$lang['Unable to write new local directory.'] = 'Unable to write new local directory.';
+$lang['Unable to send template directory.'] = 'Unable to send template directory.';
+$lang['Unable to dump database.'] = 'Unable to dump database.';
 ?>

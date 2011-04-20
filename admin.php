@@ -168,6 +168,7 @@ $template->assign(
     'U_ADD_PHOTOS' => $link_start.'photos_add',
     'U_CHANGE_THEME' => PHPWG_ROOT_PATH.'admin.php?change_theme=1',
     'U_PENDING_COMMENTS' => $link_start.'comments',
+    'U_UPDATES' => $link_start.'updates',
     )
   );
 

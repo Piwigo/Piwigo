@@ -75,6 +75,7 @@ jQuery(document).ready(function(){ldelim}
 {/if}
         <li><a href="{$U_MAINTENANCE}">{'Maintenance'|@translate}</a></li>
         <li><a href="{$U_PENDING_COMMENTS}">{'Pending Comments'|@translate}</a></li>
+        <li><a href="{$U_UPDATES}">{'Updates'|@translate}</a></li>
       </ul>
     </dd>
   </dl>

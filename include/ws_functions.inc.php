@@ -2735,4 +2735,140 @@ WHERE id = '.(int)$params['image_id'].'
   }
   return false;
 }
+
+function ws_extensions_update($params, &$service)
+{
+  if (!is_webmaster())
+  {
+    return new PwgError(401, l10n('Webmaster status is required.'));
+  }
+
+  if (empty($params['pwg_token']) or get_pwg_token() != $params['pwg_token'])
+  {
+    return new PwgError(403, 'Invalid security token');
+  }
+
+  if (empty($params['type']) or !in_array($params['type'], array('plugins', 'themes', 'languages')))
+  {
+    return new PwgError(403, "invalid extension type");
+  }
+
+  if (empty($params['id']) or empty($params['revision']))
+  {
+    return new PwgError(null, 'Wrong parameters');
+  }
+
+  include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
+  include_once(PHPWG_ROOT_PATH.'admin/include/'.$params['type'].'.class.php');
+
+  $type = $params['type'];
+  $extension_id = $params['id'];
+  $revision = $params['revision'];
+
+  $extension = new $type();
+
+  if ($type == 'plugins')
+  {
+    if (isset($extension->db_plugins_by_id[$extension_id]) and $extension->db_plugins_by_id[$extension_id]['state'] == 'active')
+    {
+      $extension->perform_action('deactivate', $extension_id);
+
+      redirect(PHPWG_ROOT_PATH
+        . 'ws.php'
+        . '?method=pwg.extensions.update'
+        . '&type=plugins'
+        . '&id=' . $extension_id
+        . '&revision=' . $revision
+        . '&reactivate=true'
+        . '&pwg_token=' . get_pwg_token()
+        . '&format=json'
+      );
+    }
+    
+    $upgrade_status = $extension->extract_plugin_files('upgrade', $revision, $extension_id);
+    $extension_name = $extension->fs_plugins[$extension_id]['name'];
+
+    if (isset($params['reactivate']))
+    {
+      $extension->perform_action('activate', $extension_id);
+    }
+  }
+  elseif ($type == 'themes')
+  {
+    $upgrade_status = $extension->extract_theme_files('upgrade', $revision, $extension_id);
+    $extension_name = $extension->fs_themes[$extension_id]['name'];
+  }
+  elseif ($type == 'languages')
+  {
+    $upgrade_status = $extension->extract_language_files('upgrade', $revision, $extension_id);
+    $extension_name = $extension->fs_languages[$extension_id]['name'];
+  }
+
+  global $template;
+  $template->delete_compiled_templates();
+
+  switch ($upgrade_status)
+  {
+    case 'ok':
+      return sprintf(l10n('%s has been successfully updated.'), $extension_name);
+
+    case 'temp_path_error':
+      return new PwgError(null, l10n('Can\'t create temporary file.'));
+
+    case 'dl_archive_error':
+      return new PwgError(null, l10n('Can\'t download archive.'));
+
+    case 'archive_error':
+      return new PwgError(null, l10n('Can\'t read or extract archive.'));
+
+    default:
+      return new PwgError(null, sprintf(l10n('An error occured during extraction (%s).'), $upgrade_status));
+  }
+}
+
+function ws_extensions_ignoreupdate($params, &$service)
+{
+  global $conf;
+
+  define('IN_ADMIN', true);
+  include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
+
+  if (!is_webmaster())
+  {
+    return new PwgError(401, 'Access denied');
+  }
+
+  if (empty($params['pwg_token']) or get_pwg_token() != $params['pwg_token'])
+  {
+    return new PwgError(403, 'Invalid security token');
+  }
+
+  $conf['updates_ignored'] = unserialize($conf['updates_ignored']);
+
+  if ($params['reset'])
+  {
+    $conf['updates_ignored'] = array(
+      'plugins'=>array(),
+      'themes'=>array(),
+      'languages'=>array()
+    );
+    conf_update_param('updates_ignored', pwg_db_real_escape_string(serialize($conf['updates_ignored'])));
+    unset($_SESSION['extensions_need_update']);
+    return true;
+  }
+
+  if (empty($params['id']) or empty($params['type']) or !in_array($params['type'], array('plugins', 'themes', 'languages')))
+  {
+    return new PwgError(403, 'Invalid parameters');
+  }
+
+  // Add or remove extension from ignore list
+  if (!in_array($params['id'], $conf['updates_ignored'][$params['type']]))
+  {
+    array_push($conf['updates_ignored'][$params['type']], $params['id']);
+  }
+  conf_update_param('updates_ignored', pwg_db_real_escape_string(serialize($conf['updates_ignored'])));
+  unset($_SESSION['extensions_need_update']);
+  return true;
+}
 ?>

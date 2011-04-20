@@ -418,6 +418,33 @@ function ws_addDefaultMethods( $arr )
 <br>Argument "type" can be "thumbnail" or "websize". Default is "thumbnail".
 <br>If maxwidth, maxheight or quality are missing, default parameters of upload will be used.'
 );
+
+  $service->addMethod(
+    'pwg.extensions.update',
+    'ws_extensions_update',
+    array(
+      'type' => array(),
+      'id' => array(),
+      'revision'=> array(),
+      'pwg_token' => array(),
+    ),
+    'Update an extension. Webmaster only.
+<br>Parameter type must be "plugins", "languages" or "themes".'
+  );
+
+  $service->addMethod(
+    'pwg.extensions.ignoreUpdate',
+    'ws_extensions_ignoreupdate',
+    array(
+      'type' => array('default'=>null),
+      'id' => array('default'=>null),
+      'reset' => array('default'=>null),
+      'pwg_token' => array(),
+    ),
+    'Ignore an extension if it need update.
+<br>Parameter type must be "plugins", "languages" or "themes".
+<br>If reset parameter is true, all ignored extensions will be reinitilized.'
+  );
 }
 
 add_event_handler('ws_add_methods', 'ws_addDefaultMethods');

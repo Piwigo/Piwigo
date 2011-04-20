@@ -49,3 +49,4 @@ INSERT INTO piwigo_config (param,value,comment)
     'Information displayed on picture page'
   );
 INSERT INTO piwigo_config (param,value,comment) VALUES ('week_starts_on','monday','Monday may not be the first day of the week');
+INSERT INTO piwigo_config (param,value,comment) VALUES ('updates_ignored','a:3:{s:7:"plugins";a:0:{}s:6:"themes";a:0:{}s:9:"languages";a:0:{}}','Extensions ignored for update');

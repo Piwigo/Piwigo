@@ -2085,6 +2085,7 @@ function get_active_menu($menu_page)
     case 'maintenance':
     case 'thumbnail':
     case 'comments':
+    case 'updates':
       return 4;
 
     case 'configuration':
