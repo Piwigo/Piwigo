@@ -783,5 +783,13 @@ $lang['WARNING! This plugin does not seem to be compatible with this version of 
 $lang['Do you want to activate anyway?'] = 'Bạn vẫn muốn kích hoạt?';
 $lang['THIS PLUGIN IS NOW PART OF PIWIGO CORE! DELETE IT NOW.'] = 'PLUGIN NÀY GIỜ LÀ MỘT PHẦN CỦA NHÂN PIWIGO! GỠ BỎ NGAY!';
 $lang['ERROR: THIS PLUGIN IS MISSING BUT IT IS INSTALLED! UNINSTALL IT NOW.'] = 'LỖI: PLUGIN NÀY BỊ THIẾU NHƯNG NÓ ĐÃ ĐƯỢC CÀI ĐẶT! GỠ BỎ NGAY.';
-
+$lang['Regenerate Thumbnails'] = 'Khởi tạo lại Hình thu nhỏ';
+$lang['Thumbnails generation in progress...'] = 'Quá trình khởi tạo hình thu nhỏ đang được thực hiện...';
+$lang['%s thumbnails have been regenerated'] = 'Có %s hình thu nhỏ đã được tạo ra';
+$lang['%s thumbnails can not be regenerated'] = 'Có %s hình thu nhỏ không thể tạo ra được';
+$lang['Regenerate Websize Photos'] = 'Khởi tạo Ảnh Web';
+$lang['Photos generation in progress...'] = 'Quá trình khởi tạo ảnh web đang được thực hiện...';
+$lang['%s photos have been regenerated'] = 'có %s ảnh đã được tạo ra';
+$lang['%s photos can not be regenerated'] = 'Có %s ảnh không thể tạo ra được';
+$lang['Only photos with HD can be regenerated!'] = 'Chỉ có những ảnh định dạng cao mới có thể được khởi tạo!';
 ?>
