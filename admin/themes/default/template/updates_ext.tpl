@@ -201,7 +201,7 @@ checkFieldsets();
       <td>
         <a href="#" onClick="updateExtension('themes', '{$theme.EXT_ID}', {$theme.REVISION_ID});" class="updateExtension">{'Install'|@translate}</a>
         | <a href="{$theme.URL_DOWNLOAD}">{'Download'|@translate}</a>
-        | <a href="#" onClick="ignoreExtension('themes', '{$theme.EXT_ID}'); return false;">{'autoupdate_ignore'|@translate}</a>
+        | <a href="#" onClick="ignoreExtension('themes', '{$theme.EXT_ID}'); return false;">{'Ignore this update'|@translate}</a>
       </td>
     </tr>
     <tr>
@@ -243,7 +243,7 @@ checkFieldsets();
       <td>
         <a href="#" onClick="updateExtension('languages', '{$language.EXT_ID}', {$language.REVISION_ID});" class="updateExtension">{'Install'|@translate}</a>
         | <a href="{$language.URL_DOWNLOAD}">{'Download'|@translate}</a>
-        | <a href="#" onClick="ignoreExtension('languages', '{$language.EXT_ID}'); return false;">{'autoupdate_ignore'|@translate}</a>
+        | <a href="#" onClick="ignoreExtension('languages', '{$language.EXT_ID}'); return false;">{'Ignore this update'|@translate}</a>
       </td>
     </tr>
     <tr>
