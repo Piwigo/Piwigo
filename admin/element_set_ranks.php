@@ -208,63 +208,65 @@ SELECT
   ORDER BY rank
 ;';
 $result = pwg_query($query);
-
-// template thumbnail initialization
-$current_rank = 1;
-$thumbnail_info=array();
-$clipping=array();
-while ($row = pwg_db_fetch_assoc($result))
+if (pwg_db_num_rows($result) > 0)
 {
-  $src = get_thumbnail_url($row);
-	
-	$thumbnail_size = getimagesize($src);
-  if ( !empty( $row['name'] ) )
-  {
-    $thumbnail_name = $row['name'];
-  }
-  else
-  {
-    $file_wo_ext = get_filename_wo_extension($row['file']);
-   	$thumbnail_name = str_replace('_', ' ', $file_wo_ext);
-  }
-	$thumbnail_info[] = array(
-		'name'	=> $thumbnail_name,
-		'width'	=> $thumbnail_size[0],
-		'height'	=> $thumbnail_size[1],
-		'id'	=> $row['id'],
-		'tn_src'	=> $src,
-		'rank'	=> $current_rank * 10,
-		);
-	if ($thumbnail_size[0]<=128 and $thumbnail_size[1]<=128)
+	// template thumbnail initialization
+	$current_rank = 1;
+	$thumbnail_info=array();
+	$clipping=array();
+	while ($row = pwg_db_fetch_assoc($result))
 	{
-		$clipping[]= min($thumbnail_size[0],$thumbnail_size[1]);
+		$src = get_thumbnail_url($row);
+		
+		$thumbnail_size = getimagesize($src);
+		if ( !empty( $row['name'] ) )
+		{
+			$thumbnail_name = $row['name'];
+		}
+		else
+		{
+			$file_wo_ext = get_filename_wo_extension($row['file']);
+			$thumbnail_name = str_replace('_', ' ', $file_wo_ext);
+		}
+		$thumbnail_info[] = array(
+			'name'	=> $thumbnail_name,
+			'width'	=> $thumbnail_size[0],
+			'height'	=> $thumbnail_size[1],
+			'id'	=> $row['id'],
+			'tn_src'	=> $src,
+			'rank'	=> $current_rank * 10,
+			);
+		if ($thumbnail_size[0]<=128 and $thumbnail_size[1]<=128)
+		{
+			$clipping[]= min($thumbnail_size[0],$thumbnail_size[1]);
+		}
+		else
+		{
+			$clipping[]= min($thumbnail_size[0]*0.75,$thumbnail_size[1]*0.75);
+		}
+		$current_rank++;
 	}
-	else
+	$clipping=array_sum($clipping)/count($clipping);
+	foreach ($thumbnail_info as $thumbnails_info)
 	{
-		$clipping[]= min($thumbnail_size[0]*0.75,$thumbnail_size[1]*0.75);
+		$thumbnail_x_center = $thumbnails_info['width']/2;
+		$thumbnail_y_center = $thumbnails_info['height']/2;
+		$template->append(
+			'thumbnails',
+			array(
+				'ID' => $thumbnails_info['id'],
+				'NAME' => $thumbnails_info['name'],
+				'TN_SRC' => $thumbnails_info['tn_src'],
+				'RANK' => $thumbnails_info['rank'],
+				'CLIPING' => round($clipping),
+				'CLIPING_li' => round($clipping+8),
+				'CLIP_TOP' => round($thumbnail_y_center - $clipping/2),
+				'CLIP_RIGHT' => round($thumbnail_x_center + $clipping/2),
+				'CLIP_BOTTOM' => round($thumbnail_y_center + $clipping/2),
+				'CLIP_LEFT' => round($thumbnail_x_center - $clipping/2)
+				)
+			);
 	}
-  $current_rank++;
-}
-$clipping=array_sum($clipping)/count($clipping);
-foreach ($thumbnail_info as $thumbnails_info)
-{
-  $thumbnail_x_center = $thumbnails_info['width']/2;
-  $thumbnail_y_center = $thumbnails_info['height']/2;
-  $template->append(
-    'thumbnails',
-    array(
-      'ID' => $thumbnails_info['id'],
-      'NAME' => $thumbnails_info['name'],
-      'TN_SRC' => $thumbnails_info['tn_src'],
-      'RANK' => $thumbnails_info['rank'],
-      'CLIPING' => round($clipping),
-      'CLIPING_li' => round($clipping+8),
-      'CLIP_TOP' => round($thumbnail_y_center - $clipping/2),
-      'CLIP_RIGHT' => round($thumbnail_x_center + $clipping/2),
-      'CLIP_BOTTOM' => round($thumbnail_y_center + $clipping/2),
-      'CLIP_LEFT' => round($thumbnail_x_center - $clipping/2)
-      )
-    );
 }
 // image order management
 $sort_fields = array(
