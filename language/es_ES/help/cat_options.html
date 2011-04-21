@@ -1,30 +1,25 @@
-<h2>Opciones de las categor√≠as</h2>
+<h2>Opciones de los álbumes</h2>
 
-<p>Gesti√≥n de las opciones para varias categor√≠as a la vez.</p>
+<p>Gestión de varios álbumes a la vez.</p>
 
 <dl>
-
-  <dt>Autorizaci√≥n al a√±adido</dt>
-
-  <dd>Devolver las categor√≠as autorizadas al a√±adido por los visitantes. Esta opci√≥n no est√° disponible para las categor√≠as virtuales y distantes.</dd>
   
-  <dt>Comentarios usuarios</dt>
+  <dt>Comentarios</dt>
 
-  <dd>Autorizar los usuarios a a√±adir comentarios en las categor√≠as seleccionadas.
-Por herencia, una imagen es commentable si pertenece por lo menos a una categor√≠a commentable.</dd>
+  <dd>Una fotografía puede recibir comentarios de los usuarios si pertenece a un álbum que los permite.</dd>
   
   <dt>Bloquear</dt>
 
-  <dd>Las categor√≠as seleccionadas se vuelven temporalmente inactivas para mantenimiento. Cuando una categor√≠a es bloqueada, todas las categor√≠as ni√±o son bloqueadas. Cuando a una categor√≠a se le quita el cierre, todas las categor√≠as bloqueadas se vuelven abiertas.</dd>
+  <dd>Los álbumes bloqueados quedan inhabilitados temporalmente. Cuando un álbum es bloqueado, todos los de sus niveles inferiores se bloquean; y viceversa, cuando se desbloquea.</dd>
 
-  <dt>P√∫blica / Particular</dt>
+  <dt>Público / Privado</dt>
 
-  <dd>Gesti√≥n del estatuto de las categor√≠as. Los permisos son posibles s√≥lo para las categor√≠as particulares. En cuanto una categor√≠a es privada, usted expl√≠citamente debe autorizar a los usuarios o los grupos a acceder a eso. Cuando una categor√≠a se vuelve particular, todas las categor√≠as ni√±o se vuelven particulares. Cuando una categor√≠a se vuelve p√∫blica, todas las categor√≠as padres se vuelven p√∫blicas.</dd>
+  <dd>Gestión de estatus de los álbumes. Es posible asignar permisos únicamente a álbumes privados. Al definir un álbum como privado, debe autorizar explícitamente el acceso a usuarios o grupos. Un álbum con estatus 'privado' determina que todos los álbumes de sus niveles inferiores son privados; de la misma manera, el estatus 'público' determina que sean públicos..</dd>
 
-  <dt>Representante</dt>
+  <dt>Imagen de portada</dt>
 
-  <dd>Esta opci√≥n √∫nicamente est√° disponible si el par√°metro de configuraci√≥n <code>allow_random_representative</code> (Ver <span
-class="filename">include/config_default.inc.php</span>) es
-<em>true</em>. Cada categor√≠a puede ser representada al azar o por una miniatura fija √∫nica.</dd>
+  <dd>Esta opción sólo está disponible si el parámetro de configuración <code>allow_random_representative</code> (Ver <span
+class="filename">include/config_default.inc.php</span>) es =
+<em>true</em>. La imagen puede ser asignada al azar por el sistema, o por usted con carácter fijo seleccionando una de las fotografías al efecto.</dd>
 
 </dl>
