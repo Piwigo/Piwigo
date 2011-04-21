@@ -2673,11 +2673,11 @@ function ws_images_resize($params, &$service)
     return new PwgError(403, 'Unknown type (only "thumbnail" or "websize" are accepted');
   }
 
-  $resize_params = array('maxwidth', 'maxheight', 'quality');
+  $resize_params = array('maxwidth', 'maxheight', 'quality', 'crop', 'follow_orientation');
   $type = $params['type'] == 'thumbnail' ? 'thumb' : 'websize';
   foreach ($resize_params as $param)
   {
-    if (empty($params[$param]))
+    if (empty($params[$param]) and isset($conf['upload_form_'.$type.'_'.$param]))
       $params[$param] = $conf['upload_form_'.$type.'_'.$param];
   }
 
@@ -2710,7 +2710,9 @@ WHERE id = '.(int)$params['image_id'].'
       $params['maxwidth'],
       $params['maxheight'],
       $params['quality'],
-      true
+      true,
+      get_boolean($params['crop']),
+      get_boolean($params['follow_orientation'])
     );
     return true;
   }

@@ -412,11 +412,13 @@ function ws_addDefaultMethods( $arr )
       'type' => array('default' => 'thumbnail'),
       'maxwidth' => array('default' => null),
       'maxheight' => array('default' => null),
+      'crop' => array('default' => null),
+      'follow_orientation' => array('default' => null),
       'quality' => array('default' => null),
     ),
     'Regenerate thumbnails or websize photo with given arguments.
 <br>Argument "type" can be "thumbnail" or "websize". Default is "thumbnail".
-<br>If maxwidth, maxheight or quality are missing, default parameters of upload will be used.'
+<br>If maxwidth, maxheight, crop, follow_orientation or quality are missing, default parameters of upload will be used.'
 );
 
   $service->addMethod(

@@ -417,7 +417,7 @@ SELECT id, path
     if ($_POST['regenerateError'] != '0')
       array_push($page['warnings'], sprintf(l10n('%s thumbnails can not be regenerated'), $_POST['regenerateError']));
 
-    $update_fields = array('thumb_maxwidth', 'thumb_maxheight', 'thumb_quality');
+    $update_fields = array('thumb_maxwidth', 'thumb_maxheight', 'thumb_quality', 'thumb_crop', 'thumb_follow_orientation');
   }
 
   if ('regenerateWebsize' == $action)
@@ -437,26 +437,38 @@ SELECT id, path
     $updates = array();
     foreach ($update_fields as $field)
     {
-      $value = null;
-      if (!empty($_POST[$field]))
+      if (is_bool($upload_form_config[$field]['default']))
       {
-        $value = $_POST[$field];
-      }
+        $value = isset($_POST[$field]);
 
-      if (preg_match($upload_form_config[$field]['pattern'], $value)
-        and $value >= $upload_form_config[$field]['min']
-        and $value <= $upload_form_config[$field]['max'])
-      {
-        $conf['upload_form_'.$field] = $value;
-         $updates[] = array(
+        $updates[] = array(
           'param' => 'upload_form_'.$field,
-          'value' => $value
+          'value' => boolean_to_string($value)
           );
       }
       else
       {
-        $updates = null;
-        break;
+        $value = null;
+        if (!empty($_POST[$field]))
+        {
+          $value = $_POST[$field];
+        }
+
+        if (preg_match($upload_form_config[$field]['pattern'], $value)
+          and $value >= $upload_form_config[$field]['min']
+          and $value <= $upload_form_config[$field]['max'])
+        {
+          $conf['upload_form_'.$field] = $value;
+           $updates[] = array(
+            'param' => 'upload_form_'.$field,
+            'value' => $value
+            );
+        }
+        else
+        {
+          $updates = null;
+          break;
+        }
       }
       $form_values[$field] = $value;
     }

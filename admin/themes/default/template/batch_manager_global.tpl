@@ -36,6 +36,11 @@ var selectedMessage_none = "{'No photo selected, %d photos in current set'|@tran
 var selectedMessage_all = "{'All %d photos are selected'|@translate}";
 var regenerateThumbnailsMessage = "{'Thumbnails generation in progress...'|@translate}";
 var regenerateWebsizeMessage = "{'Photos generation in progress...'|@translate}";
+
+var width_str = '{'Width'|@translate}';
+var height_str = '{'Height'|@translate}';
+var max_width_str = '{'Maximum Width'|@translate}';
+var max_height_str = '{'Maximum Height'|@translate}';
 {literal}
 function str_repeat(i, m) {
         for (var o = []; m > 0; o[--m] = i);
@@ -333,6 +338,8 @@ $(document).ready(function() {
       maxwidth = jQuery('input[name="thumb_maxwidth"]').val();
       maxheight = jQuery('input[name="thumb_maxheight"]').val();
       regenerationText = regenerateThumbnailsMessage;
+      crop = jQuery('input[name="thumb_crop"]').is(':checked');
+      follow_orientation = jQuery('input[name="thumb_follow_orientation"]').is(':checked');
     }
     else if(jQuery('[name="selectAction"]').val() == 'regenerateWebsize')
     {
@@ -341,6 +348,8 @@ $(document).ready(function() {
       maxwidth = jQuery('input[name="websize_maxwidth"]').val();
       maxheight = jQuery('input[name="websize_maxheight"]').val();
       regenerationText = regenerateWebsizeMessage;
+      crop = false;
+      follow_orientation = false;
     }
     else return true;
 
@@ -385,6 +394,8 @@ $(document).ready(function() {
           type: type,
           maxwidth: maxwidth,
           maxheight: maxheight,
+          crop: crop,
+          follow_orientation: follow_orientation,
           image_id: elements[i],
           format: 'json'
         },
@@ -395,6 +406,22 @@ $(document).ready(function() {
     }
     return false;
   });
+
+  function toggleCropFields(prefix) {
+    if (jQuery("#"+prefix+"_crop").is(':checked')) {
+      jQuery("#"+prefix+"_width_th").text(width_str);
+      jQuery("#"+prefix+"_height_th").text(height_str);
+      jQuery("#"+prefix+"_follow_orientation_tr").show();
+    }
+    else {
+      jQuery("#"+prefix+"_width_th").text(max_width_str);
+      jQuery("#"+prefix+"_height_th").text(max_height_str);
+      jQuery("#"+prefix+"_follow_orientation_tr").hide();
+    }
+  }
+
+  toggleCropFields("thumb");
+  jQuery("#thumb_crop").click(function () {toggleCropFields("thumb")});
 
   checkPermitAction()
 });
@@ -661,11 +688,19 @@ jQuery(window).load(function() {
     <div id="action_regenerateThumbnails" class="bulkAction">
       <table style="margin-left:20px;">
         <tr>
-          <th>{'Maximum Width'|@translate}</th>
+          <th><label for="thumb_crop">{'Crop'|@translate}</label></th>
+          <td><input type="checkbox" name="thumb_crop" id="thumb_crop" {if $upload_form_settings.thumb_crop}checked="checked"{/if}></td>
+        </tr>
+        <tr id="thumb_follow_orientation_tr">
+          <th><label for="thumb_follow_orientation">{'Follow Orientation'|@translate}</label></th>
+          <td><input type="checkbox" name="thumb_follow_orientation" id="thumb_follow_orientation" {if $upload_form_settings.thumb_follow_orientation}checked="checked"{/if}></td>
+        </tr>
+        <tr>
+          <th id="thumb_width_th">{'Maximum Width'|@translate}</th>
           <td><input type="text" name="thumb_maxwidth" value="{$upload_form_settings.thumb_maxwidth}" size="4" maxlength="4"> {'pixels'|@translate}</td>
         </tr>
         <tr>
-          <th>{'Maximum Height'|@translate}</th>
+          <th id="thumb_height_th">{'Maximum Height'|@translate}</th>
           <td><input type="text" name="thumb_maxheight" value="{$upload_form_settings.thumb_maxheight}" size="4" maxlength="4"> {'pixels'|@translate}</td>
         </tr>
         <tr>
