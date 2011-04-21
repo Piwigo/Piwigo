@@ -783,5 +783,5 @@ $lang['WARNING! This plugin does not seem to be compatible with this version of 
 $lang['Do you want to activate anyway?'] = 'Vill du aktivera ändå?';
 $lang['THIS PLUGIN IS NOW PART OF PIWIGO CORE! DELETE IT NOW.'] = 'Detta plugin är nu del av PIWIGO CORE! Avinstallera det NU!';
 $lang['ERROR: THIS PLUGIN IS MISSING BUT IT IS INSTALLED! UNINSTALL IT NOW.'] = 'FEL:. Detta plugin saknas men den är installerad! Avinstallera det NU'; 
-
+$lang['display'] = 'Visa';
 ?>
