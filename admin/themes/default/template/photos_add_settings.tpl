@@ -1,9 +1,14 @@
-{footer_script}{literal}
+{footer_script}
+var width = '{'Width'|@translate}';
+var height = '{'Height'|@translate}';
+var max_width = '{'Maximum Width'|@translate}';
+var max_height = '{'Maximum Height'|@translate}';
+
+{literal}
 jQuery(document).ready(function(){
   function toggleResizeFields(prefix) {
     var checkbox = jQuery("#"+prefix+"_resize");
     var needToggle = jQuery("input[name^="+prefix+"_]").not(checkbox).not(jQuery("#hd_keep")).parents('tr');
-
 
     if (jQuery(checkbox).is(':checked')) {
       needToggle.show();
@@ -21,11 +26,28 @@ jQuery(document).ready(function(){
     }
   }
 
+  function toggleCropFields(prefix) {
+    if (jQuery("#"+prefix+"_crop").is(':checked')) {
+      jQuery("#"+prefix+"_width_th").text(width);
+      jQuery("#"+prefix+"_height_th").text(height);
+      jQuery("#"+prefix+"_follow_orientation_tr").show();
+    }
+    else {
+      jQuery("#"+prefix+"_width_th").text(max_width);
+      jQuery("#"+prefix+"_height_th").text(max_height);
+      jQuery("#"+prefix+"_follow_orientation_tr").hide();
+    }
+
+  }
+
   toggleResizeFields("websize");
   jQuery("#websize_resize").click(function () {toggleResizeFields("websize")});
 
   toggleResizeFields("hd");
   jQuery("#hd_resize").click(function () {toggleResizeFields("hd")});
+
+  toggleCropFields("thumb");
+  jQuery("#thumb_crop").click(function () {toggleCropFields("thumb")});
 
   function toggleHdFields() {
     var checkbox = jQuery("#hd_keep");
@@ -81,11 +103,19 @@ jQuery(document).ready(function(){
 
     <table>
       <tr>
-        <th>{'Maximum Width'|@translate}</th>
+        <th><label for="thumb_crop">{'Crop'|@translate}</label></th>
+        <td><input type="checkbox" name="thumb_crop" id="thumb_crop" {$values.thumb_crop}></td>
+      </tr>
+      <tr id="thumb_follow_orientation_tr">
+        <th><label for="thumb_follow_orientation">{'Follow Orientation'|@translate}</label></th>
+        <td><input type="checkbox" name="thumb_follow_orientation" id="thumb_follow_orientation" {$values.thumb_follow_orientation}></td>
+      </tr>
+      <tr>
+        <th id="thumb_width_th">{'Maximum Width'|@translate}</th>
         <td><input type="text" name="thumb_maxwidth" value="{$values.thumb_maxwidth}" size="4" maxlength="4"> {'pixels'|@translate}</td>
       </tr>
       <tr>
-        <th>{'Maximum Height'|@translate}</th>
+        <th id="thumb_height_th">{'Maximum Height'|@translate}</th>
         <td><input type="text" name="thumb_maxheight" value="{$values.thumb_maxheight}" size="4" maxlength="4"> {'pixels'|@translate}</td>
       </tr>
       <tr>

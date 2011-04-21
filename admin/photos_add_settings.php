@@ -75,7 +75,9 @@ if (isset($_POST['submit']))
   $fields[] = 'thumb_maxwidth';
   $fields[] = 'thumb_maxheight';
   $fields[] = 'thumb_quality';
-  
+  $fields[] = 'thumb_crop';
+  $fields[] = 'thumb_follow_orientation';
+
   foreach ($fields as $field)
   {
     $value = null;

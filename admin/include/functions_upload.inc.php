@@ -25,7 +25,7 @@ include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
 
 // add default event handler for image and thumbnail resize
 add_event_handler('upload_image_resize', 'pwg_image_resize', EVENT_HANDLER_PRIORITY_NEUTRAL, 7);
-add_event_handler('upload_thumbnail_resize', 'pwg_image_resize', EVENT_HANDLER_PRIORITY_NEUTRAL, 7);
+add_event_handler('upload_thumbnail_resize', 'pwg_image_resize', EVENT_HANDLER_PRIORITY_NEUTRAL, 9);
 
 function get_upload_form_config()
 {
@@ -88,6 +88,16 @@ function get_upload_form_config()
       'pattern' => '/^\d+$/',
       'can_be_null' => false,
       'error_message' => l10n('The thumbnail image quality must be a number between %d and %d'),
+      ),
+
+    'thumb_crop' => array(
+      'default' => false,
+      'can_be_null' => false,
+      ),
+
+    'thumb_follow_orientation' => array(
+      'default' => true,
+      'can_be_null' => false,
       ),
   
     'hd_keep' => array(
@@ -326,7 +336,9 @@ SELECT
     $conf['upload_form_thumb_maxwidth'],
     $conf['upload_form_thumb_maxheight'],
     $conf['upload_form_thumb_quality'],
-    true
+    true,
+    $conf['upload_form_thumb_crop'],
+    $conf['upload_form_thumb_follow_orientation']
     );
   
   $thumb_infos = pwg_image_infos($thumb_path);
@@ -517,7 +529,7 @@ function get_resize_dimensions($width, $height, $max_width, $max_height, $rotati
     );
 }
 
-function pwg_image_resize($result, $source_filepath, $destination_filepath, $max_width, $max_height, $quality, $strip_metadata=false)
+function pwg_image_resize($result, $source_filepath, $destination_filepath, $max_width, $max_height, $quality, $strip_metadata=false, $crop=false, $follow_orientation=true)
 {
   if ($result !== false)
   {
@@ -529,15 +541,15 @@ function pwg_image_resize($result, $source_filepath, $destination_filepath, $max
 
   if (is_imagick() and $extension != 'gif')
   {
-    return pwg_image_resize_im($source_filepath, $destination_filepath, $max_width, $max_height, $quality, $strip_metadata);
+    return pwg_image_resize_im($source_filepath, $destination_filepath, $max_width, $max_height, $quality, $strip_metadata, $crop, $follow_orientation);
   }
   else
   {
-    return pwg_image_resize_gd($source_filepath, $destination_filepath, $max_width, $max_height, $quality);
+    return pwg_image_resize_gd($source_filepath, $destination_filepath, $max_width, $max_height, $quality, $crop, $follow_orientation);
   }
 }
 
-function pwg_image_resize_gd($source_filepath, $destination_filepath, $max_width, $max_height, $quality)
+function pwg_image_resize_gd($source_filepath, $destination_filepath, $max_width, $max_height, $quality, $crop=false, $follow_orientation=true)
 {
   if (!function_exists('gd_info'))
   {
@@ -576,7 +588,13 @@ function pwg_image_resize_gd($source_filepath, $destination_filepath, $max_width
   // width/height
   $source_width  = imagesx($source_image); 
   $source_height = imagesy($source_image);
-  
+
+  // Crop
+  if ($crop)
+  {
+    $coord = get_crop_coord($source_width, $source_height, $max_width, $max_height, $follow_orientation);
+  }
+
   $resize_dimensions = get_resize_dimensions($source_width, $source_height, $max_width, $max_height, $rotation);
 
   // testing on height is useless in theory: if width is unchanged, there
@@ -595,8 +613,8 @@ function pwg_image_resize_gd($source_filepath, $destination_filepath, $max_width
     $source_image,
     0,
     0,
-    0,
-    0,
+    $crop ? $coord['x'] : 0,
+    $crop ? $coord['y'] : 0,
     $resize_dimensions['width'],
     $resize_dimensions['height'],
     $source_width,
@@ -630,7 +648,7 @@ function pwg_image_resize_gd($source_filepath, $destination_filepath, $max_width
   return true;
 }
 
-function pwg_image_resize_im($source_filepath, $destination_filepath, $max_width, $max_height, $quality, $strip_metadata=false)
+function pwg_image_resize_im($source_filepath, $destination_filepath, $max_width, $max_height, $quality, $strip_metadata=false, $crop=false, $follow_orientation=true)
 {
   // extension of the picture filename
   $extension = strtolower(get_extension($source_filepath));
@@ -646,6 +664,13 @@ function pwg_image_resize_im($source_filepath, $destination_filepath, $max_width
   // width/height
   $source_width  = $image->getImageWidth();
   $source_height = $image->getImageHeight();
+
+  // Crop
+  if ($crop)
+  {
+    $coord = get_crop_coord($source_width, $source_height, $max_width, $max_height, $follow_orientation);
+    $image->cropImage($source_width, $source_height, $coord['x'], $coord['y']);
+  }
   
   $resize_dimensions = get_resize_dimensions($source_width, $source_height, $max_width, $max_height, $rotation);
 
@@ -725,6 +750,37 @@ function get_rotation_angle($source_filepath)
   }
 
   return $rotation;
+}
+
+function get_crop_coord(&$source_width, &$source_height, &$max_width, &$max_height, $follow_orientation)
+{
+  $x = 0;
+  $y = 0;
+
+  if ($source_width < $source_height and $follow_orientation)
+  {
+    list($width, $height) = array($max_height, $max_width);
+    $max_width = $width;
+    $max_height = $height;
+  }
+
+  $img_ratio = $source_width / $source_height;
+  $dest_ratio = $max_width / $max_height;
+
+  if($dest_ratio > $img_ratio)
+  {
+    $destHeight = round($source_width * $max_height / $max_width);
+    $y = round(($source_height - $destHeight) / 2 );
+    $source_height = $destHeight;
+  }
+  elseif ($dest_ratio < $img_ratio)
+  {
+    $destWidth = round($source_height * $max_width / $max_height);
+    $x = round(($source_width - $destWidth) / 2 );
+    $source_width = $destWidth;
+  }
+
+  return array('x' => $x, 'y' => $y);
 }
 
 function pwg_image_infos($path)

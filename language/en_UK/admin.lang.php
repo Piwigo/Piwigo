@@ -825,4 +825,8 @@ $lang['Unable to dump database.'] = 'Unable to dump database.';
 $lang['Some upgrades are available for extensions.'] = 'Some upgrades are available for extensions.';
 $lang['Please wait...'] = 'Please wait...';
 $lang['Ignore All'] = 'Ignore All';
+$lang['Crop'] = 'Crop';
+$lang['Width'] = 'Width';
+$lang['Height'] = 'Height';
+$lang['Follow Orientation'] = 'Follow Orientation';
 ?>
