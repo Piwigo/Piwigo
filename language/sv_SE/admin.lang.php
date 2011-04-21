@@ -784,4 +784,13 @@ $lang['Do you want to activate anyway?'] = 'Vill du aktivera ändå?';
 $lang['THIS PLUGIN IS NOW PART OF PIWIGO CORE! DELETE IT NOW.'] = 'Detta plugin är nu del av PIWIGO CORE! Avinstallera det NU!';
 $lang['ERROR: THIS PLUGIN IS MISSING BUT IT IS INSTALLED! UNINSTALL IT NOW.'] = 'FEL:. Detta plugin saknas men den är installerad! Avinstallera det NU'; 
 $lang['display'] = 'Visa';
+$lang['Regenerate Thumbnails'] = 'Generera miniatyrer bilder';
+$lang['Thumbnails generation in progress...'] = 'generering av miniatyr bilder pågår ......';
+$lang['%s thumbnails have been regenerated'] = '%s miniatyrbilder har skapats';
+$lang['%s thumbnails can not be regenerated'] = '%s miniatyrbilder inte kan skapas ';
+$lang['Regenerate Websize Photos'] = 'Skapa Web storleks bilder';
+$lang['Photos generation in progress...'] = 'Bild generering pågår..';
+$lang['%s photos have been regenerated'] = '%s foton har skapats';
+$lang['%s photos can not be regenerated'] = '%s foton har inte skapats';
+$lang['Only photos with HD can be regenerated!'] = 'Endast foton med HD kan regenereras!';
 ?>
