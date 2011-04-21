@@ -2845,6 +2845,7 @@ function ws_extensions_ignoreupdate($params, &$service)
 
   $conf['updates_ignored'] = unserialize($conf['updates_ignored']);
 
+  // Reset ignored extension
   if ($params['reset'])
   {
     $conf['updates_ignored'] = array(
@@ -2870,5 +2871,41 @@ function ws_extensions_ignoreupdate($params, &$service)
   conf_update_param('updates_ignored', pwg_db_real_escape_string(serialize($conf['updates_ignored'])));
   unset($_SESSION['extensions_need_update']);
   return true;
+}
+
+function ws_extensions_checkupdates($params, &$service)
+{
+  global $conf;
+
+  define('IN_ADMIN', true);
+  include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
+  include_once(PHPWG_ROOT_PATH.'admin/include/updates.class.php');
+  $update = new updates();
+
+  if (!is_admin())
+  {
+    return new PwgError(401, 'Access denied');
+  }
+
+  $result = array();
+
+  if (!isset($_SESSION['need_update']))
+    $update->check_piwigo_upgrade();
+
+  $result['piwigo_need_update'] = $_SESSION['need_update'];
+
+  $conf['updates_ignored'] = unserialize($conf['updates_ignored']);
+
+  if (!isset($_SESSION['extensions_need_update']))
+    $update->check_extensions();
+  else
+    $update->check_updated_extensions();
+
+  if (!is_array($_SESSION['extensions_need_update']))
+    $result['ext_need_update'] = null;
+  else
+    $result['ext_need_update'] = !empty($_SESSION['extensions_need_update']);
+
+  return $result;
 }
 ?>

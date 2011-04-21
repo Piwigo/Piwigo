@@ -822,4 +822,7 @@ $lang['Include history data (Warning: server memory limit may be exceeded)'] = '
 $lang['Unable to write new local directory.'] = 'Unable to write new local directory.';
 $lang['Unable to send template directory.'] = 'Unable to send template directory.';
 $lang['Unable to dump database.'] = 'Unable to dump database.';
+$lang['Some upgrades are available for extensions.'] = 'Some upgrades are available for extensions.';
+$lang['Please wait...'] = 'Please wait...';
+$lang['Ignore All'] = 'Ignore All';
 ?>

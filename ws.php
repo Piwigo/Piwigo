@@ -445,6 +445,13 @@ function ws_addDefaultMethods( $arr )
 <br>Parameter type must be "plugins", "languages" or "themes".
 <br>If reset parameter is true, all ignored extensions will be reinitilized.'
   );
+
+  $service->addMethod(
+    'pwg.extensions.checkUpdates',
+    'ws_extensions_checkupdates',
+    array(),
+    'Check if piwigo or extensions are up to date.'
+  );
 }
 
 add_event_handler('ws_add_methods', 'ws_addDefaultMethods');

@@ -833,4 +833,7 @@ $lang['Include history data (Warning: server memory limit may be exceeded)'] = '
 $lang['Unable to write new local directory.'] = 'Impossible d\'écrire le nouveau dossier local.';
 $lang['Unable to send template directory.'] = 'Impossible d\'envoyer le dossier template.';
 $lang['Unable to dump database.'] = 'Impossible de sauvegarder la base de données.';
+$lang['Some upgrades are available for extensions.'] = 'Des mises à jour sont disponibles pour les extensions.';
+$lang['Please wait...'] = 'Please wait...';
+$lang['Ignore All'] = 'Tout ignorer';
 ?>

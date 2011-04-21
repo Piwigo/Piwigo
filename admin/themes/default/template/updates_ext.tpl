@@ -29,6 +29,13 @@ function updateAll() {
   }
 };
 
+function ignoreAll() {
+  jQuery('.ignoreExtension').each( function() {
+    if (jQuery(this).parents('div').css('display') == 'block')
+      jQuery(this).click();
+  });
+};
+
 function resetIgnored() {
   jQuery.ajax({
     type: 'GET',
@@ -39,6 +46,7 @@ function resetIgnored() {
       if (data['stat'] == 'ok') {
         jQuery(".pluginBox, fieldset").show();
         jQuery("#update_all").show();
+        jQuery("#ignore_all").show();
         jQuery("#up_to_date").hide();
         jQuery("#reset_ignore").hide();
         jQuery("#ignored").hide();
@@ -67,6 +75,7 @@ function checkFieldsets() {
 
   if (total == 0) {
     jQuery("#update_all").hide();
+    jQuery("#ignore_all").hide();
     jQuery("#up_to_date").show();
   }
   if (ignored > 0) {
@@ -96,7 +105,7 @@ function updateExtension(type, id, revision) {
 };
 
 function ignoreExtension(type, id) {
-  jQuery.ajax({
+  queuedManager.add({
     type: 'GET',
     url: 'ws.php',
     dataType: 'json',
@@ -137,10 +146,11 @@ checkFieldsets();
 <div class="autoupdate_bar">
 <br>
 <input type="submit" id="update_all" value="{'Update All'|@translate}" onClick="updateAll(); return false;">
+<input type="submit" id="ignore_all" value="{'Ignore All'|@translate}" onClick="ignoreAll(); return false;">
 <input type="submit" id="reset_ignore" value="{'Reset ignored updates'|@translate}" onClick="resetIgnored(); return false;" {if !$SHOW_RESET}style="display:none;"{/if}>
 </div>
 <div class="autoupdate_bar" style="display:none;">
-{'Update in progress... Please wait.'|@translate}<br><img src="admin/themes/default/images/ajax-loader-bar.gif">
+{'Please wait...'|@translate}<br><img src="admin/themes/default/images/ajax-loader-bar.gif">
 </div>
 
 <p id="up_to_date" style="display:none; text-align:left; margin-left:20px;">{'All extensions are up to date.'|@translate}</p>
@@ -159,7 +169,7 @@ checkFieldsets();
       <td>
         <a href="#" onClick="updateExtension('plugins', '{$plugin.EXT_ID}', {$plugin.REVISION_ID});" class="updateExtension">{'Install'|@translate}</a>
         | <a href="{$plugin.URL_DOWNLOAD}">{'Download'|@translate}</a>
-        | <a href="#" onClick="ignoreExtension('plugins', '{$plugin.EXT_ID}'); return false;">{'Ignore this update'|@translate}</a>
+        | <a href="#" onClick="ignoreExtension('plugins', '{$plugin.EXT_ID}'); return false;" class="ignoreExtension">{'Ignore this update'|@translate}</a>
       </td>
     </tr>
     <tr>
@@ -201,7 +211,7 @@ checkFieldsets();
       <td>
         <a href="#" onClick="updateExtension('themes', '{$theme.EXT_ID}', {$theme.REVISION_ID});" class="updateExtension">{'Install'|@translate}</a>
         | <a href="{$theme.URL_DOWNLOAD}">{'Download'|@translate}</a>
-        | <a href="#" onClick="ignoreExtension('themes', '{$theme.EXT_ID}'); return false;">{'Ignore this update'|@translate}</a>
+        | <a href="#" onClick="ignoreExtension('themes', '{$theme.EXT_ID}'); return false;" class="ignoreExtension">{'Ignore this update'|@translate}</a>
       </td>
     </tr>
     <tr>
@@ -243,7 +253,7 @@ checkFieldsets();
       <td>
         <a href="#" onClick="updateExtension('languages', '{$language.EXT_ID}', {$language.REVISION_ID});" class="updateExtension">{'Install'|@translate}</a>
         | <a href="{$language.URL_DOWNLOAD}">{'Download'|@translate}</a>
-        | <a href="#" onClick="ignoreExtension('languages', '{$language.EXT_ID}'); return false;">{'Ignore this update'|@translate}</a>
+        | <a href="#" onClick="ignoreExtension('languages', '{$language.EXT_ID}'); return false;" class="ignoreExtension">{'Ignore this update'|@translate}</a>
       </td>
     </tr>
     <tr>

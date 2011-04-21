@@ -1,13 +1,37 @@
 {combine_script id='jquery.cluetip' load='async' require='jquery' path='themes/default/js/plugins/jquery.cluetip.js'}
 
 {footer_script require='jquery.cluetip'}
-jQuery().ready(function(){ldelim}
-	jQuery('.cluetip').cluetip({ldelim}
+var piwigo_need_update_msg = '<a href="admin.php?page=updates">{"A new version of Piwigo is available."|@translate|@escape:"javascript"}</a>';
+var ext_need_update_msg = '<a href="admin.php?page=updates&amp;tab=ext">{"Some upgrades are available for extensions."|@translate|@escape:"javascript"}</a>';
+
+{literal}
+jQuery().ready(function(){
+	jQuery('.cluetip').cluetip({
 		width: 300,
 		splitTitle: '|',
 		positionBy: 'bottomTop'
 	});
+  jQuery.ajax({
+    type: 'GET',
+    url: 'ws.php',
+    dataType: 'json',
+    data: { method: 'pwg.extensions.checkUpdates', format: 'json' },
+    timeout: 5000,
+    success: function (data) {
+      if (data['stat'] != 'ok')
+        return;
+      piwigo_update = data['result']['piwigo_need_update'];
+      ext_update = data['result']['ext_need_update']
+      if ((piwigo_update || ext_update) && !jQuery(".warnings").is('div'))
+        jQuery("#content").prepend('<div class="warnings"><ul></ul></div>');
+      if (piwigo_update)
+        jQuery(".warnings ul").append('<li>'+piwigo_need_update_msg+'</li>');
+      if (ext_update)
+        jQuery(".warnings ul").append('<li>'+ext_need_update_msg+'</li>');
+    }
+  });  
 });
+{/literal}
 {/footer_script}
 
 <h2>{'Piwigo Administration'|@translate}</h2>
