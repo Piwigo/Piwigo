@@ -359,5 +359,6 @@ $lang['The number of photos per row must be a not null scalar'] = 'Antalet bilde
 $lang['Number of photos per row'] = 'Antal bilder per rad';
 $lang['The number of rows per page must be a not null scalar'] = 'Antalet rader per sida måste vara ett heltal';
 $lang['Number of rows per page'] = 'Antal rader per sida';
+$lang['html tags are not allowed in login'] = 'HTML-taggar inte är tillåtna i inloggningen'; 
 
 ?>

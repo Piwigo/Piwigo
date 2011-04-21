@@ -778,6 +778,10 @@ $lang['All languages are up to date.'] = 'Alla språk är aktuella.';
 $lang['Visit theme site'] = 'Besök temats webbplats';
 $lang['Visit language site'] = 'Besök språkets webbplats';
 $lang['New Version'] = 'Ny version';
-
+$lang['Obsolete Plugins'] = 'Föråldrade Plugins';
+$lang['WARNING! This plugin does not seem to be compatible with this version of Piwigo.'] = 'VARNING! Detta plugin verkar inte vara kompatibla med denna version av Piwigo.';
+$lang['Do you want to activate anyway?'] = 'Vill du aktivera ändå?';
+$lang['THIS PLUGIN IS NOW PART OF PIWIGO CORE! DELETE IT NOW.'] = 'Detta plugin är nu del av PIWIGO CORE! Avinstallera det NU!';
+$lang['ERROR: THIS PLUGIN IS MISSING BUT IT IS INSTALLED! UNINSTALL IT NOW.'] = 'FEL:. Detta plugin saknas men den är installerad! Avinstallera det NU'; 
 
 ?>
