@@ -1,117 +1,116 @@
-<h2>Modificar una categoría</h2>
+<h2>Modificar un álbum</h2>
 
-<h3>Informaciones</h3>
+<h3>Información</h3>
 
 <ul>
 
-  <li><strong>nombre</strong>: renombrar la categoría (virtualmente para una categoría física).</li>
+  <li><strong>nombre</strong>: indique el nombre del álbum.</li>
 
-  <li><strong>descripción</strong>: dar una idea del contenido de la categoría, esta indicación figurará bajo la página de las miniaturas.</li>
+  <li><strong>descripción</strong>: describa en unas líneas su contenido. Este texto aparecerá junto a la fotografía de portada en la página de miniaturas.</li>
 
 </ul>
 
-<h3>Desplazar</h3>
+<h3>Reubicar</h3>
 
-<p>Si la categoría es virtual, usted puede desplazarla. Desplazar una categoría significa cambiar su categoría padre.</p>
+<p>Es posible reubicar el álbum, esto es, asignarlo a otro álbum de nivel superior.</p>
 
 <h3>Opciones</h3>
 
 <ul>
 
-  <li><strong>Tipo de acceso</strong>: gestión de los permisos. Si usted cambie una categoría a particular, todas sus categorías niños se vuelven particulares. Si usted cambie una categoría a pública, todas sus categorías madres se vuelven públicas.</li>
+  <li><strong>Tipo de acceso</strong>: si establece un álbum como 'privado', todos sus sub-álbumes se convierten en privados. Si establece un sub-álbum como 'público', todos los álbumes de nivel superior se convierten en públicos.</li>
 
-  <li><strong>Bloquear</strong>: la categoría y todas sus categorías chicas se vuelven temporalmente inaccesibles para mantenimiento.</li>
+  <li><strong>Bloquear</strong>: sirve para bloquear temporalmente el acceso a un álbum determinado y a todos sus sub-álbumes, y se emplea para impedir el acceso de visitantes y usuarios mientras se realizan tareas de mantenimiento.</li>
 
-  <li><strong>Comentarios</strong>: autoriza a los usuarios a comentar los elementos de esta categoría.</li>
+  <li><strong>Comentarios</strong>: determina si los usuarios pueden o no comentar las fotografías de este álbum.</li>
 
-  <li><strong>Autorizar el añadido de imágenes</strong>: autoriza a los usuarios a cargar ficheros. Esta opción está disponible sólo si la categoría es física (y no virtual).</li>
+  <li><strong>Autorización para añadir imágenes</strong>: da autorización a los usuarios para que puedan cargar archivos. Esta opción está disponible sólo si el álbum es físico (no virtual).</li>
 
 </ul>
 
-<p>Usted puede también administrar estas opciones por la gestión de las "Propiedades"  
-(pantallas <span class="pwgScreen">Añadido</span>, <span
+<p>Puede también administrar estas opciones mediante la gestión de "Propiedades"  
+(pantallas <span class="pwgScreen">Fecha de incorporación</span>, <span
 class="pwgScreen">Comentarios</span>, <span
 class="pwgScreen">Bloquear</span>, <span
-class="pwgScreen">Pública / particular</span>, <span
-class="pwgScreen">Representante</span> Disponibles a partir de <span
+class="pwgScreen">Público / privado</span>, <span
+class="pwgScreen">Imagen de portada</span> Disponible a partir de <span
 class="pwgScreen">Administración, Categorías, Propiedades</span>).</p>
 
-<h3>Orden de selección</h3>
+<h3>Clasificación</h3>
 
-<p>Utilizar la orden de selección de las imágenes por defecto.</p>
+<p>Utilizar la clasificación de las fotografías por defecto.</p>
 
-<p>Indicar si la selección también se aplica las subcategorías.</p>
+<p>Indicar si se aplica la misma clasificación a los sub-álbumes.</p>
 
-<p>Seleccionar las columnas de la selección que hay que utilizar para esta categoría.</p>
+<p>Seleccionar las columnas de clasificación que se habilitarán en este álbum.</p>
 <ul>
-<li><strong>Fecha de creación</strong>: Fecha de grabación</li>
+<li><strong>Fecha de creación</strong>: Fecha de registro</li>
 <li><strong>Fecha de añadido</strong>: Fecha de la sincronización</li>
-<li><strong>Nota media (*)</strong>: la cual podría ser modificada por el visitante</li>
-<li><strong>Más vistas (*)</strong>: La vista actual puede cambiar la orden de las más vistas</li>
-<li><strong>Nombre del fichero</strong>: Nombre del fichero dado en los campos de informaciones más arriba</li>
-<li><strong>Id</strong>: Id Interna (las categorías recientes tienen la "Id" mayor que las precedentes).</li>
+<li><strong>Nota promedio (*)</strong>: que podría ser modificada por el visitante</li>
+<li><strong>Más vistas (*)</strong>: La visita actual puede cambiar la orden de las más vistas</li>
+<li><strong>Nombre de archivo</strong>: denominación que se le da al archivo en la galería</li>
+<li><strong>Id</strong>: Id Interno (los álbumes creados más recientemente tienen un "Id" mayor que los anteriores).</li>
 
 </ul>
-<p><strong>(*)</strong>Atención: Testee usted mismo estas selecciones que podian dar resultados imprevisibles.</p>
+<p><strong>(*)</strong>Atención: Verifique esta selección, podría dar resultados imprevisibles.</p>
 
 
-<h3>Representante</h3>
+<h3>Imagen de portada</h3>
 
-<p>El representante de una categoría es la miniatura visualizada para representar la categoría en la página principal (<span
-class="pwgScreen">category.php</span>) Cuando una categoría contiene únicamente  subcategorías y ningun elementos directos (como a la raíz)</p>
+<p>La imagen de portada de un álbum es la miniatura que lo representa en la página principal (<span
+class="pwgScreen">category.php</span>) cuando un álbum contiene únicamente sub-álbumes y ninguna fotografía</p>
 
-<p>Existen 4 medios de escoger al representante de una categoría:</p>
+<p>Existen 4 maneras de elegir la fotografía de portada de un álbum:</p>
 
 <ul>
 
-  <li><span class="pwgScreen">Página de visualización de las imágenes</span>: En la barra de los botones de acción, uno de ellos permite escoger el elemento visualizado como representante de la categoría visualizada. Este botón de acción está disponible sólo para los administradores</li>
+  <li><span class="pwgScreen">Página de visualización de las fotografías</span>: en la barra de botones de acción, uno de ellos permite escoger la fotografía que se muestra en pantalla en ese momento como imagen de portada de la categoría a la que pertenece. Este botón de acción les aparece sólo a los administradores</li>
 
-  <li><span class="pwgScreen">Modificar las informaciones de una imagen</span>
-en la administración. Se puede acceder a esta pantalla desde <span
-class="pwgScreen">picture.php</span> o <span class="pwgScreen">Gestión por lote</span> en él <em>Modo unitario</em>. Ver el ayudante de esta pantalla para los detalles.</li>
+  <li><span class="pwgScreen">Modificar la información de una fotografía</span>
+en la Administración. Se puede acceder a esta pantalla desde <span
+class="pwgScreen">picture.php</span> o desde <span class="pwgScreen">Gestión por lote</span> en  <em>Modo unitario</em>. Vaya a la ayuda de esta pantalla para más detalles.</li>
 
-  <li><span class="pwgScreen">Administración, Categorías, Propiedades, Representante</span>. Ver el ayudante de esta pantalla para los detalles.</li>
+  <li><span class="pwgScreen">Administración, Categorías, Propiedades, Imagen de portada</span>. Vaya a la ayuda de esta pantalla para más detalles.</li>
 
-  <li><span class="pwgScreen">Modificar una categoría</span> ( La pantalla actual).</li>
+  <li><span class="pwgScreen">Modificar categoría</span> (La pantalla actual).</li>
 
 </ul>
 
-<p>La representación depende del parámetro de configuración
+<p>La imagen de portada depende del parámetro de configuración
 <code>allow_random_representative</code> (ver <span
 class="filename">include/config_default.inc.php</span>).</p>
 
-<p>Por defecto (<code>allow_random_representative</code> à false) cada categoría que contiene por lo menos un elemento es representada por un elemento fijo. Una vez fijado (a la creación de la categoría), el representante únicamente cambia cuando el administrador lo pide. Si el representante no conviene, usted puede pedir a <strong>Encontrar a un nuevo representante al azar</strong>.</p>
+<p>Por defecto (<code>allow_random_representative</code> = false) cada uno de los álbumes que contienen al menos una fotografía está representado por una imagen. Una vez establecida durante el proceso de creación de la categoría, cambia sólo cuando el administrador así lo decide. Si la imagen no es la adecuada, puede seleccionar otra mediante la opción <strong>Elegir una nueva imagen de portada al azar</strong>.</p>
 
 <p>Si el parámetro de configuración <code>allow_random_representative</code>
-es a true, una categoría que contiene elementos puede no tener representante fijo. Simplemente utilizar el botón <strong>Suprimir al representante</strong>.</p>
+es = true, un álbum de fotografías puede decidir que sea el sistema quien asigne una imagen de portada aleatoria. Para ello, haga clic en el botón <strong>Eliminar la imagen de portada</strong>.</p>
 
-<p>Si la categoría no contiene ningún elemento (sino únicamente subcategorías) puede ser representada a pesar de todo por cualquier elemento gracias a la pantalla <span class="pwgScreen">Modificar las informaciones de una imagen</span>. La unica opción de la pantalla presente es el botón
-<strong>Suprimir al representante</strong>.</p>
+<p>Si el álbum no contiene fotografías sino sólo sub-álbumes, se puede seleccionar no obstante una imagen de portada en la pantalla <span class="pwgScreen">Modificar la información de la fotografía</span>. La unica opción de esta pantalla es el botón <strong>Eliminar la imagen de portada</strong>.</p>
 
-<h3>Asociar todos los elementos de la categoría con una nueva categoría</h3>
+<h3>Asociar las fotografías a un nuevo álbum</h3>
 
 <ul>
 
-<li><strong>Nombre de la categoría virtual</strong>: Nombre de la nueva categoría que hay que crear, todas las imágenes de la categoría corriente serán atadas a la nueva.</li>
+<li><strong>Nombre del álbum virtual</strong>: denominación del nuevo álbum; todas las fotografías del actual se desplazarán al nuevo álbum.</li>
 
-<li><strong>Categoría padre</strong>: Donde la nueva categoría debe estar, dejar vacío para crearle sobre la página inicial.</li>
+<li><strong>Álbum de nivel superior</strong>: dónde debe ubicase el álbum (no cumplimentar si se desea vincularlo directamente a la página inicial).</li>
 
 </ul>
 
-<h3>Asociar todos los elementos de la categoría con categorías existentes</h3>
+<h3>Asociar todas las fotografías de los álbumes a otros ya existentes</h3>
 
 <ul>
 
-<li><strong>Categorías</strong>: Escoger la categoría de destino.</li>
+<li><strong>Álbum</strong>: escoger el álbum de destino.</li>
 
 </ul>
 
-<h3>Enviarles un mail de informaciones a los miembros de un grupo</h3>
+<h3>Enviar un email de notificación a los miembros de un grupo</h3>
 
 <ul>
 
-<li><strong>Grupo</strong>: Grupo de destinatarios</li>
+<li><strong>Grupo</strong>: grupo de destinatarios</li>
 
-<li><strong>Contenido del mail</strong>: Texto libre de enviarles.</li>
+<li><strong>Contenido del email</strong>: texto de libre cumplimentación que constituye el cuerpo de la notificación.</li>
 
 </ul>  
