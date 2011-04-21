@@ -355,9 +355,6 @@ $lang['This author modified following comment:'] = 'Denna fotograf modifierade f
 $lang['This author removed the comment with id %d'] = 'Denna fotograf raderade inlägg med id %d';
 $lang['delete this comment'] = 'ta bort detta inlägg';
 $lang['validate this comment'] = 'validera detta inlägg';
-$lang['The number of photos per row must be a not null scalar'] = 'Antalet bilder per rad måste vara ett heltal';
-$lang['Number of photos per row'] = 'Antal bilder per rad';
-$lang['The number of rows per page must be a not null scalar'] = 'Antalet rader per sida måste vara ett heltal';
-$lang['Number of rows per page'] = 'Antal rader per sida';
+$lang['html tags are not allowed in login'] = 'HTML-taggar inte är tillåtna i inloggningen'; 
 
 ?>
