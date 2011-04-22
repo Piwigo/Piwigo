@@ -604,7 +604,7 @@ function pwg_image_resize_gd($source_filepath, $destination_filepath, $max_width
   {
     // the image doesn't need any resize! We just copy it to the destination
     copy($source_filepath, $destination_filepath);
-    return true;
+    return get_resize_result($source_filepath, $destination_filepath, $resize_dimensions['width'], $resize_dimensions['height'], $starttime, 'GD');
   }
   
   $destination_image = imagecreatetruecolor($resize_dimensions['width'], $resize_dimensions['height']);
@@ -646,15 +646,7 @@ function pwg_image_resize_gd($source_filepath, $destination_filepath, $max_width
   imagedestroy($destination_image);
 
   // everything should be OK if we are here!
-  return array(
-    'source'      => $source_filepath,
-    'destination' => $destination_filepath,
-    'width'       => $resize_dimensions['width'],
-    'height'      => $resize_dimensions['height'],
-    'size'        => floor(filesize($destination_filepath) / 1024).' KB',
-    'time'	      => number_format((get_moment() - $starttime) * 1000, 2, '.', ' ').' ms',
-    'library'     => 'GD',
-  );
+  return get_resize_result($source_filepath, $destination_filepath, $resize_dimensions['width'], $resize_dimensions['height'], $starttime, 'GD');
 }
 
 function pwg_image_resize_im($source_filepath, $destination_filepath, $max_width, $max_height, $quality, $strip_metadata=false, $crop=false, $follow_orientation=true)
@@ -691,7 +683,7 @@ function pwg_image_resize_im($source_filepath, $destination_filepath, $max_width
   {
     // the image doesn't need any resize! We just copy it to the destination
     copy($source_filepath, $destination_filepath);
-    return true;
+    get_resize_result($source_filepath, $destination_filepath, $resize_dimensions['width'], $resize_dimensions['height'], $starttime, 'ImageMagick');
   }
 
   $image->setImageCompressionQuality($quality);
@@ -716,15 +708,7 @@ function pwg_image_resize_im($source_filepath, $destination_filepath, $max_width
   $image->destroy();
 
   // everything should be OK if we are here!
-  return array(
-    'source'      => $source_filepath,
-    'destination' => $destination_filepath,
-    'width'       => $resize_dimensions['width'],
-    'height'      => $resize_dimensions['height'],
-    'size'        => floor(filesize($destination_filepath) / 1024).' KB',
-    'time'	      => number_format((get_moment() - $starttime) * 1000, 2, '.', ' ').' ms',
-    'library'     => 'ImageMagick',
-  );
+  return get_resize_result($source_filepath, $destination_filepath, $resize_dimensions['width'], $resize_dimensions['height'], $starttime, 'ImageMagick');
 }
 
 function get_rotation_angle($source_filepath)
@@ -965,5 +949,18 @@ function file_path_for_type($file_path, $type='thumb')
   }
 
   return $file_path;
+}
+
+function get_resize_result($source_filepath, $destination_filepath, $width, $height, $time, $library)
+{
+  return array(
+    'source'      => $source_filepath,
+    'destination' => $destination_filepath,
+    'width'       => $width,
+    'height'      => $height,
+    'size'        => floor(filesize($destination_filepath) / 1024).' KB',
+    'time'	      => number_format((get_moment() - $time) * 1000, 2, '.', ' ').' ms',
+    'library'     => $library,
+  );
 }
 ?>

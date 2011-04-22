@@ -113,7 +113,7 @@ $conf['calendar_show_empty'] = true;
 // width and the height of a cell in the monthly calendar when viewing a
 // given month. a value of 0 means that the pretty view is not shown.
 // a good suggestion would be to have the width and the height equal
-// and smaller than tn_width and tn_height.
+// and smaller than upload thumbnails configuration size.
 $conf['calendar_month_cell_width'] =80;
 $conf['calendar_month_cell_height']=80;
 
@@ -139,16 +139,6 @@ $conf['level_separator'] = ' / ';
 // paginate_pages_around : on paginate navigation bar, how many pages
 // display before and after the current page ?
 $conf['paginate_pages_around'] = 2;
-
-// tn_width : default width for thumbnails creation
-$conf['tn_width'] = 128;
-
-// tn_height : default height for thumbnails creation
-$conf['tn_height'] = 128;
-
-// tn_compression_level: compression level for thumbnail creation. 0 is low
-// quality, 100 is high quality.
-$conf['tn_compression_level'] = 75;
 
 // show_version : shall the version of Piwigo be displayed at the
 // bottom of each page ?

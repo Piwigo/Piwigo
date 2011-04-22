@@ -22,163 +22,29 @@
 // +-----------------------------------------------------------------------+
 
 include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
+include_once(PHPWG_ROOT_PATH.'admin/include/functions_upload.inc.php');
 
-// +-----------------------------------------------------------------------+
-// | Check Access and exit when user status is not ok                      |
-// +-----------------------------------------------------------------------+
 check_status(ACCESS_ADMINISTRATOR);
 
-//------------------------------------------------------------------- functions
-// RatioResizeImg creates a new picture (a thumbnail since it is supposed to
-// be smaller than original picture !) in the sub directory named
-// "thumbnail".
-function RatioResizeImg($info, $path, $newWidth, $newHeight, $tn_ext)
+// +-----------------------------------------------------------------------+
+// |                          Load configuration                           |
+// +-----------------------------------------------------------------------+
+prepare_upload_configuration();
+
+$upload_form_config = get_upload_form_config();
+
+$form_values = array();
+
+foreach ($upload_form_config as $param_shortname => $param)
 {
-  global $conf, $lang, $page;
-
-  if ($info !== false)
-  {
-    //someone hooked us - so we skip
-    return $info;
-  }
-
-  if (!function_exists('gd_info'))
-  {
-    return;
-  }
-
-  $filename = basename($path);
-  $dirname = dirname($path);
-  
-  // extension of the picture filename
-  $extension = get_extension($filename);
-
-  if (in_array($extension, array('jpg', 'JPG', 'jpeg', 'JPEG')))
-  {
-    $srcImage = @imagecreatefromjpeg($path);
-  }
-  else if ($extension == 'png' or $extension == 'PNG')
-  {
-    $srcImage = @imagecreatefrompng($path);
-  }
-  else
-  {
-    unset($extension);
-  }
-
-  if ( isset( $srcImage ) )
-  {
-    // width/height
-    $srcWidth    = imagesx( $srcImage ); 
-    $srcHeight   = imagesy( $srcImage ); 
-    $ratioWidth  = $srcWidth/$newWidth;
-    $ratioHeight = $srcHeight/$newHeight;
-
-    // maximal size exceeded ?
-    if ( ( $ratioWidth > 1 ) or ( $ratioHeight > 1 ) )
-    {
-      if ( $ratioWidth < $ratioHeight)
-      { 
-        $destWidth = $srcWidth/$ratioHeight;
-        $destHeight = $newHeight; 
-      }
-      else
-      { 
-        $destWidth = $newWidth; 
-        $destHeight = $srcHeight/$ratioWidth;
-      }
-    }
-    else
-    {
-      $destWidth = $srcWidth;
-      $destHeight = $srcHeight;
-    }
-    // according to the GD version installed on the server
-    if ( $_POST['gd'] == 2 )
-    {
-      // GD 2.0 or more recent -> good results (but slower)
-      $destImage = imagecreatetruecolor( $destWidth, $destHeight); 
-      imagecopyresampled( $destImage, $srcImage, 0, 0, 0, 0,
-                          $destWidth,$destHeight,$srcWidth,$srcHeight );
-    }
-    else
-    {
-      // GD prior to version  2 -> pretty bad results :-/ (but fast)
-      $destImage = imagecreate( $destWidth, $destHeight);
-      imagecopyresized( $destImage, $srcImage, 0, 0, 0, 0,
-                        $destWidth,$destHeight,$srcWidth,$srcHeight );
-    }
-
-    if (($tndir = mkget_thumbnail_dir($dirname, $page['errors'])) == false)
-    {
-      return false;
-    }
-
-    $dest_file = $tndir.'/'.$conf['prefix_thumbnail'];
-    $dest_file.= get_filename_wo_extension($filename);
-    $dest_file.= '.'.$tn_ext;
-    
-    // creation and backup of final picture
-    if (!is_writable($tndir))
-    {
-      array_push($page['errors'], '['.$tndir.'] : '.l10n('no write access'));
-      return false;
-    }
-    imagejpeg($destImage, $dest_file, $conf['tn_compression_level']);
-    // freeing memory ressources
-    imagedestroy( $srcImage );
-    imagedestroy( $destImage );
-    
-    list($tn_width, $tn_height) = getimagesize($dest_file);
-    $tn_size = floor(filesize($dest_file) / 1024).' KB';
-    
-    $info = array( 'path'      => $path,
-                   'tn_file'   => $dest_file,
-                   'tn_width'  => $tn_width,
-                   'tn_height' => $tn_height,
-                   'tn_size'   => $tn_size );
-    return $info;
-  }
-  // error
-  else
-  {
-    echo l10n('Photo unreachable or no support')." ";
-    if ( isset( $extension ) )
-    {
-      echo l10n('for the file format').' '.$extension;
-    }
-    else
-    {
-      echo l10n('for this file format');
-    }
-    exit();
-  }
+  $param_name = 'upload_form_'.$param_shortname;
+  $form_values[$param_shortname] = $conf[$param_name];
 }
 
-$pictures = array();
-$stats = array();
-
-if (!function_exists('gd_info'))
-{
-  array_push($page['errors'], l10n('GD library is missing'));
-}
-
-// add default event handler for thumbnail resize
-add_event_handler('thumbnail_resize', 'RatioResizeImg', EVENT_HANDLER_PRIORITY_NEUTRAL, 5);
-
-// +-----------------------------------------------------------------------+
-// |                       template initialization                         |
-// +-----------------------------------------------------------------------+
-$template->set_filenames( array('thumbnail'=>'thumbnail.tpl') );
-
-$template->assign(
-  array('U_HELP' => get_root_url().'admin/popuphelp.php?page=thumbnail')
-  );
 // +-----------------------------------------------------------------------+
 // |                   search pictures without thumbnails                  |
 // +-----------------------------------------------------------------------+
 $wo_thumbnails = array();
-$thumbnalized = array();
 
 // what is the directory to search in ?
 $query = '
@@ -230,127 +96,13 @@ while ( $row=pwg_db_fetch_assoc($result) )
     }
   } // next element
 } // next site id
-// +-----------------------------------------------------------------------+
-// |                         thumbnails creation                           |
-// +-----------------------------------------------------------------------+
-if (isset($_POST['submit']))
-{
-  $times = array();
-  $infos = array();
-  
-  // checking criteria
-  if (!preg_match('/^[0-9]{2,3}$/', $_POST['width']) or $_POST['width'] < 10)
-  {
-    array_push($page['errors'], l10n('width must be a number superior to').' 10');
-  }
-  if (!preg_match('/^[0-9]{2,3}$/', $_POST['height']) or $_POST['height'] < 10)
-  {
-    array_push($page['errors'], l10n('height must be a number superior to').' 10');
-  }
-  
-  // picture miniaturization
-  if (count($page['errors']) == 0)
-  {
-    $num = 1;
-    foreach ($wo_thumbnails as $path)
-    {
-      if (is_numeric($_POST['n']) and $num > $_POST['n'])
-      {
-        break;
-      }
-      
-      $starttime = get_moment();
-      if ($info = trigger_event('thumbnail_resize',
-            false,
-            $path,
-            $_POST['width'],
-            $_POST['height'],
-            'jpg'
-            )
-         )
-      {
-        $endtime = get_moment();
-        $info['time'] = ($endtime - $starttime) * 1000;
-        array_push($infos, $info);
-        array_push($times, $info['time']);
-        array_push($thumbnalized, $path);
-        $num++;
-      }
-      else
-      {
-        break;
-      }
-    }
 
-    if (count($infos) > 0)
-    {
-      $sum = array_sum($times);
-      $average = $sum / count($times);
-      sort($times, SORT_NUMERIC);
-      $max = array_pop($times);
-      if (count($thumbnalized) == 1)
-      {
-        $min = $max;
-      }
-      else
-      {
-        $min = array_shift($times);
-      }
-      
-      $tpl_var = 
-        array(
-          'TN_NB'=>count($infos),
-          'TN_TOTAL'=>number_format($sum, 2, '.', ' ').' ms',
-          'TN_MAX'=>number_format($max, 2, '.', ' ').' ms',
-          'TN_MIN'=>number_format($min, 2, '.', ' ').' ms',
-          'TN_AVERAGE'=>number_format($average, 2, '.', ' ').' ms',
-          'elements' => array()
-          );
-      
-      foreach ($infos as $i => $info)
-      {
-        $tpl_var['elements'][] =
-          array(
-            'PATH'=>$info['path'],
-            'TN_FILE_IMG'=>$info['tn_file'],
-            'TN_FILESIZE_IMG'=>$info['tn_size'],
-            'TN_WIDTH_IMG'=>$info['tn_width'],
-            'TN_HEIGHT_IMG'=>$info['tn_height'],
-            'GEN_TIME'=>number_format($info['time'], 2, '.', ' ').' ms',
-            );
-      }
-      $template->assign('results', $tpl_var);
-    }
-  }
-}
 // +-----------------------------------------------------------------------+
 // |             form & pictures without thumbnails display                |
 // +-----------------------------------------------------------------------+
-$remainings = array_diff($wo_thumbnails, $thumbnalized);
-
-if (count($remainings) > 0)
+if (count($wo_thumbnails) > 0)
 {
-  $form_url = get_root_url().'admin.php?page=thumbnail';
-  $gd = !empty($_POST['gd']) ? $_POST['gd'] : 2;
-  $width = !empty($_POST['width']) ? $_POST['width'] : $conf['tn_width'];
-  $height = !empty($_POST['height']) ? $_POST['height'] : $conf['tn_height'];
-  $n = !empty($_POST['n']) ? $_POST['n'] : 5;
-  
-  $template->assign(
-    'params',
-    array(
-      'F_ACTION'=> $form_url,
-      'GD_SELECTED' => $gd,
-      'N_SELECTED' => $n,
-      'WIDTH_TN'=>$width,
-      'HEIGHT_TN'=>$height
-      ));
-
-  $template->assign(
-    'TOTAL_NB_REMAINING',
-    count($remainings));
-
-  foreach ($remainings as $path)
+  foreach ($wo_thumbnails as $path)
   {
     list($width, $height) = getimagesize($path);
     $size = floor(filesize($path) / 1024).' KB';
@@ -366,8 +118,28 @@ if (count($remainings) > 0)
   }
 }
 
+foreach (array_keys($upload_form_config) as $field)
+{
+  if (is_bool($upload_form_config[$field]['default']))
+  {
+    $form_values[$field] = $form_values[$field] ? 'checked="checked"' : '';
+  }
+}
+
+$template->assign(
+  array(
+    'F_ACTION' => get_root_url().'admin.php?page=thumbnail',
+    'values' => $form_values,
+    'TOTAL_NB_REMAINING' => count($wo_thumbnails),
+  )
+);
+
 // +-----------------------------------------------------------------------+
 // |                           return to admin                             |
 // +-----------------------------------------------------------------------+
+$template->set_filenames( array('thumbnail'=>'thumbnail.tpl') );
+
+$template->assign('U_HELP', get_root_url().'admin/popuphelp.php?page=thumbnail');
+
 $template->assign_var_from_handle('ADMIN_CONTENT', 'thumbnail');
 ?>
