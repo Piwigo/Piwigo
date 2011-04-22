@@ -781,4 +781,8 @@ $lang['Complete'] = 'Tamamı';
 $lang['Restore'] = 'Onarım';
 $lang['Restore default configuration. You will lost your plugin settings!'] = 'Varsayılan yapılandırmalarınızı onarın. Eklenti ayarlrınız kaybolacaktır!';
 $lang['display'] = 'göster';
+$lang['Regenerate Thumbnails'] = 'Küçük Resimleri Tekrar Oluştur';
+$lang['Thumbnails generation in progress...'] = 'Küçük resimler oluşturuluyor...';
+$lang['%s thumbnails have been regenerated'] = '%s küçük resimler oluşturuldu';
+$lang['%s thumbnails can not be regenerated'] = '%s küçük resimler oluşturulamadı';
 ?>
