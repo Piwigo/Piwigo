@@ -785,4 +785,8 @@ $lang['Do you want to activate anyway?'] = 'Aktiváljuk mindenképp?';
 $lang['THIS PLUGIN IS NOW PART OF PIWIGO CORE! DELETE IT NOW.'] = 'EZ A BŐVÍTMÉNY MÁR BE VAN ÉPÍTVE A PIWIGO RENDSZERBE! ELTÁVOLÍTANDÓ!';
 $lang['ERROR: THIS PLUGIN IS MISSING BUT IT IS INSTALLED! UNINSTALL IT NOW.'] = 'HIBA: EZ A BŐVÍTMÉNY NEM ELÉRHETŐ, DE TELEPÍTVE VAN! ELTÁVOLÍTANDÓ!';
 $lang['display'] = 'kijelző';
+$lang['Regenerate Thumbnails'] = 'Bélyegképek újragenerálása';
+$lang['Thumbnails generation in progress...'] = 'Bélyegképek generálása folyamatban...';
+$lang['%s thumbnails have been regenerated'] = '%s bélyegkép újragenerálva';
+$lang['%s thumbnails can not be regenerated'] = '%s bélyegkép generálása nem történt meg';
 ?>
