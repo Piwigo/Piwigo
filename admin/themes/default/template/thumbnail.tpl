@@ -11,9 +11,9 @@ var done = 0;
 
 {literal}
 var queuedManager = $.manageAjax.create('queued', { 
-	queue: true,  
-	cacheResponse: false,
-	maxRequests: 3,
+  queue: true,  
+  cacheResponse: false,
+  maxRequests: 3,
   complete: function() {
     jQuery("#thumb_remaining").text(todo-(++done) + ' ' + remaining);
     if (todo == done) {
@@ -23,13 +23,13 @@ var queuedManager = $.manageAjax.create('queued', {
 }); 
 
 function processThumbs(width,height,crop,follow_orientation) {
-	jQuery('tr.nothumb').each(function() {
-		var image_path = jQuery(this).find('td.filepath').text();
-		var td=this;
-		queuedManager.add({
-			type: 'GET', 
-			url: 'ws.php', 
-			data: {
+  jQuery('tr.nothumb').each(function() {
+    var image_path = jQuery(this).find('td.filepath').text();
+    var td=this;
+    queuedManager.add({
+      type: 'GET', 
+      url: 'ws.php', 
+      data: {
         method: 'pwg.images.resize',
         image_path: image_path,
         type: 'thumbnail',
@@ -39,24 +39,24 @@ function processThumbs(width,height,crop,follow_orientation) {
         follow_orientation: follow_orientation,
         format:'json'
       },
-			dataType: 'json',
-			success: (function(row) { return function(data) {
-					if (data.stat =='ok') {
+      dataType: 'json',
+      success: (function(row) { return function(data) {
+          if (data.stat =='ok') {
             if (todo < 200)
               jQuery(row).find('td.thumbpic').html('<img src="'+data.result.destination+'"/>');
             jQuery(row).find('td.thumbdim').html(""+data.result.width+" x "+data.result.height);
             jQuery(row).find('td.thumbgentime').html(""+data.result.time);
             jQuery(row).find('td.thumbsize').html(""+data.result.size);
             jQuery(row).removeClass("nothumb");
-					} else {
-            jQuery(row).find('td.thumbpic').html('#ERR#'+data.err+"# : "+data.message);
+          } else {
+            jQuery(row).find('td.thumbdim').html('#ERR#'+data.err+"# : "+data.message);
             jQuery(row).removeClass("nothumb");
             jQuery(row).addClass("error");
-					}
-				}
+          }
+        }
       })(td)
-		});
-	});
+    });
+  });
 }
 
 function toggleCropFields() {
@@ -76,8 +76,8 @@ jQuery(document).ready(function(){
   jQuery('input#proceed').click (function () {
     var width = jQuery('input[name="thumb_maxwidth"]').val();
     var height = jQuery('input[name="thumb_maxheight"]').val();
-    var crop = jQuery('#crop').is(':checked');
-    var follow_orientation = jQuery('#follow_orientation').is(':checked');
+    var crop = jQuery('#thumb_crop').is(':checked');
+    var follow_orientation = jQuery('#thumb_follow_orientation').is(':checked');
     jQuery(".waiting_bar").toggle();
     if (todo < 200)
       jQuery('.thumbpic').show();
@@ -113,23 +113,23 @@ jQuery(document).ready(function(){
     <ul>
       <li>
         <span class="property"><label for="thumb_crop">{'Crop'|@translate}</label></span>
-	      <input type="checkbox" name="thumb_crop" id="thumb_crop" {$values.thumb_crop}>
+        <input type="checkbox" name="thumb_crop" id="thumb_crop" {$values.thumb_crop}>
       </li>
       <li id="thumb_follow_orientation_li">
         <span class="property"><label for="thumb_follow_orientation">{'Follow Orientation'|@translate}</label></span>
-	      <input type="checkbox" name="thumb_follow_orientation" id="thumb_follow_orientation" {$values.thumb_follow_orientation}>
+        <input type="checkbox" name="thumb_follow_orientation" id="thumb_follow_orientation" {$values.thumb_follow_orientation}>
       </li>
       <li>
         <span class="property"><label for="thumb_maxwidth">{'Maximum Width'|@translate}</label></span>
-	      <input type="text" name="thumb_maxwidth" id="thumb_maxwidth" value="{$values.thumb_maxwidth}" size="4" maxlength="4"> {'pixels'|@translate}
+        <input type="text" name="thumb_maxwidth" id="thumb_maxwidth" value="{$values.thumb_maxwidth}" size="4" maxlength="4"> {'pixels'|@translate}
       </li>
       <li>
         <span class="property"><label for="thumb_maxheight">{'Maximum Height'|@translate}</label></span>
-	      <input type="text" name="thumb_maxheight" id="thumb_maxheight" value="{$values.thumb_maxheight}" size="4" maxlength="4"> {'pixels'|@translate}
+        <input type="text" name="thumb_maxheight" id="thumb_maxheight" value="{$values.thumb_maxheight}" size="4" maxlength="4"> {'pixels'|@translate}
       </li>
       <li>
         <span class="property"><label for="thumb_quality">{'Image Quality'|@translate}</label></span>
-	      <input type="text" name="thumb_quality" id="thumb_quality" value="{$values.thumb_quality}" size="3" maxlength="3"> %
+        <input type="text" name="thumb_quality" id="thumb_quality" value="{$values.thumb_quality}" size="3" maxlength="3"> %
       </li>
     </ul>
   </fieldset>
@@ -156,13 +156,16 @@ jQuery(document).ready(function(){
     <td class="filepath">{$elt.PATH}</td>
     <td>{$elt.FILESIZE_IMG}</td>
     <td>{$elt.WIDTH_IMG} x {$elt.HEIGHT_IMG}</td>
-	<td class="thumbpic"><img src="admin/themes/default/images/ajax-loader.gif"></td>
-	<td class="thumbgentime">&nbsp;</td>
-	<td class="thumbsize">&nbsp;</td>
-	<td class="thumbdim">&nbsp;</td>
+  <td class="thumbpic"><img src="admin/themes/default/images/ajax-loader.gif"></td>
+  <td class="thumbgentime">&nbsp;</td>
+  <td class="thumbsize">&nbsp;</td>
+  <td class="thumbdim">&nbsp;</td>
   </tr>
   {/foreach}
 </table>
 {else}
-<div style="text-align:center;font-weight:bold;margin:10px;"> [ {'No missing thumbnail'|@translate} ]</div>
+<p style="text-align:left;margin:20px;">
+<b>{'No missing thumbnail'|@translate}</b><br><br>
+{'If you want to regenerate thumbnails, please go to the <a href="%s">Batch Manager</a>.'|@translate|@sprintf:"admin.php?page=batch_manager"}
+</p>
 {/if}

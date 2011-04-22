@@ -100,6 +100,8 @@ while ( $row=pwg_db_fetch_assoc($result) )
 // +-----------------------------------------------------------------------+
 // |             form & pictures without thumbnails display                |
 // +-----------------------------------------------------------------------+
+$template->set_filenames( array('thumbnail'=>'thumbnail.tpl') );
+
 if (count($wo_thumbnails) > 0)
 {
   foreach ($wo_thumbnails as $path)
@@ -114,7 +116,8 @@ if (count($wo_thumbnails) > 0)
         'FILESIZE_IMG'=>$size,
         'WIDTH_IMG'=>$width,
         'HEIGHT_IMG'=>$height,
-        ));
+      )
+    );
   }
 }
 
@@ -131,15 +134,9 @@ $template->assign(
     'F_ACTION' => get_root_url().'admin.php?page=thumbnail',
     'values' => $form_values,
     'TOTAL_NB_REMAINING' => count($wo_thumbnails),
+    'U_HELP' => get_root_url().'admin/popuphelp.php?page=thumbnail',
   )
 );
-
-// +-----------------------------------------------------------------------+
-// |                           return to admin                             |
-// +-----------------------------------------------------------------------+
-$template->set_filenames( array('thumbnail'=>'thumbnail.tpl') );
-
-$template->assign('U_HELP', get_root_url().'admin/popuphelp.php?page=thumbnail');
 
 $template->assign_var_from_handle('ADMIN_CONTENT', 'thumbnail');
 ?>

@@ -840,4 +840,5 @@ $lang['Crop'] = 'Retailler';
 $lang['Width'] = 'Largeur';
 $lang['Height'] = 'Hauteur';
 $lang['Follow Orientation'] = "Respecter l'orientation";
+$lang['If you want to regenerate thumbnails, please go to the <a href="%s">Batch Manager</a>.'] = 'Si vous voulez régénérer des miniatures, merci de vous rendre dans la <a href="%s">Gestion par lot</a>.';
 ?>
