@@ -786,5 +786,8 @@ $lang['WARNING! This plugin does not seem to be compatible with this version of 
 $lang['Do you want to activate anyway?'] = 'Wollen Sie es wirklich wieder aktivieren?';
 $lang['THIS PLUGIN IS NOW PART OF PIWIGO CORE! DELETE IT NOW.'] = 'DIESES PLUGIN IST JETZT IN DEN KERN DER PIWIGO INTEGRIERT! BITTE UNBEDINGT DEINSTALLIEREN!';
 $lang['ERROR: THIS PLUGIN IS MISSING BUT IT IS INSTALLED! UNINSTALL IT NOW.'] = 'ERROR: DIESES PLUGIN FEHLT OBWOHL ES INSTALLIERT IST! BITTE UNBEDINGT DEINSTALLIEREN! ';
-
+$lang['Regenerate Thumbnails'] = 'Vorschaubilder neu erstellen';
+$lang['Thumbnails generation in progress...'] = 'Vorschaubilder werden neu erstellt...';
+$lang['%s thumbnails have been regenerated'] = '%s Vorschaubilder wurden neu erstellt';
+$lang['%s thumbnails can not be regenerated'] = '%s Vorschaubilder konnten nicht neu erstellt werden';
 ?>
