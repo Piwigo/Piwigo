@@ -807,4 +807,30 @@ $lang['%s thumbnails can not be regenerated'] = '%s miniature non possono essere
 $lang['%s photos have been regenerated'] = '%s foto sono state rigenerate';
 $lang['%s photos can not be regenerated'] = '%s foto non possono essere rigenerate';
 $lang['Only photos with HD can be regenerated!'] = 'Solo le foto con una HD possono essere rigenerate';
+
+$lang['Updates'] = 'Aggiornamento';
+$lang['Update in progress... Please wait.'] = 'Aggiornamento in corso ... Attendere prego';
+$lang['Ignore this update'] = 'Iniorare questo aggiornamento';
+$lang['Reset ignored updates'] = 'Ripristinare gli aggiornamenti igniorati';
+$lang['Update All'] = 'Applicare tutti gli aggiornamenti';
+$lang['ERROR'] = 'ERRORE';
+$lang['Update Complete'] = 'Aggiornamento completao';
+$lang['Piwigo Update'] = 'Aggiornamento di Piwigo';
+$lang['Extensions Update'] = 'Aggiornamento delle estenzioni';
+$lang['All extensions are up to date.'] = 'Tutte le estensioni sono aggiornate';
+$lang['Following plugins may not be compatible with the new version of Piwigo:'] = 'I plugin seguenti potrebbero non essere compatibili con la nuova versione di Piwigo:';
+$lang['Following themes may not be compatible with the new version of Piwigo:'] = 'I temi seguenti potrebbero non essere compatibili con la nuova versione di Piwigo:';
+$lang['I decide to update anyway'] = 'Decido comunque di aggiornare';
+$lang['Update to Piwigo %s'] = 'Aggiornare a Piwigo %s';
+$lang['Two updates are available'] = 'Due aggiornamenti sono disponibili';
+$lang['This is a minor update, with only bug corrections.'] = 'Questo è un aggiornamento minore, con solo correzioni di bug';
+$lang['This is a major update, with <a href="%s">new exciting features</a>.'] = 'Questo è un aggiornamento importante, con <a href="%s">nuove e interessanti funzionalità</a>';
+$lang['Some themes and plugins may be not available yet.'] = 'Alcuni temi e plugin possono non essere ancora disponibili';
+$lang['You can update to Piwigo %s directly, without upgrading to Piwigo %s (recommended).'] = 'È possibile aggiornare a Piwigo %s direttamente, senza passare a Piwigo %s (consigliato)';
+$lang['Save Template Directory'] = 'Salvare la template directory';
+$lang['Dump Database'] = 'Salvare il database';
+$lang['Include history data (Warning: server memory limit may be exceeded)'] = 'Includere la cronologia (Attenzione: può essere superato il limite di memoria del server)';
+$lang['Unable to write new local directory.'] = 'Impossibile creare nuove directory locali';
+$lang['Unable to send template directory.'] = 'Impossibile inviare la directory template';
+$lang['Unable to dump database.'] = 'Impossibile eseguire il salvataggio del database';
 ?>
