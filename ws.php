@@ -408,7 +408,8 @@ function ws_addDefaultMethods( $arr )
     'pwg.images.resize',
     'ws_images_resize',
     array(
-      'image_id' => array(),
+      'image_id' => array('default' => null),
+      'image_path' => array('default' => null),
       'type' => array('default' => 'thumbnail'),
       'maxwidth' => array('default' => null),
       'maxheight' => array('default' => null),
@@ -416,7 +417,8 @@ function ws_addDefaultMethods( $arr )
       'follow_orientation' => array('default' => null),
       'quality' => array('default' => null),
     ),
-    'Regenerate thumbnails or websize photo with given arguments.
+    'Create/Regenerate thumbnails or websize photo with given arguments.
+<br>One of arguments "image_id" or "image_path" must be passed filled.
 <br>Argument "type" can be "thumbnail" or "websize". Default is "thumbnail".
 <br>If maxwidth, maxheight, crop, follow_orientation or quality are missing, default parameters of upload will be used.'
 );

@@ -556,6 +556,7 @@ function pwg_image_resize_gd($source_filepath, $destination_filepath, $max_width
     return false;
   }
 
+  $starttime = get_moment();
   $gd_info = gd_info();
 
   // extension of the picture filename
@@ -645,11 +646,21 @@ function pwg_image_resize_gd($source_filepath, $destination_filepath, $max_width
   imagedestroy($destination_image);
 
   // everything should be OK if we are here!
-  return true;
+  return array(
+    'source'      => $source_filepath,
+    'destination' => $destination_filepath,
+    'width'       => $resize_dimensions['width'],
+    'height'      => $resize_dimensions['height'],
+    'size'        => floor(filesize($destination_filepath) / 1024).' KB',
+    'time'	      => number_format((get_moment() - $starttime) * 1000, 2, '.', ' ').' ms',
+    'library'     => 'GD',
+  );
 }
 
 function pwg_image_resize_im($source_filepath, $destination_filepath, $max_width, $max_height, $quality, $strip_metadata=false, $crop=false, $follow_orientation=true)
 {
+  $starttime = get_moment();
+
   // extension of the picture filename
   $extension = strtolower(get_extension($source_filepath));
   if (!in_array($extension, array('jpg', 'jpeg', 'png')))
@@ -705,7 +716,15 @@ function pwg_image_resize_im($source_filepath, $destination_filepath, $max_width
   $image->destroy();
 
   // everything should be OK if we are here!
-  return true;
+  return array(
+    'source'      => $source_filepath,
+    'destination' => $destination_filepath,
+    'width'       => $resize_dimensions['width'],
+    'height'      => $resize_dimensions['height'],
+    'size'        => floor(filesize($destination_filepath) / 1024).' KB',
+    'time'	      => number_format((get_moment() - $starttime) * 1000, 2, '.', ' ').' ms',
+    'library'     => 'ImageMagick',
+  );
 }
 
 function get_rotation_angle($source_filepath)

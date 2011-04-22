@@ -2673,6 +2673,11 @@ function ws_images_resize($params, &$service)
     return new PwgError(403, 'Unknown type (only "thumbnail" or "websize" are accepted');
   }
 
+  if (empty($params['image_id']) and empty($params['image_path']))
+  {
+    return new PwgError(403, "image_id or image_path is missing");
+  }
+
   $resize_params = array('maxwidth', 'maxheight', 'quality', 'crop', 'follow_orientation');
   $type = $params['type'] == 'thumbnail' ? 'thumb' : 'websize';
   foreach ($resize_params as $param)
@@ -2681,32 +2686,50 @@ function ws_images_resize($params, &$service)
       $params[$param] = $conf['upload_form_'.$type.'_'.$param];
   }
 
-  $query='
-SELECT id, path, tn_ext, has_high
-FROM '.IMAGES_TABLE.'
-WHERE id = '.(int)$params['image_id'].'
-;';
-  $image = pwg_db_fetch_assoc(pwg_query($query));
-
-  if ($image == null)
-  {
-    return new PwgError(403, "image_id not found");
-  }
-
+  include_once(PHPWG_ROOT_PATH.'include/functions_picture.inc.php');
   include_once(PHPWG_ROOT_PATH.'admin/include/functions_upload.inc.php');
 
-  if (!is_valid_image_extension(get_extension($image['path'])))
+  if (!empty($params['image_id']))
+  {
+    $query='
+SELECT id, path, tn_ext, has_high
+  FROM '.IMAGES_TABLE.'
+  WHERE id = '.(int)$params['image_id'].'
+;';
+    $image = pwg_db_fetch_assoc(pwg_query($query));
+
+    if ($image == null)
+    {
+      return new PwgError(403, "image_id not found");
+    }
+
+    $image_path = $image['path'];
+    $thumb_path = get_thumbnail_path($image);
+    $hd_path = get_high_path($image);
+  }
+  else
+  {
+    $image_path = $params['image_path'];
+    $thumb_path = file_path_for_type($image_path, 'thumb');
+    $hd_path = file_path_for_type($image_path, 'high');
+  }
+
+  if (!is_valid_image_extension(get_extension($image_path)))
   {
     return new PwgError(403, "image can't be resized");
   }
 
-  if ($params['type'] == 'thumbnail' and !empty($image['tn_ext']))
+  $result = false;
+
+  if ($params['type'] == 'thumbnail' and file_exists($image_path))
   {
-    trigger_event(
+    prepare_directory(dirname($thumb_path));
+
+    $result = trigger_event(
       'upload_thumbnail_resize',
       false,
-      $image['path'],
-      get_thumbnail_path($image),
+      $image_path,
+      $thumb_path,
       $params['maxwidth'],
       $params['maxheight'],
       $params['quality'],
@@ -2714,28 +2737,28 @@ WHERE id = '.(int)$params['image_id'].'
       get_boolean($params['crop']),
       get_boolean($params['follow_orientation'])
     );
-    return true;
   }
-  elseif (!empty($image['has_high']))
+  elseif (file_exists($hd_path))
   {
-    trigger_event(
+    $result = trigger_event(
       'upload_image_resize',
       false,
-      file_path_for_type($image['path'], 'high'),
-      $image['path'],
+      $hd_path,
+      $image_path,
       $params['maxwidth'],
       $params['maxheight'],
       $params['quality'],
       false
       );
 
-    $conf['use_exif'] = false;
-    $conf['use_iptc'] = false;
-    update_metadata(array($image['id'] => $image['path']));
-
-    return true;
+    if (!empty($image['has_high']))
+    {
+      $conf['use_exif'] = false;
+      $conf['use_iptc'] = false;
+      update_metadata(array($image['id'] => $image['path']));
+    }
   }
-  return false;
+  return $result;
 }
 
 function ws_extensions_update($params, &$service)
