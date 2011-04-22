@@ -789,5 +789,10 @@ $lang['Regenerate Thumbnails'] = 'Hergenereer Thumbnails';
 $lang['Thumbnails generation in progress...'] = 'Bezig met genereren van thumbnails...';
 $lang['%s thumbnails have been regenerated'] = '%s thumbnails zijn opnieuw gegenereerd.';
 $lang['%s thumbnails can not be regenerated'] = '%s thumbnails kunnen niet opnieuw worden gegenereerd.';
+$lang['Regenerate Websize Photos'] = 'Hergenereer webformaat foto\'s.';
+$lang['Photos generation in progress...'] = 'Bezig met hergenereren foto\'s...';
+$lang['%s photos have been regenerated'] = '%s foto\'s zijn hergegenereerd.';
+$lang['%s photos can not be regenerated'] = '%s foto\'s konden niet opnieuw gegenereerd worden.';
+$lang['Only photos with HD can be regenerated!'] = 'Alleen foto\'s met HD kunnen opnieuw worden gegenereerd!';
 
 ?>
