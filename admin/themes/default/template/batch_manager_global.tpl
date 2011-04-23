@@ -6,7 +6,7 @@
 {/literal}{/footer_script}
 
 {combine_script id='jquery.fcbkcomplete' load='footer' require='jquery' path='themes/default/js/plugins/jquery.fcbkcomplete.js'}
-{combine_script id='jquery.progressBar' load='footer' path='plugins/regenerateThumbnails/js/jquery.progressbar.min.js'}
+{combine_script id='jquery.progressBar' load='footer' path='themes/default/js/plugins/jquery.progressbar.min.js'}
 {combine_script id='jquery.ajaxmanager' load='footer' path='themes/default/js/plugins/jquery.ajaxmanager.js'}
 
 {footer_script require='jquery.fcbkcomplete'}{literal}
