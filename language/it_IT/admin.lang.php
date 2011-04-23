@@ -810,7 +810,7 @@ $lang['Only photos with HD can be regenerated!'] = 'Solo le foto con una HD poss
 
 $lang['Updates'] = 'Aggiornamento';
 $lang['Update in progress... Please wait.'] = 'Aggiornamento in corso ... Attendere prego';
-$lang['Ignore this update'] = 'Iniorare questo aggiornamento';
+$lang['Ignore this update'] = 'Igniorare questo aggiornamento';
 $lang['Reset ignored updates'] = 'Ripristinare gli aggiornamenti igniorati';
 $lang['Update All'] = 'Applicare tutti gli aggiornamenti';
 $lang['ERROR'] = 'ERRORE';
@@ -833,4 +833,7 @@ $lang['Include history data (Warning: server memory limit may be exceeded)'] = '
 $lang['Unable to write new local directory.'] = 'Impossibile creare nuove directory locali';
 $lang['Unable to send template directory.'] = 'Impossibile inviare la directory template';
 $lang['Unable to dump database.'] = 'Impossibile eseguire il salvataggio del database';
+$lang['Some upgrades are available for extensions.'] = 'Degli aggiornamenti sono disponibili per le estenzioni';
+$lang['Please wait...'] = 'Attendere prego...';
+$lang['Ignore All'] = 'Igniorare tutti gli aggiornamenti';
 ?>
