@@ -178,6 +178,88 @@ function prepare_upload_configuration()
   }
 }
 
+function save_upload_form_config($data, &$errors=array())
+{
+  if (!is_array($data) or empty($data))
+  {
+    return false;
+  }
+
+  $upload_form_config = get_upload_form_config();
+  $updates = array();
+
+  foreach ($data as $field => $value)
+  {
+    if (!isset($upload_form_config[$field]))
+    {
+      continue;
+    }
+    if (is_bool($upload_form_config[$field]['default']))
+    {
+      if (isset($value))
+      {
+        $value = true;
+      }
+      else
+      {
+        $value = false;
+      }
+
+      $updates[] = array(
+        'param' => 'upload_form_'.$field,
+        'value' => boolean_to_string($value)
+        );
+    }
+    elseif ($upload_form_config[$field]['can_be_null'] and empty($value))
+    {
+      $updates[] = array(
+        'param' => 'upload_form_'.$field,
+        'value' => 'false'
+        );
+    }
+    else
+    {
+      $min = $upload_form_config[$field]['min'];
+      $max = $upload_form_config[$field]['max'];
+      $pattern = $upload_form_config[$field]['pattern'];
+      
+      if (preg_match($pattern, $value) and $value >= $min and $value <= $max)
+      {
+         $updates[] = array(
+          'param' => 'upload_form_'.$field,
+          'value' => $value
+          );
+      }
+      else
+      {
+        array_push(
+          $errors,
+          sprintf(
+            $upload_form_config[$field]['error_message'],
+            $min,
+            $max
+            )
+          );
+      }
+    }
+  }
+
+  if (count($errors) == 0)
+  {
+    mass_updates(
+      CONFIG_TABLE,
+      array(
+        'primary' => array('param'),
+        'update' => array('value')
+        ),
+      $updates
+      );
+    return true;
+  }
+
+  return false;
+}
+
 function add_uploaded_file($source_filepath, $original_filename=null, $categories=null, $level=null, $image_id=null)
 {
   // Here is the plan

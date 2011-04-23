@@ -80,75 +80,15 @@ if (isset($_POST['submit']))
 
   foreach ($fields as $field)
   {
-    $value = null;
-    if (!empty($_POST[$field]))
-    {
-      $value = $_POST[$field];
-    }
-    
-    if (is_bool($upload_form_config[$field]['default']))
-    {
-      if (isset($value))
-      {
-        $value = true;
-      }
-      else
-      {
-        $value = false;
-      }
-
-      $updates[] = array(
-        'param' => 'upload_form_'.$field,
-        'value' => boolean_to_string($value)
-        );
-    }
-    elseif ($upload_form_config[$field]['can_be_null'] and empty($value))
-    {
-      $updates[] = array(
-        'param' => 'upload_form_'.$field,
-        'value' => 'false'
-        );
-    }
-    else
-    {
-      $min = $upload_form_config[$field]['min'];
-      $max = $upload_form_config[$field]['max'];
-      $pattern = $upload_form_config[$field]['pattern'];
-      
-      if (preg_match($pattern, $value) and $value >= $min and $value <= $max)
-      {
-         $updates[] = array(
-          'param' => 'upload_form_'.$field,
-          'value' => $value
-          );
-      }
-      else
-      {
-        array_push(
-          $page['errors'],
-          sprintf(
-            $upload_form_config[$field]['error_message'],
-            $min,
-            $max
-            )
-          );
-      }
-    }
-    
+    $value = !empty($_POST[$field]) ? $_POST[$field] : null;
     $form_values[$field] = $value;
+    $updates[$field] = $value;
   }
+
+  save_upload_form_config($updates, $page['errors']);
 
   if (count($page['errors']) == 0)
   {
-    mass_updates(
-      CONFIG_TABLE,
-      array(
-        'primary' => array('param'),
-        'update' => array('value')
-        ),
-      $updates
-      );
-    
     array_push(
       $page['infos'],
       l10n('Your configuration settings are saved')

@@ -433,56 +433,15 @@ SELECT id, path
 
   if (!empty($update_fields))
   {
-    // Update configuration
+    // Update upload configuration
     $updates = array();
     foreach ($update_fields as $field)
     {
-      if (is_bool($upload_form_config[$field]['default']))
-      {
-        $value = isset($_POST[$field]);
-
-        $updates[] = array(
-          'param' => 'upload_form_'.$field,
-          'value' => boolean_to_string($value)
-          );
-      }
-      else
-      {
-        $value = null;
-        if (!empty($_POST[$field]))
-        {
-          $value = $_POST[$field];
-        }
-
-        if (preg_match($upload_form_config[$field]['pattern'], $value)
-          and $value >= $upload_form_config[$field]['min']
-          and $value <= $upload_form_config[$field]['max'])
-        {
-          $conf['upload_form_'.$field] = $value;
-           $updates[] = array(
-            'param' => 'upload_form_'.$field,
-            'value' => $value
-            );
-        }
-        else
-        {
-          $updates = null;
-          break;
-        }
-      }
+      $value = !empty($_POST[$field]) ? $_POST[$field] : null;
       $form_values[$field] = $value;
+      $updates[$field] = $value;
     }
-    if (!empty($updates))
-    {
-      mass_updates(
-        CONFIG_TABLE,
-        array(
-          'primary' => array('param'),
-          'update' => array('value')
-          ),
-        $updates
-        );
-    }
+    save_upload_form_config($updates);
     $template->delete_compiled_templates();
   }
 
