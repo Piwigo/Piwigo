@@ -27,8 +27,9 @@ if( !defined("PHPWG_ROOT_PATH") )
 $conf['updates_ignored'] = unserialize($conf['updates_ignored']);
 
 include_once(PHPWG_ROOT_PATH.'admin/include/updates.class.php');
-$autoupdate = new updates();
+$autoupdate = new updates($page['page']);
 
+$show_reset = false;
 if (!$autoupdate->get_server_extensions())
 {
   array_push($page['errors'], l10n('Can\'t connect to server.'));
@@ -76,10 +77,16 @@ foreach ($autoupdate->types as $type)
       );
     }
   }
+
+  if (!empty($conf['updates_ignored'][$type]))
+  {
+    $show_reset = true;
+  }
 }
 
-$template->assign('SHOW_RESET', (!empty($conf['updates_ignored']['plugins']) or !empty($conf['updates_ignored']['themes']) or !empty($conf['updates_ignored']['languages'])));
+$template->assign('SHOW_RESET', $show_reset);
 $template->assign('PWG_TOKEN', get_pwg_token());
+$template->assign('EXT_TYPE', $page['page'] == 'updates' ? 'extensions' : $page['page']);
 $template->set_filename('plugin_admin_content', 'updates_ext.tpl');
 $template->assign_var_from_handle('ADMIN_CONTENT', 'plugin_admin_content');
 

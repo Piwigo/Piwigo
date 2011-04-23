@@ -2873,11 +2873,18 @@ function ws_extensions_ignoreupdate($params, &$service)
   // Reset ignored extension
   if ($params['reset'])
   {
-    $conf['updates_ignored'] = array(
-      'plugins'=>array(),
-      'themes'=>array(),
-      'languages'=>array()
-    );
+    if (!empty($params['type']) and isset($conf['updates_ignored'][$params['type']]))
+    {
+      $conf['updates_ignored'][$params['type']] = array();
+    }
+    else
+    {
+      $conf['updates_ignored'] = array(
+        'plugins'=>array(),
+        'themes'=>array(),
+        'languages'=>array()
+      );
+    }
     conf_update_param('updates_ignored', pwg_db_real_escape_string(serialize($conf['updates_ignored'])));
     unset($_SESSION['extensions_need_update']);
     return true;

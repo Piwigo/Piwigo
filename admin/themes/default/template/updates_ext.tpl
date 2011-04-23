@@ -4,7 +4,7 @@
 
 {footer_script require='jquery.effects.blind,jquery.ajaxmanager,jquery.jgrowl'}
 var pwg_token = '{$PWG_TOKEN}';
-var extList = new Array();
+var extType = '{$EXT_TYPE}';
 var confirmMsg  = '{'Are you sure?'|@translate|@escape:'javascript'}';
 var errorHead   = '{'ERROR'|@translate|@escape:'javascript'}';
 var successHead = '{'Update Complete'|@translate|@escape:'javascript'}';
@@ -41,7 +41,7 @@ function resetIgnored() {
     type: 'GET',
     url: 'ws.php',
     dataType: 'json',
-    data: { method: 'pwg.extensions.ignoreUpdate', reset: true, pwg_token: pwg_token, format: 'json' },
+    data: { method: 'pwg.extensions.ignoreUpdate', reset: true, type: extType, pwg_token: pwg_token, format: 'json' },
     success: function(data) {
       if (data['stat'] == 'ok') {
         jQuery(".pluginBox, fieldset").show();
@@ -144,7 +144,6 @@ checkFieldsets();
 </div>
 
 <div class="autoupdate_bar">
-<br>
 <input type="submit" id="update_all" value="{'Update All'|@translate}" onClick="updateAll(); return false;">
 <input type="submit" id="ignore_all" value="{'Ignore All'|@translate}" onClick="ignoreAll(); return false;">
 <input type="submit" id="reset_ignore" value="{'Reset ignored updates'|@translate}" onClick="resetIgnored(); return false;" {if !$SHOW_RESET}style="display:none;"{/if}>
@@ -153,7 +152,7 @@ checkFieldsets();
 {'Please wait...'|@translate}<br><img src="admin/themes/default/images/ajax-loader-bar.gif">
 </div>
 
-<p id="up_to_date" style="display:none; text-align:left; margin-left:20px;">{'All extensions are up to date.'|@translate}</p>
+<p id="up_to_date" style="display:none; text-align:left; margin-left:20px;">{'All %s are up to date.'|@sprintf:$EXT_TYPE|@translate}</p>
 
 {if not empty($update_plugins)}
 <div>
