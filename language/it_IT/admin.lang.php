@@ -836,4 +836,8 @@ $lang['Unable to dump database.'] = 'Impossibile eseguire il salvataggio del dat
 $lang['Some upgrades are available for extensions.'] = 'Degli aggiornamenti sono disponibili per le estenzioni';
 $lang['Please wait...'] = 'Attendere prego...';
 $lang['Ignore All'] = 'Igniorare tutti gli aggiornamenti';
+$lang['Crop'] = 'Ridimenzionare';
+$lang['Width'] = 'Larghezza';
+$lang['Height'] = 'Altezza';
+$lang['Follow Orientation'] = 'Rispettare l\'orientamento';
 ?>
