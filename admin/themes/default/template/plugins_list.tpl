@@ -81,7 +81,7 @@ jQuery(document).ready(function() {
 <div class="titrePage">
   <span class="sort">
     <form action="" method="get" name="change_order">
-      <input type="hidden" name="page" value="plugins_list"/>
+      <input type="hidden" name="page" value="plugins"/>
       {'Sort order'|@translate} : 
       <select name="plugin_order" onchange="this.form.submit();">
         <option value="status" {if $plugin_order=='state'}selected="selected"{/if}>{'Status'|@translate}</option>

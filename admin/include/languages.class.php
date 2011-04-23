@@ -36,24 +36,6 @@ class languages
   }
 
   /**
-   * Set tabsheet for languages pages.
-   * @param string selected page.
-   */
-  function set_tabsheet($selected)
-  {
-    include_once(PHPWG_ROOT_PATH.'admin/include/tabsheet.class.php');
-
-    $link = get_root_url().'admin.php?page=';
-
-    $tabsheet = new tabsheet();
-    $tabsheet->add('languages_installed', l10n('Installed Languages'), $link.'languages_installed');
-    $tabsheet->add('languages_update', l10n('Check for updates'), $link.'languages_update');
-    $tabsheet->add('languages_new', l10n('Add New Language'), $link.'languages_new');
-    $tabsheet->select($selected);
-    $tabsheet->assign();
-  }
-
-  /**
    * Perform requested actions
    * @param string - action
    * @param string - language id

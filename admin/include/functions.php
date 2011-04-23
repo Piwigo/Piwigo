@@ -2072,9 +2072,7 @@ function get_active_menu($menu_page)
     case 'notification_by_mail':
       return 2;
 
-    case 'plugins_list':
-    case 'plugins_update':
-    case 'plugins_new':
+    case 'plugins':
     case 'plugin':
       return 3;
 
@@ -2091,11 +2089,9 @@ function get_active_menu($menu_page)
     case 'configuration':
     case 'extend_for_templates':
     case 'menubar':
-    case 'themes_new':
-    case 'themes_installed':
+    case 'themes':
     case 'theme':
-    case 'languages_installed':
-    case 'languages_new':
+    case 'languages':
       return 5;
   }
   return 0;

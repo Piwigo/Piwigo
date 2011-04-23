@@ -34,7 +34,6 @@ $base_url = get_root_url().'admin.php?page='.$page['page'];
 
 $languages = new languages();
 $languages->get_db_languages();
-$languages->set_tabsheet($page['page']);
 
 // +-----------------------------------------------------------------------+
 // |                           setup check                                 |

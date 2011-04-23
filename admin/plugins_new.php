@@ -30,7 +30,7 @@ include_once(PHPWG_ROOT_PATH.'admin/include/plugins.class.php');
 
 $template->set_filenames(array('plugins' => 'plugins_new.tpl'));
 
-$base_url = get_root_url().'admin.php?page='.$page['page'];
+$base_url = get_root_url().'admin.php?page='.$page['page'].'&amp;'.$page['tab'];
 
 $plugins = new plugins();
 
@@ -80,9 +80,6 @@ if (isset($_GET['installstatus']))
         l10n('Please check "plugins" folder and sub-folders permissions (CHMOD).'));
   }  
 }
-
-//--------------------------------------------------------------------Tabsheet
-$plugins->set_tabsheet($page['page']);
 
 //---------------------------------------------------------------Order options
 $template->assign('order_options',

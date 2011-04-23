@@ -151,7 +151,6 @@ $template->assign(
   );
 
 
-$themes->set_tabsheet($page['page']);
 $template->set_filenames(array('themes' => 'themes_installed.tpl'));
 $template->assign_var_from_handle('ADMIN_CONTENT', 'themes');
 ?>

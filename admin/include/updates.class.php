@@ -15,9 +15,14 @@ class updates
   var $merged_extensions = array();
   var $merged_extension_url = 'http://piwigo.org/download/merged_extensions.txt';
 
-  function __construct()
+  function __construct($page='updates')
   {
     $this->types = array('plugins', 'themes', 'languages');
+
+    if (in_array($page, $this->types))
+    {
+      $this->types = array($page);
+    }
     $this->default_themes = array('clear', 'dark', 'Sylvia');
     $this->default_plugins = array('admin_multi_view', 'c13y_upgrade', 'language_switch', 'LocalFilesEditor');
 

@@ -41,24 +41,6 @@ class themes
   }
 
   /**
-   * Set tabsheet for themes pages.
-   * @param string selected page.
-   */
-  function set_tabsheet($selected)
-  {
-    include_once(PHPWG_ROOT_PATH.'admin/include/tabsheet.class.php');
-
-    $link = get_root_url().'admin.php?page=';
-
-    $tabsheet = new tabsheet();
-    $tabsheet->add('themes_installed', l10n('Installed Themes'), $link.'themes_installed');
-    $tabsheet->add('themes_update', l10n('Check for updates'), $link.'themes_update');
-    $tabsheet->add('themes_new', l10n('Add New Theme'), $link.'themes_new');
-    $tabsheet->select($selected);
-    $tabsheet->assign();
-  }
-
-  /**
    * Perform requested actions
    * @param string - action
    * @param string - theme id
