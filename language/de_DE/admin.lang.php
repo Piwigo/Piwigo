@@ -790,4 +790,9 @@ $lang['Regenerate Thumbnails'] = 'Vorschaubilder neu erstellen';
 $lang['Thumbnails generation in progress...'] = 'Vorschaubilder werden neu erstellt...';
 $lang['%s thumbnails have been regenerated'] = '%s Vorschaubilder wurden neu erstellt';
 $lang['%s thumbnails can not be regenerated'] = '%s Vorschaubilder konnten nicht neu erstellt werden';
+$lang['Regenerate Websize Photos'] = 'Neuerstellung web-optimierter Fotos';
+$lang['Photos generation in progress...'] = 'Fotos werden neu erstellt...';
+$lang['%s photos have been regenerated'] = '%s Fotos wurden neu erstellt';
+$lang['%s photos can not be regenerated'] = '%s Fotos konnten nicht neu erstellt werden';
+$lang['Only photos with HD can be regenerated!'] = 'Diese Erweiterung berücksichtigt nur HD Material!';
 ?>
