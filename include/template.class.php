@@ -922,6 +922,7 @@ class ScriptLoader
 
   private $did_head;
   private $head_done_scripts;
+  private $did_footer;
 
   private static $known_paths = array(
       'core.scripts' => 'themes/default/js/scripts.js',
@@ -946,7 +947,7 @@ class ScriptLoader
     $this->registered_scripts = array();
     $this->inline_scripts = array();
     $this->head_done_scripts = array();
-    $this->did_head = false;
+    $this->did_head = $this->did_footer = false;
   }
 
   function get_all()
@@ -956,6 +957,7 @@ class ScriptLoader
 
   function add_inline($code, $require)
   {
+    !$this->did_footer || trigger_error("Attempt to add inline script but the footer has been written", E_USER_WARNING);
     if(!empty($require))
     {
       foreach ($require as $id)
@@ -972,19 +974,37 @@ class ScriptLoader
 
   function add($id, $load_mode, $require, $path, $version=0)
   {
-    if ($this->did_head && $load_mode==0 )
+    if ($this->did_head && $load_mode==0)
     {
-      trigger_error("Attempt to add a new script $id but the head has been written", E_USER_WARNING);
+      trigger_error("Attempt to add script $id but the head has been written", E_USER_WARNING);
+    }
+    elseif ($this->did_footer)
+    {
+      trigger_error("Attempt to add script $id but the footer has been written", E_USER_WARNING);
     }
     if (! isset( $this->registered_scripts[$id] ) )
     {
       $script = new Script($load_mode, $id, $path, $version, $require);
       self::fill_well_known($id, $script);
       $this->registered_scripts[$id] = $script;
+
+      // Load or modify all UI core files
+      if ($id == 'jquery.ui' and $script->path == self::$known_paths['jquery.ui'])
+      {
+        foreach (self::$ui_core_dependencies as $script_id => $required_ids)
+          $this->add($script_id, $load_mode, $required_ids, null, $version);
+      }
+
+      // Try to load undefined required script
+      foreach ($script->precedents as $script_id)
+      {
+        if (! isset( $this->registered_scripts[$script_id] ) )
+          $this->load_known_required_script($script_id, $load_mode);
+      }
     }
     else
     {
-      $script = & $this->registered_scripts[$id];
+      $script = $this->registered_scripts[$id];
       if (count($require))
       {
         $script->precedents = array_unique( array_merge($script->precedents, $require) );
@@ -995,19 +1015,7 @@ class ScriptLoader
       if ($load_mode < $script->load_mode)
         $script->load_mode = $load_mode;
     }
-    // Load or modify all UI core files
-    if ($id == 'jquery.ui' and $script->path == self::$known_paths['jquery.ui'])
-    {
-      foreach (self::$ui_core_dependencies as $script_id => $required_ids)
-        $this->add($script_id, $load_mode, $required_ids, null, $version);
-    }
 
-    // Try to load undefined required script
-    foreach ($script->precedents as $script_id)
-    {
-      if (! isset( $this->registered_scripts[$script_id] ) )
-        $this->load_known_required_script($script_id, $load_mode);
-    }
   }
 
   function did_head()
@@ -1040,6 +1048,8 @@ class ScriptLoader
 
   function get_footer_scripts()
   {
+    $this->did_head || trigger_error("Footer scripts before header scripts ?", E_USER_WARNING);
+    $this->did_footer = true;
     $todo = array();
     foreach( $this->registered_scripts as $id => $script)
     {
@@ -1101,8 +1111,6 @@ class ScriptLoader
       foreach( $scripts as $id => $script)
       {
         $load = $script->load_mode;
-        /*if ($load==0)
-          continue;*/
         foreach( $script->precedents as $precedent)
         {
           if ( !isset($scripts[$precedent] ) )
@@ -1176,7 +1184,7 @@ class ScriptLoader
       return 0;
     }
     $recursion_limiter<5 or fatal_error("combined script circular dependency");
-    $script = & $this->registered_scripts[$script_id];
+    $script = $this->registered_scripts[$script_id];
     if (isset($script->extra['order']))
       return $script->extra['order'];
     if (count($script->precedents) == 0)
