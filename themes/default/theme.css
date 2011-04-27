@@ -355,15 +355,21 @@ TD.calDayHead {
 	margin: 0 auto;
 	border: 0;
 }
+ 
+#infosImage {
+	position:relative
+}
 
-#linkPrev {
-	float: left;
+#infosImage #linkPrev {
+	position:absolute;
+	left:0;
 	margin-right: 10px;
 	margin-left: 5px;
 }
 
-#linkNext {
-	float: right;
+#infosImage #linkNext {
+	position:absolute;
+	right:0;
 	margin-right: 5px;
 	margin-left: 10px;
 }
