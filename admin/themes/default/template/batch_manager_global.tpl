@@ -29,7 +29,7 @@ var nb_thumbs_page = {$nb_thumbs_page};
 var nb_thumbs_set = {$nb_thumbs_set};
 var applyOnDetails_pattern = "{'on the %d selected photos'|@translate}";
 var elements = new Array();
-var all_elements = [{','|@implode:$all_elements}];
+var all_elements = [{if !empty($all_elements)}{','|@implode:$all_elements}{/if}];
 
 var selectedMessage_pattern = "{'%d of %d photos selected'|@translate}";
 var selectedMessage_none = "{'No photo selected, %d photos in current set'|@translate}";
