@@ -1,6 +1,6 @@
-
 {include file='include/autosize.inc.tpl'}
 {include file='include/datepicker.inc.tpl'}
+{include file='include/colorbox.inc.tpl'}
 
 {combine_script id='jquery.fcbkcomplete' load='async' require='jquery' path='themes/default/js/plugins/jquery.fcbkcomplete.js'}
 {footer_script require='jquery.fcbkcomplete'}
@@ -25,6 +25,8 @@ jQuery(document).ready(function() {
 		maxitems: 100,
 		newel: true
 	});
+  
+  $("a.preview-box").colorbox();
 });
 {/literal}{/footer_script}
 
@@ -50,7 +52,11 @@ jQuery(document).ready(function() {
 <fieldset class="elementEdit">
   <legend>{$element.LEGEND}</legend>
 
-  <a href="{$element.U_EDIT}"><img src="{$element.TN_SRC}" alt="" title="{'Edit photo information'|@translate}"></a>
+  <span class="thumb">
+    <a href="{$element.FILE_SRC}" class="preview-box" title="{$element.LEGEND}"><img src="{$element.TN_SRC}" alt=""></a>
+    <br/>
+    <a href="{$element.U_EDIT}">{'Informations'|@translate}</a>
+  </span>
 
   <table>
 

@@ -263,6 +263,7 @@ SELECT
       array(
         'ID' => $row['id'],
         'TN_SRC' => $src,
+        'FILE_SRC' => $row['path'],
         'LEGEND' => !empty($row['name']) ?
             $row['name'] : get_name_from_file($row['file']),
         'U_EDIT' =>
