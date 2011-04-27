@@ -30,7 +30,7 @@ include_once(PHPWG_ROOT_PATH.'admin/include/plugins.class.php');
 
 $template->set_filenames(array('plugins' => 'plugins_new.tpl'));
 
-$base_url = get_root_url().'admin.php?page='.$page['page'].'&amp;'.$page['tab'];
+$base_url = get_root_url().'admin.php?page='.$page['page'].'&tab='.$page['tab'];
 
 $plugins = new plugins();
 

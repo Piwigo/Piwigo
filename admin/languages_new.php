@@ -30,7 +30,7 @@ include_once(PHPWG_ROOT_PATH.'admin/include/languages.class.php');
 
 $template->set_filenames(array('languages' => 'languages_new.tpl'));
 
-$base_url = get_root_url().'admin.php?page='.$page['page'];
+$base_url = get_root_url().'admin.php?page='.$page['page'].'&tab='.$page['tab'];
 
 $languages = new languages();
 $languages->get_db_languages();
