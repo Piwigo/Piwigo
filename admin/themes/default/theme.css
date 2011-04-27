@@ -215,9 +215,10 @@ LI.menuLi {
 
 FORM#catModify TABLE { width: auto; }
 
-FIELDSET.elementEdit A {
+FIELDSET.elementEdit .thumb {
 	display: block;
 	float: right;
+	text-align: center;
 }
 
 TABLE.doubleSelect {
