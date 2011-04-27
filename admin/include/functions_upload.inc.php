@@ -22,6 +22,7 @@
 // +-----------------------------------------------------------------------+
 
 include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
+include_once(PHPWG_ROOT_PATH.'admin/include/image.class.php');
 
 // add default event handler for image and thumbnail resize
 add_event_handler('upload_image_resize', 'pwg_image_resize', EVENT_HANDLER_PRIORITY_NEUTRAL, 7);
@@ -362,18 +363,18 @@ SELECT
     rename($file_path, $high_path);
     $high_infos = pwg_image_infos($high_path);
     
-    trigger_event(
-      'upload_image_resize',
-      false,
-      $high_path,
+    $img = new pwg_image($high_path);
+
+    $img->pwg_resize(
       $file_path,
       $conf['upload_form_websize_maxwidth'],
       $conf['upload_form_websize_maxheight'],
       $conf['upload_form_websize_quality'],
+      $conf['upload_form_automatic_rotation'],
       false
       );
 
-    if (is_imagick())
+    if ($img->library != 'gd')
     {
       if ($conf['upload_form_hd_keep'])
       {
@@ -383,13 +384,12 @@ SELECT
         
           if ($need_resize)
           {
-            pwg_image_resize(
-              false,
-              $high_path,
+            $img->pwg_resize(
               $high_path,
               $conf['upload_form_hd_maxwidth'],
               $conf['upload_form_hd_maxheight'],
               $conf['upload_form_hd_quality'],
+              $conf['upload_form_automatic_rotation'],
               false
               );
             $high_infos = pwg_image_infos($high_path);
@@ -402,6 +402,7 @@ SELECT
         $high_infos = null;
       }
     }
+    $img->destroy();
   }
 
   $file_infos = pwg_image_infos($file_path);
@@ -409,19 +410,17 @@ SELECT
   $thumb_path = file_path_for_type($file_path, 'thumb');
   $thumb_dir = dirname($thumb_path);
   prepare_directory($thumb_dir);
-  
-  trigger_event(
-    'upload_thumbnail_resize',
-    false,
-    $file_path,
+
+  $img = new pwg_image($file_path);
+  $img->pwg_resize(
     $thumb_path,
     $conf['upload_form_thumb_maxwidth'],
     $conf['upload_form_thumb_maxheight'],
     $conf['upload_form_thumb_quality'],
-    true,
-    $conf['upload_form_thumb_crop'],
-    $conf['upload_form_thumb_follow_orientation']
+    $conf['upload_form_automatic_rotation'],
+    true
     );
+  $img->destroy();
   
   $thumb_infos = pwg_image_infos($thumb_path);
 
@@ -567,307 +566,6 @@ function need_resize($image_filepath, $max_width, $max_height)
   return false;
 }
 
-function get_resize_dimensions($width, $height, $max_width, $max_height, $rotation=null)
-{
-  $rotate_for_dimensions = false;
-  if (isset($rotation) and in_array(abs($rotation), array(90, 270)))
-  {
-    $rotate_for_dimensions = true;
-  }
-
-  if ($rotate_for_dimensions)
-  {
-    list($width, $height) = array($height, $width);
-  }
-  
-  $ratio_width  = $width / $max_width;
-  $ratio_height = $height / $max_height;
-  $destination_width = $width; 
-  $destination_height = $height;
-  
-  // maximal size exceeded ?
-  if ($ratio_width > 1 or $ratio_height > 1)
-  {
-    if ($ratio_width < $ratio_height)
-    { 
-      $destination_width = round($width / $ratio_height);
-      $destination_height = $max_height;
-    }
-    else
-    { 
-      $destination_width = $max_width; 
-      $destination_height = round($height / $ratio_width);
-    }
-  }
-
-  if ($rotate_for_dimensions)
-  {
-    list($destination_width, $destination_height) = array($destination_height, $destination_width);
-  }
-  
-  return array(
-    'width' => $destination_width,
-    'height'=> $destination_height,
-    );
-}
-
-function pwg_image_resize($result, $source_filepath, $destination_filepath, $max_width, $max_height, $quality, $strip_metadata=false, $crop=false, $follow_orientation=true)
-{
-  if ($result !== false)
-  {
-    //someone hooked us - so we skip
-    return $result;
-  }
-
-  $extension = strtolower(get_extension($source_filepath));
-
-  if (is_imagick() and $extension != 'gif')
-  {
-    return pwg_image_resize_im($source_filepath, $destination_filepath, $max_width, $max_height, $quality, $strip_metadata, $crop, $follow_orientation);
-  }
-  else
-  {
-    return pwg_image_resize_gd($source_filepath, $destination_filepath, $max_width, $max_height, $quality, $crop, $follow_orientation);
-  }
-}
-
-function pwg_image_resize_gd($source_filepath, $destination_filepath, $max_width, $max_height, $quality, $crop=false, $follow_orientation=true)
-{
-  if (!function_exists('gd_info'))
-  {
-    return false;
-  }
-
-  $starttime = get_moment();
-  $gd_info = gd_info();
-
-  // extension of the picture filename
-  $extension = strtolower(get_extension($source_filepath));
-
-  $source_image = null;
-  if (in_array($extension, array('jpg', 'jpeg')))
-  {
-    $source_image = imagecreatefromjpeg($source_filepath);
-  }
-  else if ($extension == 'png')
-  {
-    $source_image = imagecreatefrompng($source_filepath);
-  }
-  elseif ($extension == 'gif' and $gd_info['GIF Read Support'] and $gd_info['GIF Create Support'])
-  {
-    $source_image = imagecreatefromgif($source_filepath);
-  }
-  else
-  {
-    die('[GD] unsupported file extension');
-  }
-
-  $rotation = null;
-  if (function_exists('imagerotate'))
-  {
-    $rotation = get_rotation_angle($source_filepath);
-  }
-  
-  // width/height
-  $source_width  = imagesx($source_image); 
-  $source_height = imagesy($source_image);
-
-  // Crop
-  if ($crop)
-  {
-    $coord = get_crop_coord($source_width, $source_height, $max_width, $max_height, $follow_orientation);
-  }
-
-  $resize_dimensions = get_resize_dimensions($source_width, $source_height, $max_width, $max_height, $rotation);
-
-  // testing on height is useless in theory: if width is unchanged, there
-  // should be no resize, because width/height ratio is not modified.
-  if ($resize_dimensions['width'] == $source_width and $resize_dimensions['height'] == $source_height)
-  {
-    // the image doesn't need any resize! We just copy it to the destination
-    copy($source_filepath, $destination_filepath);
-    return get_resize_result($source_filepath, $destination_filepath, $resize_dimensions['width'], $resize_dimensions['height'], $starttime, 'GD');
-  }
-  
-  $destination_image = imagecreatetruecolor($resize_dimensions['width'], $resize_dimensions['height']);
-  
-  imagecopyresampled(
-    $destination_image,
-    $source_image,
-    0,
-    0,
-    $crop ? $coord['x'] : 0,
-    $crop ? $coord['y'] : 0,
-    $resize_dimensions['width'],
-    $resize_dimensions['height'],
-    $source_width,
-    $source_height
-    );
-
-  // rotation occurs only on resized photo to avoid useless memory use
-  if (isset($rotation))
-  {
-    $destination_image = imagerotate($destination_image, $rotation, 0);
-  }
-  
-  $extension = strtolower(get_extension($destination_filepath));
-  if ($extension == 'png')
-  {
-    imagepng($destination_image, $destination_filepath);
-  }
-  elseif ($extension == 'gif')
-  {
-    imagegif($destination_image, $destination_filepath);
-  }
-  else
-  {
-    imagejpeg($destination_image, $destination_filepath, $quality);
-  }
-  // freeing memory ressources
-  imagedestroy($source_image);
-  imagedestroy($destination_image);
-
-  // everything should be OK if we are here!
-  return get_resize_result($source_filepath, $destination_filepath, $resize_dimensions['width'], $resize_dimensions['height'], $starttime, 'GD');
-}
-
-function pwg_image_resize_im($source_filepath, $destination_filepath, $max_width, $max_height, $quality, $strip_metadata=false, $crop=false, $follow_orientation=true)
-{
-  $starttime = get_moment();
-
-  // extension of the picture filename
-  $extension = strtolower(get_extension($source_filepath));
-  if (!in_array($extension, array('jpg', 'jpeg', 'png')))
-  {
-    die('[Imagick] unsupported file extension');
-  }
-
-  $image = new Imagick($source_filepath);
-
-  $rotation = get_rotation_angle($source_filepath);
-  
-  // width/height
-  $source_width  = $image->getImageWidth();
-  $source_height = $image->getImageHeight();
-
-  // Crop
-  if ($crop)
-  {
-    $coord = get_crop_coord($source_width, $source_height, $max_width, $max_height, $follow_orientation);
-    $image->cropImage($source_width, $source_height, $coord['x'], $coord['y']);
-  }
-  
-  $resize_dimensions = get_resize_dimensions($source_width, $source_height, $max_width, $max_height, $rotation);
-
-  // testing on height is useless in theory: if width is unchanged, there
-  // should be no resize, because width/height ratio is not modified.
-  if ($resize_dimensions['width'] == $source_width and $resize_dimensions['height'] == $source_height)
-  {
-    // the image doesn't need any resize! We just copy it to the destination
-    copy($source_filepath, $destination_filepath);
-    get_resize_result($source_filepath, $destination_filepath, $resize_dimensions['width'], $resize_dimensions['height'], $starttime, 'ImageMagick');
-  }
-
-  $image->setImageCompressionQuality($quality);
-  $image->setInterlaceScheme(Imagick::INTERLACE_LINE);
-  
-  if ($strip_metadata)
-  {
-    // we save a few kilobytes. For example a thumbnail with metadata
-    // weights 25KB, without metadata 7KB.
-    $image->stripImage();
-  }
-  
-  $image->resizeImage($resize_dimensions['width'], $resize_dimensions['height'], Imagick::FILTER_LANCZOS, 0.9);
-
-  if (isset($rotation))
-  {
-    $image->rotateImage(new ImagickPixel(), -$rotation);
-    $image->setImageOrientation(Imagick::ORIENTATION_TOPLEFT);
-  }
-
-  $image->writeImage($destination_filepath);
-  $image->destroy();
-
-  // everything should be OK if we are here!
-  return get_resize_result($source_filepath, $destination_filepath, $resize_dimensions['width'], $resize_dimensions['height'], $starttime, 'ImageMagick');
-}
-
-function get_rotation_angle($source_filepath)
-{
-  global $conf;
-
-  if (!$conf['upload_form_automatic_rotation'])
-  {
-    return null;
-  }
-
-  list($width, $height, $type) = getimagesize($source_filepath);
-  if (IMAGETYPE_JPEG != $type)
-  {
-    return null;
-  }
-  
-  if (!function_exists('exif_read_data'))
-  {
-    return null;
-  }
-
-  $rotation = null;
-  
-  $exif = exif_read_data($source_filepath);
-  
-  if (isset($exif['Orientation']) and preg_match('/^\s*(\d)/', $exif['Orientation'], $matches))
-  {
-    $orientation = $matches[1];
-    if (in_array($orientation, array(3, 4)))
-    {
-      $rotation = 180;
-    }
-    elseif (in_array($orientation, array(5, 6)))
-    {
-      $rotation = 270;
-    }
-    elseif (in_array($orientation, array(7, 8)))
-    {
-      $rotation = 90;
-    }
-  }
-
-  return $rotation;
-}
-
-function get_crop_coord(&$source_width, &$source_height, &$max_width, &$max_height, $follow_orientation)
-{
-  $x = 0;
-  $y = 0;
-
-  if ($source_width < $source_height and $follow_orientation)
-  {
-    list($width, $height) = array($max_height, $max_width);
-    $max_width = $width;
-    $max_height = $height;
-  }
-
-  $img_ratio = $source_width / $source_height;
-  $dest_ratio = $max_width / $max_height;
-
-  if($dest_ratio > $img_ratio)
-  {
-    $destHeight = round($source_width * $max_height / $max_width);
-    $y = round(($source_height - $destHeight) / 2 );
-    $source_height = $destHeight;
-  }
-  elseif ($dest_ratio < $img_ratio)
-  {
-    $destWidth = round($source_height * $max_width / $max_height);
-    $x = round(($source_width - $destWidth) / 2 );
-    $source_width = $destWidth;
-  }
-
-  return array('x' => $x, 'y' => $y);
-}
-
 function pwg_image_infos($path)
 {
   list($width, $height) = getimagesize($path);
@@ -963,16 +661,6 @@ function add_upload_error($upload_id, $error_message)
   array_push($_SESSION['uploads_error'][$upload_id], $error_message);
 }
 
-function is_imagick()
-{
-  if (class_exists('Imagick'))
-  {
-    return true;
-  }
-
-  return false;
-}
-
 function ready_for_upload_message()
 {
   global $conf;
@@ -1033,16 +721,4 @@ function file_path_for_type($file_path, $type='thumb')
   return $file_path;
 }
 
-function get_resize_result($source_filepath, $destination_filepath, $width, $height, $time, $library)
-{
-  return array(
-    'source'      => $source_filepath,
-    'destination' => $destination_filepath,
-    'width'       => $width,
-    'height'      => $height,
-    'size'        => floor(filesize($destination_filepath) / 1024).' KB',
-    'time'	      => number_format((get_moment() - $time) * 1000, 2, '.', ' ').' ms',
-    'library'     => $library,
-  );
-}
 ?>

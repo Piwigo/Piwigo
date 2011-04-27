@@ -111,7 +111,7 @@ foreach (array_keys($upload_form_config) as $field)
 $template->assign(
     array(
       'F_ADD_ACTION'=> PHOTOS_ADD_BASE_URL,
-      'MANAGE_HD' => is_imagick(),
+      'MANAGE_HD' => (pwg_image::is_imagick() or pwg_image::is_ext_imagick()),
       'values' => $form_values
     )
   );

@@ -2688,6 +2688,7 @@ function ws_images_resize($params, &$service)
 
   include_once(PHPWG_ROOT_PATH.'include/functions_picture.inc.php');
   include_once(PHPWG_ROOT_PATH.'admin/include/functions_upload.inc.php');
+  include_once(PHPWG_ROOT_PATH.'admin/include/image.class.php');
 
   if (!empty($params['image_id']))
   {
@@ -2725,31 +2726,35 @@ SELECT id, path, tn_ext, has_high
   {
     prepare_directory(dirname($thumb_path));
 
-    $result = trigger_event(
-      'upload_thumbnail_resize',
-      false,
-      $image_path,
+    $img = new pwg_image($image_path, $params['library']);
+
+    $result =  $img->pwg_resize(
       $thumb_path,
       $params['maxwidth'],
       $params['maxheight'],
       $params['quality'],
+      $params['automatic_rotation'],
       true,
       get_boolean($params['crop']),
       get_boolean($params['follow_orientation'])
     );
+
+    $img->destroy();
   }
   elseif (file_exists($hd_path))
   {
-    $result = trigger_event(
-      'upload_image_resize',
-      false,
-      $hd_path,
+    $img = new pwg_image($hd_path);
+
+    $result = $img->pwg_resize(
       $image_path,
       $params['maxwidth'],
       $params['maxheight'],
       $params['quality'],
+      $params['automatic_rotation'],
       false
       );
+
+    $img->destroy();
 
     if (!empty($image['has_high']))
     {
