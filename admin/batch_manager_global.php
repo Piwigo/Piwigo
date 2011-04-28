@@ -34,7 +34,6 @@ if (!defined('PHPWG_ROOT_PATH'))
 
 include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
 include_once(PHPWG_ROOT_PATH.'admin/include/functions_upload.inc.php');
-prepare_upload_configuration();
 
 $upload_form_config = get_upload_form_config();
 foreach ($upload_form_config as $param_shortname => $param)
