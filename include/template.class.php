@@ -1048,7 +1048,10 @@ class ScriptLoader
 
   function get_footer_scripts()
   {
-    $this->did_head || trigger_error("Footer scripts before header scripts ?", E_USER_WARNING);
+    if (!$this->did_head)
+    {
+      self::check_load_dep($this->registered_scripts);
+    }
     $this->did_footer = true;
     $todo = array();
     foreach( $this->registered_scripts as $id => $script)
