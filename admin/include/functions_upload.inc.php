@@ -142,43 +142,6 @@ function get_upload_form_config()
   return $upload_form_config;
 }
 
-/*
- * automatic fill of configuration parameters
- */
-function prepare_upload_configuration()
-{
-  global $conf;
-
-  $inserts = array();
-  
-  foreach (get_upload_form_config() as $param_shortname => $param)
-  {
-    $param_name = 'upload_form_'.$param_shortname;
-  
-    if (!isset($conf[$param_name]))
-    {
-      $conf[$param_name] = $param['default'];
-      
-      array_push(
-        $inserts,
-        array(
-          'param' => $param_name,
-          'value' => boolean_to_string($param['default']),
-          )
-        );
-    }
-  }
-  
-  if (count($inserts) > 0)
-  {
-    mass_inserts(
-      CONFIG_TABLE,
-      array_keys($inserts[0]),
-      $inserts
-      );
-  }
-}
-
 function save_upload_form_config($data, &$errors=array())
 {
   if (!is_array($data) or empty($data))

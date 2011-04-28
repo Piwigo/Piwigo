@@ -29,8 +29,6 @@ check_status(ACCESS_ADMINISTRATOR);
 // +-----------------------------------------------------------------------+
 // |                          Load configuration                           |
 // +-----------------------------------------------------------------------+
-prepare_upload_configuration();
-
 $upload_form_config = get_upload_form_config();
 
 $form_values = array();

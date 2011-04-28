@@ -1450,7 +1450,6 @@ SELECT *
   }
 
   include_once(PHPWG_ROOT_PATH.'admin/include/functions_upload.inc.php');
-  prepare_upload_configuration();
 
   $image_id = add_uploaded_file(
     $_FILES['image']['tmp_name'],
