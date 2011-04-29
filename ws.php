@@ -405,25 +405,35 @@ function ws_addDefaultMethods( $arr )
     );
 
   $service->addMethod(
-    'pwg.images.resize',
-    'ws_images_resize',
+    'pwg.images.resizeThumbnail',
+    'ws_images_resizethumbnail',
     array(
       'image_id' => array('default' => null),
       'image_path' => array('default' => null),
-      'type' => array('default' => 'thumbnail'),
+      'maxwidth' => array('default' => $conf['upload_form_thumb_maxwidth']),
+      'maxheight' => array('default' => $conf['upload_form_thumb_maxheight']),
+      'quality' => array('default' => $conf['upload_form_thumb_quality']),
+      'crop' => array('default' => $conf['upload_form_thumb_crop']),
+      'follow_orientation' => array('default' => $conf['upload_form_thumb_follow_orientation']),
+      'library' => array('default' => $conf['graphics_library']),
+    ),
+    'Create/Regenerate thumbnails photo with given arguments.
+<br>One of arguments "image_id" or "image_path" must be sent.'
+  );
+
+  $service->addMethod(
+    'pwg.images.resizeWebsize',
+    'ws_images_resizewebsize',
+    array(
+      'image_id' => array(),
+      'maxwidth' => array('default' => $conf['upload_form_websize_maxwidth']),
+      'maxheight' => array('default' => $conf['upload_form_websize_maxheight']),
+      'quality' => array('default' => $conf['upload_form_websize_quality']),
       'automatic_rotation' => array('default' => $conf['upload_form_automatic_rotation']),
       'library' => array('default' => $conf['graphics_library']),
-      'maxwidth' => array('default' => null),
-      'maxheight' => array('default' => null),
-      'crop' => array('default' => null),
-      'follow_orientation' => array('default' => null),
-      'quality' => array('default' => null),
     ),
-    'Create/Regenerate thumbnails or websize photo with given arguments.
-<br>One of arguments "image_id" or "image_path" must be passed filled.
-<br>Argument "type" can be "thumbnail" or "websize". Default is "thumbnail".
-<br>If maxwidth, maxheight, crop, follow_orientation or quality are missing, default parameters of upload will be used.'
-);
+    'Regenerate websize photo with given arguments.'
+  );
 
   $service->addMethod(
     'pwg.extensions.update',

@@ -290,7 +290,7 @@ class pwg_image
 
     if (is_null($library))
     {
-      $library = $conf['image_library'];
+      $library = $conf['graphics_library'];
     }
 
     // Choose image library

@@ -2658,18 +2658,11 @@ function ws_themes_performAction($params, &$service)
   }
 }
 
-function ws_images_resize($params, &$service)
+function ws_images_resizethumbnail($params, &$service)
 {
-  global $conf;
-
   if (!is_admin())
   {
     return new PwgError(401, 'Access denied');
-  }
-
-  if (!in_array($params['type'], array('thumbnail', 'websize')))
-  {
-    return new PwgError(403, 'Unknown type (only "thumbnail" or "websize" are accepted');
   }
 
   if (empty($params['image_id']) and empty($params['image_path']))
@@ -2677,15 +2670,6 @@ function ws_images_resize($params, &$service)
     return new PwgError(403, "image_id or image_path is missing");
   }
 
-  $resize_params = array('maxwidth', 'maxheight', 'quality', 'crop', 'follow_orientation');
-  $type = $params['type'] == 'thumbnail' ? 'thumb' : 'websize';
-  foreach ($resize_params as $param)
-  {
-    if (empty($params[$param]) and isset($conf['upload_form_'.$type.'_'.$param]))
-      $params[$param] = $conf['upload_form_'.$type.'_'.$param];
-  }
-
-  include_once(PHPWG_ROOT_PATH.'include/functions_picture.inc.php');
   include_once(PHPWG_ROOT_PATH.'admin/include/functions_upload.inc.php');
   include_once(PHPWG_ROOT_PATH.'admin/include/image.class.php');
 
@@ -2705,63 +2689,87 @@ SELECT id, path, tn_ext, has_high
 
     $image_path = $image['path'];
     $thumb_path = get_thumbnail_path($image);
-    $hd_path = get_high_path($image);
   }
   else
   {
     $image_path = $params['image_path'];
     $thumb_path = file_path_for_type($image_path, 'thumb');
-    $hd_path = file_path_for_type($image_path, 'high');
   }
 
-  if (!is_valid_image_extension(get_extension($image_path)))
+  if (!file_exists($image_path) or !is_valid_image_extension(get_extension($image_path)))
   {
     return new PwgError(403, "image can't be resized");
   }
 
   $result = false;
+  prepare_directory(dirname($thumb_path));
+  $img = new pwg_image($image_path, $params['library']);
 
-  if ($params['type'] == 'thumbnail' and file_exists($image_path))
+  $result =  $img->pwg_resize(
+    $thumb_path,
+    $params['maxwidth'],
+    $params['maxheight'],
+    $params['quality'],
+    false, // automatic rotation is not needed for thumbnails.
+    true, // strip metadata
+    get_boolean($params['crop']),
+    get_boolean($params['follow_orientation'])
+  );
+
+  $img->destroy();
+  return $result;
+}
+
+function ws_images_resizewebsize($params, &$service)
+{
+  if (!is_admin())
   {
-    prepare_directory(dirname($thumb_path));
+    return new PwgError(401, 'Access denied');
+  }
 
-    $img = new pwg_image($image_path, $params['library']);
+  include_once(PHPWG_ROOT_PATH.'include/functions_picture.inc.php');
+  include_once(PHPWG_ROOT_PATH.'admin/include/functions_upload.inc.php');
+  include_once(PHPWG_ROOT_PATH.'admin/include/image.class.php');
 
-    $result =  $img->pwg_resize(
-      $thumb_path,
-      $params['maxwidth'],
-      $params['maxheight'],
-      $params['quality'],
-      $params['automatic_rotation'],
-      true,
-      get_boolean($params['crop']),
-      get_boolean($params['follow_orientation'])
+  $query='
+SELECT id, path, tn_ext, has_high
+  FROM '.IMAGES_TABLE.'
+  WHERE id = '.(int)$params['image_id'].'
+;';
+  $image = pwg_db_fetch_assoc(pwg_query($query));
+
+  if ($image == null)
+  {
+    return new PwgError(403, "image_id not found");
+  }
+
+  $image_path = $image['path'];
+  $hd_path = get_high_path($image);
+
+  if (empty($image['has_high']) or !file_exists($hd_path) or !is_valid_image_extension(get_extension($image_path)))
+  {
+    return new PwgError(403, "image can't be resized");
+  }
+
+  $result = false;
+  $img = new pwg_image($hd_path);
+
+  $result = $img->pwg_resize(
+    $image_path,
+    $params['maxwidth'],
+    $params['maxheight'],
+    $params['quality'],
+    $params['automatic_rotation'],
+    false // strip metadata
     );
 
-    $img->destroy();
-  }
-  elseif (file_exists($hd_path))
-  {
-    $img = new pwg_image($hd_path);
+  $img->destroy();
 
-    $result = $img->pwg_resize(
-      $image_path,
-      $params['maxwidth'],
-      $params['maxheight'],
-      $params['quality'],
-      $params['automatic_rotation'],
-      false
-      );
+  global $conf;
+  $conf['use_exif'] = false;
+  $conf['use_iptc'] = false;
+  update_metadata(array($image['id'] => $image['path']));
 
-    $img->destroy();
-
-    if (!empty($image['has_high']))
-    {
-      $conf['use_exif'] = false;
-      $conf['use_iptc'] = false;
-      update_metadata(array($image['id'] => $image['path']));
-    }
-  }
   return $result;
 }
 

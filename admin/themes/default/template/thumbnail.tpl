@@ -30,9 +30,8 @@ function processThumbs(width,height,crop,follow_orientation) {
       type: 'GET', 
       url: 'ws.php', 
       data: {
-        method: 'pwg.images.resize',
+        method: 'pwg.images.resizeThumbnail',
         image_path: image_path,
-        type: 'thumbnail',
         maxwidth: width,
         maxheight: height,
         crop: crop,

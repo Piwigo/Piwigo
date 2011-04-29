@@ -333,7 +333,7 @@ $(document).ready(function() {
     }
     else if (jQuery('[name="selectAction"]').val() == 'regenerateThumbnails')
     {
-      type = 'thumbnail';
+      resizeMethod = 'pwg.images.resizeThumbnail';
       maxRequests = 3;
       maxwidth = jQuery('input[name="thumb_maxwidth"]').val();
       maxheight = jQuery('input[name="thumb_maxheight"]').val();
@@ -343,7 +343,7 @@ $(document).ready(function() {
     }
     else if(jQuery('[name="selectAction"]').val() == 'regenerateWebsize')
     {
-      type = 'websize';
+      resizeMethod = 'pwg.images.resizeWebsize';
       maxRequests = 1;
       maxwidth = jQuery('input[name="websize_maxwidth"]').val();
       maxheight = jQuery('input[name="websize_maxheight"]').val();
@@ -390,8 +390,7 @@ $(document).ready(function() {
         type: 'GET', 
         url: 'ws.php', 
         data: {
-          method: 'pwg.images.resize',
-          type: type,
+          method: resizeMethod,
           maxwidth: maxwidth,
           maxheight: maxheight,
           crop: crop,
