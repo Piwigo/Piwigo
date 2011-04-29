@@ -412,7 +412,7 @@ function ws_addDefaultMethods( $arr )
       'image_path' => array('default' => null),
       'type' => array('default' => 'thumbnail'),
       'automatic_rotation' => array('default' => $conf['upload_form_automatic_rotation']),
-      'library' => array('default' => $conf['image_library']),
+      'library' => array('default' => $conf['graphics_library']),
       'maxwidth' => array('default' => null),
       'maxheight' => array('default' => null),
       'crop' => array('default' => null),

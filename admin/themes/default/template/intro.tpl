@@ -53,6 +53,9 @@ jQuery().ready(function(){
       <li>{'Operating system'|@translate}: {$OS}</li>
       <li>PHP: {$PHP_VERSION} (<a href="{$U_PHPINFO}" class="externalLink">{'Show info'|@translate}</a>)  [{$PHP_DATATIME}]</li>
       <li>{$DB_ENGINE}: {$DB_VERSION} [{$DB_DATATIME}]</li>
+      {if isset($GRAPHICS_LIBRARY)}
+      <li>{'Graphics Library'|@translate}: {$GRAPHICS_LIBRARY}</li>
+      {/if}
     </ul>
   </dd>
 

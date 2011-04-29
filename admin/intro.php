@@ -29,6 +29,7 @@ if (!defined('PHPWG_ROOT_PATH'))
 include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
 include_once(PHPWG_ROOT_PATH.'admin/include/check_integrity.class.php');
 include_once(PHPWG_ROOT_PATH.'admin/include/c13y_internal.class.php');
+include_once(PHPWG_ROOT_PATH.'admin/include/image.class.php');
 
 // +-----------------------------------------------------------------------+
 // | Check Access and exit when user status is not ok                      |
@@ -256,6 +257,36 @@ if ($nb_comments > 0)
       'INFO' => sprintf(l10n('%d waiting for validation'), $nb_comments)
       )
     );
+}
+
+// graphics library
+switch (pwg_image::get_library())
+{
+  case 'imagick':
+    $library = 'ImageMagick';
+    $img = new Imagick();
+    $version = $img->getVersion();
+    if (preg_match('/ImageMagick \d+\.\d+\.\d+-?\d*/', $version['versionString'], $match))
+    {
+      $library = $match[0];
+    }
+    $template->assign('GRAPHICS_LIBRARY', $library);
+    break;
+
+  case 'ext_imagick':
+    $library = 'External ImageMagick';
+    exec($conf['ext_imagick_dir'].'convert -version', $returnarray);
+    if (preg_match('/Version: ImageMagick (\d+\.\d+\.\d+-?\d*)/', $returnarray[0], $match))
+    {
+      $library .= ' ' . $match[1];
+    }
+    $template->assign('GRAPHICS_LIBRARY', $library);
+    break;
+
+  case 'gd':
+    $gd_info = gd_info();
+    $template->assign('GRAPHICS_LIBRARY', 'GD '.@$gd_info['GD Version']);
+    break;
 }
 
 // +-----------------------------------------------------------------------+

@@ -830,4 +830,5 @@ $lang['Width'] = 'Width';
 $lang['Height'] = 'Height';
 $lang['Follow Orientation'] = 'Follow Orientation';
 $lang['If you want to regenerate thumbnails, please go to the <a href="%s">Batch Manager</a>.'] = 'If you want to regenerate thumbnails, please go to the <a href="%s">Batch Manager</a>.';
+$lang['Graphics Library'] = 'Graphics Library';
 ?>

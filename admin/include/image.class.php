@@ -57,8 +57,6 @@ class pwg_image
 
   function __construct($source_filepath, $library=null)
   {
-    global $conf;
-
     $this->source_filepath = $source_filepath;
 
     trigger_action('load_image_library', array(&$this) );
@@ -75,40 +73,9 @@ class pwg_image
       die('[Image] unsupported file extension');
     }
 
-    if (is_null($library))
+    if (!($this->library = self::get_library($library, $extension)))
     {
-      $library = $conf['image_library'];
-    }
-
-    // Choose image library
-    switch (strtolower($library))
-    {
-      case 'auto':
-      case 'imagick':
-        if ($extension != 'gif' and self::is_imagick())
-        {
-          $this->library = 'imagick';
-          break;
-        }
-      case 'ext_imagick':
-        if ($extension != 'gif' and self::is_ext_imagick())
-        {
-          $this->library = 'ext_imagick';
-          break;
-        }
-      case 'gd':
-        if (self::is_gd())
-        {
-          $this->library = 'gd';
-          break;
-        }
-      default:
-        if ($library != 'auto')
-        {
-          // Requested library not available. Try another library
-          return self::__construct($source_filepath, 'auto');
-        }
-        die('No image library available on your server.');
+      die('No image library available on your server.');
     }
 
     $class = 'image_'.$this->library;
@@ -304,7 +271,7 @@ class pwg_image
     {
       return false;
     }
-    @exec($conf['ext_imagick_dir'].'convert', $returnarray, $returnvalue);
+    @exec($conf['ext_imagick_dir'].'convert -version', $returnarray, $returnvalue);
     if (!$returnvalue and !empty($returnarray[0]) and preg_match('/ImageMagick/i', $returnarray[0]))
     {
       return true;
@@ -315,6 +282,44 @@ class pwg_image
   static function is_gd()
   {
     return function_exists('gd_info');
+  }
+
+  static function get_library($library=null, $extension=null)
+  {
+    global $conf;
+
+    if (is_null($library))
+    {
+      $library = $conf['image_library'];
+    }
+
+    // Choose image library
+    switch (strtolower($library))
+    {
+      case 'auto':
+      case 'imagick':
+        if ($extension != 'gif' and self::is_imagick())
+        {
+          return 'imagick';
+        }
+      case 'ext_imagick':
+        if ($extension != 'gif' and self::is_ext_imagick())
+        {
+          return 'ext_imagick';
+        }
+      case 'gd':
+        if (self::is_gd())
+        {
+          return 'gd';
+        }
+      default:
+        if ($library != 'auto')
+        {
+          // Requested library not available. Try another library
+          return self::get_library('auto');
+        }
+    }
+    return false;
   }
 
   function destroy()
