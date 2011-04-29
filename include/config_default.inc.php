@@ -324,7 +324,7 @@ $conf['uniqueness_mode'] = 'md5sum';
 // Library used for image resizing. Value could be 'auto', 'imagick',
 // 'ext_imagick or 'gd'. If value is 'auto', library will be choosen in this
 // order. If choosen library is not available, another one will be picked up.
-$conf['image_library'] = 'auto';
+$conf['graphics_library'] = 'auto';
 
 // If library used is external installation of ImageMagick ('ext_imagick'),
 // you can define imagemagick directory.
