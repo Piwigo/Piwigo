@@ -245,7 +245,10 @@ while ($row = pwg_db_fetch_assoc($result))
 	}
   $current_rank++;
 }
-$clipping=array_sum($clipping)/count($clipping);
+if (count($clipping) > 0)
+{
+  $clipping=array_sum($clipping)/count($clipping);
+}
 foreach ($thumbnail_info as $thumbnails_info)
 {
   $thumbnail_x_center = $thumbnails_info['width']/2;
