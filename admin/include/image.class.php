@@ -406,7 +406,7 @@ class image_ext_imagick implements imageInterface
     $this->source_filepath = $source_filepath;
     $this->imagickdir = $imagickdir;
 
-    $command = $imagickdir."identify -verbose ".realpath($source_filepath);
+    $command = $imagickdir.'identify -verbose "'.realpath($source_filepath).'"';
     @exec($command, $returnarray, $returnvalue);
     if($returnvalue)
     {
@@ -476,7 +476,7 @@ class image_ext_imagick implements imageInterface
   function write($destination_filepath)
   {
     $exec = $this->imagickdir.'convert';
-    $exec .= ' '.realpath($this->source_filepath);
+    $exec .= ' "'.realpath($this->source_filepath).'"';
 
     foreach ($this->commands as $command => $params)
     {
@@ -488,7 +488,7 @@ class image_ext_imagick implements imageInterface
     }
 
     $dest = pathinfo($destination_filepath);
-    $exec .= ' '.realpath($dest['dirname']).'/'.$dest['basename'];
+    $exec .= ' "'.realpath($dest['dirname']).'/'.$dest['basename'].'"';
     @exec($exec, $returnarray, $returnvalue);
     return !$returnvalue;
   }
