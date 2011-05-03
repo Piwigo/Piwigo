@@ -2752,7 +2752,7 @@ SELECT id, path, tn_ext, has_high
   }
 
   $result = false;
-  $img = new pwg_image($hd_path);
+  $img = new pwg_image($hd_path, $params['library']);
 
   $result = $img->pwg_resize(
     $image_path,
