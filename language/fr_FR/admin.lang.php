@@ -662,7 +662,6 @@ $lang['Install on your computer,'] = 'Installez sur votre ordinateur,';
 $lang['Make this theme available to users'] = 'Rendre ce thème disponible aux utilisateurs';
 $lang['Page end'] = 'Fin de la page';
 $lang['Piwigo Uploader'] = 'Piwigo Uploader';
-$lang['Please wait...'] = 'Veuillez patienter ...';
 $lang['Read Piwigo Documentation'] = 'Lire la documentation Piwigo';
 $lang['Start pLoader and add your photos.'] = 'Démarrez pLoader et ajoutez vos photos.';
 $lang['Switch to clear or dark colors for administration'] = 'Choisir des couleurs claires ou sombres pour l\'administration';

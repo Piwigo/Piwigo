@@ -514,7 +514,6 @@ $lang['Piwigo version differs on the remote site'] = "Piwigo version differs on 
 $lang['Piwigo version'] = "Piwigo version";
 $lang['pixels'] = 'pixels';
 $lang['Please check "plugins" folder and sub-folders permissions (CHMOD).'] = "Please check \"plugins\" folder and sub-folders permissions (CHMOD).";
-$lang['Please wait...'] = 'Please wait...';
 $lang['pLoader stands for <em>Piwigo Uploader</em>. From your computer, pLoader prepares your photos and transfer them to your Piwigo photo gallery.'] = 'pLoader stands for <em>Piwigo Uploader</em>. From your computer, pLoader prepares your photos and transfer them to your Piwigo photo gallery.';
 $lang['Plugin has been successfully copied'] = "The plugin has been successfully copied";
 $lang['Plugin list'] = "Plugins list";

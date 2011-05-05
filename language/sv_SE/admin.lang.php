@@ -271,7 +271,6 @@ $lang['Subscribe to notification by mail'] = 'Anmäl till notifikation via e-mai
 $lang['Unsubscribe from notification by mail'] = 'Avanmäl notifikation via e-mail';
 $lang['Parameter'] = 'Inställningar';
 $lang['Operation in progress'] = 'Bearbetnings behandling.';
-$lang['Please wait...'] = 'Vänligen vänta...';
 $lang['Continue processing treatment'] = 'Fortsätt med pågående behandling';
 $lang['Add detailed content'] = 'Lägg till detaljerad information';
 $lang['Send mail as'] = 'Skicka e-mail som';
