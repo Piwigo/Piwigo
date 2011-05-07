@@ -106,6 +106,7 @@ y.callService(
 
 </div>
 
+<div id="imageInfos">
 {if $DISPLAY_NAV_THUMB}
 {if isset($previous)}
 <a class="navThumb" id="linkPrev" href="{$previous.U_IMG}" title="{'Previous'|@translate} : {$previous.TITLE}" rel="prev">
@@ -277,6 +278,7 @@ y.callService(
 {/foreach}
 </table>
 {/if}
+</div>
 
 <hr class="separation">
 
