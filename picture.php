@@ -1045,7 +1045,7 @@ $themeconf = $template->get_template_vars('themeconf');
 if ($conf['picture_menu'] AND (!isset($themeconf['Exclude']) OR !in_array('theIdentificationPage', $themeconf['Exclude'])))
 {
   include( PHPWG_ROOT_PATH.'include/menubar.inc.php');
-  $template->assign('U_ADMIN', $url_admin); // overwrited by the menu
+  if (is_admin()) $template->assign('U_ADMIN', $url_admin); // overwrited by the menu
 }
 
 include(PHPWG_ROOT_PATH.'include/page_header.php');
