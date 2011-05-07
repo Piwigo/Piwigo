@@ -2,14 +2,12 @@
 <link rel="alternate" type="application/rss+xml" title="{'Photos only RSS feed'|@translate}" href="{$U_FEED_IMAGE_ONLY}"> 
 <link rel="alternate" type="application/rss+xml" title="{'Complete RSS feed (photos, comments)'|@translate}" href="{$U_FEED}"> 
 {/html_head} 
+
+{if isset($MENUBAR)}{$MENUBAR}{/if}
 <div id="content" class="content">
 
   <div class="titrePage">
-    <ul class="categoryActions">
-		<li><a href="{$U_HOME}" title="{'Home'|@translate}" class="pwg-state-default pwg-button">
-			<span class="pwg-icon pwg-icon-home">&nbsp;</span><span class="pwg-button-text">{'Home'|@translate}</span>
-		</a></li>
-    </ul>
+    <ul class="categoryActions"></ul>
     <h2>{'Notification'|@translate}</h2>
   </div>
 

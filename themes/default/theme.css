@@ -89,11 +89,6 @@
  * Content
  */
 .content {
-	margin: 1em;
-}
-
-#theCategoryPage .content
-{
 	margin-left: 20em;  /* = #menubar width + 2em */
 }
 
@@ -409,6 +404,16 @@ TD.calDayHead {
 
 .rateButtonStarEmpty {
 	background: url('icon/rating-stars.gif') no-repeat 0 center; width:16px;
+}
+
+/* only if menubar is shown */
+.pictureContent {
+	margin-left:20em;
+}
+.pictureContent #imageToolBar, 
+.pictureContent #theImage, 
+.pictureContent hr.separation { 
+	clear:none;
 }
 
 

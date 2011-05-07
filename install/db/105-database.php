@@ -21,42 +21,22 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
-//----------------------------------------------------------- include
-define('PHPWG_ROOT_PATH','./');
-include_once( PHPWG_ROOT_PATH.'include/common.inc.php' );
-
-// +-----------------------------------------------------------------------+
-// | Check Access and exit when user status is not ok                      |
-// +-----------------------------------------------------------------------+
-check_status(ACCESS_GUEST);
-
-//----------------------------------------------------- template initialization
-//
-// Start output of page
-//
-$title= l10n('About Piwigo');
-$page['body_id'] = 'theAboutPage';
-
-trigger_action('loc_begin_about');
-
-$template->set_filename('about', 'about.tpl');
-
-$template->assign('ABOUT_MESSAGE', load_language('about.html','', array('return'=>true)) );
-
-$theme_about = load_language('about.html', PHPWG_THEMES_PATH.$user['theme'].'/', array('return' => true));
-if ( $theme_about !== false )
+if (!defined('PHPWG_ROOT_PATH'))
 {
-  $template->assign('THEME_ABOUT', $theme_about);
+  die('Hacking attempt!');
 }
 
-// include menubar
-$themeconf = $template->get_template_vars('themeconf');
-if (!isset($themeconf['Exclude']) OR !in_array('theAboutPage', $themeconf['Exclude']))
-{
-  include( PHPWG_ROOT_PATH.'include/menubar.inc.php');
-}
+$upgrade_description = 'Show menubar on picture page';
 
-include(PHPWG_ROOT_PATH.'include/page_header.php');
-$template->pparse('about');
-include(PHPWG_ROOT_PATH.'include/page_tail.php');
+$query = '
+INSERT INTO '.PREFIX_TABLE.'config (param,value,comment)
+  VALUES (\'picture_menu\',\'false\', \''.$upgrade_description.'\')
+;';
+pwg_query($query);
+
+echo
+"\n"
+. $upgrade_description
+."\n"
+;
 ?>

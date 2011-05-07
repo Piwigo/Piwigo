@@ -68,7 +68,7 @@ SELECT '.implode(',', $fields).'
 
   $title= l10n('Your Gallery Customization');
   $page['body_id'] = 'theProfilePage';
-  include(PHPWG_ROOT_PATH.'include/page_header.php');
+  $template->set_filename('profile', 'profile.tpl');
 
   load_profile_in_template(
     get_root_url().'profile.php', // action
@@ -82,7 +82,15 @@ SELECT '.implode(',', $fields).'
   {
     $template->assign('errors', $errors);
   }
-  $template->set_filename('profile', 'profile.tpl');
+  
+  // include menubar
+  $themeconf = $template->get_template_vars('themeconf');
+  if (!isset($themeconf['Exclude']) OR !in_array('theProfilePage', $themeconf['Exclude']))
+  {
+    include( PHPWG_ROOT_PATH.'include/menubar.inc.php');
+  }
+  
+  include(PHPWG_ROOT_PATH.'include/page_header.php');
   trigger_action('loc_end_profile');
   $template->pparse('profile');
   include(PHPWG_ROOT_PATH.'include/page_tail.php');

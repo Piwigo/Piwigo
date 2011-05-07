@@ -1040,6 +1040,14 @@ if ($metadata_showable and pwg_get_session_var('show_metadata') <> null )
   include(PHPWG_ROOT_PATH.'include/picture_metadata.inc.php');
 }
 
+// include menubar
+$themeconf = $template->get_template_vars('themeconf');
+if ($conf['picture_menu'] AND (!isset($themeconf['Exclude']) OR !in_array('theIdentificationPage', $themeconf['Exclude'])))
+{
+  include( PHPWG_ROOT_PATH.'include/menubar.inc.php');
+  $template->assign('U_ADMIN', $url_admin); // overwrited by the menu
+}
+
 include(PHPWG_ROOT_PATH.'include/page_header.php');
 trigger_action('loc_end_picture');
 if ($page['slideshow'] and $conf['light_slideshow'])

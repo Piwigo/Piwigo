@@ -7,3 +7,5 @@
 	<![endif]-->
 	{combine_css path="themes/default/print.css" order=-10}
 {/if}
+
+{if !isset($MENUBAR)}<style type="text/css">.content {ldelim} margin-left:auto !important; }</style>{/if}

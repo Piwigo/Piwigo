@@ -141,6 +141,10 @@
 .content { 
 	background:#222 url(images/fillet.gif) repeat-x scroll left top; 
 	min-height:466px; 
+	border: 1px solid #000; 
+	border-top: 0; 
+	margin:21px 7px 0 290px !important; 
+	padding-top:7px; 
 }
 
 #the_page { 
@@ -153,13 +157,6 @@
 	z-index:0; 
 	width: 100%; 
 	min-width: 100%; 
-}
-
-#theCategoryPage .content { 
-	border: 1px solid #000; 
-	border-top: 0; 
-	margin:21px 7px 0 290px !important; 
-	padding-top:7px; 
 }
 
 .content h2 { 
@@ -360,6 +357,10 @@
 #thePicturePage .odd { 
 	background-color: #222; 
 	border-top:0 !important; 
+}
+
+.pictureContent {
+	margin:0 7px 7px 290px;
 }
 
 #addComment fieldset {

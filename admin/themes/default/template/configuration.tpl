@@ -285,6 +285,13 @@
         <input type="checkbox" name="picture_navigation_thumb" {if ($display.picture_navigation_thumb)}checked="checked"{/if}>
       </label>
     </li>
+    
+    <li>
+      <label>
+        <span class="property">{'Show menubar'|@translate}</span>
+        <input type="checkbox" name="picture_menu" {if ($display.picture_menu)}checked="checked"{/if}>
+      </label>
+    </li>
   </ul>
 </fieldset>
 

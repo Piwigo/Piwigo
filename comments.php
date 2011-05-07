@@ -527,6 +527,14 @@ SELECT c.id, name, permalink, uppercats, com.id as comment_id
     $template->append('comments', $tpl_comment);
   }
 }
+
+// include menubar
+$themeconf = $template->get_template_vars('themeconf');
+if (!isset($themeconf['Exclude']) OR !in_array('theCommentsPage', $themeconf['Exclude']))
+{
+  include( PHPWG_ROOT_PATH.'include/menubar.inc.php');
+}
+
 // +-----------------------------------------------------------------------+
 // |                           html code display                           |
 // +-----------------------------------------------------------------------+

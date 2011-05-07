@@ -84,6 +84,7 @@ $display_checkboxes = array(
     'picture_download_icon',
     'picture_navigation_icons',
     'picture_navigation_thumb',
+    'picture_menu',
   );
 
 $display_info_checkboxes = array(

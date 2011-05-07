@@ -1,11 +1,8 @@
+{if isset($MENUBAR)}{$MENUBAR}{/if}
 <div id="content" class="content">
 
 	<div class="titrePage">
-		<ul class="categoryActions">
-			<li><a href="{$U_HOME}" title="{'Go through the gallery as a visitor'|@translate}" class="pwg-state-default pwg-button">
-				<span class="pwg-icon pwg-icon-home">&nbsp;</span><span class="pwg-button-text">{'Home'|@translate}</span>
-			</a></li>
-		</ul>
+		<ul class="categoryActions"></ul>
 		<h2>{'Password forgotten'|@translate}</h2>
 	</div>
 

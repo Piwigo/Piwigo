@@ -80,7 +80,6 @@ $email = !empty($_POST['mail_address'])?htmlspecialchars(stripslashes($_POST['ma
 //
 $title= l10n('Registration');
 $page['body_id'] = 'theRegisterPage';
-include(PHPWG_ROOT_PATH.'include/page_header.php');
 
 $template->set_filenames( array('register'=>'register.tpl') );
 $template->assign(array(
@@ -97,6 +96,14 @@ if (count($errors) != 0)
   $template->assign('errors', $errors);
 }
 
+// include menubar
+$themeconf = $template->get_template_vars('themeconf');
+if (!isset($themeconf['Exclude']) OR !in_array('theRegisterPage', $themeconf['Exclude']))
+{
+  include( PHPWG_ROOT_PATH.'include/menubar.inc.php');
+}
+
+include(PHPWG_ROOT_PATH.'include/page_header.php');
 $template->parse('register');
 include(PHPWG_ROOT_PATH.'include/page_tail.php');
 ?>

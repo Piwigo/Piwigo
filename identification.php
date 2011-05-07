@@ -73,7 +73,6 @@ if (isset($_POST['login']))
 //
 $title = l10n('Identification');
 $page['body_id'] = 'theIdentificationPage';
-include(PHPWG_ROOT_PATH.'include/page_header.php');
 
 $template->set_filenames( array('identification'=>'identification.tpl') );
 
@@ -97,7 +96,15 @@ if ( sizeof( $errors ) != 0 )
   $template->assign('errors', $errors);
 }
 
+// include menubar
+$themeconf = $template->get_template_vars('themeconf');
+if (!isset($themeconf['Exclude']) OR !in_array('theIdentificationPage', $themeconf['Exclude']))
+{
+  include( PHPWG_ROOT_PATH.'include/menubar.inc.php');
+}
+
 //----------------------------------------------------------- html code display
+include(PHPWG_ROOT_PATH.'include/page_header.php');
 $template->pparse('identification');
 include(PHPWG_ROOT_PATH.'include/page_tail.php');
 ?>

@@ -191,6 +191,13 @@ foreach ($tags as $tag)
     );
 }
 
+// include menubar
+$themeconf = $template->get_template_vars('themeconf');
+if (!isset($themeconf['Exclude']) OR !in_array('theTagsPage', $themeconf['Exclude']))
+{
+  include( PHPWG_ROOT_PATH.'include/menubar.inc.php');
+}
+
 include(PHPWG_ROOT_PATH.'include/page_header.php');
 $template->pparse('tags');
 include(PHPWG_ROOT_PATH.'include/page_tail.php');

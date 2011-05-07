@@ -1,3 +1,4 @@
+{if isset($MENUBAR)}{$MENUBAR}{/if}
 <div id="content" class="content">
 
 <div class="titrePage">
@@ -12,9 +13,6 @@
 			<span class="pwg-icon pwg-icon-letters">&nbsp;</span><span class="pwg-button-text">{'letters'|@translate}</span>
 		</a></li>
 {/if}
-		<li><a href="{$U_HOME}" title="{'Home'|@translate}" class="pwg-state-default pwg-button">
-			<span class="pwg-icon pwg-icon-home">&nbsp;</span><span class="pwg-button-text">{'Home'|@translate}</span>
-		</a></li>
 	</ul>
 	<h2>{'Tags'|@translate}</h2>
 </div>

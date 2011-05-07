@@ -42,6 +42,7 @@ INSERT INTO piwigo_config (param,value,comment) VALUES ('picture_favorite_icon',
 INSERT INTO piwigo_config (param,value,comment) VALUES ('picture_download_icon','true','Display download icon on picture page');
 INSERT INTO piwigo_config (param,value,comment) VALUES ('picture_navigation_icons','true','Display navigation icons on picture page');
 INSERT INTO piwigo_config (param,value,comment) VALUES ('picture_navigation_thumb','true','Display navigation thumbnails on picture page');
+INSERT INTO piwigo_config (param,value,comment) VALUES ('picture_menu','false','Show menubar on picture page');
 INSERT INTO piwigo_config (param,value,comment)
   VALUES (
     'picture_informations',

@@ -227,7 +227,15 @@ if (sizeof($errors) != 0)
 {
   $template->assign('errors', $errors);
 }
-//------------------------------------------------------------ log informations
+
+// include menubar
+$themeconf = $template->get_template_vars('themeconf');
+if (!isset($themeconf['Exclude']) OR !in_array('theSearchPage', $themeconf['Exclude']))
+{
+  include( PHPWG_ROOT_PATH.'include/menubar.inc.php');
+}
+
+//------------------------------------------------------------ html code display
 include(PHPWG_ROOT_PATH.'include/page_header.php');
 $template->pparse('search');
 include(PHPWG_ROOT_PATH.'include/page_tail.php');

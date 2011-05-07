@@ -799,4 +799,5 @@ $lang['Compact'] = "Compact";
 $lang['Complete'] = "Complet";
 $lang['Restore'] = "Restaurer";
 $lang['Restore default configuration. You will lost your plugin settings!'] = "Restaurer la configuration par défaut? Vous perdrez vos réglages personnels !";
+$lang['Show menubar'] = "Afficher le menu";
 ?>
