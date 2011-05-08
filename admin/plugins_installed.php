@@ -30,11 +30,13 @@ include_once(PHPWG_ROOT_PATH.'admin/include/plugins.class.php');
 
 $template->set_filenames(array('plugins' => 'plugins_list.tpl'));
 
-// TODO : use a session parameter
-$plugin_order = isset($_GET['plugin_order']) ? $_GET['plugin_order'] : 'state';
-$plugin_display = isset($_GET['plugin_display']) ? $_GET['plugin_display'] : 'compact';
+// order and display mode
+$plugin_order = isset($_GET['plugin_order']) ? $_GET['plugin_order'] : (pwg_get_session_var('plugin_order') != null ? pwg_get_session_var('plugin_order') : 'state');
+$plugin_display = isset($_GET['plugin_display']) ? $_GET['plugin_display'] : (pwg_get_session_var('plugin_display') != null ? pwg_get_session_var('plugin_display') : 'compact');
+pwg_set_session_var('plugin_order', $plugin_order);
+pwg_set_session_var('plugin_display', $plugin_display);
 
-$base_url = get_root_url().'admin.php?page='.$page['page'].'&amp;plugin_order='.$plugin_order.'&amp;plugin_display='.$plugin_display;
+$base_url = get_root_url().'admin.php?page='.$page['page'];
 $pwg_token = get_pwg_token();
 $action_url = $base_url.'&amp;plugin='.'%s'.'&amp;pwg_token='.$pwg_token;
 
