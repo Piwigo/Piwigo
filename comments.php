@@ -530,7 +530,7 @@ SELECT c.id, name, permalink, uppercats, com.id as comment_id
 
 // include menubar
 $themeconf = $template->get_template_vars('themeconf');
-if (!isset($themeconf['Exclude']) OR !in_array('theCommentsPage', $themeconf['Exclude']))
+if (!isset($themeconf['hide_menu_on']) OR !in_array('theCommentsPage', $themeconf['hide_menu_on']))
 {
   include( PHPWG_ROOT_PATH.'include/menubar.inc.php');
 }

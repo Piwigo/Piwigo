@@ -193,7 +193,7 @@ foreach ($tags as $tag)
 
 // include menubar
 $themeconf = $template->get_template_vars('themeconf');
-if (!isset($themeconf['Exclude']) OR !in_array('theTagsPage', $themeconf['Exclude']))
+if (!isset($themeconf['hide_menu_on']) OR !in_array('theTagsPage', $themeconf['hide_menu_on']))
 {
   include( PHPWG_ROOT_PATH.'include/menubar.inc.php');
 }

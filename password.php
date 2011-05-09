@@ -155,7 +155,7 @@ $template->assign('infos', $page['infos']);
 
 // include menubar
 $themeconf = $template->get_template_vars('themeconf');
-if (!isset($themeconf['Exclude']) OR !in_array('thePasswordPage', $themeconf['Exclude']))
+if (!isset($themeconf['hide_menu_on']) OR !in_array('thePasswordPage', $themeconf['hide_menu_on']))
 {
   include( PHPWG_ROOT_PATH.'include/menubar.inc.php');
 }

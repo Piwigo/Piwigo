@@ -1042,7 +1042,7 @@ if ($metadata_showable and pwg_get_session_var('show_metadata') <> null )
 
 // include menubar
 $themeconf = $template->get_template_vars('themeconf');
-if ($conf['picture_menu'] AND (!isset($themeconf['Exclude']) OR !in_array('theIdentificationPage', $themeconf['Exclude'])))
+if ($conf['picture_menu'] AND (!isset($themeconf['hide_menu_on']) OR !in_array('thePicturePage', $themeconf['hide_menu_on'])))
 {
   include( PHPWG_ROOT_PATH.'include/menubar.inc.php');
   if (is_admin()) $template->assign('U_ADMIN', $url_admin); // overwrited by the menu
