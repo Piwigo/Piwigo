@@ -222,6 +222,7 @@ if (
 // | Include specific page                                                 |
 // +-----------------------------------------------------------------------+
 
+trigger_action('loc_begin_admin_page');
 include(PHPWG_ROOT_PATH.'admin/'.$page['page'].'.php');
 
 // +-----------------------------------------------------------------------+
