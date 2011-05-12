@@ -577,13 +577,13 @@ function get_ini_size($ini_key, $in_bytes=true)
 
   if ($in_bytes)
   {
-    $size = convert_shortand_notation_to_bytes($size);
+    $size = convert_shorthand_notation_to_bytes($size);
   }
   
   return $size;
 }
 
-function convert_shortand_notation_to_bytes($value)
+function convert_shorthand_notation_to_bytes($value)
 {
   $suffix = substr($value, -1);
   $multiply_by = null;
