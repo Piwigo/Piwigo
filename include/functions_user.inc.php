@@ -90,7 +90,39 @@ WHERE LOWER(".stripslashes($conf['user_fields']['username']).") = '".strtolower(
     }
   }
 }
+/**
+ * For test on username case sensitivity
+ *
+ * @param : $username typed in by user for identification
+ *
+ * @return : $username found in database
+ *
+ */
+function search_case_username($username)
+{
+  global $conf;
 
+  $username_lo = strtolower($username);
+
+  $SCU_users = array();
+  
+  $q = pwg_query("
+    SELECT ".$conf['user_fields']['username']." AS username
+    FROM `".USERS_TABLE."`;
+  ");
+  while ($r = pwg_db_fetch_assoc($q))
+   $SCU_users[$r['username']] = strtolower($r['username']);
+   // $SCU_users is now an associative table where the key is the account as
+   // registered in the DB, and the value is this same account, in lower case
+   
+  $users_found = array_keys($SCU_users, $username_lo);
+  // $users_found is now a table of which the values are all the accounts
+  // which can be written in lowercase the same way as $username
+  if (count($users_found) != 1) // If ambiguous, don't allow lowercase writing
+   return $username; // but normal writing will work
+  else
+   return $users_found[0];
+}
 function register_user($login, $password, $mail_address,
   $with_notification = true, $errors = array())
 {
