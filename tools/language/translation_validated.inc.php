@@ -143,6 +143,13 @@ $validated_keys = array(
 	'Remote',
 	),
 
+  'el_GR' => array(
+	'%d Kb',
+	'IP: %s',
+	'Email: %s',
+	'RSS feed',
+	),
+	
   'es_AR' => array(
 	'%d Kb',
 	'Webmaster',
