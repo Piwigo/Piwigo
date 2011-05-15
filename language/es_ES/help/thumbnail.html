@@ -1,25 +1,25 @@
-<h2>Creación de las miniaturas</h2>
+<h2>Creación de miniaturas</h2>
 
-<p>Creación de las miniaturas que faltan. La utilización de esta funcion no es aconsejada si su galería es albergada sobre un servidor mutualisado (resources máquina compartidas).</p>
+<p>No se aconseja el uso de esta funcionalidad si la galería se aloja en un servicio de hosting compartido, dada la limitación de recursos del mismo.</p>
 
 <dl>
 
   <dt>Versión de GD</dt>
 
-  <dd>GD es una librería gráfica de manipulación de imágenes para PHP. Escoja la versión instalada sobre su servidor. Si usted se equivoca, mensajes de errores aparecerán, vuelva a la página precedente y escoja la otra versión. Si ninguna versión funcciona, esto significa que GD no está disponible.</dd>
+  <dd>GD es una librería gráfica para la manipulación de imágenes en PHP. Escoja la versión instalada en su servidor. Si se equivoca y aparecen mensajes de error, vuelva a la página precedente y escoja otra versión. Si comprueba que ninguna versión funciona correctamente, ello puede deberse a que GD no está disponible.</dd>
 
-  <dt>Anchura y altura</dt>
+  <dt>Ancho y alto</dt>
 
-  <dd>Dimensiones máximas que las miniaturas pueden tener. El ratio anchura / altura original es conservado. Los valores por defecto son modificables gracias a los parámetros de configuración <code>tn_width</code> y
+  <dd>Dimensiones máximas que pueden tener las miniaturas, conservando la proporción original de la fotografía. Se pueden modificar los valores por defecto en los parámetros de configuración <code>tn_width</code> y
 <code>tn_height</code> (ver el fichero <span
 class="filename">include/config_default.inc.php</span>).</dd>
   
-  <dt>Número de miniaturas que hay que crear</dt>
+  <dt>Número de miniaturas a crear</dt>
 
-  <dd>No intentar de miniaturizar un número demasiado grande de imágenes a la vez. En efecto, la miniaturización requiere una utilización relativamente importante del procesador.</dd>
+  <dd>Procure no crear un número demasiado grande de imágenes a la vez: el proceso requiere un uso intensivo de recursos.</dd>
 
-  <dt>Tamaño de fichero</dt>
+  <dt>Tipo de archivo</dt>
 
-  <dd>Las miniaturas son creadas al tamaño JPEG. Sólo el tamaño PNG y JPEG pueden ser miniaturizados.</dd>
+  <dd>Las miniaturas se crean en formato JPEG. Sólo se pueden crear miniaturas de fotografías en formato PNG y JPEG.</dd>
 
 </dl>

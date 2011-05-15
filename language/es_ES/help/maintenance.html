@@ -1,51 +1,48 @@
 <h2>Mantenimiento</h2>
 
-<p>Para optimizar el tiempo de generación de las páginas, Piwigo utiliza informaciones en viñeta. Por ejemplo, en lugar de contar el número de elementos contenidos en cada categoría a cada nueva carga de página, esta información es almacenada en la base de datos. Teóricamente, esta información debe siempre estar correcta, pero a veces un error puede sobrevenir y la información en viñeta se vuelve falsa.</p>
+<p>Para optimizar el tiempo empleado en la generación de páginas, Piwigo utiliza información guardada en la caché. Por ejemplo, en lugar de contar el número de elementos que contiene un álbum cada vez que se carga una página, esta información se almacena en la base de datos. Teóricamente la información debe ser siempre correcta, pero a veces se producen errores y la información de la caché se degrada.</p>
 
-<p>Informaciones se vuelven inútiles con tiempo. Suprimirlas de la base de datos liberara espacio en el disco.</p>
+<p>Por otra parte hay información que, con el tiempo, deja de terner relevancia; eliminarla de la base de datos liberará espacio en disco.</p>
 
 <ul>
 
   <li>
-    <strong>Elementos no atados :</strong>
-   Visualiza las imágenes que no son asociadas con una categoría virtual
+    <strong>Eliminar las etiquetas huérfanas: </strong>
+   Elimina las etiquetas que no están vinculadas a ninguna fotografía.
   </li>
   <li>
-    <strong>Ficheros que llevan el mismo nombre en varias categorías físicas :</strong>
-    Visualiza las imágenes o los ficheros que  eventualemente podrían estar encontrados en varias categorías.
+    <strong>Ficheros que tienen el mismo nombre en distintos álbumes físicos: </strong>
+    Muestra las imágenes o los ficheros que eventualemente podrían encontrarse en varios álbumes físicos (carpetas del servidor).
   </li>
 
 </ul>
 
 <ul>
 
-  <li><strong>Poner al día las informaciones de las categorías:</strong> Para cada categoría, las informaciones a controllar y\o poner al día son las siguientes: lista de las categorías madres, número de elementos, fecha del último elemento, la posición entre las categorías hermana, posición en el árbol completo de las categorías. Esta acción también verifica la coherencia de los representantes.</li>
+  <li><strong>Actualizar la información de los álbumes:</strong> actualiza la siguiente información: lista de álbumes de primer nivel, número de elementos que contiene, fecha de incorporación del último elemento, posición entre álbumes del mismo nivel, posición en la estructura general de álbumes. Esta acción también verifica la coherencia de las imágenes de portada.</li>
 
-  <li><strong>Poner al día las informaciones de las imágenes:</strong> Para cada imagen, las informaciones que hay que poner al día son: camino completo hacia el fichero, la nota media. <em>Atención</em>: No confundir con los méta-datos que son sincronizados sobre la pantalla <span
-class="pwgScreen">Administración, Categorías, Sincronizar</span> O sobre la pantalla <span class="pwgScreen">Modificar las informaciones de una imagen</span>
-(accesible desde la página de visualización de una imagen <span
-class="pwgScreen">picture.php</span>).</li>
+  <li><strong>Actualizar la información de las fotografías:</strong> se actualiza la ruta del archivo y la valoración ponderada de cada imagen. <em>Atención</em>: los meta-datos no se actualizan aquí, sino en <span class="pwgScreen">Administración &raquo; Categorías &raquo; Sincronizar</span>, o mediante la opción de <span class="pwgScreen">Modificar la información de la imagen</span> (accesible desde la página de visualización de la imagen <span class="pwgScreen">'picture.php'</span>).</li>
 
-  <li><strong>Reparar y optimizar la base de datos :</strong>
-Para cada tabla de la base de datos Piwigo efectua operaciones de ré-planificación, de reparación y de optimización.
+  <li><strong>Reparar y optimizar la base de datos:</strong>
+Reestructuración, reparación y optimización de cada una de las tablas de la base de datos.
   </li>
 
 </ul>
 
 <ul>
-  <li><strong>Vaciar el histórico :</strong>
-Suprime todas las líneas de la tabla <code>history</code>. La pantalla <span class="pwgScreen">
-Administración, Especiales, histórico</span> no muestrara ninguna información sobre el pasado. <Em>Atención</em>: todos los datos estarán perdidos y no existe ningún medio de recuperarlos.
+  <li><strong>Vaciar el historial:</strong>
+Elimina todos los registros de la tabla <code>history</code>, de manera que el Historial (<span class="pwgScreen">
+Administración &raquo; Herramientas &raquo; Historial</span>) se vacía y no mostrará datos a fecha anterior a la actual. <Em>Atención</em>: se perderán todos los datos, sin posibilidad de recuperación.
   </li>
   
-  <li><strong>Vaciar el sumario del histórico</strong>Suprime todas las informaciones recapitulativas (obtenidas a partir del detalle de la peataña histórico).</li>
+  <li><strong>Vaciar el sumario del historia:l</strong> Elimina toda la información de resumen del historial.</li>
 
-  <li><strong>Purgar las sesiones:</strong> Suprimir las sesiones espiradas..</li>
+  <li><strong>Purgar las sesiones:</strong> Elimina el registro de sesiones de usuario ya expiradas..</li>
 
-  <li><strong>Purgar los flujos jamás utilizados de notificación</strong></li>
+  <li><strong>Purgar los feeds de notificación que nunca han sido utilizados</strong></li>
 
-  <li><strong>Purgar la pestaña histórico de las búsquedas</strong></li>
+  <li><strong>Purgar el historial de búsquedas</strong></li>
   
-  <li><strong>Purgar el templates compilado</strong></li>
+  <li><strong>Purgar los templates compilados</strong></li>
   
 </ul>

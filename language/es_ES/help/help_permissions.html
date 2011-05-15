@@ -1,46 +1,45 @@
 <fieldset>
-<legend>Permisos para fotos</legend>
+<legend>Permisos de acceso a las fotografías</legend>
 
-<p>Cada foto tiene un <strong>nivel de privacidad</strong> (un cierre). Igual que cada usuario tiene su nivel de privacidad(una llave).Hay 5 niveles de privacidad:</p>
+<p>Cada fotografía tiene un <strong>nivel de privacidad</strong> (una cerradura) y cada usuario su <strong>nivel de autorización</strong> (una llave). Hay 5 niveles de privacidad:</p>
 <ol>
   <li>Ninguno</li>
   <li><em>Contactos</em></li>
-  <li><em>Amigos (que es superior al de un contacto)</em></li>
-  <li><em>Familia (que es superior al de un amigo)</em></li>
-  <li><em>Admins (que es superior al de otros niveles)</em></li>
+  <li><em>Amigos (superior al de un contacto)</em></li>
+  <li><em>Familia (superior al de un amigo)</em></li>
+  <li><em>Admins (superior a todos los otros niveles)</em></li>
 </ol>
 
-<p>Los niveles altos tienen permisos sobre los niveles bajos. Para  un usuario dado, mas alto sera el nivel de privacidad,  mas fotos pueda ver.</p>
+<p>Los niveles altos tienen permisos sobre los niveles bajos. El nivel de privacidad de un determinado usuario será más alto cuantas más fotografías pueda ver.</p>
 
-<p>Por ejemplo, si la foto "Boda_pedro-0024.jpg"tiene el nivel de privacidad<em>"Familia"</em>, entonces:</p>
+<p>Por ejemplo, si la fotografía "Boda_pedro-0024.jpg" tiene el nivel de privacidad de <em>"Familia"</em>, entonces:</p>
 <ul>
-  <li>Pedro (que es un <em>"Admin"</em>) puede ver la foto porque<em>"Admins"</em> puede ver todas las fotos</li>
-  <li>Beth (que es un miembro de<em>"Familia"</em>) puede ver también la foto</li>
-  <li>Maria (que solo es <em>"Amigos"</em>) no puede ver la foto</li>
+  <li>Pedro, que es un <em>"Admin"</em>, puede ver la fotografñua porque <em>"Admins"</em> puede verlas todas</li>
+  <li>Julia, que es un miembro de<em>"Familia"</em>, también puede ver la fotografía</li>
+  <li>María, que pertenece a <em>"Amigos"</em>, no puede ver la fotografía</li>
 </ul>
 
-<p>Un usuario que no tiene permiso para ver el contenido de una categoría no verá la categoría en sí misma, ni siquiera su título. El mismo principio se aplica a una etiqueta.</p>
+<p>Un usuario que no disponga de permisos para ver el contenido de un álbum no verá nada de éste, ni siquiera el título. El mismo principio se aplica a una etiqueta.</p>
 
-<p>Puede establecer el nivel de privacidad de un usuario en <span class="pwgScreen">Administración &raquo; Usuarios &raquo; Gestion</span> pantalla.</p>
+<p>Puede establecer el nivel de privacidad de un usuario en la pantalla <span class="pwgScreen">Administración &raquo; Usuarios &raquo; Administrar</span>.</p>
 
 </fieldset>
 
 <fieldset>
-<legend>Permisos de las categorías</legend>
+<legend>Permisos de acceso a los álbumes</legend>
 
-<p>Si los niveles de privacidad no se ajustan a sus necesidades, también puede administrar los permisos de las categorías para un usuario o un grupo. Puede administrar los permisos en las fotos y las categorías al mismo tiempo, sin conflicto.</p>
+<p>Si los permisos de acceso a las fotografías no se ajustan a sus necesidades, puede establecer permisos a nivel de usuario o grupo. Es posible establecer permisos para las fotografías y los álbumes al mismo tiempo, sin conflicto.</p>
 
-<p>Usted puede prohibir el acceso a las categorías. Pase el tipo de acceso a "intimidad" si usted desea administrar los permisos</p>
+<p>Para regular el acceso a determinados álbumes, modifique el tipo de acceso del álbum a "privado" y establezca después los permisos adecuados.</p>
 
-<p>Usted puede devolver una categoría particular editándola (<span
-class="pwgScreen">Administración &raquo; Categorías &raquo; Administrar &raquo; Editar</span>) O administrando las opciones para su árbol completo de categorías (<span
-class="pwgScreen">Administración &raquo; Categorías &raquo; Propiedades &raquo; Pública / particular</span>).</p>
+<p>Puede modificar el tipo de acceso a un álbum en particular en la pantalla de edición del álbum (<span
+class="pwgScreen">Administración &raquo; Álbumes &raquo; Administrar &raquo; Editar la información del álbum</span>); o de varios a la vez, en la pantalla de Propiedades (<span class="pwgScreen">Administración &raquo; Álbumes &raquo; Propiedades &raquo; Público / Privado</span>).</p>
 
-<p>Cuando ciertas categorías estan privadas, usted puede administrar los permisos con 3 pantallas:</p>
+<p>Para establecer permisos para un álbum "privado", dispone de 3 alternativas:</p>
 
 <ul>
-  <li><span class="pwgScreen">Administración &raquo; Usuarios &raquo; Administrar &raquo; Acciones Permisos</span> (1 lazo por usuario)</li>
-  <li><span class="pwgScreen">Administración &raquo; Usuarios &raquo; Grupos &raquo; Acciones Permisos</span> (1 lazo por grupo)</li>
-  <li><span class="pwgScreen">Administración &raquo; Categorías &raquo; Administrar &raquo; Modificar los permisos</span> (1 lazo por categoría)</li>
+  <li><span class="pwgScreen">Administración &raquo; Usuarios &raquo; Administrar &raquo; Acciones Permisos</span> (permisos a nivel de usuario)</li>
+  <li><span class="pwgScreen">Administración &raquo; Usuarios &raquo; Grupos &raquo; Acciones Permisos</span> (permisos a nivel de grupo)</li>
+  <li><span class="pwgScreen">Administración &raquo; Álbumes &raquo; Administrar &raquo; Modificar los permisos</span> (permisos a nivel de álbum)</li>
 </ul>
 

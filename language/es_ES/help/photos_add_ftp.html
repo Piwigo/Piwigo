@@ -8,7 +8,7 @@
 
   <li>Copie el contenido de la carpeta mediante un cliente FTP al directorio "galleries" de su instalación remota de Piwigo.</li>
 
-  <li>Acceda a su instalación de Piwigo y vaya a<span class="pwgScreen">Administración &raquo; Imágenes &raquo; Miniaturas</span> para crear las miniaturas que faltan.</li>
+  <li>Acceda a su instalación de Piwigo y vaya a <span class="pwgScreen">Administración &raquo; Imágenes &raquo; Miniaturas</span> para crear las miniaturas.</li>
 
   <li>Vaya a <span class="pwgScreen">Administración</span> y haga clic en el botón de sincronización.</li>
 </ol>
@@ -23,7 +23,7 @@
 
   <li>
 
-    <p>Los directorios en que se soportan los álbumes están en el directorio "galleries". A continuación se muestra a modo de ejemplo la arborescencia de una galería de pequeñas dimensiones (pero que proporciona ya una gran funcionalidad): </p>
+    <p>Las carpetas que contienen los álbumes se encuentran en el directorio "galleries". A continuación se muestra a modo de ejemplo la arborescencia de una galería de pequeñas dimensiones (pero que proporciona ya una gran funcionalidad): </p>
   
 <pre>
 .
@@ -61,26 +61,22 @@
 
   </li>
   
-  <li>El contenido de un álbum se encuentra en un directorio de cualquier nivel ubicado en el directorio "galleries". Cada álbum puede contener tantos subniveles como se desee. En el ejemplo anterior, album-1.1.1.1 está en un nivel de profundidad 4.</li>
+  <li>El contenido de un álbum se encuentra en una carpeta ubicada en el directorio "galleries". Cada álbum puede contener, a su vez, tantas sub-carpetas como se desee. En el ejemplo anterior, album-1.1.1.1 está en un nivel de profundidad 4.</li>
 
-  <li>Cada elemento indica un archivo. Un archivo constituye un elemento en Piwigo si su extensión figura en la lista definida por el parámetro de configuración <code>file_ext</code> (Ver 
-  archivo <span class="filename">include/config.inc.php</span>). Un archivo puede ser una imagen si su extensión figura en la lista definida por el parámetro de configuración
-<code>picture_ext</code>.</li>
+  <li>Cada elemento indica un archivo. Un archivo constituye un elemento en Piwigo si su extensión figura en la lista definida por el parámetro de configuración <code>file_ext</code> (Ver archivo <span class="filename">include/config.inc.php</span>). Un archivo es identificado como de tipo imagen si su extensión figura en la lista definida por el parámetro de configuración <code>picture_ext</code>.</li>
 
   <li>Los elementos de tipo imagen deben tener una miniatura asociada (ver la sección siguiente a propósito de las miniaturas).</li>
 
-  <li>Los elementos de tipo imagen pueden tener asociada una imagen de mayor tamaño, tal como sucede con el archivo <span class="filename">mariage.jpg</span>
-en el ejemplo de más arriba. El nombre de archivo no requiere prefijo alguno.</li>
+  <li>Los elementos de tipo imagen pueden tener asociada una imagen de mayor tamaño, tal como puede observar respecto del archivo <span class="filename">mariage.jpg</span> en el ejemplo de arborescencia anterior. El nombre de archivo no requiere prefijo alguno.</li>
 
-  <li>Por defecto, los elementos no imagen (vídeos, sonidos, archivos de texto, todo lo que usted desee incluir) se representan mediante un icono que se corresponde con la extensión del nombre del archivo. Opcionalmente, es posible asociarles una miniatura y una imagen de portada (ver el archivo <span
+  <li>Por defecto, los archivos que no son de tipo imagen (vídeos, sonidos, archivos de texto, cualquier otro tipo de archivo que desee incluir) se representan mediante el icono correspondiente a la extensión del nombre de archivo. Se les puede asociar opcionalmente una miniatura y una imagen de portada (ver el archivo <span
 class="filename">video.avi</span> en el ejemplo).</li>
 
   <li><em>Atención</em>: El nombre de un directorio o de un archivo puede contener sólo letras, cifras y los caracteres  "-", "_" y ".". Debe omitir espacios y caracteres acentuados.</li>
 
-  <li><em>Consejo</em>: un álbum puede contener elementos y sub-álbumes a la vez. Sin embargo, se aconseja discriminar el tipo de contenido de cada álbum, elementos <strong>o</strong>
-sub-álbumes.</li>
+  <li><em>Consejo</em>: una carpeta puede contener elementos y sub-carpetas a la vez. Sin embargo, se aconseja discriminar el tipo de contenido según se trate de una carpeta, elementos o sub-carpetas.</li>
 
-  <li>Una vez archivos, miniaturas e imágenes en portada se encuentran correctamente ubicados en los directorios, ir a <span
+  <li>Una vez archivos, miniaturas e imágenes de portada se encuentran correctamente distribuidos en carpetas, ir a <span
 class="pwgScreen">Administración &raquo; Álbumes &raquo; Sincronizar</span>.</li>
 
 </ul>
@@ -93,14 +89,13 @@ class="pwgScreen">Administración &raquo; Álbumes &raquo; Sincronizar</span>.</
   
   <li>Como se ha mencionado anteriormente, cada elemento de tipo imagen debe estar asociado a una miniatura.</li>
 
-  <li>Las miniaturas se almacenan en el subdirectorio "thumbnail", en cada uno de los directorios que contienen un álbum. Una miniatura es un archivo de tipo imagen (con la misma extensión del nombre del archivo), cuyo nombre es prefijado por el parámetro de configuración <code>prefix_thumbnail</code>
-(ver <span class="filename">include/config.inc.php</span>).</li>
+  <li>Las miniaturas se almacenan en la sub-carpeta "thumbnail", en cada una de las carpetas que contienen un álbum. Una miniatura es un archivo de tipo imagen (con la misma extensión del nombre del archivo), cuyo nombre se asigna según el valor del parámetro de configuración <code>prefix_thumbnail</code> ver <span class="filename">include/config.inc.php</span>).</li>
 
   <li>Las miniaturas no necesitan tener la misma extensión que la imagen asociada (una imagen con extensión ".jpg" puede tener una miniatura ".gif", por ejemplo).</li>
 
-  <li>Se aconseja utilizar un programa externo para la creación de las miniaturas; también puede utilizar el programa integrado de creación de miniaturas, pero la calidad dista de ser óptima y ocupa recursos del servidor (lo que podría consitituir un problema en caso de hosting compartido).</li>
+  <li>Se aconseja utilizar un programa externo para la creación de las miniaturas; también puede utilizar el programa integrado de creación de miniaturas, pero la calidad dista de ser óptima y ocupa recursos del servidor (lo que podría constituir un problema en caso de hosting compartido).</li>
 
-  <li>Si escoge utilizar al servidor web para generar las miniaturas, debe establecer permisos de escritura a los directorios.</li>
+  <li>Si escoge generar las miniaturas en el servidor mediante el programa integrado, recuerde que debe dar permisos de escritura a las carpetas contenedoras.</li>
 
 </ul>
 </fieldset>

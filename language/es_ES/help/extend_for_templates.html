@@ -1,103 +1,79 @@
 <h2>Configuración para "extender" los templates</h2>
 
 <h3>Objetivo</h3>
-<p>Definir las condiciones de sustitución de cada template (modelo) a partir de template-extensión
- (template llamado "a reemplasar " (sustituto)).</p>
+<p>Definir las condiciones de sustitución de cada template (plantilla) de la aplicación Piwigo, por templates personalizados ubicados en la carpeta template-extension.</p>
 
-<p>" Templates de origen " proviniendo de . / template / yoga (o de otra carpeta que "yoga")
- son reemplazados por el sustituto si éste es vinculado a su template de origen 
- (y de modo facultativo, cuando la dirección (URL) contiene un URL contains un 
- " Parámetro facultativo del URL ").</p>
+<p>El <em>template original</em> es el que está ubicado en ./themes/default/template (u otra carpeta correspondiente al tema implementado) y que va a ser reemplazado por el <em>template personalizado</em>; opcionalmente, sólo cuando la dirección URL contiene el literal especificado en "Si la URL contiene".</p>
 
-<p>Los " Parámetros facultativo del URL " son aquellos a los que usted puede encontrar después del nombre del módulo en la dirección (URL).</p>
+<p>Los valores de la lista "Si la URL contiene" son literales adicionales que componen la URL y que se encuentran tras el nombre del módulo.</p>
 
-<p>Así un " Parámetro facultativo del URL " puede ser un "permalink" (lazo permanente) activo 
-(ver el permalinks en nuestra documentación para más información).</p>
+<p>Por lo tanto, uno de los valores posibles de "Si la URL contiene" puede ser un enlace permanente activo (ver la documentación sobre enlaces permanetes para más información).</p>
 
-<p>Leer las `<a href="#warnings">advertencias</a>` sobre las condiciones de utilización.</p>
+<p>Lea las `<a href="#warnings">advertencias</a>` acerca de las condiciones de uso.</p>
 
-<h3>¿ Qué son las extensiones de los modelos?</h3>
+<h3>¿Qué son las <em>extensiones</em> de los templates?</h3>
 
-<p>Este instrumento de configuración es a la vez poderoso para los principiantes y para los usuarios avanzados.
-Por FTP, en el expediente template-extensión, Webmaster podrá duplicar una buena parte de los ficheros 
-.tpl distribuidos (" Templates de origen ") 
-con un nombre diferente ("reemplasar" (a sustituto)).
+<p>Se trata de un instrumento de configuración que extiende la funcionalidad de la aplicación en la medida que usted desee, útil tanto para principiantes como para usuarios avanzados. Mediante un cliente FTP, el webmaster puede duplicar buena parte de los ficheros .tpl distribuidos (templates originales) con un nombre diferente (templates a personalizar).
  
- "Templates de origen ", actualmente los modelos sostenidos de origen son:</p>
+En la actualidad se encuentra habilitada la sustitución de los siguiente templates:</p>
 <ul>
   <li><span class="filename">index.tpl</span></li>
-  <li><span class="filename">mainpage_categories.tpl</span> and/or <span class="filename">thumbnails.tpl</span></li>
+  <li><span class="filename">mainpage_categories.tpl</span> y/o <span class="filename">thumbnails.tpl</span></li>
   <li><span class="filename">menubar.tpl</span></li>
-  <li><span class="filename">header.tpl</span> and/or <span class="filename">footer.tpl</span></li>
-  <li><span class="filename">picture_content.tpl</span> and/or <span class="filename">picture.tpl</span></li>
+  <li><span class="filename">header.tpl</span> y/o <span class="filename">footer.tpl</span></li>
+  <li><span class="filename">picture_content.tpl</span> y/o <span class="filename">picture.tpl</span></li>
   <!-- <li><span class="filename">slideshow.tpl</span></li> -->
-  <li><span class="filename">profile.tpl</span> and/or <span class="filename">profile_content.tpl</span></li>
+  <li><span class="filename">profile.tpl</span> y/o <span class="filename">profile_content.tpl</span></li>
   <li><span class="filename">tags.tpl</span></li>
   <li><span class="filename">upload.tpl</span></li>
   <li><span class="filename">about.tpl</span></li>
   <li><span class="filename">popuphelp.tpl</span></li>
-  <li><span class="filename">search.tpl</span> and/or <span class="filename">search_rules.tpl</span></li>
-  <li><span class="filename">nbm.tpl</span> and/or <span class="filename">notification.tpl</span></li>
-  <li><span class="filename">identification.tpl</span> and/or <span class="filename">register.tpl</span></li>
+  <li><span class="filename">search.tpl</span> y/o <span class="filename">search_rules.tpl</span></li>
+  <li><span class="filename">nbm.tpl</span> y/o <span class="filename">notification.tpl</span></li>
+  <li><span class="filename">identification.tpl</span> y/o <span class="filename">register.tpl</span></li>
   <li><span class="filename">redirect.tpl</span></li>
 </ul>
 
-<h3>¿ Dónde puedo encontrar los " Templates de origen "?</h3>
+<h3>¿Dónde puedo encontrar los templates originales?</h3>
 
-<p>Los modelos distribuidos de origen son en template / yoga / 
-( no modificarlos directamente en este lugar por razones de evolución).
- Así a partir de " templates de origen ", todo webmaster podrá crear su " replacers 
- (modelos personalisés) ".</p>
+<p>Los templates origilales distribuidos están en /themes/default/template/ (no los modifique directamente en este lugar en previsión de la evolución a futuro que pueda tener la aplicación). Todo webmaster podrá crear su templates personalizados por copia de estos templates originales.</p>
 
-<h3>¿ Dónde debo registrar a los "sustitutos"?</h3>
+<h3>¿Dónde debo ubicar los templates personalizados?</h3>
 
-<p>Los <strong>sustitutos (templates modificados)</strong> pueden estar colocados en 
-el expediente template-extensión (o sus subexpedientes).
-Los sustitutos pueden tener cualquier nombre de fichero con la extensión .tpl. Por ejemplo: <span
-class="filename">template-extension/my-extension/video.tpl</span>.</p>
+<p>Los <strong>templates personalizados</strong> se ubican en la carpeta template-extensión o en carpetas de esta última. Pueden tener cualquier nombre con la extensión .tpl. Por ejemplo: <span class="filename">template-extension/mi-extension/video.tpl</span>.</p>
 
 
-<h3>¿ Cómo puedo activar mis "sustitutos"?</h3>
-<p>Un<strong>Template de origen </strong> debería ser asociado con cada <strong>
- reemplaso </strong> con el fin de activar las sustituciones correspondientes.
- Activar los sustitutos es la función de " Extender el templates " en los menús de
- Configuración de la Administración. </p>
+<h3>¿Cómo puedo activar los templates personalizados?</h3>
 
-<p>Si usted selecciona un <strong> Define parámetros facultativo del URL </strong>
- entonces las sustituciones serán realizadas sólo sobre las páginas que utilizarán 
- esta palabra clave. Por ejemplo: <span
-  class="pwgScreen">index.php?/<strong>most_visited</strong></span></p>
+<p>Cada <strong>template original </strong> debe estar asociado a un <strong> template personalizado</strong> para que se active la sustitución correspondiente. Activar los templates personalizados es la función de la opción "Reemplazar templates", que encontrará en el menú de Configuración. </p>
+
+<p>Si selecciona un valor en <strong>Si la URL contiene</strong>, las sustituciones serán realizadas sólo en aquellas páginas cuya URL contiene esa palabra clave. Por ejemplo: <span class="pwgScreen">index.php?/<strong>most_visited</strong></span></p>
   
-<p>Los usuarios avanzados utilizarán los permalinks (permaliens, lazos permanentes) como strong> parámetro facultativo del URL </strong>. </p>
+<p>Los usuarios avanzados pueden utilizar los enlaces permanentes como valores de este campo.</p>
 
-<!-- TODO -->
-<p>Si usted selecciona un<strong>template atado</strong> entonces los cambios se realizaran solo sobre ese template.</p>
+<!--ver-->
+<p>Si selecciona un<strong>bound template</strong>, los templates personalizados operarán sólo en ese template.</p>
 
-<h3>¿ Cómo puedo desactivar mis "sustitutos"?</h3>
+<h3>¿Cómo puedo desactivar mis templates personalizados?</h3>
 <ul>
-<li>Desmarcar " template de origen ".</li>
-<li>Por FTP suprimir "sustitutos".</li>
+<li>Para desactivar un template personalizado, elimine la selección en "Sustituye al original".</li>
+<li>Si desea eliminarlo definitivamente, borre el template personalizado de la carpeta template-extension.</li>
 </ul>
 <a name="warnings"></a>
 <h3>Advertencias</h3>
 <ul>
 
-  <li>El <strong> template de origen </strong> debe ser el verdadero 
-  template " de origen " de otro modo usted podría tener resultados imprevisibles!</li>
+  <li>El <strong>template original</strong> debe ser el correspondiente al que lo sustituye, de otro modo podría obtener resultados imprevisibles</li>
 
-  <li>Si varios <strong> sustitutos ( templates modoficados) </strong> tienen el mismo <strong>
-  template de origen </strong> y el mismo <strong> parámetro facultativo del URL </strong> entonces solamente el último sustituto será activo.</li>
+  <li>Si varios <strong>templates personalizados</strong> referencian a un mismo <strong>template original</strong> con un mismo valor en  "Si la URL contiene", sólo el último permanece activo.</li>
 
-  <li>No seleccionar <strong> parámetro facultativo del URL </strong> activará el template de sustitución a cada utilización del template.
-  Así como mencionado más arriba, la orden puede inhibir los sustitutos precedentes.</li>
+  <li>Si no selecciona un valor en "Si la URL contiene", el template personalizado sustituirá siempre al template original.
+  De acuerdo a lo mencionado más arriba, el orden de definición podría implicar que se inhibieran los templates personalizados precedentes.</li>
 
-  <li>Subexpedientes :
-  Los subexpedientes son ignorados pero son útiles para modificar la orden de los sustitutos. <br />
-  distributed-samples: ¡ para sus pruebas son distribuidos! 
-<strong>No modificarlos :</strong>¡ Haga los suyos!
+  <li>Subcarpetas: las subcarpetas no se tienen en cuenta, pero son útiles para modificar el orden actual. <br><br>
+  Distributed-samples (ejemplos distibuidos): se facilitan únicamente para la realización de pruebas. <strong>No los modifique, implemente los suyos propios</strong>
 </li>
 
-  <li>A la supresión del sustituto el <strong> template de origen </strong> inmediatamente será
-  reactivado.</li>
+  <li>Al eliminar la entrada en la columna <strong>template original</strong>, el template original vuelve a activarse inmediatamente.</li>
 
 </ul>

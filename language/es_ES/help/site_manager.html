@@ -1,36 +1,35 @@
-<h2>Sitios distantes</h2>
+<h2>Administración de sitios</h2>
 
-<p>Piwigo ofrece la posibilidad de utilizar varios sitios para almacenar los ficheros que compondrán su galería. Esto puede ser útil si su galería está instalada sobre un espacio de almacenamiento limitado y si usted tiene numerosos ficheros que hay que mostrar.</p>
+<p>Piwigo ofrece la posibilidad de utilizar varios sitios para almacenar los archivos que integran la galería. Esto puede resultarle útil si su galería está instalada en un servidor de alojamiento web con recursos limitados pero necesita mostrar una gran cantidad de archivos.</p>
 
 
 <ol>
 
-  <li>editar el fichero <span
-class="filename">tools/create_listing_file.php</span> modificando la sección de los parámetros como <code>$conf['prefix_thumbnail']</code> or
+  <li>Edite el archivo <span
+class="filename">tools/create_listing_file.php</span> si necesita modificar determinados parámetros como <code>$conf['prefix_thumbnail']</code> or
 <code>$conf['use_exif']</code>.</li>
 
-  <li>colocar el fichero <span
-class="filename">tools/create_listing_file.php</span> modificado sobre su sitio distante, en el mismo repertorio que los repertorios que representan sus categorías (como el repertorio <span class="filename">galleries</span> de
-ce site) para FTP. Por ejemplo, digamos que usted puede acceder a  <span
+  <li>Ubique el archivo modificado <span
+class="filename">tools/create_listing_file.php</span> en el sitio remoto, en las carpetas definidas con igual nombre que los álbumes para realizar transferencias FTP (como por ejemplo en la carpeta <span class="filename">galleries</span>, que es la carpeta general del sitio; de este modo, puede acceder a <span
 class="filename">http://exemple.com/galleries/create_listing_file.php</span>.</li>
 
-  <li>Ir a<span class="pwgScreen">Administración, Categorías, Gestion de las sitios</span>. Pedir por crear un nuevo sitio, por ejemplo <span
+  <li>Vaya a <span class="pwgScreen">Administración &raquo; Categorías &raquo; Admnistración de sitios</span> para crear un nuevo sitio, por ejemplo <span
 class="filename">http://exemple.com/galleries</span>.</li>
 
   <li>
 
-    <p>Un nuevo sitio distante esta registrado. 4 acciones posibles :</p>
+    <p>Cuando registra un nuevo sitio remoto puede realizar las siguientes <em>Acciones</em>:</p>
 
     <ol>
 
-      <li><strong>generar la lista</strong> : lanza una demanda distante para generar el fichero de listado distante</li>
+      <li><strong>generar lista:</strong> lanza un comando remoto para generar el listado de archivos</li>
 
-      <li><strong>sincronizar</strong> : lee el fichero distante <span
-class="filename">listing.xml</span> y sincroniza con la base de datos local</li>
+      <li><strong>sincronizar:</strong> lee el fichero remoto <span
+class="filename">listing.xml</span> y lo sincroniza con la base de datos local</li>
 
-      <li><strong>limpiar</strong> : Suprime el fichero distante de listado</li>
+      <li><strong>limpiar:</strong> elimina el listado remoto</li>
 
-      <li><strong>destruir</strong> : suprime el sitio (y todos los elementos que estan asociados con el) en la base de datos</li>
+      <li><strong>borrar:</strong> elimina el sitio y todos los elementos del mismo en base de datos</li>
 
     </ol>
 
@@ -38,5 +37,4 @@ class="filename">listing.xml</span> y sincroniza con la base de datos local</li>
 
 </ol>
 
-<!--<p>Usted también puede efectuar estas operaciones manualmente editando el fichero <span class = filename "> listing.xml </span> en la mano y desplazándolo hacia su repertorio raíz. Hacerse sobre <span class = pwgScreen "> Administración, Categorías, Ubicaciones(Sitios) distante </span>:
-Piwigo detecta el fichero y propone servirse de eso.</p>-->
+<!--<p>También puede llevar a cabo estas operaciones manualmente editando el fichero <span class = filename "> listing.xml </span> y copiándolo a su directorio raíz. Vaya después a <span class = pwgScreen ">Administración &raquo; Herramientas &raquo; Administración de sitios</span>:Piwigo detecta el archivo y las propone.</p>-->

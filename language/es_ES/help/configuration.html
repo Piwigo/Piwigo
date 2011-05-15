@@ -1,102 +1,105 @@
 <h2>Configuración</h2>
 
-<p>Esta pantalla permite administrar la configuración básica. En efecto, sólo son mostrados los parámetros de configuración que deben ser sufisientes para la mayoría de los administradores. Si usted desea ver la lista de los numerosos (y avanzados) parámetros, leer el fichero <span
+<p>Esta pantalla permite administrar la configuración básica. Sólo se muestran en ella los parámetros de configuración suficientes, en principio, para la mayoría de los administradores. Si desea ver una lista completa de todos los parámetros disponibles, consulte <span
 class="filename">include/config_default.inc.php</span></p>
 
-<p>Esta pantalla es dividida en varias secciones, reagrupando los parámetros por tema.</p>
+<p>A continuación se muestran los parámetros correspondientes a cada una de las pestañas.</p>
 
-<h3>Principale</h3>
+<h3>Principal</h3>
 <ul>
 
-  <li><strong>Título de la galería</strong>: utilizado para el flujo RSS y la notificación por e-mail.</li>
+  <li><strong>Título de la galería</strong>: utilizado para notificaciones RSS y por e-mail.</li>
 
-  <li><strong>Bandera de las páginas</strong>: código html visible en lo alto de las páginas.</li>
+  <li><strong>Banner de las páginas</strong>: código HTML visible en la parte superior de las páginas.</li>
 
-  <li><strong>URL de la galería</strong>: utilizado para el flujo RSS.</li>
+  <li><strong>URL de la galería</strong>: utilizada para las notificaciones RSS.</li>
 
-  <li><strong>Bloquear la galería</strong>: Bloquear el conjunto de las galerías para mantenimiento. Sólo los administradores podrán acceder a la galería.</li>
+  <li><strong>Bloquear la galería</strong>: si se marca, bloquea la galería durante la realización de tareas de mantenimiento. Sólo los administradores podrán acceder a la misma.</li>
 
-  <li><strong>Notación</strong>: La notación de las fotos es posible.</li>
+  <li><strong>Permitir la asignación de calificaciones</strong>: habilita la posibilidad de dar una calificación a las fotografías.</li>
 
-  <li><strong>Notación por los visitantes</strong>: Hasta los usuarios no registrados pueden anotar las imágenes.</li>
+  <li><strong>Permitir calificaciones de los visitantes</strong>: habilita que usuarios no registrados puedan dar una calificación a las fotografías.</li>
 
-  <li><strong>Notificar a los administradores en el momento de la inscripción de un usuario</strong>: Los administradores recibirán un mensaje a cada inscripción.</li>
+  <li><strong>Permitir que los visitantes se registren</strong>: si marca esta casilla, cualquier persona que acceda al sitio puede registrarse si así lo desea.</li>
 
-  <li><strong>Permitir el registro de los usuarios</strong>: La inscripción es libre para todos ellos.</li>
+  <li><strong>Permitir la personalización por usuario</strong>: da a los usuarios la posibilidad de cambiar ciertos aspectos de la apariencia del sitio.</li>
+
+  <li><strong>La dirección email es obligatoria para todos los usuarios</strong>: útil para manetener contacto con los usuarios.</li>
+
+  <li><strong>Notificar a los administradores cuando se registre un usuario</strong>: útil a efectos de supervisión, sobre todo si ha elegido que cualquier persona pueda registrarse.</li>
 
 </ul>
 
-<h3>Histórial</h3>
+<h3>Historial</h3>
 
-  <p>Las visitas de las páginas <span
+  <p>Las visitas a las páginas <span
 class="pwgScreen">index.php</span> y <span
-class="pwgScreen">picture.php</span> Estan registrados en la tabla <code>history</code>.</p>
+class="pwgScreen">picture.php</span> se registran en la tabla <code>history</code>.</p>
 
-  <p>Las visitas estan visualizadas en la pantalla <span class="pwgScreen">Administración, Classes de matemáticas superiores, Histórial</span>.</p>
+  <p>El número de visitas puede ser consultado en <span class="pwgScreen">Administración &raquo; Herramientas &raquo; Historial</span>.</p>
 
 <ul>
-  <li><strong>Registrar las páginas visitadas por los invitados</strong>: las visitas de las páginas por los invitados estan registradas.</li>
+  <li><strong>Registrar las páginas visitadas por los invitados</strong>: se incluyen las visitas realizadas por usuarios anónimos.</li>
 
-  <li><strong>Registrar las páginas visitadas por los usuarios</strong>: las visitas del las paginas por los usuarios registrados estan registradas.</li>
+  <li><strong>Registrar las páginas visitadas por los usuarios</strong>: se incluyen las visitas realizadas por usuarios registrados.</li>
 
-  <li><strong>Registrar las páginas visitadas por los administradores</strong>: Las visitas de las páginas por los administradores son registradas.</li>
+  <li><strong>Registrar las páginas visitadas por los administradores</strong>: se incluyen las visitas realizadas por usuarios administradores.</li>
 
 </ul>
 
 <h3>Comentarios</h3>
 <ul>
 
-  <li><strong>Comentarios usuarios para todos</strong>: hasta los usuarios no registrados pueden registrar comentarios.</li>
+  <li><strong>Se permite que todo el mundo pueda realizar comentarios</strong>: incluso los usuarios no registrados pueden realizar comentarios.</li>
 
-  <li><strong>Número de comentarios usuarios por página</strong>.</li>
+  <li><strong>Número de comentarios por página</strong>.</li>
 
-  <li><strong>Validación</strong>: Un administrador debe validar los comentarios usuarios antes de que puedan volverse visibles en la partida pública. La validación de los comentarios usuarios se efectua en la pantalla <span class="pwgScreen">Administración, Imágenes, Comentarios</span>.</li>
+  <li><strong>Validación</strong>: si marca esta casilla, un administrador deberá validar los comentarios antes de que se hagan visibles al resto de usuarios. La validación de los comentarios se efectúa en <span class="pwgScreen">Administración, Fotografías, Comentarios</span>.</li>
 
-  <li><strong>Notificar a los administradores cuando un comentario es registrado</strong>:
-Envía un courriel a los administradores cuando un usuarios registra un comentario que es validado.</li>
+  <li><strong>Notificar a los administradores cuando se registre un comentario</strong>:
+Envía un email a los administradores cuando un usuario registra un comentario.</li>
 
-  <li><strong>Notificar a los administradores cuando un comentario requiere su validación </strong>:
-Envía un courriel a los administradores cuando un usuarios registra un comentario que necesita una validación por parte de los administradores.
-La validación de los comentarios usuarios se efectua en la pantalla <span class="pwgScreen">Administración, Imágenes, Comentarios</span>.</li>
+  <li><strong>Notificar a los administradores cuando un comentario requiera su validación </strong>:
+Envía un email a los administradores cuando un usuario realiza un comentario que requiere su validación.
+La validación se efectua en la pantalla <span class="pwgScreen">Administración &raquo; Herramientas &raquo; Comentarios pendientes</span>.</li>
 
 </ul>
 
-<h3>Descargar</h3>
+<h3>Añadir imágenes</h3>
 <ul>
-  <li><strong>Visualizar el lazo de añadido de imagen todo el tiempo</strong>: Si existen unas categorías que permiten el añadido, el lazo de añadido de imagen será visualizado sea cual sea la categoría.</li>
-  <li><strong>Nivel de acceso usuario para cargar</strong>: Permite restringirles el añadido a ciertos usuarios</li>
-  <li><strong>Notificar a los administradores cuando una imagen es cargada</strong>: Los administradores recibirán un mensaje por cada imagen añadida por un usuario.</li>
+  <li><strong>Mostrar siempre el enlace para añadir fotografías: </strong>aunque sólo determinados álbumes permiten incorporar fotografías, se mostrará el enlace sea cual sea la categoría.</li>
+  <li><strong>Nivel de acceso del usuario</strong>: Restringe la posibilidad de añadir fotografías en función del nivel de acceso</li>
+  <li><strong>Notificar a los administradores cuando se incorpora una fotografía</strong>: Los administradores recibirán un mensaje cada vez que un usuario añada una fotografía.</li>
 </ul>
 
 <h3>Visualización por defecto</h3>
-<p>Modificar las opciones de visualización por defecto: para los visitantes no conectados. Una vez conectado, estas opciones son sobrecargadas por las del usuario, a las que puede modificar en la pantalla <span
+<p>Las opciones de visualización por defecto determinnan cómo se muestra la galería a las personas que acceden al sitio. En el caso de usuarios registrados, una vez acceden mediante su usuario/contraseña estas opciones son sobreseídas por las que él mismo haya establecido en su  <span
 class="pwgScreen">perfil</span>.</p>
 
-<p>Es posible cambiar estas opciones para los usuarios existentes, pero se trata de una otra pantalla : <span class="pwgScreen">Administración, Identificación, Usuarios</span>, en la cual usted puede modificar estas opciones para una lista de usuarios seleccionados.</p>
+<p>Es posible sustituir estas opciones por defecto a un determinado conjunto de usuarios. Vaya a <span class="pwgScreen">Administración &raquo; 
+Usuarios &raquo; Administrar</span>, apartado 'Preferencias' y aplique las variantes de parametrización a los usuarios seleccionados.</p>
 
 <ul>
 
-  <li><strong>Idioma</strong>: Concierne sólo a las redacciones de Piwigo. Los nombres de categorías, de imagen y las descripciones no son localizados (ie multilingüe).</li>
+  <li><strong>Idioma</strong>: aplica a sitios que tengan habilitados varios idiomas y concierne sólo a los literales del entorno Piwigo. Los nombres de categorías, fotografías y descripciones no son traducibles.</li>
 
   <li><strong>Número de miniaturas por línea</strong></li>
 
   <li><strong>Número de líneas por página</strong></li>
 
-  <li><strong>Tema de la interfaz</strong></li>
+  <li><strong>Días a considerar para incorporaciones recientes</strong>: período de tiempo durante el cual el sistema considera que una fotografía es incorporación reciente. Debe ser superior a 1 día.</li>
 
-  <li><strong>Período reciente</strong>: En días. El período durante el cual una imagen es considerada cómo noticia. Este período debe ser superior a 1 día.</li>
+  <li><strong>Ver todos los álbumes</strong>: mostrar el menú expandido con todos los álbumes. <em>Atención</em>: esta opción puede provocar un consumo excesivo de recursos y de escasa utilidad, si la estructura de álbumes contiene numerosos elementos.</li>
 
-  <li><strong>Desarrollar todas las categorías</strong>: ¿ Desarrollar todas las categorías en el menú? <em>Attention</em>: Esta opción es susceptible de consumir inútilmente recursos si su árbol de categorías contiene numerosos elementos.</li>
+  <li><strong>Mostrar el número de comentarios</strong>: mostrar el número de comentarios debajo de cada miniatura. Consume recursos adicionales.</li>
 
-  <li><strong>Mostrar el número de comentarios</strong>: Mostrar número  de comentarios usuario debajo de cada miniatura. Consume recursos.</li>
-
-  <li><strong>Mostrar el número de visualizaciones  </strong>: Fija los "hits" rehechos sobre una imagen bajo su miniatura en la página de miniaturas.
+  <li><strong>Mostrar el número de visualizaciones  </strong>: mostrar bajo la miniatura, en la página de miniaturas, el número de veces que se ha accedido a visualizar la fotografía.
   Únicamente válido si el parámetro de configuración avanzada es:<br />
   $conf['show_nb_hits'] = true; <br />
   N.B.: por defaut es a false.</li>
 
-  <li><strong>Anchura máxima de las imágenes</strong>: A la visualización. Si la imagen es más ancha que este parámetro, entonces será redimensionada a la visualización. Si usted piensa en la necesidad de modificar este parametraje (pues para una visualización por defecto), sería pertinente  redimensionar directamente sus imágenes almacenadas.</li>
+  <li><strong>Anchura máxima de las imágenes</strong>: para su visualización. Si la anchura de la imagen supera este valor, será redimensionada al tamaño establecido. Si necesita modificar este parámetro para la visualización por defecto, sería recomendable redimensionar directamente las imágenes.</li>
 
-  <li><strong>Altura máxima de las imágenes</strong>: misma observación que por la anchura.</li>
+  <li><strong>Altura máxima de las imágenes</strong>: las mismas observaciones que con respecto a la anchura.</li>
 
 </ul>
