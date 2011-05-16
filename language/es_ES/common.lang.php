@@ -25,7 +25,6 @@ Language Name: Español [ES]
 Version: 2.2.0
 Language URI: http://piwigo.org/ext/extension_view.php?eid=169
 Author: Piwigo team
-Revision: AM (03/04/2011)
 Author URI: http://piwigo.org
 */
 
@@ -342,21 +341,21 @@ $lang['show tag cloud'] = 'mostrar la nube de etiquetas';
 $lang['cloud'] = 'nube';
 $lang['Reset to default values'] = 'Restablecer los valores predeterminados';
 $lang['Sent by'] = 'Enviado por';
-$lang['Cookies are blocked or not supported by your browser. You must enable cookies to connect.'] = 'Su navegador weg no soporta cookies o están deshabilitadas. Habilite las cookies para poder conectarse.';
-$lang['delete all photos from your favorites'] = 'eliminar todas las fotografías de tus favoritos';
+$lang['Cookies are blocked or not supported by your browser. You must enable cookies to connect.'] = 'Su navegador web no soporta cookies o están deshabilitadas. Habilite las cookies para poder conectarse.';
+$lang['delete all photos from your favorites'] = 'eliminar todas las fotografías de sus favoritos';
 $lang['Are you sure?'] = '¿Está seguro?';
 $lang['delete this comment'] = 'eliminar este comentario';
 $lang['edit this comment'] = 'editar este comentario';
 $lang['Edit a comment'] = 'Editar un comentario';
-$lang['(!) This comment requires validation'] = '(!) Este comentario debe ser validado';
+$lang['(!) This comment requires validation'] = '(!) Este comentario requiere valida';
 $lang['Welcome'] = 'Bienvenida';
 $lang['Welcome to your Piwigo photo gallery!'] = 'Bienvenidos a su galería fotográfica Piwigo!';
 $lang['... or browse your empty gallery'] = '... o navegue por su galería (sin contenido)';
-$lang['... or please deactivate this message, I will find my way by myself'] = '... o desactive este mensaje, yo mismo me desenredaré';
+$lang['... or please deactivate this message, I will find my way by myself'] = '... o desactivar este mensaje, yo mismo lo solucionaré';
 $lang['Hello %s, your Piwigo photo gallery is empty!'] = '¡Hola %s, su galería fotográfica Piwigo está vacía!';
 $lang['I want to add photos'] = 'Quiero añadir fotografías';
-$lang['Manage this user comment: %s'] = 'Administrar este comentario: %s';
+$lang['Manage this user comment: %s'] = 'Gestionar este comentario: %s';
 $lang['This author modified following comment:'] = 'Este autor modificó el comentario siguiente:';
-$lang['This author removed the comment with id %d'] = 'Este autor suprimió el comentario sustentador al que él identificaba %d';
+$lang['This author removed the comment with id %d'] = 'Este autor eliminó el comentario con id. %d';
 $lang['validate this comment'] = 'Validar este comentario';
 ?>

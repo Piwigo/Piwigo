@@ -20,11 +20,15 @@
 // | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
-// +                                                                       +
-// + Revised by AM on 18/04/2011                                           +
-// +                                                                       +
-// +-----------------------------------------------------------------------+
+/*
+Language Name: Español [ES]
+Version: 2.2.0
+Language URI: http://piwigo.org/ext/extension_view.php?eid=169
+Author: Piwigo team
+Author URI: http://piwigo.org
+*/
 
+// Langage informations
 $lang['%d association'] = '%d asociación';
 $lang['%d associations'] = '%d asociaciones';
 $lang['%d album including'] = '%d álbum incluyendo';
