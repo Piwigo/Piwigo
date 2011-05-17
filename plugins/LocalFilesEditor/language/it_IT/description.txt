@@ -1,1 +1,1 @@
-Editare i file locali dall'amministrazione.
+Modificare i file locali dal pannello di amministrazione.
