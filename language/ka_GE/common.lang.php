@@ -312,10 +312,7 @@ $lang['Email: %s'] = 'მისამართი: %s';
 $lang['Admin: %s'] = 'ადმინისტრატორი: %s';
 $lang['Registration of %s'] = 'რეგისტრაცია %s';
 $lang['Album: %s'] = 'კატეგორია: %s';
-$lang['Picture uploaded by %s'] = 'ფოტო ატვირთულია %s';
-// --------- Starting below: New or revised $lang ---- from version 1.7.1
 $lang['Bad status for user "guest", using default status. Please notify the webmaster.'] = 'მომხმარებლის არასწორი სტატუსი "სტუმარი", გამოიყენეთ ძირითადი სტატუსი. გთხოვთ შეატყობინოთ ადმინისტრატორს.';
-// --------- Starting below: New or revised $lang ---- from Butterfly (2.0)
 $lang['Administrator, webmaster and special user cannot use this method'] = 'Administrator, webmaster and special user cannot use this method';
 $lang['this email address is already in use'] = 'მომხმარებელი ასეთი მისამართით უკვე არსებობს';
 $lang['Album results for'] = 'დღის კატეგორიების რეზულტატი';
@@ -366,4 +363,5 @@ $lang['New password confirmation does not correspond'] = 'ახალი პა
 $lang['Administrator, webmaster and special user cannot use this method'] = 'ადმინისტრატორს, წებმასტერს და სპეციალურ მომხმარებლებს არ შეუძლიათ გამოიყენონ ეს მეთოდი';
 $lang['Reduce diaporama speed'] = 'შევამციროთ პანორამის სიჩქარე';
 $lang['Accelerate diaporama speed'] = 'გავზარდოთ პანორამის სიჩქარე';
+$lang['html tags are not allowed in login'] = 'შესასვლელად html ტეგების გამოყენება აკრძალულია';
 ?>
