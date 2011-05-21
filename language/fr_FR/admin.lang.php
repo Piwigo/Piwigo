@@ -842,4 +842,7 @@ $lang['Follow Orientation'] = "Respecter l'orientation";
 $lang['If you want to regenerate thumbnails, please go to the <a href="%s">Batch Manager</a>.'] = 'Si vous voulez régénérer des miniatures, merci de vous rendre dans la <a href="%s">Gestion par lot</a>.';
 $lang['Graphics Library'] = 'Bibliothèque graphique';
 $lang['Show menubar'] = "Afficher le menu";
+$lang['No results'] = "Pas de résultat";
+$lang['Type in a search term'] = "Entrez un terme de recherche";
+$lang['Searching...'] = "Recherche...";
 ?>

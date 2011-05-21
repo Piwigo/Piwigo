@@ -5,21 +5,26 @@
   pwg_initialization_datepicker("#date_creation_day", "#date_creation_month", "#date_creation_year", "#date_creation_linked_date", "#date_creation_action_set");
 {/literal}{/footer_script}
 
-{combine_script id='jquery.fcbkcomplete' load='footer' require='jquery' path='themes/default/js/plugins/jquery.fcbkcomplete.js'}
+{combine_script id='jquery.tokeninput' load='footer' require='jquery' path='themes/default/js/plugins/jquery.tokeninput.js'}
 {combine_script id='jquery.progressBar' load='footer' path='themes/default/js/plugins/jquery.progressbar.min.js'}
 {combine_script id='jquery.ajaxmanager' load='footer' path='themes/default/js/plugins/jquery.ajaxmanager.js'}
 
-{footer_script require='jquery.fcbkcomplete'}{literal}
+{footer_script require='jquery.tokeninput'}{literal}
 jQuery(document).ready(function() {
-  jQuery("#tags").fcbkcomplete({
-    json_url: "admin.php?fckb_tags=1",
-    cache: false,
-    filter_case: false,
-    filter_hide: true,
-    firstselected: true,
-    filter_selected: true,
-    maxitems: 100,
-    newel: true
+  jQuery.getJSON('admin.php?fckb_tags=1', function(data) {
+    jQuery("#tags").tokenInput(
+      data,
+      {
+    {/literal}
+        hintText: '{'Type in a search term'|@translate}',
+        noResultsText: '{'No results'|@translate}',
+        searchingText: '{'Searching...'|@translate}',
+        animateDropdown: false,
+        preventDuplicates: true,
+        allowCreation: true
+    {literal}
+      }
+    );
   });
 });
 {/literal}{/footer_script}

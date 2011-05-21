@@ -2106,8 +2106,8 @@ function get_fckb_taglist($query)
     array_push(
       $taglist,
       array(
-        'key' => $row['tag_name'],
-        'value' => '~~'.$row['tag_id'].'~~',
+        'name' => $row['tag_name'],
+        'id' => '~~'.$row['tag_id'].'~~',
         )
       );
   }
@@ -2123,6 +2123,7 @@ function get_fckb_tag_ids($raw_tags)
   // or "1234" (numeric characters only)
 
   $tag_ids = array();
+  $raw_tags = explode(',',$raw_tags);
 
   foreach ($raw_tags as $raw_tag)
   {

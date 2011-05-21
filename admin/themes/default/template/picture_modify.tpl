@@ -2,19 +2,24 @@
 {include file='include/dbselect.inc.tpl'}
 {include file='include/datepicker.inc.tpl'}
 
-{combine_script id='jquery.fcbkcomplete' load='async' require='jquery' path='themes/default/js/plugins/jquery.fcbkcomplete.js'}
-{footer_script require='jquery.fcbkcomplete'}{literal}
+{combine_script id='jquery.tokeninput' load='async' require='jquery' path='themes/default/js/plugins/jquery.tokeninput.js'}
+{footer_script require='jquery.tokeninput'}{literal}
 jQuery(document).ready(function() {
-	jQuery("#tags").fcbkcomplete({
-		json_url: "admin.php?fckb_tags=1",
-		cache: false,
-		filter_case: false,
-		filter_hide: true,
-		firstselected: true,
-		filter_selected: true,
-		maxitems: 100,
-		newel: true
-	});
+  jQuery.getJSON('admin.php?fckb_tags=1', function(data) {
+    jQuery("#tags").tokenInput(
+      data,
+      {
+    {/literal}
+        hintText: '{'Type in a search term'|@translate}',
+        noResultsText: '{'No results'|@translate}',
+        searchingText: '{'Searching...'|@translate}',
+        animateDropdown: false,
+        preventDuplicates: true,
+        allowCreation: true
+    {literal}
+      }
+    );
+  });
 });
 {/literal}{/footer_script}
 
@@ -137,7 +142,7 @@ pwg_initialization_datepicker("#date_creation_day", "#date_creation_month", "#da
         <td>
 <select id="tags" name="tags">
 {foreach from=$tags item=tag}
-  <option value="{$tag.value}" class="selected">{$tag.key}</option>
+  <option value="{$tag.id}" class="selected">{$tag.name}</option>
 {/foreach}
 </select>
         </td>
