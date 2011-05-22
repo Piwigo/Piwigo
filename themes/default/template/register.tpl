@@ -46,10 +46,12 @@
       </li>
       <li>
         <span class="property">
-          <label for="mail_address">{'Email address'|@translate}</label>
+          <label for="mail_address">{if not ($main.obligatory_user_mail_address)}* {/if}{'Email address'|@translate}</label>
         </span>
         <input type="text" name="mail_address" id="mail_address" value="{$F_EMAIL}" >
+      {if ($main.obligatory_user_mail_address)}
         ({'useful when password forgotten'|@translate})
+      {/if}
       </li>
     </ul>
 
