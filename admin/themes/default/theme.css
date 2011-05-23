@@ -914,15 +914,16 @@ h2:lang(en) { text-transform:capitalize; }
   -moz-border-radius:5px;
   overflow:hidden; 
  }
-.pluginMiniBoxNameCell {font-size:1.05em; margin:5px 0;}
+.pluginMiniBoxNameCell {font-size:1.05em; margin:5px 0;position:relative;}
 .pluginActions {display: table-row; font-size:12px; }
 .pluginActions DIV {display: table-cell; vertical-align: middle; line-height:18px; }
+.showInfo {display:block;position:absolute;top:0;right:5px;width:15px;font-style:italic;font-family:"Georgia",serif;background-color:#464646;font-size:0.9em;border-radius:10px;-moz-border-radius:10px;}
 
 .warning:before {content:url(icon/warning.png);vertical-align:top;}
-.deactivate_all {position:absolute;bottom:-10px;right:18px;color:#f36;border-bottom:1px dotted #f36;font-size:0.8em;}
+.deactivate_all {position:absolute;bottom:0;right:18px;color:#f36;border-bottom:1px dotted #f36;font-size:0.8em;}
 
 .languageBoxes {min-height:0;text-align:left;}
-.languageBox {display:inline-table; text-align:center; width:200px; height:40px; margin:5px; -moz-border-radius:5px; overflow:hidden; }
+.languageBox {display:inline-table; text-align:center; width:200px; height:40px; margin:5px; -moz-border-radius:5px;border-radius:5px; overflow:hidden; }
 .languageName {font-size:1.1em; margin:5px 0;}
 .languageActions {display: table-row; font-size:12px; }
 .languageActions DIV {display: table-cell; vertical-align: middle; line-height:18px; }

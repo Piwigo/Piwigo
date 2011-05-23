@@ -56,13 +56,13 @@ jQuery(document).ready(function() {
     'fadeIn' : 200,
     'fadeOut' : 200
   });
-  jQuery('.pluginMiniBoxDesc').tipTip({
+  jQuery('.showInfo').tipTip({
     'delay' : 0,
     'fadeIn' : 200,
     'fadeOut' : 200,
     'maxWidth':'300px', /* not effective, TipTip bug */
-    'defaultPosition':'left',
-    'keepAlive':true
+    'keepAlive':true,
+    'activation':'click'
   });
 });
 {/literal}
@@ -165,7 +165,8 @@ jQuery(document).ready(function() {
     <div id="{$plugin.ID}" class="pluginMiniBox {$plugin.STATE}{if $plugin.INCOMPATIBLE} incompatible{/if}">
       <div class="pluginMiniBoxNameCell">
         {if $plugin.INCOMPATIBLE}<span class="warning" title="{'WARNING! This plugin does not seem to be compatible with this version of Piwigo.'|@translate|@escape:'html'}"></span>{/if}
-        <span class="pluginMiniBoxDesc" title="{if !empty($author)}{'By %s'|@translate|@sprintf:$author} | {/if}{'Version'|@translate} {$version}<br/>{$plugin.DESC|@escape:'html'}">{$plugin.NAME}</span>
+        {$plugin.NAME}
+        <a class="showInfo" title="{if !empty($author)}{'By %s'|@translate|@sprintf:$author} | {/if}{'Version'|@translate} {$version}<br/>{$plugin.DESC|@escape:'html'}">i</a>
       </div>
       <div class="pluginActions">
         <div>
