@@ -257,12 +257,11 @@ display:block; height:85px; left:225px; position:relative; top:-42px; width:313p
 #pwgHead A:hover, #footer A:hover {color:black; border-color:black;}
 #footer { background-image: url(images/piwigo_logo_small.png);}
 
-.pluginBox, .pluginMiniBox {background-color:#ddd;color:#353535;border:1px solid #ddd;}
+.pluginBox, .pluginMiniBox {background-color:#ddd;color:#353535;border-color:#ddd;}
 .pluginBoxNameCell, .pluginMiniBoxNameCell {color:#111;}
-.pluginBox.active, .pluginMiniBox.active {border-color:#666;background-color:#dadada;}
 .pluginBox.incompatible, .pluginMiniBox.incompatible {border-color:#a00 !important;}
-.pluginBox.missing, .pluginBox.merged, .pluginMiniBox.missing, .pluginMiniBox.merged {background-color:#d99;border:1px solid #a00;}
-.plugin-delete {color:#f00;}
+.pluginBoxes .merged, .pluginBoxes .missing  {background-color:#d99;border:1px solid #a00;}
+.deactivate_all {color:#005E89;border-color:#005E89;}
 
 .languageBox {background-color:#ddd;}
 .languageName {color:black;}

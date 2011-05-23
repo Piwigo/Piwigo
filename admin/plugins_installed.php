@@ -30,10 +30,8 @@ include_once(PHPWG_ROOT_PATH.'admin/include/plugins.class.php');
 
 $template->set_filenames(array('plugins' => 'plugins_list.tpl'));
 
-// order and display mode
-$plugin_order = isset($_GET['plugin_order']) ? $_GET['plugin_order'] : (pwg_get_session_var('plugin_order') != null ? pwg_get_session_var('plugin_order') : 'state');
+// display mode
 $plugin_display = isset($_GET['plugin_display']) ? $_GET['plugin_display'] : (pwg_get_session_var('plugin_display') != null ? pwg_get_session_var('plugin_display') : 'compact');
-pwg_set_session_var('plugin_order', $plugin_order);
 pwg_set_session_var('plugin_display', $plugin_display);
 
 $base_url = get_root_url().'admin.php?page='.$page['page'];
@@ -148,31 +146,19 @@ if (count($missing_plugin_ids) > 0)
   $template->append('plugin_states', 'missing');
 }
 
-// sort plugins : state or name
-if ($plugin_order == 'name')
-{
-  function cmp($a, $b)
-  { 
+// sort plugins by state then by name
+function cmp($a, $b)
+{ 
+  $s = array('merged' => 0, 'missing' => 1, 'active' => 2, 'inactive' => 3);
+  
+  if($a['STATE'] == $b['STATE'])
     return strcasecmp($a['NAME'], $b['NAME']); 
-  } 
+  else
+    return $s[$a['STATE']] >= $s[$b['STATE']]; 
 }
-else
-{
-  function cmp($a, $b)
-  { 
-    $s = array('merged' => 0, 'missing' => 1, 'active' => 2, 'inactive' => 3);
-    
-    if($a['STATE'] == $b['STATE'])
-      return strcasecmp($a['NAME'], $b['NAME']); 
-    else
-      return $s[$a['STATE']] >= $s[$b['STATE']]; 
-  }
-  $plugin_order = 'state';
-}
-
 usort($tpl_plugins, 'cmp');
+
 $template->assign(array(
-  'plugin_order' => $plugin_order,
   'plugin_display' => $plugin_display,
   'plugins' => $tpl_plugins,
   'PWG_TOKEN' => $pwg_token,

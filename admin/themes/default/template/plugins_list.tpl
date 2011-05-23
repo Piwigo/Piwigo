@@ -21,29 +21,19 @@ jQuery(document).ready(function() {
   jQuery('a.deactivate_all').click(function() {
     if (confirm(confirmMsg)) {
       jQuery('div.active').each(function() {
-        performPluginAction(jQuery(this).attr('id'), 'deactivate');
+        performPluginDeactivate(jQuery(this).attr('id'));
       });
     }
   });
-  jQuery('a.activate_all').click(function() {
-    if (confirm(confirmMsg)) {
-      jQuery('div.inactive').each(function() {
-        performPluginAction(jQuery(this).attr('id'), 'activate');
-      });
-    }
-  });
-  function performPluginAction(id, action) {
+  function performPluginDeactivate(id) {
    queuedManager.add({
       type: 'GET',
       dataType: 'json',
       url: 'ws.php',
-      data: { method: 'pwg.plugins.performAction', action: action, plugin: id, pwg_token: pwg_token, format: 'json' },
+      data: { method: 'pwg.plugins.performAction', action: 'deactivate', plugin: id, pwg_token: pwg_token, format: 'json' },
       success: function(data) {
         if (data['stat'] == 'ok') {
-          if (action == 'deactivate')
-            jQuery("#"+id).removeClass('active').addClass('inactive');
-          else
-            jQuery("#"+id).removeClass('inactive').addClass('active');
+          jQuery("#"+id).removeClass('active').addClass('inactive');
         }
       }
     });
@@ -80,23 +70,13 @@ jQuery(document).ready(function() {
 
 <div class="titrePage">
   <span class="sort">
-    <form action="" method="get" name="change_order">
+    <form action="" method="get" name="change_display">
       <input type="hidden" name="page" value="plugins"/>
-      {'Sort order'|@translate} : 
-      <select name="plugin_order" onchange="this.form.submit();">
-        <option value="status" {if $plugin_order=='state'}selected="selected"{/if}>{'Status'|@translate}</option>
-        <option value="name" {if $plugin_order=='name'}selected="selected"{/if}>{'Name'|@translate}</option>
-      </select>
-      &nbsp;&nbsp;|&nbsp;&nbsp;
       {'Display'|@translate} : 
       <select name="plugin_display" onchange="this.form.submit();">
         <option value="compact" {if $plugin_diplay=='compact'}selected="selected"{/if}>{'Compact'|@translate}</option>
         <option value="complete" {if $plugin_display=='complete'}selected="selected"{/if}>{'Complete'|@translate}</option>
       </select>
-      &nbsp;&nbsp;|&nbsp;&nbsp;
-      <a class="deactivate_all">{'Deactivate'|@translate} {'all'|@translate}</a>
-      {* &nbsp;&nbsp;|&nbsp;&nbsp;
-      <a class="activate_all">{'Activate'|@translate} {'all'|@translate}</a> *}
     </form>
   </span>
   <h2>{'Plugins'|@translate}</h2>
@@ -107,9 +87,9 @@ jQuery(document).ready(function() {
 {assign var='field_name' value='null'}
 {foreach from=$plugins item=plugin name=plugins_loop}
     
-{if $plugin_order == 'state' AND $field_name != $plugin.STATE}
+{if $field_name != $plugin.STATE}
   {if $field_name != 'null'}</fieldset>{/if}
-  <fieldset class="pluginBoxes pluginsByState">
+  <fieldset class="pluginBoxes">
     <legend>
     {if $plugin.STATE == 'active'}
       {'Active Plugins'|@translate}
@@ -122,11 +102,7 @@ jQuery(document).ready(function() {
     {/if}
     </legend>
   {assign var='field_name' value=$plugin.STATE}
-
-{elseif $field_name == 'null'}
-  <fieldset class="pluginBoxes pluginsByName">
-  {assign var='field_name' value='not_null'}
-
+  {if $field_name == 'active'}<a class="deactivate_all">{'Deactivate'|@translate} {'all'|@translate}</a>{/if}
 {/if}
 
   {if not empty($plugin.AUTHOR)}
@@ -147,7 +123,7 @@ jQuery(document).ready(function() {
           </td>
           <td>{$plugin.DESC}</td>
         </tr>
-        <tr>
+        <tr class="pluginActions">
           <td>
           {if $plugin.STATE == 'active'}
             <a href="{$plugin.U_ACTION}&amp;action=deactivate">{'Deactivate'|@translate}</a>
@@ -155,13 +131,13 @@ jQuery(document).ready(function() {
 
           {elseif $plugin.STATE == 'inactive'}
             <a href="{$plugin.U_ACTION}&amp;action=activate" {if $plugin.INCOMPATIBLE}class="incompatible"{/if}>{'Activate'|@translate}</a>
-            | <a href="{$plugin.U_ACTION}&amp;action=delete" class="plugin-delete" onclick="return confirm('{'Are you sure?'|@translate|@escape:'javascript'}');">{'Delete'|@translate}</a>
+            | <a href="{$plugin.U_ACTION}&amp;action=delete" onclick="return confirm('{'Are you sure?'|@translate|@escape:'javascript'}');">{'Delete'|@translate}</a>
 
           {elseif $plugin.STATE == 'missing'}
-            <a href="{$plugin.U_ACTION}&amp;action=uninstall" class="plugin-delete" onclick="return confirm('{'Are you sure?'|@translate|@escape:'javascript'}');">{'Uninstall'|@translate}</a>
+            <a href="{$plugin.U_ACTION}&amp;action=uninstall" onclick="return confirm('{'Are you sure?'|@translate|@escape:'javascript'}');">{'Uninstall'|@translate}</a>
 
           {elseif $plugin.STATE == 'merged'}
-            <a href="{$plugin.U_ACTION}&amp;action=delete" class="plugin-delete">{'Delete'|@translate}</a>
+            <a href="{$plugin.U_ACTION}&amp;action=delete">{'Delete'|@translate}</a>
           {/if}
           </td>
           <td>
@@ -199,13 +175,13 @@ jQuery(document).ready(function() {
 
         {elseif $plugin.STATE == 'inactive'}
           <a href="{$plugin.U_ACTION}&amp;action=activate" {if $plugin.INCOMPATIBLE}class="incompatible"{/if}>{'Activate'|@translate}</a>
-          | <a href="{$plugin.U_ACTION}&amp;action=delete"  class="plugin-delete"onclick="return confirm('{'Are you sure?'|@translate|@escape:'javascript'}');">{'Delete'|@translate}</a>
+          | <a href="{$plugin.U_ACTION}&amp;action=delete" onclick="return confirm('{'Are you sure?'|@translate|@escape:'javascript'}');">{'Delete'|@translate}</a>
 
         {elseif $plugin.STATE == 'missing'}
-          <a href="{$plugin.U_ACTION}&amp;action=uninstall" class="plugin-delete" onclick="return confirm('{'Are you sure?'|@translate|@escape:'javascript'}');">{'Uninstall'|@translate}</a>
+          <a href="{$plugin.U_ACTION}&amp;action=uninstall" onclick="return confirm('{'Are you sure?'|@translate|@escape:'javascript'}');">{'Uninstall'|@translate}</a>
 
         {elseif $plugin.STATE == 'merged'}
-          <a href="{$plugin.U_ACTION}&amp;action=delete" class="plugin-delete">{'Delete'|@translate}</a>
+          <a href="{$plugin.U_ACTION}&amp;action=delete">{'Delete'|@translate}</a>
         {/if}
         </div>
       </div>
