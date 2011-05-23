@@ -841,4 +841,7 @@ $lang['Height'] = 'Altezza';
 $lang['Follow Orientation'] = 'Rispettare l\'orientamento';
 $lang['If you want to regenerate thumbnails, please go to the <a href="%s">Batch Manager</a>.'] = 'Se volete rigenerare le miniature, rendetevi su <a href="%s">Gestione per lotti</a>.';
 $lang['Graphics Library'] = 'Biblioteca grafica';
+$lang['No results'] = 'Nessun risultato';
+$lang['Type in a search term'] = 'Inserire un Entrez un termine di ricerca';
+$lang['Searching...'] = 'Ricerca ...';
 ?>
