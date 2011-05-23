@@ -2100,6 +2100,7 @@ function get_active_menu($menu_page)
 function get_fckb_taglist($query)
 {
   $result = pwg_query($query);
+  
   $taglist = array();
   while ($row = pwg_db_fetch_assoc($result))
   {
@@ -2111,7 +2112,10 @@ function get_fckb_taglist($query)
         )
       );
   }
-
+  
+  $cmp = create_function('$a,$b', 'return strcasecmp($a["name"], $b["name"]);');
+  usort($taglist, $cmp);
+  
   return $taglist;
 }
 

@@ -19,6 +19,7 @@ jQuery(document).ready(function() {
         hintText: '{'Type in a search term'|@translate}',
         noResultsText: '{'No results'|@translate}',
         searchingText: '{'Searching...'|@translate}',
+        newText: ' ({'new'|@translate})',
         animateDropdown: false,
         preventDuplicates: true,
         allowCreation: true

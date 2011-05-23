@@ -431,6 +431,7 @@ $lang['Month'] = "Month";
 $lang['Move albums'] = "Move albums";
 $lang['Move'] = "Move";
 $lang['Name'] = "Name";
+$lang['new'] = "new";
 $lang['New name'] = "New name";
 $lang['New parent album'] = "New parent album";
 $lang['New photos added'] = "New photos added";

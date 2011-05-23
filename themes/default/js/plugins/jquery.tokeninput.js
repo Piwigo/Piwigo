@@ -21,6 +21,7 @@ var DEFAULT_SETTINGS = {
     hintText: "Type in a search term",
     noResultsText: "No results",
     searchingText: "Searching...",
+    newText: "(new)",
     deleteText: "&times;",
     searchDelay: 300,
     minChars: 1,
@@ -705,7 +706,7 @@ $.TokenList = function (input, url_or_data, settings) {
                   }
                   
                   if(settings.allowCreation) {
-                      results.push({name: input_box.val() + ' (new)', id: input_box.val()});
+                      results.push({name: input_box.val() + settings.newText, id: input_box.val()});
                   }
                   cache.add(query, settings.jsonContainer ? results[settings.jsonContainer] : results);
 
@@ -728,7 +729,7 @@ $.TokenList = function (input, url_or_data, settings) {
                 }
                 
                 if(settings.allowCreation) {
-                    results.push({name: input_box.val() + ' (new)', id: input_box.val()});
+                    results.push({name: input_box.val() + settings.newText, id: input_box.val()});
                 }
                 
                 cache.add(query, results);                

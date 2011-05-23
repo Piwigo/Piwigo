@@ -1022,7 +1022,7 @@ li.token-input-token {overflow: hidden; height: auto !important; height: 15px;ma
 li.token-input-token p {display: inline;padding: 0;margin: 0;}
 li.token-input-token span {color: #a6b3cf;margin-left: 5px;font-weight: bold;cursor: pointer;}
 li.token-input-selected-token {background-color: #5670a6;border: 1px solid #3b5998;color: #fff;}
-li.token-input-input-token {float: left;margin: 0;padding: 0;list-style-type: none;}
+li.token-input-input-token {float: left;margin: 0;padding: 0;list-style-type: none;width:10px;}
 div.token-input-dropdown {position: absolute;width: 400px;background-color: #fff;overflow: hidden;border-left: 1px solid #ccc;border-right: 1px solid #ccc;border-bottom: 1px solid #ccc;cursor: default;font-size: 11px;font-family: Verdana;z-index: 1;}
 div.token-input-dropdown p {margin: 0;padding: 5px;font-weight: bold;color: #777;}
 div.token-input-dropdown ul {margin: 0;padding: 0;}

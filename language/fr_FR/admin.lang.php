@@ -845,4 +845,5 @@ $lang['Show menubar'] = "Afficher le menu";
 $lang['No results'] = "Pas de résultat";
 $lang['Type in a search term'] = "Entrez un terme de recherche";
 $lang['Searching...'] = "Recherche...";
+$lang['new'] = "nouveau";
 ?>
