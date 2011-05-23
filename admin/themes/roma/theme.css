@@ -238,8 +238,6 @@ display:block; height:85px; left:225px; position:relative; top:-42px; width:313p
 .pluginBoxNameCell, .pluginMiniBoxNameCell {color:#ddd;}
 .pluginBox.incompatible, .pluginMiniBox.incompatible {border-color:#800 !important;}
 .pluginBoxes .merged, .pluginBoxes .missing {background-color:#422;border:1px solid #800;}
-.pluginActions { color:#666; }
-
 .languageBox {background-color:#333;}
 .languageName {color:#ccc;}
 .languageDefault {background-color:#555; color:#aaa;}
