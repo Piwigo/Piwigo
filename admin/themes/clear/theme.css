@@ -262,6 +262,7 @@ display:block; height:85px; left:225px; position:relative; top:-42px; width:313p
 .pluginBox.incompatible, .pluginMiniBox.incompatible {border-color:#a00 !important;}
 .pluginBoxes .merged, .pluginBoxes .missing  {background-color:#d99;border:1px solid #a00;}
 .deactivate_all {color:#005E89;border-color:#005E89;}
+.showInfo {color:#fff;background-color:#999; }
 
 .languageBox {background-color:#ddd;}
 .languageName {color:black;}

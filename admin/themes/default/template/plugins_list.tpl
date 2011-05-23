@@ -18,7 +18,7 @@ var queuedManager = jQuery.manageAjax.create('queued', {
 
 jQuery(document).ready(function() {
   /* group action */
-  jQuery('a.deactivate_all').click(function() {
+  jQuery('div.deactivate_all a').click(function() {
     if (confirm(confirmMsg)) {
       jQuery('div.active').each(function() {
         performPluginDeactivate(jQuery(this).attr('id'));
@@ -88,7 +88,11 @@ jQuery(document).ready(function() {
 {foreach from=$plugins item=plugin name=plugins_loop}
     
 {if $field_name != $plugin.STATE}
-  {if $field_name != 'null'}</fieldset>{/if}
+  {if $field_name != 'null'}
+    {if $field_name == 'active'}<div class="deactivate_all"><a>{'Deactivate'|@translate} {'all'|@translate}</a></div>{/if}
+  </fieldset>
+  {/if}
+  
   <fieldset class="pluginBoxes">
     <legend>
     {if $plugin.STATE == 'active'}
@@ -102,7 +106,6 @@ jQuery(document).ready(function() {
     {/if}
     </legend>
   {assign var='field_name' value=$plugin.STATE}
-  {if $field_name == 'active'}<a class="deactivate_all">{'Deactivate'|@translate} {'all'|@translate}</a>{/if}
 {/if}
 
   {if not empty($plugin.AUTHOR)}
