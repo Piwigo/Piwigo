@@ -185,6 +185,8 @@ position:relative; padding: 5px 1px 4px 5px; font-size: 13px; color: #777; }
 .ui-resizable { position: relative; }
 .ui-wrapper { border: 0; }
 .ui-wrapper input, .ui-wrapper textarea { border: 0; }
+/* jQuery tiptip */
+#tiptip_holder a { color:#42B0FF; }
 
 /* Global handle styles */
 .ui-resizable-handle { position: absolute; display: none; font-size: 0.1px; }
