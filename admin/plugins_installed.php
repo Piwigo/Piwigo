@@ -28,7 +28,7 @@ if( !defined("PHPWG_ROOT_PATH") )
 
 include_once(PHPWG_ROOT_PATH.'admin/include/plugins.class.php');
 
-$template->set_filenames(array('plugins' => 'plugins_list.tpl'));
+$template->set_filenames(array('plugins' => 'plugins_installed.tpl'));
 
 // display mode
 $plugin_display = isset($_GET['plugin_display']) ? $_GET['plugin_display'] : (pwg_get_session_var('plugin_display') != null ? pwg_get_session_var('plugin_display') : 'compact');

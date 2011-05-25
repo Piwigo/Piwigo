@@ -3,3 +3,9 @@
 449: Photos
 405: unTagged
 440: bulk_manager
+302: autoupdate
+525: regenerateThumbnails
+529: regenerateWebsize
+388: square_thumbnails
+522: external_ImageMagick
+327: Ajax_Thumbnailer
