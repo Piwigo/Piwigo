@@ -534,30 +534,20 @@ DELETE FROM ' . PLUGINS_TABLE . ' WHERE id=\'' . $plugin_id . '\'';
 
   function get_merged_extensions($version=PHPWG_VERSION)
   {
-    if (isset($_SESSION['merged_extensions']) and $_SESSION['merged_extensions']['~~expire~~'] > time())
-    {
-      return $_SESSION['merged_extensions'];
-    }
+    $file = PHPWG_ROOT_PATH.'install/obsolete_extensions.list';
+    $merged_extensions = array();
 
-    $_SESSION['merged_extensions'] = array('~~expire~~' => time() + 600);
-
-    if (fetchRemote(PHPWG_URL.'/download/merged_extensions.txt', $result))
+    if (file_exists($file) and $obsolete_ext = file($file, FILE_IGNORE_NEW_LINES) and !empty($obsolete_ext))
     {
-      $rows = explode("\n", $result);
-      foreach ($rows as $row)
+      foreach ($obsolete_ext as $ext)
       {
-        if (preg_match('/^(\d+\.\d+): *(.*)$/', $row, $match))
+        if (preg_match('/^(\d+) ?: ?(.*?)$/', $ext, $matches))
         {
-          if (version_compare($version, $match[1], '>='))
-          {
-            $extensions = explode(',', trim($match[2]));
-            $_SESSION['merged_extensions'] = array_merge($_SESSION['merged_extensions'], $extensions);
-          }
+          $merged_extensions[$matches[1]] = $matches[2];
         }
       }
     }
-
-    return $_SESSION['merged_extensions'];
+    return $merged_extensions;
   }
   
   /**

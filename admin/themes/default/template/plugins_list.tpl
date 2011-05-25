@@ -3,8 +3,7 @@
 {footer_script require='jquery.ajaxmanager'}
 /* incompatible message */
 var incompatible_msg = '{'WARNING! This plugin does not seem to be compatible with this version of Piwigo.'|@translate|@escape:'javascript'}';
-incompatible_msg += '\n';
-incompatible_msg += '{'Do you want to activate anyway?'|@translate|@escape:'javascript'}';
+var activate_msg = '\n{'Do you want to activate anyway?'|@translate|@escape:'javascript'}';
 
 /* group action */
 var pwg_token = '{$PWG_TOKEN}';
@@ -39,18 +38,36 @@ jQuery(document).ready(function() {
     });
   };
 
-  /* incompatible message */
-  jQuery('.incompatible a.incompatible').click(function() {
-    return confirm(incompatible_msg);
+  /* incompatible plugins */
+  jQuery(document).ready(function() {
+    jQuery.ajax({
+      method: 'GET',
+      url: 'admin.php',
+      data: { page: 'plugins_installed', incompatible_plugins: true },
+      dataType: 'json',
+      success: function(data) {
+        for (i=0;i<data.length;i++) {
+          {/literal}
+          {if $plugin_display == 'complete'}
+            jQuery('#'+data[i]+' .pluginBoxNameCell').prepend('<a class="warning" title="'+incompatible_msg+'"></a>')
+          {else}
+            jQuery('#'+data[i]+' .pluginMiniBoxNameCell').prepend('<span class="warning" title="'+incompatible_msg+'"></span>')
+          {/if}
+          {literal}
+          jQuery('#'+data[i]).addClass('incompatible');
+          jQuery('#'+data[i]+' .activate').attr('onClick', 'return confirm(incompatible_msg + activate_msg);');
+        }
+        jQuery('.warning').tipTip({
+          'delay' : 0,
+          'fadeIn' : 200,
+          'fadeOut' : 200,
+          'maxWidth':'250px'
+        });
+      }
+    });
   });
   
   /* TipTips */
-  jQuery('.warning').tipTip({
-    'delay' : 0,
-    'fadeIn' : 200,
-    'fadeOut' : 200,
-    'maxWidth':'250px'
-  });
   jQuery('.plugin-restore').tipTip({
     'delay' : 0,
     'fadeIn' : 200,
@@ -117,11 +134,10 @@ jQuery(document).ready(function() {
   {/if}
    
   {if $plugin_display == 'complete'}
-    <div id="{$plugin.ID}" class="pluginBox {$plugin.STATE}{if $plugin.INCOMPATIBLE} incompatible{/if}">
+    <div id="{$plugin.ID}" class="pluginBox">
       <table>
         <tr>
           <td class="pluginBoxNameCell">
-            {if $plugin.INCOMPATIBLE}<a class="warning" title="{'WARNING! This plugin does not seem to be compatible with this version of Piwigo.'|@translate|@escape:'html'}"></a>{/if}
             {$plugin.NAME}
           </td>
           <td>{$plugin.DESC}</td>
@@ -133,7 +149,7 @@ jQuery(document).ready(function() {
             | <a href="{$plugin.U_ACTION}&amp;action=restore" class="plugin-restore" title="{'Restore default configuration. You will lost your plugin settings!'|@translate}" onclick="return confirm('{'Are you sure?'|@translate|@escape:'javascript'}');">{'Restore'|@translate}</a>
 
           {elseif $plugin.STATE == 'inactive'}
-            <a href="{$plugin.U_ACTION}&amp;action=activate" {if $plugin.INCOMPATIBLE}class="incompatible"{/if}>{'Activate'|@translate}</a>
+            <a href="{$plugin.U_ACTION}&amp;action=activate" class="activate">{'Activate'|@translate}</a>
             | <a href="{$plugin.U_ACTION}&amp;action=delete" onclick="return confirm('{'Are you sure?'|@translate|@escape:'javascript'}');">{'Delete'|@translate}</a>
 
           {elseif $plugin.STATE == 'missing'}
@@ -165,9 +181,8 @@ jQuery(document).ready(function() {
       {assign var='version' value=$plugin.VERSION}
     {/if}
           
-    <div id="{$plugin.ID}" class="pluginMiniBox {$plugin.STATE}{if $plugin.INCOMPATIBLE} incompatible{/if}">
+    <div id="{$plugin.ID}" class="pluginMiniBox">
       <div class="pluginMiniBoxNameCell">
-        {if $plugin.INCOMPATIBLE}<span class="warning" title="{'WARNING! This plugin does not seem to be compatible with this version of Piwigo.'|@translate|@escape:'html'}"></span>{/if}
         {$plugin.NAME}
         <a class="showInfo" title="{if !empty($author)}{'By %s'|@translate|@sprintf:$author} | {/if}{'Version'|@translate} {$version}<br/>{$plugin.DESC|@escape:'html'}">i</a>
       </div>
@@ -178,7 +193,7 @@ jQuery(document).ready(function() {
           | <a href="{$plugin.U_ACTION}&amp;action=restore" class="plugin-restore" title="{'Restore default configuration. You will lost all your settings !'|@translate}" onclick="return confirm('{'Are you sure?'|@translate|@escape:'javascript'}');">{'Restore'|@translate}</a>
 
         {elseif $plugin.STATE == 'inactive'}
-          <a href="{$plugin.U_ACTION}&amp;action=activate" {if $plugin.INCOMPATIBLE}class="incompatible"{/if}>{'Activate'|@translate}</a>
+          <a href="{$plugin.U_ACTION}&amp;action=activate" class="activate">{'Activate'|@translate}</a>
           | <a href="{$plugin.U_ACTION}&amp;action=delete" onclick="return confirm('{'Are you sure?'|@translate|@escape:'javascript'}');">{'Delete'|@translate}</a>
 
         {elseif $plugin.STATE == 'missing'}
