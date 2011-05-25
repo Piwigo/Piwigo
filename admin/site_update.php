@@ -809,8 +809,16 @@ else
       'meta_all'  => false,
       'meta_empty_overrides'  => false,
     );
-
+  
   $cat_selected = array();
+
+  if (isset($_GET['cat_id']))
+  {
+    check_input_parameter('cat_id', $_GET, false, PATTERN_ID);
+
+    $cat_selected = array($_GET['cat_id']);
+    $tpl_introduction['sync'] = 'files';
+  }
 }
 
 $tpl_introduction['privacy_level_options'] = get_privacy_level_options();
