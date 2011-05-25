@@ -307,6 +307,13 @@ foreach ($categories as $category)
     $tpl_cat['U_DELETE'] = $self_url.'&amp;delete='.$category['id'];
     $tpl_cat['U_DELETE'].= '&amp;pwg_token='.get_pwg_token();
   }
+  else
+  {
+    if ($conf['enable_synchronization'])
+    {
+      $tpl_cat['U_SYNC'] = $base_url.'site_update&amp;site=1&amp;cat_id='.$category['id'];
+    }
+  }
 
   if ( array_key_exists($category['id'], $categories_with_images) )
   {

@@ -20,6 +20,9 @@
   {if isset($U_MANAGE_PERMISSIONS) }
   <li><a href="{$U_MANAGE_PERMISSIONS}" title="{'edit album permissions'|@translate}"><img src="{$ROOT_URL}{$themeconf.admin_icon_dir}/category_permissions.png" class="button" alt="{'Permissions'|@translate}"></a></li>
   {/if}
+  {if isset($U_SYNC) }
+  <li><a href="{$U_SYNC}" title="{'Synchronize'|@translate}"><img src="{$ROOT_URL}{$themeconf.admin_icon_dir}/synchronize.png" class="button" alt="{'Synchronize'|@translate}"></a></li>
+  {/if}
   {if isset($U_DELETE) }
   <li><a href="{$U_DELETE}" title="{'delete album'|@translate}"><img src="{$ROOT_URL}{$themeconf.admin_icon_dir}/category_delete.png" class="button" alt="{'delete album'|@translate}" onclick="return confirm('{'Are you sure?'|@translate|@escape:javascript}');"></a></li>
   {/if}

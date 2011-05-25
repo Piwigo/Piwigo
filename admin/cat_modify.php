@@ -270,6 +270,15 @@ else
                                     $category['cat_full_dir'] )
       )
     );
+
+  if ($conf['enable_synchronization'])
+  {
+    $template->assign(
+      'U_SYNC',
+      $base_url.'site_update&amp;site=1&amp;cat_id='.$category['id']
+      );
+  }
+
 }
 
 // representant management
