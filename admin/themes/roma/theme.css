@@ -245,3 +245,10 @@ display:block; height:85px; left:225px; position:relative; top:-42px; width:313p
 #batchManagerGlobal .thumbSelected {background-color:#555 !important}
 #batchManagerGlobal #selectedMessage {background-color:#555; color:#ddd;}
 
+/* TokenInput (with Facebook style for ROMA) */
+ul.token-input-list {border-color:#666;background-color:#444;}
+ul.token-input-list li input {background-color:#444;}
+li.token-input-token span {color:#878787;}
+div.token-input-dropdown {background-color:#eee;border-color:#666;}
+div.token-input-dropdown ul li {background-color:#eee;}
+div.token-input-dropdown ul li.token-input-selected-dropdown-item {background-color:#FF7800;}

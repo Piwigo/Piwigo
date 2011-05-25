@@ -2100,25 +2100,29 @@ function get_active_menu($menu_page)
   return 0;
 }
 
-function get_fckb_taglist($query)
+function get_taglist($query)
 {
   $result = pwg_query($query);
+  
   $taglist = array();
   while ($row = pwg_db_fetch_assoc($result))
   {
     array_push(
       $taglist,
       array(
-        'key' => $row['tag_name'],
-        'value' => '~~'.$row['tag_id'].'~~',
+        'name' => $row['tag_name'],
+        'id' => '~~'.$row['tag_id'].'~~',
         )
       );
   }
-
+  
+  $cmp = create_function('$a,$b', 'return strcasecmp($a["name"], $b["name"]);');
+  usort($taglist, $cmp);
+  
   return $taglist;
 }
 
-function get_fckb_tag_ids($raw_tags)
+function get_tag_ids($raw_tags)
 {
   // In $raw_tags we receive something like array('~~6~~', '~~59~~', 'New
   // tag', 'Another new tag') The ~~34~~ means that it is an existing
@@ -2126,6 +2130,7 @@ function get_fckb_tag_ids($raw_tags)
   // or "1234" (numeric characters only)
 
   $tag_ids = array();
+  $raw_tags = explode(',',$raw_tags);
 
   foreach ($raw_tags as $raw_tag)
   {

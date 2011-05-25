@@ -123,7 +123,7 @@ DELETE
     }
     else
     {
-      $tag_ids = get_fckb_tag_ids($_POST['add_tags']);
+      $tag_ids = get_tag_ids($_POST['add_tags']);
       add_tags($tag_ids, $collection);
 
       if ('with no tag' == $page['prefilter'])

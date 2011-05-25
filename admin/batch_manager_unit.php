@@ -108,7 +108,7 @@ SELECT id, date_creation
     // tags management
     if (isset($_POST[ 'tags-'.$row['id'] ]))
     {
-      $tag_ids = get_fckb_tag_ids($_POST[ 'tags-'.$row['id'] ]);
+      $tag_ids = get_tag_ids($_POST[ 'tags-'.$row['id'] ]);
       set_tags($tag_ids, $row['id']);
     }
   }
@@ -256,7 +256,7 @@ SELECT
     JOIN '.TAGS_TABLE.' AS t ON t.id = it.tag_id
   WHERE image_id = '.$row['id'].'
 ;';
-    $tag_selection = get_fckb_taglist($query);
+    $tag_selection = get_taglist($query);
 
     $template->append(
       'elements',

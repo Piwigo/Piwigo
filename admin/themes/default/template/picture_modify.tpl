@@ -2,21 +2,23 @@
 {include file='include/dbselect.inc.tpl'}
 {include file='include/datepicker.inc.tpl'}
 
-{combine_script id='jquery.fcbkcomplete' load='async' require='jquery' path='themes/default/js/plugins/jquery.fcbkcomplete.js'}
-{footer_script require='jquery.fcbkcomplete'}{literal}
-jQuery(document).ready(function() {
-	jQuery("#tags").fcbkcomplete({
-		json_url: "admin.php?fckb_tags=1",
-		cache: false,
-		filter_case: false,
-		filter_hide: true,
-		firstselected: true,
-		filter_selected: true,
-		maxitems: 100,
-		newel: true
-	});
+{combine_script id='jquery.tokeninput' load='async' require='jquery' path='themes/default/js/plugins/jquery.tokeninput.js'}
+{footer_script require='jquery.tokeninput'}
+jQuery(document).ready(function() {ldelim}
+  jQuery("#tags").tokenInput(
+    [{foreach from=$tags item=tag name=tags}{ldelim}"name":"{$tag.name}","id":"{$tag.id}"{rdelim}{if !$smarty.foreach.tags.last},{/if}{/foreach}],
+    {ldelim}
+      hintText: '{'Type in a search term'|@translate}',
+      noResultsText: '{'No results'|@translate}',
+      searchingText: '{'Searching...'|@translate}',
+      newText: ' ({'new'|@translate})',
+      animateDropdown: false,
+      preventDuplicates: true,
+      allowCreation: true
+    }
+  );
 });
-{/literal}{/footer_script}
+{/footer_script}
 
 {footer_script}
 pwg_initialization_datepicker("#date_creation_day", "#date_creation_month", "#date_creation_year", "#date_creation_linked_date", "#date_creation_action_set");
@@ -136,8 +138,8 @@ pwg_initialization_datepicker("#date_creation_day", "#date_creation_month", "#da
         <td><strong>{'Tags'|@translate}</strong></td>
         <td>
 <select id="tags" name="tags">
-{foreach from=$tags item=tag}
-  <option value="{$tag.value}" class="selected">{$tag.key}</option>
+{foreach from=$tag_selection item=tag}
+  <option value="{$tag.id}" class="selected">{$tag.name}</option>
 {/foreach}
 </select>
         </td>
