@@ -44,19 +44,6 @@ check_status(ACCESS_ADMINISTRATOR);
 // | Direct actions                                                        |
 // +-----------------------------------------------------------------------+
 
-// tags
-if (isset($_GET['fckb_tags']))
-{
-  $query = '
-SELECT
-    id AS tag_id,
-    name AS tag_name
-  FROM '.TAGS_TABLE.'
-;';
-  echo json_encode(get_fckb_taglist($query));
-  exit();
-}
-
 // theme changer
 if (isset($_GET['change_theme']))
 {

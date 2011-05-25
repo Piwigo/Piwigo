@@ -13,28 +13,24 @@ prefix = ", ";
 {/if}
 	tag_boxes_selector = tag_boxes_selector + prefix + "#tags-" + {$element.ID};
 {/foreach}
-{literal}
-jQuery(document).ready(function() {
-  jQuery.getJSON('admin.php?fckb_tags=1', function(data) {
-    jQuery(tag_boxes_selector).tokenInput(
-      data,
-      {
-    {/literal}
-        hintText: '{'Type in a search term'|@translate}',
-        noResultsText: '{'No results'|@translate}',
-        searchingText: '{'Searching...'|@translate}',
-        newText: ' ({'new'|@translate})',
-        animateDropdown: false,
-        preventDuplicates: true,
-        allowCreation: true
-    {literal}
-      }
-    );
-  });
-  
-  $("a.preview-box").colorbox();
+
+jQuery(document).ready(function() {ldelim}
+  jQuery(tag_boxes_selector).tokenInput(
+    [{foreach from=$tags item=tag name=tags}{ldelim}"name":"{$tag.name}","id":"{$tag.id}"{rdelim}{if !$smarty.foreach.tags.last},{/if}{/foreach}],
+    {ldelim}
+      hintText: '{'Type in a search term'|@translate}',
+      noResultsText: '{'No results'|@translate}',
+      searchingText: '{'Searching...'|@translate}',
+      newText: ' ({'new'|@translate})',
+      animateDropdown: false,
+      preventDuplicates: true,
+      allowCreation: true
+    }
+  );
+
+  jQuery("a.preview-box").colorbox();
 });
-{/literal}{/footer_script}
+{/footer_script}
 
 <h2>{'Batch Manager'|@translate}</h2>
 

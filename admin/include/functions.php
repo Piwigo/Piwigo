@@ -2097,7 +2097,7 @@ function get_active_menu($menu_page)
   return 0;
 }
 
-function get_fckb_taglist($query)
+function get_taglist($query)
 {
   $result = pwg_query($query);
   
@@ -2119,7 +2119,7 @@ function get_fckb_taglist($query)
   return $taglist;
 }
 
-function get_fckb_tag_ids($raw_tags)
+function get_tag_ids($raw_tags)
 {
   // In $raw_tags we receive something like array('~~6~~', '~~59~~', 'New
   // tag', 'Another new tag') The ~~34~~ means that it is an existing

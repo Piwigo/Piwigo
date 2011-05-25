@@ -166,7 +166,7 @@ if (isset($_POST['submit']) and count($page['errors']) == 0)
   $tag_ids = array();
   if (isset($_POST['tags']))
   {
-    $tag_ids = get_fckb_tag_ids($_POST['tags']);
+    $tag_ids = get_tag_ids($_POST['tags']);
   }
   set_tags($tag_ids, $_GET['image_id']);
 
@@ -233,7 +233,15 @@ SELECT
     JOIN '.TAGS_TABLE.' AS t ON t.id = it.tag_id
   WHERE image_id = '.$_GET['image_id'].'
 ;';
-$tags = get_fckb_taglist($query);
+$tag_selection = get_taglist($query);
+
+$query = '
+SELECT
+    id AS tag_id,
+    name AS tag_name
+  FROM '.TAGS_TABLE.'
+;';
+$tags = get_taglist($query);
 
 // retrieving direct information about picture
 $query = '
@@ -267,6 +275,7 @@ $admin_url_start.= isset($_GET['cat_id']) ? '&amp;cat_id='.$_GET['cat_id'] : '';
 
 $template->assign(
   array(
+    'tag_selection' => $tag_selection,
     'tags' => $tags,
     'U_SYNC' => $admin_url_start.'&amp;sync_metadata=1',
     'U_DELETE' => $admin_url_start.'&amp;delete=1&amp;pwg_token='.get_pwg_token(),

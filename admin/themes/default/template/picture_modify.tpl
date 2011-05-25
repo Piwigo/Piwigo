@@ -3,26 +3,22 @@
 {include file='include/datepicker.inc.tpl'}
 
 {combine_script id='jquery.tokeninput' load='async' require='jquery' path='themes/default/js/plugins/jquery.tokeninput.js'}
-{footer_script require='jquery.tokeninput'}{literal}
-jQuery(document).ready(function() {
-  jQuery.getJSON('admin.php?fckb_tags=1', function(data) {
-    jQuery("#tags").tokenInput(
-      data,
-      {
-    {/literal}
-        hintText: '{'Type in a search term'|@translate}',
-        noResultsText: '{'No results'|@translate}',
-        searchingText: '{'Searching...'|@translate}',
-        newText: ' ({'new'|@translate})',
-        animateDropdown: false,
-        preventDuplicates: true,
-        allowCreation: true
-    {literal}
-      }
-    );
-  });
+{footer_script require='jquery.tokeninput'}
+jQuery(document).ready(function() {ldelim}
+  jQuery("#tags").tokenInput(
+    [{foreach from=$tags item=tag name=tags}{ldelim}"name":"{$tag.name}","id":"{$tag.id}"{rdelim}{if !$smarty.foreach.tags.last},{/if}{/foreach}],
+    {ldelim}
+      hintText: '{'Type in a search term'|@translate}',
+      noResultsText: '{'No results'|@translate}',
+      searchingText: '{'Searching...'|@translate}',
+      newText: ' ({'new'|@translate})',
+      animateDropdown: false,
+      preventDuplicates: true,
+      allowCreation: true
+    }
+  );
 });
-{/literal}{/footer_script}
+{/footer_script}
 
 {footer_script}
 pwg_initialization_datepicker("#date_creation_day", "#date_creation_month", "#date_creation_year", "#date_creation_linked_date", "#date_creation_action_set");
@@ -142,7 +138,7 @@ pwg_initialization_datepicker("#date_creation_day", "#date_creation_month", "#da
         <td><strong>{'Tags'|@translate}</strong></td>
         <td>
 <select id="tags" name="tags">
-{foreach from=$tags item=tag}
+{foreach from=$tag_selection item=tag}
   <option value="{$tag.id}" class="selected">{$tag.name}</option>
 {/foreach}
 </select>
