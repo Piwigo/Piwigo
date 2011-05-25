@@ -82,13 +82,12 @@ if (isset($_GET['incompatible_plugins']))
 
 $plugins->sort_fs_plugins('name');
 $merged_extensions = $plugins->get_merged_extensions();
-$incompatible_plugins = $plugins->get_incompatible_plugins();
 $merged_plugins = false;
 
 foreach($plugins->fs_plugins as $plugin_id => $fs_plugin)
 {
-  if (isset($incompatible_plugins[$plugin_id])
-    and $fs_plugin['version'] != $incompatible_plugins[$plugin_id])
+  if (isset($_SESSION['incompatible_plugins'][$plugin_id])
+    and $fs_plugin['version'] != $_SESSION['incompatible_plugins'][$plugin_id])
   {
     // Incompatible plugins must be reinitilized
     unset($_SESSION['incompatible_plugins']);
