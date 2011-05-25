@@ -1,17 +1,26 @@
 {footer_script}
 var incompatible_msg = '{'WARNING! This plugin does not seem to be compatible with this version of Piwigo.'|@translate|@escape:'javascript'}';
-incompatible_msg += '\n';
-incompatible_msg += '{'Do you want to activate anyway?'|@translate|@escape:'javascript'}';
+var activate_msg = '\n{'Do you want to activate anyway?'|@translate|@escape:'javascript'}';
 
 {literal}
 jQuery(document).ready(function() {
   jQuery('.incompatible').click(function() {
     return confirm(incompatible_msg);
   });
-  jQuery('.warning').tipTip({
-    'delay' : 0,
-    'fadeIn' : 200,
-    'fadeOut' : 200
+  jQuery.ajax({
+    method: 'GET',
+    url: 'admin.php',
+    data: { page: 'plugins_list', incompatible_plugins: true },
+    dataType: 'json',
+    success: function(data) {
+      for (i=0;i<data.length;i++) {
+        jQuery('#plugin_'+data[i]+' .pluginBoxNameCell')
+          .addClass('warning')
+          .attr('title', incompatible_msg)
+          .tipTip({'delay' : 0, 'fadeIn' : 200, 'fadeOut' : 200});
+        jQuery('#plugin_'+data[i]+' .activate').attr('onClick', 'return confirm(incompatible_msg + activate_msg);');
+      }
+    }  
   });
 });
 {/literal}{/footer_script}
@@ -44,10 +53,10 @@ jQuery(document).ready(function() {
   </legend>
   {foreach from=$plugins item=plugin name=plugins_loop}
     {if $plugin.STATE == $plugin_state}
-  <div class="pluginBox">
+  <div class="pluginBox" id="plugin_{$plugin.ID}">
     <table>
       <tr>
-        <td class="pluginBoxNameCell{if $plugin.INCOMPATIBLE} warning" title="{'WARNING! This plugin does not seem to be compatible with this version of Piwigo.'|@translate|@escape:'html'}{/if}">
+        <td class="pluginBoxNameCell">
           {$plugin.NAME}
         </td>
         <td>{$plugin.DESC}</td>
@@ -58,7 +67,7 @@ jQuery(document).ready(function() {
           <a href="{$plugin.U_ACTION}&amp;action=deactivate">{'Deactivate'|@translate}</a>
 
     {elseif $plugin_state == 'inactive'}
-          <a href="{$plugin.U_ACTION}&amp;action=activate" {if $plugin.INCOMPATIBLE}class="incompatible"{/if}>{'Activate'|@translate}</a>
+          <a href="{$plugin.U_ACTION}&amp;action=activate" class="activate">{'Activate'|@translate}</a>
           | <a href="{$plugin.U_ACTION}&amp;action=uninstall" onclick="return confirm('{'Are you sure?'|@translate|@escape:'javascript'}');">{'Uninstall'|@translate}</a>
 
     {elseif $plugin_state == 'uninstalled'}

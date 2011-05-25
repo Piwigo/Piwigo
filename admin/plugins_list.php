@@ -62,25 +62,40 @@ if (isset($_GET['action']) and isset($_GET['plugin']))
 //--------------------------------------------------------------------Tabsheet
 $plugins->set_tabsheet($page['page']);
 
+//--------------------------------------------------------Incompatible Plugins
+if (isset($_GET['incompatible_plugins']))
+{
+  $incompatible_plugins = array();
+  foreach ($plugins->get_incompatible_plugins() as $plugin => $version)
+  {
+    if ($plugin == '~~expire~~') continue;
+    array_push($incompatible_plugins, $plugin);
+    
+  }
+  echo json_encode($incompatible_plugins);
+  exit;
+}
+
 // +-----------------------------------------------------------------------+
 // |                     start template output                             |
 // +-----------------------------------------------------------------------+
 
 $plugins->sort_fs_plugins('name');
-$plugins->get_merged_extensions();
-$plugins->get_incompatible_plugins();
+$merged_extensions = $plugins->get_merged_extensions();
+$incompatible_plugins = $plugins->get_incompatible_plugins();
 $merged_plugins = false;
 
 foreach($plugins->fs_plugins as $plugin_id => $fs_plugin)
 {
-  if (isset($_SESSION['incompatible_plugins'][$plugin_id])
-    and $fs_plugin['version'] != $_SESSION['incompatible_plugins'][$plugin_id])
+  if (isset($incompatible_plugins[$plugin_id])
+    and $fs_plugin['version'] != $incompatible_plugins[$plugin_id])
   {
     // Incompatible plugins must be reinitilized
-    $plugins->get_incompatible_plugins(true);
+    unset($_SESSION['incompatible_plugins']);
   }
 
   $tpl_plugin = array(
+    'ID' => $plugin_id,
     'NAME' => $fs_plugin['name'],
     'VISIT_URL' => $fs_plugin['uri'],
     'VERSION' => $fs_plugin['version'],
@@ -88,7 +103,6 @@ foreach($plugins->fs_plugins as $plugin_id => $fs_plugin)
     'AUTHOR' => $fs_plugin['author'],
     'AUTHOR_URL' => @$fs_plugin['author uri'],
     'U_ACTION' => sprintf($action_url, $plugin_id),
-    'INCOMPATIBLE' => isset($_SESSION['incompatible_plugins'][$plugin_id]),
     );
 
   if (isset($plugins->db_plugins_by_id[$plugin_id]))
@@ -100,7 +114,7 @@ foreach($plugins->fs_plugins as $plugin_id => $fs_plugin)
     $tpl_plugin['STATE'] = 'uninstalled';
   }
 
-  if (isset($fs_plugin['extension']) and in_array($fs_plugin['extension'], $_SESSION['merged_extensions']))
+  if (isset($fs_plugin['extension']) and isset($merged_extensions[$fs_plugin['extension']]))
   {
     switch($tpl_plugin['STATE'])
     {
