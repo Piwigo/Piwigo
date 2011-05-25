@@ -447,7 +447,7 @@ class updates
 
           if (empty($error))
           {
-            self::obsolete_list($obsolete_list);
+            self::process_obsolete_list($obsolete_list);
             self::deltree($conf['local_data_dir'].'/update');
             invalidate_user_cache(true);
             $template->delete_compiled_templates();

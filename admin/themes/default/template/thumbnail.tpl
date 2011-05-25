@@ -84,14 +84,6 @@ jQuery(document).ready(function(){
     processThumbs(width,height,crop,follow_orientation);
   });
 
-  jQuery('input#cancel').click (function () {
-    queuedManager.clear();
-    queuedManager.abort();
-    jQuery("input:not(.nodisable)").attr("disabled",false);
-    jQuery('tr.nothumb td.thumbpic').html("&nbsp;");
-    
-  });
-
   toggleCropFields();
   jQuery("#thumb_crop").click(function () {toggleCropFields()});
 
