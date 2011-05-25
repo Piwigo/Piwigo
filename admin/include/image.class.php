@@ -245,7 +245,7 @@ class pwg_image
     return $rotation;
   }
 
-  private function get_resize_result($destination_filepath, $width, $height, $time)
+  private function get_resize_result($destination_filepath, $width, $height, $time=null)
   {
     return array(
       'source'      => $this->source_filepath,
@@ -253,7 +253,7 @@ class pwg_image
       'width'       => $width,
       'height'      => $height,
       'size'        => floor(filesize($destination_filepath) / 1024).' KB',
-      'time'	      => number_format((get_moment() - $time) * 1000, 2, '.', ' ').' ms',
+      'time'        => $time ? number_format((get_moment() - $time) * 1000, 2, '.', ' ').' ms' : null,
       'library'     => $this->library,
     );
   }
@@ -316,7 +316,7 @@ class pwg_image
         if ($library != 'auto')
         {
           // Requested library not available. Try another library
-          return self::get_library('auto');
+          return self::get_library('auto', $extension);
         }
     }
     return false;
@@ -398,7 +398,8 @@ class image_ext_imagick implements imageInterface
 {
   var $imagickdir = '';
   var $source_filepath = '';
-  var $image_data = array();
+  var $width = '';
+  var $height = '';
   var $commands = array();
 
   function __construct($source_filepath, $imagickdir='')
@@ -406,21 +407,15 @@ class image_ext_imagick implements imageInterface
     $this->source_filepath = $source_filepath;
     $this->imagickdir = $imagickdir;
 
-    $command = $imagickdir.'identify -verbose "'.realpath($source_filepath).'"';
+    $command = $imagickdir.'identify -format "%wx%h" "'.realpath($source_filepath).'"';
     @exec($command, $returnarray, $returnvalue);
-    if($returnvalue)
+    if($returnvalue or !preg_match('/^(\d+)x(\d+)$/', $returnarray[0], $match))
     {
       die("[External ImageMagick] Corrupt image");
     }
 
-    foreach($returnarray as $value)
-    {
-      $arr = explode(':', $value, 2);
-      if (count($arr) == 2)
-      {
-        $this->image_data[trim($arr[0])] = trim($arr[1]);
-      }
-    }
+    $this->width = $match[1];
+    $this->height = $match[2];
   }
 
   function add_command($command, $params=null)
@@ -430,14 +425,12 @@ class image_ext_imagick implements imageInterface
 
   function get_width()
   {
-    preg_match('#^(\d+)x#', $this->image_data['Geometry'], $match);
-    return isset($match[1]) ? $match[1] : false;
+    return $this->width;
   }
 
   function get_height()
   {
-    preg_match('#^\d+x(\d+)(?:\+|$)#', $this->image_data['Geometry'], $match);
-    return isset($match[1]) ? $match[1] : false;
+    return $this->height;
   }
 
   function crop($width, $height, $x, $y)
