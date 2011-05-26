@@ -95,7 +95,7 @@ y.callService(
 {$ELEMENT_CONTENT}
 
 {if isset($COMMENT_IMG)}
-<p>{$COMMENT_IMG}</p>
+<p class="imageComment">{$COMMENT_IMG}</p>
 {/if}
 
 {if isset($U_SLIDESHOW_STOP)}
