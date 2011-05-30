@@ -1423,6 +1423,11 @@ function ws_images_addSimple($params, &$service)
   {
     return new PwgError(405, "This method requires HTTP POST");
   }
+
+  if (!isset($_FILES['image']))
+  {
+    return new PwgError(405, "The image (file) parameter is missing");
+  }
   
   $params['image_id'] = (int)$params['image_id'];
   if ($params['image_id'] > 0)
