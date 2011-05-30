@@ -165,7 +165,7 @@ function ws_std_get_urls($image_row)
 function ws_std_get_image_xml_attributes()
 {
   return array(
-    'id','tn_url','element_url','high_url', 'file','width','height','hit'
+    'id','tn_url','element_url','high_url', 'file','width','height','hit','date_available','date_creation'
     );
 }
 
@@ -372,7 +372,7 @@ LIMIT '.(int)$params['per_page'].' OFFSET '.(int)($params['per_page']*$params['p
           $image[$k] = (int)$row[$k];
         }
       }
-      foreach ( array('file', 'name', 'comment') as $k )
+      foreach ( array('file', 'name', 'comment', 'date_creation', 'date_available') as $k )
       {
         $image[$k] = $row[$k];
       }
@@ -931,7 +931,7 @@ SELECT * FROM '.IMAGES_TABLE.'
           $image[$k] = (int)$row[$k];
         }
       }
-      foreach ( array('file', 'name', 'comment') as $k )
+      foreach ( array('file', 'name', 'comment', 'date_creation', 'date_available') as $k )
       {
         $image[$k] = $row[$k];
       }
@@ -1708,7 +1708,7 @@ SELECT * FROM '.IMAGES_TABLE.'
           $image[$k] = (int)$row[$k];
         }
       }
-      foreach ( array('file', 'name', 'comment') as $k )
+      foreach ( array('file', 'name', 'comment', 'date_creation', 'date_available') as $k )
       {
         $image[$k] = $row[$k];
       }
