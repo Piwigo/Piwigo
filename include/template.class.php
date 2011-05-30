@@ -1350,7 +1350,7 @@ final class FileCombiner
       $search = $replace = array();
       foreach ($matches as $match)
       {
-        if ( !url_is_remote($match[1]) || $match[1][0] != '/')
+        if ( !url_is_remote($match[1]) && $match[1][0] != '/')
         {
           $relative = dirname($file) . "/$match[1]";
           $search[] = $match[0];
