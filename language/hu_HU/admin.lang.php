@@ -785,4 +785,9 @@ $lang['Do you want to activate anyway?'] = 'Aktiváljuk mindenképp?';
 $lang['THIS PLUGIN IS NOW PART OF PIWIGO CORE! DELETE IT NOW.'] = 'EZ A BŐVÍTMÉNY MÁR BE VAN ÉPÍTVE A PIWIGO RENDSZERBE! ELTÁVOLÍTANDÓ!';
 $lang['ERROR: THIS PLUGIN IS MISSING BUT IT IS INSTALLED! UNINSTALL IT NOW.'] = 'HIBA: EZ A BŐVÍTMÉNY NEM ELÉRHETŐ, DE TELEPÍTVE VAN! ELTÁVOLÍTANDÓ!';
 $lang['display'] = 'kijelző';
+$lang['new'] = 'új';
+$lang['No results'] = 'Nincs találat';
+$lang['Searching...'] = 'Keresés...';
+$lang['Type in a search term'] = 'Írd be a keresett kifejezést';
+
 ?>
