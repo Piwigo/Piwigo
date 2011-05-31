@@ -235,7 +235,7 @@ else if ($conf['double_password_type_in_admin'] == false)
         $page['infos'],
         sprintf(
           l10n('user "%s" added'),
-          stripslashes($_POST['login'])
+          $_POST['login']
           )
         );
     }
@@ -384,7 +384,7 @@ DELETE FROM '.USER_GROUP_TABLE.'
   $dbfields = array('primary' => array('user_id'), 'update' => array());
 
   $formfields =
-    array('nb_image_page', 'theme', 'language',
+    array('nb_image_line', 'nb_line_page', 'theme', 'language',
           'recent_period', 'maxwidth', 'expand', 'show_nb_comments',
           'show_nb_hits', 'maxheight', 'status', 'enabled_high',
           'level');
@@ -559,7 +559,8 @@ if (isset($_POST['pref_submit']))
 {
   $template->assign(
     array(
-      'NB_IMAGE_PAGE' => $_POST['nb_image_page'],
+      'NB_IMAGE_LINE' => $_POST['nb_image_line'],
+      'NB_LINE_PAGE' => $_POST['nb_line_page'],
       'MAXWIDTH' => $_POST['maxwidth'],
       'MAXHEIGHT' => $_POST['maxheight'],
       'RECENT_PERIOD' => $_POST['recent_period'],
@@ -570,7 +571,8 @@ else
   $default_user = get_default_user_info(true);
   $template->assign(
     array(
-      'NB_IMAGE_PAGE' => $default_user['nb_image_page'],
+      'NB_IMAGE_LINE' => $default_user['nb_image_line'],
+      'NB_LINE_PAGE' => $default_user['nb_line_page'],
       'MAXWIDTH' => $default_user['maxwidth'],
       'MAXHEIGHT' => $default_user['maxheight'],
       'RECENT_PERIOD' => $default_user['recent_period'],
