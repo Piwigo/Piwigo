@@ -786,4 +786,10 @@ $lang['WARNING! This plugin does not seem to be compatible with this version of 
 $lang['Do you want to activate anyway?'] = 'Да ли ипак желите да је активирате?';
 $lang['THIS PLUGIN IS NOW PART OF PIWIGO CORE! DELETE IT NOW.'] = 'Овај додатак је сада део PIWIGO програма! Обришите га  ОДМАХ!';
 $lang['ERROR: THIS PLUGIN IS MISSING BUT IT IS INSTALLED! UNINSTALL IT NOW.'] = 'ГРЕШКА: Овај додатак недостаје, али је инсталиран! Уклоните(деинсталирате) га ОДМАХ.';
+$lang['new'] = 'Ново';
+$lang['No results'] = 'Без резултата';
+$lang['Searching...'] = 'Тражење...';
+$lang['Type in a search term'] = 'Откуцајте тражени израз';
+$lang['display'] = 'приказ';
+
 ?>
