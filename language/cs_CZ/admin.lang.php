@@ -788,4 +788,8 @@ $lang['Do you want to activate anyway?'] = 'Přejete si je přesto aktivovat?';
 $lang['THIS PLUGIN IS NOW PART OF PIWIGO CORE! DELETE IT NOW.'] = 'TENTO PLUGIN JE NYNÍ SOUČÁSTÍ JÁDRA PIWIGO! ODINSTALUJTE HO!';
 $lang['ERROR: THIS PLUGIN IS MISSING BUT IT IS INSTALLED! UNINSTALL IT NOW.'] = 'CHYBA: TENTO PLUGIN CHYBÍ, ALE JE NAINSTALOVÁN! ODINSTALUJTE HO.';
 $lang['display'] = 'zobrazit';
+$lang['new'] = 'nové';
+$lang['No results'] = 'Žádný výsledek';
+$lang['Searching...'] = 'Hledám...';
+$lang['Type in a search term'] = 'Zadejte hledaný výraz';
 ?>
