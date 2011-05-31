@@ -241,7 +241,7 @@ $lang['Prepared time for list of users to send mail is limited. Others users are
 $lang['Time to send mail is limited. Others mails are skipped.'] = 'El tiempo destinado a enviar emails es limitado. No se ha realizado el resto de envíos.';
 $lang['To send ?'] = '¿Enviar?';
 $lang['Last send'] = 'Último envío';
-$lang['email'] = 'Email';
+$lang['email'] = 'Correo electrónico';
 $lang['User'] = 'Usuario';
 $lang['Complementary mail content'] = 'Contenido ampliado del email';
 $lang['See you soon,'] = 'Hasta pronto,';
@@ -420,7 +420,7 @@ $lang['user_status_admin'] = 'Administrador';
 $lang['user_status_generic'] = 'Genérico';
 $lang['user_status_guest'] = 'Invitado';
 $lang['user_status_normal'] = 'Visitante';
-$lang['user_status_webmaster'] = 'Webmaster';
+$lang['user_status_webmaster'] = 'Administrador de sitio web';
 $lang['Virtual album'] = 'Álbum';
 $lang['Waiting'] = 'En espera';
 $lang['default'] = 'por defecto';
@@ -788,4 +788,9 @@ $lang['WARNING! This plugin does not seem to be compatible with this version of 
 $lang['Do you want to activate anyway?'] = '¿Quiere activarlo de todos modos?';
 $lang['THIS PLUGIN IS NOW PART OF PIWIGO CORE! DELETE IT NOW.'] = 'ESTE PLUGIN ES AHORA PARTE DEL CORE DE PIWIGO! PUEDE DESINSTALARLO AHORA! ';
 $lang['ERROR: THIS PLUGIN IS MISSING BUT IT IS INSTALLED! UNINSTALL IT NOW.'] = 'ERROR: Este plugin FALTA PERO ESTÁ INSTALADO! DESINSTALAR YA!.';
+$lang['new'] = 'nuevo';
+$lang['No results'] = 'No hay resultados';
+$lang['Searching...'] = 'Buscar...';
+$lang['Type in a search term'] = 'Introduce un término de búsqueda';
+$lang['display'] = 'Visualizar';
 ?>
