@@ -795,6 +795,10 @@ $lang['Regenerate Websize Photos'] = 'Zlepšenie web veľkostí fotografií';
 $lang['Photos generation in progress...'] = 'Prebieha tvorba fotografií...';
 $lang['%s photos have been regenerated'] = '%s fotografií bolo vytvorených';
 $lang['%s photos can not be regenerated'] = '%s fotografií nebolo vytvorených';
-$lang['Only photos with HD can be regenerated!'] = 'Len forografie v HD môžu byť vytvorené!'; 
+$lang['Only photos with HD can be regenerated!'] = 'Len forografie v HD môžu byť vytvorené!';
+$lang['new'] = 'nové';
+$lang['No results'] = 'Bez výsledkov';
+$lang['Searching...'] = 'Vyhľadávam...';
+$lang['Type in a search term'] = 'Napíšte vo vyhľadávaní';
 
 ?>
