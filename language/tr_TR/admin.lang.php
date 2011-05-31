@@ -777,4 +777,8 @@ $lang['Do you want to activate anyway?'] = 'Yine de etkinleştirmek istiyor musu
 $lang['THIS PLUGIN IS NOW PART OF PIWIGO CORE! DELETE IT NOW.'] = 'Bu eklenti şimdi Piwigo\'nun kendi parçasıdır lütfen siliniz.!';
 $lang['ERROR: THIS PLUGIN IS MISSING BUT IT IS INSTALLED! UNINSTALL IT NOW.'] = 'Hata: Bu eklenti eksik, ama yüklenmiş. Lütfen siliniz.';
 $lang['display'] = 'göster';
+$lang['new'] = 'yeni';
+$lang['No results'] = 'Sonuç yok';
+$lang['Searching...'] = 'Arıyor...';
+$lang['Type in a search term'] = 'Aramak için bir kelime yazınız';
 ?>
