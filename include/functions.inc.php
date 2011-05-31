@@ -1022,19 +1022,33 @@ SELECT param, value
 function conf_update_param($param, $value)
 {
   $query = '
-DELETE
+SELECT
+    param,
+    value
   FROM '.CONFIG_TABLE.'
   WHERE param = \''.$param.'\'
 ;';
-  pwg_query($query);
+  $params = array_from_query($query, 'param');
 
-  $query = '
+  if (count($params) == 0)
+  {
+    $query = '
 INSERT
   INTO '.CONFIG_TABLE.'
   (param, value)
   VALUES(\''.$param.'\', \''.$value.'\')
 ;';
-  pwg_query($query);
+    pwg_query($query);
+  }
+  else
+  {
+    $query = '
+UPDATE '.CONFIG_TABLE.'
+  SET value = \''.$value.'\'
+  WHERE param = \''.$param.'\'
+;';
+    pwg_query($query);
+  }
 }
 
 /**
