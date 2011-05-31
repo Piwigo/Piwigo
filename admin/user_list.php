@@ -235,7 +235,7 @@ else if ($conf['double_password_type_in_admin'] == false)
         $page['infos'],
         sprintf(
           l10n('user "%s" added'),
-          $_POST['login']
+          stripslashes($_POST['login'])
           )
         );
     }
