@@ -786,4 +786,8 @@ $lang['Photos generation in progress...'] = 'Notiek foto izveide...';
 $lang['%s photos have been regenerated'] = 'izveidotas %s fotogrāfijas';
 $lang['%s photos can not be regenerated'] = '%s fotogrāfijas nav iespējams reģenerēt';
 $lang['Only photos with HD can be regenerated!'] = 'Tikai HD kvalitātes fotogrāfijas iespējams reģenerēt!';
+$lang['new'] = 'jauns';
+$lang['No results'] = 'Nav rezultātu';
+$lang['Searching...'] = 'Meklē...';
+$lang['Type in a search term'] = 'Ierakstiet meklējamo vārdu';
 ?>
