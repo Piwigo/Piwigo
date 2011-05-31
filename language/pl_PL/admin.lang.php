@@ -785,4 +785,8 @@ $lang['Do you want to activate anyway?'] = 'Czy jednak chcesz aktywować?';
 $lang['THIS PLUGIN IS NOW PART OF PIWIGO CORE! DELETE IT NOW.'] = 'TA WTYCZKA JEST TERAZ CZĘŚCIĄ PODSTAWOWEJ WERSJI PIWIGO! ODINSTALUJ JĄ TERAZ!';
 $lang['ERROR: THIS PLUGIN IS MISSING BUT IT IS INSTALLED! UNINSTALL IT NOW.'] = 'BŁĄD: BRAK WTYCZKI CHOĆ JEST ZAINSTALOWANA! ODINSTALUJ JĄ TERAZ.';
 $lang['display'] = 'wyświetlanie';
+$lang['new'] = 'nowy';
+$lang['No results'] = 'Brak wyników';
+$lang['Searching...'] = 'Wyszukiwanie...';
+$lang['Type in a search term'] = 'Wpisz frazę do wyszukania';
 ?>
