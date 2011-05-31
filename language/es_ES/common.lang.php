@@ -126,7 +126,7 @@ $lang['Unknown feed identifier'] = 'Identificador de RSS desconocido';
 $lang['User comments'] = 'Comentarios del usuario';
 $lang['Username'] = 'Nombre de usuario';
 $lang['Visits'] = 'Visitas';
-$lang['Webmaster'] = 'Webmaster';
+$lang['Webmaster'] = 'Webmastre';
 $lang['Week %d'] = 'Semana %d';
 $lang['About Piwigo'] = 'Acerca de Piwigo';
 $lang['You are not authorized to access the requested page'] = 'No dispone de autorización para ver la página solicitada';
@@ -358,4 +358,5 @@ $lang['Manage this user comment: %s'] = 'Gestionar este comentario: %s';
 $lang['This author modified following comment:'] = 'Este autor modificó el comentario siguiente:';
 $lang['This author removed the comment with id %d'] = 'Este autor eliminó el comentario con id. %d';
 $lang['validate this comment'] = 'Validar este comentario';
+$lang['html tags are not allowed in login'] = 'Etiquetas HTML no están permitidas en el area de conección';
 ?>
