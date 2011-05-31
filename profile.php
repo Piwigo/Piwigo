@@ -147,6 +147,16 @@ function save_profile_from_post($userdata, &$errors)
     {
       $errors[] = l10n('Recent period must be a positive integer value') ;
     }
+
+    if (!in_array($_POST['language'], array_keys(get_languages())))
+    {
+      die('Hacking attempt, incorrect language value');
+    }
+
+    if (!in_array($_POST['theme'], array_keys(get_pwg_themes())))
+    {
+      die('Hacking attempt, incorrect theme value');
+    }
   }
 
   if (isset($_POST['mail_address']))
