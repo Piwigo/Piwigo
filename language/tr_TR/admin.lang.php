@@ -790,4 +790,8 @@ $lang['Photos generation in progress...'] = 'Resimler oluşturulmaya devam ediyo
 $lang['%s photos have been regenerated'] = '%s resimler oluşturuldu';
 $lang['%s photos can not be regenerated'] = '%s resimler oluşturulamadı';
 $lang['Only photos with HD can be regenerated!'] = 'Sadece HD  olan resimler oluşturulabilir!';
+$lang['new'] = 'yeni';
+$lang['No results'] = 'Sonuç yok';
+$lang['Searching...'] = 'Arıyor...';
+$lang['Type in a search term'] = 'Aramak için bir kelime yazınız';
 ?>
