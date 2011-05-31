@@ -533,4 +533,34 @@ SELECT image_id
 
   return $image_id;
 }
+
+/**
+ * create a tree from a flat list of categories, no recursivity for high speed
+ */
+function categories_flatlist_to_tree($categories)
+{
+  $tree = array();
+  $key_of_cat = array();
+  
+  foreach ($categories as $key => &$node)
+  {
+    $key_of_cat[$node['id']] = $key;
+    
+    if (!isset($node['id_uppercat']))
+    {
+      $tree[$key] = &$node;
+    }
+    else
+    {
+      if (!isset($categories[ $key_of_cat[ $node['id_uppercat'] ] ]['sub_categories']))
+      {
+        $categories[ $key_of_cat[ $node['id_uppercat'] ] ]['sub_categories'] = array();
+      }
+      
+      $categories[ $key_of_cat[ $node['id_uppercat'] ] ]['sub_categories'][$key] = &$node;
+    }
+  }
+  
+  return $tree;
+}
 ?>

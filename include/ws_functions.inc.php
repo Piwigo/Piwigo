@@ -432,6 +432,22 @@ function ws_categories_getList($params, &$service)
 {
   global $user,$conf;
 
+  if ($params['tree_output'])
+  {
+    if (!isset($_GET['format']) or !in_array($_GET['format'], array('php', 'json')))
+    {
+      // the algorithm used to build a tree from a flat list of categories
+      // keeps original array keys, which is not compatible with
+      // PwgNamedArray.
+      //
+      // PwgNamedArray is useful to define which data is an attribute and
+      // which is an element in the XML output. The "hierarchy" output is
+      // only compatible with json/php output.
+      
+      return new PwgError(405, "The tree_output option is only compatible with json/php output formats");
+    }
+  }
+
   $where = array('1=1');
   $join_type = 'INNER';
   $join_user = $user['id'];
@@ -471,7 +487,7 @@ function ws_categories_getList($params, &$service)
   }
 
   $query = '
-SELECT id, name, permalink, uppercats, global_rank,
+SELECT id, name, permalink, uppercats, global_rank, id_uppercat,
     comment,
     nb_images, count_images AS total_nb_images,
     date_last, max_date_last, count_categories AS nb_categories
@@ -514,21 +530,29 @@ SELECT id, name, permalink, uppercats, global_rank,
     array_push($cats, $row);
   }
   usort($cats, 'global_rank_compare');
-  return array(
-    'categories' => new PwgNamedArray(
-      $cats,
-      'category',
-      array(
-        'id',
-        'url',
-        'nb_images',
-        'total_nb_images',
-        'nb_categories',
-        'date_last',
-        'max_date_last',
+
+  if ($params['tree_output'])
+  { 
+    return categories_flatlist_to_tree($cats);
+  }
+  else
+  {
+    return array(
+      'categories' => new PwgNamedArray(
+        $cats,
+        'category',
+        array(
+          'id',
+          'url',
+          'nb_images',
+          'total_nb_images',
+          'nb_categories',
+          'date_last',
+          'max_date_last',
+          )
         )
-      )
-    );
+      );
+  }
 }
 
 /**

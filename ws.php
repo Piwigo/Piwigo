@@ -81,8 +81,9 @@ function ws_addDefaultMethods( $arr )
         'cat_id' => array('default'=>0),
         'recursive' => array('default'=>false),
         'public' => array('default'=>false),
+        'tree_output' => array('default'=>false),
       ),
-      'retrieves a list of categories' );
+      'retrieves a list of categories (tree_output option only compatible with json/php output format' );
 
   $service->addMethod('pwg.images.addComment', 'ws_images_addComment',
       array(
