@@ -797,4 +797,5 @@ $lang['display'] = 'Visualizzare';
 $lang['No results'] = 'Nessun risultato';
 $lang['Type in a search term'] = 'Inserire un Entrez un termine di ricerca';
 $lang['Searching...'] = 'Ricerca ...';
+$lang['new'] = 'nuovo';
 ?>
