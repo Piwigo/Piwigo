@@ -15,6 +15,7 @@
     <h2>{'Notification'|@translate}</h2>
   </div>
 
+  <div class="notification">
   <p>{'The RSS notification feed provides notification on news from this website : new photos, updated albums, new comments. Use a RSS feed reader.'|@translate}</p>
 
   <dl>
@@ -25,4 +26,5 @@
       <a href="{$U_FEED}">{'Complete RSS feed (photos, comments)'|@translate}</a>
     </dt>
   </dl>
+  </div>
 </div>

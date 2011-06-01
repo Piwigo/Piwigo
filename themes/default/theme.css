@@ -112,6 +112,10 @@
 	padding: 0 0 3px;
 }
 
+.content .notification {
+  padding:0 25px;
+}
+
 /* actions */
 .categoryActions {
 	margin: 0 2px;
