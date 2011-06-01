@@ -792,4 +792,9 @@ $lang['Photos generation in progress...'] = 'Quá trình khởi tạo ảnh web 
 $lang['%s photos have been regenerated'] = 'có %s ảnh đã được tạo ra';
 $lang['%s photos can not be regenerated'] = 'Có %s ảnh không thể tạo ra được';
 $lang['Only photos with HD can be regenerated!'] = 'Chỉ có những ảnh định dạng cao mới có thể được khởi tạo!';
+$lang['new'] = 'mới';
+$lang['No results'] = 'Không có kết quả nào';
+$lang['Searching...'] = 'Đang tìm kiếm...';
+$lang['Type in a search term'] = 'Nhập vào trong mục tìm kiếm';
+$lang['display'] = 'hiển thị';
 ?>
