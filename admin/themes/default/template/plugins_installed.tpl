@@ -11,9 +11,10 @@ var confirmMsg  = '{'Are you sure?'|@translate|@escape:'javascript'}';
 {literal}
 var queuedManager = jQuery.manageAjax.create('queued', { 
   queue: true,  
-  maxRequests: 1,
-  complete: function() { location.reload(); }
+  maxRequests: 1
 });
+var nb_plugins = jQuery('div.active').size();
+var done = 0;
 
 jQuery(document).ready(function() {
   /* group action */
@@ -31,9 +32,9 @@ jQuery(document).ready(function() {
       url: 'ws.php',
       data: { method: 'pwg.plugins.performAction', action: 'deactivate', plugin: id, pwg_token: pwg_token, format: 'json' },
       success: function(data) {
-        if (data['stat'] == 'ok') {
-          jQuery("#"+id).removeClass('active').addClass('inactive');
-        }
+        if (data['stat'] == 'ok') jQuery("#"+id).removeClass('active').addClass('inactive');
+        done++;
+        if (done == nb_plugins) location.reload();
       }
     });
   };
@@ -106,7 +107,7 @@ jQuery(document).ready(function() {
     
 {if $field_name != $plugin.STATE}
   {if $field_name != 'null'}
-    {if $field_name == 'active'}<div class="deactivate_all"><a>{'Deactivate'|@translate} {'all'|@translate}</a></div>{/if}
+    {if $field_name == 'active'}<div class="deactivate_all"><a>{'Deactivate all'|@translate}</a></div>{/if}
   </fieldset>
   {/if}
   
@@ -134,7 +135,7 @@ jQuery(document).ready(function() {
   {/if}
    
   {if $plugin_display == 'complete'}
-    <div id="{$plugin.ID}" class="pluginBox">
+    <div id="{$plugin.ID}" class="pluginBox {$plugin.STATE}">
       <table>
         <tr>
           <td class="pluginBoxNameCell">
@@ -181,7 +182,7 @@ jQuery(document).ready(function() {
       {assign var='version' value=$plugin.VERSION}
     {/if}
           
-    <div id="{$plugin.ID}" class="pluginMiniBox">
+    <div id="{$plugin.ID}" class="pluginMiniBox {$plugin.STATE}">
       <div class="pluginMiniBoxNameCell">
         {$plugin.NAME}
         <a class="showInfo" title="{if !empty($author)}{'By %s'|@translate|@sprintf:$author} | {/if}{'Version'|@translate} {$version}<br/>{$plugin.DESC|@escape:'html'}">i</a>

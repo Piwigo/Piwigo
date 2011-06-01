@@ -207,6 +207,7 @@ $lang['Database'] = "Database";
 $lang['Date'] = "Date";
 $lang['Day'] = "Day";
 $lang['Deactivate'] = "Deactivate";
+$lang['Deactivate all'] = "Deactivate all";
 $lang['Default display'] = "Default display";
 $lang['Default user cannot be deleted'] = "Default user cannot be deleted";
 $lang['Default user does not exist'] = "The default user does not exist";

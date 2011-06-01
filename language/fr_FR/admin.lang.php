@@ -70,6 +70,7 @@ $lang['Comments for all'] = "Commentaires pour tous";
 $lang['Current name'] = "Nom courant";
 $lang['Database'] = "Base de données";
 $lang['Deactivate'] = "Désactiver";
+$lang['Deactivate all'] = "Désactiver tout";
 $lang['Delete Representant'] = "Supprimer le représentant";
 $lang['Delete selected tags'] = "Supprimer les tags sélectionnés";
 $lang['Delete selected users'] = "Supprimer les utilisateurs sélectionnés";
