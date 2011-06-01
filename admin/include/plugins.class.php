@@ -269,7 +269,7 @@ DELETE FROM ' . PLUGINS_TABLE . ' WHERE id=\'' . $plugin_id . '\'';
     $url = PEM_URL . '/api/get_version_list.php?category=12&format=php';
     if (fetchRemote($url, $result) and $pem_versions = @unserialize($result))
     {
-      if (!preg_match('/^\d+\.\d+\.\d+/', $version))
+      if (!preg_match('/^\d+\.\d+\.\d+$/', $version))
       {
         $version = $pem_versions[0]['name'];
       }

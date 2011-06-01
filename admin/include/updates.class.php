@@ -59,7 +59,7 @@ class updates
     $url = PEM_URL . '/api/get_version_list.php';
     if (fetchRemote($url, $result, $get_data) and $pem_versions = @unserialize($result))
     {
-      if (!preg_match('/^\d+\.\d+\.\d+/', $version))
+      if (!preg_match('/^\d+\.\d+\.\d+$/', $version))
       {
         $version = $pem_versions[0]['name'];
       }
