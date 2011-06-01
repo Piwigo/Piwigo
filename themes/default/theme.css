@@ -634,11 +634,11 @@ FIELDSET {
 	display: none;
 }
 
-#thePopuphelpPage P, #theNotificationPage P {
+#thePopuphelpPage P {
 	padding: 0.5em;
 }
 
-#theNotificationPage DL, #thePopuphelpPage DL {
+#thePopuphelpPage DL  {
 	margin: 0 25px 25px; 
 }
 
