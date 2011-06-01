@@ -781,4 +781,9 @@ $lang['WARNING! This plugin does not seem to be compatible with this version of 
 $lang['Do you want to activate anyway?'] = '你还是想激活吗？';
 $lang['THIS PLUGIN IS NOW PART OF PIWIGO CORE! DELETE IT NOW.'] = '这个插件现在已经是Piwigo核心的一部分，请马上删除它。';
 $lang['ERROR: THIS PLUGIN IS MISSING BUT IT IS INSTALLED! UNINSTALL IT NOW.'] = '错误：这个插件的实际内容已丢失但记录中它已被安装，请马上卸载它。';
+$lang['new'] = '新的';
+$lang['No results'] = '没有结果';
+$lang['Searching...'] = '搜索中...';
+$lang['Type in a search term'] = '输入搜索关键字';
+$lang['display'] = '显示';
 ?>

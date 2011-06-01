@@ -580,6 +580,7 @@ $validated_keys = array(
   'zh_CN' => array(
 	'IP',
 	'localhost, sql.multimania.com, toto.freesurf.fr',
+	'%d Kb',
 	),
 
   'zh_TW' => array(
