@@ -106,11 +106,15 @@ SELECT id, date_creation
     array_push($datas, $data);
 
     // tags management
-    if (isset($_POST[ 'tags-'.$row['id'] ]))
+    if (isset($_POST[ 'tags-'.$row['id'] ]) AND $_POST[ 'tags-'.$row['id'] ] != null)
     {
       $tag_ids = get_tag_ids($_POST[ 'tags-'.$row['id'] ]);
-      set_tags($tag_ids, $row['id']);
     }
+    else
+    {
+      $tag_ids = array();
+    }
+    set_tags($tag_ids, $row['id']);
   }
 
   mass_updates(
