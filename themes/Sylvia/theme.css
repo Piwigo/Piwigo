@@ -189,6 +189,7 @@
 	display: block; 
 	margin: 0; 
 	padding:20px 0 0 8px; 
+  border:0;
 }
 .content .thumbnailCategory .description { 
 	background:transparent url(images/cat_top-right.gif) no-repeat scroll right top;
