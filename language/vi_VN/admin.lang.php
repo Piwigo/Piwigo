@@ -783,5 +783,10 @@ $lang['WARNING! This plugin does not seem to be compatible with this version of 
 $lang['Do you want to activate anyway?'] = 'Bạn vẫn muốn kích hoạt?';
 $lang['THIS PLUGIN IS NOW PART OF PIWIGO CORE! DELETE IT NOW.'] = 'PLUGIN NÀY GIỜ LÀ MỘT PHẦN CỦA NHÂN PIWIGO! GỠ BỎ NGAY!';
 $lang['ERROR: THIS PLUGIN IS MISSING BUT IT IS INSTALLED! UNINSTALL IT NOW.'] = 'LỖI: PLUGIN NÀY BỊ THIẾU NHƯNG NÓ ĐÃ ĐƯỢC CÀI ĐẶT! GỠ BỎ NGAY.';
+$lang['new'] = 'mới';
+$lang['No results'] = 'Không có kết quả nào';
+$lang['Searching...'] = 'Đang tìm kiếm...';
+$lang['Type in a search term'] = 'Nhập vào trong mục tìm kiếm';
+$lang['display'] = 'hiển thị';
 
 ?>
