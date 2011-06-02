@@ -6,7 +6,7 @@
 {footer_script require='jquery.tokeninput'}
 jQuery(document).ready(function() {ldelim}
   jQuery("#tags").tokenInput(
-    [{foreach from=$tags item=tag name=tags}{ldelim}"name":"{$tag.name}","id":"{$tag.id}"{rdelim}{if !$smarty.foreach.tags.last},{/if}{/foreach}],
+    [{foreach from=$tags item=tag name=tags}{ldelim}"name":"{$tag.name|@escape:'javascript'}","id":"{$tag.id}"{rdelim}{if !$smarty.foreach.tags.last},{/if}{/foreach}],
     {ldelim}
       hintText: '{'Type in a search term'|@translate}',
       noResultsText: '{'No results'|@translate}',
