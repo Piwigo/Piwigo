@@ -795,4 +795,9 @@ $lang['Photos generation in progress...'] = 'Fotos werden neu erstellt...';
 $lang['%s photos have been regenerated'] = '%s Fotos wurden neu erstellt';
 $lang['%s photos can not be regenerated'] = '%s Fotos konnten nicht neu erstellt werden';
 $lang['Only photos with HD can be regenerated!'] = 'Diese Erweiterung berücksichtigt nur HD Material!';
+$lang['new'] = 'neu';
+$lang['No results'] = 'Keine Ergebnisse';
+$lang['Searching...'] = 'Suche...';
+$lang['Type in a search term'] = 'Geben Sie bitte einen Suchbegriff ein';
+
 ?>
