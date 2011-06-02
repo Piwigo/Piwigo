@@ -786,5 +786,9 @@ $lang['WARNING! This plugin does not seem to be compatible with this version of 
 $lang['Do you want to activate anyway?'] = 'Wollen Sie es wirklich wieder aktivieren?';
 $lang['THIS PLUGIN IS NOW PART OF PIWIGO CORE! DELETE IT NOW.'] = 'DIESES PLUGIN IST JETZT IN DEN KERN DER PIWIGO INTEGRIERT! BITTE UNBEDINGT DEINSTALLIEREN!';
 $lang['ERROR: THIS PLUGIN IS MISSING BUT IT IS INSTALLED! UNINSTALL IT NOW.'] = 'ERROR: DIESES PLUGIN FEHLT OBWOHL ES INSTALLIERT IST! BITTE UNBEDINGT DEINSTALLIEREN! ';
+$lang['new'] = 'neu';
+$lang['No results'] = 'Keine Ergebnisse';
+$lang['Searching...'] = 'Suche...';
+$lang['Type in a search term'] = 'Geben Sie bitte einen Suchbegriff ein';
 
 ?>
