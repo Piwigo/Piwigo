@@ -78,7 +78,7 @@ jQuery(document).ready(function() {
     'delay' : 0,
     'fadeIn' : 200,
     'fadeOut' : 200,
-    'maxWidth':'300px', /* not effective, TipTip bug */
+    'maxWidth':'300px',
     'keepAlive':true,
     'activation':'click'
   });
