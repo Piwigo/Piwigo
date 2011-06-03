@@ -29,6 +29,7 @@ jQuery(document).ready(function(){
   jQuery('select[name="selectOrder"]').change(function() {
     sortOrder = this.value;
     $('.pluginBox').sortElements(sortPlugins);
+    $.get("admin.php?plugins_new_order="+sortOrder);
   });
 });
 {/literal}{/footer_script}

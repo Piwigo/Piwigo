@@ -95,7 +95,18 @@ $template->assign('order_options',
 // +-----------------------------------------------------------------------+
 if ($plugins->get_server_plugins(true))
 {
-  $plugins->sort_server_plugins('date');
+  /* order plugins */
+  if (pwg_get_session_var('plugins_new_order') != null)
+  {
+    $order_selected = pwg_get_session_var('plugins_new_order');
+    $plugins->sort_server_plugins($order_selected);
+    $template->assign('order_selected', $order_selected);
+  }
+  else
+  {
+    $plugins->sort_server_plugins('date');
+    $template->assign('order_selected', 'date');
+  }
 
   foreach($plugins->server_plugins as $plugin)
   {

@@ -44,6 +44,13 @@ check_status(ACCESS_ADMINISTRATOR);
 // | Direct actions                                                        |
 // +-----------------------------------------------------------------------+
 
+// save plugins_new display order (AJAX action)
+if (isset($_GET['plugins_new_order']))
+{
+  pwg_set_session_var('plugins_new_order', $_GET['plugins_new_order']);
+  exit;
+}
+
 // theme changer
 if (isset($_GET['change_theme']))
 {
