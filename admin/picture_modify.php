@@ -164,7 +164,7 @@ if (isset($_POST['submit']) and count($page['errors']) == 0)
 
   // time to deal with tags
   $tag_ids = array();
-  if (isset($_POST['tags']))
+  if (!empty($_POST['tags']))
   {
     $tag_ids = get_tag_ids($_POST['tags']);
   }
