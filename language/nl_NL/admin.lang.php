@@ -786,5 +786,9 @@ $lang['Do you want to activate anyway?'] = 'Wilt u desondanks activeren?';
 $lang['THIS PLUGIN IS NOW PART OF PIWIGO CORE! DELETE IT NOW.'] = 'DEZE PLUGIN IS NU ONDERDEEL VAN PIWIGO CORE! VERWIJDER DE PLUGIN NU.';
 $lang['ERROR: THIS PLUGIN IS MISSING BUT IT IS INSTALLED! UNINSTALL IT NOW.'] = 'FOUT: DEZE PLUGIN MIST MAAR IS GEINSTALEERD! DEINSTALLEER DE PLUGIN NU.';
 $lang['display'] = 'toon';
+$lang['new'] = 'nieuw';
+$lang['No results'] = 'Geen resultaten';
+$lang['Searching...'] = 'Bezig met zoeken...';
+$lang['Type in a search term'] = 'Type een zoekterm in';
 
 ?>
