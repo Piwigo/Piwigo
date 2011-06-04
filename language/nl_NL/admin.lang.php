@@ -795,5 +795,9 @@ $lang['%s photos have been regenerated'] = '%s foto\'s zijn hergegenereerd.';
 $lang['%s photos can not be regenerated'] = '%s foto\'s konden niet opnieuw gegenereerd worden.';
 $lang['Only photos with HD can be regenerated!'] = 'Alleen foto\'s met HD kunnen opnieuw worden gegenereerd!';
 $lang['display'] = 'toon';
+$lang['new'] = 'nieuw';
+$lang['No results'] = 'Geen resultaten';
+$lang['Searching...'] = 'Bezig met zoeken...';
+$lang['Type in a search term'] = 'Type een zoekterm in';
 
 ?>
