@@ -102,12 +102,12 @@ jQuery(document).ready(function() {
 
 {if isset($plugins)}
 
-{assign var='field_name' value='null'}
+{assign var='field_name' value='null'} {* <!-- 'counter' for fieldset management --> *}
+{counter start=0 assign=i} {* <!-- counter for 'deactivate all' link --> *}
 {foreach from=$plugins item=plugin name=plugins_loop}
     
 {if $field_name != $plugin.STATE}
   {if $field_name != 'null'}
-    {if $field_name == 'active'}<div class="deactivate_all"><a>{'Deactivate all'|@translate}</a></div>{/if}
   </fieldset>
   {/if}
   
@@ -125,6 +125,8 @@ jQuery(document).ready(function() {
     </legend>
   {assign var='field_name' value=$plugin.STATE}
 {/if}
+  
+  {if $plugin.STATE == 'active'}{counter}{/if}
 
   {if not empty($plugin.AUTHOR)}
     {if not empty($plugin.AUTHOR_URL)}
@@ -147,14 +149,14 @@ jQuery(document).ready(function() {
           <td>
           {if $plugin.STATE == 'active'}
             <a href="{$plugin.U_ACTION}&amp;action=deactivate">{'Deactivate'|@translate}</a>
-            | <a href="{$plugin.U_ACTION}&amp;action=restore" class="plugin-restore" title="{'Restore default configuration. You will lost your plugin settings!'|@translate}" onclick="return confirm('{'Are you sure?'|@translate|@escape:'javascript'}');">{'Restore'|@translate}</a>
+            | <a href="{$plugin.U_ACTION}&amp;action=restore" class="plugin-restore" title="{'Restore default configuration. You will lost your plugin settings!'|@translate}" onclick="return confirm(confirmMsg);">{'Restore'|@translate}</a>
 
           {elseif $plugin.STATE == 'inactive'}
             <a href="{$plugin.U_ACTION}&amp;action=activate" class="activate">{'Activate'|@translate}</a>
-            | <a href="{$plugin.U_ACTION}&amp;action=delete" onclick="return confirm('{'Are you sure?'|@translate|@escape:'javascript'}');">{'Delete'|@translate}</a>
+            | <a href="{$plugin.U_ACTION}&amp;action=delete" onclick="return confirm(confirmMsg);">{'Delete'|@translate}</a>
 
           {elseif $plugin.STATE == 'missing'}
-            <a href="{$plugin.U_ACTION}&amp;action=uninstall" onclick="return confirm('{'Are you sure?'|@translate|@escape:'javascript'}');">{'Uninstall'|@translate}</a>
+            <a href="{$plugin.U_ACTION}&amp;action=uninstall" onclick="return confirm(confirmMsg);">{'Uninstall'|@translate}</a>
 
           {elseif $plugin.STATE == 'merged'}
             <a href="{$plugin.U_ACTION}&amp;action=delete">{'Delete'|@translate}</a>
@@ -178,7 +180,7 @@ jQuery(document).ready(function() {
   {elseif $plugin_display == 'compact'}
     {if not empty($plugin.VISIT_URL)}
       {assign var='version' value="<a class='externalLink' href='"|cat:$plugin.VISIT_URL|cat:"'>"|cat:$plugin.VERSION|cat:"</a>"}
-    {else
+    {else}
       {assign var='version' value=$plugin.VERSION}
     {/if}
           
@@ -191,14 +193,14 @@ jQuery(document).ready(function() {
         <div>
         {if $plugin.STATE == 'active'}
           <a href="{$plugin.U_ACTION}&amp;action=deactivate">{'Deactivate'|@translate}</a>
-          | <a href="{$plugin.U_ACTION}&amp;action=restore" class="plugin-restore" title="{'Restore default configuration. You will lost all your settings !'|@translate}" onclick="return confirm('{'Are you sure?'|@translate|@escape:'javascript'}');">{'Restore'|@translate}</a>
+          | <a href="{$plugin.U_ACTION}&amp;action=restore" class="plugin-restore" title="{'Restore default configuration. You will lost all your settings !'|@translate}" onclick="return confirm(confirmMsg);">{'Restore'|@translate}</a>
 
         {elseif $plugin.STATE == 'inactive'}
           <a href="{$plugin.U_ACTION}&amp;action=activate" class="activate">{'Activate'|@translate}</a>
-          | <a href="{$plugin.U_ACTION}&amp;action=delete" onclick="return confirm('{'Are you sure?'|@translate|@escape:'javascript'}');">{'Delete'|@translate}</a>
+          | <a href="{$plugin.U_ACTION}&amp;action=delete" onclick="return confirm(confirmMsg);">{'Delete'|@translate}</a>
 
         {elseif $plugin.STATE == 'missing'}
-          <a href="{$plugin.U_ACTION}&amp;action=uninstall" onclick="return confirm('{'Are you sure?'|@translate|@escape:'javascript'}');">{'Uninstall'|@translate}</a>
+          <a href="{$plugin.U_ACTION}&amp;action=uninstall" onclick="return confirm(confirmMsg);">{'Uninstall'|@translate}</a>
 
         {elseif $plugin.STATE == 'merged'}
           <a href="{$plugin.U_ACTION}&amp;action=delete">{'Delete'|@translate}</a>
@@ -207,6 +209,11 @@ jQuery(document).ready(function() {
       </div>
     </div> {*<!-- pluginMiniBox -->*}
     
+  {/if}
+  
+  {if $active_plugins == $i}
+    <div class="deactivate_all"><a>{'Deactivate all'|@translate}</a></div>
+    {counter}
   {/if}
   
 {/foreach}

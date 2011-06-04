@@ -86,6 +86,7 @@ $plugins->sort_fs_plugins('name');
 $merged_extensions = $plugins->get_merged_extensions();
 $merged_plugins = false;
 $tpl_plugins = array();
+$active_plugins = 0;
 
 foreach($plugins->fs_plugins as $plugin_id => $fs_plugin)
 {
@@ -122,6 +123,11 @@ foreach($plugins->fs_plugins as $plugin_id => $fs_plugin)
     $tpl_plugin['STATE'] = 'merged';
     $tpl_plugin['DESC'] = l10n('THIS PLUGIN IS NOW PART OF PIWIGO CORE! DELETE IT NOW.');
     $merged_plugins = true;
+  }
+  
+  if ($tpl_plugin['STATE'] == 'active')
+  {
+    $active_plugins++;
   }
 
   array_push($tpl_plugins, $tpl_plugin);
@@ -173,6 +179,7 @@ usort($tpl_plugins, 'cmp');
 $template->assign(array(
   'plugin_display' => $plugin_display,
   'plugins' => $tpl_plugins,
+  'active_plugins' => $active_plugins,
   'PWG_TOKEN' => $pwg_token,
 ));
 
