@@ -126,8 +126,6 @@ jQuery(document).ready(function() {
   {assign var='field_name' value=$plugin.STATE}
 {/if}
   
-  {if $plugin.STATE == 'active'}{counter}{/if}
-
   {if not empty($plugin.AUTHOR)}
     {if not empty($plugin.AUTHOR_URL)}
       {assign var='author' value="<a href='%s'>%s</a>"|@sprintf:$plugin.AUTHOR_URL:$plugin.AUTHOR}
@@ -211,10 +209,13 @@ jQuery(document).ready(function() {
     
   {/if}
   
+{if $plugin.STATE == 'active'}
+  {counter}
   {if $active_plugins == $i}
     <div class="deactivate_all"><a>{'Deactivate all'|@translate}</a></div>
     {counter}
   {/if}
+{/if}
   
 {/foreach}
   </fieldset>
