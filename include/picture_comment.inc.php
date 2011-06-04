@@ -167,10 +167,9 @@ SELECT
 
       $tpl_comment =
         array(
+          'ID' => $row['id'],
           'AUTHOR' => trigger_event('render_comment_author', $author),
-
-          'DATE' => format_date( $row['date'], true),
-
+          'DATE' => format_date($row['date'], true),
           'CONTENT' => trigger_event('render_comment_content',$row['content']),
         );
 
