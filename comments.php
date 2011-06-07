@@ -462,7 +462,7 @@ SELECT c.id, name, permalink, uppercats, com.id as comment_id
       );
 
     $tpl_comment = array(
-      'ID' => $comment_id,
+      'ID' => $comment['comment_id'],
       'U_PICTURE' => $url,
       'TN_SRC' => $thumbnail_src,
       'ALT' => $name,
