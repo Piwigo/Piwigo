@@ -783,5 +783,10 @@ $lang['WARNING! This plugin does not seem to be compatible with this version of 
 $lang['Do you want to activate anyway?'] = 'Всё равно хотите активировать?';
 $lang['THIS PLUGIN IS NOW PART OF PIWIGO CORE! DELETE IT NOW.'] = 'ЭТОТ ПЛАГИН СЕЙЧАС УЖЕ ЯВЛЯЕТСЯ ЧАСТЬЮ ЯДРА PIWIGO! УДАЛИТЕ ЕГО СЕЙЧАС!';
 $lang['ERROR: THIS PLUGIN IS MISSING BUT IT IS INSTALLED! UNINSTALL IT NOW.'] = 'ОШИБКА: НЕСМОТРЯ НА ТО, ЧТО ЭТОТ ПЛАГИН УСТАНОВЛЕН, ОН ПОТЕРЯЛСЯ! УДАЛИТЕ ЕГО СЕЙЧАС.';
+$lang['new'] = 'новый';
+$lang['No results'] = 'Ничего не найдено';
+$lang['Searching...'] = 'Выполняется поиск...';
+$lang['Type in a search term'] = 'Определите критерий поиска';
+$lang['display'] = 'показать';
 
 ?>
