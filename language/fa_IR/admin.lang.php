@@ -779,4 +779,14 @@ $lang['All languages are up to date.'] = 'تمام زبان ها بروز می �
 $lang['Visit theme site'] = 'پوسته سایت در سمت کاربر';
 $lang['Visit language site'] = 'زبان سایت در سمت کاربر';
 $lang['New Version'] = 'نسخه جدید';
+$lang['new'] = 'جدید';
+$lang['No results'] = 'نتیجه ای پیدا نشد';
+$lang['Searching...'] = 'جستجو...';
+$lang['Type in a search term'] = 'عبارت مورد جستجو را تایپ نمائید';
+$lang['Obsolete Plugins'] = 'افزونه منسوخ شده';
+$lang['WARNING! This plugin does not seem to be compatible with this version of Piwigo.'] = 'هشدار! این افزونه به نظر نمی رسد با این نسخه سازگار باشد';
+$lang['Do you want to activate anyway?'] = 'آیا به هر طریقی قصد فعال کردن دارید؟';
+$lang['THIS PLUGIN IS NOW PART OF PIWIGO CORE! DELETE IT NOW.'] = 'این پلاگین در حال حاضر بخشی از هسته PIWIGO! میباشد. هم الکنون از حالت نصب خارج نمائید!';
+$lang['ERROR: THIS PLUGIN IS MISSING BUT IT IS INSTALLED! UNINSTALL IT NOW.'] = 'خطا : این پلاگین گم شده است اما آن نصب شده است! اکنون از نصب خارجش کنید.';
+$lang['display'] = 'نمایش';
 ?>
