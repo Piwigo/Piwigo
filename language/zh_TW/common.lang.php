@@ -359,4 +359,6 @@ $lang['This author modified following comment:'] = '此作者修改了以下的�
 $lang['This author removed the comment with id %d'] = '此作者刪除了 id 為 %d 的評論';
 $lang['validate this comment'] = '審核此評論';
 $lang['Sent by'] = '發送人';
+$lang['html tags are not allowed in login'] = 'login內不允許有html標籤';
+
 ?>
