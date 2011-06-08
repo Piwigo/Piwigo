@@ -783,4 +783,9 @@ $lang['THIS PLUGIN IS NOW PART OF PIWIGO CORE! DELETE IT NOW.'] = 'ESTA EXTENSÃ
 $lang['ERROR: THIS PLUGIN IS MISSING BUT IT IS INSTALLED! UNINSTALL IT NOW.'] = 'ERRO: ESTA EXTENSÃO NÃO EXISTE MAS ESTÁ INSTALADA! DESINSTALE-A AGORA.';
 $lang['Simulation'] = 'Simulação';
 $lang['display'] = 'Mostrar';
+$lang['new'] = 'novo';
+$lang['No results'] = 'Sem resultados';
+$lang['Searching...'] = 'Procurando...';
+$lang['Type in a search term'] = 'Escreva um termo de busca';
+
 ?>
