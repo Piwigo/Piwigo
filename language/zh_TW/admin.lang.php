@@ -776,5 +776,15 @@ $lang['All languages are up to date.'] = '所有語言都是最新的';
 $lang['Visit theme site'] = '瀏覽主題頁面';
 $lang['Visit language site'] = '瀏覽語言頁面';
 $lang['New Version'] = '新版本';
+$lang['new'] = '新增';
+$lang['No results'] = '沒有結果';
+$lang['Searching...'] = '搜尋中...';
+$lang['Type in a search term'] = '輸入搜索字詞';
+$lang['Obsolete Plugins'] = '過時(廢棄)的插件';
+$lang['WARNING! This plugin does not seem to be compatible with this version of Piwigo.'] = '警告! 這個插件與此Piwigo版本不相容!';
+$lang['Do you want to activate anyway?'] = '你無論如何都要啟動嗎?';
+$lang['THIS PLUGIN IS NOW PART OF PIWIGO CORE! DELETE IT NOW.'] = '這個插件目前是Piwigo核心一部份! 請立即移除它!';
+$lang['ERROR: THIS PLUGIN IS MISSING BUT IT IS INSTALLED! UNINSTALL IT NOW.'] = '錯誤：這個插件雖已安裝但並不存在! 請立即移除它!';
+$lang['display'] = '顯示'; 
 
 ?>
