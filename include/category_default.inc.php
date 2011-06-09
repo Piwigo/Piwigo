@@ -110,7 +110,6 @@ foreach ($pictures as $row)
       'TN_SRC'    => get_thumbnail_url($row),
       'TN_ALT'    => $row['file'],
       'TN_TITLE'  => get_thumbnail_title($row),
-      'icon_ts'   => get_icon($row['date_available']),
       'URL'       => $url,
 
    /* Fields for template-extension usage */
@@ -127,6 +126,10 @@ foreach ($pictures as $row)
       'FILE_HAS_HD' => ($row['has_high'] and $user['enabled_high']=='true') ?
                 true:false, /* lack of include/functions_picture.inc.php */
     );
+  if ($conf['index_new_icon'])
+  {
+    $row['icon_ts'] = get_icon($row['date_available']);
+  }
 
   if ($user['show_nb_hits'])
   {

@@ -239,6 +239,13 @@ jQuery(document).ready(function () {
         <span class="property">{'display only recently posted photos'|@translate|@ucfirst|@string_format:$pwg->l10n('Activate icon "%s"')}</span>
         <input type="checkbox" name="menubar_filter_icon" {if ($display.menubar_filter_icon)}checked="checked"{/if}>
       </label>
+    </li>    
+    
+    <li>
+      <label>
+        <span class="property">{'Activate icon "new" next to albums and pictures'|@translate}</span>
+        <input type="checkbox" name="index_new_icon" {if ($display.index_new_icon)}checked="checked"{/if}>
+      </label>
     </li>
 
     <li>

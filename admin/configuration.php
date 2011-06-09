@@ -78,6 +78,7 @@ $display_checkboxes = array(
     'index_posted_date_icon',
     'index_created_date_icon',
     'index_slideshow_icon',
+    'index_new_icon',
     'picture_metadata_icon',
     'picture_slideshow_icon',
     'picture_favorite_icon',

@@ -36,6 +36,7 @@ INSERT INTO piwigo_config (param,value,comment) VALUES ('index_flat_icon','true'
 INSERT INTO piwigo_config (param,value,comment) VALUES ('index_posted_date_icon','true','Display calendar by posted date');
 INSERT INTO piwigo_config (param,value,comment) VALUES ('index_created_date_icon','true','Display calendar by creation date icon');
 INSERT INTO piwigo_config (param,value,comment) VALUES ('index_slideshow_icon','true','Display slideshow icon');
+INSERT INTO piwigo_config (param,value,comment) VALUES ('index_new_icon','true','Display new icons next albums and pictures');
 INSERT INTO piwigo_config (param,value,comment) VALUES ('picture_metadata_icon','true','Display metadata icon on picture page');
 INSERT INTO piwigo_config (param,value,comment) VALUES ('picture_slideshow_icon','true','Display slideshow icon on picture page');
 INSERT INTO piwigo_config (param,value,comment) VALUES ('picture_favorite_icon','true','Display favorite icon on picture page');

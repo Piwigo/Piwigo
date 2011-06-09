@@ -98,6 +98,7 @@ $lang['Activate icon "%s"'] = 'Activate icon "%s"';
 $lang['Activate Navigation Bar'] = 'Activate navigation bar';
 $lang['Activate Navigation Thumbnails'] = 'Activate navigation thumbnails';
 $lang['Activate'] = "Activate";
+$lang['Activate icon "new" next to albums and pictures'] = 'Activate icon "new" next to albums and pictures';
 $lang['Active Languages'] = 'Active Languages';
 $lang['Active Plugins'] = 'Active Plugins';
 $lang['Active Themes'] = 'Active Themes';

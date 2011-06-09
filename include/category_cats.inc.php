@@ -306,7 +306,6 @@ if (count($categories) > 0)
           'ID'    => $category['id'],
           'TN_SRC'   => $thumbnail_src_of[$category['representative_picture_id']],
           'TN_ALT'   => strip_tags($category['name']),
-          'icon_ts'  => get_icon($category['max_date_last'], $category['is_child_date_last']),
 
           'URL'   => make_index_url(
             array(
@@ -328,6 +327,10 @@ if (count($categories) > 0)
                 'subcatify_category_description')),
           'NAME'  => $name,
         );
+    if ($conf['index_new_icon'])
+    {
+      $row['icon_ts'] = get_icon($category['max_date_last'], $category['is_child_date_last']);
+    }
 
     if ($conf['display_fromto'])
     {

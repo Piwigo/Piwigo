@@ -50,7 +50,7 @@ function check_restrictions($category_id)
 
 function get_categories_menu()
 {
-  global $page, $user, $filter;
+  global $page, $user, $filter, $conf;
 
   $query = '
 SELECT ';
@@ -110,21 +110,24 @@ WHERE '.$where.'
           'render_category_name',
           $row['name'],
           'get_categories_menu'
-        ),
+          ),
         'TITLE' => get_display_images_count(
           $row['nb_images'],
           $row['count_images'],
           $row['count_categories'],
           false,
           ' / '
-        ),
+          ),
         'URL' => make_index_url(array('category' => $row)),
         'LEVEL' => substr_count($row['global_rank'], '.') + 1,
-        'icon_ts' => get_icon($row['max_date_last'], $child_date_last),
         'SELECTED' => $selected_category['id'] == $row['id'] ? true : false,
         'IS_UPPERCAT' => $selected_category['id_uppercat'] == $row['id'] ? true : false,
-      )
-    );
+        )
+      );
+    if ($conf['index_new_icon'])
+    {
+      $row['icon_ts'] = get_icon($row['max_date_last'], $child_date_last);
+    }
     array_push($cats, $row);
     if ($row['id']==@$page['category']['id']) //save the number of subcats for later optim
       $page['category']['count_categories'] = $row['count_categories'];

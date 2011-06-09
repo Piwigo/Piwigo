@@ -852,4 +852,5 @@ $lang['Default photos order inside album'] = "Ordre par défaut des photos dans 
 $lang['Invalid order string'] = 'Chaîne SQL incorrecte';
 $lang['As default order'] = "Comme l'ordre par défaut";
 $lang['Custom'] = "Personnalisé";
+$lang['Activate icon "new" next to albums and pictures'] = 'Afficher l\'icône "nouveau" à côté des albums et des photos';
 ?>
