@@ -713,4 +713,16 @@ $lang['Order of menubar items has been updated successfully.'] = 'ニューの�
 $lang['This theme was not designed to be directly activated'] = 'このテーマは直接有効化になりません。';
 $lang['Pending Comments'] = 'コメントを確認待ち';
 $lang['Menu Management'] = 'メニュー';
+$lang['%d of %d photos selected'] = '%d 個目の %d 個の写真選択されていました。';
+$lang['Action'] = 'アックション';
+$lang['Add a filter'] = 'フィルター追加';
+$lang['Album photos associated to the following albums: %s'] = '連携されていた写真アルバム: %s';
+$lang['Albums automatically sorted'] = 'アルバムを自動的に並び替えました';
+$lang['All %d photos are selected'] = '全ての %d 個の写真が選択されました';
+$lang['Apply action'] = 'アックションを実行する';
+$lang['automatic order'] = '自動並び替え';
+$lang['Batch Manager'] = 'バッチ・マネージャー';
+$lang['Choose an action'] = 'アックションを選択して下さい';
+$lang['Compact'] = 'コンパクト';
+$lang['Complete'] = '完了'
 ?>
