@@ -33,6 +33,20 @@ galerie.</li>
   <li><strong>L'adresse mail est obligatoire pour tous les utilisateurs</strong>: L'adresse mail sera vérifié lors des inscriptions ou de la mise à jour des profils sauf si l'action est effectuée dans la partie administration.</li>
 
   <li><strong>Notifier les administrateurs lors de l'inscription d'un utilisateur</strong>: Les administrateurs recevront un courriel à chaque inscription.</li>
+  
+  <li><strong>Ordre par défaut des photos</strong>: Vous pouvez définir un ordre personnalisé et selectionant &laquo;Personnalisé&raquo; dans la liste déroulante. Ce champ doit respecter la syntaxe SQL, exemple: <i>date_available DESC, file ASC, id ASC</i><br>
+    Liste des champs utilisables :
+    <ul style="font-size:0.85em;">
+      <li><b>date_available</b>: date d'ajout à la galerie</li>
+      <li><b>file</b>: nom du fichier</li>
+      <li><b>id</b>: identifiant</li>
+      <li><b>date_creation</b>: date de création</li>
+      <li><b>name</b>: nom de l'image</li>
+      <li><b>hit</b>: nombre de visites</li>
+      <li><b>average_rate</b>: note globale</li>
+    </ul>
+    N'oubliez pas pour chaque champ de spécifier l'ordre avec les mots clefs <i>ASC</i> et <i>DESC</i>
+  </li>
 
 </ul>
 

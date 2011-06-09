@@ -89,13 +89,50 @@
     </li>
 
     <li>
-      <label>
-        <span class="property">
-          {'Week starts on'|@translate}
-          {html_options name="week_starts_on" options=$main.week_starts_on_options selected=$main.week_starts_on_options_selected}
-        </span>
-      </label>
+      &nbsp;
+      <span class="property">
+        {'Week starts on'|@translate}
+        {html_options name="week_starts_on" options=$main.week_starts_on_options selected=$main.week_starts_on_options_selected}
+      </span>
     </li>
+    
+    <li>
+      &nbsp;
+      <span class="property">
+        {'Default photos order'|@translate}
+        {html_options name="order_by" options=$main.order_by_options selected=$main.order_by_selected}
+        <input type="text" name="order_by_perso" size="40" value="{$main.order_by_perso}" 
+            {if $main.order_by_selected != 'custom'}style="display:none;"{/if}/>
+      </span>
+    </li>
+    <li>
+      &nbsp;
+      <span class="property">
+        {'Default photos order inside album'|@translate}
+        {html_options name="order_by_inside_category" options=$main.order_by_inside_category_options selected=$main.order_by_inside_category_selected}
+        <input type="text" name="order_by_inside_category_perso" size="40" value="{$main.order_by_inside_category_perso}" 
+            {if $main.order_by_inside_category_selected != 'custom'}style="display:none;"{/if}>
+      </span>
+    </li>
+    
+{footer_script require='jquery'}{literal}
+jQuery(document).ready(function () {
+  $('select[name="order_by"]').change(function () {
+    if ($(this).val() == 'custom') {
+      $('input[name="order_by_perso"]').show();
+    } else {
+      $('input[name="order_by_perso"]').hide();
+    }
+  });
+  $('select[name="order_by_inside_category"]').change(function () {
+    if ($(this).val() == 'custom') {
+      $('input[name="order_by_inside_category_perso"]').show();
+    } else {
+      $('input[name="order_by_inside_category_perso"]').hide();
+    }
+  });
+});
+{/literal}{/footer_script}
   </ul>
 </fieldset>
 {/if}

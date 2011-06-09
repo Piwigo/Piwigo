@@ -100,6 +100,12 @@ $display_info_checkboxes = array(
     'average_rate',
     'privacy_level',
   );
+  
+$order_options = array(
+    ' ORDER BY date_available DESC, file ASC, id ASC' => 'date_available DESC, file ASC, id ASC',
+    ' ORDER BY file DESC, date_available DESC' => 'file DESC, date_available DESC',
+    'custom' => l10n('Custom'),
+  );
 
 //------------------------------ verification and registration of modifications
 if (isset($_POST['submit']))
@@ -110,6 +116,56 @@ if (isset($_POST['submit']))
   {
     case 'main' :
     {
+      $order_regex = '#^(( *)(id|file|name|date_available|date_creation|hit|average_rate|comment|author|filesize|width|height|high_filesize|high_width|high_height) (ASC|DESC),{1}){1,}$#';
+      // process 'order_by_perso' string
+      if ($_POST['order_by'] == 'custom' AND !empty($_POST['order_by_perso']))
+      {
+        $_POST['order_by'] = str_ireplace(
+          array('order by ', 'asc', 'desc'),
+          array(null, 'ASC', 'DESC'),
+          trim($_POST['order_by_perso'])
+          );
+        
+        if (preg_match($order_regex, $_POST['order_by'].','))
+        {
+          $_POST['order_by'] = ' ORDER BY '.$_POST['order_by'];
+        }
+        else
+        {
+          array_push($page['errors'], l10n('Invalid order string').' &laquo; '.$_POST['order_by'].' &raquo;');
+        }
+      }
+      else if ($_POST['order_by'] == 'custom')
+      {
+        array_push($page['errors'], l10n('Invalid order string'));
+      }
+      // process 'order_by_inside_category_perso' string
+      if ($_POST['order_by_inside_category'] == 'as_order_by')
+      {
+        $_POST['order_by_inside_category'] = $_POST['order_by'];
+      }
+      else if ($_POST['order_by_inside_category'] == 'custom' AND !empty($_POST['order_by_inside_category_perso']))
+      {
+        $_POST['order_by_inside_category'] = str_ireplace(
+          array('order by ', 'asc', 'desc'),
+          array(null, 'ASC', 'DESC'),
+          trim($_POST['order_by_inside_category_perso'])
+          );
+        
+        if (preg_match($order_regex, $_POST['order_by_inside_category'].','))
+        {
+          $_POST['order_by_inside_category'] = ' ORDER BY '.$_POST['order_by_inside_category'];
+        }
+        else
+        {
+          array_push($page['errors'], l10n('Invalid order string').' &laquo; '.$_POST['order_by_inside_category'].' &raquo;');
+        }
+      }
+      else if ($_POST['order_by_inside_category'] == 'custom')
+      {
+        array_push($page['errors'], l10n('Invalid order string'));
+      }
+      
       if (empty($_POST['gallery_locked']) and $conf['gallery_locked'])
       {
         $tpl_var = & $template->get_template_vars('header_msgs');
@@ -234,6 +290,34 @@ switch ($page['section'])
 {
   case 'main' :
   {
+    // process 'order_by' string
+    if (array_key_exists($conf['order_by'], $order_options))
+    {
+      $order_by_selected = $conf['order_by'];
+      $order_by_perso = null;
+    }
+    else
+    {
+      $order_by_selected = 'custom';
+      $order_by_perso = str_replace(' ORDER BY ', null, $conf['order_by']);
+    }
+    // process 'order_by_inside_category' string
+    if ($conf['order_by_inside_category'] == $conf['order_by'])
+    {
+      $order_by_inside_category_selected = 'as_order_by';
+      $order_by_inside_category_perso = null;
+    }
+    else if (array_key_exists($conf['order_by_inside_category'], $order_options))
+    {
+      $order_by_inside_category_selected = $conf['order_by_inside_category'];
+      $order_by_inside_category_perso = null;
+    }
+    else
+    {
+      $order_by_inside_category_selected = 'custom';
+      $order_by_inside_category_perso = str_replace(' ORDER BY ', null, $conf['order_by_inside_category']);
+    }
+     
     $template->assign(
       'main',
       array(
@@ -245,6 +329,16 @@ switch ($page['section'])
           'monday' => $lang['day'][1],
           ),
         'week_starts_on_options_selected' => $conf['week_starts_on'],
+        'order_by_options' => $order_options,
+        'order_by_selected' => $order_by_selected,
+        'order_by_perso' => $order_by_perso,
+        'order_by_inside_category_options' => 
+          array_merge(
+            array('as_order_by'=>l10n('As default order')), 
+            $order_options
+            ),
+        'order_by_inside_category_selected' => $order_by_inside_category_selected,
+        'order_by_inside_category_perso' => $order_by_inside_category_perso,
         ));
 
     foreach ($main_checkboxes as $checkbox)
