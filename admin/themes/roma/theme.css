@@ -131,11 +131,6 @@ margin-top:4px; padding-bottom:3px; padding-top:3px; top:1px;
 background:transparent url(images/menuBoxBottom_new.png) no-repeat scroll left bottom;
 border:0; display:inline; float:left; left:0; margin: 10px 0 0 10px; 
 padding:0; width:230px; z-index:99; text-align: left; }
-#menubar ul.scroll { overflow-y:auto;
- /* Only IE family supports colored scrollbar */
- scrollbar-face-color: #222; scrollbar-shadow-color: #444; scrollbar-highlight-color: #000;
- scrollbar-3dlight-color: #292929; scrollbar-darkshadow-color: #333; scrollbar-track-color: #111;
- scrollbar-arrow-color: #ff3333; }
 #menubar dd {
 background: transparent url(images/menubar-detail.png) repeat-y top left;
 margin: 0; padding: 0 0 10px 0; }
