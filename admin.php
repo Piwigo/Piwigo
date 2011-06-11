@@ -72,7 +72,8 @@ if (isset($_GET['change_theme']))
 // | Synchronize user informations                                         |
 // +-----------------------------------------------------------------------+
 
-if (mt_rand(0,9)==0)
+// sync_user() is only useful when external authentication is activated
+if ($conf['external_authentification'])
 {
   sync_users();
 }
