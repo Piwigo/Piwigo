@@ -17,7 +17,7 @@
       {foreach from=$tags item=tag}
       <tr>
         <td>{$tag.NAME}</td>
-        <td><input type="text" name="tag_name-{$tag.ID}" value="{$tag.NAME}"></td>
+        <td><input type="text" name="tag_name-{$tag.ID}" value="{$tag.NAME}" size="30"></td>
       </tr>
       {/foreach}
     </table>
@@ -35,7 +35,7 @@
 
     <label>
       {'New tag'|@translate}
-      <input type="text" name="add_tag">
+      <input type="text" name="add_tag" size="30">
     </label>
     
     <p><input class="submit" type="submit" name="add" value="{'Submit'|@translate}"></p>

@@ -2107,7 +2107,7 @@ function get_taglist($query)
     array_push(
       $taglist,
       array(
-        'name' => $row['tag_name'],
+        'name' => trigger_event('render_tag_name', $row['tag_name']),
         'id' => '~~'.$row['tag_id'].'~~',
         )
       );

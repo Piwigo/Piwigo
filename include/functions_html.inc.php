@@ -275,7 +275,7 @@ function get_html_tag_selection(
     }
 
     $output.=
-      '>'
+      '> '
       .$tag['name']
       .'</label>'
       .'</li>'
@@ -441,7 +441,7 @@ function get_tags_content_title()
       .'" title="'
       .l10n('display photos linked to this tag')
       .'">'
-      .$page['tags'][$i]['name']
+      .trigger_event('render_tag_name', $page['tags'][$i]['name'])
       .'</a>';
 
     $remove_url = null;
