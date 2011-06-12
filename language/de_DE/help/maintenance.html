@@ -1,67 +1,65 @@
 <h2>Wartung</h2>
 
-<p>Für die Zeit der Erzeugung der Seiten, verwendet Piwigo
-Informationen im Cache. Zum Beispiel statt, die Zahl
-der Elemente in jeder Kategorie in jeder Seite neu zu laden,
-Diese Information wird in der Datenbank. In der Theorie, die
-Information muss immer korrekt, aber manchmal kann ein Fehler
-auftreten, und die Informationen im Cache wird falsch.</p>
+<p>Um die Ladezeiten der Seiten zu optimieren, verwendet Piwigo einen
+Cache. Zum Beispiel wird die Information über die Anzahl der Fotos in
+einem Album in der Datenbank zwischengespeichert, statt sie jedesmal
+zu zählen. In Normalfall sollte diese Information immer korrekt sein,
+jedoch kann es auch vorkommen, dass die zwischengespeicherte Information
+ungültig wird.</p>
 
-<p>Informationen werden mit der Zeit unbrauchbar. Sie von der
-Datenbank gibt den Speicherplatz frei.</p>
+<p>Einige Informationen in der Datenbank werden mit der Zeit unbrauchbar. Durch Löschen dieser
+nutzlosen Informationen können Sie Plattenplatz sparen.</p>
 
 <ul>
 
    <li>
      <strong>Nicht verlinkte Elemente: </strong>
-     Zeigt die Bilder, die nicht mit einer virtuellen Kategorie verlinkt sind (sind aber in realen Kategorien vorhanden)
+     Zeigt die Bilder, die nicht mit einem virtuellen Album verlinkt, aber in realen Alben vorhanden sind.
    </li>
    <li>
-     <strong> Finde Dateien mit dem gleichen Dateiname: </strong>
-     Findet Dateien mit dem gleichen Dateiname die in verschiedenen Ordnern gespeichert sind.
+     <strong>Dateien mit dem selben Dateinamen in mehreren realen Alben:</strong>
+     Durchsucht alle Ordner und listet Dateien mit dem selben Dateinamen.
    </li>
 
 </ul>
 
 <ul>
 
-   <li><strong>aktualisieren die Informationen der Kategorien:</strong> Für
-jeder Kategorie, die Informationen zu kontrollieren und / oder zu aktualisieren, werden die
-folgenden: Liste der Kategorien Mütter, Anzahl der Elemente, Datum der letzten
-Element, unter den Kategorien Schwester, Position in der kompletten Baum
-Kategorien. Diese Aktion stellt sicher, auch die Kohärenz der
-Vertreter.</li>
+   <li><strong>Aktualisierung der Albeninformationen:</strong>
+  Für jedes Album werden die folgenden Informationen überprüft und bei Bedarf angepasst :
+  Liste der übergeordneten Alben, Anzahl der Fotos, Datum des aktuellsten Fotos, Position relativ
+  zu anderen Alben auf der selben Ebene, Position im kompletten Albenbaum.
+  Diese Funktion überprüft auch die Korrektheit der Vorschaubilder.</li>
 
-   <li><strong>aktualisieren die Informationen der Bilder:</strong> Für
-jedes Bild, die Informationen zu aktualisieren sind: kompletten Pfad zu dem
-Datei, Durchschnittsnote. <em>Achtung</em>: nicht zu verwechseln mit den
-Meta-Daten synchronisiert werden, die auf dem Bildschirm <span
-class = "pwgScreen">Verwaltung, Kategorien, synchronisieren</span> oder auf
-<span class="pwgScreen">dem Bildschirm bearbeiten Informationen eines Bildes</span>
-(zugänglich von der Seite zur Darstellung eines Bildes<span
-class = "pwgScreen">picture.php</span>).</li>
+   <li><strong>Aktualisierung der Fotoinformationen:</strong>
+  Für jedes Foto werden die folgenden Informationen überprüft und bei Bedarf angepasst :
+  der komplette Pfad zum Foto, Durchschnittsbewertung. <em>Achtung</em>: Diese Aktion ist
+  nicht mit der Synchronisierung der Metadaten zu verwechseln. Diese müssen über
+  <span class="pwgScreen">Verwaltung &raquo; Werkzeuge &raquo; Synchronisieren</span>,
+  oder auf der Bearbeitungsseite eines Bildes (zum Beispiel über <span class="pwgScreen">Foto
+  </span>) synchronisiert werden.</li>
 
-   <li><strong>Reparieren und Optimierung der Datenbank:</strong>
-Für jede Tabelle der Datenbank PhpWegGallery, die von neu ordnen, Reparatur und Optimierung durchgeführt werden.
+   <li><strong>Reparieren und Optimieren der Datenbank:</strong>
+  Jede Tabelle der Datenbank wird neu sortiert, repariert und optimiert.
    </li>
 
 </ul>
 
 <ul>
-   <li><strong>das Löschen des Verlaufs detail:</strong> Löscht alle Zeilen
-Tabelle <code>history</code>. Der Bildschirm <span
-class = "pwgScreen">Verwaltung, Sonderangebote, Geschichte</span> zeigt dann
-keine Informationen mehr über die Vergangenheit. <em>Achtung</em>: alle Daten
-gehen verloren, und es gibt keine Möglichkeit, diese wiederherzustellen.</li>
+   <li><strong>Löschen der History-details:</strong> Löscht alle Einträge
+  der <code>history</code>-Tabelle. Die Seite <span class = "pwgScreen">
+  Verwaltung &raquo; Werkzeuge &raquo; History</span> zeigt dann
+keine Informationen mehr über vergangenen Einträge an. <em>Achtung</em>: alle Daten
+gehen verloren, und es gibt keine Möglichkeit, sie wiederherzustellen.</li>
 
-   <li><strong>Löschen der Inhalt der Geschichte:</strong> Entfernt alle Informationen (aus der historischen detail).</li>
+   <li><strong>Löschen der History-zusammenfassung:</strong> Löscht alle Zusammenfassungsinformationen der History.
+Diese Zusammenfassung wird aus den History-details errechnet.</li>
 
-   <li><strong>Löschen Sitzungen:</strong> "Löschen"-Sitzungen
-Abgelaufene ..</li>
+   <li><strong>Löschen der Sessions:</strong> Löscht abgelaufene Usersessions.</li>
 
-   <li><strong>Löschen von Arbeitsabläufen Anmeldung genutzt</strong></li>
+   <li><strong>Löschen nie genutzte Benachrichtigungsfeeds</strong></li>
    
-   <li><strong>Lösche die Such-Historie</strong></li>
+   <li><strong>Löschen des Suchverlaufs</strong></li>
 	
    <li><strong>Löschen der kompilierten Templates</strong></li>
 
