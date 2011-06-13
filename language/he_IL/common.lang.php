@@ -355,4 +355,5 @@ $lang['This author modified following comment:'] = 'מחבר זה, ערך את �
 $lang['This author removed the comment with id %d'] = 'מחבר זה מחק את התגובה עם השם משתמש %d';
 $lang['delete this comment'] = "מחק תגובה זאת";
 $lang['validate this comment'] = 'אמת את התגובה';
+$lang['html tags are not allowed in login'] = 'לא ניתן להשתמש בתגי html בהתחברות';
 ?>
