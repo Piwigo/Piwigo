@@ -358,4 +358,5 @@ $lang['Manage this user comment: %s'] = 'このユーザーのコメントを管
 $lang['This author modified following comment:'] = 'このユーザーが次のコメントを書き直しました:';
 $lang['This author removed the comment with id %d'] = 'このユーザーがコメントID %d を削除しました。';
 $lang['validate this comment'] = 'このコメントを有効にする';
+$lang['html tags are not allowed in login'] = 'ログインの際、HTMLタッグが使いません';
 ?>

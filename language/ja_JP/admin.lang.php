@@ -722,4 +722,12 @@ $lang['Apply action'] = 'アックションを実行する';
 $lang['automatic order'] = '自動並び替え';
 $lang['Batch Manager'] = 'バッチ・マネージャー';
 $lang['Choose an action'] = 'アックションを選択して下さい';
+$lang['Delete orphan tags'] = '捨てられたタグを削除する';
+$lang['delete photo'] = '写真を削除する';
+$lang['duplicates'] = '複写';
+$lang['Error on file "%s" : %s'] = '"%s"　のファイル・エラー : %s';
+$lang['Exif extension not available, admin should disable exif use'] = 'Exif エクステンションなし、管理人がexifの使用を中止する必要です。';
+$lang['Failed to write file to disk'] = 'ディスク上に書き込みを失敗しました';
+$lang['File upload stopped by extension'] = 'エクステンションによって、ファイル・アップロードが中止しました。';
+$lang['In your php.ini file, the upload_max_filesize (%sB) is bigger than post_max_size (%sB), you should change this setting'] =' あなたのphp.ini ファイルによって、最高の投稿サイズ (%sB)より、 最大のアップロード・ファイルサイズ (%sB) のほうが大量です。この設定を変更する必です。';
 ?>
