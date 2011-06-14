@@ -350,7 +350,7 @@ function ws_addDefaultMethods( $arr )
       'categories' => array('default' => null),
       'tag_ids' => array('default' => null),
       'level' => array(
-        'default' => 0,
+        'default' => null,
         'maxValue' => $conf['available_permission_levels']
         ),
       'single_value_mode' => array('default' => 'fill_if_empty'),
