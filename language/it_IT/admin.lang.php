@@ -846,4 +846,10 @@ $lang['No results'] = 'Nessun risultato';
 $lang['Type in a search term'] = 'Inserire un Entrez un termine di ricerca';
 $lang['Searching...'] = 'Ricerca ...';
 $lang['new'] = 'nuovo';
+$lang['Default photos order'] = 'Ordinamento di default delle foto';
+$lang['Default photos order inside album'] = 'Ordinamento di default delle foto in un album';
+$lang['Invalid order string'] = 'Stringa SQL non corretta';
+$lang['As default order'] = 'Come ordinamento di default';
+$lang['Custom'] = 'Personalizzare';
+$lang['Activate icon "new" next to albums and pictures'] = 'Visualizzare l\'icona "nuovo" a fianco degli album e delle foto';
 ?>
