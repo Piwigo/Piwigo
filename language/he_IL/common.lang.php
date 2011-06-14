@@ -338,7 +338,6 @@ $lang['Reset to default values'] = "אפס לערך ברירת מחדל";
 $lang['delete all photos from your favorites'] = "מחק את כל התמונות מהמועדפים שלך";
 $lang['Sent by'] = "נשלח על ידי";
 $lang['Cookies are blocked or not supported by your browser. You must enable cookies to connect.'] = "הדפדפן שלך חוסם קוקיז או לא תומך בהם. אתה חייב להפעיל את ה קוקיז בשביל להתחבר.";
-
 $lang['edit this comment'] = "ערוך תגובה זאת";
 $lang['Edit a comment'] = "ערוך תגובה";
 $lang['Are you sure?'] = "האם אתה בטוח?";
@@ -356,4 +355,6 @@ $lang['This author removed the comment with id %d'] = 'מחבר זה מחק את
 $lang['delete this comment'] = "מחק תגובה זאת";
 $lang['validate this comment'] = 'אמת את התגובה';
 $lang['html tags are not allowed in login'] = 'לא ניתן להשתמש בתגי html בהתחברות';
+$lang['The number of photos per page must be a not null scalar'] = 'מספר התמונות בד חייב להיות גדול מאפס';
+$lang['Number of photos per page'] = 'מספר תמונות בדף';
 ?>
