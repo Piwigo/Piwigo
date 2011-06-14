@@ -149,7 +149,7 @@ $template->assign(
     'U_USERS'=> $link_start.'user_list',
     'U_GROUPS'=> $link_start.'group_list',
     'U_PERMALINKS'=> $link_start.'permalinks',
-    'U_RETURN'=> make_index_url(),
+    'U_RETURN'=> get_gallery_home_url(),
     'U_ADMIN'=> PHPWG_ROOT_PATH.'admin.php',
     'U_LOGOUT'=> PHPWG_ROOT_PATH.'index.php?act=logout',
     'U_PLUGINS'=> $link_start.'plugins_list',

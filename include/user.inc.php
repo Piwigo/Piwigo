@@ -30,7 +30,7 @@ if (isset($_COOKIE[session_name()]))
   if (isset($_GET['act']) and $_GET['act'] == 'logout')
   { // logout
     logout_user();
-    redirect(make_index_url());
+    redirect(get_gallery_home_url());
   }
   elseif (!empty($_SESSION['pwg_uid']))
   {
