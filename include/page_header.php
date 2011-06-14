@@ -50,7 +50,7 @@ $template->assign(
     'CONTENT_ENCODING' => get_pwg_charset(),
     'PAGE_TITLE' => strip_tags($title),
 
-    'U_HOME' => make_index_url(),
+    'U_HOME' => get_gallery_home_url(),
     ));
 
 

@@ -60,7 +60,7 @@ if (isset($_POST['login']))
     $remember_me = isset($_POST['remember_me']) and $_POST['remember_me']==1;
     if ( try_log_user($_POST['username'], $_POST['password'], $remember_me) )
     {
-      redirect(empty($redirect_to) ? make_index_url() : $redirect_to);
+      redirect(empty($redirect_to) ? get_gallery_home_url() : $redirect_to);
     }
     else
     {
