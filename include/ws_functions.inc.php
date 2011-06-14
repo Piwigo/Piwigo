@@ -1016,6 +1016,118 @@ UPDATE '.IMAGES_TABLE.'
   return $affected_rows;
 }
 
+function ws_images_setRank($params, &$service)
+{
+  if (!is_admin())
+  {
+    return new PwgError(401, 'Access denied');
+  }
+  
+  if (!$service->isPost())
+  {
+    return new PwgError(405, "This method requires HTTP POST");
+  }
+
+  // is the image_id valid?
+  $params['image_id'] = (int)$params['image_id'];
+  if ($params['image_id'] <= 0)
+  {
+    return new PwgError(WS_ERR_INVALID_PARAM, "Invalid image_id");
+  }
+
+  // is the category valid?
+  $params['category_id'] = (int)$params['category_id'];
+  if ($params['category_id'] <= 0)
+  {
+    return new PwgError(WS_ERR_INVALID_PARAM, "Invalid category_id");
+  }
+
+  // is the rank valid?
+  $params['rank'] = (int)$params['rank'];
+  if ($params['rank'] <= 0)
+  {
+    return new PwgError(WS_ERR_INVALID_PARAM, "Invalid rank");
+  }
+  
+  // does the image really exist?
+  $query='
+SELECT
+    *
+  FROM '.IMAGES_TABLE.'
+  WHERE id = '.$params['image_id'].'
+;';
+
+  $image_row = pwg_db_fetch_assoc(pwg_query($query));
+  if ($image_row == null)
+  {
+    return new PwgError(404, "image_id not found");
+  }
+  
+  // is the image associated to this category?
+  $query = '
+SELECT
+    image_id,
+    category_id,
+    rank
+  FROM '.IMAGE_CATEGORY_TABLE.'
+  WHERE image_id = '.$params['image_id'].'
+    AND category_id = '.$params['category_id'].'
+;';
+  $category_row = pwg_db_fetch_assoc(pwg_query($query));
+  if ($category_row == null)
+  {
+    return new PwgError(404, "This image is not associated to this category");
+  }
+
+  // what is the current higher rank for this category?
+  $query = '
+SELECT
+    MAX(rank) AS max_rank
+  FROM '.IMAGE_CATEGORY_TABLE.'
+  WHERE category_id = '.$params['category_id'].'
+;';
+  $result = pwg_query($query);
+  $row = pwg_db_fetch_assoc($result);
+
+  if (is_numeric($row['max_rank']))
+  {
+    if ($params['rank'] > $row['max_rank'])
+    {
+      $params['rank'] = $row['max_rank'] + 1;
+    }
+  }
+  else
+  {
+    $params['rank'] = 1;
+  }
+
+  // update rank for all other photos in the same category
+  $query = '
+UPDATE '.IMAGE_CATEGORY_TABLE.'
+  SET rank = rank + 1
+  WHERE category_id = '.$params['category_id'].'
+    AND rank IS NOT NULL
+    AND rank >= '.$params['rank'].'
+;';
+  pwg_query($query);
+
+  // set the new rank for the photo
+  $query = '
+UPDATE '.IMAGE_CATEGORY_TABLE.'
+  SET rank = '.$params['rank'].'
+  WHERE image_id = '.$params['image_id'].'
+    AND category_id = '.$params['category_id'].'
+;';
+  pwg_query($query);
+
+  // return data for client
+  return array(
+    'image_id' => $params['image_id'],
+    'category_id' => $params['category_id'],
+    'rank' => $params['rank'],
+    );
+}
+
 function ws_images_add_chunk($params, &$service)
 {
   global $conf;

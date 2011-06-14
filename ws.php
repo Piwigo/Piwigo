@@ -143,6 +143,17 @@ function ws_addDefaultMethods( $arr )
     'sets the privacy levels for the images (POST method only)'
     );
 
+  $service->addMethod(
+    'pwg.images.setRank',
+    'ws_images_setRank',
+    array(
+      'image_id' => array(),
+      'category_id' => array(),
+      'rank' => array(),
+      ),
+    'sets the rank of a photo for a given album (POST method only, for admins)'
+    );
+  
   $service->addMethod('pwg.session.getStatus', 'ws_session_getStatus', null, '' );
   $service->addMethod('pwg.session.login', 'ws_session_login',
     array('username', 'password'),
