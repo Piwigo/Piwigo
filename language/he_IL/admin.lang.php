@@ -782,4 +782,9 @@ $lang['Visit theme site'] = 'בקר באתר ערכת הנושא';
 $lang['Visit language site'] = 'בקר באתר השפה';
 $lang['New Version'] = 'גרסה חדשה';
 $lang['Obsolete Plugins'] = 'תוסף מיושן';
+$lang['WARNING! This plugin does not seem to be compatible with this version of Piwigo.'] = 'אזהרה! נראה כי תוסף זה לא מתאים ל Piwigo.';
+$lang['Do you want to activate anyway?'] = 'אתה רוצה להפעיל בכל מיקרה?';
+$lang['THIS PLUGIN IS NOW PART OF PIWIGO CORE! DELETE IT NOW.'] = 'תוסף זה הוא לא חלק מליבת PIWIGO ! הסר אותו מייד!';
+$lang['ERROR: THIS PLUGIN IS MISSING BUT IT IS INSTALLED! UNINSTALL IT NOW.'] = 'שגיאה: תוסף זה נראה חסר אבל מותקן! הסר אותו מייד.';
+$lang['display'] = 'הצג';
 ?>
