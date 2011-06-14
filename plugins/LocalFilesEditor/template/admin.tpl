@@ -52,7 +52,13 @@ if (document.getElementById("text") != null)
 {/if}
 
 {if isset ($css_lang_tpl)}
-{html_options name=file_to_edit options=$css_lang_tpl.OPTIONS selected=$css_lang_tpl.SELECTED}
+<select name="file_to_edit">
+{foreach from=$css_lang_tpl.OPTIONS item=theme key=value}
+  <option value="{$value}" {if $value == $css_lang_tpl.SELECTED}selected="selected"{/if} {if is_numeric($value)}disabled="disabled"{/if}>{$theme}</option>
+{/foreach}
+</select>
+
+
 <input class="submit" type="submit" value="{'locfiledit_edit'|@translate}" name="edit" />
 <br><br>
   {if isset ($css_lang_tpl.NEW_FILE_URL)}
