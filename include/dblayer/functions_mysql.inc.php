@@ -232,7 +232,7 @@ UPDATE '.$tablename.'
       {
         $separator = $is_first ? '' : ",\n    ";
 
-        if (isset($data[$key]) and $data[$key] != '')
+        if (isset($data[$key]) and $data[$key] !== '')
         {
           $query.= $separator.$key.' = \''.$data[$key].'\'';
         }
