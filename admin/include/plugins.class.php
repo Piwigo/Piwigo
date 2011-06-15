@@ -86,6 +86,7 @@ INSERT INTO ' . PLUGINS_TABLE . ' (id,version) VALUES (\''
         if (!isset($crt_db_plugin))
         {
           $errors = $this->perform_action('install', $plugin_id);
+          load_conf_from_db();
         }
         elseif ($crt_db_plugin['state'] == 'active')
         {
