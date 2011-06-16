@@ -29,7 +29,7 @@ if (!defined('PHPWG_ROOT_PATH'))
 $upgrade_description = 'Display new icons next albums and pictures';
 
 $query = '
-INSERT INTO piwigo_config (param,value,comment) 
+INSERT INTO '.PREFIX_TABLE.'config (param,value,comment) 
   VALUES (\'index_new_icon\',\'true\',\'Display new icons next albums and pictures\')
 ;';
 pwg_query($query);
