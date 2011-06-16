@@ -1,4 +1,5 @@
 {if isset($tabsheet) and count($tabsheet)}
+<div id="tabsheet">
 <ul class="tabsheet">
 {foreach from=$tabsheet key=name item=sheet}
   <li class="{if ($name == $tabsheet_selected)}selected_tab{else}normal_tab{/if}">
@@ -6,4 +7,5 @@
   </li>
 {/foreach}
 </ul>
+</div>
 {/if}
