@@ -101,4 +101,6 @@ jQuery(document).ready(function(){ldelim}
     {/foreach}
   </ul>
 </form>
+
+<a name="EoP"></a>
 {/if}
