@@ -103,8 +103,10 @@ $display_info_checkboxes = array(
   );
   
 $order_options = array(
-    ' ORDER BY date_available DESC, file ASC, id ASC' => 'date_available DESC, file ASC, id ASC',
-    ' ORDER BY file DESC, date_available DESC' => 'file DESC, date_available DESC',
+    ' ORDER BY date_available DESC, file ASC, id ASC' => 'Post date DESC, File name ASC',
+    ' ORDER BY date_available ASC, file ASC, id ASC' => 'Post date ASC, File name ASC',
+    ' ORDER BY file DESC, date_available DESC, id ASC' => 'File name DESC, Post date DESC',
+    ' ORDER BY file ASC, date_available DESC, id ASC' => 'File name ASC, Post date DESC',
     'custom' => l10n('Custom'),
   );
 
@@ -117,19 +119,20 @@ if (isset($_POST['submit']))
   {
     case 'main' :
     {
-      $order_regex = '#^(( *)(id|file|name|date_available|date_creation|hit|average_rate|comment|author|filesize|width|height|high_filesize|high_width|high_height) (ASC|DESC),{1}){1,}$#';
+      $order_regex = '#^(([ \w\']{2,}) (ASC|DESC),{1}){1,}$#';
       // process 'order_by_perso' string
       if ($_POST['order_by'] == 'custom' AND !empty($_POST['order_by_perso']))
       {
+        $_POST['order_by_perso'] = stripslashes(trim($_POST['order_by_perso']));
         $_POST['order_by'] = str_ireplace(
-          array('order by ', 'asc', 'desc'),
-          array(null, 'ASC', 'DESC'),
-          trim($_POST['order_by_perso'])
+          array('order by ', 'asc', 'desc', '"'),
+          array(null, 'ASC', 'DESC', '\''),
+          $_POST['order_by_perso']
           );
         
         if (preg_match($order_regex, $_POST['order_by'].','))
         {
-          $_POST['order_by'] = ' ORDER BY '.$_POST['order_by'];
+          $_POST['order_by'] = ' ORDER BY '.addslashes($_POST['order_by']);
         }
         else
         {
@@ -147,15 +150,16 @@ if (isset($_POST['submit']))
       }
       else if ($_POST['order_by_inside_category'] == 'custom' AND !empty($_POST['order_by_inside_category_perso']))
       {
+        $_POST['order_by_inside_category_perso'] = stripslashes(trim($_POST['order_by_inside_category_perso']));
         $_POST['order_by_inside_category'] = str_ireplace(
-          array('order by ', 'asc', 'desc'),
-          array(null, 'ASC', 'DESC'),
-          trim($_POST['order_by_inside_category_perso'])
+          array('order by ', 'asc', 'desc', '"'),
+          array(null, 'ASC', 'DESC', '\''),
+          $_POST['order_by_inside_category_perso']
           );
         
         if (preg_match($order_regex, $_POST['order_by_inside_category'].','))
         {
-          $_POST['order_by_inside_category'] = ' ORDER BY '.$_POST['order_by_inside_category'];
+          $_POST['order_by_inside_category'] = ' ORDER BY '.addslashes($_POST['order_by_inside_category']);
         }
         else
         {
