@@ -39,7 +39,7 @@
     <table class="tagLetterContent">
       {foreach from=$letter.tags item=tag}
       <tr class="tagLine">
-        <td><a href="{$tag.URL}">{$tag.name}</a></td>
+        <td><a href="{$tag.URL}" title="{$tag.name}">{$tag.name}</a></td>
         <td class="nbEntries">{$pwg->l10n_dec('%d photo', '%d photos', $tag.counter)}</td>
       </tr>
       {/foreach}
