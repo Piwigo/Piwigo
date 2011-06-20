@@ -834,4 +834,5 @@ $lang['Height'] = 'Augstums';
 $lang['Follow Orientation'] = 'Sekot Orientācijai';
 $lang['If you want to regenerate thumbnails, please go to the <a href="%s">Batch Manager</a>.'] = 'Ja vēlaties reģenerēt sīkbildes, lūdzu izmantojiet <a href="%s">Batch Manager</a>.';
 $lang['Graphics Library'] = 'Grafikas Bibliotēka';
+$lang['Activate icon "new" next to albums and pictures'] = 'Aktivēt ikonu "new" (jauns) blakus albūmiem un attēliem';
 ?>
