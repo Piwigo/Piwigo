@@ -29,7 +29,6 @@ Author URI: http://piwigo.org
 */
 
 // Langage informations
-// Langage informations
 $lang_info['language_name'] = 'Swedish';
 $lang_info['country'] = 'Sverige';
 $lang_info['direction'] = 'ltr';
@@ -355,6 +354,8 @@ $lang['This author modified following comment:'] = 'Denna fotograf modifierade f
 $lang['This author removed the comment with id %d'] = 'Denna fotograf raderade inlägg med id %d';
 $lang['delete this comment'] = 'ta bort detta inlägg';
 $lang['validate this comment'] = 'validera detta inlägg';
-$lang['html tags are not allowed in login'] = 'HTML-taggar inte är tillåtna i inloggningen'; 
+$lang['html tags are not allowed in login'] = 'HTML-taggar inte är tillåtna i inloggningen';
+$lang['The number of photos per page must be a not null scalar'] = 'Antal foton per sida får inte vara noll';
+$lang['Number of photos per page'] = 'Antal foton per sida';
 
 ?>

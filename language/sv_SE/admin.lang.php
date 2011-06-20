@@ -796,4 +796,26 @@ $lang['new'] = 'ny';
 $lang['No results'] = 'Inga poster hittades';
 $lang['Searching...'] = 'Söker...';
 $lang['Type in a search term'] = 'Ange nytt sökord';
+$lang['Activate icon "new" next to albums and pictures'] = 'Aktivera ikonen "ny" intill album och bilder';
+$lang['As default order'] = 'Standardordning';
+$lang['Compact'] = 'Kompakt';
+$lang['Complete'] = 'Komplett';
+$lang['Custom'] = 'Anpassad';
+$lang['Deactivate all'] = 'Avaktivera allt';
+$lang['Default photos order'] = 'Standardordning för bilder';
+$lang['Default photos order inside album'] = 'Standardordning för bilder i ett album';
+$lang['Invalid order string'] = 'Fel ordningssträng';
+$lang['Restore'] = 'Återställ';
+$lang['Restore default configuration. You will lost your plugin settings!'] = 'Återställ standardkonfiguration. Du kommer att förlora inställingarna för din plugins!';
+$lang['Show menubar'] = 'Visa verktygsfält';
+$lang['Updates'] = 'Uppdateringar';
+$lang['Update in progress... Please wait.'] = 'Uppdatering körs... Var vänlig vänta.';
+$lang['Ignore this update'] = 'Ignorera denna uppdatering';
+$lang['Reset ignored updates'] = 'Nollställ ignorerade uppdateringar';
+$lang['Update All'] = 'Uppdatera allt';
+$lang['ERROR'] = 'FEL';
+$lang['Update Complete'] = 'Uppdatering avslutad';
+$lang['Piwigo Update'] = 'Piwigo Uppdatering';
+$lang['Extensions Update'] = 'Uppdatering av tillägg';
+
 ?>
