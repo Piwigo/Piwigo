@@ -562,6 +562,7 @@ $validated_keys = array(
 	'localhost, sql.multimania.com, toto.freesurf.fr',
 	'Album: %s',
 	'Album',
+	'Informations',
 	),
 	
   'tr_TR' => array(
