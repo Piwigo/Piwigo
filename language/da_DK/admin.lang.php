@@ -714,4 +714,43 @@ $lang['Order of menubar items has been updated successfully.'] = 'Bestilling på
 $lang['This theme was not designed to be directly activated'] = 'Dette tema er ikke designet til at blive aktiveret direkte';
 $lang['Pending Comments'] = 'Ventende kommentarer';
 $lang['Menu Management'] = 'Menu';
+$lang['new'] = 'ny';
+$lang['No file was uploaded'] = 'Ingen filer blev oploadet';
+$lang['No photo in the current set.'] = 'Ingen foto I det nuværende sæt.';
+$lang['No photo selected, %d photos in current set'] = 'Ingen fotos valgt, %d fotos i nuværende sæt';
+$lang['No photo selected, no action possible.'] = 'Ingen fotos valgt, ingen mulige handlinger.';
+$lang['No results'] = 'Ingen resultater';
+$lang['on the %d selected photos'] = 'på det %d valgte foto';
+$lang['predefined filter'] = 'foruddedineret filter';
+$lang['Refresh photo set'] = 'Opdater fotosættet';
+$lang['Remove all filters'] = 'Fjern alle filtre';
+$lang['remove author'] = 'fjern forfatter';
+$lang['remove creation date'] = 'fjern oprettelsesdato';
+$lang['Remove from caddie'] = 'Fjern fra caddie';
+$lang['remove this filter'] = 'fjern dette filter';
+$lang['remove title'] = 'fjern titel';
+$lang['Searching...'] = 'Søger...';
+$lang['Selection'] = 'Selektion';
+$lang['Set author'] = 'Vælg forfartter';
+$lang['Set creation date'] = 'Vælg oprettelsesdato';
+$lang['Set title'] = 'Vælg titel';
+
+
+
+//mél nile 19/6
+$lang['%d of %d photos selected'] = '%d of %d photos selected';
+$lang['Action'] = 'Action';
+$lang['Add a filter'] = 'Add a filter';
+$lang['Album photos associated to the following albums: %s'] = 'Album photos associated to the following albums: %s';
+$lang['Albums automatically sorted'] = 'Albums automatically sorted';
+$lang['All %d photos are selected'] = 'All %d photos are selected';
+$lang['Apply action'] = 'Apply action';
+$lang['automatic order'] = 'automatic order';
+$lang['Batch Manager'] = 'Batch Manager';
+$lang['Choose an action'] = 'Choose an action';
+$lang['Delete orphan tags'] = 'Delete orphan tags';
+$lang['delete photo'] = 'delete photo';
+$lang['duplicates'] = 'duplicates';
+$lang['Error on file "%s" : %s'] = 'Error on file "%s" : %s';
+$lang['Failed to write file to disk'] = 'Failed to write file to disk'; 
 ?>
