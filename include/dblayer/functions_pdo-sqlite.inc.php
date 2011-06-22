@@ -278,13 +278,13 @@ UPDATE '.$tablename.'
       
       if (isset($data[$key]) and $data[$key] != '')
       {
-	$query.= $separator.$key.' = \''.$data[$key].'\'';
+        $query.= $separator.$key.' = \''.$data[$key].'\'';
       }
       else
       {
-	if ($flags & MASS_UPDATES_SKIP_EMPTY )
-	  continue; // next field
-	$query.= "$separator$key = NULL";
+        if ( $flags & MASS_UPDATES_SKIP_EMPTY )
+          continue; // next field
+        $query.= "$separator$key = NULL";
       }
       $is_first = false;
     }
@@ -295,22 +295,81 @@ UPDATE '.$tablename.'
       $is_first = true;
       foreach ($dbfields['primary'] as $key)
       {
-	if (!$is_first)
+        if (!$is_first)
         {
-	  $query.= ' AND ';
-	}
-	if ( isset($data[$key]) )
+          $query.= ' AND ';
+        }
+        if ( isset($data[$key]) )
         {
-	  $query.= $key.' = \''.$data[$key].'\'';
-	}
-	else
+          $query.= $key.' = \''.$data[$key].'\'';
+        }
+        else
         {
-	  $query.= $key.' IS NULL';
-	}
-	$is_first = false;
+          $query.= $key.' IS NULL';
+        }
+        $is_first = false;
       }
       pwg_query($query);
     }
+  }
+}
+
+/**
+ * updates on line in a table
+ *
+ * @param string table_name
+ * @param array dbfields
+ * @param array data
+ * @param int flags - if MASS_UPDATES_SKIP_EMPTY - empty values do not overwrite existing ones
+ * @return void
+ */
+function single_update($tablename, $dbfields, $data, $flags=0)
+{
+  if (count($data) == 0)
+    return;
+
+  $query = '
+UPDATE '.$tablename.'
+  SET ';
+  $is_first = true;
+  foreach ($dbfields['update'] as $key)
+  {
+    $separator = $is_first ? '' : ",\n    ";
+    
+    if (isset($data[$key]) and $data[$key] != '')
+    {
+      $query.= $separator.$key.' = \''.$data[$key].'\'';
+    }
+    else
+    {
+      if ( $flags & MASS_UPDATES_SKIP_EMPTY )
+        continue; // next field
+      $query.= "$separator$key = NULL";
+    }
+    $is_first = false;
+  }
+  if (!$is_first)
+  {// only if one field at least updated
+    $query.= '
+  WHERE ';
+    $is_first = true;
+    foreach ($dbfields['primary'] as $key)
+    {
+      if (!$is_first)
+      {
+        $query.= ' AND ';
+      }
+      if ( isset($data[$key]) )
+      {
+        $query.= $key.' = \''.$data[$key].'\'';
+      }
+      else
+      {
+        $query.= $key.' IS NULL';
+      }
+      $is_first = false;
+    }
+    pwg_query($query);
   }
 }
 
@@ -323,7 +382,6 @@ UPDATE '.$tablename.'
  * @param array inserts
  * @return void
  */
-
 function mass_inserts($table_name, $dbfields, $datas)
 {
   if (count($datas) != 0)
@@ -375,6 +433,45 @@ INSERT INTO '.$table_name.'
       }
       $query .= ')';
     }
+    pwg_query($query);
+  }
+}
+
+/**
+ * inserts one line in a table
+ *
+ * @param string table_name
+ * @param array dbfields
+ * @param array insert
+ * @return void
+ */
+function single_insert($table_name, $dbfields, $insert)
+{
+  if (count($insert) != 0)
+  {
+    $query = '
+INSERT INTO '.$table_name.'
+  ('.implode(',', $dbfields).')
+  VALUES';
+
+    $query .= '(';
+    foreach ($dbfields as $field_id => $dbfield)
+    {
+      if ($field_id > 0)
+      {
+        $query .= ',';
+      }
+      if (!isset($insert[$dbfield]) or $insert[$dbfield] === '')
+      {
+        $query .= 'NULL';
+      }
+      else
+      {
+        $query .= "'".$insert[$dbfield]."'";
+      }
+    }
+    $query .= ')';
+    
     pwg_query($query);
   }
 }
