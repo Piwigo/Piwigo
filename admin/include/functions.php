@@ -2104,18 +2104,37 @@ function get_taglist($query)
   $taglist = array();
   while ($row = pwg_db_fetch_assoc($result))
   {
-    array_push(
-      $taglist,
-      array(
-        'name' => trigger_event('render_tag_name', $row['tag_name']),
-        'id' => '~~'.$row['tag_id'].'~~',
-        )
-      );
+    if (preg_match_all('#\[lang=(.*?)\](.*?)\[/lang\]#is', $row['tag_name'], $matches))
+    {
+      foreach ($matches[2] as $tag_name)
+      {
+        array_push(
+          $taglist,
+          array(
+            'name' => trigger_event('render_tag_name', $tag_name),
+            'id' => '~~'.$row['tag_id'].'~~',
+            )
+          );
+      }
+
+      $row['tag_name'] = preg_replace('#\[lang=(.*?)\](.*?)\[/lang\]#is', null, $row['tag_name']);
+    }
+    
+    if (strlen($row['tag_name']) > 0)
+    {
+      array_push(
+        $taglist,
+        array(
+          'name' => trigger_event('render_tag_name', $row['tag_name']),
+          'id' => '~~'.$row['tag_id'].'~~',
+          )
+        );
+    }
   }
   
   $cmp = create_function('$a,$b', 'return strcasecmp($a["name"], $b["name"]);');
   usort($taglist, $cmp);
-  
+
   return $taglist;
 }
 

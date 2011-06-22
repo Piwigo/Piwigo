@@ -221,7 +221,7 @@ $orphan_tags = get_orphan_tags();
 $orphan_tag_names = array();
 foreach ($orphan_tags as $tag)
 {
-  array_push($orphan_tag_names, $tag['name']);
+  array_push($orphan_tag_names, trigger_event('render_tag_name', $tag['name']));
 }
 
 if (count($orphan_tag_names) > 0)
