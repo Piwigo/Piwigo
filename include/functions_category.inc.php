@@ -501,7 +501,7 @@ function get_display_images_count($cat_nb_images, $cat_count_images, $cat_count_
  *
  * we need $category['uppercats'], $category['id'], $category['count_images']
  */
-function get_random_image_in_category($category)
+function get_random_image_in_category($category, $recursive=true)
 {
   $image_id = null;
   if ($category['count_images']>0)
@@ -510,8 +510,19 @@ function get_random_image_in_category($category)
 SELECT image_id
   FROM '.CATEGORIES_TABLE.' AS c
     INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON ic.category_id = c.id
-  WHERE (c.id='.$category['id'].' OR uppercats LIKE \''.$category['uppercats'].',%\')'
-    .get_sql_condition_FandF
+  WHERE ';
+    if ($recursive)
+    {
+      $query.= '
+    (c.id='.$category['id'].' OR uppercats LIKE \''.$category['uppercats'].',%\')';
+    }
+    else
+    {
+      $query.= '
+    c.id='.$category['id'];
+    }
+    $query.= '
+    '.get_sql_condition_FandF
     (
       array
         (
