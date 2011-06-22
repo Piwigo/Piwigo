@@ -355,4 +355,6 @@ $lang['This author removed the comment with id %d'] = 'Tác giả này đã xóa
 $lang['validate this comment'] = 'xác nhận lời bình này';
 $lang['show tag cloud'] = 'hiển thị thẻ mây';
 $lang['html tags are not allowed in login'] = 'thẻ html không được phép dùng để đăng nhập';
+$lang['The number of photos per page must be a not null scalar'] = 'Số hình trên mỗi trang phải là số nguyên khác 0';
+$lang['Number of photos per page'] = 'Số hình trên mỗi trang';
 ?>
