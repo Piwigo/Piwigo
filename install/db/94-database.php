@@ -61,12 +61,28 @@ while ($row = pwg_db_fetch_assoc($result)) {
 
 // save configuration for a future use by the Community plugin
 $backup_filepath = $conf['local_data_dir'].'/plugins/core_user_upload_to_community.php';
-mkgetdir(dirname($backup_filepath));
+$save_conf = true;
+if (is_dir(dirname($backup_filepath)))
+{
+  if (!is_writable(dirname($backup_filepath)))
+  {
+    $save_conf = false;
+  }
+}
+elseif (!is_writable($conf['local_data_dir']))
+{
+  $save_conf = false;
+}
 
-file_put_contents(
-  $backup_filepath,
-  '<?php $user_upload_conf = \''.serialize($user_upload_conf).'\'; ?>'
-  );
+if ($save_conf)
+{
+  mkgetdir(dirname($backup_filepath));
+
+  file_put_contents(
+    $backup_filepath,
+    '<?php $user_upload_conf = \''.serialize($user_upload_conf).'\'; ?>'
+    );
+}
 
 //
 // remove all what is related to user upload in the database
