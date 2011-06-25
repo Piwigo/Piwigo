@@ -132,6 +132,15 @@ catch (Exception $e)
 pwg_db_check_charset();
 
 load_conf_from_db();
+
+if (!$conf['check_upgrade_feed'])
+{
+  if (!isset($conf['piwigo_db_version']) or $conf['piwigo_db_version'] != get_branch_from_version(PHPWG_VERSION))
+  {
+    redirect(get_root_url().'upgrade.php');
+  }
+}
+
 load_plugins();
 
 include(PHPWG_ROOT_PATH.'include/user.inc.php');

@@ -339,6 +339,8 @@ INSERT INTO '.$prefixeTable.'config (param,value,comment)
    \'a secret key specific to the gallery for internal use\');';
     pwg_query($query);
 
+    conf_update_param('piwigo_db_version', get_branch_from_version(PHPWG_VERSION));
+
     // fill languages table
     foreach ($languages->fs_languages as $language_code => $fs_language)
     {

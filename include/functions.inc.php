@@ -1600,4 +1600,13 @@ function get_privacy_level_options()
   }
   return $options;
 }
+
+
+/**
+ * return the branch from the version. For example version 2.2.4 is for branch 2.2
+ */
+function get_branch_from_version($version)
+{
+  return implode('.', array_slice(explode('.', $version), 0, 2));
+}
 ?>

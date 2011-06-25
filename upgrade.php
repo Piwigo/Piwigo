@@ -311,6 +311,7 @@ if ((isset($_POST['submit']) or isset($_GET['now']))
     $page['upgrade_start'] = get_moment();
     $conf['die_on_sql_error'] = false;
     include($upgrade_file);
+    conf_update_param('piwigo_db_version', get_branch_from_version(PHPWG_VERSION));
 
     // Something to add in database.inc.php?
     if (!empty($mysql_changes))
