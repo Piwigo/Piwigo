@@ -132,6 +132,13 @@ catch (Exception $e)
 pwg_db_check_charset();
 
 load_conf_from_db();
+
+// Version 2.2 specific, in case of problem during automatic upgrade
+if (!isset($conf['week_starts_on']))
+{
+  redirect(get_root_url().'upgrade.php');
+}
+
 load_plugins();
 
 include(PHPWG_ROOT_PATH.'include/user.inc.php');
