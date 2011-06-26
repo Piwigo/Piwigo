@@ -317,9 +317,13 @@ function display_select_categories($categories,
     }
     if ($fullname)
     {
-      $option = get_cat_display_name_cache($category['uppercats'],
-                                           null,
-                                           false);
+      $option = strip_tags(
+        get_cat_display_name_cache(
+          $category['uppercats'],
+          null,
+          false
+          )
+        );
     }
     else
     {
