@@ -70,6 +70,7 @@ $lang['Comments for all'] = 'Commenti per tutti';
 $lang['Current name'] = 'Nome attuale';
 $lang['Database'] = 'Database';
 $lang['Deactivate'] = 'Disattivare';
+$lang['Deactivate all'] = 'Disattivare tutto';
 $lang['Delete Representant'] = 'Cancellare la copertina';
 $lang['Delete selected tags'] = 'Cancellare i tags selezionati';
 $lang['Delete selected users'] = 'Cancellare gli utenti selezionati';
@@ -635,7 +636,7 @@ $lang['The thumbnail maximum height must be a number between %d and %d'] = 'L\'a
 $lang['The thumbnail image quality must be a number between %d and %d'] = 'La qualità  dell\'immagine per la miniatura deve essere un numero tra %d e %d';
 
 $lang['Settings'] = 'Configurazione';
-$lang['Web size photo'] = 'Dimensione foto';
+$lang['Web size photo'] = 'Dimensione foto web';
 $lang['Resize'] = 'Ridimensionare';
 $lang['Maximum Width'] = 'Larghezza massima';
 $lang['pixels'] = 'pixels';
