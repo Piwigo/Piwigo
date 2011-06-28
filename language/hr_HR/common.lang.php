@@ -339,7 +339,6 @@ $lang['show tag cloud'] = 'prikaži tag oblak';
 $lang['cloud'] = 'oblak';
 $lang['Are you sure?'] = 'Sigurni ste?';
 $lang['delete this comment'] = 'izbriši ovaj komentar';
-// piwigo 2.1
 $lang['Reset to default values'] = 'Povratak na pretpostavljene vrijednosti';
 $lang['delete all photos from your favorites'] = 'izbriši sve slike iz omiljenih';
 $lang['Sent by'] = 'Poslano od';
@@ -357,5 +356,5 @@ $lang['Manage this user comment: %s'] = 'Upravljanje ovim korisničkim komentaro
 $lang['This author modified following comment:'] = 'Ovaj autor je promijenio slijedeći komentar:';
 $lang['This author removed the comment with id %d'] = 'Ovaj autor je uklonio komentar sa id %d';
 $lang['validate this comment'] = 'ovjeri ovaj komentar';
-$lang['html tags are not allowed in login'] = 'u korisničkim podacima nisu doyvoljene html oznake';
+$lang['html tags are not allowed in login'] = 'u korisničkim podacima nisu dozvoljene html oznake';
 ?>
