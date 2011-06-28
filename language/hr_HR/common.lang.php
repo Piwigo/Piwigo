@@ -357,4 +357,5 @@ $lang['Manage this user comment: %s'] = 'Upravljanje ovim korisničkim komentaro
 $lang['This author modified following comment:'] = 'Ovaj autor je promijenio slijedeći komentar:';
 $lang['This author removed the comment with id %d'] = 'Ovaj autor je uklonio komentar sa id %d';
 $lang['validate this comment'] = 'ovjeri ovaj komentar';
+$lang['html tags are not allowed in login'] = 'u korisničkim podacima nisu doyvoljene html oznake';
 ?>
