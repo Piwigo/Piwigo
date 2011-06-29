@@ -361,4 +361,6 @@ $lang['Administrator, webmaster and special user cannot use this method'] = 'А�
 $lang['Reduce diaporama speed'] = 'Уменьшить скорость панорамы';
 $lang['Accelerate diaporama speed'] = 'Увеличить скорость панорамы';
 $lang['html tags are not allowed in login'] = 'html тэги не допустимы в логине';
+$lang['The number of photos per page must be a not null scalar'] = 'Число фотографий на странице должно быть ненулевым целым числом';
+$lang['Number of photos per page'] = 'Число фотографий на странице';
 ?>
