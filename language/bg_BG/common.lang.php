@@ -288,8 +288,6 @@ $lang['display all photos in all sub-albums'] = 'покажи всички сн�
 $lang['return to normal view mode'] = 'върнете се към нормален изглед';
 $lang['display a calendar by posted date'] = 'показване на календар от дата на публикуване';
 $lang['display most visited photos'] = 'покажи най-посещаваните снимки';
-$lang['Number of photos per row'] = 'Брой снимки на ред';
-$lang['Number of rows per page'] = 'Брой редове на страница';
 $lang['Unknown identifier'] = 'Неизвестен идентификатор';
 $lang['New password'] = 'Нова парола';
 $lang['Rate this photo'] = 'Оцени тази снимка';
@@ -356,7 +354,7 @@ $lang['delete this comment'] = 'изтрийте този коментар';
 $lang['validate this comment'] = 'потвърдете този коментар';
 $lang['html tags are not allowed in login'] = 'html тагове не са разрешени в логина';
 $lang['Unknown feed identifier'] = 'Неизвестен индетификатор';
-$lang['The number of photos per row must be a not null scalar'] = 'Броя на снимките за ред трябва да е различен от нулаr';
-$lang['The number of rows per page must be a not null scalar'] = 'Броя на снимките на страница трябва да е различен от нула';
+$lang['The number of photos per page must be a not null scalar'] = 'Броят на снимките на страница трябва да е различен от нула';
+$lang['Number of photos per page'] = 'Брои на снимки за страница';
 
 ?>

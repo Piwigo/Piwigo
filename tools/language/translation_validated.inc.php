@@ -7,6 +7,11 @@ $validated_keys = array(
 	'localhost, sql.multimania.com, toto.freesurf.fr',
 	),
 	
+  'bg_BG' => array(
+	'N/A',
+	'IP: %s',
+	),
+	
   'cs_CZ' => array(
 	'Album',
 	'IP: %s',
