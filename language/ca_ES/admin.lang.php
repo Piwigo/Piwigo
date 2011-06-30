@@ -793,5 +793,15 @@ $lang['All languages are up to date.'] = 'Tots els idiomes estan al dia.';
 $lang['Visit theme site'] = 'Visiteu el lloc web del tema';
 $lang['Visit language site'] = 'Visiteu el lloc web de l\'idioma';
 $lang['New Version'] = 'Versió nova';
+$lang['new'] = 'nou';
+$lang['No results'] = 'No hi ha resultats';
+$lang['Searching...'] = "S'està buscant...";
+$lang['Type in a search term'] = 'Escriviu una paraula a buscar';
+$lang['Obsolete Plugins'] = 'Connectors obsolets';
+$lang['WARNING! This plugin does not seem to be compatible with this version of Piwigo.'] = 'Avís: Sembla que aquest connector no és compatible amb aquesta versió de Piwigo';
+$lang['Do you want to activate anyway?'] = 'Voleu activar-lo de totes formes?';
+$lang['THIS PLUGIN IS NOW PART OF PIWIGO CORE! DELETE IT NOW.'] = 'ARA AQUEST CONNECTOR FORMA PART DEL NUCLI DE PIWIGO! ELEMINAR-LO ARA';
+$lang['ERROR: THIS PLUGIN IS MISSING BUT IT IS INSTALLED! UNINSTALL IT NOW.'] = 'ERROR: AQUEST CONNECTOR MANCA PERÒ ESTÀ INSTAL·LAT! DESISNTAL·LAR-LO ARA.';
+$lang['display'] = 'visualitzar';
 
 ?>
