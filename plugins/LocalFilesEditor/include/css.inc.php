@@ -10,6 +10,10 @@ elseif (isset($_POST['edited_file']))
 {
   $edited_file = $_POST['edited_file'];
 }
+elseif (isset($_GET['theme']) and in_array($_GET['theme'], array_keys(get_pwg_themes())))
+{
+  $edited_file = PHPWG_ROOT_PATH.PWG_LOCAL_DIR . 'css/'.$_GET['theme'].'-rules.css';
+}
 else
 {
   $edited_file = PHPWG_ROOT_PATH.PWG_LOCAL_DIR . 'css/'.get_default_theme().'-rules.css';

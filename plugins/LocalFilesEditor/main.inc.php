@@ -46,6 +46,28 @@ function localfiles_admin_menu($menu)
   return $menu;
 }
 
-add_event_handler('get_admin_plugin_menu_links', 'localfiles_admin_menu');
+function localfiles_css_link()
+{
+  global $template;
+  
+  $template->set_prefilter('themes', 'localfiles_css_link_prefilter');
+}
 
+function localfiles_css_link_prefilter($content, &$smarty)
+{
+  $search = '#{if isset\(\$theme.admin_uri\)}.*?{/if}#s';
+  $replacement = '
+{if isset($theme.admin_uri)}
+      <br><a href="{$theme.admin_uri}" title="{\'Configuration\'|@translate}">{\'Configuration\'|@translate}</a>
+      | <a href="admin.php?page=plugin-LocalFilesEditor-css&amp;theme={$theme.id}">CSS</a>
+{else}
+      <br><a href="admin.php?page=plugin-LocalFilesEditor-css&amp;theme={$theme.id}">CSS</a>
+{/if}
+';
+
+  return preg_replace($search, $replacement, $content);
+}
+
+add_event_handler('get_admin_plugin_menu_links', 'localfiles_admin_menu');
+add_event_handler('loc_begin_admin', 'localfiles_css_link');
 ?>
