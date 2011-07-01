@@ -102,6 +102,7 @@ $lang['Activate icon "new" next to albums and pictures'] = 'Activate icon "new" 
 $lang['Active Languages'] = 'Active Languages';
 $lang['Active Plugins'] = 'Active Plugins';
 $lang['Active Themes'] = 'Active Themes';
+$lang['Add a criteria'] = 'Add a criteria';
 $lang['Add a filter'] = 'Add a filter';
 $lang['Add a tag'] = "Add a tag";
 $lang['Add a user'] = "Add a user";

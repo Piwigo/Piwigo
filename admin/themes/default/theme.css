@@ -1049,13 +1049,9 @@ div.token-input-dropdown ul li.token-input-dropdown-item2 {background-color: #ff
 div.token-input-dropdown ul li em {font-weight: bold;font-style: normal;}
 div.token-input-dropdown ul li.token-input-selected-dropdown-item {background-color: #3b5998;color: #fff;}
 
-#mainConfCheck a.addFilter {background: url(icon/plus.gif) no-repeat 0 4px;width:19px;height:19px;display:inline-block;}
-#mainConfCheck a.addFilter:hover {background-position:0 5px;border:none;}
-#mainConfCheck a.addFilter span {display:none;}
-#mainConfCheck a.removeFilter {background: url(icon/remove_filter.png) no-repeat top left;width:7px;height:7px;display:inline-block;}
-#mainConfCheck a.removeFilter:hover {background: url(icon/remove_filter_hover.png);border:none;}
-#mainConfCheck a.removeFilter span {display:none;}
+#mainConfCheck a.addFilter {font-weight:normal;margin-left:20px;}
+#mainConfCheck a.removeFilter {font-weight:normal;}
 #mainConfCheck span.property span.filter:first-child a.removeFilter {display:none;} /* can't delete the first field */
-#mainConfCheck span.filter {margin-right:10px;}
+#mainConfCheck span.filter {display:block;margin-left:20px;}
 #mainConfCheck .transparent {opacity:0.5;filter:alpha(opacity=50);}
-#mainConfCheck .order_by_is_custom {display:block;font-weight:normal;font-style:italic;}
+#mainConfCheck .order_by_is_custom {display:block;font-weight:normal;font-style:italic;margin-left:20px;}

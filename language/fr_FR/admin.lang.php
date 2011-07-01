@@ -851,5 +851,6 @@ $lang['Default photos order'] = "Ordre par défaut des photos";
 $lang['Activate icon "new" next to albums and pictures'] = 'Afficher l\'icône "nouveau" à côté des albums et des photos';
 $lang['You can\'t define a default photo order because you have a custom setting in your local configuration.'] = 'Vous ne pouvez définir l\'ordre par défaut des photos car vous avez un paramètre personnalisé dans votre configuration locale.';
 $lang['You have specified <i>$conf[\'order_by\']</i> in your local configuration file, this parameter in deprecated, please remove it or rename it into <i>$conf[\'order_by_custom\']</i> !'] = 'Vous avez spécifié <i>$conf[\'order_by\']</i> dans votre fichier de configuration, ce paramètre est obsolète, veuillez le supprimer ou le renommer en <i>$conf[\'order_by_custom\']</i> !';
+$lang['Add a criteria'] = 'Ajouter un critère';
 
 ?>

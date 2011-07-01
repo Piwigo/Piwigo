@@ -96,25 +96,25 @@
       </span>
     </li>
     
-    <li>
+    <li style="margin-top:20px;">
       &nbsp;
       <span class="property">
         {'Default photos order'|@translate}
         
         {foreach from=$main.order_by item=order}
-        <span class="filter {if $ORDER_BY_IS_CUSTOM}transparent{/if}">
-          <a class="removeFilter" title="{'remove this filter'|@translate}"><span>[x]</span></a>
+        <span class="filter {if $ORDER_BY_IS_CUSTOM}transparent{/if}">          
           <select name="order_by_field[]" {if $ORDER_BY_IS_CUSTOM}disabled{/if}>
             {html_options options=$main.order_field_options selected=$order.FIELD }
           </select>
           <select name="order_by_direction[]" {if $ORDER_BY_IS_CUSTOM}disabled{/if}>
             {html_options options=$main.order_direction_options selected=$order.DIRECTION }
           </select>  
+          <a class="removeFilter">{'delete'|@translate}</a>
         </span>
         {/foreach}
         
         {if !$ORDER_BY_IS_CUSTOM}
-          <a class="addFilter" title="{'Add a filter'|@translate}"><span>[+]</span></a>
+          <a class="addFilter">{'Add a criteria'|@translate}</a>
         {else}
           <span class="order_by_is_custom">{'You can\'t define a default photo order because you have a custom setting in your local configuration.'|@translate}</span>
         {/if}
