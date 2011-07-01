@@ -96,7 +96,7 @@
       </span>
     </li>
     
-    <li style="margin-top:20px;">
+    <li>
       &nbsp;
       <span class="property">
         {'Default photos order'|@translate}

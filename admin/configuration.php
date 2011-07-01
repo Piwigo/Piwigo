@@ -136,6 +136,7 @@ if (isset($_POST['submit']))
           $order_by_inside_category = array();
           for ($i=0; $i<count($_POST['order_by_field']); $i++)
           {
+            if ($i>5) continue;
             if ($_POST['order_by_field'][$i] == '')
             {
               array_push($page['errors'], l10n('No field selected'));
