@@ -329,7 +329,7 @@ if (count($categories) > 0)
         );
     if ($conf['index_new_icon'])
     {
-      $row['icon_ts'] = get_icon($category['max_date_last'], $category['is_child_date_last']);
+      $tpl_var['icon_ts'] = get_icon($category['max_date_last'], $category['is_child_date_last']);
     }
 
     if ($conf['display_fromto'])

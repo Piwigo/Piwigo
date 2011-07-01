@@ -128,7 +128,7 @@ foreach ($pictures as $row)
     );
   if ($conf['index_new_icon'])
   {
-    $row['icon_ts'] = get_icon($row['date_available']);
+    $tpl_var['icon_ts'] = get_icon($row['date_available']);
   }
 
   if ($user['show_nb_hits'])
