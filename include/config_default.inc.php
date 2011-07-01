@@ -43,35 +43,15 @@
 // |                                 misc                                  |
 // +-----------------------------------------------------------------------+
 
-// order_by : how to change the order of display for images in a category ?
+// order_by_custom and order_by_inside_category_custom : for non common pattern
+// you can define special ORDER configuration
 //
-// There are several fields that can order the display :
-//
-//  - date_available : the date of the adding to the gallery
-//  - file : the name of the file
-//  - id : element identifier
-//  - date_creation : date of element creation
-//
-// Once you've chosen which field(s) to use for ordering, you must chose the
-// ascending or descending order for each field.  examples :
-//
-// 1. $conf['order_by'] = " order by date_available desc, file asc";
-//    will order pictures by date_available descending & by filename ascending
-//
-// 2. $conf['order_by'] = " order by file asc";
-//    will only order pictures by file ascending without taking into account
-//    the date_available
-$conf['order_by'] = ' ORDER BY date_available DESC, file ASC, id ASC';
+// $conf['order_by_custom'] = ' ORDER BY date_available DESC, file ASC, id ASC';
 
 // order_by_inside_category : inside a category, images can also be ordered
 // by rank. A manually defined rank on each image for the category.
 //
-// In addition to fields of #images table, you can use the
-// #image_category.rank column
-//
-// $conf['order_by_inside_category'] = ' ORDER BY rank';
-// will sort images by the manually defined rank of images in this album.
-$conf['order_by_inside_category'] = $conf['order_by'];
+// $conf['order_by_inside_category_custom'] = $conf['order_by_custom'];
 
 // file_ext : file extensions (case sensitive) authorized
 $conf['file_ext'] = array('jpg','JPG','jpeg','JPEG',

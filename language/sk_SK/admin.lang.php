@@ -840,11 +840,6 @@ $lang['Follow Orientation'] = 'Nasledovať orientáciu';
 $lang['If you want to regenerate thumbnails, please go to the <a href="%s">Batch Manager</a>.'] = 'Ak chcete obnoviť náhľady, prosím choďte na <a href="%s">Správcu dávky</a>.';
 $lang['Graphics Library'] = 'Grafická knižnica';
 $lang['Activate icon "new" next to albums and pictures'] = 'Aktivovať ikonu "new" pre ďalšie albumy a fotky'; 
-$lang['As default order'] = 'Ako predvolené zoradenie'; 
-$lang['Custom'] = 'Voliteľné'; 
 $lang['Default photos order'] = 'Predvolené zoradenie fotiek'; 
-$lang['Default photos order inside album'] = 'Predvolené zoradenie fotografií vo vnútri albumu'; 
-$lang['Invalid order string'] = 'Neplatný zoraďovací sled';
-
 
 ?>

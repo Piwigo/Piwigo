@@ -830,9 +830,6 @@ $lang['Follow Orientation'] = 'Oryantasyonu takip edin';
 $lang['If you want to regenerate thumbnails, please go to the <a href="%s">Batch Manager</a>.'] = 'Eğer küçük resimleri yenilemek istiyorsanız, <a href="%s">Küçük Resimleri Tekrar Oluştur</a> gidin.';
 $lang['Graphics Library'] = 'Grafik Arşivi';
 $lang['Activate icon "new" next to albums and pictures'] = 'Resimlerin yanındaki "yeni" simgesini etkinleştir';
-$lang['As default order'] = 'Varsayılan düzen olarak';
-$lang['Custom'] = 'özel';
 $lang['Default photos order'] = 'Varsayılan resim düzeni';
-$lang['Default photos order inside album'] = 'Albüm içindeki varsayılan resim düzeni';
-$lang['Invalid order string'] = 'Geçersiz düzen';
+
 ?>

@@ -100,39 +100,47 @@
       &nbsp;
       <span class="property">
         {'Default photos order'|@translate}
-        {html_options name="order_by" options=$main.order_by_options selected=$main.order_by_selected}
-        <input type="text" name="order_by_perso" size="40" value="{$main.order_by_perso}" 
-            {if $main.order_by_selected != 'custom'}style="display:none;"{/if}/>
-      </span>
-    </li>
-    <li>
-      &nbsp;
-      <span class="property">
-        {'Default photos order inside album'|@translate}
-        {html_options name="order_by_inside_category" options=$main.order_by_inside_category_options selected=$main.order_by_inside_category_selected}
-        <input type="text" name="order_by_inside_category_perso" size="40" value="{$main.order_by_inside_category_perso}" 
-            {if $main.order_by_inside_category_selected != 'custom'}style="display:none;"{/if}>
+        
+        {foreach from=$main.order_by item=order}
+        <span class="filter {if $ORDER_BY_IS_CUSTOM}transparent{/if}">
+          <a class="removeFilter" title="{'remove this filter'|@translate}"><span>[x]</span></a>
+          <select name="order_by_field[]" {if $ORDER_BY_IS_CUSTOM}disabled{/if}>
+            {html_options options=$main.order_field_options selected=$order.FIELD }
+          </select>
+          <select name="order_by_direction[]" {if $ORDER_BY_IS_CUSTOM}disabled{/if}>
+            {html_options options=$main.order_direction_options selected=$order.DIRECTION }
+          </select>  
+        </span>
+        {/foreach}
+        
+        {if !$ORDER_BY_IS_CUSTOM}
+          <a class="addFilter" title="{'Add a filter'|@translate}"><span>[+]</span></a>
+        {else}
+          <span class="order_by_is_custom">{'You can\'t define a default photo order because you have a custom setting in your local configuration.'|@translate}</span>
+        {/if}
       </span>
     </li>
     
+{if !$ORDER_BY_IS_CUSTOM}
 {footer_script require='jquery'}{literal}
 jQuery(document).ready(function () {
-  $('select[name="order_by"]').change(function () {
-    if ($(this).val() == 'custom') {
-      $('input[name="order_by_perso"]').show();
-    } else {
-      $('input[name="order_by_perso"]').hide();
-    }
+  $('.addFilter').click(function() {
+    rel = $(this).attr('rel');
+    $(this).prev('span.filter').clone().insertBefore($(this));
+    $(this).prev('span.filter').children('select[name="order_by_field[]"]').val('');
+    $(this).prev('span.filter').children('select[name="order_by_direction[]"]').val('ASC');
+      
+    $(".removeFilter").click(function () {
+      $(this).parent('span.filter').remove();
+    });
   });
-  $('select[name="order_by_inside_category"]').change(function () {
-    if ($(this).val() == 'custom') {
-      $('input[name="order_by_inside_category_perso"]').show();
-    } else {
-      $('input[name="order_by_inside_category_perso"]').hide();
-    }
+  
+  $(".removeFilter").click(function () {
+    $(this).parent('span.filter').remove();
   });
 });
 {/literal}{/footer_script}
+{/if}
   </ul>
 </fieldset>
 {/if}

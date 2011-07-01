@@ -106,6 +106,17 @@ if (isset($conf['local_dir_site']))
 {
   @include(PHPWG_ROOT_PATH.PWG_LOCAL_DIR. 'config/config.inc.php');
 }
+
+// that's for migration from 2.2, will be deprecated in 2.4
+if (isset($conf['order_by']))
+{
+  $conf['order_by_custom'] = $conf['order_by'];
+}
+if (isset($conf['order_by_inside_category']))
+{
+  $conf['order_by_inside_category_custom'] = $conf['order_by_inside_category'];
+}
+
 include(PHPWG_ROOT_PATH .'include/dblayer/functions_'.$conf['dblayer'].'.inc.php');
 
 if(isset($conf['show_php_errors']) && !empty($conf['show_php_errors']))
@@ -142,6 +153,16 @@ if (!$conf['check_upgrade_feed'])
 }
 
 load_plugins();
+
+// users can have defined a custom order pattern, incompatible with GUI form
+if (isset($conf['order_by_custom']))
+{
+  $conf['order_by'] = $conf['order_by_custom'];
+}
+if (isset($conf['order_by_inside_category_custom']))
+{
+  $conf['order_by_inside_category'] = $conf['order_by_inside_category_custom'];
+}
 
 include(PHPWG_ROOT_PATH.'include/user.inc.php');
 
