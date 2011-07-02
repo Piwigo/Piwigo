@@ -356,4 +356,7 @@ $lang['This author modified following comment:'] = 'Dieser Autor veränderte fol
 $lang['This author removed the comment with id %d'] = 'Dieser Autor löschte den Kommentar mit der ID %d';
 $lang['validate this comment'] = 'überprüfe diesen Kommentar';
 $lang['html tags are not allowed in login'] = 'HTML-Tags sind im Benutzername nicht erlaubt';
+$lang['The number of photos per page must be a not null scalar'] = ' Die Anzahl der Fotos pro Seite muss eine ganze Zahl größer als Null sein ';
+$lang['Number of photos per page'] = 'Anzahl der Fotos pro Seite';
+
 ?>
