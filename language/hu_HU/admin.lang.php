@@ -839,6 +839,14 @@ $lang['Height'] = 'Magasság';
 $lang['Follow Orientation'] = 'Elforgatható';
 $lang['If you want to regenerate thumbnails, please go to the <a href="%s">Batch Manager</a>.'] = 'A bélyegképek újragenerálása a <a href="%s">Kötegelt kezelés</a> oldalon lehetséges.';
 $lang['Graphics Library'] = 'Grafikus könyvtár';
+
+$lang['Activate icon "new" next to albums and pictures'] = '"új" ikon aktiválása az albumok és képek mellett';
+$lang['As default order'] = 'Az alapértelmezett sorrend';
+$lang['Custom'] = 'Egyéni';
+$lang['Default photos order'] = 'Alapértelmezett kép sorrend';
+$lang['Default photos order inside album'] = 'Alapértelmezett kép sorrend a belső albumokban';
+$lang['Invalid order string'] = 'Érvénytelen sorrend sztring';
 //hiányzó
 $lang['%s has been successfully updated.'] = '%s frissítése sikeres.';
+$lang['Add a criteria'] = 'Feltétel hozzáadása';
 ?>
