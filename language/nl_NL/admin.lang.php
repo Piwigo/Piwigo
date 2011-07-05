@@ -799,5 +799,24 @@ $lang['new'] = 'nieuw';
 $lang['No results'] = 'Geen resultaten';
 $lang['Searching...'] = 'Bezig met zoeken...';
 $lang['Type in a search term'] = 'Type een zoekterm in';
+$lang['Activate icon "new" next to albums and pictures'] = 'Activeer "nieuw" pictogram naast albums en afbeeldingen';
+$lang['Compact'] = 'Compact';
+$lang['Complete'] = 'Compleet';
+$lang['Deactivate all'] = 'Deactiveer alles';
+$lang['Default photos order'] = 'Standaard foto volgorde';
+$lang['Restore'] = 'Herstel';
+$lang['Restore default configuration. You will lost your plugin settings!'] = 'Herstel de standaard instellingen. Je zal alle plugin instellingen kwijtraken!';
+$lang['Show menubar'] = 'Toon menubalk';
+$lang['Updates'] = 'Updates';
+$lang['Update in progress... Please wait.'] = 'Bezig met updaten... Even geduld aub';
+$lang['Ignore this update'] = 'Negeer deze update';
+$lang['Reset ignored updates'] = 'Reset genegeerde updates';
+$lang['Update All'] = 'Update Alles';
+$lang['ERROR'] = 'ERROR';
+$lang['Update Complete'] = 'Update klaar';
+$lang['Piwigo Update'] = 'Piwigo Update';
+$lang['Extensions Update'] = 'Uitbreidingen Update';
+$lang['All extensions are up to date.'] = 'Alle uitbreidingen zijn bijgewerkt.';
+$lang['Following plugins may not be compatible with the new version of Piwigo:'] = 'De volgende plugins zouden niet compatibel kunnen zijn met de nieuwe versie van Piwigo:';
 
 ?>
