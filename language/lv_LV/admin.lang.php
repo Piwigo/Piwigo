@@ -831,4 +831,7 @@ $lang['Follow Orientation'] = 'Sekot Orientācijai';
 $lang['If you want to regenerate thumbnails, please go to the <a href="%s">Batch Manager</a>.'] = 'Ja vēlaties reģenerēt sīkbildes, lūdzu izmantojiet <a href="%s">Batch Manager</a>.';
 $lang['Graphics Library'] = 'Grafikas Bibliotēka';
 $lang['Activate icon "new" next to albums and pictures'] = 'Aktivēt ikonu "new" (jauns) blakus albūmiem un attēliem';
+$lang['Add a criteria'] = 'Pievienot kritēriju';
+$lang['You can\'t define a default photo order because you have a custom setting in your local configuration.'] = 'Nav iespējams izveidot foto kārtošanas secību pēc noklusējuma, jo jūsu izveidotajā lokālajā konfigurācijā ir jūsu pielāgotie iestatījumi.';
+$lang['You have specified <i>$conf[\'order_by\']</i> in your local configuration file, this parameter in deprecated, please remove it or rename it into <i>$conf[\'order_by_custom\']</i> !'] = 'Jūs savā  lokālajā konfigurācijas failā esat iestatīts  <i>$conf[\'order_by\']</i>, šis parametrs ir novecojis, lūdzu izdzēšiet to vai pārdēvējiet to sekojoši : <i>$conf[\'order_by_custom\']</i> !';
 ?>
