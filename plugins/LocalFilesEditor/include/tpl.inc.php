@@ -14,7 +14,7 @@ if ((isset($_POST['edit'])) and !is_numeric($_POST['file_to_edit']))
   }
   else
   {
-    $content_file = "{* " . l10n('locfiledit_newfile') . " *}\n\n";
+    $content_file = '';
   }
 }
 
@@ -51,7 +51,7 @@ if (isset($_POST['create_tpl']))
   else
   {
     $edited_file = $_POST['tpl_parent'] . '/' . $filename;
-    $content_file = ($_POST['tpl_model'] == '0') ? $new_file['tpl'] : file_get_contents($_POST['tpl_model']);
+    $content_file = ($_POST['tpl_model'] == '0') ? '' : file_get_contents($_POST['tpl_model']);
   }
 }
 
