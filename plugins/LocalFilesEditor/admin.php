@@ -30,27 +30,21 @@ $my_base_url = get_root_url().'admin.php?page=plugin-'.basename(dirname(__FILE__
 // +-----------------------------------------------------------------------+
 // |                            Tabssheet
 // +-----------------------------------------------------------------------+
-if (!isset($_GET['tab']))
-    $page['tab'] = 'localconf';
-else
-    $page['tab'] = $_GET['tab'];
+
+if (empty($conf['LocalFilesEditor_tabs']))
+{
+  $conf['LocalFilesEditor_tabs'] = array('localconf', 'css', 'tpl', 'lang', 'plug');
+}
+
+$page['tab'] = isset($_GET['tab']) ? $_GET['tab'] : $conf['LocalFilesEditor_tabs'][0];
+
+if (!in_array($page['tab'], $conf['LocalFilesEditor_tabs'])) die('Hacking attempt!');
 
 $tabsheet = new tabsheet();
-$tabsheet->add('localconf',
-               l10n('locfiledit_onglet_localconf'),
-               $my_base_url.'-localconf');
-$tabsheet->add('css',
-               l10n('locfiledit_onglet_css'),
-               $my_base_url.'-css');
-$tabsheet->add('tpl',
-               l10n('locfiledit_onglet_tpl'),
-               $my_base_url.'-tpl');
-$tabsheet->add('lang',
-               l10n('locfiledit_onglet_lang'),
-               $my_base_url.'-lang');
-$tabsheet->add('plug',
-               l10n('locfiledit_onglet_plug'),
-               $my_base_url.'-plug');
+foreach ($conf['LocalFilesEditor_tabs'] as $tab)
+{
+  $tabsheet->add($tab, l10n('locfiledit_onglet_'.$tab), $my_base_url.'-'.$tab);
+}
 $tabsheet->select($page['tab']);
 $tabsheet->assign();
 
