@@ -248,7 +248,38 @@ $lang['Album manual order was saved'] = 'Ordinea manuală a albumelor a fost sal
 $lang['Album name'] = 'Nume album';
 $lang['Album updated successfully'] = 'Album adus la zi cu succes';
 $lang['albums added in the database'] = 'albume adăugate în baza de date';
-
-//mel le 28/6/11 à andrei.staicu@gmail.com
+$lang['Level 0'] = '---';
+$lang['Level 1'] = 'Contacte';
+$lang['Level 2'] = 'Prieteni';
+$lang['Level 4'] = 'Familie';
+$lang['Level 8'] = 'Administratori';
+$lang['%d user was not updated.'] = '%d utilizator nu a fost adus la zi.';
+$lang['%d user was updated.'] = '%d utilizator a fost adus la zi.';
+$lang['%d users were not updated.'] = '%d utilizatori nu au fost aduşi la zi.';
+$lang['%d users were updated.'] = '%d utilizatori au fost aduşi la zi.';
+$lang['%s has been successfully upgraded.'] = '%s a fost adus la nivel cu succes.';
+$lang['%s must be to set to false in your local/config/config.inc.php file'] = '%s trebuie modificat în fals în fişierul local/config/config.inc.php';
+$lang['%s value is not correct file because exif are not supported'] = '%s valoare este incorectă, deoarece exif-urile nu sunt suportate';
+$lang['+ Add an upload box'] = '+ Adauga o cutie de încărcare';
+$lang[', click on'] = ', apasă pe';
+$lang['... or switch to the multiple files form'] = '... sau schimbă în formularul pentru fişiere multiple';
+$lang['... or switch to the old style form'] = '... sau schimbă în formularul în stilul vechi';
+$lang['A local listing.xml file has been found for'] = 'A fost găsit un fişier listing.xml local pentru';
+$lang['A new version of Piwigo is available.'] = 'O nouă versiune a lui Piwigo este disponibilă.';
+$lang['a picture filetype requires a thumbnail. The thumbnail must be present in the sub-directory "thumbnail" of the album directory. The thumbnail filename must start with the configured thumbnail prefix and the extension must be among the following list :'] = 'un tip de fişier de fotografie necesită o previzualizare. Previzualizarea trebuie să existe în sub-directorul "thumbnail" din directorul albumului. Previzualizarea trebuie să înceapă cu prefixul configurat pentru previzualizări şi extensia trebuie să facă parte din lista următoare :';
+$lang['Albums automatically sorted'] = 'Albume sortate automat';
+$lang['albums deleted in the database'] = 'albume şterse în baza de date';
+$lang['All %d photos are selected'] = 'Toate cele %d fotografii sunt selectate';
+$lang['All optimizations have been successfully completed.'] = 'Toate optimizările au fost terminate cu succes.';
+$lang['all'] = 'toate';
+$lang['Allow rating'] = 'Permite aprecierea';
+$lang['Allow user customization'] = 'Permite adaptarea utilizatorilor';
+$lang['Allow users to delete their own comments'] = 'Permite utilizatorilor să-şi şteargă propriile comentarii';
+$lang['Allow users to edit their own comments'] = 'Permite utilizatorilor să-şi modifice propriile comentarii';
+$lang['an error happened'] = 's-a produs o eroare';
+$lang['An error occured during extraction (%s).'] = 'S-a produs o eroare în timpul extragerii fişierelor (%s).';
+$lang['An information email was sent to group "%s"'] = 'Un mesaj de informare a fost trimis către grupul "%s"';
+$lang['and'] = 'şi';
+$lang['Anomaly'] = 'Anomalie';
 
 ?>
