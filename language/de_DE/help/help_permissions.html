@@ -1,54 +1,58 @@
-<fieldset>
-<legend>Berechtigungen für Fotos</legend>
 
-<p>Jedem Foto ist eine <strong>Berechtigungsstufe</strong> (eine Sperre) zugewiesen, genauso wie jeder Benutzer eine gewisse Berechtigungsstufe besitzt (ein Schlüssel). Es gibt fünf Berechtigungsstufen:</p>
+<fieldset>
+<legend>Zugriffsrechte auf Fotos</legend>
+
+<p>Jedem Foto ist eine <strong>Datenschutzstufe</strong> (entsprechend einem Türschloss) zugewiesen, genauso wie jeder Benutzer eine gewisse Datenschutzstufe besitzt (entsprechend einem Schlüssel). Es gibt fünf Datenschutzstufen:</p>
 <ol>
   <li>Keine Berechtigung</li>
   <li><em>Kontakte</em></li>
   <li><em>Freunde (eine Stufe höher als Kontakte)</em></li>
   <li><em>Familie (eine Stufe höher als Freunde)</em></li>
-  <li><em>Administratoren (die höchste Berechtigungsstufe)</em></li>
+  <li><em>Administratoren (die höchste Datenschutzstufe)</em></li>
 </ol>
 
-<p>Eine höhere Stufe erbt alle Berechtigungen der niedrigeren Stufen. Für einen Benutzer gilt: Je höher seine Berechtigungsstufe, desto mehr Fotos kann er sehen.</p>
+<p>Eine höhere Stufe erbt alle Berechtigungen der niedrigeren Stufen. Für einen Benutzer gilt: Je höher seine Datenschutzstufe, desto mehr Fotos kann er sehen. 
+Ein Benutzer, der in einem Album keine Berechtigungen für ein Foto hat, kann weder das Album selbst, noch den Titel des Albums sehen.</p>
+<!-- unphysicalix: Versteh ich nicht: -->
+<!--Das selbe Prinzip wird auch auf "Tags" angewandt. -->
 
-<p>Ein Beispiel: Wenn dem Foto "peter_hochzeit-0024.jpg" die Berechtigungsstufe <em>"Familie"</em> zugewiesen ist, dann:</p>
+<p>Ein Beispiel: Wenn dem Foto "peter_hochzeit-0024.jpg" die Datenschutzstufe <em>"Familie"</em> zugewiesen ist, dann:</p>
 <ul>
-  <li>kann Peter (der ein <em>"Administrator"</em> ist) das Foto sehen, weil <em>"Administratoren"</em> alle Fotos sehen können</li>
-  <li>kann Elisabeth (die Teil der <em>"Familie"</em> ist) das Foto ebenfalls sehen</li>
-  <li>kann Marie (die nur ein <em>"Freund"</em> ist) das Foto nicht sehen</li>
+  <li>kann Peter (der die Stufe <em>"Administrator"</em> besitzt) das Foto sehen, weil <em>"Administratoren"</em> alle Fotos sehen können</li>
+  <li>kann Elisabeth (die die Einstufung <em>"Familie"</em> besitzt) das Foto ebenfalls sehen</li>
+  <li>kann Marie (die als <em>"Freund"</em> eingestuft ist) das Foto nicht sehen</li>
 </ul>
 
-<p>Ein Benutzer, der keine Berechtigungen hat den Inhalt eines Albums zu sehen, kann weder das Album selbst, noch den Titel des Albums sehn. Das selbe Prinzip wird auch auf "Tags" angewandt.</p>
-
-<p>Sie können die Berechtigungsstufe eines Benutzers unter <span class="pwgScreen">Administration &raquo; Benutzer &raquo; Verwalten</span> sehen.</p>
-
+<p>Die Datenschutzstufe eines Benutzers ist eine Eigenschaft des Benutzerkontos, die Sie in der Benutzerliste unter 
+<a href="admin.php?page=user_list"><span class="pwgScreen">Administration &raquo; Benutzer &raquo; Verwalten</span></a>
+sehen und bearbeiten können. Die Datenschutzstufe eines Fotos ist eine Eigenschaft, die beim Hochladen des Bildes oder auch später festgelegt werden kann.</p>
 </fieldset>
 
 <fieldset>
-<legend>Berechtigungen für Alben</legend>
+<legend>Erweiterte Zugriffsrechte auf private Alben</legend>
 
-<p>Wenn die definierten Berechtigungsstufen nicht Ihren Bedürfnissen entsprechen, haben Sie auch die Möglichkeit, Benutzern oder Gruppen Berechtigungen auf Alben zu vergeben. Sie können problemlos Berechtigungen für Alben und Fotos parallel verwenden.</p>
+<p>Wenn die vordefinierten Datenschutzstufen nicht Ihren Bedürfnissen entsprechen, haben Sie auch die Möglichkeit, Benutzern oder Gruppen (siehe <a href="admin.php?page=help&section=groups">nächste Hilfeseite</a>) gesonderte Zugriffsrechte auf sogenannte <strong>private Alben</strong> zu vergeben.</p>
 
-<p>Um Berechtigungen eines Albums zu verwalten, müssen Sie die Zugangsart des Albums auf "privat" setzen.</p>
+<p> Sie können problemlos Berechtigungen für private Alben und Datenschutzstufen für Fotos parallel verwenden. Beachten Sie aber, dass ein Benutzer zu einer Berechtigung für ein privates Album ebenfalls die nötige Datenschutzstufe haben muss, um das Foto sehen zu können.</p>
 
-<p>Sie können ein Album auf "privat" setzen, indem Sie ein einzelnes Album bearbeiten
-(<span class="pwgScreen">Administration &raquo; Alben &raquo; Verwalten
-&raquo; Bearbeiten</span>) oder indem Sie Eigenschaften für alle Alben festlegen
-(<span class="pwgScreen">Administration &raquo; Alben &raquo;
-Eigenschaften &raquo; Öffentlich / Privat</span>).</p>
+<p>Um Berechtigungen eines Albums gesondert zu verwalten, müssen Sie die Zugangsart des Albums auf <strong>privat</strong> setzen.
+Sie können entweder für ein einzelnes Album unter 
+<a href="admin.php?page=cat_list"><span class="pwgScreen">Administration &raquo; Alben &raquo; Verwalten </span></a>
+ die Albuminformationen bearbeiten und die Zugangsart ändern oder indem Sie diese Eigenschaft für mehrere Alben unter
+<a href="admin.php?page=cat_options"><span class="pwgScreen">Administration
+&raquo; Alben &raquo; Eigenschaften &raquo; Öffentlich /
+Privat</span></a> festlegen.</p>
 
 <p>Wenn ein Album als "privat" markiert ist, können Sie die Berechtigungen für Benutzer und Gruppen an drei unterschiedlichen Stellen vornehmen:</p>
 
 <ul>
 
-  <li><span class="pwgScreen">Administration &raquo; Benutzer &raquo; Verwalten &raquo;
-  Aktionen, Berechtigungen</span> (jeweils ein Link pro Benutzer)</li>
+  <li>Unter <a href="admin.php?page=user_list"><span class="pwgScreen">Administration
+ &raquo; Benutzer &raquo; Verwalten</span></a> kann für jeden einzelnen Benutzer die Aktion "Zugriffsrechte" aufgerufen werden.</li>
 
-  <li><span class="pwgScreen">Administration &raquo; Benutzer &raquo; Gruppen &raquo;
-  Aktionen, Berechtigungen</span> (jeweils ein Link pro Gruppe)</li>
+  <li>Unter <a href="admin.php?page=group_list"><span class="pwgScreen">Administration &raquo; Benutzer &raquo; Gruppen </span></a> kann für jede einzelne Gruppe die Aktion "Zugriffsrechte" aufgerufen werden.</li>
 
-  <li><span class="pwgScreen">Administration &raquo; Alben &raquo; Verwalten &raquo; Aktionen, Berechtigungen für Album ändern</span> (jeweils ein Link pro Album)</li>
+  <li>Unter <a href="admin.php?page=cat_list"><span class="pwgScreen">Administration &raquo; Alben &raquo; Verwalten </span></a> kann für ein privates Album die Aktion "Zugriffsrechte auf das Album bearbeiten" aufgerufen werden.</li>
 
 </ul>
 </fieldset>
