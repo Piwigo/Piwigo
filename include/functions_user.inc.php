@@ -1131,6 +1131,9 @@ function auto_login() {
  */
 function try_log_user($username, $password, $remember_me)
 {
+  // we force the session table to be clean
+  pwg_session_gc();
+  
   global $conf;
   // retrieving the encrypted password of the login submitted
   $query = '
