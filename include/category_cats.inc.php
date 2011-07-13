@@ -122,7 +122,7 @@ while ($row = pwg_db_fetch_assoc($result))
 
   if (isset($image_id))
   {
-    if ($row['user_representative_picture_id'] != $image_id)
+    if ($conf['representative_cache_on_subcats'] and $row['user_representative_picture_id'] != $image_id)
     {
       $user_representative_updates_for[ $user['id'].'#'.$row['id'] ] = $image_id;
     }
@@ -212,8 +212,11 @@ SELECT id, path, tn_ext, level
           {
             array_push($new_image_ids, $image_id);
           }
-            
-          $user_representative_updates_for[ $user['id'].'#'.$category['id'] ] = $image_id;
+
+          if ($conf['representative_cache_on_level'])
+          {
+            $user_representative_updates_for[ $user['id'].'#'.$category['id'] ] = $image_id;
+          }
           
           $category['representative_picture_id'] = $image_id;
         }

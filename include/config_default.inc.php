@@ -222,6 +222,18 @@ $conf['display_fromto'] = false;
 // Maintenance].
 $conf['allow_random_representative'] = false;
 
+// representative_cache_on_level: if a thumbnail is chosen as representative
+// but has higher privacy level than current user, Piwigo randomly selects
+// another thumbnail. Should be store this thumbnail in cache to avoid
+// another consuming SQL query on next page refresh?
+$conf['representative_cache_on_level'] = true;
+
+// representative_cache_on_subcats: if a category (= album) only contains
+// sub-categories, Piwigo randomly selects a thumbnail among sub-categories
+// representative. Should we store this thumbnail in cache to avoid another
+// "slightly" consuming SQL query on next page refresh?
+$conf['representative_cache_on_subcats'] = true;
+
 // allow_html_descriptions : authorize administrators to use HTML in
 // category and element description.
 $conf['allow_html_descriptions'] = true;
