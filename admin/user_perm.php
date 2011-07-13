@@ -64,51 +64,9 @@ DELETE FROM '.USER_ACCESS_TABLE.'
 ;';
   pwg_query($query);
 }
-else if (isset($_POST['trueify'])
-         and isset($_POST['cat_false'])
-         and count($_POST['cat_false']) > 0)
+else if (isset($_POST['trueify']))
 {
-  $uppercats = get_uppercat_ids($_POST['cat_false']);
-  $private_uppercats = array();
-
-  $query = '
-SELECT id
-  FROM '.CATEGORIES_TABLE.'
-  WHERE id IN ('.implode(',', $uppercats).')
-    AND status = \'private\'
-;';
-  $result = pwg_query($query);
-  while ($row = pwg_db_fetch_assoc($result))
-  {
-    array_push($private_uppercats, $row['id']);
-  }
-
-  // retrying to authorize a category which is already authorized may cause
-  // an error (in SQL statement), so we need to know which categories are
-  // accesible
-  $authorized_ids = array();
-
-  $query = '
-SELECT cat_id
-  FROM '.USER_ACCESS_TABLE.'
-  WHERE user_id = '.$page['user'].'
-;';
-  $result = pwg_query($query);
-
-  while ($row = pwg_db_fetch_assoc($result))
-  {
-    array_push($authorized_ids, $row['cat_id']);
-  }
-
-  $inserts = array();
-  $to_autorize_ids = array_diff($private_uppercats, $authorized_ids);
-  foreach ($to_autorize_ids as $to_autorize_id)
-  {
-    array_push($inserts, array('user_id' => $page['user'],
-                               'cat_id' => $to_autorize_id));
-  }
-
-  mass_inserts(USER_ACCESS_TABLE, array('user_id','cat_id'), $inserts);
+  add_permission_on_category($_POST['cat_false'], $page['user']);
 }
 
 // +-----------------------------------------------------------------------+

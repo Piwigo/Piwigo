@@ -143,50 +143,9 @@ DELETE
 ;';
   pwg_query($query);
 }
-else if (isset($_POST['grant_users_submit'])
-         and isset($_POST['grant_users'])
-         and count($_POST['grant_users']) > 0)
+else if (isset($_POST['grant_users_submit']))
 {
-  $query = '
-SELECT id
-  FROM '.CATEGORIES_TABLE.'
-  WHERE id IN ('.implode(',', get_uppercat_ids(array($page['cat']))).')
-  AND status = \'private\'
-;';
-  $private_uppercats = array_from_query($query, 'id');
-
-  // We must not reinsert already existing lines in user_access table
-  $granteds = array();
-  foreach ($private_uppercats as $cat_id)
-  {
-    $granteds[$cat_id] = array();
-  }
-  
-  $query = '
-SELECT user_id, cat_id
-  FROM '.USER_ACCESS_TABLE.'
-  WHERE cat_id IN ('.implode(',', $private_uppercats).')
-    AND user_id IN ('.implode(',', $_POST['grant_users']).')
-;';
-  $result = pwg_query($query);
-  while ($row = pwg_db_fetch_assoc($result))
-  {
-    array_push($granteds[$row['cat_id']], $row['user_id']);
-  }
-
-  $inserts = array();
-  
-  foreach ($private_uppercats as $cat_id)
-  {
-    $user_ids = array_diff($_POST['grant_users'], $granteds[$cat_id]);
-    foreach ($user_ids as $user_id)
-    {
-      array_push($inserts, array('user_id' => $user_id,
-                                 'cat_id' => $cat_id));
-    }
-  }
-
-  mass_inserts(USER_ACCESS_TABLE, array('user_id','cat_id'), $inserts);
+  add_permission_on_category($page['cat'], $_POST['grant_users']);
 }
 
 // +-----------------------------------------------------------------------+
