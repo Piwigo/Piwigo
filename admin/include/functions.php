@@ -1272,7 +1272,7 @@ DELETE FROM '.$table.'
  */
 function create_virtual_category($category_name, $parent_id=null)
 {
-  global $conf;
+  global $conf, $user;
 
   // is the given category name only containing blank spaces ?
   if (preg_match('/^\s*$/', $category_name))
@@ -1360,6 +1360,11 @@ UPDATE
   WHERE id = '.$inserted_id.'
 ;';
   pwg_query($query);
+
+  if ('private' == $insert['status'])
+  {
+    add_permission_on_category($inserted_id, array_unique(array_merge(get_admins(), array($user['id']))));
+  }
 
   return array(
     'info' => l10n('Virtual album added'),
@@ -2167,4 +2172,102 @@ function order_by_name($element_ids,$name)
   return $ordered_element_ids;
 }
 
+function add_permission_on_category($category_ids, $user_ids)
+{
+  // array-ify categories and users
+  if (!is_array($category_ids))
+  {
+    $category_ids = array($category_ids);
+  }
+
+  if (!is_array($user_ids))
+  {
+    $user_ids = array($user_ids);
+  }
+
+  // check for emptiness
+  if (count($category_ids) == 0 or count($user_ids) == 0)
+  {
+    return;
+  }
+  
+  // make sure categories are private and select uppercats
+  $query = '
+SELECT
+    id
+  FROM '.CATEGORIES_TABLE.'
+  WHERE id IN ('.implode(',', get_uppercat_ids($category_ids)).')
+    AND status = \'private\'
+;';
+  $private_uppercats = array_from_query($query, 'id');
+
+  if (count($private_uppercats) == 0)
+  {
+    return;
+  }
+  
+  // We must not reinsert already existing lines in user_access table
+  $granteds = array();
+  foreach ($private_uppercats as $cat_id)
+  {
+    $granteds[$cat_id] = array();
+  }
+  
+  $query = '
+SELECT
+    user_id,
+    cat_id
+  FROM '.USER_ACCESS_TABLE.'
+  WHERE cat_id IN ('.implode(',', $private_uppercats).')
+    AND user_id IN ('.implode(',', $user_ids).')
+;';
+  $result = pwg_query($query);
+  while ($row = pwg_db_fetch_assoc($result))
+  {
+    array_push($granteds[$row['cat_id']], $row['user_id']);
+  }
+
+  $inserts = array();
+  
+  foreach ($private_uppercats as $cat_id)
+  {
+    $grant_to_users = array_diff($user_ids, $granteds[$cat_id]);
+    
+    foreach ($grant_to_users as $user_id)
+    {
+      array_push(
+        $inserts,
+        array(
+          'user_id' => $user_id,
+          'cat_id' => $cat_id
+          )
+        );
+    }
+  }
+
+  if (count($inserts) > 0)
+  {
+    mass_inserts(USER_ACCESS_TABLE, array_keys($inserts[0]), $inserts);
+  }
+}
+
+
+function get_admins($include_webmaster=true)
+{
+  $status_list = array('admin');
+
+  if ($include_webmaster)
+  {
+    $status_list[] = 'webmaster';
+  }
+  
+  $query = '
+SELECT
+    user_id
+  FROM '.USER_INFOS_TABLE.'
+  WHERE status in (\''.implode("','", $status_list).'\')
+;';
+
+  return array_from_query($query, 'user_id');
+}
 ?>
