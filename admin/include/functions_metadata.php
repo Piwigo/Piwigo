@@ -97,6 +97,11 @@ function get_sync_exif_data($file)
       {
         $exif[$pwg_key] = $matches[1].'-'.$matches[2].'-'.$matches[3];
       }
+      else
+      {
+        unset($exif[$pwg_key]);
+        continue;
+      }
     }
     $exif[$pwg_key] = addslashes($exif[$pwg_key]);
   }
