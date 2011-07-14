@@ -302,7 +302,17 @@ function ws_addDefaultMethods( $arr )
       ),
     'Move categories. You can give several category_ids, comma separated. Set parent as 0 to move to gallery root. Only virtual categories can be moved.'
     );
-  
+
+  $service->addMethod(
+    'pwg.categories.setRepresentative',
+    'ws_categories_setRepresentative',
+    array(
+      'category_id'=>array('default'=>0),
+      'image_id'=>array('default'=>0),
+      ),
+    'Set the representative photo for an album. The photo doesn\'t have to belong to the album. POST method only. Administration method only.'
+    );
+
   $service->addMethod(
     'pwg.tags.getAdminList',
     'ws_tags_getAdminList',

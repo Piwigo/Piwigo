@@ -2467,6 +2467,78 @@ function ws_categories_setInfo($params, &$service)
 
 }
 
+function ws_categories_setRepresentative($params, &$service)
+{
+  global $conf;
+  
+  if (!is_admin())
+  {
+    return new PwgError(401, 'Access denied');
+  }
+
+  if (!$service->isPost())
+  {
+    return new PwgError(405, "This method requires HTTP POST");
+  }
+
+  // category_id
+  // image_id
+
+  $params['category_id'] = (int)$params['category_id'];
+  if ($params['category_id'] <= 0)
+  {
+    return new PwgError(WS_ERR_INVALID_PARAM, "Invalid category_id");
+  }
+
+  // does the category really exist?
+  $query='
+SELECT
+    *
+  FROM '.CATEGORIES_TABLE.'
+  WHERE id = '.$params['category_id'].'
+;';
+  $row = pwg_db_fetch_assoc(pwg_query($query));
+  if ($row == null)
+  {
+    return new PwgError(404, "category_id not found");
+  }
+
+  $params['image_id'] = (int)$params['image_id'];
+  if ($params['image_id'] <= 0)
+  {
+    return new PwgError(WS_ERR_INVALID_PARAM, "Invalid image_id");
+  }
+  
+  // does the image really exist?
+  $query='
+SELECT
+    *
+  FROM '.IMAGES_TABLE.'
+  WHERE id = '.$params['image_id'].'
+;';
+
+  $row = pwg_db_fetch_assoc(pwg_query($query));
+  if ($row == null)
+  {
+    return new PwgError(404, "image_id not found");
+  }
+
+  // apply change
+  $query = '
+UPDATE '.CATEGORIES_TABLE.'
+  SET representative_picture_id = '.$params['image_id'].'
+  WHERE id = '.$params['category_id'].'
+;';
+  pwg_query($query);
+
+  $query = '
+UPDATE '.USER_CACHE_CATEGORIES_TABLE.'
+  SET user_representative_picture_id = NULL
+  WHERE cat_id = '.$params['category_id'].'
+;';
+  pwg_query($query);
+}
+
 function ws_categories_delete($params, &$service)
 {
   global $conf;
