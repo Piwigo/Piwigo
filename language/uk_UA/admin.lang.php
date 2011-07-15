@@ -470,6 +470,29 @@ $lang['Reject'] = 'Забракувати';
 $lang['Released on'] = 'Випущено';
 $lang['Remote'] = 'Віддалено';
 $lang['Remove all filters'] = 'Видалити всі фільтри';
-$lang['remove author'] = 'видалити автора'; 
+$lang['remove author'] = 'видалити автора';
+$lang['Password confirmation error.'] = 'Помилка підтвердження пароля.';
+$lang['Password confirmation is missing. Please confirm the chosen password.'] = 'Відсутнє підтвердження пароля. Будь ласка, підтвердіть вибраний пароль.';
+$lang['Password is missing. Please enter the password.'] = 'Пароль відсутній. Будь ласка введіть пароль.';
+$lang['Path'] = 'Шлях';
+$lang['Pending Comments'] = 'В очікуванні коментарів';
+$lang['Permalink %s has been previously used by album %s. Delete from the permalink history first'] = 'Постійне посилання %s раніше використовувалося для альбому %s. Спочатку видаліть його з історії постійних посилань';
+$lang['Permalink %s is already used by album %s'] = 'Постійне посилання %s вже використовується для альбому %s';
+$lang['Permalink history'] = 'Історія постійних посилань';
+$lang['Permalink'] = 'Постійне посилання';
+$lang['Permalinks'] = 'Постійні посилання';
+$lang['Permission denied'] = 'Доступ заборонений';
+$lang['Permission granted thanks to a group'] = 'Доступ наданий завдяки групі';
+$lang['Permission granted'] = 'Доступ наданий';
+$lang['Permissions'] = 'Дозволи';
+$lang['Photo Page'] = 'Сторінка фотографії';
+$lang['Photo Properties'] = 'Властивості фотографії';
+$lang['photos added in the database'] = 'фотографії додані в базу даних';
+$lang['photos candidates for metadata synchronization'] = 'кандидати фотографій для синхронізації метаданих';
+$lang['photos deleted from the database'] = 'фотографії видалені з бази даних';
+$lang['photos per page'] = 'фотографій на сторінку';
+$lang['photos updated in the database'] = 'фотографії оновлені в базі даних';
+$lang['Photos'] = 'Фотографії';
+
 
 ?>
