@@ -1722,6 +1722,10 @@ function ws_session_getStatus($params, &$service)
   }
   $res['pwg_token'] = get_pwg_token();
   $res['charset'] = get_pwg_charset();
+
+  list($dbnow) = pwg_db_fetch_row(pwg_query('SELECT NOW();'));
+  $res['current_datetime'] = $dbnow;
+  
   return $res;
 }
 
