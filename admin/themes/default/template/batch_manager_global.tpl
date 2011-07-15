@@ -428,14 +428,12 @@ $(document).ready(function() {
 });
 
 jQuery(window).load(function() {
-  var max_dim = 20;
-  $(".thumbnails img").each(function () {
-    if ($(this).height() > (max_dim-20))
-      max_dim = $(this).height() + 20;
-    if ($(this).width() > (max_dim-20))
-      max_dim = $(this).width() + 20;
-    $("ul.thumbnails span, ul.thumbnails label").css('width', max_dim+'px').css('height', max_dim+'px');
-  });
+	var max_dim = 0;
+	$(".thumbnails img").each(function () {
+		max_dim = Math.max(max_dim, $(this).height(), $(this).width() );
+	});
+	max_dim += 20;
+	$("ul.thumbnails span, ul.thumbnails label").css('width', max_dim+'px').css('height', max_dim+'px');
 });
 {/literal}{/footer_script}
 
