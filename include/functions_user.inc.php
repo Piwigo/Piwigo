@@ -1312,6 +1312,7 @@ function check_status($access_type, $user_status = '')
 */
 function is_adviser()
 {
+  trigger_error('call to obsolete function is_adviser', E_USER_WARNING);
   return false;
 }
 

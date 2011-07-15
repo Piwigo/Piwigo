@@ -115,7 +115,6 @@ class Template {
     $this->smarty->register_function('combine_css', array(&$this, 'func_combine_css') );
     $this->smarty->register_compiler_function('get_combined_css', array(&$this, 'func_get_combined_css') );
     $this->smarty->register_block('footer_script', array(&$this, 'block_footer_script') );
-    $this->smarty->register_function('known_script', array(&$this, 'func_known_script') );
     $this->smarty->register_prefilter( array('Template', 'prefilter_white_space') );
     if ( $conf['compiled_template_cache_language'] )
     {
@@ -531,44 +530,7 @@ class Template {
     }
   }
 
- /**
-   * This smarty "known_script" functions allows to insert well known java scripts
-   * such as prototype, jquery, etc... only once. Examples:
-   * {known_script id="jquery" src="{$ROOT_URL}template-common/lib/jquery.packed.js"}
-   */
-  function func_known_script($params, &$smarty )
-  {
-    if (!isset($params['id']))
-    {
-        $smarty->trigger_error("known_script: missing 'id' parameter");
-        return;
-    }
-    $id = $params['id'];
-    trigger_error("known_script is deprecated $id ".@$params['src'], E_USER_WARNING);
-    if ('jquery'==$id)
-    {
-      $this->scriptLoader->add($id, 0, array(), null);
-      return;
-    }
-    if (! isset( $this->known_scripts[$id] ) )
-    {
-      if (!isset($params['src']))
-      {
-          $smarty->trigger_error("known_script: missing 'src' parameter");
-          return;
-      }
-      $this->known_scripts[$id] = $params['src'];
-      $content = '<script type="text/javascript" src="'.$params['src'].'"></script>';
-      if (isset($params['now']) and $params['now'] and empty($this->output) )
-      {
-        return $content;
-      }
-      $repeat = false;
-      $this->block_html_head(null, $content, $smarty, $repeat);
-    }
-  }
-
-  /**
+   /**
     * combine_script smarty function allows inclusion of a javascript file in the current page.
     * The engine will combine several js files into a single one in order to reduce the number of
     * required http requests.
