@@ -284,6 +284,13 @@ $validated_keys = array(
 	'Album: %s',
 	),
 
+  'is_IS' => array(
+	'%d Kb',
+	'N/A',
+	'IP: %s',
+	'Admin: %s',
+	),
+	
   'it_IT' => array(
 	'Album',
     'Album: %s',
