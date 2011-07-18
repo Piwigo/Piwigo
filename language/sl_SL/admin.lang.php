@@ -42,5 +42,25 @@ $lang['%d guest'] = '%d gost';
 $lang['%d guests'] = '%d gostov';
 $lang['%d line filtered'] = '%d vrstica filtrirana';
 $lang['%d lines filtered'] = '%d vrstic filtriranih';
+$lang['ACCESS_0'] = 'Prosti dostop';
+$lang['ACCESS_1'] = 'Dsotop do vsega';
+$lang['ACCESS_2'] = 'Dostop za registrirane uporabnike';
+$lang['ACCESS_3'] = 'Dostop za administratorje';
+$lang['ACCESS_4'] = 'Dostop za spletne skrbnike';
+$lang['ACCESS_5'] = 'Brez dostopa';
+$lang['Action'] = 'Akcija';
+$lang['Actions'] = 'Akcije';
+$lang['Activate field "%s"'] = 'Aktiviraj polje "%s"';
+$lang['Activate icon "%s"'] = 'Aktiviraj ikono "%s"';
+$lang['Activate Navigation Bar'] = 'Aktiviraj navigacijsko vrstico';
+$lang['Activate Navigation Thumbnails'] = 'Aktiviraj navigacijo za predoglede';
+$lang['Activate'] = 'Aktiviraj';
+$lang['Activate icon "new" next to albums and pictures'] = 'Aktiviraj ikono "novo" poleg albumov in slik';
+$lang['Active Languages'] = 'Aktiviraj jezike';
+$lang['Active Plugins'] = 'Aktiviraj ';
+$lang['Active Themes'] = 'Aktiviraj teme';
+$lang['Add a criteria'] = 'Dodaj kriterij';
+$lang['Add a filter'] = 'Dodaj filter';
+$lang['Add a tag'] = 'Dodaj znacko'; 
 
 ?>
