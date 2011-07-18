@@ -493,6 +493,27 @@ $lang['photos deleted from the database'] = 'фотографії видален
 $lang['photos per page'] = 'фотографій на сторінку';
 $lang['photos updated in the database'] = 'фотографії оновлені в базі даних';
 $lang['Photos'] = 'Фотографії';
-
+$lang['Themes'] = 'Теми';
+$lang['There is no available subscribers to mail.'] = 'Немає абонентів для одержування повідомлень поштою.';
+$lang['There is no other language available.'] = 'Немає іншої доступної мови.';
+$lang['There is no other plugin available.'] = 'Немає іншого доступного плагіну.';
+$lang['There is no other theme available.'] = 'Немає іншої доступної теми.';
+$lang['This name is already used by another group.'] = "Це ім'я вже використовується іншою групою.";
+$lang['This site already exists'] = 'Цей сайт вже існує';
+$lang['This theme was not designed to be directly activated'] = 'Ця тема не була призначена для безпосереднього активування';
+$lang['Thumbnail creation'] = 'Створення мініатюри';
+$lang['Thumbnail'] = 'Мініатюра';
+$lang['Time to send mail is limited. Others mails are skipped.'] = 'Час для відправки пошти обмежений. Інші листи були пропущені.';
+$lang['Time'] = 'Час';
+$lang['title'] = 'назва';
+$lang['To send ?'] = 'Відправити?';
+$lang['To subscribe'] = 'Підписатися';
+$lang['To unsubscribe'] = 'Відписатися';
+$lang['Toggle \'default group\' property'] = 'Змінити властивість \'групи за замовчуванням\' на протилежну';
+$lang['Tools'] = 'Інструменти';
+$lang['total time'] = 'загальний час';
+$lang['Type here the author name'] = 'Введіть тут ім\'я автора';
+$lang['Type here the title'] = 'Введіть тут назву';
+$lang['Type in a search term'] = 'Введіть слово для пошуку';
 
 ?>
