@@ -846,6 +846,10 @@ $lang['Custom'] = 'Egyéni';
 $lang['Default photos order'] = 'Alapértelmezett kép sorrend';
 $lang['Default photos order inside album'] = 'Alapértelmezett kép sorrend a belső albumokban';
 $lang['Invalid order string'] = 'Érvénytelen sorrend sztring';
+
+$lang['You can\'t define a default photo order because you have a custom setting in your local configuration.'] = 'Az alapértelmezett kép sorrend nem határozható meg a helyi konfigurációban található egyéni beállítás miatt.';
+$lang['You have specified <i>$conf[\'order_by\']</i> in your local configuration file, this parameter in deprecated, please remove it or rename it into <i>$conf[\'order_by_custom\']</i> !'] = 'A helyi konfigurációs fájlban lévő <i>$conf[\'order_by\']</i> paraméter elavult, távolítsa el, vagy nevezze át <i>$conf[\'order_by_custom\']</i>-ra !';
+
 //hiányzó
 $lang['%s has been successfully updated.'] = '%s frissítése sikeres.';
 $lang['Add a criteria'] = 'Feltétel hozzáadása';
