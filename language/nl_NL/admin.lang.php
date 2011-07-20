@@ -818,5 +818,18 @@ $lang['Piwigo Update'] = 'Piwigo Update';
 $lang['Extensions Update'] = 'Uitbreidingen Update';
 $lang['All extensions are up to date.'] = 'Alle uitbreidingen zijn bijgewerkt.';
 $lang['Following plugins may not be compatible with the new version of Piwigo:'] = 'De volgende plugins zouden niet compatibel kunnen zijn met de nieuwe versie van Piwigo:';
+$lang['Add a criteria'] = 'Voeg een criterium toe';
+$lang['You can\'t define a default photo order because you have a custom setting in your local configuration.'] = 'U kan geen standaard foto volgorde aanmaken, omdat u een aangepaste instelling in uw locale configuratie heeft.';
+$lang['You have specified <i>$conf[\'order_by\']</i> in your local configuration file, this parameter in deprecated, please remove it or rename it into <i>$conf[\'order_by_custom\']</i> !'] = 'U heeft <i>$conf[\'order_by\']</i> in uw lokale configuratie bestand gespecificeerd. Deze parameter is verouderd, verwijder het of hernoem het naar <i>$conf[\'order_by_custom\']</i> !';
+$lang['Following themes may not be compatible with the new version of Piwigo:'] = 'De volgende thema\'s zijn mogelijk niet compatibel met de nieuwe versie van Piwigo:';
+$lang['I decide to update anyway'] = 'Ik besluit om alsnog te updaten';
+$lang['Update to Piwigo %s'] = 'Update naar Piwigo %s';
+$lang['Two updates are available'] = 'Twee updates zijn beschikbaar';
+$lang['This is a minor update, with only bug corrections.'] = 'Dit is een kleine update, met alleen wat gerepareerde foutjes.';
+$lang['This is a major update, with <a href="%s">new exciting features</a>.'] = 'Dit is een grote update, met <a href="%s">allerlei nieuwe mogelijkheden</a>.';
+$lang['Some themes and plugins may be not available yet.'] = 'Sommige thema\'s en plugins zijn mogelijk nog niet beschikbaar.';
+$lang['You can update to Piwigo %s directly, without upgrading to Piwigo %s (recommended).'] = 'U kunt gelijk naar Piwigo %s updaten, zonder eerst up te daten naar Piwigo %s (aanbevolen).';
+$lang['Save Template Directory'] = 'Sla sjabloon direcotry op';
+$lang['Dump Database'] = 'Dump Database';
 
 ?>
