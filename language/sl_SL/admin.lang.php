@@ -61,6 +61,23 @@ $lang['Active Plugins'] = 'Aktiviraj ';
 $lang['Active Themes'] = 'Aktiviraj teme';
 $lang['Add a criteria'] = 'Dodaj kriterij';
 $lang['Add a filter'] = 'Dodaj filter';
-$lang['Add a tag'] = 'Dodaj znacko'; 
+$lang['Add a tag'] = 'Dodaj znacko';
+$lang['clean'] = 'pobriši';
+$lang['Comments for all'] = 'Komentarji za vse';
+$lang['Comments'] = 'Komentarji';
+$lang['Compact'] = 'Stisnjeno';
+$lang['Complete'] = 'Zakljuceno';
+$lang['Complementary mail content'] = 'Komplementarna vsebina pošte';
+$lang['Configuration'] = 'Konfiguracija';
+$lang['confirm'] = 'potrdi';
+$lang['Continue processing treatment'] = 'Nadaljuj z obdelavo';
+$lang['Correction applied with error'] = 'Popravek namešcen z napako';
+$lang['Correction applied with success'] = 'Popravek uspešno namešcen';
+$lang['Correction the anomaly will cancel the fact that it\'s ignored'] = 'Odpravljene anomalije ne bodo vec ignorirane.';
+$lang['Correction'] = 'Popravek';
+$lang['create a new album'] = 'ustvari nov album';
+$lang['Create a new site : (give its URL to create_listing_file.php)'] = 'Ustvari novo stran : (URL naj kaže na create_listing_file.php)';
+$lang['Create the "%s" directory at the root of your Piwigo installation'] = 'Ustvari imenik "%s" v korenu Piwigo inštalacije.';
+$lang['Create this site'] = 'Ustvari stran';
 
 ?>
