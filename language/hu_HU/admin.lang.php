@@ -799,7 +799,6 @@ $lang['Complete'] = 'Részletes';
 $lang['Deactivate all'] = 'Összes kikapcsolása';
 $lang['Restore'] = 'Visszaállítás';
 $lang['Restore default configuration. You will lose your plugin settings!'] = 'Alapértelmezett beállítások visszaállítása. Figyelem, a bővítmény módosításai elvesznek!';
-$lang['Restore default configuration. You will lost all your settings !'] = 'Alapértelmezett beállítások visszaállítása. Figyelem, a módosítások elvesznek!';
 $lang['Show menubar'] = 'Menüsáv megjelenítése';
 $lang['Regenerate Websize Photos'] = 'Web méretű képek újragenerálása';
 $lang['Photos generation in progress...'] = 'Képek újragenerálása folyamatban...';
@@ -839,18 +838,9 @@ $lang['Height'] = 'Magasság';
 $lang['Follow Orientation'] = 'Elforgatható';
 $lang['If you want to regenerate thumbnails, please go to the <a href="%s">Batch Manager</a>.'] = 'A bélyegképek újragenerálása a <a href="%s">Kötegelt kezelés</a> oldalon lehetséges.';
 $lang['Graphics Library'] = 'Grafikus könyvtár';
-
 $lang['Activate icon "new" next to albums and pictures'] = '"új" ikon aktiválása az albumok és képek mellett';
-$lang['As default order'] = 'Az alapértelmezett sorrend';
-$lang['Custom'] = 'Egyéni';
 $lang['Default photos order'] = 'Alapértelmezett kép sorrend';
-$lang['Default photos order inside album'] = 'Alapértelmezett kép sorrend a belső albumokban';
-$lang['Invalid order string'] = 'Érvénytelen sorrend sztring';
-
 $lang['You can\'t define a default photo order because you have a custom setting in your local configuration.'] = 'Az alapértelmezett kép sorrend nem határozható meg a helyi konfigurációban található egyéni beállítás miatt.';
 $lang['You have specified <i>$conf[\'order_by\']</i> in your local configuration file, this parameter in deprecated, please remove it or rename it into <i>$conf[\'order_by_custom\']</i> !'] = 'A helyi konfigurációs fájlban lévő <i>$conf[\'order_by\']</i> paraméter elavult, távolítsa el, vagy nevezze át <i>$conf[\'order_by_custom\']</i>-ra !';
-
-//hiányzó
-$lang['%s has been successfully updated.'] = '%s frissítése sikeres.';
 $lang['Add a criteria'] = 'Feltétel hozzáadása';
 ?>
