@@ -838,4 +838,7 @@ $lang['Height'] = 'Высота';
 $lang['Follow Orientation'] = 'Изменить ориентацию';
 $lang['If you want to regenerate thumbnails, please go to the <a href="%s">Batch Manager</a>.'] = 'Если в хотите перегенерить миниатюры, используйте, пожалуйста, <a href="%s">Бач менеджер (Batch Manager)</a>.'; 
 $lang['Graphics Library'] = 'Библиотека изображений';
+$lang['Add a criteria'] = 'Добавить критерий';
+$lang['You can\'t define a default photo order because you have a custom setting in your local configuration.'] = 'Вы не можете определить порядок сортировки фотографий по умолчанию, так как он переопределен в локальных настройках.';
+$lang['You have specified <i>$conf[\'order_by\']</i> in your local configuration file, this parameter in deprecated, please remove it or rename it into <i>$conf[\'order_by_custom\']</i> !'] = 'Вы использовали <i>$conf[\'order_by\']</i> в качестве порядка сортировки в локальном файле конфигурации. Этот параметр не рекомендуется для использования. Пожалуйста, удалите его или переименуйте в <i>$conf[\'order_by_custom\']</i> !';
 ?>
