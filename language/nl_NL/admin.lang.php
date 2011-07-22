@@ -831,5 +831,17 @@ $lang['Some themes and plugins may be not available yet.'] = 'Sommige thema\'s e
 $lang['You can update to Piwigo %s directly, without upgrading to Piwigo %s (recommended).'] = 'U kunt gelijk naar Piwigo %s updaten, zonder eerst up te daten naar Piwigo %s (aanbevolen).';
 $lang['Save Template Directory'] = 'Sla sjabloon direcotry op';
 $lang['Dump Database'] = 'Dump Database';
+$lang['Include history data (Warning: server memory limit may be exceeded)'] = 'Gebruik geschiedenis data (Waarschuwing: het geheugen limiet van de server kan overschreden worden).';
+$lang['Unable to write new local directory.'] = 'Kan niet naar de lokale map schrijven.';
+$lang['Unable to send template directory.'] = 'Kan geen sjabloon map sturen.';
+$lang['Unable to dump database.'] = 'Kan de database niet dumpen.';
+$lang['Some upgrades are available for extensions.'] = 'Er zijn sommige updates beschikbaar voor de plugins.';
+$lang['Ignore All'] = 'Negeer alles';
+$lang['Crop'] = 'Inkorten';
+$lang['Width'] = 'Breedte';
+$lang['Height'] = 'Hoogte';
+$lang['Follow Orientation'] = 'Volg orientatie';
+$lang['If you want to regenerate thumbnails, please go to the <a href="%s">Batch Manager</a>.'] = 'Als je thumbnails wilt hergenereren, ga dan naar de <a href="%s">Batch Manager</a>.';
+$lang['Graphics Library'] = 'Afbeeldings bibliotheek';
 
 ?>
