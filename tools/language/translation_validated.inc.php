@@ -346,9 +346,6 @@ $validated_keys = array(
 	'IP: %s',
 	'IP',
 	'localhost, sql.multimania.com, toto.freesurf.fr',
-	'',
-	'',
-	'',
 	),
 
   'nl_NL' => array(
@@ -407,6 +404,11 @@ $validated_keys = array(
 	'Download',
 	'Piwigo Uploader',
 	'Download,',
+	'Compact',
+	'Updates',
+	'ERROR',
+	'Piwigo Update',
+	'Dump Database',
 	),
 	
   'no_NO' => array(
