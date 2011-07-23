@@ -79,5 +79,23 @@ $lang['create a new album'] = 'ustvari nov album';
 $lang['Create a new site : (give its URL to create_listing_file.php)'] = 'Ustvari novo stran : (URL naj kaže na create_listing_file.php)';
 $lang['Create the "%s" directory at the root of your Piwigo installation'] = 'Ustvari imenik "%s" v korenu Piwigo inštalacije.';
 $lang['Create this site'] = 'Ustvari stran';
+$lang['delete album'] = 'odstrani album';
+$lang['Delete orphan tags'] = 'Odstrani neuporabljene znacke';
+$lang['delete photo'] = 'odstrani sliko';
+$lang['Delete Representant'] = 'Odstrani Representant';
+$lang['Delete selected photos'] = 'Odstrani izbrane slike';
+$lang['Delete selected tags'] = 'Odstrani izbrane znacke';
+$lang['Delete selected users'] = 'Odstrani izbrane uporabnike';
+$lang['Delete this language'] = 'Odstrani jezik';
+$lang['delete this site and all its attached elements'] = 'odstrani stran in pripadajoce podatke';
+$lang['Delete this theme'] = 'Odstrani temo';
+$lang['Delete'] = 'Odstrani';
+$lang['delete'] = 'odstrani';
+$lang['Deleted on'] = 'Odstranjeno';
+$lang['deleted'] = 'odstranjeno';
+$lang['Deletions'] = 'Odstrani';
+$lang['Deny selected groups'] = 'Prepreci dostop izbranim skupinam';
+$lang['Deny selected users'] = 'Prepreci dostop izbranim uporabnikom';
+$lang['Description'] = 'Opis';
 
 ?>
