@@ -1721,6 +1721,27 @@ SELECT id
   }
 }
 
+/**
+ * Is the category accessible to the (Admin) user ?
+ *
+ * Note : if the user is not authorized to see this category, category jump
+ * will be replaced by admin cat_modify page
+ *
+ * @param int category id to verify
+ * @return bool
+ */
+function cat_admin_access($category_id)
+{
+  global $user;
+
+  // $filter['visible_categories'] and $filter['visible_images']
+  // are not used because it's not necessary (filter <> restriction)
+  if (in_array($category_id, explode(',', $user['forbidden_categories'])))
+  {
+    return false;
+  }
+  return true;
+}
 
 /**
  * Retrieve data from external URL
