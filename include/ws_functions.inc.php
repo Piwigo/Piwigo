@@ -781,14 +781,20 @@ SELECT id, name, permalink, uppercats, global_rank, commentable
     $related_tags[$i]=$tag;
   }
   //------------------------------------------------------------- related rates
-  $query = '
+	$rating = array('score'=>$image_row['average_rate'], 'count'=>0, 'average'=>null);
+	if (isset($rating['score']))
+	{
+		$query = '
 SELECT COUNT(rate) AS count
      , ROUND(AVG(rate),2) AS average
   FROM '.RATE_TABLE.'
   WHERE element_id = '.$image_row['id'].'
 ;';
-  $rating = pwg_db_fetch_assoc(pwg_query($query));
-  $rating['count'] = (int)$rating['count'];
+		$row = pwg_db_fetch_assoc(pwg_query($query));
+		$rating['score'] = (float)$rating['score'];
+		$rating['average'] = (float)$row['average'];
+		$rating['count'] = (int)$row['count'];
+	}
 
   //---------------------------------------------------------- related comments
   $related_comments = array();

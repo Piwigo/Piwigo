@@ -196,11 +196,11 @@ y.callService(
 
 {if $display_info.average_rate and isset($rate_summary)}
 	<tr id="Average">
-		<td class="label">{'Average rate'|@translate}</td>
+		<td class="label">{'Rating'|@translate}</td>
 		<td class="value" id="ratingSummary">
 		{if $rate_summary.count}
 			{assign var='rate_text' value='%.2f (rated %d times)'|@translate}
-			{$pwg->sprintf($rate_text, $rate_summary.average, $rate_summary.count)}
+			{$pwg->sprintf($rate_text, $rate_summary.score, $rate_summary.count, $rate_summary.average)}
 		{else}
 			{'no rate'|@translate}
 		{/if}

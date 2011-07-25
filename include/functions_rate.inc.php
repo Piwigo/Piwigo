@@ -116,21 +116,88 @@ INSERT
 ;';
   pwg_query($query);
 
-  // update of images.average_rate field
+  return update_rating_score($image_id);
+}
+
+
+/* update images.average_rate field
+  * we use a bayesian average (http://en.wikipedia.org/wiki/Bayesian_average) with
+C = average number of rates per item
+m = global average rate (all rates)
+
+ * param int $element_id optional, otherwise applies to all
+ * @return array(average_rate, count) if element_id is specified
+*/
+function update_rating_score($element_id = false)
+{
   $query = '
-SELECT COUNT(rate) AS count
-     , ROUND(AVG(rate),2) AS average
+SELECT element_id,
+    COUNT(rate) AS rcount,
+    SUM(rate) AS rsum
   FROM '.RATE_TABLE.'
-  WHERE element_id = '.$image_id.'
-;';
-  $row = pwg_db_fetch_assoc(pwg_query($query));
-  $query = '
-UPDATE '.IMAGES_TABLE.'
-  SET average_rate = '.$row['average'].'
-  WHERE id = '.$image_id.'
-;';
-  pwg_query($query);
-  return $row;
+  GROUP by element_id';
+
+  $all_rates_count = 0;
+  $all_rates_avg = 0;
+  $item_ratecount_avg = 0;
+  $by_item = array();
+
+  $result = pwg_query($query);
+  while ($row = pwg_db_fetch_assoc($result))
+  {
+    $all_rates_count += $row['rcount'];
+    $all_rates_avg += $row['rsum'];
+    $by_item[$row['element_id']] = $row;
+  }
+
+  $all_rates_avg /= $all_rates_count;
+  $item_ratecount_avg = $all_rates_count / count($by_item);
+
+  $updates = array();
+  foreach ($by_item as $id => $rate_summary )
+  {
+    $score = ( $item_ratecount_avg * $all_rates_avg + $rate_summary['rsum'] ) / ($item_ratecount_avg + $rate_summary['rcount']);
+    $score = round($score,2);
+    if ($id==$element_id)
+    {
+      $return = array(
+        'score' => $score,
+        'average' => round($rate_summary['rsum'] / $rate_summary['rcount'], 2),
+        'count' => $rate_summary['rcount'],
+        );
+    }
+    $updates[] = array( 'id'=>$id, 'average_rate'=>$score );
+  }
+  mass_updates(
+    IMAGES_TABLE,
+    array(
+      'primary' => array('id'),
+      'update' => array('average_rate')
+      ),
+    $updates
+    );
+
+  //set to null all items with no rate
+  if ( !isset($by_item[$element_id]) )
+  {
+    $query='
+SELECT id FROM '.IMAGES_TABLE .'
+  LEFT JOIN '.RATE_TABLE.' ON id=element_id
+  WHERE element_id IS NULL AND average_rate IS NOT NULL';
+
+    $to_update = array_from_query( $query, 'id');
+
+    if ( !empty($to_update) )
+    {
+      $query='
+UPDATE '.IMAGES_TABLE .'
+  SET average_rate=NULL
+  WHERE id IN (' . implode(',',$to_update) . ')';
+    pwg_query($query);
+    }
+  }
+
+  return isset($return) ? $return : array('score'=>null, 'average'=>null, 'count'=>0 );
 }
 
 ?>

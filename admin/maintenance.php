@@ -58,7 +58,8 @@ switch ($action)
   case 'images' :
   {
     update_path();
-    update_average_rate();
+		include_once(PHPWG_ROOT_PATH.'include/functions_rate.inc.php');
+    update_rating_score();
     break;
   }
   case 'delete_orphan_tags' :

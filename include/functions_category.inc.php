@@ -290,7 +290,7 @@ function get_category_preferred_image_orders()
   return trigger_event('get_category_preferred_image_orders',
     array(
     array(l10n('Default'), '', true),
-    array(l10n('Average rate'), 'average_rate DESC', $conf['rate']),
+    array(l10n('Rating score'), 'average_rate DESC', $conf['rate']),
     array(l10n('Most visited'), 'hit DESC', true),
     array(l10n('Creation date'), 'date_creation DESC', true),
     array(l10n('Post date'), 'date_available DESC', true),

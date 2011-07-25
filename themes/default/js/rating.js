@@ -72,7 +72,7 @@ function updateRating(e)
 				if (gRatingOptions.ratingSummaryElement)
 				{
 					var t = gRatingOptions.ratingSummaryText;
-					var args =[result.average, result.count], idx = 0, rexp = new RegExp( /%\.?\d*[sdf]/ );
+					var args =[result.score, result.count, result.average], idx = 0, rexp = new RegExp( /%\.?\d*[sdf]/ );
 					while (idx<args.length) t=t.replace(rexp, args[idx++]);
 					gRatingOptions.ratingSummaryElement.innerHTML = t;
 				}

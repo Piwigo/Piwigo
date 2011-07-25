@@ -1051,67 +1051,6 @@ UPDATE '.IMAGES_TABLE.'
 }
 
 /**
- * update images.average_rate field
- * param int $element_id optional, otherwise applies to all
- * @return void
- */
-function update_average_rate( $element_id=-1 )
-{
-  $query = '
-SELECT element_id,
-       ROUND(AVG(rate),2) AS average_rate
-  FROM '.RATE_TABLE;
-  if ( $element_id != -1 )
-  {
-    $query .= ' WHERE element_id=' . $element_id;
-  }
-  $query .= ' GROUP BY element_id;';
-
-  $result = pwg_query($query);
-
-  $datas = array();
-
-  while ($row = pwg_db_fetch_assoc($result))
-  {
-    array_push(
-      $datas,
-      array(
-        'id' => $row['element_id'],
-        'average_rate' => $row['average_rate']
-        )
-      );
-  }
-
-  mass_updates(
-    IMAGES_TABLE,
-    array(
-      'primary' => array('id'),
-      'update' => array('average_rate')
-      ),
-    $datas
-    );
-
-  $query='
-SELECT id FROM '.IMAGES_TABLE .'
-  LEFT JOIN '.RATE_TABLE.' ON id=element_id
-  WHERE element_id IS NULL AND average_rate IS NOT NULL';
-  if ( $element_id != -1 )
-  {
-    $query .= ' AND id=' . $element_id;
-  }
-  $to_update = array_from_query( $query, 'id');
-
-  if ( !empty($to_update) )
-  {
-    $query='
-UPDATE '.IMAGES_TABLE .'
-  SET average_rate=NULL
-  WHERE id IN (' . implode(',',$to_update) . ')';
-    pwg_query($query);
-  }
-}
-
-/**
  * change the parent category of the given categories. The categories are
  * supposed virtual.
  *

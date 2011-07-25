@@ -85,7 +85,7 @@ AND user_id=' . $vars['u'] . '
 AND anonymous_id=\'' . $vars['a'] . '\'
 ;';
   pwg_query($query);
-  update_average_rate( $vars['e'] );
+  update_rating_score( $vars['e'] );
 }
 
 $users = array();
@@ -100,10 +100,9 @@ while ($row = pwg_db_fetch_assoc($result))
 }
 
 
-$query = 'SELECT COUNT(DISTINCT(i.id))
-FROM '.RATE_TABLE.' AS r, '.IMAGES_TABLE.' AS i
-WHERE r.element_id=i.id'. $page['user_filter'] .
-';';
+$query = 'SELECT COUNT(DISTINCT(r.element_id))
+FROM '.RATE_TABLE.' AS r
+WHERE 1=1'. $page['user_filter'];
 list($nb_images) = pwg_db_fetch_row(pwg_query($query));
 
 
@@ -131,7 +130,8 @@ $template->assign(
 
 $available_order_by= array(
     array(l10n('Rate date'), 'recently_rated DESC'),
-    array(l10n('Average rate'), 'average_rate DESC'),
+		array(l10n('Rating score'), 'score DESC'),
+    array(l10n('Average rate'), 'avg_rates DESC'),
     array(l10n('Number of rates'), 'nb_rates DESC'),
     array(l10n('Sum of rates'), 'sum_rates DESC'),
     array(l10n('File name'), 'file DESC'),
@@ -164,8 +164,9 @@ SELECT i.id,
        i.path,
        i.file,
        i.tn_ext,
-       i.average_rate,
+       i.average_rate				AS score,
        MAX(r.date)          AS recently_rated,
+			 ROUND(AVG(r.rate),2) AS avg_rates,
        COUNT(r.rate)        AS nb_rates,
        SUM(r.rate)          AS sum_rates
   FROM '.RATE_TABLE.' AS r
@@ -207,7 +208,8 @@ ORDER BY date DESC;';
      array(
        'U_THUMB' => $thumbnail_src,
        'U_URL' => $image_url,
-       'AVG_RATE' => $image['average_rate'],
+			 'SCORE_RATE' => $image['score'],
+       'AVG_RATE' => $image['avg_rates'],
        'SUM_RATE' => $image['sum_rates'],
        'NB_RATES' => (int)$image['nb_rates'],
        'NB_RATES_TOTAL' => (int)$nb_rates,

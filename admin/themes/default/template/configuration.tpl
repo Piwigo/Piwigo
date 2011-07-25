@@ -415,7 +415,7 @@ jQuery(document).ready(function () {
 
     <li>
       <label>
-        <span class="property">{'Average rate'|@translate}</span>
+        <span class="property">{'Rating score'|@translate}</span>
         <input type="checkbox" name="picture_informations[average_rate]" {if ($display.picture_informations.average_rate)}checked="checked"{/if}>
       </label>
     </li>

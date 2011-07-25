@@ -28,7 +28,8 @@
 
 if ($conf['rate'])
 {
-  if ( NULL != $picture['current']['average_rate'] )
+  $rate_summary = array( 'count'=>0, 'score'=>$picture['current']['average_rate'], 'average'=>null );
+  if ( NULL != $rate_summary['score'] )
   {
     $query = '
 SELECT COUNT(rate) AS count
@@ -36,18 +37,14 @@ SELECT COUNT(rate) AS count
   FROM '.RATE_TABLE.'
   WHERE element_id = '.$picture['current']['id'].'
 ;';
-    $row = pwg_db_fetch_assoc(pwg_query($query));
+		list($rate_summary['count'], $rate_summary['average']) = pwg_db_fetch_row(pwg_query($query));
   }
-  else
-  { // avg rate null -> no rate -> no need to query db
-    $row = array( 'count'=>0, 'average'=>NULL );
-  }
-  $template->assign('rate_summary', $row);
+  $template->assign('rate_summary', $rate_summary);
 
   $user_rate = null;
   if ($conf['rate_anonymous'] or is_autorize_status(ACCESS_CLASSIC) )
   {
-    if ($row['count']>0)
+    if ($rate_summary['count']>0)
     {
       $query = 'SELECT rate
       FROM '.RATE_TABLE.'

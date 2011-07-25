@@ -109,7 +109,7 @@ $sort_fields = array(
   'file' => l10n('File name'),
   'date_creation' => l10n('Creation date'),
   'date_available' => l10n('Post date'),
-  'average_rate' => l10n('Average rate'),
+  'average_rate' => l10n('Rating score'),
   'hit' => l10n('Most visited'),
   'id' => 'Id',
   );
