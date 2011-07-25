@@ -507,6 +507,8 @@ function parse_section_url( $tokens, &$next_token)
   }
   elseif ( 'tags' == @$tokens[$next_token] )
   {
+    global $conf;
+
     $page['section'] = 'tags';
     $page['tags'] = array();
 
@@ -523,7 +525,7 @@ function parse_section_url( $tokens, &$next_token)
            or strpos($tokens[$i], 'start-')===0 )
         break;
 
-      if ( preg_match('/^(\d+)(?:-(.*))?/', $tokens[$i], $matches) )
+      if ( $conf['tag_url_style'] != 'tag' and preg_match('/^(\d+)(?:-(.*)|)$/', $tokens[$i], $matches) )
       {
         array_push($requested_tag_ids, $matches[1]);
       }
