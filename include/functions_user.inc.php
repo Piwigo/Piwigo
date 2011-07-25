@@ -1032,11 +1032,8 @@ WHERE '.$conf['user_fields']['id'].' = '.$user_id;
   {
     $row = pwg_db_fetch_assoc($result);
     $username = stripslashes($row['username']);
-    $data = $time.stripslashes($row['username']).$row['password'];
-    $key = base64_encode(
-      pack('H*', sha1($data))
-      .hash_hmac('md5', $data, $conf['secret_key'],true)
-      );
+    $data = $time.$user_id.$username;
+    $key = base64_encode( hash_hmac('sha1', $data, $conf['secret_key'].$row['password'],true) );
     return $key;
   }
   return false;
