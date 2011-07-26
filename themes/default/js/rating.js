@@ -61,6 +61,7 @@ function updateRating(e)
 	y.callService(
 		"pwg.images.rate", {image_id: gRatingOptions.image_id, rate: rateButton.initialRateValue } ,
 		{
+			method: "POST",
 			onFailure: function(num, text) {
 				alert(num + " " + text);
 				document.location = rateButton.form.action + "&rate="+rateButton.initialRateValue;

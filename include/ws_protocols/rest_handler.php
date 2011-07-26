@@ -41,6 +41,10 @@ class PwgRestRequestHandler
         $params[$name]=$value;
       }
     }
+		if ( empty($method) && isset($_GET['method']) )
+		{
+			$method = $_GET['method'];
+		}
 
     if ( empty($method) )
     {

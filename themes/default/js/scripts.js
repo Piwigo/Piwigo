@@ -60,9 +60,9 @@ PwgWS.prototype = {
 		}
 		this.xhr.onreadystatechange = pwgBind(this, this.onStateChange);
 
-		var url = this.urlRoot+"ws.php?format=json";
+		var url = this.urlRoot+"ws.php?format=json&method="+method;
 
-		var body = "method="+method;
+		var body = "";
 		if (parameters)
 		{
 			for (var prop in parameters)
@@ -70,10 +70,10 @@ PwgWS.prototype = {
 				if ( typeof parameters[prop] == 'object' && parameters[prop])
 				{
 					for (var i=0; i<parameters[prop].length; i++)
-						body += "&"+prop+"[]="+encodeURIComponent(parameters[prop][i]);
+						body += prop+"[]="+encodeURIComponent(parameters[prop][i])+"&";
 				}
 				else
-					body += "&"+prop+"="+encodeURIComponent(parameters[prop]);
+					body += prop+"="+encodeURIComponent(parameters[prop])+"&";
 			}
 		}
 
