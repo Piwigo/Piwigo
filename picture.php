@@ -313,22 +313,15 @@ UPDATE '.USER_CACHE_CATEGORIES_TABLE.'
     case 'rate' :
     {
       include_once(PHPWG_ROOT_PATH.'include/functions_rate.inc.php');
-      rate_picture(
-        $page['image_id'],
-        isset($_POST['rate']) ? $_POST['rate'] : $_GET['rate']
-        );
+      rate_picture($page['image_id'], $_POST['rate']);
       redirect($url_self);
     }
     case 'edit_comment' :
     {
       check_pwg_token();
-
       include_once(PHPWG_ROOT_PATH.'include/functions_comment.inc.php');
-
       check_input_parameter('comment_to_edit', $_GET, false, PATTERN_ID);
-
       $author_id = get_comment_author_id($_GET['comment_to_edit']);
-
       if (can_manage_comment('edit', $author_id))
       {
         if (!empty($_POST['content']))
@@ -441,7 +434,7 @@ $result = pwg_query($query);
 $related_categories = array();
 while ($row = pwg_db_fetch_assoc($result))
 {
-  $row['commentable'] = boolean_to_string($row['commentable']);
+  $row['commentable'] = get_boolean($row['commentable']);
   array_push($related_categories, $row);
 }
 usort($related_categories, 'global_rank_compare');

@@ -78,6 +78,7 @@ jQuery().ready(function(){
         (<a href="{$unvalidated.URL}">{$unvalidated.INFO}</a>)
         {/if}
       </li>
+			<li>{$DB_RATES}</li>
     </ul>
   </dd>
 </dl>

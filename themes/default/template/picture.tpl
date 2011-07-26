@@ -196,13 +196,12 @@ y.callService(
 
 {if $display_info.average_rate and isset($rate_summary)}
 	<tr id="Average">
-		<td class="label">{'Rating'|@translate}</td>
-		<td class="value" id="ratingSummary">
+		<td class="label">{'Rating score'|@translate}</td>
+		<td class="value">
 		{if $rate_summary.count}
-			{assign var='rate_text' value='%.2f (rated %d times)'|@translate}
-			{$pwg->sprintf($rate_text, $rate_summary.score, $rate_summary.count, $rate_summary.average)}
+			<span id="ratingScore">{$rate_summary.score}</span> <span id="ratingCount">({assign var='rate_text' value='%d rates'|@translate}{$pwg->sprintf($rate_text, $rate_summary.count)})</span>
 		{else}
-			{'no rate'|@translate}
+			<span id="ratingScore">{'no rate'|@translate}</span> <span id="ratingCount"></span>
 		{/if}
 		</td>
 	</tr>
@@ -228,8 +227,14 @@ y.callService(
 			{footer_script}
 				var _pwgRatingAutoQueue = _pwgRatingAutoQueue||[];
 				_pwgRatingAutoQueue.push( {ldelim}rootUrl: '{$ROOT_URL}', image_id: {$current.id},
-					updateRateText: "{'Update your rating'|@translate|@escape:'javascript'}", updateRateElement: document.getElementById("updateRate"),
-					ratingSummaryText: "{'%.2f (rated %d times)'|@translate|@escape:'javascript'}", ratingSummaryElement: document.getElementById("ratingSummary"){rdelim} );
+					onSuccess : function(rating) {ldelim}
+						var e = document.getElementById("updateRate");
+						if (e) e.innerHTML = "{'Update your rating'|@translate|@escape:'javascript'}";
+						e = document.getElementById("ratingScore");
+						if (e) e.innerHTML = rating.score;
+						e = document.getElementById("ratingCount");
+						if (e) e.innerHTML = "({'%d rates'|@translate|@escape:'javascript'})".replace( "%d", rating.count);
+					{rdelim}{rdelim} );
 			{/footer_script}
 			{/strip}
 			</div>

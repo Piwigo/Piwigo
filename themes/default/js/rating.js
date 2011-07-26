@@ -69,6 +69,7 @@ function updateRating(e)
 			onSuccess: function(result) {
 				gUserRating = rateButton.initialRateValue;
 				for (var i=0; i<gRatingButtons.length; i++) gRatingButtons[i].disabled=false;
+				if (gRatingOptions.onSuccess) gRatingOptions.onSuccess(result);
 				if (gRatingOptions.updateRateElement) gRatingOptions.updateRateElement.innerHTML = gRatingOptions.updateRateText;
 				if (gRatingOptions.ratingSummaryElement)
 				{

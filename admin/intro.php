@@ -191,6 +191,12 @@ SELECT COUNT(*)
 ;';
 list($nb_comments) = pwg_db_fetch_row(pwg_query($query));
 
+$query = '
+SELECT COUNT(*)
+  FROM '.RATE_TABLE.'
+;';
+list($nb_rates) = pwg_db_fetch_row(pwg_query($query));
+
 $template->assign(
   array(
     'PHPWG_URL' => PHPWG_URL,
@@ -213,6 +219,7 @@ $template->assign(
     'DB_USERS' => l10n_dec('%d user', '%d users', $nb_users),
     'DB_GROUPS' => l10n_dec('%d group', '%d groups', $nb_groups),
     'DB_COMMENTS' => l10n_dec('%d comment', '%d comments', $nb_comments),
+		'DB_RATES' => sprintf('%d rates', $nb_rates),
     'U_CHECK_UPGRADE' => PHPWG_ROOT_PATH.'admin.php?action=check_upgrade',
     'U_PHPINFO' => PHPWG_ROOT_PATH.'admin.php?action=phpinfo',
     'PHP_DATATIME' => $php_current_timestamp,
