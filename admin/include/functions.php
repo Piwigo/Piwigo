@@ -2048,7 +2048,7 @@ function get_taglist($query)
   $taglist = array();
   while ($row = pwg_db_fetch_assoc($result))
   {
-    if (preg_match_all('#\[lang=(.*?)\](.*?)\[/lang\]#is', $row['tag_name'], $matches))
+    if (preg_match_all('#\[lang=(.*?)\](.*?)\[/lang\]#is', $row['name'], $matches))
     {
       foreach ($matches[2] as $tag_name)
       {
@@ -2056,7 +2056,7 @@ function get_taglist($query)
           $taglist,
           array(
             'name' => trigger_event('render_tag_name', $tag_name),
-            'id' => '~~'.$row['tag_id'].'~~',
+            'id' => '~~'.$row['id'].'~~',
             )
           );
       }
@@ -2064,13 +2064,13 @@ function get_taglist($query)
       $row['tag_name'] = preg_replace('#\[lang=(.*?)\](.*?)\[/lang\]#is', null, $row['tag_name']);
     }
     
-    if (strlen($row['tag_name']) > 0)
+    if (strlen($row['name']) > 0)
     {
       array_push(
         $taglist,
         array(
-          'name' => trigger_event('render_tag_name', $row['tag_name']),
-          'id' => '~~'.$row['tag_id'].'~~',
+          'name' => trigger_event('render_tag_name', $row['name']),
+          'id' => '~~'.$row['id'].'~~',
           )
         );
     }
@@ -2082,7 +2082,7 @@ function get_taglist($query)
   return $taglist;
 }
 
-function get_tag_ids($raw_tags)
+function get_tag_ids($raw_tags, $allow_create=true)
 {
   // In $raw_tags we receive something like array('~~6~~', '~~59~~', 'New
   // tag', 'Another new tag') The ~~34~~ means that it is an existing
@@ -2098,13 +2098,10 @@ function get_tag_ids($raw_tags)
     {
       array_push($tag_ids, $matches[1]);
     }
-    else
+    elseif ($allow_create)
     {
       // we have to create a new tag
-      array_push(
-        $tag_ids,
-        tag_id_from_tag_name($raw_tag)
-        );
+      $tag_ids[] = tag_id_from_tag_name($raw_tag);
     }
   }
 

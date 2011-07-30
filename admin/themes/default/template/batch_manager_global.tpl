@@ -11,8 +11,9 @@
 
 {footer_script require='jquery.tokeninput'}
 jQuery(document).ready(function() {ldelim}
+	var tag_src = [{foreach from=$tags item=tag name=tags}{ldelim}name:"{$tag.name|@escape:'javascript'}",id:"{$tag.id}"{rdelim}{if !$smarty.foreach.tags.last},{/if}{/foreach}];
   jQuery("#tags").tokenInput(
-    [{foreach from=$tags item=tag name=tags}{ldelim}"name":"{$tag.name|@escape:'javascript'}","id":"{$tag.id}"{rdelim}{if !$smarty.foreach.tags.last},{/if}{/foreach}],
+    tag_src,
     {ldelim}
       hintText: '{'Type in a search term'|@translate}',
       noResultsText: '{'No results'|@translate}',
@@ -23,6 +24,19 @@ jQuery(document).ready(function() {ldelim}
       allowCreation: true
     }
   );
+	
+  jQuery("#tagsFilter").tokenInput(
+    tag_src,
+    {ldelim}
+      hintText: '{'Type in a search term'|@translate}',
+      noResultsText: '{'No results'|@translate}',
+      searchingText: '{'Searching...'|@translate}',
+      animateDropdown: false,
+      preventDuplicates: true,
+      allowCreation: false
+    }
+  );
+
 });
 {/footer_script}
 
@@ -466,6 +480,16 @@ jQuery(window).load(function() {
         </select>
         <label><input type="checkbox" name="filter_category_recursive" {if isset($filter.category_recursive)}checked="checked"{/if}> {'include child albums'|@translate}</label>
       </li>
+			<li id="filter_tags" {if !isset($filter.tags)}style="display:none"{/if}>
+				<a href="#" class="removeFilter" title="remove this filter"><span>[x]</span></a>
+				<input type="checkbox" name="filter_tags_use" class="useFilterCheckbox" {if isset($filter.tags)}checked="checked"{/if}>
+				{'Tags'|@translate}
+				<select id="tagsFilter" name="filter_tags">
+					{foreach from=$filter_tags item=tag}
+					<option value="{$tag.id}">{$tag.name}</option>
+					{/foreach}
+				</select>
+			</li>
       <li id="filter_level" {if !isset($filter.level)}style="display:none"{/if}>
         <a href="#" class="removeFilter" title="remove this filter"><span>[x]</span></a>
         <input type="checkbox" name="filter_level_use" class="useFilterCheckbox" {if isset($filter.level)}checked="checked"{/if}>
@@ -482,6 +506,7 @@ jQuery(window).load(function() {
         <option disabled="disabled">------------------</option>
         <option value="filter_prefilter">{'predefined filter'|@translate}</option>
         <option value="filter_category">{'album'|@translate}</option>
+				<option value="filter_tags">{'Tags'|@translate}</option>
         <option value="filter_level">{'Who can see these photos?'|@translate}</option>
       </select>
 <!--      <input id="removeFilters" class="submit" type="submit" value="Remove all filters" name="removeFilters"> -->
