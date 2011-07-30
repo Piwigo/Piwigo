@@ -535,5 +535,25 @@ $lang['Select recipients'] = 'Виберіть одержувачів';
 $lang['Select:'] = 'Вибрати:';
 $lang['selection'] = 'вибір';
 $lang['Selection'] = 'Вибір';
+$lang['Restore default configuration. You will lose your plugin settings!'] = 'Відновлення конфігурації за замовчуванням. Ви втратите налаштування плагіна!';
+$lang['Results of miniaturization'] = 'Результати процесу мініатюризації';
+$lang['Send an information email to group members'] = 'Надіслати інформаційний лист членам групи';
+$lang['Send mail as'] = 'Надіслати лист як';
+$lang['Send mail on HTML format'] = 'Надіслати лист в HTML форматі';
+$lang['Send mail to users'] = 'Надіслати лист користувачам';
+$lang['Send'] = 'Надіслати';
+$lang['Set as default language for unregistered and new users'] = 'Встановити як мова за замовчуванням для незареєстрованих і нових користувачів';
+$lang['Set as default theme for unregistered and new users'] = 'Встановити як тема за замовчуванням для незареєстрованих і нових користувачів';
+$lang['Set author'] = 'Встановити автора';
+$lang['Set creation date'] = 'Встановити дату створення';
+$lang['Set title'] = 'Встановити назву';
+$lang['set to'] = 'встановити в';
+$lang['Settings'] = 'Налаштування';
+$lang['Show info'] = 'Показати інформацію';
+$lang['Show menubar'] = 'Показати меню';
+$lang['Simulation'] = 'Моделювання';
+$lang['singly represented'] = 'фіксоване представлення';
+$lang['Site manager'] = 'Менеджер сайту';
+$lang['Specials'] = 'Спеціальні';
 
 ?>
