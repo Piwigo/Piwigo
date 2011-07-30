@@ -2115,8 +2115,8 @@ function get_taglist($query)
     array_push(
       $taglist,
       array(
-        'name' => $row['tag_name'],
-        'id' => '~~'.$row['tag_id'].'~~',
+        'name' => $row['name'],
+        'id' => '~~'.$row['id'].'~~',
         )
       );
   }
@@ -2127,7 +2127,7 @@ function get_taglist($query)
   return $taglist;
 }
 
-function get_tag_ids($raw_tags)
+function get_tag_ids($raw_tags, $allow_create=true)
 {
   // In $raw_tags we receive something like array('~~6~~', '~~59~~', 'New
   // tag', 'Another new tag') The ~~34~~ means that it is an existing
@@ -2143,13 +2143,10 @@ function get_tag_ids($raw_tags)
     {
       array_push($tag_ids, $matches[1]);
     }
-    else
+    elseif ($allow_create)
     {
       // we have to create a new tag
-      array_push(
-        $tag_ids,
-        tag_id_from_tag_name($raw_tag)
-        );
+      $tag_ids[] = tag_id_from_tag_name($raw_tag);
     }
   }
 

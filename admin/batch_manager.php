@@ -68,6 +68,11 @@ if (isset($_POST['submitFilter']))
     }
   }
 
+  if (isset($_POST['filter_tags_use']))
+  {
+    $_SESSION['bulk_manager_filter']['tags'] = get_tag_ids($_POST['filter_tags'], false);
+  }
+
   if (isset($_POST['filter_level_use']))
   {
     if (in_array($_POST['filter_level'], $conf['available_permission_levels']))
@@ -290,6 +295,20 @@ SELECT id
     );
 }
 
+if (!empty($_SESSION['bulk_manager_filter']['tags']))
+{
+	$query = '
+SELECT image_id
+	FROM '.IMAGE_TAG_TABLE.
+	'WHERE tag_id IN('.implode(',',$_SESSION['bulk_manager_filter']['tags']).')
+	GROUP BY image_id
+	HAVING COUNT(tag_id)='.count($_SESSION['bulk_manager_filter']['tags']);
+	array_push(
+    $filter_sets,
+		get_image_ids_for_tags($_SESSION['bulk_manager_filter']['tags'])
+		);
+}
+
 $current_set = array_shift($filter_sets);
 foreach ($filter_sets as $set)
 {
@@ -365,9 +384,7 @@ if (in_array($page['tab'], $tab_codes))
 // +-----------------------------------------------------------------------+
 
 $query = '
-SELECT
-    id AS tag_id,
-    name AS tag_name
+SELECT id, name
   FROM '.TAGS_TABLE.'
 ;';
 $template->assign('tags', get_taglist($query));

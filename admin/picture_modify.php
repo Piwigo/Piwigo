@@ -227,8 +227,8 @@ if (isset($_POST['dismiss'])
 // tags
 $query = '
 SELECT
-    tag_id,
-    name AS tag_name
+    id,
+    name
   FROM '.IMAGE_TAG_TABLE.' AS it
     JOIN '.TAGS_TABLE.' AS t ON t.id = it.tag_id
   WHERE image_id = '.$_GET['image_id'].'
@@ -237,8 +237,8 @@ $tag_selection = get_taglist($query);
 
 $query = '
 SELECT
-    id AS tag_id,
-    name AS tag_name
+    id,
+    name
   FROM '.TAGS_TABLE.'
 ;';
 $tags = get_taglist($query);
