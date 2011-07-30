@@ -813,5 +813,7 @@ $lang['ERROR'] = 'FEL';
 $lang['Update Complete'] = 'Uppdatering avslutad';
 $lang['Piwigo Update'] = 'Piwigo Uppdatering';
 $lang['Extensions Update'] = 'Uppdatering av tillägg';
+$lang['Rate'] = 'Betygsätt';
+$lang['Average rate'] = 'Genomsnittligt betyg';
 
 ?>
