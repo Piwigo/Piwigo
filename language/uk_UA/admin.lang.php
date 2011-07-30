@@ -515,5 +515,25 @@ $lang['total time'] = 'загальний час';
 $lang['Type here the author name'] = 'Введіть тут ім\'я автора';
 $lang['Type here the title'] = 'Введіть тут назву';
 $lang['Type in a search term'] = 'Введіть слово для пошуку';
+$lang['Save order'] = 'Порядок збереження';
+$lang['Save page visits by administrators'] = 'Зберігати сторінки відвідані адміністратором';
+$lang['Save page visits by guests'] = 'Зберігати сторінки відвідані гостями';
+$lang['Save page visits by users'] = 'Зберігати сторінки відвідані користувачами';
+$lang['Save Settings'] = 'Зберігти налаштування';
+$lang['Save to permalink history'] = 'Зберегти в історію постіних посилань';
+$lang['Searching...'] = 'Пошук...';
+$lang['Search for new images in the directories'] = 'Шукати нові зображення в папках';
+$lang['Section'] = 'Розділ';
+$lang['See you soon,'] = 'До побачення,';
+$lang['See you soon.'] = 'До побачення.';
+$lang['Select at least one album'] = 'Виберіть принаймі один альбом';
+$lang['Select at least one comment'] = 'Віберіть принаймі один коментарій';
+$lang['Select at least one photo'] = 'Виберіть принаймі одну світлину';
+$lang['Select at least one user'] = 'Виберіть принаймі одного користувача';
+$lang['Select files'] = 'Виберіть файли';
+$lang['Select recipients'] = 'Виберіть одержувачів';
+$lang['Select:'] = 'Вибрати:';
+$lang['selection'] = 'вибір';
+$lang['Selection'] = 'Вибір';
 
 ?>
