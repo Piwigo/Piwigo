@@ -51,6 +51,7 @@ $lang['%d new photo'] = '%d új elem';
 $lang['%d new photos'] = '%d új elem';
 $lang['%d new user'] = '%d új felhasználó';
 $lang['%d new users'] = '%d új felhasználó';
+$lang['%d rates'] = "%d értékelés";
 $lang['About'] = 'Impresszum';
 $lang['All tags'] = 'Összes címke';
 $lang['Any tag'] = 'Bármely címke';
