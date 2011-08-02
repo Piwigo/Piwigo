@@ -841,5 +841,6 @@ $lang['Add a criteria'] = 'Thêm một tiêu chí';
 $lang['Default photos order'] = 'Thứ tự ảnh mặc định';
 $lang['You can\'t define a default photo order because you have a custom setting in your local configuration.'] = 'Bạn không thể định ra một thứ tự ảnh mặc định vì đã có một thiết lập tùy chọn trong cấu hình cục bộ.';
 $lang['You have specified <i>$conf[\'order_by\']</i> in your local configuration file, this parameter in deprecated, please remove it or rename it into <i>$conf[\'order_by_custom\']</i> !'] = 'Bạn đã định ra <i>$conf[\'order_by\']</i> trong tệp tin cấu hình cục bộ của bạn, tham số này không được chấp nhận, hãy xóa bỏ hoặc đổi tên trong mục <i>$conf[\'order_by_custom\']</i> !';
-
+$lang['Average rate'] = 'Xếp hạng trung bình';
+$lang['Rate'] = 'Xếp hạng';
 ?>
