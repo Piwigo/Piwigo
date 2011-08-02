@@ -61,10 +61,10 @@ else
     $rewritten = $key;
     break;
   }
-  
+
   // the $_GET keys are not protected in include/common.inc.php, only the values
   $rewritten = pwg_db_real_escape_string($rewritten);
-  
+
   $page['root_path'] = PHPWG_ROOT_PATH;
 }
 
@@ -463,9 +463,9 @@ SELECT DISTINCT(id)
   else if ($page['section'] == 'most_visited')
   {
     $page['super_order_by'] = true;
-    $conf['order_by'] = ' ORDER BY hit DESC, file ASC';
+    $conf['order_by'] = ' ORDER BY hit DESC, id DESC';
     $query = '
-SELECT DISTINCT(id), hit, file
+SELECT DISTINCT(id)
   FROM '.IMAGES_TABLE.'
     INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON id = ic.image_id
   WHERE hit > 0
@@ -489,13 +489,13 @@ SELECT DISTINCT(id), hit, file
   else if ($page['section'] == 'best_rated')
   {
     $page['super_order_by'] = true;
-    $conf['order_by'] = ' ORDER BY average_rate DESC, id ASC';
+    $conf['order_by'] = ' ORDER BY rating_score DESC, id DESC';
 
     $query ='
-SELECT DISTINCT(id), average_rate
+SELECT DISTINCT(id)
   FROM '.IMAGES_TABLE.'
     INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON id = ic.image_id
-  WHERE average_rate IS NOT NULL
+  WHERE rating_score IS NOT NULL
     '.$forbidden.'
     '.$conf['order_by'].'
   LIMIT '.$conf['top_number'].'

@@ -153,7 +153,7 @@ foreach ($pictures as $row)
     {
       case 'best_rated' :
       {
-        $name = '('.$row['average_rate'].') '.$name;
+        $name = '('.$row['rating_score'].') '.$name;
         break;
       }
       case 'most_visited' :

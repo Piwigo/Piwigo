@@ -187,7 +187,7 @@ CREATE TABLE `piwigo_images` (
   `height` smallint(9) unsigned default NULL,
   `representative_ext` varchar(4) default NULL,
   `date_metadata_update` date default NULL,
-  `average_rate` float(5,2) unsigned default NULL,
+  `rating_score` float(5,2) unsigned default NULL,
   `has_high` enum('true') default NULL,
   `path` varchar(255) NOT NULL default '',
   `storage_category_id` smallint(5) unsigned default NULL,
@@ -199,7 +199,7 @@ CREATE TABLE `piwigo_images` (
   `added_by` smallint(5) NOT NULL default '0',
   PRIMARY KEY  (`id`),
   KEY `images_i2` (`date_available`),
-  KEY `images_i3` (`average_rate`),
+  KEY `images_i3` (`rating_score`),
   KEY `images_i4` (`hit`),
   KEY `images_i5` (`date_creation`),
   KEY `images_i1` (`storage_category_id`)

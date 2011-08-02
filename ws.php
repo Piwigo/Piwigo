@@ -73,7 +73,7 @@ function ws_addDefaultMethods( $arr )
       ),
       'Returns elements for the corresponding categories.
 <br><b>cat_id</b> can be empty if <b>recursive</b> is true. Can be sent as an array.
-<br><b>order</b> comma separated fields for sorting (file,id, average_rate,...)'
+<br><b>order</b> comma separated fields for sorting (file,id, rating_score,...)'
     );
 
   $service->addMethod('pwg.categories.getList', 'ws_categories_getList',

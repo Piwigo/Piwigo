@@ -28,7 +28,7 @@
 
 if ($conf['rate'])
 {
-  $rate_summary = array( 'count'=>0, 'score'=>$picture['current']['average_rate'], 'average'=>null );
+  $rate_summary = array( 'count'=>0, 'score'=>$picture['current']['rating_score'], 'average'=>null );
   if ( NULL != $rate_summary['score'] )
   {
     $query = '

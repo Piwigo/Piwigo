@@ -120,13 +120,13 @@ INSERT
 }
 
 
-/* update images.average_rate field
+/* update images.rating_score field
   * we use a bayesian average (http://en.wikipedia.org/wiki/Bayesian_average) with
 C = average number of rates per item
 m = global average rate (all rates)
 
  * param int $element_id optional, otherwise applies to all
- * @return array(average_rate, count) if element_id is specified
+ * @return array(rating_score, count) if element_id is specified
 */
 function update_rating_score($element_id = false)
 {
@@ -166,13 +166,13 @@ SELECT element_id,
         'count' => $rate_summary['rcount'],
         );
     }
-    $updates[] = array( 'id'=>$id, 'average_rate'=>$score );
+    $updates[] = array( 'id'=>$id, 'rating_score'=>$score );
   }
   mass_updates(
     IMAGES_TABLE,
     array(
       'primary' => array('id'),
-      'update' => array('average_rate')
+      'update' => array('rating_score')
       ),
     $updates
     );
@@ -183,7 +183,7 @@ SELECT element_id,
     $query='
 SELECT id FROM '.IMAGES_TABLE .'
   LEFT JOIN '.RATE_TABLE.' ON id=element_id
-  WHERE element_id IS NULL AND average_rate IS NOT NULL';
+  WHERE element_id IS NULL AND rating_score IS NOT NULL';
 
     $to_update = array_from_query( $query, 'id');
 
@@ -191,7 +191,7 @@ SELECT id FROM '.IMAGES_TABLE .'
     {
       $query='
 UPDATE '.IMAGES_TABLE .'
-  SET average_rate=NULL
+  SET rating_score=NULL
   WHERE id IN (' . implode(',',$to_update) . ')';
     pwg_query($query);
     }

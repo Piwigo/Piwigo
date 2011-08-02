@@ -290,7 +290,7 @@ function get_category_preferred_image_orders()
   return trigger_event('get_category_preferred_image_orders',
     array(
     array(l10n('Default'), '', true),
-    array(l10n('Rating score'), 'average_rate DESC', $conf['rate']),
+    array(l10n('Rating score'), 'rating_score DESC', $conf['rate']),
     array(l10n('Most visited'), 'hit DESC', true),
     array(l10n('Creation date'), 'date_creation DESC', true),
     array(l10n('Post date'), 'date_available DESC', true),
@@ -559,11 +559,11 @@ function categories_flatlist_to_tree($categories)
 {
   $tree = array();
   $key_of_cat = array();
-  
+
   foreach ($categories as $key => &$node)
   {
     $key_of_cat[$node['id']] = $key;
-    
+
     if (!isset($node['id_uppercat']))
     {
       $tree[$key] = &$node;
@@ -574,11 +574,11 @@ function categories_flatlist_to_tree($categories)
       {
         $categories[ $key_of_cat[ $node['id_uppercat'] ] ]['sub_categories'] = array();
       }
-      
+
       $categories[ $key_of_cat[ $node['id_uppercat'] ] ]['sub_categories'][$key] = &$node;
     }
   }
-  
+
   return $tree;
 }
 ?>

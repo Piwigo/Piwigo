@@ -92,7 +92,7 @@ if (isset($_POST['submit']))
   if (isset($_POST['rank_of_image']))
   {
     asort($_POST['rank_of_image'], SORT_NUMERIC);
-  
+
     save_images_order(
       $page['category_id'],
       array_keys($_POST['rank_of_image'])
@@ -105,12 +105,12 @@ if (isset($_POST['submit']))
   }
 
   $image_order = null;
-  if (!empty($_POST['image_order_choice']) 
+  if (!empty($_POST['image_order_choice'])
       && in_array($_POST['image_order_choice'], $image_order_choices))
   {
     $image_order_choice = $_POST['image_order_choice'];
   }
-      
+
   if ($image_order_choice=='user_define')
   {
     for ($i=1; $i<=3; $i++)
@@ -141,7 +141,7 @@ UPDATE '.CATEGORIES_TABLE.' SET image_order=\''.$image_order.'\'
   if (isset($_POST['image_order_subcats']))
   {
     $cat_info = get_cat_info($page['category_id']);
-    
+
     $query = '
 UPDATE '.CATEGORIES_TABLE.'
   SET image_order = '.(isset($image_order) ? '\''.$image_order.'\'' : 'NULL').'
@@ -172,7 +172,7 @@ if ($category['image_order']=='rank')
 {
   $image_order_choice = 'rank';
 }
-elseif ($category['image_order']!='') 
+elseif ($category['image_order']!='')
 {
   $image_order_choice = 'user_define';
 }
@@ -217,7 +217,7 @@ if (pwg_db_num_rows($result) > 0)
 	while ($row = pwg_db_fetch_assoc($result))
 	{
 		$src = get_thumbnail_url($row);
-		
+
 		$thumbnail_size = getimagesize($src);
 		if ( !empty( $row['name'] ) )
 		{
@@ -273,7 +273,7 @@ $sort_fields = array(
   '' => '',
   'date_creation' => l10n('Creation date'),
   'date_available' => l10n('Post date'),
-  'average_rate' => l10n('Rating score'),
+  'rating_score' => l10n('Rating score'),
   'hit' => l10n('Most visited'),
   'file' => l10n('File name'),
   'id' => 'Id',

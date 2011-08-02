@@ -227,7 +227,7 @@ CREATE TABLE "piwigo_images"
   "height" INTEGER,
   "representative_ext" VARCHAR(4),
   "date_metadata_update" DATE,
-  "average_rate" FLOAT,
+  "rating_score" FLOAT,
   "has_high" BOOLEAN default false,
   "path" VARCHAR(255) default '' NOT NULL,
   "storage_category_id" INTEGER,
@@ -246,7 +246,7 @@ COMMENT ON TABLE "piwigo_images" IS '';
 SET search_path TO public;
 CREATE INDEX "images_i2" ON "piwigo_images" ("date_available");
 
-CREATE INDEX "images_i3" ON "piwigo_images" ("average_rate");
+CREATE INDEX "images_i3" ON "piwigo_images" ("rating_score");
 
 CREATE INDEX "images_i4" ON "piwigo_images" ("hit");
 

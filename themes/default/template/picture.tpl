@@ -194,7 +194,7 @@ y.callService(
 	</tr>
 	{/if}
 
-{if $display_info.average_rate and isset($rate_summary)}
+{if $display_info.rating_score and isset($rate_summary)}
 	<tr id="Average">
 		<td class="label">{'Rating score'|@translate}</td>
 		<td class="value">

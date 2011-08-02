@@ -164,7 +164,7 @@ SELECT i.id,
        i.path,
        i.file,
        i.tn_ext,
-       i.average_rate				AS score,
+       i.rating_score				AS score,
        MAX(r.date)          AS recently_rated,
 			 ROUND(AVG(r.rate),2) AS avg_rates,
        COUNT(r.rate)        AS nb_rates,
@@ -176,7 +176,7 @@ SELECT i.id,
         i.path,
         i.file,
         i.tn_ext,
-        i.average_rate,
+        i.rating_score,
         r.element_id
   ORDER BY ' . $available_order_by[$order_by_index][1] .'
   LIMIT '.$elements_per_page.' OFFSET '.$start.'

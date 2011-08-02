@@ -54,11 +54,11 @@ function ws_std_image_sql_filter( $params, $tbl_name='' )
   $clauses = array();
   if ( is_numeric($params['f_min_rate']) )
   {
-    $clauses[] = $tbl_name.'average_rate>'.$params['f_min_rate'];
+    $clauses[] = $tbl_name.'rating_score>'.$params['f_min_rate'];
   }
   if ( is_numeric($params['f_max_rate']) )
   {
-    $clauses[] = $tbl_name.'average_rate<='.$params['f_max_rate'];
+    $clauses[] = $tbl_name.'rating_score<='.$params['f_max_rate'];
   }
   if ( is_numeric($params['f_min_hit']) )
   {
@@ -123,7 +123,7 @@ function ws_std_image_sql_order( $params, $tbl_name='' )
       case 'rand': case 'random':
         $matches[1][$i] = DB_RANDOM_FUNCTION.'()'; break;
     }
-    $sortable_fields = array('id', 'file', 'name', 'hit', 'average_rate',
+    $sortable_fields = array('id', 'file', 'name', 'hit', 'rating_score',
       'date_creation', 'date_available', DB_RANDOM_FUNCTION.'()' );
     if ( in_array($matches[1][$i], $sortable_fields) )
     {
@@ -192,7 +192,7 @@ function ws_getInfos($params, &$service)
   }
 
   $infos['version'] = PHPWG_VERSION;
-	
+
   $query = 'SELECT COUNT(*) FROM '.IMAGES_TABLE.';';
   list($infos['nb_elements']) = pwg_db_fetch_row(pwg_query($query));
 
@@ -443,7 +443,7 @@ function ws_categories_getList($params, &$service)
       // PwgNamedArray is useful to define which data is an attribute and
       // which is an element in the XML output. The "hierarchy" output is
       // only compatible with json/php output.
-      
+
       return new PwgError(405, "The tree_output option is only compatible with json/php output formats");
     }
   }
@@ -471,7 +471,7 @@ function ws_categories_getList($params, &$service)
   {
     $where[] = 'status = "public"';
     $where[] = 'visible = "true"';
-    
+
     $join_user = $conf['guest_id'];
   }
   elseif (is_admin())
@@ -479,7 +479,7 @@ function ws_categories_getList($params, &$service)
     // in this very specific case, we don't want to hide empty
     // categories. Function calculate_permissions will only return
     // categories that are either locked or private and not permitted
-    // 
+    //
     // calculate_permissions does not consider empty categories as forbidden
     $forbidden_categories = calculate_permissions($user['id'], $user['status']);
     $where[]= 'id NOT IN ('.$forbidden_categories.')';
@@ -518,7 +518,7 @@ SELECT id, name, permalink, uppercats, global_rank, id_uppercat,
         'ws_categories_getList'
         )
       );
-    
+
     $row['comment'] = strip_tags(
       trigger_event(
         'render_category_description',
@@ -526,13 +526,13 @@ SELECT id, name, permalink, uppercats, global_rank, id_uppercat,
         'ws_categories_getList'
         )
       );
-    
+
     array_push($cats, $row);
   }
   usort($cats, 'global_rank_compare');
 
   if ($params['tree_output'])
-  { 
+  {
     return categories_flatlist_to_tree($cats);
   }
   else
@@ -781,7 +781,7 @@ SELECT id, name, permalink, uppercats, global_rank, commentable
     $related_tags[$i]=$tag;
   }
   //------------------------------------------------------------- related rates
-	$rating = array('score'=>$image_row['average_rate'], 'count'=>0, 'average'=>null);
+	$rating = array('score'=>$image_row['rating_score'], 'count'=>0, 'average'=>null);
 	if (isset($rating['score']))
 	{
 		$query = '
@@ -1028,7 +1028,7 @@ function ws_images_setRank($params, &$service)
   {
     return new PwgError(401, 'Access denied');
   }
-  
+
   if (!$service->isPost())
   {
     return new PwgError(405, "This method requires HTTP POST");
@@ -1054,7 +1054,7 @@ function ws_images_setRank($params, &$service)
   {
     return new PwgError(WS_ERR_INVALID_PARAM, "Invalid rank");
   }
-  
+
   // does the image really exist?
   $query='
 SELECT
@@ -1068,7 +1068,7 @@ SELECT
   {
     return new PwgError(404, "image_id not found");
   }
-  
+
   // is the image associated to this category?
   $query = '
 SELECT
@@ -1137,7 +1137,7 @@ UPDATE '.IMAGE_CATEGORY_TABLE.'
 function ws_images_add_chunk($params, &$service)
 {
   global $conf;
-  
+
   ws_logfile('[ws_images_add_chunk] welcome');
   // data
   // original_sum
@@ -1158,7 +1158,7 @@ function ws_images_add_chunk($params, &$service)
     if ('data' == $param_key) {
       continue;
     }
-    
+
     ws_logfile(
       sprintf(
         '[ws_images_add_chunk] input param "%s" : "%s"',
@@ -1218,7 +1218,7 @@ function ws_images_add_chunk($params, &$service)
 function merge_chunks($output_filepath, $original_sum, $type)
 {
   global $conf;
-  
+
   ws_logfile('[merge_chunks] input parameter $output_filepath : '.$output_filepath);
 
   if (is_file($output_filepath))
@@ -1286,7 +1286,7 @@ function merge_chunks($output_filepath, $original_sum, $type)
 function add_file($file_path, $type, $original_sum, $file_sum)
 {
   include_once(PHPWG_ROOT_PATH.'admin/include/functions_upload.inc.php');
-  
+
   $file_path = file_path_for_type($file_path, $type);
 
   $upload_dir = dirname($file_path);
@@ -1297,7 +1297,7 @@ function add_file($file_path, $type, $original_sum, $file_sum)
 
   ws_logfile('[add_file] file_path  : '.$file_path);
   ws_logfile('[add_file] upload_dir : '.$upload_dir);
-  
+
   if (!is_dir($upload_dir)) {
     umask(0000);
     $recursive = true;
@@ -1445,7 +1445,7 @@ function ws_images_add($params, &$service)
   {
     $where_clause = "file = '".$params['original_filename']."'";
   }
-  
+
   $query = '
 SELECT
     COUNT(*) AS counter
@@ -1549,7 +1549,7 @@ SELECT
   // update metadata from the uploaded file (exif/iptc)
   require_once(PHPWG_ROOT_PATH.'admin/include/functions_metadata.php');
   update_metadata(array($image_id=>$file_path));
-  
+
   invalidate_user_cache();
 }
 
@@ -1570,7 +1570,7 @@ function ws_images_addSimple($params, &$service)
   {
     return new PwgError(405, "The image (file) parameter is missing");
   }
-  
+
   $params['image_id'] = (int)$params['image_id'];
   if ($params['image_id'] > 0)
   {
@@ -1676,7 +1676,7 @@ SELECT
   WHERE id = '.$image_id.'
 ;';
   list($file_path) = pwg_db_fetch_row(pwg_query($query));
-  
+
   require_once(PHPWG_ROOT_PATH.'admin/include/functions_metadata.php');
   update_metadata(array($image_id=>$file_path));
 
@@ -1731,7 +1731,7 @@ function ws_session_getStatus($params, &$service)
 
   list($dbnow) = pwg_db_fetch_row(pwg_query('SELECT NOW();'));
   $res['current_datetime'] = $dbnow;
-  
+
   return $res;
 }
 
@@ -1826,7 +1826,7 @@ function ws_tags_getImages($params, &$service)
 
 
   $image_ids = array_slice($image_ids, (int)($params['per_page']*$params['page']), (int)$params['per_page'] );
-  
+
   $image_tag_map = array();
   if ( !empty($image_ids) and !$params['tag_mode_and'] )
   { // build list of image ids with associated tags per image
@@ -1962,7 +1962,7 @@ function ws_tags_add($params, &$service)
 function ws_images_exist($params, &$service)
 {
   global $conf;
-  
+
   if (!is_admin())
   {
     return new PwgError(401, 'Access denied');
@@ -2001,7 +2001,7 @@ SELECT
       }
     }
   }
-  
+
   if ('filename' == $conf['uniqueness_mode'])
   {
     // search among photos the list of photos already added, based on
@@ -2480,7 +2480,7 @@ function ws_categories_setInfo($params, &$service)
 function ws_categories_setRepresentative($params, &$service)
 {
   global $conf;
-  
+
   if (!is_admin())
   {
     return new PwgError(401, 'Access denied');
@@ -2518,7 +2518,7 @@ SELECT
   {
     return new PwgError(WS_ERR_INVALID_PARAM, "Invalid image_id");
   }
-  
+
   // does the image really exist?
   $query='
 SELECT
@@ -2611,7 +2611,7 @@ SELECT id
   {
     return;
   }
-  
+
   include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
   delete_categories($category_ids, $params['photo_deletion_mode']);
   update_global_rank();
@@ -2620,7 +2620,7 @@ SELECT id
 function ws_categories_move($params, &$service)
 {
   global $conf, $page;
-  
+
   if (!is_admin())
   {
     return new PwgError(401, 'Access denied');
@@ -2660,7 +2660,7 @@ function ws_categories_move($params, &$service)
 
   // we can't move physical categories
   $categories_in_db = array();
-  
+
   $query = '
 SELECT
     id,
@@ -2683,7 +2683,7 @@ SELECT
           'ws_categories_move'
           )
         );
-      
+
       return new PwgError(
         403,
         sprintf(
@@ -2698,7 +2698,7 @@ SELECT
   if (count($categories_in_db) != count($category_ids))
   {
     $unknown_category_ids = array_diff($category_ids, array_keys($categories_in_db));
-    
+
     return new PwgError(
       403,
       sprintf(
@@ -2716,7 +2716,7 @@ SELECT
   {
     return new PwgError(403, 'Invalid parent input parameter');
   }
-  
+
   if (0 != $params['parent']) {
     $params['parent'] = intval($params['parent']);
     $subcat_ids = get_subcat_ids(array($params['parent']));
@@ -2765,19 +2765,19 @@ function ws_images_checkUpload($params, &$service)
   include_once(PHPWG_ROOT_PATH.'admin/include/functions_upload.inc.php');
   $ret['message'] = ready_for_upload_message();
   $ret['ready_for_upload'] = true;
-  
+
   if (!empty($ret['message']))
   {
     $ret['ready_for_upload'] = false;
   }
-  
+
   return $ret;
 }
 
 function ws_plugins_getList($params, &$service)
 {
   global $conf;
-  
+
   if (!is_admin())
   {
     return new PwgError(401, 'Access denied');
@@ -2817,7 +2817,7 @@ function ws_plugins_getList($params, &$service)
 function ws_plugins_performAction($params, &$service)
 {
   global $template;
-  
+
   if (!is_admin())
   {
     return new PwgError(401, 'Access denied');
@@ -2833,7 +2833,7 @@ function ws_plugins_performAction($params, &$service)
   $plugins = new plugins();
   $errors = $plugins->perform_action($params['action'], $params['plugin']);
 
-  
+
   if (!empty($errors))
   {
     return new PwgError(500, $errors);
@@ -2851,7 +2851,7 @@ function ws_plugins_performAction($params, &$service)
 function ws_themes_performAction($params, &$service)
 {
   global $template;
-  
+
   if (!is_admin())
   {
     return new PwgError(401, 'Access denied');
@@ -2866,7 +2866,7 @@ function ws_themes_performAction($params, &$service)
   include_once(PHPWG_ROOT_PATH.'admin/include/themes.class.php');
   $themes = new themes();
   $errors = $themes->perform_action($params['action'], $params['theme']);
-  
+
   if (!empty($errors))
   {
     return new PwgError(500, $errors);
@@ -3044,7 +3044,7 @@ function ws_extensions_update($params, &$service)
         . '&format=json'
       );
     }
-    
+
     $upgrade_status = $extension->extract_plugin_files('upgrade', $revision, $extension_id);
     $extension_name = $extension->fs_plugins[$extension_id]['name'];
 
