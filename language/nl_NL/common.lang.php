@@ -35,7 +35,6 @@ $lang_info['direction'] = 'ltr';
 $lang_info['code'] = 'nl';
 $lang_info['zero_plural'] = true;
 
-$lang['%.2f (rated %d times)'] = '%.2f (waardering %d aantal x)';
 $lang['%d Kb'] = '%d Kb';
 $lang['%d album updated'] = '%d categorie bijgewerkt';
 $lang['%d albums updated'] = '%d categorieën bijgewerkt';
@@ -57,7 +56,6 @@ $lang['Any tag'] = 'Elke tag';
 $lang['At least one listed rule must be satisfied.'] = 'Op zijn minst moet aan één regel worden voldaan.';
 $lang['At least one tag must match'] = 'Op zijn minst moet een tag kloppen';
 $lang['Author'] = 'Maker';
-$lang['Average rate'] = 'Gemiddelde waardering';
 $lang['Albums'] = 'Categorieën';
 $lang['Album'] = 'Categorie';
 $lang['Close this window'] = 'Sluit dit venster';
@@ -105,7 +103,6 @@ $lang['Posted on'] = 'Geplaatst op';
 $lang['Profile'] = 'Profiel';
 $lang['Quick connect'] = 'Snel inloggen';
 $lang['RSS feed'] = 'RSS feed';
-$lang['Rate'] = 'Waardering';
 $lang['Register'] = 'Registreren';
 $lang['Registration'] = 'Registratie';
 $lang['Related tags'] = 'Aanverwante tags';
@@ -358,5 +355,7 @@ $lang['This author modified following comment:'] = 'Deze bewerker wijzigde het v
 $lang['This author removed the comment with id %d'] = 'This author removed the comment with id %d';
 $lang['validate this comment'] = 'Valideer dit commentaar';
 $lang['html tags are not allowed in login'] = 'html tags zijn niet toegestaan in login';
+$lang['%d rates'] = '%d stemmen';
+$lang['Rating score'] = 'Waarderings score';
 
 ?>

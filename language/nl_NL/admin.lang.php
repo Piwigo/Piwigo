@@ -843,5 +843,7 @@ $lang['Height'] = 'Hoogte';
 $lang['Follow Orientation'] = 'Volg orientatie';
 $lang['If you want to regenerate thumbnails, please go to the <a href="%s">Batch Manager</a>.'] = 'Als je thumbnails wilt hergenereren, ga dan naar de <a href="%s">Batch Manager</a>.';
 $lang['Graphics Library'] = 'Afbeeldings bibliotheek';
+$lang['Average rate'] = 'Gemiddelde waardering';
+$lang['Rate'] = 'Waardering';
 
 ?>
