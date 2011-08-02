@@ -39,7 +39,6 @@ $lang_info['direction'] = 'ltr';
 $lang_info['code'] = 'sk';
 $lang_info['zero_plural'] = true;
 
-$lang['%.2f (rated %d times)'] = '%.2f (hodnotené %d krát)';
 $lang['%d Kb'] = '%d Kb';
 $lang['%d album updated'] = '%d album aktualizovaný';
 $lang['%d albums updated'] = '%d albumov aktualizovaných';
@@ -61,7 +60,6 @@ $lang['Any tag'] = 'Akékoľvek kľúčové slovo';
 $lang['At least one listed rule must be satisfied.'] = 'Aspoň jedno pravidlo zo zoznamu musí byť splnené.';
 $lang['At least one tag must match'] = 'Aspoň jedno kľúčové slovo musí zodpovedať';
 $lang['Author'] = 'Autor';
-$lang['Average rate'] = 'Priemerné hodnotenie';
 $lang['Albums'] = 'Albumy';
 $lang['Album'] = 'Album';
 $lang['Close this window'] = 'Zatvoriť okno';
@@ -109,7 +107,6 @@ $lang['Posted on'] = 'Odoslané';
 $lang['Profile'] = 'Profil';
 $lang['Quick connect'] = 'Rýchle prihlásenie';
 $lang['RSS feed'] = 'RSS čítačka';
-$lang['Rate'] = 'Hodnotenie';
 $lang['Register'] = 'Zaregistrovať sa';
 $lang['Registration'] = 'Registrácia';
 $lang['Related tags'] = 'Súvisiace kľúčové slová';
@@ -366,5 +363,7 @@ $lang['IP: %s'] = 'IP: %s';
 $lang['%d new comment'] = '%d nový komentár';
 $lang['%d new comments'] = '%d nové komentáre';
 $lang['html tags are not allowed in login'] = 'html znaky nie sú povolené pri prihlásení';
+$lang['%d rates'] = '%d hodnotení';
+$lang['Rating score'] = 'Bodové hodnotenie';
 
 ?>
