@@ -555,5 +555,24 @@ $lang['Simulation'] = 'Моделювання';
 $lang['singly represented'] = 'фіксоване представлення';
 $lang['Site manager'] = 'Менеджер сайту';
 $lang['Specials'] = 'Спеціальні';
+$lang['Average rate'] = 'Середній бал';
+$lang['Rate'] = 'Оцінити';
+$lang['Start pLoader and add your photos.'] = 'Запустіть pLoader і додайте ваші фотографії.';
+$lang['Statistics'] = 'Статистика';
+$lang['Status of user "%s" updated'] = 'Для користувача "%s" оновлений статус';
+$lang['Status'] = 'Статус';
+$lang['status'] = 'статус';
+$lang['Storage album'] = 'Зберегти альбом';
+$lang['sub-albums'] = 'під-альбоми';
+$lang['Subscribe %s to Piwigo Announcements Newsletter'] = 'Підписати %s на розсилку новин Piwigo';
+$lang['Subscribe %s'] = 'Підписати %s';
+$lang['Subscribe to notification by mail'] = 'Підписатися на повідомлення поштою';
+$lang['Subscribe'] = 'Підписатися';
+$lang['Subscribe/unsubscribe users'] = 'Підписати/відписати користувачів';
+$lang['Subscribed'] = 'Підписані';
+$lang['Subscribers could be listed (available) only if there is new elements to notify.'] = 'Підписані користувачі можуть бути вказані (доступні) тільки при наявності нових елементів для повідомлення.';
+$lang['Sum of rates'] = 'Сума голосів';
+$lang['Summary'] = 'Резюме';
+$lang['Support'] = 'Підтримка';
 
 ?>
