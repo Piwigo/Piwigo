@@ -34,7 +34,6 @@ $lang_info['direction'] = 'ltr';
 $lang_info['code'] = 'sl';
 $lang_info['zero_plural'] = true;
 
-$lang['%.2f (rated %d times)'] = '%.2f (rated %d times, standardno odstopanje = %.2f)';
 $lang['%d Kb'] = '%d Kb';
 $lang['%d album updated'] = '%d kategorija popravljena';
 $lang['%d albums updated'] = '%d kategorij popravljenih';
@@ -54,7 +53,6 @@ $lang['Any tag'] = 'Katerakoli označba';
 $lang['At least one listed rule must be satisfied.'] = 'Vsaj eno pravilo mora biti izpolnjeno.';
 $lang['At least one tag must match'] = 'Vsaj ena označba se mora ujemati';
 $lang['Author'] = 'Avtor';
-$lang['Average rate'] = 'Povprečje';
 $lang['Albums'] = 'Kategorije';
 $lang['Album'] = 'Kategorija';
 $lang['Close this window'] = 'Zapri okno';
@@ -103,7 +101,6 @@ $lang['Posted on'] = 'Objavljeno';
 $lang['Profile'] = 'Profil';
 $lang['Quick connect'] = 'Hitra povezava';
 $lang['RSS feed'] = 'RSS vir';
-$lang['Rate'] = 'Glasuj';
 $lang['Register'] = 'Registracija';
 $lang['Registration'] = 'Registracija';
 $lang['Unknown feed identifier'] = 'Neznan identifikator vira';
@@ -356,5 +353,7 @@ $lang['This author removed the comment with id %d'] = 'Ta uporabnik je odstranil
 $lang['delete this comment'] = 'odstrani komentar';
 $lang['validate this comment'] = 'preveri komentar';
 $lang['html tags are not allowed in login'] = 'pri prijavi niso dovoljene html značke';
+$lang['%d rates'] = '%d točk';
+$lang['Rating score'] = 'Ocena';
 
 ?>

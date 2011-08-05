@@ -97,5 +97,17 @@ $lang['Deletions'] = 'Odstrani';
 $lang['Deny selected groups'] = 'Prepreci dostop izbranim skupinam';
 $lang['Deny selected users'] = 'Prepreci dostop izbranim uporabnikom';
 $lang['Description'] = 'Opis';
+$lang['Average rate'] = 'Povprecje';
+$lang['Rate'] = 'Glasuj';
+$lang['Album "%s" has been added'] = 'Album "%s" je bil dodan';
+$lang['Album "%s" now contains %d photos'] = 'Album "%s" vsebuje %d slik';
+$lang['Album photos associated to the following albums: %s'] = 'Slike albuma pripadajo naslednjim albumom: %s';
+$lang['Album list management'] = 'Upravljanje seznama albuma';
+$lang['Album manual order was saved'] = 'Rocna nastavitev sortiranja albuma, uspešno shranjena';
+$lang['Album name'] = 'Ime albuma';
+$lang['Album updated successfully'] = 'Album uspešno popravljen';
+$lang['albums added in the database'] = 'albumi dodani v bazo';
+$lang['Albums automatically sorted'] = 'Albumi so bili avtomaticno sortirani';
+$lang['albums deleted in the database'] = 'albumi odstranjeni iz baze';
 
 ?>
