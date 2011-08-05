@@ -36,7 +36,6 @@ $lang_info['code'] = "zh_CN";
 $lang_info['zero_plural'] = "1";
 
 
-$lang['%.2f (rated %d times)'] = "%.2f (已投票 %d 次)";
 $lang['%d Kb'] = "%d Kb";
 $lang['%d album updated'] = "%d 个相册已更新";
 $lang['%d albums updated'] = "%d 个相册已更新";
@@ -58,7 +57,6 @@ $lang['Any tag'] = "任何标签";
 $lang['At least one listed rule must be satisfied.'] = "至少要有一个已列出的规则被满足。";
 $lang['At least one tag must match'] = "必须至少匹配一个标签。";
 $lang['Author'] = "作者";
-$lang['Average rate'] = "平均分";
 $lang['Albums'] = "相册";
 $lang['Album'] = "相册";
 $lang['Close this window'] = "关闭此窗口";
@@ -105,7 +103,6 @@ $lang['Posted on'] = "发布于";
 $lang['Profile'] = "档案";
 $lang['Quick connect'] = "快速链接";
 $lang['RSS feed'] = 'RSS流';
-$lang['Rate'] = "比率";
 $lang['Register'] = "注册";
 $lang['Registration'] = "注册";
 $lang['Related tags'] = "相关标签";
@@ -356,4 +353,10 @@ $lang['This author removed the comment with id %d'] = '这个作者以 id %d 删
 $lang['delete this comment'] = "删除这个意见";
 $lang['validate this comment'] = '确认这个意见';
 $lang['html tags are not allowed in login'] = '登录名中不允许使用html标签';
+$lang['%d rates'] = '%d 评分';
+$lang['Rating score'] = '评价得分';
+$lang['The number of photos per page must be a not null scalar'] = '每页相片数量必须大于0';
+$lang['Number of photos per page'] = '每页相片数量';
+$lang['display photos linked to this tag'] = '在此标签上显示相片链接';
+
 ?>
