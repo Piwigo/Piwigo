@@ -1,3 +1,10 @@
+{include file='include/colorbox.inc.tpl'} 
+{footer_script}{literal}
+jQuery(document).ready(function() {
+  $("a.preview-box").colorbox(); 
+}); 
+{/literal}{/footer_script}
+
 <div class="titrePage">
   <h2>{'Installed Themes'|@translate}</h2>
 </div>
@@ -11,7 +18,7 @@
 {foreach from=$active_themes item=theme}
   <div class="themeBox{if $theme.is_default} themeDefault{/if}">
     <div class="themeName">{$theme.name}{if $theme.is_default} <em>({'default'|@translate})</em>{/if}</div>
-    <div class="themeShot"><img src="{$theme.screenshot}" alt=""></div>
+    <div class="themeShot"><a href="{$theme.screenshot}" class="preview-box" title="{$theme.name}"><img src="{$theme.screenshot}" alt=""></a></div>
     <div class="themeActions">
       <div>
 {if $theme.deactivable}
@@ -41,7 +48,7 @@
 {foreach from=$inactive_themes item=theme}
   <div class="themeBox">
     <div class="themeName">{$theme.name}</div>
-    <div class="themeShot"><img src="{$theme.screenshot}" alt=""></div>
+    <div class="themeShot"><a href="{$theme.screenshot}" class="preview-box" title="{$theme.name}"><img src="{$theme.screenshot}" alt=""></a></div>
     <div class="themeActions">
       <div>
   {if $theme.activable}
