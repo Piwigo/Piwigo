@@ -4,7 +4,7 @@
 	<span class="wrap1">
 		<span class="wrap2">
 		<a href="{$thumbnail.URL}">
-			<img class="thumbnail" src="{$thumbnail.TN_SRC}" alt="{$thumbnail.TN_ALT}" title="{$thumbnail.TN_TITLE}">
+			<img class="thumbnail" src="{$thumbnail.TN_SRC}" alt="{$thumbnail.TN_ALT}" title="{if isset($thumbnail.NAME)}{$thumbnail.NAME|@replace:'"':' '}{else}{$thumbnail.TN_TITLE}{/if}">
 		</a>
 		</span>
 		<span class="thumbLegend">
