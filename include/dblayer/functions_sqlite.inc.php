@@ -55,7 +55,7 @@ function pwg_db_connect($host, $user, $password, $database)
   }
 
   $link->createFunction('now', 'pwg_now', 0);
-  $link->createFunction('unix_timestamp', 'pwg_unix_timestamp', 0);
+  $link->createFunction('unix_timestamp', 'pwg_unix_timestamp', 1);
   $link->createFunction('md5', 'md5', 1);
   $link->createFunction('if', 'pwg_if', 3);
 
@@ -694,7 +694,7 @@ function pwg_now()
 
 function pwg_unix_timestamp()
 {
-  return time();
+  return strtotime($strDate);
 }
 
 function pwg_if($expression, $value1, $value2) 
