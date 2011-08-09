@@ -136,37 +136,34 @@ foreach ($pictures as $row)
     $tpl_var['NB_HITS'] = $row['hit'];
   }
 
-  if ($conf['show_thumbnail_caption'])
-  {// name of the picture
-    if (isset($row['name']) and $row['name'] != '')
-    {
-      $name = $row['name'];
-    }
-    else
-    {
-      $name = str_replace('_', ' ', get_filename_wo_extension($row['file']));
-    }
+	if (isset($row['name']) and $row['name'] != '')
+	{
+		$name = $row['name'];
+	}
+	else
+	{
+		$name = str_replace('_', ' ', get_filename_wo_extension($row['file']));
+	}
 
-    $name = trigger_event('render_element_description', $name);
+	$name = trigger_event('render_element_description', $name);
 
-    switch ($page['section'])
-    {
-      case 'best_rated' :
-      {
-        $name = '('.$row['rating_score'].') '.$name;
-        break;
-      }
-      case 'most_visited' :
-      {
-        if ( !$user['show_nb_hits']) {
-          $name = '('.$row['hit'].') '.$name;
-        }
-        break;
-      }
-    }
+	switch ($page['section'])
+	{
+		case 'best_rated' :
+		{
+			$name = '('.$row['rating_score'].') '.$name;
+			break;
+		}
+		case 'most_visited' :
+		{
+			if ( !$user['show_nb_hits']) {
+				$name = '('.$row['hit'].') '.$name;
+			}
+			break;
+		}
+	}
 
-    $tpl_var['NAME'] = $name;
-  }
+	$tpl_var['NAME'] = $name;
 
   if ( isset($nb_comments_of) )
   {
@@ -178,7 +175,7 @@ foreach ($pictures as $row)
 
 $tpl_thumbnails_var = trigger_event('loc_end_index_thumbnails', $tpl_thumbnails_var, $pictures);
 $template->assign('thumbnails', $tpl_thumbnails_var);
-
+$template->assign('SHOW_THUMBNAIL_CAPTION', $conf['show_thumbnail_caption']);
 $template->assign_var_from_handle('THUMBNAILS', 'index_thumbnails');
 
 pwg_debug('end include/category_default.inc.php');

@@ -7,8 +7,9 @@
 			<img class="thumbnail" src="{$thumbnail.TN_SRC}" alt="{$thumbnail.TN_ALT}" title="{if isset($thumbnail.NAME)}{$thumbnail.NAME|@replace:'"':' '}{else}{$thumbnail.TN_TITLE}{/if}">
 		</a>
 		</span>
+    {if $SHOW_THUMBNAIL_CAPTION }
 		<span class="thumbLegend">
-		{if isset($thumbnail.NAME)}{$thumbnail.NAME}{/if}
+		{$thumbnail.NAME}
 		{if !empty($thumbnail.icon_ts)}
 		<img title="{$thumbnail.icon_ts.TITLE}" src="{$ROOT_URL}{$themeconf.icon_dir}/recent.png" alt="(!)">
 		{/if}
@@ -26,6 +27,7 @@
 		</span>
 		{/if}
 		</span>
+    {/if}
 	</span>
 	</li>
 {/foreach}{/strip}
