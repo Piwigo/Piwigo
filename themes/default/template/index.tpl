@@ -14,48 +14,48 @@
 {/if}
 {if isset($favorite)}
 		<li><a href="{$favorite.U_FAVORITE}" title="{'delete all photos from your favorites'|@translate}" class="pwg-state-default pwg-button" rel="nofollow">
-			<span class="pwg-icon pwg-icon-favorite-del"> </span><span class="pwg-button-text">{'delete all photos from your favorites'|@translate}</span>
+			<span class="pwg-icon pwg-icon-favorite-del">&nbsp;</span><span class="pwg-button-text">{'delete all photos from your favorites'|@translate}</span>
 		</a></li>
 {/if}
 {if isset($U_CADDIE)}
 		<li><a href="{$U_CADDIE}" title="{'add to caddie'|@translate}" class="pwg-state-default pwg-button">
-			<span class="pwg-icon pwg-icon-caddie-add"> </span><span class="pwg-button-text">{'caddie'|@translate}</span>
+			<span class="pwg-icon pwg-icon-caddie-add">&nbsp;</span><span class="pwg-button-text">{'caddie'|@translate}</span>
 		</a></li>
 {/if}
 {if isset($U_EDIT)}
 		<li><a href="{$U_EDIT}" title="{'edit'|@translate}" class="pwg-state-default pwg-button">
-			<span class="pwg-icon pwg-icon-category-edit"> </span><span class="pwg-button-text">{'edit'|@translate}</span>
+			<span class="pwg-icon pwg-icon-category-edit">&nbsp;</span><span class="pwg-button-text">{'edit'|@translate}</span>
 		</a></li>
 {/if}
 {if isset($U_SEARCH_RULES)}
 		{combine_script id='core.scripts' load='async' path='themes/default/js/scripts.js'}
 		<li><a href="{$U_SEARCH_RULES}" onclick="popuphelp(this.href); return false;" title="{'Search rules'|@translate}" class="pwg-state-default pwg-button" rel="nofollow">
-			<span class="pwg-icon pwg-icon-help"> </span><span class="pwg-button-text">(?)</span>
+			<span class="pwg-icon pwg-icon-help">&nbsp;</span><span class="pwg-button-text">(?)</span>
 		</a></li>
 {/if}
 {if isset($U_SLIDESHOW)}
 		<li>{strip}<a href="{$U_SLIDESHOW}" title="{'slideshow'|@translate}" class="pwg-state-default pwg-button" rel="nofollow">
-			<span class="pwg-icon pwg-icon-slideshow"> </span><span class="pwg-button-text">{'slideshow'|@translate}</span>
+			<span class="pwg-icon pwg-icon-slideshow">&nbsp;</span><span class="pwg-button-text">{'slideshow'|@translate}</span>
 		</a>{/strip}</li>
 {/if}
 {if isset($U_MODE_FLAT)}
 		<li>{strip}<a href="{$U_MODE_FLAT}" title="{'display all photos in all sub-albums'|@translate}" class="pwg-state-default pwg-button" rel="nofollow">
-			<span class="pwg-icon pwg-icon-category-view-flat"> </span><span class="pwg-button-text">{'display all photos in all sub-albums'|@translate}</span>
+			<span class="pwg-icon pwg-icon-category-view-flat">&nbsp;</span><span class="pwg-button-text">{'display all photos in all sub-albums'|@translate}</span>
 		</a>{/strip}</li>
 {/if}
 {if isset($U_MODE_NORMAL)}
 		<li>{strip}<a href="{$U_MODE_NORMAL}" title="{'return to normal view mode'|@translate}" class="pwg-state-default pwg-button">
-			<span class="pwg-icon pwg-icon-category-view-normal"> </span><span class="pwg-button-text">{'return to normal view mode'|@translate}</span>
+			<span class="pwg-icon pwg-icon-category-view-normal">&nbsp;</span><span class="pwg-button-text">{'return to normal view mode'|@translate}</span>
 		</a>{/strip}</li>
 {/if}
 {if isset($U_MODE_POSTED)}
 		<li>{strip}<a href="{$U_MODE_POSTED}" title="{'display a calendar by posted date'|@translate}" class="pwg-state-default pwg-button" rel="nofollow">
-			<span class="pwg-icon pwg-icon-calendar"> </span><span class="pwg-button-text">{'Calendar'|@translate}</span>
+			<span class="pwg-icon pwg-icon-calendar">&nbsp;</span><span class="pwg-button-text">{'Calendar'|@translate}</span>
 		</a>{/strip}</li>
 {/if}
 {if isset($U_MODE_CREATED)}
 		<li>{strip}<a href="{$U_MODE_CREATED}" title="{'display a calendar by creation date'|@translate}" class="pwg-state-default pwg-button" rel="nofollow">
-			<span class="pwg-icon pwg-icon-camera-calendar"> </span><span class="pwg-button-text">{'Calendar'|@translate}</span>
+			<span class="pwg-icon pwg-icon-camera-calendar">&nbsp;</span><span class="pwg-button-text">{'Calendar'|@translate}</span>
 		</a>{/strip}</li>
 {/if}
 {if !empty($PLUGIN_INDEX_ACTIONS)}{$PLUGIN_INDEX_ACTIONS}{/if}
