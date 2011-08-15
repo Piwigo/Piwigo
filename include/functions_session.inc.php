@@ -99,12 +99,8 @@ function get_remote_addr_session_hash()
     : '.'
   ;
 
-  return vsprintf(
-    "%02X%02X",
-    explode($separator,$_SERVER['REMOTE_ADDR'])
-  );
+  return substr(md5($_SERVER['REMOTE_ADDR']), 0, 4);
 }
-
 /**
  * this function returns
  * a string corresponding to the value of the variable save in the session
