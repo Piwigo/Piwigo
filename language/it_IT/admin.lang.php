@@ -849,4 +849,6 @@ $lang['Searching...'] = 'Ricerca ...';
 $lang['new'] = 'nuovo';
 $lang['Default photos order'] = 'Ordinamento di default delle foto';
 $lang['Activate icon "new" next to albums and pictures'] = 'Visualizzare l\'icona "nuovo" a fianco degli album e delle foto';
+$lang['Average rate'] = 'Voto medio';
+$lang['Rate'] = 'Voto';
 ?>
