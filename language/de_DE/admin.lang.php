@@ -843,5 +843,7 @@ $lang['Graphics Library'] = ' Grafikbibliothek';
 $lang['Add a criteria'] = 'Ein Kriterium hinzufügen'; 
 $lang['You can\'t define a default photo order because you have a custom setting in your local configuration.'] = ' Sie können keine Standardsortierung festlegen da Sie eine benutzerdefinierte Einstellung in Ihrer lokalen Konfiguration festgelegt haben.';
 $lang['You have specified <i>$conf[\'order_by\']</i> in your local configuration file, this parameter in deprecated, please remove it or rename it into <i>$conf[\'order_by_custom\']</i> !'] = 'Sie haben <i>$conf[\'order_by\']</i> in ihrer lokalen Konfigurationsdatei festgelegt, dieser Parameter wird abgelehnt, bitte entfernen sie ihn oder benennen sie ihn um in <i>$conf[\'order_by_custom\']</i> !';
+$lang['Average rate'] = 'Durchschnittliche Bewertung';
+$lang['Rate'] = 'Bewertung';
 
 ?>

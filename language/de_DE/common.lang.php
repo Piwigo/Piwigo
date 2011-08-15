@@ -35,7 +35,6 @@ $lang_info['direction'] = 'ltr';
 $lang_info['code'] = 'de';
 $lang_info['zero_plural'] = false;
 
-$lang['%.2f (rated %d times)'] = '%.2f (%d-mal bewertet)';
 $lang['%d Kb'] = '%d Kb';
 $lang['%d album updated'] = '%d Album aktualisiert';
 $lang['%d albums updated'] = '%d Alben aktualisiert';
@@ -57,7 +56,6 @@ $lang['Any tag'] = 'Beliebiges Stichwort';
 $lang['At least one listed rule must be satisfied.'] = 'Mindestens eine aufgelistete Regel muss übereinstimmen.';
 $lang['At least one tag must match'] = 'Mindestens ein Stichwort muss übereinstimmen';
 $lang['Author'] = 'Autor';
-$lang['Average rate'] = 'Durchschnittliche Bewertung';
 $lang['Albums'] = 'Alben';
 $lang['Album'] = 'Album';
 $lang['Close this window'] = 'Dieses Fenster schließen';
@@ -105,7 +103,6 @@ $lang['Posted on'] = 'Eingetragen am';
 $lang['Profile'] = 'Profil';
 $lang['Quick connect'] = 'Schnelle Anmeldung';
 $lang['RSS feed'] = 'RSS-Feed';
-$lang['Rate'] = 'Bewertung';
 $lang['Register'] = 'Registrieren';
 $lang['Registration'] = 'Registrierung';
 $lang['Related tags'] = 'Mit den Stichworten';
@@ -358,5 +355,7 @@ $lang['validate this comment'] = 'überprüfe diesen Kommentar';
 $lang['html tags are not allowed in login'] = 'HTML-Tags sind im Benutzername nicht erlaubt';
 $lang['The number of photos per page must be a not null scalar'] = ' Die Anzahl der Fotos pro Seite muss eine ganze Zahl größer als Null sein ';
 $lang['Number of photos per page'] = 'Anzahl der Fotos pro Seite';
+$lang['%d rates'] = '%d Bewertungen';
+$lang['Rating score'] = 'Bewertungs-Stand';
 
 ?>
