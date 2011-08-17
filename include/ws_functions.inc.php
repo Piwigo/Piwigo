@@ -511,13 +511,20 @@ SELECT id, name, permalink, uppercats, global_rank, id_uppercat,
       $row[$key] = (int)$row[$key];
     }
 
-    $row['name'] = strip_tags(
-      trigger_event(
-        'render_category_name',
-        $row['name'],
-        'ws_categories_getList'
-        )
-      );
+    if ($params['fullname'])
+    {
+      $row['name'] = strip_tags(get_cat_display_name_cache($row['uppercats'], null, false));
+    }
+    else
+    {
+      $row['name'] = strip_tags(
+        trigger_event(
+          'render_category_name',
+          $row['name'],
+          'ws_categories_getList'
+          )
+        );
+    }
 
     $row['comment'] = strip_tags(
       trigger_event(

@@ -43,44 +43,7 @@ if (isset($_GET['processed']))
       );
   }
   
-  $category_id = null;
-  if (!isset($_POST['category_type']))
-  {
-    // nothing to do, we certainly have the post_max_size issue
-  }
-  elseif ('existing' == $_POST['category_type'])
-  {
-    $category_id = $_POST['category'];
-  }
-  elseif ('new' == $_POST['category_type'])
-  {
-    $output_create = create_virtual_category(
-      $_POST['category_name'],
-      (0 == $_POST['category_parent'] ? null : $_POST['category_parent'])
-      );
-    
-    $category_id = $output_create['id'];
-
-    if (isset($output_create['error']))
-    {
-      array_push($page['errors'], $output_create['error']);
-    }
-    else
-    {
-      $category_name = get_cat_display_name_from_id($category_id, 'admin.php?page=cat_modify&amp;cat_id=');
-      // information
-      array_push(
-        $page['infos'],
-        sprintf(
-          l10n('Album "%s" has been added'),
-          '<em>'.$category_name.'</em>'
-          )
-        );
-      // TODO: add the onclick="window.open(this.href); return false;"
-      // attribute with jQuery on upload.tpl side for href containing
-      // "cat_modify"
-    }
-  }
+  $category_id = $_POST['category'];
 
   $image_ids = array();
         
@@ -206,20 +169,6 @@ if (isset($_GET['processed']))
     if (isset($_SESSION['uploads'][ $_POST['upload_id'] ]))
     {
       $image_ids = $_SESSION['uploads'][ $_POST['upload_id'] ];
-
-      associate_images_to_categories(
-        $image_ids,
-        array($category_id)
-        );
-
-      $query = '
-UPDATE '.IMAGES_TABLE.'
-  SET level = '.$_POST['level'].'
-  WHERE id IN ('.implode(', ', $image_ids).')
-;';
-      pwg_query($query);
-    
-      invalidate_user_cache();
     }
   }
   
@@ -291,28 +240,25 @@ SELECT
         );
     }
 
-    if ('existing' == $_POST['category_type'])
-    {
-      $query = '
+    $query = '
 SELECT
     COUNT(*)
   FROM '.IMAGE_CATEGORY_TABLE.'
   WHERE category_id = '.$category_id.'
 ;';
-      list($count) = pwg_db_fetch_row(pwg_query($query));
-      $category_name = get_cat_display_name_from_id($category_id, 'admin.php?page=cat_modify&amp;cat_id=');
-      
-      // information
-      array_push(
-        $page['infos'],
-        sprintf(
-          l10n('Album "%s" now contains %d photos'),
-          '<em>'.$category_name.'</em>',
-          $count
-          )
-        );
-    }
-
+    list($count) = pwg_db_fetch_row(pwg_query($query));
+    $category_name = get_cat_display_name_from_id($category_id, 'admin.php?page=cat_modify&amp;cat_id=');
+    
+    // information
+    array_push(
+      $page['infos'],
+      sprintf(
+        l10n('Album "%s" now contains %d photos'),
+        '<em>'.$category_name.'</em>',
+        $count
+        )
+      );
+    
     $page['batch_link'] = PHOTOS_ADD_BASE_URL.'&batch='.implode(',', $image_ids);
   }
 }

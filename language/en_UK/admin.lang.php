@@ -251,7 +251,7 @@ $lang['Download'] = 'Download';
 $lang['Download,'] = 'Download,';
 $lang['Downloads'] = "Downloads";
 $lang['Drag to re-order'] = "Click-and-drag to re-order";
-$lang['Drop into album'] = 'Drop into album';
+$lang['Drop into album'] = 'Select an album';
 $lang['duplicates'] = 'duplicates';
 $lang['Edit album permissions'] = "Edit album permissions";
 $lang['edit album permissions'] = "edit album permissions";
@@ -843,4 +843,7 @@ $lang['Height'] = 'Height';
 $lang['Follow Orientation'] = 'Follow Orientation';
 $lang['If you want to regenerate thumbnails, please go to the <a href="%s">Batch Manager</a>.'] = 'If you want to regenerate thumbnails, please go to the <a href="%s">Batch Manager</a>.';
 $lang['Graphics Library'] = 'Graphics Library';
+$lang['... or '] = '... or ';
+$lang['Create'] = 'Create';
+$lang['Start Upload'] = 'Start Upload';
 ?>

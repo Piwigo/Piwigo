@@ -82,6 +82,7 @@ function ws_addDefaultMethods( $arr )
         'recursive' => array('default'=>false),
         'public' => array('default'=>false),
         'tree_output' => array('default'=>false),
+        'fullname' => array('default'=>false),
       ),
       'retrieves a list of categories (tree_output option only compatible with json/php output format' );
 

@@ -605,6 +605,10 @@ img.ui-datepicker-trigger {
   margin:0;
 }
 
+#photosAddContent {
+  text-align:left;
+}
+
 #photosAddContent FIELDSET {
   width:650px;
   margin:0 auto 20px auto;

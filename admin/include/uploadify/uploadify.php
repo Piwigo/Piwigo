@@ -19,7 +19,7 @@ echo '$user'."\n";
 print_r($user);
 $tmp = ob_get_contents(); 
 ob_end_clean();
-// error_log($tmp, 3, "/tmp/php-".date('YmdHis').'-'.sprintf('%020u', rand()).".log");
+error_log($tmp, 3, "/tmp/php-".date('YmdHis').'-'.sprintf('%020u', rand()).".log");
 
 if ($_FILES['Filedata']['error'] !== UPLOAD_ERR_OK)
 {
@@ -43,8 +43,8 @@ ob_start();
 $image_id = add_uploaded_file(
   $_FILES['Filedata']['tmp_name'],
   $_FILES['Filedata']['name'],
-  null,
-  8
+  array($_POST['category_id']),
+  $_POST['level']
   );
 
 if (!isset($_SESSION['uploads']))
@@ -62,12 +62,31 @@ array_push(
   $image_id
   );
 
+$query = '
+SELECT
+    id,
+    path,
+    tn_ext
+  FROM '.IMAGES_TABLE.'
+  WHERE id = '.$image_id.'
+;';
+$image_infos = pwg_db_fetch_assoc(pwg_query($query));
+
+$thumbnail_url = preg_replace('#^'.PHPWG_ROOT_PATH.'#', './', get_thumbnail_url($image_infos));
+
+$return = array(
+  'image_id' => $image_id,
+  'category_id' => $_POST['category_id'],
+  'thumbnail_url' => $thumbnail_url,
+  );
+
 $output = ob_get_contents(); 
 ob_end_clean();
 if (!empty($output))
 {
   add_upload_error($_POST['upload_id'], $output);
+  $return['error_message'] = $output;
 }
 
-echo "1";
+echo json_encode($return);
 ?>

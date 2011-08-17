@@ -20,7 +20,7 @@ body, h3, dt, h2, .throw, .content, label { color:#777; }
 th { color: #888; }
 INPUT, select, textarea { color:#666; background-color: #ccc; }
 input[type="radio"], input[type="checkbox"] { background-color: transparent; }
-INPUT[type="submit"], INPUT[type="reset"]  { color:#666; border: 1px solid #777; background-color: #bbb; padding: 1px 15px; }
+INPUT[type="submit"], INPUT[type="button"], INPUT[type="reset"]  { color:#666; border: 1px solid #777; background-color: #bbb; padding: 1px 15px; }
 legend, h3 { color: #777; }
 h2 { color: #777; }
 
@@ -50,6 +50,7 @@ input[type="button"], input[type="submit"], input[type="reset"] {
 }
 
 input[type="button"]:hover, input[type="submit"]:hover, input[type="reset"]:hover {
+  cursor:pointer;
   color:#666;
   border-color: #999;
 }
