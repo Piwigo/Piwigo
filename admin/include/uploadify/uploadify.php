@@ -19,7 +19,7 @@ echo '$user'."\n";
 print_r($user);
 $tmp = ob_get_contents(); 
 ob_end_clean();
-error_log($tmp, 3, "/tmp/php-".date('YmdHis').'-'.sprintf('%020u', rand()).".log");
+// error_log($tmp, 3, "/tmp/php-".date('YmdHis').'-'.sprintf('%020u', rand()).".log");
 
 if ($_FILES['Filedata']['error'] !== UPLOAD_ERR_OK)
 {
