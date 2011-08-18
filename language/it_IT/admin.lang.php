@@ -621,12 +621,9 @@ $lang['Privacy level set to "%s"'] = 'Livello di privacy "%s"';
 $lang['Album "%s" now contains %d photos'] = 'L\'Album "%s" contiene adesso %d foto';
 $lang['Manage this set of %d photos'] = 'Gestire questo set di %d foto';
 $lang['Select files'] = 'Scegliere i file';
-$lang['JPEG files or ZIP archives with JPEG files inside please.'] = 'File JPEG o archivi ZIP con dentro dei file JPEG per cortesia.';
 $lang['Everybody'] = 'Tutti';
 $lang['Who can see these photos?'] = 'Chi può vedere queste foto?';
 $lang['Who can see this photo?'] = 'Chi può vedere questa foto?';
-$lang['... or switch to the old style form'] = '... o passare sul modulo "vecchio stile"';
-$lang['... or switch to the multiple files form'] = '... o passare sul modulo multi-file';
 
 $lang['The websize maximum width must be a number between %d and %d'] = 'La larghezza massima della foto con dimenzioni per il web deve essere un numero tra %d e %d';
 $lang['The websize maximum height must be a number between %d and %d'] = 'L\'altezza massima della foto con dimenzioni per il web deve essere un numero tra %d e %d';

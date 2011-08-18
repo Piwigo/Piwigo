@@ -55,16 +55,50 @@ if (isset($page['thumbnails']))
 
 $uploadify_path = PHPWG_ROOT_PATH.'admin/include/uploadify';
 
+$upload_max_filesize = min(
+  get_ini_size('upload_max_filesize'),
+  get_ini_size('post_max_size')
+  );
+
+if ($upload_max_filesize == get_ini_size('upload_max_filesize'))
+{
+  $upload_max_filesize_shorthand = get_ini_size('upload_max_filesize', false);
+}
+else
+{
+  $upload_max_filesize_shorthand = get_ini_size('post_max_filesize', false);
+}
+
 $template->assign(
     array(
       'F_ADD_ACTION'=> PHOTOS_ADD_BASE_URL,
       'uploadify_path' => $uploadify_path,
-      'upload_max_filesize' => min(
-        get_ini_size('upload_max_filesize'),
-        get_ini_size('post_max_size')
-        ),
+      'upload_max_filesize' => $upload_max_filesize,
+      'upload_max_filesize_shorthand' => $upload_max_filesize_shorthand,
     )
   );
+
+// what is the maximum number of pixels permitted by the memory_limit?
+if (pwg_image::get_library() == 'gd')
+{
+  $fudge_factor = 1.7;
+  $available_memory = get_ini_size('memory_limit') - memory_get_usage();
+  $max_upload_width = round(sqrt($available_memory/(2 * $fudge_factor)));
+  $max_upload_height = round(2 * $max_upload_width / 3);
+  $max_upload_resolution = floor($max_upload_width * $max_upload_height / (1024 * 1024));
+
+  // no need to display a limitation warning if the limitation is huge like 20MP
+  if ($max_upload_resolution < 25)
+  {
+    $template->assign(
+      array(
+        'max_upload_width' => $max_upload_width,
+        'max_upload_height' => $max_upload_height,
+        'max_upload_resolution' => $max_upload_resolution,
+        )
+      );
+  }
+}
 
 $upload_modes = array('html', 'multiple');
 $upload_mode = isset($conf['upload_mode']) ? $conf['upload_mode'] : 'multiple';
@@ -89,6 +123,17 @@ $template->assign(
       'session_id' => session_id(),
       'pwg_token' => get_pwg_token(),
       'another_upload_link' => PHOTOS_ADD_BASE_URL.'&amp;upload_mode='.$upload_mode,
+    )
+  );
+
+$upload_file_types = 'jpeg, png, gif';
+if ('html' == $upload_mode)
+{
+  $upload_file_types.= ', zip';
+}
+$template->assign(
+  array(
+    'upload_file_types' => $upload_file_types,
     )
   );
 

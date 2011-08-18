@@ -590,7 +590,6 @@ $lang['Privacy level set to "%s"'] = 'Úroveň súkromia údajov nastavená na "
 $lang['Album "%s" now contains %d photos'] = 'Kategória "%s" teraz obsahuje %d fotografií';
 $lang['Manage this set of %d photos'] = 'Spravovať tento súbor %d fotografií';
 $lang['Select files'] = 'Výber súborov';
-$lang['JPEG files or ZIP archives with JPEG files inside please.'] = 'JPEG súbory alebo ZIP archívy s JPEG súbormi prosím.';
 
 // missing translations 2.1.0
 $lang['Operation in progress'] = 'Prevádzam údržbu.';
@@ -623,8 +622,6 @@ $lang['Everybody'] = 'Každý';
 $lang['Who can see these photos?'] = 'Kto môže vidieť tieto fotografie?';
 $lang['Who can see this photo?'] = 'Kto môže vidieť túto fotografiu?'; 
 $lang['Pending Comments'] = 'Nevybavené komentáre';
-$lang['... or switch to the old style form'] = '... alebo prepnite na pôvodné štýly';
-$lang['... or switch to the multiple files form'] = '... alebo prepnite na formát viacnásobných súborov';
 $lang['The websize maximum width must be a number between %d and %d'] = 'Maximálna šírka webovej stránky musí byť číslo medzi %d a %d';
 $lang['The websize maximum height must be a number between %d and %d'] = 'Maximálna výška webovej stránky musí byť číslo medzi %d a %d';
 $lang['The websize image quality must be a number between %d and %d'] = 'Kvalita formátu fotografie pre web musí byť číslo medzi %d and %d';

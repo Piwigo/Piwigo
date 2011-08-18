@@ -142,6 +142,11 @@ jQuery(document).ready(function(){
     return false;
   });
 
+  jQuery("#uploadWarningsSummary a.showInfo").click(function() {
+    jQuery("#uploadWarningsSummary").hide();
+    jQuery("#uploadWarnings").show();
+  });
+
 {/literal}
 {if $upload_mode eq 'html'}
 {literal}
@@ -186,6 +191,9 @@ var sizeLimit = {$upload_max_filesize};
     'fileDesc'       : 'Photo files (*.jpg,*.jpeg,*.png)',
     'fileExt'        : '*.jpg;*.JPG;*.jpeg;*.JPEG;*.png;*.PNG',
     'sizeLimit'      : sizeLimit,
+    'onSelect'       : function(event,ID,fileObj) {
+      jQuery("#fileQueue").show();
+    },
     'onAllComplete'  : function(event, data) {
       if (data.errors) {
         return false;
@@ -337,7 +345,7 @@ var sizeLimit = {$upload_max_filesize};
   </div>
   <p id="batchLink"><a href="{$batch_link}">{$batch_label}</a></p>
 </fieldset>
-<p><a href="{$another_upload_link}">{'Add another set of photos'|@translate}</a></p>
+<p style="margin:10px"><a href="{$another_upload_link}">{'Add another set of photos'|@translate}</a></p>
 {else}
 
 <div id="formErrors" class="errors" style="display:none">
@@ -388,29 +396,38 @@ var sizeLimit = {$upload_max_filesize};
     <fieldset>
       <legend>{'Select files'|@translate}</legend>
 
+    <p id="uploadWarningsSummary">{$upload_max_filesize_shorthand}B. {$upload_file_types}. {if isset($max_upload_resolution)}{$max_upload_resolution}Mpx{/if} <a class="showInfo" title="{'Learn more'|@translate}">i</a></p>
+
+    <p id="uploadWarnings">
+{'Maximum file size: %sB.'|@translate|@sprintf:$upload_max_filesize_shorthand}
+{'Allowed file types: %s.'|@translate|@sprintf:$upload_file_types}
+  {if isset($max_upload_resolution)}
+{'Approximate maximum resolution: %dM pixels (that\'s %dx%d pixels).'|@translate|@sprintf:$max_upload_resolution:$max_upload_width:$max_upload_height}
+  {/if}
+    </p>
+
 {if $upload_mode eq 'html'}
-    <p><a href="{$switch_url}">{'... or switch to the multiple files form'|@translate}</a></p>
-
-      <p>{'JPEG files or ZIP archives with JPEG files inside please.'|@translate}</p>
-
       <div id="uploadBoxes"></div>
       <div id="addUploadBox">
         <a href="javascript:">{'+ Add an upload box'|@translate}</a>
       </div>
+
+    <p id="uploadModeInfos">{'You are using the Browser uploader. Try the <a href="%s">Flash uploader</a> instead.'|@translate|@sprintf:$switch_url}</p>
     
     </fieldset>
 
     <p>
-      <input class="submit" type="submit" name="submit_upload" value="{'Upload'|@translate}">
+      <input class="submit" type="submit" name="submit_upload" value="{'Start Upload'|@translate}">
     </p>
 {elseif $upload_mode eq 'multiple'}
+
     <p>
       <input type="file" name="uploadify" id="uploadify">
     </p>
 
-    <p><a href="{$switch_url}">{'... or switch to the old style form'|@translate}</a></p>
+    <div id="fileQueue" style="display:none"></div>
 
-    <div id="fileQueue"></div>
+    <p id="uploadModeInfos">{'You are using the Flash uploader. Problems? Try the <a href="%s">Browser uploader</a> instead.'|@translate|@sprintf:$switch_url}</p>
 
     </fieldset>
     <p>

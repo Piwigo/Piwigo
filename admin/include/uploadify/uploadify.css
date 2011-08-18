@@ -26,7 +26,6 @@ THE SOFTWARE.
         width: 420px;
         max-height: 300px;
         overflow: auto;
-        border: 1px solid #333;
         margin: 0 auto 10px auto;
         padding: 5px 0 10px 0;
 }

@@ -922,6 +922,7 @@ h2:lang(en) { text-transform:capitalize; }
 .pluginActions {display: table-row; font-size:0.95em; color:#777;}
 .pluginActions DIV {display: table-cell; vertical-align: middle; line-height:18px; }
 .showInfo {display:block;position:absolute;top:0;right:5px;width:15px;font-style:italic;font-family:"Georgia",serif;background-color:#464646;font-size:0.9em;border-radius:10px;-moz-border-radius:10px;}
+.showInfo:hover {cursor:pointer}
 
 .warning:before {content:url(icon/warning.png);vertical-align:top;}
 .deactivate_all {text-align:right;font-size:0.95em;}
@@ -1059,3 +1060,13 @@ div.token-input-dropdown ul li.token-input-selected-dropdown-item {background-co
 #mainConfCheck span.filter {display:block;margin-left:20px;}
 #mainConfCheck .transparent {opacity:0.5;filter:alpha(opacity=50);}
 #mainConfCheck .order_by_is_custom {display:block;font-weight:normal;font-style:italic;margin-left:20px;}
+
+/* Upload Form */
+#uploadBoxes .file {margin-bottom:5px;text-align:left;}
+#uploadBoxes {margin-top:20px;}
+#addUploadBox {margin-bottom:2em;}
+
+p#uploadWarningsSummary {text-align:left;margin-bottom:1em;font-size:90%;color:#999;}
+p#uploadWarningsSummary .showInfo {position:static;display:inline;padding:1px 6px;margin-left:3px;}
+p#uploadWarnings {display:none;text-align:left;margin-bottom:1em;font-size:90%;color:#999;}
+p#uploadModeInfos {text-align:left;margin-top:1em;font-size:90%;color:#999;}

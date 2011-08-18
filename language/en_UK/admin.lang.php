@@ -79,8 +79,6 @@ $lang['%s must be to set to false in your local/config/config.inc.php file'] = "
 $lang['%s value is not correct file because exif are not supported'] = "%s value is incorrect because exif are not supported";
 $lang['+ Add an upload box'] = '+ Add an upload box';
 $lang[', click on'] = ", click on";
-$lang['... or switch to the multiple files form'] = '... or switch to the multiple files form';
-$lang['... or switch to the old style form'] = '... or switch to the old style form';
 $lang['A local listing.xml file has been found for'] = "A local listing.xml file has been found for";
 $lang['A new version of Piwigo is available.'] = "A new version of Piwigo is available.";
 $lang['a picture filetype requires a thumbnail. The thumbnail must be present in the sub-directory "thumbnail" of the album directory. The thumbnail filename must start with the configured thumbnail prefix and the extension must be among the following list :'] = "a picture filetype requires a thumbnail. The thumbnail must be present in the sub-directory \"thumbnail\" of the album directory. The thumbnail filename must start with the configured thumbnail prefix and the extension must be among the following list :";
@@ -364,7 +362,6 @@ $lang['Installed Themes'] = "Installed Themes";
 $lang['Instructions to use Piwigo'] = "Instructions to use Piwigo";
 $lang['Invert'] = 'Invert';
 $lang['IP'] = "IP";
-$lang['JPEG files or ZIP archives with JPEG files inside please.'] = 'JPEG files or ZIP archives with JPEG files inside please.';
 $lang['jump to album'] = "jump to album";
 $lang['jump to photo'] = "jump to photo";
 $lang['Keep high definition'] = 'Keep high definition';
@@ -846,4 +843,9 @@ $lang['Graphics Library'] = 'Graphics Library';
 $lang['... or '] = '... or ';
 $lang['Create'] = 'Create';
 $lang['Start Upload'] = 'Start Upload';
+$lang['You are using the Flash uploader. Problems? Try the <a href="%s">Browser uploader</a> instead.'] = 'You are using the Flash uploader. Problems? Try the <a href="%s">Browser uploader</a> instead.';
+$lang['You are using the Browser uploader. Try the <a href="%s">Flash uploader</a> instead.'] = 'You are using the Browser uploader. Try the <a href="%s">Flash uploader</a> instead.';
+$lang['Maximum file size: %sB.'] = 'Maximum file size: %sB.';
+$lang['Allowed file types: %s.'] = 'Allowed file types: %s.';
+$lang['Approximate maximum resolution: %dM pixels (that\'s %dx%d pixels).'] = 'Approximate maximum resolution: %dM pixels (that\'s %dx%d pixels).';
 ?>

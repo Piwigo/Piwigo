@@ -612,13 +612,10 @@ $lang['Privacy level set to "%s"'] = 'Sekretessnivå inställd på "%s"';
 $lang['Album "%s" now contains %d photos'] = 'Kategir "%s" innehåller nu %d foton';
 $lang['Manage this set of %d photos'] = 'Hantera settet om %d foton';
 $lang['Select files'] = 'Markerade filer';
-$lang['JPEG files or ZIP archives with JPEG files inside please.'] = 'JPEG filer eller ZIP arkiv med JPEG filer innuti tack.';
 $lang['Everybody'] = 'Alla';
 $lang['Who can see these photos?'] = 'Vem kan se dessa foton?';
 $lang['Who can see this photo?'] = 'Vem kan se detta foto?';
 
-$lang['... or switch to the old style form'] = '... eller byt till gamla versionen av formuläret';
-$lang['... or switch to the multiple files form'] = '... eller byt till formuläret för att ladda upp många bilder';
 
 $lang['The websize maximum width must be a number between %d and %d'] = 'Webstorlekens maximala bredd måste vara ett nummer mellan %d och %d';
 $lang['The websize maximum height must be a number between %d and %d'] = 'Webstorlekens maximala höjd måste vara ett nummer mellan %d och %d';

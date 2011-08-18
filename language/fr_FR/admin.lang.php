@@ -621,12 +621,9 @@ $lang['Privacy level set to "%s"'] = 'Niveau de confidentialité "%s"';
 $lang['Album "%s" now contains %d photos'] = 'l\'album "%s" contient désormais %d photos';
 $lang['Manage this set of %d photos'] = 'Gérer ce lot de %d photos';
 $lang['Select files'] = 'Choisir des fichiers';
-$lang['JPEG files or ZIP archives with JPEG files inside please.'] = 'Fichiers JPEG ou archives ZIP contenant des fichiers JPEG s\'il vous plaît.';
 $lang['Everybody'] = 'Tout le monde';
 $lang['Who can see these photos?'] = 'Qui peut voir ces photos ?';
 $lang['Who can see this photo?'] = 'Qui peut voir cette photo ?';
-$lang['... or switch to the old style form'] = '... ou utiliser le formulaire "à l\'ancienne"';
-$lang['... or switch to the multiple files form'] = '... ou utiliser le formulaire multi-fichiers';
 
 $lang['The websize maximum width must be a number between %d and %d'] = 'La largeur maximum pour la photo taille web doit être un chiffre compris entre %d et %d';
 $lang['The websize maximum height must be a number between %d and %d'] = 'La hauteur maximum pour la photo taille web doit être un chiffre compris entre %d et %d';
@@ -855,4 +852,9 @@ $lang['Add a criteria'] = 'Ajouter un critère';
 $lang['... or '] = '... ou bien ';
 $lang['Create'] = 'Créer';
 $lang['Start Upload'] = 'Démarrer le transfert';
+$lang['You are using the Flash uploader. Problems? Try the <a href="%s">Browser uploader</a> instead.'] = 'Vous utilisez le formulaire Flash. Des problèmes ? Essayez le <a href="%s">formulaire HTML</a> à la place.';
+$lang['You are using the Browser uploader. Try the <a href="%s">Flash uploader</a> instead.'] = 'Vous utilisez le formulaire HTML. Essayez le <a href="%s">formulaire Flash</a> à la place.';
+$lang['Maximum file size: %sB.'] = 'Poids maximum des fichiers : %sB.';
+$lang['Allowed file types: %s.'] = 'Types de fichiers autorisés : %s.';
+$lang['Approximate maximum resolution: %dM pixels (that\'s %dx%d pixels).'] = 'Résolution maximum approximative : %dM pixels (soit %dx%d pixels).';
 ?>
