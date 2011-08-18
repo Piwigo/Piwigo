@@ -1070,3 +1070,5 @@ p#uploadWarningsSummary {text-align:left;margin-bottom:1em;font-size:90%;color:#
 p#uploadWarningsSummary .showInfo {position:static;display:inline;padding:1px 6px;margin-left:3px;}
 p#uploadWarnings {display:none;text-align:left;margin-bottom:1em;font-size:90%;color:#999;}
 p#uploadModeInfos {text-align:left;margin-top:1em;font-size:90%;color:#999;}
+
+#photosAddContent p.showFieldset {text-align:left;margin: 0 auto 10px auto;width: 650px;}

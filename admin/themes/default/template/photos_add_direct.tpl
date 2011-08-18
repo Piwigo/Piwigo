@@ -147,6 +147,11 @@ jQuery(document).ready(function(){
     jQuery("#uploadWarnings").show();
   });
 
+  jQuery("#showPermissions").click(function() {
+    jQuery(this).parent(".showFieldset").hide();
+    jQuery("#permissions").show();
+  });
+
 {/literal}
 {if $upload_mode eq 'html'}
 {literal}
@@ -386,14 +391,6 @@ var sizeLimit = {$upload_max_filesize};
     </fieldset>
 
     <fieldset>
-      <legend>{'Who can see these photos?'|@translate}</legend>
-
-      <select name="level" size="1">
-        {html_options options=$level_options selected=$level_options_selected}
-      </select>
-    </fieldset>
-
-    <fieldset>
       <legend>{'Select files'|@translate}</legend>
 
     <p id="uploadWarningsSummary">{$upload_max_filesize_shorthand}B. {$upload_file_types}. {if isset($max_upload_resolution)}{$max_upload_resolution}Mpx{/if} <a class="showInfo" title="{'Learn more'|@translate}">i</a></p>
@@ -413,14 +410,9 @@ var sizeLimit = {$upload_max_filesize};
       </div>
 
     <p id="uploadModeInfos">{'You are using the Browser uploader. Try the <a href="%s">Flash uploader</a> instead.'|@translate|@sprintf:$switch_url}</p>
-    
-    </fieldset>
 
-    <p>
-      <input class="submit" type="submit" name="submit_upload" value="{'Start Upload'|@translate}">
-    </p>
 {elseif $upload_mode eq 'multiple'}
-
+    
     <p>
       <input type="file" name="uploadify" id="uploadify">
     </p>
@@ -429,7 +421,24 @@ var sizeLimit = {$upload_max_filesize};
 
     <p id="uploadModeInfos">{'You are using the Flash uploader. Problems? Try the <a href="%s">Browser uploader</a> instead.'|@translate|@sprintf:$switch_url}</p>
 
+{/if}
     </fieldset>
+
+    <p class="showFieldset"><a id="showPermissions" href="#">{'Manage Permissions'|@translate}</a></p>
+
+    <fieldset id="permissions" style="display:none">
+      <legend>{'Who can see these photos?'|@translate}</legend>
+
+      <select name="level" size="1">
+        {html_options options=$level_options selected=$level_options_selected}
+      </select>
+    </fieldset>
+
+{if $upload_mode eq 'html'}
+    <p>
+      <input class="submit" type="submit" name="submit_upload" value="{'Start Upload'|@translate}">
+    </p>
+{elseif $upload_mode eq 'multiple'}
     <p>
       <input class="submit" type="button" value="{'Start Upload'|@translate}">
       <input type="submit" name="submit_upload" style="display:none">

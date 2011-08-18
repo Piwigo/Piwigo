@@ -857,4 +857,5 @@ $lang['You are using the Browser uploader. Try the <a href="%s">Flash uploader</
 $lang['Maximum file size: %sB.'] = 'Poids maximum des fichiers : %sB.';
 $lang['Allowed file types: %s.'] = 'Types de fichiers autorisés : %s.';
 $lang['Approximate maximum resolution: %dM pixels (that\'s %dx%d pixels).'] = 'Résolution maximum approximative : %dM pixels (soit %dx%d pixels).';
+$lang['Manage Permissions'] = 'Gérer les permissions';
 ?>
