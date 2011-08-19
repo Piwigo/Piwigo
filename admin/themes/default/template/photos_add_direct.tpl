@@ -1,7 +1,6 @@
 {if $upload_mode eq 'multiple'}
 {combine_script id='jquery.jgrowl' load='footer' require='jquery' path='themes/default/js/plugins/jquery.jgrowl_minimized.js' }
-{combine_script id='swfobject' load='footer' path='admin/include/uploadify/swfobject.js'}
-{combine_script id='jquery.uploadify' load='footer' require='jquery' path='admin/include/uploadify/jquery.uploadify.v2.1.0.min.js' }
+{combine_script id='jquery.uploadify' load='footer' require='jquery' path='admin/include/uploadify/jquery.uploadify.v3.0.0.min.js' }
 {combine_css path="admin/themes/default/uploadify.jGrowl.css"}
 {combine_css path="admin/include/uploadify/uploadify.css"}
 {/if}
@@ -176,116 +175,66 @@ var uploadify_path = '{$uploadify_path}';
 var upload_id = '{$upload_id}';
 var session_id = '{$session_id}';
 var pwg_token = '{$pwg_token}';
-var buttonText = 'Browse';
-var sizeLimit = {$upload_max_filesize};
+var buttonText = "{'Select files'|@translate}";
+var sizeLimit = Math.round({$upload_max_filesize} / 1024); /* in KBytes */
 
 {literal}
   jQuery("#uploadify").uploadify({
-    'uploader'       : uploadify_path + '/uploadify.swf',
-    'script'         : uploadify_path + '/uploadify.php',
-    'scriptData'     : {
-      'upload_id' : upload_id,
-      'session_id' : session_id,
-      'pwg_token' : pwg_token,
-    },
-    'cancelImg'      : uploadify_path + '/cancel.png',
+    'uploader'       : uploadify_path + '/uploadify.php',
+    'langFile'       : uploadify_path + '/uploadifyLang_en.js',
+    'swf'            : uploadify_path + '/uploadify.swf',
+
+    buttonCursor     : 'pointer',
+    'buttonText'     : buttonText,
+    'width'          : 300,
+    'cancelImage'    : uploadify_path + '/cancel.png',
     'queueID'        : 'fileQueue',
     'auto'           : false,
-    'buttonText'     : buttonText,
     'multi'          : true,
-    'fileDesc'       : 'Photo files (*.jpg,*.jpeg,*.png)',
-    'fileExt'        : '*.jpg;*.JPG;*.jpeg;*.JPEG;*.png;*.PNG',
-    'sizeLimit'      : sizeLimit,
+    'fileTypeDesc'   : 'Photo files',
+    'fileTypeExts'   : '*.jpg;*.JPG;*.jpeg;*.JPEG;*.png;*.PNG;*.gif;*.GIF',
+    'fileSizeLimit'  : sizeLimit,
+    'progressData'   : 'percentage',
+    requeueErrors   : false,
     'onSelect'       : function(event,ID,fileObj) {
       jQuery("#fileQueue").show();
     },
-    'onAllComplete'  : function(event, data) {
-      if (data.errors) {
+    'onQueueComplete'  : function(stats) {
+      jQuery("input[name=submit_upload]").click();
+    },
+    onUploadError: function (file,errorCode,errorMsg,errorString,swfuploadifyQueue) {
+      /* uploadify calls the onUploadError trigger when the user cancels a file! */
+      /* There no error so we skip it to avoid panic.                            */
+      if ("Cancelled" == errorString) {
         return false;
       }
-      else {
-        jQuery("input[name=submit_upload]").click();
-      }
-    },
-    onError: function (event, queueID ,fileObj, errorObj) {
-      var msg;
 
-      if (errorObj.type === "HTTP") {
-        if (errorObj.info === 404) {
-          alert('Could not find upload script.');
-          msg = 'Could not find upload script.';
-        }
-        else {
-          msg = errorObj.type+": "+errorObj.info;
-        }
-      }
-      else if (errorObj.type ==="File Size") {
-        msg = "File too big";
-        msg = msg + '<br>'+fileObj.name+': '+humanReadableFileSize(fileObj.size);
-        msg = msg + '<br>Limit: '+humanReadableFileSize(sizeLimit);
-      }
-      else {
-        msg = errorObj.type+": "+errorObj.info;
-      }
+      var msg = file.name+', '+errorString;
+
+      /* Let's put the error message in the form to display once the form is     */
+      /* performed, it makes support easier when user can copy/paste the error   */
+      /* thrown.                                                                 */
+      jQuery("#uploadForm").append('<input type="hidden" name="onUploadError[]" value="'+msg+'">');
 
       jQuery.jGrowl(
-        '<p></p>'+msg,
+        '<p></p>onUploadError '+msg,
         {
           theme:  'error',
           header: 'ERROR',
-          sticky: true
+          life:   4000,
+          sticky: false
         }
       );
 
-      jQuery("#fileUploadgrowl" + queueID).fadeOut(
-        250,
-        function() {
-          jQuery("#fileUploadgrowl" + queueID).remove()
-        }
-      );
       return false;
     },
-    onCancel: function (a, b, c, d) {
-      var msg = "Cancelled uploading: "+c.name;
-      jQuery.jGrowl(
-        '<p></p>'+msg,
-        {
-          theme:  'warning',
-          header: 'Cancelled Upload',
-          life:   4000,
-          sticky: false
-        }
-      );
-    },
-    onClearQueue: function (a, b) {
-      var msg = "Cleared "+b.fileCount+" files from queue";
-      jQuery.jGrowl(
-        '<p></p>'+msg,
-        {
-          theme:  'warning',
-          header: 'Cleared Queue',
-          life:   4000,
-          sticky: false
-        }
-      );
-    },
-    onComplete: function (a, b ,c, response, e) {
-      var size = Math.round(c.size/1024);
-
-      var response = jQuery.parseJSON(response);
-
+    onUploadSuccess: function (file,data,response) {
+      var data = jQuery.parseJSON(data);
       jQuery("#uploadedPhotos").parent("fieldset").show();
-      jQuery("#uploadedPhotos").prepend('<img src="'+response.thumbnail_url+'" class="thumbnail"> ');
 
-      jQuery.jGrowl(
-        '<p></p>'+c.name+' - '+size+'KB',
-        {
-          theme:  'success',
-          header: 'Upload Complete',
-          life:   4000,
-          sticky: false
-        }
-      );
+      /* Let's display the thumbnail of the uploaded photo, no need to wait the  */
+      /* end of the queue                                                        */
+      jQuery("#uploadedPhotos").prepend('<img src="'+data.thumbnail_url+'" class="thumbnail"> ');
     }
   });
 
@@ -295,10 +244,13 @@ var sizeLimit = {$upload_max_filesize};
     }
 
     jQuery("#uploadify").uploadifySettings(
-      'scriptData',
+      'postData',
       {
         'category_id' : jQuery("select[name=category] option:selected").val(),
         'level' : jQuery("select[name=level] option:selected").val(),
+        'upload_id' : upload_id,
+        'session_id' : session_id,
+        'pwg_token' : pwg_token,
       }
     );
 
@@ -412,10 +364,7 @@ var sizeLimit = {$upload_max_filesize};
     <p id="uploadModeInfos">{'You are using the Browser uploader. Try the <a href="%s">Flash uploader</a> instead.'|@translate|@sprintf:$switch_url}</p>
 
 {elseif $upload_mode eq 'multiple'}
-    
-    <p>
-      <input type="file" name="uploadify" id="uploadify">
-    </p>
+    <div id="uploadify">You've got a problem with your JavaScript</div> 
 
     <div id="fileQueue" style="display:none"></div>
 

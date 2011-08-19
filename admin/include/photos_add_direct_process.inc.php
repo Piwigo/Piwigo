@@ -42,9 +42,19 @@ if (isset($_GET['processed']))
         )
       );
   }
-  
-  $category_id = $_POST['category'];
+  else
+  {
+    $category_id = $_POST['category'];
+  }
 
+  if (isset($_POST['onUploadError']) and is_array($_POST['onUploadError']) and count($_POST['onUploadError']) > 0)
+  {
+    foreach ($_POST['onUploadError'] as $error)
+    {
+      array_push($page['errors'], $error);
+    }
+  }
+    
   $image_ids = array();
         
   if (isset($_FILES) and !empty($_FILES['image_upload']))

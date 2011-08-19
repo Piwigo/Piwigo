@@ -1,8 +1,6 @@
 /*
-Uploadify v2.1.0
-Release Date: August 24, 2009
-
-Copyright (c) 2009 Ronnie Garcia, Travis Nickels
+Uploadify v3.0.0
+Copyright (c) 2010 Ronnie Garcia
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -22,6 +20,69 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
+
+.uploadify {margin:0 auto 10px auto}
+
+.uploadifyButton {
+	display: block;
+	cursor: pointer;
+	font-size: 11px;
+	font-weight: bold;
+	color: #eeeeee;
+	padding: 8px 0;
+	text-align: center;
+	height: 14px;
+	width: 100%;
+	background-color: #464646;
+-webkit-border-radius:5px;
+-moz-border-radius:5px;
+border-radius:5px;
+letter-spacing:2px;
+}
+.uploadify:hover .uploadifyButton {
+	color:#fff;
+        background-color: #333;
+        cursor:pointer;
+}
+.uploadifyQueueItem {
+	background-color: #F5F5F5;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	font: 11px Verdana, Geneva, sans-serif;
+	margin-top: 5px;
+	max-width: 350px;
+	padding: 10px;
+}
+.uploadifyQueueItem .cancel {
+	float: right;
+}
+.uploadifyQueueItem .fileName, .uploadifyQueueItem .data {
+	float: left;
+}
+.uploadifyQueue .completed {
+	background-color: #E5E5E5;
+}
+.uploadifyProgress {
+	background-color: #E5E5E5;
+	margin-top: 25px;
+	height: 3px;
+	width: 100%;
+	position: relative;
+}
+.uploadifyProgressBar {
+	background-color: #0099FF;
+	height: 3px;
+	width: 1px;
+	position: absolute;
+	left: 0px;
+}
+.uploadifyError {
+	background-color: #FDE5DD !important;
+}
+
+
+/* Piwigo specific */
 #fileQueue {
         width: 420px;
         max-height: 300px;
@@ -49,7 +110,6 @@ THE SOFTWARE.
 .uploadifyProgress {
 	background-color: #333;
 	border: 1px solid #666;
-	margin-top: 10px;
 	width: 100%;
 }
 .uploadifyProgressBar {

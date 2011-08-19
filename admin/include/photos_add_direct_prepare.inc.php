@@ -85,7 +85,12 @@ if (pwg_image::get_library() == 'gd')
   $available_memory = get_ini_size('memory_limit') - memory_get_usage();
   $max_upload_width = round(sqrt($available_memory/(2 * $fudge_factor)));
   $max_upload_height = round(2 * $max_upload_width / 3);
-  $max_upload_resolution = floor($max_upload_width * $max_upload_height / (1024 * 1024));
+  
+  // we don't want dimensions like 2995x1992 but 3000x2000
+  $max_upload_width = round($max_upload_width/100)*100;
+  $max_upload_height = round($max_upload_height/100)*100;
+  
+  $max_upload_resolution = floor($max_upload_width * $max_upload_height / (1000000));
 
   // no need to display a limitation warning if the limitation is huge like 20MP
   if ($max_upload_resolution < 25)
