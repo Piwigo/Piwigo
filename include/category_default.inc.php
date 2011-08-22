@@ -136,34 +136,35 @@ foreach ($pictures as $row)
     $tpl_var['NB_HITS'] = $row['hit'];
   }
 
-	if (isset($row['name']) and $row['name'] != '')
-	{
-		$name = $row['name'];
-	}
-	else
-	{
-		$name = str_replace('_', ' ', get_filename_wo_extension($row['file']));
-	}
-
-	$name = trigger_event('render_element_description', $name);
-
-	switch ($page['section'])
-	{
-		case 'best_rated' :
-		{
-			$name = '('.$row['rating_score'].') '.$name;
-			break;
-		}
-		case 'most_visited' :
-		{
-			if ( !$user['show_nb_hits']) {
-				$name = '('.$row['hit'].') '.$name;
-			}
-			break;
-		}
-	}
-
-	$tpl_var['NAME'] = $name;
+  if (isset($row['name']) and $row['name'] != '')
+  {
+    $name = $row['name'];
+  }
+  else
+  {
+    $name = str_replace('_', ' ', get_filename_wo_extension($row['file']));
+  }
+  
+  $name = trigger_event('render_element_description', $name);
+  
+  switch ($page['section'])
+  {
+    case 'best_rated' :
+    {
+      $name = '('.$row['rating_score'].') '.$name;
+      break;
+    }
+    case 'most_visited' :
+    {
+      if ( !$user['show_nb_hits'])
+      {
+        $name = '('.$row['hit'].') '.$name;
+      }
+      break;
+    }
+  }
+  
+  $tpl_var['NAME'] = $name;
 
   if ( isset($nb_comments_of) )
   {
