@@ -399,7 +399,7 @@ function get_qsearch_like_clause($tokens, $token_modifiers, $field)
     $token = trim($tokens[$i], '%');
     if (strstr($token_modifiers[$i], '-')!==false)
       continue;
-    if ( strlen($token==0) )
+    if ( strlen($token)==0 )
       continue;
     $token = addslashes($token);
     $token = str_replace( array('%','_'), array('\\%','\\_'), $token); // escape LIKE specials %_
