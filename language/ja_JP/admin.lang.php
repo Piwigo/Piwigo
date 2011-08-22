@@ -84,7 +84,6 @@ $lang['Email admins when a valid comment is entered'] = '有効なコメント�
 $lang['Email admins when a comment requires validation'] = 'コメントの承認が必要な場合、管理者にメールする';
 $lang['Environment'] = '環境';
 $lang['Form'] = 'フォーム';
-$lang['Gallery URL'] = 'ギャラリーURI';
 $lang['Gallery title'] = 'ギャラリータイトル';
 $lang['Grant selected groups'] = '選択したグループに付与する';
 $lang['Grant selected users'] = '選択したユーザに付与する';

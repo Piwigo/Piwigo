@@ -327,7 +327,6 @@ switch ($page['section'])
       array(
         'CONF_GALLERY_TITLE' => htmlspecialchars($conf['gallery_title']),
         'CONF_PAGE_BANNER' => htmlspecialchars($conf['page_banner']),
-        'CONF_GALLERY_URL' => $conf['gallery_url'],
         'week_starts_on_options' => array(
           'sunday' => $lang['day'][0],
           'monday' => $lang['day'][1],

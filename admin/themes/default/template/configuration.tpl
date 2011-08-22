@@ -26,13 +26,6 @@
       </span>
       <textarea rows="5" cols="50" class="description" name="page_banner" id="page_banner">{$main.CONF_PAGE_BANNER}</textarea>
     </li>
-
-    <li>
-      <span class="property">
-        <label for="gallery_url">{'Gallery URL'|@translate}</label>
-      </span>
-      <input type="text" maxlength="255" size="50" name="gallery_url" id="gallery_url" value="{$main.CONF_GALLERY_URL}">
-    </li>
   </ul>
 </fieldset>
 

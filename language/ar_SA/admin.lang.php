@@ -84,7 +84,6 @@ $lang['Email admins when a valid comment is entered'] = 'اعلم المدير �
 $lang['Email admins when a comment requires validation'] = 'اعلم المدير للمصادقة على تعليقات جديدة';
 $lang['Environment'] = 'البيئة';
 $lang['Form'] = 'نموذج';
-$lang['Gallery URL'] = 'عنوان المعرض';
 $lang['Gallery title'] = 'عنوان المعرض';
 $lang['Grant selected groups'] = 'تصريح المجموعه المختارة';
 $lang['Grant selected users'] = 'تصريح المستخدم المختار';

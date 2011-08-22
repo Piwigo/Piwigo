@@ -84,7 +84,6 @@ $lang['Email admins when a valid comment is entered'] = 'שלח מייל למנ�
 $lang['Email admins when a comment requires validation'] = 'שלח מייל למנהל כאשר נדרש אימות לתגובה';
 $lang['Environment'] = 'סביבה';
 $lang['Form'] = 'טופס';
-$lang['Gallery URL'] = 'כתובת הגלריה';
 $lang['Gallery title'] = 'כותרת הגלריה';
 $lang['Grant selected groups'] = 'להעניק לקבוצות שנבחרו';
 $lang['Grant selected users'] = 'להענית למשתמשים שנבחרו';

@@ -84,7 +84,6 @@ $lang['Email admins when a valid comment is entered'] = 'Stuur email naar beheer
 $lang['Email admins when a comment requires validation'] = 'Stuur email naar beheerders wanneer een commantaar validatie nodig heeft';
 $lang['Environment'] = 'Omgeving';
 $lang['Form'] = 'Formulier';
-$lang['Gallery URL'] = 'Galerie URL';
 $lang['Gallery title'] = 'Galerie-titel';
 $lang['Grant selected groups'] = 'Toegang geselecteerde groepen';
 $lang['Grant selected users'] = 'Toegang geselecteerde gebruikers';

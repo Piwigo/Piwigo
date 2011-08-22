@@ -554,6 +554,11 @@ $conf['nb_logs_page'] = 300;
 // |                                 urls                                  |
 // +-----------------------------------------------------------------------+
 
+// gallery_url : you can set a specific URL for the home page of your
+// gallery. This is for very specific use and you don't need to change this
+// setting when move your gallery to a new directory or a new domain name.
+$conf['gallery_url'] = null;
+
 // question_mark_in_urls : the generated urls contain a ? sign. This can be
 // changed to false only if the server translates PATH_INFO variable
 // (depends on the server AcceptPathInfo directive configuration)

@@ -82,7 +82,6 @@ $lang['Email admins when a valid comment is entered'] = 'Yeni yorum eklendiginde
 $lang['Email admins when a comment requires validation'] = 'Yorum onayı oldugunda yöneticiye e-posta gönder';
 $lang['Environment'] = 'Ortam / Çevre';
 $lang['Form'] = 'Biçim';
-$lang['Gallery URL'] = 'Galleri URL';
 $lang['Gallery title'] = 'Galleri Başlığı';
 $lang['Grant selected groups'] = 'Seçilen grupların kabulu';
 $lang['Grant selected users'] = 'Seçilen kullanıcıların kabulu';

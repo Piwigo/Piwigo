@@ -84,7 +84,6 @@ $lang['Email admins when a valid comment is entered'] = 'Сообщать адм
 $lang['Email admins when a comment requires validation'] = 'Сообщать администратору когда появился комментарий для проверки';
 $lang['Environment'] = 'Окружение';
 $lang['Form'] = 'Действия';
-$lang['Gallery URL'] = 'Адрес галереи';
 $lang['Gallery title'] = 'Название галереи';
 $lang['Grant selected groups'] = 'Разрешить доступ выбранным группам';
 $lang['Grant selected users'] = 'Разрешить доступ выбранным пользователям';

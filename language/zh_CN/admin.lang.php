@@ -84,7 +84,6 @@ $lang['Email admins when a valid comment is entered'] = '当用户发表评论�
 $lang['Email admins when a comment requires validation'] = '当用户要求确认他的评论时通知管理员';
 $lang['Environment'] = '环境';
 $lang['Form'] = '表单';
-$lang['Gallery URL'] = '图库URL';
 $lang['Gallery title'] = '图库标题';
 $lang['Grant selected groups'] = '对所选组授权';
 $lang['Grant selected users'] = '对所选用户授权';

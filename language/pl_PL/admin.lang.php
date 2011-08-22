@@ -84,7 +84,6 @@ $lang['Email admins when a valid comment is entered'] = 'Wyślij wiadomość do 
 $lang['Email admins when a comment requires validation'] = 'Wyślij wiadomość do administratora gdy komentarz wymaga weryfikacji';
 $lang['Environment'] = 'Środowisko';
 $lang['Form'] = 'Formularz';
-$lang['Gallery URL'] = 'Adres URL galerii';
 $lang['Gallery title'] = 'Tytuł galerii';
 $lang['Grant selected groups'] = 'Zezwól zaznaczonym grypom';
 $lang['Grant selected users'] = 'Zezwól zaznaczonym użytkownikom';

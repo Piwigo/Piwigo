@@ -83,7 +83,6 @@ $lang['Email admins when a valid comment is entered'] = 'Anunță administratori
 $lang['Email admins when a comment requires validation'] = 'Anunță administratorii atunci cînd un comentariu necesită validare';
 $lang['Environment'] = 'Mediul';
 $lang['Form'] = 'Formular';
-$lang['Gallery URL'] = 'URL-ul galeriei';
 $lang['Gallery title'] = 'Titlul galeriei';
 $lang['Grant selected groups'] = 'Asigură accesul la grupurile selectate';
 $lang['Grant selected users'] = 'Asigură accesul la utilizatorii selectați';

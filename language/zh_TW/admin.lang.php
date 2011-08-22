@@ -84,7 +84,6 @@ $lang['Email admins when a valid comment is entered'] = '當用戶發表評論�
 $lang['Email admins when a comment requires validation'] = '當用戶要求確認他的評論時通知管理員';
 $lang['Environment'] = '環境';
 $lang['Form'] = '表單';
-$lang['Gallery URL'] = '圖庫URL';
 $lang['Gallery title'] = '圖庫標題';
 $lang['Grant selected groups'] = '對所選組授權';
 $lang['Grant selected users'] = '對所選用戶授權';

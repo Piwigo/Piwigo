@@ -84,7 +84,6 @@ $lang['Email admins when a valid comment is entered'] = 'Sänd mail till admin n
 $lang['Email admins when a comment requires validation'] = 'Sänd mail till admin när en kommentar väntar på godkännande';
 $lang['Environment'] = 'Miljö';
 $lang['Form'] = 'Formulär';
-$lang['Gallery URL'] = 'Galleri URL';
 $lang['Gallery title'] = 'Galleri titel';
 $lang['Grant selected groups'] = 'Tillåt markerade grupper';
 $lang['Grant selected users'] = 'Tillåt markerade användare';

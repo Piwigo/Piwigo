@@ -84,7 +84,6 @@ $lang['Email admins when a valid comment is entered'] = 'Email-küldés, ha egy 
 $lang['Email admins when a comment requires validation'] = 'Email-küldés, ha egy hozzászólás jóváhagyásra vár ';
 $lang['Environment'] = 'Környezet';
 $lang['Form'] = 'Űrlap';
-$lang['Gallery URL'] = 'Galéria URL';
 $lang['Gallery title'] = 'Galéria címe';
 $lang['Grant selected groups'] = 'Kiválasztott csoportok részére jogosultság adása';
 $lang['Grant selected users'] = 'Kiválasztott felhasználók részére jogosultság adása';

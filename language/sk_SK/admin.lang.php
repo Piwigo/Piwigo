@@ -85,7 +85,6 @@ $lang['Email admins when a valid comment is entered'] = 'Poslať e-mail administ
 $lang['Email admins when a comment requires validation'] = 'Poslať e-mail administrátorom pri vložení nového komentára vyžadujúceho schválenie.';
 $lang['Environment'] = 'Prostredie';
 $lang['Form'] = 'Formulár';
-$lang['Gallery URL'] = 'URL galérie';
 $lang['Gallery title'] = 'Názov galérie';
 $lang['Grant selected groups'] = 'Povoliť vybrané skupiny';
 $lang['Grant selected users'] = 'Povoliť vybraných používateľov';

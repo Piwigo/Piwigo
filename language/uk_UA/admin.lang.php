@@ -288,7 +288,6 @@ $lang['Forbidden'] = 'Заборонено';
 $lang['Form'] = 'Форма';
 $lang['FTP + Synchronization'] = 'FTP + Синхронізація';
 $lang['Gallery title'] = 'Заголовок галереї';
-$lang['Gallery URL'] = 'URL галереї';
 $lang['GD library is missing'] = 'GD бібліотека відсутня';
 $lang['GD version'] = 'GD версія';
 $lang['General statistics'] = 'Загальна статистика';

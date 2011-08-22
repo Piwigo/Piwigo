@@ -82,7 +82,6 @@ $lang['Email admins when a valid comment is entered'] = 'Paziņot adminam, kad d
 $lang['Email admins when a comment requires validation'] = 'Paziņot adminam, kad parādījies komentārs, kas jāpārbauda';
 $lang['Environment'] = 'Vide';
 $lang['Form'] = 'Forma';
-$lang['Gallery URL'] = 'Galerijas URL';
 $lang['Gallery title'] = 'Galerijas nosaukums';
 $lang['Grant selected groups'] = 'Atļaut piekļuvi izvēlētām grupām';
 $lang['Grant selected users'] = 'Atļaut piekļuvi izvēlētajiem lietotājiem';

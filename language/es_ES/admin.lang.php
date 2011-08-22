@@ -84,7 +84,6 @@ $lang['Email admins when a valid comment is entered'] = 'Notificar a los adminis
 $lang['Email admins when a comment requires validation'] = 'Notificar a los administradores cuando un comentario requiere su validación';
 $lang['Environment'] = 'Entorno';
 $lang['Form'] = 'Formulario';
-$lang['Gallery URL'] = 'URL de la galería';
 $lang['Gallery title'] = 'Título de la galería';
 $lang['Grant selected groups'] = 'Dar el acceso a los grupos seleccionados';
 $lang['Grant selected users'] = 'Darles el acceso a los usuarios seleccionados';

@@ -84,7 +84,6 @@ $lang['Email admins when a valid comment is entered'] = 'E-mail administratorima
 $lang['Email admins when a comment requires validation'] = 'Email administratorima kada komentar treba overu';
 $lang['Environment'] = 'Okruženje';
 $lang['Form'] = 'Oblik';
-$lang['Gallery URL'] = 'URL Galerije';
 $lang['Gallery title'] = 'Naziv galerije';
 $lang['Grant selected groups'] = 'Ovlasti odabrane grupe';
 $lang['Grant selected users'] = 'Ovlasti odabrane korisnike';

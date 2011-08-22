@@ -84,7 +84,6 @@ $lang['Email admins when a valid comment is entered'] = 'Gởi email cho quản 
 $lang['Email admins when a comment requires validation'] = 'Gởi email cho quản trị khi có một mời bình cần được xác nhận';
 $lang['Environment'] = 'Môi trường';
 $lang['Form'] = 'Form';
-$lang['Gallery URL'] = 'Địa chỉ website của gallery';
 $lang['Gallery title'] = 'Tiêu đề của gallery';
 $lang['Grant selected groups'] = 'Cấp cho các nhóm đã chọn';
 $lang['Grant selected users'] = 'Cấp cho các thành viên đã chọn';

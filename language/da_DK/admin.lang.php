@@ -86,7 +86,6 @@ $lang['Email admins when a valid comment is entered']     =     'Email admins n�
 $lang['Email admins when a comment requires validation']     =     'Email admins, når en kommentar kræver validering';
 $lang['Environment']     =     'Miljø';
 $lang['Form']     =     'Form';
-$lang['Gallery URL']     =     'Gallery URL';
 $lang['Gallery title']     =     'Gallery titel';
 $lang['Grant selected groups']     =     'Tildel valgte grupper';
 $lang['Grant selected users']     =     'Tildel valgte brugere';

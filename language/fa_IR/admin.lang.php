@@ -86,7 +86,6 @@ $lang['Email admins when a valid comment is entered'] = "ارسال ايميل �
 $lang['Email admins when a comment requires validation'] = "ارسال ايميل به مديران زماني که يک نظر نياز به تاييد دارد";
 $lang['Environment'] = "محيط(Environment)";
 $lang['Form'] = "فرم";
-$lang['Gallery URL'] = "URL گالري";
 $lang['Gallery title'] = "عنوان گالري";
 $lang['Grant selected groups'] = "Grant selected groups";
 $lang['Grant selected users'] = "Grant selected users";

@@ -84,7 +84,6 @@ $lang['Email admins when a valid comment is entered'] = 'sende eine Email an den
 $lang['Email admins when a comment requires validation'] = 'sende eine Email an den(die) Adminstrator(en) wenn ein Kommentar die Freischaltung durch den Admin erfordert';
 $lang['Environment'] = 'Server-Daten';
 $lang['Form'] = 'Formular';
-$lang['Gallery URL'] = 'genaue URL zur Gallerie';
 $lang['Gallery title'] = 'Galerietitel';
 $lang['Grant selected groups'] = 'Ausgewählte Gruppen zulassen';
 $lang['Grant selected users'] = 'Ausgewählte Benutzer zulassen';

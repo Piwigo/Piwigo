@@ -297,7 +297,6 @@ $lang['Forbidden'] = "Forbidden";
 $lang['Form'] = "Form";
 $lang['FTP + Synchronization'] = 'FTP + Synchronization';
 $lang['Gallery title'] = "Gallery title";
-$lang['Gallery URL'] = "Gallery URL";
 $lang['GD library is missing'] = "GD library is missing";
 $lang['GD version'] = "GD version";
 $lang['General statistics'] = "General statistics";
