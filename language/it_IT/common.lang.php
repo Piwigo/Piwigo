@@ -35,6 +35,7 @@ $lang_info['direction'] = 'ltr';
 $lang_info['code'] = 'it';
 $lang_info['zero_plural'] = false;
 
+$lang['%.2f (rated %d times)'] = '%.2f (votata %d volte)';
 $lang['%d Kb'] = '%d Ko';
 $lang['%d album updated'] = '%d album aggiornato';
 $lang['%d albums updated'] = '%d album aggiornati';
@@ -56,6 +57,7 @@ $lang['Any tag'] = 'Qualsiasi tag';
 $lang['At least one listed rule must be satisfied.'] = 'Almeno una delle regole elencate deve essere soddisfatta.';
 $lang['At least one tag must match'] = 'Almeno un tag deve corrispondere';
 $lang['Author'] = 'Autore';
+$lang['Average rate'] = 'Voto medio';
 $lang['Albums'] = 'Album';
 $lang['Album'] = 'Album';
 $lang['Close this window'] = 'Chiudi questa finestra';
@@ -102,6 +104,7 @@ $lang['Posted on'] = 'Inviato il';
 $lang['Profile'] = 'Profilo';
 $lang['Quick connect'] = 'Connessione veloce';
 $lang['RSS feed'] = 'Feed RSS';
+$lang['Rate'] = 'Voto';
 $lang['Register'] = 'Registrati';
 $lang['Registration'] = 'Registrazione';
 $lang['Related tags'] = 'Tags correlati';
@@ -354,7 +357,4 @@ $lang['This author removed the comment with id %d'] = 'Questo autore ha cancella
 $lang['delete this comment'] = 'Cancellare questo commento';
 $lang['validate this comment'] = 'Approvare questo commento';
 $lang['html tags are not allowed in login'] = 'I tag HTML non sono ammessi nel login';
-$lang['%d rates'] = '%d voti';
-$lang['Rating score'] = 'Punteggio ottenuto';
-
 ?>

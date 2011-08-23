@@ -845,6 +845,16 @@ $lang['Searching...'] = 'Ricerca ...';
 $lang['new'] = 'nuovo';
 $lang['Default photos order'] = 'Ordinamento di default delle foto';
 $lang['Activate icon "new" next to albums and pictures'] = 'Visualizzare l\'icona "nuovo" a fianco degli album e delle foto';
-$lang['Average rate'] = 'Voto medio';
-$lang['Rate'] = 'Voto';
+$lang['You can\'t define a default photo order because you have a custom setting in your local configuration.'] = 'Non potete impostare l\'ordine predefinito delle foto perché avete un\'impostazione personalizzata nella configurazione locale';
+$lang['You have specified <i>$conf[\'order_by\']</i> in your local configuration file, this parameter in deprecated, please remove it or rename it into <i>$conf[\'order_by_custom\']</i> !'] = 'Avete specificato <i>$conf[\'order_by\']</i> nel vostro file di configurazione, questo parametro è obsoleto, si prega di eliminarlo o rinominarlo in <i>$conf[\'order_by_custom\']</i> !';
+$lang['Add a criteria'] = 'Aggiungere un criterio';
+$lang['... or '] = '... oppure ';
+$lang['Create'] = 'Creare';
+$lang['Start Upload'] = 'Avviare il trasferimento';
+$lang['You are using the Flash uploader. Problems? Try the <a href="%s">Browser uploader</a> instead.'] = 'Uzate il modulo Flash. Dei problemi? Provate allora con il <a href="%s">modulo HTML</a>';
+$lang['You are using the Browser uploader. Try the <a href="%s">Flash uploader</a> instead.'] = 'Uzate il modulo HTML. Provate con il <a href="%s">modulo Flash</a>';
+$lang['Maximum file size: %sB.'] = 'Grandezza massima dei file : %sB.';
+$lang['Allowed file types: %s.'] = 'Tipi di file autorizzati : %s.';
+$lang['Approximate maximum resolution: %dM pixels (that\'s %dx%d pixels).'] = 'Risoluzione massima approssimativa : %dM pixels (sia %dx%d pixels)';
+$lang['Manage Permissions'] = 'Gestire i permessi';
 ?>
