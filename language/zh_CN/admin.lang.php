@@ -834,5 +834,17 @@ $lang['Height'] = '高度';
 $lang['Follow Orientation'] = '按照方向';
 $lang['If you want to regenerate thumbnails, please go to the <a href="%s">Batch Manager</a>.'] = '如果你想重新生成缩略图，请到 <a href="%s">批量管理</a>.';
 $lang['Graphics Library'] = '图形库';
+$lang['Show menubar'] = '显示菜单栏';
+$lang['Updates'] = '更新';
+$lang['Crop'] = '修剪';
+$lang['... or '] = '...或 ';
+$lang['Create'] = '创建';
+$lang['Start Upload'] = '开始上传';
+$lang['You are using the Flash uploader. Problems? Try the <a href="%s">Browser uploader</a> instead.'] = '您在使用Flash上传工具，出问题了?请尝试<a href="%s">网页上传</a>。';
+$lang['You are using the Browser uploader. Try the <a href="%s">Flash uploader</a> instead.'] = '您在使用网页上传方式，出问题了?请尝试<a href="%s">Flash上传工具</a>。';
+$lang['Maximum file size: %sB.'] = '文件最大尺寸: %sB.';
+$lang['Allowed file types: %s.'] = '可上传的文件类型: %s.';
+$lang['Approximate maximum resolution: %dM pixels (that\'s %dx%d pixels).'] = '近乎最大的分辨率: %dM 像素 (that\'s %dx%d pixels).';
+$lang['Manage Permissions'] = '管理证书';
 
 ?>
