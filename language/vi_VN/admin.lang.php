@@ -839,4 +839,13 @@ $lang['You can\'t define a default photo order because you have a custom setting
 $lang['You have specified <i>$conf[\'order_by\']</i> in your local configuration file, this parameter in deprecated, please remove it or rename it into <i>$conf[\'order_by_custom\']</i> !'] = 'Bạn đã định ra <i>$conf[\'order_by\']</i> trong tệp tin cấu hình cục bộ của bạn, tham số này không được chấp nhận, hãy xóa bỏ hoặc đổi tên trong mục <i>$conf[\'order_by_custom\']</i> !';
 $lang['Average rate'] = 'Xếp hạng trung bình';
 $lang['Rate'] = 'Xếp hạng';
+$lang['... or '] = '... hoặc ';
+$lang['Create'] = 'Khởi tạo';
+$lang['Start Upload'] = 'Bắt đầu Tải lên';
+$lang['You are using the Flash uploader. Problems? Try the <a href="%s">Browser uploader</a> instead.'] = 'Bạn hiện đang dùng Flash Uploader. Nếu có trục trặc? Thì dùng <a href="%s">Web Uploader</a> thay thế.';
+$lang['You are using the Browser uploader. Try the <a href="%s">Flash uploader</a> instead.'] = 'Bạn hiện đang dùng Browser uploader. Hãy dùng <a href="%s">Flash uploader</a> thay thế.';
+$lang['Maximum file size: %sB.'] = 'Kích thước file lớn nhất: %sB.';
+$lang['Allowed file types: %s.'] = 'Loại file cho phép dùng: %s.';
+$lang['Approximate maximum resolution: %dM pixels (that\'s %dx%d pixels).'] = 'Độ phân giải lớn nhất ước chừng: %dM pixels (đó là %dx%d pixels).';
+$lang['Manage Permissions'] = 'Quản lý Quyền Hạn';
 ?>
