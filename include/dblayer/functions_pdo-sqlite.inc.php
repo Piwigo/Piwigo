@@ -315,30 +315,32 @@ UPDATE '.$tablename.'
 }
 
 /**
- * updates on line in a table
+ * updates one line in a table
  *
  * @param string table_name
- * @param array dbfields
- * @param array data
+ * @param array set_fields
+ * @param array where_fields
  * @param int flags - if MASS_UPDATES_SKIP_EMPTY - empty values do not overwrite existing ones
  * @return void
  */
-function single_update($tablename, $dbfields, $data, $flags=0)
+function single_update($tablename, $set_fields, $where_fields, $flags=0)
 {
-  if (count($data) == 0)
+  if (count($set_fields) == 0)
+  {
     return;
+  }
 
   $query = '
 UPDATE '.$tablename.'
   SET ';
   $is_first = true;
-  foreach ($dbfields['update'] as $key)
+  foreach ($set_fields as $key => $value)
   {
     $separator = $is_first ? '' : ",\n    ";
-    
-    if (isset($data[$key]) and $data[$key] != '')
+
+    if (isset($value) and $value != '')
     {
-      $query.= $separator.$key.' = \''.$data[$key].'\'';
+      $query.= $separator.$key.' = \''.$value.'\'';
     }
     else
     {
@@ -353,15 +355,15 @@ UPDATE '.$tablename.'
     $query.= '
   WHERE ';
     $is_first = true;
-    foreach ($dbfields['primary'] as $key)
+    foreach ($where_fields as $key => $value)
     {
       if (!$is_first)
       {
         $query.= ' AND ';
       }
-      if ( isset($data[$key]) )
+      if ( isset($value) )
       {
-        $query.= $key.' = \''.$data[$key].'\'';
+        $query.= $key.' = \''.$value.'\'';
       }
       else
       {
@@ -372,7 +374,6 @@ UPDATE '.$tablename.'
     pwg_query($query);
   }
 }
-
 
 /**
  * inserts multiple lines in a table
@@ -445,29 +446,35 @@ INSERT INTO '.$table_name.'
  * @param array insert
  * @return void
  */
-function single_insert($table_name, $dbfields, $insert)
+function single_insert($table_name, $data)
 {
-  if (count($insert) != 0)
+  if (count($data) != 0)
   {
     $query = '
 INSERT INTO '.$table_name.'
-  ('.implode(',', $dbfields).')
+  ('.implode(',', array_keys($data)).')
   VALUES';
 
     $query .= '(';
-    foreach ($dbfields as $field_id => $dbfield)
+    $is_first = true;
+    foreach ($data as $key => $value)
     {
-      if ($field_id > 0)
+      if (!$is_first)
       {
         $query .= ',';
       }
-      if (!isset($insert[$dbfield]) or $insert[$dbfield] === '')
+      else
+      {
+        $is_first = false;
+      }
+      
+      if ($value === '')
       {
         $query .= 'NULL';
       }
       else
       {
-        $query .= "'".$insert[$dbfield]."'";
+        $query .= "'".$value."'";
       }
     }
     $query .= ')';
