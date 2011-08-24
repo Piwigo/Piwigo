@@ -787,3 +787,28 @@ LEGEND {
 #piwigoAbout {width:600px;margin:0 auto;}
 #linkToPiwigo {text-align:center;}
 
+.message {
+  background-color: lightyellow;
+  color:#333;
+  /* margin: 0.5em 1em 0.5em 1em; */
+  margin-bottom:1em;
+  padding: 12px;
+  -moz-border-radius: 3px;
+  -khtml-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+}
+
+#thePasswordPage form#lostPassword {
+  padding: 1em;
+}
+
+#thePasswordPage form#lostPassword p {
+  text-align: left;
+  margin: 0 0 1em 0;
+  line-height: 1.5em;
+}
+
+#thePasswordPage form#lostPassword p.bottomButtons {
+  margin-top:2em;
+}

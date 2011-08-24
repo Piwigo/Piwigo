@@ -480,6 +480,7 @@ CREATE TABLE piwigo_user_infos
   "registration_date" TIMESTAMP NOT NULL,
   "enabled_high" BOOLEAN default true,
   "level" INTEGER default 0 NOT NULL,
+  "activation_key" CHAR(20) default NULL,
   PRIMARY KEY ("user_id"),
   CONSTRAINT "user_infos_ui1" UNIQUE ("user_id")
 );

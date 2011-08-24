@@ -32,10 +32,213 @@ include_once(PHPWG_ROOT_PATH.'include/functions_mail.inc.php');
 // +-----------------------------------------------------------------------+
 // | Check Access and exit when user status is not ok                      |
 // +-----------------------------------------------------------------------+
+
 check_status(ACCESS_FREE);
 
 // +-----------------------------------------------------------------------+
-// |                          send a new password                          |
+// | Functions                                                             |
+// +-----------------------------------------------------------------------+
+
+/**
+ * checks the validity of input parameters, fills $page['errors'] and
+ * $page['infos'] and send an email with confirmation link
+ *
+ * @return bool (true if email was sent, false otherwise)
+ */
+function process_password_request()
+{
+  global $page, $conf;
+  
+  if (empty($_POST['username_or_email']))
+  {
+    array_push($page['errors'], l10n('Enter a username or email address'));
+    return false;
+  }
+  
+  $user_id = get_userid_by_email($_POST['username_or_email']);
+    
+  if (!is_numeric($user_id))
+  {
+    $user_id = get_userid($_POST['username_or_email']);
+  }
+
+  if (!is_numeric($user_id))
+  {
+    array_push($page['errors'], l10n('Invalid username or email'));
+    return false;
+  }
+
+  $userdata = getuserdata($user_id, false);
+
+  // password request is not possible for guest/generic users
+  $status = $userdata['status'];
+  if (is_a_guest($status) or is_generic($status))
+  {
+    array_push($page['errors'], l10n('Password reset is not allowed for this user'));
+    return false;
+  }
+
+  if (empty($userdata['email']))
+  {
+    array_push(
+      $page['errors'],
+      sprintf(
+        l10n('User "%s" has no email address, password reset is not possible'),
+        $userdata['username']
+        )
+      );
+    return false;
+  }
+
+  if (empty($userdata['activation_key']))
+  {
+    $activation_key = get_user_activation_key();
+
+    single_update(
+      USER_INFOS_TABLE,
+      array('activation_key' => $activation_key),
+      array('user_id' => $user_id)
+      );
+
+    $userdata['activation_key'] = $activation_key;
+  }
+
+  set_make_full_url();
+  
+  $message = l10n('Someone requested that the password be reset for the following user account:') . "\r\n\r\n";
+  $message.= sprintf(
+    l10n('Username "%s" on gallery %s'),
+    $userdata['username'],
+    get_gallery_home_url()
+    );
+  $message.= "\r\n\r\n";
+  $message.= l10n('To reset your password, visit the following address:') . "\r\n";
+  $message.= get_gallery_home_url().'/password.php?key='.$userdata['activation_key']."\r\n\r\n";
+  $message.= l10n('If this was a mistake, just ignore this email and nothing will happen.')."\r\n";
+
+  unset_make_full_url();
+
+  $message = trigger_event('render_lost_password_mail_content', $message);
+
+  $email_params = array(
+    'subject' => '['.$conf['gallery_title'].'] '.l10n('Password Reset'),
+    'content' => $message,
+    'email_format' => 'text/plain',
+    );
+
+  if (pwg_mail($userdata['email'], $email_params))
+  {
+    array_push($page['infos'], l10n('Check your email for the confirmation link'));
+    return true;
+  }
+  else
+  {
+    array_push($page['errors'], l10n('Error sending email'));
+    return false;
+  }
+}
+
+/**
+ *  checks the activation key: does it match the expected pattern? is it
+ *  linked to a user? is this user allowed to reset his password?
+ *
+ * @return mixed (user_id if OK, false otherwise)
+ */
+function check_password_reset_key($key)
+{
+  global $page;
+  
+  if (!preg_match('/^[a-z0-9]{20}$/i', $key))
+  {
+    array_push($page['errors'], l10n('Invalid key'));
+    return false;
+  }
+
+  $query = '
+SELECT
+    user_id,
+    status
+  FROM '.USER_INFOS_TABLE.'
+  WHERE activation_key = \''.$key.'\'
+;';
+  $result = pwg_query($query);
+
+  if (pwg_db_num_rows($result) == 0)
+  {
+    array_push($page['errors'], l10n('Invalid key'));
+    return false;
+  }
+  
+  $userdata = pwg_db_fetch_assoc($result);
+
+  if (is_a_guest($userdata['status']) or is_generic($userdata['status']))
+  {
+    array_push($page['errors'], l10n('Password reset is not allowed for this user'));
+    return false;
+  }
+
+  return $userdata['user_id'];
+}
+
+/**
+ * checks the passwords, checks that user is allowed to reset his password,
+ * update password, fills $page['errors'] and $page['infos'].
+ *
+ * @return bool (true if password was reset, false otherwise)
+ */
+function reset_password()
+{
+  global $page, $user, $conf;
+
+  if ($_POST['use_new_pwd'] != $_POST['passwordConf'])
+  {
+    array_push($page['errors'], l10n('The passwords do not match'));
+    return false;
+  }
+
+  if (isset($_GET['key']))
+  {
+    $user_id = check_password_reset_key($_GET['key']);
+    if (!is_numeric($user_id))
+    {
+      array_push($page['errors'], l10n('Invalid key'));
+      return false;
+    }
+  }
+  else
+  {
+    // we check the currently logged in user
+    if (is_a_guest() or is_generic())
+    {
+      array_push($page['errors'], l10n('Password reset is not allowed for this user'));
+      return false;
+    }
+
+    $user_id = $user['id'];
+  }
+    
+  single_update(
+    USERS_TABLE,
+    array($conf['user_fields']['password'] => $conf['pass_convert']($_POST['use_new_pwd'])),
+    array($conf['user_fields']['id'] => $user_id)
+    );
+
+  array_push($page['infos'], l10n('Your password has been reset'));
+
+  if (isset($_GET['key']))
+  {
+    array_push($page['infos'], '<a href="'.get_root_url().'identification.php">'.l10n('Login').'</a>');
+  }
+  else
+  {
+    array_push($page['infos'], '<a href="'.get_gallery_home_url().'">'.l10n('Return to home page').'</a>');
+  }
+
+  return true;
+}
+
+// +-----------------------------------------------------------------------+
+// | Process form                                                          |
 // +-----------------------------------------------------------------------+
 
 $page['errors'] = array();
@@ -43,113 +246,109 @@ $page['infos'] = array();
 
 if (isset($_POST['submit']))
 {
-  $mailto =
-    '<a href="mailto:'.get_webmaster_mail_address().'">'
-    .l10n('Contact webmaster')
-    .'</a>'
-    ;
-
-  if (isset($_POST['no_mail_address']) and $_POST['no_mail_address'] == 1)
+  check_pwg_token();
+  
+  if ('lost' == $_GET['action'])
   {
-    array_push($page['infos'], l10n('Email address is missing. Please specify an email address.'));
-    array_push($page['infos'], $mailto);
-  }
-  else if (isset($_POST['mail_address']) and !empty($_POST['mail_address']))
-  {
-    $mail_address = pwg_db_real_escape_string($_POST['mail_address']);
-    
-    $query = '
-SELECT '.$conf['user_fields']['id'].' AS id
-     , '.$conf['user_fields']['username'].' AS username
-     , '.$conf['user_fields']['email'].' AS email
-FROM '.USERS_TABLE.' as u
-  INNER JOIN '.USER_INFOS_TABLE.' AS ui
-      ON u.'.$conf['user_fields']['id'].' = ui.user_id
-WHERE '.$conf['user_fields']['email'].' = \''.$mail_address.'\'
-  AND ui.status = \'normal\'
-;';
-    $result = pwg_query($query);
-
-    if (pwg_db_num_rows($result) > 0)
+    if (process_password_request())
     {
-      $error_on_mail = false;
-      $datas = array();
-      
-      while ($row = pwg_db_fetch_assoc($result))
-      {
-        $new_password = generate_key(6);
-
-        $infos =
-          l10n('Username').': '.stripslashes($row['username'])
-          ."\n".l10n('Password').': '.$new_password
-          ;
-
-        $infos = trigger_event('render_lost_password_mail_content', $infos);
-
-        if (pwg_mail($row['email'],
-              array('subject' => l10n('password updated'), 'content' => $infos)))
-        {
-          $data =
-            array(
-              $conf['user_fields']['id']
-              => $row['id'],
-              
-              $conf['user_fields']['password']
-              => $conf['pass_convert']($new_password)
-              );
-
-          array_push($datas, $data);
-        }
-        else
-        {
-          $error_on_mail = true;
-        }
-      }
-      
-      if ($error_on_mail)
-      {
-        array_push($page['errors'], l10n('Error sending email'));
-        array_push($page['errors'], $mailto);
-      }
-      else
-      {
-        include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
-        mass_updates(
-          USERS_TABLE,
-          array(
-            'primary' => array($conf['user_fields']['id']),
-            'update' => array($conf['user_fields']['password'])
-          ),
-          $datas
-          );
-
-        array_push($page['infos'], l10n('New password sent by email'));
-      }
+      $page['action'] = 'none';
     }
-    else
+  }
+
+  if ('reset' == $_GET['action'])
+  {
+    if (reset_password())
     {
-      array_push($page['errors'], l10n('No classic user matches this email address'));
-      array_push($page['errors'], l10n('Administrator, webmaster and special user cannot use this method'));
-      array_push($page['errors'], $mailto);
+      $page['action'] = 'none';
     }
   }
 }
 
 // +-----------------------------------------------------------------------+
-// |                        template initialization                        |
+// | key and action                                                        |
 // +-----------------------------------------------------------------------+
 
-$title = l10n('Forgot your password?');
+// a connected user can't reset the password from a mail
+if (isset($_GET['key']) and !is_a_guest())
+{
+  unset($_GET['key']);
+}
+
+if (isset($_GET['key']))
+{
+  $user_id = check_password_reset_key($_GET['key']);
+  if (is_numeric($user_id))
+  {
+    $userdata = getuserdata($user_id, false);
+    $page['username'] = $userdata['username'];
+    $template->assign('key', $_GET['key']);
+
+    if (!isset($page['action']))
+    {
+      $page['action'] = 'reset';
+    }
+  }
+  else
+  {
+    $page['action'] = 'none';
+  }
+}
+
+if (!isset($page['action']))
+{
+  if (!isset($_GET['action']))
+  {
+    $page['action'] = 'lost';
+  }
+  elseif (in_array($_GET['action'], array('lost', 'reset', 'none')))
+  {
+    $page['action'] = $_GET['action'];
+  }
+}
+
+if ('reset' == $page['action'] and !isset($_GET['key']) and (is_a_guest() or is_generic()))
+{
+  redirect(get_gallery_home_url());
+}
+
+if ('lost' == $page['action'] and !is_a_guest())
+{
+  redirect(get_gallery_home_url());
+}
+
+// +-----------------------------------------------------------------------+
+// | template initialization                                               |
+// +-----------------------------------------------------------------------+
+
+$title = l10n('Reset Password');
+if ('lost' == $page['action'])
+{
+  $title = l10n('Forgot your password?');
+
+  if (isset($_POST['username_or_email']))
+  {
+    $template->assign('username_or_email', stripslashes($_POST['username_or_email']));
+  }
+}
+
 $page['body_id'] = 'thePasswordPage';
 
 $template->set_filenames(array('password'=>'password.tpl'));
-$template->assign( array(
-    'F_ACTION'=> get_root_url().'password.php'
+$template->assign(
+  array(
+    'title' => $title,
+    'form_action'=> get_root_url().'password.php',
+    'action' => $page['action'],
+    'username' => isset($page['username']) ? $page['username'] : $user['username'],
+    'PWG_TOKEN' => get_pwg_token(),
     )
   );
+
 // +-----------------------------------------------------------------------+
 // |                        infos & errors display                         |
 // +-----------------------------------------------------------------------+
+
 $template->assign('errors', $page['errors']);
 $template->assign('infos', $page['infos']);
 
@@ -163,6 +362,7 @@ if (!isset($themeconf['hide_menu_on']) OR !in_array('thePasswordPage', $themecon
 // +-----------------------------------------------------------------------+
 // |                           html code display                           |
 // +-----------------------------------------------------------------------+
+
 include(PHPWG_ROOT_PATH.'include/page_header.php');
 $template->pparse('password');
 include(PHPWG_ROOT_PATH.'include/page_tail.php');

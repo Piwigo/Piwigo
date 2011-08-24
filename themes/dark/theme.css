@@ -75,3 +75,7 @@ A:hover .pwg-icon {
 	background-image: url(../default/s26/outline_ffff80.png);
 }
 
+.message {
+  color:white;
+  background-color:#666;
+}

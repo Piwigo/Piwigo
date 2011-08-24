@@ -798,6 +798,31 @@ SELECT '.$conf['user_fields']['id'].'
   }
 }
 
+function get_userid_by_email($email)
+{
+  global $conf;
+
+  $email = pwg_db_real_escape_string($email);
+  
+  $query = '
+SELECT
+    '.$conf['user_fields']['id'].'
+  FROM '.USERS_TABLE.'
+  WHERE UPPER('.$conf['user_fields']['email'].') = UPPER(\''.$email.'\')
+;';
+  $result = pwg_query($query);
+
+  if (pwg_db_num_rows($result) == 0)
+  {
+    return false;
+  }
+  else
+  {
+    list($user_id) = pwg_db_fetch_row($result);
+    return $user_id;
+  }
+}
+
 /**
  * search an available feed_id
  *
@@ -1470,6 +1495,29 @@ function get_sql_condition_FandF(
   }
 
   return $sql;
+}
+
+/**
+ * search an available activation_key
+ *
+ * @return string
+ */
+function get_user_activation_key()
+{
+  while (true)
+  {
+    $key = generate_key(20);
+    $query = '
+SELECT COUNT(*)
+  FROM '.USER_INFOS_TABLE.'
+  WHERE activation_key = \''.$key.'\'
+;';
+    list($count) = pwg_db_fetch_row(pwg_query($query));
+    if (0 == $count)
+    {
+      return $key;
+    }
+  }
 }
 
 ?>

@@ -417,6 +417,7 @@ CREATE TABLE `piwigo_user_infos` (
   `registration_date` datetime NOT NULL default '0000-00-00 00:00:00',
   `enabled_high` enum('true','false') NOT NULL default 'true',
   `level` tinyint unsigned NOT NULL default '0',
+  `activation_key` char(20) default NULL,
   UNIQUE KEY `user_infos_ui1` (`user_id`)
 ) ENGINE=MyISAM;
 

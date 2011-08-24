@@ -463,3 +463,8 @@ tr.tagLine, fieldset.tagLetter, legend.tagLetterLegend {
 A:hover .pwg-icon {
 	background-image: url(../default/s26/outline_ff7700.png);
 }
+
+.message {
+  color:white;
+  background-color:#666;
+}

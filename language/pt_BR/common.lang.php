@@ -92,9 +92,6 @@ $lang['Links'] = 'Links';
 $lang['N/A'] = 'Não disponível';
 $lang['New on %s'] = 'Novo em %s';
 $lang['New password confirmation does not correspond'] = 'Erro na confirmação da senha';
-$lang['New password sent by email'] = 'Nova senha enviada por email';
-$lang['No email address'] = 'Falta o endereço de email';
-$lang['No classic user matches this email address'] = 'O endereço de email não corresponde a usário algum';
 $lang['Notification'] = 'Notificação';
 $lang['Number of items'] = 'Número de itens';
 $lang['Original dimensions'] = 'Dimensão original';
@@ -115,7 +112,6 @@ $lang['Search rules'] = 'Critérios de busca';
 $lang['Search tags'] = 'Pesquisar as tags';
 $lang['Search'] = 'Pesquisa';
 $lang['display available tags'] = 'Ver as tags disponíveis';
-$lang['Send new password'] = 'Enviar a nova senha';
 $lang['Since'] = 'Desde ';
 $lang['Sort by'] = 'Listado por';
 $lang['Sort order'] = 'Ordem de exibição';
@@ -314,7 +310,6 @@ $lang['Picture uploaded by %s'] = 'Imagem enviada por %s';
 // --------- Starting below: New or revised $lang ---- from version 1.7.1
 $lang['Bad status for user "guest", using default status. Please notify the webmaster.'] = 'Status ruim para o usuário "guest", será usado status padrão. Por favor, avise o administrador do site.';
 // --------- Starting below: New or revised $lang ---- from Butterfly (2.0)
-$lang['Administrator, webmaster and special user cannot use this method'] = 'Administrador, webmaster e utilizador especial não podem utilizar este método';
 $lang['this email address is already in use'] = 'um outro usuário já utiliza este email';
 $lang['Album results for'] = 'Resultados da categoria para';
 $lang['Tag results for'] = 'Resultados da tag para';
