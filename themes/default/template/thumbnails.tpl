@@ -4,10 +4,10 @@
 	<span class="wrap1">
 		<span class="wrap2">
 		<a href="{$thumbnail.URL}">
-			<img class="thumbnail" src="{$thumbnail.TN_SRC}" alt="{$thumbnail.TN_ALT}" title="{if isset($thumbnail.NAME)}{$thumbnail.NAME|@replace:'"':' '}{else}{$thumbnail.TN_TITLE}{/if}">
+			<img class="thumbnail" src="{$thumbnail.TN_SRC}" alt="{$thumbnail.TN_ALT}" title="{$thumbnail.TN_TITLE}">
 		</a>
 		</span>
-    {if $SHOW_THUMBNAIL_CAPTION }
+		{if $SHOW_THUMBNAIL_CAPTION }
 		<span class="thumbLegend">
 		{$thumbnail.NAME}
 		{if !empty($thumbnail.icon_ts)}
@@ -27,7 +27,7 @@
 		</span>
 		{/if}
 		</span>
-    {/if}
+		{/if}
 	</span>
 	</li>
 {/foreach}{/strip}
