@@ -104,6 +104,11 @@ foreach ($pictures as $row)
         array('start')
       );
 
+  if (isset($nb_comments_of) )
+  {
+    $row['nb_comments'] = (int)@$nb_comments_of[$row['id']];
+  }
+
   $tpl_var =
     array(
       'ID'        => $row['id'],
@@ -166,9 +171,9 @@ foreach ($pictures as $row)
   
   $tpl_var['NAME'] = $name;
 
-  if ( isset($nb_comments_of) )
+  if (isset($row['nb_comments']))
   {
-    $tpl_var['NB_COMMENTS'] = (int)@$nb_comments_of[$row['id']];
+    $tpl_var['NB_COMMENTS'] = $row['nb_comments'];
   }
 
   $tpl_thumbnails_var[] = $tpl_var;

@@ -782,25 +782,47 @@ function get_thumbnail_location($element_info)
   return $path;
 }
 
-/* returns the title of the thumnail */
-function get_thumbnail_title($element_info)
+/**
+ * returns the title of the thumbnail based on photo properties
+ */
+function get_thumbnail_title($info)
 {
-  // message in title for the thumbnail
-  if (isset($element_info['file']))
+  global $conf, $user;
+
+  $title = get_picture_title($info);
+
+  $details = array();
+
+  if ($info['hit'] != 0)
   {
-    $thumbnail_title = $element_info['file'];
-  }
-  else
-  {
-    $thumbnail_title = '';
+    $details[] = $info['hit'].' '.strtolower(l10n('Visits'));
   }
 
-  if (!empty($element_info['filesize']))
+  if ($conf['rate'] and !empty($info['rating_score']))
   {
-    $thumbnail_title .= ' : '.sprintf(l10n('%d Kb'), $element_info['filesize']);
+    $details[] = strtolower(l10n('Rating score')).' '.$info['rating_score'];
   }
 
-  return $thumbnail_title;
+  if (isset($info['nb_comments']) and $info['nb_comments'] != 0)
+  {
+    $details[] = l10n_dec('%d comment', '%d comments', $info['nb_comments']);
+  }
+
+  if (count($details) > 0)
+  {
+    $title.= ' ('.implode(', ', $details).')';
+  }
+
+  if (!empty($info['comment']))
+  {
+    $title.= ' '.$info['comment'];
+  }
+
+  $title = strip_tags($title);
+
+  $title = trigger_event('get_thumbnail_title', $title, $info);
+
+  return $title;
 }
 
 /**
@@ -845,6 +867,18 @@ SELECT element_id
 function get_name_from_file($filename)
 {
   return str_replace('_',' ',get_filename_wo_extension($filename));
+}
+
+/**
+ */
+function get_picture_title($info)
+{
+  if (isset($info['name']) and !empty($info['name']))
+  {
+    return $info['name'];
+  }
+
+  return  get_name_from_file($info['file']);
 }
 
 /**
