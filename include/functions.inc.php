@@ -815,7 +815,7 @@ function get_thumbnail_title($info)
 
   if (!empty($info['comment']))
   {
-    $title.= ' '.$info['comment'];
+    $title.= ' '.substr($info['comment'], 0, 100).'...';
   }
 
   $title = strip_tags($title);
