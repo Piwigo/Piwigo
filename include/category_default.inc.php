@@ -113,7 +113,7 @@ foreach ($pictures as $row)
     array(
       'ID'        => $row['id'],
       'TN_SRC'    => get_thumbnail_url($row),
-      'TN_ALT'    => $row['file'],
+      'TN_ALT'    => htmlspecialchars(strip_tags(get_picture_title($row))),
       'TN_TITLE'  => get_thumbnail_title($row),
       'URL'       => $url,
 
@@ -141,16 +141,7 @@ foreach ($pictures as $row)
     $tpl_var['NB_HITS'] = $row['hit'];
   }
 
-  if (isset($row['name']) and $row['name'] != '')
-  {
-    $name = $row['name'];
-  }
-  else
-  {
-    $name = str_replace('_', ' ', get_filename_wo_extension($row['file']));
-  }
-  
-  $name = trigger_event('render_element_description', $name);
+  $name = trigger_event('render_element_description', get_picture_title($row));
   
   switch ($page['section'])
   {
