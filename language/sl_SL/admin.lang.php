@@ -109,5 +109,20 @@ $lang['Album updated successfully'] = 'Album uspešno popravljen';
 $lang['albums added in the database'] = 'albumi dodani v bazo';
 $lang['Albums automatically sorted'] = 'Albumi so bili avtomaticno sortirani';
 $lang['albums deleted in the database'] = 'albumi odstranjeni iz baze';
+$lang['Access type'] = 'Tip dostopa';
+$lang['Add a user'] = 'Dodaj uporabnika';
+$lang['Add a virtual album'] = 'Dodaj virtualni album';
+$lang['Add another set of photos'] = 'Dodaj nov nabor slik';
+$lang['Add detailed content'] = 'Dodaj vsebino';
+$lang['Add group'] = 'Dodaj skupino';
+$lang['Add New Language'] = 'Dodaj nov jezik';
+$lang['add new photos to caddie'] = 'dodaj nove slike v caddie';
+$lang['Add New Theme'] = 'Dodaj novo temo';
+$lang['Add Photos'] = 'Dodaj slike';
+$lang['add tags'] = 'dodaj oznacbe';
+$lang['Add write access to the "%s" directory'] = 'Dodaj pravico pisanja "%s" imeniku';
+$lang['Add'] = 'Dodaj';
+$lang['Add/delete a permalink'] = 'Dodaj/odstrani povezavo';
+$lang['added'] = 'dodano'; 
 
 ?>
