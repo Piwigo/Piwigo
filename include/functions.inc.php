@@ -818,7 +818,7 @@ function get_thumbnail_title($info)
     $title.= ' '.substr($info['comment'], 0, 100).'...';
   }
 
-  $title = strip_tags($title);
+  $title = htmlspecialchars(strip_tags($title));
 
   $title = trigger_event('get_thumbnail_title', $title, $info);
 
