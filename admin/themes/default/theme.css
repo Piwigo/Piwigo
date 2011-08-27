@@ -1072,3 +1072,7 @@ p#uploadWarnings {display:none;text-align:left;margin-bottom:1em;font-size:90%;c
 p#uploadModeInfos {text-align:left;margin-top:1em;font-size:90%;color:#999;}
 
 #photosAddContent p.showFieldset {text-align:left;margin: 0 auto 10px auto;width: 650px;}
+
+#uploadProgress {width:650px; margin:10px auto;font-size:90%;}
+#progressbar {border:1px solid #ccc; background-color:#eee;}
+.ui-progressbar-value { background-image: url(images/pbar-ani.gif); height:10px;margin:-1px;border:1px solid #E78F08;}

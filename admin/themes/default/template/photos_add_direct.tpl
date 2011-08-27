@@ -1,6 +1,7 @@
 {if $upload_mode eq 'multiple'}
 {combine_script id='jquery.jgrowl' load='footer' require='jquery' path='themes/default/js/plugins/jquery.jgrowl_minimized.js' }
 {combine_script id='jquery.uploadify' load='footer' require='jquery' path='admin/include/uploadify/jquery.uploadify.v3.0.0.min.js' }
+{combine_script id='jquery.ui.progressbar' load='footer'}
 {combine_css path="admin/themes/default/uploadify.jGrowl.css"}
 {combine_css path="admin/include/uploadify/uploadify.css"}
 {/if}
@@ -235,6 +236,21 @@ var sizeLimit = Math.round({$upload_max_filesize} / 1024); /* in KBytes */
       /* Let's display the thumbnail of the uploaded photo, no need to wait the  */
       /* end of the queue                                                        */
       jQuery("#uploadedPhotos").prepend('<img src="'+data.thumbnail_url+'" class="thumbnail"> ');
+    },
+    onUploadComplete: function(file,swfuploadifyQueue) {
+      var max = parseInt(jQuery("#progressMax").text());
+      var next = parseInt(jQuery("#progressCurrent").text())+1;
+      var addToProgressBar = 2;
+      if (next <= max) {
+        jQuery("#progressCurrent").text(next);
+      }
+      else {
+        addToProgressBar = 1;
+      }
+
+      jQuery("#progressbar").progressbar({
+        value: jQuery("#progressbar").progressbar("option", "value") + addToProgressBar
+      });
     }
   });
 
@@ -253,6 +269,13 @@ var sizeLimit = Math.round({$upload_max_filesize} / 1024); /* in KBytes */
         'pwg_token' : pwg_token,
       }
     );
+
+    nb_files = jQuery(".uploadifyQueueItem").size();
+    jQuery("#progressMax").text(nb_files);
+    jQuery("#progressbar").progressbar({max: nb_files*2, value:1});
+    jQuery("#progressCurrent").text(1);
+
+    jQuery("#uploadProgress").show();
 
     jQuery("#uploadify").uploadifyUpload();
   });
@@ -388,12 +411,18 @@ var sizeLimit = Math.round({$upload_max_filesize} / 1024); /* in KBytes */
       <input class="submit" type="submit" name="submit_upload" value="{'Start Upload'|@translate}">
     </p>
 {elseif $upload_mode eq 'multiple'}
-    <p>
+    <p style="margin-bottom:1em">
       <input class="submit" type="button" value="{'Start Upload'|@translate}">
       <input type="submit" name="submit_upload" style="display:none">
     </p>
 {/if}
 </form>
+
+<div id="uploadProgress" style="display:none">
+{'Photo %s of %s'|@translate|@sprintf:'<span id="progressCurrent">1</span>':'<span id="progressMax">10</span>'}
+<br>
+<div id="progressbar"></div>
+</div>
 
 <fieldset style="display:none">
   <legend>{'Uploaded Photos'|@translate}</legend>

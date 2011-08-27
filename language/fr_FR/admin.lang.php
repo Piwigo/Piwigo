@@ -857,4 +857,5 @@ $lang['Maximum file size: %sB.'] = 'Poids maximum des fichiers : %sB.';
 $lang['Allowed file types: %s.'] = 'Types de fichiers autorisés : %s.';
 $lang['Approximate maximum resolution: %dM pixels (that\'s %dx%d pixels).'] = 'Résolution maximum approximative : %dM pixels (soit %dx%d pixels).';
 $lang['Manage Permissions'] = 'Gérer les permissions';
+$lang['Photo %s of %s'] = 'Photo %s sur %s';
 ?>
