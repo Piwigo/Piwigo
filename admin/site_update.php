@@ -312,16 +312,16 @@ SELECT id_uppercat, MAX(rank)+1 AS next_rank
         'visible','status','rank','global_rank'
         );
       mass_inserts(CATEGORIES_TABLE, $dbfields, $inserts);
+      
+      // add default permissions to categories
+      $category_ids = array();
+      foreach ($inserts as $category)
+      {
+        $category_ids[] = $category['id'];
+      }
+      add_permission_on_category($category_ids, get_admins());
     }
-
-    // add default permissions to categories
-    $category_ids = array();
-    foreach ($inserts as $category)
-    {
-      $category_ids[] = $category['id'];
-    }
-    add_permission_on_category($category_ids, get_admins());
-
+    
     $counts['new_categories'] = count($inserts);
   }
 
