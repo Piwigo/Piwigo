@@ -9,10 +9,10 @@ INSERT INTO piwigo_config (param,value,comment) VALUES ('user_can_edit_comment',
 INSERT INTO piwigo_config (param,value,comment) VALUES ('email_admin_on_comment_edition','false','Send an email to the administrators when a comment is modified');
 INSERT INTO piwigo_config (param,value,comment) VALUES ('email_admin_on_comment_deletion','false','Send an email to the administrators when a comment is deleted');
 INSERT INTO piwigo_config (param,value,comment) VALUES ('gallery_locked','false','Lock your gallery temporary for non admin users');
-INSERT INTO piwigo_config (param,value,comment) VALUES ('gallery_title','Piwigo demonstration site','Title at top of each page and for RSS feed');
+INSERT INTO piwigo_config (param,value,comment) VALUES ('gallery_title','','Title at top of each page and for RSS feed');
 INSERT INTO piwigo_config (param,value,comment) VALUES ('rate','true','Rating pictures feature is enabled');
 INSERT INTO piwigo_config (param,value,comment) VALUES ('rate_anonymous','true','Rating pictures feature is also enabled for visitors');
-INSERT INTO piwigo_config (param,value,comment) VALUES ('page_banner','<h1>Piwigo demonstration site</h1><p>My photos web site</p>','html displayed on the top each page of your gallery');
+INSERT INTO piwigo_config (param,value,comment) VALUES ('page_banner','','html displayed on the top each page of your gallery');
 INSERT INTO piwigo_config (param,value,comment) VALUES ('history_admin','false','keep a history of administrator visits on your website');
 INSERT INTO piwigo_config (param,value,comment) VALUES ('history_guest','true','keep a history of guest visits on your website');
 INSERT INTO piwigo_config (param,value,comment) VALUES ('allow_user_registration','true','allow visitors to register?');

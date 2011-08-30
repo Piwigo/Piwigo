@@ -72,4 +72,6 @@ $lang['Download the config file'] = 'Download the config file';
 $lang['You can download the config file and upload it to local/config directory of your installation.'] = 'You can download the config file and upload it to local/config directory of your installation.';
 $lang['SQLite and PostgreSQL are currently in experimental state.'] = 'SQLite and PostgreSQL are currently in experimental state.';
 $lang['Learn more'] = 'Learn more';
+$lang['Just another Piwigo gallery'] = 'Just another Piwigo gallery';
+$lang['Welcome to my photo gallery'] = 'Welcome to my photo gallery';
 ?>

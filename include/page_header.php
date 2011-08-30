@@ -35,9 +35,14 @@ $template->assign(
         $page['gallery_title'] : $conf['gallery_title'],
 
     'PAGE_BANNER' =>
-      trigger_event('render_page_banner',
-        isset($page['page_banner']) ?
-          $page['page_banner'] : $conf['page_banner']),
+      trigger_event(
+        'render_page_banner',
+        str_replace(
+          '%gallery_title%',
+          $conf['gallery_title'],
+          isset($page['page_banner']) ? $page['page_banner'] : $conf['page_banner']
+          )
+        ),
 
     'BODY_ID' =>
       isset($page['body_id']) ?
