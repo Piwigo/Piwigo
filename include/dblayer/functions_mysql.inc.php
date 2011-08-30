@@ -595,7 +595,7 @@ function pwg_db_concat_ws($array, $separator)
 
 function pwg_db_cast_to_text($string)
 {
-  return 'CAST('.$string.' AS CHAR)';
+  return $string;
 }
 
 /**
