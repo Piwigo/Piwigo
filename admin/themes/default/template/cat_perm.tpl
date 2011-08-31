@@ -63,4 +63,5 @@
     <input class="submit" type="submit" name="grant_users_submit" value="{'Grant selected users'|@translate}">
   </fieldset>
 
+<input type="hidden" name="pwg_token" value="{$PWG_TOKEN}">
 </form>

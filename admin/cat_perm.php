@@ -68,7 +68,10 @@ SELECT id
 // +-----------------------------------------------------------------------+
 // |                           form submission                             |
 // +-----------------------------------------------------------------------+
-
+if (isset($_POST['deny_groups_submit']) or isset($_POST['grant_groups_submit']) or isset($_POST['deny_users_submit']) or isset($_POST['grant_users_submit']) )
+{
+  check_pwg_token();
+}
 
 if (isset($_POST['deny_groups_submit'])
          and isset($_POST['deny_groups'])
@@ -287,5 +290,7 @@ $template->assign('user_denied_ids', $user_denied_ids);
 // +-----------------------------------------------------------------------+
 // |                           sending html code                           |
 // +-----------------------------------------------------------------------+
+$template->assign(array('PWG_TOKEN' => get_pwg_token()));
+
 $template->assign_var_from_handle('ADMIN_CONTENT', 'cat_perm');
 ?>
