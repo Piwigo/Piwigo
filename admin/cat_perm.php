@@ -88,10 +88,12 @@ else if (isset($_POST['grant_groups_submit'])
          and isset($_POST['grant_groups'])
          and count($_POST['grant_groups']) > 0)
 {
+  $cat_ids = (isset($_POST['apply_on_sub'])) ? implode(',', get_subcat_ids(array($page['cat']))).",".implode(',', get_uppercat_ids(array($page['cat']))) : implode(',', get_uppercat_ids(array($page['cat'])));
+
   $query = '
 SELECT id
   FROM '.CATEGORIES_TABLE.'
-  WHERE id IN ('.implode(',', get_uppercat_ids(array($page['cat']))).')
+  WHERE id IN ('.$cat_ids.')
   AND status = \'private\'
 ;';
   $private_uppercats = array_from_query($query, 'id');

@@ -25,6 +25,7 @@
       <li><label><input type="checkbox" name="grant_groups[]" value="{$id}"> {$all_groups[$id]}</label></li>
       {/foreach}
     </ul>
+    <label><input type="checkbox" name="apply_on_sub">{'Apply to sub-album'|@translate}</label>
     <input class="submit" type="submit" name="grant_groups_submit" value="{'Grant selected groups'|@translate}">
   </fieldset>
 
