@@ -73,4 +73,6 @@ $lang['Download the config file'] = 'Scaricare il file di configurazione';
 $lang['You can download the config file and upload it to local/config directory of your installation.'] = 'È possibile scaricare il file di configurazione e caricarlo in local/config della vostra installazione di Piwigo.';
 $lang['SQLite and PostgreSQL are currently in experimental state.'] = 'SQLite e PostgreSQL sono attualmente in stato sperimentale.';
 $lang['Learn more'] = 'Per saperne di più';
+$lang['Just another Piwigo gallery'] = 'Una galleria Piwigo in più ';
+$lang['Welcome to my photo gallery'] = 'Benvenuti nella mia galleria fotografica';
 ?>
