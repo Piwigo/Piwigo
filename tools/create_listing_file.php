@@ -27,7 +27,7 @@
 
 // ****** Gallery configuration ****** //
 // Script version
-$conf['version'] = '2.2.5';
+$conf['version'] = '2.2.6';
 
 // URL of main gallery
 // Example : http://www.my.domain/my/directory
