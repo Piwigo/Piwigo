@@ -96,11 +96,11 @@ SELECT id
   WHERE id IN ('.$cat_ids.')
   AND status = \'private\'
 ;';
-  $private_uppercats = array_from_query($query, 'id');
+  $private_cats = array_from_query($query, 'id');
 
   // We must not reinsert already existing lines in group_access table
   $granteds = array();
-  foreach ($private_uppercats as $cat_id)
+  foreach ($private_cats as $cat_id)
   {
     $granteds[$cat_id] = array();
   }
@@ -108,7 +108,7 @@ SELECT id
   $query = '
 SELECT group_id, cat_id
   FROM '.GROUP_ACCESS_TABLE.'
-  WHERE cat_id IN ('.implode(',', $private_uppercats).')
+  WHERE cat_id IN ('.implode(',', $private_cats).')
     AND group_id IN ('.implode(',', $_POST['grant_groups']).')
 ;';
   $result = pwg_query($query);
@@ -119,7 +119,7 @@ SELECT group_id, cat_id
 
   $inserts = array();
   
-  foreach ($private_uppercats as $cat_id)
+  foreach ($private_cats as $cat_id)
   {
     $group_ids = array_diff($_POST['grant_groups'], $granteds[$cat_id]);
     foreach ($group_ids as $group_id)

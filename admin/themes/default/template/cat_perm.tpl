@@ -59,6 +59,7 @@
       <li><label><input type="checkbox" name="grant_users[]" value="{$id}"> {$all_users[$id]}</label></li>
       {/foreach}
     </ul>
+    <label><input type="checkbox" name="apply_on_sub">{'Apply to sub-albums'|@translate}</label>
     <input class="submit" type="submit" name="grant_users_submit" value="{'Grant selected users'|@translate}">
   </fieldset>
 

@@ -2143,24 +2143,25 @@ function add_permission_on_category($category_ids, $user_ids)
     return;
   }
   
-  // make sure categories are private and select uppercats
+  // make sure categories are private and select uppercats or subcats
+  $cat_ids = (isset($_POST['apply_on_sub'])) ? implode(',', get_subcat_ids($category_ids)).",".implode(',', get_uppercat_ids($category_ids)) : implode(',', get_uppercat_ids($category_ids));
   $query = '
 SELECT
     id
   FROM '.CATEGORIES_TABLE.'
-  WHERE id IN ('.implode(',', get_uppercat_ids($category_ids)).')
+  WHERE id IN ('.$cat_ids.')
     AND status = \'private\'
 ;';
-  $private_uppercats = array_from_query($query, 'id');
+  $private_cats = array_from_query($query, 'id');
 
-  if (count($private_uppercats) == 0)
+  if (count($private_cats) == 0)
   {
     return;
   }
   
   // We must not reinsert already existing lines in user_access table
   $granteds = array();
-  foreach ($private_uppercats as $cat_id)
+  foreach ($private_cats as $cat_id)
   {
     $granteds[$cat_id] = array();
   }
@@ -2170,7 +2171,7 @@ SELECT
     user_id,
     cat_id
   FROM '.USER_ACCESS_TABLE.'
-  WHERE cat_id IN ('.implode(',', $private_uppercats).')
+  WHERE cat_id IN ('.implode(',', $private_cats).')
     AND user_id IN ('.implode(',', $user_ids).')
 ;';
   $result = pwg_query($query);
@@ -2181,7 +2182,7 @@ SELECT
 
   $inserts = array();
   
-  foreach ($private_uppercats as $cat_id)
+  foreach ($private_cats as $cat_id)
   {
     $grant_to_users = array_diff($user_ids, $granteds[$cat_id]);
     
