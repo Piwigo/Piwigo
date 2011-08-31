@@ -655,6 +655,11 @@ function redirect( $url , $msg = '', $refresh_time = 0)
  */
 function get_query_string_diff($rejects=array(), $escape=true)
 {
+  if (empty($_SERVER['QUERY_STRING']))
+  {
+    return '';
+  }
+  
   $query_string = '';
 
   $str = $_SERVER['QUERY_STRING'];
