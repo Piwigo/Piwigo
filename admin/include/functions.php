@@ -2061,7 +2061,7 @@ function get_taglist($query)
           );
       }
 
-      $row['tag_name'] = preg_replace('#\[lang=(.*?)\](.*?)\[/lang\]#is', null, $row['tag_name']);
+      $row['name'] = preg_replace('#\[lang=(.*?)\](.*?)\[/lang\]#is', null, $row['name']);
     }
     
     if (strlen($row['name']) > 0)
