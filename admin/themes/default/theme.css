@@ -926,6 +926,7 @@ h2:lang(en) { text-transform:capitalize; }
 
 .warning:before {content:url(icon/warning.png);vertical-align:top;}
 .deactivate_all {text-align:right;font-size:0.95em;}
+.showDetails {text-align:right; margin-bottom:-15px; margin-top:-10px; padding-right:1em;}
 
 .languageBoxes {min-height:0;text-align:left;}
 .languageBox {display:inline-table; text-align:center; width:200px; height:40px; margin:5px; -moz-border-radius:5px;border-radius:5px; overflow:hidden; }
@@ -1076,3 +1077,4 @@ p#uploadModeInfos {text-align:left;margin-top:1em;font-size:90%;color:#999;}
 #uploadProgress {width:650px; margin:10px auto;font-size:90%;}
 #progressbar {border:1px solid #ccc; background-color:#eee;}
 .ui-progressbar-value { background-image: url(images/pbar-ani.gif); height:10px;margin:-1px;border:1px solid #E78F08;}
+

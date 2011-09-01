@@ -790,8 +790,6 @@ $lang['Do you want to activate anyway?'] = 'Voulez-vous l\'activer quand même?'
 $lang['THIS PLUGIN IS NOW PART OF PIWIGO CORE! DELETE IT NOW.'] = 'CE PLUGIN FAIT DÉSORMAIS PARTIE DU CORE DE PIWIGO! SUPPRIMEZ-LE.';
 $lang['ERROR: THIS PLUGIN IS MISSING BUT IT IS INSTALLED! UNINSTALL IT NOW.'] = 'ERREUR: CE PLUGIN EST MANQUANT MAIS TOUJOURS INSTALLÉ! DÉSINSTALLEZ-LE.';
 $lang['display'] = 'Afficher';
-$lang['Compact'] = "Compact";
-$lang['Complete'] = "Complet";
 $lang['Restore'] = "Restaurer";
 $lang['Restore default configuration. You will lose your plugin settings!'] = "Restaurer la configuration par défaut? Vous perdrez vos réglages personnels !";
 $lang['Regenerate Thumbnails'] = 'Régénérer les miniatures';
@@ -858,4 +856,6 @@ $lang['Allowed file types: %s.'] = 'Types de fichiers autorisés : %s.';
 $lang['Approximate maximum resolution: %dM pixels (that\'s %dx%d pixels).'] = 'Résolution maximum approximative : %dM pixels (soit %dx%d pixels).';
 $lang['Manage Permissions'] = 'Gérer les permissions';
 $lang['Photo %s of %s'] = 'Photo %s sur %s';
+$lang['show details'] = 'montrer les détails';
+$lang['hide details'] = 'cacher les détails';
 ?>

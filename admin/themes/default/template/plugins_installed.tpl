@@ -49,7 +49,7 @@ jQuery(document).ready(function() {
       success: function(data) {
         for (i=0;i<data.length;i++) {
           {/literal}
-          {if $plugin_display == 'complete'}
+          {if $show_details}
             jQuery('#'+data[i]+' .pluginBoxNameCell').prepend('<a class="warning" title="'+incompatible_msg+'"></a>')
           {else}
             jQuery('#'+data[i]+' .pluginMiniBoxNameCell').prepend('<span class="warning" title="'+incompatible_msg+'"></span>')
@@ -87,17 +87,15 @@ jQuery(document).ready(function() {
 {/footer_script}
 
 <div class="titrePage">
-  <span class="sort">
-    <form action="" method="get" name="change_display">
-      <input type="hidden" name="page" value="plugins"/>
-      {'Display'|@translate} : 
-      <select name="plugin_display" onchange="this.form.submit();">
-        <option value="compact" {if $plugin_diplay=='compact'}selected="selected"{/if}>{'Compact'|@translate}</option>
-        <option value="complete" {if $plugin_display=='complete'}selected="selected"{/if}>{'Complete'|@translate}</option>
-      </select>
-    </form>
-  </span>
   <h2>{'Plugins'|@translate}</h2>
+</div>
+
+<div class="showDetails">
+  {if $show_details}
+  <a href="{$base_url}&amp;show_details=0">{'hide details'|@translate}</a>
+  {else}
+  <a href="{$base_url}&amp;show_details=1">{'show details'|@translate}</a>
+  {/if}
 </div>
 
 {if isset($plugins)}
@@ -134,7 +132,7 @@ jQuery(document).ready(function() {
     {/if}
   {/if}
    
-  {if $plugin_display == 'complete'}
+  {if $show_details}
     <div id="{$plugin.ID}" class="pluginBox {$plugin.STATE}">
       <table>
         <tr>
@@ -175,7 +173,7 @@ jQuery(document).ready(function() {
       </table>
     </div> {*<!-- pluginBox -->*}
     
-  {elseif $plugin_display == 'compact'}
+  {else}
     {if not empty($plugin.VISIT_URL)}
       {assign var='version' value="<a class='externalLink' href='"|cat:$plugin.VISIT_URL|cat:"'>"|cat:$plugin.VERSION|cat:"</a>"}
     {else}

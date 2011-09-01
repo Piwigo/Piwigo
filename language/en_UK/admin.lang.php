@@ -186,8 +186,6 @@ $lang['Classic display'] = "Classic display";
 $lang['clean'] = "clean up";
 $lang['Comments for all'] = "Comments for all";
 $lang['Comments'] = "Comments";
-$lang['Compact'] = "Compact";
-$lang['Complete'] = "Complete";
 $lang['Complementary mail content'] = "Complementary mail content";
 $lang['Complementary mail content'] = "Complementary mail content";
 $lang['Configuration'] = "Configuration";
@@ -849,4 +847,6 @@ $lang['Allowed file types: %s.'] = 'Allowed file types: %s.';
 $lang['Approximate maximum resolution: %dM pixels (that\'s %dx%d pixels).'] = 'Approximate maximum resolution: %dM pixels (that\'s %dx%d pixels).';
 $lang['Manage Permissions'] = 'Manage Permissions';
 $lang['Photo %s of %s'] = 'Photo %s of %s';
+$lang['show details'] = 'show details';
+$lang['hide details'] = 'hide details';
 ?>

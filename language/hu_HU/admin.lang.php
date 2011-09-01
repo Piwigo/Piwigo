@@ -790,8 +790,6 @@ $lang['No results'] = 'Nincs találat';
 $lang['Searching...'] = 'Keresés...';
 $lang['Type in a search term'] = 'Írd be a keresett kifejezést';
 // missing translations
-$lang['Compact'] = 'Kompakt';
-$lang['Complete'] = 'Részletes';
 $lang['Deactivate all'] = 'Összes kikapcsolása';
 $lang['Restore'] = 'Visszaállítás';
 $lang['Restore default configuration. You will lose your plugin settings!'] = 'Alapértelmezett beállítások visszaállítása. Figyelem, a bővítmény módosításai elvesznek!';

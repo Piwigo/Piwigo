@@ -799,8 +799,6 @@ $lang['Follow Orientation'] = 'עקוב אחר ההדרכה';
 $lang['If you want to regenerate thumbnails, please go to the <a href="%s">Batch Manager</a>.'] = 'אם ברצונך לחדש את התמונות הממוזערות נווט בבקשה ל <a href="%s">מנהל אצווה</a>.';
 $lang['Graphics Library'] = 'ספריית גרפיקה';
 $lang['Activate icon "new" next to albums and pictures'] = 'הפעל כפתו "חדש" ליד אלבומים';
-$lang['Compact'] = 'קומפקטי';
-$lang['Complete'] = 'סיים';
 $lang['Deactivate all'] = 'בטל פעולה להכל';
 $lang['Default photos order'] = 'סדר ברירת מחדל לתמונות';
 $lang['Restore'] = 'שחזר';

@@ -30,9 +30,28 @@ include_once(PHPWG_ROOT_PATH.'admin/include/plugins.class.php');
 
 $template->set_filenames(array('plugins' => 'plugins_installed.tpl'));
 
-// display mode
-$plugin_display = isset($_GET['plugin_display']) ? $_GET['plugin_display'] : (pwg_get_session_var('plugin_display') != null ? pwg_get_session_var('plugin_display') : 'compact');
-pwg_set_session_var('plugin_display', $plugin_display);
+// should we display details on plugins?
+if (isset($_GET['show_details']))
+{
+  if (1 == $_GET['show_details'])
+  {
+    $show_details = true;
+  }
+  else
+  {
+    $show_details = false;
+  }
+
+  pwg_set_session_var('plugins_show_details', $show_details);
+}
+elseif (null != pwg_get_session_var('plugins_show_details'))
+{
+  $show_details = pwg_get_session_var('plugins_show_details');
+}
+else
+{
+  $show_details = false;
+}
 
 $base_url = get_root_url().'admin.php?page='.$page['page'];
 $pwg_token = get_pwg_token();
@@ -176,12 +195,15 @@ function cmp($a, $b)
 }
 usort($tpl_plugins, 'cmp');
 
-$template->assign(array(
-  'plugin_display' => $plugin_display,
-  'plugins' => $tpl_plugins,
-  'active_plugins' => $active_plugins,
-  'PWG_TOKEN' => $pwg_token,
-));
+$template->assign(
+  array(
+    'plugins' => $tpl_plugins,
+    'active_plugins' => $active_plugins,
+    'PWG_TOKEN' => $pwg_token,
+    'base_url' => $base_url,
+    'show_details' => $show_details,
+    )
+  );
 
 $template->assign_var_from_handle('ADMIN_CONTENT', 'plugins');
 ?>
