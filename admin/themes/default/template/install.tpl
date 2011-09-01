@@ -129,6 +129,8 @@ input[type="submit"], input[type="button"], a.bigButton {
   color:#fff;
   padding:5px;
   -moz-border-radius:5px;
+  -webkit-border-radius:5px;
+  border-radius:5px;
 }
 
 input[type="submit"]:hover, input[type="button"]:hover, a.bigButton:hover {
@@ -140,6 +142,8 @@ input[type="text"], input[type="password"], select {
   background-color:#ddd;
   border:2px solid #ccc;
   -moz-border-radius:5px;
+  -webkit-border-radius:5px;
+  border-radius:5px;
   padding:2px;
 }
 
