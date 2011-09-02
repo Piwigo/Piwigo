@@ -856,4 +856,12 @@ $lang['Allowed file types: %s.'] = 'Tipi di file autorizzati : %s.';
 $lang['Approximate maximum resolution: %dM pixels (that\'s %dx%d pixels).'] = 'Risoluzione massima approssimativa : %dM pixels (sia %dx%d pixels)';
 $lang['Manage Permissions'] = 'Gestire i permessi';
 $lang['Photo %s of %s'] = 'Foto %s su %s';
+$lang['Merge tags'] = 'Fusionare i tags';
+$lang['Select the destination tag'] = 'Selezionare il tag di destinazione';
+$lang['(this tag will be deleted)'] = '(questo tag sara cancellato)';
+$lang['Confirm merge'] = 'Confermare la fusione';
+$lang['Merge selected tags'] = 'Fusionare i tags selezionati';
+$lang['No destination tag selected'] = 'Non avete selezionato il tag di destinazione';
+$lang['Tags <em>%s</em> merged into tag <em>%s</em>'] = 'i tags <em>%s</em> sono stati fuzionati nel tag <em>%s</em>';
+$lang['Select at least two tags for merging'] = 'Selezionare almeno due tag da fuzionare';
 ?>
