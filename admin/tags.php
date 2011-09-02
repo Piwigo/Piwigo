@@ -101,6 +101,108 @@ SELECT id, name
 }
 
 // +-----------------------------------------------------------------------+
+// |                               merge tags                              |
+// +-----------------------------------------------------------------------+
+
+if (isset($_POST['confirm_merge']))
+{
+  if (!isset($_POST['destination_tag']))
+  {
+    array_push(
+      $page['errors'],
+      l10n('No destination tag selected')
+      );
+  }
+  else
+  {
+    $destination_tag_id = $_POST['destination_tag'];
+    $tag_ids = explode(',', $_POST['merge_list']);
+    
+    if (is_array($tag_ids) and count($tag_ids) > 1)
+    {
+      $name_of_tag = array();
+      $query = '
+SELECT
+    id,
+    name
+  FROM '.TAGS_TABLE.'
+  WHERE id IN ('.implode(',', $tag_ids).')
+;';
+      $result = pwg_query($query);
+      while ($row = pwg_db_fetch_assoc($result))
+      {
+        $name_of_tag[ $row['id'] ] = trigger_event('render_tag_name', $row['name']);
+      }
+      
+      $tag_ids_to_delete = array_diff(
+        $tag_ids,
+        array($destination_tag_id)
+        );
+
+      $query = '
+SELECT
+    DISTINCT(image_id)
+  FROM '.IMAGE_TAG_TABLE.'
+  WHERE tag_id IN ('.implode(',', $tag_ids_to_delete).')
+;';
+      $image_ids = array_from_query($query, 'image_id');
+
+      delete_tags($tag_ids_to_delete);
+
+      $query = '
+SELECT
+    image_id
+  FROM '.IMAGE_TAG_TABLE.'
+  WHERE tag_id = '.$destination_tag_id.'
+;';
+      $destination_tag_image_ids = array_from_query($query, 'image_id');
+
+      $image_ids_to_link = array_diff(
+        $image_ids,
+        $destination_tag_image_ids
+        );
+
+      $inserts = array();
+      foreach ($image_ids_to_link as $image_id)
+      {
+        array_push(
+          $inserts,
+          array(
+            'tag_id' => $destination_tag_id,
+            'image_id' => $image_id
+            )
+          );
+      }
+
+      if (count($inserts) > 0)
+      {
+        mass_inserts(
+          IMAGE_TAG_TABLE,
+          array_keys($inserts[0]),
+          $inserts
+          );
+      }
+
+      $tags_deleted = array();
+      foreach ($tag_ids_to_delete as $tag_id)
+      {
+        $tags_deleted[] = $name_of_tag[$tag_id];
+      }
+      
+      array_push(
+        $page['infos'],
+        sprintf(
+          l10n('Tags <em>%s</em> merged into tag <em>%s</em>'),
+          implode(', ', $tags_deleted),
+          $name_of_tag[$destination_tag_id]
+          )
+        );
+    }
+  }
+}
+
+
+// +-----------------------------------------------------------------------+
 // |                               delete tags                             |
 // +-----------------------------------------------------------------------+
 
@@ -112,20 +214,8 @@ SELECT name
   WHERE id IN ('.implode(',', $_POST['tags']).')
 ;';
   $tag_names = array_from_query($query, 'name');
-  
-  $query = '
-DELETE
-  FROM '.IMAGE_TAG_TABLE.'
-  WHERE tag_id IN ('.implode(',', $_POST['tags']).')
-;';
-  pwg_query($query);
-  
-  $query = '
-DELETE
-  FROM '.TAGS_TABLE.'
-  WHERE id IN ('.implode(',', $_POST['tags']).')
-;';
-  pwg_query($query);
+
+  delete_tags($_POST['tags']);
   
   array_push(
     $page['infos'],
@@ -250,11 +340,17 @@ $template->assign(
     )
   );
 
-if (isset($_POST['edit']) and isset($_POST['tags']))
+if ((isset($_POST['edit']) or isset($_POST['merge'])) and isset($_POST['tags']))
 {
+  $list_name = 'EDIT_TAGS_LIST';
+  if (isset($_POST['merge']))
+  {
+    $list_name = 'MERGE_TAGS_LIST';
+  }
+  
   $template->assign(
     array(
-      'EDIT_TAGS_LIST' => implode(',', $_POST['tags']),
+      $list_name => implode(',', $_POST['tags']),
       )
     );
 

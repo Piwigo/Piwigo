@@ -1394,6 +1394,36 @@ DELETE
     );
 }
 
+/**
+ *
+ */
+function delete_tags($tag_ids)
+{
+  if (is_numeric($tag_ids))
+  {
+    $tag_ids = array($tag_ids);
+  }
+
+  if (!is_array($tag_ids))
+  {
+    return false;
+  }
+  
+  $query = '
+DELETE
+  FROM '.IMAGE_TAG_TABLE.'
+  WHERE tag_id IN ('.implode(',', $tag_ids).')
+;';
+  pwg_query($query);
+  
+  $query = '
+DELETE
+  FROM '.TAGS_TABLE.'
+  WHERE id IN ('.implode(',', $tag_ids).')
+;';
+  pwg_query($query);
+}
+
 function tag_id_from_tag_name($tag_name)
 {
   global $page;

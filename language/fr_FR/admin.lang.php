@@ -858,4 +858,12 @@ $lang['Manage Permissions'] = 'Gérer les permissions';
 $lang['Photo %s of %s'] = 'Photo %s sur %s';
 $lang['show details'] = 'montrer les détails';
 $lang['hide details'] = 'cacher les détails';
+$lang['Merge tags'] = 'Fusionner les tags';
+$lang['Select the destination tag'] = 'Sélectionnez le tag de destination';
+$lang['(this tag will be deleted)'] = '(ce tag sera supprimé)';
+$lang['Confirm merge'] = 'Confirmez la fusion';
+$lang['Merge selected tags'] = 'Fusionner les tags sélectionnés';
+$lang['No destination tag selected'] = 'Vous n\'avez pas sélectionné de tag de destination';
+$lang['Tags <em>%s</em> merged into tag <em>%s</em>'] = 'Les tags <em>%s</em> ont été fusionnés dans le tag <em>%s</em>';
+$lang['Select at least two tags for merging'] = 'Sélectionnez au moins deux tags pour la fusion';
 ?>

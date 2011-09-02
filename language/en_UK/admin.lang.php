@@ -849,4 +849,12 @@ $lang['Manage Permissions'] = 'Manage Permissions';
 $lang['Photo %s of %s'] = 'Photo %s of %s';
 $lang['show details'] = 'show details';
 $lang['hide details'] = 'hide details';
+$lang['Merge tags'] = 'Merge tags';
+$lang['Select the destination tag'] = 'Select the destination tag';
+$lang['(this tag will be deleted)'] = '(this tag will be deleted)';
+$lang['Confirm merge'] = 'Confirm merge';
+$lang['Merge selected tags'] = 'Merge selected tags';
+$lang['No destination tag selected'] = 'No destination tag selected';
+$lang['Tags <em>%s</em> merged into tag <em>%s</em>'] = 'Tags <em>%s</em> merged into tag <em>%s</em>';
+$lang['Select at least two tags for merging'] = 'Select at least two tags for merging';
 ?>

@@ -1,5 +1,28 @@
 {include file='include/tag_selection.inc.tpl'}
 
+{footer_script}{literal}
+jQuery(document).ready(function(){
+  function displayDeletionWarnings() {
+    jQuery(".warningDeletion").show();
+    jQuery("input[name=destination_tag]:checked").parent("label").children(".warningDeletion").hide();
+  }
+
+  displayDeletionWarnings();
+
+  jQuery("#mergeTags label").click(function() {
+    displayDeletionWarnings();
+  });
+
+  jQuery("input[name=merge]").click(function() {
+    if (jQuery("ul.tagSelection input[type=checkbox]:checked").length < 2) {
+      alert("{/literal}{'Select at least two tags for merging'|@translate}{literal}");
+      return false;
+    }
+  });
+});
+{/literal}{/footer_script}
+
+
 <div class="titrePage">
   <h2>{'Manage tags'|@translate}</h2>
 </div>
@@ -30,6 +53,19 @@
   </fieldset>
   {/if}
 
+  {if isset($MERGE_TAGS_LIST)}
+  <input type="hidden" name="merge_list" value="{$MERGE_TAGS_LIST}">
+
+  <fieldset id="mergeTags">
+    <legend>{'Merge tags'|@translate}</legend>
+    {'Select the destination tag'|@translate}<br><br>
+    {foreach from=$tags item=tag name=tagloop}
+    <label><input type="radio" name="destination_tag" value="{$tag.ID}"{if $smarty.foreach.tagloop.index == 0} checked="checked"{/if}> {$tag.NAME}<span class="warningDeletion"> {'(this tag will be deleted)'|@translate}</span></label><br>
+    {/foreach}
+    <br><input type="submit" name="confirm_merge" value="{'Confirm merge'|@translate}">
+  </fieldset>
+  {/if}
+
   <fieldset>
     <legend>{'Add a tag'|@translate}</legend>
 
@@ -49,6 +85,7 @@
     <p>
       <input type="hidden" name="pwg_token" value="{$PWG_TOKEN}">
       <input class="submit" type="submit" name="edit" value="{'Edit selected tags'|@translate}">
+      <input class="submit" type="submit" name="merge" value="{'Merge selected tags'|@translate}">
       <input class="submit" type="submit" name="delete" value="{'Delete selected tags'|@translate}" onclick="return confirm('{'Are you sure?'|@translate}');">
     </p>
   </fieldset>
