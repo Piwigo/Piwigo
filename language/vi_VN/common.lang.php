@@ -351,4 +351,24 @@ $lang['The number of photos per page must be a not null scalar'] = 'Số hình t
 $lang['Number of photos per page'] = 'Số hình trên mỗi trang';
 $lang['%d rates'] = '%d hạng';
 $lang['Rating score'] = 'Bảng xếp hạng';
+$lang['Enter a username or email address'] = 'Nhập tên người dùng hoặc địa chỉ email';
+$lang['Invalid username or email'] = 'Tên người dùng hoặc địa chỉ email không hợp lệ';
+$lang['Password reset is not allowed for this user'] = 'Không được phép đặt lại mật khẩu cho người dùng này';
+$lang['User "%s" has no email address, password reset is not possible'] = 'Người dùng "%s" không có địa chỉ email, nên việc đặt lại mật khẩu là không thể được';
+$lang['Someone requested that the password be reset for the following user account:'] = 'Có người yêu cầu đặt lại mật khẩu cho những người dùng sau:';
+$lang['Username "%s" on gallery %s'] = 'Người dùng "%s" trên thư viện hình %s';
+$lang['To reset your password, visit the following address:'] = 'Để đặt lại mật khẩu, hãy vào những địa chỉ sau:';
+$lang['If this was a mistake, just ignore this email and nothing will happen.'] = 'Nếu đây là do nhầm lẫn, thì chỉ việc bỏ qua bỏ qua email này và không có việc gì sẽ xảy ra.';
+$lang['Password Reset'] = 'Cài đặt lại mật khẩu';
+$lang['Check your email for the confirmation link'] = 'Kiểm tra email để nhận liên kết xác nhận';
+$lang['Invalid key'] = 'Key không hợp lệ';
+$lang['The passwords do not match'] = 'Mật khẩu không trùng';
+$lang['Your password has been reset'] = 'Mật khẩu của bạn đã được đặt lại';
+$lang['Return to home page'] = 'Trở lại trang chủ';
+$lang['Please enter your username or email address.'] = 'Vui lòng nhập tên người dùng và địa chỉ email.';
+$lang['You will receive a link to create a new password via email.'] = 'Bạn sẽ nhận được một liên kết để tạo mật khẩu mới qua email.';
+$lang['Username or email'] = 'Người dùng hoặc email';
+$lang['Change my password'] = 'Đổi mật khẩu của tôi';
+$lang['Enter your new password below.'] = 'Nhập mật khẩu mới của bạn ở dưới.';
+
 ?>
