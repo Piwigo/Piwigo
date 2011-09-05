@@ -349,5 +349,26 @@ $lang['validate this comment'] = 'validera detta inlägg';
 $lang['html tags are not allowed in login'] = 'HTML-taggar är inte tillåtna vid inloggning';
 $lang['The number of photos per page must be a not null scalar'] = 'Antal foton per sida får inte vara noll';
 $lang['Number of photos per page'] = 'Antal foton per sida';
+$lang['%d rates'] = '%d röster';
+$lang['Rating score'] = 'Röstpoäng';
+$lang['Enter a username or email address'] = 'Ange ett användarnamn eller en epost-adress';
+$lang['Invalid username or email'] = 'Ogiltigt användarnamn eller e-postaddress';
+$lang['Password reset is not allowed for this user'] = 'Lösenordsåterställning är ej tillåtet för denna användare';
+$lang['User "%s" has no email address, password reset is not possible'] = 'Användare "%s" har ingen e-postadress, lösenordsåterställning är ej möjlig';
+$lang['Someone requested that the password be reset for the following user account:'] = 'Någon har begärt lösenordsåterställning för följande användarkonto:';
+$lang['Username "%s" on gallery %s'] = 'Användare "%s" i galleri %s';
+$lang['To reset your password, visit the following address:'] = 'För att återställa ditt lösenord, gå till denna adress:';
+$lang['If this was a mistake, just ignore this email and nothing will happen.'] = 'Om detta var felaktigt, vänligen ignorera detta meddelande och ingen åtgärd kommer vidtas.';
+$lang['Password Reset'] = 'Lösenordsåterställning';
+$lang['Check your email for the confirmation link'] = 'Kontrollera din e-post för bekräftelselänken';
+$lang['Invalid key'] = 'Ogiltig nyckel';
+$lang['The passwords do not match'] = 'Lösenorden stämmer inte överens';
+$lang['Your password has been reset'] = 'Ditt lösenord har återställts';
+$lang['Return to home page'] = 'Gå tillbaks timm hem-sidan';
+$lang['Please enter your username or email address.'] = 'Ange ditt användarnamn och e-postadress.';
+$lang['You will receive a link to create a new password via email.'] = 'Du kommer att få en länk via e-post för att skapa ett nytt lösenord.';
+$lang['Username or email'] = 'Användanamn eller e-post';
+$lang['Change my password'] = 'Ändra mitt lösenord';
+$lang['Enter your new password below.'] = 'Ange ditt nya lösenord nedan.';
 
 ?>
