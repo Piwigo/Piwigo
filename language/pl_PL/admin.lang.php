@@ -807,4 +807,6 @@ $lang['Reset ignored updates'] = 'Zresetuj ignorowane aktualizacje';
 $lang['Update All'] = 'Aktualizuj wszystko';
 $lang['ERROR'] = 'BŁĄD';
 $lang['Update Complete'] = 'Aktualizacja zakończona';
+$lang['Rate'] = 'Ocena';
+$lang['Average rate'] = 'Średnia ocena';
 ?>
