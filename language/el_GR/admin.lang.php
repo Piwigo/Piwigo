@@ -81,6 +81,7 @@ $lang['%s must be to set to false in your local/config/config.inc.php file'] = "
 $lang['%s value is not correct file because exif are not supported'] = "%s πεδίο είναι λάθος γιατί δεν υποστηρίζεται η πληροφορία EXIF";
 $lang['+ Add an upload box'] = '+ Προσθήκη και άλλου αρχείου';
 $lang[', click on'] = ", κάντε κλικ";
-
+$lang['Average rate'] = 'Μέσος όρος βαθμολογίας';
+$lang['Rate'] = 'Βαθμολογία';
 
 ?>
