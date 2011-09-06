@@ -129,8 +129,32 @@ $lang['Sort by'] = 'Sorteeri';
 $lang['Sort order'] = 'Sorteerimisjärjestus';
 $lang['Tag'] = 'Märksõna';
 $lang['Tags'] = 'Märksõnad';
-
-
+$lang['Unknown feed identifier'] = 'Tundmatu voog';
+$lang['User comments'] = 'Kasutaja kommetaarid';
+$lang['Username'] = 'Kasutajanimi';
+$lang['Visits'] = 'Külastused';
+$lang['Webmaster'] = 'Veebihaldur';
+$lang['Week %d'] = 'Nädal %d';
+$lang['About Piwigo'] = 'Piwigo-st';
+$lang['You are not authorized to access the requested page'] = 'Teil puudub juurdepääs soovitud leheküljele';
+$lang['add to caddie'] = 'lisa korvi';
+$lang['add this photo to your favorites'] = 'lisa see foto oma lemmikuks';
+$lang['Administration'] = ' Administratsioon';
+$lang['all'] = 'kõik';
+$lang['ascending'] = 'kasvavalt';
+$lang['author(s) : %s'] = 'autor(id) : %s';
+$lang['Expand all albums'] = 'Laienda kõik albumid';
+$lang['posted after %s (%s)'] = 'postitatud peale %s (%s)';
+$lang['posted before %s (%s)'] = 'postitatud enne %s (%s)';
+$lang['posted between %s (%s) and %s (%s)'] = 'postitatud %s (%s) ja %s (%s) vahel';
+$lang['posted on %s'] = 'postitatud %s';
+$lang['Best rated'] = 'Parimalt hinnatud';
+$lang['display best rated photos'] = 'Kuva parimalt hinnatud fotod';
+$lang['caddie'] = 'Korv';
+$lang['Calendar'] = 'Kalender';
+$lang['All'] = 'Kõik';
+$lang['display each day with photos, month per month'] = 'kuva iga päev fotodega, iga kuu kohta';
+$lang['View'] = 'Vaata';
 
 
 ?>
