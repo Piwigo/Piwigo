@@ -74,7 +74,7 @@ jQuery(document).ready(function(){
         jQuery.each(
           data.result.categories,
           function(i,category) {
-            var selected = "";
+            var selected = null;
             if (category.id == selectedValue) {
               selected = "selected";
             }
