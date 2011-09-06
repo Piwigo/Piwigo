@@ -866,4 +866,6 @@ $lang['Merge selected tags'] = 'Fusionner les tags sélectionnés';
 $lang['No destination tag selected'] = 'Vous n\'avez pas sélectionné de tag de destination';
 $lang['Tags <em>%s</em> merged into tag <em>%s</em>'] = 'Les tags <em>%s</em> ont été fusionnés dans le tag <em>%s</em>';
 $lang['Select at least two tags for merging'] = 'Sélectionnez au moins deux tags pour la fusion';
+$lang['Average rate'] = 'Note moyenne';
+$lang['Rate'] = 'Note';
 ?>
