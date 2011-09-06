@@ -350,5 +350,24 @@ $lang['validate this comment'] = 'preveri komentar';
 $lang['html tags are not allowed in login'] = 'pri prijavi niso dovoljene html značke';
 $lang['%d rates'] = '%d točk';
 $lang['Rating score'] = 'Ocena';
+$lang['Enter a username or email address'] = 'Vnesite uporabniško ime ali e-pošto';
+$lang['Invalid username or email'] = 'Nepravilno uporabniško ime ali e-pošta';
+$lang['Password reset is not allowed for this user'] = 'Poenostavite gesla ni možna za tega uporabnika';
+$lang['User "%s" has no email address, password reset is not possible'] = 'Uporabnik "%s" nima e-pošte, zato poenostavitev gesla ni možna';
+$lang['Someone requested that the password be reset for the following user account:'] = 'Nekdo je zahteval poenostavite gesla za uporabniški račun:';
+$lang['Username "%s" on gallery %s'] = 'Uporabnik "%s" za album %s';
+$lang['To reset your password, visit the following address:'] = 'Za poenostavitev gesla, obiščite naslednji spletni naslov:';
+$lang['If this was a mistake, just ignore this email and nothing will happen.'] = 'Če je bila to napaka, preprosto prezrite to sporočilo in nič se ne bo zgodilo.';
+$lang['Password Reset'] = 'Poenostavitev gesla';
+$lang['Check your email for the confirmation link'] = 'Preverite e-pošto za potrditev';
+$lang['Invalid key'] = 'Nepravilen ključ';
+$lang['The passwords do not match'] = 'Gesli se ne ujemata';
+$lang['Your password has been reset'] = 'Vaše geslo je bilo poenostavljeno';
+$lang['Return to home page'] = 'Vrnite se na domačo stran';
+$lang['Please enter your username or email address.'] = 'Prosim vnesite svoje uporabniško ime ali e-pošto.';
+$lang['You will receive a link to create a new password via email.'] = 'Po e-pošti boste prejeli povezavo za kreiranje novega gesla.';
+$lang['Username or email'] = 'Uporabniško ime ali e-pošta';
+$lang['Change my password'] = 'Spremeni geslo';
+$lang['Enter your new password below.'] = 'Vnesite novo geslo.';
 
 ?>
