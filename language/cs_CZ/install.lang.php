@@ -31,13 +31,10 @@ $lang['Database configuration'] = 'Databázová konfigurace';
 $lang['Admin configuration'] = 'Administrátorská konfigurace';
 $lang['Start Install'] = 'Spustit instalaci';
 $lang['mail address must be like xxx@yyy.eee (example : jack@altern.org)'] = 'e-mailová adresa musí mít formát xxx@yyy.eee (například : novak@mail.cz)';
-
 $lang['Webmaster login'] = 'Uživatelské jméno správce';
 $lang['It will be shown to the visitors. It is necessary for website administration'] = 'Bude zobrazen návštěvníkům. Je nutný pro administraci aplikace.';
-
 $lang['Connection to server succeed, but it was impossible to connect to database'] = 'Spojení na server se podařilo, ale nebylo možné připojit databázi';
 $lang['Can\'t connect to server'] = 'Nebylo možné se připojit k serveru';
-
 $lang['Host'] = 'MySQL server';
 $lang['localhost, sql.multimania.com, toto.freesurf.fr'] = 'localhost, sql.multimania.com, toto.freesurf.cz';
 $lang['User'] = 'Uživatel';
@@ -58,8 +55,6 @@ $lang['verification'] = 'kontrola';
 $lang['Need help ? Ask your question on <a href="%s">Piwigo message board</a>.'] = 'Potřebujete pomoc ? Zeptejte se na <a href="%s">Piwigo fóru</a>.';
 $lang['Webmaster mail address'] = 'E-mail správce';
 $lang['Visitors will be able to contact site administrator with this mail'] = 'Návštěvníci mohou pomocí tohoto e-mailu správce kontaktovat';
-
-// missing translations 2.1.0
 $lang['Database type'] = 'Typ databáze';
 $lang['The type of database your piwigo data will be store in'] = 'Typ databáze Vaší Piwigo databáze bude uložen';
 $lang['PHP 5 is required'] = 'Je nutný PHP 5';
@@ -78,4 +73,6 @@ $lang['Download the config file'] = 'Stáhnout konfigurační soubor';
 $lang['You can download the config file and upload it to local/config directory of your installation.'] = 'Můžete stáhnout konfigurační soubor a nahrát jej do adrešáře local/config Vaší instalace.';
 $lang['SQLite and PostgreSQL are currently in experimental state.'] = 'SQLite a PostgreSQL se aktuálně teprve testují.';
 $lang['Learn more'] = 'Zjistit více';
+$lang['Just another Piwigo gallery'] = 'Jen další galerie Piwigo';
+$lang['Welcome to my photo gallery'] = 'Vítejte na mé fotogalerii';
 ?>
