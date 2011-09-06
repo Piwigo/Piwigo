@@ -856,4 +856,5 @@ $lang['Merge selected tags'] = 'Kiválasztott címkék összevonása';
 $lang['No destination tag selected'] = 'Nincs kijelölt címke';
 $lang['Tags <em>%s</em> merged into tag <em>%s</em>'] = '<em>%s</em> címke (címkék) összevonva a(z) <em>%s</em> címkével';
 $lang['Select at least two tags for merging'] = 'Válasszon ki legalább két címkét';
+$lang['Learn more'] = 'Részletek';
 ?>
