@@ -118,7 +118,7 @@ function getXmlCode( $filename )
   if (function_exists('ini_set'))
   {
     // limit must be growed with php5 and "big" listing file
-    ini_set("pcre.backtrack_limit", pow(2, 32));
+    ini_set("pcre.backtrack_limit", pow(2, 31));
   }
 
   if (!fetchRemote($filename, $xml_content))
