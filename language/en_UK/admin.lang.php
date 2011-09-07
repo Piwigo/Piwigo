@@ -857,4 +857,5 @@ $lang['Merge selected tags'] = 'Merge selected tags';
 $lang['No destination tag selected'] = 'No destination tag selected';
 $lang['Tags <em>%s</em> merged into tag <em>%s</em>'] = 'Tags <em>%s</em> merged into tag <em>%s</em>';
 $lang['Select at least two tags for merging'] = 'Select at least two tags for merging';
+$lang['Learn more'] = 'Learn more';
 ?>

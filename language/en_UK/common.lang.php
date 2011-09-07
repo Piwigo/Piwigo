@@ -370,4 +370,5 @@ $lang['You will receive a link to create a new password via email.'] = 'You will
 $lang['Username or email'] = 'Username or email';
 $lang['Change my password'] = 'Change my password';
 $lang['Enter your new password below.'] = 'Enter your new password below.';
+$lang['Reset Password'] = 'Reset Password';
 ?>
