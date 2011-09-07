@@ -848,6 +848,7 @@ $lang['Maximum file size: %sB.'] = 'Maximális fájlméret: %sB.';
 $lang['Allowed file types: %s.'] = 'Engedélyezett fájltípusok: %s.';
 $lang['Approximate maximum resolution: %dM pixels (that\'s %dx%d pixels).'] = 'Becsült maximális felbontás: %dMpixel (%dx%d pixel).';
 $lang['Manage Permissions'] = 'Jogosultságok kezelése';
+$lang['Photo %s of %s'] = '%s kép feltöltése, összes kép %s';
 $lang['show details'] = 'részletek megjelenítése';
 $lang['hide details'] = 'részletek elrejtése';
 $lang['Merge tags'] = 'Címkék összevonása';
