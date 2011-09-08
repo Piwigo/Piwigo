@@ -34,8 +34,6 @@ $lang['Webmaster login'] = "Identifiant de l'administrateur";
 $lang['It will be shown to the visitors. It is necessary for website administration'] = "Cet identifiant apparaîtra à tous vos visiteurs. Il vous sert pour administrer le site";
 $lang['Connection to server succeed, but it was impossible to connect to database'] = "La connexion au serveur est OK, mais la connection à cette base de données est impossible";
 $lang['Can\'t connect to server'] = "Impossible de se connecter au serveur";
-$lang['Database type'] = "Type de base de données";
-$lang['The type of database your piwigo data will be store in'] = "La base de données dans laquelle seront stockées vos données Piwigo";
 $lang['Host'] = "Hôte";
 $lang['localhost, sql.multimania.com, toto.freesurf.fr'] = "localhost, sql.multimania.com, toto.freesurf.fr";
 $lang['User'] = "Utilisateur";
@@ -71,6 +69,5 @@ $lang['An alternate solution is to copy the text in the box above and paste it i
 $lang['Creation of config file local/config/database.inc.php failed.'] = 'La création du fichier de configuration local/config/database.inc.php a échoué.';
 $lang['Download the config file'] = 'Télécharger le fichier de configuration';
 $lang['You can download the config file and upload it to local/config directory of your installation.'] = 'Vous pouvez télécharger le fichier de configuration et le transférer dans le répertoire local/config de votre installation Piwigo.';
-$lang['SQLite and PostgreSQL are currently in experimental state.'] = 'Les types SQLite et PostgreSQL sont actuellement en phase expérimentale.';
 $lang['Learn more'] = 'En savoir plus';
 ?>

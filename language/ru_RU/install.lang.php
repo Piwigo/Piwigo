@@ -52,8 +52,6 @@ $lang['verification'] = 'еще раз для исключения опечат�
 $lang['Need help ? Ask your question on <a href="%s">Piwigo message board</a>.'] = 'Нужна помощь? Задайте свои вопросы на <a href="%s">Форуме Piwigo</a>.';
 $lang['Webmaster mail address'] = 'Электронная почта вебмастера';
 $lang['Visitors will be able to contact site administrator with this mail'] = 'Будет использоваться для контакта посетителей с администратором';
-$lang['Database type'] = 'Тип базы данных';
-$lang['The type of database your piwigo data will be store in'] = 'Тип базы данных будет храниться в';
 $lang['PHP 5 is required'] = 'Требуется PHP 5';
 $lang['It appears your webhost is currently running PHP %s.'] = 'Кажется, что Ваш хостинг в настоящее время под управлением  PHP %s.';
 $lang['Piwigo may try to switch your configuration to PHP 5 by creating or modifying a .htaccess file.'] = 'Piwigo может попытаться переключить Вашу конфигурацию на PHP 5, создавая или изменяя .htaccess файл.';
@@ -68,6 +66,5 @@ $lang['An alternate solution is to copy the text in the box above and paste it i
 $lang['Creation of config file local/config/database.inc.php failed.'] = 'Создать файл конфигурации local/config/database.inc.php не удалось.';
 $lang['Download the config file'] = 'Загрузить файл конфигурации';
 $lang['You can download the config file and upload it to local/config directory of your installation.'] = 'Вы можете загрузить файл конфигурации и передать его в local/config directory.';
-$lang['SQLite and PostgreSQL are currently in experimental state.'] = 'SQLite и PostgreSQL в настоящее время находятся в стадии эксперимента.';
 $lang['Learn more'] = 'Узнать больше';
 ?>

@@ -34,8 +34,6 @@ $lang['Webmaster login'] = 'Nome utente webmaster';
 $lang['It will be shown to the visitors. It is necessary for website administration'] = 'Esso verrà mostrato ai visitatori. È necessario per amministrare il vostro sito';
 $lang['Connection to server succeed, but it was impossible to connect to database'] = 'Connessione al server riuscita, ma non è stato possibile connettersi al database';
 $lang['Can\'t connect to server'] = 'Impossibile connettersi al server';
-$lang['Database type'] = 'Tipo database';
-$lang['The type of database your piwigo data will be store in'] = 'Il tipo di database dove verranno inseriti i dati di Piwigo';
 $lang['Host'] = 'Host';
 $lang['localhost, sql.multimania.com, toto.freesurf.fr'] = 'localhost, sql.multimania.com, pluto.libero.it';
 $lang['User'] = 'Utente';
@@ -71,7 +69,6 @@ $lang['An alternate solution is to copy the text in the box above and paste it i
 $lang['Creation of config file local/config/database.inc.php failed.'] = 'Creazione del file di configurazione local/config/database.inc.php fallita.';
 $lang['Download the config file'] = 'Scaricare il file di configurazione';
 $lang['You can download the config file and upload it to local/config directory of your installation.'] = 'È possibile scaricare il file di configurazione e caricarlo in local/config della vostra installazione di Piwigo.';
-$lang['SQLite and PostgreSQL are currently in experimental state.'] = 'SQLite e PostgreSQL sono attualmente in stato sperimentale.';
 $lang['Learn more'] = 'Per saperne di più';
 $lang['Just another Piwigo gallery'] = 'Una galleria Piwigo in più ';
 $lang['Welcome to my photo gallery'] = 'Benvenuti nella mia galleria fotografica';

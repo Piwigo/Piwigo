@@ -34,8 +34,6 @@ $lang['Webmaster login'] = "ورود وب‌مستر";
 $lang['It will be shown to the visitors. It is necessary for website administration'] = "این برای بازدیدکنندگان نمایش‌داده و برای مدیریت وب‌سایت ضروری است";
 $lang['Connection to server succeed, but it was impossible to connect to database'] = "ارتباط با سرور با موفقيت انجام شد اما ارتباط با سرور پايگاه داده با مشکل مواجه شد.";
 $lang['Can\'t connect to server'] = "ارتباط با سرور ممکن نيست";
-$lang['Database type'] = "نوع پايگاه داده";
-$lang['The type of database your piwigo data will be store in'] = "نوع پايگاه داده گالري شما در اينجا قرار مي‌گيرد";
 $lang['Host'] = "ميزبان";
 $lang['localhost, sql.multimania.com, toto.freesurf.fr'] = "localhost, sql.multimania.com, toto.freesurf.fr";
 $lang['User'] = "نام‌کاربري";
@@ -70,7 +68,5 @@ $lang['An alternate solution is to copy the text in the box above and paste it i
 $lang['Creation of config file local/config/database.inc.php failed.'] = 'اشکال در ایجاد فایل local/config/database.inc.php.';
 $lang['Download the config file'] = 'دريافت فايل پيکربندي';
 $lang['You can download the config file and upload it to local/config directory of your installation.'] = 'شما مي‌توانيد فايل پيکربندي را دانلود کنيد و آن را در دايرکتوري local/config در محلي که گالري را نصب کرديد آپلود کنيد.';
-$lang['SQLite and PostgreSQL are currently in experimental state.'] = 'SQLite and PostgreSQL are currently in experimental state.';
-$lang['SQLite and PostgreSQL are currently in experimental state.'] = 'SQLite و PostgreSQL در حال آزمایش هستند.(استفاده از آن‌ها یک ریسک است!)';
 $lang['Learn more'] = 'اطلاعات بيشتر در اين‌باره';
 ?>

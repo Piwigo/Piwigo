@@ -32,8 +32,6 @@ $lang['Webmaster login'] = 'Webmaster innlogging';
 $lang['It will be shown to the visitors. It is necessary for website administration'] = 'Det vil vises for besøkende. Det er nødvendig med side administrasjon';
 $lang['Connection to server succeed, but it was impossible to connect to database'] = 'Tilkobling til server er ok, men tilkobling til databasen er ikke mulig';
 $lang['Can\'t connect to server'] = 'Kan ikke koble til server';
-$lang['Database type'] = 'Database type';
-$lang['The type of database your piwigo data will be store in'] = 'Type database dine Piwigo data vil bli lagret i';
 $lang['Host'] = 'Host';
 $lang['localhost, sql.multimania.com, toto.freesurf.fr'] = 'localhost, sql.multimania.com, toto.freesurf.fr';
 $lang['User'] = 'bruker (user)';
@@ -68,7 +66,6 @@ $lang['An alternate solution is to copy the text in the box above and paste it i
 $lang['Creation of config file local/config/database.inc.php failed.'] = 'Opprettelse av konfig fil local/config/database.inc.php feilet.';
 $lang['Download the config file'] = 'Last ned konfig fil';
 $lang['You can download the config file and upload it to local/config directory of your installation.'] = 'Du kan laste ned konfig filen og laste den opp til local/config mappen i din installasjon.';
-$lang['SQLite and PostgreSQL are currently in experimental state.'] = 'SQLite og PostgreSQL er foreløpig i en eksperimentell fase.';
 $lang['Learn more'] = 'Lær mer';
 
 ?>

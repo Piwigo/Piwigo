@@ -65,13 +65,10 @@ $lang['Sorry!'] = '對不起!';
 $lang['Piwigo was not able to configure PHP 5.'] = 'Piwigo不能設置PHP 5.';
 $lang["You may referer to your hosting provider's support and see how you could switch to PHP 5 by yourself."] = '你應該聯繫你的主機管理員並向其請教如何設置PHP 5.';
 $lang['Hope to see you back soon.'] = '希望下次再見到你...';
-$lang['Database type'] = '數據庫類型';
-$lang['The type of database your piwigo data will be store in'] = '用來存放您的 Piwigo 數據的數據庫的類型';
 $lang['Congratulations, Piwigo installation is completed'] = '恭喜，Piwigo 已安裝完成。';
 $lang['An alternate solution is to copy the text in the box above and paste it into the file "local/config/database.inc.php" (Warning : database.inc.php must only contain what is in the textarea, no line return or space character)'] = '另一個解決辦法是，將以上文本框裡的文本拷貝到 "local/config/database.inc.php" 文件裡（注意：database.inc.php 必須只能包含此文本框裡的內容，沒有換行或者空格字符）';
 $lang['Creation of config file local/config/database.inc.php failed.'] = '創建 local/config/database.inc.php 文件失敗.';
 $lang['Download the config file'] = '下載配置文件';
 $lang['You can download the config file and upload it to local/config directory of your installation.'] = '您可以下載配置文件，然後上傳到 local/config 目錄以完成您的安裝.';
-$lang['SQLite and PostgreSQL are currently in experimental state.'] = 'SQLite 和 PostgreSQL 現在還處在實驗階段.';
 $lang['Learn more'] = '瞭解更多';
 ?>

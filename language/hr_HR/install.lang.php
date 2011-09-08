@@ -57,8 +57,6 @@ $lang['Webmaster mail address'] = 'Webmaster-ova e-mail adresa';
 $lang['Visitors will be able to contact site administrator with this mail'] = 'Posjetitelji će moći pisati upravitelju galerije preko ove adrese';
 
 // piwigo 2.1
-$lang['Database type'] = 'Vrsta baze podataka';
-$lang['The type of database your piwigo data will be store in'] = 'Vrsta baze podataka u kojoj će se pohraniti vaši Piwigo podatci';
 $lang['PHP 5 is required'] = 'PHP 5 je obvezan';
 $lang['It appears your webhost is currently running PHP %s.'] = 'Čini se da vaše web mjesto trenutno koristi PHP inačicu %s.';
 $lang['Piwigo may try to switch your configuration to PHP 5 by creating or modifying a .htaccess file.'] = 'Piwigo će pokušati podesiti sustavne postavke na PHP 5 izradom ili prilagodbom .htaccess zapisa.';

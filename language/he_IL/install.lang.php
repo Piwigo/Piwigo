@@ -34,8 +34,6 @@ $lang['Webmaster login'] = "התחברות מנהל האתר";
 $lang['It will be shown to the visitors. It is necessary for website administration'] = "יוצג בפני המבקרים. נחוץ בשביל מנהל האתר";
 $lang['Connection to server succeed, but it was impossible to connect to database'] = "התחבר לשרת בהצלחה, אך לא הצליח להתחבר לבסיס נתונים";
 $lang['Can\'t connect to server'] = "לא מצליח להתחבר לשרת";
-$lang['Database type'] = "סוג בסיס הנתונים";
-$lang['The type of database your piwigo data will be store in'] = "סוג בסיס הנתונים שהגלריה שלך תהיה מאוחסנת בו";
 $lang['Host'] = "שרת מארח";
 $lang['localhost, sql.multimania.com, toto.freesurf.fr'] = "localhost, sql.multimania.com, toto.freesurf.fr";
 $lang['User'] = "משתמש";
@@ -70,6 +68,5 @@ $lang['An alternate solution is to copy the text in the box above and paste it i
 $lang['Creation of config file local/config/database.inc.php failed.'] = 'יצירת קובץ config local/config/database.inc.php ניכשל.';
 $lang['Download the config file'] = 'הורד את קובץ config';
 $lang['You can download the config file and upload it to local/config directory of your installation.'] = 'אתה יכול להוריד את קובץ config ולהעלות אותו אל local/config בתיקיית ההתקנה שלך.';
-$lang['SQLite and PostgreSQL are currently in experimental state.'] = 'SQLite ו PostgreSQL כרגע במצב ניסיוני.';
 $lang['Learn more'] = 'למד עוד';
 ?>

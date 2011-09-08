@@ -66,14 +66,11 @@ $lang['Piwigo was not able to configure PHP 5.'] = 'Piwigo ist nicht in der Lage
 $lang["You may referer to your hosting provider's support and see how you could switch to PHP 5 by yourself."] = "Sie können Kontakt zu ihrem Hosting-Provider aufnehmen und um Unterstützung bitten zur Umstellung auf PHP 5.";
 $lang['Hope to see you back soon.'] = 'Wir hoffen, Sie sind bald wieder zurück.';
 
-$lang['Database type'] = 'Datenbanktyp';
-$lang['The type of database your piwigo data will be store in'] = 'Der Typ der Datenbank, die Piwigo-Daten werden gespeichert in';
 $lang['Congratulations, Piwigo installation is completed'] = 'Glückwunsch, Sie haben Piwigo erfolgreich installiert';
 
 $lang['An alternate solution is to copy the text in the box above and paste it into the file "local/config/database.inc.php" (Warning : database.inc.php must only contain what is in the textarea, no line return or space character)'] = 'Eine andere Lösung ist, den Text im Kasten oben zu kopieren und ihn in die Datei "local/config/database.inc.php" einzufügen (Warnung: database.inc.php darf nur enthalten, was im Textbereich ist, keine Zeilenumbrüche (Enter) oder Leerzeichen)';
 $lang['Creation of config file local/config/database.inc.php failed.'] = 'Die Erstellung der Datei local/config/database.inc.php ist fehlgeschlagen.';
 $lang['Download the config file'] = 'Lade die Konfigurationsdatei herunter';
 $lang['You can download the config file and upload it to local/config directory of your installation.'] = 'SIe können die Konfigurationsdatei herunterladen und in den Ordner local/config ihrer Installation hochladen.';
-$lang['SQLite and PostgreSQL are currently in experimental state.'] = 'Die Unterstüztung von SQLite und PostgreSQL befindet sich noch in einem experimentellen Stadium.';
 $lang['Learn more'] = 'Mehr Informationen';
 ?>

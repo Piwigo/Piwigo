@@ -32,8 +32,6 @@ $lang['Webmaster login'] = 'دخول المدير';
 $lang['It will be shown to the visitors. It is necessary for website administration'] = 'سوف تظهر للزوار ، ضرورية للادارة و لوحة التحكم';
 $lang['Connection to server succeed, but it was impossible to connect to database'] = 'تم الاتصال بالخادم الموقع ، لكن لم يتم يتم الاتصال بقاعدة البيانات';
 $lang['Can\'t connect to server'] = 'لا يمكن الاتصال بالخادم';
-$lang['Database type'] = 'نوع قاعدة البيانات';
-$lang['The type of database your piwigo data will be store in'] = 'قاعدة بيانات المعرض Piwigo سوف تخزن ';
 $lang['Host'] = 'المضيف';
 $lang['localhost, sql.multimania.com, toto.freesurf.fr'] = 'localhost, sql.multimania.com, toto.freesurf.fr';
 $lang['User'] = 'المستخدم';
@@ -68,7 +66,6 @@ $lang['An alternate solution is to copy the text in the box above and paste it i
 $lang['Creation of config file local/config/database.inc.php failed.'] = 'فشل في إنشاء ملف التكوين local/config/database.inc.php ';
 $lang['Download the config file'] = 'تحميل ملف التكوين';
 $lang['You can download the config file and upload it to local/config directory of your installation.'] = 'يمكنك تحميل ملف التكوين وتحميله إلى الدليل المحلي';
-$lang['SQLite and PostgreSQL are currently in experimental state.'] = 'تحت التجربية حاليا  SQLite و PostgreSQL ';
 $lang['Learn more'] = 'تعلم أكثر';
 
 ?>

@@ -32,8 +32,6 @@ $lang['Webmaster login'] = "Webmastera logins";
 $lang['It will be shown to the visitors. It is necessary for website administration'] = "Tas tiks radits apmekletajiem. Tas nepieciešams web lapas administrešanai";
 $lang['Connection to server succeed, but it was impossible to connect to database'] = "Savienojums ar serveri sekmigs, bet savienojums ar datu bazi nav iespejams";
 $lang['Can\'t connect to server'] = "Nevar savienoties ar serveri";
-$lang['Database type'] = "Datubazes tips";
-$lang['The type of database your piwigo data will be store in'] = "Datu bazes tips, kur tiks galbati Jusu Ptwigo dati.";
 $lang['Host'] = "Hosts";
 $lang['localhost, sql.multimania.com, toto.freesurf.fr'] = "localhost, sql.multimania.com, toto.freesurf.fr";
 $lang['User'] = "Lietotajs";
@@ -68,6 +66,5 @@ $lang['An alternate solution is to copy the text in the box above and paste it i
 $lang['Creation of config file local/config/database.inc.php failed.'] = 'Konfigurācijas faila local/config/database.inc.php izveide ir nesekmīga.';
 $lang['Download the config file'] = 'Lejupladet config failu';
 $lang['You can download the config file and upload it to local/config directory of your installation.'] = 'Jums jalejupielade configuracijas fails un jaielade tas Jusu instalacijas local/config mape.';
-$lang['SQLite and PostgreSQL are currently in experimental state.'] = 'SQLite un PostgreSQL patlaban darbojas eksperimentala režima.';
 $lang['Learn more'] = 'Uzzini vairak';
 ?>

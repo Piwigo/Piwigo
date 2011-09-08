@@ -56,8 +56,6 @@ $lang['Need help ? Ask your question on <a href="%s">Piwigo message board</a>.']
 $lang['Webmaster mail address'] = 'ვებმასტერის ელ.ფოსტა';
 $lang['Visitors will be able to contact site administrator with this mail'] = 'გამოყენებული იქნება მომხმარებლების მიერ ადმინისტრატორთან კავშირისათვის';
 
-$lang['Database type'] = 'მონაცემთა ბაზის ტიპი';
-$lang['The type of database your piwigo data will be store in'] = 'მონაცემთა ბაზის ტიპი შენახული იქნება';
 $lang['PHP 5 is required'] = 'საჭიროა PHP 5';
 $lang['It appears your webhost is currently running PHP %s.'] = 'სავარაუდოდ თქვენი ხოსტინგი ამჟამად იყენებს PHP %s.';
 $lang['Piwigo may try to switch your configuration to PHP 5 by creating or modifying a .htaccess file.'] = 'Piwigo–ს შეუძლია შეეცადოს გადართოს თქვენი კონფიგურაცია PHP 5, .htaccess ფაილს შექმნით ან შეცვლით.';
@@ -72,6 +70,5 @@ $lang['An alternate solution is to copy the text in the box above and paste it i
 $lang['Creation of config file local/config/database.inc.php failed.'] = 'კონფიგურაციის ფაილის local/config/database.inc.php შექმნა არ მოხერხდა.';
 $lang['Download the config file'] = 'ავტვირთოთ კონფიგურაციის ფაილი';
 $lang['You can download the config file and upload it to local/config directory of your installation.'] = 'თქვენ შეგიძლიათ ატვირთოთ კონფიგურაციის ფაილი და გადასცეთ იგი local/config directory ში.';
-$lang['SQLite and PostgreSQL are currently in experimental state.'] = 'SQLite და PostgreSQL ამჟამად იმყოპება ექსპერიმენტის სტადიაში.';
 $lang['Learn more'] = 'გავიგოთ მეტი';
 ?>

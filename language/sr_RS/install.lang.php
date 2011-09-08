@@ -33,8 +33,6 @@ $lang['Webmaster login'] = 'Приступ уредника интернет с�
 $lang['It will be shown to the visitors. It is necessary for website administration'] = 'Биће приказано посетиоцима. Неопходно је за администрацију интернет страница';
 $lang['Connection to server succeed, but it was impossible to connect to database'] = 'Повезивање на сервер успешно, али повезивање на базу је немогућа';
 $lang['Can\'t connect to server'] = 'Немогуће повезивање на сервер';
-$lang['Database type'] = 'Тип базе';
-$lang['The type of database your piwigo data will be store in'] = 'Тип базе где ће Ваши Piwigo подаци бити смештени';
 $lang['Host'] = 'Хост';
 $lang['localhost, sql.multimania.com, toto.freesurf.fr'] = 'localhost, sql.multimania.com, toto.freesurf.fr';
 $lang['User'] = 'Korisnik';
@@ -69,6 +67,5 @@ $lang['An alternate solution is to copy the text in the box above and paste it i
 $lang['Creation of config file local/config/database.inc.php failed.'] = 'Формирање конфигурационе датотеке local/config/database.inc.php неуспешно.';
 $lang['Download the config file'] = 'Сними на рачунар конфигурациону датотеку';
 $lang['You can download the config file and upload it to local/config directory of your installation.'] = 'Можете снимити на рацунар конфигурациону датотеку и послати је на local/config директоријум Ваше инсталације.';
-$lang['SQLite and PostgreSQL are currently in experimental state.'] = 'SQLite и PostgreSQL су тренутно у фази испитивања.';
 $lang['Learn more'] = 'Научите више';
 ?>

@@ -34,8 +34,6 @@ $lang['Webmaster login'] = 'Site yöneticisi giriş';
 $lang['It will be shown to the visitors. It is necessary for website administration'] = 'Bu ziyaretçilere gösterilecek. Bu web sitesi yönetimi için gereklidir';
 $lang['Connection to server succeed, but it was impossible to connect to database'] = 'Sunucuya bağlantı başarılı, ama veritabanına bağlantı kurulamadı';
 $lang['Can\'t connect to server'] = 'Sunucuya bağlanamadı';
-$lang['Database type'] = 'Veritabanı türü';
-$lang['The type of database your piwigo data will be store in'] = 'Piwigo verilerinizi depolama türü';
 $lang['Host'] = 'Host';
 $lang['localhost, sql.multimania.com, toto.freesurf.fr'] = 'localhost, sql.multimania.com, toto.freesurf.fr';
 $lang['User'] = 'Kullanıcı';
@@ -70,6 +68,5 @@ $lang['An alternate solution is to copy the text in the box above and paste it i
 $lang['Creation of config file local/config/database.inc.php failed.'] = 'Yapılandırmada dosyası local/config/database.inc.php oluşturma başarısız oldu.';
 $lang['Download the config file'] = 'Yapılandırma dosyasını indir';
 $lang['You can download the config file and upload it to local/config directory of your installation.'] = 'Yapılandırma dosyasını indirip düzenleyebilir ve kurulum dizininde local/config bölümüne yükleyebilirsiniz.';
-$lang['SQLite and PostgreSQL are currently in experimental state.'] = 'SQLite ve PostgreSQL deneysel durumda.';
 $lang['Learn more'] = 'Daha fazla bilgi edinin';
 ?>

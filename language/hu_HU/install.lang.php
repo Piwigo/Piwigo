@@ -34,8 +34,6 @@ $lang['Webmaster login'] = 'Webmester';
 $lang['It will be shown to the visitors. It is necessary for website administration'] = 'A látogatók látni fogják. Szükséges a weboldal adminisztrációjához';
 $lang['Connection to server succeed, but it was impossible to connect to database'] = 'A kapcsolat a kiszolgálóval rendben, de nem sikerült csatlakozni az adatbázishoz';
 $lang['Can\'t connect to server'] = 'Nem sikerült kapcsolódni a szerverhez';
-$lang['Database type'] = "Adatbázis típusa";
-$lang['The type of database your piwigo data will be store in'] = "Az adatbázis típusa a Piwigo adatok tárolására";
 $lang['Host'] = 'MySQL host';
 $lang['localhost, sql.multimania.com, toto.freesurf.fr'] = 'localhost, sql, stb.';
 $lang['User'] = 'Felhasználó név';
@@ -70,7 +68,6 @@ $lang['An alternate solution is to copy the text in the box above and paste it i
 $lang['Creation of config file local/config/database.inc.php failed.'] = 'A local/config/database.inc.php konfigurációs fájl létrehozása sikertelen.';
 $lang['Download the config file'] = 'Konfigurációs fájl letöltése';
 $lang['You can download the config file and upload it to local/config directory of your installation.'] = 'Letöltheti a konfigurációs fájlt és töltse fel a telepítésének local/config könyvtárába.';
-$lang['SQLite and PostgreSQL are currently in experimental state.'] = 'SQLite és PostgreSQL jelenleg kísérleti állapotban.';
 $lang['Learn more'] = 'Bővebben';
 $lang['Just another Piwigo gallery'] = 'Csak egy újabb Piwigo galéria';
 $lang['Welcome to my photo gallery'] = 'Üdvözöljük a képgalériában';

@@ -26,31 +26,6 @@
 {literal}
 <script type="text/javascript">
 $(function() {
-    $option_selected = $('#dblayer option:selected').attr('value');
-    if ($option_selected=='sqlite' || $option_selected=='pdo-sqlite') {
-       $('input[name=dbhost],input[name=dbuser],input[name=dbpasswd]').parent().parent().hide();
-    }
-    if ($option_selected=='mysql') {
-        $('#experimentalDbEngines').hide();
-    }
-
-    $('#dblayer').change(function() {
-        $db = this;
-        if ($db.value=='sqlite' || $db.value=='pdo-sqlite') {
-           $('input[name=dbhost],input[name=dbuser],input[name=dbpasswd]').parent().parent().hide();
-        } else {
-           $('input[name=dbhost],input[name=dbuser],input[name=dbpasswd]').parent().parent().show();
-        }
-
-        if ($db.value=='mysql') {
-            $('#experimentalDbEngines').hide();
-        }
-        else {
-            $('#experimentalDbEngines').show();
-        }
-      });
-  });
-
 $(document).ready(function() {
   $("a.externalLink").click(function() {
     window.open($(this).attr("href"));
@@ -248,34 +223,6 @@ jQuery().ready(function(){ldelim}
   <legend>{'Database configuration'|@translate}</legend>
 
   <table class="table2">
-    {if count($F_DB_ENGINES)>1}
-    <tr>
-      <td style="width: 30%;" class="fieldname">{'Database type'|@translate}</td>
-      <td>
-	<select name="dblayer" id="dblayer">
-	  {foreach from=$F_DB_ENGINES key=k item=v}
-	  <option value="{$k}"
-		  {if $k==$F_DB_LAYER and $v.available} selected="selected"{/if}
-		  {if !$v.available} disabled="disabled"{/if}
-		  >{$v.label}</option>
-	  {/foreach}
-	</select>    
-      </td>
-      <td class="fielddesc">{'The type of database your piwigo data will be store in'|@translate}</td>
-    {else}
-    <td colspan="3">
-    <input type="hidden" name="dbengine" value="{$F_DB_LAYER}">
-    </td>
-    {/if}
-    </tr>
-    <tr id="experimentalDbEngines">
-      <td colspan="3">
-<div class="warnings">
-      {'SQLite and PostgreSQL are currently in experimental state.'|@translate}
-      <a href="http://piwigo.org/forum/viewtopic.php?id=15927" class="externalLink">{'Learn more'|@translate}</a>
-</div>
-      </td>
-    </tr>
     <tr>
       <td style="width: 30%;" class="fieldname">{'Host'|@translate}</td>
       <td><input type="text" name="dbhost" value="{$F_DB_HOST}"></td>

@@ -55,8 +55,6 @@ $lang['verification'] = 'verificatie';
 $lang['Need help ? Ask your question on <a href="%s">Piwigo message board</a>.'] = 'Hulp nodig ? Stel uw vraag op het <a href="%s" target="_blank">Piwigo forum</a>.';
 $lang['Webmaster mail address'] = 'Email-adres van de webbeheerder';
 $lang['Visitors will be able to contact site administrator with this mail'] = 'Met dit email-adres kunnen bezoekers contact opnemen met de beheerder';
-$lang['Database type'] = 'Database type';
-$lang['The type of database your piwigo data will be store in'] = 'Het type database waarin uw Piwigo-gegevens worden opgeslagen';
 $lang['PHP 5 is required'] = 'PHP 5 is vereist';
 $lang['It appears your webhost is currently running PHP %s.'] = 'Het lijkt er op dat uw webhost momenteel gebruik maakt van PHP %s.';
 $lang['Piwigo may try to switch your configuration to PHP 5 by creating or modifying a .htaccess file.'] = 'Piwigo kan proberen uw configuratie om te zetten naar PHP 5 door het aanmaken of wijzigen van een .htaccess bestand.';
@@ -71,7 +69,6 @@ $lang['An alternate solution is to copy the text in the box above and paste it i
 $lang['Creation of config file local/config/database.inc.php failed.'] = 'Het aanmaken van config-bestand local/config/database.inc.php is mislukt.';
 $lang['Download the config file'] = 'Download het config-bestand';
 $lang['You can download the config file and upload it to local/config directory of your installation.'] = 'U kunt het config-bestand downloaden en het uploaden naar de local/config directory van uw Piwigo-installatie.';
-$lang['SQLite and PostgreSQL are currently in experimental state.'] =
 'SQLite en PostgreSQL zijn momenteel nog in een experimenteel stadium.';
 $lang['Learn more'] = 'Leer meer';
 ?>

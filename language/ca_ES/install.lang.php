@@ -34,8 +34,6 @@ $lang['Webmaster login'] = "Nom de l'usuari administrador";
 $lang['It will be shown to the visitors. It is necessary for website administration'] = "Això es mostrarà als visitants. És necessari per el lloc web d'administració";
 $lang['Connection to server succeed, but it was impossible to connect to database'] = "La connexió amb el servidor ha estat exitosa, però la connexió amb la base de dades ha estat impossible";
 $lang['Can\'t connect to server'] = "No es pot connectar amb el servidor";
-$lang['Database type'] = "Tipus de base de dades";
-$lang['The type of database your piwigo data will be store in'] = "El tipus de base de dades on s'emmagatzemaran les dades de la teva galeria Piwigo";
 $lang['Host'] = "Amfitrió";
 $lang['localhost, sql.multimania.com, toto.freesurf.fr'] = "localhost, sql.multimania.com, toto.freesurf.fr";
 $lang['User'] = "Usuari";
@@ -70,6 +68,5 @@ $lang['An alternate solution is to copy the text in the box above and paste it i
 $lang['Creation of config file local/config/database.inc.php failed.'] = 'La creació del fitxer de configuració local/config/database.inc.php ha fallat.';
 $lang['Download the config file'] = 'Descarregueu el fitxer de configuració';
 $lang['You can download the config file and upload it to local/config directory of your installation.'] = 'Podeu descarregar el fitxer de configuració i penjar-lo al directori local/config de la vostra instal·lació.';
-$lang['SQLite and PostgreSQL are currently in experimental state.'] = 'SQLite i PostgreSQL s\'estant executant en mode experimental.';
 $lang['Learn more'] = 'Apreneu-ne més';
 ?>

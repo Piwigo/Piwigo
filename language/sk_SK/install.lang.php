@@ -60,8 +60,6 @@ $lang['Webmaster mail address'] = 'E-mail webmastra';
 $lang['Visitors will be able to contact site administrator with this mail'] = 'Návštevníci môžu pomocou tohto e-mailu kontaktovať správcu';
 
 // missing translations 2.1.0
-$lang['Database type'] = 'Typ databázy';
-$lang['The type of database your piwigo data will be store in'] = 'Typ databázy Vašej Piwigo databázy bude uložený';
 $lang['PHP 5 is required'] = 'Je nutné PHP 5';
 $lang['It appears your webhost is currently running PHP %s.'] = 'Na Vašom webhostingu je PHP %s.';
 $lang['Piwigo may try to switch your configuration to PHP 5 by creating or modifying a .htaccess file.'] = 'Piwigo sa môže pokúsiť zmeniť Vaše nastavenie na PHP 5 tým, že vytvorí alebo zmení súbor .htaccess.';
@@ -76,6 +74,5 @@ $lang['An alternate solution is to copy the text in the box above and paste it i
 $lang['Creation of config file local/config/database.inc.php failed.'] = 'Vytvorenie súboru local/config/database.inc.php sa nepodarilo.';
 $lang['Download the config file'] = 'Stiahnuť konfiguračný súbor';
 $lang['You can download the config file and upload it to local/config directory of your installation.'] = 'Môžete stiahnuť konfiguračný súbor a nahrať ho do adresára local/config Vašej inštalácie.';
-$lang['SQLite and PostgreSQL are currently in experimental state.'] = 'SQLite a PostgreSQL sa aktuálne zatiaľ testujú.';
 $lang['Learn more'] = 'Zistiť viac';
 ?>

@@ -55,8 +55,6 @@ $lang['verification'] = '確認';
 $lang['Need help ? Ask your question on <a href="%s">Piwigo message board</a>.'] = 'ヘルプが必要ですか? <a href="%s">Piwigoメッセージボード</a>にて、あなたの質問を投稿してください。';
 $lang['Webmaster mail address'] = 'ウェブマスタメールアドレス';
 $lang['Visitors will be able to contact site administrator with this mail'] = 'ビジターは、このメールアドレスでサイト管理者に連絡することができます。';
-$lang['Database type'] = 'データベース種';
-$lang['The type of database your piwigo data will be store in'] = 'あなたのPiwigoデータが保存されているデータベース種';
 $lang['PHP 5 is required'] = 'PHP 5は必要';
 $lang['It appears your webhost is currently running PHP %s.'] = 'あなたのウェブホストは現在PHP %sを使っているらしいです。';
 $lang['Piwigo may try to switch your configuration to PHP 5 by creating or modifying a .htaccess file.'] = 'Piwigoは.htaccess ファイルを作成するか、変更しようとしてPHP 5に設定してみます。';
@@ -71,6 +69,5 @@ $lang['An alternate solution is to copy the text in the box above and paste it i
 $lang['Creation of config file local/config/database.inc.php failed.'] = 'local/config/database.inc.php のconfig ファイル作成失敗しました。';
 $lang['Download the config file'] = 'config ファイルをダウンロードします。';
 $lang['You can download the config file and upload it to local/config directory of your installation.'] = 'config ファイルをダウンロードし、インストールされた local/config ディレクトリーにアップロードすることができます。';
-$lang['SQLite and PostgreSQL are currently in experimental state.'] = 'SQLite と PostgreSQL は現在試験中です。';
 $lang['Learn more'] = '詳細はこちら';
 ?>
