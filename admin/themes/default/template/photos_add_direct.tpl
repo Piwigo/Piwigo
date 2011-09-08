@@ -15,6 +15,11 @@ jQuery(document).ready(function(){
     jQuery("#formErrors").hide();
     jQuery("#formErrors li").hide();
 
+    if (jQuery("#albumSelect option:selected").length == 0) {
+      jQuery("#formErrors #noAlbum").show();
+      nbErrors++;
+    }
+
     var nbFiles = 0;
     if (jQuery("#uploadBoxes").size() == 1) {
       jQuery("input[name^=image_upload]").each(function() {
@@ -96,7 +101,7 @@ jQuery(document).ready(function(){
   fillCategoryListbox("albumSelect");
   fillCategoryListbox("category_parent");
 */
-  
+
   jQuery(".addAlbumOpen").colorbox({inline:true, href:"#addAlbumForm"});
 
   jQuery("#addAlbumForm form").submit(function(){
@@ -122,9 +127,18 @@ jQuery(document).ready(function(){
 
           /* we refresh the album creation form, in case the user wants to create another album */
           jQuery("#category_parent").find("option").remove();
+
+          jQuery("<option/>")
+            .attr("value", 0)
+            .text("------------")
+            .appendTo("#category_parent")
+          ;
+
           fillCategoryListbox("category_parent", newAlbum);
 
           jQuery("#addAlbumForm form input[name=category_name]").val('');
+
+          jQuery("#albumSelection").show();
 
           return true;
         },
@@ -330,6 +344,7 @@ var sizeLimit = Math.round({$upload_max_filesize} / 1024); /* in KBytes */
 
 <div id="formErrors" class="errors" style="display:none">
   <ul>
+    <li id="noAlbum">{'Select an album'|@translate}</li>
     <li id="noPhoto">{'Select at least one photo'|@translate}</li>
   </ul>
   <div class="hideButton" style="text-align:center"><a href="#" id="hideErrors">{'Hide'|@translate}</a></div>
@@ -358,10 +373,11 @@ var sizeLimit = Math.round({$upload_max_filesize} / 1024); /* in KBytes */
     <fieldset>
       <legend>{'Drop into album'|@translate}</legend>
 
+      <span id="albumSelection"{if count($category_options) == 0} style="display:none"{/if}>
       <select id="albumSelect" name="category">
         {html_options options=$category_options selected=$category_options_selected}
       </select>
-      <br>{'... or '|@translate}<a href="#" class="addAlbumOpen" title="{'create a new album'|@translate}">{'create a new album'|@translate}</a>
+      <br>{'... or '|@translate}</span><a href="#" class="addAlbumOpen" title="{'create a new album'|@translate}">{'create a new album'|@translate}</a>
       
     </fieldset>
 
