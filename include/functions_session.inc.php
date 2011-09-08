@@ -94,13 +94,16 @@ function pwg_session_close()
 
 function get_remote_addr_session_hash()
 {
-  $separator = (FALSE === strpos($_SERVER['REMOTE_ADDR'],'.'))
-    ? ':'
-    : '.'
-  ;
-
-  return substr(md5($_SERVER['REMOTE_ADDR']), 0, 4);
+  if (strpos($_SERVER['REMOTE_ADDR'],':')===false)
+  {//ipv4
+    return vsprintf(
+      "%02X%02X",
+      explode('.',$_SERVER['REMOTE_ADDR'])
+    );
+  }
+  return ''; //ipv6 not yet
 }
+
 /**
  * this function returns
  * a string corresponding to the value of the variable save in the session
