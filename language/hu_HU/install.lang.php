@@ -52,8 +52,8 @@ $lang['Keep it confidential, it enables you to access administration panel'] = '
 $lang['Password [confirm]'] = 'Jelszó [megerősítés]';
 $lang['verification'] = 'jelszó egyezőségének ellenőrzése';
 $lang['Need help ? Ask your question on <a href="%s">Piwigo message board</a>.'] = 'Segítségre van szüksége ? Kérdéseit itt teheti fel: <a href="%s">Piwigo üzenőfal</a>.';
-$lang['Webmaster mail address'] = 'Webmester email cím';
-$lang['Visitors will be able to contact site administrator with this mail'] = 'A látogatók ezen az email címen tudják felvenni a kapcsolatot az adminisztrátorral';
+$lang['Webmaster mail address'] = 'Webmester e-mail cím';
+$lang['Visitors will be able to contact site administrator with this mail'] = 'A látogatók ezen az e-mail címen tudják felvenni a kapcsolatot az adminisztrátorral';
 $lang['PHP 5 is required'] = 'PHP 5 szükséges';
 $lang['It appears your webhost is currently running PHP %s.'] = 'Úgy tűnik, a tárhelyszolgáltatójánál jelenleg futó PHP %s.';
 $lang['Piwigo may try to switch your configuration to PHP 5 by creating or modifying a .htaccess file.'] = 'Piwigo megpróbálhatja bekapcsolni a PHP 5-öt azáltal, hogy létrehoz vagy módosít egy .htaccess fájlt.';
