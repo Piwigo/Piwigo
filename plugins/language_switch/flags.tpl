@@ -19,7 +19,7 @@
 
 {foreach from=$lang_switch.flags key=code item=flag name=f}
           <li>
-            <a rel="nofollow" href="{$flag.url}">
+            <a rel="nofollow" href="{$SCRIPT_NAME}{$flag.url}">
               <img class="flags" src="{$flag.img}" alt="{$flag.alt}" title="{$flag.alt}"/> {$flag.title}
             </a>
           </li>
