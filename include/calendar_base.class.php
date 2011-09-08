@@ -220,7 +220,6 @@ $this->get_date_where($level).'
 ;';
 
     $level_items = simple_hash_from_query($query, 'period', 'nb_images');
-    $level_items = array_to_int($level_items);
 
     if ( count($level_items)==1 and
          count($page['chronology_date'])<count($this->calendar_levels)-1)
@@ -292,7 +291,6 @@ GROUP BY period';
     
     $current = implode('-', $page['chronology_date'] );
     $upper_items = array_from_query( $query, 'period');
-    $upper_items = array_to_int($upper_items);
 
     usort($upper_items, 'version_compare');
     $upper_items_rank = array_flip($upper_items);

@@ -224,15 +224,13 @@ function build_global_calendar(&$tpl_var)
 
   assert( count($page['chronology_date']) == 0 );
   $query='
-SELECT '.pwg_db_get_date_YYYYMM($this->date_field).' as period,'
-    .pwg_db_get_year($this->date_field).' as year, '
-    .pwg_db_get_month($this->date_field).' as month, 
-            count(distinct id) as count';
+SELECT '.pwg_db_get_date_YYYYMM($this->date_field).' as period,
+  COUNT(distinct id) as count';
   $query.= $this->inner_sql;
   $query.= $this->get_date_where();
   $query.= '
-  GROUP BY period, year, month
-  ORDER BY year DESC, month ASC';
+  GROUP BY period
+  ORDER BY '.pwg_db_get_year($this->date_field).' DESC, '.pwg_db_get_month($this->date_field).' ASC';
 
   $result = pwg_query($query);
   $items=array();
@@ -368,11 +366,6 @@ SELECT id, file,tn_ext,path, width, height, '.pwg_db_get_dayofweek($this->date_f
     $items[$day]['width'] = $row['width'];
     $items[$day]['height'] = $row['height'];
     $items[$day]['dow'] = $row['dow'];
-
-    if ('sunday' == $conf['week_starts_on'])
-    {
-      $items[$day]['dow']++;
-    }
   }
 
   if ( !empty($items)
@@ -389,21 +382,19 @@ SELECT id, file,tn_ext,path, width, height, '.pwg_db_get_dayofweek($this->date_f
     //first_day_dow = week day corresponding to the first day of this month
     $wday_labels = $lang['day'];
 
-    // BEGIN - pass now in week starting Monday
-    if ($first_day_dow==0)
-    {
-      $first_day_dow = 6;
-    }
-    else
-    {
-      $first_day_dow -= 1;
-    }
-
     if ('monday' == $conf['week_starts_on'])
     {
+      if ($first_day_dow==0)
+      {
+        $first_day_dow = 6;
+      }
+      else
+      {
+        $first_day_dow -= 1;
+      }
+
       array_push( $wday_labels, array_shift($wday_labels) );
     }
-    // END - pass now in week starting Monday
 
     $cell_width = $conf['calendar_month_cell_width'];
     $cell_height = $conf['calendar_month_cell_height'];

@@ -289,37 +289,4 @@ WHERE id IN (' . implode(',',$page['items']) .')';
   }
   pwg_debug('end initialize_calendar');
 }
-
-function array_to_int($array)
-{
-  $result = array();
-  foreach ($array as $k => $v)
-  {
-    if ((int)$k==$k)
-    {
-      $key = (int) $k;
-    }
-    else
-    {
-      $key = $k;
-    }
-    if (is_array($v))
-    {
-      $result[$key] = array_to_int($v);
-    }
-    else
-    {
-      if (is_int($v))
-      {
-	$value = (int) $v;
-      }
-      else
-      {
-	$value = $v;
-      }
-      $result[$key] = $value;
-    }
-  }
-  return $result;
-}
 ?>

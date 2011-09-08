@@ -40,7 +40,7 @@ class Calendar extends CalendarBase
   function initialize($inner_sql)
   {
     parent::initialize($inner_sql);
-    global $lang;
+    global $lang, $conf;
     $week_no_labels=array();
     for ($i=1; $i<=53; $i++)
     {
@@ -64,10 +64,13 @@ class Calendar extends CalendarBase
      );
     //Comment next lines for week starting on Sunday or if MySQL version<4.0.17
     //WEEK(date,5) = "0-53 - Week 1=the first week with a Monday in this year"
-    $this->calendar_levels[CWEEK]['sql'] = pwg_db_get_week($this->date_field, 5).'+1';
-    $this->calendar_levels[CDAY]['sql'] = pwg_db_get_weekday($this->date_field);
-    array_push( $this->calendar_levels[CDAY]['labels'],
-                array_shift( $this->calendar_levels[CDAY]['labels'] ) );
+    if ('monday' == $conf['week_starts_on'])
+    {
+      $this->calendar_levels[CWEEK]['sql'] = pwg_db_get_week($this->date_field, 5).'+1';
+      $this->calendar_levels[CDAY]['sql'] = pwg_db_get_weekday($this->date_field);
+      array_push( $this->calendar_levels[CDAY]['labels'],
+                  array_shift( $this->calendar_levels[CDAY]['labels'] ) );
+    }
   }
 
 /**

@@ -228,12 +228,16 @@ SELECT t.*, count(*) AS counter
     AND tag_id NOT IN ('.implode(',', $excluded_tag_ids).')';
   }
   $query .='
-  GROUP BY tag_id, t.id, t.name, t.url_name';
+  GROUP BY t.id
+  ORDER BY ';
   if ($max_tags>0)
   {
-    $query .= '
-  ORDER BY counter DESC
+    $query .= 'counter DESC
   LIMIT '.$max_tags;
+  }
+  else
+  {
+    $query .= 'NULL';
   }
 
   $result = pwg_query($query);
