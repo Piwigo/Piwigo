@@ -868,4 +868,5 @@ $lang['Tags <em>%s</em> merged into tag <em>%s</em>'] = 'i tags <em>%s</em> sono
 $lang['Select at least two tags for merging'] = 'Selezionare almeno due tag da fuzionare';
 $lang['Average rate'] = 'Voto medio';
 $lang['Rate'] = 'Voto';
+$lang['Learn more'] = 'Per saperne di più';
 ?>

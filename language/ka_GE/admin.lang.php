@@ -794,5 +794,5 @@ $lang['new'] = 'ახალი';
 $lang['No results'] = 'შედეგი არ არის';
 $lang['Searching...'] = 'ძიება...';
 $lang['Type in a search term'] = 'ჩაწერეთ მოსაძებნი სიტყვა';
-
+$lang['Learn more'] = 'გავიგოთ მეტი';
 ?>

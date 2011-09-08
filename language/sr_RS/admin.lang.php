@@ -835,5 +835,5 @@ $lang['Height'] = 'Висина';
 $lang['Follow Orientation'] = 'Следећа орјентација';
 $lang['If you want to regenerate thumbnails, please go to the <a href="%s">Batch Manager</a>.'] = 'Ако желите да обновите сличице, молимо Вас да одете на следећу везу: <a href="%s">Управљач обраде</a>.';
 $lang['Graphics Library'] = 'Графичка библиотека';
-
+$lang['Learn more'] = 'Научите више';
 ?>

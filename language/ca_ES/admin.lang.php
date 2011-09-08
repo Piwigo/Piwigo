@@ -799,5 +799,5 @@ $lang['Do you want to activate anyway?'] = 'Voleu activar-lo de totes formes?';
 $lang['THIS PLUGIN IS NOW PART OF PIWIGO CORE! DELETE IT NOW.'] = 'ARA AQUEST CONNECTOR FORMA PART DEL NUCLI DE PIWIGO! ELEMINAR-LO ARA';
 $lang['ERROR: THIS PLUGIN IS MISSING BUT IT IS INSTALLED! UNINSTALL IT NOW.'] = 'ERROR: AQUEST CONNECTOR MANCA PERÒ ESTÀ INSTAL·LAT! DESISNTAL·LAR-LO ARA.';
 $lang['display'] = 'visualitzar';
-
+$lang['Learn more'] = 'Apreneu-ne més';
 ?>

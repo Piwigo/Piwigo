@@ -70,5 +70,4 @@ $lang['An alternate solution is to copy the text in the box above and paste it i
 $lang['Creation of config file local/config/database.inc.php failed.'] = '创建 local/config/database.inc.php 文件失败.';
 $lang['Download the config file'] = '下载配置文件';
 $lang['You can download the config file and upload it to local/config directory of your installation.'] = '您可以下载配置文件，然后上传到 local/config 目录以完成您的安装.';
-$lang['Learn more'] = '了解更多';
 ?>

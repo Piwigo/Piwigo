@@ -67,5 +67,4 @@ $lang['An alternate solution is to copy the text in the box above and paste it i
 $lang['Creation of config file local/config/database.inc.php failed.'] = 'Формирање конфигурационе датотеке local/config/database.inc.php неуспешно.';
 $lang['Download the config file'] = 'Сними на рачунар конфигурациону датотеку';
 $lang['You can download the config file and upload it to local/config directory of your installation.'] = 'Можете снимити на рацунар конфигурациону датотеку и послати је на local/config директоријум Ваше инсталације.';
-$lang['Learn more'] = 'Научите више';
 ?>

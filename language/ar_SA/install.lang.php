@@ -66,6 +66,5 @@ $lang['An alternate solution is to copy the text in the box above and paste it i
 $lang['Creation of config file local/config/database.inc.php failed.'] = 'فشل في إنشاء ملف التكوين local/config/database.inc.php ';
 $lang['Download the config file'] = 'تحميل ملف التكوين';
 $lang['You can download the config file and upload it to local/config directory of your installation.'] = 'يمكنك تحميل ملف التكوين وتحميله إلى الدليل المحلي';
-$lang['Learn more'] = 'تعلم أكثر';
 
 ?>

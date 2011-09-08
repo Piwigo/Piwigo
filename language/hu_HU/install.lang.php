@@ -68,7 +68,6 @@ $lang['An alternate solution is to copy the text in the box above and paste it i
 $lang['Creation of config file local/config/database.inc.php failed.'] = 'A local/config/database.inc.php konfigurációs fájl létrehozása sikertelen.';
 $lang['Download the config file'] = 'Konfigurációs fájl letöltése';
 $lang['You can download the config file and upload it to local/config directory of your installation.'] = 'Letöltheti a konfigurációs fájlt és töltse fel a telepítésének local/config könyvtárába.';
-$lang['Learn more'] = 'Bővebben';
 $lang['Just another Piwigo gallery'] = 'Csak egy újabb Piwigo galéria';
 $lang['Welcome to my photo gallery'] = 'Üdvözöljük a képgalériában';
 ?>

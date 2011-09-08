@@ -782,5 +782,5 @@ $lang['new'] = 'novo';
 $lang['No results'] = 'Sem resultados';
 $lang['Searching...'] = 'Procurando...';
 $lang['Type in a search term'] = 'Escreva um termo de busca';
-
+$lang['Learn more'] = 'Saber mais';
 ?>

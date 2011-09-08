@@ -71,5 +71,4 @@ $lang['An alternate solution is to copy the text in the box above and paste it i
 $lang['Creation of config file local/config/database.inc.php failed.'] = 'A criação do ficheiro de configuração local/config/database.inc.php falhou.';
 $lang['Download the config file'] = 'Guardar ficheiro de configuração';
 $lang['You can download the config file and upload it to local/config directory of your installation.'] = 'Pode guardar o ficheiro de configuração no seu computador e de seguida enviá-lo para a pasta /local/config da sua instalação.';
-$lang['Learn more'] = 'Saber mais';
 ?>

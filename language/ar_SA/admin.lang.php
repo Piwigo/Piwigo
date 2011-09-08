@@ -783,4 +783,5 @@ $lang['No results'] = 'لا نتائج';
 $lang['Searching...'] = 'جاري البحث ..';
 $lang['Type in a search term'] = 'اكتب كلمات البحث';
 $lang['display'] = 'عرض';
+$lang['Learn more'] = 'تعلم أكثر';
 ?>

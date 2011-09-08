@@ -74,5 +74,4 @@ $lang['An alternate solution is to copy the text in the box above and paste it i
 $lang['Creation of config file local/config/database.inc.php failed.'] = 'Vytvorenie súboru local/config/database.inc.php sa nepodarilo.';
 $lang['Download the config file'] = 'Stiahnuť konfiguračný súbor';
 $lang['You can download the config file and upload it to local/config directory of your installation.'] = 'Môžete stiahnuť konfiguračný súbor a nahrať ho do adresára local/config Vašej inštalácie.';
-$lang['Learn more'] = 'Zistiť viac';
 ?>

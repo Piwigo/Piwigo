@@ -766,5 +766,5 @@ $lang['All languages are up to date.'] = 'Alle språk er oppdaterte.';
 $lang['Visit theme site'] = 'Besøk tema side'; 
 $lang['Visit language site'] = 'Besøk språk side'; 
 $lang['New Version'] = 'Ny versjon';
-
+$lang['Learn more'] = 'Lær mer';
 ?>

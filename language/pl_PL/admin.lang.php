@@ -809,4 +809,5 @@ $lang['ERROR'] = 'BŁĄD';
 $lang['Update Complete'] = 'Aktualizacja zakończona';
 $lang['Rate'] = 'Ocena';
 $lang['Average rate'] = 'Średnia ocena';
+$lang['Learn more'] = 'Dowiedz się więcej';
 ?>

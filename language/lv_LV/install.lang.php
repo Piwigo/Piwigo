@@ -66,5 +66,4 @@ $lang['An alternate solution is to copy the text in the box above and paste it i
 $lang['Creation of config file local/config/database.inc.php failed.'] = 'Konfigurācijas faila local/config/database.inc.php izveide ir nesekmīga.';
 $lang['Download the config file'] = 'Lejupladet config failu';
 $lang['You can download the config file and upload it to local/config directory of your installation.'] = 'Jums jalejupielade configuracijas fails un jaielade tas Jusu instalacijas local/config mape.';
-$lang['Learn more'] = 'Uzzini vairak';
 ?>

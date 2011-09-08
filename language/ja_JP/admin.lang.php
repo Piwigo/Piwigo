@@ -732,4 +732,5 @@ $lang['File upload stopped by extension'] = 'エクステンションによっ�
 $lang['In your php.ini file, the upload_max_filesize (%sB) is bigger than post_max_size (%sB), you should change this setting'] =' あなたのphp.ini ファイルによって、最高の投稿サイズ (%sB)より、 最大のアップロード・ファイルサイズ (%sB) のほうが大量です。この設定を変更する必です。';
 $lang['Average rate'] = '平均評価';
 $lang['Rate'] = '評価';
+$lang['Learn more'] = '詳細はこちら';
 ?>

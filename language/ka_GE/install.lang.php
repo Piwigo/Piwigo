@@ -70,5 +70,4 @@ $lang['An alternate solution is to copy the text in the box above and paste it i
 $lang['Creation of config file local/config/database.inc.php failed.'] = 'კონფიგურაციის ფაილის local/config/database.inc.php შექმნა არ მოხერხდა.';
 $lang['Download the config file'] = 'ავტვირთოთ კონფიგურაციის ფაილი';
 $lang['You can download the config file and upload it to local/config directory of your installation.'] = 'თქვენ შეგიძლიათ ატვირთოთ კონფიგურაციის ფაილი და გადასცეთ იგი local/config directory ში.';
-$lang['Learn more'] = 'გავიგოთ მეტი';
 ?>

@@ -730,4 +730,5 @@ $lang['Selection'] = 'Selektion';
 $lang['Set author'] = 'Vælg forfartter';
 $lang['Set creation date'] = 'Vælg oprettelsesdato';
 $lang['Set title'] = 'Vælg titel';
+$lang['Learn more'] = 'Lær mere';
 ?>

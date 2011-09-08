@@ -841,5 +841,5 @@ $lang['Rate'] = 'Hodnocení';
 $lang['Add a criteria'] = 'Přidání kritéria';
 $lang['You can\'t define a default photo order because you have a custom setting in your local configuration.'] = 'Nemužete definovat výchozí pořadí fotografií, protože máte nadefinováno vlastní nastavení v konfiguraci';
 $lang['You have specified <i>$conf[\'order_by\']</i> in your local configuration file, this parameter in deprecated, please remove it or rename it into <i>$conf[\'order_by_custom\']</i> !'] = 'Specifikovali jste <i>$conf[\'order_by\']</i> v konfiguračním souboru, tento parametr je zastaralý, prosím odstraňte ho nebo přejmenujte na <i>$conf[\'order_by_custom\']</i> !';
-
+$lang['Learn more'] = 'Zjistit více';
 ?>

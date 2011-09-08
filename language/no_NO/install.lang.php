@@ -66,6 +66,5 @@ $lang['An alternate solution is to copy the text in the box above and paste it i
 $lang['Creation of config file local/config/database.inc.php failed.'] = 'Opprettelse av konfig fil local/config/database.inc.php feilet.';
 $lang['Download the config file'] = 'Last ned konfig fil';
 $lang['You can download the config file and upload it to local/config directory of your installation.'] = 'Du kan laste ned konfig filen og laste den opp til local/config mappen i din installasjon.';
-$lang['Learn more'] = 'Lær mer';
 
 ?>

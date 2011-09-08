@@ -68,7 +68,6 @@ $lang['An alternate solution is to copy the text in the box above and paste it i
 $lang['Creation of config file local/config/database.inc.php failed.'] = 'Việc tạo ra tệp tin cấu hình local/config/database.inc.php đã bị lỗi.';
 $lang['Download the config file'] = 'Tải tệp tin cấu hình xuống';
 $lang['You can download the config file and upload it to local/config directory of your installation.'] = 'Bạn có thể tải tệp tin cấu hình và upload nó vào thư mục local/config của thư mục cài đặt Piwigo.';
-$lang['Learn more'] = 'Tìm hiểu thêm';
 $lang['Just another Piwigo gallery'] = 'Lại thêm một thư viện Piwigo nữa';
 $lang['Welcome to my photo gallery'] = 'Chào mừng bạn đến với thư viện hình của tôi';
 ?>

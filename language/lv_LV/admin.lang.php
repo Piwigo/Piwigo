@@ -830,4 +830,5 @@ $lang['You can\'t define a default photo order because you have a custom setting
 $lang['You have specified <i>$conf[\'order_by\']</i> in your local configuration file, this parameter in deprecated, please remove it or rename it into <i>$conf[\'order_by_custom\']</i> !'] = 'Jūs savā  lokālajā konfigurācijas failā esat iestatīts  <i>$conf[\'order_by\']</i>, šis parametrs ir novecojis, lūdzu izdzēšiet to vai pārdēvējiet to sekojoši : <i>$conf[\'order_by_custom\']</i> !';
 $lang['Average rate'] = "Vidējais novērtejums";
 $lang['Rate'] = "Vērtējums";
+$lang['Learn more'] = 'Uzzini vairak';
 ?>

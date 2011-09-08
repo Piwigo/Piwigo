@@ -809,5 +809,5 @@ $lang['Piwigo Update'] = 'Piwigo Uppdatering';
 $lang['Extensions Update'] = 'Uppdatering av tillägg';
 $lang['Rate'] = 'Betygsätt';
 $lang['Average rate'] = 'Genomsnittligt betyg';
-
+$lang['Learn more'] = 'Läs mer';
 ?>

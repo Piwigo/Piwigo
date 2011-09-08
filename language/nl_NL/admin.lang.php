@@ -839,5 +839,5 @@ $lang['If you want to regenerate thumbnails, please go to the <a href="%s">Batch
 $lang['Graphics Library'] = 'Afbeeldings bibliotheek';
 $lang['Average rate'] = 'Gemiddelde waardering';
 $lang['Rate'] = 'Waardering';
-
+$lang['Learn more'] = 'Leer meer';
 ?>

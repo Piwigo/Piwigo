@@ -844,5 +844,5 @@ $lang['Maximum file size: %sB.'] = '文件最大尺寸: %sB.';
 $lang['Allowed file types: %s.'] = '可上传的文件类型: %s.';
 $lang['Approximate maximum resolution: %dM pixels (that\'s %dx%d pixels).'] = '近乎最大的分辨率: %dM 像素 (that\'s %dx%d pixels).';
 $lang['Manage Permissions'] = '管理证书';
-
+$lang['Learn more'] = '了解更多';
 ?>

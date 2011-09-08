@@ -70,5 +70,4 @@ $lang['Creation of config file local/config/database.inc.php failed.'] = 'Het aa
 $lang['Download the config file'] = 'Download het config-bestand';
 $lang['You can download the config file and upload it to local/config directory of your installation.'] = 'U kunt het config-bestand downloaden en het uploaden naar de local/config directory van uw Piwigo-installatie.';
 'SQLite en PostgreSQL zijn momenteel nog in een experimenteel stadium.';
-$lang['Learn more'] = 'Leer meer';
 ?>

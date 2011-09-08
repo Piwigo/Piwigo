@@ -846,4 +846,5 @@ $lang['Maximum file size: %sB.'] = 'Kích thước file lớn nhất: %sB.';
 $lang['Allowed file types: %s.'] = 'Loại file cho phép dùng: %s.';
 $lang['Approximate maximum resolution: %dM pixels (that\'s %dx%d pixels).'] = 'Độ phân giải lớn nhất ước chừng: %dM pixels (đó là %dx%d pixels).';
 $lang['Manage Permissions'] = 'Quản lý Quyền Hạn';
+$lang['Learn more'] = 'Tìm hiểu thêm';
 ?>
