@@ -65,7 +65,22 @@ if (isset($_GET['change_theme']))
 
   conf_update_param('admin_theme', $new_admin_theme);
 
-  redirect('admin.php');
+  $url_params = array();
+  foreach (array('page', 'tab', 'section') as $url_param)
+  {
+    if (isset($_GET[$url_param]))
+    {
+      $url_params[] = $url_param.'='.$_GET[$url_param];
+    }
+  }
+  
+  $redirect_url = 'admin.php';
+  if (count($url_params) > 0)
+  {
+    $redirect_url.= '?'.implode('&amp;', $url_params);
+  }
+
+  redirect($redirect_url);
 }
 
 // +-----------------------------------------------------------------------+
@@ -81,6 +96,17 @@ if ($conf['external_authentification'])
 // +-----------------------------------------------------------------------+
 // | Variables init                                                        |
 // +-----------------------------------------------------------------------+
+
+$change_theme_url = PHPWG_ROOT_PATH.'admin.php?';
+$test_get = $_GET;
+unset($test_get['page']);
+unset($test_get['section']);
+unset($test_get['tag']);
+if (count($test_get) == 0)
+{
+  $change_theme_url.= str_replace('&', '&amp;', $_SERVER['QUERY_STRING']).'&amp;';
+}
+$change_theme_url.= 'change_theme=1';
 
 // ?page=plugin-community-pendings is an clean alias of
 // ?page=plugin&section=community/admin.php&tab=pendings
@@ -161,7 +187,7 @@ $template->assign(
     'U_LOGOUT'=> PHPWG_ROOT_PATH.'index.php?act=logout',
     'U_PLUGINS'=> $link_start.'plugins',
     'U_ADD_PHOTOS' => $link_start.'photos_add',
-    'U_CHANGE_THEME' => PHPWG_ROOT_PATH.'admin.php?change_theme=1',
+    'U_CHANGE_THEME' => $change_theme_url,
     'U_PENDING_COMMENTS' => $link_start.'comments',
     'U_UPDATES' => $link_start.'updates',
     )
