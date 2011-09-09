@@ -5,7 +5,7 @@
 		<div class="thumbnailCategory">
 			<div class="illustration">
 			<a href="{$cat.URL}">
-				<img src="{$cat.TN_SRC}" alt="{$cat.TN_ALT}" title="{$cat.NAME|@replace:'"':' '} - {'display this album'|@translate}">
+				<img src="{$cat.TN_SRC}" alt="{$cat.TN_ALT}" title="{$cat.NAME|@replace:'"':' '|@strip_tags:false} - {'display this album'|@translate}">
 			</a>
 			</div>
 			<div class="description">
