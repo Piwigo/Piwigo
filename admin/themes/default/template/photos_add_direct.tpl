@@ -96,13 +96,13 @@ jQuery(document).ready(function(){
     );
   }
 
-/*
-  jQuery("#albumSelect").find("option").remove();
-  fillCategoryListbox("albumSelect");
-  fillCategoryListbox("category_parent");
-*/
-
-  jQuery(".addAlbumOpen").colorbox({inline:true, href:"#addAlbumForm"});
+  jQuery(".addAlbumOpen").colorbox({
+    inline:true,
+    href:"#addAlbumForm",
+    onComplete:function(){
+      jQuery("input[name=category_name]").focus();
+    }
+  });
 
   jQuery("#addAlbumForm form").submit(function(){
       jQuery("#categoryNameError").text("");
