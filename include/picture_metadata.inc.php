@@ -57,7 +57,7 @@ if (($conf['show_exif']) and (function_exists('read_exif_data')))
   if (count($exif) > 0)
   {
     $tpl_meta = array(
-        'TITLE' => 'EXIF Metadata',
+        'TITLE' => l10n('EXIF Metadata'),
         'lines' => array(),
       );
 
@@ -104,7 +104,7 @@ if ($conf['show_iptc'])
   if (count($iptc) > 0)
   {
     $tpl_meta = array(
-        'TITLE' => 'IPTC Metadata',
+        'TITLE' => l10n('IPTC Metadata'),
         'lines' => array(),
       );
 

@@ -370,4 +370,8 @@ $lang['Enter your new password below.'] = 'Entrez votre nouveau mot de passe ci-
 $lang['Author'] = 'Auteur';
 $lang['%d rates'] = '%d notes';
 $lang['Rating score'] = 'Score';
+$lang['Reset Password'] = 'Réinitialiser le mot de passe';
+$lang['EXIF Metadata'] = 'Données EXIF';
+$lang['IPTC Metadata'] = 'Données IPTC';
+
 ?>
