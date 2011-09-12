@@ -869,4 +869,5 @@ $lang['Select at least two tags for merging'] = 'Selezionare almeno due tag da f
 $lang['Average rate'] = 'Voto medio';
 $lang['Rate'] = 'Voto';
 $lang['Learn more'] = 'Per saperne di più';
+$lang['Select an album'] = 'Selezionare un album';
 ?>
