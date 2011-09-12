@@ -825,6 +825,6 @@ $lang['This is a minor update, with only bug corrections.'] = 'Jest to mała akt
 $lang['This is a major update, with <a href="%s">new exciting features</a>.'] = 'Jest to duża aktualizacja z <a href="%s">nowymi funkcjami</a>.';
 $lang['Some themes and plugins may be not available yet.'] = 'Niektóre tematy i rozszerzenia mogą nie być jeszcze dostępne.';
 $lang['You can update to Piwigo %s directly, without upgrading to Piwigo %s (recommended).'] = 'Możesz aktualizować bezpośrednio do Piwigo %s, bez potrzeby wcześniejszej aktualizacji do wersji %s (zalecane).';
-$lang['Save Template Directory'] = 'Zapisz katalog tematów';
+$lang['Save Template Directory'] = 'Zachowaj katalog szablonów';
 
 ?>
