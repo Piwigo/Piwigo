@@ -360,5 +360,25 @@ $lang['%d new comments'] = '%d nové komentáre';
 $lang['html tags are not allowed in login'] = 'html znaky nie sú povolené pri prihlásení';
 $lang['%d rates'] = '%d hodnotení';
 $lang['Rating score'] = 'Bodové hodnotenie';
+$lang['Enter a username or email address'] = 'Vložte používateľské meno alebo email';
+$lang['Invalid username or email'] = 'Nesprávne meno alebo email';
+$lang['Password reset is not allowed for this user'] = 'Obnova hesla nie je povolená pre tohto používateľa';
+$lang['User "%s" has no email address, password reset is not possible'] = 'Používateľ "%s" nemal zadaný email, obnova hesla nie je možná';
+$lang['Someone requested that the password be reset for the following user account:'] = 'Niekto požiadal o obnovu hesla pre nasledovný používateľský účet:';
+$lang['Username "%s" on gallery %s'] = 'Používateľské meno "%s" v galérii %s';
+$lang['To reset your password, visit the following address:'] = 'Pre obnovu hesla navštívte nasledovnú adresu:';
+$lang['If this was a mistake, just ignore this email and nothing will happen.'] = 'Ak to bola chyba, jednoducho ignorujte tento mail a všetko bude v poriadku.';
+$lang['Password Reset'] = 'Obnova hesla';
+$lang['Check your email for the confirmation link'] = 'Skontrolujte Váš email pre potvrdenie linku';
+$lang['Invalid key'] = 'Nesprávny kľúč';
+$lang['The passwords do not match'] = 'Heslo sa nezhoduje';
+$lang['Your password has been reset'] = 'Vaše heslo bolo obnovené';
+$lang['Return to home page'] = 'Návrat na Úvodnú stránku';
+$lang['Please enter your username or email address.'] = 'Prosím vložte Vaše používateľské meno alebo email.';
+$lang['You will receive a link to create a new password via email.'] = 'Obdržíte adresu na vytvorenie nového hesla cez email.';
+$lang['Username or email'] = 'Používateľské meno alebo email';
+$lang['Change my password'] = 'Zmeniť moje heslo';
+$lang['Enter your new password below.'] = 'Nižšie vložte Vaše nové heslo.';
+$lang['Reset Password'] = 'Obnova heslo';
 
 ?>

@@ -31,13 +31,10 @@ $lang['Database configuration'] = 'Databázová konfigurácia';
 $lang['Admin configuration'] = 'Administrátorská konfigurácia';
 $lang['Start Install'] = 'Spustiť inštaláciu';
 $lang['mail address must be like xxx@yyy.eee (example : jack@altern.org)'] = 'e-mailová adresa musí mať formát xxx@yyy.eee (napríklad : kovac@zoznam.sk)';
-
 $lang['Webmaster login'] = 'Používateľské meno správcu';
 $lang['It will be shown to the visitors. It is necessary for website administration'] = 'Bude zobrazený návštevníkom. Je nutný pre administráciu aplikácie.';
-
 $lang['Connection to server succeed, but it was impossible to connect to database'] = 'Spojenie na server sa podarilo, ale nebolo možné pripojiť databázu';
 $lang['Can\'t connect to server'] = 'Nebolo možné sa pripojiť k serveru';
-
 $lang['Host'] = 'MySQL server';
 $lang['localhost, sql.multimania.com, toto.freesurf.fr'] = 'localhost, sql.multimania.com, toto.freesurf.sk';
 $lang['User'] = 'Používateľ';
@@ -58,8 +55,6 @@ $lang['verification'] = 'kontrola';
 $lang['Need help ? Ask your question on <a href="%s">Piwigo message board</a>.'] = 'Potrebujete pomoc? Opýtajte sa na <a href="%s">Piwigo fóre</a>.';
 $lang['Webmaster mail address'] = 'E-mail webmastra';
 $lang['Visitors will be able to contact site administrator with this mail'] = 'Návštevníci môžu pomocou tohto e-mailu kontaktovať správcu';
-
-// missing translations 2.1.0
 $lang['PHP 5 is required'] = 'Je nutné PHP 5';
 $lang['It appears your webhost is currently running PHP %s.'] = 'Na Vašom webhostingu je PHP %s.';
 $lang['Piwigo may try to switch your configuration to PHP 5 by creating or modifying a .htaccess file.'] = 'Piwigo sa môže pokúsiť zmeniť Vaše nastavenie na PHP 5 tým, že vytvorí alebo zmení súbor .htaccess.';
@@ -74,4 +69,6 @@ $lang['An alternate solution is to copy the text in the box above and paste it i
 $lang['Creation of config file local/config/database.inc.php failed.'] = 'Vytvorenie súboru local/config/database.inc.php sa nepodarilo.';
 $lang['Download the config file'] = 'Stiahnuť konfiguračný súbor';
 $lang['You can download the config file and upload it to local/config directory of your installation.'] = 'Môžete stiahnuť konfiguračný súbor a nahrať ho do adresára local/config Vašej inštalácie.';
+$lang['Just another Piwigo gallery'] = 'Len iná Piwigo galéria';
+$lang['Welcome to my photo gallery'] = 'Vitajte v mojej foto galérii'; 
 ?>
