@@ -834,6 +834,7 @@ $lang['Height'] = 'altura';
 $lang['Follow Orientation'] = 'siguen la orientación';
 $lang['If you want to regenerate thumbnails, please go to the <a href="%s">Batch Manager</a>.'] = 'Si desea volver a generar imágenes en miniatura, por favor vaya a la <a href="%s">la administracion por lotes</a>.';
 $lang['Graphics Library'] = 'librería gráfica';
-
 $lang['Learn more'] = 'Más información';
+$lang['Rate'] = 'Valoración';
+$lang['Average rate'] = 'Valoración promedio';
 ?>
