@@ -810,4 +810,21 @@ $lang['Update Complete'] = 'Aktualizacja zakończona';
 $lang['Rate'] = 'Ocena';
 $lang['Average rate'] = 'Średnia ocena';
 $lang['Learn more'] = 'Dowiedz się więcej';
+$lang['Add a criteria'] = 'Dodaj kryteria';
+$lang['You can\'t define a default photo order because you have a custom setting in your local configuration.'] = 'Nie możesz zdefiniować domyślnej kolejności zdjęć, gdyż stworzono własne ustawienia w konfiguracji plików lokalnych .';
+$lang['You have specified <i>$conf[\'order_by\']</i> in your local configuration file, this parameter in deprecated, please remove it or rename it into <i>$conf[\'order_by_custom\']</i> !'] = 'Określiłeś <i>$conf[\'order_by\']</i> w lokalnym plików konfiguracji. Parametr ten jest przestarzały. Usuń go lub zmień jego nazwę na <i>$conf[\'order_by_custom\']</i> !';
+$lang['Piwigo Update'] = 'Aktualizacja Piwigo';
+$lang['Extensions Update'] = 'Aktualizacja rozszerzeń';
+$lang['All extensions are up to date.'] = 'Wszystkie rozszerzenia są aktualne.';
+$lang['Following plugins may not be compatible with the new version of Piwigo:'] = 'Poniższe rozszerzenia mogą być nieaktualne z nową wersją Piwigo:';
+$lang['Following themes may not be compatible with the new version of Piwigo:'] = 'Poniższe tematy mogą być nieaktualne z nową wersją Piwigo:';
+$lang['I decide to update anyway'] = 'Aktualizuj mimo wszystko';
+$lang['Update to Piwigo %s'] = 'Aktualizuj do Piwigo %s';
+$lang['Two updates are available'] = 'Dostępne są dwie aktualizacje';
+$lang['This is a minor update, with only bug corrections.'] = 'Jest to mała aktualizacja usuwająca tylko znalezione błędy.';
+$lang['This is a major update, with <a href="%s">new exciting features</a>.'] = 'Jest to duża aktualizacja z <a href="%s">nowymi funkcjami</a>.';
+$lang['Some themes and plugins may be not available yet.'] = 'Niektóre tematy i rozszerzenia mogą nie być jeszcze dostępne.';
+$lang['You can update to Piwigo %s directly, without upgrading to Piwigo %s (recommended).'] = 'Możesz aktualizować bezpośrednio do Piwigo %s, bez potrzeby wcześniejszej aktualizacji do wersji %s (zalecane).';
+$lang['Save Template Directory'] = 'Zapisz katalog tematów';
+
 ?>

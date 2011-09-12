@@ -373,5 +373,6 @@ $lang['Please enter your username or email address.'] = 'Wpisz swoją nazwę uż
 $lang['You will receive a link to create a new password via email.'] = 'Link do stworzenia nowego hasła otrzymasz drogą mailową.';
 $lang['Username or email'] = 'nazwa użytkownika lub adres e-mail';
 $lang['Change my password'] = 'Zmień moje hasło';
-$lang['Enter your new password below.'] = 'Wpisz poniżej swoje nowe hasło.'; 
+$lang['Enter your new password below.'] = 'Wpisz poniżej swoje nowe hasło.';
+$lang['Reset Password'] = 'Resetuj hasło';
 ?>
