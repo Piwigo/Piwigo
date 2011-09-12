@@ -831,4 +831,25 @@ $lang['You have specified <i>$conf[\'order_by\']</i> in your local configuration
 $lang['Average rate'] = "Vidējais novērtejums";
 $lang['Rate'] = "Vērtējums";
 $lang['Learn more'] = 'Uzzini vairak';
+$lang['... or '] = '... vai ';
+$lang['Create'] = 'Izveidot';
+$lang['Start Upload'] = 'Sākt augšupielādi';
+$lang['You are using the Flash uploader. Problems? Try the <a href="%s">Browser uploader</a> instead.'] = 'Jūs lietojat Flash augšuplādētāju. Problēmas? Tā vietā mēģiniet <a href="%s">Pārlūka augšuplādētāju</a>.';
+$lang['You are using the Browser uploader. Try the <a href="%s">Flash uploader</a> instead.'] = 'Jūs lietojat Pārlūka augšuplādētāju. Tā vietā mēģiniet <a href="%s">Flash augšuplādētāju</a>.';
+$lang['Maximum file size: %sB.'] = 'Faila maksimālais izmērs: %sB.';
+$lang['Allowed file types: %s.'] = 'Atļautie failu tipi: %s.';
+$lang['Approximate maximum resolution: %dM pixels (that\'s %dx%d pixels).'] = 'Aptuvenā maksimālā izšķirtspēja: %dM pixeļi (tas ir %dx%d pixeļi).';
+$lang['Manage Permissions'] = 'Pārvaldīt Piekļuves Atļaujas';
+$lang['Photo %s of %s'] = ' %s foto no %s';
+$lang['show details'] = 'rādīt detaļas';
+$lang['hide details'] = 'paslēpt detaļas';
+$lang['Merge tags'] = 'Apvienot (sapludināt) cilnes (tags)';
+$lang['Select the destination tag'] = 'Izvēlēties mērķa cilni';
+$lang['(this tag will be deleted)'] = '(šī cilne (tag) tiks izdzēsta)';
+$lang['Confirm merge'] = 'Apstiprināt apvienošanu';
+$lang['Merge selected tags'] = 'Apvienot izvēlētās cilnes';
+$lang['No destination tag selected'] = 'Nav izvēlēta mērķa cilne';
+$lang['Tags <em>%s</em> merged into tag <em>%s</em>'] = 'Cilnes (tags) <em>%s</em> apvienotas cilnē <em>%s</em>';
+$lang['Select at least two tags for merging'] = 'Izvēlaties vismaz divas cilnes apvienošanai';
+$lang['Select an album'] = 'Izvēlaties albūmu';
 ?>

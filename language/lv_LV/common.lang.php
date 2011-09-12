@@ -370,4 +370,5 @@ $lang['You will receive a link to create a new password via email.'] = 'Jūs ar 
 $lang['Username or email'] = 'Lietotājvārds vai e-pasta adrese';
 $lang['Change my password'] = 'Nomainīt manu paroli';
 $lang['Enter your new password below.'] = 'Ievadiet savu jauno paroli zemāk.';
+$lang['Reset Password'] = 'Atgūt Paroli';
 ?>
