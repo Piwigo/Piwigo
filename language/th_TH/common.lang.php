@@ -225,7 +225,33 @@ $lang['Unknown identifier'] = 'ไม่ได้ระบุตัวตน';
 $lang['New password'] = 'รหัสผ่านใหม่';
 $lang['Rate this photo'] = 'ความนิยมรูปภาพ';
 $lang['Next'] = 'ต่อไป';
-
+$lang['Previous'] = 'หน้าที่แล้ว';
+$lang['Random photos'] = 'สุ่มรูปภาพ';
+$lang['display a set of random photos'] = 'แสดงรูปภาพโดยการสุ่ม';
+$lang['Recent albums'] = 'อัลบั้มล่าสุด';
+$lang['display recently updated albums'] = 'แสดงอัลบั้มปรับปรุงล่าสุด';
+$lang['Recent period'] = 'ช่วงเวลาล่าสุด';
+$lang['Recent photos'] = 'ภาพถ่ายล่าสุด';
+$lang['display most recent photos'] = 'แสดงภาพถ่ายล่าสุด';
+$lang['Redirection...'] = 'กำลังเรียกไปยัง...';
+$lang['Please, enter a login'] = 'กรุณาป้อนข้อมูลเข้าสู่ระบบ';
+$lang['login mustn\'t end with a space character'] = 'ชื่อเข้าสู่ระบบต้องไม่ลงท้าด้วยอักขระช่องว่าง';
+$lang['login mustn\'t start with a space character'] = 'ชื่อเข้าสู่ระบบไม่ต้องเริ่มต้นด้วยอักขระช่องว่าง';
+$lang['this login is already used'] = 'ชื่อเข้าสู่ระบบนี้ถูกใช้ไปแล้ว';
+$lang['mail address must be like xxx@yyy.eee (example : jack@altern.org)'] = 'ที่อยู่อีเมลจะต้องเหมือน xxx@yyy.eee (ตัวอย่าง : jack@altern.org)';
+$lang['please enter your password again'] = 'กรุณาใส่รหัสผ่านของคุณอีกครั้ง';
+$lang['Auto login'] = 'เข้าสู่ระบบอัตโนมัติ';
+$lang['remove this tag from the list'] = 'ลบแท็กนี้จากรายการ';
+$lang['representative'] = 'ตัวอย่าง';
+$lang['Search for Author'] = 'ค้นหาช่างภาพ';
+$lang['Search in albums'] = 'ค้นหาในอัลบั้ม';
+$lang['Search by Date'] = 'ค้นหาตามวันที่';
+$lang['Date'] = 'วันที่';
+$lang['End-Date'] = 'วันสุดท้าย';
+$lang['Kind of date'] = 'ชนิดของวันที่';
+$lang['Search for words'] = 'ค้นหาคำ';
+$lang['Search for all terms'] = 'ค้นหาคำทั้งหมด';
+$lang['Search for any terms'] = 'ค้นหาคำใด ๆ';
 
 
 ?>
