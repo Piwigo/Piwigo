@@ -1,28 +1,20 @@
 <h2>Configuration</h2>
 
-<p>This screen let the administrator do basic configuration. Indeed, this
-screen only shows simple configuration parameters that should be enough for
-the vast majority of administrators. If you want to see other numerous (and
-advanced) configuration parameters, read file <span
+<p>This screen let the administrator do basic gallery configuration. Indeed, this screen only shows simple configuration parameters that should be enough for the vast majority of administrators. If you want to see other numerous (and advanced) configuration parameters, read the default configuration file <span
 class="filename">include/config_default.inc.php</span>.</p>
 
-<p>This screen is divided in several sections, regrouping configuration
-parameters by theme.</p>
+<p>The screen is divided into different sections, grouping configuration parameters by theme.</p>
 
 
 <h3>Main</h3>
 <ul>
-  <li><strong>Gallery title</strong>: used in RSS feed and notifications by
-email.</li>
+  <li><strong>Gallery title</strong>: used in RSS feed and notifications by email.</li>
 
-  <li><strong>Page banner</strong>: displayed on top of each public
-page.</li>
+  <li><strong>Page banner</strong>: displayed on top of each public page.</li>
 
   <li><strong>Gallery URL</strong>: used for the RSS feed.</li>
 
-  <li><strong>Lock gallery</strong>: Lock the entire gallery for
-  maintenance. Only administrator users will be able to reach the
-  gallery.</li>
+  <li><strong>Lock gallery</strong>: Lock the entire gallery for maintenance. Only administrator users will be able to reach the gallery.</li>
 
   <li><strong>Rating</strong>: Photo rating feature is enabled.</li>
 
@@ -42,11 +34,9 @@ page.</li>
 
   <p>Visits on pages <span
   class="pwgScreen">category.php</span> and <span
-  class="pwgScreen">picture.php</span> will be saved in the
-  <code>history</code> table.</p>
+  class="pwgScreen">picture.php</span> will be saved in the <code>history</code> table.</p>
   
-  <p>Visits will be shown in <span
-  class="pwgScreen">Administration &raquo; Tools &raquo; History</span>.</p>
+  <p>Visits will be shown in <span  class="pwgScreen">Administration &raquo; Tools &raquo; History</span>.</p>
 
 <ul>
   <li><strong>Save page visits by guests</strong>: page visits by guests will be recorded.</li>
@@ -60,45 +50,32 @@ page.</li>
 <h3>Comments</h3>
 <ul>
 
-  <li><strong>Comments for all</strong>: Even unregistered guest can post
-  comments.</li>
+  <li><strong>Comments for all</strong>: Even unregistered guest can post comments.</li>
 
   <li><strong>Number of comments per page</strong>.</li>
 
   <li><strong>Validation</strong>: an administrator must validate users comments before they become visible on the site. User comments validation
   takes place in screen <span class="pwgScreen">Administration &raquo; Tools &raquo; Pending Comments</span>.</li>
 
-  <li><strong>Email admins when a valid comment is entered</strong>:
-Sends an email to the administrators when a user enters a comment and this comment is validated.</li>
+  <li><strong>Email admins when a valid comment is entered</strong>: Sends an email to the administrators when a user enters a comment and this comment is validated.</li>
 
   <li><strong>Email admins when a comment requires validation</strong>:
 Sends an email to the administrators when a user enters a comment that requires validation by the admin.
-User comments validation takes place in the screen <span class="pwgScreen">Administration, Photos, Comments</span>.</li>
+User comments validation takes place in the screen <span class="pwgScreen">Administration &raquo; Tools &raquo; Pending Comments</span>.</li>
 
-</ul>
-
-<h3>Upload</h3>
-<ul>
-  <li><strong>Show upload link every time</strong>: If uploadable albums exist, an upload link will be shown for each album.</li>
-  <li><strong>User access level for uploading</strong>: Restricts upload to some albums of users</li>
-  <li><strong>Email admins when a photo is uploaded</strong>: Administrators will be notified by mail each time a photo is uploaded by a user.</li>
 </ul>
 
 <h3>Default display</h3>
 
-<p>Here you can change display options used by guest, the default user that is not
-connected. Once connected, these options are overridden by the user own options
+<p>Here you can change display options used by guest, the default user that is not connected. Once connected, these options are overridden by the user's own options
 (modifiable in <span class="pwgScreen">profile</span>).</p>
 
-<p>It is possible to change the display options for all existing users, on the <span class="pwgScreen">Administration &raquo;
-Users &raquo; Manage</span> screen, where you can select a list of
-users.</p>
+<p>It is possible to change the display options for all existing users on the <span class="pwgScreen">Administration &raquo;
+Users &raquo; Manage</span> screen where you can select a list of users.</p>
 
 <ul>
 
-  <li><strong>Language</strong>: apply to Piwigo
-  labels only. Album names, photo names and all descriptions fields are not
-  localized.</li>
+  <li><strong>Language</strong>: Apply to Piwigo labels only. Album names, photo names and all descriptions fields are not localized.</li>
 
   <li><strong>Number of photos per row</strong></li>
 
@@ -106,29 +83,19 @@ users.</p>
 
   <li><strong>Interface theme</strong></li>
 
-  <li><strong>Recent period</strong>: By days. Period during which a photo is
-  shown as new. Must be greater than 1 day.</li>
+  <li><strong>Recent period</strong>: By days. Period during which a photo is shown as new. Must be greater than 1 day.</li>
 
   <li><strong>Expand all albums</strong>: Expand all albums by
-  default in the menu <em>Warning</em>: this option is resources consuming
-  and may generate a huge menu if your album tree contains many
-  albums.</li>
+  default in the menu <em>Warning</em>: this option is resources intensive and may generate a huge menu if your album tree contains many albums.</li>
 
-  <li><strong>Show number of comments</strong>: show the number of comments
-  for each photo on the thumbnails page. Resources consuming.</li>
+  <li><strong>Show number of comments</strong>: Show the number of comments for each photo on the thumbnails page. Resource intensive.</li>
 
-  <li><strong>Show hits count</strong>: display hits observed on photo
-  just under its thumbnail on the thumbnails page. 
-  Only when advanced configuration parameter is: <br>
+  <li><strong>Show hits count</strong>: Display hits observed on photo just under its thumbnail on the thumbnails page. Only when advanced configuration parameter is: <br>
   $conf['show_nb_hits'] = true; <br>
   Notice: false by default.</li>
 
-  <li><strong>Maximum width of the photos</strong>: maximum displayed
-  width. photos larger than this setting will be resized on
-  display. Rather than choosing this option, you might consider
-  modifying the width of your photos; that would be a better practice.</li>
+  <li><strong>Maximum width of the photos</strong>: maximum displayed width.  Photos larger than this setting will be resized on display.  Rather than choosing this option, you might consider modifying the width of your photos; that would be a better practice.</li>
 
-  <li><strong>Maximum height of the photos</strong>: same remarks as for
- the maximum width setting.</li>
+  <li><strong>Maximum height of the photos</strong>: Same as for the maximum width setting.</li>
 
 </ul>
