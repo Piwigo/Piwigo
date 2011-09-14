@@ -370,5 +370,6 @@ $lang['You will receive a link to create a new password via email.'] = 'Du komme
 $lang['Username or email'] = 'Användanamn eller e-post';
 $lang['Change my password'] = 'Ändra mitt lösenord';
 $lang['Enter your new password below.'] = 'Ange ditt nya lösenord nedan.';
+$lang['Reset Password'] = 'Återställ lösenord';
 
 ?>
