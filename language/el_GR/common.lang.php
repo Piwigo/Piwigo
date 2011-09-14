@@ -370,5 +370,6 @@ $lang['You will receive a link to create a new password via email.'] = 'Θα λ�
 $lang['Username or email'] = 'Όνομα χρήστη ή email';
 $lang['Change my password'] = 'Αλλαγή του κωδικού';
 $lang['Enter your new password below.'] = 'Πληκτρολόγησε τον νέο κωδικό παρακάτω.';
+$lang['Reset Password'] = 'Επαναφορά κωδικού';
 
 ?>
