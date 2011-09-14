@@ -593,7 +593,7 @@ $lang['+ Add an upload box'] = '+ További képek feltöltése...';
 $lang['Create the "%s" directory at the root of your Piwigo installation'] = '"%s" könyvtár létrehozása a telepített Piwigo galériában.';
 $lang['Give write access (chmod 777) to "%s" directory at the root of your Piwigo installation'] = 'Adjon írási jogot (chmod 777) a(z) "%s" gyökerének a telepített Piwigo galériában';
 $lang['existing album'] = 'létező album';
-$lang['create a new album'] = 'új album létrehozása';
+$lang['create a new album'] = ' új album létrehozása';
 $lang['Album name'] = 'Album neve';
 $lang['Album "%s" has been added'] = '\'%s\' album hozzáadva';
 $lang['Uploaded Photos'] = 'Feltöltött képek';
@@ -859,4 +859,6 @@ $lang['Merge selected tags'] = 'Kiválasztott címkék összevonása';
 $lang['No destination tag selected'] = 'Nincs kijelölt címke';
 $lang['Tags <em>%s</em> merged into tag <em>%s</em>'] = '<em>%s</em> címke (címkék) összevonva a(z) <em>%s</em> címkével';
 $lang['Select at least two tags for merging'] = 'Válasszon ki legalább két címkét';
+$lang['Learn more'] = 'Bővebben';
+$lang['Select an album'] = 'Válasszon ki egy albumot';
 ?>
