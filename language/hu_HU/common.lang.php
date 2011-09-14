@@ -376,4 +376,6 @@ $lang['Username or email'] = 'Felhasználónév vagy e-mail cím';
 $lang['Change my password'] = 'Jelszó módosítása';
 $lang['Enter your new password below.'] = 'Írja be az új jelszót.';
 $lang['Reset Password'] = 'Jelszó alaphelyzetbe állítása';
+$lang['EXIF Metadata'] = 'EXIF metaadatok';
+$lang['IPTC Metadata'] = 'IPTC metaadatok';
 ?>
