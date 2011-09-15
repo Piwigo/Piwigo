@@ -213,5 +213,29 @@ $lang['Your favorites'] = 'Sinu lemmikud';
 $lang['display your favorites photos'] = 'kuva oma lemmikfotod';
 $lang['Favorites'] = 'Lemmikud';
 $lang['First'] = 'Esimene';
+$lang['The gallery is locked for maintenance. Please, come back later.'] = 'Galerii on hoolduse ajaks lukustatud. Palun proovi natukese aja pärast uuesti.';
+$lang['Page generated in'] = 'Leht genereeritud';
+$lang['guest'] = 'külaline';
+$lang['Hello'] = 'Tere';
+$lang['available for administrators only'] = 'saadaval vaid administraatoritele';
+$lang['display this album'] = 'kuva see album';
+$lang['display last user comments'] = 'kuva viimased kasutajate kommentaarid';
+$lang['customize the appareance of the gallery'] = 'kohanda galerii välimust';
+$lang['search'] = 'otsi';
+$lang['Home'] = 'Avaleht';
+$lang['in this album'] = 'selles albumis';
+$lang['in %d sub-album'] = '%d alamalbumis';
+$lang['in %d sub-albums'] = '%d alamalbumites';
+$lang['included'] = 'kaasa arvatud';
+$lang['Invalid password!'] = 'Vigane salasõna!';
+$lang['Language'] = 'Keel';
+$lang['last %d days'] = 'viimased %d päeva';
+$lang['Last'] = 'Viimane';
+$lang['Logout'] = 'Logi välja';
+$lang['E-mail address'] = 'E-posti aadress';
+$lang['obligatory'] = 'kohustuslik';
+
+
+
 
 ?>
