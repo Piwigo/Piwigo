@@ -23,5 +23,12 @@
 
 $lang['Average rate'] = "Gemiddelde gradering";
 $lang['Rate'] = "Gradeer";
+$lang['Access type'] = 'Toegangstipe';
+$lang['ACCESS_0'] = 'Vry toegang';
+$lang['ACCESS_1'] = 'Toegang tot alles';
+$lang['ACCESS_2'] = 'Toegang aan geregistreerde gebruikers';
+$lang['ACCESS_3'] = 'Toegang aan administrateurs';
+$lang['ACCESS_4'] = 'Toegang aan webmeesters';
+$lang['ACCESS_5'] = 'Geen toegang';
 
 ?>

@@ -61,7 +61,7 @@ $lang['Close this window'] = "Maak die skerm toe";
 $lang['Complete RSS feed (photos, comments)'] = "Volledige RSS string (Fotos, kommentaar)";
 $lang['Confirm Password'] = "Bevestig wagwoord";
 $lang['Connection settings'] = "Verbinding stelling";
-$lang['Login'] = "Login";
+$lang['Login'] = 'Teken aan';
 $lang['Contact webmaster'] = "Kontak Webwerf Admin";
 $lang['Create a new account'] = "Skep nuwe rekening";
 $lang['Created on'] = "Geskep op";
@@ -250,7 +250,7 @@ $lang['login mustn\'t start with a space character'] = "Aanteken naam kan nie me
 $lang['this login is already used'] = "die aanteken naam is reeds in gebruik";
 $lang['mail address must be like xxx@yyy.eee (example : jack@altern.org)'] = "epos adres moet wees soos xxx@yyy.ee.ee (voorbeeld : koos@vlooi.co.za)";
 $lang['please enter your password again'] = "Sleutel jou wagwoord weer in";
-$lang['Auto login'] = "Auto login";
+$lang['Auto login'] = 'Automatiese aanteken';
 $lang['remove this tag from the list'] = "haal die sleutelwoord uit die lys uit";
 $lang['representative'] = "verteenwoordiger";
 $lang['Search for Author'] = "Soek vir 'n outeur";
@@ -369,5 +369,8 @@ $lang['You will receive a link to create a new password via email.'] = 'Jy sal m
 $lang['Username or email'] = 'Gebruikersnaam of epos adres';
 $lang['Change my password'] = 'Verander my wagwoord';
 $lang['Enter your new password below.'] = 'Vul jou wagwoord hier onder in';
+$lang['Reset Password'] = 'Herstel wagwoord';
+$lang['EXIF Metadata'] = 'EXIF Metadata';
+$lang['IPTC Metadata'] = 'IPTC Metadata';
 
 ?>

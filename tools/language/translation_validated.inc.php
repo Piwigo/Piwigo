@@ -1,5 +1,20 @@
 <?php
 $validated_keys = array(
+  'af_ZA' => array(
+	'IP: %s',
+	'IP',
+	'IPTC Metadata',
+	'Albums',
+	'Album',
+	'%d Kb',
+	'in %d sub-album',
+	'in %d sub-albums',
+	'Admin: %s',
+	'Album: %s',
+	'letters',
+	'EXIF Metadata',
+	),
+
   'ar_SA' => array(
 	'IP: %s',
 	'IP',
