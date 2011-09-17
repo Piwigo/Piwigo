@@ -371,4 +371,6 @@ $lang['Username or email'] = 'Lietotājvārds vai e-pasta adrese';
 $lang['Change my password'] = 'Nomainīt manu paroli';
 $lang['Enter your new password below.'] = 'Ievadiet savu jauno paroli zemāk.';
 $lang['Reset Password'] = 'Atgūt Paroli';
+$lang['EXIF Metadata'] = 'EXIF Metadati';
+$lang['IPTC Metadata'] = 'IPTC Metadati';
 ?>
