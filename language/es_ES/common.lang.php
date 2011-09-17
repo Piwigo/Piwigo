@@ -370,5 +370,8 @@ $lang['You will receive a link to create a new password via email.'] = 'Recibira
 $lang['Username or email'] = 'Nombre de usuario o dirección de correo electrónico';
 $lang['Change my password'] = 'Cambiar mi contraseña';
 $lang['Enter your new password below.'] = 'Ingrese su nueva contraseña abajo.';
+$lang['Reset Password'] = 'Restablecer la contraseña';
+$lang['EXIF Metadata'] = 'Datos EXIF';
+$lang['IPTC Metadata'] = 'Datos IPTC';
 
 ?>
