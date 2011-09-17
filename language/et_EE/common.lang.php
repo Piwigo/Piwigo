@@ -234,8 +234,26 @@ $lang['Last'] = 'Viimane';
 $lang['Logout'] = 'Logi välja';
 $lang['E-mail address'] = 'E-posti aadress';
 $lang['obligatory'] = 'kohustuslik';
-
-
-
+$lang['Welcome to your Piwigo photo gallery!'] = 'Tere tulemast oma Piwigo fotogaleriisse!';
+$lang['... or browse your empty gallery'] = '... või sirvi oma tühja galeriid';
+$lang['... or please deactivate this message, I will find my way by myself'] = '... või palun deaktiveeri see teade, leian ise lahenduse';
+$lang['Hello %s, your Piwigo photo gallery is empty!'] = 'Tere %s, sinu Piwigo fotogalerii on tühi!';
+$lang['I want to add photos'] = 'Tahan lisada fotosid';
+$lang['Manage this user comment: %s'] = 'Halda selle kasutaja kommentaari: %s';
+$lang['Email address is missing. Please specify an email address.'] = 'E-posti aadress on puudu. Palun täpsusta e-posti aadressi.';
+$lang['This author modified following comment:'] = 'See autor muutis järgnevat kommentaari:';
+$lang['This author removed the comment with id %d'] = 'See autor eemaldas kommentaari ID-ga: %d';
+$lang['delete this comment'] = 'kustuta see kommentaar';
+$lang['validate this comment'] = 'valideeri see kommentaar';
+$lang['html tags are not allowed in login'] = 'html tagid ei ole kasutajanimes lubatud';
+$lang['Enter a username or email address'] = 'Sisesta kasutajanimi või e-posti aadress';
+$lang['Invalid username or email'] = 'Vigane kasutajanimi või e-post';
+$lang['Password reset is not allowed for this user'] = 'Salasõna algseadistamine pole sellele kasutajale lubatud';
+$lang['User "%s" has no email address, password reset is not possible'] = 'Kasutajal "%s" puudub e-posti aadress, salasõna algseadistamine pole võimalik';
+$lang['Someone requested that the password be reset for the following user account:'] = 'Keegi taotles alljärgneva kasutajakonto salasõna algseadistamist:';
+$lang['Username "%s" on gallery %s'] = 'Kasutajanimi "%s" galeriis %s';
+$lang['To reset your password, visit the following address:'] = 'Salasõna algseadistamiseks külasta järgnevat aadressi:';
+$lang['If this was a mistake, just ignore this email and nothing will happen.'] = 'Kui see on eksitus, siis lihtsalt ignoreeri seda kirja ja midagi ei juhtu.';
+$lang['Password Reset'] = 'Salasõna algseadistamine';
 
 ?>
