@@ -789,7 +789,6 @@ $lang['Regenerate Websize Photos'] = 'Hergenereer webformaat foto\'s.';
 $lang['Photos generation in progress...'] = 'Bezig met hergenereren foto\'s...';
 $lang['%s photos have been regenerated'] = '%s foto\'s zijn hergegenereerd.';
 $lang['%s photos can not be regenerated'] = '%s foto\'s konden niet opnieuw gegenereerd worden.';
-$lang['Only photos with HD can be regenerated!'] = 'Alleen foto\'s met HD kunnen opnieuw worden gegenereerd!';
 $lang['display'] = 'toon';
 $lang['new'] = 'nieuw';
 $lang['No results'] = 'Geen resultaten';

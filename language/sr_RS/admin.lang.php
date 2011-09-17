@@ -801,7 +801,6 @@ $lang['%s thumbnails have been regenerated'] = 'Број сличица који
 $lang['%s thumbnails can not be regenerated'] = 'Број сличица који се не може регенерисати: %s';
 $lang['%s photos have been regenerated'] = 'Број регенерисаних фотографија: %s';
 $lang['%s photos can not be regenerated'] = 'Број фотографија који се не може регенерисати: %s';
-$lang['Only photos with HD can be regenerated!'] = 'Само фотографије у HD могу бити регенерисане!';
 $lang['Updates'] = 'Унапређење';
 $lang['Update in progress... Please wait.'] = 'У току је унапређење... Молимо Вас да сачеката.';
 $lang['Ignore this update'] = 'Занемари ово унапређење';

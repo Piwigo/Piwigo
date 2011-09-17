@@ -800,7 +800,6 @@ $lang['%s thumbnails have been regenerated'] = '%s 缩略图已被生成';
 $lang['%s thumbnails can not be regenerated'] = '%s 缩略图不能被生成';
 $lang['%s photos have been regenerated'] = '%s 相片已被生成';
 $lang['%s photos can not be regenerated'] = '%s 相片不能被生成';
-$lang['Only photos with HD can be regenerated!'] = '只有高清相片才可被生成!';
 $lang['Update in progress... Please wait.'] = '正在更新... 请稍等.';
 $lang['Ignore this update'] = '忽略此更新';
 $lang['Reset ignored updates'] = '重置忽略更新';

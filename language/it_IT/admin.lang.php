@@ -800,7 +800,6 @@ $lang['%s thumbnails have been regenerated'] = '%s miniature sono state rigenera
 $lang['%s thumbnails can not be regenerated'] = '%s miniature non possono essere rigenerate';
 $lang['%s photos have been regenerated'] = '%s foto sono state rigenerate';
 $lang['%s photos can not be regenerated'] = '%s foto non possono essere rigenerate';
-$lang['Only photos with HD can be regenerated!'] = 'Solo le foto con una HD possono essere rigenerate';
 
 $lang['Updates'] = 'Aggiornamento';
 $lang['Update in progress... Please wait.'] = 'Aggiornamento in corso ... Attendere prego';

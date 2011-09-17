@@ -799,7 +799,6 @@ $lang['%s thumbnails have been regenerated'] = 'Zostało stworzonych %s miniatur
 $lang['%s thumbnails can not be regenerated'] = '%s miniatur nie mogło zostać stworzonych';
 $lang['%s photos have been regenerated'] = 'Stworzono %s zdjęć';
 $lang['%s photos can not be regenerated'] = '%s zdjęć nie mogło zostać stworzonych';
-$lang['Only photos with HD can be regenerated!'] = 'Tylko zdjęcia HD mogą być ponownie utworzone!';
 $lang['Updates'] = 'Aktualizacje';
 $lang['Update in progress... Please wait.'] = 'Trwa aktualizacja... Proszę czekać.';
 $lang['Ignore this update'] = 'Ignoruj tę aktualizację';

@@ -798,7 +798,6 @@ $lang['Regenerate Websize Photos'] = 'Web méretű képek újragenerálása';
 $lang['Photos generation in progress...'] = 'Képek újragenerálása folyamatban...';
 $lang['%s photos have been regenerated'] = '%s kép újragenerálva';
 $lang['%s photos can not be regenerated'] = '%s képet nem lehet újragenerálni';
-$lang['Only photos with HD can be regenerated!'] = 'Csak HD képeket lehet újragenerálni!';
 $lang['Updates'] = 'Frissítések';
 $lang['Update in progress... Please wait.'] = 'Frissítés folyamatban... Kérem várjon.';
 $lang['Ignore this update'] = 'Hagyja figyelmen kívül';

@@ -738,7 +738,8 @@ jQuery(window).load(function() {
     <div id="action_regenerateWebsize" class="bulkAction">
       <p>
         <img src="admin/themes/default/icon/warning.png" alt="!" style="vertical-align:middle;">
-        {'Only photos with HD can be regenerated!'|@translate}
+        {'By default, Piwigo will create a new websize from the HD (high definition) version of your photo.'|@translate}
+        {'If no HD is available and if the current websize is bigger than resize dimensions, Piwigo will move it as HD and create a downsized websize photo from it.'|@translate}
       </p>
 
       <table style="margin:10px 20px;">

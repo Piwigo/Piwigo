@@ -812,7 +812,6 @@ $lang['%s thumbnails have been regenerated'] = '%s תמונות ממוזערות
 $lang['%s thumbnails can not be regenerated'] = '%s תמונות ממוזערות לא יכלו להתחדש';
 $lang['%s photos have been regenerated'] = '%s תמונות חודשו';
 $lang['%s photos can not be regenerated'] = '%s תמונות לא יכלו להתחדש';
-$lang['Only photos with HD can be regenerated!'] = 'רק תמונות HD יכולות להתחדש!';
 $lang['Updates'] = 'עדכונים';
 $lang['Update in progress... Please wait.'] = 'עדכון בתהליך... המתן.';
 $lang['Ignore this update'] = 'התעלם מעידכון זה';

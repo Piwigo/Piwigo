@@ -2962,7 +2962,7 @@ function ws_images_resizewebsize($params, &$service)
   include_once(PHPWG_ROOT_PATH.'admin/include/image.class.php');
 
   $query='
-SELECT id, path, tn_ext, has_high
+SELECT id, path, tn_ext, has_high, width, height
   FROM '.IMAGES_TABLE.'
   WHERE id = '.(int)$params['image_id'].'
 ;';
@@ -2974,11 +2974,42 @@ SELECT id, path, tn_ext, has_high
   }
 
   $image_path = $image['path'];
-  $hd_path = get_high_path($image);
 
-  if (empty($image['has_high']) or !file_exists($hd_path) or !is_valid_image_extension(get_extension($image_path)))
+  if (!is_valid_image_extension(get_extension($image_path)))
   {
     return new PwgError(403, "image can't be resized");
+  }
+  
+  $hd_path = get_high_path($image);
+
+  if (empty($image['has_high']) or !file_exists($hd_path))
+  {
+    if ($image['width'] > $params['maxwidth'] or $image['height'] > $params['maxheight'])
+    {
+      $hd_path = file_path_for_type($image_path, 'high');
+      $hd_dir = dirname($hd_path);
+      prepare_directory($hd_dir);
+      
+      rename($image_path, $hd_path);
+      $hd_infos = pwg_image_infos($hd_path);
+
+      single_update(
+        IMAGES_TABLE,
+        array(
+          'has_high' => 'true',
+          'high_filesize' => $hd_infos['filesize'],
+          'high_width' => $hd_infos['width'],
+          'high_height' => $hd_infos['height'],
+          ),
+        array(
+          'id' => $image['id']
+          )
+        );
+    }
+    else
+    {
+      return new PwgError(403, "image can't be resized");
+    }
   }
 
   $result = false;

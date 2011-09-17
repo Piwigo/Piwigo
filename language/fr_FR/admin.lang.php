@@ -800,7 +800,6 @@ $lang['%s thumbnails have been regenerated'] = '%s miniatures ont été régén�
 $lang['%s thumbnails can not be regenerated'] = '%s miniatures ne peuvent pas être régénérées';
 $lang['%s photos have been regenerated'] = '%s photos ont été régénérées';
 $lang['%s photos can not be regenerated'] = '%s photos ne peuvent pas être régénérées';
-$lang['Only photos with HD can be regenerated!'] = 'Seules les photos avec HD peuvent être régénérées';
 
 $lang['Updates'] = 'Mises à jour';
 $lang['Update in progress... Please wait.'] = 'Mise à jour en cours... Veuillez patienter.';
@@ -870,4 +869,6 @@ $lang['Average rate'] = 'Note moyenne';
 $lang['Rate'] = 'Note';
 $lang['Learn more'] = 'En savoir plus';
 $lang['Select an album'] = 'Selectionnez un album';
+$lang['By default, Piwigo will create a new websize from the HD (high definition) version of your photo.'] = 'Par défaut, Piwigo créera la nouvelle taille web à partir de la HD (haute définition).';
+$lang['If no HD is available and if the current websize is bigger than resize dimensions, Piwigo will move it as HD and create a downsized websize photo from it.'] = 'Si la HD n\'est pas disponible et que la version actuelle de la taille web est plus grande que les dimensions ci-dessous, alors Piwigo la considérera comme HD et créera la nouvelle taille web à partir de celle-ci.';
 ?>

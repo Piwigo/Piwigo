@@ -802,7 +802,6 @@ $lang['%s thumbnails have been regenerated'] = '%s náhledů bylo regenerováno'
 $lang['%s thumbnails can not be regenerated'] = '%s náhledů nemohlo být regenerováno';
 $lang['%s photos have been regenerated'] = '%s fotek bylo regenerováno';
 $lang['%s photos can not be regenerated'] = '%s fotek nemohlo být regenerováno';
-$lang['Only photos with HD can be regenerated!'] = 'Pouze fotky s vysokým rozlišením mohou být regenerovány!';
 $lang['Updates'] = 'Aktualizace';
 $lang['Update in progress... Please wait.'] = 'Probíhá aktualizace... Prosím čekejte.';
 $lang['Ignore this update'] = 'Ignoruj tuto aktualizaci';

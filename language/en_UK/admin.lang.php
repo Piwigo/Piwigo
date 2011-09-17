@@ -801,7 +801,6 @@ $lang['%s thumbnails have been regenerated'] = '%s thumbnails have been regenera
 $lang['%s thumbnails can not be regenerated'] = '%s thumbnails can not be regenerated';
 $lang['%s photos have been regenerated'] = '%s photos have been regenerated';
 $lang['%s photos can not be regenerated'] = '%s photos can not be regenerated';
-$lang['Only photos with HD can be regenerated!'] = 'Only photos with HD can be regenerated!';
 
 $lang['Updates'] = 'Updates';
 $lang['Update in progress... Please wait.'] = 'Update in progress... Please wait.';
@@ -859,4 +858,6 @@ $lang['Tags <em>%s</em> merged into tag <em>%s</em>'] = 'Tags <em>%s</em> merged
 $lang['Select at least two tags for merging'] = 'Select at least two tags for merging';
 $lang['Learn more'] = 'Learn more';
 $lang['Select an album'] = 'Select an album';
+$lang['By default, Piwigo will create a new websize from the HD (high definition) version of your photo.'] = 'By default, Piwigo will create a new websize from the HD (high definition) version of your photo.';
+$lang['If no HD is available and if the current websize is bigger than resize dimensions, Piwigo will move it as HD and create a downsized websize photo from it.'] = 'If no HD is available and if the current websize is bigger than resize dimensions, Piwigo will move it as HD and create a downsized websize photo from it.';
 ?>

@@ -786,7 +786,6 @@ $lang['Regenerate Websize Photos'] = 'Volver a generar las fotos tamaño web';
 $lang['Photos generation in progress...'] = 'Generación de las fotos en curso...';
 $lang['%s photos have been regenerated'] = '%s fotos fueron regeneradas.';
 $lang['%s photos can not be regenerated'] = '%s fotos no pueden ser regeneradas';
-$lang['Only photos with HD can be regenerated!'] = 'Sólo las fotos de alta definición pueden ser regeneradas';
 $lang['display'] = 'Visualizar';
 $lang['Type in a search term'] = 'Introduce un término de búsqueda';
 $lang['new'] = 'nuevo';

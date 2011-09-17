@@ -787,7 +787,6 @@ $lang['Regenerate Websize Photos'] = 'Skapa Web storleks bilder';
 $lang['Photos generation in progress...'] = 'Bild generering pågår..';
 $lang['%s photos have been regenerated'] = '%s foton har skapats';
 $lang['%s photos can not be regenerated'] = '%s foton har inte skapats';
-$lang['Only photos with HD can be regenerated!'] = 'Endast foton med HD kan regenereras!';
 $lang['new'] = 'ny';
 $lang['No results'] = 'Inga poster hittades';
 $lang['Searching...'] = 'Söker...';

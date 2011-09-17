@@ -783,7 +783,6 @@ $lang['Regenerate Websize Photos'] = 'Yeniden web boyutu oluştur';
 $lang['Photos generation in progress...'] = 'Resimler oluşturulmaya devam ediyor...';
 $lang['%s photos have been regenerated'] = '%s resimler oluşturuldu';
 $lang['%s photos can not be regenerated'] = '%s resimler oluşturulamadı';
-$lang['Only photos with HD can be regenerated!'] = 'Sadece HD  olan resimler oluşturulabilir!';
 $lang['new'] = 'yeni';
 $lang['No results'] = 'Sonuç yok';
 $lang['Searching...'] = 'Arıyor...';
