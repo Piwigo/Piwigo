@@ -349,4 +349,28 @@ $lang['validate this comment'] = 'овери овај коментар';
 $lang['html tags are not allowed in login'] = 'html ознаке нису дозвољене овде';
 $lang['The number of photos per page must be a not null scalar'] = 'Број фотографија по страни мора бити већи од нуле';
 $lang['Number of photos per page'] = 'Број фотографија по страници';
+$lang['%d rates'] = '%d оцена';
+$lang['Rating score'] = 'Оцена резултата';
+$lang['Enter a username or email address'] = 'Унеси корисничко име или е-адресу';
+$lang['Invalid username or email'] = 'Неправилно корисничко име или адреса е-поште';
+$lang['Password reset is not allowed for this user'] = 'Поништавање лозинке није дозвољено за овог корисника';
+$lang['User "%s" has no email address, password reset is not possible'] = 'Корисник "%s" нема адресу е-поште, поништавање лозинке није могуће';
+$lang['Someone requested that the password be reset for the following user account:'] = 'Неко је захтевао да се лозинка поништи за корисничко налог:';
+$lang['Username "%s" on gallery %s'] = 'Корисничко име "%s" у галерији %s';
+$lang['To reset your password, visit the following address:'] = 'Да бисте поништили Вашу лозинку прочитајте пошту са следеће е-адресе:';
+$lang['If this was a mistake, just ignore this email and nothing will happen.'] = 'Ако је ово грешка, занемарите ову поруку и ништа се неће десити.';
+$lang['Password Reset'] = 'Поништавање лозинке';
+$lang['Check your email for the confirmation link'] = 'Проверите вашу е-пошту за везу за потврду';
+$lang['Invalid key'] = 'Лош кључ';
+$lang['The passwords do not match'] = 'Лозинке нису једнаке';
+$lang['Your password has been reset'] = 'Ваша лозинка је поништена';
+$lang['Return to home page'] = 'Повратак на почетну страницу';
+$lang['Please enter your username or email address.'] = 'Молимо Вас да унесете корисничко име или е-адресу.';
+$lang['You will receive a link to create a new password via email.'] = 'Добићете везу  преко е-поште да бисте променили лозинку.';
+$lang['Username or email'] = 'Корисничко име или е-адреса';
+$lang['Change my password'] = 'Промени моју лозинку';
+$lang['Enter your new password below.'] = 'Унесите Вашу нову лозинку испод.';
+$lang['Reset Password'] = 'Поништи лозинку';
+
+
 ?>
