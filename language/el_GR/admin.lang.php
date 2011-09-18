@@ -99,5 +99,23 @@ $lang['Activate field "%s"'] = 'Πεδίο Ενεργοποίησης "%s"';
 $lang['Activate icon "%s"'] = 'Εικονίδιο ενεργοποίησης "%s"';
 $lang['Activate Navigation Bar'] = 'Ενεργοποίηση μπάρας πλοήγησης';
 $lang['Activate Navigation Thumbnails'] = 'Ενεργοποίηση εικονιδίων πλοήγησης'; 
+$lang['Activate'] = 'Eνεργοποίηση';
+$lang['Activate icon "new" next to albums and pictures'] = 'Ενεργοποίηση του εικονιδίου "νέο" μετά από τα άλμπουμς και εικόνες';
+$lang['Active Languages'] = 'Ενεργοποίηση Γλώσσων';
+$lang['Active Plugins'] = 'Ενεργοποίηση Προσθέτων';
+$lang['Active Themes'] = 'Ενεργοποίηση Θεμάτων';
+$lang['Add a criteria'] = 'Προσθήκη ενός κριτηρίου';
+$lang['Add a filter'] = 'Προσθήκη ενός φίλτρου';
+$lang['Add a tag'] = 'Προσθήκη μιας ετικέτας';
+$lang['Add a user'] = 'Προσθήκη ενός χρήστη';
+$lang['Add a virtual album'] = 'Προσθήκη ενός εικονικού άλμπουμ';
+$lang['Add another set of photos'] = 'Προσθήκη μιας άλλης ομάδας φωτογραφιών';
+$lang['Add detailed content'] = 'Προσθήκη μερικών λεπτομερών περιοχομένων';
+$lang['Add group'] = 'Προσθήκη γκρουπ';
+$lang['Add New Language'] = 'Προσθήκη Νέας Γλώσσας';
+$lang['add new photos to caddie'] = 'Προσθήκη νέας φωτογραφίας στο κουτί';
+$lang['Add New Theme'] = 'Προσθήκη ενός νέου θέματος';
+$lang['Add Photos'] = 'Προσθήκη φωτογραφιών';
+$lang['add tags'] = 'προσθήκη ετικετών'; 
 
 ?>

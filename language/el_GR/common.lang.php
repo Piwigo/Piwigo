@@ -371,5 +371,6 @@ $lang['Username or email'] = 'Όνομα χρήστη ή email';
 $lang['Change my password'] = 'Αλλαγή του κωδικού';
 $lang['Enter your new password below.'] = 'Πληκτρολόγησε τον νέο κωδικό παρακάτω.';
 $lang['Reset Password'] = 'Επαναφορά κωδικού';
-
+$lang['EXIF Metadata'] = 'EXIF μεταδεδομένα';
+$lang['IPTC Metadata'] = 'IPTC μεταδεδομένα';
 ?>
