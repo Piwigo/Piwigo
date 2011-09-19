@@ -369,5 +369,8 @@ $lang['You will receive a link to create a new password via email.'] = 'Po e-po�
 $lang['Username or email'] = 'Uporabniško ime ali e-pošta';
 $lang['Change my password'] = 'Spremeni geslo';
 $lang['Enter your new password below.'] = 'Vnesite novo geslo.';
+$lang['Reset Password'] = 'Poenostavi geslo';
+$lang['EXIF Metadata'] = 'EXIF metapodatki';
+$lang['IPTC Metadata'] = 'IPTC metapodatki';
 
 ?>

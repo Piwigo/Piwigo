@@ -122,5 +122,25 @@ $lang['Add write access to the "%s" directory'] = 'Dodaj pravico pisanja "%s" im
 $lang['Add'] = 'Dodaj';
 $lang['Add/delete a permalink'] = 'Dodaj/odstrani povezavo';
 $lang['added'] = 'dodano'; 
+$lang['%d tag'] = '%d znacka';
+$lang['%d tags'] = '%d znacke';
+$lang['%d user comment rejected'] = '%d komentar zavrnjen';
+$lang['%d user comment validated'] = '%d komentar validiran';
+$lang['%d user comments rejected'] = '%d komentarjev zavrnjenih';
+$lang['%d user comments validated'] = '%d komentarjev validiranih';
+$lang['%d user deleted'] = '%d uporabnik odstranjen';
+$lang['%d user was not updated.'] = '%d uporabnik ni bil posodobljen.';
+$lang['%d user was updated.'] = '%d uporabnik posodobljen.';
+$lang['%d user'] = '%d uporabnik';
+$lang['%d users deleted'] = '%d uporabnikov odstranjenih';
+$lang['%d users were not updated.'] = '%d uporabnikov ni bilo posodobljenih.';
+$lang['%d users were updated.'] = '%d uporabnikov posodobljenih.';
+$lang['%d users'] = '%d uporabnikov';
+$lang['%d waiting for validation'] = '%d cakam na validacijo';
+$lang['%s has been successfully upgraded.'] = '%s je bil uspešno nadgrajen.';
+$lang['%s must be to set to false in your local/config/config.inc.php file'] = '%s mora biti nastavljeno na false v datoteki local/config/config.inc.php';
+$lang['%s value is not correct file because exif are not supported'] = '%s vrednost je neveljavna, exif ni podprt';
+$lang['+ Add an upload box'] = '+ Dodaj upload';
+$lang[', click on'] = ', klikni na';
 
 ?>
