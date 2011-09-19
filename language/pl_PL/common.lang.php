@@ -375,4 +375,6 @@ $lang['Username or email'] = 'nazwa użytkownika lub adres e-mail';
 $lang['Change my password'] = 'Zmień moje hasło';
 $lang['Enter your new password below.'] = 'Wpisz poniżej swoje nowe hasło.';
 $lang['Reset Password'] = 'Resetuj hasło';
+$lang['EXIF Metadata'] = 'Metadane EXIF';
+$lang['IPTC Metadata'] = 'Metadane IPTC';
 ?>
