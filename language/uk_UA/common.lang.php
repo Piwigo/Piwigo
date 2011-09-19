@@ -351,5 +351,27 @@ $lang['IP: %s'] = "IP: %s";
 $lang['html tags are not allowed in login'] = 'логін не повинен містити html тегів';
 $lang['%d rates'] = '%d голосів';
 $lang['Rating score'] = 'Рейтинговий бал';
+$lang['Enter a username or email address'] = 'Введіть ім\'я користувача або адресу електронної пошти';
+$lang['Invalid username or email'] = 'Невірне ім\'я користувача або адреса електронної пошти';
+$lang['Password reset is not allowed for this user'] = 'Оновлення паролю не дозволено для цього користувача';
+$lang['User "%s" has no email address, password reset is not possible'] = 'Користувач "%s" не має адреси електронної пошти, оновлення паролю неможливе';
+$lang['Someone requested that the password be reset for the following user account:'] = 'Хтось запросив оновлення паролю для наступного облікового запису користувача:';
+$lang['Username "%s" on gallery %s'] = 'Ім\'я "%s" в галереї %s';
+$lang['To reset your password, visit the following address:'] = 'Щоб оновити пароль, відвідайте наступну адресу:';
+$lang['If this was a mistake, just ignore this email and nothing will happen.'] = 'Якщо це було помилкою, просто проігноруйте це повідомлення і нічого не трапиться.';
+$lang['Password Reset'] = 'Оновлення паролю';
+$lang['Check your email for the confirmation link'] = 'Перевірте вашу пошту на наявність лінку підтвердження';
+$lang['Invalid key'] = 'Невірний ключ';
+$lang['The passwords do not match'] = 'Паролі не співпадають';
+$lang['Your password has been reset'] = 'Ваш пароль був оновлений';
+$lang['Return to home page'] = 'Повернутися на домашню сторінку';
+$lang['Please enter your username or email address.'] = 'Будь ласка введіть ваше ім\'я користувача або адресу електронної пошти.';
+$lang['You will receive a link to create a new password via email.'] = 'Ви отримаєте посилання, щоб створити новий пароль по електронній пошті.';
+$lang['Username or email'] = 'Ім\'я користувача або адреса електронної пошти';
+$lang['Change my password'] = 'Змінити мій пароль';
+$lang['Enter your new password below.'] = 'Введіть ваш новий пароль нижче.';
+$lang['Reset Password'] = 'Оновити пароль';
+$lang['EXIF Metadata'] = 'EXIF метадані';
+$lang['IPTC Metadata'] = 'IPTC метадані';
 
 ?>
