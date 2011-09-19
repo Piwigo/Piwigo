@@ -569,5 +569,17 @@ $lang['Subscribers could be listed (available) only if there is new elements to 
 $lang['Sum of rates'] = 'Сума голосів';
 $lang['Summary'] = 'Резюме';
 $lang['Support'] = 'Підтримка';
+$lang['The following tag was deleted'] = 'Наступний тег був видалений';
+$lang['the forum'] = 'форум';
+$lang['The gallery URL is not valid.'] = 'URL на галерею не валідний.';
+$lang['The high definition image quality must be a number between %d and %d'] = 'Зображення високої якості повинно бути число між %d і %d';
+$lang['The high definition maximum height must be a number between %d and %d'] = 'Максимальна висота високої якості повинна бути число між %d і %d';
+$lang['The high definition maximum width must be a number between %d and %d'] = 'Максимальна ширина високої якості повинна бути число між %d and %d';
+$lang['The name of a group must not contain " or \' or be empty.'] = 'Назва групи не повинна вміщувати " чи \' чи бути порожньою.';
+$lang['The name of an album must not be empty'] = 'Назва альбому не повинна бути порожньою';
+$lang['The name of directories and files must be composed of letters, numbers, "-", "_" or "."'] = 'Назви директорій і файлів повинні включати тільки букви, цифри, "-", "_" або "."';
+$lang['The number of comments a page must be between 5 and 50 included.'] = 'Число коментарів на сторінці повинно бути між 5 і 50 включно.';
+$lang['The permalink name must be composed of a-z, A-Z, 0-9, "-", "_" or "/". It must not be numeric or start with number followed by "-"'] = 'Посилання повинне складатися з a-z, A-Z, 0-9, "-", "_" або "/". Воно не повинно бути числовим або починатися з цифри, що слідують за "-"';
+$lang['The thumbnail image quality must be a number between %d and %d'] = 'Якість ескізів зображень має бути число від %d і %d';
 
 ?>
