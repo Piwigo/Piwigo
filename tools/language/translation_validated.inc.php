@@ -32,6 +32,8 @@ $validated_keys = array(
 	'IP: %s',
 	'Album: %s',
 	'IP',
+	'EXIF Metadata',
+	'IPTC Metadata',
 	),
 	
   'da_DK' => array(

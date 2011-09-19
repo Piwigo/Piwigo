@@ -377,4 +377,7 @@ $lang['You will receive a link to create a new password via email.'] = 'Brzy obd
 $lang['Username or email'] = 'Uživatelské jméno nebo email';
 $lang['Change my password'] = 'Změnit heslo';
 $lang['Enter your new password below.'] = 'Zadejte vaše nové heslo níže.';
+$lang['Reset Password'] = 'Reset Hesla';
+$lang['EXIF Metadata'] = 'EXIF Metadata';
+$lang['IPTC Metadata'] = 'IPTC Metadata';
 ?>
