@@ -800,4 +800,6 @@ $lang['THIS PLUGIN IS NOW PART OF PIWIGO CORE! DELETE IT NOW.'] = 'ARA AQUEST CO
 $lang['ERROR: THIS PLUGIN IS MISSING BUT IT IS INSTALLED! UNINSTALL IT NOW.'] = 'ERROR: AQUEST CONNECTOR MANCA PERÒ ESTÀ INSTAL·LAT! DESISNTAL·LAR-LO ARA.';
 $lang['display'] = 'visualitzar';
 $lang['Learn more'] = 'Apreneu-ne més';
+$lang['Rate'] = 'Velocitat';
+$lang['Average rate'] = 'Velocitat mitjana';
 ?>
