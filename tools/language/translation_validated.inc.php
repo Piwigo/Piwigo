@@ -545,6 +545,8 @@ $validated_keys = array(
 	'test',
 	'user_status_webmaster',
 	'IP',
+	'EXIF Metadata',
+	'IPTC Metadata',
 	),
 	
   'sr_RS' => array(

@@ -380,5 +380,7 @@ $lang['Username or email'] = 'Používateľské meno alebo email';
 $lang['Change my password'] = 'Zmeniť moje heslo';
 $lang['Enter your new password below.'] = 'Nižšie vložte Vaše nové heslo.';
 $lang['Reset Password'] = 'Obnova heslo';
+$lang['EXIF Metadata'] = 'EXIF Metadata';
+$lang['IPTC Metadata'] = 'IPTC Metadata'; 
 
 ?>

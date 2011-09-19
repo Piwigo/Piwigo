@@ -840,4 +840,26 @@ $lang['Add a criteria'] = 'Pridať kritéria';
 $lang['You can\'t define a default photo order because you have a custom setting in your local configuration.'] = 'Nemožno definovať prednastavené zoradenie fotiek, pretože ho máte inak nastavené lokálnej konfigurácii.';
 $lang['You have specified <i>$conf[\'order_by\']</i> in your local configuration file, this parameter in deprecated, please remove it or rename it into <i>$conf[\'order_by_custom\']</i> !'] = 'Máte špecifikované <i>$conf[\'order_by\']</i> vo Vašom lokálnom konfiguračnom súbore, tento parameter je neprípustný, prosím vymažte ho alebo premenujte v <i>$conf[\'order_by_custom\']</i> !';
 $lang['Learn more'] = 'Zistiť viac';
+$lang['... or '] = '... alebo ';
+$lang['Create'] = 'Vytvoriť';
+$lang['Start Upload'] = 'Spustiť nahrávanie';
+$lang['You are using the Flash uploader. Problems? Try the <a href="%s">Browser uploader</a> instead.'] = 'Používate Flash uploader. Problemy? Skúste <a href="%s">Browser uploader</a> miesto toho.';
+$lang['You are using the Browser uploader. Try the <a href="%s">Flash uploader</a> instead.'] = 'Používate prehliadačový uploader. Skúste <a href="%s">Flash uploader</a> miesto toho.';
+$lang['Maximum file size: %sB.'] = 'Maximálna veľkosť súboru: %sB.';
+$lang['Allowed file types: %s.'] = 'Povolené typy súborov: %s.';
+$lang['Approximate maximum resolution: %dM pixels (that\'s %dx%d pixels).'] = 'Približné maximálne rozlíšenie: %dM pixelov (teda %dx%d pixelov).';
+$lang['Manage Permissions'] = 'Riadenie prístupov';
+$lang['Photo %s of %s'] = 'Fotka %s z %s';
+$lang['show details'] = 'ukázať detaily';
+$lang['hide details'] = 'schovať detaily';
+$lang['Merge tags'] = 'Zlúčiť kľúčové slová';
+$lang['Select the destination tag'] = 'Označiť cieľové kľúčové slovo';
+$lang['(this tag will be deleted)'] = '(toto kľúčové slovo bude vymazané)';
+$lang['Confirm merge'] = 'Potvrdiť zlúčnie';
+$lang['Merge selected tags'] = 'Zlúčiť označené kľúčové slová';
+$lang['No destination tag selected'] = 'Žiadne cieľové kľúčové slovo nie je označené';
+$lang['Tags <em>%s</em> merged into tag <em>%s</em>'] = 'Kľúčové slová <em>%s</em> sú zlúčené do kľúčového slova <em>%s</em>';
+$lang['Select at least two tags for merging'] = 'Označiť najmenej dve kľúčové slová pre zlúčenie';
+$lang['Select an album'] = 'Označiť album';
+
 ?>
