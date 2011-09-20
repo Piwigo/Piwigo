@@ -731,4 +731,6 @@ $lang['Set author'] = 'Vælg forfartter';
 $lang['Set creation date'] = 'Vælg oprettelsesdato';
 $lang['Set title'] = 'Vælg titel';
 $lang['Learn more'] = 'Lær mere';
+$lang['Rate'] = 'Bedøm';
+$lang['Average rate'] = 'Gennemsnitlig karakter';
 ?>
