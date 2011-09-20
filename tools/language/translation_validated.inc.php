@@ -120,6 +120,7 @@ $validated_keys = array(
 	'Resize',
 	'Miscellaneous',
 	'Virtual Links',
+	'SQL queries',
 	),	
 
   'de_DE' => array(

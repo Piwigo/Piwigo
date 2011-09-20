@@ -36,5 +36,6 @@ $lang['You do not have access rights to run upgrade'] = 'Du har ikke adgangsrett
 $lang['All sub-albums of private albums become private'] = 'Alle under-kategorier af private kategorier bliver private';
 $lang['User permissions and group permissions have been erased'] = 'Bruger og gruppe tilladelser er blevet slettet';
 $lang['Only thumbnails prefix and webmaster mail address have been saved from previous configuration'] = 'Kun  thumbnails prefix og webmaster mail addresse er blevet gemt fra tidligere konfiguration. ';
-$lang['In <i>%s</i>, before <b>?></b>, insert:'] = 'In <i>%s</i>, before <b>?></b>, insert:';
+$lang['In <i>%s</i>, before <b>?></b>, insert:'] = 'I <i>%s</i>, før <b>?></b>, indsæt:';
+$lang['As a precaution, following themes have been deactivated. You must check for themes upgrade before reactiving them:'] = 'Som en forholdsregel er følgende temaer blevet deaktiveret. Check for tema opgraderinger før du reaktiverer dem:';
 ?>
