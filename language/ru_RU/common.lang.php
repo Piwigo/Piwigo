@@ -376,4 +376,6 @@ $lang['Username or email'] = 'Имя пользователя или адрес 
 $lang['Change my password'] = 'Изменить пароль';
 $lang['Enter your new password below.'] = 'Введите новый пароль.';
 $lang['Reset Password'] = 'Сбросить пароль';
+$lang['EXIF Metadata'] = 'Метаданные EXIF';
+$lang['IPTC Metadata'] = 'Метаданные IPTC';
 ?>
