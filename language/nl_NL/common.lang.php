@@ -352,5 +352,27 @@ $lang['validate this comment'] = 'Valideer dit commentaar';
 $lang['html tags are not allowed in login'] = 'html tags zijn niet toegestaan in login';
 $lang['%d rates'] = '%d stemmen';
 $lang['Rating score'] = 'Waarderings score';
+$lang['Enter a username or email address'] = 'Voer je gebruikersnaam en e-mailadres in';
+$lang['Invalid username or email'] = 'Gebruikersnaam of e-mailadres is ongeldig';
+$lang['Password reset is not allowed for this user'] = 'Deze gebruiker heeft geen toestemming om het paswoord te vernieuwen';
+$lang['User "%s" has no email address, password reset is not possible'] = 'Gebruiker "%s" heeft geen e-mailadres daarom kan het paswoord niet vernieuwd worden';
+$lang['Someone requested that the password be reset for the following user account:'] = 'Iemand heeft verzocht om het paswoord te vernieuwen voor het volgende account:';
+$lang['Username "%s" on gallery %s'] = 'Gebruikersnaam "%s" voor gallery %s';
+$lang['To reset your password, visit the following address:'] = 'Om je paswoord te vernieuwen kun je het volgende adres bezoeken:';
+$lang['If this was a mistake, just ignore this email and nothing will happen.'] = 'Als dit een vergissing was kun je deze e-mail negeren, er zal dan niets gewijzigd worden.';
+$lang['Password Reset'] = 'Vernieuw paswoord';
+$lang['Check your email for the confirmation link'] = 'Kijk in je mail box voor de bevestigings link';
+$lang['Invalid key'] = 'Onjuiste sleutel';
+$lang['The passwords do not match'] = 'De paswoorden zijn niet gelijk';
+$lang['Your password has been reset'] = 'Je paswoord is vernieuwd';
+$lang['Return to home page'] = 'Keer terug naar de home page';
+$lang['Please enter your username or email address.'] = 'Voer je gebruikersnaam en e-mailadres in.';
+$lang['You will receive a link to create a new password via email.'] = 'Via e-mail krijg je een link om je paswoord te vernieuwen.';
+$lang['Username or email'] = 'Gebruikersnaam of e-mail';
+$lang['Change my password'] = 'Vernieuw mijn paswoord';
+$lang['Enter your new password below.'] = 'Voer hieronder je nieuwe paswoord in.';
+$lang['Reset Password'] = 'Vernieuw Paswoord';
+$lang['EXIF Metadata'] = 'EXIF Metagegevens';
+$lang['IPTC Metadata'] = 'IPTC Metagegevens';
 
 ?>
