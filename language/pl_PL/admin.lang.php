@@ -859,4 +859,6 @@ $lang['No destination tag selected'] = 'Nie wybrano taga docelowego';
 $lang['Tags <em>%s</em> merged into tag <em>%s</em>'] = 'Tagi <em>%s</em> połączono w tag <em>%s</em>';
 $lang['Select at least two tags for merging'] = 'Wybierz co najmniej dwa tagi do łączenia';
 $lang['Select an album'] = 'Wybierz album';
+$lang['By default, Piwigo will create a new websize from the HD (high definition) version of your photo.'] = 'Piwigo stworzy domyślnie nową stronę z twoich zdjęć w jakości HD.';
+$lang['If no HD is available and if the current websize is bigger than resize dimensions, Piwigo will move it as HD and create a downsized websize photo from it.'] = 'Jeśli wersja HD jest niedostępna a bieżący rozmiar jest większy niż rozmiar zmiany, Piwigo przesunie zdjęcia jako HD i stworzy z nich pomniejszone wersje.'; 
 ?>
