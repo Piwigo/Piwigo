@@ -861,5 +861,7 @@ $lang['No destination tag selected'] = 'Žiadne cieľové kľúčové slovo nie 
 $lang['Tags <em>%s</em> merged into tag <em>%s</em>'] = 'Kľúčové slová <em>%s</em> sú zlúčené do kľúčového slova <em>%s</em>';
 $lang['Select at least two tags for merging'] = 'Označiť najmenej dve kľúčové slová pre zlúčenie';
 $lang['Select an album'] = 'Označiť album';
+$lang['By default, Piwigo will create a new websize from the HD (high definition) version of your photo.'] = 'Štandardne Piwigo vytvorí novú veľkosť pre web z HD (high definition) verzie fotky.';
+$lang['If no HD is available and if the current websize is bigger than resize dimensions, Piwigo will move it as HD and create a downsized websize photo from it.'] = 'Ak nie je k dispozícii HD a ak súčasná veľkosť pre web je väčšia ako rozmer zmeny veľkosti, Piwigo fotku presunie ako HD a vytvorí z nej menšiu veľkosť pre web.';
 
 ?>
