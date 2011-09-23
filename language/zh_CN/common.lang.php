@@ -353,5 +353,26 @@ $lang['Rating score'] = '评价得分';
 $lang['The number of photos per page must be a not null scalar'] = '每页相片数量必须大于0';
 $lang['Number of photos per page'] = '每页相片数量';
 $lang['display photos linked to this tag'] = '在此标签上显示相片链接';
+$lang['Enter a username or email address'] = '输入一个用户名或邮箱地址';
+$lang['Invalid username or email'] = '用户名或邮件地址无效';
+$lang['Password reset is not allowed for this user'] = '该用户无法进行密码重置';
+$lang['User "%s" has no email address, password reset is not possible'] 
+= '用户 "%s" 无邮件地址，无法进行密码重置';
+$lang['Someone requested that the password be reset for the following user account:'] = '有人申请了重置该用户的密码：';
+$lang['Username "%s" on gallery %s'] = ' 相册 %s的用户名 "%s" ';
+$lang['To reset your password, visit the following address:'] = '请访问以下地址以对密码进行重置：';
+$lang['If this was a mistake, just ignore this email and nothing will happen.'] = '如果为错误发送，请忽略本邮件，该邮件不会对您有任何影响。';
+$lang['Password Reset'] = '密码已重置';
+$lang['Check your email for the confirmation link'] = '请检查您邮箱中的确认链接';
+$lang['Invalid key'] = '无效的KEY';
+$lang['The passwords do not match'] = '密码不符';
+$lang['Your password has been reset'] = '您的密码已经重置';
+$lang['Return to home page'] = '返回主页';
+$lang['Please enter your username or email address.'] = '请输入您的用户名或邮件地址。';
+$lang['You will receive a link to create a new password via email.'] = '您将通过邮箱收到一个新建密码链接地址。';
+$lang['Username or email'] = '用户名或邮箱地址';
+$lang['Change my password'] = '更改我的密码';
+$lang['Enter your new password below.'] = '输入您的新密码。';
+$lang['Reset Password'] = '重置密码';
 
 ?>
