@@ -851,4 +851,6 @@ $lang['No destination tag selected'] = 'Nav izvēlēta mērķa cilne';
 $lang['Tags <em>%s</em> merged into tag <em>%s</em>'] = 'Cilnes (tags) <em>%s</em> apvienotas cilnē <em>%s</em>';
 $lang['Select at least two tags for merging'] = 'Izvēlaties vismaz divas cilnes apvienošanai';
 $lang['Select an album'] = 'Izvēlaties albūmu';
+$lang['By default, Piwigo will create a new websize from the HD (high definition) version of your photo.'] = 'Pēc noklusēšanas Piwigo izveidos jaunu foto webizmēru jūsējai HD (augstas izšķirtspējas) attēla versijai.';
+$lang['If no HD is available and if the current websize is bigger than resize dimensions, Piwigo will move it as HD and create a downsized websize photo from it.'] = 'Ja nav neviena HD un, ja esošais webizmērs ir lielāks par atļautajiem izmēriem, Piwigo to uzskata par HD attēlu un no šī attēla izveidos atbilsoša webizmēra attēlu.';
 ?>
