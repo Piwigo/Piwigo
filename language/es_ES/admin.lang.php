@@ -193,7 +193,7 @@ $lang['Comments'] = 'Comentarios';
 $lang['Information data registered in database'] = 'Informaciones registradas en la base de datos';
 $lang['Default display'] = 'Visualización por defecto';
 $lang['The gallery URL is not valid.'] = 'La dirección de la galería no es válida.';
-$lang['Main'] = 'Principale';
+$lang['Main'] = 'Principal';
 $lang['The number of comments a page must be between 5 and 50 included.'] = 'El número de comentarios de usuarios por página debe ser comprendido entre 5 y 50.';
 $lang['Configuration'] = 'Configuración';
 $lang['confirm'] = 'Confirmar';
@@ -571,8 +571,7 @@ $lang['%d photos were deleted'] = '%d fotos han sido suprimidas';
 $lang['Downloads'] = 'Descargar';
 $lang['Released on'] = 'Añadido';
 $lang['Number of downloads'] = 'Número de descargas';
-// --------- Starting below: New or revised $lang ---- from Colibri
-$lang['Piwigo Announcements Newsletter'] = 'Newsletter Piwigo';
+$lang['Piwigo Announcements Newsletter'] = 'Boletín informativo Piwigo';
 $lang['Keep in touch with Piwigo project, subscribe to Piwigo Announcement Newsletter. You will receive emails when a new release is available (sometimes including a security bug fix, it\'s important to know and upgrade) and when major events happen to the project. Only a few emails a year.'] = 'Quédese en contacto con el proyecto Piwigo, abónese a la newsletter. Usted recibirá un e-mail cuando una nueva versión estará disponible (a veces un bug de seguridad es corregido, es importante estar al tanto) o que un acontecimiento superior sobrevengá sobre el proyecto. Solamente algunos mensajes al año.';
 $lang['Subscribe %s'] = 'Abonar a la newsletter inglesa %s';
 $lang['Subscribe %s to Piwigo Announcements Newsletter'] = 'Abonar %s a la newsletter Piwigo';
@@ -857,4 +856,6 @@ $lang['No destination tag selected'] = 'No ha seleccionado una etiqueta de desti
 $lang['Tags <em>%s</em> merged into tag <em>%s</em>'] = 'Las etiquetas <em>%s</em> fueron combinados en la etiqueta <em>%s</em>';
 $lang['Select at least two tags for merging'] = 'Seleccione al menos dos etiquetas para la fusión';
 $lang['Select an album'] = 'Seleccionar un álbum';
+$lang['By default, Piwigo will create a new websize from the HD (high definition) version of your photo.'] = 'Por defecto Piwigo creara el nuevo tamaño web a partir de la HD (alta definición).';
+$lang['If no HD is available and if the current websize is bigger than resize dimensions, Piwigo will move it as HD and create a downsized websize photo from it.'] = 'Si la HD no esta disponible y que la version actual del tamaño web es mas grande que les dimensiones abajo mensionadas, entonces Piwigo la considerara como HD y creara un nuevo tamaño web a partir de esta misma.';
 ?>
