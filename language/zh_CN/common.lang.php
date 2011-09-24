@@ -374,5 +374,7 @@ $lang['Username or email'] = '用户名或邮箱地址';
 $lang['Change my password'] = '更改我的密码';
 $lang['Enter your new password below.'] = '输入您的新密码。';
 $lang['Reset Password'] = '重置密码';
+$lang['EXIF Metadata'] = 'EXIF Meta信息';
+$lang['IPTC Metadata'] = 'IPTC Meta信息';
 
 ?>
