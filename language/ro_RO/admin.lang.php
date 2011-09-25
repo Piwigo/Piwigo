@@ -278,5 +278,7 @@ $lang['An error occured during extraction (%s).'] = 'S-a produs o eroare în tim
 $lang['An information email was sent to group "%s"'] = 'Un mesaj de informare a fost trimis către grupul "%s"';
 $lang['and'] = 'şi';
 $lang['Anomaly'] = 'Anomalie';
+$lang['Rate'] = 'Evaluare';
+$lang['Average rate'] = 'Notă medie';
 
 ?>
