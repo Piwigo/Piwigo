@@ -370,5 +370,8 @@ $lang['You will receive a link to create a new password via email.'] = 'Bạn s�
 $lang['Username or email'] = 'Người dùng hoặc email';
 $lang['Change my password'] = 'Đổi mật khẩu của tôi';
 $lang['Enter your new password below.'] = 'Nhập mật khẩu mới của bạn ở dưới.';
+$lang['Reset Password'] = 'Đặt lại mật khẩu';
+$lang['EXIF Metadata'] = 'Lý lịch dữ liệu EXIF';
+$lang['IPTC Metadata'] = 'Lý lịch dữ liệu IPTC';
 
 ?>

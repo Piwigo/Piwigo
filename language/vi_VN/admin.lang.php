@@ -846,4 +846,19 @@ $lang['Allowed file types: %s.'] = 'Loại file cho phép dùng: %s.';
 $lang['Approximate maximum resolution: %dM pixels (that\'s %dx%d pixels).'] = 'Độ phân giải lớn nhất ước chừng: %dM pixels (đó là %dx%d pixels).';
 $lang['Manage Permissions'] = 'Quản lý Quyền Hạn';
 $lang['Learn more'] = 'Tìm hiểu thêm';
+$lang['Photo %s of %s'] = 'Ảnh %s của %s';
+$lang['show details'] = 'hiện chi tiết';
+$lang['hide details'] = 'ẩn chi tiết';
+$lang['Merge tags'] = 'Sáp nhập nhãn';
+$lang['Select the destination tag'] = 'Chọn nhãn đích';
+$lang['(this tag will be deleted)'] = '(nhãn này sẽ bị xóa)';
+$lang['Confirm merge'] = 'Xác nhận sáp nhập';
+$lang['Merge selected tags'] = 'Sáp nhập những thẻ được chọn';
+$lang['No destination tag selected'] = 'Không có nhãn đích nào được chọn';
+$lang['Tags <em>%s</em> merged into tag <em>%s</em>'] = 'Nhãn <em>%s</em> được sáp nhập vào nhãn <em>%s</em>';
+$lang['Select at least two tags for merging'] = 'Chọn ít nhất hai nhãn để sáp nhập';
+$lang['Select an album'] = 'Chọn một album ảnh';
+$lang['By default, Piwigo will create a new websize from the HD (high definition) version of your photo.'] = 'Theo mặc định, Piwigo sẽ tạo ra một kích thước web từ ảnh định dạng cao của bản.';
+$lang['If no HD is available and if the current websize is bigger than resize dimensions, Piwigo will move it as HD and create a downsized websize photo from it.'] = 'Nếu không có định dạng cao nào và nếu kích thước web hiện tại lớn hơn kích thước đã điều chỉnh, Piwigo sẽ chuyển nó thành định dạng cao và tạo ra một ảnh có kích thước web đã thu nhỏ từ ảnh gốc.';
+
 ?>
