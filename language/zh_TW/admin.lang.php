@@ -783,4 +783,6 @@ $lang['THIS PLUGIN IS NOW PART OF PIWIGO CORE! DELETE IT NOW.'] = '這個插件�
 $lang['ERROR: THIS PLUGIN IS MISSING BUT IT IS INSTALLED! UNINSTALL IT NOW.'] = '錯誤：這個插件雖已安裝但並不存在! 請立即移除它!';
 $lang['display'] = '顯示'; 
 $lang['Learn more'] = '瞭解更多';
+$lang['Rate'] = '評分';
+$lang['Average rate'] = '評分';
 ?>
