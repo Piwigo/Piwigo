@@ -825,4 +825,6 @@ $lang['Graphics Library'] = 'Grafik Arşivi';
 $lang['Activate icon "new" next to albums and pictures'] = 'Resimlerin yanındaki "yeni" simgesini etkinleştir';
 $lang['Default photos order'] = 'Varsayılan resim düzeni';
 $lang['Learn more'] = 'Daha fazla bilgi edinin';
+$lang['Average rate'] = 'Ortalama derecelendirme';
+$lang['Rate'] = 'Oyla';
 ?>
