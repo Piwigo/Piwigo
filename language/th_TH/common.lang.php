@@ -55,7 +55,6 @@ $lang['Any tag'] = 'แท็คใดๆ';
 $lang['At least one listed rule must be satisfied.'] = 'ต้องมีกฏของลำดับอย่างน้อย 1 กฏเพื่อยอมรับ';
 $lang['At least one tag must match'] = 'ต้องมีอย่างน้อย 1 แท็คที่เข้ากันได้';
 $lang['Author'] = 'เจ้าของ';
-$lang['Average rate'] = 'ระดับเฉลี่ย';
 $lang['Albums'] = 'อัลบัม(มากกว่าหนึ่ง)';
 $lang['Album'] = 'อัลบัม';
 $lang['Close this window'] = 'ปิดหน้าต่างนี้';
@@ -96,7 +95,6 @@ $lang['Posted on'] = 'โพสต์ไว้เมื่อ';
 $lang['Profile'] = 'ข้อมูลส่วนตัว';
 $lang['Quick connect'] = 'เชื่อมต่ออย่างเร็ว';
 $lang['RSS feed'] = 'RSS feed';
-$lang['Rate'] = 'ระดับ';
 $lang['Register'] = 'สมัครสมาชิก';
 $lang['Registration'] = 'การสมัครสมาชิก';
 $lang['Related tags'] = 'แท็คใกล้เคียง';
@@ -252,6 +250,7 @@ $lang['Kind of date'] = 'ชนิดของวันที่';
 $lang['Search for words'] = 'ค้นหาคำ';
 $lang['Search for all terms'] = 'ค้นหาคำทั้งหมด';
 $lang['Search for any terms'] = 'ค้นหาคำใด ๆ';
+
 
 
 ?>
