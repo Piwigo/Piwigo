@@ -250,7 +250,25 @@ $lang['Kind of date'] = 'ชนิดของวันที่';
 $lang['Search for words'] = 'ค้นหาคำ';
 $lang['Search for all terms'] = 'ค้นหาคำทั้งหมด';
 $lang['Search for any terms'] = 'ค้นหาคำใด ๆ';
-
+$lang['included'] = 'นำเข้า';
+$lang['Invalid password!'] = 'รหัสผ่านไม่ถูกต้อง!';
+$lang['no rate'] = 'ยังไม่มีคะแนนโหวต';
+$lang['Photos posted within the last %d day.'] = 'รูปภาพที่ถูกโพส %d วันสุดท้ายเท่านั้น.';
+$lang['Photos posted within the last %d days.'] = 'รูปภาพที่ถูกโพส %d วันสุดท้ายเท่านั้น.';
+$lang['password updated'] = 'รหัสผ่านถูกอัพเดตแล้ว';
+$lang['Recent period must be a positive integer value'] = 'ช่วงระยะเวลาจะต้องเป็นค่าจำนวนเต็มบวก';
+$lang['photo'] = 'รูปภาพ';
+$lang['Click on the photo to see it in high definition'] = 'คลิกที่รูปภาพเพื่อดูขนาดใหญ่กว่า';
+$lang['Show file metadata'] = 'แสดงข้อมูลไฟล์';
+$lang['Powered by'] = 'พัฒนาโดย';
+$lang['Preferences'] = 'การตั้งค่า';
+$lang['today'] = 'วันนี้';
+$lang['Update your rating'] = 'อัพเดตคะแนนนิยม';
+$lang['wrong filename'] = 'ชื่อไฟล์ไม่ถูกต้อง';
+$lang['the username must be given'] = 'จำเป็นต้องกรอกชื่อผู้ใช้';
+$lang['useful when password forgotten'] = 'ใช้ในกรณีที่ลืมรหัสผ่าน';
+$lang['Quick search'] = 'ค้นหาแบบเร็ว';
+$lang['Connected user: %s'] = 'ได้เชื่อมต่อไปยังผู้ใช้ : %s';
 
 
 ?>
