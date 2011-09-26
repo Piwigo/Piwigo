@@ -795,4 +795,6 @@ $lang['Restore'] = "Restaurer";
 $lang['Restore default configuration. You will lose your plugin settings!'] = "Restaurer la configuration par défaut? Vous perdrez vos réglages personnels !";
 $lang['Show menubar'] = "Afficher le menu";
 $lang['Learn more'] = 'En savoir plus';
+$lang['Rate'] = 'Note';
+$lang['Average rate'] = 'Note moyenne';
 ?>
