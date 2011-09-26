@@ -35,7 +35,6 @@ $lang_info['direction'] = 'ltr';
 $lang_info['code'] = 'pt';
 $lang_info['zero_plural'] = false;
 
-$lang['%.2f (rated %d times)'] = '%.2f (avaliada %d vezes)';
 $lang['%d Kb'] = '%d Kb';
 $lang['%d album updated'] = '%d categoria atualizada';
 $lang['%d albums updated'] = '%d categorias atualizadas';
@@ -57,7 +56,6 @@ $lang['Any tag'] = 'qualquer tag';
 $lang['At least one listed rule must be satisfied.'] = 'Ao menos um dos critérios deve ser satisfeito.';
 $lang['At least one tag must match'] = 'Ao menos uma das tags deve corresponder';
 $lang['Author'] = 'Autor';
-$lang['Average rate'] = 'Nota média';
 $lang['Albums'] = 'Categorias';
 $lang['Album'] = 'Categoria';
 $lang['Close this window'] = 'Fechar esta janela';
@@ -102,7 +100,6 @@ $lang['Posted on'] = 'Enviado em';
 $lang['Profile'] = 'Perfil';
 $lang['Quick connect'] = 'Conexão rápida';
 $lang['RSS feed'] = 'fluxo RSS';
-$lang['Rate'] = 'Nota';
 $lang['Register'] = 'Registrar-se';
 $lang['Registration'] = 'Registro';
 $lang['Related tags'] = 'Tags relacionados';
@@ -306,10 +303,7 @@ $lang['Email: %s'] = 'Email: %s';
 $lang['Admin: %s'] = 'Administração: %s';
 $lang['Registration of %s'] = 'Registro de %s';
 $lang['Album: %s'] = 'Categoria: %s';
-$lang['Picture uploaded by %s'] = 'Imagem enviada por %s';
-// --------- Starting below: New or revised $lang ---- from version 1.7.1
 $lang['Bad status for user "guest", using default status. Please notify the webmaster.'] = 'Status ruim para o usuário "guest", será usado status padrão. Por favor, avise o administrador do site.';
-// --------- Starting below: New or revised $lang ---- from Butterfly (2.0)
 $lang['this email address is already in use'] = 'um outro usuário já utiliza este email';
 $lang['Album results for'] = 'Resultados da categoria para';
 $lang['Tag results for'] = 'Resultados da tag para';

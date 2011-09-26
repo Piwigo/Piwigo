@@ -216,7 +216,6 @@ $lang['group "%s" updated'] = 'grupo "%s" atualizado';
 $lang['group'] = 'grupo';
 $lang['The name of a group must not contain " or \' or be empty.'] = 'O nome de um grupo não deve conter " ou \' ou ser vazio.';
 $lang['This name is already used by another group.'] = 'Este nome já está sendo usado por outro grupo.';
-$lang[''] = '';
 $lang['High definition'] = 'Alta definição';
 $lang['jump to album'] = 'pular para categoria';
 $lang['jump to photo'] = 'pular para imagem';
@@ -576,7 +575,6 @@ $lang['%d photos were deleted'] = '%d fotos foram apagadas';
 $lang['Downloads'] = 'Downloads';
 $lang['Released on'] = 'Lançado em';
 $lang['Number of downloads'] = 'Número de downloads';
-// --------- Starting below: New or revised $lang ---- from Colibri
 $lang['Piwigo Announcements Newsletter'] = 'Boletim (newsletter) sobre anúncios do Piwigo';
 $lang['Keep in touch with Piwigo project, subscribe to Piwigo Announcement Newsletter. You will receive emails when a new release is available (sometimes including a security bug fix, it\'s important to know and upgrade) and when major events happen to the project. Only a few emails a year.'] = 'Fique atualizado com o projeto Piwigo, assine o boletim (newsletter) dos anúncios do Piwigo. Você receberá emails quando uma nova versão for disponibilizada (às vezes incluindo a correção de um bug, é importante estar por dentro para atualizar) e quando eventos importantes acontecerem no projeto. Apenas uns poucos emails ao longo do ano.';
 $lang['Subscribe %s'] = 'Assinar %s';
@@ -586,4 +584,6 @@ $lang['Hide'] = 'Esconder';
 $lang['Miscellaneous'] = 'Outras informações';
 $lang['Virtual Links'] = 'Links virtuais';
 $lang['Menu Management'] = 'Menu';
+$lang['Rate'] = 'Nota';
+$lang['Average rate'] = 'Nota média';
 ?>
