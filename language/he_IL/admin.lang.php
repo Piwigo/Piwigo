@@ -831,4 +831,6 @@ $lang['This is a minor update, with only bug corrections.'] = 'זהו עידכו
 $lang['This is a major update, with <a href="%s">new exciting features</a>.'] = 'עדכון חשוב, עם <a href="%s">מאפיינים חדשים ומלהיבים</a>.';
 $lang['Some themes and plugins may be not available yet.'] = 'יכול להיות שחלק מההתקנים וערכות הנושא לא זמינים עדיין .';
 $lang['Learn more'] = 'למד עוד';
+$lang['Rate'] = "דרג";
+$lang['Average rate'] = "דירוג ממוצע";
 ?>
