@@ -786,4 +786,6 @@ $lang['THIS PLUGIN IS NOW PART OF PIWIGO CORE! DELETE IT NOW.'] = 'این پلا
 $lang['ERROR: THIS PLUGIN IS MISSING BUT IT IS INSTALLED! UNINSTALL IT NOW.'] = 'خطا : این پلاگین گم شده است اما آن نصب شده است! اکنون از نصب خارجش کنید.';
 $lang['display'] = 'نمایش';
 $lang['Learn more'] = 'اطلاعات بيشتر در اين‌باره';
+$lang['Rate'] = "امتیاز";
+$lang['Average rate'] = "Average rate";
 ?>

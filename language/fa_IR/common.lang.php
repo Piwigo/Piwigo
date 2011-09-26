@@ -34,8 +34,6 @@ $lang_info['direction'] = "rtl";
 $lang_info['code'] = "Fa";
 $lang_info['zero_plural'] = "1";
 
-
-$lang['%.2f (rated %d times)'] = "%.2f (%d بار امتیاز داده شده)";
 $lang['%d Kb'] = "%d Kb";
 $lang['%d album updated'] = "دسته %d بروز رسانی شد";
 $lang['%d albums updated'] = "دسته‌های %d بروزرسانی شدند";
@@ -57,7 +55,6 @@ $lang['Any tag'] = "هر برچسبی";
 $lang['At least one listed rule must be satisfied.'] = "حداقل یکی از معیارهای ذکر شده باید مطابقت داشته باشند";
 $lang['At least one tag must match'] = "حداقل یک برچسب باید مطابقت داشته باشد";
 $lang['Author'] = "نویسنده";
-$lang['Average rate'] = "Average rate";
 $lang['Albums'] = "دسته‌ها";
 $lang['Album'] = "دسته";
 $lang['Close this window'] = "بستن این پنجره";
@@ -101,7 +98,6 @@ $lang['Posted on'] = "ارسال شده در";
 $lang['Profile'] = "پروفایل";
 $lang['Quick connect'] = "اتصال سریع";
 $lang['RSS feed'] = "خوراک RSS";
-$lang['Rate'] = "امتیاز";
 $lang['Register'] = "ثبت نام";
 $lang['Registration'] = "ثبت نام کاربر جدید";
 $lang['Related tags'] = "برچسب‌های مربوطه";
