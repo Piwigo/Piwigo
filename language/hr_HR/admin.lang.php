@@ -758,4 +758,6 @@ $lang['The high definition maximum width must be a number between %d and %d'] = 
 $lang['The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form'] = 'Veličina poslane datoteke prelazi MAX_FILE_SIZE postavku definiranu unutar HTML obrasca';
 $lang['The uploaded file exceeds the upload_max_filesize directive in php.ini: %sB'] = 'Veličina poslane datoteke prelazi uload_max_filesize postavku u php.ini: %sB';
 $lang['The uploaded file was only partially uploaded'] = 'Poslana datoteka je djelomično upload-ana';
+$lang['Rate'] = 'Ocjena';
+$lang['Average rate'] = 'Prosječna ocjena';
 ?>
