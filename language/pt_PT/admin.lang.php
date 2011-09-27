@@ -785,5 +785,15 @@ $lang['Type in a search term'] = 'Escreva um termo de busca';
 $lang['Learn more'] = 'Saber mais';
 $lang['Rate'] = 'Classificação';
 $lang['Average rate'] = 'Nota média';
+$lang['Activate icon "new" next to albums and pictures'] = 'Mostrar o icon "novo" ao lado dos Álbums e das fotos';
+$lang['Add a criteria'] = 'Adicionar um critério';
+$lang['Deactivate all'] = 'Desactivar tudo';
+$lang['Default photos order'] = 'Ordem padrão das fotos';
+$lang['Restore'] = 'Restaurar';
+$lang['Restore default configuration. You will lose your plugin settings!'] = 'Restaurar a configuração padrão ? Perderá as configurações pesoiais !';
+$lang['Show menubar'] = 'Mostrar o menú';
+$lang['You can\'t define a default photo order because you have a custom setting in your local configuration.'] = 'Não pode definir uma ordem padrão para as fotos porque tem uma definição na sua configuração local.';																																					
+$lang['You have specified <i>$conf[\'order_by\']</i> in your local configuration file, this parameter in deprecated, please remove it or rename it into <i>$conf[\'order_by_custom\']</i> !'] = 'Especificou <i>$conf[\'order_by\']</i> no seu ficheiro de configuração, este pâremetro esta obsoleto, apaguar ou renomear em <i>$conf[\'order_by_custom\']</i> !';
+$lang['display'] = 'Mostrar';
 
 ?>
