@@ -371,5 +371,7 @@ $lang['Username or email'] = 'Användanamn eller e-post';
 $lang['Change my password'] = 'Ändra mitt lösenord';
 $lang['Enter your new password below.'] = 'Ange ditt nya lösenord nedan.';
 $lang['Reset Password'] = 'Återställ lösenord';
+$lang['EXIF Metadata'] = 'EXIF Metadata';
+$lang['IPTC Metadata'] = 'IPTC Metadata';
 
 ?>

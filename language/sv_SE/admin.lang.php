@@ -838,5 +838,24 @@ $lang['No destination tag selected'] = 'Ingen mål-tagg har valts';
 $lang['Tags <em>%s</em> merged into tag <em>%s</em>'] = 'Taggar <em>%s</em> sammanfogade som <em>%s</em>';
 $lang['Select at least two tags for merging'] = 'Välj minst två taggar för sammanfogning';
 $lang['Select an album'] = 'Välj ett album';
+$lang['Add a criteria'] = 'Lägg till ett kriterium';
+$lang['You can\'t define a default photo order because you have a custom setting in your local configuration.'] = 'Du kan inte ange en standardsortering för foton på grund av en vald inställning i din lokala konfiguration.';
+$lang['You have specified <i>$conf[\'order_by\']</i> in your local configuration file, this parameter in deprecated, please remove it or rename it into <i>$conf[\'order_by_custom\']</i> !'] = 'Du har specifierat <i>$conf[\'order_by\']</i> i din lokala konfigurationsfil, den här parametern är ersatt. Ta bort den eller döpom till <i>$conf[\'order_by_custom\']</i> !';
+$lang['All extensions are up to date.'] = 'Alla insticksmoduler är de senaste.';
+$lang['Following plugins may not be compatible with the new version of Piwigo:'] = 'Följande insticksmoduler kan vara inkompatibla med senaste Piwigo:';
+$lang['Following themes may not be compatible with the new version of Piwigo:'] = 'Följande teman kan vara inkompatibla med senaste Piwigo:';
+$lang['I decide to update anyway'] = 'Jag uppdaterar ändå';
+$lang['Update to Piwigo %s'] = 'Uppdatera till Piwigo %s';
+$lang['Two updates are available'] = 'Två uppdateringar är tillgängliga';
+$lang['This is a minor update, with only bug corrections.'] = 'Det här är en mindre uppdatering med bug-fixar.';
+$lang['This is a major update, with <a href="%s">new exciting features</a>.'] = 'Det här är en stor uppdatering med <a href="%s">nya spännande funktioner</a>.';
+$lang['Some themes and plugins may be not available yet.'] = 'Några teman och insticksmoduler kan vara otillgängliga ännu.';
+$lang['You can update to Piwigo %s directly, without upgrading to Piwigo %s (recommended).'] = 'Du kan uppdatera till to Piwigo %s direkt, utan att uppgradera till Piwigo %s (rekommenderat).';
+$lang['Save Template Directory'] = 'Spara mallkatalogen';
+$lang['Dump Database'] = 'Dumpa databasen';
+$lang['Include history data (Warning: server memory limit may be exceeded)'] = 'Inkludera historiska data (Varning: serverns minnesgräns kan överskridas)';
+$lang['Unable to write new local directory.'] = 'Kan inte skriva till ny lokal katalog.';
+$lang['Unable to send template directory.'] = 'Kan inte skicka mallkatalogen.';
+$lang['Unable to dump database.'] = 'Kan inte dumpa databasen.';
 
 ?>
