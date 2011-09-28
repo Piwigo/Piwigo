@@ -869,4 +869,6 @@ $lang['Average rate'] = 'Voto medio';
 $lang['Rate'] = 'Voto';
 $lang['Learn more'] = 'Per saperne di più';
 $lang['Select an album'] = 'Selezionare un album';
+$lang['By default, Piwigo will create a new websize from the HD (high definition) version of your photo.'] = 'Di default, Piwigo creera la nuova foto dimensioni web a partire della foto HD (alta definizione)';
+$lang['If no HD is available and if the current websize is bigger than resize dimensions, Piwigo will move it as HD and create a downsized websize photo from it.'] = 'Se la foto HD non è disponibile e la foto dimensioni web è più grande delle dimensioni qui di seguito, allora Piwigo la considererà come una foto HD e creera la nuova foto dimensioni web';
 ?>
