@@ -2071,14 +2071,14 @@ function get_active_menu($menu_page)
   return 0;
 }
 
-function get_taglist($query)
+function get_taglist($query, $only_user_language=true)
 {
   $result = pwg_query($query);
   
   $taglist = array();
   while ($row = pwg_db_fetch_assoc($result))
   {
-    if (preg_match_all('#\[lang=(.*?)\](.*?)\[/lang\]#is', $row['name'], $matches))
+    if (!$only_user_language and preg_match_all('#\[lang=(.*?)\](.*?)\[/lang\]#is', $row['name'], $matches))
     {
       foreach ($matches[2] as $tag_name)
       {

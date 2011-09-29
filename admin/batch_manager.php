@@ -387,7 +387,7 @@ $query = '
 SELECT id, name
   FROM '.TAGS_TABLE.'
 ;';
-$template->assign('tags', get_taglist($query));
+$template->assign('tags', get_taglist($query, false));
 
 // +-----------------------------------------------------------------------+
 // |                         open specific mode                            |

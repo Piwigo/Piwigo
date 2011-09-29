@@ -241,7 +241,7 @@ SELECT
     name
   FROM '.TAGS_TABLE.'
 ;';
-$tags = get_taglist($query);
+$tags = get_taglist($query, false);
 
 // retrieving direct information about picture
 $query = '
