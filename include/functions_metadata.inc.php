@@ -117,7 +117,7 @@ function get_exif_data($filename, $map)
   // Read EXIF data
   if ($exif = @read_exif_data($filename))
   {
-    $exif = trigger_event('format_exif_data', $exif, $filename );
+    $exif = trigger_event('format_exif_data', $exif, $filename, $map );
     foreach ($map as $key => $field)
     {
       if (strpos($field, ';') === false)
