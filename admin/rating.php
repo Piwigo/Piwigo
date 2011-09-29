@@ -72,6 +72,7 @@ if (isset($_GET['users']))
 
 if (isset($_GET['del']))
 {
+  include_once(PHPWG_ROOT_PATH.'include/functions_rate.inc.php');
   $del_params = urldecode( $_GET['del'] );
   parse_str($del_params, $vars);
   if ( !is_numeric($vars['e']) or !is_numeric($vars['u']) )
