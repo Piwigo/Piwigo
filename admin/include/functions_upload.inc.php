@@ -380,7 +380,7 @@ SELECT
     $conf['upload_form_thumb_maxwidth'],
     $conf['upload_form_thumb_maxheight'],
     $conf['upload_form_thumb_quality'],
-    $conf['upload_form_automatic_rotation'],
+    false,
     true
     );
   $img->destroy();
