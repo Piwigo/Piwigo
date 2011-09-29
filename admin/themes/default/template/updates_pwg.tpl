@@ -1,7 +1,7 @@
 {footer_script}
 jQuery(document).ready(function() {ldelim}
 	jQuery('input[name="submit"]').click(function() {ldelim}
-    if(!confirm('{'autoupdate_alert'|@translate}'))
+    if(!confirm('{'Are you sure?'|@translate}'))
       return false;
     jQuery(this).hide();
     jQuery('.autoupdate_bar').show();

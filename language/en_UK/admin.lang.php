@@ -860,4 +860,8 @@ $lang['Learn more'] = 'Learn more';
 $lang['Select an album'] = 'Select an album';
 $lang['By default, Piwigo will create a new websize from the HD (high definition) version of your photo.'] = 'By default, Piwigo will create a new websize from the HD (high definition) version of your photo.';
 $lang['If no HD is available and if the current websize is bigger than resize dimensions, Piwigo will move it as HD and create a downsized websize photo from it.'] = 'If no HD is available and if the current websize is bigger than resize dimensions, Piwigo will move it as HD and create a downsized websize photo from it.';
+
+$lang['An error has occured during upgrade.'] = 'An error has occured during upgrade.';
+$lang['An error has occured during extract. Please check files permissions of your piwigo installation.<br><a href="%s">Click here to show log error</a>.'] = 'An error has occured during extract. Please check files permissions of your piwigo installation.<br><a href="%s">Click here to show log error</a>.';
+$lang['Piwigo cannot retrieve upgrade file from server'] = 'Piwigo cannot retrieve upgrade file from server';
 ?>

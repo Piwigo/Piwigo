@@ -38,7 +38,7 @@ class updates
     $_SESSION['need_update'] = null;
 
     if (preg_match('/(\d+\.\d+)\.(\d+)/', PHPWG_VERSION, $matches)
-      and @fetchRemote(PHPWG_URL.'/download/all_versions.php', $result))
+      and @fetchRemote(PHPWG_URL.'/download/all_versions.php?rand='.md5(uniqid(rand(), true)), $result))
     {
       $all_versions = @explode("\n", $result);
       $new_version = trim($all_versions[0]);
@@ -136,7 +136,7 @@ class updates
 
     if (!$this->get_server_extensions())
     {
-      autoupdate_error();
+      return false;
     }
 
     $_SESSION['extensions_need_update'] = array();
@@ -393,6 +393,7 @@ class updates
       $chunk_num = 0;
       $end = false;
       $zip = @fopen($filename, 'w');
+
       while (!$end)
       {
         $chunk_num++;
@@ -454,7 +455,7 @@ class updates
             unset($_SESSION['need_update']);
             if ($step == 2)
             {
-              array_push($page['infos'], sprintf(l10n('autoupdate_success'), $upgrade_to));
+              array_push($page['infos'], l10n('Update Complete'), $upgrade_to);
               $step = -1;
             }
             else
@@ -466,13 +467,19 @@ class updates
           {
             file_put_contents($conf['local_data_dir'].'/update/log_error.txt', $error);
             $relative_path = trim(str_replace(dirname(dirname(dirname(dirname(__FILE__)))), '', $conf['local_data_dir']), '/\\');
-            array_push($page['errors'], sprintf(l10n('autoupdate_extract_fail'), PHPWG_ROOT_PATH.$relative_path.'/update/log_error.txt'));
+            array_push(
+              $page['errors'],
+              sprintf(
+                l10n('An error has occured during extract. Please check files permissions of your piwigo installation.<br><a href="%s">Click here to show log error</a>.'),
+                PHPWG_ROOT_PATH.$relative_path.'/update/log_error.txt'
+              )
+            );
           }
         }
         else
         {
           self::deltree($conf['local_data_dir'].'/update');
-          array_push($page['errors'], l10n('autoupdate_fail'));
+          array_push($page['errors'], l10n('An error has occured during upgrade.'));
         }
       }
       else
