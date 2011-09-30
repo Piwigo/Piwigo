@@ -857,5 +857,7 @@ $lang['Include history data (Warning: server memory limit may be exceeded)'] = '
 $lang['Unable to write new local directory.'] = 'Kan inte skriva till ny lokal katalog.';
 $lang['Unable to send template directory.'] = 'Kan inte skicka mallkatalogen.';
 $lang['Unable to dump database.'] = 'Kan inte dumpa databasen.';
+$lang['By default, Piwigo will create a new websize from the HD (high definition) version of your photo.'] = 'Som standard kommer Piwigo skapa en ny webbstorlek från HD (high definition) versionen av din bild.';
+$lang['If no HD is available and if the current websize is bigger than resize dimensions, Piwigo will move it as HD and create a downsized websize photo from it.'] = 'Om ingen HD-bild är tillgänglig och den nuvarande webbstorleken är större än skalningsdimensionerna så kommer Piwigo flytta bilden till HD och skapa en nedskalad version av den.';
 
 ?>

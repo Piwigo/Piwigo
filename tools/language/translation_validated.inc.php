@@ -590,6 +590,8 @@ $validated_keys = array(
 	'Album: %s',
 	'Album',
 	'Informations',
+	'EXIF Metadata',
+	'IPTC Metadata',
 	),
 	
   'tr_TR' => array(
