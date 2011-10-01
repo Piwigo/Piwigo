@@ -540,11 +540,14 @@ $template->assign(
 
 if (!empty($_SESSION['bulk_manager_filter']['tags']))
 {
-	$query = '
-SELECT id, name
-	FROM '.TAGS_TABLE.'
-	WHERE id IN ('.implode(',', $_SESSION['bulk_manager_filter']['tags']).')';
-	$template->assign('filter_tags', get_taglist($query));
+  $query = '
+SELECT
+    id,
+    name
+  FROM '.TAGS_TABLE.'
+  WHERE id IN ('.implode(',', $_SESSION['bulk_manager_filter']['tags']).')
+;';
+  $template->assign('filter_tags', get_taglist($query));
 }
 
 // Virtualy associate a picture to a category
