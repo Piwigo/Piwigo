@@ -1,28 +1,21 @@
-<h2>Extend for templates configuration</h2>
+<h2>Template Extension Configuration</h2>
 
-<h3>Goal</h3>
-<p>Define replacement conditions for each template from template-extension
-(template called "replacer").</p>
+<h3>About</h3>
+<p>Your Piwigo gallery can be customised by replacing existing template files with customised versions.  For example, the default header template (header.tpl) can be replaced by a customised header template (my-header.tpl).  After submitting the changes to the database the gallery will display the customised header instead of the original header.<br>
+Template extensions are a powerful way to create customised themes for both new and advanced users.  Used together with the LocalFiles Editor you can create your own child themes.</p>
 
-<p>"original template" from ./themes/default/template (or any other theme)
- will be replaced by a "replacer" if the replacer is linked to this "original template"
- (and optionally, when the requested URL contains an "optional URL keyword").</p>
+<h3>Original Template</h3>
+<p>A theme contains a number of template files that make up the gallery pages.  These are the original templates.</p>
 
-<p>"Optional URL keywords" are those you can find after the module name in URLs.</p>
+<h3>Optional URL Keyword</h3>
+<p>These are words found in the gallery URL after the module name.  They can also be active permalinks  (See the permalink documentation for more information).  <a href="#warnings">WARNING:</a> if the same original template and same keyword is used on more than one customised template only the last one is active.</p>
 
-<p>Therefore "Optional URL keywords" can be an active "permalink" 
-(see permalinks in our documentation for further explanation).</p>
+<h3>Bound Theme</h3>
+<p>The bound theme is the theme from which the template files are being replaced.</p>
 
-<p>Read: `<a href="#warnings">Warning</a>` usage conditions.</p>
-
-<h3>What are template extensions?</h3>
-
-<p>This configuration tool is powerfull for beginners and advanced users.
-By FTP, in the template-extension folder, the Webmaster can duplicate a lot of
- the distributed .tpl files ("original template") with a different name 
- ("replacer").
- 
- "Original templates", current original supported templates are:</p>
+<h3>Where are the original templates?</h3>
+<p>Original templates are the template files shipped with each theme.  These are saved in <em>/themes/default/template</em> (or <em>themes/<theme name>/template</em>).  These template files should not be edited in place as changes will be lost with theme upgrades.<br>
+Supported original templates include:</p>
 <ul>
   <li><span class="filename">index.tpl</span></li>
   <li><span class="filename">mainpage_categories.tpl</span> and/or <span class="filename">thumbnails.tpl</span></li>
@@ -40,61 +33,19 @@ By FTP, in the template-extension folder, the Webmaster can duplicate a lot of
   <li><span class="filename">identification.tpl</span> and/or <span class="filename">register.tpl</span></li>
   <li><span class="filename">redirect.tpl</span></li>
 </ul>
+<h3>Saving customised templates</h3>
+<p>Customised templates should be saved in the template-extension folder or subfolders.  For example, <em>/template-extension/my-default/header.tpl</em> (or <em>/template-extension/<my-theme-name>/header.tpl</em>)  Template files can have any name with a .tpl extension.  The template files in subfolders appear in the Template configuration screen as available custom templates.</p>
+<h3>Activating customised templates</h3>
+<p>Select the original template to replace.  Optionally choose a URL keyword to ensure that the customised template is only shown on pages with that keyword.  Select a bound theme and the changes will be effective on that theme.  Submit the changes to the database.</p>
+<h3>Deactivating customised templates</h3>
+<p>Unselect the original template and submit the changes to the database.<br>
+Delete the customised template files from the template-extension folder.</p>
 
-<h3>Where can I find "original templates"?</h3>
-
-<p>Distributed original templates are in /themes/default/template/ 
-(don't edit them in place for upgrade perspectives). So with "original templates", 
-any webmaster can create his "replacers (customized templates)".</p>
-
-<h3>Where should I save "replacers"?</h3>
-
-<p><strong>Replacers (customized templates)</strong> must be placed in the 
-template-extension folder (or its subfolders).
-Replacers can have any filename with the .tpl extension. For example: <span
-class="filename">template-extension/my-extension/video.tpl</span>.</p>
-
-
-<h3>How can I activate my "replacers"?</h3>
-<p>An <strong>original template</strong> should be assigned to each
- <strong>replacer (customized templates)</strong> to activate the related replacements.
- This is the goal of "Extend for templates" in the Configuration Administration menu.</p>
-
-<p>If you select an <strong>optional URL keyword</strong> then replacements 
-will be operate only on pages with this keyword. For example: <span
-  class="pwgScreen">index.php?/<strong>most_visited</strong></span></p>
-  
-<p>Advanced users will use permalinks as <strong>optional URL keyword</strong>. </p>
-
-<p>If you select a <strong>Bound template</strong> then replacements will be operate only on this template.</p>
-
-<h3>How can I deactivate my "replacers"?</h3>
-<ul>
-<li>Unselect related "Original templates".</li>
-<li>By FTP delete of "replacers".</li>
-</ul>
 <a name="warnings"></a>
 <h3>Warnings</h3>
 <ul>
-
-  <li><strong>Original template</strong> must be the "original" template 
-  otherwise you could have unpredictable results!</li>
-
-  <li>On several <strong>replacers (customized templates)</strong> with the
-  same<strong>Original template</strong> and the same <strong>optional URL 
-  keyword</strong> only the last replacer is active.</li>
-
-  <li>Unselected <strong>optional URL keyword</strong> will active the replacer
-  on any template usage. As previous point, order can override previous
-  selected replacers.</li>
-
-  <li>Subfolders:
-Subfolders are ignored but they are usefull to change current order.<br>
-distributed-samples: for test purpose are distributed! 
-<strong>Don't edit them</strong> create your own ones.
-</li>
-
-  <li>On delete of a replacer the <strong>Original template</strong> is 
-  immediately reactivated.</li>
-
+  <li><strong>The original template</strong> must be the original template otherwise you may have unpredictable results.</li>
+  <li>If the same original template and same URL keyword is used on more than one customised template only the last one is active.</li>
+  <li>Distributed sample template files are for test purposes only.  Do not edit them.  Create your own ones or copy existing theme template files into <em>/template-extension/<my-theme>/</em></li>
+  <li>When the customised template is deleted the original template file is immediately reactivated.</li>
 </ul>

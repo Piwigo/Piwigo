@@ -1,29 +1,23 @@
-<h2>Thumbnails creation</h2>
+<h2>Thumbnails Creation</h2>
 
-<p>This page let you create missing thumbnails. It is advised not to use this functionality if your gallery is hosted on a shared server.</p>
+<p>This page let you create missing thumbnails.  It is advised not to use this functionality if your gallery is hosted on a shared server.  To regenerate thumbnails use the Batch Manager.</p>
 
 <dl>
 
   <dt>GD version</dt>
 
-  <dd>GD is the picture manipulating library for PHP. Choose the version
-  installed on your server. You will be warned by an error message, should you choose the wrong one; just come back to the previous page with your browser and choose the other version. If no
-  version works, then  your server does not support GD.</dd>
+  <dd>GD is the image manipulation library for PHP. Choose the version installed on your server. You will be warned by an error message should you choose the wrong one; just come back to the previous page with your browser and choose another version. If no version works, then your server does not support GD.  PHP will need to be compiled with GD image library functions for this to work.</dd>
 
   <dt>Width and height</dt>
 
-  <dd>Maximum thumbnails dimensions. Original aspect ratio is
-  preserved. Default values can be modified using configuration settings <code>tn_width</code> and
-<code>tn_height</code> (see <span
-class="filename">include/config_default.inc.php</span> file).</dd>
+  <dd>Maximum thumbnail dimensions. Original aspect ratio is preserved. Default values can be modified using configuration settings <code>tn_width</code> and <code>tn_height</code> (see <span class="filename">include/config_default.inc.php</span> file).</dd>
 
   <dt>Number of thumbnails to create</dt>
 
-  <dd>Do not try to miniaturize too many photos at once. The miniaturization process does use a lot of CPU. If your Piwigo gallery is hosted by a free provider, too high CPU a load might lead to the withdrawal of your website.</dd>
+  <dd>Do not try to process too many photos at once. The thumbnail creation process does use a lot of CPU. If your Piwigo gallery is hosted by a free provider, too high a load on the CPU might lead to the withdrawal of your website.</dd>
 
   <dt>File format</dt>
 
-  <dd>Thumbnails are created in JPEG file format. They
-  can be created from PNG and JPEG photos only.</dd>
+  <dd>Thumbnails are created in JPEG file format. They can be created from PNG and JPEG photos only.</dd>
 
 </dl>
