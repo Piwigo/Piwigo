@@ -288,6 +288,10 @@ else if (!in_array('added_by', $columns_of[PREFIX_TABLE.'images']))
 {
   $current_release = '2.1.0';
 }
+else if (!in_array('rating_score', $columns_of[PREFIX_TABLE.'images']))
+{
+  $current_release = '2.2.0';
+}
 else
 {
   die('No upgrade required, the database structure is up to date');
