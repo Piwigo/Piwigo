@@ -858,4 +858,7 @@ $lang['Select at least two tags for merging'] = 'Seleccione al menos dos etiquet
 $lang['Select an album'] = 'Seleccionar un álbum';
 $lang['By default, Piwigo will create a new websize from the HD (high definition) version of your photo.'] = 'Por defecto Piwigo creara el nuevo tamaño web a partir de la HD (alta definición).';
 $lang['If no HD is available and if the current websize is bigger than resize dimensions, Piwigo will move it as HD and create a downsized websize photo from it.'] = 'Si la HD no esta disponible y que la version actual del tamaño web es mas grande que les dimensiones abajo mensionadas, entonces Piwigo la considerara como HD y creara un nuevo tamaño web a partir de esta misma.';
+$lang['An error has occured during upgrade.'] = 'Un error sobrevino durante la actualización.';
+$lang['An error has occured during extract. Please check files permissions of your piwigo installation.<br><a href="%s">Click here to show log error</a>.'] = 'Imposible extraer los ficheros. Por favor, verifique los permisos de los ficheros de su instalación. <Br> <a href="%s"> Haga clic aquí para ver el informe de error</a>.';
+$lang['Piwigo cannot retrieve upgrade file from server'] = 'Piwigo no puede recuperar el fichero de actualización desde el servidor';
 ?>
