@@ -776,5 +776,19 @@ $lang['Two updates are available'] = 'Dvije su nadogradnje dostupne';
 $lang['This is a minor update, with only bug corrections.'] = 'Ovo je manja nadogradnja, samo popravke grešeaka.';
 $lang['This is a major update, with <a href="%s">new exciting features</a>.'] = 'Ovo je veća nadogradnja, sa <a href="%s">novim uzbudljivim mogućnostima</a>.';
 $lang['Update in progress... Please wait.'] = 'Nadogradnja u tijeku... Molimo sačekajte.';
+$lang['Activate icon "new" next to albums and pictures'] = 'Aktivirajte sličicu "Novo" pored albuma i slika';
+$lang['Add a criteria'] = 'Dodaj uvjet';
+$lang['Deactivate all'] = 'Sve deaktiviraj';
+$lang['Default photos order'] = 'Zadani poredak fotografija';
+$lang['Restore'] = 'Vrati';
+$lang['Restore default configuration. You will lose your plugin settings!'] = 'Vrati zadane postavke. Postojeće postve dodataka će se izgubiti!';
+$lang['Show menubar'] = 'Prikaži liniju izbornika';
+$lang['The uploaded files exceed the post_max_size directive in php.ini: %sB'] = 'Poslana datoteka prelazi post_max_size direktivu u php.ini: %sB';
+$lang['The whole page'] = 'Cijela stranica';
+$lang['The whole set'] = 'Cijeli set';
+$lang['Type here the author name'] = 'Unesi ime autora';
+$lang['Type here the title'] = 'Unesi naslov';
+$lang['Type in a search term'] = 'Traži ..';
+$lang['Unknown upload error'] = 'Nepoznata greška prilikom slanja datoteke';
 
 ?>

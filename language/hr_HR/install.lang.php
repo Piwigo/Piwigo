@@ -28,13 +28,10 @@ $lang['Database configuration'] = 'Postava baze podataka';
 $lang['Admin configuration'] = 'Upravna postava';
 $lang['Start Install'] = 'Pokreni ugradbu';
 $lang['mail address must be like xxx@yyy.eee (example : jack@altern.org)'] = 'e-mail adresa mora biti kao xxx@yyy.eee (example : jere@stranica.org)';
-
 $lang['Webmaster login'] = 'Webmaster-ova prijava';
 $lang['It will be shown to the visitors. It is necessary for website administration'] = 'Biti će prikazano posjetiteljima. Potrebno je za upravljanje web mjestom';
-
 $lang['Connection to server succeed, but it was impossible to connect to database'] = 'Povezivanje sa poslužiteljem uspješno, ali je nemoguće povezivanje sa bazom podataka';
 $lang['Can\'t connect to server'] = 'Ne mogu se povezati sa poslužiteljem';
-
 $lang['Host'] = 'MySQL poslužitelj';
 $lang['localhost, sql.multimania.com, toto.freesurf.fr'] = 'localhost, sql.multimania.com, toto.freesurf.fr';
 $lang['User'] = 'Korisnik';
@@ -55,8 +52,6 @@ $lang['verification'] = 'ovjera';
 $lang['Need help ? Ask your question on <a href="%s">Piwigo message board</a>.'] = 'Trebate pomoć? Pitajte na <a href="%s">Piwigo message board</a>.';
 $lang['Webmaster mail address'] = 'Webmaster-ova e-mail adresa';
 $lang['Visitors will be able to contact site administrator with this mail'] = 'Posjetitelji će moći pisati upravitelju galerije preko ove adrese';
-
-// piwigo 2.1
 $lang['PHP 5 is required'] = 'PHP 5 je obvezan';
 $lang['It appears your webhost is currently running PHP %s.'] = 'Čini se da vaše web mjesto trenutno koristi PHP inačicu %s.';
 $lang['Piwigo may try to switch your configuration to PHP 5 by creating or modifying a .htaccess file.'] = 'Piwigo će pokušati podesiti sustavne postavke na PHP 5 izradom ili prilagodbom .htaccess zapisa.';
@@ -71,5 +66,7 @@ $lang['An alternate solution is to copy the text in the box above and paste it i
 $lang['Creation of config file local/config/database.inc.php failed.'] = 'Izrada local/config/database.inc.php nije uspjela.';
 $lang['Download the config file'] = 'Preuzmi zapis podešavanja';
 $lang['You can download the config file and upload it to local/config directory of your installation.'] = 'Možete preuzeti zapis sustavnog podešavanja i prebaciti ga u local/config mapu vaše ugradnje.';
+$lang['Just another Piwigo gallery'] = 'Samo još jedna Piwigo galerija';
+$lang['Welcome to my photo gallery'] = 'Dobrodošli u moju fotogaleriju';
 
 ?>
