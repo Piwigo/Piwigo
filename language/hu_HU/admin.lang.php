@@ -862,4 +862,7 @@ $lang['Learn more'] = 'Bővebben';
 $lang['Select an album'] = 'Válasszon ki egy albumot';
 $lang['By default, Piwigo will create a new websize from the HD (high definition) version of your photo.'] = 'Alapértelmezésben a Piwigo a HD (high definition) képből létrehoz egy web méretű képet.';
 $lang['If no HD is available and if the current websize is bigger than resize dimensions, Piwigo will move it as HD and create a downsized websize photo from it.'] = 'Amennyiben nincs HD kép és a rendelkezésre álló web méretű kép nagyobb mint az aktuális átméretezett kép méretek, a jelenlegi képet a rendszer átmozgatja HD képnek és létrehoz egy új web méretű képet.';
+$lang['An error has occured during upgrade.'] = 'Hiba történt frissítés közben.';
+$lang['An error has occured during extract. Please check files permissions of your piwigo installation.<br><a href="%s">Click here to show log error</a>.'] = 'Hibajelentés (Információ). Kérjük ellenőrizze a telepített fájlok jogosultságait.<br><a href="%s">További információkért kattintson ide</a>.';
+$lang['Piwigo cannot retrieve upgrade file from server'] = 'Nem tudom letölteni a frissítést a Piwigo fájl szerverről';
 ?>
