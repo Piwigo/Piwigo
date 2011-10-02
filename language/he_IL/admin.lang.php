@@ -833,4 +833,28 @@ $lang['Some themes and plugins may be not available yet.'] = 'יכול להיו�
 $lang['Learn more'] = 'למד עוד';
 $lang['Rate'] = "דרג";
 $lang['Average rate'] = "דירוג ממוצע";
+$lang['(this tag will be deleted)'] = ')התג הזה ימחק(';
+$lang['... or '] = 'או ...';
+$lang['Add a criteria'] = 'הוסף קריטריון';
+$lang['Allowed file types: %s.'] = 'סוגי קבצים מותרים:%s';
+$lang['Approximate maximum resolution: %dM pixels (that\'s %dx%d pixels).'] = 'רזולוציה מקסימלית: %dM פקסלים(שזה %dx%d פקסלים).';
+$lang['By default, Piwigo will create a new websize from the HD (high definition) version of your photo.'] = 'כברירת מחדל, Piwigo יצור גודל חדש לתמונות ה HD שלך.';
+$lang['Confirm merge'] = 'אשר איחוד';
+$lang['Create'] = 'צור';
+$lang['hide details'] = 'הסתר פרטים';
+$lang['Manage Permissions'] = 'ניהול הרשאות';
+$lang['Maximum file size: %sB.'] = 'גודל קובץ מקסימאלי: %sB.';
+$lang['Merge selected tags'] = 'אחד תגים מסומנים';
+$lang['Merge tags'] = 'איחוד תגים';
+$lang['No destination tag selected'] = 'לא ניבחרו תגי יעד';
+$lang['Photo %s of %s'] = 'תמונה %s מ %s';
+$lang['Select an album'] = 'בחר אלבום';
+$lang['Select at least two tags for merging'] = 'בחר לפחות שני תגים לאיחוד';
+$lang['Select the destination tag'] = 'בחר תגים ביעד';
+$lang['show details'] = 'הצג פרטים';
+$lang['Start Upload'] = 'התחל העלאה';
+$lang['Tags <em>%s</em> merged into tag <em>%s</em>'] = 'התג <em>%s</em> אוחד כעם תג <em>%s</em>';
+$lang['You are using the Browser uploader. Try the <a href="%s">Flash uploader</a> instead.'] = 'אתה משתמש בהעלאה מהדפדפן. נסה <a href="%s">העלאת פלאש</a> במקום.';
+$lang['You are using the Flash uploader. Problems? Try the <a href="%s">Browser uploader</a> instead.'] = 'אתה משתמש בהעלאת פלאש. ישנה בעיה? נסה <a href="%s">העלאה מהדפדפן</a> במקום.';
+$lang['You can\'t define a default photo order because you have a custom setting in your local configuration.'] = 'אין באפשרותך לקבוע סדר תמונות ברירת מחדל מכיוון שאתה משתמש בהגדרות מותאמות אישית';
 ?>

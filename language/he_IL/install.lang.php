@@ -68,4 +68,6 @@ $lang['An alternate solution is to copy the text in the box above and paste it i
 $lang['Creation of config file local/config/database.inc.php failed.'] = 'יצירת קובץ config local/config/database.inc.php ניכשל.';
 $lang['Download the config file'] = 'הורד את קובץ config';
 $lang['You can download the config file and upload it to local/config directory of your installation.'] = 'אתה יכול להוריד את קובץ config ולהעלות אותו אל local/config בתיקיית ההתקנה שלך.';
+$lang['Just another Piwigo gallery'] = 'עוד גלריה מבית Piwigo';
+$lang['Welcome to my photo gallery'] = 'ברוכים הבאים לגלרית התמונות שלי';
 ?>
