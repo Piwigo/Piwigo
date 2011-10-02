@@ -363,7 +363,7 @@ $lang['Rating score'] = 'Oy sayısı';
 $lang['Password Reset'] = 'Şifreyi yenile';
 $lang['Return to home page'] = 'Anasayfaya dön';
 $lang['The passwords do not match'] = 'Şifreler eşleşmiyor';
-$lang['Username "%s" on gallery %s'] = 'Kullanıcı adı "%s" zaten galeride %s';
+$lang['Username "%s" on gallery %s'] = 'Kullanici adi "%s" zaten galeride %s';
 $lang['Username or email'] = 'Kullanıcı adı veya e-posta';
 $lang['Your password has been reset'] = 'Şifreniz yenilendi';
 
