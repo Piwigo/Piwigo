@@ -863,5 +863,7 @@ $lang['Select at least two tags for merging'] = 'Označiť najmenej dve kľúčo
 $lang['Select an album'] = 'Označiť album';
 $lang['By default, Piwigo will create a new websize from the HD (high definition) version of your photo.'] = 'Štandardne Piwigo vytvorí novú veľkosť pre web z HD (high definition) verzie fotky.';
 $lang['If no HD is available and if the current websize is bigger than resize dimensions, Piwigo will move it as HD and create a downsized websize photo from it.'] = 'Ak nie je k dispozícii HD a ak súčasná veľkosť pre web je väčšia ako rozmer zmeny veľkosti, Piwigo fotku presunie ako HD a vytvorí z nej menšiu veľkosť pre web.';
-
+$lang['An error has occured during upgrade.'] = 'Pri upgrade sa vyskytla chyba.';
+$lang['An error has occured during extract. Please check files permissions of your piwigo installation.<br><a href="%s">Click here to show log error</a>.'] = 'Pri rozbaľovaní sa vyskytla chyba. Prosím skontrolujte prístupové práva súborov Vašej inštalácie piwigo.<br><a href="%s">Kliknite sem na zobrazenie logu chyby</a>.';
+$lang['Piwigo cannot retrieve upgrade file from server'] = 'Piwigo nemôže získať upgradovací súbor zo servra';
 ?>
