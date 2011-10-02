@@ -795,5 +795,29 @@ $lang['Show menubar'] = 'Mostrar o menú';
 $lang['You can\'t define a default photo order because you have a custom setting in your local configuration.'] = 'Não pode definir uma ordem padrão para as fotos porque tem uma definição na sua configuração local.';																																					
 $lang['You have specified <i>$conf[\'order_by\']</i> in your local configuration file, this parameter in deprecated, please remove it or rename it into <i>$conf[\'order_by_custom\']</i> !'] = 'Especificou <i>$conf[\'order_by\']</i> no seu ficheiro de configuração, este pâremetro esta obsoleto, apaguar ou renomear em <i>$conf[\'order_by_custom\']</i> !';
 $lang['display'] = 'Mostrar';
+$lang['An error has occured during upgrade.'] = 'Ocorreu um erro durante a actualização automática.';
+$lang['An error has occured during extract. Please check files permissions of your piwigo installation.<br><a href="%s">Click here to show log error</a>.'] = 'Ocorreu um erro durante a extração dos ficheiros. Por favior verifique as permissões de escrita da sua instalação Piwigo.<br><a href="%s">Clique aqui para mostrar o relatório de erros</a>.';
+$lang['Piwigo cannot retrieve upgrade file from server'] = 'Piwigo não consegue recuperar o ficheiro de actualização do servidor remoto.';
+$lang['Update in progress... Please wait.'] = 'Actualização em curso... Aguarde, por favor.';
+$lang['Update to Piwigo %s'] = 'Actualizar para Piwigo %s';
+$lang['Two updates are available'] = 'Duas actualizações disponíveis';
+$lang['This is a minor update, with only bug corrections.'] = 'Esta é uma actualização menor, apenas alguns pequenos erros foram corrigidos.';
+$lang['This is a major update, with <a href="%s">new exciting features</a>.'] = 'Esta é uma actualização maior, com <a href="%s">novas funcionalidades excitantes</a>.';
+$lang['Some themes and plugins may be not available yet.'] = 'Alguns temas e plugins poderão não estar ainda disponíveis.';
+$lang['You can update to Piwigo %s directly, without upgrading to Piwigo %s (recommended).'] = 'Pode actualizar para Piwigo %s directamente, sem actualizar primeiro para Piwigo %s (recomendado).';
+$lang['Save Template Directory'] = 'Salvar a pasta de Modelos';
+$lang['Dump Database'] = 'Descarregar Base de Dados';
+$lang['Include history data (Warning: server memory limit may be exceeded)'] = 'Incluir dados históricos (Aviso: pode exceder o limite de memória do servidor)';
+$lang['Unable to write new local directory.'] = 'Impossível criar nova pasta local.';
+$lang['Unable to send template directory.'] = 'Impossível enviar pasta de modelos.';
+$lang['Unable to dump database.'] = 'Impossível descarregar base de dados.';
+$lang['ERROR'] = 'ERRO';
+$lang['Update Complete'] = 'Actualização Completa';
+$lang['Piwigo Update'] = 'Actualizar Piwigo';
+$lang['Extensions Update'] = 'Actualizar Extensões';
+$lang['All extensions are up to date.'] = 'Todas as extensões estão actualizadas.';
+$lang['Following plugins may not be compatible with the new version of Piwigo:'] = 'As seguintes estensões poderão não ser compatíveis com a nova versão de Piwigo:';
+$lang['Following themes may not be compatible with the new version of Piwigo:'] = 'Os seguintes temas poderão não ser compatíveis com a nova versão de Piwigo:';
+
 
 ?>
