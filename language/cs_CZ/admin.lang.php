@@ -862,4 +862,7 @@ $lang['No destination tag selected'] = 'Cílový tag nebyl vybrán';
 $lang['Tags <em>%s</em> merged into tag <em>%s</em>'] = 'Tagy <em>%s</em> sloučeny do tagu <em>%s</em>';
 $lang['Select at least two tags for merging'] = 'Vyberte alespoň 2 tagy pro sloučení';
 $lang['Select an album'] = 'Vyberte album';
+$lang['An error has occured during upgrade.'] = 'Během aktualizace došlo k chybě.';
+$lang['An error has occured during extract. Please check files permissions of your piwigo installation.<br><a href="%s">Click here to show log error</a>.'] = 'K chybě došlo během rozbalování. Prosím ověřte oprávnění na soubory Vaší instalace Piwigo.<br><a href="%s">Pro zobrazení chybového logu klikněte zde</a>.';
+$lang['Piwigo cannot retrieve upgrade file from server'] = 'Piwigo nemùže získat novou verzi ze serveru';
 ?>
