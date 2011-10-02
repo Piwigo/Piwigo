@@ -835,4 +835,8 @@ $lang['Follow Orientation'] = 'Следећа орјентација';
 $lang['If you want to regenerate thumbnails, please go to the <a href="%s">Batch Manager</a>.'] = 'Ако желите да обновите сличице, молимо Вас да одете на следећу везу: <a href="%s">Управљач обраде</a>.';
 $lang['Graphics Library'] = 'Графичка библиотека';
 $lang['Learn more'] = 'Научите више';
+$lang['An error has occured during upgrade.'] = 'Појавила се грешка у току унапређења.';
+$lang['An error has occured during extract. Please check files permissions of your piwigo installation.<br><a href="%s">Click here to show log error</a>.'] = 'Појавила се грешка у току распаковања. Молимо Вас, проверите дозволе приступа Вашој piwigo инсталацији.<br><a href="%s">Притисните овде да видите извештај о грешкама</a>.';
+$lang['Piwigo cannot retrieve upgrade file from server'] = 'Piwigo не може да преузме датотеку за надоградњу са сервера';
+
 ?>
