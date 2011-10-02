@@ -853,4 +853,7 @@ $lang['Select at least two tags for merging'] = 'Izvēlaties vismaz divas cilnes
 $lang['Select an album'] = 'Izvēlaties albūmu';
 $lang['By default, Piwigo will create a new websize from the HD (high definition) version of your photo.'] = 'Pēc noklusēšanas Piwigo izveidos jaunu foto webizmēru jūsējai HD (augstas izšķirtspējas) attēla versijai.';
 $lang['If no HD is available and if the current websize is bigger than resize dimensions, Piwigo will move it as HD and create a downsized websize photo from it.'] = 'Ja nav neviena HD un, ja esošais webizmērs ir lielāks par atļautajiem izmēriem, Piwigo to uzskata par HD attēlu un no šī attēla izveidos atbilsoša webizmēra attēlu.';
+$lang['An error has occured during upgrade.'] = 'Atjauninot notikusi kļūme.';
+$lang['An error has occured during extract. Please check files permissions of your piwigo installation.<br><a href="%s">Click here to show log error</a>.'] = 'Atpakošanas laikā notikusi kļūme. Pārbaudiet Jūsu piwigo instalācijas failu atļaujas.<br><a href="%s">Spiest te, lai redzētu log kļūdas</a>.';
+$lang['Piwigo cannot retrieve upgrade file from server'] = 'Piwigo nevar ielādēt jauninājuma failu no servera';
 ?>
