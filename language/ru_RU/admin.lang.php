@@ -858,4 +858,7 @@ $lang['No destination tag selected'] = 'Тэг-получатель не выб�
 $lang['Tags <em>%s</em> merged into tag <em>%s</em>'] = 'Тэги <em>%s</em> объединены в тэг <em>%s</em>';
 $lang['Select at least two tags for merging'] = 'Выберите по крайней мере два тэга для объединения';
 $lang['Select an album'] = 'Выберите альбом';
+$lang['An error has occured during upgrade.'] = 'Во время обновления произошла ошибка.';
+$lang['An error has occured during extract. Please check files permissions of your piwigo installation.<br><a href="%s">Click here to show log error</a>.'] = 'Во время распаковки произошла ошибка. Пожалуйста, проверьте права доступа к папке установки piwigo.<br><a href="%s">Нажмите, чтобы посмотреть лог ошибки</a>.';
+$lang['Piwigo cannot retrieve upgrade file from server'] = 'Piwigo не может получить файлы обновления с сервера';
 ?>
