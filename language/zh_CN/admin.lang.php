@@ -858,4 +858,7 @@ $lang['Select at least two tags for merging'] = '选择2个以上的标签合并
 $lang['Select an album'] = '选择一个相册';
 $lang['By default, Piwigo will create a new websize from the HD (high definition) version of your photo.'] = '默认选项中，Piwigo将根据你相册中的高清图片（HD）创建一个新的网页尺寸。';
 $lang['If no HD is available and if the current websize is bigger than resize dimensions, Piwigo will move it as HD and create a downsized websize photo from it.'] = '若无高清图片或当前网页尺寸大于重置标准，Piwigo会自动将其作为高清图片进行尺寸重置。';
+$lang['An error has occured during upgrade.'] = '在升级过程中出现了一个错误.';
+$lang['An error has occured during extract. Please check files permissions of your piwigo installation.<br><a href="%s">Click here to show log error</a>.'] = '在解压程序时出现了一个错误。请检查您 piwigo 安装文件的读写权限.<br><a href="%s">点击此查看错误日志</a>.';
+$lang['Piwigo cannot retrieve upgrade file from server'] = 'Piwigo 不能从服务器中获取升级文件';
 ?>
