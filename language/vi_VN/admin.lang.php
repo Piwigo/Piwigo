@@ -860,5 +860,8 @@ $lang['Select at least two tags for merging'] = 'Chọn ít nhất hai nhãn đ�
 $lang['Select an album'] = 'Chọn một album ảnh';
 $lang['By default, Piwigo will create a new websize from the HD (high definition) version of your photo.'] = 'Theo mặc định, Piwigo sẽ tạo ra một kích thước web từ ảnh định dạng cao của bản.';
 $lang['If no HD is available and if the current websize is bigger than resize dimensions, Piwigo will move it as HD and create a downsized websize photo from it.'] = 'Nếu không có định dạng cao nào và nếu kích thước web hiện tại lớn hơn kích thước đã điều chỉnh, Piwigo sẽ chuyển nó thành định dạng cao và tạo ra một ảnh có kích thước web đã thu nhỏ từ ảnh gốc.';
+$lang['An error has occured during upgrade.'] = 'Có một lỗi xuất hiện trong quá trình nâng cấp.';
+$lang['An error has occured during extract. Please check files permissions of your piwigo installation.<br><a href="%s">Click here to show log error</a>.'] = 'Có một lỗi xuất hiện trong quá trình trích xuất tệp tin. Vui lòng kiểm tra quyền hiệu chỉnh tệp tin gói cài đặt Piwigo của bạn.<br><a href="%s">Click vào đây để xem lỗi.</a>.';
+$lang['Piwigo cannot retrieve upgrade file from server'] = 'Piwigo không thể nhận được tệp tin nâng cấp từ  máy chủ';
 
 ?>
