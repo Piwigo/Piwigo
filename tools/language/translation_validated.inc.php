@@ -345,6 +345,7 @@ $validated_keys = array(
 	'Tools',
 	'user_status_webmaster',
 	'Webmaster',
+	'in %d sub-album',
 	),
 	
   'ja_JP' => array(
