@@ -797,4 +797,23 @@ $lang['Type in a search term'] = 'ჩაწერეთ მოსაძებნ
 $lang['Learn more'] = 'გავიგოთ მეტი';
 $lang['Rate'] = 'შეფასება';
 $lang['Average rate'] = 'საშუალო ქულა';
+$lang['An error has occured during upgrade.'] = 'განახლების დროს მოხდა შეცდომა.';
+$lang['An error has occured during extract. Please check files permissions of your piwigo installation.<br><a href="%s">Click here to show log error</a>.'] = 'ამოარქივების დროს მოხდა შეცდომა. გთხოვთ, შეამოწმეთ დაშვების უფლება piwigo–ს ფოლდერთან.<br><a href="%s">დაკლიკეთ, რათა ნახოთ ინფორმაცია შეცდომაზე</a>.';
+$lang['Piwigo cannot retrieve upgrade file from server'] = 'Piwigo ვერ იღებს განახლების ფაილებს სერვერიდან';
+$lang['Save Template Directory'] = 'შევინახოთ დირექტორიის შაბლონი';
+$lang['Dump Database'] = 'მონაცემთა ბაზის წაშლა';
+$lang['Include history data (Warning: server memory limit may be exceeded)'] = 'ჩავრთოთ ისტორიის მონაცემები (გაფრთხილება: შესაძლებელია სერვერზე მეხსიერების ლიმიტის  გადაჭარბება)';
+$lang['Unable to write new local directory.'] = 'შეუძლებელია ახალი ლოკალური დირექტორიის ჩაწერა.';
+$lang['Unable to send template directory.'] = 'შეუძლებელია შაბლონის დირექტორიის გაგზავნა.';
+$lang['Unable to dump database.'] = 'შეუძლებელია მონაცემთა ბაზის წაშლა.';
+$lang['Update in progress... Please wait.'] = 'მიმდინარეობს განახლების პროცესი... გთხოვთ დაიცადოთ.';
+$lang['Update to Piwigo %s'] = 'განაახლეთ Piwigo %s';
+$lang['Two updates are available'] = 'ორი განახლებაა ხელმისაწვდომი';
+$lang['This is a minor update, with only bug corrections.'] = 'ეს მცირე განახლებაა, მხოლოდ შეცდომების შესწორება.';
+$lang['This is a major update, with <a href="%s">new exciting features</a>.'] = 'ეს ძალიან დიდი განახლებაა <a href="%s">საინტერესო სიახლეებით</a>.';
+$lang['Some themes and plugins may be not available yet.'] = 'თემების და პლაგინების ნაწილი ჯერჯერობით არ არის ხელმისაწვდომი.';
+$lang['You can update to Piwigo %s directly, without upgrading to Piwigo %s (recommended).'] = 'თქვენ პირდაპირ შეგიძლიათ  Piwigo %s გადახვიდეთ,  Piwigo %s განახლების გარეშე(რეკომენდირებულია).';
+
+
+
 ?>
