@@ -760,4 +760,21 @@ $lang['The uploaded file exceeds the upload_max_filesize directive in php.ini: %
 $lang['The uploaded file was only partially uploaded'] = 'Poslana datoteka je djelomično upload-ana';
 $lang['Rate'] = 'Ocjena';
 $lang['Average rate'] = 'Prosječna ocjena';
+$lang['An error has occured during upgrade.'] = 'Došlo je do greške tijekon postupka nadogradnje.';
+$lang['An error has occured during extract. Please check files permissions of your piwigo installation.<br><a href="%s">Click here to show log error</a>.'] = 'Greška se dogodila tijekom izlučivanja. Molimo provjerite upisne dozvole vaše piwigo postave.<br><a href="%s">Kliknite za prikaz dnevnika greške</a>.';
+$lang['Piwigo cannot retrieve upgrade file from server'] = 'Piwigo ne može dohvatiti zapis nadogradnje sa poslužitelja';
+$lang['Dump Database'] = 'Isprazni bazu podataka';
+$lang['Include history data (Warning: server memory limit may be exceeded)'] = 'Uključi povijest posjeta (Pozor: memorijsko ograničenje poslužitelja može biti premašeno)';
+$lang['Unable to write new local directory.'] = 'Nemoguć upis u novu lokalnu mapu.';
+$lang['Unable to send template directory.'] = 'Nemoguće slanje mape predložaka.';
+$lang['Unable to dump database.'] = 'Nemoguće pražnjenje baze podataka.';
+$lang['Save Template Directory'] = 'Sačuvaj mapu predložaka';
+$lang['Some themes and plugins may be not available yet.'] = 'Neke teme i dodaci možda nisu još dostupni.';
+$lang['You can update to Piwigo %s directly, without upgrading to Piwigo %s (recommended).'] = 'Možete nadograditi Piwigo na inačicu %s neposredno, bez nadograđivanja na inačicu Piwigo %s (preporučeno).';
+$lang['Update to Piwigo %s'] = 'Nadogradnja na Piwigo inačicu %s';
+$lang['Two updates are available'] = 'Dvije su nadogradnje dostupne';
+$lang['This is a minor update, with only bug corrections.'] = 'Ovo je manja nadogradnja, samo popravke grešeaka.';
+$lang['This is a major update, with <a href="%s">new exciting features</a>.'] = 'Ovo je veća nadogradnja, sa <a href="%s">novim uzbudljivim mogućnostima</a>.';
+$lang['Update in progress... Please wait.'] = 'Nadogradnja u tijeku... Molimo sačekajte.';
+
 ?>
