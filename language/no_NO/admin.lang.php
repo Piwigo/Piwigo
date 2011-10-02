@@ -769,4 +769,27 @@ $lang['New Version'] = 'Ny versjon';
 $lang['Learn more'] = 'Lær mer';
 $lang['Rate'] = 'Rangere';
 $lang['Average rate'] = 'Gjennomsnittlig rate';
+$lang['An error has occured during upgrade.'] = 'En feil oppstod under oppgraderingen.';
+$lang['An error has occured during extract. Please check files permissions of your piwigo installation.<br><a href="%s">Click here to show log error</a>.'] = 'En feil oppstod under utpakkingen. Vennligst sjekk fil rettigheter i din piwigo installasjon.<br><a href="%s">Klikk her for å vise feil loggen</a>.';
+$lang['Piwigo cannot retrieve upgrade file from server'] = 'Piwigo kan ikke motta oppgraderingsfilen fra serveren';
+$lang['Update in progress... Please wait.'] = 'Oppgradering pågår... Vennligst vent.';
+$lang['Update to Piwigo %s'] = 'Oppgrader til Piwigo %s';
+$lang['Two updates are available'] = 'To oppgraderinger er tilgjengelige';
+$lang['This is a minor update, with only bug corrections.'] = 'Dette er en mindre oppgradering, kun med noen interne feilrettinger.';
+$lang['This is a major update, with <a href="%s">new exciting features</a>.'] = 'Dette er en omfattende oppgradering, med <a href="%s">nye spennende funksjoner</a>.';
+$lang['Some themes and plugins may be not available yet.'] = 'Noen temaer og tilleggsverktøy er muligens ikke tilgjengelig foreløpig.';
+$lang['You can update to Piwigo %s directly, without upgrading to Piwigo %s (recommended).'] = 'Du kan oppgradere til Piwigo %s direkte, uten å oppgradere til Piwigo %s (anbefalt).';
+$lang['Save Template Directory'] = 'Lagre mal (template) mappe';
+$lang['Dump Database'] = 'Tøm Database';
+$lang['ERROR'] = 'FEIL';
+$lang['Update Complete'] = 'Oppgradering fullført';
+$lang['Piwigo Update'] = 'Piwigo-oppgradering';
+$lang['Extensions Update'] = 'Tilleggsprogram-oppgradering';
+$lang['All extensions are up to date.'] = 'Alle tilleggsprogram er oppdaterte.';
+$lang['Following plugins may not be compatible with the new version of Piwigo:'] = 'Følgende tilleggsprogram er muligens ikke kompatible med den nye utgaven av Piwigo:';
+$lang['Following themes may not be compatible with the new version of Piwigo:'] = 'Følgende temaer er muligens ikke kompatible med den nye utgaven av Piwigo:';
+$lang['Height'] = 'Høyde';
+$lang['Width'] = 'Bredde';
+$lang['display'] = 'Vis';
+
 ?>
