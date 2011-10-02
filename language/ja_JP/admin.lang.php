@@ -733,4 +733,20 @@ $lang['In your php.ini file, the upload_max_filesize (%sB) is bigger than post_m
 $lang['Average rate'] = '平均評価';
 $lang['Rate'] = '評価';
 $lang['Learn more'] = '詳細はこちら';
+$lang['An error has occured during upgrade.'] = 'アップグレード中にエラーが発生しました。';
+$lang['An error has occured during extract. Please check files permissions of your piwigo installation.<br><a href="%s">Click here to show log error</a>.'] = '解凍中にエラーが発生しました。あなたのPiwigoインストレーションのパーミッションを確認してください。<br /><a href="%s">ログエラーを表示するには、ここをクリックしてください</a>。';
+$lang['Piwigo cannot retrieve upgrade file from server'] = 'Piwigoは、アップグレードファイルをサーバから検索できません。';
+$lang['Save Template Directory'] = 'テンプレートディレクトリー保存';
+$lang['Dump Database'] = 'ダンプデータベース';
+$lang['Include history data (Warning: server memory limit may be exceeded)'] = 'データ履歴を含む（注意：サーバーメモリー制限する可能性があります。';
+$lang['Unable to write new local directory.'] = '新しいディレクトリーに書き込むことができません。';
+$lang['Unable to send template directory.'] = 'テンプレートディレクトリーに送信できません。';
+$lang['Unable to dump database.'] = 'ダンプデータベースができません。';
+$lang['Update in progress... Please wait.'] = 'アップグレード処理中 ... お待ちください。';
+$lang['Update to Piwigo %s'] = 'Piwigo %s にアップグレード';
+$lang['Two updates are available'] = '２個のアップグレードがあります';
+$lang['This is a minor update, with only bug corrections.'] = 'これはマイナーアップグレードだけバグ修正しています。';
+$lang['This is a major update, with <a href="%s">new exciting features</a>.'] = 'これはメジャーアップグレードで、 いろいろな楽しい<a href="%s">新機能がついています。</a>.';
+$lang['Some themes and plugins may be not available yet.'] = 'あるテーマとプラグインはまだできていません。';
+$lang['You can update to Piwigo %s directly, without upgrading to Piwigo %s (recommended).'] = 'Piwigo %sにアップグレードせずに、直接Piwigo %s にアップグレードすることができます（推進）。';
 ?>
