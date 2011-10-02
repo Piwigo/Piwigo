@@ -733,4 +733,14 @@ $lang['Set title'] = 'Vælg titel';
 $lang['Learn more'] = 'Lær mere';
 $lang['Rate'] = 'Bedøm';
 $lang['Average rate'] = 'Gennemsnitlig karakter';
+$lang['An error has occured during upgrade.'] = 'Der opstod en fejl under opgraderingen.';
+$lang['An error has occured during extract. Please check files permissions of your piwigo installation.<br><a href="%s">Click here to show log error</a>.'] = 'Der opstod en fejl under udpakningen. Tjek fil tilladelserne i din piwigo installation.<br><a href="%s">Klik her for at vis log fejl</a>.';
+$lang['Piwigo cannot retrieve upgrade file from server'] = 'Piwigo kan ikke modtage opgraderings filer fra serveren';
+$lang['Include history data (Warning: server memory limit may be exceeded)'] = 'Inkluder historiske data (Advarsel: server hukommelses begrænsning kan blive overskredet)';
+$lang['Unable to write new local directory.'] = 'Det er ikke muligt at skrive ny lokal bibliotek.';
+$lang['Unable to send template directory.'] = 'Det er ikke muligt at sende template biblioteket.';
+$lang['Unable to dump database.'] = 'Det er ikke muligt at dumpe databasen.';
+$lang['Update in progress... Please wait.'] = 'Opgraderingen er i gang... Vent venligst.';
+$lang['Update to Piwigo %s'] = 'Opgradering til Piwigo %s';
+$lang['Two updates are available'] = 'Der er to opgraderinger til rådighed';
 ?>
