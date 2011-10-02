@@ -839,4 +839,7 @@ $lang['Graphics Library'] = 'Afbeeldings bibliotheek';
 $lang['Average rate'] = 'Gemiddelde waardering';
 $lang['Rate'] = 'Waardering';
 $lang['Learn more'] = 'Leer meer';
+$lang['An error has occured during upgrade.'] = 'Er is iets foutgegaan bij het bijwerken van Piwigo naar de nieuwste versie.';
+$lang['An error has occured during extract. Please check files permissions of your piwigo installation.<br><a href="%s">Click here to show log error</a>.'] = 'Er is iets foutgegaan bij het uitpakken. Controleer de bestandstoegangen van uw Piwigo-installatie.<br><a href="%s">Klik kier om de fout-logging weer te geven</a>.';
+$lang['Piwigo cannot retrieve upgrade file from server'] = 'Piwigo kan het upgrade-bestand niet van de server verkrijgen';
 ?>
