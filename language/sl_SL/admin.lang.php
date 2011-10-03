@@ -175,6 +175,33 @@ $lang['An error occured during extraction (%s).'] = 'Prišlo je do napake med eks
 $lang['An information email was sent to group "%s"'] = 'Informativni mail je bil poslan skupini "%s"';
 $lang['and'] = 'in';
 $lang['Anomaly'] = 'Nepravilnost';
+$lang['General statistics'] = 'Splošna statistika';
+$lang['generate file listing.xml on remote site'] = 'generiraj datoteko listing.xml na oddaljeni strani';
+$lang['generate listing'] = 'generiraj izpis';
+$lang['generated in'] = 'generirano v';
+$lang['Get Support on Piwigo Forum'] = 'Za vec pomoci pojdi na Piwigo forum';
+$lang['global mode'] = 'globalni nacin';
+$lang['Go to %s or %s for more informations'] = 'Pojdi na %s ali %s za vec informacij';
+$lang['Go to'] = 'Pojdi na';
+$lang['Grant selected groups'] = 'Odobri izbrane skupine';
+$lang['Grant selected users'] = 'Odobri izbrane uporabnike';
+$lang['group "%s" added'] = 'skupina "%s" dodana';
+$lang['group "%s" deleted'] = 'skupina "%s" odstranjena';
+$lang['group "%s" updated'] = 'skupina "%s" popravljena';
+$lang['Group management'] = 'Upravljanje skupin';
+$lang['Group name'] = 'Ime skupine';
+$lang['group'] = 'skupina';
+$lang['Group'] = 'Skupina';
+$lang['Groups'] = 'Skupine';
+$lang['Guest cannot be deleted'] = 'Gost ne more biti odstranjen';
+$lang['Guest Settings'] = 'Nastavitve gosta';
+$lang['guest'] = 'gost';
+$lang['Guests'] = 'Gosti';
+$lang['height must be a number superior to'] = 'višina mora biti številka, vecja od ';
+$lang['Hello'] = 'Pozdravljen';
+$lang['Hello,'] = 'Pozdravljen,';
+$lang['Help Me'] = 'Pomagaj mi';
+$lang['Hide'] = 'Skrij';
 
 
 ?>
