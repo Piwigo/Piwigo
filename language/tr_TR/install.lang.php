@@ -68,4 +68,6 @@ $lang['An alternate solution is to copy the text in the box above and paste it i
 $lang['Creation of config file local/config/database.inc.php failed.'] = 'Yapılandırmada dosyası local/config/database.inc.php oluşturma başarısız oldu.';
 $lang['Download the config file'] = 'Yapılandırma dosyasını indir';
 $lang['You can download the config file and upload it to local/config directory of your installation.'] = 'Yapılandırma dosyasını indirip düzenleyebilir ve kurulum dizininde local/config bölümüne yükleyebilirsiniz.';
+$lang['Just another Piwigo gallery'] = 'Bir başka Piwigo galerisi';
+$lang['Welcome to my photo gallery'] = 'Resim galerime hoş geldiniz';
 ?>
