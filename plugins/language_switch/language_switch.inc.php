@@ -100,15 +100,11 @@ UPDATE '.USER_INFOS_TABLE.'
     }
     
     $url_starting = get_query_string_diff(array('lang'));
-    
+
     foreach ($available_lang as $code => $displayname)
     {
-      $qlc = array ( 
-        'url' => str_replace(
-          array('=&amp;','?&amp;'),
-          array('&amp;','?'),
-          add_url_params($url_starting, array('lang'=> $code))
-          ),
+      $qlc = array (
+        'url' => add_url_params(duplicate_index_url(), array('lang'=> $code)),
         'alt' => ucwords($displayname),
         'title' => substr($displayname, 0, -4), // remove [FR] or [RU]
         'img' => get_root_url().'language/'.$code.'/'.$code.'.jpg',
