@@ -1334,7 +1334,9 @@ function check_status($access_type, $user_status = '')
 */
 function is_adviser()
 {
-  trigger_error('call to obsolete function is_adviser', E_USER_WARNING);
+  // TODO for Piwigo 2.4 : trigger a warning. We don't do it on Piwigo 2.3
+  // to avoid changes for plugin contributors
+  // trigger_error('call to obsolete function is_adviser', E_USER_WARNING);
   return false;
 }
 
