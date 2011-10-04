@@ -48,7 +48,6 @@ admin/create_listing_file.php
 admin/liste_users.php
 admin/advanced_feature.php
 admin/phpwebgallery_structure.sql
-admin/plugins.php
 admin/manuel.php
 admin/cat.php
 admin/waiting.php
