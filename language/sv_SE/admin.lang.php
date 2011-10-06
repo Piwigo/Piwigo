@@ -859,7 +859,7 @@ $lang['Unable to send template directory.'] = 'Kan inte skicka mallkatalogen.';
 $lang['Unable to dump database.'] = 'Kan inte dumpa databasen.';
 $lang['By default, Piwigo will create a new websize from the HD (high definition) version of your photo.'] = 'Som standard kommer Piwigo skapa en ny webbstorlek från HD (high definition) versionen av din bild.';
 $lang['If no HD is available and if the current websize is bigger than resize dimensions, Piwigo will move it as HD and create a downsized websize photo from it.'] = 'Om ingen HD-bild är tillgänglig och den nuvarande webbstorleken är större än skalningsdimensionerna så kommer Piwigo flytta bilden till HD och skapa en nedskalad version av den.';
-$lang['An error has occured during upgrade.'] = 'Det uppstode ett fel under uppgraderingen.';
+$lang['An error has occured during upgrade.'] = 'Det uppstod ett fel under uppgraderingen.';
 $lang['An error has occured during extract. Please check files permissions of your piwigo installation.<br><a href="%s">Click here to show log error</a>.'] = 'Ett fel uppstod vid dekomprimeringen. Kontrollera rättigheterna på din Piwigo-installation och försök igen.<br><a href="%s">Klicka här för att visa felloggen</a>.';
 $lang['Piwigo cannot retrieve upgrade file from server'] = 'Piwigo kan inte hämta uppgraderingen från servern';
 ?>
