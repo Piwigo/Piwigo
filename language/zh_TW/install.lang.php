@@ -28,13 +28,10 @@ $lang['Database configuration'] = '數據庫設置';
 $lang['Admin configuration'] = '管理員帳戶設置';
 $lang['Start Install'] = '開始安裝';
 $lang['mail address must be like xxx@yyy.eee (example : jack@altern.org)'] = '郵箱地址格式 xxx@yyy.eee (例 : jack@altern.org)';
-
 $lang['Webmaster login'] = '管理員';
 $lang['It will be shown to the visitors. It is necessary for website administration'] = '所有用戶都能看到此帳戶。必須提供此帳戶來管理網站';
-
 $lang['Connection to server succeed, but it was impossible to connect to database'] = '服務器連接正常，但是無法連接到數據庫';
 $lang['Can\'t connect to server'] = '無法連接到服務器';
-
 $lang['Host'] = 'MySQL主機地址';
 $lang['localhost, sql.multimania.com, toto.freesurf.fr'] = 'localhost, sql.multimania.com, toto.freesurf.fr';
 $lang['User'] = '用戶';
@@ -55,7 +52,6 @@ $lang['verification'] = '核實';
 $lang['Need help ? Ask your question on <a href="%s">Piwigo message board</a>.'] = '需要幫助？ 請到<a href="%s">Piwigo論壇</a>提出你的問題.';
 $lang['Webmaster mail address'] = '管理員Email地址';
 $lang['Visitors will be able to contact site administrator with this mail'] = '遊客通過此Email跟你聯繫';
-
 $lang['PHP 5 is required'] = '必須PHP 5版本';
 $lang['It appears your webhost is currently running PHP %s.'] = '你主機PHP版本好像是PHP %s.';
 $lang['Piwigo may try to switch your configuration to PHP 5 by creating or modifying a .htaccess file.'] = 'Piwigo試著創建或修改.htaccess文件來轉換到PHP 5。';
@@ -70,4 +66,6 @@ $lang['An alternate solution is to copy the text in the box above and paste it i
 $lang['Creation of config file local/config/database.inc.php failed.'] = '創建 local/config/database.inc.php 文件失敗.';
 $lang['Download the config file'] = '下載配置文件';
 $lang['You can download the config file and upload it to local/config directory of your installation.'] = '您可以下載配置文件，然後上傳到 local/config 目錄以完成您的安裝.';
+$lang['Just another Piwigo gallery'] = '另一本Piwigo相片集';
+$lang['Welcome to my photo gallery'] = '歡迎進入我的相片集';
 ?>
