@@ -279,6 +279,7 @@ $validated_keys = array(
 	'Album',
 	'Menu Management',
 	'Action',
+	'Simulation',
     ),
 	
   'he_IL' => array(
