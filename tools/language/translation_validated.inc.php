@@ -429,6 +429,7 @@ $validated_keys = array(
 	'ERROR',
 	'Piwigo Update',
 	'Dump Database',
+	'Start Upload',
 	),
 	
   'no_NO' => array(

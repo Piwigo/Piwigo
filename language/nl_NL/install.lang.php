@@ -28,13 +28,10 @@ $lang['Database configuration'] = 'Database-configuratie';
 $lang['Admin configuration'] = 'Admin configuratie';
 $lang['Start Install'] = 'Start Installatie';
 $lang['mail address must be like xxx@yyy.eee (example : jack@altern.org)'] = 'Email-adres moet lijken op xxx@yyy.eee (voorbeeld : jack@altern.org)';
-
 $lang['Webmaster login'] = 'Login webbeheerder';
 $lang['It will be shown to the visitors. It is necessary for website administration'] = 'Het wordt getoond aan de bezoekers. Het is ook noodzakelijk voor de administratie van de website';
-
 $lang['Connection to server succeed, but it was impossible to connect to database'] = 'De verbinding met de server is geslaagd, maar het is niet mogelijk om verbinding te krijgen met de database';
 $lang['Can\'t connect to server'] = 'Geen verbinding met de server';
-
 $lang['Host'] = 'MySQL host';
 $lang['localhost, sql.multimania.com, toto.freesurf.fr'] = 'localhost, sql.multimania.com, toto.freesurf.fr';
 $lang['User'] = 'Gebruiker';
@@ -69,5 +66,6 @@ $lang['An alternate solution is to copy the text in the box above and paste it i
 $lang['Creation of config file local/config/database.inc.php failed.'] = 'Het aanmaken van config-bestand local/config/database.inc.php is mislukt.';
 $lang['Download the config file'] = 'Download het config-bestand';
 $lang['You can download the config file and upload it to local/config directory of your installation.'] = 'U kunt het config-bestand downloaden en het uploaden naar de local/config directory van uw Piwigo-installatie.';
-'SQLite en PostgreSQL zijn momenteel nog in een experimenteel stadium.';
+$lang['Just another Piwigo gallery'] = 'Alweer een Piwigo gallerie';
+$lang['Welcome to my photo gallery'] = 'Welkom bij mijn foto gallerie';
 ?>
