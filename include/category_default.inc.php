@@ -170,9 +170,10 @@ foreach ($pictures as $row)
   $tpl_thumbnails_var[] = $tpl_var;
 }
 
+$template->assign('SHOW_THUMBNAIL_CAPTION', $conf['show_thumbnail_caption']);
 $tpl_thumbnails_var = trigger_event('loc_end_index_thumbnails', $tpl_thumbnails_var, $pictures);
 $template->assign('thumbnails', $tpl_thumbnails_var);
-$template->assign('SHOW_THUMBNAIL_CAPTION', $conf['show_thumbnail_caption']);
+
 $template->assign_var_from_handle('THUMBNAILS', 'index_thumbnails');
 
 pwg_debug('end include/category_default.inc.php');
