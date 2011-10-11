@@ -150,8 +150,11 @@ SELECT element_id,
     $by_item[$row['element_id']] = $row;
   }
 
-  $all_rates_avg /= $all_rates_count;
-  $item_ratecount_avg = $all_rates_count / count($by_item);
+  if ($all_rates_count>0)
+  {
+    $all_rates_avg /= $all_rates_count;
+    $item_ratecount_avg = $all_rates_count / count($by_item);
+  }
 
   $updates = array();
   foreach ($by_item as $id => $rate_summary )
