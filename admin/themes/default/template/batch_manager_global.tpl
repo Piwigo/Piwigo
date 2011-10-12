@@ -474,7 +474,7 @@ jQuery(window).load(function() {
       <li id="filter_category" {if !isset($filter.category)}style="display:none"{/if}>
         <a href="#" class="removeFilter" title="remove this filter"><span>[x]</span></a>
         <input type="checkbox" name="filter_category_use" class="useFilterCheckbox" {if isset($filter.category)}checked="checked"{/if}>
-        {'album'|@translate}
+        {'Album'|@translate}
         <select style="width:400px" name="filter_category" size="1">
           {html_options options=$filter_category_options selected=$filter_category_options_selected}
         </select>
@@ -505,7 +505,7 @@ jQuery(window).load(function() {
         <option value="-1">{'Add a filter'|@translate}</option>
         <option disabled="disabled">------------------</option>
         <option value="filter_prefilter">{'predefined filter'|@translate}</option>
-        <option value="filter_category">{'album'|@translate}</option>
+        <option value="filter_category">{'Album'|@translate}</option>
 				<option value="filter_tags">{'Tags'|@translate}</option>
         <option value="filter_level">{'Who can see these photos?'|@translate}</option>
       </select>
