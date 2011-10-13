@@ -186,7 +186,7 @@ checkFieldsets();
     <tr>
       <td></td>
       <td class="pluginDesc">
-        <p id="revdesc_{$plugin.ID}" style="display:none;">{$plugin.REV_DESC|htmlspecialchars|nl2br}</p>
+        <p id="revdesc_{$plugin.ID}" style="display:none;">{$plugin.REV_DESC|@htmlspecialchars|@nl2br}</p>
       </td>
     </tr>
   </table>
@@ -228,7 +228,7 @@ checkFieldsets();
     <tr>
       <td></td>
       <td class="pluginDesc">
-        <p id="revdesc_{$theme.ID}" style="display:none;">{$theme.REV_DESC|htmlspecialchars|nl2br}</p>
+        <p id="revdesc_{$theme.ID}" style="display:none;">{$theme.REV_DESC|@htmlspecialchars|@nl2br}</p>
       </td>
     </tr>
   </table>
@@ -270,7 +270,7 @@ checkFieldsets();
     <tr>
       <td></td>
       <td class="pluginDesc">
-        <p id="revdesc_{$language.ID}" style="display:none;">{$language.REV_DESC|htmlspecialchars|nl2br}</p>
+        <p id="revdesc_{$language.ID}" style="display:none;">{$language.REV_DESC|@htmlspecialchars|@nl2br}</p>
       </td>
     </tr>
   </table>
