@@ -766,13 +766,13 @@ var s,after = document.getElementsByTagName(\'script\')[document.getElementsByTa
     $rdq = preg_quote($smarty->right_delimiter, '~');
 
     $regex = "~$ldq *\'([^'$]+)\'\|@translate *$rdq~";
-    $source = preg_replace( $regex.'e', 'isset($lang[\'$1\']) ? $lang[\'$1\'] : \'$0\'', $source);
+    $source = preg_replace_callback( $regex, create_function('$m', 'global $lang; return isset($lang[$m[1]]) ? $lang[$m[1]] : $m[0];'), $source);
 
     $regex = "~$ldq *\'([^'$]+)\'\|@translate\|~";
-    $source = preg_replace( $regex.'e', 'isset($lang[\'$1\']) ? \'{\'.var_export($lang[\'$1\'],true).\'|\' : \'$0\'', $source);
+    $source = preg_replace_callback( $regex, create_function('$m', 'global $lang; return isset($lang[$m[1]]) ? \'{\'.var_export($lang[$m[1]],true).\'|\' : \'$m[0]\';'), $source);
 
     $regex = "~($ldq *assign +var=.+ +value=)\'([^'$]+)\'\|@translate~e";
-    $source = preg_replace( $regex, 'isset($lang[\'$2\']) ? \'$1\'.var_export($lang[\'$2\'],true) : \'$0\'', $source);
+    $source = preg_replace_callback( $regex, create_function('$m', 'global $lang; return isset($lang[$m[2]]) ? $m[1].var_export($lang[$m[2]],true) : \'$m[0]\';'), $source);
 
     return $source;
   }

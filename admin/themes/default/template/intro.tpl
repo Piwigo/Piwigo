@@ -1,8 +1,8 @@
 {combine_script id='jquery.cluetip' load='async' require='jquery' path='themes/default/js/plugins/jquery.cluetip.js'}
 
 {footer_script require='jquery.cluetip'}
-var piwigo_need_update_msg = '<a href="admin.php?page=updates">{"A new version of Piwigo is available."|@translate|@escape:"javascript"}</a>';
-var ext_need_update_msg = '<a href="admin.php?page=updates&amp;tab=ext">{"Some upgrades are available for extensions."|@translate|@escape:"javascript"}</a>';
+var piwigo_need_update_msg = '<a href="admin.php?page=updates">{'A new version of Piwigo is available.'|@translate|@escape:"javascript"}</a>';
+var ext_need_update_msg = '<a href="admin.php?page=updates&amp;tab=ext">{'Some upgrades are available for extensions.'|@translate|@escape:"javascript"}</a>';
 
 {literal}
 jQuery().ready(function(){
@@ -42,7 +42,7 @@ jQuery().ready(function(){
       <li><a href="{$PHPWG_URL}" class="externalLink">Piwigo</a> {$PWG_VERSION}</li>
       <li><a href="{$U_CHECK_UPGRADE}">{'Check for upgrade'|@translate}</a></li>
 {if isset($SUBSCRIBE_BASE_URL)}
-      <li><a href="{$SUBSCRIBE_BASE_URL}{$EMAIL}" class="externalLink cluetip" title="{'Piwigo Announcements Newsletter'|@translate}|{'Keep in touch with Piwigo project, subscribe to Piwigo Announcement Newsletter. You will receive emails when a new release is available (sometimes including a security bug fix, it\'s important to know and upgrade) and when major events happen to the project. Only a few emails a year.'|@translate|htmlspecialchars|nl2br}">{'Subscribe %s to Piwigo Announcements Newsletter'|@translate|@sprintf:$EMAIL}</a></li>
+      <li><a href="{$SUBSCRIBE_BASE_URL}{$EMAIL}" class="externalLink cluetip" title="{'Piwigo Announcements Newsletter'|@translate}|{'Keep in touch with Piwigo project, subscribe to Piwigo Announcement Newsletter. You will receive emails when a new release is available (sometimes including a security bug fix, it\'s important to know and upgrade) and when major events happen to the project. Only a few emails a year.'|@translate|@htmlspecialchars|@nl2br}">{'Subscribe %s to Piwigo Announcements Newsletter'|@translate|@sprintf:$EMAIL}</a></li>
 {/if}
     </ul>
   </dd>

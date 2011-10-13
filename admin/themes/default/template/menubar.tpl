@@ -26,7 +26,7 @@ jQuery(document).ready(function(){
 {/literal}{/footer_script}
 
 <div class="titrePage">
-  <h2>{'Menu Management'|translate}</h2>
+  <h2>{'Menu Management'|@translate}</h2>
 </div>
 
 <form id="menuOrdering" action="{$F_ACTION}" method="post">
