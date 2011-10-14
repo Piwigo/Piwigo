@@ -381,7 +381,9 @@ SELECT
     $conf['upload_form_thumb_maxheight'],
     $conf['upload_form_thumb_quality'],
     false,
-    true
+    true,
+    $conf['upload_form_thumb_crop'],
+    $conf['upload_form_thumb_follow_orientation']
     );
   $img->destroy();
   
