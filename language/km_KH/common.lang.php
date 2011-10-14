@@ -28,8 +28,8 @@ Author: Piwigo team
 Author URI: http://piwigo.org
 */
 
-$lang_info['language_name'] = "ភាសា​";
-$lang_info['country'] = "ប្រទេស";
+$lang_info['language_name'] = "ភាសាខ្មែរ​";
+$lang_info['country'] = "ប្រទេសកម្ពុជា";
 $lang_info['direction'] = "ltr";
 $lang_info['code'] = "en";
 $lang_info['zero_plural'] = "1";
@@ -51,13 +51,13 @@ $lang['%d new photos'] = '%d រូប​ថត​ថ្មីៗ';
 $lang['%d new user'] = '%d អ្នក​ប្រើ​ប្រាស់​ថ្មី​';
 $lang['%d new users'] = '%d ​អ្នក​ប្រើ​ប្រាស់​ថ្មី​ច្រើន​នាក់​';
 $lang['%d rates'] = '%d ការ​វាយ​តម្លៃ​ទាំង​ឡាយ​';
-$lang['About'] = 'អំពី';
+$lang['About'] = 'អំពីវិបសាយ';
 $lang['All tags'] = 'ស្លាក​ទាំងអស់';
 $lang['Any tag'] = 'ស្លាក​ផ្សេង​ទៀត​';
 $lang['At least one listed rule must be satisfied.'] = 'យ៉ាងហោច​ណាស់​​បញ្ជីអត្ថបទ​មួយ​ត្រូវ​​ធ្វើ​ឲ្យ​បាន​ត្រឹម​ត្រូវ​សិន';
 $lang['At least one tag must match'] = 'យ៉ាង​ហោច​ណាស់​មាន​ ស្លាក​មួយ​ដាក់ត្រូវ​គ្នា';
 $lang['Author'] = 'អ្នក​និ​ពន្ធ​';
-$lang['Albums'] = 'សៀវ​ភៅ​រូប​ថត​ច្រើន​';
+$lang['Albums'] = 'សៀវ​ភៅ​រូប​ថត​ទាំងអស់';
 $lang['Album'] = 'សៀវ​ភៅ​រូប​ថត​';
 $lang['Close this window'] = 'បិទ​ផ្ទាំង​មួយ​នេះ';
 $lang['Confirm Password'] = 'បញ្ជាក់​អក្សរ​សម្ងាត់​';
@@ -86,6 +86,40 @@ $lang['Identification'] = 'អត្ត​សញ្ញាណ​';
 $lang['Photos only RSS feed'] = 'រូប​ភាព​សំរាប់​តែ RSS feed';
 $lang['Keyword'] = 'ពាក្យ​គន្លឹះ';
 $lang['Links'] = 'តំណភ្ជាប់​ជាច្រើន';
+$lang['day'][0] = "ថ្ងៃ​អាទិត្យ";
+$lang['day'][1] = "ថ្ងៃ​ច័ន្ទ";
+$lang['day'][2] = "ថ្ងៃ​អង្គារ";
+$lang['day'][3] = "ថ្ងៃ​ពុធ";
+$lang['day'][4] = "ថ្ងៃ​ព្រហស្បត្តិ៍";
+$lang['day'][5] = "ថ្ងៃ​សុក្រ";
+$lang['day'][6] = "ថ្ងៃ​អាទិត្យ";
+$lang['month'][10] = "ខែ​តុលា​";
+$lang['month'][11] = "ខែ​វិច្ឆិកា";
+$lang['month'][12] = "ខែ​ធ្នូ";
+$lang['month'][1] = "ខែ​មករា";
+$lang['month'][2] = "ខែ​កុម្ភះ";
+$lang['month'][3] = "ខែ​មិនា";
+$lang['month'][4] = "ខែ​មេសា";
+$lang['month'][5] = "ខែ​ឧសភា";
+$lang['month'][6] = "ខែ​​មិថុនា";
+$lang['month'][7] = "ខែ​កក្តដា";
+$lang['month'][8] = "ខែ​សីហា";
+$lang['month'][9] = "ខែ​កញ្ញា";
+$lang['Delete'] = 'លុប';
+$lang['descending'] = 'តាម​លំដាប់​ចុះ';
+$lang['download'] = 'ទាញ​យក​';
+$lang['download this file'] = 'ទាញ​យក​ឯកសារ​នេះ​';
+$lang['edit'] = 'កែ​ប្រែ​';
+$lang['wrong date'] = 'ខុស​ថ្ងៃ​ខែ​';
+$lang['excluded'] = 'បាន​ដក​ចោល​';
+$lang['Your favorites'] = 'ចំណង់​ចំណូល​ចិត្ត​របស់​អ្នក​';
+$lang['display your favorites photos'] = 'បង្ហាញ​រូប​ភាព​ដែល​អ្នក​ចូល​ចិត្ត​ទាំង​អស់';
+$lang['Favorites'] = 'ចំណូលចិត្ត​';
+$lang['First'] = 'ដំបូង​';
+$lang['The gallery is locked for maintenance. Please, come back later.'] = 'វិចិត្រសាលបាន​បិទ​មិនឲ្យ​មាន​ការ​ជួស​ជុល​ទេ។ សូម​ព្យា​យាម​លើក​ក្រោយ​ទៀត។';
+$lang['Page generated in'] = 'ទំព័រ​បាន​បង្កើត​ក្នុង​';
+$lang['guest'] = 'ភ្ញៀវ';
+$lang['Hello'] = 'សួរស្តី';
 
 
 
