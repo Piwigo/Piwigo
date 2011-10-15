@@ -167,8 +167,47 @@ $lang['posted between %s (%s) and %s (%s)'] = 'បាន​ផ្សាយ​ប
 $lang['posted on %s'] = 'បានផ្សាយ​​ប្រ​កាសលើ​ %s';
 $lang['Best rated'] = 'ការ​វាយ​តម្លៃ​ល្អ​ជាង​គេ​';
 $lang['display best rated photos'] = 'បង្ហាញ​រូ​ប​ថត​ដែល​បាន​វាយ​តម្លៃ​ខ្ពស់​ជាង​គេ';
-
-
+$lang['Calendar'] = 'ប្រតិទិន';
+$lang['All'] = 'ទាំង​អស់';
+$lang['display each day with photos, month per month'] = 'បង្ហាញ​រាល់​ថ្ងៃ​នូវ​រូប​ថត​ ក្នុង​មួយ​ខែ​ៗ​';
+$lang['View'] = 'បើកមើល';
+$lang['chronology_monthly_calendar'] = 'ប្រតិទិន​ប្រ​ចាំ​ខែ​';
+$lang['chronology_monthly_list'] = 'តារាង​ប្រ​ចាំ​ខែ​';
+$lang['chronology_weekly_list'] = 'តារាង​ប្រ​ចាំ​សប្តាហ៍';
+$lang['Click here if your browser does not automatically forward you'] = '​ចុច​ត្រង់​នេះ​ ប្រ​សិន​បើ​ Browser របស់​អ្នក​មិន​ដំណើរ​កា​រ​ទៅ​មុខ​ដោយ​ស្វ័យ​ប្រវត្តិ​';
+$lang['comment date'] = 'ថ្ងៃ​​បញ្ចេញ​មតិ​';
+$lang['Comment'] = 'មតិ';
+$lang['Your comment has been registered'] = 'មតិ​របស់​អ្នក​បាន​ដាក់​បញ្ចូល​';
+$lang['Anti-flood system : please wait for a moment before trying to post another comment'] = 'ប្រ​ព័ន្ធ Anti-flood: សូម​រង​ចាំ​មួយ​ភ្លេត​ មុន​ពេលទៅ​បញ្ចេញ​មតិ​មួយ​ផ្សេង​ទៀត​';
+$lang['Your comment has NOT been registered because it did not pass the validation rules'] = 'មតិ​របស់​អ្នក​មិន​ត្រូវ​បាន​បញ្ចូល​ទេ ព្រោះវា​មិន​ត្រឹម​ត្រូវ​តាម​ការ​កំណត់​';
+$lang['An administrator must authorize your comment before it is visible.'] = 'អ្នក​គ្រប់​គ្រង​ត្រូវ​តែ​ផ្តល់​សិទ្ធិ​ជាមុន​លើ​មតិ​របស់​អ្នក​​ មុន​ពេល​វា​អាច​បង្ហាញ​';
+$lang['This login is already used by another user'] = 'ឈ្មោះ​នេះ​ត្រូវ​បាន​ប្រើ​ដោយ​អ្នក​ប្រើ​ប្រាស់​ម្នាក់​រួច​ហើយ';
+$lang['Comments'] = 'មតិ​';
+$lang['Add a comment'] = 'បញ្ចូល​មតិ';
+$lang['created after %s (%s)'] = 'បានបង្កើត​បន្ទាប់​ពី​ %s (%s)';
+$lang['created before %s (%s)'] = 'បាន​បង្កើត​មុន​ពេល​ %s (%s)';
+$lang['created between %s (%s) and %s (%s)'] = 'បាន​បង្កើត​ចន្លោះ %s (%s) និង %s (%s)';
+$lang['created on %s'] = 'បាន​បង្កើត​នៅ​ %s';
+$lang['Customize'] = 'រៀប​ចំ​កែ​សំរួល​';
+$lang['Your Gallery Customization'] = 'ការ​កែ​ប្រែ​សៀវ​ភៅ​រូប​ថត​របស់​អ្នក​';
+$lang['Default'] = 'លំនាំដើម​';
+$lang['delete this photo from your favorites'] = 'លុប​រូ​ប​ថត​នេះ​ចេញពី​ចំណូល​ចិត្ត​របស់​អ្នក​';
+$lang['available for administrators only'] = ' សំរាប់​តែ​អ្នក​គ្រប់​គ្រង​ប៉ុណ្ណោះ​';
+$lang['display this album'] = 'បង្ហាញ​សៀវ​ភៅ​រូប​ថត​នេះ​';
+$lang['display last user comments'] = 'បង្ហាញ​មតិ​របស់​អ្នក​ប្រើ​ប្រាស់​ចុង​ក្រោយ​';
+$lang['customize the appareance of the gallery'] = 'កែ​សំរួល​ទំរង់​បង្ហាញ​នៃ​វិចិត្រ​សាល​';
+$lang['search'] = 'ស្វែង​រក​';
+$lang['Home'] = 'ទំព័រ​ដើម​';
+$lang['in this album'] = 'ក្នុង​សៀវ​ភៅ​រូប​ថត​នេះ​';
+$lang['in %d sub-album'] = 'ក្នុង​ %d សៀវ​ភៅ​រូប​ថត​រង​';
+$lang['in %d sub-albums'] = 'ក្នុង​ %d សៀវ​ភៅ​រូប​ថត​រង​';
+$lang['included'] = 'បាន​បញ្ចូល​ក្នុង​';
+$lang['Invalid password!'] = 'អក្សរ​សម្ងាត់​មិន​ត្រឹម​ត្រូវ​ទេ​';
+$lang['Language'] = 'ភាសា';
+$lang['last %d days'] = ' %d ថ្ងៃ​ចុង​ក្រោយ​';
+$lang['Last'] = 'ចុង​ក្រោយ​';
+$lang['Logout'] = 'ចាក​ចេញ​';
+$lang['Since'] = 'តាំងពី';
 
 
 ?>
