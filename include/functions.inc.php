@@ -880,7 +880,7 @@ function get_picture_title($info)
 {
   if (isset($info['name']) and !empty($info['name']))
   {
-    return $info['name'];
+    return trigger_event('render_element_description', $info['name']);
   }
 
   return  get_name_from_file($info['file']);

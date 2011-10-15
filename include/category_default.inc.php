@@ -109,11 +109,13 @@ foreach ($pictures as $row)
     $row['nb_comments'] = (int)@$nb_comments_of[$row['id']];
   }
 
+  $name = get_picture_title($row);
+
   $tpl_var =
     array(
       'ID'        => $row['id'],
       'TN_SRC'    => get_thumbnail_url($row),
-      'TN_ALT'    => htmlspecialchars(strip_tags(get_picture_title($row))),
+      'TN_ALT'    => htmlspecialchars(strip_tags($name)),
       'TN_TITLE'  => get_thumbnail_title($row),
       'URL'       => $url,
 
@@ -140,8 +142,6 @@ foreach ($pictures as $row)
   {
     $tpl_var['NB_HITS'] = $row['hit'];
   }
-
-  $name = trigger_event('render_element_description', get_picture_title($row));
   
   switch ($page['section'])
   {
