@@ -202,6 +202,28 @@ $lang['Hello'] = 'Pozdravljen';
 $lang['Hello,'] = 'Pozdravljen,';
 $lang['Help Me'] = 'Pomagaj mi';
 $lang['Hide'] = 'Skrij';
+$lang['Anyway only webmasters can see this tab and never administrators.'] = 'Samo skrbnik lahko vidi ta jezicek.';
+$lang['Apply action'] = 'Potrdi akcijo';
+$lang['Apply selected corrections'] = 'Potrdi izbrane popravke';
+$lang['Apply to sub-albums'] = 'Potrdi na vsemi pod-albumi';
+$lang['Are you sure to install this upgrade? You must verify if this version does not need uninstallation.'] = 'Ali res želite namestiti posodobitev ? Potrebno je preveriti, ce nova verzija ne zahteva odstranitev trenutno namešcene.';
+$lang['Are you sure you want to delete this plugin?'] = 'Ali res želite odstraniti  vticnik?';
+$lang['Are you sure you want to install this plugin?'] = 'Ali res želite namestiti  vticnik?';
+$lang['Associate to album'] = 'Associate to album';
+$lang['associate to group'] = 'associate to group';
+$lang['Associated'] = 'Associated';
+$lang['Authorize users to add comments on selected albums'] = 'Avtoriziraj uporabnike za dodajanje komentarjev na izbranih albumih';
+$lang['Authorized'] = 'Avtoriziran';
+$lang['Automatic correction'] = 'Avtomatski popravki';
+$lang['automatic order'] = 'avtomatsko sortiranje';
+$lang['Available only with HTML format'] = 'Na voljo le v HTML obliki';
+$lang['average time'] = 'povprecen cas';
+$lang['Batch management'] = 'Paketno upravljanje';
+$lang['Batch Manager'] = 'Paketni upravljalec';
+$lang['between'] = 'med';
+$lang['Bound Theme'] = 'Povezana tema';
+$lang['By %s'] = 'Po %s';
+$lang['By rank'] = 'Po oceni';
 
 
 ?>
