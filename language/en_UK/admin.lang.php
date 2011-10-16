@@ -801,7 +801,6 @@ $lang['%s thumbnails have been regenerated'] = '%s thumbnails have been regenera
 $lang['%s thumbnails can not be regenerated'] = '%s thumbnails can not be regenerated';
 $lang['%s photos have been regenerated'] = '%s photos have been regenerated';
 $lang['%s photos can not be regenerated'] = '%s photos can not be regenerated';
-
 $lang['Updates'] = 'Updates';
 $lang['Update in progress... Please wait.'] = 'Update in progress... Please wait.';
 $lang['Ignore this update'] = 'Ignore this update';
@@ -860,8 +859,15 @@ $lang['Learn more'] = 'Learn more';
 $lang['Select an album'] = 'Select an album';
 $lang['By default, Piwigo will create a new websize from the HD (high definition) version of your photo.'] = 'By default, Piwigo will create a new websize from the HD (high definition) version of your photo.';
 $lang['If no HD is available and if the current websize is bigger than resize dimensions, Piwigo will move it as HD and create a downsized websize photo from it.'] = 'If no HD is available and if the current websize is bigger than resize dimensions, Piwigo will move it as HD and create a downsized websize photo from it.';
-
 $lang['An error has occured during upgrade.'] = 'An error has occured during upgrade.';
 $lang['An error has occured during extract. Please check files permissions of your piwigo installation.<br><a href="%s">Click here to show log error</a>.'] = 'An error has occured during extract. Please check files permissions of your piwigo installation.<br><a href="%s">Click here to show log error</a>.';
 $lang['Piwigo cannot retrieve upgrade file from server'] = 'Piwigo cannot retrieve upgrade file from server';
+$lang['Last import'] = 'Last import';
+$lang['With no album'] = 'With no album';
+$lang['With no tag'] = 'With no tag';
+$lang['With no virtual album'] = 'With no virtual album';
+$lang['Predefined filter'] = 'Predefined filter';
+$lang['Add tags'] = 'Add tags';
+$lang['Add to caddie'] = "Add to caddie";
+
 ?>

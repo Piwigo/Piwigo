@@ -457,18 +457,18 @@ $base_url = get_root_url().'admin.php';
 $prefilters = array();
 
 array_push($prefilters,
-  array('ID' => 'caddie', 'NAME' => l10n('caddie')),
-  array('ID' => 'last import', 'NAME' => l10n('last import')),
-  array('ID' => 'with no album', 'NAME' => l10n('with no album')),
-  array('ID' => 'with no tag', 'NAME' => l10n('with no tag')),
-  array('ID' => 'duplicates', 'NAME' => l10n('duplicates')),
+  array('ID' => 'caddie', 'NAME' => l10n('Caddie')),
+  array('ID' => 'last import', 'NAME' => l10n('Last import')),
+  array('ID' => 'with no album', 'NAME' => l10n('With no album')),
+  array('ID' => 'with no tag', 'NAME' => l10n('With no tag')),
+  array('ID' => 'duplicates', 'NAME' => l10n('Duplicates')),
   array('ID' => 'all photos', 'NAME' => l10n('All'))
 );
 
 if ($conf['enable_synchronization'])
 {
   array_push($prefilters,
-    array('ID' => 'with no virtual album', 'NAME' => l10n('with no virtual album'))
+    array('ID' => 'with no virtual album', 'NAME' => l10n('With no virtual album'))
   );
 }
 

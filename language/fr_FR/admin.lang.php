@@ -594,7 +594,6 @@ $lang['Email administrators when a comment is modified'] = "Notifier les adminis
 $lang['Email administrators when a comment is deleted'] = "Notifier les administrateurs quand un commentaire est supprimé";
 $lang['Cannot delete the old permalink !'] = "Impossible de supprimer cet ancien lien permanent !";
 $lang['Hit'] = "score";
-
 $lang['Tools'] = "Outils";
 $lang['Photos'] = "Photos";
 $lang['Themes'] = "Thèmes";
@@ -604,7 +603,6 @@ $lang['Add New Theme'] = "Ajouter un thème";
 $lang['Forbid this theme to users'] = "Interdire ce thème aux utilisateurs";
 $lang['Set as default theme for unregistered and new users'] = "Thème par défaut pour les invités et les nouveaux utilisateurs";
 $lang['unknown'] = 'inconnu';
-
 $lang['Upload Photos'] = 'Ajoutez des photos';
 $lang['Drop into album'] = 'Choisir un album';
 $lang['+ Add an upload box'] = '+ Ajouter une autre boîte de transfert';
@@ -623,14 +621,12 @@ $lang['Select files'] = 'Choisir des fichiers';
 $lang['Everybody'] = 'Tout le monde';
 $lang['Who can see these photos?'] = 'Qui peut voir ces photos ?';
 $lang['Who can see this photo?'] = 'Qui peut voir cette photo ?';
-
 $lang['The websize maximum width must be a number between %d and %d'] = 'La largeur maximum pour la photo taille web doit être un chiffre compris entre %d et %d';
 $lang['The websize maximum height must be a number between %d and %d'] = 'La hauteur maximum pour la photo taille web doit être un chiffre compris entre %d et %d';
 $lang['The websize image quality must be a number between %d and %d'] = 'La qualité d\'image pour la photo taille web doit être un chiffre compris entre %d et %d';
 $lang['The thumbnail maximum width must be a number between %d and %d'] = 'La largeur maximum pour la miniature doit être un chiffre compris entre %d et %d';
 $lang['The thumbnail maximum height must be a number between %d and %d'] = 'La hauteur maximum pour la miniature doit être un chiffre compris entre %d et %d';
 $lang['The thumbnail image quality must be a number between %d and %d'] = 'La qualité d\'image pour la miniature doit être un chiffre compris entre %d et %d';
-
 $lang['Settings'] = 'Configuration';
 $lang['Web size photo'] = 'Photo taille web';
 $lang['Resize'] = 'Redimensionner';
@@ -641,7 +637,6 @@ $lang['Image Quality'] = 'Qualité d\'image';
 $lang['Thumbnail'] = 'Miniature';
 $lang['Save Settings'] = 'Enregistrer les paramètres';
 $lang['Your configuration settings are saved'] = 'Vos paramètres de configurations sont enregistrés';
-
 $lang['Active Themes'] = 'Thèmes activés';
 $lang['Add write access to the "%s" directory'] = 'Ajoutez l\'accès en écriture pour le répertoire "%s"';
 $lang['Administration Home'] = 'Accueil administration';
@@ -665,7 +660,6 @@ $lang['Switch to clear or dark colors for administration'] = 'Choisir des couleu
 $lang['Theme has been successfully installed'] = 'Le thème a été installé avec succès';
 $lang['Visit Gallery'] = 'Visiter la galerie';
 $lang['Visit Piwigo project website'] = 'Visiter le site web du projet Piwigo';
-
 $lang['Guest Settings'] = 'Paramètres invité';
 $lang['Main Page'] = 'Page principale';
 $lang['Photo Page'] = 'Page de la photo';
@@ -674,8 +668,6 @@ $lang['Activate Navigation Thumbnails'] = 'Activer les miniatures de navigation'
 $lang['Activate icon "%s"'] = 'Activer l\'icône "%s"';
 $lang['Activate field "%s"'] = 'Activer le champ "%s"';
 $lang['Photo Properties'] = 'Propriétés de la photo';
-
-
 $lang['pLoader stands for <em>Piwigo Uploader</em>. From your computer, pLoader prepares your photos and transfer them to your Piwigo photo gallery.'] = 'pLoader signifie <em>Piwigo Uploader</em>. Depuis votre ordinateur, pLoader prépare vos photos et les transfère vers votre galerie photo Piwigo.';
 $lang['Languages'] = 'Langues';
 $lang['Installed Languages'] = 'Langues installées';
@@ -733,12 +725,10 @@ $lang['Menu Management'] = 'Menus';
 $lang['automatic order'] = 'ordre automatique';
 $lang['manual order'] = 'ordre manuel';
 $lang['Albums automatically sorted'] = 'Les albums ont été triés automatiquement';
-
 $lang['Keep high definition'] = 'Conserver la haute définition';
 $lang['The high definition maximum width must be a number between %d and %d'] = 'La largeur maximum pour la haute définition doit être un chiffre compris entre %d et %d';
 $lang['The high definition maximum height must be a number between %d and %d'] = 'La hauteur maximum pour la haute définition doit être un chiffre compris entre %d et %d';
 $lang['The high definition image quality must be a number between %d and %d'] = 'La qualité d\'image pour la haute définition doit être un chiffre compris entre %d et %d';
-
 $lang['Batch Manager'] = 'Gestion par lot';
 $lang['include child albums'] = 'inclure les sous-albums';
 $lang['Selection'] = 'Sélection';
@@ -800,7 +790,6 @@ $lang['%s thumbnails have been regenerated'] = '%s miniatures ont été régén�
 $lang['%s thumbnails can not be regenerated'] = '%s miniatures ne peuvent pas être régénérées';
 $lang['%s photos have been regenerated'] = '%s photos ont été régénérées';
 $lang['%s photos can not be regenerated'] = '%s photos ne peuvent pas être régénérées';
-
 $lang['Updates'] = 'Mises à jour';
 $lang['Update in progress... Please wait.'] = 'Mise à jour en cours... Veuillez patienter.';
 $lang['Ignore this update'] = 'Ignorer cette mise à jour';
@@ -874,4 +863,12 @@ $lang['If no HD is available and if the current websize is bigger than resize di
 $lang['An error has occured during upgrade.'] = 'Une erreur est survenue pendant la mise à jour.';
 $lang['An error has occured during extract. Please check files permissions of your piwigo installation.<br><a href="%s">Click here to show log error</a>.'] = 'Impossible d\'extraire les fichiers. Veuillez vérifier les permissions des fichiers de votre installation.<br><a href="%s">Cliquez ici pour voir le rapport d\'erreur</a>.';
 $lang['Piwigo cannot retrieve upgrade file from server'] = 'Piwigo ne peut pas récupérer le fichier de mise à jour depuis le serveur';
+$lang['Last import'] = 'Dernier import';
+$lang['With no album'] = 'Sans album';
+$lang['With no tag'] = 'Sans tag';
+$lang['With no virtual album'] = 'Sans album virtuel';
+$lang['Predefined filter'] = 'Filtre prédéfini';
+$lang['Add tags'] = "Ajouter les tags";
+$lang['Synchronize metadata'] = "Synchroniser les méta-données";
+$lang['Add to caddie'] = 'Ajouter au panier';
 ?>

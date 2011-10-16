@@ -464,7 +464,7 @@ jQuery(window).load(function() {
       <li id="filter_prefilter" {if !isset($filter.prefilter)}style="display:none"{/if}>
         <a href="#" class="removeFilter" title="{'remove this filter'|@translate}"><span>[x]</span></a>
         <input type="checkbox" name="filter_prefilter_use" class="useFilterCheckbox" {if isset($filter.prefilter)}checked="checked"{/if}>
-        {'predefined filter'|@translate}
+        {'Predefined filter'|@translate}
         <select name="filter_prefilter">
           {foreach from=$prefilters item=prefilter}
           <option value="{$prefilter.ID}" {if $filter.prefilter eq $prefilter.ID}selected="selected"{/if}>{$prefilter.NAME}</option>
@@ -504,7 +504,7 @@ jQuery(window).load(function() {
       <select id="addFilter">
         <option value="-1">{'Add a filter'|@translate}</option>
         <option disabled="disabled">------------------</option>
-        <option value="filter_prefilter">{'predefined filter'|@translate}</option>
+        <option value="filter_prefilter">{'Predefined filter'|@translate}</option>
         <option value="filter_category">{'Album'|@translate}</option>
 				<option value="filter_tags">{'Tags'|@translate}</option>
         <option value="filter_level">{'Who can see these photos?'|@translate}</option>
@@ -606,7 +606,7 @@ jQuery(window).load(function() {
   {if !empty($dissociate_options)}
       <option value="dissociate">{'Dissociate from album'|@translate}</option>
   {/if}
-      <option value="add_tags">{'add tags'|@translate}</option>
+      <option value="add_tags">{'Add tags'|@translate}</option>
   {if !empty($DEL_TAG_SELECTION)}
       <option value="del_tags">{'remove tags'|@translate}</option>
   {/if}
@@ -614,11 +614,11 @@ jQuery(window).load(function() {
       <option value="title">{'Set title'|@translate}</option>
       <option value="date_creation">{'Set creation date'|@translate}</option>
       <option value="level">{'Who can see these photos?'|@translate}</option>
-      <option value="metadata">{'synchronize metadata'|@translate}</option>
+      <option value="metadata">{'Synchronize metadata'|@translate}</option>
   {if ($IN_CADDIE)}
       <option value="remove_from_caddie">{'Remove from caddie'|@translate}</option>
   {else}
-      <option value="add_to_caddie">{'add to caddie'|@translate}</option>
+      <option value="add_to_caddie">{'Add to caddie'|@translate}</option>
   {/if}
       <option value="regenerateThumbnails">{'Regenerate Thumbnails'|@translate}</option>
       <option value="regenerateWebsize">{'Regenerate Websize Photos'|@translate}</option>
