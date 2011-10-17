@@ -290,8 +290,6 @@ y.callService(
 {/if}
 </div>
 
-<hr class="separation">
-
 {if isset($COMMENT_COUNT)}
 <div id="comments">
 	{if $COMMENT_COUNT > 0}

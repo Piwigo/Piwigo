@@ -465,7 +465,7 @@ function get_tags_content_title()
       .l10n('remove this tag from the list')
       .'"><img src="'
         .get_root_url().get_themeconf('icon_dir').'/remove_s.png'
-      .'" alt="x" style="vertical-align:bottom;" class="button">'
+      .'" alt="x" style="vertical-align:bottom;">'
       .'</a>';
   }
   return $title;

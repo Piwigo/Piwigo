@@ -356,8 +356,8 @@ TD.calDayHead {
 }
 
 #imageInfos {
-	position:relative;
-	min-height:110px;
+	position: relative;
+	min-height: 120px;
 }
 
 #linkPrev {
@@ -415,9 +415,8 @@ TD.calDayHead {
 	margin-left:20em;
 }
 .pictureContent #imageToolBar, 
-.pictureContent #theImage, 
-.pictureContent hr.separation { 
-	clear:none;
+.pictureContent #theImage { 
+	clear: none;
 }
 
 
@@ -464,11 +463,6 @@ A.pwg-state-default:hover {
 
 IMG {
 	border: 0;
-}
-
-HR.separation {
-	visibility: hidden;
-	clear: both;
 }
 
 #copyright {
@@ -790,7 +784,6 @@ LEGEND {
 .message {
   background-color: lightyellow;
   color:#333;
-  /* margin: 0.5em 1em 0.5em 1em; */
   margin-bottom:1em;
   padding: 12px;
   -moz-border-radius: 3px;

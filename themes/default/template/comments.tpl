@@ -63,7 +63,7 @@
 
   </fieldset>
 
-  <p><input class="submit" type="submit" value="{'Filter and display'|@translate}"></p>
+  <p><input type="submit" value="{'Filter and display'|@translate}"></p>
 
 </form>
 
