@@ -1025,17 +1025,20 @@ LEGEND {
 #batchManagerGlobal ul.thumbnails span.wrap1 {margin:5px}
 #batchManagerGlobal ul.thumbnails span.wrap2 {border:0}
 #batchManagerGlobal ul.thumbnails span.wrap2:hover {background-color:#7CBA0F;}
+#batchManagerGlobal ul.thumbnails div.actions {display:none;position:absolute;top:0;right:5px;}
+#batchManagerGlobal ul.thumbnails div.actions a {color:#222;}
+#batchManagerGlobal ul.thumbnails span.wrap1:hover div.actions {display:block;}
 #batchManagerGlobal #selectedMessage {padding:5px; -moz-border-radius:5px;-webkit-border-radius:5px;}
-#batchManagerGlobal #selectSet a {border-bottom:1px dotted}
+#batchManagerGlobal #selectSet a {border-bottom:1px dotted;}
 #batchManagerGlobal #applyOnDetails {font-style:italic;}
 #batchManagerGlobal .actionButtons {text-align:left;}
 #batchManagerGlobal #filterList {padding-left:5px;}
 #batchManagerGlobal #filterList li {margin-bottom:5px; list-style-type:none;}
-#batchManagerGlobal a.removeFilter {background: url(icon/remove_filter.png) no-repeat top left;width:7px;height:7px;display:inline-block}
+#batchManagerGlobal a.removeFilter {background: url(icon/remove_filter.png) no-repeat top left;width:7px;height:7px;display:inline-block;}
 #batchManagerGlobal a.removeFilter:hover {background: url(icon/remove_filter_hover.png); border:none;}
 #batchManagerGlobal .removeFilter span {display:none}
 #batchManagerGlobal #applyFilterBlock {margin-top:20px;}
-#batchManagerGlobal .useFilterCheckbox {display:none}
+#batchManagerGlobal .useFilterCheckbox {display:none;}
 
 
 /* TokenInput (with Facebook style) */

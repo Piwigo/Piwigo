@@ -768,7 +768,11 @@ SELECT id,path,tn_ext,file,filesize,level,name
         'TN_SRC' => $src,
         'FILE' => $row['file'],
         'TITLE' => $title,
-        'LEVEL' => $row['level']
+        'LEVEL' => $row['level'],
+        'FILE_SRC' => $row['path'],
+        'U_EDIT' =>
+            PHPWG_ROOT_PATH.'admin.php?page=picture_modify'.
+            '&amp;image_id='.$row['id'],
         )
       );
   }
