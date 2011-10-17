@@ -237,7 +237,7 @@ $lang['password updated'] = 'şifre değiştirildi';
 $lang['Recent period must be a positive integer value'] = 'yakın dönem pozitif tam sayı değere sahip olmalıdır';
 $lang['photo'] = 'resim';
 $lang['Click on the photo to see it in high definition'] = 'yüksek çözünürlükte görmek için resima tıklayın';
-$lang['Show file metadata'] = 'meta verileri dosyasını göster';
+$lang['Show file metadata'] = 'dosyanin meta verilerini göster';
 $lang['Powered by'] = 'destekleyen :';
 $lang['Preferences'] = 'özellikler';
 $lang['Previous'] = 'önceki';
@@ -366,12 +366,11 @@ $lang['The passwords do not match'] = 'Şifreler eşleşmiyor';
 $lang['Username "%s" on gallery %s'] = 'Kullanici adi "%s" zaten galeride %s';
 $lang['Username or email'] = 'Kullanıcı adı veya e-posta';
 $lang['Your password has been reset'] = 'Şifreniz yenilendi';
-
-$lang['EXIF Metadata'] = 'EXIF Metadata';
 $lang['If this was a mistake, just ignore this email and nothing will happen.'] = 'Eğer bu bir hata ise, bu e-postayı görmezden geliniz.';
-$lang['IPTC Metadata'] = 'IPTC Metadata';
 $lang['Someone requested that the password be reset for the following user account:'] = 'Birisi aşağıdaki kullanıcı için yeniden şifre istedi';
 $lang['To reset your password, visit the following address:'] = 'Şifrenizi yenilemek için bu adrese gidiniz:';
 $lang['User "%s" has no email address, password reset is not possible'] = 'Kullanıcı "%s" e-posta adresi belirtmemiş, yeniden şifre alması imkansız';
 $lang['You will receive a link to create a new password via email.'] = 'E-posta yoluyla yeni bir şifre oluşturmak için bir bağlantı alacaksınız.';
+$lang['EXIF Metadata'] = 'EXIF Meta verisi';
+$lang['IPTC Metadata'] = 'IPTC Meta verisi';
 ?>
