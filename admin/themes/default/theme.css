@@ -376,11 +376,6 @@ IMG {
 	border: none;
 }
 
-HR.separation {
-	visibility: hidden;
-	clear: both;
-}
-
 /** General defaults **/
 INPUT, SELECT {
 	margin: 0;

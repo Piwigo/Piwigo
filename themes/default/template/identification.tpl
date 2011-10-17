@@ -52,7 +52,7 @@
 
   <p>
     <input type="hidden" name="redirect" value="{$U_REDIRECT|@urlencode}">
-    <input class="submit" tabindex="4" type="submit" name="login" value="{'Submit'|@translate}">
+    <input tabindex="4" type="submit" name="login" value="{'Submit'|@translate}">
   </p>
 
   <p>
