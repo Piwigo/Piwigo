@@ -47,7 +47,7 @@
         <span class="property">
           <label for="nb_image_page">{'Number of photos per page'|@translate}</label>
         </span>
-        <input type="text" size="3" maxlength="2" name="nb_image_page" id="nb_image_page" value="{$NB_IMAGE_PAGE}">
+        <input type="text" size="4" maxlength="3" name="nb_image_page" id="nb_image_page" value="{$NB_IMAGE_PAGE}">
       </li>
 {if not $SPECIAL_USER}
       <li>
