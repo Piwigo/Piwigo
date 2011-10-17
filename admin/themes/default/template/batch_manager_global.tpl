@@ -1,6 +1,5 @@
 {include file='include/tag_selection.inc.tpl'}
 {include file='include/datepicker.inc.tpl'}
-{include file='include/colorbox.inc.tpl'}
 
 {footer_script}{literal}
   pwg_initialization_datepicker("#date_creation_day", "#date_creation_month", "#date_creation_year", "#date_creation_linked_date", "#date_creation_action_set");
@@ -12,8 +11,6 @@
 
 {footer_script require='jquery.tokeninput'}
 jQuery(document).ready(function() {ldelim}
-  jQuery("a.preview-box").colorbox();
-  
 	var tag_src = [{foreach from=$tags item=tag name=tags}{ldelim}name:"{$tag.name|@escape:'javascript'}",id:"{$tag.id}"{rdelim}{if !$smarty.foreach.tags.last},{/if}{/foreach}];
   jQuery("#tags").tokenInput(
     tag_src,
@@ -551,25 +548,22 @@ jQuery(window).load(function() {
           {assign var='isSelected' value=false}
         {/if}
 
-      <li>
-        <span class="wrap1">
+      <li><span class="wrap1">
           <label>
             <span class="wrap2{if $isSelected} thumbSelected{/if}">
-            <div class="actions"><a href="{$thumbnail.FILE_SRC}" class="preview-box">{'Zoom'|@translate}</a> | <a href="{$thumbnail.U_EDIT}" target="_blank">{'Edit'|@translate}</a></div>
-              {if $thumbnail.LEVEL > 0}
-              <em class="levelIndicatorB">{$pwg->l10n($pwg->sprintf('Level %d',$thumbnail.LEVEL))}</em>
-              <em class="levelIndicatorF" title="{'Who can see these photos?'|@translate} : ">{$pwg->l10n($pwg->sprintf('Level %d',$thumbnail.LEVEL))}</em>
-              {/if}
-              <span>
-                <img src="{$thumbnail.TN_SRC}"
-                   alt="{$thumbnail.FILE}"
-                   title="{$thumbnail.TITLE|@escape:'html'}"
-                   class="thumbnail">
-              </span>
-            </span>
+        {if $thumbnail.LEVEL > 0}
+        <em class="levelIndicatorB">{$pwg->l10n($pwg->sprintf('Level %d',$thumbnail.LEVEL))}</em>
+        <em class="levelIndicatorF" title="{'Who can see these photos?'|@translate} : ">{$pwg->l10n($pwg->sprintf('Level %d',$thumbnail.LEVEL))}</em>
+        {/if}
+            <span>
+              <img src="{$thumbnail.TN_SRC}"
+                 alt="{$thumbnail.FILE}"
+                 title="{$thumbnail.TITLE|@escape:'html'}"
+                 class="thumbnail">
+            </span></span>
             <input type="checkbox" name="selection[]" value="{$thumbnail.ID}" {if $isSelected}checked="checked"{/if}>
           </label>
-        </span>
+          </span>
       </li>
       {/foreach}
     </ul>
