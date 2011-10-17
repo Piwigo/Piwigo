@@ -867,4 +867,6 @@ $lang['An error has occured during extract. Please check files permissions of yo
 $lang['Piwigo cannot retrieve upgrade file from server'] = 'Piwigo nemùže získat novou verzi ze serveru';
 $lang['By default, Piwigo will create a new websize from the HD (high definition) version of your photo.'] = 'Jako výchozí, Piwigo vytvoří nový rozměr(upraví rozlišení) vašich nahrávaných fotografií v HD rozlišení.';
 $lang['If no HD is available and if the current websize is bigger than resize dimensions, Piwigo will move it as HD and create a downsized websize photo from it.'] = 'Pokud nemáte obrázek v HD rozlišení a pokud stávající webové rozlišení je větší než nastavené rozsahy dimenzí obrázku, Piwigo fotku vezme jako HD a vytvoří zmenšenou verzi obrázku pro web z originálu.';
+$lang['Zoom'] = 'Přiblížit';
+
 ?>

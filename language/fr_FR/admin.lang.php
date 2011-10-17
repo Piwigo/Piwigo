@@ -865,4 +865,6 @@ $lang['Predefined filter'] = 'Filtre prédéfini';
 $lang['Add tags'] = "Ajouter les tags";
 $lang['Synchronize metadata'] = "Synchroniser les méta-données";
 $lang['Add to caddie'] = 'Ajouter au panier';
+$lang['Edit'] = 'Editer';
+$lang['Zoom'] = 'Zoom';
 ?>

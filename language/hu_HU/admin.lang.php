@@ -865,4 +865,6 @@ $lang['If no HD is available and if the current websize is bigger than resize di
 $lang['An error has occured during upgrade.'] = 'Hiba történt frissítés közben.';
 $lang['An error has occured during extract. Please check files permissions of your piwigo installation.<br><a href="%s">Click here to show log error</a>.'] = 'Hibajelentés (Információ). Kérjük ellenőrizze a telepített fájlok jogosultságait.<br><a href="%s">További információkért kattintson ide</a>.';
 $lang['Piwigo cannot retrieve upgrade file from server'] = 'Nem tudom letölteni a frissítést a Piwigo fájl szerverről';
+$lang['Zoom'] = 'Zoom';
+
 ?>

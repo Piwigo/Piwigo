@@ -31,5 +31,6 @@ $lang['Filesize'] = 'Размер на файла';
 $lang['Preferences'] = 'Предпочитания';
 $lang['Rate'] = 'Оценка';
 $lang['Average rate'] = 'Средна оценка';
+$lang['Zoom'] = 'Увеличи';
 
 ?>

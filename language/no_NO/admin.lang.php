@@ -791,5 +791,6 @@ $lang['Following themes may not be compatible with the new version of Piwigo:'] 
 $lang['Height'] = 'Høyde';
 $lang['Width'] = 'Bredde';
 $lang['display'] = 'Vis';
+$lang['Zoom'] = 'Zoom';
 
 ?>

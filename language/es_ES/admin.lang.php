@@ -861,4 +861,6 @@ $lang['If no HD is available and if the current websize is bigger than resize di
 $lang['An error has occured during upgrade.'] = 'Un error sobrevino durante la actualización.';
 $lang['An error has occured during extract. Please check files permissions of your piwigo installation.<br><a href="%s">Click here to show log error</a>.'] = 'Imposible extraer los ficheros. Por favor, verifique los permisos de los ficheros de su instalación. <Br> <a href="%s"> Haga clic aquí para ver el informe de error</a>.';
 $lang['Piwigo cannot retrieve upgrade file from server'] = 'Piwigo no puede recuperar el fichero de actualización desde el servidor';
+$lang['Zoom'] = 'Zoom';
+
 ?>

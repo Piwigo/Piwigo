@@ -861,4 +861,6 @@ $lang['Select an album'] = 'Выберите альбом';
 $lang['An error has occured during upgrade.'] = 'Во время обновления произошла ошибка.';
 $lang['An error has occured during extract. Please check files permissions of your piwigo installation.<br><a href="%s">Click here to show log error</a>.'] = 'Во время распаковки произошла ошибка. Пожалуйста, проверьте права доступа к папке установки piwigo.<br><a href="%s">Нажмите, чтобы посмотреть лог ошибки</a>.';
 $lang['Piwigo cannot retrieve upgrade file from server'] = 'Piwigo не может получить файлы обновления с сервера';
+$lang['Zoom'] = 'увеличение';
+
 ?>

@@ -833,4 +833,6 @@ $lang['hide details'] = 'ayrıntıları gizle';
 $lang['Select an album'] = 'Albüm seçiniz';
 $lang['show details'] = 'ayrıntıları göster';
 $lang['Start Upload'] = 'Yüklemeye başla';
+$lang['Zoom'] = 'Yakınlaştırma';
+
 ?>

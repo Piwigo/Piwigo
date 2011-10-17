@@ -865,4 +865,6 @@ $lang['Select at least two tags for merging'] = 'Selecteer ten minste twee tags 
 $lang['Select an album'] = 'Kies een album';
 $lang['By default, Piwigo will create a new websize from the HD (high definition) version of your photo.'] = 'Standaard zal Piwigo een nieuwe web formaat foto aanmaken van de HD (high definition) versie van je foto.';
 $lang['If no HD is available and if the current websize is bigger than resize dimensions, Piwigo will move it as HD and create a downsized websize photo from it.'] = 'Als geen HD beschikbaar is en de huidige web formaat foto is groter dan de nieuwe afmetingen, dan zal Piwigo het als HD gebruiken en daar een web formaat foto van maken.';
+$lang['Zoom'] = 'Zoom';
+
 ?>

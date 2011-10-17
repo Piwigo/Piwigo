@@ -842,4 +842,6 @@ $lang['Learn more'] = 'Mehr Informationen';
 $lang['An error has occured during upgrade.'] = 'Ein Fehler trat während des Aktualisierens auf.';
 $lang['An error has occured during extract. Please check files permissions of your piwigo installation.<br><a href="%s">Click here to show log error</a>.'] = 'Ein Fehler trat während des Entpackens auf. Bitte prüfen Sie die Schreibrechte ihrer Piwigo Installation.<br><a href="%s">Klicken Sie hier für das Fehlerprotokoll</a>.';
 $lang['Piwigo cannot retrieve upgrade file from server'] = 'Piwigo kann die Aktualisierungsdatei nicht vom Server laden';
+$lang['Zoom'] = 'Zoom';
+
 ?>
