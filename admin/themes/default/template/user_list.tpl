@@ -87,8 +87,8 @@
     <td>{$data}</td>
     {/foreach}
     <td style="text-align:center;">
-      <a href="{$user.U_PERM}"><img src="{$ROOT_URL}{$themeconf.admin_icon_dir}/permissions.png" class="button" style="border:none" alt="{'Permissions'|@translate}" title="{'Permissions'|@translate}"></a>
-      <a href="{$user.U_PROFILE}"><img src="{$ROOT_URL}{$themeconf.admin_icon_dir}/edit_s.png" class="button" style="border:none" alt="{'Profile'|@translate}" title="{'Profile'|@translate}"></a>
+      <a href="{$user.U_PERM}"><img src="{$ROOT_URL}{$themeconf.admin_icon_dir}/permissions.png" style="border:none" alt="{'Permissions'|@translate}" title="{'Permissions'|@translate}"></a>
+      <a href="{$user.U_PROFILE}"><img src="{$ROOT_URL}{$themeconf.admin_icon_dir}/edit_s.png" style="border:none" alt="{'Profile'|@translate}" title="{'Profile'|@translate}"></a>
       {foreach from=$user.plugin_actions item=data}
       {$data}
       {/foreach}

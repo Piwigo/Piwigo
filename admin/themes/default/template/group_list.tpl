@@ -30,13 +30,13 @@
     <td><a href="{$group.U_MEMBERS}">{$group.MEMBERS}</a></td>
     <td style="text-align:center;">
       <a href="{$group.U_PERM}">
-        <img src="{$ROOT_URL}{$themeconf.admin_icon_dir}/permissions.png" class="button" style="border:none" alt="{'Permissions'|@translate}" title="{'Permissions'|@translate}"></a>
+        <img src="{$ROOT_URL}{$themeconf.admin_icon_dir}/permissions.png" style="border:none" alt="{'Permissions'|@translate}" title="{'Permissions'|@translate}"></a>
       <a href="{$group.U_DELETE}" onclick="return confirm('{'delete'|@translate|@escape:'javascript'}' 
 				+ '\n\n' + '{'Are you sure?'|@translate|@escape:'javascript'}');">
-        <img src="{$ROOT_URL}{$themeconf.admin_icon_dir}/delete.png" class="button" style="border:none" alt="{'Delete'|@translate}" title="{'Delete'|@translate}"></a>
+        <img src="{$ROOT_URL}{$themeconf.admin_icon_dir}/delete.png" style="border:none" alt="{'Delete'|@translate}" title="{'Delete'|@translate}"></a>
       <a href="{$group.U_ISDEFAULT}" onclick="return confirm('{'Toggle \'default group\' property'|@translate|@escape:'javascript'}' 
 				+'\n\n' + '{'Are you sure?'|@translate|@escape:'javascript'}');">
-        <img src="{$ROOT_URL}{$themeconf.admin_icon_dir}/toggle_is_default_group.png" class="button" style="border:none" alt="{'Toggle \'default group\' property'|@translate}" title="{'Toggle \'default group\' property'|@translate}"></a>
+        <img src="{$ROOT_URL}{$themeconf.admin_icon_dir}/toggle_is_default_group.png" style="border:none" alt="{'Toggle \'default group\' property'|@translate}" title="{'Toggle \'default group\' property'|@translate}"></a>
     </td>
   </tr>
   {/foreach}

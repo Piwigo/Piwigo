@@ -35,7 +35,7 @@ jQuery(document).ready(function(){ldelim}
     <input class="submit" type="submit" value="{'Submit'|@translate}" name="submitAdd">
     {if count($categories)>9 }
     <a href="#EoP" class="button" style="border:0;">
-		<img src="{$themeconf.admin_icon_dir}/page_end.png" title="{'Page end'|@translate}" class="button" alt="page_end" style="margin-bottom:-0.6em;"></a>
+		<img src="{$themeconf.admin_icon_dir}/page_end.png" title="{'Page end'|@translate}" alt="page_end" style="margin-bottom:-0.6em;"></a>
     {/if}
   </p>
 </form>
@@ -64,21 +64,21 @@ jQuery(document).ready(function(){ldelim}
       <!-- category {$category.ID} -->
       <ul class="categoryActions">
         {if cat_admin_access($category.ID)}
-        <li><a href="{$category.U_JUMPTO}" title="{'jump to album'|@translate}"><img src="{$themeconf.admin_icon_dir}/category_jump-to.png" class="button" alt="{'jump to album'|@translate}"></a></li>
+        <li><a href="{$category.U_JUMPTO}" title="{'jump to album'|@translate}"><img src="{$themeconf.admin_icon_dir}/category_jump-to.png" alt="{'jump to album'|@translate}"></a></li>
         {/if}
-        <li><a href="{$category.U_EDIT}" title="{'edit album'|@translate}"><img src="{$themeconf.admin_icon_dir}/category_edit.png" class="button" alt="{'edit'|@translate}"></a></li>
+        <li><a href="{$category.U_EDIT}" title="{'edit album'|@translate}"><img src="{$themeconf.admin_icon_dir}/category_edit.png" alt="{'edit'|@translate}"></a></li>
         {if isset($category.U_MANAGE_ELEMENTS) }
-        <li><a href="{$category.U_MANAGE_ELEMENTS}" title="{'manage album photos'|@translate}"><img src="{$themeconf.admin_icon_dir}/category_elements.png" class="button" alt="{'Photos'|@translate}"></a></li>
+        <li><a href="{$category.U_MANAGE_ELEMENTS}" title="{'manage album photos'|@translate}"><img src="{$themeconf.admin_icon_dir}/category_elements.png" alt="{'Photos'|@translate}"></a></li>
         {/if}
-        <li><a href="{$category.U_CHILDREN}" title="{'manage sub-albums'|@translate}"><img src="{$themeconf.admin_icon_dir}/category_children.png" class="button" alt="{'sub-albums'|@translate}"></a></li>
+        <li><a href="{$category.U_CHILDREN}" title="{'manage sub-albums'|@translate}"><img src="{$themeconf.admin_icon_dir}/category_children.png" alt="{'sub-albums'|@translate}"></a></li>
         {if isset($category.U_MANAGE_PERMISSIONS) }
-        <li><a href="{$category.U_MANAGE_PERMISSIONS}" title="{'edit album permissions'|@translate}" ><img src="{$themeconf.admin_icon_dir}/category_permissions.png" class="button" alt="{'Permissions'|@translate}"></a></li>
+        <li><a href="{$category.U_MANAGE_PERMISSIONS}" title="{'edit album permissions'|@translate}" ><img src="{$themeconf.admin_icon_dir}/category_permissions.png" alt="{'Permissions'|@translate}"></a></li>
         {/if}
         {if isset($category.U_SYNC) }
-        <li><a href="{$category.U_SYNC}" title="{'Synchronize'|@translate}"><img src="{$ROOT_URL}{$themeconf.admin_icon_dir}/synchronize.png" class="button" alt="{'Synchronize'|@translate}"></a></li>
+        <li><a href="{$category.U_SYNC}" title="{'Synchronize'|@translate}"><img src="{$ROOT_URL}{$themeconf.admin_icon_dir}/synchronize.png" alt="{'Synchronize'|@translate}"></a></li>
         {/if}
         {if isset($category.U_DELETE) }
-        <li><a href="{$category.U_DELETE}" title="{'delete album'|@translate}" onclick="return confirm('{'Are you sure?'|@translate|@escape:javascript}');"><img src="{$themeconf.admin_icon_dir}/category_delete.png" class="button" alt="{'delete album'|@translate}"></a></li>
+        <li><a href="{$category.U_DELETE}" title="{'delete album'|@translate}" onclick="return confirm('{'Are you sure?'|@translate|@escape:javascript}');"><img src="{$themeconf.admin_icon_dir}/category_delete.png" alt="{'delete album'|@translate}"></a></li>
         {/if}
       </ul>
 
@@ -86,7 +86,7 @@ jQuery(document).ready(function(){ldelim}
       <img src="{$themeconf.admin_icon_dir}/cat_move.png" class="button drag_button" style="display:none;" alt="{'Drag to re-order'|@translate}" title="{'Drag to re-order'|@translate}">
       <strong><a href="{$category.U_CHILDREN}" title="{'manage sub-albums'|@translate}">{$category.NAME}</a></strong>
       {if $category.IS_VIRTUAL}
-      <img src="{$themeconf.admin_icon_dir}/virt_category.png" class="button" alt="{'Virtual album'|@translate}">
+      <img src="{$themeconf.admin_icon_dir}/virt_category.png" alt="{'Virtual album'|@translate}">
       {/if}
       </p>
 

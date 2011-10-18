@@ -60,7 +60,7 @@
 		<td>{$permalink.date_deleted}</td>
 		<td>{$permalink.last_hit}</td>
 		<td>{$permalink.hit}</td>
-		<td><a href="{$permalink.U_DELETE}"><img src="{$ROOT_URL}{$themeconf.admin_icon_dir}/delete.png" alt="[{'Delete'|@translate}]" class="button"></a></td>
+		<td><a href="{$permalink.U_DELETE}"><img src="{$ROOT_URL}{$themeconf.admin_icon_dir}/delete.png" alt="[{'Delete'|@translate}]"></a></td>
 	</tr>
 {/foreach}
 </table>
