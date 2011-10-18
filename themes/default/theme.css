@@ -792,16 +792,13 @@ LEGEND {
   border-radius: 3px;
 }
 
-#thePasswordPage form#lostPassword {
+#lostPassword {
   padding: 1em;
 }
 
-#thePasswordPage form#lostPassword p {
+#lostPassword p {
   text-align: left;
-  margin: 0 0 1em 0;
+  margin: 1.5em 0;
   line-height: 1.5em;
 }
 
-#thePasswordPage form#lostPassword p.bottomButtons {
-  margin-top:2em;
-}
