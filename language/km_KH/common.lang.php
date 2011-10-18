@@ -21,7 +21,7 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 /*
-Language Name: ភាសា [KH]
+Language Name: ភាសាខ្មែរ [KH]
 Version: 2.3.0
 Language URI: http://piwigo.org/ext/extension_view.php?eid=579
 Author: Piwigo team
@@ -335,6 +335,44 @@ $lang['Edit a comment'] = 'កែ​ប្រែ​មតិ​មួយ​';
 $lang['Are you sure?'] = 'តើ​អ្នក​ប្រា​កដច្បាស់​​ហើយ​ឬ​នៅ​?';
 $lang['(!) This comment requires validation'] = '(!) ការ​ដាក់​មតិ​នេះ​តំរូវ​ឲ្យ​មាន​លក្ខណះ​ត្រឹម​ត្រូវ​';
 $lang['Welcome'] = 'សូម​ស្វាគមន៍';
+$lang['Complete RSS feed (photos, comments)'] = 'បញ្ចូល​ពត៌មាន RSS រួច​រាល់​ (រូបភាព, មតិ)';
+$lang['N/A'] = 'N/A';
+$lang['New on %s'] = 'ថ្មីលើ​ %s';
+$lang['caddie'] = 'Caddie';
+$lang['Welcome to your Piwigo photo gallery!'] = 'សូម​ស្វា​គមន៍​ការ​មក​កាន់​វិចិត្រសាល​រូបថត​របស់​អ្នក​ក្នុង Piwigo !';
+$lang['... or browse your empty gallery'] = '... ឬក៏ ស្វែង​រក​វិចិត្រសាល​ទទេ​របស់​លោក​អ្នក​';
+$lang['... or please deactivate this message, I will find my way by myself'] = '... ឬ សូម​ធ្វើ​ឲ្យ​អសកម្ម​សារ​មួយ​នេះ ខ្ញុំ​នឹង​ស្វែង​រក​វិធី​ផ្សេង​ដោយ​ខ្លួន​ឯង';
+$lang['Hello %s, your Piwigo photo gallery is empty!'] = 'សួរស្តី​ %s, វិចិត្រសាល​រូប​ភាព​ក្នុង​ Piwigo របស់​អ្នក​គឺ​ទទេ!';
+$lang['I want to add photos'] = 'ខ្ញុំ​ចង់​បន្ថែម​រូប​ថត​ផ្សេងៗ​ទៀត​';
+$lang['Manage this user comment: %s'] = 'រៀប​ចំ​មតិ​នៃ​អ្នក​ប្រើ​ប្រាស់​នេះ​: %s';
+$lang['Email address is missing. Please specify an email address.'] = 'សារ​អេឡិចត្រូ​និច​​មិន​មាន​ទេ​, សូមបញ្ជាក់​​ឡើង​វិញ​នូវ​សារ​អេឡិចត្រូនិច​នេះ';
+$lang['This author modified following comment:'] = 'អ្នក​និពន្ធ​នេះ​បាន​កែ​ប្រែ​មតិ​ខាង​ក្រោម​:';
+$lang['This author removed the comment with id %d'] = 'អ្នក​និ​ពន្ធ​នេះ​បាន​ដក​មតិ​ចេញ ដែល​មាន​លេខ​សំគាល់​ %d';
+$lang['delete this comment'] = 'លុប​មតិ​នេះ​ចេញ​';
+$lang['validate this comment'] = 'ធ្វើ​ឲ្យ​មតិ​នេះ​មាន​សុពលភាព';
+$lang['html tags are not allowed in login'] = 'ស្លាក​ជាប្រ​ភេទ html មិន​បាន​អនុ​ញ្ញាត​ក្នុង​ការ​ភ្ជាប់​ចូល​ក្នុង​ប្រព័ន្ធទេ';
+$lang['Enter a username or email address'] = 'បញ្ចូល​ឈ្មោះ​ប្រើប្រាស់​ ឬក៏ សារ​អេឡិចត្រូនិច';
+$lang['Invalid username or email'] = 'ឈ្មោះ​ប្រើ​ប្រាស់​ ឬ សារអេឡិចត្រូនិច​ មិនត្រឹមត្រូវ​ទេ';
+$lang['Password reset is not allowed for this user'] = 'ការ​កែ​អក្សរ​សម្ងាត់​មិន​បាន​អនុញ្ញាត​សំរាប់​អ្នក​ប្រើ​ប្រាស់​ម្នាក់​នេះទេ';
+$lang['User "%s" has no email address, password reset is not possible'] = 'អ្នក​ប្រើ​ប្រាស់​ឈ្មោះ "%s" មិន​មាន​សារ​អេឡិចត្រូនិច, ការ​កែ​ប្រែអក្សរ​សម្ងាត់​មិន​អាច​ដំណើរ​ការ​ទៅបាន​ទេ';
+$lang['Someone requested that the password be reset for the following user account:'] = 'មាន​អ្នក​ផ្សេង​បាន​ស្នើរ​ឲ្យ​អក្សរ​សម្ងាត់​នោះ​អាច​កែប្រែ​បាន​សំរាប់​អ្នក​ប្រើ​ប្រាស់ដែល​មាន​​គណនី​ដូច​ខាង​ក្រោម​:';
+$lang['Username "%s" on gallery %s'] = 'ឈ្មោះ​អ្នក​ប្រើ​ប្រាស់​ "%s" នៅ​លើ​វិចិត្រសាល %s';
+$lang['To reset your password, visit the following address:'] = 'ដើម្បី​កែប្រែ​អក្សរ​សម្ងាត់​របស់​អ្នក​ សូម​ចូល​ទៅកាន់​អាស័យដ្ឋាន​ដូច​ខាង​ក្រោម​:';
+$lang['If this was a mistake, just ignore this email and nothing will happen.'] = 'ប្រសិន​បើ​នេះជា​កំហុសមួយ គ្រាន់​តែ​ធ្វើ​មិន​ដឹង​មិន​លឺជាមួយ​សារ​អេឡិចត្រូនិច​មួយ​នេះ ហើយ​នឹង​មិន​មាន​អ្វី​កើត​ឡើង​ទេ';
+$lang['Password Reset'] = 'កែប្រែ​អក្សរ​សម្ងាត់​​';
+$lang['Check your email for the confirmation link'] = 'ទៅ​ពិនិត្យ​មើល​សារ​អេឡិច​ត្រូនិច​របស់​អ្នកដើម្បីរក​តំណរភ្ជាប់​ជា​សំអាង​បញ្ជាក់​';
+$lang['Invalid key'] = 'ពាក្យ​គន្លឹះ​មិន​ត្រឹមត្រូវ';
+$lang['The passwords do not match'] = 'អក្សរ​សម្ងាត់​មិន​ត្រូវ​គ្នា​ទេ​';
+$lang['Your password has been reset'] = 'អក្សរ​សម្ងាត់របស់​អ្នក​បាន​កែប្រែ';
+$lang['Return to home page'] = 'ត្រឡប់​ទៅ​ទំព័រដើម​';
+$lang['Please enter your username or email address.'] = 'សូម​បញ្ចូល​ឈ្មោះ​ប្រើ​ប្រាស់​ និង​ សារ​អេឡិចត្រូនិច​របស់​អ្នក';
+$lang['You will receive a link to create a new password via email.'] = 'អ្នក​នឹង​ទទួលបាន​តំណរភ្ជាប់​មួយតាម​រយះ​សារ​អេឡិចត្រូនិច​ ដើម្បី​ទៅ​បង្កើត​អក្សរ​សម្ងាត់​ថ្មី​មួយ​';
+$lang['Username or email'] = 'ឈ្មោះ​ប្រើ​ប្រាស់​ ឬ សារអេឡិចត្រូនិច';
+$lang['Change my password'] = 'ប្តូរ​អក្សរ​សម្ងាត់​របស់​ខ្ញុំ​';
+$lang['Enter your new password below.'] = 'បញ្ចូល​អក្សរសម្ងាត់​ថ្មី​របស់​អ្នក​ខាង​ក្រោម​';
+$lang['Reset Password'] = 'អក្សរ​សម្ងាត់​កែ​ប្រែ​';
+$lang['EXIF Metadata'] = 'EXIF Metadata';
+$lang['IPTC Metadata'] = 'IPTC Metadata';
 
 
 ?>
