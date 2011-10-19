@@ -349,5 +349,27 @@ $lang['This author modified following comment:'] = 'Este autor modificou o segui
 $lang['This author removed the comment with id %d'] = 'Este autor removeu o comentário com o ID %d';
 $lang['validate this comment'] = 'validar este comentário';
 $lang['html tags are not allowed in login'] = 'Etiquetas HTML n&atilde;o s&atilde;o permitidas no In&iacute;cio de Sess&atilde;o';
+$lang['%d rates'] = '%d votos';
+$lang['Rating score'] = 'Pontuação';
+$lang['Enter a username or email address'] = 'escreva um nome de utilizador ou um email';
+$lang['Invalid username or email'] = 'nome de utilizador ou um email inválido';
+$lang['Password reset is not allowed for this user'] = 'A reinicialização da palavra-passe não é permitida para este utilizador';
+$lang['User "%s" has no email address, password reset is not possible'] = 'Utilizador "%s" não tem email, a reinicialização da palavra-passe não é possível';
+$lang['Someone requested that the password be reset for the following user account:'] = 'Alguém pediu a reinicialização da palavra-passe para o utilizador seguinte :';
+$lang['Username "%s" on gallery %s'] = 'Nome de utilizador "%s" na galeria %s';
+$lang['To reset your password, visit the following address:'] = 'Para reinicializar a sua palavra-passe, siga o endereço seguinte :';
+$lang['If this was a mistake, just ignore this email and nothing will happen.'] = 'Se for um erro, nao tome comta deste email e nada acontecerá.';
+$lang['Password Reset'] = 'Palavra-passe reinicializada';
+$lang['Check your email for the confirmation link'] = 'Verifique o seu email para o link de confirmação';
+$lang['Invalid key'] = 'Chave inválida';
+$lang['The passwords do not match'] = 'As palavras-passe não correspondem';
+$lang['Your password has been reset'] = 'A sua palavra-passe foi reinicializada';
+$lang['Return to home page'] = 'Voltar ao inicio';
+$lang['Please enter your username or email address.'] = 'Por Favor escreva o seu nome de utilizador ou o seu email.';
+$lang['You will receive a link to create a new password via email.'] = 'Vai receber um link para crear uma nova palavra-passe por email.';
+$lang['Username or email'] = 'nome de utilizador ou email';
+$lang['Change my password'] = 'alterar a minha palavra-passe';
+$lang['Enter your new password below.'] = 'Escreva a sua nova palavra-passe abaoixo.';
+$lang['Reset Password'] = 'Reinicializar a palavra-passe';
 
 ?>
