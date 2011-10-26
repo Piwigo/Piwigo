@@ -43,8 +43,8 @@ function pwg_common_initialization_datepicker(buttonImageName, day, month, year,
     m = array_date[1];
 
     // Init list
-    $(day + " option").attr("disabled", "");
-    $(month + " option").attr("disabled", "");
+    $(day + " option").removeAttr("disabled");
+    $(month + " option").removeAttr("disabled");
 
     var daysInMonth = 32 - new Date(y, m - 1, 32).getDate();
     $(day + " option:gt(" + (daysInMonth) +")").attr("disabled", "disabled");
@@ -77,7 +77,7 @@ function pwg_common_initialization_datepicker(buttonImageName, day, month, year,
         $(month + " option:" + op_cmp + "(" + (m_cmp) +")").attr("disabled", "disabled");
         if (op_cmp ==  "lt")
         {
-            $(month + " option:eq(" + (0) +")").attr("disabled", "");
+            $(month + " option:eq(" + (0) +")").removeAttr("disabled");
         }
 
         if (m == m_cmp)
@@ -85,7 +85,7 @@ function pwg_common_initialization_datepicker(buttonImageName, day, month, year,
           $(day + " option:" + op_cmp + "(" + (d_cmp) +")").attr("disabled", "disabled");
           if (op_cmp ==  "lt")
           {
-            $(day + " option:eq(" + (0) +")").attr("disabled", "");
+            $(day + " option:eq(" + (0) +")").removeAttr("disabled");
           }
         }
       }
