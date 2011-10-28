@@ -1,7 +1,6 @@
 /* content.css */
 
 /* .Content  is on every pages so it is common and it will no longer be a specific css */
-.content { margin-right: 1em; margin-bottom: 1em; }
 .content h2 {margin: 0; padding: 5px 0.5em 5px 0.5em; text-align: right; font-size: 120%;}
 .content .navigationBar { margin: 10px 0; text-align: center; }
 .content form { text-align: left; }
@@ -498,9 +497,9 @@ FORM.filter FIELDSET P
 	display: block;
 }
 
-FORM.filter INPUT[type="submit"] {
+/*FORM.filter INPUT[type="submit"] {
 	margin-top: 1.8em;
-}
+}*/
 
 FORM.properties UL, FORM#update UL {
 	list-style-type: none;
@@ -633,7 +632,10 @@ img.ui-datepicker-trigger {
 
 html, body {height:100%; margin:0; padding:0;}
 #the_page {min-height:100%; position:absolute; width:100%; padding:0;margin:0;}
-#pwgMain {padding:10px;padding-bottom:60px;}
+
+#pwgMain {
+  padding: 10px 5px 60px;
+}
 
 #footer {
   position:absolute;
@@ -781,10 +783,16 @@ html, body {height:100%; margin:0; padding:0;}
 /* Set the width of the menubar for the galery */
 #menubar {
   width: 18em;
-  margin: 10px 0 50px 10px !important;
+  margin: 10px 0 50px 5px;
+  display: inline; 
+  float: left; 
+  left: 0; 
 }
+
 .content {
-  margin-left: 20em;  /* = #menubar width + 2em */
+  padding:0 5px 0 0; 
+  margin: 0 5px 0 227px;
+  z-index:99;
 }
 /* Set minimum width of the page before getting a scrollbar */
 /* IE5 and IE6 don't get that */
@@ -1065,3 +1073,5 @@ p#uploadModeInfos {text-align:left;margin-top:1em;font-size:90%;color:#999;}
 
 /* Tag Manager */
 .warningDeletion {display:none;font-style:italic;}
+
+#debug { margin-left: 227px; font-size:12px; }

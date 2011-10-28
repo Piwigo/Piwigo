@@ -131,7 +131,7 @@ $template->assign(
 
 $available_order_by= array(
     array(l10n('Rate date'), 'recently_rated DESC'),
-		array(l10n('Rating score'), 'score DESC'),
+    array(l10n('Rating score'), 'score DESC'),
     array(l10n('Average rate'), 'avg_rates DESC'),
     array(l10n('Number of rates'), 'nb_rates DESC'),
     array(l10n('Sum of rates'), 'sum_rates DESC'),
@@ -162,14 +162,14 @@ $template->assign('user_options_selected', array(@$_GET['users']) );
 
 $query = '
 SELECT i.id,
-       i.path,
-       i.file,
-       i.tn_ext,
-       i.rating_score				AS score,
-       MAX(r.date)          AS recently_rated,
-			 ROUND(AVG(r.rate),2) AS avg_rates,
-       COUNT(r.rate)        AS nb_rates,
-       SUM(r.rate)          AS sum_rates
+    i.path,
+    i.file,
+    i.tn_ext,
+    i.rating_score       AS score,
+    MAX(r.date)          AS recently_rated,
+    ROUND(AVG(r.rate),2) AS avg_rates,
+    COUNT(r.rate)        AS nb_rates,
+    SUM(r.rate)          AS sum_rates
   FROM '.RATE_TABLE.' AS r
     LEFT JOIN '.IMAGES_TABLE.' AS i ON r.element_id = i.id
   WHERE 1 = 1 ' . $page['user_filter'] . '
@@ -245,7 +245,7 @@ ORDER BY date DESC;';
 
     $tpl_image['rates'][] =
        array(
-         'DATE' => format_date($row['date']),
+         'DATE' => /*format_date*/($row['date']),
          'RATE' => $row['rate'],
          'USER' => $user_rate,
          'U_DELETE' => $url_del

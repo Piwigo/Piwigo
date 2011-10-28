@@ -47,14 +47,16 @@ h3, #imageToolBar a:hover, .row2, .content { background-color: #222; }
 .throw em { font-style: normal; color: #ff3363; }
 
 #content { min-height: 466px; margin-top: 15px; }
-.content { padding:0 5px 0 0; margin: 0 10px 0 248px; z-index:99; border: 1px solid #222; }
+
+.content {
+  border: 1px solid #222; 
+}
 
 .content h3 { font-size:20px; letter-spacing:-0.4px; margin:0 20px 12px 0; text-align:center; background:none; border: 0; }
 .content h3 ~ h3{ margin-top: 40px; }
 .content h4 { font-size:14px; text-align:left; padding:3px; margin: 2px;}
 
 .content dl, dd { margin:5px; }
-.content div.titrePage {}
 
 
 UL.thumbnails span.wrap2:hover { background-color:#111; border:1px solid #FF3363; color:#666; }
@@ -124,12 +126,13 @@ margin-top:4px; padding-bottom:3px; padding-top:3px; top:1px;
  }
 .tabsheet a:hover, .tabsheet li.selected_tab  a { color: #F36; }
 .tabsheet a span { background-color:#222; display:block; font-size:10px; margin-right:2px; padding:0 3px 0 1px; }
-#debug { margin-left:248px; font-size:12px; }
 /* menubar is on all admin pages => No specific css file */
 #menubar {
 background:transparent url(images/menuBoxBottom_new.png) no-repeat scroll left bottom;
-border:0; display:inline; float:left; left:0; margin: 10px 0 0 10px; 
-padding:0; width:230px; z-index:99; text-align: left; }
+border:0; 
+padding:0; width:230px; z-index:99; text-align: left; 
+}
+
 #menubar dd {
 background: transparent url(images/menubar-detail.png) repeat-y top left;
 margin: 0; padding: 0 0 10px 0; }

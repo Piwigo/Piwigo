@@ -1,6 +1,6 @@
 <h2>{$NB_ELEMENTS} {'Photos'|@translate}</h2>
 
-<form action="{$F_ACTION}" method="GET" id="update" class="filter">
+<form action="{$F_ACTION}" method="GET" class="filter">
   <fieldset>
     <legend>{'Filter'|@translate}</legend>
 
@@ -25,7 +25,7 @@
 
     <label>
       &nbsp;
-    <input class="submit" type="submit" name="submit_filter" value="{'Submit'|@translate}">
+    <input class="submit" type="submit" value="{'Submit'|@translate}">
     </label>
     <input type="hidden" name="page" value="rating">
   </fieldset>
@@ -47,18 +47,18 @@
 </tr>
 {foreach from=$images item=image name=image}
 <tr valign="top" class="{if $smarty.foreach.image.index is odd}row1{else}row2{/if}">
-  <td rowspan="{$image.NB_RATES_TOTAL+1}"><a href="{$image.U_URL}"><img src="{$image.U_THUMB}" alt="{$image.FILE}" title="{$image.FILE}"></a></td>
-  <td rowspan="{$image.NB_RATES_TOTAL+1}"><strong>{$image.NB_RATES}/{$image.NB_RATES_TOTAL}</strong></td>
+	<td rowspan="{$image.NB_RATES_TOTAL+1}"><a href="{$image.U_URL}"><img src="{$image.U_THUMB}" alt="{$image.FILE}" title="{$image.FILE}"></a></td>
+	<td rowspan="{$image.NB_RATES_TOTAL+1}"><strong>{$image.NB_RATES}/{$image.NB_RATES_TOTAL}</strong></td>
 	<td rowspan="{$image.NB_RATES_TOTAL+1}"><strong>{$image.SCORE_RATE}</strong></td>
-  <td rowspan="{$image.NB_RATES_TOTAL+1}"><strong>{$image.AVG_RATE}</strong></td>
-  <td rowspan="{$image.NB_RATES_TOTAL+1}" style="border-right: 1px solid;" ><strong>{$image.SUM_RATE}</strong></td>
+	<td rowspan="{$image.NB_RATES_TOTAL+1}"><strong>{$image.AVG_RATE}</strong></td>
+	<td rowspan="{$image.NB_RATES_TOTAL+1}" style="border-right: 1px solid;" ><strong>{$image.SUM_RATE}</strong></td>
 </tr>
 {foreach from=$image.rates item=rate name=rate}
 <tr class="{if ($smarty.foreach.image.index+$smarty.foreach.rate.index) is odd}row1{else}row2{/if}">
-    <td>{$rate.RATE}</td>
-    <td><b>{$rate.USER}</b></td>
-    <td><span class="date">{$rate.DATE}</span></td>
-    <td><a href="{$rate.U_DELETE}"><img src="{$themeconf.admin_icon_dir}/delete.png" style="border:none;vertical-align:middle; margin-left:5px;" alt="[{'Delete'|@translate}]"></a></td>
+	<td>{$rate.RATE}</td>
+	<td><b>{$rate.USER}</b></td>
+	<td>{$rate.DATE}</td>
+	<td><a href="{$rate.U_DELETE}"><img src="{$themeconf.admin_icon_dir}/delete.png" alt="[{'Delete'|@translate}]"></a></td>
 </tr>
 {/foreach} {*rates*}
 {/foreach} {*images*}
