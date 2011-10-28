@@ -1,5 +1,5 @@
 /*
- * jQuery UI Effects 1.8.10
+ * jQuery UI Effects 1.8.16
  *
  * Copyright 2011, AUTHORS.txt (http://jqueryui.com/about)
  * Dual licensed under the MIT or GPL Version 2 licenses.
@@ -231,12 +231,12 @@ $.effects.animateClass = function(value, duration, easing, callback) {
 		easing = null;
 	}
 
-	return this.queue('fx', function() {
+	return this.queue(function() {
 		var that = $(this),
 			originalStyleAttr = that.attr('style') || ' ',
 			originalStyle = filterStyles(getElementStyles.call(this)),
 			newStyle,
-			className = that.attr('className');
+			className = that.attr('class');
 
 		$.each(classAnimationActions, function(i, action) {
 			if (value[action]) {
@@ -244,28 +244,27 @@ $.effects.animateClass = function(value, duration, easing, callback) {
 			}
 		});
 		newStyle = filterStyles(getElementStyles.call(this));
-		that.attr('className', className);
+		that.attr('class', className);
 
-		that.animate(styleDifference(originalStyle, newStyle), duration, easing, function() {
-			$.each(classAnimationActions, function(i, action) {
-				if (value[action]) { that[action + 'Class'](value[action]); }
-			});
-			// work around bug in IE by clearing the cssText before setting it
-			if (typeof that.attr('style') == 'object') {
-				that.attr('style').cssText = '';
-				that.attr('style').cssText = originalStyleAttr;
-			} else {
-				that.attr('style', originalStyleAttr);
+		that.animate(styleDifference(originalStyle, newStyle), {
+			queue: false,
+			duration: duration,
+			easing: easing,
+			complete: function() {
+				$.each(classAnimationActions, function(i, action) {
+					if (value[action]) { that[action + 'Class'](value[action]); }
+				});
+				// work around bug in IE by clearing the cssText before setting it
+				if (typeof that.attr('style') == 'object') {
+					that.attr('style').cssText = '';
+					that.attr('style').cssText = originalStyleAttr;
+				} else {
+					that.attr('style', originalStyleAttr);
+				}
+				if (callback) { callback.apply(this, arguments); }
+				$.dequeue( this );
 			}
-			if (callback) { callback.apply(this, arguments); }
 		});
-
-		// $.animate adds a function to the end of the queue
-		// but we want it at the front
-		var queue = $.queue(this),
-			anim = queue.splice(queue.length - 1, 1)[0];
-		queue.splice(1, 0, anim);
-		$.dequeue(this);
 	});
 };
 
@@ -307,7 +306,7 @@ $.fn.extend({
 /******************************************************************************/
 
 $.extend($.effects, {
-	version: "1.8.10",
+	version: "1.8.16",
 
 	// Saves a set of properties in a data storage
 	save: function(element, set) {
@@ -368,9 +367,16 @@ $.extend($.effects, {
 					border: 'none',
 					margin: 0,
 					padding: 0
-				});
+				}),
+			active = document.activeElement;
 
 		element.wrap(wrapper);
+
+		// Fixes #7595 - Elements lose focus when wrapped.
+		if ( element[ 0 ] === active || $.contains( element[ 0 ], active ) ) {
+			$( active ).focus();
+		}
+		
 		wrapper = element.parent(); //Hotfix for jQuery 1.4 since some change in wrap() seems to actually loose the reference to the wrapped element
 
 		// transfer positioning properties to the wrapper
@@ -395,8 +401,18 @@ $.extend($.effects, {
 	},
 
 	removeWrapper: function(element) {
-		if (element.parent().is('.ui-effects-wrapper'))
-			return element.parent().replaceWith(element);
+		var parent,
+			active = document.activeElement;
+		
+		if (element.parent().is('.ui-effects-wrapper')) {
+			parent = element.parent().replaceWith(element);
+			// Fixes #7595 - Elements lose focus when wrapped.
+			if ( element[ 0 ] === active || $.contains( element[ 0 ], active ) ) {
+				$( active ).focus();
+			}
+			return parent;
+		}
+			
 		return element;
 	},
 
