@@ -490,6 +490,7 @@ function ws_categories_getList($params, &$service)
 SELECT id, name, permalink, uppercats, global_rank, id_uppercat,
     comment,
     nb_images, count_images AS total_nb_images,
+    user_representative_picture_id, count_images,
     date_last, max_date_last, count_categories AS nb_categories
   FROM '.CATEGORIES_TABLE.'
    '.$join_type.' JOIN '.USER_CACHE_CATEGORIES_TABLE.' ON id=cat_id AND user_id='.$join_user.'
@@ -498,6 +499,12 @@ SELECT id, name, permalink, uppercats, global_rank, id_uppercat,
 
   $result = pwg_query($query);
 
+  // management of the album thumbnail -- starts here
+  $image_ids = array();
+  $categories = array();
+  $user_representative_updates_for = array();
+  // management of the album thumbnail -- stops here
+  
   $cats = array();
   while ($row = pwg_db_fetch_assoc($result))
   {
@@ -534,9 +541,191 @@ SELECT id, name, permalink, uppercats, global_rank, id_uppercat,
         )
       );
 
+    // management of the album thumbnail -- starts here
+    // 
+    // on branch 2.3, the algorithm is duplicated from
+    // include/category_cats, but we should use a common code for Piwigo 2.4
+    //
+    // warning : if the API method is called with $params['public'], the
+    // album thumbnail may be not accurate. The thumbnail can be viewed by
+    // the connected user, but maybe not by the guest. Changing the
+    // filtering method would be too complicated for now. We will simply
+    // avoid to persist the user_representative_picture_id in the database
+    // if $params['public']
+    if (!empty($row['user_representative_picture_id']))
+    {
+      $image_id = $row['user_representative_picture_id'];
+    }
+    else if (!empty($row['representative_picture_id']))
+    { // if a representative picture is set, it has priority
+      $image_id = $row['representative_picture_id'];
+    }
+    else if ($conf['allow_random_representative'])
+    {
+      // searching a random representant among elements in sub-categories
+      $image_id = get_random_image_in_category($row);
+    }
+    else
+    { // searching a random representant among representant of sub-categories
+      if ($row['count_categories']>0 and $row['count_images']>0)
+      {
+        $query = '
+  SELECT representative_picture_id
+    FROM '.CATEGORIES_TABLE.' INNER JOIN '.USER_CACHE_CATEGORIES_TABLE.'
+    ON id = cat_id and user_id = '.$user['id'].'
+    WHERE uppercats LIKE \''.$row['uppercats'].',%\'
+      AND representative_picture_id IS NOT NULL'
+          .get_sql_condition_FandF
+          (
+            array
+            (
+              'visible_categories' => 'id',
+              ),
+            "\n  AND"
+            ).'
+    ORDER BY '.DB_RANDOM_FUNCTION.'()
+    LIMIT 1
+  ;';
+        $subresult = pwg_query($query);
+        if (pwg_db_num_rows($subresult) > 0)
+        {
+          list($image_id) = pwg_db_fetch_row($subresult);
+        }
+      }
+    }
+    
+    if (isset($image_id))
+    {
+      if ($conf['representative_cache_on_subcats'] and $row['user_representative_picture_id'] != $image_id)
+      {
+        $user_representative_updates_for[ $user['id'].'#'.$row['id'] ] = $image_id;
+      }
+    
+      $row['representative_picture_id'] = $image_id;
+      array_push($image_ids, $image_id);
+      array_push($categories, $row);
+    }
+    unset($image_id);
+    // management of the album thumbnail -- stops here
+
+
     array_push($cats, $row);
   }
   usort($cats, 'global_rank_compare');
+
+  // management of the album thumbnail -- starts here
+  if (count($categories) > 0)
+  {
+    $thumbnail_src_of = array();
+    $new_image_ids = array();
+
+    $query = '
+SELECT id, path, tn_ext, level
+  FROM '.IMAGES_TABLE.'
+  WHERE id IN ('.implode(',', $image_ids).')
+;';
+    $result = pwg_query($query);
+    while ($row = pwg_db_fetch_assoc($result))
+    {
+      if ($row['level'] <= $user['level'])
+      {
+        $thumbnail_src_of[$row['id']] = get_thumbnail_url($row);
+      }
+      else
+      {
+        // problem: we must not display the thumbnail of a photo which has a
+        // higher privacy level than user privacy level
+        //
+        // * what is the represented category?
+        // * find a random photo matching user permissions
+        // * register it at user_representative_picture_id
+        // * set it as the representative_picture_id for the category
+        
+        foreach ($categories as &$category)
+        {
+          if ($row['id'] == $category['representative_picture_id'])
+          {
+            // searching a random representant among elements in sub-categories
+            $image_id = get_random_image_in_category($category);
+            
+            if (isset($image_id) and !in_array($image_id, $image_ids))
+            {
+              array_push($new_image_ids, $image_id);
+            }
+            
+            if ($conf['representative_cache_on_level'])
+            {
+              $user_representative_updates_for[ $user['id'].'#'.$category['id'] ] = $image_id;
+            }
+            
+            $category['representative_picture_id'] = $image_id;
+          }
+        }
+        unset($category);
+      }
+    }
+    
+    if (count($new_image_ids) > 0)
+    {
+      $query = '
+SELECT id, path, tn_ext
+  FROM '.IMAGES_TABLE.'
+  WHERE id IN ('.implode(',', $new_image_ids).')
+;';
+      $result = pwg_query($query);
+      while ($row = pwg_db_fetch_assoc($result))
+      {
+        $thumbnail_src_of[$row['id']] = get_thumbnail_url($row);
+      }
+    }
+  }
+
+  // compared to code in include/category_cats, we only persist the new
+  // user_representative if we have used $user['id'] and not the guest id,
+  // or else the real guest may see thumbnail that he should not
+  if (!$params['public'] and count($user_representative_updates_for))
+  {
+    $updates = array();
+  
+    foreach ($user_representative_updates_for as $user_cat => $image_id)
+    {
+      list($user_id, $cat_id) = explode('#', $user_cat);
+    
+      array_push(
+        $updates,
+        array(
+          'user_id' => $user_id,
+          'cat_id' => $cat_id,
+          'user_representative_picture_id' => $image_id,
+          )
+        );
+    }
+
+    mass_updates(
+      USER_CACHE_CATEGORIES_TABLE,
+      array(
+        'primary' => array('user_id', 'cat_id'),
+        'update'  => array('user_representative_picture_id')
+        ),
+      $updates
+      );
+  }
+
+  foreach ($cats as &$cat)
+  {
+    foreach ($categories as $category)
+    {
+      if ($category['id'] == $cat['id'])
+      {
+        $cat['tn_url'] = $thumbnail_src_of[$category['representative_picture_id']];
+      }
+    }
+    // we don't want them in the output
+    unset($cat['user_representative_picture_id']);
+    unset($cat['count_images']);
+  }
+  unset($cat);  
+  // management of the album thumbnail -- stops here
 
   if ($params['tree_output'])
   {
