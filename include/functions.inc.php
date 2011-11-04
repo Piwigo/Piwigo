@@ -798,7 +798,7 @@ function get_thumbnail_title($info)
 
   $details = array();
 
-  if ($info['hit'] != 0)
+  if (!empty($info['hit']))
   {
     $details[] = $info['hit'].' '.strtolower(l10n('Visits'));
   }
