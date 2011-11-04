@@ -111,28 +111,31 @@ foreach ($pictures as $row)
 
   $name = get_picture_title($row);
 
-  $tpl_var =
-    array(
-      'ID'        => $row['id'],
-      'TN_SRC'    => get_thumbnail_url($row),
-      'TN_ALT'    => htmlspecialchars(strip_tags($name)),
-      'TN_TITLE'  => get_thumbnail_title($row),
-      'URL'       => $url,
+  $tpl_var = array(
+    'ID' => $row['id'],
+    'TN_SRC' => get_thumbnail_url($row),
+    'TN_ALT' => htmlspecialchars(strip_tags($name)),
+    'TN_TITLE' => get_thumbnail_title($row),
+    'URL' => $url,
 
-   /* Fields for template-extension usage */
-      'FILE_PATH' => $row['path'],
-      'FILE_POSTED' => $row['date_available'],
-      'FILE_CREATED' => $row['date_creation'],
-      'FILE_DESC' => $row['comment'],
-      'FILE_AUTHOR' => $row['author'],
-      'FILE_HIT' => $row['hit'],
-      'FILE_SIZE' => $row['filesize'],
-      'FILE_WIDTH' => $row['width'],
-      'FILE_HEIGHT' => $row['height'],
-      'FILE_METADATE' => $row['date_metadata_update'],
-      'FILE_HAS_HD' => ($row['has_high'] and $user['enabled_high']=='true') ?
-                true:false, /* lack of include/functions_picture.inc.php */
+    // Extra fields for usage in extra themes
+    'FILE_PATH' => $row['path'],
+    'FILE_POSTED' => $row['date_available'],
+    'FILE_CREATED' => $row['date_creation'],
+    'FILE_DESC' => $row['comment'],
+    'FILE_AUTHOR' => $row['author'],
+    'FILE_HIT' => $row['hit'],
+    'FILE_SIZE' => $row['filesize'],
+    'FILE_WIDTH' => $row['width'],
+    'FILE_HEIGHT' => $row['height'],
+    'FILE_METADATE' => $row['date_metadata_update'],
+    'FILE_HAS_HD' => $row['has_high'],
+    'FILE_HD_WIDTH' => $row['high_width'],
+    'FILE_HD_HEIGHT' => $row['high_height'],
+    'FILE_HD_FILESIZE' => $row['high_filesize'],
+    'FILE_RATING_SCORE' => $row['rating_score'],
     );
+  
   if ($conf['index_new_icon'])
   {
     $tpl_var['icon_ts'] = get_icon($row['date_available']);
