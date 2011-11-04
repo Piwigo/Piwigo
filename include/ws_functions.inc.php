@@ -490,7 +490,7 @@ function ws_categories_getList($params, &$service)
 SELECT id, name, permalink, uppercats, global_rank, id_uppercat,
     comment,
     nb_images, count_images AS total_nb_images,
-    user_representative_picture_id, count_images,
+    user_representative_picture_id, count_images, count_categories,
     date_last, max_date_last, count_categories AS nb_categories
   FROM '.CATEGORIES_TABLE.'
    '.$join_type.' JOIN '.USER_CACHE_CATEGORIES_TABLE.' ON id=cat_id AND user_id='.$join_user.'
@@ -723,6 +723,7 @@ SELECT id, path, tn_ext
     // we don't want them in the output
     unset($cat['user_representative_picture_id']);
     unset($cat['count_images']);
+    unset($cat['count_categories']);
   }
   unset($cat);  
   // management of the album thumbnail -- stops here
