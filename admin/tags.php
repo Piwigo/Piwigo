@@ -84,7 +84,7 @@ SELECT id, name
           array(
             'id' => $tag_id,
             'name' => addslashes($tag_name),
-            'url_name' => str2url(trigger_event('render_tag_url', $tag_name)),
+            'url_name' => trigger_event('render_tag_url', $tag_name),
             )
           );
       }
@@ -264,7 +264,7 @@ SELECT id
       array(
         array(
           'name' => $tag_name,
-          'url_name' => str2url(trigger_event('render_tag_url', $tag_name)),
+          'url_name' => trigger_event('render_tag_url', $tag_name),
           )
         )
       );

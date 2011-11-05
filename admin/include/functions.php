@@ -1450,7 +1450,7 @@ SELECT id
       array(
         array(
           'name' => $tag_name,
-          'url_name' => str2url($tag_name),
+          'url_name' => trigger_event('render_tag_url', $tag_name),
           )
         )
       );
@@ -1725,7 +1725,7 @@ SELECT id
       array(
         array(
           'name' => $tag_name,
-          'url_name' => str2url($tag_name),
+          'url_name' => trigger_event('render_tag_url', $tag_name),
           )
         )
       );
