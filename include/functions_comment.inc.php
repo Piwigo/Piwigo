@@ -222,6 +222,8 @@ $user_where_clause.'
                       'comment_id' => $comment_id
                   ));
   }
+  
+  trigger_action('user_comment_deletion', $comment_id);
 }
 
 /**
@@ -384,5 +386,7 @@ UPDATE '.COMMENTS_TABLE.'
   WHERE id = '.$comment_id.'
 ;';
   pwg_query($query);
+  
+  trigger_action('user_comment_validation', $comment_id);
 }
 ?>
