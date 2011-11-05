@@ -214,7 +214,7 @@ if ( $page['section']=='search' and $page['start']==0 and
     {
       $hints[] =
         '<a href="' . make_index_url(array('tags'=>array($tag))) . '">'
-        .$tag['name']
+        .trigger_event('render_tag_name', $tag['name'])
         .'</a>';
     }
     $template->assign( 'tag_search_results', $hints);
