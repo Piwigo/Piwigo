@@ -353,4 +353,24 @@ $lang['Number of photos per page'] = 'Anzahl der Fotos pro Seite';
 $lang['%d rates'] = '%d Bewertungen';
 $lang['Rating score'] = 'Bewertungs-Stand';
 
+$lang['Change my password'] = 'Mein Passwort ändern';
+$lang['Check your email for the confirmation link'] = 'Prüfe dein E-Mail Postfach auf die E-Mail mit  Bestätigungs-Link';
+$lang['Enter a username or email address'] = 'Benutzername oder E-Mail eingeben';
+$lang['Enter your new password below.'] = 'Neues Passwort unten eingeben';
+$lang['EXIF Metadata'] = 'EXIT Metadaten';
+$lang['If this was a mistake, just ignore this email and nothing will happen.'] = 'Wenn das nicht beabsichtigt war, ignoriere diese E-Mail';
+$lang['Invalid key'] = 'Ungültiger Schlüsssel';
+$lang['Invalid username or email'] = 'Falscher Benutzername oder E-Mail';
+$lang['IPTC Metadata'] = 'IPTC Metadaten';
+$lang['Password Reset'] = 'Passwort zurücksetzen';
+$lang['Password reset is not allowed for this user'] = 'Dieser benutzer darf das Passwort nicht zurücksetzen';
+$lang['Please enter your username or email address.'] = 'Bitte Benutzername oder E-Mail Adresse eingeben';
+$lang['Reset Password'] = 'Passwort zurücksetzen';
+$lang['Return to home page'] = 'Zurück zur Startseite';
+$lang['The passwords do not match'] = 'Das Passwort stimmt nicht überein';
+$lang['To reset your password, visit the following address:'] = 'Um das Passwort zurückzusetzen, klicke folgenden Link:';
+$lang['User "%s" has no email address, password reset is not possible'] = 'Der Benutzer "%s" hat keine E-Mail Adresse, zurücksetzen des Passworts nicht möglich';
+$lang['Username or email'] = 'Benutzername oder E-Mail';
+$lang['You will receive a link to create a new password via email.'] = 'Per E-Mail erhältst du einen Link um ein neues Passwort zu erstellen';
+$lang['Your password has been reset'] = 'Dein Passwort wurde zurückgesetzt';
 ?>
