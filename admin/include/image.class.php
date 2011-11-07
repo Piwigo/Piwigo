@@ -260,7 +260,7 @@ class pwg_image
 
   static function is_imagick()
   {
-    return extension_loaded('imagick');
+    return (extension_loaded('imagick') and class_exists('Imagick'));
   }
 
   static function is_ext_imagick()
