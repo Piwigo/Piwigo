@@ -72,4 +72,6 @@ $lang['An alternate solution is to copy the text in the box above and paste it i
 $lang['Creation of config file local/config/database.inc.php failed.'] = 'Die Erstellung der Datei local/config/database.inc.php ist fehlgeschlagen.';
 $lang['Download the config file'] = 'Lade die Konfigurationsdatei herunter';
 $lang['You can download the config file and upload it to local/config directory of your installation.'] = 'SIe können die Konfigurationsdatei herunterladen und in den Ordner local/config ihrer Installation hochladen.';
+$lang['Just another Piwigo gallery'] = 'Nur eine neue Piwigo Bildgallerie';
+$lang['Welcome to my photo gallery'] = 'Willkommen bei meiner Bildgallerie';
 ?>
