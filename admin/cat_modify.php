@@ -75,7 +75,15 @@ if (isset($_POST['submit']))
     set_cat_status(array($_GET['cat_id']), $_POST['status']);
   }
 
-  if (isset($_POST['parent']) and $cat_info['id_uppercat'] != $_POST['parent'])
+  // in case the use moves his album to the gallery root, we force
+  // $_POST['parent'] from 0 to null to be compared with
+  // $cat_info['id_uppercat']
+  if (empty($_POST['parent']))
+  {
+    $_POST['parent'] = null;
+  }
+  
+  if ($cat_info['id_uppercat'] != $_POST['parent'])
   {
     move_categories( array($_GET['cat_id']), $_POST['parent'] );
   }
