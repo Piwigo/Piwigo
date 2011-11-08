@@ -82,8 +82,9 @@ if (isset($_POST['submit']))
   {
     $_POST['parent'] = null;
   }
-  
-  if ($cat_info['id_uppercat'] != $_POST['parent'])
+
+  // only move virtual albums
+  if (empty($cat_info['dir']) and $cat_info['id_uppercat'] != $_POST['parent'])
   {
     move_categories( array($_GET['cat_id']), $_POST['parent'] );
   }
