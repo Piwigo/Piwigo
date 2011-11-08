@@ -130,7 +130,7 @@ margin-top:4px; padding-bottom:3px; padding-top:3px; top:1px;
 #menubar {
 background:transparent url(images/menuBoxBottom_new.png) no-repeat scroll left bottom;
 border:0; 
-padding:0; width:230px; z-index:99; text-align: left; 
+padding:0; width:207px; z-index:99; text-align: left; 
 }
 
 #menubar dd {
