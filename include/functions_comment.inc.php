@@ -202,21 +202,30 @@ INSERT INTO '.COMMENTS_TABLE.'
  * other users can delete their own comments
  * so to avoid a new sql request we add author in where clause
  *
- * @param comment_id
+ * @param int or array of int comment_id
  */
-function delete_user_comment($comment_id) {
+function delete_user_comment($comment_id)
+{
   $user_where_clause = '';
   if (!is_admin())
   {
     $user_where_clause = '   AND author_id = \''.$GLOBALS['user']['id'].'\'';
   }
+  
+  if (is_array($comment_id))
+    $where_clause = 'id IN('.implode(',', $comment_id).')';
+  else
+    $where_clause = 'id = '.$comment_id;
+    
   $query = '
 DELETE FROM '.COMMENTS_TABLE.'
-  WHERE id = '.$comment_id.
+  WHERE '.$where_clause.
 $user_where_clause.'
 ;';
   $result = pwg_query($query);
-  if ($result) {
+  
+  if ($result) 
+  {
     email_admin('delete', 
                 array('author' => $GLOBALS['user']['username'],
                       'comment_id' => $comment_id
@@ -377,13 +386,22 @@ SELECT
   return $author_id;
 }
 
+/**
+ * Tries to validate a user comment in the database
+ * @param int or array of int comment_id
+ */
 function validate_user_comment($comment_id)
 {
+  if (is_array($comment_id))
+    $where_clause = 'id IN('.implode(',', $comment_id).')';
+  else
+    $where_clause = 'id = '.$comment_id;
+    
   $query = '
 UPDATE '.COMMENTS_TABLE.'
   SET validated = \'true\'
     , validation_date = NOW()
-  WHERE id = '.$comment_id.'
+  WHERE '.$where_clause.'
 ;';
   pwg_query($query);
   

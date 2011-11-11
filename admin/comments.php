@@ -48,35 +48,25 @@ if (!empty($_POST))
   }
   else
   {
+    include_once( PHPWG_ROOT_PATH .'include/functions_comment.inc.php' );
     check_input_parameter('comments', $_POST, true, PATTERN_ID);
     
     if (isset($_POST['validate']))
     {
-      $query = '
-UPDATE '.COMMENTS_TABLE.'
-  SET validated = \'true\'
-    , validation_date = NOW()
-  WHERE id IN ('.implode(',', $_POST['comments']).')
-;';
-    pwg_query($query);
+      validate_user_comment($_POST['comments']);
 
-    array_push(
-      $page['infos'],
-      l10n_dec(
-        '%d user comment validated', '%d user comments validated',
-        count($_POST['comments'])
-        )
-      );
+      array_push(
+        $page['infos'],
+        l10n_dec(
+          '%d user comment validated', '%d user comments validated',
+          count($_POST['comments'])
+          )
+        );
     }
 
     if (isset($_POST['reject']))
     {
-      $query = '
-DELETE
-  FROM '.COMMENTS_TABLE.'
-  WHERE id IN ('.implode(',', $_POST['comments']).')
-;';
-      pwg_query($query);
+      delete_user_comment($_POST['comments']);
 
       array_push(
         $page['infos'],
