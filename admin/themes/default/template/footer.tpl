@@ -46,7 +46,7 @@
 {combine_script id='jquery.tipTip' load='async' path='themes/default/js/plugins/jquery.tipTip.minified.js'}
 {footer_script require='jquery.tipTip'}
 jQuery(document).ready(function() {ldelim}
-	jQuery('#pwgHead A[title], #footer A[title], .themeActions A, .themeActions SPAN, .languageActions A, .languageActions SPAN').tipTip({ldelim}
+	jQuery('#pwgHead A[title], #footer A[title], .themeActions .tiptip, .languageActions .tiptip').tipTip({ldelim}
 			'delay' : 0,
 			'fadeIn' : 200,
 			'fadeOut' : 200

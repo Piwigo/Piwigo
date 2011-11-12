@@ -58,7 +58,7 @@ function localfiles_css_link_prefilter($content, &$smarty)
   $search = '#{if isset\(\$theme.admin_uri\)}.*?{/if}#s';
   $replacement = '
 {if isset($theme.admin_uri)}
-      <br><a href="{$theme.admin_uri}" title="{\'Configuration\'|@translate}">{\'Configuration\'|@translate}</a>
+      <br><a href="{$theme.admin_uri}" class="tiptip" title="{\'Configuration\'|@translate}">{\'Configuration\'|@translate}</a>
       | <a href="admin.php?page=plugin-LocalFilesEditor-css&amp;theme={$theme.id}">CSS</a>
 {else}
       <br><a href="admin.php?page=plugin-LocalFilesEditor-css&amp;theme={$theme.id}">CSS</a>

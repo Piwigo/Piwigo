@@ -22,19 +22,19 @@
       <div>
       {if $language_state == 'active'}
         {if $language.deactivable}
-      <a href="{$language.u_action}&amp;action=deactivate" title="{'Forbid this language to users'|@translate}">{'Deactivate'|@translate}</a>
+      <a href="{$language.u_action}&amp;action=deactivate" class="tiptip" title="{'Forbid this language to users'|@translate}">{'Deactivate'|@translate}</a>
         {else}
       <span title="{$language.deactivate_tooltip}">{'Deactivate'|@translate}</span>
         {/if}
 
         {if not $language.is_default}
-      | <a href="{$language.u_action}&amp;action=set_default" title="{'Set as default language for unregistered and new users'|@translate}">{'Default'|@translate}</a>
+      | <a href="{$language.u_action}&amp;action=set_default" class="tiptip" title="{'Set as default language for unregistered and new users'|@translate}">{'Default'|@translate}</a>
         {/if}
       {/if}
 
       {if $language_state == 'inactive'}
-      <a href="{$language.u_action}&amp;action=activate" title="{'Make this language available to users'|@translate}">{'Activate'|@translate}</a>
-      | <a href="{$language.u_action}&amp;action=delete" onclick="return confirm('{'Are you sure?'|@translate|@escape:javascript}');" title="{'Delete this language'|@translate}">{'Delete'|@translate}</a>
+      <a href="{$language.u_action}&amp;action=activate" class="tiptip" title="{'Make this language available to users'|@translate}">{'Activate'|@translate}</a>
+      | <a href="{$language.u_action}&amp;action=delete" onclick="return confirm('{'Are you sure?'|@translate|@escape:javascript}');" class="tiptip" title="{'Delete this language'|@translate}">{'Delete'|@translate}</a>
       {/if}
       </div>
     </div> <!-- languageActions -->
