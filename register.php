@@ -87,7 +87,8 @@ $template->assign(array(
 	'F_KEY' => $registration_post_key,
   'F_ACTION' => 'register.php',
   'F_LOGIN' => $login,
-  'F_EMAIL' => $email
+  'F_EMAIL' => $email,
+  'obligatory_user_mail_address' => $conf['obligatory_user_mail_address'],
   ));
 
 //-------------------------------------------------------------- errors display
