@@ -328,6 +328,7 @@ $lang['Hide'] = "Hide";
 $lang['High definition enabled'] = "High definition enabled";
 $lang['High definition'] = "High definition";
 $lang['High filesize'] = "High resolution filesize";
+$lang['High dimensions'] = 'High resolution dimensions';
 $lang['high'] = "high";
 $lang['History'] = "History";
 $lang['Hit'] = "Hit";

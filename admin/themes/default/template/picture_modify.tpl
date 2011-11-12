@@ -68,6 +68,11 @@ pwg_initialization_datepicker("#date_creation_day", "#date_creation_month", "#da
 
 {if isset($HIGH_FILESIZE) }
       <tr>
+        <td><strong>{'High dimensions'|@translate}</strong></td>
+        <td>{$HIGH_DIMENSIONS}</td>
+      </tr>
+      
+      <tr>
         <td><strong>{'High filesize'|@translate}</strong></td>
         <td>{$HIGH_FILESIZE}</td>
       </tr>

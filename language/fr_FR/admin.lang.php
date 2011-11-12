@@ -459,6 +459,7 @@ $lang['Hour'] = "Heure";
 $lang['guest'] = "invité";
 $lang['default values'] = "valeurs par défaut";
 $lang['High filesize'] = "Taille du fichier haute résolution";
+$lang['High dimensions'] = 'Dimensions du fichier haute résolution';
 $lang['Guest cannot be deleted'] = "L'invité ne peut pas être supprimé";
 $lang['Default user cannot be deleted'] = "L'utilisateur par défaut ne peut pas être supprimé";
 $lang['Purge history detail'] = "Purger le détail de l'historique";

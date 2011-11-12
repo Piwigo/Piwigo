@@ -312,12 +312,10 @@ $template->assign(
 
 if ($row['has_high'] == 'true')
 {
-  $template->assign(
-    'HIGH_FILESIZE',
-    isset($row['high_filesize'])
-        ? $row['high_filesize'].' KB'
-        : l10n('unknown')
-    );
+  $template->assign(array(
+    'HIGH_FILESIZE' => isset($row['high_filesize']) ? $row['high_filesize'].' KB' : l10n('unknown'),
+    'HIGH_DIMENSIONS' => isset($row['high_width']) ? $row['high_width'].' * '.$row['high_height'] : l10n('unknown'),
+    ));
 }
 
 // image level options
