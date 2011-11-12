@@ -22,16 +22,16 @@ jQuery(document).ready(function() {
     <div class="themeActions">
       <div>
 {if $theme.deactivable}
-      <a href="{$deactivate_baseurl}{$theme.id}" title="{'Forbid this theme to users'|@translate}">{'Deactivate'|@translate}</a>
+      <a href="{$deactivate_baseurl}{$theme.id}" class="tiptip" title="{'Forbid this theme to users'|@translate}">{'Deactivate'|@translate}</a>
 {else}
       <span title="{$theme.deactivate_tooltip}">{'Deactivate'|@translate}</span>
 {/if}
       
 {if not $theme.is_default}
-      | <a href="{$set_default_baseurl}{$theme.id}" title="{'Set as default theme for unregistered and new users'|@translate}">{'Default'|@translate}</a>
+      | <a href="{$set_default_baseurl}{$theme.id}" class="tiptip" title="{'Set as default theme for unregistered and new users'|@translate}">{'Default'|@translate}</a>
 {/if}
 {if isset($theme.admin_uri)}
-      <br><a href="{$theme.admin_uri}" title="{'Configuration'|@translate}">{'Configuration'|@translate}</a>
+      <br><a href="{$theme.admin_uri}" class="tiptip" title="{'Configuration'|@translate}">{'Configuration'|@translate}</a>
 {/if}
       </div>
     </div> <!-- themeActions -->
