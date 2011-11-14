@@ -20,7 +20,14 @@ body, h3, dt, h2, .throw, .content, label { color:#777; }
 th { color: #888; }
 INPUT, select, textarea { color:#666; background-color: #ccc; }
 input[type="radio"], input[type="checkbox"] { background-color: transparent; }
-INPUT[type="submit"], INPUT[type="button"], INPUT[type="reset"]  { color:#666; border: 1px solid #777; background-color: #bbb; padding: 1px 15px; }
+
+INPUT[type="submit"], INPUT[type="button"], INPUT[type="reset"] {
+	color:#666;
+	border: 1px solid #777;
+	background-color: #ddd;
+	padding: 1px 15px;
+}
+
 legend, h3 { color: #777; }
 h2 { color: #777; }
 
@@ -42,14 +49,8 @@ INPUT:focus, SELECT:focus, TEXTAREA:focus, INPUT.focus, FORM .focus, INPUT.submi
 
 INPUT, SELECT, TEXTAREA { border: 1px solid #999; }
 
-INPUT[type="submit"]:hover, INPUT[type="reset"]:hover { cursor: pointer; }
 
-input[type="button"], input[type="submit"], input[type="reset"] {
-  background-color:#ddd;
-  border-color: #0cc9c;
-}
-
-input[type="button"]:hover, input[type="submit"]:hover, input[type="reset"]:hover {
+INPUT[type="button"]:hover, INPUT[type="submit"]:hover, INPUT[type="reset"]:hover {
   cursor:pointer;
   color:#666;
   border-color: #999;
@@ -58,13 +59,13 @@ input[type="button"]:hover, input[type="submit"]:hover, input[type="reset"]:hove
 
 #copyright { color:#777; margin:5px auto 0px 240px; text-align:center;
 padding-bottom: 15px; }
-.header_notes { 
+.header_notes {
   background: transparent url(../default/icon/note.png) no-repeat right top;
-  border: none; 
+  border: none;
   min-height: 48px;
-  padding: 15px 60px 0 0; 
+  padding: 15px 60px 0 0;
   right: 0;
-  width: 550px;  
+  width: 550px;
   top: 70px;
 }
 html, body { min-height: 100%; }
@@ -76,10 +77,9 @@ position:absolute; left:0px; top:0px; z-index: 0;
 background:transparent }
 h3, #imageToolBar a:hover, .content, .throw, .row1 { background-color: #ddd; }
 .row2 { background-color:#eeeeee; }
-.throw em { font-style: normal; color: #0cc9c; }
 #content { background: #f1f1f1; min-height: 467px;}
 
-.content { 
+.content {
   border: 1px solid #aaa;
 }
 
@@ -111,7 +111,7 @@ UL.thumbnails SPAN.wrap2 {
 .content ul.categoryActions a img { margin-left: 10px; }
 ul.thumbnails input { border:3px double #666; color:#666; font-size:10px; margin:0; background-color:#bbb; text-align: center;}
 INPUT.bigbutton:hover { background-color: #ddd;  color:#0cc; border: 0; }
-.throw  { font-size: 120%; line-height: 26px; padding-top: 10px; font-weight: bold; color: #0cc9c; }
+.throw  { font-size: 120%; line-height: 26px; padding-top: 10px; font-weight: bold; }
 label { cursor:pointer }
 .categoryLi, .menuLi { background: #ddd }
 .virtual_cat, .menuLi_hidden { background: #ccc !important; }
@@ -159,7 +159,7 @@ margin-top:4px; padding-bottom:3px; padding-top:3px; top:1px;
 .sort { clear: none; }
 /* menubar is on all admin pages => No specific css file */
 #menubar {
-  padding:0; width:207px; z-index:99; text-align: left; 
+  padding:0; width:207px; z-index:99; text-align: left;
 }
 
 #menubar ul.scroll { overflow-y:auto;
@@ -185,7 +185,7 @@ position:relative; padding: 5px 1px 4px 5px; font-size: 13px; color: #777; }
 
 /* jQuery tooltips */
 .cluetip-default #cluetip-outer { border-color:#999; color: #777; background-color: #eee; }
-.cluetip-default h3#cluetip-title { color: #0cc9c; background-color: #ddd; }
+.cluetip-default h3#cluetip-title { background-color: #ddd; }
 /* jQuery ui resizable */
 .ui-resizable { position: relative; }
 .ui-wrapper { border: 0; }
@@ -267,7 +267,7 @@ display:block; height:85px; left:225px; position:relative; top:-42px; width:313p
 .pluginBox.incompatible, .pluginMiniBox.incompatible {border-color:#a00 !important;}
 .pluginBoxes .merged, .pluginBoxes .missing  {background-color:#d99;border:1px solid #a00;}
 .showInfo {color:#fff;background-color:#999; }
-.showInfo:hover {color:#fff;border:none;background-color:#333} 
+.showInfo:hover {color:#fff;border:none;background-color:#333}
 
 .languageBox {background-color:#ddd;}
 .languageName {color:black;}
