@@ -71,6 +71,11 @@ if (isset($_POST['submitFilter']))
   if (isset($_POST['filter_tags_use']))
   {
     $_SESSION['bulk_manager_filter']['tags'] = get_tag_ids($_POST['filter_tags'], false);
+
+    if (isset($_POST['tag_mode']) and in_array($_POST['tag_mode'], array('AND', 'OR')))
+    {
+      $_SESSION['bulk_manager_filter']['tag_mode'] = $_POST['tag_mode'];
+    }
   }
 
   if (isset($_POST['filter_level_use']))
@@ -297,16 +302,16 @@ SELECT id
 
 if (!empty($_SESSION['bulk_manager_filter']['tags']))
 {
-	$query = '
-SELECT image_id
-	FROM '.IMAGE_TAG_TABLE.
-	'WHERE tag_id IN('.implode(',',$_SESSION['bulk_manager_filter']['tags']).')
-	GROUP BY image_id
-	HAVING COUNT(tag_id)='.count($_SESSION['bulk_manager_filter']['tags']);
-	array_push(
+  array_push(
     $filter_sets,
-		get_image_ids_for_tags($_SESSION['bulk_manager_filter']['tags'])
-		);
+    get_image_ids_for_tags(
+      $_SESSION['bulk_manager_filter']['tags'],
+      $_SESSION['bulk_manager_filter']['tag_mode'],
+      null,
+      null,
+      false // we don't apply permissions in administration screens
+      )
+    );
 }
 
 $current_set = array_shift($filter_sets);

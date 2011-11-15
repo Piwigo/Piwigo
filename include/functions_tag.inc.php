@@ -166,7 +166,7 @@ function add_level_to_tags($tags)
  * @param string order_by - optionally overwrite default photo order
  * @return array
  */
-function get_image_ids_for_tags($tag_ids, $mode='AND', $extra_images_where_sql='', $order_by='')
+function get_image_ids_for_tags($tag_ids, $mode='AND', $extra_images_where_sql='', $order_by='', $use_permissions=true)
 {
   global $conf;
   if (empty($tag_ids))
@@ -175,22 +175,31 @@ function get_image_ids_for_tags($tag_ids, $mode='AND', $extra_images_where_sql='
   }
 
   $query = 'SELECT id
-  FROM '.IMAGES_TABLE.' i 
-    INNER JOIN '.IMAGE_CATEGORY_TABLE.' ic ON id=ic.image_id
+  FROM '.IMAGES_TABLE.' i ';
+
+  if ($use_permissions)
+  {
+    $query.= '
+    INNER JOIN '.IMAGE_CATEGORY_TABLE.' ic ON id=ic.image_id';
+  }
+
+  $query.= '
     INNER JOIN '.IMAGE_TAG_TABLE.' it ON id=it.image_id
-    WHERE tag_id IN ('.implode(',', $tag_ids).')'
-    .get_sql_condition_FandF
-    (
-      array
-        (
-          'forbidden_categories' => 'category_id',
-          'visible_categories' => 'category_id',
-          'visible_images' => 'id'
+    WHERE tag_id IN ('.implode(',', $tag_ids).')';
+
+  if ($use_permissions)
+  {
+    $query.= get_sql_condition_FandF(
+      array(
+        'forbidden_categories' => 'category_id',
+        'visible_categories' => 'category_id',
+        'visible_images' => 'id'
         ),
       "\n  AND"
-    )
-  .(empty($extra_images_where_sql) ? '' : " \nAND (".$extra_images_where_sql.')')
-  .'
+      );
+  }
+
+  $query.= (empty($extra_images_where_sql) ? '' : " \nAND (".$extra_images_where_sql.')').'
   GROUP BY id';
   
   if ($mode=='AND' and count($tag_ids)>1)
