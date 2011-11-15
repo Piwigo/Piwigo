@@ -6,14 +6,14 @@
 .content form { text-align: left; }
 .content dt { margin-bottom: 5px; font-style: italic;
   font-size: 110%; }
-.content ul.categoryActions a img, ul.categoryActions a { 
-border:0; margin-bottom:-5px; }  
+.content ul.categoryActions a img, ul.categoryActions a {
+border:0; margin-bottom:-5px; }
 ul.categoryActions { margin: 0 2px; width: auto; list-style-position:outside;
   padding: 0; text-indent: 0; list-style: none; text-align: center; }
 .content div.titrePage ul.categoryActions { float: right; }
 .content div.titrePage { padding: 0 0 3px; }
 .content ul.categoryActions li { display: inline; }
-.content div.comment { margin: 0 0 0.5em 0; padding: 0; 
+.content div.comment { margin: 0 0 0.5em 0; padding: 0;
   overflow: hidden; width: 100%;	/* don't ask why. It's a very usefull trick  */ }
 .content div.comment a.illustration {
   display: block; float: left; margin: 0.5em 0 0 0.5em; }
@@ -33,7 +33,7 @@ UL.thumbnails {
   float: left;
 }
 UL.thumbnails LI { display: inline }
-UL.thumbnails li.rank-of-image { 
+UL.thumbnails li.rank-of-image {
   float: left;
   background-color: #333;
   color: #666;
@@ -56,7 +56,7 @@ UL.thumbnails li.rank-of-image {
 UL.thumbnails li.rank-of-image input {
 }
 UL.thumbnails SPAN.wrap1 {
-  margin: 0 5px 5px 5px;
+  margin: 5px;
   display: table-cell; display: inline-table;
   display: inline-block; /* Why 3 display option ??? */
   vertical-align: top;		/* OK with Opera and IE6 not Geko */
@@ -145,7 +145,7 @@ FORM#categoryOrdering .orderParams {
 SELECT.categoryList {
 	width: 100%;
 }
- 
+
 FORM#categoryOrdering {
 	padding-left: 1em; /* same as FIELDSET margin (there is no fieldset in this form) */
 	padding-right: 1em; /* same as FIELDSET margin (there is no fieldset in this form) */
@@ -368,8 +368,8 @@ A {
 A:hover {
 	border-bottom: 1px solid #FF3363;
 }
-A.button, A.button:hover { 
-	border: 0; 
+A.button, A.button:hover {
+	border: 0;
 }
 IMG {
 	border: none;
@@ -575,7 +575,7 @@ UL.tagSelection LI {
 /* jQuery datepicker */
 img.ui-datepicker-trigger {
   cursor : pointer;
-  vertical-align: middle; 
+  vertical-align: middle;
   margin:-3px 5px 2px 5px;
 }
 
@@ -767,15 +767,15 @@ html, body {height:100%; margin:0; padding:0;}
 }
 
 /* Webkit Hacks  */
-@media screen and (-webkit-min-device-pixel-ratio:0) {	
+@media screen and (-webkit-min-device-pixel-ratio:0) {
 	#tiptip_content {
 		padding: 4px 8px 5px 8px;
 		background-color: rgba(45,45,45,0.88);
 	}
-	#tiptip_holder.tip_bottom #tiptip_arrow_inner { 
+	#tiptip_holder.tip_bottom #tiptip_arrow_inner {
 		border-bottom-color: rgba(45,45,45,0.88);
 	}
-	#tiptip_holder.tip_top #tiptip_arrow_inner { 
+	#tiptip_holder.tip_top #tiptip_arrow_inner {
 		border-top-color: rgba(20,20,20,0.92);
 	}
 }
@@ -784,13 +784,13 @@ html, body {height:100%; margin:0; padding:0;}
 #menubar {
   width: 18em;
   margin: 10px 0 50px 5px;
-  display: inline; 
-  float: left; 
-  left: 0; 
+  display: inline;
+  float: left;
+  left: 0;
 }
 
 .content {
-  padding:0 5px 0 0; 
+  padding:0 5px 0 0;
   margin: 0 5px 0 227px;
   z-index:99;
 }
@@ -897,16 +897,16 @@ h2:lang(en) { text-transform:capitalize; }
 .pluginBoxes .inactive, .pluginBoxes .uninstalled {opacity:0.8;filter:alpha(opacity=80);}
 
 .pluginMiniBox {
-  display:inline-table; 
-  text-align:center; 
-  width:250px; 
-  height:40px; 
-  margin:5px; 
+  display:inline-table;
+  text-align:center;
+  width:250px;
+  height:40px;
+  margin:5px;
   border-width:1px;
   border-style:solid;
   border-radius:5px;
   -moz-border-radius:5px;
-  overflow:hidden; 
+  overflow:hidden;
  }
 .pluginMiniBoxNameCell {font-size:1.05em; margin:5px 0;position:relative;}
 .pluginActions {display: table-row; font-size:0.95em; color:#777;}
@@ -958,7 +958,7 @@ INPUT.text, INPUT.password, INPUT.button,
 INPUT.submit, INPUT.reset, INPUT.file,
 SELECT, TEXTAREA {
   color:#999;
-  background-color: #666;	
+  background-color: #666;
 }
 
 INPUT:focus, SELECT:focus, TEXTAREA:focus, INPUT.focus, FORM .focus {
@@ -996,7 +996,7 @@ INPUT.radio, INPUT.checkbox {
   font-weight: bold;
   margin: 14px 24px 14px 14px;
   padding: 5px 0 0 0;
-  top: 90px; 
+  top: 90px;
   position: absolute;
   text-align: right;
 }
@@ -1012,9 +1012,6 @@ LEGEND {
 #batchManagerGlobal .bulkAction {text-align:left;margin:15px 0;padding:0;}
 #batchManagerGlobal #action_del_tags ul.tagSelection {margin:0 !important; width:620px;}
 #batchManagerGlobal #checkActions {text-align:left; margin:0 0 20px 0;}
-#batchManagerGlobal ul.thumbnails span.wrap1 {margin:5px}
-#batchManagerGlobal ul.thumbnails span.wrap2 {border:0}
-#batchManagerGlobal ul.thumbnails span.wrap2:hover {background-color:#7CBA0F;}
 #batchManagerGlobal ul.thumbnails div.actions {display:none;position:absolute;top:0;right:5px;}
 #batchManagerGlobal ul.thumbnails div.actions a {color:#222;}
 #batchManagerGlobal ul.thumbnails span.wrap1:hover div.actions {display:block;}

@@ -92,18 +92,17 @@ h3, #imageToolBar a:hover, .content, .throw, .row1 { background-color: #ddd; }
 .content div.titrePage { height:40px; }
 
 
-UL.thumbnails span.wrap2:hover { background-color:#eee; border:1px solid #0cc9c; color:#999; }
-UL.thumbnails span.wrap2 { border:1px solid #999; padding: 4px; }
-UL.thumbnails span.wrap2 { -moz-border-radius:4px; }
-UL.thumbnails span.wrap1 { margin:0 12px 5px; }
+UL.thumbnails span.wrap2:hover { background-color:#7CBA0F; color:#999; }
+UL.thumbnails span.wrap2 {
+	padding: 4px;
+	border-radius: 4px;
+	background-color:#ddd;
+}
+
 
 /* borders */
 fieldset { border: 2px solid #ddd; }
 TEXTAREA { cursor:text; font-size: 13px; }
-UL.thumbnails SPAN.wrap2 {
-  border: 1px solid #555555;  /* thumbnails border color and style */
-  border-radius: 4px 4px; /* round corners with CSS3 compliant browsers */
-}
 .tagSelection label { padding-right:12px; }
 .tagSelection LI.tagSelected {background-color:#dbe8f3;}
 .tagSelected LABEL {color:black;}
@@ -275,6 +274,5 @@ display:block; height:85px; left:225px; position:relative; top:-42px; width:313p
 
 UL.thumbnails li.rank-of-image {background-color: #ddd;}
 
-#batchManagerGlobal ul.thumbnails span.wrap2 {background-color:#ddd;}
 #batchManagerGlobal .thumbSelected {background-color:#C2F5C2 !important}
 #batchManagerGlobal #selectedMessage {background-color:#C2F5C2;}
