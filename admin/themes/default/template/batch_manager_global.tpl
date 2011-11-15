@@ -483,16 +483,18 @@ jQuery(window).load(function() {
         </select>
         <label><input type="checkbox" name="filter_category_recursive" {if isset($filter.category_recursive)}checked="checked"{/if}> {'include child albums'|@translate}</label>
       </li>
-			<li id="filter_tags" {if !isset($filter.tags)}style="display:none"{/if}>
-				<a href="#" class="removeFilter" title="remove this filter"><span>[x]</span></a>
-				<input type="checkbox" name="filter_tags_use" class="useFilterCheckbox" {if isset($filter.tags)}checked="checked"{/if}>
-				{'Tags'|@translate}
-				<select id="tagsFilter" name="filter_tags">
-					{foreach from=$filter_tags item=tag}
-					<option value="{$tag.id}">{$tag.name}</option>
-					{/foreach}
-				</select>
-			</li>
+      <li id="filter_tags" {if !isset($filter.tags)}style="display:none"{/if}>
+        <a href="#" class="removeFilter" title="remove this filter"><span>[x]</span></a>
+        <input type="checkbox" name="filter_tags_use" class="useFilterCheckbox" {if isset($filter.tags)}checked="checked"{/if}>
+        {'Tags'|@translate}
+        <select id="tagsFilter" name="filter_tags">
+          {foreach from=$filter_tags item=tag}
+          <option value="{$tag.id}">{$tag.name}</option>
+          {/foreach}
+        </select>
+        <label><span><input type="radio" name="tag_mode" value="AND" {if !isset($filter.tag_mode) or $filter.tag_mode eq 'AND'}checked="checked"{/if}> {'All tags'|@translate}</span></label>
+        <label><span><input type="radio" name="tag_mode" value="OR" {if isset($filter.tag_mode) and $filter.tag_mode eq 'OR'}checked="checked"{/if}> {'Any tag'|@translate}</span></label>
+      </li>
       <li id="filter_level" {if !isset($filter.level)}style="display:none"{/if}>
         <a href="#" class="removeFilter" title="remove this filter"><span>[x]</span></a>
         <input type="checkbox" name="filter_level_use" class="useFilterCheckbox" {if isset($filter.level)}checked="checked"{/if}>
