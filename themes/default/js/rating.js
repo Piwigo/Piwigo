@@ -23,10 +23,9 @@ function makeNiceRatingForm(options)
 		rateButton.initialRateValue = rateButton.value; // save it as a property
 		try { rateButton.type = "button"; } catch (e){}// avoid normal submit (use ajax); not working in IE6
 
-		if (navigator.userAgent.indexOf('AppleWebKit/')==-1 && navigator.userAgent.indexOf('MSIE 8')==-1) rateButton.value = ""; //hide the text IE<8/Opera - breaks safari
+		rateButton.value = " "; //hide the text (Apple + IE would show text above the stars)
 		with (rateButton.style)
 		{
-			textIndent = "-50px"; //hide the text FF
 			marginLeft = marginRight = 0;
 		}
 
