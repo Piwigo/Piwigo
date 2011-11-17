@@ -84,6 +84,8 @@ function get_elements($path)
   {
     while (($node = readdir($contents)) !== false)
     {
+      if ($node == '.' or $node == '..') continue;
+
       if (is_file($path.'/'.$node))
       {
         $extension = get_extension($node);
@@ -98,8 +100,6 @@ function get_elements($path)
         }
       }
       elseif (is_dir($path.'/'.$node)
-               and $node != '.'
-               and $node != '..'
                and $node != 'pwg_high'
                and $node != 'pwg_representative'
                and $node != 'thumbnail' )
