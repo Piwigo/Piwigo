@@ -858,6 +858,8 @@ function get_fs($path, $recursive = true)
     {
       while (($node = readdir($contents)) !== false)
       {
+        if ($node == '.' or $node == '..') continue;
+
         if (is_file($path.'/'.$node))
         {
           $extension = get_extension($node);
@@ -884,11 +886,7 @@ function get_fs($path, $recursive = true)
             array_push($fs['elements'], $path.'/'.$node);
           }
         }
-        else if (is_dir($path.'/'.$node)
-                 and $node != '.'
-                 and $node != '..'
-                 and $node != 'pwg_high'
-                 and $recursive)
+        else if (is_dir($path.'/'.$node) and $node != 'pwg_high' and $recursive)
         {
           array_push($subdirs, $node);
         }
