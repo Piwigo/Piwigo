@@ -533,13 +533,13 @@ function get_fs_directories($path, $recursive = true)
     {
       while (($node = readdir($contents)) !== false)
       {
-        if (is_dir($path.'/'.$node)
-            and $node != '.'
+        if ($node != '.'
             and $node != '..'
             and $node != '.svn'
             and $node != 'thumbnail'
             and $node != 'pwg_high'
-            and $node != 'pwg_representative')
+            and $node != 'pwg_representative'
+            and is_dir($path.'/'.$node))
         {
           array_push($dirs, $path.'/'.$node);
           if ($recursive)
