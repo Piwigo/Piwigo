@@ -1883,6 +1883,45 @@ SELECT
     );
 }
 
+function ws_rates_delete($params, &$service)
+{
+  global $conf;
+
+  if (!$service->isPost())
+  {
+    return new PwgError(405, 'This method requires HTTP POST');
+  }
+
+  if (!is_admin())
+  {
+    return new PwgError(401, 'Access denied');
+  }
+
+  $user_id = (int)$params['user_id'];
+  if ($user_id<=0)
+  {
+    return new PwgError(WS_ERR_INVALID_PARAM, 'Invalid user_id');
+  }
+  
+  $query = '
+DELETE FROM '.RATE_TABLE.'
+  WHERE user_id='.$user_id;
+  
+  if (!empty($params['anonymous_id']))
+  {
+    $query .= ' AND anonymous_id=\''.$params['anonymous_id'].'\'';
+  }
+  
+  $changes = pwg_db_changes(pwg_query($query));
+  if ($changes)
+  {
+    include_once(PHPWG_ROOT_PATH.'include/functions_rate.inc.php');
+    update_rating_score();
+  }
+  return $changes;
+}
+
+
 /**
  * perform a login (web service method)
  */

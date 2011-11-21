@@ -215,9 +215,7 @@ SELECT DISTINCT('.$this->calendar_levels[$level]['sql'].') as period,
   COUNT(DISTINCT id) as nb_images'.
 $this->inner_sql.
 $this->get_date_where($level).'
-  GROUP BY period 
-  ORDER BY period ASC
-;';
+  GROUP BY period;';
 
     $level_items = simple_hash_from_query($query, 'period', 'nb_images');
 

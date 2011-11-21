@@ -33,6 +33,14 @@ include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
 // +-----------------------------------------------------------------------+
 check_status(ACCESS_ADMINISTRATOR);
 
+
+include_once(PHPWG_ROOT_PATH.'admin/include/tabsheet.class.php');
+$tabsheet = new tabsheet();
+$tabsheet->add('rating', l10n('Photos'), get_root_url().'admin.php?page=rating');
+$tabsheet->add('rating_user', l10n('Users'), get_root_url().'admin.php?page=rating_user');
+$tabsheet->select('rating');
+$tabsheet->assign();
+
 // +-----------------------------------------------------------------------+
 // |                            initialization                             |
 // +-----------------------------------------------------------------------+

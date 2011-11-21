@@ -154,7 +154,16 @@ function ws_addDefaultMethods( $arr )
       ),
     'sets the rank of a photo for a given album (POST method only, for admins)'
     );
-  
+
+
+  $service->addMethod('pwg.rates.delete', 'ws_rates_delete',
+    array(
+      'user_id' => array(),
+      'anonymous_id' => array( 'default'=>'' ),
+      ),
+    'deletes all rates for a user (POST method only, admins only)'
+    );
+    
   $service->addMethod('pwg.session.getStatus', 'ws_session_getStatus', null, '' );
   $service->addMethod('pwg.session.login', 'ws_session_login',
     array('username', 'password'),
