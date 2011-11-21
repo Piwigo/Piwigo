@@ -1,3 +1,5 @@
+<h2>{$ratings|@count} {'Users'|@translate}</h2>
+
 <form action="{$F_ACTION}" method="GET">
 <fieldset>
 	<label>{'Sort by'|@translate}
@@ -18,13 +20,12 @@
 {footer_script}{literal}
 function del(elt,uid,aid)
 {
-	if (!confirm('{'Are you sure?'|@translate|@escape:'javascript'}'))
+	if (!confirm({/literal}'{'Are you sure?'|@translate|@escape:'javascript'}'{literal}))
 		return false;
 	var tr = elt;
 	while ( tr.nodeName != "TR") tr = tr.parentNode;
 	tr = jQuery(tr).fadeTo(1000, 0.4);
-	var ws = new PwgWS({/literal}'{$ROOT_URL|@escape:javascript}'{literal});
-	ws.callService(
+	(new PwgWS({/literal}'{$ROOT_URL|@escape:javascript}'{literal})).callService(
 		'pwg.rates.delete', {user_id:uid, anonymous_id:aid},
 		{
 			method: 'POST',
@@ -40,8 +41,8 @@ function del(elt,uid,aid)
 	<td>{'Username'|@translate}</td>
 	<td>{'Number of rates'|@translate}</td>
 	<td>{'Average rate'|@translate}</td>
-	<td>StDev</td>
-	<td>CV</td>
+	<td>{'Variation'|@translate}</td>
+	<td>{'Consensus deviation'|@translate|@replace:' ':'<br>'}</td>
 {foreach from=$available_rates item=rate}
 	<td>{$rate}</td>
 {/foreach}
@@ -52,8 +53,8 @@ function del(elt,uid,aid)
 	<td>{$user}</td>
 	<td>{$rating.count}</td>
 	<td>{$rating.avg|@number_format:2}</td>
-	<td>{$rating.std|@number_format:3}</td>
 	<td>{$rating.cv|@number_format:3}</td>
+	<td>{$rating.cd|@number_format:3}</td>
 	{foreach from=$rating.rates item=rates key=rate}
 	<td>{if !empty($rates)}
 		{capture assign=rate_over}{foreach from=$rates item=rate_arr}<img src="{$image_urls[$rate_arr.id].tn}" alt="thumb-{$rate_arr.id}" title="{$rate_arr.date}"></img>
@@ -68,9 +69,9 @@ function del(elt,uid,aid)
 
 {combine_script id='jquery.cluetip' load='footer' require='jquery' path='themes/default/js/plugins/jquery.cluetip.js'}
 {footer_script require='jquery.cluetip'}
-{literal}
-	jQuery('.cluetip').cluetip({
-		width: 350,	splitTitle: '|'
+jQuery(document).ready(function(){ldelim}
+	jQuery('.cluetip').cluetip({ldelim}
+		width: {$TN_WIDTH}, splitTitle: '|'
 	});
-{/literal}
+})
 {/footer_script}

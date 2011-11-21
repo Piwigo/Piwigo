@@ -36,6 +36,7 @@ if (isset($_GET['f_min_rates']))
   $filter_min_rates = (int)$_GET['f_min_rates'];
 }
 
+// build users
 global $conf;
 $query = 'SELECT DISTINCT
   u.'.$conf['user_fields']['id'].' AS id,
@@ -48,21 +49,18 @@ $users_by_id = array();
 $result = pwg_query($query);
 while ($row = pwg_db_fetch_assoc($result))
 {
-  $user = array(
+  $users_by_id[(int)$row['id']] = array(
     'name' => $row['name'],
     'anon' => is_autorize_status(ACCESS_CLASSIC, $row['status']) ? false : true
   );
-  $users_by_id[(int)$row['id']] = $user;
 }
 
-$by_rate_model = array();
+$by_user_rating_model = array( 'rates' => array() );
 foreach($conf['rate_items'] as $rate)
 {
-  $by_rate_model[$rate] = array();
+  $by_user_rating_model['rates'][$rate] = array();
 }
 
-
-$by_user_rating_model = array( 'rates' => $by_rate_model);
 
 $image_ids = array();
 $by_user_ratings = array();
@@ -71,26 +69,25 @@ SELECT * FROM '.RATE_TABLE.' ORDER by date DESC';
 $result = pwg_query($query);
 while ($row = pwg_db_fetch_assoc($result))
 {
-
   if (!isset($users_by_id[$row['user_id']]))
   {
     $users_by_id[$row['user_id']] = array('name' => '???'.$row['user_id'], 'anon' => false);
   }
-  $user = $users_by_id[$row['user_id']];
-  if ($user['anon'])
+  $usr = $users_by_id[$row['user_id']];
+  if ($usr['anon'])
   {
-    $user_key = $user['name'].'('.$row['anonymous_id'].')';
+    $user_key = $usr['name'].'('.$row['anonymous_id'].')';
   }
   else
   {
-    $user_key = $user['name'];
+    $user_key = $usr['name'];
   }
   $rating = & $by_user_ratings[$user_key];
   if ( is_null($rating) )
   {
     $rating = $by_user_rating_model;
     $rating['uid'] = (int)$row['user_id'];
-    $rating['aid'] = $user['anon'] ? $row['anonymous_id'] : '';
+    $rating['aid'] = $usr['anon'] ? $row['anonymous_id'] : '';
   }
   $rating['rates'][$row['rate']][] = array(
     'id' => $row['element_id'],
@@ -100,8 +97,7 @@ while ($row = pwg_db_fetch_assoc($result))
   unset($rating);
 }
 
-
-
+// get image tn urls
 $image_urls = array();
 if (count($image_ids) > 0 )
 {
@@ -118,24 +114,41 @@ if (count($image_ids) > 0 )
   }
 }
 
+$query='SELECT element_id,
+    AVG(rate) AS avg
+  FROM '.RATE_TABLE.'
+  GROUP BY element_id';
+$all_img_sum = array();
+$result = pwg_query($query);
+while ($row = pwg_db_fetch_assoc($result))
+{
+  $all_img_sum[(int)$row['element_id']] = array( 'avg'=>(float)$row['avg'] );
+}
+
 foreach($by_user_ratings as $id => &$rating)
 {
-  $c=0; $s=0; $ss=0;
+  $c=0; $s=0; $ss=0; $consensus_dev=0;
   foreach($rating['rates'] as $rate => $rates)
   {
     $ct = count($rates);
     $c += $ct;
     $s += $ct * $rate;
     $ss += $ct * $rate * $rate;
+    foreach($rates as $id_date)
+    {
+      $consensus_dev += abs($rate - $all_img_sum[$id_date['id']]['avg']);
+    }
   }
+
+  $consensus_dev /= $c;
 
   $var = ($ss - $s*$s/$c)/$c;
   $rating += array(
     'id' => $id,
     'count' => $c,
     'avg' => $s/$c,
-    'std' => sqrt($var),
     'cv'  => $s==0 ? -1 : sqrt($var)/($s/$c), // http://en.wikipedia.org/wiki/Coefficient_of_variation
+    'cd'  => $consensus_dev
   );
 }
 unset($rating);
@@ -162,18 +175,17 @@ function count_compare($a, $b)
   return ($d==0) ? 0 : ($d<0 ? -1 : 1);
 }
 
-function std_compare($a, $b)
-{
-  $d = $a['std'] - $b['std'];
-  return ($d==0) ? 0 : ($d<0 ? -1 : 1);
-}
-
 function cv_compare($a, $b)
 {
-  $d = $a['cv'] - $b['cv'];
+  $d = $b['cv'] - $a['cv']; //desc
   return ($d==0) ? 0 : ($d<0 ? -1 : 1);
 }
 
+function consensus_dev_compare($a, $b)
+{
+  $d = $b['cd'] - $a['cd']; //desc
+  return ($d==0) ? 0 : ($d<0 ? -1 : 1);
+}
 
 $order_by_index=3;
 if (isset($_GET['order_by']) and is_numeric($_GET['order_by']))
@@ -184,8 +196,8 @@ if (isset($_GET['order_by']) and is_numeric($_GET['order_by']))
 $available_order_by= array(
     array(l10n('Average rate'), 'avg_compare'),
     array(l10n('Number of rates'), 'count_compare'),
-    array('StDev', 'std_compare'),
-    array('Coeff of Variation', 'cv_compare'),
+    array(l10n('Variation'), 'cv_compare'),
+    array(l10n('Consensus deviation'), 'consensus_dev_compare'),
   );
 
 for ($i=0; $i<count($available_order_by); $i++)
@@ -205,6 +217,7 @@ $template->assign( array(
   'available_rates' => $conf['rate_items'],
   'ratings' => $by_user_ratings,
   'image_urls' => $image_urls,
+  'TN_WIDTH' => 20+2*$conf['upload_form_thumb_maxwidth'],
   ) );
 $template->set_filename('rating', 'rating_user.tpl');
 $template->assign_var_from_handle('ADMIN_CONTENT', 'rating');
