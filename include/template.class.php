@@ -769,10 +769,10 @@ var s,after = document.getElementsByTagName(\'script\')[document.getElementsByTa
     $source = preg_replace_callback( $regex, create_function('$m', 'global $lang; return isset($lang[$m[1]]) ? $lang[$m[1]] : $m[0];'), $source);
 
     $regex = "~$ldq *\'([^'$]+)\'\|@translate\|~";
-    $source = preg_replace_callback( $regex, create_function('$m', 'global $lang; return isset($lang[$m[1]]) ? \'{\'.var_export($lang[$m[1]],true).\'|\' : \'$m[0]\';'), $source);
+    $source = preg_replace_callback( $regex, create_function('$m', 'global $lang; return isset($lang[$m[1]]) ? \'{\'.var_export($lang[$m[1]],true).\'|\' : $m[0];'), $source);
 
     $regex = "~($ldq *assign +var=.+ +value=)\'([^'$]+)\'\|@translate~";
-    $source = preg_replace_callback( $regex, create_function('$m', 'global $lang; return isset($lang[$m[2]]) ? $m[1].var_export($lang[$m[2]],true) : \'$m[0]\';'), $source);
+    $source = preg_replace_callback( $regex, create_function('$m', 'global $lang; return isset($lang[$m[2]]) ? $m[1].var_export($lang[$m[2]],true) : $m[0];'), $source);
 
     return $source;
   }
