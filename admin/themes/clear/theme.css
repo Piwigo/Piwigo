@@ -15,8 +15,11 @@
 .gcBorderInput { border-color:#777777; }           used for inputs
 */
 /* text color */
-.theme_title { left: 15px; color: #000; text-align: left;}
-body, h3, dt, h2, .throw, .content, label { color:#777; }
+
+body, h3, dt, h2, .throw, .content, label , LEGEND  { 
+	color:#777;
+}
+
 th { color: #888; }
 INPUT, select, textarea { color:#666; background-color: #ccc; }
 input[type="radio"], input[type="checkbox"] { background-color: transparent; }
@@ -28,8 +31,6 @@ INPUT[type="submit"], INPUT[type="button"], INPUT[type="reset"] {
 	padding: 1px 15px;
 }
 
-legend, h3 { color: #777; }
-h2 { color: #777; }
 
 INPUT[type="text"], INPUT[type="password"], INPUT[type="button"],
 INPUT[type="submit"], INPUT[type="reset"], INPUT[type="file"] {
@@ -75,7 +76,7 @@ body { margin: 0; padding: 0; background:#f9f9f9 }
 #headbranch { width: 233px; height: 240px; margin: 0; padding: 0;
 position:absolute; left:0px; top:0px; z-index: 0;
 background:transparent }
-h3, #imageToolBar a:hover, .content, .throw, .row1 { background-color: #ddd; }
+h3, .content, .throw, .row1 { background-color: #ddd; }
 .row2 { background-color:#eeeeee; }
 #content { background: #f1f1f1; min-height: 467px;}
 
@@ -131,7 +132,6 @@ ul.actions, .content form#waiting  {text-align:center;}
 .header_msgs { background:transparent url(images/header_msgs-bg.gif) repeat scroll right top;
 border:0; color:#ccc; font-size:24px; height:30px; margin:0; padding:10px 0 0;
 text-align:center; width:100%; }
-#content.content div.comment a.illustration{ margin-right: 30px;}
 
 /* tabsheets are often used in admin  pages => No specific css files */
 #tabsheet { width:auto; margin:-1px; margin-right:-6px; padding:0;
@@ -255,8 +255,12 @@ display:block; height:85px; left:225px; position:relative; top:-42px; width:313p
 #helpContent A {border-bottom:1px dotted #005E89;}
 #helpContent A:hover {border-bottom:1px solid #d54e21;}
 
-#pwgHead, #footer {background-color:#ddd;}
-#pwgHead, #footer {color:#666;}
+#pwgHead, #footer {
+	background-color: #ddd;
+	color: #666;
+}
+
+
 #pwgHead A, #footer A {color:#444;}
 #pwgHead A:hover, #footer A:hover {color:black; border-color:black;}
 #footer { background-image: url(images/piwigo_logo_small.png);}

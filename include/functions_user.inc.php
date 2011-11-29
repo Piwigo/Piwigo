@@ -930,10 +930,7 @@ function get_default_theme()
   $active_themes = get_pwg_themes();
   foreach (array_keys(get_pwg_themes()) as $theme_id)
   {
-    if (check_theme_installed($theme_id))
-    {
-      return $theme_id;
-    }
+    return $theme_id;
   }
 }
 

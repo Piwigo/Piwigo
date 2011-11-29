@@ -15,8 +15,13 @@ ul.categoryActions { margin: 0 2px; width: auto; list-style-position:outside;
 .content ul.categoryActions li { display: inline; }
 .content div.comment { margin: 0 0 0.5em 0; padding: 0;
   overflow: hidden; width: 100%;	/* don't ask why. It's a very usefull trick  */ }
-.content div.comment a.illustration {
-  display: block; float: left; margin: 0.5em 0 0 0.5em; }
+
+.content DIV.comment A.illustration {
+	display: block;
+	float: left;
+	margin: 0.5em 30px 0 0.5em;
+}
+
 .content div.comment p.commentHeader {
   text-align: right; margin: 0.5em 0.5em 0 0; }
 .content div.comment ul.actions { text-align: center; margin: 0.2em; }

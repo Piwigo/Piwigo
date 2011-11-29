@@ -1,5 +1,5 @@
 #menubar, .content .navigationBar, UL.categoryActions, 
-#imageToolBar, .navThumb, #addComment {
+.navThumb, #addComment {
     display: none;
 }
 
