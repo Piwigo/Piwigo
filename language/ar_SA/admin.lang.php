@@ -236,7 +236,6 @@ $lang['To send ?'] = 'إرسـال؟';
 $lang['Last send'] = 'الارسال الاخير';
 $lang['email'] = 'البريدالالكتروني';
 $lang['User'] = 'المستخدم';
-$lang['Complementary mail content'] = 'استكمال محتويات البريد';
 $lang['See you soon,'] = 'ستسعدنا جدا  زيارتك';
 $lang['Go to'] = 'يمكنك زيارتنا من خلال هذا الرابط ';
 $lang['Hello'] = 'السلام عليكم و رحمة الله و بركاته ';

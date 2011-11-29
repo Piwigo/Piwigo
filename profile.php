@@ -177,7 +177,7 @@ function save_profile_from_post($userdata, &$errors)
     // password must be the same as its confirmation
     if ($_POST['use_new_pwd'] != $_POST['passwordConf'])
     {
-      $errors[] = l10n('New password confirmation does not correspond');
+      $errors[] = l10n('The passwords do not match');
     }
 
     if ( !defined('IN_ADMIN') )

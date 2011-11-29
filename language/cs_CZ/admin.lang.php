@@ -238,7 +238,6 @@ $lang['To send ?'] = 'Odeslat?';
 $lang['Last send'] = 'Naposledy odesláno';
 $lang['email'] = 'E-mail';
 $lang['User'] = 'Uživatel';
-$lang['Complementary mail content'] = 'Doplňkový obsah zprávy';
 $lang['See you soon,'] = 'Nashledanou';
 $lang['Go to'] = 'Přejít na';
 $lang['Hello'] = 'Dobrý den ';

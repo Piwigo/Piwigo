@@ -84,7 +84,6 @@ $lang['Help'] = '도움말';
 $lang['Identification'] = '확인';
 $lang['Photos only RSS feed'] = 'RSS피드 사진들';
 $lang['Keyword'] = '키워드';
-$lang['New password confirmation does not correspond'] = '새로운 비밀번호 확인이 일치하지 않습니다.';
 $lang['Notification'] = '알림';
 $lang['Number of items'] = '항목 수';
 $lang['Original dimensions'] = '원본 해상도';

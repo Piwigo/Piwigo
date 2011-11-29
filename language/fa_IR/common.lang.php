@@ -87,7 +87,6 @@ $lang['Keyword'] = "کلید واژه‌ها";
 $lang['Links'] = "لینک‌ها";
 $lang['N/A'] = "N/A";
 $lang['New on %s'] = "جدید در %s";
-$lang['New password confirmation does not correspond'] = "تایید گذرواژه با گذرواژه مطابقت ندارند!";
 $lang['Notification'] = "خبرنامه";
 $lang['Number of items'] = "تعداد آیتم‌ها";
 $lang['Original dimensions'] = "ابعاد اصلی";

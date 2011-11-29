@@ -87,7 +87,6 @@ $lang['Keyword'] = "מילות מפתח";
 $lang['Links'] = "קישורים";
 $lang['N/A'] = "N/A לא ידוע";
 $lang['New on %s'] = "חדש ב %s";
-$lang['New password confirmation does not correspond'] = "אישור סיסמה חדשה אינו תואם";
 $lang['Notification'] = "הודעה";
 $lang['Number of items'] = "מספר הפריטים";
 $lang['Original dimensions'] = "מידות מקוריות";

@@ -99,7 +99,6 @@ $lang['Keyword'] = 'Клучен збор';
 $lang['Links'] = 'Линкови';
 $lang['N/A'] = 'Не е познат';
 $lang['New on %s'] = 'Нова на %s';
-$lang['New password confirmation does not correspond'] = 'Повторената нова лозинка не е точна. Пробајте повторно.';
 $lang['Notification'] = 'RSS';
 $lang['Number of items'] = 'Број на елементи';
 $lang['Original dimensions'] = 'Оригинални димензии';

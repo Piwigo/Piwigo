@@ -90,7 +90,6 @@ $lang['Keyword'] = 'Palabra clave';
 $lang['Links'] = 'Enlaces';
 $lang['N/A'] = 'no disponible';
 $lang['New on %s'] = 'Nuevo el %s';
-$lang['New password confirmation does not correspond'] = 'La confirmacion de su contraseña no corresponde';
 $lang['Notification'] = 'Notificación';
 $lang['Number of items'] = 'Cantidad de elementos';
 $lang['Original dimensions'] = 'Dimensiones originales';

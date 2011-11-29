@@ -25,7 +25,6 @@ $lang['Hello'] = 'Здравей';
 $lang['Comments'] = 'Коментари';
 $lang['Notification'] = 'RSS';
 $lang['Specials'] = 'Покажи';
-$lang['Tags'] = 'Тагове';
 $lang['File'] = 'Файл';
 $lang['Filesize'] = 'Размер на файла';
 $lang['Preferences'] = 'Предпочитания';

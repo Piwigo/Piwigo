@@ -89,7 +89,6 @@ $lang['Keyword'] = 'Cuvînt cheie';
 $lang['Links'] = 'Link-uri';
 $lang['N/A'] = 'N/A';
 $lang['New on %s'] = 'Nou pe %s';
-$lang['New password confirmation does not correspond'] = 'Noua confirmare a parolei nu se potriveşte';
 $lang['Notification'] = 'Notificare';
 $lang['Number of items'] = 'Numărul de articole';
 $lang['Original dimensions'] = 'Dimensiuni originale';

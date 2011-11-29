@@ -89,7 +89,6 @@ $lang['Keyword'] = 'Palavra chave';
 $lang['Links'] = 'Links';
 $lang['N/A'] = 'Não disponível';
 $lang['New on %s'] = 'Novo em %s';
-$lang['New password confirmation does not correspond'] = 'Erro na confirmação da palavra-passe';
 $lang['Notification'] = 'Notificação';
 $lang['Number of items'] = 'Número de items';
 $lang['Original dimensions'] = 'Dimensão original';
@@ -351,7 +350,6 @@ $lang['validate this comment'] = 'validar este comentário';
 $lang['html tags are not allowed in login'] = 'Etiquetas HTML n&atilde;o s&atilde;o permitidas no In&iacute;cio de Sess&atilde;o';
 $lang['%d rates'] = '%d votos';
 $lang['Rating score'] = 'Pontuação';
-$lang['Enter a username or email address'] = 'escreva um nome de utilizador ou um email';
 $lang['Invalid username or email'] = 'nome de utilizador ou um email inválido';
 $lang['Password reset is not allowed for this user'] = 'A reinicialização da palavra-passe não é permitida para este utilizador';
 $lang['User "%s" has no email address, password reset is not possible'] = 'Utilizador "%s" não tem email, a reinicialização da palavra-passe não é possível';
@@ -370,6 +368,5 @@ $lang['You will receive a link to create a new password via email.'] = 'Vai rece
 $lang['Username or email'] = 'nome de utilizador ou email';
 $lang['Change my password'] = 'alterar a minha palavra-passe';
 $lang['Enter your new password below.'] = 'Escreva a sua nova palavra-passe abaoixo.';
-$lang['Reset Password'] = 'Reinicializar a palavra-passe';
 
 ?>

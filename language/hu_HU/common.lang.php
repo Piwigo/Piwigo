@@ -90,7 +90,6 @@ $lang['Keyword'] = 'Kulcsszó';
 $lang['Links'] = 'Kapcsolódó linkek';
 $lang['N/A'] = 'Nincs adat';
 $lang['New on %s'] = 'Új %s';
-$lang['New password confirmation does not correspond'] = 'Az új jelszó megerősítése nem sikerült';
 $lang['Notification'] = 'RSS';
 $lang['Number of items'] = 'Tételek száma';
 $lang['Original dimensions'] = 'Eredeti méret';
@@ -356,7 +355,6 @@ $lang['The number of photos per page must be a not null scalar'] = 'Az oldalank�
 $lang['Number of photos per page'] = 'Képek száma oldalanként';
 // missing translations
 $lang['Rating score'] = 'Átlagos pontszám';
-$lang['Enter a username or email address'] = 'Adja meg a felhasználónevét, vagy e-mail címét';
 $lang['Invalid username or email'] = 'Érvénytelen felhasználónév vagy e-mail cím';
 $lang['Password reset is not allowed for this user'] = 'A felhasználói jelszó törlése nem engedélyezett';
 $lang['User "%s" has no email address, password reset is not possible'] = '"%s" felhasználó nem rendelkezik érvényes e-mail címmel, jelszó alaphelyzetbe állítása nem lehetséges';
@@ -375,7 +373,6 @@ $lang['You will receive a link to create a new password via email.'] = 'E-mailbe
 $lang['Username or email'] = 'Felhasználónév vagy e-mail cím';
 $lang['Change my password'] = 'Jelszó módosítása';
 $lang['Enter your new password below.'] = 'Írja be az új jelszót.';
-$lang['Reset Password'] = 'Jelszó alaphelyzetbe állítása';
 $lang['EXIF Metadata'] = 'EXIF metaadatok';
 $lang['IPTC Metadata'] = 'IPTC metaadatok';
 ?>

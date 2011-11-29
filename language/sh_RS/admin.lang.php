@@ -235,7 +235,6 @@ $lang['To send ?'] = 'Poslati ?';
 $lang['Last send'] = 'Zadnje poslato';
 $lang['email'] = 'e-mail';
 $lang['User'] = 'Korisnik';
-$lang['Complementary mail content'] = 'Poptpuni sadržaj e-mail poruke';
 $lang['See you soon,'] = 'Vidimo se uskoro,';
 $lang['Go to'] = 'Idi na ';
 $lang['Hello'] = 'Pozdrav ';

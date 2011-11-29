@@ -146,7 +146,6 @@ $lang['Any tag'] = 'Valgte ord';
 $lang['At least one listed rule must be satisfied.'] = 'Minst en listet regel må være med.';
 $lang['At least one tag must match'] = 'Minst et ord må stemme';
 $lang['Author'] = 'Forfatter';
-$lang['New password confirmation does not correspond'] = 'Nytt passord bekreftelse er ikke lik';
 $lang['Notification'] = 'Til informasjon';
 $lang['Number of items'] = 'Antall poster';
 $lang['Original dimensions'] = 'Orginal dimensjoner';

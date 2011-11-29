@@ -89,7 +89,6 @@ $lang['Keyword'] = 'Кључна реч';
 $lang['Links'] = 'Интернет везе';
 $lang['N/A'] = 'Н/Д';
 $lang['New on %s'] = 'Нови на %s';
-$lang['New password confirmation does not correspond'] = 'Потврда нове лозинке не одговара';
 $lang['Notification'] = 'Обавештење';
 $lang['Number of items'] = 'Број ставки';
 $lang['Original dimensions'] = 'Изворне величине';
@@ -351,7 +350,6 @@ $lang['The number of photos per page must be a not null scalar'] = 'Број ф�
 $lang['Number of photos per page'] = 'Број фотографија по страници';
 $lang['%d rates'] = '%d оцена';
 $lang['Rating score'] = 'Оцена резултата';
-$lang['Enter a username or email address'] = 'Унеси корисничко име или е-адресу';
 $lang['Invalid username or email'] = 'Неправилно корисничко име или адреса е-поште';
 $lang['Password reset is not allowed for this user'] = 'Поништавање лозинке није дозвољено за овог корисника';
 $lang['User "%s" has no email address, password reset is not possible'] = 'Корисник "%s" нема адресу е-поште, поништавање лозинке није могуће';
@@ -370,7 +368,6 @@ $lang['You will receive a link to create a new password via email.'] = 'Доби
 $lang['Username or email'] = 'Корисничко име или е-адреса';
 $lang['Change my password'] = 'Промени моју лозинку';
 $lang['Enter your new password below.'] = 'Унесите Вашу нову лозинку испод.';
-$lang['Reset Password'] = 'Поништи лозинку';
 
 
 ?>

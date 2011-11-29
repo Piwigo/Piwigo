@@ -235,7 +235,6 @@ $lang['To send ?'] = '发送?';
 $lang['Last send'] = '最后一次发送';
 $lang['email'] = '邮件';
 $lang['User'] = '用户';
-$lang['Complementary mail content'] = '邮件附件';
 $lang['See you soon,'] = '再见,';
 $lang['Go to'] = '转至 ';
 $lang['Hello'] = '您好 ';
@@ -429,7 +428,6 @@ $lang['Time'] = '时间';
 $lang['IP'] = 'IP';
 $lang['Element'] = '图片';
 $lang['Section'] = '区域';
-$lang['Tags'] = '标签';
 $lang['Save page visits by guests'] = '根据来宾来保存访问页面';
 $lang['Save page visits by users'] = '根据用户来保存访问页面';
 $lang['Save page visits by administrators'] = '根据管理员来保存访问页面';
@@ -514,7 +512,6 @@ $lang['Plugin list'] = '插件列表';
 $lang['Check for updates'] = '检查更新';
 $lang['Other plugins'] = '其他插件';
 $lang['Last revisions'] = '最新修订版';
-$lang['Delete'] = '删除';
 $lang['Are you sure you want to install this plugin?'] = '确定安装此插件吗?';
 $lang['Are you sure you want to delete this plugin?'] = '确定要删除此插件吗?';
 $lang['Are you sure to install this upgrade? You must verify if this version does not need uninstallation.'] = '确定安装此更新吗? 您必须核实无需卸载操作再进行安装此更新.';
@@ -772,6 +769,10 @@ $lang['All languages are up to date.'] = '所有语言已更新了.';
 $lang['Visit theme site'] = '浏览主题网站';
 $lang['Visit language site'] = '浏览语言网站';
 $lang['New Version'] = '新版本';
+
+
+
+
 $lang['Obsolete Plugins'] = '过期插件';
 $lang['WARNING! This plugin does not seem to be compatible with this version of Piwigo.'] = '警告，此插件并不适用于这个版本的Piwigo。';
 $lang['Do you want to activate anyway?'] = '您还是想激活吗？';
@@ -781,6 +782,8 @@ $lang['new'] = '新的';
 $lang['No results'] = '没有结果';
 $lang['Searching...'] = '搜索中...';
 $lang['Type in a search term'] = '输入搜索关键字';
+
+
 $lang['display'] = '显示';
 $lang['Average rate'] = "平均分";
 $lang['Rate'] = "比率";
@@ -790,6 +793,7 @@ $lang['Deactivate all'] = '解除所有';
 $lang['Default photos order'] = '默认图片排序';
 $lang['Restore'] = '恢复';
 $lang['Restore default configuration. You will lose your plugin settings!'] = '恢复默认的配置，您将失去插件的配置!';
+
 $lang['You can\'t define a default photo order because you have a custom setting in your local configuration.'] = '您不能设置默认图片的排序，因为您已在本地配置文件里有自定义设置';
 $lang['You have specified <i>$conf[\'order_by\']</i> in your local configuration file, this parameter in deprecated, please remove it or rename it into <i>$conf[\'order_by_custom\']</i> !'] = '您已在本地配置文件里定义了 <i>$conf[\'order_by\']</i> , 此参数已不再使用了, 请在 <i>$conf[\'order_by_custom\']</i> 里移除或者改名 !';
 $lang['Regenerate Thumbnails'] = '重新生成缩略图';

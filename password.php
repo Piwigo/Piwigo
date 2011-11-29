@@ -51,7 +51,7 @@ function process_password_request()
   
   if (empty($_POST['username_or_email']))
   {
-    array_push($page['errors'], l10n('Enter a username or email address'));
+    array_push($page['errors'], l10n('Invalid username or email'));
     return false;
   }
   
@@ -321,7 +321,7 @@ if ('lost' == $page['action'] and !is_a_guest())
 // | template initialization                                               |
 // +-----------------------------------------------------------------------+
 
-$title = l10n('Reset Password');
+$title = l10n('Password Reset');
 if ('lost' == $page['action'])
 {
   $title = l10n('Forgot your password?');

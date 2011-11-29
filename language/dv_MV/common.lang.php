@@ -103,7 +103,6 @@ $lang['month'][6] = "ޖޫން";
 $lang['month'][7] = "ޖުލައި";
 $lang['month'][8] = "އޮގަސްޓް";
 $lang['month'][9] = "ސެޕްޓެމްބަރ";
-$lang['New password confirmation does not correspond'] = 'އާ ސިއްރުބަސް ދިމައެއްނުވޭ';
 $lang['Notification'] = 'އެންގުންތައް';
 $lang['Number of items'] = 'ތަކެތީގެ އަދަދު';
 $lang['Original dimensions'] = 'އޮރިޖިނަލް ޑައިމެންޝަންސް';

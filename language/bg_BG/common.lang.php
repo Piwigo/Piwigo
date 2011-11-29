@@ -167,7 +167,6 @@ $lang['%d Kb'] = '%d Кб';
 $lang['Links'] = 'Линкове';
 $lang['N/A'] = 'N/A';
 $lang['New on %s'] = 'Нови на %s';
-$lang['New password confirmation does not correspond'] = 'Потвърждението за нова парола не съвпада';
 $lang['Notification'] = 'RSS';
 $lang['Number of items'] = 'Брой обекти';
 $lang['Original dimensions'] = 'Оригинален размер';

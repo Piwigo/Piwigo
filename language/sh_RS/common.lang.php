@@ -91,7 +91,6 @@ $lang['Keyword'] = 'Ključna riječ';
 $lang['Links'] = 'Linkovi';
 $lang['N/A'] = 'N/D';
 $lang['New on %s'] = 'Novi na on %s';
-$lang['New password confirmation does not correspond'] = 'Potvrda nove lozinke ne odgovara';
 $lang['Notification'] = 'Obaveštenje';
 $lang['Number of items'] = 'Broj stavki';
 $lang['Original dimensions'] = 'Izvorne veličine';

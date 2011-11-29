@@ -103,7 +103,6 @@ $lang['day'][6] = "Laugardagur";
 $lang['Complete RSS feed (photos, comments)'] = 'Klára RSS flæði (myndir, athugasemdir)';
 $lang['Photos only RSS feed'] = 'aðeins myndir RSS flæði';
 $lang['New on %s'] = 'Nýtt á %s';
-$lang['New password confirmation does not correspond'] = 'Staðfesting á nýju lykilorði passar ekki';
 $lang['Notification'] = 'Tilkynning';
 $lang['Number of items'] = 'fjöldi atriða';
 $lang['Original dimensions'] = 'Upprunaleg stærð';
