@@ -71,12 +71,11 @@
 #menubar p { 
 	padding: 16px 16px 0; 
 }
-#menubar .button { 
-	position:relative; 
-	right:9px; 
-	top:16px; 
-	height:16px; 
-	width:16px; 
+
+.menubarFilter {
+	position: relative; 
+	right: 8px; 
+	top: 16px; 
 }
 
 #menubar #mbIdentification { 

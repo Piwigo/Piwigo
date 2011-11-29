@@ -14,14 +14,9 @@
 	margin: 0; padding: 0; display: block;
 }
 
-#menubar .button {
-	margin: -2px 2px 2px;
-	width: auto;
-	padding: 0;
-	text-indent: 0;
-	list-style: none;
-	text-align: center;
+.menubarFilter {
 	float: right;
+	margin: -4px 0 0;
 }
 
 /* H2 properties copied here */
