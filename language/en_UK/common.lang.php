@@ -160,6 +160,7 @@ $lang['Each listed rule must be satisfied.'] = "Each listed criterion must be sa
 $lang['Edit a comment'] = "Edit a comment";
 $lang['edit this comment'] = "edit this comment";
 $lang['edit'] = "edit";
+$lang['Edit'] = 'Edit';
 $lang['Email address is missing. Please specify an email address.'] = "Email address is missing. Please specify an email address.";
 $lang['Email address'] = "Email address";
 $lang['Email: %s'] = "Email: %s";

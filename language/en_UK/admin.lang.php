@@ -277,7 +277,6 @@ $lang['Edit photo information'] = "Edit photo information";
 $lang['Edit ranks'] = "Edit ranks";
 $lang['Edit selected tags'] = "Edit selected tags";
 $lang['Edit tags'] = "Edit tags";
-$lang['Edit'] = 'Edit';
 $lang['Element type'] = "Element type";
 $lang['Element'] = "Element";
 $lang['Email administrators when a comment is deleted'] = "Email administrators when a comment is deleted";
