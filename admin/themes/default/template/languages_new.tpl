@@ -31,7 +31,7 @@ jQuery().ready(function(){ldelim}
     <td>{$language.DATE}</td>
     <td>{$language.AUTHOR}</td>
     <td style="text-align:center;"><a href="{$language.URL_INSTALL}">{'Install'|@translate}</a>
-      / <a href="{$language.URL_DOWNLOAD}">{'download'|@translate|@ucfirst}</a>
+      / <a href="{$language.URL_DOWNLOAD}">{'Download'|@translate}</a>
     </td>
   </tr>
 {/foreach}

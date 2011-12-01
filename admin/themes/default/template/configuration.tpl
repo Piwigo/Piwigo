@@ -305,7 +305,7 @@ jQuery(document).ready(function () {
 
     <li>
       <label>
-        <span class="property">{'download this file'|@translate|@ucfirst|@string_format:$pwg->l10n('Activate icon "%s"')}</span>
+        <span class="property">{'Download this file'|@translate|@ucfirst|@string_format:$pwg->l10n('Activate icon "%s"')}</span>
         <input type="checkbox" name="picture_download_icon" {if ($display.picture_download_icon)}checked="checked"{/if}>
       </label>
     </li>

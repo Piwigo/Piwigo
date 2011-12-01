@@ -50,8 +50,8 @@
 		</a>
 {/if}
 {if isset($current.U_DOWNLOAD)}
-		<a href="{$current.U_DOWNLOAD}" title="{'download this file'|@translate}" class="pwg-state-default pwg-button" rel="nofollow">
-			<span class="pwg-icon pwg-icon-save">&nbsp;</span><span class="pwg-button-text">{'download'|@translate}</span>
+		<a href="{$current.U_DOWNLOAD}" title="{'Download this file'|@translate}" class="pwg-state-default pwg-button" rel="nofollow">
+			<span class="pwg-icon pwg-icon-save">&nbsp;</span><span class="pwg-button-text">{'Download'|@translate}</span>
 		</a>
 {/if}
 {if isset($PLUGIN_PICTURE_ACTIONS)}{$PLUGIN_PICTURE_ACTIONS}{/if}

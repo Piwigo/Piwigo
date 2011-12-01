@@ -759,7 +759,7 @@ $template->set_filenames(array('update'=>'site_update.tpl'));
 $result_title = '';
 if (isset($simulate) and $simulate)
 {
-  $result_title.= l10n('[Simulation]').' ';
+  $result_title.= '['.l10n('Simulation').'] ';
 }
 
 // used_metadata string is displayed to inform admin which metadata will be

@@ -206,7 +206,6 @@ $lang['Album updated successfully'] = 'تم تحديث معلومات الألب
 $lang['photos per page'] = 'عدد في كل صفحة';
 $lang['High definition enabled'] = 'تمكين ابعاد الارتفاع';
 $lang['File'] = 'ملف';
-$lang['Filesize'] = 'حجم الملف';
 $lang['first photo added on %s'] = ' اول ما اضيف في  %s';
 $lang['Forbidden'] = 'ممنوع';
 $lang['global mode'] = 'النمط الشائع';
@@ -396,7 +395,6 @@ $lang['added'] = 'تمت الاضافة';
 $lang['deleted'] = 'تم الحذف للاسف الشديد';
 $lang['Metadata synchronization results'] = 'نتائج تزامن المعلومات التفصيلية';
 $lang['only perform a simulation (no change in database will be made)'] = 'اداة للمحاكاة فقط (لن يتم أي تغير في قاعدة البيانات)';
-$lang['[Simulation]'] = '[محاكات]';
 $lang['Simulation'] = 'محاكات';
 $lang['directories + files'] = 'مجلدات + ملفات';
 $lang['only directories'] = 'فقط المجلدات';
@@ -556,7 +554,6 @@ $lang['Optimizations have been completed with some errors.'] = 'اكتملت ع�
 $lang['Modify information'] = 'تعديل المعلومات';
 $lang['nothing'] = 'لا شيء';
 $lang['overrides existing values with empty ones'] = 'استبدل القيم الموجودة بقيم فارغة';
-$lang['manage photo ranks'] = 'إدارة ترتيب الصور';
 $lang['Manage photo ranks'] = 'إدارة ترتيب الصور';
 $lang['Edit ranks'] = 'تحرير الترتيب';
 $lang['No photo in this album'] = 'لا يوجد صور في الالبوم';
@@ -693,7 +690,6 @@ $lang['Inactive Languages'] = 'تعطيل اللغات';
 $lang['Make this language available to users'] = 'اجعل هذه اللغة متاحة للمستخدمين';
 $lang['Set as default language for unregistered and new users'] = 'اجعلها كلغة افتراضية لغير المسجلين و المستخدمين الجدد';
 $lang['Add Photos'] = 'أضف صور';
-$lang['Download'] = 'تحميل';
 $lang['The following tag was deleted'] = 'هذه الكلمات الدلائلية حُـذفت';
 $lang['Miscellaneous'] = 'متفرقات';
 $lang['Virtual Links'] = 'روابط ظاهرة';

@@ -26,7 +26,6 @@ $lang['Comments'] = 'Коментари';
 $lang['Notification'] = 'RSS';
 $lang['Specials'] = 'Покажи';
 $lang['File'] = 'Файл';
-$lang['Filesize'] = 'Размер на файла';
 $lang['Preferences'] = 'Предпочитания';
 $lang['Rate'] = 'Оценка';
 $lang['Average rate'] = 'Средна оценка';

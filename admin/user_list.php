@@ -202,7 +202,7 @@ if ($conf['double_password_type_in_admin'] == true)
     }
     else if ($_POST['password'] != $_POST['password_conf'])
     {
-      array_push($page['errors'], l10n('Password confirmation error.'));
+      array_push($page['errors'], l10n('The passwords do not match'));
     }
     else
     {
