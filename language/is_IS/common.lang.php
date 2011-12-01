@@ -332,7 +332,6 @@ $lang['Reset to default values'] = 'Endurstilla á sjálfgefinn gildi';
 $lang['delete all photos from your favorites'] = 'eyða öllum myndum úr uppáhalds';
 $lang['Sent by'] = 'Sent frá';
 $lang['Cookies are blocked or not supported by your browser. You must enable cookies to connect.'] = 'Cookie er lokað eða ekki stutt af vafranum þínum. Þú verður að virkaj cookie til að tengjast.n.';
-$lang['edit this comment'] = 'breyta þessari athugasemd';
 $lang['Edit a comment'] = 'Breyta athugasemd';
 $lang['Are you sure?'] = 'Ertu viss?';
 $lang['(!) This comment requires validation'] = '(!) Þessi athugasemd krefst staðfestingar';
@@ -346,7 +345,5 @@ $lang['Manage this user comment: %s'] = 'Stjórna athugasemd þessa notenda: %s'
 $lang['Email address is missing. Please specify an email address.'] = 'Netfang vantar. Vinsamlegast tilgreinið netfang.';
 $lang['This author modified following comment:'] = 'Þessi höfundur breytti eftirfarandi athugasemd:';
 $lang['This author removed the comment with id %d'] = 'Þessi höfundur fjarlægði athugasemdina með id %d';
-$lang['delete this comment'] = 'eyða þessari athugasemd';
-$lang['validate this comment'] = 'staðfesta þessa athugasemd';
 $lang['html tags are not allowed in login'] = 'html merkingar eru ekki leyfilegt við ínnskráningu';
 ?>

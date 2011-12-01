@@ -328,7 +328,6 @@ $lang['Reset to default values'] = "بازگرداندن به مقدارهای �
 $lang['delete all photos from your favorites'] = "حذف تمام تصاویر از علاقه‌مندی‌های شما";
 $lang['Sent by'] = "ارسال به وسیله";
 $lang['Cookies are blocked or not supported by your browser. You must enable cookies to connect.'] = "شما در تنظیمات مرورگر خود کوکی ها را بلاک کردید یا مرورگر شما از کوکی پشتیبانی نمی‌کند. برای ورود به محیط کاربری باید کوکی‌ها فعال باشند.";
-$lang['edit this comment'] = "ویرایش این نظر";
 $lang['Edit a comment'] = "ویرایش یک نظر";
 $lang['Are you sure?'] = "شما مطمئن هستید؟";
 $lang['(!) This comment requires validation'] = '(!) این نظر نیاز به تایید دارد';
@@ -342,8 +341,6 @@ $lang['Manage this user comment: %s'] = 'مدیریت نظرات این کارب
 $lang['Email address is missing. Please specify an email address.'] = "کاربر فاقد آدرس ایمیل است. لطفا یکی آدرس ایمیل مشخص کنید.";
 $lang['This author modified following comment:'] = 'این نویسنده این نظرات را تغییر داده است:';
 $lang['This author removed the comment with id %d'] = 'این نویسنده ، نظری با شناسه %d را حذف کرده است.';
-$lang['delete this comment'] = "حذف این نظر";
-$lang['validate this comment'] = 'تایید این نظر';
 $lang['html tags are not allowed in login'] = 'شما در فرم ورود مجاز به استفاده از كدهاي HTML نيستيد!';
 
 ?>

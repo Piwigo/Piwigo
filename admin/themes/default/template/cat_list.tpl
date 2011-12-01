@@ -66,13 +66,13 @@ jQuery(document).ready(function(){ldelim}
         {if cat_admin_access($category.ID)}
         <li><a href="{$category.U_JUMPTO}" title="{'jump to album'|@translate}"><img src="{$themeconf.admin_icon_dir}/category_jump-to.png" alt="{'jump to album'|@translate}"></a></li>
         {/if}
-        <li><a href="{$category.U_EDIT}" title="{'edit album'|@translate}"><img src="{$themeconf.admin_icon_dir}/category_edit.png" alt="{'edit'|@translate}"></a></li>
+        <li><a href="{$category.U_EDIT}" title="{'Edit album'|@translate}"><img src="{$themeconf.admin_icon_dir}/category_edit.png" alt="{'Edit'|@translate}"></a></li>
         {if isset($category.U_MANAGE_ELEMENTS) }
         <li><a href="{$category.U_MANAGE_ELEMENTS}" title="{'manage album photos'|@translate}"><img src="{$themeconf.admin_icon_dir}/category_elements.png" alt="{'Photos'|@translate}"></a></li>
         {/if}
         <li><a href="{$category.U_CHILDREN}" title="{'manage sub-albums'|@translate}"><img src="{$themeconf.admin_icon_dir}/category_children.png" alt="{'sub-albums'|@translate}"></a></li>
         {if isset($category.U_MANAGE_PERMISSIONS) }
-        <li><a href="{$category.U_MANAGE_PERMISSIONS}" title="{'edit album permissions'|@translate}" ><img src="{$themeconf.admin_icon_dir}/category_permissions.png" alt="{'Permissions'|@translate}"></a></li>
+        <li><a href="{$category.U_MANAGE_PERMISSIONS}" title="{'Edit album permissions'|@translate}" ><img src="{$themeconf.admin_icon_dir}/category_permissions.png" alt="{'Permissions'|@translate}"></a></li>
         {/if}
         {if isset($category.U_SYNC) }
         <li><a href="{$category.U_SYNC}" title="{'Synchronize'|@translate}"><img src="{$ROOT_URL}{$themeconf.admin_icon_dir}/synchronize.png" alt="{'Synchronize'|@translate}"></a></li>

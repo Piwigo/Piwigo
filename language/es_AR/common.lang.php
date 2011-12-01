@@ -335,7 +335,6 @@ $lang['Reset to default values'] = 'Resetear a los valores por defecto';
 $lang['delete all photos from your favorites'] = 'borrar todas las imágenes de tus favoritos';
 $lang['Sent by'] = 'Enviado por';
 $lang['Cookies are blocked or not supported by your browser. You must enable cookies to connect.'] = 'Tu navegador web bloquea las cookies o no las sopporta. Para conectarse es necesario activar las cookies.';
-$lang['edit this comment'] = 'editar este comentario';
 $lang['Edit a comment'] = 'Editar un comentario';
 $lang['Are you sure?'] = 'Seguro?';
 $lang['(!) This comment requires validation'] = '(!) Este comentario necesita ser aprobado';
@@ -348,6 +347,4 @@ $lang['I want to add photos'] = 'Quiero agregar fotos';
 $lang['Manage this user comment: %s'] = 'Administrar este comentario: %s';
 $lang['This author modified following comment:'] = 'Este autor modificó el comentario siguiente:';
 $lang['This author removed the comment with id %d'] = 'Este autor suprimió el comentario identificado como %d';
-$lang['delete this comment'] = 'Suprimir este comentario';
-$lang['validate this comment'] = 'aprobar este comentario';
 ?>

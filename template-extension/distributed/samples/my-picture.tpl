@@ -67,7 +67,7 @@
 {/if}
 {if isset($U_ADMIN)}
 		<a href="{$U_ADMIN}" title="{'Modify information'|@translate}" class="pwg-state-default pwg-button" rel="nofollow">
-			<span class="pwg-icon pwg-icon-edit">&nbsp;</span><span class="pwg-button-text">{'edit'|@translate}</span>
+			<span class="pwg-icon pwg-icon-edit">&nbsp;</span><span class="pwg-button-text">{'Edit'|@translate}</span>
 		</a>
 {/if}
 {if isset($U_CADDIE)}{*caddie management BEGIN*}
@@ -87,8 +87,8 @@ y.callService(
 	);
 }{/literal}
 </script>
-		<a href="{$U_CADDIE}" onclick="addToCadie(this, '{$ROOT_URL|@escape:'javascript'}', {$current.id}); return false;" title="{'add to caddie'|@translate}" class="pwg-state-default pwg-button" rel="nofollow">
-			<span class="pwg-icon pwg-icon-caddie-add">&nbsp;</span><span class="pwg-button-text">{'caddie'|@translate}</span>
+		<a href="{$U_CADDIE}" onclick="addToCadie(this, '{$ROOT_URL|@escape:'javascript'}', {$current.id}); return false;" title="{'Add to caddie'|@translate}" class="pwg-state-default pwg-button" rel="nofollow">
+			<span class="pwg-icon pwg-icon-caddie-add">&nbsp;</span><span class="pwg-button-text">{'Caddie'|@translate}</span>
 		</a>
 {/if}{*caddie management END*}
 	</div>   

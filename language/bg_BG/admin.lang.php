@@ -31,5 +31,5 @@ $lang['Preferences'] = 'Предпочитания';
 $lang['Rate'] = 'Оценка';
 $lang['Average rate'] = 'Средна оценка';
 $lang['Zoom'] = 'Увеличи';
-
+$lang['Add to caddie'] = 'Добави в кутийката';
 ?>

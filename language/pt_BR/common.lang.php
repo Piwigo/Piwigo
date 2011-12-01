@@ -135,7 +135,6 @@ $lang['posted between %s (%s) and %s (%s)'] = 'disponível entre o %s (%s) e o %
 $lang['posted on %s'] = 'disponível em %s';
 $lang['Best rated'] = 'Com a melhor pontuação';
 $lang['display best rated photos'] = 'Mostrar as imagens com as notas mais altas';
-$lang['caddie'] = 'cesta';
 $lang['Calendar'] = 'Calendário';
 $lang['All'] = 'Todo';
 $lang['display each day with photos, month per month'] = 'Mostrar ano por ano, mês por mês, dia por dia';
@@ -329,5 +328,4 @@ $lang['letters'] = 'letras';
 $lang['show tag cloud'] = 'mostar a nuvem de tags';
 $lang['cloud'] = 'nuvem';
 $lang['Are you sure?'] = 'Você tem certeza?';
-$lang['delete this comment'] = 'apagar este comentário';
 ?>

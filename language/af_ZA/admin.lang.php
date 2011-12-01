@@ -175,4 +175,5 @@ $lang['Level 8'] = 'Vlak 8';
 $lang['Main'] = 'Hoof';
 $lang['Main Page'] = 'Hoofblad';
 $lang['Width'] = 'Wydte';
+$lang['Add to caddie'] = "plaas in mandjie";
 ?>

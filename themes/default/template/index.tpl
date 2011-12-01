@@ -18,13 +18,13 @@
 		</a></li>
 {/if}
 {if isset($U_CADDIE)}
-		<li><a href="{$U_CADDIE}" title="{'add to caddie'|@translate}" class="pwg-state-default pwg-button">
-			<span class="pwg-icon pwg-icon-caddie-add">&nbsp;</span><span class="pwg-button-text">{'caddie'|@translate}</span>
+		<li><a href="{$U_CADDIE}" title="{'Add to caddie'|@translate}" class="pwg-state-default pwg-button">
+			<span class="pwg-icon pwg-icon-caddie-add">&nbsp;</span><span class="pwg-button-text">{'Caddie'|@translate}</span>
 		</a></li>
 {/if}
 {if isset($U_EDIT)}
-		<li><a href="{$U_EDIT}" title="{'edit'|@translate}" class="pwg-state-default pwg-button">
-			<span class="pwg-icon pwg-icon-category-edit">&nbsp;</span><span class="pwg-button-text">{'edit'|@translate}</span>
+		<li><a href="{$U_EDIT}" title="{'Edit album'|@translate}" class="pwg-state-default pwg-button">
+			<span class="pwg-icon pwg-icon-category-edit">&nbsp;</span><span class="pwg-button-text">{'Edit'|@translate}</span>
 		</a></li>
 {/if}
 {if isset($U_SEARCH_RULES)}

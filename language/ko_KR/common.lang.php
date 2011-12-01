@@ -278,7 +278,6 @@ $lang['Reset to default values'] = '기본값으로 설정';
 $lang['delete all photos from your favorites'] = '즐겨찾기의 모든 사진을 지웁니다';
 $lang['Sent by'] = '보낸이';
 $lang['Cookies are blocked or not supported by your browser. You must enable cookies to connect.'] = '쿠키가 차단되었거나 지원되지 않는 브라우저입니다. 로그인하기 위해서는 쿠키를 사용해야 합니다.';
-$lang['edit this comment'] = '이 댓글 편집';
 $lang['Edit a comment'] = '댓글 편집';
 $lang['Are you sure?'] = '확실합니까?';
 $lang['(!) This comment requires validation'] = '(!) 이 댓글은 확인이 필요합니다.';
@@ -292,8 +291,6 @@ $lang['Manage this user comment: %s'] = '이 사용자 댓글 관리: %s';
 $lang['Email address is missing. Please specify an email address.'] = '메일 주소란이 비었습니다. 메일 주소를 확인 해 주세요.';
 $lang['This author modified following comment:'] = '이 작가가 다음 댓글을 수정하였습니다:';
 $lang['This author removed the comment with id %d'] = '이 작가가 다음 사용자의 댓글을 삭제하였습니다: %d';
-$lang['delete this comment'] = '이 댓글을 삭제';
-$lang['validate this comment'] = '이 댓글을 확인';
 
 
 ?>
