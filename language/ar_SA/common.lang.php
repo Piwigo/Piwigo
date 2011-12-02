@@ -288,7 +288,6 @@ $lang['Menu'] = 'القائمة الرئيسية';
 $lang['A comment on your site'] = 'استفسار مهم';
 $lang['today'] = 'اليوم';
 $lang['Update your rating'] = 'تحديث تقييمك';
-$lang['wrong filename'] = 'اسم الملف غير صحيح';
 $lang['the username must be given'] = 'اسم المستخدم ضروري';
 $lang['useful when password forgotten'] = ' ضرورية في حال نسيانك كلمة المرور';
 $lang['Quick search'] = 'بحث سريع';

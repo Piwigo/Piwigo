@@ -283,7 +283,6 @@ $lang['Menu'] = 'Menü';
 $lang['A comment on your site'] = 'Ein Kommentar auf der Website';
 $lang['today'] = 'heute';
 $lang['Update your rating'] = 'Aktualisieren Sie Ihre Bewertung';
-$lang['wrong filename'] = 'ungültiger Dateiname';
 $lang['the username must be given'] = 'Benutzername fehlt';
 $lang['useful when password forgotten'] = 'nützlich, wenn Sie ihr Passwort vergessen';
 $lang['Quick search'] = 'Schnellsuche';

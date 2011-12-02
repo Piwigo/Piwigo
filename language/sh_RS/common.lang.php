@@ -288,7 +288,6 @@ $lang['Menu'] = 'Izbornik';
 $lang['A comment on your site'] = 'Komentar na Vašem web mestu';
 $lang['today'] = 'danas';
 $lang['Update your rating'] = 'Obnovite svoju ocenu';
-$lang['wrong filename'] = 'pogrešan naziv datoteke';
 $lang['the username must be given'] = 'mora se upisati korisničko ime';
 $lang['useful when password forgotten'] = 'korisno kada se zaboravi lozinka';
 $lang['Quick search'] = 'Brzo pretraživanje';

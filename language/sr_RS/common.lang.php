@@ -283,7 +283,6 @@ $lang['Menu'] = 'Избор';
 $lang['A comment on your site'] = 'Коментар на Вашој интернет страници';
 $lang['today'] = 'данас';
 $lang['Update your rating'] = 'Обновите своју оцену';
-$lang['wrong filename'] = 'погрешан назив датотеке';
 $lang['the username must be given'] = 'мора се уписати корисничко име';
 $lang['useful when password forgotten'] = 'корисно када се заборави лозинка';
 $lang['Quick search'] = 'Брзо претраживање';

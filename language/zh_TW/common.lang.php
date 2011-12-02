@@ -283,7 +283,6 @@ $lang['Menu'] = '菜單';
 $lang['A comment on your site'] = '網站評論';
 $lang['today'] = '今天';
 $lang['Update your rating'] = '更改投票';
-$lang['wrong filename'] = '文件夾名不合法';
 $lang['the username must be given'] = '缺少用戶名';
 $lang['useful when password forgotten'] = '忘記密碼';
 $lang['Quick search'] = '快速搜索';

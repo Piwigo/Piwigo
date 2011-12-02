@@ -325,7 +325,6 @@ $lang['Menu'] = 'Meny';
 $lang['A comment on your site'] = 'En kommentar på din sida';
 $lang['today'] = 'idag';
 $lang['Update your rating'] = 'Ändra ditt betyg';
-$lang['wrong filename'] = 'fel filnamn';
 $lang['the username must be given'] = 'användarnamn krävs';
 $lang['Edit a comment'] = 'Redigera ett inlägg';
 $lang['Are you sure?'] = 'Är du säker?';

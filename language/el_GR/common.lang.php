@@ -159,7 +159,6 @@ $lang['Photos posted within the last %d day.'] = 'Αρχεία που έχουν
 $lang['A comment on your site'] = 'Ένα σχόλιο στη σελίδα σας';
 $lang['today'] = 'σήμερα';
 $lang['Update your rating'] = 'Αλλάξτε τη βαθμολογία σας';
-$lang['wrong filename'] = 'λάθος όνομα αρχείου';
 $lang['the username must be given'] = 'το όνομα χρήστη είναι απαραίτητο';
 $lang['Edit a comment'] = 'Επεξεργασία σχολίου';
 $lang['Are you sure?'] = 'Είστε σίγουρος;';

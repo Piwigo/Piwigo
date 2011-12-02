@@ -286,7 +286,6 @@ $lang['Menu'] = 'Menu';
 $lang['A comment on your site'] = 'Un commentaire sur le site';
 $lang['today'] = 'aujourd\'hui';
 $lang['Update your rating'] = 'Mettre à jour votre note';
-$lang['wrong filename'] = 'mauvais nom de fichier';
 $lang['Author'] = 'Auteur';
 $lang['the username must be given'] = 'le nom d\'utilisateur doit être indiqué';
 $lang['useful when password forgotten'] = 'utile en cas d\'oubli de mot de passe';

@@ -265,7 +265,6 @@ $lang['Menu'] = 'Meni';
 $lang['A comment on your site'] = 'Komentar na vaši strani';
 $lang['today'] = 'danes';
 $lang['Update your rating'] = 'Popravi svojo oceno';
-$lang['wrong filename'] = 'napačno ime datoteke';
 $lang['the username must be given'] = 'potrebno je uporabniško ime';
 $lang['useful when password forgotten'] = 'uporabno, v primeru izgubljenega gesla';
 $lang['Quick search'] = 'Hitro iskanje';

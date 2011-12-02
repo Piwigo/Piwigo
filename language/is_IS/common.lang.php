@@ -286,7 +286,6 @@ $lang['Menu'] = 'Valmynd';
 $lang['A comment on your site'] = 'Athugasemd á síðuni þinni';
 $lang['today'] = 'í dag';
 $lang['Update your rating'] = 'uppfæra einkunn þína';
-$lang['wrong filename'] = 'vitlaust skáarnafn';
 $lang['the username must be given'] = 'notendanafnins er krafist';
 $lang['useful when password forgotten'] = 'gagnlegt ef lykilorð gleymist';
 $lang['Quick search'] = 'Hraðleit';

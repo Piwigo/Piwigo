@@ -283,7 +283,6 @@ $lang['Menu'] = 'Trình đơn';
 $lang['A comment on your site'] = 'Một lời bình trên trang của bạn';
 $lang['today'] = 'hôm nay';
 $lang['Update your rating'] = 'Cập nhật xếp hạng của bạn';
-$lang['wrong filename'] = 'Sai tên';
 $lang['the username must be given'] = 'Phải có tên của thành viên';
 $lang['useful when password forgotten'] = 'có ích khi bị mất mật khẩu';
 $lang['Quick search'] = 'Tìm kiếm nhanh';

@@ -287,7 +287,6 @@ $lang['Menu'] = 'Menü';
 $lang['A comment on your site'] = 'Komment az oldalon';
 $lang['today'] = 'Mai';
 $lang['Update your rating'] = 'Értékelés frissítése';
-$lang['wrong filename'] = 'Hibás a fájlnév';
 $lang['the username must be given'] = 'Felhasználói nevet meg kell adni';
 $lang['useful when password forgotten'] = 'hasznos, ha elfelejti a jelszavát';
 $lang['Quick search'] = 'Gyors-keresés';

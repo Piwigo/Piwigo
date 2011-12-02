@@ -282,7 +282,6 @@ $lang['Menu'] = "תפריט";
 $lang['A comment on your site'] = "תגובה באתר שלך";
 $lang['today'] = "היום";
 $lang['Update your rating'] = "עדכן את הדירוג שלך";
-$lang['wrong filename'] = "שם קובץ שגוי";
 $lang['the username must be given'] = "דרוש שם משתמש";
 $lang['useful when password forgotten'] = "שימושי במקרה ששכחת את הסיסמה";
 $lang['Quick search'] = "חיפוש מהיר";

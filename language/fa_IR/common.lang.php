@@ -281,7 +281,6 @@ $lang['Menu'] = "منو";
 $lang['A comment on your site'] = "یادداشتی روی سایت شما";
 $lang['today'] = "امروز";
 $lang['Update your rating'] = "بروزرسانی امتیاز";
-$lang['wrong filename'] = "نام‌فایل استباه است";
 $lang['the username must be given'] = "نام کاربری ضرور است";
 $lang['useful when password forgotten'] = "قابل استفاده برای گذرواژه فراموش شده";
 $lang['Quick search'] = "جستجوی سریع";

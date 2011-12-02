@@ -284,7 +284,6 @@ $lang['Menu'] = 'Меню';
 $lang['A comment on your site'] = 'Комментарий с вашего сайта';
 $lang['today'] = 'сегодня';
 $lang['Update your rating'] = 'Обновить оценку';
-$lang['wrong filename'] = 'неверное имя файла';
 $lang['the username must be given'] = 'должно присутствовать имя пользователя';
 $lang['useful when password forgotten'] = 'для восстановления потерянного пароля';
 $lang['Quick search'] = 'Быстрый поиск';

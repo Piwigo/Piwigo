@@ -286,7 +286,6 @@ $lang['Menu'] = 'Menu';
 $lang['A comment on your site'] = 'En kommentar på din side';
 $lang['today'] = 'i dag';
 $lang['Update your rating'] = 'Opdater din bedømmelse';
-$lang['wrong filename'] = 'forket filnavn';
 $lang['the username must be given'] = 'brugernavn skal være angivet';
 $lang['useful when password forgotten'] = 'nyttigt ved glemt password';
 $lang['Quick search'] = 'Hurtig søg';

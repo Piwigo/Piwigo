@@ -262,7 +262,6 @@ $lang['Powered by'] = 'พัฒนาโดย';
 $lang['Preferences'] = 'การตั้งค่า';
 $lang['today'] = 'วันนี้';
 $lang['Update your rating'] = 'อัพเดตคะแนนนิยม';
-$lang['wrong filename'] = 'ชื่อไฟล์ไม่ถูกต้อง';
 $lang['the username must be given'] = 'จำเป็นต้องกรอกชื่อผู้ใช้';
 $lang['useful when password forgotten'] = 'ใช้ในกรณีที่ลืมรหัสผ่าน';
 $lang['Quick search'] = 'ค้นหาแบบเร็ว';

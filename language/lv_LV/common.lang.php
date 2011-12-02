@@ -284,7 +284,6 @@ $lang['Menu'] = "Izvēlne";
 $lang['A comment on your site'] = "Komentārijs no jūsu vietnes";
 $lang['today'] = "špdien";
 $lang['Update your rating'] = "Atjaunojiet savu vērtējumu";
-$lang['wrong filename'] = "nepareizs faila vārds";
 $lang['the username must be given'] = "nepieciešams lietotāja vārds";
 $lang['useful when password forgotten'] = "derīgi, ja aizmirsta parole";
 $lang['Quick search'] = "Ātrā meklēšana";

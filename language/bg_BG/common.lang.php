@@ -115,7 +115,6 @@ $lang['Menu'] = 'Меню';
 $lang['A comment on your site'] = 'Коментар на Вашият сайт';
 $lang['today'] = 'днес';
 $lang['Update your rating'] = 'Обновете Вашето гласуване';
-$lang['wrong filename'] = 'грешено име на файла';
 $lang['the username must be given'] = 'потребителското име е задължително';
 $lang['useful when password forgotten'] = 'полезно в случай на забравена парола';
 $lang['Quick search'] = 'Бързо търсене';

@@ -284,7 +284,6 @@ $lang['Menu'] = 'Menú';
 $lang['A comment on your site'] = 'A comment on your site';
 $lang['today'] = 'avui';
 $lang['Update your rating'] = 'Actualitzeu les vostres valoracions';
-$lang['wrong filename'] = 'nom del fitxer erroni';
 $lang['Author'] = 'Autor';
 $lang['the username must be given'] = 's\'ha d\'indicar el nom d\'usuari';
 $lang['useful when password forgotten'] = 'útil quan s\'ha oblidat la contrasenya';

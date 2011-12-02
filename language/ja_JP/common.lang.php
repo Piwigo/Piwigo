@@ -283,7 +283,6 @@ $lang['Menu'] = 'メニュー';
 $lang['A comment on your site'] = 'あなたのサイトのコメント';
 $lang['today'] = '今日';
 $lang['Update your rating'] = 'あなたの評価を更新する';
-$lang['wrong filename'] = 'ファイル名が正しくありません。';
 $lang['the username must be given'] = 'ユーザ名を入力してください。';
 $lang['useful when password forgotten'] = 'パスワードを忘れたときに便利です。';
 $lang['Quick search'] = 'クイックサーチ';

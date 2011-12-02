@@ -324,7 +324,6 @@ $lang['Menu'] = 'Meny';
 $lang['A comment on your site'] = 'En kommentar på din side';
 $lang['today'] = 'i dag';
 $lang['Update your rating'] = 'Oppdater din rating';
-$lang['wrong filename'] = 'galt filnavn';
 $lang['the username must be given'] = 'brukernavn kreves';
 $lang['Album: %s'] = 'Album: %s';
 $lang['Album results for'] = 'Album results for';

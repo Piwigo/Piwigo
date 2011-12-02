@@ -283,7 +283,6 @@ $lang['Menu'] = 'មីនុយ​';
 $lang['A comment on your site'] = 'មតិ​មួយ​នៅ​លើ​ប្រព័ន្ធ​របស់​អ្នក​';
 $lang['today'] = 'ថ្ងៃ​នេះ';
 $lang['Update your rating'] = 'កែ​សំរួល​ជាថ្មី​លើ​ការ​វាយ​តម្លៃ​របស់​អ្នក​';
-$lang['wrong filename'] = 'ឈ្មោះ​ឯកសារ​ខុស​';
 $lang['the username must be given'] = 'ឈ្មោះ​សំរាប់​ប្រើ​ប្រាស់​ តម្រូវ​ឲ្យ​ដាក់​';
 $lang['useful when password forgotten'] = 'សំរាប់​ប្រើ​ក្នុង​ករណី​​ភ្លេច​អក្សរ​សម្ងាត់​';
 $lang['Quick search'] = 'ស្វែង​រក​រហ័ស​';

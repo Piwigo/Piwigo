@@ -289,7 +289,6 @@ $lang['Menu'] = 'Menú';
 $lang['A comment on your site'] = 'Hay un comentario en el sitio';
 $lang['today'] = 'hoy';
 $lang['Update your rating'] = 'Actualizar su calificación';
-$lang['wrong filename'] = 'nombre de carpeta incorrecto';
 $lang['the username must be given'] = 'falta el nombre de usuario';
 $lang['useful when password forgotten'] = 'útil en caso de contraseña olvidada';
 $lang['Quick search'] = 'Búsqueda rápida';

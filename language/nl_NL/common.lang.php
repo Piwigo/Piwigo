@@ -286,7 +286,6 @@ $lang['Menu'] = 'Menu';
 $lang['A comment on your site'] = 'Commentaar op uw site';
 $lang['today'] = 'vandaag';
 $lang['Update your rating'] = 'Werk uw waardering bij';
-$lang['wrong filename'] = 'verkeerde bestandsnaam';
 $lang['the username must be given'] = 'de gebruikersnaam moet ingevuld zijn';
 $lang['useful when password forgotten'] = 'handig indien u uw wachtwoord bent vergeten';
 $lang['Quick search'] = 'Snel zoeken';

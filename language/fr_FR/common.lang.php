@@ -356,7 +356,6 @@ $lang['Week %d'] = 'Semaine %d';
 $lang['Welcome to your Piwigo photo gallery!'] = 'Bienvenue sur votre galerie photo Piwigo !';
 $lang['Welcome'] = 'Bienvenue';
 $lang['wrong date'] = 'date erronée';
-$lang['wrong filename'] = 'mauvais nom de fichier';
 $lang['Yes'] = 'Oui';
 $lang['You are not authorized to access the requested page'] = 'Vous n\'êtes pas autorisé à accéder à la page demandée';
 $lang['You will receive a link to create a new password via email.'] = 'Par email, vous recevrez un lien à cliquer pour renouveler votre mot de passe.';

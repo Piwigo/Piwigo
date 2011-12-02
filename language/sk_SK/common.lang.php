@@ -290,7 +290,6 @@ $lang['Menu'] = 'Ďalšie funkcie';
 $lang['A comment on your site'] = 'Komentár v Vašim stránkam';
 $lang['today'] = 'dnes';
 $lang['Update your rating'] = 'Aktualizovať hodnotenie';
-$lang['wrong filename'] = 'chybný názov súboru';
 $lang['the username must be given'] = 'je nutné zadať používateľské meno';
 $lang['useful when password forgotten'] = 'užitočné pri zabudnutí hesla';
 $lang['Quick search'] = 'Rýchle hľadanie';

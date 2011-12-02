@@ -314,7 +314,6 @@ $lang['Menu'] = 'Меню';
 $lang['A comment on your site'] = 'Коментар на вашому сайті';
 $lang['today'] = 'сьогодні';
 $lang['Update your rating'] = 'Оновити вай рейтинг';
-$lang['wrong filename'] = "невірне ім'я файлу";
 $lang['the username must be given'] = "необхідно ім'я користувача";
 $lang['Album: %s'] = 'Альбом: %s';
 $lang['this email address is already in use'] = 'ця адреса електронної пошти вже використовується';

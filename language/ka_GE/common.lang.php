@@ -286,7 +286,6 @@ $lang['Menu'] = 'მენიუ';
 $lang['A comment on your site'] = 'კომენტარები თქვენი საიტიდან';
 $lang['today'] = 'დღეს';
 $lang['Update your rating'] = 'განვაახლოთ შეფასება';
-$lang['wrong filename'] = 'ფაილის არასწორი სახელი';
 $lang['Author'] = 'ავტორი';
 $lang['the username must be given'] = 'მომხმარებლის სახელი უნდა არსებობდეს';
 $lang['useful when password forgotten'] = 'დაკარგული პაროლის აღსადგენად';

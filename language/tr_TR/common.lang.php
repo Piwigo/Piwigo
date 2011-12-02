@@ -330,7 +330,6 @@ $lang['Interface theme'] = 'Arayüz Temaları';
 $lang['Menu'] = 'Menü';
 $lang['A comment on your site'] = 'sitenize yorum yapıldı';
 $lang['Update your rating'] = 'puanlamayı güncelle';
-$lang['wrong filename'] = 'yanlış dosya adı';
 $lang['the username must be given'] = 'kullanıcı adı gerekmektedir';
 $lang['today'] = 'bugün';
 $lang['Thumbnails'] = 'Küçük resimler';

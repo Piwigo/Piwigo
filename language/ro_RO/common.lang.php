@@ -274,7 +274,6 @@ $lang['Menu'] = 'Meniu';
 $lang['A comment on your site'] = 'Un comentariu pe site-ul dvs.';
 $lang['today'] = 'azi';
 $lang['Update your rating'] = 'Actualizaţi evaluarea dvs.';
-$lang['wrong filename'] = 'nume de fişier incorect';
 $lang['the username must be given'] = 'numele utilizatorului trebuie să fie specificat';
 $lang['useful when password forgotten'] = 'utilă în cazul în care uitaţi parola';
 $lang['Quick search'] = 'Căutare rapidă';

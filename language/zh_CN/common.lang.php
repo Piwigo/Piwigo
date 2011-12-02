@@ -284,7 +284,6 @@ $lang['A comment on your site'] = '网站评论';
 $lang['today'] = '今天';
 $lang['Rating score'] = '分数';
 $lang['Update your rating'] = '更改投票';
-$lang['wrong filename'] = '文件夹名不合法';
 $lang['the username must be given'] = '缺少用户名';
 $lang['useful when password forgotten'] = '忘记密码';
 $lang['Quick search'] = '快速搜索';

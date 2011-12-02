@@ -298,7 +298,6 @@ $lang['Menu'] = 'Систем';
 $lang['A comment on your site'] = 'Коментар на твојата страна';
 $lang['today'] = 'денес';
 $lang['Update your rating'] = 'Обнови ја твојата оценка';
-$lang['wrong filename'] = 'погрешно име на датотека';
 $lang['the username must be given'] = 'корисничкото име мора да биде наведено';
 $lang['useful when password forgotten'] = 'Внесете постоечка и валидна e-mail адреса';
 $lang['Quick search'] = 'Брзо пребарување';
