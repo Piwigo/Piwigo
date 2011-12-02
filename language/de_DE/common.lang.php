@@ -352,12 +352,11 @@ $lang['The number of photos per page must be a not null scalar'] = ' Die Anzahl 
 $lang['Number of photos per page'] = 'Anzahl der Fotos pro Seite';
 $lang['%d rates'] = '%d Bewertungen';
 $lang['Rating score'] = 'Bewertungs-Stand';
-
 $lang['Change my password'] = 'Mein Passwort ändern';
 $lang['Check your email for the confirmation link'] = 'Prüfe dein E-Mail Postfach auf die E-Mail mit  Bestätigungs-Link';
 $lang['Enter a username or email address'] = 'Benutzername oder E-Mail eingeben';
 $lang['Enter your new password below.'] = 'Neues Passwort unten eingeben';
-$lang['EXIF Metadata'] = 'EXIT Metadaten';
+$lang['EXIF Metadata'] = 'EXIF Metadaten';
 $lang['If this was a mistake, just ignore this email and nothing will happen.'] = 'Wenn das nicht beabsichtigt war, ignoriere diese E-Mail';
 $lang['Invalid key'] = 'Ungültiger Schlüsssel';
 $lang['Invalid username or email'] = 'Falscher Benutzername oder E-Mail';
