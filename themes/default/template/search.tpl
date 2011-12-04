@@ -51,7 +51,7 @@
       <input type="radio" name="mode" value="AND" checked="checked">{'Search for all terms'|@translate}
     </label></li>
     <li><label>
-      <input type="radio" name="mode" value="OR">{'Search for any terms'|@translate}
+      <input type="radio" name="mode" value="OR">{'Search for any term'|@translate}
     </label></li>
   </ul>
   <label>{'Search for Author'|@translate}
@@ -69,7 +69,7 @@
 {/if}
 
 <fieldset>
-  <legend>{'Search by Date'|@translate}</legend>
+  <legend>{'Search by date'|@translate}</legend>
   <ul>
     <li><label>{'Kind of date'|@translate}</label></li>
     <li><label>
@@ -120,8 +120,8 @@
 </fieldset>
 
 <fieldset>
-  <legend>{'Search Options'|@translate}</legend>
-  <label>{'Search in albums'|@translate}
+  <legend>{'Search in albums'|@translate}</legend>
+  <label>{'Albums'|@translate}
     <select class="categoryList" name="cat[]" multiple="multiple" >
       {html_options options=$category_options selected=$category_options_selected}
     </select>

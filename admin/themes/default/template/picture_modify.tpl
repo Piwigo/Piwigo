@@ -33,7 +33,7 @@ pwg_initialization_datepicker("#date_creation_day", "#date_creation_month", "#da
   <li><a href="{$U_JUMPTO}" title="{'jump to photo'|@translate}"><img src="{$themeconf.admin_icon_dir}/category_jump-to.png" alt="{'jump to photo'|@translate}"></a></li>
   {/if}
   {if !url_is_remote($PATH)}
-  <li><a href="{$U_SYNC}" title="{'synchronize'|@translate}"><img src="{$themeconf.admin_icon_dir}/sync_metadata.png" alt="{'synchronize'|@translate}"></a></li>
+  <li><a href="{$U_SYNC}" title="{'Synchronize'|@translate}"><img src="{$themeconf.admin_icon_dir}/sync_metadata.png" alt="{'Synchronize'|@translate}"></a></li>
 
   <li><a href="{$U_DELETE}" title="{'delete photo'|@translate}"><img src="{$ROOT_URL}{$themeconf.admin_icon_dir}/category_delete.png" alt="{'delete photo'|@translate}" onclick="return confirm('{'Are you sure?'|@translate|@escape:javascript}');"></a></li>
   {/if}

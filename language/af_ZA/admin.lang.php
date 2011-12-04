@@ -30,7 +30,6 @@ $lang['ACCESS_2'] = 'Toegang aan geregistreerde gebruikers';
 $lang['ACCESS_3'] = 'Toegang aan administrateurs';
 $lang['ACCESS_4'] = 'Toegang aan webmeesters';
 $lang['ACCESS_5'] = 'Geen toegang';
-
 $lang[' and %d virtual'] = 'en %d virtuele';
 $lang['%d album including'] = '%d album ingesluit';
 $lang['%d album moved'] = '%d album geskuif';
@@ -130,7 +129,6 @@ $lang['GD version'] = 'GD weergawe';
 $lang['General statistics'] = 'Algemene statistiek';
 $lang['Get Support on Piwigo Forum'] = 'Kry hulp op die Piwigo Forum';
 $lang['Go to'] = 'Gaan na';
-$lang['group'] = 'Groep';
 $lang['Group name'] = 'Groep naam';
 $lang['Groups'] = 'Groepe';
 $lang['guest'] = 'gas';

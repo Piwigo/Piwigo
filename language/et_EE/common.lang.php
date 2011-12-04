@@ -32,7 +32,7 @@ $lang_info['language_name'] = "Estonian";
 $lang_info['country'] = "Estonia";
 $lang_info['direction'] = "ltr";
 $lang_info['code'] = "et";
-$lang_info['zero_plural'] = "1";
+$lang_info['zero_plural'] = true;
 
 $lang['%d album updated'] = '%d album uuendatud';
 $lang['%d albums updated'] = '%d albumit uuendatud';
@@ -52,7 +52,6 @@ $lang['About'] = 'About';
 $lang['All tags'] = 'Kõik sildid';
 $lang['Any tag'] = 'Mistahes silt';
 $lang['At least one listed rule must be satisfied.'] = 'Vähemalt üks loetletud reeglitest peab olema rahuldatud.';
-$lang['At least one tag must match'] = 'Vähemalt üks silt peab sobima';
 $lang['Author'] = 'Autor';
 $lang['Average rate'] = 'Keskmine hinne';
 $lang['Albums'] = 'Albumid';

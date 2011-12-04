@@ -31,9 +31,7 @@ $lang['total upgrade time'] = "temps total d'actualització";
 $lang['total SQL time'] = "temps total SQL ";
 $lang['SQL queries'] = "consultes SQL";
 $lang['Upgrade informations'] = "Informació de l'actualització";
-
 $lang['Perform a maintenance check in [Administration>Tools>Maintenance] if you encounter any problem.'] = "Si trobeu algun problema realitzeu una revisió de manteniment [Administració>Eines>Manteniment].";
-
 $lang['As a precaution, following plugins have been deactivated. You must check for plugins upgrade before reactiving them:'] = "Com a precaució, els següents connectors s'han desactivat. Haureu de revisar les actualitzacions dels connectors abans de reactivar-los:";
 $lang['Only administrator can run upgrade: please sign in below.'] = "Únicament un usuari administrador pot executar l'actualització: si us plau, inicieu la sessió a sota.";
 $lang['You do not have access rights to run upgrade'] = "No teniu drets d'accés per executar l'actualització";

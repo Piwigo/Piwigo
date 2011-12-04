@@ -26,7 +26,7 @@
 </form>
 {/if}
 {if isset($local_listing.U_SYNCHRONIZE)}
-&nbsp;<a href="{$local_listing.U_SYNCHRONIZE}" title="{'read local listing.xml and update'|@translate}">{'synchronize'|@translate}</a>
+&nbsp;<a href="{$local_listing.U_SYNCHRONIZE}" title="{'read local listing.xml and update'|@translate}">{'Synchronize'|@translate}</a>
 <br><br>
 {/if}
 {/if}
@@ -41,7 +41,7 @@
   <tr style="text-align:left" class="{if $smarty.foreach.site.index is odd}row1{else}row2{/if}"><td>
     <a href="{$site.NAME}">{$site.NAME}</a><br>({$site.TYPE}, {$site.CATEGORIES} {'Albums'|@translate}, {$pwg->l10n_dec('%d photo','%d photos',$site.IMAGES)})
   </td><td>
-    [<a href="{$site.U_SYNCHRONIZE}" title="{'update the database from files'|@translate}">{'synchronize'|@translate}</a>]
+    [<a href="{$site.U_SYNCHRONIZE}" title="{'update the database from files'|@translate}">{'Synchronize'|@translate}</a>]
     {if isset($site.U_DELETE)}
       [<a href="{$site.U_DELETE}" onclick="return confirm('{'Are you sure?'|@translate|escape:'javascript'}');"
                 title="{'delete this site and all its attached elements'|@translate}">{'delete'|@translate}</a>]

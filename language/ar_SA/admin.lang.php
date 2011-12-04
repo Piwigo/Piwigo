@@ -56,7 +56,6 @@ $lang['Add'] = 'أضف';
 $lang['Allow user registration'] = 'السماح للمستخدمين بالتسجيل';
 $lang['Apply to sub-albums'] = 'التطبيق على الألبوم الفرعي';
 $lang['Associated'] = 'مرتبط';
-$lang['Batch management'] = 'ادارة التحويل';
 $lang['Caddie management'] = 'ادارة السلة';
 $lang['Caddie'] = 'السلة';
 $lang['Albums authorized thanks to group associations'] = 'تم المصادقة عى الألبومات ، شكرا لله';
@@ -189,7 +188,6 @@ $lang['Manage authorizations for selected albums'] = 'ادارة  تصريح ا�
 $lang['Virtual album added'] = 'الألبوم المضاف';
 $lang['Virtual album deleted'] = 'الألبوم المحذوف';
 $lang['Access type'] = 'طريقة الدخول';
-$lang['Comments'] = 'التعليقات';
 $lang['Information data registered in database'] = '     تم تحديث المعرض بنجاح  ';
 $lang['Default display'] = 'العرض الافتراضي';
 $lang['History'] = 'السجل';
@@ -212,7 +210,6 @@ $lang['global mode'] = 'النمط الشائع';
 $lang['group "%s" added'] = 'المجموعه  "%s"  أضيفت';
 $lang['group "%s" deleted'] = 'المجموعه  "%s"  جذفت';
 $lang['group "%s" updated'] = 'المجموعه  "%s"  تم تحميلها';
-$lang['group'] = 'المجموعة';
 $lang['The name of a group must not contain " or \' or be empty.'] = 'لا تستخدم الترقيم "/" و لا تترك اسم المجموع فارغ';
 $lang['This name is already used by another group.'] = 'هذا الاسم مستخدم من قبل مجموعه أ×خرى.';
 $lang['High definition'] = 'ابعاد الارتفاع';
@@ -327,12 +324,11 @@ $lang['an error happened'] = 'هناك خطأ ما';
 $lang['file create_listing_file.php on remote site was not found'] = 'لم يتم العثور على الملف create_listing_file.php  على الموقع البعيد';
 $lang['Local'] = 'محلي';
 $lang['Remote'] = 'البعيد';
-$lang['synchronize'] = 'التزامن';
 $lang['update the database from files'] = 'تحديث قاعدة البيانات من الملف';
 $lang['status'] = 'الحالة';
 $lang['Directory'] = 'الدليل';
 $lang['sub-albums'] = 'الألبوم الفرعي';
-$lang['synchronize metadata'] = 'مزامنة البيانات الوصفية';
+$lang['Synchronize metadata'] = 'مزامنة البيانات الوصفية';
 $lang['target'] = 'الهـدف';
 $lang['Thumbnail'] = 'المــصغرة';
 $lang['title'] = 'العنوان';
@@ -735,7 +731,7 @@ $lang['remove this filter'] = 'ازل هذه المرشح';
 $lang['predefined filter'] = 'مُرشح مُسبق';
 $lang['last import'] = 'آخر استيراد';
 $lang['with no virtual album'] = 'مع عدم وجود ألبوم ظاهري';
-$lang['duplicates'] = 'المكرر';
+$lang['Duplicates'] = 'المكرر';
 $lang['Add a filter'] = 'أضف مُـرشح';
 $lang['Remove all filters'] = 'احذف جميع المُرشحات';
 $lang['Refresh photo set'] = 'حدث مجموعة الصور';
@@ -803,8 +799,6 @@ $lang['Dump Database'] = 'تفريغ قاعدة البيانات';
 $lang['Save Template Directory'] = 'حفظ نماذج الدليل';
 $lang['Some themes and plugins may be not available yet.'] = 'بعض الواجهات مع بعض الإضافات قد لا يمكن تشغليها في الوقت الحالي';
 $lang['Include history data (Warning: server memory limit may be exceeded)'] = 'تضمين تاريخ البيانات (تنبيه:يجب توسيع ذاكرة الخادم)ـ';
-$lang['Unable to write new local directory.'] = 'غير قادر على الكتابة  في الدليل المحلي الجديد.';
-$lang['Unable to send template directory.'] = '.غير قادر على ارسال نماذج الدليل';
 $lang['Unable to dump database.'] = 'غير قادرعلى تفريق قاعدة البيانات.';
 $lang['Some upgrades are available for extensions.'] = 'تتوفر بعض الترقية للاضافات';
 $lang['Height'] = 'الارتفاع';

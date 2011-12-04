@@ -32,7 +32,7 @@ $lang_info['language_name'] = "Dhivehi";
 $lang_info['country'] = "Maldives";
 $lang_info['direction'] = "rtl";
 $lang_info['code'] = "dv";
-$lang_info['zero_plural'] = "0";
+$lang_info['zero_plural'] = false;
 
 $lang['%d album updated'] = '%d އަލްބަމް އާކުރެވިފަ';
 $lang['%d albums updated'] = '%d އަލްބަމްތައް އާކުރެވިފަ';
@@ -52,7 +52,6 @@ $lang['About'] = 'އާއި ބެހޭ';
 $lang['All tags'] = 'ހުރިހާ ޓެގުތައް';
 $lang['Any tag'] = 'އެއްވެސް ޓެގެއް';
 $lang['At least one listed rule must be satisfied.'] = '.އެންމެ މަދުވެގެން ބަޔާންކުރެވިފައިވާ އެއް ގަވާއިދާ އެއްގޮތްވާންވާނެ';
-$lang['At least one tag must match'] = 'އެންމެ މަދުވެގެން އެއް ޓެގު ދިމާވާން ވާނެ';
 $lang['Author'] = 'ޝާއިރު';
 $lang['Average rate'] = 'އެވެރެޖް ރޭޓް';
 $lang['Albums'] = 'އަލްބަމްތައް';
