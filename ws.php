@@ -507,28 +507,12 @@ add_event_handler('ws_add_methods', 'ws_addDefaultMethods');
 
 add_event_handler('ws_invoke_allowed', 'ws_isInvokeAllowed', EVENT_HANDLER_PRIORITY_NEUTRAL, 3);
 
-$requestFormat = null;
+$requestFormat = 'rest';
 $responseFormat = null;
 
 if ( isset($_GET['format']) )
 {
   $responseFormat = $_GET['format'];
-}
-
-if ( isset($HTTP_RAW_POST_DATA) )
-{
-  $HTTP_RAW_POST_DATA = trim($HTTP_RAW_POST_DATA);
-  if ( strncmp($HTTP_RAW_POST_DATA, '<?xml', 5) == 0 )
-  {
-  }
-  else
-  {
-    $requestFormat = "json";
-  }
-}
-else
-{
-  $requestFormat = "rest";
 }
 
 if ( !isset($responseFormat) and isset($requestFormat) )
