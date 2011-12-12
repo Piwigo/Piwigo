@@ -120,7 +120,6 @@ $lang['Webmaster'] = "Webmasters";
 $lang['Week %d'] = "Nedēļa %d";
 $lang['About Piwigo'] = "Par Piwigo";
 $lang['You are not authorized to access the requested page'] = "Jūs neēsat autorizējies, lai piekļūtu šai lapai";
-$lang['Add to caddie'] = "pievienot caddie";
 $lang['add this photo to your favorites'] = 'pievienot šo foto pie jūsu favorītiem';
 $lang['Administration'] = "Administrēšana";
 $lang['all'] = "visi";
@@ -362,4 +361,5 @@ $lang['Change my password'] = 'Nomainīt manu paroli';
 $lang['Enter your new password below.'] = 'Ievadiet savu jauno paroli zemāk.';
 $lang['EXIF Metadata'] = 'EXIF Metadati';
 $lang['IPTC Metadata'] = 'IPTC Metadati';
+$lang['Edit'] = 'Rediģēt';
 ?>
