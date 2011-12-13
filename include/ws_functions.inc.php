@@ -1654,46 +1654,90 @@ SELECT
     return new PwgError(500, 'file already exists');
   }
 
-  // current date
-  list($dbnow) = pwg_db_fetch_row(pwg_query('SELECT NOW();'));
-  list($year, $month, $day) = preg_split('/[^\d]/', $dbnow, 4);
-
-  // upload directory hierarchy
-  $upload_dir = sprintf(
-    $conf['upload_dir'].'/%s/%s/%s',
-    $year,
-    $month,
-    $day
-    );
-
-  // compute file path
-  $date_string = preg_replace('/[^\d]/', '', $dbnow);
-  $random_string = substr($params['file_sum'], 0, 8);
-  $filename_wo_ext = $date_string.'-'.$random_string;
-  $file_path = $upload_dir.'/'.$filename_wo_ext.'.jpg';
-
-  // add files
-  $file_infos  = add_file($file_path, 'file',  $params['original_sum'], $params['file_sum']);
-  $thumb_infos = add_file($file_path, 'thumb', $params['original_sum'], $params['thumbnail_sum']);
-
-  if (isset($params['high_sum']))
+  if ($params['resize'])
   {
-    $high_infos = add_file($file_path, 'high', $params['original_sum'], $params['high_sum']);
-  }
+    ws_logfile('[pwg.images.add] resize activated');
+    
+    // temporary file path
+    $type = 'file';
+    $file_path = $conf['upload_dir'].'/buffer/'.$params['original_sum'].'-'.$type;
+    
+    merge_chunks($file_path, $params['original_sum'], $type);
+    chmod($file_path, 0644);
 
-  // database registration
-  $insert = array(
-    'file' => !empty($params['original_filename']) ? $params['original_filename'] : $filename_wo_ext.'.jpg',
-    'date_available' => $dbnow,
-    'tn_ext' => 'jpg',
-    'name' => $params['name'],
-    'path' => $file_path,
-    'filesize' => $file_infos['filesize'],
-    'width' => $file_infos['width'],
-    'height' => $file_infos['height'],
-    'md5sum' => $params['original_sum'],
-    'added_by' => $user['id'],
-    );
+    include_once(PHPWG_ROOT_PATH.'admin/include/functions_upload.inc.php');
+    
+    $image_id = add_uploaded_file(
+      $file_path,
+      $params['original_filename']
+      );
+
+    // add_uploaded_file doesn't remove the original file in the buffer
+    // directory if it was not uploaded as $_FILES
+    unlink($file_path);
+  }
+  else
+  {
+    // current date
+    list($dbnow) = pwg_db_fetch_row(pwg_query('SELECT NOW();'));
+    list($year, $month, $day) = preg_split('/[^\d]/', $dbnow, 4);
+
+    // upload directory hierarchy
+    $upload_dir = sprintf(
+      $conf['upload_dir'].'/%s/%s/%s',
+      $year,
+      $month,
+      $day
+      );
+
+    // compute file path
+    $date_string = preg_replace('/[^\d]/', '', $dbnow);
+    $random_string = substr($params['file_sum'], 0, 8);
+    $filename_wo_ext = $date_string.'-'.$random_string;
+    $file_path = $upload_dir.'/'.$filename_wo_ext.'.jpg';
+    
+    // add files
+    $file_infos  = add_file($file_path, 'file',  $params['original_sum'], $params['file_sum']);
+    $thumb_infos = add_file($file_path, 'thumb', $params['original_sum'], $params['thumbnail_sum']);
+    
+    if (isset($params['high_sum']))
+    {
+      $high_infos = add_file($file_path, 'high', $params['original_sum'], $params['high_sum']);
+    }
+
+    // database registration
+    $insert = array(
+      'file' => !empty($params['original_filename']) ? $params['original_filename'] : $filename_wo_ext.'.jpg',
+      'date_available' => $dbnow,
+      'tn_ext' => 'jpg',
+      'name' => $params['name'],
+      'path' => $file_path,
+      'filesize' => $file_infos['filesize'],
+      'width' => $file_infos['width'],
+      'height' => $file_infos['height'],
+      'md5sum' => $params['original_sum'],
+      'added_by' => $user['id'],
+      );
+
+    if (isset($params['high_sum']))
+    {
+      $insert['has_high'] = 'true';
+      $insert['high_filesize'] = $high_infos['filesize'];
+      $insert['high_width'] = $high_infos['width'];
+      $insert['high_height'] = $high_infos['height'];
+    }
+
+    single_insert(
+      IMAGES_TABLE,
+      $insert
+      );
+
+    $image_id = pwg_db_insert_id(IMAGES_TABLE);
+
+    // update metadata from the uploaded file (exif/iptc)
+    require_once(PHPWG_ROOT_PATH.'admin/include/functions_metadata.php');
+    update_metadata(array($image_id=>$file_path));
+  }
 
   $info_columns = array(
     'name',
@@ -1707,26 +1751,18 @@ SELECT
   {
     if (isset($params[$key]))
     {
-      $insert[$key] = $params[$key];
+      $update[$key] = $params[$key];
     }
   }
-
-  if (isset($params['high_sum']))
+  
+  if (count(array_keys($update)) > 0)
   {
-    $insert['has_high'] = 'true';
-    $insert['high_filesize'] = $high_infos['filesize'];
-    $insert['high_width'] = $high_infos['width'];
-    $insert['high_height'] = $high_infos['height'];
+    single_update(
+      IMAGES_TABLE,
+      $update,
+      array('id' => $image_id)
+      );
   }
-
-  include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
-  mass_inserts(
-    IMAGES_TABLE,
-    array_keys($insert),
-    array($insert)
-    );
-
-  $image_id = pwg_db_insert_id(IMAGES_TABLE);
 
   // let's add links between the image and the categories
   if (isset($params['categories']))
@@ -1742,10 +1778,6 @@ SELECT
       $image_id
       );
   }
-
-  // update metadata from the uploaded file (exif/iptc)
-  require_once(PHPWG_ROOT_PATH.'admin/include/functions_metadata.php');
-  update_metadata(array($image_id=>$file_path));
 
   invalidate_user_cache();
 }
