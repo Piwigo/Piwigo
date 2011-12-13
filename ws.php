@@ -241,6 +241,7 @@ function ws_addDefaultMethods( $arr )
         'maxValue' => $conf['available_permission_levels']
         ),
       'resize' => array('default' => false),
+      'check_uniqueness' => array('default' => true),
       ),
     'POST method only.
 <br><b>categories</b> is a string list "category_id[,rank];category_id[,rank]" The rank is optional and is equivalent to "auto" if not given.'
