@@ -1634,24 +1634,27 @@ function ws_images_add($params, &$service)
   }
 
   // does the image already exists ?
-  if ('md5sum' == $conf['uniqueness_mode'])
+  if ($params['check_uniqueness'])
   {
-    $where_clause = "md5sum = '".$params['original_sum']."'";
-  }
-  if ('filename' == $conf['uniqueness_mode'])
-  {
-    $where_clause = "file = '".$params['original_filename']."'";
-  }
+    if ('md5sum' == $conf['uniqueness_mode'])
+    {
+      $where_clause = "md5sum = '".$params['original_sum']."'";
+    }
+    if ('filename' == $conf['uniqueness_mode'])
+    {
+      $where_clause = "file = '".$params['original_filename']."'";
+    }
 
-  $query = '
+    $query = '
 SELECT
     COUNT(*) AS counter
   FROM '.IMAGES_TABLE.'
   WHERE '.$where_clause.'
 ;';
-  list($counter) = pwg_db_fetch_row(pwg_query($query));
-  if ($counter != 0) {
-    return new PwgError(500, 'file already exists');
+    list($counter) = pwg_db_fetch_row(pwg_query($query));
+    if ($counter != 0) {
+      return new PwgError(500, 'file already exists');
+    }
   }
 
   if ($params['resize'])
