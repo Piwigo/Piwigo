@@ -2445,6 +2445,7 @@ SELECT *
   $update = array();
 
   $info_columns = array(
+    'file',
     'name',
     'author',
     'comment',

@@ -376,6 +376,7 @@ function ws_addDefaultMethods( $arr )
     array(
       'image_id' => array(),
 
+      'file' => array('default' => null),
       'name' => array('default' => null),
       'author' => array('default' => null),
       'date_creation' => array('default' => null),
