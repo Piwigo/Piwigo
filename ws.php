@@ -226,7 +226,7 @@ function ws_addDefaultMethods( $arr )
     'ws_images_add',
     array(
       'file_sum' => array(),
-      'thumbnail_sum' => array(),
+      'thumbnail_sum' => array('default' => null),
       'high_sum' => array('default' => null),
       'original_sum' => array(),
       'original_filename' => array('default' => null),
@@ -240,6 +240,7 @@ function ws_addDefaultMethods( $arr )
         'default' => 0,
         'maxValue' => $conf['available_permission_levels']
         ),
+      'resize' => array('default' => false),
       ),
     'POST method only.
 <br><b>categories</b> is a string list "category_id[,rank];category_id[,rank]" The rank is optional and is equivalent to "auto" if not given.'
