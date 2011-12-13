@@ -1664,6 +1664,8 @@ SELECT
     
     merge_chunks($file_path, $params['original_sum'], $type);
     chmod($file_path, 0644);
+
+    include_once(PHPWG_ROOT_PATH.'admin/include/functions_upload.inc.php');
     
     $image_id = add_uploaded_file(
       $file_path,
