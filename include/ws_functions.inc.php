@@ -1785,10 +1785,27 @@ SELECT
     update_metadata(array($image_id=>$file_path));
   }
 
+  $url_params = array('image_id' => $image_id);
+  
   // let's add links between the image and the categories
   if (isset($params['categories']))
   {
     ws_add_image_category_relations($image_id, $params['categories']);
+
+    if (preg_match('/^\d+/', $params['categories'], $matches)) {
+      $category_id = $matches[0];
+    
+      $query = '
+SELECT id, name, permalink
+  FROM '.CATEGORIES_TABLE.'
+  WHERE id = '.$category_id.'
+;';
+      $result = pwg_query($query);
+      $category = pwg_db_fetch_assoc($result);
+      
+      $url_params['section'] = 'categories';
+      $url_params['category'] = $category;
+    }
   }
 
   // and now, let's create tag associations
@@ -1801,6 +1818,11 @@ SELECT
   }
 
   invalidate_user_cache();
+
+  return array(
+    'image_id' => $image_id,
+    'url' => make_picture_url($url_params),
+    );
 }
 
 function ws_images_addSimple($params, &$service)
