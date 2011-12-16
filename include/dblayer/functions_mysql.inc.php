@@ -416,8 +416,14 @@ UPDATE '.$tablename.'
  * @param array inserts
  * @return void
  */
-function mass_inserts($table_name, $dbfields, $datas)
+function mass_inserts($table_name, $dbfields, $datas, $options=array())
 {
+  $ignore = '';
+  if (isset($options['ignore']) and $options['ignore'])
+  {
+    $ignore = 'IGNORE';
+  }
+  
   if (count($datas) != 0)
   {
     $first = true;
@@ -438,7 +444,7 @@ function mass_inserts($table_name, $dbfields, $datas)
       if ($first)
       {
         $query = '
-INSERT INTO '.$table_name.'
+INSERT '.$ignore.' INTO '.$table_name.'
   ('.implode(',', $dbfields).')
   VALUES';
         $first = false;

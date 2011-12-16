@@ -446,6 +446,9 @@ DELETE FROM '.USER_CACHE_CATEGORIES_TABLE.'
   WHERE user_id = '.$userdata['id'];
       pwg_query($query);
 
+      // Due to concurrency issues, we ask MySQL to ignore errors on
+      // insert. This may happen when cache needs refresh and that Piwigo is
+      // called "very simultaneously".
       mass_inserts
       (
         USER_CACHE_CATEGORIES_TABLE,
@@ -454,7 +457,8 @@ DELETE FROM '.USER_CACHE_CATEGORIES_TABLE.'
           'user_id', 'cat_id',
           'date_last', 'max_date_last', 'nb_images', 'count_images', 'count_categories'
         ),
-        $user_cache_cats
+        $user_cache_cats,
+        array('ignore' => true)
       );
 
 
@@ -464,8 +468,10 @@ DELETE FROM '.USER_CACHE_TABLE.'
   WHERE user_id = '.$userdata['id'];
       pwg_query($query);
 
+      // for the same reason as user_cache_categories, we ignore error on
+      // this insert
       $query = '
-INSERT INTO '.USER_CACHE_TABLE.'
+INSERT IGNORE INTO '.USER_CACHE_TABLE.'
   (user_id, need_update, cache_update_time, forbidden_categories, nb_total_images,
     image_access_type, image_access_list)
   VALUES

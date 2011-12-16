@@ -42,12 +42,6 @@ foreach ($upload_form_config as $param_shortname => $param)
   $form_values[$param_shortname] = $conf[$param_name];
 }
 
-// User cache must not be regenerated during simultaneous ajax requests
-if (!isset($user['need_update']) or !$user['need_update'])
-{
-  getuserdata($user['id'], true);
-}
-
 // +-----------------------------------------------------------------------+
 // | Check Access and exit when user status is not ok                      |
 // +-----------------------------------------------------------------------+
