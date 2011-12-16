@@ -2427,7 +2427,6 @@ SELECT *
   $update = array();
 
   $info_columns = array(
-    'file',
     'name',
     'author',
     'comment',
@@ -2461,6 +2460,17 @@ SELECT *
         exit();
       }
     }
+  }
+
+  if (isset($params['file']))
+  {
+    if (!empty($image_row['storage_category_id']))
+    {
+      new PwgError(500, '[ws_images_setInfo] updating "file" is forbidden on photos added by synchronization');
+      exit();
+    }
+
+    $update['file'] = $params['file'];
   }
 
   if (count(array_keys($update)) > 0)
