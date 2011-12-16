@@ -121,7 +121,6 @@ $lang['Webmaster'] = 'Webbeheerder';
 $lang['Week %d'] = 'Week %d';
 $lang['About Piwigo'] = 'Over Piwigo';
 $lang['You are not authorized to access the requested page'] = 'U heeft geen rechten tot de opgevraagde pagina';
-$lang['Add to caddie'] = 'Toevoegen aan winkelmandje';
 $lang['add this photo to your favorites'] = 'Voeg deze afbeelding toe aan uw favorieten';
 $lang['Administration'] = 'Beheer';
 $lang['all'] = 'alle';
@@ -363,5 +362,6 @@ $lang['Change my password'] = 'Vernieuw mijn paswoord';
 $lang['Enter your new password below.'] = 'Voer hieronder je nieuwe paswoord in.';
 $lang['EXIF Metadata'] = 'EXIF Metagegevens';
 $lang['IPTC Metadata'] = 'IPTC Metagegevens';
+$lang['Edit'] = 'Bewerk';
 
 ?>
