@@ -634,17 +634,20 @@ function get_enums($table, $field)
   return $options;
 }
 
-// get_boolean transforms a string to a boolean value. If the string is
-// "false" (case insensitive), then the boolean value false is returned. In
-// any other case, true is returned.
-function get_boolean( $string )
+/**
+ * Smartly checks if a variable is equivalent to true or false
+ *
+ * @param mixed input
+ * @return bool
+ */
+function get_boolean($input)
 {
-  $boolean = true;
-  if ( 'false' == strtolower($string) )
+  if ('false' === strtolower($input))
   {
-    $boolean = false;
+    return false;
   }
-  return $boolean;
+
+  return (bool)$input;
 }
 
 /**
