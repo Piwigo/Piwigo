@@ -97,42 +97,12 @@ class pwg_image
     $source_width  = $this->image->get_width();
     $source_height = $this->image->get_height();
 
-    // Crop image
-    if ($crop)
-    {
-      $x = 0;
-      $y = 0;
-
-      if ($source_width < $source_height and $follow_orientation)
-      {
-        list($max_width, $max_height) = array($max_height, $max_width);
-      }
-
-      $img_ratio = $source_width / $source_height;
-      $dest_ratio = $max_width / $max_height;
-
-      if($dest_ratio > $img_ratio)
-      {
-        $destHeight = round($source_width * $max_height / $max_width);
-        $y = round(($source_height - $destHeight) / 2 );
-        $source_height = $destHeight;
-      }
-      elseif ($dest_ratio < $img_ratio)
-      {
-        $destWidth = round($source_height * $max_width / $max_height);
-        $x = round(($source_width - $destWidth) / 2 );
-        $source_width = $destWidth;
-      }
-
-      $this->image->crop($source_width, $source_height, $x, $y);
-    }
-
     $rotation = null;
     if ($automatic_rotation)
     {
       $rotation = self::get_rotation_angle($this->source_filepath);
     }
-    $resize_dimensions = self::get_resize_dimensions($source_width, $source_height, $max_width, $max_height, $rotation);
+    $resize_dimensions = self::get_resize_dimensions($source_width, $source_height, $max_width, $max_height, $rotation, $crop, $follow_orientation);
 
     // testing on height is useless in theory: if width is unchanged, there
     // should be no resize, because width/height ratio is not modified.
@@ -150,6 +120,11 @@ class pwg_image
       // we save a few kilobytes. For example a thumbnail with metadata weights 25KB, without metadata 7KB.
       $this->image->strip();
     }
+
+    if (isset($resize_dimensions['crop']))
+    {
+      $this->image->crop($resize_dimensions['crop']['width'], $resize_dimensions['crop']['height'], $resize_dimensions['crop']['x'], $resize_dimensions['crop']['y']);
+    }
     
     $this->image->resize($resize_dimensions['width'], $resize_dimensions['height']);
 
@@ -164,7 +139,7 @@ class pwg_image
     return $this->get_resize_result($destination_filepath, $resize_dimensions['width'], $resize_dimensions['height'], $starttime);
   }
 
-  static function get_resize_dimensions($width, $height, $max_width, $max_height, $rotation=null)
+  static function get_resize_dimensions($width, $height, $max_width, $max_height, $rotation=null, $crop=false, $follow_orientation=true)
   {
     $rotate_for_dimensions = false;
     if (isset($rotation) and in_array(abs($rotation), array(90, 270)))
@@ -175,6 +150,33 @@ class pwg_image
     if ($rotate_for_dimensions)
     {
       list($width, $height) = array($height, $width);
+    }
+
+    if ($crop)
+    {
+      $x = 0;
+      $y = 0;
+
+      if ($width < $height and $follow_orientation)
+      {
+        list($max_width, $max_height) = array($max_height, $max_width);
+      }
+
+      $img_ratio = $width / $height;
+      $dest_ratio = $max_width / $max_height;
+
+      if($dest_ratio > $img_ratio)
+      {
+        $destHeight = round($width * $max_height / $max_width);
+        $y = round(($height - $destHeight) / 2 );
+        $height = $destHeight;
+      }
+      elseif ($dest_ratio < $img_ratio)
+      {
+        $destWidth = round($height * $max_width / $max_height);
+        $x = round(($width - $destWidth) / 2 );
+        $width = $destWidth;
+      }
     }
     
     $ratio_width  = $width / $max_width;
@@ -202,10 +204,21 @@ class pwg_image
       list($destination_width, $destination_height) = array($destination_height, $destination_width);
     }
 
-    return array(
+    $result = array(
       'width' => $destination_width,
       'height'=> $destination_height,
       );
+
+    if ($crop and ($x or $y))
+    {
+      $result['crop'] = array(
+        'width' => $width,
+        'height' => $height,
+        'x' => $x,
+        'y' => $y,
+        );
+    }
+    return $result;
   }
 
   static function get_rotation_angle($source_filepath)
