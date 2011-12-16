@@ -3250,6 +3250,11 @@ SELECT id, path, tn_ext, has_high
   prepare_directory(dirname($thumb_path));
   $img = new pwg_image($image_path, $params['library']);
 
+  if (!is_bool($params['crop']))
+    $params['crop'] = get_boolean($params['crop']);
+  if (!is_bool($params['follow_orientation']))
+    $params['follow_orientation'] = get_boolean($params['follow_orientation']);
+
   $result =  $img->pwg_resize(
     $thumb_path,
     $params['maxwidth'],
@@ -3257,8 +3262,8 @@ SELECT id, path, tn_ext, has_high
     $params['quality'],
     false, // automatic rotation is not needed for thumbnails.
     true, // strip metadata
-    get_boolean($params['crop']),
-    get_boolean($params['follow_orientation'])
+    $params['crop'],
+    $params['follow_orientation']
   );
 
   $img->destroy();
