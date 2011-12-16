@@ -122,7 +122,6 @@ $lang['Webmaster'] = 'Webmester';
 $lang['Week %d'] = '%d. hét';
 $lang['About Piwigo'] = 'Impresszum';
 $lang['You are not authorized to access the requested page'] = 'Önnek nincs jogosultsága a kívánt oldal megtekintéséhez';
-$lang['Add to caddie'] = 'Kosárba tesz';
 $lang['add this photo to your favorites'] = 'Kedvencekhez ad';
 $lang['Administration'] = 'Adminisztráció';
 $lang['all'] = 'összes';
@@ -367,4 +366,5 @@ $lang['Change my password'] = 'Jelszó módosítása';
 $lang['Enter your new password below.'] = 'Írja be az új jelszót.';
 $lang['EXIF Metadata'] = 'EXIF metaadatok';
 $lang['IPTC Metadata'] = 'IPTC metaadatok';
+$lang['Edit'] = 'Szerkesztés';
 ?>
