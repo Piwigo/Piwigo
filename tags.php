@@ -99,7 +99,7 @@ if ($page['display_mode'] == 'letters') {
 
   foreach ($tags as $tag)
   {
-    $tag_letter = strtoupper(substr($tag['url_name'], 0, 1));
+    $tag_letter = strtoupper(mb_substr(str2url($tag['name']), 0, 1, 'utf-8'));
 
     if ($current_tag_idx==0) {
       $current_letter = $tag_letter;
@@ -171,7 +171,10 @@ $tags = array_slice($tags, 0, $conf['full_tag_cloud_items_number']);
 $tags = add_level_to_tags($tags);
 
 // we want tags diplayed in alphabetic order
-usort($tags, 'tag_alpha_compare');
+if ('letters' != $page['display_mode'])
+{
+  usort($tags, 'tag_alpha_compare');
+}
 
 // display sorted tags
 foreach ($tags as $tag)

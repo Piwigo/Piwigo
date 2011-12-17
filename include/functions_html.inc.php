@@ -294,7 +294,17 @@ function name_compare($a, $b)
 
 function tag_alpha_compare($a, $b)
 {
-  return strcmp(strtolower($a['url_name']), strtolower($b['url_name']));
+  global $page;
+  
+  foreach (array($a, $b) as $tag)
+  {
+    if (!isset($page[__FUNCTION__.'_cache'][ $tag['name'] ]))
+    {
+      $page[__FUNCTION__.'_cache'][ $tag['name'] ] = strtolower(str2url($tag['name']));
+    }
+  }
+
+  return strcmp($page[__FUNCTION__.'_cache'][ $a['name'] ], $page[__FUNCTION__.'_cache'][ $b['name'] ]);
 }
 
 /**
