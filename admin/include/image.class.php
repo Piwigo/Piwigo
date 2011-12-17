@@ -421,8 +421,8 @@ class image_ext_imagick implements imageInterface
     $this->imagickdir = $imagickdir;
 
     $command = $imagickdir.'identify -format "%wx%h" "'.realpath($source_filepath).'"';
-    @exec($command, $returnarray, $returnvalue);
-    if($returnvalue or !preg_match('/^(\d+)x(\d+)$/', $returnarray[0], $match))
+    @exec($command, $returnarray);
+    if(!is_array($returnarray) or empty($returnarray[0]) or !preg_match('/^(\d+)x(\d+)$/', $returnarray[0], $match))
     {
       die("[External ImageMagick] Corrupt image");
     }
@@ -495,8 +495,8 @@ class image_ext_imagick implements imageInterface
 
     $dest = pathinfo($destination_filepath);
     $exec .= ' "'.realpath($dest['dirname']).'/'.$dest['basename'].'"';
-    @exec($exec, $returnarray, $returnvalue);
-    return !$returnvalue;
+    @exec($exec, $returnarray);
+    return is_array($returnarray);
   }
 }
 
