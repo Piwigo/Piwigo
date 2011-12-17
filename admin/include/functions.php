@@ -1219,16 +1219,9 @@ function create_virtual_category($category_name, $parent_id=null)
 
   $parent_id = !empty($parent_id) ? $parent_id : 'NULL';
 
-  $query = '
-SELECT MAX(rank)
-  FROM '.CATEGORIES_TABLE.'
-  WHERE id_uppercat '.(is_numeric($parent_id) ? '= '.$parent_id : 'IS NULL').'
-;';
-  list($current_rank) = pwg_db_fetch_row(pwg_query($query));
-
   $insert = array(
     'name' => $category_name,
-    'rank' => ++$current_rank,
+    'rank' => 0,
     'commentable' => boolean_to_string($conf['newcat_default_commentable']),
     );
 
@@ -1297,6 +1290,8 @@ UPDATE
   WHERE id = '.$inserted_id.'
 ;';
   pwg_query($query);
+
+  update_global_rank();
 
   if ('private' == $insert['status'])
   {
