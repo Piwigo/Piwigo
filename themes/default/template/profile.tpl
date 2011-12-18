@@ -1,16 +1,6 @@
 {if isset($MENUBAR)}{$MENUBAR}{/if}
 <div id="content" class="content">
 
-{if isset($errors)}
-<div class="errors">
-  <ul>
-    {foreach from=$errors item=error}
-    <li>{$error}</li>
-    {/foreach}
-  </ul>
-</div>
-{/if}
-
 <div class="titrePage">
 	<ul class="categoryActions">
 		<li><a href="{$U_HOME}" title="{'Home'|@translate}" class="pwg-state-default pwg-button">
@@ -19,6 +9,8 @@
   </ul>
 	<h2>{'Profile'|@translate}</h2>
 </div>
+
+{include file='infos_errors.tpl'}
 
 {$PROFILE_CONTENT}
 </div> <!-- content -->

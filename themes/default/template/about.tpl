@@ -8,6 +8,9 @@
     </ul>
     <h2>{'About'|@translate}</h2>
   </div>
+  
+  {include file='infos_errors.tpl'}
+  
   <div id="piwigoAbout">
   {$ABOUT_MESSAGE}
   {if isset($THEME_ABOUT) }

@@ -37,13 +37,9 @@ trigger_action('loading_lang');
 load_language('lang', PHPWG_ROOT_PATH.PWG_LOCAL_DIR, array('no_fallback'=>true, 'local'=>true) );
 
 
-
 // +-----------------------------------------------------------------------+
 // | Main                                                                  |
 // +-----------------------------------------------------------------------+
-$page['errors'] = array();
-$page['infos'] = array();
-
 if (isset($_GET['subscribe'])
     and preg_match('/^[A-Za-z0-9]{16}$/', $_GET['subscribe']))
 {
@@ -68,16 +64,7 @@ $page['body_id'] = 'theNBMPage';
 
 $template->set_filenames(array('nbm'=>'nbm.tpl'));
 
-// +-----------------------------------------------------------------------+
-// | errors & infos                                                        |
-// +-----------------------------------------------------------------------+
-$template->assign(
-    array(
-      'errors' => $page['errors'],
-      'infos' => $page['infos'],
-    )
-  );
-  
+
 // include menubar
 $themeconf = $template->get_template_vars('themeconf');
 if (!isset($themeconf['hide_menu_on']) OR !in_array('theNBMPage', $themeconf['hide_menu_on']))

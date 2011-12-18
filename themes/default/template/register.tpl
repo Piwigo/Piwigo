@@ -12,15 +12,7 @@
 	<h2>{'Registration'|@translate}</h2>
 </div>
 
-{if isset($errors)}
-  <div class="errors">
-    <ul>
-      {foreach from=$errors item=error}
-      <li>{$error}</li>
-      {/foreach}
-    </ul>
-  </div>
-{/if}
+{include file='infos_errors.tpl'}
 
 <form method="post" action="{$F_ACTION}" class="properties" name="register_form">
   <fieldset>

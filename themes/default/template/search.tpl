@@ -30,15 +30,7 @@
 		<h2>{'Search'|@translate}</h2>
 	</div>
 
-{if isset($errors) }
-<div class="errors">
-  <ul>
-    {foreach from=$errors item=error}
-    <li>{$error}</li>
-    {/foreach}
-  </ul>
-</div>
-{/if}
+{include file='infos_errors.tpl'}
 
 <form class="filter" method="post" name="search" action="{$F_SEARCH_ACTION}">
 <fieldset>

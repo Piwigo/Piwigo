@@ -10,15 +10,7 @@
 	<h2>{'Identification'|@translate}</h2>
 </div>
 
-  {if isset($errors) }
-  <div class="errors">
-    <ul>
-      {foreach from=$errors item=error}
-      <li>{$error}</li>
-      {/foreach}
-    </ul>
-  </div>
-  {/if}
+{include file='infos_errors.tpl'}
 
 <form action="{$F_LOGIN_ACTION}" method="post" name="login_form" class="properties">
   <fieldset>

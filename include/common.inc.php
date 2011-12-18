@@ -63,7 +63,10 @@ if ( !empty($_SERVER["PATH_INFO"]) )
 // rewriting of language and otherarray values via URI params
 //
 $conf = array();
-$page = array();
+$page = array(
+  'infos' => array(),
+  'errors' => array(),
+  );
 $user = array();
 $lang = array();
 $header_msgs = array();

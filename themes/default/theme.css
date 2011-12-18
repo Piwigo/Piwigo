@@ -734,14 +734,14 @@ INPUT[type="radio"], INPUT[type="checkbox"] {
 	font-weight: bold;
 	margin: 5px;
 	border: 1px solid red;
-	background: #ffe1e1 url(icon/errors.png) no-repeat top right;
+	background: #ffe1e1 url(icon/errors.png) no-repeat center right;
 	padding: 10px 50px 10px 10px;
 }
 
 /* Informations box */
 .infos {
 	color: #002000;
-	background: #98fb98 url(icon/infos.png) no-repeat top right;
+	background: #98fb98 url(icon/infos.png) no-repeat center right;
 	margin: 5px;
 	padding: 10px 50px 10px 10px;
 }

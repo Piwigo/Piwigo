@@ -12,25 +12,7 @@
     <h2>{$title}</h2>
   </div>
 
-  {if count($errors)}
-  <div class="errors">
-    <ul>
-      {foreach from=$errors item=error}
-      <li>{$error}</li>
-      {/foreach}
-    </ul>
-  </div>
-  {/if}
-
-  {if count($infos)}
-  <div class="infos">
-    <ul>
-      {foreach from=$infos item=info}
-      <li>{$info}</li>
-      {/foreach}
-    </ul>
-  </div>
-  {/if}
+{include file='infos_errors.tpl'}
 
 {if $action ne 'none'}
 <form id="lostPassword" action="{$form_action}?action={$action}{if isset($key)}&amp;key={$key}{/if}" method="post">

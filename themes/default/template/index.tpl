@@ -79,6 +79,8 @@
 
 </div>{* <!-- titrePage --> *}
 
+{include file='infos_errors.tpl'}
+
 {if !empty($PLUGIN_INDEX_CONTENT_BEGIN)}{$PLUGIN_INDEX_CONTENT_BEGIN}{/if}
 
 {if !empty($category_search_results)}

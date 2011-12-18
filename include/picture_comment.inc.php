@@ -53,27 +53,22 @@ if ( $page['show_comments'] and isset( $_POST['content'] ) )
 
   include_once(PHPWG_ROOT_PATH.'include/functions_comment.inc.php');
 
-  $comment_action = insert_user_comment($comm, @$_POST['key'], $infos );
+  $comment_action = insert_user_comment($comm, @$_POST['key'], $page['infos']);
 
   switch ($comment_action)
   {
     case 'moderate':
-      array_push( $infos, l10n('An administrator must authorize your comment before it is visible.') );
+      array_push($page['infos'], l10n('An administrator must authorize your comment before it is visible.') );
     case 'validate':
-      array_push( $infos, l10n('Your comment has been registered'));
+      array_push($page['infos'], l10n('Your comment has been registered'));
       break;
     case 'reject':
       set_status_header(403);
-      array_push($infos, l10n('Your comment has NOT been registered because it did not pass the validation rules') );
+      array_push($page['errors'], l10n('Your comment has NOT been registered because it did not pass the validation rules') );
       break;
     default:
       trigger_error('Invalid comment action '.$comment_action, E_USER_WARNING);
   }
-
-  $template->assign(
-      ($comment_action=='reject') ? 'errors' : 'infos',
-      $infos
-    );
 
   // allow plugins to notify what's going on
   trigger_action( 'user_comment_insertion',

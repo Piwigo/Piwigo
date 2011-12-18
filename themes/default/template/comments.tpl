@@ -10,6 +10,8 @@
 	<h2>{'User comments'|@translate}</h2>
 </div>
 
+{include file='infos_errors.tpl'}
+
 <form class="filter" action="{$F_ACTION}" method="get">
 
   <fieldset>

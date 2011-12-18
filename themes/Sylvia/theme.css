@@ -249,19 +249,15 @@
 .infos { 
 	color:#f70; 
 	border:0; 
-	background-color: transparent; 
-	margin-left:125px;
-	padding:5px 0px 0pt 10pt; 
-	min-height: 48px; 
+	background:transparent url(icon/infos.png) no-repeat center right;
+	margin-left:40px;
 	text-align:left; 
 }
 .errors { 
 	color:#f33; 
 	border:0; 
-	background: transparent url(icon/errors.png) no-repeat scroll right top; 
-	margin-left:125px;
-	padding:5px 0px 0pt 10pt; 
-	min-height: 48px; 
+	background:transparent url(icon/errors.png) no-repeat center right;
+	margin-left:40px;
 	text-align:left; 
 	font-weight:bold; 
 }

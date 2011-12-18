@@ -37,28 +37,27 @@ if (!$conf['allow_user_registration'])
   page_forbidden('User registration closed');
 }
 
-$errors = array();
 if (isset($_POST['submit']))
 {
   if (!verify_ephemeral_key(@$_POST['key']))
   {
 		set_status_header(403);
-    array_push($errors, 'Invalid/expired form key');
+    array_push($page['errors'], 'Invalid/expired form key');
   }
 
   if ($_POST['password'] != $_POST['password_conf'])
   {
-    array_push($errors, l10n('please enter your password again'));
+    array_push($page['errors'], l10n('please enter your password again'));
   }
 
-  $errors =
+  $page['errors'] =
       register_user($_POST['login'],
                     $_POST['password'],
                     $_POST['mail_address'],
                     true,
-                    $errors);
+                    $page['errors']);
 
-  if (count($errors) == 0)
+  if (count($page['errors']) == 0)
   {
     $user_id = get_userid($_POST['login']);
     log_user($user_id, false);
@@ -90,12 +89,6 @@ $template->assign(array(
   'F_EMAIL' => $email,
   'obligatory_user_mail_address' => $conf['obligatory_user_mail_address'],
   ));
-
-//-------------------------------------------------------------- errors display
-if (count($errors) != 0)
-{
-  $template->assign('errors', $errors);
-}
 
 // include menubar
 $themeconf = $template->get_template_vars('themeconf');

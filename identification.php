@@ -31,15 +31,13 @@ include_once( PHPWG_ROOT_PATH.'include/common.inc.php' );
 check_status(ACCESS_FREE);
 
 //-------------------------------------------------------------- identification
-$errors = array();
-
 $redirect_to = '';
 if ( !empty($_GET['redirect']) )
 {
   $redirect_to = urldecode($_GET['redirect']);
   if ( is_a_guest() )
   {
-    array_push($errors, l10n('You are not authorized to access the requested page'));
+    array_push($page['errors'], l10n('You are not authorized to access the requested page'));
   }
 }
 
@@ -48,7 +46,7 @@ if (isset($_POST['login']))
   if (!isset($_COOKIE[session_name()]))
   {
     array_push(
-      $errors,
+      $page['errors'],
       l10n('Cookies are blocked or not supported by your browser. You must enable cookies to connect.')
       );
   }
@@ -68,7 +66,7 @@ if (isset($_POST['login']))
     }
     else
     {
-      array_push( $errors, l10n('Invalid password!') );
+      array_push($page['errors'], l10n('Invalid password!') );
     }
   }
 }
@@ -94,12 +92,6 @@ $template->assign(
 if ($conf['allow_user_registration'])
 {
   $template->assign('U_REGISTER', get_root_url().'register.php' );
-}
-
-//-------------------------------------------------------------- errors display
-if ( sizeof( $errors ) != 0 )
-{
-  $template->assign('errors', $errors);
 }
 
 // include menubar

@@ -31,7 +31,6 @@ include_once( PHPWG_ROOT_PATH.'include/common.inc.php' );
 check_status(ACCESS_GUEST);
 
 //------------------------------------------------------------------ form check
-$errors = array();
 $search = array();
 if (isset($_POST['submit']))
 {
@@ -148,11 +147,11 @@ INSERT INTO '.SEARCH_TABLE.'
   }
   else
   {
-    array_push($errors, l10n('Empty query. No criteria has been entered.'));
+    array_push($page['errors'], l10n('Empty query. No criteria has been entered.'));
   }
 }
 //----------------------------------------------------------------- redirection
-if (isset($_POST['submit']) and count($errors) == 0)
+if (isset($_POST['submit']) and count($page['errors']) == 0)
 {
   redirect(
     make_index_url(
@@ -222,11 +221,6 @@ SELECT id,name,global_rank,uppercats
 ;';
 display_select_cat_wrapper($query, array(), 'category_options', false);
 
-//-------------------------------------------------------------- errors display
-if (sizeof($errors) != 0)
-{
-  $template->assign('errors', $errors);
-}
 
 // include menubar
 $themeconf = $template->get_template_vars('themeconf');

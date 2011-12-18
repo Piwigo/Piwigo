@@ -64,7 +64,7 @@ SELECT '.implode(',', $fields).'
     $userdata = array_merge($userdata, $default_user);
   }
 
-  save_profile_from_post($userdata, $errors);
+  save_profile_from_post($userdata, $page['errors']);
 
   $title= l10n('Your Gallery Customization');
   $page['body_id'] = 'theProfilePage';
@@ -75,13 +75,6 @@ SELECT '.implode(',', $fields).'
     make_index_url(), // for redirect
     $userdata );
 
-  // +-----------------------------------------------------------------------+
-  // |                             errors display                            |
-  // +-----------------------------------------------------------------------+
-  if (count($errors) != 0)
-  {
-    $template->assign('errors', $errors);
-  }
   
   // include menubar
   $themeconf = $template->get_template_vars('themeconf');

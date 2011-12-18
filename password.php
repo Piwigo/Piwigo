@@ -240,10 +240,6 @@ function reset_password()
 // +-----------------------------------------------------------------------+
 // | Process form                                                          |
 // +-----------------------------------------------------------------------+
-
-$page['errors'] = array();
-$page['infos'] = array();
-
 if (isset($_POST['submit']))
 {
   check_pwg_token();
@@ -345,12 +341,6 @@ $template->assign(
     )
   );
 
-// +-----------------------------------------------------------------------+
-// |                        infos & errors display                         |
-// +-----------------------------------------------------------------------+
-
-$template->assign('errors', $page['errors']);
-$template->assign('infos', $page['infos']);
 
 // include menubar
 $themeconf = $template->get_template_vars('themeconf');
