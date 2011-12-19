@@ -105,22 +105,9 @@ else
   $prefixeTable = DEFAULT_PREFIX_TABLE;
 }
 
-if (is_file(PHPWG_ROOT_PATH .'local/config/multisite.inc.php'))
-{
-  include(PHPWG_ROOT_PATH .'local/config/multisite.inc.php');
-  define('PWG_LOCAL_DIR', $conf['local_dir_site']);
-}
-else
-{
-  define('PWG_LOCAL_DIR', 'local/');
-}
-
 include(PHPWG_ROOT_PATH . 'include/config_default.inc.php');
 @include(PHPWG_ROOT_PATH. 'local/config/config.inc.php');
-if (isset($conf['local_dir_site']))
-{
-  @include(PHPWG_ROOT_PATH.PWG_LOCAL_DIR. 'config/config.inc.php');
-}
+defined('PWG_LOCAL_DIR') or define('PWG_LOCAL_DIR', 'local/');
 
 // download database config file if exists
 if (!empty($_GET['dl']) && file_exists($conf['local_data_dir'].'/pwg_'.$_GET['dl']))
