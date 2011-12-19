@@ -320,6 +320,7 @@ UPDATE '.USER_CACHE_CATEGORIES_TABLE.'
       include_once(PHPWG_ROOT_PATH.'include/functions_comment.inc.php');
       check_input_parameter('comment_to_edit', $_GET, false, PATTERN_ID);
       $author_id = get_comment_author_id($_GET['comment_to_edit']);
+      
       if (can_manage_comment('edit', $author_id))
       {
         if (!empty($_POST['content']))
@@ -333,21 +334,27 @@ UPDATE '.USER_CACHE_CATEGORIES_TABLE.'
             $_POST['key']
             );
 
+          $perform_redirect = false;
           switch ($comment_action)
           {
             case 'moderate':
-              array_push($page['infos'], l10n('An administrator must authorize your comment before it is visible.'));
+              $_SESSION['page_infos'][] = l10n('An administrator must authorize your comment before it is visible.');
             case 'validate':
-              array_push($page['infos'], l10n('Your comment has been registered'));
+              $_SESSION['page_infos'][] = l10n('Your comment has been registered');
+              $perform_redirect = true;
               break;
             case 'reject':
-              set_status_header(403);
-              array_push($page['errors'], l10n('Your comment has NOT been registered because it did not pass the validation rules'));
+              $_SESSION['page_errors'][] = l10n('Your comment has NOT been registered because it did not pass the validation rules');
+              $perform_redirect = true;
               break;
             default:
               trigger_error('Invalid comment action '.$comment_action, E_USER_WARNING);
           }
-            
+          
+          if ($perform_redirect)
+          {
+            redirect($url_self);
+          }
           unset($_POST['content']);
           break;
         }

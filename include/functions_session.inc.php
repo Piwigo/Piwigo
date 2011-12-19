@@ -141,7 +141,7 @@ function pwg_session_write($session_id, $data)
   $query = '
 REPLACE INTO '.SESSIONS_TABLE.'
   (id,data,expiration)
-  VALUES(\''.get_remote_addr_session_hash().$session_id.'\',\''.$data.'\',now())
+  VALUES(\''.get_remote_addr_session_hash().$session_id.'\',\''.str_replace("'", "\'", $data).'\',now())
 ;';
   pwg_query($query);
   return true;

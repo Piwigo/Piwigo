@@ -228,16 +228,11 @@ SELECT
   if ($show_add_comment_form)
   {
     $key = get_ephemeral_key(3, $page['image_id']);
-    $content = '';
-    if ('reject'===@$comment_action)
-    {
-      $content = htmlspecialchars( stripslashes($comm['content']) );
-    }
     $template->assign('comment_add',
         array(
           'F_ACTION' => $url_self,
           'KEY' => $key,
-          'CONTENT' => $content,
+          'CONTENT' => null,
           'SHOW_AUTHOR' => !is_classic_user()
         ));
   }
