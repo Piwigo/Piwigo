@@ -234,7 +234,7 @@ if (isset($action))
           $_POST['key']
           );
 
-        $edit_comment = null;
+        $perform_redirect = true;
       }
       else
       {
@@ -247,7 +247,7 @@ if (isset($action))
       $redirect_url =
         PHPWG_ROOT_PATH
         .'comments.php'
-        .get_query_string_diff(array('delete','validate','pwg_token'));
+        .get_query_string_diff(array('delete','edit','validate','pwg_token'));
 
       redirect($redirect_url);
     }
