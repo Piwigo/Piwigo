@@ -502,7 +502,7 @@ $conf['apache_authentication'] = false;
 //
 // All informations contained in these tables and column are related to
 // piwigo_users table.
-$conf['users_table'] = $prefixeTable.'users';
+$conf['users_table'] = null;
 
 // If you decide to use external authentication
 // change conf below by $conf['external_authentification'] = true;

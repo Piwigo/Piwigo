@@ -73,23 +73,6 @@ $header_msgs = array();
 $header_notes = array();
 $filter = array();
 
-if (is_file(PHPWG_ROOT_PATH .'local/config/multisite.inc.php'))
-{
-  include(PHPWG_ROOT_PATH .'local/config/multisite.inc.php');
-  define('PWG_LOCAL_DIR', $conf['local_dir_site']);
-}
-else
-{
-  define('PWG_LOCAL_DIR', 'local/');
-}
-
-@include(PHPWG_ROOT_PATH.PWG_LOCAL_DIR .'config/database.inc.php');
-if (!defined('PHPWG_INSTALLED'))
-{
-  header('Location: install.php');
-  exit;
-}
-
 foreach( array(
   'array_intersect_key', //PHP 5 >= 5.1.0RC1
   'hash_hmac', //(hash) - enabled by default as of PHP 5.1.2
@@ -105,21 +88,15 @@ foreach( array(
 
 include(PHPWG_ROOT_PATH . 'include/config_default.inc.php');
 @include(PHPWG_ROOT_PATH. 'local/config/config.inc.php');
-if (isset($conf['local_dir_site']))
-{
-  @include(PHPWG_ROOT_PATH.PWG_LOCAL_DIR. 'config/config.inc.php');
-}
+defined('PWG_LOCAL_DIR') or define('PWG_LOCAL_DIR', 'local/');
 
-// that's for migration from 2.2, will be deprecated in 2.4
-if (isset($conf['order_by']))
-{
-  $conf['order_by_custom'] = $conf['order_by'];
-}
-if (isset($conf['order_by_inside_category']))
-{
-  $conf['order_by_inside_category_custom'] = $conf['order_by_inside_category'];
-}
 
+@include(PHPWG_ROOT_PATH.PWG_LOCAL_DIR .'config/database.inc.php');
+if (!defined('PHPWG_INSTALLED'))
+{
+  header('Location: install.php');
+  exit;
+}
 include(PHPWG_ROOT_PATH .'include/dblayer/functions_'.$conf['dblayer'].'.inc.php');
 
 if(isset($conf['show_php_errors']) && !empty($conf['show_php_errors']))
