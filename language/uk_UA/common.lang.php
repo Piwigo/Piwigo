@@ -135,7 +135,6 @@ $lang['Webmaster'] = 'Вебмайстер';
 $lang['Week %d'] = 'Тиждень %d';
 $lang['About Piwigo'] = 'Про Piwigo';
 $lang['You are not authorized to access the requested page'] = 'Ви не авторизовані для доступу до запитуваної сторінки';
-$lang['Add to caddie'] = 'додати в кадді';
 $lang['add this photo to your favorites'] = 'Додати це фото в обране';
 $lang['Administration'] = 'Адміністрування';
 $lang['all'] = 'всі';
@@ -362,5 +361,5 @@ $lang['Change my password'] = 'Змінити мій пароль';
 $lang['Enter your new password below.'] = 'Введіть ваш новий пароль нижче.';
 $lang['EXIF Metadata'] = 'EXIF метадані';
 $lang['IPTC Metadata'] = 'IPTC метадані';
-
+$lang['Edit'] = 'Редагувати';
 ?>
