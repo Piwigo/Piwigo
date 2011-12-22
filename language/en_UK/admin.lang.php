@@ -535,6 +535,7 @@ $lang['Photo %s of %s'] = 'Photo %s of %s';
 $lang['Photo informations updated'] = "Photo informations updated";
 $lang['Photo Page'] = 'Photo page';
 $lang['Photo Properties'] = 'Photo properties';
+$lang['Photo name'] = 'Photo name';
 $lang['Photo unreachable or no support'] = "Photo unreachable or unsupported format";
 $lang['photos added in the database'] = "photos added in the database";
 $lang['photos candidates for metadata synchronization'] = "photos candidates for metadata synchronization";

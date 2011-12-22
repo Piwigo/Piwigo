@@ -276,6 +276,7 @@ $sort_fields = array(
   'rating_score' => l10n('Rating score'),
   'hit' => l10n('Most visited'),
   'file' => l10n('File name'),
+  'name' => l10n('Photo name'),
   'id' => 'Id',
   'rank' => l10n('Rank'),
   );

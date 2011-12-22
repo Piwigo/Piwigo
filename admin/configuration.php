@@ -107,6 +107,7 @@ $sort_fields = array(
   '' => '',
   'rank' => l10n('Rank'),
   'file' => l10n('File name'),
+  'name' => l10n('Photo name'),
   'date_creation' => l10n('Creation date'),
   'date_available' => l10n('Post date'),
   'rating_score' => l10n('Rating score'),
