@@ -156,7 +156,6 @@ $lang['Webmaster'] = 'Webbansvarig';
 $lang['Week %d'] = 'Vecka %d';
 $lang['About Piwigo'] = 'Om Piwigo';
 $lang['You are not authorized to access the requested page'] = 'Du har inte behörighet till den begärda sidan';
-$lang['Add to caddie'] = 'lägg i korgen';
 $lang['add this photo to your favorites'] = 'lägg bilden i dina favoriter';
 $lang['Administration'] = 'Administration';
 $lang['all'] = 'alla';
@@ -362,5 +361,6 @@ $lang['Change my password'] = 'Ändra mitt lösenord';
 $lang['Enter your new password below.'] = 'Ange ditt nya lösenord nedan.';
 $lang['EXIF Metadata'] = 'EXIF Metadata';
 $lang['IPTC Metadata'] = 'IPTC Metadata';
+$lang['Edit'] = 'Redigera';
 
 ?>
