@@ -173,7 +173,6 @@ $lang['You are running on development sources, no check possible.'] = 'Sú použ
 $lang['You cannot delete your account'] = 'Nemôžete zmazať svoj účet';
 $lang['You cannot move an album in its own sub album'] = 'Nie je možné presunúť album do jeho vlastného podalbumu';
 $lang['You need to confirm deletion'] = 'Je nutné potvrdiť vymazanie';
-$lang['add tags'] = 'Pridať kľúčové slová';
 $lang['Associate to album'] = 'priradiť k albumu';
 $lang['associate to group'] = 'priradiť ku skupine';
 $lang['Authorized'] = 'Autorizované';
@@ -411,7 +410,6 @@ $lang['Waiting'] = 'Na schválenie';
 $lang['default'] = 'východzí';
 $lang['Toggle \'default group\' property'] = 'Prepnúť vlastnosť \'základná skupina\'';
 $lang['Advanced features'] = 'Rozšírené vlastnosti';
-$lang['Specials'] = 'Ostatné';
 $lang['Overall'] = 'Celkovo';
 $lang['Year'] = 'Rok';
 $lang['Month'] = 'Mesiac';
@@ -503,11 +501,9 @@ $lang['Plugin list'] = 'Zoznam doplnkov';
 $lang['Check for updates'] = 'Skontrolovať aktualizácie';
 $lang['Other plugins'] = 'Ďalšie doplnky';
 $lang['Last revisions'] = 'Posledná revízia';
-$lang['Delete'] = 'Vymazať';
 $lang['Are you sure you want to delete this plugin?'] = 'Prajete si odstrániť tento doplnok?';
 $lang['Are you sure you want to install this plugin?'] = 'Prajete si nainštalovať tento doplnok?';
 $lang['Are you sure to install this upgrade? You must verify if this version does not need uninstallation.'] = 'Prajete si nainštalovať túto aktualizáciu? Je potrebné overiť, či súčasnú verziu nie je nutné najskôr odinštalovať.';
-$lang['%s has been successfully upgraded.'] = '%s bol úspešne aktualizovaný.';
 $lang['Plugin has been successfully copied'] = 'Doplnok bol úspešne nainštalovaný';
 $lang['You might go to plugin list to install and activate it.'] = 'Doplnok je potrebné aktivovať v zozname doplnkov.';
 $lang['Can\'t create temporary file.'] = 'Nie je možné vytvoriť dočasný súbor.';
@@ -561,8 +557,6 @@ $lang['%d photos were deleted'] = '%d fotografií vymazaných';
 $lang['Downloads'] = 'Stiahnuté';
 $lang['Released on'] = 'Vydané';
 $lang['Number of downloads'] = 'Počet stiahnutí';
-
-// --------- Starting below: New or revised $lang ---- from Colibri
 $lang['Upload Photos'] = 'Nahrať fotografie';
 $lang['Drop into album'] = 'Späť do albumu';
 $lang['+ Add an upload box'] = '+ Pridat pole';
@@ -578,8 +572,6 @@ $lang['Privacy level set to "%s"'] = 'Úroveň súkromia údajov nastavená na "
 $lang['Album "%s" now contains %d photos'] = 'Kategória "%s" teraz obsahuje %d fotografií';
 $lang['Manage this set of %d photos'] = 'Spravovať tento súbor %d fotografií';
 $lang['Select files'] = 'Výber súborov';
-
-// missing translations 2.1.0
 $lang['Operation in progress'] = 'Prevádzam údržbu.';
 $lang['Please wait...'] = 'Prosím počkajte...';
 $lang['Piwigo Announcements Newsletter'] = 'Piwigo spravodaj';
@@ -590,7 +582,6 @@ $lang['Purge search history'] = 'Odstrániť históriu hľadania';
 $lang['Hide'] = 'Skryť';
 $lang['Password is missing. Please enter the password.'] = 'Chýba heslo. Prosím napíšte heslo.';
 $lang['Password confirmation is missing. Please confirm the chosen password.'] = 'Chýba potvrdenie hesla. Prosím potvrďte vybrané heslo.';
-$lang['Password confirmation error.'] = 'Chyba pri potvrdení hesla.';
 $lang['Allow users to edit their own comments'] = 'Povoliť používateľom upravovať ich vlastné komentáre';
 $lang['Allow users to delete their own comments'] = 'Povoliť používateľom mazať ich vlastné komentáre';
 $lang['Email administrators when a comment is modified'] = 'Informovať e-mailom administrátorov, keď je upravený komentár';
@@ -731,9 +722,6 @@ $lang['%d of %d photos selected'] = '%d z %d vybraných fotografií';
 $lang['No photo selected, %d photos in current set'] = 'Žiadna fotografia vybraná, %d fotografií v súčasnom súbore';
 $lang['All %d photos are selected'] = 'Všetkých %d fotografií vybraných';
 $lang['remove this filter'] = 'odstráň tento filter';
-$lang['predefined filter'] = 'predefinovaný filter';
-$lang['last import'] = 'ostatný import';
-$lang['with no virtual album'] = 'bez virtuálnych albumov';
 $lang['Duplicates'] = 'duplicity';
 $lang['Add a filter'] = 'Pridaj filter';
 $lang['Remove all filters'] = 'Odstráň všetky filtre';
@@ -748,8 +736,6 @@ $lang['Type here the author name'] = 'Sem napíšte meno autora';
 $lang['remove title'] = 'odstrániť názov';
 $lang['Type here the title'] = 'Sem napíšte názov';
 $lang['remove creation date'] = 'odstrániť dátum vytvorenia';
-$lang['with no album'] = 'bez albumu';
-$lang['with no tag'] = 'bez kľúčového slova';
 $lang['Album photos associated to the following albums: %s'] = 'Fotografie prepojené na nasledujúce albumy: %s';
 $lang['Delete orphan tags'] = 'Vymazanie nepriradených kľúčových slov';
 $lang['delete photo'] = 'vymazať fotografiu';
@@ -852,6 +838,16 @@ $lang['If no HD is available and if the current websize is bigger than resize di
 $lang['An error has occured during upgrade.'] = 'Pri upgrade sa vyskytla chyba.';
 $lang['An error has occured during extract. Please check files permissions of your piwigo installation.<br><a href="%s">Click here to show log error</a>.'] = 'Pri rozbaľovaní sa vyskytla chyba. Prosím skontrolujte prístupové práva súborov Vašej inštalácie piwigo.<br><a href="%s">Kliknite sem na zobrazenie logu chyby</a>.';
 $lang['Piwigo cannot retrieve upgrade file from server'] = 'Piwigo nemôže získať upgradovací súbor zo servra';
-$lang['Zoom'] = 'Zväčšenie'; 
+$lang['Zoom'] = 'Zväčšenie';
+$lang['Add to caddie'] = 'Pridať do košíku';
+$lang['%s has been successfully updated.'] = '%s bol úspešne aktualizovaný.'; 
+$lang['Add tags'] = 'Pridať kľúčové slová'; 
+$lang['High dimensions'] = 'Veľkosť s vysokým rozlíšením'; 
+$lang['Last import'] = 'Ostatný import'; 
+$lang['Predefined filter'] = 'Predefinovaný filter'; 
+$lang['With no album'] = 'Bez albumu'; 
+$lang['With no tag'] = 'Bez kľúčového slova'; 
+$lang['With no virtual album'] = 'Bez virtuálneho albumu';
+
 
 ?>
