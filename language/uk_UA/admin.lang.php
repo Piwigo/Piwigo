@@ -605,5 +605,28 @@ $lang['By default, Piwigo will create a new websize from the HD (high definition
 $lang['Confirm merge'] = 'Підтвердіть злиття';
 $lang['Create'] = 'Створити';
 $lang['Crop'] = 'Результат';
+$lang['display'] = 'дісплей';
+$lang['Do you want to activate anyway?'] = 'Чи Ви таки бажаєте активувати?';
+$lang['Dump Database'] = 'Дамп бази даних';
+$lang['ERROR'] = 'ПОМИЛКА';
+$lang['ERROR: THIS PLUGIN IS MISSING BUT IT IS INSTALLED! UNINSTALL IT NOW.'] = 'ПОМИЛКА: ЦЕЙ ДОДАТОК ВІДСУТНІЙ, АЛЕ ВІН ВСТАНОВЛЕНИЙ! ВИДАЛИТИ ЙОГО ЗАРАЗ.';
+$lang['Extensions Update'] = 'Оновлення розширень';
+$lang['Follow Orientation'] = 'Дотримуватись орієнтації';
+$lang['Following plugins may not be compatible with the new version of Piwigo:'] = 'Наступні додатки можуть бути несумісні з новою версією Piwigo:';
+$lang['Following themes may not be compatible with the new version of Piwigo:'] = 'Наступні теми можуть бути несумісні з новою версією Piwigo:';
+$lang['Graphics Library'] = 'Графічна бібліотека';
+$lang['Height'] = 'Висота';
+$lang['hide details'] = 'приховати деталі';
+$lang['High dimensions'] = 'Розміри високої роздільної здатності';
+$lang['Hoverbox display'] = 'Відображати маркерну рамку';
+$lang['I decide to update anyway'] = 'Я таки вирішив оновити';
+$lang['If no HD is available and if the current websize is bigger than resize dimensions, Piwigo will move it as HD and create a downsized websize photo from it.'] = 'Якшо нема HD-зображення і поточний веб-розмір більший за нові розміри, Piwigo перемістить його як HD і створить зменьшене до веб-розміру зображення.';
+$lang['If you encounter problems or have any question, please send a message to'] = 'Якшо у Вас виникли проблеми або запитання, надішлить повідомлення до';
+$lang['If you want to regenerate thumbnails, please go to the <a href="%s">Batch Manager</a>.'] = 'Якшо Ви бажаєте заново створити ескізи, перейдіть до <a href="%s">Пакетний Менеджер</a>.';
+$lang['Ignore All'] = 'Ігнорувати Всі';
+$lang['Ignore selected anomalies'] = 'Ігнорувати обрані аномалії';
+$lang['Ignore this update'] = 'Ігнорувати це оновлення';
+$lang['Image id'] = 'Ідентифікатор зображення';
+$lang['Image Quality'] = 'Якість зображення'; 
 
 ?>
