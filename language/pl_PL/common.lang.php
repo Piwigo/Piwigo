@@ -122,7 +122,6 @@ $lang['Webmaster'] = 'Webmaster';
 $lang['Week %d'] = 'Tydzień %d';
 $lang['About Piwigo'] = 'O Piwigo';
 $lang['You are not authorized to access the requested page'] = 'Nie masz uprawnień do oglądania tej strony';
-$lang['Add to caddie'] = 'Dodaj do koszyka';
 $lang['add this photo to your favorites'] = 'Dodaj zdjęcie do ulubionych';
 $lang['Administration'] = 'Administracja';
 $lang['all'] = 'wszystkie';
@@ -366,4 +365,5 @@ $lang['Change my password'] = 'Zmień moje hasło';
 $lang['Enter your new password below.'] = 'Wpisz poniżej swoje nowe hasło.';
 $lang['EXIF Metadata'] = 'Metadane EXIF';
 $lang['IPTC Metadata'] = 'Metadane IPTC';
+$lang['Edit'] = 'Edytuj';
 ?>
