@@ -121,6 +121,13 @@ $validated_keys = array(
 	'Miscellaneous',
 	'Virtual Links',
 	'SQL queries',
+	'Edit',
+	'%d rates',
+	'Rating score',
+	'Password Reset',
+	'Invalid key',
+	'EXIF Metadata',
+	'IPTC Metadata',
 	),	
 
   'de_DE' => array(
