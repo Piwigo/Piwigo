@@ -711,7 +711,7 @@ if (count($page['cat_elements_id']) > 0)
 
 
   $query = '
-SELECT id,path,tn_ext,file,filesize,level,name
+SELECT id,path,representative_ext,file,filesize,level,name
   FROM '.IMAGES_TABLE;
   
   if ($is_category)
@@ -747,7 +747,7 @@ SELECT id,path,tn_ext,file,filesize,level,name
   while ($row = pwg_db_fetch_assoc($result))
   {
     $nb_thumbs_page++;
-    $src = get_thumbnail_url($row);
+    $src = DerivativeImage::thumb_url($row);
 
     $title = $row['name'];
     if (empty($title))

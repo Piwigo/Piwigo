@@ -301,12 +301,12 @@ if ($category['has_images']
   if (!empty($category['representative_picture_id']))
   {
     $query = '
-SELECT id,tn_ext,path
+SELECT id,representative_ext,path
   FROM '.IMAGES_TABLE.'
   WHERE id = '.$category['representative_picture_id'].'
 ;';
     $row = pwg_db_fetch_assoc(pwg_query($query));
-    $src = get_thumbnail_url($row);
+    $src = DerivativeImage::thumb_url($row);
     $url = get_root_url().'admin.php?page=picture_modify';
     $url.= '&amp;image_id='.$category['representative_picture_id'];
 
@@ -387,7 +387,7 @@ if (isset($_POST['submitEmail']) and !empty($_POST['group']))
   if (!empty($category['representative_picture_id']))
   {
     $query = '
-SELECT id, file, path, tn_ext
+SELECT id, file, path, representative_ext
   FROM '.IMAGES_TABLE.'
   WHERE id = '.$category['representative_picture_id'].'
 ;';
@@ -403,7 +403,7 @@ SELECT id, file, path, tn_ext
                           'image_file' => $element['file'],
                           'category' => $category
                         ))
-                      .'" class="thumblnk"><img src="'.get_thumbnail_url($element).'"></a>';
+                      .'" class="thumblnk"><img src="'.DerivativeImage::thumb_url($element).'"></a>';
     }
   }
 

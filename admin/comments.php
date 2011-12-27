@@ -99,7 +99,7 @@ $list = array();
 
 $query = '
 SELECT c.id, c.image_id, c.date, c.author, '.
-$conf['user_fields']['username'].' AS username, c.content, i.path, i.tn_ext
+$conf['user_fields']['username'].' AS username, c.content, i.path, i.representative_ext
   FROM '.COMMENTS_TABLE.' AS c
     INNER JOIN '.IMAGES_TABLE.' AS i
       ON i.id = c.image_id
@@ -111,7 +111,7 @@ $conf['user_fields']['username'].' AS username, c.content, i.path, i.tn_ext
 $result = pwg_query($query);
 while ($row = pwg_db_fetch_assoc($result))
 {
-  $thumb = get_thumbnail_url(
+  $thumb = DerivativeImage::thumb_url(
       array(
         'id'=>$row['image_id'],
         'path'=>$row['path'],

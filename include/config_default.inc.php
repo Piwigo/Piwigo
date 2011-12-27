@@ -89,14 +89,6 @@ $conf['calendar_show_any'] = true;
 //no elements for these
 $conf['calendar_show_empty'] = true;
 
-// calendar_month_cell_width, calendar_month_cell_height : define the
-// width and the height of a cell in the monthly calendar when viewing a
-// given month. a value of 0 means that the pretty view is not shown.
-// a good suggestion would be to have the width and the height equal
-// and smaller than upload thumbnails configuration size.
-$conf['calendar_month_cell_width'] =80;
-$conf['calendar_month_cell_height']=80;
-
 // newcat_default_commentable : at creation, must a category be commentable
 // or not ?
 $conf['newcat_default_commentable'] = true;
@@ -760,4 +752,10 @@ $conf['alternative_pem_url'] = '';
 // based on the EXIF "orientation" tag, should we rotate photos added in the
 // upload form or through pwg.images.addSimple web API method?
 $conf['upload_form_automatic_rotation'] = true;
+
+// 0-'auto', 1-'derivative' 2-'script'
+$conf['derivative_url_style']=0;
+
+$conf['chmod_value']=0777;
+
 ?>

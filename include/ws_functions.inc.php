@@ -146,15 +146,22 @@ function ws_std_image_sql_order( $params, $tbl_name='' )
  */
 function ws_std_get_urls($image_row)
 {
-  $ret = array(
-    'tn_url' => get_thumbnail_url($image_row),
-    'element_url' => get_element_url($image_row)
-  );
+  $ret = array();
   global $user;
-  if ($user['enabled_high'] and $image_row['has_high'] )
+  if ($user['enabled_high'])
   {
-    $ret['high_url'] = get_high_url($image_row);
+    $ret['element_url'] = get_element_url($image_row);
   }
+  
+  $derivatives = DerivativeImage::get_all($image_row);
+  $derivatives_arr = array();
+  foreach($derivatives as $type=>$derivative)
+  {
+    $size = $derivative->get_size();
+    $size != null or $size=array(null,null);
+    $derivatives_arr[$type] = array('url' => $derivative->get_url(), 'width'=>$size[0], 'height'=>$size[1] );
+  }
+  $ret['derivatives'] = $derivatives_arr;;
   return $ret;
 }
 
@@ -165,7 +172,7 @@ function ws_std_get_urls($image_row)
 function ws_std_get_image_xml_attributes()
 {
   return array(
-    'id','tn_url','element_url','high_url', 'file','width','height','hit','date_available','date_creation'
+    'id','element_url', 'file','width','height','hit','date_available','date_creation'
     );
 }
 
@@ -620,7 +627,7 @@ SELECT id, name, permalink, uppercats, global_rank, id_uppercat,
     $new_image_ids = array();
 
     $query = '
-SELECT id, path, tn_ext, level
+SELECT id, path, representative_ext, level
   FROM '.IMAGES_TABLE.'
   WHERE id IN ('.implode(',', $image_ids).')
 ;';
@@ -629,7 +636,7 @@ SELECT id, path, tn_ext, level
     {
       if ($row['level'] <= $user['level'])
       {
-        $thumbnail_src_of[$row['id']] = get_thumbnail_url($row);
+        $thumbnail_src_of[$row['id']] = DerivativeImage::thumb_url($row);
       }
       else
       {
@@ -668,14 +675,14 @@ SELECT id, path, tn_ext, level
     if (count($new_image_ids) > 0)
     {
       $query = '
-SELECT id, path, tn_ext
+SELECT id, path, representative_ext
   FROM '.IMAGES_TABLE.'
   WHERE id IN ('.implode(',', $new_image_ids).')
 ;';
       $result = pwg_query($query);
       while ($row = pwg_db_fetch_assoc($result))
       {
-        $thumbnail_src_of[$row['id']] = get_thumbnail_url($row);
+        $thumbnail_src_of[$row['id']] = DerivativeImage::thumb_url($row);
       }
     }
   }
@@ -1370,8 +1377,7 @@ function ws_images_add_chunk($params, &$service)
   // create the upload directory tree if not exists
   if (!is_dir($upload_dir)) {
     umask(0000);
-    $recursive = true;
-    if (!@mkdir($upload_dir, 0777, $recursive))
+    if (!@mkdir($upload_dir, 0777, true))
     {
       return new PwgError(500, 'error during buffer directory creation');
     }
@@ -1424,8 +1430,7 @@ function merge_chunks($output_filepath, $original_sum, $type)
 
     if (is_file($output_filepath))
     {
-      new PwgError(500, '[merge_chunks] error while trying to remove existing '.$output_filepath);
-      exit();
+      return new PwgError(500, '[merge_chunks] error while trying to remove existing '.$output_filepath);
     }
   }
 
@@ -1464,8 +1469,7 @@ function merge_chunks($output_filepath, $original_sum, $type)
 
     if (!file_put_contents($output_filepath, $string, FILE_APPEND))
     {
-      new PwgError(500, '[merge_chunks] error while writting chunks for '.$output_filepath);
-      exit();
+      return new PwgError(500, '[merge_chunks] error while writting chunks for '.$output_filepath);
     }
 
     unlink($chunk);
@@ -1500,8 +1504,7 @@ function add_file($file_path, $type, $original_sum, $file_sum)
     $recursive = true;
     if (!@mkdir($upload_dir, 0777, $recursive))
     {
-      new PwgError(500, '[add_file] error during '.$type.' directory creation');
-      exit();
+      return new PwgError(500, '[add_file] error during '.$type.' directory creation');
     }
   }
 
@@ -1512,8 +1515,7 @@ function add_file($file_path, $type, $original_sum, $file_sum)
 
     if (!is_writable($upload_dir))
     {
-      new PwgError(500, '[add_file] '.$type.' directory has no write access');
-      exit();
+      return new PwgError(500, '[add_file] '.$type.' directory has no write access');
     }
   }
 
@@ -1525,9 +1527,9 @@ function add_file($file_path, $type, $original_sum, $file_sum)
 
   // check dumped thumbnail md5
   $dumped_md5 = md5_file($file_path);
-  if ($dumped_md5 != $file_sum) {
-    new PwgError(500, '[add_file] '.$type.' transfer failed');
-    exit();
+  if ($dumped_md5 != $file_sum) 
+  {
+    return new PwgError(500, '[add_file] '.$type.' transfer failed');
   }
 
   list($width, $height) = getimagesize($file_path);
@@ -2451,13 +2453,12 @@ SELECT *
       }
       else
       {
-        new PwgError(
+        return new PwgError(
           500,
           '[ws_images_setInfo]'
           .' invalid parameter single_value_mode "'.$params['single_value_mode'].'"'
           .', possible values are {fill_if_empty, replace}.'
           );
-        exit();
       }
     }
   }
@@ -2466,8 +2467,7 @@ SELECT *
   {
     if (!empty($image_row['storage_category_id']))
     {
-      new PwgError(500, '[ws_images_setInfo] updating "file" is forbidden on photos added by synchronization');
-      exit();
+      return new PwgError(500, '[ws_images_setInfo] updating "file" is forbidden on photos added by synchronization');
     }
 
     $update['file'] = $params['file'];
@@ -2517,13 +2517,12 @@ SELECT *
     }
     else
     {
-      new PwgError(
+      return new PwgError(
         500,
         '[ws_images_setInfo]'
         .' invalid parameter multiple_value_mode "'.$params['multiple_value_mode'].'"'
         .', possible values are {replace, append}.'
         );
-      exit();
     }
   }
 
@@ -2610,11 +2609,10 @@ function ws_add_image_category_relations($image_id, $categories_string, $replace
 
   if (count($cat_ids) == 0)
   {
-    new PwgError(
+    return new PwgError(
       500,
       '[ws_add_image_category_relations] there is no category defined in "'.$categories_string.'"'
       );
-    exit();
   }
 
   $query = '
@@ -2628,11 +2626,10 @@ SELECT
   $unknown_cat_ids = array_diff($cat_ids, $db_cat_ids);
   if (count($unknown_cat_ids) != 0)
   {
-    new PwgError(
+    return new PwgError(
       500,
       '[ws_add_image_category_relations] the following categories are unknown: '.implode(', ', $unknown_cat_ids)
       );
-    exit();
   }
 
   $to_update_cat_ids = array();

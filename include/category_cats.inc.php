@@ -189,7 +189,7 @@ SELECT *
   {
     if ($row['level'] <= $user['level'])
     {
-      $row['tn_src'] = get_thumbnail_url($row);
+      $row['tn_src'] = DerivativeImage::thumb_url($row);
       $infos_of_image[$row['id']] = $row;
     }
     else
@@ -236,7 +236,7 @@ SELECT *
     $result = pwg_query($query);
     while ($row = pwg_db_fetch_assoc($result))
     {
-      $row['tn_src'] = get_thumbnail_url($row);
+      $row['tn_src'] =  DerivativeImage::thumb_url($row);
       $infos_of_image[$row['id']] = $row;
     }
   }

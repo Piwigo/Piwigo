@@ -201,7 +201,7 @@ if (count($page['cat_elements_id']) > 0)
 
 
   $query = '
-SELECT id,path,tn_ext,name,date_creation,comment,author,level,file
+SELECT id,path,representative_ext,name,date_creation,comment,author,level,file
   FROM '.IMAGES_TABLE;
   
   if ($is_category)
@@ -237,7 +237,7 @@ SELECT id,path,tn_ext,name,date_creation,comment,author,level,file
   {
     array_push($element_ids, $row['id']);
 
-    $src = get_thumbnail_url($row);
+    $src = DerivativeImage::thumb_url($row);
 
     // creation date
     if (!empty($row['date_creation']))

@@ -101,14 +101,14 @@ while ($row = pwg_db_fetch_assoc($result))
 $image_urls = array();
 if (count($image_ids) > 0 )
 {
-  $query = 'SELECT id, name, file, path, tn_ext
+  $query = 'SELECT id, name, file, path, representative_ext
   FROM '.IMAGES_TABLE.'
   WHERE id IN ('.implode(',', array_keys($image_ids)).')';
   $result = pwg_query($query);
   while ($row = pwg_db_fetch_assoc($result))
   {
     $image_urls[ $row['id'] ] = array(
-      'tn' => get_thumbnail_url($row),
+      'tn' => DerivativeImage::thumb_url($row),
       'page' => make_picture_url( array('image_id'=>$row['id'], 'image_file'=>$row['file']) ),
     );
   }
@@ -217,7 +217,7 @@ $template->assign( array(
   'available_rates' => $conf['rate_items'],
   'ratings' => $by_user_ratings,
   'image_urls' => $image_urls,
-  'TN_WIDTH' => 20+2*$conf['upload_form_thumb_maxwidth'],
+  'TN_WIDTH' => 28+2*ImageStdParams::get_by_type(IMG_THUMB)->sizing->ideal_size[0],
   ) );
 $template->set_filename('rating', 'rating_user.tpl');
 $template->assign_var_from_handle('ADMIN_CONTENT', 'rating');

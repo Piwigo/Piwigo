@@ -282,7 +282,7 @@ $template->assign(
 
     'PATH'=>$row['path'],
 
-    'TN_SRC' => get_thumbnail_url($row),
+    'TN_SRC' => DerivativeImage::thumb_url($row),
 
     'NAME' =>
       isset($_POST['name']) ?

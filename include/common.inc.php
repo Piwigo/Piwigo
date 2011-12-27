@@ -107,7 +107,7 @@ if(isset($conf['show_php_errors']) && !empty($conf['show_php_errors']))
 
 include(PHPWG_ROOT_PATH . 'include/constants.php');
 include(PHPWG_ROOT_PATH . 'include/functions.inc.php');
-include( PHPWG_ROOT_PATH .'include/template.class.php');
+include(PHPWG_ROOT_PATH .'include/template.class.php');
 
 // Database connection
 try
@@ -131,6 +131,8 @@ if (!$conf['check_upgrade_feed'])
     redirect(get_root_url().'upgrade.php');
   }
 }
+
+ImageStdParams::load_from_db();
 
 load_plugins();
 

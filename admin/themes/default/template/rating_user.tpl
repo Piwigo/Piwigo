@@ -59,7 +59,7 @@ function del(elt,uid,aid)
 	<td>{if !empty($rates)}
 		{capture assign=rate_over}{foreach from=$rates item=rate_arr}<img src="{$image_urls[$rate_arr.id].tn}" alt="thumb-{$rate_arr.id}" title="{$rate_arr.date}"></img>
 		{/foreach}{/capture}
-		<a class="cluetip" title="{$rate_over|@htmlspecialchars}">{$rates|@count}</a>
+		<a class="cluetip" title="|{$rate_over|@htmlspecialchars}">{$rates|@count}</a>
 		{/if}</td>
 	{/foreach}
 	<td><a onclick="return del(this,{$rating.uid},'{$rating.aid}');"><img src="{$themeconf.admin_icon_dir}/delete.png" alt="[{'Delete'|@translate}]"></a></td>
@@ -71,7 +71,7 @@ function del(elt,uid,aid)
 {footer_script require='jquery.cluetip'}
 jQuery(document).ready(function(){ldelim}
 	jQuery('.cluetip').cluetip({ldelim}
-		width: {$TN_WIDTH}, splitTitle: '|'
+		width: {$TN_WIDTH}, showTitle:false, splitTitle: '|'
 	});
 })
 {/footer_script}

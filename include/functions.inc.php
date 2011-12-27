@@ -30,6 +30,9 @@ include_once( PHPWG_ROOT_PATH .'include/functions_html.inc.php' );
 include_once( PHPWG_ROOT_PATH .'include/functions_tag.inc.php' );
 include_once( PHPWG_ROOT_PATH .'include/functions_url.inc.php' );
 include_once( PHPWG_ROOT_PATH .'include/functions_plugins.inc.php' );
+include_once( PHPWG_ROOT_PATH .'/include/derivative_params.inc.php');
+include_once( PHPWG_ROOT_PATH .'/include/derivative_std_params.inc.php');
+include_once( PHPWG_ROOT_PATH .'/include/derivative.inc.php');
 
 //----------------------------------------------------------- generic functions
 
@@ -167,12 +170,13 @@ function mkgetdir($dir, $flags=MKGETDIR_DEFAULT)
 {
   if ( !is_dir($dir) )
   {
+    global $conf;
     if (substr(PHP_OS, 0, 3) == 'WIN')
     {
       $dir = str_replace('/', DIRECTORY_SEPARATOR, $dir);
     }
     $umask = umask(0);
-    $mkd = @mkdir($dir, 0755, ($flags&MKGETDIR_RECURSIVE) ? true:false );
+    $mkd = @mkdir($dir, $conf['chmod_value'], ($flags&MKGETDIR_RECURSIVE) ? true:false );
     umask($umask);
     if ($mkd==false)
     {

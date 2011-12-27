@@ -303,7 +303,7 @@ SELECT
     high_filesize,
     file,
     path,
-    tn_ext
+    representative_ext
   FROM '.IMAGES_TABLE.'
   WHERE id IN ('.implode(',', array_keys($image_ids)).')
 ;';
@@ -313,7 +313,7 @@ SELECT
     $high_filesize_of_image = array();
     $file_of_image = array();
     $path_of_image = array();
-    $tn_ext_of_image = array();
+    $representative_ext_of_image = array();
 
     $result = pwg_query($query);
     while ($row = pwg_db_fetch_assoc($result))
@@ -332,7 +332,7 @@ SELECT
 
       $file_of_image[ $row['id'] ] = $row['file'];
       $path_of_image[ $row['id'] ] = $row['path'];
-      $tn_ext_of_image[ $row['id'] ] = $row['tn_ext'];
+      $representative_ext_of_image[ $row['id'] ] = $row['representative_ext'];
     }
 
     // echo '<pre>'; print_r($high_filesize_of_image); echo '</pre>';
@@ -454,7 +454,7 @@ SELECT
           'id' => $line['image_id'],
           'file' => $file_of_image[$line['image_id']],
           'path' => $path_of_image[$line['image_id']],
-          'tn_ext' => $tn_ext_of_image[$line['image_id']],
+          'representative_ext' => $representative_ext_of_image[$line['image_id']],
           );
         $thumbnail_display = $page['search']['fields']['display_thumbnail'];
       }
@@ -487,7 +487,7 @@ SELECT
         {
           $image_string =
             '<a class="thumbnail" href="'.$picture_url.'">'
-            .'<span><img src="'.get_thumbnail_url($element)
+            .'<span><img src="'.DerivativeImage::thumb_url($element)
             .'" alt="'.$image_title.'" title="'.$image_title.'">'
             .'</span></a>';
           break;
@@ -496,7 +496,7 @@ SELECT
         {
           $image_string =
             '<a class="over" href="'.$picture_url.'">'
-            .'<span><img src="'.get_thumbnail_url($element)
+            .'<span><img src="'.DerivativeImage::thumb_url($element)
             .'" alt="'.$image_title.'" title="'.$image_title.'">'
             .'</span>'.$image_title.'</a>';
           break;

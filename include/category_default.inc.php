@@ -113,7 +113,7 @@ foreach ($pictures as $row)
 
   $tpl_var = array(
     'ID' => $row['id'],
-    'TN_SRC' => get_thumbnail_url($row),
+    'TN_SRC' => DerivativeImage::thumb_url($row),
     'TN_ALT' => htmlspecialchars(strip_tags($name)),
     'TN_TITLE' => get_thumbnail_title($row),
     'URL' => $url,

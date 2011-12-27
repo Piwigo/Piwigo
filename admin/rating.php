@@ -184,7 +184,7 @@ SELECT i.id,
   GROUP BY i.id,
         i.path,
         i.file,
-        i.tn_ext,
+        i.representative_ext,
         i.rating_score,
         r.element_id
   ORDER BY ' . $available_order_by[$order_by_index][1] .'
@@ -201,7 +201,7 @@ while ($row = pwg_db_fetch_assoc($result))
 $template->assign( 'images', array() );
 foreach ($images as $image)
 {
-  $thumbnail_src = get_thumbnail_url($image);
+  $thumbnail_src = DerivativeImage::thumb_url($image);
 
   $image_url = PHPWG_ROOT_PATH.'admin.php?page=picture_modify'.
             '&amp;image_id='.$image['id'];

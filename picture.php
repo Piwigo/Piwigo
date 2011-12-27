@@ -21,7 +21,7 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
-define('PHPWG_ROOT_PATH','./');
+define('PHPWG_ROOT_PATH','');
 include_once(PHPWG_ROOT_PATH.'include/common.inc.php');
 include(PHPWG_ROOT_PATH.'include/section_init.inc.php');
 include_once(PHPWG_ROOT_PATH.'include/functions_picture.inc.php');
@@ -153,33 +153,40 @@ function default_picture_content($content, $element_info)
   {// someone hooked us - so we skip;
     return $content;
   }
-  if (!isset($element_info['image_url']))
-  { // nothing to do
-    return $content;
+
+  if (isset($_COOKIE['picture_deriv']))
+  {
+    pwg_set_session_var('picture_deriv', $_COOKIE['picture_deriv']);
+    setcookie('picture_deriv', false, 0);
+  }
+  $deriv_type = pwg_get_session_var('picture_deriv', IMG_LARGE);
+  $selected_derivative = $element_info['derivatives'][$deriv_type];
+
+  $available_derivatives = array();
+  $added = array();
+  foreach($element_info['derivatives'] as $type => $derivative)
+  {
+    $url = $derivative->get_url();
+    if (isset($added[$url]))
+      continue;
+    $added[$url] = 1;
+    $available_derivatives[] = $type;
   }
 
   global $user, $page, $template;
+  
+  $template->append('current', array(
+      'selected_derivative' => $selected_derivative,
+      'available_derivative_types' => $available_derivatives,
+    ), true);
+
 
   $template->set_filenames(
     array('default_content'=>'picture_content.tpl')
     );
 
-  if ( !$page['slideshow'] and isset($element_info['high_url']) )
-  {
-    $uuid = uniqid(rand());
-    $template->assign(
-      'high',
-      array(
-        'U_HIGH' => $element_info['high_url'],
-        'UUID'   => $uuid,
-        )
-      );
-  }
   $template->assign( array(
-      'SRC_IMG' => $element_info['image_url'],
       'ALT_IMG' => $element_info['file'],
-      'WIDTH_IMG' => @$element_info['scaled_width'],
-      'HEIGHT_IMG' => @$element_info['scaled_height'],
       )
     );
   return $template->parse( 'default_content', true);
@@ -403,7 +410,7 @@ UPDATE '.USER_CACHE_CATEGORIES_TABLE.'
   }
 }
 
-// incrementation of the number of hits, we do this only if no action
+//---------- incrementation of the number of hits, we do this only if no action
 if (trigger_event('allow_increment_element_hit_count', !isset($_POST['content']) ) )
 {
   $query = '
@@ -492,6 +499,10 @@ while ($row = pwg_db_fetch_assoc($result))
     $picture[$i]['is_picture'] = true;
   }
 
+  $picture[$i]['derivatives'] = DerivativeImage::get_all($row);
+  $picture[$i]['src_image'] = $picture[$i]['derivatives'][IMG_THUMB]->src_image;
+  $picture[$i]['thumbnail'] = $picture[$i]['derivatives'][IMG_THUMB]->get_url();
+  
   // ------ build element_path and element_url
   $picture[$i]['element_path'] = get_element_path($picture[$i]);
   $picture[$i]['element_url'] = get_element_url($picture[$i]);
@@ -509,12 +520,7 @@ while ($row = pwg_db_fetch_assoc($result))
     {
       if ( $user['enabled_high']=='true' )
       {
-        $hi_url=get_high_url($picture[$i]);
-        if ( !empty($hi_url) )
-        {
-          $picture[$i]['high_url'] = $hi_url;
-          $picture[$i]['download_url'] = get_download_url('h',$picture[$i]);
-        }
+        $picture[$i]['download_url'] = get_download_url('e',$picture[$i]);
       }
     }
     else
@@ -523,7 +529,6 @@ while ($row = pwg_db_fetch_assoc($result))
     }
   }
 
-  $picture[$i]['thumbnail'] = get_thumbnail_url($row);
 
   if ( !empty( $row['name'] ) )
   {
@@ -566,19 +571,6 @@ if (empty($picture['current']['width']))
     $picture['current']['width'] = $taille_image[0];
     $picture['current']['height']= $taille_image[1];
   }
-}
-
-if (!empty($picture['current']['width']))
-{
-  list(
-    $picture['current']['scaled_width'],
-    $picture['current']['scaled_height']
-    ) = get_picture_size(
-      $picture['current']['width'],
-      $picture['current']['height'],
-      @$user['maxwidth'],
-      @$user['maxheight']
-    );
 }
 
 $slideshow_params = array();
@@ -896,48 +888,14 @@ $url = make_index_url(
 $infos['INFO_POSTED_DATE'] = '<a href="'.$url.'" rel="nofollow">'.$val.'</a>';
 
 // size in pixels
-if ($picture['current']['is_picture'] AND $picture['current']['has_high'])
+if ($picture['current']['is_picture'] and isset($picture['current']['width']) )
 {
-  if (!empty($picture['current']['high_width']))
-  {
-    $infos['INFO_DIMENSIONS'] = $picture['current']['high_width'].'*'.$picture['current']['high_height'];
-  }
-  else if ($hi_size = @getimagesize($hi_url))
-  {
-    pwg_query('
-      UPDATE ' . IMAGES_TABLE . '
-      SET 
-        high_width = \'' . $hi_size[0].'\',
-        high_height = \''.$hi_size[1] .'\'
-      WHERE id = ' . $picture['current']['id'] . ';
-    ');
-    
-    $infos['INFO_DIMENSIONS'] = $hi_size[0].'*'.$hi_size[1];
-  }
-}
-else if ($picture['current']['is_picture'] and isset($picture['current']['width']) )
-{
-  if ($picture['current']['scaled_width'] !== $picture['current']['width'] )
-  {
-    $infos['INFO_DIMENSIONS'] =
-      '<a href="'.$picture['current']['image_url'].'" title="'.
-      l10n('Original dimensions').'">'.
-      $picture['current']['width'].'*'.$picture['current']['height'].'</a>';
-  }
-  else
-  {
-    $infos['INFO_DIMENSIONS'] =
-      $picture['current']['width'].'*'.$picture['current']['height'];
-  }
+  $infos['INFO_DIMENSIONS'] =
+    $picture['current']['width'].'*'.$picture['current']['height'];
 }
 
 // filesize
-if ($picture['current']['has_high'] and !empty($picture['current']['high_filesize']))
-{
-  $infos['INFO_FILESIZE'] =
-    sprintf(l10n('%d Kb'), $picture['current']['high_filesize']);
-}
-else if (!empty($picture['current']['filesize']))
+if (!empty($picture['current']['filesize']))
 {
   $infos['INFO_FILESIZE'] =
     sprintf(l10n('%d Kb'), $picture['current']['filesize']);

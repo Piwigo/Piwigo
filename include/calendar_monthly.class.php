@@ -350,7 +350,7 @@ function build_month_calendar(&$tpl_var)
   {
     $page['chronology_date'][CDAY]=$day;
     $query = '
-SELECT id, file,tn_ext,path, width, height, '.pwg_db_get_dayofweek($this->date_field).'-1 as dow';
+SELECT id, file,representative_ext,path,width, height, '.pwg_db_get_dayofweek($this->date_field).'-1 as dow';
     $query.= $this->inner_sql;
     $query.= $this->get_date_where();
     $query.= '
@@ -359,18 +359,13 @@ SELECT id, file,tn_ext,path, width, height, '.pwg_db_get_dayofweek($this->date_f
     unset ( $page['chronology_date'][CDAY] );
 
     $row = pwg_db_fetch_assoc(pwg_query($query));
-    $items[$day]['tn_url'] = get_thumbnail_url($row);
+    $derivative = new DerivativeImage(IMG_SQUARE, new SrcImage($row));
+    $items[$day]['derivative'] = $derivative;
     $items[$day]['file'] = $row['file'];
-    $items[$day]['path'] = $row['path'];
-    $items[$day]['tn_ext'] = @$row['tn_ext'];
-    $items[$day]['width'] = $row['width'];
-    $items[$day]['height'] = $row['height'];
     $items[$day]['dow'] = $row['dow'];
   }
 
-  if ( !empty($items)
-      and $conf['calendar_month_cell_width']>0
-      and $conf['calendar_month_cell_height']>0)
+  if ( !empty($items) )
   {
     list($known_day) = array_keys($items);
     $known_dow = $items[$known_day]['dow'];
@@ -396,8 +391,7 @@ SELECT id, file,tn_ext,path, width, height, '.pwg_db_get_dayofweek($this->date_f
       array_push( $wday_labels, array_shift($wday_labels) );
     }
 
-    $cell_width = $conf['calendar_month_cell_width'];
-    $cell_height = $conf['calendar_month_cell_height'];
+    list($cell_width, $cell_height) = ImageStdParams::get_by_type(IMG_SQUARE)->sizing->ideal_size;
 
     $tpl_weeks    = array();
     $tpl_crt_week = array();
@@ -430,11 +424,7 @@ SELECT id, file,tn_ext,path, width, height, '.pwg_db_get_dayofweek($this->date_f
       }
       else
       {
-        $thumb = get_thumbnail_path($items[$day]);
-        $tn_size = @getimagesize($thumb);
-
-        $tn_width = $tn_size[0];
-        $tn_height = $tn_size[1];
+        list($tn_width,$tn_height) = $items[$day]['derivative']->get_size();
 
         // now need to fit the thumbnail of size tn_size within
         // a cell of size cell_size by playing with CSS position (left/top)
@@ -491,7 +481,7 @@ SELECT id, file,tn_ext,path, width, height, '.pwg_db_get_dayofweek($this->date_f
               'DAY'         => $day,
               'DOW'         => $dow,
               'NB_ELEMENTS' => $items[$day]['nb_images'],
-              'IMAGE'       => $items[$day]['tn_url'],
+              'IMAGE'       => $items[$day]['derivative']->get_url(),
               'U_IMG_LINK'  => $url,
               'IMAGE_STYLE' => $css_style,
               'IMAGE_ALT'   => $items[$day]['file'],

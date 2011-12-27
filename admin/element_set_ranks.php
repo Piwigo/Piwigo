@@ -199,7 +199,8 @@ SELECT
     id,
     file,
     path,
-    tn_ext,
+    representative_ext,
+    width, height,
     name,
     rank
   FROM '.IMAGES_TABLE.'
@@ -214,11 +215,12 @@ if (pwg_db_num_rows($result) > 0)
 	$current_rank = 1;
 	$thumbnail_info=array();
 	$clipping=array();
+  $derivativeParams = ImageStdParams::get_by_type(IMG_SQUARE);
 	while ($row = pwg_db_fetch_assoc($result))
 	{
-		$src = get_thumbnail_url($row);
+    $derivative = new DerivativeImage($derivativeParams, new SrcImage($row));
 
-		$thumbnail_size = getimagesize($src);
+		$thumbnail_size = $derivative->get_size();
 		if ( !empty( $row['name'] ) )
 		{
 			$thumbnail_name = $row['name'];
@@ -233,7 +235,7 @@ if (pwg_db_num_rows($result) > 0)
 			'width'	=> $thumbnail_size[0],
 			'height'	=> $thumbnail_size[1],
 			'id'	=> $row['id'],
-			'tn_src'	=> $src,
+			'tn_src'	=> $derivative->get_url(),
 			'rank'	=> $current_rank * 10,
 			);
 		if ($thumbnail_size[0]<=128 and $thumbnail_size[1]<=128)

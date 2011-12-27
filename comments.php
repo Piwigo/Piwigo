@@ -408,7 +408,7 @@ if (count($comments) > 0)
   // retrieving element informations
   $elements = array();
   $query = '
-SELECT id, name, file, path, tn_ext
+SELECT id, name, file, path, representative_ext
   FROM '.IMAGES_TABLE.'
   WHERE id IN ('.implode(',', $element_ids).')
 ;';
@@ -450,7 +450,7 @@ SELECT c.id, name, permalink, uppercats, com.id as comment_id
     }
 
     // source of the thumbnail picture
-    $thumbnail_src = get_thumbnail_url( $elements[$comment['image_id']] );
+    $thumbnail_src = DerivativeImage::thumb_url( $elements[$comment['image_id']] );
 
     // link to the full size picture
     $url = make_picture_url(

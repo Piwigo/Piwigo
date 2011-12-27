@@ -26,18 +26,6 @@
  *
  */
 
-// $picture['current']['high_url'] may not be set if the user has no access
-// to the high definition, but we may want to display metadata and read the
-// high definition is available
-$high_url = null;
-if (isset($picture['current']['high_url']))
-{
-  $high_url = $picture['current']['high_url'];
-}
-else
-{
-  $high_url = get_high_url($picture['current']);
-}
 
 include_once(PHPWG_ROOT_PATH.'/include/functions_metadata.inc.php');
 if (($conf['show_exif']) and (function_exists('read_exif_data')))
@@ -49,10 +37,6 @@ if (($conf['show_exif']) and (function_exists('read_exif_data')))
   }
 
   $exif = get_exif_data($picture['current']['image_path'], $exif_mapping);
-  if (count($exif) == 0 and $picture['current']['has_high'])
-  {
-    $exif = get_exif_data($high_url, $exif_mapping);
-  }
   
   if (count($exif) > 0)
   {
@@ -96,10 +80,6 @@ if (($conf['show_exif']) and (function_exists('read_exif_data')))
 if ($conf['show_iptc'])
 {
   $iptc = get_iptc_data($picture['current']['image_path'], $conf['show_iptc_mapping']);
-  if (count($iptc) == 0 and $picture['current']['has_high'])
-  {
-    $iptc = get_iptc_data($high_url, $conf['show_iptc_mapping']);
-  }
 
   if (count($iptc) > 0)
   {
