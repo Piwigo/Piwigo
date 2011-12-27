@@ -19,7 +19,7 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
-define('PHPWG_ROOT_PATH','');
+define('PHPWG_ROOT_PATH','./');
 
 // fast bootstrap - no db connection
 include(PHPWG_ROOT_PATH . 'include/config_default.inc.php');
