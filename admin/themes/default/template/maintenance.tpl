@@ -29,4 +29,5 @@
 	<li><a href="{$U_MAINT_FEEDS}">{'Purge never used notification feeds'|@translate}</a></li>
 	<li><a href="{$U_MAINT_SEARCH}"onclick="return confirm('{'Purge search history'|@translate|@escape:'javascript'}');">{'Purge search history'|@translate}</a></li>
 	<li><a href="{$U_MAINT_COMPILED_TEMPLATES}">{'Purge compiled templates'|@translate}</a></li>
+	<li><a href="{$U_MAINT_DERIVATIVES}">{'Purge derivative image cache'|@translate}</a></li>
 </ul>

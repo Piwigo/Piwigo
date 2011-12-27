@@ -172,7 +172,7 @@ $query = '
 SELECT i.id,
     i.path,
     i.file,
-    i.tn_ext,
+    i.representative_ext,
     i.rating_score       AS score,
     MAX(r.date)          AS recently_rated,
     ROUND(AVG(r.rate),2) AS avg_rates,

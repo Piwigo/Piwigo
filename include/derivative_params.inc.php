@@ -19,6 +19,11 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
+function derivative_to_url($t)
+{
+  return substr($t, 0, 2);
+}
+
 function size_to_url($s)
 {
   if ($s[0]==$s[1])

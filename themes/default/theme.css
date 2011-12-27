@@ -338,6 +338,19 @@ TD.calDayHead {
 #imageToolBar .pwg-button {width:42px;}
 
 
+#derivativeSwitchLink {
+	padding: 0.2em;
+	position: absolute;
+	left: 5px;
+	top: 100px;
+}
+
+#derivativeSwitchBox {
+	padding: 0.5em;
+	border-radius: 4px;
+	z-index: 100;
+}
+
 #theImage {
 	clear: left;
 	text-align: center;

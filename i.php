@@ -135,7 +135,7 @@ function parse_request()
   $deriv = explode('_', $deriv);
   foreach (ImageStdParams::get_defined_type_map() as $type => $params)
   {
-    if (substr($type,0,2) == $deriv[0])
+    if ( derivative_to_url($type) == $deriv[0])
     {
       $page['derivative_type'] = $type;
       $page['derivative_params'] = $params;
@@ -145,7 +145,7 @@ function parse_request()
 
   if (!isset($page['derivative_type']))
   {
-    if (substr(IMG_CUSTOM,0,2) == $deriv[0])
+    if (derivative_to_url(IMG_CUSTOM) == $deriv[0])
     {
       $page['derivative_type'] = IMG_CUSTOM;
     }
@@ -288,5 +288,5 @@ switch (strtolower($page['derivative_ext']))
 header("Content-Type: $ctype");
 
 fpassthru($fp);
-exit;
+fclose($fp);
 ?>

@@ -474,15 +474,15 @@ while ($row = pwg_db_fetch_assoc($result))
   {
     $i = 'previous';
   }
-  else if (isset($page['next_item']) and $row['id'] == $page['next_item'])
+  elseif (isset($page['next_item']) and $row['id'] == $page['next_item'])
   {
     $i = 'next';
   }
-  else if (isset($page['first_item']) and $row['id'] == $page['first_item'])
+  elseif (isset($page['first_item']) and $row['id'] == $page['first_item'])
   {
     $i = 'first';
   }
-  else if (isset($page['last_item']) and $row['id'] == $page['last_item'])
+  elseif (isset($page['last_item']) and $row['id'] == $page['last_item'])
   {
     $i = 'last';
   }
@@ -491,44 +491,41 @@ while ($row = pwg_db_fetch_assoc($result))
     $i = 'current';
   }
 
-  $picture[$i] = $row;
 
-  $picture[$i]['is_picture'] = false;
-  if (in_array(get_extension($row['file']), $conf['picture_ext']))
-  {
-    $picture[$i]['is_picture'] = true;
-  }
 
-  $picture[$i]['derivatives'] = DerivativeImage::get_all($row);
-  $picture[$i]['src_image'] = $picture[$i]['derivatives'][IMG_THUMB]->src_image;
-  $picture[$i]['thumbnail'] = $picture[$i]['derivatives'][IMG_THUMB]->get_url();
+  $row['derivatives'] = DerivativeImage::get_all($row);
+  $row['src_image'] = $row['derivatives'][IMG_THUMB]->src_image;
   
   // ------ build element_path and element_url
-  $picture[$i]['element_path'] = get_element_path($picture[$i]);
-  $picture[$i]['element_url'] = get_element_url($picture[$i]);
-
-  // ------ build image_path and image_url
-  if ($i=='current' or $i=='next')
-  {
-    $picture[$i]['image_path'] = get_image_path( $picture[$i] );
-    $picture[$i]['image_url'] = get_image_url( $picture[$i] );
-  }
+  $row['element_path'] = get_element_path($row);
+  $row['element_url'] = get_element_url($row);
 
   if ($i=='current')
   {
-    if ( $picture[$i]['is_picture'] )
+    if ( $row['src_image']->is_original() )
     {
       if ( $user['enabled_high']=='true' )
       {
-        $picture[$i]['download_url'] = get_download_url('e',$picture[$i]);
+        $row['download_url'] = get_download_url('e',$row);
       }
     }
     else
     { // not a pic - need download link
-      $picture[$i]['download_url'] = get_download_url('e',$picture[$i]);
+      $row['download_url'] = $row['element_url'];
     }
   }
 
+  $row['url'] = duplicate_picture_url(
+    array(
+      'image_id' => $row['id'],
+      'image_file' => $row['file'],
+      ),
+    array(
+      'start',
+      )
+    );
+
+  $picture[$i] = $row;
 
   if ( !empty( $row['name'] ) )
   {
@@ -542,16 +539,6 @@ while ($row = pwg_db_fetch_assoc($result))
 
   $picture[$i]['name'] = trigger_event('render_element_description', $picture[$i]['name']);
 
-  $picture[$i]['url'] = duplicate_picture_url(
-    array(
-      'image_id' => $row['id'],
-      'image_file' => $row['file'],
-      ),
-    array(
-      'start',
-      )
-    );
-
   if ('previous'==$i and $page['previous_item']==$page['first_item'])
   {
     $picture['first'] = $picture[$i];
@@ -559,17 +546,6 @@ while ($row = pwg_db_fetch_assoc($result))
   if ('next'==$i and $page['next_item']==$page['last_item'])
   {
     $picture['last'] = $picture[$i];
-  }
-}
-
-// calculation of width and height for the current picture
-if (empty($picture['current']['width']))
-{
-  $taille_image = @getimagesize($picture['current']['image_path']);
-  if ($taille_image!==false)
-  {
-    $picture['current']['width'] = $taille_image[0];
-    $picture['current']['height']= $taille_image[1];
   }
 }
 
@@ -637,9 +613,9 @@ $metadata_showable = trigger_event(
   'get_element_metadata_available',
   (
     ($conf['show_exif'] or $conf['show_iptc'])
-    and isset($picture['current']['image_path'])
+    and !$picture['current']['src_image']->is_mimetype()
     ),
-  $picture['current']['path']
+  $picture['current']
   );
 
 if ( $metadata_showable and pwg_get_session_var('show_metadata') )
@@ -653,14 +629,6 @@ $page['body_id'] = 'thePicturePage';
 // allow plugins to change what we computed before passing data to template
 $picture = trigger_event('picture_pictures_data', $picture);
 
-
-if (isset($picture['next']['image_url'])
-    and $picture['next']['is_picture']
-    and strpos($_SERVER['HTTP_USER_AGENT'], 'Chrome/') === false)
-{
-  $template->assign('U_PREFETCH', $picture['next']['image_url'] );
-}
-
 //------------------------------------------------------- navigation management
 foreach (array('first','previous','next','last', 'current') as $which_image)
 {
@@ -672,7 +640,7 @@ foreach (array('first','previous','next','last', 'current') as $which_image)
         $picture[$which_image],
         array(
           'TITLE' => $picture[$which_image]['name'],
-          'THUMB_SRC' => $picture[$which_image]['thumbnail'],
+          'THUMB_SRC' => $picture[$which_image]['derivatives'][IMG_THUMB]->get_url(),
           // Params slideshow was transmit to navigation buttons
           'U_IMG' =>
             add_url_params(
@@ -888,7 +856,7 @@ $url = make_index_url(
 $infos['INFO_POSTED_DATE'] = '<a href="'.$url.'" rel="nofollow">'.$val.'</a>';
 
 // size in pixels
-if ($picture['current']['is_picture'] and isset($picture['current']['width']) )
+if ($picture['current']['src_image']->is_original() and isset($picture['current']['width']) )
 {
   $infos['INFO_DIMENSIONS'] =
     $picture['current']['width'].'*'.$picture['current']['height'];
@@ -979,6 +947,14 @@ $element_content = trigger_event(
   $picture['current']
   );
 $template->assign( 'ELEMENT_CONTENT', $element_content );
+
+if (isset($picture['next'])
+    and $picture['next']['src_image']->is_original()
+    and strpos($_SERVER['HTTP_USER_AGENT'], 'Chrome/') === false)
+{
+  $template->assign('U_PREFETCH', $picture['next']['derivatives'][pwg_get_session_var('picture_deriv', IMG_LARGE)]->get_url() );
+}
+
 
 // +-----------------------------------------------------------------------+
 // |                               sub pages                               |

@@ -21,10 +21,14 @@
 
 final class SrcImage
 {
+  const IS_ORIGINAL = 0x01;
+  const IS_MIMETYPE = 0x02;
+
   public $rel_path;
-  
+
   public $coi=null;
   private $size=null;
+  private $flags=0;
 
   function __construct($infos)
   {
@@ -34,6 +38,7 @@ final class SrcImage
     if (in_array($ext, $conf['picture_ext']))
     {
       $this->rel_path = $infos['path'];
+      $this->flags |= self::IS_ORIGINAL;
     }
     elseif (!empty($infos['representative_ext']))
     {
@@ -44,14 +49,37 @@ final class SrcImage
     }
     else
     {
-      $this->rel_path = get_themeconf('mime_icon_dir').strtolower($ext).'.png';
+      $ext = strtolower($ext);
+      $this->rel_path = trigger_event('get_mimetype_location', get_themeconf('mime_icon_dir').$ext.'.png', $ext );
+      $this->flags |= self::IS_MIMETYPE;
+      $this->size = @getimagesize(PHPWG_ROOT_PATH.$this->rel_path);
     }
 
     $this->coi = @$infos['coi'];
-    if (isset($infos['width']) && isset($infos['height']))
+    if (!$this->size && isset($infos['width']) && isset($infos['height']))
     {
       $this->size = array($infos['width'], $infos['height']);
     }
+  }
+
+  function is_original()
+  {
+    return $this->flags & self::IS_ORIGINAL;
+  }
+
+  function is_mimetype()
+  {
+    return $this->flags & self::IS_MIMETYPE;
+  }
+
+  function get_path()
+  {
+    return PHPWG_ROOT_PATH.$this->rel_path;
+  }
+
+  function get_url()
+  {
+    return get_root_url().$this->rel_path;
   }
 
   function has_size()
@@ -126,7 +154,7 @@ final class DerivativeImage
     {
       $ret[$type] = $ret[$type2];
     }
-    
+
     return $ret;
   }
 
@@ -144,7 +172,7 @@ final class DerivativeImage
     $tokens=array();
     $tokens[] = substr($params->type,0,2);
 
-    if (!empty($src->coi))
+    if ($params->sizing->max_crop != 0 and !empty($src->coi))
     {
       $tokens[] = 'ci'.$src->coi;
     }
@@ -205,6 +233,13 @@ final class DerivativeImage
     return $this->flags & self::SAME_AS_SRC;
   }
 
+
+  function get_type()
+  {
+    if ($this->flags & self::SAME_AS_SRC)
+      return 'original';
+    return $this->params->type;
+  }
 
   /* returns the size of the derivative image*/
   function get_size()

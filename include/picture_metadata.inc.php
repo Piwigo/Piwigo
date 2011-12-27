@@ -36,7 +36,7 @@ if (($conf['show_exif']) and (function_exists('read_exif_data')))
     $exif_mapping[$field] = $field;
   }
 
-  $exif = get_exif_data($picture['current']['image_path'], $exif_mapping);
+  $exif = get_exif_data($picture['current']['src_image']->get_path(), $exif_mapping);
   
   if (count($exif) > 0)
   {
@@ -79,7 +79,7 @@ if (($conf['show_exif']) and (function_exists('read_exif_data')))
 
 if ($conf['show_iptc'])
 {
-  $iptc = get_iptc_data($picture['current']['image_path'], $conf['show_iptc_mapping']);
+  $iptc = get_iptc_data($picture['current']['src_image']->get_path(), $conf['show_iptc_mapping']);
 
   if (count($iptc) > 0)
   {

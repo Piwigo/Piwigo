@@ -121,10 +121,15 @@ DELETE
     pwg_query($query);
     break;
   }
-  case 'compiled-templates' :
+  case 'compiled-templates':
   {
     $template->delete_compiled_templates();
     FileCombiner::clear_combined_files();
+    break;
+  }
+  case 'derivatives':
+  {
+    clear_derivative_cache();
     break;
   }
   default :
@@ -154,6 +159,7 @@ $template->assign(
     'U_MAINT_C13Y' => sprintf($url_format, 'c13y'),
     'U_MAINT_SEARCH' => sprintf($url_format, 'search'),
     'U_MAINT_COMPILED_TEMPLATES' => sprintf($url_format, 'compiled-templates'),
+    'U_MAINT_DERIVATIVES' => sprintf($url_format, 'derivatives'),
     'U_HELP' => get_root_url().'admin/popuphelp.php?page=maintenance',
     )
   );

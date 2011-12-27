@@ -16,7 +16,7 @@ BODY, H3, #imageToolBar A:hover {
 	background-color: #2f2f2f;
 }
 
-#menubar DL, .content, #imageToolBar, #imageHeaderBar, .header_notes {
+#menubar DL, .content, #imageToolBar, #imageHeaderBar, #derivativeSwitchLink, #derivativeSwitchBox, .header_notes {
 	background-color: #505050;
 }
 
@@ -34,7 +34,7 @@ H2, #menubar DT {
 }
 
 /* borders */
-#menubar DL, .content{
+#menubar DL, .content, #derivativeSwitchLink, #derivativeSwitchBox{
 	border: 1px solid #000;
 }
 

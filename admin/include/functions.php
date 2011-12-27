@@ -2246,4 +2246,83 @@ SELECT
 
   return array_from_query($query, 'user_id');
 }
+
+function clear_derivative_cache($type='all')
+{
+  $pattern='#.*-';
+  if ($type == 'all')
+  {
+    $type_urls = array();
+    foreach(ImageStdParams::get_all_types() as $dtype)
+    {
+      $type_urls[] = derivative_to_url($dtype);
+    }
+    $type_urls[] = derivative_to_url(IMG_CUSTOM);
+    $pattern .= '(' . implode('|',$type_urls) . ')';
+  }
+  else
+  {
+    $pattern .= derivative_to_url($type);
+  }
+  $pattern.='(_[a-zA-Z0-9]+)*\.[a-zA-Z0-9]{3,4}$#';
+  if ($contents = opendir(PHPWG_ROOT_PATH.PWG_DERIVATIVE_DIR))
+  {
+    while (($node = readdir($contents)) !== false)
+    {
+      if ($node != '.'
+          and $node != '..'
+          and is_dir(PHPWG_ROOT_PATH.PWG_DERIVATIVE_DIR.$node))
+      {
+        clear_derivative_cache_rec(PHPWG_ROOT_PATH.PWG_DERIVATIVE_DIR.$node, $pattern);
+      }
+    }
+    closedir($contents);
+  }
+}
+
+function clear_derivative_cache_rec($path, $pattern)
+{
+  $rmdir = true;
+  $rm_index = false;
+
+  if ($contents = opendir($path))
+  {
+    while (($node = readdir($contents)) !== false)
+    {
+      if ($node == '.' or $node == '..')
+        continue;
+      if (is_dir($path.'/'.$node))
+      {
+        $rmdir &= clear_derivative_cache_rec($path.'/'.$node, $pattern);
+      }
+      else
+      {
+        if (preg_match($pattern, $node))
+        {
+          unlink($path.'/'.$node);
+        }
+        elseif ($node=='index.htm')
+        {
+          $rm_index = true;
+        }
+        else
+        {
+          $rmdir = false;
+        }
+      }
+    }
+    closedir($contents);
+    
+    if ($rmdir)
+    {
+      if ($rm_index)
+      {
+        unlink($path.'/index.htm');
+      }
+      clearstatcache();
+      rmdir($path);
+    }
+    return $rmdir;
+  }
+}
 ?>
