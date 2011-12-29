@@ -76,7 +76,6 @@ $lang['%d users were not updated.'] = "%d χρήστες δεν ενημερώθ
 $lang['%d users were updated.'] = "%d χρήστες ενημερώθηκαν.";
 $lang['%d users'] = "%d χρήστες";
 $lang['%d waiting for validation'] = "%d περιμένουν επικύρωση";
-$lang['%s has been successfully upgraded.'] = "%s αναβαθμίστηκε επιτυχώς.";
 $lang['%s must be to set to false in your local/config/config.inc.php file'] = "%s must be set to false in your local/config/config.inc.php file";
 $lang['%s value is not correct file because exif are not supported'] = "%s πεδίο είναι λάθος γιατί δεν υποστηρίζεται η πληροφορία EXIF";
 $lang['+ Add an upload box'] = '+ Προσθήκη και άλλου αρχείου';
@@ -116,6 +115,25 @@ $lang['Add New Language'] = 'Προσθήκη Νέας Γλώσσας';
 $lang['add new photos to caddie'] = 'Προσθήκη νέας φωτογραφίας στο κουτί';
 $lang['Add New Theme'] = 'Προσθήκη ενός νέου θέματος';
 $lang['Add Photos'] = 'Προσθήκη φωτογραφιών';
-$lang['add tags'] = 'προσθήκη ετικετών'; 
+$lang['Add to caddie'] = 'προσθήκη στο καλάθι';
+$lang['Upload Photos'] = 'Ανέβασμα φωτογραφιών';
+$lang['Select an album'] = 'Επέλεξε άλμπουμ';
+$lang['... or '] = '... ή ';
+$lang['create a new album'] = 'δημιούργησε ένα νέο άλμπουμ';
+$lang['Select files'] = 'Επέλεξε αρχεία';
+$lang['Start Upload'] = 'Έναρξη ανεβάσματος';
+$lang['Learn more'] = 'Μάθε περισσότερα';
+$lang['Maximum file size: %sB.'] = 'Μέγιστο μέγεθος αρχείου: %sB.';
+$lang['Allowed file types: %s.'] = 'Επιτρεπόμενοι τύποι αρχείων: %s.';
+$lang['Photo %s of %s'] = 'Φωτογραφία  %s του %';
+$lang['All %d photos are selected'] = 'Όλεςl %d οι φωτογραφίες επιλέχθηκαν';
+$lang['You are using the Browser uploader. Try the <a href="%s">Flash uploader</a> instead.'] = 'You are using the Browser uploader. Try the <a href="%s">Flash uploader</a> instead.';
+$lang['You are using the Browser uploader. Try the <a href="%s">Flash uploader</a> instead.'] = 'Χρησιμοποιείς τον Flash uploader. Προβλήματα; Προσπάθησε το <a href="%s">ανέβασμα μέσω φυλλομετρητή</a> instead.';
+$lang['Exif extension not available, admin should disable exif use'] = 'Η προέκταση για τα exif δεν είναι διαθέσιμη, ο διαχειριστής θα απενεργοποιήσει την χρήση του  exif';
+$lang['Hide'] = "Κρυφό";
+$lang['Level 1'] = "Επαφές";
+$lang['Level 2'] = "Φίλοι";
+$lang['Level 4'] = "Οικογένεια";
+$lang['Level 8'] = "Διαχειριστές";
 
 ?>
