@@ -26,7 +26,7 @@ include(PHPWG_ROOT_PATH . 'include/config_default.inc.php');
 @include(PHPWG_ROOT_PATH. 'local/config/config.inc.php');
 
 defined('PWG_LOCAL_DIR') or define('PWG_LOCAL_DIR', 'local/');
-defined('PWG_DERIVATIVE_DIR') or define('PWG_DERIVATIVE_DIR', PWG_LOCAL_DIR.'i/');
+defined('PWG_DERIVATIVE_DIR') or define('PWG_DERIVATIVE_DIR', $conf['data_location'].'i/');
 
 function trigger_action() {}
 function get_extension( $filename )

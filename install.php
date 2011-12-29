@@ -110,9 +110,9 @@ include(PHPWG_ROOT_PATH . 'include/config_default.inc.php');
 defined('PWG_LOCAL_DIR') or define('PWG_LOCAL_DIR', 'local/');
 
 // download database config file if exists
-if (!empty($_GET['dl']) && file_exists($conf['local_data_dir'].'/pwg_'.$_GET['dl']))
+if (!empty($_GET['dl']) && file_exists(PHPWG_ROOT_PATH.$conf['data_location'].'pwg_'.$_GET['dl']))
 {
-  $filename = $conf['local_data_dir'].'/pwg_'.$_GET['dl'];
+  $filename = PHPWG_ROOT_PATH.$conf['data_location'].'pwg_'.$_GET['dl'];
   header('Cache-Control: no-cache, must-revalidate');
   header('Pragma: no-cache');
   header('Content-Disposition: attachment; filename="database.inc.php"');
@@ -281,7 +281,7 @@ define(\'DB_COLLATE\', \'\');
     if ( !($fp = @fopen( $config_file, 'w' )))
     {
       $tmp_filename = md5(uniqid(time()));
-      $fh = @fopen( $conf['local_data_dir'] . '/pwg_' . $tmp_filename, 'w' );
+      $fh = @fopen( PHPWG_ROOT_PATH.$conf['data_location'] . 'pwg_' . $tmp_filename, 'w' );
       @fputs($fh, $file_content, strlen($file_content));
       @fclose($fh);
 

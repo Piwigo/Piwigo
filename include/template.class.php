@@ -59,30 +59,32 @@ class Template {
     $this->smarty->compile_check = $conf['template_compile_check'];
     $this->smarty->force_compile = $conf['template_force_compile'];
 
-    if (!isset($conf['local_data_dir_checked']))
+    if (!isset($conf['data_dir_checked']))
     {
-      mkgetdir($conf['local_data_dir'], MKGETDIR_DEFAULT&~MKGETDIR_DIE_ON_ERROR);
-      if (!is_writable($conf['local_data_dir']))
+      $dir = PHPWG_ROOT_PATH.$conf['data_location'];
+      mkgetdir($dir, MKGETDIR_DEFAULT&~MKGETDIR_DIE_ON_ERROR);
+      if (!is_writable($dir))
       {
         load_language('admin.lang');
         fatal_error(
           sprintf(
             l10n('Give write access (chmod 777) to "%s" directory at the root of your Piwigo installation'),
-            basename($conf['local_data_dir'])
+            $conf['data_location']
             ),
           l10n('an error happened'),
           false // show trace
           );
       }
       if (function_exists('pwg_query')) {
-        conf_update_param('local_data_dir_checked', 'true');
+        conf_update_param('data_dir_checked', 1);
       }
     }
 
     if (!isset($conf['combined_dir_checked']))
     {
-      mkgetdir(PWG_COMBINED_DIR, MKGETDIR_DEFAULT&~MKGETDIR_DIE_ON_ERROR);
-      if (!is_writable(PWG_COMBINED_DIR))
+      $dir = PHPWG_ROOT_PATH.PWG_COMBINED_DIR;
+      mkgetdir($dir, MKGETDIR_DEFAULT&~MKGETDIR_DIE_ON_ERROR);
+      if (!is_writable($dir))
       {
         load_language('admin.lang');
         fatal_error(
@@ -95,12 +97,12 @@ class Template {
           );
       }
       if (function_exists('pwg_query')) {
-        conf_update_param('combined_dir_checked', 'true');
+        conf_update_param('combined_dir_checked', 1);
       }
     }
 
 
-    $compile_dir = $conf['local_data_dir'].'/templates_c';
+    $compile_dir = PHPWG_ROOT_PATH.$conf['data_location'].'templates_c';
     mkgetdir( $compile_dir );
 
     $this->smarty->compile_dir = $compile_dir;
@@ -1181,7 +1183,6 @@ class ScriptLoader
 /*Allows merging of javascript and css files into a single one.*/
 final class FileCombiner
 {
-  const OUT_SUB_DIR = PWG_COMBINED_DIR;
   private $type; // js or css
   private $files = array();
   private $versions = array();
@@ -1193,11 +1194,11 @@ final class FileCombiner
 
   static function clear_combined_files()
   {
-    $dir = opendir(PHPWG_ROOT_PATH.self::OUT_SUB_DIR);
+    $dir = opendir(PHPWG_ROOT_PATH.PWG_COMBINED_DIR);
     while ($file = readdir($dir))
     {
       if ( get_extension($file)=='js' || get_extension($file)=='css')
-        unlink(PHPWG_ROOT_PATH.self::OUT_SUB_DIR.$file);
+        unlink(PHPWG_ROOT_PATH.PWG_COMBINED_DIR.$file);
     }
     closedir($dir);
   }
@@ -1242,7 +1243,7 @@ final class FileCombiner
     $key = join('>', $key);
 
     $file = base_convert(crc32($key),10,36);
-    $file = self::OUT_SUB_DIR . $file . '.' . $this->type;
+    $file = PWG_COMBINED_DIR . $file . '.' . $this->type;
 
     $exists = file_exists( PHPWG_ROOT_PATH . $file );
     if ($exists)

@@ -60,7 +60,7 @@ while ($row = pwg_db_fetch_assoc($result)) {
 }
 
 // save configuration for a future use by the Community plugin
-$backup_filepath = $conf['local_data_dir'].'/plugins/core_user_upload_to_community.php';
+$backup_filepath = PHPWG_ROOT_PATH.$conf['data_location'].'plugins/core_user_upload_to_community.php';
 $save_conf = true;
 if (is_dir(dirname($backup_filepath)))
 {
@@ -69,7 +69,7 @@ if (is_dir(dirname($backup_filepath)))
     $save_conf = false;
   }
 }
-elseif (!is_writable($conf['local_data_dir']))
+elseif (!is_writable( PHPWG_ROOT_PATH.$conf['data_location'] ))
 {
   $save_conf = false;
 }

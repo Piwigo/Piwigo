@@ -791,7 +791,7 @@ function move_ccs_rules_to_body($content)
 function pwg_send_mail_test($result, $to, $subject, $content, $headers, $args)
 {
     global $conf, $user, $lang_info;
-    $dir = $conf['local_data_dir'].'/tmp';
+    $dir = PHPWG_ROOT_PATH.$conf['data_location'].'tmp';
     if ( mkgetdir( $dir,  MKGETDIR_DEFAULT&~MKGETDIR_DIE_ON_ERROR) )
     {
       $filename = $dir.'/mail.'.stripslashes($user['username']).'.'.$lang_info['code'].'.'.$args['theme'].'-'.date('YmdHis');

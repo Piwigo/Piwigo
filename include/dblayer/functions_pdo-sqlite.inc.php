@@ -37,7 +37,7 @@ function pwg_db_connect($host, $user, $password, $database)
 {
   global $conf;
 
-  $db_file = sprintf('sqlite:%s/%s.db', $conf['local_data_dir'], $database);
+  $db_file = sprintf('sqlite:%s/%s.db', PHPWG_ROOT_PATH.$conf['data_location'], $database);
 
   $link = new PDO($db_file);
   if (!$link)

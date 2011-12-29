@@ -88,6 +88,8 @@ foreach( array(
 
 include(PHPWG_ROOT_PATH . 'include/config_default.inc.php');
 @include(PHPWG_ROOT_PATH. 'local/config/config.inc.php');
+if (!isset($conf['local_data_dir'])) $conf['local_data_dir'] = realpath(PHPWG_ROOT_PATH.$conf['data_location']); // temp 2.4 for backward compatibility
+
 defined('PWG_LOCAL_DIR') or define('PWG_LOCAL_DIR', 'local/');
 
 

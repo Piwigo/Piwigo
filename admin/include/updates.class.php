@@ -316,7 +316,7 @@ class updates
 
     include(PHPWG_ROOT_PATH.'admin/include/mysqldump.php');
 
-    $path = $conf['local_data_dir'].'/update';
+    $path = PHPWG_ROOT_PATH.$conf['data_location'].'update';
 
     if (@mkgetdir($path)
       and ($backupFile = tempnam($path, 'sql'))
@@ -350,7 +350,7 @@ class updates
       }
 
       @readfile($backupFile);
-      self::deltree($conf['local_data_dir'].'/update');
+      self::deltree(PHPWG_ROOT_PATH.$conf['data_location'].'update');
       exit();
     }
     else
@@ -386,7 +386,7 @@ class updates
 
     if (empty($page['errors']))
     {
-      $path = $conf['local_data_dir'].'/update';
+      $path = PHPWG_ROOT_PATH.$conf['data_location'].'update';
       $filename = $path.'/'.$code.'.zip';
       @mkgetdir($path);
 
@@ -449,7 +449,7 @@ class updates
           if (empty($error))
           {
             self::process_obsolete_list($obsolete_list);
-            self::deltree($conf['local_data_dir'].'/update');
+            self::deltree(PHPWG_ROOT_PATH.$conf['data_location'].'update');
             invalidate_user_cache(true);
             $template->delete_compiled_templates();
             unset($_SESSION['need_update']);
@@ -465,20 +465,19 @@ class updates
           }
           else
           {
-            file_put_contents($conf['local_data_dir'].'/update/log_error.txt', $error);
-            $relative_path = trim(str_replace(dirname(dirname(dirname(dirname(__FILE__)))), '', $conf['local_data_dir']), '/\\');
+            file_put_contents(PHPWG_ROOT_PATH.$conf['data_location'].'update/log_error.txt', $error);
             array_push(
               $page['errors'],
               sprintf(
                 l10n('An error has occured during extract. Please check files permissions of your piwigo installation.<br><a href="%s">Click here to show log error</a>.'),
-                PHPWG_ROOT_PATH.$relative_path.'/update/log_error.txt'
+                get_root_url().$conf['data_location'].'update/log_error.txt'
               )
             );
           }
         }
         else
         {
-          self::deltree($conf['local_data_dir'].'/update');
+          self::deltree(PHPWG_ROOT_PATH.$conf['data_location'].'update');
           array_push($page['errors'], l10n('An error has occured during upgrade.'));
         }
       }

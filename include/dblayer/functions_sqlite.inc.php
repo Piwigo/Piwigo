@@ -37,7 +37,7 @@ function pwg_db_connect($host, $user, $password, $database)
 {
   global $conf;
 
-  $db_file = sprintf('%s/%s.db', $conf['local_data_dir'], $database);
+  $db_file = sprintf('%s/%s.db', PHPWG_ROOT_PATH.$conf['data_location'], $database);
 
   if (script_basename()=='install') 
   {

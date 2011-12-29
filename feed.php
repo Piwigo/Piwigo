@@ -193,7 +193,7 @@ foreach($dates as $date_detail)
   $rss->addItem($item);
 }
 
-$fileName= $conf['local_data_dir'].'/tmp';
+$fileName= PHPWG_ROOT_PATH.$conf['data_location'].'tmp';
 mkgetdir($fileName); // just in case
 $fileName.='/feed.xml';
 // send XML feed

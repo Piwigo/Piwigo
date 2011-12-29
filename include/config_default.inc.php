@@ -719,9 +719,10 @@ $conf['slideshow_repeat'] = true;
 // Every plugin from 1.7 would be design to manage light_slideshow case.
 $conf['light_slideshow'] = true;
 
-// the local data directory is used to store data such as compiled templates
-// or other plugin variables etc
-$conf['local_data_dir'] = dirname(dirname(__FILE__)).'/_data';
+// the local data directory is used to store data such as compiled templates,
+// plugin variables, combined css/javascript or resized images. Beware of
+// mandatory trailing slash.
+$conf['data_location'] = '_data/';
 
 // where should the API/UploadForm add photos? This path must be relative to
 // the Piwigo installation directory (but can be outside, as long as it's
@@ -756,6 +757,5 @@ $conf['upload_form_automatic_rotation'] = true;
 // 0-'auto', 1-'derivative' 2-'script'
 $conf['derivative_url_style']=0;
 
-$conf['chmod_value']=0777;
-
+$conf['chmod_value']= substr_compare(PHP_SAPI, 'apa', 0, 3)==0 ? 0777 : 0755;
 ?>
