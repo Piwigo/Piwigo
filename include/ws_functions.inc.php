@@ -497,7 +497,7 @@ function ws_categories_getList($params, &$service)
 SELECT id, name, permalink, uppercats, global_rank, id_uppercat,
     comment,
     nb_images, count_images AS total_nb_images,
-    user_representative_picture_id, count_images, count_categories,
+    representative_picture_id, user_representative_picture_id, count_images, count_categories,
     date_last, max_date_last, count_categories AS nb_categories
   FROM '.CATEGORIES_TABLE.'
    '.$join_type.' JOIN '.USER_CACHE_CATEGORIES_TABLE.' ON id=cat_id AND user_id='.$join_user.'
