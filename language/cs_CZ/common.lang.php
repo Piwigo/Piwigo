@@ -125,7 +125,6 @@ $lang['Webmaster'] = 'Administrátor';
 $lang['Week %d'] = 'Týden %d';
 $lang['About Piwigo'] = 'O aplikaci Piwigo';
 $lang['You are not authorized to access the requested page'] = 'Nemáte oprávnění k přístupu na požadovanou stránku';
-$lang['Add to caddie'] = 'Přidat do košíku';
 $lang['add this photo to your favorites'] = 'Přidat tuto fotografii k oblíbeným';
 $lang['Administration'] = 'Administrace';
 $lang['all'] = 'vše';
@@ -369,4 +368,5 @@ $lang['Change my password'] = 'Změnit heslo';
 $lang['Enter your new password below.'] = 'Zadejte vaše nové heslo níže.';
 $lang['EXIF Metadata'] = 'EXIF Metadata';
 $lang['IPTC Metadata'] = 'IPTC Metadata';
+$lang['Edit'] = 'Edituj';
 ?>
