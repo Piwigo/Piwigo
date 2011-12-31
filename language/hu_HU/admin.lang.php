@@ -622,7 +622,6 @@ $lang['Administration Home'] = 'Adminisztrációs oldal';
 $lang['Change Admin Colors'] = 'Adminisztrációs oldal színe';
 $lang['Delete this theme'] = 'Téma törlése';
 $lang['Directory does not exist'] = 'Könyvtár nem található';
-$lang['Download,'] = 'Töltse le,';
 $lang['FTP + Synchronization'] = 'FTP + Szinkronizálás';
 $lang['Get Support on Piwigo Forum'] = 'Támogatást kap a Piwigo fórumon';
 $lang['Help Me'] = 'Segítség';
@@ -843,4 +842,6 @@ $lang['Piwigo cannot retrieve upgrade file from server'] = 'Nem tudom letölteni
 $lang['Zoom'] = 'Zoom';
 
 $lang['High dimensions'] = 'Nagy méret';
+$lang['Downloads'] = 'Letöltés';
+$lang['Photo name'] = 'Képnév';
 ?>
