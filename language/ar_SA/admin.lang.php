@@ -172,7 +172,6 @@ $lang['You are running on development sources, no check possible.'] = 'ربما 
 $lang['You cannot delete your account'] = "لا تستطيع حذف حسابك";
 $lang['You cannot move an album in its own sub album'] = 'لايمكن حذف ألبوم يحتوي على ألبوم فرعي';
 $lang['You need to confirm deletion'] = 'تحتاج  تأكيد الحذف';
-$lang['add tags'] = 'اضافةكلمة دلائلية';
 $lang['Associate to album'] = 'المرتبط بهذا الألبوم';
 $lang['associate to group'] = 'مرتبط بهذه المجموعه';
 $lang['Authorized'] = 'المرخص';
@@ -398,8 +397,7 @@ $lang['synchronize files structure with database'] = 'مزامنة الملفا�
 $lang['synchronize files metadata with database photos informations'] = 'مزامنة الملعومات التفصيلة مع الصور الموجودة في قاعدة البيانات';
 $lang['even already synchronized photos'] = 'سبق التزامن مع الصور';
 $lang['Used metadata'] = 'معومات التفصيلة مُـستخدمة';
-$lang['The name of directories and files must be composed of letters, numbers, "-", "_" or "."'] = '	
-اسم الأدلة والملفات يجب أن تكون مكونة من الحروف والأرقام ، "--" ، "_" أو "."';
+$lang['The name of directories and files must be composed of letters, numbers, "-", "_" or "."'] = 'اسم الأدلة والملفات يجب أن تكون مكونة من الحروف والأرقام ، "--" ، "_" أو "."';
 $lang['wrong filename'] = 'خطأ فادح  في اسم الملف';
 $lang['Upload'] = 'تحميل';
 $lang['user "%s" added'] = ' تم اضافة المستخدم"%s"  بنجاح';
@@ -414,7 +412,6 @@ $lang['Waiting'] = 'تحت الانتظار';
 $lang['default'] = 'افتراضي';
 $lang['Toggle \'default group\' property'] = 'ترجيح \'مجموعة افتراضية\' الخصوصية';
 $lang['Advanced features'] = 'مميزات متقدمة';
-$lang['Specials'] = 'خــاص';
 $lang['Overall'] = 'اجماليا';
 $lang['Year'] = 'سنة';
 $lang['Month'] = 'شهر';
@@ -424,7 +421,6 @@ $lang['Time'] = 'الوقت';
 $lang['IP'] = 'IP';
 $lang['Element'] = 'عنصر';
 $lang['Section'] = 'القسم';
-$lang['Tags'] = 'كلمات دلائلية';
 $lang['Save page visits by guests'] = 'حفظ الصفحات المشاهده من قبل الضيوف';
 $lang['Save page visits by users'] = 'حفظ الصفحة المشاهدة من قبل المستخدمين';
 $lang['Save page visits by administrators'] = 'حفظ الصفحة المشاهدو من قبل الادارة العامة';
@@ -507,11 +503,9 @@ $lang['Plugin list'] = 'قائمة الاضافات';
 $lang['Check for updates'] = 'فحص للتحديث';
 $lang['Other plugins'] = 'اضافات أخرى';
 $lang['Last revisions'] = 'الاصدارت الاخيرة';
-$lang['Delete'] = 'حذف';
 $lang['Are you sure you want to delete this plugin?'] = 'هل انت متأكد من حذف هذه الاضاة?';
 $lang['Are you sure you want to install this plugin?'] = 'هل تريد فعلا تثبيت هذه الاضافة?';
 $lang['Are you sure to install this upgrade? You must verify if this version does not need uninstallation.'] = 'هل فعلا تريد ترقية هذا التحديث ؟ قد تحتاج ان تتأكد انك لن تحتاج لعلمية الغاء التنصيب.';
-$lang['%s has been successfully upgraded.'] = ' بنجاح %s تمت علميت التحديث .';
 $lang['Plugin has been successfully copied'] = 'تم نسخ الاضافة الجديدة بنجاح';
 $lang['You might go to plugin list to install and activate it.'] = 'ينبقي عليك تفعيلها من قائمة الاضافات.';
 $lang['Can\'t create temporary file.'] = 'يمكن\'لا انشاء ملف مؤقت.';
@@ -577,7 +571,6 @@ $lang['By rank'] = 'حسب المنزلة';
 $lang['Manual order'] = 'دليل النظام';
 $lang['Password is missing. Please enter the password.'] = 'لم تكتب كلمة المرور، فضلا ً أكتب كلمة المرور';
 $lang['Password confirmation is missing. Please confirm the chosen password.'] = 'لم يتم تأكيد كلمة المرور، فضلا ً لا أمر أكد المرور رحم الله والديك';
-$lang['Password confirmation error.'] = 'خطأ في تأكيد كلمة المرور';
 $lang['Allow users to edit their own comments'] = 'اسمح للمستخدم بتحريرتعليقه الخاص';
 $lang['Allow users to delete their own comments'] = 'اسمح للمستخدم بحذف تعليقه الخاص';
 $lang['Email administrators when a comment is modified'] = 'ابلغ المديرعن تعديل التعليم ';
@@ -728,9 +721,6 @@ $lang['%d of %d photos selected'] = '%d من %d اختيار الصور';
 $lang['No photo selected, %d photos in current set'] = 'لم يتم اختيار صوره, %d صور في المجموعة الحالية';
 $lang['All %d photos are selected'] = 'كل %d الصور المختارة ';
 $lang['remove this filter'] = 'ازل هذه المرشح';
-$lang['predefined filter'] = 'مُرشح مُسبق';
-$lang['last import'] = 'آخر استيراد';
-$lang['with no virtual album'] = 'مع عدم وجود ألبوم ظاهري';
 $lang['Duplicates'] = 'المكرر';
 $lang['Add a filter'] = 'أضف مُـرشح';
 $lang['Remove all filters'] = 'احذف جميع المُرشحات';
@@ -745,8 +735,6 @@ $lang['Type here the author name'] = 'أكتب هنا أسم الكاتب ';
 $lang['remove title'] = 'احذف العنوان';
 $lang['Type here the title'] = 'أكتب هنا عنوان ';
 $lang['remove creation date'] = 'احذف تاريخ الانشاء';
-$lang['with no album'] = 'مع عدم وجود الألبوم';
-$lang['with no tag'] = 'مع عدم وجود كلمات دلائلية';
 $lang['Album photos associated to the following albums: %s'] = 'صور الالبوم المرتبطة بالابومات اللاحقة : %s';
 $lang['Delete orphan tags'] = 'جذف الاكواد اليتيمة';
 $lang['delete photo'] = 'حذف صورة';
