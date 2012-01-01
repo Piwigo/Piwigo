@@ -34,12 +34,12 @@ final class ImageStdParams
   private static $all_type_map = array();
   private static $type_map = array();
   private static $undefined_type_map = array();
-  
+
   static function get_all_types()
   {
     return self::$all_types;
   }
-  
+
   static function get_all_type_map()
   {
     return self::$all_type_map;
@@ -54,36 +54,66 @@ final class ImageStdParams
   {
     return self::$undefined_type_map;
   }
-  
+
   static function get_by_type($type)
   {
     return self::$all_type_map[$type];
   }
-  
+
   static function load_from_db()
   {
-    self::make_default();
+    global $conf;
+    $arr = @unserialize($conf['derivatives']);
+    if (false!==$arr)
+    {
+      self::$type_map = $arr['d'];
+    }
+    else
+    {
+      self::make_default();
+    }
     self::build_maps();
   }
 
   static function load_from_file()
   {
-    self::make_default();
+    global $conf;
+    $arr = @unserialize(@file_get_contents(PHPWG_ROOT_PATH.$conf['data_location'].'derivatives.dat'));
+    if (false!==$arr)
+    {
+      self::$type_map = $arr['d'];
+    }
+    else
+    {
+      self::make_default();
+    }
+    self::build_maps();
+  }
+
+  static function set_and_save($map)
+  {
+    global $conf;
+    self::$type_map = $map;
+
+    $ser = serialize( array(
+      'd' => self::$type_map
+      ) );
+    conf_update_param('derivatives', addslashes($ser) );
+    file_put_contents(PHPWG_ROOT_PATH.$conf['data_location'].'derivatives.dat', $ser);
     self::build_maps();
   }
 
   static function make_default()
   {
-    //todo
-    self::$type_map[IMG_SQUARE] = new ImageParams( SizingParams::square(100,100) );
-    self::$type_map[IMG_THUMB] = new ImageParams( SizingParams::classic(144,144) );
-    self::$type_map[IMG_SMALL] = new ImageParams( SizingParams::classic(240,240) );
-    self::$type_map[IMG_MEDIUM] = new ImageParams( SizingParams::classic(432,432) );
-    self::$type_map[IMG_LARGE] = new ImageParams( SizingParams::classic(648,576) );
-    self::$type_map[IMG_XLARGE] = new ImageParams( SizingParams::classic(864,648) );
-    self::$type_map[IMG_XXLARGE] = new ImageParams( SizingParams::classic(1200,900) );
+    self::$type_map[IMG_SQUARE] = new DerivativeParams( SizingParams::square(100,100) );
+    self::$type_map[IMG_THUMB] = new DerivativeParams( SizingParams::classic(144,144) );
+    self::$type_map[IMG_SMALL] = new DerivativeParams( SizingParams::classic(240,240) );
+    self::$type_map[IMG_MEDIUM] = new DerivativeParams( SizingParams::classic(432,432) );
+    self::$type_map[IMG_LARGE] = new DerivativeParams( SizingParams::classic(648,576) );
+    self::$type_map[IMG_XLARGE] = new DerivativeParams( SizingParams::classic(864,648) );
+    self::$type_map[IMG_XXLARGE] = new DerivativeParams( SizingParams::classic(1200,900) );
   }
-  
+
   private static function build_maps()
   {
     foreach (self::$type_map as $type=>$params)
@@ -110,7 +140,7 @@ final class ImageStdParams
       }
     }
   }
-  
+
 }
 
 ?>

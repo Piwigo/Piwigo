@@ -278,7 +278,7 @@ final class SizingParams
 
 
 /*how we generate a derivative image*/
-final class ImageParams
+final class DerivativeParams
 {
   public $type = IMG_CUSTOM;
   public $last_mod_time = 0; // used for non-custom images to regenerate the cached files
@@ -289,6 +289,11 @@ final class ImageParams
     $this->sizing = $sizing;
   }
 
+  public function __sleep()
+  {
+      return array('last_mod_time', 'sizing');
+  }
+    
   function add_url_tokens(&$tokens)
   {
     $this->sizing->add_url_tokens($tokens);
@@ -297,7 +302,7 @@ final class ImageParams
   static function from_url_tokens($tokens)
   {
     $sizing = SizingParams::from_url_tokens($tokens);
-    $ret = new ImageParams($sizing);
+    $ret = new DerivativeParams($sizing);
     return $ret;
   }
 

@@ -362,5 +362,12 @@ $lang['Your comment has NOT been registered because it did not pass the validati
 $lang['Your favorites'] = "Your favorites";
 $lang['Your Gallery Customization'] = "Your gallery customization";
 $lang['Your password has been reset'] = 'Your password has been reset';
-
+$lang['square'] = "Square";
+$lang['thumb'] = "Thumb";
+$lang['small'] = "Small";
+$lang['medium'] = "Medium";
+$lang['large'] = "Large";
+$lang['xlarge'] = "XLarge";
+$lang['xxlarge'] = "XXLarge";
+$lang['original'] = "Original";
 ?>

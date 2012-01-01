@@ -84,6 +84,7 @@ jQuery(document).ready(function(){ldelim}
     <dd>
       <ul>
         <li><a href="{$U_CONFIG_GENERAL}">{'Options'|@translate}</a></li>
+				<li><a href="{$U_CONFIG_DERIVATIVES}">{'Derivatives'|@translate}</a></li>
         <li><a href="{$U_CONFIG_MENUBAR}">{'Menu Management'|@translate}</a></li>
         <li><a href="{$U_CONFIG_EXTENTS}">{'Templates'|@translate}</a></li>
         <li><a href="{$U_CONFIG_LANGUAGES}">{'Languages'|@translate}</a></li>

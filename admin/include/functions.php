@@ -2054,6 +2054,7 @@ function get_active_menu($menu_page)
       return 4;
 
     case 'configuration':
+    case 'derivatives':
     case 'extend_for_templates':
     case 'menubar':
     case 'themes':
@@ -2247,23 +2248,34 @@ SELECT
   return array_from_query($query, 'user_id');
 }
 
-function clear_derivative_cache($type='all')
+/** delete all derivative files for one or several types */
+function clear_derivative_cache($types='all')
 {
   $pattern='#.*-';
-  if ($type == 'all')
+  if ($types == 'all')
+  {
+    $types = ImageStdParams::get_all_types();
+    $types[] = IMG_CUSTOM;
+  }
+  elseif (!is_array($types))
+  {
+    $types = array($types);
+  }
+
+  if (count($types)>1)
   {
     $type_urls = array();
-    foreach(ImageStdParams::get_all_types() as $dtype)
+    foreach($types as $dtype)
     {
       $type_urls[] = derivative_to_url($dtype);
     }
-    $type_urls[] = derivative_to_url(IMG_CUSTOM);
     $pattern .= '(' . implode('|',$type_urls) . ')';
   }
   else
   {
-    $pattern .= derivative_to_url($type);
+    $pattern .= derivative_to_url($types[0]);
   }
+  
   $pattern.='(_[a-zA-Z0-9]+)*\.[a-zA-Z0-9]{3,4}$#';
   if ($contents = opendir(PHPWG_ROOT_PATH.PWG_DERIVATIVE_DIR))
   {
@@ -2320,7 +2332,7 @@ function clear_derivative_cache_rec($path, $pattern)
         unlink($path.'/index.htm');
       }
       clearstatcache();
-      rmdir($path);
+      @rmdir($path);
     }
     return $rmdir;
   }

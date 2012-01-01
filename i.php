@@ -167,7 +167,7 @@ function parse_request()
   {
     try
     {
-      $page['derivative_params'] = ImageParams::from_url_tokens($deriv);
+      $page['derivative_params'] = DerivativeParams::from_url_tokens($deriv);
     }
     catch (Exception $e)
     {
@@ -183,6 +183,33 @@ function parse_request()
   $page['src_url'] = $page['root_path'].$page['src_location'];
 }
 
+
+function send_derivative($expires)
+{
+  global $page;
+  $fp = fopen($page['derivative_path'], 'rb');
+
+  $fstat = fstat($fp);
+  header('Last-Modified: '.gmdate('D, d M Y H:i:s', $fstat['mtime']).' GMT');
+  if ($expires!==false)
+  {
+    header('Expires: '.gmdate('D, d M Y H:i:s', $expires).' GMT');
+  }
+  header('Content-length: '.$fstat['size']);
+  header('Connection: close');
+
+  $ctype="application/octet-stream";
+  switch (strtolower($page['derivative_ext']))
+  {
+    case ".jpe": case ".jpeg": case ".jpg": $ctype="image/jpeg"; break;
+    case ".png": $ctype="image/png"; break;
+    case ".gif": $ctype="image/gif"; break;
+  }
+  header("Content-Type: $ctype");
+
+  fpassthru($fp);
+  fclose($fp);
+}
 
 
 $page=array();
@@ -221,6 +248,13 @@ if ($derivative_mtime === false or
   $need_generate = true;
 }
 
+$expires=false;
+$now = time();
+if ( $now > (max($src_mtime, $params->last_mod_time) + 24*3600) )
+{// somehow arbitrary - if derivative params or src didn't change for the last 24 hours, we send an expire header for several days
+  $expires = $now + 10*24*3600;
+}
+
 if (!$need_generate)
 {
   if ( isset( $_SERVER['HTTP_IF_MODIFIED_SINCE'] )
@@ -230,7 +264,7 @@ if (!$need_generate)
     header('Expires: '.gmdate('D, d M Y H:i:s', time()+10*24*3600).' GMT', true, 304);
     exit;
   }
-  // todo send pass-through
+  send_derivative($expires);
 }
 
 
@@ -270,23 +304,5 @@ if (!$changes)
 $image->write( $page['derivative_path'] );
 $image->destroy();
 
-$fp = fopen($page['derivative_path'], 'rb');
-
-$fstat = fstat($fp);
-header('Last-Modified: '.gmdate('D, d M Y H:i:s', $fstat['mtime']).' GMT');
-header('Expires: '.gmdate('D, d M Y H:i:s', time()+10*24*3600).' GMT');
-header('Content-length: '.$fstat['size']);
-header('Connection: close');
-
-$ctype="application/octet-stream";
-switch (strtolower($page['derivative_ext']))
-{
-  case ".jpe": case ".jpeg": case ".jpg": $ctype="image/jpeg"; break;
-  case ".png": $ctype="image/png"; break;
-  case ".gif": $ctype="image/gif"; break;
-}
-header("Content-Type: $ctype");
-
-fpassthru($fp);
-fclose($fp);
+send_derivative($expires);
 ?>

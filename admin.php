@@ -165,6 +165,7 @@ $template->assign(
     'U_MAINTENANCE'=> $link_start.'maintenance',
     'U_NOTIFICATION_BY_MAIL'=> $link_start.'notification_by_mail',
     'U_CONFIG_GENERAL'=> $link_start.'configuration',
+    'U_CONFIG_DERIVATIVES'=> $link_start.'derivatives',
     'U_CONFIG_DISPLAY'=> $conf_link.'default',
     'U_CONFIG_EXTENTS'=> $link_start.'extend_for_templates',
     'U_CONFIG_MENUBAR'=> $link_start.'menubar',
