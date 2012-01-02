@@ -1,4 +1,4 @@
-<h2>{'Derivatives'|@translate}</h2>
+<h2>{'Multiple Size'|@translate}</h2>
 
 {html_head}{literal}
 <style type="text/css">
