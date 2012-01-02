@@ -850,4 +850,5 @@ $lang['With no album'] = 'Zonder album';
 $lang['With no tag'] = 'Zonder tag';
 $lang['With no virtual album'] = 'Zonder virtueel album';
 
+$lang['Photo name'] = 'Naam van afbeelding';
 ?>
