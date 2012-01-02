@@ -148,7 +148,9 @@ DELETE
 ;';
   pwg_query($query);
 }
-else if (isset($_POST['grant_users_submit']))
+else if (isset($_POST['grant_users_submit'])
+         and isset($_POST['grant_users'])
+         and count($_POST['grant_users']) > 0)
 {
   add_permission_on_category($page['cat'], $_POST['grant_users']);
 }
