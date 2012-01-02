@@ -238,4 +238,10 @@ $lang['Approximate maximum resolution: %dM pixels (that\'s %dx%d pixels).'] = 'P
 $lang['By default, Piwigo will create a new websize from the HD (high definition) version of your photo.'] = ' Privzeto bo Piwigo ustvaril nove web slike  iz HD locljivosti va�ih slik.';
 
 
+$lang['Can\'t connect to server.'] = 'Ne morem vzpostaviti povezave s strežnikom.';
+$lang['Can\'t create temporary file.'] = 'Ne morem ustvariti začasne datoteke.';
+$lang['Check all'] = 'Preveri vse';
+$lang['Choose an action'] = 'Izberi akcijo';
+$lang['Create'] = 'Ustvari';
+$lang['created'] = 'ustvarjeno';
 ?>
