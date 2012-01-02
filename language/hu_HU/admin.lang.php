@@ -675,7 +675,6 @@ $lang['Inactive Languages'] = 'Kikapcsolt nyelvek';
 $lang['Make this language available to users'] = 'A nyelv engedélyezése';
 $lang['Set as default language for unregistered and new users'] = 'Nyelv beállítása alapértelmezettként nem regisztrált és új felhasználók részére';
 $lang['Add Photos'] = 'Képek hozzáadása';
-$lang['Download'] = 'Letöltés';
 $lang['The following tag was deleted'] = 'Címke törlése sikeres';
 $lang['Miscellaneous'] = 'Egyéb';
 $lang['Virtual Links'] = 'Virtuális linkek';
@@ -844,4 +843,5 @@ $lang['Zoom'] = 'Zoom';
 $lang['High dimensions'] = 'Nagy méret';
 $lang['Downloads'] = 'Letöltés';
 $lang['Photo name'] = 'Képnév';
+$lang['Download,'] = 'Letöltés,';
 ?>
