@@ -364,4 +364,12 @@ $lang['EXIF Metadata'] = 'EXIF Metagegevens';
 $lang['IPTC Metadata'] = 'IPTC Metagegevens';
 $lang['Edit'] = 'Bewerk';
 
+$lang['large'] = 'groot';
+$lang['medium'] = 'middel';
+$lang['original'] = 'origineel';
+$lang['small'] = 'klein';
+$lang['square'] = 'vierkant';
+$lang['thumb'] = 'thumb';
+$lang['xlarge'] = 'extra-groot';
+$lang['xxlarge'] = 'extra-extra-groot';
 ?>
