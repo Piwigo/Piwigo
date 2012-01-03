@@ -382,19 +382,7 @@ DELETE
   // synchronize metadata
   if ('metadata' == $action)
   {
-    $query = '
-SELECT id, path
-  FROM '.IMAGES_TABLE.'
-  WHERE id IN ('.implode(',', $collection).')
-;';
-    $id_to_path = array();
-    $result = pwg_query($query);
-    while ($row = pwg_db_fetch_assoc($result))
-    {
-      $id_to_path[$row['id']] = $row['path'];
-    }
-    
-    update_metadata($id_to_path);
+    sync_metadata($collection);
 
     array_push(
       $page['infos'],

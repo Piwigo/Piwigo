@@ -42,10 +42,7 @@ final class SrcImage
     }
     elseif (!empty($infos['representative_ext']))
     {
-      $pi = pathinfo($infos['path']);
-      $file_wo_ext = get_filename_wo_extension($pi['basename']);
-      $this->rel_path = $pi['dirname'].'/pwg_representative/'
-        .$file_wo_ext.'.'.$infos['representative_ext'];
+      $this->rel_path = original_to_representative($infos['path'], $infos['representative_ext']);
     }
     else
     {

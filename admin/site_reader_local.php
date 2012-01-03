@@ -30,6 +30,15 @@ var $site_url;
 function LocalSiteReader($url)
 {
   $this->site_url = $url;
+  global $conf;
+  if (!isset($conf['flip_file_ext']))
+  {
+    $conf['flip_file_ext'] = array_flip($conf['file_ext']);
+  }
+  if (!isset($conf['flip_picture_ext']))
+  {
+    $conf['flip_picture_ext'] = array_flip($conf['picture_ext']);
+  }
 }
 
 /**
@@ -68,15 +77,11 @@ function get_full_directories($basedir)
  * Returns an array with all file system files according to $conf['file_ext']
  * and $conf['picture_ext']
  * @param string $path recurse in this directory
- * @return array like "pic.jpg"=>array('tn_ext'=>'jpg' ... )
+ * @return array like "pic.jpg"=>array('representative_ext'=>'jpg' ... )
  */
 function get_elements($path)
 {
   global $conf;
-  if (!isset($conf['flip_file_ext']))
-  {
-    $conf['flip_file_ext'] = array_flip($conf['file_ext']);
-  }
 
   $subdirs = array();
   $fs = array();
@@ -93,9 +98,13 @@ function get_elements($path)
 
         if ( isset($conf['flip_file_ext'][$extension]) )
         {
-          $tn_ext = $this->get_tn_ext($path, $filename_wo_ext);
+          $representative_ext = null;
+          if (! isset($conf['flip_picture_ext'][$extension]) )
+          {
+            $representative_ext = $this->get_representative_ext($path, $filename_wo_ext);
+          }
           $fs[ $path.'/'.$node ] = array(
-            'tn_ext' => $tn_ext,
+            'representative_ext' => $representative_ext,
             );
         }
       }
@@ -123,7 +132,7 @@ function get_elements($path)
 // files update/synchronization
 function get_update_attributes()
 {
-  return array('tn_ext', 'has_high', 'representative_ext');
+  return array('representative_ext');
 }
 
 function get_element_update_attributes($file)
@@ -132,19 +141,17 @@ function get_element_update_attributes($file)
   $data = array();
 
   $filename = basename($file);
-  $dirname = dirname($file);
-  $filename_wo_ext = get_filename_wo_extension($filename);
   $extension = get_extension($filename);
 
-  $data['tn_ext'] = $this->get_tn_ext($dirname, $filename_wo_ext);
-  $data['has_high'] = $this->get_has_high($dirname, $filename);
-
-  if ( !isset($conf['flip_picture_ext'][$extension]) )
+  $representative_ext = null;
+  if (! isset($conf['flip_picture_ext'][$extension]) )
   {
-    $data['representative_ext'] = $this->get_representative_ext(
-        $dirname, $filename_wo_ext
-      );
+    $dirname = dirname($file);
+    $filename_wo_ext = get_filename_wo_extension($filename);
+    $representative_ext = $this->get_representative_ext($dirname, $filename_wo_ext);
   }
+
+  $data['representative_ext'] = $representative_ext;
   return $data;
 }
 
@@ -152,83 +159,13 @@ function get_element_update_attributes($file)
 // metadata update/synchronization according to configuration
 function get_metadata_attributes()
 {
-  global $conf;
-
-  $update_fields = array('filesize', 'width', 'height', 'high_filesize', 'high_width', 'high_height');
-
-  if ($conf['use_exif'])
-  {
-    $update_fields =
-      array_merge(
-        $update_fields,
-        array_keys($conf['use_exif_mapping'])
-        );
-  }
-
-  if ($conf['use_iptc'])
-  {
-    $update_fields =
-      array_merge(
-        $update_fields,
-        array_keys($conf['use_iptc_mapping'])
-        );
-  }
-
-  return $update_fields;
+  return get_sync_metadata_attributes();
 }
 
 // returns a hash of attributes (metadata+filesize+width,...) for file
-function get_element_metadata($file, $has_high = false)
+function get_element_metadata($infos)
 {
-  global $conf;
-  if (!is_file($file))
-  {
-    return null;
-  }
-
-  $data = array();
-
-  $data['filesize'] = floor(filesize($file)/1024);
-
-  if ($image_size = @getimagesize($file))
-  {
-    $data['width'] = $image_size[0];
-    $data['height'] = $image_size[1];
-  }
-
-  if ($has_high)
-  {
-    $high_file = dirname($file).'/pwg_high/'.basename($file);
-    $data['high_filesize'] = floor(filesize($high_file)/1024);
-    
-    if ($high_size = @getimagesize($high_file))
-    {
-      $data['high_width'] = $high_size[0];
-      $data['high_height'] = $high_size[1];
-    }
-  }
-
-  if ($conf['use_exif'])
-  {
-    $exif = get_sync_exif_data($file);
-    if (count($exif) == 0 and isset($data['high_filesize']))
-    {
-      $exif = get_sync_exif_data($high_file);
-    }
-    $data = array_merge($data, $exif);
-  }
-
-  if ($conf['use_iptc'])
-  {
-    $iptc = get_sync_iptc_data($file);
-    if (count($iptc) == 0 and isset($data['high_filesize']))
-    {
-      $iptc = get_sync_iptc_data($high_file);
-    }
-    $data = array_merge($data, $iptc);
-  }
-
-  return $data;
+  return get_sync_metadata($infos);
 }
 
 
@@ -248,34 +185,6 @@ function get_representative_ext($path, $filename_wo_ext)
   return null;
 }
 
-function get_tn_ext($path, $filename_wo_ext)
-{
-  global $conf;
-
-  $base_test =
-    $path.'/thumbnail/'.$conf['prefix_thumbnail'].$filename_wo_ext.'.';
-
-  foreach ($conf['picture_ext'] as $ext)
-  {
-    $test = $base_test.$ext;
-    if (is_file($test))
-    {
-      return $ext;
-    }
-  }
-
-  return null;
-}
-
-function get_has_high($path, $filename)
-{
-  if (is_file($path.'/pwg_high/'.$filename))
-  {
-    return 'true';
-  }
-
-  return null;
-}
 
 }
 ?>

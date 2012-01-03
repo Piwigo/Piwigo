@@ -80,6 +80,7 @@ $infos = array();
 
 if ($site_is_remote)
 {
+  fatal_error('remote sites not supported');
   include_once(PHPWG_ROOT_PATH.'admin/site_reader_remote.php');
   $local_listing = null;
   if ( isset($_GET['local_listing'])
@@ -98,10 +99,6 @@ else
 $general_failure = true;
 if (isset($_POST['submit']))
 {
-  if (!isset($conf['flip_picture_ext']))
-  {
-    $conf['flip_picture_ext'] = array_flip($conf['picture_ext']);
-  }
   if ($site_reader->open())
   {
     $general_failure = false;
@@ -312,7 +309,7 @@ SELECT id_uppercat, MAX(rank)+1 AS next_rank
         'visible','status','rank','global_rank'
         );
       mass_inserts(CATEGORIES_TABLE, $dbfields, $inserts);
-      
+
       // add default permissions to categories
       $category_ids = array();
       foreach ($inserts as $category)
@@ -321,7 +318,7 @@ SELECT id_uppercat, MAX(rank)+1 AS next_rank
       }
       add_permission_on_category($category_ids, get_admins());
     }
-    
+
     $counts['new_categories'] = count($inserts);
   }
 
@@ -373,7 +370,7 @@ SELECT id, path
   WHERE storage_category_id IN ('
       .wordwrap(
         implode(', ', $cat_ids),
-        80,
+        160,
         "\n"
         ).')';
     $db_elements = simple_hash_from_query($query, 'id', 'path');
@@ -410,60 +407,43 @@ SELECT id, path
       continue;
     }
 
-    if ( isset( $conf['flip_picture_ext'][get_extension($filename)] )
-          and !isset($fs[$path]['tn_ext']) )
-    { // For a picture thumbnail is mandatory and for non picture element,
-      // thumbnail and representative are optionnal
-      array_push(
-        $errors,
-        array(
-          'path' => $path,
-          'type' => 'PWG-UPDATE-2'
-          )
-        );
-    }
-    else
+    $insert = array(
+      'id'             => $next_element_id++,
+      'file'           => $filename,
+      'date_available' => CURRENT_DATE,
+      'path'           => $path,
+      'representative_ext'  => $fs[$path]['representative_ext'],
+      'storage_category_id' => $db_fulldirs[$dirname],
+      'added_by'       => $user['id'],
+      );
+
+    if ( $_POST['privacy_level']!=0 )
     {
-      $insert = array(
-        'id'             => $next_element_id++,
-        'file'           => $filename,
-        'date_available' => CURRENT_DATE,
-        'path'           => $path,
-        'tn_ext'         => isset($fs[$path]['tn_ext'])
-          ? $fs[$path]['tn_ext']
-          : null,
-        'storage_category_id' => $db_fulldirs[$dirname],
-        'added_by' => $user['id'],
-        );
-
-      if ( $_POST['privacy_level']!=0 )
-      {
-        $insert['level'] = $_POST['privacy_level'];
-      }
-
-      array_push(
-        $inserts,
-        $insert
-        );
-
-      array_push(
-        $insert_links,
-        array(
-          'image_id'    => $insert['id'],
-          'category_id' => $insert['storage_category_id'],
-          )
-        );
-
-      array_push(
-        $infos,
-        array(
-          'path' => $insert['path'],
-          'info' => l10n('added')
-          )
-        );
-
-      $caddiables[] = $insert['id'];
+      $insert['level'] = $_POST['privacy_level'];
     }
+
+    array_push(
+      $inserts,
+      $insert
+      );
+
+    array_push(
+      $insert_links,
+      array(
+        'image_id'    => $insert['id'],
+        'category_id' => $insert['storage_category_id'],
+        )
+      );
+
+    array_push(
+      $infos,
+      array(
+        'path' => $insert['path'],
+        'info' => l10n('added')
+        )
+      );
+
+    $caddiables[] = $insert['id'];
   }
 
   if (count($inserts) > 0)
@@ -560,25 +540,11 @@ if (isset($_POST['submit'])
     $datas = array();
     foreach ( $files as $id=>$file )
     {
+      $file = $file['path'];
       $data = $site_reader->get_element_update_attributes($file);
       if ( !is_array($data) )
       {
         continue;
-      }
-      $extension = get_extension($file);
-      if ( isset($conf['flip_picture_ext'][$extension]) )
-      {
-        if ( !isset($data['tn_ext']) )
-        {
-          array_push(
-            $errors,
-            array(
-              'path' => $file,
-              'type' => 'PWG-UPDATE-2'
-              )
-            );
-          continue;
-        }
       }
 
       $data['id']=$id;
@@ -655,32 +621,9 @@ if (isset($_POST['submit']) and isset($_POST['sync_meta'])
   $datas = array();
   $tags_of = array();
 
-  $has_high_images = array();
-
-  $image_ids = array();
-  foreach ($files as $id => $file)
+  foreach ( $files as $id => $element_infos )
   {
-    array_push($image_ids, $id);
-  }
-
-  if (count($image_ids) > 0)
-  {
-    $query = '
-SELECT id
-  FROM '.IMAGES_TABLE.'
-  WHERE has_high = \'true\'
-    AND id IN (
-'.wordwrap(implode(', ', $image_ids), 80, "\n").'
-)';
-    $has_high_images = array_from_query($query, 'id' );
-  }
-
-  foreach ( $files as $id=>$file )
-  {
-    $data = $site_reader->get_element_metadata(
-      $file,
-      in_array($id, $has_high_images)
-      );
+    $data = $site_reader->get_element_metadata($element_infos);
 
     if ( is_array($data) )
     {
@@ -709,7 +652,7 @@ SELECT id
     }
     else
     {
-      array_push($errors, array('path' => $file, 'type' => 'PWG-ERROR-NO-FS'));
+      array_push($errors, array('path' => $element_infos['path'], 'type' => 'PWG-ERROR-NO-FS'));
     }
   }
 
@@ -817,7 +760,7 @@ else
       'meta_all'  => false,
       'meta_empty_overrides'  => false,
     );
-  
+
   $cat_selected = array();
 
   if (isset($_GET['cat_id']))

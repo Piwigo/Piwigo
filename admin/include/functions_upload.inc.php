@@ -480,7 +480,7 @@ SELECT
   {
     $conf['use_exif'] = false;
   }
-  update_metadata(array($image_id=>$file_path));
+  sync_metadata(array($image_id));
 
   invalidate_user_cache();
 

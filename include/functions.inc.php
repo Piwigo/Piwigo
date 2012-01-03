@@ -731,6 +731,16 @@ function check_theme_installed($theme_id)
   return file_exists($conf['themes_dir'].'/'.$theme_id.'/'.'themeconf.inc.php');
 }
 
+/** Transforms an original path to its pwg representative */
+function original_to_representative($path, $representative_ext)
+{
+  $pos = strrpos($path, '/');
+  $path = substr_replace($path, 'pwg_representative/', $pos+1, 0);
+  $pos = strrpos($path, '.');
+  return substr_replace($path, $representative_ext, $pos+1);
+}
+
+
 /* Returns the PATH to the thumbnail to be displayed. If the element does not
  * have a thumbnail, the default mime image path is returned. The PATH can be
  * used in the php script, but not sent to the browser.

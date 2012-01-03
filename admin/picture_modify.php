@@ -94,14 +94,7 @@ SELECT category_id
 
 if (isset($_GET['sync_metadata']))
 {
-  $query = '
-SELECT path
-  FROM '.IMAGES_TABLE.'
-  WHERE id = '.$_GET['image_id'].'
-;';
-  list($path) = pwg_db_fetch_row(pwg_query($query));
-  update_metadata(array($_GET['image_id'] => $path));
-
+  sync_metadata(array( intval($_GET['image_id'])));
   array_push($page['infos'], l10n('Metadata synchronized from file'));
 }
 

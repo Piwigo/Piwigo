@@ -1741,7 +1741,7 @@ SELECT
 
     // update metadata from the uploaded file (exif/iptc)
     require_once(PHPWG_ROOT_PATH.'admin/include/functions_metadata.php');
-    update_metadata(array($image_id=>$file_path));
+    sync_metadata(array($image_id));
   }
 
   $info_columns = array(
@@ -1925,16 +1925,9 @@ SELECT id, name, permalink
 
   // update metadata from the uploaded file (exif/iptc), even if the sync
   // was already performed by add_uploaded_file().
-  $query = '
-SELECT
-    path
-  FROM '.IMAGES_TABLE.'
-  WHERE id = '.$image_id.'
-;';
-  list($file_path) = pwg_db_fetch_row(pwg_query($query));
 
   require_once(PHPWG_ROOT_PATH.'admin/include/functions_metadata.php');
-  update_metadata(array($image_id=>$file_path));
+  sync_metadata(array($image_id));
 
   return array(
     'image_id' => $image_id,
@@ -3328,7 +3321,7 @@ SELECT id, path, tn_ext, has_high, width, height
   global $conf;
   $conf['use_exif'] = false;
   $conf['use_iptc'] = false;
-  update_metadata(array($image['id'] => $image['path']));
+  sync_metadata(array($image['id']));
 
   return $result;
 }

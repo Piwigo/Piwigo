@@ -48,7 +48,7 @@ function get_sync_iptc_data($file)
           $month = 1;
           $day = 1;
         }
-        
+
         $iptc[$pwg_key] = $year.'-'.$month.'-'.$day;
       }
     }
@@ -109,7 +109,75 @@ function get_sync_exif_data($file)
   return $exif;
 }
 
-function update_metadata($files)
+
+function get_sync_metadata_attributes()
+{
+  global $conf;
+
+  $update_fields = array('filesize', 'width', 'height');
+
+  if ($conf['use_exif'])
+  {
+    $update_fields =
+      array_merge(
+        $update_fields,
+        array_keys($conf['use_exif_mapping'])
+        );
+  }
+
+  if ($conf['use_iptc'])
+  {
+    $update_fields =
+      array_merge(
+        $update_fields,
+        array_keys($conf['use_iptc_mapping'])
+        );
+  }
+
+  return array_unique($update_fields);
+}
+
+function get_sync_metadata($infos)
+{
+  global $conf;
+  $file = PHPWG_ROOT_PATH.$infos['path'];
+  $fs = @filesize($file);
+
+  if ($fs===false)
+  {
+    return false;
+  }
+
+  $infos['filesize'] = floor($fs/1024);
+
+  if (isset($infos['representative_ext']))
+  {
+    $file = original_to_representative($file, $infos['representative_ext']);
+  }
+
+  if ($image_size = @getimagesize($file))
+  {
+    $infos['width'] = $image_size[0];
+    $infos['height'] = $image_size[1];
+  }
+
+  if ($conf['use_exif'])
+  {
+    $exif = get_sync_exif_data($file);
+    $infos = array_merge($infos, $exif);
+  }
+
+  if ($conf['use_iptc'])
+  {
+    $iptc = get_sync_iptc_data($file);
+    $infos = array_merge($infos, $iptc);
+  }
+
+  return $infos;
+}
+
+
+function sync_metadata($ids)
 {
   global $conf;
 
@@ -120,82 +188,40 @@ function update_metadata($files)
 
   $datas = array();
   $tags_of = array();
-  $has_high_images = array();
-
-  $image_ids = array();
-  foreach ($files as $id => $file)
-  {
-    array_push($image_ids, $id);
-  }
 
   $query = '
-SELECT id
+SELECT id, path, representative_ext
   FROM '.IMAGES_TABLE.'
-  WHERE has_high = \'true\'
-    AND id IN (
-'.wordwrap(implode(', ', $image_ids), 80, "\n").'
+  WHERE id IN (
+'.wordwrap(implode(', ', $ids), 160, "\n").'
 )
 ;';
 
-  $has_high_images = array_from_query($query, 'id');
-
-  foreach ($files as $id => $file)
+  $result = pwg_query($query);
+  while ($data = pwg_db_fetch_assoc($result))
   {
-    $data = array();
-    $data['id'] = $id;
-    $data['filesize'] = floor(filesize($file)/1024);
-
-    if ($image_size = @getimagesize($file))
+    $data = get_sync_metadata($data);
+    if ($data === false)
     {
-      $data['width'] = $image_size[0];
-      $data['height'] = $image_size[1];
+      continue;
     }
 
-    if (in_array($id, $has_high_images))
+    $id = $data['id'];
+    foreach (array('keywords', 'tags') as $key)
     {
-      $high_file = dirname($file).'/pwg_high/'.basename($file);
-
-      $data['high_filesize'] = floor(filesize($high_file)/1024);
-    }
-
-    if ($conf['use_exif'])
-    {
-      $exif = get_sync_exif_data($file);
-      if (count($exif) == 0 and isset($data['high_filesize']))
+      if (isset($data[$key]))
       {
-        $exif = get_sync_exif_data($high_file);
-      }
-      $data = array_merge($data, $exif);
-    }
-
-    if ($conf['use_iptc'])
-    {
-      $iptc = get_sync_iptc_data($file);
-      if (count($iptc) == 0 and isset($data['high_filesize']))
-      {
-        $iptc = get_sync_iptc_data($high_file);
-      }
-      $data = array_merge($data, $iptc);
-      
-      if (count($iptc) > 0)
-      {
-        foreach (array_keys($iptc) as $key)
+        if (!isset($tags_of[$id]))
         {
-          if ($key == 'keywords' or $key == 'tags')
-          {
-            if (!isset($tags_of[$id]))
-            {
-              $tags_of[$id] = array();
-            }
+          $tags_of[$id] = array();
+        }
 
-            foreach (explode(',', $iptc[$key]) as $tag_name)
-            {
-              array_push(
-                $tags_of[$id],
-                tag_id_from_tag_name($tag_name)
-                );
-            }
-          }
+        foreach (explode(',', $data[$key]) as $tag_name)
+        {
+          array_push(
+            $tags_of[$id],
+            tag_id_from_tag_name($tag_name)
+            );
         }
       }
     }
@@ -207,41 +233,19 @@ SELECT id
 
   if (count($datas) > 0)
   {
-    $update_fields =
-      array(
-        'filesize',
-        'width',
-        'height',
-        'high_filesize',
-        'date_metadata_update'
-        );
+    $update_fields = get_sync_metadata_attributes();
+    array_push($update_fields, 'date_metadata_update');
 
-    if ($conf['use_exif'])
-    {
-      $update_fields =
-        array_merge(
-          $update_fields,
-          array_keys($conf['use_exif_mapping'])
-          );
-    }
-
-    if ($conf['use_iptc'])
-    {
-      $update_fields =
-        array_merge(
-          $update_fields,
-          array_diff(
-            array_keys($conf['use_iptc_mapping']),
-            array('tags', 'keywords')
-            )
-          );
-    }
+    $update_fields = array_diff(
+      $update_fields,
+      array('tags', 'keywords')
+            );
 
     mass_updates(
       IMAGES_TABLE,
       array(
         'primary' => array('id'),
-        'update'  => array_unique($update_fields)
+        'update'  => $update_fields
         ),
       $datas,
       MASS_UPDATES_SKIP_EMPTY
@@ -300,10 +304,8 @@ SELECT id
     return array();
   }
 
-  $files = array();
-
   $query = '
-SELECT id, path
+SELECT id, path, representative_ext
   FROM '.IMAGES_TABLE.'
   WHERE storage_category_id IN ('.implode(',', $cat_ids).')';
   if ($only_new)
@@ -314,12 +316,6 @@ SELECT id, path
   }
   $query.= '
 ;';
-  $result = pwg_query($query);
-  while ($row = pwg_db_fetch_assoc($result))
-  {
-    $files[$row['id']] = $row['path'];
-  }
-
-  return $files;
+  return hash_from_query($query, 'id');
 }
 ?>
