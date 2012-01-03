@@ -367,4 +367,12 @@ $lang['Enter your new password below.'] = 'Írja be az új jelszót.';
 $lang['EXIF Metadata'] = 'EXIF metaadatok';
 $lang['IPTC Metadata'] = 'IPTC metaadatok';
 $lang['Edit'] = 'Szerkesztés';
+$lang['large'] = 'Nagy';
+$lang['medium'] = 'Közepes';
+$lang['original'] = 'Eredeti';
+$lang['small'] = 'Kicsi';
+$lang['square'] = 'Négyzetes';
+$lang['thumb'] = 'Bélyegkép';
+$lang['xlarge'] = 'Nagyobb';
+$lang['xxlarge'] = 'Legnagyobb';
 ?>
