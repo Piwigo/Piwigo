@@ -64,7 +64,6 @@ $lang['About'] = 'Hakkımızda';
 $lang['Accelerate diaporama speed'] = 'slayt gösterisi hızını yükselt';
 $lang['Add a comment'] = 'Yorum Ekle';
 $lang['add this photo to your favorites'] = 'Bu resimi favorilerinize ekleyin';
-$lang['Add to caddie'] = 'Yardımcıya Ekle';
 $lang['Admin: %s'] = 'Yönetici: %s';
 $lang['Administration'] = 'Yönetim';
 $lang['Album results for'] = 'Albüm sonuçları';
