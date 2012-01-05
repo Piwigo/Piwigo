@@ -121,7 +121,6 @@ $lang['Webmaster'] = 'Webmaster';
 $lang['Week %d'] = 'Semana %d';
 $lang['About Piwigo'] = 'Sobre Piwigo';
 $lang['You are not authorized to access the requested page'] = 'Não tem permissões para aceder à página requisitada';
-$lang['Add to caddie'] = 'Adicionar ao carrinho';
 $lang['add this photo to your favorites'] = 'Adicionar aos favoritos';
 $lang['Administration'] = 'Administração';
 $lang['all'] = 'tudo';
@@ -360,5 +359,8 @@ $lang['You will receive a link to create a new password via email.'] = 'Vai rece
 $lang['Username or email'] = 'nome de utilizador ou email';
 $lang['Change my password'] = 'alterar a minha palavra-passe';
 $lang['Enter your new password below.'] = 'Escreva a sua nova palavra-passe abaoixo.';
+$lang['Edit'] = 'Editar';
+$lang['EXIF Metadata'] = 'EXIF Metadata';
+$lang['IPTC Metadata'] = 'IPTC Metadata';
 
 ?>
