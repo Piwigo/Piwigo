@@ -740,6 +740,20 @@ function original_to_representative($path, $representative_ext)
   return substr_replace($path, $representative_ext, $pos+1);
 }
 
+/**
+ * @param element_info array containing element information from db;
+ * at least 'id', 'path' should be present
+ */
+function get_element_path($element_info)
+{
+  $path = $element_info['path'];
+  if ( !url_is_remote($path) )
+  {
+    $path = PHPWG_ROOT_PATH.$path;
+  }
+  return $path;
+}
+
 
 /* Returns the PATH to the thumbnail to be displayed. If the element does not
  * have a thumbnail, the default mime image path is returned. The PATH can be

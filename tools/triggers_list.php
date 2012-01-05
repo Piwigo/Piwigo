@@ -161,12 +161,6 @@ array(
   'files' => array('include\functions_picture.inc.php (get_download_url'),
 ),
 array(
-  'name' => 'get_element_location',
-  'type' => 'trigger_event',
-  'vars' => array('string' => 'path', 'array' => 'element_info'),
-  'files' => array('include\functions_picture.inc.php (get_element_location)'),
-),
-array(
   'name' => 'get_element_metadata_available',
   'type' => 'trigger_event',
   'vars' => array('bool' => '', 'string' => 'element_path'),

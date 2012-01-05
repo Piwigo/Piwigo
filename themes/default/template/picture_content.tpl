@@ -2,7 +2,7 @@
 {if isset($COMMENT_IMG)}
 	title="{$COMMENT_IMG|@strip_tags:false|@replace:'"':' '}" {else} title="{$current.TITLE|@replace:'"':' '} - {$ALT_IMG}"
 {/if}>
-{if count($current.available_derivative_types)>1}
+{if count($current.unique_derivatives)>1}
 {footer_script}{literal}
 function changeImgSrc(url,type,display)
 {
@@ -34,8 +34,11 @@ function toggleDerivativeSwitchBox()
 {/literal}{/footer_script}
 <a id="derivativeSwitchLink" onclick="toggleDerivativeSwitchBox()" style="cursor:pointer">{$current.selected_derivative->get_type()|@translate}</a>
 <div id="derivativeSwitchBox" onclick="toggleDerivativeSwitchBox()" style="display:none">
-{foreach from=$current.available_derivative_types item=derivative_type}
-<a onclick="changeImgSrc('{$current.derivatives[$derivative_type]->get_url()|@escape:javascript}', '{$derivative_type}', '{$derivative_type|@translate|@escape:javascript}')" style="cursor:pointer">{$derivative_type|@translate} ({$current.derivatives[$derivative_type]->get_size_hr()})</a><br>
+{foreach from=$current.unique_derivatives item=derivative key=derivative_type}
+<a href="javascript:changeImgSrc('{$derivative->get_url()|@escape:javascript}', '{$derivative_type}', '{$derivative->get_type()|@translate|@escape:javascript}')" style="cursor:pointer">{$derivative->get_type()|@translate} ({$derivative->get_size_hr()})</a><br>
 {/foreach}
+{if isset($U_ORIGINAL)}
+<a  href="javascript:phpWGOpenWindow('{$U_ORIGINAL}','xxx','scrollbars=yes,toolbar=no,status=no,resizable=yes')" title="{'Click on the photo to see it in high definition'|@translate}">{'original'|@translate}</a>
+{/if}
 </div>
 {/if}

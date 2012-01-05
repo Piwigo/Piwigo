@@ -660,6 +660,40 @@ function parse_well_known_params_url($tokens, &$i)
   return $page;
 }
 
+
+/**
+ * @param id image id
+ * @param what_part string one of 'e' (element), 'r' (representative)
+ */
+function get_action_url($id, $what_part, $download)
+{
+  $params = array(
+        'id' => $id,
+        'part' => $what_part,
+      );
+  if ($download)
+  {
+    $params['download'] = null;
+  }
+  
+  return add_url_params(get_root_url().'action.php', $params);
+}
+
+/*
+ * @param element_info array containing element information from db;
+ * at least 'id', 'path' should be present
+ */
+function get_element_url($element_info)
+{
+  $url = $element_info['path'];
+  if ( !url_is_remote($url) )
+  {
+    $url = embellish_url(get_root_url().$url);
+  }
+  return $url;
+}
+
+
 /**
  * Indicate to build url with full path
  *

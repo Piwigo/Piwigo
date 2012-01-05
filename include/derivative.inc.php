@@ -138,9 +138,8 @@ final class DerivativeImage
     return get_root_url().$rel_url;
   }
 
-  static function get_all($infos)
+  static function get_all($src_image)
   {
-    $src_image = new SrcImage($infos);
     $ret = array();
     foreach (ImageStdParams::get_defined_type_map() as $type => $params)
     {

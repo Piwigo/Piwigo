@@ -147,13 +147,16 @@ function ws_std_image_sql_order( $params, $tbl_name='' )
 function ws_std_get_urls($image_row)
 {
   $ret = array();
+  
+  $src_image = new SrcImage($image_row);
+
   global $user;
   if ($user['enabled_high'])
   {
     $ret['element_url'] = get_element_url($image_row);
   }
   
-  $derivatives = DerivativeImage::get_all($image_row);
+  $derivatives = DerivativeImage::get_all($src_image);
   $derivatives_arr = array();
   foreach($derivatives as $type=>$derivative)
   {

@@ -162,7 +162,8 @@ function default_picture_content($content, $element_info)
   $deriv_type = pwg_get_session_var('picture_deriv', IMG_LARGE);
   $selected_derivative = $element_info['derivatives'][$deriv_type];
 
-  $available_derivatives = array();
+  $unique_derivatives = array();
+  $show_original = isset($element_info['element_url']);
   $added = array();
   foreach($element_info['derivatives'] as $type => $derivative)
   {
@@ -170,14 +171,20 @@ function default_picture_content($content, $element_info)
     if (isset($added[$url]))
       continue;
     $added[$url] = 1;
-    $available_derivatives[] = $type;
+    $show_original &= !($derivative->same_as_source());
+    $unique_derivatives[$type]= $derivative;
   }
 
-  global $user, $page, $template;
+  global $page, $template;
   
+  if ($show_original)
+  {
+    $template->assign( 'U_ORIGINAL', $element_info['element_url'] );
+  }
+
   $template->append('current', array(
       'selected_derivative' => $selected_derivative,
-      'available_derivative_types' => $available_derivatives,
+      'unique_derivatives' => $unique_derivatives,
     ), true);
 
 
@@ -491,27 +498,24 @@ while ($row = pwg_db_fetch_assoc($result))
     $i = 'current';
   }
 
-
-
-  $row['derivatives'] = DerivativeImage::get_all($row);
-  $row['src_image'] = $row['derivatives'][IMG_THUMB]->src_image;
+  $row['src_image'] = new SrcImage($row);
+  $row['derivatives'] = DerivativeImage::get_all($row['src_image']);
   
-  // ------ build element_path and element_url
-  $row['element_path'] = get_element_path($row);
-  $row['element_url'] = get_element_url($row);
-
   if ($i=='current')
   {
+    $row['element_path'] = get_element_path($row);
+
     if ( $row['src_image']->is_original() )
-    {
+    {// we have a photo
       if ( $user['enabled_high']=='true' )
       {
-        $row['download_url'] = get_download_url('e',$row);
+        $row['element_url'] = $row['src_image']->get_url();
+        $row['download_url'] = get_action_url($row['id'], 'e', true);
       }
     }
     else
     { // not a pic - need download link
-      $row['download_url'] = $row['element_url'];
+      $row['download_url'] = $row['element_url'] = get_element_url($row);;
     }
   }
 

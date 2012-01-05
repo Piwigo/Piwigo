@@ -60,7 +60,7 @@ function do_error( $code, $str )
 if (!isset($_GET['id'])
     or !is_numeric($_GET['id'])
     or !isset($_GET['part'])
-    or !in_array($_GET['part'], array('t','e','i','h') ) )
+    or !in_array($_GET['part'], array('e','r') ) )
 {
   do_error(400, 'Invalid request - id/part');
 }
@@ -102,21 +102,15 @@ include_once(PHPWG_ROOT_PATH.'include/functions_picture.inc.php');
 $file='';
 switch ($_GET['part'])
 {
-  case 't':
-    $file = get_thumbnail_path($element_info);
-    break;
   case 'e':
-    $file = get_element_path($element_info);
-    break;
-  case 'i':
-    $file = get_image_path($element_info);
-    break;
-  case 'h':
     if ( $user['enabled_high']!='true' )
     {
       do_error(401, 'Access denied h');
     }
-    $file = get_high_path($element_info);
+    $file = get_element_path($element_info);
+    break;
+  case 'r':
+    $file = original_to_representative( get_element_path($element_info), $element_info['representative_ext'] );
     break;
 }
 
@@ -175,7 +169,7 @@ if (!isset($ctype))
 
 $http_headers[] = 'Content-Type: '.$ctype;
 
-if (!isset($_GET['view']))
+if (isset($_GET['download']))
 {
   $http_headers[] = 'Content-Disposition: attachment; filename="'.$element_info['file'].'";';
   $http_headers[] = 'Content-Transfer-Encoding: binary';
