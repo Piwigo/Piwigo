@@ -28,12 +28,24 @@ define('IMG_XLARGE', 'xlarge');
 define('IMG_XXLARGE', 'xxlarge');
 define('IMG_CUSTOM', 'custom');
 
+final class WatermarkParams
+{
+  public $file = '';
+  public $min_size = array(500,500);
+  public $xpos = 50;
+  public $ypos = 50;
+  public $xrepeat = 0;
+  public $opacity = 100;
+}
+
+
 final class ImageStdParams
 {
   private static $all_types = array(IMG_SQUARE,IMG_THUMB,IMG_SMALL,IMG_MEDIUM,IMG_LARGE,IMG_XLARGE,IMG_XXLARGE);
   private static $all_type_map = array();
   private static $type_map = array();
   private static $undefined_type_map = array();
+  private static $watermark;
 
   static function get_all_types()
   {
@@ -60,6 +72,11 @@ final class ImageStdParams
     return self::$all_type_map[$type];
   }
 
+  static function get_watermark()
+  {
+    return self::$watermark;
+  }
+
   static function load_from_db()
   {
     global $conf;
@@ -67,6 +84,8 @@ final class ImageStdParams
     if (false!==$arr)
     {
       self::$type_map = $arr['d'];
+      self::$watermark = @$arr['w'];
+      if (!self::$watermark) self::$watermark = new WatermarkParams();
     }
     else
     {
@@ -82,6 +101,8 @@ final class ImageStdParams
     if (false!==$arr)
     {
       self::$type_map = $arr['d'];
+      self::$watermark = @$arr['w'];
+      if (!self::$watermark) self::$watermark = new WatermarkParams();
     }
     else
     {
@@ -90,21 +111,28 @@ final class ImageStdParams
     self::build_maps();
   }
 
+  static function set_watermark($watermark)
+  {
+    self::$watermark = $watermark;
+  }
+  
   static function set_and_save($map)
   {
     global $conf;
     self::$type_map = $map;
 
     $ser = serialize( array(
-      'd' => self::$type_map
+      'd' => self::$type_map,
+      'w' => self::$watermark,
       ) );
     conf_update_param('derivatives', addslashes($ser) );
     file_put_contents(PHPWG_ROOT_PATH.$conf['data_location'].'derivatives.dat', $ser);
     self::build_maps();
   }
 
-  static function make_default()
+  private static function make_default()
   {
+    self::$watermark = new WatermarkParams();
     self::$type_map[IMG_SQUARE] = new DerivativeParams( SizingParams::square(100,100) );
     self::$type_map[IMG_THUMB] = new DerivativeParams( SizingParams::classic(144,144) );
     self::$type_map[IMG_SMALL] = new DerivativeParams( SizingParams::classic(240,240) );
@@ -114,11 +142,22 @@ final class ImageStdParams
     self::$type_map[IMG_XXLARGE] = new DerivativeParams( SizingParams::classic(1200,900) );
   }
 
+  public static function apply_global($params)
+  {
+    if (!empty(self::$watermark->file) &&
+        (self::$watermark->min_size[0]<=$params->sizing->ideal_size[0]
+        && self::$watermark->min_size[1]<=$params->sizing->ideal_size[1] ) )
+    {
+      $params->use_watermark = true;
+    }
+  }
+  
   private static function build_maps()
   {
     foreach (self::$type_map as $type=>$params)
     {
       $params->type = $type;
+      self::apply_global($params);
     }
     self::$all_type_map = self::$type_map;
 

@@ -41,6 +41,10 @@ interface imageInterface
   function rotate($rotation);
 
   function resize($width, $height);
+  
+  function sharpen($amount);
+  
+  function compose($overlay, $x, $y, $opacity);
 
   function write($destination_filepath);
 }
@@ -258,6 +262,31 @@ class pwg_image
     return $rotation;
   }
 
+  /** Returns a normalized convolution kernel for sharpening*/
+  static function get_sharpen_matrix($amount)
+  {
+		// Amount should be in the range of 18-10
+		$amount = round(abs(-18 + ($amount * 0.08)), 2);
+
+		$matrix = array
+		(
+			array(-1,   -1,    -1),
+			array(-1, $amount, -1),
+			array(-1,   -1,    -1),
+		);
+    
+    $norm = array_sum(array_map('array_sum', $matrix));
+
+    for ($i=0; $i<3; $i++)
+    {
+      $line = & $matrix[$i];
+      for ($j=0; $j<3; $j++)
+        $line[$j] /= $norm;
+    }
+
+		return $matrix;
+  }
+
   private function get_resize_result($destination_filepath, $width, $height, $time=null)
   {
     return array(
@@ -397,6 +426,18 @@ class image_imagick implements imageInterface
     return $this->image->resizeImage($width, $height, Imagick::FILTER_LANCZOS, 0.9);
   }
 
+  function sharpen($amount)
+  {
+    $m = pwg_image::get_sharpen_matrix($amount);
+		return  $this->image->convolveImage($m);
+  }
+  
+  function compose($overlay, $x, $y, $opacity)
+  {
+    // todo
+    return false;
+  }
+
   function write($destination_filepath)
   {
     return $this->image->writeImage($destination_filepath);
@@ -415,16 +456,17 @@ class image_ext_imagick implements imageInterface
   var $height = '';
   var $commands = array();
 
-  function __construct($source_filepath, $imagickdir='')
+  function __construct($source_filepath)
   {
+    global $conf;
     $this->source_filepath = $source_filepath;
-    $this->imagickdir = $imagickdir;
+    $this->imagickdir = $conf['ext_imagick_dir'];
 
-    $command = $imagickdir.'identify -format "%wx%h" "'.realpath($source_filepath).'"';
+    $command = $this->imagickdir.'identify -format "%wx%h" "'.realpath($source_filepath).'"';
     @exec($command, $returnarray);
     if(!is_array($returnarray) or empty($returnarray[0]) or !preg_match('/^(\d+)x(\d+)$/', $returnarray[0], $match))
     {
-      die("[External ImageMagick] Corrupt image");
+      die("[External ImageMagick] Corrupt image\n" . var_export($returnarray, true));
     }
 
     $this->width = $match[1];
@@ -479,6 +521,31 @@ class image_ext_imagick implements imageInterface
     return true;
   }
 
+  function sharpen($amount)
+  {
+    $m = pwg_image::get_sharpen_matrix($amount);
+    
+    $param ='convolve "'.count($m).':';
+    foreach ($m as $line)
+    {
+      $param .= ' ';
+      $param .= implode(',', $line);
+    }
+    $param .= '"';
+    $this->add_command('morphology', $param);
+    return true;
+  }
+  
+  function compose($overlay, $x, $y, $opacity)
+  {
+    $param = 'compose dissolve -define compose:args='.$opacity;
+    $param .= ' '.escapeshellarg(realpath($overlay->image->source_filepath));
+    $param .= ' -gravity NorthWest -geometry +'.$x.'+'.$y;
+    $param .= ' -composite';
+    $this->add_command($param);
+    return true;
+  }
+
   function write($destination_filepath)
   {
     $exec = $this->imagickdir.'convert';
@@ -496,6 +563,8 @@ class image_ext_imagick implements imageInterface
     $dest = pathinfo($destination_filepath);
     $exec .= ' "'.realpath($dest['dirname']).'/'.$dest['basename'].'"';
     @exec($exec, $returnarray);
+    
+    //echo($exec);
     return is_array($returnarray);
   }
 }
@@ -609,6 +678,33 @@ class image_gd implements imageInterface
       imagedestroy($dest);
     }
     return $result;
+  }
+
+  function sharpen($amount)
+  {
+    $m = pwg_image::get_sharpen_matrix($amount);
+		return imageconvolution($this->image, $m, 1, 0);
+  }
+  
+  function compose($overlay, $x, $y, $opacity)
+  {
+    $ioverlay = $overlay->image->image;
+    /* A replacement for php's imagecopymerge() function that supports the alpha channel
+    See php bug #23815:  http://bugs.php.net/bug.php?id=23815 */
+
+    $ow = imagesx($ioverlay);
+    $oh = imagesy($ioverlay);
+      
+		// Create a new blank image the site of our source image
+		$cut = imagecreatetruecolor($ow, $oh);
+
+		// Copy the blank image into the destination image where the source goes
+		imagecopy($cut, $this->image, 0, 0, $x, $y, $ow, $oh);
+
+		// Place the source image in the destination image
+		imagecopy($cut, $ioverlay, 0, 0, 0, 0, $ow, $oh);
+		imagecopymerge($this->image, $cut, $x, $y, 0, 0, $ow, $oh, $opacity);
+    return true;
   }
 
   function write($destination_filepath)

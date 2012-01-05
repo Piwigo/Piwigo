@@ -23,6 +23,42 @@
 {/literal}{/html_head}
 
 <form method="post" id="derviativesForm">
+<fieldset>
+<legend>{'Watermark'|@translate}</legend>
+
+
+<select name="w[file]" id="wSelect">
+	{html_options options=$watermark_files selected=$watermark.file}
+</select>
+
+<p><img id="wImg"></img></p>
+
+<label>{'Min Width'|@translate}
+	<input type="text" name="w[minw]" value="{$watermark.minw}"{if isset($ferrors.watermark.minw)}class="dError"{/if}> 
+</label>
+
+<label>{'Min Height'|@translate}
+	<input type="text" name="w[minh]" value="{$watermark.minh}"{if isset($ferrors.watermark.minh)}class="dError"{/if}> 
+</label>
+
+<label>{'X Position'|@translate}
+	<input type="text" name="w[xpos]" value="{$watermark.xpos}"{if isset($ferrors.watermark.xpos)}class="dError"{/if}> 
+%</label>
+
+<label>{'Y Position'|@translate}
+	<input type="text" name="w[ypos]" value="{$watermark.ypos}"{if isset($ferrors.watermark.ypos)}class="dError"{/if}> 
+%</label>
+
+<label>{'X Repeat'|@translate}
+	<input type="text" name="w[xrepeat]" value="{$watermark.xrepeat}"{if isset($ferrors.watermark.xrepeat)}class="dError"{/if}> 
+</label>
+
+<label>{'Opacity'|@translate}
+	<input type="text" name="w[opacity]" value="{$watermark.opacity}"{if isset($ferrors.watermark.opacity)}class="dError"{/if}> 
+</label>
+
+</fieldset>
+
 <table class="table2">
 	<thead>
 	<tr>
@@ -33,6 +69,8 @@
 		<td>{'Crop'|@translate} (%)</td>
 		<td>{'Min Width'|@translate}</td>
 		<td>{'Min Height'|@translate}</td>
+		<td>{'Sharpen'|@translate} (%)</td>
+		<td>{'Quality'|@translate} (%)</td>
 	</tr>
 	</thead>
 	{foreach from=$derivatives item=d key=type}
@@ -65,7 +103,14 @@
 			<input type="text" name="d[{$type}][minh]" value="{$d.minh}"{if isset($ferrors.$type.minh)}class="dError"{/if}>
 			{if isset($ferrors.$type.minh)}<span class="dErrorDesc" title="{$ferrors.$type.minh}">!</span>{/if}
 		{/if}</td>
-
+		<td>
+			<input type="text" name="d[{$type}][sharpen]" value="{$d.sharpen}"{if isset($ferrors.$type.sharpen)}class="dError"{/if}>
+			{if isset($ferrors.$type.sharpen)}<span class="dErrorDesc" title="{$ferrors.$type.sharpen}">!</span>{/if}
+		</td>
+		<td>
+			<input type="text" name="d[{$type}][quality]" value="{$d.quality}"{if isset($ferrors.$type.quality)}class="dError"{/if}>
+			{if isset($ferrors.$type.quality)}<span class="dErrorDesc" title="{$ferrors.$type.quality}">!</span>{/if}
+		</td>
 	</tr>
 	{/foreach}
 </table>
@@ -76,4 +121,18 @@
 jQuery(".dError").bind("focus", function () {
 	jQuery(this).removeClass("dError");
 } );
+
+function onWatermarkChange()
+{
+	var val = jQuery("#wSelect").val();
+	if (val.length) {
+		jQuery("#wImg").attr('src', {/literal}'{$ROOT_URL}'{literal}+val).show();
+	}
+	else {
+		jQuery("#wImg").hide();
+	}
+}
+
+onWatermarkChange();
+jQuery("#wSelect").bind("change", onWatermarkChange );
 {/literal}{/footer_script}

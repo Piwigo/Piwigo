@@ -282,7 +282,10 @@ final class DerivativeParams
 {
   public $type = IMG_CUSTOM;
   public $last_mod_time = 0; // used for non-custom images to regenerate the cached files
+  public $use_watermark = false;
   public $sizing;
+  public $sharpen = 0;
+  public $quality = 85;
 
   function __construct($sizing)
   {
@@ -291,7 +294,7 @@ final class DerivativeParams
 
   public function __sleep()
   {
-      return array('last_mod_time', 'sizing');
+      return array('last_mod_time', 'sizing', 'sharpen', 'quality');
   }
     
   function add_url_tokens(&$tokens)

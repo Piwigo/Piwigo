@@ -269,6 +269,10 @@ if (!$need_generate)
 
 
 include_once(PHPWG_ROOT_PATH . 'admin/include/image.class.php');
+
+ignore_user_abort(true);
+set_time_limit(0);
+
 $image = new pwg_image($page['src_path']);
 
 if (!mkgetdir(dirname($page['derivative_path'])))
@@ -281,17 +285,49 @@ $changes = 0;
 // todo rotate
 
 // Crop & scale
-$params->sizing->compute( array($image->get_width(),$image->get_height()), $page['coi'], $crop_rect, $scale_width );
+$o_size = $d_size = array($image->get_width(),$image->get_height());
+$params->sizing->compute($o_size , $page['coi'], $crop_rect, $scaled_size );
 if ($crop_rect)
 {
   $changes++;
   $image->crop( $crop_rect->width(), $crop_rect->height(), $crop_rect->l, $crop_rect->t);
 }
 
-if ($scale_width)
+if ($scaled_size)
 {
   $changes++;
-  $image->resize( $scale_width[0], $scale_width[1] );
+  $image->resize( $scaled_size[0], $scaled_size[1] );
+  $d_size = $scaled_size;
+}
+
+if ($params->sharpen)
+{
+  $changes += $image->sharpen( $params->sharpen );
+}
+
+if ($params->use_watermark)
+{
+  $wm = ImageStdParams::get_watermark();
+  $wm_image = new pwg_image(PHPWG_ROOT_PATH.$wm->file);
+  $wm_size = array($wm_image->get_width(),$wm_image->get_height());
+  if ($d_size[0]<$wm_size[0] or $d_size[1]<$wm_size[1])
+  {
+    $wm_scaling_params = SizingParams::classic($d_size[0], $d_size[1]);
+    $wm_scaling_params->compute($wm_size, null, $tmp, $wm_scaled_size);
+    $wm_size = $wm_scaled_size;
+    $wm_image->resize( $wm_scaled_size[0], $wm_scaled_size[1] );
+  }
+  $x = round( ($wm->xpos/100)*($d_size[0]-$wm_size[0]) );
+  $y = round( ($wm->ypos/100)*($d_size[1]-$wm_size[1]) );
+  if ($image->compose($wm_image, $x, $y, $wm->opacity))
+  {
+    $changes++;
+    if ($wm->xrepeat)
+    {
+      // todo
+    }
+  }
+  $wm_image->destroy();
 }
 
 // no change required - redirect to source
@@ -301,6 +337,7 @@ if (!$changes)
   ierror( $page['src_url'], 301);
 }
 
+$image->set_compression_quality( $params->quality );
 $image->write( $page['derivative_path'] );
 $image->destroy();
 
