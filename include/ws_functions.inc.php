@@ -92,9 +92,9 @@ function ws_std_image_sql_filter( $params, $tbl_name='' )
   {
     $clauses[] = $tbl_name.'width/'.$tbl_name.'height<='.$params['f_max_ratio'];
   }
-  if ( $params['f_with_thumbnail'] )
+  if (is_numeric($params['f_max_level']) )
   {
-    $clauses[] = $tbl_name.'tn_ext IS NOT NULL';
+    $clauses[] = $tbl_name.'level <= '.$params['f_max_level'];
   }
   return $clauses;
 }
@@ -147,7 +147,7 @@ function ws_std_image_sql_order( $params, $tbl_name='' )
 function ws_std_get_urls($image_row)
 {
   $ret = array();
-  
+
   $src_image = new SrcImage($image_row);
 
   global $user;
@@ -155,7 +155,7 @@ function ws_std_get_urls($image_row)
   {
     $ret['element_url'] = get_element_url($image_row);
   }
-  
+
   $derivatives = DerivativeImage::get_all($src_image);
   $derivatives_arr = array();
   foreach($derivatives as $type=>$derivative)
@@ -177,6 +177,92 @@ function ws_std_get_image_xml_attributes()
   return array(
     'id','element_url', 'file','width','height','hit','date_available','date_creation'
     );
+}
+
+function ws_getMissingDerivatives($params, &$service)
+{
+  if (!is_admin())
+  {
+    return new PwgError(403, 'Forbidden');
+  }
+
+  if ( empty($params['types']) )
+  {
+    $types = array_keys(ImageStdParams::get_defined_type_map());
+  }
+  else
+  {
+    $types = array_intersect(array_keys(ImageStdParams::get_defined_type_map()), $params['types']);
+    if (count($types)==0)
+    {
+      return new PwgError(WS_ERR_INVALID_PARAM, "Invalid types");
+    }
+  }
+
+  if ( ($max_urls = intval($params['max_urls'])) <= 0)
+  {
+    return new PwgError(WS_ERR_INVALID_PARAM, "Invalid max_urls");
+  }
+
+  list($max_id, $image_count) = pwg_db_fetch_row( pwg_query('SELECT MAX(id)+1, COUNT(*) FROM '.IMAGES_TABLE) );
+  $start_id = intval($params['prev_page']);
+  if ($start_id<=0)
+  {
+    $start_id = $max_id;
+  }
+
+  $uid = '&b='.time();
+  global $conf;
+  $conf['question_mark_in_urls'] = $conf['php_extension_in_urls'] = true;
+  $conf['derivative_url_style']=2; //script
+
+  $qlimit = min(5000, ceil(max($image_count/500, $max_urls/count($types))));
+  $where_clauses = ws_std_image_sql_filter( $params, '' );
+  $where_clauses[] = 'id<start_id';
+
+  $query_model = 'SELECT id, path, representative_ext, width, height
+  FROM '.IMAGES_TABLE.'
+  WHERE '.implode(' AND ', $where_clauses).'
+  ORDER BY id DESC
+  LIMIT '.$qlimit;
+
+  $urls=array();
+  do
+  {
+    $result = pwg_query( str_replace('start_id', $start_id, $query_model));
+    $is_last = pwg_db_num_rows($result) < $qlimit;
+    while ($row=pwg_db_fetch_assoc($result))
+    {
+      $start_id = $row['id'];
+      $src_image = new SrcImage($row);
+      if ($src_image->is_mimetype())
+        continue;
+      foreach($types as $type)
+      {
+        $derivative = new DerivativeImage($type, $src_image);
+        if ($type != $derivative->get_type())
+          continue;
+        if (@filemtime($derivative->get_path())===false)
+        {
+          $urls[] = $derivative->get_url().$uid;
+        }
+      }
+      if (count($urls)>=$max_urls && !$is_last)
+        break;
+    }
+    if ($is_last)
+    {
+      $start_id = 0;
+    }
+  }while (count($urls)<$max_urls && $start_id);
+
+  $ret = array();
+  if ($start_id)
+  {
+    $ret['next_page']=$start_id;
+  }
+  $ret['urls']=$urls;
+  return $ret;
 }
 
 /**
@@ -514,7 +600,7 @@ SELECT id, name, permalink, uppercats, global_rank, id_uppercat,
   $categories = array();
   $user_representative_updates_for = array();
   // management of the album thumbnail -- stops here
-  
+
   $cats = array();
   while ($row = pwg_db_fetch_assoc($result))
   {
@@ -552,7 +638,7 @@ SELECT id, name, permalink, uppercats, global_rank, id_uppercat,
       );
 
     // management of the album thumbnail -- starts here
-    // 
+    //
     // on branch 2.3, the algorithm is duplicated from
     // include/category_cats, but we should use a common code for Piwigo 2.4
     //
@@ -603,14 +689,14 @@ SELECT id, name, permalink, uppercats, global_rank, id_uppercat,
         }
       }
     }
-    
+
     if (isset($image_id))
     {
       if ($conf['representative_cache_on_subcats'] and $row['user_representative_picture_id'] != $image_id)
       {
         $user_representative_updates_for[ $user['id'].'#'.$row['id'] ] = $image_id;
       }
-    
+
       $row['representative_picture_id'] = $image_id;
       array_push($image_ids, $image_id);
       array_push($categories, $row);
@@ -650,31 +736,31 @@ SELECT id, path, representative_ext, level
         // * find a random photo matching user permissions
         // * register it at user_representative_picture_id
         // * set it as the representative_picture_id for the category
-        
+
         foreach ($categories as &$category)
         {
           if ($row['id'] == $category['representative_picture_id'])
           {
             // searching a random representant among elements in sub-categories
             $image_id = get_random_image_in_category($category);
-            
+
             if (isset($image_id) and !in_array($image_id, $image_ids))
             {
               array_push($new_image_ids, $image_id);
             }
-            
+
             if ($conf['representative_cache_on_level'])
             {
               $user_representative_updates_for[ $user['id'].'#'.$category['id'] ] = $image_id;
             }
-            
+
             $category['representative_picture_id'] = $image_id;
           }
         }
         unset($category);
       }
     }
-    
+
     if (count($new_image_ids) > 0)
     {
       $query = '
@@ -696,11 +782,11 @@ SELECT id, path, representative_ext
   if (!$params['public'] and count($user_representative_updates_for))
   {
     $updates = array();
-  
+
     foreach ($user_representative_updates_for as $user_cat => $image_id)
     {
       list($user_id, $cat_id) = explode('#', $user_cat);
-    
+
       array_push(
         $updates,
         array(
@@ -735,7 +821,7 @@ SELECT id, path, representative_ext
     unset($cat['count_images']);
     unset($cat['count_categories']);
   }
-  unset($cat);  
+  unset($cat);
   // management of the album thumbnail -- stops here
 
   if ($params['tree_output'])
@@ -1530,7 +1616,7 @@ function add_file($file_path, $type, $original_sum, $file_sum)
 
   // check dumped thumbnail md5
   $dumped_md5 = md5_file($file_path);
-  if ($dumped_md5 != $file_sum) 
+  if ($dumped_md5 != $file_sum)
   {
     return new PwgError(500, '[add_file] '.$type.' transfer failed');
   }
@@ -1665,16 +1751,16 @@ SELECT
   if ($params['resize'])
   {
     ws_logfile('[pwg.images.add] resize activated');
-    
+
     // temporary file path
     $type = 'file';
     $file_path = $conf['upload_dir'].'/buffer/'.$params['original_sum'].'-'.$type;
-    
+
     merge_chunks($file_path, $params['original_sum'], $type);
     chmod($file_path, 0644);
 
     include_once(PHPWG_ROOT_PATH.'admin/include/functions_upload.inc.php');
-    
+
     $image_id = add_uploaded_file(
       $file_path,
       $params['original_filename']
@@ -1703,11 +1789,11 @@ SELECT
     $random_string = substr($params['file_sum'], 0, 8);
     $filename_wo_ext = $date_string.'-'.$random_string;
     $file_path = $upload_dir.'/'.$filename_wo_ext.'.jpg';
-    
+
     // add files
     $file_infos  = add_file($file_path, 'file',  $params['original_sum'], $params['file_sum']);
     $thumb_infos = add_file($file_path, 'thumb', $params['original_sum'], $params['thumbnail_sum']);
-    
+
     if (isset($params['high_sum']))
     {
       $high_infos = add_file($file_path, 'high', $params['original_sum'], $params['high_sum']);
@@ -1762,7 +1848,7 @@ SELECT
       $update[$key] = $params[$key];
     }
   }
-  
+
   if (count(array_keys($update)) > 0)
   {
     single_update(
@@ -1773,7 +1859,7 @@ SELECT
   }
 
   $url_params = array('image_id' => $image_id);
-  
+
   // let's add links between the image and the categories
   if (isset($params['categories']))
   {
@@ -1781,7 +1867,7 @@ SELECT
 
     if (preg_match('/^\d+/', $params['categories'], $matches)) {
       $category_id = $matches[0];
-    
+
       $query = '
 SELECT id, name, permalink
   FROM '.CATEGORIES_TABLE.'
@@ -1789,7 +1875,7 @@ SELECT id, name, permalink
 ;';
       $result = pwg_query($query);
       $category = pwg_db_fetch_assoc($result);
-      
+
       $url_params['section'] = 'categories';
       $url_params['category'] = $category;
     }
@@ -1957,16 +2043,16 @@ function ws_rates_delete($params, &$service)
   {
     return new PwgError(WS_ERR_INVALID_PARAM, 'Invalid user_id');
   }
-  
+
   $query = '
 DELETE FROM '.RATE_TABLE.'
   WHERE user_id='.$user_id;
-  
+
   if (!empty($params['anonymous_id']))
   {
     $query .= ' AND anonymous_id=\''.$params['anonymous_id'].'\'';
   }
-  
+
   $changes = pwg_db_changes(pwg_query($query));
   if ($changes)
   {
@@ -3274,7 +3360,7 @@ SELECT id, path, tn_ext, has_high, width, height
   {
     return new PwgError(403, "image can't be resized");
   }
-  
+
   $hd_path = get_high_path($image);
 
   if (empty($image['has_high']) or !file_exists($hd_path))
@@ -3284,7 +3370,7 @@ SELECT id, path, tn_ext, has_high, width, height
       $hd_path = file_path_for_type($image_path, 'high');
       $hd_dir = dirname($hd_path);
       prepare_directory($hd_dir);
-      
+
       rename($image_path, $hd_path);
       $hd_infos = pwg_image_infos($hd_path);
 

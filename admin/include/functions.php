@@ -200,11 +200,8 @@ SELECT
     $files = array();
     $files[] = get_element_path($row);
 
-   
     if (!empty($row['representative_ext']))
     {
-      $pi = pathinfo($row['path']);
-      $file_wo_ext = get_filename_wo_extension($pi['basename']);
       $files[] = original_to_representative( $files[0], $row['representative_ext']);
     }
 

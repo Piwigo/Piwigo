@@ -69,7 +69,7 @@ function ws_addDefaultMethods( $arr )
         'f_max_date_created' => array( 'default'=> null ),
         'f_min_ratio' => array( 'default'=> null ),
         'f_max_ratio' => array( 'default'=> null ),
-        'f_with_thumbnail' => array( 'default'=> false ),
+        'f_max_level' => array( 'default'=> null ),
       ),
       'Returns elements for the corresponding categories.
 <br><b>cat_id</b> can be empty if <b>recursive</b> is true. Can be sent as an array.
@@ -85,6 +85,25 @@ function ws_addDefaultMethods( $arr )
         'fullname' => array('default'=>false),
       ),
       'retrieves a list of categories (tree_output option only compatible with json/php output format' );
+
+  $service->addMethod('pwg.getMissingDerivatives', 'ws_getMissingDerivatives',
+      array(
+        'types' => array( 'default'=>array(), 'flags'=>WS_PARAM_FORCE_ARRAY),
+        'max_urls' => array( 'default' => 200 ),
+        'prev_page' => array( 'default'=> null),
+        'f_min_rate' => array( 'default'=> null ),
+        'f_max_rate' => array( 'default'=> null ),
+        'f_min_hit' => array( 'default'=> null ),
+        'f_max_hit' => array( 'default'=> null ),
+        'f_min_date_available' => array( 'default'=> null ),
+        'f_max_date_available' => array( 'default'=> null ),
+        'f_min_date_created' => array( 'default'=> null ),
+        'f_max_date_created' => array( 'default'=> null ),
+        'f_min_ratio' => array( 'default'=> null ),
+        'f_max_ratio' => array( 'default'=> null ),
+        'f_max_level' => array( 'default'=> null ),
+      ),
+      'retrieves a list of derivatives to build' );
 
   $service->addMethod('pwg.images.addComment', 'ws_images_addComment',
       array(
@@ -129,7 +148,7 @@ function ws_addDefaultMethods( $arr )
         'f_max_date_created' => array( 'default'=> null ),
         'f_min_ratio' => array( 'default'=> null ),
         'f_max_ratio' => array( 'default'=> null ),
-        'f_with_thumbnail' => array( 'default'=> false ),
+        'f_max_level' => array( 'default'=> null ),
       ),
       'Returns elements for the corresponding query search.'
     );
@@ -192,7 +211,7 @@ function ws_addDefaultMethods( $arr )
         'f_max_date_created' => array( 'default'=> null ),
         'f_min_ratio' => array( 'default'=> null ),
         'f_max_ratio' => array( 'default'=> null ),
-        'f_with_thumbnail' => array( 'default'=> false ),
+        'f_max_level' => array( 'default'=> null ),
       ),
       'Returns elements for the corresponding tags. Note that tag_id, tag_url_name, tag_name an be arrays. Fill at least one of them. '
     );

@@ -704,6 +704,7 @@ class image_gd implements imageInterface
 		// Place the source image in the destination image
 		imagecopy($cut, $ioverlay, 0, 0, 0, 0, $ow, $oh);
 		imagecopymerge($this->image, $cut, $x, $y, 0, 0, $ow, $oh, $opacity);
+    imagedestroy($cut);
     return true;
   }
 

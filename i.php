@@ -108,6 +108,10 @@ function parse_request()
   else
   {
     $req = $_SERVER["QUERY_STRING"];
+    if ($pos=strpos($req, '&'))
+    {
+      $req = substr($req, 0, $pos);
+    }
     /*foreach (array_keys($_GET) as $keynum => $key)
     {
       $req = $key;
@@ -167,11 +171,19 @@ function parse_request()
   {
     try
     {
-      $page['derivative_params'] = DerivativeParams::from_url_tokens($deriv);
+      $params = $page['derivative_params'] = DerivativeParams::from_url_tokens($deriv);
     }
     catch (Exception $e)
     {
       ierror($e->getMessage(), 400);
+    }
+    if ($params->sizing->ideal_size[0] < 20 or $params->sizing->ideal_size[1] < 20)
+    {
+      ierror('Invalid size', 400);
+    }
+    if ($params->sizing->max_crop < 0 or $params->sizing->max_crop > 1)
+    {
+      ierror('Invalid crop', 400);
     }
   }
 
@@ -224,14 +236,6 @@ parse_request();
 //var_export($page);
 
 $params = $page['derivative_params'];
-if ($params->sizing->ideal_size[0] < 20 or $params->sizing->ideal_size[1] < 20)
-{
-  ierror('Invalid size', 400);
-}
-if ($params->sizing->max_crop < 0 or $params->sizing->max_crop > 1)
-{
-  ierror('Invalid crop', 400);
-}
 
 $src_mtime = @filemtime($page['src_path']);
 if ($src_mtime === false)
@@ -250,7 +254,12 @@ if ($derivative_mtime === false or
 
 $expires=false;
 $now = time();
-if ( $now > (max($src_mtime, $params->last_mod_time) + 24*3600) )
+if ( isset($_GET['b']) )
+{
+  $expires = $now + 100;
+  header("Cache-control: no-store, max-age=100");
+}
+elseif ( $now > (max($src_mtime, $params->last_mod_time) + 24*3600) )
 {// somehow arbitrary - if derivative params or src didn't change for the last 24 hours, we send an expire header for several days
   $expires = $now + 10*24*3600;
 }
@@ -267,6 +276,10 @@ if (!$need_generate)
   send_derivative($expires);
 }
 
+if (!mkgetdir(dirname($page['derivative_path'])))
+{
+  ierror("dir create error", 500);
+}
 
 include_once(PHPWG_ROOT_PATH . 'admin/include/image.class.php');
 
@@ -274,11 +287,6 @@ ignore_user_abort(true);
 set_time_limit(0);
 
 $image = new pwg_image($page['src_path']);
-
-if (!mkgetdir(dirname($page['derivative_path'])))
-{
-  ierror("dir create error", 500);
-}
 
 $changes = 0;
 
@@ -325,6 +333,15 @@ if ($params->use_watermark)
     if ($wm->xrepeat)
     {
       // todo
+      $pad = $wm_size[0] + max(30, round($wm_size[0]/4));
+      for($i=-$wm->xrepeat; $i<=$wm->xrepeat; $i++)
+      {
+        if (!$i) continue;
+        $x2 = $x + $i * $pad;
+        if ($x2>=0 && $x2+$wm_size[0]<$d_size[0])
+          if (!$image->compose($wm_image, $x2, $y, $wm->opacity))
+            break;
+      }
     }
   }
   $wm_image->destroy();

@@ -219,6 +219,11 @@ final class DerivativeImage
     }
   }
 
+  function get_path()
+  {
+    return PHPWG_ROOT_PATH.$this->rel_path;
+  }
+
   function get_url()
   {
     return get_root_url().$this->rel_url;
