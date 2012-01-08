@@ -812,5 +812,22 @@ $lang['Graphics Library'] = 'Biblioteca Gráfica';
 $lang['Height'] = 'Altura';
 $lang['hide details'] = 'Ocultar detalhes';
 $lang['High dimensions'] = 'Dimensões em alta resolução';
+$lang['I decide to update anyway'] = 'Eu ainda quero atualizar';
+$lang['If no HD is available and if the current websize is bigger than resize dimensions, Piwigo will move it as HD and create a downsized websize photo from it.'] = 'Se não há HD disponível e o tamanho web é maior que o tamanho redimensionado, Piwigo irá movê-la como HD e criará uma foto com tamanho web diminuído.';
+$lang['If you want to regenerate thumbnails, please go to the <a href="%s">Batch Manager</a>.'] = 'Se você quer recriar miniaturas, por favor, vá para o <a href="%s">Gerenciador de lotes</a>.';
+$lang['Ignore All'] = 'Ignorar tudo';
+$lang['Ignore this update'] = 'Ignorar esta atualização';
+$lang['Last import'] = 'Última importação';
+$lang['Manage Permissions'] = 'Gerenciar permissões';
+$lang['Maximum file size: %sB.'] = 'Tamanho máximo do arquivo: %sB.';
+$lang['Merge selected tags'] = 'Mesclar marcas selecionadas';
+$lang['Merge tags'] = 'Mesclar marcas';
+$lang['No destination tag selected'] = 'Nenhuma marca de destino selecionada';
+$lang['Photo %s of %s'] = 'Foto %s de %s';
+$lang['Photo name'] = 'Nome da foto';
+$lang['Photos generation in progress...'] = 'Gerando fotos ...';
+$lang['Predefined filter'] = 'Filtro predefinido';
+$lang['Regenerate Thumbnails'] = 'Recriar miniaturas';
+$lang['Regenerate Websize Photos'] = 'Redimencionar fotos'; 
 
 ?>
