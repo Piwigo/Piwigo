@@ -115,24 +115,44 @@
     </li>
     
 {if !$ORDER_BY_IS_CUSTOM}
-{footer_script require='jquery'}{literal}
+{footer_script require='jquery'}
+// counters for displaying of addFilter link
+fields = {$main.order_by|@count}; max_fields = {$main.order_field_options|@count}; max_fields--;
+
+{literal}
+function updateAddFilterLink() {
+  if (fields >= max_fields) {
+    $('.addFilter').css('display', 'none');
+  } else {
+    $('.addFilter').css('display', '');
+  }
+}
+
+function updateRemoveFilterTrigger() {
+  $(".removeFilter").click(function () {
+    $(this).parent('span.filter').remove();
+    fields--;
+    updateAddFilterLink();
+  });
+}
+
 jQuery(document).ready(function () {
   $('.addFilter').click(function() {
     rel = $(this).attr('rel');
     $(this).prev('span.filter').clone().insertBefore($(this));
     $(this).prev('span.filter').children('select[name="order_by_field[]"]').val('');
     $(this).prev('span.filter').children('select[name="order_by_direction[]"]').val('ASC');
-      
-    $(".removeFilter").click(function () {
-      $(this).parent('span.filter').remove();
-    });
+    
+    fields++;
+    updateAddFilterLink();  
+    updateRemoveFilterTrigger();
   });
   
-  $(".removeFilter").click(function () {
-    $(this).parent('span.filter').remove();
-  });
+  updateRemoveFilterTrigger();
+  updateAddFilterLink();
 });
-{/literal}{/footer_script}
+{/literal}
+{/footer_script}
 {/if}
   </ul>
 </fieldset>
