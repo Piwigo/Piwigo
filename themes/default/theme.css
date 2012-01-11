@@ -345,8 +345,8 @@ TD.calDayHead {
 	top: 100px;
 }
 
-#derivativeSwitchBox {
-	padding: 0.5em;
+#derivativeSwitchBox, #sortOrderBox {
+	padding: 0.5em 1em;
 	border-radius: 4px;
 	z-index: 100;
 }

@@ -14,12 +14,12 @@ H2, #menubar DT, #imageHeaderBar, #imageToolBar A:hover {
 	background-color: #d3d3d3;
 }
 
-#menubar DL, .content, #imageToolBar, #derivativeSwitchLink, #derivativeSwitchBox, .header_notes {
+#menubar DL, .content, #imageToolBar, #derivativeSwitchLink, #derivativeSwitchBox, #sortOrderBox, .header_notes {
   background-color: #eeeeee;
 }
 
 /* borders */
-#menubar DL, .content, #imageToolBar, #derivativeSwitchLink, #derivativeSwitchBox {
+#menubar DL, .content, #imageToolBar, #derivativeSwitchLink, #derivativeSwitchBox, #sortOrderBox {
   border: 1px solid #d3d3d3;
 }
 

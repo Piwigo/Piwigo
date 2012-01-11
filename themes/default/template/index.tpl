@@ -4,13 +4,36 @@
 <div class="titrePage">
 	<ul class="categoryActions">
 {if !empty($image_orders)}
-		<li>{'Sort order'|@translate}: {strip}
-		<select onchange="document.location = this.options[this.selectedIndex].value;">
-			{foreach from=$image_orders item=image_order}
-			<option value="{$image_order.URL}"{if $image_order.SELECTED} selected="selected"{/if}>{$image_order.DISPLAY}</option>
+		<li>{strip}<a href="javascript:toggleSortOrderBox()" id="sortOrderLink" title="{'Sort order'|@translate}" class="pwg-state-default pwg-button" rel="nofollow">
+			<span class="pwg-icon pwg-icon-sort">&nbsp;</span><span class="pwg-button-text">{'Sort order'|@translate}</span>
+		</a>
+		<div id="sortOrderBox" style="display:none; text-align:left" onclick="toggleSortOrderBox()">
+			{'Sort order'|@translate}:
+			{foreach from=$image_orders item=image_order}<br>
+			{if $image_order.SELECTED}
+			<span>{$image_order.DISPLAY}</span>
+			{else}
+			<a href="{$image_order.URL}" rel="nofollow">{$image_order.DISPLAY}</a>
+			{/if}
 			{/foreach}
-		</select>
-{/strip}</li>
+		</div>
+		{footer_script}{literal}
+function toggleSortOrderBox()
+{
+	var elt = document.getElementById("sortOrderBox"),
+		ePos = document.getElementById("sortOrderLink");
+	if (elt.style.display==="none")
+	{
+		elt.style.position = "absolute";
+		elt.style.left = (ePos.offsetLeft) + "px";
+		elt.style.top = (ePos.offsetTop + ePos.offsetHeight) + "px";
+		elt.style.display="";
+	}
+	else
+		elt.style.display="none";
+}
+		{/literal}{/footer_script}
+		{/strip}</li>
 {/if}
 {if isset($favorite)}
 		<li><a href="{$favorite.U_FAVORITE}" title="{'delete all photos from your favorites'|@translate}" class="pwg-state-default pwg-button" rel="nofollow">
