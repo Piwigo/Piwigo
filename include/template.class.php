@@ -1299,7 +1299,7 @@ final class FileCombiner
   {
     $css = self::process_css_rec($file);
     require_once(PHPWG_ROOT_PATH.'include/cssmin.class.php');
-    $css = CssMin::minify($css, array('emulate-css3-variables'=>false));
+    $css = CssMin::minify($css, array('Variables'=>false));
     $css = trigger_event('combined_css_postfilter', $css);
     return $css;
   }
