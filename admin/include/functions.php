@@ -1564,12 +1564,12 @@ SELECT image_id
 function pwg_URL()
 {
   $urls = array(
-    'HOME'       => 'http://'.PHPWG_DOMAIN,
-    'WIKI'       => 'http://'.PHPWG_DOMAIN.'/doc',
-    'DEMO'       => 'http://'.PHPWG_DOMAIN.'/demo',
-    'FORUM'      => 'http://'.PHPWG_DOMAIN.'/forum',
-    'BUGS'       => 'http://'.PHPWG_DOMAIN.'/bugs',
-    'EXTENSIONS' => 'http://'.PHPWG_DOMAIN.'/ext',
+    'HOME'       => PHPWG_URL,
+    'WIKI'       => PHPWG_URL.'/doc',
+    'DEMO'       => PHPWG_URL.'/demo',
+    'FORUM'      => PHPWG_URL.'/forum',
+    'BUGS'       => PHPWG_URL.'/bugs',
+    'EXTENSIONS' => PHPWG_URL.'/ext',
     );
   return $urls;
 }
@@ -1969,25 +1969,7 @@ SELECT '.$conf['user_fields']['username'].'
 }
 
 function get_newsletter_subscribe_base_url($language) {
-  $subscribe_domain = 'piwigo.org';
-
-  $domain_of = array(
-    'fr_FR' => 'fr.piwigo.org',
-    'it_IT' => 'it.piwigo.org',
-    'de_DE' => 'de.piwigo.org',
-    'es_ES' => 'es.piwigo.org',
-    'zh_CN' => 'cn.piwigo.org',
-    'pl_PL' => 'pl.piwigo.org',
-    'hu_HU' => 'hu.piwigo.org',
-    'ru_RU' => 'ru.piwigo.org',
-	'nl_NL' => 'nl.piwigo.org',
-    );
-
-  if (isset($domain_of[$language])) {
-    $subscribe_domain = $domain_of[$language];
-  }
-
-  return 'http://'.$subscribe_domain.'/announcement/subscribe/';
+  return PHPWG_URL.'/announcement/subscribe/';
 }
 
 /**
