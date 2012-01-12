@@ -271,7 +271,7 @@ jQuery(document).ready(function () {
 
     <li>
       <label>
-        <span class="property">{'Sort order'|@translate|@string_format:$pwg->l10n('Activate field "%s"')}</span>
+        <span class="property">{'Sort order'|@translate|@string_format:$pwg->l10n('Activate icon "%s"')}</span>
         <input type="checkbox" name="index_sort_order_input" {if ($display.index_sort_order_input)}checked="checked"{/if}>
       </label>
     </li>

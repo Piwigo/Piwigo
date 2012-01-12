@@ -4,7 +4,7 @@
 
 {if isset($MENUBAR)}
 {$MENUBAR}
-<div id="content" class="pictureContent">
+<div id="content" class="contentWithMenu">
 {/if}
 
 {include file='infos_errors.tpl'}

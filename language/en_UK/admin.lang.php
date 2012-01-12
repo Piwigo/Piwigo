@@ -97,7 +97,6 @@ $lang['ACCESS_4'] = "Access to webmasters";
 $lang['ACCESS_5'] = "No access";
 $lang['Action'] = 'Action';
 $lang['Actions'] = "Actions";
-$lang['Activate field "%s"'] = 'Activate field "%s"';
 $lang['Activate icon "%s"'] = 'Activate icon "%s"';
 $lang['Activate icon "new" next to albums and pictures'] = 'Activate icon "new" next to albums and pictures';
 $lang['Activate Navigation Bar'] = 'Activate navigation bar';

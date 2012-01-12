@@ -1,5 +1,5 @@
 {if isset($MENUBAR)}{$MENUBAR}{/if}
-<div id="content" class="content">
+<div id="content" class="content{if isset($MENUBAR)} contentWithMenu{/if}">
   <div class="titrePage">
     <ul class="categoryActions">
       <li><a href="{$U_HOME}" title="{'Home'|@translate}" class="pwg-state-default pwg-button">

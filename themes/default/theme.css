@@ -83,7 +83,7 @@
 /**
  * Content
  */
-.content {
+.contentWithMenu {
 	margin-left: 20em;  /* = #menubar width + 2em */
 }
 
@@ -417,12 +417,8 @@ TD.calDayHead {
 	background: url('icon/rating-stars.gif') no-repeat 0 center; width:16px;
 }
 
-/* only if menubar is shown */
-.pictureContent {
-	margin-left:20em;
-}
-.pictureContent #imageToolBar, 
-.pictureContent #theImage { 
+.contentWithMenu #imageToolBar, 
+.contentWithMenu #theImage { 
 	clear: none;
 }
 

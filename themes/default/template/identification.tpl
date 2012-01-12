@@ -1,5 +1,5 @@
 {if isset($MENUBAR)}{$MENUBAR}{/if}
-<div id="content" class="content">
+<div id="content" class="content{if isset($MENUBAR)} contentWithMenu{/if}">
 
 <div class="titrePage">
 	<ul class="categoryActions">
@@ -47,16 +47,18 @@
     <input tabindex="4" type="submit" name="login" value="{'Submit'|@translate}">
   </p>
 
-  <p>
+	<p>
 {if isset($U_REGISTER)}
 		<a href="{$U_REGISTER}" title="{'Register'|@translate}" class="pwg-state-default pwg-button">
 			<span class="pwg-icon pwg-icon-register">&nbsp;</span><span>{'Register'|@translate}</span>
 		</a>
 {/if}
+{if isset($U_LOST_PASSWORD)}
 		<a href="{$U_LOST_PASSWORD}" title="{'Forgot your password?'|@translate}" class="pwg-state-default pwg-button">
 			<span class="pwg-icon pwg-icon-lost-password">&nbsp;</span><span>{'Forgot your password?'|@translate}</span>
 		</a>
-  </p>
+{/if}
+	</p>
 
 </form>
 

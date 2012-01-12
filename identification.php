@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | Piwigo - a PHP based photo gallery                                    |
 // +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2011 Piwigo Team                  http://piwigo.org |
+// | Copyright(C) 2008-2012 Piwigo Team                  http://piwigo.org |
 // | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
 // | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
 // +-----------------------------------------------------------------------+
@@ -82,21 +82,25 @@ $template->set_filenames( array('identification'=>'identification.tpl') );
 
 $template->assign(
   array(
-    'U_LOST_PASSWORD' => get_root_url().'password.php',
     'U_REDIRECT' => $redirect_to,
 
     'F_LOGIN_ACTION' => get_root_url().'identification.php',
     'authorize_remembering' => $conf['authorize_remembering'],
     ));
 
-if ($conf['allow_user_registration'])
+if (!$conf['gallery_locked'] && $conf['allow_user_registration'])
 {
   $template->assign('U_REGISTER', get_root_url().'register.php' );
 }
 
+if (!$conf['gallery_locked'])
+{
+  $template->assign('U_LOST_PASSWORD', get_root_url().'password.php' );
+}
+
 // include menubar
 $themeconf = $template->get_template_vars('themeconf');
-if (!isset($themeconf['hide_menu_on']) OR !in_array('theIdentificationPage', $themeconf['hide_menu_on']))
+if (!$conf['gallery_locked'] && (!isset($themeconf['hide_menu_on']) OR !in_array('theIdentificationPage', $themeconf['hide_menu_on'])))
 {
   include( PHPWG_ROOT_PATH.'include/menubar.inc.php');
 }

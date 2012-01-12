@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | Piwigo - a PHP based photo gallery                                    |
 // +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2011 Piwigo Team                  http://piwigo.org |
+// | Copyright(C) 2008-2012 Piwigo Team                  http://piwigo.org |
 // | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
 // | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
 // +-----------------------------------------------------------------------+
@@ -1076,14 +1076,17 @@ SELECT param, value
 
   while ($row = pwg_db_fetch_assoc($result))
   {
-    $conf[ $row['param'] ] = isset($row['value']) ? $row['value'] : '';
-
-    // If the field is true or false, the variable is transformed into a
-    // boolean value.
-    if ($conf[$row['param']] == 'true' or $conf[$row['param']] == 'false')
+    $val = isset($row['value']) ? $row['value'] : '';
+    // If the field is true or false, the variable is transformed into a boolean value.
+    if ($val == 'true')
     {
-      $conf[ $row['param'] ] = get_boolean($conf[ $row['param'] ]);
+      $val = true;
     }
+    elseif ($val == 'false')
+    {
+      $val = false;
+    }
+    $conf[ $row['param'] ] = $val;
   }
 }
 
