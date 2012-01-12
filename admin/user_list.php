@@ -385,8 +385,8 @@ DELETE FROM '.USER_GROUP_TABLE.'
 
   $formfields =
     array('nb_image_page', 'theme', 'language',
-          'recent_period', 'maxwidth', 'expand', 'show_nb_comments',
-          'show_nb_hits', 'maxheight', 'status', 'enabled_high',
+          'recent_period', 'expand', 'show_nb_comments',
+          'show_nb_hits', 'status', 'enabled_high',
           'level');
 
   $true_false_fields = array('expand', 'show_nb_comments',
@@ -560,8 +560,6 @@ if (isset($_POST['pref_submit']))
   $template->assign(
     array(
       'NB_IMAGE_PAGE' => $_POST['nb_image_page'],
-      'MAXWIDTH' => $_POST['maxwidth'],
-      'MAXHEIGHT' => $_POST['maxheight'],
       'RECENT_PERIOD' => $_POST['recent_period'],
       ));
 }
@@ -571,8 +569,6 @@ else
   $template->assign(
     array(
       'NB_IMAGE_PAGE' => $default_user['nb_image_page'],
-      'MAXWIDTH' => $default_user['maxwidth'],
-      'MAXHEIGHT' => $default_user['maxheight'],
       'RECENT_PERIOD' => $default_user['recent_period'],
       ));
 }

@@ -254,30 +254,6 @@
     </td>
   </tr>
 
-  <tr>
-    <td>{'Maximum photo width'|@translate}</td>
-    <td>
-      <label><input type="radio" name="maxwidth_action" value="leave" checked="checked"> {'leave'|@translate}</label>
-      <label><input type="radio" name="maxwidth_action" value="unset"> {'unset'|@translate}</label>
-      <label><input type="radio" name="maxwidth_action" value="set" id="maxwidth_action_set"> {'set to'|@translate}</label>
-      <input onmousedown="document.getElementById('maxwidth_action_set').checked = true;"
-             type="text" size="4" maxlength="4" name="maxwidth" value="{$MAXWIDTH}">
-    </td>
-  </tr>
-
-
-  <tr>
-    <td>{'Maximum photo height'|@translate}</td>
-    <td>
-      <label><input type="radio" name="maxheight_action" value="leave" checked="checked"> {'leave'|@translate}</label>
-      <label><input type="radio" name="maxheight_action" value="unset"> {'unset'|@translate}</label>
-      <label><input type="radio" name="maxheight_action" value="set" id="maxheight_action_set"> {'set to'|@translate}</label>
-      <input onmousedown="document.getElementById('maxheight_action_set').checked = true;"
-             type="text" size="4" maxlength="4" name="maxheight" value="{$MAXHEIGHT}">
-    </td>
-  </tr>
-
-
 </table>
 
 </fieldset>

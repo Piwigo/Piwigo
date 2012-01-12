@@ -80,18 +80,6 @@
         <span class="property">{'Show number of hits'|@translate}</span>
         {html_radios name='show_nb_hits' options=$radio_options selected=$NB_HITS}
       </li>
-      <li>
-        <span class="property">
-          <label for="maxwidth">{'Maximum photo width'|@translate}</label>
-        </span>
-        <input type="text" size="4" maxlength="4" name="maxwidth" id="maxwidth" value="{$MAXWIDTH}">
-      </li>
-      <li>
-        <span class="property">
-          <label for="maxheight">{'Maximum photo height'|@translate}</label>
-        </span>
-        <input type="text" size="4" maxlength="4" name="maxheight" id="maxheight" value="{$MAXHEIGHT}">
-      </li>
     </ul>
   </fieldset>
 {/if}

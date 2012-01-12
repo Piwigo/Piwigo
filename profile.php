@@ -49,7 +49,7 @@ if (!defined('PHPWG_ROOT_PATH'))
   if (isset($_POST['reset_to_default']))
   {
     $fields = array(
-      'nb_image_page', 'maxwidth', 'maxheight', 'expand',
+      'nb_image_page', 'expand',
       'show_nb_comments', 'show_nb_hits', 'recent_period', 'show_nb_hits'
       );
 
@@ -124,18 +124,6 @@ function save_profile_from_post($userdata, &$errors)
       $errors[] = l10n('The number of photos per page must be a not null scalar');
     }
 
-    if ($_POST['maxwidth'] != ''
-        and (!preg_match($int_pattern, $_POST['maxwidth'])
-             or $_POST['maxwidth'] < 50))
-    {
-      $errors[] = l10n('Maximum width must be a number superior to 50');
-    }
-    if ($_POST['maxheight']
-         and (!preg_match($int_pattern, $_POST['maxheight'])
-               or $_POST['maxheight'] < 50))
-    {
-      $errors[] = l10n('Maximum height must be a number superior to 50');
-    }
     // periods must be integer values, they represents number of days
     if (!preg_match($int_pattern, $_POST['recent_period'])
         or $_POST['recent_period'] <= 0)
@@ -221,7 +209,7 @@ function save_profile_from_post($userdata, &$errors)
     {
       // update user "additional" informations (specific to Piwigo)
       $fields = array(
-        'nb_image_page', 'language', 'maxwidth', 'maxheight',
+        'nb_image_page', 'language',
         'expand', 'show_nb_comments', 'show_nb_hits', 'recent_period', 'theme'
         );
 
@@ -268,8 +256,6 @@ function load_profile_in_template($url_action, $url_redirect, $userdata)
       'ALLOW_USER_CUSTOMIZATION'=>$conf['allow_user_customization'],
       'NB_IMAGE_PAGE'=>$userdata['nb_image_page'],
       'RECENT_PERIOD'=>$userdata['recent_period'],
-      'MAXWIDTH'=>@$userdata['maxwidth'],
-      'MAXHEIGHT'=>@$userdata['maxheight'],
       'EXPAND' =>$userdata['expand'] ? 'true' : 'false',
       'NB_COMMENTS'=>$userdata['show_nb_comments'] ? 'true' : 'false',
       'NB_HITS'=>$userdata['show_nb_hits'] ? 'true' : 'false',
