@@ -202,12 +202,7 @@ SELECT
 
     $thumbnail['file'] = $image_infos['file'];
     
-    $thumbnail['src'] = get_thumbnail_location(
-      array(
-        'path' => $image_infos['path'],
-        'tn_ext' => $image_infos['tn_ext'],
-        )
-      );
+    $thumbnail['src'] = DerivativeImage::thumb_url($image_infos);
 
     // TODO: when implementing this plugin in Piwigo core, we should have
     // a function get_image_name($name, $file) (if name is null, then

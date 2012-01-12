@@ -56,10 +56,6 @@ $tabs = array(
     'label' => l10n('Upload Photos'),
     ),
   array(
-    'code' => 'settings',
-    'label' => l10n('Settings'),
-    ),
-  array(
     'code' => 'ploader',
     'label' => l10n('Piwigo Uploader'),
     ),

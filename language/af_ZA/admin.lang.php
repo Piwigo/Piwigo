@@ -159,7 +159,6 @@ $lang['Instructions to use Piwigo'] = 'Instruksies in die gebruik van Piwigo';
 $lang['IP'] = 'IP';
 $lang['jump to album'] = 'spring na album';
 $lang['jump to photo'] = 'spring na foto';
-$lang['Keep high definition'] = 'Hou hoë definisie';
 $lang['Languages'] = 'Tale';
 $lang['last import'] = 'laaste invoer';
 $lang['Last revisions'] = 'Laaste wysigings';

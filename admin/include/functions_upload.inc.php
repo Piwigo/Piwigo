@@ -32,110 +32,36 @@ function get_upload_form_config()
 {
   // default configuration for upload
   $upload_form_config = array(
-    'websize_resize' => array(
-      'default' => true,
-      'can_be_null' => false,
-      ),
-    
-    'websize_maxwidth' => array(
-      'default' => 800,
-      'min' => 100,
-      'max' => 1600,
-      'pattern' => '/^\d+$/',
-      'can_be_null' => true,
-      'error_message' => l10n('The websize maximum width must be a number between %d and %d'),
-      ),
-  
-    'websize_maxheight' => array(
-      'default' => 600,
-      'min' => 100,
-      'max' => 1200,
-      'pattern' => '/^\d+$/',
-      'can_be_null' => true,
-      'error_message' => l10n('The websize maximum height must be a number between %d and %d'),
-      ),
-  
-    'websize_quality' => array(
-      'default' => 95,
-      'min' => 50,
-      'max' => 100,
-      'pattern' => '/^\d+$/',
-      'can_be_null' => false,
-      'error_message' => l10n('The websize image quality must be a number between %d and %d'),
-      ),
-  
-    'thumb_maxwidth' => array(
-      'default' => 128,
-      'min' => 50,
-      'max' => 300,
-      'pattern' => '/^\d+$/',
-      'can_be_null' => false,
-      'error_message' => l10n('The thumbnail maximum width must be a number between %d and %d'),
-      ),
-  
-    'thumb_maxheight' => array(
-      'default' => 96,
-      'min' => 50,
-      'max' => 300,
-      'pattern' => '/^\d+$/',
-      'can_be_null' => false,
-      'error_message' => l10n('The thumbnail maximum height must be a number between %d and %d'),
-      ),
-  
-    'thumb_quality' => array(
-      'default' => 95,
-      'min' => 50,
-      'max' => 100,
-      'pattern' => '/^\d+$/',
-      'can_be_null' => false,
-      'error_message' => l10n('The thumbnail image quality must be a number between %d and %d'),
-      ),
-
-    'thumb_crop' => array(
-      'default' => false,
-      'can_be_null' => false,
-      ),
-
-    'thumb_follow_orientation' => array(
-      'default' => true,
-      'can_be_null' => false,
-      ),
-  
-    'hd_keep' => array(
-      'default' => true,
-      'can_be_null' => false,
-      ),
-  
-    'hd_resize' => array(
+    'original_resize' => array(
       'default' => false,
       'can_be_null' => false,
       ),
   
-    'hd_maxwidth' => array(
+    'original_resize_maxwidth' => array(
       'default' => 2000,
       'min' => 500,
       'max' => 20000,
       'pattern' => '/^\d+$/',
       'can_be_null' => false,
-      'error_message' => l10n('The high definition maximum width must be a number between %d and %d'),
+      'error_message' => l10n('The original maximum width must be a number between %d and %d'),
       ),
   
-    'hd_maxheight' => array(
+    'original_resize_maxheight' => array(
       'default' => 2000,
-      'min' => 500,
+      'min' => 300,
       'max' => 20000,
       'pattern' => '/^\d+$/',
       'can_be_null' => false,
-      'error_message' => l10n('The high definition maximum height must be a number between %d and %d'),
+      'error_message' => l10n('The original maximum height must be a number between %d and %d'),
       ),
   
-    'hd_quality' => array(
+    'original_resize_quality' => array(
       'default' => 95,
       'min' => 50,
-      'max' => 100,
+      'max' => 98,
       'pattern' => '/^\d+$/',
       'can_be_null' => false,
-      'error_message' => l10n('The high definition image quality must be a number between %d and %d'),
+      'error_message' => l10n('The original image quality must be a number between %d and %d'),
       ),
     );
 
@@ -170,14 +96,14 @@ function save_upload_form_config($data, &$errors=array())
       }
 
       $updates[] = array(
-        'param' => 'upload_form_'.$field,
+        'param' => $field,
         'value' => boolean_to_string($value)
         );
     }
     elseif ($upload_form_config[$field]['can_be_null'] and empty($value))
     {
       $updates[] = array(
-        'param' => 'upload_form_'.$field,
+        'param' => $field,
         'value' => 'false'
         );
     }
@@ -190,7 +116,7 @@ function save_upload_form_config($data, &$errors=array())
       if (preg_match($pattern, $value) and $value >= $min and $value <= $max)
       {
          $updates[] = array(
-          'param' => 'upload_form_'.$field,
+          'param' => $field,
           'value' => $value
           );
       }
@@ -226,16 +152,11 @@ function save_upload_form_config($data, &$errors=array())
 
 function add_uploaded_file($source_filepath, $original_filename=null, $categories=null, $level=null, $image_id=null)
 {
-  // Here is the plan
-  //
   // 1) move uploaded file to upload/2010/01/22/20100122003814-449ada00.jpg
   //
-  // 2) if taller than max_height or wider than max_width, move to pwg_high
-  //    + web sized creation
+  // 2) keep/resize original
   //
-  // 3) thumbnail creation from web sized
-  //
-  // 4) register in database
+  // 3) register in database
   
   // TODO
   // * check md5sum (already exists?)
@@ -247,7 +168,7 @@ function add_uploaded_file($source_filepath, $original_filename=null, $categorie
   
   if (isset($image_id))
   {
-    // we are performing an update
+    // this photo already exists, we update it
     $query = '
 SELECT
     path
@@ -316,83 +237,35 @@ SELECT
     copy($source_filepath, $file_path);
   }
 
-  if ($conf['upload_form_websize_resize']
-      and need_resize($file_path, $conf['upload_form_websize_maxwidth'], $conf['upload_form_websize_maxheight']))
+  if (pwg_image::get_library() != 'gd')
   {
-    $high_path = file_path_for_type($file_path, 'high');
-    $high_dir = dirname($high_path);
-    prepare_directory($high_dir);
-    
-    rename($file_path, $high_path);
-    $high_infos = pwg_image_infos($high_path);
-    
-    $img = new pwg_image($high_path);
-
-    $img->pwg_resize(
-      $file_path,
-      $conf['upload_form_websize_maxwidth'],
-      $conf['upload_form_websize_maxheight'],
-      $conf['upload_form_websize_quality'],
-      $conf['upload_form_automatic_rotation'],
-      false
-      );
-
-    if ($img->library != 'gd')
+    if ($conf['original_resize'])
     {
-      if ($conf['upload_form_hd_keep'])
+      $need_resize = need_resize($file_path, $conf['original_resize_maxwidth'], $conf['original_resize_maxheight']);
+      
+      if ($need_resize)
       {
-        if ($conf['upload_form_hd_resize'])
-        {
-          $need_resize = need_resize($high_path, $conf['upload_form_hd_maxwidth'], $conf['upload_form_hd_maxheight']);
+        $img = new pwg_image($file_path);
+            
+        $img->pwg_resize(
+          $file_path,
+          $conf['original_resize_maxwidth'],
+          $conf['original_resize_maxheight'],
+          $conf['original_resize_quality'],
+          $conf['upload_form_automatic_rotation'],
+          false
+          );
         
-          if ($need_resize)
-          {
-            $img->pwg_resize(
-              $high_path,
-              $conf['upload_form_hd_maxwidth'],
-              $conf['upload_form_hd_maxheight'],
-              $conf['upload_form_hd_quality'],
-              $conf['upload_form_automatic_rotation'],
-              false
-              );
-            $high_infos = pwg_image_infos($high_path);
-          }
-        }
-      }
-      else
-      {
-        unlink($high_path);
-        $high_infos = null;
+        $img->destroy();
       }
     }
-    $img->destroy();
   }
 
   $file_infos = pwg_image_infos($file_path);
   
-  $thumb_path = file_path_for_type($file_path, 'thumb');
-  $thumb_dir = dirname($thumb_path);
-  prepare_directory($thumb_dir);
-
-  $img = new pwg_image($file_path);
-  $img->pwg_resize(
-    $thumb_path,
-    $conf['upload_form_thumb_maxwidth'],
-    $conf['upload_form_thumb_maxheight'],
-    $conf['upload_form_thumb_quality'],
-    false,
-    true,
-    $conf['upload_form_thumb_crop'],
-    $conf['upload_form_thumb_follow_orientation']
-    );
-  $img->destroy();
-  
-  $thumb_infos = pwg_image_infos($thumb_path);
-
   if (isset($image_id))
   {
     $update = array(
-      'id' => $image_id,
       'file' => pwg_db_real_escape_string(isset($original_filename) ? $original_filename : basename($file_path)),
       'filesize' => $file_infos['filesize'],
       'width' => $file_infos['width'],
@@ -401,33 +274,15 @@ SELECT
       'added_by' => $user['id'],
       );
     
-    if (isset($high_infos))
-    {
-      $update['has_high'] = 'true';
-      $update['high_filesize'] = $high_infos['filesize'];
-      $update['high_width'] = $high_infos['width'];
-      $update['high_height'] = $high_infos['height'];
-    }
-    else
-    {
-      $update['has_high'] = 'false';
-      $update['high_filesize'] = null;
-      $update['high_width'] = null;
-      $update['high_height'] = null;
-    }
-
     if (isset($level))
     {
       $update['level'] = $level;
     }
 
-    mass_updates(
+    single_update(
       IMAGES_TABLE,
-      array(
-        'primary' => array('id'),
-        'update' => array_keys($update)
-        ),
-      array($update)
+      $update,
+      array('id' => $image_id)
       );
   }
   else
@@ -457,12 +312,8 @@ SELECT
     {
       $insert['level'] = $level;
     }
-  
-    mass_inserts(
-      IMAGES_TABLE,
-      array_keys($insert),
-      array($insert)
-      );
+
+    single_insert(IMAGES_TABLE, $insert);
   
     $image_id = pwg_db_insert_id(IMAGES_TABLE);
   }

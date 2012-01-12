@@ -72,7 +72,7 @@ SELECT
 ;';
 $image_infos = pwg_db_fetch_assoc(pwg_query($query));
 
-$thumbnail_url = preg_replace('#^'.PHPWG_ROOT_PATH.'#', './', get_thumbnail_url($image_infos));
+$thumbnail_url = preg_replace('#^'.PHPWG_ROOT_PATH.'#', './', DerivativeImage::thumb_url($image_infos));
 
 $return = array(
   'image_id' => $image_id,

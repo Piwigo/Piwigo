@@ -247,6 +247,52 @@ jQuery(document).ready(function () {
 
 </div> <!-- configContent -->
 
+{if isset($sizes)}
+
+{footer_script}{literal}
+jQuery(document).ready(function(){
+  function toggleResizeFields(prefix) {
+    var checkbox = jQuery("#"+prefix+"_resize");
+    var needToggle = jQuery("input[name^="+prefix+"_]").not(checkbox).parents('tr');
+
+    if (jQuery(checkbox).is(':checked')) {
+      needToggle.show();
+    }
+    else {
+      needToggle.hide();
+    }
+  }
+
+  toggleResizeFields("original");
+  jQuery("#original_resize").click(function () {toggleResizeFields("original")});
+});
+{/literal}{/footer_script}
+
+<fieldset id="sizesConf">
+  <legend>{'Original Size'|@translate}</legend>
+
+  <table>
+    <tr>
+      <th><label for="original_resize">{'Resize after upload'|@translate}</label></th>
+      <td><input type="checkbox" name="original_resize" id="original_resize" {if ($sizes.original_resize)}checked="checked"{/if}></td>
+    </tr>
+    <tr>
+      <th>{'Maximum Width'|@translate}</th>
+      <td><input type="text" name="original_resize_maxwidth" value="{$sizes.original_resize_maxwidth}" size="4" maxlength="4"> {'pixels'|@translate}</td>
+    </tr>
+    <tr>
+      <th>{'Maximum Height'|@translate}</th>
+      <td><input type="text" name="original_resize_maxheight" value="{$sizes.original_resize_maxheight}" size="4" maxlength="4"> {'pixels'|@translate}</td>
+    </tr>
+    <tr>
+      <th>{'Image Quality'|@translate}</th>
+      <td><input type="text" name="original_resize_quality" value="{$sizes.original_resize_quality}" size="3" maxlength="3"> %</td>
+    </tr>
+  </table>
+
+</fieldset>
+{/if}
+
 {if isset($default)}
 {$PROFILE_CONTENT}
 {/if}
@@ -445,7 +491,7 @@ jQuery(document).ready(function () {
 
 {if !isset($default)}
   <p>
-    <input class="submit" type="submit" name="submit" value="{'Submit'|@translate}">
+    <input class="submit" type="submit" name="submit" value="{'Save Settings'|@translate}">
     <input class="submit" type="reset" name="reset" value="{'Reset'|@translate}">
   </p>
 </form>

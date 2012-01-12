@@ -27,6 +27,7 @@ if( !defined("PHPWG_ROOT_PATH") )
 }
 
 include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
+include_once(PHPWG_ROOT_PATH.'admin/include/functions_upload.inc.php');
 include_once(PHPWG_ROOT_PATH.'admin/include/tabsheet.class.php');
 
 // +-----------------------------------------------------------------------+
@@ -53,6 +54,10 @@ $main_checkboxes = array(
     'email_admin_on_new_user',
     'allow_user_customization',
    );
+
+$sizes_checkboxes = array(
+    'original_resize',
+  );
 
 $history_checkboxes = array(
     'log',
@@ -182,6 +187,36 @@ if (isset($_POST['submit']))
       }
       break;
     }
+    case 'sizes' :
+    {
+      $fields = array(
+        'original_resize',
+        'original_resize_maxwidth',
+        'original_resize_maxheight',
+        'original_resize_quality',
+        );
+
+      $updates = array();
+      
+      foreach ($fields as $field)
+      {
+        $value = !empty($_POST[$field]) ? $_POST[$field] : null;
+        $form_values[$field] = $value;
+        $updates[$field] = $value;
+      }
+
+      save_upload_form_config($updates, $page['errors']);
+  
+      if (count($page['errors']) == 0)
+      {
+        array_push(
+          $page['infos'],
+          l10n('Your configuration settings are saved')
+          );
+      }
+
+      break;
+    }
     case 'history' :
     {
       foreach( $history_checkboxes as $checkbox)
@@ -228,7 +263,7 @@ if (isset($_POST['submit']))
   }
 
   // updating configuration if no error found
-  if (count($page['errors']) == 0)
+  if ('sizes' != $page['section'] and count($page['errors']) == 0)
   {
     //echo '<pre>'; print_r($_POST); echo '</pre>';
     $result = pwg_query('SELECT param FROM '.CONFIG_TABLE);
@@ -268,6 +303,7 @@ $template->set_filename('config', 'configuration.tpl');
 $tabsheet = new tabsheet();
 // TabSheet initialization
 $tabsheet->add('main', l10n('Main'), $conf_link.'main');
+$tabsheet->add('sizes', l10n('Photo Sizes'), $conf_link.'sizes');
 $tabsheet->add('display', l10n('Display'), $conf_link.'display');
 $tabsheet->add('history', l10n('History'), $conf_link.'history');
 $tabsheet->add('comments', l10n('Comments'), $conf_link.'comments');
@@ -437,6 +473,30 @@ switch ($page['section'])
           ),
         true
       );
+    break;
+  }
+  case 'sizes' :
+  {
+    $template->assign(
+      'sizes',
+      array(
+        'original_resize_maxwidth' => $conf['original_resize_maxwidth'],
+        'original_resize_maxheight' => $conf['original_resize_maxheight'],
+        'original_resize_quality' => $conf['original_resize_quality'],
+        )
+      );
+    
+    foreach ($sizes_checkboxes as $checkbox)
+    {
+      $template->append(
+        'sizes',
+        array(
+          $checkbox => $conf[$checkbox]
+          ),
+        true
+        );
+    }
+
     break;
   }
 }

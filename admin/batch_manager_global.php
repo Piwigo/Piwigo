@@ -33,14 +33,6 @@ if (!defined('PHPWG_ROOT_PATH'))
 }
 
 include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
-include_once(PHPWG_ROOT_PATH.'admin/include/functions_upload.inc.php');
-
-$upload_form_config = get_upload_form_config();
-foreach ($upload_form_config as $param_shortname => $param)
-{
-  $param_name = 'upload_form_'.$param_shortname;
-  $form_values[$param_shortname] = $conf[$param_name];
-}
 
 // +-----------------------------------------------------------------------+
 // | Check Access and exit when user status is not ok                      |
@@ -463,7 +455,6 @@ $template->assign(
     'filter' => $_SESSION['bulk_manager_filter'],
     'selection' => $collection,
     'all_elements' => $page['cat_elements_id'],
-    'upload_form_settings' => $form_values,
     'U_DISPLAY'=>$base_url.get_query_string_diff(array('display')),
     'F_ACTION'=>$base_url.get_query_string_diff(array('cat')),
    )
