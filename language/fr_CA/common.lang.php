@@ -367,5 +367,10 @@ $lang['EXIF Metadata'] = 'Données EXIF';
 $lang['IPTC Metadata'] = 'Données IPTC';
 $lang['Your username has been successfully changed to : %s'] = 'Votre nom d\'utilisateur a bien été changé par : %s';
 $lang['Username modification'] = 'Modification du nom d\'utilisateur';
+$lang['Hello %s,'] = 'Bonjour %s,';
+$lang['Thank you for registering at %s!'] = 'Merci pour votre inscription sur %s !';
+$lang['Here is your password: %s'] = 'Votre mot de passe est : %s';
+$lang['If you think you\'ve received this email in error, please contact us at %s'] = 'Si vous pensez avoir reçu cet email par erreur, veuillez nous contacter %s';
+$lang['Successfully registered, an email with your password has been sent to you. Welcome!'] = 'Inscription terminée, un email avec votre mot de passe vient de vous être envoyé. Bienvenue !';
 
 ?>

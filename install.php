@@ -459,6 +459,27 @@ else
     session_set_cookie_params(0, cookie_path());
     $user = build_user(1, true);
     log_user($user['id'], false);
+    
+    // email notification
+    include_once(PHPWG_ROOT_PATH.'include/functions_mail.inc.php');
+          
+    $keyargs_content = array(
+      get_l10n_args('Hello %s,', $admin_name),
+      get_l10n_args('Welcome to your new installation of Piwigo!', ''),
+      get_l10n_args('', ''),
+      get_l10n_args('Here is your password: %s', $admin_pass1),
+      get_l10n_args('', ''),
+      get_l10n_args('Don\'t hesitate to consult our forums for any help: %s', PHPWG_URL),
+      );
+      
+    pwg_mail(
+      $admin_mail,
+      array(
+        'subject' => 'Just another Piwigo gallery',
+        'content' => l10n_args($keyargs_content),
+        'content_format' => 'text/plain',
+        )
+      );
   }
 }
 if (count($errors) != 0)

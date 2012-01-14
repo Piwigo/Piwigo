@@ -180,6 +180,7 @@ $lang['group by letters'] = "group by letters";
 $lang['guest'] = "guest";
 $lang['Hello %s, your Piwigo photo gallery is empty!'] = 'Hello %s, your Piwigo photo gallery is empty!';
 $lang['Hello'] = "Hello";
+$lang['Hello %s,'] = 'Hello %s,';
 $lang['Help'] = "Help";
 $lang['Home'] = "Home";
 $lang['html tags are not allowed in login'] = 'html tags are not allowed in login';
@@ -316,6 +317,7 @@ $lang['slideshow'] = "slideshow";
 $lang['Someone requested that the password be reset for the following user account:'] = 'Someone requested that the password be reset for the following user account:';
 $lang['Sort by'] = "Sort by";
 $lang['Sort order'] = "Sort order";
+$lang['Successfully registered, an email with your password has been sent to you. Welcome!'] = 'Successfully registered, an email with your password has been sent to you. Welcome!';
 $lang['Specials'] = "Specials";
 $lang['SQL queries in'] = "SQL queries in";
 $lang['stop the slideshow'] = "stop the slideshow";
@@ -372,4 +374,8 @@ $lang['large'] = "Large";
 $lang['xlarge'] = "XLarge";
 $lang['xxlarge'] = "XXLarge";
 $lang['original'] = "Original";
+$lang['Thank you for registering at %s!'] = 'Thank you for registering at %s!';
+$lang['Here is your password: %s'] = 'Here is your password: %s';
+$lang['If you think you\'ve received this email in error, please contact us at %s'] = 'If you think you\'ve received this email in error, please contact us at %s';
+
 ?>

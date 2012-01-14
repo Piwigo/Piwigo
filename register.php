@@ -59,8 +59,31 @@ if (isset($_POST['submit']))
 
   if (count($page['errors']) == 0)
   {
+    // email notification
+    include_once(PHPWG_ROOT_PATH.'include/functions_mail.inc.php');
+          
+    $keyargs_content = array(
+      get_l10n_args('Hello %s,', $_POST['login']),
+      get_l10n_args('Thank you for registering at %s!', $conf['gallery_title']),
+      get_l10n_args('', ''),
+      get_l10n_args('Here is your password: %s', $_POST['password']),
+      get_l10n_args('', ''),
+      get_l10n_args('If you think you\'ve received this email in error, please contact us at %s', get_webmaster_mail_address()),
+      );
+      
+    pwg_mail(
+      $_POST['mail_address'],
+      array(
+        'subject' => '['.$conf['gallery_title'].'] '.l10n('Registration'),
+        'content' => l10n_args($keyargs_content),
+        'content_format' => 'text/plain',
+        )
+      );
+    
+    // log user and redirect
     $user_id = get_userid($_POST['login']);
     log_user($user_id, false);
+    $_SESSION['page_infos'][] = l10n('Successfully registered, an email with your password has been sent to you. Welcome!');
     redirect(make_index_url());
   }
 	$registration_post_key = get_ephemeral_key(2);

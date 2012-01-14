@@ -180,6 +180,7 @@ $lang['group by letters'] = 'regrouper par lettres';
 $lang['guest'] = 'visiteur';
 $lang['Hello %s, your Piwigo photo gallery is empty!'] = 'Bonjour %s, votre galerie photo Piwigo est vide !';
 $lang['Hello'] = 'Bonjour';
+$lang['Hello %s,'] = 'Bonjour %s,';
 $lang['Help'] = 'Aide';
 $lang['Home'] = 'Accueil';
 $lang['html tags are not allowed in login'] = 'les balises html ne sont pas autorisées dans le login';
@@ -316,6 +317,7 @@ $lang['slideshow'] = 'diaporama';
 $lang['Someone requested that the password be reset for the following user account:'] = 'Quelqu\'un a demandé le renouvellement de votre mot de passe pour l\'utilisateur suivant :';
 $lang['Sort by'] = 'Trier selon';
 $lang['Sort order'] = 'Ordre de tri';
+$lang['Successfully registered, an email with your password has been sent to you. Welcome!'] = 'Inscription terminée, un email avec votre mot de passe vient de vous être envoyé. Bienvenue !';
 $lang['Specials'] = 'Spéciales';
 $lang['SQL queries in'] = 'requêtes SQL en';
 $lang['stop the slideshow'] = 'arrêter le diaporama';
@@ -364,5 +366,9 @@ $lang['Your favorites'] = 'Mes favorites';
 $lang['Your Gallery Customization'] = 'Personnalisation de votre affichage ';
 $lang['Your username has been successfully changed to : %s'] = 'Votre nom d\'utilisateur a bien été changé par : %s';
 $lang['Your password has been reset'] = 'Votre mot de passe a été réinitialisé';
+$lang['original'] = "Original";
+$lang['Thank you for registering at %s!'] = 'Merci pour votre inscription sur %s !';
+$lang['Here is your password: %s'] = 'Votre mot de passe est : %s';
+$lang['If you think you\'ve received this email in error, please contact us at %s'] = 'Si vous pensez avoir reçu cet email par erreur, veuillez nous contacter %s';
 
 ?>
