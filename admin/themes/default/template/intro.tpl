@@ -72,12 +72,14 @@ jQuery().ready(function(){
       <li>{$DB_TAGS} ({$DB_IMAGE_TAG})</li>
       <li>{$DB_USERS}</li>
       <li>{$DB_GROUPS}</li>
+    {if isset($DB_COMMENTS)}
       <li>
         {$DB_COMMENTS}
         {if isset($unvalidated)}
         (<a href="{$unvalidated.URL}">{$unvalidated.INFO}</a>)
         {/if}
       </li>
+    {/if}
 			<li>{$DB_RATES}</li>
     </ul>
   </dd>

@@ -415,14 +415,19 @@ DELETE FROM '.USER_GROUP_TABLE.'
   $datas = array();
   $dbfields = array('primary' => array('user_id'), 'update' => array());
 
-  $formfields =
-    array('nb_image_page', 'theme', 'language',
-          'recent_period', 'expand', 'show_nb_comments',
-          'show_nb_hits', 'status', 'enabled_high',
-          'level');
-
-  $true_false_fields = array('expand', 'show_nb_comments',
-                       'show_nb_hits', 'enabled_high');
+  $formfields = array(
+          'nb_image_page', 'theme', 'language',
+          'recent_period', 'expand', 'show_nb_hits', 
+          'status', 'enabled_high', 'level'
+          );
+  
+  $true_false_fields = array('expand', 'show_nb_hits', 'enabled_high');
+  
+  if ($conf['activate_comments'])
+  {
+    array_push($formfields, 'show_nb_comments');
+    array_push($true_false_fields, 'show_nb_comments');
+  }
 
   foreach ($formfields as $formfield)
   {
@@ -555,7 +560,9 @@ $template->assign(
 
     'F_ADD_ACTION' => $base_url,
     'F_USERNAME' => @htmlentities($_GET['username'], ENT_COMPAT, 'UTF-8'),
-    'F_FILTER_ACTION' => get_root_url().'admin.php'
+    'F_FILTER_ACTION' => get_root_url().'admin.php',
+    
+    'ACTIVATE_COMMENTS' => $conf['activate_comments'],
     ));
 
 // Display or Hide double password type

@@ -235,6 +235,7 @@
     </td>
   </tr>
 
+{if $ACTIVATE_COMMENTS}
   <tr>
     <td>{'Show number of comments'|@translate}</td>
     <td>
@@ -244,6 +245,7 @@
       <label><input type="radio" name="show_nb_comments" value="false">{'No'|@translate}</label>
     </td>
   </tr>
+{/if}
 
   <tr>
     <td>{'Show number of hits'|@translate}</td>

@@ -844,5 +844,6 @@ $lang['Resize after upload'] = 'Redimensionner après transfert';
 $lang['Photo Sizes'] = 'Tailles de photo';
 $lang['Original Size'] = 'Taille originale';
 $lang['Send connection settings by email'] = 'Envoyer les identifiants par email';
+$lang['Activate comments'] = 'Activate comments';
 
 ?>

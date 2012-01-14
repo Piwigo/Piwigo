@@ -189,10 +189,14 @@ $template->assign(
     'U_PLUGINS'=> $link_start.'plugins',
     'U_ADD_PHOTOS' => $link_start.'photos_add',
     'U_CHANGE_THEME' => $change_theme_url,
-    'U_PENDING_COMMENTS' => $link_start.'comments',
     'U_UPDATES' => $link_start.'updates',
     )
   );
+  
+if ($conf['activate_comments'])
+{
+  $template->assign('U_PENDING_COMMENTS', $link_start.'comments');
+}
 
 // +-----------------------------------------------------------------------+
 // | Plugin menu                                                           |

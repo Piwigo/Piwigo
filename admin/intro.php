@@ -187,12 +187,6 @@ list($nb_groups) = pwg_db_fetch_row(pwg_query($query));
 
 $query = '
 SELECT COUNT(*)
-  FROM '.COMMENTS_TABLE.'
-;';
-list($nb_comments) = pwg_db_fetch_row(pwg_query($query));
-
-$query = '
-SELECT COUNT(*)
   FROM '.RATE_TABLE.'
 ;';
 list($nb_rates) = pwg_db_fetch_row(pwg_query($query));
@@ -218,7 +212,6 @@ $template->assign(
     'DB_IMAGE_TAG' => l10n_dec('%d association', '%d associations', $nb_image_tag),
     'DB_USERS' => l10n_dec('%d user', '%d users', $nb_users),
     'DB_GROUPS' => l10n_dec('%d group', '%d groups', $nb_groups),
-    'DB_COMMENTS' => l10n_dec('%d comment', '%d comments', $nb_comments),
 		'DB_RATES' => sprintf('%d rates', $nb_rates),
     'U_CHECK_UPGRADE' => PHPWG_ROOT_PATH.'admin.php?action=check_upgrade',
     'U_PHPINFO' => PHPWG_ROOT_PATH.'admin.php?action=phpinfo',
@@ -226,6 +219,35 @@ $template->assign(
     'DB_DATATIME' => $db_current_date,
     )
   );
+  
+if ($conf['activate_comments'])
+{
+  $query = '
+SELECT COUNT(*)
+  FROM '.COMMENTS_TABLE.'
+;';
+  list($nb_comments) = pwg_db_fetch_row(pwg_query($query));
+  $template->assign('DB_COMMENTS', l10n_dec('%d comment', '%d comments', $nb_comments));
+  
+  // unvalidated comments
+  $query = '
+SELECT COUNT(*)
+  FROM '.COMMENTS_TABLE.'
+  WHERE validated=\'false\'
+;';
+  list($nb_comments) = pwg_db_fetch_row(pwg_query($query));
+
+  if ($nb_comments > 0)
+  {
+    $template->assign(
+      'unvalidated',
+      array(
+        'URL' => PHPWG_ROOT_PATH.'admin.php?page=comments',
+        'INFO' => sprintf(l10n('%d waiting for validation'), $nb_comments)
+        )
+      );
+  }
+}
 
 if ($nb_elements > 0)
 {
@@ -243,25 +265,6 @@ SELECT MIN(date_available)
         l10n('first photo added on %s'),
         format_date($first_date)
         )
-      )
-    );
-}
-
-// unvalidated comments
-$query = '
-SELECT COUNT(*)
-  FROM '.COMMENTS_TABLE.'
-  WHERE validated=\'false\'
-;';
-list($nb_comments) = pwg_db_fetch_row(pwg_query($query));
-
-if ($nb_comments > 0)
-{
-  $template->assign(
-    'unvalidated',
-    array(
-      'URL' => PHPWG_ROOT_PATH.'admin.php?page=comments',
-      'INFO' => sprintf(l10n('%d waiting for validation'), $nb_comments)
       )
     );
 }

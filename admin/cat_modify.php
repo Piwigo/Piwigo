@@ -48,11 +48,15 @@ if (isset($_POST['submit']))
     array(
       'id' => $_GET['cat_id'],
       'name' => @$_POST['name'],
-      'commentable' => isset($_POST['commentable'])?$_POST['commentable']:'false',
       'comment' =>
         $conf['allow_html_descriptions'] ?
           @$_POST['comment'] : strip_tags(@$_POST['comment']),
       );
+     
+  if ($conf['activate_comments'])
+  {
+    $data['commentable'] = isset($_POST['commentable'])?$_POST['commentable']:'false';
+  }
 
   mass_updates(
     CATEGORIES_TABLE,
@@ -222,7 +226,6 @@ $template->assign(
 
     'CAT_STATUS'        => $category['status'],
     'CAT_VISIBLE'       => boolean_to_string($category['visible']),
-    'CAT_COMMENTABLE'   => boolean_to_string($category['commentable']),
 
     'U_JUMPTO' => make_index_url(
       array(
@@ -238,6 +241,11 @@ $template->assign(
     'F_ACTION' => $form_action,
     )
   );
+ 
+if ($conf['activate_comments'])
+{
+  $template->assign('CAT_COMMENTABLE', boolean_to_string($category['commentable']));
+}
 
 
 if ('private' == $category['status'])

@@ -70,10 +70,12 @@
         <span class="property">{'Expand all albums'|@translate}</span>
         {html_radios name='expand' options=$radio_options selected=$EXPAND}
       </li>
+    {if $ACTIVATE_COMMENTS}
       <li>
         <span class="property">{'Show number of comments'|@translate}</span>
         {html_radios name='show_nb_comments' options=$radio_options selected=$NB_COMMENTS}
       </li>
+    {/if}
       <li>
         <span class="property">{'Show number of hits'|@translate}</span>
         {html_radios name='show_nb_hits' options=$radio_options selected=$NB_HITS}

@@ -47,7 +47,7 @@
         </span>
         <input type="text" size="4" maxlength="3" name="nb_image_page" id="nb_image_page" value="{$NB_IMAGE_PAGE}">
       </li>
-{if not $SPECIAL_USER}
+    {if not $SPECIAL_USER}
       <li>
         <span class="property">
           <label for="template">{'Interface theme'|@translate}</label>
@@ -60,7 +60,7 @@
         </span>
         {html_options id=language name=language options=$language_options selected=$language_selection}
       </li>
-{/if}
+    {/if}
       <li>
         <span class="property">
           <label for="recent_period">{'Recent period'|@translate}</label>
@@ -71,10 +71,12 @@
         <span class="property">{'Expand all albums'|@translate}</span>
         {html_radios name='expand' options=$radio_options selected=$EXPAND}
       </li>
+    {if $ACTIVATE_COMMENTS}
       <li>
         <span class="property">{'Show number of comments'|@translate}</span>
         {html_radios name='show_nb_comments' options=$radio_options selected=$NB_COMMENTS}
       </li>
+    {/if}
       <li>
         <span class="property">{'Show number of hits'|@translate}</span>
         {html_radios name='show_nb_hits' options=$radio_options selected=$NB_HITS}

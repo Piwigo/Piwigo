@@ -845,5 +845,6 @@ $lang['An error has occured during upgrade.'] = 'Une erreur est survenue pendant
 $lang['An error has occured during extract. Please check files permissions of your piwigo installation.<br><a href="%s">Click here to show log error</a>.'] = 'Impossible d\'extraire les fichiers. Veuillez vérifier les permissions des fichiers de votre installation.<br><a href="%s">Cliquez ici pour voir le rapport d\'erreur</a>.';
 $lang['Piwigo cannot retrieve upgrade file from server'] = 'Piwigo ne peut pas récupérer le fichier de mise à jour depuis le serveur';
 $lang['Send connection settings by email'] = 'Envoyer les identifiants par email';
+$lang['Activate comments'] = 'Activate comments';
 
 ?>

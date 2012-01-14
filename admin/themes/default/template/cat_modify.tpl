@@ -82,12 +82,14 @@
         {html_radios name='visible' values='true,false'|@explode output='No,Yes'|@explode|translate selected=$CAT_VISIBLE}
       </td>
     </tr>
+  {if isset($CAT_COMMENTABLE)}
     <tr>
       <td><strong>{'Comments'|@translate}</strong>
       <td>
         {html_radios name='commentable' values='false,true'|@explode output='No,Yes'|@explode|translate selected=$CAT_COMMENTABLE}
       </td>
     </tr>
+  {/if}
   </table>
 </fieldset>
 

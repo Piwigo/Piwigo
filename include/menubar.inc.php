@@ -257,13 +257,16 @@ function initialize_menu()
         'REL'=> 'rel="search"'
       );
 
-    // comments link
-    $block->data['comments'] =
-      array(
-        'TITLE'=>l10n('display last user comments'),
-        'NAME'=>l10n('Comments'),
-        'URL'=> get_root_url().'comments.php',
-      );
+    if ($conf['activate_comments'])
+    {
+      // comments link
+      $block->data['comments'] =
+        array(
+          'TITLE'=>l10n('display last user comments'),
+          'NAME'=>l10n('Comments'),
+          'URL'=> get_root_url().'comments.php',
+        );
+    }
 
     // about link
     $block->data['about'] =

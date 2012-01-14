@@ -183,6 +183,15 @@ jQuery(document).ready(function () {
   <ul>
     <li>
       <label>
+        <span class="property">{'Activate comments'|@translate}</span>
+        <input type="checkbox" name="activate_comments" id="activate_comments"{if ($comments.activate_comments)}checked="checked"{/if}>
+      </label>
+    </li>
+  </ul>
+  
+  <ul id="comments_param_warp"{if not ($comments.activate_comments)} style="display:none;"{/if}>
+    <li>
+      <label>
         <span class="property">{'Comments for all'|@translate}</span>
         <input type="checkbox" name="comments_forall" {if ($comments.comments_forall)}checked="checked"{/if}>
       </label>
@@ -243,6 +252,17 @@ jQuery(document).ready(function () {
 
   </ul>
 </fieldset>
+{footer_script}{literal}
+$(document).ready(function(){
+  $("#activate_comments").change(function(){
+    if ($(this).attr('checked')) {
+      $("#comments_param_warp").css('display', '');
+    } else {
+      $("#comments_param_warp").css('display', 'none');
+    }
+  });
+});
+{/literal}{/footer_script}
 {/if}
 
 </div> <!-- configContent -->

@@ -965,7 +965,10 @@ if (isset($picture['next'])
 // +-----------------------------------------------------------------------+
 
 include(PHPWG_ROOT_PATH.'include/picture_rate.inc.php');
-include(PHPWG_ROOT_PATH.'include/picture_comment.inc.php');
+if ($conf['activate_comments'])
+{
+  include(PHPWG_ROOT_PATH.'include/picture_comment.inc.php');
+}
 if ($metadata_showable and pwg_get_session_var('show_metadata') <> null )
 {
   include(PHPWG_ROOT_PATH.'include/picture_metadata.inc.php');

@@ -1,5 +1,6 @@
 -- initial configuration for Piwigo
 
+INSERT INTO piwigo_config (param,value,comment) VALUES ('activate_comments','true','Global parameter for usage of comments system');
 INSERT INTO piwigo_config (param,value,comment) VALUES ('nb_comment_page','10','number of comments to display on each page');
 INSERT INTO piwigo_config (param,value,comment) VALUES ('log','true','keep an history of visits on your website');
 INSERT INTO piwigo_config (param,value,comment) VALUES ('comments_validation','false','administrators validate users comments before becoming visible');
