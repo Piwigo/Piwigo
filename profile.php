@@ -104,6 +104,7 @@ function save_profile_from_post($userdata, &$errors)
   if ($special_user)
   {
     unset(
+      $_POST['username'],
       $_POST['mail_address'],
       $_POST['password'],
       $_POST['use_new_pwd'],
@@ -113,6 +114,11 @@ function save_profile_from_post($userdata, &$errors)
       );
     $_POST['theme'] = get_default_theme();
     $_POST['language'] = get_default_language();
+  }
+  
+  if (!defined('IN_ADMIN'))
+  {
+    unset($_POST['username']);
   }
 
   if ($conf['allow_user_customization'] or defined('IN_ADMIN'))
@@ -196,12 +202,44 @@ function save_profile_from_post($userdata, &$errors)
       {
         array_push($fields, $conf['user_fields']['password']);
         // password is encrpyted with function $conf['pass_convert']
-        $data{$conf['user_fields']['password']} =
-          $conf['pass_convert']($_POST['use_new_pwd']);
+        $data{$conf['user_fields']['password']} = $conf['pass_convert']($_POST['use_new_pwd']);
       }
+      
+      // username is updated only if allowed
+      if (!empty($_POST['username']))
+      {
+        array_push($fields, $conf['user_fields']['username']);
+        $data{$conf['user_fields']['username']} = $_POST['username'];
+        
+        // send email to the user
+        if ($_POST['username'] != $userdata['username'])
+        {
+          include_once(PHPWG_ROOT_PATH.'include/functions_mail.inc.php');
+          switch_lang_to($userdata['language']);
+          
+          $keyargs_content = array(
+            get_l10n_args('Hello', ''),
+            get_l10n_args('Your username has been successfully changed to : %s', $_POST['username']),
+            );
+            
+          pwg_mail(
+            $_POST['mail_address'],
+            array(
+              'subject' => '['.$conf['gallery_title'].'] '.l10n('Username modification'),
+              'content' => l10n_args($keyargs_content),
+              'content_format' => 'text/plain',
+              )
+            );
+            
+          switch_lang_back();
+        }
+      }
+      
       mass_updates(USERS_TABLE,
-                   array('primary' => array($conf['user_fields']['id']),
-                         'update' => $fields),
+                   array(
+                    'primary' => array($conf['user_fields']['id']),
+                    'update' => $fields
+                    ),
                    array($data));
     }
 

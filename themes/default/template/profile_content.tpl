@@ -8,21 +8,19 @@
         <span class="property">{'Username'|@translate}</span>
         {$USERNAME}
       </li>
-{if not $SPECIAL_USER} {* can modify password + email*}
+    {if not $SPECIAL_USER} {* can modify password + email*}
       <li>
         <span class="property">
           <label for="mail_address">{'Email address'|@translate}</label>
         </span>
         <input type="text" name="mail_address" id="mail_address" value="{$EMAIL}">
       </li>
-{if not $IN_ADMIN} {* admins do not need old password*}
       <li>
         <span class="property">
           <label for="password">{'Password'|@translate}</label>
         </span>
         <input type="password" name="password" id="password" value="">
       </li>
-{/if}
       <li>
         <span class="property">
           <label for="use_new_pwd">{'New password'|@translate}</label>
@@ -35,8 +33,8 @@
         </span>
         <input type="password" name="passwordConf" id="passwordConf" value="">
       </li>
+    {/if}
     </ul>
-{/if}
   </fieldset>
 
 {if $ALLOW_USER_CUSTOMIZATION}

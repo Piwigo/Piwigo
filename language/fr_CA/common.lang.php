@@ -365,5 +365,7 @@ $lang['Change my password'] = 'Changer mon mot de passe';
 $lang['Enter your new password below.'] = 'Entrez votre nouveau mot de passe ci-dessous.';
 $lang['EXIF Metadata'] = 'Données EXIF';
 $lang['IPTC Metadata'] = 'Données IPTC';
+$lang['Your username has been successfully changed to : %s'] = 'Votre nom d\'utilisateur a bien été changé par : %s';
+$lang['Username modification'] = 'Modification du nom d\'utilisateur';
 
 ?>

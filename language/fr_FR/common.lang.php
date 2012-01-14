@@ -347,6 +347,7 @@ $lang['User: %s'] = 'Utilisateur: %s';
 $lang['Username "%s" on gallery %s'] = 'Utilisateur "%s" sur la galerie %s';
 $lang['Username or email'] = 'Nom d\'utilisateur ou adresse email';
 $lang['Username'] = 'Nom d\'utilisateur';
+$lang['Username modification'] = 'Modification du nom d\'utilisateur';
 $lang['View'] = 'Vue';
 $lang['Visits'] = 'Visites';
 $lang['Webmaster'] = 'Webmestre';
@@ -361,6 +362,7 @@ $lang['Your comment has been registered'] = 'Votre commentaire a été enregistr
 $lang['Your comment has NOT been registered because it did not pass the validation rules'] = 'Votre commentaire n\'a pas été enregistré parce qu\'il ne satisfait aux règles de validation';
 $lang['Your favorites'] = 'Mes favorites';
 $lang['Your Gallery Customization'] = 'Personnalisation de votre affichage ';
+$lang['Your username has been successfully changed to : %s'] = 'Votre nom d\'utilisateur a bien été changé par : %s';
 $lang['Your password has been reset'] = 'Votre mot de passe a été réinitialisé';
 
 ?>
