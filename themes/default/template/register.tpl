@@ -48,7 +48,7 @@
       </li>
       <li>
         <span class="property">
-          <label for="send_password_by_mail">{'Send my password by email'|@translate}</label>
+          <label for="send_password_by_mail">{'Send my connection settings by email'|@translate}</label>
         </span>
         <input type="checkbox" name="send_password_by_mail" id="send_password_by_mail" value="1" checked="checked">
       </li>

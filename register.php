@@ -68,7 +68,10 @@ if (isset($_POST['submit']))
         get_l10n_args('Hello %s,', $_POST['login']),
         get_l10n_args('Thank you for registering at %s!', $conf['gallery_title']),
         get_l10n_args('', ''),
-        get_l10n_args('Here is your password: %s', $_POST['password']),
+        get_l10n_args('Here are your connection settings', ''),
+        get_l10n_args('Username: %s', $_POST['login']),
+        get_l10n_args('Password: %s', $_POST['password']),
+        get_l10n_args('Email: %s', $_POST['mail_address']),
         get_l10n_args('', ''),
         get_l10n_args('If you think you\'ve received this email in error, please contact us at %s', get_webmaster_mail_address()),
         );
@@ -82,7 +85,7 @@ if (isset($_POST['submit']))
           )
         );
         
-      $_SESSION['page_infos'][] = l10n('Successfully registered, an email with your password has been sent to you. Welcome!');
+      $_SESSION['page_infos'][] = l10n('Successfully registered, you will soon receive an email with your connection settings. Welcome!');
     }
     
     // log user and redirect

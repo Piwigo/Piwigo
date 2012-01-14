@@ -646,6 +646,7 @@ $lang['Send an information email to group members'] = "Send an information email
 $lang['Send mail as'] = "Send mail as";
 $lang['Send mail on HTML format'] = "Send mail in HTML format";
 $lang['Send mail to users'] = "Send mail to users";
+$lang['Send connection settings by email'] = 'Send connection settings by email';
 $lang['Send'] = "Send";
 $lang['Set as default language for unregistered and new users'] = 'Set as default language for unregistered and new users';
 $lang['Set as default theme for unregistered and new users'] = "Set as default theme for unregistered and new users";

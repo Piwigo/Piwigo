@@ -13,6 +13,7 @@
 		<label>{'Password'|@translate} <input type="text" name="password"></label>
 		{/if}
 		<label>{'Email address'|@translate} <input type="text" name="email"></label>
+    <label>{'Send connection settings by email'|@translate} <input type="checkbox" name="send_password_by_mail" value="1" checked="checked"></label>
     <label>&nbsp; <input class="submit" type="submit" name="submit_add" value="{'Submit'|@translate}"></label>
   </fieldset>
 </form>

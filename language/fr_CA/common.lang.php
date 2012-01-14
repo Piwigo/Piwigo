@@ -369,9 +369,12 @@ $lang['Your username has been successfully changed to : %s'] = 'Votre nom d\'uti
 $lang['Username modification'] = 'Modification du nom d\'utilisateur';
 $lang['Hello %s,'] = 'Bonjour %s,';
 $lang['Thank you for registering at %s!'] = 'Merci pour votre inscription sur %s !';
-$lang['Here is your password: %s'] = 'Votre mot de passe est : %s';
+$lang['Here are your connection settings'] = 'Voici vos identifiants';
+$lang['Password: %s'] = 'Mot de passe : %s';
+$lang['Username: %s'] = 'Nom d\'utilisateur : %s';
+$lang['Email: %s'] = 'Email: %s';
 $lang['If you think you\'ve received this email in error, please contact us at %s'] = 'Si vous pensez avoir reçu cet email par erreur, veuillez nous contacter %s';
-$lang['Successfully registered, an email with your password has been sent to you. Welcome!'] = 'Inscription réussie, un email avec votre mot de passe vient de vous être envoyé. Bienvenue !';
-$lang['Send my password by email'] = 'Recevoir mon mot de passe par email';
+$lang['Successfully registered, you will soon receive an email with your connection settings. Welcome!'] = 'Inscription réussie, vous recevrez bientôt un email avec vos identifiants. Bienvenue !';
+$lang['Send my connection settings by email'] = 'Recevoir mes identifiants par email';
 
 ?>

@@ -843,5 +843,7 @@ $lang['By default, Piwigo will create a new websize from the HD (high definition
 $lang['If no HD is available and if the current websize is bigger than resize dimensions, Piwigo will move it as HD and create a downsized websize photo from it.'] = 'Si la HD n\'est pas disponible et que la version actuelle de la taille web est plus grande que les dimensions ci-dessous, alors Piwigo la considérera comme HD et créera la nouvelle taille web à partir de celle-ci.';
 $lang['An error has occured during upgrade.'] = 'Une erreur est survenue pendant la mise à jour.';
 $lang['An error has occured during extract. Please check files permissions of your piwigo installation.<br><a href="%s">Click here to show log error</a>.'] = 'Impossible d\'extraire les fichiers. Veuillez vérifier les permissions des fichiers de votre installation.<br><a href="%s">Cliquez ici pour voir le rapport d\'erreur</a>.';
-$lang['Piwigo cannot retrieve upgrade file from server'] = 'Piwigo ne peut pas récupérer le fichier de mise à jour depuis le serveur'; 
+$lang['Piwigo cannot retrieve upgrade file from server'] = 'Piwigo ne peut pas récupérer le fichier de mise à jour depuis le serveur';
+$lang['Send connection settings by email'] = 'Envoyer les identifiants par email';
+
 ?>

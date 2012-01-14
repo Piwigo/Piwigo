@@ -469,7 +469,10 @@ else
         get_l10n_args('Hello %s,', $admin_name),
         get_l10n_args('Welcome to your new installation of Piwigo!', ''),
         get_l10n_args('', ''),
-        get_l10n_args('Here is your password: %s', $admin_pass1),
+        get_l10n_args('Here are your connection settings', ''),
+        get_l10n_args('Username: %s', $admin_name),
+        get_l10n_args('Password: %s', $admin_pass1),
+        get_l10n_args('Email: %s', $admin_mail),
         get_l10n_args('', ''),
         get_l10n_args('Don\'t hesitate to consult our forums for any help: %s', PHPWG_URL),
         );
@@ -477,7 +480,7 @@ else
       pwg_mail(
         $admin_mail,
         array(
-          'subject' => 'Just another Piwigo gallery',
+          'subject' => l10n('Just another Piwigo gallery'),
           'content' => l10n_args($keyargs_content),
           'content_format' => 'text/plain',
           )

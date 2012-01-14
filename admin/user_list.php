@@ -242,6 +242,38 @@ else if ($conf['double_password_type_in_admin'] == false)
   }
 }
 
+// email notification
+if ( 
+  isset($_POST['submit_add']) 
+  and count($page['errors']) == 0  
+  and !empty($_POST['email']) 
+  and isset($_POST['send_password_by_mail']) 
+  )
+{
+  include_once(PHPWG_ROOT_PATH.'include/functions_mail.inc.php');
+        
+  $keyargs_content = array(
+    get_l10n_args('Hello %s,', $_POST['login']),
+    get_l10n_args('Thank you for registering at %s!', $conf['gallery_title']),
+    get_l10n_args('', ''),
+    get_l10n_args('Here are your connection settings', ''),
+    get_l10n_args('Username: %s', $_POST['login']),
+    get_l10n_args('Password: %s', $_POST['password']),
+    get_l10n_args('Email: %s', $_POST['email']),
+    get_l10n_args('', ''),
+    get_l10n_args('If you think you\'ve received this email in error, please contact us at %s', get_webmaster_mail_address()),
+    );
+    
+  pwg_mail(
+    $_POST['email'],
+    array(
+      'subject' => '['.$conf['gallery_title'].'] '.l10n('Registration'),
+      'content' => l10n_args($keyargs_content),
+      'content_format' => 'text/plain',
+      )
+    );
+}
+
 // +-----------------------------------------------------------------------+
 // |                               user list                               |
 // +-----------------------------------------------------------------------+

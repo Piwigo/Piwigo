@@ -285,7 +285,7 @@ jQuery().ready(function(){ldelim}
         <br>
         <label>
           <input type="checkbox" name="send_password_by_mail" checked="checked">
-          {'Send my password by email'|@translate}
+          {'Send my connection settings by email'|@translate}
         </label>
       </td>
     </tr>
