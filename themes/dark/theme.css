@@ -7,6 +7,7 @@ INPUT.rateButtonSelected /* <= why IE doesn't inherit this ? */ {
 
 H2, #menubar DT {
 	color: #ffff80;
+	background-image: url(images/tableh1_bg.png);
 }
 
 
@@ -20,13 +21,8 @@ BODY, H3, #imageToolBar A:hover {
 	background-color: #505050;
 }
 
-H2, #menubar DT {
-	background-image: url(images/tableh1_bg.png);
-}
-
 #imageHeaderBar H2 {
 	background-image: none;
-	border: 0;
 }
 
 #imageHeaderBar {
@@ -38,7 +34,7 @@ H2, #menubar DT {
 	border: 1px solid #000;
 }
 
-H2, #menubar DT, #imageToolBar {
+#menubar DT, #imageToolBar {
 	border-bottom: 1px solid #000;
 }
 
@@ -50,11 +46,8 @@ FIELDSET, INPUT, SELECT, TEXTAREA,
 
 
 .thumbnails .wrap2:hover,
-.content .thumbnailCategories .thumbnailCategory:hover,
-.content .thumbnailCategories .thumbnailCategory:hover A {
-	background-color: #faebd7;
+.content .thumbnailCategories .thumbnailCategory:hover{
 	border-color: yellow;	/* thumbnails border color when mouse cursor is over it */
-	color: black;
 }
 
 

@@ -95,7 +95,7 @@ y.callService(
   {include file='picture_nav_buttons.tpl'|@get_extent:'picture_nav_buttons'}
 </div> <!-- imageToolBar -->
 
-<div id="theImage">
+<div id="imageWrap">
 {$ELEMENT_CONTENT}
 
 {if isset($COMMENT_IMG)}

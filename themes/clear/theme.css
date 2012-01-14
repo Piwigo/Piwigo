@@ -23,7 +23,7 @@ H2, #menubar DT, #imageHeaderBar, #imageToolBar A:hover {
   border: 1px solid #d3d3d3;
 }
 
-#theImage IMG {
+#imageWrap IMG {
   border: 3px solid #d3d3d3;
 }
 
