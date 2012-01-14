@@ -92,7 +92,7 @@ SELECT '.implode(',', $fields).'
 //------------------------------------------------------ update & customization
 function save_profile_from_post($userdata, &$errors)
 {
-  global $conf;
+  global $conf, $page;
   $errors = array();
 
   if (!isset($_POST['validate']))
@@ -208,30 +208,38 @@ function save_profile_from_post($userdata, &$errors)
       // username is updated only if allowed
       if (!empty($_POST['username']))
       {
-        array_push($fields, $conf['user_fields']['username']);
-        $data{$conf['user_fields']['username']} = $_POST['username'];
-        
-        // send email to the user
-        if ($_POST['username'] != $userdata['username'])
+        if ($_POST['username'] != $userdata['username'] and get_userid($_POST['username']))
         {
-          include_once(PHPWG_ROOT_PATH.'include/functions_mail.inc.php');
-          switch_lang_to($userdata['language']);
+          array_push($page['errors'], l10n('this login is already used'));
+          unset($_POST['redirect']);
+        }
+        else
+        {
+          array_push($fields, $conf['user_fields']['username']);
+          $data{$conf['user_fields']['username']} = $_POST['username'];
           
-          $keyargs_content = array(
-            get_l10n_args('Hello', ''),
-            get_l10n_args('Your username has been successfully changed to : %s', $_POST['username']),
-            );
+          // send email to the user
+          if ($_POST['username'] != $userdata['username'])
+          {
+            include_once(PHPWG_ROOT_PATH.'include/functions_mail.inc.php');
+            switch_lang_to($userdata['language']);
             
-          pwg_mail(
-            $_POST['mail_address'],
-            array(
-              'subject' => '['.$conf['gallery_title'].'] '.l10n('Username modification'),
-              'content' => l10n_args($keyargs_content),
-              'content_format' => 'text/plain',
-              )
-            );
-            
-          switch_lang_back();
+            $keyargs_content = array(
+              get_l10n_args('Hello', ''),
+              get_l10n_args('Your username has been successfully changed to : %s', $_POST['username']),
+              );
+              
+            pwg_mail(
+              $_POST['mail_address'],
+              array(
+                'subject' => '['.$conf['gallery_title'].'] '.l10n('Username modification'),
+                'content' => l10n_args($keyargs_content),
+                'content_format' => 'text/plain',
+                )
+              );
+              
+            switch_lang_back();
+          }
         }
       }
       
