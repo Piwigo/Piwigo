@@ -332,7 +332,7 @@
 	border: 0; 
 }
 
-#imageWrap A, .illustration A, A.navThumb, A.navThumb { 
+#theImage A, .illustration A, A.navThumb, A.navThumb { 
 	border-bottom-width: 0; 
 }
 .rateButtonStarFull, .rateButtonStarEmpty {   	

@@ -352,13 +352,13 @@ TD.calDayHead {
 	z-index: 100;
 }
 
-#imageWrap {
+#theImage {
 	clear: left;
 	text-align: center;
 	position: relative; /*so that the drivative switch link is positioned relative to us*/
 }
 
-#imageWrap>IMG {
+#theImage>IMG {
 	display: block;
 	margin: 0 auto;
 	border: 0;
@@ -420,7 +420,7 @@ TD.calDayHead {
 }
 
 .contentWithMenu #imageToolBar, 
-.contentWithMenu #imageWrap { 
+.contentWithMenu #theImage { 
 	clear: none;
 }
 

@@ -14,7 +14,7 @@
   {include file='picture_nav_buttons.tpl'|@get_extent:'picture_nav_buttons'}
 </div>
 
-<div id="imageWrap">
+<div id="theImage">
   {$ELEMENT_CONTENT}
   {if isset($COMMENT_IMG)}
   <p class="showlegend">{$COMMENT_IMG}</p>

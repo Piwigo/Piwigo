@@ -204,7 +204,7 @@ final class SizingParams
       throw new Exception('Sizing arr');
 
     $token = array_shift($tokens);
-    $crop = sscanf('%02x' , $token) / 100;
+    $crop = hexdec($token) / 100;
 
     $token = array_shift($tokens);
     $min_size = url_to_size( $token );
