@@ -307,6 +307,7 @@ $lang['Search'] = "Search";
 $lang['search'] = "search";
 $lang['searched words : %s'] = "searched words : %s";
 $lang['Sent by'] = "Sent by";
+$lang['Send my password by email'] = 'Send my password by email';
 $lang['set as album representative'] = "set as album thumbnail";
 $lang['Show file metadata'] = "Show file metadata";
 $lang['Show number of comments'] = "Show number of comments";
