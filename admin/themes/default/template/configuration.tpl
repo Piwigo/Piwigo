@@ -253,12 +253,12 @@ jQuery(document).ready(function () {
   </ul>
 </fieldset>
 {footer_script}{literal}
-$(document).ready(function(){
-  $("#activate_comments").change(function(){
-    if ($(this).attr('checked')) {
-      $("#comments_param_warp").css('display', '');
+jQuery(document).ready(function(){
+  jQuery("#activate_comments").change(function(){
+    if ($(this).is(':checked')) {
+      jQuery("#comments_param_warp").show();
     } else {
-      $("#comments_param_warp").css('display', 'none');
+      jQuery("#comments_param_warp").hide();
     }
   });
 });
