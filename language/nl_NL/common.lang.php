@@ -372,4 +372,14 @@ $lang['square'] = 'vierkant';
 $lang['thumb'] = 'thumb';
 $lang['xlarge'] = 'extra-groot';
 $lang['xxlarge'] = 'extra-extra-groot';
+$lang['Hello %s,'] = 'Hallo %s,';
+$lang['Here are your connection settings'] = 'Dit zijn uw verbindings-instellingen';
+$lang['If you think you\'ve received this email in error, please contact us at %s'] = 'Indien u denkt dat er iets niet klopt nu u deze email ontvangt, vragen wij u contact met ons op te nemen op %s ';
+$lang['Password: %s'] = 'Wachtwoord %s';
+$lang['Send my connection settings by email'] = 'Verstuur mijn verbindings-instellingen per email';
+$lang['Successfully registered, you will soon receive an email with your connection settings. Welcome!'] = 'U bent succesvol geregistreerd. U ontvangt op korte termijn een email met uw verbindings-instellingen. Welkom!';
+$lang['Thank you for registering at %s!'] = 'Bedankt voor uw registratie bij %s';
+$lang['Username modification'] = 'Gebruikersnaam wijziging';
+$lang['Username: %s'] = 'Gebruikersnaam %s';
+$lang['Your username has been successfully changed to : %s'] = 'Uw gebruikersnaam is succesvol gewijzigd in: %s';
 ?>
