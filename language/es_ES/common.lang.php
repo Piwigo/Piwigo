@@ -362,4 +362,23 @@ $lang['Enter your new password below.'] = 'Ingrese su nueva contraseña abajo.';
 $lang['EXIF Metadata'] = 'Datos EXIF';
 $lang['IPTC Metadata'] = 'Datos IPTC';
 
+$lang['Edit'] = 'Editar';
+$lang['Hello %s,'] = 'Hola &s,';
+$lang['Here are your connection settings'] = 'Aquí tiene sus detalles de acceso';
+$lang['If you think you\'ve received this email in error, please contact us at %s'] = 'Si cree que ha recibido este email por error contacte con nosotros en %s';
+$lang['large'] = 'grande';
+$lang['medium'] = 'mediano';
+$lang['original'] = 'original';
+$lang['Password: %s'] = 'Contraseña: %s';
+$lang['Send my connection settings by email'] = 'Enviar mis datos de conexión por email';
+$lang['small'] = 'pequeño';
+$lang['square'] = 'cuadrado';
+$lang['Successfully registered, you will soon receive an email with your connection settings. Welcome!'] = 'Se ha registrado correctamente, recibirá pronto un email con los detalles de su cuenta. ¡Bienvenid@!';
+$lang['Thank you for registering at %s!'] = '¡Gracias por registrarse en %s!';
+$lang['thumb'] = 'pulgar';
+$lang['Username modification'] = 'Cambio del nombre de usuario';
+$lang['Username: %s'] = 'Nombre de usuario: %s';
+$lang['xlarge'] = 'extragrande';
+$lang['xxlarge'] = 'XXL';
+$lang['Your username has been successfully changed to : %s'] = 'Su nombre de usuario se ha cambiado correctamente a %s';
 ?>
