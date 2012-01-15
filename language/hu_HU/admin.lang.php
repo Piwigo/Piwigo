@@ -840,4 +840,5 @@ $lang['Send connection settings by email'] = 'Kapcsolat beállításainak küld�
 $lang['The original image quality must be a number between %d and %d'] = 'Az eredeti kép minősége %d és %d között lehet';
 $lang['The original maximum height must be a number between %d and %d'] = 'Az eredeti magasság %d és %d között lehet';
 $lang['The original maximum width must be a number between %d and %d'] = 'Az eredeti szélesség %d és %d között lehet';
+$lang['Default comments order'] = 'Alapértelmezett hozzászólás-rend';
 ?>
