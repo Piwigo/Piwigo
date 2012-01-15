@@ -375,4 +375,14 @@ $lang['square'] = 'Négyzetes';
 $lang['thumb'] = 'Bélyegkép';
 $lang['xlarge'] = 'Nagyobb';
 $lang['xxlarge'] = 'Legnagyobb';
+$lang['Hello %s,'] = 'Üdv %s,';
+$lang['Here are your connection settings'] = 'Kapcsolat adatai';
+$lang['If you think you\'ve received this email in error, please contact us at %s'] = 'Amennyiben hibát észlel az e-mail továbbítása során, kérjük lépjen kapcsolatba velünk %s';
+$lang['Password: %s'] = 'Jelszó: %s';
+$lang['Send my connection settings by email'] = 'Kapcsolat beállításainak küldése e-mailben';
+$lang['Successfully registered, you will soon receive an email with your connection settings. Welcome!'] = 'Sikeresen regisztrált, hamarosan kap egy e-mailt a kapcsolat adataival. Üdvözöljük!';
+$lang['Thank you for registering at %s!'] = 'Köszönjük, hogy regisztrált %s néven!';
+$lang['Username modification'] = 'Felhasználónév módosítása';
+$lang['Username: %s'] = 'Felhasználónév: %s';
+$lang['Your username has been successfully changed to : %s'] = 'Sikeres felhasználónév módosítás: %s';
 ?>
