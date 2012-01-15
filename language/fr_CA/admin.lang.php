@@ -846,5 +846,6 @@ $lang['An error has occured during extract. Please check files permissions of yo
 $lang['Piwigo cannot retrieve upgrade file from server'] = 'Piwigo ne peut pas récupérer le fichier de mise à jour depuis le serveur';
 $lang['Send connection settings by email'] = 'Envoyer les identifiants par email';
 $lang['Activate comments'] = 'Activer les commentaires';
+$lang['Default comments order'] = 'Ordre par défaut des commentaires';
 
 ?>

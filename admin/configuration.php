@@ -419,7 +419,10 @@ switch ($page['section'])
       'comments',
       array(
         'NB_COMMENTS_PAGE'=>$conf['nb_comment_page'],
-        ));
+        'comments_order'=>$conf['comments_order'],
+        'comments_order_options'=> $sort_directions
+        )
+      );
 
     foreach ($comments_checkboxes as $checkbox)
     {

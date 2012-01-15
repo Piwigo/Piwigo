@@ -845,5 +845,6 @@ $lang['Photo Sizes'] = 'Tailles de photo';
 $lang['Original Size'] = 'Taille originale';
 $lang['Send connection settings by email'] = 'Envoyer les identifiants par email';
 $lang['Activate comments'] = 'Activer les commentaires';
+$lang['Default comments order'] = 'Ordre par défaut des commentaires';
 
 ?>

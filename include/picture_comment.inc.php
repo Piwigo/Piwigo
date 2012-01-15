@@ -125,6 +125,32 @@ SELECT
 
   if ($row['nb_comments'] > 0)
   {
+    // comments order (get, session, conf)
+    if (!empty($_GET['comments_order']))
+    {
+      if (in_array(strtoupper($_GET['comments_order']), array('ASC', 'DESC')))
+      {
+        $comments_order = $_GET['comments_order'];
+        pwg_set_session_var('comments_order', $comments_order);
+      }
+      else
+      {
+        $comments_order = $conf['comments_order'];
+      }
+    }
+    else if (pwg_get_session_var('comments_order') !== null)
+    {
+      $comments_order = pwg_get_session_var('comments_order');
+    }
+    else
+    {
+      $comments_order = $conf['comments_order'];
+    }
+    $template->assign(array(
+      'COMMENTS_ORDER_URL' => duplicate_picture_url().'&amp;comments_order='.($comments_order == 'ASC' ? 'DESC' : 'ASC'),
+      'COMMENTS_ORDER_TITLE' => $comments_order == 'ASC' ? l10n('ascending') : l10n('descending'),
+      ));
+        
     $query = '
 SELECT
     com.id,
@@ -140,7 +166,7 @@ SELECT
     ON u.'.$conf['user_fields']['id'].' = author_id
   WHERE image_id = '.$page['image_id'].'
     '.$validated_clause.'
-  ORDER BY date ASC
+  ORDER BY date '.$comments_order.'
   LIMIT '.$conf['nb_comment_page'].' OFFSET '.$page['start'].'
 ;';
     $result = pwg_query( $query );

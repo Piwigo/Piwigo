@@ -203,6 +203,13 @@ jQuery(document).ready(function () {
       </span>
       <input type="text" size="3" maxlength="4" name="nb_comment_page" id="nb_comment_page" value="{$comments.NB_COMMENTS_PAGE}">
     </li>
+    
+    <li>
+      <span class="property">{'Default comments order'|@translate}</span>
+      <select name="comments_order">
+        {html_options options=$comments.comments_order_options selected=$comments.comments_order}
+      </select>
+    </li>
 
     <li>
       <label>

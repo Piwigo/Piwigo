@@ -274,10 +274,14 @@ y.callService(
 </div>
 
 {if isset($COMMENT_COUNT)}
+<a name="comments"></a>
 <div id="comments">
 	{if $COMMENT_COUNT > 0}
 		<h3>{$pwg->l10n_dec('%d comment', '%d comments',$COMMENT_COUNT)}</h3>
 	{/if}
+  {if $COMMENT_COUNT > 2}
+    {'Sort order'|@translate} : <a href="{$COMMENTS_ORDER_URL}#comments">{$COMMENTS_ORDER_TITLE}</a>
+  {/if}
 	{if !empty($navbar)}{include file='navigation_bar.tpl'|@get_extent:'navbar'}{/if}
 
 	{if isset($comments)}

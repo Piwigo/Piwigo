@@ -223,6 +223,7 @@ $lang['Date'] = "Date";
 $lang['Day'] = "Day";
 $lang['Deactivate all'] = "Deactivate all";
 $lang['Deactivate'] = "Deactivate";
+$lang['Default comments order'] = 'Default comments order';
 $lang['Default display'] = "Default display";
 $lang['Default photos order'] = "Default photos order";
 $lang['Default user cannot be deleted'] = "Default user cannot be deleted";
