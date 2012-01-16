@@ -28,11 +28,7 @@ if (!defined('PHPWG_ROOT_PATH'))
 
 $upgrade_description = 'new parameter: Activate comments';
 
-$query = '
-INSERT INTO piwigo_config (param,value,comment) 
-  VALUES (\'activate_comments\',\'true\',\'Global parameter for usage of comments system\')
-;';
-pwg_query($query);
+conf_update_param('activate_comments', 'true');
 
 echo
 "\n"
