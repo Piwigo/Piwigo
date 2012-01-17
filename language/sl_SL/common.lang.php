@@ -118,7 +118,6 @@ $lang['posted between %s (%s) and %s (%s)'] = 'naloženo med %s (%s) in %s (%s)'
 $lang['posted on %s'] = 'naloženo na %s';
 $lang['Best rated'] = 'Najbolje ocenjene';
 $lang['display best rated photos'] = 'prikaži najbolje ocenjene slike';
-$lang['caddie'] = 'Caddie';
 $lang['Calendar'] = 'Koledar';
 $lang['All'] = 'Vse';
 $lang['display each day with photos, month per month'] = 'prikaži slike po dnevih in mesecih'; 
@@ -363,4 +362,7 @@ $lang['EXIF Metadata'] = 'EXIF metapodatki';
 $lang['IPTC Metadata'] = 'IPTC metapodatki';
 $lang['Edit'] = 'Uredi';
 
+$lang['Hello %s,'] = 'Pozdravljen %s,';
+$lang['Password: %s'] = 'Geslo: %s';
+$lang['Username: %s'] = 'Uporabnik: %s';
 ?>
