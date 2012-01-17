@@ -638,7 +638,6 @@ $lang['Photo Page'] = 'Strona zdjęć';
 $lang['Activate Navigation Bar'] = 'Aktywuj pasek nawigacji';
 $lang['Activate Navigation Thumbnails'] = 'Aktywuj pasek nawigacji z miniaturami';
 $lang['Activate icon "%s"'] = 'Aktywuj ikonę "%s"';
-$lang['Activate field "%s"'] = 'Aktywuj pole "%s"';
 $lang['Photo Properties'] = 'Właściwości zdjęcia';
 $lang['Allow user customization'] = 'Zezwól na dostosowanie przez użytkowników';
 $lang['Languages'] = 'Języki';
@@ -834,6 +833,16 @@ $lang['Photo name'] = 'Nazwa zdjęcia';
 $lang['Predefined filter'] = 'Filtr predefiniowany';
 $lang['With no album'] = 'Bez albumu';
 $lang['With no tag'] = 'Bez tagów';
-$lang['With no virtual album'] = 'Bez wirtualnego albumu'; 
+$lang['With no virtual album'] = 'Bez wirtualnego albumu';
+$lang['%s has been successfully updated.'] = '%s zostało pomyślnie zaktualizowanych.';
+$lang['Activate comments'] = 'Aktywuj komentarze';
+$lang['Default comments order'] = 'Domyślna kolejność komentarzy';
+$lang['Send connection settings by email'] = 'Wyślij ustawienia połączenia mailem';
+$lang['The original image quality must be a number between %d and %d'] = 'Oryginalna jakość musi być liczbą pomiędzy %d i %d';
+$lang['The original maximum height must be a number between %d and %d'] = ' Oryginalna maksymalna wysokość musi być liczbą pomiędzy %d i %d';
+$lang['The original maximum width must be a number between %d and %d'] = 'Oryginalna maksymalna szerokość musi być liczbą pomiędzy %d i %d';
+$lang['Resize after upload'] = 'Zmień rozmiar po wgraniu';
+$lang['Photo Sizes'] = 'Rozmiary Zdjęć';
+$lang['Original Size'] = 'Oryginalny Rozmiar';
 
 ?>
