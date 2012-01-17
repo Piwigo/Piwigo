@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | Piwigo - a PHP based photo gallery                                    |
 // +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2011 Piwigo Team                  http://piwigo.org |
+// | Copyright(C) 2008-2012 Piwigo Team                  http://piwigo.org |
 // | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
 // | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
 // +-----------------------------------------------------------------------+
@@ -175,16 +175,12 @@ function delete_element_files($ids)
     return 0;
   }
 
-  include_once(PHPWG_ROOT_PATH.'include/functions_picture.inc.php');
-  
   $new_ids = array();
 
   $query = '
 SELECT
     id,
     path,
-    tn_ext,
-    has_high,
     representative_ext
   FROM '.IMAGES_TABLE.'
   WHERE id IN ('.implode(',', $ids).')
@@ -196,7 +192,7 @@ SELECT
     {
       continue;
     }
-    
+
     $files = array();
     $files[] = get_element_path($row);
 
@@ -215,9 +211,10 @@ SELECT
         break;
       }
     }
-    
+
     if ($ok)
     {
+      delete_element_derivatives($row);
       $new_ids[] += $row['id'];
     }
     else
@@ -388,7 +385,7 @@ DELETE FROM '.USERS_TABLE.'
 function delete_orphan_tags()
 {
   $orphan_tags = get_orphan_tags();
-  
+
   if (count($orphan_tags) > 0)
   {
     $orphan_tag_ids = array();
@@ -412,7 +409,7 @@ DELETE
 function get_orphan_tags()
 {
   $orphan_tags = array();
-  
+
   $query = '
 SELECT
     id,
@@ -1389,14 +1386,14 @@ function delete_tags($tag_ids)
   {
     return false;
   }
-  
+
   $query = '
 DELETE
   FROM '.IMAGE_TAG_TABLE.'
   WHERE tag_id IN ('.implode(',', $tag_ids).')
 ;';
   pwg_query($query);
-  
+
   $query = '
 DELETE
   FROM '.TAGS_TABLE.'
@@ -2038,7 +2035,7 @@ function get_active_menu($menu_page)
 function get_taglist($query, $only_user_language=true)
 {
   $result = pwg_query($query);
-  
+
   $taglist = array();
   while ($row = pwg_db_fetch_assoc($result))
   {
@@ -2057,7 +2054,7 @@ function get_taglist($query, $only_user_language=true)
 
       $row['name'] = preg_replace('#\[lang=(.*?)\](.*?)\[/lang\]#is', null, $row['name']);
     }
-    
+
     if (strlen($row['name']) > 0)
     {
       array_push(
@@ -2069,7 +2066,7 @@ function get_taglist($query, $only_user_language=true)
         );
     }
   }
-  
+
   $cmp = create_function('$a,$b', 'return strcasecmp($a["name"], $b["name"]);');
   usort($taglist, $cmp);
 
@@ -2136,7 +2133,7 @@ function add_permission_on_category($category_ids, $user_ids)
   {
     return;
   }
-  
+
   // make sure categories are private and select uppercats or subcats
   $cat_ids = (isset($_POST['apply_on_sub'])) ? implode(',', get_subcat_ids($category_ids)).",".implode(',', get_uppercat_ids($category_ids)) : implode(',', get_uppercat_ids($category_ids));
   $query = '
@@ -2152,14 +2149,14 @@ SELECT
   {
     return;
   }
-  
+
   // We must not reinsert already existing lines in user_access table
   $granteds = array();
   foreach ($private_cats as $cat_id)
   {
     $granteds[$cat_id] = array();
   }
-  
+
   $query = '
 SELECT
     user_id,
@@ -2175,11 +2172,11 @@ SELECT
   }
 
   $inserts = array();
-  
+
   foreach ($private_cats as $cat_id)
   {
     $grant_to_users = array_diff($user_ids, $granteds[$cat_id]);
-    
+
     foreach ($grant_to_users as $user_id)
     {
       array_push(
@@ -2207,7 +2204,7 @@ function get_admins($include_webmaster=true)
   {
     $status_list[] = 'webmaster';
   }
-  
+
   $query = '
 SELECT
     user_id
@@ -2245,7 +2242,7 @@ function clear_derivative_cache($types='all')
   {
     $pattern .= derivative_to_url($types[0]);
   }
-  
+
   $pattern.='(_[a-zA-Z0-9]+)*\.[a-zA-Z0-9]{3,4}$#';
   if ($contents = opendir(PHPWG_ROOT_PATH.PWG_DERIVATIVE_DIR))
   {
@@ -2294,7 +2291,7 @@ function clear_derivative_cache_rec($path, $pattern)
       }
     }
     closedir($contents);
-    
+
     if ($rmdir)
     {
       if ($rm_index)
@@ -2308,16 +2305,22 @@ function clear_derivative_cache_rec($path, $pattern)
   }
 }
 
-function delete_element_derivatives($ids)
+function delete_element_derivatives($infos)
 {
-  // todo
-  if (!is_array($ids))
+  $path = $infos['path'];
+  if (!empty($infos['representative_ext']))
   {
-    $ids = array($ids);
+    $path = original_to_representative( $path, $infos['representative_ext']);
   }
-
-  // for now I do a massive clear, to be removed once the function is
-  // properly implemented
-  clear_derivative_cache();
+  if (substr_compare($path, '../', 0, 3)==0)
+  {
+    $path = substr($path, 3);
+  }
+  $dot = strpos($path, '.');
+  $path = substr_replace($path, '-*', $dot, 0);
+  foreach( glob(PHPWG_ROOT_PATH.PWG_DERIVATIVE_DIR.$path) as $file)
+  {
+    @unlink($file);
+  }
 }
 ?>

@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | Piwigo - a PHP based photo gallery                                    |
 // +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2011 Piwigo Team                  http://piwigo.org |
+// | Copyright(C) 2008-2012 Piwigo Team                  http://piwigo.org |
 // | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
 // | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
 // +-----------------------------------------------------------------------+
@@ -458,11 +458,10 @@ SELECT date_available,
     if ($max_elements>0)
     { // get some thumbnails ...
       $query = '
-SELECT DISTINCT id, path, name, representative_ext, file
+SELECT DISTINCT i.*
   FROM '.IMAGES_TABLE.' i INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON id=image_id
   '.$where_sql.'
     AND date_available=\''.$dates[$i]['date_available'].'\'
-    AND tn_ext IS NOT NULL
   ORDER BY '.DB_RANDOM_FUNCTION.'()
   LIMIT '.$max_elements.'
 ;';

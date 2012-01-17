@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | Piwigo - a PHP based photo gallery                                    |
 // +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2011 Piwigo Team                  http://piwigo.org |
+// | Copyright(C) 2008-2012 Piwigo Team                  http://piwigo.org |
 // | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
 // | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
 // +-----------------------------------------------------------------------+
@@ -36,7 +36,7 @@ function get_upload_form_config()
       'default' => false,
       'can_be_null' => false,
       ),
-  
+
     'original_resize_maxwidth' => array(
       'default' => 2000,
       'min' => 500,
@@ -45,7 +45,7 @@ function get_upload_form_config()
       'can_be_null' => false,
       'error_message' => l10n('The original maximum width must be a number between %d and %d'),
       ),
-  
+
     'original_resize_maxheight' => array(
       'default' => 2000,
       'min' => 300,
@@ -54,7 +54,7 @@ function get_upload_form_config()
       'can_be_null' => false,
       'error_message' => l10n('The original maximum height must be a number between %d and %d'),
       ),
-  
+
     'original_resize_quality' => array(
       'default' => 95,
       'min' => 50,
@@ -112,7 +112,7 @@ function save_upload_form_config($data, &$errors=array())
       $min = $upload_form_config[$field]['min'];
       $max = $upload_form_config[$field]['max'];
       $pattern = $upload_form_config[$field]['pattern'];
-      
+
       if (preg_match($pattern, $value) and $value >= $min and $value <= $max)
       {
          $updates[] = array(
@@ -157,10 +157,10 @@ function add_uploaded_file($source_filepath, $original_filename=null, $categorie
   // 2) keep/resize original
   //
   // 3) register in database
-  
+
   // TODO
   // * check md5sum (already exists?)
-  
+
   global $conf, $user;
 
   if (isset($original_md5sum))
@@ -171,9 +171,9 @@ function add_uploaded_file($source_filepath, $original_filename=null, $categorie
   {
     $md5sum = md5_file($source_filepath);
   }
-  
+
   $file_path = null;
-  
+
   if (isset($image_id))
   {
     // this photo already exists, we update it
@@ -188,7 +188,7 @@ SELECT
     {
       $file_path = $row['path'];
     }
-    
+
     if (!isset($file_path))
     {
       die('['.__FUNCTION__.'] this photo does not exist in the database');
@@ -200,11 +200,11 @@ SELECT
   else
   {
     // this photo is new
-    
+
     // current date
     list($dbnow) = pwg_db_fetch_row(pwg_query('SELECT NOW();'));
     list($year, $month, $day) = preg_split('/[^\d]/', $dbnow, 4);
-  
+
     // upload directory hierarchy
     $upload_dir = sprintf(
       PHPWG_ROOT_PATH.$conf['upload_dir'].'/%s/%s/%s',
@@ -250,11 +250,11 @@ SELECT
     if ($conf['original_resize'])
     {
       $need_resize = need_resize($file_path, $conf['original_resize_maxwidth'], $conf['original_resize_maxheight']);
-      
+
       if ($need_resize)
       {
         $img = new pwg_image($file_path);
-            
+
         $img->pwg_resize(
           $file_path,
           $conf['original_resize_maxwidth'],
@@ -263,14 +263,14 @@ SELECT
           $conf['upload_form_automatic_rotation'],
           false
           );
-        
+
         $img->destroy();
       }
     }
   }
 
   $file_infos = pwg_image_infos($file_path);
-  
+
   if (isset($image_id))
   {
     $update = array(
@@ -281,7 +281,7 @@ SELECT
       'md5sum' => $md5sum,
       'added_by' => $user['id'],
       );
-    
+
     if (isset($level))
     {
       $update['level'] = $level;
@@ -292,8 +292,6 @@ SELECT
       $update,
       array('id' => $image_id)
       );
-
-    delete_element_derivatives($image_id);
   }
   else
   {
@@ -308,14 +306,14 @@ SELECT
       'md5sum' => $md5sum,
       'added_by' => $user['id'],
       );
-    
+
     if (isset($level))
     {
       $insert['level'] = $level;
     }
 
     single_insert(IMAGES_TABLE, $insert);
-  
+
     $image_id = pwg_db_insert_id(IMAGES_TABLE);
   }
 
@@ -326,7 +324,7 @@ SELECT
       $categories
       );
   }
-  
+
   // update metadata from the uploaded file (exif/iptc)
   if ($conf['use_exif'] and !function_exists('read_exif_data'))
   {
@@ -374,7 +372,7 @@ function need_resize($image_filepath, $max_width, $max_height)
   // rotation must be applied to the resized photo, then we should test
   // invert width and height.
   list($width, $height) = getimagesize($image_filepath);
-  
+
   if ($width > $max_width or $height > $max_height)
   {
     return true;
@@ -387,7 +385,7 @@ function pwg_image_infos($path)
 {
   list($width, $height) = getimagesize($path);
   $filesize = floor(filesize($path)/1024);
-  
+
   return array(
     'width'  => $width,
     'height' => $height,
@@ -433,7 +431,7 @@ function get_ini_size($ini_key, $in_bytes=true)
   {
     $size = convert_shorthand_notation_to_bytes($size);
   }
-  
+
   return $size;
 }
 
@@ -441,7 +439,7 @@ function convert_shorthand_notation_to_bytes($value)
 {
   $suffix = substr($value, -1);
   $multiply_by = null;
-  
+
   if ('K' == $suffix)
   {
     $multiply_by = 1024;
@@ -454,7 +452,7 @@ function convert_shorthand_notation_to_bytes($value)
   {
     $multiply_by = 1024*1024*1024;
   }
-  
+
   if (isset($multiply_by))
   {
     $value = substr($value, 0, -1);
@@ -499,7 +497,7 @@ function ready_for_upload_message()
     if (!is_writable($conf['upload_dir']))
     {
       @chmod($conf['upload_dir'], 0777);
-      
+
       if (!is_writable($conf['upload_dir']))
       {
         return sprintf(
