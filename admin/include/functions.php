@@ -2307,4 +2307,17 @@ function clear_derivative_cache_rec($path, $pattern)
     return $rmdir;
   }
 }
+
+function delete_element_derivatives($ids)
+{
+  // todo
+  if (!is_array($ids))
+  {
+    $ids = array($ids);
+  }
+
+  // for now I do a massive clear, to be removed once the function is
+  // properly implemented
+  clear_derivative_cache();
+}
 ?>

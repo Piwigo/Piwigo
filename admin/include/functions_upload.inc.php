@@ -150,7 +150,7 @@ function save_upload_form_config($data, &$errors=array())
   return false;
 }
 
-function add_uploaded_file($source_filepath, $original_filename=null, $categories=null, $level=null, $image_id=null)
+function add_uploaded_file($source_filepath, $original_filename=null, $categories=null, $level=null, $image_id=null, $original_md5sum=null)
 {
   // 1) move uploaded file to upload/2010/01/22/20100122003814-449ada00.jpg
   //
@@ -163,7 +163,15 @@ function add_uploaded_file($source_filepath, $original_filename=null, $categorie
   
   global $conf, $user;
 
-  $md5sum = md5_file($source_filepath);
+  if (isset($original_md5sum))
+  {
+    $md5sum = $original_md5sum;
+  }
+  else
+  {
+    $md5sum = md5_file($source_filepath);
+  }
+  
   $file_path = null;
   
   if (isset($image_id))
@@ -234,7 +242,7 @@ SELECT
   }
   else
   {
-    copy($source_filepath, $file_path);
+    rename($source_filepath, $file_path);
   }
 
   if (pwg_image::get_library() != 'gd')
@@ -291,7 +299,6 @@ SELECT
     $insert = array(
       'file' => pwg_db_real_escape_string(isset($original_filename) ? $original_filename : basename($file_path)),
       'date_available' => $dbnow,
-      'tn_ext' => 'jpg',
       'path' => preg_replace('#^'.preg_quote(PHPWG_ROOT_PATH).'#', '', $file_path),
       'filesize' => $file_infos['filesize'],
       'width' => $file_infos['width'],
@@ -299,15 +306,7 @@ SELECT
       'md5sum' => $md5sum,
       'added_by' => $user['id'],
       );
-
-    if (isset($high_infos))
-    {
-      $insert['has_high'] = 'true';
-      $insert['high_filesize'] = $high_infos['filesize'];
-      $insert['high_width'] = $high_infos['width'];
-      $insert['high_height'] = $high_infos['height'];
-    }
-
+    
     if (isset($level))
     {
       $insert['level'] = $level;

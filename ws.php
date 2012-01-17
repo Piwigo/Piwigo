@@ -259,7 +259,6 @@ function ws_addDefaultMethods( $arr )
         'default' => 0,
         'maxValue' => $conf['available_permission_levels']
         ),
-      'resize' => array('default' => false),
       'check_uniqueness' => array('default' => true),
       ),
     'POST method only.

@@ -1431,7 +1431,6 @@ function ws_images_add_chunk($params, &$service)
 {
   global $conf;
 
-  ws_logfile('[ws_images_add_chunk] welcome');
   // data
   // original_sum
   // type {thumb, file, high}
@@ -1569,6 +1568,40 @@ function merge_chunks($output_filepath, $original_sum, $type)
   }
 }
 
+/**
+ * Function introduced for Piwigo 2.4 and the new "multiple size"
+ * (derivatives) feature. As we only need the biggest sent photo as
+ * "original", we remove chunks for smaller sizes. We can't make it earlier
+ * in ws_images_add_chunk because at this moment we don't know which $type
+ * will be the biggest (we could remove the thumb, but let's use the same
+ * algorithm)
+ */
+function remove_chunks($original_sum, $type)
+{
+  global $conf;
+
+  $upload_dir = $conf['upload_dir'].'/buffer';
+  $pattern = '/'.$original_sum.'-'.$type.'/';
+  $chunks = array();
+
+  if ($handle = opendir($upload_dir))
+  {
+    while (false !== ($file = readdir($handle)))
+    {
+      if (preg_match($pattern, $file))
+      {
+        array_push($chunks, $upload_dir.'/'.$file);
+      }
+    }
+    closedir($handle);
+  }
+
+  foreach ($chunks as $chunk)
+  {
+    unlink($chunk);
+  }
+}
+
 /*
  * The $file_path must be the path of the basic "web sized" photo
  * The $type value will automatically modify the $file_path to the corresponding file
@@ -1576,8 +1609,6 @@ function merge_chunks($output_filepath, $original_sum, $type)
 function add_file($file_path, $type, $original_sum, $file_sum)
 {
   include_once(PHPWG_ROOT_PATH.'admin/include/functions_upload.inc.php');
-
-  $file_path = file_path_for_type($file_path, $type);
 
   $upload_dir = dirname($file_path);
   if (substr(PHP_OS, 0, 3) == 'WIN')
@@ -1610,7 +1641,7 @@ function add_file($file_path, $type, $original_sum, $file_sum)
 
   secure_directory($upload_dir);
 
-  // merge the thumbnail
+  // merge the file
   merge_chunks($file_path, $original_sum, $type);
   chmod($file_path, 0644);
 
@@ -1633,9 +1664,10 @@ function add_file($file_path, $type, $original_sum, $file_sum)
 
 function ws_images_addFile($params, &$service)
 {
+  ws_logfile(__FUNCTION__.', input :  '.var_export($params, true));
   // image_id
   // type {thumb, file, high}
-  // sum
+  // sum -> not used currently (Piwigo 2.4)
 
   global $conf;
   if (!is_admin())
@@ -1650,60 +1682,82 @@ function ws_images_addFile($params, &$service)
   }
 
   //
-  // what is the path?
+  // what is the path and other infos about the photo?
   //
   $query = '
 SELECT
     path,
-    md5sum
+    file,
+    md5sum,
+    width,
+    height,
+    filesize
   FROM '.IMAGES_TABLE.'
   WHERE id = '.$params['image_id'].'
 ;';
-  list($file_path, $original_sum) = pwg_db_fetch_row(pwg_query($query));
+  $image = pwg_db_fetch_assoc(pwg_query($query));
 
-  // TODO only files added with web API can be updated with web API
+  if ($image == null)
+  {
+    return new PwgError(404, "image_id not found");
+  }
 
-  //
-  // makes sure directories are there and call the merge_chunks
-  //
-  $infos = add_file($file_path, $params['type'], $original_sum, $params['sum']);
+  // since Piwigo 2.4 and derivatives, we do not take the imported "thumb"
+  // into account
+  if ('thumb' == $params['type'])
+  {
+    remove_chunks($image['md5sum'], $type);
+    return true;
+  }
 
-  //
-  // update basic metadata from file
-  //
-  $update = array();
-
+  // since Piwigo 2.4 and derivatives, we only care about the "original"
+  $original_type = 'file';
   if ('high' == $params['type'])
   {
-    $update['high_filesize'] = $infos['filesize'];
-    $update['high_width'] = $infos['width'];
-    $update['high_height'] = $infos['height'];
-    $update['has_high'] = 'true';
+    $original_type = 'high';
   }
 
+  $file_path = $conf['upload_dir'].'/buffer/'.$image['md5sum'].'-original';
+
+  merge_chunks($file_path, $image['md5sum'], $original_type);
+  chmod($file_path, 0644);
+
+  include_once(PHPWG_ROOT_PATH.'admin/include/functions_upload.inc.php');
+
+  // if we receive the "file", we only update the original if the "file" is
+  // bigger than current original
   if ('file' == $params['type'])
   {
-    $update['filesize'] = $infos['filesize'];
-    $update['width'] = $infos['width'];
-    $update['height'] = $infos['height'];
+    $do_update = false;
+    
+    $infos = pwg_image_infos($file_path);
+    
+    foreach (array('width', 'height', 'filesize') as $image_info)
+    {
+      if ($infos[$image_info] > $image[$image_info])
+      {
+        $do_update = true;
+      }
+    }
+
+    if (!$do_update)
+    {
+      unlink($file_path);
+      return true;
+    }
   }
 
-  // we may have nothing to update at database level, for example with a
-  // thumbnail update
-  if (count($update) > 0)
-  {
-    $update['id'] = $params['image_id'];
+  $image_id = add_uploaded_file(
+    $file_path,
+    $image['file'],
+    null,
+    null,
+    $params['image_id'],
+    $image['md5sum'] // we force the md5sum to remain the same
+    );
 
-    include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
-    mass_updates(
-      IMAGES_TABLE,
-      array(
-        'primary' => array('id'),
-        'update'  => array_diff(array_keys($update), array('id'))
-        ),
-      array($update)
-      );
-  }
+  include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
+  delete_element_derivatives($params['image_id']);
 }
 
 function ws_images_add($params, &$service)
@@ -1748,98 +1802,46 @@ SELECT
     }
   }
 
-  if ($params['resize'])
+  // due to the new feature "derivatives" (multiple sizes) introduced for
+  // Piwigo 2.4, we only take the biggest photos sent on
+  // pwg.images.addChunk. If "high" is available we use it as "original"
+  // else we use "file".
+  remove_chunks($params['original_sum'], 'thumb');
+  
+  if (isset($params['high_sum']))
   {
-    ws_logfile('[pwg.images.add] resize activated');
-
-    // temporary file path
-    $type = 'file';
-    $file_path = $conf['upload_dir'].'/buffer/'.$params['original_sum'].'-'.$type;
-
-    merge_chunks($file_path, $params['original_sum'], $type);
-    chmod($file_path, 0644);
-
-    include_once(PHPWG_ROOT_PATH.'admin/include/functions_upload.inc.php');
-
-    $image_id = add_uploaded_file(
-      $file_path,
-      $params['original_filename']
-      );
-
-    // add_uploaded_file doesn't remove the original file in the buffer
-    // directory if it was not uploaded as $_FILES
-    unlink($file_path);
+    $original_type = 'high';
+    remove_chunks($params['original_sum'], 'file');
   }
   else
   {
-    // current date
-    list($dbnow) = pwg_db_fetch_row(pwg_query('SELECT NOW();'));
-    list($year, $month, $day) = preg_split('/[^\d]/', $dbnow, 4);
-
-    // upload directory hierarchy
-    $upload_dir = sprintf(
-      $conf['upload_dir'].'/%s/%s/%s',
-      $year,
-      $month,
-      $day
-      );
-
-    // compute file path
-    $date_string = preg_replace('/[^\d]/', '', $dbnow);
-    $random_string = substr($params['file_sum'], 0, 8);
-    $filename_wo_ext = $date_string.'-'.$random_string;
-    $file_path = $upload_dir.'/'.$filename_wo_ext.'.jpg';
-
-    // add files
-    $file_infos  = add_file($file_path, 'file',  $params['original_sum'], $params['file_sum']);
-    $thumb_infos = add_file($file_path, 'thumb', $params['original_sum'], $params['thumbnail_sum']);
-
-    if (isset($params['high_sum']))
-    {
-      $high_infos = add_file($file_path, 'high', $params['original_sum'], $params['high_sum']);
-    }
-
-    // database registration
-    $insert = array(
-      'file' => !empty($params['original_filename']) ? $params['original_filename'] : $filename_wo_ext.'.jpg',
-      'date_available' => $dbnow,
-      'tn_ext' => 'jpg',
-      'name' => $params['name'],
-      'path' => $file_path,
-      'filesize' => $file_infos['filesize'],
-      'width' => $file_infos['width'],
-      'height' => $file_infos['height'],
-      'md5sum' => $params['original_sum'],
-      'added_by' => $user['id'],
-      );
-
-    if (isset($params['high_sum']))
-    {
-      $insert['has_high'] = 'true';
-      $insert['high_filesize'] = $high_infos['filesize'];
-      $insert['high_width'] = $high_infos['width'];
-      $insert['high_height'] = $high_infos['height'];
-    }
-
-    single_insert(
-      IMAGES_TABLE,
-      $insert
-      );
-
-    $image_id = pwg_db_insert_id(IMAGES_TABLE);
-
-    // update metadata from the uploaded file (exif/iptc)
-    require_once(PHPWG_ROOT_PATH.'admin/include/functions_metadata.php');
-    sync_metadata(array($image_id));
+    $original_type = 'file';
   }
+
+  $file_path = $conf['upload_dir'].'/buffer/'.$params['original_sum'].'-original';
+
+  merge_chunks($file_path, $params['original_sum'], $original_type);
+  chmod($file_path, 0644);
+
+  include_once(PHPWG_ROOT_PATH.'admin/include/functions_upload.inc.php');
+
+  $image_id = add_uploaded_file(
+    $file_path,
+    $params['original_filename'],
+    null, // categories
+    isset($params['level']) ? $params['level'] : null,
+    null, // image_id
+    $params['original_sum']
+    );
 
   $info_columns = array(
     'name',
     'author',
     'comment',
-    'level',
     'date_creation',
     );
+
+  $update = array();
 
   foreach ($info_columns as $key)
   {
@@ -2338,6 +2340,8 @@ function ws_tags_add($params, &$service)
 
 function ws_images_exist($params, &$service)
 {
+  ws_logfile(__FUNCTION__.' '.var_export($params, true));
+
   global $conf;
 
   if (!is_admin())
@@ -2416,6 +2420,8 @@ SELECT
 
 function ws_images_checkFiles($params, &$service)
 {
+  ws_logfile(__FUNCTION__.', input :  '.var_export($params, true));
+
   if (!is_admin())
   {
     return new PwgError(401, 'Access denied');
@@ -2441,35 +2447,46 @@ SELECT
   WHERE id = '.$params['image_id'].'
 ;';
   $result = pwg_query($query);
-  if (pwg_db_num_rows($result) == 0) {
+  if (pwg_db_num_rows($result) == 0)
+  {
     return new PwgError(404, "image_id not found");
   }
   list($path) = pwg_db_fetch_row($result);
 
   $ret = array();
 
-  foreach (array('thumb', 'file', 'high') as $type) {
-    $param_name = $type;
-    if ('thumb' == $type) {
-      $param_name = 'thumbnail';
-    }
+  if (isset($params['thumbnail_sum']))
+  {
+    // We always say the thumbnail is equal to create no reaction on the
+    // other side. Since Piwigo 2.4 and derivatives, the thumbnails and web
+    // sizes are always generated by Piwigo
+    $ret['thumbnail'] = 'equals';
+  }
 
-    if (isset($params[$param_name.'_sum'])) {
-      include_once(PHPWG_ROOT_PATH.'admin/include/functions_upload.inc.php');
-      $type_path = file_path_for_type($path, $type);
-      if (!is_file($type_path)) {
-        $ret[$param_name] = 'missing';
-      }
-      else {
-        if (md5_file($type_path) != $params[$param_name.'_sum']) {
-          $ret[$param_name] = 'differs';
-        }
-        else {
-          $ret[$param_name] = 'equals';
-        }
-      }
+  if (isset($params['high_sum']))
+  {
+    $ret['file'] = 'equals';
+    $compare_type = 'high';
+  }
+  elseif (isset($params['file_sum']))
+  {
+    $compare_type = 'file';
+  }
+
+  if (isset($compare_type))
+  {
+    ws_logfile(__FUNCTION__.', md5_file($path) = '.md5_file($path));
+    if (md5_file($path) != $params[$compare_type.'_sum'])
+    {
+      $ret[$compare_type] = 'differs';
+    }
+    else
+    {
+      $ret[$compare_type] = 'equals';
     }
   }
+
+  ws_logfile(__FUNCTION__.', output :  '.var_export($ret, true));
 
   return $ret;
 }
