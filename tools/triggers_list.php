@@ -37,8 +37,9 @@ array(
 array(
   'name' => 'blockmanager_apply',
   'type' => 'trigger_action',
-  'vars' => array('object' => 'this'),
+  'vars' => array('object' => 'menublock'),
   'files' => array('include\block.class.php (BlockManager::apply)'),
+  'infos' => 'use this trigger to modify existing menu blocks',
 ),
 array(
   'name' => 'blockmanager_prepare_display',
@@ -49,8 +50,9 @@ array(
 array(
   'name' => 'blockmanager_register_blocks',
   'type' => 'trigger_action',
-  'vars' => array('object' => 'this'),
+  'vars' => array('object' => 'menu'),
   'files' => array('include\block.class.php (BlockManager::load_registered_blocks)'),
+  'infos' => 'use this trigger to add menu block',
 ),
 array(
   'name' => 'clean_iptc_value',
@@ -129,6 +131,7 @@ array(
   'type' => 'trigger_event',
   'vars' => array('array' => ''),
   'files' => array('admin.php'),
+  'infos' => 'use this trigger to add links into admin plugins menu',
 ),
 array(
   'name' => 'get_admins_site_links',
@@ -139,8 +142,9 @@ array(
 array(
   'name' => 'get_batch_manager_prefilters',
   'type' => 'trigger_event',
-  'vars' => array('array' => 'refilters'),
+  'vars' => array('array' => 'prefilters'),
   'files' => array('admin\batch_manager_global.php'),
+  'infos' => 'use this trigger to add prefilters into batch manager global',
 ),
 array(
   'name' => 'get_categories_menu_sql_where',
@@ -231,6 +235,7 @@ array(
   'type' => 'trigger_action',
   'vars' => array(),
   'files' => array('include\common.inc.php'),
+  'infos' => 'this action is called just after the common initialization, $conf, $user and $page (partial) variables are availables',
 ),
 array(
   'name' => 'invalidate_user_cache',
@@ -429,6 +434,7 @@ array(
   'type' => 'trigger_action',
   'vars' => array(),
   'files' => array('include\section_init.inc.php'),
+  'infos' => 'this action is called after section initilization, $page variable is fully defined',
 ),
 array(
   'name' => 'loc_visible_user_list',
@@ -633,6 +639,7 @@ array(
   'type' => 'trigger_event',
   'vars' => array('string' => 'comment_action', 'array' => 'comm'),
   'files' => array('include\functions_comment.inc.php (insert_user_comment, update_user_comment)'),
+  'infos' => 'use this trigger to add conditions on comment validation',
 ),
 array(
   'name' => 'user_comment_deletion',
@@ -689,8 +696,7 @@ array(
   <script type="text/javascript">
   $(document).ready(function() { 
         $('#triggers').tablesorter({
-          sortList: [[0,0]],
-          headers: { 2: { sorter: false}, 4: {sorter: false} }
+          sortList: [[0,0]]
         }); 
   });  
   </script>
