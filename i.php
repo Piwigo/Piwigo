@@ -28,6 +28,13 @@ include(PHPWG_ROOT_PATH . 'include/config_default.inc.php');
 defined('PWG_LOCAL_DIR') or define('PWG_LOCAL_DIR', 'local/');
 defined('PWG_DERIVATIVE_DIR') or define('PWG_DERIVATIVE_DIR', $conf['data_location'].'i/');
 
+function get_moment()
+{
+  $t1 = explode( ' ', microtime() );
+  $t2 = explode( '.', $t1[0] );
+  $t2 = $t1[1].'.'.$t2[1];
+  return $t2;
+}
 function trigger_action() {}
 function get_extension( $filename )
 {
@@ -63,6 +70,31 @@ function mkgetdir($dir)
 
 // end fast bootstrap
 
+function ilog()
+{
+  global $conf, $ilogfh;
+  if (!$conf['enable_i_log']) return;
+  if(!$ilogfh)
+  {
+    $dir=PHPWG_ROOT_PATH.$conf['data_location'].'tmp/';
+    if (!mkgetdir($dir) or ! ($ilogfh=fopen($dir.'i.log', 'a')) )
+      return;
+  }
+  fwrite($ilogfh, date("c") );
+  foreach( func_get_args() as $arg)
+  {
+    fwrite($ilogfh, ' ' );
+    if (is_array($arg))
+    {
+      fwrite($ilogfh, implode(' ', $arg) );
+    }
+    else
+    {
+      fwrite($ilogfh, $arg);
+    }
+  }
+  fwrite($ilogfh, "\n");
+}
 
 function ierror($msg, $code)
 {
@@ -92,6 +124,12 @@ function ierror($msg, $code)
   exit;
 }
 
+function time_step( &$step )
+{
+  $tmp = $step;
+  $step = get_moment();
+  return intval(1000*($step - $tmp));
+}
 
 function parse_request()
 {
@@ -159,12 +197,11 @@ function parse_request()
     }
   }
   array_shift($deriv);
-
   $page['coi'] = '';
   if (count($deriv) && $deriv[0][0]=='c' && $deriv[0][1]=='i')
   {
     $page['coi'] = substr(array_shift($deriv), 2);
-    preg_match('#^[a-z]{4}$#', $page['coi']) or ierror('Invalid center of interest', 400);
+    preg_match('#^[a-zA-Z]{4}$#', $page['coi']) or ierror('Invalid center of interest', 400);
   }
 
   if ($page['derivative_type'] == IMG_CUSTOM)
@@ -187,7 +224,8 @@ function parse_request()
     }
   }
 
-  if ($req[0]!='g' && $req[0]!='u')
+  if (!is_file(PHPWG_ROOT_PATH.$req.$ext) and
+      is_file(PHPWG_ROOT_PATH.'../'.$req.$ext) )
     $req = '../'.$req;
 
   $page['src_location'] = $req.$ext;
@@ -225,6 +263,12 @@ function send_derivative($expires)
 
 
 $page=array();
+$begin = $step = get_moment();
+$timing=array();
+foreach( explode(',','load,rotate,crop,scale,sharpen,watermark,save,send') as $k )
+{
+  $timing[$k] = '';
+}
 
 include_once( PHPWG_ROOT_PATH .'/include/derivative_params.inc.php');
 include_once( PHPWG_ROOT_PATH .'/include/derivative_std_params.inc.php');
@@ -287,6 +331,7 @@ ignore_user_abort(true);
 set_time_limit(0);
 
 $image = new pwg_image($page['src_path']);
+$timing['load'] = time_step($step);
 
 $changes = 0;
 
@@ -299,6 +344,7 @@ if ($crop_rect)
 {
   $changes++;
   $image->crop( $crop_rect->width(), $crop_rect->height(), $crop_rect->l, $crop_rect->t);
+  $timing['crop'] = time_step($step);
 }
 
 if ($scaled_size)
@@ -306,11 +352,13 @@ if ($scaled_size)
   $changes++;
   $image->resize( $scaled_size[0], $scaled_size[1] );
   $d_size = $scaled_size;
+  $timing['scale'] = time_step($step);
 }
 
 if ($params->sharpen)
 {
   $changes += $image->sharpen( $params->sharpen );
+  $timing['sharpen'] = time_step($step);
 }
 
 if ($params->use_watermark)
@@ -345,6 +393,7 @@ if ($params->use_watermark)
     }
   }
   $wm_image->destroy();
+  $timing['watermark'] = time_step($step);
 }
 
 // no change required - redirect to source
@@ -357,6 +406,14 @@ if (!$changes)
 $image->set_compression_quality( $params->quality );
 $image->write( $page['derivative_path'] );
 $image->destroy();
+$timing['save'] = time_step($step);
 
 send_derivative($expires);
+$timing['send'] = time_step($step);
+
+ilog('perf',
+  basename($page['src_path']), $o_size, $o_size[0]*$o_size[1],
+  basename($page['derivative_path']), $d_size, $d_size[0]*$d_size[1],
+  time_step($begin),
+  $timing);
 ?>

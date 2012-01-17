@@ -1,10 +1,25 @@
-{if !empty($thumbnails)}
-{strip}{foreach from=$thumbnails item=thumbnail}
+{if !empty($thumbnails)}{strip}
+{html_head}
+<style type="text/css">
+{*Set some sizes according to maximum thumbnail width and height*}
+.thumbnails SPAN,
+.thumbnails .wrap2 A,
+.thumbnails LABEL{ldelim}
+	width: {$derivative_params->max_width()}px;
+}
+
+.thumbnails .wrap2{ldelim}
+	height: {$derivative_params->max_height()+2}px;
+}
+
+</style>
+{/html_head}
+{foreach from=$thumbnails item=thumbnail}
 	<li>
 	<span class="wrap1">
 		<span class="wrap2">
 		<a href="{$thumbnail.URL}">
-			<img class="thumbnail" src="{$thumbnail.TN_SRC}" alt="{$thumbnail.TN_ALT}" title="{$thumbnail.TN_TITLE}">
+			<img class="thumbnail" src="{$pwg->derivative_url($derivative_params, $thumbnail.src_image)}" alt="{$thumbnail.TN_ALT}" title="{$thumbnail.TN_TITLE}">
 		</a>
 		</span>
 		{if $SHOW_THUMBNAIL_CAPTION }

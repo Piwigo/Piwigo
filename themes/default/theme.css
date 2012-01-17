@@ -685,13 +685,10 @@ IMG.ui-datepicker-trigger {
 }
 
 /* Set some sizes according to your maximum thumbnail width and height */
-.thumbnails SPAN,
-.thumbnails .wrap2 A,
-.thumbnails LABEL,
 .thumbnailCategory DIV.illustration {
   width: 140px;      /* max thumbnail width + 2px */
 }
-.thumbnails .wrap2,
+
 .content .thumbnailCategory .description {
   height: 140px;    /* max thumbnail height + 2px */
 }

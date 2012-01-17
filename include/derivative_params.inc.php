@@ -315,6 +315,16 @@ final class DerivativeParams
     return $scale_size != null ? $scale_size : $in_size;
   }
 
+  function max_width()
+  {
+    return $this->sizing->ideal_size[0];
+  }
+
+  function max_height()
+  {
+    return $this->sizing->ideal_size[1];
+  }
+  
   function is_identity($in_size)
   {
     if ($in_size[0] > $this->sizing->ideal_size[0] or

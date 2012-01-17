@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | Piwigo - a PHP based photo gallery                                    |
 // +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2011 Piwigo Team                  http://piwigo.org |
+// | Copyright(C) 2008-2012 Piwigo Team                  http://piwigo.org |
 // | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
 // | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
 // +-----------------------------------------------------------------------+
@@ -104,38 +104,21 @@ foreach ($pictures as $row)
         array('start')
       );
 
-  if (isset($nb_comments_of) )
+  if (isset($nb_comments_of))
   {
-    $row['nb_comments'] = (int)@$nb_comments_of[$row['id']];
+    $row['NB_COMMENTS'] = $row['nb_comments'] = (int)@$nb_comments_of[$row['id']];
   }
 
   $name = get_picture_title($row);
 
-  $tpl_var = array(
-    'ID' => $row['id'],
+  $tpl_var = array_merge( $row, array(
     'TN_SRC' => DerivativeImage::thumb_url($row),
     'TN_ALT' => htmlspecialchars(strip_tags($name)),
     'TN_TITLE' => get_thumbnail_title($row),
     'URL' => $url,
+    'src_image' => new SrcImage($row),
+    ) );
 
-    // Extra fields for usage in extra themes
-    'FILE_PATH' => $row['path'],
-    'FILE_POSTED' => $row['date_available'],
-    'FILE_CREATED' => $row['date_creation'],
-    'FILE_DESC' => $row['comment'],
-    'FILE_AUTHOR' => $row['author'],
-    'FILE_HIT' => $row['hit'],
-    'FILE_SIZE' => $row['filesize'],
-    'FILE_WIDTH' => $row['width'],
-    'FILE_HEIGHT' => $row['height'],
-    'FILE_METADATE' => $row['date_metadata_update'],
-    'FILE_HAS_HD' => $row['has_high'],
-    'FILE_HD_WIDTH' => $row['high_width'],
-    'FILE_HD_HEIGHT' => $row['high_height'],
-    'FILE_HD_FILESIZE' => $row['high_filesize'],
-    'FILE_RATING_SCORE' => $row['rating_score'],
-    );
-  
   if ($conf['index_new_icon'])
   {
     $tpl_var['icon_ts'] = get_icon($row['date_available']);
@@ -145,7 +128,7 @@ foreach ($pictures as $row)
   {
     $tpl_var['NB_HITS'] = $row['hit'];
   }
-  
+
   switch ($page['section'])
   {
     case 'best_rated' :
@@ -162,22 +145,22 @@ foreach ($pictures as $row)
       break;
     }
   }
-  
+
   $tpl_var['NAME'] = $name;
-
-  if (isset($row['nb_comments']))
-  {
-    $tpl_var['NB_COMMENTS'] = $row['nb_comments'];
-  }
-
   $tpl_thumbnails_var[] = $tpl_var;
 }
 
-$template->assign('SHOW_THUMBNAIL_CAPTION', $conf['show_thumbnail_caption']);
+$derivative_params = ImageStdParams::get_by_type( pwg_get_session_var('index_deriv', IMG_THUMB) );
+
+$template->assign( array(
+  'derivative_params' =>$derivative_params,
+  'SHOW_THUMBNAIL_CAPTION' =>$conf['show_thumbnail_caption'],
+    ) );
 $tpl_thumbnails_var = trigger_event('loc_end_index_thumbnails', $tpl_thumbnails_var, $pictures);
 $template->assign('thumbnails', $tpl_thumbnails_var);
 
 $template->assign_var_from_handle('THUMBNAILS', 'index_thumbnails');
-
+unset($pictures, $selection, $tpl_thumbnails_var);
+$template->clear_assign( array('thumbnails') );
 pwg_debug('end include/category_default.inc.php');
 ?>

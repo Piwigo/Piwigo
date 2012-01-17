@@ -100,8 +100,6 @@ final class DerivativeImage
 
   public $src_image;
 
-  private $requested_type;
-
   private $flags = 0;
   private $params;
   private $rel_path, $rel_url;
@@ -111,12 +109,10 @@ final class DerivativeImage
     $this->src_image = $src_image;
     if (is_string($type))
     {
-      $this->requested_type = $type;
       $this->params = ImageStdParams::get_by_type($type);
     }
     else
     {
-      $this->requested_type = IMG_CUSTOM;
       $this->params = $type;
     }
 
@@ -125,14 +121,12 @@ final class DerivativeImage
 
   static function thumb_url($infos)
   {
-    $src_image = new SrcImage($infos);
-    self::build($src_image, ImageStdParams::get_by_type(IMG_THUMB), $rel_path, $rel_url);
-    return get_root_url().$rel_url;
+    return self::url(IMG_THUMB, $infos);
   }
 
   static function url($type, $infos)
   {
-    $src_image = new SrcImage($infos);
+    $src_image = is_object($infos) ? $infos : new SrcImage($infos);
     $params = is_string($type) ? ImageStdParams::get_by_type($type) : $type;
     self::build($src_image, $params, $rel_path, $rel_url);
     return get_root_url().$rel_url;
@@ -257,7 +251,7 @@ final class DerivativeImage
     $size = $this->get_size();
     if ($size)
     {
-      return 'width="'.$size[0].'" height="'.$size[1].'"';
+      return 'width='.$size[0].' height='.$size[1];
     }
   }
 

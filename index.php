@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | Piwigo - a PHP based photo gallery                                    |
 // +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2011 Piwigo Team                  http://piwigo.org |
+// | Copyright(C) 2008-2012 Piwigo Team                  http://piwigo.org |
 // | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
 // | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
 // +-----------------------------------------------------------------------+
@@ -59,6 +59,14 @@ if (isset($_GET['image_order']))
       array('start')  // changing display order goes back to section first page
       )
     );
+}
+if (isset($_GET['display']))
+{
+  $page['meta_robots']['noindex']=1;
+  if (array_key_exists($_GET['display'], ImageStdParams::get_defined_type_map()))
+  {
+    pwg_set_session_var('index_deriv', $_GET['display']);
+  }
 }
 //-------------------------------------------------------------- initialization
 
@@ -249,6 +257,28 @@ if ( $conf['index_sort_order_input']
           )
         );
     }
+  }
+}
+
+if ( count($page['items']) > 0 )
+{
+  $url = add_url_params(
+          duplicate_index_url(),
+          array('display' => '')
+        );
+  $selected_type = pwg_get_session_var('index_deriv', IMG_THUMB);
+  $type_map = ImageStdParams::get_defined_type_map();
+  unset($type_map[IMG_XXLARGE], $type_map[IMG_XLARGE]);
+  foreach($type_map as $params)
+  {
+    $template->append(
+      'image_derivatives',
+      array(
+        'DISPLAY' => l10n($params->type),
+        'URL' => $url.$params->type,
+        'SELECTED' => ($params->type == $selected_type ? true:false),
+        )
+      );
   }
 }
 
