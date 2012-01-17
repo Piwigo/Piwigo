@@ -33,6 +33,8 @@ include_once( PHPWG_ROOT_PATH .'include/functions_plugins.inc.php' );
 include_once( PHPWG_ROOT_PATH .'include/derivative_params.inc.php');
 include_once( PHPWG_ROOT_PATH .'include/derivative_std_params.inc.php');
 include_once( PHPWG_ROOT_PATH .'include/derivative.inc.php');
+require_once( PHPWG_ROOT_PATH .'include/smarty/libs/Smarty.class.php');
+include_once( PHPWG_ROOT_PATH .'include/template.class.php');
 
 //----------------------------------------------------------- generic functions
 
@@ -52,10 +54,7 @@ function micro_seconds()
 // are precised : e.g. 1052343429.89276600
 function get_moment()
 {
-  $t1 = explode( ' ', microtime() );
-  $t2 = explode( '.', $t1[0] );
-  $t2 = $t1[1].'.'.$t2[1];
-  return $t2;
+  return microtime(true);
 }
 
 // The function get_elapsed_time returns the number of seconds (with 3
@@ -663,7 +662,7 @@ function get_query_string_diff($rejects=array(), $escape=true)
   {
     return '';
   }
-  
+
   $query_string = '';
 
   $str = $_SERVER['QUERY_STRING'];
@@ -816,50 +815,6 @@ function get_thumbnail_location($element_info)
 }
 
 /**
- * returns the title of the thumbnail based on photo properties
- */
-function get_thumbnail_title($info)
-{
-  global $conf, $user;
-
-  $title = get_picture_title($info);
-
-  $details = array();
-
-  if (!empty($info['hit']))
-  {
-    $details[] = $info['hit'].' '.strtolower(l10n('Visits'));
-  }
-
-  if ($conf['rate'] and !empty($info['rating_score']))
-  {
-    $details[] = strtolower(l10n('Rating score')).' '.$info['rating_score'];
-  }
-
-  if (isset($info['nb_comments']) and $info['nb_comments'] != 0)
-  {
-    $details[] = l10n_dec('%d comment', '%d comments', $info['nb_comments']);
-  }
-
-  if (count($details) > 0)
-  {
-    $title.= ' ('.implode(', ', $details).')';
-  }
-
-  if (!empty($info['comment']))
-  {
-    $info['comment'] = trigger_event('render_element_description', $info['comment']);
-    $title.= ' '.substr($info['comment'], 0, 100).(strlen($info['comment']) > 100 ? '...' : '');
-  }
-
-  $title = htmlspecialchars(strip_tags($title));
-
-  $title = trigger_event('get_thumbnail_title', $title, $info);
-
-  return $title;
-}
-
-/**
  * fill the current user caddie with given elements, if not already in
  * caddie
  *
@@ -901,18 +856,6 @@ SELECT element_id
 function get_name_from_file($filename)
 {
   return str_replace('_',' ',get_filename_wo_extension($filename));
-}
-
-/**
- */
-function get_picture_title($info)
-{
-  if (isset($info['name']) and !empty($info['name']))
-  {
-    return trigger_event('render_element_description', $info['name']);
-  }
-
-  return  get_name_from_file($info['file']);
 }
 
 /**
@@ -1435,8 +1378,8 @@ function get_ephemeral_key($valid_after_seconds, $aditionnal_data_to_hash = '')
 	$time = round(microtime(true), 1);
 	return $time.':'.$valid_after_seconds.':'
 		.hash_hmac(
-			'md5', 
-			$time.substr($_SERVER['REMOTE_ADDR'],0,5).$valid_after_seconds.$aditionnal_data_to_hash, 
+			'md5',
+			$time.substr($_SERVER['REMOTE_ADDR'],0,5).$valid_after_seconds.$aditionnal_data_to_hash,
 			$conf['secret_key']);
 }
 

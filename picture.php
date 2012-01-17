@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | Piwigo - a PHP based photo gallery                                    |
 // +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2011 Piwigo Team                  http://piwigo.org |
+// | Copyright(C) 2008-2012 Piwigo Team                  http://piwigo.org |
 // | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
 // | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
 // +-----------------------------------------------------------------------+
@@ -176,7 +176,7 @@ function default_picture_content($content, $element_info)
   }
 
   global $page, $template;
-  
+
   if ($show_original)
   {
     $template->assign( 'U_ORIGINAL', $element_info['element_url'] );
@@ -312,10 +312,6 @@ UPDATE '.USER_CACHE_CATEGORIES_TABLE.'
 
       break;
     }
-    case 'toggle_metadata' :
-    {
-      break;
-    }
     case 'add_to_caddie' :
     {
       fill_caddie(array($page['image_id']));
@@ -334,7 +330,7 @@ UPDATE '.USER_CACHE_CATEGORIES_TABLE.'
       include_once(PHPWG_ROOT_PATH.'include/functions_comment.inc.php');
       check_input_parameter('comment_to_edit', $_GET, false, PATTERN_ID);
       $author_id = get_comment_author_id($_GET['comment_to_edit']);
-      
+
       if (can_manage_comment('edit', $author_id))
       {
         if (!empty($_POST['content']))
@@ -364,7 +360,7 @@ UPDATE '.USER_CACHE_CATEGORIES_TABLE.'
             default:
               trigger_error('Invalid comment action '.$comment_action, E_USER_WARNING);
           }
-          
+
           if ($perform_redirect)
           {
             redirect($url_self);
@@ -500,7 +496,7 @@ while ($row = pwg_db_fetch_assoc($result))
 
   $row['src_image'] = new SrcImage($row);
   $row['derivatives'] = DerivativeImage::get_all($row['src_image']);
-  
+
   if ($i=='current')
   {
     $row['element_path'] = get_element_path($row);
@@ -530,18 +526,7 @@ while ($row = pwg_db_fetch_assoc($result))
     );
 
   $picture[$i] = $row;
-
-  if ( !empty( $row['name'] ) )
-  {
-    $picture[$i]['name'] = $row['name'];
-  }
-  else
-  {
-    $file_wo_ext = get_filename_wo_extension($row['file']);
-    $picture[$i]['name'] = str_replace('_', ' ', $file_wo_ext);
-  }
-
-  $picture[$i]['name'] = trigger_event('render_element_description', $picture[$i]['name']);
+  $picture[$i]['TITLE'] = render_element_name($row);
 
   if ('previous'==$i and $page['previous_item']==$page['first_item'])
   {
@@ -604,7 +589,7 @@ else
   $template->set_filenames( array('picture' => 'picture.tpl'));
 }
 
-$title =  $picture['current']['name'];
+$title =  $picture['current']['TITLE'];
 $title_nb = ($page['current_rank'] + 1).'/'.count($page['items']);
 
 // metadata
@@ -643,7 +628,6 @@ foreach (array('first','previous','next','last', 'current') as $which_image)
       array_merge(
         $picture[$which_image],
         array(
-          'TITLE' => $picture[$which_image]['name'],
           'THUMB_SRC' => $picture[$which_image]['derivatives'][IMG_THUMB]->get_url(),
           // Params slideshow was transmit to navigation buttons
           'U_IMG' =>
@@ -652,11 +636,11 @@ foreach (array('first','previous','next','last', 'current') as $which_image)
           )
         )
       );
-    if ($conf['picture_download_icon'] and !empty($picture['current']['download_url']))
-    {
-      $template->append($which_image, array('U_DOWNLOAD' => $picture['current']['download_url']), true);
-    }
   }
+}
+if ($conf['picture_download_icon'] and !empty($picture['current']['download_url']))
+{
+  $template->append('current', array('U_DOWNLOAD' => $picture['current']['download_url']), true);
 }
 
 

@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | Piwigo - a PHP based photo gallery                                    |
 // +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2011 Piwigo Team                  http://piwigo.org |
+// | Copyright(C) 2008-2012 Piwigo Team                  http://piwigo.org |
 // | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
 // | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
 // +-----------------------------------------------------------------------+
@@ -178,7 +178,7 @@ SELECT id, name, permalink
 <a href="'.PHPWG_ROOT_PATH.$url.$category_id.'">'.$cat['name'].'</a>';
     }
   }
-  
+
   if ($single_link and isset($single_url))
   {
     $output.= '</a>';
@@ -295,7 +295,7 @@ function name_compare($a, $b)
 function tag_alpha_compare($a, $b)
 {
   global $page;
-  
+
   foreach (array($a, $b) as $tag)
   {
     if (!isset($page[__FUNCTION__.'_cache'][ $tag['name'] ]))
@@ -531,6 +531,70 @@ function register_default_menubar_blocks( $menu_ref_arr )
   $menu->register_block( new RegisteredBlock( 'mbSpecials', 'Specials', 'piwigo'));
   $menu->register_block( new RegisteredBlock( 'mbMenu', 'Menu', 'piwigo'));
   $menu->register_block( new RegisteredBlock( 'mbIdentification', 'Identification', 'piwigo') );
+}
+
+/**
+ */
+function render_element_name($info)
+{
+  $name = $info['name'];
+  if (!empty($name))
+  {
+    $name = trigger_event('render_element_description', $name);
+    return $name;
+  }
+
+  return get_name_from_file($info['file']);
+}
+
+function render_element_description($info)
+{
+  $comment = $info['comment'];
+  if (!empty($comment))
+  {
+    $comment = trigger_event('render_element_description', $comment);
+    return $comment;
+  }
+  return '';
+}
+
+/**
+ * returns the title of the thumbnail based on photo properties
+ */
+function get_thumbnail_title($info, $title, $comment)
+{
+  global $conf, $user;
+
+  $details = array();
+
+  if (!empty($info['hit']))
+  {
+    $details[] = $info['hit'].' '.strtolower(l10n('Visits'));
+  }
+
+  if ($conf['rate'] and !empty($info['rating_score']))
+  {
+    $details[] = strtolower(l10n('Rating score')).' '.$info['rating_score'];
+  }
+
+  if (isset($info['nb_comments']) and $info['nb_comments'] != 0)
+  {
+    $details[] = l10n_dec('%d comment', '%d comments', $info['nb_comments']);
+  }
+
+  if (count($details) > 0)
+  {
+    $title.= ' ('.implode(', ', $details).')';
+  }
+
+  if (!empty($comment))
+  {
+    $title.= ' '.substr($info['comment'], 0, 100).(strlen($info['comment']) > 100 ? '...' : '');
+  }
+
+  $title = htmlspecialchars(strip_tags($title));
+  $title = trigger_event('get_thumbnail_title', $title, $info);
+  return $title;
 }
 
 ?>

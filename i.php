@@ -28,13 +28,6 @@ include(PHPWG_ROOT_PATH . 'include/config_default.inc.php');
 defined('PWG_LOCAL_DIR') or define('PWG_LOCAL_DIR', 'local/');
 defined('PWG_DERIVATIVE_DIR') or define('PWG_DERIVATIVE_DIR', $conf['data_location'].'i/');
 
-function get_moment()
-{
-  $t1 = explode( ' ', microtime() );
-  $t2 = explode( '.', $t1[0] );
-  $t2 = $t1[1].'.'.$t2[1];
-  return $t2;
-}
 function trigger_action() {}
 function get_extension( $filename )
 {
@@ -127,7 +120,7 @@ function ierror($msg, $code)
 function time_step( &$step )
 {
   $tmp = $step;
-  $step = get_moment();
+  $step = microtime(true);
   return intval(1000*($step - $tmp));
 }
 
@@ -263,7 +256,7 @@ function send_derivative($expires)
 
 
 $page=array();
-$begin = $step = get_moment();
+$begin = $step = microtime(true);
 $timing=array();
 foreach( explode(',','load,rotate,crop,scale,sharpen,watermark,save,send') as $k )
 {
@@ -414,6 +407,7 @@ $timing['send'] = time_step($step);
 ilog('perf',
   basename($page['src_path']), $o_size, $o_size[0]*$o_size[1],
   basename($page['derivative_path']), $d_size, $d_size[0]*$d_size[1],
+  function_exists('memory_get_peak_usage') ? round( memory_get_peak_usage()/(1024*1024), 1) : '',
   time_step($begin),
-  $timing);
+  '|', $timing);
 ?>

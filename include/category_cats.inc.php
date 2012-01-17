@@ -189,7 +189,6 @@ SELECT *
   {
     if ($row['level'] <= $user['level'])
     {
-      $row['tn_src'] = DerivativeImage::thumb_url($row);
       $infos_of_image[$row['id']] = $row;
     }
     else
@@ -236,10 +235,15 @@ SELECT *
     $result = pwg_query($query);
     while ($row = pwg_db_fetch_assoc($result))
     {
-      $row['tn_src'] =  DerivativeImage::thumb_url($row);
       $infos_of_image[$row['id']] = $row;
     }
   }
+  
+  foreach ($infos_of_image as &$info)
+  {
+    $info['src_image'] = new SrcImage($info);
+  }
+  unset($info);
 }
 
 if (count($user_representative_updates_for))
@@ -311,7 +315,7 @@ if (count($categories) > 0)
     $tpl_var =
         array(
           'ID'    => $category['id'],
-          'TN_SRC'   => $representative_infos['tn_src'],
+          'representative'   => $representative_infos,
           'TN_ALT'   => strip_tags($category['name']),
 
           'URL'   => make_index_url(
@@ -333,23 +337,6 @@ if (count($categories) > 0)
                 @$category['comment'],
                 'subcatify_category_description')),
           'NAME'  => $name,
-          
-          // Extra fields for usage in extra themes
-          'FILE_PATH' => $representative_infos['path'],
-          'FILE_POSTED' => $representative_infos['date_available'],
-          'FILE_CREATED' => $representative_infos['date_creation'],
-          'FILE_DESC' => $representative_infos['comment'],
-          'FILE_AUTHOR' => $representative_infos['author'],
-          'FILE_HIT' => $representative_infos['hit'],
-          'FILE_SIZE' => $representative_infos['filesize'],
-          'FILE_WIDTH' => $representative_infos['width'],
-          'FILE_HEIGHT' => $representative_infos['height'],
-          'FILE_METADATE' => $representative_infos['date_metadata_update'],
-          'FILE_HAS_HD' => $representative_infos['has_high'],
-          'FILE_HD_WIDTH' => $representative_infos['high_width'],
-          'FILE_HD_HEIGHT' => $representative_infos['high_height'],
-          'FILE_HD_FILESIZE' => $representative_infos['high_filesize'],
-          'FILE_RATING_SCORE' => $representative_infos['rating_score'],
         );
     if ($conf['index_new_icon'])
     {
@@ -387,8 +374,12 @@ if (count($categories) > 0)
     $tpl_thumbnails_var[] = $tpl_var;
   }
 
+  $derivative_params = trigger_event('get_index_album_derivative_params', ImageStdParams::get_by_type(IMG_SMALL) );
   $tpl_thumbnails_var = trigger_event('loc_end_index_category_thumbnails', $tpl_thumbnails_var, $categories);
-  $template->assign( 'category_thumbnails', $tpl_thumbnails_var);
+  $template->assign( array(
+    'category_thumbnails' => $tpl_thumbnails_var,
+    'derivative_params' => $derivative_params,
+    ) );
 
   $template->assign_var_from_handle('CATEGORIES', 'index_category_thumbnails');
 }

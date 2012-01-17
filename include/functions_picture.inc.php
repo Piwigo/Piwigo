@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | Piwigo - a PHP based photo gallery                                    |
 // +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2011 Piwigo Team                  http://piwigo.org |
+// | Copyright(C) 2008-2012 Piwigo Team                  http://piwigo.org |
 // | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
 // | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
 // +-----------------------------------------------------------------------+
@@ -21,25 +21,6 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
-
-
-/*
- * Returns the name of a photo according to its name and its filename.
- * @param name string
- * @param filename string
- * @return string
- */
-function get_image_name($name, $filename)
-{
-  if (!empty($name))
-  {
-    return $name;
-  }
-  else
-  {
-    return get_name_from_file($filename);
-  }
-}
 
 /*
  * @param element_info array containing element information from db;

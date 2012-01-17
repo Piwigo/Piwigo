@@ -109,13 +109,15 @@ foreach ($pictures as $row)
     $row['NB_COMMENTS'] = $row['nb_comments'] = (int)@$nb_comments_of[$row['id']];
   }
 
-  $name = get_picture_title($row);
+  $name = render_element_name($row);
+  $desc = render_element_description($row);
 
   $tpl_var = array_merge( $row, array(
     'TN_SRC' => DerivativeImage::thumb_url($row),
     'TN_ALT' => htmlspecialchars(strip_tags($name)),
-    'TN_TITLE' => get_thumbnail_title($row),
+    'TN_TITLE' => get_thumbnail_title($row, $name, $desc),
     'URL' => $url,
+    'DESCRIPTION' => $desc,
     'src_image' => new SrcImage($row),
     ) );
 
@@ -145,12 +147,11 @@ foreach ($pictures as $row)
       break;
     }
   }
-
   $tpl_var['NAME'] = $name;
   $tpl_thumbnails_var[] = $tpl_var;
 }
 
-$derivative_params = ImageStdParams::get_by_type( pwg_get_session_var('index_deriv', IMG_THUMB) );
+$derivative_params = trigger_event('get_index_derivative_params', ImageStdParams::get_by_type( pwg_get_session_var('index_deriv', IMG_THUMB) ) );
 
 $template->assign( array(
   'derivative_params' =>$derivative_params,
@@ -161,6 +162,6 @@ $template->assign('thumbnails', $tpl_thumbnails_var);
 
 $template->assign_var_from_handle('THUMBNAILS', 'index_thumbnails');
 unset($pictures, $selection, $tpl_thumbnails_var);
-$template->clear_assign( array('thumbnails') );
+$template->clear_assign( array('thumbnails', 'derivative_params') );
 pwg_debug('end include/category_default.inc.php');
 ?>

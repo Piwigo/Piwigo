@@ -1,6 +1,5 @@
 {if !empty($thumbnails)}{strip}
-{html_head}
-<style type="text/css">
+{html_style}
 {*Set some sizes according to maximum thumbnail width and height*}
 .thumbnails SPAN,
 .thumbnails .wrap2 A,
@@ -11,9 +10,16 @@
 .thumbnails .wrap2{ldelim}
 	height: {$derivative_params->max_height()+2}px;
 }
-
-</style>
-{/html_head}
+{if $derivative_params->max_width() > 600}
+.thumbLegend {ldelim}font-size: 130%}
+{else}
+{if $derivative_params->max_width() > 400}
+.thumbLegend {ldelim}font-size: 110%}
+{else}
+.thumbLegend {ldelim}font-size: 90%}
+{/if}
+{/if}
+{/html_style}
 {foreach from=$thumbnails item=thumbnail}
 	<li>
 	<span class="wrap1">

@@ -263,7 +263,6 @@ TD.calDayHead {
 
 /* Thumbnails */
 .thumbnails SPAN.thumbLegend {
-	font-size: 90%;
 	overflow: hidden;/* oversized legend is clipped */
 }
 

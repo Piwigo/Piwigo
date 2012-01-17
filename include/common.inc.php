@@ -24,9 +24,7 @@
 defined('PHPWG_ROOT_PATH') or trigger_error('Hacking attempt!', E_USER_ERROR);
 
 // determine the initial instant to indicate the generation time of this page
-$t1 = explode( ' ', microtime() );
-$t2 = explode( '.', $t1[0] );
-$t2 = $t1[1].'.'.$t2[1];
+$t2 = microtime(true);
 
 @set_magic_quotes_runtime(0); // Disable magic_quotes_runtime
 
@@ -109,7 +107,7 @@ if(isset($conf['show_php_errors']) && !empty($conf['show_php_errors']))
 
 include(PHPWG_ROOT_PATH . 'include/constants.php');
 include(PHPWG_ROOT_PATH . 'include/functions.inc.php');
-include(PHPWG_ROOT_PATH .'include/template.class.php');
+
 
 // Database connection
 try

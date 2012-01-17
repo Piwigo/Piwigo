@@ -1,11 +1,19 @@
+{strip}{html_style}
+.thumbnailCategory DIV.illustration{ldelim}
+	width: {$derivative_params->max_width()+5}px;
+}
 
+.content .thumbnailCategory .description{ldelim}
+	height: {$derivative_params->max_height()+5}px;
+}
+{/html_style}{/strip}
 <ul class="thumbnailCategories">
 {foreach from=$category_thumbnails item=cat}
 	<li>
 		<div class="thumbnailCategory">
 			<div class="illustration">
 			<a href="{$cat.URL}">
-				<img src="{$cat.TN_SRC}" alt="{$cat.TN_ALT}" title="{$cat.NAME|@replace:'"':' '|@strip_tags:false} - {'display this album'|@translate}">
+				<img src="{$pwg->derivative_url($derivative_params, $cat.representative.src_image)}" alt="{$cat.TN_ALT}" title="{$cat.NAME|@replace:'"':' '|@strip_tags:false} - {'display this album'|@translate}">
 			</a>
 			</div>
 			<div class="description">
