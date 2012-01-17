@@ -292,6 +292,8 @@ SELECT
       $update,
       array('id' => $image_id)
       );
+
+    delete_element_derivatives($image_id);
   }
   else
   {

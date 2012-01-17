@@ -1755,9 +1755,6 @@ SELECT
     $params['image_id'],
     $image['md5sum'] // we force the md5sum to remain the same
     );
-
-  include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
-  delete_element_derivatives($params['image_id']);
 }
 
 function ws_images_add($params, &$service)
