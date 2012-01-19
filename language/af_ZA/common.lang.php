@@ -181,7 +181,6 @@ $lang['posted between %s (%s) and %s (%s)'] = "bygevoeg tussen %s (%s) en %s (%s
 $lang['posted on %s'] = "bygevoeg op %s";
 $lang['Best rated'] = "Hoogste gradering";
 $lang['display best rated photos'] = "Vertoon gewildste fotos";
-$lang['caddie'] = "mandjie";
 $lang['Calendar'] = "Kalender";
 $lang['All'] = "Almal";
 $lang['display each day with photos, month per month'] = "Vertoon elke dag met nuwe fotos, maand per maand";
