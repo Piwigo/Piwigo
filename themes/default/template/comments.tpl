@@ -73,7 +73,7 @@
 
 {if isset($comments)}
 <div id="comments">
-	{include file='comment_list.tpl'}
+	{include file='comment_list.tpl' comment_derivative_params=$derivative_params}
 </div>
 {/if}
 

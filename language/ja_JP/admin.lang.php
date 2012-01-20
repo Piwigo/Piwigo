@@ -347,7 +347,6 @@ $lang['for the file format'] = 'ファイルフォーマット';
 $lang['No missing thumbnail'] = '不明なサムネイルはありません。';
 $lang['Photo unreachable or no support'] = '写真にアクセスできないか、次の内容がサポートされていません:';
 $lang['GD version'] = 'GDバージョン';
-$lang['Miniaturization parameters'] = '縮小化パラメータ';
 $lang['generated in'] = '生成時間';
 $lang['Results of miniaturization'] = '縮小化の結果';
 $lang['General statistics'] = '一般統計';

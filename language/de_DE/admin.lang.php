@@ -344,7 +344,6 @@ $lang['for the file format'] = 'für das Format der Datei';
 $lang['No missing thumbnail'] = 'Kein Vorschaubild fehlt';
 $lang['Photo unreachable or no support'] = 'Foto unerreichbar oder nicht unterstützt';
 $lang['GD version'] = 'Version von GD Library';
-$lang['Miniaturization parameters'] = 'Einstellungen für die Vorschaubilderstellung';
 $lang['generated in'] = 'generiert in';
 $lang['Results of miniaturization'] = 'Ergebnis der Vorschaubilderstellung';
 $lang['General statistics'] = 'Allgemeine Statistiken';

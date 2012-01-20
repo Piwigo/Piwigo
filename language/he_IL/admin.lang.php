@@ -347,7 +347,6 @@ $lang['for the file format'] = 'עבור פורמט קובץ';
 $lang['No missing thumbnail'] = 'אין תמונה חסר';
 $lang['Photo unreachable or no support'] = 'תמונה בפורמט נגיש או נתמך';
 $lang['GD version'] = 'גרסת ה ';
-$lang['Miniaturization parameters'] = 'המזעור הפרמטרים';
 $lang['generated in'] = 'נוצר ב';
 $lang['Results of miniaturization'] = 'תהליך המזעור תוצאות';
 $lang['General statistics'] = 'סטטיסטיקה';

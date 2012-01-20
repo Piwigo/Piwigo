@@ -347,7 +347,6 @@ $lang['for the file format'] = 'dành cho định dạng file';
 $lang['No missing thumbnail'] = 'Không thiếu hình thu nhỏ nào';
 $lang['Photo unreachable or no support'] = 'Hình không đọc được hoặc định dạng không được hỗ trợ';
 $lang['GD version'] = 'Phiên bản GD';
-$lang['Miniaturization parameters'] = 'Tối thiểu hóa tham số';
 $lang['generated in'] = 'được tạo trong';
 $lang['Results of miniaturization'] = 'Kết quả tổi thiểu hóa';
 $lang['General statistics'] = 'Thống kê tổng quát';

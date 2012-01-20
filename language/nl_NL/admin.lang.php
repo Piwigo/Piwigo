@@ -344,7 +344,6 @@ $lang['for the file format'] = 'voor het bestandsformaat';
 $lang['No missing thumbnail'] = 'Geen ontbrekende mini-afbeelding';
 $lang['Photo unreachable or no support'] = 'Afbeelding is niet bereikbaar of er is geen support';
 $lang['GD version'] = 'GD versie';
-$lang['Miniaturization parameters'] = 'Miniatuur parameters';
 $lang['generated in'] = 'gegenereerd in';
 $lang['Results of miniaturization'] = 'Resultaat van verkleinen';
 $lang['General statistics'] = 'Algemene statistieken';
@@ -838,6 +837,5 @@ $lang['Predefined filter'] = 'Voorgedefinieerd filter';
 $lang['With no album'] = 'Zonder album';
 $lang['With no tag'] = 'Zonder tag';
 $lang['With no virtual album'] = 'Zonder virtueel album';
-
 $lang['Photo name'] = 'Naam van afbeelding';
 ?>

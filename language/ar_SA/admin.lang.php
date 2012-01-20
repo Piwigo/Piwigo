@@ -347,7 +347,6 @@ $lang['for the file format'] = 'لتنسيق الملف';
 $lang['No missing thumbnail'] = 'لا حاجة لاعادة صنع  مصغرات في الوقت الحالي';
 $lang['Photo unreachable or no support'] = 'صور لا يمكن الوصول لها او لم تدعم';
 $lang['GD version'] = 'GD أصدار';
-$lang['Miniaturization parameters'] = 'تصغير البارامترات';
 $lang['generated in'] = 'إنشأت في ..';
 $lang['Results of miniaturization'] = 'نتائج التصغير';
 $lang['General statistics'] = 'الاحصائيات العامة';

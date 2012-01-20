@@ -683,15 +683,6 @@ IMG.ui-datepicker-trigger {
 	cursor : pointer;
 }
 
-/* Set some sizes according to your maximum thumbnail width and height */
-.thumbnailCategory DIV.illustration {
-  width: 140px;      /* max thumbnail width + 2px */
-}
-
-.content .thumbnailCategory .description {
-  height: 140px;    /* max thumbnail height + 2px */
-}
-
 /* Set defaults for thumbnails legend */
 .thumbnails SPAN.thumbLegend {
   display: block;  /* display: none; if you don't want legend */

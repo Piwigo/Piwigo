@@ -406,7 +406,6 @@ $lang['Menu Management'] = 'จัดการเมนู';
 $lang['Metadata synchronization results'] = "ผลลัพธ์การซิงโคไนซ์เมตาดาต้า";
 $lang['Metadata synchronized from file'] = "ได้ถูกซิงโคไนซ์เมตาดาต้าจากไฟล์";
 $lang['min time'] = "เวลาต่ำสุด";
-$lang['Miniaturization parameters'] = "ตัวแปรการย่อขนาด";
 $lang['Minimum privacy level'] = "ระดับของความเป็นส่วนตัวน้อยที่สุด";
 $lang['Miscellaneous'] = 'เบ็ดเตล็จ';
 $lang['Missing a temporary folder'] = 'ไม่พบโฟลเดอร์ชั่วคราว';

@@ -349,7 +349,6 @@ $lang['for the file format'] = 'per il formato del file';
 $lang['No missing thumbnail'] = 'Nessuna miniatura mancante';
 $lang['Photo unreachable or no support'] = 'Foto non trovata o non supportata';
 $lang['GD version'] = 'versione GD';
-$lang['Miniaturization parameters'] = 'Parametri di miniaturizzazione';
 $lang['generated in'] = 'generata in';
 $lang['Results of miniaturization'] = 'Risultati della miniaturizzazione';
 $lang['General statistics'] = 'Statistiche generali';

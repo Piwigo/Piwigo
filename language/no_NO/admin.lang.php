@@ -346,7 +346,6 @@ $lang['for the file format'] = 'for fil format';
 $lang['No missing thumbnail'] = 'Ingen manglende miniatyrbilder';
 $lang['Photo unreachable or no support'] = 'Bilde ikke tilgjengelig eller i feil filformat';
 $lang['GD version'] = 'GD versjon';
-$lang['Miniaturization parameters'] = 'Miniatyr parameter';
 $lang['generated in'] = 'generert på';
 $lang['Results of miniaturization'] = 'Miniatyr prosess resultat';
 $lang['General statistics'] = 'Generell statistikk';

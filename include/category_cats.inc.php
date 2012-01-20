@@ -374,7 +374,7 @@ if (count($categories) > 0)
     $tpl_thumbnails_var[] = $tpl_var;
   }
 
-  $derivative_params = trigger_event('get_index_album_derivative_params', ImageStdParams::get_by_type(IMG_SMALL) );
+  $derivative_params = trigger_event('get_index_album_derivative_params', ImageStdParams::get_by_type(IMG_THUMB) );
   $tpl_thumbnails_var = trigger_event('loc_end_index_category_thumbnails', $tpl_thumbnails_var, $categories);
   $template->assign( array(
     'category_thumbnails' => $tpl_thumbnails_var,

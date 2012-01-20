@@ -351,7 +351,6 @@ $lang['for the file format'] = 'per al format de fitxer';
 $lang['No missing thumbnail'] = 'No missing thumbnail';
 $lang['Photo unreachable or no support'] = 'Imatge inaccessible o no soportada';
 $lang['GD version'] = 'versió GD';
-$lang['Miniaturization parameters'] = 'Paràmetres de miniaturització';
 $lang['generated in'] = 'generat en';
 $lang['Results of miniaturization'] = 'Resultats de la miniaturització';
 $lang['General statistics'] = 'Estadístiques generals';

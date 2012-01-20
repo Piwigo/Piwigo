@@ -116,7 +116,7 @@ if (isset($_GET['cat']) and 0 != $_GET['cat'])
   {
     $category_ids = array(-1);
   }
-  
+
   $page['where_clauses'][] =
     'category_id IN ('.implode(',', $category_ids).')';
 }
@@ -413,7 +413,7 @@ if (count($comments) > 0)
   // retrieving element informations
   $elements = array();
   $query = '
-SELECT id, name, file, path, representative_ext
+SELECT *
   FROM '.IMAGES_TABLE.'
   WHERE id IN ('.implode(',', $element_ids).')
 ;';
@@ -455,7 +455,7 @@ SELECT c.id, name, permalink, uppercats, com.id as comment_id
     }
 
     // source of the thumbnail picture
-    $thumbnail_src = DerivativeImage::thumb_url( $elements[$comment['image_id']] );
+    $src_image = new SrcImage($elements[$comment['image_id']]);
 
     // link to the full size picture
     $url = make_picture_url(
@@ -469,7 +469,7 @@ SELECT c.id, name, permalink, uppercats, com.id as comment_id
     $tpl_comment = array(
       'ID' => $comment['comment_id'],
       'U_PICTURE' => $url,
-      'TN_SRC' => $thumbnail_src,
+      'src_image' => $src_image,
       'ALT' => $name,
       'AUTHOR' => trigger_event('render_comment_author', $comment['author']),
       'DATE'=>format_date($comment['date'], true),
@@ -509,11 +509,11 @@ SELECT c.id, name, permalink, uppercats, com.id as comment_id
 
       if (isset($edit_comment) and ($comment['comment_id'] == $edit_comment))
       {
-	$tpl_comment['IN_EDIT'] = true;
-	$key = get_ephemeral_key(2, $comment['image_id']);
-	$tpl_comment['KEY'] = $key;
-	$tpl_comment['IMAGE_ID'] = $comment['image_id'];
-	$tpl_comment['CONTENT'] = $comment['content'];
+        $tpl_comment['IN_EDIT'] = true;
+        $key = get_ephemeral_key(2, $comment['image_id']);
+        $tpl_comment['KEY'] = $key;
+        $tpl_comment['IMAGE_ID'] = $comment['image_id'];
+        $tpl_comment['CONTENT'] = $comment['content'];
       }
     }
 
@@ -533,6 +533,9 @@ SELECT c.id, name, permalink, uppercats, com.id as comment_id
     $template->append('comments', $tpl_comment);
   }
 }
+
+$derivative_params = trigger_event('get_comments_derivative_params', ImageStdParams::get_by_type(IMG_THUMB) );
+$template->assign( 'derivative_params', $derivative_params );
 
 // include menubar
 $themeconf = $template->get_template_vars('themeconf');

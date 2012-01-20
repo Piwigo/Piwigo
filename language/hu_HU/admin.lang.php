@@ -343,7 +343,6 @@ $lang['for the file format'] = 'fájl formátum';
 $lang['No missing thumbnail'] = 'Nincs hiányzó bélyegkép';
 $lang['Photo unreachable or no support'] = 'Kép nem elérhető, vagy formátuma nem támogatott';
 $lang['GD version'] = 'GD verzió';
-$lang['Miniaturization parameters'] = 'Kicsinyítési paraméterek';
 $lang['generated in'] = 'létrehozva';
 $lang['Results of miniaturization'] = 'Kicsinyítés eredménye';
 $lang['General statistics'] = 'Általános statisztika';
@@ -827,7 +826,6 @@ $lang['An error has occured during upgrade.'] = 'Hiba történt frissítés köz
 $lang['An error has occured during extract. Please check files permissions of your piwigo installation.<br><a href="%s">Click here to show log error</a>.'] = 'Hibajelentés (Információ). Kérjük ellenőrizze a telepített fájlok jogosultságait.<br><a href="%s">További információkért kattintson ide</a>.';
 $lang['Piwigo cannot retrieve upgrade file from server'] = 'Nem tudom letölteni a frissítést a Piwigo fájl szerverről';
 $lang['Zoom'] = 'Zoom';
-
 $lang['High dimensions'] = 'Nagy méret';
 $lang['Downloads'] = 'Letöltés';
 $lang['Photo name'] = 'Képnév';

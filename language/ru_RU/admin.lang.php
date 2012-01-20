@@ -344,7 +344,6 @@ $lang['for the file format'] = 'для файла формата';
 $lang['No missing thumbnail'] = 'Миниатюры есть у всех изображений';
 $lang['Photo unreachable or no support'] = 'Фотография недоступна или поддержка не возможна';
 $lang['GD version'] = 'версия GD';
-$lang['Miniaturization parameters'] = 'Параметры миниатюризации';
 $lang['generated in'] = 'создано за';
 $lang['Results of miniaturization'] = 'Результаты миниатюризации';
 $lang['General statistics'] = 'Общая статистика';

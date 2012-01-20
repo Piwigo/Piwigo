@@ -345,7 +345,6 @@ $lang['for the file format'] = '对于文件格式';
 $lang['No missing thumbnail'] = '没有丢失缩略图';
 $lang['Photo unreachable or no support'] = '不支持图片格式或无法显示';
 $lang['GD version'] = 'GD版';
-$lang['Miniaturization parameters'] = '缩略图参数';
 $lang['generated in'] = '产生于';
 $lang['Results of miniaturization'] = '缩略图结果';
 $lang['General statistics'] = '普通统计';

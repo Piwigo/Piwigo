@@ -179,7 +179,6 @@ $template->assign(
     'U_RECENT_SET'=> $link_start.'batch_manager&amp;cat=recent',
     'U_BATCH'=> $link_start.'batch_manager',
     'U_TAGS'=> $link_start.'tags',
-    'U_THUMBNAILS'=> $link_start.'thumbnail',
     'U_USERS'=> $link_start.'user_list',
     'U_GROUPS'=> $link_start.'group_list',
     'U_PERMALINKS'=> $link_start.'permalinks',

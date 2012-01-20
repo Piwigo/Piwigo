@@ -350,7 +350,6 @@ $lang['for the file format']     =     'For filformatet';
 $lang['No missing thumbnail']     =     'Ingen manglende thumbnail';
 $lang['Photo unreachable or no support']     =     'Picture utilgængelig eller ikke understøttet format';
 $lang['GD version']     =     'GD version';
-$lang['Miniaturization parameters']     =     'Miniaturisering parametre';
 $lang['generated in']     =     'Genereret i';
 $lang['Results of miniaturization']     =     'Miniaturisering proces resultater';
 $lang['General statistics']     =     'General statistikker';

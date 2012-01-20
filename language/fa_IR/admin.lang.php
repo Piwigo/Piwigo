@@ -349,7 +349,6 @@ $lang['for the file format'] = "برای نوع فایل(file format)";
 $lang['No missing thumbnail'] = "No missing thumbnail";
 $lang['Photo unreachable or no support'] = "تصاویر غیرقابل دسترسی یا بدون پشتیبانی سیستم";
 $lang['GD version'] = "نصخه GD";
-$lang['Miniaturization parameters'] = "پارامترهای کوچک کردن";
 $lang['generated in'] = "تولید در";
 $lang['Results of miniaturization'] = "نتیج پردازش کوچک‌سازی";
 $lang['General statistics'] = "آمار عمومی";

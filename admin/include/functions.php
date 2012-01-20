@@ -2015,7 +2015,6 @@ function get_active_menu($menu_page)
     case 'stats':
     case 'history':
     case 'maintenance':
-    case 'thumbnail':
     case 'comments':
     case 'updates':
       return 4;

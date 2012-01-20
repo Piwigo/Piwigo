@@ -345,7 +345,6 @@ $lang['for the file format'] = 'faila formātam';
 $lang['No missing thumbnail'] = 'Piktogrammas ir visiem attēliem';
 $lang['Photo unreachable or no support'] = 'foto nesasniedzams vai bez atbalsta';
 $lang['GD version'] = 'GD versija';
-$lang['Miniaturization parameters'] = 'Miniaturizēšanas parametri';
 $lang['generated in'] = 'uzģenerēts ';
 $lang['Results of miniaturization'] = 'Miniaturizācijas procesa rezultāti';
 $lang['General statistics'] = 'Vispārējā statistika';

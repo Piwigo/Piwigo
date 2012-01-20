@@ -347,7 +347,6 @@ $lang['for the file format'] = 'за датотечни облик';
 $lang['No missing thumbnail'] = 'Нема недостајућих повезних сличица';
 $lang['Photo unreachable or no support'] = 'Слика недоступна или без подршке';
 $lang['GD version'] = 'ГД верзија';
-$lang['Miniaturization parameters'] = 'Параметри умањивања';
 $lang['generated in'] = 'израђена у';
 $lang['Results of miniaturization'] = 'резултати умањивања';
 $lang['General statistics'] = 'Главна статистика';

@@ -449,7 +449,6 @@ $lang['Merge tags'] = 'etiketleri birleştir';
 $lang['Metadata synchronization results'] = 'Metadata senkronizasyon sonuçları';
 $lang['Metadata synchronized from file'] = 'Metadata dosyadan senkronize edildi';
 $lang['min time'] = 'men kisa time';
-$lang['Miniaturization parameters'] = 'Minyatürlestirme parametreleri';
 $lang['Minimum privacy level'] = 'En az gizlilik seviyesi';
 $lang['Miscellaneous'] = 'Karışık';
 $lang['Missing a temporary folder'] = 'Geçici bir klasöre eksik';

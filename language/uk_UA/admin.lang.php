@@ -375,7 +375,6 @@ $lang['Menu Management'] = 'Меню';
 $lang['Metadata synchronization results'] = 'Результати синхронізації метаданих';
 $lang['Metadata synchronized from file'] = 'Метадані синхронізовані з файлу';
 $lang['min time'] = 'мін. час';
-$lang['Miniaturization parameters'] = 'Параметри мініатюрізації';
 $lang['Minimum privacy level'] = 'Мінімальний рівень приватності';
 $lang['Miscellaneous'] = 'Різне';
 $lang['Missing a temporary folder'] = 'Відсутня тимчасова папка';

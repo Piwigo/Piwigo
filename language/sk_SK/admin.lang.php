@@ -346,7 +346,6 @@ $lang['for the file format'] = 'pre formát súboru';
 $lang['No missing thumbnail'] = 'Nechýba žiaden náhľad';
 $lang['Photo unreachable or no support'] = 'Fotografia nie je dostupná alebo podporovaná';
 $lang['GD version'] = 'Verzia GD knihovne';
-$lang['Miniaturization parameters'] = 'Parametre miniaturizácie';
 $lang['generated in'] = 'generované behom';
 $lang['Results of miniaturization'] = 'Výsledky miniaturizácie';
 $lang['General statistics'] = 'Celková štatistika';

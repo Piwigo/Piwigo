@@ -415,7 +415,6 @@ DELETE
       $updates[$field] = $value;
     }
     save_upload_form_config($updates);
-    $template->delete_compiled_templates();
   }
 
   trigger_action('element_set_global_action', $action, $collection);
@@ -757,12 +756,6 @@ $template->assign(
     'nb_thumbs_set' => count($page['cat_elements_id']),
     )
   );
-
-function regenerateThumbnails_prefilter($content, $smarty)
-{
-  return str_replace('{$thumbnail.TN_SRC}', '{$thumbnail.TN_SRC}?rand='.md5(uniqid(rand(), true)), $content);
-}
-$template->set_prefilter('batch_manager_global', 'regenerateThumbnails_prefilter');
 
 trigger_action('loc_end_element_set_global');
 
