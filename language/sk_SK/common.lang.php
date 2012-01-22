@@ -371,5 +371,23 @@ $lang['Enter your new password below.'] = 'Nižšie vložte Vaše nové heslo.';
 $lang['EXIF Metadata'] = 'EXIF Metadata';
 $lang['IPTC Metadata'] = 'IPTC Metadata';
 $lang['Edit'] = 'Upraviť';
+$lang['Hello %s,'] = 'Ahoj %s,';
+$lang['Send my connection settings by email'] = 'Odoslať moje nastavenia pripojenia emailom';
+$lang['Successfully registered, you will soon receive an email with your connection settings. Welcome!'] = 'Úspešná registrácia, obdržíte email s Vašimi nastaveniami pripojenia. Vitajte!';
+$lang['Username modification'] = 'Zmena používateľského mena';
+$lang['Your username has been successfully changed to : %s'] = 'Vaše používateľské meno bolo úspešne zmenené na : %s';
+$lang['square'] = 'Štvorec';
+$lang['thumb'] = 'Náhľad';
+$lang['small'] = 'Malý';
+$lang['medium'] = 'Stredný';
+$lang['large'] = 'Veľký';
+$lang['xlarge'] = 'Väčší';
+$lang['xxlarge'] = 'Najväčší';
+$lang['original'] = 'Originál';
+$lang['Thank you for registering at %s!'] = 'Ďakujeme za registráciu na %s!';
+$lang['Here are your connection settings'] = 'Tu je Vaše nastavenie pripojenia';
+$lang['Password: %s'] = 'Heslo: %s';
+$lang['Username: %s'] = 'Používateľské meno: %s';
+$lang['If you think you\'ve received this email in error, please contact us at %s'] = 'Ak si myslíte, že tento mail ste dostali chybne, kontaktujte nás prosím na %s';
 
 ?>
