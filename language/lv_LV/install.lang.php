@@ -68,4 +68,6 @@ $lang['Download the config file'] = 'Lejupladet config failu';
 $lang['You can download the config file and upload it to local/config directory of your installation.'] = 'Jums jalejupielade configuracijas fails un jaielade tas Jusu instalacijas local/config mape.';
 $lang['Just another Piwigo gallery'] = 'Vēl viena Piwigo galerija';
 $lang['Welcome to my photo gallery'] = 'Laipni lūgti manā foto galerijā';
+$lang['Welcome to your new installation of Piwigo!'] = 'Laipni lūgti Jūsu Piwigo jaunajā instalācijā!';
+$lang['Don\'t hesitate to consult our forums for any help : %s'] = 'Nevilcinieties izmantot mūsu forumu palīdzību: %s';
 ?>
