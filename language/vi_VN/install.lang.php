@@ -53,7 +53,6 @@ $lang['verification'] = 'xác nhận';
 $lang['Need help ? Ask your question on <a href="%s">Piwigo message board</a>.'] = 'Cần trợ giúp ? Hãy gởi thắc mắc của bạn tại <a href="%s">diễn đàn của Piwigo</a>.';
 $lang['Webmaster mail address'] = 'Địa chỉ thư điện tử của Webmaster';
 $lang['Visitors will be able to contact site administrator with this mail'] = 'Khách tham quan có thể liên lạc với Quản trị thông qua địa chỉ thư điện tử này.';
-
 $lang['PHP 5 is required'] = 'Phải có PHP 5 ';
 $lang['It appears your webhost is currently running PHP %s.'] = 'Do máy chủ web của bạn đang chạy phiên bản PHP  %s.';
 $lang['Piwigo may try to switch your configuration to PHP 5 by creating or modifying a .htaccess file.'] = 'Piwigo sẽ thử chuyển cấu hình của bạn sang PHP 5 bằng cách tạo ra hoặc biên tập một file .htaccess.';
@@ -70,4 +69,6 @@ $lang['Download the config file'] = 'Tải tệp tin cấu hình xuống';
 $lang['You can download the config file and upload it to local/config directory of your installation.'] = 'Bạn có thể tải tệp tin cấu hình và upload nó vào thư mục local/config của thư mục cài đặt Piwigo.';
 $lang['Just another Piwigo gallery'] = 'Lại thêm một thư viện Piwigo nữa';
 $lang['Welcome to my photo gallery'] = 'Chào mừng bạn đến với thư viện hình của tôi';
+$lang['Welcome to your new installation of Piwigo!'] = 'Chào mừng bạn đến với bản cài đặt mới của Piwigo!';
+$lang['Don\'t hesitate to consult our forums for any help : %s'] = 'Đừng do dự  thảo luận tại diễn đàn của chúng tôi để được trợ giúp: %s';
 ?>
