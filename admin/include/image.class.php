@@ -41,9 +41,9 @@ interface imageInterface
   function rotate($rotation);
 
   function resize($width, $height);
-  
+
   function sharpen($amount);
-  
+
   function compose($overlay, $x, $y, $opacity);
 
   function write($destination_filepath);
@@ -96,7 +96,7 @@ class pwg_image
   function pwg_resize($destination_filepath, $max_width, $max_height, $quality, $automatic_rotation=true, $strip_metadata=false, $crop=false, $follow_orientation=true)
   {
     $starttime = get_moment();
-    
+
     // width/height
     $source_width  = $this->image->get_width();
     $source_height = $this->image->get_height();
@@ -118,7 +118,7 @@ class pwg_image
     }
 
     $this->image->set_compression_quality($quality);
-    
+
     if ($strip_metadata)
     {
       // we save a few kilobytes. For example a thumbnail with metadata weights 25KB, without metadata 7KB.
@@ -129,7 +129,7 @@ class pwg_image
     {
       $this->image->crop($resize_dimensions['crop']['width'], $resize_dimensions['crop']['height'], $resize_dimensions['crop']['x'], $resize_dimensions['crop']['y']);
     }
-    
+
     $this->image->resize($resize_dimensions['width'], $resize_dimensions['height']);
 
     if (isset($rotation))
@@ -182,23 +182,23 @@ class pwg_image
         $width = $destWidth;
       }
     }
-    
+
     $ratio_width  = $width / $max_width;
     $ratio_height = $height / $max_height;
-    $destination_width = $width; 
+    $destination_width = $width;
     $destination_height = $height;
-    
+
     // maximal size exceeded ?
     if ($ratio_width > 1 or $ratio_height > 1)
     {
       if ($ratio_width < $ratio_height)
-      { 
+      {
         $destination_width = round($width / $ratio_height);
         $destination_height = $max_height;
       }
       else
-      { 
-        $destination_width = $max_width; 
+      {
+        $destination_width = $max_width;
         $destination_height = round($height / $ratio_width);
       }
     }
@@ -232,16 +232,16 @@ class pwg_image
     {
       return null;
     }
-    
+
     if (!function_exists('exif_read_data'))
     {
       return null;
     }
 
     $rotation = null;
-    
+
     $exif = exif_read_data($source_filepath);
-    
+
     if (isset($exif['Orientation']) and preg_match('/^\s*(\d)/', $exif['Orientation'], $matches))
     {
       $orientation = $matches[1];
@@ -274,7 +274,7 @@ class pwg_image
 			array(-1, $amount, -1),
 			array(-1,   -1,    -1),
 		);
-    
+
     $norm = array_sum(array_map('array_sum', $matrix));
 
     for ($i=0; $i<3; $i++)
@@ -431,11 +431,24 @@ class image_imagick implements imageInterface
     $m = pwg_image::get_sharpen_matrix($amount);
 		return  $this->image->convolveImage($m);
   }
-  
+
   function compose($overlay, $x, $y, $opacity)
   {
-    // todo
-    return false;
+    $ioverlay = $overlay->image->image;
+    /*if ($ioverlay->getImageAlphaChannel() !== Imagick::ALPHACHANNEL_OPAQUE)
+    {
+      // Force the image to have an alpha channel
+      $ioverlay->setImageAlphaChannel(Imagick::ALPHACHANNEL_OPAQUE);
+    }*/
+
+    global $dirty_trick_xrepeat;
+    if ( !isset($dirty_trick_xrepeat) && $opacity < 100)
+    {// NOTE: Using setImageOpacity will destroy current alpha channels!
+      $ioverlay->evaluateImage(Imagick::EVALUATE_MULTIPLY, $opacity / 100, Imagick::CHANNEL_ALPHA);
+      $dirty_trick_xrepeat = true;
+    }
+
+    return $this->image->compositeImage($ioverlay, Imagick::COMPOSITE_DISSOLVE, $x, $y);
   }
 
   function write($destination_filepath)
@@ -524,7 +537,7 @@ class image_ext_imagick implements imageInterface
   function sharpen($amount)
   {
     $m = pwg_image::get_sharpen_matrix($amount);
-    
+
     $param ='convolve "'.count($m).':';
     foreach ($m as $line)
     {
@@ -535,7 +548,7 @@ class image_ext_imagick implements imageInterface
     $this->add_command('morphology', $param);
     return true;
   }
-  
+
   function compose($overlay, $x, $y, $opacity)
   {
     $param = 'compose dissolve -define compose:args='.$opacity;
@@ -563,7 +576,7 @@ class image_ext_imagick implements imageInterface
     $dest = pathinfo($destination_filepath);
     $exec .= ' "'.realpath($dest['dirname']).'/'.$dest['basename'].'"';
     @exec($exec, $returnarray);
-    
+
     //echo($exec);
     return is_array($returnarray);
   }
@@ -685,7 +698,7 @@ class image_gd implements imageInterface
     $m = pwg_image::get_sharpen_matrix($amount);
 		return imageconvolution($this->image, $m, 1, 0);
   }
-  
+
   function compose($overlay, $x, $y, $opacity)
   {
     $ioverlay = $overlay->image->image;
@@ -694,7 +707,7 @@ class image_gd implements imageInterface
 
     $ow = imagesx($ioverlay);
     $oh = imagesy($ioverlay);
-      
+
 		// Create a new blank image the site of our source image
 		$cut = imagecreatetruecolor($ow, $oh);
 
