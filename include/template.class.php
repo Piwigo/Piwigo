@@ -475,7 +475,7 @@ class Template {
         $rep = "\n".implode( "\n", $this->html_head_elements );
         if (strlen($this->html_style))
         {
-          $rep='<style type="text/css">'.$this->html_style.'</style>';
+          $rep.='<style type="text/css">'.$this->html_style.'</style>';
         }
         $this->output = substr_replace( $this->output, $rep, $pos, 0 );
       } //else maybe error or warning ?
