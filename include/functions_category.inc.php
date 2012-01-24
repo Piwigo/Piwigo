@@ -213,74 +213,7 @@ SELECT *
   return $cat;
 }
 
-// get_complete_dir returns the concatenation of get_site_url and
-// get_local_dir
-// Example : "pets > rex > 1_year_old" is on the the same site as the
-// Piwigo files and this category has 22 for identifier
-// get_complete_dir(22) returns "./galleries/pets/rex/1_year_old/"
-function get_complete_dir( $category_id )
-{
-  return get_site_url($category_id).get_local_dir($category_id);
-}
 
-// get_local_dir returns an array with complete path without the site url
-// Example : "pets > rex > 1_year_old" is on the the same site as the
-// Piwigo files and this category has 22 for identifier
-// get_local_dir(22) returns "pets/rex/1_year_old/"
-function get_local_dir( $category_id )
-{
-  global $page;
-
-  $uppercats = '';
-  $local_dir = '';
-
-  if ( isset( $page['plain_structure'][$category_id]['uppercats'] ) )
-  {
-    $uppercats = $page['plain_structure'][$category_id]['uppercats'];
-  }
-  else
-  {
-    $query = 'SELECT uppercats';
-    $query.= ' FROM '.CATEGORIES_TABLE.' WHERE id = '.$category_id;
-    $query.= ';';
-    $row = pwg_db_fetch_assoc( pwg_query( $query ) );
-    $uppercats = $row['uppercats'];
-  }
-
-  $upper_array = explode( ',', $uppercats );
-
-  $database_dirs = array();
-  $query = 'SELECT id,dir';
-  $query.= ' FROM '.CATEGORIES_TABLE.' WHERE id IN ('.$uppercats.')';
-  $query.= ';';
-  $result = pwg_query( $query );
-  while( $row = pwg_db_fetch_assoc( $result ) )
-  {
-    $database_dirs[$row['id']] = $row['dir'];
-  }
-  foreach ($upper_array as $id)
-  {
-    $local_dir.= $database_dirs[$id].'/';
-  }
-
-  return $local_dir;
-}
-
-// retrieving the site url : "http://domain.com/gallery/" or
-// simply "./galleries/"
-function get_site_url($category_id)
-{
-  global $page;
-
-  $query = '
-SELECT galleries_url
-  FROM '.SITES_TABLE.' AS s,'.CATEGORIES_TABLE.' AS c
-  WHERE s.id = c.site_id
-    AND c.id = '.$category_id.'
-;';
-  $row = pwg_db_fetch_assoc(pwg_query($query));
-  return $row['galleries_url'];
-}
 
 // returns an array of image orders available for users/visitors
 function get_category_preferred_image_orders()

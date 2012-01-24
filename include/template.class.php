@@ -114,6 +114,7 @@ class Template {
     $this->smarty->register_function('combine_script', array(&$this, 'func_combine_script') );
     $this->smarty->register_function('get_combined_scripts', array(&$this, 'func_get_combined_scripts') );
     $this->smarty->register_function('combine_css', array(&$this, 'func_combine_css') );
+    $this->smarty->register_function('define_derivative', array(&$this, 'func_define_derivative') );
     $this->smarty->register_compiler_function('get_combined_css', array(&$this, 'func_get_combined_css') );
     $this->smarty->register_block('footer_script', array(&$this, 'block_footer_script') );
     $this->smarty->register_prefilter( array('Template', 'prefilter_white_space') );
@@ -544,6 +545,45 @@ class Template {
     { // second call
       $this->html_style .= $content;
     }
+  }
+
+  function func_define_derivative($params, &$smarty)
+  {
+    !empty($params['name']) or fatal_error('define_derviative missing name');
+    if (isset($params['type']))
+    {
+      $derivative = ImageStdParams::get_by_type($params['type']);
+      $smarty->assign( $params['name'], $derivative);
+      return;
+    }
+    !empty($params['width']) or fatal_error('define_derviative missing width');
+    !empty($params['height']) or fatal_error('define_derviative missing height');
+
+    $derivative = new DerivativeParams( SizingParams::classic( intval($params['width']), intval($params['height'])) );
+    if (isset($params['crop']))
+    {
+      if (is_bool($params['crop']))
+      {
+        $derivative->sizing->max_crop = $params['crop'] ? 1:0;
+      }
+      else
+      {
+        $derivative->sizing->max_crop = round($params['crop']/100, 2);
+      }
+
+      if ($derivative->sizing->max_crop)
+      {
+        $minw = empty($params['min_width']) ? $derivative->max_width() : intval($params['min_width']);
+        $minw <= $derivative->max_width() or fatal_error('define_derviative invalid min_width');
+        $minh = empty($params['min_height']) ? $derivative->max_height() : intval($params['min_height']);
+        $minh <= $derivative->max_height() or fatal_error('define_derviative invalid min_height');
+
+        $derivative->sizing->min_size = array($minw, $minh);
+      }
+    }
+
+    ImageStdParams::apply_global($derivative);
+    $smarty->assign( $params['name'], $derivative);
   }
 
    /**

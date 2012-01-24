@@ -778,14 +778,7 @@ function get_thumbnail_path($element_info)
  */
 function get_thumbnail_url($element_info)
 {
-  $loc = $url = get_thumbnail_location($element_info);
-  if ( !url_is_remote($loc) )
-  {
-    $url = (get_root_url().$loc);
-  }
-  // plugins want another url ?
-  $url = trigger_event('get_thumbnail_url', $url, $element_info, $loc);
-  return embellish_url($url);
+  return DerivativeImage::thumb_url($element_info);
 }
 
 /* returns the relative path of the thumnail with regards to to the root

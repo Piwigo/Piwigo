@@ -24,6 +24,7 @@ final class SrcImage
   const IS_ORIGINAL = 0x01;
   const IS_MIMETYPE = 0x02;
 
+  public $id;
   public $rel_path;
 
   public $coi=null;
@@ -33,7 +34,8 @@ final class SrcImage
   function __construct($infos)
   {
     global $conf;
-
+    
+    $this->id = $infos['id'];
     $ext = get_extension($infos['path']);
     if (in_array($ext, $conf['picture_ext']))
     {
@@ -76,7 +78,7 @@ final class SrcImage
 
   function get_url()
   {
-    return get_root_url().$this->rel_path;
+    return embellish_url(get_root_url().$this->rel_path);
   }
 
   function has_size()
@@ -96,11 +98,8 @@ final class SrcImage
 
 final class DerivativeImage
 {
-  const SAME_AS_SRC = 0x10;
-
   public $src_image;
 
-  private $flags = 0;
   private $params;
   private $rel_path, $rel_url;
 
@@ -116,7 +115,7 @@ final class DerivativeImage
       $this->params = $type;
     }
 
-    self::build($src_image, $this->params, $this->rel_path, $this->rel_url, $this->flags);
+    self::build($src_image, $this->params, $this->rel_path, $this->rel_url);
   }
 
   static function thumb_url($infos)
@@ -129,7 +128,15 @@ final class DerivativeImage
     $src_image = is_object($infos) ? $infos : new SrcImage($infos);
     $params = is_string($type) ? ImageStdParams::get_by_type($type) : $type;
     self::build($src_image, $params, $rel_path, $rel_url);
-    return get_root_url().$rel_url;
+    if ($params == null)
+    {
+      return $src_image->get_url();
+    }
+    return embellish_url(
+        trigger_event('get_derivative_url',
+          get_root_url().$rel_url,
+          $params, $src_image, $rel_url
+          ) );
   }
 
   static function get_all($src_image)
@@ -148,12 +155,11 @@ final class DerivativeImage
     return $ret;
   }
 
-  private static function build($src, &$params, &$rel_path, &$rel_url, &$flags = null)
+  private static function build($src, &$params, &$rel_path, &$rel_url)
   {
     if ( $src->has_size() && $params->is_identity( $src->get_size() ) )
     {
       // todo - what if we have a watermark maybe return a smaller size?
-      $flags |= self::SAME_AS_SRC;
       $params = null;
       $rel_path = $rel_url = $src->rel_path;
       return;
@@ -220,18 +226,26 @@ final class DerivativeImage
 
   function get_url()
   {
-    return get_root_url().$this->rel_url;
+    if ($this->params == null)
+    {
+      return $this->src_image->get_url();
+    }
+    return embellish_url(
+        trigger_event('get_derivative_url',
+          get_root_url().$this->rel_url,
+          $this->params, $this->src_image, $this->rel_url
+          ) );
   }
 
   function same_as_source()
   {
-    return $this->flags & self::SAME_AS_SRC;
+    return $this->params == null;
   }
 
 
   function get_type()
   {
-    if ($this->flags & self::SAME_AS_SRC)
+    if ($this->params == null)
       return 'original';
     return $this->params->type;
   }
@@ -239,7 +253,7 @@ final class DerivativeImage
   /* returns the size of the derivative image*/
   function get_size()
   {
-    if ($this->flags & self::SAME_AS_SRC)
+    if ($this->params == null)
     {
       return $this->src_image->get_size();
     }
