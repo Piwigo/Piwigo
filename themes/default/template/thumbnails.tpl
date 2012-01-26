@@ -5,11 +5,11 @@
 .thumbnails SPAN,
 .thumbnails .wrap2 A,
 .thumbnails LABEL{ldelim}
-	width: {$derivative_params->max_width()}px;
+	width: {$derivative_params->max_width()+2}px;
 }
 
 .thumbnails .wrap2{ldelim}
-	height: {$derivative_params->max_height()+2}px;
+	height: {$derivative_params->max_height()+3}px;
 }
 {if $derivative_params->max_width() > 600}
 .thumbLegend {ldelim}font-size: 130%}

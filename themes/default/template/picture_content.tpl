@@ -15,7 +15,7 @@ function changeImgSrc(url,typeSave,typeMap,typeDisplay)
 		if (elt) elt.innerHTML = typeDisplay;
 		theImg.useMap = "#map"+typeMap;
 	}
-	document.cookie = 'picture_deriv=' + typeSave;
+	document.cookie = 'picture_deriv='+typeSave+';path={/literal}{$COOKIE_PATH}{literal}';
 }
 
 function toggleDerivativeSwitchBox()

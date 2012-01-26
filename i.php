@@ -73,20 +73,20 @@ function ilog()
     if (!mkgetdir($dir) or ! ($ilogfh=fopen($dir.'i.log', 'a')) )
       return;
   }
-  fwrite($ilogfh, date("c") );
+  $line = date("c");
   foreach( func_get_args() as $arg)
   {
-    fwrite($ilogfh, ' ' );
+    $line .= ' ';
     if (is_array($arg))
     {
-      fwrite($ilogfh, implode(' ', $arg) );
+      $line .= implode(' ', $arg);
     }
     else
     {
-      fwrite($ilogfh, $arg);
+      $line .= $arg;
     }
   }
-  fwrite($ilogfh, "\n");
+  fwrite($ilogfh, $line."\n");
 }
 
 function ierror($msg, $code)
@@ -396,6 +396,10 @@ if (!$changes)
   ierror( $page['src_url'], 301);
 }
 
+if ($d_size[0]*$d_size[1] < 100000)
+{// strip metadata for small images
+  $image->strip();
+}
 $image->set_compression_quality( $params->quality );
 $image->write( $page['derivative_path'] );
 $image->destroy();

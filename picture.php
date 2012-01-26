@@ -156,8 +156,11 @@ function default_picture_content($content, $element_info)
 
   if (isset($_COOKIE['picture_deriv']))
   {
-    pwg_set_session_var('picture_deriv', $_COOKIE['picture_deriv']);
-    setcookie('picture_deriv', false, 0);
+    if ( array_key_exists($_COOKIE['picture_deriv'], ImageStdParams::get_defined_type_map()) )
+    {
+      pwg_set_session_var('picture_deriv', $_COOKIE['picture_deriv']);
+    }
+    setcookie('picture_deriv', false, 0, cookie_path() );
   }
   $deriv_type = pwg_get_session_var('picture_deriv', IMG_LARGE);
   $selected_derivative = $element_info['derivatives'][$deriv_type];
@@ -194,6 +197,7 @@ function default_picture_content($content, $element_info)
 
   $template->assign( array(
       'ALT_IMG' => $element_info['file'],
+      'COOKIE_PATH' => cookie_path(),
       )
     );
   return $template->parse( 'default_content', true);
