@@ -68,4 +68,6 @@ $lang['Download the config file'] = '下载配置文件';
 $lang['You can download the config file and upload it to local/config directory of your installation.'] = '您可以下载配置文件，然后上传到 local/config 目录以完成您的安装.';
 $lang['Welcome to my photo gallery'] = '欢迎来到我的相册';
 $lang['Just another Piwigo gallery'] = '另一个崭新的Piwigo相册';
+$lang['Don\'t hesitate to consult our forums for any help : %s'] = '不要犹豫，来我们的论坛咨询任何Piwigo相关问题：%s';
+$lang['Welcome to your new installation of Piwigo!'] = '欢迎安装Piwigo！';
 ?>
