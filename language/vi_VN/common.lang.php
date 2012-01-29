@@ -367,6 +367,7 @@ $lang['Send my connection settings by email'] = 'Gởi thiết lập kết nối
 $lang['Successfully registered, you will soon receive an email with your connection settings. Welcome!'] = 'Đã đăng ký thành công, bạn sẽ nhận được ngay email kèm theo thiết lập kết nối. Xin chào mừng!';
 $lang['Username modification'] = 'Điều chỉnh tên đăng nhập';
 $lang['Your username has been successfully changed to : %s'] = 'Tên đăng nhập của bạn đã được đổi sang : %s thành công';
+$lang['square'] = 'Hình vuông';
 $lang['thumb'] = 'Hình thu nhỏ';
 $lang['small'] = 'Nhỏ';
 $lang['medium'] = 'Vừa';
