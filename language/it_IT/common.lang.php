@@ -374,5 +374,12 @@ $lang['Password: %s'] = 'Password : %s';
 $lang['Username: %s'] = 'Nome utente : %s';
 $lang['Email: %s'] = 'Email : %s';
 $lang['If you think you\'ve received this email in error, please contact us at %s'] = 'Se pensate avere ricevuto questa email per sbaglio, contattateci %s';
+$lang['large'] = 'Grande';
+$lang['square'] = 'Quadrata';
+$lang['thumb'] = 'Miniatura';
+$lang['small'] = 'Piccola';
+$lang['medium'] = 'Media';
+$lang['xlarge'] = 'XL';
+$lang['xxlarge'] = 'XXL';
 
 ?>
