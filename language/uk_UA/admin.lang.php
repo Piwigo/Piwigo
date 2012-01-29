@@ -627,5 +627,23 @@ $lang['Level 1'] = 'Контакти';
 $lang['Level 2'] = 'Друзі';
 $lang['Level 4'] = 'Родина';
 $lang['Level 8'] = 'Адміністратори'; 
+$lang['Activate comments'] = 'Активувати коментарі';
+$lang['Default comments order'] = 'Порядок коментарів за замовчуванням';
+$lang['Images manual order was saved'] = 'Ручний порядок зображень збережено';
+$lang['Impossible automatic correction'] = 'Автоматичне виправлення неможливо';
+$lang['Impossible to activate this theme, the parent theme is missing: %s'] = 'Ця тема не може бути активована, остільки батьківська тема відсутня: %s';
+$lang['Impossible to deactivate this language, first set another language as default.'] = 'Неможливо відключити цю мову, спочатку потрібно встановити іншу мову за замовчуванням.';
+$lang['Impossible to deactivate this language, you need at least one language.'] = 'Неможливо відключити цю мову, потрібна хоча б одна мова.';
+$lang['Impossible to deactivate this theme, you need at least one theme.'] = 'Неможливо відключити цю тему, потрібна хоча б одна тема.';
+$lang['Impossible to delete this theme. Other themes depends on it: %s'] = 'Неможливо видалити цю тему, тому що інші теми залежать від неї: %s';
+$lang['In your php.ini file, the upload_max_filesize (%sB) is bigger than post_max_size (%sB), you should change this setting'] = 'В вашому файлі php.ini, параметр upload_max_filesize (%sB) більший за параметр post_max_size (%sB), вам необхідно змінити ці налаштування';
+$lang['Inactive Languages'] = 'Неактивні мови';
+$lang['Inactive Plugins'] = 'Неактивні плагіни';
+$lang['Inactive Themes'] = 'Неактивні теми';
+$lang['include child albums'] = 'включити дочірні альбоми';
+$lang['Include display of recent photos grouped by dates'] = 'Включити відображення недавніх фотографій, згрупованих по датам';
+$lang['Include history data (Warning: server memory limit may be exceeded)'] = 'Включити історичні дані (Увага: ліміт пам\'яті сервера може бути перевищений)';
+$lang['Information data registered in database'] = 'Інформація даних, зареєстрованих в базі даних';
+
 
 ?>
