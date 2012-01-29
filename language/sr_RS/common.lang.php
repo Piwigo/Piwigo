@@ -121,7 +121,6 @@ $lang['Webmaster'] = 'Мајстор за интернет странице';
 $lang['Week %d'] = 'Недеља %d';
 $lang['About Piwigo'] = 'О Piwigo-u';
 $lang['You are not authorized to access the requested page'] = 'Нисте овлаштени за приступ затраженој страници';
-$lang['Add to caddie'] = 'додај у фиоку';
 $lang['add this photo to your favorites'] = 'додај ову слику у омиљене';
 $lang['Administration'] = 'Администрација';
 $lang['all'] = 'све';
@@ -360,6 +359,26 @@ $lang['You will receive a link to create a new password via email.'] = 'Доби
 $lang['Username or email'] = 'Корисничко име или е-адреса';
 $lang['Change my password'] = 'Промени моју лозинку';
 $lang['Enter your new password below.'] = 'Унесите Вашу нову лозинку испод.';
-
+$lang['Edit'] = 'Промени';
+$lang['EXIF Metadata'] = 'EXIF подаци';
+$lang['Hello %s,'] = 'Здраво %s,';
+$lang['IPTC Metadata'] = 'IPTC подаци';
+$lang['Send my connection settings by email'] = 'Пошаљи податке о подешавању везе електронском поштом';
+$lang['Successfully registered, you will soon receive an email with your connection settings. Welcome!'] = 'Успешна регистрација, добићете ускоро е-пошту са подацима о подешавању везе. Добродошли!';
+$lang['Username modification'] = 'Промена корисничког имена';
+$lang['Your username has been successfully changed to : %s'] = 'Ваше корисничко име је успешно промењено у : %s';
+$lang['square'] = 'квадрат';
+$lang['thumb'] = 'сличица';
+$lang['small'] = 'мала';
+$lang['medium'] = 'средња';
+$lang['large'] = 'Велика';
+$lang['xlarge'] = 'XL велика';
+$lang['xxlarge'] = 'XXL велика';
+$lang['original'] = 'оригинална';
+$lang['Thank you for registering at %s!'] = 'Хвала за регистрацију на %s!';
+$lang['Here are your connection settings'] = 'Овде су ваша подешавања за везу';
+$lang['Password: %s'] = 'Лозинка: %s';
+$lang['Username: %s'] = 'Корисничко име: %s';
+$lang['If you think you\'ve received this email in error, please contact us at %s'] = 'Ако мислите да сте добили ову е-пошту грешком, контактирајте нас на следећу адресу: %s'; 
 
 ?>
