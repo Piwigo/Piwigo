@@ -363,4 +363,23 @@ $lang['Enter your new password below.'] = 'Indtast dit nye password herunder.';
 $lang['EXIF Metadata'] = 'EXIF Metadata';
 $lang['IPTC Metadata'] = 'IPTC Metadata';
 $lang['Edit'] = 'Edit';
+$lang['Hello %s,'] = 'Hej %s,';
+$lang['Send my connection settings by email'] = 'Send mine instillinger med email';
+$lang['Successfully registered, you will soon receive an email with your connection settings. Welcome!'] = 'Du er registreret, du vil snart modtage en mail med dine informationer. Velkommen!';
+$lang['Username modification'] = 'Brugernavn ændring';
+$lang['Your username has been successfully changed to : %s'] = 'Dit brugernavn er ændret til: %s';
+$lang['square'] = 'Kvadrat';
+$lang['thumb'] = 'Thumb';
+$lang['small'] = 'Small';
+$lang['medium'] = 'Medium';
+$lang['large'] = 'Large';
+$lang['xlarge'] = 'XLarge';
+$lang['xxlarge'] = 'XXLarge';
+$lang['original'] = 'Original';
+$lang['Thank you for registering at %s!'] = 'Tak for din registrering hos %s!';
+$lang['Here are your connection settings'] = 'Her er dine login informationer';
+$lang['Password: %s'] = 'Password: %s';
+$lang['Username: %s'] = 'Brugernavn: %s';
+$lang['If you think you\'ve received this email in error, please contact us at %s'] = 'Hvis du tror du har modtaget denne email ved en fejl kontakt os på %s';
+
 ?>
