@@ -362,5 +362,23 @@ $lang['Enter your new password below.'] = 'Escreva a sua nova palavra-passe abao
 $lang['Edit'] = 'Editar';
 $lang['EXIF Metadata'] = 'EXIF Metadata';
 $lang['IPTC Metadata'] = 'IPTC Metadata';
+$lang['Hello %s,'] = 'Olá %s,';
+$lang['Send my connection settings by email'] = 'Envie minhas configurações de conexão por e-mail';
+$lang['Successfully registered, you will soon receive an email with your connection settings. Welcome!'] = 'Registrado com sucesso! Você receberá, em breve, um e-mail com suas configurações de conexão. Bem-vindo!';
+$lang['Username modification'] = 'Modificação de nome de usuário';
+$lang['Your username has been successfully changed to : %s'] = 'Seu nome de usuário foi alterado com sucesso para : %s';
+$lang['square'] = 'Quadro';
+$lang['thumb'] = 'Miniatura';
+$lang['small'] = 'Pequeno';
+$lang['medium'] = 'Médio';
+$lang['large'] = 'Grande';
+$lang['xlarge'] = 'Extra grande';
+$lang['xxlarge'] = 'Gigante';
+$lang['original'] = 'Original';
+$lang['Thank you for registering at %s!'] = 'Obrigado por registrar-se em %s!';
+$lang['Here are your connection settings'] = 'Aqui estão suas configurações de conexão';
+$lang['Password: %s'] = 'Senha: %s';
+$lang['Username: %s'] = 'Nome de usuário: %s';
+$lang['If you think you\'ve received this email in error, please contact us at %s'] = 'Se você acha que recebeu este e-mail por engano, por favor contacte-nos em %s'; 
 
 ?>
