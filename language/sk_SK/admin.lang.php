@@ -822,6 +822,16 @@ $lang['Predefined filter'] = 'Predefinovaný filter';
 $lang['With no album'] = 'Bez albumu'; 
 $lang['With no tag'] = 'Bez kľúčového slova'; 
 $lang['With no virtual album'] = 'Bez virtuálneho albumu';
-
+$lang['Activate comments'] = 'Aktívne komentáre';
+$lang['Default comments order'] = 'Predvolené zoradenie komentárov';
+$lang['GD version'] = 'GD verzia';
+$lang['Photo name'] = 'Názov fotky';
+$lang['Send connection settings by email'] = 'Poslať nastavenie pripojenia mailom';
+$lang['The original image quality must be a number between %d and %d'] = 'Originálna kvalita fotky musí byť číslo medzi %d a %d';
+$lang['The original maximum height must be a number between %d and %d'] = 'Originálna maximálna výška musí byť číslo medzi %d a %d';
+$lang['The original maximum width must be a number between %d and %d'] = 'Originálna maximálna šírka musí byť číslo medzi %d a %d';
+$lang['Resize after upload'] = 'Zmeniť rozmer po nahratí';
+$lang['Photo Sizes'] = 'Veľkosť fotky';
+$lang['Original Size'] = 'Originálna veľkosť';
 
 ?>
