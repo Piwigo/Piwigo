@@ -3,13 +3,17 @@
 </div>
 
 <ul>
-  {foreach from=$advanced_features item=feature}
-    <li><a href="{$feature.URL}">{$feature.CAPTION}</a></li>
-  {/foreach}
+{if (isset($U_MAINT_LOCK_GALLERY))}
+  <li><a href="{$U_MAINT_LOCK_GALLERY}" onclick="return confirm('{'A locked gallery is only visible to administrators'|@translate|@escape:'javascript'}');">{'Lock gallery'|@translate}</a></li>
+{else}
+  <li><a href="{$U_MAINT_UNLOCK_GALLERY}">{'Unlock gallery'|@translate}</a></li>
+{/if}
 </ul>
 
 <ul>
-	<li><a href="{$U_MAINT_ORPHAN_TAGS}">{'Delete orphan tags'|@translate}</a></li>
+  {foreach from=$advanced_features item=feature}
+    <li><a href="{$feature.URL}">{$feature.CAPTION}</a></li>
+  {/foreach}
 </ul>
 
 <ul>
@@ -23,6 +27,7 @@
 </ul>
 
 <ul>
+	<li><a href="{$U_MAINT_ORPHAN_TAGS}">{'Delete orphan tags'|@translate}</a></li>
 	<li><a href="{$U_MAINT_HISTORY_DETAIL}" onclick="return confirm('{'Purge history detail'|@translate|@escape:'javascript'}');">{'Purge history detail'|@translate}</a></li>
 	<li><a href="{$U_MAINT_HISTORY_SUMMARY}" onclick="return confirm('{'Purge history summary'|@translate|@escape:'javascript'}');">{'Purge history summary'|@translate}</a></li>
 	<li><a href="{$U_MAINT_SESSIONS}">{'Purge sessions'|@translate}</a></li>

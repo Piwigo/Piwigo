@@ -845,5 +845,7 @@ $lang['Original Size'] = 'Taille originale';
 $lang['Send connection settings by email'] = 'Envoyer les identifiants par email';
 $lang['Activate comments'] = 'Activer les commentaires';
 $lang['Default comments order'] = 'Ordre par défaut des commentaires';
-
+$lang['A locked gallery is only visible to administrators'] = 'Une galerie verrouillée n\'est visible que des administrateurs';
+$lang['Unlock gallery'] = 'Déverouiller la galerie';
+$lang['Gallery unlocked'] = 'Galerie déverouillée';
 ?>

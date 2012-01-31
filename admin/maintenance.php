@@ -47,6 +47,19 @@ $action = isset($_GET['action']) ? $_GET['action'] : '';
 
 switch ($action)
 {
+  case 'lock_gallery' :
+  {
+    conf_update_param('gallery_locked', 'true');
+    redirect(get_root_url().'admin.php?page=maintenance');
+    break;
+  }
+  case 'unlock_gallery' :
+  {
+    conf_update_param('gallery_locked', 'false');
+    $_SESSION['page_infos'] = array(l10n('Gallery unlocked'));
+    redirect(get_root_url().'admin.php?page=maintenance');
+    break;
+  }
   case 'categories' :
   {
     update_uppercats();
@@ -163,6 +176,23 @@ $template->assign(
     'U_HELP' => get_root_url().'admin/popuphelp.php?page=maintenance',
     )
   );
+
+if ($conf['gallery_locked'])
+{
+  $template->assign(
+    array(
+      'U_MAINT_UNLOCK_GALLERY' => sprintf($url_format, 'unlock_gallery'),
+      )
+    );
+}
+else
+{
+  $template->assign(
+    array(
+      'U_MAINT_LOCK_GALLERY' => sprintf($url_format, 'lock_gallery'),
+      )
+    );
+}
 
 // +-----------------------------------------------------------------------+
 // | Define advanced features                                              |

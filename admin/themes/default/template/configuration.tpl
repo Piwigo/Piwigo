@@ -34,13 +34,6 @@
   <ul>
     <li>
       <label>
-        <span class="property">{'Lock gallery'|@translate}</span>
-        <input type="checkbox" name="gallery_locked" {if ($main.gallery_locked)}checked="checked"{/if}>
-      </label>
-    </li>
-
-    <li>
-      <label>
         <span class="property">{'Allow rating'|@translate}</span>
         <input type="checkbox" name="rate" {if ($main.rate)}checked="checked"{/if}>
       </label>

@@ -832,4 +832,7 @@ $lang['[NBM] Problems or questions'] = "[NBM] Problems or questions";
 $lang['Resize after upload'] = 'Resize after upload';
 $lang['Photo Sizes'] = 'Photo Sizes';
 $lang['Original Size'] = 'Original Size';
+$lang['A locked gallery is only visible to administrators'] = 'A locked gallery is only visible to administrators';
+$lang['Unlock gallery'] = 'Unlock gallery';
+$lang['Gallery unlocked'] = 'Gallery unlocked';
 ?>

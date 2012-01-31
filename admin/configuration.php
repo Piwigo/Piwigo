@@ -46,7 +46,6 @@ else
 }
 
 $main_checkboxes = array(
-    'gallery_locked',
     'allow_user_registration',
     'obligatory_user_mail_address',
     'rate',
@@ -172,16 +171,6 @@ if (isset($_POST['submit']))
         }
       }
       
-      if (empty($_POST['gallery_locked']) and $conf['gallery_locked'])
-      {
-        $tpl_var = & $template->get_template_vars('header_msgs');
-        $msg_key = array_search(l10n('The gallery is locked for maintenance. Please, come back later.'), $tpl_var);
-        unset($tpl_var[$msg_key]);
-      }
-      elseif (!empty($_POST['gallery_locked']) and !$conf['gallery_locked'])
-      {
-        $template->append('header_msgs', l10n('The gallery is locked for maintenance. Please, come back later.'));
-      }
       foreach( $main_checkboxes as $checkbox)
       {
         $_POST[$checkbox] = empty($_POST[$checkbox])?'false':'true';
