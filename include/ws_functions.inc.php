@@ -1602,66 +1602,6 @@ function remove_chunks($original_sum, $type)
   }
 }
 
-/*
- * The $file_path must be the path of the basic "web sized" photo
- * The $type value will automatically modify the $file_path to the corresponding file
- */
-function add_file($file_path, $type, $original_sum, $file_sum)
-{
-  include_once(PHPWG_ROOT_PATH.'admin/include/functions_upload.inc.php');
-
-  $upload_dir = dirname($file_path);
-  if (substr(PHP_OS, 0, 3) == 'WIN')
-  {
-    $upload_dir = str_replace('/', DIRECTORY_SEPARATOR, $upload_dir);
-  }
-
-  ws_logfile('[add_file] file_path  : '.$file_path);
-  ws_logfile('[add_file] upload_dir : '.$upload_dir);
-
-  if (!is_dir($upload_dir)) {
-    umask(0000);
-    $recursive = true;
-    if (!@mkdir($upload_dir, 0777, $recursive))
-    {
-      return new PwgError(500, '[add_file] error during '.$type.' directory creation');
-    }
-  }
-
-  if (!is_writable($upload_dir))
-  {
-    // last chance to make the directory writable
-    @chmod($upload_dir, 0777);
-
-    if (!is_writable($upload_dir))
-    {
-      return new PwgError(500, '[add_file] '.$type.' directory has no write access');
-    }
-  }
-
-  secure_directory($upload_dir);
-
-  // merge the file
-  merge_chunks($file_path, $original_sum, $type);
-  chmod($file_path, 0644);
-
-  // check dumped thumbnail md5
-  $dumped_md5 = md5_file($file_path);
-  if ($dumped_md5 != $file_sum)
-  {
-    return new PwgError(500, '[add_file] '.$type.' transfer failed');
-  }
-
-  list($width, $height) = getimagesize($file_path);
-  $filesize = floor(filesize($file_path)/1024);
-
-  return array(
-    'width' => $width,
-    'height' => $height,
-    'filesize' => $filesize,
-    );
-}
-
 function ws_images_addFile($params, &$service)
 {
   ws_logfile(__FUNCTION__.', input :  '.var_export($params, true));
