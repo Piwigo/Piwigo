@@ -835,4 +835,12 @@ $lang['Original Size'] = 'Original Size';
 $lang['A locked gallery is only visible to administrators'] = 'A locked gallery is only visible to administrators';
 $lang['Unlock gallery'] = 'Unlock gallery';
 $lang['Gallery unlocked'] = 'Gallery unlocked';
+$lang['Notify administrators when a comment is'] = 'Notify administrators when a comment is';
+$lang['modified'] = 'modified';
+$lang['deleted'] = 'deleted';
+$lang['pending validation'] = 'pending validation';
+$lang['Save visits in history for'] = 'Save visits in history for';
+$lang['simple visitors'] = 'simple visitors';
+$lang['registered users'] = 'registered users';
+$lang['administrators'] = 'administrators';
 ?>

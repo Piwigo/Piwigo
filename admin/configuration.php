@@ -52,17 +52,14 @@ $main_checkboxes = array(
     'rate_anonymous',
     'email_admin_on_new_user',
     'allow_user_customization',
+    'log',
+    'history_admin',
+    'history_guest',
    );
 
 $sizes_checkboxes = array(
     'original_resize',
   );
-
-$history_checkboxes = array(
-    'log',
-    'history_admin',
-    'history_guest'
-   );
 
 $comments_checkboxes = array(
     'activate_comments',
@@ -207,14 +204,6 @@ if (isset($_POST['submit']))
 
       break;
     }
-    case 'history' :
-    {
-      foreach( $history_checkboxes as $checkbox)
-      {
-        $_POST[$checkbox] = empty($_POST[$checkbox])?'false':'true';
-      }
-      break;
-    }
     case 'comments' :
     {
       // the number of comments per page must be an integer between 5 and 50
@@ -295,7 +284,6 @@ $tabsheet = new tabsheet();
 $tabsheet->add('main', l10n('Main'), $conf_link.'main');
 $tabsheet->add('sizes', l10n('Photo Sizes'), $conf_link.'sizes');
 $tabsheet->add('display', l10n('Display'), $conf_link.'display');
-$tabsheet->add('history', l10n('History'), $conf_link.'history');
 $tabsheet->add('comments', l10n('Comments'), $conf_link.'comments');
 $tabsheet->add('default', l10n('Guest Settings'), $conf_link.'default');
 // TabSheet selection
@@ -379,21 +367,6 @@ switch ($page['section'])
     {
       $template->append(
           'main',
-          array(
-            $checkbox => $conf[$checkbox]
-            ),
-          true
-        );
-    }
-    break;
-  }
-  case 'history' :
-  {
-    //Necessary for merge_block_vars
-    foreach ($history_checkboxes as $checkbox)
-    {
-      $template->append(
-          'history',
           array(
             $checkbox => $conf[$checkbox]
             ),

@@ -848,4 +848,12 @@ $lang['Default comments order'] = 'Ordre par défaut des commentaires';
 $lang['A locked gallery is only visible to administrators'] = 'Une galerie verrouillée n\'est visible que des administrateurs';
 $lang['Unlock gallery'] = 'Déverouiller la galerie';
 $lang['Gallery unlocked'] = 'Galerie déverouillée';
+$lang['Notify administrators when a comment is'] = 'Notifier les administrateurs lorsqu\'un commentaire est';
+$lang['modified'] = 'modifié';
+$lang['deleted'] = 'supprimé';
+$lang['pending validation'] = 'en attente de validation';
+$lang['Save visits in history for'] = 'Historiser les visites des ';
+$lang['simple visitors'] = 'simple visiteurs';
+$lang['registered users'] = 'utilisateurs enregistrés';
+$lang['administrators'] = 'administrateurs';
 ?>

@@ -245,63 +245,6 @@ FORM#categoryPermissions LI {
 	white-space: nowrap;
 }
 
-FIELDSET#mainConfCheck SPAN.property,
-FIELDSET#historyConf SPAN.property,
-FIELDSET#commentsConf SPAN.property,
-FIELDSET#uploadConf SPAN.property,
-FIELDSET#indexDisplayConf SPAN.property,
-FIELDSET#pictureDisplayConf SPAN.property,
-FIELDSET#pictureInfoConf SPAN.property {
-	float: right;
-	text-align: left;
-}
-FIELDSET#mainConfCheck INPUT,
-FIELDSET#historyConf INPUT,
-FIELDSET#commentsConf INPUT,
-FIELDSET#uploadConf INPUT,
-FIELDSET#indexDisplayConf INPUT,
-FIELDSET#pictureDisplayConf INPUT,
-FIELDSET#pictureInfoConf INPUT {
-	float: none;
-}
-
-FIELDSET#mainConf SPAN.property {
-	width: 25%;
-}
-FIELDSET#mainConf TEXTAREA.description {
-	width: 70%;
-}
-
-FIELDSET#mainConfCheck SPAN.property,
-FIELDSET#historyConf SPAN.property,
-FIELDSET#indexDisplayConf SPAN.property,
-FIELDSET#pictureDisplayConf SPAN.property,
-FIELDSET#pictureInfoConf SPAN.property {
-	width: 90%;
-}
-FIELDSET#mainConfCheck INPUT,
-FIELDSET#historyConf INPUT,
-FIELDSET#commentsConf INPUT,
-FIELDSET#indexDisplayConf INPUT,
-FIELDSET#pictureDisplayConf INPUT,
-FIELDSET#pictureInfoConf INPUT {
-	margin-left: 5%;
-}
-FIELDSET#uploadConf SELECT {
-	float: right;
-	margin: 2px 10px 0px;
-}
-FIELDSET#uploadConf INPUT {
-	float: right;
-	margin: 5px 10px 0px;
-}
-FIELDSET#uploadConf SPAN.property {
-	width: 65%;
-}
-FIELDSET#commentsConf SPAN.property {
-	width: 85%;
-}
-
 .statBar {
 	height: 10px;
 	background-color: #ff7700;
@@ -526,6 +469,16 @@ FORM.properties SPAN.property {
 	text-align: right;
 	margin: 0;
 	padding: 0 0.5em 0 0;
+}
+
+#mainConf, #historyConf, #commentsConf {border:none}
+
+#configContent label {
+  font-weight: bold;
+}
+
+#mainConf li {
+  margin-bottom: 1em;
 }
 
 #theHeader H1 {
@@ -843,7 +796,7 @@ h2:lang(en) { text-transform:capitalize; }
 #helpContent LI, #ftpPage LI {margin-top:10px;}
 #helpContent P.nextStepLink {text-align:center; font-weight:bold; margin-bottom:20px;}
 
-#configContent FIELDSET, #availablePlugins FIELDSET  {border:none;}
+#availablePlugins FIELDSET  {border:none;}
 
 /**
  * Informations box in administration
@@ -1050,12 +1003,12 @@ div.token-input-dropdown ul li.token-input-dropdown-item2 {background-color: #ff
 div.token-input-dropdown ul li em {font-weight: bold;font-style: normal;}
 div.token-input-dropdown ul li.token-input-selected-dropdown-item {background-color: #3b5998;color: #fff;}
 
-#mainConfCheck a.addFilter {font-weight:normal;margin-left:20px;}
-#mainConfCheck a.removeFilter {font-weight:normal;}
-#mainConfCheck span.property span.filter:first-child a.removeFilter {display:none;} /* can't delete the first field */
-#mainConfCheck span.filter {display:block;margin-left:20px;}
-#mainConfCheck .transparent {opacity:0.5;filter:alpha(opacity=50);}
-#mainConfCheck .order_by_is_custom {display:block;font-weight:normal;font-style:italic;margin-left:20px;}
+#mainConf a.addFilter {font-weight:normal;margin-left:20px;}
+#mainConf a.removeFilter {font-weight:normal;}
+#mainConf span.property span.filter:first-child a.removeFilter {display:none;} /* can't delete the first field */
+#mainConf span.filter {display:block;margin-left:20px;}
+#mainConf .transparent {opacity:0.5;filter:alpha(opacity=50);}
+#mainConf .order_by_is_custom {display:block;font-weight:normal;font-style:italic;margin-left:20px;}
 
 /* Upload Form */
 #uploadBoxes .file {margin-bottom:5px;text-align:left;}
