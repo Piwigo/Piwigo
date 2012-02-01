@@ -827,5 +827,15 @@ $lang['The original maximum width must be a number between %d and %d'] = 'Oriģi
 $lang['Resize after upload'] = 'Mainīt izmērus pēc augšupielāde';
 $lang['Photo Sizes'] = 'Foto Izmēri';
 $lang['Original Size'] = 'Oriģinālie Izmēri';
+$lang['A locked gallery is only visible to administrators'] = 'Bloķētā galerija ir redzama tikai administratoriem';
+$lang['Unlock gallery'] = 'Atbloķēt galeriju';
+$lang['Gallery unlocked'] = 'Galerija ir atbloķēta';
+$lang['Notify administrators when a comment is'] = 'Ziņot administratoriem, kad komentārs ir';
+$lang['modified'] = 'modificēts';
+$lang['pending validation'] = 'gaida validāciju';
+$lang['Save visits in history for'] = 'Ieglabāt vēsturē apmeklējumus priekš';
+$lang['simple visitors'] = 'parastiem apmeklētājiem';
+$lang['registered users'] = 'reģistrētiem lietotājiem';
+$lang['administrators'] = 'administratoriem';
 
 ?>
