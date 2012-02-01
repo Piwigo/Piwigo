@@ -843,4 +843,7 @@ $lang['Save visits in history for'] = 'Save visits in history for';
 $lang['simple visitors'] = 'simple visitors';
 $lang['registered users'] = 'registered users';
 $lang['administrators'] = 'administrators';
+$lang['This album contains %d photos, added on %s.'] = 'This album contains %d photos, added on %s.';
+$lang['This album contains %d photos, added between %s and %s.'] = 'This album contains %d photos, added between %s and %s.';
+$lang['This album contains no photo.'] = 'This album contains no photo.';
 ?>

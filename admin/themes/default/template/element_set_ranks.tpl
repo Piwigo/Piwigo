@@ -37,9 +37,9 @@ jQuery('.clipwrapper').tipTip({
 }); 
 {/literal}{/footer_script}
 
-<h2>{'Manage photo ranks'|@translate}</h2>
-
-<h3>{$CATEGORIES_NAV}</h3>
+<div class="titrePage">
+  <h2><span style="letter-spacing:0">{$CATEGORIES_NAV}</span> &#8250; {'Edit album'|@translate} {$TABSHEET_TITLE}</h2>
+</div>
 
 <form action="{$F_ACTION}" method="post">
 {if !empty($thumbnails)}

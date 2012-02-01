@@ -360,7 +360,7 @@ while ($row = pwg_db_fetch_assoc($result))
   $name =
     get_cat_display_name_cache(
       $row['uppercats'],
-      get_root_url().'admin.php?page=cat_modify&amp;cat_id=',
+      get_root_url().'admin.php?page=album-',
       false
       );
 

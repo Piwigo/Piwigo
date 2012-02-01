@@ -1991,6 +1991,7 @@ function get_active_menu($menu_page)
     case 'batch_manager':
       return 0;
 
+    case 'album':
     case 'cat_list':
     case 'cat_modify':
     case 'cat_move':

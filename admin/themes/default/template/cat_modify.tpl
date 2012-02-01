@@ -1,209 +1,108 @@
-
-{include file='include/autosize.inc.tpl'}
-{include file='include/resize.inc.tpl'}
-
 <div class="titrePage">
-  <h2>{'Edit album'|@translate}</h2>
+  <h2><span style="letter-spacing:0">{$CATEGORIES_NAV}</span> &#8250; {'Edit album'|@translate} {$TABSHEET_TITLE}</h2>
 </div>
-
-<h3>{$CATEGORIES_NAV}</h3>
-
-<ul class="categoryActions">
-  {if cat_admin_access($CAT_ID)}
-  <li><a href="{$U_JUMPTO}" title="{'jump to album'|@translate}"><img src="{$themeconf.admin_icon_dir}/category_jump-to.png" alt="{'jump to album'|@translate}"></a></li>
-  {/if}
-  {if isset($U_MANAGE_ELEMENTS) }
-  <li><a href="{$U_MANAGE_ELEMENTS}" title="{'manage album photos'|@translate}"><img src="{$ROOT_URL}{$themeconf.admin_icon_dir}/category_elements.png" alt="{'Photos'|@translate}"></a></li>
-  {/if}
-  <li><a href="{$U_MANAGE_RANKS}" title="{'Manage photo ranks'|@translate}"><img src="{$ROOT_URL}{$themeconf.admin_icon_dir}/ranks.png" alt="{'ranks'|@translate}"></a></li>
-  <li><a href="{$U_CHILDREN}" title="{'manage sub-albums'|@translate}"><img src="{$ROOT_URL}{$themeconf.admin_icon_dir}/category_children.png" alt="{'sub-albums'|@translate}"></a></li>
-  {if isset($U_MANAGE_PERMISSIONS) }
-  <li><a href="{$U_MANAGE_PERMISSIONS}" title="{'Edit album permissions'|@translate}"><img src="{$ROOT_URL}{$themeconf.admin_icon_dir}/category_permissions.png" alt="{'Permissions'|@translate}"></a></li>
-  {/if}
-  {if isset($U_SYNC) }
-  <li><a href="{$U_SYNC}" title="{'Synchronize'|@translate}"><img src="{$ROOT_URL}{$themeconf.admin_icon_dir}/synchronize.png" alt="{'Synchronize'|@translate}"></a></li>
-  {/if}
-  {if isset($U_DELETE) }
-  <li><a href="{$U_DELETE}" title="{'delete album'|@translate}"><img src="{$ROOT_URL}{$themeconf.admin_icon_dir}/category_delete.png" alt="{'delete album'|@translate}" onclick="return confirm('{'Are you sure?'|@translate|@escape:javascript}');"></a></li>
-  {/if}
-</ul>
 
 <form action="{$F_ACTION}" method="POST" id="catModify">
 
 <fieldset>
   <legend>{'Informations'|@translate}</legend>
-  <table>
 
-    {if isset($CAT_FULL_DIR) }
+  <table style="width:100%">
     <tr>
-      <td><strong>{'Directory'|@translate}</strong></td>
-      <td class="row1">{$CAT_FULL_DIR}</td>
-    </tr>
-    {/if}
-    
-    <tr>
-      <td><strong>{'Name'|@translate}</strong></td>
-      <td>
-        <input type="text" class="large" name="name" value="{$CAT_NAME}" maxlength="60">
+      <td style="width:1%;padding-right:10px;text-align:center;">
+{if isset($representant) }
+  {if isset($representant.picture) }
+        <a href="{$representant.picture.URL}"><img src="{$representant.picture.SRC}" alt="" style="border:2px solid #ddd"></a>
+  {else}
+        <img src="{$ROOT_URL}{$themeconf.admin_icon_dir}/category_representant_random.png" alt="{'Random photo'|@translate}">
+  {/if}
+
+  {if $representant.ALLOW_SET_RANDOM }
+        <p style="text-align:center;"><input class="submit" type="submit" name="set_random_representant" value="Refresh" title="{'Find a new representant by random'|@translate}"></p>
+  {/if}
+
+  {if isset($representant.ALLOW_DELETE) }
+        <p><input class="submit" type="submit" name="delete_representant" value="{'Delete Representant'|@translate}"></p>
+  {/if}
+{/if}
       </td>
-    </tr>
-    <tr>
-      <td><strong>{'Description'|@translate}</strong></td>
-      <td>
-        <textarea cols="50" rows="5" name="comment" id="comment" class="description">{$CAT_COMMENT}</textarea>
+
+      <td style="vertical-align:top;border-left:2px solid #ddd;padding-left:10px;">
+<p>{$INTRO}</p>
+<ul style="padding-left:15px;">
+{if cat_admin_access($CAT_ID)}
+  <li><a href="{$U_JUMPTO}">{'jump to album'|@translate} →</a></li>
+{/if}
+
+{if isset($U_MANAGE_ELEMENTS) }
+  <li><a href="{$U_MANAGE_ELEMENTS}">{'manage album photos'|@translate}</a></li>
+{/if}
+
+  <li><a href="{$U_CHILDREN}">{'manage sub-albums'|@translate}</a></li>
+
+{if isset($U_SYNC) }
+  <li><a href="{$U_SYNC}">{'Synchronize'|@translate}</a> ({'Directory'|@translate} = {$CAT_FULL_DIR})</li>
+{/if}
+
+{if isset($U_DELETE) }
+  <li><a href="{$U_DELETE}" onclick="return confirm('{'Are you sure?'|@translate|@escape:javascript}');">{'delete album'|@translate}</a></li>
+{/if}
+
+</ul>
       </td>
     </tr>
   </table>
+
 </fieldset>
+
+<fieldset>
+  <legend>{'Properties'|@translate}</legend>
+  <p>
+    <strong>{'Name'|@translate}</strong>
+    <br>
+    <input type="text" class="large" name="name" value="{$CAT_NAME}" maxlength="60">
+  </p>
+
+  <p>
+    <strong>{'Description'|@translate}</strong>
+    <br>
+    <textarea cols="50" rows="5" name="comment" id="comment" class="description">{$CAT_COMMENT}</textarea>
+  </p>
 
 {if isset($move_cat_options) }
-<fieldset id="move">
-  <legend>{'Move'|@translate}</legend>
-  {'Parent album'|@translate}
-  <select class="categoryDropDown" name="parent">
-    <option value="0">------------</option>
-    {html_options options=$move_cat_options selected=$move_cat_options_selected }
-  </select>
-</fieldset>
+  <p>
+    <strong>{'Parent album'|@translate}</strong>
+    <br>
+    <select class="categoryDropDown" name="parent">
+      <option value="0">------------</option>
+      {html_options options=$move_cat_options selected=$move_cat_options_selected }
+    </select>
+  </p>
 {/if}
 
-<fieldset id="options">
-  <legend>{'Options'|@translate}</legend>
-  <table>
-    <tr>
-      <td><strong>{'Access type'|@translate}</strong>
-      <td>
-        {html_radios name='status' values=$status_values output=$status_values|translate selected=$CAT_STATUS}
-      </td>
-    </tr>
-    <tr>
-      <td><strong>{'Lock'|@translate}</strong>
-      <td>
-        {html_radios name='visible' values='true,false'|@explode output='No,Yes'|@explode|translate selected=$CAT_VISIBLE}
-      </td>
-    </tr>
+  <p>
+    <strong>{'Access type'|@translate}</strong>
+    <br>
+    {html_radios name='status' values=$status_values output=$status_values|translate selected=$CAT_STATUS}
+  </p>
+
+  <p>
+    <strong>{'Lock'|@translate}</strong>
+    <br>
+    {html_radios name='visible' values='true,false'|@explode output='No,Yes'|@explode|translate selected=$CAT_VISIBLE}
+  </p>
+
   {if isset($CAT_COMMENTABLE)}
-    <tr>
-      <td><strong>{'Comments'|@translate}</strong>
-      <td>
-        {html_radios name='commentable' values='false,true'|@explode output='No,Yes'|@explode|translate selected=$CAT_COMMENTABLE}
-      </td>
-    </tr>
+  <p>
+    <strong>{'Comments'|@translate}</strong>
+    <br>
+    {html_radios name='commentable' values='false,true'|@explode output='No,Yes'|@explode|translate selected=$CAT_COMMENTABLE}
+  </p>
   {/if}
-  </table>
-</fieldset>
 
-<p style="text-align:center;">
-  <input class="submit" type="submit" value="{'Submit'|@translate}" name="submit">
-  <input class="submit" type="reset" value="{'Reset'|@translate}" name="reset">
-</p>
-
-{if isset($representant) }
-<fieldset id="representant">
-  <legend>{'Representant'|@translate}</legend>
-  <table>
-    <tr>
-      <td align="center">
-        {if isset($representant.picture) }
-        <a href="{$representant.picture.URL}"><img src="{$representant.picture.SRC}" alt=""></a>
-        {else}
-        <img src="{$ROOT_URL}{$themeconf.admin_icon_dir}/category_representant_random.png" alt="{'Random photo'|@translate}">
-        {/if}
-      </td>
-      <td>
-        {if $representant.ALLOW_SET_RANDOM }
-        <p><input class="submit" type="submit" name="set_random_representant" value="{'Find a new representant by random'|@translate}"></p>
-        {/if}
-
-        {if isset($representant.ALLOW_DELETE) }
-        <p><input class="submit" type="submit" name="delete_representant" value="{'Delete Representant'|@translate}"></p>
-        {/if}
-      </td>
-    </tr>
-  </table>
-</fieldset>
-{/if}
-
-</form>
-
-<form action="{$F_ACTION}" method="POST" id="links">
-
-<fieldset id="linkAllNew">
-  <legend>{'Link all album photos to a new album'|@translate}</legend>
-
-  <table>
-    <tr>
-      <td>{'Virtual album name'|@translate}</td>
-      <td><input type="text" class="large" name="virtual_name"></td>
-    </tr>
-
-    <tr>
-      <td>{'Parent album'|@translate}</td>
-      <td>
-        <select class="categoryDropDown" name="parent">
-          <option value="0">------------</option>
-          {html_options options=$create_new_parent_options }
-        </select>
-      </td>
-    </tr>
-  </table>
-
-  <p>
-    <input class="submit" type="submit" value="{'Submit'|@translate}" name="submitAdd">
-    <input class="submit" type="reset" value="{'Reset'|@translate}" name="reset">
+  <p style="margin:0">
+    <input class="submit" type="submit" value="{'Save Settings'|@translate}" name="submit">
   </p>
-
 </fieldset>
-
-<fieldset id="linkAllExist">
-  <legend>{'Link all album photos to some existing albums'|@translate}</legend>
-
-  <table>
-    <tr>
-      <td>{'Albums'|@translate}</td>
-      <td>
-        <select class="categoryList" name="destinations[]" multiple="multiple" size="5">
-          {html_options options=$category_destination_options }
-        </select>
-      </td>
-    </tr>
-  </table>
-
-  <p>
-    <input class="submit" type="submit" value="{'Submit'|@translate}" name="submitDestinations">
-    <input class="submit" type="reset" value="{'Reset'|@translate}" name="reset">
-  </p>
-
-</fieldset>
-
-{if isset($group_mail_options)}
-<fieldset id="emailCatInfo">
-  <legend>{'Send an information email to group members'|@translate}</legend>
-
-  <table>
-    <tr>
-      <td><strong>{'Group'|@translate}</strong></td>
-      <td>
-        <select name="group">
-          {html_options options=$group_mail_options}
-        </select>
-      </td>
-    </tr>
-    <tr>
-      <td><strong>{'Mail content'|@translate}</strong></td>
-      <td>
-        <textarea cols="50" rows="5" name="mail_content" id="mail_content" class="description">{$MAIL_CONTENT}</textarea>
-      </td>
-    </tr>
-
-  </table>
-
-  <p>
-    <input class="submit" type="submit" value="{'Submit'|@translate}" name="submitEmail">
-    <input class="submit" type="reset" value="{'Reset'|@translate}" name="reset">
-  </p>
-
-</fieldset>
-{/if}
 
 </form>

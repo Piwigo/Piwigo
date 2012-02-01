@@ -180,7 +180,7 @@ elseif ($category['image_order']!='')
 // Navigation path
 $navigation = get_cat_display_name_cache(
   $category['uppercats'],
-  get_root_url().'admin.php?page=cat_modify&amp;cat_id='
+  get_root_url().'admin.php?page=album-'
   );
 
 $template->assign(

@@ -120,6 +120,18 @@ if (isset($_GET['page']) and preg_match('/^plugin-([^-]*)(?:-(.*))?$/', $_GET['p
   }
 }
 
+// ?page=album-134-properties is an clean alias of
+// ?page=album&cat_id=134&tab=properties
+if (isset($_GET['page']) and preg_match('/^album-(\d+)(?:-(.*))?$/', $_GET['page'], $matches))
+{
+  $_GET['page'] = 'album';
+  $_GET['cat_id'] = $matches[1];
+  if (isset($matches[2]))
+  {
+    $_GET['tab'] = $matches[2];
+  }
+}
+
 if (isset($_GET['page'])
     and preg_match('/^[a-z_]*$/', $_GET['page'])
     and is_file(PHPWG_ROOT_PATH.'admin/'.$_GET['page'].'.php'))

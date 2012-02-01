@@ -219,6 +219,12 @@ LI.menuLi {
 
 FORM#catModify TABLE { width: auto; }
 
+#catModify p {
+  line-height: 20px;
+  margin: 0 0 1.5em;
+  text-align: left;
+}
+
 FIELDSET.elementEdit .thumb {
 	display: block;
 	float: right;
@@ -787,7 +793,7 @@ UL.thumbnails SPAN.wrap2 {
 #themesContent H3 {font-size:16px; text-align:left; border-bottom:1px solid #444; letter-spacing:1px; margin:5px;}
 .themeBoxes {min-height:0;text-align:left;}
 
-h2 { letter-spacing:2px; font-weight:bold;}
+h2 { letter-spacing:1px; font-weight:bold;}
 h2:lang(en) { text-transform:capitalize; }
 
 #pluginsMenuSeparator {width:80%; margin:5px auto;}

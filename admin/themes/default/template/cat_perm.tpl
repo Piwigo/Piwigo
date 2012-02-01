@@ -1,8 +1,6 @@
 <div class="titrePage">
-  <h2>{'Edit album permissions'|@translate}</h2>
+  <h2><span style="letter-spacing:0">{$CATEGORIES_NAV}</span> &#8250; {'Edit album'|@translate} {$TABSHEET_TITLE}</h2>
 </div>
-
-<h3>{$CATEGORIES_NAV}</h3>
 
 <form action="{$F_ACTION}" method="post" id="categoryPermissions">
 

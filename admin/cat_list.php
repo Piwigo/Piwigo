@@ -297,7 +297,7 @@ foreach ($categories as $category)
         ),
 
       'U_CHILDREN' => $cat_list_url.'&amp;parent_id='.$category['id'],
-      'U_EDIT'     => $base_url.'cat_modify&amp;cat_id='.$category['id'],
+      'U_EDIT'     => $base_url.'album-'.$category['id'],
 
       'IS_VIRTUAL' => empty($category['dir'])
     );

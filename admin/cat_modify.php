@@ -163,7 +163,10 @@ if (isset($_POST['submit']))
     move_categories( array($_GET['cat_id']), $_POST['parent'] );
   }
 
-  array_push($page['infos'], l10n('Album updated successfully'));
+  // we redirect to hide/show the "permissions" tab if the category status
+  // has changed
+  $_SESSION['page_infos'] = array(l10n('Album updated successfully'));
+  redirect($admin_album_base_url);
 }
 elseif (isset($_POST['set_random_representant']))
 {
@@ -178,75 +181,7 @@ UPDATE '.CATEGORIES_TABLE.'
 ;';
   pwg_query($query);
 }
-elseif (isset($_POST['submitAdd']))
-{
-  $output_create = create_virtual_category(
-    $_POST['virtual_name'],
-    (0 == $_POST['parent'] ? null : $_POST['parent'])
-    );
 
-  if (isset($output_create['error']))
-  {
-    array_push($page['errors'], $output_create['error']);
-  }
-  else
-  {
-    // Virtual album creation succeeded
-    //
-    // Add the information in the information list
-    array_push($page['infos'], $output_create['info']);
-
-    // Link the new category to the current category
-    associate_categories_to_categories(
-      array($_GET['cat_id']),
-      array($output_create['id'])
-      );
-
-    // information
-    array_push(
-      $page['infos'],
-      sprintf(
-        l10n('Album photos associated to the following albums: %s'),
-        '<ul><li>'
-        .get_cat_display_name_from_id($output_create['id'])
-        .'</li></ul>'
-        )
-      );
-  }
-}
-elseif (isset($_POST['submitDestinations'])
-         and isset($_POST['destinations'])
-         and count($_POST['destinations']) > 0)
-{
-  associate_categories_to_categories(
-    array($_GET['cat_id']),
-    $_POST['destinations']
-    );
-
-  $category_names = array();
-  foreach ($_POST['destinations'] as $category_id)
-  {
-    array_push(
-      $category_names,
-      get_cat_display_name_from_id($category_id)
-      );
-  }
-
-  array_push(
-    $page['infos'],
-    sprintf(
-      l10n('Album photos associated to the following albums: %s'),
-      '<ul><li>'.implode('</li><li>', $category_names).'</li></ul>'
-      )
-    );
-}
-
-$query = '
-SELECT *
-  FROM '.CATEGORIES_TABLE.'
-  WHERE id = '.$_GET['cat_id'].'
-;';
-$category = pwg_db_fetch_assoc( pwg_query( $query ) );
 // nullable fields
 foreach (array('comment','dir','site_id', 'id_uppercat') as $nullable)
 {
@@ -268,13 +203,13 @@ $category['has_images'] = pwg_db_num_rows($result)>0 ? true : false;
 // Navigation path
 $navigation = get_cat_display_name_cache(
   $category['uppercats'],
-  get_root_url().'admin.php?page=cat_modify&amp;cat_id='
+  get_root_url().'admin.php?page=album-'
   );
 
-$form_action = get_root_url().'admin.php?page=cat_modify&amp;cat_id='.$_GET['cat_id'];
+$form_action = $admin_album_base_url.'-properties';
 
 //----------------------------------------------------- template initialization
-$template->set_filename( 'categories', 'cat_modify.tpl');
+$template->set_filename( 'album_properties', 'cat_modify.tpl');
 
 $base_url = get_root_url().'admin.php?page=';
 $cat_list_url = $base_url.'cat_list';
@@ -303,8 +238,6 @@ $template->assign(
         )
       ),
 
-    'MAIL_CONTENT' => empty($_POST['mail_content'])
-        ? '' : stripslashes($_POST['mail_content']),
     'U_CHILDREN' => $cat_list_url.'&amp;parent_id='.$category['id'],
     'U_HELP' => get_root_url().'admin/popuphelp.php?page=cat_modify',
 
@@ -317,14 +250,6 @@ if ($conf['activate_comments'])
   $template->assign('CAT_COMMENTABLE', boolean_to_string($category['commentable']));
 }
 
-
-if ('private' == $category['status'])
-{
-  $template->assign( 'U_MANAGE_PERMISSIONS',
-      $base_url.'cat_perm&amp;cat='.$category['id']
-    );
-}
-
 // manage album elements link
 if ($category['has_images'])
 {
@@ -332,7 +257,42 @@ if ($category['has_images'])
     'U_MANAGE_ELEMENTS',
     $base_url.'batch_manager&amp;cat='.$category['id']
     );
+
+  $query = '
+SELECT
+    COUNT(image_id),
+    MIN(DATE(date_available)),
+    MAX(DATE(date_available))
+  FROM '.IMAGES_TABLE.'
+    JOIN '.IMAGE_CATEGORY_TABLE.' ON image_id = id
+  WHERE category_id = '.$category['id'].'
+;';
+  list($image_count, $min_date, $max_date) = pwg_db_fetch_row(pwg_query($query));
+
+  if ($min_date == $max_date)
+  {
+    $intro = sprintf(
+      l10n('This album contains %d photos, added on %s.'),
+      $image_count,
+      format_date($min_date)
+      );
+  }
+  else
+  {
+    $intro = sprintf(
+      l10n('This album contains %d photos, added between %s and %s.'),
+      $image_count,
+      format_date($min_date),
+      format_date($max_date)
+      );
+  }
 }
+else
+{
+  $intro = l10n('This album contains no photo.');
+}
+
+$template->assign('INTRO', $intro);
 
 $template->assign(
   'U_MANAGE_RANKS',
@@ -352,9 +312,7 @@ else
   $category['cat_full_dir'] = get_complete_dir($_GET['cat_id']);
   $template->assign(
     array(
-      'CAT_FULL_DIR'       => preg_replace('/\/$/',
-                                    '',
-                                    $category['cat_full_dir'] )
+      'CAT_FULL_DIR' => preg_replace('/\/$/', '', $category['cat_full_dir'])
       )
     );
 
@@ -430,144 +388,8 @@ SELECT id,name,uppercats,global_rank
     );
 }
 
-
-// create virtual in parent and link
-$query = '
-SELECT id,name,uppercats,global_rank
-  FROM '.CATEGORIES_TABLE.'
-;';
-display_select_cat_wrapper(
-  $query,
-  array(),
-  'create_new_parent_options'
-  );
-
-
-// destination categories
-$query = '
-SELECT id,name,uppercats,global_rank
-  FROM '.CATEGORIES_TABLE.'
-  WHERE id != '.$category['id'].'
-;';
-display_select_cat_wrapper(
-  $query,
-  array(),
-  'category_destination_options'
-  );
-
-// info by email to an access granted group of category informations
-if (isset($_POST['submitEmail']) and !empty($_POST['group']))
-{
-  set_make_full_url();
-
-  /* TODO: if $category['representative_picture_id']
-    is empty find child representative_picture_id */
-  if (!empty($category['representative_picture_id']))
-  {
-    $query = '
-SELECT id, file, path, representative_ext
-  FROM '.IMAGES_TABLE.'
-  WHERE id = '.$category['representative_picture_id'].'
-;';
-
-    $result = pwg_query($query);
-    if (pwg_db_num_rows($result) > 0)
-    {
-      $element = pwg_db_fetch_assoc($result);
-
-      $img_url  = '<a href="'.
-                      make_picture_url(array(
-                          'image_id' => $element['id'],
-                          'image_file' => $element['file'],
-                          'category' => $category
-                        ))
-                      .'" class="thumblnk"><img src="'.DerivativeImage::thumb_url($element).'"></a>';
-    }
-  }
-
-  if (!isset($img_url))
-  {
-    $img_url = '';
-  }
-
-  // TODO Mettre un array pour traduction subjet
-  pwg_mail_group(
-    $_POST['group'],
-    get_str_email_format(true), /* TODO add a checkbox in order to choose format*/
-    get_l10n_args('[%s] Visit album %s',
-      array($conf['gallery_title'], $category['name'])),
-    'cat_group_info',
-    array
-    (
-      'IMG_URL' => $img_url,
-      'CAT_NAME' => $category['name'],
-      'LINK' => make_index_url(
-          array(
-            'category' => array(
-              'id' => $category['id'],
-              'name' => $category['name'],
-              'permalink' => $category['permalink']
-              ))),
-      'CPL_CONTENT' => empty($_POST['mail_content'])
-                          ? '' : stripslashes($_POST['mail_content'])
-    ),
-    '' /* TODO Add listbox in order to choose Language selected */);
-
-  unset_make_full_url();
-
-  $query = '
-SELECT
-    name
-  FROM '.GROUPS_TABLE.'
-  WHERE id = '.$_POST['group'].'
-;';
-  list($group_name) = pwg_db_fetch_row(pwg_query($query));
-
-  array_push(
-    $page['infos'],
-    sprintf(
-      l10n('An information email was sent to group "%s"'),
-      $group_name
-      )
-    );
-}
-
-if ('private' == $category['status'])
-{
-  $query = '
-SELECT
-    group_id
-  FROM '.GROUP_ACCESS_TABLE.'
-  WHERE cat_id = '.$category['id'].'
-;';
-}
-else
-{
-  $query = '
-SELECT
-    id AS group_id
-  FROM '.GROUPS_TABLE.'
-;';
-}
-$group_ids = array_from_query($query, 'group_id');
-
-if (count($group_ids) > 0)
-{
-  $query = '
-SELECT
-    id,
-    name
-  FROM '.GROUPS_TABLE.'
-  WHERE id IN ('.implode(',', $group_ids).')
-  ORDER BY name ASC
-;';
-  $template->assign('group_mail_options',
-      simple_hash_from_query($query, 'id', 'name')
-    );
-}
-
 trigger_action('loc_end_cat_modify');
 
 //----------------------------------------------------------- sending html code
-$template->assign_var_from_handle('ADMIN_CONTENT', 'categories');
+$template->assign_var_from_handle('ADMIN_CONTENT', 'album_properties');
 ?>

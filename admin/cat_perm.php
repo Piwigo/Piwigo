@@ -166,10 +166,10 @@ $template->assign(
     'CATEGORIES_NAV' =>
       get_cat_display_name_from_id(
         $page['cat'],
-        'admin.php?page=cat_modify&amp;cat_id='
+        'admin.php?page=album-'
         ),
     'U_HELP' => get_root_url().'admin/popuphelp.php?page=cat_perm',
-    'F_ACTION' => get_root_url().'admin.php?page=cat_perm&amp;cat='.$page['cat']
+    'F_ACTION' => $admin_album_base_url.'-permissions',
     )
   );
 

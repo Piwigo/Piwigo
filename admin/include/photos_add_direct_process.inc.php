@@ -252,7 +252,7 @@ SELECT
   WHERE category_id = '.$category_id.'
 ;';
     list($count) = pwg_db_fetch_row(pwg_query($query));
-    $category_name = get_cat_display_name_from_id($category_id, 'admin.php?page=cat_modify&amp;cat_id=');
+    $category_name = get_cat_display_name_from_id($category_id, 'admin.php?page=album-');
     
     // information
     array_push(
