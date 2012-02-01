@@ -845,6 +845,18 @@ $lang['Original Size'] = 'Dimenzioni originali';
 $lang['Send connection settings by email'] = 'Inviare gli ID via email';
 $lang['Activate comments'] = 'Attivare i commenti';
 $lang['Default comments order'] = 'Ordinamento di default dei commenti';
+$lang['A locked gallery is only visible to administrators'] = 'Una galleria bloccata è visibile solo dagli amministratori';
+$lang['Unlock gallery'] = 'Sbloccare la galleria';
+$lang['Gallery unlocked'] = 'Galleria sbloccata';
+$lang['Notify administrators when a comment is'] = 'Notificare agli amministratori quando un commento viene';
+$lang['modified'] = 'modificato';
+$lang['deleted'] = 'cancellato';
+$lang['pending validation'] = 'in attesa di convalida';
+$lang['Save visits in history for'] = 'Storicizzare le visite dei ';
+$lang['simple visitors'] = 'singoli visitatori';
+$lang['registered users'] = 'utenti registrati';
+$lang['administrators'] = 'amministratori';
+
 $lang['%s has been successfully updated.'] = '%s è stato aggiornato con successo.';
 $lang['Photo name'] = 'Nome foto';
 
