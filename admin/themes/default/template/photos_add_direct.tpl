@@ -198,6 +198,7 @@ var sizeLimit = Math.round({$upload_max_filesize} / 1024); /* in KBytes */
     'uploader'       : uploadify_path + '/uploadify.php',
     'langFile'       : uploadify_path + '/uploadifyLang_en.js',
     'swf'            : uploadify_path + '/uploadify.swf',
+    'checkExisting'  : false,
 
     buttonCursor     : 'pointer',
     'buttonText'     : buttonText,
