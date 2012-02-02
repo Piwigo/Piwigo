@@ -253,3 +253,8 @@ div.token-input-dropdown ul li {background-color:#eee;}
 div.token-input-dropdown ul li.token-input-selected-dropdown-item {background-color:#FF7800;}
 
 #progressbar {border:1px solid #666; background-color:#666;}
+
+/* Album Properties */
+#albumThumbnail img, #albumLinks {
+  border-color:#333;
+}

@@ -1036,3 +1036,20 @@ p#uploadModeInfos {text-align:left;margin-top:1em;font-size:90%;color:#999;}
 .warningDeletion {display:none;font-style:italic;}
 
 #debug { margin-left: 227px; font-size:12px; }
+
+/* Album Properties */
+#albumThumbnail {
+  width:1%;
+  padding-right:10px;
+  text-align:center;
+}
+
+#albumThumbnail img {
+  border:2px solid #ddd;
+}
+
+#albumLinks {
+  vertical-align:top;
+  border-left:2px solid #ddd;
+  padding-left:10px;
+}

@@ -9,10 +9,10 @@
 
   <table style="width:100%">
     <tr>
-      <td style="width:1%;padding-right:10px;text-align:center;">
+      <td id="albumThumbnail">
 {if isset($representant) }
   {if isset($representant.picture) }
-        <a href="{$representant.picture.URL}"><img src="{$representant.picture.SRC}" alt="" style="border:2px solid #ddd"></a>
+        <a href="{$representant.picture.URL}"><img src="{$representant.picture.SRC}" alt=""></a>
   {else}
         <img src="{$ROOT_URL}{$themeconf.admin_icon_dir}/category_representant_random.png" alt="{'Random photo'|@translate}">
   {/if}
@@ -27,7 +27,7 @@
 {/if}
       </td>
 
-      <td style="vertical-align:top;border-left:2px solid #ddd;padding-left:10px;">
+      <td id="albumLinks">
 <p>{$INTRO}</p>
 <ul style="padding-left:15px;">
 {if cat_admin_access($CAT_ID)}
