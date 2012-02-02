@@ -192,6 +192,7 @@ if (isset($_GET['processed']))
       
     $query = '
 SELECT
+    id,
     file,
     path,
     tn_ext
