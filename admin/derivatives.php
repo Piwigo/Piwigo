@@ -214,6 +214,7 @@ if ( isset($_POST['d']) )
       {// disabled
         if (isset($enabled[$type]))
         {// now disabled, before was enabled
+          $changed_types[] = $type;
           $disabled[$type] = $enabled[$type];
           unset($enabled[$type]);
         }

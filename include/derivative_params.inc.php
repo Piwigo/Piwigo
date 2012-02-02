@@ -33,21 +33,20 @@ function size_to_url($s)
   return $s[0].'x'.$s[1];
 }
 
-function url_to_size($s)
-{
-  $pos = strpos($s, 'x');
-  if ($pos===false)
-  {
-    return array((int)$s, (int)$s);
-  }
-  return array((int)substr($s,0,$pos), (int)substr($s,$pos+1));
-}
-
 function size_equals($s1, $s2)
 {
   return ($s1[0]==$s2[0] && $s1[1]==$s2[1]);
 }
 
+function char_to_fraction($c)
+{
+	return (ord($c) - ord('a'))/25;
+}
+
+function fraction_to_char($f)
+{
+	return ord('a') + round($f*25);
+}
 
 /** small utility to manipulate a 'rectangle'*/
 final class ImageRect
@@ -79,8 +78,8 @@ final class ImageRect
 
     if (!empty($coi))
     {
-      $coil = floor($this->r * (ord($coi[0]) - ord('a'))/25);
-      $coir = ceil($this->r * (ord($coi[2]) - ord('a'))/25);
+      $coil = floor($this->r * char_to_fraction($coi[0]));
+      $coir = ceil($this->r * char_to_fraction($coi[2]));
       $availableL = $coil > $this->l ? $coil - $this->l : 0;
       $availableR = $coir < $this->r ? $this->r - $coir : 0;
       if ($availableL + $availableR <= $pixels)
@@ -115,8 +114,8 @@ final class ImageRect
 
     if (!empty($coi))
     {
-      $coit = floor($this->b * (ord($coi[1]) - ord('a'))/25);
-      $coib = ceil($this->b * (ord($coi[3]) - ord('a'))/25);
+      $coit = floor($this->b * char_to_fraction($coi[1]));
+      $coib = ceil($this->b * char_to_fraction($coi[3]));
       $availableT = $coit > $this->t ? $coit - $this->t : 0;
       $availableB = $coib < $this->b ? $this->b - $coib : 0;
       if ($availableT + $availableB <= $pixels)
@@ -179,38 +178,10 @@ final class SizingParams
       else
       {
         $tokens[] = size_to_url($this->ideal_size);
-        $tokens[] = sprintf('%02x', round(100*$this->max_crop) );
+        $tokens[] = fraction_to_char($this->max_crop);
         $tokens[] = size_to_url($this->min_size);
       }
   }
-
-  static function from_url_tokens($tokens)
-  {
-    if (count($tokens)<1)
-      throw new Exception('Empty array while parsing Sizing');
-    $token = array_shift($tokens);
-    if ($token[0]=='s')
-    {
-      return new SizingParams( url_to_size( substr($token,1) ) );
-    }
-    if ($token[0]=='e')
-    {
-      $s = url_to_size( substr($token,1) );
-      return new SizingParams($s, 1, $s);
-    }
-
-    $ideal_size = url_to_size( $token );
-    if (count($tokens)<2)
-      throw new Exception('Sizing arr');
-
-    $token = array_shift($tokens);
-    $crop = hexdec($token) / 100;
-
-    $token = array_shift($tokens);
-    $min_size = url_to_size( $token );
-    return new SizingParams($ideal_size, $crop, $min_size);
-  }
-
 
   function compute($in_size, $coi, &$crop_rect, &$scale_size)
   {
@@ -300,13 +271,6 @@ final class DerivativeParams
   function add_url_tokens(&$tokens)
   {
     $this->sizing->add_url_tokens($tokens);
-  }
-
-  static function from_url_tokens($tokens)
-  {
-    $sizing = SizingParams::from_url_tokens($tokens);
-    $ret = new DerivativeParams($sizing);
-    return $ret;
   }
 
   function compute_final_size($in_size, $coi)

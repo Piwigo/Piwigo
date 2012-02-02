@@ -202,15 +202,18 @@ SELECT
     }
 
     $ok = true;
-    foreach ($files as $path)
-    {
-      if (is_file($path) and !unlink($path))
-      {
-        $ok = false;
-        trigger_error('"'.$path.'" cannot be removed', E_USER_WARNING);
-        break;
-      }
-    }
+		if (!isset($conf['never_delete_originals']))
+		{
+			foreach ($files as $path)
+			{
+				if (is_file($path) and !unlink($path))
+				{
+					$ok = false;
+					trigger_error('"'.$path.'" cannot be removed', E_USER_WARNING);
+					break;
+				}
+			}
+		}
 
     if ($ok)
     {

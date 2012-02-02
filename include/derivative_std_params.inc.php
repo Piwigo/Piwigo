@@ -46,6 +46,7 @@ final class ImageStdParams
   private static $type_map = array();
   private static $undefined_type_map = array();
   private static $watermark;
+  public static $custom = array();
 
   static function get_all_types()
   {
@@ -70,6 +71,22 @@ final class ImageStdParams
   static function get_by_type($type)
   {
     return self::$all_type_map[$type];
+  }
+  
+  static function get_custom($w, $h, $crop=0, $minw=null, $minh=null)
+  {
+    $params = new DerivativeParams( new SizingParams( array($w,$h), $crop, array($minw,$minh)) );
+    self::apply_global($params);
+
+    $key = array();
+    $params->add_url_tokens($key);
+    $key = implode('_',$key);
+    if ( @self::$custom[$key] < time() - 24*3600)
+    {
+      self::$custom[$key] = time();
+      self::save();
+    }
+    return $params;
   }
 
   static function get_watermark()
@@ -103,6 +120,8 @@ final class ImageStdParams
       self::$type_map = $arr['d'];
       self::$watermark = @$arr['w'];
       if (!self::$watermark) self::$watermark = new WatermarkParams();
+      self::$custom = @$arr['c'];
+      if (!self::$custom) self::$custom = array();
     }
     else
     {
@@ -118,16 +137,22 @@ final class ImageStdParams
   
   static function set_and_save($map)
   {
-    global $conf;
     self::$type_map = $map;
+    self::save();
+    self::build_maps();
+  }
+
+  static function save()
+  {
+    global $conf;
 
     $ser = serialize( array(
       'd' => self::$type_map,
       'w' => self::$watermark,
+      'c' => self::$custom,
       ) );
     conf_update_param('derivatives', addslashes($ser) );
     file_put_contents(PHPWG_ROOT_PATH.$conf['data_location'].'derivatives.dat', $ser);
-    self::build_maps();
   }
 
   private static function make_default()
@@ -142,7 +167,7 @@ final class ImageStdParams
     self::$type_map[IMG_XXLARGE] = new DerivativeParams( SizingParams::classic(1200,900) );
   }
 
-  public static function apply_global($params)
+  static function apply_global($params)
   {
     if (!empty(self::$watermark->file) &&
         (self::$watermark->min_size[0]<=$params->sizing->ideal_size[0]

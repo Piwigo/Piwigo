@@ -65,14 +65,9 @@ function mkgetdir($dir)
 
 function ilog()
 {
-  global $conf, $ilogfh;
+  global $conf;
   if (!$conf['enable_i_log']) return;
-  if(!$ilogfh)
-  {
-    $dir=PHPWG_ROOT_PATH.$conf['data_location'].'tmp/';
-    if (!mkgetdir($dir) or ! ($ilogfh=fopen($dir.'i.log', 'a')) )
-      return;
-  }
+
   $line = date("c");
   foreach( func_get_args() as $arg)
   {
@@ -86,7 +81,11 @@ function ilog()
       $line .= $arg;
     }
   }
-  fwrite($ilogfh, $line."\n");
+	$file=PHPWG_ROOT_PATH.$conf['data_location'].'tmp/i.log';
+  if (false == file_put_contents($file, $line."\n", FILE_APPEND))
+	{
+		mkgetdir(dirname($file));
+	}
 }
 
 function ierror($msg, $code)
@@ -122,6 +121,49 @@ function time_step( &$step )
   $tmp = $step;
   $step = microtime(true);
   return intval(1000*($step - $tmp));
+}
+
+function url_to_size($s)
+{
+  $pos = strpos($s, 'x');
+  if ($pos===false)
+  {
+    return array((int)$s, (int)$s);
+  }
+  return array((int)substr($s,0,$pos), (int)substr($s,$pos+1));
+}
+
+function parse_custom_params($tokens)
+{
+  if (count($tokens)<1)
+    ierror('Empty array while parsing Sizing', 400);
+
+  $crop = 0;
+  $min_size = null;
+
+  $token = array_shift($tokens);
+  if ($token[0]=='s')
+  {
+    $size = url_to_size( substr($token,1) );
+  }
+  elseif ($token[0]=='e')
+  {
+    $crop = 1;
+    $size = $min_size = url_to_size( substr($token,1) );
+  }
+  else
+  {
+    $size = url_to_size( $token );
+    if (count($tokens)<2)
+      ierror('Sizing arr', 400);
+
+    $token = array_shift($tokens);
+    $crop = char_to_fraction($token);
+
+    $token = array_shift($tokens);
+    $min_size = url_to_size( $token );
+  }
+  return new DerivativeParams( new SizingParams($size, $crop, $min_size) );
 }
 
 function parse_request()
@@ -199,14 +241,8 @@ function parse_request()
 
   if ($page['derivative_type'] == IMG_CUSTOM)
   {
-    try
-    {
-      $params = $page['derivative_params'] = DerivativeParams::from_url_tokens($deriv);
-    }
-    catch (Exception $e)
-    {
-      ierror($e->getMessage(), 400);
-    }
+    $params = $page['derivative_params'] = parse_custom_params($deriv);
+
     if ($params->sizing->ideal_size[0] < 20 or $params->sizing->ideal_size[1] < 20)
     {
       ierror('Invalid size', 400);
@@ -214,6 +250,19 @@ function parse_request()
     if ($params->sizing->max_crop < 0 or $params->sizing->max_crop > 1)
     {
       ierror('Invalid crop', 400);
+    }
+    $greatest = ImageStdParams::get_by_type(IMG_XXLARGE);
+    if ($params->max_width() > $greatest->max_width() || $params->max_height() > $greatest->max_height())
+    {
+      ierror('Too big', 403);
+    }
+    
+    $key = array();
+    $params->add_url_tokens($key);
+    $key = implode('_', $key);
+    if (!isset(ImageStdParams::$custom[$key]))
+    {
+      ierror('Size not allowed', 403);
     }
   }
 

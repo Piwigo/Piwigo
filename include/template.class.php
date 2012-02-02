@@ -559,31 +559,33 @@ class Template {
     !empty($params['width']) or fatal_error('define_derviative missing width');
     !empty($params['height']) or fatal_error('define_derviative missing height');
 
-    $derivative = new DerivativeParams( SizingParams::classic( intval($params['width']), intval($params['height'])) );
+    $w = intval($params['width']);
+    $h = intval($params['height']);
+    $crop = 0;
+    $minw=null;
+    $minh=null;
+    
     if (isset($params['crop']))
     {
       if (is_bool($params['crop']))
       {
-        $derivative->sizing->max_crop = $params['crop'] ? 1:0;
+        $crop = $params['crop'] ? 1:0;
       }
       else
       {
-        $derivative->sizing->max_crop = round($params['crop']/100, 2);
+        $crop = round($params['crop']/100, 2);
       }
 
-      if ($derivative->sizing->max_crop)
+      if ($crop)
       {
-        $minw = empty($params['min_width']) ? $derivative->max_width() : intval($params['min_width']);
-        $minw <= $derivative->max_width() or fatal_error('define_derviative invalid min_width');
-        $minh = empty($params['min_height']) ? $derivative->max_height() : intval($params['min_height']);
-        $minh <= $derivative->max_height() or fatal_error('define_derviative invalid min_height');
-
-        $derivative->sizing->min_size = array($minw, $minh);
+        $minw = empty($params['min_width']) ? $w : intval($params['min_width']);
+        $minw <= $w or fatal_error('define_derviative invalid min_width');
+        $minh = empty($params['min_height']) ? $h : intval($params['min_height']);
+        $minh <= $h or fatal_error('define_derviative invalid min_height');
       }
     }
 
-    ImageStdParams::apply_global($derivative);
-    $smarty->assign( $params['name'], $derivative);
+    $smarty->assign( $params['name'], ImageStdParams::get_custom($w, $h, $crop, $minw, $minh) );
   }
 
    /**

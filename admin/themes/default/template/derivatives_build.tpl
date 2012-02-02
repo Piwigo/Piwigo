@@ -44,7 +44,7 @@ TABLE {
 
 {footer_script require='jquery.effects.slide'}{literal}
 
-var loader = new ImageLoader( {onChanged: loaderChanged} )
+var loader = new ImageLoader( {onChanged: loaderChanged, maxRequests:1 } )
 	, pending_next_page = null
 	, last_image_show_time = 0
 	, allDoneDfd, urlDfd;
