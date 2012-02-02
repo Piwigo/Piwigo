@@ -856,6 +856,9 @@ $lang['Save visits in history for'] = 'Storicizzare le visite dei ';
 $lang['simple visitors'] = 'singoli visitatori';
 $lang['registered users'] = 'utenti registrati';
 $lang['administrators'] = 'amministratori';
+$lang['This album contains %d photos, added on %s.'] = 'Questo album contiene %d foto, aggiunte il %s.';
+$lang['This album contains %d photos, added between %s and %s.'] = 'Questo album contiene %d foto, aggiunte tra il %s e il %s.';
+$lang['This album contains no photo.'] = 'Questo album non contiene nessuna foto.';
 
 $lang['%s has been successfully updated.'] = '%s è stato aggiornato con successo.';
 $lang['Photo name'] = 'Nome foto';
