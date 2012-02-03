@@ -339,7 +339,6 @@ $lang['html tags are not allowed in login'] = 'html тагове не са ра�
 $lang['Unknown feed identifier'] = 'Неизвестен индетификатор';
 $lang['The number of photos per page must be a not null scalar'] = 'Броят на снимките на страница трябва да е различен от нула';
 $lang['Number of photos per page'] = 'Брои на снимки за страница';
-
 $lang['Change my password'] = 'Смана на паролата';
 $lang['Invalid key'] = 'Невалиден ключ';
 $lang['Invalid username or email'] = 'Невалидно потребителско име или е-майл';
@@ -371,8 +370,7 @@ $lang['Send my connection settings by email'] = 'Изпращане на нас�
 $lang['small'] = 'малък';
 $lang['Someone requested that the password be reset for the following user account:'] = 'Зявака за нулиране на парола за потребителско име:';
 $lang['square'] = 'правоъгълен';
-$lang['Successfully registered, you will soon receive an email with your connection settings. Welcome!'] = 'Успешна регистрация, скоро ще получите съобщение на електронната поща, със настройките за свързване.
-Добре дошли!';
+$lang['Successfully registered, you will soon receive an email with your connection settings. Welcome!'] = 'Успешна регистрация, скоро ще получите съобщение на електронната поща, със настройките за свързване. Добре дошли!';
 $lang['Thank you for registering at %s!'] = 'Благодарим Ви, за регистрацията на  %s!';
 $lang['thumb'] = 'прелиствам';
 $lang['User "%s" has no email address, password reset is not possible'] = 'За потребителят  "%s" липсва електронна поща, затова нулирането на паролата е невъзможно';
@@ -382,4 +380,6 @@ $lang['Username: %s'] = 'Потребител: %s';
 $lang['xlarge'] = 'по-голям';
 $lang['xxlarge'] = 'огромен';
 $lang['Your username has been successfully changed to : %s'] = 'Вашетопотребителско име беше успешно промененно на : %s';
+$lang['%d rates'] = '%d оценки';
+
 ?>
