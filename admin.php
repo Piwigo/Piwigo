@@ -233,10 +233,9 @@ if (
         'site_manager', // delete site
         'site_update',  // ?only POST
         'cat_list',     // delete cat
-        'cat_modify',   // delete cat; public/private; lock/unlock
+        'album',        // delete cat; public/private; lock/unlock, permissions
         'cat_move',     // ?only POST
         'cat_options',  // ?only POST; public/private; lock/unlock
-        'cat_perm',     // ?only POST
         'picture_modify', // ?only POST; associate/dissociate
         'user_perm',
         'group_perm',

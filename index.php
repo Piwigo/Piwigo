@@ -180,8 +180,7 @@ if (isset($page['category']) and is_admin())
 {
   $template->assign(
     'U_EDIT',
-     get_root_url().'admin.php?page=cat_modify'
-        .'&amp;cat_id='.$page['category']['id']
+    get_root_url().'admin.php?page=album-'.$page['category']['id']
     );
 }
 

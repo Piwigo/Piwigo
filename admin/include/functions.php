@@ -1996,10 +1996,8 @@ function get_active_menu($menu_page)
 
     case 'album':
     case 'cat_list':
-    case 'cat_modify':
     case 'cat_move':
     case 'cat_options':
-    case 'cat_perm':
     case 'permalinks':
       return 1;
 

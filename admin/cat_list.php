@@ -323,8 +323,7 @@ foreach ($categories as $category)
 
   if ('private' == $category['status'])
   {
-    $tpl_cat['U_MANAGE_PERMISSIONS']=
-      $base_url.'cat_perm&amp;cat='.$category['id'];
+    $tpl_cat['U_MANAGE_PERMISSIONS'] = $base_url.'album-'.$category['id'].'-permissions';
   }
   $template->append('categories', $tpl_cat);
 }
