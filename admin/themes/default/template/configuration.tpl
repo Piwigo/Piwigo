@@ -1,5 +1,34 @@
+{footer_script}{literal}
+jQuery(document).ready(function(){
+  jQuery("#activate_comments").change(function(){
+    if ($(this).is(':checked')) {
+      jQuery("#comments_param_warp").show();
+    } else {
+      jQuery("#comments_param_warp").hide();
+    }
+  });
 
-{include file='include/autosize.inc.tpl'}
+  var targets = {
+    'input[name="rate"]' : '#rate_anonymous',
+    'input[name="allow_user_registration"]' : '#email_admin_on_new_user',
+    'input[name="comments_validation"]' : '#email_admin_on_comment_validation',
+    'input[name="user_can_edit_comment"]' : '#email_admin_on_comment_edition',
+    'input[name="user_can_delete_comment"]' : '#email_admin_on_comment_deletion',
+  };
+
+  for (selector in targets) {
+    var target = targets[selector];
+
+    jQuery(target).toggle(jQuery(selector).is(':checked'));
+
+    (function(target){
+      jQuery(selector).bind('change', function() {
+        jQuery(target).toggle($(this).is(':checked'));
+      });
+    })(target);
+  };
+});
+{/literal}{/footer_script}
 
 <div class="titrePage">
   <h2>{'Piwigo configuration'|@translate} {$TABSHEET_TITLE}</h2>
@@ -74,44 +103,6 @@
       {html_options name="week_starts_on" options=$main.week_starts_on_options selected=$main.week_starts_on_options_selected}</label>
     </li>
     
-{footer_script}{literal}
-jQuery(document).ready(function(){
-  /* rate_anonymous visible only if rate is permitted */
-  if (jQuery('input[name="rate"]').is(':checked')) {
-    jQuery('#rate_anonymous').show();
-  }
-  else {
-    jQuery('#rate_anonymous').hide();
-  }
-
-  jQuery('input[name="rate"]').change(function(){
-    if ($(this).is(':checked')) {
-      jQuery('#rate_anonymous').show();
-    }
-    else {
-      jQuery('#rate_anonymous').hide();
-    }
-  });
-
-  /* email_admin_on_new_user checkbox only if allow_user_registration */
-  if (jQuery('input[name="allow_user_registration"]').is(':checked')) {
-    jQuery('#email_admin_on_new_user').show();
-  }
-  else {
-    jQuery('#email_admin_on_new_user').hide();
-  }
-
-  jQuery('input[name="allow_user_registration"]').change(function(){
-    if ($(this).is(':checked')) {
-      jQuery('#email_admin_on_new_user').show();
-    }
-    else {
-      jQuery('#email_admin_on_new_user').hide();
-    }
-  });
-});
-{/literal}{/footer_script}
-
     <li>
         <label>{'Default photos order'|@translate}</label>
         
@@ -254,7 +245,7 @@ jQuery(document).ready(function () {
       </label>
     </li>
 
-    <li>
+    <li id="notifyAdmin">
       <strong>{'Notify administrators when a comment is'|@translate}</strong>
 
       <label id="email_admin_on_comment_validation">
@@ -275,68 +266,6 @@ jQuery(document).ready(function () {
     </li>
   </ul>
 </fieldset>
-{footer_script}{literal}
-jQuery(document).ready(function(){
-  jQuery("#activate_comments").change(function(){
-    if ($(this).is(':checked')) {
-      jQuery("#comments_param_warp").show();
-    } else {
-      jQuery("#comments_param_warp").hide();
-    }
-  });
-
-  /* notify on validation checkbox */
-  if (jQuery('input[name="comments_validation"]').is(':checked')) {
-    jQuery('#email_admin_on_comment_validation').show();
-  }
-  else {
-    jQuery('#email_admin_on_comment_validation').hide();
-  }
-
-  jQuery('input[name="comments_validation"]').change(function(){
-    if ($(this).is(':checked')) {
-      jQuery('#email_admin_on_comment_validation').show();
-    }
-    else {
-      jQuery('#email_admin_on_comment_validation').hide();
-    }
-  });
-
-  /* notify on edition checkbox */
-  if (jQuery('input[name="user_can_edit_comment"]').is(':checked')) {
-    jQuery('#email_admin_on_comment_edition').show();
-  }
-  else {
-    jQuery('#email_admin_on_comment_edition').hide();
-  }
-
-  jQuery('input[name="user_can_edit_comment"]').change(function(){
-    if ($(this).is(':checked')) {
-      jQuery('#email_admin_on_comment_edition').show();
-    }
-    else {
-      jQuery('#email_admin_on_comment_edition').hide();
-    }
-  });
-  
-  /* notify on deletion checkbox */
-  if (jQuery('input[name="user_can_delete_comment"]').is(':checked')) {
-    jQuery('#email_admin_on_comment_deletion').show();
-  }
-  else {
-    jQuery('#email_admin_on_comment_deletion').hide();
-  }
-
-  jQuery('input[name="user_can_delete_comment"]').change(function(){
-    if ($(this).is(':checked')) {
-      jQuery('#email_admin_on_comment_deletion').show();
-    }
-    else {
-      jQuery('#email_admin_on_comment_deletion').hide();
-    }
-  });
-});
-{/literal}{/footer_script}
 {/if}
 
 {if isset($sizes)}

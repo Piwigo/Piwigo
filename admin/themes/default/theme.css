@@ -483,6 +483,10 @@ FORM.properties SPAN.property {
   font-weight: bold;
 }
 
+#notifyAdmin label {
+   white-space:nowrap;
+}
+
 #mainConf li {
   margin-bottom: 1em;
 }
