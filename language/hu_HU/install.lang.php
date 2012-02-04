@@ -70,4 +70,6 @@ $lang['Download the config file'] = 'Konfigurációs fájl letöltése';
 $lang['You can download the config file and upload it to local/config directory of your installation.'] = 'Letöltheti a konfigurációs fájlt és töltse fel a telepítésének local/config könyvtárába.';
 $lang['Just another Piwigo gallery'] = 'Csak egy újabb Piwigo galéria';
 $lang['Welcome to my photo gallery'] = 'Üdvözöljük a képgalériában';
+$lang['Don\'t hesitate to consult our forums for any help : %s'] = 'Kérdése van? Keresse fel fórumunkat : %s';
+$lang['Welcome to your new installation of Piwigo!'] = 'Köszönt a frissen telepített Piwigo galéria!';
 ?>
