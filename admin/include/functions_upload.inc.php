@@ -334,6 +334,24 @@ SELECT
 
   invalidate_user_cache();
 
+  // cache thumbnail
+  $query = '
+SELECT
+    id,
+    path
+  FROM '.IMAGES_TABLE.'
+  WHERE id = '.$image_id.'
+;';
+  $image_infos = pwg_db_fetch_assoc(pwg_query($query));
+
+  set_make_full_url();
+  // in case we are on uploadify.php, we have to replace the false path
+  $thumb_url = preg_replace('#admin/include/i#', 'i', DerivativeImage::thumb_url($image_infos));
+  unset_make_full_url();
+  
+  fetchRemote($thumb_url, $dest);
+  
+
   return $image_id;
 }
 
