@@ -70,7 +70,7 @@ final class ImageRect
     return $this->b - $this->t;
   }
 
-  function crop_h($pixels, $coi, $force)
+  function crop_h($pixels, $coi)
   {
     if ($this->width() <= $pixels)
       return;
@@ -82,15 +82,7 @@ final class ImageRect
       $coir = ceil($this->r * char_to_fraction($coi[2]));
       $availableL = $coil > $this->l ? $coil - $this->l : 0;
       $availableR = $coir < $this->r ? $this->r - $coir : 0;
-      if ($availableL + $availableR <= $pixels)
-      {
-        if (!$force)
-        {
-          $pixels = $availableL + $availableR;
-          $tlcrop = $availableL;
-        }
-      }
-      else
+      if ($availableL + $availableR >= $pixels)
       {
         if ($availableL < $tlcrop)
         {
@@ -106,7 +98,7 @@ final class ImageRect
     $this->r -= $pixels - $tlcrop;
   }
 
-  function crop_v($pixels, $coi, $force)
+  function crop_v($pixels, $coi)
   {
     if ($this->height() <= $pixels)
       return;
@@ -118,15 +110,7 @@ final class ImageRect
       $coib = ceil($this->b * char_to_fraction($coi[3]));
       $availableT = $coit > $this->t ? $coit - $this->t : 0;
       $availableB = $coib < $this->b ? $this->b - $coib : 0;
-      if ($availableT + $availableB <= $pixels)
-      {
-        if (!$force)
-        {
-          $pixels = $availableT + $availableB;
-          $tlcrop = $availableT;
-        }
-      }
-      else
+      if ($availableT + $availableB >= $pixels)
       {
         if ($availableT < $tlcrop)
         {
@@ -198,9 +182,9 @@ final class SizingParams
           $h = $destCrop->height() / $ratio_w;
           if ($h < $this->min_size[1])
           {
-            $idealCropPx = $destCrop->width() - round($destCrop->height() * $this->ideal_size[0] / $this->min_size[1], 0);
+            $idealCropPx = $destCrop->width() - floor($destCrop->height() * $this->ideal_size[0] / $this->min_size[1]);
             $maxCropPx = round($this->max_crop * $destCrop->width());
-            $destCrop->crop_h( min($idealCropPx, $maxCropPx), $coi, false);
+            $destCrop->crop_h( min($idealCropPx, $maxCropPx), $coi);
           }
         }
         else
@@ -208,9 +192,9 @@ final class SizingParams
           $w = $destCrop->width() / $ratio_h;
           if ($w < $this->min_size[0])
           {
-            $idealCropPx = $destCrop->height() - round($destCrop->width() * $this->ideal_size[1] / $this->min_size[0], 0);
+            $idealCropPx = $destCrop->height() - floor($destCrop->width() * $this->ideal_size[1] / $this->min_size[0]);
             $maxCropPx = round($this->max_crop * $destCrop->height());
-            $destCrop->crop_v( min($idealCropPx, $maxCropPx), $coi, false);
+            $destCrop->crop_v( min($idealCropPx, $maxCropPx), $coi);
           }
         }
       }
@@ -267,7 +251,7 @@ final class DerivativeParams
   {
       return array('last_mod_time', 'sizing', 'sharpen', 'quality');
   }
-    
+
   function add_url_tokens(&$tokens)
   {
     $this->sizing->add_url_tokens($tokens);
@@ -288,7 +272,7 @@ final class DerivativeParams
   {
     return $this->sizing->ideal_size[1];
   }
-  
+
   function is_identity($in_size)
   {
     if ($in_size[0] > $this->sizing->ideal_size[0] or

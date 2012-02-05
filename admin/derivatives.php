@@ -67,7 +67,7 @@ if ( isset($_POST['d']) )
     {
       $errors[$type]['crop'] = '[0..100]';
     }
-    
+
     if ($v!=0)
     {
       $v = intval($pderivative['minw']);
@@ -81,13 +81,13 @@ if ( isset($_POST['d']) )
         $errors[$type]['minh'] = '[0..'.intval($pderivative['h']).']';
       }
     }
-    
+
     if (count($errors)==0)
     {
       $prev_w = intval($pderivative['w']);
       $prev_h = intval($pderivative['h']);
     }
-    
+
     $v = intval($pderivative['sharpen']);
     if ($v<0 || $v>100)
     {
@@ -126,16 +126,16 @@ if ( isset($_POST['d']) )
     $watermark->xrepeat = intval($pwatermark['xrepeat']);
     $watermark->opacity = intval($pwatermark['opacity']);
     $watermark->min_size = array(intval($pwatermark['minw']),intval($pwatermark['minh']));
-    
+
     $old_watermark = ImageStdParams::get_watermark();
-    $watermark_changed = 
+    $watermark_changed =
       $watermark->file != $old_watermark->file
       || $watermark->xpos != $old_watermark->xpos
       || $watermark->ypos != $old_watermark->ypos
       || $watermark->xrepeat != $old_watermark->xrepeat
       || $watermark->opacity != $old_watermark->opacity;
     ImageStdParams::set_watermark($watermark);
-    
+
     $enabled = ImageStdParams::get_defined_type_map();
     $disabled = @unserialize( @$conf['disabled_derivatives'] );
     if ($disabled===false)
@@ -143,24 +143,24 @@ if ( isset($_POST['d']) )
       $disabled = array();
     }
     $changed_types = array();
-    
+
     foreach(ImageStdParams::get_all_types() as $type)
     {
       $pderivative = $pderivatives[$type];
-      
+
       if ($pderivative['enabled'])
       {
         $new_params = new DerivativeParams(
-            new SizingParams( 
+            new SizingParams(
               array(intval($pderivative['w']), intval($pderivative['h'])),
               round($pderivative['crop'] / 100, 2),
               array(intval($pderivative['minw']), intval($pderivative['minh']))
-              ) 
+              )
           );
         $new_params->sharpen = intval($pderivative['sharpen']);
         $new_params->quality = intval($pderivative['quality']);
         ImageStdParams::apply_global($new_params);
-        
+
         if (isset($enabled[$type]))
         {
           $old_params = $enabled[$type];
@@ -171,28 +171,28 @@ if ( isset($_POST['d']) )
             $same = false;
           }
 
-          if ( $same && $new_params->sizing->max_crop != 0 
+          if ( $same && $new_params->sizing->max_crop != 0
               && !size_equals($old_params->sizing->min_size, $new_params->sizing->min_size) )
           {
             $same = false;
           }
 
-          if ( $same && 
+          if ( $same &&
               ( $new_params->sharpen != $old_params->sharpen
               || $new_params->quality > $old_params->quality)
              )
           {
             $same = false;
           }
-          
+
           if ($same &&
-            ( $new_params->use_watermark != $old_params->use_watermark 
+            ( $new_params->use_watermark != $old_params->use_watermark
              || $new_params->use_watermark && $watermark_changed )
             )
           {
             $same = false;
           }
-          
+
           if (!$same)
           {
             $new_params->last_mod_time = time();
@@ -228,7 +228,7 @@ if ( isset($_POST['d']) )
       {
         $enabled_by[$type] = $enabled[$type];
       }
-    }    
+    }
     ImageStdParams::set_and_save($enabled_by);
     if (count($disabled)==0)
     {
@@ -240,7 +240,7 @@ if ( isset($_POST['d']) )
       conf_update_param('disabled_derivatives', addslashes(serialize($disabled)) );
     }
     $conf['disabled_derivatives']=serialize($disabled);
-    
+
     if (count($changed_types))
     {
       clear_derivative_cache($changed_types);
@@ -298,7 +298,7 @@ if (count($errors)==0)
     $tpl_vars[$type]=$tpl_var;
   }
   $template->assign('derivatives', $tpl_vars);
-  
+
   $wm = ImageStdParams::get_watermark();
   $template->assign('watermark', array(
       'file' => $wm->file,
@@ -313,6 +313,10 @@ if (count($errors)==0)
 
 $watermark_files = array();
 foreach (glob(PHPWG_ROOT_PATH.'themes/default/watermarks/*.png') as $file)
+{
+  $watermark_files[] = substr($file, strlen(PHPWG_ROOT_PATH));
+}
+foreach (glob(PHPWG_ROOT_PATH.PWG_LOCAL_DIR.'watermarks/*.png') as $file)
 {
   $watermark_files[] = substr($file, strlen(PHPWG_ROOT_PATH));
 }

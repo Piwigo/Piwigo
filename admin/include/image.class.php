@@ -423,6 +423,11 @@ class image_imagick implements imageInterface
   function resize($width, $height)
   {
     $this->image->setInterlaceScheme(Imagick::INTERLACE_LINE);
+    if ($this->get_width()%2 == 0 && $this->get_height()%2 == 0
+      && $this->get_width() > 3*$width)
+    {
+      $this->image->scaleImage($this->get_width()/2, $this->get_height()/2);
+    }
     return $this->image->resizeImage($width, $height, Imagick::FILTER_LANCZOS, 0.9);
   }
 
