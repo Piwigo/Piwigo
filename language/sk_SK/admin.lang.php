@@ -833,5 +833,18 @@ $lang['The original maximum width must be a number between %d and %d'] = 'Origin
 $lang['Resize after upload'] = 'Zmeniť rozmer po nahratí';
 $lang['Photo Sizes'] = 'Veľkosť fotky';
 $lang['Original Size'] = 'Originálna veľkosť';
+$lang['A locked gallery is only visible to administrators'] = 'Uzamknutý album je viditeľný len administrátorom'; 
+$lang['Unlock gallery'] = 'Odomknúť album'; 
+$lang['Gallery unlocked'] = 'Album odomknutý'; 
+$lang['Notify administrators when a comment is'] = 'Upozorniť administrátorov, keď je komentár'; 
+$lang['modified'] = 'upravené'; 
+$lang['pending validation'] = 'čakajúce na potvrdenie'; 
+$lang['Save visits in history for'] = 'Uložiť návštevy do histórie'; 
+$lang['simple visitors'] = 'obyčajní návštevníci'; 
+$lang['registered users'] = 'registrovaní používatelia'; 
+$lang['administrators'] = 'administrátori'; 
+$lang['This album contains %d photos, added on %s.'] = 'Tento album obsahuje %d fotiek, pridaných %s.'; 
+$lang['This album contains %d photos, added between %s and %s.'] = 'Tento album obsahuje %d fotiek, pridaných medzi %s a %s.'; 
+$lang['This album contains no photo.'] = 'Tento album neobsahuje fotky.';
 
 ?>
