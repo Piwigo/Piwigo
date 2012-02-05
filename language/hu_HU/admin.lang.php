@@ -835,4 +835,7 @@ $lang['A locked gallery is only visible to administrators'] = 'A lezárt galéri
 $lang['Gallery unlocked'] = 'Galéria feloldva';
 $lang['Notify administrators when a comment is'] = 'Adminisztrátor értesítése hozzászólás érkezésekor';
 $lang['Unlock gallery'] = 'Galéria lezárásának feloldása';
+$lang['modified'] = 'módosítva';
+$lang['pending validation'] = 'jóváhagyásra váró';
+$lang['This album contains no photo.'] = 'Ez az album nem tartalmaz képeket.';
 ?>
