@@ -303,6 +303,11 @@ $template->assign(
     )
   );
 
+if (in_array(get_extension($row['path']),$conf['picture_ext']))
+{
+  $template->assign('U_COI', get_root_url().'admin.php?page=picture_coi&amp;image_id='.$_GET['image_id']);
+}
+
 // image level options
 $selected_level = isset($_POST['level']) ? $_POST['level'] : $row['level'];
 $template->assign(

@@ -83,7 +83,12 @@ pwg_initialization_datepicker("#date_creation_day", "#date_creation_month", "#da
         </td>
       </tr>
       {/if}
-
+{if isset($U_COI)}
+      <tr>
+        <td></td>
+        <td><a href="{$U_COI}">{'Not cropped correctly?'|@translate}</a></td>
+      </tr>
+{/if}
     </table>
 
   </fieldset>

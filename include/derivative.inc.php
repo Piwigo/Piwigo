@@ -27,14 +27,13 @@ final class SrcImage
   public $id;
   public $rel_path;
 
-  public $coi=null;
   private $size=null;
   private $flags=0;
 
   function __construct($infos)
   {
     global $conf;
-    
+
     $this->id = $infos['id'];
     $ext = get_extension($infos['path']);
     if (in_array($ext, $conf['picture_ext']))
@@ -54,7 +53,6 @@ final class SrcImage
       $this->size = @getimagesize(PHPWG_ROOT_PATH.$this->rel_path);
     }
 
-    $this->coi = @$infos['coi'];
     if (!$this->size && isset($infos['width']) && isset($infos['height']))
     {
       $this->size = array($infos['width'], $infos['height']);
@@ -168,11 +166,6 @@ final class DerivativeImage
     $tokens=array();
     $tokens[] = substr($params->type,0,2);
 
-    if ($params->sizing->max_crop != 0 and !empty($src->coi))
-    {
-      $tokens[] = 'ci'.$src->coi;
-    }
-
     if ($params->type==IMG_CUSTOM)
     {
       $params->add_url_tokens($tokens);
@@ -257,7 +250,7 @@ final class DerivativeImage
     {
       return $this->src_image->get_size();
     }
-    return $this->params->compute_final_size($this->src_image->get_size(), $this->src_image->coi);
+    return $this->params->compute_final_size($this->src_image->get_size());
   }
 
   function get_size_htm()

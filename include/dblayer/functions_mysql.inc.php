@@ -84,10 +84,10 @@ function pwg_query($query)
 {
   global $conf,$page,$debug,$t2;
 
-  $start = get_moment();
+  $start = microtime(true);
   ($result = mysql_query($query)) or my_error($query, $conf['die_on_sql_error']);
 
-  $time = get_moment() - $start;
+  $time = microtime(true) - $start;
 
   if (!isset($page['count_queries']))
   {
@@ -199,7 +199,7 @@ function array_from_query($query, $fieldname)
   $result = pwg_query($query);
   while ($row = mysql_fetch_assoc($result))
   {
-    array_push($array, $row[$fieldname]);
+    $array[] = $row[$fieldname];
   }
 
   return $array;

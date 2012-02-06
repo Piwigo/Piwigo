@@ -72,7 +72,7 @@ final class ImageStdParams
   {
     return self::$all_type_map[$type];
   }
-  
+
   static function get_custom($w, $h, $crop=0, $minw=null, $minh=null)
   {
     $params = new DerivativeParams( new SizingParams( array($w,$h), $crop, array($minw,$minh)) );
@@ -103,6 +103,8 @@ final class ImageStdParams
       self::$type_map = $arr['d'];
       self::$watermark = @$arr['w'];
       if (!self::$watermark) self::$watermark = new WatermarkParams();
+      self::$custom = @$arr['c'];
+      if (!self::$custom) self::$custom = array();
     }
     else
     {
@@ -134,7 +136,7 @@ final class ImageStdParams
   {
     self::$watermark = $watermark;
   }
-  
+
   static function set_and_save($map)
   {
     self::$type_map = $map;
@@ -176,7 +178,7 @@ final class ImageStdParams
       $params->use_watermark = true;
     }
   }
-  
+
   private static function build_maps()
   {
     foreach (self::$type_map as $type=>$params)

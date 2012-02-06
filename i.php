@@ -232,12 +232,6 @@ function parse_request()
     }
   }
   array_shift($deriv);
-  $page['coi'] = '';
-  if (count($deriv) && $deriv[0][0]=='c' && $deriv[0][1]=='i')
-  {
-    $page['coi'] = substr(array_shift($deriv), 2);
-    preg_match('#^[a-zA-Z]{4}$#', $page['coi']) or ierror('Invalid center of interest', 400);
-  }
 
   if ($page['derivative_type'] == IMG_CUSTOM)
   {
@@ -256,7 +250,7 @@ function parse_request()
     {
       ierror('Too big', 403);
     }
-    
+
     $key = array();
     $params->add_url_tokens($key);
     $key = implode('_', $key);
@@ -266,15 +260,65 @@ function parse_request()
     }
   }
 
-  if (!is_file(PHPWG_ROOT_PATH.$req.$ext) and
-      is_file(PHPWG_ROOT_PATH.'../'.$req.$ext) )
+  if (is_file(PHPWG_ROOT_PATH.$req.$ext))
+  {
+    $req = './'.$req; // will be used to match #iamges.path
+  }
+  elseif (is_file(PHPWG_ROOT_PATH.'../'.$req.$ext))
+  {
     $req = '../'.$req;
+  }
 
   $page['src_location'] = $req.$ext;
   $page['src_path'] = PHPWG_ROOT_PATH.$page['src_location'];
   $page['src_url'] = $page['root_path'].$page['src_location'];
 }
 
+function try_switch_source(DerivativeParams $params, $original_mtime)
+{
+  global $page;
+  $candidates = array();
+  foreach(ImageStdParams::get_defined_type_map() as $candidate)
+  {
+    if ($candidate->type == $params->type)
+      continue;
+    if ($candidate->use_watermark != $params->use_watermark)
+      continue;
+    if ($candidate->max_width() < $params->max_width() || $candidate->max_height() < $params->max_height())
+      continue;
+    if ($params->sizing->max_crop==0)
+    {
+      if ($candidate->sizing->max_crop!=0)
+        continue;
+    }
+    else
+    {
+      if ($candidate->sizing->max_crop!=0)
+        continue; // this could be optimized
+      if (!isset($page['original_size']))
+        continue;
+      $candidate_size = $candidate->compute_final_size($page['original_size']);
+      if ($candidate_size[0] < $params->sizing->min_size[0] || $candidate_size[1] < $params->sizing->min_size[1] )
+        continue;
+    }
+    $candidates[] = $candidate;
+  }
+
+  foreach( array_reverse($candidates) as $candidate)
+  {
+    $candidate_path = $page['derivative_path'];
+    $candidate_path = str_replace( '-'.derivative_to_url($params->type), '-'.derivative_to_url($candidate->type), $candidate_path);
+    $candidate_mtime = @filemtime($candidate_path);
+    if ($candidate_mtime === false
+      || $candidate_mtime < $original_mtime
+      || $candidate_mtime < $candidate->last_mod_time)
+      continue;
+    $params->use_watermark = false;
+    $params->sharpen = min(1, $params->sharpen);
+    $page['src_path'] = $candidate_path;
+    $page['src_url'] = $page['root_path'] . substr($candidate_path, strlen(PHPWG_ROOT_PATH));
+  }
+}
 
 function send_derivative($expires)
 {
@@ -361,6 +405,40 @@ if (!$need_generate)
   }
   send_derivative($expires);
 }
+
+$page['coi'] = null;
+if (strpos($page['src_location'], '/pwg_representative/')===false
+    && strpos($page['src_location'], 'themes/')===false
+    && strpos($page['src_location'], 'plugins/')===false)
+{
+  @include(PHPWG_ROOT_PATH.PWG_LOCAL_DIR .'config/database.inc.php');
+  include(PHPWG_ROOT_PATH .'include/dblayer/functions_'.$conf['dblayer'].'.inc.php');
+  try
+  {
+    $pwg_db_link = pwg_db_connect($conf['db_host'], $conf['db_user'],
+                                  $conf['db_password'], $conf['db_base']);
+    $query = 'SELECT coi, width, height FROM '.$prefixeTable.'images WHERE path=\''.$page['src_location'].'\'';
+    if ( ($row=pwg_db_fetch_assoc(pwg_query($query))) )
+    {
+      if (isset($row['width']))
+      {
+        $page['original_size'] = array($row['width'],$row['height']);
+      }
+      $page['coi'] = $row['coi'];
+    }
+    mysql_close($pwg_db_link);
+    if (!$row)
+    {
+      ierror('Db file path not found', 404);
+    }
+  }
+  catch (Exception $e)
+  {
+    ilog("db error", $e->getMessage());
+  }
+}
+
+try_switch_source($params, $src_mtime);
 
 if (!mkgetdir(dirname($page['derivative_path'])))
 {

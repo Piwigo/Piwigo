@@ -45,7 +45,7 @@ function char_to_fraction($c)
 
 function fraction_to_char($f)
 {
-	return ord('a') + round($f*25);
+	return chr(ord('a') + round($f*25));
 }
 
 /** small utility to manipulate a 'rectangle'*/
@@ -257,9 +257,9 @@ final class DerivativeParams
     $this->sizing->add_url_tokens($tokens);
   }
 
-  function compute_final_size($in_size, $coi)
+  function compute_final_size($in_size)
   {
-    $this->sizing->compute( $in_size, $coi, $crop_rect, $scale_size );
+    $this->sizing->compute( $in_size, null, $crop_rect, $scale_size );
     return $scale_size != null ? $scale_size : $in_size;
   }
 

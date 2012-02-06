@@ -185,6 +185,7 @@ CREATE TABLE `piwigo_images` (
   `filesize` mediumint(9) unsigned default NULL,
   `width` smallint(9) unsigned default NULL,
   `height` smallint(9) unsigned default NULL,
+	`coi` char(4) default NULL COMMENT 'center of interest',
   `representative_ext` varchar(4) default NULL,
   `date_metadata_update` date default NULL,
   `rating_score` float(5,2) unsigned default NULL,
