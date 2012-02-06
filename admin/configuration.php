@@ -134,15 +134,18 @@ if (isset($_POST['submit']))
         {
           $order_by = array();
           $order_by_inside_category = array();
+          
           for ($i=0; $i<count($_POST['order_by_field']); $i++)
           {
-            if ($i>5) continue;
-            if ($_POST['order_by_field'][$i] == '')
+            if ( $i >= (count($sort_fields)-1) ) break; // limit to the number of available parameters
+            if ( empty($_POST['order_by_field'][$i]) )
             {
               array_push($page['errors'], l10n('No field selected'));
+              break;
             }
             else
             {
+              // there is no rank outside categories
               if ($_POST['order_by_field'][$i] != 'rank')
               {
                 $order_by[] = $_POST['order_by_field'][$i].' '.$_POST['order_by_direction'][$i];
@@ -150,8 +153,15 @@ if (isset($_POST['submit']))
               $order_by_inside_category[] = $_POST['order_by_field'][$i].' '.$_POST['order_by_direction'][$i];
             }
           }
+          // must define a default order_by if user want to order by rank only
+          if ( count($order_by) == 0 )
+          {
+            $order_by = array('id ASC');
+          }
+          
           $_POST['order_by'] = 'ORDER BY '.implode(', ', $order_by);
           $_POST['order_by_inside_category'] = 'ORDER BY '.implode(', ', $order_by_inside_category);
+          unset($_POST['order_by_field']);
         }
       }
       
