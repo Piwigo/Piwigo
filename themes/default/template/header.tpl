@@ -39,7 +39,8 @@
 {/foreach}
 
 
-{if isset($U_PREFETCH)          }<link rel="prefetch" href="{$U_PREFETCH}">{/if}
+{if isset($U_PREFETCH)}<link rel="prefetch" href="{$U_PREFETCH}">{/if}
+{if isset($U_CANONICAL)}<link rel="canonical" href="{$U_CANONICAL}">{/if}
 
 {if not empty($page_refresh)    }<meta http-equiv="refresh" content="{$page_refresh.TIME};url={$page_refresh.U_REFRESH}">{/if}
 

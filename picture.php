@@ -947,6 +947,7 @@ if (isset($picture['next'])
   $template->assign('U_PREFETCH', $picture['next']['derivatives'][pwg_get_session_var('picture_deriv', IMG_LARGE)]->get_url() );
 }
 
+$template->assign('U_CANONICAL', make_picture_url( array('image_id'=>$picture['current']['id'], 'image_file'=>$picture['current']['file']) ) );
 
 // +-----------------------------------------------------------------------+
 // |                               sub pages                               |
