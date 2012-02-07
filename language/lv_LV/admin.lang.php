@@ -837,5 +837,8 @@ $lang['Save visits in history for'] = 'Ieglabāt vēsturē apmeklējumus priekš
 $lang['simple visitors'] = 'parastiem apmeklētājiem';
 $lang['registered users'] = 'reģistrētiem lietotājiem';
 $lang['administrators'] = 'administratoriem';
+$lang['This album contains %d photos, added on %s.'] = 'Šinī albūmā ir %d fotogrāfiju, kas pievienotas %s.';
+$lang['This album contains %d photos, added between %s and %s.'] = 'Šinī albūmā ir %d fotogrāfiju, kas pievienotas laikā starp %s un %s.';
+$lang['This album contains no photo.'] = 'Šinī albūmā nav fotogrāfiju.';
 
 ?>
