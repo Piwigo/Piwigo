@@ -57,7 +57,24 @@ $row = pwg_db_fetch_assoc( pwg_query($query) );
 
 if (isset($_POST['submit']))
 {
-  delete_element_derivatives($row);
+  foreach(ImageStdParams::get_defined_type_map() as $params)
+  {
+    if ($params->sizing->max_crop != 0)
+    {
+      delete_element_derivatives($row, $params->type);
+    }
+  }
+  delete_element_derivatives($row, IMG_CUSTOM);
+  $uid = '&b='.time();
+  $conf['question_mark_in_urls'] = $conf['php_extension_in_urls'] = true;
+  if ($conf['derivative_url_style']==1)
+  {
+    $conf['derivative_url_style']=0; //auto
+  }
+}
+else
+{
+  $uid = '';
 }
 
 $tpl_var = array(
@@ -76,19 +93,18 @@ if (!empty($row['coi']))
   );
 }
 
-if (isset($_POST['submit']))
+foreach(ImageStdParams::get_defined_type_map() as $params)
 {
-  $uid = '&b='.time();
-  $conf['question_mark_in_urls'] = $conf['php_extension_in_urls'] = true;
-  $conf['derivative_url_style']=2; //script
-  $tpl_var['U_SQUARE'] = DerivativeImage::url(IMG_SQUARE, $row).$uid;
-  $tpl_var['U_THUMB'] = DerivativeImage::url(IMG_THUMB, $row).$uid;
+  if ($params->sizing->max_crop != 0)
+  {
+    $derivative = new DerivativeImage($params, new SrcImage($row) );
+    $template->append( 'cropped_derivatives', array( 
+      'U_IMG' => $derivative->get_url().$uid,
+      'HTM_SIZE' => $derivative->get_size_htm(),
+    ) );
+  }
 }
-else
-{
-  $tpl_var['U_SQUARE'] = DerivativeImage::url(IMG_SQUARE, $row);
-  $tpl_var['U_THUMB'] = DerivativeImage::url(IMG_THUMB, $row);
-}
+
 
 $template->assign($tpl_var);
 $template->set_filename('picture_coi', 'picture_coi.tpl');

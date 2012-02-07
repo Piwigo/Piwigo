@@ -8,13 +8,17 @@
 <a href="{$U_EDIT}">{'Edit photo information'|@translate}</a>
 </div>
 
-<div>
-<img src="{$U_SQUARE}" alt="{$ALT}">
-<img src="{$U_THUMB}" alt="{$ALT}">
-</div>
-
-<div>
 <form method="post">
+
+<fieldset>
+<legend>{'Crop'|@translate}</legend>
+{foreach from=$cropped_derivatives item=deriv}
+<img src="{$deriv.U_IMG}" alt="{$ALT}" {$deriv.HTM_SIZE}>
+{/foreach}
+</fieldset>
+
+<fieldset>
+<legend>{'Center of interest'|@translate}</legend>
 <input type="hidden" id="l" name="l" value="{if isset($coi)}{$coi.l}{/if}">
 <input type="hidden" id="t" name="t" value="{if isset($coi)}{$coi.t}{/if}">
 <input type="hidden" id="r" name="r" value="{if isset($coi)}{$coi.r}{/if}">
@@ -25,8 +29,8 @@
 <p>
 <input type="submit" name="submit" value="{'Submit'|@translate}">
 </p>
+</fieldset>
 </form>
-</div>
 
 {footer_script}
 {literal}
@@ -51,7 +55,7 @@ function jOnRelease() {
 
 {/literal}
 jQuery("#jcrop").Jcrop( {ldelim}
-	boxWidth: 400, boxHeight: 400,
+	boxWidth: 500, boxHeight: 400,
 	onChange: jOnChange,
 	onRelease: jOnRelease
 	}

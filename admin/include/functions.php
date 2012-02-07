@@ -202,18 +202,18 @@ SELECT
     }
 
     $ok = true;
-		if (!isset($conf['never_delete_originals']))
-		{
-			foreach ($files as $path)
-			{
-				if (is_file($path) and !unlink($path))
-				{
-					$ok = false;
-					trigger_error('"'.$path.'" cannot be removed', E_USER_WARNING);
-					break;
-				}
-			}
-		}
+    if (!isset($conf['never_delete_originals']))
+    {
+      foreach ($files as $path)
+      {
+        if (is_file($path) and !unlink($path))
+        {
+          $ok = false;
+          trigger_error('"'.$path.'" cannot be removed', E_USER_WARNING);
+          break;
+        }
+      }
+    }
 
     if ($ok)
     {
@@ -2306,7 +2306,7 @@ function clear_derivative_cache_rec($path, $pattern)
   }
 }
 
-function delete_element_derivatives($infos)
+function delete_element_derivatives($infos, $type='all')
 {
   $path = $infos['path'];
   if (!empty($infos['representative_ext']))
@@ -2317,8 +2317,16 @@ function delete_element_derivatives($infos)
   {
     $path = substr($path, 3);
   }
-  $dot = strpos($path, '.');
-  $path = substr_replace($path, '-*', $dot, 0);
+  $dot = strrpos($path, '.');
+  if ($type=='all')
+  {
+    $pattern = '-*';
+  }
+  else
+  {
+    $pattern = '-'.derivative_to_url($type).'*';
+  }
+  $path = substr_replace($path, $pattern, $dot, 0);
   foreach( glob(PHPWG_ROOT_PATH.PWG_DERIVATIVE_DIR.$path) as $file)
   {
     @unlink($file);
