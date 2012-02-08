@@ -89,6 +89,8 @@ if (isset($_GET['caddie']))
   redirect(duplicate_index_url());
 }
 
+$template->assign('U_CANONICAL', duplicate_index_url());
+
 //----------------------------------------------------- template initialization
 //
 // Start output of page
