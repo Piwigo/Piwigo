@@ -66,7 +66,7 @@ if ( !empty($header_notes) )
 }
 
 // No referencing is required
-if ( !$conf['meta_ref'] ) 
+if ( !$conf['meta_ref'] )
 {
   $page['meta_robots']['noindex'] = 1;
   $page['meta_robots']['nofollow'] = 1;
@@ -81,8 +81,8 @@ if ( !empty($page['meta_robots']) )
     );
 }
 if ( !isset($page['meta_robots']['noindex']) )
-{ 
-  $template->assign('meta_ref',1); 
+{
+  $template->assign('meta_ref',1);
 }
 
 // refresh
@@ -97,23 +97,22 @@ if ( isset( $refresh ) and intval($refresh) >= 0
           )
       ));
 }
-
-
-// messages
-foreach (array('errors','infos') as $mode)
-{
-  if (isset($_SESSION['page_'.$mode]))
+else
+{// messages only if no redirection
+  foreach (array('errors','infos') as $mode)
   {
-    $page[$mode] = array_merge($page[$mode], $_SESSION['page_'.$mode]);
-    unset($_SESSION['page_'.$mode]);
-  }
-  
-  if (count($page[$mode]) != 0)
-  {
-    $template->assign($mode, $page[$mode]);
+    if (isset($_SESSION['page_'.$mode]))
+    {
+      $page[$mode] = array_merge($page[$mode], $_SESSION['page_'.$mode]);
+      unset($_SESSION['page_'.$mode]);
+    }
+
+    if (count($page[$mode]) != 0)
+    {
+      $template->assign($mode, $page[$mode]);
+    }
   }
 }
-
 trigger_action('loc_end_page_header');
 
 header('Content-Type: text/html; charset='.get_pwg_charset());

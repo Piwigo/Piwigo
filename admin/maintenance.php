@@ -142,7 +142,7 @@ DELETE
   }
   case 'derivatives':
   {
-    clear_derivative_cache();
+    clear_derivative_cache($_GET['type']);
     break;
   }
   default :
@@ -159,6 +159,12 @@ $template->set_filenames(array('maintenance'=>'maintenance.tpl'));
 
 $url_format = get_root_url().'admin.php?page=maintenance&amp;action=%s&amp;pwg_token='.get_pwg_token();
 
+$purge_urls[l10n('all')] = sprintf($url_format, 'derivatives').'&amp;type=all';
+foreach(ImageStdParams::get_defined_type_map() as $params)
+{
+  $purge_urls[ l10n($params->type) ] = sprintf($url_format, 'derivatives').'&amp;type='.$params->type;
+}
+
 $template->assign(
   array(
     'U_MAINT_CATEGORIES' => sprintf($url_format, 'categories'),
@@ -173,9 +179,11 @@ $template->assign(
     'U_MAINT_SEARCH' => sprintf($url_format, 'search'),
     'U_MAINT_COMPILED_TEMPLATES' => sprintf($url_format, 'compiled-templates'),
     'U_MAINT_DERIVATIVES' => sprintf($url_format, 'derivatives'),
+    'purge_derivatives' => $purge_urls,
     'U_HELP' => get_root_url().'admin/popuphelp.php?page=maintenance',
     )
   );
+
 
 if ($conf['gallery_locked'])
 {

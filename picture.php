@@ -170,6 +170,8 @@ function default_picture_content($content, $element_info)
   $added = array();
   foreach($element_info['derivatives'] as $type => $derivative)
   {
+    if ($type==IMG_SQUARE || $type==IMG_THUMB)
+      continue;
     $url = $derivative->get_url();
     if (isset($added[$url]))
       continue;
@@ -805,15 +807,7 @@ if (isset($picture['current']['comment'])
 // author
 if (!empty($picture['current']['author']))
 {
-  $infos['INFO_AUTHOR'] =
-// FIXME because of search engine partial rewrite, giving the author
-// name threw GET is not supported anymore. This feature should come
-// back later, with a better design
-//     '<a href="'.
-//       PHPWG_ROOT_PATH.'category.php?cat=search'.
-//       '&amp;search=author:'.$picture['current']['author']
-//       .'">'.$picture['current']['author'].'</a>';
-    $picture['current']['author'];
+  $infos['INFO_AUTHOR'] = $picture['current']['author'];
 }
 
 // creation date

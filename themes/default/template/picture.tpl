@@ -1,14 +1,13 @@
 {* Example of resizeable
 {include file='include/autosize.inc.tpl'}
 *}
-
 {if isset($MENUBAR)}
 {$MENUBAR}
 <div id="content" class="contentWithMenu">
 {/if}
-
+{if isset($errors) or not empty($infos)}
 {include file='infos_errors.tpl'}
-
+{/if}
 {if !empty($PLUGIN_PICTURE_BEFORE)}{$PLUGIN_PICTURE_BEFORE}{/if}
 
 <div id="imageHeaderBar">
@@ -274,7 +273,6 @@ y.callService(
 </div>
 
 {if isset($COMMENT_COUNT)}
-<a name="comments"></a>
 <div id="comments">
 	{if $COMMENT_COUNT > 0}
 		<h3>{$pwg->l10n_dec('%d comment', '%d comments',$COMMENT_COUNT)}</h3>

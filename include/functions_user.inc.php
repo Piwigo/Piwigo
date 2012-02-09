@@ -73,7 +73,7 @@ where upper('.$conf['user_fields']['email'].') = upper(\''.$mail_address.'\')
 function validate_login_case($login)
 {
   global $conf;
-  
+
   if (defined("PHPWG_INSTALLED"))
   {
     $query = "
@@ -105,7 +105,7 @@ function search_case_username($username)
   $username_lo = strtolower($username);
 
   $SCU_users = array();
-  
+
   $q = pwg_query("
     SELECT ".$conf['user_fields']['username']." AS username
     FROM `".USERS_TABLE."`;
@@ -114,7 +114,7 @@ function search_case_username($username)
    $SCU_users[$r['username']] = strtolower($r['username']);
    // $SCU_users is now an associative table where the key is the account as
    // registered in the DB, and the value is this same account, in lower case
-   
+
   $users_found = array_keys($SCU_users, $username_lo);
   // $users_found is now a table of which the values are all the accounts
   // which can be written in lowercase the same way as $username
@@ -130,28 +130,28 @@ function register_user($login, $password, $mail_address,
 
   if ($login == '')
   {
-    array_push($errors, l10n('Please, enter a login'));
+    $errors[] = l10n('Please, enter a login');
   }
   if (preg_match('/^.* $/', $login))
   {
-    array_push($errors, l10n('login mustn\'t end with a space character'));
+    $errors[] = l10n('login mustn\'t end with a space character');
   }
   if (preg_match('/^ .*$/', $login))
   {
-    array_push($errors, l10n('login mustn\'t start with a space character'));
+    $errors[] = l10n('login mustn\'t start with a space character');
   }
   if (get_userid($login))
   {
-    array_push($errors, l10n('this login is already used'));
+    $errors[] = l10n('this login is already used');
   }
   if ($login != strip_tags($login))
   {
-    array_push($errors, l10n('html tags are not allowed in login'));
+    $errors[] = l10n('html tags are not allowed in login');
   }
   $mail_error = validate_mail_address(null, $mail_address);
   if ('' != $mail_error)
   {
-    array_push($errors, $mail_error);
+    $errors[] = $mail_error;
   }
 
   if ($conf['insensitive_case_logon'] == true)
@@ -159,7 +159,7 @@ function register_user($login, $password, $mail_address,
     $login_error = validate_login_case($login);
     if ($login_error != '')
     {
-      array_push($errors, $login_error);
+      $errors[] = $login_error;
     }
   }
 
@@ -205,15 +205,10 @@ SELECT id
       $inserts = array();
       while ($row = pwg_db_fetch_assoc($result))
       {
-        array_push
-        (
-          $inserts,
-          array
-          (
+          $inserts[] = array(
             'user_id' => $next_id,
             'group_id' => $row['id']
-          )
-        );
+          );
       }
     }
 
@@ -400,7 +395,7 @@ SELECT DISTINCT(id)
 
       if ( empty($forbidden_ids) )
       {
-        array_push( $forbidden_ids, 0 );
+        $forbidden_ids[] = 0;
       }
       $userdata['image_access_type'] = 'NOT IN'; //TODO maybe later
       $userdata['image_access_list'] = implode(',',$forbidden_ids);
@@ -423,7 +418,7 @@ SELECT COUNT(DISTINCT(image_id)) as total
         {
           if ($cat['count_images']==0)
           {
-            array_push($forbidden_ids, $cat['cat_id']);
+            $forbidden_ids[] = $cat['cat_id'];
             unset( $user_cache_cats[$cat['cat_id']] );
           }
         }
@@ -518,27 +513,16 @@ SELECT DISTINCT f.image_id
     'AND'
   ).'
 ;';
-  $result = pwg_query($query);
-  $authorizeds = array();
-  while ($row = pwg_db_fetch_assoc($result))
-  {
-    array_push($authorizeds, $row['image_id']);
-  }
+  $authorizeds = array_from_query($query, 'image_id');
 
   $query = '
 SELECT image_id
   FROM '.FAVORITES_TABLE.'
   WHERE user_id = '.$user['id'].'
 ;';
-  $result = pwg_query($query);
-  $favorites = array();
-  while ($row = pwg_db_fetch_assoc($result))
-  {
-    array_push($favorites, $row['image_id']);
-  }
+  $favorites = array_from_query($query, 'image_id');
 
   $to_deletes = array_diff($favorites, $authorizeds);
-
   if (count($to_deletes) > 0)
   {
     $query = '
@@ -564,19 +548,12 @@ DELETE FROM '.FAVORITES_TABLE.'
  */
 function calculate_permissions($user_id, $user_status)
 {
-  $private_array = array();
-  $authorized_array = array();
-
   $query = '
 SELECT id
   FROM '.CATEGORIES_TABLE.'
   WHERE status = \'private\'
 ;';
-  $result = pwg_query($query);
-  while ($row = pwg_db_fetch_assoc($result))
-  {
-    array_push($private_array, $row['id']);
-  }
+  $private_array = array_from_query($query, 'id');
 
   // retrieve category ids directly authorized to the user
   $query = '
@@ -617,7 +594,7 @@ SELECT id
     $result = pwg_query($query);
     while ($row = pwg_db_fetch_assoc($result))
     {
-      array_push($forbidden_array, $row['id']);
+      $forbidden_array[] = $row['id'];
     }
     $forbidden_array = array_unique($forbidden_array);
   }
@@ -626,7 +603,7 @@ SELECT id
   {// at least, the list contains 0 value. This category does not exists so
    // where clauses such as "WHERE category_id NOT IN(0)" will always be
    // true.
-    array_push($forbidden_array, 0);
+    $forbidden_array[] = 0;
   }
 
   return implode(',', $forbidden_array);
@@ -809,7 +786,7 @@ function get_userid_by_email($email)
   global $conf;
 
   $email = pwg_db_real_escape_string($email);
-  
+
   $query = '
 SELECT
     '.$conf['user_fields']['id'].'
@@ -931,7 +908,7 @@ function get_default_theme()
   {
     return $theme;
   }
-  
+
   // let's find the first available theme
   $active_themes = get_pwg_themes();
   foreach (array_keys(get_pwg_themes()) as $theme_id)
@@ -1158,7 +1135,7 @@ function try_log_user($username, $password, $remember_me)
 {
   // we force the session table to be clean
   pwg_session_gc();
-  
+
   global $conf;
   // retrieving the encrypted password of the login submitted
   $query = '
@@ -1351,12 +1328,12 @@ function is_adviser()
 function can_manage_comment($action, $comment_author_id)
 {
   global $user, $conf;
-  
+
   if (is_a_guest())
   {
     return false;
   }
-  
+
   if (!in_array($action, array('delete','edit', 'validate')))
   {
     return false;

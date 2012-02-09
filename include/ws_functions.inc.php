@@ -522,6 +522,36 @@ LIMIT '.(int)$params['per_page'].' OFFSET '.(int)($params['per_page']*$params['p
 
 
 /**
+ * create a tree from a flat list of categories, no recursivity for high speed
+ */
+function categories_flatlist_to_tree($categories)
+{
+  $tree = array();
+  $key_of_cat = array();
+
+  foreach ($categories as $key => &$node)
+  {
+    $key_of_cat[$node['id']] = $key;
+
+    if (!isset($node['id_uppercat']))
+    {
+      $tree[$key] = &$node;
+    }
+    else
+    {
+      if (!isset($categories[ $key_of_cat[ $node['id_uppercat'] ] ]['sub_categories']))
+      {
+        $categories[ $key_of_cat[ $node['id_uppercat'] ] ]['sub_categories'] = array();
+      }
+
+      $categories[ $key_of_cat[ $node['id_uppercat'] ] ]['sub_categories'][$key] = &$node;
+    }
+  }
+
+  return $tree;
+}
+
+/**
  * returns a list of categories (web service method)
  */
 function ws_categories_getList($params, &$service)
@@ -1669,9 +1699,9 @@ SELECT
   if ('file' == $params['type'])
   {
     $do_update = false;
-    
+
     $infos = pwg_image_infos($file_path);
-    
+
     foreach (array('width', 'height', 'filesize') as $image_info)
     {
       if ($infos[$image_info] > $image[$image_info])
@@ -1744,7 +1774,7 @@ SELECT
   // pwg.images.addChunk. If "high" is available we use it as "original"
   // else we use "file".
   remove_chunks($params['original_sum'], 'thumb');
-  
+
   if (isset($params['high_sum']))
   {
     $original_type = 'high';

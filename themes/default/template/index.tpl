@@ -131,8 +131,9 @@ function toggleImageDerivativesBox() {
 
 </div>{* <!-- titrePage --> *}
 
+{if isset($errors) or not empty($infos)}
 {include file='infos_errors.tpl'}
-
+{/if}
 {if !empty($PLUGIN_INDEX_CONTENT_BEGIN)}{$PLUGIN_INDEX_CONTENT_BEGIN}{/if}
 
 {if !empty($category_search_results)}

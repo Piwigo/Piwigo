@@ -1,7 +1,7 @@
 {if isset($MENUBAR)}{$MENUBAR}{/if}
 <div id="registerPage">
 
-<div id="content" class="content">
+<div id="content" class="content{if isset($MENUBAR)} contentWithMenu{/if}">
 
 <div class="titrePage">
 	<ul class="categoryActions">
