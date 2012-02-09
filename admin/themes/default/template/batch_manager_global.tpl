@@ -194,6 +194,13 @@ $(document).ready(function() {
     $("[id^=action_]").hide();
     $("#action_"+$(this).attr("value")).show();
 
+    /* make sure the #albumSelect is on the right select box so that the */
+    /* "add new album" popup fills the right select box                  */
+    if ("associate" == $(this).attr("value") || "move" == $(this).attr("value")) {
+      jQuery("#albumSelect").removeAttr("id");
+      jQuery("#action_"+$(this).attr("value")+" select").attr("id", "albumSelect");
+    }
+
     if ($(this).val() != -1) {
       $("#applyActionBlock").show();
     }
@@ -612,6 +619,7 @@ jQuery(window).load(function() {
       <option value="delete">{'Delete selected photos'|@translate}</option>
   {/if}
       <option value="associate">{'Associate to album'|@translate}</option>
+      <option value="move">{'Move to album'|@translate}</option>
   {if !empty($dissociate_options)}
       <option value="dissociate">{'Dissociate from album'|@translate}</option>
   {/if}
@@ -645,11 +653,20 @@ jQuery(window).load(function() {
 
     <!-- associate -->
     <div id="action_associate" class="bulkAction">
-          <select id="albumSelect" style="width:400px" name="associate" size="1">
+          <select style="width:400px" name="associate" size="1">
             {html_options options=$associate_options }
          </select>
 <br>{'... or '|@translate}</span><a href="#" class="addAlbumOpen" title="{'create a new album'|@translate}">{'create a new album'|@translate}</a>
     </div>
+
+    <!-- move -->
+    <div id="action_move" class="bulkAction">
+          <select style="width:400px" name="move" size="1">
+            {html_options options=$move_options }
+         </select>
+<br>{'... or '|@translate}</span><a href="#" class="addAlbumOpen" title="{'create a new album'|@translate}">{'create a new album'|@translate}</a>
+    </div>
+
 
     <!-- dissociate -->
     <div id="action_dissociate" class="bulkAction">

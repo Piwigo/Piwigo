@@ -44,6 +44,7 @@ trigger_action('loc_begin_element_set_global');
 
 check_input_parameter('del_tags', $_POST, true, PATTERN_ID);
 check_input_parameter('associate', $_POST, false, PATTERN_ID);
+check_input_parameter('move', $_POST, false, PATTERN_ID);
 check_input_parameter('dissociate', $_POST, false, PATTERN_ID);
 
 // +-----------------------------------------------------------------------+
@@ -176,6 +177,49 @@ DELETE
     }
   }
 
+  if ('move' == $action)
+  {
+    // let's first break links with all albums but their "storage album"
+    $query = '
+DELETE '.IMAGE_CATEGORY_TABLE.'.*
+  FROM '.IMAGE_CATEGORY_TABLE.'
+    JOIN '.IMAGES_TABLE.' ON image_id=id
+  WHERE id IN ('.implode(',', $collection).')
+    AND (storage_category_id IS NULL OR storage_category_id != category_id)
+;';
+    pwg_query($query);
+    
+    associate_images_to_categories(
+      $collection,
+      array($_POST['move'])
+      );
+
+    $_SESSION['page_infos'] = array(
+      l10n('Information data registered in database')
+      );
+    
+    // let's refresh the page because we the current set might be modified
+    if ('with no album' == $page['prefilter'])
+    {
+      redirect($redirect_url);
+    }
+
+    if ('with no virtual album' == $page['prefilter'])
+    {
+      $category_info = get_cat_info($_POST['move']);
+      if (empty($category_info['dir']))
+      {
+        redirect($redirect_url);
+      }
+    }
+
+    if (isset($_SESSION['bulk_manager_filter']['category'])
+        and $_POST['move'] != $_SESSION['bulk_manager_filter']['category'])
+    {
+      redirect($redirect_url);
+    }
+  }
+
   if ('dissociate' == $action)
   {
     // physical links must not be broken, so we must first retrieve image_id
@@ -203,13 +247,11 @@ DELETE
 ';
       pwg_query($query);
 
-      update_category($_POST['dissociate']);
-      
       $_SESSION['page_infos'] = array(
         l10n('Information data registered in database')
         );
       
-      // let's refresh the page because we the current set might be modified
+      // let's refresh the page because the current set might be modified
       redirect($redirect_url);
     }
   }
@@ -528,6 +570,7 @@ SELECT id,name,uppercats,global_rank
   FROM '.CATEGORIES_TABLE.'
 ;';
 display_select_cat_wrapper($query, array(), 'associate_options', true);
+display_select_cat_wrapper($query, array(), 'move_options', true);
 display_select_cat_wrapper($query, array(), 'category_parent_options');
 
 // in the filter box, which category to select by default

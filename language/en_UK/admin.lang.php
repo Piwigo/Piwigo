@@ -846,4 +846,5 @@ $lang['administrators'] = 'administrators';
 $lang['This album contains %d photos, added on %s.'] = 'This album contains %d photos, added on %s.';
 $lang['This album contains %d photos, added between %s and %s.'] = 'This album contains %d photos, added between %s and %s.';
 $lang['This album contains no photo.'] = 'This album contains no photo.';
+$lang['Move to album'] = 'Move to album';
 ?>

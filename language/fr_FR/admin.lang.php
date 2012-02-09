@@ -846,4 +846,5 @@ $lang['This album contains %d photos, added on %s.'] = 'Cet album contient %d ph
 $lang['This album contains %d photos, added between %s and %s.'] = 'Cet album contient %d photos, ajoutées entre le %s et le %s.';
 $lang['This album contains no photo.'] = 'Cet album ne contient pas de photo.';
 $lang['%s has been successfully updated.'] = '%s a été mis à jour avec succès.';
+$lang['Move to album'] = 'Déplacer vers l\'album';
 ?>
