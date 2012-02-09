@@ -367,12 +367,18 @@ $lang['Your favorites'] = 'Mes favorites';
 $lang['Your Gallery Customization'] = 'Personnalisation de votre affichage ';
 $lang['Your username has been successfully changed to : %s'] = 'Votre nom d\'utilisateur a bien été changé par : %s';
 $lang['Your password has been reset'] = 'Votre mot de passe a été réinitialisé';
-$lang['original'] = "Original";
+$lang['Original'] = "Original";
 $lang['Thank you for registering at %s!'] = 'Merci pour votre inscription sur %s !';
 $lang['Here are your connection settings'] = 'Voici vos identifiants';
 $lang['Password: %s'] = 'Mot de passe : %s';
 $lang['Username: %s'] = 'Nom d\'utilisateur : %s';
-$lang['Email: %s'] = 'Email: %s';
 $lang['If you think you\'ve received this email in error, please contact us at %s'] = 'Si vous pensez avoir reçu cet email par erreur, veuillez nous contacter %s';
-
+$lang['Photo sizes'] = 'Tailles de photo';
+$lang['square'] = "Carré";
+$lang['thumb'] = "Miniature";
+$lang['small'] = "Petit";
+$lang['medium'] = "Moyen";
+$lang['large'] = "Large";
+$lang['xlarge'] = "XLarge";
+$lang['xxlarge'] = "XXLarge";
 ?>

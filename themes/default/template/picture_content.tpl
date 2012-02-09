@@ -25,8 +25,8 @@ function toggleDerivativeSwitchBox()
 	if (elt.style.display==="none")
 	{
 		elt.style.position = "absolute";
-		elt.style.left = (ePos.offsetLeft + 10) + "px";
-		elt.style.top = (ePos.offsetTop + ePos.offsetHeight) + "px";
+		elt.style.left = (ePos.offsetLeft+10)+"px";
+		elt.style.top = (ePos.offsetTop+ePos.offsetHeight)+"px";
 		elt.style.display="";
 	}
 	else
@@ -39,7 +39,7 @@ function toggleDerivativeSwitchBox()
 <a href="javascript:changeImgSrc('{$derivative->get_url()|@escape:javascript}','{$derivative_type}','{$derivative->get_type()}','{$derivative->get_type()|@translate|@escape:javascript}')">{$derivative->get_type()|@translate} ({$derivative->get_size_hr()})</a><br>
 {/foreach}
 {if isset($U_ORIGINAL)}
-<a href="javascript:phpWGOpenWindow('{$U_ORIGINAL}','xxx','scrollbars=yes,toolbar=no,status=no,resizable=yes')" rel="nofollow">{'original'|@translate}</a>
+<a href="javascript:phpWGOpenWindow('{$U_ORIGINAL}','xxx','scrollbars=yes,toolbar=no,status=no,resizable=yes')" rel="nofollow">{'Original'|@translate}</a>
 {/if}
 </div>
 {/if}

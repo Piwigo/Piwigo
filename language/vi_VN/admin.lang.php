@@ -829,7 +829,7 @@ $lang['With no album'] = 'Không kèm theo album ảnh';
 $lang['With no tag'] = 'Không kèm theo thẻ';
 $lang['With no virtual album'] = 'Không kèm theo album ảnh ảo';
 $lang['Resize after upload'] = 'Điều chỉnh kích thước sau khi gởi ảnh';
-$lang['Photo Sizes'] = 'Kích thước ảnh';
+$lang['Photo sizes'] = 'Kích thước ảnh';
 $lang['Original Size'] = 'Kích thước gốc';
 
 ?>

@@ -239,7 +239,7 @@ $lang['Notification'] = "Notification";
 $lang['Number of items'] = "Number of items";
 $lang['Number of photos per page'] = "Number of photos per page";
 $lang['obligatory'] = "mandatory";
-$lang['Original dimensions'] = "Original dimensions";
+$lang['Original dimensions'] = "Original dimensions"; //unused?
 $lang['Page generated in'] = "Page generated in";
 $lang['Password forgotten'] = "Password forgotten";
 $lang['Password reset is not allowed for this user'] = 'Password reset is not allowed for this user';
@@ -374,12 +374,11 @@ $lang['medium'] = "Medium";
 $lang['large'] = "Large";
 $lang['xlarge'] = "XLarge";
 $lang['xxlarge'] = "XXLarge";
-$lang['original'] = "Original";
+$lang['Original'] = "Original";
 $lang['Thank you for registering at %s!'] = 'Thank you for registering at %s!';
 $lang['Here are your connection settings'] = 'Here are your connection settings';
 $lang['Password: %s'] = 'Password: %s';
 $lang['Username: %s'] = 'Username: %s';
-$lang['Email: %s'] = 'Email: %s';
 $lang['If you think you\'ve received this email in error, please contact us at %s'] = 'If you think you\'ve received this email in error, please contact us at %s';
-
+$lang['Photo sizes'] = 'Photo sizes';
 ?>

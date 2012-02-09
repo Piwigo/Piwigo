@@ -239,7 +239,7 @@ final class DerivativeImage
   function get_type()
   {
     if ($this->params == null)
-      return 'original';
+      return 'Original';
     return $this->params->type;
   }
 

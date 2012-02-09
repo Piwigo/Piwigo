@@ -841,7 +841,7 @@ $lang['The original image quality must be a number between %d and %d'] = 'Orygin
 $lang['The original maximum height must be a number between %d and %d'] = ' Oryginalna maksymalna wysokość musi być liczbą pomiędzy %d i %d';
 $lang['The original maximum width must be a number between %d and %d'] = 'Oryginalna maksymalna szerokość musi być liczbą pomiędzy %d i %d';
 $lang['Resize after upload'] = 'Zmień rozmiar po wgraniu';
-$lang['Photo Sizes'] = 'Rozmiary Zdjęć';
+$lang['Photo sizes'] = 'Rozmiary Zdjęć';
 $lang['Original Size'] = 'Oryginalny Rozmiar';
 
 ?>

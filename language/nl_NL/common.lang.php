@@ -366,7 +366,7 @@ $lang['Edit'] = 'Bewerk';
 
 $lang['large'] = 'groot';
 $lang['medium'] = 'middel';
-$lang['original'] = 'origineel';
+$lang['Original'] = 'origineel';
 $lang['small'] = 'klein';
 $lang['square'] = 'vierkant';
 $lang['thumb'] = 'thumb';

@@ -371,7 +371,7 @@ $lang['Your password has been reset'] = ' تم اعادة تعيين كلمة ا
 
 $lang['large'] = 'كبير';
 $lang['medium'] = 'متوسط';
-$lang['original'] = 'الاصلي';
+$lang['Original'] = 'الاصلي';
 $lang['small'] = 'صغير';
 $lang['square'] = 'مربع';
 $lang['thumb'] = 'تصفح';

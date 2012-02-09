@@ -282,7 +282,7 @@ $template->set_filename('config', 'configuration.tpl');
 $tabsheet = new tabsheet();
 // TabSheet initialization
 $tabsheet->add('main', l10n('Main'), $conf_link.'main');
-$tabsheet->add('sizes', l10n('Photo Sizes'), $conf_link.'sizes');
+$tabsheet->add('sizes', l10n('Photo sizes'), $conf_link.'sizes');
 $tabsheet->add('display', l10n('Display'), $conf_link.'display');
 $tabsheet->add('comments', l10n('Comments'), $conf_link.'comments');
 $tabsheet->add('default', l10n('Guest Settings'), $conf_link.'default');

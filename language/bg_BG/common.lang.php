@@ -361,7 +361,7 @@ $lang['If you think you\'ve received this email in error, please contact us at %
 $lang['IPTC Metadata'] = 'IPTC метаданни';
 $lang['large'] = 'голям';
 $lang['medium'] = 'среден';
-$lang['original'] = 'оригинал';
+$lang['Original'] = 'оригинал';
 $lang['Password Reset'] = 'Нулиране на парола';
 $lang['Password reset is not allowed for this user'] = 'Нулирае на парола не е разрешено за този потребител';
 $lang['Password: %s'] = 'Парола: %s';

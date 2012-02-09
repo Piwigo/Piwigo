@@ -7,7 +7,7 @@
 		<li>{strip}<a href="javascript:toggleSortOrderBox()" id="sortOrderLink" title="{'Sort order'|@translate}" class="pwg-state-default pwg-button" rel="nofollow">
 			<span class="pwg-icon pwg-icon-sort">&nbsp;</span><span class="pwg-button-text">{'Sort order'|@translate}</span>
 		</a>
-		<div id="sortOrderBox" style="display:none; text-align:left" onclick="toggleSortOrderBox()" onmouseout="e=event.toElement||event.relatedTarget;if(e.parentNode!=this&amp;&amp;e!=this)toggleSortOrderBox()">
+		<div id="sortOrderBox" style="display:none; text-align:left" onclick="toggleSortOrderBox()" onmouseout="e=event.toElement||event.relatedTarget;e.parentNode==this||e==this||toggleSortOrderBox()">
 			{'Sort order'|@translate}:
 			{foreach from=$image_orders item=image_order}<br>
 			{if $image_order.SELECTED}
@@ -35,10 +35,10 @@ function toggleSortOrderBox() {
 {/if}
 
 {if !empty($image_derivatives)}
-		<li>{strip}<a href="javascript:toggleImageDerivativesBox()" id="derivativeChooseLink" title="{'Photo Sizes'|@translate}" class="pwg-state-default pwg-button" rel="nofollow">
-			<span class="pwg-icon pwg-icon-sizes">&nbsp;</span><span class="pwg-button-text">{'Photo Sizes'|@translate}</span>
+		<li>{strip}<a href="javascript:toggleImageDerivativesBox()" id="derivativeChooseLink" title="{'Photo sizes'|@translate}" class="pwg-state-default pwg-button" rel="nofollow">
+			<span class="pwg-icon pwg-icon-sizes">&nbsp;</span><span class="pwg-button-text">{'Photo sizes'|@translate}</span>
 		</a>
-		<div id="derivativeSwitchBox" style="display:none; text-align:left" onclick="toggleImageDerivativesBox()" onmouseout="e=event.toElement||event.relatedTarget;if(e.parentNode!=this&amp;&amp;e!=this)toggleImageDerivativesBox()">
+		<div id="derivativeSwitchBox" style="display:none; text-align:left" onclick="toggleImageDerivativesBox()" onmouseout="e=event.toElement||event.relatedTarget;e.parentNode==this||e==this||toggleImageDerivativesBox()">
 			{foreach from=$image_derivatives item=image_derivative name=deriv_loop}{if !$smarty.foreach.deriv_loop.first}<br>{/if}
 			{if $image_derivative.SELECTED}
 			<span>{$image_derivative.DISPLAY}</span>
