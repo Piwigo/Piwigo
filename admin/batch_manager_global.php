@@ -528,6 +528,7 @@ SELECT id,name,uppercats,global_rank
   FROM '.CATEGORIES_TABLE.'
 ;';
 display_select_cat_wrapper($query, array(), 'associate_options', true);
+display_select_cat_wrapper($query, array(), 'category_parent_options');
 
 // in the filter box, which category to select by default
 $selected_category = array();

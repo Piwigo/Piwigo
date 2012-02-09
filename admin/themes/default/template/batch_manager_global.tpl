@@ -1,6 +1,7 @@
 {include file='include/tag_selection.inc.tpl'}
 {include file='include/datepicker.inc.tpl'}
 {include file='include/colorbox.inc.tpl'}
+{include file='include/add_album.inc.tpl'}
 
 {footer_script}{literal}
   pwg_initialization_datepicker("#date_creation_day", "#date_creation_month", "#date_creation_year", "#date_creation_linked_date", "#date_creation_action_set");
@@ -644,9 +645,10 @@ jQuery(window).load(function() {
 
     <!-- associate -->
     <div id="action_associate" class="bulkAction">
-          <select style="width:400px" name="associate" size="1">
+          <select id="albumSelect" style="width:400px" name="associate" size="1">
             {html_options options=$associate_options }
          </select>
+<br>{'... or '|@translate}</span><a href="#" class="addAlbumOpen" title="{'create a new album'|@translate}">{'create a new album'|@translate}</a>
     </div>
 
     <!-- dissociate -->
