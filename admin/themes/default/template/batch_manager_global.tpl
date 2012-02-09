@@ -505,7 +505,7 @@ jQuery(window).load(function() {
   $(".thumbnails img").each(function () {
     max_dim = Math.max(max_dim, $(this).height(), $(this).width() );
   });
-  max_dim += 20;
+  max_dim += 35;
   $("ul.thumbnails span, ul.thumbnails label").css('width', max_dim+'px').css('height', max_dim+'px');
   $('ul.thumbnails').enableShiftClick();
 });
@@ -614,7 +614,7 @@ jQuery(window).load(function() {
         <span class="wrap1">
           <label>
             <span class="wrap2{if $isSelected} thumbSelected{/if}">
-            <div class="actions"><a href="{$thumbnail.FILE_SRC}" class="preview-box">{'Zoom'|@translate}</a> | <a href="{$thumbnail.U_EDIT}" target="_blank">{'Edit'|@translate}</a></div>
+            <div class="actions"><a href="{$thumbnail.FILE_SRC}" class="preview-box">{'Zoom'|@translate}</a> &middot; <a href="{$thumbnail.U_EDIT}" target="_blank">{'Edit'|@translate}</a></div>
               {if $thumbnail.LEVEL > 0}
               <em class="levelIndicatorB">{$pwg->l10n($pwg->sprintf('Level %d',$thumbnail.LEVEL))}</em>
               <em class="levelIndicatorF" title="{'Who can see these photos?'|@translate} : ">{$pwg->l10n($pwg->sprintf('Level %d',$thumbnail.LEVEL))}</em>

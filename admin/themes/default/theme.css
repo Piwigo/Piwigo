@@ -980,8 +980,9 @@ LEGEND {
 #batchManagerGlobal .bulkAction {text-align:left;margin:15px 0;padding:0;}
 #batchManagerGlobal #action_del_tags ul.tagSelection {margin:0 !important; width:620px;}
 #batchManagerGlobal #checkActions {text-align:left; margin:0 0 20px 0;}
-#batchManagerGlobal ul.thumbnails div.actions {display:none;position:absolute;top:0;right:5px;}
-#batchManagerGlobal ul.thumbnails div.actions a {color:#222;}
+#batchManagerGlobal ul.thumbnails div.actions {display:none;position:absolute;top:0;right:5px;color:#fff}
+#batchManagerGlobal ul.thumbnails div.actions a {color:#fff;}
+#batchManagerGlobal ul.thumbnails div.actions a:hover {border-color:#fff;}
 #batchManagerGlobal ul.thumbnails span.wrap1:hover div.actions {display:block;}
 #batchManagerGlobal #selectedMessage {padding:5px; -moz-border-radius:5px;-webkit-border-radius:5px;}
 #batchManagerGlobal #selectSet a {border-bottom:1px dotted;}
