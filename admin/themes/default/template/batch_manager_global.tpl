@@ -7,6 +7,52 @@
   pwg_initialization_datepicker("#date_creation_day", "#date_creation_month", "#date_creation_year", "#date_creation_linked_date", "#date_creation_action_set");
 {/literal}{/footer_script}
 
+{footer_script}{literal}
+/* Shift-click: select all photos between the click and the shift+click */
+jQuery(document).ready(function() {
+  var last_clicked=0;
+  var last_clickedstatus=true;
+  jQuery.fn.enableShiftClick = function() {
+    var inputs = [];
+    var count=0;
+    var This=$(this);
+    this.find('input[type=checkbox]').each(function() {
+      var pos=count;
+      inputs[count++]=this;
+      $(this).bind("shclick", function (dummy,event) {
+        if (event.shiftKey) {
+          var first = last_clicked;
+          var last = pos;
+          if (first > last) {
+            first=pos;
+            last=last_clicked;
+          }
+
+          for (var i=first; i<=last;i++) {
+            input = $(inputs[i]);
+            $(input).attr('checked', last_clickedstatus);
+            if (last_clickedstatus)
+            {
+              $(input).siblings("span.wrap2").addClass("thumbSelected");
+            }
+            else
+            {
+              $(input).siblings("span.wrap2").removeClass("thumbSelected");
+            }
+          }
+        }
+        else {
+          last_clicked = pos;
+          last_clickedstatus = this.checked;
+        }
+        return true;
+      });
+      $(this).click(function(event) {console.log(event.shiftKey);$(this).triggerHandler("shclick",event)});
+    });
+  }
+});
+{/literal}{/footer_script}
+
 {combine_script id='jquery.tokeninput' load='footer' require='jquery' path='themes/default/js/plugins/jquery.tokeninput.js'}
 {combine_script id='jquery.progressBar' load='footer' path='themes/default/js/plugins/jquery.progressbar.min.js'}
 {combine_script id='jquery.ajaxmanager' load='footer' path='themes/default/js/plugins/jquery.ajaxmanager.js'}
@@ -209,11 +255,13 @@ $(document).ready(function() {
     }
   });
 
-  $(".wrap1 label").click(function () {
+  $(".wrap1 label").click(function (event) {
     $("input[name=setSelected]").attr('checked', false);
 
     var wrap2 = $(this).children(".wrap2");
     var checkbox = $(this).children("input[type=checkbox]");
+
+    checkbox.triggerHandler("shclick",event);
 
     if ($(checkbox).is(':checked')) {
       $(wrap2).addClass("thumbSelected"); 
@@ -453,12 +501,13 @@ $(document).ready(function() {
 });
 
 jQuery(window).load(function() {
-	var max_dim = 0;
-	$(".thumbnails img").each(function () {
-		max_dim = Math.max(max_dim, $(this).height(), $(this).width() );
-	});
-	max_dim += 20;
-	$("ul.thumbnails span, ul.thumbnails label").css('width', max_dim+'px').css('height', max_dim+'px');
+  var max_dim = 0;
+  $(".thumbnails img").each(function () {
+    max_dim = Math.max(max_dim, $(this).height(), $(this).width() );
+  });
+  max_dim += 20;
+  $("ul.thumbnails span, ul.thumbnails label").css('width', max_dim+'px').css('height', max_dim+'px');
+  $('ul.thumbnails').enableShiftClick();
 });
 {/literal}{/footer_script}
 
