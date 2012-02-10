@@ -296,30 +296,15 @@ SELECT '.$conf['user_fields']['username'].' AS username
 $result = pwg_query($query);
 while ($user_row = pwg_db_fetch_assoc($result))
 {
-  $added_by = $user_row['username'];
+  $row['added_by'] = $user_row['username'];
 }
 
-$intro = sprintf(
-  l10n('This photo was posted on %s by %s.'),
-  format_date($row['date_available']),
-  $added_by
-  );
-
-$intro.= ' ';
-
-$intro.= sprintf(
-  l10n('Original file is %s, %ux%u pixels, %.2fMB.'),
-  $row['file'],
-  $row['width'],
-  $row['height'],
-  $row['filesize']/1024
-  );
-
-$intro.= ' ';
-
-$intro.= sprintf(
-  l10n('%u visits'),
-  $row['hit']
+$intro_vars = array(
+  'file' => sprintf(l10n('Original file : %s'), $row['file']),
+  'added' => sprintf(l10n('Posted %s on %s by %s'), time_since($row['date_available'], 'month'), format_date($row['date_available'], false, false), $row['added_by']),
+  'size' => $row['width'].'&times;'.$row['height'].' pixels, '.sprintf('%.2f', $row['filesize']/1024).'MB',
+  'hits' => sprintf(l10n('%d visits'), $row['hit']),
+  'id' => sprintf(l10n('Numeric identifier : %d'), $row['id']),
   );
 
 if ($conf['rate'] and !empty($row['rating_score']))
@@ -330,23 +315,13 @@ SELECT
   FROM '.RATE_TABLE.'
   WHERE element_id = '.$_GET['image_id'].'
 ;';
-  list($nb_rates) = pwg_db_fetch_row(pwg_query($query));
+  list($row['nb_rates']) = pwg_db_fetch_row(pwg_query($query));
   
-  $intro.= sprintf(
-    l10n(', %u rates, rating score %s'),
-    $nb_rates,
-    $row['rating_score']
-    );
+  $intro_vars['rate'] = sprintf(l10n('Rated %d times, score : %f'), $row['nb_rates'], $row['rating_score']);
 }
 
-$intro.= '. ';
-
-$intro.= sprintf(
-  l10n('Numeric identifier is %u.'),
-  $row['id']
-  );
-
-$template->assign('INTRO', $intro);
+$template->assign('INTRO', $intro_vars);
+ 
 
 if (in_array(get_extension($row['path']),$conf['picture_ext']))
 {

@@ -44,24 +44,29 @@ pwg_initialization_datepicker("#date_creation_day", "#date_creation_month", "#da
 
       <tr>
         <td id="albumThumbnail">
-<img src="{$TN_SRC}" alt="{'Thumbnail'|@translate}" class="Thumbnail">
+          <img src="{$TN_SRC}" alt="{'Thumbnail'|@translate}" class="Thumbnail">
         </td>
+        <td id="albumLinks" style="width:500px;vertical-align:top;">
+          <ul>
+            <li>{$INTRO.file}</li>
+            <li>{$INTRO.added}</li>
+            <li>{$INTRO.size}</li>
+            <li>{$INTRO.hits}</li>
+            {if $INTRO.rate}<li>{$INTRO.rate}</li>{/if}
+            <li>{$INTRO.id}</li>
+          </ul>
+        </td>
+        <td style="vertical-align:top;">
+          <ul style="padding-left:15px;">
+          {if isset($U_JUMPTO) }
+            <li><a href="{$U_JUMPTO}">{'jump to photo'|@translate} →</a></li>
+          {/if}
+          {if !url_is_remote($PATH)}
+            <li><a href="{$U_SYNC}">{'Synchronize metadata'|@translate}</a></li>
 
-        <td id="albumLinks">
-<p style="text-align:left">{$INTRO}</p>
-
-<ul style="padding-left:15px;">
-{if isset($U_JUMPTO) }
-  <li><a href="{$U_JUMPTO}">{'jump to photo'|@translate} →</a></li>
-{/if}
-
-{if !url_is_remote($PATH)}
-  <li><a href="{$U_SYNC}">{'Synchronize metadata'|@translate}</a></li>
-
-  <li><a href="{$U_DELETE}" onclick="return confirm('{'Are you sure?'|@translate|@escape:javascript}');">{'delete photo'|@translate}</a></li>
-  {/if}
-
-</ul>
+            <li><a href="{$U_DELETE}" onclick="return confirm('{'Are you sure?'|@translate|@escape:javascript}');">{'delete photo'|@translate}</a></li>
+          {/if}
+          </ul>
         </td>
       </tr>
     </table>
