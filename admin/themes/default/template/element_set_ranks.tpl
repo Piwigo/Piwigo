@@ -78,14 +78,11 @@ jQuery('.clipwrapper').tipTip({
       <input type="radio" name="image_order_choice" id="image_order_user_define" value="user_define"{if $image_order_choice=='user_define'} checked="checked"{/if}>
       <label for="image_order_user_define">{'automatic order'|@translate}</label>
       <div id="image_order_user_define_options">
-      {foreach from=$image_orders item=order}
+      {foreach from=$image_order item=order}
       <p class="field">
-        <select name="order_field_{$order.ID}">
-          {html_options options=$image_order_field_options selected=$order.FIELD }
+        <select name="image_order[]">
+          {html_options options=$image_order_options selected=$order}
         </select>
-        <select name="order_direction_{$order.ID}">
-          {html_options options=$image_order_direction_options selected=$order.DIRECTION }
-        </select>      
       </p>
       {/foreach}
       </div>

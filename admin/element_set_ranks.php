@@ -104,28 +104,21 @@ if (isset($_POST['submit']))
       );
   }
 
-  $image_order = null;
   if (!empty($_POST['image_order_choice'])
       && in_array($_POST['image_order_choice'], $image_order_choices))
   {
     $image_order_choice = $_POST['image_order_choice'];
   }
 
+  $image_order = null;
   if ($image_order_choice=='user_define')
   {
-    for ($i=1; $i<=3; $i++)
+    for ($i=0; $i<3; $i++)
     {
-      if ( !empty($_POST['order_field_'.$i]) )
+      if (!empty($_POST['image_order'][$i]))
       {
-        if (! empty($image_order) )
-        {
-          $image_order .= ',';
-        }
-        $image_order .= $_POST['order_field_'.$i];
-        if ($_POST['order_direction_'.$i]=='DESC')
-        {
-          $image_order .= ' DESC';
-        }
+        if (!empty($image_order)) $image_order.= ',';
+        $image_order.= $_POST['image_order'][$i];
       }
     }
   }
@@ -134,7 +127,8 @@ if (isset($_POST['submit']))
     $image_order = 'rank';
   }
   $query = '
-UPDATE '.CATEGORIES_TABLE.' SET image_order=\''.$image_order.'\'
+UPDATE '.CATEGORIES_TABLE.' 
+  SET image_order=\''.$image_order.'\'
   WHERE id='.$page['category_id'];
   pwg_query($query);
 
@@ -272,50 +266,38 @@ if (pwg_db_num_rows($result) > 0)
 }
 // image order management
 $sort_fields = array(
-  '' => '',
-  'date_creation' => l10n('Creation date'),
-  'date_available' => l10n('Post date'),
-  'rating_score' => l10n('Rating score'),
-  'hit' => l10n('Most visited'),
-  'file' => l10n('File name'),
-  'name' => l10n('Photo name'),
-  'id' => 'Id',
-  'rank' => l10n('Rank'),
+  ''                    => '',
+  'file'                => l10n('file name, A &rarr; Z'),
+  'file DESC'           => l10n('file name, Z &rarr; A'),
+  'name'                => l10n('photo title, A &rarr; Z'),
+  'name DESC'           => l10n('photo title, Z &rarr; A'),
+  'date_creation DESC'  => l10n('date created, new &rarr; old'),
+  'date_creation'       => l10n('date created, old &rarr; new'),
+  'date_available DESC' => l10n('date posted, new &rarr; old'),
+  'date_available'      => l10n('date posted, old &rarr; new'),
+  'rating_score DESC'   => l10n('rating score, high &rarr; low'),
+  'rating_score'        => l10n('rating score, low &rarr; high'),
+  'hit DESC'            => l10n('visits, high &rarr; low'),
+  'hit'                 => l10n('visits, low &rarr; high'),
+  'id'                  => l10n('numeric identifier, 1 &rarr; 9'),
+  'id DESC'             => l10n('numeric identifier, 9 &rarr; 1'),
+  'rank'                => l10n('manual sort order'),
   );
 
-$sort_directions = array(
-  'ASC' => l10n('ascending'),
-  'DESC' => l10n('descending'),
-  );
+$template->assign('image_order_options', $sort_fields);
 
-$template->assign('image_order_field_options', $sort_fields);
-$template->assign('image_order_direction_options', $sort_directions);
-
-$matches = array();
-if ( !empty( $category['image_order'] ) )
-{
-  preg_match_all('/([a-z_]+) *(?:(asc|desc)(?:ending)?)? *(?:, *|$)/i',
-    $category['image_order'], $matches);
-}
+$image_order = explode(',', $category['image_order']);
 
 for ($i=0; $i<3; $i++) // 3 fields
 {
-  $tpl_image_order_select = array(
-      'ID' => $i+1,
-      'FIELD' => array(''),
-      'DIRECTION' => array('ASC'),
-    );
-
-  if ( isset($matches[1][$i]) )
+  if ( isset($image_order[$i]) )
   {
-    $tpl_image_order_select['FIELD'] = array($matches[1][$i]);
+    $template->append('image_order', $image_order[$i]);
   }
-
-  if (isset($matches[2][$i]) and strcasecmp($matches[2][$i],'DESC')==0)
+  else
   {
-    $tpl_image_order_select['DIRECTION'] = array('DESC');
+    $template->append('image_order', '');
   }
-  $template->append( 'image_orders', $tpl_image_order_select);
 }
 
 $template->assign('image_order_choice', $image_order_choice);

@@ -106,21 +106,24 @@ $display_info_checkboxes = array(
   
 // image order management
 $sort_fields = array(
-  '' => '',
-  'rank' => l10n('Rank'),
-  'file' => l10n('File name'),
-  'name' => l10n('Photo name'),
-  'date_creation' => l10n('Creation date'),
-  'date_available' => l10n('Post date'),
-  'rating_score' => l10n('Rating score'),
-  'hit' => l10n('Most visited'),
-  'id' => 'Id',
+  ''                    => '',
+  'file ASC'            => l10n('file name, A &rarr; Z'),
+  'file DESC'           => l10n('file name, Z &rarr; A'),
+  'name ASC'            => l10n('photo title, A &rarr; Z'),
+  'name DESC'           => l10n('photo title, Z &rarr; A'),
+  'date_creation DESC'  => l10n('date created, new &rarr; old'),
+  'date_creation ASC'   => l10n('date created, old &rarr; new'),
+  'date_available DESC' => l10n('date posted, new &rarr; old'),
+  'date_available ASC'  => l10n('date posted, old &rarr; new'),
+  'rating_score DESC'   => l10n('rating score, high &rarr; low'),
+  'rating_score ASC'    => l10n('rating score, low &rarr; high'),
+  'hit DESC'            => l10n('visits, high &rarr; low'),
+  'hit ASC'             => l10n('visits, low &rarr; high'),
+  'id ASC'              => l10n('numeric identifier, 1 &rarr; 9'),
+  'id DESC'             => l10n('numeric identifier, 9 &rarr; 1'),
+  'rank ASC'            => l10n('manual sort order'),
   );
-
-$sort_directions = array(
-  'ASC' => l10n('ascending'),
-  'DESC' => l10n('descending'),
-  );
+  
 
 //------------------------------ verification and registration of modifications
 if (isset($_POST['submit']))
@@ -133,29 +136,14 @@ if (isset($_POST['submit']))
     {      
       if ( !isset($conf['order_by_custom']) and !isset($conf['order_by_inside_category_custom']) )
       {
-        if ( !empty($_POST['order_by_field']) )
-        {
-          $order_by = array();
-          $order_by_inside_category = array();
+        if ( !empty($_POST['order_by']) )
+        {         
+          // limit to the number of available parameters
+          $order_by = $order_by_inside_category = array_slice($_POST['order_by'], 0, ceil(count($sort_fields)/2));
           
-          for ($i=0; $i<count($_POST['order_by_field']); $i++)
-          {
-            if ( $i >= (count($sort_fields)-1) ) break; // limit to the number of available parameters
-            if ( empty($_POST['order_by_field'][$i]) )
-            {
-              array_push($page['errors'], l10n('No field selected'));
-              break;
-            }
-            else
-            {
-              // there is no rank outside categories
-              if ($_POST['order_by_field'][$i] != 'rank')
-              {
-                $order_by[] = $_POST['order_by_field'][$i].' '.$_POST['order_by_direction'][$i];
-              }
-              $order_by_inside_category[] = $_POST['order_by_field'][$i].' '.$_POST['order_by_direction'][$i];
-            }
-          }
+          // there is no rank outside categories
+          unset($order_by[ array_search('rank ASC', $order_by) ]);
+          
           // must define a default order_by if user want to order by rank only
           if ( count($order_by) == 0 )
           {
@@ -164,7 +152,10 @@ if (isset($_POST['submit']))
           
           $_POST['order_by'] = 'ORDER BY '.implode(', ', $order_by);
           $_POST['order_by_inside_category'] = 'ORDER BY '.implode(', ', $order_by_inside_category);
-          unset($_POST['order_by_field']);
+        }
+        else
+        {
+          array_push($page['errors'], l10n('No field selected'));
         }
       }
       
@@ -323,11 +314,7 @@ switch ($page['section'])
     
     if ( isset($conf['order_by_custom']) or isset($conf['order_by_inside_category_custom']) )
     {
-      $order_by = array(array(
-        'FIELD' => '',    
-        'DIRECTION' => 'ASC', 
-        ));
-        
+      $order_by = array('');
       $template->assign('ORDER_BY_IS_CUSTOM', true);
     }
     else
@@ -336,15 +323,6 @@ switch ($page['section'])
       $order_by = trim($conf['order_by_inside_category']);
       $order_by = str_replace('ORDER BY ', null, $order_by);
       $order_by = explode(', ', $order_by);
-      foreach ($order_by as $field)
-      {
-        $field= explode(' ', $field);
-        $out[] = array(
-          'FIELD' => $field[0],    
-          'DIRECTION' => $field[1],    
-        );
-      }
-      $order_by = $out;
     }
   
     $template->assign(
@@ -358,8 +336,7 @@ switch ($page['section'])
           ),
         'week_starts_on_options_selected' => $conf['week_starts_on'],
         'order_by' => $order_by,
-        'order_field_options' => $sort_fields,
-        'order_direction_options' => $sort_directions,
+        'order_by_options' => $sort_fields,
         )
       );
 

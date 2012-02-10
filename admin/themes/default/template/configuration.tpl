@@ -108,12 +108,9 @@ jQuery(document).ready(function(){
         
         {foreach from=$main.order_by item=order}
         <span class="filter {if $ORDER_BY_IS_CUSTOM}transparent{/if}">          
-          <select name="order_by_field[]" {if $ORDER_BY_IS_CUSTOM}disabled{/if}>
-            {html_options options=$main.order_field_options selected=$order.FIELD }
+          <select name="order_by[]" {if $ORDER_BY_IS_CUSTOM}disabled{/if}>
+            {html_options options=$main.order_by_options selected=$order}
           </select>
-          <select name="order_by_direction[]" {if $ORDER_BY_IS_CUSTOM}disabled{/if}>
-            {html_options options=$main.order_direction_options selected=$order.DIRECTION }
-          </select>  
           <a class="removeFilter">{'delete'|@translate}</a>
         </span>
         {/foreach}
@@ -128,7 +125,7 @@ jQuery(document).ready(function(){
 {if !$ORDER_BY_IS_CUSTOM}
 {footer_script require='jquery'}
 // counters for displaying of addFilter link
-fields = {$main.order_by|@count}; max_fields = {$main.order_field_options|@count}; max_fields--;
+fields = {$main.order_by|@count}; max_fields = Math.ceil({$main.order_by_options|@count}/2);
 
 {literal}
 function updateAddFilterLink() {
@@ -149,10 +146,8 @@ function updateRemoveFilterTrigger() {
 
 jQuery(document).ready(function () {
   $('.addFilter').click(function() {
-    rel = $(this).attr('rel');
     $(this).prev('span.filter').clone().insertBefore($(this));
-    $(this).prev('span.filter').children('select[name="order_by_field[]"]').val('');
-    $(this).prev('span.filter').children('select[name="order_by_direction[]"]').val('ASC');
+    $(this).prev('span.filter').children('select[name="order_by[]"]').val('');
     
     fields++;
     updateAddFilterLink();  
