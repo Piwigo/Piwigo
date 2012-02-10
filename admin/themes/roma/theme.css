@@ -258,3 +258,5 @@ div.token-input-dropdown ul li.token-input-selected-dropdown-item {background-co
 #albumThumbnail img, #albumLinks {
   border-color:#333;
 }
+
+.selectedComment {background-color:#555; color:#fff;}

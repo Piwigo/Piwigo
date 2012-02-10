@@ -1,19 +1,34 @@
 {footer_script}{literal}
 jQuery(document).ready(function(){
+  function highlighComments() {
+    jQuery(".checkComment").each(function() {
+      var parent = jQuery(this).parent('tr');
+      if (jQuery(this).children("input[type=checkbox]").is(':checked')) {
+        jQuery(parent).addClass('selectedComment'); 
+      }
+      else {
+        jQuery(parent).removeClass('selectedComment'); 
+      }
+    });
+  }
+
   jQuery(".checkComment").click(function(event) {
     if (event.target.type !== 'checkbox') {
       var checkbox = jQuery(this).children("input[type=checkbox]");
       jQuery(checkbox).attr('checked', !jQuery(checkbox).is(':checked'));
+      highlighComments();
     }
   });
 
   jQuery("#commentSelectAll").click(function () {
     jQuery(".checkComment input[type=checkbox]").attr('checked', true);
+    highlighComments();
     return false;
   });
 
   jQuery("#commentSelectNone").click(function () {
     jQuery(".checkComment input[type=checkbox]").attr('checked', false);
+    highlighComments();
     return false;
   });
 
@@ -21,6 +36,7 @@ jQuery(document).ready(function(){
     jQuery(".checkComment input[type=checkbox]").each(function() {
       jQuery(this).attr('checked', !$(this).is(':checked'));
     });
+    highlighComments();
     return false;
   });
 

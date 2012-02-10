@@ -280,3 +280,5 @@ UL.thumbnails li.rank-of-image {background-color: #ddd;}
 
 #batchManagerGlobal .thumbSelected {background-color:#C2F5C2 !important}
 #batchManagerGlobal #selectedMessage {background-color:#C2F5C2;}
+
+.selectedComment {background-color:#C2F5C2;}
