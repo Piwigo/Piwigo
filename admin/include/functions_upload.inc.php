@@ -296,8 +296,10 @@ SELECT
   else
   {
     // database registration
+    $file = pwg_db_real_escape_string(isset($original_filename) ? $original_filename : basename($file_path));
     $insert = array(
-      'file' => pwg_db_real_escape_string(isset($original_filename) ? $original_filename : basename($file_path)),
+      'file' => $file,
+      'name' => get_name_from_file($file),
       'date_available' => $dbnow,
       'path' => preg_replace('#^'.preg_quote(PHPWG_ROOT_PATH).'#', '', $file_path),
       'filesize' => $file_infos['filesize'],

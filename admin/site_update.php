@@ -410,6 +410,7 @@ SELECT id, path
     $insert = array(
       'id'             => $next_element_id++,
       'file'           => $filename,
+      'name'           => get_name_from_file($filename),
       'date_available' => CURRENT_DATE,
       'path'           => $path,
       'representative_ext'  => $fs[$path]['representative_ext'],
