@@ -1745,6 +1745,24 @@ function ws_images_add($params, &$service)
       );
   }
 
+  $params['image_id'] = (int)$params['image_id'];
+  if ($params['image_id'] > 0)
+  {
+    include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
+
+    $query='
+SELECT *
+  FROM '.IMAGES_TABLE.'
+  WHERE id = '.$params['image_id'].'
+;';
+
+    $image_row = pwg_db_fetch_assoc(pwg_query($query));
+    if ($image_row == null)
+    {
+      return new PwgError(404, "image_id not found");
+    }
+  }
+
   // does the image already exists ?
   if ($params['check_uniqueness'])
   {
@@ -1797,7 +1815,7 @@ SELECT
     $params['original_filename'],
     null, // categories
     isset($params['level']) ? $params['level'] : null,
-    null, // image_id
+    $params['image_id'] > 0 ? $params['image_id'] : null,
     $params['original_sum']
     );
 
