@@ -1660,6 +1660,25 @@ SELECT
   if ($params['resize'])
   {
     ws_logfile('[pwg.images.add] resize activated');
+
+    // updating a photo is possible only combined with the resize option
+    $params['image_id'] = (int)$params['image_id'];
+    if ($params['image_id'] > 0)
+    {
+      include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
+      
+      $query='
+SELECT *
+  FROM '.IMAGES_TABLE.'
+  WHERE id = '.$params['image_id'].'
+;';
+      
+      $image_row = pwg_db_fetch_assoc(pwg_query($query));
+      if ($image_row == null)
+      {
+        return new PwgError(404, "image_id not found");
+      }
+    }
     
     // temporary file path
     $type = 'file';
@@ -1672,7 +1691,10 @@ SELECT
     
     $image_id = add_uploaded_file(
       $file_path,
-      $params['original_filename']
+      $params['original_filename'],
+      null,
+      null,
+      $params['image_id'] > 0 ? $params['image_id'] : null
       );
 
     // add_uploaded_file doesn't remove the original file in the buffer

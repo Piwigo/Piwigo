@@ -242,6 +242,7 @@ function ws_addDefaultMethods( $arr )
         ),
       'resize' => array('default' => false),
       'check_uniqueness' => array('default' => true),
+      'image_id' => array('default' => null),
       ),
     'POST method only.
 <br><b>categories</b> is a string list "category_id[,rank];category_id[,rank]" The rank is optional and is equivalent to "auto" if not given.'
