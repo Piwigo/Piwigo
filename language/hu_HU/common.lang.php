@@ -385,4 +385,5 @@ $lang['Thank you for registering at %s!'] = 'Köszönjük, hogy regisztrált %s 
 $lang['Username modification'] = 'Felhasználónév módosítása';
 $lang['Username: %s'] = 'Felhasználónév: %s';
 $lang['Your username has been successfully changed to : %s'] = 'Sikeres felhasználónév módosítás: %s';
+$lang['Photo sizes'] = 'Kép méretek';
 ?>
