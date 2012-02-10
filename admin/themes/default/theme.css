@@ -1058,3 +1058,16 @@ p#uploadModeInfos {text-align:left;margin-top:1em;font-size:90%;color:#999;}
   border-left:2px solid #ddd;
   padding-left:10px;
 }
+
+/* Pending Comments */
+#pendingComments {
+  padding:0 5px 0 10px;
+}
+
+#pendingComments table {
+  width:100%;
+}
+
+#pendingComments .bottomButtons {
+  text-align:left;
+}

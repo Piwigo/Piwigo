@@ -44,15 +44,13 @@ jQuery(document).ready(function(){
 {/literal}{/footer_script}
 
 <div class="titrePage">
-  <h2>{'Waiting'|@translate} {$TABSHEET_TITLE}</h2>
+  <h2>{'Pending Comments'|@translate} {$TABSHEET_TITLE}</h2>
 </div>
 
-<h3>{'User comments validation'|@translate}</h3>
-
 {if !empty($comments) }
-<form method="post" action="{$F_ACTION}">
+<form method="post" action="{$F_ACTION}" id="pendingComments">
   
-<table width="99%">
+<table>
   {foreach from=$comments item=comment name=comment}
   <tr valign="top" class="{if $smarty.foreach.comment.index is odd}row2{else}row1{/if}">
     <td style="width:50px;" class="checkComment">
