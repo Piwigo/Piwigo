@@ -343,8 +343,7 @@ SELECT id,representative_ext,path
 ;';
     $row = pwg_db_fetch_assoc(pwg_query($query));
     $src = DerivativeImage::thumb_url($row);
-    $url = get_root_url().'admin.php?page=picture_modify';
-    $url.= '&amp;image_id='.$category['representative_picture_id'];
+    $url = get_root_url().'admin.php?page=photo-'.$category['representative_picture_id'];
 
     $tpl_representant['picture'] =
       array(

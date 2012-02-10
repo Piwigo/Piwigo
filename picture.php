@@ -751,9 +751,9 @@ if (is_admin())
   }
 
   $url_admin =
-    get_root_url().'admin.php?page=picture_modify'
-    .'&amp;cat_id='.(isset($page['category']) ? $page['category']['id'] : '')
-    .'&amp;image_id='.$page['image_id'];
+    get_root_url().'admin.php?page=photo-'.$page['image_id']
+    .(isset($page['category']) ? '&amp;cat_id='.$page['category']['id'] : '')
+    ;
 
   $template->assign(
     array(

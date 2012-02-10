@@ -36,6 +36,14 @@ check_status(ACCESS_ADMINISTRATOR);
 check_input_parameter('image_id', $_GET, false, PATTERN_ID);
 check_input_parameter('cat_id', $_GET, false, PATTERN_ID);
 
+// represent
+$query = '
+SELECT id
+  FROM '.CATEGORIES_TABLE.'
+  WHERE representative_picture_id = '.$_GET['image_id'].'
+;';
+$represent_options_selected = array_from_query($query, 'id');
+
 // +-----------------------------------------------------------------------+
 // |                             delete photo                              |
 // +-----------------------------------------------------------------------+
@@ -132,18 +140,16 @@ if (isset($_POST['submit']) and count($page['errors']) == 0)
     $data{'comment'} = strip_tags(@$_POST['description']);
   }
 
-  if (isset($_POST['date_creation_action']))
+  if (!empty($_POST['date_creation_year']))
   {
-    if ('set' == $_POST['date_creation_action'])
-    {
-      $data{'date_creation'} = $_POST['date_creation_year']
-                                 .'-'.$_POST['date_creation_month']
-                                 .'-'.$_POST['date_creation_day'];
-    }
-    else if ('unset' == $_POST['date_creation_action'])
-    {
-      $data{'date_creation'} = '';
-    }
+    $data{'date_creation'} =
+      $_POST['date_creation_year']
+      .'-'.$_POST['date_creation_month']
+      .'-'.$_POST['date_creation_day'];
+  }
+  else
+  {
+    $data{'date_creation'} = null;
   }
 
   mass_updates(
@@ -163,58 +169,35 @@ if (isset($_POST['submit']) and count($page['errors']) == 0)
   }
   set_tags($tag_ids, $_GET['image_id']);
 
-  array_push($page['infos'], l10n('Photo informations updated'));
-}
-// associate the element to other categories than its storage category
-if (isset($_POST['associate'])
-    and isset($_POST['cat_dissociated'])
-    and count($_POST['cat_dissociated']) > 0
-  )
-{
-  associate_images_to_categories(
-    array($_GET['image_id']),
-    $_POST['cat_dissociated']
-    );
-}
-// dissociate the element from categories (but not from its storage category)
-if (isset($_POST['dissociate'])
-    and isset($_POST['cat_associated'])
-    and count($_POST['cat_associated']) > 0
-  )
-{
-  $query = '
-DELETE FROM '.IMAGE_CATEGORY_TABLE.'
-  WHERE image_id = '.$_GET['image_id'].'
-    AND category_id IN ('.implode(',', $_POST['cat_associated']).')
-';
-  pwg_query($query);
+  // association to albums
+  move_images_to_categories(array($_GET['image_id']), $_POST['associate']);
 
-  update_category($_POST['cat_associated']);
-}
-// elect the element to represent the given categories
-if (isset($_POST['elect'])
-    and isset($_POST['cat_dismissed'])
-    and count($_POST['cat_dismissed']) > 0
-  )
-{
-  $datas = array();
-  foreach ($_POST['cat_dismissed'] as $category_id)
+  // thumbnail for albums
+  if (!isset($_POST['represent']))
   {
-    array_push($datas,
-               array('id' => $category_id,
-                     'representative_picture_id' => $_GET['image_id']));
+    $_POST['represent'] = array();
   }
-  $fields = array('primary' => array('id'),
-                  'update' => array('representative_picture_id'));
-  mass_updates(CATEGORIES_TABLE, $fields, $datas);
-}
-// dismiss the element as representant of the given categories
-if (isset($_POST['dismiss'])
-    and isset($_POST['cat_elected'])
-    and count($_POST['cat_elected']) > 0
-  )
-{
-  set_random_representant($_POST['cat_elected']);
+  
+  $no_longer_thumbnail_for = array_diff($represent_options_selected, $_POST['represent']);
+  if (count($no_longer_thumbnail_for) > 0)
+  {
+    set_random_representant($no_longer_thumbnail_for);
+  }
+
+  $new_thumbnail_for = array_diff($_POST['represent'], $represent_options_selected);
+  if (count($new_thumbnail_for) > 0)
+  {
+    $query = '
+UPDATE '.CATEGORIES_TABLE.'
+  SET representative_picture_id = '.$_GET['image_id'].'
+  WHERE id IN ('.implode(',', $new_thumbnail_for).')
+;';
+    pwg_query($query);
+  }
+
+  $represent_options_selected = $_POST['represent'];
+  
+  array_push($page['infos'], l10n('Photo informations updated'));
 }
 
 // tags
@@ -262,8 +245,7 @@ $template->set_filenames(
     )
   );
 
-$admin_url_start = get_root_url().'admin.php?page=picture_modify';
-$admin_url_start.= '&amp;image_id='.$_GET['image_id'];
+$admin_url_start = $admin_photo_base_url.'-properties';
 $admin_url_start.= isset($_GET['cat_id']) ? '&amp;cat_id='.$_GET['cat_id'] : '';
 
 $template->assign(
@@ -280,6 +262,8 @@ $template->assign(
     'NAME' =>
       isset($_POST['name']) ?
         stripslashes($_POST['name']) : @$row['name'],
+
+    'TITLE' => render_element_name($row),
 
     'DIMENSIONS' => @$row['width'].' * '.@$row['height'],
 
@@ -302,6 +286,67 @@ $template->assign(
         .get_query_string_diff(array('sync_metadata'))
     )
   );
+
+$added_by = 'N/A';
+$query = '
+SELECT '.$conf['user_fields']['username'].' AS username
+  FROM '.USERS_TABLE.'
+  WHERE '.$conf['user_fields']['id'].' = '.$row['added_by'].'
+;';
+$result = pwg_query($query);
+while ($user_row = pwg_db_fetch_assoc($result))
+{
+  $added_by = $user_row['username'];
+}
+
+$intro = sprintf(
+  l10n('This photo was posted on %s by %s.'),
+  format_date($row['date_available']),
+  $added_by
+  );
+
+$intro.= ' ';
+
+$intro.= sprintf(
+  l10n('Original file is %s, %ux%u pixels, %.2fMB.'),
+  $row['file'],
+  $row['width'],
+  $row['height'],
+  $row['filesize']/1024
+  );
+
+$intro.= ' ';
+
+$intro.= sprintf(
+  l10n('%u visits'),
+  $row['hit']
+  );
+
+if ($conf['rate'] and !empty($row['rating_score']))
+{
+  $query = '
+SELECT
+    COUNT(*)
+  FROM '.RATE_TABLE.'
+  WHERE element_id = '.$_GET['image_id'].'
+;';
+  list($nb_rates) = pwg_db_fetch_row(pwg_query($query));
+  
+  $intro.= sprintf(
+    l10n(', %u rates, rating score %s'),
+    $nb_rates,
+    $row['rating_score']
+    );
+}
+
+$intro.= '. ';
+
+$intro.= sprintf(
+  l10n('Numeric identifier is %u.'),
+  $row['id']
+  );
+
+$template->assign('INTRO', $intro);
 
 if (in_array(get_extension($row['path']),$conf['picture_ext']))
 {
@@ -432,53 +477,21 @@ if (isset($url_img))
   $template->assign( 'U_JUMPTO', $url_img );
 }
 
-// associate to another category ?
+// associate to albums
 $query = '
-SELECT id,name,uppercats,global_rank
+SELECT id
   FROM '.CATEGORIES_TABLE.'
     INNER JOIN '.IMAGE_CATEGORY_TABLE.' ON id = category_id
-  WHERE image_id = '.$_GET['image_id'];
-if (isset($storage_category_id))
-{
-  $query.= '
-    AND id != '.$storage_category_id;
-}
-$query.= '
+  WHERE image_id = '.$_GET['image_id'].'
 ;';
-display_select_cat_wrapper($query, array(), 'associated_options');
-
-$result = pwg_query($query);
-$associateds = array(-1);
-if (isset($storage_category_id))
-{
-  array_push($associateds, $storage_category_id);
-}
-while ($row = pwg_db_fetch_assoc($result))
-{
-  array_push($associateds, $row['id']);
-}
-$query = '
-SELECT id,name,uppercats,global_rank
-  FROM '.CATEGORIES_TABLE.'
-  WHERE id NOT IN ('.implode(',', $associateds).')
-;';
-display_select_cat_wrapper($query, array(), 'dissociated_options');
-
-// representing
-$query = '
-SELECT id,name,uppercats,global_rank
-  FROM '.CATEGORIES_TABLE.'
-  WHERE representative_picture_id = '.$_GET['image_id'].'
-;';
-display_select_cat_wrapper($query, array(), 'elected_options');
+$associate_options_selected = array_from_query($query, 'id');
 
 $query = '
 SELECT id,name,uppercats,global_rank
   FROM '.CATEGORIES_TABLE.'
-  WHERE representative_picture_id != '.$_GET['image_id'].'
-    OR representative_picture_id IS NULL
 ;';
-display_select_cat_wrapper($query, array(), 'dismissed_options');
+display_select_cat_wrapper($query, $associate_options_selected, 'associate_options');
+display_select_cat_wrapper($query, $represent_options_selected, 'represent_options');
 
 //----------------------------------------------------------- sending html code
 

@@ -129,9 +129,7 @@ while ($row = pwg_db_fetch_assoc($result))
   $template->append(
     'comments',
     array(
-      'U_PICTURE' =>
-          PHPWG_ROOT_PATH.'admin.php?page=picture_modify'.
-          '&amp;image_id='.$row['image_id'],
+      'U_PICTURE' => get_root_url().'admin.php?page=photo-'.$row['image_id'],
       'ID' => $row['id'],
       'TN_SRC' => $thumb,
       'AUTHOR' => trigger_event('render_comment_author', $author_name),

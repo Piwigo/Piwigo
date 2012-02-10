@@ -1531,6 +1531,37 @@ DELETE
 }
 
 /**
+ * Disssociate images from all categories except their storage category and
+ * associate to new categories.
+ *
+ * @param array images
+ * @param array categories
+ * @return void
+ */
+function move_images_to_categories($images, $categories)
+{
+  if (count($images) == 0)
+  {
+    return false;
+  }
+  
+  // let's first break links with all albums but their "storage album"
+  $query = '
+DELETE '.IMAGE_CATEGORY_TABLE.'.*
+  FROM '.IMAGE_CATEGORY_TABLE.'
+    JOIN '.IMAGES_TABLE.' ON image_id=id
+  WHERE id IN ('.implode(',', $images).')
+    AND (storage_category_id IS NULL OR storage_category_id != category_id)
+;';
+  pwg_query($query);
+    
+  if (is_array($categories) and count($categories) > 0)
+  {
+    associate_images_to_categories($images, $categories);
+  }
+}
+
+/**
  * Associate images associated to a list of source categories to a list of
  * destination categories.
  *
@@ -1987,6 +2018,7 @@ function get_active_menu($menu_page)
 
   switch ($menu_page)
   {
+    case 'photo':
     case 'photos_add':
     case 'rating':
     case 'tags':

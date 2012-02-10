@@ -215,10 +215,7 @@ SELECT
     // function get_image_name($name, $file) would be better
     $thumbnail['title'] = get_name_from_file($image_infos['file']);
 
-    $thumbnail['link'] = PHPWG_ROOT_PATH.'admin.php?page=picture_modify'
-      .'&amp;image_id='.$image_id
-      .'&amp;cat_id='.$category_id
-      ;
+    $thumbnail['link'] = get_root_url().'admin.php?page=photo-'.$image_id.'&amp;cat_id='.$category_id;
 
     array_push($page['thumbnails'], $thumbnail);
   }

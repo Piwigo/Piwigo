@@ -179,20 +179,7 @@ DELETE
 
   if ('move' == $action)
   {
-    // let's first break links with all albums but their "storage album"
-    $query = '
-DELETE '.IMAGE_CATEGORY_TABLE.'.*
-  FROM '.IMAGE_CATEGORY_TABLE.'
-    JOIN '.IMAGES_TABLE.' ON image_id=id
-  WHERE id IN ('.implode(',', $collection).')
-    AND (storage_category_id IS NULL OR storage_category_id != category_id)
-;';
-    pwg_query($query);
-    
-    associate_images_to_categories(
-      $collection,
-      array($_POST['move'])
-      );
+    move_images_to_categories($collection, array($_POST['move']));
 
     $_SESSION['page_infos'] = array(
       l10n('Information data registered in database')
@@ -786,9 +773,7 @@ SELECT id,path,representative_ext,file,filesize,level,name
         'TITLE' => $title,
         'LEVEL' => $row['level'],
         'FILE_SRC' => $row['path'],
-        'U_EDIT' =>
-            PHPWG_ROOT_PATH.'admin.php?page=picture_modify'.
-            '&amp;image_id='.$row['id'],
+        'U_EDIT' => get_root_url().'admin.php?page=photo-'.$row['id'],
         )
       );
   }

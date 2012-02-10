@@ -132,6 +132,18 @@ if (isset($_GET['page']) and preg_match('/^album-(\d+)(?:-(.*))?$/', $_GET['page
   }
 }
 
+// ?page=photo-1234-properties is an clean alias of
+// ?page=photo&image_id=1234&tab=properties
+if (isset($_GET['page']) and preg_match('/^photo-(\d+)(?:-(.*))?$/', $_GET['page'], $matches))
+{
+  $_GET['page'] = 'photo';
+  $_GET['image_id'] = $matches[1];
+  if (isset($matches[2]))
+  {
+    $_GET['tab'] = $matches[2];
+  }
+}
+
 if (isset($_GET['page'])
     and preg_match('/^[a-z_]*$/', $_GET['page'])
     and is_file(PHPWG_ROOT_PATH.'admin/'.$_GET['page'].'.php'))
@@ -236,6 +248,7 @@ if (
         'album',        // delete cat; public/private; lock/unlock, permissions
         'cat_move',     // ?only POST
         'cat_options',  // ?only POST; public/private; lock/unlock
+        'photo',
         'picture_modify', // ?only POST; associate/dissociate
         'user_perm',
         'group_perm',

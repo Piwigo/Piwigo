@@ -78,9 +78,9 @@ else
 }
 
 $tpl_var = array(
+  'TITLE' => render_element_name($row),
   'ALT' => $row['file'],
   'U_IMG' => DerivativeImage::url(IMG_LARGE, $row),
-  'U_EDIT' => get_root_url().'admin.php?page=picture_modify&amp;image_id='.$_GET['image_id'],
   );
 
 if (!empty($row['coi']))

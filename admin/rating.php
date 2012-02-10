@@ -203,8 +203,7 @@ foreach ($images as $image)
 {
   $thumbnail_src = DerivativeImage::thumb_url($image);
 
-  $image_url = PHPWG_ROOT_PATH.'admin.php?page=picture_modify'.
-            '&amp;image_id='.$image['id'];
+  $image_url = get_root_url().'admin.php?page=photo-'.$image['id'];
 
   $query = 'SELECT *
 FROM '.RATE_TABLE.' AS r

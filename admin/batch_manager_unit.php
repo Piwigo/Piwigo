@@ -265,11 +265,8 @@ SELECT
         'ID' => $row['id'],
         'TN_SRC' => $src,
         'FILE_SRC' => $row['path'],
-        'LEGEND' => !empty($row['name']) ?
-            $row['name'] : get_name_from_file($row['file']),
-        'U_EDIT' =>
-            PHPWG_ROOT_PATH.'admin.php?page=picture_modify'.
-            '&amp;image_id='.$row['id'],
+        'LEGEND' => render_element_name($row),
+        'U_EDIT' => get_root_url().'admin.php?page=photo-'.$row['id'],
         'NAME' => !empty($row['name'])?$row['name']:'',
         'AUTHOR' => !empty($row['author'])?htmlspecialchars($row['author']):'',
         'LEVEL' => !empty($row['level'])?$row['level']:'0',
