@@ -546,34 +546,37 @@ function time_since($original, $stop = 'minute')
       $ymdhms[] = $tok;
       $tok = strtok('- :');
     }
+    
+    if ($ymdhms[0] < 1970) return false;
+    if (!isset($ymdhms[3])) $ymdhms[3] = 12;
+    if (!isset($ymdhms[4])) $ymdhms[4] = 0;
+    if (!isset($ymdhms[5])) $ymdhms[5] = 0;
     $original = mktime($ymdhms[3],$ymdhms[4],$ymdhms[5],$ymdhms[1],$ymdhms[2],$ymdhms[0]);
   }
   
   // array of time period chunks
   $chunks = array(
-      array(60 * 60 * 24 * 365 , 'year'),
-      array(60 * 60 * 24 * 30 , 'month'),
-      array(60 * 60 * 24 * 7, 'week'),
-      array(60 * 60 * 24 , 'day'),
-      array(60 * 60 , 'hour'),
-      array(60 , 'minute'),
-      array(1 , 'second'),
+    'year' => 60 * 60 * 24 * 365,
+    'month' => 60 * 60 * 24 * 30,
+    'week' => 60 * 60 * 24 * 7,
+    'day' => 60 * 60 * 24,
+    'hour' => 60 * 60,
+    'minute' => 60,
+    'second' => 1,
   );
   
   $today = time(); /* Current unix time  */
   $since = abs($today - $original);
   
   $print = null;
-  for ($i = 0, $j = count($chunks); $i < $j; $i++)
+  foreach ($chunks as $name => $seconds)
   {
-    $seconds = $chunks[$i][0];
-    $name = $chunks[$i][1];
     if (($count = floor($since / $seconds)) != 0)
     {
-      $print.= ($count == 1) ? '1 '.l10n($name).' ' : $count.' '.l10n($name.'s').' ';
+      $print.= l10n_dec('%d '.$name, '%d '.$name.'s', $count);
       $since-= $count*$seconds;
     }
-    if ($name == $stop)
+    if (!empty($print) and $chunks[$name] <= $chunks[$stop])
     {
       break;
     }

@@ -46,18 +46,18 @@ pwg_initialization_datepicker("#date_creation_day", "#date_creation_month", "#da
         <td id="albumThumbnail">
           <img src="{$TN_SRC}" alt="{'Thumbnail'|@translate}" class="Thumbnail">
         </td>
-        <td id="albumLinks" style="width:500px;vertical-align:top;">
-          <ul>
+        <td id="albumLinks" style="width:400px;vertical-align:top;">
+          <ul style="padding-left:15px;margin:0;">
             <li>{$INTRO.file}</li>
-            <li>{$INTRO.added}</li>
+            <li>{$INTRO.add_date}</li>
+            <li>{$INTRO.added_by}</li>
             <li>{$INTRO.size}</li>
-            <li>{$INTRO.hits}</li>
-            {if $INTRO.rate}<li>{$INTRO.rate}</li>{/if}
+            <li>{$INTRO.stats}</li>
             <li>{$INTRO.id}</li>
           </ul>
         </td>
         <td style="vertical-align:top;">
-          <ul style="padding-left:15px;">
+          <ul style="padding-left:15px;margin:0;">
           {if isset($U_JUMPTO) }
             <li><a href="{$U_JUMPTO}">{'jump to photo'|@translate} →</a></li>
           {/if}

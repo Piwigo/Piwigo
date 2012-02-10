@@ -301,9 +301,10 @@ while ($user_row = pwg_db_fetch_assoc($result))
 
 $intro_vars = array(
   'file' => sprintf(l10n('Original file : %s'), $row['file']),
-  'added' => sprintf(l10n('Posted %s on %s by %s'), time_since($row['date_available'], 'month'), format_date($row['date_available'], false, false), $row['added_by']),
+  'add_date' => sprintf(l10n('Posted %s on %s'), time_since($row['date_available'], 'year'), format_date($row['date_available'], false, false)),
+  'added_by' => sprintf(l10n('Added by %s'), $row['added_by']),
   'size' => $row['width'].'&times;'.$row['height'].' pixels, '.sprintf('%.2f', $row['filesize']/1024).'MB',
-  'hits' => sprintf(l10n('%d visits'), $row['hit']),
+  'stats' => sprintf(l10n('Visited %d times'), $row['hit']),
   'id' => sprintf(l10n('Numeric identifier : %d'), $row['id']),
   );
 
@@ -317,7 +318,7 @@ SELECT
 ;';
   list($row['nb_rates']) = pwg_db_fetch_row(pwg_query($query));
   
-  $intro_vars['rate'] = sprintf(l10n('Rated %d times, score : %f'), $row['nb_rates'], $row['rating_score']);
+  $intro_vars['stats'].= ', '.sprintf(l10n('Rated %d times, score : %.2f'), $row['nb_rates'], $row['rating_score']);
 }
 
 $template->assign('INTRO', $intro_vars);
