@@ -492,7 +492,7 @@ INSERT INTO '.HISTORY_TABLE.'
 // The output is internationalized.
 //
 // format_date( "2003-09-15", true ) -> "Monday 15 September 2003 21:52"
-function format_date($date, $show_time = false)
+function format_date($date, $show_time = false, $show_day_name = true)
 {
   global $lang;
 
@@ -516,7 +516,7 @@ function format_date($date, $show_time = false)
 
   $formated_date = '';
   // before 1970, Microsoft Windows can't mktime
-  if ($ymdhms[0] >= 1970)
+  if ($show_day_name and $ymdhms[0] >= 1970)
   {
     // we ask midday because Windows think it's prior to midnight with a
     // zero and refuse to work
@@ -530,6 +530,65 @@ function format_date($date, $show_time = false)
     $formated_date.= ' '.$ymdhms[3].':'.$ymdhms[4];
   }
   return $formated_date;
+}
+
+/**
+ * Works out the time since the entry post, takes a an argument in unix time or datetime
+ */
+function time_since($original, $stop = 'minute')
+{
+  if (!is_int($original))
+  {
+    $ymdhms = array();
+    $tok = strtok($original, '- :');
+    while ($tok !== false)
+    {
+      $ymdhms[] = $tok;
+      $tok = strtok('- :');
+    }
+    $original = mktime($ymdhms[3],$ymdhms[4],$ymdhms[5],$ymdhms[1],$ymdhms[2],$ymdhms[0]);
+  }
+  
+  // array of time period chunks
+  $chunks = array(
+      array(60 * 60 * 24 * 365 , 'year'),
+      array(60 * 60 * 24 * 30 , 'month'),
+      array(60 * 60 * 24 * 7, 'week'),
+      array(60 * 60 * 24 , 'day'),
+      array(60 * 60 , 'hour'),
+      array(60 , 'minute'),
+      array(1 , 'second'),
+  );
+  
+  $today = time(); /* Current unix time  */
+  $since = abs($today - $original);
+  
+  $print = null;
+  for ($i = 0, $j = count($chunks); $i < $j; $i++)
+  {
+    $seconds = $chunks[$i][0];
+    $name = $chunks[$i][1];
+    if (($count = floor($since / $seconds)) != 0)
+    {
+      $print.= ($count == 1) ? '1 '.l10n($name).' ' : $count.' '.l10n($name.'s').' ';
+      $since-= $count*$seconds;
+    }
+    if ($name == $stop)
+    {
+      break;
+    }
+  }
+
+  if ($today > $original) 
+  {
+    $print = sprintf(l10n('%s ago'), $print);
+  }
+  else
+  {
+    $print = sprintf(l10n('%s in the future'), $print);
+  }
+  
+  return $print;
 }
 
 function pwg_debug( $string )
