@@ -225,7 +225,7 @@ $lang['Prepared time for list of users to send mail is limited. Others users are
 $lang['Time to send mail is limited. Others mails are skipped.'] = 'O tempo para enviar email é limitado. Outros emails serão desconsiderados.';
 $lang['To send ?'] = 'Enviar ?';
 $lang['Last send'] = 'Enviado pela última vez';
-$lang['email'] = 'Email';
+$lang['email'] = 'e-mail';
 $lang['User'] = 'Utilizador';
 $lang['See you soon,'] = 'Até breve,';
 $lang['Go to'] = 'Ir à(ao) ';
@@ -840,5 +840,7 @@ $lang['administrators'] = 'administradores';
 $lang['This album contains %d photos, added on %s.'] = 'Este álbum contém %d  fotografias, adicionadas em %s.';
 $lang['This album contains %d photos, added between %s and %s.'] = 'Este álbum contém %d fotografias, adicionadas entre %s e %s.';
 $lang['This album contains no photo.'] = 'Este álbum não contém fotografias.'; 
-
+$lang['Not cropped correctly?'] = 'Não foi cortada corretamente?';
+$lang['Center of interest'] = 'Centro de interesse';
+$lang['Move to album'] = 'Mover para o álbum';
 ?>

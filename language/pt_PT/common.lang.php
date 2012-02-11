@@ -379,6 +379,9 @@ $lang['Thank you for registering at %s!'] = 'Obrigado por registrar-se em %s!';
 $lang['Here are your connection settings'] = 'Aqui estão suas configurações de conexão';
 $lang['Password: %s'] = 'Senha: %s';
 $lang['Username: %s'] = 'Nome de usuário: %s';
-$lang['If you think you\'ve received this email in error, please contact us at %s'] = 'Se você acha que recebeu este e-mail por engano, por favor contacte-nos em %s'; 
+$lang['If you think you\'ve received this email in error, please contact us at %s'] = 'Se você acha que recebeu este e-mail por engano, por favor contacte-nos em %s';
+$lang['old → new'] = 'antiga → nova';
+$lang['new → old'] = 'nova → antiga';
+$lang['Photo sizes'] = 'Tamanhos da fotografia';
 
 ?>

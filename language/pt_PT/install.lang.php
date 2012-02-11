@@ -68,5 +68,7 @@ $lang['Download the config file'] = 'Guardar ficheiro de configuração';
 $lang['You can download the config file and upload it to local/config directory of your installation.'] = 'Pode guardar o ficheiro de configuração no seu computador e de seguida enviá-lo para a pasta /local/config da sua instalação.';
 $lang['Just another Piwigo gallery'] = 'Apenas uma outra galeria Piwigo';
 $lang['Welcome to my photo gallery'] = 'Bem-vindo à minha galeria de fotos';
+$lang['Welcome to your new installation of Piwigo!'] = 'Bem-vindo à sua nova instalação do Piwigo!';
+$lang['Don\'t hesitate to consult our forums for any help : %s'] = 'Não hesite em visitar nossos forums para qualquer ajuda: %s'; 
 
 ?>
