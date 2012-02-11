@@ -517,7 +517,12 @@ $validated_keys = array(
 	'IP',
 	'Downloads',
 	'Download',
-	'Download,',	
+	'Download,',
+	'EXIF Metadata',
+	'IPTC Metadata',
+	'Original',
+	'Zoom',
+	'',
 	),
 	
   'ro_RO' => array(
