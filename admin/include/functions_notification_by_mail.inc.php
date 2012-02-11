@@ -339,8 +339,8 @@ function assign_vars_nbm_mail_content($nbm_user)
 
       'SEND_AS_NAME' => $env_nbm['send_as_name'],
 
-      'UNSUBSCRIBE_LINK' => add_url_params(get_root_url().'nbm.php', array('unsubscribe' => $nbm_user['check_key'])),
-      'SUBSCRIBE_LINK' => add_url_params(get_root_url().'nbm.php', array('subscribe' => $nbm_user['check_key'])),
+      'UNSUBSCRIBE_LINK' => add_url_params(get_gallery_home_url().'/nbm.php', array('unsubscribe' => $nbm_user['check_key'])),
+      'SUBSCRIBE_LINK' => add_url_params(get_gallery_home_url().'/nbm.php', array('subscribe' => $nbm_user['check_key'])),
       'CONTACT_EMAIL' => $env_nbm['send_as_mail_address']
     )
   );
