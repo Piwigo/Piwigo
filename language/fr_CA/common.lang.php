@@ -120,7 +120,6 @@ $lang['Webmaster'] = 'Webmestre';
 $lang['Week %d'] = 'Semaine %d';
 $lang['About Piwigo'] = 'À propos de Piwigo';
 $lang['You are not authorized to access the requested page'] = 'Vous n\'êtes pas autorisé à accéder à la page demandée';
-$lang['Add to caddie'] = 'ajouter au panier';
 $lang['add this photo to your favorites'] = 'ajouter cette image à vos favoris';
 $lang['Administration'] = 'Administration';
 $lang['all'] = 'tout';
@@ -377,4 +376,6 @@ $lang['If you think you\'ve received this email in error, please contact us at %
 $lang['Successfully registered, you will soon receive an email with your connection settings. Welcome!'] = 'Inscription réussie, vous recevrez bientôt un email avec vos identifiants. Bienvenue !';
 $lang['Send my connection settings by email'] = 'Recevoir mes identifiants par email';
 
+$lang['new &rarr; old'] = 'nouveau &rarr; ancien';
+$lang['old &rarr; new'] = 'ancien &rarr; nouveau';
 ?>
