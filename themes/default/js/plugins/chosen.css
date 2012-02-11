@@ -126,13 +126,13 @@
 
 /* @group Multi Chosen */
 .chzn-container-multi .chzn-choices {
-  background-color: #fff;
-  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(1%, #eeeeee), color-stop(15%, #ffffff));
-  background-image: -webkit-linear-gradient(top, #eeeeee 1%, #ffffff 15%);
-  background-image: -moz-linear-gradient(top, #eeeeee 1%, #ffffff 15%);
-  background-image: -o-linear-gradient(top, #eeeeee 1%, #ffffff 15%);
-  background-image: -ms-linear-gradient(top, #eeeeee 1%, #ffffff 15%);
-  background-image: linear-gradient(top, #eeeeee 1%, #ffffff 15%);
+  background: #fff url('chosen-sprite.png') no-repeat 100% -21px;
+  background-image: url('chosen-sprite.png') no-repeat 100% -21px, -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(1%, #eeeeee), color-stop(15%, #ffffff));
+  background-image: url('chosen-sprite.png') no-repeat 100% -21px, -webkit-linear-gradient(top, #eeeeee 1%, #ffffff 15%);
+  background-image: url('chosen-sprite.png') no-repeat 100% -21px, -moz-linear-gradient(top, #eeeeee 1%, #ffffff 15%);
+  background-image: url('chosen-sprite.png') no-repeat 100% -21px, -o-linear-gradient(top, #eeeeee 1%, #ffffff 15%);
+  background-image: url('chosen-sprite.png') no-repeat 100% -21px, -ms-linear-gradient(top, #eeeeee 1%, #ffffff 15%);
+  background-image: url('chosen-sprite.png') no-repeat 100% -21px, linear-gradient(top, #eeeeee 1%, #ffffff 15%);
   border: 1px solid #aaa;
   margin: 0;
   padding: 0;
