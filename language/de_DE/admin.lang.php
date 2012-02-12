@@ -838,4 +838,6 @@ $lang['This album contains %d photos, added between %s and %s.'] = 'Die %d Fotos
 $lang['This album contains %d photos, added on %s.'] = 'Die %d Fotos dieses Albums wurden am %s hochgeladen.';
 $lang['This album contains no photo.'] = 'Dieses Album enthält keine Fotos.';
 $lang['Unlock gallery'] = 'Gallerie entsperren';
+$lang['Center of interest'] = 'Interessensmittelpunkt';
+$lang['Not cropped correctly?'] = 'Nicht richtig zugeschnitten?';
 ?>
