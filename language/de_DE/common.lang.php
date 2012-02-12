@@ -381,4 +381,7 @@ $lang['Username: %s'] = 'Benutzername: %s';
 $lang['xlarge'] = 'xgroß';
 $lang['xxlarge'] = 'xxgroß';
 $lang['Your username has been successfully changed to : %s'] = 'Dein Benutzername ist jetzt:';
+$lang['new &rarr; old'] = 'neu &rarr; alt';
+$lang['old &rarr; new'] = 'alt &rarr; neu';
+$lang['Photo sizes'] = 'Bildgrößen';
 ?>
