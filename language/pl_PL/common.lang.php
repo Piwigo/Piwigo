@@ -384,4 +384,7 @@ $lang['Here are your connection settings'] = 'Dane Twojego połączenia';
 $lang['Password: %s'] = 'Hasło: %s';
 $lang['Username: %s'] = 'Nazwa użytkownika: %s';
 $lang['If you think you\'ve received this email in error, please contact us at %s'] = 'Jeżeli myślisz, że otrzymałeś ten mail w wyniku błędu, skontaktuj się proszę z nami tutaj %s';
+$lang['old → new'] = 'stary → nowy';
+$lang['new → old'] = 'nowy → stary';
+$lang['Photo sizes'] = 'Rozmiary zdjęć';
 ?>
