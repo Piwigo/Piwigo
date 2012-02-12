@@ -8,8 +8,8 @@
 			<span class="pwg-icon pwg-icon-sort">&nbsp;</span><span class="pwg-button-text">{'Sort order'|@translate}</span>
 		</a>
 		<div id="sortOrderBox" style="display:none; text-align:left" onclick="toggleSortOrderBox()" onmouseout="e=event.toElement||event.relatedTarget;e.parentNode==this||e==this||toggleSortOrderBox()">
-			{'Sort order'|@translate}:
-			{foreach from=$image_orders item=image_order}<br>
+			{'Sort order'|@translate}<hr>
+			{foreach from=$image_orders item=image_order name=loop}{if !$smarty.foreach.loop.first}<br>{/if}
 			{if $image_order.SELECTED}
 			<span>{$image_order.DISPLAY}</span>
 			{else}
@@ -39,7 +39,8 @@ function toggleSortOrderBox() {
 			<span class="pwg-icon pwg-icon-sizes">&nbsp;</span><span class="pwg-button-text">{'Photo sizes'|@translate}</span>
 		</a>
 		<div id="derivativeSwitchBox" style="display:none; text-align:left" onclick="toggleImageDerivativesBox()" onmouseout="e=event.toElement||event.relatedTarget;e.parentNode==this||e==this||toggleImageDerivativesBox()">
-			{foreach from=$image_derivatives item=image_derivative name=deriv_loop}{if !$smarty.foreach.deriv_loop.first}<br>{/if}
+			{'Photo sizes'|@translate}<hr>
+			{foreach from=$image_derivatives item=image_derivative name=loop}{if !$smarty.foreach.loop.first}<br>{/if}
 			{if $image_derivative.SELECTED}
 			<span>{$image_derivative.DISPLAY}</span>
 			{else}

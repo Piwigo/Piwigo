@@ -37,7 +37,7 @@ $selection = array_slice(
 
 if (count($selection) > 0)
 {
-  $rank_of = array_flip($page['items']);
+  $rank_of = array_flip($selection);
 
   $query = '
 SELECT *
@@ -48,8 +48,7 @@ SELECT *
   while ($row = pwg_db_fetch_assoc($result))
   {
     $row['rank'] = $rank_of[ $row['id'] ];
-
-    array_push($pictures, $row);
+    $pictures[] = $row;
   }
 
   usort($pictures, 'rank_compare');
@@ -113,7 +112,6 @@ foreach ($pictures as $row)
   $desc = render_element_description($row);
 
   $tpl_var = array_merge( $row, array(
-    'TN_SRC' => DerivativeImage::thumb_url($row),
     'TN_ALT' => htmlspecialchars(strip_tags($name)),
     'TN_TITLE' => get_thumbnail_title($row, $name, $desc),
     'URL' => $url,

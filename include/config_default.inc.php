@@ -193,10 +193,6 @@ $conf['header_notes']  = array();
 // show_thumbnail_caption : on thumbnails page, show thumbnail captions ?
 $conf['show_thumbnail_caption'] = true;
 
-// show_picture_name_on_title : on picture presentation page, show picture
-// name ?
-$conf['show_picture_name_on_title'] = true;
-
 // display_fromto: display the date creation bounds of a
 // category.
 $conf['display_fromto'] = false;

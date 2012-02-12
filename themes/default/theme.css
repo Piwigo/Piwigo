@@ -320,9 +320,9 @@ TD.calDayHead {
 }
 
 #imageHeaderBar H2 {
+	display: inline;
 	text-align: center;
 	padding: 0;
-	clear: both;
 }
 
 #imageToolBar {
@@ -342,7 +342,7 @@ TD.calDayHead {
 	padding: 0.2em;
 	position: absolute;
 	left: 5px;
-	top: 10%;
+	top: 12%;
 }
 
 #derivativeSwitchBox, #sortOrderBox {
@@ -355,12 +355,6 @@ TD.calDayHead {
 	clear: left;
 	text-align: center;
 	position: relative; /*so that the drivative switch link is positioned relative to us*/
-}
-
-#theImage>IMG {
-	display: block;
-	margin: 0 auto;
-	border: 0;
 }
 
 #imageInfos {
@@ -463,10 +457,6 @@ A:hover {
 }
 A.pwg-state-default:hover {
 	border-bottom: 0; /*reset above for icons*/
-}
-
-IMG {
-	border: 0;
 }
 
 #copyright {

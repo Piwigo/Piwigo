@@ -265,8 +265,8 @@ class pwg_image
   /** Returns a normalized convolution kernel for sharpening*/
   static function get_sharpen_matrix($amount)
   {
-		// Amount should be in the range of 18-10
-		$amount = round(abs(-18 + ($amount * 0.08)), 2);
+		// Amount should be in the range of 24-10
+		$amount = round(abs(-24 + ($amount * 0.14)), 2);
 
 		$matrix = array
 		(

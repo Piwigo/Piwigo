@@ -26,9 +26,7 @@
     {$LEVEL_SEPARATOR}{$current.TITLE}
   </div>
   <div class="imageNumber">{$PHOTO}</div>
-  {if $SHOW_PICTURE_NAME_ON_TITLE }
   <h2>{$current.TITLE}</h2>
-  {/if}
 </div>
 
 {if !empty($PLUGIN_PICTURE_BEFORE)}{$PLUGIN_PICTURE_BEFORE}{/if}

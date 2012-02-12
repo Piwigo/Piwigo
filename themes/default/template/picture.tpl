@@ -12,12 +12,9 @@
 
 <div id="imageHeaderBar">
 	<div class="browsePath">
-		{$SECTION_TITLE} {$LEVEL_SEPARATOR}{$current.TITLE}
+		{$SECTION_TITLE} {$LEVEL_SEPARATOR} <h2>{$current.TITLE}</h2>
 	</div>
 	<div class="imageNumber">{$PHOTO}</div>
-	{if $SHOW_PICTURE_NAME_ON_TITLE}
-	<h2>{$current.TITLE}</h2>
-	{/if}
 </div>
 
 <div id="imageToolBar">

@@ -3,11 +3,9 @@
     {if isset($U_SLIDESHOW_STOP) }
     [ <a href="{$U_SLIDESHOW_STOP}">{'stop the slideshow'|@translate}</a> ]
     {/if}
+		<h2 class="showtitle">{$current.TITLE}</h2>
   </div>
   <div class="imageNumber">{$PHOTO}</div>
-  {if $SHOW_PICTURE_NAME_ON_TITLE }
-  <h2 class="showtitle">{$current.TITLE}</h2>
-  {/if}
 </div>
 
 <div id="imageToolBar">
