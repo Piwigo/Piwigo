@@ -116,6 +116,25 @@ $lang['Add New Language'] = 'Προσθήκη Νέας Γλώσσας';
 $lang['add new photos to caddie'] = 'Προσθήκη νέας φωτογραφίας στο κουτί';
 $lang['Add New Theme'] = 'Προσθήκη ενός νέου θέματος';
 $lang['Add Photos'] = 'Προσθήκη φωτογραφιών';
-$lang['add tags'] = 'προσθήκη ετικετών'; 
+$lang['add tags'] = 'προσθήκη ετικετών';
+$lang['Upload Photos'] = 'Ανέβασμα φωτογραφιών';
+$lang['Select an album'] = 'Επέλεξε άλμπουμ';
+$lang['... or '] = '... ή ';
+$lang['create a new album'] = 'δημιούργησε ένα νέο άλμπουμ';
+$lang['Select files'] = 'Επέλεξε αρχεία';
+$lang['Start Upload'] = 'Έναρξη ανεβάσματος';
+$lang['Learn more'] = 'Μάθε περισσότερα';
+$lang['Maximum file size: %sB.'] = 'Μέγιστο μέγεθος αρχείου: %sB.';
+$lang['Allowed file types: %s.'] = 'Επιτρεπόμενοι τύποι αρχείων: %s.';
+$lang['Photo %s of %s'] = 'Φωτογραφία  %s του %';
+$lang['All %d photos are selected'] = 'Όλεςl %d οι φωτογραφίες επιλέχθηκαν';
+$lang['You are using the Browser uploader. Try the <a href="%s">Flash uploader</a> instead.'] = 'You are using the Browser uploader. Try the <a href="%s">Flash uploader</a> instead.';
+$lang['You are using the Browser uploader. Try the <a href="%s">Flash uploader</a> instead.'] = 'Χρησιμοποιείς τον Flash uploader. Προβλήματα; Προσπάθησε το <a href="%s">ανέβασμα μέσω φυλλομετρητή</a> instead.';
+$lang['Exif extension not available, admin should disable exif use'] = 'Η προέκταση για τα exif δεν είναι διαθέσιμη, ο διαχειριστής θα απενεργοποιήσει την χρήση του  exif';
+$lang['Hide'] = "Κρυφό";
+$lang['Level 1'] = "Επαφές";
+$lang['Level 2'] = "Φίλοι";
+$lang['Level 4'] = "Οικογένεια";
+$lang['Level 8'] = "Διαχειριστές";
 
 ?>
