@@ -349,7 +349,7 @@ $lang['html tags are not allowed in login'] = 'html тагове не са ра�
 $lang['Unknown feed identifier'] = 'Неизвестен индетификатор';
 $lang['The number of photos per page must be a not null scalar'] = 'Броят на снимките на страница трябва да е различен от нула';
 $lang['Number of photos per page'] = 'Брои на снимки за страница';
-
+$lang['%d rates'] = '%d оценки';
 $lang['Change my password'] = 'Смана на паролата';
 $lang['Invalid key'] = 'Невалиден ключ';
 $lang['Invalid username or email'] = 'Невалидно потребителско име или е-майл';
@@ -360,4 +360,16 @@ $lang['To reset your password, visit the following address:'] = 'За да ан�
 $lang['Username or email'] = 'Потребителско име или е-майл';
 $lang['You will receive a link to create a new password via email.'] = 'Ще получите линк на електронната си поща, с който ще съзадате нова парола';
 $lang['Your password has been reset'] = 'Вашата парола е анулирана';
+$lang['Rating score'] = 'Резултат оценка';
+$lang['EXIF Metadata'] = 'EXIF метаданни';
+$lang['If this was a mistake, just ignore this email and nothing will happen.'] = 'Ако смятатае, че това съобщение е грешка,просто го ингнорирайте без никакви последствия.';
+$lang['IPTC Metadata'] = 'IPTC метаданни';
+$lang['Password Reset'] = 'Нулиране на парола';
+$lang['Password reset is not allowed for this user'] = 'Нулирае на парола не е разрешено за този потребител';
+$lang['Someone requested that the password be reset for the following user account:'] = 'Зявака за нулиране на парола за потребителско име:';
+$lang['Your password has been reset'] = 'Вашата парола е анулирана';
+$lang['Check your email for the confirmation link'] = 'Проверете вашата поща за връзка за потвърждение';
+$lang['User "%s" has no email address, password reset is not possible'] = 'За потребителят  "%s" липсва електронна поща, затова нулирането на паролата е невъзможно';
+$lang['Username "%s" on gallery %s'] = 'Потребител  "%s" на галерия %s';
+$lang['Enter your new password below.'] = 'Въведете новата парола отдолу:';
 ?>
