@@ -370,4 +370,6 @@ $lang['You will receive a link to create a new password via email.'] = '新た�
 $lang['Username or email'] = 'ユーザー名又はメール';
 $lang['Change my password'] = 'パスワード変更';
 $lang['Enter your new password below.'] = '新たなパスワードを以下の空欄に入力して下さい。';
+$lang['EXIF Metadata'] = 'EXIF メタデータ';
+$lang['IPTC Metadata'] = 'IPTC メタデータ';
 ?>
