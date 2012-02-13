@@ -380,4 +380,7 @@ $lang['Here are your connection settings'] = 'Šeit ir Jūsu konekcijas iestatī
 $lang['Password: %s'] = 'Parole: %s';
 $lang['Username: %s'] = 'Lietotājvārds: %s';
 $lang['If you think you\'ve received this email in error, please contact us at %s'] = 'Ja uzskatāt, ka saņēmāt kļūdainu e-pastu, lūdzu sazinieties ar mums %s';
+$lang['old → new'] = 'vecais → jaunais';
+$lang['new → old'] = 'jaunais → vecais';
+$lang['Photo sizes'] = 'Foto izmēri';
 ?>
