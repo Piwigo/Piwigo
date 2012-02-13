@@ -864,4 +864,5 @@ $lang['Start Upload'] = 'Upload starten';
 $lang['Tags <em>%s</em> merged into tag <em>%s</em>'] = 'Tags <em>%s</em> in <em>%s</em> zusammengeführt';
 $lang['You are using the Browser uploader. Try the <a href="%s">Flash uploader</a> instead.'] = 'Du benutzt den einfachen Uploader. Benutze den <a href="%s">Flash uploader</a> stattdessen.';
 $lang['You are using the Flash uploader. Problems? Try the <a href="%s">Browser uploader</a> instead.'] = 'Probleme mit dem Flash Uploader. Benutze den <a href="%s">Browser uploader</a>';
+$lang['Approximate maximum resolution: %dM pixels (that\'s %dx%d pixels).'] = 'Maximale Auflösung (ca.): %dM Pixel (das sind %dx%d Pixel).';
 ?>

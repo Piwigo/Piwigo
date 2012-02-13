@@ -372,4 +372,6 @@ $lang['User "%s" has no email address, password reset is not possible'] = 'Der B
 $lang['Username or email'] = 'Benutzername oder E-Mail';
 $lang['You will receive a link to create a new password via email.'] = 'Per E-Mail erhältst du einen Link um ein neues Passwort zu erstellen';
 $lang['Your password has been reset'] = 'Dein Passwort wurde zurückgesetzt';
+$lang['Username "%s" on gallery %s'] = 'Benutzername "%s" bei Galerie %s';
+$lang['Someone requested that the password be reset for the following user account:'] = 'Eine Anfrage zum Zurücksetzen des Passworts für den folgenden Benutzer wurde gestellt:';
 ?>
