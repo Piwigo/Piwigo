@@ -790,5 +790,22 @@ $lang['Type here the author name'] = 'Unesi ime autora';
 $lang['Type here the title'] = 'Unesi naslov';
 $lang['Type in a search term'] = 'Traži ..';
 $lang['Unknown upload error'] = 'Nepoznata greška prilikom slanja datoteke';
+$lang['%s photos can not be regenerated'] = '%s fotografija nije moguće regenerirati';
+$lang['%s photos have been regenerated'] = '%s fotografija regenerirano';
+$lang['%s thumbnails can not be regenerated'] = '%s malih sličica nije moguće regenerirati';
+$lang['%s thumbnails have been regenerated'] = '%s malih sličica je generirano';
+$lang['(this tag will be deleted)'] = '(ova oznaka je izbrisana)';
+$lang['... or '] = '... ili ';
+$lang['All extensions are up to date.'] = 'Svi dodaci su "up-to-date".';
+$lang['All languages are up to date.'] = 'Svi jezici su "up-to-date".';
+$lang['All plugins are up to date.'] = 'Svi plugin-ovi su "up-to-date".';
+$lang['All themes are up to date.'] = 'Sve teme su "up-to-date".';
+$lang['Allowed file types: %s.'] = 'Dozvoljeni tipovi datoteka: %s.';
+$lang['Approximate maximum resolution: %dM pixels (that\'s %dx%d pixels).'] = 'Približna maksimalna rezolucija: %dM px (to je %dx%d px).';
+$lang['By default, Piwigo will create a new websize from the HD (high definition) version of your photo.'] = 'Prema zadanim vrijednostima, Piwino će kreirati nove veličine od vaših originalnih verzija fotografija..';
+$lang['Confirm merge'] = 'Potvrdi spajanje';
+$lang['Create'] = 'Kreiraj';
+$lang['Crop'] = 'Izreži';
+$lang['display'] = 'prikaz';
 
 ?>
