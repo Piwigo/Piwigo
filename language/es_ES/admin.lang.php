@@ -859,13 +859,6 @@ $lang['If no HD is available and if the current websize is bigger than resize di
 $lang['An error has occured during upgrade.'] = 'Un error sobrevino durante la actualización.';
 $lang['An error has occured during extract. Please check files permissions of your piwigo installation.<br><a href="%s">Click here to show log error</a>.'] = 'Imposible extraer los ficheros. Por favor, verifique los permisos de los ficheros de su instalación. <Br> <a href="%s"> Haga clic aquí para ver el informe de error</a>.';
 $lang['Piwigo cannot retrieve upgrade file from server'] = 'Piwigo no puede recuperar el fichero de actualización desde el servidor';
-$lang['%s has been successfully updated.'] = '% se ha actualizado correctamente.';
-$lang['Add tags'] = 'Añadir etiquetas';
-$lang['Add to caddie'] = 'Añadir al carrito';
-$lang['Edit'] = 'Editar';
-$lang['Last import'] = 'Última importación';
-$lang['Predefined filter'] = 'Filtro predefinido';
-$lang['With no album'] = 'Sin álbum';
-$lang['With no tag'] = 'Sin etiqueta';
-$lang['With no virtual album'] = 'Sin álbum virtual';
+
+
 ?>
