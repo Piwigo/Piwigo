@@ -371,6 +371,8 @@ $lang['Username or email'] = 'Корисничко име или е-адреса
 $lang['Change my password'] = 'Промени моју лозинку';
 $lang['Enter your new password below.'] = 'Унесите Вашу нову лозинку испод.';
 $lang['Reset Password'] = 'Поништи лозинку';
+$lang['EXIF Metadata'] = 'EXIF подаци';
+$lang['IPTC Metadata'] = 'IPTC подаци';
 
 
 ?>
