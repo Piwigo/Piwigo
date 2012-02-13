@@ -816,4 +816,13 @@ $lang['Unable to dump database.'] = 'غير قادرعلى تفريق قاعدة
 $lang['Some upgrades are available for extensions.'] = 'تتوفر بعض الترقية للاضافات';
 $lang['Height'] = 'الارتفاع';
 $lang['Width'] = 'العرض';
+$lang['Activate icon "new" next to albums and pictures'] = 'فعل ايقونه "جديد" بجانب الالبومات و الصور';
+$lang['Maximum file size: %sB.'] = 'الحد الآعلى لحجم الملف : %sB. ';
+$lang['Merge selected tags'] = 'دمج الكلمات الدلائليه المختاره';
+$lang['Merge tags'] = 'دمج الكلمات الدلائليه';
+$lang['Photo %s of %s'] = 'صوره %s من %s';
+$lang['Photos generation in progress...'] = 'يتم معالجة  مجموعه الصور ..';
+$lang['Restore'] = 'استعاده';
+$lang['Select an album'] = 'اختيار الالبوم';
+$lang['Select at least two tags for merging'] = 'اختر آخر كلمتين دلاليتين للدمج';
 ?>
