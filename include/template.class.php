@@ -453,7 +453,7 @@ class Template {
       $content = array();
       foreach( $css as $file_ver )
       {
-        $href = get_root_url() . $file_ver[0];
+        $href = embellish_url(get_root_url().$file_ver[0]);
         if ($file_ver[1] !== false)
           $href .= '?v' . ($file_ver[1] ? $file_ver[1] : PHPWG_VERSION);
         // trigger the event for eventual use of a cdn
@@ -683,7 +683,7 @@ var s,after = document.getElementsByTagName(\'script\')[document.getElementsByTa
       $ret = $script->path;
     else
     {
-      $ret = get_root_url().$script->path;
+      $ret = embellish_url(get_root_url().$script->path);
       if ($script->version!==false)
       {
         $ret.= '?v'. ($script->version ? $script->version : PHPWG_VERSION);

@@ -54,6 +54,10 @@
 	font-style: italic;
 }
 
+#mbCategories IMG {
+	vertical-align: bottom; /*otherwise line height changes*/
+}
+
 #menubar INPUT {
 	text-indent: 2px;
 }
@@ -427,6 +431,10 @@ BODY {
 	font-size: 0.8em;
 	font-family: Arial,Helvetica,sans-serif;
 	min-width: 60em;  /* ~ 3* #menubar width; width of the page before getting a scrollbar; IE6 doesn't get that*/
+}
+
+IMG {
+	border: 0; /*IE<=9 adds border for linked images*/
 }
 
 #thePopuphelpPage {
