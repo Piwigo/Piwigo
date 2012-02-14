@@ -82,6 +82,8 @@ h3, .content, .throw, .row1 { background-color: #ddd; }
 
 .content {
   border: 1px solid #aaa;
+  margin-left:217px;
+  margin-top: 7px;
 }
 
 .content h3 { font-size:20px; letter-spacing:-0.4px; margin:0 20px 12px 0;
@@ -141,7 +143,7 @@ ul.actions, .content form#waiting  {text-align:center;}
 
 /* tabsheets are often used in admin  pages => No specific css files */
 #tabsheet { width:auto; margin:-1px; margin-right:-6px; padding:0;
-border:1px solid #f9f9f9; border-bottom:1px solid #aaa; background-color:#f9f9f9;}
+border:1px solid #f9f9f9; border-bottom:1px solid #aaa; background-color:#f9f9f9;margin-top:-7px;}
 .tabsheet { display:table; white-space:nowrap; padding-left:10px; margin:0; width:auto;
 font-family:verdana,arial,helvetica,sans-serif; font-size:8px;
 list-style-type:none; list-style-image:none; text-decoration:none; }
@@ -164,7 +166,8 @@ margin-top:4px; padding-bottom:3px; padding-top:3px; top:1px;
 .sort { clear: none; }
 /* menubar is on all admin pages => No specific css file */
 #menubar {
-  padding:0; width:207px; z-index:99; text-align: left;
+  padding:0; width:207px; z-index:99; text-align: left;margin-top:7px;
+  margin-left:0;
 }
 
 #menubar ul.scroll { overflow-y:auto;
@@ -173,19 +176,20 @@ margin-top:4px; padding-bottom:3px; padding-top:3px; top:1px;
  scrollbar-3dlight-color: #d6d6d6; scrollbar-darkshadow-color: #ccc; scrollbar-track-color: #eee;
  scrollbar-arrow-color: #0cccc; }
 #menubar dd { margin: 0; padding: 0;}
-#menubar dl { width: 207px; border:0; margin: 0; padding: 0; display: block; min-height:35px; border:1px solid #ddd; background-color:#f1f1f1; border-left:1px solid #aaa; border-right:1px solid #aaa;}
-#menubar dl.first {border-top:1px solid #aaa;}
-#menubar dl.last {border-bottom:1px solid #aaa;}
+#menubar dl { width: 200px; border:0; margin: 0; padding: 0; display: block; min-height:35px; border:1px solid #ddd; background-color:#f1f1f1; border-left:none; border-right:1px solid #ddd;}
+#menubar dl.first {border-top:none;border-radius:0 6px 0 0;}
+#menubar dl.first dt {border-radius:0 6px 0 0;}
+#menubar dl.last {border-bottom:1px solid #ddd; border-radius:0 0 6px 0;}
 #menubar dt { background-color: #ddd; margin: 0; display: block; font-weight:bold;
 position:relative; padding: 5px 1px 4px 5px; font-size: 13px; color: #777; }
 #menubar dt  span { cursor:pointer; }
 #menubar li { margin: 0; padding-left:10px; }
 #menubar li A { display:block; }
-#menubar li A:hover { border:none; }
+#menubar li A:hover { border:none; color:black;}
 #menubar li:hover {background-color:#dbe8f3;}
 #menubar ul { color: #ccc; margin:0; line-height: 25px;
   list-style-type: none; list-style-position: inside; padding: 0; }
-#adminHome       {background-color:#ddd;}
+#adminHome       {background-color:#ddd;border-radius: 0 6px 6px 0;margin-left:0;margin-bottom:17px;}
 #adminHome:hover {background-color:#d0d0d0;}
 
 /* jQuery tooltips */
@@ -288,3 +292,5 @@ UL.thumbnails li.rank-of-image {background-color: #ddd;}
 #batchManagerGlobal #selectedMessage {background-color:#C2F5C2;}
 
 .selectedComment {background-color:#C2F5C2;}
+
+#pwgMain {padding-left:0}
