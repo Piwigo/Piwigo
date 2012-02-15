@@ -246,10 +246,6 @@ function parse_request()
       ierror('Invalid crop', 400);
     }
     $greatest = ImageStdParams::get_by_type(IMG_XXLARGE);
-    if ($params->max_width() > $greatest->max_width() || $params->max_height() > $greatest->max_height())
-    {
-      ierror('Too big', 403);
-    }
 
     $key = array();
     $params->add_url_tokens($key);
