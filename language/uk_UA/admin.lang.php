@@ -665,4 +665,54 @@ $lang['Locked'] = 'Зачинено';
 $lang['Mail address is obligatory for all users'] = 'електронная пошта обов`язкова для всіх користувачів';
 $lang['Mail content'] = 'Зміст листа'; 
 
+
+//tempoqu
+$lang['Mail sent to %s [%s].'] = 'Mail sent to %s [%s].';
+$lang['Main "guest" user does not exist'] = 'The main "guest" user does not exist';
+$lang['Main "guest" user status is incorrect'] = 'The main "guest" user status is incorrect';
+$lang['Main "webmaster" user does not exist'] = 'The main "webmaster" user does not exist';
+$lang['Main "webmaster" user status is incorrect'] = 'The main "webmaster" user status is incorrect';
+$lang['Main Page'] = 'Main page';
+$lang['Main'] = 'Main';
+$lang['Maintenance'] = 'Maintenance';
+$lang['Manage Permissions'] = 'Manage Permissions';
+$lang['Maximum file size: %sB.'] = 'Maximum file size: %sB.';
+$lang['Merge selected tags'] = 'Merge selected tags';
+$lang['Merge tags'] = 'Merge tags';
+$lang['New Version'] = 'New Version';
+$lang['No destination tag selected'] = 'No destination tag selected';
+$lang['Obsolete Plugins'] = 'Obsolete Plugins';
+$lang['Photo %s of %s'] = 'Photo %s of %s';
+$lang['Photo name'] = 'Photo name';
+$lang['Photos generation in progress...'] = 'Photos generation in progress...';
+$lang['Piwigo cannot retrieve upgrade file from server'] = 'Piwigo cannot retrieve upgrade file from server';
+$lang['Piwigo Update'] = 'Piwigo Update';
+$lang['Please wait...'] = 'Please wait...';
+
+//temporu
+$lang['Regenerate Thumbnails'] = 'Regenerate Thumbnails';
+$lang['Regenerate Websize Photos'] = 'Regenerate Websize Photos';
+$lang['remove creation date'] = 'remove creation date';
+$lang['Remove from caddie'] = 'Remove from caddie';
+$lang['remove remote listing.xml file'] = 'remove remote listing.xml file';
+$lang['remove tags'] = 'remove tags';
+$lang['remove this filter'] = 'remove this filter';
+$lang['remove title'] = 'remove title';
+$lang['Repair and optimize database'] = 'Repair and optimize database';
+$lang['Replacement of original templates by customized templates from template-extension subfolder'] = 'Replacement of original templates by customized templates from the template-extension subfolder';
+$lang['Replacers (customized templates)'] = 'Substitutes (customized templates)';
+$lang['Representant'] = 'Album Thumbnail';
+$lang['Representation of albums'] = 'Album thumbnail';
+$lang['Representative'] = 'Album thumbnail';
+$lang['Represents'] = 'Is thumbnail for';
+$lang['Reset ignored updates'] = 'Reset ignored updates';
+$lang['Resize'] = 'Resize';
+$lang['Restore'] = 'Restore';
+$lang['Save Template Directory'] = 'Save template directory';
+$lang['Select an album'] = 'Select an album';
+$lang['Select at least two tags for merging'] = 'Select at least two tags for merging';
+$lang['Select the destination tag'] = 'Select the destination tag';
+$lang['Send connection settings by email'] = 'Send connection settings by email';
+$lang['show details'] = 'show details';
+
 ?>
