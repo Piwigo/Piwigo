@@ -899,6 +899,11 @@ class PwgTemplateAdapter
     return call_user_func_array('sprintf',  $args );
   }
 
+  function derivative($type, $img)
+  {
+    return new DerivativeImage($type, $img);
+  }
+
   function derivative_url($type, $img)
   {
     return DerivativeImage::url($type, $img);

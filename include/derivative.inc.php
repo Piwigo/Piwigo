@@ -258,7 +258,7 @@ final class DerivativeImage
     $size = $this->get_size();
     if ($size)
     {
-      return 'width='.$size[0].' height='.$size[1];
+      return 'width="'.$size[0].'" height="'.$size[1].'"';
     }
   }
 
