@@ -48,6 +48,8 @@ class themes
    */
   function perform_action($action, $theme_id)
   {
+    global $conf;
+
     if (isset($this->db_themes_by_id[$theme_id]))
     {
       $crt_db_theme = $this->db_themes_by_id[$theme_id];
@@ -86,6 +88,12 @@ class themes
           break;
         }
 
+        if ($this->fs_themes[$theme_id]['mobile'] and !empty($conf['mobile_theme']))
+        {
+          array_push($errors, l10n('You can activate only one mobile theme.'));
+          break;
+        }
+
         if (file_exists($file_to_include))
         {
           include($file_to_include);
@@ -105,6 +113,11 @@ INSERT INTO '.THEMES_TABLE.'
          \''.$this->fs_themes[$theme_id]['name'].'\')
 ;';
           pwg_query($query);
+
+          if ($this->fs_themes[$theme_id]['mobile'])
+          {
+            conf_update_param('mobile_theme', $theme_id);
+          }
         }
         break;
 
@@ -164,6 +177,11 @@ DELETE
   WHERE id= \''.$theme_id.'\'
 ;';
         pwg_query($query);
+
+        if ($this->fs_themes[$theme_id]['mobile'])
+        {
+          conf_update_param('mobile_theme', '');
+        }
         break;
 
       case 'delete':
@@ -325,6 +343,7 @@ SELECT
             'uri' => '',
             'description' => '',
             'author' => '',
+            'mobile' => false,
             );
           $theme_data = implode( '', file($path.'/themeconf.inc.php') );
 
@@ -365,9 +384,13 @@ SELECT
           {
             $theme['parent'] = $val[1];
           }
-          if (preg_match('/["\']activable["\'].*?(true|false)/', $theme_data, $val))
+          if (preg_match('/["\']activable["\'].*?(true|false)/i', $theme_data, $val))
           {
             $theme['activable'] = get_boolean($val[1]);
+          }
+          if (preg_match('/["\']mobile["\'].*?(true|false)/i', $theme_data, $val))
+          {
+            $theme['mobile'] = get_boolean($val[1]);
           }
 
           // screenshot
