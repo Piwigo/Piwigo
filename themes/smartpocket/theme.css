@@ -1,0 +1,17 @@
+@import "jquery.mobile.css";
+@import "photoswipe.css";
+
+.title { margin: 10px; text-align: center; }
+.menubar { float: right; }
+.home_button { float: left; }
+
+.ui-icon-profil { background-image: url("images/profil.png"); background-color: transparent; }
+
+.ui-content { overflow: hidden; }
+.ui-field-contain { padding: 5px; border: 0; }
+
+.thumbnails { list-style: none; padding: 0; margin: 0; }
+.thumbnails:after { clear: both; content: "."; display: block; height: 0; visibility: hidden; }
+.thumbnails li { float: left; width: 33.33333333%; }
+.thumbnails li a { display: block; margin: 5px; }
+.thumbnails li img { display: block; width: 100%; height: auto; }
