@@ -661,9 +661,6 @@ $lang['Lock'] = 'Замок';
 $lang['Locked'] = 'Зачинено';
 $lang['Mail address is obligatory for all users'] = 'електронная пошта обов`язкова для всіх користувачів';
 $lang['Mail content'] = 'Зміст листа'; 
-
-
-//tempoqu
 $lang['Mail sent to %s [%s].'] = 'Поштові повідомлення на %s [%s].';
 $lang['Main "guest" user does not exist'] = 'Основний "гість" користувача не існує';
 $lang['Main "guest" user status is incorrect'] = 'Основний "гість" статус користувача невірно';
@@ -685,8 +682,6 @@ $lang['Photos generation in progress...'] = 'Генерація фотограф
 $lang['Piwigo cannot retrieve upgrade file from server'] = 'Piwigo не може отримати файл оновлення з сервера';
 $lang['Piwigo Update'] = 'Piwigo оновлення';
 $lang['Please wait...'] = 'Будь ласка, зачекайте...';
-
-//temporu
 $lang['Regenerate Thumbnails'] = 'Відновити мініатюри';
 $lang['Regenerate Websize Photos'] = 'Відновити розмір фотографій';
 $lang['remove creation date'] = 'видалити дату створення';
@@ -711,7 +706,6 @@ $lang['Select at least two tags for merging'] = 'Виберіть принайм
 $lang['Select the destination tag'] = 'Виберіть призначення теґу';
 $lang['Send connection settings by email'] = 'Надіслати налаштування з\'єднання по електронній пошті';
 $lang['show details'] = 'показати деталі';
-
 $lang['Some themes and plugins may be not available yet.'] = 'Деякі теми і плаґіни можуть бути не доступні.';
 $lang['Some upgrades are available for extensions.'] = 'Деякі оновлення доступні для розширення.';
 $lang['Start Upload'] = 'Початок завантаження';
