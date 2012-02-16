@@ -289,6 +289,37 @@ $lang['Manage this user comment: %s'] = '이 사용자 댓글 관리: %s';
 $lang['Email address is missing. Please specify an email address.'] = '메일 주소란이 비었습니다. 메일 주소를 확인 해 주세요.';
 $lang['This author modified following comment:'] = '이 작가가 다음 댓글을 수정하였습니다:';
 $lang['This author removed the comment with id %d'] = '이 작가가 다음 사용자의 댓글을 삭제하였습니다: %d';
+$lang['%d rates'] = '%d 개의 평가';
+$lang['A comment on your site'] = '당신의 웹 사이트에 코멘트가 있습니다';
+$lang['Accelerate diaporama speed'] = '슬라이드쇼 속도 증가';
+$lang['Admin: %s'] = '관리자: %s';
+$lang['Album results for'] = '앨범 결과';
+$lang['Album: %s'] = '앨범: %s';
+$lang['Author: %s'] = '저자: %s';
+$lang['Bad status for user "guest", using default status. Please notify the webmaster.'] = '"손님"사용자의 상태가 나빠 기본 상태를 사용합니다. 관리자에게 알려주세요.';
+$lang['Browser: %s'] = '브라우저: %s';
+$lang['Change my password'] = '비밀번호 변경';
+$lang['Check your email for the confirmation link'] = '인증을 위해 이메일을 확인 해 주세요';
+$lang['Comment by %s'] = '%s님의 댓글';
+$lang['Comment: %s'] = '댓글: %s';
+$lang['Connected user: %s'] = '접속중인 사용자: %s';
+$lang['Contact'] = '연락처';
+$lang['display only recently posted photos'] = '최근 등록된 사진만 보기';
+$lang['Edit'] = '편집';
+$lang['Email: %s'] = '이메일: %s';
+$lang['Empty query. No criteria has been entered.'] = '없는 요청입니다. 조건이 비었을 수 있습니다.';
+$lang['Enter your new password below.'] = '새 비밀번호를 입력해주세요.';
+$lang['EXIF Metadata'] = 'EXIF 메타데이터';
+$lang['from %s to %s'] = '%s님이 %s님에게';
+$lang['Hello %s,'] = '%s님 안녕하세요,';
+$lang['html tags are not allowed in login'] = '로그인 폼에 html태그는 허용되지 않습니다';
+$lang['If this was a mistake, just ignore this email and nothing will happen.'] = '만약 실수였다면 이 이메일을 무시하셔도 됩니다.';
+$lang['Interface theme'] = '인터페이스 테마';
+$lang['Invalid key'] = '잘못된 키';
+$lang['Invalid username or email'] = '잘못된 사용자 이름이나 이메일';
+$lang['IP: %s'] = 'IP: %s';
+$lang['IPTC Metadata'] = 'IPTC 메타데이터';
+$lang['Menu'] = '메뉴'; 
 
 
 ?>
