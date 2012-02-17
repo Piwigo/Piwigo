@@ -380,7 +380,5 @@ $lang['Here are your connection settings'] = 'Ось Ваші налаштува
 $lang['Password: %s'] = 'Пароль: %s';
 $lang['Username: %s'] = 'Ім\'я користувача: %s';
 $lang['If you think you\'ve received this email in error, please contact us at %s'] = 'Якщо Ви думаєте, що Ви отримали цей лист помилково, будь ласка, зв\'яжіться з нами за адресою %s';
-$lang['new &rarr; old'] = 'нові &rarr; старі';
-$lang['old &rarr; new'] = 'старі &rarr; нові';
 $lang['Photo sizes'] = 'Розміри фотографій';
 ?>

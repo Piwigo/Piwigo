@@ -383,7 +383,5 @@ $lang['Username: %s'] = '用户名：%s';
 $lang['xlarge'] = '很大尺寸';
 $lang['xxlarge'] = '非常大尺寸';
 $lang['Your username has been successfully changed to : %s'] = '您的用户名成功修改为：%s';
-$lang['new &rarr; old'] = '新 &rarr; 旧';
-$lang['old &rarr; new'] = '旧 &rarr; 新';
 $lang['Photo sizes'] = '';
 ?>

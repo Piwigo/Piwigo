@@ -375,7 +375,4 @@ $lang['Email: %s'] = 'Email: %s';
 $lang['If you think you\'ve received this email in error, please contact us at %s'] = 'Si vous pensez avoir reçu cet email par erreur, veuillez nous contacter %s';
 $lang['Successfully registered, you will soon receive an email with your connection settings. Welcome!'] = 'Inscription réussie, vous recevrez bientôt un email avec vos identifiants. Bienvenue !';
 $lang['Send my connection settings by email'] = 'Recevoir mes identifiants par email';
-
-$lang['new &rarr; old'] = 'nouveau &rarr; ancien';
-$lang['old &rarr; new'] = 'ancien &rarr; nouveau';
 ?>

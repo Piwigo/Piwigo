@@ -382,6 +382,4 @@ $lang['xxlarge'] = 'огромен';
 $lang['Your username has been successfully changed to : %s'] = 'Вашетопотребителско име беше успешно промененно на : %s';
 $lang['%d rates'] = '%d оценки';
 
-$lang['new &rarr; old'] = 'ново &rarr; старо';
-$lang['old &rarr; new'] = 'старо &rarr; ново';
 ?>

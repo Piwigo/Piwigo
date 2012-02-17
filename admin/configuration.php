@@ -124,6 +124,11 @@ $sort_fields = array(
   'rank ASC'            => l10n('manual sort order'),
   );
   
+$comments_order = array(
+  'ASC' => l10n('Show oldest comments first'),
+  'DESC' => l10n('Show latest comment first'),
+  );
+
 
 //------------------------------ verification and registration of modifications
 if (isset($_POST['submit']))
@@ -359,7 +364,7 @@ switch ($page['section'])
       array(
         'NB_COMMENTS_PAGE'=>$conf['nb_comment_page'],
         'comments_order'=>$conf['comments_order'],
-        'comments_order_options'=> $sort_directions
+        'comments_order_options'=> $comments_order
         )
       );
 
