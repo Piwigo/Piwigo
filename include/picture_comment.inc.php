@@ -134,7 +134,7 @@ SELECT
 
     $template->assign(array(
       'COMMENTS_ORDER_URL' => add_url_params( duplicate_picture_url(), array('comments_order'=> ($comments_order == 'ASC' ? 'DESC' : 'ASC') ) ),
-      'COMMENTS_ORDER_TITLE' => $comments_order == 'ASC' ? l10n('Show latest comment first') : l10n('Show oldest comments first'),
+      'COMMENTS_ORDER_TITLE' => $comments_order == 'ASC' ? l10n('Show latest comments first') : l10n('Show oldest comments first'),
       ));
         
     $query = '

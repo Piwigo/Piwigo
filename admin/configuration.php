@@ -126,7 +126,7 @@ $sort_fields = array(
   
 $comments_order = array(
   'ASC' => l10n('Show oldest comments first'),
-  'DESC' => l10n('Show latest comment first'),
+  'DESC' => l10n('Show latest comments first'),
   );
 
 
