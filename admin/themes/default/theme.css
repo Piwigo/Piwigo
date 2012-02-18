@@ -348,17 +348,19 @@ FORM { padding: 0em; }
 
 FORM P {
 	text-align: center;
-	margin-top: 2em;
-	margin-bottom: 2em;
+        margin:1em;
 }
 
 form p.field {
   text-align: left;
 }
 
+form p.formButtons {text-align:left;}
+
 FORM FIELDSET P {
 	margin-top: 1em;
 	margin-bottom: 0;
+        text-align:left;
 }
 
 .small {

@@ -502,9 +502,8 @@ jQuery(document).ready(function(){
 {/if}
 
 {if !isset($default)}
-  <p>
+  <p class="formButtons">
     <input class="submit" type="submit" name="submit" value="{'Save Settings'|@translate}">
-    <input class="submit" type="reset" name="reset" value="{'Reset'|@translate}">
   </p>
 </form>
 {/if}

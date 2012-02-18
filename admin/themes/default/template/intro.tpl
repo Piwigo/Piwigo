@@ -98,7 +98,7 @@ jQuery().ready(function(){
 </div>
 <div class="bigbutton">
 <span class="bigtext">{'Quick Local Synchronization'|@translate}</span>
-<input type="submit" value="" name="submit">
+<input type="submit" value="{'Quick Local Synchronization'|@translate}" name="submit">
 </div>
 </form>
 {/if}

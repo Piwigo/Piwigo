@@ -208,8 +208,9 @@ position:relative;  z-index: 50;}
 .bigtext { display:block; font-weight:bold; left:225px; position:relative; top:35px; width:320px;  z-index: 55; cursor:pointer; }
 .bigbutton:hover { background:transparent url(images/quickLocalSync_hover.png) no-repeat scroll left top; color: #000; }
 .bigbutton input { background:transparent url(images/transparent.gif) repeat scroll left top; border:0;
-display:block; height:85px; left:225px; position:relative; top:-42px; width:313px; z-index:99; padding:0;}
-.bigbutton input:hover { cursor:pointer; background:transparent url(images/transparent.gif) repeat scroll left top; border:0; padding:0;}
+display:block; height:85px; left:225px; position:relative; top:-42px; width:313px; z-index:99; padding:0;
+color:transparent;}
+.bigbutton input:hover { cursor:pointer; background:transparent url(images/transparent.gif) repeat scroll left top; border:0; padding:0;color:transparent;}
 /* hacks */
 * html[lang="en"] body .content h2 , *+html[lang="en"] body .content h2 { text-transform:capitalize; } /* IE */
 *+html  .bigtext { left: 70px; }
