@@ -360,5 +360,25 @@ $lang['Cookies are blocked or not supported by your browser. You must enable coo
 $lang['Edit a comment'] = "Wysig kommentaar";
 $lang['Are you sure?'] = "Is jy seker?";
 $lang['(!) This comment requires validation'] = '(!) Die kommentaar vereis validasie';
+$lang['Edit'] = 'Redigeer';
+$lang['Hello %s,'] = 'Hallo %s,';
+$lang['Send my connection settings by email'] = 'Stuur my verbindingopstelling met epos';
+$lang['Successfully registered, you will soon receive an email with your connection settings. Welcome!'] = 'Sukselvolle registrasie, jy sal binnekort \'n epos ontvan met jou verbinding opstellings. Welkom!';
+$lang['Username modification'] = 'Gebruikersnaam verandering';
+$lang['Your username has been successfully changed to : %s'] = 'Jou gebruikersnaam is suksesvol verander na: %s';
+$lang['square'] = 'Vierkantig';
+$lang['thumb'] = 'Duim';
+$lang['small'] = 'Klein';
+$lang['medium'] = 'Medium';
+$lang['large'] = 'Groot';
+$lang['xlarge'] = 'Groter';
+$lang['xxlarge'] = 'Baie groot';
+$lang['Original'] = 'Oorspronklike';
+$lang['Thank you for registering at %s!'] = 'Dankie vir registrasie by %s!';
+$lang['Here are your connection settings'] = 'Hier is jou verbindingopstellings';
+$lang['Password: %s'] = 'Wagwoord: %s';
+$lang['Username: %s'] = 'Gebruikersnaam: %s';
+$lang['If you think you\'ve received this email in error, please contact us at %s'] = 'As jy dink jy het foutiewelik hierdie epos ontvang, kontak ons by %s';
+$lang['Photo sizes'] = 'Foto groottes';
 
 ?>
