@@ -73,3 +73,4 @@ INSERT INTO piwigo_config (param,value) VALUES ('original_resize','false');
 INSERT INTO piwigo_config (param,value) VALUES ('original_resize_maxwidth','2016');
 INSERT INTO piwigo_config (param,value) VALUES ('original_resize_maxheight','2016');
 INSERT INTO piwigo_config (param,value) VALUES ('original_resize_quality','95');
+INSERT INTO piwigo_config (param,value) VALUES ('mobile_theme',null);

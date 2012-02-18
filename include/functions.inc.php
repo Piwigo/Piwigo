@@ -757,7 +757,7 @@ function url_is_remote($url)
 /**
  * returns available themes
  */
-function get_pwg_themes()
+function get_pwg_themes($show_mobile=false)
 {
   global $conf;
 
@@ -773,6 +773,14 @@ SELECT
   $result = pwg_query($query);
   while ($row = pwg_db_fetch_assoc($result))
   {
+    if ($row['id'] == $conf['mobile_theme'])
+    {
+      if (!$show_mobile)
+      {
+        continue;
+      }
+      $row['name'] .= ' ('.l10n('Mobile').')';
+    }
     if (check_theme_installed($row['id']))
     {
       $themes[ $row['id'] ] = $row['name'];

@@ -17,7 +17,7 @@ jQuery(document).ready(function() {
 <div class="themeBoxes">
 {foreach from=$active_themes item=theme}
   <div class="themeBox{if $theme.is_default} themeDefault{/if}">
-    <div class="themeName">{$theme.name}{if $theme.is_default} <em>({'default'|@translate})</em>{/if} {if $theme.mobile} <em>({'mobile'|@translate})</em>{/if}</div>
+    <div class="themeName">{$theme.name}{if $theme.is_default} <em>({'default'|@translate})</em>{/if} {if $theme.mobile} <em>({'Mobile'|@translate})</em>{/if}</div>
     <div class="themeShot"><a href="{$theme.screenshot}" class="preview-box" title="{$theme.name}"><img src="{$theme.screenshot}" alt=""></a></div>
     <div class="themeActions">
       <div>
@@ -47,7 +47,7 @@ jQuery(document).ready(function() {
 <div class="themeBoxes">
 {foreach from=$inactive_themes item=theme}
   <div class="themeBox">
-    <div class="themeName">{$theme.name}{if $theme.mobile} <em>({'mobile'|@translate})</em>{/if}</div>
+    <div class="themeName">{$theme.name}{if $theme.mobile} <em>({'Mobile'|@translate})</em>{/if}</div>
     <div class="themeShot"><a href="{$theme.screenshot}" class="preview-box" title="{$theme.name}"><img src="{$theme.screenshot}" alt=""></a></div>
     <div class="themeActions">
       <div>
