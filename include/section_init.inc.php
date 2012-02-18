@@ -64,8 +64,12 @@ else
 
   // the $_GET keys are not protected in include/common.inc.php, only the values
   $rewritten = pwg_db_real_escape_string($rewritten);
-
   $page['root_path'] = PHPWG_ROOT_PATH;
+}
+
+if ( strncmp($page['root_path'], './', 2) == 0 )
+{
+	$page['root_path'] = substr($page['root_path'], 2);
 }
 
 // deleting first "/" if displayed

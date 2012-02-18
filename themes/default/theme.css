@@ -294,8 +294,7 @@ TD.calDayHead {
 	-moz-border-radius: 4px;	/* round corners with Geko */
 	-webkit-border-radius: 4px; /* Safari webkit project */
 }
-.thumbnails .wrap2 A,
-.thumbnails LABEL {
+.thumbnails .wrap2 A {
 	display: block;
 	border-bottom: 0;
 }

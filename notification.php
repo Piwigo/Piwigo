@@ -28,6 +28,29 @@
 define('PHPWG_ROOT_PATH','./');
 include_once( PHPWG_ROOT_PATH.'include/common.inc.php' );
 
+/**
+ * search an available feed_id
+ *
+ * @return string feed identifier
+ */
+function find_available_feed_id()
+{
+  while (true)
+  {
+    $key = generate_key(50);
+    $query = '
+SELECT COUNT(*)
+  FROM '.USER_FEED_TABLE.'
+  WHERE id = \''.$key.'\'
+;';
+    list($count) = pwg_db_fetch_row(pwg_query($query));
+    if (0 == $count)
+    {
+      return $key;
+    }
+  }
+}
+
 // +-----------------------------------------------------------------------+
 // | Check Access and exit when user status is not ok                      |
 // +-----------------------------------------------------------------------+

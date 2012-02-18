@@ -126,7 +126,6 @@ while ($row = pwg_db_fetch_assoc($result))
       array(
         'id'=>$row['image_id'],
         'path'=>$row['path'],
-        'tn_ext'=>@$row['tn_ext']
         )
      );
   if (empty($row['author_id'])) 

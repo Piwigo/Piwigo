@@ -683,7 +683,7 @@ var s,after = document.getElementsByTagName(\'script\')[document.getElementsByTa
       $ret = $script->path;
     else
     {
-      $ret = embellish_url(get_root_url().$script->path);
+      $ret = get_root_url().$script->path;
       if ($script->version!==false)
       {
         $ret.= '?v'. ($script->version ? $script->version : PHPWG_VERSION);
@@ -691,7 +691,7 @@ var s,after = document.getElementsByTagName(\'script\')[document.getElementsByTa
     }
     // trigger the event for eventual use of a cdn
     $ret = trigger_event('combined_script', $ret, $script);
-    return $ret;
+    return embellish_url($ret);
   }
 
   function block_footer_script($params, $content, &$smarty, &$repeat)

@@ -30,22 +30,15 @@
 function get_root_url()
 {
   global $page;
-  if ( isset($page['root_path']) )
-  {
-    $root_url = $page['root_path'];
-  }
-  else
+  if ( ($root_url = @$page['root_path']) == null )
   {// TODO - add HERE the possibility to call PWG functions from external scripts
     $root_url = PHPWG_ROOT_PATH;
+		if ( strncmp($root_url, './', 2) == 0 )
+		{
+			return substr($root_url, 2);
+		}
   }
-  if ( strncmp($root_url, './', 2) != 0 )
-  {
-    return $root_url;
-  }
-  else
-  {
-    return (string)substr($root_url, 2);
-  }
+	return $root_url;
 }
 
 /**
@@ -307,28 +300,31 @@ function make_section_in_url($params)
 {
   global $conf;
   $section_string = '';
+	$section = @$params['section'];
+	if (!isset($section))
+	{
+		$section_of = array(
+			'category' => 'categories',
+			'tags'     => 'tags',
+			'list'     => 'list',
+			'search'   => 'search',
+			);
 
-  $section_of = array(
-    'category' => 'categories',
-    'tags'     => 'tags',
-    'list'     => 'list',
-    'search'   => 'search',
-    );
+		foreach ($section_of as $param => $s)
+		{
+			if (isset($params[$param]))
+			{
+				$section = $s;
+			}
+		}
 
-  foreach ($section_of as $param => $section)
-  {
-    if (isset($params[$param]))
-    {
-      $params['section'] = $section;
-    }
-  }
+		if (!isset($section))
+		{
+			$section = 'none';
+		}
+	}
 
-  if (!isset($params['section']))
-  {
-    $params['section'] = 'none';
-  }
-
-  switch($params['section'])
+  switch($section)
   {
     case 'categories' :
     {
@@ -420,7 +416,7 @@ function make_section_in_url($params)
     }
     default :
     {
-      $section_string.= '/'.$params['section'];
+      $section_string.= '/'.$section;
     }
   }
 

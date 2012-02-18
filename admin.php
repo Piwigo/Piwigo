@@ -245,10 +245,8 @@ if (
         'site_manager', // delete site
         'site_update',  // ?only POST
         'cat_list',     // delete cat
-        'album',        // delete cat; public/private; lock/unlock, permissions
         'cat_move',     // ?only POST
         'cat_options',  // ?only POST; public/private; lock/unlock
-        'photo',
         'picture_modify', // ?only POST; associate/dissociate
         'user_perm',
         'group_perm',
@@ -257,6 +255,8 @@ if (
     )
     or ( !empty($_POST) and in_array($page['page'],
         array(
+					'photo',
+					'album',        // public/private; lock/unlock, permissions
           'batch_manager',  // associate/dissociate; delete; set level
           'user_list',    // group assoc; user level
         )
