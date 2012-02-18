@@ -846,5 +846,4 @@ $lang['Not cropped correctly?'] = 'Not cropped correctly?';
 $lang['Center of interest'] = 'Center of interest';
 $lang['Move to album'] = 'Move to album';
 $lang['You can activate only one mobile theme.'] = 'You can activate only one mobile theme.';
-$lang['mobile'] = 'mobile';
 ?>

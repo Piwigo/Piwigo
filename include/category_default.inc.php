@@ -35,6 +35,8 @@ $selection = array_slice(
   $page['nb_image_page']
   );
 
+$selection = trigger_event('loc_index_thumbnails_selection', $selection);
+
 if (count($selection) > 0)
 {
   $rank_of = array_flip($selection);

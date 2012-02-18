@@ -1,6 +1,7 @@
 <select name="identification" id="identification" data-icon="grid" data-iconpos="notext" data-native-menu="false">
 
-  <option value="" data-placeholder="true">{'Identification'|@translate}</option>
+  <option></option>
+  <optgroup label="{'Identification'|@translate}">
 
 	{if isset($U_REGISTER)}
 	<option value="{$U_REGISTER}">{'Register'|@translate}</option>
@@ -17,6 +18,8 @@
 	{if isset($U_ADMIN)}
 	<option value="{$U_ADMIN}">{'Administration'|@translate}</option>
 	{/if}
+
+  </optgroup>
 
 </select>
 

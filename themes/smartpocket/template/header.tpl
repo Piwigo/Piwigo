@@ -46,9 +46,9 @@
 </head>
 
 <body>
-<div data-role="page">
+<div data-role="page" data-theme="a">
 
-<div data-role="header" data-theme="c">
+<div data-role="header">
   <div class="title">
     <a href="{$U_HOME}" class="home_button" data-icon="home" data-iconpos="notext" data-role="button"></a>
     {$GALLERY_TITLE}

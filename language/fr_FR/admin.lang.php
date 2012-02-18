@@ -844,7 +844,6 @@ $lang['This album contains no photo.'] = 'Cet album ne contient pas de photo.';
 $lang['%s has been successfully updated.'] = '%s a été mis à jour avec succès.';
 $lang['Move to album'] = 'Déplacer vers l\'album';
 $lang['You can activate only one mobile theme.'] = 'Vous ne pouvez activer qu\'un seul thème mobile.';
-$lang['mobile'] = 'mobile';
 $lang['Center of interest'] = 'Centre d\'interêt';
 $lang['Not cropped correctly?'] = 'La photo n\'est pas recadrée corectement ?';
 $lang['Photo name'] = 'Nom de la photo';

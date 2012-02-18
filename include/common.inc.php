@@ -192,28 +192,7 @@ if (defined('IN_ADMIN') and IN_ADMIN )
 }
 else
 { // Classic template
-  $theme = $user['theme'];
-
-  if (!isset($_SESSION['is_mobile']))
-  {
-    include_once(PHPWG_ROOT_PATH.'include/mdetect.php');
-    $uagent_obj = new uagent_info();
-    if ($_SESSION['is_mobile'] = $uagent_obj->DetectMobileLong())
-    {
-      $_SESSION['use_mobile_theme'] = !empty($conf['mobile_theme']);
-    }
-  }
-  if ($_SESSION['is_mobile'])
-  {
-    if (isset($_REQUEST['mobile']))
-    {
-      $_SESSION['use_mobile_theme'] = get_boolean($_REQUEST['mobile']);
-    }
-    if ($_SESSION['use_mobile_theme'])
-    {
-      $theme = $conf['mobile_theme'];
-    }
-  }
+  $theme = mobile_theme() ? $conf['mobile_theme'] : $user['theme'];
   $template = new Template(PHPWG_ROOT_PATH.'themes', $theme );
 }
 

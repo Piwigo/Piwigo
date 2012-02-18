@@ -1678,4 +1678,65 @@ function get_branch_from_version($version)
 {
   return implode('.', array_slice(explode('.', $version), 0, 2));
 }
+
+/**
+ * return the device type: mobile, tablet or desktop
+ */
+function get_device()
+{
+  $device = pwg_get_session_var('device');
+
+  if (is_null($device))
+  {
+    include_once(PHPWG_ROOT_PATH.'include/mdetect.php');
+    $uagent_obj = new uagent_info();
+    if ($uagent_obj->DetectTierIphone())
+    {
+      $device = 'mobile';
+    }
+    elseif ($uagent_obj->DetectTierTablet())
+    {
+      $device = 'tablet';
+    }
+    else
+    {
+      $device = 'desktop';
+    }
+    pwg_set_session_var('device', $device);
+  }
+
+  return $device;
+}
+
+/**
+ * return true if mobile theme should be loaded
+ */
+function mobile_theme()
+{
+  global $conf;
+
+  if (empty($conf['mobile_theme']))
+  {
+    return false;
+  }
+
+  if (isset($_GET['mobile']))
+  {
+    $is_mobile_theme = get_boolean($_GET['mobile']);
+    pwg_set_session_var('mobile_theme', $is_mobile_theme);
+    unset($_GET['mobile']);
+  }
+  else
+  {
+    $is_mobile_theme = pwg_get_session_var('mobile_theme');
+  }
+
+  if (is_null($is_mobile_theme))
+  {
+    $is_mobile_theme = (get_device() == 'mobile');
+    pwg_set_session_var('mobile_theme', $is_mobile_theme);
+  }
+
+  return $is_mobile_theme;
+}
 ?>

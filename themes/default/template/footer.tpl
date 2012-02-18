@@ -13,6 +13,9 @@
 	- {'Contact'|@translate}
 	<a href="mailto:{$CONTACT_MAIL}?subject={'A comment on your site'|@translate|@escape:url}">{'Webmaster'|@translate}</a>
 	{/if}
+	{if isset($TOGGLE_MOBILE_THEME_URL)}
+	- {'Display'|@translate} : <a href="{$TOGGLE_MOBILE_THEME_URL}">{'Mobile'|@translate}</a> | <b>{'Classic'|@translate}</b>
+	{/if}
 
 {get_combined_scripts load='footer'}
 

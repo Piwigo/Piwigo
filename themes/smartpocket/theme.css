@@ -2,16 +2,22 @@
 @import "photoswipe.css";
 
 .title { margin: 10px; text-align: center; }
+.title .ui-btn { margin-top: -5px; }
 .menubar { float: right; }
 .home_button { float: left; }
+.pwg_footer h6 { margin: 8px; text-align:right;}
+
+.errors  h3, .infos  h3{ float:left; margin-top:8px; }
+.errors div, .infos div { float:right; margin-top:4px; }
+.errors p, .infos p { clear:both; font-size:85%; margin-bottom:8px; }
 
 .ui-icon-profil { background-image: url("images/profil.png"); background-color: transparent; }
 
 .ui-content { overflow: hidden; }
-.ui-field-contain { padding: 5px; border: 0; }
+.ui-field-contain, .ui-br { padding: 5px; border: 0 !important; }
 
 .thumbnails { list-style: none; padding: 0; margin: 0; }
 .thumbnails:after { clear: both; content: "."; display: block; height: 0; visibility: hidden; }
-.thumbnails li { float: left; width: 33.33333333%; }
+.thumbnails li { float: left;  }
 .thumbnails li a { display: block; margin: 5px; }
 .thumbnails li img { display: block; width: 100%; height: auto; }

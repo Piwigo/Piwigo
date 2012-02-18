@@ -65,6 +65,17 @@ if ($conf['show_gt'])
 
 $template->assign('debug', $debug_vars );
 
+//------------------------------------------------------------- mobile version
+if (get_device() != 'desktop')
+{
+  $template->assign('TOGGLE_MOBILE_THEME_URL',
+      add_url_params(
+        make_index_url(),
+        array('mobile' => mobile_theme() ? 'false' : 'true')
+      )
+    );
+}
+
 trigger_action('loc_end_page_tail');
 //
 // Generate the page

@@ -383,4 +383,7 @@ $lang['Password: %s'] = 'Password: %s';
 $lang['Username: %s'] = 'Username: %s';
 $lang['If you think you\'ve received this email in error, please contact us at %s'] = 'If you think you\'ve received this email in error, please contact us at %s';
 $lang['Photo sizes'] = 'Photo sizes';
+$lang['View in'] = 'View in';
+$lang['Mobile'] = 'Mobile';
+$lang['Desktop'] = 'Desktop';
 ?>

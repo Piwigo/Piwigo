@@ -383,4 +383,7 @@ $lang['xlarge'] = "XLarge";
 $lang['xxlarge'] = "XXLarge";
 $lang['Show latest comments first'] = 'Montrer les commentaires les plus récents en premier';
 $lang['Show oldest comments first'] = 'Montrer les commentaires les plus anciens en premier';
+$lang['View in'] = 'Affichage';
+$lang['Mobile'] = 'Mobile';
+$lang['Desktop'] = 'Classique';
 ?>

@@ -1,4 +1,3 @@
-
 <form method="post" name="profile" action="{$F_ACTION}" id="profile" class="properties">
 
   <div data-role="fieldcontain">
@@ -30,6 +29,11 @@
 
 {if $ALLOW_USER_CUSTOMIZATION}
   <div data-role="fieldcontain">
+  <label for="nb_image_page">{'Number of photos per page'|@translate}</label>
+  <input type="range" name="nb_image_page" id="nb_image_page" value="{$NB_IMAGE_PAGE}" min="1" max="100" />
+  </div>
+
+  <div data-role="fieldcontain">
   <label for="language">{'Language'|@translate}</label>
   {html_options name=language options=$language_options selected=$language_selection}
   </div>
@@ -38,7 +42,6 @@
 
   <div data-role="fieldcontain">
     {if $ALLOW_USER_CUSTOMIZATION}
-    <input type="hidden" name="nb_image_page" value="{$NB_IMAGE_PAGE}">
     <input type="hidden" name="theme" value="{$template_selection}">
     <input type="hidden" name="recent_period" value="{$RECENT_PERIOD}">
     <input type="hidden" name="expand" value="{$EXPAND}">
