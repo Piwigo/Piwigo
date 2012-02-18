@@ -806,7 +806,6 @@ $lang['A locked gallery is only visible to administrators'] = 'Заблоков�
 $lang['administrators'] = 'адміністратори';
 $lang['Center of interest'] = 'Центр інтересів';
 $lang['Gallery unlocked'] = 'Галерея розблокована';
-$lang['mobile'] = 'мобільний';
 $lang['modified'] = 'модифікований';
 $lang['Move to album'] = 'Перемістити до альбому';
 $lang['Not cropped correctly?'] = 'Не обрізати правильно?';
