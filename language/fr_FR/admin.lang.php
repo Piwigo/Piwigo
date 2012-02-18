@@ -412,9 +412,6 @@ $lang['Time'] = "Heure";
 $lang['IP'] = "IP";
 $lang['Element'] = "Elément";
 $lang['Section'] = "Section";
-$lang['Save page visits by guests'] = "Enregistrer les pages visitées par les invités";
-$lang['Save page visits by users'] = "Enregistrer les pages visitées par les utilisateurs";
-$lang['Save page visits by administrators'] = "Enregistrer les pages visitées par les administrateurs";
 $lang['An information email was sent to group "%s"'] = "Un mail d'informations a été envoyé aux membres du groupe \"%s\"";
 $lang['Send an information email to group members'] = "Envoyer un mail d'informations aux membres d'un groupe";
 $lang['Group'] = "Groupe";
@@ -848,4 +845,7 @@ $lang['%s has been successfully updated.'] = '%s a été mis à jour avec succè
 $lang['Move to album'] = 'Déplacer vers l\'album';
 $lang['You can activate only one mobile theme.'] = 'Vous ne pouvez activer qu\'un seul thème mobile.';
 $lang['mobile'] = 'mobile';
+$lang['Center of interest'] = 'Centre d\'interêt';
+$lang['Not cropped correctly?'] = 'La photo n\'est pas recadrée corectement ?';
+$lang['Photo name'] = 'Nom de la photo';
 ?>
