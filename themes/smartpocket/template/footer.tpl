@@ -9,8 +9,8 @@
 	- {'Contact'|@translate}
 	<a href="mailto:{$CONTACT_MAIL}?subject={'A comment on your site'|@translate|@escape:url}">{'Webmaster'|@translate}</a>
 	{/if}
-  <br>{'Display'|@translate} :
-    <b>{'Mobile'|@translate}</b> | <a href="{$TOGGLE_MOBILE_THEME_URL}">{'Classic'|@translate}</a>
+  <br>{'View in'|@translate} :
+    <b>{'Mobile'|@translate}</b> | <a href="{$TOGGLE_MOBILE_THEME_URL}">{'Desktop'|@translate}</a>
   </h6>
 </div>
 {/if}
