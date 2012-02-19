@@ -271,6 +271,38 @@ final class DerivativeImage
     }
   }
 
+  function get_scaled_size($maxw, $maxh)
+  {
+    $size = $this->get_size();
+    if ($size)
+    {
+      $ratio_w = $size[0] / $maxw;
+      $ratio_h = $size[1] / $maxh;
+      if ($ratio_w>1 || $ratio_h>1)
+      {
+        if ($ratio_w > $ratio_h)
+        {
+          $size[0] = $maxw;
+          $size[1] = floor($size[1] / $ratio_w);
+        }
+        else
+        {
+          $size[0] = floor($size[0] / $ratio_h);
+          $size[1] = $maxh;
+        }
+      }
+    }
+    return $size;
+  }
+
+  function get_scaled_size_htm($maxw=9999, $maxh=9999)
+  {
+    $size = $this->get_scaled_size($maxw, $maxh);
+    if ($size)
+    {
+      return 'width="'.$size[0].'" height="'.$size[1].'"';
+    }
+  }
 }
 
 ?>
