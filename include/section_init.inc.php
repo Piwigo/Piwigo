@@ -69,7 +69,7 @@ else
 
 if ( strncmp($page['root_path'], './', 2) == 0 )
 {
-	$page['root_path'] = substr($page['root_path'], 2);
+  $page['root_path'] = substr($page['root_path'], 2);
 }
 
 // deleting first "/" if displayed

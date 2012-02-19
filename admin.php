@@ -255,8 +255,8 @@ if (
     )
     or ( !empty($_POST) and in_array($page['page'],
         array(
-					'photo',
-					'album',        // public/private; lock/unlock, permissions
+          'photo',
+          'album',        // public/private; lock/unlock, permissions
           'batch_manager',  // associate/dissociate; delete; set level
           'user_list',    // group assoc; user level
         )

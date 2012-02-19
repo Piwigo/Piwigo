@@ -52,36 +52,36 @@ if ( isset($_POST['d']) )
     if (!$pderivative['enabled'])
       continue;
 
-		if ($type==IMG_THUMB)
-		{
-			$w = intval($pderivative['w']);
-			if ($w<=0)
-			{
-				$errors[$type]['w'] = '>0';
-			}
-			$h = intval($pderivative['h']);
-			if ($h<=0)
-			{
-				$errors[$type]['h'] = '>0';
-			}
-			if (max($w,$h) <= $prev_w)
-			{
-				$errors[$type]['w'] = $errors[$type]['h'] = '>'.$prev_w;
-			}
-		}
-		else
-		{
-			$v = intval($pderivative['w']);
-			if ($v<=0 || $v<=$prev_w)
-			{
-				$errors[$type]['w'] = '>'.$prev_w;
-			}
-			$v = intval($pderivative['h']);
-			if ($v<=0 || $v<=$prev_h)
-			{
-				$errors[$type]['h'] = '>'.$prev_h;
-			}
-		}
+    if ($type==IMG_THUMB)
+    {
+      $w = intval($pderivative['w']);
+      if ($w<=0)
+      {
+        $errors[$type]['w'] = '>0';
+      }
+      $h = intval($pderivative['h']);
+      if ($h<=0)
+      {
+        $errors[$type]['h'] = '>0';
+      }
+      if (max($w,$h) <= $prev_w)
+      {
+        $errors[$type]['w'] = $errors[$type]['h'] = '>'.$prev_w;
+      }
+    }
+    else
+    {
+      $v = intval($pderivative['w']);
+      if ($v<=0 || $v<=$prev_w)
+      {
+        $errors[$type]['w'] = '>'.$prev_w;
+      }
+      $v = intval($pderivative['h']);
+      if ($v<=0 || $v<=$prev_h)
+      {
+        $errors[$type]['h'] = '>'.$prev_h;
+      }
+    }
     $v = intval($pderivative['crop']);
     if ($v<0 || $v>100)
     {

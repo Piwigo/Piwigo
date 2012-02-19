@@ -890,14 +890,14 @@ function l10n($key)
 {
   global $lang, $conf;
 
-	if ( ($val=@$lang[$key]) == null)
-	{
-		if ($conf['debug_l10n'] and !isset($lang[$key]) and !empty($key))
-		{
-			trigger_error('[l10n] language key "'.$key.'" is not defined', E_USER_WARNING);
-		}
-		$val = $key;
-	}
+  if ( ($val=@$lang[$key]) == null)
+  {
+    if ($conf['debug_l10n'] and !isset($lang[$key]) and !empty($key))
+    {
+      trigger_error('[l10n] language key "'.$key.'" is not defined', E_USER_WARNING);
+    }
+    $val = $key;
+  }
   return $val;
 }
 
