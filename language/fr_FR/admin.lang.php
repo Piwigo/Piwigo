@@ -847,4 +847,10 @@ $lang['You can activate only one mobile theme.'] = 'Vous ne pouvez activer qu\'u
 $lang['Center of interest'] = 'Centre d\'interêt';
 $lang['Not cropped correctly?'] = 'La photo n\'est pas recadrée corectement ?';
 $lang['Photo name'] = 'Nom de la photo';
+$lang['Automatic sort order'] = 'Ordre de tri automatique';
+$lang['apply automatic sort order'] = 'appliquer un ordre de tri automatique';
+$lang['Save manual order'] = 'Sauvegarder l\'ordre manuel';
+$lang['cancel manual order'] = 'annuler l\'ordre manuel';
+$lang['Cancel'] = 'Annuler';
+$lang['List'] = 'Liste';
 ?>

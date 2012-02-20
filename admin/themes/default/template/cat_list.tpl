@@ -1,93 +1,118 @@
-{footer_script require='jquery.ui.sortable'}
-jQuery(document).ready(function(){ldelim}
-	jQuery(".catPos").hide();
-	jQuery(".drag_button").show();
-	jQuery(".categoryLi").css("cursor","move");
-	jQuery(".categoryUl").sortable({ldelim}
-		axis: "y",
-		opacity: 0.8
-	});
-	jQuery("#categoryOrdering").submit(function(){ldelim}
-		ar = jQuery('.categoryUl').sortable('toArray');
-		for(i=0;i<ar.length;i++) {ldelim}
-			cat = ar[i].split('cat_');
-			document.getElementsByName('catOrd[' + cat[1] + ']')[0].value = i;
-		}
-	});
+{footer_script require='jquery.ui.sortable'}{literal}
+jQuery(document).ready(function(){
+  jQuery(".catPos").hide();
+  jQuery(".drag_button").show();
+  jQuery(".categoryLi").css("cursor","move");
+  jQuery(".categoryUl").sortable({
+    axis: "y",
+    opacity: 0.8,
+    update : function() {
+      jQuery("#manualOrder").show();
+      jQuery("#notManualOrder").hide();
+      jQuery("#autoOrder").hide();
+      jQuery("#createAlbum").hide();
+    },
+  });
 
-	jQuery("input[name=order_type]").click(function () {ldelim}
-		jQuery("#automatic_order_params").hide();
-		if (jQuery("input[name=order_type]:checked").val() == "automatic") {ldelim}
-			jQuery("#automatic_order_params").show();
-		}
-	});
+  jQuery("#categoryOrdering").submit(function(){
+    ar = jQuery('.categoryUl').sortable('toArray');
+    for(i=0;i<ar.length;i++) {
+      cat = ar[i].split('cat_');
+      document.getElementsByName('catOrd[' + cat[1] + ']')[0].value = i;
+    }
+  });
+
+  jQuery("input[name=order_type]").click(function () {
+    jQuery("#automatic_order_params").hide();
+    if (jQuery("input[name=order_type]:checked").val() == "automatic") {
+      jQuery("#automatic_order_params").show();
+    }
+  });
+
+  jQuery("#addAlbumOpen").click(function(){
+    jQuery("#createAlbum").toggle();
+    jQuery("input[name=virtual_name]").focus();
+    jQuery("#autoOrder").hide();
+  });
+
+  jQuery("#addAlbumClose").click(function(){
+    jQuery("#createAlbum").hide();
+  });
+
+
+  jQuery("#autoOrderOpen").click(function(){
+    jQuery("#autoOrder").toggle();
+    jQuery("#createAlbum").hide();
+  });
+
+  jQuery("#autoOrderClose").click(function(){
+    jQuery("#autoOrder").hide();
+  });
+
+  jQuery("#cancelManualOrder").click(function(){
+    jQuery(".categoryUl").sortable("cancel");
+    jQuery("#manualOrder").hide();
+    jQuery("#notManualOrder").show();
+  });
 });
-{/footer_script}
+{/literal}{/footer_script}
 
-<h2>{'Album list management'|@translate}</h2>
+<h2><span style="letter-spacing:0">{$CATEGORIES_NAV}</span> &#8250; {'Album list management'|@translate}</h2>
 
-<h3>{$CATEGORIES_NAV}</h3>
-
-<form id="addVirtual" action="{$F_ACTION}" method="post">
-  <p>
-    <input type="hidden" name="pwg_token" value="{$PWG_TOKEN}">
-    {'Add a virtual album'|@translate} : <input type="text" name="virtual_name">
-    <input class="submit" type="submit" value="{'Submit'|@translate}" name="submitAdd">
-    {if count($categories)>9 }
-    <a href="#EoP" class="button" style="border:0;">
-		<img src="{$themeconf.admin_icon_dir}/page_end.png" title="{'Page end'|@translate}" alt="page_end" style="margin-bottom:-0.6em;"></a>
-    {/if}
-  </p>
-</form>
-
-{if count($categories) }
 <form id="categoryOrdering" action="{$F_ACTION}" method="post">
+<input type="hidden" name="pwg_token" value="{$PWG_TOKEN}">
+
+<p class="showCreateAlbum">
+  <span id="notManualOrder">
+    <a href="#" id="addAlbumOpen">{'create a new album'|@translate}</a>
+    | <a href="#" id="autoOrderOpen">{'apply automatic sort order'|@translate}</a>
+  </span>
+  <span id="manualOrder" style="display:none;">
+    <input class="submit" name="submitManualOrder" type="submit" value="{'Save manual order'|@translate}">
+    {'... or '|@translate} <a href="#" id="cancelManualOrder">{'cancel manual order'|@translate}</a>
+  </span>
+</p>
+
+<fieldset id="createAlbum" style="display:none;">
+  <legend>{'create a new album'|@translate}</legend>
   <input type="hidden" name="pwg_token" value="{$PWG_TOKEN}">
 
-  <div class="orderParams">
-    <input class="submit" name="submitOrder" type="submit" value="{'Save order'|@translate}">
-    <label><input type="radio" name="order_type" value="manual" checked="checked"> {'manual order'|@translate}</label>
-    <label><input type="radio" name="order_type" value="automatic"> {'automatic order'|@translate}</label>
-    <span id="automatic_order_params" style="display:none">
-      <select name="ascdesc">
-        <option value="asc">{'ascending'|@translate}</option>
-        <option value="desc">{'descending'|@translate}</option>
-      </select>
-      <label><input type="checkbox" name="recursive"> {'Apply to sub-albums'|@translate}</label>
-    </span>
-  </div>
+  <p><strong>{'Album name'|@translate}</strong>
+    <br><input type="text" name="virtual_name">
+  </p>
+  <p class="actionButtons">
+    <input class="submit" type="submit" value="{'Create'|@translate}" name="submitAdd">
+    <a href="#" id="addAlbumClose">{'Cancel'|@translate}</a>
+  </p>
+</fieldset>
+
+{if count($categories) }
+
+<fieldset id="autoOrder" style="display:none;">
+  <legend>{'Automatic sort order'|@translate}</legend>
+  <p><strong>{'Sort order'|@translate}</strong>
+    <br><label><input type="radio" value="asc" name="ascdesc" checked="checked">{'ascending'|@translate}</label>
+    <br><label><input type="radio" value="desc" name="ascdesc">{'descending'|@translate}</label>
+  </p>
+
+  <p>
+    <label><input type="checkbox" name="recursive"> <strong>{'Apply to sub-albums'|@translate}</strong></label>
+  </p>
+
+  <p class="actionButtons">
+    <input class="submit" name="submitAutoOrder" type="submit" value="{'Save order'|@translate}">
+    <a href="#" id="autoOrderClose">{'Cancel'|@translate}</a>
+  </p>
+</fieldset>
 
   <ul class="categoryUl">
 
     {foreach from=$categories item=category}
     <li class="categoryLi{if $category.IS_VIRTUAL} virtual_cat{/if}" id="cat_{$category.ID}">
       <!-- category {$category.ID} -->
-      <ul class="categoryActions">
-        {if cat_admin_access($category.ID)}
-        <li><a href="{$category.U_JUMPTO}" title="{'jump to album'|@translate}"><img src="{$themeconf.admin_icon_dir}/category_jump-to.png" alt="{'jump to album'|@translate}"></a></li>
-        {/if}
-        <li><a href="{$category.U_EDIT}" title="{'Edit album'|@translate}"><img src="{$themeconf.admin_icon_dir}/category_edit.png" alt="{'Edit'|@translate}"></a></li>
-        {if isset($category.U_MANAGE_ELEMENTS) }
-        <li><a href="{$category.U_MANAGE_ELEMENTS}" title="{'manage album photos'|@translate}"><img src="{$themeconf.admin_icon_dir}/category_elements.png" alt="{'Photos'|@translate}"></a></li>
-        {/if}
-        <li><a href="{$category.U_CHILDREN}" title="{'manage sub-albums'|@translate}"><img src="{$themeconf.admin_icon_dir}/category_children.png" alt="{'sub-albums'|@translate}"></a></li>
-        {if isset($category.U_MANAGE_PERMISSIONS) }
-        <li><a href="{$category.U_MANAGE_PERMISSIONS}" title="{'Edit album permissions'|@translate}" ><img src="{$themeconf.admin_icon_dir}/category_permissions.png" alt="{'Permissions'|@translate}"></a></li>
-        {/if}
-        {if isset($category.U_SYNC) }
-        <li><a href="{$category.U_SYNC}" title="{'Synchronize'|@translate}"><img src="{$ROOT_URL}{$themeconf.admin_icon_dir}/synchronize.png" alt="{'Synchronize'|@translate}"></a></li>
-        {/if}
-        {if isset($category.U_DELETE) }
-        <li><a href="{$category.U_DELETE}" title="{'delete album'|@translate}" onclick="return confirm('{'Are you sure?'|@translate|@escape:javascript}');"><img src="{$themeconf.admin_icon_dir}/category_delete.png" alt="{'delete album'|@translate}"></a></li>
-        {/if}
-      </ul>
-
-      <p>
-      <img src="{$themeconf.admin_icon_dir}/cat_move.png" class="button drag_button" style="display:none;" alt="{'Drag to re-order'|@translate}" title="{'Drag to re-order'|@translate}">
+      <p class="albumTitle">
+<img src="{$themeconf.admin_icon_dir}/cat_move.png" class="button drag_button" style="display:none;" alt="{'Drag to re-order'|@translate}" title="{'Drag to re-order'|@translate}">
       <strong><a href="{$category.U_CHILDREN}" title="{'manage sub-albums'|@translate}">{$category.NAME}</a></strong>
-      {if $category.IS_VIRTUAL}
-      <img src="{$themeconf.admin_icon_dir}/virt_category.png" alt="{'Virtual album'|@translate}">
-      {/if}
       </p>
 
       <p class="catPos">
@@ -97,10 +122,29 @@ jQuery(document).ready(function(){ldelim}
         </label>
       </p>
 
+<p class="albumActions">
+        <a href="{$category.U_EDIT}">{'Edit'|@translate}</a>
+        {if isset($category.U_MANAGE_ELEMENTS) }
+        | <a href="{$category.U_MANAGE_ELEMENTS}">{'manage album photos'|@translate}</a>
+        {/if}
+        | <a href="{$category.U_CHILDREN}">{'manage sub-albums'|@translate}</a>
+        {if isset($category.U_MANAGE_PERMISSIONS) }
+        | <a href="{$category.U_MANAGE_PERMISSIONS}">{'Permissions'|@translate}</a>
+        {/if}
+        {if isset($category.U_SYNC) }
+        | <a href="{$category.U_SYNC}">{'Synchronize'|@translate}</a>
+        {/if}
+        {if isset($category.U_DELETE) }
+        | <a href="{$category.U_DELETE}" onclick="return confirm('{'Are you sure?'|@translate|@escape:javascript}');">{'delete album'|@translate}</a>
+{/if}
+{if cat_admin_access($category.ID)}
+| 
+<a href="{$category.U_JUMPTO}">{'jump to album'|@translate} →</a>
+{/if}
+</p>
+
     </li>
     {/foreach}
   </ul>
-</form>
-
-<a name="EoP"></a>
 {/if}
+</form>

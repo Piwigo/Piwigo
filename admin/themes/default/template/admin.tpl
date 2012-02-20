@@ -49,9 +49,7 @@ Raphael("menubarUsers", 20, 16).path("").scale(0.6, 0.6, 0, 0).attr({fill: "#464
     <dd>
       <ul>
         <li><a href="{$U_CATEGORIES}">{'Manage'|@translate}</a></li>
-        <li><a href="{$U_MOVE}">{'Move'|@translate}</a></li>
         <li><a href="{$U_CAT_OPTIONS}">{'Properties'|@translate}</a></li>
-        <li><a href="{$U_PERMALINKS}">{'Permalinks'|@translate}</a></li>
       </ul>
     </dd>
   </dl>

@@ -151,26 +151,24 @@ SELECT.categoryList {
 	width: 100%;
 }
 
-FORM#categoryOrdering {
-	padding-left: 1em; /* same as FIELDSET margin (there is no fieldset in this form) */
-	padding-right: 1em; /* same as FIELDSET margin (there is no fieldset in this form) */
-}
 FORM#categoryOrdering p {
 	text-align: left;
-	margin-top: 1em;
-	margin-bottom: 1em;
+	/* margin-top: 1em; */
+	/* margin-bottom: 1em; */
 }
 UL.categoryUl {
 	list-style: none;
 	padding: 0;
-	margin: 0;
+	margin: 1em;
 }
 
 LI.categoryLi {
+/*
 	width: 100%;
-	border: 1px solid #666;
-	padding: 0px 5px;
+*/
+	padding: 5px;
 	margin-bottom: 5px;
+  border-radius:5px;
 }
 
 FORM#categoryOrdering UL.categoryActions {
@@ -1073,3 +1071,11 @@ p#uploadModeInfos {text-align:left;margin-top:1em;font-size:90%;color:#999;}
 #pendingComments .bottomButtons {
   text-align:left;
 }
+
+FORM#categoryOrdering p.albumTitle {margin:0;}
+FORM#categoryOrdering p.albumActions {visibility:hidden; margin:0}
+FORM#categoryOrdering .categoryLi:hover p.albumActions {visibility:visible;}
+
+.showCreateAlbum {text-align:left; margin:0 1em 1em 1em;line-height:22px;}
+#autoOrder p, #createAlbum p {text-align:left; margin:0 0 1em 0;}
+#autoOrder p.actionButtons, #createAlbum p.actionButtons {margin-bottom:0;}

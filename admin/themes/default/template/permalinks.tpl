@@ -1,32 +1,62 @@
+{footer_script require='jquery.ui.sortable'}{literal}
+jQuery(document).ready(function(){
+  jQuery("#addPermalinkOpen").click(function(){
+    jQuery("#addPermalink").show();
+    jQuery("#showAddPermalink").hide();
+  });
+
+  jQuery("#addPermalinkClose").click(function(){
+    jQuery("#addPermalink").hide();
+    jQuery("#showAddPermalink").show();
+  });
+});
+{/literal}{/footer_script}
+
+{literal}
+<style>
+#showAddPermalink {text-align:left;margin-left:1em;margin-top:0;}
+form fieldset p {margin:0 0 1em 0;}
+form fieldset p.actionButtons {margin-bottom:0}
+</style>
+{/literal}
+
 <div class="titrePage">
   <h2>{'Permalinks'|@translate}</h2>
 </div>
 
-<form method="post" action="">
-<fieldset><legend>{'Add/delete a permalink'|@translate}</legend>
-  <label>{'Album'|@translate}:
+<p id="showAddPermalink"><a href="#" id="addPermalinkOpen">{'Add/delete a permalink'|@translate}</a></p>
+
+<form method="post" action="" id="addPermalink" style="display:none">
+<fieldset>
+  <legend>{'Add/delete a permalink'|@translate}</legend>
+  <p>
+    <strong>{'Album'|@translate}</strong>
+    <br>
     <select name="cat_id">
       <option value="0">------</option>
       {html_options options=$categories selected=$categories_selected}
     </select>
-  </label>
-
-  <label>{'Permalink'|@translate}:
-    <input name="permalink">
-  </label>
-
-  <label>{'Save to permalink history'|@translate}:
-    <input type="checkbox" name="save" checked="checked">
-  </label>
+  </p>
 
   <p>
-    <input type="submit" class="submit" name="set_permalink" value="{'Submit'|@translate}">
+    <strong>{'Permalink'|@translate}</strong>
+    <br><input name="permalink">
   </p>
-  </fieldset>
+
+  <p>
+    <label><input type="checkbox" name="save" checked="checked"> <strong>{'Save to permalink history'|@translate}</strong></label>
+  </p>
+
+  <p class="actionButtons">
+    <input type="submit" class="submit" name="set_permalink" value="{'Submit'|@translate}">
+    <a href="#" id="addPermalinkClose">{'Cancel'|@translate}</a>
+  </p>
+</fieldset>
 </form>
 
-<h3>{'Permalinks'|@translate}</h3>
-<table class="table2">
+<fieldset>
+  <legend>{'Permalinks'|@translate}</legend>
+<table class="table2" style="margin:0">
 	<tr class="throw">
 		<td>Id {$SORT_ID}</td>
 		<td>{'Album'|@translate} {$SORT_NAME}</td>
@@ -40,16 +70,18 @@
 	</tr>
 {/foreach}
 </table>
+</fieldset>
 
-<h3>{'Permalink history'|@translate} <a name="old_permalinks"></a></h3>
-<table class="table2">
+<fieldset>
+  <legend>{'Permalink history'|@translate} <a name="old_permalinks"></a></legend>
+<table class="table2" style="margin:0">
 	<tr class="throw">
 		<td>Id {$SORT_OLD_CAT_ID}</td>
 		<td>{'Album'|@translate}</td>
 		<td>{'Permalink'|@translate} {$SORT_OLD_PERMALINK}</td>
 		<td>{'Deleted on'|@translate} {$SORT_OLD_DATE_DELETED}</td>
 		<td>{'Last hit'|@translate} {$SORT_OLD_LAST_HIT}</td>
-		<td style="width:20px;">{'Hit'|@translate} {$SORT_OLD_HIT}</td>
+		<td>{'Hit'|@translate} {$SORT_OLD_HIT}</td>
 		<td style="width:5px;"></td>
 	</tr>
 {foreach from=$deleted_permalinks item=permalink}
@@ -64,3 +96,4 @@
 	</tr>
 {/foreach}
 </table>
+</fieldset>

@@ -1,6 +1,3 @@
-
-{include file='include/resize.inc.tpl'}
-
 <div class="titrePage">
   <h2>{'Move albums'|@translate}</h2>
 </div>
@@ -28,9 +25,8 @@
 
   </fieldset>
 
-  <p>
+  <p style="text-align:left;">
     <input class="submit" type="submit" name="submit" value="{'Submit'|@translate}">
-    <input class="submit" type="reset" name="reset" value="{'Reset'|@translate}">
   </p>
 
 </form>

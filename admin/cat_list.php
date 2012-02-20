@@ -100,6 +100,13 @@ $navigation.= l10n('Home');
 $navigation.= '</a>';
 
 // +-----------------------------------------------------------------------+
+// | tabs                                                                  |
+// +-----------------------------------------------------------------------+
+
+$page['tab'] = 'list';
+include(PHPWG_ROOT_PATH.'admin/include/albums_tab.inc.php');
+
+// +-----------------------------------------------------------------------+
 // |                    virtual categories management                      |
 // +-----------------------------------------------------------------------+
 // request to delete a virtual category
@@ -134,71 +141,68 @@ else if (isset($_POST['submitAdd']))
   }
 }
 // save manual category ordering
-else if (isset($_POST['submitOrder']))
+else if (isset($_POST['submitManualOrder']))
 {
-  if ('manual' == $_POST['order_type'])
-  {
-    asort($_POST['catOrd'], SORT_NUMERIC);
-    save_categories_order(array_keys($_POST['catOrd']));
+  asort($_POST['catOrd'], SORT_NUMERIC);
+  save_categories_order(array_keys($_POST['catOrd']));
 
-    array_push(
-      $page['infos'],
-      l10n('Album manual order was saved')
-      );
-  }
-  else
-  {
-    $query = '
+  array_push(
+    $page['infos'],
+    l10n('Album manual order was saved')
+    );
+}
+else if (isset($_POST['submitAutoOrder']))
+{
+  $query = '
 SELECT id
   FROM '.CATEGORIES_TABLE.'
   WHERE id_uppercat '.
     (!isset($_GET['parent_id']) ? 'IS NULL' : '= '.$_GET['parent_id']).'
 ;';
-    $category_ids = array_from_query($query, 'id');
+  $category_ids = array_from_query($query, 'id');
 
-    if (isset($_POST['recursive']))
-    {
-      $category_ids = get_subcat_ids($category_ids);
-    }
-
-    $categories = array();
-    $names = array();
-    $id_uppercats = array();
+  if (isset($_POST['recursive']))
+  {
+    $category_ids = get_subcat_ids($category_ids);
+  }
   
-    $query = '
+  $categories = array();
+  $names = array();
+  $id_uppercats = array();
+  
+  $query = '
 SELECT id, name, id_uppercat
   FROM '.CATEGORIES_TABLE.'
   WHERE id IN ('.implode(',', $category_ids).')
 ;';
-    $result = pwg_query($query);
-    while ($row = pwg_db_fetch_assoc($result))
-    {
-      array_push(
-        $categories,
-        array(
-          'id' => $row['id'],
-          'id_uppercat' => $row['id_uppercat'],
-          )
-        );
-      array_push(
-        $names,
-        $row['name']
-        );
-    }
-
-    array_multisort(
-      $names,
-      SORT_REGULAR,
-      'asc' == $_POST['ascdesc'] ? SORT_ASC : SORT_DESC,
-      $categories
-      );
-    save_categories_order($categories);
-
+  $result = pwg_query($query);
+  while ($row = pwg_db_fetch_assoc($result))
+  {
     array_push(
-      $page['infos'],
-      l10n('Albums automatically sorted')
+      $categories,
+      array(
+        'id' => $row['id'],
+        'id_uppercat' => $row['id_uppercat'],
+        )
+      );
+    array_push(
+      $names,
+      $row['name']
       );
   }
+
+  array_multisort(
+    $names,
+    SORT_REGULAR,
+    'asc' == $_POST['ascdesc'] ? SORT_ASC : SORT_DESC,
+    $categories
+    );
+  save_categories_order($categories);
+
+  array_push(
+    $page['infos'],
+    l10n('Albums automatically sorted')
+    );
 }
 
 // +-----------------------------------------------------------------------+

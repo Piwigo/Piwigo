@@ -116,7 +116,7 @@ INPUT.bigbutton:hover { background-color: #ddd;  color:#0cc; border: 0; }
 .throw  { font-size: 120%; line-height: 26px; padding-top: 10px; font-weight: bold; }
 label { cursor:pointer }
 .categoryLi, .menuLi { background: #ddd }
-.virtual_cat, .menuLi_hidden { background: #ccc !important; }
+.menuLi_hidden { background: #ccc !important; }
 a.Piwigo {
   font-family: verdana, arial, helvetica, sans-serif !important;
   font-size: 11px; font-weight: normal; letter-spacing: 0;
@@ -311,3 +311,5 @@ input[type="submit"]:hover, input[type="button"]:hover, input[type="reset"]:hove
   background-color:#ff7700;
   color:white;
 }
+
+p.albumTitle img {margin-bottom:-3px;}

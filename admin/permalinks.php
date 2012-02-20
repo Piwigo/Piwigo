@@ -49,7 +49,7 @@ function parse_sort_variables(
   foreach( $sortable_by as $field)
   {
     $url = $base_url;
-    $disp = '&dArr;'; // TODO: an small image is better
+    $disp = '↓'; // TODO: an small image is better
 
     if ( $field !== @$_GET[$get_param] )
     {
@@ -105,6 +105,14 @@ DELETE FROM '.OLD_PERMALINKS_TABLE.'
 
 
 $template->set_filename('permalinks', 'permalinks.tpl' );
+
+// +-----------------------------------------------------------------------+
+// | tabs                                                                  |
+// +-----------------------------------------------------------------------+
+
+$page['tab'] = 'permalinks';
+include(PHPWG_ROOT_PATH.'admin/include/albums_tab.inc.php');
+
 
 $query = '
 SELECT

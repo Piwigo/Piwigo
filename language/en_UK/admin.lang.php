@@ -846,4 +846,10 @@ $lang['Not cropped correctly?'] = 'Not cropped correctly?';
 $lang['Center of interest'] = 'Center of interest';
 $lang['Move to album'] = 'Move to album';
 $lang['You can activate only one mobile theme.'] = 'You can activate only one mobile theme.';
+$lang['Automatic sort order'] = 'Automatic sort order';
+$lang['apply automatic sort order'] = 'apply automatic sort order';
+$lang['Save manual order'] = 'Save manual order';
+$lang['cancel manual order'] = 'cancel manual order';
+$lang['Cancel'] = 'Cancel';
+$lang['List'] = 'List';
 ?>
