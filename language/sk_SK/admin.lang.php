@@ -408,9 +408,6 @@ $lang['Time'] = 'čas';
 $lang['IP'] = 'IP';
 $lang['Element'] = 'Fotografie';
 $lang['Section'] = 'Sekcia';
-$lang['Save page visits by guests'] = 'Ukladať stránky navštívené hosťami';
-$lang['Save page visits by users'] = 'Ukladať stránky navštívené používateľmi';
-$lang['Save page visits by administrators'] = 'Ukladať stránky navštívené administrátormi';
 $lang['An information email was sent to group "%s"'] = 'Informačný e-mail bol poslaný skupine "%s"';
 $lang['Send an information email to group members'] = 'Poslať informačný e-mail používateľom skupiny';
 $lang['Group'] = 'Skupina';
@@ -831,7 +828,6 @@ $lang['The original image quality must be a number between %d and %d'] = 'Origin
 $lang['The original maximum height must be a number between %d and %d'] = 'Originálna maximálna výška musí byť číslo medzi %d a %d';
 $lang['The original maximum width must be a number between %d and %d'] = 'Originálna maximálna šírka musí byť číslo medzi %d a %d';
 $lang['Resize after upload'] = 'Zmeniť rozmer po nahratí';
-$lang['Photo sizes'] = 'Veľkosť fotky';
 $lang['Original Size'] = 'Originálna veľkosť';
 $lang['A locked gallery is only visible to administrators'] = 'Uzamknutý album je viditeľný len administrátorom'; 
 $lang['Unlock gallery'] = 'Odomknúť album'; 
@@ -846,5 +842,9 @@ $lang['administrators'] = 'administrátori';
 $lang['This album contains %d photos, added on %s.'] = 'Tento album obsahuje %d fotiek, pridaných %s.'; 
 $lang['This album contains %d photos, added between %s and %s.'] = 'Tento album obsahuje %d fotiek, pridaných medzi %s a %s.'; 
 $lang['This album contains no photo.'] = 'Tento album neobsahuje fotky.';
+$lang['Not cropped correctly?'] = 'Nesprávne orezanie?';
+$lang['Center of interest'] = 'Stred záujmu';
+$lang['Move to album'] = 'Premiestniť do albumu';
+$lang['You can activate only one mobile theme.'] = 'Môžete aktivovať len jednu tému pre mobil.';
 
 ?>

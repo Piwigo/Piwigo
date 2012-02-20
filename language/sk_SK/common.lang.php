@@ -389,5 +389,11 @@ $lang['Here are your connection settings'] = 'Tu je Vaše nastavenie pripojenia'
 $lang['Password: %s'] = 'Heslo: %s';
 $lang['Username: %s'] = 'Používateľské meno: %s';
 $lang['If you think you\'ve received this email in error, please contact us at %s'] = 'Ak si myslíte, že tento mail ste dostali chybne, kontaktujte nás prosím na %s';
+$lang['Show oldest comments first'] = 'Zobraziť staršie komentáre ako prvé';
+$lang['Show latest comments first'] = 'Zobraziť najnovšie komentáre ako prvé';
+$lang['Photo sizes'] = 'Veľkosti fotky';
+$lang['View in'] = 'Ukázať v';
+$lang['Mobile'] = 'Mobile';
+$lang['Desktop'] = 'Desktope';
 
 ?>
