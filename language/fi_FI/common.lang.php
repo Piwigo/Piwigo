@@ -211,4 +211,6 @@ $lang['xxlarge'] = 'Isoin';
 $lang['Yes'] = 'Kyll';
 $lang['Your favorites'] = 'Suosikit';
 $lang['Your password has been reset'] = 'Salasanasi on nollattu';
+$lang['display this album'] = 'näytä tämä albumi';
+$lang['Download this file'] = 'Lataa tämä tiedosto';
 ?>
