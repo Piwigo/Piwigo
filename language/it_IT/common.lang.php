@@ -372,14 +372,16 @@ $lang['Thank you for registering at %s!'] = 'Grazie per esservi iscritti su %s !
 $lang['Here are your connection settings'] = 'Eccovi i vostri ID';
 $lang['Password: %s'] = 'Password : %s';
 $lang['Username: %s'] = 'Nome utente : %s';
-$lang['Email: %s'] = 'Email : %s';
 $lang['If you think you\'ve received this email in error, please contact us at %s'] = 'Se pensate avere ricevuto questa email per sbaglio, contattateci %s';
-$lang['large'] = 'Grande';
+$lang['Photo sizes'] = 'Dimenzioni delle foto';
 $lang['square'] = 'Quadrata';
 $lang['thumb'] = 'Miniatura';
 $lang['small'] = 'Piccola';
 $lang['medium'] = 'Media';
+$lang['large'] = 'Grande';
 $lang['xlarge'] = 'XL';
 $lang['xxlarge'] = 'XXL';
 
+
+$lang['Email: %s'] = 'Email : %s';
 ?>
