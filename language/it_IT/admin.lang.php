@@ -412,9 +412,6 @@ $lang['Time'] = 'Ora';
 $lang['IP'] = 'IP';
 $lang['Element'] = 'Elemento';
 $lang['Section'] = 'Selezione';
-$lang['Save page visits by guests'] = 'Registrare le pagine visitate dagli ospiti';
-$lang['Save page visits by users'] = 'Registrare le pagine visitate dagli utenti';
-$lang['Save page visits by administrators'] = 'Registrare le pagine visitate dagli amministratori';
 $lang['An information email was sent to group "%s"'] = 'Un\'email informativa è stata inviata agli utenti del gruppo "%s"';
 $lang['Send an information email to group members'] = 'Inviare un\'email informativa agli utenti di un gruppo';
 $lang['Group'] = 'Gruppo';
@@ -847,10 +844,16 @@ $lang['This album contains no photo.'] = 'Questo album non contiene nessuna foto
 $lang['%s has been successfully updated.'] = '%s è stato aggiornato con successo.';
 $lang['Move to album'] = 'Spostare verso l\'album';
 $lang['You can activate only one mobile theme.'] = 'Potete attivare un solo tema mobile.';
-$lang['mobile'] = 'mobile';
-
-
+$lang['Center of interest'] = 'Centro d\'interesse';
+$lang['Not cropped correctly?'] = 'La foto non è ritagliata correttamente?';
 $lang['Photo name'] = 'Nome foto';
+$lang['Automatic sort order'] = 'Ordinamento automatico';
+$lang['apply automatic sort order'] = 'applicare un criterio di ordinamento automatico';
+$lang['Save manual order'] = 'Salvare l\'ordinamento manuale';
+$lang['cancel manual order'] = 'Cancellare l\'ordinamento manuale';
+$lang['Cancel'] = 'Cancellare';
+$lang['List'] = 'Lista';
+
 $lang['maximum height'] = 'Altezza massima';
 $lang['maximum width'] = 'Larghezza massima';
 $lang['Thumbnail creation'] = 'Creazione delle miniature';
@@ -865,4 +868,8 @@ $lang['High dimensions'] = 'Dimensione del file in Alta Risoluzione';
 $lang['%s has been successfully upgraded.'] = '%s è stato aggiornato con successo.';
 $lang['Activate field "%s"'] = 'Attivare il campo "%s"';
 $lang['If you want to regenerate thumbnails, please go to the <a href="%s">Batch Manager</a>.'] = 'Se volete rigenerare le miniature, rendetevi su <a href="%s">Gestione per lotti</a>.';
+
+$lang['Save page visits by guests'] = 'Registrare le pagine visitate dagli ospiti';
+$lang['Save page visits by users'] = 'Registrare le pagine visitate dagli utenti';
+$lang['Save page visits by administrators'] = 'Registrare le pagine visitate dagli amministratori';
 ?>

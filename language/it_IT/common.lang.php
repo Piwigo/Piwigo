@@ -381,7 +381,11 @@ $lang['medium'] = 'Media';
 $lang['large'] = 'Grande';
 $lang['xlarge'] = 'XL';
 $lang['xxlarge'] = 'XXL';
-
+$lang['Show latest comments first'] = 'Visualizzare i commenti i più recenti prima';
+$lang['Show oldest comments first'] = 'Visualizzare i commenti i meno recenti prima';
+$lang['View in'] = 'Visualizzazione';
+$lang['mobile'] = 'mobile';
+$lang['Desktop'] = 'Classico';
 
 $lang['Email: %s'] = 'Email : %s';
 ?>
