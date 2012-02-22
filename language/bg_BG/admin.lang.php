@@ -103,5 +103,7 @@ $lang['Description'] = 'Описание';
 $lang['Parent album'] = 'Родителски албум';
 $lang['Album name'] = 'Име на албума';
 $lang['Create'] = 'Създай';
+$lang['Level 4'] = "Семейство";
+$lang['Level 8'] = "Администратори";
 
 ?>
