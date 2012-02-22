@@ -383,4 +383,6 @@ $lang['%d rates'] = '%d оценки';
 
 $lang['Show latest comments first'] = 'Покажи първо най-новите коментари';
 $lang['Show oldest comments first'] = 'Покажи първо най-старите коментари';
+$lang['Desktop'] = 'Настолна';
+$lang['Mobile'] = 'Мобилна';
 ?>
