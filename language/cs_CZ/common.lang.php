@@ -386,5 +386,11 @@ $lang['Thank you for registering at %s!'] = 'Děkujeme za registraci na stránk�
 $lang['Here are your connection settings'] = 'Toto jsou vaše přístupové údaje';
 $lang['Password: %s'] = 'Heslo: %s';
 $lang['Username: %s'] = 'Uživatelské jméno: %s';
-$lang['If you think you\'ve received this email in error, please contact us at %s'] = 'Pokud myslíte, že jste tento mail obdržel omylem, kontaktujte nás na  %s'; 
+$lang['If you think you\'ve received this email in error, please contact us at %s'] = 'Pokud myslíte, že jste tento mail obdržel omylem, kontaktujte nás na  %s';
+$lang['Show oldest comments first'] = 'Řadit od nejstarších komentářů';
+$lang['Show latest comments first'] = 'Řadit od nejnovějších komentářů';
+$lang['Photo sizes'] = 'Velikosti fotografií';
+$lang['View in'] = 'Zobrazení';
+$lang['Mobile'] = 'Mobilní';
+$lang['Desktop'] = 'Standardní';
 ?>

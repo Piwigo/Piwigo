@@ -846,6 +846,10 @@ $lang['registered users'] = 'registrované uživatele';
 $lang['administrators'] = 'administrátory';
 $lang['This album contains %d photos, added on %s.'] = 'Album obsahuje %d fotek, přidaných v %s.';
 $lang['This album contains %d photos, added between %s and %s.'] = 'Album obsahuje %d fotky přidané mezi %s a %s.';
-$lang['This album contains no photo.'] = 'Album neobsahuje žádné fotografie.'; 
+$lang['This album contains no photo.'] = 'Album neobsahuje žádné fotografie.';
+$lang['Not cropped correctly?'] = 'Je ořez v pořádku?';
+$lang['Center of interest'] = 'Střed zájmu';
+$lang['Move to album'] = 'Přesunout do alba';
+$lang['You can activate only one mobile theme.'] = 'Jde aktivovat pouze v mobilním zobrazení.';
 
 ?>
