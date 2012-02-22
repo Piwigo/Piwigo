@@ -382,4 +382,9 @@ $lang['xlarge'] = 'xgroß';
 $lang['xxlarge'] = 'xxgroß';
 $lang['Your username has been successfully changed to : %s'] = 'Dein Benutzername ist jetzt:';
 $lang['Photo sizes'] = 'Bildgrößen';
+$lang['Desktop'] = 'Desktop';
+$lang['Mobile'] = 'Mobil';
+$lang['Show latest comments first'] = 'Neuesten Kommentar zuerst anzeigen';
+$lang['Show oldest comments first'] = 'Ältesten Kommentar zuerst anzeigen';
+$lang['View in'] = 'Anzeigen in';
 ?>
