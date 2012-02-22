@@ -380,6 +380,11 @@ $lang['If you think you\'ve received this email in error, please contact us at %
 $lang['thumb'] = 'រូប​ក្រប​មុខ​';
 $lang['xlarge'] = 'ធំ​ជាង​';
 $lang['xxlarge'] = 'ធំ​បំ​ផុត​';
+$lang['Show oldest comments first'] = 'បង្ហាញ​មតិ​ចាស់​ជាង​គេ ​មុន​គេ';
+$lang['Show latest comments first'] = 'បង្ហាញ​មតិ​ចុង​ក្រោយ​ មុន​គេ';
+$lang['Photo sizes'] = 'ទំហំ​រូប​ថត​';
+$lang['View in'] = 'បង្ហាញ​ក្នុង​';
+$lang['Mobile'] = 'ចល័ត​';
 
 
 ?>

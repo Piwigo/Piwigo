@@ -82,5 +82,25 @@ $lang['%d of %d photos selected'] = '%d នៃ​ %d រូប​ថត​បា
 $lang['%d photo was deleted'] = 'រូប​ថត​ %d បា​ន​លុប';
 $lang['%d photos were deleted'] = 'រូប​ថត​ %d បាន​លុប';
 $lang['%d physical'] = '%d រូប​សណ្ឋាន​';
+$lang[' and %d virtual'] = ' និង​ %d  សៀវ​ភៅ​រូប​ថត​រង​';
+$lang['Photo Properties'] = 'លក្ខណៈ​នៃ​រូបថត​';
+$lang['Photo name'] = 'ឈ្មោះ​រូប​ថត​';
+$lang['Name'] = 'ឈ្មោះ';
+$lang['Description'] = ' ពិពណ៌នា';
+$lang['Parent album'] = 'សៀវ​ភៅ​រូប​ថត​មេ';
+$lang['Album name'] = 'ឈ្មោះ​សៀវ​ភៅ​រូប​ថត';
+$lang['Create'] = 'បង្កើត​';
+$lang['Original Size'] = 'ទំ​ហំដើម​';
+$lang['A locked gallery is only visible to administrators'] = 'វិចិត្រ​សាលដែល​ត្រូវ​បាន​ការ​ពារ គឺ​អាច​មើល​ឃើញ​សំរាប់តែ​អ្នក​គ្រប់​គ្រង​តែ​ប៉ុណ្ណោះ';
+$lang['Unlock gallery'] = 'វិចិត្រ​សាល​​លែង​ការ​ពារ';
+$lang['Gallery unlocked'] = ' វិចិត្រ​សាលលែង​ត្រូវ​បាន​ការ​ពារ​';
+$lang['Notify administrators when a comment is'] = 'ផ្តល់​ដំណឹង​អ្នក​គ្រប់​គ្រង​ពេល​មាន​មតិ​';
+$lang['modified'] = 'បាន​​កែ​ប្រែ​';
+$lang['pending validation'] = 'ការ​បញ្ជាក់​សុពល​ភាព កំពុង​ស្ថិត​ក្នុង​ការ​រង​ចាំ​';
+$lang['Save visits in history for'] = 'រក្សា​ការ​ទស្សនា​ក្នុង​កំណត់​ត្រា​';
+$lang['simple visitors'] = 'ភ្ញៀវ​ធម្មតា';
+$lang['registered users'] = 'អ្នក​ប្រើ​ប្រាស់​បាន​ចុះ​ឈ្មោះ​';
+$lang['administrators'] = 'អ្នក​គ្រប់​គ្រង​';
+$lang['%d association'] = '%d រូប​ថត​ពាក់​ព័ន្ធ​';
 
 ?>
