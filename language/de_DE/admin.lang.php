@@ -840,4 +840,11 @@ $lang['This album contains no photo.'] = 'Dieses Album enthält keine Fotos.';
 $lang['Unlock gallery'] = 'Gallerie entsperren';
 $lang['Center of interest'] = 'Interessensmittelpunkt';
 $lang['Not cropped correctly?'] = 'Nicht richtig zugeschnitten?';
+$lang['apply automatic sort order'] = 'Automatische Sortierreihenfolge anwenden';
+$lang['Automatic sort order'] = 'Automatische Sortierreihenfolge';
+$lang['Cancel'] = 'Abbrechen';
+$lang['cancel manual order'] = 'Manuelle Reihenfolge abbrechen';
+$lang['List'] = 'Liste';
+$lang['Save manual order'] = 'Manuelle Reihenfolge speichern';
+$lang['You can activate only one mobile theme.'] = 'Sie können nur ein Mobile Layout aktivieren';
 ?>
