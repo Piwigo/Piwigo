@@ -349,7 +349,6 @@ $lang['To reset your password, visit the following address:'] = 'За да ан�
 $lang['Username or email'] = 'Потребителско име или е-майл';
 $lang['You will receive a link to create a new password via email.'] = 'Ще получите линк на електронната си поща, с който ще съзадате нова парола';
 $lang['Your password has been reset'] = 'Вашата парола е анулирана';
-$lang['%d rates'] = 'оценка';
 $lang['Check your email for the confirmation link'] = 'Проверете вашата поща за връзка за потвърждение';
 $lang['Edit'] = 'Редактиране';
 $lang['Enter your new password below.'] = 'Въведете новата парола отдолу:';
