@@ -29,4 +29,5 @@ $lang['Upgrade'] = 'Обновяване';
 $lang['Upgrade from version %s to %s'] = 'Обновяване от версия %s към %s';
 $lang['Upgrade informations'] = 'Информация за обновяването';
 $lang['You do not have access rights to run upgrade'] = 'Вие нямате права, за да стартирате обновяване.';
+$lang['All sub-albums of private albums become private'] = 'Всички под-албуми на лични албуми, стават също лични.';
 ?>
