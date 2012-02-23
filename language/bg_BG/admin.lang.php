@@ -105,5 +105,19 @@ $lang['Album name'] = 'Име на албума';
 $lang['Create'] = 'Създай';
 $lang['Level 4'] = "Семейство";
 $lang['Level 8'] = "Администратори";
+$lang['Informations'] = "Информация";
+$lang['Discover album:'] = "Разгледайте албум:";
+$lang['See you soon.'] = "До скоро.";
+$lang['Hello,'] = "Здравейте,";
+$lang['The webmaster has subscribed you to receiving notifications by mail.'] = "Администраторът на сайта Ви е абонирал за получаване на известия по пощата.";
+$lang['The webmaster has unsubscribed you from receiving notifications by mail.'] = "Администраторът на сайта Ви е отписал от абонамента за получаване на известия по пощата.";
+$lang['New photos were added'] = "Нови снимки са добавени";
+$lang['on'] = "на";
+$lang['between'] = "между";
+$lang['Go to'] = "Посетете";
+$lang['See you soon,'] = "До скоро,";
+$lang['To unsubscribe'] = "За да се отпишете от абонамента";
+$lang['To subscribe'] = "За да се абонирате";
+$lang['If you encounter problems or have any question, please send a message to'] = "Ако имате проблеми или въпроси, моля изпратете съобщение до";
 
 ?>
