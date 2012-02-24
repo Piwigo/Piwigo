@@ -42,4 +42,6 @@ $lang['Webmaster password'] = 'Парола на уебмастера';
 $lang['Welcome to my photo gallery'] = 'Здравейте и добре дошли в моята фотогалерия';
 $lang['Welcome to your new installation of Piwigo!'] = 'Здравейте и добре дошли във вашата нова Piwigo инсталация! ';
 $lang['You can download the config file and upload it to local/config directory of your installation.'] = 'Вие можете да изтеглите конфигурационния файл и да го качите в директорията  local/config на вашата инсталация';
+$lang['PHP 5 is required'] = 'Изисква се инсталиран PHP 5';
+$lang['Start Install'] = 'Стартиране на инсталацията';
 ?>
