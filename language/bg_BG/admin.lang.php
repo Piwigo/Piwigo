@@ -120,4 +120,5 @@ $lang['To unsubscribe'] = "За да се отпишете от абонамен
 $lang['To subscribe'] = "За да се абонирате";
 $lang['If you encounter problems or have any question, please send a message to'] = "Ако имате проблеми или въпроси, моля изпратете съобщение до";
 
+$lang['This album contains %d photos, added on %s.'] = 'Този албум съдържа %d фотографиии, добавени на %s';
 ?>
