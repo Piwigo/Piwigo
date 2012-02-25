@@ -851,5 +851,11 @@ $lang['Not cropped correctly?'] = 'Je ořez v pořádku?';
 $lang['Center of interest'] = 'Střed zájmu';
 $lang['Move to album'] = 'Přesunout do alba';
 $lang['You can activate only one mobile theme.'] = 'Jde aktivovat pouze v mobilním zobrazení.';
+$lang['Automatic sort order'] = 'Automatické pořadí';
+$lang['apply automatic sort order'] = 'Použij automatické pořadí';
+$lang['Save manual order'] = 'Ulož ruční uspořádání';
+$lang['cancel manual order'] = 'zruš ruční uspořádání';
+$lang['Cancel'] = 'Zruš';
+$lang['List'] = 'Přehled'; 
 
 ?>
