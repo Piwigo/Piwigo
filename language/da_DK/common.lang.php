@@ -381,5 +381,11 @@ $lang['Here are your connection settings'] = 'Her er dine login informationer';
 $lang['Password: %s'] = 'Password: %s';
 $lang['Username: %s'] = 'Brugernavn: %s';
 $lang['If you think you\'ve received this email in error, please contact us at %s'] = 'Hvis du tror du har modtaget denne email ved en fejl kontakt os på %s';
+$lang['Show oldest comments first'] = 'Vis ældste kommentarer først';
+$lang['Show latest comments first'] = 'Vis sidste kommnetarer først';
+$lang['Photo sizes'] = 'Foto størrelsen';
+$lang['View in'] = 'Vis i';
+$lang['Mobile'] = 'Mobil';
+$lang['Desktop'] = 'Desktop';
 
 ?>

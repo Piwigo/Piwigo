@@ -762,5 +762,17 @@ $lang['Following plugins may not be compatible with the new version of Piwigo:']
 $lang['Following themes may not be compatible with the new version of Piwigo:'] = 'Følgende temaer er måske ikke compatible med den nye version af Piwigo:';
 $lang['Height'] = 'Højde';
 $lang['hide details'] = 'skjul detaljer';
+$lang['Graphics Library'] = 'Grafisk Bibiliotejk';
+$lang['I decide to update anyway'] = 'Jeg vil updater alligevel';
+$lang['If no HD is available and if the current websize is bigger than resize dimensions, Piwigo will move it as HD and create a downsized websize photo from it.'] = 'Hvis der ikke er HD tilgængelig og hvis wesitet er større end mulighederne for resize, Piwioi vil flytte det som HD og lave en nedskaleret website foto af det.';
+$lang['Ignore All'] = 'Ignorer Alt';
+$lang['Ignore this update'] = 'Ignorer denne opdatering';
+$lang['Manage Permissions'] = 'Administrer tilladelsen';
+$lang['Maximum file size: %sB.'] = 'Maximum fil størrelse: %sB.';
+$lang['Merge selected tags'] = 'Merge selected tags';
+$lang['Merge tags'] = 'Sammenlæg tags';
+$lang['New Version'] = 'Ny Version';
+$lang['No destination tag selected'] = 'Der er ikke valgt nogen destinations tag';
+$lang['Obsolete Plugins'] = 'Forældede Plugins';
 
 ?>
