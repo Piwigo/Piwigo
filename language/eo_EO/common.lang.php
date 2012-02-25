@@ -380,6 +380,12 @@ $lang['Here are your connection settings'] = 'Jen viaj konektaj agordoj';
 $lang['Password: %s'] = 'Pasvorto: %s';
 $lang['Username: %s'] = 'Uzantnomo: %s';
 $lang['If you think you\'ve received this email in error, please contact us at %s'] = 'Se vi erare ricevis tiun mesaĝon, bonvolu kontakti na %s';
+$lang['Show latest comments first'] = 'Montru unue la plej freŝajn komentojn';
+$lang['Show oldest comments first'] = 'Montru unue la plej malnovaj komentojn';
+$lang['View in'] = 'Montrado';
+$lang['Mobile'] = 'Portebla';
+$lang['Desktop'] = 'Komputila';
+$lang['Photo sizes'] = 'Grandeco de la fotoj';
 
 
 ?>
