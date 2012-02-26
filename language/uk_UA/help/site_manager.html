@@ -1,0 +1,17 @@
+<h2>Віддалені сайти</h2>
+
+<p>Piwigo дає можливість використовувати декілька серверів для зберігання зображень, які наповнять вашу галерею. Це може бути корисно, якщо ваша галерея встановлена ​​на серверах з обмеженим простором і у вас є величезна кількість зображень для відображення.</p>
+
+<ol>
+  <li>Змінити файл <span class="filename">tools/create_listing_file_local.inc.php</span>, шляхом зміни параметрів розділу, таких як <code>$conf['prefix_thumbnail']</code> or <code>$conf['use_exif']</code>.</li>
+  <li>Використовуючи FTP розмістити файли <span class="filename">tools/create_listing_file.php</span> і <span class="filename">tools/create_listing_file_local.inc.php</span> (модифіковано) на вашому видаленому вебсайті, в тій же теці як ваші теки альбомів (альбому як директорій <span class="filename">галереї</span> на цьому сайті). Наприклад, давайте припустимо, що ви можете отримати доступ <span class="filename">http://example.com/galleries/create_listing_file.php</span>.</li>
+  <li>Перехід до Адміністрування &raquo; Інструменти &raquo; Менеджер сайту. Створення нового сайту, наприклад <span class="filename">http://example.com/galleries</span>.</li>
+  <li>Новий віддалений сайт зареєстрований. Ви можете виконати 4 дії:
+    <ol>
+      <li><strong>Створити список:</strong> запускає віддалений запит для отримання віддаленого списку файлів</li>
+      <li><strong>Синхронізувати:</strong> читає віддалений <span class="filename">listing.xml</span> файл і синхронізується з базою даних</li>
+      <li><strong>Очистити:</strong>видаляє віддаленій <span class="filename">listing.xml</span> файл</li>
+      <li><strong>Видалити:</strong> видалення сайту (і всі пов'язані з альбомів і зображення) у базі даних</li>
+    </ol>
+  </li>
+</ol>
