@@ -209,11 +209,11 @@ final class SizingParams
       if ($ratio_w > $ratio_h)
       {
         $scale_size[0] = $this->ideal_size[0];
-        $scale_size[1] = floor($scale_size[1] / $ratio_w);
+        $scale_size[1] = floor(1e-6 + $scale_size[1] / $ratio_w);
       }
       else
       {
-        $scale_size[0] = floor($scale_size[0] / $ratio_h);
+        $scale_size[0] = floor(1e-6 + $scale_size[0] / $ratio_h);
         $scale_size[1] = $this->ideal_size[1];
       }
     }

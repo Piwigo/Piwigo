@@ -519,7 +519,7 @@ if (!$changes)
   ierror( $page['src_url'], 301);
 }
 
-if ($d_size[0]*$d_size[1] < 100000)
+if ($d_size[0]*$d_size[1] < 256000)
 {// strip metadata for small images
   $image->strip();
 }
