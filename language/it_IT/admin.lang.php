@@ -854,8 +854,6 @@ $lang['cancel manual order'] = 'Cancellare l\'ordinamento manuale';
 $lang['Cancel'] = 'Cancellare';
 $lang['List'] = 'Lista';
 
-$lang['maximum height'] = 'Altezza massima';
-$lang['maximum width'] = 'Larghezza massima';
 $lang['Thumbnail creation'] = 'Creazione delle miniature';
 $lang['photos without thumbnail (jpeg and png only)'] = 'foto senza miniature (solo jpeg e png)';
 $lang['No missing thumbnail'] = 'Nessuna miniatura mancante';
