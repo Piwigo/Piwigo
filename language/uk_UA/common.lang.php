@@ -384,4 +384,6 @@ $lang['Photo sizes'] = 'Розміри фотографій';
 $lang['Desktop'] = 'Робочий стіл';
 $lang['Mobile'] = 'Мобільний';
 $lang['View in'] = 'Подивитися в';
+$lang['Show latest comments first'] = 'Покажіть найновіші коментарі спочатку';
+$lang['Show oldest comments first'] = 'Покажіть найстаріші коментарі спочатку';
 ?>
