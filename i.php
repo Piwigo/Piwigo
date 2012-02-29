@@ -319,6 +319,17 @@ function try_switch_source(DerivativeParams $params, $original_mtime)
 function send_derivative($expires)
 {
   global $page;
+
+  if (isset($_GET['ajaxload']) and $_GET['ajaxload'] == 'true')
+  {
+    include_once(PHPWG_ROOT_PATH.'include/functions_cookie.inc.php');
+    include_once(PHPWG_ROOT_PATH.'include/functions_url.inc.php');
+
+    $response = new json_response();
+    $response->url = embellish_url(get_absolute_root_url().$page['derivative_path']);
+    echo json_encode($response);
+    return;
+  }
   $fp = fopen($page['derivative_path'], 'rb');
 
   $fstat = fstat($fp);
@@ -343,6 +354,10 @@ function send_derivative($expires)
   fclose($fp);
 }
 
+class json_response
+{
+  var $url;
+}
 
 $page=array();
 $begin = $step = microtime(true);
@@ -400,6 +415,7 @@ if (!$need_generate)
     exit;
   }
   send_derivative($expires);
+  exit;
 }
 
 $page['coi'] = null;

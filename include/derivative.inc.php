@@ -99,7 +99,7 @@ final class DerivativeImage
   public $src_image;
 
   private $params;
-  private $rel_path, $rel_url;
+  private $rel_path, $rel_url, $is_cached;
 
   function __construct($type, $src_image)
   {
@@ -113,7 +113,7 @@ final class DerivativeImage
       $this->params = $type;
     }
 
-    self::build($src_image, $this->params, $this->rel_path, $this->rel_url);
+    self::build($src_image, $this->params, $this->rel_path, $this->rel_url, $this->is_cached);
   }
 
   static function thumb_url($infos)
@@ -153,13 +153,14 @@ final class DerivativeImage
     return $ret;
   }
 
-  private static function build($src, &$params, &$rel_path, &$rel_url)
+  private static function build($src, &$params, &$rel_path, &$rel_url, &$is_cached=null)
   {
     if ( $src->has_size() && $params->is_identity( $src->get_size() ) )
     {
       // todo - what if we have a watermark maybe return a smaller size?
       $params = null;
       $rel_path = $rel_url = $src->rel_path;
+      $is_cached = true;
       return;
     }
 
@@ -191,10 +192,12 @@ final class DerivativeImage
       $mtime = @filemtime(PHPWG_ROOT_PATH.$rel_path);
       if ($mtime===false or $mtime < $params->last_mod_time)
       {
+        $is_cached = false;
         $url_style = 2;
       }
       else
       {
+        $is_cached = true;
         $url_style = 1;
       }
     }
@@ -302,6 +305,11 @@ final class DerivativeImage
     {
       return 'width="'.$size[0].'" height="'.$size[1].'"';
     }
+  }
+
+  function is_cached()
+  {
+    return $this->is_cached;
   }
 }
 
