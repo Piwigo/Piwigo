@@ -99,7 +99,7 @@ final class DerivativeImage
   public $src_image;
 
   private $params;
-  private $rel_path, $rel_url, $is_cached;
+  private $rel_path, $rel_url, $is_cached=true;
 
   function __construct($type, $src_image)
   {
@@ -160,7 +160,6 @@ final class DerivativeImage
       // todo - what if we have a watermark maybe return a smaller size?
       $params = null;
       $rel_path = $rel_url = $src->rel_path;
-      $is_cached = true;
       return;
     }
 
@@ -197,7 +196,6 @@ final class DerivativeImage
       }
       else
       {
-        $is_cached = true;
         $url_style = 1;
       }
     }

@@ -21,9 +21,10 @@ function add_thumbnail_to_queue(img, loop) {
   }); 
 }
 
-jQuery('img').each(function() {
-  var img = jQuery(this);
-  if (typeof img.data('src') != 'undefined') {
-    add_thumbnail_to_queue(img, 0);
-  }
-});
+function pwg_ajax_thumbnails_loader() {
+  jQuery('img[data-src]').each(function() {
+    add_thumbnail_to_queue(jQuery(this), 0);
+  });
+}
+
+jQuery(document).ready(pwg_ajax_thumbnails_loader);
