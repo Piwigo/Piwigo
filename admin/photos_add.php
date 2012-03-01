@@ -53,11 +53,11 @@ $upload_form_config = get_upload_form_config();
 $tabs = array(
   array(
     'code' => 'direct',
-    'label' => l10n('Upload Photos'),
+    'label' => l10n('Web Form'),
     ),
   array(
-    'code' => 'ploader',
-    'label' => l10n('Piwigo Uploader'),
+    'code' => 'applications',
+    'label' => l10n('Applications'),
     ),
   );
 

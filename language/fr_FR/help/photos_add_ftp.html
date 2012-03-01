@@ -4,13 +4,11 @@
 <ol>
   <li>Créez un répertoire sur votre ordinateur.</li>
 
-  <li>Copiez des photos à l'intérieur de ce répertoire, puis redimensionnez-les pour un affichage sur le web. <em>Attention</em> : le nom des répertoires et des fichiers ne doit contenir que des lettres, des chiffres et les caractères  "-", "_" ou ".". Pas d'espace ou de caractères accentués.</li>
+  <li>Copiez des photos à l'intérieur de ce répertoire. <em>Attention</em> : le nom des répertoires et des fichiers ne doit contenir que des lettres, des chiffres et les caractères  "-", "_" ou ".". Pas d'espace ou de caractères accentués.</li>
 
   <li>Avec un client FTP, copiez le répertoire dans le répertoire "galleries" de votre installation de Piwigo.</li>
 
-  <li>Connectez-vous à votre galerie Piwigo et rendez-vous sur <span class="pwgScreen">Administration &raquo; Outils &raquo; Miniatures</span> pour créer les miniatures manquantes.</li>
-
-  <li>Rendez-vous sur <span class="pwgScreen">Administration</span> et cliquez sur le gros bouton de synchronisation.</li>
+  <li>Connectez-vous à votre galerie Piwigo, rendez-vous sur <span class="pwgScreen">Administration</span> et cliquez sur le gros bouton de synchronisation.</li>
 </ol>
 
 <p>Bravo ! Vous avez créé avec succès le premier album de votre galerie.</p>
@@ -27,64 +25,40 @@
     <p>Les répertoires représentant les albums se trouvent dans le répertoire "galleries". Ci-dessous l'arbre des répertoires d'une très petite galerie (mais utilisant de nombreuses fonctionnalités) : </p>
   
 <pre>
-.
-|-- admin
-|-- doc
-|-- galleries
-|   |-- album-1
-|   |   |-- album-1.1
-|   |   |   |-- album-1.1.1
-|   |   |   |   |-- album-1.1.1.1
-|   |   |   |   |   |-- pwg_high
-|   |   |   |   |   |   +-- mariage.jpg
-|   |   |   |   |   |-- thumbnail
-|   |   |   |   |   |   +-- TN-mariage.jpg
-|   |   |   |   |   +-- mariage.jpg
-|   |   |   |   +-- album-1.1.1.2
-|   |   |   +-- album-1.1.2
-|   |   |-- album-1.2
-|   |   |   |-- pookie.jpg
-|   |   |   +-- thumbnail
-|   |   |       +-- TN-pookie.jpg
-|   |   +-- album-1.3
-|   +-- album-2
-|       |-- porcinet.gif
-|       |-- pwg_representative
-|       |   +-- video.jpg
-|       |-- thumbnail
-|       |   +-- TN-porcinet.jpg
-|       +-- video.avi
-|-- include
-|-- install
-|-- language
-|-- local
-|-- plugins
-|-- template-extension
-|-- themes
-+-- tool</pre>
+galleries
+|-- mariage
+|   |-- ceremonie
+|   |   |-- entree
+|   |   |   |-- arrivee-de-paul.jpg
+|   |   |   +-- arrivee-de-virginie.jpg
+|   |   +-- sortie
+|   |       |-- sortie-enfants-honneur.jpg
+|   |       +-- sortie-de-paul-et-virginie.jpg
+|   +-- cocktail
+|       |-- discours001.jpg
+|       |-- discours002.jpg
+|       +-- discours003.jpg
++-- voyage-de-noces
+    |-- hotel.png
+    |-- video-decollage-avion.avi
+    +-- pwg_representative
+        +-- video-decollage-avion.jpg
+</pre>
 
   </li>
   
-  <li>A l'exception de ceux appelés "thumbnail", "pwg_high" ou "pwg_representative" (voir explications ci-dessous), chaque répertoire dans "galleries" génère un album. Le nombre de niveaux (profondeur) n'est pas limité.</li>
+  <li>A l'exception de celui appelé "pwg_representative", chaque répertoire dans "galleries" génère un album. Le nombre de niveaux (profondeur) n'est pas limité.</li>
 
   <li>Fondamentalement, une photo est représentée par un fichier. Pour Piwigo, un fichier peut être une photo si son extension figure dans la liste du paramètre de configuration <code>file_ext</code> (voir
 fichier <span class="filename">include/config.inc.php</span>). Un fichier
 peut être une photo si son extension figure dans la liste du paramètre de configuration
 <code>picture_ext</code>.</li>
 
-  <li>Les éléments de type photo doivent avoir une miniature associée (voir la
-section suivante à propos des miniatures).</li>
-
-  <li>Les éléments de type photo peuvent avoir une photo en grand format
-associé. Comme pour le fichier <span class="filename">mariage.jpg</span>
-dans l'exemple ci-dessus. Aucun préfixe n'est nécessaire sur le nom du
-fichier.</li>
-
   <li>Les éléments autres que les photos (vidéos, sons, fichiers texte, tout ce que vous
 voulez...) sont représentés par défaut par une icône correspondant à
-l'extension du nom du fichier. Optionnellement, une miniature et un
-représentant peuvent être associés (voir le fichier <span
-class="filename">video.avi</span> dans l'exemple).</li>
+l'extension du nom du fichier. Optionnellement, un
+représentant peut être associé (voir le fichier <span
+class="filename">video-decollage-avion.avi</span> dans l'exemple).</li>
 
   <li><em>Attention</em> : le nom d'un répertoire ou d'un fichier ne doit
 être composé que de lettres, de chiffres, de "-", "_" ou ".". Pas d'espace
@@ -95,43 +69,9 @@ sous-album à la fois. Néanmoins, il est fortement conseillé pour chaque
 album de choisir entre contenir des photos <strong>ou bien</strong>
 des sous-album.</li>
 
-  <li>Une fois que les fichiers, les miniatures et les représentants sont
+  <li>Une fois que les fichiers sont
 correctement placés dans les répertoires, se rendre sur l'écran <span
 class="pwgScreen">Administration &raquo; Outils &raquo; Synchroniser</span>.</li>
-
-</ul>
-
-</fieldset>
-
-<fieldset>
-  <legend>Miniatures</legend>
-
-<ul>
-  
-  <li>Comme mentionné précédemment, chaque élément de type photo doit être
-associé à une miniature.</li>
-
-  <li>Les miniatures sont stockées dans le sous-répertoire "thumbnail" de
-chaque répertoire représentant un album. Une miniature est un fichier
-de type photo (même extension du nom du fichier) dont le nom de fichier est
-préfixé par le paramètre de configuration <code>prefix_thumbnail</code>
-(voir <span class="filename">include/config.inc.php</span>).</li>
-
-  <li>Les miniatures n'ont pas besoin d'avoir la même extension que leur
-photo associée (une photo avec ".jpg" comme extension peut avoir une
-miniature en ".GIF" par exemple).</li>
-
-  <li>Il est conseillé d'utiliser un outil externe pour la création des
-miniatures.</li>
-
-  <li>Vous pouvez également utiliser l'outil de création de miniatures
-intégré à Piwigo mais cela est déconseillé car la qualité risque
-d'être décevante et cela utilise inutilement les ressources du serveur (ce
-qui peut être un grave problème sur un serveur mutualisé).</li>
-
-  <li>Si vous choisissez d'utiliser le serveur web pour générer les
-miniatures, vous devez donner les droits en écriture sur les
-répertoires.</li>
 
 </ul>
 

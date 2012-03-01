@@ -853,4 +853,6 @@ $lang['Save manual order'] = 'Sauvegarder l\'ordre manuel';
 $lang['cancel manual order'] = 'annuler l\'ordre manuel';
 $lang['Cancel'] = 'Annuler';
 $lang['List'] = 'Liste';
+$lang['Web Form'] = 'Formulaire web';
+$lang['Applications'] = 'Applications';
 ?>

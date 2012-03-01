@@ -852,4 +852,6 @@ $lang['Save manual order'] = 'Save manual order';
 $lang['cancel manual order'] = 'cancel manual order';
 $lang['Cancel'] = 'Cancel';
 $lang['List'] = 'List';
+$lang['Web Form'] = 'Web Form';
+$lang['Applications'] = 'Applications';
 ?>

@@ -8,12 +8,10 @@
 
   <li>With a FTP client, copy your directory in the "galleries" directory of your Piwigo installation.</li>
 
-  <li>Logon your gallery and go to <span class="pwgScreen">Administration &raquo; Tools &raquo; Thumbnails</span> to create missing thumbnails.</li>
-
-  <li>Go to <span class="pwgScreen">Administration</span> and click on the big Synchronization button.</li>
+  <li>Logon your gallery and go to <span class="pwgScreen">Administration</span> and click on the big Synchronization button.</li>
 </ol>
 
-Congratulations! You have successfully created the first album of your photo gallery.
+<p>Congratulations! You have successfully created the first album of your photo gallery.</p>
 </fieldset>
 
 <fieldset>
@@ -28,45 +26,28 @@ Congratulations! You have successfully created the first album of your photo gal
     using many features):</p>
 
     <pre>
-.
-|-- admin
-|-- doc
-|-- galleries
-|   |-- album-1
-|   |   |-- album-1.1
-|   |   |   |-- album-1.1.1
-|   |   |   |   |-- album-1.1.1.1
-|   |   |   |   |   |-- pwg_high
-|   |   |   |   |   |   +-- wedding.jpg
-|   |   |   |   |   |-- thumbnail
-|   |   |   |   |   |   +-- TN-wedding.jpg
-|   |   |   |   |   +-- wedding.jpg
-|   |   |   |   +-- album-1.1.1.2
-|   |   |   +-- album-1.1.2
-|   |   |-- album-1.2
-|   |   |   |-- pookie.jpg
-|   |   |   +-- thumbnail
-|   |   |       +-- TN-pookie.jpg
-|   |   +-- album-1.3
-|   +-- album-2
-|       |-- piglet.gif
-|       |-- pwg_representative
-|       |   +-- video.jpg
-|       |-- thumbnail
-|       |   +-- TN-piglet.jpg
-|       +-- video.avi
-|-- include
-|-- install
-|-- language
-|-- local
-|-- plugins
-|-- template-extension
-|-- themes
-+-- tool</pre>
+galleries
+|-- wedding
+|   |-- celebration
+|   |   |-- arrival
+|   |   |   |-- paul-alone.jpg
+|   |   |   +-- sarah-alone.jpg
+|   |   +-- departure
+|   |       +-- paul-and-sarah.jpg
+|   +-- party
+|       |-- dancers001.jpg
+|       |-- dancers002.jpg
+|       +-- dancers003.jpg
++-- honeymoon
+    |-- hotel.png
+    |-- video-from-plane.avi
+    +-- pwg_representative
+        +-- video-from-plane.jpg
+</pre>
 
   </li>
 
-  <li>Except for those named "thumbnail", "pwg_high" or "pwg_representative" (see explanations below), each directory under "galleries" produces a album. There is no limit on deepness.</li>
+  <li>Except for "pwg_representative" (see explanations below), each directory under "galleries" produces a album. There is no limit on deepness.</li>
 
   <li>Basically, an element is represented by a file. A file can be a
   Piwigo element if its extension is among <code>file_ext</code>
@@ -75,41 +56,15 @@ Congratulations! You have successfully created the first album of your photo gal
   be a picture if its extension is among <code>picture_ext</code>
   configuration parameter possibilities.</li>
 
-  <li>Photo elements must have an associated thumbnail (see section below
-  about thumbnails)</li>
-
-  <li>Photo elements can have a high quality file associated. As for
-  wedding.jpg in the example above. No prefix on the high quality picture.</li>
-
   <li>No photo elements (video, sounds, file texts, whatever you want...) are represented by default by an icon corresponding to the filename
   extension. Optionally, you can associate a thumbnail and a representative
   file (see video.avi in the example above).</li>
 
   <li><em>Warning</em>: the name of directories and files must contain only letters, figures, "-", "_" or ".". No blank space, nor accentuated characters.</li>
 
-  <li>Once files, thumbnails and representatives are correctly placed in the
+  <li>Once photos are correctly placed in the
   directories, go to: <span class="pwgScreen">Administration &raquo; Tools &raquo;
   Synchronize</span></li>
-
-</ul>
-</fieldset>
-
-<fieldset>
-  <legend>Thumbnails</legend>
-<ul>
-
-  <li>Each photo must have its thumbnail.</li>
-
-  <li>Thumbnails are stored in the "thumbnail" sub-directory of the album
-  directory. The thumbnail has the same filename as the corresponding photo, with configuration parameter <code>prefix_thumbnail</code> as prefix (see <span class="filename">include/config.inc.php</span>).</li>
-
-  <li>Thumbnails files have not necessary the same extension as the associated image (eg a ".jpg" image may have a ".GIF" extension).</li>
-
-  <li>It is recommended to use an external module for thumbnails creation.</li>
-
-  <li>The usage of the thumbnails creation tool integrated in Piwigo is not advisable, because the resulting quality might be disappointing and this will lie heavily on the server ressources (and that could be a serious problem on a shared server).
-
-  <li>If you choose to use the webserver to generate thumbnails, you must allow write access on all albums directories.</li>
 
 </ul>
 </fieldset>

@@ -218,7 +218,7 @@ var sizeLimit = Math.round({$upload_max_filesize} / 1024); /* in KBytes */
 {/footer_script}
 
 <div class="titrePage">
-  <h2>{'Upload Photos'|@translate}</h2>
+  <h2>{'Upload Photos'|@translate} {$TABSHEET_TITLE}</h2>
 </div>
 
 <div id="photosAddContent">

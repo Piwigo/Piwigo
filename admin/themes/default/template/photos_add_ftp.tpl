@@ -1,9 +1,9 @@
 <div class="titrePage">
-  <h2>{'FTP + Synchronization'|@translate}</h2>
+  <h2>{'Upload Photos'|@translate} {$TABSHEET_TITLE}</h2>
 </div>
 
-<a href="{$U_CAT_UPDATE}">{'Administration'|@translate} &raquo; {'Tools'|@translate} &raquo; {'Synchronize'|@translate}</a>
-
 <div id="ftpPage">
+<p><a href="{$U_CAT_UPDATE}">{'Administration'|@translate} &raquo; {'Tools'|@translate} &raquo; {'Synchronize'|@translate}</a></p>
+
 {$FTP_HELP_CONTENT}
 </div>

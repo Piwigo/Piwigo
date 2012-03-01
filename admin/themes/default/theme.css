@@ -1079,3 +1079,6 @@ FORM#categoryOrdering .categoryLi:hover p.albumActions {visibility:visible;}
 .showCreateAlbum {text-align:left; margin:0 1em 1em 1em;line-height:22px;}
 #autoOrder p, #createAlbum p {text-align:left; margin:0 0 1em 0;}
 #autoOrder p.actionButtons, #createAlbum p.actionButtons {margin-bottom:0;}
+
+#ftpPage p {text-align:left;margin:1em;}
+#ftpPage fieldset p {margin:0;}
