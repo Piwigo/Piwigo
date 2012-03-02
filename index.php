@@ -89,7 +89,15 @@ if (isset($_GET['caddie']))
   redirect(duplicate_index_url());
 }
 
-$template->assign('U_CANONICAL', duplicate_index_url());
+if (isset($page['is_homepage']) and $page['is_homepage'])
+{
+  $canonical_url = get_gallery_home_url();
+}
+else
+{
+  $canonical_url = duplicate_index_url();
+}
+$template->assign('U_CANONICAL', $canonical_url);
 
 //----------------------------------------------------- template initialization
 //

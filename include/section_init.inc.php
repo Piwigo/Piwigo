@@ -157,6 +157,7 @@ if ( !isset($page['section']) )
           redirect($random_index_redirect[mt_rand(0, count($random_index_redirect)-1)]);
         }
       }
+      $page['is_homepage'] = true;
       break;
     }
     default:
