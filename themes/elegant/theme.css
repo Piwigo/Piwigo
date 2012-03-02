@@ -90,9 +90,6 @@ INPUT.rateButtonSelected /* <= why IE doesn't inherit this ? */ {
 
 /* backgrounds */
 
-h3, #imageToolBar A:hover {
-	background-color: #2f2f2f;
-}
 
 #imageToolBar, #imageHeaderBar, #derivativeSwitchLink, #derivativeSwitchBox, #sortOrderBox, .header_notes {
 	background-color: #505050;
@@ -157,11 +154,11 @@ INPUT.rateButton {
 }
 
 .pwg-icon {
-	background-image: url(../default/s26/outline_ffffff.png);
+	background-image: url(../default/s26/outline_808080.png);
 }
 
 A:hover .pwg-icon {
-	background-image: url(../default/s26/outline_ffff80.png);
+	background-image: url(../default/s26/outline_ffffff.png);
 }
 
 .message {
