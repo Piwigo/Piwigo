@@ -88,7 +88,10 @@ class themes
           break;
         }
 
-        if ($this->fs_themes[$theme_id]['mobile'] and !empty($conf['mobile_theme']))
+
+        if ($this->fs_themes[$theme_id]['mobile']
+            and !empty($conf['mobile_theme'])
+            and $conf['mobile_theme'] != $theme_id)
         {
           array_push($errors, l10n('You can activate only one mobile theme.'));
           break;
