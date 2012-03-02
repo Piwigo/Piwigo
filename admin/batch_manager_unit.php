@@ -259,13 +259,19 @@ SELECT
 ;';
     $tag_selection = get_taglist($query);
 
+    $legend = render_element_name($row);
+    if ($legend != get_name_from_file($row['file']))
+    {
+      $legend.= ' ('.$row['file'].')';
+    }
+
     $template->append(
       'elements',
       array(
         'ID' => $row['id'],
         'TN_SRC' => $src,
         'FILE_SRC' => $row['path'],
-        'LEGEND' => render_element_name($row),
+        'LEGEND' => $legend,
         'U_EDIT' => get_root_url().'admin.php?page=photo-'.$row['id'],
         'NAME' => !empty($row['name'])?$row['name']:'',
         'AUTHOR' => !empty($row['author'])?htmlspecialchars($row['author']):'',

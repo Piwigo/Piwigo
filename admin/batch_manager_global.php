@@ -758,10 +758,10 @@ SELECT id,path,representative_ext,file,filesize,level,name
     $nb_thumbs_page++;
     $src = DerivativeImage::thumb_url($row);
 
-    $title = $row['name'];
-    if (empty($title))
-    {      
-      $title = get_name_from_file($row['file']);
+    $title = render_element_name($row);
+    if ($title != get_name_from_file($row['file']))
+    {
+      $title.= ' ('.$row['file'].')';
     }
 
     $template->append(
