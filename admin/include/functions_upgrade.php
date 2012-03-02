@@ -119,6 +119,7 @@ function deactivate_non_standard_themes()
     'clear',
     'Sylvia',
     'dark',
+    'elegant',
     );
 
   $query = '
@@ -162,7 +163,7 @@ SELECT theme
     {
       $query = '
 UPDATE '.PREFIX_TABLE.'user_infos
-  SET theme = \'Sylvia\'
+  SET theme = \'elegant\'
   WHERE user_id = '.$conf['default_user_id'].'
 ;';
       pwg_query($query);

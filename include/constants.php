@@ -24,7 +24,7 @@
 // Default settings
 define('PHPWG_VERSION', '2.4.0RC1');
 define('PHPWG_DEFAULT_LANGUAGE', 'en_UK');
-define('PHPWG_DEFAULT_TEMPLATE', 'Sylvia');
+define('PHPWG_DEFAULT_TEMPLATE', 'elegant');
 
 define('PHPWG_THEMES_PATH', $conf['themes_dir'].'/');
 defined('PWG_COMBINED_DIR') or define('PWG_COMBINED_DIR', $conf['data_location'].'combined/');
