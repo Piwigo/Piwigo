@@ -1,0 +1,170 @@
+/* colors & backgrounds */
+
+html, body {background-color:#111;}
+
+body {margin: 5px 0;}
+
+a:hover {border-bottom:none;}
+
+#menuswitcher {
+	display:block;
+	font-size:200%;
+	text-align:center;
+	float:left;
+	height:33px;
+	cursor:pointer;
+	margin: 26px 0 0 -33px;
+}
+
+#menubar,
+#menuswitcher.menuhidden {
+	border-radius : 0 10px 10px 0;
+	background-color: #222;
+	border: solid 1px #333;
+	border-width: 2px 2px 2px 0;
+}
+
+#menuswitcher.menuhidden {
+	width:25px;
+	margin: 28px 0 0 0;
+}
+
+/* content */
+
+#content.menushown, #the_page > .content.menushown { margin-left:240px;}
+#content.menuhidden, #the_page > .content.menuhidden { margin-left:35px;}
+#content, #the_page > .content { margin-right:0;}
+
+.content {
+	background-color: #222;
+	border-bottom: 2px solid #444;
+	margin-bottom: 4px;
+}
+
+.content .titrePage {
+	background-color: #111;
+	border-bottom: 2px solid #444;
+	height: 28px;
+	padding:0;
+	margin-bottom:8px;
+}
+
+.content .titrePage H2 {
+	line-height: 20px;
+	margin: 0;
+	padding: 8px 0 0 2px;
+}
+
+
+body { color: #999;}
+a { color: #ccc;}
+a:hover { color: #fff;}
+
+
+
+/* menubar */
+
+#menubar {
+	float: left;
+	margin: 28px 13px 10px 0;
+	padding: 0;
+	display: inline;
+	width: 225px;
+}
+
+#menubar DT { color: #999; text-align:left;}
+#menubar DT a { color: #ccc;}
+#menubar DT a:hover { color: #fff;}
+#menubar dd { padding: 0 0 1em 1em;}
+
+/* text color */
+BODY, H1, H3,
+INPUT.rateButtonSelected /* <= why IE doesn't inherit this ? */ {
+	color:#d0d0d0;
+}
+
+#menubar .pwg-icon-filter {display:none;}
+
+
+
+
+/* backgrounds */
+
+h3, #imageToolBar A:hover {
+	background-color: #2f2f2f;
+}
+
+#imageToolBar, #imageHeaderBar, #derivativeSwitchLink, #derivativeSwitchBox, #sortOrderBox, .header_notes {
+	background-color: #505050;
+}
+
+#imageHeaderBar H2 {
+	background-image: none;
+}
+
+#imageHeaderBar {
+	border-top: 1px solid #000;
+}
+
+/* borders */
+#derivativeSwitchLink, #derivativeSwitchBox, #sortOrderBox{
+	border: 1px solid #000;
+}
+
+#imageToolBar {
+	border-bottom: 1px solid #000;
+}
+
+FIELDSET, INPUT, SELECT, TEXTAREA {
+	border: 1px solid gray;
+}
+
+
+/* picture page */
+#thePicturePage {background-color:#111;}
+#imageHeaderBar {
+	border: solid 0 #444;
+	padding:0 35px;
+}
+#content #imageHeaderBar {padding:0;}
+#copyright {border-top-width:2px;}
+#imageHeaderBar {border-bottom-width:2px; width:auto;}
+#imageHeaderBar, #imageToolBar, #copyright 	{background:none;}
+#imageToolBar {margin-top: -28px;}
+#theImage, #imageInfos, #comments {background:#222;}
+#theImage {padding-top:10px;}
+#imageHeaderBar  { height:28px;}
+#imageHeaderBar .browsePath {display:inline-block; float:none; font-size:120%; line-height:20px; padding: 8px 0 0 2px; font-weight:bold; margin:0;}
+#imageHeaderBar .imageNumber {display:inline-block; float:none; line-height:20px; padding: 8px 0 0 12px; font-weight:bold; margin:0;}
+#imageHeaderBar .imageNumber:before {content:'['}
+#imageHeaderBar .imageNumber:after {content:']'}
+#imageHeaderBar h2 {display:none;}
+#thePicturePage .pwg-button {width:26px;}
+#thePicturePage .actionButtons {margin-right: 26px;}
+#imageToolBar {float:right;}
+
+#thePicturePage #comments {padding-top:12px; padding-bottom:12px;}
+#thePicturePage #comments fieldset{margin-top: 0; margin-bottom:0;}
+#copyright {padding-top:4px; text-align:right;}
+
+
+.thumbnailCategory {background-color: #303030;}
+#the_page .content .stuffs {margin:0!important}
+
+/* links */
+INPUT.rateButton {
+	color: #fff;
+}
+
+.pwg-icon {
+	background-image: url(../default/s26/outline_ffffff.png);
+}
+
+A:hover .pwg-icon {
+	background-image: url(../default/s26/outline_ffff80.png);
+}
+
+.message {
+  color:white;
+  background-color:#666;
+}
