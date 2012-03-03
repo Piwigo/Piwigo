@@ -44,4 +44,5 @@ $lang['Welcome to your new installation of Piwigo!'] = 'Здравейте и д
 $lang['You can download the config file and upload it to local/config directory of your installation.'] = 'Вие можете да изтеглите конфигурационния файл и да го качите в директорията  local/config на вашата инсталация';
 $lang['PHP 5 is required'] = 'Изисква се инсталиран PHP 5';
 $lang['Start Install'] = 'Стартиране на инсталацията';
+$lang['Piwigo was not able to configure PHP 5.'] = 'Piwigo не успя да конфигурира PHP5';
 ?>
