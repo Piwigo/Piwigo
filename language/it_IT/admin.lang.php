@@ -853,6 +853,8 @@ $lang['Save manual order'] = 'Salvare l\'ordinamento manuale';
 $lang['cancel manual order'] = 'Cancellare l\'ordinamento manuale';
 $lang['Cancel'] = 'Cancellare';
 $lang['List'] = 'Lista';
+$lang['Web Form'] = 'Modulo web';
+$lang['Applications'] = 'Applicazioni';
 
 $lang['Thumbnail creation'] = 'Creazione delle miniature';
 $lang['photos without thumbnail (jpeg and png only)'] = 'foto senza miniature (solo jpeg e png)';
