@@ -385,4 +385,6 @@ $lang['Show latest comments first'] = 'Покажи първо най-новит
 $lang['Show oldest comments first'] = 'Покажи първо най-старите коментари';
 $lang['Desktop'] = 'Настолна';
 $lang['Mobile'] = 'Мобилна';
+$lang['Photo sizes'] = 'Размери на снимката';
+$lang['View in'] = 'Вижте в';
 ?>
