@@ -160,7 +160,7 @@ final class ImageStdParams
   private static function make_default()
   {
     self::$watermark = new WatermarkParams();
-    self::$type_map[IMG_SQUARE] = new DerivativeParams( SizingParams::square(100,100) );
+    self::$type_map[IMG_SQUARE] = new DerivativeParams( SizingParams::square(120,120) );
     self::$type_map[IMG_THUMB] = new DerivativeParams( SizingParams::classic(144,144) );
     self::$type_map[IMG_SMALL] = new DerivativeParams( SizingParams::classic(240,240) );
     self::$type_map[IMG_MEDIUM] = new DerivativeParams( SizingParams::classic(432,432) );

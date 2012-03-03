@@ -1,41 +1,25 @@
 {if !empty($thumbnails)}
 {combine_script id='klass' path='themes/smartpocket/js/klass.min.js'}
 {combine_script id='photoswipe' path='themes/smartpocket/js/code.photoswipe.jquery.min.js' require='klass,jquery.mobile'}
+{combine_script id='smartpocket' path='themes/smartpocket/js/smartpocket.js' require='photoswipe'}
+{combine_script id='jquery.ajaxmanager' path='themes/default/js/plugins/jquery.ajaxmanager.js' load='footer'}
+{combine_script id='thumbnails.loader' path='themes/default/js/thumbnails.loader.js' require='jquery.ajaxmanager' load='footer'}
 
-{define_derivative name='derivative_params_thumb' width=120 height=120 crop=true}
-{define_derivative name='derivative_params_full' type='large'}
+{define_derivative name='derivative_params_square' type='square'}
+{define_derivative name='derivative_params_large' type='large'}
 
-{footer_script}{literal}
-(function(window, $, PhotoSwipe){
-  $(document).ready(function(){
-    var options = {
-      jQueryMobile: true,
-      imageScaleMethod: "fitNoUpscale"
-    };
-    $(".thumbnails a").photoSwipe(options);
-    $(document).bind('orientationchange', set_thumbnails_width);
-    set_thumbnails_width();
-  });
-}(window, window.jQuery, window.Code.PhotoSwipe));
-
-function set_thumbnails_width() {
-  nb_thumbs = Math.max(3, Math.ceil($('.thumbnails').width() / 130));
-  width = Math.floor(1000000 / nb_thumbs) / 10000;
-  $('.thumbnails li').css('width', width+'%');
-}
-
-{/literal}{/footer_script}
 <ul class="thumbnails">
 {foreach from=$thumbnails item=thumbnail}{strip}
+{assign var=derivative value=$pwg->derivative($derivative_params_square, $thumbnail.src_image)}
 {if isset($page_selection[$thumbnail.id])}
-	<li>
-	  <a href="{$pwg->derivative_url($derivative_params_full, $thumbnail.src_image)}" rel="external">
-      <img src="{$pwg->derivative_url($derivative_params_thumb, $thumbnail.src_image)}" alt="{$thumbnail.TN_ALT}">
+  <li>
+    <a href="{$pwg->derivative_url($derivative_params_large, $thumbnail.src_image)}" rel="external">
+     <img {if !$derivative->is_cached()}data-{/if}src="{$derivative->get_url()}" alt="{$thumbnail.TN_ALT}">
     </a>
   </li>
 {else}
-	<li style="display:none;">
-	  <a href="{$pwg->derivative_url($derivative_params_full, $thumbnail.src_image)}" rel="external"></a>
+  <li style="display:none;">
+    <a href="{$pwg->derivative_url($derivative_params_large, $thumbnail.src_image)}" rel="external"></a>
   </li>
 {/if}
 {/strip}{/foreach}

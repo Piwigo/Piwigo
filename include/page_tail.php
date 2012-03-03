@@ -66,11 +66,11 @@ if ($conf['show_gt'])
 $template->assign('debug', $debug_vars );
 
 //------------------------------------------------------------- mobile version
-if ( !empty($conf['mobile_theme']) && get_device() != 'desktop')
+if ( !empty($conf['mobile_theme']) && (get_device() != 'desktop' || mobile_theme()))
 {
   $template->assign('TOGGLE_MOBILE_THEME_URL',
       add_url_params(
-        make_index_url(),
+        duplicate_index_url(),
         array('mobile' => mobile_theme() ? 'false' : 'true')
       )
     );
