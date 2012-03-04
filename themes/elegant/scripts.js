@@ -2,33 +2,65 @@
 
 	var menubar=jQuery("#menubar");
 	var content=jQuery("#content");
-	
+
 	if ( (menubar.length == 1) && (content.length ==1)) {
 		menubar.after("<div id=\"menuswitcher\">«</div>");
-/*		if (!content.hasClass('content')) content.addClass('content');*/
-	}
-	/*»*/
 	
-	jQuery("#menuswitcher").click(function(){
-		if (jQuery("#menubar").is(":hidden")) {
-			showMenu(0);
-			return false;
-		} else {
+		jQuery("#menuswitcher").click(function(){
+			if (jQuery("#menubar").is(":hidden")) {
+				showMenu(0);
+				return false;
+			} else {
+				hideMenu(0);
+				return false;
+			}
+		});
+
+		// creates a variable with the contents of the cookie side-menu
+		var sidemenu = jQuery.cookie('side-menu');
+		
+		// if cookie says the menu is hiding, keep it hidden!
+		if (sidemenu == 'hiding') {
 			hideMenu(0);
-			return false;
+		} else {
+			showMenu(0);
 		}
-	});
 
-	// creates a variable with the contents of the cookie side-menu
-	var sidemenu = jQuery.cookie('side-menu');
-	
-	// if cookie says the menu is hiding, keep it hidden!
-	if (sidemenu == 'hiding') {
-		hideMenu(0);
-	} else {
-		showMenu(0);
 	}
+	
+	var comments=jQuery("#thePicturePage #comments");
+	if (comments.length == 1) {
+		var comments_button=jQuery("#comments h3");
 
+		if (comments_button.length == 0) {
+			jQuery("#addComment").before("<h3>Comments</h3>");
+			comments_button=jQuery("#comments h3");
+		}
+	
+		if (jQuery.cookie('comments') == 'visible') {
+			comments_button.addClass("comments_toggle").addClass("comments_toggle_off");
+		} else {
+			comments.addClass("comments_hidden");
+			comments_button.addClass("comments_toggle").addClass("comments_toggle_on");
+		}
+		
+		comments_button.click(function() {
+
+			var comments=jQuery("#thePicturePage #comments");
+			if (comments.hasClass("comments_hidden")) {
+					comments.removeClass("comments_hidden");
+					comments_button.addClass("comments_toggle_off").removeClass("comments_toggle_on");;
+					jQuery.cookie('comments', 'visible', {path: "/"});
+				} else {
+					comments.addClass("comments_hidden");
+					comments_button.addClass("comments_toggle_on").removeClass("comments_toggle_off");;
+					jQuery.cookie('comments', 'hidden', {path: "/"});
+				}
+			
+		});
+	
+	}
+	
 	
 });
 

@@ -35,12 +35,14 @@ a:hover {border-bottom:none;}
 #content.menuhidden, #the_page > .content.menuhidden { margin-left:35px;}
 #content, #the_page > .content { margin-right:0;}
 
-.content {
+#content,.content {
 	background-color: #222;
 	border-bottom: 2px solid #444;
 	margin-bottom: 4px;
 	padding-bottom: 4px;
 }
+
+#thePicturePage #content {padding-bottom:0;}
 
 .content .titrePage {
 	background-color: #111;
@@ -108,27 +110,22 @@ INPUT.rateButtonSelected /* <= why IE doesn't inherit this ? */ {
 	border: 1px solid #000;
 }
 
-#imageToolBar {
-	border-bottom: 1px solid #000;
-}
-
 FIELDSET, INPUT, SELECT, TEXTAREA {
 	border: 1px solid gray;
 }
 
 
+.thumbnails IMG {margin-bottom:0; vertical-align:middle;}
+.thumbnailCategory DIV.illustration {margin: 2px; text-align:center;}
+
 /* picture page */
 #thePicturePage {background-color:#111;}
-#imageHeaderBar {
-	border: solid 0 #444;
-	padding:0 35px;
-}
-#content #imageHeaderBar {padding:0;}
+#imageHeaderBar { border: solid 0 #444; padding:0 0 0 10px;}
+.contentWithMenu #imageHeaderBar {padding:0;}
 #copyright {border-top-width:2px;}
-#imageHeaderBar {border-bottom-width:2px; width:auto;}
-#imageHeaderBar, #imageToolBar, #copyright 	{background:none;}
-#imageToolBar {margin-top: -28px;}
-#theImage, #imageInfos, #comments {background:#222;}
+#imageHeaderBar {border-bottom-width:2px; width:auto; background:#111}
+#imageToolBar 	{background:none;}
+#imageToolBar {margin-top: -28px; margin-bottom:0;}
 #theImage {padding-top:10px;}
 #imageHeaderBar .browsePath {display:inline-block; float:none; font-size:120%; line-height:20px; padding: 8px 0 0 2px; font-weight:bold; margin:0;}
 #imageHeaderBar .imageNumber {display:inline-block; float:none; line-height:20px; padding: 8px 0 0 12px; font-weight:bold; margin:0;}
@@ -140,6 +137,8 @@ FIELDSET, INPUT, SELECT, TEXTAREA {
 #imageToolBar {float:right;}
 
 #thePicturePage #comments {padding-top:12px; padding-bottom:12px;}
+#thePicturePage #comments h3 {margin-top:10px; margin-bottom:10px;}
+#thePicturePage #comments form { margin-bottom:10px;}
 #thePicturePage #comments fieldset{margin-top: 0; margin-bottom:0;}
 .noCommentText {display:block;}
 #copyright {padding:4px 4px 0 0; text-align:right;}
@@ -148,7 +147,7 @@ FIELDSET, INPUT, SELECT, TEXTAREA {
 #thePicturePage .comments_toggle_off:before {content:'(-) '}
 
 .comments_hidden ul, .comments_hidden form {display:none;}
-.thumbnailCategory {background-color: #303030;}
+.thumbnailCategory {background-color: #333;}
 .comments_toggle {cursor: pointer;}
 .comments_toggle:hover {color:#fff;}
 
