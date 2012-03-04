@@ -28,7 +28,7 @@ function changeImgSrc(url,typeSave,typeMap,typeDisplay)
 		theImg.removeAttribute("width");theImg.removeAttribute("height");
 		theImg.src = url;
 		var elt = document.getElementById("derivativeSwitchLink");
-		if (elt) elt.innerHTML = typeDisplay;
+		/* if (elt) elt.innerHTML = typeDisplay; */
 		theImg.useMap = "#map"+typeMap;
 	}
 	document.cookie = 'picture_deriv='+typeSave+';path={/literal}{$COOKIE_PATH}{literal}';
