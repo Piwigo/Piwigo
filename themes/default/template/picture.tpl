@@ -348,6 +348,4 @@ y.callService(
 
 {if !empty($PLUGIN_PICTURE_AFTER)}{$PLUGIN_PICTURE_AFTER}{/if}
 
-{if isset($MENUBAR)}
 </div>
-{/if}
