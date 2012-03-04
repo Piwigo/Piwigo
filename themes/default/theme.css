@@ -340,14 +340,6 @@ TD.calDayHead {
 #imageToolBar .navigationButtons   { float: right; }
 #imageToolBar .pwg-button {width:42px;}
 
-
-#derivativeSwitchLink {
-	padding: 0.2em;
-	position: absolute;
-	left: 5px;
-	top: 12%;
-}
-
 #derivativeSwitchBox, #sortOrderBox {
 	padding: 0.5em 1em;
 	border-radius: 4px;
@@ -420,6 +412,7 @@ TD.calDayHead {
 	clear: none;
 }
 
+.noCommentText {display:none;}
 
 /**
  * Default Layout

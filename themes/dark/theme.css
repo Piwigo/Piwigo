@@ -17,7 +17,7 @@ BODY, H3, #imageToolBar A:hover {
 	background-color: #2f2f2f;
 }
 
-#menubar DL, .content, #imageToolBar, #imageHeaderBar, #derivativeSwitchLink, #derivativeSwitchBox, #sortOrderBox, .header_notes {
+#menubar DL, .content, #imageToolBar, #imageHeaderBar, #derivativeSwitchBox, #sortOrderBox, .header_notes {
 	background-color: #505050;
 }
 
@@ -30,7 +30,7 @@ BODY, H3, #imageToolBar A:hover {
 }
 
 /* borders */
-#menubar DL, .content, #derivativeSwitchLink, #derivativeSwitchBox, #sortOrderBox{
+#menubar DL, .content, #derivativeSwitchBox, #sortOrderBox{
 	border: 1px solid #000;
 }
 

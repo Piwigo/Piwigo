@@ -13,7 +13,7 @@ a:hover {border-bottom:none;}
 	float:left;
 	height:33px;
 	cursor:pointer;
-	margin: 26px 0 0 -33px;
+	margin: 28px 0 0 -35px;
 }
 
 #menubar,
@@ -26,7 +26,7 @@ a:hover {border-bottom:none;}
 
 #menuswitcher.menuhidden {
 	width:25px;
-	margin: 28px 0 0 0;
+	margin-left:0;
 }
 
 /* content */
@@ -39,14 +39,14 @@ a:hover {border-bottom:none;}
 	background-color: #222;
 	border-bottom: 2px solid #444;
 	margin-bottom: 4px;
+	padding-bottom: 4px;
 }
 
 .content .titrePage {
 	background-color: #111;
 	border-bottom: 2px solid #444;
-	height: 28px;
 	padding:0;
-	margin-bottom:8px;
+	margin-bottom:4px;
 }
 
 .content .titrePage H2 {
@@ -91,7 +91,7 @@ INPUT.rateButtonSelected /* <= why IE doesn't inherit this ? */ {
 /* backgrounds */
 
 
-#imageToolBar, #imageHeaderBar, #derivativeSwitchLink, #derivativeSwitchBox, #sortOrderBox, .header_notes {
+#imageToolBar, #imageHeaderBar, #derivativeSwitchBox, #sortOrderBox, .header_notes {
 	background-color: #505050;
 }
 
@@ -104,7 +104,7 @@ INPUT.rateButtonSelected /* <= why IE doesn't inherit this ? */ {
 }
 
 /* borders */
-#derivativeSwitchLink, #derivativeSwitchBox, #sortOrderBox{
+#derivativeSwitchBox, #sortOrderBox{
 	border: 1px solid #000;
 }
 
@@ -130,23 +130,34 @@ FIELDSET, INPUT, SELECT, TEXTAREA {
 #imageToolBar {margin-top: -28px;}
 #theImage, #imageInfos, #comments {background:#222;}
 #theImage {padding-top:10px;}
-#imageHeaderBar  { height:28px;}
 #imageHeaderBar .browsePath {display:inline-block; float:none; font-size:120%; line-height:20px; padding: 8px 0 0 2px; font-weight:bold; margin:0;}
 #imageHeaderBar .imageNumber {display:inline-block; float:none; line-height:20px; padding: 8px 0 0 12px; font-weight:bold; margin:0;}
 #imageHeaderBar .imageNumber:before {content:'['}
 #imageHeaderBar .imageNumber:after {content:']'}
-#imageHeaderBar h2 {display:none;}
+#imageHeaderBar h2 {font-size:100%;}
 #thePicturePage .pwg-button {width:26px;}
 #thePicturePage .actionButtons {margin-right: 26px;}
 #imageToolBar {float:right;}
 
 #thePicturePage #comments {padding-top:12px; padding-bottom:12px;}
 #thePicturePage #comments fieldset{margin-top: 0; margin-bottom:0;}
-#copyright {padding-top:4px; text-align:right;}
+.noCommentText {display:block;}
+#copyright {padding:4px 4px 0 0; text-align:right;}
 
+#thePicturePage .comments_toggle_on:before {content:'(+) '}
+#thePicturePage .comments_toggle_off:before {content:'(-) '}
 
+.comments_hidden ul, .comments_hidden form {display:none;}
 .thumbnailCategory {background-color: #303030;}
+.comments_toggle {cursor: pointer;}
+.comments_toggle:hover {color:#fff;}
+
 #the_page .content .stuffs {margin:0!important}
+
+#thumbnails  {padding-top: 5px;}
+
+INPUT[type="text"], INPUT[type="password"], INPUT[type="button"], INPUT[type="submit"], INPUT[type="reset"], INPUT[type="file"] {background-color:#999;}
+INPUT:focus, SELECT:focus, TEXTAREA:focus {background-color:#ccc;}
 
 /* links */
 INPUT.rateButton {

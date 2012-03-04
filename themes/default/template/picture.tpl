@@ -1,10 +1,8 @@
 {* Example of resizeable
 {include file='include/autosize.inc.tpl'}
 *}
-{if isset($MENUBAR)}
-{$MENUBAR}
-<div id="content" class="contentWithMenu">
-{/if}
+{if isset($MENUBAR)}{$MENUBAR}{/if}
+<div id="content" {if isset($MENUBAR)}class="contentWithMenu"{/if}>
 {if isset($errors) or not empty($infos)}
 {include file='infos_errors.tpl'}
 {/if}
@@ -12,13 +10,58 @@
 
 <div id="imageHeaderBar">
 	<div class="browsePath">
-		{$SECTION_TITLE} {$LEVEL_SEPARATOR} <h2>{$current.TITLE}</h2>
+		{$SECTION_TITLE}<span class="browsePathSeparator">{$LEVEL_SEPARATOR}</span><h2>{$current.TITLE}</h2>
 	</div>
 	<div class="imageNumber">{$PHOTO}</div>
 </div>
 
 <div id="imageToolBar">
 <div class="actionButtons">
+
+{if count($current.unique_derivatives)>1}
+{footer_script}{literal}
+function changeImgSrc(url,typeSave,typeMap,typeDisplay)
+{
+	var theImg = document.getElementById("theMainImage");
+	if (theImg)
+	{
+		theImg.removeAttribute("width");theImg.removeAttribute("height");
+		theImg.src = url;
+		var elt = document.getElementById("derivativeSwitchLink");
+		if (elt) elt.innerHTML = typeDisplay;
+		theImg.useMap = "#map"+typeMap;
+	}
+	document.cookie = 'picture_deriv='+typeSave+';path={/literal}{$COOKIE_PATH}{literal}';
+}
+
+function toggleDerivativeSwitchBox()
+{
+	var elt = document.getElementById("derivativeSwitchBox"),
+		ePos = document.getElementById("derivativeSwitchLink");
+	if (elt.style.display==="none")
+	{
+		elt.style.position = "absolute";
+		elt.style.left = (ePos.offsetLeft+10)+"px";
+		elt.style.top = (ePos.offsetTop+ePos.offsetHeight)+"px";
+		elt.style.display="";
+	}
+	else
+		elt.style.display="none";
+}
+{/literal}{/footer_script}
+{strip}<a id="derivativeSwitchLink" href="javascript:toggleDerivativeSwitchBox()" title="{'Photo sizes'|@translate}" class="pwg-state-default pwg-button" rel="nofollow">
+<span class="pwg-icon pwg-icon-sizes">&nbsp;</span><span class="pwg-button-text">{'Photo sizes'|@translate}</span></a>
+<div id="derivativeSwitchBox" onclick="toggleDerivativeSwitchBox()" style="display:none">
+{foreach from=$current.unique_derivatives item=derivative key=derivative_type}
+<a href="javascript:changeImgSrc('{$derivative->get_url()|@escape:javascript}','{$derivative_type}','{$derivative->get_type()}','{$derivative->get_type()|@translate|@escape:javascript}')">{$derivative->get_type()|@translate} ({$derivative->get_size_hr()})</a><br>
+{/foreach}
+{if isset($U_ORIGINAL)}
+<a href="javascript:phpWGOpenWindow('{$U_ORIGINAL}','xxx','scrollbars=yes,toolbar=no,status=no,resizable=yes')" rel="nofollow">{'Original'|@translate}</a>
+{/if}
+</div>
+{/strip}{/if}
+
+
 {strip}{if isset($U_SLIDESHOW_START)}
 	<a href="{$U_SLIDESHOW_START}" title="{'slideshow'|@translate}" class="pwg-state-default pwg-button" rel="nofollow">
 		<span class="pwg-icon pwg-icon-slideshow"> </span><span class="pwg-button-text">{'slideshow'|@translate}</span>
@@ -75,6 +118,7 @@ y.callService(
 	{include file='picture_nav_buttons.tpl'|@get_extent:'picture_nav_buttons'}
 </div>{*<!-- imageToolBar -->*}
 
+<div id="theImageAndInfos">
 <div id="theImage">
 {$ELEMENT_CONTENT}
 
@@ -268,14 +312,17 @@ y.callService(
 </table>
 {/if}
 </div>
+</div>
 
 {if isset($COMMENT_COUNT)}
 <div id="comments">
 	{if $COMMENT_COUNT > 0}
 		<h3>{$pwg->l10n_dec('%d comment', '%d comments',$COMMENT_COUNT)}</h3>
-	{if $COMMENT_COUNT > 2}
-		<a href="{$COMMENTS_ORDER_URL}#comments" rel="nofollow">{$COMMENTS_ORDER_TITLE}</a>
-	{/if}
+		{if $COMMENT_COUNT > 2}
+			<a href="{$COMMENTS_ORDER_URL}#comments" rel="nofollow">{$COMMENTS_ORDER_TITLE}</a>
+		{/if}
+	{else}
+		<h3 class="noCommentText">{$pwg->l10n_dec('%d comment', '%d comments',$COMMENT_COUNT)}</h3>
 	{/if}
 	{if !empty($navbar)}{include file='navigation_bar.tpl'|@get_extent:'navbar'}{/if}
 
