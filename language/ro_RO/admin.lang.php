@@ -277,6 +277,6 @@ $lang['An information email was sent to group "%s"'] = 'Un mesaj de informare a 
 $lang['and'] = 'şi';
 $lang['Anomaly'] = 'Anomalie';
 $lang['Rate'] = 'Evaluare';
-$lang['Average rate'] = 'Notă medie';
+$lang['Add to caddie'] = 'adaugă în cărucior';
 
 ?>
