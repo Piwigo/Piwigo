@@ -12,25 +12,6 @@
 </div>
 {/if}
 
-{if isset($local_listing)}
-{'A local listing.xml file has been found for'|@translate} {$local_listing.URL}
-{if isset($local_listing.CREATE)}
-<form action="{$F_ACTION}" method="post">
-  <p>
-    <input type="hidden" name="pwg_token" value="{$PWG_TOKEN}">
-    {'Create this site'|@translate}:
-    <input type="hidden" name="no_check" value="1">
-    <input type="hidden" name="galleries_url" value="{$local_listing.URL}">
-    <input type="submit" name="submit" value="{'Submit'|@translate}">
-  </p>
-</form>
-{/if}
-{if isset($local_listing.U_SYNCHRONIZE)}
-&nbsp;<a href="{$local_listing.U_SYNCHRONIZE}" title="{'read local listing.xml and update'|@translate}">{'Synchronize'|@translate}</a>
-<br><br>
-{/if}
-{/if}
-
 {if not empty($sites)}
 <table class="table2">
 	<tr class="throw">
@@ -45,12 +26,6 @@
     {if isset($site.U_DELETE)}
       [<a href="{$site.U_DELETE}" onclick="return confirm('{'Are you sure?'|@translate|escape:'javascript'}');"
                 title="{'delete this site and all its attached elements'|@translate}">{'delete'|@translate}</a>]
-    {/if}
-    {if isset($site.remote)}
-      <br>
-      [<a href="{$site.remote.U_TEST}" title="{'test this remote site'|@translate}">{'test'|@translate}</a>]
-      [<a href="{$site.remote.U_GENERATE}" title="{'generate file listing.xml on remote site'|@translate}">{'generate listing'|@translate}</a>]
-      [<a href="{$site.remote.U_CLEAN}" title="{'remove remote listing.xml file'|@translate}">{'clean'|@translate}</a>]
     {/if}
     {if not empty($site.plugin_links)}
         <br>
