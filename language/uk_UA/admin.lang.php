@@ -830,7 +830,7 @@ $lang['You can update to Piwigo %s directly, without upgrading to Piwigo %s (rec
 $lang['You can\'t define a default photo order because you have a custom setting in your local configuration.'] = 'Ви не можете визначити порядок за замовчуванням фотографії, тому що у Вас є налаштування користувача у вашій локальній конфігурації.';
 $lang['You cannot delete your account'] = 'Ви не можете видалити свій аккаунт';
 $lang['You cannot move an album in its own sub album'] = 'Ви не можете переміщати альбом в свій під-альбом';
-$lang['You have %d orphan tags: %s.'] = 'У вас є %d теґи-сироти: %s.';
+$lang['You have %d orphan tags: %s.'] = 'У вас є %d теґи-пустишки: %s.';
 $lang['You have specified <i>$conf[\'order_by\']</i> in your local configuration file, this parameter in deprecated, please remove it or rename it into <i>$conf[\'order_by_custom\']</i> !'] = 'Ви вказали <i>$conf[\'order_by\']</i> в локальному файлі конфігурації, цей параметр в застарів, будь ласка, видаліть його або перейменувати його в <i>$conf[\'order_by_custom\']</i> !';
 $lang['You have subscribed to receiving notifications by mail.'] = 'Ви підписалися на отримання повідомлень електронною поштою.';
 $lang['You have unsubscribed from receiving notifications by mail.'] = 'Ви відписалися від отримання повідомлення поштою.';
@@ -847,4 +847,6 @@ $lang['Cancel'] = 'Скасувати';
 $lang['cancel manual order'] = 'відмінити ручне сортування';
 $lang['List'] = 'Список';
 $lang['Save manual order'] = 'Зберегти ручне сортування';
+$lang['Applications'] = 'Додатки';
+$lang['Web Form'] = 'Веб-форми';
 ?>
