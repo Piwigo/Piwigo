@@ -76,7 +76,12 @@ final class SrcImage
 
   function get_url()
   {
-    return embellish_url(get_root_url().$this->rel_path);
+    $url = get_root_url().$this->rel_path;
+    if ($this->flags & self::IS_ORIGINAL)
+    {
+      $url = trigger_event('get_src_image_url', $url, $this);
+    }
+    return embellish_url($url);
   }
 
   function has_size()

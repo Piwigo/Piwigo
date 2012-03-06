@@ -22,6 +22,7 @@
 // +-----------------------------------------------------------------------+
 
 define('PHPWG_ROOT_PATH','./');
+session_cache_limiter('public');
 include_once(PHPWG_ROOT_PATH.'include/common.inc.php');
 
 // Check Access and exit when user status is not ok
@@ -70,8 +71,7 @@ SELECT * FROM '. IMAGES_TABLE.'
   WHERE id='.$_GET['id'].'
 ;';
 
-$result = pwg_query($query);
-$element_info = pwg_db_fetch_assoc($result);
+$element_info = pwg_db_fetch_assoc(pwg_query($query));
 if ( empty($element_info) )
 {
   do_error(404, 'Requested id not found');
@@ -105,7 +105,7 @@ switch ($_GET['part'])
   case 'e':
     if ( $user['enabled_high']!='true' )
     {
-      do_error(401, 'Access denied h');
+      do_error(401, 'Access denied e');
     }
     $file = get_element_path($element_info);
     break;
@@ -119,7 +119,7 @@ if ( empty($file) )
   do_error(404, 'Requested file not found');
 }
 
-if ($_GET['part'] == 'h') {
+if ($_GET['part'] == 'e') {
   pwg_log($_GET['id'], 'high');
 }
 else if ($_GET['part'] == 'e')
