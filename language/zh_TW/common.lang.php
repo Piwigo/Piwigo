@@ -381,4 +381,10 @@ $lang['Here are your connection settings'] = '以下是您的連結設定';
 $lang['Password: %s'] = '密碼: %s';
 $lang['Username: %s'] = '用戶名稱: %s';
 $lang['If you think you\'ve received this email in error, please contact us at %s'] = ' 如您認為此電子郵件之發送為錯誤，請聯繫我們：%s';
+$lang['Show oldest comments first'] = '顯示最舊的評論在最前面';
+$lang['Show latest comments first'] = '顯示最新的評論在最前面';
+$lang['Photo sizes'] = '圖片大小';
+$lang['View in'] = '檢視';
+$lang['Mobile'] = '移動';
+$lang['Desktop'] = '桌面';
 ?>
