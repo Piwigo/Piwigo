@@ -380,5 +380,11 @@ $lang['Here are your connection settings'] = 'Đây là thiết lập kết nố
 $lang['Password: %s'] = 'Mật khẩu: %s';
 $lang['Username: %s'] = 'Tên đăng nhập: %s';
 $lang['If you think you\'ve received this email in error, please contact us at %s'] = 'Nếu bạn nghĩ bạn đã nhận nhầm emai, vui lòng liên hệ với chúng tôi qua %s';
+$lang['Show oldest comments first'] = 'Hiển thị những lời bình trước nhất đầu tiên';
+$lang['Show latest comments first'] = 'Hiển thị những lời bình mới nhất đầu tiên';
+$lang['Photo sizes'] = 'Kích thước ảnh';
+$lang['View in'] = 'Xem ảnh ở';
+$lang['Mobile'] = 'Di động';
+
 
 ?>
