@@ -386,4 +386,9 @@ $lang['Username modification'] = 'Felhasználónév módosítása';
 $lang['Username: %s'] = 'Felhasználónév: %s';
 $lang['Your username has been successfully changed to : %s'] = 'Sikeres felhasználónév módosítás: %s';
 $lang['Photo sizes'] = 'Kép méretek';
+$lang['Desktop'] = 'Asztali';
+$lang['Mobile'] = 'Mobil';
+$lang['Show latest comments first'] = 'Új hozzászólások előre';
+$lang['Show oldest comments first'] = 'Régi hozzászólások előre';
+$lang['View in'] = 'Megjelenítés';
 ?>
