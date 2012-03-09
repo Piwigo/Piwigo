@@ -103,9 +103,13 @@ $file='';
 switch ($_GET['part'])
 {
   case 'e':
-    if ( $user['enabled_high']!='true' )
+    if ( !$user['enabled_high'] )
     {
-      do_error(401, 'Access denied e');
+      $deriv = new DerivativeImage(IMG_XXLARGE, new SrcImage($element_info));
+      if ( !$deriv->same_as_source() )
+      {
+        do_error(401, 'Access denied e');
+      }
     }
     $file = get_element_path($element_info);
     break;
