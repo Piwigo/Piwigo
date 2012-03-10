@@ -194,8 +194,12 @@ function parse_request()
   }
 
   $req = ltrim($req, '/');
-  !preg_match('#[^a-zA-Z0-9/_.-]#', $req) or ierror('Invalid chars in request', 400);
 
+  foreach (preg_split('#/+#', $req) as $token)
+  {
+    preg_match($conf['sync_chars_regex'], $token) or ierror('Invalid chars in request', 400);
+  }
+  
   $page['derivative_path'] = PHPWG_ROOT_PATH.PWG_DERIVATIVE_DIR.$req;
 
   $pos = strrpos($req, '.');

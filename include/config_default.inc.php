@@ -746,6 +746,9 @@ $conf['ploader_download_linux'] = 'http://piwigo.org/ext/download.php?eid=269';
 // enable the synchronization method for adding photos
 $conf['enable_synchronization'] = true;
 
+// permitted characters for files/directoris during synchronization
+$conf['sync_chars_regex'] = '/^[a-zA-Z0-9-_.]+$/';
+
 // PEM url
 $conf['alternative_pem_url'] = '';
 
