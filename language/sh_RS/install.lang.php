@@ -68,4 +68,8 @@ $lang['Creation of config file local/config/database.inc.php failed.'] = 'Kreira
 $lang['Download the config file'] = 'Snimi na racunar konfiguracionu datoteku';
 $lang['You can download the config file and upload it to local/config directory of your installation.'] = 'Možete snimiti na racunar konfiguracionu datoteku i poslati je na local/config direktorijum Vaše instalacije.';
 
+$lang['Don\'t hesitate to consult our forums for any help : %s'] = 'Ne oklevajte da zatražite pomoć na našem forumu oko bilo čega: %s';
+$lang['Just another Piwigo gallery'] = 'Još jedna Piwigo galerija';
+$lang['Welcome to my photo gallery'] = 'Dobrodošli u moju foto galeriju';
+$lang['Welcome to your new installation of Piwigo!'] = 'Dobrodošli na Vašu novu instalaciju Piwigo-a!';
 ?>
