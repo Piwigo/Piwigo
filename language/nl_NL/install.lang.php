@@ -68,4 +68,6 @@ $lang['Download the config file'] = 'Download het config-bestand';
 $lang['You can download the config file and upload it to local/config directory of your installation.'] = 'U kunt het config-bestand downloaden en het uploaden naar de local/config directory van uw Piwigo-installatie.';
 $lang['Just another Piwigo gallery'] = 'Alweer een Piwigo gallerie';
 $lang['Welcome to my photo gallery'] = 'Welkom bij mijn foto gallerie';
+$lang['Welcome to your new installation of Piwigo!'] = 'Welkom bij uw nieuwe installatie van Piwigo!';
+$lang['Don\'t hesitate to consult our forums for any help : %s'] = 'Aarzel niet om onze forum\'s te raadplegen voor hulp: %s';
 ?>

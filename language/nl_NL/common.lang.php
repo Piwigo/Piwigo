@@ -363,7 +363,6 @@ $lang['Enter your new password below.'] = 'Voer hieronder je nieuwe paswoord in.
 $lang['EXIF Metadata'] = 'EXIF Metagegevens';
 $lang['IPTC Metadata'] = 'IPTC Metagegevens';
 $lang['Edit'] = 'Bewerk';
-
 $lang['large'] = 'groot';
 $lang['medium'] = 'middel';
 $lang['Original'] = 'origineel';
@@ -382,4 +381,10 @@ $lang['Thank you for registering at %s!'] = 'Bedankt voor uw registratie bij %s'
 $lang['Username modification'] = 'Gebruikersnaam wijziging';
 $lang['Username: %s'] = 'Gebruikersnaam %s';
 $lang['Your username has been successfully changed to : %s'] = 'Uw gebruikersnaam is succesvol gewijzigd in: %s';
+$lang['Show oldest comments first'] = 'Toon oudste berichten eerst';
+$lang['Show latest comments first'] = 'Toon nieuwste berichten eerst';
+$lang['Photo sizes'] = 'Foto groottes';
+$lang['View in'] = 'Bekijk in';
+$lang['Mobile'] = 'Mobiel';
+$lang['Desktop'] = 'Bureaublad';
 ?>
