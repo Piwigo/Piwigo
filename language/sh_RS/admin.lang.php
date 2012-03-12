@@ -66,7 +66,6 @@ $lang['Comments for all'] = 'Komentari za sve';
 $lang['Current name'] = 'Trenutni naziv';
 $lang['Database'] = 'Baza podataka';
 $lang['Deactivate'] = 'Isključi';
-$lang['Delete selected users'] = 'Izbriši odabrane korisnike';
 $lang['Deletions'] = 'Brisanja';
 $lang['Deny selected groups'] = 'Zabrani odabrane grupe';
 $lang['Deny selected users'] = 'Zabrani odabrane korisnike';
@@ -845,4 +844,5 @@ $lang['You can\'t define a default photo order because you have a custom setting
 $lang['You have %d orphan tags: %s.'] = 'Imate %d napuštenih oznaka: %s.';
 $lang['You have specified <i>$conf[\'order_by\']</i> in your local configuration file, this parameter in deprecated, please remove it or rename it into <i>$conf[\'order_by_custom\']</i> !'] = 'Označili ste  <i>$conf[\'order_by\']</i> u svom lokalnom podešavanju, ovaj parametar je zastareo, molimo uklonite ga ili ga preimenujte u <i>$conf[\'order_by_custom\']</i>!';
 $lang['Zoom'] = 'Uvećaj';
+$lang['Delete selected tags'] = 'Obriši odabrane oznake';
 ?>
