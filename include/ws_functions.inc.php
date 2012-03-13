@@ -219,6 +219,10 @@ function ws_getMissingDerivatives($params, &$service)
   $qlimit = min(5000, ceil(max($image_count/500, $max_urls/count($types))));
   $where_clauses = ws_std_image_sql_filter( $params, '' );
   $where_clauses[] = 'id<start_id';
+  if ( !empty($params['ids']) )
+  {
+    $where_clauses[] = 'id IN ('.implode(',',$params['ids']).')';
+  }
 
   $query_model = 'SELECT id, path, representative_ext, width, height
   FROM '.IMAGES_TABLE.'
@@ -3264,157 +3268,6 @@ function ws_themes_performAction($params, &$service)
     }
     return true;
   }
-}
-
-function ws_images_resizethumbnail($params, &$service)
-{
-  if (!is_admin())
-  {
-    return new PwgError(401, 'Access denied');
-  }
-
-  if (empty($params['image_id']) and empty($params['image_path']))
-  {
-    return new PwgError(403, "image_id or image_path is missing");
-  }
-
-  include_once(PHPWG_ROOT_PATH.'admin/include/functions_upload.inc.php');
-  include_once(PHPWG_ROOT_PATH.'admin/include/image.class.php');
-
-  if (!empty($params['image_id']))
-  {
-    $query='
-SELECT id, path, tn_ext, has_high
-  FROM '.IMAGES_TABLE.'
-  WHERE id = '.(int)$params['image_id'].'
-;';
-    $image = pwg_db_fetch_assoc(pwg_query($query));
-
-    if ($image == null)
-    {
-      return new PwgError(403, "image_id not found");
-    }
-
-    $image_path = $image['path'];
-    $thumb_path = get_thumbnail_path($image);
-  }
-  else
-  {
-    $image_path = $params['image_path'];
-    $thumb_path = file_path_for_type($image_path, 'thumb');
-  }
-
-  if (!file_exists($image_path) or !is_valid_image_extension(get_extension($image_path)))
-  {
-    return new PwgError(403, "image can't be resized");
-  }
-
-  $result = false;
-  prepare_directory(dirname($thumb_path));
-  $img = new pwg_image($image_path, $params['library']);
-
-  if (!is_bool($params['crop']))
-    $params['crop'] = get_boolean($params['crop']);
-  if (!is_bool($params['follow_orientation']))
-    $params['follow_orientation'] = get_boolean($params['follow_orientation']);
-
-  $result =  $img->pwg_resize(
-    $thumb_path,
-    $params['maxwidth'],
-    $params['maxheight'],
-    $params['quality'],
-    false, // automatic rotation is not needed for thumbnails.
-    true, // strip metadata
-    $params['crop'],
-    $params['follow_orientation']
-  );
-
-  $img->destroy();
-  return $result;
-}
-
-function ws_images_resizewebsize($params, &$service)
-{
-  if (!is_admin())
-  {
-    return new PwgError(401, 'Access denied');
-  }
-
-  include_once(PHPWG_ROOT_PATH.'include/functions_picture.inc.php');
-  include_once(PHPWG_ROOT_PATH.'admin/include/functions_upload.inc.php');
-  include_once(PHPWG_ROOT_PATH.'admin/include/image.class.php');
-
-  $query='
-SELECT id, path, tn_ext, has_high, width, height
-  FROM '.IMAGES_TABLE.'
-  WHERE id = '.(int)$params['image_id'].'
-;';
-  $image = pwg_db_fetch_assoc(pwg_query($query));
-
-  if ($image == null)
-  {
-    return new PwgError(403, "image_id not found");
-  }
-
-  $image_path = $image['path'];
-
-  if (!is_valid_image_extension(get_extension($image_path)))
-  {
-    return new PwgError(403, "image can't be resized");
-  }
-
-  $hd_path = get_high_path($image);
-
-  if (empty($image['has_high']) or !file_exists($hd_path))
-  {
-    if ($image['width'] > $params['maxwidth'] or $image['height'] > $params['maxheight'])
-    {
-      $hd_path = file_path_for_type($image_path, 'high');
-      $hd_dir = dirname($hd_path);
-      prepare_directory($hd_dir);
-
-      rename($image_path, $hd_path);
-      $hd_infos = pwg_image_infos($hd_path);
-
-      single_update(
-        IMAGES_TABLE,
-        array(
-          'has_high' => 'true',
-          'high_filesize' => $hd_infos['filesize'],
-          'high_width' => $hd_infos['width'],
-          'high_height' => $hd_infos['height'],
-          ),
-        array(
-          'id' => $image['id']
-          )
-        );
-    }
-    else
-    {
-      return new PwgError(403, "image can't be resized");
-    }
-  }
-
-  $result = false;
-  $img = new pwg_image($hd_path, $params['library']);
-
-  $result = $img->pwg_resize(
-    $image_path,
-    $params['maxwidth'],
-    $params['maxheight'],
-    $params['quality'],
-    $params['automatic_rotation'],
-    false // strip metadata
-    );
-
-  $img->destroy();
-
-  global $conf;
-  $conf['use_exif'] = false;
-  $conf['use_iptc'] = false;
-  sync_metadata(array($image['id']));
-
-  return $result;
 }
 
 function ws_extensions_update($params, &$service)

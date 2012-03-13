@@ -89,6 +89,7 @@ function ws_addDefaultMethods( $arr )
   $service->addMethod('pwg.getMissingDerivatives', 'ws_getMissingDerivatives',
       array(
         'types' => array( 'default'=>array(), 'flags'=>WS_PARAM_FORCE_ARRAY),
+        'ids' => array( 'default'=>array(), 'flags'=>WS_PARAM_FORCE_ARRAY),
         'max_urls' => array( 'default' => 200 ),
         'prev_page' => array( 'default'=> null),
         'f_min_rate' => array( 'default'=> null ),
@@ -457,37 +458,6 @@ function ws_addDefaultMethods( $arr )
       ),
     'activate/deactivate/delete/set_default a theme<br>administration status required'
     );
-
-  $service->addMethod(
-    'pwg.images.resizeThumbnail',
-    'ws_images_resizethumbnail',
-    array(
-      'image_id' => array('default' => null),
-      'image_path' => array('default' => null),
-      'maxwidth' => array('default' => $conf['upload_form_thumb_maxwidth']),
-      'maxheight' => array('default' => $conf['upload_form_thumb_maxheight']),
-      'quality' => array('default' => $conf['upload_form_thumb_quality']),
-      'crop' => array('default' => $conf['upload_form_thumb_crop']),
-      'follow_orientation' => array('default' => $conf['upload_form_thumb_follow_orientation']),
-      'library' => array('default' => $conf['graphics_library']),
-    ),
-    'Create/Regenerate thumbnails photo with given arguments.
-<br>One of arguments "image_id" or "image_path" must be sent.'
-  );
-
-  $service->addMethod(
-    'pwg.images.resizeWebsize',
-    'ws_images_resizewebsize',
-    array(
-      'image_id' => array(),
-      'maxwidth' => array('default' => $conf['upload_form_websize_maxwidth']),
-      'maxheight' => array('default' => $conf['upload_form_websize_maxheight']),
-      'quality' => array('default' => $conf['upload_form_websize_quality']),
-      'automatic_rotation' => array('default' => $conf['upload_form_automatic_rotation']),
-      'library' => array('default' => $conf['graphics_library']),
-    ),
-    'Regenerate websize photo with given arguments.'
-  );
 
   $service->addMethod(
     'pwg.extensions.update',

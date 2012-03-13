@@ -78,8 +78,6 @@ $lang['%s has been successfully updated.'] = "%s has been successfully updated."
 $lang['%s must be to set to false in your local/config/config.inc.php file'] = "%s must be set to false in your local/config/config.inc.php file";
 $lang['%s photos can not be regenerated'] = '%s photos can not be regenerated';
 $lang['%s photos have been regenerated'] = '%s photos have been regenerated';
-$lang['%s thumbnails can not be regenerated'] = '%s thumbnails can not be regenerated';
-$lang['%s thumbnails have been regenerated'] = '%s thumbnails have been regenerated';
 $lang['%s value is not correct file because exif are not supported'] = "%s value is incorrect because exif are not supported";
 $lang['(this tag will be deleted)'] = '(this tag will be deleted)';
 $lang['+ Add an upload box'] = '+ Add an upload box';
@@ -572,8 +570,6 @@ $lang['Read Piwigo Documentation'] = 'Read Piwigo Documentation';
 $lang['reduce to single existing albums'] = "reduce to single existing albums";
 $lang['Refresh photo set'] = 'Refresh photo set';
 $lang['Refresh'] = "Refresh";
-$lang['Regenerate Thumbnails'] = 'Regenerate Thumbnails';
-$lang['Regenerate Websize Photos'] = 'Regenerate Websize Photos';
 $lang['registration date'] = "registration date";
 $lang['Reinitialize check integrity'] = "Reinitialize integrity check";
 $lang['Reject'] = "Reject";
@@ -866,4 +862,6 @@ $lang['Aperture is designed for professional photographers with iPhoto simplicit
 $lang['The Piwigo export plugin allows you to create albums and export photos.'] = 'The Piwigo export plugin allows you to create albums and export photos.';
 $lang['ReGalAndroid (RemoteGallery client for Android) is an open source (GPL v3) Piwigo client for the Android platform.'] = 'ReGalAndroid (RemoteGallery client for Android) is an open source (GPL v3) Piwigo client for the Android platform.';
 $lang['Features include gallery browsing, album creation and photo upload.'] = 'Features include gallery browsing, album creation and photo upload.';
+$lang['Generate multiple size images']='Generate multiple size images';
+$lang['Delete multiple size images']='Delete multiple size images';
 ?>

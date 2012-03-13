@@ -411,39 +411,28 @@ DELETE
       );
   }
 
-  if ('regenerateThumbnails' == $action)
+  if ('delete_derivatives' == $action)
   {
-    if ($_POST['regenerateSuccess'] != '0')
-      array_push($page['infos'], sprintf(l10n('%s thumbnails have been regenerated'), $_POST['regenerateSuccess']));
-
-    if ($_POST['regenerateError'] != '0')
-      array_push($page['warnings'], sprintf(l10n('%s thumbnails can not be regenerated'), $_POST['regenerateError']));
-
-    $update_fields = array('thumb_maxwidth', 'thumb_maxheight', 'thumb_quality', 'thumb_crop', 'thumb_follow_orientation');
-  }
-
-  if ('regenerateWebsize' == $action)
-  {
-    if ($_POST['regenerateSuccess'] != '0')
-      array_push($page['infos'], sprintf(l10n('%s photos have been regenerated'), $_POST['regenerateSuccess']));
-
-    if ($_POST['regenerateError'] != '0')
-      array_push($page['warnings'], sprintf(l10n('%s photos can not be regenerated'), $_POST['regenerateError']));
-
-    $update_fields = array('websize_maxwidth', 'websize_maxheight', 'websize_quality');
-  }
-
-  if (!empty($update_fields))
-  {
-    // Update upload configuration
-    $updates = array();
-    foreach ($update_fields as $field)
+    $query='SELECT path,representative_ext FROM '.IMAGES_TABLE.'
+  WHERE id IN ('.implode(',', $collection).')';
+    $result = pwg_query($query);
+    while ($info = pwg_db_fetch_assoc($result))
     {
-      $value = !empty($_POST[$field]) ? $_POST[$field] : null;
-      $form_values[$field] = $value;
-      $updates[$field] = $value;
+      foreach( $_POST['del_derivatives_type'] as $type)
+      {
+        delete_element_derivatives($info, $type);
+      }
     }
-    save_upload_form_config($updates);
+  }
+
+  if ('generate_derivatives' == $action)
+  {
+    if ($_POST['regenerateSuccess'] != '0')
+      array_push($page['infos'], sprintf(l10n('%s photos were generated'), $_POST['regenerateSuccess']));
+
+    if ($_POST['regenerateError'] != '0')
+      array_push($page['warnings'], sprintf(l10n('%s photos were not generated'), $_POST['regenerateError']));
+
   }
 
   trigger_action('element_set_global_action', $action, $collection);
@@ -672,6 +661,19 @@ $template->assign(
     )
   );
 
+//derivatives
+$del_deriv_map = array();
+foreach(ImageStdParams::get_defined_type_map() as $params)
+{
+  $del_deriv_map[$params->type] = l10n($params->type);
+}
+$template->assign(
+    array(
+      'del_derivatives_types' => $del_deriv_map,
+      'generate_derivatives_types' => $del_deriv_map,
+    )
+  );
+
 // +-----------------------------------------------------------------------+
 // |                        global mode thumbnails                         |
 // +-----------------------------------------------------------------------+
@@ -756,7 +758,7 @@ SELECT id,path,representative_ext,file,filesize,level,name
   while ($row = pwg_db_fetch_assoc($result))
   {
     $nb_thumbs_page++;
-    $src = DerivativeImage::thumb_url($row);
+    $src_image = new SrcImage($row);
 
     $title = render_element_name($row);
     if ($title != get_name_from_file($row['file']))
@@ -768,11 +770,11 @@ SELECT id,path,representative_ext,file,filesize,level,name
       'thumbnails',
       array(
         'ID' => $row['id'],
-        'TN_SRC' => $src,
+        'TN_SRC' => DerivativeImage::url(IMG_THUMB, $src_image),
         'FILE' => $row['file'],
         'TITLE' => $title,
         'LEVEL' => $row['level'],
-        'FILE_SRC' => $row['path'],
+        'FILE_SRC' => DerivativeImage::url(IMG_LARGE, $src_image),
         'U_EDIT' => get_root_url().'admin.php?page=photo-'.$row['id'],
         )
       );

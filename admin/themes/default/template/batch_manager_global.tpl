@@ -94,14 +94,13 @@ jQuery(document).ready(function() {ldelim}
 var nb_thumbs_page = {$nb_thumbs_page};
 var nb_thumbs_set = {$nb_thumbs_set};
 var applyOnDetails_pattern = "{'on the %d selected photos'|@translate}";
-var elements = new Array();
+var elements = [];
 var all_elements = [{if !empty($all_elements)}{','|@implode:$all_elements}{/if}];
+var generate_derivatives_done=false;
 
 var selectedMessage_pattern = "{'%d of %d photos selected'|@translate}";
 var selectedMessage_none = "{'No photo selected, %d photos in current set'|@translate}";
 var selectedMessage_all = "{'All %d photos are selected'|@translate}";
-var regenerateThumbnailsMessage = "{'Thumbnails generation in progress...'|@translate}";
-var regenerateWebsizeMessage = "{'Photos generation in progress...'|@translate}";
 
 var width_str = '{'Width'|@translate}';
 var height_str = '{'Height'|@translate}';
@@ -162,12 +161,16 @@ function progress(val, max, success) {
     boxImage: 'themes/default/images/progressbar.gif',
     barImage: 'themes/default/images/progressbg_orange.gif'
   });
-  type = success ? 'regenerateSuccess': 'regenerateError'
-  s = jQuery('[name="'+type+'"]').val();
-  jQuery('[name="'+type+'"]').val(++s);
+	if (success !== undefined) {
+		var type = success ? 'regenerateSuccess': 'regenerateError',
+			s = jQuery('[name="'+type+'"]').val();
+		jQuery('[name="'+type+'"]').val(++s);
+	}
 
-  if (val == max)
-    jQuery('#applyAction').click();
+	if (val == max) {
+		generate_derivatives_done = true;
+		jQuery('#applyAction').click();
+	}
 }
 
 $(document).ready(function() {
@@ -402,112 +405,97 @@ $(document).ready(function() {
   });
 
   jQuery('#applyAction').click(function() {
-    if (elements.length != 0)
-    {
-      return true;
-    }
-    else if (jQuery('[name="selectAction"]').val() == 'regenerateThumbnails')
-    {
-      resizeMethod = 'pwg.images.resizeThumbnail';
-      maxRequests = 3;
-      maxwidth = jQuery('input[name="thumb_maxwidth"]').val();
-      maxheight = jQuery('input[name="thumb_maxheight"]').val();
-      regenerationText = regenerateThumbnailsMessage;
-      crop = jQuery('input[name="thumb_crop"]').is(':checked');
-      follow_orientation = jQuery('input[name="thumb_follow_orientation"]').is(':checked');
-    }
-    else if(jQuery('[name="selectAction"]').val() == 'regenerateWebsize')
-    {
-      resizeMethod = 'pwg.images.resizeWebsize';
-      maxRequests = 1;
-      maxwidth = jQuery('input[name="websize_maxwidth"]').val();
-      maxheight = jQuery('input[name="websize_maxheight"]').val();
-      regenerationText = regenerateWebsizeMessage;
-      crop = false;
-      follow_orientation = false;
-    }
-    else return true;
+		if (jQuery('[name="selectAction"]').val() != 'generate_derivatives')
+		{
+			return true;
+		}
+		if (generate_derivatives_done)
+		{
+			return true;
+		}
 
-    jQuery('.bulkAction').hide();
-    jQuery('#regenerationText').html(regenerationText);
+		jQuery('.bulkAction').hide();
 
-    var queuedManager = jQuery.manageAjax.create('queued', { 
-      queue: true,  
-      cacheResponse: false,
-      maxRequests: maxRequests
-    });
+		var queuedManager = jQuery.manageAjax.create('queued', { 
+			queue: true,  
+			cacheResponse: false,
+			maxRequests: 1
+		});
 
-    if (jQuery('input[name="setSelected"]').attr('checked'))
-      elements = all_elements;
-    else
-      jQuery('input[name="selection[]"]').each(function() {
-        if (jQuery(this).attr('checked')) {
-          elements.push(jQuery(this).val());
-        }
-      });
+		if (jQuery('input[name="setSelected"]').attr('checked'))
+			elements = all_elements;
+		else
+			jQuery('input[name="selection[]"]').each(function() {
+				if (jQuery(this).attr('checked')) {
+					elements.push(jQuery(this).val());
+				}
+			});
 
-    progressBar_max = elements.length;
-    todo = 0;
+		progressBar_max = 0;
+		todo = 0;
 
-    jQuery('#applyActionBlock').hide();
-    jQuery('select[name="selectAction"]').hide();
-    jQuery('#regenerationMsg').show();
-    
-    jQuery('#progressBar').progressBar(0, {
-      max: progressBar_max,
-      textFormat: 'fraction',
-      boxImage: 'themes/default/images/progressbar.gif',
-      barImage: 'themes/default/images/progressbg_orange.gif'
-    });
+		jQuery('#applyActionBlock').hide();
+		jQuery('select[name="selectAction"]').hide();
+		jQuery('#regenerationMsg').show();
+		
+		jQuery('#progressBar').progressBar(0, {
+			max: progressBar_max,
+			textFormat: 'fraction',
+			boxImage: 'themes/default/images/progressbar.gif',
+			barImage: 'themes/default/images/progressbg_orange.gif'
+		});
 
-    for (i=0;i<elements.length;i++) {
-      queuedManager.add({
-        type: 'GET', 
-        url: 'ws.php', 
-        data: {
-          method: resizeMethod,
-          maxwidth: maxwidth,
-          maxheight: maxheight,
-          crop: crop,
-          follow_orientation: follow_orientation,
-          image_id: elements[i],
-          format: 'json'
-        },
-        dataType: 'json',
-        success: ( function(data) { progress(++todo, progressBar_max, data['result']) }),
-        error: ( function(data) { progress(++todo, progressBar_max, false) })
-      });
-    }
-    return false;
+		getDerivativeUrls();
+		return false;
   });
 
-  function toggleCropFields(prefix) {
-    if (jQuery("#"+prefix+"_crop").is(':checked')) {
-      jQuery("#"+prefix+"_width_th").text(width_str);
-      jQuery("#"+prefix+"_height_th").text(height_str);
-      jQuery("#"+prefix+"_follow_orientation_tr").show();
-    }
-    else {
-      jQuery("#"+prefix+"_width_th").text(max_width_str);
-      jQuery("#"+prefix+"_height_th").text(max_height_str);
-      jQuery("#"+prefix+"_follow_orientation_tr").hide();
-    }
-  }
+	function getDerivativeUrls() {
+		if (elements.length==0)
+			return;
+		var ids = elements.splice(0, 500);
+		var params = {max_urls: 100000, ids: ids, types: []};
+		jQuery("#action_generate_derivatives input").each( function(i, t) {
+			if ($(t).attr("checked"))
+				params.types.push( t.value );
+		} );
 
-  toggleCropFields("thumb");
-  jQuery("#thumb_crop").click(function () {toggleCropFields("thumb")});
+		jQuery.ajax( {
+			type: "POST",
+			url: 'ws.php?format=json&method=pwg.getMissingDerivatives',
+			data: params,
+			dataType: "json",
+			success: function(data) {
+				if (!data.stat || data.stat != "ok") {
+					return;
+				}
+				progressBar_max += data.result.urls.length;
+				progress(todo, progressBar_max);
+				for (var i=0; i < data.result.urls.length; i++) {
+					jQuery.manageAjax.add("queued", {
+						type: 'GET', 
+						url: data.result.urls[i] + "&ajaxload=true", 
+						dataType: 'json',
+						success: ( function(data) { progress(++todo, progressBar_max, true) }),
+						error: ( function(data) { progress(++todo, progressBar_max, false) })
+					});
+				}
+			}
+		} );
+	}
 
   checkPermitAction()
 });
 
 jQuery(window).load(function() {
-  var max_dim = 0;
-  $(".thumbnails img").each(function () {
-    max_dim = Math.max(max_dim, $(this).height(), $(this).width() );
-  });
-  max_dim += 35;
-  $("ul.thumbnails span, ul.thumbnails label").css('width', max_dim+'px').css('height', max_dim+'px');
-  $('ul.thumbnails').enableShiftClick();
+	var max_w=0, max_h=0;
+	$(".thumbnails img").each(function () {
+		max_w = Math.max(max_w, $(this).width() );
+		max_h = Math.max(max_h, $(this).height() );
+	});
+	max_w += 10;
+	max_h += 35;
+	$("ul.thumbnails span, ul.thumbnails label").css('width', max_w+'px').css('height', max_h+'px');
+	$('ul.thumbnails').enableShiftClick();
 });
 {/literal}{/footer_script}
 
@@ -603,33 +591,29 @@ jQuery(window).load(function() {
   </p>
 
     <ul class="thumbnails">
-      {foreach from=$thumbnails item=thumbnail}
-        {if in_array($thumbnail.ID, $selection)}
-          {assign var='isSelected' value=true}
-        {else}
-          {assign var='isSelected' value=false}
-        {/if}
-
-      <li>
-        <span class="wrap1">
-          <label>
-            <span class="wrap2{if $isSelected} thumbSelected{/if}">
-            <div class="actions"><a href="{$thumbnail.FILE_SRC}" class="preview-box">{'Zoom'|@translate}</a> &middot; <a href="{$thumbnail.U_EDIT}" target="_blank">{'Edit'|@translate}</a></div>
-              {if $thumbnail.LEVEL > 0}
-              <em class="levelIndicatorB">{$pwg->l10n($pwg->sprintf('Level %d',$thumbnail.LEVEL))}</em>
-              <em class="levelIndicatorF" title="{'Who can see these photos?'|@translate} : ">{$pwg->l10n($pwg->sprintf('Level %d',$thumbnail.LEVEL))}</em>
-              {/if}
-              <span>
-                <img src="{$thumbnail.TN_SRC}"
-                   alt="{$thumbnail.FILE}"
-                   title="{$thumbnail.TITLE|@escape:'html'}"
-                   class="thumbnail">
-              </span>
-            </span>
-            <input type="checkbox" name="selection[]" value="{$thumbnail.ID}" {if $isSelected}checked="checked"{/if}>
-          </label>
-        </span>
-      </li>
+			{foreach from=$thumbnails item=thumbnail}
+				{if in_array($thumbnail.ID, $selection)}
+					{assign var='isSelected' value=true}
+				{else}
+					{assign var='isSelected' value=false}
+				{/if}
+			<li>
+				<span class="wrap1">
+					<label>
+						<span class="wrap2{if $isSelected} thumbSelected{/if}">
+						<div class="actions"><a href="{$thumbnail.FILE_SRC}" class="preview-box">{'Zoom'|@translate}</a> &middot; <a href="{$thumbnail.U_EDIT}" target="_blank">{'Edit'|@translate}</a></div>
+							{if $thumbnail.LEVEL > 0}
+							<em class="levelIndicatorB">{$pwg->l10n($pwg->sprintf('Level %d',$thumbnail.LEVEL))}</em>
+							<em class="levelIndicatorF" title="{'Who can see these photos?'|@translate} : ">{$pwg->l10n($pwg->sprintf('Level %d',$thumbnail.LEVEL))}</em>
+							{/if}
+							<span>
+								<img src="{$thumbnail.TN_SRC}" alt="{$thumbnail.FILE}" title="{$thumbnail.TITLE|@escape:'html'}" class="thumbnail">
+							</span>
+						</span>
+						<input type="checkbox" name="selection[]" value="{$thumbnail.ID}" {if $isSelected}checked="checked"{/if}>
+					</label>
+				</span>
+			</li>
       {/foreach}
     </ul>
 
@@ -686,8 +670,8 @@ jQuery(window).load(function() {
   {else}
       <option value="add_to_caddie">{'Add to caddie'|@translate}</option>
   {/if}
-      <option value="regenerateThumbnails">{'Regenerate Thumbnails'|@translate}</option>
-      <option value="regenerateWebsize">{'Regenerate Websize Photos'|@translate}</option>
+		<option value="delete_derivatives">{'Delete multiple size images'|@translate}</option>
+		<option value="generate_derivatives">{'Generate multiple size images'|@translate}</option>
   {if !empty($element_set_global_plugins_actions)}
     {foreach from=$element_set_global_plugins_actions item=action}
       <option value="{$action.ID}">{$action.NAME}</option>
@@ -784,59 +768,45 @@ jQuery(window).load(function() {
     <div id="action_metadata" class="bulkAction">
     </div>
 
-    <!-- regenerate thumbnails -->
-    <div id="action_regenerateThumbnails" class="bulkAction">
-      <table style="margin-left:20px;">
-        <tr>
-          <th><label for="thumb_crop">{'Crop'|@translate}</label></th>
-          <td><input type="checkbox" name="thumb_crop" id="thumb_crop" {if $upload_form_settings.thumb_crop}checked="checked"{/if}></td>
-        </tr>
-        <tr id="thumb_follow_orientation_tr">
-          <th><label for="thumb_follow_orientation">{'Follow Orientation'|@translate}</label></th>
-          <td><input type="checkbox" name="thumb_follow_orientation" id="thumb_follow_orientation" {if $upload_form_settings.thumb_follow_orientation}checked="checked"{/if}></td>
-        </tr>
-        <tr>
-          <th id="thumb_width_th">{'Maximum Width'|@translate}</th>
-          <td><input type="text" name="thumb_maxwidth" value="{$upload_form_settings.thumb_maxwidth}" size="4" maxlength="4"> {'pixels'|@translate}</td>
-        </tr>
-        <tr>
-          <th id="thumb_height_th">{'Maximum Height'|@translate}</th>
-          <td><input type="text" name="thumb_maxheight" value="{$upload_form_settings.thumb_maxheight}" size="4" maxlength="4"> {'pixels'|@translate}</td>
-        </tr>
-        <tr>
-          <th>{'Image Quality'|@translate}</th>
-          <td><input type="text" name="thumb_quality" value="{$upload_form_settings.thumb_quality}" size="3" maxlength="3"> %</td>
-        </tr>
-      </table>
-    </div>
+		<!-- generate derivatives -->
+		<div id="action_generate_derivatives" class="bulkAction">
+			<a href="javascript:selectGenerateDerivAll()">{'All'|@translate}</a>,
+			<a href="javascript:selectGenerateDerivNone()">{'None'|@translate}</a>
+			<br>
+			{foreach from=$generate_derivatives_types key=type item=disp}
+				<label><input type="checkbox" name="generate_derivatives_type[]" value="{$type}"> {$disp}</label>
+			{/foreach}
+			{footer_script}
+			function selectGenerateDerivAll() {ldelim}
+				$("#action_generate_derivatives input[type=checkbox]").attr("checked", true);
+			}
+			function selectGenerateDerivNone() {ldelim}
+				$("#action_generate_derivatives input[type=checkbox]").attr("checked", false);
+			}
+			{/footer_script}
+		</div>
 
-    <!-- regenerate websize -->
-    <div id="action_regenerateWebsize" class="bulkAction">
-      <p>
-        <img src="admin/themes/default/icon/warning.png" alt="!" style="vertical-align:middle;">
-        {'By default, Piwigo will create a new websize from the HD (high definition) version of your photo.'|@translate}
-        {'If no HD is available and if the current websize is bigger than resize dimensions, Piwigo will move it as HD and create a downsized websize photo from it.'|@translate}
-      </p>
-
-      <table style="margin:10px 20px;">
-        <tr>
-          <th>{'Maximum Width'|@translate}</th>
-          <td><input type="text" name="websize_maxwidth" value="{$upload_form_settings.websize_maxwidth}" size="4" maxlength="4"> {'pixels'|@translate}</td>
-        </tr>
-        <tr>
-          <th>{'Maximum Height'|@translate}</th>
-          <td><input type="text" name="websize_maxheight" value="{$upload_form_settings.websize_maxheight}" size="4" maxlength="4"> {'pixels'|@translate}</td>
-        </tr>
-        <tr>
-          <th>{'Image Quality'|@translate}</th>
-          <td><input type="text" name="websize_quality" value="{$upload_form_settings.websize_quality}" size="3" maxlength="3"> %</td>
-        </tr>
-      </table>
-    </div>
-
+		<!-- delete derivatives -->
+		<div id="action_delete_derivatives" class="bulkAction">
+			<a href="javascript:selectDelDerivAll()">{'All'|@translate}</a>,
+			<a href="javascript:selectDelDerivNone()">{'None'|@translate}</a>
+			<br>
+			{foreach from=$del_derivatives_types key=type item=disp}
+				<label><input type="checkbox" name="del_derivatives_type[]" value="{$type}"> {$disp}</label>
+			{/foreach}
+			{footer_script}
+			function selectDelDerivAll() {ldelim}
+				$("#action_delete_derivatives input[type=checkbox]").attr("checked", true);
+			}
+			function selectDelDerivNone() {ldelim}
+				$("#action_delete_derivatives input[type=checkbox]").attr("checked", false);
+			}
+			{/footer_script}
+		</div>
+		
     <!-- progress bar -->
-    <div id="regenerationMsg" class="bulkAction">
-      <p id="regenerationText" style="margin-bottom:10px;"></p>
+    <div id="regenerationMsg" class="bulkAction" style="display:none">
+      <p id="regenerationText" style="margin-bottom:10px;">{'Generate multiple size images'|@translate}</p>
       <span class="progressBar" id="progressBar"></span>
       <input type="hidden" name="regenerateSuccess" value="0">
       <input type="hidden" name="regenerateError" value="0">
