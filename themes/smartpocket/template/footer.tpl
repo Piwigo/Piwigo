@@ -14,6 +14,9 @@
   </h6>
 </div>
 {/if}
+{footer_script require='jquery'}
+document.cookie = 'screen_size='+jQuery(document).width()+'x'+jQuery(document).height()+';path={$COOKIE_PATH}';
+{/footer_script}
 {get_combined_scripts load='footer'}
 </div><!-- /page -->
 

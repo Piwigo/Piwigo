@@ -5,21 +5,18 @@
 {combine_script id='jquery.ajaxmanager' path='themes/default/js/plugins/jquery.ajaxmanager.js' load='footer'}
 {combine_script id='thumbnails.loader' path='themes/default/js/thumbnails.loader.js' require='jquery.ajaxmanager' load='footer'}
 
-{define_derivative name='derivative_params_square' type='square'}
-{define_derivative name='derivative_params_large' type='large'}
-
 <ul class="thumbnails">
 {foreach from=$thumbnails item=thumbnail}{strip}
-{assign var=derivative value=$pwg->derivative($derivative_params_square, $thumbnail.src_image)}
+{assign var=derivative value=$pwg->derivative($thumbnail_derivative_params, $thumbnail.src_image)}
 {if isset($page_selection[$thumbnail.id])}
   <li>
-    <a href="{$pwg->derivative_url($derivative_params_large, $thumbnail.src_image)}" rel="external">
+    <a href="{$pwg->derivative_url($picture_derivative_params, $thumbnail.src_image)}" rel="external">
      <img {if !$derivative->is_cached()}data-{/if}src="{$derivative->get_url()}" alt="{$thumbnail.TN_ALT}">
     </a>
   </li>
 {else}
   <li style="display:none;">
-    <a href="{$pwg->derivative_url($derivative_params_large, $thumbnail.src_image)}" rel="external"></a>
+    <a href="{$pwg->derivative_url($picture_derivative_params, $thumbnail.src_image)}" rel="external"></a>
   </li>
 {/if}
 {/strip}{/foreach}
