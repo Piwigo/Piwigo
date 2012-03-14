@@ -380,8 +380,11 @@ $lang['Here are your connection settings'] = 'Aqui estão suas configurações d
 $lang['Password: %s'] = 'Senha: %s';
 $lang['Username: %s'] = 'Nome de usuário: %s';
 $lang['If you think you\'ve received this email in error, please contact us at %s'] = 'Se você acha que recebeu este e-mail por engano, por favor contacte-nos em %s';
-$lang['old → new'] = 'antiga → nova';
-$lang['new → old'] = 'nova → antiga';
 $lang['Photo sizes'] = 'Tamanhos da fotografia';
+$lang['Show oldest comments first'] = 'Mostrar comentários mais antigos primeiro';
+$lang['Show latest comments first'] = 'Mostrar comentários mais recentes primeiro';
+$lang['View in'] = 'Visualizar em';
+$lang['Mobile'] = 'Móvel';
+$lang['Desktop'] = 'Área de Trabalho'; 
 
 ?>
