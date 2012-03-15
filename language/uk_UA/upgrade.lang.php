@@ -25,7 +25,7 @@ $lang['As a precaution, following plugins have been deactivated. You must check 
 $lang['As a precaution, following themes have been deactivated. You must check for themes upgrade before reactiving them:'] = 'В якості запобіжного заходу, теми вони були відключені. Ви повинні перевірити оновлення перед тим як активуєте їх:';
 $lang['In <i>%s</i>, before <b></b>, insert:'] = 'В <i>%s</i>, до <b></b>, вставити:';
 $lang['Only administrator can run upgrade: please sign in below.'] = 'Тільки адміністратор може запустити оновлення: увійдіть у систему нижче.';
-$lang['Only thumbnails prefix and webmaster mail address have been saved from previous configuration'] = 'Тільки префікс ескізів та адресу електронної пошти веб-майстра збережено збережено від попередньої конфігурації';
+$lang['Only thumbnails prefix and webmaster mail address have been saved from previous configuration'] = 'Тільки префікс мініатюр та адресу електронної пошти веб-майстра збережено збережено від попередньої конфігурації';
 $lang['Perform a maintenance check in [Administration>Tools>Maintenance] if you encounter any problem.'] = 'Їх виконає автоматична перевірка в [Адміністрування> Сервіс> Обслуговування], якщо у вас виникнуть якісь проблеми.';
 $lang['SQL queries'] = 'SQL запитів';
 $lang['Statistics'] = 'Статистика';
