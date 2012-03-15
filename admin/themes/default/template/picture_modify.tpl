@@ -79,7 +79,7 @@ pwg_initialization_datepicker("#date_creation_day", "#date_creation_month", "#da
     <p>
       <strong>{'Title'|@translate}</strong>
       <br>
-      <input type="text" class="large" name="name" value="{$NAME}">
+      <input type="text" class="large" name="name" value="{$NAME|@escape}">
     </p>
 
     <p>
