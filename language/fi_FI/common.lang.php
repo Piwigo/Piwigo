@@ -114,7 +114,7 @@ $lang['guest'] = 'vieras';
 $lang['Hello'] = 'Hei';
 $lang['Home'] = 'Etusivu';
 $lang['Search'] = 'Etsi';
-$lang['search'] = 'etsi';
+$lang['search'] = 'Tarkka haku';
 $lang['Sent by'] = 'Lähettäjä';
 
 
