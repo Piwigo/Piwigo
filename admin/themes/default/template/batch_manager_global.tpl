@@ -94,9 +94,16 @@ jQuery(document).ready(function() {ldelim}
 var nb_thumbs_page = {$nb_thumbs_page};
 var nb_thumbs_set = {$nb_thumbs_set};
 var applyOnDetails_pattern = "{'on the %d selected photos'|@translate}";
-var elements = [];
 var all_elements = [{if !empty($all_elements)}{','|@implode:$all_elements}{/if}];
-var generate_derivatives_done=false;
+var derivatives = {ldelim}
+	elements: null,
+	done: 0,
+	total: 0,
+	
+	finished: function() {ldelim}
+		return derivatives.done == derivatives.total && derivatives.elements && derivatives.elements.length==0;
+	}
+};
 
 var selectedMessage_pattern = "{'%d of %d photos selected'|@translate}";
 var selectedMessage_none = "{'No photo selected, %d photos in current set'|@translate}";
@@ -154,9 +161,9 @@ function sprintf() {
         return o.join('');
 }
 
-function progress(val, max, success) {
-  jQuery('#progressBar').progressBar(val, {
-    max: max,
+function progress(success) {
+  jQuery('#progressBar').progressBar(derivatives.done, {
+    max: derivatives.total,
     textFormat: 'fraction',
     boxImage: 'themes/default/images/progressbar.gif',
     barImage: 'themes/default/images/progressbg_orange.gif'
@@ -167,8 +174,7 @@ function progress(val, max, success) {
 		jQuery('[name="'+type+'"]').val(++s);
 	}
 
-	if (val == max) {
-		generate_derivatives_done = true;
+	if (derivatives.finished()) {
 		jQuery('#applyAction').click();
 	}
 }
@@ -405,11 +411,8 @@ $(document).ready(function() {
   });
 
   jQuery('#applyAction').click(function() {
-		if (jQuery('[name="selectAction"]').val() != 'generate_derivatives')
-		{
-			return true;
-		}
-		if (generate_derivatives_done)
+		if (jQuery('[name="selectAction"]').val() != 'generate_derivatives'
+			|| derivatives.finished() )
 		{
 			return true;
 		}
@@ -422,37 +425,27 @@ $(document).ready(function() {
 			maxRequests: 1
 		});
 
+		derivatives.elements = [];
 		if (jQuery('input[name="setSelected"]').attr('checked'))
-			elements = all_elements;
+			derivatives.elements = all_elements;
 		else
 			jQuery('input[name="selection[]"]').each(function() {
 				if (jQuery(this).attr('checked')) {
-					elements.push(jQuery(this).val());
+					derivatives.elements.push(jQuery(this).val());
 				}
 			});
-
-		progressBar_max = 0;
-		todo = 0;
 
 		jQuery('#applyActionBlock').hide();
 		jQuery('select[name="selectAction"]').hide();
 		jQuery('#regenerationMsg').show();
 		
-		jQuery('#progressBar').progressBar(0, {
-			max: progressBar_max,
-			textFormat: 'fraction',
-			boxImage: 'themes/default/images/progressbar.gif',
-			barImage: 'themes/default/images/progressbg_orange.gif'
-		});
-
+		progress();
 		getDerivativeUrls();
 		return false;
   });
 
 	function getDerivativeUrls() {
-		if (elements.length==0)
-			return;
-		var ids = elements.splice(0, 500);
+		var ids = derivatives.elements.splice(0, 500);
 		var params = {max_urls: 100000, ids: ids, types: []};
 		jQuery("#action_generate_derivatives input").each( function(i, t) {
 			if ($(t).attr("checked"))
@@ -468,17 +461,19 @@ $(document).ready(function() {
 				if (!data.stat || data.stat != "ok") {
 					return;
 				}
-				progressBar_max += data.result.urls.length;
-				progress(todo, progressBar_max);
+				derivatives.total += data.result.urls.length;
+				progress();
 				for (var i=0; i < data.result.urls.length; i++) {
 					jQuery.manageAjax.add("queued", {
 						type: 'GET', 
 						url: data.result.urls[i] + "&ajaxload=true", 
 						dataType: 'json',
-						success: ( function(data) { progress(++todo, progressBar_max, true) }),
-						error: ( function(data) { progress(++todo, progressBar_max, false) })
+						success: ( function(data) { derivatives.done++; progress(true) }),
+						error: ( function(data) { derivatives.done++; progress(false) })
 					});
 				}
+				if (derivatives.elements.length)
+					setTimeout( getDerivativeUrls, 25 * (derivatives.total-derivatives.done));
 			}
 		} );
 	}
@@ -642,8 +637,8 @@ jQuery(window).load(function() {
   <fieldset id="action">
 
     <legend>{'Action'|@translate}</legend>
-      <div id="forbidAction"{if count($selection) != 0}style="display:none"{/if}>{'No photo selected, no action possible.'|@translate}</div>
-      <div id="permitAction"{if count($selection) == 0}style="display:none"{/if}>
+      <div id="forbidAction"{if count($selection) != 0} style="display:none"{/if}>{'No photo selected, no action possible.'|@translate}</div>
+      <div id="permitAction"{if count($selection) == 0} style="display:none"{/if}>
 
     <select name="selectAction">
       <option value="-1">{'Choose an action'|@translate}</option>
