@@ -384,4 +384,9 @@ $lang['xlarge'] = '很大尺寸';
 $lang['xxlarge'] = '非常大尺寸';
 $lang['Your username has been successfully changed to : %s'] = '您的用户名成功修改为：%s';
 $lang['Photo sizes'] = '';
+$lang['Desktop'] = '桌面版';
+$lang['Mobile'] = '手机版';
+$lang['Show latest comments first'] = '先显示新评论';
+$lang['Show oldest comments first'] = '先显示旧评论';
+$lang['View in'] = '查看';
 ?>
