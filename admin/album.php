@@ -43,6 +43,11 @@ SELECT *
 ;';
 $category = pwg_db_fetch_assoc(pwg_query($query));
 
+if (!isset($category['id']))
+{
+  die("unknown album");
+}
+
 // +-----------------------------------------------------------------------+
 // | Tabs                                                                  |
 // +-----------------------------------------------------------------------+
@@ -59,12 +64,7 @@ if (isset($_GET['tab']))
 $tabsheet = new tabsheet();
 $tabsheet->add('properties', l10n('Properties'), $admin_album_base_url.'-properties');
 $tabsheet->add('sort_order', l10n('Manage photo ranks'), $admin_album_base_url.'-sort_order');
-
-if ('private' == $category['status'])
-{
-  $tabsheet->add('permissions', l10n('Permissions'), $admin_album_base_url.'-permissions');
-}
-
+$tabsheet->add('permissions', l10n('Permissions'), $admin_album_base_url.'-permissions');
 $tabsheet->select($page['tab']);
 $tabsheet->assign();
 

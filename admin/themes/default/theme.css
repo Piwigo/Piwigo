@@ -244,11 +244,6 @@ TABLE.doubleSelect SELECT.categoryList {
 	width: 100%; max-width: 100%; overflow-x: auto;
 }
 
-FORM#categoryPermissions LI {
-	display:inline;
-	white-space: nowrap;
-}
-
 .statBar {
 	height: 10px;
 	background-color: #ff7700;

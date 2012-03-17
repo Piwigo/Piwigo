@@ -144,10 +144,6 @@ if (isset($_POST['submit']))
   {
     set_cat_visible(array($_GET['cat_id']), $_POST['visible']);
   }
-  if ($cat_info['status'] != $_POST['status'] )
-  {
-    set_cat_status(array($_GET['cat_id']), $_POST['status']);
-  }
 
   // in case the use moves his album to the gallery root, we force
   // $_POST['parent'] from 0 to null to be compared with
@@ -163,10 +159,7 @@ if (isset($_POST['submit']))
     move_categories( array($_GET['cat_id']), $_POST['parent'] );
   }
 
-  // we redirect to hide/show the "permissions" tab if the category status
-  // has changed
-  $_SESSION['page_infos'] = array(l10n('Album updated successfully'));
-  redirect($admin_album_base_url);
+  array_push($page['infos'], l10n('Album updated successfully'));
 }
 elseif (isset($_POST['set_random_representant']))
 {
@@ -226,10 +219,6 @@ $template->assign(
     'CAT_ID'             => $category['id'],
     'CAT_NAME'           => @htmlspecialchars($category['name']),
     'CAT_COMMENT'        => @htmlspecialchars($category['comment']),
-
-    'status_values'     => array('public','private'),
-
-    'CAT_STATUS'        => $category['status'],
     'CAT_VISIBLE'       => boolean_to_string($category['visible']),
 
     'U_JUMPTO' => make_index_url(

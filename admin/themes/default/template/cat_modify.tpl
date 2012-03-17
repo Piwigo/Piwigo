@@ -81,12 +81,6 @@
 {/if}
 
   <p>
-    <strong>{'Access type'|@translate}</strong>
-    <br>
-    {html_radios name='status' values=$status_values output=$status_values|translate selected=$CAT_STATUS}
-  </p>
-
-  <p>
     <strong>{'Lock'|@translate}</strong>
     <br>
     {html_radios name='visible' values='true,false'|@explode output='No,Yes'|@explode|translate selected=$CAT_VISIBLE}
