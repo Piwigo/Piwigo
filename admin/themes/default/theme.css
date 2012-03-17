@@ -386,7 +386,6 @@ DIV.comment BLOCKQUOTE {
 FIELDSET {
 	padding: 1em;
 	margin: 1em;
-	overflow: hidden; /* <- makes Opera happy */
 }
 
 FORM.filter FIELDSET UL {
