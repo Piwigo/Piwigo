@@ -864,4 +864,13 @@ $lang['ReGalAndroid (RemoteGallery client for Android) is an open source (GPL v3
 $lang['Features include gallery browsing, album creation and photo upload.'] = 'Features include gallery browsing, album creation and photo upload.';
 $lang['Generate multiple size images']='Generate multiple size images';
 $lang['Delete multiple size images']='Delete multiple size images';
+$lang['any visitor can see this album'] = 'any visitor can see this album';
+$lang['visitors need to login and have the appropriate permissions to see this album'] = 'visitors need to login and have the appropriate permissions to see this album';
+$lang['Groups and users'] = 'Groups and users';
+$lang['Permission granted for groups'] = 'Permission granted for groups';
+$lang['Select groups...'] = 'Select groups...';
+$lang['There is no group in this gallery.'] = 'There is no group in this gallery.';
+$lang['Permission granted for users'] = 'Permission granted for users';
+$lang['Select users...'] = 'Select users...';
+$lang['%u users have automatic permission because they belong to a granted group.'] = '%u users have automatic permission because they belong to a granted group.';
 ?>

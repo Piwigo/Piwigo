@@ -280,35 +280,39 @@ SELECT user_id, group_id
   }
 
   $user_granted_by_group_ids = array();
-
+  
   foreach ($granted_groups as $group_users)
   {
-    $user_granted_by_group_ids = array_merge($user_granted_by_group_ids,
-                                             $group_users);
+    $user_granted_by_group_ids = array_merge($user_granted_by_group_ids, $group_users);
   }
+  
   $user_granted_by_group_ids = array_unique($user_granted_by_group_ids);
   
-  
-  $user_granted_indirect_ids = array_diff($user_granted_by_group_ids,
-                                          $user_granted_direct_ids);
-  $user_granted_indirect_ids = 
-    order_by_name($user_granted_indirect_ids, $users);  
-  foreach ($user_granted_indirect_ids as $user_id)
+  $user_granted_indirect_ids = array_diff(
+    $user_granted_by_group_ids,
+    $user_granted_direct_ids
+    );
+
+  $template->assign('nb_users_granted_indirect', count($user_granted_indirect_ids));
+
+  foreach ($granted_groups as $group_id => $group_users)
   {
-    foreach ($granted_groups as $group_id => $group_users)
+    $group_usernames = array();
+    foreach ($group_users as $user_id)
     {
-      if (in_array($user_id, $group_users))
+      if (in_array($user_id, $user_granted_indirect_ids))
       {
-        $template->append(
-          'user_granted_indirects',
-          array(
-            'USER'=>$users[$user_id],
-            'GROUP'=>$groups[$group_id]
-            )
-          );
-        break;
+        array_push($group_usernames, $users[$user_id]);
       }
     }
+
+    $template->append(
+      'user_granted_indirect_groups',
+      array(
+        'group_name' => $groups[$group_id],
+        'group_users' => implode(', ', $group_usernames),
+        )
+      );
   }
 }
 

@@ -879,4 +879,13 @@ $lang['Aperture is designed for professional photographers with iPhoto simplicit
 $lang['The Piwigo export plugin allows you to create albums and export photos.'] = 'Le plugin d\'export Piwigo vous permet de créer des albums et d\'y ajouter vos photos.';
 $lang['ReGalAndroid (RemoteGallery client for Android) is an open source (GPL v3) Piwigo client for the Android platform.'] = 'ReGalAndroid (RemoteGallery Android) est un client libre (GPL v3) pour Piwigo sur Android.';
 $lang['Features include gallery browsing, album creation and photo upload.'] = 'Ses fonctionnalités incluent la navigation sur la galerie, la création d\'albums et l\'ajout de photos.';
+$lang['any visitor can see this album'] = 'n\'importe quel visiteur peut voir cet album';
+$lang['visitors need to login and have the appropriate permissions to see this album'] = 'les visiteurs doivent se connecter et avoir les permissions nécessaires pour voir cet album';
+$lang['Groups and users'] = 'Groupes et utilisateurs';
+$lang['Permission granted for groups'] = 'Permission accordée pour les groupes';
+$lang['Select groups...'] = 'Sélectionnez les groupes...';
+$lang['There is no group in this gallery.'] = 'Il n\'y a pas de groupe dans cette galerie.';
+$lang['Permission granted for users'] = 'Permission accordée pour les utilisateurs';
+$lang['Select users...'] = 'Sélectionnez les utilisateurs...';
+$lang['%u users have automatic permission because they belong to a granted group.'] = '%u utilisateurs ont automatiquement la permission car ils appartiennent à un groupe autorisé.';
 ?>

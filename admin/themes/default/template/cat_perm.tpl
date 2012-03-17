@@ -18,6 +18,20 @@ jQuery(document).ready(function() {
   jQuery("#selectStatus").change(function() {
     checkStatusOptions();
   });
+
+  jQuery("#indirectPermissionsDetailsShow").click(function(){
+    jQuery("#indirectPermissionsDetailsShow").hide();
+    jQuery("#indirectPermissionsDetailsHide").show();
+    jQuery("#indirectPermissionsDetails").show();
+    return false;
+  });
+
+  jQuery("#indirectPermissionsDetailsHide").click(function(){
+    jQuery("#indirectPermissionsDetailsShow").show();
+    jQuery("#indirectPermissionsDetailsHide").hide();
+    jQuery("#indirectPermissionsDetails").hide();
+    return false;
+  });
 });
 {/literal}{/footer_script}
 
@@ -41,11 +55,15 @@ jQuery(document).ready(function() {
   <legend>{'Groups and users'|@translate}</legend>
 
   <p>
+{if count($groups) > 0}
     <strong>{'Permission granted for groups'|@translate}</strong>
     <br>
     <select data-placeholder="{'Select groups...'|@translate}" class="chzn-select" multiple style="width:700px;" name="groups[]">
       {html_options options=$groups selected=$groups_selected}
     </select>
+{else}
+    {'There is no group in this gallery.'|@translate} <a href="admin.php?page=group_list" class="externalLink">{'Group management'|@translate}</a>
+{/if}
   </p>
 
   <p>
@@ -55,6 +73,20 @@ jQuery(document).ready(function() {
       {html_options options=$users selected=$users_selected}
     </select>
   </p>
+
+{if isset($nb_users_granted_indirect)}
+  <p>
+    {'%u users have automatic permission because they belong to a granted group.'|@translate|@sprintf:$nb_users_granted_indirect}
+    <a href="#" id="indirectPermissionsDetailsHide" style="display:none">{'hide details'|@translate}</a>
+    <a href="#" id="indirectPermissionsDetailsShow">{'show details'|@translate}</a>
+
+    <ul id="indirectPermissionsDetails" style="display:none">
+  {foreach from=$user_granted_indirect_groups item=group_details}
+      <li><strong>{$group_details.group_name}</strong> : {$group_details.group_users}</li>
+  {/foreach}
+    </ul>
+  </p>
+{/if}
 
 {*
   <h4>{'Groups'|@translate}</h4>
