@@ -862,4 +862,13 @@ $lang['Shotwell is an open source digital photo organizer that runs on Linux. It
 $lang['The Piwigo export plugin allows you to create albums and export photos.'] = 'El plugin de Piwigo permite crear álbums y exportar fotos.';
 $lang['The Piwigo publish Plug-in allows you to export and synchronize photos from Lightroom directly to your Piwigo photo gallery.'] = 'El plugin de Piwigo te permite exportar y sincronizar fotos de Lightroom directamente con tu galería fotográfica.';
 $lang['To export your photos from digiKam to Piwigo, simply install digiKam and the Kipi-plugins.'] = 'Para exportar tus fotos desde digiKam a Piwigo, simplemente instala digiKam y los Kipi-plugins.';
+$lang['%u users have automatic permission because they belong to a granted group.'] = '&u usuarios tienen permiso automáticamente por pertenecer a grupos.';
+$lang['any visitor can see this album'] = 'cualquier visitante puede ver este álbum';
+$lang['Groups and users'] = 'Grupos y usuarios';
+$lang['Permission granted for groups'] = 'Permisos para grupos';
+$lang['Permission granted for users'] = 'Permisos garantizados para usuarios';
+$lang['Select groups...'] = 'Selecciona grupos';
+$lang['Select users...'] = 'Selecciona usuarios';
+$lang['There is no group in this gallery.'] = 'No hay grupos en esta galería';
+$lang['visitors need to login and have the appropriate permissions to see this album'] = 'los visitantes necesitan iniciar sesión y tener permiso para ver este álbum';
 ?>
