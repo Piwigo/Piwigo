@@ -380,4 +380,13 @@ $lang['View in'] = 'Vezi in';
 $lang['You will receive a link to create a new password via email.'] = 'Vei primi un link pe email pentru a creea o noua parola';
 $lang['Your password has been reset'] = 'Parola ta a fost resetata';
 $lang['Your username has been successfully changed to : %s'] = 'Userul tau a fost schimbat cu succes in:%s';
+$lang['%d rates'] = '%d rating';
+$lang['Desktop'] = 'Prima pagina';
+$lang['EXIF Metadata'] = 'EXIF Metadata';
+$lang['IPTC Metadata'] = 'IPTC Metadata';
+$lang['Rating score'] = 'Scor mediu';
+$lang['thumb'] = 'Thumb';
+$lang['Username "%s" on gallery %s'] = 'User "%s" pe aceasta pagina %s';
+$lang['xlarge'] = 'XLarge';
+$lang['xxlarge'] = 'XXLarge';
 ?>
