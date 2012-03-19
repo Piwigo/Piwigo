@@ -538,10 +538,11 @@ jQuery(window).load(function() {
       <li id="filter_level" {if !isset($filter.level)}style="display:none"{/if}>
         <a href="#" class="removeFilter" title="remove this filter"><span>[x]</span></a>
         <input type="checkbox" name="filter_level_use" class="useFilterCheckbox" {if isset($filter.level)}checked="checked"{/if}>
-        {'Who can see these photos?'|@translate}
+        {'Privacy level'|@translate}
         <select name="filter_level" size="1">
           {html_options options=$filter_level_options selected=$filter_level_options_selected}
         </select>
+        <label><input type="checkbox" name="filter_level_include_lower" {if isset($filter.level_include_lower)}checked="checked"{/if}> {'include photos with lower privacy level'|@translate}</label>
       </li>
     </ul>
 
@@ -552,7 +553,7 @@ jQuery(window).load(function() {
         <option value="filter_prefilter">{'Predefined filter'|@translate}</option>
         <option value="filter_category">{'Album'|@translate}</option>
 				<option value="filter_tags">{'Tags'|@translate}</option>
-        <option value="filter_level">{'Who can see these photos?'|@translate}</option>
+        <option value="filter_level">{'Privacy level'|@translate}</option>
       </select>
 <!--      <input id="removeFilters" class="submit" type="submit" value="Remove all filters" name="removeFilters"> -->
       <a id="removeFilters" href="">{'Remove all filters'|@translate}</a>

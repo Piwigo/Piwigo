@@ -519,15 +519,25 @@ SELECT
 // +-----------------------------------------------------------------------+
 
 // privacy level
+foreach ($conf['available_permission_levels'] as $level)
+{
+  $level_options[$level] = l10n(sprintf('Level %d', $level));
+
+  if (0 == $level)
+  {
+    $level_options[$level] = l10n('Everybody');
+  }
+}
 $template->assign(
-    array(
-      'filter_level_options'=> get_privacy_level_options(),
-      'filter_level_options_selected' => isset($_SESSION['bulk_manager_filter']['level'])
-        ? $_SESSION['bulk_manager_filter']['level']
-        : 0,
+  array(
+    'filter_level_options'=> $level_options,
+    'filter_level_options_selected' => isset($_SESSION['bulk_manager_filter']['level'])
+    ? $_SESSION['bulk_manager_filter']['level']
+    : 0,
     )
   );
 
+// tags
 if (!empty($_SESSION['bulk_manager_filter']['tags']))
 {
   $query = '

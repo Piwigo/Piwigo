@@ -83,6 +83,11 @@ if (isset($_POST['submitFilter']))
     if (in_array($_POST['filter_level'], $conf['available_permission_levels']))
     {
       $_SESSION['bulk_manager_filter']['level'] = $_POST['filter_level'];
+      
+      if (isset($_POST['filter_level_include_lower']))
+      {
+        $_SESSION['bulk_manager_filter']['level_include_lower'] = true;
+      }
     }
   }
 }
@@ -289,10 +294,16 @@ if (isset($_SESSION['bulk_manager_filter']['category']))
 
 if (isset($_SESSION['bulk_manager_filter']['level']))
 {
+  $operator = '=';
+  if (isset($_SESSION['bulk_manager_filter']['level_include_lower']))
+  {
+    $operator = '<=';
+  }
+  
   $query = '
 SELECT id
   FROM '.IMAGES_TABLE.'
-  WHERE level >= '.$_SESSION['bulk_manager_filter']['level'].'
+  WHERE level '.$operator.' '.$_SESSION['bulk_manager_filter']['level'].'
 ;';
   array_push(
     $filter_sets,

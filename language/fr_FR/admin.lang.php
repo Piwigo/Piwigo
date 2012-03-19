@@ -888,4 +888,5 @@ $lang['There is no group in this gallery.'] = 'Il n\'y a pas de groupe dans cett
 $lang['Permission granted for users'] = 'Permission accordée pour les utilisateurs';
 $lang['Select users...'] = 'Sélectionnez les utilisateurs...';
 $lang['%u users have automatic permission because they belong to a granted group.'] = '%u utilisateurs ont automatiquement la permission car ils appartiennent à un groupe autorisé.';
+$lang['include photos with lower privacy level'] = 'inclure les photos d\'un niveau de confidentialité inférieur';
 ?>
