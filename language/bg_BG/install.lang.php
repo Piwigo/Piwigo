@@ -56,4 +56,12 @@ $lang['user login given by your host provider'] = 'потребителско и
 $lang['user password given by your host provider'] = 'парола за достъп до вашия доставчик';
 $lang['Visitors will be able to contact site administrator with this mail'] = 'Потребителите ще могат да използват този имейл за контакт с Администратора на сайта';
 $lang['Webmaster mail address'] = 'Webmaster имейл адрес';
+$lang['Can\'t connect to server'] = 'Невъзможен достъп до сървъра';
+$lang['Connection to server succeed, but it was impossible to connect to database'] = 'Връзката със сървъра е успешна, но достъпа до базата данни е невъзможен';
+$lang['It will be shown to the visitors. It is necessary for website administration'] = 'Това ще е видимо от потребителите. Необходимо е за администриране на сайта';
+$lang['localhost, sql.multimania.com, toto.freesurf.fr'] = 'localhost, sql.multimania.com, toto.freesurf.fr';
+$lang['mail address must be like xxx@yyy.eee (example : jack@altern.org)'] = 'имейл адреса трябва да е като xxx@yyy.eee (example : jack@altern.org)';
+$lang['Need help ? Ask your question on <a href="%s">Piwigo message board</a>.'] = 'Нужна ви е помощ? Задайте вашият въпрос в <a href="%s">Piwigo борда за съобщения</a>.';
+$lang['Note you can change your configuration by yourself and restart Piwigo after that.'] = 'Вие може да промените конфигурацията и сами и да рестартирате Piwigo след това.';
+$lang['Webmaster login'] = 'Webmaster вход';
 ?>
