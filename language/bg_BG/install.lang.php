@@ -45,4 +45,15 @@ $lang['You can download the config file and upload it to local/config directory 
 $lang['PHP 5 is required'] = 'Изисква се инсталиран PHP 5';
 $lang['Start Install'] = 'Стартиране на инсталацията';
 $lang['Piwigo was not able to configure PHP 5.'] = 'Piwigo не успя да конфигурира PHP5';
+$lang['Admin configuration'] = 'Администратор настройки';
+$lang['Congratulations, Piwigo installation is completed'] = 'Поздравления, Piwigo е инсталиран успешно';
+$lang['Database table prefix'] = 'Прифкс на базата с данни';
+$lang['Hope to see you back soon.'] = 'Надяваме се да се видим скоро';
+$lang['Host'] = 'Доставчик';
+$lang['Sorry!'] = 'Съжаляваме!';
+$lang['Try to configure PHP 5'] = 'Опитайте да настройте PHP 5';
+$lang['user login given by your host provider'] = 'потребителско име за достъп до вашия доставчик';
+$lang['user password given by your host provider'] = 'парола за достъп до вашия доставчик';
+$lang['Visitors will be able to contact site administrator with this mail'] = 'Потребителите ще могат да използват този имейл за контакт с Администратора на сайта';
+$lang['Webmaster mail address'] = 'Webmaster имейл адрес';
 ?>
