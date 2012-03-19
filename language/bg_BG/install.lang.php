@@ -64,4 +64,9 @@ $lang['mail address must be like xxx@yyy.eee (example : jack@altern.org)'] = 'и
 $lang['Need help ? Ask your question on <a href="%s">Piwigo message board</a>.'] = 'Нужна ви е помощ? Задайте вашият въпрос в <a href="%s">Piwigo борда за съобщения</a>.';
 $lang['Note you can change your configuration by yourself and restart Piwigo after that.'] = 'Вие може да промените конфигурацията и сами и да рестартирате Piwigo след това.';
 $lang['Webmaster login'] = 'Webmaster вход';
+$lang['An alternate solution is to copy the text in the box above and paste it into the file "local/config/database.inc.php" (Warning : database.inc.php must only contain what is in the textarea, no line return or space character)'] = 'Алтернативно решение е да копирате текста от кутията горе и да го добавите ръчно във файла "local/config/database.inc.php" (ВНИМАНИЕ: database.inc.php трябва да съдържа само това от текстовото поле, без празни знаци)';
+$lang['Creation of config file local/config/database.inc.php failed.'] = 'Създаването на конфигурационен файл local/config/database.inc.php е неуспещно.';
+$lang['It appears your webhost is currently running PHP %s.'] = 'Изглежда вашият уеб хост се изпълнява в PHP %s';
+$lang['Piwigo may try to switch your configuration to PHP 5 by creating or modifying a .htaccess file.'] = 'Piwigo може да се опита да превключите вашата конфигурация на PHP 5 като създаде или промени .htaccess файла.';
+$lang['You may referer to your hosting provider\'s support and see how you could switch to PHP 5 by yourself.'] = 'Обърнете се към вашия хостинг доставчик и вижте как можете да преминете към PHP 5 самостоятелно.';
 ?>
