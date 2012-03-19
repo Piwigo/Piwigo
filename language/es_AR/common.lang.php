@@ -368,8 +368,6 @@ $lang['You will receive a link to create a new password via email.'] = 'Recibir�
 $lang['Your username has been successfully changed to : %s'] = 'Tu nombre de usuario fue cambiado con éxito por el siguiente: %s';
 $lang['Your password has been reset'] = 'Tu contraseña ha sido restablecida';
 $lang['IPTC Metadata'] = 'Metadatos IPTC';
-$lang['old → new'] = 'obsoleto → nuevo';
-$lang['new → old'] = 'nuevo → obsoleto';
 $lang['square'] = 'Cuadrado';
 $lang['thumb'] = 'Miniatura';
 $lang['small'] = 'Pequeño';
@@ -384,5 +382,10 @@ $lang['Password: %s'] = 'Contraseña: %s';
 $lang['Username: %s'] = 'Nombre de usuario: %s';
 $lang['If you think you\'ve received this email in error, please contact us at %s'] = 'Si recibiste este correo por error, contactanos en %s';
 $lang['Photo sizes'] = 'Tamaños de foto';
+$lang['Show oldest comments first'] = 'Mostrar primero los comentarios más antiguos';
+$lang['Show latest comments first'] = 'Mostrar primero el último comentario';
+$lang['View in'] = 'Ver en';
+$lang['Mobile'] = 'Móvil';
+$lang['Desktop'] = 'Escritorio';
 
 ?>
