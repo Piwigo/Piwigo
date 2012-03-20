@@ -240,6 +240,7 @@ function parse_request()
   if ($page['derivative_type'] == IMG_CUSTOM)
   {
     $params = $page['derivative_params'] = parse_custom_params($deriv);
+    ImageStdParams::apply_global($params);
 
     if ($params->sizing->ideal_size[0] < 20 or $params->sizing->ideal_size[1] < 20)
     {

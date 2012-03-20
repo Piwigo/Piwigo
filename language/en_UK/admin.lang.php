@@ -874,4 +874,5 @@ $lang['Permission granted for users'] = 'Permission granted for users';
 $lang['Select users...'] = 'Select users...';
 $lang['%u users have automatic permission because they belong to a granted group.'] = '%u users have automatic permission because they belong to a granted group.';
 $lang['include photos with lower privacy level'] = 'include photos with lower privacy level';
+$lang['custom']='Custom';
 ?>

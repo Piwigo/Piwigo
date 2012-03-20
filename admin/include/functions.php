@@ -170,6 +170,7 @@ DELETE FROM '.USER_CACHE_CATEGORIES_TABLE.'
 // @return image ids where files are deleted successfully
 function delete_element_files($ids)
 {
+  global $conf;
   if (count($ids) == 0)
   {
     return 0;
@@ -2277,7 +2278,7 @@ function clear_derivative_cache($types='all')
   }
 
   $pattern.='(_[a-zA-Z0-9]+)*\.[a-zA-Z0-9]{3,4}$#';
-  if ($contents = opendir(PHPWG_ROOT_PATH.PWG_DERIVATIVE_DIR))
+  if ($contents = @opendir(PHPWG_ROOT_PATH.PWG_DERIVATIVE_DIR))
   {
     while (($node = readdir($contents)) !== false)
     {

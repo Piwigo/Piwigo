@@ -159,11 +159,12 @@ $template->set_filenames(array('maintenance'=>'maintenance.tpl'));
 
 $url_format = get_root_url().'admin.php?page=maintenance&amp;action=%s&amp;pwg_token='.get_pwg_token();
 
-$purge_urls[l10n('all')] = sprintf($url_format, 'derivatives').'&amp;type=all';
+$purge_urls[l10n('All')] = sprintf($url_format, 'derivatives').'&amp;type=all';
 foreach(ImageStdParams::get_defined_type_map() as $params)
 {
   $purge_urls[ l10n($params->type) ] = sprintf($url_format, 'derivatives').'&amp;type='.$params->type;
 }
+$purge_urls[ l10n(IMG_CUSTOM) ] = sprintf($url_format, 'derivatives').'&amp;type='.IMG_CUSTOM;
 
 $template->assign(
   array(

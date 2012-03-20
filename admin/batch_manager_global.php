@@ -677,10 +677,12 @@ foreach(ImageStdParams::get_defined_type_map() as $params)
 {
   $del_deriv_map[$params->type] = l10n($params->type);
 }
+$gen_deriv_map = $del_deriv_map;
+$del_deriv_map[IMG_CUSTOM] = l10n(IMG_CUSTOM);
 $template->assign(
     array(
       'del_derivatives_types' => $del_deriv_map,
-      'generate_derivatives_types' => $del_deriv_map,
+      'generate_derivatives_types' => $gen_deriv_map,
     )
   );
 
