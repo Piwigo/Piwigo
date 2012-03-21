@@ -722,11 +722,7 @@ $lang['WARNING! This plugin does not seem to be compatible with this version of 
 $lang['Do you want to activate anyway?'] = 'Wollen Sie es wirklich wieder aktivieren?';
 $lang['THIS PLUGIN IS NOW PART OF PIWIGO CORE! DELETE IT NOW.'] = 'DIESES PLUGIN IST JETZT IN DEN KERN DER PIWIGO INTEGRIERT! BITTE UNBEDINGT DEINSTALLIEREN!';
 $lang['ERROR: THIS PLUGIN IS MISSING BUT IT IS INSTALLED! UNINSTALL IT NOW.'] = 'ERROR: DIESES PLUGIN FEHLT OBWOHL ES INSTALLIERT IST! BITTE UNBEDINGT DEINSTALLIEREN! ';
-$lang['Regenerate Thumbnails'] = 'Vorschaubilder neu erstellen';
 $lang['Thumbnails generation in progress...'] = 'Vorschaubilder werden neu erstellt...';
-$lang['%s thumbnails have been regenerated'] = '%s Vorschaubilder wurden neu erstellt';
-$lang['%s thumbnails can not be regenerated'] = '%s Vorschaubilder konnten nicht neu erstellt werden';
-$lang['Regenerate Websize Photos'] = 'Neuerstellung web-optimierter Fotos';
 $lang['Photos generation in progress...'] = 'Fotos werden neu erstellt...';
 $lang['%s photos have been regenerated'] = '%s Fotos wurden neu erstellt';
 $lang['%s photos can not be regenerated'] = '%s Fotos konnten nicht neu erstellt werden';
@@ -844,4 +840,13 @@ $lang['Web Form'] = 'Webformular';
 $lang['With no album'] = 'Ohne Album';
 $lang['With no tag'] = 'Ohne Tag';
 $lang['With no virtual album'] = 'Ohne virtuelles Album';
+$lang['<em>Piwigo for Android</em> application empowers you to connect your Android phone or table to your Piwigo gallery, create some albums and upload several photos at once.'] = 'Die <em>Piwigo für Android</em> App ermöglicht es Dir, dich auf Deine Piwigo Gallerie zu verbinden, Alben zu erstellen und mehrere Fotos gleichzeitig hochzuladen.';
+$lang['<em>Piwigo for iOS</em> application empowers you to connect to your Piwigo gallery from your iPhone, iPad or iPod Touch, create some albums and upload several photos at once.'] = 'Die <em>Piwigo für iOS</em> App ermöglicht es Dir, dich auf Deine Piwigo Gallerie zu verbinden, Alben zu erstellen und mehrere Fotos gleichzeitig hochzuladen.';
+$lang['Adobe Photoshop Lightroom is a photography software designed to manage large quantities of digital images and doing post production work.'] = 'Adobe Photoshop Lightroom ist eine Bildbearbeitungssoftware, die entwickelt wurde, um eine grosse Anzahl an Bildern zu verwalten und zu bearbeiten.';
+$lang['Available on'] = 'Verfügbar am';
+$lang['Available versions for'] = 'Verfügbare Versionen für';
+$lang['Piwigo for Android'] = 'Piwigo für Android';
+$lang['Piwigo for iOS (iPhone, iPad, iPod Touch)'] = 'Piwigo für iOS (iPhone, iPad, iPod Touch)';
+$lang['Piwigo Publish plugin for Lightroom'] = 'Piwigo Veröffentlichungsplugin für Lightroom';
+$lang['The Piwigo publish Plug-in allows you to export and synchronize photos from Lightroom directly to your Piwigo photo gallery.'] = 'Der Piwigo Veröffentlichungsplugin erlaubt es Dir, Bilder direkt aus Lightroom mit Deiner Piwigo Gallerie zu synchronisieren.';
 ?>
