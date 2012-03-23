@@ -876,4 +876,6 @@ $lang['The Piwigo export plugin allows you to create albums and export photos.']
 $lang['There is no group in this gallery.'] = 'Ne postoje grupe u ovoj galeriji';
 $lang['To export your photos from digiKam to Piwigo, simply install digiKam and the Kipi-plugins.'] = 'Da biste izvezli fotografije iz digiKam-a u Piwigo, samo instalirajte digiKam i the Kipi dodatke';
 $lang['visitors need to login and have the appropriate permissions to see this album'] = 'posetioci moraju biti prijavljeni i imati odgovarajuće dozvole da bi videli ovaj album';
+$lang['custom'] = 'Po izboru';
+$lang['include photos with lower privacy level'] = 'Uključi fotografije sa nižim nivoom privatnosti';
 ?>
