@@ -868,4 +868,8 @@ $lang['The Piwigo publish Plug-in allows you to export and synchronize photos fr
 $lang['There is no group in this gallery.'] = 'Немає ніякої групи в цій галереї.';
 $lang['To export your photos from digiKam to Piwigo, simply install digiKam and the Kipi-plugins.'] = 'Щоб експортувати ваші зображення з digiKam до Piwigo, просто встановіть digiKam і Kipi-plugins.';
 $lang['visitors need to login and have the appropriate permissions to see this album'] = 'відвідувачі повинні увійти і мати відповідні дозволи, щоб побачити цей альбом';
+$lang['custom'] = 'Звичай';
+$lang['include photos with lower privacy level'] = 'включати в себе зображення з більш низьким рівнем конфіденційності';
+$lang['No group is permitted to see this private album'] = 'Ніякій групі не дозволяється бачити цей приватний альбом';
+$lang['Permission management'] = 'Управління дозволу';
 ?>
