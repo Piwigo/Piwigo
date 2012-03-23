@@ -889,4 +889,6 @@ $lang['Permission granted for users'] = 'Permission accordée pour les utilisate
 $lang['Select users...'] = 'Sélectionnez les utilisateurs...';
 $lang['%u users have automatic permission because they belong to a granted group.'] = '%u utilisateurs ont automatiquement la permission car ils appartiennent à un groupe autorisé.';
 $lang['include photos with lower privacy level'] = 'inclure les photos d\'un niveau de confidentialité inférieur';
+$lang['No group is permitted to see this private album'] = 'Aucun groupe n\'est autorisé à voir cet album privé';
+$lang['Permission management'] = 'Gestion des permissions';
 ?>

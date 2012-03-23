@@ -65,6 +65,7 @@ $tabsheet = new tabsheet();
 $tabsheet->add('properties', l10n('Properties'), $admin_album_base_url.'-properties');
 $tabsheet->add('sort_order', l10n('Manage photo ranks'), $admin_album_base_url.'-sort_order');
 $tabsheet->add('permissions', l10n('Permissions'), $admin_album_base_url.'-permissions');
+$tabsheet->add('notification', l10n('Notification'), $admin_album_base_url.'-notification');
 $tabsheet->select($page['tab']);
 $tabsheet->assign();
 
