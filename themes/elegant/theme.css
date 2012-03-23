@@ -106,9 +106,15 @@ INPUT.rateButtonSelected /* <= why IE doesn't inherit this ? */ {
 }
 
 /* borders */
-#derivativeSwitchBox, #sortOrderBox{
-	border: 1px solid #000;
+#derivativeSwitchBox, #sortOrderBox {
+	border: 2px solid #444;
 }
+
+.switchBoxTitle {
+  border-bottom:2px solid #444;
+}
+
+.derivativeSizeDetails {display:none}
 
 FIELDSET, INPUT, SELECT, TEXTAREA {
 	border: 1px solid gray;

@@ -463,3 +463,13 @@ A:hover .pwg-icon {
   color:white;
   background-color:#666;
 }
+
+#derivativeSwitchBox, #sortOrderBox {
+    background-color: #222222;
+    border: 1px solid #FF3363;
+    border-radius: 0 15px 0 15px;
+}
+
+.switchBoxTitle {
+  border-color:#666;
+}

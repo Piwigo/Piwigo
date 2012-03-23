@@ -21,6 +21,8 @@
 
 define('IMG_SQUARE', 'square');
 define('IMG_THUMB', 'thumb');
+define('IMG_XXSMALL', '2small');
+define('IMG_XSMALL', 'xsmall');
 define('IMG_SMALL', 'small');
 define('IMG_MEDIUM', 'medium');
 define('IMG_LARGE', 'large');
@@ -41,7 +43,9 @@ final class WatermarkParams
 
 final class ImageStdParams
 {
-  private static $all_types = array(IMG_SQUARE,IMG_THUMB,IMG_SMALL,IMG_MEDIUM,IMG_LARGE,IMG_XLARGE,IMG_XXLARGE);
+  private static $all_types = array(
+    IMG_SQUARE,IMG_THUMB,IMG_XXSMALL,IMG_XSMALL,IMG_SMALL,IMG_MEDIUM,IMG_LARGE,IMG_XLARGE,IMG_XXLARGE
+    );
   private static $all_type_map = array();
   private static $type_map = array();
   private static $undefined_type_map = array();
@@ -162,11 +166,13 @@ final class ImageStdParams
     self::$watermark = new WatermarkParams();
     self::$type_map[IMG_SQUARE] = new DerivativeParams( SizingParams::square(120,120) );
     self::$type_map[IMG_THUMB] = new DerivativeParams( SizingParams::classic(144,144) );
-    self::$type_map[IMG_SMALL] = new DerivativeParams( SizingParams::classic(240,240) );
-    self::$type_map[IMG_MEDIUM] = new DerivativeParams( SizingParams::classic(432,432) );
-    self::$type_map[IMG_LARGE] = new DerivativeParams( SizingParams::classic(648,576) );
-    self::$type_map[IMG_XLARGE] = new DerivativeParams( SizingParams::classic(864,648) );
-    self::$type_map[IMG_XXLARGE] = new DerivativeParams( SizingParams::classic(1200,900) );
+    self::$type_map[IMG_XXSMALL] = new DerivativeParams( SizingParams::classic(240,240) );
+    self::$type_map[IMG_XSMALL] = new DerivativeParams( SizingParams::classic(432,324) );
+    self::$type_map[IMG_SMALL] = new DerivativeParams( SizingParams::classic(576,432) );
+    self::$type_map[IMG_MEDIUM] = new DerivativeParams( SizingParams::classic(792,594) );
+    self::$type_map[IMG_LARGE] = new DerivativeParams( SizingParams::classic(1008,756) );
+    self::$type_map[IMG_XLARGE] = new DerivativeParams( SizingParams::classic(1224,918) );
+    self::$type_map[IMG_XXLARGE] = new DerivativeParams( SizingParams::classic(1656,1242) );
   }
 
   static function apply_global($params)

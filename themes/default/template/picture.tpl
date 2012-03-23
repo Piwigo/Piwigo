@@ -29,6 +29,8 @@ function changeImgSrc(url,typeSave,typeMap)
 		theImg.src = url;
 		theImg.useMap = "#map"+typeMap;
 	}
+  jQuery('.derivativeChecked').hide();
+  jQuery('#derivativeChecked'+typeSave).show();
 	document.cookie = 'picture_deriv='+typeSave+';path={/literal}{$COOKIE_PATH}{literal}';
 }
 
@@ -50,8 +52,9 @@ function toggleDerivativeSwitchBox()
 {strip}<a id="derivativeSwitchLink" href="javascript:toggleDerivativeSwitchBox()" title="{'Photo sizes'|@translate}" class="pwg-state-default pwg-button" rel="nofollow">
 <span class="pwg-icon pwg-icon-sizes">&nbsp;</span><span class="pwg-button-text">{'Photo sizes'|@translate}</span></a>
 <div id="derivativeSwitchBox" onclick="toggleDerivativeSwitchBox()" style="display:none">
+<div class="switchBoxTitle">{'Photo sizes'|@translate}</div>
 {foreach from=$current.unique_derivatives item=derivative key=derivative_type}
-<a href="javascript:changeImgSrc('{$derivative->get_url()|@escape:javascript}','{$derivative_type}','{$derivative->get_type()}')">{$derivative->get_type()|@translate} ({$derivative->get_size_hr()})</a><br>
+<span class="derivativeChecked" id="derivativeChecked{$derivative->get_type()}" {if $derivative->get_type() ne $current.selected_derivative->get_type()}style="display:none"{/if}>&#x2714;</span> <a href="javascript:changeImgSrc('{$derivative->get_url()|@escape:javascript}','{$derivative_type}','{$derivative->get_type()}')">{$derivative->get_type()|@translate}<span class="derivativeSizeDetails"> ({$derivative->get_size_hr()})</span></a><br>
 {/foreach}
 {if isset($U_ORIGINAL)}
 <a href="javascript:phpWGOpenWindow('{$U_ORIGINAL}','xxx','scrollbars=yes,toolbar=no,status=no,resizable=yes')" rel="nofollow">{'Original'|@translate}</a>
