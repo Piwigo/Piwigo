@@ -395,5 +395,5 @@ $lang['Photo sizes'] = 'Veľkosti fotky';
 $lang['View in'] = 'Ukázať v';
 $lang['Mobile'] = 'Mobile';
 $lang['Desktop'] = 'Desktope';
-
+$lang['Mobile'] = 'Mobil';
 ?>
