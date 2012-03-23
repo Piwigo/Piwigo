@@ -325,10 +325,6 @@ foreach ($categories as $category)
       $base_url.'batch_manager&amp;cat='.$category['id'];
   }
 
-  if ('private' == $category['status'])
-  {
-    $tpl_cat['U_MANAGE_PERMISSIONS'] = $base_url.'album-'.$category['id'].'-permissions';
-  }
   $template->append('categories', $tpl_cat);
 }
 
