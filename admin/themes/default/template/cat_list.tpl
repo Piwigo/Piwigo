@@ -128,9 +128,6 @@ jQuery(document).ready(function(){
         | <a href="{$category.U_MANAGE_ELEMENTS}">{'manage album photos'|@translate}</a>
         {/if}
         | <a href="{$category.U_CHILDREN}">{'manage sub-albums'|@translate}</a>
-        {if isset($category.U_MANAGE_PERMISSIONS) }
-        | <a href="{$category.U_MANAGE_PERMISSIONS}">{'Permissions'|@translate}</a>
-        {/if}
         {if isset($category.U_SYNC) }
         | <a href="{$category.U_SYNC}">{'Synchronize'|@translate}</a>
         {/if}
