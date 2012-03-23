@@ -865,4 +865,15 @@ $lang['Select users...'] = 'Wähle Benutzer...';
 $lang['The Piwigo export plugin allows you to create albums and export photos.'] = 'Das Piwigo Export Plugin erlaubt es Alben zu erstellen und Photos zu exportieren';
 $lang['There is no group in this gallery.'] = 'Es gibt keine Gruppe in dieser Gallery';
 $lang['visitors need to login and have the appropriate permissions to see this album'] = 'Besucher müssen sich einloggen um das Album zu sehen (Zugriffsrechte)';
+$lang['Delete multiple size images'] = 'Merhfache Bildgrößen löschen';
+$lang['digiKam is an advanced digital photo management free software for Linux, Windows, and MacOSX.'] = 'digiKam ist ein fortschrittliches, kostenfreies Bildverwaltungsprogramm für Linux, Windows und MacOSX';
+$lang['digiKam is designed for photographers who want to view, manage, edit, enhance, organize, tag, and share photographs.'] = 'digiKam ist für Photographen, die Bilder anschauen, verwalten, bearbeiten, verbessern, verschlagworten oder teilen wollen.';
+$lang['Features include gallery browsing, album creation and photo upload.'] = 'Funktionen inklusive Galery durchblättern, Alben erstellen und Bilder hochladen.';
+$lang['Generate multiple size images'] = 'Merhfache Bildgrößen generieren';
+$lang['On your Linux, simply install Shotwell with your package manager and the activate Piwigo publishing option.'] = 'In Linux kann Shotwell ganze einfach mit dem Paketmanager mit der Piwigo Publishing option installieren.';
+$lang['Permission granted for groups'] = 'Zugriff für Gruppen erlaubt';
+$lang['Piwigo publish plugin for digiKam'] = 'Piwigo Veröffentlichungs-Plugin für digiKam';
+$lang['ReGalAndroid (RemoteGallery client for Android) is an open source (GPL v3) Piwigo client for the Android platform.'] = 'ReGalAndroid (RemoteGallery App für Android) is ein Open-Source (GPL v3) Piwigo Client für Android.';
+$lang['Shotwell is an open source digital photo organizer that runs on Linux. It is the default photo manager in Ubuntu and Fedora.'] = 'Shotwell ist eine Open-Source Bildverwaltung für Linux. Es ist das standard Bildverwaltungsprogramm unter Ubuntu und Fedora.';
+$lang['To export your photos from digiKam to Piwigo, simply install digiKam and the Kipi-plugins.'] = 'Um deine Bilder von didiKam nach Piwigo zu exportieren, installiere einfach digiKam mit den Kipi-Plugins';
 ?>
