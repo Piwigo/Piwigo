@@ -389,4 +389,6 @@ $lang['thumb'] = 'Thumb';
 $lang['Username "%s" on gallery %s'] = 'User "%s" pe aceasta pagina %s';
 $lang['xlarge'] = 'XLarge';
 $lang['xxlarge'] = 'XXLarge';
+$lang['2small'] = 'XXS - mic';
+$lang['xsmall'] = 'XS - foarte mic';
 ?>
