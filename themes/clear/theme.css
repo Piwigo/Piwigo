@@ -33,7 +33,8 @@ H2, #menubar DT, #imageHeaderBar, #imageToolBar A:hover {
 }
 
 FIELDSET, INPUT, SELECT, TEXTAREA,
-.content .thumbnailCategory {
+.content .thumbnailCategory,
+.content .commentElement {
   border: 1px solid gray;
 }
 
@@ -43,7 +44,9 @@ FIELDSET, INPUT, SELECT, TEXTAREA,
 
 .thumbnails .wrap2:hover,
 .content .thumbnailCategories .thumbnailCategory:hover,
-.content .thumbnailCategories .thumbnailCategory:hover A {
+.content .thumbnailCategories .thumbnailCategory:hover A,
+.content .commentsList .commentElement:hover,
+.content .commentsList .commentElement:hover A {
   background-color: #faebd7;
   border-color: yellow;		/* thumbnails border color when mouse cursor is over it */
   color: black;

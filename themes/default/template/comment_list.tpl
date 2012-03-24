@@ -1,18 +1,18 @@
 {if isset($comment_derivative_params)}
 {strip}{html_style}
-.thumbnailCategory DIV.illustration{ldelim}
+.commentElement DIV.illustration{ldelim}
 	width: {$comment_derivative_params->max_width()+5}px;
 }
 
-.content .thumbnailCategory .description{ldelim}
+.content .commentElement .description{ldelim}
 	height: {$comment_derivative_params->max_height()+5}px;
 }
 {/html_style}{/strip}
 {/if}
-<ul class="thumbnailCategories">
+<ul class="commentsList">
 {foreach from=$comments item=comment name=comment_loop}
 <li>
-	<div class="thumbnailCategory {if $smarty.foreach.comment_loop.index is odd}odd{else}even{/if}">
+	<div class="commentElement {if $smarty.foreach.comment_loop.index is odd}odd{else}even{/if}">
 	{if isset($comment.src_image)}
 	<div class="illustration">
 		<a href="{$comment.U_PICTURE}">

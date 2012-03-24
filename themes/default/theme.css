@@ -261,8 +261,49 @@ TD.calDayHead {
 	padding-right: 5px;
 }
 
-#comments .description {
+.commentsList {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	overflow: hidden;
+	width: 100%;
+}
+
+.commentsList LI {
+	margin: 0;
+	padding: 0;
+	float: left;
+	width:99%;
+}
+
+.commentElement {
+	display:block;
+	padding: 2px 0 0 2px;
+	margin: 5px;
+}
+
+.commentElement .description {
 	font-size: 100%;
+	overflow: auto;
+	/*width: inherit;*/
+}
+
+.commentElement .description H3 {
+	text-align: left;
+	background: transparent;
+	margin: 0;
+	padding: 0.1em;
+	font-size: 120%;
+}
+
+.commentElement .description P {
+	margin: 0;
+}
+
+.commentElement DIV.illustration {
+	text-align: left;
+	margin: 2px 0 0 2px;
+	float: left;
 }
 
 /* Thumbnails */
@@ -672,8 +713,6 @@ TABLE.tagLetterContent {
 }
 
 #theHeader {text-align: center;}
-
-#comments .thumbnailCategories LI { width:99%; }
 
 /* jQuery datepicker */
 IMG.ui-datepicker-trigger {

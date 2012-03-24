@@ -122,7 +122,7 @@ FIELDSET, INPUT, SELECT, TEXTAREA {
 
 
 .thumbnails IMG {margin-bottom:0; vertical-align:middle;}
-.thumbnailCategory DIV.illustration {margin: 2px; text-align:center;}
+.thumbnailCategory DIV.illustration, .commentElement DIV.illustration {margin: 2px; text-align:center;}
 
 /* picture page */
 #thePicturePage {background-color:#111;}
@@ -153,7 +153,7 @@ FIELDSET, INPUT, SELECT, TEXTAREA {
 #thePicturePage .comments_toggle_off:before {content:'(-) '}
 
 .comments_hidden ul, .comments_hidden form {display:none;}
-.thumbnailCategory {background-color: #333;}
+.thumbnailCategory, .commentElement {background-color: #333;}
 .comments_toggle {cursor: pointer;}
 .comments_toggle:hover {color:#fff;}
 

@@ -2,7 +2,7 @@
 .content .thumbnailCategory div.illustration { 
 	width:165px !important; /* Usable range 162px-360px , optimal : Thumbnail width + 40px */ 
 }
-#comments .thumbnailCategory div.illustration { 
+#comments .commentElement div.illustration { 
 	width:220px !important; /* Usable range 219px-360px , optimal : Thumbnail width + 95px */ 
 }
 
@@ -266,31 +266,43 @@
 }
 
 /* User comments */
-#theCommentsPage .content .thumbnailCategories li,
-#theCommentsPage .content .thumbnailCategory ,
-#theCommentsPage .content .thumbnailCategory .description,
-#theCommentsPage .content .thumbnailCategory div.illustration { 
-	background-image: none;
+#comments {
+	padding: 0 0 5px 10px;
 }
-#theCommentsPage .content .thumbnailCategory {
+.content .commentsList li { 
+	padding: 0 0; 
+	margin:0; 
+}
+.content .commentElement {
 	padding: 15px 2px 6px 12px; 
+  margin:0;
 	border: 1px solid #666; 
 }
-#theCommentsPage .content .odd { 
+.content .commentElement.odd { 
 	background-color: #222; 
 	border-top:0 !important; 
 }
-#theCommentsPage .content .even { 
+.content .commentElement.even { 
 	background-color: #111; 
 }
-#theCommentsPage .content .thumbnailCategories li:hover { 
-	background-color: transparent; 
+.content .commentElement div.illustration { 
+	padding: 0 0 0 10px; 
+	margin: 0 !important; 
 }
-#theCommentsPage #comments {
-	padding: 0 0 5px 10px;
+.content .commentElement div.illustration a { 
+	display: block; 
+	margin: 0; 
+	padding:20px 0 0 8px; 
+  border:0;
+}
+.content .commentElement .description { 
+	margin: 0; 
+	padding:15px 10px 3px 0; 
+	overflow-x: hidden !important; 
+  height:158px;
 }
 
-#comments .thumbnailCategories hr {display:none;}
+#comments .commentsList hr {display:none;}
 #comments .filter input[type="submit"] { margin-top:1.8em; }
 
 /* Thumbnails */
@@ -339,14 +351,14 @@
 	background-image: url('icon/rating-stars.gif'); 
 }
 
-#thePicturePage .thumbnailCategory {
+#thePicturePage .commentElement {
 	padding: 15px 2px 6px 12px; 
 	border: 1px solid #666; 
 }
-#thePicturePage .thumbnailCategory  .date, #thePicturePage .thumbnailCategory  .author {
+#thePicturePage .commentElement  .date, #thePicturePage .commentElementy  .author {
 	font-weight:bold;
 }
-#thePicturePage .thumbnailCategories { 
+#thePicturePage .commentsList { 
 	padding-left: 12px; 
 	padding-right: 12px; 
 }
