@@ -376,8 +376,8 @@ $lang['If you think you\'ve received this email in error, please contact us at %
 $lang['Photo sizes'] = 'Dimenzioni delle foto';
 $lang['square'] = 'Quadrata';
 $lang['thumb'] = 'Miniatura';
-$lang['2small'] = 'XXS';
-$lang['xsmall'] = 'XS';
+$lang['2small'] = 'XXS - Minuscola';
+$lang['xsmall'] = 'XS - Piccolissima';
 $lang['small'] = 'S - Piccola';
 $lang['medium'] = 'M - Media';
 $lang['large'] = 'L - Grande';
