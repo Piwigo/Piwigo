@@ -386,6 +386,8 @@ $lang['View in'] = 'Montrado';
 $lang['Mobile'] = 'Portebla';
 $lang['Desktop'] = 'Komputila';
 $lang['Photo sizes'] = 'Grandeco de la fotoj';
+$lang['2small'] = 'XXS - malgrandega';
+$lang['xsmall'] = 'XS - tre malgranda';
 
 
 ?>
