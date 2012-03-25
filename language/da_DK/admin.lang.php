@@ -787,4 +787,28 @@ $lang['Update Complete'] = 'Opdatering er fuldført';
 $lang['Updates'] = 'Opdateringer';
 $lang['Visit language site'] = 'Besøg sprog side';
 $lang['Visit theme site'] = 'Besøg tema side';
+$lang['Width'] = 'Bredde';
+$lang['With no album'] = 'Uden album';
+$lang['With no tag'] = 'Uden tag';
+$lang['With no virtual album'] = 'Uden virtual album';
+$lang['You are using the Browser uploader. Try the <a href="%s">Flash uploader</a> instead.'] = 'Du bruger Browser uploader. Prøv <a href="%s">Flash uploader</a> i stedet.';
+$lang['You are using the Flash uploader. Problems? Try the <a href="%s">Browser uploader</a> instead.'] = 'Du burger Flash uploader. Problemer? Prøv <a href="%s">Browser uploader</a> i stedet.';
+$lang['You can update to Piwigo %s directly, without upgrading to Piwigo %s (recommended).'] = 'Du kan opdatere til Piwigo %s direkte, uden at opgradere Piwigo %s (anbefalet).';
+$lang['Zoom'] = 'Zoom';
+$lang['Resize after upload'] = 'Resize efter upload';
+$lang['Original Size'] = 'Original Størrelse';
+$lang['A locked gallery is only visible to administrators'] = 'Et låst gallery er kun synlig for administratorer';
+$lang['Unlock gallery'] = 'Lås galleri op';
+$lang['Gallery unlocked'] = 'Galleri er låst op';
+$lang['Notify administrators when a comment is'] = 'Giv administratorer besked når en kommentar er';
+$lang['modified'] = 'ændret';
+$lang['pending validation'] = 'venter validation';
+$lang['Save visits in history for'] = 'Gem besøg i historie for';
+$lang['simple visitors'] = 'simple besøgende';
+$lang['registered users'] = 'registerede burger';
+$lang['administrators'] = 'administratorer';
+$lang['This album contains %d photos, added on %s.'] = 'Dette album indeholder %d fotos, tilføjet den %s.';
+$lang['This album contains %d photos, added between %s and %s.'] = 'Dette album indeholder %d fotos, tilføjet mellem %s og %s.';
+$lang['This album contains no photo.'] = 'Dette album indeholder ingen fotos.';
+
 ?>
