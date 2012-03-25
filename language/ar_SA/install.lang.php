@@ -67,4 +67,8 @@ $lang['Creation of config file local/config/database.inc.php failed.'] = 'فشل
 $lang['Download the config file'] = 'تحميل ملف التكوين';
 $lang['You can download the config file and upload it to local/config directory of your installation.'] = 'يمكنك تحميل ملف التكوين وتحميله إلى الدليل المحلي';
 
+$lang['Don\'t hesitate to consult our forums for any help : %s'] = 'لاتتردد في طلب الإستشارة و الاستفسار من خلال منتدانا للمساعده : %s';
+$lang['Just another Piwigo gallery'] = 'معرض آخر من Piwigo';
+$lang['Welcome to my photo gallery'] = 'مرحباً بك في معرض الصور';
+$lang['Welcome to your new installation of Piwigo!'] = 'مرحبا بكم في التثبيت الجديد من Piwigo!';
 ?>
