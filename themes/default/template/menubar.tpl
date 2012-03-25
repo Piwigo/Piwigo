@@ -9,5 +9,5 @@
 		{/if}
 	</dl>
 	{/foreach}
-</div>
+</div><div id="menuSwitcher"></div>
 {/if}

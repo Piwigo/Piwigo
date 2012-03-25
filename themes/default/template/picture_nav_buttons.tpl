@@ -30,7 +30,7 @@
 		<span class="pwg-icon pwg-icon-repeat-stop">&nbsp;</span><span class="pwg-button-text">{'Not repeat the slideshow'|@translate}</span>
 	</a>
 {/if}
-{strip}{if isset($first)}
+<!--{strip}{if isset($first)}
 	<a href="{$first.U_IMG}" title="{'First'|@translate} : {$first.TITLE}" class="pwg-state-default pwg-button">
 		<span class="pwg-icon pwg-icon-arrowstop-w">&nbsp;</span><span class="pwg-button-text">{'First'|@translate}</span>
 	</a>
@@ -38,7 +38,7 @@
 	<span class="pwg-state-disabled pwg-button">
 		<span class="pwg-icon pwg-icon-arrowstop-w">&nbsp;</span><span class="pwg-button-text">{'First'|@translate}</span>
 	</span>
-{/if}{/strip}
+{/if}{/strip}-->
 {strip}{if isset($previous)}
 	<a href="{$previous.U_IMG}" title="{'Previous'|@translate} : {$previous.TITLE}" class="pwg-state-default pwg-button">
 		<span class="pwg-icon pwg-icon-arrow-w">&nbsp;</span><span class="pwg-button-text">{'Previous'|@translate}</span>
@@ -72,7 +72,7 @@
 		<span class="pwg-icon pwg-icon-arrow-e">&nbsp;</span><span class="pwg-button-text">{'Next'|@translate}</span>
 	</span>
 {/if}{/strip}
-{strip}{if isset($last)}
+<!--{strip}{if isset($last)}
 	<a href="{$last.U_IMG}" title="{'Last'|@translate} : {$last.TITLE}" class="pwg-state-default pwg-button pwg-button-icon-right">
 		<span class="pwg-icon pwg-icon-arrowstop-e"></span><span class="pwg-button-text">{'Last'|@translate}</span>
 	</a>
@@ -80,7 +80,7 @@
 	<span class="pwg-state-disabled pwg-button pwg-button-icon-right">
 		<span class="pwg-icon pwg-icon-arrowstop-e">&nbsp;</span><span class="pwg-button-text">{'Last'|@translate}</span>
 	</span>
-{/if}{/strip}
+{/if}{/strip}-->
 {/if}
 </div>
 {strip}

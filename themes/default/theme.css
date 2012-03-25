@@ -381,7 +381,7 @@ TD.calDayHead {
 #imageToolBar .navigationButtons   { float: right; }
 #imageToolBar .pwg-button {width:42px;}
 
-#derivativeSwitchBox, #sortOrderBox {
+.switchBox {
 	padding: 0.5em 10px;
 	border-radius: 4px;
 	z-index: 100;
