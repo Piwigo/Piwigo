@@ -627,6 +627,7 @@ $validated_keys = array(
 	'Templates',
 	'pixels',
 	'localhost, sql.multimania.com, toto.freesurf.fr',
+	'Desktop',
 	),
 	
   'zh_CN' => array(

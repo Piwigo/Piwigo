@@ -385,6 +385,8 @@ $lang['Show latest comments first'] = 'Hiển thị những lời bình mới nh
 $lang['Photo sizes'] = 'Kích thước ảnh';
 $lang['View in'] = 'Xem ảnh ở';
 $lang['Mobile'] = 'Di động';
-
+$lang['2small'] = 'XXS - nhỏ';
+$lang['xsmall'] = 'XS - cực nhỏ';
+$lang['Desktop'] = 'Desktop';
 
 ?>
