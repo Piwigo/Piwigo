@@ -117,25 +117,6 @@ final class ImageStdParams
     self::build_maps();
   }
 
-  static function load_from_file()
-  {
-    global $conf;
-    $arr = @unserialize(@file_get_contents(PHPWG_ROOT_PATH.$conf['data_location'].'derivatives.dat'));
-    if (false!==$arr)
-    {
-      self::$type_map = $arr['d'];
-      self::$watermark = @$arr['w'];
-      if (!self::$watermark) self::$watermark = new WatermarkParams();
-      self::$custom = @$arr['c'];
-      if (!self::$custom) self::$custom = array();
-    }
-    else
-    {
-      self::make_default();
-    }
-    self::build_maps();
-  }
-
   static function set_watermark($watermark)
   {
     self::$watermark = $watermark;
@@ -158,7 +139,6 @@ final class ImageStdParams
       'c' => self::$custom,
       ) );
     conf_update_param('derivatives', addslashes($ser) );
-    file_put_contents(PHPWG_ROOT_PATH.$conf['data_location'].'derivatives.dat', $ser);
   }
 
   private static function make_default()

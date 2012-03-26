@@ -28,6 +28,9 @@ include(PHPWG_ROOT_PATH . 'include/config_default.inc.php');
 defined('PWG_LOCAL_DIR') or define('PWG_LOCAL_DIR', 'local/');
 defined('PWG_DERIVATIVE_DIR') or define('PWG_DERIVATIVE_DIR', $conf['data_location'].'i/');
 
+@include(PHPWG_ROOT_PATH.PWG_LOCAL_DIR .'config/database.inc.php');
+
+
 function trigger_action() {}
 function get_extension( $filename )
 {
@@ -372,10 +375,21 @@ foreach( explode(',','load,rotate,crop,scale,sharpen,watermark,save,send') as $k
   $timing[$k] = '';
 }
 
+include_once(PHPWG_ROOT_PATH .'include/dblayer/functions_'.$conf['dblayer'].'.inc.php');
 include_once( PHPWG_ROOT_PATH .'/include/derivative_params.inc.php');
 include_once( PHPWG_ROOT_PATH .'/include/derivative_std_params.inc.php');
 
-ImageStdParams::load_from_file();
+try
+{
+  $pwg_db_link = pwg_db_connect($conf['db_host'], $conf['db_user'],
+                                $conf['db_password'], $conf['db_base']);
+}
+catch (Exception $e)
+{
+  ilog("db error", $e->getMessage());
+}
+list($conf['derivatives']) = pwg_db_fetch_row(pwg_query('SELECT value FROM '.$prefixeTable.'config WHERE param=\'derivatives\''));
+ImageStdParams::load_from_db();
 
 
 parse_request();
@@ -428,12 +442,8 @@ if (strpos($page['src_location'], '/pwg_representative/')===false
     && strpos($page['src_location'], 'themes/')===false
     && strpos($page['src_location'], 'plugins/')===false)
 {
-  @include(PHPWG_ROOT_PATH.PWG_LOCAL_DIR .'config/database.inc.php');
-  include(PHPWG_ROOT_PATH .'include/dblayer/functions_'.$conf['dblayer'].'.inc.php');
   try
   {
-    $pwg_db_link = pwg_db_connect($conf['db_host'], $conf['db_user'],
-                                  $conf['db_password'], $conf['db_base']);
     $query = 'SELECT coi, width, height FROM '.$prefixeTable.'images WHERE path=\''.$page['src_location'].'\'';
     if ( ($row=pwg_db_fetch_assoc(pwg_query($query))) )
     {
@@ -443,7 +453,6 @@ if (strpos($page['src_location'], '/pwg_representative/')===false
       }
       $page['coi'] = $row['coi'];
     }
-    mysql_close($pwg_db_link);
     if (!$row)
     {
       ierror('Db file path not found', 404);
@@ -454,6 +463,7 @@ if (strpos($page['src_location'], '/pwg_representative/')===false
     ilog("db error", $e->getMessage());
   }
 }
+mysql_close($pwg_db_link);
 
 try_switch_source($params, $src_mtime);
 

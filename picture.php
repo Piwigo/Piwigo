@@ -172,6 +172,8 @@ function default_picture_content($content, $element_info)
   {
     if ($type==IMG_SQUARE || $type==IMG_THUMB)
       continue;
+    if (!array_key_exists($type, ImageStdParams::get_defined_type_map()))
+      continue;
     $url = $derivative->get_url();
     if (isset($added[$url]))
       continue;

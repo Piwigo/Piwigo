@@ -53,7 +53,7 @@ function toggleDerivativeSwitchBox()
 {/literal}{/footer_script}
 {strip}<a id="derivativeSwitchLink" href="javascript:toggleDerivativeSwitchBox()" title="{'Photo sizes'|@translate}" class="pwg-state-default pwg-button" rel="nofollow">
 <span class="pwg-icon pwg-icon-sizes">&nbsp;</span><span class="pwg-button-text">{'Photo sizes'|@translate}</span></a>
-<div id="derivativeSwitchBox" class="switchBox" onclick="toggleDerivativeSwitchBox()" style="display:none" onmouseout="e=event.toElement||event.relatedTarget;e.parentNode==this||e==this||toggleDerivativeSwitchBox()">
+<div id="derivativeSwitchBox" class="switchBox" onclick="toggleDerivativeSwitchBox()" style="display:none" onmouseout="e=event.toElement||event.relatedTarget;e.parentNode==this||e.parentNode.parentNode==this||e==this||toggleDerivativeSwitchBox()">
 <div class="switchBoxTitle">{'Photo sizes'|@translate}</div>
 {foreach from=$current.unique_derivatives item=derivative key=derivative_type}
 <span class="derivativeChecked switchCheck"
