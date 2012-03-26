@@ -389,4 +389,6 @@ $lang['Mobile'] = '手机版';
 $lang['Show latest comments first'] = '先显示新评论';
 $lang['Show oldest comments first'] = '先显示旧评论';
 $lang['View in'] = '查看';
+$lang['2small'] = 'XXS - 微小';
+$lang['xsmall'] = 'XS - 非常小';
 ?>
