@@ -372,4 +372,20 @@ $lang['Photo sizes'] = 'Bilde størrelser';
 $lang['View in'] = 'Se bilde på';
 $lang['Mobile'] = 'Mobil';
 $lang['Desktop'] = 'Skrivebord';
+$lang['%d rates'] = '%d karakter';
+$lang['Here are your connection settings'] = 'Her er din påloggingsinfo';
+$lang['If you think you\'ve received this email in error, please contact us at %s'] = 'Hvis du tror du fikk denne eposten ved en feiltagelse, vennligst ta kontakt med oss på %s.';
+$lang['Someone requested that the password be reset for the following user account:'] = 'Noen har bedt om å tilbakestille passordet for følgende bruker:';
+$lang['Successfully registered, you will soon receive an email with your connection settings. Welcome!'] = 'Registrering fullført, du får snart en epost med info om pålogging.
+Velkommen!';
+$lang['Thank you for registering at %s!'] = 'Takk for at du registrerte deg hos %s!';
+$lang['The passwords do not match'] = 'Passordene er ikke like';
+$lang['To reset your password, visit the following address:'] = 'For å tilbakestille passordet, vennligst bruk følgene lenke:';
+$lang['User "%s" has no email address, password reset is not possible'] = 'Bruker "%s" har ikke registrert epostadresse, tilbakestilling av passord er ikke mulig';
+$lang['Username "%s" on gallery %s'] = 'Bruker "%s" i galleri %s';
+$lang['Username modification'] = 'Endre brukernavn';
+$lang['Username or email'] = 'Brukernavn eller epost';
+$lang['You will receive a link to create a new password via email.'] = 'Du får en link på epost for å lage nytt passord.';
+$lang['Your password has been reset'] = 'Ditt passord har blitt endret.';
+$lang['Your username has been successfully changed to : %s'] = 'Ditt brukernavn har blitt endret til: %s';
 ?>
