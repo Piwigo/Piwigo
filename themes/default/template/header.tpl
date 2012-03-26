@@ -49,7 +49,7 @@
 <script type="text/javascript" src="{$ROOT_URL}themes/default/js/pngfix.js"></script>
 <![endif]-->
 
-{combine_script id="jquery"}
+{combine_script id="jquery" load="footer"}
 
 {if not empty($head_elements)}
 	{foreach from=$head_elements item=elt}{$elt}
