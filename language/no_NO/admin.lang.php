@@ -743,4 +743,26 @@ $lang['Add to caddie'] = 'legg i kurv';
 
 $lang['... or '] = '... eller';
 $lang['Allowed file types: %s.'] = 'Tillatte filtyper: %s.';
+$lang['%s has been successfully updated.'] = '%s har blitt oppdatert';
+$lang['%s photos can not be regenerated'] = '%s bilder kan ikke bli regenerert';
+$lang['%s photos have been regenerated'] = '%s bilder har blitt regenerert';
+$lang['(this tag will be deleted)'] = '(tilleggsinfo om bilde vil bli slettet)';
+$lang['Activate comments'] = 'Aktiver kommentarer';
+$lang['Activate icon "new" next to albums and pictures'] = 'Aktiver knappen "ny" ved siden av album og bilder';
+$lang['Add a criteria'] = 'Legg til kriterier';
+$lang['Approximate maximum resolution: %dM pixels (that\'s %dx%d pixels).'] = 'Ca. max oppløsning: %dM piksler (dvs. %dx%d piksler).';
+$lang['By default, Piwigo will create a new websize from the HD (high definition) version of your photo.'] = 'Piwigo vil automatisk lage ny størrelse på bilde tilpasset web på dine HD bilder.';
+$lang['Confirm merge'] = 'Bekreft fletting';
+$lang['Create'] = 'Lag';
+$lang['Crop'] = 'Beskjær';
+$lang['Deactivate all'] = 'Deaktivere alt';
+$lang['Default comments order'] = 'Standard rekkefølge på kommentarer';
+$lang['Default photos order'] = 'Standard rekkefølge på bilder';
+$lang['Do you want to activate anyway?'] = 'Vil du aktivere allikevel?';
+$lang['ERROR: THIS PLUGIN IS MISSING BUT IT IS INSTALLED! UNINSTALL IT NOW.'] = 'FEIL: DETTE TILLEGGET MANGLER, MEN ER INSTALLERT! AVINSTALLER NÅ.';
+$lang['Graphics Library'] = 'Grafikkbibliotek';
+$lang['hide details'] = 'skjul detaljer';
+$lang['I decide to update anyway'] = 'Jeg vil oppgradere allikevel';
+$lang['Ignore All'] = 'Ignorer alle';
+$lang['Ignore this update'] = 'Ignorer denne oppdatering';
 ?>
