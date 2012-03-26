@@ -741,4 +741,6 @@ $lang['display'] = 'Vis';
 $lang['Zoom'] = 'Zoom';
 $lang['Add to caddie'] = 'legg i kurv';
 
+$lang['... or '] = '... eller';
+$lang['Allowed file types: %s.'] = 'Tillatte filtyper: %s.';
 ?>
