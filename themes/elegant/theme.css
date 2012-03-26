@@ -127,7 +127,7 @@ a:hover 		{ border-bottom: none;}
 
 #theImage.infohidden 		{ width: 100%;}
 
-#commentsSwitcher 					{ float: left; margin:3px 0; cursor:pointer;}
+#commentsSwitcher 					{ float: left; margin: 2px 0; cursor:pointer;}
 .noCommentContent #commentsSwitcher	{ display: none;}
 
 .switchArrow				{ width: 16px; height: 16px; margin: 8px 5px 8px 4px;}
