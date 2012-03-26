@@ -10,6 +10,8 @@ html, body									{ background-color: #111;}
 #thePicturePage, #imageHeaderBar			{ background-color: #111;}
 #imageInfos, #infoSwitcher.infohidden 		{ background-color: #333;}
 #thePicturePage #comments 					{ background-color: #333;}
+#pictureCommentList li 						{ background-color: #444;}
+#pictureCommentList .commentElement 			{ background-color: transparent;}
 
 .switchBox, .header_notes 					{ background-color: #555;}
 .thumbnailCategory, .commentElement 			{ background-color: #333;}
@@ -17,8 +19,9 @@ html, body									{ background-color: #111;}
 
 INPUT[type="text"], INPUT[type="password"],
 INPUT[type="button"], INPUT[type="submit"],
-INPUT[type="reset"], INPUT[type="file"]		{ background-color: #999;}
-INPUT:focus, SELECT:focus, TEXTAREA:focus	{ background-color: #ccc;}
+INPUT[type="reset"], INPUT[type="file"],
+SELECT, TEXTAREA							{ background-color: #555;}
+INPUT:focus, SELECT:focus, TEXTAREA:focus	{ background-color: #666;}
 
 
 /* font colors */
@@ -30,6 +33,11 @@ INPUT.rateButton							{ color: #fff;}
 H1, H3, INPUT.rateButtonSelected 			{ color: #ccc;}
 .message									{ color: #fff;}
 .commentContent .comments_toggle:hover		{ color: #fff;}
+INPUT[type="text"], INPUT[type="password"],
+INPUT[type="button"], INPUT[type="submit"],
+INPUT[type="reset"], INPUT[type="file"],
+SELECT, TEXTAREA							{ color: #ccc;}
+INPUT:focus, SELECT:focus, TEXTAREA:focus	{ color: #fff;}
 
 
 /* borders */
@@ -39,7 +47,7 @@ H1, H3, INPUT.rateButtonSelected 			{ color: #ccc;}
 #copyright								 	{ border-top-width:2px;}
 .switchBox 									{ border: 1px solid #000;}
 .switchBoxTitle 								{ border-bottom: 1px solid #444;}
-FIELDSET, INPUT, SELECT, TEXTAREA 			{ border: 1px solid #999;}
+FIELDSET, INPUT, SELECT, TEXTAREA 			{ border: 1px solid #777;}
 
 
 /* icons */ 
@@ -143,7 +151,7 @@ a:hover 		{ border-bottom: none;}
 }
 .switchBox .switchCheck 				{ width: 18px; text-align: left; display: inline-block; line-height:17px;}
 .switchBox .switchUnselected 		{ margin-left: 18px; line-height:17px;}
-
+.derivativeSizeDetails				{ display: none;}
 
 /* thumbnails */
 
@@ -222,14 +230,44 @@ a:hover 		{ border-bottom: none;}
 
 #thePicturePage #comments 			{ padding: 2px 5px;}
 #thePicturePage #comments h3 			{ margin: 10px 0;}
-#thePicturePage #comments form 		{ margin-bottom: 10px;}
+#thePicturePage #comments form 		{ margin: 10px 0;}
 #thePicturePage #comments fieldset		{ margin: 0 1em;}
 
 .noCommentText						{ display:block;}
-.commentshidden ul,
-.commentshidden form 					{display:none;}
-.commentContent .comments_toggle 	{cursor: pointer;}
+.commentshidden #pictureComments		{ display: none;}
+.commentContent .comments_toggle 	{ cursor: pointer;}
 
+#commentAdd, #pictureCommentList 	{ width: 48%; padding: 0 1%;}
+#commentAdd  						{ float: left; }
+#pictureCommentList 					{ float: right; }
+
+#commentAdd input[type="text"],
+#commentAdd textarea {
+	min-width: 95%;
+	max-width: 95%;
+	width: 95%;
+	font-family: Arial,Helvetica,sans-serif;
+	font-size: 100%;
+}
+#pictureCommentList li {
+	clear: both;
+	display: block;
+	padding: 0.5em 0;
+	margin-bottom: 5px;
+	border-radius: 5px;
+	width: 100%;
+}
+#pictureCommentList ul 				{ list-style: none; padding: 0;}
+#pictureCommentList li ul				{ list-style-type: none; padding: 4px;}
+#pictureCommentList .author 			{ font-weight: bold;}
+#pictureCommentList .date 			{ font-style: italic;}
+#pictureCommentList .commentsOrder	{ float: left; margin-bottom: 5px;}
+#pictureCommentList .navigationBar	{ float: right; margin-bottom: 5px;}
+#pictureComments h4					{ margin: 0;}
+#pictureComments form p				{ margin: 5px 0;}
+#pictureComments form p textarea		{ margin: 10px 0;}
+#pictureComments INPUT				{ margin: 10px;}
+#pictureComments INPUT[type=submit]	{ margin: 0;}
 
 /* plugins */
 

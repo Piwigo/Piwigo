@@ -53,7 +53,7 @@ function toggleDerivativeSwitchBox()
 {/literal}{/footer_script}
 {strip}<a id="derivativeSwitchLink" href="javascript:toggleDerivativeSwitchBox()" title="{'Photo sizes'|@translate}" class="pwg-state-default pwg-button" rel="nofollow">
 <span class="pwg-icon pwg-icon-sizes">&nbsp;</span><span class="pwg-button-text">{'Photo sizes'|@translate}</span></a>
-<div id="derivativeSwitchBox" class="switchBox" onclick="toggleDerivativeSwitchBox()" style="display:none" onmouseout="e=event.toElement||event.relatedTarget;e.parentNode==this||e==this||toggleDerivativeSwitchBox()">
+<div id="derivativeSwitchBox" class="switchBox" onclick="toggleDerivativeSwitchBox()" style="display:none" onmouseout="e=event.toElement||event.relatedTarget;e.parentNode==this||e.parentNode.parentNode==this||e==this||toggleDerivativeSwitchBox()">
 <div class="switchBoxTitle">{'Photo sizes'|@translate}</div>
 {foreach from=$current.unique_derivatives item=derivative key=derivative_type}
 <span class="derivativeChecked switchCheck"
@@ -352,31 +352,42 @@ function togglePrivacyLevelBox()
 <div id="comments" {if (!isset($comment_add) && ($COMMENT_COUNT == 0))}class="noCommentContent"{else}class="commentContent"{/if}><div id="commentsSwitcher"></div>
 	{if $COMMENT_COUNT > 0}
 		<h3>{$pwg->l10n_dec('%d comment', '%d comments',$COMMENT_COUNT)}</h3>
-		{if $COMMENT_COUNT > 2}
-			<a href="{$COMMENTS_ORDER_URL}#comments" rel="nofollow">{$COMMENTS_ORDER_TITLE}</a>
-		{/if}
 	{else}
 		<h3 class="noCommentText">{$pwg->l10n_dec('%d comment', '%d comments',$COMMENT_COUNT)}</h3>
 	{/if}
-	{if !empty($navbar)}{include file='navigation_bar.tpl'|@get_extent:'navbar'}{/if}
-
-	{if isset($comments)}
-		{include file='comment_list.tpl'}
-	{/if}
-
-	{if isset($comment_add)}
-	<form method="post" action="{$comment_add.F_ACTION}" class="filter" id="addComment">
-	<fieldset>
-		<legend>{'Add a comment'|@translate}</legend>
-		{if $comment_add.SHOW_AUTHOR}
-		<label>{'Author'|@translate}<input type="text" name="author"></label>
+	
+	<div id="pictureComments">
+		{if isset($comment_add)}
+			<div id="commentAdd">
+				<h4>{'Add a comment'|@translate}</h4>
+				<form  method="post" action="{$comment_add.F_ACTION}" class="filter" id="addComment" >
+					{if $comment_add.SHOW_AUTHOR}
+						<p><label>{'Author'|@translate}&nbsp;:</label></p>
+						<p><input type="text" name="author" /></p>
+					{/if}
+					<p><label>{'Comment'|@translate}&nbsp;:</label></p>
+					<p><textarea name="content" id="contentid" rows="10" cols="50">{$comment_add.CONTENT}</textarea></p>
+					<p><input type="hidden" name="key" value="{$comment_add.KEY}" />
+					   <input class="submit" type="submit" value="{'Submit'|@translate}"></p>
+				</form>
+			</div>
 		{/if}
-		<label>{'Comment'|@translate}<textarea name="content" id="contentid" rows="5" cols="80">{$comment_add.CONTENT}</textarea></label>
-		<input type="hidden" name="key" value="{$comment_add.KEY}">
-		<input type="submit" value="{'Submit'|@translate}">
-	</fieldset>
-	</form>
-	{/if}
+		{if isset($comments)}
+			<div id="pictureCommentList">
+				{if (($COMMENT_COUNT > 2) || !empty($navbar))}
+					<div id="pictureCommentNavBar">
+						{if $COMMENT_COUNT > 2}
+							<a href="{$COMMENTS_ORDER_URL}#comments" rel="nofollow" class="commentsOrder">{$COMMENTS_ORDER_TITLE}</a>
+						{/if}
+						{if !empty($navbar) }{include file='navigation_bar.tpl'|@get_extent:'navbar'}{/if}
+					</div>
+				{/if}
+				{include file='comment_list.tpl'}
+			</div>
+		{/if}
+		<div style="clear: both;"></div>
+	</div>
+
 </div>
 {/if}{*comments*}
 
