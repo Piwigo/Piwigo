@@ -875,5 +875,6 @@ $lang['Select users...'] = 'Výber používateľov...';
 $lang['%u users have automatic permission because they belong to a granted group.'] = '%u používateľov má automaticky oprávnenia, pretože patria do skupiny s prideleným oprávnením.';
 $lang['include photos with lower privacy level'] = 'vrátane fotografií s nízkou súkromnou úrovňou';
 $lang['custom'] = 'Voliteľné';
-
+$lang['No group is permitted to see this private album'] = 'Žiadna skupina nemá oprávnenie vidieť tento súkromný album';
+$lang['Permission management'] = 'Správa oprávnení';
 ?>

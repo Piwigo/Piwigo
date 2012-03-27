@@ -396,4 +396,6 @@ $lang['View in'] = 'Ukázať v';
 $lang['Mobile'] = 'Mobile';
 $lang['Desktop'] = 'Desktope';
 $lang['Mobile'] = 'Mobil';
+$lang['2small'] = 'XXS - malé';
+$lang['xsmall'] = 'XS – veľmi malé';
 ?>
