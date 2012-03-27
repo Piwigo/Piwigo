@@ -174,7 +174,7 @@ a:hover 		{ border-bottom: none;}
 	font-weight:bold;
 	margin:0;
 }
-.imageNumber 						{ display: inline-block; float: right; line-height: 26px; margin: 0 2px 0 0; min-width: 40px; text-align: center;}
+#imageToolBar .imageNumber 			{ display: inline-block; float: right; line-height: 26px; margin: 0 2px 0 0; min-width: 40px; text-align: center;}
 #imageToolBar 						{ margin-top: -28px; margin-bottom: 0; float: right;}
 #thePicturePage .pwg-button 			{ width: 26px;}
 #thePicturePage .actionButtons 		{ margin-right: 26px;}
