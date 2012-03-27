@@ -22,7 +22,6 @@
 </style>
 {/literal}{/html_head}
 
-<p><a href="admin.php?page=derivatives_build">Build missing derivatives</a></p>
 <form method="post" id="derviativesForm">
 <fieldset>
 <legend>{'Watermark'|@translate}</legend>
