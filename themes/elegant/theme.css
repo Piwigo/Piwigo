@@ -149,8 +149,6 @@ a:hover 		{ border-bottom: none;}
     text-align: left;
     z-index: 100;
 }
-.switchBox .switchCheck 				{ width: 18px; text-align: left; display: inline-block; line-height:17px;}
-.switchBox .switchUnselected 		{ margin-left: 18px; line-height:17px;}
 .derivativeSizeDetails				{ display: none;}
 
 /* thumbnails */
@@ -176,7 +174,7 @@ a:hover 		{ border-bottom: none;}
 	font-weight:bold;
 	margin:0;
 }
-.imageNumber 						{ display: inline-block; float: right; line-height: 26px; margin-right: 2px; min-width: 40px; text-align: center;}
+.imageNumber 						{ display: inline-block; float: right; line-height: 26px; margin: 0 2px 0 0; min-width: 40px; text-align: center;}
 #imageToolBar 						{ margin-top: -28px; margin-bottom: 0; float: right;}
 #thePicturePage .pwg-button 			{ width: 26px;}
 #thePicturePage .actionButtons 		{ margin-right: 26px;}
@@ -220,9 +218,10 @@ a:hover 		{ border-bottom: none;}
 #imageInfos .nextThumbHover 			{ background: transparent url(icon/none.png) no-repeat center center;}
 #imageInfos .nextThumbHover:hover 	{ background: transparent url(icon/img_next.png) no-repeat center center;}
 
-#imageInfos dl 						{ padding: 0 15px;}
-#imageInfos dt 						{ font-weight: bold;}
-#imageInfos dd						{ margin: 0 0 5px 20px;}
+#imageInfos dl.imageInfoTable		{ display: block; padding: 0 15px; margin: 12px auto;}
+#imageInfos .imageInfo 				{ display: block; line-height: 16px;}
+#imageInfos .imageInfo dt				{ display: block; font-weight: bold; text-align: left; padding: 0;}
+#imageInfos .imageInfo dd			{ display: block; text-align: left; margin: 0 0 5px 20px;}
 #imageInfos h3						{ margin: 20px 0 10px;}
 
 

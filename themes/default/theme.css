@@ -350,9 +350,9 @@ TD.calDayHead {
 	margin-left: 10px;
 }
 
-#imageHeaderBar .imageNumber {
+#imageToolBar .imageNumber {
 	float: right;
-	margin-right: 10px;
+	margin:-20px 9px 0 0;
 }
 
 #imageHeaderBar H2 {
@@ -377,7 +377,7 @@ TD.calDayHead {
 	padding: 0.5em 5px;
 	border-radius: 4px;
 	z-index: 100;
-	text-align: left;
+    text-align:left;
 	position: absolute; /*left, right set through js*/
 }
 
@@ -385,6 +385,10 @@ TD.calDayHead {
   border-bottom:1px solid #ccc;
   padding-bottom:5px;
   margin-bottom:5px;
+}
+
+.relSwitchBox {
+	position: relative;
 }
 
 #theImage {
@@ -398,17 +402,13 @@ TD.calDayHead {
 }
 
 #linkPrev {
-	position:absolute;
-	left:0;
-	margin-right: 10px;
-	margin-left: 5px;
+	float: left;
+	margin: 5px 10px 0 5px;
 }
 
 #linkNext {
-	position:absolute;
-	right:0;
-	margin-right: 5px;
-	margin-left: 10px;
+	float: right;
+	margin: 5px 5px 0 10px;
 }
 
 .infoTable .label {
@@ -816,3 +816,43 @@ LEGEND {
   line-height: 1.5em;
 }
 
+/* image comments rules */
+
+#commentAdd, #pictureCommentList 	{ width: 48%; padding: 0 1%;}
+#commentAdd  						{ float: left; }
+#pictureCommentList 					{ float: right; }
+
+#commentAdd input[type="text"],
+#commentAdd textarea {
+	min-width: 100%;
+	max-width: 100%;
+	width: 100%;
+	font-family: Arial,Helvetica,sans-serif;
+	font-size: 100%;
+}
+#pictureCommentList li {
+	clear: both;
+	display: block;
+	padding: 0.5em 0;
+	margin-bottom: 5px;
+	border-radius: 5px;
+	width: 100%;
+}
+#pictureCommentList ul 				{ list-style: none; padding: 0;}
+#pictureCommentList li ul				{ list-style-type: none; padding: 4px;}
+#pictureCommentList .author 			{ font-weight: bold;}
+#pictureCommentList .date 			{ font-style: italic;}
+#pictureCommentList .commentsOrder	{ float: left; margin-bottom: 5px;}
+#pictureCommentList .navigationBar	{ float: right; margin-bottom: 5px;}
+#pictureComments h4					{ margin: 0;}
+#pictureComments form p				{ margin: 5px 0; text-align: left;}
+#pictureComments form p textarea		{ margin: 10px 0;}
+#pictureComments INPUT				{ margin: 10px;}
+#pictureComments INPUT[type=submit]	{ margin: 0;}
+
+/* image info table */
+
+.imageInfoTable {display:table; margin: auto;}
+.imageInfo {display:table-row; line-height:20px;}
+.imageInfo dt {display:table-cell; text-align:right; font-weight:bold; padding-right:0.5em;}
+.imageInfo dd {display:table-cell; text-align:left; font-weight:normal;}
