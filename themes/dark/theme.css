@@ -39,7 +39,7 @@ BODY, H3, #imageToolBar A:hover {
 }
 
 FIELDSET, INPUT, SELECT, TEXTAREA,
-.content .thumbnailCategory ,
+.thumbnailCategory ,
 .content .commentElement ,
 .thumbnails .wrap2 {
 	border: 1px solid gray;
@@ -47,8 +47,8 @@ FIELDSET, INPUT, SELECT, TEXTAREA,
 
 
 .thumbnails .wrap2:hover,
-.content .thumbnailCategories .thumbnailCategory:hover,
-.content .commentsList .commentElement:hover{
+.thumbnailCategory:hover,
+.content  .commentElement:hover{
 	border-color: yellow;	/* thumbnails border color when mouse cursor is over it */
 }
 

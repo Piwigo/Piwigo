@@ -288,14 +288,6 @@ TD.calDayHead {
 	/*width: inherit;*/
 }
 
-.commentElement .description H3 {
-	text-align: left;
-	background: transparent;
-	margin: 0;
-	padding: 0.1em;
-	font-size: 120%;
-}
-
 .commentElement .description P {
 	margin: 0;
 }
@@ -382,10 +374,11 @@ TD.calDayHead {
 #imageToolBar .pwg-button {width:42px;}
 
 .switchBox {
-	padding: 0.5em 10px;
+	padding: 0.5em 5px;
 	border-radius: 4px;
 	z-index: 100;
-  text-align:left;
+	text-align: left;
+	position: absolute; /*left, right set through js*/
 }
 
 .switchBoxTitle {
@@ -397,7 +390,6 @@ TD.calDayHead {
 #theImage {
 	clear: left;
 	text-align: center;
-	position: relative; /*so that the drivative switch link is positioned relative to us*/
 }
 
 #imageInfos {

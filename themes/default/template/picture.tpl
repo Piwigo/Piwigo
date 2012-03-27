@@ -19,7 +19,7 @@
 <div class="actionButtons">
 
 {if count($current.unique_derivatives)>1}
-{footer_script}{literal}
+{footer_script require='jquery'}{literal}
 function changeImgSrc(url,typeSave,typeMap)
 {
 	var theImg = document.getElementById("theMainImage");
@@ -29,11 +29,9 @@ function changeImgSrc(url,typeSave,typeMap)
 		theImg.src = url;
 		theImg.useMap = "#map"+typeMap;
 	}
-  jQuery('.derivativeChecked').hide();
-  jQuery('#derivativeChecked'+typeSave).show();
-  jQuery('#derivativeSiwtchBox .switchSelected').addClass('switchUnselected').removeClass('switchSelected');
-  jQuery('#derivativeName'+typeSave).addClass('switchSelected').removeClass('switchUnselected');
-    document.cookie = 'picture_deriv='+typeSave+';path={/literal}{$COOKIE_PATH}{literal}';
+	jQuery('#derivativeSwitchBox .switchCheck').css('visibility','hidden');
+	jQuery('#derivativeChecked'+typeSave).css('visibility','visible');
+	document.cookie = 'picture_deriv='+typeSave+';path={/literal}{$COOKIE_PATH}{literal}';
 }
 
 function toggleDerivativeSwitchBox()
@@ -42,7 +40,6 @@ function toggleDerivativeSwitchBox()
 		ePos = document.getElementById("derivativeSwitchLink");
 	if (elt.style.display==="none")
 	{
-		elt.style.position = "absolute";
 		elt.style.left = (ePos.offsetLeft)+"px";
 		elt.style.top = (ePos.offsetTop+ePos.offsetHeight)+"px";
 		elt.style.display="";
@@ -50,17 +47,18 @@ function toggleDerivativeSwitchBox()
 	else
 		elt.style.display="none";
 }
+jQuery("#derivativeSwitchBox").on('mouseleave click', function() {
+	this.style.display="none";
+}
+);
 {/literal}{/footer_script}
 {strip}<a id="derivativeSwitchLink" href="javascript:toggleDerivativeSwitchBox()" title="{'Photo sizes'|@translate}" class="pwg-state-default pwg-button" rel="nofollow">
 <span class="pwg-icon pwg-icon-sizes">&nbsp;</span><span class="pwg-button-text">{'Photo sizes'|@translate}</span></a>
-<div id="derivativeSwitchBox" class="switchBox" onclick="toggleDerivativeSwitchBox()" style="display:none" onmouseout="e=event.toElement||event.relatedTarget;e.parentNode==this||e.parentNode.parentNode==this||e==this||toggleDerivativeSwitchBox()">
+<div id="derivativeSwitchBox" class="switchBox" style="display:none">
 <div class="switchBoxTitle">{'Photo sizes'|@translate}</div>
 {foreach from=$current.unique_derivatives item=derivative key=derivative_type}
-<span class="derivativeChecked switchCheck"
- id="derivativeChecked{$derivative_type}" {if $derivative->get_type() ne $current.selected_derivative->get_type()}style="display:none"{/if}>&#x2714; </span> 
-<a href="javascript:changeImgSrc('{$derivative->get_url()|@escape:javascript}','{$derivative_type}','{$derivative->get_type()}')"
- id="derivativeName{$derivative_type}"
- class="{if $derivative->get_type() == $current.selected_derivative->get_type()}switchSelected{else}switchUnselected{/if}">
+<span class="switchCheck" id="derivativeChecked{$derivative_type}"{if $derivative->get_type() ne $current.selected_derivative->get_type()} style="visibility:hidden"{/if}>&#x2714; </span> 
+<a href="javascript:changeImgSrc('{$derivative->get_url()|@escape:javascript}','{$derivative_type}','{$derivative->get_type()}')">
 	{$derivative->get_type()|@translate}<span class="derivativeSizeDetails"> ({$derivative->get_size_hr()})</span>
 </a><br>
 {/foreach}

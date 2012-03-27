@@ -7,13 +7,13 @@
 		<li>{strip}<a href="javascript:toggleSortOrderBox()" id="sortOrderLink" title="{'Sort order'|@translate}" class="pwg-state-default pwg-button" rel="nofollow">
 			<span class="pwg-icon pwg-icon-sort">&nbsp;</span><span class="pwg-button-text">{'Sort order'|@translate}</span>
 		</a>
-		<div id="sortOrderBox" class="switchBox" style="display:none; text-align:left" onclick="toggleSortOrderBox()" onmouseout="e=event.toElement||event.relatedTarget;e.parentNode==this||e==this||toggleSortOrderBox(1)">
+		<div id="sortOrderBox" class="switchBox" style="display:none" onclick="toggleSortOrderBox()" onmouseout="e=event.toElement||event.relatedTarget;e.parentNode==this||e==this||toggleSortOrderBox(1)">
 			<div class="switchBoxTitle">{'Sort order'|@translate}</div>
 			{foreach from=$image_orders item=image_order name=loop}{if !$smarty.foreach.loop.first}<br>{/if}
 			{if $image_order.SELECTED}
-			<span class="switchCheck">&#x2714; </span><span class="switchSelected">{$image_order.DISPLAY}</span>
+			<span>&#x2714; </span>{$image_order.DISPLAY}
 			{else}
-			<a href="{$image_order.URL}" class="switchUnselected" rel="nofollow">{$image_order.DISPLAY}</a>
+			<span style="visibility:hidden">&#x2714; </span><a href="{$image_order.URL}" rel="nofollow">{$image_order.DISPLAY}</a>
 			{/if}
 			{/foreach}
 		</div>
@@ -22,7 +22,6 @@ function toggleSortOrderBox(forceHide) {
 	var elt = document.getElementById("sortOrderBox"),
 		ePos = document.getElementById("sortOrderLink");
 	if (!forceHide && elt.style.display==="none") {
-		elt.style.position = "absolute";
 		elt.style.left = ePos.offsetLeft+"px";
 		elt.style.top = (ePos.offsetTop+ePos.offsetHeight)+"px";
 		elt.style.display="";
@@ -38,13 +37,13 @@ function toggleSortOrderBox(forceHide) {
 		<li>{strip}<a href="javascript:toggleImageDerivativesBox()" id="derivativeChooseLink" title="{'Photo sizes'|@translate}" class="pwg-state-default pwg-button" rel="nofollow">
 			<span class="pwg-icon pwg-icon-sizes">&nbsp;</span><span class="pwg-button-text">{'Photo sizes'|@translate}</span>
 		</a>
-		<div id="derivativeSwitchBox" class="switchBox" style="display:none; text-align:left" onclick="toggleImageDerivativesBox()" onmouseout="e=event.toElement||event.relatedTarget;e.parentNode==this||e==this||toggleImageDerivativesBox(1)">
+		<div id="derivativeSwitchBox" class="switchBox" style="display:none" onclick="toggleImageDerivativesBox()" onmouseout="e=event.toElement||event.relatedTarget;e.parentNode==this||e==this||toggleImageDerivativesBox(1)">
 			<div class="switchBoxTitle">{'Photo sizes'|@translate}</div>
 			{foreach from=$image_derivatives item=image_derivative name=loop}{if !$smarty.foreach.loop.first}<br>{/if}
 			{if $image_derivative.SELECTED}
-			<span class="switchCheck">&#x2714; </span><span class="switchSelected">{$image_derivative.DISPLAY}</span>
+			<span>&#x2714; </span>{$image_derivative.DISPLAY}
 			{else}
-			<a href="{$image_derivative.URL}" class="switchUnselected" rel="nofollow">{$image_derivative.DISPLAY}</a>
+			<span style="visibility:hidden">&#x2714; </span><a href="{$image_derivative.URL}" class="switchUnselected" rel="nofollow">{$image_derivative.DISPLAY}</a>
 			{/if}
 			{/foreach}
 		</div>
@@ -53,8 +52,7 @@ function toggleImageDerivativesBox(forceHide) {
 	var elt = document.getElementById("derivativeSwitchBox"),
 		ePos = document.getElementById("derivativeChooseLink");
 	if (!forceHide && elt.style.display==="none") {
-		elt.style.position = "absolute";
-		elt.style.left = ePos.offsetLeft+"px";
+		elt.style.left = (ePos.offsetLeft-25)+"px";
 		elt.style.top = (ePos.offsetTop+ePos.offsetHeight)+"px";
 		elt.style.display="";
 	}
