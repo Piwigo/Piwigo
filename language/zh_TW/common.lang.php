@@ -387,4 +387,6 @@ $lang['Photo sizes'] = '圖片大小';
 $lang['View in'] = '檢視';
 $lang['Mobile'] = '移動';
 $lang['Desktop'] = '桌面';
+$lang['2small'] = '極小';
+$lang['xsmall'] = '特小';
 ?>

@@ -833,6 +833,22 @@ $lang['Save manual order'] = '保存手動排序';
 $lang['cancel manual order'] = '取消手動排序';
 $lang['Cancel'] = '取消';
 $lang['List'] = '清單';
-$lang['Web Form'] = '網頁表格'; 
+$lang['Web Form'] = '網頁表格';
+$lang['Applications'] = '申請';
+$lang['Available versions for'] = '可用的版本';
+$lang['Available on'] = '可用的';
+$lang['Piwigo for iOS (iPhone, iPad, iPod Touch)'] = 'iOS (iPhone, iPad, iPod Touch) 版的 Piwigo ';
+$lang['<em>Piwigo for iOS</em> application empowers you to connect to your Piwigo gallery from your iPhone, iPad or iPod Touch, create some albums and upload several photos at once.'] = '<em>iOS 版的Piwigo</em>允許您從iPhone, iPad 或 iPod Touch 連接到您的Piwigo畫廊，建立多個相冊並一次上傳多張相片。';
+$lang['Piwigo for Android'] = 'Android 版的Piwigo';
+$lang['<em>Piwigo for Android</em> application empowers you to connect your Android phone or table to your Piwigo gallery, create some albums and upload several photos at once.'] = '<em>Android 版的Piwigo</em>允許從 Android 手機或平版連接到您的Piwigo畫廊，建立多個相冊並一次上傳多張相片。';
+$lang['Piwigo Publish plugin for Lightroom'] = 'Piwigo 的 Lightroom 照片發布插件';
+$lang['Adobe Photoshop Lightroom is a photography software designed to manage large quantities of digital images and doing post production work.'] = 'Adobe 的 Photoshop Lightroom 是一套攝影軟件，可管理大量數位影像和進行後製工作。';
+$lang['The Piwigo publish Plug-in allows you to export and synchronize photos from Lightroom directly to your Piwigo photo gallery.'] = 'Piwigo的發布插件允許你 從Lightroom匯出照片，使你的Lightroom照片與您的Piwigo相冊同步。';
+$lang['Piwigo publish plugin for Shotwell'] = 'Piwigo 的 Shotwell 照片發布插件 ';
+$lang['Shotwell is an open source digital photo organizer that runs on Linux. It is the default photo manager in Ubuntu and Fedora.'] = 'Shotwell是一套Linux作業系統下的數位相片管理工具，它是自由軟體，也是 Ubuntu 和 Fedora 中 預設的相片管理軟體。';
+$lang['On your Linux, simply install Shotwell with your package manager and the activate Piwigo publishing option.'] = '在Linux下，只需安裝Shotwell套件和啟用 Piwigo發佈選項。';
+$lang['Piwigo publish plugin for digiKam'] = 'Piwigo 的 ddgiKam 照片發布插件';
+$lang['digiKam is an advanced digital photo management free software for Linux, Windows, and MacOSX.'] = 'digiKam是一套先進的數位相片管理軟體，它是自由軟體，適用於LINUX，WINDOWS和MacOSX。';
+$lang['digiKam is designed for photographers who want to view, manage, edit, enhance, organize, tag, and share photographs.'] = 'digiKam是專為攝影師瀏覽、管理、編輯、加工、整理、標記及分享照片等用途而設計。';
 
 ?>
