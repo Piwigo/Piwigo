@@ -857,4 +857,13 @@ $lang['Select groups...'] = 'تحديد مجموعات ..';
 $lang['Select users...'] = 'تحديد المستخدمين';
 $lang['There is no group in this gallery.'] = 'لا توجد مجموعه لهذا الألبوم';
 $lang['visitors need to login and have the appropriate permissions to see this album'] = 'الزوار في حاجه لتسجيل الدخول او  التصريح حتى يمكنهم مشاهده هذا الألبوم';
+$lang['<em>Piwigo for Android</em> application empowers you to connect your Android phone or table to your Piwigo gallery, create some albums and upload several photos at once.'] = '<em>Piwigo for Android</em> تطبيقات للاجهزه اللمسيه التي تعمل علي نظام آندرويذ ، يتيح لهذه الاجهزه رفع الصور و انشاء الآلبومات';
+$lang['<em>Piwigo for iOS</em> application empowers you to connect to your Piwigo gallery from your iPhone, iPad or iPod Touch, create some albums and upload several photos at once.'] = '<em>Piwigo for iOS</em>  تطبيقات للاجهزه اللمسيه الخاصة بشركه أبل ،آيفون ، آيباد و آيبود  ، تطبيق يتيح لهذه الاجهزه الاتصال بمعرضك الخاص و رفع الصور و انشاء و الألبومات ';
+$lang['Adobe Photoshop Lightroom is a photography software designed to manage large quantities of digital images and doing post production work.'] = 'أدوبي فوتوشوب لايتروم  هو برنامج التصوير المصممة لإدارة كميات كبيرة من الصور الرقمية والقيام بأعمال ما بعد الإنتاج.';
+$lang['Piwigo publish plugin for Shotwell'] = 'اضافة النشر في Piwigo  الخاصه ببرنامج  Shotwell';
+$lang['Shotwell is an open source digital photo organizer that runs on Linux. It is the default photo manager in Ubuntu and Fedora.'] = 'Shotwell برنامج مفتوح المصدر لتنظيم و إدارة و معالجة الصور يعمل في بيئه لينوكس 
+هذا البرنامج باداره  Ubuntu و Fedora. ';
+$lang['The Piwigo publish Plug-in allows you to export and synchronize photos from Lightroom directly to your Piwigo photo gallery.'] = 'اضافة للنشر في Piwigo  تسمح لك بتصدير ومزامنة الصور من لايترووم مباشرة إلى معرض الصور الخاص بك Piwigo. ';
+$lang['You can\'t define a default photo order because you have a custom setting in your local configuration.'] = 'لا يمكنك تحديد ترتيب الصورة الافتراضية لأنه لديك إعداد مخصص في التكوين الخاص بك ';
+$lang['You have specified <i>$conf[\'order_by\']</i> in your local configuration file, this parameter in deprecated, please remove it or rename it into <i>$conf[\'order_by_custom\']</i> !'] = 'لقد حددت   <i>$conf[\'order_by\']</i>  في ملف التكوينات  ستم اهمال هذه التغيرات ، الرجاد تحزيك اوتغيير الاسم إلي <i>$conf[\'order_by_custom\']</i> !';
 ?>
