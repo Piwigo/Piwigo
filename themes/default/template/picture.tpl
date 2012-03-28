@@ -288,10 +288,8 @@ y.callService(
 		method: "POST",
 		onFailure: function(num, text) { alert(num + " " + text); },
 		onSuccess: function(result) {
-			  jQuery('.levelCheck').hide();
-			  jQuery('#levelCheck'+level).show();
-			  jQuery('#privacyLevelBox .switchSelected').css('visibility','hidden');
-			  jQuery('#switchLevel'+level).css('visibility','visible');
+			  jQuery('#privacyLevelBox .switchCheck').css('visibility','hidden');
+			  jQuery('#levelCheck'+level).css('visibility','visible');
 		}
 	}
 	);
@@ -314,8 +312,8 @@ function togglePrivacyLevelBox()
 	
 			<div id="privacyLevelBox" class="switchBox" onclick="togglePrivacyLevelBox()" style="display:none" onmouseout="e=event.toElement||event.relatedTarget;e.parentNode==this||e==this||togglePrivacyLevelBox()">
 				{foreach from=$available_permission_levels item=label key=level}
-					<span id="levelCheck{$level}" class="levelCheck switchCheck" {if $level != $current.level}style="visibility:hidden"{/if}>&#x2714; </span>
-					<a id="switchLevel{$level}" {if $level == $current.level}class="switchSelected"{else}class="switchUnselected"{/if} href="javascript:setPrivacyLevel('{$ROOT_URL}', {$current.id}, {$level})">{$label}</a><br>
+					<span id="levelCheck{$level}" class="switchCheck" {if $level != $current.level} style="visibility:hidden"{/if}>&#x2714; </span>
+					<a id="switchLevel{$level}" href="javascript:setPrivacyLevel('{$ROOT_URL}', {$current.id}, {$level})">{$label}</a><br>
 				{/foreach}
 			</div>
 
