@@ -1,7 +1,7 @@
 {$MENUBAR}
 {if !empty($PLUGIN_INDEX_CONTENT_BEFORE)}{$PLUGIN_INDEX_CONTENT_BEFORE}{/if}
 <div id="content" class="content{if isset($MENUBAR)} contentWithMenu{/if}">
-<div class="titrePage">
+<div class="titrePage{if isset($chronology.TITLE)} calendarTitleBar{/if}">
 	<ul class="categoryActions">
 {if !empty($image_orders)}
 		<li>{strip}<a href="javascript:toggleSortOrderBox()" id="sortOrderLink" title="{'Sort order'|@translate}" class="pwg-state-default pwg-button" rel="nofollow">
@@ -125,7 +125,7 @@ function toggleImageDerivativesBox(forceHide) {
 {/if}
 
 {if isset($chronology.TITLE)}
-<h2>{$chronology.TITLE}</h2>
+<h2 class="calendarTitle">{$chronology.TITLE}</h2>
 {/if}
 
 </div>{* <!-- titrePage --> *}
