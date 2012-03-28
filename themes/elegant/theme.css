@@ -12,6 +12,7 @@ html, body									{ background-color: #111;}
 #thePicturePage #comments 					{ background-color: #333;}
 #pictureCommentList li 						{ background-color: #444;}
 #pictureCommentList .commentElement 			{ background-color: transparent;}
+.calendarTitle								{ background-color: #222;}
 
 .switchBox, .header_notes 					{ background-color: #555;}
 .thumbnailCategory, .commentElement 			{ background-color: #333;}
@@ -45,9 +46,13 @@ INPUT:focus, SELECT:focus, TEXTAREA:focus	{ color: #fff;}
 #content,.content, .content .titrePage		{ border-bottom: 2px solid #444;}
 #imageHeaderBar 								{ border: solid 0 #444; border-bottom-width:2px;}
 #copyright								 	{ border-top-width:2px;}
+#content .calendarTitleBar 					{ border-bottom: none;}
+.calendarTitle								{ border-top: 2px solid #444;}
 .switchBox 									{ border: 1px solid #000;}
 .switchBoxTitle 								{ border-bottom: 1px solid #444;}
 FIELDSET, INPUT, SELECT, TEXTAREA 			{ border: 1px solid #777;}
+
+
 
 
 /* icons */ 
@@ -125,6 +130,7 @@ a:hover 		{ border-bottom: none;}
 	margin:0;
 }
 
+#slideshow #theImage			{ width: 100%; margin: auto; overflow: visible;}
 #theImage.infohidden 		{ width: 100%;}
 
 #commentsSwitcher 					{ float: left; margin: 2px 0; cursor:pointer;}
@@ -267,6 +273,11 @@ a:hover 		{ border-bottom: none;}
 #pictureComments form p textarea		{ margin: 10px 0;}
 #pictureComments INPUT				{ margin: 10px;}
 #pictureComments INPUT[type=submit]	{ margin: 0;}
+
+
+/* calendar */
+
+.calendarViews		{ margin-top: 4px;}
 
 /* plugins */
 
