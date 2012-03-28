@@ -31,9 +31,9 @@ INSERT INTO piwigo_config (param,value,comment) VALUES ('obligatory_user_mail_ad
 INSERT INTO piwigo_config (param,value,comment) VALUES ('c13y_ignore',null,'List of ignored anomalies');
 INSERT INTO piwigo_config (param,value,comment) VALUES ('extents_for_templates','a:0:{}','Actived template-extension(s)');
 INSERT INTO piwigo_config (param,value,comment) VALUES ('blk_menubar','','Menubar options');
-INSERT INTO piwigo_config (param,value,comment) VALUES ('menubar_filter_icon','true','Display filter icon');
+INSERT INTO piwigo_config (param,value,comment) VALUES ('menubar_filter_icon','false','Display filter icon');
 INSERT INTO piwigo_config (param,value,comment) VALUES ('index_sort_order_input','true','Display image order selection list');
-INSERT INTO piwigo_config (param,value,comment) VALUES ('index_flat_icon','true','Display flat icon');
+INSERT INTO piwigo_config (param,value,comment) VALUES ('index_flat_icon','false','Display flat icon');
 INSERT INTO piwigo_config (param,value,comment) VALUES ('index_posted_date_icon','true','Display calendar by posted date');
 INSERT INTO piwigo_config (param,value,comment) VALUES ('index_created_date_icon','true','Display calendar by creation date icon');
 INSERT INTO piwigo_config (param,value,comment) VALUES ('index_slideshow_icon','true','Display slideshow icon');
@@ -48,7 +48,7 @@ INSERT INTO piwigo_config (param,value,comment) VALUES ('picture_menu','false','
 INSERT INTO piwigo_config (param,value,comment)
   VALUES (
     'picture_informations',
-    'a:11:{s:6:"author";b:1;s:10:"created_on";b:1;s:9:"posted_on";b:1;s:10:"dimensions";b:1;s:4:"file";b:1;s:8:"filesize";b:1;s:4:"tags";b:1;s:10:"categories";b:1;s:6:"visits";b:1;s:12:"rating_score";b:1;s:13:"privacy_level";b:1;}',
+    'a:11:{s:6:"author";b:1;s:10:"created_on";b:1;s:9:"posted_on";b:1;s:10:"dimensions";b:0;s:4:"file";b:0;s:8:"filesize";b:0;s:4:"tags";b:1;s:10:"categories";b:1;s:6:"visits";b:1;s:12:"rating_score";b:1;s:13:"privacy_level";b:1;}',
     'Information displayed on picture page'
   );
 INSERT INTO piwigo_config (param,value,comment) VALUES ('week_starts_on','monday','Monday may not be the first day of the week');

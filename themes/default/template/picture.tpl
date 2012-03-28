@@ -161,16 +161,16 @@ y.callService(
 
 <dl id="standard" class="imageInfoTable infoTable">
 {strip}
-	{if $display_info.author}
+	{if $display_info.author and isset($INFO_AUTHOR)}
 	<div id="Author" class="imageInfo">
 		<dt>{'Author'|@translate}</dt>
-		<dd>{if isset($INFO_AUTHOR)}{$INFO_AUTHOR}{else}{'N/A'|@translate}{/if}</dd>
+		<dd>{$INFO_AUTHOR}</dd>
 	</div>
 	{/if}
-	{if $display_info.created_on}
+	{if $display_info.created_on and isset($INFO_CREATION_DATE)}
 	<div id="datecreate" class="imageInfo">
 		<dt>{'Created on'|@translate}</dt>
-		<dd>{if isset($INFO_CREATION_DATE)}{$INFO_CREATION_DATE}{else}{'N/A'|@translate}{/if}</dd>
+		<dd>{$INFO_CREATION_DATE}</dd>
 	</div>
 	{/if}
 	{if $display_info.posted_on}
@@ -179,10 +179,10 @@ y.callService(
 		<dd>{$INFO_POSTED_DATE}</dd>
 	</div>
 	{/if}
-	{if $display_info.dimensions}
+	{if $display_info.dimensions and isset($INFO_DIMENSIONS)}
 	<div id="Dimensions" class="imageInfo">
 		<dt>{'Dimensions'|@translate}</dt>
-		<dd>{if isset($INFO_DIMENSIONS)}{$INFO_DIMENSIONS}{else}{'N/A'|@translate}{/if}</dd>
+		<dd>{$INFO_DIMENSIONS}</dd>
 	</div>
 	{/if}
 	{if $display_info.file}
@@ -191,34 +191,29 @@ y.callService(
 		<dd>{$INFO_FILE}</dd>
 	</div>
 	{/if}
-	{if $display_info.filesize}
+	{if $display_info.filesize and isset($INFO_FILESIZE)}
 	<div id="Filesize" class="imageInfo">
 		<dt>{'Filesize'|@translate}</dt>
-		<dd>{if isset($INFO_FILESIZE)}{$INFO_FILESIZE}{else}{'N/A'|@translate}{/if}</dd>
+		<dd>{$INFO_FILESIZE}</dd>
 	</div>
 	{/if}
-	{if $display_info.tags }
+	{if $display_info.tags and isset($related_tags)}
 	<div id="Tags" class="imageInfo">
 		<dt>{'Tags'|@translate}</dt>
 		<dd>
-			{if isset($related_tags)}
-				{foreach from=$related_tags item=tag name=tag_loop}{if !$smarty.foreach.tag_loop.first}, {/if}<a href="{$tag.URL}">{$tag.name}</a>{/foreach}
-			{else}&nbsp;
-			{/if}
+		{foreach from=$related_tags item=tag name=tag_loop}{if !$smarty.foreach.tag_loop.first}, {/if}<a href="{$tag.URL}">{$tag.name}</a>{/foreach}
 		</dd>
 	</div>
 	{/if}
-	{if $display_info.categories}
+	{if $display_info.categories and isset($related_categories)}
 	<div id="Categories"  class="imageInfo">
 		<dt>{'Albums'|@translate}</dt>
 		<dd>
-			{if isset($related_categories)}
 			<ul>
 				{foreach from=$related_categories item=cat}
 				<li>{$cat}</li>
 				{/foreach}
 			</ul>
-			{/if}
 		</dd>
 	</div>
 	{/if}
