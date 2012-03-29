@@ -11,11 +11,10 @@ html, body									{ background-color: #111;}
 #imageInfos, #infoSwitcher.infohidden 		{ background-color: #333;}
 #thePicturePage #comments 					{ background-color: #333;}
 #pictureCommentList li 						{ background-color: #444;}
-#pictureCommentList .commentElement 			{ background-color: transparent;}
 .calendarTitle								{ background-color: #222;}
 
 .switchBox, .header_notes 					{ background-color: #555;}
-.thumbnailCategory, .commentElement 			{ background-color: #333;}
+.thumbnailCategory 			{ background-color: #333;}
 .message									{ background-color: #666;}
 
 INPUT[type="text"], INPUT[type="password"],
@@ -162,7 +161,7 @@ a:hover 		{ border-bottom: none;}
 #thumbnails  						{ padding-top: 5px;}
 .thumbnails IMG 						{ margin-bottom: 0; vertical-align: middle;}
 .thumbnailCategory DIV.illustration,
-.commentElement DIV.illustration 		{ margin: 2px; text-align: center;}
+.commentElement .illustration 		{ margin: 2px; text-align: center;}
 
 
 /* picture page */
@@ -238,7 +237,6 @@ a:hover 		{ border-bottom: none;}
 #thePicturePage #comments form 		{ margin: 10px 0;}
 #thePicturePage #comments fieldset		{ margin: 0 1em;}
 
-.noCommentText						{ display:block;}
 .commentshidden #pictureComments		{ display: none;}
 .commentContent .comments_toggle 	{ cursor: pointer;}
 
@@ -254,18 +252,7 @@ a:hover 		{ border-bottom: none;}
 	font-family: Arial,Helvetica,sans-serif;
 	font-size: 100%;
 }
-#pictureCommentList li {
-	clear: both;
-	display: block;
-	padding: 0.5em 0;
-	margin-bottom: 5px;
-	border-radius: 5px;
-	width: 100%;
-}
-#pictureCommentList ul 				{ list-style: none; padding: 0;}
-#pictureCommentList li ul				{ list-style-type: none; padding: 4px;}
-#pictureCommentList .author 			{ font-weight: bold;}
-#pictureCommentList .date 			{ font-style: italic;}
+
 #pictureCommentList .commentsOrder	{ float: left; margin-bottom: 5px;}
 #pictureCommentList .navigationBar	{ float: right; margin-bottom: 5px;}
 #pictureComments h4					{ margin: 0;}

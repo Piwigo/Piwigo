@@ -269,30 +269,19 @@ TD.calDayHead {
 	width: 100%;
 }
 
-.commentsList LI {
-	margin: 0;
-	padding: 0;
+.commentElement {
+	margin: 5px;
+	padding: 2px 0 0 2px;
 	float: left;
 	width:99%;
 }
 
-.commentElement {
-	display:block;
-	padding: 2px 0 0 2px;
-	margin: 5px;
-}
-
 .commentElement .description {
-	font-size: 100%;
 	overflow: auto;
 	/*width: inherit;*/
 }
 
-.commentElement .description P {
-	margin: 0;
-}
-
-.commentElement DIV.illustration {
+.commentElement .illustration {
 	text-align: left;
 	margin: 2px 0 0 2px;
 	float: left;
@@ -411,13 +400,7 @@ TD.calDayHead {
 	margin: 5px 5px 0 10px;
 }
 
-.infoTable .label {
-	font-weight: bold;
-	text-align: right;
-	padding-right: 0.5em;
-}
-
-.infoTable UL {
+.imageInfoTable UL { /*this is the album list*/
 	margin: 0;
 	padding: 0 0 0 1em;
 	list-style-type: square;
@@ -451,8 +434,6 @@ TD.calDayHead {
 .contentWithMenu #theImage { 
 	clear: none;
 }
-
-.noCommentText {display:none;}
 
 /**
  * Default Layout
@@ -824,30 +805,27 @@ LEGEND {
 
 #commentAdd input[type="text"],
 #commentAdd textarea {
-	min-width: 100%;
 	max-width: 100%;
 	width: 100%;
-	font-family: Arial,Helvetica,sans-serif;
-	font-size: 100%;
 }
-#pictureCommentList li {
-	clear: both;
-	display: block;
-	padding: 0.5em 0;
-	margin-bottom: 5px;
+
+#pictureCommentList .commentElement {
 	border-radius: 5px;
-	width: 100%;
 }
-#pictureCommentList ul 				{ list-style: none; padding: 0;}
-#pictureCommentList li ul				{ list-style-type: none; padding: 4px;}
-#pictureCommentList .author 			{ font-weight: bold;}
-#pictureCommentList .date 			{ font-style: italic;}
+
+.commentAuthor {
+	font-weight: bold;
+}
+
+.commentDate {
+	font-style: italic
+}
+
 #pictureCommentList .commentsOrder	{ float: left; margin-bottom: 5px;}
 #pictureCommentList .navigationBar	{ float: right; margin-bottom: 5px;}
 #pictureComments h4					{ margin: 0;}
 #pictureComments form p				{ margin: 5px 0; text-align: left;}
 #pictureComments form p textarea		{ margin: 10px 0;}
-#pictureComments INPUT				{ margin: 10px;}
 #pictureComments INPUT[type=submit]	{ margin: 0;}
 
 /* image info table */

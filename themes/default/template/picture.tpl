@@ -58,7 +58,7 @@ jQuery("#derivativeSwitchBox").on('mouseleave click', function() {
 <div id="derivativeSwitchBox" class="switchBox" style="display:none">
 <div class="switchBoxTitle">{'Photo sizes'|@translate}</div>
 {foreach from=$current.unique_derivatives item=derivative key=derivative_type}
-<span class="switchCheck" id="derivativeChecked{$derivative_type}"{if $derivative->get_type() ne $current.selected_derivative->get_type()} style="visibility:hidden"{/if}>&#x2714; </span> 
+<span class="switchCheck" id="derivativeChecked{$derivative_type}"{if $derivative->get_type() ne $current.selected_derivative->get_type()} style="visibility:hidden"{/if}>&#x2714; </span>
 <a href="javascript:changeImgSrc('{$derivative->get_url()|@escape:javascript}','{$derivative_type}','{$derivative->get_type()}')">
 	{$derivative->get_type()|@translate}<span class="derivativeSizeDetails"> ({$derivative->get_size_hr()})</span>
 </a><br>
@@ -138,10 +138,10 @@ y.callService(
 </p>
 {/if}
 
-</div><!--
+</div>
 
---><div id="infoSwitcher"></div><!--
---><div id="imageInfos">
+<div id="infoSwitcher"></div>
+<div id="imageInfos">
 {if $DISPLAY_NAV_THUMB}
 	<div class="navThumbs">
 		{if isset($previous)}
@@ -159,7 +159,7 @@ y.callService(
 	</div>
 {/if}
 
-<dl id="standard" class="imageInfoTable infoTable">
+<dl id="standard" class="imageInfoTable">
 {strip}
 	{if $display_info.author and isset($INFO_AUTHOR)}
 	<div id="Author" class="imageInfo">
@@ -277,8 +277,8 @@ y.callService(
 	<div id="Privacy" class="imageInfo"><div class="relSwitchBox">
 		<dt><a id="privacyLevelLink" href="javascript:togglePrivacyLevelBox()">{'Who can see this photo?'|@translate}</a></dt>
 		<dd>
-{combine_script id='core.scripts' require='jquery' load='async' path='themes/default/js/scripts.js'}
-{footer_script}
+{combine_script id='core.scripts' load='async' path='themes/default/js/scripts.js'}
+{footer_script require='jquery'}
 {literal}function setPrivacyLevel(rootUrl, id, level)
 {
 var y = new PwgWS(rootUrl);
@@ -309,7 +309,7 @@ function togglePrivacyLevelBox()
 }
 {/literal}
 {/footer_script}
-	
+
 			<div id="privacyLevelBox" class="switchBox" onclick="togglePrivacyLevelBox()" style="display:none" onmouseout="e=event.toElement||event.relatedTarget;e.parentNode==this||e==this||togglePrivacyLevelBox()">
 				{foreach from=$available_permission_levels item=label key=level}
 					<span id="levelCheck{$level}" class="switchCheck" {if $level != $current.level} style="visibility:hidden"{/if}>&#x2714; </span>
@@ -324,7 +324,7 @@ function togglePrivacyLevelBox()
 </dl>
 
 {if isset($metadata)}
-<dl id="Metadata" class="imageInfoTable infoTable2">
+<dl id="Metadata" class="imageInfoTable">
 {foreach from=$metadata item=meta}
 	<h3>{$meta.TITLE}</h3>
 	{foreach from=$meta.lines item=value key=label}
@@ -341,25 +341,21 @@ function togglePrivacyLevelBox()
 
 {if isset($COMMENT_COUNT)}
 <div id="comments" {if (!isset($comment_add) && ($COMMENT_COUNT == 0))}class="noCommentContent"{else}class="commentContent"{/if}><div id="commentsSwitcher"></div>
-	{if $COMMENT_COUNT > 0}
-		<h3>{$pwg->l10n_dec('%d comment', '%d comments',$COMMENT_COUNT)}</h3>
-	{else}
-		<h3><span class="noCommentText">{$pwg->l10n_dec('%d comment', '%d comments',$COMMENT_COUNT)}</span></h3>
-	{/if}
-	
+	<h3>{$pwg->l10n_dec('%d comment', '%d comments',$COMMENT_COUNT)}</h3>
+
 	<div id="pictureComments">
 		{if isset($comment_add)}
 			<div id="commentAdd">
 				<h4>{'Add a comment'|@translate}</h4>
-				<form  method="post" action="{$comment_add.F_ACTION}" class="filter" id="addComment" >
+				<form  method="post" action="{$comment_add.F_ACTION}" id="addComment" >
 					{if $comment_add.SHOW_AUTHOR}
 						<p><label>{'Author'|@translate}&nbsp;:</label></p>
 						<p><input type="text" name="author" /></p>
+						<p><label>{'Comment'|@translate}&nbsp;:</label></p>
 					{/if}
-					<p><label>{'Comment'|@translate}&nbsp;:</label></p>
-					<p><textarea name="content" id="contentid" rows="10" cols="50">{$comment_add.CONTENT}</textarea></p>
+					<p><textarea name="content" id="contentid" rows="5" cols="50">{$comment_add.CONTENT}</textarea></p>
 					<p><input type="hidden" name="key" value="{$comment_add.KEY}" />
-					   <input class="submit" type="submit" value="{'Submit'|@translate}"></p>
+						<input class="submit" type="submit" value="{'Submit'|@translate}"></p>
 				</form>
 			</div>
 		{/if}

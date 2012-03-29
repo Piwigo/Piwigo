@@ -1,18 +1,17 @@
 {if isset($comment_derivative_params)}
 {strip}{html_style}
-.commentElement DIV.illustration{ldelim}
-	width: {$comment_derivative_params->max_width()+5}px;
+.commentElement .illustration{ldelim}
+	width: {$comment_derivative_params->max_width()+5}px
 }
 
 .content .commentElement .description{ldelim}
-	height: {$comment_derivative_params->max_height()+5}px;
+	height: {$comment_derivative_params->max_height()+5}px
 }
 {/html_style}{/strip}
 {/if}
 <ul class="commentsList">
 {foreach from=$comments item=comment name=comment_loop}
-<li>
-	<div class="commentElement {if $smarty.foreach.comment_loop.index is odd}odd{else}even{/if}">
+<li class="commentElement {if $smarty.foreach.comment_loop.index is odd}odd{else}even{/if}">
 	{if isset($comment.src_image)}
 	<div class="illustration">
 		<a href="{$comment.U_PICTURE}">
@@ -41,7 +40,7 @@
 		</div>
 		{/if}
 
-		<span class="author">{$comment.AUTHOR}</span> - <span class="date">{$comment.DATE}</span>
+		<span class="commentAuthor">{$comment.AUTHOR}</span> - <span class="commentDate">{$comment.DATE}</span>
 		{if isset($comment.IN_EDIT)}
 		<a name="edit_comment"></a>
 		<form  method="post" action="{$comment.U_EDIT}" class="filter" id="editComment">
@@ -56,7 +55,6 @@
 		{else}
 		<blockquote><div>{$comment.CONTENT}</div></blockquote>
 		{/if}
-	</div>
 	</div>
 </li>
 {/foreach}

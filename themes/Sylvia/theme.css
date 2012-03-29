@@ -285,11 +285,11 @@
 .content .commentElement.even { 
 	background-color: #111; 
 }
-.content .commentElement div.illustration { 
+.content .commentElement .illustration { 
 	padding: 0 0 0 10px; 
 	margin: 0 !important; 
 }
-.content .commentElement div.illustration a { 
+.content .commentElement .illustration a { 
 	display: block; 
 	margin: 0; 
 	padding:20px 0 0 8px; 
@@ -354,9 +354,6 @@
 #thePicturePage .commentElement {
 	padding: 15px 2px 6px 12px; 
 	border: 1px solid #666; 
-}
-#thePicturePage .commentElement  .date, #thePicturePage .commentElementy  .author {
-	font-weight:bold;
 }
 #thePicturePage .commentsList { 
 	padding-left: 12px; 
