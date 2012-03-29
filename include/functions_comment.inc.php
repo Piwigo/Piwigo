@@ -47,8 +47,10 @@ function user_comment_check($action, $comment)
   }
 
   if ( $link_count>$conf['comment_spam_max_links'] )
+  {
+    $_POST['cr'][] = 'links';
     return $my_action;
-
+  }
   return $action;
 }
 
@@ -122,6 +124,7 @@ SELECT COUNT(*) AS user_exists
   if ( !verify_ephemeral_key(@$key, $comm['image_id']) )
   {
     $comment_action='reject';
+    $_POST['cr'][] = 'key'; // rvelices: I use this outside to see how spam robots work
   }
 
   if ($comment_action!='reject' and $conf['anti-flood_time']>0 and !is_admin())
@@ -165,7 +168,7 @@ INSERT INTO '.COMMENTS_TABLE.'
 
     $comm['id'] = pwg_db_insert_id(COMMENTS_TABLE);
 
-    if ($conf['email_admin_on_comment']
+    if ( ($conf['email_admin_on_comment'] && 'validate' == $comment_action)
         or ($conf['email_admin_on_comment_validation'] and 'moderate' == $comment_action))
     {
       include_once(PHPWG_ROOT_PATH.'include/functions_mail.inc.php');
