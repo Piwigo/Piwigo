@@ -387,4 +387,6 @@ $lang['Mobile'] = 'Mobil';
 $lang['Show latest comments first'] = 'Neuesten Kommentar zuerst anzeigen';
 $lang['Show oldest comments first'] = 'Ältesten Kommentar zuerst anzeigen';
 $lang['View in'] = 'Anzeigen in';
+$lang['2small'] = 'XXS - winzig';
+$lang['xsmall'] = 'XS - sehr klein';
 ?>
