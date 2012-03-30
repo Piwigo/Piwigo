@@ -878,4 +878,6 @@ $lang['To export your photos from digiKam to Piwigo, simply install digiKam and 
 $lang['visitors need to login and have the appropriate permissions to see this album'] = 'posetioci moraju biti prijavljeni i imati odgovarajuće dozvole da bi videli ovaj album';
 $lang['custom'] = 'Po izboru';
 $lang['include photos with lower privacy level'] = 'Uključi fotografije sa nižim nivoom privatnosti';
+$lang['No group is permitted to see this private album'] = 'Ni jednoj grupi nije dozvoljeno da vidi ovaj privatni album';
+$lang['Permission management'] = 'Upravljanje dozvolama';
 ?>
