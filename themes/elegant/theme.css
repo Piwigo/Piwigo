@@ -11,10 +11,11 @@ html, body									{ background-color: #111;}
 #imageInfos, #infoSwitcher.infohidden 		{ background-color: #333;}
 #thePicturePage #comments 					{ background-color: #333;}
 #pictureCommentList li 						{ background-color: #444;}
+
 .calendarTitle								{ background-color: #222;}
 
 .switchBox, .header_notes 					{ background-color: #555;}
-.thumbnailCategory 			{ background-color: #333;}
+.thumbnailCategory , .commentElement			{ background-color: #333;}
 .message									{ background-color: #666;}
 
 INPUT[type="text"], INPUT[type="password"],
@@ -50,8 +51,6 @@ INPUT:focus, SELECT:focus, TEXTAREA:focus	{ color: #fff;}
 .switchBox 									{ border: 1px solid #000;}
 .switchBoxTitle 								{ border-bottom: 1px solid #444;}
 FIELDSET, INPUT, SELECT, TEXTAREA 			{ border: 1px solid #777;}
-
-
 
 
 /* icons */ 
@@ -260,6 +259,7 @@ a:hover 		{ border-bottom: none;}
 #pictureComments form p textarea		{ margin: 10px 0;}
 #pictureComments INPUT				{ margin: 10px;}
 #pictureComments INPUT[type=submit]	{ margin: 0;}
+.commentElement .description 		{ padding: 5px;} 
 
 
 /* calendar */
