@@ -138,10 +138,9 @@ y.callService(
 </p>
 {/if}
 
-</div>
-
-<div id="infoSwitcher"></div>
-<div id="imageInfos">
+</div>{*<!-- no significant white space for elegant-->
+*}<div id="infoSwitcher"></div>{*<!-- no significant white space for elegant-->
+*}<div id="imageInfos">
 {if $DISPLAY_NAV_THUMB}
 	<div class="navThumbs">
 		{if isset($previous)}
