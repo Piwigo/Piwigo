@@ -876,4 +876,6 @@ $lang['Piwigo publish plugin for digiKam'] = 'Piwigo Veröffentlichungs-Plugin f
 $lang['ReGalAndroid (RemoteGallery client for Android) is an open source (GPL v3) Piwigo client for the Android platform.'] = 'ReGalAndroid (RemoteGallery App für Android) is ein Open-Source (GPL v3) Piwigo Client für Android.';
 $lang['Shotwell is an open source digital photo organizer that runs on Linux. It is the default photo manager in Ubuntu and Fedora.'] = 'Shotwell ist eine Open-Source Bildverwaltung für Linux. Es ist das standard Bildverwaltungsprogramm unter Ubuntu und Fedora.';
 $lang['To export your photos from digiKam to Piwigo, simply install digiKam and the Kipi-plugins.'] = 'Um deine Bilder von didiKam nach Piwigo zu exportieren, installiere einfach digiKam mit den Kipi-Plugins';
+$lang['No group is permitted to see this private album'] = 'Keine Gruppe hat Zugriff um das private Album anzusehen';
+$lang['Permission management'] = 'Zugriffsverwaltung';
 ?>
