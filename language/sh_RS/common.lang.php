@@ -386,4 +386,6 @@ $lang['xxlarge'] = 'Ekstra ekstra veliko';
 $lang['You will receive a link to create a new password via email.'] = 'Dobićete email-om link za kreiranje nove lozinke.';
 $lang['Your password has been reset'] = 'Vaša lozinka je resetovana';
 $lang['Your username has been successfully changed to : %s'] = 'Vaše korisničko ime je uspešno promenjeno na: %s';
+$lang['2small'] = 'XXS-sićušan';
+$lang['xsmall'] = 'XS-ekstra mali';
 ?>
