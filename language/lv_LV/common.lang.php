@@ -386,5 +386,7 @@ $lang['Show latest comments first'] = 'Jaunākos komentārus rādīt vispirms';
 $lang['View in'] = 'Skatīties kā';
 $lang['Mobile'] = 'Mobilo';
 $lang['Desktop'] = 'Desktopu';
+$lang['2small'] = 'XXS - sīks';
+$lang['xsmall'] = 'XS - ļoti mazs';
 
 ?>

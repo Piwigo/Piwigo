@@ -869,5 +869,6 @@ $lang['Select users...'] = 'Atlasīt lietotājus...';
 $lang['%u users have automatic permission because they belong to a granted group.'] = '% lietotājiem ir automātiskās piekļuves tiesības, jo tie pieder pie privileģētās grupas.';
 $lang['include photos with lower privacy level'] = 'iekļaut fotogrāfijas ar zemāku privātuma līmeni';
 $lang['custom'] = 'Lietotāja';
-
+$lang['No group is permitted to see this private album'] = 'Grupai nav atļauts skatīt šo privāto albūmu';
+$lang['Permission management'] = 'Atļauju pārvaldīšana';
 ?>
