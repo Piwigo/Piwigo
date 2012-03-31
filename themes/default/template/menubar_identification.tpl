@@ -38,7 +38,7 @@
 
 	{if $AUTHORIZE_REMEMBERING}
 	<div><label for="remember_me">
-	{'Auto login'|@translate} <input type="checkbox" name="remember_me" id="remember_me" value="1">
+	<input type="checkbox" name="remember_me" id="remember_me" value="1"> {'Auto login'|@translate}
 	</label></div>
 	{/if}
 

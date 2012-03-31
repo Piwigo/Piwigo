@@ -1,4 +1,4 @@
-﻿/* backgorunds */
+﻿/* backgrounds */
 
 html, body									{ background-color: #111;}
 
@@ -50,8 +50,12 @@ INPUT:focus, SELECT:focus, TEXTAREA:focus	{ color: #fff;}
 .calendarTitle								{ border-top: 2px solid #444;}
 .switchBox 									{ border: 1px solid #000;}
 .switchBoxTitle 								{ border-bottom: 1px solid #444;}
-FIELDSET, INPUT, SELECT, TEXTAREA 			{ border: 1px solid #777;}
+INPUT, SELECT, TEXTAREA 			{ border: 1px solid #666;}
+FIELDSET {border: 2px solid #444;}
 
+/* form */
+legend {font-style:normal;}
+#qsearchInput {margin-left:-20px}
 
 /* icons */ 
 
@@ -91,6 +95,10 @@ a:hover 		{ border-bottom: none;}
 #menubar dd 				{ padding: 0 0 1em 1em;}
 #menubar .pwg-icon-filter { display: none;}
 
+#quickconnect FIELDSET {
+    margin: 0 10px 0 -10px;
+    border: 2px solid #444444;
+}
 
 /* switchers */
 
