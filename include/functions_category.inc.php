@@ -219,21 +219,20 @@ SELECT *
 function get_category_preferred_image_orders()
 {
   global $conf, $page;
-
-  return trigger_event('get_category_preferred_image_orders',
-    array(
-    array(l10n('Default'), '', true),
-    array(l10n('Rating score'), 'rating_score DESC', $conf['rate']),
-    array(l10n('Most visited'), 'hit DESC', true),
-    array(l10n('Creation date'), 'date_creation DESC', true),
-    array(l10n('Post date'), 'date_available DESC', true),
-    array(l10n('File name'), 'file ASC', true),
-    array(
-      l10n('Rank'),
-      'rank ASC',
-      ('categories' == @$page['section'] and !isset($page['flat']) and !isset($page['chronology_field']) )
-      ),
-    array( l10n('Permissions'), 'level DESC', is_admin() )
+    
+  return trigger_event('get_category_preferred_image_orders', array(
+    array(l10n('Default'),                        '',                     true),
+    array(l10n('Photo title, A &rarr; Z'),        'name ASC',             true),
+    array(l10n('Photo title, Z &rarr; A'),        'name DESC',            true),
+    array(l10n('Date created, new &rarr; old'),   'date_creation DESC',   true),
+    array(l10n('Date created, old &rarr; new'),   'date_creation ASC',    true), 
+    array(l10n('Date posted, new &rarr; old'),    'date_available DESC',  true),
+    array(l10n('Date posted, old &rarr; new'),    'date_available ASC',   true),
+    array(l10n('Rating score, high &rarr; low'),  'rating_score DESC',    $conf['rate']),
+    array(l10n('Rating score, low &rarr; high'),  'rating_score ASC',     $conf['rate']),
+    array(l10n('Visits, high &rarr; low'),        'hit DESC',             true),
+    array(l10n('Visits, low &rarr; high'),        'hit ASC',              true),
+    array(l10n('Permissions'),                    'level DESC',           is_admin()),
     ));
 }
 
