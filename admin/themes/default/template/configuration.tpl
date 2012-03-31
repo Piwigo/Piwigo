@@ -142,6 +142,9 @@ function updateRemoveFilterTrigger() {
     fields--;
     updateAddFilterLink();
   });
+  
+  $(".removeFilter").css('display', '');
+  $(".filter:first .removeFilter").css('display', 'none');
 }
 
 jQuery(document).ready(function () {
@@ -150,8 +153,8 @@ jQuery(document).ready(function () {
     $(this).prev('span.filter').children('select[name="order_by[]"]').val('');
     
     fields++;
-    updateAddFilterLink();  
     updateRemoveFilterTrigger();
+    updateAddFilterLink();
   });
   
   updateRemoveFilterTrigger();
