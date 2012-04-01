@@ -444,7 +444,17 @@ if (strpos($page['src_location'], '/pwg_representative/')===false
 {
   try
   {
-    $query = 'SELECT coi, width, height FROM '.$prefixeTable.'images WHERE path=\''.$page['src_location'].'\'';
+    $query = '
+SELECT
+    id,
+    coi,
+    width,
+    height,
+    rotation
+  FROM '.$prefixeTable.'images
+  WHERE path=\''.$page['src_location'].'\'
+;';
+    
     if ( ($row=pwg_db_fetch_assoc(pwg_query($query))) )
     {
       if (isset($row['width']))
@@ -452,6 +462,24 @@ if (strpos($page['src_location'], '/pwg_representative/')===false
         $page['original_size'] = array($row['width'],$row['height']);
       }
       $page['coi'] = $row['coi'];
+
+      include_once(PHPWG_ROOT_PATH . 'admin/include/image.class.php');
+
+      if (empty($row['rotation']))
+      {
+        $page['rotation_angle'] = pwg_image::get_rotation_angle($page['src_path']);
+        
+        single_update(
+          $prefixeTable.'images',
+          array('rotation' => pwg_image::get_rotation_code_from_angle($page['rotation_angle'])),
+          array('id' => $row['id'])
+          );
+      }
+      else
+      {
+        $page['rotation_angle'] = pwg_image::get_rotation_angle_from_code($row['rotation']);
+      }
+
     }
     if (!$row)
     {
@@ -472,8 +500,6 @@ if (!mkgetdir(dirname($page['derivative_path'])))
   ierror("dir create error", 500);
 }
 
-include_once(PHPWG_ROOT_PATH . 'admin/include/image.class.php');
-
 ignore_user_abort(true);
 set_time_limit(0);
 
@@ -482,7 +508,11 @@ $timing['load'] = time_step($step);
 
 $changes = 0;
 
-// todo rotate
+// rotate
+if (0 != $page['rotation_angle'])
+{
+  $image->rotate($page['rotation_angle']);
+}
 
 // Crop & scale
 $o_size = $d_size = array($image->get_width(),$image->get_height());
@@ -554,6 +584,7 @@ if ($d_size[0]*$d_size[1] < 256000)
 {// strip metadata for small images
   $image->strip();
 }
+
 $image->set_compression_quality( $params->quality );
 $image->write( $page['derivative_path'] );
 $image->destroy();

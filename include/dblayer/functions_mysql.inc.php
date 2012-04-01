@@ -370,7 +370,7 @@ UPDATE '.$tablename.'
   {
     $separator = $is_first ? '' : ",\n    ";
 
-    if (isset($value) and $value != '')
+    if (isset($value) and $value !== '')
     {
       $query.= $separator.$key.' = \''.$value.'\'';
     }

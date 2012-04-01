@@ -269,6 +269,11 @@ SELECT
     }
   }
 
+  // we need to save the rotation angle in the database to compute
+  // width/height of "multisizes"
+  $rotation_angle = pwg_image::get_rotation_angle($file_path);
+  $rotation = pwg_image::get_rotation_code_from_angle($rotation_angle);
+  
   $file_infos = pwg_image_infos($file_path);
 
   if (isset($image_id))
@@ -280,6 +285,7 @@ SELECT
       'height' => $file_infos['height'],
       'md5sum' => $md5sum,
       'added_by' => $user['id'],
+      'rotation' => $rotation,
       );
 
     if (isset($level))
@@ -307,6 +313,7 @@ SELECT
       'height' => $file_infos['height'],
       'md5sum' => $md5sum,
       'added_by' => $user['id'],
+      'rotation' => $rotation,
       );
 
     if (isset($level))

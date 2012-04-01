@@ -238,7 +238,7 @@ class pwg_image
       return null;
     }
 
-    $rotation = null;
+    $rotation = 0;
 
     $exif = exif_read_data($source_filepath);
 
@@ -260,6 +260,28 @@ class pwg_image
     }
 
     return $rotation;
+  }
+
+  static function get_rotation_code_from_angle($rotation_angle)
+  {
+    switch($rotation_angle)
+    {
+      case 0:   return 0;
+      case 90:  return 1;
+      case 180: return 2;
+      case 270: return 3;
+    }
+  }
+
+  static function get_rotation_angle_from_code($rotation_code)
+  {
+    switch($rotation_code)
+    {
+      case 0: return 0;
+      case 1: return 90;
+      case 2: return 180;
+      case 3: return 270;
+    }
   }
 
   /** Returns a normalized convolution kernel for sharpening*/
@@ -423,11 +445,15 @@ class image_imagick implements imageInterface
   function resize($width, $height)
   {
     $this->image->setInterlaceScheme(Imagick::INTERLACE_LINE);
-    if ($this->get_width()%2 == 0 && $this->get_height()%2 == 0
-      && $this->get_width() > 3*$width)
+    
+    // TODO need to explain this condition
+    if ($this->get_width()%2 == 0
+        && $this->get_height()%2 == 0
+        && $this->get_width() > 3*$width)
     {
       $this->image->scaleImage($this->get_width()/2, $this->get_height()/2);
     }
+
     return $this->image->resizeImage($width, $height, Imagick::FILTER_LANCZOS, 0.9);
   }
 

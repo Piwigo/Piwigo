@@ -55,7 +55,18 @@ final class SrcImage
 
     if (!$this->size && isset($infos['width']) && isset($infos['height']))
     {
-      $this->size = array($infos['width'], $infos['height']);
+      $width = $infos['width'];
+      $height = $infos['height'];
+
+      // 1 or 5 =>  90 clockwise
+      // 3 or 7 => 270 clockwise
+      if ($infos['rotation'] % 2 != 0)
+      {
+        $width = $infos['height'];
+        $height = $infos['width'];
+      }
+      
+      $this->size = array($width, $height);
     }
   }
 
