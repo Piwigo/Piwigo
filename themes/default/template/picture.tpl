@@ -35,40 +35,44 @@ function changeImgSrc(url,typeSave,typeMap)
 	document.cookie = 'picture_deriv='+typeSave+';path={/literal}{$COOKIE_PATH}{literal}';
 }
 
-function toggleDerivativeSwitchBox()
-{
-	var elt = document.getElementById("derivativeSwitchBox"),
-		ePos = document.getElementById("derivativeSwitchLink");
-	if (elt.style.display==="none")
-	{
-		elt.style.left = (ePos.offsetLeft)+"px";
-		elt.style.top = (ePos.offsetTop+ePos.offsetHeight)+"px";
-		elt.style.display="";
-	}
-	else
-		elt.style.display="none";
-}
-jQuery("#derivativeSwitchBox").on('mouseleave click', function() {
-	this.style.display="none";
-}
-);
+$(document).ready(function() {
+  $("#derivativeSwitchBox").css({'top':0,'left':0});
+  var derivativeSwitchBox_width = $("#derivativeSwitchBox").outerWidth(true);
+  var derivativeSwitchBox_height = $("#derivativeSwitchBox").outerHeight(true);
+  
+  $("#derivativeSwitchLink").click(function() {
+    $("#derivativeSwitchBox").toggle();
+    
+    if ($(this).offset().left + derivativeSwitchBox_width > $(window).width()) {
+      $("#derivativeSwitchBox").css("left", $(window).width() - derivativeSwitchBox_width - 5);
+    } else {
+      $("#derivativeSwitchBox").css("left", $(this).offset().left);
+    }
+    $("#derivativeSwitchBox").css("top", $(this).offset().top + $(this).outerHeight(true));
+  });
+  
+  $("#derivativeSwitchBox").bind("mouseleave click", function() {
+    $(this).hide();
+  });
+});
 {/literal}{/footer_script}
-{strip}<a id="derivativeSwitchLink" href="javascript:toggleDerivativeSwitchBox()" title="{'Photo sizes'|@translate}" class="pwg-state-default pwg-button" rel="nofollow">
-<span class="pwg-icon pwg-icon-sizes">&nbsp;</span><span class="pwg-button-text">{'Photo sizes'|@translate}</span></a>
+{strip}<a id="derivativeSwitchLink" title="{'Photo sizes'|@translate}" class="pwg-state-default pwg-button" rel="nofollow">
+  <span class="pwg-icon pwg-icon-sizes">&nbsp;</span><span class="pwg-button-text">{'Photo sizes'|@translate}</span>
+</a>
 <div id="derivativeSwitchBox" class="switchBox" style="display:none">
-<div class="switchBoxTitle">{'Photo sizes'|@translate}</div>
-{foreach from=$current.unique_derivatives item=derivative key=derivative_type}
-<span class="switchCheck" id="derivativeChecked{$derivative_type}"{if $derivative->get_type() ne $current.selected_derivative->get_type()} style="visibility:hidden"{/if}>&#x2714; </span>
-<a href="javascript:changeImgSrc('{$derivative->get_url()|@escape:javascript}','{$derivative_type}','{$derivative->get_type()}')">
-	{$derivative->get_type()|@translate}<span class="derivativeSizeDetails"> ({$derivative->get_size_hr()})</span>
-</a><br>
-{/foreach}
-{if isset($U_ORIGINAL)}
-<a href="javascript:phpWGOpenWindow('{$U_ORIGINAL}','xxx','scrollbars=yes,toolbar=no,status=no,resizable=yes')" rel="nofollow">{'Original'|@translate}</a>
-{/if}
+  <div class="switchBoxTitle">{'Photo sizes'|@translate}</div>
+  {foreach from=$current.unique_derivatives item=derivative key=derivative_type}
+  <span class="switchCheck" id="derivativeChecked{$derivative_type}"{if $derivative->get_type() ne $current.selected_derivative->get_type()} style="visibility:hidden"{/if}>&#x2714; </span>
+  <a href="javascript:changeImgSrc('{$derivative->get_url()|@escape:javascript}','{$derivative_type}','{$derivative->get_type()}')">
+    {$derivative->get_type()|@translate}<span class="derivativeSizeDetails"> ({$derivative->get_size_hr()})</span>
+  </a><br>
+  {/foreach}
+  {if isset($U_ORIGINAL)}
+  <a href="javascript:phpWGOpenWindow('{$U_ORIGINAL}','xxx','scrollbars=yes,toolbar=no,status=no,resizable=yes')" rel="nofollow">{'Original'|@translate}</a>
+  {/if}
 </div>
-{/strip}{/if}
-
+{/strip}
+{/if}
 
 {strip}{if isset($U_SLIDESHOW_START)}
 	<a href="{$U_SLIDESHOW_START}" title="{'slideshow'|@translate}" class="pwg-state-default pwg-button" rel="nofollow">

@@ -4,10 +4,10 @@
 <div class="titrePage{if isset($chronology.TITLE)} calendarTitleBar{/if}">
 	<ul class="categoryActions">
 {if !empty($image_orders)}
-		<li>{strip}<a href="javascript:toggleSortOrderBox()" id="sortOrderLink" title="{'Sort order'|@translate}" class="pwg-state-default pwg-button" rel="nofollow">
+		<li>{strip}<a id="sortOrderLink" title="{'Sort order'|@translate}" class="pwg-state-default pwg-button" rel="nofollow">
 			<span class="pwg-icon pwg-icon-sort">&nbsp;</span><span class="pwg-button-text">{'Sort order'|@translate}</span>
 		</a>
-		<div id="sortOrderBox" class="switchBox" style="display:none" onclick="toggleSortOrderBox()" onmouseout="e=event.toElement||event.relatedTarget;e.parentNode==this||e==this||toggleSortOrderBox(1)">
+		<div id="sortOrderBox" class="switchBox" style="display:none">
 			<div class="switchBoxTitle">{'Sort order'|@translate}</div>
 			{foreach from=$image_orders item=image_order name=loop}{if !$smarty.foreach.loop.first}<br>{/if}
 			{if $image_order.SELECTED}
@@ -18,26 +18,35 @@
 			{/foreach}
 		</div>
 		{footer_script}{literal}
-function toggleSortOrderBox(forceHide) {
-	var elt = document.getElementById("sortOrderBox"),
-		ePos = document.getElementById("sortOrderLink");
-	if (!forceHide && elt.style.display==="none") {
-		elt.style.left = ePos.offsetLeft+"px";
-		elt.style.top = (ePos.offsetTop+ePos.offsetHeight)+"px";
-		elt.style.display="";
-	}
-	else
-		elt.style.display="none";
-}
+$(document).ready(function() {
+  $("#sortOrderBox").css({'top':0,'left':0});
+  var sortOrderBox_width = $("#sortOrderBox").outerWidth(true);
+  var sortOrderBox_height = $("#sortOrderBox").outerHeight(true);
+  
+  $("#sortOrderLink").click(function() {
+    $("#sortOrderBox").toggle();
+    
+    if ($(this).offset().left + sortOrderBox_width > $(window).width()) {
+      $("#sortOrderBox").css("left", $(window).width() - sortOrderBox_width - 5);
+    } else {
+      $("#sortOrderBox").css("left", $(this).offset().left);
+    }
+    $("#sortOrderBox").css("top", $(this).offset().top + $(this).outerHeight(true));
+  });
+  
+  $("#sortOrderBox").bind("mouseleave", function() {
+    $(this).hide();
+  });
+});
 		{/literal}{/footer_script}
 		{/strip}</li>
 {/if}
 
 {if !empty($image_derivatives)}
-		<li>{strip}<a href="javascript:toggleImageDerivativesBox()" id="derivativeChooseLink" title="{'Photo sizes'|@translate}" class="pwg-state-default pwg-button" rel="nofollow">
+		<li>{strip}<a id="derivativeSwitchLink" title="{'Photo sizes'|@translate}" class="pwg-state-default pwg-button" rel="nofollow">
 			<span class="pwg-icon pwg-icon-sizes">&nbsp;</span><span class="pwg-button-text">{'Photo sizes'|@translate}</span>
 		</a>
-		<div id="derivativeSwitchBox" class="switchBox" style="display:none" onclick="toggleImageDerivativesBox()" onmouseout="e=event.toElement||event.relatedTarget;e.parentNode==this||e==this||toggleImageDerivativesBox(1)">
+		<div id="derivativeSwitchBox" class="switchBox" style="display:none">
 			<div class="switchBoxTitle">{'Photo sizes'|@translate}</div>
 			{foreach from=$image_derivatives item=image_derivative name=loop}{if !$smarty.foreach.loop.first}<br>{/if}
 			{if $image_derivative.SELECTED}
@@ -48,17 +57,26 @@ function toggleSortOrderBox(forceHide) {
 			{/foreach}
 		</div>
 		{footer_script}{literal}
-function toggleImageDerivativesBox(forceHide) {
-	var elt = document.getElementById("derivativeSwitchBox"),
-		ePos = document.getElementById("derivativeChooseLink");
-	if (!forceHide && elt.style.display==="none") {
-		elt.style.left = (ePos.offsetLeft-25)+"px";
-		elt.style.top = (ePos.offsetTop+ePos.offsetHeight)+"px";
-		elt.style.display="";
-	}
-	else
-		elt.style.display="none";
-}
+$(document).ready(function() {
+  $("#derivativeSwitchBox").css({'top':0,'left':0});
+  var derivativeSwitchBox_width = $("#derivativeSwitchBox").outerWidth(true);
+  var derivativeSwitchBox_height = $("#derivativeSwitchBox").outerHeight(true);
+  
+  $("#derivativeSwitchLink").click(function() {
+    $("#derivativeSwitchBox").toggle();
+    
+    if ($(this).offset().left + derivativeSwitchBox_width > $(window).width()) {
+      $("#derivativeSwitchBox").css("left", $(window).width() - derivativeSwitchBox_width - 5);
+    } else {
+      $("#derivativeSwitchBox").css("left", $(this).offset().left);
+    }
+    $("#derivativeSwitchBox").css("top", $(this).offset().top + $(this).outerHeight(true));
+  });
+  
+  $("#derivativeSwitchBox").bind("mouseleave", function() {
+    $(this).hide();
+  });
+});
 		{/literal}{/footer_script}
 		{/strip}</li>
 {/if}
