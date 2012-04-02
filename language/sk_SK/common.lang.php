@@ -398,4 +398,8 @@ $lang['Desktop'] = 'Desktope';
 $lang['Mobile'] = 'Mobil';
 $lang['2small'] = 'XXS - malé';
 $lang['xsmall'] = 'XS – veľmi malé';
+$lang['File name, A &rarr; Z'] = 'Názov súboru, A &rarr; Z';
+$lang['File name, Z &rarr; A'] = 'Názov súboru, Z &rarr; A';
+$lang['Photo title, A &rarr; Z'] = 'Názov fotky, A &rarr; Z';
+$lang['Photo title, Z &rarr; A'] = 'Názov fotky, Z &rarr; A';
 ?>
