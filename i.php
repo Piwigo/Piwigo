@@ -438,6 +438,7 @@ if (!$need_generate)
   exit;
 }
 
+include_once(PHPWG_ROOT_PATH . 'admin/include/image.class.php');
 $page['coi'] = null;
 if (strpos($page['src_location'], '/pwg_representative/')===false
     && strpos($page['src_location'], 'themes/')===false
@@ -446,12 +447,7 @@ if (strpos($page['src_location'], '/pwg_representative/')===false
   try
   {
     $query = '
-SELECT
-    id,
-    coi,
-    width,
-    height,
-    rotation
+SELECT *
   FROM '.$prefixeTable.'images
   WHERE path=\''.$page['src_location'].'\'
 ;';
@@ -464,9 +460,7 @@ SELECT
       }
       $page['coi'] = $row['coi'];
 
-      include_once(PHPWG_ROOT_PATH . 'admin/include/image.class.php');
-
-      if (empty($row['rotation']))
+      if (!isset($row['rotation']))
       {
         $page['rotation_angle'] = pwg_image::get_rotation_angle($page['src_path']);
         
