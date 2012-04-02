@@ -402,4 +402,5 @@ $lang['File name, A &rarr; Z'] = 'Názov súboru, A &rarr; Z';
 $lang['File name, Z &rarr; A'] = 'Názov súboru, Z &rarr; A';
 $lang['Photo title, A &rarr; Z'] = 'Názov fotky, A &rarr; Z';
 $lang['Photo title, Z &rarr; A'] = 'Názov fotky, Z &rarr; A';
+$lang['Date created, new &rarr; old'] = 'Dátum vytvorenia, nové &rarr; staré';
 ?>
