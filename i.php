@@ -321,6 +321,7 @@ function try_switch_source(DerivativeParams $params, $original_mtime)
     $params->sharpen = min(1, $params->sharpen);
     $page['src_path'] = $candidate_path;
     $page['src_url'] = $page['root_path'] . substr($candidate_path, strlen(PHPWG_ROOT_PATH));
+    $page['rotation_angle'] = 0;
   }
 }
 
@@ -509,9 +510,11 @@ $timing['load'] = time_step($step);
 $changes = 0;
 
 // rotate
-if (0 != $page['rotation_angle'])
+if (0 != (int)$page['rotation_angle'])
 {
   $image->rotate($page['rotation_angle']);
+  $changes++;
+  $timing['rotate'] = time_step($step);
 }
 
 // Crop & scale
