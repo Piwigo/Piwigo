@@ -7,7 +7,7 @@
 		<li>{strip}<a id="sortOrderLink" title="{'Sort order'|@translate}" class="pwg-state-default pwg-button" rel="nofollow">
 			<span class="pwg-icon pwg-icon-sort">&nbsp;</span><span class="pwg-button-text">{'Sort order'|@translate}</span>
 		</a>
-		<div id="sortOrderBox" class="switchBox" style="display:none">
+		<div id="sortOrderBox" class="switchBox">
 			<div class="switchBoxTitle">{'Sort order'|@translate}</div>
 			{foreach from=$image_orders item=image_order name=loop}{if !$smarty.foreach.loop.first}<br>{/if}
 			{if $image_order.SELECTED}
@@ -18,25 +18,14 @@
 			{/foreach}
 		</div>
 		{footer_script}{literal}
-$(document).ready(function() {
-  $("#sortOrderBox").css({'top':0,'left':0});
-  var sortOrderBox_width = $("#sortOrderBox").outerWidth(true);
-  var sortOrderBox_height = $("#sortOrderBox").outerHeight(true);
-  
-  $("#sortOrderLink").click(function() {
-    $("#sortOrderBox").toggle();
-    
-    if ($(this).offset().left + sortOrderBox_width > $(window).width()) {
-      $("#sortOrderBox").css("left", $(window).width() - sortOrderBox_width - 5);
-    } else {
-      $("#sortOrderBox").css("left", $(this).offset().left);
-    }
-    $("#sortOrderBox").css("top", $(this).offset().top + $(this).outerHeight(true));
-  });
-  
-  $("#sortOrderBox").bind("mouseleave", function() {
-    $(this).hide();
-  });
+$("#sortOrderLink").click(function() {
+	var elt = $("#sortOrderBox");
+	elt.css("left", Math.min( $(this).offset().left, $(window).width() - elt.outerWidth(true) - 5))
+		.css("top", $(this).offset().top + $(this).outerHeight(true))
+		.toggle();
+});
+$("#sortOrderBox").on("mouseleave", function() {
+	$(this).hide();
 });
 		{/literal}{/footer_script}
 		{/strip}</li>
@@ -46,7 +35,7 @@ $(document).ready(function() {
 		<li>{strip}<a id="derivativeSwitchLink" title="{'Photo sizes'|@translate}" class="pwg-state-default pwg-button" rel="nofollow">
 			<span class="pwg-icon pwg-icon-sizes">&nbsp;</span><span class="pwg-button-text">{'Photo sizes'|@translate}</span>
 		</a>
-		<div id="derivativeSwitchBox" class="switchBox" style="display:none">
+		<div id="derivativeSwitchBox" class="switchBox">
 			<div class="switchBoxTitle">{'Photo sizes'|@translate}</div>
 			{foreach from=$image_derivatives item=image_derivative name=loop}{if !$smarty.foreach.loop.first}<br>{/if}
 			{if $image_derivative.SELECTED}
@@ -57,25 +46,14 @@ $(document).ready(function() {
 			{/foreach}
 		</div>
 		{footer_script}{literal}
-$(document).ready(function() {
-  $("#derivativeSwitchBox").css({'top':0,'left':0});
-  var derivativeSwitchBox_width = $("#derivativeSwitchBox").outerWidth(true);
-  var derivativeSwitchBox_height = $("#derivativeSwitchBox").outerHeight(true);
-  
-  $("#derivativeSwitchLink").click(function() {
-    $("#derivativeSwitchBox").toggle();
-    
-    if ($(this).offset().left + derivativeSwitchBox_width > $(window).width()) {
-      $("#derivativeSwitchBox").css("left", $(window).width() - derivativeSwitchBox_width - 5);
-    } else {
-      $("#derivativeSwitchBox").css("left", $(this).offset().left);
-    }
-    $("#derivativeSwitchBox").css("top", $(this).offset().top + $(this).outerHeight(true));
-  });
-  
-  $("#derivativeSwitchBox").bind("mouseleave", function() {
-    $(this).hide();
-  });
+$("#derivativeSwitchLink").click(function() {
+	var elt = $("#derivativeSwitchBox");
+	elt.css("left", Math.min( $(this).offset().left, $(window).width() - elt.outerWidth(true) - 5))
+		.css("top", $(this).offset().top + $(this).outerHeight(true))
+		.toggle();
+});
+$("#derivativeSwitchBox").on("mouseleave", function() {
+	$(this).hide();
 });
 		{/literal}{/footer_script}
 		{/strip}</li>

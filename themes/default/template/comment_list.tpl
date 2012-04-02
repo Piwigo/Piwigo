@@ -43,14 +43,14 @@
 		<span class="commentAuthor">{$comment.AUTHOR}</span> - <span class="commentDate">{$comment.DATE}</span>
 		{if isset($comment.IN_EDIT)}
 		<a name="edit_comment"></a>
-		<form  method="post" action="{$comment.U_EDIT}" class="filter" id="editComment">
-			<fieldset>
-				<legend>{'Edit a comment'|@translate}</legend>
-				<label>{'Comment'|@translate}<textarea name="content" id="contenteditid" rows="5" cols="80">{$comment.CONTENT|@escape}</textarea></label>
-				<input type="hidden" name="key" value="{$comment.KEY}">
+		<form method="post" action="{$comment.U_EDIT}" id="editComment">
+			<p><label>{'Edit a comment'|@translate} :</label></p>
+			<p><textarea name="content" id="contenteditid" rows="5" cols="80">{$comment.CONTENT|@escape}</textarea></p>
+			<p><input type="hidden" name="key" value="{$comment.KEY}">
+				<input type="hidden" name="pwg_token" value="{$comment.PWG_TOKEN}">
 				<input type="hidden" name="image_id" value="{$comment.IMAGE_ID|@default:$current.id}">
 				<input type="submit" value="{'Submit'|@translate}">
-			</fieldset>
+			</p>
 		</form>
 		{else}
 		<blockquote><div>{$comment.CONTENT}</div></blockquote>

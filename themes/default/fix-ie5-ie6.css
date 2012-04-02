@@ -50,18 +50,12 @@ H1, #theHeader {
 }
 
 .filter LABEL INPUT,
-.filter LABEL SELECT,
-.filter LABEL SPAN,
-.filter LABEL TEXTAREA {
+.filter LABEL SELECT {
   display: block;
   margin: 0.5em 0;
 }
 .filter FIELDSET * LABEL INPUT,
-.filter FIELDSET * LABEL SELECT,
-.filter FIELDSET * LABEL TEXTAREA,
-.filter LABEL SPAN INPUT,
-.filter LABEL SPAN SELECT,
-.filter LABEL SPAN TEXTAREA {
+.filter FIELDSET * LABEL SELECT {
 	display: inline;
 	vertical-align: top;
 	margin: 0 0.5em 0 0;

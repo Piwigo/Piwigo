@@ -35,31 +35,20 @@ function changeImgSrc(url,typeSave,typeMap)
 	document.cookie = 'picture_deriv='+typeSave+';path={/literal}{$COOKIE_PATH}{literal}';
 }
 
-$(document).ready(function() {
-  $("#derivativeSwitchBox").css({'top':0,'left':0});
-  var derivativeSwitchBox_width = $("#derivativeSwitchBox").outerWidth(true);
-  var derivativeSwitchBox_height = $("#derivativeSwitchBox").outerHeight(true);
-  
-  $("#derivativeSwitchLink").click(function() {
-    $("#derivativeSwitchBox").toggle();
-    
-    if ($(this).offset().left + derivativeSwitchBox_width > $(window).width()) {
-      $("#derivativeSwitchBox").css("left", $(window).width() - derivativeSwitchBox_width - 5);
-    } else {
-      $("#derivativeSwitchBox").css("left", $(this).offset().left);
-    }
-    $("#derivativeSwitchBox").css("top", $(this).offset().top + $(this).outerHeight(true));
-  });
-  
-  $("#derivativeSwitchBox").bind("mouseleave click", function() {
-    $(this).hide();
-  });
+$("#derivativeSwitchLink").click(function() {
+	var elt = $("#derivativeSwitchBox");
+	elt.css("left", Math.min( $(this).offset().left, $(window).width() - elt.outerWidth(true) - 5))
+		.css("top", $(this).offset().top + $(this).outerHeight(true))
+		.toggle();
+});
+$("#derivativeSwitchBox").on("mouseleave click", function() {
+	$(this).hide();
 });
 {/literal}{/footer_script}
 {strip}<a id="derivativeSwitchLink" title="{'Photo sizes'|@translate}" class="pwg-state-default pwg-button" rel="nofollow">
   <span class="pwg-icon pwg-icon-sizes">&nbsp;</span><span class="pwg-button-text">{'Photo sizes'|@translate}</span>
 </a>
-<div id="derivativeSwitchBox" class="switchBox" style="display:none">
+<div id="derivativeSwitchBox" class="switchBox">
   <div class="switchBoxTitle">{'Photo sizes'|@translate}</div>
   {foreach from=$current.unique_derivatives item=derivative key=derivative_type}
   <span class="switchCheck" id="derivativeChecked{$derivative_type}"{if $derivative->get_type() ne $current.selected_derivative->get_type()} style="visibility:hidden"{/if}>&#x2714; </span>
@@ -209,7 +198,7 @@ y.callService(
 	</div>
 	{/if}
 	{if $display_info.categories and isset($related_categories)}
-	<div id="Categories"  class="imageInfo">
+	<div id="Categories" class="imageInfo">
 		<dt>{'Albums'|@translate}</dt>
 		<dd>
 			<ul>
@@ -305,7 +294,7 @@ function togglePrivacyLevelBox()
 	{
 		elt.style.left = (ePos.offsetLeft)+"px";
 		elt.style.top = (ePos.offsetTop+ePos.offsetHeight)+"px";
-		elt.style.display="";
+		elt.style.display="block";
 	}
 	else
 		elt.style.display="none";
@@ -350,15 +339,15 @@ function togglePrivacyLevelBox()
 		{if isset($comment_add)}
 			<div id="commentAdd">
 				<h4>{'Add a comment'|@translate}</h4>
-				<form  method="post" action="{$comment_add.F_ACTION}" id="addComment" >
+				<form method="post" action="{$comment_add.F_ACTION}" id="addComment" >
 					{if $comment_add.SHOW_AUTHOR}
-						<p><label>{'Author'|@translate}&nbsp;:</label></p>
+						<p><label>{'Author'|@translate} :</label></p>
 						<p><input type="text" name="author" /></p>
-						<p><label>{'Comment'|@translate}&nbsp;:</label></p>
+						<p><label>{'Comment'|@translate} :</label></p>
 					{/if}
 					<p><textarea name="content" id="contentid" rows="5" cols="50">{$comment_add.CONTENT}</textarea></p>
 					<p><input type="hidden" name="key" value="{$comment_add.KEY}" />
-						<input class="submit" type="submit" value="{'Submit'|@translate}"></p>
+						<input type="submit" value="{'Submit'|@translate}"></p>
 				</form>
 			</div>
 		{/if}

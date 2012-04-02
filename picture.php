@@ -332,9 +332,8 @@ UPDATE '.USER_CACHE_CATEGORIES_TABLE.'
       rate_picture($page['image_id'], $_POST['rate']);
       redirect($url_self);
     }
-    case 'edit_comment' :
+    case 'edit_comment':
     {
-      check_pwg_token();
       include_once(PHPWG_ROOT_PATH.'include/functions_comment.inc.php');
       check_input_parameter('comment_to_edit', $_GET, false, PATTERN_ID);
       $author_id = get_comment_author_id($_GET['comment_to_edit']);
@@ -343,6 +342,7 @@ UPDATE '.USER_CACHE_CATEGORIES_TABLE.'
       {
         if (!empty($_POST['content']))
         {
+          check_pwg_token();
           $comment_action = update_user_comment(
             array(
               'comment_id' => $_GET['comment_to_edit'],
@@ -374,14 +374,13 @@ UPDATE '.USER_CACHE_CATEGORIES_TABLE.'
             redirect($url_self);
           }
           unset($_POST['content']);
-          break;
         }
         else
         {
           $edit_comment = $_GET['comment_to_edit'];
-          break;
         }
       }
+      break;
     }
     case 'delete_comment' :
     {

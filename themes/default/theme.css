@@ -270,6 +270,7 @@ TD.calDayHead {
 }
 
 .commentElement {
+	border-radius: 5px;
 	margin: 5px;
 	padding: 2px 0 0 2px;
 	float: left;
@@ -366,8 +367,10 @@ TD.calDayHead {
 	padding: 0.5em 5px;
 	border-radius: 4px;
 	z-index: 100;
-    text-align:left;
-	position: absolute; /*left, right set through js*/
+	text-align:left;
+	display: none;
+	position: absolute;
+	left: 0; top: 0; /*left, right set through js*/
 }
 
 .switchBoxTitle {
@@ -528,9 +531,6 @@ FIELDSET {
 	overflow: hidden; /* <- makes Opera happy */
 }
 
-.filter UL {
-  margin: 0;
-}
 .filter UL,
 .filter LABEL {
 	display: block;
@@ -557,30 +557,18 @@ FIELDSET {
 
 /*IE6 needs override because of > selector*/
 .filter LABEL>INPUT,
-.filter LABEL>SELECT,
-.filter LABEL>SPAN,
-.filter LABEL>TEXTAREA {
+.filter LABEL>SELECT {
 	display: block;
 	margin: 0.5em 0;
 }
 
 .filter FIELDSET * LABEL>INPUT,
-.filter FIELDSET * LABEL>SELECT,
-.filter FIELDSET * LABEL>TEXTAREA,
-.filter SPAN>INPUT,
-.filter SPAN>SELECT,
-.filter SPAN>TEXTAREA {
+.filter FIELDSET * LABEL>SELECT {
 	display: inline;
 	vertical-align: top;
 	margin: 0 0.5em 0 0;
 }
 
-
-
-
-.filter INPUT[type="submit"] {
-	margin-top: 1em;
-}
 
 .properties UL {
 	list-style-type: none;
@@ -804,13 +792,9 @@ LEGEND {
 #pictureCommentList 					{ float: right; }
 
 #commentAdd input[type="text"],
-#commentAdd textarea {
-	max-width: 100%;
-	width: 100%;
-}
-
-#pictureCommentList .commentElement {
-	border-radius: 5px;
+#comments TEXTAREA {
+	max-width: 99%;
+	width: 99%;
 }
 
 .commentAuthor {
@@ -824,8 +808,10 @@ LEGEND {
 #pictureCommentList .commentsOrder	{ float: left; margin-bottom: 5px;}
 #pictureCommentList .navigationBar	{ float: right; margin-bottom: 5px;}
 #pictureComments h4					{ margin: 0;}
-#pictureComments form p				{ margin: 5px 0; text-align: left;}
-#pictureComments form p textarea		{ margin: 10px 0;}
+#comments FORM P	 {
+	margin: 5px 0; text-align: left;
+}
+
 #pictureComments INPUT[type=submit]	{ margin: 0;}
 
 /* image info table */

@@ -198,7 +198,6 @@ SELECT
           array(
             'action'=>'edit_comment',
             'comment_to_edit'=>$row['id'],
-            'pwg_token' => get_pwg_token(),
             )
           );
           if (isset($edit_comment) and ($row['id'] == $edit_comment))
@@ -207,6 +206,7 @@ SELECT
             $key = get_ephemeral_key(2, $page['image_id']);
             $tpl_comment['KEY'] = $key;
             $tpl_comment['CONTENT'] = $row['content'];
+            $tpl_comment['PWG_TOKEN'] = get_pwg_token();
           }
       }
       if (is_admin())

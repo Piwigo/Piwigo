@@ -206,8 +206,6 @@ foreach ($actions as $loop_action)
 
 if (isset($action))
 {
-  check_pwg_token();
-
   $comment_author_id = get_comment_author_id($comment_id);
 
   if (can_manage_comment($action, $comment_author_id))
@@ -216,12 +214,14 @@ if (isset($action))
 
     if ('delete' == $action)
     {
+      check_pwg_token();
       delete_user_comment($comment_id);
       $perform_redirect = true;
     }
 
     if ('validate' == $action)
     {
+      check_pwg_token();
       validate_user_comment($comment_id);
       $perform_redirect = true;
     }
@@ -230,6 +230,7 @@ if (isset($action))
     {
       if (!empty($_POST['content']))
       {
+        check_pwg_token();
         update_user_comment(
           array(
             'comment_id' => $_GET['edit'],
@@ -502,8 +503,7 @@ SELECT c.id, name, permalink, uppercats, com.id as comment_id
       $tpl_comment['U_EDIT'] = add_url_params(
         $url,
         array(
-          'edit' => $comment['comment_id'],
-          'pwg_token' => get_pwg_token(),
+          'edit' => $comment['comment_id']
           )
         );
 
@@ -514,6 +514,7 @@ SELECT c.id, name, permalink, uppercats, com.id as comment_id
         $tpl_comment['KEY'] = $key;
         $tpl_comment['IMAGE_ID'] = $comment['image_id'];
         $tpl_comment['CONTENT'] = $comment['content'];
+        $tpl_comment['PWG_TOKEN'] = get_pwg_token();
       }
     }
 
