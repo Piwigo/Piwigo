@@ -403,4 +403,14 @@ $lang['File name, Z &rarr; A'] = 'Názov súboru, Z &rarr; A';
 $lang['Photo title, A &rarr; Z'] = 'Názov fotky, A &rarr; Z';
 $lang['Photo title, Z &rarr; A'] = 'Názov fotky, Z &rarr; A';
 $lang['Date created, new &rarr; old'] = 'Dátum vytvorenia, nové &rarr; staré';
+$lang['Date created, old &rarr; new'] = 'Dátum vytvorenia, staré &rarr; nové';
+$lang['Date posted, new &rarr; old'] = 'Dátum odoslania, nové &rarr; staré';
+$lang['Date posted, old &rarr; new'] = 'Dátum odoslania, staré &rarr; nové';
+$lang['Manual sort order'] = 'Manuálne zoradenie';
+$lang['Numeric identifier, 1 &rarr; 9'] = 'Číselný identifikátor, 1 &rarr; 9';
+$lang['Numeric identifier, 9 &rarr; 1'] = 'Číselný identifikátor, 9 &rarr; 1';
+$lang['Rating score, high &rarr; low'] = 'Hodnotenie, vysoké &rarr; nízke';
+$lang['Rating score, low &rarr; high'] = 'Hodnotenie, nízke &rarr; vysoké';
+$lang['Visits, high &rarr; low'] = 'Zobrazenia, vysoké &rarr; nízke';
+$lang['Visits, low &rarr; high'] = 'Zobrazenia, nízke &rarr; vysoké';
 ?>
