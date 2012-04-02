@@ -390,4 +390,10 @@ $lang['Mobile'] = 'Mobile';
 $lang['Desktop'] = 'Classico';
 
 $lang['Email: %s'] = 'Email : %s';
+$lang['File name, A &rarr; Z'] = 'Nome file, A &rarr; Z';
+$lang['File name, Z &rarr; A'] = 'Nome file, Z &rarr; A';
+$lang['Manual sort order'] = 'Ordine manuale';
+$lang['Photo title, A &rarr; Z'] = 'Titolo immagine, A &rarr; Z';
+$lang['Photo title, Z &rarr; A'] = 'Titolo immagine, Z &rarr; A';
+$lang['Visits, high &rarr; low'] = 'Visite, massimo &rarr; minimo';
 ?>
