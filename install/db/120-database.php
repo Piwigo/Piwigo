@@ -28,7 +28,7 @@ if (!defined('PHPWG_ROOT_PATH'))
 
 $upgrade_description = 'rotation mode (code, not angle) is stored in the database';
 
-$query = 'ALTER TABLE '.IMAGES_TABLE.' ADD COLUMN rotation tinyint DEFAULT NULL';
+$query = 'ALTER TABLE '.IMAGES_TABLE.' ADD COLUMN rotation tinyint unsigned DEFAULT NULL';
 pwg_query($query);
 
 echo
