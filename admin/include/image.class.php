@@ -287,15 +287,14 @@ class pwg_image
   /** Returns a normalized convolution kernel for sharpening*/
   static function get_sharpen_matrix($amount)
   {
-		// Amount should be in the range of 28-10
-		$amount = round(abs(-28 + ($amount * 0.18)), 2);
+    // Amount should be in the range of 28-10
+    $amount = round(abs(-28 + ($amount * 0.18)), 2);
 
-		$matrix = array
-		(
-			array(-1,   -1,    -1),
-			array(-1, $amount, -1),
-			array(-1,   -1,    -1),
-		);
+    $matrix = array(
+      array(-1,   -1,    -1),
+      array(-1, $amount, -1),
+      array(-1,   -1,    -1),
+      );
 
     $norm = array_sum(array_map('array_sum', $matrix));
 
@@ -303,10 +302,12 @@ class pwg_image
     {
       $line = & $matrix[$i];
       for ($j=0; $j<3; $j++)
+      {
         $line[$j] /= $norm;
+      }
     }
 
-		return $matrix;
+    return $matrix;
   }
 
   private function get_resize_result($destination_filepath, $width, $height, $time=null)
@@ -460,7 +461,7 @@ class image_imagick implements imageInterface
   function sharpen($amount)
   {
     $m = pwg_image::get_sharpen_matrix($amount);
-		return  $this->image->convolveImage($m);
+    return  $this->image->convolveImage($m);
   }
 
   function compose($overlay, $x, $y, $opacity)
@@ -729,7 +730,7 @@ class image_gd implements imageInterface
   function sharpen($amount)
   {
     $m = pwg_image::get_sharpen_matrix($amount);
-		return imageconvolution($this->image, $m, 1, 0);
+    return imageconvolution($this->image, $m, 1, 0);
   }
 
   function compose($overlay, $x, $y, $opacity)
