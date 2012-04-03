@@ -388,6 +388,21 @@ $lang['Desktop'] = 'Komputila';
 $lang['Photo sizes'] = 'Grandeco de la fotoj';
 $lang['2small'] = 'XXS - malgrandega';
 $lang['xsmall'] = 'XS - tre malgranda';
+$lang['File name, A &rarr; Z'] = 'Dosiernomo, A &rarr; Z';
+$lang['File name, Z &rarr; A'] = 'Dosiernomo, Z &rarr; A';
+$lang['Photo title, A &rarr; Z'] = 'Fota titolo, A &rarr; Z';
+$lang['Photo title, Z &rarr; A'] = 'Fota titolo, Z &rarr; A';
+$lang['Date created, new &rarr; old'] = 'Kreita dato, nova &rarr; malnova';
+$lang['Date created, old &rarr; new'] = 'Kreita dato, malnova &rarr; nova';
+$lang['Date posted, new &rarr; old'] = 'Aldonita dato, nova &rarr; malnova';
+$lang['Date posted, old &rarr; new'] = 'Aldonita dato, malnova &rarr; nova';
+$lang['Rating score, high &rarr; low'] = 'Poento, alta &rarr; malalta';
+$lang['Rating score, low &rarr; high'] = 'Poento, malalta &rarr; alta';
+$lang['Visits, high &rarr; low'] = 'Vizitoj, alta &rarr; malalta';
+$lang['Visits, low &rarr; high'] = 'Vizitoj, malalta &rarr; alta';
+$lang['Numeric identifier, 1 &rarr; 9'] = 'Identigilo, 1 &rarr; 9';
+$lang['Numeric identifier, 9 &rarr; 1'] = 'Identigilo, 9 &rarr; 1';
+$lang['Manual sort order'] = 'Permana ordigado';
 
 
 ?>
