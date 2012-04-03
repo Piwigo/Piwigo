@@ -445,6 +445,50 @@ switch ($page['section'])
         );
     }
 
+    // derivaties = multiple size
+    $enabled = ImageStdParams::get_defined_type_map();
+    $disabled = @unserialize(@$conf['disabled_derivatives']);
+    if ($disabled === false)
+    {
+      $disabled = array();
+    }
+
+    $tpl_vars = array();
+    foreach(ImageStdParams::get_all_types() as $type)
+    {
+      $tpl_var = array();
+      
+      $tpl_var['must_square'] = ($type==IMG_SQUARE ? true : false);
+      $tpl_var['must_enable'] = ($type==IMG_SQUARE || $type==IMG_THUMB)? true : false;
+      
+      if ($params=@$enabled[$type])
+      {
+        $tpl_var['enabled']=true;
+      }
+      else
+      {
+        $tpl_var['enabled']=false;
+        $params=@$disabled[$type];
+      }
+      
+      if ($params)
+      {
+        list($tpl_var['w'],$tpl_var['h']) = $params->sizing->ideal_size;
+        if ( ($tpl_var['crop'] = round(100*$params->sizing->max_crop)) > 0)
+        {
+          list($tpl_var['minw'],$tpl_var['minh']) = $params->sizing->min_size;
+        }
+        else
+        {
+          $tpl_var['minw'] = $tpl_var['minh'] = "";
+        }
+        $tpl_var['sharpen'] = $params->sharpen;
+        $tpl_var['quality'] = $params->quality;
+      }
+      $tpl_vars[$type]=$tpl_var;
+    }
+    $template->assign('derivatives', $tpl_vars);
+
     break;
   }
 }

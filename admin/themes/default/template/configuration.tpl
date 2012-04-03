@@ -268,11 +268,17 @@ jQuery(document).ready(function () {
 
 {if isset($sizes)}
 
-{footer_script}{literal}
+{footer_script}
+var labelMaxWidth = "{'Maximum Width'|@translate}";
+var labelWidth = "{'Width'|@translate}";
+
+var labelMaxHeight = "{'Maximum Height'|@translate}";
+var labelHeight = "{'Height'|@translate}";
+{literal}
 jQuery(document).ready(function(){
-  function toggleResizeFields(prefix) {
-    var checkbox = jQuery("#"+prefix+"_resize");
-    var needToggle = jQuery("input[name^="+prefix+"_]").not(checkbox).parents('tr');
+  function toggleResizeFields(size) {
+    var checkbox = jQuery("#original_resize");
+    var needToggle = jQuery("#sizeEdit-original");
 
     if (jQuery(checkbox).is(':checked')) {
       needToggle.show();
@@ -284,17 +290,58 @@ jQuery(document).ready(function(){
 
   toggleResizeFields("original");
   jQuery("#original_resize").click(function () {toggleResizeFields("original")});
+
+  jQuery("a[id^='sizeEditOpen-']").click(function(){
+    var sizeName = jQuery(this).attr("id").split("-")[1];
+    jQuery("#sizeEdit-"+sizeName).toggle();
+    jQuery(this).hide();
+  });
+
+  jQuery(".cropToggle").click(function() {
+    var labelBoxWidth = jQuery(this).parents('table.sizeEditForm').find('td.sizeEditWidth');
+    var labelBoxHeight = jQuery(this).parents('table.sizeEditForm').find('td.sizeEditHeight');
+
+    if (jQuery(this).is(':checked')) {
+      jQuery(labelBoxWidth).html(labelWidth);
+      jQuery(labelBoxHeight).html(labelHeight);
+    }
+    else {
+      jQuery(labelBoxWidth).html(labelMaxWidth);
+      jQuery(labelBoxHeight).html(labelMaxHeight);
+    }
+  });
+
+  jQuery("#showDetails").click(function() {
+    jQuery(".sizeDetails").show();
+    jQuery(this).css("visibility", "hidden");
+  });
+
 });
 {/literal}{/footer_script}
+
+{literal}
+<style>
+.sizeEnable {width:50px;}
+.sizeEditForm {margin:0 0 10px 20px;}
+.sizeEdit {display:none;}
+#sizesConf table {margin:0;}
+.showDetails {padding:0;}
+.sizeDetails {display:none;margin-left:10px;}
+.sizeEditOpen {margin-left:10px;}
+</style>
+{/literal}
 
 <fieldset id="sizesConf">
   <legend>{'Original Size'|@translate}</legend>
 
-  <table>
-    <tr>
-      <th><label for="original_resize">{'Resize after upload'|@translate}</label></th>
-      <td><input type="checkbox" name="original_resize" id="original_resize" {if ($sizes.original_resize)}checked="checked"{/if}></td>
-    </tr>
+  <div>
+    <label for="original_resize">
+      <input type="checkbox" name="original_resize" id="original_resize" {if ($sizes.original_resize)}checked="checked"{/if}>
+      {'Resize after upload'|@translate}
+    </label>
+  </div>
+
+  <table id="sizeEdit-original">
     <tr>
       <th>{'Maximum Width'|@translate}</th>
       <td><input type="text" name="original_resize_maxwidth" value="{$sizes.original_resize_maxwidth}" size="4" maxlength="4"> {'pixels'|@translate}</td>
@@ -309,6 +356,87 @@ jQuery(document).ready(function(){
     </tr>
   </table>
 
+</fieldset>
+
+<div class="warnings">Warning: the following fields are for test "user interface" test only. Any change won't be saved.<br>See screen [Administration > Configuration > Multiple Size] to configure sizes.</div>
+
+<fieldset id="multiSizesConf">
+  <legend>{'Multiple Size'|@translate}</legend>
+
+<div class="showDetails">
+  <a href="#" id="showDetails"{if $show_details} style="display:none"{/if}>{'show details'|@translate}</a>
+</div>
+
+<table style="margin:0">
+{foreach from=$derivatives item=d key=type}
+  <tr>
+    <td>
+      <label>
+        <span class="sizeEnable">
+  {if $d.must_enable}
+          &#x2714;
+  {else}
+          <input type="checkbox" name="d[{$type}][enabled]" {if $d.enabled}checked="checked"{/if}>
+  {/if}
+        </span>
+        {$type|@translate}
+      </label>
+    </td>
+
+    <td>
+      <span class="sizeDetails">{$d.w} x {$d.h} {'pixels'|@translate}{if $d.crop}, {'Crop'|@translate|lower}{/if}</span>
+    </td>
+
+    <td>
+      <span class="sizeDetails">
+        <a href="#" id="sizeEditOpen-{$type}" class="sizeEditOpen">{'edit'|@translate}</a>
+      </span>
+    </td>
+  </tr>
+
+  <tr id="sizeEdit-{$type}" class="sizeEdit">
+    <td colspan="3">
+      <table class="sizeEditForm">
+  {if !$d.must_square}
+        <tr>
+          <td colspan="2">
+            <label>
+              <input type="checkbox" class="cropToggle" name="d[{$type}][crop]" {if $d.crop}checked="checked"{/if}>
+              {'Crop'|@translate}
+            </label>
+          </td>
+        </tr>
+  {/if}
+
+        <tr>
+          <td class="sizeEditWidth">{if $d.must_square or $d.crop}{'Width'|@translate}{else}{'Maximum Width'|@translate}{/if}</td>
+          <td>
+            <input type="text" name="d[{$type}][w]" maxlength="4" size="4" value="{$d.w}"{if isset($ferrors.$type.w)}class="dError"{/if}>
+            {'pixels'|@translate}
+            {if isset($ferrors.$type.w)}<span class="dErrorDesc" title="{$ferrors.$type.w}">!</span>{/if}
+          </td>
+        </tr>
+
+  {if !$d.must_square}
+        <tr>
+          <td class="sizeEditHeight">{if $d.crop}{'Height'|@translate}{else}{'Maximum Height'|@translate}{/if}</td>
+          <td>
+            <input type="text" name="d[{$type}][h]" maxlength="4" size="4"  value="{$d.h}"{if isset($ferrors.$type.h)}class="dError"{/if}>
+            {'pixels'|@translate}
+            {if isset($ferrors.$type.h)}<span class="dErrorDesc" title="{$ferrors.$type.h}">!</span>{/if}
+          </td>
+        </tr>
+  {/if}
+      </table> {* #sizeEdit *}
+    </td>
+  </tr>
+{/foreach}
+</table>
+
+<p style="margin:20px 0 0 0" class="sizeDetails">
+  {'Image Quality'|@translate}
+  <input type="text" name="original_resize_quality" value="{$sizes.original_resize_quality}" size="3" maxlength="3"> %
+</p>
 </fieldset>
 {/if}
 
