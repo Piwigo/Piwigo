@@ -18,14 +18,14 @@
 			{/foreach}
 		</div>
 		{footer_script}{literal}
-$("#sortOrderLink").click(function() {
-	var elt = $("#sortOrderBox");
-	elt.css("left", Math.min( $(this).offset().left, $(window).width() - elt.outerWidth(true) - 5))
-		.css("top", $(this).offset().top + $(this).outerHeight(true))
+jQuery("#sortOrderLink").click(function() {
+	var elt = jQuery("#sortOrderBox");
+	elt.css("left", Math.min( jQuery(this).offset().left, jQuery(window).width() - elt.outerWidth(true) - 5))
+		.css("top", jQuery(this).offset().top + jQuery(this).outerHeight(true))
 		.toggle();
 });
-$("#sortOrderBox").on("mouseleave", function() {
-	$(this).hide();
+jQuery("#sortOrderBox").on("mouseleave", function() {
+	jQuery(this).hide();
 });
 		{/literal}{/footer_script}
 		{/strip}</li>
@@ -46,14 +46,14 @@ $("#sortOrderBox").on("mouseleave", function() {
 			{/foreach}
 		</div>
 		{footer_script}{literal}
-$("#derivativeSwitchLink").click(function() {
-	var elt = $("#derivativeSwitchBox");
-	elt.css("left", Math.min( $(this).offset().left, $(window).width() - elt.outerWidth(true) - 5))
-		.css("top", $(this).offset().top + $(this).outerHeight(true))
+jQuery("#derivativeSwitchLink").click(function() {
+	var elt = jQuery("#derivativeSwitchBox");
+	elt.css("left", Math.min( jQuery(this).offset().left, jQuery(window).width() - elt.outerWidth(true) - 5))
+		.css("top", jQuery(this).offset().top + jQuery(this).outerHeight(true))
 		.toggle();
 });
-$("#derivativeSwitchBox").on("mouseleave", function() {
-	$(this).hide();
+jQuery("#derivativeSwitchBox").on("mouseleave", function() {
+	jQuery(this).hide();
 });
 		{/literal}{/footer_script}
 		{/strip}</li>
