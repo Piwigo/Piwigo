@@ -549,15 +549,15 @@ class Template {
 
   function func_define_derivative($params, &$smarty)
   {
-    !empty($params['name']) or fatal_error('define_derviative missing name');
+    !empty($params['name']) or fatal_error('define_derivative missing name');
     if (isset($params['type']))
     {
       $derivative = ImageStdParams::get_by_type($params['type']);
       $smarty->assign( $params['name'], $derivative);
       return;
     }
-    !empty($params['width']) or fatal_error('define_derviative missing width');
-    !empty($params['height']) or fatal_error('define_derviative missing height');
+    !empty($params['width']) or fatal_error('define_derivative missing width');
+    !empty($params['height']) or fatal_error('define_derivative missing height');
 
     $w = intval($params['width']);
     $h = intval($params['height']);
@@ -579,9 +579,9 @@ class Template {
       if ($crop)
       {
         $minw = empty($params['min_width']) ? $w : intval($params['min_width']);
-        $minw <= $w or fatal_error('define_derviative invalid min_width');
+        $minw <= $w or fatal_error('define_derivative invalid min_width');
         $minh = empty($params['min_height']) ? $h : intval($params['min_height']);
-        $minh <= $h or fatal_error('define_derviative invalid min_height');
+        $minh <= $h or fatal_error('define_derivative invalid min_height');
       }
     }
 
