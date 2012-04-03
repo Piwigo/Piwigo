@@ -39,6 +39,10 @@ if (isset($page['category']))
 {
   check_restrictions($page['category']['id']);
 }
+if ($page['start']>0 && $page['start']>=count($page['items']))
+{
+  page_not_found('', duplicate_index_url(array('start'=>0)));
+}
 
 trigger_action('loc_begin_index');
 

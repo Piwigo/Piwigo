@@ -17,7 +17,7 @@
 			{/if}
 			{/foreach}
 		</div>
-		{footer_script}{literal}
+		{footer_script require='jquery'}{literal}
 jQuery("#sortOrderLink").click(function() {
 	var elt = jQuery("#sortOrderBox");
 	elt.css("left", Math.min( jQuery(this).offset().left, jQuery(window).width() - elt.outerWidth(true) - 5))
@@ -45,7 +45,7 @@ jQuery("#sortOrderBox").on("mouseleave", function() {
 			{/if}
 			{/foreach}
 		</div>
-		{footer_script}{literal}
+		{footer_script require='jquery'}{literal}
 jQuery("#derivativeSwitchLink").click(function() {
 	var elt = jQuery("#derivativeSwitchBox");
 	elt.css("left", Math.min( jQuery(this).offset().left, jQuery(window).width() - elt.outerWidth(true) - 5))

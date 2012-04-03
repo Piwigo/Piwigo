@@ -549,12 +549,6 @@ FIELDSET {
 	float: none;
 }
 
-.filter .tagSelection LABEL {
-	display: inline;
-	float: none;
-	margin-right:0.5em;/*reduce from above*/
-}
-
 /*IE6 needs override because of > selector*/
 .filter LABEL>INPUT,
 .filter LABEL>SELECT {
@@ -590,11 +584,6 @@ FIELDSET {
 	text-align: right;
 	margin: 0;
 	padding: 0 0.5em 0 0;
-}
-
-/* button tools */
-.actions A, .actions IMG {
-	border: none;
 }
 
 .tagSelection {
@@ -811,8 +800,6 @@ LEGEND {
 #comments FORM P	 {
 	margin: 5px 0; text-align: left;
 }
-
-#pictureComments INPUT[type=submit]	{ margin: 0;}
 
 /* image info table */
 
