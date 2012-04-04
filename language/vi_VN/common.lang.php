@@ -388,5 +388,20 @@ $lang['Mobile'] = 'Di động';
 $lang['2small'] = 'XXS - nhỏ';
 $lang['xsmall'] = 'XS - cực nhỏ';
 $lang['Desktop'] = 'Desktop';
+$lang['File name, A &rarr; Z'] = 'Tên tệp tin, A &rarr; Z';
+$lang['File name, Z &rarr; A'] = 'Tên tệp tin, Z &rarr; A';
+$lang['Photo title, A &rarr; Z'] = 'Tựa đề ảnh, A &rarr; Z';
+$lang['Photo title, Z &rarr; A'] = 'Tựa đề ảnh, Z &rarr; A';
+$lang['Date created, new &rarr; old'] = 'Ngày tháng khởi tạo, mới &rarr; cũ';
+$lang['Date created, old &rarr; new'] = 'Ngày tháng khởi tạo, cũ &rarr; mới';
+$lang['Date posted, new &rarr; old'] = 'Ngày tháng gởi ảnh, mới&rarr; cũ';
+$lang['Date posted, old &rarr; new'] = 'Ngày tháng gởi ảnh, cũ &rarr; mới';
+$lang['Rating score, high &rarr; low'] = 'Tỉ lệ xếp hạng, cao &rarr; thấp';
+$lang['Rating score, low &rarr; high'] = 'Tỉ lệ xếp hạng, thấp &rarr; cao';
+$lang['Visits, high &rarr; low'] = 'Số lần xem, cao &rarr; thấp';
+$lang['Visits, low &rarr; high'] = 'Số lần xem, thấp &rarr; cao';
+$lang['Numeric identifier, 1 &rarr; 9'] = 'Ký hiệu nhận dạng số học, 1 &rarr; 9';
+$lang['Numeric identifier, 9 &rarr; 1'] = 'Ký hiệu nhận dạng số học, 9 &rarr; 1';
+$lang['Manual sort order'] = 'Sắp xếp vị trí thủ công';
 
 ?>
