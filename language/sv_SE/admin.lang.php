@@ -842,5 +842,33 @@ $lang['<em>Piwigo for iOS</em> application empowers you to connect to your Piwig
 $lang['Piwigo for Android'] = 'Piwigo för Android';
 $lang['<em>Piwigo for Android</em> application empowers you to connect your Android phone or table to your Piwigo gallery, create some albums and upload several photos at once.'] = '<em>Piwigo för Android</em> applikationer tillåter dig ansluta till ditt Piwigo galleri från din Android telefon eller tablet, skapa några album och ladda upp flera bilder på en gång.';
 $lang['Piwigo Publish plugin for Lightroom'] = 'Piwigo Publish insticksmodul för Lightroom';
+$lang['Adobe Photoshop Lightroom is a photography software designed to manage large quantities of digital images and doing post production work.'] = 'Adobe Photoshop Lightroom är en fotoredigeringsmjukvara designad för att hantera stora mängder bilder och göra efterredigering.';
+$lang['The Piwigo publish Plug-in allows you to export and synchronize photos from Lightroom directly to your Piwigo photo gallery.'] = 'Insticksmodulen för Piwigo publicering möjliggör export och synkronisering av bilder mellan Lightroom och ditt bildgalleri.';
+$lang['Piwigo publish plugin for Shotwell'] = 'Insticksmodul för Piwigo publicering via Shotwell';
+$lang['Shotwell is an open source digital photo organizer that runs on Linux. It is the default photo manager in Ubuntu and Fedora.'] = 'Shotwell är en Open Source digital fotohanterare för Linux som används som standard av Ubuntu och Fedora.';
+$lang['On your Linux, simply install Shotwell with your package manager and the activate Piwigo publishing option.'] = 'I din Linux distribution, installera Shotwell via pakethanteraren och aktivera valmöjligheten Piwigo publicering.';
+$lang['Piwigo publish plugin for digiKam'] = 'Piwigo publicering via digiKam'; 
+$lang['digiKam is an advanced digital photo management free software for Linux, Windows, and MacOSX.'] = 'digiKam är ett avancerat program för digital mediahantering, framför allt bilder, för Linux, Windows och MacOSX.';
+$lang['digiKam is designed for photographers who want to view, manage, edit, enhance, organize, tag, and share photographs.'] = 'digiKam är designat för fotografer som vill se, hantera, förbättra, organisera, märka och distribuera bilder.';
+$lang['To export your photos from digiKam to Piwigo, simply install digiKam and the Kipi-plugins.'] = 'För att exportera bilder från digiKam till Piwigo, installera digiKam och Kipi-plugin för export till Piwigo.';
+$lang['Piwigo export plugin for iPhoto'] = 'Piwigo export plugin för iPhoto';
+$lang['iPhoto is the default photo manager on MacOSX. The Piwigo export plugin let you create new albums and export your photos directly from iPhoto to your Piwigo photo gallery.'] = 'iPhoto är standard för MacOSX. Piwigo export plugin låter dig skapa album och exportera dina bilder från iPhoto till ditt Piwigo galleri.';
+$lang['Piwigo export plugin for Aperture'] = 'Piwigo export plugin för Aperture';
+$lang['Aperture is a powerful tool to refine images and manage massive libraries on Mac.'] = 'Aperture är ett kraftfullt verktyg för bildhantering för Mac.';
+$lang['Aperture is designed for professional photographers with iPhoto simplicity.'] = 'Aperture är designat för proffs med iPhotos enkelhet.';
+$lang['The Piwigo export plugin allows you to create albums and export photos.'] = 'Piwigo export modulen låter dig skapa och exportera bilder.';
+$lang['ReGalAndroid (RemoteGallery client for Android) is an open source (GPL v3) Piwigo client for the Android platform.'] = 'ReGalAndroid (RemoteGallery client for Android) är en open source (GPL v3) Piwigo klient för the Android.';
+$lang['Features include gallery browsing, album creation and photo upload.'] = 'Bland annat ingår galleri-utforskning, skapande av nya album och uppladdning av bilder.';
+$lang['Generate multiple size images'] = 'Skapa flera storlekar av bilder';
+$lang['Delete multiple size images'] = 'Ta bort flera storlekar av bilder';
+$lang['any visitor can see this album'] = 'alla besökare kan se detta album';
+$lang['visitors need to login and have the appropriate permissions to see this album'] = 'besökare måste lpgga in med korrekta rättigheter för att se detta album';
+$lang['Groups and users'] = 'Grupper och användare';
+$lang['Permission granted for groups'] = 'Tillstånd för följande grupper';
+$lang['Select groups...'] = 'Välj grupper...';
+$lang['There is no group in this gallery.'] = 'Det finns inga grupper i det här galleriet.';
+$lang['Permission granted for users'] = 'Tillstånd utfärdat för valda användare';
+$lang['Select users...'] = 'Välj användare...';
+$lang['%u users have automatic permission because they belong to a granted group.'] = '%u användare har automatiskt tillstånd eftersom de tillhör en grupp med rättigheter utfärdade.';
 
 ?>
