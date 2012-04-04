@@ -865,4 +865,15 @@ $lang['Piwigo Publish plugin for Lightroom'] = 'Wtyczka Piwigo Publish dla Light
 $lang['Piwigo publish plugin for Shotwell'] = 'Wtyczka Piwigo dla Shotwell.';
 $lang['Shotwell is an open source digital photo organizer that runs on Linux. It is the default photo manager in Ubuntu and Fedora.'] = 'Shotwell jest oprogramowaniem typu open source do zarządzania zdjęciami na systemie Linux. Jest domyślnym menadżerem zdjęć dla dystrybucji Ubuntu oraz Fedora.';
 $lang['The Piwigo publish Plug-in allows you to export and synchronize photos from Lightroom directly to your Piwigo photo gallery.'] = 'Wtyczka Piwigo Publish powala na eksportowanie i synchronizację zdjęć bezpośrednio z Lightroom do Twojej galerii Piwigo.';
+$lang['Aperture is a powerful tool to refine images and manage massive libraries on Mac.'] = 'Aperture jest narzędziem do poprawiania oraz zarządzania bibliotekami zdjęć na Mac\'u.';
+$lang['Aperture is designed for professional photographers with iPhoto simplicity.'] = 'Aperture jest zaprojektowany dla profesjonalnych fotografów, ale posiada prostotę iPhoto.';
+$lang['digiKam is an advanced digital photo management free software for Linux, Windows, and MacOSX.'] = 'digiKam jest zaawansowanym, darmowym oprogramowaniem do zarządzania zdjęciami dla systemów Linux, Windows oraz MacOSX.';
+$lang['digiKam is designed for photographers who want to view, manage, edit, enhance, organize, tag, and share photographs.'] = 'digiKam jest zaprojektowany dla fotografów, którzy chcą przeglądac, zarządzać, edytować, polepszać, organizować, tagować oraz współdzielić zdjęcia.';
+$lang['Features include gallery browsing, album creation and photo upload.'] = 'Funkcje to m.in. przeglądanie, tworzenie albumów oraz wgrywanie zdjęć.';
+$lang['iPhoto is the default photo manager on MacOSX. The Piwigo export plugin let you create new albums and export your photos directly from iPhoto to your Piwigo photo gallery.'] = 'iPhoto jest domyślnym oprogramowaniem zarządzania zdjęciami dla MacOSX. Wtyczka eksportu Piwigo pozwoli Ci tworzyć nowe albumy i eksportować zdjęcia bezpośrednio z iPhoto do galerii Piwigo.';
+$lang['Piwigo export plugin for Aperture'] = 'Wtyczka Piwigo dla Aperture.';
+$lang['Piwigo export plugin for iPhoto'] = 'Wtyczka Piwigo dla iPhoto.';
+$lang['ReGalAndroid (RemoteGallery client for Android) is an open source (GPL v3) Piwigo client for the Android platform.'] = 'ReGalAndroid (Klient RemoteGallery dla Androida) jest klientem Piwigo na platformę Android (open source na licencji GPLv3).';
+$lang['The Piwigo export plugin allows you to create albums and export photos.'] = 'Wtyczka eksportu Piwigo, pozwala Ci na łatwe tworzenie albumów oraz eksport zdjęć.';
+$lang['To export your photos from digiKam to Piwigo, simply install digiKam and the Kipi-plugins.'] = 'Aby eksportować zdjęcia z digiKam, zainstaluj digiKam oraz wtyczki Kipi.';
 ?>
