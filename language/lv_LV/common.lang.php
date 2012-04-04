@@ -388,5 +388,20 @@ $lang['Mobile'] = 'Mobilo';
 $lang['Desktop'] = 'Desktopu';
 $lang['2small'] = 'XXS - sīks';
 $lang['xsmall'] = 'XS - ļoti mazs';
+$lang['File name, A &rarr; Z'] = 'Faila nosaukums, A &rarr; Z';
+$lang['File name, Z &rarr; A'] = 'Faila nosaukums, Z &rarr; A';
+$lang['Photo title, A &rarr; Z'] = 'Foto nosaukums, A &rarr; Z';
+$lang['Photo title, Z &rarr; A'] = 'Foto nosaukums, Z &rarr; A';
+$lang['Date created, new &rarr; old'] = 'Izveides datums jaunais &rarr; vecais';
+$lang['Date created, old &rarr; new'] = 'Izveides datums, vecais &rarr; jaunais';
+$lang['Date posted, new &rarr; old'] = 'Publicēšanas datums, jaunais &rarr; vecais';
+$lang['Date posted, old &rarr; new'] = 'Publicēšanas datums, vecais &rarr; jaunais';
+$lang['Rating score, high &rarr; low'] = 'Novērtējums, augsts &rarr; zems';
+$lang['Rating score, low &rarr; high'] = 'Novērtējums, zems &rarr; augsts';
+$lang['Visits, high &rarr; low'] = 'Apmeklējums, augsts &rarr; zems';
+$lang['Visits, low &rarr; high'] = 'Apmeklējums, zems &rarr; augsts';
+$lang['Numeric identifier, 1 &rarr; 9'] = 'Ciparu identifikators, 1 &rarr; 9';
+$lang['Numeric identifier, 9 &rarr; 1'] = 'Ciparu identifikators, 9 &rarr; 1';
+$lang['Manual sort order'] = 'Lietotāja izvēlētais kārtojums';
 
 ?>
