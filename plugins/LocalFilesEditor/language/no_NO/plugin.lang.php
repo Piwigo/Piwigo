@@ -19,7 +19,7 @@
 // | along with this program; if not, write to the Free Software           |
 // | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
 // | USA.                                                                  |
-// +-----------------------------------------------------------------------+$lang['locfiledit_onglet_localconf'] = 'Lokal konfigurasjon';
+$lang['locfiledit_onglet_localconf'] = 'Lokal konfigurasjon';
 $lang['locfiledit_onglet_css'] = 'CSS';
 $lang['locfiledit_onglet_tpl'] = 'Maler (templates)';
 $lang['locfiledit_onglet_lang'] = 'Språk';
