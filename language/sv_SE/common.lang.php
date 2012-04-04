@@ -386,5 +386,22 @@ $lang['Photo sizes'] = 'Bildstorlekar';
 $lang['View in'] = 'Visa i';
 $lang['Mobile'] = 'Mobil';
 $lang['Desktop'] = 'Desktop';
+$lang['2small'] = 'XXS - miniatyr';
+$lang['xsmall'] = 'XS - extra liten';
+$lang['File name, A &rarr; Z'] = 'Filnamn, A &rarr; Ö';
+$lang['File name, Z &rarr; A'] = 'Filnamn, Ö &rarr; A';
+$lang['Photo title, A &rarr; Z'] = 'Bildens namn, A &rarr; Ö';
+$lang['Photo title, Z &rarr; A'] = 'Bildens namn, Z &rarr; Ö';
+$lang['Date created, new &rarr; old'] = 'Skapad datum, ny &rarr; gammal';
+$lang['Date created, old &rarr; new'] = 'Skapad datum, gammal &rarr; ny';
+$lang['Date posted, new &rarr; old'] = 'Publicerad datum, ny &rarr; gammal';
+$lang['Date posted, old &rarr; new'] = 'Publicerad datum, gammal &rarr; ny';
+$lang['Rating score, high &rarr; low'] = 'Betyg, hög &rarr; låg';
+$lang['Rating score, low &rarr; high'] = 'Betyg, låg &rarr; hög';
+$lang['Visits, high &rarr; low'] = 'Besökare, hög &rarr; låg';
+$lang['Visits, low &rarr; high'] = 'Besökare, låg &rarr; hög';
+$lang['Numeric identifier, 1 &rarr; 9'] = 'Numeriskt id, 1 &rarr; 9';
+$lang['Numeric identifier, 9 &rarr; 1'] = 'Numeriskt id, 9 &rarr; 1';
+$lang['Manual sort order'] = 'Manuell sortering';
 
 ?>
