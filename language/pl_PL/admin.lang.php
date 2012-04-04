@@ -858,4 +858,11 @@ $lang['Select groups...'] = 'Wybierz grupy...';
 $lang['Select users...'] = 'Wybierz użytkowników...';
 $lang['There is no group in this gallery.'] = 'Do tej galerii nie przydzielono żadnej grupy';
 $lang['Web Form'] = 'Forumlarz www';
+$lang['Adobe Photoshop Lightroom is a photography software designed to manage large quantities of digital images and doing post production work.'] = 'Adobe Photoshop Lightroom jest oprogramowaniem do zdjęć zaprojektowanym do zarządzania dużą ilością cyfrowych obrazów oraz prac po ich stworzeniu.';
+$lang['On your Linux, simply install Shotwell with your package manager and the activate Piwigo publishing option.'] = 'Na Linux po prostu instalujesz Shotwell swoim menadżerem pakietów a następnie aktywujesz opcję publikowania Piwigo.';
+$lang['Piwigo publish plugin for digiKam'] = 'Wtyczka Piwigo dla digiKam.';
+$lang['Piwigo Publish plugin for Lightroom'] = 'Wtyczka Piwigo Publish dla Lightroom';
+$lang['Piwigo publish plugin for Shotwell'] = 'Wtyczka Piwigo dla Shotwell.';
+$lang['Shotwell is an open source digital photo organizer that runs on Linux. It is the default photo manager in Ubuntu and Fedora.'] = 'Shotwell jest oprogramowaniem typu open source do zarządzania zdjęciami na systemie Linux. Jest domyślnym menadżerem zdjęć dla dystrybucji Ubuntu oraz Fedora.';
+$lang['The Piwigo publish Plug-in allows you to export and synchronize photos from Lightroom directly to your Piwigo photo gallery.'] = 'Wtyczka Piwigo Publish powala na eksportowanie i synchronizację zdjęć bezpośrednio z Lightroom do Twojej galerii Piwigo.';
 ?>
