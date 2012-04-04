@@ -391,4 +391,17 @@ $lang['Mobile'] = 'Mobil';
 $lang['Show latest comments first'] = 'Új hozzászólások előre';
 $lang['Show oldest comments first'] = 'Régi hozzászólások előre';
 $lang['View in'] = 'Megjelenítés';
+$lang['Date created, new &rarr; old'] = 'Kép készült, újabb &rarr; korábbi';
+$lang['Date created, old &rarr; new'] = 'Kép készült, korábbi &rarr; újabb';
+$lang['Date posted, new &rarr; old'] = 'Feltöltve, újabb &rarr; korábbi';
+$lang['Date posted, old &rarr; new'] = 'Feltöltve, korábbi &rarr; újabb';
+$lang['File name, A &rarr; Z'] = 'Fájlnév, A &rarr; Z';
+$lang['File name, Z &rarr; A'] = 'Fájlnév, Z &rarr; A';
+$lang['Manual sort order'] = 'Kézi rendezés';
+$lang['Photo title, A &rarr; Z'] = 'Kép címe, A &rarr; Z';
+$lang['Photo title, Z &rarr; A'] = 'Kép címe, Z &rarr; A';
+$lang['Rating score, high &rarr; low'] = 'Értékelés pontszám, magas &rarr; alacsony';
+$lang['Rating score, low &rarr; high'] = 'Értékelés pontszám, alacsony &rarr; magas';
+$lang['Visits, high &rarr; low'] = 'Megtekintések, több &rarr; kevesebb';
+$lang['Visits, low &rarr; high'] = 'Megtekintések, kevesebb &rarr; több';
 ?>
