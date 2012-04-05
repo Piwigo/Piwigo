@@ -878,4 +878,5 @@ $lang['Shotwell is an open source digital photo organizer that runs on Linux. It
 $lang['To export your photos from digiKam to Piwigo, simply install digiKam and the Kipi-plugins.'] = 'Um deine Bilder von didiKam nach Piwigo zu exportieren, installiere einfach digiKam mit den Kipi-Plugins';
 $lang['No group is permitted to see this private album'] = 'Keine Gruppe hat Zugriff um das private Album anzusehen';
 $lang['Permission management'] = 'Zugriffsverwaltung';
+$lang['custom'] = 'Anpassung';
 ?>
