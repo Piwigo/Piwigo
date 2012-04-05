@@ -404,4 +404,6 @@ $lang['Rating score, high &rarr; low'] = 'Értékelés pontszám, magas &rarr; a
 $lang['Rating score, low &rarr; high'] = 'Értékelés pontszám, alacsony &rarr; magas';
 $lang['Visits, high &rarr; low'] = 'Megtekintések, több &rarr; kevesebb';
 $lang['Visits, low &rarr; high'] = 'Megtekintések, kevesebb &rarr; több';
+$lang['Numeric identifier, 1 &rarr; 9'] = 'Azonosító (ID), növekvő';
+$lang['Numeric identifier, 9 &rarr; 1'] = 'Azonosító (ID), csökkenő';
 ?>
