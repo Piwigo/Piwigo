@@ -15,6 +15,7 @@
 .pwg-button {
 	display: inline-block;
 	vertical-align: top;
+  cursor:pointer;
 }
 
 .pwg-icon-home {background-position: -26px 0}
