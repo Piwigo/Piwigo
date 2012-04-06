@@ -882,4 +882,17 @@ $lang['The center of interest is the most meaningful zone in the photo.'] = 'The
 $lang['For photo sizes with crop, such as "Square", Piwigo will do its best to include the center of interest.'] = 'For photo sizes with crop, such as "Square", Piwigo will do its best to include the center of interest.';
 $lang['By default, the center of interest is placed in the middle of the photo.'] = 'By default, the center of interest is placed in the middle of the photo.';
 $lang['Select a zone with your mouse to define a new center of interest.'] = 'Select a zone with your mouse to define a new center of interest.';
+$lang['X Position'] = 'X Position';
+$lang['Y Position'] = 'Y Position';
+$lang['X Repeat'] = 'X Repeat';
+$lang['Opacity'] = 'Opacity';
+$lang['top left corner'] = 'top left corner';
+$lang['top right corner'] = 'top right corner';
+$lang['middle'] = 'middle';
+$lang['bottom left corner'] = 'bottom left corner';
+$lang['bottom right corner'] = 'bottom right corner';
+$lang['Select a file'] = 'Select a file';
+$lang['add a new watermark'] = 'add a new watermark';
+$lang['Apply watermark if width is bigger than'] = 'Apply watermark if width is bigger than';
+$lang['Apply watermark if height is bigger than'] = 'Apply watermark if height is bigger than';
 ?>
