@@ -891,4 +891,9 @@ $lang['%u users have automatic permission because they belong to a granted group
 $lang['include photos with lower privacy level'] = 'inclure les photos d\'un niveau de confidentialité inférieur';
 $lang['No group is permitted to see this private album'] = 'Aucun groupe n\'est autorisé à voir cet album privé';
 $lang['Permission management'] = 'Gestion des permissions';
+$lang['Photo sizes with crop'] = 'Tailles de photo avec retaillage';
+$lang['The center of interest is the most meaningful zone in the photo.'] = 'Le centre d\'intérêt est la zone la plus représentative de la photo.';
+$lang['For photo sizes with crop, such as "Square", Piwigo will do its best to include the center of interest.'] = 'Pour les tailles de photo avec retaillage, comme la taille "Carré", Piwigo essaiera d\'inclure au mieux ce centre d\'intérêt.';
+$lang['By default, the center of interest is placed in the middle of the photo.'] = 'Par défaut, le centre d\'intérêt est placé au milieu de la photo.';
+$lang['Select a zone with your mouse to define a new center of interest.'] = 'Sélectionnez une zone avec votre souris pour définir un nouveau centre d\'intérêt.';
 ?>
