@@ -1,0 +1,58 @@
+<fieldset>
+<legend>Дозволи на зображення</legend>
+
+<p>Кожне зображення має <strong>рівень конфіденційності</strong> (блокування). Кожен користувач також має рівень конфіденційності (ключ). 
+Є 5 рівнів конфіденційності:</p>
+<ol>
+  <li>Ніхто</li>
+  <li><em>Контакти</em></li>
+  <li><em>Друзі (який вище, ніж контакти)</em></li>
+  <li><em>Сім'я (який вище, ніж друзі)</em></li>
+  <li><em>Адміни (який вище, ніж будь-який інший рівень)</em></li>
+</ol>
+
+<p>Вищі рівні мають дозволи на нижчих рівнях. Для даного користувача, чим вище рівень конфіденційності, то більше зображень він може бачити.</p>
+
+<p>Наприклад, якщо зображення "peter_wedding-0024.jpg" має рівень конфіденційності <em>"Сім'я"</em>, тоді:</p>
+<ul>
+  <li>Peter (якщо рівень конфіденційності <em>"Адміни"</em>) бачитиме зображення, тому що <em>"Адміни"</em> можуть бачити всі зображення</li>
+  <li>Beth (якщо рівень конфіденційності <em>"Сім'я"</em>) також бачитиме зображення</li>
+  <li>Mary (якщо рівень конфіденційності <em>"Друзі"</em>) не бачитиме зображення</li>
+</ul>
+
+<p>Користувач, який не має ніякого дозволу бачити вміст альбому, не бачитиме альбом безпосередньо, навіть його заголовок. Той же принцип звертається до теґ.</p>
+
+<p>Ви можете встановити рівень конфіденційності користувача на <span class="pwgScreen">Адміністрування &raquo; Користувачі &raquo; Керувати</span>.</p>
+
+</fieldset>
+
+<fieldset>
+<legend>Дозволи на альбоми</legend>
+
+<p>Якщо рівні конфіденційності не відповідає вашим потребам, можна також керувати дозволами на альбоми для користувача або групи. Ви можете керувати дозволами на зображення та альбоми в той же час, без конфліктів.</p>
+
+<p>Ви можете заборонити доступ до альбомів. Перемкніть тип посилання альбому
+"приватний", якщо ви хочете управляти дозволами.</p>
+
+<p>You can set a album to private by editing a single album
+(<span class="pwgScreen">Administration &raquo; Albums &raquo; Manage
+&raquo; edit</span>) or by setting options to your whole album tree
+(<span class="pwgScreen">Administration &raquo; Albums &raquo;
+Properties &raquo; Public / Private</span>).</p>
+
+<p>Once the album is private, you can manage permissions for groups and
+users with 3 screens:</p>
+
+<ul>
+
+  <li><span class="pwgScreen">Administration &raquo; Users &raquo; Manage &raquo;
+  permissions action</span> (one link per user)</li>
+
+  <li><span class="pwgScreen">Administration &raquo; Users &raquo; Groups &raquo;
+  permissions action</span> (one link per group)</li>
+
+  <li><span class="pwgScreen">Administration &raquo; Albums &raquo; Manage &raquo; edit
+  album permissions action</span> (one link per album)</li>
+
+</ul>
+</fieldset>
