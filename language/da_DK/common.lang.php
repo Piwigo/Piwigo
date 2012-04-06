@@ -387,5 +387,22 @@ $lang['Photo sizes'] = 'Foto størrelsen';
 $lang['View in'] = 'Vis i';
 $lang['Mobile'] = 'Mobil';
 $lang['Desktop'] = 'Desktop';
+$lang['2small'] = 'XXS - meget lille';
+$lang['xsmall'] = 'XS - ekstra lille';
+$lang['File name, A &rarr; Z'] = 'Fil navn, A &rarr; Z'; 
+$lang['File name, Z &rarr; A'] = 'Fil navn, Z &rarr; A'; 
+$lang['Photo title, A &rarr; Z'] = 'Foto titel, A &rarr; Z'; 
+$lang['Photo title, Z &rarr; A'] = 'Foto titel, Z &rarr; A'; 
+$lang['Date created, new &rarr; old'] = 'Dato oprettet, ny &rarr; gammel'; 
+$lang['Date created, old &rarr; new'] = 'Dato oprettet, gammel &rarr; ny'; 
+$lang['Date posted, new &rarr; old'] = 'Dato posted, ny &rarr; gammel'; 
+$lang['Date posted, old &rarr; new'] = 'Dato posted, gammel &rarr; ny'; 
+$lang['Rating score, high &rarr; low'] = 'Rating score, høj &rarr; lav'; 
+$lang['Rating score, low &rarr; high'] = 'Rating score, lav &rarr; høj'; 
+$lang['Visits, high &rarr; low'] = 'Besøgende, høj &rarr; lav'; 
+$lang['Visits, low &rarr; high'] = 'Besøgende, lav &rarr; høj'; 
+$lang['Numeric identifier, 1 &rarr; 9'] = 'Numerisk identifikation, 1 &rarr; 9'; 
+$lang['Numeric identifier, 9 &rarr; 1'] = 'Numerisk identifikation, 9 &rarr; 1'; 
+$lang['Manual sort order'] = 'Manuel sorterings orden';
 
 ?>
