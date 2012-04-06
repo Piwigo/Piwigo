@@ -387,5 +387,22 @@ $lang['Show latest comments first'] = 'Mostrar primero el último comentario';
 $lang['View in'] = 'Ver en';
 $lang['Mobile'] = 'Móvil';
 $lang['Desktop'] = 'Escritorio';
+$lang['2small'] = 'XXS - diminuto';
+$lang['xsmall'] = 'XS - muy pequeño';
+$lang['File name, A &rarr; Z'] = 'Nombre de archivo, A &rarr; Z';
+$lang['File name, Z &rarr; A'] = 'Nombre de archivo, Z &rarr; A';
+$lang['Photo title, A &rarr; Z'] = 'Título de la foto, A &rarr; Z';
+$lang['Photo title, Z &rarr; A'] = 'Título de la foto, Z &rarr; A';
+$lang['Date created, new &rarr; old'] = 'Fecha de creación, más reciente &rarr; más antigua';
+$lang['Date created, old &rarr; new'] = 'Fecha de creación, más antigua &rarr; más reciente';
+$lang['Date posted, new &rarr; old'] = 'Fecha de publicación, más reciente &rarr; más antigua';
+$lang['Date posted, old &rarr; new'] = 'Fecha de publicación, más antigua &rarr; más reciente';
+$lang['Rating score, high &rarr; low'] = 'Puntuación, mayor &rarr; menor';
+$lang['Rating score, low &rarr; high'] = 'Puntuación, menor &rarr; mayor';
+$lang['Visits, high &rarr; low'] = 'Visitas, alta &rarr; baja';
+$lang['Visits, low &rarr; high'] = 'Visitas, baja &rarr; alta';
+$lang['Numeric identifier, 1 &rarr; 9'] = 'Identificador numérico, 1 &rarr; 9';
+$lang['Numeric identifier, 9 &rarr; 1'] = 'Identificador numérico, 9 &rarr; 1';
+$lang['Manual sort order'] = 'Orden manual';
 
 ?>
