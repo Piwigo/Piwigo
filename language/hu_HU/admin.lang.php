@@ -839,4 +839,12 @@ $lang['Center of interest'] = 'Fókuszban';
 $lang['custom'] = 'Egyéni';
 $lang['Delete multiple size images'] = 'Eltérő méretű képek törlése';
 $lang['Generate multiple size images'] = 'Eltérő méretű képek létrehozása';
+$lang['any visitor can see this album'] = 'mindenki láthatja az albumot';
+$lang['Groups and users'] = 'Csoportok és felhasználók';
+$lang['Permission granted for groups'] = 'Engedéllyel rendelkező csoportok';
+$lang['Permission granted for users'] = 'Engedéllyel rendelkező felhasználók';
+$lang['Select groups...'] = 'Csoportok kiválasztása...';
+$lang['Select users...'] = 'Felhasználók kiválasztása...';
+$lang['There is no group in this gallery.'] = 'Nincs csoport ebben a galériában.';
+$lang['visitors need to login and have the appropriate permissions to see this album'] = 'a látogatóknak be kell jelentkezniük és megfelelő engedéllyel kell rendelkezniük az album megtekintéséhez';
 ?>
