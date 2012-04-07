@@ -31,13 +31,16 @@ cd $version
 
 svn export http://piwigo.org/svn/tags/$tag piwigo
 
-chmod -R a+w piwigo/local
 
 mkdir piwigo/_data
-chmod a+w piwigo/_data
 touch piwigo/_data/dummy.txt
 
 mkdir piwigo/upload
+
+zip -r $name-nochmod.zip piwigo
+
+chmod -R a+w piwigo/local
+chmod a+w piwigo/_data
 chmod a+w piwigo/upload
 
 zip -r $name.zip piwigo
