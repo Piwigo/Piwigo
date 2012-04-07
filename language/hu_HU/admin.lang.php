@@ -860,4 +860,6 @@ $lang['top right corner'] = 'jobb felső sarokban';
 $lang['X Position'] = 'X pozíció';
 $lang['X Repeat'] = 'X ismétlődés';
 $lang['Y Position'] = 'Y pozíció';
+$lang['Available on'] = 'Elérhető';
+$lang['Available versions for'] = 'Elérhető verziók';
 ?>
