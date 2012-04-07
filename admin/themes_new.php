@@ -102,7 +102,7 @@ if (isset($_GET['installstatus']))
     default:
       array_push(
         $page['errors'],
-        sprintf(l10n('An error occured during extraction (%s).'), $_GET['installstatus'])
+        sprintf(l10n('An error occured during extraction (%s).'), htmlspecialchars($_GET['installstatus']))
         );
   }  
 }
