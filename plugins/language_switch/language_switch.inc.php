@@ -41,6 +41,13 @@ class language_controler
     
     if (isset($_GET['lang']))
     {
+      include_once(PHPWG_ROOT_PATH . 'admin/include/languages.class.php');
+      $languages = new languages();
+      if (!in_array($_GET['lang'], array_keys($languages->fs_languages)))
+      {
+        $_GET['lang'] = PHPWG_DEFAULT_LANGUAGE;
+      }
+
       if (!empty($_GET['lang']) and file_exists(PHPWG_ROOT_PATH.'language/'.$_GET['lang'].'/common.lang.php'))
       {
         if (is_a_guest() or is_generic())
