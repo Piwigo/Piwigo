@@ -35,6 +35,9 @@ include_once(PHPWG_ROOT_PATH.'admin/include/tabsheet.class.php');
 check_status(ACCESS_ADMINISTRATOR);
 
 //-------------------------------------------------------- sections definitions
+
+check_input_parameter('section', $_GET, false, '/^[a-z]+$/i');
+
 if (!isset($_GET['section']))
 {
   $page['section'] = 'main';
