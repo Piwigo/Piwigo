@@ -872,4 +872,9 @@ $lang['custom'] = 'Звичай';
 $lang['include photos with lower privacy level'] = 'включати в себе зображення з більш низьким рівнем конфіденційності';
 $lang['No group is permitted to see this private album'] = 'Ніякій групі не дозволяється бачити цей приватний альбом';
 $lang['Permission management'] = 'Управління дозволу';
+$lang['add a new watermark'] = 'додати новий водяний знак';
+$lang['Apply watermark if height is bigger than'] = 'Накладення водяних знаків, якщо висота більше, ніж';
+$lang['Apply watermark if width is bigger than'] = 'Накладення водяних знаків, якщо ширина більше, ніж';
+$lang['Select a file'] = 'Виберіть файл';
+$lang['The center of interest is the most meaningful zone in the photo.'] = 'Центр інтересу - найзначиміша зона у зображенні.';
 ?>
