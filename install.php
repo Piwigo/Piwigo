@@ -178,6 +178,11 @@ $languages = new languages('utf-8');
 if (isset($_GET['language']))
 {
   $language = strip_tags($_GET['language']);
+  
+  if (!in_array($language, array_keys($languages->fs_languages)))
+  {
+    $language = PHPWG_DEFAULT_LANGUAGE;
+  }
 }
 else
 {
