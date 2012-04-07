@@ -847,4 +847,17 @@ $lang['Select groups...'] = 'Csoportok kiválasztása...';
 $lang['Select users...'] = 'Felhasználók kiválasztása...';
 $lang['There is no group in this gallery.'] = 'Nincs csoport ebben a galériában.';
 $lang['visitors need to login and have the appropriate permissions to see this album'] = 'a látogatóknak be kell jelentkezniük és megfelelő engedéllyel kell rendelkezniük az album megtekintéséhez';
+$lang['Apply watermark if height is bigger than'] = 'Vízjel alkalmazása, ha a magasság nagyobb mint';
+$lang['Apply watermark if width is bigger than'] = 'Vízjel alkalmazása, ha a szélesség nagyobb mint';
+$lang['bottom left corner'] = 'bal alsó sarokban';
+$lang['bottom right corner'] = 'jobb alsó sarokban';
+$lang['middle'] = 'középen';
+$lang['Opacity'] = 'Áttetszőség';
+$lang['Permission management'] = 'Engedélyek kezelése';
+$lang['Select a file'] = 'Válasszon ki egy fájlt';
+$lang['top left corner'] = 'bal felső sarokban';
+$lang['top right corner'] = 'jobb felső sarokban';
+$lang['X Position'] = 'X pozíció';
+$lang['X Repeat'] = 'X ismétlődés';
+$lang['Y Position'] = 'Y pozíció';
 ?>
