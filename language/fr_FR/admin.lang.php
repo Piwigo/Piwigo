@@ -883,4 +883,17 @@ $lang['Select a zone with your mouse to define a new center of interest.'] = 'S�
 $lang['custom'] = 'Personnalisé';
 $lang['Delete multiple size images'] = 'Supprimer les tailles multiples des photos';
 $lang['Generate multiple size images'] = 'Générer les tailles multiples des photos';
+$lang['add a new watermark'] = 'Ajouter un nouveau filigrane';
+$lang['Apply watermark if height is bigger than'] = 'Appliquer le filigrane si la hauteur est supérieure à';
+$lang['Apply watermark if width is bigger than'] = 'Appliquer le filigrane si la largeur est supérieure à';
+$lang['bottom left corner'] = 'coin inférieur gauche';
+$lang['bottom right corner'] = 'coin inférieur droit';
+$lang['middle'] = 'milieu';
+$lang['Opacity'] = 'Opacité';
+$lang['Select a file'] = 'Sélectionnez un fichier';
+$lang['top left corner'] = 'coin supérieur gauche';
+$lang['top right corner'] = 'coin supérieur droit';
+$lang['X Position'] = 'Position X';
+$lang['X Repeat'] = 'Répétition X';
+$lang['Y Position'] = 'Position Y';
 ?>
