@@ -877,4 +877,17 @@ $lang['Apply watermark if height is bigger than'] = 'Накладення вод
 $lang['Apply watermark if width is bigger than'] = 'Накладення водяних знаків, якщо ширина більше, ніж';
 $lang['Select a file'] = 'Виберіть файл';
 $lang['The center of interest is the most meaningful zone in the photo.'] = 'Центр інтересу - найзначиміша зона у зображенні.';
+$lang['bottom left corner'] = 'нижній лівий кут';
+$lang['bottom right corner'] = 'нижній правий кут';
+$lang['By default, the center of interest is placed in the middle of the photo.'] = 'За замовчуванням центр уваги знаходиться в центральній частині зображення.';
+$lang['For photo sizes with crop, such as "Square", Piwigo will do its best to include the center of interest.'] = 'Для зображень розміром з культурою, такі як "Площа", Piwigo зробить все можливе, щоб включити в центрі уваги.';
+$lang['middle'] = 'середина';
+$lang['Opacity'] = 'Непрозорість';
+$lang['Photo sizes with crop'] = 'Зображення розміром з культурою';
+$lang['Select a zone with your mouse to define a new center of interest.'] = 'Виберіть зону за допомогою миші, щоб визначити новий центр уваги.';
+$lang['top left corner'] = 'верхній лівий кут';
+$lang['top right corner'] = 'верхній правий кут';
+$lang['X Position'] = 'Позиція X';
+$lang['X Repeat'] = 'Повторення X';
+$lang['Y Position'] = 'Позиція Y';
 ?>
