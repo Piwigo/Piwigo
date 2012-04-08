@@ -879,4 +879,6 @@ $lang['To export your photos from digiKam to Piwigo, simply install digiKam and 
 $lang['No group is permitted to see this private album'] = 'Keine Gruppe hat Zugriff um das private Album anzusehen';
 $lang['Permission management'] = 'Zugriffsverwaltung';
 $lang['custom'] = 'Anpassung';
+$lang['Photo sizes with crop'] = 'Bildgrößen nach Zuschnitt';
+$lang['The center of interest is the most meaningful zone in the photo.'] = 'Der Mittelpunkt ist der bedeutungsvollste Bereich im Bild.';
 ?>
