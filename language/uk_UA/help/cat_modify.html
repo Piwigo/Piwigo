@@ -22,7 +22,7 @@
 <ul>
 
   <li><strong>Тип доступу</strong>: Дозволи управління. Якщо ви робите
-Альбом приватні, всі його під-альбоми стають приватним. Якщо ви робите
+альбом приватним, всі його під-альбоми стають приватним. Якщо ви робите
 альбом публічним, всі його батьківські альмоми стають доступними для громадськості.</li>
 
   <li><strong>Заблоовані</strong>: Альбом і його під-альбоми будуть тимчасово вимкнуті для технічного обслуговування.</li>
@@ -31,66 +31,65 @@
 
 </ul>
 
-<p>You can also manage these options on the "Properties"
-management screen (screens <span
-class="pwgScreen">Comments</span>, <span class="pwgScreen">Lock</span>,
-<span class="pwgScreen">Public/Private</span>, <span
-class="pwgScreen">Representative</span> available from <span
-class="pwgScreen">Administration &raquo; Albums &raquo; Properties</span>).</p>
+<p>Ви також можете керувати цим параметром на "Властивості"
+екрані управління (екрани <span
+class="pwgScreen">Коментарі</span>, <span class="pwgScreen">Блокування</span>,
+<span class="pwgScreen">Публічно/Приватно</span>, <span
+class="pwgScreen">Представник</span> доступні з <span
+class="pwgScreen">Адміністрування &raquo; Альбоми &raquo; Властивості</span>).</p>
 
 <h3>Порядок сортування</h3>
 
-<p>Use the default images sort order.</p>
+<p>Використовувати порядок сортування зображення за промовчанням.</p>
 
-<p>Indicate whether this sort order will apply to subalbums also.</p>
+<p>Вкажіть, чи цей порядок сортування буде застосовано до під-альбомів також.</p>
 
-<p>Select specific sorting criteria to be used with this album.</p>
+<p>Виберіть специфічні сортуючі критерії, які використані з цим альбомом.</p>
 <ul>
-<li><strong>Creation date</strong>: Photo shooting date</li>
-<li><strong>Post date</strong>: Synchronization date</li>
-<li><strong>Average rate (*)</strong>: Average rate could be changed by the visitor rating</li>
-<li><strong>Most visited (*)</strong>: The current visit might change the most visited order</li>
-<li><strong>File name</strong>: Name given in information field</li>
-<li><strong>Id</strong>: Internal Id (recent categories have an higher id than previous ones.</li>
+<li><strong>Дата створення</strong>: Дата створення зображення</li>
+<li><strong>Дата публікації</strong>: Дата синхронізації</li>
+<li><strong>Середній рейтинг (*)</strong>: Середній рейтинг змогла змінити оцінка відвідувача</li>
+<li><strong>Найбільш відвідувані (*)</strong>: Нинішній візит може змінити порядок найбільш відвідуваних</li>
+<li><strong>Ім'я файлу</strong>: Назва дана в інформаційному полі</li>
+<li><strong>Ід</strong>: Внутрішній Ід (останні категорії мають вищий ідентифікатор, ніж попередні.</li>
 
 </ul>
-<p><strong>(*)</strong>Warning: Be sure to test these sort orders by yourself as they can give unexpected results.</p>
+<p><strong>(*)</strong>Попередження: Не забудьте перевірити цей порядок сортування за себе, оскільки вони можуть дати неочікувані результати.</p>
 
 
-<h3>Representant</h3>
+<h3>Представник</h3>
 
-<p>The album representative is the thumbnail displayed on the main page (<span class="pwgScreen">category.php</span>) to represent
-the album when
-it contains only sub-albums and no direct photo (just as the root album).</p>
-photo of a album :</p>
+<p>Представник альбом є мініатюри, що відображається на головній сторінці (<span class="pwgScreen">category.php</span>) для представлення
+альбому коли
+він містить тільки вкладені альбоми і немає прямих зображень (так само, як корінь альбому).</p>
+зображення з альбому :</p>
 
 <ul>
 
-  <li><span class="pwgScreen">Photo page</span>: one of the action buttons let you set the current photo as the representative for the
-  displayed album. This button is available only for administrators.</li>
+  <li><span class="pwgScreen">Сторінка зображення</span>: одна з кнопок дозволяє налаштувати поточне зображення як представник альбому. Ця кнопка доступна лише для адміністраторів.</li>
 
-  <li><span class="pwgScreen">Modify informations about a photo</span> in
-  administration. This screen can be reached from <span
-  class="pwgScreen">picture.php</span> or <span class="pwgScreen">Batch
-  management</span> in <em>unit mode</em>. See the help of this screen for
-  details.</li>
+  <li><span class="pwgScreen">Змінити інформацію про фото</span> в
+  адмініструванні. Цей екран може бути досягнуто в <span
+  class="pwgScreen">picture.php</span> або <span class="pwgScreen">Batch
+  management</span> в <em>одиничному режимі</em>. Переглянути допомогу по цьому екрану 
+  детальніше.</li>
 
-  <li><span class="pwgScreen">Administration &raquo; Albums &raquo; Properties,
-  Representative</span>. See the help of this screen for details.</li>
+  <li><span class="pwgScreen">Адміністрування &raquo; Альбоми &raquo; Властивості,
+  Представник</span>. Переглянути допомогу по цьому екрану детальніше.</li>
 
-  <li><span class="pwgScreen">Edit album</span> (the present screen).</li>
+  <li><span class="pwgScreen">Редагувати альбом</span> (цей екран).</li>
 
 </ul>
 
-<p>The choice of a representative depends on the 
-<code>allow_random_representative</code> configuration parameter (see <span
+<p>Вибір представника залежить від 
+<code>allow_random_representative</code> параметра конфігурації (див. <span
 class="filename">include/config_default.inc.php</span>).</p>
 
-<p>In default mode (<code>allow_random_representative</code> set to false),
-each album containing at least one element is represented by a fixed
-element. Once set (at album creation), the representative changes only
-when an administrator ask for it. If the representative is not appropriate,
-you can ask to <strong>Find a new representant by random</strong>.</p>
+<p>В режимі за промовчанням (<code>allow_random_representative</code> значення false),
+кожен альбом, що містить хоча б один елемент являє собою фіксований
+елемент. Після встановлення(створення альбому), представник змінюється лише
+коли адміністратор просити про це. Якщо представник не підходить,
+Ви можете попросити <strong>знайти нових представників випадково</strong>.</p>
 
 <p>Якщо параметр конфігурації <code>allow_random_representative</code>
 встановлено вірно, категорії з зображеннями може не мають фіксованого
