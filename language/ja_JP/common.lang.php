@@ -380,4 +380,12 @@ $lang['Here are your connection settings'] = 'あなたの接続設定です。'
 $lang['Password: %s'] = 'パスワード: %s';
 $lang['Username: %s'] = 'ユーザー名: %s';
 $lang['If you think you\'ve received this email in error, please contact us at %s'] = 'もしも、このメールの受信が誤ったら、 %sに連絡して下さい。';
+$lang['2small'] = 'XXS 小さい';
+$lang['Desktop'] = 'デスクトップ';
+$lang['Mobile'] = 'モービル';
+$lang['Photo sizes'] = '画像のサイズ';
+$lang['Show latest comments first'] = '最新のコメントを先に表示';
+$lang['Show oldest comments first'] = '以前のコメントを先に表示';
+$lang['View in'] = '表示';
+$lang['xsmall'] = 'XS　最も小さい';
 ?>
