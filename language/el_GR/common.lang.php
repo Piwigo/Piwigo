@@ -386,4 +386,22 @@ $lang['Photo sizes'] = 'Μέγεθος φωτογραφιών';
 $lang['View in'] = 'Εμφάνιση στο';
 $lang['Mobile'] = 'Κινητό';
 $lang['Desktop'] = 'Επιφάνεια εργασίας';
+$lang['2small'] = 'XXS - εξαιρετικά μικρό';
+$lang['xsmall'] = 'XS - πολύ μικρό';
+$lang['File name, A &rarr; Z'] = 'Όνομα αρχείου, A &rarr; Z';
+$lang['File name, Z &rarr; A'] = 'Όνομα αρχείου, Z &rarr; A';
+$lang['Photo title, A &rarr; Z'] = 'Όνομα φωτογραφίας, A &rarr; Z';
+$lang['Photo title, Z &rarr; A'] = 'Όνομα φωτογραφίας, Z &rarr; A';
+$lang['Date created, new &rarr; old'] = 'Ημέρα δημιουργίας, νεότερη &rarr; παλαιότερη';
+$lang['Date created, old &rarr; new'] = 'Ημέρα δημιουργίας, παλαιότερη &rarr; νεότερη';
+$lang['Date posted, new &rarr; old'] = 'Ημέρα καταχώρησης, πρόσφατη &rarr; παλαιότερη';
+$lang['Date posted, old &rarr; new'] = 'Ημέρα καταχώρησης, παλαιότερη &rarr; πρόσφατη';
+$lang['Rating score, high &rarr; low'] = 'Βαθμολογία κατάταξης, υψηλή &rarr; χαμηλή';
+$lang['Rating score, low &rarr; high'] = 'Βαθμολογία κατάταξης, χαμηλή &rarr; υψηλή';
+$lang['Visits, high &rarr; low'] = 'Επισκέψεις, περισσότερες &rarr; λιγότερες';
+$lang['Visits, low &rarr; high'] = 'Επισκέψεις, λιγότερες &rarr; περισσότερες';
+$lang['Numeric identifier, 1 &rarr; 9'] = 'Αριθμητικό αναγνωριστικό, 1 &rarr; 9';
+$lang['Numeric identifier, 9 &rarr; 1'] = 'Αριθμητικό αναγνωριστικό, 9 &rarr; 1';
+$lang['Manual sort order'] = 'Χειροκίνητη ταξινόμηση'; 
+
 ?>
