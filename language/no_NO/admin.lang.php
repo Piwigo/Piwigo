@@ -819,4 +819,16 @@ $lang['Unlock gallery'] = 'Lås opp galleri';
 $lang['WARNING! This plugin does not seem to be compatible with this version of Piwigo.'] = 'ADVARSEL! Dette tillegge ser ikke ut til å være kompatibelt med denne versjonen av Piwigo.';
 $lang['You are using the Browser uploader. Try the <a href="%s">Flash uploader</a> instead.'] = 'Du bruker nettleseropplasting. Prøv <a href="%s">Flashopplasting </a> isteden.';
 $lang['You are using the Flash uploader. Problems? Try the <a href="%s">Browser uploader</a> instead.'] = 'Du bruker Flashopplasting. Prøv <a href="%s">Nettleseropplasting </a> isteden.';
+$lang['Available on'] = 'Tilgjengelig på';
+$lang['Available versions for'] = 'Tilgjengelig versjon for';
+$lang['List'] = 'Vis';
+$lang['Not cropped correctly?'] = 'Ikke beskåret riktig?';
+$lang['Notify administrators when a comment is'] = 'Gi beskjed til administrator når en kommentar er';
+$lang['Piwigo for Android'] = 'Piwigo for Android';
+$lang['Piwigo for iOS (iPhone, iPad, iPod Touch)'] = 'Piwigo for iOS (iPhone, iPad, iPod Touch)';
+$lang['Save visits in history for'] = 'Lagre besøkshistorie for ';
+$lang['Unable to dump database.'] = 'Kan ikke dumpe databasen';
+$lang['You can activate only one mobile theme.'] = 'Du kan kun aktivere et mobilt tema.';
+$lang['You can\'t define a default photo order because you have a custom setting in your local configuration.'] = 'Du kan ikke definere standard bilderekkefølge, fordi du har eget oppsett i din lokale konfigurasjon.';
+$lang['simple visitors'] = 'vanlig besøkende';
 ?>
