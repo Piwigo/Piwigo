@@ -369,4 +369,11 @@ $lang['Your comment has NOT been registered because it did not pass the validati
 $lang['Your favorites'] = 'Favorilerim';
 $lang['Your Gallery Customization'] = 'Galeri Özelleştirmesi ';
 $lang['Your password has been reset'] = 'Şifreniz yenilendi';
+$lang['Hello %s,'] = 'Merhaba %s,';
+$lang['Send my connection settings by email'] = 'Bağlantı ayarlarımı eposta yoluyla gönder';
+$lang['Show latest comments first'] = 'Yeni yorumları başta göster';
+$lang['Show oldest comments first'] = 'Eski yorumları baştar göster';
+$lang['Successfully registered, you will soon receive an email with your connection settings. Welcome!'] = 'Başarılı olarak kayıt oldunuz, yakında size bağlatını ayarlarınızı içeren bir eposta alacaksınız. Hoşgeldiniz.';
+$lang['Username modification'] = 'Kullanıcı adı değişikliği';
+$lang['edit'] = 'düzenle';
 ?>
