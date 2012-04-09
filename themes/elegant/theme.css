@@ -166,8 +166,7 @@ a:hover 		{ border-bottom: none;}
 /* thumbnails */
 
 #thumbnails  						{ padding-top: 5px;}
-.thumbnails IMG 						{ margin-bottom: 0; vertical-align: middle;}
-.thumbnailCategory DIV.illustration,
+.thumbnailCategory .illustration,
 .commentElement .illustration 		{ margin: 2px; text-align: center;}
 
 

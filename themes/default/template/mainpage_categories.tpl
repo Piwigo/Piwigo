@@ -1,5 +1,5 @@
 {strip}{html_style}
-.thumbnailCategory DIV.illustration{ldelim}
+.thumbnailCategory .illustration{ldelim}
 	width: {$derivative_params->max_width()+5}px;
 }
 

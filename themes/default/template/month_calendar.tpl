@@ -48,7 +48,7 @@
  <thead>
  <tr>
  {foreach from=$chronology_calendar.month_view.wday_labels item=wday}
-	<td class="calDayHead">{$wday}</td>
+	<th>{$wday}</th>
  {/foreach}
  </tr>
  </thead>

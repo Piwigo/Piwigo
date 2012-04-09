@@ -1,9 +1,9 @@
 /* thumbnail wrap size */
-.content .thumbnailCategory div.illustration { 
-	width:165px !important; /* Usable range 162px-360px , optimal : Thumbnail width + 40px */ 
+.thumbnailCategory .illustration { 
+	min-width:165px !important; /* Usable range 162px-360px , optimal : Thumbnail width + 40px */ 
 }
-#comments .commentElement div.illustration { 
-	width:220px !important; /* Usable range 219px-360px , optimal : Thumbnail width + 95px */ 
+ .commentElement .illustration { 
+	min-width:220px !important; /* Usable range 219px-360px , optimal : Thumbnail width + 95px */ 
 }
 
 /**
@@ -168,50 +168,50 @@
 }
 
 /* Category thumbnails on main page */
-.content .thumbnailCategories li {
+.thumbnailCategories li {
 	background:#222 url(images/cat_bottom-right.gif) no-repeat scroll right bottom; 
 	width:49%; 
 	margin: 0; 
 	padding:0; 
 }
-.content .thumbnailCategory { 
+.thumbnailCategory { 
 	background:transparent url(images/cat_bottom-left.gif) no-repeat scroll left bottom; 
 	padding: 0 0 2px; 
 	margin:0; 
 }
-.content .thumbnailCategory div.illustration { 
+.thumbnailCategory .illustration { 
 	background:transparent url(images/cat_top-left.gif) no-repeat scroll left top; 
 	padding: 0 0 0 10px; 
 	margin: 0 !important; 
 }
-.content .thumbnailCategory div.illustration a { 
+.thumbnailCategory .illustration a { 
 	display: block; 
 	margin: 0; 
 	padding:20px 0 0 8px; 
   border:0;
 }
-.content .thumbnailCategory .description { 
+.thumbnailCategory .description { 
 	background:transparent url(images/cat_top-right.gif) no-repeat scroll right top;
 	margin: 0; 
 	padding:15px 10px 3px 0; 
 	overflow-x: hidden !important; 
   height:158px;
 }
-.content .thumbnailCategory .description .text { 
+.thumbnailCategory .description .text { 
 	display:block; 
 	margin:10px 2px 0 0;
 	overflow: auto; 
 	overflow-x:hidden; 
 	padding:0 0 5px; 
 }
-.content .thumbnailCategory .description p.dates { 
+.thumbnailCategory .description p.dates { 
 	margin: 0 15px 0 15px; 
 	text-align: right; 
 }
-.content .thumbnailCategory .description H3 { 
+.thumbnailCategory .description H3 { 
 	display: block; 
 }
-.content .thumbnailCategories li:hover { 
+.thumbnailCategories li:hover { 
 	background-color:#111; 
 }
 

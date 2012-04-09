@@ -172,12 +172,6 @@ TD.calDayCellFull, TD.calDayCellEmpty {
 	border: 1px solid gray;
 }
 
-TD.calDayHead {
-  font-weight: bold;
-  font-size: 12px;
-	text-align: center;
-}
-
 .calImg {
 	overflow: hidden;
 	vertical-align: bottom;
@@ -248,7 +242,7 @@ TD.calDayHead {
 	margin: 0;
 }
 
-.thumbnailCategory DIV.illustration {
+.illustration {/*also used by comment lists*/
 	text-align: left;
 	margin: 2px 0 0 2px;
 	float: left;
@@ -282,16 +276,7 @@ TD.calDayHead {
 	/*width: inherit;*/
 }
 
-.commentElement .illustration {
-	text-align: left;
-	margin: 2px 0 0 2px;
-	float: left;
-}
-
 /* Thumbnails */
-.thumbnails SPAN.thumbLegend {
-	overflow: hidden;/* oversized legend is clipped */
-}
 
 /* Thumbnail "elastic" layout */
 .thumbnails {
@@ -314,15 +299,20 @@ TD.calDayHead {
 	display: table-cell;/* block prevents vertical-align here */
 	vertical-align: middle;/* Ok with Opera and Geko not IE6 */
 	border-radius: 4px;	/* round corners with CSS3 compliant browsers */
-	-moz-border-radius: 4px;	/* round corners with Geko */
-	-webkit-border-radius: 4px; /* Safari webkit project */
 }
+
 .thumbnails .wrap2 A {
 	display: block;
 	border-bottom: 0;
 }
 .thumbnails IMG {
-	margin-bottom: -4px;  /* why ??? something wrong with Geko and Opera ignored by IE6*/
+	vertical-align: middle;
+}
+
+.thumbnails SPAN.thumbLegend {
+	overflow: hidden;/* oversized legend is clipped */
+	display: block;  /* display: none; if you don't want legend */
+	height: 4em;    /* legend height (don't set auto to be Gecko friendly)*/
 }
 
 /**
@@ -669,11 +659,6 @@ IMG.ui-datepicker-trigger {
 	cursor : pointer;
 }
 
-/* Set defaults for thumbnails legend */
-.thumbnails SPAN.thumbLegend {
-  display: block;  /* display: none; if you don't want legend */
-  height: 4em;    /* legend height (don't set auto to be Gecko friendly)*/
-}
 
 /**
  * Default colors
