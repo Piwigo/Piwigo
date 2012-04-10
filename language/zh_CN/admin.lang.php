@@ -879,4 +879,25 @@ $lang['The Piwigo publish Plug-in allows you to export and synchronize photos fr
 $lang['There is no group in this gallery.'] = '这个画廊中还没有组';
 $lang['To export your photos from digiKam to Piwigo, simply install digiKam and the Kipi-plugins.'] = '只要安装digiKam和Kipi插件， 就可以从digiKam中导出照片到Piwigo';
 $lang['visitors need to login and have the appropriate permissions to see this album'] = '游客需要登录，并有适当的权限才访问这个相册';
+$lang['Apply watermark if height is bigger than'] = '如果高度大于此值则添加水印';
+$lang['Apply watermark if width is bigger than'] = '如果宽度大于此值则添加水印';
+$lang['By default, the center of interest is placed in the middle of the photo.'] = '默认情况下，兴趣中心是摆在中间的照片。';
+$lang['For photo sizes with crop, such as "Square", Piwigo will do its best to include the center of interest.'] = '对于剪裁照片大小，如“正方形”，Piwigo将竭尽所能的包括兴趣中心。';
+$lang['No group is permitted to see this private album'] = '没有可以访问这个私有相册的权限组';
+$lang['Opacity'] = '不透明';
+$lang['Permission management'] = '权限管理';
+$lang['Photo sizes with crop'] = '图片剪裁大小';
+$lang['Select a file'] = '选择文件';
+$lang['Select a zone with your mouse to define a new center of interest.'] = '用鼠标选择一个区域，定义一个新的兴趣中心。';
+$lang['The center of interest is the most meaningful zone in the photo.'] = '兴趣中心(焦点)是照片中最有意义的区域。';
+$lang['X Position'] = 'X位置';
+$lang['X Repeat'] = 'X轴平铺';
+$lang['Y Position'] = 'Y位置';
+$lang['add a new watermark'] = '添加新水印';
+$lang['bottom left corner'] = '左下角';
+$lang['bottom right corner'] = '右下角';
+$lang['custom'] = '自定义';
+$lang['middle'] = '中间';
+$lang['top left corner'] = '左上角';
+$lang['top right corner'] = '右上角';
 ?>
