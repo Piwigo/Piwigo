@@ -1,6 +1,6 @@
 
 /* text color */
-BODY, H1, H3,
+BODY, H1,
 INPUT.rateButtonSelected /* <= why IE doesn't inherit this ? */ {
 	color:#d0d0d0;
 }
@@ -13,7 +13,7 @@ H2, #menubar DT {
 
 /* backgrounds */
 
-BODY, H3, #imageToolBar A:hover {
+BODY, #imageToolBar A:hover {
 	background-color: #2f2f2f;
 }
 

@@ -1,12 +1,12 @@
 
 /* text color */
-BODY, H1, H2, H3, DT,
+BODY, H1, H2, DT,
 INPUT.rateButtonSelected /* <= why IE doesn't inherit this ? */ {
 	color:#696969;	/* dimgray */
 }
 
 /* backgrounds */
-BODY, H3 {
+BODY {
 	background-color: #ffffff;	/* white */
 }
 

@@ -232,7 +232,6 @@ TD.calDayCellFull, TD.calDayCellEmpty {
 
 .thumbnailCategory .description H3 {
 	text-align: left;
-	background: transparent;
 	margin: 0;
 	padding: 0.1em;
 	font-size: 120%;
@@ -499,11 +498,6 @@ FORM P {
 	margin-bottom: 2em;
 }
 
-FORM FIELDSET P {
-	margin-top: 1em;
-	margin-bottom: 0;
-}
-
 SELECT.categoryList {
 	height: 20em;
 	width: 500px;
@@ -546,8 +540,7 @@ FIELDSET {
 	margin: 0.5em 0;
 }
 
-.filter FIELDSET * LABEL>INPUT,
-.filter FIELDSET * LABEL>SELECT {
+.filter FIELDSET * LABEL>INPUT {
 	display: inline;
 	vertical-align: top;
 	margin: 0 0.5em 0 0;
