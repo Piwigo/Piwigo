@@ -571,4 +571,5 @@ $lang['Virtual Links'] = 'Links virtuais';
 $lang['Menu Management'] = 'Menu';
 $lang['Rate'] = 'Nota';
 $lang['Average rate'] = 'Nota média';
+$lang['Add to caddie'] = 'Acrescentar à cesta';
 ?>
