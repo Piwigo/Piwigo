@@ -811,4 +811,13 @@ $lang['This album contains %d photos, added on %s.'] = 'Dette album indeholder %
 $lang['This album contains %d photos, added between %s and %s.'] = 'Dette album indeholder %d fotos, tilføjet mellem %s og %s.';
 $lang['This album contains no photo.'] = 'Dette album indeholder ingen fotos.';
 
+$lang['Move to album'] = 'Flyt til album';
+$lang['The whole page'] = 'Hele siden';
+$lang['The whole set'] = 'Hele sættet';
+$lang['Themes which need upgrade'] = 'Temaer som bør opgraderes';
+$lang['Type here the author name'] = 'Angiv forfatter';
+$lang['Type here the title'] = 'Angiv titel';
+$lang['Type in a search term'] = 'Angiv et søgeord';
+$lang['Unknown upload error'] = 'Ukendt fejl ved upload';
+$lang['Week starts on'] = 'Uge starter på';
 ?>
