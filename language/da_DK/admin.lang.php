@@ -848,4 +848,6 @@ $lang['custom'] = 'Speciel';
 $lang['middle'] = 'midt';
 $lang['top left corner'] = 'øverste venstre hjørne';
 $lang['top right corner'] = 'øverste højre hjørne';
+$lang['Piwigo for iOS (iPhone, iPad, iPod Touch)'] = 'Piwigo for iOS (iPhone, iPad, iPod Touch)';
+$lang['Save manual order'] = 'Gem manuel sortering';
 ?>
