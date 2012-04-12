@@ -376,4 +376,8 @@ $lang['Show oldest comments first'] = 'Eski yorumları baştar göster';
 $lang['Successfully registered, you will soon receive an email with your connection settings. Welcome!'] = 'Başarılı olarak kayıt oldunuz, yakında size bağlatını ayarlarınızı içeren bir eposta alacaksınız. Hoşgeldiniz.';
 $lang['Username modification'] = 'Kullanıcı adı değişikliği';
 $lang['edit'] = 'düzenle';
+$lang['2small'] = 'XXS - minicik';
+$lang['Thank you for registering at %s!'] = '%s de kayıt olmanız için teşekkürler!';
+$lang['Your username has been successfully changed to : %s'] = 'Kullanıcı adınız başarılı şekilde %s olarak değiştirildi.';
+$lang['xsmall'] = 'XS - çok küçük';
 ?>
