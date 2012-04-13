@@ -388,4 +388,22 @@ $lang['Bad status for user "guest", using default status. Please notify the webm
 $lang['Kind of date'] = 'Päivän valinta';
 $lang['Number of items'] = 'Tiedostojen lukumäärä';
 $lang['Specials'] = 'Ekstrat';
+$lang['2small'] = 'XXS - pikkuinen';
+$lang['Date created, new &rarr; old'] = 'Luontipäivä, uusi &rarr; vanha';
+$lang['Date created, old &rarr; new'] = 'Luontipäivä, vanha &rarr; uusi';
+$lang['Date posted, new &rarr; old'] = 'Lähetyspäivä, uusi &rarr; vanha';
+$lang['Date posted, old &rarr; new'] = 'Lähetyspäivä, vanha &rarr; uusi';
+$lang['File name, A &rarr; Z'] = 'Tiedoston nimi, A &rarr; Z';
+$lang['File name, Z &rarr; A'] = 'Tiedoston nimi, Z &rarr; A';
+$lang['Manual sort order'] = 'Manuaalinen lajittelujärjestys';
+$lang['Numeric identifier, 1 &rarr; 9'] = 'Numerotunniste, 1 &rarr; 9';
+$lang['Numeric identifier, 9 &rarr; 1'] = 'Numerotunniste, 9 &rarr; 1';
+$lang['Photo title, A &rarr; Z'] = 'Kuvan otsikko, A &rarr; Z';
+$lang['Photo title, Z &rarr; A'] = 'Kuvan otsikko, Z &rarr; A';
+$lang['Rating score, high &rarr; low'] = 'Arvostelu, korkea &rarr; matala';
+$lang['Rating score, low &rarr; high'] = 'Arvostelu, matala &rarr; korkea';
+$lang['Visits, high &rarr; low'] = 'Käynnit, korkea &rarr; matala';
+$lang['Visits, low &rarr; high'] = 'Käynnit, matala &rarr; korkea';
+$lang['excluded'] = 'pois jätetty';
+$lang['xsmall'] = 'XS - extra pieni';
 ?>
