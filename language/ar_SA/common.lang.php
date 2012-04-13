@@ -50,7 +50,7 @@ $lang['%d new photo'] = '%d صورة جديدة';
 $lang['%d new photos'] = '%d صور جديدة';
 $lang['%d new user'] = '%d مسخدم جديد';
 $lang['%d new users'] = '%d مستخدمين جدد';
-$lang['About'] = 'من نحن ؟';
+$lang['About'] = 'ماذا عن Piwgo ?';
 $lang['All tags'] = 'كل الكلمات الدلائلية';
 $lang['Any tag'] = 'أي كلمة دلائلية';
 $lang['At least one listed rule must be satisfied.'] = 'على الأقل واحدة لهذه يجب أن تكون مستوفية.';
@@ -392,7 +392,7 @@ $lang['Successfully registered, you will soon receive an email with your connect
 $lang['Thank you for registering at %s!'] = 'شكراً لتسجيلك بأسم %s!';
 $lang['Username modification'] = 'تعديل أسم المستخدم';
 $lang['Username: %s'] = 'أسم المستخدم : %s';
-$lang['View in'] = 'عرض في';
+$lang['View in'] = 'عرض كـ';
 $lang['xsmall'] = 'XS - صغير أكثر';
 $lang['Your username has been successfully changed to : %s'] = 'تم تغيير أسم المستخدم الخاص بك  إلى : %s.';
 $lang['Date created, new &rarr; old'] = 'تاريخ الإنشاء , جديد  &rarr; قديم ';
