@@ -387,4 +387,9 @@ $lang['Desktop'] = 'Настолна';
 $lang['Mobile'] = 'Мобилна';
 $lang['Photo sizes'] = 'Размери на снимката';
 $lang['View in'] = 'Вижте в';
+$lang['2small'] = 'XXS - мъничък';
+$lang['File name, A &rarr; Z'] = 'Име на файл, A &rarr; Z';
+$lang['File name, Z &rarr; A'] = 'Име на файл, Z &rarr; A';
+$lang['Manual sort order'] = 'Ръчно определяне на подредбата';
+$lang['xsmall'] = 'XS - много малък';
 ?>
