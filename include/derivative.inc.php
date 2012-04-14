@@ -26,6 +26,7 @@ final class SrcImage
 
   public $id;
   public $rel_path;
+  public $rotation = 0;
 
   private $size=null;
   private $flags=0;
@@ -58,9 +59,10 @@ final class SrcImage
       $width = $infos['width'];
       $height = $infos['height'];
 
+      $this->rotation = intval($infos['rotation']) % 4;
       // 1 or 5 =>  90 clockwise
       // 3 or 7 => 270 clockwise
-      if ($infos['rotation'] % 2 != 0)
+      if ($this->rotation % 2)
       {
         $width = $infos['height'];
         $height = $infos['width'];
@@ -173,10 +175,30 @@ final class DerivativeImage
   {
     if ( $src->has_size() && $params->is_identity( $src->get_size() ) )
     {
-      // todo - what if we have a watermark maybe return a smaller size?
-      $params = null;
-      $rel_path = $rel_url = $src->rel_path;
-      return;
+      if (!$params->use_watermark && !$src->rotation)
+      {
+        $params = null;
+        $rel_path = $rel_url = $src->rel_path;
+        return;
+      }
+      $defined_types = array_keys(ImageStdParams::get_defined_type_map());
+      for ($i=0; $i<count($defined_types); $i++)
+      {
+        if ($defined_types[$i] == $params->type)
+        {
+          for ($i--; $i>=0; $i--)
+          {
+            $smaller = ImageStdParams::get_by_type($defined_types[$i]);
+            if ($smaller->sizing->max_crop==$params->sizing->max_crop && $smaller->is_identity( $src->get_size() ))
+            {
+              $params = $smaller;
+              self::build($src, $params, $rel_path, $rel_url, $is_cached);
+              return;
+            }
+          }
+          break;
+        }
+      }
     }
 
     $tokens=array();

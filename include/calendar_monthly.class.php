@@ -350,7 +350,7 @@ function build_month_calendar(&$tpl_var)
   {
     $page['chronology_date'][CDAY]=$day;
     $query = '
-SELECT id, file,representative_ext,path,width, height, '.pwg_db_get_dayofweek($this->date_field).'-1 as dow';
+SELECT id, file,representative_ext,path,width,height,rotation, '.pwg_db_get_dayofweek($this->date_field).'-1 as dow';
     $query.= $this->inner_sql;
     $query.= $this->get_date_where();
     $query.= '
@@ -392,6 +392,10 @@ SELECT id, file,representative_ext,path,width, height, '.pwg_db_get_dayofweek($t
     }
 
     list($cell_width, $cell_height) = ImageStdParams::get_by_type(IMG_SQUARE)->sizing->ideal_size;
+    if ($cell_width>120)
+    {
+      $cell_width = $cell_height = 120;
+    }
 
     $tpl_weeks    = array();
     $tpl_crt_week = array();

@@ -224,7 +224,7 @@ function ws_getMissingDerivatives($params, &$service)
     $where_clauses[] = 'id IN ('.implode(',',$params['ids']).')';
   }
 
-  $query_model = 'SELECT id, path, representative_ext, width, height
+  $query_model = 'SELECT id, path, representative_ext, width,height,rotation
   FROM '.IMAGES_TABLE.'
   WHERE '.implode(' AND ', $where_clauses).'
   ORDER BY id DESC

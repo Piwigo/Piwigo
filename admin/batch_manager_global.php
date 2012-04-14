@@ -734,7 +734,7 @@ if (count($page['cat_elements_id']) > 0)
 
 
   $query = '
-SELECT id,path,representative_ext,file,filesize,level,name
+SELECT id,path,representative_ext,file,filesize,level,name,width,height,rotation
   FROM '.IMAGES_TABLE;
   
   if ($is_category)
