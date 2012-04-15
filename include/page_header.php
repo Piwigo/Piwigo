@@ -56,6 +56,8 @@ $template->assign(
     'PAGE_TITLE' => strip_tags($title),
 
     'U_HOME' => get_gallery_home_url(),
+
+    'LEVEL_SEPARATOR' => $conf['level_separator'],
     ));
 
 
