@@ -850,4 +850,14 @@ $lang['top left corner'] = 'øverste venstre hjørne';
 $lang['top right corner'] = 'øverste højre hjørne';
 $lang['Piwigo for iOS (iPhone, iPad, iPod Touch)'] = 'Piwigo for iOS (iPhone, iPad, iPod Touch)';
 $lang['Save manual order'] = 'Gem manuel sortering';
+$lang['Automatic sort order'] = 'Automatisk sorteringsorden';
+$lang['List'] = 'Liste';
+$lang['Piwigo export plugin for Aperture'] = 'Piwigo eksport plugin for Aperture';
+$lang['Piwigo export plugin for iPhoto'] = 'Piwigo eksport plugin for iPhoto';
+$lang['Piwigo for Android'] = 'Piwigo for Android';
+$lang['You can activate only one mobile theme.'] = 'Du kan kun aktivere et mobil tema';
+$lang['apply automatic sort order'] = 'aktiver automatisk sorteringsorden';
+$lang['cancel manual order'] = 'fortryd manuel orden';
+$lang['digiKam is an advanced digital photo management free software for Linux, Windows, and MacOSX.'] = 'digiKam er et gratis avanceret program for organisering af digitale fotos for Linux, Windows, og MacOSX.';
+$lang['digiKam is designed for photographers who want to view, manage, edit, enhance, organize, tag, and share photographs.'] = 'digiKam er designet for fotografer, der ønsker at se, organisere, redigere, optimere, indeksere og dele fotos.';
 ?>
