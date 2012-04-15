@@ -1,0 +1,26 @@
+<h2>&Uacute;držba</h2>
+
+<p>Pro optimalizaci času generov&aacute;n&iacute; str&aacute;nek využ&iacute;v&aacute; Piwigo informace uložen&eacute; v mezipaměti (v datab&aacute;zi). Např&iacute;klad, m&iacute;sto zji&scaron;ťov&aacute;n&iacute; počtu fotek obsažen&yacute;ch v jednotliv&yacute;ch albech při každ&eacute;m nahr&aacute;n&iacute; str&aacute;nky, je tato informace již uložena v datab&aacute;zi. Teoreticky by tato informace měla b&yacute;t vždy spr&aacute;vn&aacute;, nicm&eacute;ně občas se může vloudit chyba a informace uložen&aacute; v datab&aacute;zi je zastaral&aacute;.</p>
+
+<p>Někter&eacute; informace jak plyne čas se stanou nepotřebn&yacute;mi. Maz&aacute;n&iacute;m těchto informac&iacute; z datab&aacute;ze uvoln&iacute;te m&iacute;sto na disku a do značn&eacute; m&iacute;ry urychl&iacute;te pr&aacute;ci s datab&aacute;z&iacute;.</p>
+
+<ul>
+	<li><strong>Smazat tagy (nepřiřazen&yacute;ch kl&iacute;čov&yacute;ch - orphaned tags)</strong></li>
+</ul>
+<ul>
+  <li><strong>Aktualizuj informace alb:</strong> Pro každ&eacute; album jsou nasleduj&iacute;c&iacute; informace kontrolov&aacute;ny a aktualizov&aacute;ny pokud je potřeba : Seznam hlavn&iacute;ch alb, počet fotek, datum posledn&iacute; fotky, spojen&iacute; mezi sestersk&yacute;mi alby, spojen&iacute; mezi v&scaron;emi alby. Tato akce tak&eacute; kontroluje konzistenci reprezentativn&iacute;ch fotografi&iacute;.</li>
+  <li><strong>Aktualizovat informace o fotografi&iacute;ch:</strong> Pro každou fotku jsou nasleduj&iacute;c&iacute; informace kontrolov&aacute;ny a aktualizov&aacute;ny: pln&aacute; cesta k souboru, průměrn&eacute; hodnocen&iacute;. <em>Varov&aacute;n&iacute;</em>, nezapomeňte: Informace metadat mus&iacute; b&yacute;t synchronizov&aacute;na z <span class="pwgScreen">Administrace &raquo; N&aacute;stroje &raquo; Synchronizace</span>, nebo na str&aacute;nce &uacute;prav jednotl&iacute;ch fotografi&iacute; (skrz <span class="pwgScreen">Photo - Upravit Photo</span> na př&iacute;klad).</li>
+</ul>
+<ul>
+  <li><strong>Opravit a optimalizovat datab&aacute;zi:</strong>Provede operace Znovu seřazen&iacute;, Oprav a optamalizac&iacute; na každ&eacute; tabulce v datab&aacute;zi </li>
+  <li><strong>Znovu spustit kontrolu integrity</strong></li>
+</ul>
+
+<ul>
+  <li><strong>Prov&eacute;st &uacute;držbu detailů historie:</strong> Smaz&aacute;n&iacute; v&scaron;ech ř&aacute;dek z tabulky histori&iacute;. Str&aacute;nka <span class="pwgScreen">Administrace &raquo; N&aacute;stroje &raquo; Historie</span> pot&eacute; nezobraz&iacute; ž&aacute;dn&eacute; informace ohledně historie. <em>Upozorněn&iacute;:</em> v&scaron;echna data (historie a statistiky) budou NEN&Aacute;VRATNĚ smaz&aacute;na!!</li>
+  <li><strong>Prov&eacute;st &uacute;držbu cel&eacute; historie:</strong> Smaže ve&scaron;ker&eacute; informace o souhrn historie nav&scaron;těv. Tento souhrn je vygenerov&aacute;n podrobnost&iacute; historie.</li>
+  <li><strong>Prov&eacute;st &uacute;držbu relac&iacute;:</strong> Smaže pro&scaron;l&eacute; uživatelsk&eacute; sessions.</li>
+  <li><strong>Prov&eacute;st &uacute;držbu nepoužit&yacute;ch RSS vl&aacute;ken (smazat)</strong></li>
+  <li><strong>Odstranit historii hled&aacute;n&iacute;</strong></li>
+  <li><strong>Prov&eacute;st &uacute;držbu &scaron;ablon (smazat)</strong></li>  
+</ul>
