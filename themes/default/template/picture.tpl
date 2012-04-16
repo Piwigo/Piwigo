@@ -18,7 +18,6 @@
 <div class="imageNumber">{$PHOTO}</div>
 {include file='picture_nav_buttons.tpl'|@get_extent:'picture_nav_buttons'}
 <div class="actionButtons">
-
 {if count($current.unique_derivatives)>1}
 {footer_script require='jquery'}{literal}
 function changeImgSrc(url,typeSave,typeMap)
@@ -34,7 +33,6 @@ function changeImgSrc(url,typeSave,typeMap)
 	jQuery('#derivativeChecked'+typeSave).css('visibility','visible');
 	document.cookie = 'picture_deriv='+typeSave+';path={/literal}{$COOKIE_PATH}{literal}';
 }
-
 jQuery("#derivativeSwitchLink").click(function() {
 	var elt = jQuery("#derivativeSwitchBox");
 	elt.css("left", Math.min( jQuery(this).offset().left, jQuery(window).width() - elt.outerWidth(true) - 5))
@@ -62,7 +60,6 @@ jQuery("#derivativeSwitchBox").on("mouseleave click", function() {
 </div>
 {/strip}
 {/if}
-
 {strip}{if isset($U_SLIDESHOW_START)}
 	<a href="{$U_SLIDESHOW_START}" title="{'slideshow'|@translate}" class="pwg-state-default pwg-button" rel="nofollow">
 		<span class="pwg-icon pwg-icon-slideshow"> </span><span class="pwg-button-text">{'slideshow'|@translate}</span>
@@ -124,7 +121,6 @@ y.callService(
 {if isset($COMMENT_IMG)}
 <p class="imageComment">{$COMMENT_IMG}</p>
 {/if}
-
 {if isset($U_SLIDESHOW_STOP)}
 <p>
 	[ <a href="{$U_SLIDESHOW_STOP}">{'stop the slideshow'|@translate}</a> ]
@@ -337,34 +333,34 @@ function togglePrivacyLevelBox()
 
 	<div id="pictureComments">
 		{if isset($comment_add)}
-			<div id="commentAdd">
-				<h4>{'Add a comment'|@translate}</h4>
-				<form method="post" action="{$comment_add.F_ACTION}" id="addComment" >
-					{if $comment_add.SHOW_AUTHOR}
-						<p><label>{'Author'|@translate} :</label></p>
-						<p><input type="text" name="author" /></p>
-						<p><label>{'Comment'|@translate} :</label></p>
-					{/if}
-					<p><textarea name="content" id="contentid" rows="5" cols="50">{$comment_add.CONTENT}</textarea></p>
-					<p><input type="hidden" name="key" value="{$comment_add.KEY}" />
-						<input type="submit" value="{'Submit'|@translate}"></p>
-				</form>
-			</div>
+		<div id="commentAdd">
+			<h4>{'Add a comment'|@translate}</h4>
+			<form method="post" action="{$comment_add.F_ACTION}" id="addComment">
+				{if $comment_add.SHOW_AUTHOR}
+					<p><label>{'Author'|@translate} :</label></p>
+					<p><input type="text" name="author"></p>
+					<p><label>{'Comment'|@translate} :</label></p>
+				{/if}
+				<p><textarea name="content" id="contentid" rows="5" cols="50">{$comment_add.CONTENT}</textarea></p>
+				<p><input type="hidden" name="key" value="{$comment_add.KEY}">
+					<input type="submit" value="{'Submit'|@translate}"></p>
+			</form>
+		</div>
 		{/if}
 		{if isset($comments)}
-			<div id="pictureCommentList">
-				{if (($COMMENT_COUNT > 2) || !empty($navbar))}
-					<div id="pictureCommentNavBar">
-						{if $COMMENT_COUNT > 2}
-							<a href="{$COMMENTS_ORDER_URL}#comments" rel="nofollow" class="commentsOrder">{$COMMENTS_ORDER_TITLE}</a>
-						{/if}
-						{if !empty($navbar) }{include file='navigation_bar.tpl'|@get_extent:'navbar'}{/if}
-					</div>
-				{/if}
-				{include file='comment_list.tpl'}
-			</div>
+		<div id="pictureCommentList">
+			{if (($COMMENT_COUNT > 2) || !empty($navbar))}
+				<div id="pictureCommentNavBar">
+					{if $COMMENT_COUNT > 2}
+						<a href="{$COMMENTS_ORDER_URL}#comments" rel="nofollow" class="commentsOrder">{$COMMENTS_ORDER_TITLE}</a>
+					{/if}
+					{if !empty($navbar) }{include file='navigation_bar.tpl'|@get_extent:'navbar'}{/if}
+				</div>
+			{/if}
+			{include file='comment_list.tpl'}
+		</div>
 		{/if}
-		<div style="clear: both;"></div>
+		<div style="clear:both"></div>
 	</div>
 
 </div>

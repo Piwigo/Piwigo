@@ -1,10 +1,7 @@
-<img src="{$current.selected_derivative->get_url()}" {$current.selected_derivative->get_size_htm()} alt="{$ALT_IMG}" id="theMainImage" usemap="#map{$current.selected_derivative->get_type()}"
-{if isset($COMMENT_IMG)}
-	title="{$COMMENT_IMG|@strip_tags:false|@replace:'"':' '}" {else} title="{$current.TITLE|@replace:'"':' '} - {$ALT_IMG}"
-{/if}>
+<img src="{$current.selected_derivative->get_url()}" {$current.selected_derivative->get_size_htm()} alt="{$ALT_IMG}" id="theMainImage" usemap="#map{$current.selected_derivative->get_type()}" title="{if isset($COMMENT_IMG)}{$COMMENT_IMG|@strip_tags:false|@replace:'"':' '}{else}{$current.TITLE|@replace:'"':' '} - {$ALT_IMG}{/if}">
 
 {foreach from=$current.unique_derivatives item=derivative key=derivative_type}{strip}
-<map name="map{$derivative->get_type()}" id="map{$derivative->get_type()}">
+<map name="map{$derivative->get_type()}">
 {assign var='size' value=$derivative->get_size()}
 {if isset($previous)}
 <area shape=rect coords="0,0,{$size[0]/4|@intval},{$size[1]}" href="{$previous.U_IMG}" title="{'Previous'|@translate} : {$previous.TITLE}" alt="{$previous.TITLE}">

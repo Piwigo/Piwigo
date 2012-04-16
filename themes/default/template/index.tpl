@@ -30,7 +30,6 @@ jQuery("#sortOrderBox").on("mouseleave", function() {
 		{/literal}{/footer_script}
 		{/strip}</li>
 {/if}
-
 {if !empty($image_derivatives)}
 		<li>{strip}<a id="derivativeSwitchLink" title="{'Photo sizes'|@translate}" class="pwg-state-default pwg-button" rel="nofollow">
 			<span class="pwg-icon pwg-icon-sizes">&nbsp;</span><span class="pwg-button-text">{'Photo sizes'|@translate}</span>
@@ -41,7 +40,7 @@ jQuery("#sortOrderBox").on("mouseleave", function() {
 			{if $image_derivative.SELECTED}
 			<span>&#x2714; </span>{$image_derivative.DISPLAY}
 			{else}
-			<span style="visibility:hidden">&#x2714; </span><a href="{$image_derivative.URL}" class="switchUnselected" rel="nofollow">{$image_derivative.DISPLAY}</a>
+			<span style="visibility:hidden">&#x2714; </span><a href="{$image_derivative.URL}" rel="nofollow">{$image_derivative.DISPLAY}</a>
 			{/if}
 			{/foreach}
 		</div>

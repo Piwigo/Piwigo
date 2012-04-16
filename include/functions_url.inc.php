@@ -135,7 +135,7 @@ function make_index_url($params = array())
 
   if ($url == $url_before_params)
   {
-    $url = get_absolute_root_url();
+    $url = get_absolute_root_url( url_is_remote($url) );
   }
   
   return $url;
