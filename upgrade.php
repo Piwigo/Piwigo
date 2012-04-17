@@ -338,6 +338,7 @@ if ((isset($_POST['submit']) or isset($_GET['now']))
     }
 
     deactivate_non_standard_themes();
+    deactivate_templates();
 
     $page['upgrade_end'] = get_moment();
 

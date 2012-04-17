@@ -171,6 +171,15 @@ UPDATE '.PREFIX_TABLE.'user_infos
   }
 }
 
+// Deactivate all templates
+function deactivate_templates()
+{
+  $query = '
+  UPDATE '.PREFIX_TABLE.'config
+    SET value = \''. array() .'\'
+  WHERE param = \'extents_for_templates\';';
+}
+
 // Check access rights
 function check_upgrade_access_rights()
 {
