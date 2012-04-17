@@ -24,7 +24,7 @@ jQuery(document).ready(function() {
 {if $theme.deactivable}
       <a href="{$deactivate_baseurl}{$theme.id}" class="tiptip" title="{'Forbid this theme to users'|@translate}">{'Deactivate'|@translate}</a>
 {else}
-      <span title="{$theme.deactivate_tooltip}">{'Deactivate'|@translate}</span>
+      <span title="{$theme.deactivate_tooltip}" class="tiptip">{'Deactivate'|@translate}</span>
 {/if}
       
 {if not $theme.is_default}
@@ -52,9 +52,9 @@ jQuery(document).ready(function() {
     <div class="themeActions">
       <div>
   {if $theme.activable}
-      <a href="{$activate_baseurl}{$theme.id}" title="{'Make this theme available to users'|@translate}">{'Activate'|@translate}</a>
+      <a href="{$activate_baseurl}{$theme.id}" title="{'Make this theme available to users'|@translate}" class="tiptip">{'Activate'|@translate}</a>
   {else}
-      <span title="{$theme.activate_tooltip}">{'Activate'|@translate}</span>
+      <span title="{$theme.activate_tooltip}" class="tiptip">{'Activate'|@translate}</span>
   {/if}
 
       |
@@ -62,7 +62,7 @@ jQuery(document).ready(function() {
   {if $theme.deletable}
       <a href="{$delete_baseurl}{$theme.id}" onclick="return confirm('{'Are you sure?'|@translate|@escape:javascript}');" title="{'Delete this theme'|@translate}">{'Delete'|@translate}</a>
   {else}
-      <span title="{$theme.delete_tooltip}">{'Delete'|@translate}</span>
+      <span title="{$theme.delete_tooltip}" class="tiptip">{'Delete'|@translate}</span>
   {/if}
       </div>
     </div>
