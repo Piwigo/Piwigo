@@ -214,7 +214,6 @@ if (pwg_db_num_rows($result) > 0)
 	{
     $derivative = new DerivativeImage($derivativeParams, new SrcImage($row));
 
-		$thumbnail_size = $derivative->get_size();
 		if ( !empty( $row['name'] ) )
 		{
 			$thumbnail_name = $row['name'];
@@ -224,42 +223,15 @@ if (pwg_db_num_rows($result) > 0)
 			$file_wo_ext = get_filename_wo_extension($row['file']);
 			$thumbnail_name = str_replace('_', ' ', $file_wo_ext);
 		}
-		$thumbnail_info[] = array(
-			'name'	=> $thumbnail_name,
-			'width'	=> $thumbnail_size[0],
-			'height'	=> $thumbnail_size[1],
-			'id'	=> $row['id'],
-			'tn_src'	=> $derivative->get_url(),
-			'rank'	=> $current_rank * 10,
-			);
-		if ($thumbnail_size[0]<=128 and $thumbnail_size[1]<=128)
-		{
-			$clipping[]= min($thumbnail_size[0],$thumbnail_size[1]);
-		}
-		else
-		{
-			$clipping[]= min($thumbnail_size[0]*0.75,$thumbnail_size[1]*0.75);
-		}
 		$current_rank++;
-	}
-	$clipping=array_sum($clipping)/count($clipping);
-	foreach ($thumbnail_info as $thumbnails_info)
-	{
-		$thumbnail_x_center = $thumbnails_info['width']/2;
-		$thumbnail_y_center = $thumbnails_info['height']/2;
 		$template->append(
 			'thumbnails',
 			array(
-				'ID' => $thumbnails_info['id'],
-				'NAME' => $thumbnails_info['name'],
-				'TN_SRC' => $thumbnails_info['tn_src'],
-				'RANK' => $thumbnails_info['rank'],
-				'CLIPING' => round($clipping),
-				'CLIPING_li' => round($clipping+8),
-				'CLIP_TOP' => round($thumbnail_y_center - $clipping/2),
-				'CLIP_RIGHT' => round($thumbnail_x_center + $clipping/2),
-				'CLIP_BOTTOM' => round($thumbnail_y_center + $clipping/2),
-				'CLIP_LEFT' => round($thumbnail_x_center - $clipping/2)
+				'ID' => $row['id'],
+				'NAME' => $thumbnail_name,
+				'TN_SRC' => $derivative->get_url(),
+				'RANK' => $current_rank * 10,
+				'SIZE' => $derivative->get_size(),
 				)
 			);
 	}
