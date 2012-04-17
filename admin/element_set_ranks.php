@@ -194,7 +194,7 @@ SELECT
     file,
     path,
     representative_ext,
-    width, height,
+    width, height, rotation,
     name,
     rank
   FROM '.IMAGES_TABLE.'
