@@ -1,6 +1,6 @@
 <h2>Конфігурація</h2>
 
-<p>Цей екран дозволяє адміністратору налаштувати базові конфігурації галереї. Indeed, this screen only shows simple configuration parameters that should be enough for the vast majority of administrators. If you want to see other numerous (and advanced) configuration parameters, read the default configuration file <span
+<p>Цей екран дозволяє адміністратору налаштувати базові конфігурації галереї. Дійсно, цей екран відображає тільки прості параметри конфігурації, цього має бути достатньо для переважної більшості адміністраторів. Якщо ви хочете побачити інші численні(і додаткові) параметри конфігурації, прочитати файл конфігурації за замовчуванням <span
 class="filename">include/config_default.inc.php</span>.</p>
 
 <p>Екран ділиться на різні розділи групування параметри конфігурації по категоріях.</p>
@@ -22,7 +22,7 @@ class="filename">include/config_default.inc.php</span>.</p>
 
   <li><strong>Дозволити реєстрацію користувачів</strong>: Будь-хто може зареєструватися.</li>
 
-  <li><strong>Поштова адреса є обов'язковим для всіх користувачів</strong>: пошта буде перевірятися на поновлення реєстрації або профілю, за винятком, якщо дія відбувається на адміністратора.</li>
+  <li><strong>Поштова адреса є обов'язковою для всіх користувачів</strong>: пошта буде перевірятися на поновлення реєстрації або профілю, за винятком, якщо дія відбувається на адміністратора.</li>
 
   <li><strong>Емейл повідомлення адміністраторам, коли новий користувач реєструється</strong>: адміністратори будуть повідомлені поштою про кожну реєстрацію.</li>
   
@@ -39,63 +39,63 @@ class="filename">include/config_default.inc.php</span>.</p>
   <p>Відвідування буде показано в <span  class="pwgScreen">Адміністрування &raquo; Інструменти &raquo; Історія</span>.</p>
 
 <ul>
-  <li><strong>Зберегти сторінку візити гостей</strong>: візити сторінки гостями будуть записані.</li>
+  <li><strong>Зберегти сторінки відвідувані гостями</strong>: відвідувані сторінки гостями будуть записані.</li>
 
-  <li><strong>Save page visits by users</strong>: visits by registrered users will be recorded.</li>
+  <li><strong>Зберегти сторінки відвідувані користувачами</strong>: відвідування користувачів буде записано.</li>
 
-  <li><strong>Save page visits by administrators</strong>: page visits by administrators will be recorded.</li>
-
-</ul>
-
-<h3>Comments</h3>
-<ul>
-
-  <li><strong>Comments for all</strong>: Even unregistered guest can post comments.</li>
-
-  <li><strong>Number of comments per page</strong>.</li>
-
-  <li><strong>Validation</strong>: an administrator must validate users comments before they become visible on the site. User comments validation
-  takes place in screen <span class="pwgScreen">Administration &raquo; Tools &raquo; Pending Comments</span>.</li>
-
-  <li><strong>Email admins when a valid comment is entered</strong>: Sends an email to the administrators when a user enters a comment and this comment is validated.</li>
-
-  <li><strong>Email admins when a comment requires validation</strong>:
-Sends an email to the administrators when a user enters a comment that requires validation by the admin.
-User comments validation takes place in the screen <span class="pwgScreen">Administration &raquo; Tools &raquo; Pending Comments</span>.</li>
+  <li><strong>Зберегти сторінки відвідувані адміністраторами</strong>: сторінки відвідувані адміністраторами буде записано.</li>
 
 </ul>
 
-<h3>Default display</h3>
+<h3>Коментарі</h3>
+<ul>
 
-<p>Here you can change display options used by guest, the default user that is not connected. Once connected, these options are overridden by the user's own options
-(modifiable in <span class="pwgScreen">profile</span>).</p>
+  <li><strong>Коментарі для всіх</strong>: Навіть незареєстровані гості можуть отримати можливість надсилати коментарі.</li>
 
-<p>It is possible to change the display options for all existing users on the <span class="pwgScreen">Administration &raquo;
-Users &raquo; Manage</span> screen where you can select a list of users.</p>
+  <li><strong>Кількість коментарів на сторінці</strong>.</li>
+
+  <li><strong>Перевірка</strong>: адміністратор повинен перевірити коментарі користувачів, перш ніж вони стають видні на сайті. Перевірка коментарів користувача
+ відбувається на екрані <span class="pwgScreen">Адміністрування &raquo; Інструменти &raquo; Коментарі в очікуванні</span>.</li>
+
+  <li><strong>Емейл лист адміністраторам, коли вводяться дійсні коментарі</strong>: Відправлення електронною поштою адміністратору, коли користувач вводить свій коментар і цей коментар перевіряється.</li>
+
+  <li><strong>Емейл лист адміністраторам, коли коментар вимагає перевірки</strong>:
+Відправлення електронною поштою листа адміністратору, коли користувач вводить коментар, який вимагає перевірки адміністратором.
+Перевірка коментарів користувачів відбувається на екрані <span class="pwgScreen">Адміністрування &raquo; Інструменти &raquo; Коментарі в очікуванні</span>.</li>
+
+</ul>
+
+<h3>Відображення за замовчуванням</h3>
+
+<p>Тут ви можете змінити параметри відображення, які використовуються гостем, користувачем за промовчанням. Після підключення, ці параметри змінюються на власні параметри користувача
+(змінювані в <span class="pwgScreen">профілю</span>).</p>
+
+<p>Можна змінити параметри відображення для всіх існуючих користувачів на <span class="pwgScreen">Адміністрування &raquo;
+Користувачі &raquo; Управління</span> екрані, де ви можете вибрати список користувачів.</p>
 
 <ul>
 
-  <li><strong>Language</strong>: Apply to Piwigo labels only. Album names, photo names and all descriptions fields are not localized.</li>
+  <li><strong>Мова</strong>: Застосувати лише до позначки Piwigo. Назви альбомів, імена зображень і описи всіх полів не локалізовані.</li>
 
-  <li><strong>Number of photos per row</strong></li>
+  <li><strong>Кількість зображень в рядку</strong></li>
 
-  <li><strong>Number of rows per page</strong></li>
+  <li><strong>Кількість рядків на сторінці</strong></li>
 
-  <li><strong>Interface theme</strong></li>
+  <li><strong>Теми інтерфейсу</strong></li>
 
-  <li><strong>Recent period</strong>: By days. Period during which a photo is shown as new. Must be greater than 1 day.</li>
+  <li><strong>Недавній період</strong>: Вдень. Період, впродовж якого зображення показується як нове. Має бути більшим, ніж 1 день.</li>
 
-  <li><strong>Expand all albums</strong>: Expand all albums by
-  default in the menu <em>Warning</em>: this option is resources intensive and may generate a huge menu if your album tree contains many albums.</li>
+  <li><strong>Розгорнути всі альбоми</strong>: Розгортання всіх альбомів
+в меню <em>Попередження</em>: цей параметр є ресурсомістким і може генерувати величезні меню, якщо ваше дерево альбом містить багато альбомів.</li>
 
-  <li><strong>Show number of comments</strong>: Show the number of comments for each photo on the thumbnails page. Resource intensive.</li>
+  <li><strong>Показати кількість коментарів</strong>: Показати кількість коментарів для кожного зображення на сторінці мініатюр. Ресурсомісткий.</li>
 
-  <li><strong>Show hits count</strong>: Display hits observed on photo just under its thumbnail on the thumbnails page. Only when advanced configuration parameter is: <br>
+  <li><strong>Показати кількість показів</strong>: Відображення показів спостерігається на зображенні під його мініатюрою на сторінці мініатюр. Тільки тоді, коли додатковий параметр конфігурації: <br>
   $conf['show_nb_hits'] = true; <br>
-  Notice: false by default.</li>
+  Примітка: false за замовчуванням.</li>
 
-  <li><strong>Maximum width of the photos</strong>: maximum displayed width.  Photos larger than this setting will be resized on display.  Rather than choosing this option, you might consider modifying the width of your photos; that would be a better practice.</li>
+  <li><strong>Максимальна ширина зображення</strong>: максимальна ширина відображення.  Зображення більше, ніж цей параметр буде змінено на показі.  Замість того, щоб вибрати цей параметр, ви можете розглянути можливість зміни ширини зображення; Це було б кращою практикою.</li>
 
-  <li><strong>Maximum height of the photos</strong>: Same as for the maximum width setting.</li>
+  <li><strong>Максимальна висота зображення</strong>: Те ж саме що стосується налаштування максимальної ширини.</li>
 
 </ul>
