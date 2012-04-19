@@ -860,4 +860,11 @@ $lang['apply automatic sort order'] = 'aktiver automatisk sorteringsorden';
 $lang['cancel manual order'] = 'fortryd manuel orden';
 $lang['digiKam is an advanced digital photo management free software for Linux, Windows, and MacOSX.'] = 'digiKam er et gratis avanceret program for organisering af digitale fotos for Linux, Windows, og MacOSX.';
 $lang['digiKam is designed for photographers who want to view, manage, edit, enhance, organize, tag, and share photographs.'] = 'digiKam er designet for fotografer, der ønsker at se, organisere, redigere, optimere, indeksere og dele fotos.';
+$lang['<em>Piwigo for iOS</em> application empowers you to connect to your Piwigo gallery from your iPhone, iPad or iPod Touch, create some albums and upload several photos at once.'] = '<em>Piwigo for iOS</em> plugin\'et gør det muligt for dig at logge på dit Piwigo galleri fra din iPhone, iPad eller iPod Touch, oprette albums og uploade billeder til galleriet.  ';
+$lang['Applications'] = 'Plugins';
+$lang['Available on'] = 'Tilgængelig den';
+$lang['Available versions for'] = 'Tilgængelige versioner for';
+$lang['Not cropped correctly?'] = 'Ikke beskåret korrekt?';
+$lang['Web Form'] = 'Web formular';
+$lang['You have %d orphan tags: %s.'] = 'Du har %d forældreløse tags: %s';
 ?>
