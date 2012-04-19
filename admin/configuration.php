@@ -248,6 +248,12 @@ WHERE param = \''.$row['param'].'\'
   //------------------------------------------------------ $conf reinitialization
   load_conf_from_db();
 }
+elseif (isset($_POST['restore_settings']))
+{
+  ImageStdParams::set_and_save( ImageStdParams::get_default_sizes() );
+  pwg_query('DELETE FROM '.CONFIG_TABLE.' WHERE param = \'disabled_derivatives\'');
+  clear_derivative_cache();
+}
 
 //----------------------------------------------------- template initialization
 $template->set_filename('config', 'configuration.tpl');

@@ -112,7 +112,8 @@ final class ImageStdParams
     }
     else
     {
-      self::make_default();
+      self::$watermark = new WatermarkParams();
+      self::$type_map = self::get_default_sizes();
     }
     self::build_maps();
   }
@@ -141,18 +142,24 @@ final class ImageStdParams
     conf_update_param('derivatives', addslashes($ser) );
   }
 
-  private static function make_default()
+  static function get_default_sizes()
   {
-    self::$watermark = new WatermarkParams();
-    self::$type_map[IMG_SQUARE] = new DerivativeParams( SizingParams::square(120,120) );
-    self::$type_map[IMG_THUMB] = new DerivativeParams( SizingParams::classic(144,144) );
-    self::$type_map[IMG_XXSMALL] = new DerivativeParams( SizingParams::classic(240,240) );
-    self::$type_map[IMG_XSMALL] = new DerivativeParams( SizingParams::classic(432,324) );
-    self::$type_map[IMG_SMALL] = new DerivativeParams( SizingParams::classic(576,432) );
-    self::$type_map[IMG_MEDIUM] = new DerivativeParams( SizingParams::classic(792,594) );
-    self::$type_map[IMG_LARGE] = new DerivativeParams( SizingParams::classic(1008,756) );
-    self::$type_map[IMG_XLARGE] = new DerivativeParams( SizingParams::classic(1224,918) );
-    self::$type_map[IMG_XXLARGE] = new DerivativeParams( SizingParams::classic(1656,1242) );
+    $arr = array(
+      IMG_SQUARE => new DerivativeParams( SizingParams::square(120,120) ),
+      IMG_THUMB => new DerivativeParams( SizingParams::classic(144,144) ),
+      IMG_XXSMALL => new DerivativeParams( SizingParams::classic(240,240) ),
+      IMG_XSMALL => new DerivativeParams( SizingParams::classic(432,324) ),
+      IMG_SMALL => new DerivativeParams( SizingParams::classic(576,432) ),
+      IMG_MEDIUM => new DerivativeParams( SizingParams::classic(792,594) ),
+      IMG_LARGE => new DerivativeParams( SizingParams::classic(1008,756) ),
+      IMG_XLARGE => new DerivativeParams( SizingParams::classic(1224,918) ),
+      IMG_XXLARGE => new DerivativeParams( SizingParams::classic(1656,1242) ),
+    );
+    foreach($arr as $params)
+    {
+      $params->last_mod_time = time();
+    }
+    return $arr;
   }
 
   static function apply_global($params)

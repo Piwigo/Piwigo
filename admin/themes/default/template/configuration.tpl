@@ -30,9 +30,7 @@ jQuery(document).ready(function(){
 });
 {/literal}{/footer_script}
 
-<div class="titrePage">
-  <h2>{'Piwigo configuration'|@translate} {$TABSHEET_TITLE}</h2>
-</div>
+<h2>{'Piwigo configuration'|@translate} {$TABSHEET_TITLE}</h2>
 
 {if !isset($default)}
 <form method="post" action="{$F_ACTION}" class="properties">
@@ -314,13 +312,13 @@ jQuery(document).ready(function(){
   jQuery("#showDetails").click(function() {
     jQuery(".sizeDetails").show();
     jQuery(this).css("visibility", "hidden");
+		return false;
   });
 
 });
 {/literal}{/footer_script}
 
-{html_head}{literal}
-<style type="text/css">
+{html_style}{literal}
 input[type="text"].dError {border-color:#ff7070; background-color:#FFe5e5;}
 .dErrorDesc {background-color:red; color:white; padding:0 5px;border-radius:10px; font-weight:bold;cursor:help;}
 .sizeEnable {width:50px;}
@@ -330,8 +328,7 @@ input[type="text"].dError {border-color:#ff7070; background-color:#FFe5e5;}
 .showDetails {padding:0;}
 .sizeDetails {display:none;margin-left:10px;}
 .sizeEditOpen {margin-left:10px;}
-</style>
-{/literal}{/html_head}
+{/literal}{/html_style}
 
 <fieldset id="sizesConf">
   <legend>{'Original Size'|@translate}</legend>
@@ -643,9 +640,12 @@ input[type="text"].dError {border-color:#ff7070; background-color:#FFe5e5;}
 {/if}
 
 {if !isset($default)}
-  <p class="formButtons">
-    <input class="submit" type="submit" name="submit" value="{'Save Settings'|@translate}">
-  </p>
+	<p class="formButtons">
+		<input type="submit" name="submit" value="{'Save Settings'|@translate}">
+{if isset($sizes)}
+		<input type="submit" name="restore_settings" value="{'Restore'|@translate}" onclick="return confirm('{'Are you sure?'|@translate|@escape:javascript}');">
+{/if}
+	</p>
 </form>
 {/if}
 
