@@ -895,4 +895,5 @@ $lang['Select a file'] = 'Select a file';
 $lang['add a new watermark'] = 'add a new watermark';
 $lang['Apply watermark if width is bigger than'] = 'Apply watermark if width is bigger than';
 $lang['Apply watermark if height is bigger than'] = 'Apply watermark if height is bigger than';
+$lang['Multiple Size'] = 'Multiple Size';
 ?>

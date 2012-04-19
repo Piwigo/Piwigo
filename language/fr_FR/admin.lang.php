@@ -672,7 +672,7 @@ $lang['Menu Management'] = 'Menus';
 $lang['automatic order'] = 'ordre automatique';
 $lang['manual order'] = 'ordre manuel';
 $lang['Albums automatically sorted'] = 'Les albums ont été triés automatiquement';
-$lang['The original maximum width must be a number between %d and %d'] = 'La largeur maximum pour le redimensionnement de la photo original doit être un chiffre compris entre %d et %d';
+$lang['The original maximum width must be a number between %d and %d'] = 'La largeur maximum pour le redimensionnement de la photo originale doit être un chiffre compris entre %d et %d';
 $lang['The original maximum height must be a number between %d and %d'] = 'La hauteur maximum pour le redimensionnement de la photo originale doit être un chiffre compris entre %d et %d';
 $lang['The original image quality must be a number between %d and %d'] = 'La qualité d\'image pour le redimensionnement de la photo originale doit être un chiffre compris entre %d et %d';
 $lang['Batch Manager'] = 'Gestion par lot';
@@ -896,4 +896,5 @@ $lang['top right corner'] = 'coin supérieur droit';
 $lang['X Position'] = 'Position X';
 $lang['X Repeat'] = 'Répétition X';
 $lang['Y Position'] = 'Position Y';
+$lang['Multiple Size'] = 'Tailles multiples';
 ?>
