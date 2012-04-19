@@ -240,7 +240,7 @@ final class DerivativeParams
   public $use_watermark = false;
   public $sizing;
   public $sharpen = 0;
-  public $quality = 85;
+  public $quality = 95;
 
   function __construct($sizing)
   {

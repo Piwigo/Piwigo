@@ -68,7 +68,7 @@ function get_upload_form_config()
   return $upload_form_config;
 }
 
-function save_upload_form_config($data, &$errors=array())
+function save_upload_form_config($data, &$errors=array(), &$form_errors=array())
 {
   if (!is_array($data) or empty($data))
   {
@@ -130,6 +130,8 @@ function save_upload_form_config($data, &$errors=array())
             $max
             )
           );
+        
+        $form_errors[$field] = '['.$min.' .. '.$max.']';
       }
     }
   }

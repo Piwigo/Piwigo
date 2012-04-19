@@ -319,8 +319,10 @@ jQuery(document).ready(function(){
 });
 {/literal}{/footer_script}
 
-{literal}
-<style>
+{html_head}{literal}
+<style type="text/css">
+input[type="text"].dError {border-color:#ff7070; background-color:#FFe5e5;}
+.dErrorDesc {background-color:red; color:white; padding:0 5px;border-radius:10px; font-weight:bold;cursor:help;}
 .sizeEnable {width:50px;}
 .sizeEditForm {margin:0 0 10px 20px;}
 .sizeEdit {display:none;}
@@ -329,7 +331,7 @@ jQuery(document).ready(function(){
 .sizeDetails {display:none;margin-left:10px;}
 .sizeEditOpen {margin-left:10px;}
 </style>
-{/literal}
+{/literal}{/html_head}
 
 <fieldset id="sizesConf">
   <legend>{'Original Size'|@translate}</legend>
@@ -344,27 +346,34 @@ jQuery(document).ready(function(){
   <table id="sizeEdit-original">
     <tr>
       <th>{'Maximum Width'|@translate}</th>
-      <td><input type="text" name="original_resize_maxwidth" value="{$sizes.original_resize_maxwidth}" size="4" maxlength="4"> {'pixels'|@translate}</td>
+      <td>
+        <input type="text" name="original_resize_maxwidth" value="{$sizes.original_resize_maxwidth}" size="4" maxlength="4"{if isset($ferrors.original_resize_maxwidth)} class="dError"{/if}> {'pixels'|@translate}
+        {if isset($ferrors.original_resize_maxwidth)}<span class="dErrorDesc" title="{$ferrors.original_resize_maxwidth}">!</span>{/if}
+      </td>
     </tr>
     <tr>
       <th>{'Maximum Height'|@translate}</th>
-      <td><input type="text" name="original_resize_maxheight" value="{$sizes.original_resize_maxheight}" size="4" maxlength="4"> {'pixels'|@translate}</td>
+      <td>
+        <input type="text" name="original_resize_maxheight" value="{$sizes.original_resize_maxheight}" size="4" maxlength="4"{if isset($ferrors.original_resize_maxheight)} class="dError"{/if}> {'pixels'|@translate}
+        {if isset($ferrors.original_resize_maxheight)}<span class="dErrorDesc" title="{$ferrors.original_resize_maxheight}">!</span>{/if}
+      </td>
     </tr>
     <tr>
       <th>{'Image Quality'|@translate}</th>
-      <td><input type="text" name="original_resize_quality" value="{$sizes.original_resize_quality}" size="3" maxlength="3"> %</td>
+      <td>
+        <input type="text" name="original_resize_quality" value="{$sizes.original_resize_quality}" size="3" maxlength="3"{if isset($ferrors.original_resize_quality)} class="dError"{/if}> %
+        {if isset($ferrors.original_resize_quality)}<span class="dErrorDesc" title="{$ferrors.original_resize_quality}">!</span>{/if}
+      </td>
     </tr>
   </table>
 
 </fieldset>
 
-<div class="warnings">Warning: the following fields are for test "user interface" test only. Any change won't be saved.<br>See screen [Administration > Configuration > Multiple Size] to configure sizes.</div>
-
 <fieldset id="multiSizesConf">
   <legend>{'Multiple Size'|@translate}</legend>
 
 <div class="showDetails">
-  <a href="#" id="showDetails"{if $show_details} style="display:none"{/if}>{'show details'|@translate}</a>
+  <a href="#" id="showDetails"{if $show_details or isset($ferrors)} style="display:none"{/if}>{'show details'|@translate}</a>
 </div>
 
 <table style="margin:0">
@@ -384,17 +393,17 @@ jQuery(document).ready(function(){
     </td>
 
     <td>
-      <span class="sizeDetails">{$d.w} x {$d.h} {'pixels'|@translate}{if $d.crop}, {'Crop'|@translate|lower}{/if}</span>
+      <span class="sizeDetails"{if isset($ferrors)} style="display:inline"{/if}>{$d.w} x {$d.h} {'pixels'|@translate}{if $d.crop}, {'Crop'|@translate|lower}{/if}</span>
     </td>
 
     <td>
-      <span class="sizeDetails">
+      <span class="sizeDetails"{if isset($ferrors) and !isset($ferrors.$type)} style="display:inline"{/if}>
         <a href="#" id="sizeEditOpen-{$type}" class="sizeEditOpen">{'edit'|@translate}</a>
       </span>
     </td>
   </tr>
 
-  <tr id="sizeEdit-{$type}" class="sizeEdit">
+  <tr id="sizeEdit-{$type}" class="sizeEdit" {if isset($ferrors.$type)} style="display:block"{/if}>
     <td colspan="3">
       <table class="sizeEditForm">
   {if !$d.must_square}
@@ -411,7 +420,7 @@ jQuery(document).ready(function(){
         <tr>
           <td class="sizeEditWidth">{if $d.must_square or $d.crop}{'Width'|@translate}{else}{'Maximum Width'|@translate}{/if}</td>
           <td>
-            <input type="text" name="d[{$type}][w]" maxlength="4" size="4" value="{$d.w}"{if isset($ferrors.$type.w)}class="dError"{/if}>
+            <input type="text" name="d[{$type}][w]" maxlength="4" size="4" value="{$d.w}"{if isset($ferrors.$type.w)} class="dError"{/if}>
             {'pixels'|@translate}
             {if isset($ferrors.$type.w)}<span class="dErrorDesc" title="{$ferrors.$type.w}">!</span>{/if}
           </td>
@@ -421,7 +430,7 @@ jQuery(document).ready(function(){
         <tr>
           <td class="sizeEditHeight">{if $d.crop}{'Height'|@translate}{else}{'Maximum Height'|@translate}{/if}</td>
           <td>
-            <input type="text" name="d[{$type}][h]" maxlength="4" size="4"  value="{$d.h}"{if isset($ferrors.$type.h)}class="dError"{/if}>
+            <input type="text" name="d[{$type}][h]" maxlength="4" size="4"  value="{$d.h}"{if isset($ferrors.$type.h)} class="dError"{/if}>
             {'pixels'|@translate}
             {if isset($ferrors.$type.h)}<span class="dErrorDesc" title="{$ferrors.$type.h}">!</span>{/if}
           </td>
@@ -433,9 +442,10 @@ jQuery(document).ready(function(){
 {/foreach}
 </table>
 
-<p style="margin:20px 0 0 0" class="sizeDetails">
+<p style="margin:20px 0 0 0;{if isset($ferrors)} display:block;{/if}" class="sizeDetails">
   {'Image Quality'|@translate}
-  <input type="text" name="original_resize_quality" value="{$sizes.original_resize_quality}" size="3" maxlength="3"> %
+  <input type="text" name="resize_quality" value="{$resize_quality}" size="3" maxlength="3"{if isset($ferrors.resize_quality)} class="dError"{/if}> %
+  {if isset($ferrors.resize_quality)}<span class="dErrorDesc" title="{$ferrors.resize_quality}">!</span>{/if}
 </p>
 </fieldset>
 {/if}

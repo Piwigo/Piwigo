@@ -175,32 +175,7 @@ if (isset($_POST['submit']))
     }
     case 'sizes' :
     {
-      $fields = array(
-        'original_resize',
-        'original_resize_maxwidth',
-        'original_resize_maxheight',
-        'original_resize_quality',
-        );
-
-      $updates = array();
-      
-      foreach ($fields as $field)
-      {
-        $value = !empty($_POST[$field]) ? $_POST[$field] : null;
-        $form_values[$field] = $value;
-        $updates[$field] = $value;
-      }
-
-      save_upload_form_config($updates, $page['errors']);
-  
-      if (count($page['errors']) == 0)
-      {
-        array_push(
-          $page['infos'],
-          l10n('Your configuration settings are saved')
-          );
-      }
-
+      include(PHPWG_ROOT_PATH.'admin/include/configuration_sizes_process.inc.php');        
       break;
     }
     case 'comments' :
@@ -428,69 +403,82 @@ switch ($page['section'])
   }
   case 'sizes' :
   {
-    $template->assign(
-      'sizes',
-      array(
-        'original_resize_maxwidth' => $conf['original_resize_maxwidth'],
-        'original_resize_maxheight' => $conf['original_resize_maxheight'],
-        'original_resize_quality' => $conf['original_resize_quality'],
-        )
-      );
-    
-    foreach ($sizes_checkboxes as $checkbox)
+    // we only load the derivatives if it was not already loaded: it occurs
+    // when submitting the form and an error remains
+    if (!isset($page['sizes_loaded_in_tpl']))
     {
-      $template->append(
+      $template->assign(
         'sizes',
         array(
-          $checkbox => $conf[$checkbox]
-          ),
-        true
+          'original_resize_maxwidth' => $conf['original_resize_maxwidth'],
+          'original_resize_maxheight' => $conf['original_resize_maxheight'],
+          'original_resize_quality' => $conf['original_resize_quality'],
+          )
         );
-    }
-
-    // derivaties = multiple size
-    $enabled = ImageStdParams::get_defined_type_map();
-    $disabled = @unserialize(@$conf['disabled_derivatives']);
-    if ($disabled === false)
-    {
-      $disabled = array();
-    }
-
-    $tpl_vars = array();
-    foreach(ImageStdParams::get_all_types() as $type)
-    {
-      $tpl_var = array();
       
-      $tpl_var['must_square'] = ($type==IMG_SQUARE ? true : false);
-      $tpl_var['must_enable'] = ($type==IMG_SQUARE || $type==IMG_THUMB)? true : false;
-      
-      if ($params=@$enabled[$type])
+      foreach ($sizes_checkboxes as $checkbox)
       {
-        $tpl_var['enabled']=true;
-      }
-      else
-      {
-        $tpl_var['enabled']=false;
-        $params=@$disabled[$type];
+        $template->append(
+          'sizes',
+          array(
+            $checkbox => $conf[$checkbox]
+            ),
+          true
+          );
       }
       
-      if ($params)
+      // derivatives = multiple size
+      $enabled = ImageStdParams::get_defined_type_map();
+      $disabled = @unserialize(@$conf['disabled_derivatives']);
+      if ($disabled === false)
       {
-        list($tpl_var['w'],$tpl_var['h']) = $params->sizing->ideal_size;
-        if ( ($tpl_var['crop'] = round(100*$params->sizing->max_crop)) > 0)
+        $disabled = array();
+      }
+
+      $common_quality = 50;
+
+      $tpl_vars = array();
+      foreach(ImageStdParams::get_all_types() as $type)
+      {
+        $tpl_var = array();
+        
+        $tpl_var['must_square'] = ($type==IMG_SQUARE ? true : false);
+        $tpl_var['must_enable'] = ($type==IMG_SQUARE || $type==IMG_THUMB)? true : false;
+        
+        if ($params = @$enabled[$type])
         {
-          list($tpl_var['minw'],$tpl_var['minh']) = $params->sizing->min_size;
+          $tpl_var['enabled'] = true;
         }
         else
         {
-          $tpl_var['minw'] = $tpl_var['minh'] = "";
+          $tpl_var['enabled']=false;
+          $params=@$disabled[$type];
         }
-        $tpl_var['sharpen'] = $params->sharpen;
-        $tpl_var['quality'] = $params->quality;
+        
+        if ($params)
+        {
+          list($tpl_var['w'],$tpl_var['h']) = $params->sizing->ideal_size;
+          if ( ($tpl_var['crop'] = round(100*$params->sizing->max_crop)) > 0)
+          {
+            list($tpl_var['minw'],$tpl_var['minh']) = $params->sizing->min_size;
+          }
+          else
+          {
+            $tpl_var['minw'] = $tpl_var['minh'] = "";
+          }
+          $tpl_var['sharpen'] = $params->sharpen;
+          $tpl_var['quality'] = $params->quality;
+          
+          if ($params->quality > $common_quality and $tpl_var['enabled'])
+          {
+            $common_quality = $params->quality;
+          }
+        }
+        $tpl_vars[$type]=$tpl_var;
       }
-      $tpl_vars[$type]=$tpl_var;
+      $template->assign('derivatives', $tpl_vars);
+      $template->assign('resize_quality', $common_quality);
     }
-    $template->assign('derivatives', $tpl_vars);
 
     break;
   }
