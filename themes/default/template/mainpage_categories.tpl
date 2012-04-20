@@ -8,8 +8,8 @@
 }
 {/html_style}{/strip}
 <ul class="thumbnailCategories">
-{foreach from=$category_thumbnails item=cat}
-	<li>
+{foreach from=$category_thumbnails item=cat name=cat_loop}
+	<li class="{if $smarty.foreach.comment_loop.index is odd}odd{else}even{/if}">
 		<div class="thumbnailCategory">
 			<div class="illustration">
 			<a href="{$cat.URL}">

@@ -34,7 +34,7 @@
 		</span>
 		{if $SHOW_THUMBNAIL_CAPTION }
 		<span class="thumbLegend">
-		{$thumbnail.NAME}
+		<span class="thumbName">{$thumbnail.NAME}</span>
 		{if !empty($thumbnail.icon_ts)}
 		<img title="{$thumbnail.icon_ts.TITLE}" src="{$ROOT_URL}{$themeconf.icon_dir}/recent.png" alt="(!)">
 		{/if}
