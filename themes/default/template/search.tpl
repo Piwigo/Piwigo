@@ -23,11 +23,8 @@
 			<li><a href="{$U_HELP}" onclick="popuphelp(this.href); return false;" title="{'Help'|@translate}" class="pwg-state-default pwg-button">
 				<span class="pwg-icon pwg-icon-help">&nbsp;</span><span class="pwg-button-text">{'Help'|@translate}</span>
 			</a></li>
-      <li><a href="{$U_HOME}" title="{'Home'|@translate}" class="pwg-state-default pwg-button">
-        <span class="pwg-icon pwg-icon-home">&nbsp;</span><span class="pwg-button-text">{'Home'|@translate}</span>
-      </a></li>
 		</ul>
-		<h2>{'Search'|@translate}</h2>
+		<h2><a href="{$U_HOME}">{'Home'|@translate}</a>{$LEVEL_SEPARATOR}{'Search'|@translate}</h2>
 	</div>
 
 {include file='infos_errors.tpl'}

@@ -3,11 +3,8 @@
 
 <div class="titrePage">
 	<ul class="categoryActions">
-		<li><a href="{$U_HOME}" title="{'Home'|@translate}" class="pwg-state-default pwg-button">
-			<span class="pwg-icon pwg-icon-home">&nbsp;</span><span class="pwg-button-text">{'Home'|@translate}</span>
-		</a></li>
-  </ul>
-	<h2>{'Profile'|@translate}</h2>
+	</ul>
+	<h2><a href="{$U_HOME}">{'Home'|@translate}</a>{$LEVEL_SEPARATOR}{'Profile'|@translate}</h2>
 </div>
 
 {include file='infos_errors.tpl'}
