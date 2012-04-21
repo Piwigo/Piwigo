@@ -890,4 +890,5 @@ $lang['top right corner'] = 'верхній правий кут';
 $lang['X Position'] = 'Позиція X';
 $lang['X Repeat'] = 'Повторення X';
 $lang['Y Position'] = 'Позиція Y';
+$lang['Multiple Size'] = 'Кілька розмірів';
 ?>
