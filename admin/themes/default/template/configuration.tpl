@@ -439,10 +439,13 @@ input[type="text"].dError {border-color:#ff7070; background-color:#FFe5e5;}
 {/foreach}
 </table>
 
-<p style="margin:20px 0 0 0;{if isset($ferrors)} display:block;{/if}" class="sizeDetails">
+<p style="margin:10px 0 0 0;{if isset($ferrors)} display:block;{/if}" class="sizeDetails">
   {'Image Quality'|@translate}
   <input type="text" name="resize_quality" value="{$resize_quality}" size="3" maxlength="3"{if isset($ferrors.resize_quality)} class="dError"{/if}> %
   {if isset($ferrors.resize_quality)}<span class="dErrorDesc" title="{$ferrors.resize_quality}">!</span>{/if}
+</p>
+<p style="margin:10px 0 0 0;{if isset($ferrors)} display:block;{/if}" class="sizeDetails">
+  <a href="{$F_ACTION}&action=restore_settings" onclick="return confirm('{'Are you sure?'|@translate|@escape:javascript}');">{'Reset to default values'|@translate}</a>
 </p>
 </fieldset>
 {/if}
@@ -642,9 +645,6 @@ input[type="text"].dError {border-color:#ff7070; background-color:#FFe5e5;}
 {if !isset($default)}
 	<p class="formButtons">
 		<input type="submit" name="submit" value="{'Save Settings'|@translate}">
-{if isset($sizes)}
-		<input type="submit" name="restore_settings" value="{'Restore'|@translate}" onclick="return confirm('{'Are you sure?'|@translate|@escape:javascript}');">
-{/if}
 	</p>
 </form>
 {/if}

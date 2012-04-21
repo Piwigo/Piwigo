@@ -248,11 +248,18 @@ WHERE param = \''.$row['param'].'\'
   //------------------------------------------------------ $conf reinitialization
   load_conf_from_db();
 }
-elseif (isset($_POST['restore_settings']))
+
+// restore default derivatives settings
+if ('sizes' == $page['section'] and isset($_GET['action']) and 'restore_settings' == $_GET['action'])
 {
   ImageStdParams::set_and_save( ImageStdParams::get_default_sizes() );
   pwg_query('DELETE FROM '.CONFIG_TABLE.' WHERE param = \'disabled_derivatives\'');
   clear_derivative_cache();
+
+  array_push(
+    $page['infos'],
+    l10n('Your configuration settings are saved')
+    );
 }
 
 //----------------------------------------------------- template initialization
