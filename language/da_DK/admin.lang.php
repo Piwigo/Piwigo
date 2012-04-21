@@ -867,4 +867,5 @@ $lang['Available versions for'] = 'Tilgængelige versioner for';
 $lang['Not cropped correctly?'] = 'Ikke beskåret korrekt?';
 $lang['Web Form'] = 'Web formular';
 $lang['You have %d orphan tags: %s.'] = 'Du har %d forældreløse tags: %s';
+$lang['visitors need to login and have the appropriate permissions to see this album'] = 'besøgende skal logge ind og have de nødvendige tiladelser for at se denne kategori';
 ?>
