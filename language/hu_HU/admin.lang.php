@@ -862,4 +862,5 @@ $lang['X Repeat'] = 'X ismétlődés';
 $lang['Y Position'] = 'Y pozíció';
 $lang['Available on'] = 'Elérhető';
 $lang['Available versions for'] = 'Elérhető verziók';
+$lang['add a new watermark'] = 'új vízjel hozzáadása';
 ?>
