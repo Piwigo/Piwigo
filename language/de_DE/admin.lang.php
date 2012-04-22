@@ -897,4 +897,5 @@ $lang['top right corner'] = 'obere rechte Ecke';
 $lang['X Position'] = 'X Position';
 $lang['X Repeat'] = 'X Wiederholen';
 $lang['Y Position'] = 'Y Position';
+$lang['Multiple Size'] = 'Mehrfache Größe';
 ?>
