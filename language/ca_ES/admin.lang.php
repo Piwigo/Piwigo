@@ -877,24 +877,6 @@ $lang['An error has occured during upgrade.'] = 'Hi ha hagut un error durante el
 $lang['An error has occured during extract. Please check files permissions of your piwigo installation.<br><a href="%s">Click here to show log error</a>.'] = 'Imposible extraer los ficheros. Por favor, verifique los permisos de los ficheros de su instalación. <Br> <a href="%s"> Haga clic aquí para ver el informe de error</a>.';
 $lang['Piwigo cannot retrieve upgrade file from server'] = 'Piwigo no puede recuperar el fichero de actualización desde el servidor';
 $lang['add to caddie'] = 'afegeix al carret';
-
-$lang['Activate icon "new" next to albums and pictures'] = 'Activa la icona "nou" al costat dels àlbum i imatges';
-$lang['Add a criteria'] = 'Afegeix un criteri';
-$lang['Deactivate all'] = 'Desactiva tot';
-$lang['Default photos order'] = 'Ordre predeterminat de les fotos';
-$lang['Restore'] = 'Restaura';
-$lang['Restore default configuration. You will lose your plugin settings!'] = 'Restaura la configuració predeterminada. Perdreu la configuració dels vostres connectors!';
-$lang['Show menubar'] = 'Mostra la barra del menú';
-$lang['You can\'t define a default photo order because you have a custom setting in your local configuration.'] = 'No podeu definir un ordre per defecte de les fotos perquè teniu una configuració personalitzada en la vostra configuració personal.';
-$lang['You have specified <i>$conf[\'order_by\']</i> in your local configuration file, this parameter in deprecated, please remove it or rename it into <i>$conf[\'order_by_custom\']</i> !'] = 'Heu indicat <i>$conf[\'order_by\']</i> en el vostre fitxer de configuració local, aquest paràmetre està anticuat, si us plau elimineu-lo  o renombreu-lo per <i>$conf[\'order_by_custom\']</i> !';
-$lang['Regenerate Thumbnails'] = 'Regenera les miniatures';
-$lang['Regenerate Websize Photos'] = 'Regenera les fotos de mida per al web';
-$lang['Thumbnails generation in progress...'] = 'S\'estan generant les miniatures...';
-$lang['Photos generation in progress...'] = 'S\'estan generant les fotos...';
-$lang['%s thumbnails have been regenerated'] = 'S\'han regenerat %s miniatures';
-$lang['%s thumbnails can not be regenerated'] = '%s miniatures no s\'han pogut regenerar';
-$lang['%s photos have been regenerated'] = 'S\'han regenerat %s fotos';
-$lang['%s photos can not be regenerated'] = '%s fotos no s\'han pogut regenerar';
 $lang['Updates'] = 'Actualitzacions';
 
 ?>
