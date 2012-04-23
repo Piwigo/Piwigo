@@ -895,4 +895,5 @@ $lang['top right corner'] = 'pravý horný roh';
 $lang['X Position'] = 'X Pozícia';
 $lang['X Repeat'] = 'X Opakovanie';
 $lang['Y Position'] = 'Y Pozícia';
+$lang['Multiple Size'] = 'Viacnásobná veľkosť';
 ?>
