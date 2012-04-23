@@ -75,7 +75,6 @@ $lang['Email admins when a comment requires validation'] = 'Envia un correu elec
 $lang['Environment'] = 'Entorn';
 $lang['Form'] = 'Form';
 $lang['Gallery title'] = 'Títol de la galeria';
-$lang['Grant selected groups'] = 'Atorgar als grups seleccionats';
 $lang['Grant selected users'] = 'Atorgar als usuaris seleccionats';
 $lang['Group name'] = 'Nom del grup';
 $lang['Groups'] = 'Grups';
