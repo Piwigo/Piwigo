@@ -896,4 +896,5 @@ $lang['middle'] = 'midden';
 $lang['top left corner'] = 'hoek links boven';
 $lang['top right corner'] = 'hoek rechts boven';
 $lang['visitors need to login and have the appropriate permissions to see this album'] = 'bezoekers moeten inloggen en de juiste rechten hebben om dit album te zien';
+$lang['Multiple Size'] = 'Verschillende formaten';
 ?>
