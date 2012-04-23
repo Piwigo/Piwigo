@@ -890,4 +890,5 @@ $lang['middle'] = 'senter';
 $lang['top left corner'] = 'øvre venstre hjørne';
 $lang['top right corner'] = 'øvre høyre hjørne';
 $lang['visitors need to login and have the appropriate permissions to see this album'] = 'besøkende må logge inn for å se dette album';
+$lang['Multiple Size'] = 'Flere størrelser';
 ?>
