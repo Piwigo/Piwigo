@@ -88,7 +88,6 @@ $lang['Linked albums'] = 'Àlbums enllaçats';
 $lang['Lock gallery'] = 'Tancar galeria';
 $lang['Maintenance'] = 'Manteniment';
 $lang['Edit album permissions'] = 'Edita els permisos de l\'àlbum';
-$lang['Manage permissions for group "%s"'] = 'Gestiona els permisos del grup "%s"';
 $lang['Manage permissions for user "%s"'] = 'Gestiona els permisos de l\'usuari "%s"';
 $lang['Manage tags'] = 'Gestiona etiquetes';
 $lang['Members'] = 'Membres';
