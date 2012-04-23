@@ -889,4 +889,5 @@ $lang['simple visitors'] = 'normal ziyaretcileri';
 $lang['top left corner'] = 'üst sol köşe';
 $lang['top right corner'] = 'üst sağ köşe';
 $lang['visitors need to login and have the appropriate permissions to see this album'] = 'bu albümü görebilmek için ziyaretciler sisteme login ve uygun izinlere sahip olmaları gerekir';
+$lang['Multiple Size'] = 'Çoklu boyut';
 ?>
