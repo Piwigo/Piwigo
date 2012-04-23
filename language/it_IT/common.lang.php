@@ -388,21 +388,19 @@ $lang['Show oldest comments first'] = 'Visualizzare i commenti i meno recenti pr
 $lang['View in'] = 'Visualizzazione';
 $lang['Mobile'] = 'Mobile';
 $lang['Desktop'] = 'Classico';
-
-$lang['Email: %s'] = 'Email : %s';
-$lang['File name, A &rarr; Z'] = 'Nome file, A &rarr; Z';
-$lang['File name, Z &rarr; A'] = 'Nome file, Z &rarr; A';
-$lang['Manual sort order'] = 'Ordine manuale';
-$lang['Photo title, A &rarr; Z'] = 'Titolo immagine, A &rarr; Z';
-$lang['Photo title, Z &rarr; A'] = 'Titolo immagine, Z &rarr; A';
-$lang['Visits, high &rarr; low'] = 'Visite, massimo &rarr; minimo';
 $lang['Date created, new &rarr; old'] = 'Data di creazione, recente &rarr; vecchia';
 $lang['Date created, old &rarr; new'] = 'Data di creazione, vecchia &rarr; recente';
 $lang['Date posted, new &rarr; old'] = 'Data di inserimento, recente &rarr; vecchia';
 $lang['Date posted, old &rarr; new'] = 'Data di inserimento, vecchia &rarr; recente';
+$lang['File name, A &rarr; Z'] = 'Nome file, A &rarr; Z';
+$lang['File name, Z &rarr; A'] = 'Nome file, Z &rarr; A';
+$lang['Manual sort order'] = 'Ordine manuale';
 $lang['Numeric identifier, 1 &rarr; 9'] = 'Numero identificativo, 1 &rarr; 9';
 $lang['Numeric identifier, 9 &rarr; 1'] = 'Numero identificativo, 9 &rarr; 1';
+$lang['Photo title, A &rarr; Z'] = 'Titolo immagine, A &rarr; Z';
+$lang['Photo title, Z &rarr; A'] = 'Titolo immagine, Z &rarr; A';
 $lang['Rating score, high &rarr; low'] = 'Valutazione, alto &rarr; basso';
 $lang['Rating score, low &rarr; high'] = 'Valutazione, basso &rarr; alto';
+$lang['Visits, high &rarr; low'] = 'Visite, massimo &rarr; minimo';
 $lang['Visits, low &rarr; high'] = 'Visite, basso &rarr; alto';
 ?>
