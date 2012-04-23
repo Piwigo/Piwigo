@@ -896,4 +896,5 @@ $lang['X Position'] = 'Координата X';
 $lang['X Repeat'] = 'X Повтор';
 $lang['Y Position'] = 'Координата Y';
 $lang['You can activate only one mobile theme.'] = 'Вы можете активировать только одну мобильную тему.';
+$lang['Multiple Size'] = 'Размеры';
 ?>
