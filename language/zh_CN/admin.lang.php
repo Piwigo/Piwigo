@@ -900,4 +900,5 @@ $lang['custom'] = '自定义';
 $lang['middle'] = '中间';
 $lang['top left corner'] = '左上角';
 $lang['top right corner'] = '右上角';
+$lang['Multiple Size'] = '多尺寸';
 ?>
