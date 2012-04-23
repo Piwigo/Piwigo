@@ -113,7 +113,6 @@ $lang['Permalink %s is already used by album %s'] = 'L\'enllaç permanent %s ja 
 $lang['Permalink history'] = 'Historial d\'enllaços permanents';
 $lang['Permalinks'] = 'Enllaços permanents';
 $lang['Permission denied'] = 'Permís denegat';
-$lang['Permission granted thanks to a group'] = 'Permís atorgat gràcies al grup';
 $lang['Permission granted'] = 'Permís atorgat';
 $lang['Photo informations updated'] = 'Informació de la imatge actualitzada';
 $lang['Plugins'] = 'Plugins';
