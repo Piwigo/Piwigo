@@ -896,4 +896,5 @@ $lang['iPhoto is the default photo manager on MacOSX. The Piwigo export plugin l
 $lang['middle'] = 'وسط';
 $lang['top left corner'] = 'الزاوية اليسرى العليا';
 $lang['top right corner'] = 'الزاوية اليمنى العليا';
+$lang['Multiple Size'] = 'حجم متعدد';
 ?>
