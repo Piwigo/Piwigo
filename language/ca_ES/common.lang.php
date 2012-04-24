@@ -21,7 +21,7 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 /*
-Language Name: Catalan [CA]
+Language Name: Català [CA]
 Version: 2.3.0
 Language URI: http://piwigo.org/ext/extension_view.php?eid=413
 Author: Piwigo team
