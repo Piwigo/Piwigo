@@ -1,0 +1,1 @@
+Complement molt &uacute;til que serveix per canvia f&agrave;cilment l'idioma de la galeria. Es mostren banderes com a s&iacute;mbol dels idiomes. Al passar el punter del ratol&iacute; per sobre la bandera apareix una llista que mostra tots els idiomes disponibles.
