@@ -191,7 +191,6 @@ $lang['File'] = 'Arxiu';
 $lang['first photo added on %s'] = 'primera imatge afegida el %s';
 $lang['Forbidden'] = 'Prohibit';
 $lang['global mode'] = 'mode global';
-$lang['group "%s" deleted'] = 'grup "%s" eliminat';
 $lang['group "%s" updated'] = 'grup "%s" actualitzat';
 $lang['group'] = 'grup';
 $lang['The name of a group must not contain " or \' or be empty.'] = 'El nom d\'un grup no pot contenir " o \' o ser buit.';
