@@ -422,7 +422,8 @@ $lang['%d anomaly has been detected.'] = 'S\'ha detectat %d anomalia.';
 $lang['%d anomalies have been detected.'] = 'S\'han detectat %d anomalies.';
 $lang['%d anomaly has been corrected.'] = 'S\'ha corregit %d anomalia.';
 $lang['%d anomalies have been detected corrected.'] = 'S\'han corregit %d anomalies detectades.';
-$lang['%d anomaly has not been corrected.'] = '%d anomalies no han pogut ser corregides.';
+$lang['%d anomaly has not been corrected.'] = '%d anomalies no han pogut ser corregides.
+';
 $lang['%d anomalies have not been corrected.'] = 'No s\'han corregit %d anomalies.';
 $lang['Go to %s or %s for more informations'] = 'Aneu a %s o %s per a més informació';
 $lang['the forum'] = 'el fòrum';
@@ -903,4 +904,7 @@ $lang['simple visitors'] = 'simples visitants';
 $lang['top left corner'] = 'racó superior esquerre';
 $lang['top right corner'] = 'racó superior dret';
 $lang['visitors need to login and have the appropriate permissions to see this album'] = 'els visitants han d\'autenticar-se i disposar dels permisos adequats per veure aquest àlbum';
+$lang['Last send'] = 'Últim enviament';
+$lang['group "%s" added'] = 'grups "%s" afegits';
+$lang['group "%s" deleted'] = 'grups "%s" eliminats';
 ?>
