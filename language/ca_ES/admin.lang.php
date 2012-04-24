@@ -192,10 +192,8 @@ $lang['first photo added on %s'] = 'primera imatge afegida el %s';
 $lang['Forbidden'] = 'Prohibit';
 $lang['global mode'] = 'mode global';
 $lang['group "%s" updated'] = 'grup "%s" actualitzat';
-$lang['group'] = 'grup';
 $lang['The name of a group must not contain " or \' or be empty.'] = 'El nom d\'un grup no pot contenir " o \' o ser buit.';
 $lang['This name is already used by another group.'] = 'Aquest nom ja està en us per un altre grup.';
-$lang['Groups'] = 'Grups';
 $lang['High definition'] = 'Alta definició';
 $lang['jump to album'] = 'salta cap a l\'àlbum';
 $lang['jump to photo'] = 'salta cap a la imatge';
@@ -253,7 +251,6 @@ $lang['Send mail as'] = 'Envia correu com';
 $lang['Send mail to users'] = 'Envia correu als usuaris';
 $lang['Send'] = 'Envia';
 $lang['Options'] = 'Opcions';
-$lang['Send'] = 'Envia';
 $lang['Subscribed'] = 'Subscrit';
 $lang['Subscribe'] = 'Subscriu';
 $lang['Parameters'] = 'Paràmetres';
@@ -341,8 +338,6 @@ $lang['Errors caption'] = 'Títol de l\'error';
 $lang['Detailed informations'] = 'Informació detallada';
 $lang['File/directory read error'] = 'Error de lectura de l\'arxiu/directori';
 $lang['The file or directory cannot be accessed (either it does not exist or the access is denied)'] = 'No es pot accedir al fitxer o directori (potser no existeix o l\'accès està denegat)';
-
-
 $lang['albums deleted in the database'] = 'categories eliminades de la base de dades';
 $lang['photos deleted from the database'] = 'elements eliminats de la base de dades';
 $lang['photos candidates for metadata synchronization'] = 'imatges candidates per la sincronització de metadades';
@@ -427,8 +422,7 @@ $lang['%d anomaly has been detected.'] = 'S\'ha detectat %d anomalia.';
 $lang['%d anomalies have been detected.'] = 'S\'han detectat %d anomalies.';
 $lang['%d anomaly has been corrected.'] = 'S\'ha corregit %d anomalia.';
 $lang['%d anomalies have been detected corrected.'] = 'S\'han corregit %d anomalies detectades.';
-$lang['%d anomaly has not been corrected.'] = '%d anomalies no han pogut ser corregides.
-';
+$lang['%d anomaly has not been corrected.'] = '%d anomalies no han pogut ser corregides.';
 $lang['%d anomalies have not been corrected.'] = 'No s\'han corregit %d anomalies.';
 $lang['Go to %s or %s for more informations'] = 'Aneu a %s o %s per a més informació';
 $lang['the forum'] = 'el fòrum';
@@ -511,9 +505,6 @@ $lang['All optimizations have been successfully completed.'] = 'Totes les optimi
 $lang['Optimizations have been completed with some errors.'] = 'Les optimitzacions s\'han realitzat amb errors.';
 $lang['Modify information'] = 'Modificar la informació';
 $lang['nothing'] = 'res';
-
-
-
 $lang['overrides existing values with empty ones'] = 'Restablir els valors existentes.';
 $lang['Manage photo ranks'] = "Administrar el orden de las fotos";
 $lang['Edit ranks'] = 'Modificar el orden';
@@ -791,7 +782,6 @@ $lang['An error has occured during upgrade.'] = 'Hi ha hagut un error durante el
 $lang['An error has occured during extract. Please check files permissions of your piwigo installation.<br><a href="%s">Click here to show log error</a>.'] = 'Imposible extraer los ficheros. Por favor, verifique los permisos de los ficheros de su instalación. <Br> <a href="%s"> Haga clic aquí para ver el informe de error</a>.';
 $lang['Piwigo cannot retrieve upgrade file from server'] = 'Piwigo no pot recuperar l\'arxiu d\'actualització del servidor';
 $lang['Updates'] = 'Actualitzacions';
-
 $lang['%s has been successfully updated.'] = '%s s\'ha actualitzat correctament.';
 $lang['A locked gallery is only visible to administrators'] = 'Una galeria blocada només és visible per als administradors';
 $lang['Activate comments'] = 'Activar comentaris';
