@@ -1,0 +1,1 @@
+Aquest complement permet als administradors visualitzar la galeria com si f&oacute;s un convidat, canviar d'idioma i tema sobre la marxa. Val a dir que constitueix una eina for&ccedil;a &uacute;til per a tasques de depuraci&oacute;.
