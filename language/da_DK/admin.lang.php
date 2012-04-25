@@ -868,4 +868,5 @@ $lang['Not cropped correctly?'] = 'Ikke beskåret korrekt?';
 $lang['Web Form'] = 'Web formular';
 $lang['You have %d orphan tags: %s.'] = 'Du har %d forældreløse tags: %s';
 $lang['visitors need to login and have the appropriate permissions to see this album'] = 'besøgende skal logge ind og have de nødvendige tiladelser for at se denne kategori';
+$lang['The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form'] = 'Filstørrelsen på den uploadede fil overstiger den aktuelle indstilling MAX_FILE_SIZE ';
 ?>
