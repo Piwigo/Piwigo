@@ -3,42 +3,42 @@ Piwigo
 =======
 
 Lloc Web:       http://piwigo.org
-Instal·lació:   http://piwigo.org/basics/installation
-Actualització:  http://piwigo.org/basics/upgrade
+InstalÂ·laciÃ³:   http://piwigo.org/basics/installation
+ActualitzaciÃ³:  http://piwigo.org/basics/upgrade
 
-Com començar
+Com comenÃ§ar
 ============
 
-Un cop instal·lat o actualitzat, la galeria està a punt per funcionar. 
-Situa't al directori d'instal·lació del teu navegador:
+Un cop instalÂ·lat o actualitzat, la galeria estÃ  a punt per funcionar. 
+Situa't al directori d'instalÂ·laciÃ³ del teu navegador:
 
 http://el.teu.domini/photos
 
-A continuació, identifica't com a administrador. Apareixerà un nou enllaç 
-a la pàgina del menú d'identificació: Administració. Aneu al panell d'administració.
+A continuaciÃ³, identifica't com a administrador. ApareixerÃ  un nou enllaÃ§ 
+a la pÃ gina del menÃº d'identificaciÃ³: AdministraciÃ³. Aneu al panell d'administraciÃ³.
 
-Al panell d'administració, pren-te tot el temps que et calgui per llegir 
+Al panell d'administraciÃ³, pren-te tot el temps que et calgui per llegir 
 detingudament les instruccions que expliquen com utilitzar la galeria PIWIGO.
 
-Comunicació
+ComunicaciÃ³
 =============
 
-Butlletí de notícies
+ButlletÃ­ de notÃ­cies
 --------------------
 
 http://piwigo.org/basics/newsletter
 
-És *altament* recomanable inscriu-re's al butlletí de Piwigo.
-Tot i què aqusta secció té poquíssim moviment, podràs assabentar-te
-de la notificació d'errors greus o del llançament de noves versions de Piwigo.
+Ã‰s *altament* recomanable inscriu-re's al butlletÃ­ de Piwigo.
+Tot i quÃ¨ aqusta secciÃ³ tÃ© poquÃ­ssim moviment, podrÃ s assabentar-te
+de la notificaciÃ³ d'errors greus o del llanÃ§ament de noves versions de Piwigo.
 
 Estigues al dia
 ---------------
 
 http://freecode.com/projects/piwigo
 
-Mantinguet informat per a cada nova versió, tant estable com en desenvolupament.
-El butlletí de notícies no envia notificacions de les versions en desenvolupament.
+Mantinguet informat per a cada nova versiÃ³, tant estable com en desenvolupament.
+El butlletÃ­ de notÃ­cies no envia notificacions de les versions en desenvolupament.
 
 Registre d'errors
 -----------------
@@ -46,16 +46,16 @@ Registre d'errors
 http://piwigo.org/bugs
 
 Errors i registre i seguiment de canvis. La millor forma de tindre els errors corregits:
-No te n'oblidis. (així com el fòrum).
+No te n'oblidis. (aixÃ­ com el fÃ²rum).
 
-Documentació
+DocumentaciÃ³
 ------------
 
 http://piwigo.org/doc
 
-Documentació Wiki: Tothom pot participar per millorar el contingut de la documentació.
+DocumentaciÃ³ Wiki: Tothom pot participar per millorar el contingut de la documentaciÃ³.
 
-Fòrum
+FÃ²rum
 -----
 
 http://piwigo.org/forum
