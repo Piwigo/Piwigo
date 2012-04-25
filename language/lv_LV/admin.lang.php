@@ -889,4 +889,5 @@ $lang['Select a file'] = 'Izvēlēties failu';
 $lang['add a new watermark'] = 'pievienot jaunu ūdenszīmi';
 $lang['Apply watermark if width is bigger than'] = 'Lietot ūdenszīmi, ja platums ir lielāks par';
 $lang['Apply watermark if height is bigger than'] = 'Lietot ūdenszīmi, ja augstums ir lielāks par';
+$lang['Multiple Size'] = 'Vairāki izmēri';
 ?>
