@@ -1,0 +1,123 @@
+<h2>Edita l'&agrave;lbum</h2>
+
+<h3>Informaci&oacute;</h3>
+
+<ul>
+
+  <li><strong>Nom</strong>: Canvia el nom de l'&agrave;lbum (virtualment per un album f&iacute;sic).</li>
+
+  <li><strong>Descripci&oacute;</strong>: Un text curt donant una idea del contingut de l'&agrave;lbum.
+  Aquesta indicaci&oacute; es mostrar&agrave; al final de la p&agrave;gina de les miniatures.</li>
+
+</ul>
+
+<h3>Despla&ccedil;ar</h3>
+
+<p>Els &agrave;lbums virtuals poden ser despla&ccedil;ats. Despla&ccedil;ar un &agrave;lbum significa canviar el seu &agrave;lbum pare.</p>
+
+<h3>Opcions</h3>
+
+<ul>
+
+  <li><strong>Tipus d'acc&egrave;s</strong>: Administraci&oacute; de permisos. Si afegiu un &agrave;lbum privat, tots els seus 
+  &agrave;lbums fills esdevenir&agrave;n privats. Si afegiu un &agrave;lbum p&uacute;blic, tots els seus &agrave;lbums pare esdevenir&agrave;n p&uacute;blics.</li>
+
+  <li><strong>Bloquejar</strong>: L'album i tots els seus sub-&agrave;lbums esdevenir&agrave;n temporalment inaccessibles per manteniment.</li>
+
+  <li><strong>Comentaris</strong>: Autoritza als usuaris a afegir comentaris dels elements de l'&agrave;lbum.</li>
+
+</ul>
+
+<p>Tamb&eacute; pot administrar aquestes opcions de gesti&oacute; de "Propietats" <span
+class="pwgScreen">Comentaris</span>, <span class="pwgScreen">Bloquejats</span>,
+<span class="pwgScreen">P&uacute;blic/Privats</span>, <span
+class="pwgScreen">Representatiu</span> Disponibles a <span
+class="pwgScreen">Administraci&oacute; &raquo; &Agrave;lbums &raquo; Propietats</span>).</p>
+
+<h3>Ordenar</h3>
+
+<p>Utilitza l'ordre dels elements per defecte.</p>
+
+<p>Indica si l'ordre s'aplica tamb&eacute; als sub-&agrave;lbums.</p>
+
+<p>Selecciona els criteris a utilitzar per aquest &agrave;lbum.</p>
+<ul>
+<li><strong>Data de creaci&oacute;</strong>: Data de presa de la imatge</li>
+<li><strong>Data de publicaci&oacute;</strong>: Data de sincronitzaci&oacute;</li>
+<li><strong>Nota mitja (*)</strong>: S'actualitza segons la qualificaci&oacute; dels visitants</li>
+<li><strong>Les m&eacute;s visitades (*)</strong>: La visita actual podria canviar l'ordre m&eacute;s visitat</li>
+<li><strong>Nom de l'arxiu</strong>: Nom que es d&oacute;na en el camp de la informaci&oacute;</li>
+<li><strong>Id</strong>: Id inern (les categories m&eacute;s recents tenen un identificador m&eacute;s alt que els anteriors.</li>
+
+</ul>
+<p><strong>(*)</strong>Atenci&oacute;: Assegureu-vos de provar els criteris d'ordenaci&oacute; perqu&egrave; de vegades poden generar resultats inesperats.</p>
+
+
+<h3>Representatiu</h3>
+
+<p>L'&agrave;lbum representatiu &eacute;s la imatge que apareix a la a la p&agrave;gina principal <span class="pwgScreen">category.php</span>) per representar
+aquell &agrave;lbum que cont&eacute; sub-&agrave;lbums per&ograve; no imatges: (per exemple l'&agrave;lbum arrel del directori).
+</p>
+
+<p>Existeixen 4 maneres diferents d'escollir la representaci&oacute; de l'&agrave;lbum:</p>
+
+<ul>
+
+  <li><span class="pwgScreen">Imatges de p&agrave;gina</span>: un dels botons d'acci&oacute; permet escollir la present imatge per a representar el seu propi &agrave;lbum.</li>
+
+  <li><span class="pwgScreen">Modifica la informaci&oacute; d'una imatge.</span> a Administraci&oacute;. Hi pots accedir des de <span
+  class="pwgScreen">picture.php</span> o <span class="pwgScreen">Gesti&oacute; de lots</span> a <em>mode unitari</em>. Consulta l'ajuda per a m&eacute;s detalls.</li>
+
+  <li><span class="pwgScreen">Administraci&oacute; &raquo; &Agrave;lbums &raquo; Propietats,
+  Representatiu</span>. Consulta l'ajuda per a m&eacute;s detalls.</li>
+
+  <li><span class="pwgScreen">Editar &agrave;lbum</span> (aquesta pantalla).</li>
+
+</ul>
+
+<p>L'elecci&oacute; de la representaci&oacute; dep&eacute;n del par&agrave;metre de configuraci&oacute; 
+<code>allow_random_representative</code> (veure <span
+class="filename">include/config_default.inc.php</span>).</p>
+
+<p>Mode Per defecte (<code>allow_random_representative</code> establert a fals),
+cada &agrave;lbum que cont&eacute; almenys un element que est&agrave; representat per un element fix. 
+Un cop establert (a la creaci&oacute; de l'&agrave;lbum), la representaci&oacute; nom&eacute;s canvia
+ quan un administrador jo sol&middot;licita. Si la representaci&oacute; no &eacute;s apropiada,
+ pots <strong>establir-se una nova representaci&oacute; de l'&agrave;lbum a l'atzar.<strong></p>
+
+<p>Si el <code>allow_random_representative</code>par&agrave;metre de configuraci&oacute; &eacute;s cert,
+ una categoria que contingui elements pot no tindre una represetnaci&oacute; fixe. Simplement utilitza el bot&oacute; 
+ <strong>Eliminar representant</strong>.</p>
+
+<p>Si l'&agrave;lbum cont&eacute; sub-&agrave;lbums per&ograve; no elements (imatges), pot ser representat per qualsevol element gr&agrave;cies a la pantalla <span class="pwgScreen">Modicar
+informaci&oacute; quant a la imatge</span>. L'&uacute;nica opci&oacute; en la pantalla actual
+&eacute;s el bot&oacute;<strong>Eliminar representaci&oacute;</strong>.</p>
+
+<h3>Enlla&ccedil;a tots els elements de l'&agrave;lbum a un nou &agrave;lbum</h3>
+
+<ul>
+
+<li><strong>Nom de l'&agrave;lbum virtual</strong>: Nom del nou &agrave;lbum que es crear&agrave;. 
+Tots els elements de la categoria actual es vincularan amb la nova.</li>
+
+<li><strong>&Agrave;lbum pare</strong>: Crea sub-&agrave;lbums jer&agrave;rquicament.</li>
+
+</ul>
+
+<h3>Enlla&ccedil;a totes les fotos de l'&agrave;lbum als &agrave;lbums existents</h3>
+
+<ul>
+
+<li><strong>&Agrave;lbums</strong>: Selecciona l'&agrave;lbum de dest&iacute;.</li>
+
+</ul>
+
+<h3>Informa per correu electr&ograve;nic als tots els membres d'un grup.</h3>
+
+<ul>
+
+<li><strong>Grups</strong>: grup de destinataris</li>
+
+<li><strong>Contingut del correu electr&ograve;nic</strong>: Amb la possibilitat de redactar textes lliurement.</li>
+
+</ul>  
