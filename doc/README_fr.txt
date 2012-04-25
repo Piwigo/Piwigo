@@ -28,7 +28,7 @@ Communication
 Newsletter
 ----------
 
-https://mail.gna.org/listinfo/phpwebgallery-announce-french/
+http://fr.piwigo.org/basics/newsletter
 
 Il est *fortement* recommandé de souscrire à la newsletter de
 Piwigo. Très peu de mails sont envoyés, mais les informations sont
@@ -38,7 +38,7 @@ importants (relatifs à la sécurité).
 Freshmeat
 ---------
 
-http://freshmeat.net/projects/phpwebgallery
+http://freecode.com/projects/piwigo
 
 Permet d'être au courant des sorties de toutes les releases, et en
 exclusivité les builds de la branche de développement (ce qui n'est pas
