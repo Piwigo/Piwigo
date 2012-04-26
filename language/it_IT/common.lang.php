@@ -401,6 +401,6 @@ $lang['Photo title, A &rarr; Z'] = 'Titolo immagine, A &rarr; Z';
 $lang['Photo title, Z &rarr; A'] = 'Titolo immagine, Z &rarr; A';
 $lang['Rating score, high &rarr; low'] = 'Valutazione, alto &rarr; basso';
 $lang['Rating score, low &rarr; high'] = 'Valutazione, basso &rarr; alto';
-$lang['Visits, high &rarr; low'] = 'Visite, massimo &rarr; minimo';
+$lang['Visits, high &rarr; low'] = 'Visite, alto &rarr; basso';
 $lang['Visits, low &rarr; high'] = 'Visite, basso &rarr; alto';
 ?>
