@@ -178,7 +178,7 @@ a:hover 		{ border-bottom: none;}
 #imageHeaderBar h2 					{ font-size: 100%; font-weight: inherit;}
 #imageHeaderBar .browsePath {
 	display:inline-block;
-	float:none;
+	float:left;
 	font-size:120%;
 	line-height:20px;
 	padding: 8px 0 0 2px;
