@@ -171,6 +171,7 @@ $page['order_by_items'] = array(
   'username' => l10n('Username'),
   'level' => l10n('Privacy level'),
   'Language' => l10n('Language'),
+  'email' => l10n('Email address'),
   );
 
 $page['direction_items'] = array(
