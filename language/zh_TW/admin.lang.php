@@ -891,6 +891,7 @@ $lang['bottom right corner'] = '右下角';
 $lang['Select a file'] = '選擇檔案';
 $lang['add a new watermark'] = '添加一個新的浮水印';
 $lang['Apply watermark if width is bigger than'] = '使用浮水印，假如浮水印寬度大於';
-$lang['Apply watermark if height is bigger than'] = '使用浮水印，假如浮水印高度高於'; 
+$lang['Apply watermark if height is bigger than'] = '使用浮水印，假如浮水印高度高於';
+$lang['Multiple Size'] = '多種大小';
 
 ?>
