@@ -1,0 +1,89 @@
+<h2>Configuraci&oacute;</h2>
+
+<p>Aquesta secci&oacute; permet administrar la configuraci&oacute; b&agrave;sica. Evidentment nom&eacute;s es mostren els par&agrave;metres de configuraci&oacute; suficients per a la majoria d'administradors. En cas de qu&egrave; sigui necessari consultar detalladament tots els par&agrave;metres configuraci&oacute;, llegiu el fitxer<span
+class="filename">include/config_default.inc.php</span>.</p>
+
+<p>Aquesta secci&oacute; es troba dividida en paries parts, reagrupant els par&agrave;metres per tem&agrave;tica.</p>
+
+<h3>Principal</h3>
+<ul>
+
+  <li><strong>T&iacute;tol de la galeria</strong>: utilitzato per al canal RSS i les notificacions per correu electr&ograve;nic.</li>
+
+  <li><strong>P&agrave;gines de la bandera</strong>: codi html visible dalt de les p&agrave;gines.</li>
+
+  <li><strong>URL de la galer&iacute;a</strong>: utilitzat pel canal RSS.</li>
+
+  <li><strong>Bloqueig de la galeria</strong>: Bloquejar el conjunt de galeries per a dur a terme tasques de manteniment. Nom&eacute;s els administradors tenen acc&eacute;s a la galeria.</li>
+
+  <li><strong>Comentaris</strong>: &Eacute;s possible comentar les imatges de la galeria.</li>
+
+  <li><strong>Comentaris dels visitants</strong>: Activant aquesta opci&oacute;, tots els visitants encara que siguin convidats no registrats, poden comentar les imatges.</li>
+
+  <li><strong>Notificar als administradors la inscripci&oacute; d'un nou usuari</strong>: Els administradors rebr&agrave;n un missatge de correu electr&ograve;nic per a cada nou usuari inscrit.</li>
+
+  <li><strong>Permere la inscripci&oacute; de nous usuaris</strong>: La inscripci&oacute; &eacute;s lliure per tothom que s'hi vulgui registrar.</li>
+
+</ul>
+
+<h3>Historial</h3>
+
+  <p>Les visites a les p&agrave;gines<span
+class="pwgScreen">index.php</span> i <span
+class="pwgScreen">picture.php</span> queden registrades a la taula <code>history</code>.</p>
+
+  <p>Les visites es mostren a la pantalla <span class="pwgScreen">Administraci&oacute; &raquo; Eines &raquo; Historial</span>.</p>
+
+<ul>
+  <li><strong>Enregistrament de les p&agrave;gines visitades pels convidats</strong>: Les entrades queden totalment consignades.</li>
+
+  <li><strong>Enregistrament de les p&agrave;gines visitades pels usuaris</strong>: Les entrades queden totalment consignades.</li>
+
+  <li><strong>Enregistrament de les p&agrave;gines visitades pels administradors</strong>: Les entrades queden totalment consignades.</li>
+
+</ul>
+
+<h3>Comentaris</h3>
+<ul>
+
+  <li><strongComentaris dels usuaris per a tots</strong>: fins i tot els usuaris no registrats poden deixar comentaris.</li>
+
+  <li><strong>Nombre de comentaris dels usuaris per p&agrave;gina</strong>.</li>
+
+  <li><strong>Validaci&oacute;</strong>: Un administrador ha de validar els comentaris dels usuaris abans que puguin ser visibles p&uacute;blicament. La validaci&oacute; es porta a terme per mitj&agrave; de la pantalla <span class="pwgScreen">Administraci&oacute; &raquo; Eines &raquo; Comentaris en espera</span>.</li>
+
+  <li><strong>Notificaci&oacute; als administradors quan es requereixi la validaci&oacute; d'un comentari</strong>: Envia un correu electr&ograve;nic als administradors quan un usuari afegeixi comentari que sigui validat.</li>
+
+  <li><strong>Notificar als administradors quan es requereixi la validaci&oacute; d'un comentari </strong>: Envia un correu electr&ograve;nic als administradors quan un usuari afegeixi un comentari que requereix validaci&oacute; per part dels administradors.
+ Validaci&oacute; dels comentaris dels usuaris s'efectua a la pantalla <span class="pwgScreen">Administraci&oacute; &raquo; Eines &raquo; Comentaris en espera</span>.</li>
+
+</ul>
+
+<h3>Visualitzaci&oacute; per defecte</h3>
+<p>Canviar les opcions de visualitzaci&oacute; per defecte: per als visitants no connectats. Un cop connectat, aquestes opcions s&oacute;n reempla&ccedil;ades per la de l'usuari. Es poden modificar a la pantalla <span
+class="pwgScreen">perfil</span>.</p>
+
+<p>Podeu canviar aquestes opcions per als usuaris existents, per&ograve; aix&ograve; &eacute;s una altra pantalla: <span class="pwgScreen">Administraci&oacute; &raquo; Usuaris &raquo; Gestionar</span>, on es poden canviar aquestes opcions per obtenir una llista d'usuaris seleccionats.</p>
+
+<ul>
+
+  <li><strong>Idioma</strong>: Nom&eacute;s afecta a les etiquetes de Piwigo. Els noms dels &agrave;lbums, fotos i descripcions no s'han tradu&iuml;t (&eacute;s a dir, multiling&uuml;e).</li>
+
+  <li><strong>N&uacute;mero de miniatures por l&iacute;nia</strong></li>
+
+  <li><strong>N&uacute;mero de l&iacute;nies per p&agrave;gina</strong></li>
+
+  <li><strong>Tema de la interf&iacute;cie</strong></li>
+
+  <li><strong>Elements recents</strong>: en dies. Per&iacute;ode durant el qual la imatge &eacute;s considerada com a una novetat. Aquest per&iacute;ode ha de ser superior a 1 dia</li>
+
+  <li><strong>Desenvolupar tots els &agrave;lbums</strong>: Desenvolupar tots els &agrave;lbums al men&uacute;? <em>Atenci&oacute;n</em>: Aquesta opci&oacute; &eacute;s la susceptible de consumir recursos innecess&agrave;riament si el seu &agrave;lbum d'arbre cont&eacute; molts elements.</li>
+
+  <li><strong>Mostrar el n&uacute;mero de comentaris</strong>: mostren el nombre de comentaris dels usuaris per sota de cada miniatura. Aquesta caracter&iacute;stica consumeix recursos.</li>
+
+  <li><strong>Mostrar el n&uacute;mero de visualitzacions</strong>: Enumera les vegades que l'element ha estat visualitzat pels usuaris sota la seva miniatura a la p&agrave;gina de miniatures. Nom&eacute;s &eacute;s v&agrave;lid si el par&agrave;metre de configuraci&oacute; avan&ccedil;ada es: <br />
+  $conf['show_nb_hits'] = true; <br /> (No es visualitzen per defecte. Cal activar-ho manualment.)</li>
+
+  <li><strong>Amplada i al&ccedil;ada m&agrave;xima de les imatges</strong>: A la pantalla. Si la imatge &eacute;s m&eacute;s ampla que aquest par&agrave;metre, llavors ser&agrave; redimensionada. Si penses que necessites modificar aquests par&agrave;metres, (aix&iacute; com per a una visualitzaci&oacute; per defecte), seria rellevant redimensionar directament les imatges emmagatzemades.</li>
+
+</ul>
