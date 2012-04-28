@@ -159,11 +159,13 @@ if (isset($_POST['submit']))
     move_categories( array($_GET['cat_id']), $_POST['parent'] );
   }
 
-  array_push($page['infos'], l10n('Album updated successfully'));
+  $_SESSION['page_infos'][] = l10n('Album updated successfully');
+  $redirect = true;
 }
 elseif (isset($_POST['set_random_representant']))
 {
   set_random_representant(array($_GET['cat_id']));
+  $redirect = true;
 }
 elseif (isset($_POST['delete_representant']))
 {
@@ -173,6 +175,12 @@ UPDATE '.CATEGORIES_TABLE.'
   WHERE id = '.$_GET['cat_id'].'
 ;';
   pwg_query($query);
+  $redirect = true;
+}
+
+if (isset($redirect))
+{
+  redirect($admin_album_base_url.'-properties');
 }
 
 // nullable fields
