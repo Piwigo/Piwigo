@@ -53,4 +53,26 @@ $lang['Welcome to my photo gallery'] = 'Καλώς ήλθατε στη φωτο�
 
 
 
+$lang['Admin configuration'] = 'Ρυθμίσεις Διαχειριστή της ιστοσελίδας';
+$lang['Basic configuration'] = 'Βασικές διαμόρφωση';
+$lang['Can\'t connect to server'] = 'Δεν είναι δυνατή η σύνδεση με τον διακομιστή';
+$lang['Connection to server succeed, but it was impossible to connect to database'] = 'Σύνδεση με διακομιστή επιτυχής, αλλά η σύνδεση με τη βάση δεδομένων είναι αδύνατη';
+$lang['Database configuration'] = 'Διαμόρφωση Βάσης Δεδομένων';
+$lang['Database name'] = 'Όνομα Βάσης Δεδομένων';
+$lang['Database table prefix'] = 'πρόθεμα πίνακα της βάσης δεδομένων ';
+$lang['Default gallery language'] = 'Γλώσσας προεπιλεγμένης γκαλερί';
+$lang['Don\'t hesitate to consult our forums for any help : %s'] = 'Μην διστάσετε να συμβουλευτείτε το φόρουμ μας για οποιαδήποτε βοήθεια:%s';
+$lang['Host'] = 'διακομιστήw υποδοχής';
+$lang['Installation'] = 'Εγκατάσταση';
+$lang['It will be shown to the visitors. It is necessary for website administration'] = 'Έτσι Θα δείχνει στους επισκέπτες. Είναι απαραίτητο για την διαχείριση της ιστοσελίδας';
+$lang['Password'] = 'Κωδικός προσβασης';
+$lang['Start Install'] = 'Ξεκινήστε την εγκατάσταση';
+$lang['User'] = 'Χρήστης';
+$lang['Webmaster login'] = 'Σύνδεση Υπεύθυνου';
+$lang['Welcome to your new installation of Piwigo!'] = 'Καλώς ήρθατε στην νέα σας εγκατάσταση του Piwigo!';
+$lang['also given by your host provider'] = 'Επίσης, δίνεται από την εταιρία φιλοξενίας σας';
+$lang['localhost, sql.multimania.com, toto.freesurf.fr'] = 'localhost, sql.multimania.com, toto.freesurf.fr';
+$lang['mail address must be like xxx@yyy.eee (example : jack@altern.org)'] = 'Η διεύθυνση ηλεκτρονικού ταχυδρομείου πρέπει να είναι σαν xxx@yyy.eee (παράδειγμα: jack@altern.org)';
+$lang['user login given by your host provider'] = 'Όνομα χρήστη που έχει λάβει από το φορέα υποδοχής σας';
+$lang['user password given by your host provider'] = 'Κωδικός προσβασης χρήστη που έχει λάβει από το φορέα υποδοχής σας';
 ?>
