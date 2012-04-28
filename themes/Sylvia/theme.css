@@ -279,6 +279,9 @@
 }
 
 /* User comments */
+#comments {
+	margin: 0 10px 5px 10px;
+}
 .content .commentElement {
 	border: 1px solid #666; 
 }
@@ -356,7 +359,6 @@
 }
 #thePicturePage .odd { 
 	background-color: #222; 
-	border-top:0 !important; 
 }
 
 .pictureContent {
