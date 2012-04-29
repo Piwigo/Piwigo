@@ -228,7 +228,7 @@ $lang['Recent period must be a positive integer value'] = 'El periode ha de ser 
 $lang['photo'] = 'Imatge'; /* DEPRECATED USED IN comments.php FOR image_id ? */ 
 $lang['Click on the photo to see it in high definition'] = 'Clica sobre la imatge per a veure-la amb alta qualitat';
 $lang['Show file metadata'] = 'Mostrar la informació del dispositiu (metadades Exif)';
-$lang['Powered by'] = 'Impulsat per';
+$lang['Powered by'] = 'Desenvolupat per';
 $lang['Preferences'] = 'Preferències';
 $lang['Previous'] = 'Anterior';
 $lang['Random photos'] = 'A l\'atzar';
@@ -379,7 +379,7 @@ $lang['Successfully registered, you will soon receive an email with your connect
 $lang['Thank you for registering at %s!'] = 'Gràcies per inscriute\'t a %s!';
 $lang['Username modification'] = 'Modificar usuari';
 $lang['Username: %s'] = 'Usuari: %s';
-$lang['View in'] = 'Vista';
+$lang['View in'] = 'Vista adaptada per:';
 $lang['Your username has been successfully changed to : %s'] = 'El teu nom d\'usuari s\'ha canviat amb èxit per: %s';
 $lang['large'] = 'L - gran';
 $lang['medium'] = 'M - mitjà';
