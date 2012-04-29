@@ -471,7 +471,7 @@ FORM.properties SPAN.property {
 	padding: 0 0.5em 0 0;
 }
 
-#mainConf, #historyConf, #commentsConf {border:none}
+#mainConf, #historyConf, #commentsConf, #watermarkConf {border:none}
 
 #configContent label {
   font-weight: bold;
@@ -1076,3 +1076,35 @@ FORM#categoryOrdering .categoryLi:hover p.albumActions {visibility:visible;}
 
 #ftpPage p {text-align:left;margin:1em;}
 #ftpPage fieldset p {margin:0;}
+
+/* watermark configuration screen */
+#watermarkPositionBox {
+  border:2px solid #ccc;
+  width:500px;
+  padding:5px;
+  background-color:#e5e5e5;
+}
+
+#watermarkPositionBox label {
+  font-weight:normal;
+  display:block;
+  color:#444;
+}
+
+#watermarkPositionBox label.middle {
+  margin:50px;
+  text-align:center;
+}
+
+#watermarkPositionBox label.right {
+  float:right;
+}
+
+#positionCustomDetails {
+  margin-left:20px;
+  display:none;
+}
+
+#positionCustomDetails label {
+  font-weight:normal;
+}

@@ -173,6 +173,11 @@ if (isset($_POST['submit']))
       }
       break;
     }
+    case 'watermark' :
+    {
+      include(PHPWG_ROOT_PATH.'admin/include/configuration_watermark_process.inc.php');        
+      break;
+    }
     case 'sizes' :
     {
       include(PHPWG_ROOT_PATH.'admin/include/configuration_sizes_process.inc.php');        
@@ -270,6 +275,7 @@ $tabsheet = new tabsheet();
 // TabSheet initialization
 $tabsheet->add('main', l10n('Main'), $conf_link.'main');
 $tabsheet->add('sizes', l10n('Photo sizes'), $conf_link.'sizes');
+$tabsheet->add('watermark', l10n('Watermark'), $conf_link.'watermark');
 $tabsheet->add('display', l10n('Display'), $conf_link.'display');
 $tabsheet->add('comments', l10n('Comments'), $conf_link.'comments');
 $tabsheet->add('default', l10n('Guest Settings'), $conf_link.'default');
@@ -493,6 +499,75 @@ switch ($page['section'])
       $template->assign('resize_quality', $common_quality);
     }
 
+    break;
+  }
+  case 'watermark' :
+  {
+    $watermark_files = array();
+    foreach (glob(PHPWG_ROOT_PATH.'themes/default/watermarks/*.png') as $file)
+    {
+      $watermark_files[] = substr($file, strlen(PHPWG_ROOT_PATH));
+    }
+    foreach (glob(PHPWG_ROOT_PATH.PWG_LOCAL_DIR.'watermarks/*.png') as $file)
+    {
+      $watermark_files[] = substr($file, strlen(PHPWG_ROOT_PATH));
+    }
+    $watermark_filemap = array( '' => '---' );
+    foreach( $watermark_files as $file)
+    {
+      $display = basename($file);
+      $watermark_filemap[$file] = $display;
+    }
+    $template->assign('watermark_files', $watermark_filemap);
+
+    $wm = ImageStdParams::get_watermark();
+
+    $position = 'custom';
+    if ($wm->xpos == 0 and $wm->ypos == 0)
+    {
+      $position = 'topleft';
+    }
+    if ($wm->xpos == 100 and $wm->ypos == 0)
+    {
+      $position = 'topright';
+    }
+    if ($wm->xpos == 50 and $wm->ypos == 50)
+    {
+      $position = 'middle';
+    }
+    if ($wm->xpos == 0 and $wm->ypos == 100)
+    {
+      $position = 'bottomleft';
+    }
+    if ($wm->xpos == 100 and $wm->ypos == 100)
+    {
+      $position = 'bottomright';
+    }
+
+    if ($wm->xrepeat != 0)
+    {
+      $position = 'custom';
+    }
+    
+    $template->assign(
+      'watermark',
+      array(
+        'file' => $wm->file,
+        'minw' => $wm->min_size[0],
+        'minh' => $wm->min_size[1],
+        'xpos' => $wm->xpos,
+        'ypos' => $wm->ypos,
+        'xrepeat' => $wm->xrepeat,
+        'opacity' => $wm->opacity,
+        'position' => $position,
+        )
+      );
+
+    $template->append(
+      'watermark',
+      array(),
+      true
+      );
     break;
   }
 }

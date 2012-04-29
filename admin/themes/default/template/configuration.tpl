@@ -450,6 +450,95 @@ input[type="text"].dError {border-color:#ff7070; background-color:#FFe5e5;}
 </fieldset>
 {/if}
 
+{if isset($watermark)}
+
+{footer_script}{literal}
+jQuery(document).ready(function() {
+
+  if (jQuery("input[name='w[position]']:checked").val() == 'custom') {
+    jQuery("#positionCustomDetails").show();
+  }
+
+  jQuery("input[name='w[position]']").change(function(){
+    if (jQuery(this).val() == 'custom') {
+      jQuery("#positionCustomDetails").show();
+    }
+    else {
+      jQuery("#positionCustomDetails").hide();
+    }
+  });
+});
+{/literal}{/footer_script}
+
+
+<fieldset id="watermarkConf">
+  <legend></legend>
+  <ul>
+    <li>
+      <label>{'Select a file'|@translate}</label>
+      <select name="w[file]" id="wSelect">
+	{html_options options=$watermark_files selected=$watermark.file}
+      </select>
+      <br>{'... or '|@translate}<a href="#" class="addWatermarkOpen" title="{'add a new watermark'|@translate}">{'add a new watermark'|@translate}</a>
+    </li>
+
+{*
+<p><img id="wImg"></img></p>
+*}
+
+    <li>
+      <label>
+        {'Apply watermark if width is bigger than'|@translate}
+        <input  size="4" maxlength="4" type="text" name="w[minw]" value="{$watermark.minw}"{if isset($ferrors.watermark.minw)}class="dError"{/if}>
+      </label>
+      {'pixels'|@translate}
+    </li>
+
+    <li>
+      <label>
+        {'Apply watermark if height is bigger than'|@translate}
+	<input  size="4" maxlength="4" type="text" name="w[minh]" value="{$watermark.minh}"{if isset($ferrors.watermark.minh)}class="dError"{/if}>
+      </label>
+      {'pixels'|@translate}
+    </li>
+
+    <li>
+      <label>{'Position'|@translate}</label>
+      <br>
+      <div id="watermarkPositionBox">
+        <label class="right">{'top right corner'|@translate} <input name="w[position]" type="radio" value="topright"{if $watermark.position eq 'topright'} checked="checked"{/if}></label>
+        <label><input name="w[position]" type="radio" value="topleft"{if $watermark.position eq 'topleft'} checked="checked"{/if}> {'top left corner'|@translate}</label>
+        <label class="middle"><input name="w[position]" type="radio" value="middle"{if $watermark.position eq 'middle'} checked="checked"{/if}> {'middle'|@translate}</label>
+        <label class="right">{'bottom right corner'|@translate} <input name="w[position]" type="radio" value="bottomright"{if $watermark.position eq 'bottomright'} checked="checked"{/if}></label>
+        <label><input name="w[position]" type="radio" value="bottomleft"{if $watermark.position eq 'bottomleft'} checked="checked"{/if}> {'bottom left corner'|@translate}</label>
+      </div>
+      <label style="display:block;margin-top:10px;font-weight:normal;"><input name="w[position]" type="radio" value="custom"{if $watermark.position eq 'custom'} checked="checked"{/if}> {'custom'|@translate}</label>
+      <div id="positionCustomDetails">
+        <label>{'X Position'|@translate}
+	  <input size="3" maxlength="3" type="text" name="w[xpos]" value="{$watermark.xpos}"{if isset($ferrors.watermark.xpos)}class="dError"{/if}>%
+        </label>
+
+        <br>
+        <label>{'Y Position'|@translate}
+          <input size="3" maxlength="3" type="text" name="w[ypos]" value="{$watermark.ypos}"{if isset($ferrors.watermark.ypos)}class="dError"{/if}>%
+        </label>
+
+        <br>
+        <label>{'X Repeat'|@translate}
+          <input size="3" maxlength="3" type="text" name="w[xrepeat]" value="{$watermark.xrepeat}"{if isset($ferrors.watermark.xrepeat)}class="dError"{/if}> 
+        </label>
+      </div>
+    </li>
+
+    <li>
+      <label>{'Opacity'|@translate}</label>
+      <input size="3" maxlength="3" type="text" name="w[opacity]" value="{$watermark.opacity}"{if isset($ferrors.watermark.opacity)}class="dError"{/if}> %
+    </li>
+  </ul>
+</fieldset>
+
+{/if} {* end of watermark section *}
+
 {if isset($display)}
 <fieldset id="indexDisplayConf">
   <legend>{'Main Page'|@translate}</legend>
