@@ -319,8 +319,6 @@ jQuery(document).ready(function(){
 {/literal}{/footer_script}
 
 {html_style}{literal}
-input[type="text"].dError {border-color:#ff7070; background-color:#FFe5e5;}
-.dErrorDesc {background-color:red; color:white; padding:0 5px;border-radius:10px; font-weight:bold;cursor:help;}
 .sizeEnable {width:50px;}
 .sizeEditForm {margin:0 0 10px 20px;}
 .sizeEdit {display:none;}
@@ -489,7 +487,7 @@ jQuery(document).ready(function() {
     <li>
       <label>
         {'Apply watermark if width is bigger than'|@translate}
-        <input  size="4" maxlength="4" type="text" name="w[minw]" value="{$watermark.minw}"{if isset($ferrors.watermark.minw)}class="dError"{/if}>
+        <input  size="4" maxlength="4" type="text" name="w[minw]" value="{$watermark.minw}"{if isset($ferrors.watermark.minw)} class="dError"{/if}>
       </label>
       {'pixels'|@translate}
     </li>
@@ -497,7 +495,7 @@ jQuery(document).ready(function() {
     <li>
       <label>
         {'Apply watermark if height is bigger than'|@translate}
-	<input  size="4" maxlength="4" type="text" name="w[minh]" value="{$watermark.minh}"{if isset($ferrors.watermark.minh)}class="dError"{/if}>
+	<input  size="4" maxlength="4" type="text" name="w[minh]" value="{$watermark.minh}"{if isset($ferrors.watermark.minh)} class="dError"{/if}>
       </label>
       {'pixels'|@translate}
     </li>
@@ -515,24 +513,28 @@ jQuery(document).ready(function() {
       <label style="display:block;margin-top:10px;font-weight:normal;"><input name="w[position]" type="radio" value="custom"{if $watermark.position eq 'custom'} checked="checked"{/if}> {'custom'|@translate}</label>
       <div id="positionCustomDetails">
         <label>{'X Position'|@translate}
-	  <input size="3" maxlength="3" type="text" name="w[xpos]" value="{$watermark.xpos}"{if isset($ferrors.watermark.xpos)}class="dError"{/if}>%
+	  <input size="3" maxlength="3" type="text" name="w[xpos]" value="{$watermark.xpos}"{if isset($ferrors.watermark.xpos)} class="dError"{/if}>%
+          {if isset($ferrors.watermark.xpos)}<span class="dErrorDesc" title="{$ferrors.watermark.xpos}">!</span>{/if}
         </label>
 
         <br>
         <label>{'Y Position'|@translate}
-          <input size="3" maxlength="3" type="text" name="w[ypos]" value="{$watermark.ypos}"{if isset($ferrors.watermark.ypos)}class="dError"{/if}>%
+          <input size="3" maxlength="3" type="text" name="w[ypos]" value="{$watermark.ypos}"{if isset($ferrors.watermark.ypos)} class="dError"{/if}>%
+          {if isset($ferrors.watermark.ypos)}<span class="dErrorDesc" title="{$ferrors.watermark.ypos}">!</span>{/if}
         </label>
 
         <br>
         <label>{'X Repeat'|@translate}
-          <input size="3" maxlength="3" type="text" name="w[xrepeat]" value="{$watermark.xrepeat}"{if isset($ferrors.watermark.xrepeat)}class="dError"{/if}> 
+          <input size="3" maxlength="3" type="text" name="w[xrepeat]" value="{$watermark.xrepeat}"{if isset($ferrors.watermark.xrepeat)} class="dError"{/if}>
+          {if isset($ferrors.watermark.xrepeat)}<span class="dErrorDesc" title="{$ferrors.watermark.xrepeat}">!</span>{/if}
         </label>
       </div>
     </li>
 
     <li>
       <label>{'Opacity'|@translate}</label>
-      <input size="3" maxlength="3" type="text" name="w[opacity]" value="{$watermark.opacity}"{if isset($ferrors.watermark.opacity)}class="dError"{/if}> %
+      <input size="3" maxlength="3" type="text" name="w[opacity]" value="{$watermark.opacity}"{if isset($ferrors.watermark.opacity)} class="dError"{/if}> %
+      {if isset($ferrors.watermark.opacity)}<span class="dErrorDesc" title="{$ferrors.watermark.opacity}">!</span>{/if}
     </li>
   </ul>
 </fieldset>

@@ -1108,3 +1108,6 @@ FORM#categoryOrdering .categoryLi:hover p.albumActions {visibility:visible;}
 #positionCustomDetails label {
   font-weight:normal;
 }
+
+input[type="text"].dError {border-color:#ff7070; background-color:#FFe5e5;}
+.dErrorDesc {background-color:red; color:white; padding:0 5px;border-radius:10px; font-weight:bold;cursor:help;}

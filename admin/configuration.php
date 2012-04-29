@@ -221,7 +221,7 @@ if (isset($_POST['submit']))
   }
 
   // updating configuration if no error found
-  if ('sizes' != $page['section'] and count($page['errors']) == 0)
+  if (!in_array($page['section'], array('sizes', 'watermark')) and count($page['errors']) == 0)
   {
     //echo '<pre>'; print_r($_POST); echo '</pre>';
     $result = pwg_query('SELECT param FROM '.CONFIG_TABLE);
@@ -520,54 +520,52 @@ switch ($page['section'])
     }
     $template->assign('watermark_files', $watermark_filemap);
 
-    $wm = ImageStdParams::get_watermark();
+    if ($template->get_template_vars('watermark') === null)
+    {
+      $wm = ImageStdParams::get_watermark();
 
-    $position = 'custom';
-    if ($wm->xpos == 0 and $wm->ypos == 0)
-    {
-      $position = 'topleft';
-    }
-    if ($wm->xpos == 100 and $wm->ypos == 0)
-    {
-      $position = 'topright';
-    }
-    if ($wm->xpos == 50 and $wm->ypos == 50)
-    {
-      $position = 'middle';
-    }
-    if ($wm->xpos == 0 and $wm->ypos == 100)
-    {
-      $position = 'bottomleft';
-    }
-    if ($wm->xpos == 100 and $wm->ypos == 100)
-    {
-      $position = 'bottomright';
-    }
-
-    if ($wm->xrepeat != 0)
-    {
       $position = 'custom';
+      if ($wm->xpos == 0 and $wm->ypos == 0)
+      {
+        $position = 'topleft';
+      }
+      if ($wm->xpos == 100 and $wm->ypos == 0)
+      {
+        $position = 'topright';
+      }
+      if ($wm->xpos == 50 and $wm->ypos == 50)
+      {
+        $position = 'middle';
+      }
+      if ($wm->xpos == 0 and $wm->ypos == 100)
+      {
+        $position = 'bottomleft';
+      }
+      if ($wm->xpos == 100 and $wm->ypos == 100)
+      {
+        $position = 'bottomright';
+      }
+      
+      if ($wm->xrepeat != 0)
+      {
+        $position = 'custom';
+      }
+    
+      $template->assign(
+        'watermark',
+        array(
+          'file' => $wm->file,
+          'minw' => $wm->min_size[0],
+          'minh' => $wm->min_size[1],
+          'xpos' => $wm->xpos,
+          'ypos' => $wm->ypos,
+          'xrepeat' => $wm->xrepeat,
+          'opacity' => $wm->opacity,
+          'position' => $position,
+          )
+        );
     }
     
-    $template->assign(
-      'watermark',
-      array(
-        'file' => $wm->file,
-        'minw' => $wm->min_size[0],
-        'minh' => $wm->min_size[1],
-        'xpos' => $wm->xpos,
-        'ypos' => $wm->ypos,
-        'xrepeat' => $wm->xrepeat,
-        'opacity' => $wm->opacity,
-        'position' => $position,
-        )
-      );
-
-    $template->append(
-      'watermark',
-      array(),
-      true
-      );
     break;
   }
 }

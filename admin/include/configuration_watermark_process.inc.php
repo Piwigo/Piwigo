@@ -84,7 +84,7 @@ if ($v <= 0 or $v > 100)
 }
 
 // step 3 - save data
-if (count($errors)==0)
+if (count($errors) == 0)
 {
   $watermark = new WatermarkParams();
   $watermark->file = $pwatermark['file'];
