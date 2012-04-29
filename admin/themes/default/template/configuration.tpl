@@ -33,7 +33,7 @@ jQuery(document).ready(function(){
 <h2>{'Piwigo configuration'|@translate} {$TABSHEET_TITLE}</h2>
 
 {if !isset($default)}
-<form method="post" action="{$F_ACTION}" class="properties">
+<form method="post" action="{$F_ACTION}" class="properties"{if isset($watermark)} enctype="multipart/form-data"{/if}>
 {/if}
 <div id="configContent">
 {if isset($main)}
@@ -479,20 +479,28 @@ jQuery(document).ready(function() {
       jQuery("#positionCustomDetails").hide();
     }
   });
+
+  jQuery(".addWatermarkOpen").click(function(){
+    jQuery("#addWatermark, #selectWatermark").toggle();
+  });
 });
 {/literal}{/footer_script}
-
 
 <fieldset id="watermarkConf">
   <legend></legend>
   <ul>
     <li>
-      <label>{'Select a file'|@translate}</label>
+      <span id="selectWatermark"{if isset($ferrors.watermarkImage)} style="display:none"{/if}><label>{'Select a file'|@translate}</label>
       <select name="w[file]" id="wSelect">
 	{html_options options=$watermark_files selected=$watermark.file}
       </select>
-      <br>{'... or '|@translate}<a href="#" class="addWatermarkOpen" title="{'add a new watermark'|@translate}">{'add a new watermark'|@translate}</a>
-      <br><img id="wImg"></img>
+      {'... or '|@translate}<a href="#" class="addWatermarkOpen">{'add a new watermark'|@translate}</a>
+      <br><img id="wImg"></img></span>{* #selectWatermark *}
+      <span id="addWatermark"{if isset($ferrors.watermarkImage)} style="display:inline"{/if}>
+      <a href="#" class="addWatermarkOpen">{'add a new watermark'|@translate}</a> (png)
+      <br><input type="file" size="60" id="watermarkImage" name="watermarkImage"{if isset($ferrors.watermarkImage)} class="dError"{/if}>
+      {if isset($ferrors.watermarkImage)}<span class="dErrorDesc" title="{$ferrors.watermarkImage}">!</span>{/if}
+      </span>{* #addWatermark *}
     </li>
 
     <li>

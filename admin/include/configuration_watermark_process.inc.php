@@ -29,6 +29,30 @@ if( !defined("PHPWG_ROOT_PATH") )
 $errors = array();
 $pwatermark = $_POST['w'];
 
+// step 0 - manage upload if any
+if (isset($_FILES['watermarkImage']) and !empty($_FILES['watermarkImage']['tmp_name']))
+{
+  list($width, $height, $type) = getimagesize($_FILES['watermarkImage']['tmp_name']);
+  if (IMAGETYPE_PNG != $type)
+  {
+    $errors['watermarkImage'] = 'PNG';
+  }
+  else
+  {
+    $upload_dir = PHPWG_ROOT_PATH.PWG_LOCAL_DIR.'watermarks';
+
+    include_once(PHPWG_ROOT_PATH.'admin/include/functions_upload.inc.php');
+    prepare_directory($upload_dir);
+
+    $new_name = get_filename_wo_extension($_FILES['watermarkImage']['name']).'.png';
+    $file_path = $upload_dir.'/'.$new_name; 
+  
+    move_uploaded_file($_FILES['watermarkImage']['tmp_name'], $file_path);
+    
+    $pwatermark['file'] = substr($file_path, strlen(PHPWG_ROOT_PATH));
+  }
+}
+
 // step 1 - sanitize HTML input
 switch ($pwatermark['position'])
 {
