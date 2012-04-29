@@ -453,6 +453,20 @@ jQuery(document).ready(function(){
 {footer_script}{literal}
 jQuery(document).ready(function() {
 
+  function onWatermarkChange() {
+    var val = jQuery("#wSelect").val();
+    if (val.length) {
+      jQuery("#wImg").attr('src', {/literal}'{$ROOT_URL}'{literal}+val).show();
+    }
+    else {
+      jQuery("#wImg").hide();
+    }
+  }
+
+  onWatermarkChange();
+
+  jQuery("#wSelect").bind("change", onWatermarkChange);
+
   if (jQuery("input[name='w[position]']:checked").val() == 'custom') {
     jQuery("#positionCustomDetails").show();
   }
@@ -478,11 +492,8 @@ jQuery(document).ready(function() {
 	{html_options options=$watermark_files selected=$watermark.file}
       </select>
       <br>{'... or '|@translate}<a href="#" class="addWatermarkOpen" title="{'add a new watermark'|@translate}">{'add a new watermark'|@translate}</a>
+      <br><img id="wImg"></img>
     </li>
-
-{*
-<p><img id="wImg"></img></p>
-*}
 
     <li>
       <label>
