@@ -129,62 +129,28 @@ if (count($errors) == 0)
     || $watermark->xrepeat != $old_watermark->xrepeat
     || $watermark->opacity != $old_watermark->opacity;
 
-  // do we have to regenerate the derivatives?
-  $old_enabled = ImageStdParams::get_defined_type_map();
-  // $disabled = @unserialize( @$conf['disabled_derivatives'] );
-  // if ($disabled===false)
-  // {
-  //   $disabled = array();
-  // }
-
   // save the new watermark configuration
   ImageStdParams::set_watermark($watermark);
 
-  $new_enabled = ImageStdParams::get_defined_type_map();
-  
+  // do we have to regenerate the derivatives (and which types)?
+  $types = ImageStdParams::get_defined_type_map();
   $changed_types = array();
-
-  foreach(ImageStdParams::get_all_types() as $type)
+  
+  foreach ($types as $type => $params)
   {
-    if (isset($old_enabled[$type]))
-    {
-      $old_params = $old_enabled[$type];
-      // echo '<pre>old '.$type."\n"; print_r($old_params); echo '</pre>';
-     
-      $new_params = $new_enabled[$type];
-      ImageStdParams::apply_global($new_params);
-      // echo '<pre>new '.$type."\n"; print_r($old_params); echo '</pre>';
-      
-      $same = true;
-          
-      if ($new_params->use_watermark != $old_params->use_watermark
-          or $new_params->use_watermark and $watermark_changed)
-      {
-        $same = false;
-      }
+    $old_use_watermark = $params->use_watermark;
+    ImageStdParams::apply_global($params);
 
-      if (!$same)
-      {
-        $new_params->last_mod_time = time();
-        $changed_types[] = $type;
-      }
-      else
-      {
-        $new_params->last_mod_time = $old_params->last_mod_time;
-      }
-      $new_enabled[$type] = $new_params;
+    if ($params->use_watermark != $old_use_watermark
+        or $params->use_watermark and $watermark_changed)
+    {
+      $params->last_mod_time = time();
+      $changed_types[] = $type;
+      $types[$type] = $params;
     }
   }
 
-  $enabled_by = array(); // keys ordered by all types
-  foreach(ImageStdParams::get_all_types() as $type)
-  {
-    if (isset($new_enabled[$type]))
-    {
-      $enabled_by[$type] = $new_enabled[$type];
-    }
-  }
-  ImageStdParams::set_and_save($enabled_by);
+  ImageStdParams::set_and_save($types);
 
   if (count($changed_types))
   {
