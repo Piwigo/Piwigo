@@ -164,12 +164,9 @@ final class ImageStdParams
 
   static function apply_global($params)
   {
-    if (!empty(self::$watermark->file) &&
+    $params->use_watermark = !empty(self::$watermark->file) &&
         (self::$watermark->min_size[0]<=$params->sizing->ideal_size[0]
-        && self::$watermark->min_size[1]<=$params->sizing->ideal_size[1] ) )
-    {
-      $params->use_watermark = true;
-    }
+        && self::$watermark->min_size[1]<=$params->sizing->ideal_size[1] );
   }
 
   private static function build_maps()
