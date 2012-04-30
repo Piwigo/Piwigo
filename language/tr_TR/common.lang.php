@@ -380,4 +380,8 @@ $lang['2small'] = 'XXS - minicik';
 $lang['Thank you for registering at %s!'] = '%s de kayıt olmanız için teşekkürler!';
 $lang['Your username has been successfully changed to : %s'] = 'Kullanıcı adınız başarılı şekilde %s olarak değiştirildi.';
 $lang['xsmall'] = 'XS - çok küçük';
+$lang['Here are your connection settings'] = 'Bağlantı ayarlarınız';
+$lang['If you think you\'ve received this email in error, please contact us at %s'] = 'Bu emaili yalnışlıkla aldığınızı düşünüyorsanız bize %s ile bağlantı kurabilirsiniz.';
+$lang['Password: %s'] = 'Şifre: %s';
+$lang['Username: %s'] = 'Kullanıcı adı: %s';
 ?>
