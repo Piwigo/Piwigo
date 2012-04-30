@@ -119,7 +119,6 @@ $lang['Webmaster'] = 'מנהל אתר';
 $lang['Week %d'] = 'שבוע %d';
 $lang['About Piwigo'] = 'אודות Piwigo';
 $lang['You are not authorized to access the requested page'] = 'אינך מורשה לגשת לדף זה';
-$lang['Add to caddie'] = 'הוסף לסל';
 $lang['add this photo to your favorites'] = 'הוסף תמונה זאת למועדפים שלך';
 $lang['Administration'] = 'מנהל ראשי';
 $lang['all'] = 'הכול';
@@ -340,4 +339,5 @@ $lang['This author removed the comment with id %d'] = 'מחבר זה מחק את
 $lang['html tags are not allowed in login'] = 'לא ניתן להשתמש בתגי html בהתחברות';
 $lang['The number of photos per page must be a not null scalar'] = 'מספר התמונות בד חייב להיות גדול מאפס';
 $lang['Number of photos per page'] = 'מספר תמונות בדף';
+
 ?>

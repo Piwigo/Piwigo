@@ -119,7 +119,6 @@ $lang['Other private albums'] = 'קטגוריות פרטיות אחרות';
 $lang['Page banner'] = 'באנר הדף';
 $lang['Parent album'] = 'קטגורית אם';
 $lang['Path'] = 'נתיב';
-$lang['Permalink'] = 'קישורית'; 
 $lang['Permalink %s has been previously used by album %s. Delete from the permalink history first'] = 'השתמשו בעבר ב Permalink "%s" "זה עבור הקטגוריה "%s". מחק אותו ההסטוריה של permalink';
 $lang['The permalink name must be composed of a-z, A-Z, 0-9, "-", "_" or "/". It must not be numeric or start with number followed by "-"'] = 'השם Permalink חייב להיות מורכב a-z, A-Z, 0-9, "-", "_" או "/".הוא חייב לא להיות מספרי או להתחיל עם מספר "-"';
 $lang['Permalink %s is already used by album %s'] = 'Permalink "%s" "נמצא כבר בשימוש על ידי הקטגוריה "%s"';
@@ -830,4 +829,6 @@ $lang['Tags <em>%s</em> merged into tag <em>%s</em>'] = 'התג <em>%s</em> או
 $lang['You are using the Browser uploader. Try the <a href="%s">Flash uploader</a> instead.'] = 'אתה משתמש בהעלאה מהדפדפן. נסה <a href="%s">העלאת פלאש</a> במקום.';
 $lang['You are using the Flash uploader. Problems? Try the <a href="%s">Browser uploader</a> instead.'] = 'אתה משתמש בהעלאת פלאש. ישנה בעיה? נסה <a href="%s">העלאה מהדפדפן</a> במקום.';
 $lang['You can\'t define a default photo order because you have a custom setting in your local configuration.'] = 'אין באפשרותך לקבוע סדר תמונות ברירת מחדל מכיוון שאתה משתמש בהגדרות מותאמות אישית';
+$lang['Add to caddie'] = 'הוסף לסל';
+$lang['Permalink'] = 'קישורית';
 ?>
