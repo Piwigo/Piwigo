@@ -1,0 +1,58 @@
+<fieldset>
+  <legend>Guia r&agrave;pida</legend>
+
+<ol>
+  <li>Crear un directori en el seu ordinador</li>
+
+  <li>Copieu les fotos dins d'aquest directori i canviar-ne la seva mida per a una visualitzaci&oacute; web. <em>Atenci&oacute;</em>: el nom dels directoris i arxius ha de contenir nom&eacute;s lletres, xifres, "-", "_" o ".". No hi poden haver espais en blanc ni car&agrave;cters accentuats.</li>
+
+  <li>Amb un client FTP, copiar els seus arxius en el directori "galleries" de la instal.laci&oacute; Piwigo.</li>
+
+  <li>Iniciar sessi&oacute; a la galeria.</li>
+
+  <li>Anar a <span class="pwgScreen">Administraci&oacute;</span> i clicar el bot&oacute; gros Sincronitzaci&oacute;.</li>
+</ol>
+
+<p>Felicitats! Acabes de crear el primer &agrave;lbum de la teva galeria Piwigo.</p>
+
+</fieldset>
+<fieldset>
+  <legend>Organitzaci&oacute; dels directoris i arxius</legend>
+
+<ul>
+
+  <li>
+
+    <p>Els directoris que representen els &agrave;lbums estan en el directori "galleries". Heus aqu&iacute; la jerarquia d'una galeria molt petita (per&ograve; amb moltes caracter&iacute;stiques):</p>
+  
+<pre>
+galleries
+|-- casament
+|   |-- celebracio
+|   |   |-- sortida
+|   |   |   |-- paul-alone.jpg
+|   |   |   +-- sarah-alone.jpg
+|   |   +-- arrivada
+|   |       +-- paul-and-sarah.jpg
+|   +-- festa
+|       |-- dancers001.jpg
+|       |-- dancers002.jpg
+|       +-- dancers003.jpg
++-- llumademel
+    |-- hotel.png
+    |-- video-from-plane.avi
+    +-- pwg_representative
+        +-- video-from-plane.jpg
+</pre>
+
+  </li>
+  
+  <li>A excepci&oacute; de "pwg_representative" (vegeu les explicacions a sota), cada directori en "galleries" produeix un &agrave;lbum. No hi ha l&iacute;mit quan a profunditat, &eacute;s a dir, es poden crear &agrave;lbums i sub-&agrave;lbums a voluntat.</li>
+
+  <li>B&agrave;sicament, un element est&agrave; representat per un arxiu. Un arxiu pot ser un element per a Piwigo si la seva extensi&oacute; &eacute;s entre la llista de par&agrave;metres de configuraci&oacute; <code>file_ext</code> (veure arxiu <span class="filename">include/config.inc.php</span>). Un arxiu pot ser una imatge si la seva extensi&oacute; &egrave;s entre el par&agrave;metre de configuraci&oacute; <code>picture_ext</code>.</li>
+
+  <li>No es representen amb una icona per defecte elements com ara arxius de v&iacute;deo, sons, textos d'arxius, i altres extensions. Opcionalment, es pot associar una miniatura i un arxiu de representanci&oacute; (veure el video.avi en l'exemple anterior).</li>
+
+  <li>Una vegada que les fotos estan ben col &middot; locades en els directoris, aneu a: <span class="pwgScreen">Administraci&oacute; &raquo; Eines &raquo; Sincronitzar</span></li>
+</ul>
+</fieldset>
