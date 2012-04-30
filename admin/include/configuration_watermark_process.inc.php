@@ -35,7 +35,10 @@ if (isset($_FILES['watermarkImage']) and !empty($_FILES['watermarkImage']['tmp_n
   list($width, $height, $type) = getimagesize($_FILES['watermarkImage']['tmp_name']);
   if (IMAGETYPE_PNG != $type)
   {
-    $errors['watermarkImage'] = 'PNG';
+    $errors['watermarkImage'] = sprintf(
+      l10n('Allowed file types: %s.'),
+      'PNG'
+      );
   }
   else
   {
@@ -187,6 +190,11 @@ if (count($errors) == 0)
   {
     clear_derivative_cache($changed_types);
   }
+
+  array_push(
+    $page['infos'],
+    l10n('Your configuration settings are saved')
+    );
 }
 else
 {
