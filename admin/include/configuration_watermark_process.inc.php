@@ -133,10 +133,9 @@ if (count($errors) == 0)
   ImageStdParams::set_watermark($watermark);
 
   // do we have to regenerate the derivatives (and which types)?
-  $types = ImageStdParams::get_defined_type_map();
   $changed_types = array();
   
-  foreach ($types as $type => $params)
+  foreach (ImageStdParams::get_defined_type_map() as $type => $params)
   {
     $old_use_watermark = $params->use_watermark;
     ImageStdParams::apply_global($params);
@@ -146,11 +145,10 @@ if (count($errors) == 0)
     {
       $params->last_mod_time = time();
       $changed_types[] = $type;
-      $types[$type] = $params;
     }
   }
 
-  ImageStdParams::set_and_save($types);
+  ImageStdParams::save();
 
   if (count($changed_types))
   {
