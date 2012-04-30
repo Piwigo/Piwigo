@@ -41,4 +41,13 @@ $lang['locfiledit_save_file'] = 'Gem fil';
 $lang['locfiledit_saved_bak'] = 'Backup fil oprettet (%s)';
 $lang['locfiledit_show_default'] = 'Vis referencefil:';
 $lang['locfiledit_syntax_error'] = 'Syntaks fejl! Filen kan ikke gemmes.';
+$lang['locfiledit_empty_filename'] = 'Du skal udfylde filnavnet.';
+$lang['locfiledit_empty_page'] = 'Tom side';
+$lang['locfiledit_file_already_exists'] = 'Fil eksisterer allerede.';
+$lang['locfiledit_filename_error'] = 'Forbudt tegn i filnavnet.';
+$lang['locfiledit_model_error'] = 'Du skal vælge en model.';
+$lang['locfiledit_model'] = 'Model';
+$lang['locfiledit_new_filename'] = 'Fil navn';
+$lang['locfiledit_parent_directory'] = 'Hoved mappe';
+$lang['locfiledit_webmaster_only'] = 'Kun webmastere kan oprette eller ændre lokale filer.';
 ?>
