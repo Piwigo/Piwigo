@@ -867,7 +867,7 @@ $lang['<em>Piwigo for Android</em> application empowers you to connect your Andr
 $lang['<em>Piwigo for iOS</em> application empowers you to connect to your Piwigo gallery from your iPhone, iPad or iPod Touch, create some albums and upload several photos at once.'] = 'A <em>Piwigo for iOS</em> alkalmazás segítségével csatlakozhat Piwigo galériájához iPhone, iPad vagy iPod Touch eszközével, létrehozhat új albumokat, feltölthet képeket (egyszerre akár többet is) képgalériájába.';
 $lang['Adobe Photoshop Lightroom is a photography software designed to manage large quantities of digital images and doing post production work.'] = 'Az Adobe Photoshop Lightroom egy képkezelő program, melyet nagy mennyiségű digitális kép utómunkálataihoz és kezeléséhez terveztek.';
 $lang['Features include gallery browsing, album creation and photo upload.'] = 'Jellemzői: galéria böngészés, album létrehozás, képek feltöltése.';
-$lang['Multiple Size'] = 'Képméretek';
+$lang['Multiple Size'] = 'Kép méretek';
 $lang['No group is permitted to see this private album'] = 'Nincs engedélyezett csoport a privát albumhoz';
 $lang['On your Linux, simply install Shotwell with your package manager and the activate Piwigo publishing option.'] = 'Egyszerűen telepítheti a Linux csomagkezelője segítségével, majd könnyedén beállíthatja Piwigo galériájának eléréséhez.';
 $lang['Piwigo Publish plugin for Lightroom'] = 'Piwigo Lightroom feltöltő';
