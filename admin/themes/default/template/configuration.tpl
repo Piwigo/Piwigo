@@ -497,10 +497,9 @@ jQuery(document).ready(function() {
       {'... or '|@translate}<a href="#" class="addWatermarkOpen">{'add a new watermark'|@translate}</a>
       <br><img id="wImg"></img></span>{* #selectWatermark *}
       <span id="addWatermark"{if isset($ferrors.watermarkImage)} style="display:inline"{/if}>
-      {'add a new watermark'|@translate}
+      {'add a new watermark'|@translate} {'... or '|@translate}<a href="#" class="addWatermarkOpen">{'Select a file'|@translate}</a>
       <br><input type="file" size="60" id="watermarkImage" name="watermarkImage"{if isset($ferrors.watermarkImage)} class="dError"{/if}> (png)
       {if isset($ferrors.watermarkImage)}<span class="dErrorDesc" title="{$ferrors.watermarkImage}">!</span>{/if}
-      <br>{'... or '|@translate}<a href="#" class="addWatermarkOpen">{'Cancel'|@translate}</a>
       </span>{* #addWatermark *}
     </li>
 
