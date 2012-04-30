@@ -24,7 +24,7 @@
 $lang['%d association'] = '%d associació';
 $lang['%d associations'] = '%d associacions';
 $lang['%d album including'] = '%d àlbum inclòs';
-$lang['%d albums including'] = '%d àlbums inclosos';
+$lang['%d albums including'] = '%d àlbums inclosos ';
 $lang['%d physical'] = '%d física';
 $lang['%d physical'] = '%d físics';
 $lang[' and %d virtual'] = ' i %d virtual';
