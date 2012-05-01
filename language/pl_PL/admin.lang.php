@@ -894,4 +894,5 @@ $lang['bottom right corner'] = 'prawy dolny róg';
 $lang['middle'] = 'środek';
 $lang['top left corner'] = 'lewy górny róg';
 $lang['top right corner'] = 'prawy górny róg';
+$lang['Multiple Size'] = 'Obrazy o wielu rozmiarach';
 ?>
