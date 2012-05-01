@@ -63,7 +63,7 @@ jQuery(document).ready(function() {ldelim}
   <table>
 
     <tr>
-      <td><strong>{'Name'|@translate}</strong></td>
+      <td><strong>{'Title'|@translate}</strong></td>
       <td><input type="text" class="large" name="name-{$element.ID}" value="{$element.NAME}"></td>
     </tr>
 
