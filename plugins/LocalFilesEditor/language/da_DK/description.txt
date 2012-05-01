@@ -1,0 +1,1 @@
+Rediger lokale filer fra administration panel.
