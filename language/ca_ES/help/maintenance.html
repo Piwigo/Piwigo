@@ -1,0 +1,50 @@
+<h2>Manteniment</h2>
+
+<p>Per optimitzar el temps de generaci&oacute; de p&agrave;gines, Piwigo utilitza informaci&oacute; emmagatzemada en mem&ograve;ria cach&eacute;. Per exemple, cada vegada que &eacute;s sol&middot;licitada una p&agrave;gina, en lloc de comptar el nombre d'imatges que cont&eacute; cada &agrave;lbum, Piwigo lleigeix aquesta informaci&oacute; a la base de dades. En teoria, aquesta informaci&oacute; ha de ser sempre correcta, per&ograve; de vegades un error pot oc&oacute;rrer i la informaci&oacute; emmagatzemada en mem&ograve;ria cache pot ser err&ograve;nia.</p>
+
+<p>Amb el temps, hi ha informaci&oacute; que esdev&eacute; in&uacute;til. Suprimir-la de la base de dades ajuda a alliberar espai en el disc.</p>
+
+<ul>
+
+  <li>
+    <strong>Elements orfes que han perdut tota relaci&oacute;:</strong>
+   Mostra les imatges que no tenen relaci&oacute; amb cap &agrave;lbum virtual
+  </li>
+  <li>
+    <strong>Arxius amb el mateix nom en diversos &agrave;lbums f&iacute;sics:</strong>
+    Visualitza imatges o qualsevol altre arxiu que es poden trobar en diversos &agrave;lbums. 
+  </li>
+
+</ul>
+
+<ul>
+
+  <li><strong>Actualitzar la informaci&oacute; de l'&agrave;lbum:</strong> 
+  Per a cada &agrave;lbum, es supervisa i s'actualitza si es necessari la seg&uuml;ent informaci&oacute;: la organitzaci&oacute;, posici&oacute; i her&egrave;ncia jer&agrave;rquica dels &agrave;lbums, el nombre d'imatges i la data de l'&uacute;ltima imatge. Aquesta acci&oacute; tamb&eacute; comprova la coher&egrave;ncia de les imatges representatives.</li>
+
+  <li><strong>Actualitzar la informai&oacute; de les imatges:</strong> 
+  Per a cada imatge, la informaci&oacute; actualitzada &eacute;s la seg&uuml;ent: la ruta completa a l'arxiu i la valoraci&oacute; promig. <em>Atenci&oacute;</em>: No confondre amb les metadades que son sincronitzados a la pantalla <span class="pwgScreen">Administraci&oacute; &raquo; &Agrave;lbums &raquo; Sincronitzar</span> o a la pantalla <span class="pwgScreen">Modificar la informaci&oacute; d'una imatge</span>
+(accessible des de la p&agrave;gina de visualitzaci&oacute; d'una imatge<span class="pwgScreen">picture.php</span>).</li>
+
+  <li><strong>Reparar i optimitzar la base de dades:</strong> Es porta a terme la reordenaci&oacute;, la reparaci&oacute; i l'optimitzaci&oacute; de cada taula que conforma la base de dades.
+  </li>
+
+</ul>
+
+<ul>
+  <li><strong>Eliminar l'historial :</strong>
+Suprimeix totes les l&iacute;nies de la taula <code>history</code>. La pantalla <span class="pwgScreen">Administraci&oacute; &raquo; Eines &raquo; Historial</span>
+ eliminar&agrave; tota la informaci&oacute; registrada. <Em>Atenci&oacute;</em>: es perdr&agrave; tota la informaci&oacute; sense possibilitat de recuperaci&oacute;.
+  </li>
+  
+  <li><strong>Eliminar el sumari de l'historial:</strong>Elimina tots els resum de la informaci&oacute; (obtinguda dels detalls de registre).</li>
+
+  <li><strong>Eliminar les sessions:</strong> Suprimir les sessions expirades.</li>
+
+  <li><strong>Eliminar les fonts de notificaci&oacute; no utilitzades.</strong></li>
+
+  <li><strong>Eliminar la hist&ograve;ria de cerques</strong></li>
+  
+  <li><strong>Eliminar el temes compilats</strong></li>
+  
+</ul>
