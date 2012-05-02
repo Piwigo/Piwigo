@@ -1,0 +1,55 @@
+<h2>Configuraci&oacute; d'extensions per a les plantilles</h2>
+
+<h3>Objectiu</h3>
+<p>La seva galeria Piwigo es pot personalitzar mitjan&ccedil;ant la substituci&oacute; dels arxius existents de la plantilla amb versions personalitzades. Per exemple, la plantilla de cap&ccedil;alera per defecte (header.tpl) pot ser substitu&iuml;da per una plantilla de cap&ccedil;alera personalitzada (my-header.tpl). Despr&eacute;s d'enviar els canvis a la base de dades la galeria mostrar&agrave; la cap&ccedil;alera personalitzada en lloc de la cap&ccedil;alera original.<br>
+Les extensions de les plantilles s&oacute;n una poderosa manera de crear temes personalitzats tant per als usuaris nous com per als usuaris avan&ccedil;ats. Si s'utilitza conjuntament amb l'editor <i>LocalFiles Editor</i> es poden fer adaptacions de temes existents.</p>
+
+<h3>Plantilla original</h3>
+<p>Els temes contenen una s&egrave;rie d'arxius de plantilla que componen les p&agrave;gines de la galeria. Aquestes s&oacute;n les plantilles originals.</p>
+
+<h3>Paraula clau opcional a la URL</h3>
+<p>Aquestes s&oacute;n les paraules que es troben a la URL de la galeria despr&eacute;s del nom del m&ograve;dul. Tamb&eacute; poden ser enlla&ccedil;os permanents actius(permalinks). (Consulteu la documentaci&oacute; d'enlla&ccedil;os permanents per a m&eacute;s informaci&oacute;) <a href="#warnings">ADVERT&Egrave;NCIA:</a> si la mateixa plantilla original i les mateixes paraules clau s'utilitzen en m&eacute;s d'una plantilla personalitzada nom&eacute;s l'&uacute;ltima estar&agrave; activa.</p>
+
+<h3>Tema personalitzat</h3>
+<p>Un tema personalitzat &eacute;s un tema que t&eacute; reempla&ccedil;ats els arxius de la seva plantilla.</p>
+
+<h3>On s&oacute;n les plantilles originals?</h3>
+<p>Le plantilles originals s&oacute;n els arxius de plantilla que conformen cada tema. Aquests es guarden en <em>/themes/default/template</em> (o <em>themes/<theme name>/template</em>).  Aquests arxius de plantilla no poden ser editats direcmennt al seu directori original. En d'editar-los directament sense canviar-los de lloc, els canvis es perdran en el moment d'actualitzar-se.<br>
+Les plantilles originals suportades actualment inclouen:</p>
+<ul>
+  <li><span class="filename">index.tpl</span></li>
+  <li><span class="filename">mainpage_categories.tpl</span> i/o <span class="filename">thumbnails.tpl</span></li>
+  <li><span class="filename">menubar.tpl</span></li>
+  <li><span class="filename">header.tpl</span> i/o <span class="filename">footer.tpl</span></li>
+  <li><span class="filename">picture_content.tpl</span> i/o <span class="filename">picture.tpl</span></li>
+  <!-- <li><span class="filename">slideshow.tpl</span></li> -->
+  <li><span class="filename">profile.tpl</span> i/o <span class="filename">profile_content.tpl</span></li>
+  <li><span class="filename">tags.tpl</span></li>
+  <li><span class="filename">upload.tpl</span></li>
+  <li><span class="filename">about.tpl</span></li>
+  <li><span class="filename">popuphelp.tpl</span></li>
+  <li><span class="filename">search.tpl</span> i/o <span class="filename">search_rules.tpl</span></li>
+  <li><span class="filename">nbm.tpl</span> i/o <span class="filename">notification.tpl</span></li>
+  <li><span class="filename">identification.tpl</span> i/o <span class="filename">register.tpl</span></li>
+  <li><span class="filename">redirect.tpl</span></li>
+</ul>
+<h3>Guardar plantilles personalitzades</h3>
+<p>Les plantilles personalitzades s'han de guardar a la carpeta o subcarpetes template-extension. Per exemple, <em>/template-extension/my-default/header.tpl</em> (o <em>/template-extension/<my-theme-name>/header.tpl</em>)  
+
+
+Els arxius de plantilla pot tenir qualsevol nom amb l'extensi&oacute; .tpl.  Els arxius de plantilla a les subcarpetes apareixen a la pantalla Configuraci&oacute; de plantilles si es disposa de plantilles personalitzades.</p>
+<h3>Activaci&oacute; de plantilles personalitzades</h3>
+<p>
+Seleccioneu la plantilla original a reempla&ccedil;ar. Si ho desitja triar una paraula clau URL per assegurar-se que la plantilla personalitzada nom&eacute;s apareix a les p&agrave;gines amb la paraula clau introdu&iuml;da. Seleccioneu el tema que hagueu personalitzat i els canvis es faran efectius per al tema. Recorda desar-ho per a enviar els canvis a la base de dades.</p>
+<h3>Desactivaci&oacute; de plantilles personalitzades</h3>
+<p>Anul&middot;li la selecci&oacute; de la plantilla original i envi&iuml; els canvis a la base de dades.<br>
+Eliminar els arxius de plantilla personalitzats de la carpeta <i>template-extension</i>.</p>
+
+<a name="warnings"></a>
+<h3>Advert&egrave;ncies</h3>
+<ul>
+  <li><strong>La plantilla original</strong> ha de ser la plantilla original. En cas contrari pot tenir resultats impredictibles.</li>
+  <li>Si la mateixa plantilla original i la mateixa paraula clau s'utilitzen en m&eacute;s d'una plantilla personalitzada nom&eacute;s l'&uacute;ltima estar&agrave; activa.</li>
+  <li>Els arxius de la plantilla de mostra proporcionats s&oacute;n nom&eacute;s per a prop&ograve;sits de prova. No els editi. Cre&iuml;'n els seus propis o copi&iuml; els arxius existents de plantilla del tema a <em>/template-extension/<my-theme>/</em></li>
+  <li>Quan s'elimina la plantilla personalitzada, el fitxer original de plantillal ser&agrave; reactivat immediatament.</li>
+</ul>
