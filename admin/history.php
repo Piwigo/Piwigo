@@ -118,6 +118,15 @@ if (isset($_POST['submit']))
       );
   }
 
+  if (!empty($_POST['ip']))
+  {
+    $search['fields']['ip'] = str_replace(
+      '*',
+      '%',
+      pwg_db_real_escape_string($_POST['ip'])
+      );
+  }
+
   $search['fields']['display_thumbnail'] = $_POST['display_thumbnail'];
   // Display choise are also save to one cookie
   if (!empty($_POST['display_thumbnail'])
@@ -129,7 +138,7 @@ if (isset($_POST['submit']))
   {
     $cookie_val = null;
   }
-  
+
   pwg_set_cookie_var('display_thumbnail', $cookie_val, strtotime('+1 month') );
 
   // TODO manage inconsistency of having $_POST['image_id'] and
@@ -226,7 +235,7 @@ INSERT INTO '.SEARCH_TABLE.'
   $username_of = array();
   $category_ids = array();
   $image_ids = array();
-  $tag_ids = array();
+  $has_tags = false;
 
   foreach ($data as $row)
   {
@@ -244,16 +253,10 @@ INSERT INTO '.SEARCH_TABLE.'
 
     if (isset($row['tag_ids']))
     {
-      foreach (explode(',', $row['tag_ids']) as $tag_id)
-      {
-        array_push($tag_ids, $tag_id);
-      }
+      $has_tags = true;
     }
 
-    array_push(
-      $history_lines,
-      $row
-      );
+    $history_lines[] = $row;
   }
 
   // prepare reference data (users, tags, categories...)
@@ -338,24 +341,14 @@ SELECT
     // echo '<pre>'; print_r($high_filesize_of_image); echo '</pre>';
   }
 
-  if (count($tag_ids) > 0)
+  if ($has_tags > 0)
   {
-    $tag_ids = array_unique($tag_ids);
-
     $query = '
 SELECT
     id,
     name
-  FROM '.TAGS_TABLE.'
-  WHERE id IN ('.implode(', ', $tag_ids).')
-;';
-    $name_of_tag = array();
-
-    $result = pwg_query($query);
-    while ($row = pwg_db_fetch_assoc($result))
-    {
-      $name_of_tag[ $row['id'] ] = $row['name'];
-    }
+  FROM '.TAGS_TABLE;
+    $name_of_tag = simple_hash_from_query($query, 'id', 'name');
   }
 
   $i = 0;
@@ -430,7 +423,7 @@ SELECT
     {
       $tags_string = preg_replace(
         '/(\d+)/e',
-        '$name_of_tag["$1"]',
+        'isset($name_of_tag["$1"]) ? $name_of_tag["$1"] : "$1"',
         str_replace(
           ',',
           ', ',
@@ -630,6 +623,7 @@ if (isset($page['search']))
 
   $form['image_id'] = @$page['search']['fields']['image_id'];
   $form['filename'] = @$page['search']['fields']['filename'];
+  $form['ip'] = @$page['search']['fields']['ip'];
 
   $form['display_thumbnail'] = @$page['search']['fields']['display_thumbnail'];
 }
@@ -655,6 +649,7 @@ $template->assign(
   array(
     'IMAGE_ID' => @$form['image_id'],
     'FILENAME' => @$form['filename'],
+    'IP' => @$form['ip'],
 
     'month_list' => $month_list,
 

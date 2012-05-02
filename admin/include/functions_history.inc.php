@@ -137,6 +137,11 @@ SELECT
         );
     }
   }
+
+  if (isset($search['fields']['ip']))
+  {
+    $clauses[] = 'IP LIKE "'.$search['fields']['ip'].'"';
+  }
   
   $clauses = prepend_append_array_items($clauses, '(', ')');
 

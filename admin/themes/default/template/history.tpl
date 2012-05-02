@@ -68,8 +68,13 @@
 
   <label>
     {'File name'|@translate}
-    <input name="filename" value="{$FILENAME}" type="text">
+		<input name="filename" value="{$FILENAME}" type="text" size="12">
   </label>
+
+	<label>
+		{'IP'|@translate}
+		<input name="ip" value="{$IP}" type="text" size="12">
+	</label>
 
   <label>
     {'Thumbnails'|@translate}
