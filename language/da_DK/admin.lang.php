@@ -898,4 +898,26 @@ $lang['You can\'t define a default photo order because you have a custom setting
 $lang['You have specified <i>$conf[\'order_by\']</i> in your local configuration file, this parameter in deprecated, please remove it or rename it into <i>$conf[\'order_by_custom\']</i> !'] = 'Du har angivet <i>$conf[\'order_by\']</i> i din lokale konfigurationsfil, denne parameter i forældet, skal du fjerne den eller omdøbe den til <i>$conf[\'order_by_custom\']</i>!';
 $lang['iPhoto is the default photo manager on MacOSX. The Piwigo export plugin let you create new albums and export your photos directly from iPhoto to your Piwigo photo gallery.'] = 'iPhoto er standard Photo Manager på MacOSX. Den Piwigo eksport-plugin kan du oprette nye album og eksportere dine billeder direkte fra iPhoto til din Piwigo fotogalleri.';
 $lang['include photos with lower privacy level'] = 'omfatter billeder med lavere privatliv niveau';
+$lang['%d day'] = '%d dag';
+$lang['%d days'] = '%d dage';
+$lang['%d hour'] = '%d time';
+$lang['%d hours'] = '%d timer';
+$lang['%d minute'] = '%d minut';
+$lang['%d minutes'] = '%d minutter';
+$lang['%d month'] = '%d måned';
+$lang['%d months'] = '%d måneder';
+$lang['%d second'] = '%d sekund';
+$lang['%d seconds'] = '%d sekunder';
+$lang['%d year'] = '%d år';
+$lang['%d years'] = '%d år';
+$lang['%s ago'] = '%s siden';
+$lang['%s in the future'] = '%s i fremtiden';
+$lang['Added by %s'] = 'Tilføjet af %s';
+$lang['Numeric identifier : %d'] = 'Numerisk identifikator : %d';
+$lang['Original file : %s'] = 'Original fil : %s';
+$lang['Posted %s on %s'] = 'Sendt %s den %s';
+$lang['Rated %d times, score : %.2f'] = 'bedømt %d gange, vurdering:%.2f';
+$lang['Sharpen'] = 'Gør skarp';
+$lang['Visited %d times'] = 'besøgt %d antal gange';
+$lang['Watermark'] = 'Vandmærke';
 ?>
