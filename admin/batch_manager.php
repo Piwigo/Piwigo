@@ -257,12 +257,9 @@ SELECT id
     $query = '
 SELECT id
   FROM '.IMAGES_TABLE.'
-;';
+  '.$conf['order_by'];
 
-    array_push(
-      $filter_sets,
-      array_from_query($query, 'id')
-      );
+    $filter_sets[] = array_from_query($query, 'id');
   }
 
   $filter_sets = trigger_event('perform_batch_manager_prefilters', $filter_sets, $_SESSION['bulk_manager_filter']['prefilter']);
@@ -304,11 +301,9 @@ if (isset($_SESSION['bulk_manager_filter']['level']))
 SELECT id
   FROM '.IMAGES_TABLE.'
   WHERE level '.$operator.' '.$_SESSION['bulk_manager_filter']['level'].'
-;';
-  array_push(
-    $filter_sets,
-    array_from_query($query, 'id')
-    );
+  '.$conf['order_by'];
+
+  $filter_sets[] = array_from_query($query, 'id');
 }
 
 if (!empty($_SESSION['bulk_manager_filter']['tags']))
