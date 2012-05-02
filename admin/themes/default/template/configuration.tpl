@@ -431,6 +431,14 @@ jQuery(document).ready(function(){
           </td>
         </tr>
   {/if}
+				<tr>
+				<td>{'Sharpen'|@translate}</td>
+				<td>
+					<input type="text" name="d[{$type}][sharpen]" maxlength="4" size="4"  value="{$d.sharpen}"{if isset($ferrors.$type.sharpen)} class="dError"{/if}>
+					%
+					{if isset($ferrors.$type.sharpen)}<span class="dErrorDesc" title="{$ferrors.$type.sharpen}">!</span>{/if}
+				</td>
+				</tr>
       </table> {* #sizeEdit *}
     </td>
   </tr>

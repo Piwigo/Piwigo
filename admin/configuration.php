@@ -454,8 +454,6 @@ switch ($page['section'])
         $disabled = array();
       }
 
-      $common_quality = 50;
-
       $tpl_vars = array();
       foreach(ImageStdParams::get_all_types() as $type)
       {
@@ -486,17 +484,11 @@ switch ($page['section'])
             $tpl_var['minw'] = $tpl_var['minh'] = "";
           }
           $tpl_var['sharpen'] = $params->sharpen;
-          $tpl_var['quality'] = $params->quality;
-          
-          if ($params->quality > $common_quality and $tpl_var['enabled'])
-          {
-            $common_quality = $params->quality;
-          }
         }
         $tpl_vars[$type]=$tpl_var;
       }
       $template->assign('derivatives', $tpl_vars);
-      $template->assign('resize_quality', $common_quality);
+      $template->assign('resize_quality', ImageStdParams::$quality);
     }
 
     break;

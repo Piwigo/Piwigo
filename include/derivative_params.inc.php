@@ -240,7 +240,6 @@ final class DerivativeParams
   public $use_watermark = false;
   public $sizing;
   public $sharpen = 0;
-  public $quality = 95;
 
   function __construct($sizing)
   {
@@ -249,7 +248,7 @@ final class DerivativeParams
 
   public function __sleep()
   {
-      return array('last_mod_time', 'sizing', 'sharpen', 'quality');
+      return array('last_mod_time', 'sizing', 'sharpen');
   }
 
   function add_url_tokens(&$tokens)

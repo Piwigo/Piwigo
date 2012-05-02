@@ -51,6 +51,7 @@ final class ImageStdParams
   private static $undefined_type_map = array();
   private static $watermark;
   public static $custom = array();
+  public static $quality=95;
 
   static function get_all_types()
   {
@@ -109,11 +110,13 @@ final class ImageStdParams
       if (!self::$watermark) self::$watermark = new WatermarkParams();
       self::$custom = @$arr['c'];
       if (!self::$custom) self::$custom = array();
+      if (isset($arr['q'])) self::$quality = $arr['q'];
     }
     else
     {
       self::$watermark = new WatermarkParams();
       self::$type_map = self::get_default_sizes();
+      self::save();
     }
     self::build_maps();
   }
@@ -136,6 +139,7 @@ final class ImageStdParams
 
     $ser = serialize( array(
       'd' => self::$type_map,
+      'q' => self::$quality,
       'w' => self::$watermark,
       'c' => self::$custom,
       ) );

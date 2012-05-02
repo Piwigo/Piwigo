@@ -97,13 +97,13 @@ foreach(ImageStdParams::get_all_types() as $type)
     {
       $errors[$type]['w'] = '>0';
     }
-    
+
     $h = intval($pderivative['h']);
     if ($h <= 0)
     {
       $errors[$type]['h'] = '>0';
     }
-    
+
     if (max($w,$h) <= $prev_w)
     {
       $errors[$type]['w'] = $errors[$type]['h'] = '>'.$prev_w;
@@ -116,24 +116,33 @@ foreach(ImageStdParams::get_all_types() as $type)
     {
       $errors[$type]['w'] = '>'.$prev_w;
     }
-    
+
     $v = intval($pderivative['h']);
     if ($v <= 0 or $v <= $prev_h)
     {
       $errors[$type]['h'] = '>'.$prev_h;
     }
   }
-  
+
   if (count($errors) == 0)
   {
     $prev_w = intval($pderivative['w']);
     $prev_h = intval($pderivative['h']);
+  }
+
+  $v = intval($pderivative['sharpen']);
+  if ($v<0 || $v>100)
+  {
+    $errors[$type]['sharpen'] = '[0..100]';
   }
 }
 
 // step 3 - save data
 if (count($errors) == 0)
 {
+  $quality_changed = ImageStdParams::$quality != intval($_POST['resize_quality']);
+  ImageStdParams::$quality = intval($_POST['resize_quality']);
+
   $enabled = ImageStdParams::get_defined_type_map();
   $disabled = @unserialize( @$conf['disabled_derivatives'] );
   if ($disabled === false)
@@ -145,7 +154,7 @@ if (count($errors) == 0)
   foreach (ImageStdParams::get_all_types() as $type)
   {
     $pderivative = $pderivatives[$type];
-    
+
     if ($pderivative['enabled'])
     {
       $new_params = new DerivativeParams(
@@ -155,11 +164,10 @@ if (count($errors) == 0)
           array(intval($pderivative['minw']), intval($pderivative['minh']))
           )
         );
-      
-      $new_params->quality = intval($_POST['resize_quality']);
-      
+      $new_params->sharpen = intval($pderivative['sharpen']);
+
       ImageStdParams::apply_global($new_params);
-      
+
       if (isset($enabled[$type]))
       {
         $old_params = $enabled[$type];
@@ -169,19 +177,20 @@ if (count($errors) == 0)
         {
           $same = false;
         }
-        
+
         if ($same
             and $new_params->sizing->max_crop != 0
             and !size_equals($old_params->sizing->min_size, $new_params->sizing->min_size))
         {
           $same = false;
         }
-        
-        if ($new_params->quality != $old_params->quality)
+
+        if ($quality_changed
+            || $new_params->sharpen != $old_params->sharpen)
         {
           $same = false;
         }
-        
+
         if (!$same)
         {
           $new_params->last_mod_time = time();
@@ -209,7 +218,7 @@ if (count($errors) == 0)
       }
     }
   }
-  
+
   $enabled_by = array(); // keys ordered by all types
   foreach(ImageStdParams::get_all_types() as $type)
   {
@@ -218,7 +227,7 @@ if (count($errors) == 0)
       $enabled_by[$type] = $enabled[$type];
     }
   }
-  
+
   ImageStdParams::set_and_save($enabled_by);
   if (count($disabled) == 0)
   {
@@ -230,12 +239,12 @@ if (count($errors) == 0)
     conf_update_param('disabled_derivatives', addslashes(serialize($disabled)) );
   }
   $conf['disabled_derivatives'] = serialize($disabled);
-  
+
   if (count($changed_types))
   {
     clear_derivative_cache($changed_types);
   }
-  
+
   array_push(
     $page['infos'],
     l10n('Your configuration settings are saved')
@@ -256,7 +265,7 @@ else
         );
     }
   }
-  
+
   $template->assign('derivatives', $pderivatives);
   $template->assign('ferrors', $errors);
   $template->assign('resize_quality', $_POST['resize_quality']);

@@ -287,8 +287,8 @@ class pwg_image
   /** Returns a normalized convolution kernel for sharpening*/
   static function get_sharpen_matrix($amount)
   {
-    // Amount should be in the range of 28-10
-    $amount = round(abs(-28 + ($amount * 0.18)), 2);
+    // Amount should be in the range of 48-10
+    $amount = round(abs(-48 + ($amount * 0.38)), 2);
 
     $matrix = array(
       array(-1,   -1,    -1),
@@ -549,6 +549,12 @@ class image_ext_imagick implements imageInterface
 
   function rotate($rotation)
   {
+    if ($rotation==90 || $rotation==270)
+    {
+      $tmp = $this->width;
+      $this->width = $this->height;
+      $this->height = $tmp;
+    }
     $this->add_command('rotate', -$rotation);
     $this->add_command('orient', 'top-left');
     return true;
@@ -562,7 +568,6 @@ class image_ext_imagick implements imageInterface
 
   function resize($width, $height)
   {
-    $this->add_command('interlace', 'line');
     $this->add_command('filter', 'Lanczos');
     $this->add_command('resize', $width.'x'.$height.'!');
     return true;
@@ -595,6 +600,8 @@ class image_ext_imagick implements imageInterface
 
   function write($destination_filepath)
   {
+    $this->add_command('interlace', 'line'); // progressive rendering
+
     $exec = $this->imagickdir.'convert';
     $exec .= ' "'.realpath($this->source_filepath).'"';
 
@@ -611,7 +618,11 @@ class image_ext_imagick implements imageInterface
     $exec .= ' "'.realpath($dest['dirname']).'/'.$dest['basename'].'"';
     @exec($exec, $returnarray);
 
-    //echo($exec);
+    ilog($exec);
+    if (is_array($returnarray) && (count($returnarray)>0) )
+    {
+      ilog($returnarray);
+    }
     return is_array($returnarray);
   }
 }

@@ -582,7 +582,7 @@ if ($d_size[0]*$d_size[1] < 256000)
   $image->strip();
 }
 
-$image->set_compression_quality( $params->quality );
+$image->set_compression_quality( ImageStdParams::$quality );
 $image->write( $page['derivative_path'] );
 $image->destroy();
 $timing['save'] = time_step($step);
