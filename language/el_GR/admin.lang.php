@@ -490,4 +490,13 @@ $lang['leave'] = 'αποχωρεί';
 $lang['manage album photos'] = 'διαχειριστείτε τα λευκώματα φωτογραφιών';
 $lang['manage sub-albums'] = 'διαχείριση υπο-λευκώματα ';
 $lang['manual order'] = 'χειροκίνητη κατάταξη';
+$lang['Hoverbox display'] = 'Εμφάνιση Hoverbox ';
+$lang['No destination tag selected'] = 'Δεν επιλέγχτηκε ετικέτα προορισμού';
+$lang['No display'] = 'καμία ένδειξη';
+$lang['No file was uploaded'] = 'Δεν έγινε μεταφόρτωση αρχείων';
+$lang['No mail to send.'] = 'Κανένα μήνυμα για αποστολή';
+$lang['No photo can be deleted'] = 'Καμιά φωτογραφία δεν μπορεί να διαγραφεί';
+$lang['No photo in the current set.'] = 'Καμιά φωτογραφία στο παρόν σύνολο';
+$lang['No photo in this album'] = 'Καμιά φωτογραφία σ\' αυτό το λεύκωμα';
+$lang['new'] = 'νέο';
 ?>
