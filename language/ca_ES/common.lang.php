@@ -379,7 +379,7 @@ $lang['Successfully registered, you will soon receive an email with your connect
 $lang['Thank you for registering at %s!'] = 'Gràcies per inscriute\'s a %s!';
 $lang['Username modification'] = 'Modificar usuari';
 $lang['Username: %s'] = 'Usuari: %s';
-$lang['View in'] = 'Vista adaptada per:';
+$lang['View in'] = 'Vista adaptada a';
 $lang['Your username has been successfully changed to : %s'] = 'El teu nom d\'usuari s\'ha canviat amb èxit per: %s';
 $lang['large'] = 'L - gran';
 $lang['medium'] = 'M - mitjà';
