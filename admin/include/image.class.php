@@ -601,6 +601,8 @@ class image_ext_imagick implements imageInterface
   function write($destination_filepath)
   {
     $this->add_command('interlace', 'line'); // progressive rendering
+    // use 4:2:2 chroma subsampling (reduce file size by 20-30% with "almost" no human perception)
+    $this->add_command('sampling-factor', '4:2:2' );
 
     $exec = $this->imagickdir.'convert';
     $exec .= ' "'.realpath($this->source_filepath).'"';
