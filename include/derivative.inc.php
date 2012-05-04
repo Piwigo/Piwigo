@@ -23,6 +23,7 @@ final class SrcImage
 {
   const IS_ORIGINAL = 0x01;
   const IS_MIMETYPE = 0x02;
+  const DIM_NOT_GIVEN = 0x04;
 
   public $id;
   public $rel_path;
@@ -51,24 +52,36 @@ final class SrcImage
       $ext = strtolower($ext);
       $this->rel_path = trigger_event('get_mimetype_location', get_themeconf('mime_icon_dir').$ext.'.png', $ext );
       $this->flags |= self::IS_MIMETYPE;
-      $this->size = @getimagesize(PHPWG_ROOT_PATH.$this->rel_path);
+      if ( ($size=@getimagesize(PHPWG_ROOT_PATH.$this->rel_path)) === false)
+      {
+        $this->rel_path = get_themeconf('mime_icon_dir').'unknown.png';
+        $size = getimagesize(PHPWG_ROOT_PATH.$this->rel_path);
+      }
+      $this->size = array($size[0],$size[1]);
     }
 
-    if (!$this->size && isset($infos['width']) && isset($infos['height']))
+    if (!$this->size)
     {
-      $width = $infos['width'];
-      $height = $infos['height'];
-
-      $this->rotation = intval($infos['rotation']) % 4;
-      // 1 or 5 =>  90 clockwise
-      // 3 or 7 => 270 clockwise
-      if ($this->rotation % 2)
+      if (isset($infos['width']) && isset($infos['height']))
       {
-        $width = $infos['height'];
-        $height = $infos['width'];
+        $width = $infos['width'];
+        $height = $infos['height'];
+
+        $this->rotation = intval($infos['rotation']) % 4;
+        // 1 or 5 =>  90 clockwise
+        // 3 or 7 => 270 clockwise
+        if ($this->rotation % 2)
+        {
+          $width = $infos['height'];
+          $height = $infos['width'];
+        }
+        
+        $this->size = array($width, $height);
       }
-      
-      $this->size = array($width, $height);
+      elseif (!array_key_exists('width', $infos))
+      {
+        $this->flags |= self::DIM_NOT_GIVEN;
+      }
     }
   }
 
@@ -105,7 +118,16 @@ final class SrcImage
   function get_size()
   {
     if ($this->size == null)
-      not_implemented(); // get size from file
+    {
+      if ($this->flags & self::DIM_NOT_GIVEN)
+        fatal_error('SrcImage dimensions required but not provided');
+      // probably not metadata synced
+      if ( ($size = getimagesize( $this->get_path() )) !== false)
+      {
+        $this->size = array($size[0],$size[1]);
+        pwg_query('UPDATE '.IMAGES_TABLE.' SET width='.$size[0].', height='.$size[1].' WHERE id='.$this->id);
+      }
+    }
     return $this->size;
   }
 }
