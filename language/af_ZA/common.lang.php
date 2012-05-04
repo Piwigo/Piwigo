@@ -381,4 +381,26 @@ $lang['Username: %s'] = 'Gebruikersnaam: %s';
 $lang['If you think you\'ve received this email in error, please contact us at %s'] = 'As jy dink jy het foutiewelik hierdie epos ontvang, kontak ons by %s';
 $lang['Photo sizes'] = 'Foto groottes';
 
+$lang['2small'] = 'XXS - piepklein';
+$lang['Date created, new &rarr; old'] = 'Datum geskep, nuut &rarr; oud';
+$lang['Date created, old &rarr; new'] = 'Datum geskep, oud &rarr; nuut';
+$lang['Date posted, new &rarr; old'] = 'Datum gepos, nuut &rarr; oud';
+$lang['Date posted, old &rarr; new'] = 'Datum gepos, oud &rarr; nuut';
+$lang['Desktop'] = 'Tafelblad';
+$lang['File name, A &rarr; Z'] = 'Lêernaam, A &rarr; Z';
+$lang['File name, Z &rarr; A'] = 'Lêernaam, Z &rarr; A';
+$lang['Manual sort order'] = 'Handroliese sorteer volgorde';
+$lang['Mobile'] = 'Mobiel';
+$lang['Numeric identifier, 1 &rarr; 9'] = 'Numeriese identifiseerder, 1 &rarr; 9';
+$lang['Numeric identifier, 9 &rarr; 1'] = 'Numeriese identifiseerder, 9 &rarr; 1';
+$lang['Photo title, A &rarr; Z'] = 'Foto titel, Z &rarr; A';
+$lang['Photo title, Z &rarr; A'] = 'Foto titel, Z &rarr; A';
+$lang['Rating score, high &rarr; low'] = 'Graderingspunt, hoog &rarr; laag';
+$lang['Rating score, low &rarr; high'] = 'Graderingspunt, laag &rarr; hoog';
+$lang['Show latest comments first'] = 'Wys nuutste opmerkings eerste';
+$lang['Show oldest comments first'] = 'Wys oudste opmerkings eerste';
+$lang['View in'] = 'Bekyk in';
+$lang['Visits, high &rarr; low'] = 'Besoeke, hoog &rarr; laag';
+$lang['Visits, low &rarr; high'] = 'Besoeke, laag &rarr; hoog';
+$lang['xsmall'] = 'XS - baie klein';
 ?>
