@@ -1,0 +1,106 @@
+<h2>Rediger album</h2>
+
+<h3>Information</h3>
+
+<ul>
+ <li><strong>navn</strong>: omd&oslash;be album (en virtuel omd&oslash;be i tilf&aelig;lde af af et fysisk album).</li>
+ <li><strong>beskrivelse </strong>: kort tekst giver en generel id&eacute; om indholdet, denne tekst vil blive vist nederst p&aring; miniaturerbillede siden.</li>
+</Ul>
+
+<h3>Flyt</h3>
+
+<p>Hvis albummet er virtuel, kan du flytte den. Flytning af et album betyder
+&aelig;ndre dets overordenet album.</p>
+
+<h3>Valg mulighedder</h3>
+
+<ul>
+ <li><strong>Adgangstype</strong>: Tilladelses styring. Hvis du laver et album privat, vil alle dens underordnede albums blive private. Hvis du laver et album offentligt, vil alle dets overordenet albums bliver offentligte.</li>
+ <li><strong>L&aring;s</strong>: Albummet og dens underalbummer vil v&aelig;re midlertidig deaktiveret for vedligeholdelse.</li>
+ <li><strong>kommentarer</strong>: Tillad brugere at kommentere billeder i dette album.</li>
+</Ul>
+
+<p>Du kan ogs&aring; administrere disse valg muligheder i "Egenskaber" p&aring; styringsoversigt sk&aelig;rmen 
+(sk&aelig;rme 
+<span class="pwgScreen">Kommentarer</span>, 
+<span class="pwgScreen">l&aring;s</span>, 
+<span class="pwgScreen">Offentlig /Privat</span>, 
+<span class="pwgScreen">repr&aelig;sentant</span> f&aring;s fra 
+<span class="pwgScreen">Administration &raquo; &raquo;Albums&raquo; &raquo; Egenskaber</span>). </p>
+
+<h3>Sorteringsr&aelig;kkef&oslash;lge</h3>
+
+<p>Brug standard billede sorteringsr&aelig;kkef&oslash;lgen.</p>
+
+<p>Angiv, om denne sorteringsr&aelig;kkef&oslash;lge vil g&aelig;lde for underalbummer ogs&aring;.</p>
+
+<p>V&aelig;lg specifik sorteringskriterie, der skal bruges med dette album.</p>
+
+<ul>
+<li><strong>Oprettelsesdato</strong>: Foto optagelsesdato</li>
+<li><strong>Indl&aelig;g dato</strong>: Synkronisering dato</li>
+<li><strong>Gennemsnitlig karakter (*)</strong>: Gennemsnitlig karakter kan &aelig;ndres ved bes&oslash;gendes bed&oslash;mmelser</li>
+<li><strong>Mest bes&oslash;gte (*)</strong>: Det aktuelle bes&oslash;g kan &aelig;ndre r&aelig;kkef&oslash;lgen af den mest bes&oslash;gte</li>
+<li><strong>Filnavn</strong>: Navn givet i informations feltet</li>
+<li><strong>Id</strong>: Intern Id (seneste kategorier har en h&oslash;jere id end tidligere)</li>
+</Ul>
+
+<p>(*)</strong>Advarsel: S&oslash;rg for at teste sorteringsr&aelig;kkef&oslash;lgen selv, da de kan give uventede resultater</p>
+
+
+<h3>repr&aelig;sentanten</h3>
+
+<p>Albummet repr&aelig;sentant er miniaturenbilledet der vises p&aring; hovedsiden (<span class="pwgScreen"> category.php </span>) til at repr&aelig;sentere
+albummet, n&aring;r det kun indeholder underalbummer og ingen direkte foto (ligesom roden album). </p>
+foto af et album:</p>
+
+<ul>
+  <li><span class="pwgScreen">Foto side</span> : en af de actions knapper kan du indstille til at s&aelig;tte det aktuelle billede som repr&aelig;sentant for viste album. Denne knap er kun tilg&aelig;ngelig for administratorer.</Li>
+  <li><span class="pwgScreen">&aelig;ndre informationer om et foto</span> i administration. Denne sk&aelig;rm kan n&aring;s fra <span class="pwgScreen">picture.php</span> eller <span class="pwgScreen">Batch ledelse</span> i <em>enheds tilstand</em> .Se hj&aelig;lp af denne sk&aelig;rm for detaljer.</li>
+  <li><span class="pwgScreen">Administration &raquo; Albummer  &raquo; Egenskaber,  Repr&aelig;sentant</span>. Se hj&aelig;lp af denne sk&aelig;rm for yderligere oplysninger. </Li>
+  <li><span class="pwgScreen">Rediger album</span> (den nuv&aelig;rende sk&aelig;rmen).</li>
+</Ul>
+
+<p>Valget af en repr&aelig;sentativ afh&aelig;nger af <code>allow_random_representative</code>-konfigurations parameter (se <span class="filnavn">inkludere /config_default.inc.php</span>).</p>
+
+<p>I standardtilstand (<code>allow_random_representative</code> sat til falsk),
+hvert album indeholder mindst &eacute;t element er repr&aelig;senteret ved et fast
+element. N&aring;r de er indstillet (ved album oprettelse), &aelig;ndres repr&aelig;sentanten kun
+n&aring;r en administrator beder om det. Hvis repr&aelig;sentanten ikke er hensigtsm&aelig;ssigt,
+kan du bede om at <strong>Finde en ny tilf&aelig;ldig repr&aelig;sentant</strong>.</p>
+
+<p>Hvis <code>allow_random_representative</code>-konfigurations parameteren er
+sat til sand, kan en kategori, der indeholder billeder have ingen fast
+repr&aelig;sentanten. Bare brug <strong>Slet repr&aelig;sentanten</strong> knappen.</P>
+
+<p>Hvis albummet kun indeholder underalbummer og ingen foto, kan det alligevel v&aelig;re repr&aelig;senteret af nogle elementer takket v&aelig;re <span class="pwgScreen">&AElig;ndre informationer om et foto</span> sk&aelig;rmen. 
+Den eneste mulighed p&aring; den aktuelle sk&aelig;rm er <strong>Slet repr&aelig;sentanten</strong> knappen.</p>
+
+<h3> Link alle album billeder til et nyt album </h3>
+
+<ul>
+
+<li><strong>Virtual album navn</strong>: Navnet p&aring; det nye album, der skal oprettes,
+alle billeder fra denne kategori vil blive knyttet til den nye.</li>
+
+<li><strong>Hoved album</strong>: Hvor det nye album vil v&aelig;re, lad st&aring; tomt for at skabe den ved roden.</li>
+
+</Ul>
+
+<h3>Link alle album billeder til eksisterende album</h3>
+
+<ul>
+
+<li><strong>Albummer</strong>: V&aelig;lg destinationen album</li>.
+
+</Ul>
+
+<h3>Send en informations-mail til gruppens medlemmer</h3>
+
+<ul>
+
+<li><strong>Group</strong>: modtagere gruppe</li>
+
+<li><strong>Mail indhold</strong>: Fritekst at sende til dem</li>
+
+</Ul>
