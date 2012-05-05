@@ -905,5 +905,27 @@ $lang['add a new watermark'] = 'Ajouter un nouveau filigrane';
 $lang['Apply watermark if width is bigger than'] = 'Appliquer le filigrane si la largeur est supérieure à';
 $lang['Apply watermark if height is bigger than'] = 'Appliquer le filigrane si la hauteur est supérieure à';
 $lang['Multiple Size'] = 'Tailles multiples';
+$lang['Watermark'] = 'Filigrane';
+$lang['Original file : %s'] = 'Fichier original : %s';
+$lang['Posted %s on %s'] = 'Inscrite %s le %s';
+$lang['Added by %s'] = 'Ajouté par %s';
+$lang['Visited %d times'] = 'Visitée %d fois';
+$lang['Numeric identifier : %d'] = 'Identifiant numérique : %d';
+$lang['%s ago'] = 'il y a %s';
+$lang['%s in the future'] = '%s dans le futur';
+$lang['Rated %d times, score : %.2f'] = 'Notée %d fois, score : %.2f';
+$lang['%d year'] = '%d an';
+$lang['%d years'] = '%d ans';
+$lang['%d month'] = '%d mois';
+$lang['%d months'] = '%d mois';
+$lang['%d day'] = '%d jour';
+$lang['%d days'] = '%d jours';
+$lang['%d hour'] = '%d heure';
+$lang['%d hours'] = '%d heures';
+$lang['%d minute'] = '%d minute';
+$lang['%d minutes'] = '%d minutes';
+$lang['%d second'] = '%d seconde';
+$lang['%d seconds'] = '%d secondes';
+$lang['Sharpen'] = 'Renforcer la netteté';
 
 ?>
