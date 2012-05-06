@@ -369,7 +369,7 @@ $lang['Manual sort order'] = 'Ordre manual';
 $lang['Mobile'] = 'Dispositiu mòbil';
 $lang['Original'] = 'Original';
 $lang['Password: %s'] = 'Clau: %s';
-$lang['Photo sizes'] = 'Disseny web adaptat a';
+$lang['Photo sizes'] = 'Canviar la mida';
 $lang['Photo title, A &rarr; Z'] = 'Nom de l\'arxiu, A &rarr; Z';
 $lang['Photo title, Z &rarr; A'] = 'Nom de l\'arxiu, Z &rarr; A';
 $lang['Send my connection settings by email'] = 'Enviar credencials al meu correu electrònic';
@@ -379,7 +379,7 @@ $lang['Successfully registered, you will soon receive an email with your connect
 $lang['Thank you for registering at %s!'] = 'Gràcies per inscriute\'s a %s!';
 $lang['Username modification'] = 'Modificar usuari';
 $lang['Username: %s'] = 'Usuari: %s';
-$lang['View in'] = 'Veure en';
+$lang['View in'] = 'Disseny web adaptat a';
 $lang['Your username has been successfully changed to : %s'] = 'El teu nom d\'usuari s\'ha canviat amb èxit per: %s';
 $lang['large'] = 'L - gran';
 $lang['medium'] = 'M - mitjà';
