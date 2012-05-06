@@ -36,8 +36,8 @@ $lang_info['code'] = 'pt';
 $lang_info['zero_plural'] = false;
 
 $lang['%d Kb'] = '%d Kb';
-$lang['%d album updated'] = '%d álbum actualizado';
-$lang['%d albums updated'] = '%d álbums actualizados';
+$lang['%d album updated'] = '%d album actualizado';
+$lang['%d albums updated'] = '%d albums actualizados';
 $lang['%d comment to validate'] = '%d comentário para aprovar';
 $lang['%d comments to validate'] = '%d comentários para aprovar';
 $lang['%d new comment'] = '%d novo comentário';
