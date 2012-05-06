@@ -595,4 +595,15 @@ $lang['photos updated in the database'] = 'φωτογραφίες ενημερώ
 $lang['pixels'] = 'Εικονοστοιχία';
 $lang['private'] = 'προσωπικά';
 $lang['public'] = 'δημόσιο ';
+$lang['Privacy level set to "%s"'] = 'Επίπεδο προστασίας προσωπικών δεδομένων με "%s"';
+$lang['Purge sessions'] = 'Εκκαθάριση συνεδριών';
+$lang['Quick Local Synchronization'] = 'Γρήγορη Τοπικός Συγχρονισμός';
+$lang['Random photo'] = 'Τυχαία Φωτογραφία';
+$lang['Rate date'] = 'Ημερομηνία Αξιολόγησης';
+$lang['Rating by guests'] = 'Αξιολόγηση από τους επισκέπτες';
+$lang['Rating'] = 'Αξιολόγηση ';
+$lang['Read Piwigo Documentation'] = 'Διαβάστε την Τεκμηρίωση του Piwigo ';
+$lang['Refresh photo set'] = 'Ανανέωση σύνολου φωτογραφίας';
+$lang['randomly represented'] = 'τυχαία μικρογραφία λευκώματος';
+$lang['ranks'] = 'κατάταξη';
 ?>
