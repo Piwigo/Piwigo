@@ -539,30 +539,4 @@ function ready_for_upload_message()
 
   return null;
 }
-
-function file_path_for_type($file_path, $type='thumb')
-{
-  // resolve the $file_path depending on the $type
-  if ('thumb' == $type) {
-    $file_path = get_thumbnail_location(
-      array(
-        'path' => $file_path,
-        'tn_ext' => 'jpg',
-        )
-      );
-  }
-
-  if ('high' == $type) {
-    @include_once(PHPWG_ROOT_PATH.'include/functions_picture.inc.php');
-    $file_path = get_high_location(
-      array(
-        'path' => $file_path,
-        'has_high' => 'true'
-        )
-      );
-  }
-
-  return $file_path;
-}
-
 ?>
