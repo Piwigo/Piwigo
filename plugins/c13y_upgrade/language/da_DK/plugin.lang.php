@@ -20,9 +20,9 @@
 // | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
-$lang['c13y_correction_dbl_email_user'] = 'Slet dublet brugere';
+$lang['c13y_correction_dbl_email_user'] = 'Slet dublerede brugere';
 $lang['c13y_correction_obsolete_plugin'] = '"%s" plugin er blevet inkluderet i denne program version, og du skal afinstallere det.';
 $lang['c13y_dbl_email_user'] = 'Brugere med samme email adresse';
-$lang['c13y_obsolete_plugin'] = 'forældet plugin';
-$lang['c13y_upgrade_no_anomaly'] = 'Ingen afvigelse påvises efter program opgradering, "Kontroller opgraderinger" plugin er blevet deaktiveret.';
+$lang['c13y_obsolete_plugin'] = 'Forældet plugin';
+$lang['c13y_upgrade_no_anomaly'] = 'Ingen problemer opdaget efter program opgradering, "Kontroller opgraderinger" plugin er blevet deaktiveret.';
 ?>
