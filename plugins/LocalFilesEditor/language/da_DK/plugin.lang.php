@@ -22,8 +22,8 @@
 // +-----------------------------------------------------------------------+
 $lang['locfiledit_bak_loaded1'] = 'Backup fil indlæst.';
 $lang['locfiledit_bak_loaded2'] = 'Du skal gemme filen for at gendanne det.';
-$lang['locfiledit_cant_save'] = 'Aktuelle fil er ikke skrivbar. Kontroller, om en mappe "lokal/" er skrivbar (chmod).';
-$lang['locfiledit_choose_file'] = 'Vælg den fil der skal redigeres';
+$lang['locfiledit_cant_save'] = 'Den aktuelle fil er ikke skrivbar. Kontroller, om mappen "lokal/" er skrivbar (chmod).';
+$lang['locfiledit_choose_file'] = 'Vælg den fil, der skal redigeres';
 $lang['locfiledit_edit'] = 'Rediger';
 $lang['locfiledit_new_tpl'] = 'Opret ny fil';
 $lang['locfiledit_newfile'] = 'Filen er ikke eksisterende, og vil blive skabt af LocalFiles Editor';
@@ -32,10 +32,10 @@ $lang['locfiledit_onglet_lang'] = 'Sprog';
 $lang['locfiledit_onglet_localconf'] = 'Lokal konfiguration';
 $lang['locfiledit_onglet_plug'] = 'Personlig Plugin';
 $lang['locfiledit_onglet_tpl'] = 'Skabeloner';
-$lang['locfiledit_restore_confirm'] = 'venligst bekræft?
+$lang['locfiledit_restore_confirm'] = 'Bekræft venligst?
 Gendan vil ikke være effektiv før næste gem.';
 $lang['locfiledit_restore'] = 'Genopret backup fil';
-$lang['locfiledit_save_bak'] = 'Backup kopi vil blive oprettet når der Gemmes.';
+$lang['locfiledit_save_bak'] = 'Backup kopi vil blive oprettet når der gemmes.';
 $lang['locfiledit_save_config'] = 'Fil skrevet med succes.';
 $lang['locfiledit_save_file'] = 'Gem fil';
 $lang['locfiledit_saved_bak'] = 'Backup fil oprettet (%s)';
