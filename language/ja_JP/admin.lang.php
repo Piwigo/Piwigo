@@ -185,7 +185,6 @@ $lang['group "%s" deleted'] = 'グループ "%s" が削除されました。';
 $lang['group "%s" updated'] = 'グループ "%s" が更新されました。';
 $lang['The name of a group must not contain " or \' or be empty.'] = 'グループ名には「"」または「\'」を含んだり、空白にしないでください。';
 $lang['This name is already used by another group.'] = 'このグループ名は、すでに別のグループで使用されています。';
-$lang[''] = '';
 $lang['High definition'] = '高解像度';
 $lang['jump to album'] = 'カテゴリにジャンプする';
 $lang['jump to photo'] = 'イメージにジャンプする';
@@ -686,4 +685,5 @@ $lang['Confirm merge'] = 'マージを確認して下さい';
 $lang['Create'] = '作成';
 $lang['Default comments order'] = 'デフォルト・コメント順';
 $lang['display'] = '表示';
+$lang['Height'] = '高さ';
 ?>
