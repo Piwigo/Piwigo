@@ -18,7 +18,7 @@
   {/if}
 
   {if $representant.ALLOW_SET_RANDOM }
-        <p style="text-align:center;"><input class="submit" type="submit" name="set_random_representant" value="Refresh" title="{'Find a new representant by random'|@translate}"></p>
+        <p style="text-align:center;"><input class="submit" type="submit" name="set_random_representant" value="{'Refresh'|@translate}" title="{'Find a new representant by random'|@translate}"></p>
   {/if}
 
   {if isset($representant.ALLOW_DELETE) }
