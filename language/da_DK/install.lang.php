@@ -22,7 +22,7 @@
 // +-----------------------------------------------------------------------+
 
 $lang['Installation'] = 'Installation';
-$lang['Basic configuration'] = 'Basic konfiguration';
+$lang['Basic configuration'] = 'Basis konfiguration';
 $lang['Default gallery language'] = 'Default galleri sprog';
 $lang['Database configuration'] = 'Database konfiguration';
 $lang['Admin configuration'] = 'Admin konfiguration';
@@ -41,15 +41,15 @@ $lang['user password given by your host provider'] = 'bruger password som du har
 $lang['Database name'] = 'Database navn';
 $lang['also given by your host provider'] = 'som du også har fået af din udbyder';
 $lang['Database table prefix'] = 'Database tabel prefix';
-$lang['database tables names will be prefixed with it (enables you to manage better your tables)'] = 'database tabel navne vil være forvalgt (giver dig bedre mulighed for at administrere tabellerne)';
-$lang['enter a login for webmaster'] = 'indtast et login  webmaster';
+$lang['database tables names will be prefixed with it (enables you to manage better your tables)'] = 'database tabel navne vil være fornynet med præfix (giver dig bedre mulighed for at administrere tabellerne)';
+$lang['enter a login for webmaster'] = 'indtast et login for webmaster';
 $lang['webmaster login can\'t contain characters \' or "'] = 'webmaster login må ikke indeholde karakterernecan \' or "';
 $lang['please enter your password again'] = 'indtast dit password igen';
 $lang['Webmaster password'] = 'Webmaster password';
 $lang['Keep it confidential, it enables you to access administration panel'] = 'Hold det hemmeligt, det giver dig adgang til administrations panelet.';
 $lang['Password [confirm]'] = 'Password [bekræft]';
 $lang['verification'] = 'bekræftelse';
-$lang['Need help ? Ask your question on <a href="%s">Piwigo message board</a>.'] = 'Hjælp ? Stil dine spørgsmål på <a href="%s">Piwigo message board</a>.';
+$lang['Need help ? Ask your question on <a href="%s">Piwigo message board</a>.'] = 'Hjælp? Stil dine spørgsmål på <a href="%s">Piwigo message board</a>.';
 $lang['Webmaster mail address'] = 'Webmaster mail addresse';
 $lang['Visitors will be able to contact site administrator with this mail'] = 'Besøgende vil have mulighed for at kontakte administratoren med denne mail';
 $lang['PHP 5 is required'] = 'PHP 5 er nødvendig';
@@ -58,7 +58,7 @@ $lang['Piwigo may try to switch your configuration to PHP 5 by creating or modif
 $lang['Note you can change your configuration by yourself and restart Piwigo after that.'] = 'Bemærk at du kan ændre din konfiguration selv og derefter genstarte Piwigo.';
 $lang['Try to configure PHP 5'] = 'Prøv at konfigurere PHP 5';
 $lang['Sorry!'] = 'Hov!';
-$lang['Piwigo was not able to configure PHP 5.'] = 'Piwigo var ikke istand til af konfigurere PHP 5.';
+$lang['Piwigo was not able to configure PHP 5.'] = 'Piwigo var ikke i stand til af konfigurere PHP 5.';
 $lang["You may referer to your hosting provider's support and see how you could switch to PHP 5 by yourself."] = "Du henvises til din webhost for at se hvordan du selv kan skifte til PHP 5.";
 $lang['Hope to see you back soon.'] = 'Håber snart at se dig igen.';
 $lang['Congratulations, Piwigo installation is completed'] = 'Tillykke, Piwigo installationen er slut';
