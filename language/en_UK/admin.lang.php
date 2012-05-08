@@ -918,5 +918,4 @@ $lang['%d minutes'] = '%d minutes';
 $lang['%d second'] = '%d second';
 $lang['%d seconds'] = '%d seconds';
 $lang['Sharpen'] = 'Sharpen';
-$lang['Refresh'] = 'Refresh';
 ?>
