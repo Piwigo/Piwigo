@@ -212,7 +212,7 @@ $template->assign(
     'DB_IMAGE_TAG' => l10n_dec('%d association', '%d associations', $nb_image_tag),
     'DB_USERS' => l10n_dec('%d user', '%d users', $nb_users),
     'DB_GROUPS' => l10n_dec('%d group', '%d groups', $nb_groups),
-		'DB_RATES' => sprintf('%d rates', $nb_rates),
+    'DB_RATES' => ($nb_rates == 0) ? l10n('no rate') : sprintf(l10n('%d rates'), $nb_rates),
     'U_CHECK_UPGRADE' => PHPWG_ROOT_PATH.'admin.php?action=check_upgrade',
     'U_PHPINFO' => PHPWG_ROOT_PATH.'admin.php?action=phpinfo',
     'PHP_DATATIME' => $php_current_timestamp,
