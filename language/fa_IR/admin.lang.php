@@ -134,66 +134,66 @@ $lang['Photo informations updated'] = 'اطلاعات عکس بروز رسانی
 $lang['Plugins'] = 'افزونه ها';
 $lang['Position'] = "موقعیت";
 $lang['Preferences'] = "تنظیمات";
-$lang['Properties'] = "خواص";
-$lang['Random photo'] = "تصاویر تصادفی";
+$lang['Properties'] = 'ویژگی ها';
+$lang['Random photo'] = 'عکس تصادفی';
 $lang['Rate date'] = "تاریخ امتیازدهی";
-$lang['Rating by guests'] = "دادن امتیاز توسط میهمان";
+$lang['Rating by guests'] = 'دادن امتیاز بوسیله ی مهمان';
 $lang['Rating'] = "امتیازدهی";
 $lang['Reject'] = "رد کردن";
-$lang['Representant'] = "نماینده";
-$lang['Representation of albums'] = "نماینده دسته‌ها";
-$lang['Representative'] = "نماینده";
-$lang['Represents'] = "نمایندگی";
-$lang['Save order'] = "ذخیره این ترتیب";
-$lang['Save to permalink history'] = "ذخیره در تاریخچه لینک‌ثابت";
-$lang['Select at least one album'] = "حداقل یک دسته انتخاب نمایید";
-$lang['Select at least one photo'] = "حداقل یک عکس انتخاب نمایید";
-$lang['Select at least one user'] = "حداقل یک کاربر انتخاب نمایید";
+$lang['Representant'] = 'عکس ریزه ی آلبوم';
+$lang['Representation of albums'] = 'عکس ریزه ی آلبوم';
+$lang['Representative'] = 'عکس ریزه ی آلبوم';
+$lang['Represents'] = 'عکس ریزه ی آلبوم مقابل است :';
+$lang['Save order'] = 'ذخیره ی ترتیب';
+$lang['Save to permalink history'] = 'ذخیره در تاریخچه ی لینک های ثابت';
+$lang['Select at least one album'] = 'حداقل یک آلبوم را انتخاب کنید';
+$lang['Select at least one photo'] = 'حداقل یک عکس را انتخاب کنید';
+$lang['Select at least one user'] = 'حداقل یک کاربر را انتخاب کنید';
 $lang['Show info'] = "نمایش اطلاعات";
-$lang['Site manager'] = "مدیریت سایت";
+$lang['Site manager'] = 'مدیر سایت';
 $lang['Status'] = "وضعیت";
 $lang['Statistics'] = "آمار";
-$lang['Storage album'] = "ذخیره دسته";
-$lang['Sum of rates'] = "مجموع امتیازها";
+$lang['Storage album'] = 'آلبوم ذخیره سازی';
+$lang['Sum of rates'] = 'مجموع امتیاز ها';
 $lang['Tag "%s" already exists'] = "برچسب \"%s\" در سیستم موجود است";
 $lang['Tag "%s" was added'] = "برچسب \"%s\" افزوده شد";
-$lang['Tag selection'] = "انتخاب برچسب‌ها";
-$lang['The %d following tags were deleted'] = "%d برچسب حذف شد.";
-$lang['Unable to check for upgrade.'] = "سیستم قادر به به روز رسانی نیست";
-$lang['Uninstall'] = "حذف";
-$lang['Use the default photo sort order (defined in the configuration file)'] = "استفاده از پیش‌فرض برای مرتب کردن تصاویر (پیش‌فرض در فایل پیکربندی(Configuration) است";
-$lang['User comments validation'] = "تایید نظرات کاربر";
+$lang['Tag selection'] = 'انتخاب برچسب ها';
+$lang['The %d following tags were deleted'] = 'برچسب های %d پاک شدند';
+$lang['Unable to check for upgrade.'] = 'سیستم قادر به بروز رسانی نیست.';
+$lang['Uninstall'] = 'پاک کردن';
+$lang['Use the default photo sort order (defined in the configuration file)'] = 'استفاده از مرتب سازی پیشفرض برای عکس (پیشفرض در فایل تنظیمات است)';
+$lang['User comments validation'] = 'تایید دیدگاه های کاربر';
 $lang['Users'] = "کاربران";
 $lang['Validate'] = "تایید";
 $lang['Validation'] = "تایید";
-$lang['Version'] = "نسخه";
-$lang['Virtual albums to move'] = "انتقال دسته‌های مجازی";
-$lang['Virtual album name'] = "نام دسته مجازی";
-$lang['Webmaster cannot be deleted'] = "شما نمی‌توانید وب‌مستر(مدیر) را حذف کنید";
-$lang['You are running on development sources, no check possible.'] = "شما از نسخه development(توسعه) استفاده می‌کنید ؛ امکان چک کردن نیست";
-$lang['You cannot delete your account'] = "شما نمی‌توانید حساب خود را حذف کنید";
-$lang['You cannot move an album in its own sub album'] = "شما نمی‌توانید دسته والد را به زیردسته خودش انتقال دهید.";
-$lang['You need to confirm deletion'] = "شما باید حذف را تایید کنید";
+$lang['Version'] = 'نگارش';
+$lang['Virtual albums to move'] = 'آلبوم های مجازی نیازمند جابجایی';
+$lang['Virtual album name'] = 'نام آلبوم مجازی';
+$lang['Webmaster cannot be deleted'] = 'مدیرکل قابل پاک شدن نیست';
+$lang['You are running on development sources, no check possible.'] = 'شما از نگارش توسعه (Development) استفاده می کنید، امکان بررسی وجود ندارد.';
+$lang['You cannot delete your account'] = 'شما نمی توانید حساب خود را پاک کنید';
+$lang['You cannot move an album in its own sub album'] = 'شما نمی توانید آلبوم مادر را به زیر آلبوم خودش جابجا کنید';
+$lang['You need to confirm deletion'] = 'شما باید پاک کردن را تایید کنید';
 $lang['Associate to album'] = 'پیوستن به آلبوم';
 $lang['associate to group'] = "پیوستن به گروه";
 $lang['Authorized'] = "مجاز";
 $lang['Add a virtual album'] = 'افزودن یک آلبوم مجازی';
 $lang['Authorize users to add comments on selected albums'] = 'اجازه دادن به کاربران برای افزودن دیدگاه به آلبوم های انتخاب شده';
-$lang['The name of an album must not be empty'] = "نام دسته نمی‌تواند خالی باشد";
+$lang['The name of an album must not be empty'] = 'نام آلبوم نباید خالی باشد';
 $lang['Lock albums'] = 'قفل‌ کردن آلبوم ها';
-$lang['Private'] = "دسته‌های شخصی";
-$lang['Public'] = "دسته‌های عمومی";
+$lang['Private'] = 'شخصی';
+$lang['Public'] = 'همگانی';
 $lang['Find a new representant by random'] = 'پیداکردن تصادفی یک عکس ریزه ی تازه برای آلبوم';
-$lang['Public / Private'] = "عمومی / خصوصی";
+$lang['Public / Private'] = 'همگانی / خصوصی';
 $lang['Manage authorizations for selected albums'] = 'مدیریت مجوز های آلبوم های انتخاب شده';
-$lang['Virtual album added'] = "دسته مجازی افزوده شد";
-$lang['Virtual album deleted'] = "دسته مجازی حذف شد";
+$lang['Virtual album added'] = 'آلبوم مجازی افزوده شد';
+$lang['Virtual album deleted'] = 'آلبوم مجازی پاک شد';
 $lang['Access type'] = "نوع دسترسی";
 $lang['Information data registered in database'] = 'داده ی اطلاعات در پایگاه داده ثبت شد';
 $lang['Default display'] = 'نمایش پیشفرض';
-$lang['The gallery URL is not valid.'] = "آدرس URL گالری اشتباه است.";
+$lang['The gallery URL is not valid.'] = 'آدرس URL معتبر نیست.';
 $lang['Main'] = "صفحه اصلی";
-$lang['The number of comments a page must be between 5 and 50 included.'] = "تعداد نظرات در هر صفحه باید عددی بین 5 تا 50 باشد.";
+$lang['The number of comments a page must be between 5 and 50 included.'] = 'تعداد دیدگاه ها در هر صفحه باید عددی بین 5 تا 50 باشد.';
 $lang['Configuration'] = "پیکربندی";
 $lang['confirm'] = "تایید";
 $lang['Date'] = "تاریخ";
@@ -211,7 +211,7 @@ $lang['group "%s" added'] = "گروه \"%s\" افزوده شد";
 $lang['group "%s" deleted'] = "گروه \"%s\" حذف شد";
 $lang['group "%s" updated'] = "گروه \"%s\" به‌روزرسانی شد";
 $lang['The name of a group must not contain " or \' or be empty.'] = "نام گروه نباید دارای علامت \" یا  ' باشد و نمی‌تواند خالی باشد";
-$lang['This name is already used by another group.'] = "این نام قبلا برای یک گروه ثبت شده‌ است";
+$lang['This name is already used by another group.'] = 'این نام پیش از این برای گروهی دیگر انتخاب شده‌ است.';
 $lang['High definition'] = "High definition";
 $lang['jump to album'] = 'رفتن به آلبوم';
 $lang['jump to photo'] = 'رفتن به عکس';
@@ -225,27 +225,27 @@ $lang['Execution time is out, treatment must be continue [Estimated time: %d sec
 $lang['Execution time is out, treatment must be continue [Estimated time: %d seconds].'] = "Execution time exceeded, the treatment must continue [Estimated time: %d seconds].";
 $lang['Prepared time for list of users to send mail is limited. Others users are not listed.'] = "The time to prepare the list of users who will be sent mail is limited. Others users are not listed.";
 $lang['Time to send mail is limited. Others mails are skipped.'] = "The time to send mail is limited. Others mails have been skipped.";
-$lang['To send ?'] = "ارسال به؟";
+$lang['To send ?'] = 'فرستادن به؟';
 $lang['Last send'] = "آخرین ارسال";
 $lang['email'] = "ایمیل";
 $lang['User'] = "کاربر";
-$lang['See you soon,'] = "زود می‌بینمت،";
+$lang['See you soon,'] = 'به امید دیدار،';
 $lang['Go to'] = "برو به";
 $lang['Hello'] = 'درود';
 $lang['New photos were added'] = 'عکس های تازه افروده شده اند';
 $lang['on'] = 'در';
 $lang['between'] = "بین";
 $lang['and'] = "و";
-$lang['The webmaster has subscribed you to receiving notifications by mail.'] = "وبمستر شما را برای دریافت آخرین اطلاعات بوسیله ایمیل عضو خبرنامه کرده است.";
-$lang['You have subscribed to receiving notifications by mail.'] = "شما در خبرنامه Piwigo عضو شدید و آخرین تغییرات بوسیله ایمیل به اطلاع شما خواهد رسید.";
+$lang['The webmaster has subscribed you to receiving notifications by mail.'] = 'مدیر کل شما را برای دریافت آخرین اطلاعات بوسیله ی ایمیل در خبرنامه مشترک کرده است.';
+$lang['You have subscribed to receiving notifications by mail.'] = 'شما در خبرنامه Piwigo مشترک شدید و آخرین تغییرات بوسیله ی ایمیل به اطلاع شما خواهد رسید.';
 $lang['To subscribe'] = "مشترک شدن";
 $lang['If you encounter problems or have any question, please send a message to'] = 'اگر به مشکلی برخوردید یا پرسشی داشتید ، می‌توانید یک پیام به این آدرس بفرستید:';
-$lang['[NBM] Problems or questions'] = "مشکل یا سوال";
-$lang['The webmaster has unsubscribed you from receiving notifications by mail.'] = "اشتراک شما در خبرنامه بوسیله‌ی ایمیل لغو گردید";
-$lang['You have unsubscribed from receiving notifications by mail.'] = "شما از اشتراک در خبرنامه‌ای که شروع کردید لغو شدید.";
+$lang['[NBM] Problems or questions'] = 'مشکل یا پرسش';
+$lang['The webmaster has unsubscribed you from receiving notifications by mail.'] = 'اشتراک شما در خبرنامه بوسیله ی ایمیل از طرف مدیر کل لغو گردید.';
+$lang['You have unsubscribed from receiving notifications by mail.'] = 'شما از خبرنامه لغو اشتراک  کردید.';
 $lang[', click on'] = "، کلیک کنید";
-$lang['To unsubscribe'] = "حذف اشتراک";
-$lang['With blank value, gallery title will be used'] = "اگر خالی بگذارید ، عنوان گالری جای آن می‌نشیند";
+$lang['To unsubscribe'] = 'لغو کردن اشتراک';
+$lang['With blank value, gallery title will be used'] = 'اگر خالی بگذارید، عنوان گالری جای آن می نشیند';
 $lang['Notification'] = 'آگهی';
 $lang['Error when sending email to %s [%s].'] = 'خطا در فرستادن ایمیل به %s [%s].';
 $lang['Mail sent to %s [%s].'] = 'ایمیل به %s [%s] فرستاده شد.';
@@ -254,61 +254,61 @@ $lang['%d mails were sent.'] = '%d ایمیل فرستاده شدند.';
 $lang['%d mail was not sent.'] = '%d ایمیل فرستاده نشد';
 $lang['%d mails were not sent.'] = '%d ایمیل فرستاده نشدند.';
 $lang['No mail to send.'] = 'هیچ ایمیلی برای فرستادن نیست';
-$lang['There is no available subscribers to mail.'] = "هیچ اشتراک ایمیلی موجود نیست.";
-$lang['Subscribers could be listed (available) only if there is new elements to notify.'] = "اشتراک‌هایی که موجود است لیست می‌شوند ، در صورتی که چیزهای جدیدی برای اعلام کردن داشته باشند.";
+$lang['There is no available subscribers to mail.'] = 'هیچ مشترکی برای اشتراک با ایمیل موجود نیست.';
+$lang['Subscribers could be listed (available) only if there is new elements to notify.'] = 'مشترک شده ها تنها زمانی می توانند لیست بشوند (در دسترس قرار گیرند) که چیزهای تازه ای برای اعلام کردن وجود داشته باشد.';
 $lang['Anyway only webmasters can see this tab and never administrators.'] = 'در هر صورت فقط مدیر کل می تواند به این قسمت وارد شود و مدیران نمی توانند وارد شوند.';
 $lang['No user to send notifications by mail.'] = 'کاربری برای خبرنامه با ایمیل وجود ندارد.';
 $lang['New photos added'] = 'عکس های تازه افروده شدند';
-$lang['Subscribe to notification by mail'] = "اشتراک به‌وسیله ایمیل";
-$lang['Unsubscribe from notification by mail'] = "حذف اشتراک به‌وسیله ایمیل";
+$lang['Subscribe to notification by mail'] = 'اشتراک بوسیله ی ایمیل';
+$lang['Unsubscribe from notification by mail'] = 'لغو اشتراک بوسیله ی ایمیل';
 $lang['Parameter'] = "تنظیمات";
 $lang['Operation in progress'] = 'کار در حال پردازش است.';
 $lang['Continue processing treatment'] = 'ادامه ی کار در حال انجام';
 $lang['Complementary mail content'] = "مکمل محتوای ایمیل";
 $lang['Add detailed content'] = 'افزودن تعدادی محتوای با جزئیات';
-$lang['Send mail as'] = "ارسال ایمیل از";
-$lang['Send mail to users'] = "ارسال ایمیل به کاربران";
-$lang['Send'] = "ارسال";
+$lang['Send mail as'] = 'فرستادن ایمیل بعنوان';
+$lang['Send mail to users'] = 'فرستادن ایمیل به کاربران';
+$lang['Send'] = 'فرستادن';
 $lang['Options'] = "گزینه‌ها";
-$lang['Subscribed'] = "مشترک‌شده";
+$lang['Subscribed'] = 'مشترک شده';
 $lang['Subscribe'] = "اشتراک";
 $lang['Parameters'] = 'پارامتر ها';
-$lang['Select recipients'] = "انتخاب گیرنده‌ها";
+$lang['Select recipients'] = 'انتخاب گیرنده ها';
 $lang['Subscribe/unsubscribe users'] = "مشترک/لغو اشتراک کاربران";
 $lang['Unsubscribed'] = "لغو اشتراک";
 $lang['%d parameter was updated.'] = '%d پارامتر بروزرسانی شد.';
 $lang['%d parameters were updated.'] = '%d پارامتر بروزرسانی شدند.';
 $lang['%d user was not updated.'] = '%d کاربر بروز رسانی نشد.';
 $lang['%d users were not updated.'] = '%d کاربر بروز رسانی نشدند.';
-$lang['User %s [%s] was removed from the subscription list.'] = "کاربر %s [%s] از لیست مشترکان خبرنامه حذف شد.";
-$lang['User %s [%s] was added to the subscription list.'] = "کاربر %s [%s] به لیست مشترکان خبرنامه اضافه شد.";
+$lang['User %s [%s] was removed from the subscription list.'] = 'کاربر %s [%s] از لیست مشترکان خبرنامه پاک شد.';
+$lang['User %s [%s] was added to the subscription list.'] = 'کاربر %s [%s] به لیست مشترکان خبرنامه افزوده شد.';
 $lang['%d user was updated.'] = '%d کاربر بروز رسانی شد.';
 $lang['%d users were updated.'] = '%d کاربر بروز رسانی شدند.';
-$lang['User %s [%s] was not removed from the subscription list.'] = "کاربر %s [%s] از لیست اعضا خبرنامه حذف شد.";
-$lang['User %s [%s] was not added to the subscription list.'] = "کاربر %s [%s] به لیست اعضا خبرنامه اضافه نشد.";
+$lang['User %s [%s] was not removed from the subscription list.'] = 'کاربر %s [%s] از لیست مشترکان خبرنامه پاک نشد.';
+$lang['User %s [%s] was not added to the subscription list.'] = 'کاربر %s [%s] به لیست مشترکان خبرنامه افزوده نشد.';
 $lang['User %s [%s] added.'] = "کاربر %s [%s] اضافه شد.";
-$lang['Warning: subscribing or unsubscribing will send mails to users'] = "اخطار: اشتراک یا لغو اشتراک با ارسال ایمیل به کاربران صورت می‌گیرد.";
-$lang['Send mail on HTML format'] = "ارسال ایمیل در فرمت HTML";
+$lang['Warning: subscribing or unsubscribing will send mails to users'] = 'اخطار: اشتراک یا لغو اشتراک با فرستادن ایمیل به کاربران صورت می گیرد';
+$lang['Send mail on HTML format'] = 'فرستادن ایمیل در فرمت HTML';
 $lang['Include display of recent photos grouped by dates'] = 'ضمیمه کردن آخرین عکس ها با مرتب سازی برحسب تاریخ';
 $lang['Available only with HTML format'] = "فقط برای فرمت HTML موجود است";
 $lang['no write access'] = "دسترسی نوشتن را ندارید";
 $lang['Permissions'] = 'مجوز ها';
 $lang['private'] = "شخصی";
-$lang['public'] = "عمومی";
+$lang['public'] = 'همگانی';
 $lang['Purge never used notification feeds'] = "Purge never used notification feeds";
-$lang['Purge sessions'] = "حذف جلسه‌ها(sessions)";
-$lang['randomly represented'] = "نماینده تصادفی";
-$lang['registration date'] = "تاریخ ثبت نام";
+$lang['Purge sessions'] = 'پاکسازی جلسه ها (Sessions)';
+$lang['randomly represented'] = 'عکس ریزه ی آلبومِ تصادفی';
+$lang['registration date'] = 'تاریخ نام نویسی';
 $lang['clean'] = 'پاکسازی';
 $lang['Create this site'] = "ایجاد این سایت";
-$lang['test'] = "تست";
-$lang['test this remote site'] = "تست ریمت این سایت";
-$lang['remove tags'] = "حذف برچسب‌ها";
-$lang['Repair and optimize database'] = "بازسازی و بهینه سازی پایگاه‌داده";
+$lang['test'] = 'امتحان کردن';
+$lang['test this remote site'] = 'امتحان کردن این سایتِ ریموت ';
+$lang['remove tags'] = 'پاک کردن برچسب ها';
+$lang['Repair and optimize database'] = 'بازسازی و بهینه سازی پایگاه داده';
 $lang['selection'] = "انتخاب";
 $lang['set to'] = "تنظیم به";
-$lang['singly represented'] = "نماینده ثابت";
-$lang['This site already exists'] = "این سایت در حال حاضر موجود است";
+$lang['singly represented'] = 'عکس ریزه ی ثابتِ آلبوم';
+$lang['This site already exists'] = 'این سایت موجود می باشد';
 $lang['Create a new site : (give its URL to create_listing_file.php)'] = 'ایجاد یک سایت تازه : (آدرس خود را در فایل create_listing_file.php ذخیره می کند)';
 $lang['created'] = 'ایجاد شد';
 $lang['delete'] = 'پاک کردن';
@@ -317,11 +317,11 @@ $lang['deleted'] = 'پاک شده';
 $lang['an error happened'] = "یک خطا رخ داده است";
 $lang['Local'] = "محلی";
 $lang['Remote'] = "ریموت";
-$lang['update the database from files'] = "به روز رسانی پایگاه داده از فایل‌ها";
+$lang['update the database from files'] = 'بروز رسانی پایگاه داده با فایل ها';
 $lang['status'] = "وضعیت";
 $lang['Directory'] = 'مسیر';
-$lang['sub-albums'] = "زیر دسته‌ها";
-$lang['Synchronize metadata'] = "همگام سازی ابرداده(metadata)";
+$lang['sub-albums'] = 'زیر آلبوم ها';
+$lang['Synchronize metadata'] = 'همگام سازی ابرداده (Metadata)';
 $lang['target'] = "هدف";
 $lang['Title'] = "عنوان";
 $lang['Album list management'] = 'مدیریت لیست آلبوم ها';
@@ -333,21 +333,21 @@ $lang['Edit photo information'] = 'ویرایش اطلاعات عکس';
 $lang['Database synchronization with files'] = 'همگام‌ سازی پایگاه‌ داده با فایل ها';
 $lang['all'] = "همه";
 $lang['height must be a number superior to'] = 'بلندا باید بزرگتر باشد از';
-$lang['width must be a number superior to'] = "عرض باید عددی بزرگتر از";
+$lang['width must be a number superior to'] = 'پهنا باید عددی باشد بزرگتر از';
 $lang['for the file format'] = "برای نوع فایل(file format)";
 $lang['Photo unreachable or no support'] = 'عکس غیر قابل دسترسی یا با فرمت ناشناخته است';
 $lang['GD version'] = 'نگارش GD';
 $lang['General statistics'] = 'آمار کلی';
 $lang['average time'] = "زمان متوسط";
 $lang['number of miniaturized photos'] = 'تعداد عکس ریزه ایجاد شد';
-$lang['total time'] = "تمام زمان";
+$lang['total time'] = 'مجموع زمان';
 $lang['for this file format'] = "برای این نوع فایل (file format)";
 $lang['unit mode'] = "حالت تکی";
 $lang['Unlocked'] = "باز";
 $lang['unset'] = "unset";
-$lang['Update albums informations'] = "به روز رسانی اطلاعات دسته‌ها";
-$lang['Update photos information'] = "به روز رسانی اطلاعات تصاویر";
-$lang['Synchronize'] = "همگام‌سازی";
+$lang['Update albums informations'] = 'بروز رسانی اطلاعات آلبوم ها';
+$lang['Update photos information'] = 'بروز رسانی اطلاعات عکس ها';
+$lang['Synchronize'] = 'همگام سازی';
 $lang['reduce to single existing albums'] = "reduce to single existing categories";
 $lang['Choose an option'] = 'یک گزینه را انتخاب کنید';
 $lang['display maximum informations (added albums and photos, deleted albums and photos)'] = 'نمایش حداکثر اطلاعات (آلبوم ها و عکس های افزوده شده، آلبوم ها و عکس های پاک شده)';
@@ -355,7 +355,7 @@ $lang['Error list'] = 'فهرست خطا ها';
 $lang['Errors caption'] = 'شرح خطا ها';
 $lang['Detailed informations'] = "جزئیات";
 $lang['File/directory read error'] = 'خطا در خواندن فایل/مسیر';
-$lang['The file or directory cannot be accessed (either it does not exist or the access is denied)'] = "این فایل یا دایرکتوری غیرقابل دسترسی است (این به خطا با این دلیل است که یا فایل موجود نیست و یا دسترسی به آن برای شما ممنوع است)";
+$lang['The file or directory cannot be accessed (either it does not exist or the access is denied)'] = 'این فایل یا مسیر قابل دسترسی نمی باشد (یا موجود نیست و یا دسترسی به آن ممنوع است)';
 $lang['albums deleted in the database'] = 'آلبوم از پایگاه داده پاک شدند';
 $lang['photos deleted from the database'] = 'عکس از پایگاه داده پاک شدند';
 $lang['photos candidates for metadata synchronization'] = 'عکس می‌خواهند ابرداده(Metadata) خود را همگام‌ سازی کنند';
@@ -364,48 +364,48 @@ $lang['errors during synchronization'] = 'خطا در همگام‌ سازی';
 $lang['albums added in the database'] = 'آلبوم در پایگاه‌ داده اضافه شدند';
 $lang['photos added in the database'] = 'عکس در پایگاه‌ داده اضافه شدند';
 $lang['photos updated in the database'] = 'عکس در پایگاه‌ داده بروز شدند';
-$lang['Search for new images in the directories'] = "جستجو برای تصاویر جدید در دایرکتوری‌ها";
+$lang['Search for new images in the directories'] = 'جستجو برای عکس های تازه در مسیر ها';
 $lang['added'] = "افزوده شد";
 $lang['deleted'] = "حذف شد";
 $lang['Metadata synchronization results'] = 'نتایج همگام‌ سازی ابرداده (Metadata)';
 $lang['only perform a simulation (no change in database will be made)'] = 'فقط انجام یک شبیه‌ سازی (هیچ چیز در پایگاه داده تغییر نمی‌ کند)';
-$lang['Simulation'] = "شبیه‌سازی";
+$lang['Simulation'] = 'شبیه سازی';
 $lang['directories + files'] = 'مسیر + فایل ها';
 $lang['only directories'] = 'فقط مسیر ها';
-$lang['synchronize files structure with database'] = "همگام‌سازی ساختار(structure) فایل‌ها با پایگاه‌داده";
-$lang['synchronize files metadata with database photos informations'] = "همگام‌سازی اشیا پایگاه‌داده با استفاده از فایل ابرداده(metadata)";
+$lang['synchronize files structure with database'] = 'همگام سازی ساختار فایل ها با پایگاه داده';
+$lang['synchronize files metadata with database photos informations'] = 'همگام سازی عکس های پایگاه داده با استفاده از فایل ابرداده (Metadata)';
 $lang['even already synchronized photos'] = 'حتی عکس های همگام شده';
-$lang['Used metadata'] = "استفاده از ابرمتن(Metadata)";
+$lang['Used metadata'] = 'ابرداده (Metadata) استفاده شد';
 $lang['The name of directories and files must be composed of letters, numbers, "-", "_" or "."'] = "نام دایرکتوری‌ها و فایل‌ها فقط می تواند شامل اعداد ، حروف و \"-\" ، \"_\" یا \".\" باشد.";
-$lang['wrong filename'] = "نام‌فایل نادرست است";
+$lang['wrong filename'] = 'نام فایل نا درست است';
 $lang['Upload'] = "آپلود";
 $lang['user "%s" added'] = "کاربر \"%s\" افزوده شد";
 $lang['User status'] = "وضعیت کاربر";
-$lang['user_status_admin'] = "مدیر";
+$lang['user_status_admin'] = 'مدیر';
 $lang['user_status_generic'] = "عمومی";
-$lang['user_status_guest'] = "میهمان";
+$lang['user_status_guest'] = 'مهمان';
 $lang['user_status_normal'] = "کاربر";
-$lang['user_status_webmaster'] = "وب‌مستر";
-$lang['Virtual album'] = "دسته مجازی";
+$lang['user_status_webmaster'] = 'مدیرکل';
+$lang['Virtual album'] = 'آلبوم مجازی';
 $lang['Waiting'] = "در انتظار";
 $lang['default'] = 'پیشفرض';
-$lang['Toggle \'default group\' property'] = "معکوش کردن خواص 'گروه پیش‌فرض'";
+$lang['Toggle \'default group\' property'] = 'معکوش کردن ویژگی های \'گروه پیشفرض\'';
 $lang['Advanced features'] = "امکانات پیشرفته";
 $lang['Overall'] = "دید کلی";
 $lang['Year'] = "سال";
 $lang['Month'] = "ماه";
 $lang['Day'] = "روز";
 $lang['Pages seen'] = "صفحات دیده شده";
-$lang['Time'] = "دفعه";
+$lang['Time'] = 'زمان';
 $lang['IP'] = "IP";
 $lang['Element'] = 'شی';
 $lang['Section'] = "بخش";
 $lang['An information email was sent to group "%s"'] = "Information email sent to group \"%s\"";
 $lang['Send an information email to group members'] = "Send an information email to group members";
 $lang['Group'] = "'v,i";
-$lang['[%s] Visit album %s'] = "[%s] درحال مشاهده دسته %s می‌باشد.";
+$lang['[%s] Visit album %s'] = '[%s] درحال مشاهده ی آلبوم %s می باشد';
 $lang['Hello,'] = 'درود،';
-$lang['See you soon.'] = "زود به گالری ما برگرد.";
+$lang['See you soon.'] = 'به امید دیدار.';
 $lang['Discover album:'] = 'آلبوم های موجود:';
 $lang['Mail content'] = "محتویات ایمیل";
 $lang['none'] = 'هیچکدام';
@@ -423,8 +423,8 @@ $lang['guest'] = 'مهمان';
 $lang['default values'] = 'مقدار های پیشفرض';
 $lang['Guest cannot be deleted'] = 'مهمان قابل پاک شدن نیست';
 $lang['Default user cannot be deleted'] = 'کاربر پیشفرض قابل پاک شدن نیست';
-$lang['Purge history detail'] = "پاک‌کردن جزئیات تاریخچه";
-$lang['Purge history summary'] = "پاک‌کردن خلاصه تاریخچه";
+$lang['Purge history detail'] = 'پاکسازی جزئیات تاریخچه';
+$lang['Purge history summary'] = 'پاکسازی خلاصه ی تاریخچه';
 $lang['Check integrity'] = 'بررسی درست بودن سیستم';
 $lang['Anomaly'] = 'ناهنجاری';
 $lang['Correction'] = "اصلاح";
@@ -439,7 +439,7 @@ $lang['%d anomalies have been detected corrected.'] = '%d ناهنجاری شن�
 $lang['%d anomaly has not been corrected.'] = '%d ناهنجاری اصلاح نشد.';
 $lang['%d anomalies have not been corrected.'] = '%d ناهنجاری اصلاح نشدند.';
 $lang['Go to %s or %s for more informations'] = 'برای اطلاعات بیشتر به %s یا %s مراجعه نمایید';
-$lang['the forum'] = "تالارگفتگو";
+$lang['the forum'] = 'تالار گفتگو';
 $lang['the wiki'] = "ویکی";
 $lang['%s value is not correct file because exif are not supported'] = "%s value is incorrect because exif are not supported";
 $lang['%s must be to set to false in your local/config/config.inc.php file'] = "%s در فایل local/config/config.inc.php باید مقدار 'false' داشته باشد.";
@@ -468,7 +468,7 @@ $lang['Uncheck all'] = "برداشتن علامت همه";
 $lang['Check automatic corrections'] = 'بررسی خودکار اصلاحات';
 $lang['Apply selected corrections'] = "تایید اصلاحات انتخاب شده";
 $lang['Ignore selected anomalies'] = 'چشم پوشی از ناهنجاری های انتخاب شده';
-$lang['Refresh'] = "تازه‌کردن(Refresh)";
+$lang['Refresh'] = 'تازه کردن (Refresh)';
 $lang['The anomaly will be ignored until next application version'] = "The anomaly will be ignored until next application version";
 $lang['Correction the anomaly will cancel the fact that it\'s ignored'] = "Corrected  anomaly will no longer be ignored";
 $lang['%d anomaly has been ignored.'] = 'از %d ناهنجاری چشم پوشی شد.';
@@ -482,14 +482,14 @@ $lang['Are you sure you want to delete this plugin?'] = 'مطمئن هستید �
 $lang['Are you sure you want to install this plugin?'] = 'مطمئن هستید که ‌می خواهید این افزونه را نصب کنید؟';
 $lang['Are you sure to install this upgrade? You must verify if this version does not need uninstallation.'] = "شما مطمئن هستید که می‌خواهید این آپگرید را نصب کنید؟ . شما باید این را تایید کنید زیرا ممکن است نیاز به حذف پلاگین داشته باشد.";
 $lang['Plugin has been successfully copied'] = 'افزونه با موفقیت کپی شد';
-$lang['You might go to plugin list to install and activate it.'] = "به فهرست پلاگین‌ها بروید، پلاگین را نصب کنید و سپس ان را فعال نمایید.";
+$lang['You might go to plugin list to install and activate it.'] = 'برای نصب یا از کار انداختن این افزونه به لیست افزونه ها بروید.';
 $lang['Can\'t create temporary file.'] = 'امکان ایجاد فایل موقت (Temporary) وجود ندارد.';
 $lang['Can\'t download archive.'] = 'آرشیو قابل دانلود نیست.';
 $lang['Can\'t read or extract archive.'] = "آرشیو قابل خواندن و یا بازکردن نیست.";
 $lang['An error occured during extraction (%s).'] = 'یک خطا در بازکردن فایل های (%s) رخ داده است.';
 $lang['Please check "plugins" folder and sub-folders permissions (CHMOD).'] = "لطفا سطح دسترسی پوشه \"plugins\" و پوشه‌های زیر مجموعه آن را چک کنید (CHMOD).";
 $lang['Can\'t connect to server.'] = "ارتباط با سرور ممکن نیست.";
-$lang['Purge compiled templates'] = "پاک‌ازی قالب واردشده(کامپایل شده)";
+$lang['Purge compiled templates'] = 'پاکسازی قالب های مرتب شده';
 $lang['ACCESS_0'] = "دسترسی آزاد";
 $lang['ACCESS_1'] = "دسترسی برای همه";
 $lang['ACCESS_2'] = 'دسترسی برای کاربران ثبت نام شده';
@@ -501,19 +501,19 @@ $lang['Documentation'] = "مستندات";
 $lang['A new version of Piwigo is available.'] = 'یک نگارش تازه از Piwigo موجود است.';
 $lang['Piwigo Administration'] = "مدیریت Piwigo";
 $lang['Piwigo version'] = 'نگارش Piwigo';
-$lang['You are running the latest version of Piwigo.'] = "شما آخرین نسخه Piwigo را دارید.";
+$lang['You are running the latest version of Piwigo.'] = 'شما آخرین نگارش Piwigo را دارید.';
 $lang['The version of %s [%s] installed is not compatible with the version required [%s]'] = "نسخه %s [%s] نصب شده با نسخه نصب شده سازگار نیست، نسخه مورد نیاز [%s] می‌باشد.";
-$lang['You need to upgrade your system to take full advantage of the application else the application will not work correctly, or not at all'] = "شما برای استفاده از تمام مزیت‌های پلاگین‌ها باید گالری خود را آپگرید کنید. در غیر این‌ صورت ممکن است که پلاگین‌ها به درستی اجرا نشود و یا اصلا اجرا نشود.";
+$lang['You need to upgrade your system to take full advantage of the application else the application will not work correctly, or not at all'] = 'شما برای استفاده از تمام مزیت های سیستم باید گالری خود را آپگرید کنید. در غیر این‌ صورت ممکن است که سیستم بدرستی اجرا نشود و یا اصلا اجرا نشود.';
 $lang['Deleted on'] = 'پاک شده در';
 $lang['Last hit'] = "آخرین بازدید";
 $lang['GD library is missing'] = 'کتابخانه GD یافت نشد';
-$lang['Templates'] = "ویرایش قالب‌ها";
+$lang['Templates'] = 'قالب ها';
 $lang['Extend for templates'] = 'باز کردن (گسترش) قالب ها';
 $lang['Replacement of original templates by customized templates from template-extension subfolder'] = "Replacement of original templates by customized templates from the template-extension subfolder";
-$lang['Replacers (customized templates)'] = "جایگزینی (سفارشی کردن قالب)";
+$lang['Replacers (customized templates)'] = 'جایگزینی (قالب های سفارشی شده)';
 $lang['Original templates'] = 'قالب های اصلی';
 $lang['Optional URL keyword'] = "کلیدواژه URL اختیاری";
-$lang['Templates configuration has been recorded.'] = "پیکربندی قالب ثبت شد.";
+$lang['Templates configuration has been recorded.'] = 'تنظیمات قالب ثبت شد.';
 $lang['All optimizations have been successfully completed.'] = 'تمام بهینه سازی ها با موفقیت کامل شدند.';
 $lang['Optimizations have been completed with some errors.'] = 'بهینه سازی با وجود چند خطا تمام شد.';
 $lang['Modify information'] = "ویرایش اطلاعات";
@@ -523,23 +523,23 @@ $lang['Manage photo ranks'] = 'مدیریت امتیاز عکس ها';
 $lang['Edit ranks'] = 'ویرایش امتیاز ها';
 $lang['No photo in this album'] = 'هیچ عکسی در این آلبوم موجود نیست';
 $lang['Images manual order was saved'] = 'ترتیب دستی عکس ها ذخیره شد';
-$lang['ranks'] = "امتیازها";
+$lang['ranks'] = 'امتیاز ها';
 $lang['By rank'] = 'به وسیله ی امتیاز';
 $lang['Manual order'] = "مرتب کردن دستی";
 $lang['Drag to re-order'] = 'برای تغییر مکان کلیک کنید و بکشید';
-$lang['Quick Local Synchronization'] = "همگام‌سازی سریع محلی";
+$lang['Quick Local Synchronization'] = 'همگام سازی سریع محلی';
 $lang['No photo can be deleted'] = 'هیچ عکسی را نمی توان پاک کرد';
 $lang['Delete selected photos'] = 'پاک کردن عکس های انتخاب شده';
 $lang['%d photo was deleted'] = '%d عکس پاک شد';
 $lang['%d photos were deleted'] = '%d عکس پاک شدند';
 $lang['Downloads'] = 'دانلود ها';
-$lang['Released on'] = "انتشار در";
+$lang['Released on'] = 'منتشر شده در';
 $lang['Number of downloads'] = "دفعات دانلود";
 $lang['Piwigo Announcements Newsletter'] = 'اعلان خبرنامه ی Piwigo';
 $lang['Keep in touch with Piwigo project, subscribe to Piwigo Announcement Newsletter. You will receive emails when a new release is available (sometimes including a security bug fix, it\'s important to know and upgrade) and when major events happen to the project. Only a few emails a year.'] = "Keep in touch with Piwigo project, subscribe to Piwigo Announcement Newsletter. You will be sent emails when a new release is available (sometimes including a security bug fix, it is important to know and upgrade) and when major events happen to the project. Only a few emails a year.";
 $lang['Subscribe %s'] = "اشتراک %s";
-$lang['Subscribe %s to Piwigo Announcements Newsletter'] = "اشتراک %s برای اعلان خبرنامه Piwigo";
-$lang['Purge search history'] = "پاک‌کردن تاریخچه جستجو";
+$lang['Subscribe %s to Piwigo Announcements Newsletter'] = 'اشتراک %s برای خبرنامه ی Piwigo';
+$lang['Purge search history'] = 'پاکسازی تاریخچه ی جستجو';
 $lang['Hide'] = 'پنهان کردن';
 $lang['Password is missing. Please enter the password.'] = 'گذرواژه وارد نشده است. لطفا گذرواژه تازه را وارد نمایید.';
 $lang['Password confirmation is missing. Please confirm the chosen password.'] = 'تایید گذرواژه با گذرواژه ی اصلی همخوانی ندارد. لطفا گذرواژه ی اصلی که وارد نموده اید را در تایید گذرواژه وارد نمایید.';
@@ -549,16 +549,16 @@ $lang['Email administrators when a comment is modified'] = 'فرستادن ای�
 $lang['Email administrators when a comment is deleted'] = 'فرستادن ایمیل به مدیران هنگامی که یک دیدگاه پاک می شود';
 $lang['Cannot delete the old permalink !'] = 'لینک ثابت قدیمی نمی تواند پاک شود.';
 $lang['Hit'] = "نمایش";
-$lang['Tools'] = "ابزارها";
+$lang['Tools'] = 'ابزار ها';
 $lang['Photos'] = 'عکس ها';
-$lang['Themes'] = "قالب‌ها";
+$lang['Themes'] = 'قالب ها';
 $lang['Instructions to use Piwigo'] = "راهنمای استفاده از Piwigo";
 $lang['Installed Themes'] = 'قالب های نصب شده';
 $lang['Add New Theme'] = 'افزودن یک قالب تازه';
 $lang['Forbid this theme to users'] = 'اجازه ندادن به کاربران برای انتخاب این قالب';
-$lang['Set as default theme for unregistered and new users'] = "قالب پیش‌فرض برای میهمانان و کاربرانی که تازه ثبت‌نام کرده‌اند باشد";
-$lang['unknown'] = 'نامعلوم';
-$lang['Upload Photos'] = 'آپلود تصاویر';
+$lang['Set as default theme for unregistered and new users'] = 'انتخاب بعنوان قالب پیشفرض برای مهمانان';
+$lang['unknown'] = 'نا معلوم';
+$lang['Upload Photos'] = 'آپلود عکس';
 $lang['Drop into album'] = 'انتخاب یک آلبوم';
 $lang['+ Add an upload box'] = '+ اضافه کردن یک محل آپلود فایل تازه';
 $lang['Create the "%s" directory at the root of your Piwigo installation'] = 'ایجاد دایرکتوری "%s" در دایرکتوری اصلی Piwigo نصب شده شما.';
@@ -567,23 +567,23 @@ $lang['existing album'] = 'آلبومِ موجود';
 $lang['create a new album'] = 'افزودن یک آلبوم تازه';
 $lang['Album name'] = 'نام دسته';
 $lang['Album "%s" has been added'] = 'دسته "%s" با موفقیت اضافه شد';
-$lang['Uploaded Photos'] = 'تصاویر آپلود شد';
+$lang['Uploaded Photos'] = 'عکس های آپلود شده';
 $lang['%d photos uploaded'] = '%d عکس آپلود شدند';
 $lang['Privacy level set to "%s"'] = 'Privacy level set to "%s"';
 $lang['Album "%s" now contains %d photos'] = 'دسته "%s" شامل %d تصویر است';
 $lang['Manage this set of %d photos'] = 'Manage this set of %d photos';
-$lang['Select files'] = 'انتخاب فایل‌ها';
+$lang['Select files'] = 'انتخاب فایل ها';
 $lang['Everybody'] = 'همه';
-$lang['Who can see these photos?'] = 'چه کسی قادر به مشاهده این تصاویر باشد؟';
-$lang['Who can see this photo?'] = 'چه کسی قادر به مشاهده این تصویر باشد';
+$lang['Who can see these photos?'] = 'چه کسی قادر به مشاهده ی این عکس ها باشد؟';
+$lang['Who can see this photo?'] = 'چه کسی قادر به مشاهده ی این عکس باشد؟';
 $lang['Settings'] = 'تنظیمات';
 $lang['Resize'] = 'تغییر اندازه';
 $lang['Maximum Width'] = 'بیشترین پهنا';
 $lang['pixels'] = 'پیکسل';
 $lang['Maximum Height'] = 'بیشترین بلندا';
 $lang['Image Quality'] = 'کیفیت عکس';
-$lang['Thumbnail'] = 'عکس‌ریزه(Thumbnail)';
-$lang['Save Settings'] = 'ذخیره تنظیمات';
+$lang['Thumbnail'] = 'عکس ریزه (Thumbnail)';
+$lang['Save Settings'] = 'ذخیره ی تنظیمات';
 $lang['Your configuration settings are saved'] = 'تنظیمات شما ذخیره شد';
 $lang['Active Themes'] = 'فعال کردن قالب ها';
 $lang['Add write access to the "%s" directory'] = 'لطفا دسترسی برای نوشتن در دایرکتوری "%s" را فعال نمایید';
@@ -602,13 +602,13 @@ $lang['Install on your computer,'] = 'نصب بر روی کامپیوتر خود
 $lang['Make this theme available to users'] = 'در دسترس قرار دادن این قالب برای کاربران';
 $lang['Page end'] = 'پایان صفحه';
 $lang['Piwigo Uploader'] = 'آپلودر Piwigo';
-$lang['Please wait...'] = 'خواهشمند است شکیبا باشید ...';
+$lang['Please wait...'] = 'شکیبا باشید ...';
 $lang['Read Piwigo Documentation'] = 'خواندن مستندات Piwigo';
-$lang['Start pLoader and add your photos.'] = 'اکنون می‌توانید با استفاده از pLoader تصاویر خود راروی گالری خود آپلود کنید.';
-$lang['Switch to clear or dark colors for administration'] = 'تعویض برای سفید یا سیاه کردن قالب مدیریت';
+$lang['Start pLoader and add your photos.'] = 'اکنون pLoader را باز کرده و عکس های خود را آپلود کنید.';
+$lang['Switch to clear or dark colors for administration'] = 'تعویض سپید یا سیاه کردن قالب مدیریت';
 $lang['Theme has been successfully installed'] = 'قالب با موفقیت نصب شد';
 $lang['Visit Gallery'] = 'نمایش گالری';
-$lang['Visit Piwigo project website'] = 'نمایش وب‌سایت پروژه Piwigo';
+$lang['Visit Piwigo project website'] = 'نمایش وبسایت پروژه ی Piwigo';
 $lang['pLoader stands for <em>Piwigo Uploader</em>. From your computer, pLoader prepares your photos and transfer them to your Piwigo photo gallery.'] = 'نرم افزار pLoader یک <em>آپلود کننده ی Piwigo</em> است. pLoader عکس ها را از کامپیوتر شما آماده می کند و آنها را به گالری شما می فرستد.';
 $lang['Guest Settings'] = 'تنظیمات مهمان';
 $lang['Main Page'] = 'صفحه اصلی';
@@ -626,16 +626,16 @@ $lang['Select:'] = 'انتخاب:';
 $lang['None'] = 'هیچکدام';
 $lang['Invert'] = 'معکوس کردن';
 $lang['Impossible to deactivate this theme, you need at least one theme.'] = 'امکان از کار انداختن این قالب وجود ندارد، شما باید حداقل یک قالب برای گالری خود داشته باشید.';
-$lang['Webmaster status is required.'] = 'وضعیت وب‌مستر ضروری است.';
+$lang['Webmaster status is required.'] = 'وضعیت مدیرکل ضروری است.';
 $lang['Bound Theme'] = 'Bound Theme';
 $lang['Allow rating'] = "فعال بودن سیستم امتیازدهی";
-$lang['Select at least one comment'] = 'حداقل یک نظر را انتخاب نمایید';
+$lang['Select at least one comment'] = 'حداقل یک دیدگاه را انتخاب کنید';
 $lang['Active Plugins'] = 'فعال کردن افزونه (پلاگین) ها';
 $lang['Inactive Plugins'] = 'افزونه های از کار انداخته شده';
 $lang['Missing Plugins'] = 'افزونه های گم شده';
-$lang['Uninstalled Plugins'] = 'پلاگین‌های نصب نشده';
+$lang['Uninstalled Plugins'] = 'افزونه های پاک شده';
 $lang['By %s'] = 'بوسیله ی %s';
-$lang['Visit plugin site'] = 'بازدید از پایگاه این پلاگین';
+$lang['Visit plugin site'] = 'نمایش سایت سازنده ی افزونه';
 $lang['Active Languages'] = 'زبان های فعال';
 $lang['Delete this language'] = 'پاک کردن این زبان';
 $lang['Forbid this language to users'] = 'اجازه ندادن به کاربران برای انتخاب این زبان';
@@ -643,29 +643,29 @@ $lang['Impossible to deactivate this language, first set another language as def
 $lang['Impossible to deactivate this language, you need at least one language.'] = 'امکان از کار انداختن این زبان وجود ندارد، شما باید حداقل یک زبان برای گالری خود داشته باشید.';
 $lang['Inactive Languages'] = 'زبان های از کار انداخته شده';
 $lang['Make this language available to users'] = 'در دسترس قرار دادن این زبان برای کاربران';
-$lang['Set as default language for unregistered and new users'] = 'انتخاب این زبان به عنوان پیش‌فرض برای کاربرانی که ثبت نام نکرده‌اند یا تازه ثبت‌نام کرده‌اند.';
+$lang['Set as default language for unregistered and new users'] = 'انتخاب بعنوان زبان پیشفرض برای مهمانان';
 $lang['Add Photos'] = 'افزودن عکس ها';
-$lang['The following tag was deleted'] = 'برچسب حذف شد.';
+$lang['The following tag was deleted'] = 'برچسب پاک شد';
 $lang['Miscellaneous'] = 'گوناگون';
-$lang['Virtual Links'] = 'ارتباط مجازی';
-$lang['There is no other language available.'] = 'در حال حاضر هیچ زبان دیگری موجود نیست.';
-$lang['There is no other plugin available.'] = 'در حال حاضر پلاگین دیگری موجود نیست.';
-$lang['There is no other theme available.'] = 'در حال حاضر هیچ قالب دیگری موجود نیست.';
+$lang['Virtual Links'] = 'پیوند مجازی';
+$lang['There is no other language available.'] = 'هیچ زبان دیگری موجود نیست.';
+$lang['There is no other plugin available.'] = 'هیچ افزونه ی دیگری موجود نیست.';
+$lang['There is no other theme available.'] = 'هیچ قالب دیگری موجود نیست.';
 $lang['Add another set of photos'] = 'Add another set of photos';
 $lang['Order of menubar items has been updated successfully.'] = 'ترتیب آیتم های منو با موفقیت بروز شد.';
-$lang['This theme was not designed to be directly activated'] = 'این قالب برای فعال کردن مستقیم طراحی نشده ، بلکه قالب‌های دیگر از این قالب برای نمایش خود استفاده می‌کنند.';
+$lang['This theme was not designed to be directly activated'] = 'این قالب برای فعال کردن مستقیم طراحی نشده است';
 $lang['Pending Comments'] = 'دیدگاه های در انتظار تایید';
 $lang['In your php.ini file, the upload_max_filesize (%sB) is bigger than post_max_size (%sB), you should change this setting'] = 'در فایل php.ini شما،  مقدار upload_max_filesize (%sB) از post_max_size (%sB) بزرگتر است، شما باید این تنظیمات را تغییر دهید.';
 $lang['Exif extension not available, admin should disable exif use'] = 'Exif extension not available, admin should disable exif use';
-$lang['The uploaded file exceeds the upload_max_filesize directive in php.ini: %sB'] = 'مقدار فایل قابل آپلود که در فایل php.ini تنظیم شده با نام :upload_max_filesize = %sB است';
-$lang['The uploaded files exceed the post_max_size directive in php.ini: %sB'] = 'میزان فایل قابل آپلود به‌وسیله فرم که در فایل php.ini تنظیم شده با نام: post_max_size = %sB است';
-$lang['The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form'] = 'بیشترین میزان آپلود فایل به‌وسیله فرم‌های HTML که در یک فیلد hidden در فرم با نام MAX_FILE_SIZE است.';
+$lang['The uploaded file exceeds the upload_max_filesize directive in php.ini: %sB'] = 'مقدار فایل قابل آپلود که در فایل php.ini تنظیم شده با نام upload_max_filesize برابر %sB است';
+$lang['The uploaded files exceed the post_max_size directive in php.ini: %sB'] = 'میزان فایل قابل آپلود بوسیله ی فرم که در فایل php.ini تنظیم شده با نام post_max_size برابر %sB است';
+$lang['The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form'] = 'بیشترین میزان آپلود فایل بوسیله ی فرم HTML که در یک فیلد پنهان در فرم با نام MAX_FILE_SIZE است';
 $lang['The uploaded file was only partially uploaded'] = 'The uploaded file was only partially uploaded';
 $lang['No file was uploaded'] = 'هیچ فایلی آپلود نشد';
 $lang['Missing a temporary folder'] = 'یک مسیر موقت (Temporary) گم شده است';
 $lang['Failed to write file to disk'] = 'نمی توان روی دیسک چیزی اضافه کرد';
 $lang['File upload stopped by extension'] = 'آپلود فایل بوسیله ی یک گسترش دهنده (Extension) متوقف شد.';
-$lang['Unknown upload error'] = 'یک خطا نامعلوم در آپلود فایل';
+$lang['Unknown upload error'] = 'خطای نا معلوم در آپلود';
 $lang['Error on file "%s" : %s'] = 'خطا در فایل "%s" : %s';
 $lang['Menu Management'] = 'منو ها';
 $lang['automatic order'] = 'مرتب کردن به صورت خودکار';
@@ -675,52 +675,52 @@ $lang['Batch Manager'] = 'مدیریت دسته ای';
 $lang['include child albums'] = 'آلبوم ‌های زیرمجموع را نیز ضمیمه کن';
 $lang['Selection'] = 'انتخاب';
 $lang['Action'] = 'کار';
-$lang['Set author'] = 'Set author';
-$lang['Set title'] = 'تعیین عنوان';
-$lang['Set creation date'] = 'تعیین تاریخ';
+$lang['Set author'] = 'تنظیم نویسنده';
+$lang['Set title'] = 'تنظیم عنوان';
+$lang['Set creation date'] = 'تنظیم تاریخ ساخت';
 $lang['Apply action'] = 'انجام کار';
 $lang['on the %d selected photos'] = 'on the %d selected photos';
 $lang['%d of %d photos selected'] = '%d عکس از %d عکس انتخاب شد';
 $lang['No photo selected, %d photos in current set'] = 'No photo selected, %d photos in current set';
 $lang['All %d photos are selected'] = 'تمام %d عکس انتخاب شد';
-$lang['remove this filter'] = 'حذف این فیلتر';
+$lang['remove this filter'] = 'پاک کردن این فیلتر';
 $lang['Duplicates'] = 'همسان ها';
 $lang['Add a filter'] = 'افزودن یک فیلتر';
-$lang['Remove all filters'] = 'حذف تمام فیلترها';
+$lang['Remove all filters'] = 'پاک کردن همه ی فیلتر ها';
 $lang['Refresh photo set'] = 'Refresh photo set';
-$lang['The whole page'] = 'The whole page';
-$lang['The whole set'] = 'The whole set';
+$lang['The whole page'] = 'تمام صفحه';
+$lang['The whole set'] = 'تمامی عکس ها';
 $lang['No photo in the current set.'] = 'No photo in the current set.';
 $lang['No photo selected, no action possible.'] = 'No photo selected, no action possible.';
 $lang['Choose an action'] = 'یک کار را انتخاب کنید';
-$lang['remove author'] = 'remove author';
-$lang['Type here the author name'] = 'Type here the author name';
-$lang['remove title'] = 'حذف عنوان';
-$lang['Type here the title'] = 'عنوان را اینحا تایپ نمایید';
-$lang['remove creation date'] = 'remove creation date';
+$lang['remove author'] = 'پاک کردن نویسنده';
+$lang['Type here the author name'] = 'نام نویسنده را اینجا تایپ نمایید';
+$lang['remove title'] = 'پاک کردن عنوان';
+$lang['Type here the title'] = 'عنوان را اینجا تایپ نمایید';
+$lang['remove creation date'] = 'پاک کردن تاریخ ساخت';
 $lang['Album photos associated to the following albums: %s'] = 'عکس های آلبوم با آلبوم های زیر مرتبط شدند : %s';
 $lang['Delete orphan tags'] = 'پاک کردن برچسب های بی ریشه';
 $lang['delete photo'] = 'پاک کردن عکس';
 $lang['Orphan tags deleted'] = 'برچسب های بی ریشه پاک شدند';
-$lang['Remove from caddie'] = 'حذف از سبد';
-$lang['Week starts on'] = 'روز شروع هفته';
-$lang['You have %d orphan tags: %s.'] = 'You have %d orphan tags: %s.';
-$lang['Themes which need upgrade'] = 'پوسته های نیازمند بروزرسانی';
+$lang['Remove from caddie'] = 'پاک کردن از سبد';
+$lang['Week starts on'] = 'روز آغازین هفته';
+$lang['You have %d orphan tags: %s.'] = 'شما %d برچسب بی ریشه دارید: %s.';
+$lang['Themes which need upgrade'] = 'قالب های نیازمند آپگرید';
 $lang['Languages which need upgrade'] = 'زبان های نیازمند بروز رسانی';
 $lang['All themes are up to date.'] = 'تمام قالب ها بروز می باشند.';
 $lang['All plugins are up to date.'] = 'تمام افزونه (پلاگین) ها بروز می باشند.';
 $lang['All languages are up to date.'] = 'تمام زبان ها بروز می باشند.';
-$lang['Visit theme site'] = 'پوسته سایت در سمت کاربر';
-$lang['Visit language site'] = 'زبان سایت در سمت کاربر';
+$lang['Visit theme site'] = 'نمایش سایت سازنده ی قالب';
+$lang['Visit language site'] = 'نمایش سایت سازنده ی زبان';
 $lang['New Version'] = 'نگارش تازه';
 $lang['new'] = 'تازه';
 $lang['No results'] = 'نتیجه ای پیدا نشد';
-$lang['Searching...'] = 'جستجو...';
-$lang['Type in a search term'] = 'عبارت مورد جستجو را تایپ نمائید';
+$lang['Searching...'] = 'در حال جستجو ...';
+$lang['Type in a search term'] = 'عبارت مورد جستجو را اینجا تایپ نمایید';
 $lang['Obsolete Plugins'] = 'افزونه های از کار افتاده';
-$lang['WARNING! This plugin does not seem to be compatible with this version of Piwigo.'] = 'هشدار! این افزونه به نظر نمی رسد با این نسخه سازگار باشد';
+$lang['WARNING! This plugin does not seem to be compatible with this version of Piwigo.'] = '<b>هشدار!</b> این افزونه به نظر نمی رسد با این نگارش از Piwigo سازگار باشد.';
 $lang['Do you want to activate anyway?'] = 'آیا در هر صورتی قصد فعال کردن دارید؟';
-$lang['THIS PLUGIN IS NOW PART OF PIWIGO CORE! DELETE IT NOW.'] = 'این پلاگین در حال حاضر بخشی از هسته PIWIGO! میباشد. هم الکنون از حالت نصب خارج نمائید!';
+$lang['THIS PLUGIN IS NOW PART OF PIWIGO CORE! DELETE IT NOW.'] = '<b>این پلاگین در حال حاضر بخشی از هسته ی PIWIGO میباشد! هرچه سریع تر آن را پاک کنید!<b/>';
 $lang['ERROR: THIS PLUGIN IS MISSING BUT IT IS INSTALLED! UNINSTALL IT NOW.'] = '<b>خطا : این افزونه گم شده است اما در حالت نصب شده می باشد! هرچه سریع تر آن را پاک کنید.</b>';
 $lang['display'] = 'نمایش';
 $lang['Learn more'] = 'اطلاعات بيشتر';
@@ -745,4 +745,22 @@ $lang['Merge tags'] = 'ادغام برچسب ها';
 $lang['Photo name'] = 'نام عکس';
 $lang['Piwigo Update'] = 'بروز رسانی Piwigo';
 $lang['hide details'] = 'پنهان کردن جزئیات';
+$lang['Select an album'] = 'یک آلبوم را انتخاب کنید';
+$lang['Select at least two tags for merging'] = 'حداقل دو برچسب را برای ادغام انتخاب کنید';
+$lang['Select the destination tag'] = 'انتخاب برچسب مقصد';
+$lang['Show menubar'] = 'نمایش عضو';
+$lang['Start Upload'] = 'آغاز آپلود';
+$lang['Tags <em>%s</em> merged into tag <em>%s</em>'] = 'برچسب <em>%s</em> با برچسب <em>%s</em> ادغام شد';
+$lang['The version of %s [%s] installed is not compatible with the version required ']['%s'] = 'نگارش %s [%s] نصب شده با نگارش مورد نیاز ( [%s] ) سازگار نیست';
+$lang['Two updates are available'] = 'دو عدد بروز رسانی آماده می باشند';
+$lang['Unable to dump database.'] = 'سیستم قادر به پاکسازی پایگاه داده نیست.';
+$lang['Update All'] = 'بروز رسانی همه';
+$lang['Update in progress... Please wait.'] = 'بروز رسانی در حال انجام است ... شکیبا باشید.';
+$lang['Update to Piwigo %s'] = 'بروز رسانی به نگارش %s از Piwigo';
+$lang['Updates'] = 'بروز رسانی ها';
+$lang['Width'] = 'پهنا';
+$lang['With no album'] = 'بدون آلبوم';
+$lang['With no tag'] = 'بدون برچسب';
+$lang['With no virtual album'] = 'بدون آلبوم مجازی';
+$lang['show details'] = 'نمایش جزئیات';
 ?>
