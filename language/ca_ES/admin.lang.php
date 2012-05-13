@@ -929,4 +929,5 @@ $lang['Rated %d times, score : %.2f'] = 'Valorada %d vegades. Resultat: %.2f';
 $lang['Sharpen'] = 'Enfocament';
 $lang['Visited %d times'] = 'Visitada %d vegades';
 $lang['Watermark'] = 'Marca d\'aigua';
+$lang['%d rate'] = '%d valoracion';
 ?>

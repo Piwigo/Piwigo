@@ -912,4 +912,5 @@ $lang['%d minutes'] = '%d minūtes';
 $lang['%d second'] = '%d sekunde';
 $lang['%d seconds'] = '%d sekundes';
 $lang['Sharpen'] = 'Uzspicēts';
+$lang['%d rate'] = '%d vērtējum';
 ?>
