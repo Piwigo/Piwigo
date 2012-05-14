@@ -217,7 +217,12 @@ y.callService(
 		<dt>{'Rating score'|@translate}</dt>
 		<dd>
 		{if $rate_summary.count}
-			<span id="ratingScore">{$rate_summary.score}</span> <span id="ratingCount">({assign var='rate_text' value='%d rates'|@translate}{$pwg->sprintf($rate_text, $rate_summary.count)})</span>
+                  {if $rate_summary.count == 1}
+                    {assign var='rate_text' value='%d rate'|@translate}
+                  {else}
+                    {assign var='rate_text' value='%d rates'|@translate}
+                  {/if}
+			<span id="ratingScore">{$rate_summary.score}</span> <span id="ratingCount">({$pwg->sprintf($rate_text, $rate_summary.count)})</span>
 		{else}
 			<span id="ratingScore">{'no rate'|@translate}</span> <span id="ratingCount"></span>
 		{/if}
@@ -251,7 +256,14 @@ y.callService(
 						e = document.getElementById("ratingScore");
 						if (e) e.innerHTML = rating.score;
 						e = document.getElementById("ratingCount");
-						if (e) e.innerHTML = "({'%d rates'|@translate|@escape:'javascript'})".replace( "%d", rating.count);
+						if (e) {ldelim}
+							if (rating.count == 1) {ldelim}
+								e.innerHTML = "({'%d rate'|@translate|@escape:'javascript'})".replace( "%d", rating.count);
+							{rdelim}
+							else {ldelim}
+								e.innerHTML = "({'%d rates'|@translate|@escape:'javascript'})".replace( "%d", rating.count);
+							{rdelim}
+						{rdelim}
 					{rdelim}{rdelim} );
 			{/footer_script}
 			{/strip}

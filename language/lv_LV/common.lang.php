@@ -403,5 +403,6 @@ $lang['Visits, low &rarr; high'] = 'Apmeklējums, zems &rarr; augsts';
 $lang['Numeric identifier, 1 &rarr; 9'] = 'Ciparu identifikators, 1 &rarr; 9';
 $lang['Numeric identifier, 9 &rarr; 1'] = 'Ciparu identifikators, 9 &rarr; 1';
 $lang['Manual sort order'] = 'Lietotāja izvēlētais kārtojums';
+$lang['%d rate'] = '%d vērtējum';
 
 ?>

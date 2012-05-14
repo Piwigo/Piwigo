@@ -403,4 +403,5 @@ $lang['Rating score, high &rarr; low'] = 'Note, haute &rarr; basse';
 $lang['Rating score, low &rarr; high'] = 'Note, basse &rarr; haute';
 $lang['Visits, high &rarr; low'] = 'Nombre de visites, élevé &rarr; faible';
 $lang['Visits, low &rarr; high'] = 'Nombre de visites, faible &rarr; élevé';
+$lang['%d rate'] = '%d note';
 ?>

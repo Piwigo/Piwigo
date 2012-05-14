@@ -407,4 +407,5 @@ $lang['Visits, low &rarr; high'] = 'Nombre de visites, bas &rarr; haut';
 $lang['Numeric identifier, 1 &rarr; 9'] = 'Identifiant, 1 &rarr; 9';
 $lang['Numeric identifier, 9 &rarr; 1'] = 'Identifiant, 9 &rarr; 1';
 $lang['Manual sort order'] = 'Ordre manuel';
+$lang['%d rate'] = '%d note';
 ?>

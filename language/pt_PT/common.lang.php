@@ -404,4 +404,5 @@ $lang['Rating score, low &rarr; high'] = 'Nível de avaliação, baixo &rarr; el
 $lang['Visits, high &rarr; low'] = 'Visitas, elevadas &rarr; parcas';
 $lang['Visits, low &rarr; high'] = 'Visitas, parcas &rarr; elevadas';
 $lang['xsmall'] = 'XS - extra pequeno';
+$lang['%d rate'] = '%d avaliaçõe';
 ?>

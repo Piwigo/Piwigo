@@ -403,4 +403,5 @@ $lang['Search by date'] = 'Cercar per data';
 $lang['Search for any term'] = 'Cerca per qualsevol terme';
 $lang['Visits, high &rarr; low'] = 'Visites, alt &rarr; baix';
 $lang['Visits, low &rarr; high'] = 'Visites, baix &rarr; alt';
+$lang['%d rate'] = '%d valoracion';
 ?>

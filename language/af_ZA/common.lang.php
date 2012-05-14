@@ -403,4 +403,5 @@ $lang['View in'] = 'Bekyk in';
 $lang['Visits, high &rarr; low'] = 'Besoeke, hoog &rarr; laag';
 $lang['Visits, low &rarr; high'] = 'Besoeke, laag &rarr; hoog';
 $lang['xsmall'] = 'XS - baie klein';
+$lang['%d rate'] = '%d gradering';
 ?>

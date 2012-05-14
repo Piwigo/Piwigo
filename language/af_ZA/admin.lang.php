@@ -588,5 +588,4 @@ $lang['randomly represented'] = 'lukraak album duimnael';
 $lang['remove tags'] = 'verwyder etikette';
 $lang['remove this filter'] = 'verwyder hierdie filter';
 $lang['remove title'] = 'verwyder titel';
-$lang['%d rate'] = '%d gradering';
 ?>

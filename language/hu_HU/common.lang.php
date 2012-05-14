@@ -408,4 +408,5 @@ $lang['Numeric identifier, 1 &rarr; 9'] = 'Azonosító (ID), növekvő';
 $lang['Numeric identifier, 9 &rarr; 1'] = 'Azonosító (ID), csökkenő';
 $lang['2small'] = 'XXS - legkissebb';
 $lang['xsmall'] = 'XS - kissebb';
+$lang['%d rate'] = '%d értékelé';
 ?>
