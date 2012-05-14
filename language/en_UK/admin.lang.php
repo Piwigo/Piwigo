@@ -24,7 +24,7 @@
 
 
 $lang[' and %d virtual'] = " and %d virtual";
-$lang[' and %d virtual'] = " and %d virtual";
+$lang[' and %d virtuals'] = " and %d virtual";
 $lang['%d album including'] = "%d album including";
 $lang['%d album moved'] = "%d album moved";
 $lang['%d albums including'] = "%d albums including";
@@ -58,7 +58,7 @@ $lang['%d photo was deleted'] = "%d photo deleted";
 $lang['%d photos uploaded'] = '%d photos uploaded';
 $lang['%d photos were deleted'] = "%d photos deleted";
 $lang['%d physical'] = " %d physical";
-$lang['%d physical'] = " %d physical";
+$lang['%d physicals'] = " %d physical";
 $lang['%d tag'] = "%d tag";
 $lang['%d tags'] = "%d tags";
 $lang['%d user comment rejected'] = "%d user comment rejected";

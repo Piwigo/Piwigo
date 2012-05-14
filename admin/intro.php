@@ -203,9 +203,9 @@ $template->assign(
     'DB_CATEGORIES' =>
       l10n_dec('%d album including', '%d albums including',
         $nb_categories).
-      l10n_dec('%d physical', '%d physical',
+      l10n_dec('%d physical', '%d physicals',
         $nb_physical).
-      l10n_dec(' and %d virtual', ' and %d virtual',
+      l10n_dec(' and %d virtual', ' and %d virtuals',
         $nb_virtual),
     'DB_IMAGE_CATEGORY' => l10n_dec('%d association', '%d associations', $nb_image_category),
     'DB_TAGS' => l10n_dec('%d tag', '%d tags', $nb_tags),
