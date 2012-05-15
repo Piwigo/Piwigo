@@ -289,6 +289,8 @@ else
   $intro = l10n('This album contains no photo.');
 }
 
+$intro.= '<br>'.sprintf(l10n('Numeric identifier : %d'), $category['id']);
+
 $template->assign('INTRO', $intro);
 
 $template->assign(
