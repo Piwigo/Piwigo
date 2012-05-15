@@ -918,4 +918,6 @@ $lang['Rated %d times, score : %.2f'] = 'Értékelve %d alkalommal, pontszám : 
 $lang['Sharpen'] = 'Élesítés';
 $lang['Visited %d times'] = 'Megtekintve %d alkalommal';
 $lang['Watermark'] = 'Vízjel';
+$lang[' and %d virtuals'] = ' és %d virtuális';
+$lang['%d physicals'] = ' %d fizikai';
 ?>
