@@ -403,4 +403,5 @@ $lang['Rating score, high &rarr; low'] = 'Рейтинговий бал, від 
 $lang['Rating score, low &rarr; high'] = 'Рейтинговий бал, від найнижчий &rarr; найвищий';
 $lang['Visits, high &rarr; low'] = 'Переглядів, більше &rarr; менше';
 $lang['Visits, low &rarr; high'] = 'Перегляди, менше &rarr; більше';
+$lang['%d rate'] = '%d рейтингу';
 ?>
