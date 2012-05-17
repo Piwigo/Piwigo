@@ -893,5 +893,27 @@ $lang['add a new watermark'] = '添加一個新的浮水印';
 $lang['Apply watermark if width is bigger than'] = '使用浮水印，假如浮水印寬度大於';
 $lang['Apply watermark if height is bigger than'] = '使用浮水印，假如浮水印高度高於';
 $lang['Multiple Size'] = '多種大小';
+$lang['Watermark'] = '浮水印';
+$lang['Original file : %s'] = '原始檔案 : %s';
+$lang['Posted %s on %s'] = '在 %s 貼上 %s';
+$lang['Added by %s'] = '由 %s 加入';
+$lang['Visited %d times'] = '訪問了 %d 次';
+$lang['Numeric identifier : %d'] = '數字識別碼 : %d';
+$lang['%s ago'] = '%s 以前';
+$lang['%s in the future'] = '%s 在未來';
+$lang['Rated %d times, score : %.2f'] = '被評價 %d 次,分數為 %.2f';
+$lang['%d year'] = '%d 年';
+$lang['%d years'] = '%d 年';
+$lang['%d month'] = '%d 月';
+$lang['%d months'] = '%d 月';
+$lang['%d day'] = '%d 天';
+$lang['%d days'] = '%d 天';
+$lang['%d hour'] = '%d 小時';
+$lang['%d hours'] = '%d 小時';
+$lang['%d minute'] = '%d 分鐘';
+$lang['%d minutes'] = '%d 分鐘';
+$lang['%d second'] = '%d 秒';
+$lang['%d seconds'] = '%d 秒';
+$lang['Sharpen'] = '銳化';
 
 ?>
