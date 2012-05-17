@@ -758,4 +758,14 @@ $lang['Visit language site'] = '言語サイトへ移動';
 $lang['Visit theme site'] = 'テーマのサイトへ移動';
 $lang['Week starts on'] = '週の始まり';
 $lang['administrators'] = '管理者';
+$lang['Missing a temporary folder'] = '一時フォルダが見つかりません。';
+$lang['No file was uploaded'] = 'アップロードされたファイルはありません。';
+$lang['Piwigo Update'] = 'Piwigo をアップデート';
+$lang['Select a file'] = 'ファイル選択';
+$lang['Select an album'] = 'アルバムを選択';
+$lang['bottom left corner'] = '左下';
+$lang['bottom right corner'] = '右下';
+$lang['middle'] = '中央';
+$lang['top left corner'] = '左上';
+$lang['top right corner'] = '右上';
 ?>
