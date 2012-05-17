@@ -59,7 +59,7 @@ $lang['%d parameters were updated.'] = "%d παράμετροι ενημερώθ
 $lang['%d photo was deleted'] = "%d φωτογραφία διαγράφηκε";
 $lang['%d photos uploaded'] = '%d φωτογραφίες ανέβηκαν';
 $lang['%d photos were deleted'] = "%d φωτογραφίες διαγράφηκαν";
-$lang['%d physical'] = " %d φυσικό";
+$lang['%d physical'] = '%d φυσικά';
 $lang['%d physical'] = " %d φυσικά";
 $lang['%d tag'] = "%d ετικέτα";
 $lang['%d tags'] = "%d ετικέτες";
@@ -920,5 +920,5 @@ $lang['user_status_webmaster'] = 'Webmaster';
 $lang['visitors need to login and have the appropriate permissions to see this album'] = 'οι επισκέπτες πρέπει να συνδεθεθούν και να έχουν τα κατάλληλα δικαιώματα για να δουν αυτό το λεύκωμα';
 $lang['width must be a number superior to'] = 'πλάτος πρέπει να είναι ένας αριθμός μεγαλύτερο από ό, τι';
 $lang['wrong filename'] = 'λανθασμένο όνομα αρχείου';
-$lang['%d rate'] = '%d βαθμολόγηση';
+$lang['%d physicals'] = '%d πραγματικά';
 ?>
