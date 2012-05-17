@@ -376,8 +376,8 @@ $lang['Username modification'] = 'Změna uživatelského jména';
 $lang['Your username has been successfully changed to : %s'] = 'Vaše uživatelské jméno bylo úspěšně změněno na: %s';
 $lang['square'] = 'Čtverec';
 $lang['thumb'] = 'Náhled';
-$lang['small'] = 'Malý';
-$lang['medium'] = 'Střední';
+$lang['small'] = 'S - Malé';
+$lang['medium'] = 'M -Střední';
 $lang['large'] = 'Velký';
 $lang['xlarge'] = 'Větší XL';
 $lang['xxlarge'] = 'Větší XXL';
@@ -410,4 +410,5 @@ $lang['Visits, low &rarr; high'] = 'Zobrazení, nižší &rarr; vyšší';
 $lang['Numeric identifier, 1 &rarr; 9'] = 'Číselný ID, 1 &rarr; 9';
 $lang['Numeric identifier, 9 &rarr; 1'] = 'Číselný ID, 9 &rarr; 1';
 $lang['Manual sort order'] = 'Ruční výběr řazení';
+$lang['%d rate'] = '%d ohodnocení';
 ?>
