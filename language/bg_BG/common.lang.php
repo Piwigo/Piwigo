@@ -392,4 +392,17 @@ $lang['File name, A &rarr; Z'] = 'Име на файл, A &rarr; Z';
 $lang['File name, Z &rarr; A'] = 'Име на файл, Z &rarr; A';
 $lang['Manual sort order'] = 'Ръчно определяне на подредбата';
 $lang['xsmall'] = 'XS - много малък';
+$lang['%d rate'] = '%d процент';
+$lang['Date created, new &rarr; old'] = 'Дата на създаване, нови &rarr; стари';
+$lang['Date created, old &rarr; new'] = 'Дата на създаване, стари &rarr; нови';
+$lang['Date posted, new &rarr; old'] = 'Дата на публикуване, нови &rarr; стари';
+$lang['Date posted, old &rarr; new'] = 'Дата на публикуване, стари &rarr; нови';
+$lang['Numeric identifier, 1 &rarr; 9'] = 'По ID номер, 1 &rarr; 9';
+$lang['Numeric identifier, 9 &rarr; 1'] = 'По ID номер, 9 &rarr; 1';
+$lang['Photo title, A &rarr; Z'] = 'Име на снимка,A &rarr; Z';
+$lang['Photo title, Z &rarr; A'] = 'Име на снимка, Z &rarr; A';
+$lang['Rating score, high &rarr; low'] = 'Рейтинг, висок &rarr; нисък';
+$lang['Rating score, low &rarr; high'] = 'Рейтинг, нисък &rarr; висок';
+$lang['Visits, high &rarr; low'] = 'Посещения, висок &rarr; нисък';
+$lang['Visits, low &rarr; high'] = 'Посещения, нисък &rarr; висок';
 ?>
