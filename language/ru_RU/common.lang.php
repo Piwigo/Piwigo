@@ -407,4 +407,5 @@ $lang['Rating score, high &rarr; low'] = 'Рейтинг, высокий &rarr; 
 $lang['Rating score, low &rarr; high'] = 'Рейтинг, низкий &rarr; высокий';
 $lang['Visits, high &rarr; low'] = 'Посещения, много &rarr; мало';
 $lang['Visits, low &rarr; high'] = 'Посещения, мало &rarr; много';
+$lang['%d rate'] = 'Оценка: %d';
 ?>
