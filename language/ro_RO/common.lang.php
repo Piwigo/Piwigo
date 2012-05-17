@@ -406,4 +406,5 @@ $lang['Rating score, high &rarr; low'] = 'Scorul de rating, ridicat &rarr; scazu
 $lang['Rating score, low &rarr; high'] = 'Scorul de rating, scazut &rarr; ridicat';
 $lang['Visits, high &rarr; low'] = 'Vizite , ridicat &rarr; scazut';
 $lang['Visits, low &rarr; high'] = 'Vizite, scazut &rarr; ridicat';
+$lang['%d rate'] = 'Evaluare %d';
 ?>
