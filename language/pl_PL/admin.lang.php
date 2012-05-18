@@ -915,4 +915,6 @@ $lang['Rated %d times, score : %.2f'] = 'Ocenione %d razy, wynik: %.2f';
 $lang['Sharpen'] = 'Wyostrz';
 $lang['Visited %d times'] = 'Odwiedzone %s razy';
 $lang['Watermark'] = 'Znak wodny';
+$lang[' and %d virtuals'] = 'i %d wirtualna';
+$lang['%d physicals'] = '%d fizycznych';
 ?>
