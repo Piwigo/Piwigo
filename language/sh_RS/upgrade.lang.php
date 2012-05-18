@@ -40,5 +40,5 @@ $lang['All sub-albums of private albums become private'] = "Sve podkategorije pr
 $lang['User permissions and group permissions have been erased'] = "Korisničke i grupne dozvole su obrisane";
 $lang['Only thumbnails prefix and webmaster mail address have been saved from previous configuration'] = "Samo prefix za povezne sličice i webmaster e-mail adresa su sačuvane iz prethodne konfiguracije";
 $lang['As a precaution, following themes have been deactivated. You must check for themes upgrade before reactiving them:'] = 'Iz predustrožnosti, sledeće teme su deaktivirane. Proverite nadogradnje tema pre nego što ih reaktivirate:';
-$lang['In <i>%s</i>, before <b></b>, insert:'] = 'U <i>%s</i>, pre <b></b>, dodajte:';
+$lang['In <i>%s</i>, before <b>?></b>, insert:'] = 'U <i>%s</i>, pre <b>?></b>, dodajte:';
 ?>

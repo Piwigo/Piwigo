@@ -40,5 +40,4 @@ $lang['User permissions and group permissions have been erased'] = 'مجوز ه�
 $lang['Only thumbnails prefix and webmaster mail address have been saved from previous configuration'] = 'فقط پیشوند عکس های بندانگشتی و آدرس ایمیل مدیرکل از تنظیمات قدیمی باقی خواهد ماند';
 $lang['In <i>%s</i>, before <b>?></b>, insert:'] = 'در <i>%s</i>, قبل از <b>?></b>, اضافه کنید:';
 $lang['As a precaution, following themes have been deactivated. You must check for themes upgrade before reactiving them:'] = 'هشدار، قالب های زیر در حال حاضر از کار افتاده اند. برای امنیت بیشتر، قبل از فعال کردن دوباره ی آن ها باید آپگرید های تازه آنها را بررسی کنید:';
-$lang['In <i>%s</i>, before <b></b>, insert:'] = 'در <i>%s</i>، قبل از <b></b>، اضافه کنید:';
 ?>

@@ -23,7 +23,7 @@
 $lang['All sub-albums of private albums become private'] = 'Toate sub-albumele ale albumelor private devin private';
 $lang['As a precaution, following plugins have been deactivated. You must check for plugins upgrade before reactiving them:'] = 'Ca precatuie urmatoarele pluginuri au fost dezactivate. Trebuie sa le verifici de actualizari inainte de a le activa';
 $lang['As a precaution, following themes have been deactivated. You must check for themes upgrade before reactiving them:'] = 'Ca precautie urmatoarele teme au fost dezactivate. Trebuie sa verifici de actualizari inainte de a le activa.';
-$lang['In <i>%s</i>, before <b></b>, insert:'] = 'In <i>%s</i>, inainte de <b></b>, insert:';
+$lang['In <i>%s</i>, before <b>?></b>, insert:'] = 'In <i>%s</i>, inainte de <b>?></b>, insert:';
 $lang['Only administrator can run upgrade: please sign in below.'] = 'Numai un administrator poate face upgrade. Te rog logheaza-te mai jos.';
 $lang['Only thumbnails prefix and webmaster mail address have been saved from previous configuration'] = 'Numai prefixurile thumbnailurilor si adresa de mail a webmasterului au fost salvate';
 $lang['Perform a maintenance check in [Administration>Tools>Maintenance] if you encounter any problem.'] = 'Ruleaza o verificare de mentenanta in [Administration>Tools>Maintenance] daca intampini probleme';

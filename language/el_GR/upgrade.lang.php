@@ -23,7 +23,7 @@
 $lang['All sub-albums of private albums become private'] = 'Όλα τα υπο-άλμπουμ των ιδιωτικών άλμπουμ γίνονται ιδιωτικά';
 $lang['As a precaution, following plugins have been deactivated. You must check for plugins upgrade before reactiving them:'] = 'Ως προληπτικό μέτρο, οι παρακάτω επεκτάσεις έχουν απενεργοποιηθεί. Θα πρέπει να ελέγξετε για αναβαθμίσεις επεκτάσεων πριν από την επανενεργοποίηση τους:';
 $lang['As a precaution, following themes have been deactivated. You must check for themes upgrade before reactiving them:'] = 'Ως προληπτικό μέτρο, τα ακόλουθα Θέματα έχουν απενεργοποιηθεί. Θα πρέπει να ελέγξετε για  αναβάθμιση Θεμάτων πριν από την επανενεργοποίηση τους:';
-$lang['In <i>%s</i>, before <b></b>, insert:'] = 'Σε <i>%s</ i>, πριν <b></b>, εισάγετε:';
+$lang['In <i>%s</i>, before <b>?></b>, insert:'] = 'Σε <i>%s</ i>, πριν <b>?></b>, εισάγετε:';
 $lang['Only administrator can run upgrade: please sign in below.'] = 'Μόνο ένας διαχειριστής μπορεί να τρέξει αναβάθμιση: Παρακαλώ συνδεθείτε παρακάτω. ';
 $lang['Only thumbnails prefix and webmaster mail address have been saved from previous configuration'] = 'Μόνο τα προθέματα μικρογραφιών και η διεύθυνση ηλεκτρονικού ταχυδρομείου του webmaster έχουν σωθεί από προηγούμενες διαμορφώσεις';
 $lang['Perform a maintenance check in [Administration>Tools>Maintenance] if you encounter any problem.'] = 'Εκτελέστε έναν έλεγχο συντήρησης [Διαχείριση>Εργαλεία>Συντήρηση] Αν αντιμετωπίζετε κάποιο πρόβλημα.';

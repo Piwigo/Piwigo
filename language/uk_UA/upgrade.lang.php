@@ -23,7 +23,7 @@
 $lang['All sub-albums of private albums become private'] = 'Всі вкладені альбоми приватних альбомів стали приватними';
 $lang['As a precaution, following plugins have been deactivated. You must check for plugins upgrade before reactiving them:'] = 'В якості запобіжного заходу, наступні плаґіни були відключені. Ви повинні перевіряти оновлення плагінів до їх відновлення:';
 $lang['As a precaution, following themes have been deactivated. You must check for themes upgrade before reactiving them:'] = 'В якості запобіжного заходу, теми вони були відключені. Ви повинні перевірити оновлення перед тим як активуєте їх:';
-$lang['In <i>%s</i>, before <b></b>, insert:'] = 'В <i>%s</i>, до <b></b>, вставити:';
+$lang['In <i>%s</i>, before <b>?></b>, insert:'] = 'В <i>%s</i>, до <b>?></b>, вставити:';
 $lang['Only administrator can run upgrade: please sign in below.'] = 'Тільки адміністратор може запустити оновлення: увійдіть у систему нижче.';
 $lang['Only thumbnails prefix and webmaster mail address have been saved from previous configuration'] = 'Тільки префікс мініатюр та адресу електронної пошти веб-майстра збережено збережено від попередньої конфігурації';
 $lang['Perform a maintenance check in [Administration>Tools>Maintenance] if you encounter any problem.'] = 'Їх виконає автоматична перевірка в [Адміністрування> Сервіс> Обслуговування], якщо у вас виникнуть якісь проблеми.';
