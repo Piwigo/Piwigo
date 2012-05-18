@@ -407,4 +407,5 @@ $lang['thumb'] = 'عکس بندانگشتی';
 $lang['xlarge'] = 'XL - ';
 $lang['xsmall'] = 'XS - ';
 $lang['xxlarge'] = 'XXL - ';
+$lang['%d rate'] = '%d امتیاز';
 ?>
