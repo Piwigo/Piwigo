@@ -822,4 +822,8 @@ $lang['modified'] = 'ویرایش شد';
 $lang['pending validation'] = 'در انتظار تایید است';
 $lang['registered users'] = 'کاربران';
 $lang['simple visitors'] = 'مهمان';
+$lang['Added by %s'] = 'اضافه شده توسط %s';
+$lang['Original file : %s'] = 'فایل اصلی : %s';
+$lang['Posted %s on %s'] = 'ارسال شده توسط %s در %s';
+$lang['Visited %d times'] = '%s مرتبه نمایش داده شده';
 ?>
