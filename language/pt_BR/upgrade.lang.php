@@ -21,7 +21,9 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
-$lang['Upgrade'] = 'Upgrade';
+
+
+$lang['Upgrade'] = 'Atualização';
 $lang['Upgrade from version %s to %s'] = 'Atualizar da versão %s para a %s';
 $lang['Statistics'] = 'Estatísticas';
 $lang['total upgrade time'] = 'tempo total do upgrade';
@@ -33,11 +35,10 @@ $lang['As a precaution, following plugins have been deactivated. You must check 
 $lang['Only administrator can run upgrade: please sign in below.'] = 'Apenas administrador pode realizar o upgrade: por favor, faça o login logo abaixo.';
 $lang['You do not have access rights to run upgrade'] = 'Você não tem permissões de acesso para realizar o upgrade';
 $lang['In <i>%s</i>, before <b>?></b>, insert:'] = 'Em <i>%s</i>, antes de <b>?></b>, insira:';
-// Upgrade informations from upgrade_1.3.1.php
 $lang['All sub-albums of private albums become private'] = 'All sub-categories of private categories become private';
 $lang['User permissions and group permissions have been erased'] = 'Permissões de usuário e de grupo foram apagadas.';
 $lang['Only thumbnails prefix and webmaster mail address have been saved from previous configuration'] = 'Apenas o prefixo das miniaturas (thumbnails) e o endereço de email do webmaster foram salvos da configuração anterior.';
+$lang['This page proposes to upgrade your database corresponding to your old version of Piwigo to the current version. The upgrade assistant thinks you are currently running a <strong>release %s</strong> (or equivalent).'] = 'Esta página se propõe a atualizar o banco de dados do seu Piwigo de uma versão antiga para uma nova versão. O assistente de atualização detectou que você está rodando uma <strong>distribuição %s</strong> (ou equivalente).'; 
+$lang['As a precaution, following themes have been deactivated. You must check for themes upgrade before reactiving them:'] = 'Como precaução, os seguintes temas foram desativados. Você deve verificar por atualizações dos temas antes de reativa-los:';
 
-//For version 2.1.0
-$lang['This page proposes to upgrade your database corresponding to your old version of Piwigo to the current version. The upgrade assistant thinks you are currently running a <strong>release %s</strong> (or equivalent).'] = "This page proposes to upgrade the database from your Piwigo old version to the new version. The upgrade assistant thinks you are currently running a <strong>release %s</strong> (or equivalent).";
 ?>
