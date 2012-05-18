@@ -403,4 +403,5 @@ $lang['Rating score, high &rarr; low'] = 'Karakter, høy &rarr; lav';
 $lang['Rating score, low &rarr; high'] = 'Karakter, lav &rarr; høy';
 $lang['Visits, high &rarr; low'] = 'Besøk, høy &rarr; lav';
 $lang['Visits, low &rarr; high'] = 'Besøk, lav &rarr; høy';
+$lang['%d rate'] = '%d vurder';
 ?>
