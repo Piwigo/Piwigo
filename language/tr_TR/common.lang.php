@@ -403,4 +403,5 @@ $lang['Rating score, low &rarr; high'] = 'Puan (düşük-yüksek)';
 $lang['View in'] = 'Görüntüle';
 $lang['Visits, high &rarr; low'] = 'Ziyaret edilme (çok-az)';
 $lang['Visits, low &rarr; high'] = 'Ziyaret edilme (az-çok)';
+$lang['%d rate'] = '%d oy';
 ?>
