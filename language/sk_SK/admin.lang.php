@@ -918,4 +918,6 @@ $lang['Rated %d times, score : %.2f'] = 'Hodnotené %d krát, skóre: %.2f';
 $lang['Sharpen'] = 'Zaostriť';
 $lang['Visited %d times'] = 'Zobrazené %d krát';
 $lang['Watermark'] = 'Vodoznak';
+$lang[' and %d virtuals'] = 'a %d virtuálna';
+$lang['%d physicals'] = '%d fizický';
 ?>
