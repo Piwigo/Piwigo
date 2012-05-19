@@ -28,7 +28,7 @@ if (!defined('PHPWG_ROOT_PATH'))
 
 // see http://piwigo.org/doc/doku.php?id=user_documentation:htaccess_and_hotlink_in_2.4
 
-if (!isset($page['errors'])) $page['errors'] = array();
+if (!isset($page['warnings'])) $page['warnings'] = array();
 
 $upgrade_description = 'add/append htaccess for hotlinks';
 $warning_message = 'Failed to modify <b>.htaccess</b> file, a manual intervention is needed, <a href="http://piwigo.org/doc/doku.php?id=user_documentation:htaccess_and_hotlink_in_2.4" target="_blank">click here for more information</a>';
@@ -50,6 +50,7 @@ else
 if (!$writable)
 {
   array_push($page['warnings'], $warning_message);
+  $upgrade_description.= ': failed';
 }
 else
 {
@@ -57,6 +58,7 @@ else
   if (strpos($content, 'RewriteEngine off') !== false)
   {
     array_push($page['warnings'], $warning_message);
+    $upgrade_description.= ': failed';
   }
   else
   {
