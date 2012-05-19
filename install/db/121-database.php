@@ -68,6 +68,16 @@ else
 RewriteEngine on';
     }
     
+    if (!isset($conf['prefix_thumbnail']))
+    {
+      $conf['prefix_thumbnail'] = 'TN-';
+    }
+
+    if (!isset($conf['dir_thumbnail']))
+    {
+      $conf['dir_thumbnail'] = 'thumbnail';
+    }
+    
     $content.= '
 ## redirect <2.4 thumbnails hotlinks to i.php
 RewriteRule ^upload/(.*)/'.preg_quote($conf['dir_thumbnail']).'/'.preg_quote($conf['prefix_thumbnail']).'(.*)\.([a-z0-9]{3,4})$ i.php?/upload/$1/$2-th.$3 [L]
