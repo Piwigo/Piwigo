@@ -404,4 +404,5 @@ $lang['Numeric identifier, 1 &rarr; 9'] = 'Αριθμητικό αναγνωρι
 $lang['Numeric identifier, 9 &rarr; 1'] = 'Αριθμητικό αναγνωριστικό, 9 &rarr; 1';
 $lang['Manual sort order'] = 'Χειροκίνητη ταξινόμηση'; 
 
+$lang['%d rate'] = '%d βαθμολόγηση';
 ?>
