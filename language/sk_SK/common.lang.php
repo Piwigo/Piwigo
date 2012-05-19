@@ -413,4 +413,5 @@ $lang['Rating score, high &rarr; low'] = 'Hodnotenie, vysoké &rarr; nízke';
 $lang['Rating score, low &rarr; high'] = 'Hodnotenie, nízke &rarr; vysoké';
 $lang['Visits, high &rarr; low'] = 'Zobrazenia, vysoké &rarr; nízke';
 $lang['Visits, low &rarr; high'] = 'Zobrazenia, nízke &rarr; vysoké';
+$lang['%d rate'] = '%d hodnotené';
 ?>
