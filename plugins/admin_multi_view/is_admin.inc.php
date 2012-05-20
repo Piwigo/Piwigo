@@ -27,9 +27,15 @@ if (! defined('MULTIVIEW_CONTROLLER') )
     $conf['debug_template'] = true;
   if (!pwg_get_session_var( 'multiview_template_combine_files', 1 ))
     $conf['template_combine_files'] = false;
-		if (pwg_get_session_var( 'multiview_no_history', 0 ))
-  {
+  if (pwg_get_session_var( 'multiview_no_history', 0 ))
     add_event_handler( 'pwg_log_allowed', create_function( '', 'return false;' ) );
+
+  if (pwg_get_session_var( 'purge_template', 0 ))
+  {
+    global $template;
+    $template->delete_compiled_templates();
+    FileCombiner::clear_combined_files();
+    pwg_unset_session_var( 'purge_template' );
   }
 }
 
@@ -41,7 +47,7 @@ function multiview_loc_end_page_header()
   $my_root_url = get_root_url().'plugins/'. basename(dirname(__FILE__)).'/';
   $js =
 '<script type="text/javascript">
-var theController = window.open("", "mview_controller", "alwaysRaised=yes,dependent=yes,toolbar=no,height=200,width=220,menubar=no,resizable=yes,scrollbars=yes,status=no");
+var theController = window.open("", "mview_controller", "alwaysRaised=yes,dependent=yes,toolbar=no,height=230,width=220,menubar=no,resizable=yes,scrollbars=yes,status=no");
 if ( theController.location.toString()=="about:blank" || !theController.location.toString().match(/^(https?.*\/)controller\.php(\?.+)?$/))
 {
   theController.location = "'.$my_root_url.'controller.php";

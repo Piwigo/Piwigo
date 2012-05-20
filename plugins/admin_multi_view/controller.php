@@ -103,6 +103,12 @@ if ( isset($_GET['no_history']) )
   $refresh_main = true;
 }
 
+if ( isset($_GET['purge_template']) )
+{
+  pwg_set_session_var( 'purge_template', 1 );
+  $refresh_main = true;
+}
+
 $my_url = get_root_url().'plugins/'.basename(dirname(__FILE__)).'/'.basename(__FILE__);
 
 // +-----------------------------------------------------------------------+
@@ -238,6 +244,7 @@ if (window.opener==null) {
 <tr><td>Lang</td><td><?php echo $lang_html; ?></td></tr>
 </table>
 <?php echo implode( "<br/>\n", array($show_queries_html, $debug_l10n_html, $debug_template_html, $template_combine_files_html, $no_history_html) ); ?>
+<br/><a href="<?php echo $my_url; ?>?purge_template">Purge compiled templates</a>
 
 <script type="text/javascript">
 <?php

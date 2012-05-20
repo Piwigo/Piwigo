@@ -30,7 +30,7 @@ Author: Piwigo team
 Author URI: http://piwigo.org
 */
 
-add_event_handler('user_init', 'multiview_user_init' );
+add_event_handler('init', 'multiview_user_init' );
 
 function multiview_user_init()
 {
