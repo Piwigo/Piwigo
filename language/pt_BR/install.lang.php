@@ -65,4 +65,13 @@ $lang['Sorry!'] = 'Lamento!';
 $lang['Piwigo was not able to configure PHP 5.'] = 'Piwigo não teve condições de configurar o PHP 5.';
 $lang["You may referer to your hosting provider's support and see how you could switch to PHP 5 by yourself."] = "Você deve entrar em contato com o suporte do seu provedor e ver como você poderia mudar para PHP 5 por conta própria.";
 $lang['Hope to see you back soon.'] = 'Espero te ver de volta em breve.';
+$lang['An alternate solution is to copy the text in the box above and paste it into the file "local/config/database.inc.php" (Warning : database.inc.php must only contain what is in the textarea, no line return or space character)'] = 'Uma solução alternativa é copiar o texto na caixa acima e cole-o no arquivo "local/config/database.inc.php" (Atenção: database.inc.php deve conter apenas o que está na área de texto, sem retorno de linha ou caractere de espaço)';
+$lang['Congratulations, Piwigo installation is completed'] = 'Parabéns, a instalção do Piwigo foi completada.  ';
+$lang['Creation of config file local/config/database.inc.php failed.'] = 'Criação do arquivo de configuração local/config/database.inc.php falhou.';
+$lang['Don\'t hesitate to consult our forums for any help : %s'] = 'Não hesite em consultar os nossos fóruns para qualquer ajuda: %s';
+$lang['Download the config file'] = 'Baixar o arquivo de configuração.';
+$lang['Just another Piwigo gallery'] = 'Apenas outra galeria Piwigo.';
+$lang['Welcome to my photo gallery'] = 'Bem-Vindo a minha galeria de fotos.';
+$lang['Welcome to your new installation of Piwigo!'] = 'Bem-Vindo a sua nova instalação do Piwigo.';
+$lang['You can download the config file and upload it to local/config directory of your installation.'] = 'Você pode baixar o arquivo de configuração e colocá-lo na pasta local/config de sua instalação.';
 ?>
