@@ -405,4 +405,5 @@ $lang['Numeric identifier, 9 &rarr; 1'] = 'Identigilo, 9 &rarr; 1';
 $lang['Manual sort order'] = 'Permana ordigado';
 
 
+$lang['%d rate'] = '%d taksado';
 ?>
