@@ -918,4 +918,6 @@ $lang['Rated %d times, score : %.2f'] = 'bedømt %d gange, vurdering:%.2f';
 $lang['Sharpen'] = 'Gør skarp';
 $lang['Visited %d times'] = 'besøgt %d antal gange';
 $lang['Watermark'] = 'Vandmærke';
+$lang[' and %d virtuals'] = 'og %d virtuel';
+$lang['%d physicals'] = '%d fysisk';
 ?>
