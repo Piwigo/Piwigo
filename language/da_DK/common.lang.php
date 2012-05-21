@@ -405,4 +405,5 @@ $lang['Numeric identifier, 1 &rarr; 9'] = 'Numerisk identifikation, 1 &rarr; 9';
 $lang['Numeric identifier, 9 &rarr; 1'] = 'Numerisk identifikation, 9 &rarr; 1'; 
 $lang['Manual sort order'] = 'Manuel sorterings orden';
 
+$lang['%d rate'] = '%d bedømmelse';
 ?>
