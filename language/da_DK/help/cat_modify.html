@@ -1,23 +1,23 @@
-<h2>Rediger album</h2>
+<h2>Rediger kategori</h2>
 
 <h3>Information</h3>
 
 <ul>
- <li><strong>navn</strong>: omd&oslash;be album (en virtuel omd&oslash;be i tilf&aelig;lde af af et fysisk album).</li>
+ <li><strong>navn</strong>: omd&oslash;be kategori (en virtuel omd&oslash;be i tilf&aelig;lde af af en fysisk kategori).</li>
  <li><strong>beskrivelse </strong>: kort tekst giver en generel id&eacute; om indholdet, denne tekst vil blive vist nederst p&aring; miniaturerbillede siden.</li>
 </Ul>
 
 <h3>Flyt</h3>
 
-<p>Hvis albummet er virtuel, kan du flytte den. Flytning af et album betyder
-&aelig;ndre dets overordenet album.</p>
+<p>Hvis kategorien er virtuel, kan du flytte den. Flytning af en kategori betyder
+&aelig;ndre dens overordnede kategori.</p>
 
 <h3>Valg mulighedder</h3>
 
 <ul>
- <li><strong>Adgangstype</strong>: Tilladelses styring. Hvis du laver et album privat, vil alle dens underordnede albums blive private. Hvis du laver et album offentligt, vil alle dets overordenet albums bliver offentligte.</li>
- <li><strong>L&aring;s</strong>: Albummet og dens underalbummer vil v&aelig;re midlertidig deaktiveret for vedligeholdelse.</li>
- <li><strong>kommentarer</strong>: Tillad brugere at kommentere billeder i dette album.</li>
+ <li><strong>Adgangstype</strong>: Tilladelses styring. Hvis du laver en kategori privat, vil alle dens underordnede kategorier blive private. Hvis du laver en kategori offentlig, vil alle dens overordenede kategorier bliver offentlige.</li>
+ <li><strong>L&aring;s</strong>: Kategorien og dens underkategorier vil v&aelig;re midlertidig deaktiveret for vedligeholdelse.</li>
+ <li><strong>kommentarer</strong>: Tillad brugere at kommentere billeder i denne kategori.</li>
 </Ul>
 
 <p>Du kan ogs&aring; administrere disse valg muligheder i "Egenskaber" p&aring; styringsoversigt sk&aelig;rmen 
@@ -26,15 +26,15 @@
 <span class="pwgScreen">l&aring;s</span>, 
 <span class="pwgScreen">Offentlig /Privat</span>, 
 <span class="pwgScreen">repr&aelig;sentant</span> f&aring;s fra 
-<span class="pwgScreen">Administration &raquo; &raquo;Albums&raquo; &raquo; Egenskaber</span>). </p>
+<span class="pwgScreen">Administration &raquo; &raquo;Kategorier&raquo; &raquo; Egenskaber</span>). </p>
 
 <h3>Sorteringsr&aelig;kkef&oslash;lge</h3>
 
 <p>Brug standard billede sorteringsr&aelig;kkef&oslash;lgen.</p>
 
-<p>Angiv, om denne sorteringsr&aelig;kkef&oslash;lge vil g&aelig;lde for underalbummer ogs&aring;.</p>
+<p>Angiv, om denne sorteringsr&aelig;kkef&oslash;lge vil g&aelig;lde for underkategorier ogs&aring;.</p>
 
-<p>V&aelig;lg specifik sorteringskriterie, der skal bruges med dette album.</p>
+<p>V&aelig;lg specifik sorteringskriterie, der skal bruges med denne kategori.</p>
 
 <ul>
 <li><strong>Oprettelsesdato</strong>: Foto optagelsesdato</li>
@@ -50,22 +50,22 @@
 
 <h3>repr&aelig;sentanten</h3>
 
-<p>Albummet repr&aelig;sentant er miniaturenbilledet der vises p&aring; hovedsiden (<span class="pwgScreen"> category.php </span>) til at repr&aelig;sentere
-albummet, n&aring;r det kun indeholder underalbummer og ingen direkte foto (ligesom roden album). </p>
-foto af et album:</p>
+<p>Kategori repr&aelig;sentant er miniaturebilledet der vises p&aring; hovedsiden (<span class="pwgScreen"> category.php </span>) til at repr&aelig;sentere
+kategorien, n&aring;r det kun indeholder underkategorier og ingen direkte foto (ligesom roden album). </p>
+foto af en kategori:</p>
 
 <ul>
-  <li><span class="pwgScreen">Foto side</span> : en af de actions knapper kan du indstille til at s&aelig;tte det aktuelle billede som repr&aelig;sentant for viste album. Denne knap er kun tilg&aelig;ngelig for administratorer.</Li>
+  <li><span class="pwgScreen">Foto side</span> : en af de actions knapper kan du indstille til at s&aelig;tte det aktuelle billede som repr&aelig;sentant for viste kategori. Denne knap er kun tilg&aelig;ngelig for administratorer.</Li>
   <li><span class="pwgScreen">&aelig;ndre informationer om et foto</span> i administration. Denne sk&aelig;rm kan n&aring;s fra <span class="pwgScreen">picture.php</span> eller <span class="pwgScreen">Batch ledelse</span> i <em>enheds tilstand</em> .Se hj&aelig;lp af denne sk&aelig;rm for detaljer.</li>
-  <li><span class="pwgScreen">Administration &raquo; Albummer  &raquo; Egenskaber,  Repr&aelig;sentant</span>. Se hj&aelig;lp af denne sk&aelig;rm for yderligere oplysninger. </Li>
-  <li><span class="pwgScreen">Rediger album</span> (den nuv&aelig;rende sk&aelig;rmen).</li>
+  <li><span class="pwgScreen">Administration &raquo; Kategorier  &raquo; Egenskaber,  Repr&aelig;sentant</span>. Se hj&aelig;lp af denne sk&aelig;rm for yderligere oplysninger. </Li>
+  <li><span class="pwgScreen">Rediger kategori</span> (den nuv&aelig;rende sk&aelig;rmen).</li>
 </Ul>
 
 <p>Valget af en repr&aelig;sentativ afh&aelig;nger af <code>allow_random_representative</code>-konfigurations parameter (se <span class="filnavn">inkludere /config_default.inc.php</span>).</p>
 
 <p>I standardtilstand (<code>allow_random_representative</code> sat til falsk),
-hvert album indeholder mindst &eacute;t element er repr&aelig;senteret ved et fast
-element. N&aring;r de er indstillet (ved album oprettelse), &aelig;ndres repr&aelig;sentanten kun
+hver kategori indeholder mindst &eacute;t element er repr&aelig;senteret ved et fast
+element. N&aring;r de er indstillet (ved kategori oprettelse), &aelig;ndres repr&aelig;sentanten kun
 n&aring;r en administrator beder om det. Hvis repr&aelig;sentanten ikke er hensigtsm&aelig;ssigt,
 kan du bede om at <strong>Finde en ny tilf&aelig;ldig repr&aelig;sentant</strong>.</p>
 
@@ -73,25 +73,25 @@ kan du bede om at <strong>Finde en ny tilf&aelig;ldig repr&aelig;sentant</strong
 sat til sand, kan en kategori, der indeholder billeder have ingen fast
 repr&aelig;sentanten. Bare brug <strong>Slet repr&aelig;sentanten</strong> knappen.</P>
 
-<p>Hvis albummet kun indeholder underalbummer og ingen foto, kan det alligevel v&aelig;re repr&aelig;senteret af nogle elementer takket v&aelig;re <span class="pwgScreen">&AElig;ndre informationer om et foto</span> sk&aelig;rmen. 
+<p>Hvis kategorien kun indeholder underkategorier og ingen foto, kan det alligevel v&aelig;re repr&aelig;senteret af nogle elementer takket v&aelig;re <span class="pwgScreen">&AElig;ndre informationer om et foto</span> sk&aelig;rmen. 
 Den eneste mulighed p&aring; den aktuelle sk&aelig;rm er <strong>Slet repr&aelig;sentanten</strong> knappen.</p>
 
-<h3> Link alle album billeder til et nyt album </h3>
+<h3> Link alle kategori billeder til en ny kategori </h3>
 
 <ul>
 
-<li><strong>Virtual album navn</strong>: Navnet p&aring; det nye album, der skal oprettes,
+<li><strong>Virtual kategori navn</strong>: Navnet p&aring; den nye kategori, der skal oprettes,
 alle billeder fra denne kategori vil blive knyttet til den nye.</li>
 
-<li><strong>Hoved album</strong>: Hvor det nye album vil v&aelig;re, lad st&aring; tomt for at skabe den ved roden.</li>
+<li><strong>Hoved kategori</strong>: Hvor den nye kategori vil v&aelig;re, lad st&aring; tomt for at skabe den ved roden.</li>
 
 </Ul>
 
-<h3>Link alle album billeder til eksisterende album</h3>
+<h3>Link alle kategori billeder til eksisterende kategori</h3>
 
 <ul>
 
-<li><strong>Albummer</strong>: V&aelig;lg destinationen album</li>.
+<li><strong>Kategorier</strong>: V&aelig;lg destinationen kategori</li>.
 
 </Ul>
 
