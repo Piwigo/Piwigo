@@ -62,6 +62,9 @@ else
   }
   else
   {
+    $content.= '
+<IfModule mod_rewrite.c>';
+
     if (strpos($content, 'RewriteEngine on') === false)
     {
       $content.='
@@ -91,7 +94,8 @@ RewriteRule ^galleries/(.*)/pwg_high/(.*)\.([a-z0-9]{3,4})$ galleries/$1/$2.$3 [
 RewriteCond %{HTTP_REFERER} !^http(s)?://(www\.)?'.preg_quote($_SERVER['SERVER_NAME']).'/.*$ [NC]
 RewriteRule ^upload/(.*)/(.*)\.([a-z0-9]{3,4})$ i.php?/upload/$1/$2-me.$3 [L]
 RewriteCond %{HTTP_REFERER} !^http(s)?://(www\.)?'.preg_quote($_SERVER['SERVER_NAME']).'/.*$ [NC]
-RewriteRule ^galleries(.*)/(.*)\.([a-z0-9]{3,4})$ i.php?/galleries/$1/$2-me.$3 [L]';
+RewriteRule ^galleries(.*)/(.*)\.([a-z0-9]{3,4})$ i.php?/galleries/$1/$2-me.$3 [L]
+</IfModule>';
     
     file_put_contents($htaccess, $content);
   }
