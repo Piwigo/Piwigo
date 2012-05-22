@@ -913,4 +913,9 @@ $lang['Rated %d times, score : %.2f'] = 'Vurdert %d ganger, poeng: %.2f';
 $lang['Sharpen'] = 'Gjør skarpere';
 $lang['Visited %d times'] = 'Sett %s ganger';
 $lang['Watermark'] = 'Vannmerke';
+$lang[' and %d virtuals'] = 'og %d virtuell';
+$lang['%d physicals'] = '%d fysisk';
+$lang['%d week'] = '%d uke';
+$lang['%d weeks'] = '%d uker';
+$lang['Edit photo'] = 'Endre bilde';
 ?>
