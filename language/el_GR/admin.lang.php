@@ -921,4 +921,7 @@ $lang['visitors need to login and have the appropriate permissions to see this a
 $lang['width must be a number superior to'] = 'πλάτος πρέπει να είναι ένας αριθμός μεγαλύτερο από ό, τι';
 $lang['wrong filename'] = 'λανθασμένο όνομα αρχείου';
 $lang['%d physicals'] = '%d πραγματικά';
+$lang['%d week'] = '%d εβδομάδα';
+$lang['%d weeks'] = '%d εβδομάδες';
+$lang['Edit photo'] = 'Επεξεργασία φωτογραφίας';
 ?>
