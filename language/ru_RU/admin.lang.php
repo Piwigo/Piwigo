@@ -919,4 +919,7 @@ $lang['Visited %d times'] = 'Просмотров: %d';
 $lang['Watermark'] = 'Водяной знак';
 $lang[' and %d virtuals'] = ' и виртуальных: %d';
 $lang['%d physicals'] = 'реальных: %d';
+$lang['%d week'] = '%d недель';
+$lang['%d weeks'] = '%d недель';
+$lang['Edit photo'] = 'Редактировать фото';
 ?>
