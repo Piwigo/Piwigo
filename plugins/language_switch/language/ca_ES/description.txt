@@ -1,1 +1,1 @@
-Canvia fàcilment l'idioma de la galeria. Es mostren banderes com a símbol dels idiomes. Mostra els idiomes disponibles.
+Canvia fàcilment l'idioma de la galeria. Es mostren banderes com a símbol dels idiomes disponibles.
