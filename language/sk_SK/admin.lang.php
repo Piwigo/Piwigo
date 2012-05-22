@@ -920,4 +920,7 @@ $lang['Visited %d times'] = 'Zobrazené %d krát';
 $lang['Watermark'] = 'Vodoznak';
 $lang[' and %d virtuals'] = 'a %d virtuálna';
 $lang['%d physicals'] = '%d fizický';
+$lang['%d week'] = '%d týždeň';
+$lang['%d weeks'] = '%d týždňov';
+$lang['Edit photo'] = 'Upraviť fotku';
 ?>
