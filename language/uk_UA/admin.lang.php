@@ -915,4 +915,7 @@ $lang['Visited %d times'] = 'Відвідали %d разів';
 $lang['Watermark'] = 'Водяний знак';
 $lang[' and %d virtuals'] = 'та %d віртуальні';
 $lang['%d physicals'] = '%d фізичні';
+$lang['%d weeks'] = '%d тижнів';
+$lang['%d week'] = '%d тиждень';
+$lang['Edit photo'] = 'Редагувати фото';
 ?>
