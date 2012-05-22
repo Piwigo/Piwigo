@@ -920,4 +920,7 @@ $lang['Rated %d times, score : %.2f'] = 'Bewertet %d mal, Wertung: %.2f';
 $lang['Sharpen'] = 'Schärfen';
 $lang['Visited %d times'] = 'Besucht %d mal';
 $lang['Watermark'] = 'Wasserzeichen';
+$lang['%d week'] = '%d Woche';
+$lang['%d weeks'] = '%d Wochen';
+$lang['Edit photo'] = 'Foto bearbeiten';
 ?>
