@@ -910,6 +910,8 @@ $lang['%d year'] = '%d anno';
 $lang['%d years'] = '%d anni';
 $lang['%d month'] = '%d mese';
 $lang['%d months'] = '%d mesi';
+$lang['%d week'] = '%d settimana';
+$lang['%d weeks'] = '%d settimane';
 $lang['%d day'] = '%d giorno';
 $lang['%d days'] = '%d giorni';
 $lang['%d hour'] = '%d ora';
@@ -919,4 +921,5 @@ $lang['%d minutes'] = '%d minuti';
 $lang['%d second'] = '%d secondo';
 $lang['%d seconds'] = '%d secondi';
 $lang['Sharpen'] = 'Evidenziare';
+$lang['Edit photo'] = 'Modificare la foto';
 ?>
