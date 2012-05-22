@@ -919,4 +919,7 @@ $lang['Visited %d times'] = '%d keer bezocht';
 $lang['Watermark'] = 'Watermerk';
 $lang[' and %d virtuals'] = 'en %d virtueel';
 $lang['%d physicals'] = '%d fysiek';
+$lang['%d week'] = '%d week';
+$lang['%d weeks'] = '%d weken';
+$lang['Edit photo'] = 'foto aanpassen';
 ?>
