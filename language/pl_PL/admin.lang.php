@@ -917,4 +917,7 @@ $lang['Visited %d times'] = 'Odwiedzone %s razy';
 $lang['Watermark'] = 'Znak wodny';
 $lang[' and %d virtuals'] = 'i %d wirtualna';
 $lang['%d physicals'] = '%d fizycznych';
+$lang['%d week'] = '%d tydzień';
+$lang['%d weeks'] = '%d tygodnie';
+$lang['Edit photo'] = 'Edycja zdjęcia';
 ?>
