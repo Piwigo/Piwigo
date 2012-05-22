@@ -916,4 +916,7 @@ $lang['Rated %d times, score : %.2f'] = 'Puntuado %d veces, puntuación: %.2f';
 $lang['Sharpen'] = 'Enfocar';
 $lang['Visited %d times'] = 'Visto %d veces';
 $lang['Watermark'] = 'Marca de agua';
+$lang['%d week'] = '%d semana';
+$lang['%d weeks'] = '% semanas';
+$lang['Edit photo'] = 'Editar foto';
 ?>
