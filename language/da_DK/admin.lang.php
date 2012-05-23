@@ -920,4 +920,7 @@ $lang['Visited %d times'] = 'besøgt %d antal gange';
 $lang['Watermark'] = 'Vandmærke';
 $lang[' and %d virtuals'] = 'og %d virtuel';
 $lang['%d physicals'] = '%d fysisk';
+$lang['%d week'] = '%d uge';
+$lang['%d weeks'] = '%d uger';
+$lang['Edit photo'] = 'Rediger foto';
 ?>
