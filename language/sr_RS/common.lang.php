@@ -404,4 +404,5 @@ $lang['Numeric identifier, 1 &rarr; 9'] = 'Бројчана променљива
 $lang['Numeric identifier, 9 &rarr; 1'] = 'Бројчана променљива, 9 &rarr; 1';
 $lang['Manual sort order'] = 'Ручно уређени редослед'; 
 
+$lang['%d rate'] = '%d однос';
 ?>
