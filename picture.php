@@ -149,6 +149,8 @@ trigger_action('loc_begin_picture');
 // this is the default handler that generates the display for the element
 function default_picture_content($content, $element_info)
 {
+  global $conf;
+  
   if ( !empty($content) )
   {// someone hooked us - so we skip;
     return $content;
@@ -162,7 +164,7 @@ function default_picture_content($content, $element_info)
     }
     setcookie('picture_deriv', false, 0, cookie_path() );
   }
-  $deriv_type = pwg_get_session_var('picture_deriv', IMG_LARGE);
+  $deriv_type = pwg_get_session_var('picture_deriv', $conf['derivative_default_size']);
   $selected_derivative = $element_info['derivatives'][$deriv_type];
 
   $unique_derivatives = array();
@@ -938,10 +940,20 @@ if (isset($picture['next'])
     and $picture['next']['src_image']->is_original()
     and strpos($_SERVER['HTTP_USER_AGENT'], 'Chrome/') === false)
 {
-  $template->assign('U_PREFETCH', $picture['next']['derivatives'][pwg_get_session_var('picture_deriv', IMG_LARGE)]->get_url() );
+  $template->assign(
+    'U_PREFETCH',
+    $picture['next']['derivatives'][pwg_get_session_var('picture_deriv', $conf['derivative_default_size'])]->get_url()
+    );
 }
 
-$template->assign('U_CANONICAL', make_picture_url( array('image_id'=>$picture['current']['id'], 'image_file'=>$picture['current']['file']) ) );
+$template->assign(
+  'U_CANONICAL',
+  make_picture_url(
+    array(
+      'image_id' => $picture['current']['id'],
+      'image_file' => $picture['current']['file'])
+    )
+  );
 
 // +-----------------------------------------------------------------------+
 // |                               sub pages                               |

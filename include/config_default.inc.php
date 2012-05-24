@@ -760,4 +760,7 @@ $conf['upload_form_automatic_rotation'] = true;
 $conf['derivative_url_style']=0;
 
 $conf['chmod_value']= substr_compare(PHP_SAPI, 'apa', 0, 3)==0 ? 0777 : 0755;
+
+// 'small', 'medium' or 'large'
+$conf['derivative_default_size'] = 'medium';
 ?>
