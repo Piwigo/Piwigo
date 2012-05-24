@@ -920,4 +920,7 @@ $lang['Visited %d times'] = 'Megtekintve %d alkalommal';
 $lang['Watermark'] = 'Vízjel';
 $lang[' and %d virtuals'] = ' és %d virtuális';
 $lang['%d physicals'] = ' %d fizikai';
+$lang['%d week'] = '%d hét';
+$lang['%d weeks'] = '%d hét';
+$lang['Edit photo'] = 'Kép szerkesztése';
 ?>
