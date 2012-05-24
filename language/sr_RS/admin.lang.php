@@ -805,4 +805,9 @@ $lang['middle'] = 'средина';
 $lang['show details'] = 'прикажи појединости';
 $lang['top left corner'] = 'горњи леви угао';
 $lang['top right corner'] = 'горњи десни угао';
+$lang['Groups and users'] = 'Групе и корисници';
+$lang['Original Size'] = 'Почетна величина';
+$lang['Photo %s of %s'] = 'Слика %s од %s';
+$lang['Start Upload'] = 'Почни пренос';
+$lang['This album contains no photo.'] = 'Албум не садржи фотографије';
 ?>
