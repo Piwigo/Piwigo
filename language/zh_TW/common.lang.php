@@ -404,4 +404,5 @@ $lang['Visits, low &rarr; high'] = '點閱率, 低 &rarr; 高';
 $lang['Numeric identifier, 1 &rarr; 9'] = '數字標識符, 1 &rarr; 9';
 $lang['Numeric identifier, 9 &rarr; 1'] = '數字標識符, 9 &rarr; 1';
 $lang['Manual sort order'] = '手動排序';
+$lang['%d rate'] = '%d 比率';
 ?>

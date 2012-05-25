@@ -915,5 +915,8 @@ $lang['%d minutes'] = '%d 分鐘';
 $lang['%d second'] = '%d 秒';
 $lang['%d seconds'] = '%d 秒';
 $lang['Sharpen'] = '銳化';
+$lang['%d week'] = '%d 週';
+$lang['%d weeks'] = '%d 週';
+$lang['Edit photo'] = '編輯相片';
 
 ?>
