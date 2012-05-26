@@ -200,30 +200,6 @@ function mkgetdir($dir, $flags=MKGETDIR_DEFAULT)
   return true;
 }
 
-/**
- * returns thumbnail directory name of input diretoty name
- * make thumbnail directory is necessary
- * set error messages on array messages
- *
- * @param:
- *  string $dirname
- *  arrayy $errors
- * @return bool false on error else string directory name
- */
-function mkget_thumbnail_dir($dirname, &$errors)
-{
-  global $conf;
-
-  $tndir = $dirname.'/'.$conf['dir_thumbnail'];
-  if (! mkgetdir($tndir, MKGETDIR_NONE) )
-  {
-    array_push($errors,
-          '['.$dirname.'] : '.l10n('no write access'));
-    return false;
-  }
-  return $tndir;
-}
-
 /* Returns true if the string appears to be encoded in UTF-8. (from wordpress)
  * @param string Str
  */
