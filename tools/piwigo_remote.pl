@@ -3,14 +3,7 @@
 ####
 # Usage examples
 #
-# time perl piwigo_remote.pl \
-#   --action=pwg.images.add \
-#   --file=erwann_rocher-web.jpg \
-#   --thumb=erwann_rocher-thumb.jpg \
-#   --high=erwann_rocher-high.jpg \
-#   --original=erwann_rocher-high.jpg \
-#   --define categories=9 \
-#   --chunk_size=200_000
+# perl piwigo_remote.pl --action=pwg.images.add --file=erwann_rocher-web.jpg --define categories=9
 
 use strict;
 use warnings;
@@ -28,8 +21,6 @@ GetOptions(
     qw/
           action=s
           file=s
-          thumbnail=s
-          high=s
           original=s
           categories=s
           chunk_size=i
@@ -88,7 +79,12 @@ if ($opt{action} eq 'pwg.images.add') {
     $form = {};
     $form->{method} = $opt{action};
 
-    my $original_sum = file_md5_hex($opt{original});
+    my $original = $opt{file};
+    if (defined $opt{original}) {
+        $original = $opt{original};
+    }
+
+    my $original_sum = file_md5_hex($original);
     $form->{original_sum} = $original_sum;
 
     send_chunks(
@@ -97,22 +93,6 @@ if ($opt{action} eq 'pwg.images.add') {
         original_sum => $original_sum,
     );
     $form->{file_sum} = file_md5_hex($opt{file});
-
-    send_chunks(
-        filepath => $opt{thumbnail},
-        type => 'thumb',
-        original_sum => $original_sum,
-    );
-    $form->{thumbnail_sum} = file_md5_hex($opt{thumbnail});
-
-    if (defined $opt{high}) {
-        send_chunks(
-            filepath => $opt{high},
-            type => 'high',
-            original_sum => $original_sum,
-        );
-        $form->{high_sum} = file_md5_hex($opt{high});
-    }
 
     foreach my $key (keys %{ $opt{define} }) {
         $form->{$key} = $opt{define}{$key};
