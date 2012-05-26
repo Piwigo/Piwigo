@@ -914,4 +914,7 @@ $lang['%d minutes'] = '%d minūtes';
 $lang['%d second'] = '%d sekunde';
 $lang['%d seconds'] = '%d sekundes';
 $lang['Sharpen'] = 'Uzspicēts';
+$lang['%d week'] = '%d nedēļa';
+$lang['%d weeks'] = '%d nedēļas';
+$lang['Edit photo'] = 'Rediģēt foto';
 ?>
