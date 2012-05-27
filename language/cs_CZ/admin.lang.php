@@ -924,4 +924,7 @@ $lang['Rated %d times, score : %.2f'] = 'Hodnoceno %d-krát, hodnocení: %.2f';
 $lang['Sharpen'] = 'Doostřit';
 $lang['Visited %d times'] = 'Navštíveno %d-krát';
 $lang['Watermark'] = 'Vodoznak';
+$lang['%d week'] = '%d týden';
+$lang['%d weeks'] = '%d týdny';
+$lang['Edit photo'] = 'Upravit foto';
 ?>
