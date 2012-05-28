@@ -404,4 +404,8 @@ $lang['Rating score, low &rarr; high'] = 'Note, basse &rarr; haute';
 $lang['Visits, high &rarr; low'] = 'Nombre de visites, élevé &rarr; faible';
 $lang['Visits, low &rarr; high'] = 'Nombre de visites, faible &rarr; élevé';
 $lang['%d rate'] = '%d note';
+$lang['Page not found'] = 'Page non trouvée';
+$lang['Bad request'] = 'Mauvaise requête';
+$lang['Forbidden'] = 'Interdit';
+$lang['Requested album does not exist'] = 'L\'album demandé n\'existe pas';
 ?>
