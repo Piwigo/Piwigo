@@ -485,7 +485,7 @@ function parse_section_url( $tokens, &$next_token)
           }
           else
           {
-            page_not_found('Permalink for album not found');
+            page_not_found(l10n('Permalink for album not found'));
           }
         }
       }
@@ -496,7 +496,7 @@ function parse_section_url( $tokens, &$next_token)
       $result = get_cat_info($page['category']);
       if (empty($result))
       {
-        page_not_found('Requested category does not exist' );
+         page_not_found(l10n('Requested album does not exist'));
       }
       $page['category']=$result;
     }
@@ -541,7 +541,7 @@ function parse_section_url( $tokens, &$next_token)
     $page['tags'] = find_tags($requested_tag_ids, $requested_tag_url_names);
     if ( empty($page['tags']) )
     {
-      page_not_found('Requested tag does not exist', get_root_url().'tags.php' );
+      page_not_found(l10n('Requested tag does not exist'), get_root_url().'tags.php' );
     }
   }
   elseif ( 'favorites' == @$tokens[$next_token] )

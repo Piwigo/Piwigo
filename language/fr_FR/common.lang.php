@@ -407,5 +407,8 @@ $lang['%d rate'] = '%d note';
 $lang['Page not found'] = 'Page non trouvée';
 $lang['Bad request'] = 'Mauvaise requête';
 $lang['Forbidden'] = 'Interdit';
+$lang['Piwigo encountered a non recoverable error'] = 'Piwigo a rencontré une erreur non récupérable';
 $lang['Requested album does not exist'] = 'L\'album demandé n\'existe pas';
+$lang['Permalink for album not found'] = 'Permalink pour l\'album non trouvé';
+$lang['Requested tag does not exist'] = 'Le tag demandée n\'existe pas';
 ?>
