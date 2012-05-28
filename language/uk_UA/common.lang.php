@@ -404,4 +404,10 @@ $lang['Rating score, low &rarr; high'] = 'Рейтинговий бал, від 
 $lang['Visits, high &rarr; low'] = 'Переглядів, більше &rarr; менше';
 $lang['Visits, low &rarr; high'] = 'Перегляди, менше &rarr; більше';
 $lang['%d rate'] = '%d рейтингу';
+$lang['Bad request'] = 'Неправильний запит';
+$lang['Forbidden'] = 'Заборонено';
+$lang['Page not found'] = 'Сторінку не знайдено';
+$lang['Permalink for album not found'] = 'Постійне посилання для альбом не знайдено';
+$lang['Requested album does not exist'] = 'Запитуваний альбом не існує';
+$lang['Requested tag does not exist'] = 'Запитуваний теґ не існує';
 ?>
