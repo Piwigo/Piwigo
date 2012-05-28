@@ -410,4 +410,5 @@ $lang['Forbidden'] = 'Forbidden';
 $lang['Piwigo encountered a non recoverable error'] = 'Piwigo encountered a non recoverable error';
 $lang['Requested album does not exist'] = 'Requested album does not exist';
 $lang['Permalink for album not found'] = 'Permalink for album not found';
+$lang['Requested tag does not exist'] = 'Requested tag does not exist';
 ?>

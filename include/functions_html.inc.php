@@ -342,12 +342,11 @@ function access_denied()
 function page_forbidden($msg, $alternate_url=null)
 {
   set_status_header(403);
-  $forbidden=l10n('Forbidden');
   if ($alternate_url==null)
     $alternate_url = make_index_url();
   redirect_html( $alternate_url,
     '<div style="text-align:left; margin-left:5em;margin-bottom:5em;">
-<h1 style="text-align:left; font-size:36px;">'.$forbidden.'</h1><br>'
+<h1 style="text-align:left; font-size:36px;">'.l10n('Forbidden').'</h1><br>'
 .$msg.'</div>',
     5 );
 }
@@ -360,12 +359,11 @@ function page_forbidden($msg, $alternate_url=null)
 function bad_request($msg, $alternate_url=null)
 {
   set_status_header(400);
-  $bad=l10n('Bad request');
   if ($alternate_url==null)
     $alternate_url = make_index_url();
   redirect_html( $alternate_url,
     '<div style="text-align:left; margin-left:5em;margin-bottom:5em;">
-<h1 style="text-align:left; font-size:36px;">'.$bad.'</h1><br>'
+<h1 style="text-align:left; font-size:36px;">'.l10n('Bad request').'</h1><br>'
 .$msg.'</div>',
     5 );
 }
@@ -378,12 +376,11 @@ function bad_request($msg, $alternate_url=null)
 function page_not_found($msg, $alternate_url=null)
 {
   set_status_header(404);
-  $found=l10n('Page not found');
   if ($alternate_url==null)
     $alternate_url = make_index_url();
   redirect_html( $alternate_url,
     '<div style="text-align:left; margin-left:5em;margin-bottom:5em;">
-<h1 style="text-align:left; font-size:36px;">'.$found.'</h1><br>'
+<h1 style="text-align:left; font-size:36px;">'.l10n('Page not found').'</h1><br>'
 .$msg.'</div>',
     5 );
 }
