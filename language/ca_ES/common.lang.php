@@ -404,4 +404,11 @@ $lang['Search for any term'] = 'Cerca per qualsevol terme';
 $lang['Visits, high &rarr; low'] = 'Visites, alt &rarr; baix';
 $lang['Visits, low &rarr; high'] = 'Visites, baix &rarr; alt';
 $lang['%d rate'] = '%d valoracion';
+$lang['Bad request'] = 'Sol·licitud incorrecta';
+$lang['Forbidden'] = 'Prohibit';
+$lang['Page not found'] = 'Pàgina no trobada';
+$lang['Permalink for album not found'] = 'No es troba l\'enllaç permanent per a l\'àlbum';
+$lang['Piwigo encountered a non recoverable error'] = 'Piwigo ha detectat un error no recuperable';
+$lang['Requested album does not exist'] = 'No existeix l\'àlbum sol·licitat';
+$lang['Requested tag does not exist'] = 'No existeix l\'etiqueta sol·licitada';
 ?>
