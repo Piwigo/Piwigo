@@ -403,4 +403,12 @@ $lang['Rating score, high &rarr; low'] = 'スコア, 高 &rarr; 低';
 $lang['Rating score, low &rarr; high'] = 'スコア, 低 &rarr; 高';
 $lang['Visits, high &rarr; low'] = '訪問, 高 &rarr; 低';
 $lang['Visits, low &rarr; high'] = '訪問, 低 &rarr; 高';
+$lang['%d rate'] = '%dレート';
+$lang['Bad request'] = '不正な要求';
+$lang['Forbidden'] = '禁断';
+$lang['Page not found'] = 'ページが見つかりません';
+$lang['Permalink for album not found'] = 'このエントリーのアルバムが見つかりません';
+$lang['Piwigo encountered a non recoverable error'] = 'Piwigoは、回復不能エラーが発生しました';
+$lang['Requested album does not exist'] = '要求されたアルバムは存在しません。';
+$lang['Requested tag does not exist'] = '要求されたタグは存在しません。';
 ?>
