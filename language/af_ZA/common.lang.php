@@ -404,4 +404,11 @@ $lang['Visits, high &rarr; low'] = 'Besoeke, hoog &rarr; laag';
 $lang['Visits, low &rarr; high'] = 'Besoeke, laag &rarr; hoog';
 $lang['xsmall'] = 'XS - baie klein';
 $lang['%d rate'] = '%d gradering';
+$lang['Bad request'] = 'Ongeldige versoek';
+$lang['Forbidden'] = 'Verbode';
+$lang['Page not found'] = 'Die bladsy kan nie gevind word nie';
+$lang['Permalink for album not found'] = 'Permaskakel vir album kan nie gevind word nie';
+$lang['Piwigo encountered a non recoverable error'] = 'Piwigo het \'n onherstelbare fout teëgekom';
+$lang['Requested album does not exist'] = 'Aangevraagde album bestaan nie';
+$lang['Requested tag does not exist'] = 'Aangevraagde etiket bestaan nie';
 ?>
