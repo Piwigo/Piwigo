@@ -407,4 +407,11 @@ $lang['Rating score, low &rarr; high'] = 'Scorul de rating, scazut &rarr; ridica
 $lang['Visits, high &rarr; low'] = 'Vizite , ridicat &rarr; scazut';
 $lang['Visits, low &rarr; high'] = 'Vizite, scazut &rarr; ridicat';
 $lang['%d rate'] = 'Evaluare %d';
+$lang['Bad request'] = 'Căutare greșită';
+$lang['Forbidden'] = 'Interzis';
+$lang['Page not found'] = 'Pagina nu a fost găsită';
+$lang['Permalink for album not found'] = 'Permalinkul pentru album nu există';
+$lang['Piwigo encountered a non recoverable error'] = 'Piwigo întâmpină o eroare nerecuperabilă';
+$lang['Requested album does not exist'] = 'Albumul căutat nu există';
+$lang['Requested tag does not exist'] = 'Eticheta căutată nu există';
 ?>
