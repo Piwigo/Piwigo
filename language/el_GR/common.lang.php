@@ -405,4 +405,11 @@ $lang['Numeric identifier, 9 &rarr; 1'] = 'Αριθμητικό αναγνωρι
 $lang['Manual sort order'] = 'Χειροκίνητη ταξινόμηση'; 
 
 $lang['%d rate'] = '%d βαθμολόγηση';
+$lang['Bad request'] = 'Ατυχές αίτημα';
+$lang['Forbidden'] = 'Απαγορευμένη';
+$lang['Page not found'] = 'Η σελίδα δεν βρέθηκε';
+$lang['Permalink for album not found'] = 'Ο Μόνιμος Σύνδεσμος για το λέυκωμα δεν υπάρχει';
+$lang['Piwigo encountered a non recoverable error'] = 'Piwigo αντιμετώπισε ένα σφάλμα μη ανακτήσιμο';
+$lang['Requested album does not exist'] = 'Το Ζητούμενο Λεύκωμα δεν υπάρχει';
+$lang['Requested tag does not exist'] = 'Η ζητούμενη ετικετα δεν υπάρχει';
 ?>
