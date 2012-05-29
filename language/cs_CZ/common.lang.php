@@ -411,4 +411,11 @@ $lang['Numeric identifier, 1 &rarr; 9'] = 'Číselný ID, 1 &rarr; 9';
 $lang['Numeric identifier, 9 &rarr; 1'] = 'Číselný ID, 9 &rarr; 1';
 $lang['Manual sort order'] = 'Ruční výběr řazení';
 $lang['%d rate'] = '%d ohodnocení';
+$lang['Bad request'] = 'Špatný požadavek';
+$lang['Forbidden'] = 'Zakázáno';
+$lang['Page not found'] = 'Stránka nebyla nalezena';
+$lang['Permalink for album not found'] = 'Permanentní odkaz na almun nenalezen';
+$lang['Piwigo encountered a non recoverable error'] = 'Piwigo se setkalo s nevratnou chybou';
+$lang['Requested album does not exist'] = 'Požadované album neexistuje';
+$lang['Requested tag does not exist'] = 'Požadovaná visačka neexistuje';
 ?>
