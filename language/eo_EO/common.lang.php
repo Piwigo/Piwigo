@@ -406,4 +406,11 @@ $lang['Manual sort order'] = 'Permana ordigado';
 
 
 $lang['%d rate'] = '%d taksado';
+$lang['Bad request'] = 'Fuŝa peto';
+$lang['Forbidden'] = 'Malpermesita';
+$lang['Page not found'] = 'Ne trovebla paĝo';
+$lang['Permalink for album not found'] = 'Daŭra ligilo por tiu fotaro ne troviĝas';
+$lang['Piwigo encountered a non recoverable error'] = 'Piwigo trafis ne ripareblan eraron';
+$lang['Requested album does not exist'] = 'Fotaro petita ne ekzistas';
+$lang['Requested tag does not exist'] = 'Petita etikedo ne ekzistas';
 ?>
