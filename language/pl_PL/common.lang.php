@@ -408,4 +408,11 @@ $lang['Rating score, low &rarr; high'] = 'Ocena, niska &rarr; wysoka';
 $lang['Visits, high &rarr; low'] = 'Liczba odwiedzin, wysoka &rarr; niska';
 $lang['Visits, low &rarr; high'] = 'Liczba odwiedzin, niska &rarr; wysoka';
 $lang['%d rate'] = '%d ocena';
+$lang['Bad request'] = 'Nieprawidłowe zapytanie';
+$lang['Forbidden'] = 'Zabronione';
+$lang['Page not found'] = 'Nie znaleziono żądanej strony';
+$lang['Permalink for album not found'] = 'Nie znaleziono stałego odnośnika do albumu';
+$lang['Piwigo encountered a non recoverable error'] = 'Piwigo napotkało na błąd krytyczny';
+$lang['Requested album does not exist'] = 'Nie znaleziono żądanego albumu';
+$lang['Requested tag does not exist'] = 'Szukana etykieta nie istnieje';
 ?>
