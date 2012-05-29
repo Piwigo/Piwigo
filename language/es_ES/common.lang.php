@@ -407,4 +407,9 @@ $lang['xsmall'] = 'XS - muy pequeño';
 $lang['%d rate'] = '%d Nota';
 $lang['Permalink for album not found'] = 'No existe el enlace permanente para el álbum';
 $lang['Requested album does not exist'] = 'No existe el álbum solicitado';
+$lang['Bad request'] = 'Petición errónea';
+$lang['Forbidden'] = 'Prohibido';
+$lang['Page not found'] = 'Página no encontrada';
+$lang['Piwigo encountered a non recoverable error'] = 'Piwigo ha encontrado un error irreparable';
+$lang['Requested tag does not exist'] = 'La etiqueta solicitada no existe';
 ?>
