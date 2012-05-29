@@ -886,4 +886,17 @@ $lang['cancel manual order'] = 'لغو تغییرات ترتیب دستی';
 $lang['middle'] = 'وسط';
 $lang['top left corner'] = 'گوشه ی بالا سمت چپ';
 $lang['top right corner'] = 'گوشه ی بالا سمت راست';
+$lang['<em>Piwigo for Android</em> application empowers you to connect your Android phone or table to your Piwigo gallery, create some albums and upload several photos at once.'] = 'نرم افزار <em>Piwigo برای Android</em> به شما قدرت وصل شدن به گالری ، ساخت آلبوم و آپلود عکس را بوسیله ی موبایل یا تبلت آندروید می دهد.';
+$lang['<em>Piwigo for iOS</em> application empowers you to connect to your Piwigo gallery from your iPhone, iPad or iPod Touch, create some albums and upload several photos at once.'] = 'نرم افزار <em>Piwigo برای iOS</em> به شما قدرت وصل شدن به گالری ، ساخت آلبوم و آپلود عکس را بوسیله ی iPhone, iPad یا iPod Touch می دهد.';
+$lang['Adobe Photoshop Lightroom is a photography software designed to manage large quantities of digital images and doing post production work.'] = 'Adobe Photoshop Lightroom یک نرم افزار عکاسی می باشد که برای مدیریت عکس های دیجیتالی بزرگ طراحی شده است.';
+$lang['Center of interest'] = 'نقطه ی طلایی (Center of Interest)';
+$lang['On your Linux, simply install Shotwell with your package manager and the activate Piwigo publishing option.'] = 'نرم افزار Shotwell را بر روی لینوکس خود نصب کرده و افزونه ی انتشار Piwigo را فعال کنید.';
+$lang['Piwigo Publish plugin for Lightroom'] = 'افزونه ی انتشار Piwigo برای Photoshop Lightroom';
+$lang['Piwigo export plugin for Aperture'] = 'افزونه ی صادر کردن Piwigo برای Aperture';
+$lang['Piwigo export plugin for iPhoto'] = 'افزونه ی صادر کردن Piwigo برای iPhone';
+$lang['Piwigo publish plugin for Shotwell'] = 'افزونه ی انتشار Piwigo برای Shotwell';
+$lang['Piwigo publish plugin for digiKam'] = 'افزونه ی انتشار Piwigo برای digiKam';
+$lang['Shotwell is an open source digital photo organizer that runs on Linux. It is the default photo manager in Ubuntu and Fedora.'] = 'Shotwell یک نرم افزار متن باز (Open Source) برای سازمان دهی عکس های دیجیتالی می باشد که بر روی سیستم عامل لینوکس قابل اجرا است. همچنین نرم افزار پیشفرض برای مدیریت عکس ها در Ubuntu و Fedora نیر می باشد.';
+$lang['The Piwigo publish Plug-in allows you to export and synchronize photos from Lightroom directly to your Piwigo photo gallery.'] = 'افزونه ی انتشار Piwigo به شما این امکان را می دهد تا عکس های خود را از Photoshop Lightroom بطور مستقیم همگام سازی کرده و وارد گالری Piwigo خود کنید.';
+$lang['There is no group in this gallery.'] = 'هیچ گروهی در این گالری وجود ندارد.';
 ?>
