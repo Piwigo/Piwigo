@@ -410,4 +410,5 @@ $lang['Page not found'] = 'Сторінку не знайдено';
 $lang['Permalink for album not found'] = 'Постійне посилання для альбом не знайдено';
 $lang['Requested album does not exist'] = 'Запитуваний альбом не існує';
 $lang['Requested tag does not exist'] = 'Запитуваний теґ не існує';
+$lang['Piwigo encountered a non recoverable error'] = 'Piwigo зіткнувся з невиправною помилкою';
 ?>
