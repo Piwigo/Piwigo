@@ -408,4 +408,11 @@ $lang['xlarge'] = 'XL - ';
 $lang['xsmall'] = 'XS - ';
 $lang['xxlarge'] = 'XXL - ';
 $lang['%d rate'] = '%d امتیاز';
+$lang['Bad request'] = 'درخواست اشتباه';
+$lang['Forbidden'] = 'اجازه ی دسترسی ندارید';
+$lang['Page not found'] = 'برگه پیدا نشد';
+$lang['Permalink for album not found'] = 'لینک ثابتی برای این آلبوم پیدا نشد';
+$lang['Piwigo encountered a non recoverable error'] = 'Piwigo با یک خطای غیر قابل بازیابی مواجه گردید';
+$lang['Requested album does not exist'] = 'آلبوم مورد نظر شما وجود ندارد';
+$lang['Requested tag does not exist'] = 'برچسب مورد نظر شما وجود ندارد';
 ?>
