@@ -409,4 +409,11 @@ $lang['Numeric identifier, 9 &rarr; 1'] = 'Azonosító (ID), csökkenő';
 $lang['2small'] = 'XXS - legkissebb';
 $lang['xsmall'] = 'XS - kissebb';
 $lang['%d rate'] = '%d értékelé';
+$lang['Bad request'] = 'Hibás kérés';
+$lang['Forbidden'] = 'Tiltott';
+$lang['Page not found'] = 'Az oldal nem található';
+$lang['Permalink for album not found'] = 'A permalink album nem létezik';
+$lang['Piwigo encountered a non recoverable error'] = 'A Piwigo nem javítható hibát észlelt';
+$lang['Requested album does not exist'] = 'A kért album nem létezik';
+$lang['Requested tag does not exist'] = 'A kért címke nem létezik';
 ?>
