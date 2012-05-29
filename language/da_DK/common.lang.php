@@ -406,4 +406,11 @@ $lang['Numeric identifier, 9 &rarr; 1'] = 'Numerisk identifikation, 9 &rarr; 1';
 $lang['Manual sort order'] = 'Manuel sorterings orden';
 
 $lang['%d rate'] = '%d bedømmelse';
+$lang['Bad request'] = 'Fejlagtig forespørgsel';
+$lang['Forbidden'] = 'Ikke tilladt';
+$lang['Page not found'] = 'Siden blev ikke fundet';
+$lang['Permalink for album not found'] = 'Permalink for kategori blev ikke fundet';
+$lang['Piwigo encountered a non recoverable error'] = 'Piwigo stødte på en uoprettelig fejl';
+$lang['Requested album does not exist'] = 'Den forespurgte kategori eksisterer ikke';
+$lang['Requested tag does not exist'] = 'Den forespurgte tag eksisterer ikke';
 ?>
