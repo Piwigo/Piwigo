@@ -414,4 +414,11 @@ $lang['Rating score, low &rarr; high'] = 'Hodnotenie, nízke &rarr; vysoké';
 $lang['Visits, high &rarr; low'] = 'Zobrazenia, vysoké &rarr; nízke';
 $lang['Visits, low &rarr; high'] = 'Zobrazenia, nízke &rarr; vysoké';
 $lang['%d rate'] = '%d hodnotené';
+$lang['Bad request'] = 'Nesprávna požiadavka';
+$lang['Forbidden'] = 'Zakázané';
+$lang['Page not found'] = 'Stránka sa nenašla';
+$lang['Permalink for album not found'] = 'Permanentný link pre album sa nenašiel';
+$lang['Piwigo encountered a non recoverable error'] = 'Piwigo narazilo na opraviteľnú chybu';
+$lang['Requested album does not exist'] = 'Požadovaný album neexistuje';
+$lang['Requested tag does not exist'] = 'Požadované kľúčové slovo neexistuje';
 ?>
