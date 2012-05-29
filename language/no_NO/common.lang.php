@@ -404,4 +404,11 @@ $lang['Rating score, low &rarr; high'] = 'Karakter, lav &rarr; høy';
 $lang['Visits, high &rarr; low'] = 'Besøk, høy &rarr; lav';
 $lang['Visits, low &rarr; high'] = 'Besøk, lav &rarr; høy';
 $lang['%d rate'] = '%d vurder';
+$lang['Bad request'] = 'Feil forespørsel';
+$lang['Forbidden'] = 'Ingen tilgang';
+$lang['Page not found'] = 'Siden ikke funnet';
+$lang['Permalink for album not found'] = 'Permalink for album ikke funnet';
+$lang['Piwigo encountered a non recoverable error'] = 'Piwigo støtte på et problem som ikke kan gjenopprettes';
+$lang['Requested album does not exist'] = 'Forespurt album finnes ikke';
+$lang['Requested tag does not exist'] = 'Forespurt tag finnes ikke';
 ?>
