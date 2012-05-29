@@ -404,4 +404,11 @@ $lang['View in'] = 'Görüntüle';
 $lang['Visits, high &rarr; low'] = 'Ziyaret edilme (çok-az)';
 $lang['Visits, low &rarr; high'] = 'Ziyaret edilme (az-çok)';
 $lang['%d rate'] = '%d oy';
+$lang['Bad request'] = 'Geçersiz istek';
+$lang['Forbidden'] = 'Yasaklanmış';
+$lang['Page not found'] = 'Sayfa bulunamadı';
+$lang['Permalink for album not found'] = 'Albüm linki bulunamadı';
+$lang['Piwigo encountered a non recoverable error'] = 'Piwigo düzeltilemeyen bir hata ile karşılaştı';
+$lang['Requested album does not exist'] = 'Talep edilen albüm yok';
+$lang['Requested tag does not exist'] = 'Talep edilen etiket yok';
 ?>
