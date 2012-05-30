@@ -927,5 +927,8 @@ $lang['%d minutes'] = '%d minutes';
 $lang['%d second'] = '%d seconde';
 $lang['%d seconds'] = '%d secondes';
 $lang['Sharpen'] = 'Renforcer la netteté';
+$lang['%d week'] = '%d semaine';
+$lang['%d weeks'] = '%d semaines';
+$lang['Edit photo'] = 'Éditer la photo';
 
 ?>
