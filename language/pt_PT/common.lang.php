@@ -405,4 +405,11 @@ $lang['Visits, high &rarr; low'] = 'Visitas, elevadas &rarr; parcas';
 $lang['Visits, low &rarr; high'] = 'Visitas, parcas &rarr; elevadas';
 $lang['xsmall'] = 'XS - extra pequeno';
 $lang['%d rate'] = '%d avaliaçõe';
+$lang['Bad request'] = 'Má solicitação';
+$lang['Forbidden'] = 'Proibido';
+$lang['Page not found'] = 'Página não encontrada';
+$lang['Permalink for album not found'] = 'Ligação de link não encontrada ';
+$lang['Piwigo encountered a non recoverable error'] = 'Piwigo encontrou um erro irreparável';
+$lang['Requested album does not exist'] = 'O album solicitado não existe';
+$lang['Requested tag does not exist'] = 'Não existe a etiqueta solicitada';
 ?>
