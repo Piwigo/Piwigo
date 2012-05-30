@@ -404,11 +404,11 @@ $lang['Rating score, low &rarr; high'] = 'Valutazione, basso &rarr; alto';
 $lang['Visits, high &rarr; low'] = 'Visite, alto &rarr; basso';
 $lang['Visits, low &rarr; high'] = 'Visite, basso &rarr; alto';
 $lang['%d rate'] = '%d media';
+$lang['Page not found'] = 'Pagina non trovata';
 $lang['Bad request'] = 'Richiesta errata';
 $lang['Forbidden'] = 'Vietato';
-$lang['Page not found'] = 'Pagina non trovata';
-$lang['Permalink for album not found'] = 'Permalink per l\'album non trovato';
 $lang['Piwigo encountered a non recoverable error'] = 'Piwigo ha riscontrato un errore irrecuperabile';
 $lang['Requested album does not exist'] = 'L\'album richiesto non esiste';
+$lang['Permalink for album not found'] = 'Permalink per l\'album non trovato';
 $lang['Requested tag does not exist'] = 'Il tag richiesto non esiste';
 ?>
