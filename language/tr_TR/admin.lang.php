@@ -906,4 +906,13 @@ $lang['%d years'] = '%d yıl';
 $lang['%d year'] = '%d yıl';
 $lang['%s ago'] = '%s önce';
 $lang['Edit photo'] = 'Resmi düzenle';
+$lang[' and %d virtuals'] = 've %d sanal';
+$lang['%d physicals'] = '%d fiziksel';
+$lang['Added by %s'] = '%s tarafından eklendi';
+$lang['Numeric identifier : %d'] = 'Sayısal tanımlayıcı';
+$lang['Original file : %s'] = 'Orjinal dosya';
+$lang['Rated %d times, score : %.2f'] = '%d kez oylandı, skor: %.2f';
+$lang['Sharpen'] = 'Keskinleştirmek';
+$lang['Visited %d times'] = '%d kez görüntülendi';
+$lang['Watermark'] = 'watermark';
 ?>
