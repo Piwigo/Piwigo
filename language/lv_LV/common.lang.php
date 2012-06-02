@@ -404,5 +404,12 @@ $lang['Numeric identifier, 1 &rarr; 9'] = 'Ciparu identifikators, 1 &rarr; 9';
 $lang['Numeric identifier, 9 &rarr; 1'] = 'Ciparu identifikators, 9 &rarr; 1';
 $lang['Manual sort order'] = 'Lietotāja izvēlētais kārtojums';
 $lang['%d rate'] = '%d vērtējum';
+$lang['Page not found'] = 'Lapa nav atrasta';
+$lang['Bad request'] = 'Kļūdains pieprasījums';
+$lang['Forbidden'] = 'Aizliegts';
+$lang['Piwigo encountered a non recoverable error'] = 'Piwigo piemeklējusi neatrisināma kļūme';
+$lang['Requested album does not exist'] = 'Pieprasītais albūms neeksistē';
+$lang['Permalink for album not found'] = 'Albūma permalinks nav atrasts';
+$lang['Requested tag does not exist'] = 'Pieprasītā cilne neeksistē';
 
 ?>
