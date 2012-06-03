@@ -922,4 +922,6 @@ $lang['digiKam is designed for photographers who want to view, manage, edit, enh
 $lang['iPhoto is the default photo manager on MacOSX. The Piwigo export plugin let you create new albums and export your photos directly from iPhoto to your Piwigo photo gallery.'] = 'iPhoto نرم افزار مدیریت عکس پیشفرض در سیستم عامل MacOSX می باشد. افزونه ی فرستنده ی Piwigo به شما اجازه ی ساخت آلبوم های تازه و فرستادن عکس ها از iPhone به Piwigo بطور مستقیم را می دهد.';
 $lang['include photos with lower privacy level'] = 'شامل عکس هایی که سطح خصوصی پایینی دارند نیز بشود';
 $lang['visitors need to login and have the appropriate permissions to see this album'] = 'بازدید کننده ها باید وارد شوند و دسترسی مناسب را داشته باشند تا این آلبوم را ببینند';
+$lang[' and %d virtuals'] = ' و %d مجازی';
+$lang['%d physicals'] = ' %d فیزیکی';
 ?>
