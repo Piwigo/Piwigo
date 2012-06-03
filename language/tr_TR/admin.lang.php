@@ -915,4 +915,6 @@ $lang['Rated %d times, score : %.2f'] = '%d kez oylandı, skor: %.2f';
 $lang['Sharpen'] = 'Keskinleştirmek';
 $lang['Visited %d times'] = '%d kez görüntülendi';
 $lang['Watermark'] = 'watermark';
+$lang['%s in the future'] = '%s gelecekte';
+$lang['Posted %s on %s'] = '%s tarihinde %s yazmıştır';
 ?>
