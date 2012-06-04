@@ -405,4 +405,11 @@ $lang['Rating score, high &rarr; low'] = 'Рейтинг, висок &rarr; ни
 $lang['Rating score, low &rarr; high'] = 'Рейтинг, нисък &rarr; висок';
 $lang['Visits, high &rarr; low'] = 'Посещения, висок &rarr; нисък';
 $lang['Visits, low &rarr; high'] = 'Посещения, нисък &rarr; висок';
+$lang['Bad request'] = 'Невалидна заявка';
+$lang['Forbidden'] = 'Забранено';
+$lang['Page not found'] = 'Страницата не е намерена';
+$lang['Permalink for album not found'] = 'Дирктен линк за албума не е открит';
+$lang['Piwigo encountered a non recoverable error'] = 'Piwigo се сблъска с невъзстановима грешка';
+$lang['Requested album does not exist'] = 'Търсения албум не съществува';
+$lang['Requested tag does not exist'] = 'Търсения таг не съществува';
 ?>
