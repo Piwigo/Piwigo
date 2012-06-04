@@ -1,0 +1,26 @@
+<h2>Συντήρηση</h2>
+
+<p>Για τη βελτιστοποίηση του χρόνου δημιουργίας σελίδας το Piwigo χρησιμοποιεί προσωρινά αποθηκευμένες πληροφορίες.  Για παράδειγμα, αντί να υπολογίζουν τον αριθμό των φωτογραφιών που περιέχονται σε κάθε λεύκωμα σε κάθε σελίδα ξανά αυτές οι πληροφορίες αποθηκεύονται στη βάση δεδομένων. Στη θεωρία αυτές οι πληροφορίες θα πρέπει πάντα να είναι σωστές, αλλά μερικές φορές μπορεί να συμβεί ένα λάθος στις προσωρινά αποθηκευμένες πληροφορίες και να αποβούν παρωχημένες. </p>
+
+<p>Ορισμένες πληροφορίες γίνονται λιγότερο χρήσιμες όσο περνάει ο καιρός.  Η διαγραφή αυτών των άχρηστων πληροφοριών από τη βάση δεδομένων θα σας εξοικονομούσε χώρο στο δίσκο.</p>
+
+<ul>
+	<li><strong>Διαγραφή ορφανών ετικετών</strong></li>
+</ul>
+<ul>
+  <li><strong>Ενημέρωση πληροφοριών λευκώματος:</strong> Για κάθε λεύκωμα, η ακόλουθη πληροφορία ελέγχεται, και ενημερώνεται εάν χρειάζεται : λίστα μητρικών λευκωμάτων, ο αριθμός των φωτογραφιών, ημερομηνία τελευταίας φωτογραφίας, θέση όμορρων λευκωμάτων, η θέση ανάμεσα σε όλα τα άλμπουμ. Η ενέργεια αυτή ελέγχει επίσης τη συνοχή αντιπροσωπευτικών φωτογραφιών.</li>
+  <li><strong>Ενημέρωση πληροφοριών φωτογραφιών:</strong> Για κάθε φωτογραφία, η επικαιροποίηση πληροφοριών είναι : την πλήρη διαδρομή προς το αρχείο, το μέση αξιολόγηση. <em>Προειδοποίηση</em>, δεν πρέπει να συγχέουμε: οι πληροφορίες μεταδεδομένων πρέπει να συγχρονίζονται από <span class="pwgScreen">Διαχείριση &raquo; Εργαλεία &raquo; συγχρονισμός</span>, ή στην οθόνη τροποποίηση μιας φωτογραφίας (μέσω <span class="pwgScreen">Φωτογραφία</span> για παράδειγμα).</li>
+</ul>
+<ul>
+  <li><strong>Επιδιόρθωση και βελτιστοποίηση της βάσης δεδομένων:</strong>Εκτελέστε επαναταξινόμηση, επισκευή και λειτουργίες βελτιστοποίησης σε κάθε πίνακα της βάσης δεδομένων.</li>
+  <li><strong>Επανεκκίνηση ελέγχου ακεραιότητας</strong></li>
+</ul>
+
+<ul>
+  <li><strong>Purge history details:</strong> Delete all lines from the history table. Screen <span class="pwgScreen">Administration &raquo; Tools &raquo; History</span> will not longer show information for the past history. <em>Warning:</em> all data will be lost, without any way to get them back.</li>
+  <li><strong>Purge history summary:</strong> Delete all the summary information about visit history. This summary is calculated from the history details.</li>
+  <li><strong>Purge sessions:</strong> Delete expired user sessions.</li>
+  <li><strong>Purge never used notification feeds</strong></li>
+  <li><strong>Purge searches history</strong></li>
+  <li><strong>Purge compiled templates</strong></li>  
+</ul>
