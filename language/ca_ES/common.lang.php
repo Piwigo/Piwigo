@@ -110,7 +110,15 @@ $lang['Sort by'] = 'Ordenar per';
 $lang['Sort order'] = 'Ordenar';
 $lang['Tag'] = 'Etiqueta';
 $lang['Tags'] = 'Etiquetes';
-$lang['The RSS notification feed provides notification on news from this website : new photos, updated albums, new comments. Use a RSS feed reader.'] = 'La font de redifusió amb format RSS proporciona notificacions automàtiques de les novetats d\'aquest lloc web: noves imatges, actualitzacions en els àlbums, nous comentaris... Cal utilitzar un lector de canal RSS.';
+$lang['The RSS notification feed provides notification on news from this website : new photos, updated albums, new comments. Use a RSS feed reader.'] = 'La font de redifusió amb format RSS proporciona notificacions automàtiques de les novetats d\'aquest lloc web: noves imatges, actualitzacions en els àlbums, nous comentaris... Cal utilitzar un lector de canal RSS.
+
+¿Què son els Feeds y com puc utilitzar-los? 
+Un Feed es un sistema de resum, que es va actualitzat per, així, estar al dia de les noticies d\'un lloc web.
+
+Atenció: Per a inscriure\'s a un Feed es necessari un Lector de Feeds. Al clicar un Feed sense lector de Feeds, el navegador mostrarà texte sense format.
+
+¿Què son RSS y Atom? 
+Són dos formats de feeds. Molts lectors de feeds soporten ambdós formats.';
 $lang['Unknown feed identifier'] = 'Identificador de canal desconegut';
 $lang['User comments'] = 'Comentaris dels usuaris';
 $lang['Username'] = 'Usuari';
