@@ -306,7 +306,7 @@ y.callService(
 	<fieldset>
 		<legend>{'Add a comment'|@translate}</legend>
 		{if $comment_add.SHOW_AUTHOR}
-		<label>{'Author'|@translate}<input type="text" name="author"></label>
+		<label>{'Author'|@translate}<input type="text" name="author" value="{$comment_add.AUTHOR}"></label>
 		{/if}
 		<label>{'Comment'|@translate}<textarea name="content" id="contentid" rows="5" cols="80">{$comment_add.CONTENT}</textarea></label>
 		<input type="hidden" name="key" value="{$comment_add.KEY}">
