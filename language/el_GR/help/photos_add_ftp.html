@@ -6,39 +6,39 @@
 
   <li>Αντιγράψτε μερικές φωτογραφίες μέσα σε αυτόν τον κατάλογο, κι αλλάξετε το μέγεθός τους για προβολή σε ιστοσελίδες. <em>Προειδοποίηση</em>: το όνομα των αρχείων και καταλόγων πρέπει να περιέχει μόνο γράμματα, αριθμούς, "-", "_" ή ".". Όχι κενά διαστήματα, ούτε τονιζόμενους χαρακτήρες.</li>
 
-  <li>With a FTP client, copy your directory in the "galleries" directory of your Piwigo installation.</li>
+  <li>Με τη βοήθεια ενός προγράμματος FTP, αντιγράψτε τον κατάλογό σας στο κατάλογο "galleries" της Piwigo εγκατάστασης σας .</li>
 
-  <li>Logon your gallery and go to <span class="pwgScreen">Administration</span> and click on the big Synchronization button.</li>
+  <li>Συνδεθείτε στη γκαλερί σας και πηγαίνετε στο <span class="pwgScreen">Διαχείριση</span> και κάντε κλικ στο μεγάλο κουμπί Συγχρονισμός.</li>
 </ol>
 
-<p>Congratulations! You have successfully created the first album of your photo gallery.</p>
+<p>Συγχαρητήρια! Έχετε δημιουργήσει με επιτυχία το πρώτο λεύκωμα της συλλογής φωτογραφιών σας.</p>
 </fieldset>
 
 <fieldset>
-  <legend>Directories and files organization</legend>
+  <legend>Οργάνωση καταλόγων και αρχείων</legend>
 
 <ul>
 
   <li>
 
-    <p>Album directories are in the Piwigo directory
-    "galleries". Here follows the directory tree of a very small gallery (but
-    using many features):</p>
+    <p>Καταλόγοι λευκωμάτων στον κατάλογο "galleries" του Piwigo.
+     Ακολουθεί παρακάτω το δέντρο καταλόγου μιας πολύ μικρής γκαλερί(αλλά
+    με πολλά χαρακτηριστικά γνωρίσματα):</p>
 
     <pre>
-galleries
-|-- wedding
-|   |-- celebration
-|   |   |-- arrival
+Γκαλλερί
+|-- γάμος
+|   |-- εορτασμός
+|   |   |-- άφιξη
 |   |   |   |-- paul-alone.jpg
 |   |   |   +-- sarah-alone.jpg
-|   |   +-- departure
+|   |   +-- αναχώρηση
 |   |       +-- paul-and-sarah.jpg
-|   +-- party
+|   +-- πάρτυ
 |       |-- dancers001.jpg
 |       |-- dancers002.jpg
 |       +-- dancers003.jpg
-+-- honeymoon
++-- μήνας του μέλιτος
     |-- hotel.png
     |-- video-from-plane.avi
     +-- pwg_representative
@@ -47,24 +47,22 @@ galleries
 
   </li>
 
-  <li>Except for "pwg_representative" (see explanations below), each directory under "galleries" produces a album. There is no limit on deepness.</li>
+  <li>Εκτός από "pwg_representative" (βλέπε τις εξηγήσεις παρακάτω), κάθε κατάλογο κάτω απο το "galleries" παράγει ένα λεύκωμα. Δεν υπάρχει όριο στο βάθος.</li>
 
-  <li>Basically, an element is represented by a file. A file can be a
-  Piwigo element if its extension is among <code>file_ext</code>
-  configuration parameter possibilities (see <span
-  class="filename">include/config_default.inc.php</span> file). A file can
-  be a picture if its extension is among <code>picture_ext</code>
-  configuration parameter possibilities.</li>
+  <li>Βασικά, κάθε στοιχείο αντιπροσωπεύεται από ένα αρχείο. Ένα αρχείο μπορεί να είναι ένα
+  στοιχείο Piwigo εάν η επέκταση της είναι μεταξύ <code>file_ext</code> των
+  δυνατότητων παράμετρου διαμόρφωσης(βλέπε <span
+  class="filename">include/config_default.inc.php</span> file). Ένα αρχείο μπορεί
+  να είναι μια εικόνα εάν η επέκταση της είναι μεταξύ <code>picture_ext</code>
+  των δυνατότητων παράμετρου διαμόρφωσης.</li>
 
-  <li>No photo elements (video, sounds, file texts, whatever you want...) are represented by default by an icon corresponding to the filename
-  extension. Optionally, you can associate a thumbnail and a representative
-  file (see video.avi in the example above).</li>
+  <li>Δεν υπάρχουν στοιχεία φωτογραφία (βίντεο, ήχους, κείμενα αρχείου, ό, τι θέλετε ...) αντιπροσωπεύονται από προεπιλογή από ένα εικονίδιο που αντιστοιχεί στο όνομα επέκτασης αρχείου. Προαιρετικά, μπορείτε να συνδέσετε μια μικρογραφία και ένα αντιπροσωπευτικό αρχείο (βλέπε video.avi στο παραπάνω παράδειγμα).</li>
 
-  <li><em>Warning</em>: the name of directories and files must contain only letters, figures, "-", "_" or ".". No blank space, nor accentuated characters.</li>
+  <li><em>Προειδοποίηση</em>: το όνομα των αρχείων και καταλόγων πρέπει να περιέχει μόνο γράμματα, αριθμούς, "-", "_" ή ".". Όχι κενά διαστήματα, ούτε τονιζόμενους χαρακτήρες.</li>
 
-  <li>Once photos are correctly placed in the
-  directories, go to: <span class="pwgScreen">Administration &raquo; Tools &raquo;
-  Synchronize</span></li>
+  <li>Αφού οι φωτογραφίες είναι σωστά τοποθετημένους
+  καταλόγους, μεταβείτε στη διεύθυνση: <span class="pwgScreen">Διαχείρηση &raquo; Εργαλεία &raquo;
+  Συνγχρονισμός</span></li>
 
 </ul>
 </fieldset>
