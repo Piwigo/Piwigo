@@ -491,14 +491,23 @@ function format_date($date, $show_time = false, $show_day_name = true)
 
   $formated_date = '';
   // before 1970, Microsoft Windows can't mktime
-  if ($show_day_name and $ymdhms[0] >= 1970)
+  if ($ymdhms[0] >= 1970 and $ymdhms[1] != 0 and $ymdhms[2] != 0)
   {
     // we ask midday because Windows think it's prior to midnight with a
     // zero and refuse to work
     $formated_date.= $lang['day'][date('w', mktime(12,0,0,$ymdhms[1],$ymdhms[2],$ymdhms[0]))];
   }
-  $formated_date.= ' '.$ymdhms[2];
-  $formated_date.= ' '.$lang['month'][(int)$ymdhms[1]];
+
+  if ($ymdhms[2] != 0)
+  {
+    $formated_date.= ' '.$ymdhms[2];
+  }
+
+  if ($ymdhms[1] != 0)
+  {
+    $formated_date.= ' '.$lang['month'][(int)$ymdhms[1]];
+  }
+  
   $formated_date.= ' '.$ymdhms[0];
   if ($show_time and count($ymdhms)>=5 )
   {
