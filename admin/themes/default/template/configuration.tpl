@@ -293,6 +293,7 @@ jQuery(document).ready(function(){
     var sizeName = jQuery(this).attr("id").split("-")[1];
     jQuery("#sizeEdit-"+sizeName).toggle();
     jQuery(this).hide();
+		return false;
   });
 
   jQuery(".cropToggle").click(function() {
@@ -490,6 +491,7 @@ jQuery(document).ready(function() {
 
   jQuery(".addWatermarkOpen").click(function(){
     jQuery("#addWatermark, #selectWatermark").toggle();
+		return false;
   });
 });
 {/literal}{/footer_script}

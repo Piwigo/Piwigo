@@ -275,7 +275,7 @@ class pwg_image
 
   static function get_rotation_angle_from_code($rotation_code)
   {
-    switch($rotation_code)
+    switch($rotation_code%4)
     {
       case 0: return 0;
       case 1: return 90;
@@ -623,7 +623,7 @@ class image_ext_imagick implements imageInterface
     ilog($exec);
     if (is_array($returnarray) && (count($returnarray)>0) )
     {
-      ilog($returnarray);
+      ilog('ERROR', $returnarray);
     }
     return is_array($returnarray);
   }

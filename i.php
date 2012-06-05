@@ -116,6 +116,7 @@ function ierror($msg, $code)
   }
   //todo improve
   echo $msg;
+  ilog('ERROR', $code, $msg, $_SERVER['REQUEST_URI']);
   exit;
 }
 
@@ -486,6 +487,10 @@ SELECT *
     ilog("db error", $e->getMessage());
   }
 }
+else
+{
+  $page['rotation_angle'] = 0;
+}
 mysql_close($pwg_db_link);
 
 try_switch_source($params, $src_mtime);
@@ -504,7 +509,7 @@ $timing['load'] = time_step($step);
 $changes = 0;
 
 // rotate
-if (0 != (int)$page['rotation_angle'])
+if (0 != $page['rotation_angle'])
 {
   $image->rotate($page['rotation_angle']);
   $changes++;
