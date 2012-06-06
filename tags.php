@@ -202,6 +202,7 @@ if (!isset($themeconf['hide_menu_on']) OR !in_array('theTagsPage', $themeconf['h
 }
 
 include(PHPWG_ROOT_PATH.'include/page_header.php');
+include(PHPWG_ROOT_PATH.'include/page_messages.php');
 $template->pparse('tags');
 include(PHPWG_ROOT_PATH.'include/page_tail.php');
 ?>

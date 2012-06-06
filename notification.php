@@ -112,6 +112,7 @@ if (!isset($themeconf['hide_menu_on']) OR !in_array('theNotificationPage', $them
 // |                           html code display                           |
 // +-----------------------------------------------------------------------+
 include(PHPWG_ROOT_PATH.'include/page_header.php');
+include(PHPWG_ROOT_PATH.'include/page_messages.php');
 $template->pparse('notification');
 include(PHPWG_ROOT_PATH.'include/page_tail.php');
 

@@ -341,6 +341,7 @@ if (!empty($page['cat_slideshow_url']))
 
 include(PHPWG_ROOT_PATH.'include/page_header.php');
 trigger_action('loc_end_index');
+include(PHPWG_ROOT_PATH.'include/page_messages.php');
 $template->pparse('index');
 //------------------------------------------------------------ log informations
 pwg_log();

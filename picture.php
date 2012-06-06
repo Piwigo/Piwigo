@@ -980,6 +980,7 @@ if ($conf['picture_menu'] AND (!isset($themeconf['hide_menu_on']) OR !in_array('
 
 include(PHPWG_ROOT_PATH.'include/page_header.php');
 trigger_action('loc_end_picture');
+include(PHPWG_ROOT_PATH.'include/page_messages.php');
 if ($page['slideshow'] and $conf['light_slideshow'])
 {
   $template->pparse('slideshow');

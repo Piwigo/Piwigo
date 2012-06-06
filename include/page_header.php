@@ -99,22 +99,7 @@ if ( isset( $refresh ) and intval($refresh) >= 0
           )
       ));
 }
-else
-{// messages only if no redirection
-  foreach (array('errors','infos') as $mode)
-  {
-    if (isset($_SESSION['page_'.$mode]))
-    {
-      $page[$mode] = array_merge($page[$mode], $_SESSION['page_'.$mode]);
-      unset($_SESSION['page_'.$mode]);
-    }
 
-    if (count($page[$mode]) != 0)
-    {
-      $template->assign($mode, $page[$mode]);
-    }
-  }
-}
 trigger_action('loc_end_page_header');
 
 header('Content-Type: text/html; charset='.get_pwg_charset());

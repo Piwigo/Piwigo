@@ -85,6 +85,7 @@ SELECT '.implode(',', $fields).'
   
   include(PHPWG_ROOT_PATH.'include/page_header.php');
   trigger_action('loc_end_profile');
+  include(PHPWG_ROOT_PATH.'include/page_messages.php');
   $template->pparse('profile');
   include(PHPWG_ROOT_PATH.'include/page_tail.php');
 }
