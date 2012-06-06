@@ -509,6 +509,11 @@ class image_ext_imagick implements imageInterface
     $this->source_filepath = $source_filepath;
     $this->imagickdir = $conf['ext_imagick_dir'];
 
+    if (get_host() == 'kundenserver.de')  // 1and1
+    {
+      @putenv('MAGICK_THREAD_LIMIT=1');
+    }
+
     $command = $this->imagickdir.'identify -format "%wx%h" "'.realpath($source_filepath).'"';
     @exec($command, $returnarray);
     if(!is_array($returnarray) or empty($returnarray[0]) or !preg_match('/^(\d+)x(\d+)$/', $returnarray[0], $match))
