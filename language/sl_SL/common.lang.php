@@ -404,4 +404,8 @@ $lang['View in'] = 'Pogled v';
 $lang['Visits, high &rarr; low'] = 'Obiski, veliko &rarr; malo';
 $lang['Visits, low &rarr; high'] = 'Obiski, malo &rarr; veliko';
 $lang['xsmall'] = 'XS-malo';
+$lang['Forbidden'] = 'Prepovedan dostop';
+$lang['Page not found'] = 'Stran ne obstaja';
+$lang['Requested album does not exist'] = 'Zahtevan album ne obstaja';
+$lang['Requested tag does not exist'] = 'Zahtevan tag ne obstaja';
 ?>
