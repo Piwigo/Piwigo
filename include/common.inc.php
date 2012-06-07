@@ -192,7 +192,7 @@ if (defined('IN_ADMIN') and IN_ADMIN )
 }
 else
 { // Classic template
-  $theme = mobile_theme() ? $conf['mobile_theme'] : $user['theme'];
+  $theme = script_basename() != 'ws' and mobile_theme() ? $conf['mobile_theme'] : $user['theme'];
   $template = new Template(PHPWG_ROOT_PATH.'themes', $theme );
 }
 
