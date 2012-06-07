@@ -845,7 +845,7 @@ SELECT id, path, representative_ext
   {
     foreach ($categories as $category)
     {
-      if ($category['id'] == $cat['id'])
+      if ($category['id'] == $cat['id'] and isset($category['representative_picture_id']))
       {
         $cat['tn_url'] = $thumbnail_src_of[$category['representative_picture_id']];
       }
