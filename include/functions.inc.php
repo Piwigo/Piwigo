@@ -812,7 +812,7 @@ function get_element_path($element_info)
  * have a thumbnail, the default mime image url is returned. The URL can be
  * sent to the browser, but not used in the php script.
  * @param array element_info assoc array containing element info from db
- * at least 'path', 'tn_ext' and 'id' should be present
+ * at least 'path' and 'id' should be present
  */
 function get_thumbnail_url($element_info)
 {

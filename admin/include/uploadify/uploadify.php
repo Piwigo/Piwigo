@@ -65,8 +65,7 @@ array_push(
 $query = '
 SELECT
     id,
-    path,
-    tn_ext
+    path
   FROM '.IMAGES_TABLE.'
   WHERE id = '.$image_id.'
 ;';

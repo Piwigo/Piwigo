@@ -55,7 +55,7 @@ if (isset($_POST['submitEmail']) and !empty($_POST['group']))
   if (!empty($category['representative_picture_id']))
   {
     $query = '
-SELECT id, file, path, tn_ext
+SELECT id, file, path
   FROM '.IMAGES_TABLE.'
   WHERE id = '.$category['representative_picture_id'].'
 ;';

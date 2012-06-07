@@ -194,8 +194,7 @@ if (isset($_GET['processed']))
 SELECT
     id,
     file,
-    path,
-    tn_ext
+    path
   FROM '.IMAGES_TABLE.'
   WHERE id = '.$image_id.'
 ;';
