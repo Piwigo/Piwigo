@@ -1649,23 +1649,4 @@ function get_branch_from_version($version)
 {
   return implode('.', array_slice(explode('.', $version), 0, 2));
 }
-
-/**
- * return hostname with gethostbyaddr and keep it in database
- */
-function get_host($force_update=false)
-{
-  global $conf;
-
-  if (!isset($conf['host']) or $force_update)
-  {
-    $conf['host'] = 'undefined';
-    if ($host = @gethostbyaddr($_SERVER['SERVER_ADDR']))
-    {
-      $conf['host'] = $host;
-    }
-    conf_update_param('host', $conf['host']);
-  }
-  return $conf['host'];
-}
 ?>
