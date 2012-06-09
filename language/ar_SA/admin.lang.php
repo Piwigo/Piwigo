@@ -917,4 +917,9 @@ $lang['Rated %d times, score : %.2f'] = 'تم التصويت %d مرة ، الم
 $lang['Sharpen'] = 'الحدة';
 $lang['Visited %d times'] = 'عدد التصويتات  %d  مرة';
 $lang['Watermark'] = 'علامة مائية';
+$lang[' and %d virtuals'] = 'و %d الظاهري';
+$lang['%d physicals'] = '%d  مادي';
+$lang['%d week'] = '%d أسبوع';
+$lang['%d weeks'] = '%d أسابيع';
+$lang['Edit photo'] = ' تحرير الصورة';
 ?>
