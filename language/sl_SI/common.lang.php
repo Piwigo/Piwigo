@@ -21,7 +21,7 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 /*
-Language Name: Slovenšcina [SL]
+Language Name: Slovenšcina [SI]
 Version: 2.3.0
 Language URI: http://piwigo.org/ext/extension_view.php?eid=453
 Author: Piwigo team
@@ -361,7 +361,6 @@ $lang['Enter your new password below.'] = 'Vnesite novo geslo.';
 $lang['EXIF Metadata'] = 'EXIF metapodatki';
 $lang['IPTC Metadata'] = 'IPTC metapodatki';
 $lang['Edit'] = 'Uredi';
-
 $lang['Hello %s,'] = 'Pozdravljen %s,';
 $lang['Password: %s'] = 'Geslo: %s';
 $lang['Username: %s'] = 'Uporabnik: %s';
