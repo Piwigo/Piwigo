@@ -410,4 +410,12 @@ $lang['Rating score, high &rarr; low'] = 'درجة التقييم ,عالية &r
 $lang['Rating score, low &rarr; high'] = 'درجة التقييم , عالية &rarr; متدنية';
 $lang['Visits, high &rarr; low'] = 'المشاهدة , عالية&rarr; متدنية';
 $lang['Visits, low &rarr; high'] = 'المشاهدة , عالية &rarr; متدنية';
+$lang['%d rate'] = ' نسبة التصويت %d';
+$lang['Bad request'] = 'طلب غير صالح';
+$lang['Forbidden'] = 'محظور';
+$lang['Page not found'] = 'الصفحة غير موجودة';
+$lang['Permalink for album not found'] = 'لم يتم العثور على رابط الألبوم';
+$lang['Piwigo encountered a non recoverable error'] = 'صادف معرض Piwigo  خطأ لايمكن معالجته';
+$lang['Requested album does not exist'] = 'الألبوم المطلوب غير موجود';
+$lang['Requested tag does not exist'] = 'الكلمة الدلائلية غير موجوده';
 ?>
