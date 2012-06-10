@@ -403,5 +403,13 @@ $lang['Visits, low &rarr; high'] = 'Besökare, låg &rarr; hög';
 $lang['Numeric identifier, 1 &rarr; 9'] = 'Numeriskt id, 1 &rarr; 9';
 $lang['Numeric identifier, 9 &rarr; 1'] = 'Numeriskt id, 9 &rarr; 1';
 $lang['Manual sort order'] = 'Manuell sortering';
+$lang['%d rate'] = '%d omdöme';
+$lang['Page not found'] = 'Sidan hittades inte';
+$lang['Bad request'] = 'Felaktig begäran';
+$lang['Forbidden'] = 'Förbjuden';
+$lang['Piwigo encountered a non recoverable error'] = 'Piwigo stötte på ett fel som ej kan åtgärdas';
+$lang['Requested album does not exist'] = 'Det efterfrågade albumet finns inte';
+$lang['Permalink for album not found'] = 'Permalänk till albumet kan ej hittas';
+$lang['Requested tag does not exist'] = 'Den efterfrågade taggen finns inte';
 
 ?>
