@@ -346,4 +346,5 @@ $lang['Desktop'] = 'שולחן העבודה';
 $lang['Edit'] = 'ערוך';
 $lang['Enter your new password below.'] = 'הכנס את סיסמתך החדשה מתחת';
 $lang['Hello %s,'] = 'שלום %s,';
+$lang['If this was a mistake, just ignore this email and nothing will happen.'] = 'אם זה טעות, התעלם ממייל זה ושום דבר לא יקרא';
 ?>
