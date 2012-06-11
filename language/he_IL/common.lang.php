@@ -340,4 +340,10 @@ $lang['html tags are not allowed in login'] = 'לא ניתן להשתמש בתג
 $lang['The number of photos per page must be a not null scalar'] = 'מספר התמונות בד חייב להיות גדול מאפס';
 $lang['Number of photos per page'] = 'מספר תמונות בדף';
 
+$lang['Change my password'] = 'שנה את הסיסמה שלי';
+$lang['Check your email for the confirmation link'] = 'קישור אימות ממתין אצלך באימייל';
+$lang['Desktop'] = 'שולחן העבודה';
+$lang['Edit'] = 'ערוך';
+$lang['Enter your new password below.'] = 'הכנס את סיסמתך החדשה מתחת';
+$lang['Hello %s,'] = 'שלום %s,';
 ?>
