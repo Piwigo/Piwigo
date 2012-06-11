@@ -20,5 +20,9 @@
 // | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
-$lang['c13y_dbl_email_user'] = 'کاربرانی که ایمیل آنها یکسان است';
+$lang['c13y_dbl_email_user'] = 'کاربرانی که ایمیل یکسان دارند';
+$lang['c13y_correction_dbl_email_user'] = 'پاک کردن کاربران تکراری (Duplicate)';
+$lang['c13y_correction_obsolete_plugin'] = 'افزونه ی "%s" در این نگارش از برنامه شامل شده است و باید آنرا پاک کنید.';
+$lang['c13y_obsolete_plugin'] = 'افزونه ی از کار افتاده';
+$lang['c13y_upgrade_no_anomaly'] = 'هیچ ناهنجاری پس از آپگرید برنامه شناسایی نشد، افزونه ی "بررسی آپگرید ها (Check upgrades)" غیر فعال شد.';
 ?>
