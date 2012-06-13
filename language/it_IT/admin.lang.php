@@ -311,7 +311,6 @@ $lang['selection'] = 'Selezione';
 $lang['set to'] = 'Impostare a';
 $lang['singly represented'] = 'Copertina fissa';
 $lang['This site already exists'] = 'Questo sito esiste già ';
-$lang['Create a new site : (give its URL to create_listing_file.php)'] = 'Creare un nuovo sito: (indicare URL verso "create_listing_file.php")';
 $lang['created'] = 'creato';
 $lang['delete this site and all its attached elements'] = 'Cancellare questo sito e tutte le informazioni ad esso connessi';
 $lang['an error happened'] = 'Si è verificato un\'errore';
@@ -922,4 +921,5 @@ $lang['%d second'] = '%d secondo';
 $lang['%d seconds'] = '%d secondi';
 $lang['Sharpen'] = 'Evidenziare';
 $lang['Edit photo'] = 'Modificare la foto';
+$lang['create a new site'] = 'Creare un nuovo sito';
 ?>
