@@ -1,3 +1,13 @@
+{footer_script}{literal}
+jQuery(document).ready(function(){
+  jQuery("#showCreateSite a").click(function(){
+    jQuery("#showCreateSite").hide();
+    jQuery("#createSite").show();
+  });
+});
+{/literal}{/footer_script}
+
+
 <div class="titrePage">
   <h2>{'Site manager'|@translate}</h2>
 </div>
@@ -15,7 +25,7 @@
 {if not empty($sites)}
 <table class="table2">
 	<tr class="throw">
-		<td>{'Local'|@translate} / {'Remote'|@translate}</td>
+		<td>{'Directory'|@translate}</td>
 		<td>{'Actions'|@translate}</td>
 	</tr>
   {foreach from=$sites item=site name=site}
@@ -38,13 +48,20 @@
 </table>
 {/if}
 
-<form action="{$F_ACTION}" method="post">
-  <p>
-    <input type="hidden" name="pwg_token" value="{$PWG_TOKEN}">
-    <label for="galleries_url" >{'Create a new site : (give its URL to create_listing_file.php)'|@translate}</label>
-    <input type="text" name="galleries_url" id="galleries_url">
+<p id="showCreateSite" style="text-align:left;margin-left:1em;">
+  <a href="#">{'create a new site'|@translate}</a>
+</p>
+
+<form action="{$F_ACTION}" method="post" id="createSite" style="display:none">
+  <input type="hidden" name="pwg_token" value="{$PWG_TOKEN}">
+  <fieldset>
+    <legend>{'create a new site'|@translate}</legend>
+
+  <p style="margin-top:0;"><strong>{'Directory'|@translate}</strong>
+    <br><input type="text" name="galleries_url" id="galleries_url">
   </p>
-  <p>
+
+  <p class="actionButtons">
     <input class="submit" type="submit" name="submit" value="{'Submit'|@translate}">
   </p>
 </form>

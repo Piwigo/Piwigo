@@ -206,7 +206,6 @@ $lang['Correction applied with success'] = "Correction successfully applied";
 $lang['Correction the anomaly will cancel the fact that it\'s ignored'] = "Corrected  anomaly will no longer be ignored";
 $lang['Correction'] = "Correction";
 $lang['create a new album'] = 'create a new album';
-$lang['Create a new site : (give its URL to create_listing_file.php)'] = "Create a new site : (give its URL to create_listing_file.php)";
 $lang['Create the "%s" directory at the root of your Piwigo installation'] = 'Create the "%s" directory at the root of your Piwigo installation';
 $lang['Create this site'] = "Create this site";
 $lang['Create'] = 'Create';
@@ -921,4 +920,5 @@ $lang['%d second'] = '%d second';
 $lang['%d seconds'] = '%d seconds';
 $lang['Sharpen'] = 'Sharpen';
 $lang['Edit photo'] = 'Edit photo';
+$lang['create a new site'] = 'create a new site';
 ?>
