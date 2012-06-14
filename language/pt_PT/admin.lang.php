@@ -306,7 +306,6 @@ $lang['selection'] = 'selecção';
 $lang['set to'] = 'definir para';
 $lang['singly represented'] = 'unicamente representado';
 $lang['This site already exists'] = 'Este site já existe';
-$lang['Create a new site : (give its URL to create_listing_file.php)'] = 'Criar um site novo : (dê seu URL para create_listing_file.php)';
 $lang['created'] = 'criado';
 $lang['delete'] = 'apagar';
 $lang['delete this site and all its attached elements'] = 'apagar este site e todos os elementos associados a ele';
@@ -919,4 +918,5 @@ $lang['Watermark'] = 'Marca de água';
 $lang['%d week'] = '%d semana';
 $lang['%d weeks'] = '%d semanas';
 $lang['Edit photo'] = 'Editar foto';
+$lang['create a new site'] = 'Criar um novo site';
 ?>
