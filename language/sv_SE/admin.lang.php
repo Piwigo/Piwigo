@@ -306,7 +306,6 @@ $lang['selection'] = 'markering';
 $lang['set to'] = 'inställd på';
 $lang['singly represented'] = 'fast representant';
 $lang['This site already exists'] = 'Sidan existerar redan';
-$lang['Create a new site : (give its URL to create_listing_file.php)'] = 'Skapa ny site : (ge dess URL till create_listing_file.php)';
 $lang['created'] = 'skapad';
 $lang['delete'] = 'ta bort';
 $lang['delete this site and all its attached elements'] = 'ta bort hemsidan och all relaterad information';
@@ -921,4 +920,5 @@ $lang['%d seconds'] = '%d sekunder';
 $lang['Sharpen'] = 'Skärpa';
 $lang['Edit photo'] = 'Redigera bild';
 
+$lang['create a new site'] = 'skapa en ny site';
 ?>
