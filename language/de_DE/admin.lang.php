@@ -306,7 +306,6 @@ $lang['selection'] = 'Auswahl';
 $lang['set to'] = 'Setze auf';
 $lang['singly represented'] = 'festgelegtes Vorschaubild';
 $lang['This site already exists'] = 'Diese Seite gibt es bereits';
-$lang['Create a new site : (give its URL to create_listing_file.php)'] = 'Erstellen Sie eine neue Remote-Seite: (genaue URL zur create_listing_file.php der Remote-Seite)';
 $lang['created'] = 'erstellt';
 $lang['delete this site and all its attached elements'] = 'Entfernen dieser Seite und alle damit zusammenhängenden Daten';
 $lang['an error happened'] = 'ein Fehler ist aufgetreten';
@@ -923,4 +922,5 @@ $lang['Watermark'] = 'Wasserzeichen';
 $lang['%d week'] = '%d Woche';
 $lang['%d weeks'] = '%d Wochen';
 $lang['Edit photo'] = 'Foto bearbeiten';
+$lang['create a new site'] = 'Erstelle eine neue Seite';
 ?>
