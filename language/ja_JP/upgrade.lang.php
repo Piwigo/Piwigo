@@ -38,6 +38,7 @@ $lang['You do not have access rights to run upgrade'] = 'あなたには、ア�
 $lang['All sub-albums of private albums become private'] = 'プライベートカテゴリのすべてのサブカテゴリがプライベートにされました。';
 $lang['User permissions and group permissions have been erased'] = 'ユーザパーミッションおよびグループパーミッションが削除されました。';
 $lang['Only thumbnails prefix and webmaster mail address have been saved from previous configuration'] = '以前の設定より、サムネイル接頭辞およびウェブマスターのメールアドレスのみ保存されました。';
-$lang['As a precaution, following plugins have been deactivated. You must check for plugins upgrade before reactiving them:'] = '予防措置として、次のプラグインは無効になりました。再有効になる前に、プラグインのアップグレードを確認しなければなりません。:';
+$lang['As a precaution, following plugins have been deactivated. You must check for plugins upgrade before reactiving them:'] = '予防措置として、次のプラグインは無効になりました。プラグインを有効にする前に、プラグインのアップグレードを確認してください。:';
 $lang['In <i>%s</i>, before <b>?></b>, insert:'] = '<i>%s</i>に、 <b>?></b>の前に入力:';
+$lang['As a precaution, following themes have been deactivated. You must check for themes upgrade before reactiving them:'] = '予防措置として、次のテーマが無効になりました。テーマを有効にする前に、アップグレードを確認してください。：';
 ?>
