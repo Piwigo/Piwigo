@@ -306,7 +306,6 @@ $lang['selection'] = 'výber';
 $lang['set to'] = 'nastaviť ';
 $lang['singly represented'] = 'samostatne reprezentovaný';
 $lang['This site already exists'] = 'Táto stránka už existuje';
-$lang['Create a new site : (give its URL to create_listing_file.php)'] = 'Vytvoriť novú stránku: (zadajte adresu do create_listing_file.php)';
 $lang['created'] = 'vytvorené';
 $lang['delete'] = 'vymazať';
 $lang['delete this site and all its attached elements'] = 'vymazať túto stránku a všetky súvisiace položky';
@@ -923,4 +922,5 @@ $lang['%d physicals'] = '%d fizický';
 $lang['%d week'] = '%d týždeň';
 $lang['%d weeks'] = '%d týždňov';
 $lang['Edit photo'] = 'Upraviť fotku';
+$lang['create a new site'] = 'vytvoriť novú stránku';
 ?>
