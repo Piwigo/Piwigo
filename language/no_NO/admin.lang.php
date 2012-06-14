@@ -306,7 +306,6 @@ $lang['selection'] = 'utvalg';
 $lang['set to'] = 'sett til';
 $lang['singly represented'] = 'faste representanter';
 $lang['This site already exists'] = 'Denne siden eksisterer allerede';
-$lang['Create a new site : (give its URL to create_listing_file.php)'] = 'Lag en ny side : (gi oss URL´en til create_listing_file.php)';
 $lang['created'] = 'laget';
 $lang['delete'] = 'slette';
 $lang['delete this site and all its attached elements'] = 'slett denne siden og all relatert informasjon';
@@ -918,4 +917,5 @@ $lang['%d physicals'] = '%d fysisk';
 $lang['%d week'] = '%d uke';
 $lang['%d weeks'] = '%d uker';
 $lang['Edit photo'] = 'Endre bilde';
+$lang['create a new site'] = 'lag en ny side';
 ?>
