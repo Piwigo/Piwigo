@@ -254,7 +254,6 @@ $lang['Correction applied with error'] = 'Διόρθωση εφαρμόστηκ�
 $lang['Correction applied with success'] = 'Διόρθωση εφαρμόστηκε επιτυχώς';
 $lang['Correction the anomaly will cancel the fact that it\'s ignored'] = 'Η ανωμαλία που διορθώθηκε δεν μπορεί πλέον να αγνοηθεί';
 $lang['Correction'] = 'Διόρθωση ';
-$lang['Create a new site : (give its URL to create_listing_file.php)'] = 'Δημιουργήστε ένα νέα ιστοσελίδα: (δώστε διεύθυνση URL  για το create_listing_file.php)';
 $lang['Create the "%s" directory at the root of your Piwigo installation'] = 'Δημιουργία καταλόγου "%s" στη ρίζα της εγκατάστασης του Piwigo';
 $lang['Create this site'] = 'Δημιουργήστε την ιστοσελίδα';
 $lang['Create'] = 'Δημιουργήστε';
@@ -924,4 +923,5 @@ $lang['%d physicals'] = '%d πραγματικά';
 $lang['%d week'] = '%d εβδομάδα';
 $lang['%d weeks'] = '%d εβδομάδες';
 $lang['Edit photo'] = 'Επεξεργασία φωτογραφίας';
+$lang['create a new site'] = 'δημιουργία νέας ιστοσελίδας';
 ?>
