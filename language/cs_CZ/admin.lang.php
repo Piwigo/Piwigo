@@ -309,7 +309,6 @@ $lang['selection'] = 'Výběr';
 $lang['set to'] = 'Nastavit ';
 $lang['singly represented'] = 'samostatně reprezentován';
 $lang['This site already exists'] = 'Tato stránka již existuje';
-$lang['Create a new site : (give its URL to create_listing_file.php)'] = 'Vytvořit novou stránku : (zadejte adresu do create_listing_file.php)';
 $lang['created'] = 'Vytvořeno';
 $lang['delete'] = 'Vymazat';
 $lang['delete this site and all its attached elements'] = 'Vymazat tuto stránku a všechny související položky';
@@ -927,4 +926,5 @@ $lang['Watermark'] = 'Vodoznak';
 $lang['%d week'] = '%d týden';
 $lang['%d weeks'] = '%d týdny';
 $lang['Edit photo'] = 'Upravit foto';
+$lang['create a new site'] = 'vytvoř nové místo';
 ?>
