@@ -203,7 +203,6 @@ $lang['Correction applied with success'] = 'Düzeltme başarıyla uygulandı';
 $lang['Correction the anomaly will cancel the fact that it\'s ignored'] = 'Düzeltilmiş anormallik artık yok sayılır';
 $lang['Correction'] = 'Düzeltme';
 $lang['create a new album'] = 'yeni bir albüm oluştur';
-$lang['Create a new site : (give its URL to create_listing_file.php)'] = 'Yeni bir siteyarat: () URL\'sine create_listing_file.php adi ver';
 $lang['Create the "%s" directory at the root of your Piwigo installation'] = 'Bir "%s" dizini açınız Piwigo kurduğunuz yerde.';
 $lang['Create this site'] = 'Siteyi olustur';
 $lang['Create'] = 'Oluştur';
@@ -917,4 +916,5 @@ $lang['Visited %d times'] = '%d kez görüntülendi';
 $lang['Watermark'] = 'watermark';
 $lang['%s in the future'] = '%s gelecekte';
 $lang['Posted %s on %s'] = '%s tarihinde %s yazmıştır';
+$lang['create a new site'] = 'yeni bir site oluştur';
 ?>
