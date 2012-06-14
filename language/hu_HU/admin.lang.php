@@ -303,7 +303,6 @@ $lang['selection'] = 'kiválasztás';
 $lang['set to'] = 'Beállítás';
 $lang['singly represented'] = 'rögzített képviselője';
 $lang['This site already exists'] = 'Ilyen oldal már van';
-$lang['Create a new site : (give its URL to create_listing_file.php)'] = 'Új galéria-oldal : ( URL hozzáadása a create_listing_file.php -hoz)';
 $lang['created'] = 'létrehozva';
 $lang['delete'] = 'törlés';
 $lang['delete this site and all its attached elements'] = 'oldal és elemeinek törlése';
@@ -923,4 +922,5 @@ $lang['%d physicals'] = ' %d fizikai';
 $lang['%d week'] = '%d hét';
 $lang['%d weeks'] = '%d hét';
 $lang['Edit photo'] = 'Kép szerkesztése';
+$lang['create a new site'] = 'új honlap létrehozása';
 ?>
