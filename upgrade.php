@@ -230,6 +230,44 @@ $template->assign(array(
 );
 
 // +-----------------------------------------------------------------------+
+// | Remote sites are not compatible with Piwigo 2.4+                      |
+// +-----------------------------------------------------------------------+
+
+$has_remote_site = false;
+
+$query = 'SELECT galleries_url FROM '.SITES_TABLE.';';
+$result = pwg_query($query);
+while ($row = pwg_db_fetch_assoc($result))
+{
+  if (url_is_remote($row['galleries_url']))
+  {
+    $has_remote_site = true;
+  }
+}
+
+if ($has_remote_site)
+{
+  include_once(PHPWG_ROOT_PATH.'admin/include/updates.class.php');
+  include_once(PHPWG_ROOT_PATH.'admin/include/pclzip.lib.php');
+
+  $page['errors'] = array();
+  $step = 3;
+  updates::upgrade_to('2.3.4', $step, false);
+
+  if (!empty($page['errors']))
+  {
+    echo '<ul>';
+    foreach ($page['errors'] as $error)
+    {
+      echo '<li>'.$error.'</li>';
+    }
+    echo '</ul>';
+  }
+
+  exit();
+}
+
+// +-----------------------------------------------------------------------+
 // |                            upgrade choice                             |
 // +-----------------------------------------------------------------------+
 

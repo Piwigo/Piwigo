@@ -359,11 +359,11 @@ class updates
     }
   }
 
-  function upgrade_to($upgrade_to, &$step)
+  function upgrade_to($upgrade_to, &$step, $check_current_version=true)
   {
     global $page, $conf, $template;
 
-    if (!version_compare($_POST['upgrade_to'], PHPWG_VERSION, '>'))
+    if ($check_current_version and !version_compare($upgrade_to, PHPWG_VERSION, '>'))
     {
       redirect(get_root_url().'admin.php?page=plugin-'.basename(dirname(__FILE__)));
     }
@@ -371,14 +371,14 @@ class updates
     if ($step == 2)
     {
       preg_match('/(\d+\.\d+)\.(\d+)/', PHPWG_VERSION, $matches);
-      $code =  $matches[1].'.x_to_'.$_POST['upgrade_to'];
+      $code =  $matches[1].'.x_to_'.$upgrade_to;
       $dl_code = str_replace(array('.', '_'), '', $code);
       $remove_path = $code;
       $obsolete_list = 'obsolete.list';
     }
     else
     {
-      $code = $_POST['upgrade_to'];
+      $code = $upgrade_to;
       $dl_code = $code;
       $remove_path = version_compare($code, '2.0.8', '>=') ? 'piwigo' : 'piwigo-'.$code;
       $obsolete_list = PHPWG_ROOT_PATH.'install/obsolete.list';
