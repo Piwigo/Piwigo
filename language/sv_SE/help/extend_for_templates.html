@@ -1,0 +1,54 @@
+<h2>Mallutökningsinsällning</h2>
+
+<h3>Om</h3>
+<p>
+Ditt Piwigo galleri kan anpassas genom att ersätta befintliga mallfiler med anpassade varianter. Till exempel, standardmallen för rubriker (header.tpl) kan ersättas med en anpassad rubrikmall. Efter att ha skickat ändringarna till databasen kommer galleriet visa de anpassade rubrikerna istället för originalrubriken.<br>
+Mallutökningar är ett kraftfullt verktyg för att skapa anpassade teman för både nya och avancerade användare.  Använd tillsammans med LokalaFiler redigeraren kan du skapa dina egna underteman.</p>
+
+<h3>Originalmall</h3>
+<p>Ett tema innehåller ett antal mallfiler som utgör gallerisidorna.  Detta är originalmallarna.</p>
+
+<h3>Alternativa URL nyckelord</h3>
+<p>Detta är ord som återfinns i galleriets URL efter modulnamnet.  De kan också vara aktiva permalänkar (se dokumentationen om permalänkar för mer information) <a href="#warnings">VARNING:</a> om samma originalmall och samma nyckelord används för mer än en anpassad mall så kommer enbart den senaste vara aktiv.</p>
+
+<h3>Bundet Tema</h3>
+<p>Det bundna temat är temat varifrån mallfilerna ersätts.</p>
+
+<h3>Var är originalmallarna?</h3>
+<p>Originalmallarna är mallfilerna som ingår i vardera tema. Dessa är sparade i <em>/themes/default/template</em> (eller <em>themes/<theme name>/template</em>).  Dessa temafiler skall ine redigeras där de är, eftersom ändringar kommer att ersättas vid temauppdateringar.<br>
+Stöd för följande originalteman inkluderas:</p>
+<ul>
+  <li><span class="filename">index.tpl</span></li>
+  <li><span class="filename">mainpage_categories.tpl</span> and/or <span class="filename">thumbnails.tpl</span></li>
+  <li><span class="filename">menubar.tpl</span></li>
+  <li><span class="filename">header.tpl</span> and/or <span class="filename">footer.tpl</span></li>
+  <li><span class="filename">picture_content.tpl</span> and/or <span class="filename">picture.tpl</span></li>
+  <!-- <li><span class="filename">slideshow.tpl</span></li> -->
+  <li><span class="filename">profile.tpl</span> and/or <span class="filename">profile_content.tpl</span></li>
+  <li><span class="filename">tags.tpl</span></li>
+  <li><span class="filename">upload.tpl</span></li>
+  <li><span class="filename">about.tpl</span></li>
+  <li><span class="filename">popuphelp.tpl</span></li>
+  <li><span class="filename">search.tpl</span> and/or <span class="filename">search_rules.tpl</span></li>
+  <li><span class="filename">nbm.tpl</span> and/or <span class="filename">notification.tpl</span></li>
+  <li><span class="filename">identification.tpl</span> and/or <span class="filename">register.tpl</span></li>
+  <li><span class="filename">redirect.tpl</span></li>
+</ul>
+<h3>Spara anpassade mallar</h3>
+<p>Anpassade mallar skall sparas i template-extension mappen eller undermappar. Till exempel, <em>/template-extension/my-default/header.tpl</em> (eller <em>/template-extension/<my-theme-name>/header.tpl</em>)  Mallfiler kan döpas hursomhelst med .tpl suffix.  Temafiler i undermappar visas i Mallinställningssidan som tillgängliga anpassade mallar.</p>
+<h3>Aktivera anpassade mallar</h3>
+<p>Välj originalmallen att ersätta. Alternativt, välj URL nyckelord för att säkerställa att den anpassade mallen enbart visas på sidor som innehåller det nyckelordet. Välj ett bundet tema och ändringarna kommer att aktiveras för det temat. Skicka ändringarna till databasen.</p>
+<h3>Avaktivera anpassade teman</h3>
+<p>Välj bort originalmallen och skicka ändringarna till databasen.<br>
+Radera de anpassade mallfilerna från mall-tilläggs mappen.</p>
+
+<a name="warnings"></a>
+<h3>Varningar</h3>
+<ul>
+  <li><strong>Originalmallen</strong> måste vara rätt originalmall, annars kan oväntade resultat uppnås.</li>
+  <li>Om samma originalmall och samma URL nuckelord används till mer än en anpassad mall kommer enbart den senaste vara aktiv.</li>
+  <li>Distribuerade exempelmallar är enbart för teständamål. Redigera dem inte. Skapa dina egna eller kopiera befinliga temamallar till <em>/template-extension/<my-theme>/</em></li>
+  <li>När den anpassade tema-mallen raderas så återaktiveras genast originalmallfilen.</li>
+</ul>
+
+
