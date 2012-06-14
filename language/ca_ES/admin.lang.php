@@ -291,7 +291,6 @@ $lang['selection'] = 'Seleccionades';
 $lang['set to'] = 'Establir a';
 $lang['singly represented'] = 'Representa per separat';
 $lang['This site already exists'] = 'Aquest lloc ja existeix';
-$lang['Create a new site : (give its URL to create_listing_file.php)'] = 'Afegir un nou lloc: (cal introduïr la seva URL a l\'arxiu create_listing_file.php)';
 $lang['created'] = 'creat';
 $lang['delete'] = 'eliminar';
 $lang['delete this site and all its attached elements'] = 'Eliminar aquest lloc i tots els elements adjunts';
@@ -932,4 +931,5 @@ $lang['Watermark'] = 'Marca d\'aigua';
 $lang['%d week'] = '%d setmana';
 $lang['%d weeks'] = '%d setmanes';
 $lang['Edit photo'] = 'Editar imatge';
+$lang['create a new site'] = 'Crear un lloc nou';
 ?>
