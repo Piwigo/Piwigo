@@ -307,7 +307,6 @@ $lang['selection'] = 'izvēlētie';
 $lang['set to'] = 'izmainīt uz';
 $lang['singly represented'] = 'izvēlētais pārstāvis';
 $lang['This site already exists'] = 'Šī Web lapa jau eksistē';
-$lang['Create a new site : (give its URL to create_listing_file.php)'] = 'Izveidot jaunu Web lapu : (ievadiet URL failā create_listing_file.php)';
 $lang['created'] = 'izveidota';
 $lang['delete'] = 'izdzēsta';
 $lang['delete this site and all its attached elements'] = 'izdzēst šo web lapu un visus tai pievienotos elementus';
@@ -917,4 +916,5 @@ $lang['Sharpen'] = 'Uzspicēts';
 $lang['%d week'] = '%d nedēļa';
 $lang['%d weeks'] = '%d nedēļas';
 $lang['Edit photo'] = 'Rediģēt foto';
+$lang['create a new site'] = 'izveidot jaunu web lapu';
 ?>
