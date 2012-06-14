@@ -307,7 +307,6 @@ $lang['selection'] = "انتخاب";
 $lang['set to'] = "تنظیم به";
 $lang['singly represented'] = 'عکس ریزه ی ثابتِ آلبوم';
 $lang['This site already exists'] = 'این سایت موجود می باشد';
-$lang['Create a new site : (give its URL to create_listing_file.php)'] = 'ایجاد یک سایت تازه : (آدرس خود را در فایل create_listing_file.php ذخیره می کند)';
 $lang['created'] = 'ایجاد شد';
 $lang['delete'] = 'پاک کردن';
 $lang['delete this site and all its attached elements'] = 'پاک کردن این سایت با تمام اطلاعات مربوط به آن';
@@ -924,4 +923,5 @@ $lang['include photos with lower privacy level'] = 'شامل عکس هایی ک�
 $lang['visitors need to login and have the appropriate permissions to see this album'] = 'بازدید کننده ها باید وارد شوند و دسترسی مناسب را داشته باشند تا این آلبوم را ببینند';
 $lang[' and %d virtuals'] = ' و %d مجازی';
 $lang['%d physicals'] = ' %d فیزیکی';
+$lang['create a new site'] = 'ایجاد یک سایت تازه';
 ?>
