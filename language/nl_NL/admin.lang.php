@@ -303,7 +303,6 @@ $lang['selection'] = 'Selectie';
 $lang['set to'] = 'Instellen op';
 $lang['singly represented'] = 'afzonderlijk vertegenwoordigd';
 $lang['This site already exists'] = 'Deze site bestaat al';
-$lang['Create a new site : (give its URL to create_listing_file.php)'] = 'Maak een nieuwe site : (geef de URL naar bestand create_listing_file.php)';
 $lang['created'] = 'gemaakt';
 $lang['delete'] = 'Verwijderen';
 $lang['delete this site and all its attached elements'] = 'Verwijder de site en alle bijbehorende afbeeldingen';
@@ -922,4 +921,5 @@ $lang['%d physicals'] = '%d fysiek';
 $lang['%d week'] = '%d week';
 $lang['%d weeks'] = '%d weken';
 $lang['Edit photo'] = 'foto aanpassen';
+$lang['create a new site'] = 'Maak een nieuwe site';
 ?>
