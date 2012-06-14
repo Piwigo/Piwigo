@@ -301,7 +301,6 @@ $lang['selection'] = 'отмеченные';
 $lang['set to'] = 'изменить на';
 $lang['singly represented'] = 'выбранный представитель';
 $lang['This site already exists'] = 'Такой сайт уже есть';
-$lang['Create a new site : (give its URL to create_listing_file.php)'] = 'Создать новый сайт: (введите URL в create_listing_file.php)';
 $lang['created'] = 'создан';
 $lang['delete'] = 'удален';
 $lang['delete this site and all its attached elements'] = 'удалить этот сайт и все прикрепленные элементы';
@@ -922,4 +921,5 @@ $lang['%d physicals'] = 'реальных: %d';
 $lang['%d week'] = '%d недель';
 $lang['%d weeks'] = '%d недель';
 $lang['Edit photo'] = 'Редактировать фото';
+$lang['create a new site'] = 'создать новый сайт';
 ?>
