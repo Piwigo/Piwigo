@@ -120,6 +120,7 @@ function deactivate_non_standard_themes()
     'Sylvia',
     'dark',
     'elegant',
+    'smartpocket',
     );
 
   $query = '
