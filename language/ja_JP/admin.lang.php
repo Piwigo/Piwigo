@@ -836,4 +836,7 @@ $lang['Y Position'] = 'Y ポジション';
 $lang['any visitor can see this album'] = '誰でもこのアルバムを見ることができます。';
 $lang['create a new site'] = '新規サイト作成';
 $lang['pending validation'] = '検証待ち';
+$lang['Delete multiple size images'] = '複数サイズのイメージを削除';
+$lang['Generate multiple size images'] = '複数サイズのイメージを作成';
+$lang['Original file : %s'] = 'オリジナルファイル : %s';
 ?>
