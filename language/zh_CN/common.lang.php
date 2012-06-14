@@ -406,4 +406,12 @@ $lang['Rating score, high &rarr; low'] = '评分, 高 &rarr; 低';
 $lang['Rating score, low &rarr; high'] = '评分, 低 &rarr; 高';
 $lang['Visits, high &rarr; low'] = '访问量, 高 &rarr; 低';
 $lang['Visits, low &rarr; high'] = '访问量, 低 &rarr; 高';
+$lang['%d rate'] = '%d ';
+$lang['Bad request'] = '请求错误';
+$lang['Forbidden'] = '禁止';
+$lang['Page not found'] = '未找到页面';
+$lang['Permalink for album not found'] = '未找到相册的固定链接';
+$lang['Piwigo encountered a non recoverable error'] = 'Piwigo的遇到了一个不可恢复的错误';
+$lang['Requested album does not exist'] = '相册不存在';
+$lang['Requested tag does not exist'] = '标签不存在';
 ?>
