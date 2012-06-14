@@ -306,7 +306,6 @@ $lang['selection'] = '选择';
 $lang['set to'] = '设置为';
 $lang['singly represented'] = '固定显示';
 $lang['This site already exists'] = '此站点已存在';
-$lang['Create a new site : (give its URL to create_listing_file.php)'] = '新建远端站点 : (在create_listing_file.php文件中给出url地址)';
 $lang['created'] = '已创建';
 $lang['delete'] = '删除';
 $lang['delete this site and all its attached elements'] = '删除此站点和与其相关联的所有信息';
@@ -923,4 +922,8 @@ $lang['Rated %d times, score : %.2f'] = '评分： %d次，得分：%.2f';
 $lang['Sharpen'] = '锐化';
 $lang['Visited %d times'] = '访问数: %d';
 $lang['Watermark'] = '水印';
+$lang['%d weeks'] = '%d周';
+$lang['%d week'] = '%d周';
+$lang['Edit photo'] = '编辑图片';
+$lang['create a new site'] = '新建网站';
 ?>
