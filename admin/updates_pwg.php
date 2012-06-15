@@ -127,12 +127,39 @@ if ($step == 2 and is_webmaster())
 // +-----------------------------------------------------------------------+
 if ($step == 3 and is_webmaster())
 {
+  // Remote sites are not compatible with Piwigo 2.4+
+  $has_remote_site = false;
+
+  $query = 'SELECT galleries_url FROM '.SITES_TABLE.';';
+  $result = pwg_query($query);
+  while ($row = pwg_db_fetch_assoc($result))
+  {
+    if (url_is_remote($row['galleries_url']))
+    {
+      $has_remote_site = true;
+    }
+  }
+  
+  if ($has_remote_site)
+  {
+    $url = PHPWG_URL.'/download/messages/upgrade24-remote-sites.php';
+    $url.= '?lang='.$user['language'];
+    $url.= '&rand='.md5(uniqid(rand(), true)); // Avoid server cache
+
+    $result = null;
+    if (@fetchRemote($url, $result))
+    {
+      $template->assign('forbid_upgrade_message', $result);
+      array_push($page['errors'], $result);
+    }
+  }
+  
   if (isset($_POST['dumpDatabase']))
   {
     updates::dump_database(isset($_POST['includeHistory']));
   }
 
-  if (isset($_POST['submit']) and isset($_POST['upgrade_to']))
+  if (!$has_remote_site and isset($_POST['submit']) and isset($_POST['upgrade_to']))
   {
     updates::upgrade_to($_POST['upgrade_to'], $step);
   }

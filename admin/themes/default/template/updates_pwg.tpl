@@ -86,12 +86,17 @@ li { margin: 5px; }
   <p><ul>{foreach from=$missing.themes item=theme}<li><a href="{$theme.uri}" class="externalLink">{$theme.name}</a></li>{/foreach}</ul><br></p>
   {/if}
   <p>
+
+{if isset($forbid_upgrade_message)}
+  {$forbid_upgrade_message}
+{else}
   {if !empty($missing.plugins) or !empty($missing.themes)}
   <p><label><input type="checkbox" name="understand"> &nbsp;{'I decide to update anyway'|@translate}</label></p>
   {/if}
   <p><input type="submit" name="submit" value="{'Update to Piwigo %s'|@translate|@sprintf:$UPGRADE_TO}" {if !empty($missing.plugins) or !empty($missing.themes)}disabled="disabled"{/if}>
   </p>
   <p class="autoupdate_bar" style="display:none;">&nbsp; {'Update in progress...'|@translate}<br><img src="admin/themes/default/images/ajax-loader-bar.gif"></p>
+{/if}
 </fieldset>
 
 <p><input type="hidden" name="upgrade_to" value="{$UPGRADE_TO}"></p>
