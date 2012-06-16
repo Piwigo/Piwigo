@@ -183,7 +183,6 @@ $lang['Correction applied with success'] = 'Виправлення успішн�
 $lang['Correction the anomaly will cancel the fact that it\'s ignored'] = 'Виправлена ​​аномалія більше не ігноруватиметься';
 $lang['Correction'] = 'Виправлення';
 $lang['create a new album'] = 'створити новий альбом';
-$lang['Create a new site : (give its URL to create_listing_file.php)'] = 'Створити новий сайт : (присвоїти йому URL create_listing_file.php)';
 $lang['Create the "%s" directory at the root of your Piwigo installation'] = 'Створити директорію "%s" в кореневій директорії інсталяції Piwigo';
 $lang['Create this site'] = 'Створити цей сайт';
 $lang['created'] = 'створено';
@@ -918,4 +917,5 @@ $lang['%d physicals'] = '%d фізичні';
 $lang['%d weeks'] = '%d тижнів';
 $lang['%d week'] = '%d тиждень';
 $lang['Edit photo'] = 'Редагувати фото';
+$lang['create a new site'] = 'створити новий сайт';
 ?>
