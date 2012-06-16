@@ -614,6 +614,8 @@ $validated_keys = array(
 	'Informations',
 	'EXIF Metadata',
 	'IPTC Metadata',
+	'Original',
+	'Desktop',
 	),
 	
   'tr_TR' => array(
