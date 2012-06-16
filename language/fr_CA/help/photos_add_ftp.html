@@ -24,45 +24,32 @@
 
   <li>
 
-    <p>Les répertoires représentant les catégories se trouvent dans le répertoire "galleries". Ci-dessous l'arbre des répertoires d'une très petite galerie (mais utilisant de nombreuses fonctionnalités) : </p>
+    <p>Les répertoires représentant les albums se trouvent dans le répertoire "galleries". Ci-dessous l'arbre des répertoires d'une très petite galerie (mais utilisant de nombreuses fonctionnalités) : </p>
   
 <pre>
-.
-|-- admin
-|-- doc
-|-- galleries
-|   |-- categorie-1
-|   |   |-- categorie-1.1
-|   |   |   |-- categorie-1.1.1
-|   |   |   |   |-- categorie-1.1.1.1
-|   |   |   |   |   |-- pwg_high
-|   |   |   |   |   |   +-- mariage.jpg
-|   |   |   |   |   |-- thumbnail
-|   |   |   |   |   |   +-- TN-mariage.jpg
-|   |   |   |   |   +-- mariage.jpg
-|   |   |   |   +-- categorie-1.1.1.2
-|   |   |   +-- categorie-1.1.2
-|   |   |-- categorie-1.2
-|   |   |   |-- pookie.jpg
-|   |   |   +-- thumbnail
-|   |   |       +-- TN-pookie.jpg
-|   |   +-- categorie-1.3
-|   +-- categorie-2
-|       |-- porcinet.gif
-|       |-- pwg_representative
-|       |   +-- video.jpg
-|       |-- thumbnail
-|       |   +-- TN-porcinet.jpg
-|       +-- video.avi
-|-- include
-|-- install
-|-- language
-|-- template
-+-- tool</pre>
+galleries
+|-- mariage
+|   |-- ceremonie
+|   |   |-- entree
+|   |   |   |-- arrivee-de-paul.jpg
+|   |   |   +-- arrivee-de-virginie.jpg
+|   |   +-- sortie
+|   |       |-- sortie-enfants-honneur.jpg
+|   |       +-- sortie-de-paul-et-virginie.jpg
+|   +-- cocktail
+|       |-- discours001.jpg
+|       |-- discours002.jpg
+|       +-- discours003.jpg
++-- voyage-de-noces
+    |-- hotel.png
+    |-- video-decollage-avion.avi
+    +-- pwg_representative
+        +-- video-decollage-avion.jpg
+</pre>
 
   </li>
   
-  <li>A l'exception de ceux appelés "thumbnail", "pwg_high" ou "pwg_representative" (voir explications ci-dessous), chaque répertoire dans "galleries" génère une catégorie. Le nombre de niveaux (profondeur) n'est pas limité.</li>
+  <li>A l'exception de celui appelé "pwg_representative", chaque répertoire dans "galleries" génère un album. Le nombre de niveaux (profondeur) n'est pas limité.</li>
 
   <li>Fondamentalement, un élément est représenté par un fichier. Pour Piwigo, un fichier peut être un élément si son extension figure dans la liste du paramètre de configuration <code>file_ext</code> (voir
 fichier <span class="filename">include/config.inc.php</span>). Un fichier
