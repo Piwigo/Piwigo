@@ -29,14 +29,6 @@ if (! defined('MULTIVIEW_CONTROLLER') )
     $conf['template_combine_files'] = false;
   if (pwg_get_session_var( 'multiview_no_history', 0 ))
     add_event_handler( 'pwg_log_allowed', create_function( '', 'return false;' ) );
-
-  if (pwg_get_session_var( 'purge_template', 0 ))
-  {
-    global $template;
-    $template->delete_compiled_templates();
-    FileCombiner::clear_combined_files();
-    pwg_unset_session_var( 'purge_template' );
-  }
 }
 
 add_event_handler('loc_end_page_header', 'multiview_loc_end_page_header');

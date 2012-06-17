@@ -30,13 +30,21 @@ Author: Piwigo team
 Author URI: http://piwigo.org
 */
 
-add_event_handler('init', 'multiview_user_init' );
+add_event_handler('user_init', 'multiview_user_init' );
+add_event_handler('init', 'multiview_init' );
 
 function multiview_user_init()
 {
   if (!is_admin())
     return;
   include_once( dirname(__FILE__).'/is_admin.inc.php' );
+}
+
+function multiview_init()
+{
+  if (!is_admin())
+    return;
+  include_once( dirname(__FILE__).'/is_admin_template.inc.php' );
 }
 
 ?>
