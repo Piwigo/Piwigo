@@ -407,4 +407,7 @@ $lang['Forbidden'] = 'Prepovedan dostop';
 $lang['Page not found'] = 'Stran ne obstaja';
 $lang['Requested album does not exist'] = 'Zahtevan album ne obstaja';
 $lang['Requested tag does not exist'] = 'Zahtevan tag ne obstaja';
+$lang['Bad request'] = 'Nepravilna zahteva';
+$lang['Permalink for album not found'] = 'Stalne povezave za album ni bilo mogoče najti';
+$lang['Piwigo encountered a non recoverable error'] = 'Prišlo je do napake v Piwigo';
 ?>
