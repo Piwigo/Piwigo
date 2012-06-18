@@ -404,4 +404,12 @@ $lang['Numeric identifier, 1 &rarr; 9'] = 'Ký hiệu nhận dạng số học, 
 $lang['Numeric identifier, 9 &rarr; 1'] = 'Ký hiệu nhận dạng số học, 9 &rarr; 1';
 $lang['Manual sort order'] = 'Sắp xếp vị trí thủ công';
 
+$lang['%d rate'] = 'xếp hạng %d';
+$lang['Bad request'] = 'Yêu cầu không hợp lệ';
+$lang['Forbidden'] = 'Bị hạn chế truy cập';
+$lang['Page not found'] = 'Không tìm thấy trang';
+$lang['Permalink for album not found'] = 'Không tìm thấy liên kết cho album';
+$lang['Piwigo encountered a non recoverable error'] = 'Piwigo gặp lỗi ngoài tầm kiểm soát';
+$lang['Requested album does not exist'] = 'Không có album như bạn yêu cầu';
+$lang['Requested tag does not exist'] = 'Không có tag như bạn yêu cầu';
 ?>
