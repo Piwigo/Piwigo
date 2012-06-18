@@ -48,7 +48,7 @@ $lang['enter a login for webmaster'] = "enter a login for webmaster";
 $lang['webmaster login can\'t contain characters \' or "'] = "webmaster login can't contain characters ' or \"";
 $lang['please enter your password again'] = "please enter your password again";
 $lang['Webmaster password'] = "Webmaster password";
-$lang['Keep it confidential, it enables you to access administration panel'] = "Keep it confidential, it enables you to access administration panel";
+$lang['Keep it confidential, it enables you to access administration panel'] = 'Keep it confidential, it enables you to access the administration panel';
 $lang['Password [confirm]'] = "Password [confirm]";
 $lang['verification'] = "verification";
 $lang['Need help ? Ask your question on <a href="%s">Piwigo message board</a>.'] = "Need help? Ask your question on <a href=\"%s\">Piwigo message board</a>.";
