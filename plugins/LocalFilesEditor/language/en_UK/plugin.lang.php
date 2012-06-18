@@ -27,7 +27,7 @@ $lang['locfiledit_onglet_tpl'] = 'Templates';
 $lang['locfiledit_onglet_lang'] = 'Languages';
 $lang['locfiledit_onglet_plug'] = 'Personal Plugin';
 $lang['locfiledit_cant_save'] = 'Current file isn\'t writeable. Check if a directory "local/" is writeable (chmod).';
-$lang['locfiledit_newfile'] = 'File is not existing and will be created by LocalFiles Editor';
+$lang['locfiledit_newfile'] = 'File does not exist and will be created by LocalFiles Editor';
 $lang['locfiledit_save_config'] = 'File written successfully.';
 $lang['locfiledit_show_default'] = 'Display reference file: ';
 $lang['locfiledit_save_bak'] = 'Backup copy will be created on save.';
@@ -49,6 +49,6 @@ $lang['locfiledit_parent_directory'] = 'Parent directory';
 $lang['locfiledit_filename_error'] = 'Forbidden characters in file name.';
 $lang['locfiledit_file_already_exists'] = 'File already exists.';
 $lang['locfiledit_model_error'] = 'You must choose a model.';
-$lang['locfiledit_empty_filename'] = 'You must fill file name.';
+$lang['locfiledit_empty_filename'] = 'You must enter the file name.';
 $lang['locfiledit_webmaster_only'] = 'Only webmasters can create or modify local files.';
 ?>
