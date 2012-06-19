@@ -83,7 +83,7 @@ if (!empty($inserts))
 ob_start();
 echo '<pre>';
 
-for ($upgrade_id = 112; $upgrade_id <= 126; $upgrade_id++)
+for ($upgrade_id = 112; $upgrade_id <= 127; $upgrade_id++)
 {
   if (!file_exists(UPGRADES_PATH.'/'.$upgrade_id.'-database.php'))
   {
