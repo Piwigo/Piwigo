@@ -4,100 +4,67 @@
 <ol>
   <li>Utwórz katalog lokalny na swoim komputerze.</li>
 
-  <li>Skopiuj zdjęcia do tego katalogu (zmień ich rozmiar na potrzeby galerii). <em>Uwaga</em>: nazwy katalogów oraz plików mogą zawierać tylko litery, cyfry oraz znaki "-", "_" lub ".". Ne mogą zawierać znaku spacji lub akcentowania.</li></li>
+  <li>Skopiuj zdjęcia do tego katalogu (zmień ich rozmiar na potrzeby internetu). <em>Uwaga</em>: nazwy katalogów oraz plików mogą zawierać tylko litery, cyfry oraz znaki "-", "_" lub ".". Nie mogą zawierać innych znaków, znaku spacji ani polskich liter.</li></li>
 
   <li>Za pomocą klienta FTP skopiuj katalog katalogu "galleries".</li>
 
- <li>Zaloguj się do galerii i przejdź do <span class="pwgScreen">Administracja &raquo; Obrazy &raquo; Miniatury</span> aby stworzyć brakujące miniatury.</li>
-
-  <li>Przejdź do <span class="pwgScreen">Administracja</span> i wybierz duży przycisk Synchronizacja.</li>
-  
+  <li>Zaloguj się do galerii i przejdź do <span class="pwgScreen">Administracja</span> i wybierz duży przycisk Synchronizacja.</li>
 </ol>
-Gratulacje! Stworzyłeś pierwszą kategorię w swojej galerii.
 
+<p>Gratulacje! Stworzyłeś pierwszą kategorię w swojej galerii.</p>
 </fieldset>
+
 <fieldset>
   <legend>Struktura katalogów i plików</legend>
+
 <ul>
 
   <li>
 
     <p>W Piwigo katalogi kategorii znajdują się wewnątrz katalogu
-    "galleries". Poniżej można zobaczyć drzewo niewielkiej galerii (ale wykorzystującej wiele funkcji) :</p>
+    "galleries". Poniżej można zobaczyć drzewo niewielkiej galerii
+	(ale wykorzystującej wiele funkcji):</p>
 
     <pre>
-.
-|-- admin
-|-- doc
-|-- galleries
-|   |-- category-1
-|   |   |-- category-1.1
-|   |   |   |-- category-1.1.1
-|   |   |   |   |-- category-1.1.1.1
-|   |   |   |   |   |-- pwg_high
-|   |   |   |   |   |   +-- wedding.jpg
-|   |   |   |   |   |-- thumbnail
-|   |   |   |   |   |   +-- TN-wedding.jpg
-|   |   |   |   |   +-- wedding.jpg
-|   |   |   |   +-- category-1.1.1.2
-|   |   |   +-- category-1.1.2
-|   |   |-- category-1.2
-|   |   |   |-- pookie.jpg
-|   |   |   +-- thumbnail
-|   |   |       +-- TN-pookie.jpg
-|   |   +-- category-1.3
-|   +-- category-2
-|       |-- piglet.gif
-|       |-- pwg_representative
-|       |   +-- video.jpg
-|       |-- thumbnail
-|       |   +-- TN-piglet.jpg
-|       +-- video.avi
-|-- include
-|-- install
-|-- language
-|-- template
-+-- tool</pre>
+galleries
+|-- wedding
+|   |-- celebration
+|   |   |-- arrival
+|   |   |   |-- paul-alone.jpg
+|   |   |   +-- sarah-alone.jpg
+|   |   +-- departure
+|   |       +-- paul-and-sarah.jpg
+|   +-- party
+|       |-- dancers001.jpg
+|       |-- dancers002.jpg
+|       +-- dancers003.jpg
++-- honeymoon
+    |-- hotel.png
+    |-- video-from-plane.avi
+    +-- pwg_representative
+        +-- video-from-plane.jpg
+</pre>
 
   </li>
   
-  <li>Każdy podkatalog w katalogu "galleries" tworzy kategorię. Nie ma limitu na poziomy zagłębień katalogów.</li>
+  <li>Poza "pwg_representative" (wyjaśnienie poniżej), każdy podkatalog w katalogu "galleries" tworzy kategorię. Nie ma limitu na poziomy zagłębień katalogów.</li>
 
-  <li>Ogólnie element jest reprezentowany przez plik. Plik może być elementem Piwigo jeżeli
-  jego rozszerzenie jest zawarte w parametrze <code>file_ext</code> (plik <span
-  class="filename">include/config_default.inc.php</span>). Plik może być obrazem jeżeli jego rozszerzenie jest zawarte w parametrze<code>picture_ext</code>
-.</li>
+  <li>Ogólnie element jest reprezentowany przez plik. Plik może być elementem
+  Piwigo jeżeli jego rozszerzenie jest zawarte <code>file_ext</code>
+  (plik <span class="filename">include/config_default.inc.php</span>).
+  Plik może być obrazem jeżeli jego rozszerzenie
+  jest zawarte w <code>picture_ext</code>
+  .</li>
 
-  <li>Obrazy muszą mieć powiązane z nimi miniatury (patrze sekcja miniatury poniżej)</li>
+  <li>Domyślnie, pliki nie będące obrazami (filmy, dźwięki, tekst, cokolwiek innego...), są przedstawiane przy pomocy ikon z rozszerzeniem pliku
+  Opcjonalnie można powiązać miniaturę przez pwg_representative.
+  Przyjrzyj się przykładowi powyżej dla video.avi.</li>
+  
+  <li><em>Ostrzeżenie</em>: nazwy katalogów oraz plików mogą zawierać tylko litery, cyfry oraz znaki "-", "_" lub ".". Nie mogą zawierać innych znaków, znaku spacji ani polskich liter.
 
-  <li>Obrazy mogą mieć odpowiadające im pliki wysokiej rozdzielczości. Jak np
-  dla zdjęcia wedding.jpg w przykładzie powyżej. Dla obrazów wysokiej jakości nie jest wymagany żaden prefix.</li>
-
-  <li>Elementy nie będące obrazami (video, dźwięki, pliki tekstowe, cokolwiek zechcesz...) są domyślnie reprezentowane jako ikona powiązana z danym plikiem. Opcjonalnie możesz powiązać miniaturę i plik reprezentujący (zobacz video.avi w przykładzie powyżej).</li>
-
-  <li><em>Ostrzeżenie</em> : nazwy plików oraz katalogów muszą składać się wyłącznie z
-liter cyfr, znaków "-", "_" lub ".". Nie mogą zawierać spacji oraz pozostałych znaków.</li>
-
-  <li>Po umieszczeniu plików, miniatur oraz reprezentantów, przejdź do : <span class="pwgScreen">Administracja &raquo; Kategorie &raquo;
+  <li>Po umieszczeniu plików, miniatur oraz reprezentantów,
+  przejdź do: <span class="pwgScreen">Administracja &raquo; Narzędzia &raquo;
   Synchronizacja</span></li>
-
-</ul>
-
-</fieldset>
-<fieldset>
-  <legend>Miniatury</legend>
-<ul>
-
-  <li>Tak jak wspomniano wcześniej każdy element typu obraz musi posiadać swoją miniaturę.</li>
-
-  <li>Miniatury są zapisywane w podkatalogu "thumbnail" danej kategorii. Miniatura jest obrazem o takiej samej nazwie pliku jak jak dany obraz i posiada prefix <em>TN-</em>.</li>
-
-  <li><em>Rada</em>: do tworzenia miniatur używaj zewnętrznego modułu.</li>
-
-  <li>Do tworzenia miniatur możesz także wykorzystać stronę do ich tworzenia <span
-  class="pwgScreen">Administracja &raquo; Obrazy &raquo; Miniatury</span> , natomiast nie jest to zalecane, ze względu na to, że jakość miniatur może być kiepska oraz jest wysokie wykorzystanie procesora.</li>
-
-  <li>Musisz dać prawa zapisu na katalogach i podkatalogach kategorii</li>
 
 </ul>
 </fieldset>
