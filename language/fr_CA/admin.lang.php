@@ -930,5 +930,6 @@ $lang['Sharpen'] = 'Renforcer la netteté';
 $lang['%d week'] = '%d semaine';
 $lang['%d weeks'] = '%d semaines';
 $lang['Edit photo'] = 'Éditer la photo';
+$lang['create a new site'] = 'créer un nouveau site'; 
 
 ?>
