@@ -2307,6 +2307,11 @@ function ws_categories_add($params, &$service)
   if ( !empty($params['status']) and in_array($params['status'], array('private','public')) )
   {
     $updates['status'] = $params['status'];
+    
+    if ('private' == $updates['status'])
+    {
+      add_permission_on_category($creation_output['id'], get_admins());
+    }
   }
   if ( !empty($params['visible']) and in_array($params['visible'], array('true','false')) )
   {
