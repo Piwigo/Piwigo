@@ -2302,6 +2302,33 @@ function ws_categories_add($params, &$service)
   {
     return new PwgError(500, $creation_output['error']);
   }
+  
+  $updates = array();
+  if ( !empty($params['status']) and in_array($params['status'], array('private','public')) )
+  {
+    $updates['status'] = $params['status'];
+  }
+  if ( !empty($params['visible']) and in_array($params['visible'], array('true','false')) )
+  {
+    $updates['visible'] = $params['visible'];
+  }
+  if ( !empty($params['commentable']) and in_array($params['commentable'], array('true','false')) )
+  {
+    $updates['commentable'] = $params['commentable'];
+  }
+  if ( !empty($params['comment']) )
+  {
+    $updates['comment'] = strip_tags($params['comment']);
+  }
+
+  if (!empty($updates))
+  {
+    single_update(
+      CATEGORIES_TABLE,
+      $updates,
+      array('id'=>$creation_output['id'])
+      );
+  }
 
   invalidate_user_cache();
 

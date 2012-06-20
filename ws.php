@@ -308,6 +308,10 @@ function ws_addDefaultMethods( $arr )
     array(
       'name' => array(),
       'parent' => array('default' => null),
+      'comment' => array('default' => null),
+      'visible' => array('default' => boolean_to_string($conf['newcat_default_visible'])),
+      'status' => array('default' => $conf['newcat_default_status']),
+      'commentable' => array('default' => 'true'),
       ),
     'administration method only'
     );
