@@ -207,6 +207,7 @@ SELECT
             $tpl_comment['KEY'] = $key;
             $tpl_comment['CONTENT'] = $row['content'];
             $tpl_comment['PWG_TOKEN'] = get_pwg_token();
+            $tpl_comment['U_CANCEL'] = $url_self;
           }
       }
       if (is_admin())

@@ -364,6 +364,10 @@ $navbar = create_navigation_bar($url,
 
 $template->assign('navbar', $navbar);
 
+$url_self = PHPWG_ROOT_PATH
+    .'comments.php'
+  .get_query_string_diff(array('edit','delete','validate','pwg_token'));
+
 // +-----------------------------------------------------------------------+
 // |                        last comments display                          |
 // +-----------------------------------------------------------------------+
@@ -515,6 +519,7 @@ SELECT c.id, name, permalink, uppercats, com.id as comment_id
         $tpl_comment['IMAGE_ID'] = $comment['image_id'];
         $tpl_comment['CONTENT'] = $comment['content'];
         $tpl_comment['PWG_TOKEN'] = get_pwg_token();
+        $tpl_comment['U_CANCEL'] = $url_self;
       }
     }
 

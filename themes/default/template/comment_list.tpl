@@ -25,6 +25,11 @@
 		{if isset($comment.U_DELETE)}
 			<a href="{$comment.U_DELETE}" onclick="return confirm('{'Are you sure?'|@translate|@escape:javascript}');">
 				{'Delete'|@translate}
+			</a>{if isset($comment.U_VALIDATE) or isset($comment.U_EDIT) or isset($comment.U_CANCEL)} | {/if}
+		{/if}
+		{if isset($comment.U_CANCEL)}
+			<a href="{$comment.U_CANCEL}">
+				{'Cancel'|@translate}
 			</a>{if isset($comment.U_VALIDATE) or isset($comment.U_EDIT)} | {/if}
 		{/if}
 		{if isset($comment.U_EDIT) and !isset($comment.IN_EDIT)}
