@@ -21,135 +21,111 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
-if (!defined('LANGUAGE_SWITCH_PATH'))
-{
-  define('LANGUAGE_SWITCH_PATH' , PHPWG_PLUGINS_PATH.basename(dirname(__FILE__)).'/');
-}
+if (!defined('PHPWG_ROOT_PATH')) die('Hacking attempt!');
 
-class language_controler
+function language_controler_switch()
 {
-  static public function _switch()
+  global $user;
+    
+  $same = $user['language'];
+  
+  if (isset($_GET['lang']))
   {
-    global $user;
-    
-    if (!defined('PHPWG_ROOT_PATH'))
+    include_once(PHPWG_ROOT_PATH . 'admin/include/languages.class.php');
+    $languages = new languages();
+    if ( !in_array($_GET['lang'], array_keys($languages->fs_languages)) )
     {
-      die('Hacking attempt!');
+      $_GET['lang'] = PHPWG_DEFAULT_LANGUAGE;
     }
-    
-    $same = $user['language'];
-    
-    if (isset($_GET['lang']))
-    {
-      include_once(PHPWG_ROOT_PATH . 'admin/include/languages.class.php');
-      $languages = new languages();
-      if (!in_array($_GET['lang'], array_keys($languages->fs_languages)))
-      {
-        $_GET['lang'] = PHPWG_DEFAULT_LANGUAGE;
-      }
 
-      if (!empty($_GET['lang']) and file_exists(PHPWG_ROOT_PATH.'language/'.$_GET['lang'].'/common.lang.php'))
+    if ( !empty($_GET['lang']) and file_exists(PHPWG_ROOT_PATH.'language/'.$_GET['lang'].'/common.lang.php') )
+    {
+      if ( is_a_guest() or is_generic() )
       {
-        if (is_a_guest() or is_generic())
-        {
-          pwg_set_session_var('lang_switch', $_GET['lang']);
-        }
-        else
-        {
-          $query = '
+        pwg_set_session_var('lang_switch', $_GET['lang']);
+      }
+      else
+      {
+        $query = '
 UPDATE '.USER_INFOS_TABLE.'
   SET language = \''.$_GET['lang'].'\'
   WHERE user_id = '.$user['id'].'
 ;';
-          pwg_query($query);
-        }
-        
-        $user['language'] = $_GET['lang'];
+        pwg_query($query);
       }
-    }
-    elseif ((is_a_guest() or is_generic()))
-    {
-      $user['language'] = pwg_get_session_var('lang_switch', $user['language']);
-    }
-    
-    // Reload language only if it isn't the same one
-    if ( $same !== $user['language'])
-    {
-      load_language('common.lang', '', array('language'=>$user['language']));
       
-      load_language(
-        'lang',
-        PHPWG_ROOT_PATH.PWG_LOCAL_DIR,
-        array(
-          'language' => $user['language'],
-          'no_fallback' => true,
-          'local' => true
-          )
-        );
-      
-      if (defined('IN_ADMIN') and IN_ADMIN)
-      {
-        // Never currently
-        load_language('admin.lang', '', array('language'=>$user['language']));
-      }
+      $user['language'] = $_GET['lang'];
     }
   }
-  
-  static public function _flags()
+  elseif ( (is_a_guest() or is_generic()) )
   {
-    global $user, $template, $conf;
+    $user['language'] = pwg_get_session_var('lang_switch', $user['language']);
+  }
+  
+  // Reload language only if it isn't the same one
+  if ( $same !== $user['language'] )
+  {
+    load_language('common.lang', '', array('language'=>$user['language']));
     
-    $available_lang = get_languages();
-    
-    if (isset($conf['no_flag_languages']))
-    {
-      $available_lang = array_diff_key($available_lang, array_flip($conf['no_flag_languages']));
-    }
-    
-    $url_starting = get_query_string_diff(array('lang'));
-
-    foreach ($available_lang as $code => $displayname)
-    {
-      $qlc = array (
-        'url' => add_url_params(duplicate_index_url(), array('lang'=> $code)),
-        'alt' => ucwords($displayname),
-        'title' => substr($displayname, 0, -4), // remove [FR] or [RU]
-        'img' => get_root_url().'language/'.$code.'/'.$code.'.jpg',
-        );
-      
-      $lsw['flags'][$code] = $qlc ;
-      
-      if ($code == $user['language'])
-      {
-        $lsw['Active'] = $qlc;
-      }
-    }
-    
-    $template->set_filename('language_flags', dirname(__FILE__) . '/flags.tpl');
-    
-    $lsw['side'] = ceil(sqrt(count($available_lang)));
-    
-    $template->assign(
+    load_language(
+      'lang',
+      PHPWG_ROOT_PATH.PWG_LOCAL_DIR,
       array(
-        'lang_switch'=> $lsw,
-        'LANGUAGE_SWITCH_PATH' => LANGUAGE_SWITCH_PATH,
+        'language' => $user['language'],
+        'no_fallback' => true,
+        'local' => true
         )
       );
     
-    $flags = $template->parse('language_flags',true);
-    $template->clear_assign('lang_switch');
-    $template->concat( 'PLUGIN_INDEX_ACTIONS', $flags);
+    if ( defined('IN_ADMIN') and IN_ADMIN )
+    {
+      // Never currently
+      load_language('admin.lang', '', array('language'=>$user['language']));
+    }
   }
 }
 
-  /* {html_head} usage function */
-  /* See flags.tpl for example (due no catenation available) */
-if (!function_exists('Componant_exists'))
+function language_controler_flags()
 {
-  function Componant_exists($path, $file)
+  global $user, $template, $conf;
+  
+  $available_lang = get_languages();
+  
+  if (isset($conf['no_flag_languages']))
   {
-    return file_exists( $path . $file);
+    $available_lang = array_diff_key($available_lang, array_flip($conf['no_flag_languages']));
   }
+  
+  $url_starting = get_query_string_diff(array('lang'));
+
+  foreach ($available_lang as $code => $displayname)
+  {
+    $qlc = array (
+      'url' => add_url_params(duplicate_index_url(), array('lang'=> $code)),
+      'alt' => ucwords($displayname),
+      'title' => substr($displayname, 0, -4), // remove [FR] or [RU]
+      'img' => get_root_url().'language/'.$code.'/'.$code.'.jpg',
+      );
+    
+    $lsw['flags'][$code] = $qlc;
+    
+    if ($code == $user['language'])
+    {
+      $lsw['Active'] = $qlc;
+    }
+  }
+  
+  $template->set_filename('language_flags', dirname(__FILE__) . '/flags.tpl');
+  
+  $template->assign(
+    array(
+      'lang_switch'=> $lsw,
+      'LANGUAGE_SWITCH_PATH' => LANGUAGE_SWITCH_PATH,
+      )
+    );
+  
+  $template->concat('PLUGIN_INDEX_ACTIONS', $template->parse('language_flags', true) );
+  $template->clear_assign('lang_switch');
 }
 
 ?>

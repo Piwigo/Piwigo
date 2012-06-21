@@ -1,0 +1,14 @@
+#languageSwitchBox {
+  background-color: #555;
+  border: 1px solid #000;
+}
+
+#languageSwitchBox .switchBoxTitle {
+  border-bottom: 1px solid #444;
+}
+#languageSwitchBox a {
+  color:#aaa;
+}
+#languageSwitchBox a:hover {
+  color:#ddd;
+}
