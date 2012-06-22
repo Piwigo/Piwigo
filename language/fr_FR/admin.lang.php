@@ -922,4 +922,5 @@ $lang['%d seconds'] = '%d secondes';
 $lang['Sharpen'] = 'Renforcer la netteté';
 $lang['Edit photo'] = 'Éditer la photo';
 $lang['create a new site'] = 'créer un nouveau site';
+$lang['No order field selected'] = 'Aucun critère de tri sélectionné';
 ?>

@@ -462,6 +462,7 @@ $lang['No photo selected, no action possible.'] = 'No photo selected, no action 
 $lang['No results'] = "No results";
 $lang['No user to send notifications by mail.'] = "No user to be notified by mail.";
 $lang['no write access'] = "no write access";
+$lang['No order field selected'] = 'No order field selected';
 $lang['none'] = "none";
 $lang['None'] = 'None';
 $lang['nothing'] = "nothing";
