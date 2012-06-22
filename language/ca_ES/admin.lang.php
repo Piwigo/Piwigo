@@ -526,7 +526,7 @@ $lang['Subscribe %s to Piwigo Announcements Newsletter'] = 'Inscriure %s al butl
 $lang['Purge search history'] = 'Purgar el historico de búsquedad';
 $lang['Hide'] = 'Ocultar';
 $lang['Execution time is out, treatment must be continue [Estimated time: %d seconds].'] = 'Sobrepasado el tiempo de ejecución, el procesamiento debe continuar [Tiempo estimado: %d secundas].';
-$lang['Operation in progress'] = 'Operación en progreso.';
+$lang['Operation in progress'] = 'Operació en progrés...';
 $lang['Please wait...'] = 'Si us plau, esperi...';
 $lang['Password is missing. Please enter the password.'] = 'Falta la clau d\'accès. Si us plau, introdueix-la.';
 $lang['Password confirmation is missing. Please confirm the chosen password.'] = 'La confirmación de la contraseña faltó. Por favor, confirme la contraseña elegida.';
@@ -736,7 +736,7 @@ $lang['Following plugins may not be compatible with the new version of Piwigo:']
 $lang['Following themes may not be compatible with the new version of Piwigo:'] = 'Els següents temes poden no ser compatibles amb la nova versió de Piwigo:';
 $lang['I decide to update anyway'] = 'Vull actualitzar de totes maneres';
 $lang['Update to Piwigo %s'] = 'Actualitzar a Piwigo %s';
-$lang['Two updates are available'] = 'Dues actualitzacions estàn disponibles';
+$lang['Two updates are available'] = 'Hi ha dues actualitzacions disponibles';
 $lang['This is a minor update, with only bug corrections.'] = 'Aquesta actualització és menor. Només conté correccions d\'errors.';
 $lang['This is a major update, with <a href="%s">new exciting features</a>.'] = 'Esta es una actualización importante, con <a href="%s">nuevas características emocionantes</a>.';
 $lang['Some themes and plugins may be not available yet.'] = 'Alguns dels temes i complements poden encara no estar disponibles.';
@@ -745,7 +745,7 @@ $lang['Save Template Directory'] = 'Desar directori de plantilles';
 $lang['Dump Database'] = 'Abocar la base de dades';
 $lang['Include history data (Warning: server memory limit may be exceeded)'] = 'Incloure la informació de l\'historial. (Advertència: el límit de memòria del servidor pot ser superat)';
 $lang['Unable to dump database.'] = 'No és possible volcar la base de dades.';
-$lang['Some upgrades are available for extensions.'] = 'Actualitzacions disponibles per a les extensiones.';
+$lang['Some upgrades are available for extensions.'] = 'Hi ha actualitzacions disponibles per a algunes extensions';
 $lang['Ignore All'] = 'Ignorar tot';
 $lang['Crop'] = 'Redimensionar ';
 $lang['Width'] = 'Amplada';
