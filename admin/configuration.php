@@ -145,25 +145,39 @@ if (isset($_POST['submit']))
       if ( !isset($conf['order_by_custom']) and !isset($conf['order_by_inside_category_custom']) )
       {
         if ( !empty($_POST['order_by']) )
-        {         
-          // limit to the number of available parameters
-          $order_by = $order_by_inside_category = array_slice($_POST['order_by'], 0, ceil(count($sort_fields)/2));
-          
-          // there is no rank outside categories
-          unset($order_by[ array_search('rank ASC', $order_by) ]);
-          
-          // must define a default order_by if user want to order by rank only
-          if ( count($order_by) == 0 )
+        {
+          foreach ($_POST['order_by'] as $i => $val)
           {
-            $order_by = array('id ASC');
+            if (empty($val)) unset($_POST['order_by'][$i]);
           }
-          
-          $_POST['order_by'] = 'ORDER BY '.implode(', ', $order_by);
-          $_POST['order_by_inside_category'] = 'ORDER BY '.implode(', ', $order_by_inside_category);
+          if ( !count($_POST['order_by']) )
+          {
+            array_push($page['errors'], l10n('No order field selected'));
+          }
+          else
+          {
+            // limit to the number of available parameters
+            $order_by = $order_by_inside_category = array_slice($_POST['order_by'], 0, ceil(count($sort_fields)/2));
+            
+            // there is no rank outside categories
+            if ( ($i = array_search('rank ASC', $order_by)) !== false)
+            {
+              unset($order_by[$i]);
+            }
+            
+            // must define a default order_by if user want to order by rank only
+            if ( count($order_by) == 0 )
+            {
+              $order_by = array('id ASC');
+            }
+            
+            $_POST['order_by'] = 'ORDER BY '.implode(', ', $order_by);
+            $_POST['order_by_inside_category'] = 'ORDER BY '.implode(', ', $order_by_inside_category);
+          }
         }
         else
         {
-          array_push($page['errors'], l10n('No field selected'));
+          array_push($page['errors'], l10n('No order field selected'));
         }
       }
       
