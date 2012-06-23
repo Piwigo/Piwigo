@@ -932,4 +932,5 @@ $lang['%d week'] = '%d setmana';
 $lang['%d weeks'] = '%d setmanes';
 $lang['Edit photo'] = 'Editar imatge';
 $lang['create a new site'] = 'Crear un lloc nou';
+$lang['No order field selected'] = 'Ordre no seleccionat';
 ?>
