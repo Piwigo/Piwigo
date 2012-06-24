@@ -126,6 +126,14 @@ SELECT COUNT(*) AS user_exists
     $comment_action='reject';
     $_POST['cr'][] = 'key'; // rvelices: I use this outside to see how spam robots work
   }
+  
+  // anonymous id = ip address
+  $ip_components = explode('.', $comm['ip']);
+  if (count($ip_components) > 3)
+  {
+    array_pop($ip_components);
+  }
+  $comm['anonymous_id'] = implode('.', $ip_components);
 
   if ($comment_action!='reject' and $conf['anti-flood_time']>0 and !is_admin())
   { // anti-flood system
@@ -135,6 +143,14 @@ SELECT COUNT(*) AS user_exists
 SELECT count(1) FROM '.COMMENTS_TABLE.'
   WHERE date > '.$reference_date.'
     AND author_id = '.$comm['author_id'];
+    if (!is_classic_user())
+    {
+      $query.= '
+      AND anonymous_id = "'.$comm['anonymous_id'].'"';
+    }
+    $query.= '
+;';
+
     list($counter) = pwg_db_fetch_row(pwg_query($query));
     if ( $counter > 0 )
     {
@@ -152,10 +168,11 @@ SELECT count(1) FROM '.COMMENTS_TABLE.'
   {
     $query = '
 INSERT INTO '.COMMENTS_TABLE.'
-  (author, author_id, content, date, validated, validation_date, image_id)
+  (author, author_id, anonymous_id, content, date, validated, validation_date, image_id)
   VALUES (
     \''.$comm['author'].'\',
     '.$comm['author_id'].',
+    \''.$comm['anonymous_id'].'\',
     \''.$comm['content'].'\',
     NOW(),
     \''.($comment_action=='validate' ? 'true':'false').'\',

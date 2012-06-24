@@ -52,6 +52,7 @@ CREATE TABLE `piwigo_comments` (
   `date` datetime NOT NULL default '0000-00-00 00:00:00',
   `author` varchar(255) default NULL,
   `author_id` smallint(5) DEFAULT NULL,
+  `anonymous_id` varchar(45) NOT NULL,
   `content` longtext,
   `validated` enum('true','false') NOT NULL default 'false',
   `validation_date` datetime default NULL,
