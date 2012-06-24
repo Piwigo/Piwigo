@@ -924,4 +924,5 @@ $lang['visitors need to login and have the appropriate permissions to see this a
 $lang[' and %d virtuals'] = ' و %d مجازی';
 $lang['%d physicals'] = ' %d فیزیکی';
 $lang['create a new site'] = 'ایجاد یک سایت تازه';
+$lang['No order field selected'] = 'هیچ فیلدی برای ترتیب بندی انتخاب نشده است';
 ?>
