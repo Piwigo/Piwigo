@@ -918,4 +918,5 @@ $lang['%d weeks'] = '%d тижнів';
 $lang['%d week'] = '%d тиждень';
 $lang['Edit photo'] = 'Редагувати фото';
 $lang['create a new site'] = 'створити новий сайт';
+$lang['No order field selected'] = 'Немає порядкового вибраного поля';
 ?>
