@@ -920,4 +920,5 @@ $lang['%d week'] = '%d tydzień';
 $lang['%d weeks'] = '%d tygodnie';
 $lang['Edit photo'] = 'Edycja zdjęcia';
 $lang['create a new site'] = 'stwórz nową stronę';
+$lang['No order field selected'] = 'Nie wybrano sortowania';
 ?>
