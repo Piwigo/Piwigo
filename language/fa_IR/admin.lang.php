@@ -39,13 +39,13 @@ $lang['%d tag'] = "%d برچسب";
 $lang['%d tags'] = "%d برچسب";
 $lang['%d user comment rejected'] = '%d دیدگاه کاربر رد شد';
 $lang['%d user comments rejected'] = '%d دیدگاه کاربر رد شدند';
-$lang['%d user comment validated'] = '%d دیدگاه کاربر تایید شد';
-$lang['%d user comments validated'] = '%d دیدگاه کاربر تایید شدند';
+$lang['%d user comment validated'] = '%d دیدگاه کاربر پذیرفته شد';
+$lang['%d user comments validated'] = '%d دیدگاه کاربر پذیرفته شدند';
 $lang['%d user deleted'] = '%d کاربر پاک شد';
 $lang['%d users deleted'] = '%d کاربر پاک شدند';
 $lang['%d user'] = "%d کاربر";
 $lang['%d users'] = "%d کاربر";
-$lang['%d waiting for validation'] = '%d در انتظار تایید هستند';
+$lang['%d waiting for validation'] = '%d در انتظار پذیرش هستند';
 $lang['Actions'] = 'کار ها';
 $lang['Activate'] = 'فعال کردن';
 $lang['Add/delete a permalink'] = 'افزودن/پاک کردن لینک ثابت';
@@ -79,8 +79,8 @@ $lang['Does not represent'] = 'نمایش داده نمی شود';
 $lang['Edit selected tags'] = 'ویرایش برچسب های انتخاب شده';
 $lang['Edit tags'] = 'ویرایش برچسب ها';
 $lang['Email admins when a new user registers'] = 'فرستادن ایمیل به مدیران هنگامی که یک کاربر تازه نام نویسی می کند';
-$lang['Email admins when a valid comment is entered'] = 'فرستادن ایمیل به مدیران هنگامی که یک دیدگاه تایید شده وارد سیستم می شود';
-$lang['Email admins when a comment requires validation'] = 'فرستادن ایمیل به مدیران هنگامی که یک دیدگاه نیاز به تایید دارد';
+$lang['Email admins when a valid comment is entered'] = 'فرستادن ایمیل به مدیران هنگامی که یک دیدگاه پذیرفته شده وارد سیستم می شود';
+$lang['Email admins when a comment requires validation'] = 'فرستادن ایمیل به مدیران هنگامی که یک دیدگاه نیاز به پذیرش دارد';
 $lang['Environment'] = 'محیط (Environment)';
 $lang['Form'] = "فرم";
 $lang['Gallery title'] = 'عنوان گالری';
@@ -160,7 +160,7 @@ $lang['The %d following tags were deleted'] = 'برچسب های %d پاک شد�
 $lang['Unable to check for upgrade.'] = 'سیستم قادر به بروز رسانی نیست.';
 $lang['Uninstall'] = 'پاک کردن';
 $lang['Use the default photo sort order (defined in the configuration file)'] = 'استفاده از مرتب سازی پیشفرض برای عکس (پیشفرض در فایل تنظیمات است)';
-$lang['User comments validation'] = 'تایید دیدگاه های کاربر';
+$lang['User comments validation'] = 'پذیرفتن دیدگاه های کاربر';
 $lang['Users'] = "کاربران";
 $lang['Validate'] = "تایید";
 $lang['Validation'] = "تایید";
@@ -171,7 +171,7 @@ $lang['Webmaster cannot be deleted'] = 'مدیرکل قابل پاک شدن نی
 $lang['You are running on development sources, no check possible.'] = 'شما از نگارش توسعه (Development) استفاده می کنید، امکان بررسی وجود ندارد.';
 $lang['You cannot delete your account'] = 'شما نمی توانید حساب خود را پاک کنید';
 $lang['You cannot move an album in its own sub album'] = 'شما نمی توانید آلبوم مادر را به زیر آلبوم خودش جابجا کنید';
-$lang['You need to confirm deletion'] = 'شما باید پاک کردن را تایید کنید';
+$lang['You need to confirm deletion'] = 'شما باید پاک کردن را بپذیرید';
 $lang['Associate to album'] = 'پیوستن به آلبوم';
 $lang['associate to group'] = "پیوستن به گروه";
 $lang['Authorized'] = "مجاز";
@@ -193,7 +193,7 @@ $lang['The gallery URL is not valid.'] = 'آدرس URL معتبر نیست.';
 $lang['Main'] = "صفحه اصلی";
 $lang['The number of comments a page must be between 5 and 50 included.'] = 'تعداد دیدگاه ها در هر صفحه باید عددی بین 5 تا 50 باشد.';
 $lang['Configuration'] = "پیکربندی";
-$lang['confirm'] = "تایید";
+$lang['confirm'] = 'پذیرفتن';
 $lang['Date'] = "تاریخ";
 $lang['delete album'] = 'پاک کردن آلبوم';
 $lang['Dissociate from album'] = 'جدا کردن از آلبوم';
@@ -463,7 +463,7 @@ $lang['Reinitialize check integrity'] = 'مقداردهی دوباره برای 
 $lang['Check all'] = "علامت‌زدن همه";
 $lang['Uncheck all'] = "برداشتن علامت همه";
 $lang['Check automatic corrections'] = 'بررسی خودکار اصلاحات';
-$lang['Apply selected corrections'] = "تایید اصلاحات انتخاب شده";
+$lang['Apply selected corrections'] = 'پذیرش اصلاحات انتخاب شده';
 $lang['Ignore selected anomalies'] = 'چشم پوشی از ناهنجاری های انتخاب شده';
 $lang['Refresh'] = 'تازه کردن (Refresh)';
 $lang['The anomaly will be ignored until next application version'] = 'از ناهنجاری تا نگارش بعدی چشم پوشی خواهد شد';
@@ -477,7 +477,7 @@ $lang['Other plugins'] = 'افزونه های موجود دیگر ';
 $lang['Last revisions'] = 'آخرین بازبینى';
 $lang['Are you sure you want to delete this plugin?'] = 'مطمئن هستید که ‌می خواهید این افزونه را پاک کنید؟';
 $lang['Are you sure you want to install this plugin?'] = 'مطمئن هستید که ‌می خواهید این افزونه را نصب کنید؟';
-$lang['Are you sure to install this upgrade? You must verify if this version does not need uninstallation.'] = 'شما مطمئن هستید که می خواهید این آپگرید را نصب کنید؟ شما باید این را تایید کنید زیرا ممکن است نیاز به پاک کردن افزونه ای باشد.';
+$lang['Are you sure to install this upgrade? You must verify if this version does not need uninstallation.'] = 'شما مطمئن هستید که می خواهید این آپگرید را نصب کنید؟ شما باید این را بپذیرید زیرا ممکن است نیاز به پاک کردن افزونه ای باشد.';
 $lang['Plugin has been successfully copied'] = 'افزونه با موفقیت کپی شد';
 $lang['You might go to plugin list to install and activate it.'] = 'برای نصب یا از کار انداختن این افزونه به لیست افزونه ها بروید.';
 $lang['Can\'t create temporary file.'] = 'امکان ایجاد فایل موقت (Temporary) وجود ندارد.';
@@ -651,7 +651,7 @@ $lang['There is no other theme available.'] = 'هیچ قالب دیگری موج
 $lang['Add another set of photos'] = 'اضافه کردن یک ست تازه از عکس ها';
 $lang['Order of menubar items has been updated successfully.'] = 'ترتیب آیتم های منو با موفقیت بروز شد.';
 $lang['This theme was not designed to be directly activated'] = 'این قالب برای فعال کردن مستقیم طراحی نشده است';
-$lang['Pending Comments'] = 'دیدگاه های در انتظار تایید';
+$lang['Pending Comments'] = 'دیدگاه های در انتظار پذیرفته شدن';
 $lang['In your php.ini file, the upload_max_filesize (%sB) is bigger than post_max_size (%sB), you should change this setting'] = 'در فایل php.ini شما،  مقدار upload_max_filesize (%sB) از post_max_size (%sB) بزرگتر است، شما باید این تنظیمات را تغییر دهید.';
 $lang['Exif extension not available, admin should disable exif use'] = 'توسعه دهنده ی Exif در دسترس نیست، مدیرکل باید استفاده از exif را متوقف کند';
 $lang['The uploaded file exceeds the upload_max_filesize directive in php.ini: %sB'] = 'مقدار فایل قابل آپلود که در فایل php.ini تنظیم شده با نام upload_max_filesize برابر %sB است';
@@ -773,7 +773,7 @@ $lang['Available on'] = 'موجود برای';
 $lang['Available versions for'] = 'نگارش های موجود برای';
 $lang['By default, Piwigo will create a new websize from the HD (high definition) version of your photo.'] = 'بطور پیشفرض، Piwigo یک وب سایز (Websize) تازه از حالت HD عکس شما ایجاد می کند.';
 $lang['Cancel'] = 'لغو';
-$lang['Confirm merge'] = 'تایید ادغام';
+$lang['Confirm merge'] = 'پذیرش ادغام';
 $lang['Default comments order'] = 'ترتیب پیشفرض برای دیدگاه ها';
 $lang['Default photos order'] = 'ترتیب پیشفرض برای عکس ها';
 $lang['Dump Database'] = 'پاکسازی پایگاه داده';
@@ -818,7 +818,7 @@ $lang['Zoom'] = 'بزرگنمایی';
 $lang['administrators'] = 'مدیرکل';
 $lang['custom'] = 'سفارشی';
 $lang['modified'] = 'ویرایش شد';
-$lang['pending validation'] = 'در انتظار تایید است';
+$lang['pending validation'] = 'در انتظار پذیرش است';
 $lang['registered users'] = 'کاربران';
 $lang['simple visitors'] = 'مهمان';
 $lang['Added by %s'] = 'اضافه شده توسط %s';
@@ -859,8 +859,8 @@ $lang['%d years'] = '%d سال';
 $lang['%s ago'] = '%d پیش';
 $lang['%s in the future'] = '%s بعد';
 $lang['Applications'] = 'برنامه های کاربردی (Application)';
-$lang['Apply watermark if height is bigger than'] = 'تأیید چاپ سپید (Watermark) فقط در زمانی که بلندا بیشتر باشد از';
-$lang['Apply watermark if width is bigger than'] = 'تأیید چاپ سپید (Watermark) فقط در زمانی که پهنا بیشتر باشد از';
+$lang['Apply watermark if height is bigger than'] = 'استفاده از چاپ سپید (Watermark) فقط در زمانی که بلندا بیشتر باشد از';
+$lang['Apply watermark if width is bigger than'] = 'استفاده از چاپ سپید (Watermark) فقط در زمانی که پهنا بیشتر باشد از';
 $lang['Automatic sort order'] = 'تنظیم کردن با ترتیب خودکار';
 $lang['Edit photo'] = 'ویرایش عکس';
 $lang['Multiple Size'] = 'چند سایزه';
@@ -878,7 +878,7 @@ $lang['X Repeat'] = 'تعداد تکرار  در محور X';
 $lang['Y Position'] = 'مکان در محور Y';
 $lang['You can activate only one mobile theme.'] = 'شما فقط می توانید یک قالب برای موبایل فعال کنید.';
 $lang['add a new watermark'] = 'اضافه کردن یک چاپ سپید (Watermark) تازه';
-$lang['apply automatic sort order'] = 'تأیید تنظیم با ترتیب خودکار';
+$lang['apply automatic sort order'] = 'استفاده از ترتیب خودکار';
 $lang['bottom left corner'] = 'گوشه ی پایین سمت چپ';
 $lang['bottom right corner'] = 'گوشه ی پایین سمت راست';
 $lang['cancel manual order'] = 'لغو تغییرات ترتیب دستی';
