@@ -622,13 +622,15 @@ class image_ext_imagick implements imageInterface
     }
 
     $dest = pathinfo($destination_filepath);
-    $exec .= ' "'.realpath($dest['dirname']).'/'.$dest['basename'].'"';
+    $exec .= ' "'.realpath($dest['dirname']).'/'.$dest['basename'].'" 2>&1';
     @exec($exec, $returnarray);
 
     ilog($exec);
     if (is_array($returnarray) && (count($returnarray)>0) )
     {
       ilog('ERROR', $returnarray);
+      foreach($returnarray as $line)
+        trigger_error($line, E_USER_WARNING);
     }
     return is_array($returnarray);
   }
