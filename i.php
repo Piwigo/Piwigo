@@ -501,7 +501,7 @@ if (!mkgetdir(dirname($page['derivative_path'])))
 }
 
 ignore_user_abort(true);
-set_time_limit(0);
+@set_time_limit(0);
 
 $image = new pwg_image($page['src_path']);
 $timing['load'] = time_step($step);
