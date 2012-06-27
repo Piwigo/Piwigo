@@ -59,6 +59,11 @@ class PwgXmlWriter
     }
     $this->_indentLevel++;
     $this->_indent();
+		$diff = ord($name[0])-ord('0');
+		if ($diff>=0 && $diff<=9)
+		{
+			$name='_'.$name;
+		}
     $this->_output( '<'.$name );
     $this->_lastTagOpen = true;
     array_push( $this->_elementStack, $name);
