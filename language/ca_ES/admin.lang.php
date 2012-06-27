@@ -23,7 +23,7 @@
 
 $lang['%d association'] = '%d associació';
 $lang['%d associations'] = '%d associacions';
-$lang['%d album including'] = '%d àlbum inclòs';
+$lang['%d album including'] = '%d àlbum incloent ';
 $lang['%d albums including'] = '%d àlbums inclosos, ';
 $lang['%d physical'] = '%d física';
 $lang['%d physicals'] = '%d físics';
@@ -163,7 +163,7 @@ $lang['Associate to album'] = 'Assòcia a l\'àlbum';
 $lang['Authorized'] = 'Autoritzat';
 $lang['Add a virtual album'] = 'Afegir àlbum virtual';
 $lang['Authorize users to add comments on selected albums'] = 'Autoritzar als usuaris a afegir comentaris en els àlbums seleccionats';
-$lang['The name of an album must not be empty'] = 'El nom de l\'àlbum no pot ser buit';
+$lang['The name of an album must not be empty'] = 'El nom de l\'àlbum no pot estar buit';
 $lang['Lock albums'] = 'Bloqueig d\'àlbums';
 $lang['Private'] = 'Privat';
 $lang['Public'] = 'Públic';
@@ -192,7 +192,7 @@ $lang['first photo added on %s'] = 'primera imatge afegida el %s';
 $lang['Forbidden'] = 'Prohibit';
 $lang['global mode'] = 'Mode global';
 $lang['group "%s" updated'] = 'grup "%s" actualitzat';
-$lang['The name of a group must not contain " or \' or be empty.'] = 'El nom d\'un grup no pot contenir " o \' o ser buit.';
+$lang['The name of a group must not contain " or \' or be empty.'] = 'El nom d\'un grup no pot contenir " o \' o estar buit.';
 $lang['This name is already used by another group.'] = 'Aquest nom ja està en us per un altre grup.';
 $lang['High definition'] = 'Alta qualitat';
 $lang['jump to album'] = 'Tornar a l\'àlbum';
@@ -744,7 +744,7 @@ $lang['You can update to Piwigo %s directly, without upgrading to Piwigo %s (rec
 $lang['Save Template Directory'] = 'Desar directori de plantilles';
 $lang['Dump Database'] = 'Abocar la base de dades';
 $lang['Include history data (Warning: server memory limit may be exceeded)'] = 'Incloure la informació de l\'historial. (Advertència: el límit de memòria del servidor pot ser superat)';
-$lang['Unable to dump database.'] = 'No és possible volcar la base de dades.';
+$lang['Unable to dump database.'] = 'No és possible abocar la base de dades.';
 $lang['Some upgrades are available for extensions.'] = 'Hi ha actualitzacions disponibles per a algunes extensions';
 $lang['Ignore All'] = 'Ignorar tot';
 $lang['Crop'] = 'Redimensionar ';
