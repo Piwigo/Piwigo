@@ -625,10 +625,10 @@ class image_ext_imagick implements imageInterface
     $exec .= ' "'.realpath($dest['dirname']).'/'.$dest['basename'].'" 2>&1';
     @exec($exec, $returnarray);
 
-    ilog($exec);
+    if (function_exists('ilog')) ilog($exec);
     if (is_array($returnarray) && (count($returnarray)>0) )
     {
-      ilog('ERROR', $returnarray);
+      if (function_exists('ilog')) ilog('ERROR', $returnarray);
       foreach($returnarray as $line)
         trigger_error($line, E_USER_WARNING);
     }
