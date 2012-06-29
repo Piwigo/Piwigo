@@ -607,7 +607,13 @@ class image_ext_imagick implements imageInterface
   {
     $this->add_command('interlace', 'line'); // progressive rendering
     // use 4:2:2 chroma subsampling (reduce file size by 20-30% with "almost" no human perception)
-    $this->add_command('sampling-factor', '4:2:2' );
+    //
+    // option deactivated for Piwigo 2.4.1, it doesn't work fo old versions
+    // of ImageMagick, see bug:2672. To reactivate once we have a better way
+    // to detect IM version and when we know which version supports this
+    // option
+    //
+    // $this->add_command('sampling-factor', '4:2:2' );
 
     $exec = $this->imagickdir.'convert';
     $exec .= ' "'.realpath($this->source_filepath).'"';
