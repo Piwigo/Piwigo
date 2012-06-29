@@ -63,7 +63,7 @@ class updates
       {
         $version = $pem_versions[0]['name'];
       }
-      $branch = substr($version, 0, strrpos($version, '.'));
+      $branch = get_branch_from_version($version);
       foreach ($pem_versions as $pem_version)
       {
         if (strpos($pem_version['name'], $branch) === 0)
