@@ -275,7 +275,16 @@ DELETE FROM ' . PLUGINS_TABLE . ' WHERE id=\'' . $plugin_id . '\'';
       {
         $version = $pem_versions[0]['name'];
       }
-      $branch = substr($version, 0, strrpos($version, '.'));
+      
+      if (substr_count($version, '.') > 1)
+      {
+        $branch = substr($version, 0, strrpos($version, '.'));
+      }
+      else
+      {
+        $branch = $version;
+      }
+      
       foreach ($pem_versions as $pem_version)
       {
         if (strpos($pem_version['name'], $branch) === 0)
