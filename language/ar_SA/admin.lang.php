@@ -305,7 +305,6 @@ $lang['selection'] = 'الاختيار';
 $lang['set to'] = 'أعـد لـ ';
 $lang['singly represented'] = 'نوصيف او تمثيل منفرد';
 $lang['This site already exists'] = 'هذا الموقع موجود بالفعل';
-$lang['Create a new site : (give its URL to create_listing_file.php)'] = 'إنشاء موقع جديد : (إعطاء عنوان لcreate_listing_file.php)';
 $lang['created'] = 'تم الانشاء';
 $lang['delete'] = 'حـذف';
 $lang['delete this site and all its attached elements'] = 'احذف هذا الموقع بكل عناصره المرتبطه به';
@@ -922,4 +921,6 @@ $lang['%d physicals'] = '%d  مادي';
 $lang['%d week'] = '%d أسبوع';
 $lang['%d weeks'] = '%d أسابيع';
 $lang['Edit photo'] = ' تحرير الصورة';
+$lang['No order field selected'] = 'لم يتم اختيار أي خافة';
+$lang['create a new site'] = 'انشأ موقع جديد';
 ?>
