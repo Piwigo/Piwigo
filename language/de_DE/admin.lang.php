@@ -923,4 +923,5 @@ $lang['%d week'] = '%d Woche';
 $lang['%d weeks'] = '%d Wochen';
 $lang['Edit photo'] = 'Foto bearbeiten';
 $lang['create a new site'] = 'Erstelle eine neue Seite';
+$lang['No order field selected'] = 'Kein Anordnungsfeld gewählt';
 ?>
