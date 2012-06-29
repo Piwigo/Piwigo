@@ -514,9 +514,12 @@ switch ($page['section'])
     {
       $watermark_files[] = substr($file, strlen(PHPWG_ROOT_PATH));
     }
-    foreach (glob(PHPWG_ROOT_PATH.PWG_LOCAL_DIR.'watermarks/*.png') as $file)
+    if ( ($glob=glob(PHPWG_ROOT_PATH.PWG_LOCAL_DIR.'watermarks/*.png')) !== false)
     {
-      $watermark_files[] = substr($file, strlen(PHPWG_ROOT_PATH));
+      foreach ($glob as $file)
+      {
+        $watermark_files[] = substr($file, strlen(PHPWG_ROOT_PATH));
+      }
     }
     $watermark_filemap = array( '' => '---' );
     foreach( $watermark_files as $file)

@@ -2360,9 +2360,12 @@ function delete_element_derivatives($infos, $type='all')
     $pattern = '-'.derivative_to_url($type).'*';
   }
   $path = substr_replace($path, $pattern, $dot, 0);
-  foreach( glob(PHPWG_ROOT_PATH.PWG_DERIVATIVE_DIR.$path) as $file)
+  if ( ($glob=glob(PHPWG_ROOT_PATH.PWG_DERIVATIVE_DIR.$path)) !== false)
   {
-    @unlink($file);
+    foreach( $glob as $file)
+    {
+      @unlink($file);
+    }
   }
 }
 ?>
