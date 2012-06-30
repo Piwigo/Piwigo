@@ -46,12 +46,12 @@ $lang['also given by your host provider'] = 'ebenso von Ihrem Host-Provider bere
 $lang['Database table prefix'] = 'Präfix der Datenbanktabellen';
 $lang['database tables names will be prefixed with it (enables you to manage better your tables)'] = 'wird den Namen der Datenbanktabellen vorangestellt, damit Sie Ihre Tabellen einfacher verwalten können';
 $lang['enter a login for webmaster'] = 'Geben Sie einen Benutzernamen für den Webmaster an';
-$lang['webmaster login can\'t contain characters \' or "'] = 'Der Benutzername des Webmasters darf nicht die Zeichen \' und " enthalten.';
-$lang['please enter your password again'] = 'Bitte geben Sie Ihr Passwort erneut ein.';
+$lang['webmaster login can\'t contain characters \' or "'] = 'Der Benutzername des Webmasters darf nicht die Zeichen \' und " enthalten';
+$lang['please enter your password again'] = 'Bitte geben Sie Ihr Passwort erneut ein';
 $lang['Webmaster password'] = 'Webmaster-Passwort';
 $lang['Keep it confidential, it enables you to access administration panel'] = 'Administrator-Passwort';
 $lang['Password [confirm]'] = 'Passwort [Bestätigung]';
-$lang['verification'] = 'Wiederholen Sie das eingegebene Passwort.';
+$lang['verification'] = 'Wiederholen Sie das eingegebene Passwort';
 $lang['Need help ? Ask your question on <a href="%s">Piwigo message board</a>.'] = 'Brauchen Sie Hilfe? Stellen Sie Ihre Fragen im <a href="%s"> Piwigo-Forum</ a>.';
 $lang['Webmaster mail address'] = 'Webmaster-E-Mail-Adresse';
 $lang['Visitors will be able to contact site administrator with this mail'] = 'Kontakt-E-Mail-Adresse (nur für angemeldete Benutzer sichtbar)';
@@ -64,7 +64,7 @@ $lang['Try to configure PHP 5'] = 'Versuche PHP5 zu konfigurieren';
 $lang['Sorry!'] = 'Sorry!';
 $lang['Piwigo was not able to configure PHP 5.'] = 'Piwigo ist nicht in der Lage PHP5 zu konfigurieren.';
 $lang["You may referer to your hosting provider's support and see how you could switch to PHP 5 by yourself."] = "Sie können Kontakt zu ihrem Hosting-Provider aufnehmen und um Unterstützung bitten zur Umstellung auf PHP 5.";
-$lang['Hope to see you back soon.'] = 'Wir hoffen, Sie sind bald wieder zurück.';
+$lang['Hope to see you back soon.'] = 'Hoffentlich sehen wir uns bald wieder!';
 
 $lang['Congratulations, Piwigo installation is completed'] = 'Glückwunsch! Sie haben Piwigo erfolgreich installiert.';
 
@@ -72,7 +72,7 @@ $lang['An alternate solution is to copy the text in the box above and paste it i
 $lang['Creation of config file local/config/database.inc.php failed.'] = 'Die Erstellung der Datei local/config/database.inc.php ist fehlgeschlagen.';
 $lang['Download the config file'] = 'Lade die Konfigurationsdatei herunter';
 $lang['You can download the config file and upload it to local/config directory of your installation.'] = 'Sie können die Konfigurationsdatei herunterladen und in das Verzeichnis local/config ihrer Installation hochladen.';
-$lang['Just another Piwigo gallery'] = 'Meine Piwigo-Bildgalerie';
+$lang['Just another Piwigo gallery'] = 'Meine Piwigo-Fotogalerie';
 $lang['Welcome to my photo gallery'] = 'Willkommen!';
 $lang['Don\'t hesitate to consult our forums for any help : %s'] = 'Besuchen Sie unser Forum, wenn Sie Hilfe benötigen: %s';
 $lang['Welcome to your new installation of Piwigo!'] = 'Willkommen zu Ihrer neuen Piwigo-Installation!';
