@@ -58,6 +58,7 @@ class pwg_image
   var $image;
   var $library = '';
   var $source_filepath = '';
+  static $ext_imagick_version = '';
 
   function __construct($source_filepath, $library=null)
   {
@@ -339,6 +340,10 @@ class pwg_image
     @exec($conf['ext_imagick_dir'].'convert -version', $returnarray);
     if (is_array($returnarray) and !empty($returnarray[0]) and preg_match('/ImageMagick/i', $returnarray[0]))
     {
+      if (preg_match('/Version: ImageMagick (\d+\.\d+\.\d+-?\d*)/', $returnarray[0], $match))
+      {
+        self::$ext_imagick_version = $match[1];
+      }
       return true;
     }
     return false;
@@ -446,7 +451,7 @@ class image_imagick implements imageInterface
   function resize($width, $height)
   {
     $this->image->setInterlaceScheme(Imagick::INTERLACE_LINE);
-    
+
     // TODO need to explain this condition
     if ($this->get_width()%2 == 0
         && $this->get_height()%2 == 0
@@ -613,7 +618,10 @@ class image_ext_imagick implements imageInterface
     // to detect IM version and when we know which version supports this
     // option
     //
-    // $this->add_command('sampling-factor', '4:2:2' );
+    if (version_compare(pwg_image::$ext_imagick_version, '6.6') > 0)
+    {
+      $this->add_command('sampling-factor', '4:2:2' );
+    }
 
     $exec = $this->imagickdir.'convert';
     $exec .= ' "'.realpath($this->source_filepath).'"';
