@@ -68,13 +68,13 @@ $lang['Hope to see you back soon.'] = 'Hoffentlich sehen wir uns bald wieder!';
 
 $lang['Congratulations, Piwigo installation is completed'] = 'Glückwunsch! Sie haben Piwigo erfolgreich installiert.';
 
-$lang['An alternate solution is to copy the text in the box above and paste it into the file "local/config/database.inc.php" (Warning : database.inc.php must only contain what is in the textarea, no line return or space character)'] = 'Sie können auch den Text in der Box unten kopieren und in die Datei "local/config/database.inc.php" einfügen. (Warnung: database.inc.php darf nur den reinen Text ohne Zeilenumbrüche und Leerzeichen enthalten.)';
+$lang['An alternate solution is to copy the text in the box above and paste it into the file "local/config/database.inc.php" (Warning : database.inc.php must only contain what is in the textarea, no line return or space character)'] = 'Sie können auch den Text in der Box unten kopieren und in die Datei local/config/database.inc.php einfügen. (Warnung: database.inc.php darf nur den reinen Text ohne Zeilenumbrüche und Leerzeichen enthalten.)';
 $lang['Creation of config file local/config/database.inc.php failed.'] = 'Die Erstellung der Datei local/config/database.inc.php ist fehlgeschlagen.';
 $lang['Download the config file'] = 'Lade die Konfigurationsdatei herunter';
 $lang['You can download the config file and upload it to local/config directory of your installation.'] = 'Sie können die Konfigurationsdatei herunterladen und in das Verzeichnis local/config ihrer Installation hochladen.';
 $lang['Just another Piwigo gallery'] = 'Meine Piwigo-Fotogalerie';
 $lang['Welcome to my photo gallery'] = 'Willkommen!';
 $lang['Don\'t hesitate to consult our forums for any help : %s'] = 'Besuchen Sie unser Forum, wenn Sie Hilfe benötigen: %s';
-$lang['Welcome to your new installation of Piwigo!'] = 'Willkommen zu Ihrer neuen Piwigo-Installation!';
+$lang['Welcome to your new installation of Piwigo!'] = 'Ihre neue Piwigo-Installation heißt sie willkommen!';
 $lang['You may referer to your hosting provider\'s support and see how you could switch to PHP 5 by yourself.'] = 'Sie können Kontakt mit Ihrem Provider aufnehmen und um Unterstützung bei der Umstellung auf PHP5 bitten.';
 ?>
