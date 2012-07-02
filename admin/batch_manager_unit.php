@@ -237,7 +237,7 @@ SELECT id,path,representative_ext,name,date_creation,comment,author,level,file
   {
     array_push($element_ids, $row['id']);
 
-    $src = DerivativeImage::thumb_url($row);
+    $src_image = new SrcImage($row);
 
     // creation date
     if (!empty($row['date_creation']))
@@ -269,8 +269,8 @@ SELECT
       'elements',
       array(
         'ID' => $row['id'],
-        'TN_SRC' => $src,
-        'FILE_SRC' => $row['path'],
+        'TN_SRC' => DerivativeImage::url(IMG_THUMB, $src_image),
+        'FILE_SRC' => DerivativeImage::url(IMG_LARGE, $src_image),
         'LEGEND' => $legend,
         'U_EDIT' => get_root_url().'admin.php?page=photo-'.$row['id'],
         'NAME' => !empty($row['name'])?$row['name']:'',
