@@ -52,7 +52,7 @@ $to_apply = array_diff($existing, $applied);
 $inserts = array();
 foreach ($to_apply as $upgrade_id)
 {
-  if ($upgrade_id >= 98)
+  if ($upgrade_id >= 112) // TODO change on each release
   {
     break;
   }
@@ -83,11 +83,18 @@ if (!empty($inserts))
 ob_start();
 echo '<pre>';
 
-for ($upgrade_id = 112; $upgrade_id <= 127; $upgrade_id++)
+for ($upgrade_id = 112; $upgrade_id <= 127; $upgrade_id++) // TODO change on each release
 {
   if (!file_exists(UPGRADES_PATH.'/'.$upgrade_id.'-database.php'))
   {
-    break;
+    continue;
+  }
+
+  // maybe the upgrade task has already been applied in a previous and
+  // incomplete upgrade
+  if (in_array($upgrade_id, $applied))
+  {
+    continue;
   }
   
   unset($upgrade_description);
