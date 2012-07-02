@@ -1,12 +1,33 @@
 <fieldset>
-  <legend>FTP-Upload</legend>
+
+  <legend>Schnellstart FTP-Upload</legend>
 
 <ol>
-  <li>Erstellen Sie ein neues Verzeichnis auf Ihrem Computer.</li>
-  <li>Kopieren Sie einige Fotos in dieses Verzeichnis und verkleineren Sie die Bilder auf eine webtaugliche Größe. <em>Achtung</em>: Im Datei- und Verzeichnisnamen dürfen nur Buchstaben, Zahlen und folgende Sonderzeichen verwendet werden: "-", "_" und ".". Leerzeichen und andere Sonderzeichen sind nicht erlaubt. Umlaute und ß dürfen nicht verwendet werden.</li>
-  <li>Kopieren Sie das Verzeichnis mit einem FTP-Programm in das Verzeichnis "galleries" ihrer Piwigo-Installation.</li>
-  <li>Melden Sie sich in ihrer Galerie an und gehen Sie zu <span class="pwgScreen">Verwaltung &raquo; Bilder &raquo; Vorschaubilder</span>, um fehlende Vorschaubilder vom Server erstellen zu lassen.</li>
-  <li>Gehen Sie zu <span class="pwgScreen">Verwaltung</span> und klicken Sie auf "Schnelle lokale Synchronisation".</li>
+  <li>
+    Erstellen Sie ein neues Verzeichnis auf Ihrem Computer.
+  </li>
+  <li>
+     Kopieren Sie einige Fotos in dieses Verzeichnis und verkleineren Sie die Bilder auf 
+     eine webtaugliche Größe. <em>Achtung</em>: Im Datei- und Verzeichnisnamen dürfen
+     nur Buchstaben, Zahlen, "-", "_" und "." vorkommen. Leerzeichen, Umlaute, "ß" und
+     Buchstaben mit Akzent sind nicht erlaubt.
+     Zwischen Groß- und Kleinschreibung wird unterschieden.
+  </li>
+  <li>
+    Kopieren Sie das Verzeichnis mit einem FTP-Programm in das Verzeichnis "galleries" 
+    Ihrer Piwigo-Installation.
+  </li>
+  <!-- *fragoriscus*
+  <li>
+    Melden Sie sich in Ihrer Galerie an und gehen Sie zu 
+   <span class="pwgScreen">Verwaltung &raquo; Bilder &raquo;Vorschaubilder</span>, 
+    um fehlende Vorschaubilder vom Server erstellen zu lassen.
+  </li>
+  -->
+  <li>
+    Gehen Sie zu <span class="pwgScreen">Verwaltung</span> und klicken Sie auf 
+    den großen Button "Schnelle lokale Synchronisation".
+  </li>
 </ol>
 
 <p>Herzlichen Glückwunsch! Sie haben das erste Album in Ihrer Piwigo-Fotogalerie erstellt.</p>
@@ -15,13 +36,13 @@
 
 <fieldset>
   <legend>Verzeichnis- und Dateiorganisation von Piwigo</legend>
-
 <ul>
-
-  <li>
-
-    <p>Die Verzeichnisse der Alben sind im Piwigo-Verzeichnis "galleries" untergebracht. Im Folgenden ist der Verzeichnisbaum einer kleinen Galerie dargestellt: </p>
-
+ <li>
+    <p>
+      Die Albenverzeichnisse sind im Piwigo-Verzeichnis "galleries" untergebracht. 
+      Im Folgenden ist der Verzeichnisbaum einer kleinen Galerie mit zahlreichen
+      Besonderheiten dargestellt: 
+    </p>
 <pre>
 .
 | - admin
@@ -55,47 +76,72 @@
 | - include
 | - install
 | - language
-+ - tool</pre>
-
-  </li>
-
-<li>Außer den Verzeichnissen "thumbnail", "pwg_high" und "pwg_representative", erzeugt jedes Unterverzeichnis ein neues Album in der Galerie.
-Es kann beliebig viele Unterverzeichnisse (Unteralben) geben.
-Im obigen Beispiel gehört "Album-1.1.1.1" der 4. Verzeichnisebene an.</li>
-
-   <li>Jedes Element besteht aus einer Datei.
-
-   Eine Datei zählt als Element für Piwigo, wenn deren Endung in den
-   Konfigurationsparameter <code>file_ext</code> der Datei 
-   <span class="filename">include/config_default.inc.php</span> eingetragen ist.
-
-   Eine Datei zählt als Bild, wenn deren Endung in den Konfigurationsparameter
-   <code>picture_ext</code> der Datei <span class="filename">include/config_default.inc.php</span> eingetragen ist.</li>
-
-   <li>Elemente vom Typ Bild müssen ein Vorschaubild (s.u.) haben.</li>
-
-   <li>Elemente vom Typ Bild können Bilder im Großformat in einem Unterordner namens "pwg_high" hinterlegt haben.
-   Im Beispiel oben hat die Datei <span class="filename">hochzeit.jpg</span> ein Bild im Großformat hinterlegt. Dem Dateinamen darf nichts vorangestellt werden.
++ - tool
+</pre>
 </li>
 
-   <li>Alle Elemente, die keine Bilder sind, wie z.B. Videos, Sounds oder Textdateien, werden standardmäßig von einem Symbol, das   für die Erweiterung des Dateinamens steht, dargestellt. Sie können auch selbst ein Vorschaubild erstellen (siehe die Datei <span
-   class = "filename">video.avi</span> im Beispiel).</li>
+<li>
+ Außer den Verzeichnissen "thumbnail", "pwg_high" und "pwg_representative" erzeugt jedes 
+ Unterverzeichnis ein neues Album in der Galerie.
+ Es kann beliebig viele Unterverzeichnisse (Unteralben) geben.
+</li>
 
-   <li><em>Achtung</em>: Der Name für ein Verzeichnis oder eine Datei darf
-nur aus Buchstaben, Zahlen, "-", "_" und "." bestehen. Umlaute und Sonderzeichen
-dürfen nicht verwendet werden. Zwischen Groß- und Kleinschreibung wird unterschieden!</li>
+<li>
+  Grundsätzlich wird jedes Piwigo-Element durch eine Datei verkörpert.
 
-   <li><em>Empfehlung</em>: Ein Album kann Elemente und Unteralben enthalten;
-es ist aber empfehlenswert und übersichtlicher, wenn ein Album entweder nur Elemente oder
-nur Unteralben enthält.</li>
+  Eine Datei kann ein Piwigo-Element sein, wenn deren Endung in den
+  Konfigurationsparameter <code>file_ext</code> der Datei 
+  <span class="filename">include/config_default.inc.php</span> eingetragen ist.
 
-   <li>Haben Sie die Dateien, Bilder und Vorschaubilder in die richtigen Verzeichnisse hochgeladen,
-loggen Sie sich ein und gehen zu <span
-class = "pwgScreen">Verwaltung &raquo; Alben &raquo; Synchronisieren</span>.</li>
+  Eine Datei kann ein Piwigo-Bild sein, wenn deren Endung in den Konfigurationsparameter
+  <code>picture_ext</code> der Datei <span class="filename">include/config_default.inc.php</span>
+  eingetragen ist.
+</li>
+
+<!-- *fragoriscus*
+<li>
+   Elemente vom Typ Bild müssen ein Vorschaubild (s.u.) haben.
+</li>
+-->
+
+<li>
+   Elemente vom Typ Bild können Bilder im Großformat in einem Unterordner 
+   namens "pwg_high" hinterlegt haben.
+   Im Beispiel oben hat die Datei <span class="filename">hochzeit.jpg</span> 
+   ein Bild im Großformat hinterlegt.
+</li>
+
+<li>
+   Alle Elemente, die keine Bilder sind, wie z.B. Videos, Sounds oder Textdateien, 
+   werden von einem vorgegebenen Symbol, das für die Erweiterung des Dateinamens steht, 
+   dargestellt. Sie können auch selbst ein Vorschaubild erstellen (siehe die Datei <span
+   class = "filename">video.avi</span> im Beispiel).
+</li>
+
+<li>
+  <em>Achtung</em>: Der Name für ein Verzeichnis oder eine Datei darf
+  nur aus Buchstaben, Zahlen, "-", "_" und "." bestehen. Leerzeichen, Umlaute, "ß" 
+  und Buchstaben mit Akzent sind nicht erlaubt. 
+  Zwischen Groß- und Kleinschreibung wird unterschieden.
+</li>
+
+<li>
+  <em>Empfehlung</em>: Ein Album kann Elemente und Unteralben enthalten;
+  es ist aber empfehlenswert und übersichtlicher, wenn ein Album entweder 
+  nur Elemente oder nur Unteralben enthält.
+</li>
+
+<li>
+ Haben Sie die Bilder in die richtigen Verzeichnisse hochgeladen,
+ loggen Sie sich ein und gehen Sie zu 
+ <span class = "pwgScreen">Verwaltung &raquo; Alben &raquo; Synchronisieren</span>.
+</li>
 
 </ul>
 
 </fieldset>
+
+<!-- *fragoriscus*
 <fieldset>
   <legend>Vorschaubilder</legend>
 
@@ -121,7 +167,8 @@ class = "pwgScreen">Verwaltung &raquo; Alben &raquo; Synchronisieren</span>.</li
 
    <li> Falls Sie dennoch den Webserver zur Erstellung von Vorschaubildern verwenden,
     müssen Sie allen Verzeichnissen, die Alben zugeordnet sind,
-    per CHMOD die entsprechenden Rechte zuweisen.</li>
+    per CHMOD die entsprechenden Rechte zuweisen.</li> 
 
 </ul>
 </fieldset>
+-->
