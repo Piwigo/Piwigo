@@ -923,4 +923,5 @@ $lang['%d week'] = '%d hét';
 $lang['%d weeks'] = '%d hét';
 $lang['Edit photo'] = 'Kép szerkesztése';
 $lang['create a new site'] = 'új honlap létrehozása';
+$lang['No order field selected'] = 'Nincs rendezési mező kiválasztva';
 ?>
