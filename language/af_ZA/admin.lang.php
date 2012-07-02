@@ -918,4 +918,5 @@ $lang['photos candidates for metadata synchronization'] = 'foto kandidate vir me
 $lang['photos informations synchronized with files metadata'] = 'foto inligting gesinchroniseerd met lêer metadata';
 $lang['reduce to single existing albums'] = 'verminder na enkel bestaande albums';
 $lang['unset'] = 'onstel';
+$lang['No order field selected'] = 'Geen veld om volgens te sorteer is gekies nie';
 ?>
