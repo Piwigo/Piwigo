@@ -1364,8 +1364,11 @@ final class FileCombiner
   private static function process_css($file)
   {
     $css = self::process_css_rec($file);
-    require_once(PHPWG_ROOT_PATH.'include/cssmin.class.php');
-    $css = CssMin::minify($css, array('Variables'=>false));
+    if (version_compare(PHP_VERSION, '5.2.4', '>='))
+    {
+      require_once(PHPWG_ROOT_PATH.'include/cssmin.class.php');
+      $css = CssMin::minify($css, array('Variables'=>false));
+    }
     $css = trigger_event('combined_css_postfilter', $css);
     return $css;
   }
