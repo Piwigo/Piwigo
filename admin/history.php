@@ -303,7 +303,6 @@ SELECT
     id,
     IF(name IS NULL, file, name) AS label,
     filesize,
-    high_filesize,
     file,
     path,
     representative_ext
@@ -313,7 +312,6 @@ SELECT
     // $label_of_image = simple_hash_from_query($query, 'id', 'label');
     $label_of_image = array();
     $filesize_of_image = array();
-    $high_filesize_of_image = array();
     $file_of_image = array();
     $path_of_image = array();
     $representative_ext_of_image = array();
@@ -328,17 +326,10 @@ SELECT
         $filesize_of_image[ $row['id'] ] = $row['filesize'];
       }
 
-      if (isset($row['high_filesize']))
-      {
-        $high_filesize_of_image[ $row['id'] ] = $row['high_filesize'];
-      }
-
       $file_of_image[ $row['id'] ] = $row['file'];
       $path_of_image[ $row['id'] ] = $row['path'];
       $representative_ext_of_image[ $row['id'] ] = $row['representative_ext'];
     }
-
-    // echo '<pre>'; print_r($high_filesize_of_image); echo '</pre>';
   }
 
   if ($has_tags > 0)
@@ -360,29 +351,11 @@ SELECT
 
   foreach ($history_lines as $line)
   {
-    // FIXME when we watch the representative of a non image element, it is
-    // the not the representative filesize that is counted (as it is
-    // unknown) but the non image element filesize. Proposed solution: add
-    // #images.representative_filesize and add 'representative' in the
-    // choices of #history.image_type.
-
-    if (isset($line['image_type']))
+    if (isset($line['image_type']) and $line['image_type'] == 'high')
     {
-      if ($line['image_type'] == 'high')
+      if (isset($filesize_of_image[$line['image_id']]))
       {
-        if (isset($high_filesize_of_image[$line['image_id']]))
-        {
-          $summary['total_filesize']+=
-            $high_filesize_of_image[$line['image_id']];
-        }
-      }
-      else
-      {
-        if (isset($filesize_of_image[$line['image_id']]))
-        {
-          $summary['total_filesize']+=
-            $filesize_of_image[$line['image_id']];
-        }
+        $summary['total_filesize'] += $filesize_of_image[$line['image_id']];
       }
     }
 
@@ -548,7 +521,7 @@ SELECT
         '%d line filtered', '%d lines filtered',
         $page['nb_lines']
         ),
-      'FILESIZE' => $summary['total_filesize'].' KB',
+      'FILESIZE' => $summary['total_filesize'] != 0 ? ceil($summary['total_filesize']/1024).' MB' : '',
       'USERS' => l10n_dec(
         '%d user', '%d users',
         $summary['nb_members'] + $summary['nb_guests']
