@@ -303,7 +303,7 @@ $lang['test'] = 'tests';
 $lang['test this remote site'] = 'testēt šo attālināto web lapu';
 $lang['remove tags'] = 'noņemt iezīmes';
 $lang['Repair and optimize database'] = 'Labot un optimizēt datu bāzi';
-$lang['selection'] = 'izvēlētie';
+$lang['selection'] = 'atlasītie';
 $lang['set to'] = 'izmainīt uz';
 $lang['singly represented'] = 'izvēlētais pārstāvis';
 $lang['This site already exists'] = 'Šī Web lapa jau eksistē';
@@ -917,4 +917,5 @@ $lang['%d week'] = '%d nedēļa';
 $lang['%d weeks'] = '%d nedēļas';
 $lang['Edit photo'] = 'Rediģēt foto';
 $lang['create a new site'] = 'izveidot jaunu web lapu';
+$lang['No order field selected'] = 'Nv izvēlēts kārtošanas lauks';
 ?>

@@ -26,7 +26,7 @@ $lang['This page proposes to upgrade your database corresponding to your old ver
 $lang['Upgrade from version %s to %s'] = "%s sürümden %s sürümüne güncellestir";
 $lang['Statistics'] = "Istatistik";
 $lang['total upgrade time'] = "toplam güncelleme zamani";
-$lang['total SQL time'] = "tolam SQL zamani";
+$lang['total SQL time'] = 'toplam SQL zamani';
 $lang['SQL queries'] = "SQL sorgulari";
 $lang['Upgrade informations'] = "Güncelleme bilgileri";
 $lang['Perform a maintenance check in [Administration>Tools>Maintenance] if you encounter any problem.'] = "Herhangi bir sorunla karsilasirsaniz, [Yönetim> Araçlar> Bakim] dan bakim yapiniz.";

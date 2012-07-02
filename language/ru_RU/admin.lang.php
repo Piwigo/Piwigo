@@ -922,4 +922,5 @@ $lang['%d week'] = '%d недель';
 $lang['%d weeks'] = '%d недель';
 $lang['Edit photo'] = 'Редактировать фото';
 $lang['create a new site'] = 'создать новый сайт';
+$lang['No order field selected'] = 'Не выбран порядок полей';
 ?>

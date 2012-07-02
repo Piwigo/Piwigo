@@ -23,7 +23,7 @@
 
 $lang['%d association'] = '%d associació';
 $lang['%d associations'] = '%d associacions';
-$lang['%d album including'] = '%d àlbum inclòs';
+$lang['%d album including'] = '%d àlbum incloent ';
 $lang['%d albums including'] = '%d àlbums inclosos, ';
 $lang['%d physical'] = '%d física';
 $lang['%d physicals'] = '%d físics';
@@ -163,7 +163,7 @@ $lang['Associate to album'] = 'Assòcia a l\'àlbum';
 $lang['Authorized'] = 'Autoritzat';
 $lang['Add a virtual album'] = 'Afegir àlbum virtual';
 $lang['Authorize users to add comments on selected albums'] = 'Autoritzar als usuaris a afegir comentaris en els àlbums seleccionats';
-$lang['The name of an album must not be empty'] = 'El nom de l\'àlbum no pot ser buit';
+$lang['The name of an album must not be empty'] = 'El nom de l\'àlbum no pot estar buit';
 $lang['Lock albums'] = 'Bloqueig d\'àlbums';
 $lang['Private'] = 'Privat';
 $lang['Public'] = 'Públic';
@@ -192,7 +192,7 @@ $lang['first photo added on %s'] = 'primera imatge afegida el %s';
 $lang['Forbidden'] = 'Prohibit';
 $lang['global mode'] = 'Mode global';
 $lang['group "%s" updated'] = 'grup "%s" actualitzat';
-$lang['The name of a group must not contain " or \' or be empty.'] = 'El nom d\'un grup no pot contenir " o \' o ser buit.';
+$lang['The name of a group must not contain " or \' or be empty.'] = 'El nom d\'un grup no pot contenir " o \' o estar buit.';
 $lang['This name is already used by another group.'] = 'Aquest nom ja està en us per un altre grup.';
 $lang['High definition'] = 'Alta qualitat';
 $lang['jump to album'] = 'Tornar a l\'àlbum';
@@ -526,7 +526,7 @@ $lang['Subscribe %s to Piwigo Announcements Newsletter'] = 'Inscriure %s al butl
 $lang['Purge search history'] = 'Purgar el historico de búsquedad';
 $lang['Hide'] = 'Ocultar';
 $lang['Execution time is out, treatment must be continue [Estimated time: %d seconds].'] = 'Sobrepasado el tiempo de ejecución, el procesamiento debe continuar [Tiempo estimado: %d secundas].';
-$lang['Operation in progress'] = 'Operación en progreso.';
+$lang['Operation in progress'] = 'Operació en progrés...';
 $lang['Please wait...'] = 'Si us plau, esperi...';
 $lang['Password is missing. Please enter the password.'] = 'Falta la clau d\'accès. Si us plau, introdueix-la.';
 $lang['Password confirmation is missing. Please confirm the chosen password.'] = 'La confirmación de la contraseña faltó. Por favor, confirme la contraseña elegida.';
@@ -736,7 +736,7 @@ $lang['Following plugins may not be compatible with the new version of Piwigo:']
 $lang['Following themes may not be compatible with the new version of Piwigo:'] = 'Els següents temes poden no ser compatibles amb la nova versió de Piwigo:';
 $lang['I decide to update anyway'] = 'Vull actualitzar de totes maneres';
 $lang['Update to Piwigo %s'] = 'Actualitzar a Piwigo %s';
-$lang['Two updates are available'] = 'Dues actualitzacions estàn disponibles';
+$lang['Two updates are available'] = 'Hi ha dues actualitzacions disponibles';
 $lang['This is a minor update, with only bug corrections.'] = 'Aquesta actualització és menor. Només conté correccions d\'errors.';
 $lang['This is a major update, with <a href="%s">new exciting features</a>.'] = 'Esta es una actualización importante, con <a href="%s">nuevas características emocionantes</a>.';
 $lang['Some themes and plugins may be not available yet.'] = 'Alguns dels temes i complements poden encara no estar disponibles.';
@@ -744,8 +744,8 @@ $lang['You can update to Piwigo %s directly, without upgrading to Piwigo %s (rec
 $lang['Save Template Directory'] = 'Desar directori de plantilles';
 $lang['Dump Database'] = 'Abocar la base de dades';
 $lang['Include history data (Warning: server memory limit may be exceeded)'] = 'Incloure la informació de l\'historial. (Advertència: el límit de memòria del servidor pot ser superat)';
-$lang['Unable to dump database.'] = 'No és possible volcar la base de dades.';
-$lang['Some upgrades are available for extensions.'] = 'Actualitzacions disponibles per a les extensiones.';
+$lang['Unable to dump database.'] = 'No és possible abocar la base de dades.';
+$lang['Some upgrades are available for extensions.'] = 'Hi ha actualitzacions disponibles per a algunes extensions';
 $lang['Ignore All'] = 'Ignorar tot';
 $lang['Crop'] = 'Redimensionar ';
 $lang['Width'] = 'Amplada';
@@ -932,4 +932,5 @@ $lang['%d week'] = '%d setmana';
 $lang['%d weeks'] = '%d setmanes';
 $lang['Edit photo'] = 'Editar imatge';
 $lang['create a new site'] = 'Crear un lloc nou';
+$lang['No order field selected'] = 'Ordre no seleccionat';
 ?>

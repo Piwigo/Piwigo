@@ -306,7 +306,6 @@ $lang['selection'] = '選擇';
 $lang['set to'] = '設置為';
 $lang['singly represented'] = '固定顯示';
 $lang['This site already exists'] = '此站點已存在';
-$lang['Create a new site : (give its URL to create_listing_file.php)'] = '新建遠端站點 : (在create_listing_file.php文件中給出url地址)';
 $lang['created'] = '已創建';
 $lang['delete'] = '刪除';
 $lang['delete this site and all its attached elements'] = '刪除此站點和與其相關聯的所有信息';
@@ -918,5 +917,6 @@ $lang['Sharpen'] = '銳化';
 $lang['%d week'] = '%d 週';
 $lang['%d weeks'] = '%d 週';
 $lang['Edit photo'] = '編輯相片';
+$lang['create a new site'] = '建立新的網站';
 
 ?>

@@ -926,4 +926,5 @@ $lang['%d weeks'] = '%d周';
 $lang['%d week'] = '%d周';
 $lang['Edit photo'] = '编辑图片';
 $lang['create a new site'] = '新建网站';
+$lang['No order field selected'] = '未选择排序字段';
 ?>

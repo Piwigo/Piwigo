@@ -312,7 +312,6 @@ $lang['selection'] = "sélection";
 $lang['set to'] = "changer en";
 $lang['singly represented'] = "représentant fixe";
 $lang['This site already exists'] = "Ce site existe déjà";
-$lang['Create a new site : (give its URL to create_listing_file.php)'] = "Créer un nouveau site distant : (donner son URL vers create_listing_file.php)";
 $lang['created'] = "créé";
 $lang['delete this site and all its attached elements'] = "supprimer ce site et toutes les informations associées";
 $lang['an error happened'] = "une erreur est survenue";
@@ -930,6 +929,7 @@ $lang['Sharpen'] = 'Renforcer la netteté';
 $lang['%d week'] = '%d semaine';
 $lang['%d weeks'] = '%d semaines';
 $lang['Edit photo'] = 'Éditer la photo';
-$lang['create a new site'] = 'créer un nouveau site'; 
+$lang['create a new site'] = 'créer un nouveau site';
+$lang['No order field selected'] = 'Aucun critère de tri sélectionné'; 
 
 ?>

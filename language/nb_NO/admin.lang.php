@@ -918,4 +918,5 @@ $lang['%d week'] = '%d uke';
 $lang['%d weeks'] = '%d uker';
 $lang['Edit photo'] = 'Endre bilde';
 $lang['create a new site'] = 'lag en ny side';
+$lang['No order field selected'] = 'Ingen rekkefølgefelt er valgt';
 ?>

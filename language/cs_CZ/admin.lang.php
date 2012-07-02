@@ -927,4 +927,5 @@ $lang['%d week'] = '%d týden';
 $lang['%d weeks'] = '%d týdny';
 $lang['Edit photo'] = 'Upravit foto';
 $lang['create a new site'] = 'vytvoř nové místo';
+$lang['No order field selected'] = 'Není vybráno pole řazení';
 ?>

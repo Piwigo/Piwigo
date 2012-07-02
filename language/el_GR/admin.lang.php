@@ -319,7 +319,7 @@ $lang['Error on file "%s" : %s'] = 'Σφάλμα στο αρχείο "%s":%s';
 $lang['Error when sending email to %s [%s].'] = 'Σφάλμα κατά την αποστολή e-mail στο%s [%s].';
 $lang['default values'] = 'προκαθορισμένες τιμές';
 $lang['default'] = 'προκαθορισμένο';
-$lang['delete album'] = 'προκαθορισμένο λεύκωμα';
+$lang['delete album'] = 'Διαγράψτε το λεύκωμα';
 $lang['delete photo'] = 'διαγραφή φωτογραφίας';
 $lang['delete this site and all its attached elements'] = 'διαγράψετε αυτό το site και όλες τις σχετικές πληροφορίες';
 $lang['deleted'] = 'διαγραμμένο';
@@ -924,4 +924,5 @@ $lang['%d week'] = '%d εβδομάδα';
 $lang['%d weeks'] = '%d εβδομάδες';
 $lang['Edit photo'] = 'Επεξεργασία φωτογραφίας';
 $lang['create a new site'] = 'δημιουργία νέας ιστοσελίδας';
+$lang['No order field selected'] = 'Δεν επιλέχτηκε διατεταγμένο πεδίο';
 ?>
