@@ -53,6 +53,7 @@ if (isset($_GET['delete']))
   check_pwg_token();
 
   delete_elements(array($_GET['image_id']), true);
+  invalidate_user_cache();
 
   // where to redirect the user now?
   //
