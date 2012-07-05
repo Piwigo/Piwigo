@@ -381,7 +381,7 @@ $lang['If you think you\'ve received this email in error, please contact us at %
 $lang['Password: %s'] = 'Jelszó: %s';
 $lang['Send my connection settings by email'] = 'Kapcsolat beállításainak küldése e-mailben';
 $lang['Successfully registered, you will soon receive an email with your connection settings. Welcome!'] = 'Sikeresen regisztrált, hamarosan kap egy e-mailt a kapcsolat adataival. Üdvözöljük!';
-$lang['Thank you for registering at %s!'] = 'Köszönjük, hogy regisztrált %s néven!';
+$lang['Thank you for registering at %s!'] = 'Köszöni Önnek a regisztrációt a(z) %s!';
 $lang['Username modification'] = 'Felhasználónév módosítása';
 $lang['Username: %s'] = 'Felhasználónév: %s';
 $lang['Your username has been successfully changed to : %s'] = 'Sikeres felhasználónév módosítás: %s';
