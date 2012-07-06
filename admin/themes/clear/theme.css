@@ -239,6 +239,10 @@ body .ui-resizable-autohide .ui-resizable-handle { display: none; } /* use 'body
 #ui-datepicker-div .ui-datepicker-days-cell { background-color:#bbb; border:1px solid #ddd; border-top-color: #bbb; border-left-color: #bbb;}
 img.ui-datepicker-trigger{margin:-2px 10px 1px -2px;}
 
+.ui-slider { background:#ddd;border-radius:2px;border:1px solid #999; }
+.ui-slider .ui-slider-handle { border:1px solid #005e89;background:#fff;border-radius:0.6em; }
+.ui-slider .ui-slider-range { background:#999;border-radius:2px; }
+
 INPUT[type="text"].large  { width: 317px; }
 
 .bigbutton {background:none;margin-right:-5px; padding: 10px;height:auto;position:static;width:auto;text-align:right;}
