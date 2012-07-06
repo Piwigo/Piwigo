@@ -21,8 +21,8 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
-$lang['%d association'] = '%d Element wird insgesamt angezeigt (physisch und virtuell)';
-$lang['%d associations'] = '%d Elemente werden insgesamt angezeigt (physisch und virtuell)';
+$lang['%d association'] = '%d Element wird angezeigt';
+$lang['%d associations'] = '%d Elemente werden insgesamt angezeigt';
 $lang['%d album including'] = '%d Album inbegriffen, ';
 $lang['%d albums including'] = '%d Alben inbegriffen, ';
 $lang['%d physical'] = 'davon %d physisch';
