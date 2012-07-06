@@ -777,7 +777,7 @@ $lang['An error has occured during extract. Please check files permissions of yo
 $lang['Piwigo cannot retrieve upgrade file from server'] = 'Piwigo kann die Aktualisierungsdatei nicht vom Server laden';
 $lang['Zoom'] = 'Zoom';
 $lang['(this tag will be deleted)'] = '(dieses Schlagwort wird gelöscht!)';
-$lang['... or '] = '...oder';
+$lang['... or '] = '...oder&nbsp;';
 $lang['Allowed file types: %s.'] = 'Erlaubte Dateitypen: %s.';
 $lang['By default, Piwigo will create a new websize from the HD (high definition) version of your photo.'] = 'Standardmäßig erstellt Piwigo eine für das Web optimierte Ansicht der HD-Version (hochaufgelösten Version) Ihres Fotos.';
 $lang['Confirm merge'] = 'Zusammenführen bestätigen';
