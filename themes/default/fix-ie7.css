@@ -13,7 +13,7 @@
   text-align: center;
 }
 
-.thumbnails IMG.thumbnail {
+.thumbnails .wrap2 IMG {
   position: relative;
   top: -50%;   
   margin-top: 2%;
