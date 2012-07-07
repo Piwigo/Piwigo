@@ -63,4 +63,10 @@ $lang['Level 4'] = "Familio";
 $lang['Level 8'] = "Administranto";
 
 
+$lang['%d association'] = '%d asocio';
+$lang['%d associations'] = '%d asocioj';
+$lang['%d day'] = '%d tago';
+$lang['%d days'] = '%d tagoj';
+$lang['%d group'] = '%d grupo';
+$lang['%d groups'] = '%d grupoj';
 ?>
