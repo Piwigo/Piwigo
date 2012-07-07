@@ -381,4 +381,14 @@ $lang['Password: %s'] = 'รหัสผ่าน: %s';
 $lang['Username: %s'] = 'ชื่อผู้ใช้งาน: %s';
 $lang['If you think you\'ve received this email in error, please contact us at %s'] = 'ถ้าคุณไม่ได้รับอีเมล์ หรือหากได้รับอีเมล์ที่ไม่ถูกต้อง, โปรดติดต่อเราที่ %s';
 
+$lang['%d rate'] = '%d คะแนน';
+$lang['Bad request'] = 'หน้าที่เรียก ไม่ถูกต้อง';
+$lang['Desktop'] = 'เดสก์ท็อป';
+$lang['Forbidden'] = 'ปฏิเสธการเข้าถึง';
+$lang['Mobile'] = 'โมบาย';
+$lang['Page not found'] = 'ไม่พบหน้าที่เรียก';
+$lang['Photo sizes'] = 'ขนาดรูปภาพ';
+$lang['Show latest comments first'] = 'แสดงคอมเม้นต์ล่าสุดขึ้นก่อน';
+$lang['Show oldest comments first'] = 'แสดงคอมเม้นต์หลังสุดขึ้นก่อน';
+$lang['View in'] = 'ดูใน';
 ?>
