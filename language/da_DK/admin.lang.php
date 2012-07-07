@@ -923,4 +923,5 @@ $lang['%d week'] = '%d uge';
 $lang['%d weeks'] = '%d uger';
 $lang['Edit photo'] = 'Rediger foto';
 $lang['create a new site'] = 'opret et nyt site';
+$lang['No order field selected'] = 'Der er ikke udfyldt ordre feltet';
 ?>
