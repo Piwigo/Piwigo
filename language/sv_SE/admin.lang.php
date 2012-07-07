@@ -921,4 +921,5 @@ $lang['Sharpen'] = 'Skärpa';
 $lang['Edit photo'] = 'Redigera bild';
 
 $lang['create a new site'] = 'skapa en ny site';
+$lang['No order field selected'] = 'Inget ordningsfält valt';
 ?>
