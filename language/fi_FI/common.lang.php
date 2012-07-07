@@ -406,4 +406,12 @@ $lang['Visits, high &rarr; low'] = 'Käynnit, korkea &rarr; matala';
 $lang['Visits, low &rarr; high'] = 'Käynnit, matala &rarr; korkea';
 $lang['excluded'] = 'pois jätetty';
 $lang['xsmall'] = 'XS - extra pieni';
+$lang['%d rate'] = '%d määrä';
+$lang['Bad request'] = 'Väärä pyyntö';
+$lang['Forbidden'] = 'Ei sallittu';
+$lang['Page not found'] = 'Sivua ei löytynyt';
+$lang['Permalink for album not found'] = 'Permalinkkiä albumille ei löytynyt';
+$lang['Piwigo encountered a non recoverable error'] = 'Piwigo aiheutti virheen jota ei voi korjata';
+$lang['Requested album does not exist'] = 'Pyydettyä albumia ei ole';
+$lang['Requested tag does not exist'] = 'Pyydettyä tagia ei ole';
 ?>
