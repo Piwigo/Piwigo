@@ -36,8 +36,8 @@ $lang_info['code'] = 'da';
 $lang_info['zero_plural'] = true;
 
 $lang['%d Kb'] = '%d Kb';
-$lang['%d album updated'] = '%d kategori opdateret';
-$lang['%d albums updated'] = '%d kategorier opdateret';
+$lang['%d album updated'] = '%d album opdateret';
+$lang['%d albums updated'] = '%d albums opdateret';
 $lang['%d comment to validate'] = '%d kommentar til godkendelse';
 $lang['%d comments to validate'] = '%d kommentarer til godkendelse';
 $lang['%d new comment'] = '%d ny kommentar';
