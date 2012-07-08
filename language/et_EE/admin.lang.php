@@ -48,4 +48,14 @@ $lang['%d day'] = 'üks päev';
 $lang['%d days'] = '%d päeva';
 $lang['%d group'] = 'üks grupp';
 $lang['%d groups'] = '%d gruppi';
+$lang['%d guest'] = '%d külaline';
+$lang['%d guests'] = '%d külalist';
+$lang['%d hour'] = '%d tund';
+$lang['%d hours'] = '%d tundi';
+$lang['%d line filtered'] = '%d rida filtreeritud';
+$lang['%d lines filtered'] = '%d rida filtreeritud';
+$lang['%d mail was not sent.'] = '%d meil jäi saatmata.';
+$lang['%d mail was sent.'] = '%d meil saadetud.';
+$lang['%d mails were not sent.'] = '%d meili jäi saatmata.';
+$lang['%d mails were sent.'] = '%d meili ära saadetud.';
 ?>
