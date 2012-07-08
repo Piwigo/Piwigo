@@ -23,9 +23,29 @@
 
 
 
-$lang['Add to caddie'] = 'lisa caddie-sse';
+$lang['Add to caddie'] = 'lisa korvi';
 $lang['Average rate'] = 'Keskmine hinne';
 $lang['Rate'] = 'Hinda';
 $lang['Caddie'] = 'Korv';
 
+$lang[' and %d virtual'] = 'ning %d virtuaalne';
+$lang[' and %d virtuals'] = 'ning %d virtuaalseid';
+$lang['%d album including'] = 'üks album, mille juures';
+$lang['%d album moved'] = 'üks album teiseldatud';
+$lang['%d albums including'] = '%d albumeid, mille juures';
+$lang['%d albums moved'] = '%d albumit teiseldatud';
+$lang['%d anomalies have been detected corrected.'] = '%d tehnilist hälvet leiti ja parandati ära.';
+$lang['%d anomalies have been detected.'] = '%d tehnilist hälvet leiti.';
+$lang['%d anomalies have been ignored.'] = '%d tehnilist hälvet ignoreeritakse.';
+$lang['%d anomalies have not been corrected.'] = '%d tehnilist hälvet on parandamata.';
+$lang['%d anomaly has been corrected.'] = 'üks tehniline hälve parandati ära.';
+$lang['%d anomaly has been detected.'] = 'üks tehniline hälve leiti.';
+$lang['%d anomaly has been ignored.'] = 'ühte tehnilist hälvet ignoreeritakse.';
+$lang['%d anomaly has not been corrected.'] = 'üks tehniline hälve on parandamata.';
+$lang['%d association'] = 'üks assotsiatsioon';
+$lang['%d associations'] = '%d assotsiatsiooni';
+$lang['%d day'] = 'üks päev';
+$lang['%d days'] = '%d päeva';
+$lang['%d group'] = 'üks grupp';
+$lang['%d groups'] = '%d gruppi';
 ?>
