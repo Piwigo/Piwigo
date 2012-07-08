@@ -314,6 +314,15 @@ final class DerivativeImage
     return $this->params->compute_final_size($this->src_image->get_size());
   }
 
+  function get_size_css()
+  {
+    $size = $this->get_size();
+    if ($size)
+    {
+      return 'width:'.$size[0].'px; height:'.$size[1].'px';
+    }
+  }
+
   function get_size_htm()
   {
     $size = $this->get_size();
