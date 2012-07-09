@@ -207,8 +207,6 @@ if (pwg_db_num_rows($result) > 0)
 {
 	// template thumbnail initialization
 	$current_rank = 1;
-	$thumbnail_info=array();
-	$clipping=array();
   $derivativeParams = ImageStdParams::get_by_type(IMG_SQUARE);
 	while ($row = pwg_db_fetch_assoc($result))
 	{
