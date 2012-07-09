@@ -1,5 +1,3 @@
-{combine_script id='jquery.ajaxmanager' path='themes/default/js/plugins/jquery.ajaxmanager.js' load='footer'}
-{combine_script id='thumbnails.loader' path='themes/default/js/thumbnails.loader.js' require='jquery.ajaxmanager' load='footer'}
 {strip}{html_style}
 .thumbnailCategory .illustration{ldelim}
 	width: {$derivative_params->max_width()+5}px;
@@ -12,6 +10,10 @@
 <ul class="thumbnailCategories">
 {foreach from=$category_thumbnails item=cat name=cat_loop}
 {assign var=derivative value=$pwg->derivative($derivative_params, $cat.representative.src_image)}
+{if !$derivative->is_cached()}
+{combine_script id='jquery.ajaxmanager' path='themes/default/js/plugins/jquery.ajaxmanager.js' load='footer'}
+{combine_script id='thumbnails.loader' path='themes/default/js/thumbnails.loader.js' require='jquery.ajaxmanager' load='footer'}
+{/if}
 	<li class="{if $smarty.foreach.comment_loop.index is odd}odd{else}even{/if}">
 		<div class="thumbnailCategory">
 			<div class="illustration">
