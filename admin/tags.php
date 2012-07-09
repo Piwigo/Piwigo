@@ -99,6 +99,115 @@ SELECT id, name
     $updates
     );
 }
+// +-----------------------------------------------------------------------+
+// |                            dulicate tags                              |
+// +-----------------------------------------------------------------------+
+
+if (isset($_POST['duplic_submit']))
+{
+  $query = '
+SELECT name
+  FROM '.TAGS_TABLE.'
+;';
+  $existing_names = array_from_query($query, 'name');
+  
+
+  $current_name_of = array();
+  $query = '
+SELECT id, name
+  FROM '.TAGS_TABLE.'
+  WHERE id IN ('.$_POST['edit_list'].')
+;';
+  $result = pwg_query($query);
+  while ($row = pwg_db_fetch_assoc($result))
+  {
+    $current_name_of[ $row['id'] ] = $row['name'];
+  }
+  
+  $updates = array();
+  // we must not rename tag with an already existing name
+  foreach (explode(',', $_POST['edit_list']) as $tag_id)
+  {
+    $tag_name = stripslashes($_POST['tag_name-'.$tag_id]);
+
+    if ($tag_name != $current_name_of[$tag_id])
+    {
+      if (in_array($tag_name, $existing_names))
+      {
+        array_push(
+          $page['errors'],
+          sprintf(
+            l10n('Tag "%s" already exists'),
+            $tag_name
+            )
+          );
+      }
+      else if (!empty($tag_name))
+      {
+        mass_inserts(
+          TAGS_TABLE,
+          array('name', 'url_name'),
+          array(
+            array(
+              'name' => $tag_name,
+              'url_name' => trigger_event('render_tag_url', $tag_name),
+              )
+            )
+          );
+        $query = '
+        SELECT id
+          FROM '.TAGS_TABLE.'
+          WHERE name = \''.$tag_name.'\'
+        ;';
+        $destination_tag = array_from_query($query, 'id');
+        $destination_tag_id = $destination_tag[0];
+        $query = '
+        SELECT
+            image_id
+          FROM '.IMAGE_TAG_TABLE.'
+          WHERE tag_id = '.$tag_id.'
+        ;';
+        $destination_tag_image_ids = array_from_query($query, 'image_id');
+        $inserts = array();
+        foreach ($destination_tag_image_ids as $image_id)
+        {
+          array_push(
+            $inserts,
+            array(
+              'tag_id' => $destination_tag_id,
+              'image_id' => $image_id
+              )
+            );
+        }
+  
+        if (count($inserts) > 0)
+        {
+          mass_inserts(
+            IMAGE_TAG_TABLE,
+            array_keys($inserts[0]),
+            $inserts
+            );
+        }
+        array_push(
+          $page['infos'],
+          sprintf(
+            l10n('Tag "%s" is now a duplicate of "%s"'),
+            stripslashes($tag_name),
+            $current_name_of[$tag_id]
+            )
+          );
+      }
+    }
+  }
+  mass_updates(
+    TAGS_TABLE,
+    array(
+      'primary' => array('id'),
+      'update' => array('name', 'url_name'),
+      ),
+    $updates
+    );
+}
 
 // +-----------------------------------------------------------------------+
 // |                               merge tags                              |
@@ -340,10 +449,14 @@ $template->assign(
     )
   );
 
-if ((isset($_POST['edit']) or isset($_POST['merge'])) and isset($_POST['tags']))
+if ((isset($_POST['edit']) or isset($_POST['duplicate']) or isset($_POST['merge'])) and isset($_POST['tags']))
 {
   $list_name = 'EDIT_TAGS_LIST';
-  if (isset($_POST['merge']))
+  if (isset($_POST['duplicate']))
+  {
+    $list_name = 'DUPLIC_TAGS_LIST';
+  }
+  elseif (isset($_POST['merge']))
   {
     $list_name = 'MERGE_TAGS_LIST';
   }

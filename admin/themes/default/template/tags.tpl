@@ -52,6 +52,30 @@ jQuery(document).ready(function(){
     </p>
   </fieldset>
   {/if}
+  {if isset($DUPLIC_TAGS_LIST)}
+  <fieldset>
+    <legend>{'Edit tags'|@translate}</legend>
+    <input type="hidden" name="edit_list" value="{$DUPLIC_TAGS_LIST}">
+    <table class="table2">
+      <tr class="throw">
+        <th>{'Source tag'|@translate}</th>
+        <th>{'Name of the duplicate'|@translate}</th>
+      </tr>
+      {foreach from=$tags item=tag}
+      <tr>
+        <td>{$tag.NAME}</td>
+        <td><input type="text" name="tag_name-{$tag.ID}" value="{$tag.NAME}" size="30"></td>
+      </tr>
+      {/foreach}
+    </table>
+
+    <p>
+      <input type="hidden" name="pwg_token" value="{$PWG_TOKEN}">
+      <input class="submit" type="submit" name="duplic_submit" value="{'Submit'|@translate}">
+      <input class="submit" type="reset" value="{'Reset'|@translate}">
+    </p>
+  </fieldset>
+  {/if}
 
   {if isset($MERGE_TAGS_LIST)}
   <input type="hidden" name="merge_list" value="{$MERGE_TAGS_LIST}">
@@ -85,6 +109,7 @@ jQuery(document).ready(function(){
     <p>
       <input type="hidden" name="pwg_token" value="{$PWG_TOKEN}">
       <input class="submit" type="submit" name="edit" value="{'Edit selected tags'|@translate}">
+      <input class="submit" type="submit" name="duplicate" value="{'Duplicate selected tags'|@translate}">
       <input class="submit" type="submit" name="merge" value="{'Merge selected tags'|@translate}">
       <input class="submit" type="submit" name="delete" value="{'Delete selected tags'|@translate}" onclick="return confirm('{'Are you sure?'|@translate}');">
     </p>
