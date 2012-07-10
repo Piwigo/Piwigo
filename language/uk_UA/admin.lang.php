@@ -919,4 +919,8 @@ $lang['%d week'] = '%d тиждень';
 $lang['Edit photo'] = 'Редагувати фото';
 $lang['create a new site'] = 'створити новий сайт';
 $lang['No order field selected'] = 'Немає порядкового вибраного поля';
+$lang['Duplicate selected tags'] = 'Дублювати виділені теґи';
+$lang['Name of the duplicate'] = 'Назва дубліката';
+$lang['Source tag'] = 'Джерело теґа';
+$lang['Tag "%s" is now a duplicate of "%s"'] = 'Теґ "%s" зараз є дублікатом "%s"';
 ?>
