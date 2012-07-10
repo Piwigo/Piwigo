@@ -148,4 +148,16 @@ $lang['Hello %s, your Piwigo photo gallery is empty!'] = '%s 你好, 你的 Piwi
 $lang['Hello %s,'] = '%s 你好,';
 $lang['Hello'] = '你好';
 $lang['Help'] = '幫肋';
+$lang['Here are your connection settings'] = '這是你連接的設定';
+$lang['Home'] = '主頁';
+$lang['I want to add photos'] = '我想加入相片';
+$lang['IP: %s'] = 'IP: %s';
+$lang['IPTC Metadata'] = 'IPTC 資料';
+$lang['Identification'] = '身分證明';
+$lang['If this was a mistake, just ignore this email and nothing will happen.'] = '如果這是一個錯誤, 不理會這電郵就不會發生任合事.';
+$lang['If you think you\'ve received this email in error, please contact us at %s'] = '如果你認你不應該數到這電郵, 請到 %s 聯絡我們';
+$lang['Interface theme'] = '介面主題';
+$lang['Invalid key'] = '無效鑰匙';
+$lang['Invalid password!'] = '無效密碼!';
+$lang['Invalid username or email'] = '無效用戶名稱或電郵';
 ?>
