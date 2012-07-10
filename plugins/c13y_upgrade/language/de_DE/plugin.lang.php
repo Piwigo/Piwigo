@@ -25,7 +25,7 @@
 $lang['c13y_upgrade_no_anomaly'] = 'Keine Unregelmäßigkeiten festgestellt nach der Aktualisierung der Anwendung'; /* TODO , "Check upgrades" plugin was deactivated.'*/
 $lang['c13y_dbl_email_user'] = 'Benutzer mit der gleichen E-Mail-Adresse';
 $lang['c13y_correction_dbl_email_user'] = 'Lösche doppelte Benutzer';
-$lang['c13y_obsolete_plugin'] = 'Veraltete Plugin';
-$lang['c13y_correction_obsolete_plugin'] = 'Das Plugin "%s" wurde deaktiviert da es nicht kompatibel zu dieser Version der Piwigo ist. Bitte deinstallieren Sie es.';
+$lang['c13y_obsolete_plugin'] = 'Veraltetes Plugin';
+$lang['c13y_correction_obsolete_plugin'] = 'Das Plugin "%s" wurde deaktiviert, da es nicht kompatibel zu dieser Version von Piwigo ist. Bitte deinstallieren Sie es.';
 
 ?>
