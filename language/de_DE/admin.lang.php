@@ -419,8 +419,8 @@ $lang['default values'] = 'Standardwerte';
 // --------- Starting below: New or revised $lang ---- from version 1.7.1
 $lang['Guest cannot be deleted'] = 'Der Gast kann nicht gelöscht werden';
 $lang['Default user cannot be deleted'] = 'Der Standardbenutzer kann nicht gelöscht werden';
-$lang['Purge history detail'] = 'Lösche History detailliert';
-$lang['Purge history summary'] = 'Lösche History gesamt';
+$lang['Purge history detail'] = 'Lösche History-Einträge';
+$lang['Purge history summary'] = 'Lösche History-Zusammenfassung';
 $lang['Check integrity'] = 'Überprüfung der Integrität';
 $lang['Anomaly'] = 'Anomalie';
 $lang['Correction'] = 'Korrektur';
