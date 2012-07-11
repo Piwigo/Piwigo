@@ -924,4 +924,8 @@ $lang['%d weeks'] = '%d hét';
 $lang['Edit photo'] = 'Kép szerkesztése';
 $lang['create a new site'] = 'új honlap létrehozása';
 $lang['No order field selected'] = 'Nincs rendezési mező kiválasztva';
+$lang['Duplicate selected tags'] = 'Kiválasztott címkék kettőzése';
+$lang['Name of the duplicate'] = 'A kettőzött címke neve';
+$lang['Source tag'] = 'Forrás címke';
+$lang['Tag "%s" is now a duplicate of "%s"'] = '"%s" címke kettőzve "%s" néven';
 ?>
