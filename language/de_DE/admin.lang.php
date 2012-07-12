@@ -926,4 +926,8 @@ $lang['%d weeks'] = '%d Wochen';
 $lang['Edit photo'] = 'Foto bearbeiten';
 $lang['create a new site'] = 'Erstelle eine neue Seite';
 $lang['No order field selected'] = 'Kein Anordnungsfeld gewählt';
+$lang['Duplicate selected tags'] = 'Ausgewählte Schlagworte duplizieren';
+$lang['Name of the duplicate'] = 'Name des Duplikats';
+$lang['Source tag'] = 'Schlagwort Quelle';
+$lang['Tag "%s" is now a duplicate of "%s"'] = 'Das Schlagwort "%s" ist jetzt ein Duplikat von "%s"';
 ?>
