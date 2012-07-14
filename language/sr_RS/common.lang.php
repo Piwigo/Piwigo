@@ -405,4 +405,11 @@ $lang['Numeric identifier, 9 &rarr; 1'] = 'Бројчана променљива
 $lang['Manual sort order'] = 'Ручно уређени редослед'; 
 
 $lang['%d rate'] = '%d однос';
+$lang['Bad request'] = 'Лош захтев';
+$lang['Forbidden'] = 'Забрањено';
+$lang['Page not found'] = 'Страница није нађена';
+$lang['Permalink for album not found'] = 'Стална веза за галерију није нађена';
+$lang['Piwigo encountered a non recoverable error'] = 'Пивиго је наишао на непоправљиву грешку.';
+$lang['Requested album does not exist'] = 'Захтевана галерија не постоји';
+$lang['Requested tag does not exist'] = 'Захтевана ознака не постоји';
 ?>
