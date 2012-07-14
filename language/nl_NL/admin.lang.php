@@ -923,4 +923,8 @@ $lang['%d weeks'] = '%d weken';
 $lang['Edit photo'] = 'foto aanpassen';
 $lang['create a new site'] = 'Maak een nieuwe site';
 $lang['No order field selected'] = 'Geen volgordeveld geselecteerd';
+$lang['Duplicate selected tags'] = 'Dupliceer de geselecteerde tags';
+$lang['Name of the duplicate'] = 'Naam van het duplicaat';
+$lang['Source tag'] = 'brontag';
+$lang['Tag "%s" is now a duplicate of "%s"'] = 'Tag "%s" is nu een duplicaat van "%s"';
 ?>
