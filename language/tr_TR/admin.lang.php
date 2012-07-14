@@ -918,4 +918,8 @@ $lang['%s in the future'] = '%s gelecekte';
 $lang['Posted %s on %s'] = '%s tarihinde %s yazmıştır';
 $lang['create a new site'] = 'yeni bir site oluştur';
 $lang['No order field selected'] = 'Emir alanı seçilmedi';
+$lang['Duplicate selected tags'] = 'Seçili etiketleri kopyala';
+$lang['Name of the duplicate'] = 'Kopya ismi';
+$lang['Source tag'] = 'Kaynak etiket';
+$lang['Tag "%s" is now a duplicate of "%s"'] = '"%s" etiketi şimdi "%s" \'nin kopyasıdır';
 ?>
