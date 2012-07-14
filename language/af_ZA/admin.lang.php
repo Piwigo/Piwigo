@@ -919,4 +919,8 @@ $lang['photos informations synchronized with files metadata'] = 'foto inligting 
 $lang['reduce to single existing albums'] = 'verminder na enkel bestaande albums';
 $lang['unset'] = 'onstel';
 $lang['No order field selected'] = 'Geen veld om volgens te sorteer is gekies nie';
+$lang['Duplicate selected tags'] = 'Dupliseer gekose etikette';
+$lang['Name of the duplicate'] = 'Naam van die duplikaat';
+$lang['Source tag'] = 'Bron etiket';
+$lang['Tag "%s" is now a duplicate of "%s"'] = 'Etiket "%s" is nou \'n duplikaat van "%s"';
 ?>
