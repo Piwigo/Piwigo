@@ -924,4 +924,8 @@ $lang['%d weeks'] = '%d týždňov';
 $lang['Edit photo'] = 'Upraviť fotku';
 $lang['create a new site'] = 'vytvoriť novú stránku';
 $lang['No order field selected'] = 'Nie je určené zoradenie';
+$lang['Duplicate selected tags'] = 'Duplikovať označené kľúčové slová';
+$lang['Name of the duplicate'] = 'Názov duplikácie';
+$lang['Source tag'] = 'Zdrojové kľúčové slovo';
+$lang['Tag "%s" is now a duplicate of "%s"'] = 'Kľúčové slovo "%s" je teraz duplikácia "%s"';
 ?>
