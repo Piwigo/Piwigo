@@ -919,4 +919,8 @@ $lang['%d weeks'] = '%d uker';
 $lang['Edit photo'] = 'Endre bilde';
 $lang['create a new site'] = 'lag en ny side';
 $lang['No order field selected'] = 'Ingen rekkefølgefelt er valgt';
+$lang['Duplicate selected tags'] = 'Flere tagger valgt';
+$lang['Name of the duplicate'] = 'Navn på duplikater';
+$lang['Source tag'] = 'Kildetagg';
+$lang['Tag "%s" is now a duplicate of "%s"'] = 'Tagg "%s" er nå en duplikat av "%s"';
 ?>
