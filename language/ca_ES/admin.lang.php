@@ -933,4 +933,8 @@ $lang['%d weeks'] = '%d setmanes';
 $lang['Edit photo'] = 'Editar imatge';
 $lang['create a new site'] = 'Crear un lloc nou';
 $lang['No order field selected'] = 'Ordre no seleccionat';
+$lang['Duplicate selected tags'] = 'Duplicar etiquetes seleccionades';
+$lang['Name of the duplicate'] = 'Nom del duplicat';
+$lang['Source tag'] = 'Font d\'etiqueta';
+$lang['Tag "%s" is now a duplicate of "%s"'] = 'L\'etiqueta "%s" és ara un duplicat de "%s"';
 ?>
