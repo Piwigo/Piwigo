@@ -56,7 +56,7 @@ $lang['You may referer to your hosting provider\'s support and see how you could
 $lang['Don\'t hesitate to consult our forums for any help : %s'] = 'Muidugi kasuta meie foorumeid abi leidmiseks: %s';
 $lang['Need help ? Ask your question on <a href="%s">Piwigo message board</a>.'] = 'Vajad abi? Küsi <a href="%s">Piwigo abilauast</a>.';
 $lang['Note you can change your configuration by yourself and restart Piwigo after that.'] = 'Sa võid teha muudatusi seadistusfailis ja pärast ümberkäivitada Piwigo.';
-$lang['Piwigo may try to switch your configuration to PHP 5 by creating or modifying a .htaccess file.'] = 'Piwigo oskab ise prooda seadistada PHP 5 seadistades .htaccess faili selleks.';
+$lang['Piwigo may try to switch your configuration to PHP 5 by creating or modifying a .htaccess file.'] = 'Piwigo oskab ise proovida seadistada PHP 5, seadistades selleks .htaccess faili.';
 $lang['Piwigo was not able to configure PHP 5.'] = 'Piwigo ei suutnud seadistada PHP 5 kasutamist.';
 $lang['Visitors will be able to contact site administrator with this mail'] = 'Külalised võivad kasutada seda epost-aadressi et ühendust võtta administraatoriga';
 $lang['also given by your host provider'] = 'samuti antud veebimajutuse teenusepakkuja poolt';
