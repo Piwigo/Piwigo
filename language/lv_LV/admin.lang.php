@@ -49,7 +49,7 @@ $lang['%d waiting for validation'] = '%d gaida apstiprinājumu';
 $lang['Actions'] = 'Darbības';
 $lang['Activate'] = 'Aktivēt';
 $lang['Add/delete a permalink'] = 'Pievienot/dzēst pamatsaiti';
-$lang['Add a tag'] = 'Pievienot iezīmi';
+$lang['Add a tag'] = 'Pievienot iezīmi (birku)';
 $lang['Add a user'] = 'Pievienot lietotāju';
 $lang['Add group'] = 'Pievienot grupu';
 $lang['Add'] = 'Pievienot';
@@ -792,7 +792,7 @@ $lang['An error has occured during extract. Please check files permissions of yo
 $lang['Piwigo cannot retrieve upgrade file from server'] = 'Piwigo nevar ielādēt jauninājuma failu no servera';
 $lang['Zoom'] = 'Tālummaiņa';
 $lang['%s has been successfully updated.'] = '%s ir sekmīgi atjaunināts.';
-$lang['Add tags'] = 'Pievienot tagus';
+$lang['Add tags'] = 'Pievienot tagus (birkas)';
 $lang['Add to caddie'] = 'Pievienot grozam';
 $lang['Last import'] = 'Pēdējais imports';
 $lang['Predefined filter'] = 'Definēts filtrs';
