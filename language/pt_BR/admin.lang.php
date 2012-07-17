@@ -692,4 +692,15 @@ $lang['Delete multiple size images'] = 'Apaga múltiplos tamanhos de imagens';
 $lang['Duplicate selected tags'] = 'Duplica os marcadores selecionados';
 $lang['ERROR: THIS PLUGIN IS MISSING BUT IT IS INSTALLED! UNINSTALL IT NOW.'] = 'ERRO: ESTE PLUGIN ESTÁ FALTANDO, MAS O MESMO ESTÁ INSTALADO! DESINSTALE O MESMO AGORA.';
 $lang['Edit photo'] = 'Editar Foto';
+$lang['Email administrators when a comment is deleted'] = 'Envia um e-mail aos administradores quando um comentário é deletado';
+$lang['Email administrators when a comment is modified'] = 'Envia um e-mail aos administradores quando um comentário é modificado';
+$lang['File upload stopped by extension'] = 'A transferência de arquivos foi interrompida por uma extensão';
+$lang['Following plugins may not be compatible with the new version of Piwigo:'] = 'Os seguintes plugins podem não ser compatíveis com a nova versão do Piwigo:';
+$lang['Following themes may not be compatible with the new version of Piwigo:'] = 'Os seguintes temas podem não ser compatíveis com a nova versão do Piwigo:';
+$lang['Gallery unlocked'] = 'Galeria destravada';
+$lang['Generate multiple size images'] = 'Gera múltiplos tamanhos de imagem';
+$lang['Graphics Library'] = 'Biblioteca gráfica';
+$lang['Groups and users'] = 'Grupos e usuários';
+$lang['List'] = 'Lista';
+$lang['Make this language available to users'] = 'Faz essa linguagem disponível aos usuários';
 ?>
