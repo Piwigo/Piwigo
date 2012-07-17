@@ -200,14 +200,19 @@
 .thumbnailCategory .illustration a { 
 	display: block; 
 	margin: 0; 
-	padding:20px 0 0 8px; 
+	padding: 15px 4px 0; 
   border:0;
+}
+.thumbnailCategory .illustration img {
+  border-radius: 0 10px 0 10px;
+  -moz-border-radius: 0 10px 0 10px;
+  -webkit-border-radius: 0 10px 0 10px;
 }
 .thumbnailCategory .description { 
 	background:transparent url(images/cat_top-right.gif) no-repeat scroll right top;
 	margin: 0; 
 	padding:15px 10px 3px 0; 
-	overflow-x: hidden !important; 
+	overflow: hidden !important; 
   height:158px;
 }
 .thumbnailCategory .description .text { 

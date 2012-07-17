@@ -13,4 +13,21 @@ $themeconf = array(
   'icon_dir'      => 'themes/Sylvia/icon',
   'mime_icon_dir' => 'themes/Sylvia/icon/mimetypes/',
 );
+/************************************ mainpage_categories.tpl ************************************/
+add_event_handler('loc_end_index_category_thumbnails', 'Sylvia_album');
+function Sylvia_album($tpl_thumbnails_var)
+{
+    global $template;
+    $template->set_prefilter('index_category_thumbnails', 'Sylvia_album_prefilter');
+    return $tpl_thumbnails_var;
+}
+function Sylvia_album_prefilter($content, &$smarty)
+{
+    $search = '#\{html_style\}#';
+    $replacement = '{html_style}
+.thumbnailCategory .description .text{ldelim}
+	height: {$derivative_params->max_height()-30}px;
+}';
+  return preg_replace($search, $replacement, $content);
+}
 ?>
