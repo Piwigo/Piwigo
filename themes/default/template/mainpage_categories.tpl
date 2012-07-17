@@ -14,7 +14,7 @@
 {combine_script id='jquery.ajaxmanager' path='themes/default/js/plugins/jquery.ajaxmanager.js' load='footer'}
 {combine_script id='thumbnails.loader' path='themes/default/js/thumbnails.loader.js' require='jquery.ajaxmanager' load='footer'}
 {/if}
-	<li class="{if $smarty.foreach.comment_loop.index is odd}odd{else}even{/if}">
+	<li class="{if $smarty.foreach.cat_loop.index is odd}odd{else}even{/if}">
 		<div class="thumbnailCategory">
 			<div class="illustration">
 			<a href="{$cat.URL}">
