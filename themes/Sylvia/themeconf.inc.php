@@ -23,11 +23,16 @@ function Sylvia_album($tpl_thumbnails_var)
 }
 function Sylvia_album_prefilter($content, &$smarty)
 {
-    $search = '#\{html_style\}#';
-    $replacement = '{html_style}
+  $search = '#\{html_style\}#';
+  $replacement = '{html_style}
 .thumbnailCategory .description .text{ldelim}
 	height: {$derivative_params->max_height()-30}px;
 }';
-  return preg_replace($search, $replacement, $content);
+  $content = preg_replace($search, $replacement, $content);
+  $search = '#\.thumbnailCategory[\t ]*.description\{ldelim\}[\s]*height:[\t ]*\{\$derivative_params->max_height\(\)\+5#';
+  $replacement = '.thumbnailCategory .description{ldelim}
+	height: {$derivative_params->max_height()+15';
+  $content = preg_replace($search, $replacement, $content);
+  return $content;
 }
 ?>
