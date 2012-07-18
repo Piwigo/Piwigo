@@ -60,36 +60,25 @@ jQuery(document).ready(function(){
 <h2><span style="letter-spacing:0">{$CATEGORIES_NAV}</span> &#8250; {'Album list management'|@translate}</h2>
 
 
-<form id="CreateAlbum" action="{$F_ACTION}" method="post">
+<form id="formCreateAlbum" action="{$F_ACTION}" method="post">
+  <p class="showCreateAlbum">
   <fieldset id="createAlbum" style="display:none;">
-    <p class="showCreateAlbum">
       <legend>{'create a new album'|@translate}</legend>
       <input type="hidden" name="pwg_token" value="{$PWG_TOKEN}">
       <p><strong>{'Album name'|@translate}</strong>
         <br><input type="text" name="virtual_name">
       </p>
-      <p class="actionButtons">
+      <span class="actionButtons">
         <input class="submit" type="submit" value="{'Create'|@translate}" name="submitAdd">
         <a href="#" id="addAlbumClose">{'Cancel'|@translate}</a>
-      </p>
-    </p>
+      </span>
   </fieldset>
+  </p>
 </form>
 <form id="categoryOrdering" action="{$F_ACTION}" method="post">
 <input type="hidden" name="pwg_token" value="{$PWG_TOKEN}">
-<p>
-  <span id="notManualOrder">
-    <a href="#" id="addAlbumOpen">{'create a new album'|@translate}</a>
-    | <a href="#" id="autoOrderOpen">{'apply automatic sort order'|@translate}</a>
-  </span>
-  <span id="manualOrder" style="display:none;">
-    <input class="submit" name="submitManualOrder" type="submit" value="{'Save manual order'|@translate}">
-    {'... or '|@translate} <a href="#" id="cancelManualOrder">{'cancel manual order'|@translate}</a>
-  </span>
-</p>
 {if count($categories) }
-
-  <span id="autoOrder" style="display:none;">
+  <fieldset id="autoOrder" style="display:none;">
     <legend>{'Automatic sort order'|@translate}</legend>
     <p><strong>{'Sort order'|@translate}</strong>
       <br><label><input type="radio" value="asc" name="ascdesc" checked="checked">{'ascending'|@translate}</label>
@@ -104,7 +93,19 @@ jQuery(document).ready(function(){
       <input class="submit" name="submitAutoOrder" type="submit" value="{'Save order'|@translate}">
       <a href="#" id="autoOrderClose">{'Cancel'|@translate}</a>
     </p>
+  </fieldset>
+{/if}
+<p>
+  <span id="notManualOrder">
+    <a href="#" id="addAlbumOpen">{'create a new album'|@translate}</a>
+    {if count($categories) }| <a href="#" id="autoOrderOpen">{'apply automatic sort order'|@translate}</a>{/if}
   </span>
+  <span id="manualOrder" style="display:none;">
+    <input class="submit" name="submitManualOrder" type="submit" value="{'Save manual order'|@translate}">
+    {'... or '|@translate} <a href="#" id="cancelManualOrder">{'cancel manual order'|@translate}</a>
+  </span>
+</p>
+{if count($categories) }
   
   <ul class="categoryUl">
 
@@ -124,16 +125,16 @@ jQuery(document).ready(function(){
       </p>
 
       <p class="albumActions">
-              <a href="{$category.U_EDIT}">{'Edit'|@translate}</a>
-              {if isset($category.U_MANAGE_ELEMENTS) }
-              | <a href="{$category.U_MANAGE_ELEMENTS}">{'manage album photos'|@translate}</a>
-              {/if}
-              | <a href="{$category.U_CHILDREN}">{'manage sub-albums'|@translate}</a>
-              {if isset($category.U_SYNC) }
-              | <a href="{$category.U_SYNC}">{'Synchronize'|@translate}</a>
-              {/if}
-              {if isset($category.U_DELETE) }
-              | <a href="{$category.U_DELETE}" onclick="return confirm('{'Are you sure?'|@translate|@escape:javascript}');">{'delete album'|@translate}</a>
+        <a href="{$category.U_EDIT}">{'Edit'|@translate}</a>
+        {if isset($category.U_MANAGE_ELEMENTS) }
+        | <a href="{$category.U_MANAGE_ELEMENTS}">{'manage album photos'|@translate}</a>
+        {/if}
+        | <a href="{$category.U_CHILDREN}">{'manage sub-albums'|@translate}</a>
+        {if isset($category.U_SYNC) }
+        | <a href="{$category.U_SYNC}">{'Synchronize'|@translate}</a>
+        {/if}
+        {if isset($category.U_DELETE) }
+        | <a href="{$category.U_DELETE}" onclick="return confirm('{'Are you sure?'|@translate|@escape:javascript}');">{'delete album'|@translate}</a>
       {/if}
       {if cat_admin_access($category.ID)}
       | 
