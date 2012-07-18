@@ -58,10 +58,14 @@ jQuery(document).ready(function(){
 {/literal}{/footer_script}
 
 <h2><span style="letter-spacing:0">{$CATEGORIES_NAV}</span> &#8250; {'Album list management'|@translate}</h2>
-
-
+<p class="showCreateAlbum">
+  <span id="notManualOrder">
+    <a href="#" id="addAlbumOpen">{'create a new album'|@translate}</a>
+    {if count($categories) }| <a href="#" id="autoOrderOpen">{'apply automatic sort order'|@translate}</a>{/if}
+  </span>
+</p>
 <form id="formCreateAlbum" action="{$F_ACTION}" method="post">
-  <p class="showCreateAlbum">
+  <p>
   <fieldset id="createAlbum" style="display:none;">
       <legend>{'create a new album'|@translate}</legend>
       <input type="hidden" name="pwg_token" value="{$PWG_TOKEN}">
@@ -96,10 +100,6 @@ jQuery(document).ready(function(){
   </fieldset>
 {/if}
 <p>
-  <span id="notManualOrder">
-    <a href="#" id="addAlbumOpen">{'create a new album'|@translate}</a>
-    {if count($categories) }| <a href="#" id="autoOrderOpen">{'apply automatic sort order'|@translate}</a>{/if}
-  </span>
   <span id="manualOrder" style="display:none;">
     <input class="submit" name="submitManualOrder" type="submit" value="{'Save manual order'|@translate}">
     {'... or '|@translate} <a href="#" id="cancelManualOrder">{'cancel manual order'|@translate}</a>
