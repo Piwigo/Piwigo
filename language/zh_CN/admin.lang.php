@@ -927,4 +927,8 @@ $lang['%d week'] = '%d周';
 $lang['Edit photo'] = '编辑图片';
 $lang['create a new site'] = '新建网站';
 $lang['No order field selected'] = '未选择排序字段';
+$lang['Duplicate selected tags'] = '复制选定的标签';
+$lang['Name of the duplicate'] = '重复的名称';
+$lang['Source tag'] = '源标签';
+$lang['Tag "%s" is now a duplicate of "%s"'] = '标签 "%s" 已是 "%s" 的复制版本';
 ?>
