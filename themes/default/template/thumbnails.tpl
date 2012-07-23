@@ -1,4 +1,6 @@
 {if !empty($thumbnails)}{strip}
+{combine_script id='jquery.ajaxmanager' path='themes/default/js/plugins/jquery.ajaxmanager.js' load='footer'}
+{combine_script id='thumbnails.loader' path='themes/default/js/thumbnails.loader.js' require='jquery.ajaxmanager' load='footer'}
 {*define_derivative name='derivative_params' width=160 height=90 crop=true*}
 {html_style}
 {*Set some sizes according to maximum thumbnail width and height*}
@@ -23,15 +25,11 @@
 {/html_style}
 {foreach from=$thumbnails item=thumbnail}
 {assign var=derivative value=$pwg->derivative($derivative_params, $thumbnail.src_image)}
-{if !$derivative->is_cached()}
-{combine_script id='jquery.ajaxmanager' path='themes/default/js/plugins/jquery.ajaxmanager.js' load='footer'}
-{combine_script id='thumbnails.loader' path='themes/default/js/thumbnails.loader.js' require='jquery.ajaxmanager' load='footer'}
-{/if}
-<li>
+	<li>
 	<span class="wrap1">
 		<span class="wrap2">
 		<a href="{$thumbnail.URL}">
-			<img class="thumbnail" {if $derivative->is_cached()}src="{$derivative->get_url()}"{else}src="{$ROOT_URL}{$themeconf.img_dir}/ajax-loader-small.gif" data-src="{$derivative->get_url()}"{/if} alt="{$thumbnail.TN_ALT}" title="{$thumbnail.TN_TITLE}">
+			<img class="thumbnail" {if !$derivative->is_cached()}data-{/if}src="{$derivative->get_url()}" alt="{$thumbnail.TN_ALT}" title="{$thumbnail.TN_TITLE}">
 		</a>
 		</span>
 		{if $SHOW_THUMBNAIL_CAPTION }

@@ -13,18 +13,9 @@
 {foreach from=$comments item=comment name=comment_loop}
 <li class="commentElement {if $smarty.foreach.comment_loop.index is odd}odd{else}even{/if}">
 	{if isset($comment.src_image)}
-	{if isset($comment_derivative_params)}
-	{assign var=derivative value=$pwg->derivative($comment_derivative_params, $comment.src_image)}
-	{else}
-	{assign var=derivative value=$pwg->derivative($derivative_params, $comment.src_image)}
-	{/if}
-	{if !$derivative->is_cached()}
-	{combine_script id='jquery.ajaxmanager' path='themes/default/js/plugins/jquery.ajaxmanager.js' load='footer'}
-	{combine_script id='thumbnails.loader' path='themes/default/js/thumbnails.loader.js' require='jquery.ajaxmanager' load='footer'}
-	{/if}
 	<div class="illustration">
 		<a href="{$comment.U_PICTURE}">
-		<img {if $derivative->is_cached()}src="{$derivative->get_url()}"{else}src="{$ROOT_URL}{$themeconf.img_dir}/ajax-loader-small.gif" data-src="{$derivative->get_url()}"{/if} alt="{$comment.ALT}">
+		<img src="{$pwg->derivative_url($derivative_params, $comment.src_image)}" alt="{$comment.ALT}">
 		</a>
 	</div>
 	{/if}
