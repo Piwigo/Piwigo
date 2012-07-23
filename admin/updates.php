@@ -35,8 +35,6 @@ else
 
 $tabsheet = new tabsheet();
 $tabsheet->set_id('updates');
-$tabsheet->add('pwg', l10n('Piwigo Update'), $my_base_url);
-$tabsheet->add('ext', l10n('Extensions Update'), $my_base_url.'&amp;tab=ext');
 $tabsheet->select($page['tab']);
 $tabsheet->assign();
 

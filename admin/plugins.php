@@ -37,9 +37,6 @@ else
 
 $tabsheet = new tabsheet();
 $tabsheet->set_id('plugins');
-$tabsheet->add('installed', l10n('Plugin list'), $my_base_url.'&amp;tab=installed');
-$tabsheet->add('update', l10n('Check for updates'), $my_base_url.'&amp;tab=update');
-$tabsheet->add('new', l10n('Other plugins'), $my_base_url.'&amp;tab=new');
 $tabsheet->select($page['tab']);
 $tabsheet->assign();
 

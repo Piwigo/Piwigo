@@ -49,53 +49,17 @@ $upload_form_config = get_upload_form_config();
 // +-----------------------------------------------------------------------+
 // |                                 Tabs                                  |
 // +-----------------------------------------------------------------------+
-
-$tabs = array(
-  array(
-    'code' => 'direct',
-    'label' => l10n('Web Form'),
-    ),
-  array(
-    'code' => 'applications',
-    'label' => l10n('Applications'),
-    ),
-  );
-
-if ($conf['enable_synchronization'])
-{
-  array_push(
-    $tabs,
-    array(
-      'code' => 'ftp',
-      'label' => l10n('FTP + Synchronization'),
-      )
-    );
-}
-
-$tab_codes = array_map(
-  create_function('$a', 'return $a["code"];'),
-  $tabs
-  );
-
-if (isset($_GET['section']) and in_array($_GET['section'], $tab_codes))
+if (isset($_GET['section']))
 {
   $page['tab'] = $_GET['section'];
 }
 else
 {
-  $page['tab'] = $tabs[0]['code'];
+  $page['tab'] = 'direct';
 }
 
 $tabsheet = new tabsheet();
 $tabsheet->set_id('photos_add');
-foreach ($tabs as $tab)
-{
-  $tabsheet->add(
-    $tab['code'],
-    $tab['label'],
-    PHOTOS_ADD_BASE_URL.'&amp;section='.$tab['code']
-    );
-}
 $tabsheet->select($page['tab']);
 $tabsheet->assign();
 

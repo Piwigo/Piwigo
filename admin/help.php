@@ -29,54 +29,20 @@ include_once(PHPWG_ROOT_PATH.'admin/include/tabsheet.class.php');
 // +-----------------------------------------------------------------------+
 check_status(ACCESS_ADMINISTRATOR);
 
-$link = get_root_url().'admin.php?page=help&section=';
+$help_link = get_root_url().'admin.php?page=help&section=';
 $selected = null;
-$help_section_title = null;
-
-$tabs = array();
-$tabs[] = array(
-  'code' => 'add_photos',
-  'label' => l10n('Add Photos'),
-  );
-$tabs[] = array(
-  'code' => 'permissions',
-  'label' => l10n('Permissions'),
-  );
-$tabs[] = array(
-  'code' => 'groups',
-  'label' => l10n('Groups'),
-  );
-$tabs[] = array(
-  'code' => 'virtual_links',
-  'label' => l10n('Virtual Links'),
-  );
-$tabs[] = array(
-  'code' => 'misc',
-  'label' => l10n('Miscellaneous'),
-  );
 
 if (!isset($_GET['section']))
 {
-  $section = $tabs[0]['code'];
+  $selected = 'add_photos';
 }
 else
 {
-  $section = $_GET['section'];
+  $selected = $_GET['section'];
 }
 
 $tabsheet = new tabsheet();
 $tabsheet->set_id('help');
-foreach ($tabs as $tab)
-{
-  if ($tab['code'] == $section)
-  {
-    $selected_tab = $tab['code'];
-    $help_section_title = $tab['label'];
-  }
-  
-  $tabsheet->add($tab['code'], $tab['label'], $link.$tab['code']);
-}
-$tabsheet->select($selected_tab);
 $tabsheet->assign();
 
 $template->set_filenames(array('help' => 'help.tpl'));
@@ -84,11 +50,11 @@ $template->set_filenames(array('help' => 'help.tpl'));
 $template->assign(
   array(
     'HELP_CONTENT' => load_language(
-      'help/help_'.$selected_tab.'.html',
+      'help/help_'.$tabsheet->selected.'.html',
       '',
       array('return'=>true)
       ),
-    'HELP_SECTION_TITLE' => $help_section_title,
+    'HELP_SECTION_TITLE' => $tabsheet->sheets[ $tabsheet->selected ]['caption'],
     )
   );
 

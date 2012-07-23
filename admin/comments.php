@@ -99,7 +99,6 @@ include_once(PHPWG_ROOT_PATH.'admin/include/tabsheet.class.php');
 
 $tabsheet = new tabsheet();
 $tabsheet->set_id('comments');
-$tabsheet->add('', l10n('User comments validation'), '');
 $tabsheet->select('');
 $tabsheet->assign();
 

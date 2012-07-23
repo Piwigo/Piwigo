@@ -287,16 +287,7 @@ $template->set_filename('config', 'configuration.tpl');
 // TabSheet
 $tabsheet = new tabsheet();
 $tabsheet->set_id('configuration');
-// TabSheet initialization
-$tabsheet->add('main', l10n('Main'), $conf_link.'main');
-$tabsheet->add('sizes', l10n('Photo sizes'), $conf_link.'sizes');
-$tabsheet->add('watermark', l10n('Watermark'), $conf_link.'watermark');
-$tabsheet->add('display', l10n('Display'), $conf_link.'display');
-$tabsheet->add('comments', l10n('Comments'), $conf_link.'comments');
-$tabsheet->add('default', l10n('Guest Settings'), $conf_link.'default');
-// TabSheet selection
 $tabsheet->select($page['section']);
-// Assign tabsheet to template
 $tabsheet->assign();
 
 $action = get_root_url().'admin.php?page=configuration';
