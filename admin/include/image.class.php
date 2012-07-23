@@ -133,7 +133,7 @@ class pwg_image
 
     $this->image->resize($resize_dimensions['width'], $resize_dimensions['height']);
 
-    if (isset($rotation))
+    if (!empty($rotation))
     {
       $this->image->rotate($rotation);
     }
