@@ -87,6 +87,7 @@ else
 }
 
 $tabsheet = new tabsheet();
+$tabsheet->set_id('photos_add');
 foreach ($tabs as $tab)
 {
   $tabsheet->add(

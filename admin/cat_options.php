@@ -138,6 +138,7 @@ $template->assign(
 
 // TabSheet
 $tabsheet = new tabsheet();
+$tabsheet->set_id('cat_options');
 // TabSheet initialization
 $opt_link = $link_start.'cat_options&amp;section=';
 $tabsheet->add('status', l10n('Public / Private'), $opt_link.'status');

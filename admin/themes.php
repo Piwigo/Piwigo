@@ -36,6 +36,7 @@ else
   $page['tab'] = 'installed';
 
 $tabsheet = new tabsheet();
+$tabsheet->set_id('themes');
 $tabsheet->add('installed', l10n('Installed Themes'), $my_base_url.'&amp;tab=installed');
 $tabsheet->add('update', l10n('Check for updates'), $my_base_url.'&amp;tab=update');
 $tabsheet->add('new', l10n('Add New Theme'), $my_base_url.'&amp;tab=new');

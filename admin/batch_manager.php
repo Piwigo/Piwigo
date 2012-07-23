@@ -379,6 +379,7 @@ else
 if (in_array($page['tab'], $tab_codes))
 {
   $tabsheet = new tabsheet();
+  $tabsheet->set_id('batch_manager');
   foreach ($tabs as $tab)
   {
     $tabsheet->add(

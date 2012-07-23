@@ -588,6 +588,7 @@ if (is_autorize_status(ACCESS_WEBMASTER))
 {
   // TabSheet
   $tabsheet = new tabsheet();
+  $tabsheet->set_id('nbm');
   // TabSheet initialization
   $tabsheet->add('param', l10n('Parameter'),
     add_url_params($base_url.get_query_string_diff(array('mode', 'select')),
