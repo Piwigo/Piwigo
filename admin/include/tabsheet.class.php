@@ -24,6 +24,7 @@
 class tabsheet
 {
   var $sheets;
+  var $uniqid;
   var $name;
   var $titlename;
   var $selected;
@@ -35,9 +36,15 @@ class tabsheet
   function tabsheet($name = 'TABSHEET', $titlename = 'TABSHEET_TITLE')
   {
     $this->sheets = array();
+    $this->uniqid = null;
     $this->name = $name;
     $this->titlename = $titlename;
     $this->selected = "";
+  }
+  
+  function set_id($id)
+  {
+    $this->uniqid = $id;
   }
 
   /*
@@ -81,6 +88,7 @@ class tabsheet
   */
   function select($name)
   {
+    $this->sheets = trigger_event('tabsheet_before_select', $this->sheets, $this->uniqid);
     $this->selected = $name;
   }
 

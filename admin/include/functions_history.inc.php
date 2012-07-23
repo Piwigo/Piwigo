@@ -29,6 +29,7 @@ function history_tabsheet()
 
   // TabSheet
   $tabsheet = new tabsheet();
+  $tabsheet->set_id('history');
   // TabSheet initialization
   $tabsheet->add('stats', l10n('Statistics'), $link_start.'stats');
   $tabsheet->add('history', l10n('Search'), $link_start.'history');

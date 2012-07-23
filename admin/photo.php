@@ -61,6 +61,7 @@ if (isset($_GET['tab']))
 }
 
 $tabsheet = new tabsheet();
+$tabsheet->set_id('photo');
 $tabsheet->add('properties', l10n('Properties'), $admin_photo_base_url.'-properties');
 $tabsheet->add('coi', l10n('Center of interest'), $admin_photo_base_url.'-coi');
 

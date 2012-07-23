@@ -65,6 +65,7 @@ else
 }
 
 $tabsheet = new tabsheet();
+$tabsheet->set_id('help');
 foreach ($tabs as $tab)
 {
   if ($tab['code'] == $section)

@@ -286,6 +286,7 @@ $template->set_filename('config', 'configuration.tpl');
 
 // TabSheet
 $tabsheet = new tabsheet();
+$tabsheet->set_id('configuration');
 // TabSheet initialization
 $tabsheet->add('main', l10n('Main'), $conf_link.'main');
 $tabsheet->add('sizes', l10n('Photo sizes'), $conf_link.'sizes');
