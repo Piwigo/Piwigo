@@ -1,0 +1,1 @@
+Võimalda kohalike failide redigeerimist.
