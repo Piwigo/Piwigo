@@ -350,22 +350,7 @@ else
 // +-----------------------------------------------------------------------+
 // |                                 Tabs                                  |
 // +-----------------------------------------------------------------------+
-
-$tabs = array(
-  array(
-    'code' => 'global',
-    'label' => l10n('global mode'),
-    ),
-  array(
-    'code' => 'unit',
-    'label' => l10n('unit mode'),
-    ),
-  );
-
-$tab_codes = array_map(
-  create_function('$a', 'return $a["code"];'),
-  $tabs
-  );
+$manager_link = get_root_url().'admin.php?page=batch_manager&amp;mode=';
 
 if (isset($_GET['mode']))
 {
@@ -373,23 +358,13 @@ if (isset($_GET['mode']))
 }
 else
 {
-  $page['tab'] = $tabs[0]['code'];
+  $page['tab'] = 'global';
 }
 
-if (in_array($page['tab'], $tab_codes))
-{
-  $tabsheet = new tabsheet();
-  $tabsheet->set_id('batch_manager');
-  foreach ($tabs as $tab)
-  {
-    $tabsheet->add(
-      $tab['code'],
-      $tab['label'],
-      get_root_url().'admin.php?page='.$_GET['page'].'&amp;mode='.$tab['code']
-      );
-  }
-  $tabsheet->select($page['tab']);
-  $tabsheet->assign();
+$tabsheet = new tabsheet();
+$tabsheet->set_id('batch_manager');
+$tabsheet->select($page['tab']);
+$tabsheet->assign();
 
 // +-----------------------------------------------------------------------+
 // |                              tags                                     |
@@ -405,6 +380,5 @@ $template->assign('tags', get_taglist($query, false));
 // |                         open specific mode                            |
 // +-----------------------------------------------------------------------+
 
-  include(PHPWG_ROOT_PATH.'admin/batch_manager_'.$page['tab'].'.php');
-}
+include(PHPWG_ROOT_PATH.'admin/batch_manager_'.$page['tab'].'.php');
 ?>

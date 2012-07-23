@@ -89,6 +89,11 @@ class tabsheet
   function select($name)
   {
     $this->sheets = trigger_event('tabsheet_before_select', $this->sheets, $this->uniqid);
+    if (!array_key_exists($name, $this->sheets))
+    {
+      $keys = array_keys($this->sheets);
+      $name = $keys[0];
+    }
     $this->selected = $name;
   }
 

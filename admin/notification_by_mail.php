@@ -589,19 +589,7 @@ if (is_autorize_status(ACCESS_WEBMASTER))
   // TabSheet
   $tabsheet = new tabsheet();
   $tabsheet->set_id('nbm');
-  // TabSheet initialization
-  $tabsheet->add('param', l10n('Parameter'),
-    add_url_params($base_url.get_query_string_diff(array('mode', 'select')),
-        array('mode' => 'param')));
-  $tabsheet->add('subscribe', l10n('Subscribe'),
-    add_url_params($base_url.get_query_string_diff(array('mode', 'select')),
-      array('mode' => 'subscribe')));
-  $tabsheet->add('send', l10n('Send'),
-    add_url_params($base_url.get_query_string_diff(array('mode', 'select')),
-      array('mode' => 'send')));
-  // TabSheet selection
   $tabsheet->select($page['mode']);
-  // Assign tabsheet to template
   $tabsheet->assign();
 }
 

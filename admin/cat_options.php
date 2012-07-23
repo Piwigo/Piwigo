@@ -139,21 +139,7 @@ $template->assign(
 // TabSheet
 $tabsheet = new tabsheet();
 $tabsheet->set_id('cat_options');
-// TabSheet initialization
-$opt_link = $link_start.'cat_options&amp;section=';
-$tabsheet->add('status', l10n('Public / Private'), $opt_link.'status');
-$tabsheet->add('visible', l10n('Lock'), $opt_link.'visible');
-if ($conf['activate_comments'])
-{
-  $tabsheet->add('comments', l10n('Comments'), $opt_link.'comments');
-}
-if ($conf['allow_random_representative'])
-{
-  $tabsheet->add('representative', l10n('Representative'), $opt_link.'representative');
-}
-// TabSheet selection
 $tabsheet->select($page['section']);
-// Assign tabsheet to template
 $tabsheet->assign();
 
 // +-----------------------------------------------------------------------+
