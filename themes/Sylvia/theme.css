@@ -194,20 +194,21 @@
 }
 .thumbnailCategory .illustration { 
 	background:transparent url(images/cat_top-left.gif) no-repeat scroll left top; 
-	padding: 0 0 0 10px; 
-	margin: 0 !important; 
+	padding: 0 5px 0 10px; 
+	margin: 0 !important;
+  text-align: center;
 }
 .thumbnailCategory .illustration a { 
 	display: block; 
-	margin: 0; 
-	padding:20px 0 0 8px; 
+  margin: 0 auto;
+  padding: 20px 4px 0;
   border:0;
 }
 .thumbnailCategory .description { 
 	background:transparent url(images/cat_top-right.gif) no-repeat scroll right top;
 	margin: 0; 
 	padding:15px 10px 3px 0; 
-	overflow-x: hidden !important; 
+	overflow: hidden !important; 
   height:158px;
 }
 .thumbnailCategory .description .text { 
