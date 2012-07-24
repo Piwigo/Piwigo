@@ -273,28 +273,6 @@ if ( $conf['index_sort_order_input']
   }
 }
 
-if ( count($page['items']) > 0 )
-{
-  $url = add_url_params(
-          duplicate_index_url(),
-          array('display' => '')
-        );
-  $selected_type = trigger_event('get_index_derivative_params', ImageStdParams::get_by_type( pwg_get_session_var('index_deriv', IMG_THUMB) ) )->type;
-  $type_map = ImageStdParams::get_defined_type_map();
-  unset($type_map[IMG_XXLARGE], $type_map[IMG_XLARGE]);
-  foreach($type_map as $params)
-  {
-    $template->append(
-      'image_derivatives',
-      array(
-        'DISPLAY' => l10n($params->type),
-        'URL' => $url.$params->type,
-        'SELECTED' => ($params->type == $selected_type ? true:false),
-        )
-      );
-  }
-}
-
 // category comment
 if ($page['start']==0 and !isset($page['chronology_field']) and !empty($page['comment']) )
 {
@@ -322,6 +300,25 @@ if ( 0==$page['start']
 if ( !empty($page['items']) )
 {
   include(PHPWG_ROOT_PATH.'include/category_default.inc.php');
+  $url = add_url_params(
+          duplicate_index_url(),
+          array('display' => '')
+        );
+  $selected_type = $template->get_template_vars('derivative_params')->type;
+  $template->clear_assign( 'derivative_params' );
+  $type_map = ImageStdParams::get_defined_type_map();
+  unset($type_map[IMG_XXLARGE], $type_map[IMG_XLARGE]);
+  foreach($type_map as $params)
+  {
+    $template->append(
+      'image_derivatives',
+      array(
+        'DISPLAY' => l10n($params->type),
+        'URL' => $url.$params->type,
+        'SELECTED' => ($params->type == $selected_type ? true:false),
+        )
+      );
+  }
 }
 //------------------------------------------------------- category informations
 
