@@ -104,6 +104,7 @@ function ierror($msg, $code)
     header('Request-URI: '.$url);
     header('Content-Location: '.$url);
     header('Location: '.$url);
+    ilog('WARN', $code, $url, $_SERVER['REQUEST_URI']);
     exit;
   }
   if ($code>=400)
@@ -203,7 +204,7 @@ function parse_request()
   {
     preg_match($conf['sync_chars_regex'], $token) or ierror('Invalid chars in request', 400);
   }
-  
+
   $page['derivative_path'] = PHPWG_ROOT_PATH.PWG_DERIVATIVE_DIR.$req;
 
   $pos = strrpos($req, '.');
@@ -452,7 +453,7 @@ SELECT *
   FROM '.$prefixeTable.'images
   WHERE path=\''.$page['src_location'].'\'
 ;';
-    
+
     if ( ($row=pwg_db_fetch_assoc(pwg_query($query))) )
     {
       if (isset($row['width']))
@@ -464,7 +465,7 @@ SELECT *
       if (!isset($row['rotation']))
       {
         $page['rotation_angle'] = pwg_image::get_rotation_angle($page['src_path']);
-        
+
         single_update(
           $prefixeTable.'images',
           array('rotation' => pwg_image::get_rotation_code_from_angle($page['rotation_angle'])),
@@ -540,7 +541,7 @@ if ($params->sharpen)
   $timing['sharpen'] = time_step($step);
 }
 
-if ($params->use_watermark)
+if ($params->will_watermark($d_size))
 {
   $wm = ImageStdParams::get_watermark();
   $wm_image = new pwg_image(PHPWG_ROOT_PATH.$wm->file);

@@ -197,7 +197,7 @@ final class DerivativeImage
   {
     if ( $src->has_size() && $params->is_identity( $src->get_size() ) )
     {
-      if (!$params->use_watermark && !$src->rotation)
+      if (!$params->will_watermark($src->get_size()) && !$src->rotation)
       {
         $params = null;
         $rel_path = $rel_url = $src->rel_path;
