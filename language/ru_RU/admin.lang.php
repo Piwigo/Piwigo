@@ -923,4 +923,8 @@ $lang['%d weeks'] = '%d недель';
 $lang['Edit photo'] = 'Редактировать фото';
 $lang['create a new site'] = 'создать новый сайт';
 $lang['No order field selected'] = 'Не выбран порядок полей';
+$lang['Duplicate selected tags'] = 'Дублировать выделенные теги';
+$lang['Name of the duplicate'] = 'Название дубля';
+$lang['Source tag'] = 'Тег-источник';
+$lang['Tag "%s" is now a duplicate of "%s"'] = 'Тег "%s" теперь дубликат "%s"';
 ?>

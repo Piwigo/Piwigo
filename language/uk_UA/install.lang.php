@@ -45,7 +45,7 @@ $lang['Just another Piwigo gallery'] = 'Ще одна галерея Piwigo';
 $lang['Keep it confidential, it enables you to access administration panel'] = 'Тримайте його конфіденційність, він дозволяє отримати доступ до адміністративної панелі';
 $lang['localhost, sql.multimania.com, toto.freesurf.fr'] = 'localhost, sql.hosting.com.ua, toto.1gb.ua';
 $lang['mail address must be like xxx@yyy.eee (example : jack@altern.org)'] = 'пошта повинна бути xxx@yyy.eee (наприклад: animan@pixobox.org)';
-$lang['Need help ? Ask your question on <a href="%s">Piwigo message board</a>.'] = 'Потрібна допомога? Задайте питання на <a href="%s">Дошці оголошень Piwigo </a>.';
+$lang['Need help ? Ask your question on <a href="%s">Piwigo message board</a>.'] = 'Потрібна допомога? Задайте питання на <a href="%s">форумі Piwigo</a>.';
 $lang['Note you can change your configuration by yourself and restart Piwigo after that.'] = 'Зверніть увагу, ви можете змінити свою конфігурацію і перезавантажити собі Piwigo після цього.';
 $lang['Password'] = 'Пароль';
 $lang['Password [confirm]'] = 'Пароль [підтвердження]';

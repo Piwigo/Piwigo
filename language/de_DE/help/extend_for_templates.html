@@ -1,24 +1,47 @@
-<h2>Konfiguration Vorlagenerweiterung</h2>
+<h2>Vorlagenerweiterung</h2>
 
-<h3>Ziel</h3>
-<p>Festlegung der Bedingungen zum Ersetzen jeder Vorlage mit einer sogenannten Vorlagenerweiterung ("Replacer" genannte Vorlage).</p>
+<h3>Sinn und Zweck</h3>
+<p>
+ Sie können das Erscheinungsbild Ihrer Piwigo-Galerie im Einzelnen verändern, 
+ indem Sie vorhandene Vorlagendateien gegen von Ihnen angepasste austauschen.
+ So können Sie z.B. die vorgegebene Vorlagendatei header.tpl, die für die
+ Darstellung des Seitenkopfes Ihrer Galerie verantwortlich ist, durch eine
+ von Ihnen angepasste Version my_header.tpl ersetzen. Wurde der Datenbank
+ der Austausch bekannt gemacht, wird Ihr Seitenkopf an Stelle 
+ des originalen Seitenkopfes in Ihrer Galerie angezeigt.</p>
+<p>
+ Die Erweiterung von Vorlagen ist ein mächtiges Werkzeug, das es Einsteigern 
+ und erfahrenen Anwendern ermöglicht, eigene, angepasste Vorlagen zu erstellen.
+</p>
 
-<p>Die "Originalvorlage" aus ./themes/default/template (oder jede andere Vorlage) wird mit dem sogenannten "Replacer" ersetzt,
-wenn dieser "Replacer" mit der "Originalvorlage" verlinked ist (oder wenn die URL ein definiertes Schlüsselwort enthält).</p>
+<h3>Originalvorlagen</h3>
+<p>
+ Ein Thema umfasst ein Reihe von Vorlagendateien, die die Galerie-Seiten bilden.
+ Diese Dateien sind die Orginalvorlagen.
+</p>
 
-<p>Diese Schlüsselwörter befinden sich nach dem Modulnamen in der URL.</p>
+<h3>Optionale URL-Schlüsselwörter</h3>
+<p>
+ In die URL der Galerie können Schlüsselwörter oder aktive Permalinks (siehe die
+ Hilfe zu Permalinks) nach dem Modulnamen eingetragen werden.<br>
+ <a href="#warnings">Achtung:</a> Wenn die gleiche Originalvorlage
+ und das gleiche Schlüsselwort für mehr als eine angepasste Vorlage 
+ gebraucht werden, wird nur das letzte Schlüsselwort berücksichtigt.
+</p>
 
-<p>Diese URL Schlüsselwörter können auch sogenannte "Permalinks" sein (Lesen Sie den Bereich über Permalinks in der Dokumentation für nähere Informationen).</p>
+<h3>Verbundenes Thema</h3>
+<p>
+ Ein verbundenes Thema ist ein Thema, aus dem Vorlagendateien ersetzt werden.
+</p>
 
-<p>Lesen Sie das Kapitel `<a href="#warnings">Warnungen</a>` zum Thema Nutzungsbedingungen.</p>
-
-<h3>Was sind Vorlagenerweiterungen?</h3>
-
-<p>Vorlagenerweiterungen sind ein leistungsfähiges Werkzeug für Einsteiger und fortgeschrittene Anwender.
-Über einen FTP Zugang kann der Webmaster die mitgelieferten .tpl Dateien ("Originalvorlagen") unter einem neuen Namen
-in den Ordner template-extension kopieren ("Replacer").
- 
-  "Originalvorlagen", aktuelle unterstützte Originalvorlagen sind:</p>
+<h3>Wo sind die Originalvorlagen gespeichert?</h3>
+<p>
+ Die zu jedem Thema gehörenden Originalvorlagen finden sich im Verzeichnis
+ <em>/themes/default/template/</em>. Die Originalvorlagen dort
+ sollten nicht verändert werden, da Änderungen bei späteren Updates
+ verloren gehen.<br>
+ Zu den aktuell unterstützten Originalvorlagen gehören:
+</p>
 <ul>
   <li><span class="filename">index.tpl</span></li>
   <li><span class="filename">mainpage_categories.tpl</span> und/oder <span class="filename">thumbnails.tpl</span></li>
@@ -37,59 +60,50 @@ in den Ordner template-extension kopieren ("Replacer").
   <li><span class="filename">redirect.tpl</span></li>
 </ul>
 
-<h3>Wo finde ich "Originalvorlagen"?</h3>
+<h3>Angepasste Vorlagen abspeichern</h3>
+<p>
+ Angepasste Vorlagen sollten im Verzeichnis template-extension oder in einem Unterverzeichnis
+ dieses Verzeichnisses abgespeichert werden (z.B. <em>/template-extension/my-default/header.tpl</em>
+ oder <em>/template-extension/my-theme-name/header.tpl</em>). 
+ Der Name einer Vorlagendatei ist frei wählbar, die Dateiendung .tpl muss allerdings angefügt werden.
+ <!--***-->
+ The template files in subfolders appear in the Template configuration screen as available custom templates.
+</p>
 
-<p>Mitgelieferte Originalvorlagen befinden sich im Ordner /themes/default/template/ (Verändern Sie nie die
-mitgelieferten Vorlagen, da sonst Probleme bei späteren Upgrades auftreten können). Jeder Webmaster kann Kopien der
-Originalvorlagen anfertigen (sogenannte "Replacer (angepasste Vorlagen)") und diese nach seinen Wünschen anpassen.</p>
+<h3>Angepasste Vorlagen aktivieren</h3>
+<p>
+ Wählen Sie die zu ersetzende Originalvorlage aus. Sie können auch ein URL-Schlüsselwort benutzen,
+ um sicher zu stellen, dass die angepasste Vorlage nur auf den Seiten mit dem gleichen Schlüsselwort
+ angezeigt wird. Wählen Sie das verbundene Thema aus, auf das sich die Anpassungen auswirken sollen.
+ Teilen Sie der Datenbank die Veränderungen mit.
+</p>
 
-<h3>Wo kann ich "Replacers" speichern?</h3>
+<h3>Angepasste Vorlagen deaktivieren</h3>
+<p>
+ Deselektieren Sie die Originalvorlage und teilen Sie der Datenbank die Veränderungen mit.<br>
+ Entfernen Sie die angepassten Vorlagen aus dem Verzeichnis template-extensions.
+</p>
 
-<p><strong>Replacers (angepasste Vorlagen)</strong> müssen sich im oder unterhalb des Ordners
-template-extension befinden. Replacers können einen beliebigen Dateinamen mit der Endung .tpl habe,
-zum Beispiel: <span class="Dateiname">template-extension/my-extension/video.tpl</span>.</p>
-
-
-<h3>Wie aktiviere ich meinen "Replacer"?</h3>
-<p>Jedem <strong>Replacer (angepasste Vorlage)</strong> sollte eine <strong>Originalvorlage</strong> 
-zugewiesen werden, damit dieser Replacer aktiviert wird. 
-Diese Konfiguration wird im Administrationsmenü über die "Vorlagenerweiterung" durchgeführt.</p>
-
-<p>Wenn Sie ein <strong>URL Schlüsselwort</strong> definieren, wird der Replacer
-nur auf Seiten angewendet, die dieses Schlüsselwort in der URL enthalten. Zum Beispiel: <span 
-class="pwgScreen">index.php?/<strong> most_visited</strong></span></p>
-  
-<p>Fortgeschrittene Benutzer verwenden sogenannte Permalinks als <strong>URL Schlüsselwörter</strong>.</p>
-
-<p>Wenn Sie eine <strong>zugewiesene Vorlage</strong> ausgewählt haben, wird Ihr Replacer an dieser Vorlage angewendet.</p>
-
-<h3>Wie kann ich meine "Replacers" deaktivieren?</h3>
-<ul>
-<li>Deaktivieren Sie die Verbindung zwischen Ihrem Replacer und der "Originalvorlage".</li>
-<li>Löschen Sie Ihren "Replacer" über Ihren FTP Zugang.</li>
-</ul>
-<a name="warnings"></a>
 <h3>Warnhinweise</h3>
 <ul>
-
-  <li>Die definierte <strong>Originalvorlage</strong> muss wirklich die kopierte Vorlage des Replacers sein, sonst kann
-  der Einsatz des Replacers unvorhersehbare Auswirkungen haben!</li>
-
-  <li>Wenn Sie mehrere <strong>Replacers (angepasste Vorlagen)</strong> mit der
-   selben <strong>Originalvorlage</strong> und den selben <strong>URL Schlüsselwörtern</strong>
-  verwenden, wird nur der letzte Replacer der Liste angewendet.</li>
-
-  <li>Wird kein <strong>URL Schlüsselwort</strong> ausgewählt, wird der aktive Replacer
-   auf jede Vorlage angwendet. Wie vorhin angemerkt, kann die Reihenfolge der Replacer deren
-  Anwendung beeinflussen.</li>
-
-  <li>Unterordner:
-Unterordner werden ignoriert, aber sie können verwendet werden, um die Reihenfolge zu verändern. <br />
-distributed-samples: werden für Testzwecke mitgeliefert!
-<strong>Nicht bearbeiten</strong>, erstellen Sie Ihre eigenen!
-</li>
-
-  <li>Wenn Sie einen Replacer löschen, wird die <strong>Originalvorlage</strong> 
-   sofort reaktiviert.</li>
-
+ <li>
+  Die <strong>Originalvorlage</strong> muss wirklich die Originalvorlage sein, sonst kann
+  es zu unvorhersehbaren Ergebnissen kommen.
+ </li>
+ <li>
+  Wenn die gleiche Originalvorlage und das gleiche Schlüsselwort 
+  für mehr als eine angepasste Vorlage gebraucht werden, 
+  wird nur das letzte Schlüsselwort berücksichtigt.
+ </li>
+ <li>
+  Mitgelieferte Beispielvorlagen sind nur für Testzwecke bestimmt und 
+  sollten nicht verändert werden. Erstellen Sie Ihre eigenen Vorlagen
+  oder kopieren Sie vorhandene Vorlagendateien in das Verzeichnis
+  <em>/template-extension/my-theme/</em>.
+ </li>
+ <li>
+  Unmittelbar nach dem Löschen einer angepassten Vorlage wird die
+  Originalvorlage reaktiviert.
+ </li>
 </ul>
+

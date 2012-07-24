@@ -17,16 +17,9 @@
     Kopieren Sie das Verzeichnis mit einem FTP-Programm in das Verzeichnis "galleries" 
     Ihrer Piwigo-Installation.
   </li>
-  <!-- *fragoriscus*
-  <li>
-    Melden Sie sich in Ihrer Galerie an und gehen Sie zu 
-   <span class="pwgScreen">Verwaltung &raquo; Bilder &raquo;Vorschaubilder</span>, 
-    um fehlende Vorschaubilder vom Server erstellen zu lassen.
-  </li>
-  -->
   <li>
     Gehen Sie zu <span class="pwgScreen">Verwaltung</span> und klicken Sie auf 
-    den großen Button "Schnelle lokale Synchronisation".
+    den großen Button "Schnelle Synchronisierung".
   </li>
 </ol>
 
@@ -40,48 +33,31 @@
  <li>
     <p>
       Die Albenverzeichnisse sind im Piwigo-Verzeichnis "galleries" untergebracht. 
-      Im Folgenden ist der Verzeichnisbaum einer kleinen Galerie mit zahlreichen
-      Besonderheiten dargestellt: 
+      Im Folgenden ist der Verzeichnisbaum einer kleinen Galerie dargestellt: 
     </p>
 <pre>
-.
-| - admin
-| - doc
-| - galleries
-| | - Album-1
-| | | - Album-1.1
-| | | | - Album-1.1.1
-| | | | | - Album-1.1.1.1
-| | | | | | - pwg_high
-| | | | | | + - hochzeit.jpg
-| | | | | | - thumbnail
-| | | | | | | - TN-hochzeit.jpg
-| | | | | | + - TN-hochzeit2.jpg
-| | | | | | - hochzeit.jpg
-| | | | | + - hochzeit2.jpg
-| | | | + - Album-1.1.1.2
-| | | + - Album-1.1.2
-| | | - Album-1.2
-| | | | - Pookie.jpg
-| | | + - thumbnail
-| | | + - TN-pookie.jpg
-| | + - Album-1.3
-| + - Album-2
-| | - Porcinet.gif
-| | - pwg_representative
-| | + - Video.jpg
-| | - thumbnail
-| | + - TN-porcinet.jpg
-| + - Video.avi
-| - include
-| - install
-| - language
-+ - tool
+galleries
+|-- Hochzeit
+|   |-- Trauung
+|   |   |-- Ankunft
+|   |   |   |-- Paul.jpg
+|   |   |   +-- Sarah.jpg
+|   |   +-- Abfahrt
+|   |       +-- Paul-und-Sarah.jpg
+|   +-- Feier
+|       |-- tanzen001.jpg
+|       |-- tanzen002.jpg
+|       +-- tanzen003.jpg
++-- Flitterwochen
+    |-- Hotel.png
+    |-- Video-aus-dem-Flugzeug.avi
+    +-- pwg_representative
+        +-- Video-aus-dem-Flugzeug.jpg
 </pre>
 </li>
 
 <li>
- Außer den Verzeichnissen "thumbnail", "pwg_high" und "pwg_representative" erzeugt jedes 
+ Außer dem Verzeichnisse "pwg_representative" erzeugt jedes 
  Unterverzeichnis ein neues Album in der Galerie.
  Es kann beliebig viele Unterverzeichnisse (Unteralben) geben.
 </li>
@@ -98,24 +74,11 @@
   eingetragen ist.
 </li>
 
-<!-- *fragoriscus*
-<li>
-   Elemente vom Typ Bild müssen ein Vorschaubild (s.u.) haben.
-</li>
--->
-
-<li>
-   Elemente vom Typ Bild können Bilder im Großformat in einem Unterordner 
-   namens "pwg_high" hinterlegt haben.
-   Im Beispiel oben hat die Datei <span class="filename">hochzeit.jpg</span> 
-   ein Bild im Großformat hinterlegt.
-</li>
-
 <li>
    Alle Elemente, die keine Bilder sind, wie z.B. Videos, Sounds oder Textdateien, 
    werden von einem vorgegebenen Symbol, das für die Erweiterung des Dateinamens steht, 
    dargestellt. Sie können auch selbst ein Vorschaubild erstellen (siehe die Datei <span
-   class = "filename">video.avi</span> im Beispiel).
+   class = "filename">Video-aus-dem-Flugzeug.jpg</span> im Beispiel oben).
 </li>
 
 <li>
@@ -123,12 +86,6 @@
   nur aus Buchstaben, Zahlen, "-", "_" und "." bestehen. Leerzeichen, Umlaute, "ß" 
   und Buchstaben mit Akzent sind nicht erlaubt. 
   Zwischen Groß- und Kleinschreibung wird unterschieden.
-</li>
-
-<li>
-  <em>Empfehlung</em>: Ein Album kann Elemente und Unteralben enthalten;
-  es ist aber empfehlenswert und übersichtlicher, wenn ein Album entweder 
-  nur Elemente oder nur Unteralben enthält.
 </li>
 
 <li>
@@ -141,34 +98,3 @@
 
 </fieldset>
 
-<!-- *fragoriscus*
-<fieldset>
-  <legend>Vorschaubilder</legend>
-
-<ul>
-
-   <li>Wie bereits erwähnt, gehört zu jedem Bild ein Vorschaubild.</li>
-
-   <li>Vorschaubilder werden in dem Unterverzeichnis "thumbnail", das zu jedem Album angelegt wird, abgelegt.
-     Ein zu einem Bild gehörendes Vorschaubild hat den gleichen Namen wie das Bild, nur wird ihm das
-     Präfix "TN-" vorangestellt. Dieses Präfix wird durch den Paramater <code>prefix_thumbnail</code>
-     in der Datei <span class="filename">include/config_default.inc.php</span > festgelegt.</li>
-
-   <li>Vorschaubilder müssen nicht die gleiche Dateiendung wie die Bilder, 
-     denen sie zugeordnet sind, haben. Ein JPEG-Bild darf ein
-     GIF-Bild als Vorschaubild haben.</li>
-
-   <li> Es wird empfohlen, ein externes Programm für die Erstellung von
-     Vorschaubildern zu verwenden.</li>
-
-   <li>Sie können auch das Piwigo-Tool zum Erstellen von Vorschaubildern verwenden. 
-    Da die Qualität des erzeugten Vorschaubildes aber meistens enttäuschend ist und der Server stark belastet wird,
-    sollten Sie davon besser Abstand nehmen.</li>
-
-   <li> Falls Sie dennoch den Webserver zur Erstellung von Vorschaubildern verwenden,
-    müssen Sie allen Verzeichnissen, die Alben zugeordnet sind,
-    per CHMOD die entsprechenden Rechte zuweisen.</li> 
-
-</ul>
-</fieldset>
--->

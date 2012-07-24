@@ -868,4 +868,5 @@ $lang['registered users'] = '登録されているユーザー';
 $lang['simple visitors'] = '単ユーザー';
 $lang['Obsolete Plugins'] = 'サポートされないプラグイン';
 $lang['Opacity'] = '不透明度';
+$lang['No results'] = '結果なし';
 ?>

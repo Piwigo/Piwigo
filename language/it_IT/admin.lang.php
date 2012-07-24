@@ -851,7 +851,7 @@ $lang['Piwigo publish plugin for Shotwell'] = 'Plugin Piwigo per Shotwell';
 $lang['Shotwell is an open source digital photo organizer that runs on Linux. It is the default photo manager in Ubuntu and Fedora.'] = 'Shotwell è un organizzatore di immagini digitali open-source che funziona sotto Linux. È il gestore di immagini predefinito di Ubuntu e Fedora';
 $lang['On your Linux, simply install Shotwell with your package manager and the activate Piwigo publishing option.'] = 'Su Linux, semplicemente installa il pacchetto Shotwell e attiva l\'opzione di pubblicazione su Piwigo';
 $lang['Piwigo publish plugin for digiKam'] = 'Plugin Piwigo per digiKam';
-$lang['digiKam is an advanced digital photo management free software for Linux, Windows, and MacOSX.'] = 'Shotwell è un software avanzato per l\'organizzatore di immagini digitali sotto Linux, Windows e MacOSX';
+$lang['digiKam is an advanced digital photo management free software for Linux, Windows, and MacOSX.'] = 'digiKam è un software avanzato per l\'organizzatore di immagini digitali sotto Linux, Windows e MacOSX';
 $lang['digiKam is designed for photographers who want to view, manage, edit, enhance, organize, tag, and share photographs.'] = 'digiKam è realizzato per i fotografi che vogliono vedere, gestire, modificare, migliorare, organizzare, taggare e condividere le loro immagini';
 $lang['To export your photos from digiKam to Piwigo, simply install digiKam and the Kipi-plugins.'] = 'Per esportare le immagini da digiKam a Piwigo, semplicemente installa digiKam e il plugin Kipi';
 $lang['Piwigo export plugin for iPhoto'] = 'Plugin Piwigo per iPhoto';
@@ -923,4 +923,8 @@ $lang['Sharpen'] = 'Evidenziare';
 $lang['Edit photo'] = 'Modificare la foto';
 $lang['create a new site'] = 'Creare un nuovo sito';
 $lang['No order field selected'] = 'Nessun critereo di ordinamento selezionato';
+$lang['Name of the duplicate'] = 'Nome del duplicato';
+$lang['Source tag'] = 'Tag fonte';
+$lang['Tag "%s" is now a duplicate of "%s"'] = 'Il tag "% s" è ormai una copia di "% s"';
+$lang['Duplicate selected tags'] = 'Duplicare i Tag selezionati';
 ?>

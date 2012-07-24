@@ -404,4 +404,11 @@ $lang['Numeric identifier, 1 &rarr; 9'] = 'Identificador numérico, 1 &rarr; 9';
 $lang['Numeric identifier, 9 &rarr; 1'] = 'Identificador numérico, 9 &rarr; 1';
 $lang['Manual sort order'] = 'Ordem de classificação manual';
 $lang['%d rate'] = '%d Avaliação';
+$lang['Bad request'] = 'Solicitação Imprópria';
+$lang['Forbidden'] = 'Proibido';
+$lang['Page not found'] = 'Página não encontrada';
+$lang['Permalink for album not found'] = 'Link permanente para o álbum não encontrado ';
+$lang['Piwigo encountered a non recoverable error'] = 'Piwigo encontrou um erro não recuperável';
+$lang['Requested album does not exist'] = 'Álbum requerido não existe';
+$lang['Requested tag does not exist'] = 'Tag requerida não existe';
 ?>

@@ -307,7 +307,6 @@ $lang['selection'] = 'избор';
 $lang['set to'] = 'постављено на';
 $lang['singly represented'] = 'једнозначно представљено';
 $lang['This site already exists'] = 'Ова страница већ постоји';
-$lang['Create a new site : (give its URL to create_listing_file.php)'] = 'Изради нову страницу : (одрдите њену УРЛ за израду create_listing_file.php)';
 $lang['created'] = 'направљено';
 $lang['delete'] = 'обриши';
 $lang['delete this site and all its attached elements'] = 'обриши ову страницу и све њене придодате ставке';
@@ -810,4 +809,6 @@ $lang['Original Size'] = 'Почетна величина';
 $lang['Photo %s of %s'] = 'Слика %s од %s';
 $lang['Start Upload'] = 'Почни пренос';
 $lang['This album contains no photo.'] = 'Албум не садржи фотографије';
+$lang['%d day'] = 'број дана: %d';
+$lang['%d days'] = 'број дана: %d';
 ?>

@@ -1,66 +1,74 @@
 <h2>Wartung</h2>
 
-<p>Um die Ladezeiten der Seiten zu optimieren, verwendet Piwigo einen
-Cache. Zum Beispiel wird die Information über die Anzahl der Fotos in
-einem Album in der Datenbank zwischengespeichert, statt sie jedesmal
-zu zählen. Im Normalfall sollte diese Information immer korrekt sein,
-jedoch kann es auch vorkommen, dass die zwischengespeicherte Information
-ungültig wird.</p>
+<p>
+ Um die Ladezeiten der Seiten zu optimieren, verwendet Piwigo einen
+ Cache. Zum Beispiel wird die Information über die Anzahl der Fotos in
+ einem Album in der Datenbank zwischengespeichert, statt sie jedesmal
+ zu zählen. Im Normalfall sollte diese Information immer korrekt sein,
+ jedoch kann es auch vorkommen, dass die zwischengespeicherte Information
+ ungültig wird.
+</p>
 
-<p>Einige Informationen in der Datenbank werden mit der Zeit unbrauchbar. Durch Löschen dieser
-nutzlosen Informationen können Sie Plattenplatz sparen.</p>
+<p>
+ Einige Informationen in der Datenbank werden mit der Zeit unbrauchbar. 
+ Durch Löschen dieser nutzlosen Informationen können Sie Plattenplatz sparen.
+</p>
 
 <ul>
-
+  <li>
+   <strong>Aktualisiere Albeninformationen:</strong>
+   Für jedes Album werden die folgenden Informationen überprüft 
+   und bei Bedarf angepasst:
+   Liste der Vorgängeralben, Anzahl der Fotos, Datum des aktuellsten Fotos, 
+   Position relativ zu anderen Alben auf derselben Ebene, Position im kompletten Albenbaum.
+   Diese Funktion überprüft auch die Korrektheit der Vorschaubilder.
+  </li>
+  <li>
+   <strong>Aktualisiere Fotoinformationen:</strong>
+   Für jedes Foto werden die folgenden Informationen überprüft und bei Bedarf angepasst:
+   der komplette Pfad zum Foto, Durchschnittsbewertung. <em>Achtung</em>: Diese Funktion ist
+   nicht mit der Synchronisierung der Metadaten zu verwechseln. Diese müssen über
+   <span class="pwgScreen">Verwaltung &raquo; Werkzeuge &raquo; Synchronisieren</span>
+   oder auf der Bearbeitungsseite eines Bildes (z.B. über <span class="pwgScreen">Foto</span>) 
+   synchronisiert werden.
+  </li>
+  <li>
+   <strong>Repariere und optimiere die Datenbank:</strong>
+   Jede Tabelle der Datenbank wird neu sortiert, repariert und optimiert.
+  </li>
+  <li>
+   <strong>Prüfe erneut die Integrität</strong>
+  </li>
+</ul>
+<ul>
    <li>
-     <strong>Nicht verlinkte Elemente: </strong>
-     Zeigt die Bilder, die nicht mit einem virtuellen Album verlinkt, aber in realen Alben vorhanden sind.
+     <strong>Lösche nicht benutzte Stichwörter</strong>
    </li>
-   <li>
-     <strong>Dateien mit demselben Dateinamen in mehreren realen Alben:</strong>
-     Durchsucht alle Ordner und listet Dateien mit demselben Dateinamen auf.
-   </li>
-
 </ul>
 
 <ul>
-
-   <li><strong>Aktualisierung der Albeninformationen:</strong>
-  Für jedes Album werden die folgenden Informationen überprüft und bei Bedarf angepasst:
-  Liste der übergeordneten Alben, Anzahl der Fotos, Datum des aktuellsten Fotos, Position relativ
-  zu anderen Alben auf derselben Ebene, Position im kompletten Albenbaum.
-  Diese Funktion überprüft auch die Korrektheit der Vorschaubilder.</li>
-
-   <li><strong>Aktualisierung der Fotoinformationen:</strong>
-  Für jedes Foto werden die folgenden Informationen überprüft und bei Bedarf angepasst:
-  der komplette Pfad zum Foto, Durchschnittsbewertung. <em>Achtung</em>: Diese Aktion ist
-  nicht mit der Synchronisierung der Metadaten zu verwechseln. Diese müssen über
-  <span class="pwgScreen">Verwaltung &raquo; Werkzeuge &raquo; Synchronisieren</span>
-  oder auf der Bearbeitungsseite eines Bildes (z.B. über <span class="pwgScreen">Foto</span>) 
-  synchronisiert werden.</li>
-
-   <li><strong>Reparieren und Optimieren der Datenbank:</strong>
-  Jede Tabelle der Datenbank wird neu sortiert, repariert und optimiert.
-   </li>
-
-</ul>
-
-<ul>
-   <li><strong>Löschen der History-Details:</strong> Löscht alle Einträge
-  der <code>history</code>-Tabelle. Die Seite <span class = "pwgScreen">
-  Verwaltung &raquo; Werkzeuge &raquo; History</span> zeigt dann
-keine Informationen mehr über vergangene Einträge an. <em>Achtung</em>: Alle Daten
-gehen verloren, und es gibt keine Möglichkeit, sie wiederherzustellen.</li>
-
-   <li><strong>Löschen der History-Zusammenfassung:</strong> Löscht alle Zusammenfassungsinformationen der History.
-Diese Zusammenfassung wird aus den History-Details errechnet.</li>
-
-   <li><strong>Löschen der Sessions:</strong> Löscht abgelaufene User-Sessions.</li>
-
-   <li><strong>Löschen nie genutzte Benachrichtigungsfeeds</strong></li>
-   
-   <li><strong>Löschen des Suchverlaufs</strong></li>
-	
-   <li><strong>Löschen der kompilierten Templates</strong></li>
-
+  <li>
+   <strong>Lösche die History-Einträge:</strong> Löscht alle Zeilen
+   der <code>history</code>-Tabelle. Die Seite <span class = "pwgScreen">
+   Verwaltung &raquo; Werkzeuge &raquo; Statstik</span> zeigt dann
+   keine Informationen mehr über vergangene Ereignisse an. <em>Achtung</em>: Alle Daten
+   gehen verloren, und es gibt keine Möglichkeit, sie wiederherzustellen.
+  </li>
+  <li>
+   <strong>Lösche die History-Zusammenfassung:</strong> 
+   Löscht die Zusammenfassungen der Besucherstatistik, die
+   aus den History-Einträgen gewonnen werden.
+  </li>
+  <li>
+   <strong>Lösche Sitzungen:</strong> Löscht abgelaufene User-Sessions.
+  </li>
+  <li>
+   <strong>Lösche alle noch nicht verschickten Benachrichtigungen</strong>
+  </li>
+  <li>
+   <strong>Lösche die Suchhistorie</strong>
+  </li>
+  <li><strong>
+    Lösche die kompilierten Vorlagen</strong>
+  </li>
 </ul>

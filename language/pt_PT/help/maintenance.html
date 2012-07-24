@@ -1,0 +1,26 @@
+<h2> Manutenção </h2>
+
+<p>Para optimizar o tempo de geração das paginas, Piwigo utiliza informações em cache. Por exemplo em lugar de contar o numero de fotos de cada álbum cada recarregamento de pagina, esta informação está armazenada na base de dados. Em teoria esta informação deve estar sempre correcta, mas por vezes pode haver um erro e a informação em cache torna-se falsa..</p>
+
+<p>Algumas informações tornam-se falsas com o tempo. suprimi-las da base de dados permite liberar espaço disco.</p>
+
+<ul>
+	<li><strong>suprimir tags órfãs </strong></li>
+</ul>
+<ul>
+  <li><strong>Por em dia as informações dos álbuns :</strong>Para cada álbum as seguintes informações são verificadas e postas em dia se for necessário : lista dos álbuns pai, numero de fotos,data da ultima foto, posição entre os outros álbuns irmãos, posição entre todos os álbuns. Esta acção também  verifica a consistência dos representantes.</li>
+  <li><strong>Por em dia as informações das fotos :</strong> Para cada foto, as informações postas em dia são : caminho completo para o ficheiro, nota media. <em> atenção </em>, não confunda : os meta-dados são sincronizados no ecrã <span class="pwgScreen"> Administração &raquo; Álbuns &raquo; sincronizar</span>, o no ecrã Modificar as informações de uma foto (acessível na pagina visualização de uma foto.</li>
+</ul>
+<ul>
+  <li><strong>Reparar e optimizar a base de dados :</strong>Efectuar operações de reorganização, reparação e optimização de cada tabela da base de dados.</li>
+  <li><strong>Reinitialize integrity check</strong></li>
+</ul>
+
+<ul>
+  <li><strong>Purgar o detalhe do histórico :</strong> Suprimir todas a linhas da tabela history. O ecrã <span class="pwgScreen"> Administração &raquo; Ferramenta &raquo; Histórico </span> Não mostrara mais nenhuma informação sobre o passado. <em> Atenção :</em> Todos os dados serão perdidos sem possibilidade de recuperação.</li>
+  <li><strong>Purgar a síntese do histórico :</strong> Suprimir as informações recapitulativas.(Obtidas à partir do detalhe do histórico).</li>
+  <li><strong>Purgar as sessões :</strong> Suprimir as sessões expiradas.</li>
+  <li><strong>Purgar as notificações não utilizadas</strong></li>
+  <li><strong>Purgar o histórico das pesquisas</strong></li>
+  <li><strong>Purgar os templates compilados</strong></li>  
+</ul>

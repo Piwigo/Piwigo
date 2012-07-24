@@ -923,4 +923,8 @@ $lang['Sharpen'] = 'Renforcer la netteté';
 $lang['Edit photo'] = 'Éditer la photo';
 $lang['create a new site'] = 'créer un nouveau site';
 $lang['No order field selected'] = 'Aucun critère de tri sélectionné';
+$lang['Name of the duplicate'] = "Nom du duplicata";
+$lang['Source tag'] = 'Tag source';
+$lang['Tag "%s" is now a duplicate of "%s"'] = "Le tag \"%s\" est désormais une copie de \"%s\"";
+$lang['Duplicate selected tags'] = 'Dupliquer les tags sélectionnés';
 ?>

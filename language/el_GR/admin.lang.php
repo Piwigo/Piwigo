@@ -925,4 +925,8 @@ $lang['%d weeks'] = '%d εβδομάδες';
 $lang['Edit photo'] = 'Επεξεργασία φωτογραφίας';
 $lang['create a new site'] = 'δημιουργία νέας ιστοσελίδας';
 $lang['No order field selected'] = 'Δεν επιλέχτηκε διατεταγμένο πεδίο';
+$lang['Duplicate selected tags'] = 'Επιλεγμένες ετικέτες εις διπλούν ';
+$lang['Name of the duplicate'] = 'Όνομα του αντιγράφου';
+$lang['Source tag'] = 'Ετικέτα Πηγή';
+$lang['Tag "%s" is now a duplicate of "%s"'] = 'Η Ετικέτα "%s" είναι πλέον ένα αντίγραφο του "%s"';
 ?>

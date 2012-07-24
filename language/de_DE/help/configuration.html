@@ -1,117 +1,216 @@
 <h2>Konfiguration</h2>
 
-<p>Auf dieser Seite kann der Administrator Grundkonfigurationen vornehmen. Sie beschränkt
-sich dabei auf die wesentlichsten Parameter, die die Anpassungswünsche der meisten
-Administratoren befriedigen sollten. Viele weitere Einstellungsmöglichkeiten finden
-Sie in der Datei <span class="filename">include/config_default.inc.php</span></p>
+<p>Auf dieser Seite kann ein Administrator Grundeinstellungen für die Galerie vornehmen. 
+   Die Einstellungsmöglichkeiten beschränken sich auf das Wesentlichste, dürften aber den
+   Anpassungswünschen der meisten Administratoren nachkommen.
+   Zahlreiche weitere Einstellungsmöglichkeiten können Sie in der Datei
+   <span class="filename">include/config_default.inc.php</span> vornehmen.
+</p>
 
-<p>Die Konfigurationsseite ist in mehrere Sektionen unterteilt, die Einstellungen nach Thema
-gruppieren.</p>
+<p>
+  Die Konfigurationsseite ist in mehrere Abschnitte unterteilt, die die Einstellungsmöglichkeiten
+  thematisch gruppieren.
+</p>
 
 <h3>Grundeinstellungen</h3>
 <ul>
 
-  <li><strong>Galerietitel</strong>: Wird für RSS-Feeds und
-E-Mail-Benachrichtigungen genützt.</li>
+<li>
+ <strong>Galerietitel</strong>: Wird für RSS-Feeds und E-Mail-Benachrichtigungen genützt.
+</li>
 
-  <li><strong>Seitenbanner</strong>: wird im oberen Teil der
-Seiten angezeigt.</li>
+<li>
+ <strong>Seitenbanner</strong>: Wird im oberen Teil der Seiten angezeigt.
+</li>
 
-  <li><strong>genaue URL zur Galerie</strong>: wird für RSS-Feeds verwendet.</li>
+<li>
+ <strong>Galerie-URL</strong>: Wird für RSS-Feeds verwendet.
+</li>
 
-  <li><strong>Sperre den Zugriff auf die Galerie</strong>: Sperren der gesamten
-Galerie für Wartungsarbeiten. Nur Administratoren haben dann noch Zugriff.</li>
+<li>
+ <strong>Sperre den Zugriff auf die Galerie</strong>: Sperren der gesamten
+ Galerie für Wartungsarbeiten. Nur Administratoren haben noch Zugriff.
+</li>
 
-  <li><strong>Abstimmung zulassen</strong>: Ermöglicht die Bewertung der Fotos.</li>
+<li>
+ <strong>Abstimmung zulassen</strong>: Ermöglicht die Bewertung der Fotos.
+</li>
 
-  <li><strong>Erlaube Bewertung(en) durch Gäste</strong>: Auch nicht registrierte Benutzer können Bilder bewerten.</li>
+<li>
+ <strong>Erlaube Bewertung durch Gäste</strong>: 
+ Auch nicht registrierte Benutzer können Bilder bewerten.
+</li>
 
-  <li><strong>Erlaube die Neuregistrierung von Benutzern</strong>: Die Registrierung ist für jeden möglich.</li>
+<li>
+ <strong>Erlaube die Neuregistrierung von Benutzern</strong>: 
+ Jeder kann sich registrieren.
+</li>
 
-  <li><strong>Die Angabe einer gültigen E-Mail-Adresse ist für alle Benutzer verpflichtend</strong>: Die E-Mail Adresse wird bei der Registrierung oder beim Aktualisieren des Profils überprüft, außer wenn die Aktion von einem Administrator durchgeführt wurde.</li>
+<li>
+ <strong>Die Angabe einer gültigen E-Mail-Adresse ist für alle Benutzer 
+ verpflichtend</strong>: 
+ Die E-Mail-Adresse wird bei der Registrierung oder beim Aktualisieren des Profils überprüft, 
+ außer wenn dies von einem Administrator durchgeführt wurde.
+</li>
 
-  <li><strong>sende eine E-Mail an den(die) Adminstrator(en) wenn sich ein neuer Benutzer registriert hat</strong>: Administratoren erhalten eine E-mail, wenn sich ein neuer Benutzer registriert.</li>
+<li><strong>
+ Sende eine E-Mail an die Adminstratoren, wenn sich ein neuer Benutzer registriert hat</strong>: 
+ Benachrichtigung der Administratoren bei Registrierung.
+</li>
 
 </ul>
 
 <h3>Statistik</h3>
-  <p>	
-Besuche auf den Seiten <span
-class="pwgScreen">category.php</span> und <span
-class="pwgScreen">picture.php</span> werden in der
-   <code>History</code> Tabelle gespeichert.</p>
+<!-- *fragoriscus*
+<p>	
+  Besuche auf den Seiten <span class="pwgScreen">category.php</span> und 
+  <span class="pwgScreen">picture.php</span> werden in der <code>History</code>-Tabelle gespeichert.
+</p>
+-->
 
-  <p>Besuche werden in <span class="pwgScreen">Administration &raquo; Werkzeuge &raquo; Statistik</span>.</p>
+<p>
+ Besuche werden in <span class="pwgScreen">Administration &raquo; Werkzeuge &raquo; Statistik</span> angezeigt.
+</p>
+
 <ul>
-  <li><strong>Speichere Seitenaufrufe von Gästen</strong>: Besuche von Gästen werden aufgezeichnet.</li>
+<li>
+  <strong>Speichere Seitenaufrufe von Gästen</strong>: 
+  Besuche von Gästen werden aufgezeichnet.
+</li>
 
-  <li><strong>Speichere Seitenaufrufe pro Benutzer</strong>: Besuche von registrierten Benutzern werden aufgezeichnet.</li>
+<li>
+  <strong>Speichere Seitenaufrufe pro Benutzer</strong>: 
+  Besuche von registrierten Benutzern werden aufgezeichnet.
+</li>
 
-  <li><strong>Speichere auch Seitenaufrufe des Administrators</strong>: Besuche von Administratoren werden aufgezeichnet.</li>
-
+<li>
+  <strong>Speichere auch Seitenaufrufe des Administrators</strong>: 
+  Besuche von Administratoren werden aufgezeichnet.
+</li>
 </ul>
 
 <h3>Benutzerkommentare</h3>
 <ul>
 
-  <li><strong>Kommentare für alle erlaubt</strong>: Auch nicht registrierte Gäste können 
-   Bemerkungen abgeben.</li>
+<li>
+ <strong>Kommentare für alle erlaubt</strong>: 
+ Auch nicht registrierte Benutzer (Gäste) können Kommentare schreiben.
+</li>
 
-  <li><strong>Anzahl von Kommentaren pro Seite</strong>: Die Anzahl der pro Seite angezeigten Kommentare.</li>
+<li>
+ <strong>Anzahl von Kommentaren pro Seite</strong>: 
+ Die Anzahl der pro Seite angezeigten Kommentare.
+</li>
 
-  <li><strong>Freigabe der Kommentare durch den Administrator</strong>: Ein Administrator muss die Kommentare der Benutzer überprüfen, bevor sie 
-in der Galerie sichtbar werden. Die Überprüfung der Benutzerkommentare erfolgt auf der Seite <span class="pwgScreen">Verwaltung, Fotos,
-Kommentare</span>.</li>
+<li>
+ <strong>Freigabe der Kommentare durch den Administrator</strong>: 
+ Ein Administrator muss die Kommentare der Benutzer überprüfen, 
+ bevor sie in der Galerie angezeigt werden. Die Überprüfung der 
+ Benutzerkommentare erfolgt auf der Seite <span class="pwgScreen">Verwaltung, Fotos,
+ Kommentare</span>.
+</li>
 
-  <li><strong>sende eine E-Mail an den(die) Adminstrator(en) wenn ein Kommentar hinterlassen wurde</strong>:
-Sende eine E-Mail an den/die Administrator(en), wenn ein überprüftes Kommentar gepostet wurde.</li>
+<li>
+ <strong>Sende eine E-Mail an die Adminstratoren, wenn ein Kommentar abgegeben wurde</strong>:
+ Bei gültigem Kommentar werden die Administratoren benachrichtigt.
+</li>
 
-  <li><strong>sende eine E-Mail an den(die) Adminstrator(en) wenn ein Kommentar die Freischaltung durch den Admin erfordert</strong>:
-Sende eine E-Mail an den/die Administrator(en), wenn die Überprüfung eines Kommentars erforderlich ist. Die Überprüfung der Benutzerkommentare erfolgt auf der Seite <span class="pwgScreen">Verwaltung, Fotos, Kommentare</span>.</li>
+<li>
+  <strong>Sende eine E-Mail an die Adminstratoren, wenn ein Kommentar die Freischaltung 
+  durch einen Administrator erfordert</strong>:
+  Sende eine E-Mail an die Administratoren, wenn die Überprüfung eines Kommentars erforderlich ist. 
+  Die Überprüfung der Benutzerkommentare erfolgt auf der Seite 
+  <span class="pwgScreen">Verwaltung, Fotos, Kommentare</span>.
+</li>
 
 </ul>
 
+<!--*fragoriscus*
 <h3>Upload</h3>
 <ul>
-  <li><strong>Den Uploadlink immer anzeigen</strong>: Wenn ein hochladbares Album existiert, wird der Uploadlink für jedes Album angezeigt.</li>
+ <li>
+ <strong>Upload-Link immer anzeigen</strong>: 
+  Wenn ein hochladbares Album existiert, wird der Uploadlink für jedes Album angezeigt.</li>
   <li><strong>... dürfen Bilder hochladen</strong>: Welche Stufe muss ein Benutzer mindestens haben, um Fotos hochladen zu dürfen.</li>
   <li><strong>sende eine E-Mail an den(die) Adminstrator(en) wenn ein Bild hochgeladen wurde</strong>: Administratoren erhalten eine E-mail, wenn ein Foto hochgeladen wurde.</li>
 </ul>
+-->
 
-<h3>Einstellungen für Gäste</h3>
-<p>Hier können sie die Anzeigeeinstellungen für Gäste festlegen. Registrierte Benutzer können diese Einstellungen
-selbst über ihr <span class="pwgScreen">Profil</span> anpassen.</p>
+<h3>Anzeigeeinstellungen</h3>
+<p>
+ Hier können sie die Anzeigeeinstellungen für Gäste festlegen. 
+ Registrierte Benutzer können diese Einstellungen
+ selbst über ihr <span class="pwgScreen">Profil</span> anpassen.
+</p>
 
-<p>Es ist auch möglich, die Anzeigeeinstellungen aller Benutzer zu verändern. Besuchen sie zu diesem Zweck die Seite: <span class="pwgScreen">Administration &raquo; Benutzer &raquo; Verwaltung</span>.</p>
+<p>
+ Es ist auch möglich, die Anzeigeeinstellungen aller Benutzer zu verändern. 
+ Besuchen Sie zu diesem Zweck die Seite
+ <span class="pwgScreen">Administration &raquo; Benutzer &raquo; Verwaltung</span>.
+</p>
 
 <ul>
 
-  <li><strong>Sprache</strong>: bezieht sich nur auf die Beschriftungen von Piwigo selbst. Namen der Alben und Fotos, und
-  die Beschreibungen werden nicht übersetzt.</li>
+<li>
+ <strong>Sprache</strong>: 
+ Bezieht sich nur auf die Beschriftungen und Texte des Piwigo-Programms. 
+ Namen von Alben, Fotos, Beschreibungen und Kommentare werden nicht übersetzt.
+</li>
 
-  <li><strong>Anzahl der Bilder pro Zeile</strong>Anzahl der Bilder, die pro Zeile angezeigt werden.</li>
+<li>
+ <strong>Anzahl der Bilder pro Zeile</strong>:
+ Anzahl der Bilder, die pro Zeile angezeigt werden.
+</li>
 
-  <li><strong>Anzahl der Zeilen pro Seite</strong>Anzahl der Zeilen, die pro Seite angezeigt werden.</li>
+<li>
+ <strong>Anzahl der Zeilen pro Seite</strong>:
+ Anzahl der Zeilen, die pro Seite angezeigt werden.
+</li>
 
-  <li><strong>Layout</strong>Das Layout der Seiten</li>
+<li>
+ <strong>Layout</strong>: Das Layout der Seiten.
+</li>
 
-  <li><strong>Wieviele Tage sollen Bilder als "neu" markiert werden?</strong>: Der Zeitraum in Tagen der definiert, wie lang Fotos als "neu"
-  angezeigt werden.</li>
+<li>
+ <strong>Wie viele Tage sollen Bilder als neu markiert werden?</strong>: 
+ Der Zeitraum in Tagen, der festlegt, wie lang Fotos als neu gelten sollen.
+</li>
 
-  <li><strong>Albenstruktur immer vollständig sichtbar</strong>: Soll die Albenstruktur immer vollständig angezeigt werden? <em>Vorsicht</em>:
-  Diese Option benötigt viel Ressourcen und kann ein sehr großes Menü generieren, wenn sie viele Alben besitzen.</li>
+<li>
+ <strong>Albenstruktur immer vollständig sichtbar</strong>: 
+ Soll die Albenstruktur ausgeklappt angezeigt werden? 
+ <em>Vorsicht</em>:
+ Diese Option kann Ihren Server stark beanspruchen und ein sehr großes Menü generieren, 
+ wenn sie viele Alben angelegt haben.
+</li>
 
-  <li><strong>Zeige die Anzahl der Kommentare</strong>: Zeige für jedes Foto die Anzahl der Kommentare in der Übersichtsseite. Benötigt
-  viel Ressourcen!</li>
+<li>
+ <strong>Zeige die Anzahl der Kommentare</strong>: 
+ Zeigt für jedes Foto die Anzahl der Kommentare unter den Vorschaubildern 
+ auf der Übersichtsseite. 
+ Benötigt viele Ressourcen.</li>
 
-  <li><strong>Zeige die Anzahl der Bildaufrufe</strong>: Zeige für jedes Foto die Anzahl der Aufrufe in der Übersichtsseite.
-   Wir nur angezeigt, wenn der Parameter: <br/>
-   $conf [ 'show_nb_hits'] = true; <br/>
-   gesetzt ist. Hinweis: Der Parameter ist in der Standardeinstellung deaktiviert.</li>
+<li>
+ <strong>Zeige die Anzahl der Bildaufrufe</strong>: 
+ Zeigt auf der Übersichtsseite für jedes Foto die Anzahl der Aufrufe.
+ Wird nur angezeigt, wenn der Parameter $conf ['show_nb_hits'] auf "true" 
+ gesetzt ist. Voreingestellt ist "false".
+</li>
 
-  <li><strong>Maximale Breite der Bilder</strong>: Die maximal angezeigte Breite. Breitere Bilder werden für die Anzeige verkleinert. Bevor Sie diese
-   Option verwenden, sollten Sie darüber nachdenken, die Größe Ihrer Fotos zu verändern.</li>
+<li>
+ <strong>Maximale Breite der Bilder</strong>: 
+ Die maximal angezeigte Breite. 
+ Breitere Bilder werden für die Anzeige verkleinert. 
+ Bevor Sie diese Option verwenden, sollten Sie darüber nachdenken, 
+ die Größe Ihrer Fotos zu verändern.
+</li>
 
-  <li><strong>Maximale Höhe der Bilder</strong>: Die maximal angezeigte Höhe (siehe Informationen zum Parameter Maximale Breite).</li>
+<li>
+ <strong>Maximale Höhe der Bilder</strong>:
+ Die maximal angezeigte Höhe.
+ Höhere Bilder werden für die Anzeige verkleinert. 
+ Bevor Sie diese Option verwenden, sollten Sie darüber nachdenken, 
+ die Größe Ihrer Fotos zu verändern.
+</li>
 
 </ul>

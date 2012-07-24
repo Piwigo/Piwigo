@@ -920,4 +920,8 @@ $lang['%d weeks'] = '%d semanas';
 $lang['Edit photo'] = 'Editar foto';
 $lang['create a new site'] = 'Crear un nuevo sitio';
 $lang['No order field selected'] = 'Ningún orden seleccionado';
+$lang['Duplicate selected tags'] = 'Borrar etiquetas duplicadas';
+$lang['Name of the duplicate'] = 'Nombre de los duplicados';
+$lang['Source tag'] = 'Origen de las etiquetas';
+$lang['Tag "%s" is now a duplicate of "%s"'] = 'La etiqueta "%s" es ahora un duplicado de "%s"';
 ?>

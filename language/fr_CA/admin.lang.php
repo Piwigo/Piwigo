@@ -930,6 +930,10 @@ $lang['%d week'] = '%d semaine';
 $lang['%d weeks'] = '%d semaines';
 $lang['Edit photo'] = 'Éditer la photo';
 $lang['create a new site'] = 'créer un nouveau site';
-$lang['No order field selected'] = 'Aucun critère de tri sélectionné'; 
+$lang['No order field selected'] = 'Aucun critère de tri sélectionné';
+$lang['Duplicate selected tags'] = 'Dupliquer les mots clés sélectionnés';
+$lang['Name of the duplicate'] = 'Nom du duplicata';
+$lang['Source tag'] = 'Source du mot clé';
+$lang['Tag "%s" is now a duplicate of "%s"'] = 'Le mot clé "%s" est désormais une copie de "%s"';
 
 ?>
