@@ -1,6 +1,6 @@
 @media print {
 #menubar, .content .navigationBar, .categoryActions, .content .calendarViews, .calendarBar,
-#imageToolBar, .navThumb, #addComment {
+#imageToolBar, .navThumb, #commentAdd {
 	display: none;
 }
 

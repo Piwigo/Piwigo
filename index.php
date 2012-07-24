@@ -279,7 +279,7 @@ if ( count($page['items']) > 0 )
           duplicate_index_url(),
           array('display' => '')
         );
-  $selected_type = pwg_get_session_var('index_deriv', IMG_THUMB);
+  $selected_type = trigger_event('get_index_derivative_params', ImageStdParams::get_by_type( pwg_get_session_var('index_deriv', IMG_THUMB) ) )->type;
   $type_map = ImageStdParams::get_defined_type_map();
   unset($type_map[IMG_XXLARGE], $type_map[IMG_XLARGE]);
   foreach($type_map as $params)
