@@ -151,10 +151,8 @@ foreach ($pictures as $row)
   $tpl_thumbnails_var[] = $tpl_var;
 }
 
-$derivative_params = trigger_event('get_index_derivative_params', ImageStdParams::get_by_type( pwg_get_session_var('index_deriv', IMG_THUMB) ) );
-
 $template->assign( array(
-  'derivative_params' =>$derivative_params,
+  'derivative_params' => trigger_event('get_index_derivative_params', ImageStdParams::get_by_type( pwg_get_session_var('index_deriv', IMG_THUMB) ) ),
   'SHOW_THUMBNAIL_CAPTION' =>$conf['show_thumbnail_caption'],
     ) );
 $tpl_thumbnails_var = trigger_event('loc_end_index_thumbnails', $tpl_thumbnails_var, $pictures);
@@ -162,6 +160,6 @@ $template->assign('thumbnails', $tpl_thumbnails_var);
 
 $template->assign_var_from_handle('THUMBNAILS', 'index_thumbnails');
 unset($pictures, $selection, $tpl_thumbnails_var);
-$template->clear_assign( array('thumbnails', 'derivative_params') );
+$template->clear_assign( 'thumbnails' );
 pwg_debug('end include/category_default.inc.php');
 ?>
