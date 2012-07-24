@@ -288,7 +288,7 @@ final class DerivativeParams
     {
       $min_size = ImageStdParams::get_watermark()->min_size;
       return $min_size[0]<=$out_size[0]
-        || $min_size[1]<=$$out_size[1];
+        || $min_size[1]<=$out_size[1];
     }
     return false;
   }
