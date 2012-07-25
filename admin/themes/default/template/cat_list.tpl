@@ -70,7 +70,7 @@ jQuery(document).ready(function(){
       <legend>{'create a new album'|@translate}</legend>
       <input type="hidden" name="pwg_token" value="{$PWG_TOKEN}">
       <p><strong>{'Album name'|@translate}</strong>
-        <br><input type="text" name="virtual_name">
+        <br><input type="text" name="virtual_name" maxlength="255">
       </p>
       <span class="actionButtons">
         <input class="submit" type="submit" value="{'Create'|@translate}" name="submitAdd">

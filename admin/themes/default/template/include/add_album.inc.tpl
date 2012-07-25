@@ -95,7 +95,7 @@ jQuery(document).ready(function(){
         {html_options options=$category_parent_options selected=$category_parent_options_selected}
       </select>
 
-      <br><br>{'Album name'|@translate}<br><input name="category_name" type="text"> <span id="categoryNameError"></span>
+      <br><br>{'Album name'|@translate}<br><input name="category_name" type="text" maxlength="255"> <span id="categoryNameError"></span>
       <br><br><br><input type="submit" value="{'Create'|@translate}"> <span id="albumCreationLoading" style="display:none"><img src="themes/default/images/ajax-loader-small.gif"></span>
     </form>
   </div>
