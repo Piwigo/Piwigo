@@ -559,6 +559,11 @@ class image_ext_imagick implements imageInterface
 
   function rotate($rotation)
   {
+    if (empty($rotation))
+    {
+      return true;
+    }
+
     if ($rotation==90 || $rotation==270)
     {
       $tmp = $this->width;
