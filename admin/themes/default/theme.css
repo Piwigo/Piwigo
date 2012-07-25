@@ -1114,3 +1114,14 @@ input[type="text"].dError {border-color:#ff7070; background-color:#FFe5e5;}
 
 #wImg {max-height:100px;border:2px solid #ccc;margin-top:5px;}
 #addWatermark {display:none;}
+
+.adminMenubarCounter {
+  background-color:#666;
+  color:white;
+  padding:1px 5px;
+  border-radius:10px;
+  -moz-border-radius:10px;
+  -webkit-border-radius:10px;
+  -border-radius:10px;
+  margin-left:5px;
+}
