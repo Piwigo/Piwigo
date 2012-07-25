@@ -1507,16 +1507,40 @@ DELETE
 ;';
   pwg_query($query);
 
+  $query = '
+SELECT
+    category_id,
+    MAX(rank) AS max_rank
+  FROM '.IMAGE_CATEGORY_TABLE.'
+  WHERE rank IS NOT NULL
+    AND category_id IN ('.implode(',', $categories).')
+  GROUP BY category_id
+;';
+
+  $current_rank_of = simple_hash_from_query(
+    $query,
+    'category_id',
+    'max_rank'
+    );
+
   $inserts = array();
   foreach ($categories as $category_id)
   {
+    if (!isset($current_rank_of[$category_id]))
+    {
+      $current_rank_of[$category_id] = 0;
+    }
+
     foreach ($images as $image_id)
     {
+      $rank = ++$current_rank_of[$category_id];
+
       array_push(
         $inserts,
         array(
           'image_id' => $image_id,
           'category_id' => $category_id,
+          'rank' => $rank,
           )
         );
     }
@@ -2341,6 +2365,7 @@ function clear_derivative_cache_rec($path, $pattern)
 
 function delete_element_derivatives($infos, $type='all')
 {
+file_put_contents('/tmp/pwg24ws.log', "\n==== ".date('c')."\n".__FUNCTION__.' : '.var_export($infos, true)."\n", FILE_APPEND);
   $path = $infos['path'];
   if (!empty($infos['representative_ext']))
   {
