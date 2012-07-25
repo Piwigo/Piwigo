@@ -60,7 +60,7 @@
   <p>
     <strong>{'Name'|@translate}</strong>
     <br>
-    <input type="text" class="large" name="name" value="{$CAT_NAME}" maxlength="60">
+    <input type="text" class="large" name="name" value="{$CAT_NAME}" maxlength="255">
   </p>
 
   <p>
