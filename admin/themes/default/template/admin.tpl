@@ -41,6 +41,9 @@ Raphael("menubarUsers", 20, 16).path("").scale(0.6, 0.6, 0, 0).attr({fill: "#464
         <li><a href="{$U_TAGS}">{'Tags'|@translate}</a></li>
         <li><a href="{$U_RECENT_SET}">{'Recent photos'|@translate}</a></li>
         <li><a href="{$U_BATCH}">{'Batch Manager'|@translate}</a></li>
+{if $NB_PHOTOS_IN_CADDIE > 0}
+        <li><a href="{$U_CADDIE}">{'Caddie'|@translate}<span class="adminMenubarCounter">{$NB_PHOTOS_IN_CADDIE}</span></a></li>
+{/if}
       </ul>
     </dd>
   </dl>

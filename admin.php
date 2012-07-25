@@ -219,6 +219,24 @@ if ($conf['activate_comments'])
   $template->assign('U_PENDING_COMMENTS', $link_start.'comments');
 }
 
+// any photo in the caddie?
+$query = '
+SELECT COUNT(*)
+  FROM '.CADDIE_TABLE.'
+  WHERE user_id = '.$user['id'].'
+;';
+list($nb_photos_in_caddie) = pwg_db_fetch_row(pwg_query($query));
+
+if ($nb_photos_in_caddie > 0)
+{
+  $template->assign(
+    array(
+      'NB_PHOTOS_IN_CADDIE' => $nb_photos_in_caddie,
+      'U_CADDIE' => $link_start.'batch_manager&amp;cat=caddie',
+      )
+    );
+}
+
 // +-----------------------------------------------------------------------+
 // | Plugin menu                                                           |
 // +-----------------------------------------------------------------------+
