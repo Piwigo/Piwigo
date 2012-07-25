@@ -529,7 +529,7 @@ class Template {
    * handy in order to respect strict standards when <style> and <link>
    * html elements must appear in the <head> element
    */
-  function block_html_head($params, $content, &$smarty, &$repeat)
+  function block_html_head($params, $content)
   {
     $content = trim($content);
     if ( !empty($content) )
@@ -538,7 +538,7 @@ class Template {
     }
   }
 
-  function block_html_style($params, $content, &$smarty, &$repeat)
+  function block_html_style($params, $content)
   {
     $content = trim($content);
     if ( !empty($content) )
@@ -547,13 +547,13 @@ class Template {
     }
   }
 
-  function func_define_derivative($params, &$smarty)
+  function func_define_derivative($params)
   {
     !empty($params['name']) or fatal_error('define_derivative missing name');
     if (isset($params['type']))
     {
       $derivative = ImageStdParams::get_by_type($params['type']);
-      $smarty->assign( $params['name'], $derivative);
+      $this->smarty->assign( $params['name'], $derivative);
       return;
     }
     !empty($params['width']) or fatal_error('define_derivative missing width');
@@ -585,7 +585,7 @@ class Template {
       }
     }
 
-    $smarty->assign( $params['name'], ImageStdParams::get_custom($w, $h, $crop, $minw, $minh) );
+    $this->smarty->assign( $params['name'], ImageStdParams::get_custom($w, $h, $crop, $minw, $minh) );
   }
 
    /**
@@ -600,11 +600,11 @@ class Template {
     * param version - optional - plugins could use this and change it in order to force a
         browser refresh
     */
-  function func_combine_script($params, &$smarty)
+  function func_combine_script($params)
   {
     if (!isset($params['id']))
     {
-      $smarty->trigger_error("combine_script: missing 'id' parameter", E_USER_ERROR);
+      $this->smarty->trigger_error("combine_script: missing 'id' parameter", E_USER_ERROR);
     }
     $load = 0;
     if (isset($params['load']))
@@ -614,7 +614,7 @@ class Template {
         case 'header': break;
         case 'footer': $load=1; break;
         case 'async': $load=2; break;
-        default: $smarty->trigger_error("combine_script: invalid 'load' parameter", E_USER_ERROR);
+        default: $this->smarty->trigger_error("combine_script: invalid 'load' parameter", E_USER_ERROR);
       }
     }
     $this->scriptLoader->add( $params['id'], $load,
@@ -624,11 +624,11 @@ class Template {
   }
 
 
-  function func_get_combined_scripts($params, &$smarty)
+  function func_get_combined_scripts($params)
   {
     if (!isset($params['load']))
     {
-      $smarty->trigger_error("get_combined_scripts: missing 'load' parameter", E_USER_ERROR);
+      $this->smarty->trigger_error("get_combined_scripts: missing 'load' parameter", E_USER_ERROR);
     }
     $load = $params['load']=='header' ? 0 : 1;
     $content = array();
@@ -694,7 +694,7 @@ var s,after = document.getElementsByTagName(\'script\')[document.getElementsByTa
     return embellish_url($ret);
   }
 
-  function block_footer_script($params, $content, &$smarty, &$repeat)
+  function block_footer_script($params, $content)
   {
     $content = trim($content);
     if ( !empty($content) )
@@ -714,7 +714,7 @@ var s,after = document.getElementsByTagName(\'script\')[document.getElementsByTa
     * param version - optional - plugins could use this and change it in order to force a
         browser refresh
     */
-  function func_combine_css($params, &$smarty)
+  function func_combine_css($params)
   {
     !empty($params['path']) || fatal_error('combine_css missing path');
     $order = (int)@$params['order'];
@@ -722,7 +722,7 @@ var s,after = document.getElementsByTagName(\'script\')[document.getElementsByTa
     $this->css_by_priority[$order][] = array( $params['path'], $version);
   }
 
-  function func_get_combined_css($params, &$smarty)
+  function func_get_combined_css($params)
   {
     return 'echo '.var_export(self::COMBINED_CSS_TAG,true);
   }
