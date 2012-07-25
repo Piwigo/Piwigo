@@ -205,6 +205,12 @@ function ws_getMissingDerivatives($params, &$service)
   }
 
   list($max_id, $image_count) = pwg_db_fetch_row( pwg_query('SELECT MAX(id)+1, COUNT(*) FROM '.IMAGES_TABLE) );
+
+  if (0 == $image_count)
+  {
+    return array();
+  }
+
   $start_id = intval($params['prev_page']);
   if ($start_id<=0)
   {
