@@ -918,5 +918,9 @@ $lang['%d week'] = '%d 週';
 $lang['%d weeks'] = '%d 週';
 $lang['Edit photo'] = '編輯相片';
 $lang['create a new site'] = '建立新的網站';
-
+$lang['Duplicate selected tags'] = '重複選取標籤';
+$lang['Name of the duplicate'] = '名稱重複';
+$lang['No order field selected'] = '未選取排序欄位';
+$lang['Source tag'] = '來源標籤';
+$lang['Tag "%s" is now a duplicate of "%s"'] = '"%s" 標籤與 "%s" 標籤重複';
 ?>

@@ -928,4 +928,8 @@ $lang['%d weeks'] = '%d týdny';
 $lang['Edit photo'] = 'Upravit foto';
 $lang['create a new site'] = 'vytvoř nové místo';
 $lang['No order field selected'] = 'Není vybráno pole řazení';
+$lang['Duplicate selected tags'] = 'Duplikuj vybrané tagy';
+$lang['Name of the duplicate'] = 'Název duplikátu';
+$lang['Source tag'] = 'Zdrojový tag';
+$lang['Tag "%s" is now a duplicate of "%s"'] = 'Tag "%s" je nyní duplikátem "%s"';
 ?>
