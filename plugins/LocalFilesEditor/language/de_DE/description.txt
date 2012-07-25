@@ -1,1 +1,1 @@
-Editiert lokale Dateien aus der Administratoroberfläche heraus.
+Administratoren können lokale Dateien direkt in Piwigo bearbeiten.

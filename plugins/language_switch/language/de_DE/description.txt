@@ -1,2 +1,1 @@
-Ändert die Sprache der Galerie durch anklicken der Länderflaggen auf der
-Seite.
+Ändert die Sprache der Galerie durch Anklicken einer Landesfahne.
