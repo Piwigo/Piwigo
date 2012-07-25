@@ -923,4 +923,8 @@ $lang['%d weeks'] = '%d أسابيع';
 $lang['Edit photo'] = ' تحرير الصورة';
 $lang['No order field selected'] = 'لم يتم اختيار أي خافة';
 $lang['create a new site'] = 'انشأ موقع جديد';
+$lang['Duplicate selected tags'] = 'كرر الكلمه الدائليه المحددة';
+$lang['Name of the duplicate'] = 'تسميه المكرر';
+$lang['Source tag'] = 'مصدر الكلمه الدلائليه';
+$lang['Tag "%s" is now a duplicate of "%s"'] = 'الكلمه الدلائليه "%s" كررت لـ "%s"';
 ?>
