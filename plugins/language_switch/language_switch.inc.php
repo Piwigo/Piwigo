@@ -87,7 +87,7 @@ UPDATE '.USER_INFOS_TABLE.'
 
 function language_controler_flags()
 {
-  global $user, $template, $conf;
+  global $user, $template, $conf, $page;
   
   $available_lang = get_languages();
   
@@ -97,11 +97,21 @@ function language_controler_flags()
   }
   
   $url_starting = get_query_string_diff(array('lang'));
-
+  
+  if ($page['section'] == 'additional_page' and isset($page['additional_page']))
+  {
+    $base_url = make_index_url(array('section'=>'page')).'/'.(isset($page['additional_page']['permalink']) ? $page['additional_page']['permalink'] : $page['additional_page']['id']);
+  }
+  else
+  {
+    $base_url = duplicate_index_url();
+  }
+  
   foreach ($available_lang as $code => $displayname)
   {
+    
     $qlc = array (
-      'url' => add_url_params(duplicate_index_url(), array('lang'=> $code)),
+      'url' => add_url_params($base_url, array('lang'=> $code)),
       'alt' => ucwords($displayname),
       'title' => substr($displayname, 0, -4), // remove [FR] or [RU]
       'img' => get_root_url().'language/'.$code.'/'.$code.'.jpg',
