@@ -98,7 +98,7 @@ function language_controler_flags()
   
   $url_starting = get_query_string_diff(array('lang'));
   
-  if ($page['section'] == 'additional_page' and isset($page['additional_page']))
+  if (isset($page['section']) and $page['section'] == 'additional_page' and isset($page['additional_page']))
   {
     $base_url = make_index_url(array('section'=>'page')).'/'.(isset($page['additional_page']['permalink']) ? $page['additional_page']['permalink'] : $page['additional_page']['id']);
   }
