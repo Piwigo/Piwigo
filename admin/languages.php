@@ -35,7 +35,8 @@ if (isset($_GET['tab']))
 else
   $page['tab'] = 'installed';
 
-$tabsheet = new tabsheet('languages');
+$tabsheet = new tabsheet();
+$tabsheet->set_id('languages');
 $tabsheet->select($page['tab']);
 $tabsheet->assign();
 
