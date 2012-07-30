@@ -2365,7 +2365,6 @@ function clear_derivative_cache_rec($path, $pattern)
 
 function delete_element_derivatives($infos, $type='all')
 {
-file_put_contents('/tmp/pwg24ws.log', "\n==== ".date('c')."\n".__FUNCTION__.' : '.var_export($infos, true)."\n", FILE_APPEND);
   $path = $infos['path'];
   if (!empty($infos['representative_ext']))
   {
