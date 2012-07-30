@@ -299,7 +299,7 @@ function try_switch_source(DerivativeParams $params, $original_mtime)
   if ($use_watermark)
   {
     if (!isset($original_size))
-      return; // cannot really know if a watermark is required
+      return false; // cannot really know if a watermark is required
     $dsize = $params->compute_final_size($original_size);
     $use_watermark = $params->will_watermark($dsize);
     ilog($use_watermark, $dsize);
@@ -346,7 +346,9 @@ function try_switch_source(DerivativeParams $params, $original_mtime)
     $page['src_path'] = $candidate_path;
     $page['src_url'] = $page['root_path'] . substr($candidate_path, strlen(PHPWG_ROOT_PATH));
     $page['rotation_angle'] = 0;
+		return true;
   }
+	return false;
 }
 
 function send_derivative($expires)
@@ -515,7 +517,15 @@ else
 }
 mysql_close($pwg_db_link);
 
-try_switch_source($params, $src_mtime);
+if (!try_switch_source($params, $src_mtime) && $params->type==IMG_CUSTOM)
+{
+	$sharpen = 0;
+	foreach (ImageStdParams::get_defined_type_map() as $std_params)
+	{
+		$sharpen += $std_params->sharpen;
+	}
+	$params->sharpen = round($sharpen / count(ImageStdParams::get_defined_type_map()) );
+}
 
 if (!mkgetdir(dirname($page['derivative_path'])))
 {
