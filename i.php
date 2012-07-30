@@ -283,12 +283,34 @@ function parse_request()
 function try_switch_source(DerivativeParams $params, $original_mtime)
 {
   global $page;
+  $original_size = null;
+  if (isset($page['original_size']))
+  {
+    $original_size = $page['original_size'];
+    if ($page['rotation_angle']==90 || $page['rotation_angle']==270)
+    {
+      $tmp = $original_size[0];
+      $original_size[0] = $original_size[1];
+      $original_size[1] = $tmp;
+    }
+  }
+
+  $use_watermark = $params->use_watermark;
+  if ($use_watermark)
+  {
+    if (!isset($original_size))
+      return; // cannot really know if a watermark is required
+    $dsize = $params->compute_final_size($original_size);
+    $use_watermark = $params->will_watermark($dsize);
+    ilog($use_watermark, $dsize);
+  }
+
   $candidates = array();
   foreach(ImageStdParams::get_defined_type_map() as $candidate)
   {
     if ($candidate->type == $params->type)
       continue;
-    if ($candidate->use_watermark != $params->use_watermark)
+    if ($candidate->use_watermark != $use_watermark)
       continue;
     if ($candidate->max_width() < $params->max_width() || $candidate->max_height() < $params->max_height())
       continue;
@@ -301,9 +323,9 @@ function try_switch_source(DerivativeParams $params, $original_mtime)
     {
       if ($candidate->sizing->max_crop!=0)
         continue; // this could be optimized
-      if (!isset($page['original_size']))
+      if (!isset($original_size))
         continue;
-      $candidate_size = $candidate->compute_final_size($page['original_size']);
+      $candidate_size = $candidate->compute_final_size($original_size);
       if ($candidate_size[0] < $params->sizing->min_size[0] || $candidate_size[1] < $params->sizing->min_size[1] )
         continue;
     }
@@ -476,7 +498,6 @@ SELECT *
       {
         $page['rotation_angle'] = pwg_image::get_rotation_angle_from_code($row['rotation']);
       }
-
     }
     if (!$row)
     {
