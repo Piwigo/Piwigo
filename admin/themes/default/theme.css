@@ -42,12 +42,13 @@ UL.thumbnails li.rank-of-image {
   float: left;
   background-color: #333;
   color: #666;
-  -moz-border-radius: 5px;
+  border-radius: 5px;
   display: block;
-  width: 104px;
-  height: 104px;
+  width: 120px;
+  height: 120px;
   cursor: move;
-  margin: 10px;
+  margin: 4px;
+	overflow: hidden;
 }
 .clipwrapper {
   position:relative;
@@ -58,8 +59,7 @@ UL.thumbnails li.rank-of-image {
 .clip {
   position:absolute;
 }
-UL.thumbnails li.rank-of-image input {
-}
+
 UL.thumbnails SPAN.wrap1 {
   margin: 5px;
   display: table-cell; display: inline-table;
@@ -71,25 +71,28 @@ UL.thumbnails SPAN.wrap2 {
   margin: 0;			/* important reset the margins */
   display: table-cell;		/* block prevents vertical-align here */
   vertical-align: middle;	/* Ok with Opera and Geko not IE6 */
+	border-radius: 4px;
 }
-UL.thumbnails LABEL { display: block; border-bottom: none; }
+UL.thumbnails LABEL {
+	position: relative;
+	display: block; 
+	border-bottom: none;
+}
+
 UL.thumbnails IMG {
-  margin-bottom: -4px;  /* why ??? something wrong with Geko and Opera ignored by IE6*/
+	vertical-align: middle;
+	margin-top: 12px;
 }
-UL.thumbnails LABEL { position: relative; }
+
 UL.thumbnails INPUT {
-  position: relative;	/* <= Opera can handle relative here */
-  top: -20px;
-}
-:root UL.thumbnails INPUT { /* hide from Opera */
-  position: absolute;	/* <= Opera hide 1 checkbox over 2 !!! */
+  position: absolute;
   left: 2px; top: 2px;
 }
 UL.thumbnails .levelIndicatorB {
-display:block; position:absolute; z-index:100;padding:0px 0 0 14px; color:black; font-weight:bold; font-size:120%;
+display:block; position:absolute; z-index:100; padding:7px 0 0 2px; color:black; font-weight:bold; font-size:120%;
 }
 UL.thumbnails .levelIndicatorF {
-display:block; position:absolute; z-index:101;padding:1px 0 0 15px; color:white; font-weight:bold; font-size:120%;
+display:block; position:absolute; z-index:101; padding:8px 0 0 3px; color:white; font-weight:bold; font-size:120%;
 }
 
 /* default-layout.css */
@@ -297,7 +300,7 @@ text-align: left;
 font-size: 150%;
 font-weight: normal;
 font-style:italic;
-padding: 8px 0 0 10px;
+padding: 2px 0 0 10px;
 margin: 0;
 float:left;
 }
@@ -306,7 +309,7 @@ float:left;
 #pwgHead A {color:#ccc;}
 #pwgHead A:hover {color:#fff;border-bottom:1px solid #fff}
 
-#headActions {float:right; height:46px; line-height:46px; margin-right:10px;}
+#headActions {float:right; height:36px; line-height:36px; margin-right:10px;}
 
 A {
 	text-decoration:none;
@@ -589,7 +592,7 @@ img.ui-datepicker-trigger {
 
 #pwgHead {
   background-color:#464646;
-  height:46px;
+	height: 36px;
 }
 
 html, body {height:100%; margin:0; padding:0;}
@@ -603,11 +606,12 @@ html, body {height:100%; margin:0; padding:0;}
   position:absolute;
   bottom:0;
   width:100%;
-  height:46px;
-  background: url(images/logo.png) no-repeat 7px 8px;
-  background-color:#464646;
+	height: 34px;
+	line-height: 34px;
+	background-repeat: no-repeat;
+	background-position: 7px 2px;
+	background-color:#464646;
   color:#aaa;
-  line-height:46px;
 }
 
 #footer A {color:#ccc;}
@@ -767,17 +771,6 @@ BODY {
 
 #thePopuphelpPage #pwgHead {display:none}
 #thePopuphelpPage #footer  {display:none}
-
-/* Set some sizes according to your maximum thumbnail width and height */
-UL.thumbnails SPAN,
-UL.thumbnails SPAN.wrap2 A,
-UL.thumbnails LABEL {
-  width: 140px;      /* max thumbnail width + 2px */
-}
-UL.thumbnails SPAN.wrap2 {
-  height: 140px;    /* max thumbnail height + 2px */
-}
-
 
 .themeBox {display:inline-table; text-align:center; height:192px; background-color:#eee; margin:5px; -moz-border-radius:5px; overflow:hidden; }
 
@@ -978,7 +971,7 @@ LEGEND {
 #batchManagerGlobal ul.thumbnails div.actions a {color:#fff;}
 #batchManagerGlobal ul.thumbnails div.actions a:hover {border-color:#fff;}
 #batchManagerGlobal ul.thumbnails span.wrap1:hover div.actions {display:block;}
-#batchManagerGlobal #selectedMessage {padding:5px; -moz-border-radius:5px;-webkit-border-radius:5px;}
+#batchManagerGlobal #selectedMessage {padding:5px; border-radius:5px;}
 #batchManagerGlobal #selectSet a {border-bottom:1px dotted;}
 #batchManagerGlobal #applyOnDetails {font-style:italic;}
 #batchManagerGlobal .actionButtons {text-align:left;}

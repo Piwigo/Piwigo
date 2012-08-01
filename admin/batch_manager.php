@@ -50,7 +50,7 @@ check_input_parameter('selection', $_POST, true, PATTERN_ID);
 if (isset($_POST['submitFilter']))
 {
   // echo '<pre>'; print_r($_POST); echo '</pre>';
-
+  unset($_REQUEST['start']); // new photo set must reset the page
   $_SESSION['bulk_manager_filter'] = array();
 
   if (isset($_POST['filter_prefilter_use']))
@@ -335,16 +335,16 @@ $page['cat_elements_id'] = $current_set;
 // category. For exampe, $page['start'] = 12 means we must show elements #12
 // and $page['nb_images'] next elements
 
-if (!isset($_GET['start'])
-    or !is_numeric($_GET['start'])
-    or $_GET['start'] < 0
-    or (isset($_GET['display']) and 'all' == $_GET['display']))
+if (!isset($_REQUEST['start'])
+    or !is_numeric($_REQUEST['start'])
+    or $_REQUEST['start'] < 0
+    or (isset($_REQUEST['display']) and 'all' == $_REQUEST['display']))
 {
   $page['start'] = 0;
 }
 else
 {
-  $page['start'] = $_GET['start'];
+  $page['start'] = $_REQUEST['start'];
 }
 
 // +-----------------------------------------------------------------------+

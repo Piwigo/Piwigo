@@ -50,6 +50,7 @@ jQuery(document).ready(function() {
       $(this).click(function(event) {console.log(event.shiftKey);$(this).triggerHandler("shclick",event)});
     });
   }
+	$('ul.thumbnails').enableShiftClick();
 });
 {/literal}{/footer_script}
 
@@ -481,17 +482,7 @@ $(document).ready(function() {
   checkPermitAction()
 });
 
-jQuery(window).load(function() {
-	var max_w=0, max_h=0;
-	$(".thumbnails img").each(function () {
-		max_w = Math.max(max_w, $(this).width() );
-		max_h = Math.max(max_h, $(this).height() );
-	});
-	max_w += 10;
-	max_h += 35;
-	$("ul.thumbnails span, ul.thumbnails label").css('width', max_w+'px').css('height', max_h+'px');
-	$('ul.thumbnails').enableShiftClick();
-});
+
 {/literal}{/footer_script}
 
 <div id="batchManagerGlobal">
@@ -499,6 +490,7 @@ jQuery(window).load(function() {
 <h2>{'Batch Manager'|@translate}</h2>
 
   <form action="{$F_ACTION}" method="post">
+	<input type="hidden" name="start" value="{$START}">
 
   <fieldset>
     <legend>{'Filter'|@translate}</legend>
@@ -510,7 +502,7 @@ jQuery(window).load(function() {
         {'Predefined filter'|@translate}
         <select name="filter_prefilter">
           {foreach from=$prefilters item=prefilter}
-          <option value="{$prefilter.ID}" {if $filter.prefilter eq $prefilter.ID}selected="selected"{/if}>{$prefilter.NAME}</option>
+          <option value="{$prefilter.ID}" {if isset($filter.prefilter) && $filter.prefilter eq $prefilter.ID}selected="selected"{/if}>{$prefilter.NAME}</option>
           {/foreach}
         </select>
       </li>
@@ -528,9 +520,9 @@ jQuery(window).load(function() {
         <input type="checkbox" name="filter_tags_use" class="useFilterCheckbox" {if isset($filter.tags)}checked="checked"{/if}>
         {'Tags'|@translate}
         <select id="tagsFilter" name="filter_tags">
-          {foreach from=$filter_tags item=tag}
+          {if isset($filter_tags)}{foreach from=$filter_tags item=tag}
           <option value="{$tag.id}">{$tag.name}</option>
-          {/foreach}
+          {/foreach}{/if}
         </select>
         <label><span><input type="radio" name="tag_mode" value="AND" {if !isset($filter.tag_mode) or $filter.tag_mode eq 'AND'}checked="checked"{/if}> {'All tags'|@translate}</span></label>
         <label><span><input type="radio" name="tag_mode" value="OR" {if isset($filter.tag_mode) and $filter.tag_mode eq 'OR'}checked="checked"{/if}> {'Any tag'|@translate}</span></label>
@@ -546,7 +538,7 @@ jQuery(window).load(function() {
       </li>
     </ul>
 
-    <p class="actionButtons" style="">
+    <p class="actionButtons">
       <select id="addFilter">
         <option value="-1">{'Add a filter'|@translate}</option>
         <option disabled="disabled">------------------</option>
@@ -586,32 +578,34 @@ jQuery(window).load(function() {
     <input type="checkbox" name="setSelected" style="display:none" {if count($selection) == $nb_thumbs_set}checked="checked"{/if}>
   </p>
 
-    <ul class="thumbnails">
-			{foreach from=$thumbnails item=thumbnail}
-				{if in_array($thumbnail.ID, $selection)}
-					{assign var='isSelected' value=true}
-				{else}
-					{assign var='isSelected' value=false}
-				{/if}
-			<li>
-				<span class="wrap1">
-					<label>
-						<span class="wrap2{if $isSelected} thumbSelected{/if}">
-						<div class="actions"><a href="{$thumbnail.FILE_SRC}" class="preview-box">{'Zoom'|@translate}</a> &middot; <a href="{$thumbnail.U_EDIT}" target="_blank">{'Edit'|@translate}</a></div>
-							{if $thumbnail.LEVEL > 0}
-							<em class="levelIndicatorB">{$pwg->l10n($pwg->sprintf('Level %d',$thumbnail.LEVEL))}</em>
-							<em class="levelIndicatorF" title="{'Who can see these photos?'|@translate} : ">{$pwg->l10n($pwg->sprintf('Level %d',$thumbnail.LEVEL))}</em>
-							{/if}
-							<span>
-								<img src="{$thumbnail.TN_SRC}" alt="{$thumbnail.FILE}" title="{$thumbnail.TITLE|@escape:'html'}" class="thumbnail">
-							</span>
-						</span>
-						<input type="checkbox" name="selection[]" value="{$thumbnail.ID}" {if $isSelected}checked="checked"{/if}>
-					</label>
-				</span>
-			</li>
-      {/foreach}
-    </ul>
+	<ul class="thumbnails">
+		{html_style}
+UL.thumbnails SPAN.wrap2{ldelim}
+  width: {$thumb_params->max_width()+2}px;
+}
+UL.thumbnails SPAN.wrap2 {ldelim}
+  height: {$thumb_params->max_height()+25}px;
+}
+		{/html_style}
+		{foreach from=$thumbnails item=thumbnail}
+		{assign var='isSelected' value=$thumbnail.id|@in_array:$selection}
+		<li>
+			<span class="wrap1">
+				<label>
+					<input type="checkbox" name="selection[]" value="{$thumbnail.id}" {if $isSelected}checked="checked"{/if}>
+					<span class="wrap2{if $isSelected} thumbSelected{/if}">
+					<div class="actions"><a href="{$thumbnail.FILE_SRC}" class="preview-box">{'Zoom'|@translate}</a> &middot; <a href="{$thumbnail.U_EDIT}" target="_blank">{'Edit'|@translate}</a></div>
+						{if $thumbnail.level > 0}
+						<em class="levelIndicatorB">{$pwg->l10n($pwg->sprintf('Level %d',$thumbnail.level))}</em>
+						<em class="levelIndicatorF" title="{'Who can see these photos?'|@translate} : ">{$pwg->l10n($pwg->sprintf('Level %d',$thumbnail.level))}</em>
+						{/if}
+						<img src="{$thumbnail.thumb->get_url()}" alt="{$thumbnail.file}" title="{$thumbnail.TITLE|@escape:'html'}" {$thumbnail.thumb->get_size_htm()}>
+					</span>
+				</label>
+			</span>
+		</li>
+		{/foreach}
+	</ul>
 
   {if !empty($navbar) }
   <div style="clear:both;">
@@ -713,7 +707,7 @@ jQuery(window).load(function() {
 
     <!-- del_tags -->
     <div id="action_del_tags" class="bulkAction">
-{$DEL_TAG_SELECTION}
+{if !empty($DEL_TAG_SELECTION)}{$DEL_TAG_SELECTION}{/if}
     </div>
 
     <!-- author -->

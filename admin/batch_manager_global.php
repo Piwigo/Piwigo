@@ -472,8 +472,9 @@ $template->assign(
     'filter' => $_SESSION['bulk_manager_filter'],
     'selection' => $collection,
     'all_elements' => $page['cat_elements_id'],
+    'START' => $page['start'],
     'U_DISPLAY'=>$base_url.get_query_string_diff(array('display')),
-    'F_ACTION'=>$base_url.get_query_string_diff(array('cat')),
+    'F_ACTION'=>$base_url.get_query_string_diff(array('cat','start')),
    )
  );
 
@@ -732,7 +733,6 @@ if (count($page['cat_elements_id']) > 0)
     $conf['order_by'] = ' ORDER BY file, id';
   }
 
-
   $query = '
 SELECT id,path,representative_ext,file,filesize,level,name,width,height,rotation
   FROM '.IMAGES_TABLE;
@@ -766,31 +766,30 @@ SELECT id,path,representative_ext,file,filesize,level,name,width,height,rotation
 ;';
   $result = pwg_query($query);
 
+  $thumb_params = ImageStdParams::get_by_type(IMG_THUMB);
   // template thumbnail initialization
   while ($row = pwg_db_fetch_assoc($result))
   {
     $nb_thumbs_page++;
     $src_image = new SrcImage($row);
 
-    $title = render_element_name($row);
-    if ($title != get_name_from_file($row['file']))
+    $ttitle = render_element_name($row);
+    if ($ttitle != get_name_from_file($row['file']))
     {
-      $title.= ' ('.$row['file'].')';
+      $ttitle.= ' ('.$row['file'].')';
     }
 
     $template->append(
-      'thumbnails',
+      'thumbnails', array_merge($row,
       array(
-        'ID' => $row['id'],
-        'TN_SRC' => DerivativeImage::url(IMG_THUMB, $src_image),
-        'FILE' => $row['file'],
-        'TITLE' => $title,
-        'LEVEL' => $row['level'],
+        'thumb' => new DerivativeImage($thumb_params, $src_image),
+        'TITLE' => $ttitle,
         'FILE_SRC' => DerivativeImage::url(IMG_LARGE, $src_image),
         'U_EDIT' => get_root_url().'admin.php?page=photo-'.$row['id'],
         )
-      );
+      ));
   }
+  $template->assign('thumb_params', $thumb_params);
 }
 
 $template->assign(
