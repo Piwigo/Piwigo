@@ -228,6 +228,15 @@ if (count($errors) == 0)
     }
   }
 
+  foreach( array_keys(ImageStdParams::$custom) as $custom)
+  {
+    if (isset($_POST['delete_custom_derivative_'.$custom]))
+    {
+      $changed_types[] = $custom;
+      unset(ImageStdParams::$custom[$custom]);
+    }
+  }
+
   ImageStdParams::set_and_save($enabled_by);
   if (count($disabled) == 0)
   {

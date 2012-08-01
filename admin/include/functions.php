@@ -1569,7 +1569,7 @@ function move_images_to_categories($images, $categories)
   {
     return false;
   }
-  
+
   // let's first break links with all albums but their "storage album"
   $query = '
 DELETE '.IMAGE_CATEGORY_TABLE.'.*
@@ -1579,7 +1579,7 @@ DELETE '.IMAGE_CATEGORY_TABLE.'.*
     AND (storage_category_id IS NULL OR storage_category_id != category_id)
 ;';
   pwg_query($query);
-    
+
   if (is_array($categories) and count($categories) > 0)
   {
     associate_images_to_categories($images, $categories);
@@ -2276,8 +2276,7 @@ SELECT
 /** delete all derivative files for one or several types */
 function clear_derivative_cache($types='all')
 {
-  $pattern='#.*-';
-  if ($types == 'all')
+  if ($types === 'all')
   {
     $types = ImageStdParams::get_all_types();
     $types[] = IMG_CUSTOM;
@@ -2287,21 +2286,35 @@ function clear_derivative_cache($types='all')
     $types = array($types);
   }
 
+  for ($i=0; $i<count($types); $i++)
+  {
+    $type = $types[$i];
+    if ($type == IMG_CUSTOM)
+    {
+      $type = derivative_to_url($type).'[a-zA-Z0-9]+';
+    }
+    elseif (in_array($type, ImageStdParams::get_all_types()))
+    {
+      $type = derivative_to_url($type);
+    }
+    else
+    {//assume a custom type
+      $type = derivative_to_url(IMG_CUSTOM).'_'.$type;
+    }
+    $types[$i] = $type;
+  }
+
+  $pattern='#.*-';
   if (count($types)>1)
   {
-    $type_urls = array();
-    foreach($types as $dtype)
-    {
-      $type_urls[] = derivative_to_url($dtype);
-    }
-    $pattern .= '(' . implode('|',$type_urls) . ')';
+    $pattern .= '(' . implode('|',$types) . ')';
   }
   else
   {
-    $pattern .= derivative_to_url($types[0]);
+    $pattern .= $types[0];
   }
+  $pattern.='\.[a-zA-Z0-9]{3,4}$#';
 
-  $pattern.='(_[a-zA-Z0-9]+)*\.[a-zA-Z0-9]{3,4}$#';
   if ($contents = @opendir(PHPWG_ROOT_PATH.PWG_DERIVATIVE_DIR))
   {
     while (($node = readdir($contents)) !== false)

@@ -48,10 +48,10 @@ if (isset($_FILES['watermarkImage']) and !empty($_FILES['watermarkImage']['tmp_n
     prepare_directory($upload_dir);
 
     $new_name = get_filename_wo_extension($_FILES['watermarkImage']['name']).'.png';
-    $file_path = $upload_dir.'/'.$new_name; 
-  
+    $file_path = $upload_dir.'/'.$new_name;
+
     move_uploaded_file($_FILES['watermarkImage']['tmp_name'], $file_path);
-    
+
     $pwatermark['file'] = substr($file_path, strlen(PHPWG_ROOT_PATH));
   }
 }
@@ -134,14 +134,25 @@ if (count($errors) == 0)
 
   // do we have to regenerate the derivatives (and which types)?
   $changed_types = array();
-  
+
   foreach (ImageStdParams::get_defined_type_map() as $type => $params)
   {
     $old_use_watermark = $params->use_watermark;
     ImageStdParams::apply_global($params);
 
-    if ($params->use_watermark != $old_use_watermark
-        or $params->use_watermark and $watermark_changed)
+    $changed = $params->use_watermark != $old_use_watermark;
+    if (!$changed and $params->use_watermark)
+    {
+      $changed = $watermark_changed;
+    }
+    if (!$changed and $params->use_watermark)
+    {
+      // if thresholds change and before/after the threshold is lower than the corresponding derivative side -> some derivatives might switch the watermark
+      $changed |= $watermark->min_size[0]!=$old_watermark->min_size[0] and ($watermark->min_size[0]<$params->max_width() or $old_watermark->min_size[0]<$params->max_width());
+      $changed |= $watermark->min_size[1]!=$old_watermark->min_size[1] and ($watermark->min_size[1]<$params->max_height() or $old_watermark->min_size[1]<$params->max_height());
+    }
+
+    if ($changed)
     {
       $params->last_mod_time = time();
       $changed_types[] = $type;

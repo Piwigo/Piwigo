@@ -454,6 +454,15 @@ jQuery(document).ready(function(){
 <p style="margin:10px 0 0 0;{if isset($ferrors)} display:block;{/if}" class="sizeDetails">
   <a href="{$F_ACTION}&action=restore_settings" onclick="return confirm('{'Are you sure?'|@translate|@escape:javascript}');">{'Reset to default values'|@translate}</a>
 </p>
+
+{if !empty($custom_derivatives)}
+<fieldset class="sizeDetails"><legend>{'custom'|@translate}</legend><table style="margin:0">
+{foreach from=$custom_derivatives item=time key=custom}
+<tr><td><label><input type="checkbox" name="delete_custom_derivative_{$custom}"> {'Delete'|@translate} {$custom} ({'Last hit'|@translate}: {$time})</label></td></tr>
+{/foreach}
+</table></fieldset>
+{/if}
+
 </fieldset>
 {/if}
 
