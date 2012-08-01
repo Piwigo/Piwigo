@@ -18,7 +18,7 @@
 <div class="imageNumber">{$PHOTO}</div>
 {include file='picture_nav_buttons.tpl'|@get_extent:'picture_nav_buttons'}
 <div class="actionButtons">
-{if count($current.unique_derivatives)>1}
+{if isset($current.unique_derivatives) && count($current.unique_derivatives)>1}
 {footer_script require='jquery'}{literal}
 function changeImgSrc(url,typeSave,typeMap)
 {

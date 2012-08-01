@@ -106,7 +106,7 @@ $display_info_checkboxes = array(
     'rating_score',
     'privacy_level',
   );
-  
+
 // image order management
 $sort_fields = array(
   ''                    => '',
@@ -126,7 +126,7 @@ $sort_fields = array(
   'id DESC'             => l10n('Numeric identifier, 9 &rarr; 1'),
   'rank ASC'            => l10n('Manual sort order'),
   );
-  
+
 $comments_order = array(
   'ASC' => l10n('Show oldest comments first'),
   'DESC' => l10n('Show latest comments first'),
@@ -141,7 +141,7 @@ if (isset($_POST['submit']))
   switch ($page['section'])
   {
     case 'main' :
-    {      
+    {
       if ( !isset($conf['order_by_custom']) and !isset($conf['order_by_inside_category_custom']) )
       {
         if ( !empty($_POST['order_by']) )
@@ -158,19 +158,19 @@ if (isset($_POST['submit']))
           {
             // limit to the number of available parameters
             $order_by = $order_by_inside_category = array_slice($_POST['order_by'], 0, ceil(count($sort_fields)/2));
-            
+
             // there is no rank outside categories
             if ( ($i = array_search('rank ASC', $order_by)) !== false)
             {
               unset($order_by[$i]);
             }
-            
+
             // must define a default order_by if user want to order by rank only
             if ( count($order_by) == 0 )
             {
               $order_by = array('id ASC');
             }
-            
+
             $_POST['order_by'] = 'ORDER BY '.implode(', ', $order_by);
             $_POST['order_by_inside_category'] = 'ORDER BY '.implode(', ', $order_by_inside_category);
           }
@@ -180,7 +180,7 @@ if (isset($_POST['submit']))
           array_push($page['errors'], l10n('No order field selected'));
         }
       }
-      
+
       foreach( $main_checkboxes as $checkbox)
       {
         $_POST[$checkbox] = empty($_POST[$checkbox])?'false':'true';
@@ -189,12 +189,12 @@ if (isset($_POST['submit']))
     }
     case 'watermark' :
     {
-      include(PHPWG_ROOT_PATH.'admin/include/configuration_watermark_process.inc.php');        
+      include(PHPWG_ROOT_PATH.'admin/include/configuration_watermark_process.inc.php');
       break;
     }
     case 'sizes' :
     {
-      include(PHPWG_ROOT_PATH.'admin/include/configuration_sizes_process.inc.php');        
+      include(PHPWG_ROOT_PATH.'admin/include/configuration_sizes_process.inc.php');
       break;
     }
     case 'comments' :
@@ -302,8 +302,8 @@ $template->assign(
 switch ($page['section'])
 {
   case 'main' :
-  {   
-    
+  {
+
     function order_by_is_local()
     {
       @include(PHPWG_ROOT_PATH. 'local/config/config.inc.php');
@@ -311,15 +311,15 @@ switch ($page['section'])
       {
         @include(PHPWG_ROOT_PATH.PWG_LOCAL_DIR. 'config/config.inc.php');
       }
-      
+
       return isset($conf['order_by']) or isset($conf['order_by_inside_category']);
     }
-    
+
     if (order_by_is_local())
     {
       array_push($page['warnings'], l10n('You have specified <i>$conf[\'order_by\']</i> in your local configuration file, this parameter in deprecated, please remove it or rename it into <i>$conf[\'order_by_custom\']</i> !'));
     }
-    
+
     if ( isset($conf['order_by_custom']) or isset($conf['order_by_inside_category_custom']) )
     {
       $order_by = array('');
@@ -332,7 +332,7 @@ switch ($page['section'])
       $order_by = str_replace('ORDER BY ', null, $order_by);
       $order_by = explode(', ', $order_by);
     }
-  
+
     $template->assign(
       'main',
       array(
@@ -440,7 +440,7 @@ switch ($page['section'])
           'original_resize_quality' => $conf['original_resize_quality'],
           )
         );
-      
+
       foreach ($sizes_checkboxes as $checkbox)
       {
         $template->append(
@@ -451,7 +451,7 @@ switch ($page['section'])
           true
           );
       }
-      
+
       // derivatives = multiple size
       $enabled = ImageStdParams::get_defined_type_map();
       $disabled = @unserialize(@$conf['disabled_derivatives']);
@@ -464,10 +464,10 @@ switch ($page['section'])
       foreach(ImageStdParams::get_all_types() as $type)
       {
         $tpl_var = array();
-        
+
         $tpl_var['must_square'] = ($type==IMG_SQUARE ? true : false);
         $tpl_var['must_enable'] = ($type==IMG_SQUARE || $type==IMG_THUMB)? true : false;
-        
+
         if ($params = @$enabled[$type])
         {
           $tpl_var['enabled'] = true;
@@ -477,7 +477,7 @@ switch ($page['section'])
           $tpl_var['enabled']=false;
           $params=@$disabled[$type];
         }
-        
+
         if ($params)
         {
           list($tpl_var['w'],$tpl_var['h']) = $params->sizing->ideal_size;
@@ -495,6 +495,14 @@ switch ($page['section'])
       }
       $template->assign('derivatives', $tpl_vars);
       $template->assign('resize_quality', ImageStdParams::$quality);
+
+      $tpl_vars = array();
+      $now = time();
+      foreach(ImageStdParams::$custom as $custom=>$time)
+      {
+        $tpl_vars[$custom] = ($now-$time<=24*3600) ? l10n('today') : time_since($time, 'day');
+      }
+      $template->assign('custom_derivatives', $tpl_vars);
     }
 
     break;
@@ -546,12 +554,12 @@ switch ($page['section'])
       {
         $position = 'bottomright';
       }
-      
+
       if ($wm->xrepeat != 0)
       {
         $position = 'custom';
       }
-    
+
       $template->assign(
         'watermark',
         array(
@@ -566,7 +574,7 @@ switch ($page['section'])
           )
         );
     }
-    
+
     break;
   }
 }
