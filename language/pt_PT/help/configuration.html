@@ -46,6 +46,54 @@ class="filename">include/config_default.inc.php</span>.</p>
 
 </ul>
 
+<h3> Comentários </h3>
+<ul>
 
+  <li><strong>Comentários para todos</strong>: Os utilizadores não registados também podem deixar comentários.</li>
 
+  <li><strong> Numero de comentários por página </strong>.</li>
+
+  <li><strong>Validação</strong>: Um administrador deve validar os comentários dos utilizadores antes que possam ser visíveis na parte publica. A validação dos comentários faz-se no ecrã  <span class="pwgScreen"> Administração &raquo; Ferramentas &raquo; Comentários pendentes</span>.</li>
+
+  <li><strong>Notificar os administradores quando alguém deixar um comentário</strong>: Mandar um email aos administradores quando um utilizador deixar um comentário e que este comentário estar validado.</li>
+
+  <li><strong>Notificar os administradores quando um comentário necessitar uma validação </strong>:
+Mandar um email aos administradores quando um utilizador deixar um comentário necessitando uma validação.
+A validação dos comentários faz-se no ecrã  <span class="pwgScreen"> Administração &raquo; Ferramentas &raquo; Comentários pendentes</span>./li>
+
+</ul>
+
+<h3>Afixagem por defeito</h3>
+
+<p>Modificar as opções de afixação por defeito para os visitantes não conectados. Quando estar conectado estas opções são suplantadas para as dos utilizadores. (Alterável no <span class="pwgScreen">perfil</span>).</p>
+
+<p>E possível modificar estas opçoes para todos os utilizadores existentes no ecrã <span class="pwgScreen"> Administração &raquo;
+Utilizadores &raquo; Gerir</span> no qual pode modificar estas opções para uma lista de utilizadores.</p>
+
+<ul>
+
+  <li><strong>Língua</strong>: Aplica-se unicamente aos títulos Piwigo. Os nomes dos álbuns, os nomes das fotos e as descrições não são localizadas.</li>
+
+  <li><strong>Numero de miniaturas por linha</strong></li>
+
+  <li><strong>Numero de linhas par página</strong></li>
+
+  <li><strong>Tema da interface</strong></li>
+
+  <li><strong>Período recente</strong>: Em dias. Período durante o qual uma foto é considerara como nova. Este período deve ser superior à um dia.</li>
+
+ <li><strong>Expand all albums</strong>: Expand all albums by
+  default in the menu <em>Warning</em>: this option is resources intensive and may generate a huge menu if your album tree contains many albums.</li>
+
+  <li><strong>Show number of comments</strong>: Show the number of comments for each photo on the thumbnails page. Resource intensive.</li>
+
+  <li><strong>Show hits count</strong>: Display hits observed on photo just under its thumbnail on the thumbnails page. Only when advanced configuration parameter is: <br>
+  $conf['show_nb_hits'] = true; <br>
+  Notice: false by default.</li>
+
+  <li><strong>Maximum width of the photos</strong>: maximum displayed width.  Photos larger than this setting will be resized on display.  Rather than choosing this option, you might consider modifying the width of your photos; that would be a better practice.</li>
+
+  <li><strong>Maximum height of the photos</strong>: Same as for the maximum width setting.</li>
+
+</ul>
 
