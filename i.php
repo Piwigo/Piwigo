@@ -190,6 +190,7 @@ function parse_request()
     {
       $req = substr($req, 0, $pos);
     }
+    $req = rawurldecode($req);
     /*foreach (array_keys($_GET) as $keynum => $key)
     {
       $req = $key;
