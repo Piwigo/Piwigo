@@ -48,6 +48,7 @@ if ( $page['show_comments'] and isset( $_POST['content'] ) )
   $comm = array(
     'author' => trim( @$_POST['author'] ),
     'content' => trim( $_POST['content'] ),
+    'website_url' => trim( $_POST['website_url'] ),
     'image_id' => $page['image_id'],
    );
 
@@ -145,6 +146,7 @@ SELECT
     '.$conf['user_fields']['username'].' AS username,
     date,
     image_id,
+    website_url,
     content,
     validated
   FROM '.COMMENTS_TABLE.' AS com
@@ -178,6 +180,7 @@ SELECT
           'AUTHOR' => trigger_event('render_comment_author', $author),
           'DATE' => format_date($row['date'], true),
           'CONTENT' => trigger_event('render_comment_content',$row['content']),
+          'WEBSITE_URL' => $row['website_url'],
         );
 
       if (can_manage_comment('delete', $row['author_id']))
@@ -241,11 +244,12 @@ SELECT
   if ($show_add_comment_form)
   {
     $key = get_ephemeral_key(3, $page['image_id']);
-    $content = $author = '';
+    $content = $author = $website_url = '';
     if ('reject'===@$comment_action)
     {
       $content = htmlspecialchars( stripslashes($comm['content']) );
       $author = htmlspecialchars( stripslashes($comm['author']) );
+      $website_url = htmlspecialchars( stripslashes($comm['website_url']) );
     }
     $template->assign('comment_add',
         array(
@@ -254,6 +258,7 @@ SELECT
           'CONTENT' => $content,
           'SHOW_AUTHOR' => !is_classic_user(),
           'AUTHOR' => $author ,
+          'WEBSITE_URL' => $website_url, 
         ));
   }
 }

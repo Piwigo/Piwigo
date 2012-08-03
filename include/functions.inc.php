@@ -1692,4 +1692,20 @@ function mobile_theme()
 
   return $is_mobile_theme;
 }
+
+/**
+ * check url format
+ */
+function url_check_format($url)
+{
+  if (version_compare(PHP_VERSION, '5.2.0') >= 0)
+  {
+    return filter_var($url, FILTER_VALIDATE_URL, FILTER_FLAG_SCHEME_REQUIRED | FILTER_FLAG_HOST_REQUIRED)!==false;
+  }
+  else
+  {
+    // http://mathiasbynens.be/demo/url-regex @imme_emosol
+    return (bool)preg_match('@^https?://(-\.)?([^\s/?\.#-]+\.?)+(/[^\s]*)?$@iS', $url);
+  }
+}
 ?>

@@ -127,6 +127,17 @@ SELECT COUNT(*) AS user_exists
     $_POST['cr'][] = 'key'; // rvelices: I use this outside to see how spam robots work
   }
   
+  // website
+  if ( !empty($comm['website_url']) and !preg_match('/^https?/i', $comm['website_url']) )
+  {
+    $comm['website_url'] = 'http://'.$comm['website_url'];
+  }
+  if ( !empty($comm['website_url']) and !url_check_format($comm['website_url']) )
+  {
+    array_push($infos, l10n('Your website URL is invalid'));
+    $comment_action='reject';
+  }
+  
   // anonymous id = ip address
   $ip_components = explode('.', $comm['ip']);
   if (count($ip_components) > 3)
@@ -168,7 +179,7 @@ SELECT count(1) FROM '.COMMENTS_TABLE.'
   {
     $query = '
 INSERT INTO '.COMMENTS_TABLE.'
-  (author, author_id, anonymous_id, content, date, validated, validation_date, image_id)
+  (author, author_id, anonymous_id, content, date, validated, validation_date, image_id, website_url)
   VALUES (
     \''.$comm['author'].'\',
     '.$comm['author_id'].',
@@ -177,7 +188,8 @@ INSERT INTO '.COMMENTS_TABLE.'
     NOW(),
     \''.($comment_action=='validate' ? 'true':'false').'\',
     '.($comment_action=='validate' ? 'NOW()':'NULL').',
-    '.$comm['image_id'].'
+    '.$comm['image_id'].',
+    '.(!empty($comm['website_url']) ? '\''.$comm['website_url'].'\'' : 'NULL').'
   )
 ';
 

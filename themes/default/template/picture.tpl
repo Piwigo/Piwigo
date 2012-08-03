@@ -349,8 +349,10 @@ function togglePrivacyLevelBox()
 				{if $comment_add.SHOW_AUTHOR}
 					<p><label for="author">{'Author'|@translate} :</label></p>
 					<p><input type="text" name="author" id="author" value="{$comment_add.AUTHOR}"></p>
-					<p><label for="contentid">{'Comment'|@translate} :</label></p>
 				{/if}
+        <p><label for="website_url">{'Website'|@translate} :</label></p>
+			  <p><input type="text" name="website_url" id="website_url" value="{$comment_add.WEBSITE_URL}"></p>
+			  <p><label for="contentid">{'Comment'|@translate} :</label></p>
 				<p><textarea name="content" id="contentid" rows="5" cols="50">{$comment_add.CONTENT}</textarea></p>
 				<p><input type="hidden" name="key" value="{$comment_add.KEY}">
 					<input type="submit" value="{'Submit'|@translate}"></p>
