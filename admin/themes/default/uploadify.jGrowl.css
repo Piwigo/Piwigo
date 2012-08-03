@@ -8,13 +8,16 @@ Co-developed by Travis Nickels
 
 /** Uploadify Styling here Styling **/
 div.jGrowl div.success {
-	background: url(images/Check.png) no-repeat 6px 6px;
+	background: url(images/jgrowl-check.png) no-repeat 6px 6px;
 }
 div.jGrowl div.error {
-	background: url(images/Error.png) no-repeat 6px 6px;
+	background: url(images/jgrowl-error.png) no-repeat 6px center;
 }
 div.jGrowl div.warning {
-	background: url(images/Alert.png) no-repeat 6px 6px;
+	background: url(images/jgrowl-alert.png) no-repeat 6px 6px;
+}
+div.jGrowl div.warning:before {
+  content:none;
 }
 
 div.jGrowl div.jGrowl-notification, div.jGrowl div.jGrowl-closer {
@@ -66,11 +69,11 @@ div.jGrowl div.jGrowl-closer {
 div.jGrowl div.jGrowl-notification div.header {
 	font-weight: 	bold;
 	font-size:		14px;
-	margin-left: 	60px;
+	margin-left: 	47px;
 }
 div.jGrowl div.jGrowl-notification div.message {
 	font-size:		12px;
-	margin-left: 	60px;
+	margin-left: 	47px;
 }
 div.jGrowl div.jGrowl-notification p {
 	font-size:		6px;
