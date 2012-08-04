@@ -43,6 +43,7 @@ else
 
 $tabsheet = new tabsheet();
 $tabsheet->set_id('help');
+$tabsheet->select($selected);
 $tabsheet->assign();
 
 $template->set_filenames(array('help' => 'help.tpl'));
