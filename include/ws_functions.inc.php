@@ -150,8 +150,15 @@ function ws_std_get_urls($image_row)
 
   $src_image = new SrcImage($image_row);
 
-  global $user;
-  if ($user['enabled_high'])
+  if ( $src_image->is_original() )
+  {// we have a photo
+    global $user;
+    if ($user['enabled_high'])
+    {
+      $ret['element_url'] = $src_image->get_url();
+    }
+  }
+  else
   {
     $ret['element_url'] = get_element_url($image_row);
   }
@@ -389,7 +396,6 @@ SELECT id
  */
 function ws_categories_getImages($params, &$service)
 {
-  @include_once(PHPWG_ROOT_PATH.'include/functions_picture.inc.php');
   global $user, $conf;
 
   $images = array();
@@ -1026,7 +1032,6 @@ SELECT DISTINCT image_id
  */
 function ws_images_getInfo($params, &$service)
 {
-  @include_once(PHPWG_ROOT_PATH.'include/functions_picture.inc.php');
   global $user, $conf;
   $params['image_id'] = (int)$params['image_id'];
   if ( $params['image_id']<=0 )
@@ -1252,7 +1257,6 @@ function ws_images_search($params, &$service)
   global $page;
   $images = array();
   include_once( PHPWG_ROOT_PATH .'include/functions_search.inc.php' );
-  include_once(PHPWG_ROOT_PATH.'include/functions_picture.inc.php');
 
   $where_clauses = ws_std_image_sql_filter( $params, 'i.' );
   $order_by = ws_std_image_sql_order($params, 'i.');
@@ -2171,7 +2175,6 @@ function ws_tags_getAdminList($params, &$service)
  */
 function ws_tags_getImages($params, &$service)
 {
-  @include_once(PHPWG_ROOT_PATH.'include/functions_picture.inc.php');
   global $conf;
 
   // first build all the tag_ids we are interested in
