@@ -267,10 +267,10 @@ jQuery(document).ready(function () {
 {if isset($sizes)}
 
 {footer_script}
-var labelMaxWidth = "{'Maximum Width'|@translate}";
+var labelMaxWidth = "{'Maximum width'|@translate}";
 var labelWidth = "{'Width'|@translate}";
 
-var labelMaxHeight = "{'Maximum Height'|@translate}";
+var labelMaxHeight = "{'Maximum height'|@translate}";
 var labelHeight = "{'Height'|@translate}";
 {literal}
 jQuery(document).ready(function(){
@@ -341,14 +341,14 @@ jQuery(document).ready(function(){
 
   <table id="sizeEdit-original">
     <tr>
-      <th>{'Maximum Width'|@translate}</th>
+      <th>{'Maximum width'|@translate}</th>
       <td>
         <input type="text" name="original_resize_maxwidth" value="{$sizes.original_resize_maxwidth}" size="4" maxlength="4"{if isset($ferrors.original_resize_maxwidth)} class="dError"{/if}> {'pixels'|@translate}
         {if isset($ferrors.original_resize_maxwidth)}<span class="dErrorDesc" title="{$ferrors.original_resize_maxwidth}">!</span>{/if}
       </td>
     </tr>
     <tr>
-      <th>{'Maximum Height'|@translate}</th>
+      <th>{'Maximum height'|@translate}</th>
       <td>
         <input type="text" name="original_resize_maxheight" value="{$sizes.original_resize_maxheight}" size="4" maxlength="4"{if isset($ferrors.original_resize_maxheight)} class="dError"{/if}> {'pixels'|@translate}
         {if isset($ferrors.original_resize_maxheight)}<span class="dErrorDesc" title="{$ferrors.original_resize_maxheight}">!</span>{/if}
@@ -414,7 +414,7 @@ jQuery(document).ready(function(){
   {/if}
 
         <tr>
-          <td class="sizeEditWidth">{if $d.must_square or $d.crop}{'Width'|@translate}{else}{'Maximum Width'|@translate}{/if}</td>
+          <td class="sizeEditWidth">{if $d.must_square or $d.crop}{'Width'|@translate}{else}{'Maximum width'|@translate}{/if}</td>
           <td>
             <input type="text" name="d[{$type}][w]" maxlength="4" size="4" value="{$d.w}"{if isset($ferrors.$type.w)} class="dError"{/if}>
             {'pixels'|@translate}
@@ -424,7 +424,7 @@ jQuery(document).ready(function(){
 
   {if !$d.must_square}
         <tr>
-          <td class="sizeEditHeight">{if $d.crop}{'Height'|@translate}{else}{'Maximum Height'|@translate}{/if}</td>
+          <td class="sizeEditHeight">{if $d.crop}{'Height'|@translate}{else}{'Maximum height'|@translate}{/if}</td>
           <td>
             <input type="text" name="d[{$type}][h]" maxlength="4" size="4"  value="{$d.h}"{if isset($ferrors.$type.h)} class="dError"{/if}>
             {'pixels'|@translate}

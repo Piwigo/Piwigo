@@ -112,8 +112,8 @@ var selectedMessage_all = "{'All %d photos are selected'|@translate}";
 
 var width_str = '{'Width'|@translate}';
 var height_str = '{'Height'|@translate}';
-var max_width_str = '{'Maximum Width'|@translate}';
-var max_height_str = '{'Maximum Height'|@translate}';
+var max_width_str = '{'Maximum width'|@translate}';
+var max_height_str = '{'Maximum height'|@translate}';
 {literal}
 function str_repeat(i, m) {
         for (var o = []; m > 0; o[--m] = i);

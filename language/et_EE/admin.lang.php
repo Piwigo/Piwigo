@@ -429,8 +429,8 @@ $lang['Manage this set of %d photos'] = 'Halda seda %d foto kogu';
 $lang['Manage'] = 'Halda';
 $lang['Manual order'] = 'Käsijärjestus
 ';
-$lang['Maximum Height'] = 'Maksimum kõrgus';
-$lang['Maximum Width'] = 'Maksimum laius';
+$lang['Maximum height'] = 'Maksimum kõrgus';
+$lang['Maximum width'] = 'Maksimum laius';
 $lang['Maximum file size: %sB.'] = 'Maksimum faili suurus: %sB.';
 $lang['Members'] = 'Liikmed';
 $lang['Menu Management'] = 'Menüüd';
