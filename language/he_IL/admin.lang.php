@@ -818,4 +818,5 @@ $lang['Apply watermark if width is bigger than'] = 'החל חותמת מים(wat
 $lang['Automatic sort order'] = 'סדר אוטומטי';
 $lang['Available on'] = 'זמין ב';
 $lang['Available versions for'] = 'גרסאות זמינות ל';
+$lang['%d physicals'] = ' %d פיזית';
 ?>
