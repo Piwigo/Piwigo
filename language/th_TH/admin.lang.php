@@ -919,4 +919,6 @@ $lang['With no album'] = 'กับที่ไม่มีอัลบั้ม
 $lang['With no tag'] = 'กับที่ไม่มีป้ายชื่อ';
 $lang['With no virtual album'] = 'กับที่ไม่มีอัลบั้ม';
 $lang['X Position'] = 'ตำแหน่ง X';
+$lang['Aperture is a powerful tool to refine images and manage massive libraries on Mac.'] = 'เครื่องมือที่มีประสิทธิภาพเพื่อปรับแต่งภาพและการบริหารจัดการไลบรารีขนาดใหญ่บน Mac';
+$lang['Aperture is designed for professional photographers with iPhoto simplicity.'] = 'เครื่องมือถูกออกแบบมาสำหรับช่างภาพมืออาชีพด้วยความเรียบง่าย iPhoto';
 ?>
