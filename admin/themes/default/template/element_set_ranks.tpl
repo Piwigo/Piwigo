@@ -29,7 +29,7 @@ jQuery(document).ready(function() {
   checkOrderOptions();
 });
 jQuery(document).ready(function() {
-jQuery('.clipwrapper').tipTip({
+jQuery('.thumbnail').tipTip({
 'delay' : 0,
 'fadeIn' : 200,
 'fadeOut' : 200
@@ -51,7 +51,7 @@ jQuery('.clipwrapper').tipTip({
     <ul class="thumbnails">
       {foreach from=$thumbnails item=thumbnail}
       <li class="rank-of-image">
-        <img src="{$thumbnail.TN_SRC}" class="thumbnail" alt="{$thumbnail.NAME|@replace:'"':' '}"  style="width:{$thumbnail.SIZE[0]}px; height:{$thumbnail.SIZE[1]}px; ">
+        <img src="{$thumbnail.TN_SRC}" class="thumbnail" alt="{$thumbnail.NAME|@replace:'"':' '}" title="{$thumbnail.NAME|@replace:'"':' '}"  style="width:{$thumbnail.SIZE[0]}px; height:{$thumbnail.SIZE[1]}px; ">
         <input type="text" name="rank_of_image[{$thumbnail.ID}]" value="{$thumbnail.RANK}" style="display:none">
       </li>
       {/foreach}
