@@ -70,4 +70,6 @@ $lang['Download the config file'] = 'הורד את קובץ config';
 $lang['You can download the config file and upload it to local/config directory of your installation.'] = 'אתה יכול להוריד את קובץ config ולהעלות אותו אל local/config בתיקיית ההתקנה שלך.';
 $lang['Just another Piwigo gallery'] = 'עוד גלריה מבית Piwigo';
 $lang['Welcome to my photo gallery'] = 'ברוכים הבאים לגלרית התמונות שלי';
+$lang['Don\'t hesitate to consult our forums for any help : %s'] = 'אל תהסס להתייעץ בפורומים שלנו בכל נושא: %s';
+$lang['Welcome to your new installation of Piwigo!'] = 'ברוך הבא לגלרית piwigo החדשה שלך';
 ?>
