@@ -303,19 +303,31 @@ SELECT id_uppercat, MAX(rank)+1 AS next_rank
   }
 
   // to delete categories
-  $to_delete = array();
+  $to_delete = array(); $to_delete_derivative_dirs = array();
   foreach (array_diff(array_keys($db_fulldirs), $fs_fulldirs) as $fulldir)
   {
     array_push($to_delete, $db_fulldirs[$fulldir]);
     unset($db_fulldirs[$fulldir]);
     array_push($infos, array('path' => $fulldir,
                              'info' => l10n('deleted')));
+    if (substr_compare($fulldir, '../', 0, 3)==0)
+    {
+      $fulldir = substr($fulldir, 3);
+    }
+    $to_delete_derivative_dirs[] = PHPWG_ROOT_PATH.PWG_DERIVATIVE_DIR.$fulldir;
   }
   if (count($to_delete) > 0)
   {
     if (!$simulate)
     {
       delete_categories($to_delete);
+      foreach($to_delete_derivative_dirs as $to_delete_dir)
+      {
+        if (is_dir($to_delete_dir))
+        {
+          clear_derivative_cache_rec($to_delete_dir, '#.+#');
+        }
+      }
     }
     $counts['del_categories'] = count($to_delete);
   }
