@@ -55,7 +55,7 @@ if (isset($_POST['submitEmail']) and !empty($_POST['group']))
   if (!empty($category['representative_picture_id']))
   {
     $query = '
-SELECT id, file, path
+SELECT id, file, path, representative_ext
   FROM '.IMAGES_TABLE.'
   WHERE id = '.$category['representative_picture_id'].'
 ;';
@@ -71,7 +71,7 @@ SELECT id, file, path
                           'image_file' => $element['file'],
                           'category' => $category
                         ))
-                      .'" class="thumblnk"><img src="'.get_thumbnail_url($element).'"></a>';
+                      .'" class="thumblnk"><img src="'.DerivativeImage::url(IMG_THUMB, $element).'"></a>';
     }
   }
 

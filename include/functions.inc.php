@@ -808,17 +808,6 @@ function get_element_path($element_info)
 }
 
 
-/* Returns the URL of the thumbnail to be displayed. If the element does not
- * have a thumbnail, the default mime image url is returned. The URL can be
- * sent to the browser, but not used in the php script.
- * @param array element_info assoc array containing element info from db
- * at least 'path' and 'id' should be present
- */
-function get_thumbnail_url($element_info)
-{
-  return DerivativeImage::thumb_url($element_info);
-}
-
 /**
  * fill the current user caddie with given elements, if not already in
  * caddie
