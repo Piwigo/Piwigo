@@ -1507,26 +1507,10 @@ function ws_images_add_chunk($params, &$service)
   $upload_dir = $conf['upload_dir'].'/buffer';
 
   // create the upload directory tree if not exists
-  if (!is_dir($upload_dir)) {
-    umask(0000);
-    if (!@mkdir($upload_dir, 0777, true))
-    {
-      return new PwgError(500, 'error during buffer directory creation');
-    }
-  }
-
-  if (!is_writable($upload_dir))
+  if (!mkgetdir($upload_dir, MKGETDIR_DEFAULT&~MKGETDIR_DIE_ON_ERROR))
   {
-    // last chance to make the directory writable
-    @chmod($upload_dir, 0777);
-
-    if (!is_writable($upload_dir))
-    {
-      return new PwgError(500, 'buffer directory has no write access');
-    }
+    return new PwgError(500, 'error during buffer directory creation');
   }
-
-  secure_directory($upload_dir);
 
   $filename = sprintf(
     '%s-%s-%05u.block',

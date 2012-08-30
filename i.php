@@ -623,6 +623,7 @@ if ($d_size[0]*$d_size[1] < 256000)
 $image->set_compression_quality( ImageStdParams::$quality );
 $image->write( $page['derivative_path'] );
 $image->destroy();
+@chmod($page['derivative_path'], 0644);
 $timing['save'] = time_step($step);
 
 send_derivative($expires);

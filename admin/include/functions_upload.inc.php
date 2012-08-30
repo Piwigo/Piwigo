@@ -246,6 +246,7 @@ SELECT
   {
     rename($source_filepath, $file_path);
   }
+  @chmod($file_path, 0644);
 
   if (pwg_image::get_library() != 'gd')
   {

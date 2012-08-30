@@ -43,16 +43,24 @@ if (isset($_FILES['watermarkImage']) and !empty($_FILES['watermarkImage']['tmp_n
   else
   {
     $upload_dir = PHPWG_ROOT_PATH.PWG_LOCAL_DIR.'watermarks';
+    if (mkgetdir($upload_dir, MKGETDIR_DEFAULT&~MKGETDIR_DIE_ON_ERROR))
+    {
+      $new_name = get_filename_wo_extension($_FILES['watermarkImage']['name']).'.png';
+      $file_path = $upload_dir.'/'.$new_name;
 
-    include_once(PHPWG_ROOT_PATH.'admin/include/functions_upload.inc.php');
-    prepare_directory($upload_dir);
-
-    $new_name = get_filename_wo_extension($_FILES['watermarkImage']['name']).'.png';
-    $file_path = $upload_dir.'/'.$new_name;
-
-    move_uploaded_file($_FILES['watermarkImage']['tmp_name'], $file_path);
-
-    $pwatermark['file'] = substr($file_path, strlen(PHPWG_ROOT_PATH));
+      if (move_uploaded_file($_FILES['watermarkImage']['tmp_name'], $file_path))
+      {
+        $pwatermark['file'] = substr($file_path, strlen(PHPWG_ROOT_PATH));
+      }
+      else
+      {
+        $page['errors'][] = $errors['watermarkImage'] = "$file_path " .l10n('no write access');
+      }
+    }
+    else
+    {
+      $page['errors'][] = $errors['watermarkImage'] = sprintf( l10n('Add write access to the "%s" directory'), $upload_dir);
+    }
   }
 }
 

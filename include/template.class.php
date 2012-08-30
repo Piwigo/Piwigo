@@ -78,28 +78,6 @@ class Template {
       }
     }
 
-    if (!isset($conf['combined_dir_checked']))
-    {
-      $dir = PHPWG_ROOT_PATH.PWG_COMBINED_DIR;
-      mkgetdir($dir, MKGETDIR_DEFAULT&~MKGETDIR_DIE_ON_ERROR);
-      if (!is_writable($dir))
-      {
-        load_language('admin.lang');
-        fatal_error(
-          sprintf(
-            l10n('Give write access (chmod 777) to "%s" directory at the root of your Piwigo installation'),
-            PWG_COMBINED_DIR
-            ),
-          l10n('an error happened'),
-          false // show trace
-          );
-      }
-      if (function_exists('pwg_query')) {
-        conf_update_param('combined_dir_checked', 1);
-      }
-    }
-
-
     $compile_dir = PHPWG_ROOT_PATH.$conf['data_location'].'templates_c';
     mkgetdir( $compile_dir );
 
@@ -1343,7 +1321,9 @@ final class FileCombiner
       $output .= "\n";
     }
 
-    file_put_contents( PHPWG_ROOT_PATH . $file,  $output );
+    mkgetdir( dirname(PHPWG_ROOT_PATH.$file) );
+    file_put_contents( PHPWG_ROOT_PATH.$file,  $output );
+    @chmod(PHPWG_ROOT_PATH.$file, 0644);
     $out_file = $file;
     $out_version = false;
     $this->clear();
