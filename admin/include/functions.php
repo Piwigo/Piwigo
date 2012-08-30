@@ -1196,7 +1196,7 @@ DELETE FROM '.$table.'
  * @param int parent category id
  * @return array with ('info' and 'id') or ('error') key
  */
-function create_virtual_category($category_name, $parent_id=null)
+function create_virtual_category($category_name, $parent_id=null, $options=array())
 {
   global $conf, $user;
 
@@ -1205,16 +1205,54 @@ function create_virtual_category($category_name, $parent_id=null)
   {
     return array('error' => l10n('The name of an album must not be empty'));
   }
-
-  $parent_id = !empty($parent_id) ? $parent_id : 'NULL';
-
+    
   $insert = array(
     'name' => $category_name,
     'rank' => 0,
-    'commentable' => boolean_to_string($conf['newcat_default_commentable']),
+    'global_rank' => 0,
     );
 
-  if ($parent_id != 'NULL')
+  // is the album commentable?
+  if (isset($options['commentable']) and is_bool($options['commentable']))
+  {
+    $insert['commentable'] = $options['commentable'];
+  }
+  else
+  {
+    $insert['commentable'] = $conf['newcat_default_commentable'];
+  }
+  $insert['commentable'] = boolean_to_string($insert['commentable']);
+
+  // is the album temporarily locked? (only visible by administrators,
+  // whatever permissions) (may be overwritten if parent album is not
+  // visible)
+  if (isset($options['visible']) and is_bool($options['visible']))
+  {
+    $insert['visible'] = $options['visible'];
+  }
+  else
+  {
+    $insert['visible'] = $conf['newcat_default_visible'];
+  }
+  $insert['visible'] = boolean_to_string($insert['visible']);
+
+  // is the album private? (may be overwritten if parent album is private)
+  if (isset($options['status']) and 'private' == $options['status'])
+  {
+    $insert['status'] = 'private';
+  }
+  else
+  {
+    $insert['status'] = $conf['newcat_default_status'];
+  }
+
+  // any description for this album?
+  if (isset($options['comment']))
+  {
+    $insert['comment'] = strip_tags($options['comment']);
+  }
+
+  if (!empty($parent_id) and is_numeric($parent_id))
   {
     $query = '
 SELECT id, uppercats, global_rank, visible, status
@@ -1233,10 +1271,6 @@ SELECT id, uppercats, global_rank, visible, status
     {
       $insert['visible'] = 'false';
     }
-    else
-    {
-      $insert['visible'] = boolean_to_string($conf['newcat_default_visible']);
-    }
 
     // at creation, must a category be public or private ? Warning : if the
     // parent category is private, the category is automatically create
@@ -1245,40 +1279,23 @@ SELECT id, uppercats, global_rank, visible, status
     {
       $insert['status'] = 'private';
     }
-    else
-    {
-      $insert['status'] = $conf['newcat_default_status'];
-    }
+
+    $uppercats_prefix = $parent['uppercats'].',';
   }
   else
   {
-    $insert['visible'] = boolean_to_string($conf['newcat_default_visible']);
-    $insert['status'] = $conf['newcat_default_status'];
-    $insert['global_rank'] = $insert['rank'];
+    $uppercats_prefix = '';
   }
 
   // we have then to add the virtual category
-  mass_inserts(
-    CATEGORIES_TABLE,
-    array(
-      'site_id', 'name', 'id_uppercat', 'rank', 'commentable',
-      'visible', 'status', 'global_rank',
-      ),
-    array($insert)
-    );
-
+  single_insert(CATEGORIES_TABLE, $insert);
   $inserted_id = pwg_db_insert_id(CATEGORIES_TABLE);
 
-  $query = '
-UPDATE
-  '.CATEGORIES_TABLE.'
-  SET uppercats = \''.
-    (isset($parent) ? $parent{'uppercats'}.',' : '').
-    $inserted_id.
-    '\'
-  WHERE id = '.$inserted_id.'
-;';
-  pwg_query($query);
+  single_update(
+    CATEGORIES_TABLE,
+    array('uppercats' => $uppercats_prefix.$inserted_id),
+    array('id' => $inserted_id)
+    );
 
   update_global_rank();
 
