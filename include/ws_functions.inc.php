@@ -2302,46 +2302,37 @@ function ws_categories_add($params, &$service)
 
   include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
 
+  $options = array();
+  if (!empty($params['status']) and in_array($params['status'], array('private','public')))
+  {
+    $options['status'] = $params['status'];
+  }
+  
+  if (!empty($params['visible']) and in_array($params['visible'], array('true','false')))
+  {
+    $options['visible'] = get_boolean($params['visible']);
+  }
+  
+  if (!empty($params['commentable']) and in_array($params['commentable'], array('true','false')) )
+  {
+    $options['commentable'] = get_boolean($params['commentable']);
+  }
+  
+  if (!empty($params['comment']))
+  {
+    $options['comment'] = $params['comment'];
+  }
+  
+
   $creation_output = create_virtual_category(
     $params['name'],
-    $params['parent']
+    $params['parent'],
+    $options
     );
 
   if (isset($creation_output['error']))
   {
     return new PwgError(500, $creation_output['error']);
-  }
-  
-  $updates = array();
-  if ( !empty($params['status']) and in_array($params['status'], array('private','public')) )
-  {
-    $updates['status'] = $params['status'];
-  }
-  if ( !empty($params['visible']) and in_array($params['visible'], array('true','false')) )
-  {
-    $updates['visible'] = $params['visible'];
-  }
-  if ( !empty($params['commentable']) and in_array($params['commentable'], array('true','false')) )
-  {
-    $updates['commentable'] = $params['commentable'];
-  }
-  if ( !empty($params['comment']) )
-  {
-    $updates['comment'] = strip_tags($params['comment']);
-  }
-
-  if (!empty($updates))
-  {
-    single_update(
-      CATEGORIES_TABLE,
-      $updates,
-      array('id'=>$creation_output['id'])
-      );
-  }
-  
-  if ( isset($updates['status']) and 'private' == $updates['status'] )
-  {
-    add_permission_on_category($creation_output['id'], get_admins());
   }
 
   invalidate_user_cache();
