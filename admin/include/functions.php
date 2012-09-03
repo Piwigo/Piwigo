@@ -219,7 +219,7 @@ SELECT
     if ($ok)
     {
       delete_element_derivatives($row);
-      $new_ids[] += $row['id'];
+      $new_ids[] = $row['id'];
     }
     else
     {
@@ -1320,32 +1320,7 @@ SELECT id, uppercats, global_rank, visible, status
  */
 function set_tags($tags, $image_id)
 {
-  $query = '
-DELETE
-  FROM '.IMAGE_TAG_TABLE.'
-  WHERE image_id = '.$image_id.'
-;';
-  pwg_query($query);
-
-  if (count($tags) > 0)
-  {
-    $inserts = array();
-    foreach ($tags as $tag_id)
-    {
-      array_push(
-        $inserts,
-        array(
-          'tag_id' => $tag_id,
-          'image_id' => $image_id
-          )
-        );
-    }
-    mass_inserts(
-      IMAGE_TAG_TABLE,
-      array_keys($inserts[0]),
-      $inserts
-      );
-  }
+  set_tags_of( array($image_id=>$tags) );
 }
 
 /**
@@ -1375,14 +1350,11 @@ DELETE
   $inserts = array();
   foreach ($images as $image_id)
   {
-    foreach ($tags as $tag_id)
+    foreach ( array_unique($tags) as $tag_id)
     {
-      array_push(
-        $inserts,
-        array(
+      $inserts[] = array(
           'image_id' => $image_id,
           'tag_id' => $tag_id,
-          )
         );
     }
   }
@@ -1433,34 +1405,48 @@ function tag_id_from_tag_name($tag_name)
     return $page['tag_id_from_tag_name_cache'][$tag_name];
   }
 
-  // does the tag already exists?
+  // search existing by exact name
   $query = '
 SELECT id
   FROM '.TAGS_TABLE.'
   WHERE name = \''.$tag_name.'\'
 ;';
-  $existing_tags = array_from_query($query, 'id');
-
-  if (count($existing_tags) == 0)
+  if (count($existing_tags = array_from_query($query, 'id')) == 0)
   {
-    mass_inserts(
-      TAGS_TABLE,
-      array('name', 'url_name'),
-      array(
-        array(
-          'name' => $tag_name,
-          'url_name' => trigger_event('render_tag_url', $tag_name),
-          )
-        )
-      );
-
-    $page['tag_id_from_tag_name_cache'][$tag_name] = pwg_db_insert_id(TAGS_TABLE);
+    // search existing by case insensitive name
+    $query = '
+SELECT id
+  FROM '.TAGS_TABLE.'
+  WHERE CONVERT(name, CHAR) = \''.$tag_name.'\'
+;';
+    if (count($existing_tags = array_from_query($query, 'id')) == 0)
+    {
+      $url_name = trigger_event('render_tag_url', $tag_name);
+      // search existing by url name
+      $query = '
+SELECT id
+  FROM '.TAGS_TABLE.'
+  WHERE url_name = \''.$url_name.'\'
+;';
+      if (count($existing_tags = array_from_query($query, 'id')) == 0)
+      {
+        mass_inserts(
+          TAGS_TABLE,
+          array('name', 'url_name'),
+          array(
+            array(
+              'name' => $tag_name,
+              'url_name' => $url_name,
+              )
+            )
+          );
+        $page['tag_id_from_tag_name_cache'][$tag_name] = pwg_db_insert_id(TAGS_TABLE);
+        return $page['tag_id_from_tag_name_cache'][$tag_name];
+      }
+    }
   }
-  else
-  {
-    $page['tag_id_from_tag_name_cache'][$tag_name] = $existing_tags[0];
-  }
 
+  $page['tag_id_from_tag_name_cache'][$tag_name] = $existing_tags[0];
   return $page['tag_id_from_tag_name_cache'][$tag_name];
 }
 
@@ -1479,14 +1465,11 @@ DELETE
 
     foreach ($tags_of as $image_id => $tag_ids)
     {
-      foreach ($tag_ids as $tag_id)
+      foreach (array_unique($tag_ids) as $tag_id)
       {
-        array_push(
-          $inserts,
-          array(
+        $inserts[] = array(
             'image_id' => $image_id,
             'tag_id' => $tag_id,
-            )
           );
       }
     }
@@ -2186,7 +2169,7 @@ function get_tag_ids($raw_tags, $allow_create=true)
   {
     if (preg_match('/^~~(\d+)~~$/', $raw_tag, $matches))
     {
-      array_push($tag_ids, $matches[1]);
+      $tag_ids[] = $matches[1];
     }
     elseif ($allow_create)
     {
