@@ -203,21 +203,30 @@ function mkgetdir($dir, $flags=MKGETDIR_DEFAULT)
 /* Returns true if the string appears to be encoded in UTF-8. (from wordpress)
  * @param string Str
  */
-function seems_utf8($Str) { # by bmorel at ssi dot fr
+function seems_utf8($Str) {
+  // OBSOLETE !!!
+  return qualify_utf8($Str) >= 0;
+}
+
+/* returns 0 if $str is Ascii, 1 if utf-8, -1 otherwise */
+function qualify_utf8($Str)
+{
+  $ret = 0;
   for ($i=0; $i<strlen($Str); $i++) {
     if (ord($Str[$i]) < 0x80) continue; # 0bbbbbbb
-    elseif ((ord($Str[$i]) & 0xE0) == 0xC0) $n=1; # 110bbbbb
+    $ret = 1;
+    if ((ord($Str[$i]) & 0xE0) == 0xC0) $n=1; # 110bbbbb
     elseif ((ord($Str[$i]) & 0xF0) == 0xE0) $n=2; # 1110bbbb
     elseif ((ord($Str[$i]) & 0xF8) == 0xF0) $n=3; # 11110bbb
     elseif ((ord($Str[$i]) & 0xFC) == 0xF8) $n=4; # 111110bb
     elseif ((ord($Str[$i]) & 0xFE) == 0xFC) $n=5; # 1111110b
-    else return false; # Does not match any model
+    else return -1; # Does not match any model
     for ($j=0; $j<$n; $j++) { # n bytes matching 10bbbbbb follow ?
       if ((++$i == strlen($Str)) || ((ord($Str[$i]) & 0xC0) != 0x80))
-      return false;
+        return -1;
     }
   }
-  return true;
+  return $ret;
 }
 
 /* Remove accents from a UTF-8 or ISO-859-1 string (from wordpress)
@@ -225,10 +234,11 @@ function seems_utf8($Str) { # by bmorel at ssi dot fr
  */
 function remove_accents($string)
 {
-  if ( !preg_match('/[\x80-\xff]/', $string) )
-    return $string;
+  $utf = qualify_utf8($string);
+  if ( $utf == 0 )
+    return $string; // ascii
 
-  if (seems_utf8($string)) {
+  if ( $utf > 0 ) {
     $chars = array(
     // Decompositions for Latin-1 Supplement
     "\xc3\x80"=>'A', "\xc3\x81"=>'A',
@@ -323,6 +333,9 @@ function remove_accents($string)
     "\xc5\xba"=>'z', "\xc5\xbb"=>'Z',
     "\xc5\xbc"=>'z', "\xc5\xbd"=>'Z',
     "\xc5\xbe"=>'z', "\xc5\xbf"=>'s',
+    // Decompositions for Latin Extended-B
+    "\xc8\x98"=>'S', "\xc8\x99"=>'s',
+    "\xc8\x9a"=>'T', "\xc8\x9b"=>'t',
     // Euro Sign
     "\xe2\x82\xac"=>'E',
     // GBP (Pound) Sign
@@ -353,6 +366,23 @@ function remove_accents($string)
   return $string;
 }
 
+if (function_exists('mb_strtolower') && defined('PWG_CHARSET'))
+{
+  function transliterate($term)
+  {
+    return remove_accents( mb_strtolower($term, PWG_CHARSET) );
+  }
+}
+else
+{
+  function transliterate($term)
+  {
+    return remove_accents( strtolower($term) );
+  }
+}
+
+
+
 /**
  * simplify a string to insert it into an URL
  *
@@ -361,16 +391,14 @@ function remove_accents($string)
  */
 function str2url($str)
 {
-  $raw = $str;
-
-  $str = remove_accents($str);
-  $str = preg_replace('/[^a-z0-9_\s\'\:\/\[\],-]/','',strtolower($str));
+  $str = $safe = transliterate($str);
+  $str = preg_replace('/[^\x80-\xffa-z0-9_\s\'\:\/\[\],-]/','',$str);
   $str = preg_replace('/[\s\'\:\/\[\],-]+/',' ',trim($str));
   $res = str_replace(' ','_',$str);
 
   if (empty($res))
   {
-    $res = str_replace(' ','_', $raw);
+    $res = str_replace(' ','_', $safe);
   }
 
   return $res;

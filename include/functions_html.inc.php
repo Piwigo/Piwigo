@@ -300,7 +300,7 @@ function tag_alpha_compare($a, $b)
   {
     if (!isset($cache[__FUNCTION__][ $tag['name'] ]))
     {
-      $cache[__FUNCTION__][ $tag['name'] ] = strtolower(str2url($tag['name']));
+      $cache[__FUNCTION__][ $tag['name'] ] = transliterate($tag['name']);
     }
   }
 

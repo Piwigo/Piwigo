@@ -266,21 +266,6 @@ SELECT DISTINCT(id)
 }
 
 
-if (function_exists('mb_strtolower'))
-{
-  function transliterate($term)
-  {
-    return remove_accents( mb_strtolower($term) );
-  }
-}
-else
-{
-  function transliterate($term)
-  {
-    return remove_accents( strtolower($term) );
-  }
-}
-
 function is_word_char($ch)
 {
   return ($ch>='0' && $ch<='9') || ($ch>='a' && $ch<='z') || ($ch>='A' && $ch<='Z') || ord($ch)>127;

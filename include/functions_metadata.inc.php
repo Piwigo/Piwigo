@@ -90,10 +90,12 @@ function clean_iptc_value($value)
     // apparently mac uses some MacRoman crap encoding. I don't know
     // how to detect it so a plugin should do the trick.
     $value = trigger_event('clean_iptc_value', $value);
-    $is_utf8 = seems_utf8($value);
-    $value = convert_charset( $value,
-      $is_utf8 ? 'utf-8' : 'iso-8859-1',
-      get_pwg_charset() );
+    if ( ($qual = qualify_utf8($value)) != 0)
+    {// has non ascii chars
+      $value = convert_charset( $value,
+        $qual>0 ? 'utf-8' : 'iso-8859-1',
+        get_pwg_charset() );
+    }
   }
   return $value;
 }

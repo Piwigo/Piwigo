@@ -99,7 +99,7 @@ if ($page['display_mode'] == 'letters') {
 
   foreach ($tags as $tag)
   {
-    $tag_letter = strtoupper(mb_substr(str2url($tag['name']), 0, 1, 'utf-8'));
+    $tag_letter = mb_strtoupper(mb_substr(transliterate($tag['name']), 0, 1, PWG_CHARSET), PWG_CHARSET);
 
     if ($current_tag_idx==0) {
       $current_letter = $tag_letter;
