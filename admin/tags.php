@@ -45,7 +45,7 @@ SELECT name
   FROM '.TAGS_TABLE.'
 ;';
   $existing_names = array_from_query($query, 'name');
-  
+
 
   $current_name_of = array();
   $query = '
@@ -58,7 +58,7 @@ SELECT id, name
   {
     $current_name_of[ $row['id'] ] = $row['name'];
   }
-  
+
   $updates = array();
   // we must not rename tag with an already existing name
   foreach (explode(',', $_POST['edit_list']) as $tag_id)
@@ -110,7 +110,7 @@ SELECT name
   FROM '.TAGS_TABLE.'
 ;';
   $existing_names = array_from_query($query, 'name');
-  
+
 
   $current_name_of = array();
   $query = '
@@ -123,7 +123,7 @@ SELECT id, name
   {
     $current_name_of[ $row['id'] ] = $row['name'];
   }
-  
+
   $updates = array();
   // we must not rename tag with an already existing name
   foreach (explode(',', $_POST['edit_list']) as $tag_id)
@@ -179,7 +179,7 @@ SELECT id, name
               )
             );
         }
-  
+
         if (count($inserts) > 0)
         {
           mass_inserts(
@@ -226,7 +226,7 @@ if (isset($_POST['confirm_merge']))
   {
     $destination_tag_id = $_POST['destination_tag'];
     $tag_ids = explode(',', $_POST['merge_list']);
-    
+
     if (is_array($tag_ids) and count($tag_ids) > 1)
     {
       $name_of_tag = array();
@@ -242,7 +242,7 @@ SELECT
       {
         $name_of_tag[ $row['id'] ] = trigger_event('render_tag_name', $row['name']);
       }
-      
+
       $tag_ids_to_delete = array_diff(
         $tag_ids,
         array($destination_tag_id)
@@ -297,7 +297,7 @@ SELECT
       {
         $tags_deleted[] = $name_of_tag[$tag_id];
       }
-      
+
       array_push(
         $page['infos'],
         sprintf(
@@ -325,11 +325,11 @@ SELECT name
   $tag_names = array_from_query($query, 'name');
 
   delete_tags($_POST['tags']);
-  
+
   array_push(
     $page['infos'],
     l10n_dec(
-      'The following tag was deleted', 
+      'The following tag was deleted',
       'The %d following tags were deleted',
       count($tag_names)).' : '.
       implode(', ', $tag_names)
@@ -343,7 +343,7 @@ SELECT name
 if (isset($_GET['action']) and 'delete_orphans' == $_GET['action'])
 {
   check_pwg_token();
-  
+
   delete_orphan_tags();
   $_SESSION['page_infos'] = array(l10n('Orphan tags deleted'));
   redirect(get_root_url().'admin.php?page=tags');
@@ -377,7 +377,7 @@ SELECT id
           )
         )
       );
-    
+
     array_push(
       $page['infos'],
       sprintf(
@@ -440,12 +440,44 @@ if (count($orphan_tag_names) > 0)
 // |                             form creation                             |
 // +-----------------------------------------------------------------------+
 
+
+// tag counters
+$query = '
+SELECT tag_id, COUNT(image_id) AS counter
+  FROM '.IMAGE_TAG_TABLE.'
+  GROUP BY tag_id';
+$tag_counters = simple_hash_from_query($query, 'tag_id', 'counter');
+
+// all tags
+$query = '
+SELECT *
+  FROM '.TAGS_TABLE.'
+;';
+$result = pwg_query($query);
+$all_tags = array();
+while ($tag = pwg_db_fetch_assoc($result))
+{
+  $raw_name = $tag['name'];
+  $tag['name'] = trigger_event('render_tag_name', $raw_name);
+  $tag['counter'] = intval(@$tag_counters[ $tag['id'] ]);
+  $tag['U_VIEW'] = make_index_url(array('tags'=>array($tag)));
+  $tag['U_EDIT'] = 'admin.php?page=batch_manager&amp;cat=tag-'.$tag['id'];
+
+  $alt_names = trigger_event('get_tag_alt_names', array(), $raw_name);
+  $alt_names = array_diff( array_unique($alt_names), array($tag['name']) );
+  if (count($alt_names))
+  {
+    $tag['alt_names'] = implode(', ', $alt_names);
+  }
+  $all_tags[] = $tag;
+}
+usort($all_tags, 'tag_alpha_compare');
+
+
+
 $template->assign(
   array(
-    'TAG_SELECTION' => get_html_tag_selection(
-      get_all_tags(),
-      'tags'
-      ),
+    'all_tags' => $all_tags,
     )
   );
 
@@ -460,7 +492,7 @@ if ((isset($_POST['edit']) or isset($_POST['duplicate']) or isset($_POST['merge'
   {
     $list_name = 'MERGE_TAGS_LIST';
   }
-  
+
   $template->assign(
     array(
       $list_name => implode(',', $_POST['tags']),

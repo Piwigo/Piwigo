@@ -40,7 +40,7 @@ jQuery(document).ready(function(){
       {foreach from=$tags item=tag}
       <tr>
         <td>{$tag.NAME}</td>
-        <td><input type="text" name="tag_name-{$tag.ID}" value="{$tag.NAME}" size="30"></td>
+        <td><input type="text" name="tag_name-{$tag.ID}" value="{$tag.NAME}" size="50"></td>
       </tr>
       {/foreach}
     </table>
@@ -64,7 +64,7 @@ jQuery(document).ready(function(){
       {foreach from=$tags item=tag}
       <tr>
         <td>{$tag.NAME}</td>
-        <td><input type="text" name="tag_name-{$tag.ID}" value="{$tag.NAME}" size="30"></td>
+        <td><input type="text" name="tag_name-{$tag.ID}" value="{$tag.NAME}" size="50"></td>
       </tr>
       {/foreach}
     </table>
@@ -95,7 +95,7 @@ jQuery(document).ready(function(){
 
     <label>
       {'New tag'|@translate}
-      <input type="text" name="add_tag" size="30">
+      <input type="text" name="add_tag" size="50">
     </label>
     
     <p><input class="submit" type="submit" name="add" value="{'Submit'|@translate}"></p>
@@ -103,8 +103,29 @@ jQuery(document).ready(function(){
 
   <fieldset>
     <legend>{'Tag selection'|@translate}</legend>
-    
-    {$TAG_SELECTION}
+{html_style}
+.showInfo{ldelim}position:static; display:inline-block; text-indent:6px}
+{/html_style}
+{footer_script}{literal}
+jQuery('.showInfo').tipTip({
+    'delay' : 0,
+    'fadeIn' : 200,
+    'fadeOut' : 200,
+    'maxWidth':'300px',
+    'keepAlive':true,
+    'activation':'click'
+  });
+{/literal}{/footer_script}
+<ul class="tagSelection">
+{foreach from=$all_tags item=tag}
+	<li>{capture name='showInfo'}<b>{$tag.name}</b><br>{$pwg->l10n_dec('%d photo', '%d photos', $tag.counter)} <a href="{$tag.U_VIEW}">{'View'|@translate}</a> <a href="{$tag.U_EDIT}">{'Edit'|@translate}</a>{if !empty($tag.alt_names)}<br>{$tag.alt_names}{/if}{/capture}
+		<a class="showInfo" title="{$smarty.capture.showInfo|@htmlspecialchars}">i</a>
+		<label>
+			<input type="checkbox" name="tags[]" value="{$tag.id}"> {$tag.name}
+		</label>
+	</li>
+{/foreach}
+</ul>
 
     <p>
       <input type="hidden" name="pwg_token" value="{$PWG_TOKEN}">
