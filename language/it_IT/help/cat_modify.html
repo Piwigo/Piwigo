@@ -8,13 +8,13 @@
   di un album fisico).</li>
 
   <li><strong>descrizione</strong>: da un'idea generale del contenuto,
-  questo testo verrà visualizzato nella parte inferiore della pagina miniature.</li>
+  questo testo verrÃ  visualizzato nella parte inferiore della pagina miniature.</li>
 
 </ul>
 
 <h3>Spostare</h3>
 
-<p>Se l'album è virtuale, potete spostarlo. Spostare un
+<p>Se l'album Ã¨ virtuale, potete spostarlo. Spostare un
 album significa cambiarne l'album padre.</p>
 
 <h3>Opzioni</h3>
@@ -22,9 +22,9 @@ album significa cambiarne l'album padre.</p>
 <ul>
 
   <li><strong>Tipo di accesso</strong>: Gestione dei permessi. Se rendete
-un album privato, tutti gli album figli diventono privati. Se
-rendete un album pubblico, tutti gli album genitori diventono
-pubblichi.</li>
+un album privato, tutti gli album figli diventano privati. Se
+rendete un album pubblico, tutti gli album genitori diventano
+pubblici.</li>
 
   <li><strong>Blocco</strong>: Gli album e i sub-album verranno disattivati temporaneamente per manutenzione.</li>
 
@@ -33,27 +33,27 @@ le foto di quest'album.</li>
   
 </ul>
 
-<p>Potete anche gestire queste opzioni con la gestione delle "Proprietà"
+<p>Potete anche gestire queste opzioni con la gestione delle "ProprietÃ "
 (schermo <span class="pwgScreen">Commenti</span>, <span
 class="pwgScreen">Blocco</span>, <span
 class="pwgScreen">Pubblico/Privato</span>, <span
 class="pwgScreen">Rappresentativa</span> disponibile in <span
-class="pwgScreen">Amministrazione &raquo; Album &raquo; Proprietà</span>).</p>
+class="pwgScreen">Amministrazione Â» Album Â» ProprietÃ </span>).</p>
 
 <h3>Ordine di apparizione</h3>
 
-<p>Scegliere se il tipo di ordinamento predefinito sarà usato.</p>
+<p>Scegliere se il tipo di ordinamento predefinito sarÃ  usato.</p>
 
-<p>Indicare se quest'ordinamento sarà applicato ai sub-album.</p>
+<p>Indicare se quest'ordinamento sarÃ  applicato ai sub-album.</p>
 
 <p>Scegliere le colonne per l'ordinamento da usare su quest'album.</p>
 <ul>
 <li><strong>Data di creazione</strong>: Data di creazione della foto</li>
 <li><strong>Aggiunto il</strong>: Data di sincronizzazione</li>
 <li><strong>Voto medio (*)</strong>: Media che potrebbe essere modificata dal voto di un utente</li>
-<li><strong>Le più viste (*)</strong>: La visita attuale potrebbe modificare l'ordine delle foto più viste</li>
+<li><strong>Le piÃ¹ viste (*)</strong>: La visita attuale potrebbe modificare l'ordine delle foto piÃ¹ viste</li>
 <li><strong>Nome file</strong>: Nome inserito nei campi precedenti</li>
-<li><strong>Id</strong>: Id interno (gli album più recenti hanno un "Id" più grande dei precedenti.</li>
+<li><strong>Id</strong>: Id interno (gli album piÃ¹ recenti hanno un "Id" piÃ¹ grande dei precedenti.</li>
 
 </ul>
 <p><strong>(*)</strong>Attenzione: Effettuare qualche test, l'ordinamento scelto potrebbe darvi qualche sorpresa.</p>
@@ -61,7 +61,7 @@ class="pwgScreen">Amministrazione &raquo; Album &raquo; Proprietà</span>).</p>
 
 <h3>Copertina</h3>
 
-<p>La copertina di un album è la miniatura che appare per rappresentare l'album sulla pagina principale (<span
+<p>La copertina di un album Ã¨ la miniatura che appare per rappresentare l'album sulla pagina principale (<span
 class="pwgScreen">category.php</span>) quando
 l'album contiene solo dei sub-album
 e non direttamente delle foto (come
@@ -72,16 +72,16 @@ alla radice).</p>
 <ul>
 
   <li><span class="pwgScreen">Pagina di visualizzazione delle foto</span>: nella barra delle azioni, uno dei pulsanti permette di scegliere
-la foto da visualizzare come copertina rappresentante l'album visualizzato. Il pulsante in questione è visibile solo
+la foto da visualizzare come copertina rappresentante l'album visualizzato. Il pulsante in questione Ã¨ visibile solo
 agli amministratori.</li>
 
   <li><span class="pwgScreen">Modicare le informazioni di una foto</span>
-in amministrazione. Questa pagina può essere raggiunta tramite <span
+in amministrazione. Questa pagina puÃ² essere raggiunta tramite <span
 class="pwgScreen">picture.php</span> o <span class="pwgScreen">Gestione per
 lotti</span> con il <em>modo unitario</em>. Per i dettagli, vedi l'aiuto per
 questa pagina.</li>
 
-  <li><span class="pwgScreen">Amministrazione &raquo; Album &raquo; Proprietà &raquo; 
+  <li><span class="pwgScreen">Amministrazione Â» Album Â» ProprietÃ  Â» 
 Copertina</span>. Per i dettagli, vedi l'aiuto per questa pagina.</li>
 
   <li><span class="pwgScreen">Modificare un album</span> (questa
@@ -93,28 +93,28 @@ pagina).</li>
 <code>allow_random_representative</code> (vedi <span
 class="filename">include/config_default.inc.php</span>).</p>
 
-<p>Di default (<code>allow_random_representative</code> è impostato su "false"), ogni
-album contenente almeno una foto, è rappresentato da un elemento
+<p>Di default (<code>allow_random_representative</code> Ã¨ impostato su "false"), ogni
+album contenente almeno una foto, Ã¨ rappresentato da un elemento
 fisso (copertina). Una volta impostata (alla creazione del album), la copertina cambia
 solo se lo decide l'amministratore. Se la copertina
-non è appropriata, potete chiedere di <strong>Scegliere una copertina
+non Ã¨ appropriata, potete chiedere di <strong>Scegliere una copertina
 a caso</strong>.</p>
 
 <p>Se il parametro di configurazione <code>allow_random_representative</code>
-è impostato su "true", l'album contenente delle foto può non avere
+Ã¨ impostato su "true", l'album contenente delle foto puÃ² non avere
 una copertina fissa. Usare semplicemente il pulsante <strong>Cancellare
 copertina</strong>.</p>
 
-<p>Se l'album non contiene nessuna foto (ma solo dei sub-album) può comunque essere rappresentata da un qualsiasi
+<p>Se l'album non contiene nessuna foto (ma solo dei sub-album) puÃ² comunque essere rappresentato da una qualsiasi
 foto. Utilizzare la pagina <span class="pwgScreen">Modicare le informazioni
-di una foto</span>. L'unica opzione disponibile di questa pagina è il pulsante
+di una foto</span>. L'unica opzione disponibile di questa pagina Ã¨ il pulsante
 <strong>Cancellare copertina</strong>.</p>
 
 <h3>Associare tutte le foto di un album ad un nuovo album</h3>
 
 <ul>
 
-<li><strong>Nome del album virtuale</strong>: Nome del nuovo album da creare,
+<li><strong>Nome dell'album virtuale</strong>: Nome del nuovo album da creare,
 tutte le foto dell'attuale album verranno associate al nuovo album.</li>
 
 <li><strong>Album padre</strong>: Dove deve essere creato il nuovo album,
