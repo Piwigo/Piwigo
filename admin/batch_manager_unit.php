@@ -181,9 +181,6 @@ if (count($page['cat_elements_id']) > 0)
     );
   $template->assign(array('navbar' => $nav_bar));
 
-  // tags
-  $all_tags = get_all_tags();
-
   $element_ids = array();
 
   $is_category = false;

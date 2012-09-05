@@ -1205,7 +1205,7 @@ function create_virtual_category($category_name, $parent_id=null, $options=array
   {
     return array('error' => l10n('The name of an album must not be empty'));
   }
-    
+
   $insert = array(
     'name' => $category_name,
     'rank' => 0,
@@ -1474,11 +1474,14 @@ DELETE
       }
     }
 
-    mass_inserts(
-      IMAGE_TAG_TABLE,
-      array_keys($inserts[0]),
-      $inserts
-      );
+    if (count($inserts))
+    {
+      mass_inserts(
+        IMAGE_TAG_TABLE,
+        array_keys($inserts[0]),
+        $inserts
+        );
+    }
   }
 }
 
@@ -2095,38 +2098,46 @@ function get_taglist($query, $only_user_language=true)
   $result = pwg_query($query);
 
   $taglist = array();
+  $altlist = array();
   while ($row = pwg_db_fetch_assoc($result))
   {
-    if (!$only_user_language and preg_match_all('#\[lang=(.*?)\](.*?)\[/lang\]#is', $row['name'], $matches))
+    $raw_name = $row['name'];
+    $name = trigger_event('render_tag_name', $raw_name);
+
+    $taglist[] =  array(
+        'name' => $name,
+        'id' => '~~'.$row['id'].'~~',
+      );
+
+    if (!$only_user_language)
     {
-      foreach ($matches[2] as $tag_name)
+      $alt_names = trigger_event('get_tag_alt_names', array(), $raw_name);
+
+      // TEMP 2.4
+      if (count($alt_names)==0 and preg_match_all('#\[lang=(.*?)\](.*?)\[/lang\]#is', $row['name'], $matches))
       {
-        array_push(
-          $taglist,
-          array(
-            'name' => trigger_event('render_tag_name', $tag_name),
-            'id' => '~~'.$row['id'].'~~',
-            )
-          );
+        foreach ($matches[2] as $alt)
+        {
+          $alt_names[] = $alt;
+        }
       }
 
-      $row['name'] = preg_replace('#\[lang=(.*?)\](.*?)\[/lang\]#is', null, $row['name']);
-    }
-
-    if (strlen($row['name']) > 0)
-    {
-      array_push(
-        $taglist,
-        array(
-          'name' => trigger_event('render_tag_name', $row['name']),
-          'id' => '~~'.$row['id'].'~~',
-          )
-        );
+      foreach( array_diff( array_unique($alt_names), array($name) ) as $alt)
+      {
+        $altlist[] =  array(
+            'name' => $alt,
+            'id' => '~~'.$row['id'].'~~',
+          );
+      }
     }
   }
 
-  $cmp = create_function('$a,$b', 'return strcasecmp($a["name"], $b["name"]);');
-  usort($taglist, $cmp);
+  usort($taglist, 'tag_alpha_compare');
+  if (count($altlist))
+  {
+    usort($altlist, 'tag_alpha_compare');
+    $taglist = array_merge($taglist, $altlist);
+  }
 
   return $taglist;
 }
