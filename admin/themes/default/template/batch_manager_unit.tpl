@@ -11,7 +11,7 @@ var prefix = "";
 {else}
 prefix = ", ";
 {/if}
-	tag_boxes_selector = tag_boxes_selector + prefix + "#tags-" + {$element.ID};
+	tag_boxes_selector = tag_boxes_selector + prefix + "#tags-" + {$element.id};
 {/foreach}
 
 jQuery(document).ready(function() {ldelim}
@@ -55,54 +55,54 @@ jQuery(document).ready(function() {ldelim}
   <legend>{$element.LEGEND}</legend>
 
   <span class="thumb">
-    <a href="{$element.FILE_SRC}" class="preview-box" title="{$element.LEGEND}"><img src="{$element.TN_SRC}" alt=""></a>
+    <a href="{$element.FILE_SRC}" class="preview-box" title="{$element.LEGEND|@htmlspecialchars}"><img src="{$element.TN_SRC}" alt=""></a>
     <br/>
-    <a href="{$element.U_EDIT}">{'Informations'|@translate}</a>
+    <a href="{$element.U_EDIT}">{'Edit'|@translate}</a>
   </span>
 
   <table>
 
     <tr>
       <td><strong>{'Title'|@translate}</strong></td>
-      <td><input type="text" class="large" name="name-{$element.ID}" value="{$element.NAME}"></td>
+      <td><input type="text" class="large" name="name-{$element.id}" value="{$element.NAME}"></td>
     </tr>
 
     <tr>
       <td><strong>{'Author'|@translate}</strong></td>
-      <td><input type="text" class="large" name="author-{$element.ID}" value="{$element.AUTHOR}"></td>
+      <td><input type="text" class="large" name="author-{$element.id}" value="{$element.AUTHOR}"></td>
     </tr>
 
     <tr>
       <td><strong>{'Creation date'|@translate}</strong></td>
       <td>
-        <label><input type="radio" name="date_creation_action-{$element.ID}" value="unset"> {'unset'|@translate}</label>
-        <label><input type="radio" name="date_creation_action-{$element.ID}" value="set" id="date_creation_action_set-{$element.ID}"> {'set to'|@translate}</label>
+        <label><input type="radio" name="date_creation_action-{$element.id}" value="unset"> {'unset'|@translate}</label>
+        <label><input type="radio" name="date_creation_action-{$element.id}" value="set" id="date_creation_action_set-{$element.id}"> {'set to'|@translate}</label>
 
-        <select id="date_creation_day-{$element.ID}" name="date_creation_day-{$element.ID}">
+        <select id="date_creation_day-{$element.id}" name="date_creation_day-{$element.id}">
          	<option value="0">--</option>
            {section name=day start=1 loop=32}
              <option value="{$smarty.section.day.index}" {if $smarty.section.day.index==$element.DATE_CREATION_DAY}selected="selected"{/if}>{$smarty.section.day.index}</option>
            {/section}
         </select>
-        <select id="date_creation_month-{$element.ID}" name="date_creation_month-{$element.ID}">
+        <select id="date_creation_month-{$element.id}" name="date_creation_month-{$element.id}">
           {html_options options=$month_list selected=$element.DATE_CREATION_MONTH}
         </select>
-        <input id="date_creation_year-{$element.ID}"
-               name="date_creation_year-{$element.ID}"
+        <input id="date_creation_year-{$element.id}"
+               name="date_creation_year-{$element.id}"
                type="text"
                size="4"
                maxlength="4"
                value="{$element.DATE_CREATION_YEAR}">
-        <input id="date_creation_linked_date-{$element.ID}" name="date_creation_linked_date-{$element.ID}" type="hidden" size="10" disabled="disabled">
+        <input id="date_creation_linked_date-{$element.id}" name="date_creation_linked_date-{$element.id}" type="hidden" size="10" disabled="disabled">
         {footer_script}
-          pwg_initialization_datepicker("#date_creation_day-{$element.ID}", "#date_creation_month-{$element.ID}", "#date_creation_year-{$element.ID}", "#date_creation_linked_date-{$element.ID}", "#date_creation_action_set-{$element.ID}");
+          pwg_initialization_datepicker("#date_creation_day-{$element.id}", "#date_creation_month-{$element.id}", "#date_creation_year-{$element.id}", "#date_creation_linked_date-{$element.id}", "#date_creation_action_set-{$element.id}");
         {/footer_script}
       </td>
     </tr>
     <tr>
       <td><strong>{'Who can see this photo?'|@translate}</strong></td>
       <td>
-        <select name="level-{$element.ID}">
+        <select name="level-{$element.id}">
           {html_options options=$level_options selected=$element.LEVEL}
         </select>
       </td>
@@ -112,7 +112,7 @@ jQuery(document).ready(function() {ldelim}
       <td><strong>{'Tags'|@translate}</strong></td>
       <td>
 
-<select id="tags-{$element.ID}" name="tags-{$element.ID}">
+<select id="tags-{$element.id}" name="tags-{$element.id}">
 {foreach from=$element.TAGS item=tag}
   <option value="{$tag.id}" class="selected">{$tag.name}</option>
 {/foreach}
@@ -123,7 +123,7 @@ jQuery(document).ready(function() {ldelim}
 
     <tr>
       <td><strong>{'Description'|@translate}</strong></td>
-      <td><textarea cols="50" rows="5" name="description-{$element.ID}" id="description-{$element.ID}" class="description">{$element.DESCRIPTION}</textarea></td>
+      <td><textarea cols="50" rows="5" name="description-{$element.id}" id="description-{$element.id}" class="description">{$element.DESCRIPTION}</textarea></td>
     </tr>
 
   </table>

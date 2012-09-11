@@ -198,7 +198,7 @@ if (count($page['cat_elements_id']) > 0)
 
 
   $query = '
-SELECT id,path,representative_ext,name,date_creation,comment,author,level,file
+SELECT *
   FROM '.IMAGES_TABLE;
   
   if ($is_category)
@@ -263,23 +263,23 @@ SELECT
     }
 
     $template->append(
-      'elements',
+      'elements', array_merge($row,
       array(
         'ID' => $row['id'],
         'TN_SRC' => DerivativeImage::url(IMG_THUMB, $src_image),
         'FILE_SRC' => DerivativeImage::url(IMG_LARGE, $src_image),
         'LEGEND' => $legend,
         'U_EDIT' => get_root_url().'admin.php?page=photo-'.$row['id'],
-        'NAME' => !empty($row['name'])?$row['name']:'',
-        'AUTHOR' => !empty($row['author'])?htmlspecialchars($row['author']):'',
+        'NAME' => htmlspecialchars(@$row['name']),
+        'AUTHOR' => htmlspecialchars(@$row['author']),
         'LEVEL' => !empty($row['level'])?$row['level']:'0',
-        'DESCRIPTION' => !empty($row['comment'])?$row['comment']:'',
+        'DESCRIPTION' => htmlspecialchars(@$row['comment']),
         'DATE_CREATION_YEAR' => $year,
         'DATE_CREATION_MONTH' => (int)$month,
         'DATE_CREATION_DAY' => (int)$day,
         'TAGS' => $tag_selection,
         )
-      );
+      ));
   }
 
   $template->assign('ELEMENT_IDS', implode(',', $element_ids));

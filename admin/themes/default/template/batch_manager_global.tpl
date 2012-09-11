@@ -238,7 +238,7 @@ $(document).ready(function() {
     }
   }
 
-  $('img.thumbnail').tipTip({
+  $('.thumbnails img').tipTip({
     'delay' : 0,
     'fadeIn' : 200,
     'fadeOut' : 200
