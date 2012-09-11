@@ -90,7 +90,7 @@ DELETE
     //
     // add permissions to groups
     //
-    $grant_groups = array_diff($_POST['groups'], $groups_granted);
+    $grant_groups = $_POST['groups'];
     if (count($grant_groups) > 0)
     {
       $cat_ids = get_uppercat_ids(array($page['cat']));
@@ -183,7 +183,7 @@ DELETE
     //
     // add permissions to users
     //
-    $grant_users = array_diff($_POST['users'], $users_granted);
+    $grant_users = $_POST['users'];
     if (count($grant_users) > 0)
     {
       add_permission_on_category($page['cat'], $grant_users);
