@@ -22,6 +22,7 @@ body, h3, dt, h2, .throw, .content, label , LEGEND  {
 
 th { color: #888; }
 INPUT, select, textarea { color:#666; background-color: #ccc; }
+option[disabled] { background-color: #ccc; }
 input[type="radio"], input[type="checkbox"] { background-color: transparent; }
 
 INPUT[type="submit"], INPUT[type="button"], INPUT[type="reset"] {
