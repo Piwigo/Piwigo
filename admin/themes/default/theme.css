@@ -867,7 +867,7 @@ h2:lang(en) { text-transform:capitalize; }
 .pluginActions {display: table-row; font-size:0.95em; color:#777;}
 .pluginActions DIV {display: table-cell; vertical-align: middle; line-height:18px; }
 .showInfo {display:block;position:absolute;top:0;right:5px;width:15px;font-style:italic;font-family:"Georgia",serif;background-color:#464646;font-size:0.9em;border-radius:10px;-moz-border-radius:10px;}
-.showInfo:hover {cursor:pointer}
+.showInfo:hover {cursor:pointer;border:none;}
 
 .warning:before {content:url(icon/warning.png);vertical-align:top;}
 .deactivate_all {text-align:right;font-size:0.95em;}
