@@ -927,4 +927,11 @@ $lang['Name of the duplicate'] = "Nom du duplicata";
 $lang['Source tag'] = 'Tag source';
 $lang['Tag "%s" is now a duplicate of "%s"'] = "Le tag \"%s\" est désormais une copie de \"%s\"";
 $lang['Duplicate selected tags'] = 'Dupliquer les tags sélectionnés';
+$lang['Invalid dimension'] = 'Dimension invalide';
+$lang['Minimum width'] = 'Largeur minimale';
+$lang['Minimum height'] = 'Hauteur minimale';
+$lang['Format'] = 'Format';
+$lang['Portrait'] = 'Portrait';
+$lang['Landscape'] = 'Paysage';
+$lang['Panorama'] = 'Panorama';
 ?>

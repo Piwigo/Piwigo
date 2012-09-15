@@ -391,6 +391,11 @@ $(document).ready(function() {
     filter_enable(filter);
     $(this).attr("value", -1);
   });
+  
+  $("select[name='filter_dimension']").change(function () {
+    $("span[id^='filter_dimension_']").hide();
+    $("span#filter_dimension_"+ $(this).attr("value")).show();
+  });
 
   function filter_disable(filter) {
     /* hide the filter line */
@@ -506,6 +511,7 @@ $(document).ready(function() {
           {/foreach}
         </select>
       </li>
+      
       <li id="filter_category" {if !isset($filter.category)}style="display:none"{/if}>
         <a href="#" class="removeFilter" title="remove this filter"><span>[x]</span></a>
         <input type="checkbox" name="filter_category_use" class="useFilterCheckbox" {if isset($filter.category)}checked="checked"{/if}>
@@ -515,6 +521,7 @@ $(document).ready(function() {
         </select>
         <label><input type="checkbox" name="filter_category_recursive" {if isset($filter.category_recursive)}checked="checked"{/if}> {'include child albums'|@translate}</label>
       </li>
+      
       <li id="filter_tags" {if !isset($filter.tags)}style="display:none"{/if}>
         <a href="#" class="removeFilter" title="remove this filter"><span>[x]</span></a>
         <input type="checkbox" name="filter_tags_use" class="useFilterCheckbox" {if isset($filter.tags)}checked="checked"{/if}>
@@ -527,6 +534,7 @@ $(document).ready(function() {
         <label><span><input type="radio" name="tag_mode" value="AND" {if !isset($filter.tag_mode) or $filter.tag_mode eq 'AND'}checked="checked"{/if}> {'All tags'|@translate}</span></label>
         <label><span><input type="radio" name="tag_mode" value="OR" {if isset($filter.tag_mode) and $filter.tag_mode eq 'OR'}checked="checked"{/if}> {'Any tag'|@translate}</span></label>
       </li>
+      
       <li id="filter_level" {if !isset($filter.level)}style="display:none"{/if}>
         <a href="#" class="removeFilter" title="remove this filter"><span>[x]</span></a>
         <input type="checkbox" name="filter_level_use" class="useFilterCheckbox" {if isset($filter.level)}checked="checked"{/if}>
@@ -536,16 +544,41 @@ $(document).ready(function() {
         </select>
         <label><input type="checkbox" name="filter_level_include_lower" {if isset($filter.level_include_lower)}checked="checked"{/if}> {'include photos with lower privacy level'|@translate}</label>
       </li>
+      
+      <li id="filter_dimension" {if !isset($filter.dimension)}style="display:none"{/if}>
+        <a href="#" class="removeFilter" title="remove this filter"><span>[x]</span></a>
+        <input type="checkbox" name="filter_dimension_use" class="useFilterCheckbox" {if isset($filter.dimension)}checked="checked"{/if}>
+        <select name="filter_dimension">
+          <option value="min_width" {if $filter.dimension=='min_width'}selected="selected"{/if}>{'Minimum width'|@translate}</option>
+          <option value="max_width" {if $filter.dimension=='max_width'}selected="selected"{/if}>{'Maximum width'|@translate}</option>
+          <option value="min_height" {if $filter.dimension=='min_height'}selected="selected"{/if}>{'Minimum height'|@translate}</option>
+          <option value="max_height" {if $filter.dimension=='max_height'}selected="selected"{/if}>{'Maximum height'|@translate}</option>
+          <option value="format" {if $filter.dimension=='format'}selected="selected"{/if}>{'Format'|@translate}</option>
+        </select>
+        <span id="filter_dimension_min_width" {if !isset($filter.dimension_min_width) and isset($filter.dimension)}style="display:none;"{/if}><input type="text" name="filter_dimension_min_width" value="{$filter.dimension_min_width}" size="4"> px</span>
+        <span id="filter_dimension_max_width" {if !isset($filter.dimension_max_width)}style="display:none;"{/if}><input type="text" name="filter_dimension_max_width" value="{$filter.dimension_max_width}" size="4"> px</span>
+        <span id="filter_dimension_min_height" {if !isset($filter.dimension_min_height)}style="display:none;"{/if}><input type="text" name="filter_dimension_min_height" value="{$filter.dimension_min_height}" size="4"> px</span>
+        <span id="filter_dimension_max_height" {if !isset($filter.dimension_max_height)}style="display:none;"{/if}><input type="text" name="filter_dimension_max_height" value="{$filter.dimension_max_height}" size="4"> px</span>
+        <span id="filter_dimension_format" {if !isset($filter.dimension_format)}style="display:none;"{/if}>
+          <select name="filter_dimension_format">
+            <option value="portrait" {if $filter.dimension_format=='portrait'}selected="selected"{/if}>{'Portrait'|@translate}</option>
+            <option value="square" {if $filter.dimension_format=='square'}selected="selected"{/if}>{'square'|@translate}</option>
+            <option value="landscape" {if $filter.dimension_format=='landscape'}selected="selected"{/if}>{'Landscape'|@translate}</option>
+            <option value="panorama" {if $filter.dimension_format=='panorama'}selected="selected"{/if}>{'Panorama'|@translate}</option>
+          </select>
+        </span>
+      </li>
     </ul>
 
     <p class="actionButtons">
       <select id="addFilter">
         <option value="-1">{'Add a filter'|@translate}</option>
         <option disabled="disabled">------------------</option>
-        <option value="filter_prefilter">{'Predefined filter'|@translate}</option>
-        <option value="filter_category">{'Album'|@translate}</option>
-				<option value="filter_tags">{'Tags'|@translate}</option>
-        <option value="filter_level">{'Privacy level'|@translate}</option>
+        <option value="filter_prefilter" {if isset($filter.prefilter)}disabled="disabled"{/if}>{'Predefined filter'|@translate}</option>
+        <option value="filter_category" {if isset($filter.category)}disabled="disabled"{/if}>{'Album'|@translate}</option>
+        <option value="filter_tags" {if isset($filter.tags)}disabled="disabled"{/if}>{'Tags'|@translate}</option>
+        <option value="filter_level" {if isset($filter.level)}disabled="disabled"{/if}>{'Privacy level'|@translate}</option>
+        <option value="filter_dimension" {if isset($filter.dimension)}disabled="disabled"{/if}>{'Dimensions'|@translate}</option>
       </select>
 <!--      <input id="removeFilters" class="submit" type="submit" value="Remove all filters" name="removeFilters"> -->
       <a id="removeFilters" href="">{'Remove all filters'|@translate}</a>
