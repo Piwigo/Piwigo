@@ -162,7 +162,7 @@ array(
   'name' => 'get_download_url',
   'type' => 'trigger_event',
   'vars' => array('string', 'url', 'array', 'element_info'),
-  'files' => array('include\functions_picture.inc.php (get_download_url'),
+  'files' => array('include\functions_picture.inc.php (get_download_url)'),
 ),
 array(
   'name' => 'get_element_metadata_available',
@@ -244,6 +244,13 @@ array(
   'type' => 'trigger_event',
   'vars' => array('string', 'url', 'ImageStdParams', null, 'SrcImage', 'this', 'string', 'rel_url'),
   'files' => array('include\derivative.inc.php (SrcImage::url, SrcImage::get_url)'),
+  'infos' => 'New in 2.4',
+),
+array(
+  'name' => 'get_tag_alt_names',
+  'type' => 'trigger_event',
+  'vars' => array('array', null, 'array', 'raw_name'),
+  'files' => array('admin\tags.php', 'admin\include\functions.php (get_taglist)'),
   'infos' => 'New in 2.4',
 ),
 array(
@@ -588,7 +595,7 @@ array(
   'name' => 'render_tag_name',
   'type' => 'trigger_event',
   'vars' => array('string', 'tag_name'),
-  'files' => array('include\functions.php (get_taglist)', 'admin\tags.php', 'include\functions_tag.inc.php (get_available_tags, get_all_tags, get_common_tags)', 'index.php'),
+  'files' => array('admin\include\functions.php (get_taglist)', 'admin\tags.php', 'include\functions_tag.inc.php (get_available_tags, get_all_tags, get_common_tags)', 'index.php'),
 ),
 array(
   'name' => 'render_tag_url',
