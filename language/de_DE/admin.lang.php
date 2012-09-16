@@ -930,4 +930,11 @@ $lang['Duplicate selected tags'] = 'Ausgewählte Schlagworte duplizieren';
 $lang['Name of the duplicate'] = 'Name des Duplikats';
 $lang['Source tag'] = 'Schlagwort Quelle';
 $lang['Tag "%s" is now a duplicate of "%s"'] = 'Das Schlagwort "%s" ist jetzt ein Duplikat von "%s"';
+$lang['Format'] = 'Format';
+$lang['Invalid dimension'] = 'Ungültige Abmessungen';
+$lang['Landscape'] = 'Quer-Format';
+$lang['Minimum height'] = 'Minimum Höhe';
+$lang['Minimum width'] = 'Minimum Breite';
+$lang['Panorama'] = 'Panorama';
+$lang['Portrait'] = 'Hoch-Kant';
 ?>
