@@ -540,7 +540,7 @@ function render_element_name($info)
   $name = $info['name'];
   if (!empty($name))
   {
-    $name = trigger_event('render_element_description', $name);
+    $name = trigger_event('render_element_name', $name);
     return $name;
   }
 
