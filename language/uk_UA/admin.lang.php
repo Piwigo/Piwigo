@@ -923,4 +923,11 @@ $lang['Duplicate selected tags'] = 'Дублювати виділені теґи
 $lang['Name of the duplicate'] = 'Назва дубліката';
 $lang['Source tag'] = 'Джерело теґа';
 $lang['Tag "%s" is now a duplicate of "%s"'] = 'Теґ "%s" зараз є дублікатом "%s"';
+$lang['Format'] = 'Формат';
+$lang['Invalid dimension'] = 'Неправильний вимір';
+$lang['Landscape'] = 'Ландшафт';
+$lang['Minimum height'] = 'Мінімальна висота';
+$lang['Minimum width'] = 'Мінімальна ширина';
+$lang['Panorama'] = 'Панорама';
+$lang['Portrait'] = 'Портрет';
 ?>
