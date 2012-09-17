@@ -574,10 +574,16 @@ array(
   'files' => array('picture.php'),
 ),
 array(
-  'name' => 'render_element_description',
+  'name' => 'render_element_name',
   'type' => 'trigger_event',
   'vars' => array('string', 'element_name'),
-  'files' => array('include\functions.inc.php (get_picture_title)', 'picture.php'),
+  'files' => array('include\functions_html.inc.php (render_element_name)'),
+),
+array(
+  'name' => 'render_element_description',
+  'type' => 'trigger_event',
+  'vars' => array('string', 'element_secription'),
+  'files' => array('picture.php'),
 ),
 array(
   'name' => 'render_lost_password_mail_content',
