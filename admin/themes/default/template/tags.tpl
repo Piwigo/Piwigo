@@ -94,7 +94,7 @@ jQuery('.showInfo').tipTip({
 {/literal}{/footer_script}
 <ul class="tagSelection">
 {foreach from=$all_tags item=tag}
-	<li>{capture name='showInfo'}<b>{$tag.name}</b><br>{$pwg->l10n_dec('%d photo', '%d photos', $tag.counter)} <a href="{$tag.U_VIEW}">{'View'|@translate}</a> <a href="{$tag.U_EDIT}">{'Edit'|@translate}</a>{if !empty($tag.alt_names)}<br>{$tag.alt_names}{/if}{/capture}
+	<li>{capture name='showInfo'}<b>{$tag.name}</b><br>{$pwg->l10n_dec('%d photo', '%d photos', $tag.counter)} <a href="{$tag.U_VIEW}">{'View'|@translate}</a> <a href="{$tag.U_EDIT}">{'Batch Manager'|@translate}</a>{if !empty($tag.alt_names)}<br>{$tag.alt_names}{/if}{/capture}
 		<a class="showInfo" title="{$smarty.capture.showInfo|@htmlspecialchars}">i</a>
 		<label>
 			<input type="checkbox" name="tags[]" value="{$tag.id}"> {$tag.name}
