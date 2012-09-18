@@ -1,1 +1,1 @@
-Check integritet af opgraderinger.
+Check opgraderingintegritet.

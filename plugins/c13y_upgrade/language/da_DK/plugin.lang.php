@@ -21,8 +21,8 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 $lang['c13y_correction_dbl_email_user'] = 'Slet dublerede brugere';
-$lang['c13y_correction_obsolete_plugin'] = '"%s" plugin er blevet inkluderet i denne program version, og du skal afinstallere det.';
-$lang['c13y_dbl_email_user'] = 'Brugere med samme email adresse';
+$lang['c13y_correction_obsolete_plugin'] = 'Plugin\'en "%s" er medtaget i denne version af programmellet, og du skal derfor afinstallere det.';
+$lang['c13y_dbl_email_user'] = 'Brugere med samme e-mail-adresse';
 $lang['c13y_obsolete_plugin'] = 'Forældet plugin';
-$lang['c13y_upgrade_no_anomaly'] = 'Ingen problemer opdaget efter program opgradering, "Kontroller opgraderinger" plugin er blevet deaktiveret.';
+$lang['c13y_upgrade_no_anomaly'] = 'Ingen problemer opdaget efter programopgradering, Plugin\'en "Kontroller opgraderinger" er blevet deaktiveret.';
 ?>
