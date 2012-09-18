@@ -1602,7 +1602,16 @@ DELETE '.IMAGE_CATEGORY_TABLE.'.*
   FROM '.IMAGE_CATEGORY_TABLE.'
     JOIN '.IMAGES_TABLE.' ON image_id=id
   WHERE id IN ('.implode(',', $images).')
-    '.((is_array($categories) and count($categories)>0) ? 'AND category_id NOT IN ('.implode(',', $categories).')' : null).'
+';
+  
+  if (is_array($categories) and count($categories) > 0)
+  {
+    $query.= '
+    AND category_id NOT IN ('.implode(',', $categories).')
+';
+  }
+
+  $query.= '
     AND (storage_category_id IS NULL OR storage_category_id != category_id)
 ;';
   pwg_query($query);

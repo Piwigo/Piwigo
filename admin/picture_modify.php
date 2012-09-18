@@ -171,6 +171,10 @@ if (isset($_POST['submit']) and count($page['errors']) == 0)
   set_tags($tag_ids, $_GET['image_id']);
 
   // association to albums
+  if (!isset($_POST['associate']))
+  {
+    $_POST['associate'] = array();
+  }
   move_images_to_categories(array($_GET['image_id']), $_POST['associate']);
 
   // thumbnail for albums
