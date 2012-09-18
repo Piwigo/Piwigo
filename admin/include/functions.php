@@ -1488,7 +1488,7 @@ DELETE
 /**
  * Associate a list of images to a list of categories.
  *
- * The function will not duplicate links
+ * The function will not duplicate links and will preserve ranks
  *
  * @param array images
  * @param array categories
@@ -1501,15 +1501,25 @@ function associate_images_to_categories($images, $categories)
   {
     return false;
   }
-
+  
+  // get existing associations
   $query = '
-DELETE
+SELECT
+    image_id,
+    category_id
   FROM '.IMAGE_CATEGORY_TABLE.'
   WHERE image_id IN ('.implode(',', $images).')
     AND category_id IN ('.implode(',', $categories).')
 ;';
-  pwg_query($query);
+  $result = pwg_query($query);
+  
+  $existing = array();
+  while ($row = pwg_db_fetch_assoc($result))
+  {
+    $existing[ $row['category_id'] ][] = $row['image_id'];
+  }
 
+  // get max rank of each categories
   $query = '
 SELECT
     category_id,
@@ -1526,6 +1536,7 @@ SELECT
     'max_rank'
     );
 
+  // associate only not already associated images
   $inserts = array();
   foreach ($categories as $category_id)
   {
@@ -1533,34 +1544,46 @@ SELECT
     {
       $current_rank_of[$category_id] = 0;
     }
+    if (!isset($existing[$category_id]))
+    {
+      $existing[$category_id] = array();
+    }
 
     foreach ($images as $image_id)
     {
-      $rank = ++$current_rank_of[$category_id];
+      if (!in_array($image_id, $existing[$category_id]))
+      {
+        $rank = ++$current_rank_of[$category_id];
 
-      array_push(
-        $inserts,
-        array(
-          'image_id' => $image_id,
-          'category_id' => $category_id,
-          'rank' => $rank,
-          )
-        );
+        array_push(
+          $inserts,
+          array(
+            'image_id' => $image_id,
+            'category_id' => $category_id,
+            'rank' => $rank,
+            )
+          );
+      }
     }
   }
 
-  mass_inserts(
-    IMAGE_CATEGORY_TABLE,
-    array_keys($inserts[0]),
-    $inserts
-    );
+  if (count($inserts))
+  {
+    mass_inserts(
+      IMAGE_CATEGORY_TABLE,
+      array_keys($inserts[0]),
+      $inserts
+      );
 
-  update_category($categories);
+    update_category($categories);
+  }
 }
 
 /**
- * Disssociate images from all categories except their storage category and
+ * Dissociate images from all old categories except their storage category and
  * associate to new categories.
+ *
+ * This function will preserve ranks
  *
  * @param array images
  * @param array categories
@@ -1573,12 +1596,13 @@ function move_images_to_categories($images, $categories)
     return false;
   }
 
-  // let's first break links with all albums but their "storage album"
+  // let's first break links with all old albums but their "storage album"
   $query = '
 DELETE '.IMAGE_CATEGORY_TABLE.'.*
   FROM '.IMAGE_CATEGORY_TABLE.'
     JOIN '.IMAGES_TABLE.' ON image_id=id
   WHERE id IN ('.implode(',', $images).')
+    '.((is_array($categories) and count($categories)>0) ? 'AND category_id NOT IN ('.implode(',', $categories).')' : null).'
     AND (storage_category_id IS NULL OR storage_category_id != category_id)
 ;';
   pwg_query($query);
