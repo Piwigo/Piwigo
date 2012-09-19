@@ -925,4 +925,11 @@ $lang['Duplicate selected tags'] = 'Zduplikuj wybrane tagi';
 $lang['Name of the duplicate'] = 'Nazwa duplikatu';
 $lang['Source tag'] = 'Tag źródłowy';
 $lang['Tag "%s" is now a duplicate of "%s"'] = 'Tag "%s" jest teraz duplikatem "%s"';
+$lang['Format'] = 'Formatuj';
+$lang['Invalid dimension'] = 'Nieprawidłowy wymiar';
+$lang['Landscape'] = 'Krajobraz';
+$lang['Minimum height'] = 'Minimalna wysokość';
+$lang['Minimum width'] = 'Minimalna szerokość';
+$lang['Panorama'] = 'Panorama';
+$lang['Portrait'] = 'Portret';
 ?>
