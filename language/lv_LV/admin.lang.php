@@ -922,4 +922,11 @@ $lang['Duplicate selected tags'] = 'Dublēt atlasītās cilnes';
 $lang['Name of the duplicate'] = 'Dublikāta nosaukums';
 $lang['Source tag'] = 'Avota cilne';
 $lang['Tag "%s" is now a duplicate of "%s"'] = 'Cilne "%s" tagad ir "%s" dublikāts';
+$lang['Portrait'] = 'Portrets';
+$lang['Panorama'] = 'Panorāma';
+$lang['Minimum width'] = 'Minimālais platums';
+$lang['Minimum height'] = 'Minimālais augstums';
+$lang['Landscape'] = 'Ainava';
+$lang['Invalid dimension'] = 'Kļūdaina dimensija';
+$lang['Format'] = 'Formāts';
 ?>
