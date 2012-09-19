@@ -928,4 +928,11 @@ $lang['Duplicate selected tags'] = 'Duplikovať označené kľúčové slová';
 $lang['Name of the duplicate'] = 'Názov duplikácie';
 $lang['Source tag'] = 'Zdrojové kľúčové slovo';
 $lang['Tag "%s" is now a duplicate of "%s"'] = 'Kľúčové slovo "%s" je teraz duplikácia "%s"';
+$lang['Portrait'] = 'Na výšku';
+$lang['Panorama'] = 'Panoráma';
+$lang['Minimum width'] = 'Minimálna šírka';
+$lang['Minimum height'] = 'Minimálna výška';
+$lang['Landscape'] = 'Na šírku';
+$lang['Invalid dimension'] = 'Neplatné rozmery';
+$lang['Format'] = 'Formát';
 ?>
