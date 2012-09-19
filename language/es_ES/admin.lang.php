@@ -924,4 +924,11 @@ $lang['Duplicate selected tags'] = 'Borrar etiquetas duplicadas';
 $lang['Name of the duplicate'] = 'Nombre de los duplicados';
 $lang['Source tag'] = 'Origen de las etiquetas';
 $lang['Tag "%s" is now a duplicate of "%s"'] = 'La etiqueta "%s" es ahora un duplicado de "%s"';
+$lang['Format'] = 'Formato';
+$lang['Invalid dimension'] = 'Dimensión no valida';
+$lang['Landscape'] = 'Paisaje';
+$lang['Minimum height'] = 'Altura minima';
+$lang['Minimum width'] = 'Anchura minima';
+$lang['Panorama'] = 'Panorama';
+$lang['Portrait'] = 'Retrato';
 ?>
