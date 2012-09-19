@@ -1,0 +1,67 @@
+<fieldset>
+  <legend>Kom hurtigt i gang</legend>
+
+<ol>
+  <li>Opret en mappe på din computer.</li>  
+
+  <li>Kopier nogle fotografier til mappen og ændr deres størrelser så de er velgende til webvisning. <em>Advarsel</em>: Navnet på mapperne og filerne må kun indeholde bogstaver, tal, "-", "_" eller ".". Ingen mellemrum eller accenttegn.</li>
+
+  <li>Med en ftp-klient kopieres mappen til "galleries"-mappen i din Piwigo-installation.</li>
+
+  <li>Log ind i dit galleri og gå til <span class="pwgScreen">Administration</span> og klik på den store Synkroniser-knap.</li>
+</ol>
+
+<p>Tillykke! Du har nu oprettet det første album i dit fotogalleri.</p>
+</fieldset>
+
+<fieldset>
+  <legend>Organisering af mapper og filer</legend>
+
+<ul>
+
+  <li>
+
+    <p>Mapper med albummer er i Piwigo-mappen
+    "galleries". Her vises et mappetræ for et lille galleri (med
+    med anvendelse af megen funktionalitet):</p>
+
+    <pre>
+galleries
+|-- bryllup
+|   |-- fejring
+|   |   |-- ankomst
+|   |   |   |-- paul-alene.jpg
+|   |   |   +-- sarah-alene.jpg
+|   |   +-- afrejse
+|   |       +-- paul-og-sarah.jpg
+|   +-- fest
+|       |-- dansende001.jpg
+|       |-- dansende002.jpg
+|       +-- dansende003.jpg
++-- bryllupsrejse
+    |-- hotel.png
+    |-- video-fra-fly.avi
+    +-- pwg_representative
+        +-- video-fra-fly.jpg
+</pre>
+
+  </li>
+
+  <li>Bortset fra "pwg_representative" (se forklaring herunder), genererer hver mappe under "galleries" et album. Der er ingen begrænsning på hvor mange niveauer, der kan være.</li>
+
+  <li>Grundlæggende repræsenteres et element af en fil. En fil kan være et 
+  Piwigo-element, hvis dets filendelse er blandt mulighederne angivet i opsætningsparameteret
+  <code>file_ext</code> (se filen <span class="filename">include/config_default.inc.php</span> file). 
+  En fil kan være et billede, hvis dets filendelse er blandt mulighederne angivet i opsætningsparameteret 
+  <code>picture_ext</code>.</li>
+
+  <li>Ingen fotoelementer (video, lyde, tekstfiler, alt muligt andet ...) er som standard repræsenteret af en ikon 
+  svarende til filendelsen. Man kan valgfrit associere et miniaturebillede og repræsentativ fil (se video.avi i eksemplet herover).</li>
+
+  <li><em>Advarsel</em>: Navnene på mapper og filer må kun indeholde bogstaver, tal, "-", "_" eller ".". Ingen mellemrum eller accenttegn.</li>
+
+  <li>Når fotografierne er korrekt placeret i mapperne, går man til: <span class="pwgScreen">Administration &raquo; Tools &raquo;
+  Synchronize</span></li>
+
+</ul>
+</fieldset>
