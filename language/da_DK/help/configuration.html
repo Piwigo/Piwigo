@@ -1,0 +1,95 @@
+<h2>Opsætning</h2>
+
+<p>Her foretager administratoren grundlæggende opsætning af sit galleri.  Der vises faktisk kun simple opsætningsparametre, som skulle være tilstrækkeligt for langt størstedelen af administratorer. Ønsker du at se mange andre (og avancerede) opsætningsparametre, så kig i filen med standardopsætningen <span
+class="filename">include/config_default.inc.php</span>.</p>
+
+<p>Siden er opdelt i forskellige afsnit, hvor opsætningsparametrene er grupperet efter emne.</p>
+
+
+<h3>Primært</h3>
+<ul>
+  <li><strong>Gallerititel</strong>: anvendes i RSS-feed og notifikation pr. mail.</li>
+
+  <li><strong>Sidebanner</strong>: vises øverst på alle offentlige sider.</li>
+
+  <li><strong>Galleri-URL</strong>: anvendes i RSS-feed'en.</li>
+
+  <li><strong>Lås galleri</strong>: Lås hele galleriet på grund af vedligeholdelse. Kun administratorer kan tilgå galleriet.</li>
+
+  <li><strong>Bedømmelse</strong>: Funktionen til bedømmelse af fotografier er aktiveret.</li>
+
+  <li><strong>Gæsters bedømmelse</strong>: Selv ikke-registrerede brugere kan bedømme billeder.</li>
+
+  <li><strong>Tillad brugerregistrering</strong>: Alle kan registrere sig.</li>
+
+  <li><strong>Mailadresse er krævet for alle brugere</strong>: mailadressen vil blive kontrolleret ved registrering eller profilopdatering, bortset fra hvis handlingen foretages af en administrator.</li>
+
+  <li><strong>Send mail til admins når en ny bruger registrerer sig</strong>: administratorer notificeres pr. mail, hver gang nogen registrerer sig.</li>
+  
+  <li><strong>Standard for fotorækkefølge</strong>: du kan definere en personliggjort rækkefølge ved hjælp af disse dropdownmenuer.</li>
+
+</ul>
+
+<h3>Historik</h3>
+
+  <p>Besøg på siderne <span
+  class="pwgScreen">category.php</span> og <span
+  class="pwgScreen">picture.php</span> vil blive gemt i tabellen <code>history</code>.</p>
+  
+  <p>Besøg vil blive vist i <span  class="pwgScreen">Administration &raquo; Værktøjer &raquo; Historik</span>.</p>
+
+<ul>
+  <li><strong>Gem gæsters sidebesøg</strong>: gæsters sidebesøg gemmes.</li>
+
+  <li><strong>Gem brugeres sidebesøg</strong>: registrerede brugeres sidebesøg gemmes.</li>
+
+  <li><strong>Gem administratorers sidebesøg</strong>: administratorers sidebesøg gemmes.</li>
+
+</ul>
+
+<h3>Kommentarer</h3>
+<ul>
+
+  <li><strong>Kommentarer til alle</strong>: Selv ikke-registrerede gæster kan skrive kommentarer.</li>
+
+  <li><strong>Antal kommentarer pr. side</strong>.</li>
+
+  <li><strong>Godkendelse</strong>: en administrator skal godkende brugerkommentarer, før de bliver synlige på webstedet. Godkendelse af brugerkommentarer foretages på siden <span class="pwgScreen">Administration &raquo; Værktøjer &raquo; Ventende kommentarer</span>.</li>
+
+  <li><strong>Send mail til admins når en gyldig kommentar gemmes</strong>: Sender en e-mail til administratorerne når en bruger gemmer en kommentar og denne godkendes.</li>
+
+  <li><strong>Send mail til admins når en kommentar kræver godkendelse</strong>: Sender en e-mail til administratorerne når en bruger gemmer en kommentar, som kræver admingodkendelse. Godkendelse af brugerkommentarer foretages på siden <span class="pwgScreen">Administration &raquo; Værktøjer &raquo; Ventende kommentarer</span>.</li>
+
+</ul>
+
+<h3>Standardvisning</h3>
+
+<p>Her ændrer man valgmulighederne i forbindelse med visning for guest-brugeren, standardbrugeren som ikke har en konto.  Når der er logget på, kan valgmulighederne overtrumfes af brugerens egne valgmuligheder (som ændres i <span class="pwgScreen">profil</span>).</p>
+
+<p>Det er muligt at ændre visningsvalgmulighederne for alle eksisterende brugere på siden <span class="pwgScreen">Administration &raquo; Brugere &raquo; Håndter</span>, hvor man kan udvælge brugere.</p>
+
+<ul>
+
+  <li><strong>Sprog</strong>: Gælder kun Piwigo-ettiketter. Albumnavne, fotografinavne og alle beskrivelsesfelter er ikke oversætbare.</li>
+
+  <li><strong>Antal fotografier pr. række</strong></li>
+
+  <li><strong>Antal rækker pr. side</strong></li>
+
+  <li><strong>Grænsefladetema</strong></li>
+
+  <li><strong>Seneste periode</strong>: Efter dage. Periode under hvilken et fotografi vises som nyt. Skal være større end 1 dag.</li>
+
+  <li><strong>Åbn alle albummer</strong>: Åbn alle albummer som standard i menuen. <em>Advarsel</em>: valgmuligheden er ressourceintensiv og kan medføre en enorm menu, hvis dit albumtræ indeholder mange albummer.</li>
+
+  <li><strong>Vis antal kommentarer</strong>: Vis antal kommentarer til hvert fotografi på miniturebilledsiden. Ressourceintensiv.</li>
+
+  <li><strong>Vis antal visninger</strong>: Vis et fotografis antal visninger, lige under dets miniturebilleds på miniturebilledsiden. Kun når det avancerede opsætningsparameter er:<br>
+  $conf['show_nb_hits'] = true; <br>
+  Bemærk: false som standard.</li>
+
+  <li><strong>Maksimal bredde på fotografierne</strong>: maksimal visningsbredde.  Fotografier, som er større end denne indstilling vil blive skaleret ved visningen.  Frem for at benytte denne indstilling, kan du overveje at ændre bredden på dine fotografier; det er en bedre praksis.</li>
+
+  <li><strong>Maksimal højde på fotografierne</strong>: tilsvarende opsætningen af maksimal bredde.</li>
+
+</ul>

@@ -49,24 +49,24 @@
 
 <h3>Repræsentanten</h3>
 
-<p>Albumsrepræsentanten er miniaturebilledet, der vises på hovedsiden (<span class="pwgScreen">category.php</span>), som repræsentant for albummet, når det kun indeholder underalbummer og ingen fotoer (lige som rodalbummet).</p>
+<p>Albumsrepræsentanten er miniaturebilledet, der vises på hovedsiden (<span class="pwgScreen">category.php</span>), som repræsentant for albummet, når det kun indeholder underalbummer og ingen fotografier (lige som rodalbummet).</p>
 
 <p>Foto fra et album:</p>
 
 <ul>
-  <li><span class="pwgScreen">Fotoside</span>: En af aktionsknapperne giver mulighed for at vælge det aktuelle billede som repræsentant for det viste album. Knappen er kun tilgængelig for administratorer.</Li>
+  <li><span class="pwgScreen">Fotoside</span>: En af handlingsknapperne giver mulighed for at vælge det aktuelle billede som repræsentant for det viste album. Knappen er kun tilgængelig for administratorer.</Li>
   <li><span class="pwgScreen">Ændring af fotooplysninger</span> i administration. Siden er tilgængelig fra <span class="pwgScreen">picture.php</span> eller <span class="pwgScreen">Batchadministration</span> i <em>enhedstilstand</em> .Se hjælpen til denne side for flere oplysninger.</li>
-  <li><span class="pwgScreen">Administration &raquo; Albums  &raquo; Egenskaber, Repræsentant</span>. Se hjælpen til denne side for flere oplysninger.</li>
+  <li><span class="pwgScreen">Administration &raquo; Albummer  &raquo; Egenskaber, Repræsentant</span>. Se hjælpen til denne side for flere oplysninger.</li>
   <li><span class="pwgScreen">Rediger album</span> (den aktuelle side).</li>
 </Ul>
 
 <p>Valg af repræsentant afhænger af <code>allow_random_representative</code>-opsætningsparameteret (se <span class="filnavn">include/config_default.inc.php</span>).</p>
 
-<p>I standardtilstand (<code>allow_random_representative</code> sat til false), er hvert album indeholdende mindst et element, repræsenteret af et fast element. Når det er opsat (ved oprettelsen af albummet), ændres repræsentanten kun når en administrator beder om det. Hvis repræsentanten ikke er hensigtsmæssig, kan du bede om at <strong>Finde en ny tilfældig repræsentant</strong>.</p>
+<p>I standardtilstand (<code>allow_random_representative</code> sat til false), er hvert album indeholdende mindst et element, repræsenteret af et fast element. Når det er opsat (ved oprettelsen af albummet), ændres repræsentanten kun når en administrator beder om det. Hvis repræsentanten ikke er hensigtsmæssig, kan du benytte <strong>Find en ny tilfældig repræsentant</strong>.</p>
 
 <p>Hvis <code>allow_random_representative</code>-opsætningsparameteret er sat til true, vil et album, der indeholder billeder, ikke have en fast repræsentant. Benyt blot knappen <strong>Slet repræsentant</strong>.</p>
 
-<p>Hvis albummet kun indeholder underalbummer og ingen fotoer, kan det ikke desto mindre være repræsenteret af ethvert element, takket være siden <span class="pwgScreen">Ændring af fotooplysninger</span>. Den eneste valgmulighed på den aktuelle side er knappen <strong>Slet repræsentant</strong>.</p>
+<p>Hvis albummet kun indeholder underalbummer og ingen fotografier, kan det ikke desto mindre være repræsenteret af ethvert element, takket være siden <span class="pwgScreen">Ændring af fotooplysninger</span>. Den eneste valgmulighed på den aktuelle side er knappen <strong>Slet repræsentant</strong>.</p>
 
 <h3>Knyt alle billeder i et album til et nyt album</h3>
 
