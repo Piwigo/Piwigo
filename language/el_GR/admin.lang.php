@@ -929,4 +929,11 @@ $lang['Duplicate selected tags'] = 'Επιλεγμένες ετικέτες ει
 $lang['Name of the duplicate'] = 'Όνομα του αντιγράφου';
 $lang['Source tag'] = 'Ετικέτα Πηγή';
 $lang['Tag "%s" is now a duplicate of "%s"'] = 'Η Ετικέτα "%s" είναι πλέον ένα αντίγραφο του "%s"';
+$lang['Portrait'] = 'Οριζόντια';
+$lang['Panorama'] = 'Πανοραμικό';
+$lang['Minimum width'] = 'Ελάχιστο πλάτος';
+$lang['Minimum height'] = 'Ελάχιστο ύψος';
+$lang['Landscape'] = 'Κατακόρυφα';
+$lang['Invalid dimension'] = 'Μη έγκυρες διαστάσεις';
+$lang['Format'] = 'Μορφή';
 ?>
