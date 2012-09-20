@@ -37,6 +37,8 @@ if (!$conf['allow_user_registration'])
   page_forbidden('User registration closed');
 }
 
+trigger_action('loc_begin_register');
+
 if (isset($_POST['submit']))
 {
   if (!verify_ephemeral_key(@$_POST['key']))
@@ -128,6 +130,7 @@ if (!isset($themeconf['hide_menu_on']) OR !in_array('theRegisterPage', $themecon
 }
 
 include(PHPWG_ROOT_PATH.'include/page_header.php');
+trigger_action('loc_end_register');
 include(PHPWG_ROOT_PATH.'include/page_messages.php');
 $template->parse('register');
 include(PHPWG_ROOT_PATH.'include/page_tail.php');

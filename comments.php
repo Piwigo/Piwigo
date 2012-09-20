@@ -64,6 +64,8 @@ $since_options = array(
   4 => array('label' => l10n('the beginning'),
              'clause' => '1=1') // stupid but generic
   );
+  
+trigger_action('loc_begin_comments');
 
 if (!empty($_GET['since']) && is_numeric($_GET['since']))
 {
@@ -556,6 +558,7 @@ if (!isset($themeconf['hide_menu_on']) OR !in_array('theCommentsPage', $themecon
 // |                           html code display                           |
 // +-----------------------------------------------------------------------+
 include(PHPWG_ROOT_PATH.'include/page_header.php');
+trigger_action('loc_end_comments');
 include(PHPWG_ROOT_PATH.'include/page_messages.php');
 $template->pparse('comments');
 include(PHPWG_ROOT_PATH.'include/page_tail.php');
