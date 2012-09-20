@@ -1,402 +1,512 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+   "http://www.w3.org/TR/html4/strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" dir="ltr">
 <head>
-<title>PWG web service explorer</title>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<script type="text/javascript" src="prototype.js" ></script>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Piwigo web API (web-services) explorer</title>
+  
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+  
+  <style type="text/css">
+  /* BEGIN CSS RESET
+    http://meyerweb.com/eric/tools/css/reset
+    v2.0 | 20110126 | License: none (public domain) */
+  html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code,
+  del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li,
+  fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, 
+  figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video
+  {margin:0;padding:0;border:0;font-size:100%;vertical-align:baseline;}
 
-<script type="text/javascript">
+  article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {display:block;}
+  body {line-height:1.1;}
+  blockquote, q {quotes:none;}
+  blockquote:before, blockquote:after, q:before, q:after {content:'';content:none;}
+  table {border-collapse:collapse;border-spacing:0;}
+  /* END CSS RESET */
 
-function setVisibility(id, vis)
-{
-  $(id).style.visibility = vis;
-}
+  html {font-family:"Corbel","Lucida Grande","Verdana",sans-serif;color:#222;font-size:13px;}
 
-function dumpError(err)
-{
-	var s= 'Error ';
-	if ('string' === typeof err )
-	 s += err;
-	else
-	{
-    s += err.name+'<br/>';
-	 s += err.message;
-	 if (err.stack!=null)
-	 {//mozilla only
-	 	s += '<br/><small><pre>'+ err.stack + '</pre></small>';
-	 }
-	}
-  $("error").update(s);
-}
-
-var gServiceUrl;
-var gCachedMethods;
-
-Ajax.Responders.register({
-
-onException: function(req, err) {
-	try {
-		document.pwgError = err;
-		dumpError(err);
-	}
-	catch (e)
-	{
-		alert (err);
-		alert (err.message);
-	}
-},
-
-onComplete: function(req, transport) {
-	if (!req.responseIsSuccess())
-	{
-		var s = 'Completion failure\n' + transport.status + ' ' + transport.statusText;
-		if (transport.status>=300)
-		{
-			s += '\n';
-			s += transport.responseText.substr(0,1000);
-		}
-		dumpError(s);
-	}
- }
-}
-);
-
-
-function pwgGetJsonResult(transport)
-{
-  var resp;
-  try {
-		eval('resp = ' + transport.responseText);
-	}
-	catch (e)
-	{
-		var s = e.message;
-		s += '\n' + transport.responseText.substr(0,1000).escapeHTML();
-		throw new Error( s );
-	}
-  if (resp==null || resp.result==null || resp.stat==null || resp.stat!='ok')
-  {
-    var s = 'JSON evaluation error';
-    if (resp)
-    {
-			if (resp.stat!=null) s+= '\n'+resp.stat;
-      if (resp.message!=null) s+= '\n'+ resp.message;
-    }
-    throw new Error(s);
+  a {color:#247EBF;text-decoration:none;}
+  a:hover {color:#EB9C39;border-bottom-width:1px;border-style:dotted;
+    text-shadow:1px 1px 0 #ddd;-moz-text-shadow:1px 1px 0 #ddd;-webkit-text-shadow:1px 1px 0 #ddd;
   }
-  return resp.result;
-}
+  blockquote {border:1px solid #cdcdcd;background:#F9F9F9;padding:8px;}
+  hr {margin:10px 30px;color:#fff;}
+  ul {margin-left:25px;}
+  p {margin:8px 0;}
 
-function pwgChangeUrl()
-{
-  $("error").update("");
-  setVisibility("methodListWrapper", "hidden");
-  $("methodList").update("");
-  setVisibility("methodWrapper", "hidden");
-  setVisibility("methodDetailWrapper", "hidden");
-
-  gServiceUrl = $F('ws_url');
-  gCachedMethods = new Hash();
-
-  try {
-		var ajaxReq = new Ajax.Request(
-				gServiceUrl,
-				{method:'get', parameters:'format=json&method=reflection.getMethodList',
-				 onSuccess: function (r) { onSuccess_getMethodList(r); }
-				}
-			)
-  }catch (e)
-  {
-    dumpError(e);
+  h1 {color:#fff;font-size:26px;padding:10px 15px;
+    text-shadow:1px 1px 0 #999;-moz-text-shadow:1px 1px 0 #999;-webkit-text-shadow:1px 1px 0 #999;
+    background:#45484d;background:-moz-linear-gradient(top, #45484d 0%, #333333 100%);background:-webkit-gradient(linear, left top, left bottom, color-stop(0%,#45484d), color-stop(100%,#333333));background:-webkit-linear-gradient(top, #45484d 0%,#333333 100%);background:-o-linear-gradient(top, #45484d 0%,#333333 100%);background:-ms-linear-gradient(top, #45484d 0%,#333333 100%);background:linear-gradient(to bottom, #45484d 0%,#333333 100%);filter:progid:DXImageTransform.Microsoft.gradient( startColorstr='#45484d', endColorstr='#333333',GradientType=0 );
   }
-  return false;
-}
-
-function onSuccess_getMethodList(transport)
-{
-	var result = pwgGetJsonResult(transport);
-	var ml = '';
-	for (var i=0; i<result.methods.length; i++)
-	{
-		ml += '<li><a href="#" onclick="return pwgSelectMethod(this.innerHTML)">'+ result.methods[i]+'</a></li>';
-	}
-	$("methodList").update(ml);
-	setVisibility("methodListWrapper", "visible");
-}
-
-function pwgSelectMethod(methodName)
-{
-  $("error").update("");
-  $("methodName").update(methodName);
-  setVisibility("methodDetailWrapper", "hidden");
-  setVisibility("methodWrapper", "visible");
-
-  if ( gCachedMethods[methodName] )
-    fillNewMethod( gCachedMethods[methodName] );
-  else
-  {
-    try {
-  		var ajaxReq = new Ajax.Request(
-  				gServiceUrl,
-  				{method:'get', parameters:'format=json&method=reflection.getMethodDetails&methodName='+methodName,
-  				 onSuccess: function (r) { onSuccess_getMethodDetails(r); }
-  				}
-  			)
-    }catch (e)
-    {
-      dumpError( e );
-    }
+  h2 {color:#fff;font-size:20px;padding:5px 10px;
+    text-shadow:1px 1px 0 #555;-moz-text-shadow:1px 1px 0 #555;-webkit-text-shadow:1px 1px 0 #555;
+    background:#f2a841;background:-moz-linear-gradient(top, #f2a841 0%, #ef6b13 100%);background:-webkit-gradient(linear, left top, left bottom, color-stop(0%,#f2a841), color-stop(100%,#ef6b13));background:-webkit-linear-gradient(top, #f2a841 0%,#ef6b13 100%);background:-o-linear-gradient(top, #f2a841 0%,#ef6b13 100%);background:-ms-linear-gradient(top, #f2a841 0%,#ef6b13 100%);background:linear-gradient(to bottom, #f2a841 0%,#ef6b13 100%);filter:progid:DXImageTransform.Microsoft.gradient( startColorstr='#f2a841', endColorstr='#ef6b13',GradientType=0 );
   }
-  return false;
-}
-
-function onSuccess_getMethodDetails(transport)
-{
-	var result = pwgGetJsonResult(transport);
-  fillNewMethod( gCachedMethods[result.name] = result );
-}
-
-function fillNewMethod(method)
-{
-	var methodParamsElt = $("methodParams");
-	while (methodParamsElt.tBodies[0].rows.length)
-		methodParamsElt.tBodies[0].deleteRow(methodParamsElt.tBodies[0].rows.length-1);
-
-	if (method.params && method.params.length>0)
-	{
-  		for (var i=0; i<method.params.length; i++)
-  		{
-  			var row = methodParamsElt.tBodies[0].insertRow(-1);
-  			var isOptional = method.params[i].optional;
-  			var acceptArray = method.params[i].acceptArray;
-  			var defaultValue = method.params[i].defaultValue == null ? '' : method.params[i].defaultValue;
-
-  			row.insertCell(0).innerHTML = method.params[i].name;
-  			row.insertCell(1).innerHTML = '<span title="parameter is '+(isOptional ? 'optional':'required') +'">'+(isOptional ? '?':'*')+'</span>'
-          + (method.params[i].acceptArray ? ' <span title="parameter can be an array; use | (pipe) character to split values">[ ]</span>':'');
-  			row.insertCell(2).innerHTML = '<input id="methodParameterSend_'+i+'" type="checkbox" '+(isOptional ? '':'checked="checked"')+'/>';
-  			row.insertCell(3).innerHTML = '<input id="methodParameterValue_'+i+'"" value="'+defaultValue+'" style="width:99%" onchange="$(\'methodParameterSend_'+i+'\').checked=true;"/>';
-  		}
- 	}
-	$("methodDescription").update(method.description);
-	setVisibility("methodDetailWrapper", "visible");
-}
-
-function pwgInvokeMethod( newWindow )
-{
-	var methodName = $('methodName').innerHTML;
-	var method = gCachedMethods[methodName];
-
-  var reqUrl = gServiceUrl;
-  reqUrl += "?format="+$F('responseFormat');
-
-  if ($('requestFormat').value == 'get')
-  {
-    reqUrl += "&method="+methodName;
-    for ( var i=0; i<method.params.length; i++)
-    {
-      if (! $('methodParameterSend_'+i).checked)
-        continue;
-
-      if ( method.params[i].acceptArray &&  $F('methodParameterValue_'+i).split('|').length > 1 )
-      {
-        $F('methodParameterValue_'+i).split('|').each(
-            function(v) {
-              reqUrl += '&'+method.params[i].name+'[]='+v;
-            }
-          );
-      }
-      else
-        reqUrl += '&'+method.params[i].name+'='+$F('methodParameterValue_'+i);
-    }
-    if ( !newWindow )
-      $("invokeFrame").src = reqUrl;
-    else
-      window.open(reqUrl);
+  h2#errorWrapper {color:#F42C00;font-weight:normal;
+    background:#eaeaea;background:-moz-linear-gradient(top, #eaeaea 0%, #afafaf 100%);background:-webkit-gradient(linear, lefttop, leftbottom, color-stop(0%,#eaeaea), color-stop(100%,#afafaf));background:-webkit-linear-gradient(top, #eaeaea 0%, #afafaf 100%);background:-o-linear-gradient(top, #eaeaea 0%, #afafaf 100%);background:-ms-linear-gradient(top, #eaeaea 0%, #afafaf 100%);background:linear-gradient(tobottom, #eaeaea 0%, #afafaf 100%);filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#eaeaea', endColorstr='#afafaf', GradientType=0);
   }
-  else
-  {
-    var form = $("invokeForm");
-    form.action = reqUrl;
-    var t = '<input type="hidden" name="'+'method'+'" value="'+methodName+'"/>';
-    for ( var i=0; i<method.params.length; i++)
-    {
-      if (! $('methodParameterSend_'+i).checked)
-        continue;
-
-      if ( method.params[i].acceptArray &&  $F('methodParameterValue_'+i).split('|').length > 1 )
-      {
-        $F('methodParameterValue_'+i).split('|').each(
-            function(v) {
-              t += '<input type="hidden" name="'+method.params[i].name+'[]" value="'+v+'"/>';
-            }
-          );
-      }
-      else
-        t += '<input type="hidden" name="'+method.params[i].name+'" value="'+$F('methodParameterValue_'+i)+'"/>';
-    }
-    form.innerHTML = t;
-    form.target = newWindow ? "_blank" : "invokeFrame";
-    form.submit();
+  h3 {display:inline-block;padding:5px 10px;color:#555;font-weight:bold;text-align:center;
+    border-radius:8px 8px 0 0;-moz-border-radius:8px 8px 0 0;-webkit-border-radius:8px 8px 0 0;
+    text-shadow:1px 1px 0 #bbb;-moz-text-shadow:1px 1px 0 #bbb;-webkit-text-shadow:1px 1px 0 #bbb;
+    background:#f2f2f2;background:-moz-linear-gradient(top, #f2f2f2 0%, #cecece 100%);background:-webkit-gradient(linear, left top, left bottom, color-stop(0%,#f2f2f2), color-stop(100%,#cecece));background:-webkit-linear-gradient(top, #f2f2f2 0%,#cecece 100%);background:-o-linear-gradient(top, #f2f2f2 0%,#cecece 100%);background:-ms-linear-gradient(top, #f2f2f2 0%,#cecece 100%);background:linear-gradient(to bottom, #f2f2f2 0%,#cecece 100%);filter:progid:DXImageTransform.Microsoft.gradient( startColorstr='#f2f2f2', endColorstr='#cecece',GradientType=0 );
   }
-  return false;
-}
-</script>
 
+  #the_header {border-bottom:1px solid #cdcdcd;margin-bottom:1px;}
+  #the_footer {background:#EAEAEA;border-top:1px solid #cdcdcd;padding:10px;clear:both;}
 
-<style>
-#methodListWrapper {
-  width: 13em;
-  float: left;
-  display: inline;
-  visibility: hidden;
-}
+  #the_methods {width:250px;float:left;border-style:solid;border-color:#cdcdcd;border-width:1px 1px 0 0;
+    background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAMAAAADCAIAAADZSiLoAAAAH0lEQVQImSXHMQEAMAwCMOrfK0jIjuVL2gLBzyHJtgd7wBdU3Vt/7AAAAABJRU5ErkJggg==);
+  }
+  #the_methods ul {font-size:1.1em;margin:5px 0 10px 10px;list-style:none;}
+  #the_methods li:before {content:"\203A\00A0";font-weight:bold;color:#EB9C39;font-size:1.1em;}
+  #the_methods li:hover:before {content:"\00A0\203A";}
 
-#methodList {
-  padding-left: 10px;
-  margin-left: 15px;
-}
+  #the_page {margin-left:252px;border-style:solid;border-color:#cdcdcd;border-width:1px 0 0 1px;}
+  #the_content {padding:10px;}
 
-#methodWrapper {
-  margin-left: 14em;
-  visibility: hidden;
-}
+  #methodParams {display:inline-block;}
+  #methodParams thead td {background:#DEE3E9;font-weight:bold;padding:2px 5px;}
+  #methodParams td {padding:2px;border:1px solid #cdcdcd;vertical-align:middle;}
+  #methodParams tbody tr:nth-child(even) {background:#f7f7f7;}
+  #methodParams tbody tr td:first-child {font-family:monospace;font-size:0.95em;}
+  #methodParams td.mini {width:0px;text-align:center;}
+  #methodParams tfoot {font-size:0.95em;}
+  #methodParams td.input {text-align:center;}
+  #methodParams td.input input[type="text"] {width:97%;font-size:0.9em;background:#f7f7f7;border:1px solid #ccc;
+    border-radius:2px;-moz-border-radius:2px;-webkit-border-radius:2px;
+  }
+  #methodParams td.input input[type="text"]:hover, #methodParams td.input input[type="text"]:focus {border-color:#C7E2F1;border-top-color:#96BCD7;background:#fff;}
 
-#methodName {
-  margin-top: 0;
-  margin-bottom: 3px;
-}
+  #testForm {display:inline-block;margin-left:15px;}
+  #testForm td {padding:2px 0;}
+  #testForm tr:last-child td {padding:8px 0 5px 0;}
+  #testForm blockquote {width:200px;}
+  
+  #introMessage {font-size:1.1em;}
+  #urlForm {margin-bottom:10px;}
 
-
-#error {
-  height: 90px;
-  overflow: scroll;
-  color: red;
-}
-
-#methodParams {
-  border-collapse: collapse;
-  font-size: small;
-}
-
-#methodParams input {
-  font-size: 90%;
-  border: 1px solid black;
-  text-indent: 2px;
-}
-
-
-a {
-  color: #02f;
-  background-color: white;
-  text-decoration: underline;
-}
-
-a:hover {
-  color: white;
-  background-color: #02f;
-  text-decoration: none;
-  cursor:pointer;
-}
-
-</style>
-
+  a.button {color:#fff;padding:3px 8px;border:1px solid #91bb5c;font-size:0.9em;margin-right:3px;display:inline-block;
+    border-radius:5px;-moz-border-radius:5px;-webkit-border-radius:5px;
+    text-shadow:1px 1px 0 #666;-moz-text-shadow:1px 1px 0 #666;-webkit-text-shadow:1px 1px 0 #666;
+    background:#84bb3c;background:-moz-linear-gradient(top, #84bb3c 0%, #3f5a1d 100%);background:-webkit-gradient(linear, lefttop, leftbottom, color-stop(0%,#84bb3c), color-stop(100%,#3f5a1d));background:-webkit-linear-gradient(top, #84bb3c 0%, #3f5a1d 100%);background:-o-linear-gradient(top, #84bb3c 0%, #3f5a1d 100%);background:-ms-linear-gradient(top, #84bb3c 0%, #3f5a1d 100%);background:linear-gradient(tobottom, #84bb3c 0%, #3f5a1d 100%);filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#84bb3c', endColorstr='#3f5a1d', GradientType=0);
+  }
+  a.button:hover {color:#E5FF00;}
+  
+  #iframeWrapper {width:100%;height:300px;padding:3px 3px 20px 3px;background:#F9F9F9;border:1px solid #cdcdcd;overflow:hidden;position:relative;}
+  iframe {width:100%;height:100%;background:#fff;}
+  </style>
+  
 </head>
-
 
 <body>
 
-<div>
- <label>PWG Web service url
-  <input name="ws_url" id="ws_url" size="64"/>
-<script type="text/javascript">
-  var match = document.location.toString().match(/^(https?.*\/)tools\/ws\.html?$/);
-  if (match!=null) $('ws_url').value = match[1]+'ws.php';
-</script>
- </label>
- <a href="#" onclick="return pwgChangeUrl();">Go!</a>
-</div>
+<div id="the_header">
+  <h1>Piwigo web API (web-services) explorer</h1>
+</div> <!-- the_header -->
 
-<div id="error">
-</div>
-
-<div>
-
-<div id="methodListWrapper"><h2>Methods</h2>
-  <ul id="methodList">
-    <li><a href="#" onclick="return pwgSelectMethod(this.innerHTML)">getVersion</a></li>
+<div id="the_methods">
+  <h2>Available methods</h2>
+  
+  <ul id="methodsList">
   </ul>
-</div>
+</div> <!-- the_methods -->
 
-<div id="methodWrapper">
-  <h2 id="methodName"></h2>
-  <div id="methodDetailWrapper">
-
-    <table>
-    <tr style="vertical-align:top">
-
-    <td>
-      <div id="methodDescription"></div>
-      <table>
-        <tr>
-          <td>Request format:</td>
-          <td>
-            <select id="requestFormat">
-              <option value="get" selected="selected">GET</option>
-              <option value="post">POST</option>
-            </select>
-          </td>
-        </tr>
-
-        <tr>
-          <td>Response format:</td>
-          <td>
-            <select id="responseFormat">
-              <option value="rest" selected="selected">REST (xml)</option>
-              <option value="json">JSON</option>
-              <option value="php">PHP serial</option>
-              <option value="xmlrpc">XML RPC</option>
-            </select>
-          </td>
-        </tr>
-      </table>
+<div id="the_page">
+  <h2 id="methodName" style="display:none;"></h2>
+  <h2 id="errorWrapper" style="display:none;"></h2>
+  
+  <div id="the_content">
+    <form id="urlForm" style="display:none;">
+      <input type="text" name="ws_url" size="60">
+      <input type="submit" value="Go!">
+    </form>
+    
+    <blockquote id="introMessage">
       <p>
-        <a href="#" onclick="return pwgInvokeMethod(false)">Invoke</a>
-        <a href="#" onclick="return pwgInvokeMethod(true)">Invoke (new Window)</a>
+        <b>API = Application Programming Interface.</b><br>
+        This is the way other applications can communicate with Piwigo. This feature is also know as Web Services.
       </p>
-    </td>
+
+      <p>Examples:</p>
+      <ul>
+        <li>Wordpress (web blog software) can display random photos from a Piwigo gallery in its sidebar</li>
+        <li>Lightroom (photo management software for desktop) can create albums and upload photos to Piwigo</li>
+      </ul>
+
+      <p>
+        This page lists all API methods available on your Piwigo installation, part of the Piwigo core or added by third-party plugins.
+        For each method you can consult required and optional parameters, and even test them in direct live!
+      </p>
+
+      <p>
+        For more information you can consult our Wiki <a href="http://piwigo.org/doc/doku.php?id=dev:webapi:start" target="_blank">Piwigo Web API</a> and <a href="http://piwigo.org/forum" target="_blank">our forums</a>.
+      </p>
+    </blockquote> <!-- introMessage -->
 
 
-    <td>
-      <table id="methodParams"  border="1" cellspacing="0" cellpadding="2px">
-        <thead>
-          <tr>
-            <td style="width:150px">Parameter</td>
-            <td>Extra</td>
-            <td>Send</td>
-            <td style="width:160px">Value</td>
-          </tr>
-        </thead>
-        <tbody>
-        </tbody>
-      </table>
-    </td>
+    <form id="methodWrapper" style="display:none;">
+      <div id="methodDescription" style="display:none;">
+        <h3>Description</h3>
+        <blockquote>
+        </blockquote>
+        
+        <hr>
+      </div> <!-- methodDescription -->
+      
+      <div id="methodParams">
+        <h3>Method parameters</h3>
+        <table>
+          <thead>
+            <tr>
+              <td style="width:150px;">Name</td>
+              <td class="mini">Extra</td>
+              <td style="width:300px;">Value</td>
+              <td class="mini">Send</td>
+            </tr>
+          </thead>
+          
+          <tbody>
+          </tbody>
+          
+          <tfoot>
+            <tr>
+              <td colspan="4"><b>*</b>: required parameter, <b>?</b>: optional parameter, <b>[]</b>: parameter can be an array (use a pipe | to split values)</td>
+            </tr>
+          </tfoot>
+        </table>
+      </div> <!-- methodParams -->
+      
+      <div id="testForm">
+        <h3>Test</h3>
+        <blockquote>
+          <table>
+            <tr>
+              <td>Request format :</td>
+              <td>
+                <select id="requestFormat">
+                  <option value="get" selected="selected">GET</option>
+                  <option value="post">POST</option>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td>Response format :</td>
+              <td>
+                <select id="responseFormat">
+                  <option value="rest" selected="selected">REST (xml)</option>
+                  <option value="json">JSON</option>
+                  <option value="php">PHP serial</option>
+                  <option value="xmlrpc">XML RPC</option>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2">
+                <a href="#" class="button" id="invokeMethod">INVOKE</a>
+                <a href="#" class="button" id="invokeMethodBlank">INVOKE (new window)</a>
+              </td>
+            </tr>
+          </table>
+        </blockquote>
+      </div> <!-- testForm -->
+      
+      <hr>
+      
+      <h3>Result</h3>
+      <div id="iframeWrapper">
+        <iframe src="" id="invokeFrame" name="invokeFrame"></iframe>
+        <a href="#bottom" id="increaseIframe"><b>&darr;</b> increase height</a> &#8226; <a href="#bottom" id="decreaseIframe"><b>&uarr;</b> decrease height</a>
+        <a name="bottom"></a>
+      </div>
+    </form> <!-- iframeWrapper -->
+    
+    <!-- hidden form for POST submition -->
+    <form method="post" action="" target="" id="invokeForm" style="display:none;"></form>
+    
+  </div> <!-- the_content -->
 
-    </tr>
-    </table>
+</div> <!-- the_page -->
 
-		<div style="display:none;">
-			<!-- hiddenForm for POST -->
-			<form method="post" action="" target="invokeFrame" id="invokeForm">
-				<input type="submit" value="submit"/>
-			</form>
-		</div>
+<div id="the_footer">
+  Copyright © 2002-2012 <a href="http://piwigo.org">Piwigo Team</a>
+</div> <!-- the_footer -->
 
-    <iframe width="100%" height="400px" id="invokeFrame" name="invokeFrame" style="clear:both"></iframe>
-  </div> <!-- methodDetailWrapper -->
-</div> <!-- methodWrapper -->
 
-</div>
+<script type="text/javascript">  
+// global vars
+var cachedMethods = new Array;
+var ws_url = "http://";
+
+// automatic detection of ws_url
+match = document.location.toString().match(/^(https?.*\/)tools\/ws\.html?/);
+if (match==null) {
+  askForUrl();
+}
+else {
+  ws_url = match[1]+'ws.php';
+  getMethodList();
+}
+
+// manual set of ws_url
+$("#urlForm").submit(function() {
+  ws_url = $(this).children("input[name='ws_url']").val();
+  getMethodList();
+  return false;
+});
+
+// invoke buttons
+$("#invokeMethod").click(function() {
+  invokeMethod($("#methodName").html(), false);
+  return false;
+});
+$("#invokeMethodBlank").click(function() {
+  invokeMethod($("#methodName").html(), true);
+  return false;
+});
+
+// resizable iframe
+$("#increaseIframe").click(function() {
+  $("#iframeWrapper").css('height', $("#iframeWrapper").height()+100);
+  adaptHeight();
+});
+$("#decreaseIframe").click(function() {
+  if ($("#iframeWrapper").height() > 200) {
+    $("#iframeWrapper").css('height', $("#iframeWrapper").height()-100);
+    adaptHeight();
+  }
+});
+
+// mask all wrappers
+function resetDisplay() {
+  $("#errorWrapper").hide();
+  $("#methodWrapper").hide();
+  $("#methodName").hide();
+  $("#urlForm").hide();
+  $("#methodDescription").hide();
+  $("#invokeFrame").attr('src','');
+}
+
+// give the same size to methods list and main page
+function adaptHeight()
+{
+  $("#the_page").css('height', 'auto');
+  $("#the_methods").css('height', 'auto');
+  
+  min_h = $(window).height()-$("#the_header").outerHeight()-$("#the_footer").outerHeight()-3;
+  h = Math.max(min_h, Math.max($("#the_methods").height(), $("#the_page").height()));
+  
+  $("#the_page").css('height', h);
+  $("#the_methods").css('height', h);
+}
+
+// display error wrapper
+function displayError(error) {
+  resetDisplay();
+  $("#errorWrapper").html("<b>Error:</b> "+ error).show();
+  adaptHeight();
+}
+
+// display ws_url form
+function askForUrl() {
+  if ($("#urlForm input[name='ws_url']").val() == "") {
+    $("#urlForm input[name='ws_url']").val(ws_url);
+  }
+  $("#urlForm").show();
+  displayError("can't contact web-services, please give absolute url to 'ws.php'");
+}
+
+// parse Piwigo JSON
+function parsePwgJSON(json) {
+  try {
+    resp = jQuery.parseJSON(json);
+    if (resp==null | resp.result==null | resp.stat==null | resp.stat!='ok') {
+      throw new Error();
+    }
+  }
+  catch(e) {
+    displayError("unable to parse JSON string");
+    resp = {"stat": "ko", "result": "null"};
+  }
+ 
+  return resp.result;
+}
+
+// fetch methods list
+function getMethodList() {
+  resetDisplay();
+  
+  $.ajax({
+    type: "GET",
+    url: ws_url,
+    data: { format: "json", method: "reflection.getMethodList" }
+  }).done(function(result) {
+    result = parsePwgJSON(result);
+    
+    if (result!=null) {
+      methods = result.methods;
+      
+      var ml = '';
+      for (var i=0; i<methods.length; i++)
+      {
+        ml += '<li><a href="#">'+ methods[i]+'</a></li>';
+      }
+      $("#methodsList").html(ml).show();
+      
+      adaptHeight();
+      
+      // trigger method selection
+      $("#methodsList li a").click(function() {
+        selectMethod($(this).html());
+        return false;
+      });
+    }
+  }).error(function(jqXHR, textStatus, errorThrown) {
+    askForUrl();
+  });
+}
+
+// select method
+function selectMethod(methodName) {
+  $("#introMessage").hide();
+  
+  if (cachedMethods[ methodName ]) {
+    fillNewMethod(methodName);
+  }
+  else {
+    $.ajax({
+      type: "GET",
+      url: ws_url,
+      data: { format: "json", method: "reflection.getMethodDetails", methodName: methodName }
+    }).done(function(result) { 
+      result = parsePwgJSON(result);
+    
+      if (result!=null) {
+        cachedMethods[ methodName ] = result;
+        fillNewMethod(methodName);
+      }
+    }).error(function(jqXHR, textStatus, errorThrown) {
+      displayError("unknown error");
+    });
+  }
+}
+
+// display method details
+function fillNewMethod(methodName) {
+  resetDisplay();
+  
+  method = cachedMethods[ methodName ];
+  
+  $("#methodName").html(method.name).show();
+  
+  if (method.description != "") {
+    $("#methodDescription blockquote").html(method.description);
+    $("#methodDescription").show();
+  }
+  
+  var methodParams = '';
+  if (method.params && method.params.length>0) {
+    for (var i=0; i<method.params.length; i++) {
+      var isOptional = method.params[i].optional;
+      var acceptArray = method.params[i].acceptArray;
+      var defaultValue = method.params[i].defaultValue == null ? '' : method.params[i].defaultValue;
+      
+      // if an array is direclty printed, the delimiter is a comma where we use a pipe
+      if (typeof defaultValue == 'object') {
+        defaultValue = defaultValue.join('|');
+      }
+
+      methodParams+= '<tr>'+
+        '<td>'+ method.params[i].name +'</td>'+
+        '<td class="mini">'+ (isOptional ? '?':'*') + (acceptArray ? ' []':'') +'</td>'+
+        '<td class="input"><input type="text" class="methodParameterValue" data-id="'+ i +'" value="'+ defaultValue +'"></td>'+
+        '<td class="mini"><input type="checkbox" class="methodParameterSend" data-id="'+ i +'" '+ (isOptional ? '':'checked="checked"') +'></td>'+
+      '</tr>';
+    }
+ 	}
+  else {
+    methodParams = '<tr><td colspan="4">This method takes no parameters</td></tr>';
+  }
+  
+  $("#methodParams tbody").html(methodParams);
+  $("#methodWrapper").show(); 
+  
+  adaptHeight();
+  
+  // trigger field modification
+  $("input.methodParameterValue").change(function() {
+    $("input.methodParameterSend[data-id='"+ $(this).data('id') +"']").attr('checked', 'checked');
+  });
+}
+
+// invoke method
+function invokeMethod(methodName, newWindow) {
+	var method = cachedMethods[ methodName ];
+
+  var reqUrl = ws_url +"?format="+ $("#responseFormat").val();
+  
+  // GET
+  if ($("#requestFormat").val() == 'get') {
+    reqUrl+= "&method="+ methodName;
+    
+    for (var i=0; i<method.params.length; i++) {
+      if (! $("input.methodParameterSend[data-id='"+ i +"']").is(":checked")) {
+        continue;
+      }
+
+      var paramValue = $("input.methodParameterValue[data-id='"+ i +"']").val();
+      
+      var paramSplitted = paramValue.split('|');
+      if (method.params[i].acceptArray &&  paramSplitted.length > 1) {
+        $.each(paramSplitted, function(v) {
+          reqUrl+= '&'+ method.params[i].name +'[]='+ paramSplitted[v];
+        });
+      }
+      else {
+        reqUrl+= '&'+ method.params[i].name +'='+ paramValue;
+      }
+    }
+    
+    if (newWindow) {
+      window.open(reqUrl);
+    }
+    else {
+      $("#invokeFrame").attr('src', reqUrl);
+    }
+  }
+  // POST
+  else {
+    var form = $("#invokeForm");
+    form.attr('action', reqUrl);
+    
+    var t = '<input type="hidden" name="method" value="'+ methodName +'">';
+    
+    for (var i=0; i<method.params.length; i++) {
+      if (! $("input.methodParameterSend[data-id='"+ i +"']").is(":checked")) {
+        continue;
+      }
+
+      var paramValue = $("input.methodParameterValue[data-id='"+ i +"']").val();
+
+      var paramSplitted = paramValue.split('|');
+      if (method.params[i].acceptArray &&  paramSplitted.length > 1) {
+        $.each(paramSplitted, function(v) {
+          t+= '<input type="hidden" name="'+ method.params[i].name +'[]" value="'+ paramSplitted[v] +'">';
+        });
+      }
+      else {
+        t+= '<input type="hidden" name="'+ method.params[i].name +'" value="'+ paramValue +'">';
+      }
+    }
+    
+    form.html(t);
+    form.attr('target', newWindow ? "_blank" : "invokeFrame");
+    form.submit();
+  }
+  
+  return false;
+}
+</script>
 
 </body>
 </html>
