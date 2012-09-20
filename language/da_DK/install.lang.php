@@ -23,7 +23,7 @@
 
 $lang['Installation'] = 'Installation';
 $lang['Basic configuration'] = 'Grundlæggende opsætning';
-$lang['Default gallery language'] = 'Standardgallerisprog';
+$lang['Default gallery language'] = 'Galleriets standardsprog';
 $lang['Database configuration'] = 'Databaseopsætning';
 $lang['Admin configuration'] = 'Admin-opsætning';
 $lang['Start Install'] = 'Begynd installation';
@@ -51,14 +51,14 @@ $lang['Password [confirm]'] = 'Password [bekræft]';
 $lang['verification'] = 'bekræftelse';
 $lang['Need help ? Ask your question on <a href="%s">Piwigo message board</a>.'] = 'Brug for hjælp? Stil dine spørgsmål i <a href="%s">Piwigos forum</a>.';
 $lang['Webmaster mail address'] = 'Webmasters mailadresse';
-$lang['Visitors will be able to contact site administrator with this mail'] = 'Besøgende vil med denne e-mail have mulighed for at kontakte administratoren';
+$lang['Visitors will be able to contact site administrator with this mail'] = 'Besøgende vil ved hjælp af denne e-mail have mulighed for at kontakte administratoren';
 $lang['PHP 5 is required'] = 'PHP 5 er nødvendig';
 $lang['It appears your webhost is currently running PHP %s.'] = 'Det lader til, at din webhost pt. kører PHP %s.';
 $lang['Piwigo may try to switch your configuration to PHP 5 by creating or modifying a .htaccess file.'] = 'Piwigo kan prøve at skifte din opsætning til PHP 5 ved at oprette eller ændre en .htaccess-fil.';
 $lang['Note you can change your configuration by yourself and restart Piwigo after that.'] = 'Bemærk, at du selv kan ændre din opsætning og derefter genstarte Piwigo.';
 $lang['Try to configure PHP 5'] = 'Prøv at opsætte PHP 5';
 $lang['Sorry!'] = 'Hov!';
-$lang['Piwigo was not able to configure PHP 5.'] = 'Piwigo var ikke i stand til af opsætte PHP 5.';
+$lang['Piwigo was not able to configure PHP 5.'] = 'Piwigo var ikke i stand til at opsætte PHP 5.';
 $lang["You may referer to your hosting provider's support and see how you could switch to PHP 5 by yourself."] = "Du henvises til din webhost for at se hvordan du selv kan skifte til PHP 5.";
 $lang['Hope to see you back soon.'] = 'Håber snart at se dig igen.';
 $lang['Congratulations, Piwigo installation is completed'] = 'Tillykke, installeringen af Piwigo er afsluttet';
@@ -66,7 +66,7 @@ $lang['An alternate solution is to copy the text in the box above and paste it i
 $lang['Creation of config file local/config/database.inc.php failed.'] = 'Oprettelsen af local/config/database.inc.php gik galt.';
 $lang['Download the config file'] = 'Download opsætningsfilen';
 $lang['You can download the config file and upload it to local/config directory of your installation.'] = 'Du kan downloade opsætningsfilen og uploade den til mappen local/config i din installation.';
-$lang['Just another Piwigo gallery'] = 'Blot endnu et Piwigo-galleri';
+$lang['Just another Piwigo gallery'] = 'Bare endnu et Piwigo-galleri';
 $lang['Welcome to my photo gallery'] = 'Velkommen til mit fotogalleri';
 
 $lang['Don\'t hesitate to consult our forums for any help : %s'] = 'Tøv ikke med at besøges vores forum for at få hjælp: %s';
