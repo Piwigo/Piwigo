@@ -934,4 +934,6 @@ $lang['Format'] = 'Format';
 $lang['Portrait'] = 'Portrait';
 $lang['Landscape'] = 'Paysage';
 $lang['Panorama'] = 'Panorama';
+$lang['Manage photos'] = 'Gérer les photos';
+$lang['View in gallery'] = 'Voir dans la galerie';
 ?>
