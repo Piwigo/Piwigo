@@ -48,6 +48,6 @@ $lang['locfiledit_filename_error'] = 'Forbudt tegn i filnavn.';
 $lang['locfiledit_model_error'] = 'Du skal vælge en model.';
 $lang['locfiledit_model'] = 'Model';
 $lang['locfiledit_new_filename'] = 'Filnavn';
-$lang['locfiledit_parent_directory'] = 'Hovedmappe';
+$lang['locfiledit_parent_directory'] = 'Overordnet mappe';
 $lang['locfiledit_webmaster_only'] = 'Kun webmastere kan oprette eller ændre lokale filer.';
 ?>
