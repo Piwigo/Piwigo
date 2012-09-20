@@ -936,4 +936,6 @@ $lang['Minimum width'] = 'Minimal bredde';
 $lang['Panorama'] = 'Panorama';
 $lang['Portrait'] = 'Portræt';
 $lang['The version of %s [%s] installed is not compatible with the version required ']['%s'] = 'Den installerede version af %s [%s] er ikke kompatibel med den krævede version [%s]';
+$lang['Manage photos'] = 'Håndter fotografier';
+$lang['View in gallery'] = 'Se i galleri';
 ?>
