@@ -13,11 +13,11 @@ jQuery(document).ready(function(){
   }
 
   jQuery(".checkComment").click(function(event) {
+    var checkbox = jQuery(this).children("input[type=checkbox]");
     if (event.target.type !== 'checkbox') {
-      var checkbox = jQuery(this).children("input[type=checkbox]");
       jQuery(checkbox).attr('checked', !jQuery(checkbox).is(':checked'));
-      highlighComments();
     }
+    highlighComments();
   });
 
   jQuery("#commentSelectAll").click(function () {
