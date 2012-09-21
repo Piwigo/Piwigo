@@ -930,4 +930,6 @@ $lang['Minimum height'] = 'Мінімальна висота';
 $lang['Minimum width'] = 'Мінімальна ширина';
 $lang['Panorama'] = 'Панорама';
 $lang['Portrait'] = 'Портрет';
+$lang['Manage photos'] = 'Управління зображеннями';
+$lang['View in gallery'] = 'Переглянути у галереї';
 ?>
