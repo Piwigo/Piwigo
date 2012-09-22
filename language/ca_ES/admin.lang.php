@@ -937,4 +937,13 @@ $lang['Duplicate selected tags'] = 'Duplicar etiquetes seleccionades';
 $lang['Name of the duplicate'] = 'Nom del duplicat';
 $lang['Source tag'] = 'Font d\'etiqueta';
 $lang['Tag "%s" is now a duplicate of "%s"'] = 'L\'etiqueta "%s" és ara un duplicat de "%s"';
+$lang['Format'] = 'Format';
+$lang['Invalid dimension'] = 'Dimensió no vàlida';
+$lang['Landscape'] = 'Paissatge';
+$lang['Manage photos'] = 'Administrar imatges';
+$lang['Minimum height'] = 'Alçada mínima';
+$lang['Minimum width'] = 'Amplada mínima';
+$lang['Panorama'] = 'Panorama';
+$lang['Portrait'] = 'Retrat';
+$lang['View in gallery'] = 'Veure en la galeria';
 ?>
