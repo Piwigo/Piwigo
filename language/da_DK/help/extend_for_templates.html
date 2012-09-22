@@ -1,0 +1,55 @@
+<h2>Opsætning af skabelonudvidelsen</h2>
+
+<h3>Om</h3>
+<p>Dit Piwigo-galleri kan tilpasses ved at udskifte eksisterende skabelonfiler med tilpassede udgaver.  For eksempel
+kan standardheaderskabelonen (header.tpl) erstattes med en tilpasset headerskabelon (my-header.tpl).  Efter at have gemt ændringerne i databasen, vil galleriet vise den tilpassede header i stedet for den oprindelige header.<br>
+Skabelonudvidelser er en god måde at oprette tilpassede temaer på for både nye og avancerede brugere.  Anvendt sammen med LocalFiles Editor kan du oprette dine egne nedarvede temaer.</p>
+
+<h3>Oprindelig skabelon</h3>
+<p>Et tema indeholder et antal skabelonfiler, som udgår gallerisiderne.  Det er de oprindelige skabeloner.</p>
+
+<h3>Valgfrit URL-nøgleord</h3>
+<p>Det er ord, som findes i galleri-URL'en efter et modulnavn.  De kan også være aktive permalinks  (Se permalink-dokumentationen for flere oplysninger).  <a href="#warnings">ADVARSEL:</a> hvis den samme oprindelige skabelon og det samme nøgleord anvendes i mere end én tilpasset skabelon, er kun den seneste aktiv.</p>
+
+<h3>Bundet tema</h3>
+<p>Det bundne tema, er temaet hvis skabelonfiler udskiftes.</p>
+
+<h3>Hvor er de oprindelige skabeloner?</h3>
+<p>Oprindelige skabeloner er de skabelonfiler, som leveres med de enkelte teamer.  De er gemt i <em>/themes/default/template</em> (eller <em>themes/<temanavn>/template</em>).  Disse skabelonfiler bør ikke redigeres, hvor de befinder sig, da ændringer vil gå tabt når temaet opgraderes.<br>
+Understøttede oprindelige skabeloner er blandt andre:</p>
+<ul>
+  <li><span class="filename">index.tpl</span></li>
+  <li><span class="filename">mainpage_categories.tpl</span> og/eller <span class="filename">thumbnails.tpl</span></li>
+  <li><span class="filename">menubar.tpl</span></li>
+  <li><span class="filename">header.tpl</span> og/eller <span class="filename">footer.tpl</span></li>
+  <li><span class="filename">picture_content.tpl</span> og/eller <span class="filename">picture.tpl</span></li>
+  <!-- <li><span class="filename">slideshow.tpl</span></li> -->
+  <li><span class="filename">profile.tpl</span> og/eller <span class="filename">profile_content.tpl</span></li>
+  <li><span class="filename">tags.tpl</span></li>
+  <li><span class="filename">upload.tpl</span></li>
+  <li><span class="filename">about.tpl</span></li>
+  <li><span class="filename">popuphelp.tpl</span></li>
+  <li><span class="filename">search.tpl</span> og/eller <span class="filename">search_rules.tpl</span></li>
+  <li><span class="filename">nbm.tpl</span> og/eller <span class="filename">notification.tpl</span></li>
+  <li><span class="filename">identification.tpl</span> og/eller <span class="filename">register.tpl</span></li>
+  <li><span class="filename">redirect.tpl</span></li>
+</ul>
+
+<h3>Gemning af tilpassede skabeloner</h3>
+<p>Tilpassede skabeloner bør gemmes i mappen template-extension eller undermapper.  For eksempel <em>/template-extension/min-standard/header.tpl</em> (eller <em>/template-extension/<mit-temas-navn>/header.tpl</em>).  Skabelonfiler kan have et vilkårligt nanv, som slutter med filudvidelsen .tpl.  Skabelonfiler i undermapper viser sig på Skabelon-opsætningssiden som tilgængelige tilpassede skabeloner.</p>
+
+<h3>Aktivering af tilpassede skabeloner</h3>
+<p>Vælg den oprindelige skabelon, som skal erstattes.  Det er valgfrit om man vælger et URL-nøgleord for at sikre at den tilpassede skabelon kun vises på sider, med det nøgleord.  Vælg et bundet tema og ændringerne vil kun træde i kraft i det tema.  Gem dine ændringer i databasen.</p>
+
+<h3>Deaktivering af tilpassede skabeloner</h3>
+<p>Fravælg den oprindelige skabelon og gem ændringerne i databasen.<br>
+Slet filerne med den tilpassede skabelon fra mappen template-extension.</p>
+
+<a name="warnings"></a>
+<h3>Advarsler</h3>
+<ul>
+  <li><strong>Den oprindelige skabelon</strong> skal være den oprindelige skablon, ellers kan du opleve uforudsigelige resultater.</li>
+  <li>Hvis den samme oprindelige skabelon og det samme URL-nøgleord anvendes i mere end en tilpasset skabelon, vil kun den sidste være aktiv.</li>
+  <li>Distribuerede eksempler på skabelonfiler er kun til testformål.  Rediger dem ikke.  Opret dine egne eller kopi eksisterende temaskabelonfiler til <em>/template-extension/<mit-tema>/</em></li>
+  <li>Når en tilpasset skabelon slettes, genaktiveres den oprindelige skabelonfil med det samme.</li>
+</ul>

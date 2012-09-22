@@ -1,0 +1,54 @@
+<fieldset>
+<legend>Tilladelser til fotografier</legend>
+
+<p>Hvert fotografi har et <strong>privatlivsniveau</strong> (en lås). Hver bruger har også et privatlivsniveau (en nøgle). Der er fem privatlivsniveauer:</p>
+<ol>
+  <li>Ingen</li>
+  <li><em>Bekendt</em></li>
+  <li><em>Venner (som er højere end en bekendt)</em></li>
+  <li><em>Familie (som er højere end en ven)</em></li>
+  <li><em>Admins (som er højere end noget andet niveau)</em></li>
+</ol>
+
+<p>Højere niveauer har tilladelser fra lavere niveauer. For en given bruger, jo højere privatlivsniveau, desto flere fotografier kan vedkommende se.</p>
+
+<p>Hvis for eksempel fotografiet "peter_bryllup-0024.jpg" har <em>"Familie"</em> som privatlivsniveau, så:</p>
+<ul>
+  <li>Peter (som er en <em>"Admin"</em>) vil kunne se fotografiet, fordi <em>"Admins"</em> kan se alle fotografier</li>
+  <li>Beth (som er et <em>"Familie"</em>-medlem) vil også kunne se fotografiet</li>
+  <li>Mary (som bare er en <em>"Ven"</em>) vil ikke kunne se fotografiet</li>
+</ul>
+
+<p>En bruger, som ikke har tilladelse til at se et albums indhold, vil ikke se albummet selv, ikke engang dets titel. Det samme princip gælder et tag.</p>
+
+<p>Du kan opsætte en brugers privatlivsniveau på siden <span class="pwgScreen">Administration &raquo; Brugere &raquo; Håndter</span>.</p>
+
+</fieldset>
+
+<fieldset>
+<legend>Tilladelser til albummer</legend>
+
+<p>Hvis privatlivsniveauerne, ikke passer til dine behov, kan du også håndtere albumtilladelser for en bruger eller en gruppe. Du kan håndtere fotografiers og albummers tilladelser på samme tid, uden konflikter.</p>
+
+<p>Du kan forbyde adgang til albummer. Skift albummets adgangstype til "privat", hvis du ønsker at håndtere tilladelser.</p>
+
+<p>Du kan gøre et album privat ved at redigere et enkelt album
+(<span class="pwgScreen">Administration &raquo; Albummer &raquo; Håndter
+&raquo; edit</span>) eller ved at opsætte indstillinger for hele dit albumtræ
+(<span class="pwgScreen">Administration &raquo; Albummer &raquo;
+Egenskaber &raquo; Offentlig / Privat</span>).</p>
+
+<p>Når et album er gjort privat, kan du håndtere tilladelserne for grupper og brugere ved hjælp af tre sider:</p>
+
+<ul>
+
+  <li><span class="pwgScreen">Administration &raquo; Brugere &raquo; Håndter &raquo;
+  tilladelseshandling</span> (et link pr. bruger)</li>
+
+  <li><span class="pwgScreen">Administration &raquo; Users &raquo; Grupper &raquo;
+  tilladelseshandling</span> (et link pr. gruppe)</li>
+
+  <li><span class="pwgScreen">Administration &raquo; Albums &raquo; Håndter &raquo; rediger handler vedr. albumtilladelser</span> (et link pr. album)</li>
+
+</ul>
+</fieldset>

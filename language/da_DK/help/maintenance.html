@@ -1,0 +1,26 @@
+<h2>Vedligeholdelse</h2>
+
+<p>For at optimere den tid det tager, at denne en side, anvender Piwigo cachede oplysninger.  Eksempelvis, i stedet for at tælle antallet af fotografier i hvert album, hver gang en side genindlæses, gemmes oplysningen i databasen.  I teorien er oplysningen altid korrekt, men nogle gange opstår der en fejl og den cachede oplysning bliver forældet.</p>
+
+<p>Nogle oplysninger bliver mindre nyttige, efterhånden som tiden går.  Ved at slutte unyttige oplysninger fra databasen, sparer du noget diskplads.</p>
+
+<ul>
+	<li><strong>Sletning af forældreløse tags</strong></li>
+</ul>
+<ul>
+  <li><strong>Opdatering af albumoplysninger:</strong> Følgende oplysninger kontrolleres i hvert album, og opdateres om nødvendigt: Liste over overordnede albummer, antal fotografier, senste fotodato, placering blandt albummer på samme niveau, position blandt alle albummer. Handlingen kontrollerer også om de repræsentative fotografier er konsistente.</li>
+  <li><strong>Opdatering af fotografiers oplysninger:</strong> Følgende oplysninger opdateres for hvert fotografi: Fuld sti til filen, gennemsnitlig bedømmelse. <em>Advarsel</em>, må ikke forveksles: metadataoplysninger skal synkroniseres fra <span class="pwgScreen">Administration &raquo; Værktøjer &raquo; Synkroniser</span>, eller på ændringssiden hørende til et enkelt fotografi (ved hjælp af fx <span class="pwgScreen">Fotografi</span>).</li>
+</ul>
+<ul>
+  <li><strong>Reparer og optimer databasen:</strong> Udfør re-order-, reparerings- og optimeringshandlinger på hver tabel i databasen.</li>
+  <li><strong>Geninitialiser integritetstjek</strong></li>
+</ul>
+
+<ul>
+  <li><strong>Tøm historikdetaljer:</strong> Slet alle linjer fra historiktabellen. Siden <span class="pwgScreen">Administration &raquo; Værktøjer &raquo; Historik</span> vil ikke længere vise oplysninger om forudgående historik. <em>Advarsel:</em> alle data mistes, uden det på nogen måden er muligt at få dem tilbage.</li>
+  <li><strong>Tøm historiksammendrag:</strong> Slet alle sammendragsoplysninger om besøgshistorik. Sammendraget beregnes ud fra historikdetaljerne.</li>
+  <li><strong>Tøm sessions:</strong> Slet udløbne brugersessioner.</li>
+  <li><strong>Tøm aldrig benyttede notifikationsfeeds</strong></li>
+  <li><strong>Tøm søgehistorik</strong></li>
+  <li><strong>Tøm kompilede skabeloner</strong></li>  
+</ul>

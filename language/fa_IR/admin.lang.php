@@ -244,7 +244,7 @@ $lang['You have unsubscribed from receiving notifications by mail.'] = 'شما �
 $lang[', click on'] = "، کلیک کنید";
 $lang['To unsubscribe'] = 'لغو کردن اشتراک';
 $lang['With blank value, gallery title will be used'] = 'اگر خالی بگذارید، عنوان گالری جای آن می نشیند';
-$lang['Notification'] = 'آگهی';
+$lang['Notification'] = 'خبرنامه';
 $lang['Error when sending email to %s [%s].'] = 'خطا در فرستادن ایمیل به %s [%s].';
 $lang['Mail sent to %s [%s].'] = 'ایمیل به %s [%s] فرستاده شد.';
 $lang['%d mail was sent.'] = '%d ایمیل فرستاده شد.';
@@ -293,7 +293,7 @@ $lang['no write access'] = "دسترسی نوشتن را ندارید";
 $lang['Permissions'] = 'مجوز ها';
 $lang['private'] = "شخصی";
 $lang['public'] = 'همگانی';
-$lang['Purge never used notification feeds'] = 'پاکسازی اطلاعیه هایی که هیچ وقت مورد استفاده قرار نگرفته اند';
+$lang['Purge never used notification feeds'] = 'پاکسازی خبرنامه هایی که هیچ وقت مورد استفاده قرار نگرفته اند';
 $lang['Purge sessions'] = 'پاکسازی جلسه ها (Sessions)';
 $lang['randomly represented'] = 'عکس ریزه ی آلبومِ تصادفی';
 $lang['registration date'] = 'تاریخ نام نویسی';
@@ -575,9 +575,9 @@ $lang['Who can see these photos?'] = 'چه کسی قادر به مشاهده ی 
 $lang['Who can see this photo?'] = 'چه کسی قادر به مشاهده ی این عکس باشد؟';
 $lang['Settings'] = 'تنظیمات';
 $lang['Resize'] = 'تغییر اندازه';
-$lang['Maximum Width'] = 'بیشترین پهنا';
+$lang['Maximum width'] = 'بیشترین پهنا';
 $lang['pixels'] = 'پیکسل';
-$lang['Maximum Height'] = 'بیشترین بلندا';
+$lang['Maximum height'] = 'بیشترین بلندا';
 $lang['Image Quality'] = 'کیفیت عکس';
 $lang['Thumbnail'] = 'عکس ریزه (Thumbnail)';
 $lang['Save Settings'] = 'ذخیره ی تنظیمات';
