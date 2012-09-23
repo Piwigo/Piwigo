@@ -937,4 +937,6 @@ $lang['Minimum height'] = 'Minimum Höhe';
 $lang['Minimum width'] = 'Minimum Breite';
 $lang['Panorama'] = 'Panorama';
 $lang['Portrait'] = 'Hoch-Kant';
+$lang['Manage photos'] = 'Fotos verwalten';
+$lang['View in gallery'] = 'Gallerieansicht';
 ?>
