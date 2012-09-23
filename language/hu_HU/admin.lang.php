@@ -935,4 +935,6 @@ $lang['Minimum height'] = 'Legkisebb magasság';
 $lang['Minimum width'] = 'Legkisebb szélesség';
 $lang['Panorama'] = 'Panoráma';
 $lang['Portrait'] = 'Portré';
+$lang['Manage photos'] = 'Képek kezelése';
+$lang['View in gallery'] = 'Megtekintés a galériában';
 ?>
