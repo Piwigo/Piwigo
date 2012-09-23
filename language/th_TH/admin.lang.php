@@ -922,4 +922,12 @@ $lang['X Position'] = 'ตำแหน่ง X';
 $lang['Aperture is a powerful tool to refine images and manage massive libraries on Mac.'] = 'เครื่องมือที่มีประสิทธิภาพเพื่อปรับแต่งภาพและการบริหารจัดการไลบรารีขนาดใหญ่บน Mac';
 $lang['Aperture is designed for professional photographers with iPhoto simplicity.'] = 'เครื่องมือถูกออกแบบมาสำหรับช่างภาพมืออาชีพด้วยความเรียบง่าย iPhoto';
 $lang['Piwigo export plugin for Aperture'] = 'ปลั๊กอินส่งออกสำหรับ Aperture';
+$lang['Minimum height'] = 'ความสูงต่ำสุด';
+$lang['Panorama'] = 'พาโนรามา';
+$lang['Minimum width'] = 'ความกว้างต่ำสุด';
+$lang['Portrait'] = 'แนวตั้ง';
+$lang['Landscape'] = 'แนวนอน';
+$lang['Manage photos'] = 'จัดการรูปภาพ';
+$lang['Format'] = 'รูปแบบ';
+$lang['Invalid dimension'] = 'ขนาดไม่ถูกต้อง';
 ?>
