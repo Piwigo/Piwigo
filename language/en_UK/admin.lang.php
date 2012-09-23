@@ -538,6 +538,7 @@ $lang['nothing'] = "nothing";
 $lang['Notification'] = "Notification";
 $lang['Notify administrators when a comment is'] = 'Notify administrators when a comment is';
 $lang['Number of comments per page'] = "Number of comments per page";
+$lang['Number of albums per page'] = 'Number of albums per page';
 $lang['Number of downloads'] = "Number of downloads";
 $lang['number of miniaturized photos'] = "number of thumbnails created";
 $lang['Number of rates'] = "Number of rates";

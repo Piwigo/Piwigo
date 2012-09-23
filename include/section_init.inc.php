@@ -41,7 +41,11 @@
 //   'start'    => 24
 //   );
 
-$page['items'] = array();
+// exemple of dynamic nb_categories_page (%2 for nice display)
+// $conf['nb_categories_page'] = 2*round($user['nb_image_page']/4);
+
+$page['items'] = $page['categories'] = array();
+$page['start'] = $page['starta'] = 0;
 
 // some ISPs set PATH_INFO to empty string or to SCRIPT_FILENAME while in the
 // default apache implementation it is not set
@@ -246,8 +250,11 @@ if ('categories' == $page['section'])
   else
     $page['title'] = ''; // will be set later
 
+    
+  // GET IMAGES LIST
   if
     (
+      $page['starta'] == 0 and
       (!isset($page['chronology_field'])) and
       (
         (isset($page['category'])) or
@@ -310,6 +317,44 @@ SELECT DISTINCT(image_id)
 
     $page['items'] = array_from_query($query, 'image_id');
   } //otherwise the calendar will requery all subitems
+  
+  // GET CATEGORIES LIST
+  if ( 0==$page['start']
+    and !isset($page['flat'])
+    and !isset($page['chronology_field'])
+    and ('recent_cats'==$page['section'] or 'categories'==$page['section'])
+    and (!isset($page['category']['count_categories']) or $page['category']['count_categories']>0 )
+  )
+  {
+    $query = '
+SELECT c.id
+  FROM '.CATEGORIES_TABLE.' c
+    INNER JOIN '.USER_CACHE_CATEGORIES_TABLE.' ucc 
+    ON id = cat_id 
+    AND user_id = '.$user['id'];
+
+    if ('recent_cats' == $page['section'])
+    {
+      $query.= '
+      WHERE date_last >= '.pwg_db_get_recent_period_expression($user['recent_period']);
+    }
+    else
+    {
+      $query.= '
+      WHERE id_uppercat '.(!isset($page['category']) ? 'is NULL' : '= '.$page['category']['id']);
+    }
+
+    $query.= '
+        '.get_sql_condition_FandF(
+          array('visible_categories' => 'id'),
+          'AND'
+          );
+
+    $query.= '
+    ;';
+
+    $page['categories'] = array_from_query($query, 'id');
+  }
 }
 // special sections
 else

@@ -645,6 +645,13 @@ jQuery(document).ready(function() {
         {'slideshow'|@translate|@ucfirst|@string_format:$pwg->l10n('Activate icon "%s"')}
       </label>
     </li>
+    
+    <li>
+      <label>
+        {'Number of albums per page'|@translate}
+        <input type="text" size="3" maxlength="4" name="nb_categories_page" id="nb_categories_page" value="{$display.NB_CATEGORIES_PAGE}">
+      </label>
+    </li>
   </ul>
 </fieldset>
 

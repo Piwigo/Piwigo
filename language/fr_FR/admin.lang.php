@@ -936,4 +936,5 @@ $lang['Landscape'] = 'Paysage';
 $lang['Panorama'] = 'Panorama';
 $lang['Manage photos'] = 'Gérer les photos';
 $lang['View in gallery'] = 'Voir dans la galerie';
+$lang['Number of albums per page'] = 'Nombre d\'albums par page';
 ?>

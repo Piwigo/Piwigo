@@ -22,10 +22,18 @@
 // +-----------------------------------------------------------------------+
 
 /**
- * This file is included by the main page to show thumbnails for a category
- * that have only subcategories or to show recent categories
+ * This file is included by the main page to show subcategories of a category
+ * or to show recent categories or main page categories list
  *
  */
+
+$selection = array_slice(
+  $page['categories'],
+  $page['starta'],
+  $conf['nb_categories_page']
+  );
+
+$selection = trigger_event('loc_index_categories_selection', $selection);
 
 // $user['forbidden_categories'] including with USER_CACHE_CATEGORIES_TABLE
 $query = '
@@ -38,27 +46,11 @@ SELECT
     count_images,
     count_categories
   FROM '.CATEGORIES_TABLE.' c
-    INNER JOIN '.USER_CACHE_CATEGORIES_TABLE.' ucc ON id = cat_id AND user_id = '.$user['id'];
-
-if ('recent_cats' == $page['section'])
-{
-  $query.= '
-  WHERE date_last >= '.pwg_db_get_recent_period_expression($user['recent_period']);
-}
-else
-{
-  $query.= '
-  WHERE id_uppercat '.(!isset($page['category']) ? 'is NULL' : '= '.$page['category']['id']);
-}
-
-$query.= '
-    '.get_sql_condition_FandF(
-  array(
-    'visible_categories' => 'id',
-    ),
-  'AND'
-  );
-
+    INNER JOIN '.USER_CACHE_CATEGORIES_TABLE.' ucc 
+    ON id = cat_id 
+    AND user_id = '.$user['id'].'
+  WHERE c.id IN('.implode(',', $selection).')';
+  
 if ('recent_cats' != $page['section'])
 {
   $query.= '

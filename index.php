@@ -29,10 +29,6 @@ include(PHPWG_ROOT_PATH.'include/section_init.inc.php');
 // Check Access and exit when user status is not ok
 check_status(ACCESS_GUEST);
 
-if (!isset($page['start']))
-{
-  $page['start'] = 0;
-}
 
 // access authorization check
 if (isset($page['category']))
@@ -74,6 +70,7 @@ if (isset($_GET['display']))
 }
 //-------------------------------------------------------------- initialization
 
+// navigation bar
 $page['navigation_bar'] = array();
 if (count($page['items']) > $page['nb_image_page'])
 {
@@ -82,9 +79,24 @@ if (count($page['items']) > $page['nb_image_page'])
     count($page['items']),
     $page['start'],
     $page['nb_image_page'],
-    true
+    true, 'start'
     );
 }
+
+$page['cats_navigation_bar'] = array();
+if (count($page['categories']) > $conf['nb_categories_page'])
+{
+  $page['cats_navigation_bar'] = create_navigation_bar(
+    duplicate_index_url(array(), array('starta')),
+    count($page['categories']),
+    $page['starta'],
+    $conf['nb_categories_page'],
+    true, 'starta'
+    );
+}
+
+$template->assign( 'thumb_navbar', $page['navigation_bar'] );
+$template->assign( 'cats_navbar', $page['cats_navigation_bar'] );
 
 // caddie filling :-)
 if (isset($_GET['caddie']))
@@ -242,8 +254,6 @@ if ( $page['section']=='search' and $page['start']==0 and
   }
 }
 
-// navigation bar
-$template->assign( 'navbar', $page['navigation_bar'] );
 
 if ( $conf['index_sort_order_input']
     and count($page['items']) > 0
@@ -288,12 +298,7 @@ if ( isset($page['category']['count_categories']) and $page['category']['count_c
 }
 
 //------------------------------------------------------ main part : thumbnails
-if ( 0==$page['start']
-    and !isset($page['flat'])
-    and !isset($page['chronology_field'])
-    and ('recent_cats'==$page['section'] or 'categories'==$page['section'])
-    and (!isset($page['category']['count_categories']) or $page['category']['count_categories']>0 )
-  )
+if ( !empty($page['categories']) )
 {
   include(PHPWG_ROOT_PATH.'include/category_cats.inc.php');
 }

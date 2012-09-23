@@ -1429,13 +1429,13 @@ function verify_ephemeral_key($key, $aditionnal_data_to_hash = '')
 /**
  * return an array which will be sent to template to display navigation bar
  */
-function create_navigation_bar($url, $nb_element, $start, $nb_element_page, $clean_url = false)
+function create_navigation_bar($url, $nb_element, $start, $nb_element_page, $clean_url = false, $param_name='start')
 {
   global $conf;
 
   $navbar = array();
   $pages_around = $conf['paginate_pages_around'];
-  $start_str = $clean_url ? '/start-' : (strpos($url, '?')===false ? '?':'&amp;').'start=';
+  $start_str = $clean_url ? '/'.$param_name.'-' : (strpos($url, '?')===false ? '?':'&amp;').$param_name.'=';
 
   if (!isset($start) or !is_numeric($start) or (is_numeric($start) and $start < 0))
   {

@@ -222,6 +222,11 @@ if (isset($_POST['submit']))
     }
     case 'display' :
     {
+      if (!preg_match($int_pattern, $_POST['nb_categories_page'])
+            or $_POST['nb_categories_page'] < 4)
+      {
+        array_push($page['errors'], l10n('The number of albums a page must be above 4.'));
+      }
       foreach( $display_checkboxes as $checkbox)
       {
         $_POST[$checkbox] = empty($_POST[$checkbox])?'false':'true';
@@ -422,7 +427,8 @@ switch ($page['section'])
     $template->append(
         'display',
         array(
-          'picture_informations' => unserialize($conf['picture_informations'])
+          'picture_informations' => unserialize($conf['picture_informations']),
+          'NB_CATEGORIES_PAGE' => $conf['nb_categories_page'],
           ),
         true
       );
