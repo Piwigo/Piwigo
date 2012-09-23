@@ -935,4 +935,6 @@ $lang['Minimum height'] = 'Minimálna výška';
 $lang['Landscape'] = 'Na šírku';
 $lang['Invalid dimension'] = 'Neplatné rozmery';
 $lang['Format'] = 'Formát';
+$lang['Manage photos'] = 'Spravovať fotky';
+$lang['View in gallery'] = 'Zobraziť v galérii';
 ?>
