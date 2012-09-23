@@ -49,12 +49,13 @@ if ( $page['show_comments'] and isset( $_POST['content'] ) )
     'author' => trim( @$_POST['author'] ),
     'content' => trim( $_POST['content'] ),
     'website_url' => trim( $_POST['website_url'] ),
+    'email' => trim( @$_POST['email'] ),
     'image_id' => $page['image_id'],
    );
 
   include_once(PHPWG_ROOT_PATH.'include/functions_comment.inc.php');
 
-  $comment_action = insert_user_comment($comm, @$_POST['key'], $page['infos']);
+  $comment_action = insert_user_comment($comm, @$_POST['key'], $page['errors']);
 
   switch ($comment_action)
   {
@@ -143,10 +144,11 @@ SELECT
     com.id,
     author,
     author_id,
-    '.$conf['user_fields']['username'].' AS username,
+    u.'.$conf['user_fields']['email'].' AS user_email,
     date,
     image_id,
     website_url,
+    com.email,
     content,
     validated
   FROM '.COMMENTS_TABLE.' AS com
@@ -161,23 +163,25 @@ SELECT
 
     while ($row = pwg_db_fetch_assoc($result))
     {
-      if (!empty($row['author']))
+      if ($row['author'] == 'guest')
       {
-	$author = $row['author'];
-	if ($author == 'guest')
-	{
-	  $author = l10n('guest');
-	}
+        $row['author'] = l10n('guest');
       }
-      else
+      
+      $email = null;
+      if (!empty($row['user_email']))
       {
-	$author = stripslashes($row['username']);
+        $email = $row['user_email'];
+      }
+      else if (!empty($row['email']))
+      {
+        $email = $row['email'];
       }
 
       $tpl_comment =
         array(
           'ID' => $row['id'],
-          'AUTHOR' => trigger_event('render_comment_author', $author),
+          'AUTHOR' => trigger_event('render_comment_author', $row['author']),
           'DATE' => format_date($row['date'], true),
           'CONTENT' => trigger_event('render_comment_content',$row['content']),
           'WEBSITE_URL' => $row['website_url'],
@@ -215,6 +219,8 @@ SELECT
       }
       if (is_admin())
       {
+        $tpl_comment['EMAIL'] = $email;
+        
         if ($row['validated'] != 'true')
         {
           $tpl_comment['U_VALIDATE'] = add_url_params(
@@ -244,21 +250,19 @@ SELECT
   if ($show_add_comment_form)
   {
     $key = get_ephemeral_key(3, $page['image_id']);
-    $content = $author = $website_url = '';
-    if ('reject'===@$comment_action)
-    {
-      $content = htmlspecialchars( stripslashes($comm['content']) );
-      $author = htmlspecialchars( stripslashes($comm['author']) );
-      $website_url = htmlspecialchars( stripslashes($comm['website_url']) );
-    }
+    
     $template->assign('comment_add',
         array(
-          'F_ACTION' => $url_self,
-          'KEY' => $key,
-          'CONTENT' => $content,
-          'SHOW_AUTHOR' => !is_classic_user(),
-          'AUTHOR' => $author ,
-          'WEBSITE_URL' => $website_url, 
+          'F_ACTION' =>         $url_self,
+          'KEY' =>              $key,
+          'CONTENT' =>          stripslashes(@$_POST['content']),
+          'SHOW_AUTHOR' =>      !is_classic_user(),
+          'AUTHOR_MANDATORY' => $conf['comments_author_mandatory'],
+          'AUTHOR' =>           stripslashes(@$_POST['author']),
+          'WEBSITE_URL' =>      stripslashes(@$_POST['website_url']),
+          'SHOW_EMAIL' =>       !is_classic_user() or empty($user['email']),
+          'EMAIL_MANDATORY' =>  $conf['comments_email_mandatory'],
+          'EMAIL' =>            stripslashes(@$_POST['email']), 
         ));
   }
 }

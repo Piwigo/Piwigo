@@ -54,7 +54,8 @@
 		</div>
 		{/if}
 
-		<span class="commentAuthor">{if $comment.WEBSITE_URL}<a href="{$comment.WEBSITE_URL}" class="external" target="_blank">{$comment.AUTHOR}</a>{else}{$comment.AUTHOR}{/if}</span> 
+		<span class="commentAuthor">{if $comment.WEBSITE_URL}<a href="{$comment.WEBSITE_URL}" class="external" target="_blank">{$comment.AUTHOR}</a>{else}{$comment.AUTHOR}{/if}</span>
+      {if $comment.EMAIL}- <a href="mailto:{$comment.EMAIL}">{$comment.EMAIL}</a>{/if}
       - <span class="commentDate">{$comment.DATE}</span>
 		{if isset($comment.IN_EDIT)}
 		<a name="edit_comment"></a>

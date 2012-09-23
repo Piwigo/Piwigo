@@ -227,6 +227,20 @@ jQuery(document).ready(function () {
         {'Validation'|@translate}
       </label>
     </li>
+    
+    <li>
+      <label>
+        <input type="checkbox" name="comments_author_mandatory" {if ($comments.comments_author_mandatory)}checked="checked"{/if}>
+        {'Username is mandatory'|@translate}
+      </label>
+    </li>
+    
+    <li>
+      <label>
+        <input type="checkbox" name="comments_email_mandatory" {if ($comments.comments_email_mandatory)}checked="checked"{/if}>
+        {'Email address is mandatory'|@translate}
+      </label>
+    </li>
 
     <li>
       <label>

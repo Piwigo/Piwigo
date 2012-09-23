@@ -348,12 +348,16 @@ function togglePrivacyLevelBox()
 			<h4>{'Add a comment'|@translate}</h4>
 			<form method="post" action="{$comment_add.F_ACTION}" id="addComment">
 				{if $comment_add.SHOW_AUTHOR}
-					<p><label for="author">{'Author'|@translate} :</label></p>
+					<p><label for="author">{'Author'|@translate}{if $comment_add.AUTHOR_MANDATORY} ({'mandatory'|@translate}){/if} :</label></p>
 					<p><input type="text" name="author" id="author" value="{$comment_add.AUTHOR}"></p>
 				{/if}
-        <p><label for="website_url">{'Website'|@translate} :</label></p>
-			  <p><input type="text" name="website_url" id="website_url" value="{$comment_add.WEBSITE_URL}"></p>
-			  <p><label for="contentid">{'Comment'|@translate} :</label></p>
+				{if $comment_add.SHOW_EMAIL}
+					<p><label for="email">{'Email'|@translate}{if $comment_add.EMAIL_MANDATORY} ({'mandatory'|@translate}){/if} :</label></p>
+					<p><input type="text" name="email" id="email" value="{$comment_add.EMAIL}"></p>
+				{/if}
+				<p><label for="website_url">{'Website'|@translate} :</label></p>
+				<p><input type="text" name="website_url" id="website_url" value="{$comment_add.WEBSITE_URL}"></p>
+				<p><label for="contentid">{'Comment'|@translate} ({'mandatory'|@translate}) :</label></p>
 				<p><textarea name="content" id="contentid" rows="5" cols="50">{$comment_add.CONTENT}</textarea></p>
 				<p><input type="hidden" name="key" value="{$comment_add.KEY}">
 					<input type="submit" value="{'Submit'|@translate}"></p>

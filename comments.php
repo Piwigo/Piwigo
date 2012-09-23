@@ -383,6 +383,8 @@ SELECT com.id AS comment_id,
        com.image_id,
        com.author,
        com.author_id,
+       u.'.$conf['user_fields']['email'].' AS user_email,
+       com.email,
        com.date,
        com.website_url,
        com.content,
@@ -473,6 +475,16 @@ SELECT c.id, name, permalink, uppercats, com.id as comment_id
         'image_file' => $elements[$comment['image_id']]['file'],
         )
       );
+      
+    $email = null;
+    if (!empty($comment['user_email']))
+    {
+      $email = $comment['user_email'];
+    }
+    else if (!empty($comment['email']))
+    {
+      $email = $comment['email'];
+    }
 
     $tpl_comment = array(
       'ID' => $comment['comment_id'],
@@ -484,6 +496,11 @@ SELECT c.id, name, permalink, uppercats, com.id as comment_id
       'DATE'=>format_date($comment['date'], true),
       'CONTENT'=>trigger_event('render_comment_content',$comment['content']),
       );
+      
+    if (is_admin())
+    {
+      $tpl_comment['EMAIL'] = $email;
+    }
 
     if (can_manage_comment('delete', $comment['author_id']))
     {

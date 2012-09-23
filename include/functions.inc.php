@@ -1725,4 +1725,23 @@ function url_check_format($url)
     return (bool)preg_match('@^https?://(-\.)?([^\s/?\.#-]+\.?)+(/[^\s]*)?$@iS', $url);
   }
 }
+
+/**
+ * check email format
+ */
+function email_check_format($mail_address)
+{
+  if (version_compare(PHP_VERSION, '5.2.0') >= 0)
+  {
+    return filter_var($mail_address, FILTER_VALIDATE_EMAIL)!==false;
+  }
+  else
+  {
+    $atom   = '[-a-z0-9!#$%&\'*+\\/=?^_`{|}~]';   // before  arobase
+    $domain = '([a-z0-9]([-a-z0-9]*[a-z0-9]+)?)'; // domain name
+    $regex = '/^' . $atom . '+' . '(\.' . $atom . '+)*' . '@' . '(' . $domain . '{1,63}\.)+' . $domain . '{2,63}$/i';
+
+    return (bool)preg_match($regex, $mail_address);
+  }
+}
 ?>

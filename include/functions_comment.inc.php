@@ -91,6 +91,11 @@ function insert_user_comment( &$comm, $key, &$infos )
   {
     if ( empty($comm['author']) )
     {
+      if ($conf['comments_author_mandatory'])
+      {
+        array_push($infos, l10n('Username is mandatory') );
+        $comment_action='reject';
+      }
       $comm['author'] = 'guest';
     }
     $comm['author_id'] = $conf['guest_id'];
@@ -128,13 +133,35 @@ SELECT COUNT(*) AS user_exists
   }
   
   // website
-  if ( !empty($comm['website_url']) and !preg_match('/^https?/i', $comm['website_url']) )
+  if (!empty($comm['website_url']))
   {
-    $comm['website_url'] = 'http://'.$comm['website_url'];
+    if (!preg_match('/^https?/i', $comm['website_url']))
+    {
+      $comm['website_url'] = 'http://'.$comm['website_url'];
+    }
+    if (!url_check_format($comm['website_url']))
+    {
+      array_push($infos, l10n('Your website URL is invalid'));
+      $comment_action='reject';
+    }
   }
-  if ( !empty($comm['website_url']) and !url_check_format($comm['website_url']) )
+  
+  // email
+  if (empty($comm['email']))
   {
-    array_push($infos, l10n('Your website URL is invalid'));
+    if (!empty($user['email']))
+    {
+      $comm['email'] = $user['email'];
+    }
+    else if ($conf['comments_email_mandatory'])
+    {
+      array_push($infos, l10n('Email address is missing. Please specify an email address.') );
+      $comment_action='reject';
+    }
+  }
+  else if (!email_check_format($comm['email']))
+  {
+    array_push($infos, l10n('mail address must be like xxx@yyy.eee (example : jack@altern.org)'));
     $comment_action='reject';
   }
   
@@ -179,7 +206,7 @@ SELECT count(1) FROM '.COMMENTS_TABLE.'
   {
     $query = '
 INSERT INTO '.COMMENTS_TABLE.'
-  (author, author_id, anonymous_id, content, date, validated, validation_date, image_id, website_url)
+  (author, author_id, anonymous_id, content, date, validated, validation_date, image_id, website_url, email)
   VALUES (
     \''.$comm['author'].'\',
     '.$comm['author_id'].',
@@ -189,7 +216,8 @@ INSERT INTO '.COMMENTS_TABLE.'
     \''.($comment_action=='validate' ? 'true':'false').'\',
     '.($comment_action=='validate' ? 'NOW()':'NULL').',
     '.$comm['image_id'].',
-    '.(!empty($comm['website_url']) ? '\''.$comm['website_url'].'\'' : 'NULL').'
+    '.(!empty($comm['website_url']) ? '\''.$comm['website_url'].'\'' : 'NULL').',
+    '.(!empty($comm['email']) ? '\''.$comm['email'].'\'' : 'NULL').'
   )
 ';
 
@@ -207,6 +235,7 @@ INSERT INTO '.COMMENTS_TABLE.'
       $keyargs_content = array
       (
         get_l10n_args('Author: %s', stripslashes($comm['author']) ),
+        get_l10n_args('Email: %s', stripslashes($comm['email']) ),
         get_l10n_args('Comment: %s', stripslashes($comm['content']) ),
         get_l10n_args('', ''),
         get_l10n_args('Manage this user comment: %s', $comment_url)

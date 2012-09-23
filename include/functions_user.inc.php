@@ -41,11 +41,7 @@ function validate_mail_address($user_id, $mail_address)
     return '';
   }
 
-  $atom   = '[-a-z0-9!#$%&\'*+\\/=?^_`{|}~]';   // before  arobase
-  $domain = '([a-z0-9]([-a-z0-9]*[a-z0-9]+)?)'; // domain name
-  $regex = '/^' . $atom . '+' . '(\.' . $atom . '+)*' . '@' . '(' . $domain . '{1,63}\.)+' . $domain . '{2,63}$/i';
-
-  if ( !preg_match( $regex, $mail_address ) )
+  if ( !email_check_format($mail_address) )
   {
     return l10n('mail address must be like xxx@yyy.eee (example : jack@altern.org)');
   }
@@ -53,10 +49,10 @@ function validate_mail_address($user_id, $mail_address)
   if (defined("PHPWG_INSTALLED") and !empty($mail_address))
   {
     $query = '
-select count(*)
-from '.USERS_TABLE.'
-where upper('.$conf['user_fields']['email'].') = upper(\''.$mail_address.'\')
-'.(is_numeric($user_id) ? 'and '.$conf['user_fields']['id'].' != \''.$user_id.'\'' : '').'
+SELECT count(*)
+FROM '.USERS_TABLE.'
+WHERE upper('.$conf['user_fields']['email'].') = upper(\''.$mail_address.'\')
+'.(is_numeric($user_id) ? 'AND '.$conf['user_fields']['id'].' != \''.$user_id.'\'' : '').'
 ;';
     list($count) = pwg_db_fetch_row(pwg_query($query));
     if ($count != 0)

@@ -407,4 +407,7 @@ $lang['Piwigo encountered a non recoverable error'] = 'Piwigo a rencontré une e
 $lang['Requested album does not exist'] = 'L\'album demandé n\'existe pas';
 $lang['Permalink for album not found'] = 'Permalink pour l\'album non trouvé';
 $lang['Requested tag does not exist'] = 'Le tag demandée n\'existe pas';
+$lang['Username is mandatory'] = 'Nom d\'utilisateur obligatoire';
+$lang['Email address is mandatory'] = 'Adresse email obligatoire';
+$lang['mandatory'] = 'obligatoire';
 ?>

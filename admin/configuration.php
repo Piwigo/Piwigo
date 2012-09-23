@@ -73,7 +73,9 @@ $comments_checkboxes = array(
     'user_can_delete_comment',
     'user_can_edit_comment',
     'email_admin_on_comment_edition',
-    'email_admin_on_comment_deletion'
+    'email_admin_on_comment_deletion',
+    'comments_author_mandatory',
+    'comments_email_mandatory',
   );
 
 $display_checkboxes = array(
