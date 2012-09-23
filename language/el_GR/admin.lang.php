@@ -936,4 +936,6 @@ $lang['Minimum height'] = 'Ελάχιστο ύψος';
 $lang['Landscape'] = 'Κατακόρυφα';
 $lang['Invalid dimension'] = 'Μη έγκυρες διαστάσεις';
 $lang['Format'] = 'Μορφή';
+$lang['View in gallery'] = 'Δείτε στην γκαλερί';
+$lang['Manage photos'] = 'Διαχειριστείτε τις φωτογραφίες';
 ?>
