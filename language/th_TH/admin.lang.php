@@ -930,4 +930,6 @@ $lang['Landscape'] = 'แนวนอน';
 $lang['Manage photos'] = 'จัดการรูปภาพ';
 $lang['Format'] = 'รูปแบบ';
 $lang['Invalid dimension'] = 'ขนาดไม่ถูกต้อง';
+$lang['View in gallery'] = 'ดูในแกลอรี่';
+$lang['Number of albums per page'] = 'จำนวนอัลบั้มที่แสดงในแต่ละหน้า';
 ?>
