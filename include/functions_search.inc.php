@@ -271,6 +271,23 @@ function is_word_char($ch)
   return ($ch>='0' && $ch<='9') || ($ch>='a' && $ch<='z') || ($ch>='A' && $ch<='Z') || ord($ch)>127;
 }
 
+function is_odd_wbreak_begin($ch)
+{
+  return strpos('[{<=*+', $ch)===false ? false:true;
+}
+
+function is_odd_wbreak_end($ch)
+{
+  return strpos(']}>=*+', $ch)===false ? false:true;
+}
+
+define('QST_QUOTED',   0x01);
+define('QST_NOT',      0x02);
+define('QST_WILDCARD_BEGIN',0x04);
+define('QST_WILDCARD_END',  0x08);
+define('QST_WILDCARD', QST_WILDCARD_BEGIN|QST_WILDCARD_END);
+
+
 /**
  * analyzes and splits the quick/query search query $q into tokens
  * q='john bill' => 2 tokens 'john' 'bill'
@@ -283,66 +300,66 @@ function analyse_qsearch($q, &$qtokens, &$qtoken_modifiers)
   $tokens = array();
   $token_modifiers = array();
   $crt_token = "";
-  $crt_token_modifier = "";
-  $state = 0;
+  $crt_token_modifier = 0;
 
   for ($i=0; $i<strlen($q); $i++)
   {
     $ch = $q[$i];
-    switch ($state)
+    if ($crt_token_modifier&QST_QUOTED==0)
     {
-      case 0:
         if ($ch=='"')
         {
-          $tokens[] = $crt_token; $token_modifiers[] = $crt_token_modifier;
-          $crt_token = ""; $crt_token_modifier = "q";
-          $state=1;
+          if (strlen($crt_token))
+          {
+            $tokens[] = $crt_token; $token_modifiers[] = $crt_token_modifier;
+            $crt_token = ""; $crt_token_modifier = 0;
+          }
+          $crt_token_modifier |= QST_QUOTED;
         }
-        elseif ( $ch=='*' )
-        { // wild card
+        elseif ( strcspn($ch, '*+-><~')==0 )
+        { //special full text modifier
           if (strlen($crt_token))
           {
             $crt_token .= $ch;
           }
           else
           {
-            $crt_token_modifier .= '*';
+            if ( $ch=='*' )
+              $crt_token_modifier |= QST_WILDCARD_BEGIN;
+            if ( $ch=='-' )
+              $crt_token_modifier |= QST_NOT;
           }
-        }
-        elseif ( strcspn($ch, '+-><~')==0 )
-        { //special full text modifier
-          if (strlen($crt_token))
-          {
-            $tokens[] = $crt_token; $token_modifiers[] = $crt_token_modifier;
-            $crt_token = ""; $crt_token_modifier = "";
-          }
-          $crt_token_modifier .= $ch;
         }
         elseif (preg_match('/[\s,.;!\?]+/', $ch))
         { // white space
           if (strlen($crt_token))
           {
             $tokens[] = $crt_token; $token_modifiers[] = $crt_token_modifier;
-            $crt_token = ""; $crt_token_modifier = "";
+            $crt_token = "";
           }
+          $crt_token_modifier = 0;
         }
         else
         {
           $crt_token .= $ch;
         }
-        break;
-      case 1: // qualified with quotes
-        switch ($ch)
+    }
+    else // qualified with quotes
+    {
+      if ($ch=='"')
+      {
+        if ($i+1 < strlen($q) && $q[$i+1]=='*')
         {
-          case '"':
-            $tokens[] = $crt_token; $token_modifiers[] = $crt_token_modifier;
-            $crt_token = ""; $crt_token_modifier = "";
-            $state=0;
-            break;
-          default:
-            $crt_token .= $ch;
+          $crt_token_modifier |= QST_WILDCARD_END;
+          $i++;
         }
+        $tokens[] = $crt_token; $token_modifiers[] = $crt_token_modifier;
+        $crt_token = ""; $crt_token_modifier = 0;
+        $state=0;
         break;
+      }
+      else
+        $crt_token .= $ch;
     }
   }
   if (strlen($crt_token))
@@ -382,7 +399,7 @@ function get_qsearch_like_clause($tokens, $token_modifiers, $field)
   for ($i=0; $i<count($tokens); $i++)
   {
     $token = trim($tokens[$i], '%');
-    if (strstr($token_modifiers[$i], '-')!==false)
+    if ($token_modifiers[$i]&QST_NOT)
       continue;
     if ( strlen($token)==0 )
       continue;
@@ -421,13 +438,13 @@ function get_quick_search_results($q, $super_order_by, $images_where='')
       'qs' => array('q'=>stripslashes($q)),
     );
   $q = trim($q);
-  if (empty($q))
+  analyse_qsearch($q, $tokens, $token_modifiers);
+  if (count($tokens)==0)
   {
     return $search_results;
   }
+  $debug[] = '<!--'.count($tokens).' tokens';
   
-  analyse_qsearch($q, $tokens, $token_modifiers);
-
   $q_like_field = '@@__db_field__@@'; //something never in a search
   $q_like_clause = get_qsearch_like_clause($tokens, $token_modifiers, $q_like_field );
 
@@ -467,6 +484,8 @@ SELECT i.id,
       $by_weights[(int)$row['id']] =  2;
     }
   }
+  $debug[] = count($by_weights).' fulltext';
+  $debug[] = 'ft score min:'.min($by_weights).' max:'.max($by_weights);
 
 
   // Step 2 - search tags corresponding to the query $q ========================
@@ -493,7 +512,7 @@ SELECT id, name, url_name, COUNT(image_id) AS nb_images
     // find how this tag matches query tokens
     for ($i=0; $i<count($tokens); $i++)
     {
-      if (strstr($token_modifiers[$i], '-')!==false)
+      if ($token_modifiers[$i]&QST_NOT)
         continue;// ignore this NOT token
       $transliterated_token = $transliterated_tokens[$i];
 
@@ -501,35 +520,54 @@ SELECT id, name, url_name, COUNT(image_id) AS nb_images
       $pos = 0;
       while ( ($pos = strpos($transliterated_tag, $transliterated_token, $pos)) !== false)
       {
-        if (strstr($token_modifiers[$i], '*')!==false)
+        if ( ($token_modifiers[$i]&QST_WILDCARD)==QST_WILDCARD )
         {// wildcard in this token
           $match = 1;
           break;
         }
         $token_len = strlen($transliterated_token);
 
-        $word_begin = $pos;
-        while ($word_begin>0)
+        // search begin of word
+        $wbegin_len=0; $wbegin_char=' ';
+        while ($pos-$wbegin_len > 0)
         {
-          if (! is_word_char($transliterated_tag[$word_begin-1]) )
+          if (! is_word_char($transliterated_tag[$pos-$wbegin_len-1]) )
+          {
+            $wbegin_char = $transliterated_tag[$pos-$wbegin_len-1];
             break;
-          $word_begin--;
+          }
+          $wbegin_len++;
         }
 
-        $word_end = $pos + $token_len;
-        while ($word_end<strlen($transliterated_tag) && is_word_char($transliterated_tag[$word_end]) )
-          $word_end++;
-
-        $this_score = $token_len / ($word_end-$word_begin);
-        if ($token_len <= 2)
-        {// search for 1 or 2 characters must match exactly to avoid retrieving too much data
-          if ($token_len != $word_end-$word_begin)
-            $this_score = 0;
-        }
-        elseif ($token_len == 3)
+        // search end of word
+        $wend_len=0; $wend_char=' ';
+        while ($pos+$token_len+$wend_len < strlen($transliterated_tag))
         {
-          if ($word_end-$word_begin > 4)
-            $this_score = 0;
+          if (! is_word_char($transliterated_tag[$pos+$token_len+$wend_len]) )
+          {
+            $wend_char = $transliterated_tag[$pos+$token_len+$wend_len];
+            break;
+          }
+          $wend_len++;
+        }
+
+        $this_score = 0;
+        if ( ($token_modifiers[$i]&QST_WILDCARD)==0 )
+        {// no wildcard begin or end
+          if ($token_len <= 2)
+          {// search for 1 or 2 characters must match exactly to avoid retrieving too much data
+            if ($wbegin_len==0 && $wend_len==0 && !is_odd_wbreak_begin($wbegin_char) && !is_odd_wbreak_end($wend_char) )
+              $this_score = 1;
+          }
+          elseif ($token_len == 3)
+          {
+            if ($wbegin_len==0)
+              $this_score = $token_len / ($token_len + $wend_len);
+          }
+          else
+          {
+            $this_score = $token_len / ($token_len + 1.1 * $wbegin_len + 0.9 * $wend_len);
+          }
         }
 
         if ($this_score>0)
@@ -546,6 +584,7 @@ SELECT id, name, url_name, COUNT(image_id) AS nb_images
     }
   }
   $search_results['qs']['matching_tags']=$all_tags;
+  $debug[] = count($all_tags).' tags';
 
   // Step 2.2 - reduce matching tags for every token in the query search
   $score_cmp_fn = create_function('$a,$b', 'return 100*($b["score"]-$a["score"]);');
@@ -572,9 +611,12 @@ SELECT id, name, url_name, COUNT(image_id) AS nb_images
     $tag_ids = array();
     foreach($token_tags[$i] as $arr)
       $tag_ids[] = $arr['tag_id'];
+    $tag_ids = array_unique($tag_ids);
+    $debug[] = count($tag_ids).' unique tags';
 
     if (!empty($tag_ids))
     {
+      $tag_photo_count=0;
       $query = '
 SELECT image_id
   FROM '.IMAGE_TAG_TABLE.'
@@ -585,7 +627,10 @@ SELECT image_id
       { // weight is important when sorting images by relevance
         $image_id=(int)$row['image_id'];
         @$by_weights[$image_id] += 1;
+        $tag_photo_count++;
       }
+      $debug[] = $tag_photo_count.' photos for tags';
+      $debug[] = count($by_weights).' photos after tags';
     }
   }
 
@@ -611,6 +656,7 @@ SELECT id, name, permalink, nb_images
       $search_results['qs']['matching_cats'][$row['id']] = $row;
     }
   }
+  $debug[] = count(@$search_results['qs']['matching_cats']).' albums with images';
 
   if ( empty($by_weights) and empty($search_results['qs']['matching_cats']) )
   {
@@ -653,6 +699,10 @@ SELECT DISTINCT(id)
   $conf['order_by'];
 
   $allowed_images = array_from_query( $query, 'id');
+
+  $debug[] = count($allowed_images).' final photo count -->';
+  global $template;
+  $template->append('footer_elements', implode(', ', $debug) );
 
   if ( $super_order_by or empty($by_weights) )
   {
