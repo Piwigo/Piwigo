@@ -939,4 +939,5 @@ $lang['Panorama'] = 'Panorama';
 $lang['Portrait'] = 'Hoch-Kant';
 $lang['Manage photos'] = 'Fotos verwalten';
 $lang['View in gallery'] = 'Gallerieansicht';
+$lang['Number of albums per page'] = 'Anzahl der Alben pro Seite';
 ?>
