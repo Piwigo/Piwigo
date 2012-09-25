@@ -410,4 +410,7 @@ $lang['Piwigo encountered a non recoverable error'] = 'Piwigo stødte på en uop
 $lang['Requested album does not exist'] = 'Det valgte album findes ikke';
 $lang['Requested tag does not exist'] = 'Den valgte tag findes ikke';
 $lang['day']['1'] = 'Mandag';
+$lang['Email address is mandatory'] = 'E-mail-adresse er krævet';
+$lang['Username is mandatory'] = 'Brugernavn er krævet';
+$lang['mandatory'] = 'krævet';
 ?>
