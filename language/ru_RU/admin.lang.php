@@ -934,4 +934,7 @@ $lang['Minimum width'] = 'Минимальная ширина';
 $lang['Panorama'] = 'Панорама';
 $lang['Portrait'] = 'Портрет';
 $lang['Format'] = 'Формат';
+$lang['Manage photos'] = 'Управление фотографиями';
+$lang['Number of albums per page'] = 'Количество альбомов на странице';
+$lang['View in gallery'] = 'Смотреть в галерее';
 ?>
