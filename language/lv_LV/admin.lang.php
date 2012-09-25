@@ -929,4 +929,7 @@ $lang['Minimum height'] = 'Minimālais augstums';
 $lang['Landscape'] = 'Ainava';
 $lang['Invalid dimension'] = 'Kļūdaina dimensija';
 $lang['Format'] = 'Formāts';
+$lang['Number of albums per page'] = 'Albumu skaits lapā';
+$lang['View in gallery'] = 'Ieskatīties galarijā';
+$lang['Manage photos'] = 'Pārvaldīt fotogrāfijas';
 ?>
