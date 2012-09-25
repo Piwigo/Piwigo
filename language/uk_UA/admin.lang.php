@@ -932,4 +932,5 @@ $lang['Panorama'] = 'Панорама';
 $lang['Portrait'] = 'Портрет';
 $lang['Manage photos'] = 'Управління зображеннями';
 $lang['View in gallery'] = 'Переглянути у галереї';
+$lang['Number of albums per page'] = 'Кількість альбомів на сторінці';
 ?>
