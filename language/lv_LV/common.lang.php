@@ -195,10 +195,6 @@ $lang['last %d days'] = "pēdējās %d dienas";
 $lang['Last'] = "Pēdējais";
 $lang['Logout'] = "Iziet";
 $lang['obligatory'] = "obligāts";
-$lang['Maximum photo height'] = 'Maksimālais foto augstums';
-$lang['Maximum height must be a number superior to 50'] = "Maksimālajam augstumam jābūt lielākam par 50";
-$lang['Maximum photo width'] = 'Maksimālais foto platums';
-$lang['Maximum width must be a number superior to 50'] = "Maksimālajam platumam jābūt lielākam par 50";
 $lang['display a calendar by creation date'] = "rāda kalendārā izveides datumu";
 $lang['display all photos in all sub-albums'] = 'rādīt visus apakšalbūmu (sub-albums) attēlus';
 $lang['return to normal view mode'] = "atgriezties normālajā apskates režīmā";
@@ -412,4 +408,7 @@ $lang['Requested album does not exist'] = 'Pieprasītais albūms neeksistē';
 $lang['Permalink for album not found'] = 'Albūma permalinks nav atrasts';
 $lang['Requested tag does not exist'] = 'Pieprasītā cilne neeksistē';
 
+$lang['mandatory'] = 'obligāts';
+$lang['Username is mandatory'] = 'Lietotājvārds ir obligāts';
+$lang['Email address is mandatory'] = 'E-pasta adrese ir obligāta';
 ?>
