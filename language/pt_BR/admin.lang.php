@@ -926,4 +926,14 @@ $lang['top left corner'] = 'canto superior esquerdo';
 $lang['top right corner'] = 'Canto superior direito';
 $lang['unknown'] = 'desconhecido';
 $lang['visitors need to login and have the appropriate permissions to see this album'] = 'Os visitantes precisam autenticar e ter as permissões apropriadas para ver essa categoria';
+$lang['Format'] = 'Formata';
+$lang['Invalid dimension'] = 'Tamanho inválido';
+$lang['Landscape'] = 'Landscape';
+$lang['Manage photos'] = 'Gerencie Fotos';
+$lang['Minimum height'] = 'Altura Mínima';
+$lang['Minimum width'] = 'Largura Mínima';
+$lang['Number of albums per page'] = 'Número de categorias por página';
+$lang['Panorama'] = 'Paisagem';
+$lang['Portrait'] = 'Retrato';
+$lang['View in gallery'] = 'Ver na Galeria';
 ?>
