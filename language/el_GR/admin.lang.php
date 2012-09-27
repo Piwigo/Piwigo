@@ -938,4 +938,5 @@ $lang['Invalid dimension'] = 'Μη έγκυρες διαστάσεις';
 $lang['Format'] = 'Μορφή';
 $lang['View in gallery'] = 'Δείτε στην γκαλερί';
 $lang['Manage photos'] = 'Διαχειριστείτε τις φωτογραφίες';
+$lang['Number of albums per page'] = 'Αριθμός λευκωμάτων ανά σελίδα';
 ?>
