@@ -115,7 +115,7 @@ if (isset($_GET['cat']))
       );
   }
   
-  if (substr_compare($_GET['cat'],'tag-',0,4)==0)
+  if (strpos($_GET['cat'],'tag-')===0)
   {
     $_SESSION['bulk_manager_filter']=array();
     $_SESSION['bulk_manager_filter']['tags'] = array(intval(substr($_GET['cat'],4)));
