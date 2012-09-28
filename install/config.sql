@@ -6,8 +6,8 @@ INSERT INTO piwigo_config (param,value,comment) VALUES ('log','true','keep an hi
 INSERT INTO piwigo_config (param,value,comment) VALUES ('comments_validation','false','administrators validate users comments before becoming visible');
 INSERT INTO piwigo_config (param,value,comment) VALUES ('comments_forall','false','even guest not registered can post comments');
 INSERT INTO piwigo_config (param,value,comment) VALUES ('comments_order','ASC','comments order on picture page and cie');
-INSERT INTO piwigo_config (param,value,comment) VALUES ('comments_author_mandatory','false');
-INSERT INTO piwigo_config (param,value,comment) VALUES ('comments_email_mandatory','false');
+INSERT INTO piwigo_config (param,value,comment) VALUES ('comments_author_mandatory','false','Comment author is mandatory');
+INSERT INTO piwigo_config (param,value,comment) VALUES ('comments_email_mandatory','false','Comment email is mandatory');
 INSERT INTO piwigo_config (param,value,comment) VALUES ('user_can_delete_comment','false','administrators can allow user delete their own comments');
 INSERT INTO piwigo_config (param,value,comment) VALUES ('user_can_edit_comment','false','administrators can allow user edit their own comments');
 INSERT INTO piwigo_config (param,value,comment) VALUES ('email_admin_on_comment_edition','false','Send an email to the administrators when a comment is modified');
@@ -21,7 +21,7 @@ INSERT INTO piwigo_config (param,value,comment) VALUES ('history_admin','false',
 INSERT INTO piwigo_config (param,value,comment) VALUES ('history_guest','true','keep a history of guest visits on your website');
 INSERT INTO piwigo_config (param,value,comment) VALUES ('allow_user_registration','true','allow visitors to register?');
 INSERT INTO piwigo_config (param,value,comment) VALUES ('allow_user_customization','true','allow users to customize their gallery?');
-INSERT INTO piwigo_config (param,value,comment) VALUES ('nb_categories_page','12');
+INSERT INTO piwigo_config (param,value,comment) VALUES ('nb_categories_page','12','Param for categories pagination');
 INSERT INTO piwigo_config (param,value,comment) VALUES ('nbm_send_html_mail','true','Send mail on HTML format for notification by mail');
 INSERT INTO piwigo_config (param,value,comment) VALUES ('nbm_send_mail_as','','Send mail as param value for notification by mail');
 INSERT INTO piwigo_config (param,value,comment) VALUES ('nbm_send_detailed_content','true','Send detailed content for notification by mail');
