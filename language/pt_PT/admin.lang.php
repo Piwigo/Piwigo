@@ -924,4 +924,14 @@ $lang['Duplicate selected tags'] = 'Duplicar as etiquetas selecionadas';
 $lang['Name of the duplicate'] = 'Nome do duplicado';
 $lang['Source tag'] = 'Origem da etiqueta';
 $lang['Tag "%s" is now a duplicate of "%s"'] = 'Etiqueta "%s" é agora um duplicado de "%s"';
+$lang['Format'] = 'Formato';
+$lang['Invalid dimension'] = 'Dimensão inválida';
+$lang['Landscape'] = 'Paisagem';
+$lang['Manage photos'] = 'Organizar fotos';
+$lang['Minimum height'] = 'Altura mínima';
+$lang['Minimum width'] = 'Largura mínima';
+$lang['Number of albums per page'] = 'Número de albuns por página';
+$lang['Panorama'] = 'Panorama';
+$lang['Portrait'] = 'retrato';
+$lang['View in gallery'] = 'Ver na galeria';
 ?>
