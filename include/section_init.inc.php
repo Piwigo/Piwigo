@@ -319,7 +319,8 @@ SELECT DISTINCT(image_id)
   } //otherwise the calendar will requery all subitems
   
   // GET CATEGORIES LIST
-  if ( 0==$page['start']
+  if ( script_basename()=='index'
+    and 0==$page['start']
     and !isset($page['flat'])
     and !isset($page['chronology_field'])
     and ('recent_cats'==$page['section'] or 'categories'==$page['section'])
