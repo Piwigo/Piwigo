@@ -912,4 +912,15 @@ $lang['user_status_generic'] = 'Üldine';
 $lang['user_status_normal'] = 'Kasutaja';
 $lang['width must be a number superior to'] = 'laius peab olema suurem kui';
 $lang['wrong filename'] = 'vigane failinimi';
+$lang['Albums authorized thanks to group associations'] = 'Autoriseeritud ligipääs kaustadele kuna oled grupiliige';
+$lang['Format'] = 'Formaat';
+$lang['Invalid dimension'] = 'Vigased mõõdud';
+$lang['Landscape'] = 'Maastik';
+$lang['Manage photos'] = 'Halda fotosid';
+$lang['Minimum height'] = 'Miinimum kõrgus';
+$lang['Minimum width'] = 'Miinimum laius';
+$lang['Number of albums per page'] = 'Albumeid lehekülje kohta';
+$lang['Panorama'] = 'Panoraama';
+$lang['Portrait'] = 'Portree';
+$lang['View in gallery'] = 'Vaata galeriis';
 ?>
