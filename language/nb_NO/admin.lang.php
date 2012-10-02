@@ -923,4 +923,14 @@ $lang['Duplicate selected tags'] = 'Flere tagger valgt';
 $lang['Name of the duplicate'] = 'Navn på duplikater';
 $lang['Source tag'] = 'Kildetagg';
 $lang['Tag "%s" is now a duplicate of "%s"'] = 'Tagg "%s" er nå en duplikat av "%s"';
+$lang['Format'] = 'Format';
+$lang['Invalid dimension'] = 'Ikke gyldig dimensjon';
+$lang['Landscape'] = 'Liggende';
+$lang['Manage photos'] = 'Behandle bilder';
+$lang['Minimum height'] = 'Minimum høyde';
+$lang['Minimum width'] = 'Minimum bredde';
+$lang['Number of albums per page'] = 'Antall album pr side';
+$lang['Panorama'] = 'Panorama';
+$lang['Portrait'] = 'Portrett';
+$lang['View in gallery'] = 'Se i galleri';
 ?>
