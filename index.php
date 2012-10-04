@@ -83,20 +83,7 @@ if (count($page['items']) > $page['nb_image_page'])
     );
 }
 
-$page['cats_navigation_bar'] = array();
-if (count($page['categories']) > $conf['nb_categories_page'])
-{
-  $page['cats_navigation_bar'] = create_navigation_bar(
-    duplicate_index_url(array(), array('starta')),
-    count($page['categories']),
-    $page['starta'],
-    $conf['nb_categories_page'],
-    true, 'starta'
-    );
-}
-
-$template->assign( 'thumb_navbar', $page['navigation_bar'] );
-$template->assign( 'cats_navbar', $page['cats_navigation_bar'] );
+$template->assign('thumb_navbar', $page['navigation_bar'] );
 
 // caddie filling :-)
 if (isset($_GET['caddie']))
@@ -298,10 +285,16 @@ if ( isset($page['category']['count_categories']) and $page['category']['count_c
 }
 
 //------------------------------------------------------ main part : thumbnails
-if ( !empty($page['categories']) )
+if ( 0==$page['start']
+  and !isset($page['flat'])
+  and !isset($page['chronology_field'])
+  and ('recent_cats'==$page['section'] or 'categories'==$page['section'])
+  and (!isset($page['category']['count_categories']) or $page['category']['count_categories']>0 )
+)
 {
   include(PHPWG_ROOT_PATH.'include/category_cats.inc.php');
 }
+
 if ( !empty($page['items']) )
 {
   include(PHPWG_ROOT_PATH.'include/category_default.inc.php');

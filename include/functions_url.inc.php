@@ -458,7 +458,7 @@ function parse_section_url( $tokens, &$next_token)
             and strpos($tokens[$current_token], 'created-')!==0
             and strpos($tokens[$current_token], 'posted-')!==0
             and strpos($tokens[$next_token], 'start-')!==0
-            and strpos($tokens[$next_token], 'starta-')!==0
+            and strpos($tokens[$next_token], 'startcat-')!==0
             and $tokens[$current_token] != 'flat')
         {
           if (empty($maybe_permalinks))
@@ -652,9 +652,9 @@ function parse_well_known_params_url($tokens, &$i)
     {
       $page['start'] = $matches[1];
     }
-    elseif (preg_match('/^starta-(\d+)/', $tokens[$i], $matches))
+    elseif (preg_match('/^startcat-(\d+)/', $tokens[$i], $matches))
     {
-      $page['starta'] = $matches[1];
+      $page['startcat'] = $matches[1];
     }
     $i++;
   }

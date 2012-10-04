@@ -27,13 +27,6 @@
  *
  */
 
-$selection = array_slice(
-  $page['categories'],
-  $page['starta'],
-  $conf['nb_categories_page']
-  );
-
-$selection = trigger_event('loc_index_categories_selection', $selection);
 
 // $user['forbidden_categories'] including with USER_CACHE_CATEGORIES_TABLE
 $query = '
@@ -48,8 +41,24 @@ SELECT
   FROM '.CATEGORIES_TABLE.' c
     INNER JOIN '.USER_CACHE_CATEGORIES_TABLE.' ucc 
     ON id = cat_id 
-    AND user_id = '.$user['id'].'
-  WHERE c.id IN('.implode(',', $selection).')';
+    AND user_id = '.$user['id'];
+  
+if ('recent_cats' == $page['section'])
+{
+  $query.= '
+  WHERE date_last >= '.pwg_db_get_recent_period_expression($user['recent_period']);
+}
+else
+{
+  $query.= '
+  WHERE id_uppercat '.(!isset($page['category']) ? 'is NULL' : '= '.$page['category']['id']);
+}
+
+$query.= '
+      '.get_sql_condition_FandF(
+        array('visible_categories' => 'id'),
+        'AND'
+        );
   
 if ('recent_cats' != $page['section'])
 {
@@ -60,13 +69,24 @@ if ('recent_cats' != $page['section'])
 $query.= '
 ;';
 
-$result = pwg_query($query);
+$categories_sql = hash_from_query($query, 'id');
+
+$page['total_categories'] = count($categories_sql);
+
+$categories_sql = array_slice(
+  array_values($categories_sql),
+  $page['startcat'],
+  $conf['nb_categories_page']
+  );
+
+$categories_sql = trigger_event('loc_index_categories_selection', $categories_sql);
+
 $categories = array();
 $category_ids = array();
 $image_ids = array();
 $user_representative_updates_for = array();
 
-while ($row = pwg_db_fetch_assoc($result))
+foreach ($categories_sql as $row)
 {
   $row['is_child_date_last'] = @$row['max_date_last']>@$row['date_last'];
 
@@ -374,6 +394,22 @@ if (count($categories) > 0)
     ) );
 
   $template->assign_var_from_handle('CATEGORIES', 'index_category_thumbnails');
+  
+  // navigation bar
+  $page['cats_navigation_bar'] = array();
+  if ($page['total_categories'] > $conf['nb_categories_page'])
+  {
+    $page['cats_navigation_bar'] = create_navigation_bar(
+      duplicate_index_url(array(), array('startcat')),
+      $page['total_categories'],
+      $page['startcat'],
+      $conf['nb_categories_page'],
+      true, 'startcat'
+      );
+  }
+
+  $template->assign('cats_navbar', $page['cats_navigation_bar'] );
 }
+
 pwg_debug('end include/category_cats.inc.php');
 ?>
