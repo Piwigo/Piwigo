@@ -128,7 +128,7 @@ if (isset($_POST['submit']))
   }
   $query = '
 UPDATE '.CATEGORIES_TABLE.' 
-  SET image_order=\''.$image_order.'\'
+  SET image_order = '.(isset($image_order) ? '\''.$image_order.'\'' : 'NULL').'
   WHERE id='.$page['category_id'];
   pwg_query($query);
 
