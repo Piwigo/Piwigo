@@ -91,8 +91,7 @@ if (isset($_POST['submitFilter']))
     }
   }
 }
-
-if (isset($_GET['cat']))
+else if (isset($_GET['cat']))
 {
   if ('caddie' == $_GET['cat'])
   {
@@ -100,26 +99,27 @@ if (isset($_GET['cat']))
       'prefilter' => 'caddie'
       );
   }
-
-  if ('recent' == $_GET['cat'])
+  else if ('recent' == $_GET['cat'])
   {
     $_SESSION['bulk_manager_filter'] = array(
       'prefilter' => 'last import'
       );
   }
-
-  if (is_numeric($_GET['cat']))
+  else if (is_numeric($_GET['cat']))
   {
     $_SESSION['bulk_manager_filter'] = array(
       'category' => $_GET['cat']
       );
   }
-  
-  if (strpos($_GET['cat'],'tag-')===0)
+}
+else if (isset($_GET['tag']))
+{
+  if (is_numeric($_GET['tag']))
   {
-    $_SESSION['bulk_manager_filter']=array();
-    $_SESSION['bulk_manager_filter']['tags'] = array(intval(substr($_GET['cat'],4)));
-    $_SESSION['bulk_manager_filter']['tag_mode'] = 'AND';
+    $_SESSION['bulk_manager_filter'] = array(
+      'tags' => array($_GET['tag']),
+      'tag_mode' => 'AND',
+      );
   }
 }
 
