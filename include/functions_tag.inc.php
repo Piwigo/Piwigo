@@ -64,12 +64,12 @@ SELECT *
   $tags = array();
   while ($row = pwg_db_fetch_assoc($result))
   {
-    $counter = @$tag_counters[ $row['id'] ];
+    $counter = intval(@$tag_counters[ $row['id'] ]);
     if ( $counter )
     {
       $row['counter'] = $counter;
       $row['name'] = trigger_event('render_tag_name', $row['name']);
-      array_push($tags, $row);
+      $tags[] = $row;
     }
   }
   return $tags;
@@ -91,7 +91,7 @@ SELECT *
   while ($row = pwg_db_fetch_assoc($result))
   {
     $row['name'] = trigger_event('render_tag_name', $row['name']);
-    array_push($tags, $row);
+    $tags[] = $row;
   }
 
   usort($tags, 'tag_alpha_compare');
@@ -138,20 +138,21 @@ function add_level_to_tags($tags)
   }
 
   // display sorted tags
-  foreach (array_keys($tags) as $k)
+  foreach ($tags as &$tag)
   {
-    $tags[$k]['level'] = 1;
+    $tag['level'] = 1;
 
     // based on threshold, determine current tag level
     for ($i = $conf['tags_levels'] - 1; $i >= 1; $i--)
     {
-      if ($tags[$k]['counter'] > $threshold_of_level[$i])
+      if ($tag['counter'] > $threshold_of_level[$i])
       {
-        $tags[$k]['level'] = $i + 1;
+        $tag['level'] = $i + 1;
         break;
       }
     }
   }
+  unset($tag);
 
   return $tags;
 }
@@ -254,7 +255,7 @@ SELECT t.*, count(*) AS counter
   while($row = pwg_db_fetch_assoc($result))
   {
     $row['name'] = trigger_event('render_tag_name', $row['name']);
-    array_push($tags, $row);
+    $tags[] = $row;
   }
   usort($tags, 'tag_alpha_compare');
   return $tags;

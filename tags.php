@@ -159,43 +159,41 @@ if ($page['display_mode'] == 'letters') {
       );
   }
 }
-
-// +-----------------------------------------------------------------------+
-// |                        tag cloud construction                         |
-// +-----------------------------------------------------------------------+
-
-// we want only the first most represented tags, so we sort them by counter
-// and take the first tags
-usort($tags, 'counter_compare');
-$tags = array_slice($tags, 0, $conf['full_tag_cloud_items_number']);
-
-// depending on its counter and the other tags counter, each tag has a level
-$tags = add_level_to_tags($tags);
-
-// we want tags diplayed in alphabetic order
-if ('letters' != $page['display_mode'])
+else
 {
+  // +-----------------------------------------------------------------------+
+  // |                        tag cloud construction                         |
+  // +-----------------------------------------------------------------------+
+
+  // we want only the first most represented tags, so we sort them by counter
+  // and take the first tags
+  usort($tags, 'counter_compare');
+  $tags = array_slice($tags, 0, $conf['full_tag_cloud_items_number']);
+
+  // depending on its counter and the other tags counter, each tag has a level
+  $tags = add_level_to_tags($tags);
+
+  // we want tags diplayed in alphabetic order
   usort($tags, 'tag_alpha_compare');
-}
 
-// display sorted tags
-foreach ($tags as $tag)
-{
-  $template->append(
-    'tags',
-    array_merge(
-      $tag,
-      array(
-        'URL' => make_index_url(
-          array(
-            'tags' => array($tag),
-            )
-          ),
+  // display sorted tags
+  foreach ($tags as $tag)
+  {
+    $template->append(
+      'tags',
+      array_merge(
+        $tag,
+        array(
+          'URL' => make_index_url(
+            array(
+              'tags' => array($tag),
+              )
+            ),
+          )
         )
-      )
-    );
+      );
+  }
 }
-
 // include menubar
 $themeconf = $template->get_template_vars('themeconf');
 if (!isset($themeconf['hide_menu_on']) OR !in_array('theTagsPage', $themeconf['hide_menu_on']))
