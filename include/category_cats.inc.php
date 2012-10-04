@@ -71,6 +71,11 @@ $query.= '
 
 $categories_sql = hash_from_query($query, 'id');
 
+if ($page['section']=='recent_cats')
+{
+  usort($categories_sql, 'global_rank_compare');
+}
+
 $page['total_categories'] = count($categories_sql);
 
 $categories_sql = array_slice(
@@ -182,10 +187,6 @@ SELECT
   }
 }
 
-if ($page['section']=='recent_cats')
-{
-  usort($categories, 'global_rank_compare');
-}
 if (count($categories) > 0)
 {
   $infos_of_image = array();
