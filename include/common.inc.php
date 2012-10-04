@@ -64,6 +64,7 @@ $conf = array();
 $page = array(
   'infos' => array(),
   'errors' => array(),
+  'warnings' => array(),
   );
 $user = array();
 $lang = array();

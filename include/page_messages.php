@@ -24,7 +24,7 @@
 // messages only if no redirection
 if ($template->get_template_vars('page_refresh') === null)
 {
-  foreach (array('errors','infos') as $mode)
+  foreach (array('errors','infos','warnings') as $mode)
   {
     if (isset($_SESSION['page_'.$mode]))
     {

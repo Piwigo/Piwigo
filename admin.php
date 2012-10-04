@@ -156,16 +156,6 @@ else
   $page['page'] = 'intro';
 }
 
-$page['errors'] = array();
-$page['infos']  = array();
-$page['warnings']  = array();
-
-if (isset($_SESSION['page_infos']))
-{
-  $page['infos'] = array_merge($page['infos'], $_SESSION['page_infos']);
-  unset($_SESSION['page_infos']);
-}
-
 $link_start = PHPWG_ROOT_PATH.'admin.php?page=';
 $conf_link = $link_start.'configuration&amp;section=';
 
@@ -290,26 +280,7 @@ if (
 trigger_action('loc_begin_admin_page');
 include(PHPWG_ROOT_PATH.'admin/'.$page['page'].'.php');
 
-// +-----------------------------------------------------------------------+
-// | Errors, Infos & Warnings                                              |
-// +-----------------------------------------------------------------------+
-
 $template->assign('ACTIVE_MENU', get_active_menu($page['page']));
-
-if (count($page['errors']) != 0)
-{
-  $template->assign('errors', $page['errors']);
-}
-
-if (count($page['infos']) != 0)
-{
-  $template->assign('infos', $page['infos']);
-}
-
-if (count($page['warnings']) != 0)
-{
-  $template->assign('warnings', $page['warnings']);
-}
 
 // +-----------------------------------------------------------------------+
 // | Sending html code                                                     |
@@ -321,6 +292,8 @@ $template->assign( 'pwgmenu', pwg_URL() );
 include(PHPWG_ROOT_PATH.'include/page_header.php');
 
 trigger_action('loc_end_admin');
+
+include(PHPWG_ROOT_PATH.'include/page_messages.php');
 
 $template->pparse('admin');
 
