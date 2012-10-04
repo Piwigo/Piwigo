@@ -474,7 +474,7 @@ $template->assign(
     'all_elements' => $page['cat_elements_id'],
     'START' => $page['start'],
     'U_DISPLAY'=>$base_url.get_query_string_diff(array('display')),
-    'F_ACTION'=>$base_url.get_query_string_diff(array('cat','start')),
+    'F_ACTION'=>$base_url.get_query_string_diff(array('cat','start','tag')),
    )
  );
 

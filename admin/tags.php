@@ -461,7 +461,7 @@ while ($tag = pwg_db_fetch_assoc($result))
   $tag['name'] = trigger_event('render_tag_name', $raw_name);
   $tag['counter'] = intval(@$tag_counters[ $tag['id'] ]);
   $tag['U_VIEW'] = make_index_url(array('tags'=>array($tag)));
-  $tag['U_EDIT'] = 'admin.php?page=batch_manager&amp;cat=tag-'.$tag['id'];
+  $tag['U_EDIT'] = 'admin.php?page=batch_manager&amp;tag='.$tag['id'];
 
   $alt_names = trigger_event('get_tag_alt_names', array(), $raw_name);
   $alt_names = array_diff( array_unique($alt_names), array($tag['name']) );
