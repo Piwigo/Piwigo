@@ -94,6 +94,7 @@ jQuery(document).ready(function() {ldelim}
 {footer_script}
 var nb_thumbs_page = {$nb_thumbs_page};
 var nb_thumbs_set = {$nb_thumbs_set};
+var are_you_sure = "{'Are you sure?'|@translate|@escape:'javascript'}";
 var applyOnDetails_pattern = "{'on the %d selected photos'|@translate}";
 var all_elements = [{if !empty($all_elements)}{','|@implode:$all_elements}{/if}];
 var derivatives = {ldelim}
@@ -187,11 +188,7 @@ $(document).ready(function() {
       nbSelected = nb_thumbs_set;
     }
     else {
-      $(".thumbnails input[type=checkbox]").each(function() {
-         if ($(this).is(':checked')) {
-           nbSelected++;
-         }
-      });
+      nbSelected = $(".thumbnails input[type=checkbox]").filter(':checked').length;
     }
 
     if (nbSelected == 0) {
@@ -417,7 +414,15 @@ $(document).ready(function() {
   });
 
   jQuery('#applyAction').click(function() {
-		if (jQuery('[name="selectAction"]').val() != 'generate_derivatives'
+		var action = jQuery('[name="selectAction"]').val();
+		if (action == 'delete_derivatives') {
+			var d_count = $('#action_delete_derivatives input[type=checkbox]').filter(':checked').length
+				, e_count = $('input[name="setSelected"]').is(':checked') ? nb_thumbs_set : $('.thumbnails input[type=checkbox]').filter(':checked').length;
+			if (d_count*e_count > 500)
+				return confirm(are_you_sure);
+		}
+		
+		if (action != 'generate_derivatives'
 			|| derivatives.finished() )
 		{
 			return true;
@@ -435,7 +440,7 @@ $(document).ready(function() {
 		if (jQuery('input[name="setSelected"]').attr('checked'))
 			derivatives.elements = all_elements;
 		else
-			jQuery('input[name="selection[]"]').each(function() {
+			jQuery('.thumbnails input[type=checkbox]').each(function() {
 				if (jQuery(this).attr('checked')) {
 					derivatives.elements.push(jQuery(this).val());
 				}
@@ -580,7 +585,6 @@ $(document).ready(function() {
         <option value="filter_level" {if isset($filter.level)}disabled="disabled"{/if}>{'Privacy level'|@translate}</option>
         <option value="filter_dimension" {if isset($filter.dimension)}disabled="disabled"{/if}>{'Dimensions'|@translate}</option>
       </select>
-<!--      <input id="removeFilters" class="submit" type="submit" value="Remove all filters" name="removeFilters"> -->
       <a id="removeFilters" href="">{'Remove all filters'|@translate}</a>
     </p>
 
@@ -712,7 +716,7 @@ UL.thumbnails SPAN.wrap2 {ldelim}
           <select style="width:400px" name="associate" size="1">
             {html_options options=$associate_options }
          </select>
-<br>{'... or '|@translate}</span><a href="#" class="addAlbumOpen" title="{'create a new album'|@translate}">{'create a new album'|@translate}</a>
+<br>{'... or '|@translate} <a href="#" class="addAlbumOpen" title="{'create a new album'|@translate}">{'create a new album'|@translate}</a>
     </div>
 
     <!-- move -->
@@ -720,7 +724,7 @@ UL.thumbnails SPAN.wrap2 {ldelim}
           <select style="width:400px" name="move" size="1">
             {html_options options=$move_options }
          </select>
-<br>{'... or '|@translate}</span><a href="#" class="addAlbumOpen" title="{'create a new album'|@translate}">{'create a new album'|@translate}</a>
+<br>{'... or '|@translate} <a href="#" class="addAlbumOpen" title="{'create a new album'|@translate}">{'create a new album'|@translate}</a>
     </div>
 
 

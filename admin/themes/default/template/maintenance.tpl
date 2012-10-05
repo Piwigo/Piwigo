@@ -35,6 +35,6 @@
 	<li><a href="{$U_MAINT_SEARCH}"onclick="return confirm('{'Purge search history'|@translate|@escape:'javascript'}');">{'Purge search history'|@translate}</a></li>
 	<li><a href="{$U_MAINT_COMPILED_TEMPLATES}">{'Purge compiled templates'|@translate}</a></li>
 	<li>{'Delete multiple size images'|@translate}: 
-	{foreach from=$purge_derivatives key=name item=url name=loop}{if !$smarty.foreach.loop.first}, {/if}<a href="{$url}">{$name}</a>{/foreach}
+	{foreach from=$purge_derivatives key=name item=url name=loop}{if !$smarty.foreach.loop.first}, {/if}<a href="{$url}"{if $smarty.foreach.loop.first} onclick="return confirm('{'Are you sure?'|@translate|@escape:javascript}');"{/if}>{$name}</a>{/foreach}
 	</li>
 </ul>
