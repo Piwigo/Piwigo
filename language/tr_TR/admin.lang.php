@@ -929,4 +929,7 @@ $lang['Minimum height'] = 'Asgari yükseklik';
 $lang['Minimum width'] = 'Asgari genişlik';
 $lang['Panorama'] = 'Panorama';
 $lang['Portrait'] = 'Portre';
+$lang['Manage photos'] = 'Fotoğrafları yönet';
+$lang['Number of albums per page'] = 'Sayfa başına albüm sayısı';
+$lang['View in gallery'] = 'Galeride göster';
 ?>
