@@ -929,4 +929,14 @@ $lang['Duplicate selected tags'] = 'دوتایی کردن برچسب های ان
 $lang['Name of the duplicate'] = 'نام پس از دوتایی شدن';
 $lang['Source tag'] = 'برچسب اصلی';
 $lang['Tag "%s" is now a duplicate of "%s"'] = 'برچسب "%s" از روی برچسب "%s" دوتایی شد';
+$lang['Format'] = 'قالب';
+$lang['Invalid dimension'] = 'ابعاد نامعتبر هستند';
+$lang['Landscape'] = 'چشم انداز';
+$lang['Manage photos'] = 'مدیریت عکس ها';
+$lang['Minimum height'] = 'حداقل ارتفاع';
+$lang['Minimum width'] = 'حداقل عرض';
+$lang['Number of albums per page'] = 'تعداد آلبوم ها در هر صفحه';
+$lang['Panorama'] = 'پانوراما';
+$lang['Portrait'] = 'پرتره';
+$lang['View in gallery'] = 'نمایش در گالری';
 ?>
