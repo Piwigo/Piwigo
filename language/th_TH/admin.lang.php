@@ -932,4 +932,12 @@ $lang['Format'] = 'รูปแบบ';
 $lang['Invalid dimension'] = 'ขนาดไม่ถูกต้อง';
 $lang['View in gallery'] = 'ดูในแกลอรี่';
 $lang['Number of albums per page'] = 'จำนวนอัลบั้มที่แสดงในแต่ละหน้า';
+$lang['iPhoto is the default photo manager on MacOSX. The Piwigo export plugin let you create new albums and export your photos directly from iPhoto to your Piwigo photo gallery.'] = 'iPhoto คือซอฟต์แวร์จัดการรูปภาพบนระบบปฏิบัติการแมคโอเอสเอ็กซ์, โดยปลั๊กอิน Piwigo export จะช่วยให้คุณสร้างอัลบั้ม และส่งออกรูปภาพของคุณจาก iPhoto ไปยังแกลลอรี่ Piwigo ของคุณ';
+$lang['digiKam is designed for photographers who want to view, manage, edit, enhance, organize, tag, and share photographs.'] = 'digiKam ได้ถูกออกแบบมาเพื่อนักถ่ายภาพ สำหรับใครที่ต้องการดู, จัดการ, แก้ไข, ปรับแต่ง, และแชร์ภาพถ่าย';
+$lang['digiKam is an advanced digital photo management free software for Linux, Windows, and MacOSX.'] = 'digiKam คือซอฟต์แวร์ฟรีที่เกี่ยวกับการจัดการรูปภาพขั้นสูงสำหรับ ลีนุกซ์, วินโดว์ และ แมคโอเอสเอ็กซ์';
+$lang['The Piwigo publish Plug-in allows you to export and synchronize photos from Lightroom directly to your Piwigo photo gallery.'] = 'คือปลั๊กอินที่อนุญาตให้คุณส่งออก และ ซิงโคไนซ์ รูปภาพจาก Lightroom ไปยัง แกลอรี่ Piwigo ของคุณ ได้โดยตรง';
+$lang['The Piwigo export plugin allows you to create albums and export photos.'] = 'ปลั๊กอิน Piwigo export คือปลั๊กอินที่อนุญาตให้สร้างอัลบั้มและส่งออกรูปภาพเหล่านั้น';
+$lang['To export your photos from digiKam to Piwigo, simply install digiKam and the Kipi-plugins.'] = 'ส่งออกรูปภาพจาก digiKam ไปยัง แกลลอรี่ Piwigo, ง่ายในการติดตั้ง digiKam และ Kipi-plugin';
+$lang['The center of interest is the most meaningful zone in the photo.'] = 'ศูนย์กลางของความสนใจเป็นพื้นที่ที่มีความหมายมากที่สุดของภาพ';
+$lang['Shotwell is an open source digital photo organizer that runs on Linux. It is the default photo manager in Ubuntu and Fedora.'] = 'Shotwell คือซอฟต์แวร์เสรีเกี่ยวกับการจัดการรูปภาพที่รันบน ลีนุกซ์,โดยเริ่มต้นมันเป็นซอฟต์แวร์ที่จัดการรูปภาพบน Ubuntu และ Fedora';
 ?>
