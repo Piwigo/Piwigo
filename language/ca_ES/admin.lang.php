@@ -946,4 +946,5 @@ $lang['Minimum width'] = 'Amplada mínima';
 $lang['Panorama'] = 'Panorama';
 $lang['Portrait'] = 'Retrat';
 $lang['View in gallery'] = 'Veure en la galeria';
+$lang['Number of albums per page'] = 'Nombre d\'àlbums per pàgina';
 ?>
