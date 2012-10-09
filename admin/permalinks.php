@@ -117,7 +117,7 @@ include(PHPWG_ROOT_PATH.'admin/include/albums_tab.inc.php');
 $query = '
 SELECT
   id, permalink,
-  '.pwg_db_concat(array('id', '\' - \'', 'name')).' AS name,
+  CONCAT(id, " - ", name, IF(permalink IS NULL, "", " &radic;") ) AS name,
   uppercats, global_rank
 FROM '.CATEGORIES_TABLE;
 

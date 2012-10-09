@@ -128,7 +128,7 @@ WHERE '.$where.'
     {
       $row['icon_ts'] = get_icon($row['max_date_last'], $child_date_last);
     }
-    array_push($cats, $row);
+    $cats[] = $row;
     if ($row['id']==@$page['category']['id']) //save the number of subcats for later optim
       $page['category']['count_categories'] = $row['count_categories'];
   }
@@ -195,7 +195,6 @@ SELECT *
   }
   else
   {
-    $names = array();
     $query = '
   SELECT id, name, permalink
     FROM '.CATEGORIES_TABLE.'
@@ -207,7 +206,7 @@ SELECT *
     $cat['upper_names'] = array();
     foreach ($upper_ids as $cat_id)
     {
-      array_push( $cat['upper_names'], $names[$cat_id]);
+      $cat['upper_names'][] = $names[$cat_id];
     }
   }
   return $cat;
@@ -219,13 +218,13 @@ SELECT *
 function get_category_preferred_image_orders()
 {
   global $conf, $page;
-    
+
   return trigger_event('get_category_preferred_image_orders', array(
     array(l10n('Default'),                        '',                     true),
     array(l10n('Photo title, A &rarr; Z'),        'name ASC',             true),
     array(l10n('Photo title, Z &rarr; A'),        'name DESC',            true),
     array(l10n('Date created, new &rarr; old'),   'date_creation DESC',   true),
-    array(l10n('Date created, old &rarr; new'),   'date_creation ASC',    true), 
+    array(l10n('Date created, old &rarr; new'),   'date_creation ASC',    true),
     array(l10n('Date posted, new &rarr; old'),    'date_available DESC',  true),
     array(l10n('Date posted, old &rarr; new'),    'date_available ASC',   true),
     array(l10n('Rating score, high &rarr; low'),  'rating_score DESC',    $conf['rate']),
@@ -246,10 +245,6 @@ function display_select_categories($categories,
   $tpl_cats = array();
   foreach ($categories as $category)
   {
-    if (!empty($category['permalink']))
-    {
-      $category['name'] .= ' &radic;';
-    }
     if ($fullname)
     {
       $option = strip_tags(
@@ -283,15 +278,7 @@ function display_select_categories($categories,
 function display_select_cat_wrapper($query, $selecteds, $blockname,
                                     $fullname = true)
 {
-  $result = pwg_query($query);
-  $categories = array();
-  if (!empty($result))
-  {
-    while ($row = pwg_db_fetch_assoc($result))
-    {
-      array_push($categories, $row);
-    }
-  }
+  $categories = array_from_query($query);
   usort($categories, 'global_rank_compare');
   display_select_categories($categories, $selecteds, $blockname, $fullname);
 }
@@ -324,14 +311,7 @@ SELECT DISTINCT(id)
   }
   $query.= '
 ;';
-  $result = pwg_query($query);
-
-  $subcats = array();
-  while ($row = pwg_db_fetch_assoc($result))
-  {
-    array_push($subcats, $row['id']);
-  }
-  return $subcats;
+  return array_from_query($query, 'id');
 }
 
 /** finds a matching category id from a potential list of permalinks
