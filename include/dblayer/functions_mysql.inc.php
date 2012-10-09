@@ -189,19 +189,28 @@ function pwg_db_insert_id($table=null, $column='id')
  * used here
  *
  * @param string $query
- * @param string $fieldname
+ * @param string $fieldname optional
  * @return array
  */
-function array_from_query($query, $fieldname)
+function array_from_query($query, $fieldname=false)
 {
   $array = array();
 
   $result = pwg_query($query);
-  while ($row = mysql_fetch_assoc($result))
+  if (false === $fieldname)
   {
-    $array[] = $row[$fieldname];
+    while ($row = mysql_fetch_assoc($result))
+    {
+      $array[] = $row;      
+    }
   }
-
+  else
+  {
+    while ($row = mysql_fetch_assoc($result))
+    {
+      $array[] = $row[$fieldname];
+    }
+  }
   return $array;
 }
 

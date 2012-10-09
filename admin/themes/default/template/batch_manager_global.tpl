@@ -15,7 +15,6 @@ jQuery(document).ready(function() {
   jQuery.fn.enableShiftClick = function() {
     var inputs = [];
     var count=0;
-    var This=$(this);
     this.find('input[type=checkbox]').each(function() {
       var pos=count;
       inputs[count++]=this;
@@ -522,7 +521,7 @@ $(document).ready(function() {
         <input type="checkbox" name="filter_category_use" class="useFilterCheckbox" {if isset($filter.category)}checked="checked"{/if}>
         {'Album'|@translate}
         <select style="width:400px" name="filter_category" size="1">
-          {html_options options=$filter_category_options selected=$filter_category_options_selected}
+          {html_options options=$category_full_name_options selected=$filter_category_selected}
         </select>
         <label><input type="checkbox" name="filter_category_recursive" {if isset($filter.category_recursive)}checked="checked"{/if}> {'include child albums'|@translate}</label>
       </li>
@@ -675,9 +674,7 @@ UL.thumbnails SPAN.wrap2 {ldelim}
     <select name="selectAction">
       <option value="-1">{'Choose an action'|@translate}</option>
       <option disabled="disabled">------------------</option>
-  {if isset($show_delete_form) }
       <option value="delete">{'Delete selected photos'|@translate}</option>
-  {/if}
       <option value="associate">{'Associate to album'|@translate}</option>
       <option value="move">{'Move to album'|@translate}</option>
   {if !empty($dissociate_options)}
@@ -714,7 +711,7 @@ UL.thumbnails SPAN.wrap2 {ldelim}
     <!-- associate -->
     <div id="action_associate" class="bulkAction">
           <select style="width:400px" name="associate" size="1">
-            {html_options options=$associate_options }
+            {html_options options=$category_full_name_options}
          </select>
 <br>{'... or '|@translate} <a href="#" class="addAlbumOpen" title="{'create a new album'|@translate}">{'create a new album'|@translate}</a>
     </div>
@@ -722,7 +719,7 @@ UL.thumbnails SPAN.wrap2 {ldelim}
     <!-- move -->
     <div id="action_move" class="bulkAction">
           <select style="width:400px" name="move" size="1">
-            {html_options options=$move_options }
+            {html_options options=$category_full_name_options}
          </select>
 <br>{'... or '|@translate} <a href="#" class="addAlbumOpen" title="{'create a new album'|@translate}">{'create a new album'|@translate}</a>
     </div>

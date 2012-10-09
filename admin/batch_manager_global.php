@@ -74,14 +74,6 @@ if (isset($_SESSION['bulk_manager_filter']['prefilter']))
   $page['prefilter'] = $_SESSION['bulk_manager_filter']['prefilter'];
 }
 
-// $page['category'] is a shortcut to test if the current filter contains a
-// given category. The idea is the same as for prefilter
-$page['category'] = -1;
-if (isset($_SESSION['bulk_manager_filter']['category']))
-{
-  $page['category'] = $_SESSION['bulk_manager_filter']['category'];
-}
-
 $redirect_url = get_root_url().'admin.php?page='.$_GET['page'];
 
 if (isset($_POST['submit']))
@@ -105,15 +97,8 @@ DELETE
 ;';
     pwg_query($query);
 
-    if ('caddie' == $page['prefilter'])
-    {
-      redirect($redirect_url);
-    }
-    
-    // if we are here in the code, it means that the user is currently
-    // displaying the caddie content, so we have to remove the current
-    // selection from the current set
-    $page['cat_elements_id'] = array_diff($page['cat_elements_id'], $collection);
+    // remove from caddie action available only in caddie so reload content
+    redirect($redirect_url);
   }
 
   if ('add_tags' == $action)
@@ -129,7 +114,7 @@ DELETE
 
       if ('with no tag' == $page['prefilter'])
       {
-        redirect(get_root_url().'admin.php?page='.$_GET['page']);
+        redirect($redirect_url);
       }
     }
   }
@@ -445,9 +430,7 @@ $template->set_filenames(array('batch_manager_global' => 'batch_manager_global.t
 
 $base_url = get_root_url().'admin.php';
 
-$prefilters = array();
-
-array_push($prefilters,
+$prefilters = array(
   array('ID' => 'caddie', 'NAME' => l10n('Caddie')),
   array('ID' => 'last import', 'NAME' => l10n('Last import')),
   array('ID' => 'with no album', 'NAME' => l10n('With no album')),
@@ -481,39 +464,8 @@ $template->assign(
 // +-----------------------------------------------------------------------+
 // |                            caddie options                             |
 // +-----------------------------------------------------------------------+
+$template->assign('IN_CADDIE', 'caddie' == $page['prefilter']);
 
-$in_caddie = false;
-if (isset($_SESSION['bulk_manager_filter']['prefilter'])
-    and 'caddie' == $_SESSION['bulk_manager_filter']['prefilter'])
-{
-  $in_caddie = true;
-}
-$template->assign('IN_CADDIE', $in_caddie);
-
-// +-----------------------------------------------------------------------+
-// |                            deletion form                              |
-// +-----------------------------------------------------------------------+
-
-// we can only remove photos that have no storage_category_id, in other
-// word, it currently (Butterfly) means that the photo was added with
-// pLoader
-if (count($page['cat_elements_id']) > 0)
-{
-  $query = '
-SELECT
-    id
-  FROM '.IMAGES_TABLE.'
-  WHERE id IN ('.implode(',', $page['cat_elements_id']).')
-    AND file NOT LIKE \'http%\'
-  LIMIT 1
-;';
-  ;
-
-  if ( pwg_db_fetch_row(pwg_query($query)) )
-  {
-    $template->assign('show_delete_form', true);
-  }
-}
 
 // +-----------------------------------------------------------------------+
 // |                           global mode form                            |
@@ -556,8 +508,10 @@ $query = '
 SELECT id,name,uppercats,global_rank
   FROM '.CATEGORIES_TABLE.'
 ;';
-display_select_cat_wrapper($query, array(), 'associate_options', true);
-display_select_cat_wrapper($query, array(), 'move_options', true);
+$categories = array_from_query($query);
+usort($categories, 'global_rank_compare');
+display_select_categories($categories, array(), 'category_full_name_options', true);
+
 display_select_cat_wrapper($query, array(), 'category_parent_options');
 
 // in the filter box, which category to select by default
@@ -570,8 +524,6 @@ if (isset($_SESSION['bulk_manager_filter']['category']))
 else
 {
   // we need to know the category in which the last photo was added
-  $selected_category = array();
-
   $query = '
 SELECT
     category_id,
@@ -586,16 +538,11 @@ SELECT
   if (pwg_db_num_rows($result) > 0)
   {
     $row = pwg_db_fetch_assoc($result);
-  
     $selected_category = array($row['category_id']);
   }
 }
 
-$query = '
-SELECT id,name,uppercats,global_rank
-  FROM '.CATEGORIES_TABLE.'
-;';
-display_select_cat_wrapper($query, $selected_category, 'filter_category_options', true);
+$template->assign( 'filter_category_selected', $selected_category);
 
 // Dissociate from a category : categories listed for dissociation can only
 // represent virtual links. We can't create orphans. Links to physical
