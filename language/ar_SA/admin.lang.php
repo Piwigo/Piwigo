@@ -927,4 +927,14 @@ $lang['Duplicate selected tags'] = 'كرر الكلمه الدائليه الم�
 $lang['Name of the duplicate'] = 'تسميه المكرر';
 $lang['Source tag'] = 'مصدر الكلمه الدلائليه';
 $lang['Tag "%s" is now a duplicate of "%s"'] = 'الكلمه الدلائليه "%s" كررت لـ "%s"';
+$lang['Format'] = 'تهيئة';
+$lang['Invalid dimension'] = 'ابعاذ غير صحيحة';
+$lang['Landscape'] = 'منظر طبيعي';
+$lang['Manage photos'] = 'إدارة الصور';
+$lang['Minimum height'] = 'الحد الأدني للارتفاع';
+$lang['Minimum width'] = 'الحد الادني للعرض';
+$lang['Number of albums per page'] = 'عدد الالبومات في كل صفحة';
+$lang['Panorama'] = 'بانوراما';
+$lang['Portrait'] = 'صوره شخصية';
+$lang['View in gallery'] = 'عرض في المعرض';
 ?>
