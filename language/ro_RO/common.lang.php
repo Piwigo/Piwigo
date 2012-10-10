@@ -410,4 +410,7 @@ $lang['Permalink for album not found'] = 'Permalinkul pentru album nu există';
 $lang['Piwigo encountered a non recoverable error'] = 'Piwigo întâmpină o eroare nerecuperabilă';
 $lang['Requested album does not exist'] = 'Albumul căutat nu există';
 $lang['Requested tag does not exist'] = 'Eticheta căutată nu există';
+$lang['Email address is mandatory'] = 'Adresa de email este obligatorie';
+$lang['Username is mandatory'] = 'Username este obligatoriu';
+$lang['mandatory'] = 'obligatoriu (obligatorie)';
 ?>
