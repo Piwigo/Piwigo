@@ -131,6 +131,8 @@ jQuery(document).ready(function() {ldelim}
 </fieldset>
 {/foreach}
 
+{if !empty($navbar) }{include file='navigation_bar.tpl'|@get_extent:'navbar'}{/if}
+
 <p>
   <input class="submit" type="submit" value="{'Submit'|@translate}" name="submit">
   <input class="submit" type="reset" value="{'Reset'|@translate}">
