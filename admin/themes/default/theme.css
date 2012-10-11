@@ -518,14 +518,14 @@ UL.tagSelection LI {
 }
 
 /* jQuery tooltips */
-.cluetip-default #cluetip-outer {
+.cluetip-outer {
 	position: relative;
 	border: 1px solid #111111;
 	color: #dddddd;
 	background-color: #222222;
 	text-align: left;
 }
-.cluetip-default h3#cluetip-title {
+.cluetip-title {
 	margin: 0 0 5px;
 	padding: 8px;
 	color: #666666;
@@ -533,7 +533,7 @@ UL.tagSelection LI {
 	font-size: 1.1em;
 	font-weight: bold;
 }
-.cluetip-default #cluetip-inner {
+.cluetip-inner {
 	padding: 10px;
 }
 

@@ -192,8 +192,8 @@ position:relative; padding: 5px 1px 4px 5px; font-size: 13px; color: #777; }
 #adminHome:hover {background-color:#d0d0d0;}
 
 /* jQuery tooltips */
-.cluetip-default #cluetip-outer { border-color:#999; color: #777; background-color: #eee; }
-.cluetip-default h3#cluetip-title { background-color: #ddd; }
+.cluetip-outer { border-color:#999; color: #777; background-color: #eee; }
+.cluetip-title { background-color: #ddd; }
 /* jQuery ui resizable */
 .ui-resizable { position: relative; }
 .ui-wrapper { border: 0; }
