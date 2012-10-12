@@ -1,6 +1,6 @@
 {combine_script id='jquery.sort' load='footer' path='themes/default/js/plugins/jquery.sort.js'}
 
-{footer_script require='jquery.effects.blind,jquery.sort'}{literal}
+{footer_script require='jquery.ui.effect-blind,jquery.sort'}{literal}
 var sortOrder = 'date';
 var sortPlugins = (function(a, b) {
   if (sortOrder == 'downloads' || sortOrder == 'revision' || sortOrder == 'date')

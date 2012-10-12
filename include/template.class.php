@@ -542,7 +542,7 @@ class Template {
     $crop = 0;
     $minw=null;
     $minh=null;
-    
+
     if (isset($params['crop']))
     {
       if (is_bool($params['crop']))
@@ -936,7 +936,7 @@ class ScriptLoader
       'core.scripts' => 'themes/default/js/scripts.js',
       'jquery' => 'themes/default/js/jquery.min.js',
       'jquery.ui' => 'themes/default/js/ui/minified/jquery.ui.core.min.js',
-      'jquery.effects' => 'themes/default/js/ui/minified/jquery.effects.core.min.js',
+      'jquery.ui.effect' => 'themes/default/js/ui/minified/jquery.ui.effect.min.js',
     );
 
   private static $ui_core_dependencies = array(
@@ -1153,20 +1153,20 @@ class ScriptLoader
     {
       $required_ids = array('jquery');
 
-      if ( strncmp($id, 'jquery.ui.', 10)==0 )
+      if ( strncmp($id, 'jquery.ui.effect-', 17)==0 )
+      {
+        $required_ids = array('jquery', 'jquery.ui.effect');
+
+        if ( empty($script->path) )
+          $script->path = dirname(self::$known_paths['jquery.ui.effect'])."/$id.min.js";
+      }
+      elseif ( strncmp($id, 'jquery.ui.', 10)==0 )
       {
         if ( !isset(self::$ui_core_dependencies[$id]) )
           $required_ids = array_merge(array('jquery', 'jquery.ui'), array_keys(self::$ui_core_dependencies));
 
         if ( empty($script->path) )
           $script->path = dirname(self::$known_paths['jquery.ui'])."/$id.min.js";
-      }
-      elseif ( strncmp($id, 'jquery.effects.', 15)==0 )
-      {
-        $required_ids = array('jquery', 'jquery.effects');
-
-        if ( empty($script->path) )
-          $script->path = dirname(self::$known_paths['jquery.effects'])."/$id.min.js";
       }
 
       foreach ($required_ids as $required_id)
@@ -1179,7 +1179,7 @@ class ScriptLoader
 
   private function load_known_required_script($id, $load_mode)
   {
-    if ( isset(self::$known_paths[$id]) or strncmp($id, 'jquery.ui.', 10)==0 or strncmp($id, 'jquery.effects.', 15)==0 )
+    if ( isset(self::$known_paths[$id]) or strncmp($id, 'jquery.ui.', 10)==0  )
     {
       $this->add($id, $load_mode, array(), null);
       return true;

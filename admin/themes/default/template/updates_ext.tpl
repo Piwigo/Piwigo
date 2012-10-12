@@ -2,7 +2,7 @@
 {combine_script id='jquery.jgrowl' load='footer' require='jquery' path='themes/default/js/plugins/jquery.jgrowl_minimized.js'}
 {combine_css path="admin/themes/default/uploadify.jGrowl.css"}
 
-{footer_script require='jquery.effects.blind,jquery.ajaxmanager,jquery.jgrowl'}
+{footer_script require='jquery.ui.effect-blind,jquery.ajaxmanager,jquery.jgrowl'}
 var pwg_token = '{$PWG_TOKEN}';
 var extType = '{$EXT_TYPE}';
 var confirmMsg  = '{'Are you sure?'|@translate|@escape:'javascript'}';
