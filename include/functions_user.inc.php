@@ -287,8 +287,6 @@ function getuserdata($user_id, $use_cache)
 {
   global $conf;
 
-  $userdata = array();
-
   // retrieve basic user data
   $query = '
 SELECT ';
@@ -347,24 +345,21 @@ SELECT
   $user_infos_row = pwg_db_fetch_assoc($result);
 
   // then merge basic + additional user data
-  $row = array_merge($row, $user_infos_row);
+  $userdata = array_merge($row, $user_infos_row);
 
-  foreach ($row as $key => $value)
+  foreach ($userdata as &$value)
   {
-    if (!is_numeric($key))
-    {
-      // If the field is true or false, the variable is transformed into a
-      // boolean value.
-      if ($value == 'true' or $value == 'false')
+      // If the field is true or false, the variable is transformed into a boolean value.
+      if ($value == 'true')
       {
-        $userdata[$key] = get_boolean($value);
+        $value = true;
       }
-      else
+      elseif ($value == 'false')
       {
-        $userdata[$key] = $value;
+        $value = false;
       }
-    }
   }
+  unset($value);
 
   if ($use_cache)
   {
@@ -643,7 +638,7 @@ function compute_branch_cat_data(&$cats, &$list_cat_id, &$level, &$ref_level)
   // Last cat updating must be added to list for next branch
   if ($ref_level <> 0)
   {
-    array_push($list_cat_id, $cat_id);
+    $list_cat_id[] = $cat_id;
   }
 }
 
@@ -662,12 +657,12 @@ function compute_categories_data(&$cats)
     $level = substr_count($category['global_rank'], '.') + 1;
     if ($level > $ref_level)
     {
-      array_push($list_cat_id, $id);
+      $list_cat_id[] = $id;
     }
     else
     {
       compute_branch_cat_data($cats, $list_cat_id, $level, $ref_level);
-      array_push($list_cat_id, $id);
+      $list_cat_id[] = $id;
     }
     $ref_level = $level;
   }
@@ -829,18 +824,17 @@ function get_default_user_info($convert_str = true)
 
   if (is_array($cache['default_user']) and $convert_str)
   {
-    $default_user = array();
-    foreach ($cache['default_user'] as $name => $value)
+    $default_user = $cache['default_user'];
+    foreach ($default_user as &$value)
     {
-      // If the field is true or false, the variable is transformed into a
-      // boolean value.
-      if ($value == 'true' or $value == 'false')
+      // If the field is true or false, the variable is transformed into a boolean value.
+      if ($value == 'true')
       {
-        $default_user[$name] = get_boolean($value);
+        $value = true;
       }
-      else
+      elseif ($value == 'false')
       {
-        $default_user[$name] = $value;
+        $value = false;
       }
     }
     return $default_user;
@@ -984,7 +978,7 @@ function create_user_infos($arg_id, $override_values = null)
           'level' => $level
           ));
 
-      array_push($inserts, $insert);
+      $inserts[] = $insert;
     }
 
     mass_inserts(USER_INFOS_TABLE, array_keys($inserts[0]), $inserts);

@@ -125,32 +125,6 @@ function get_filename_wo_extension( $filename )
   return ($pos===false) ? $filename : substr( $filename, 0, $pos);
 }
 
-/**
- * returns an array contening sub-directories, excluding ".svn"
- *
- * @param string $dir
- * @return array
- */
-function get_dirs($directory)
-{
-  $sub_dirs = array();
-  if ($opendir = opendir($directory))
-  {
-    while ($file = readdir($opendir))
-    {
-      if ($file != '.'
-          and $file != '..'
-          and is_dir($directory.'/'.$file)
-          and $file != '.svn')
-      {
-        array_push($sub_dirs, $file);
-      }
-    }
-    closedir($opendir);
-  }
-  return $sub_dirs;
-}
-
 define('MKGETDIR_NONE', 0);
 define('MKGETDIR_RECURSIVE', 1);
 define('MKGETDIR_DIE_ON_ERROR', 2);
@@ -1274,6 +1248,7 @@ function load_language($filename, $dirname = '',
 
   $languages = array_unique($languages);
 
+  /*Note: target charset is always utf-8
   if ( empty($options['target_charset']) )
   {
     $target_charset = get_pwg_charset();
@@ -1282,7 +1257,7 @@ function load_language($filename, $dirname = '',
   {
     $target_charset = $options['target_charset'];
   }
-  $target_charset = strtolower($target_charset);
+  $target_charset = strtolower($target_charset);*/
   $source_file    = '';
   foreach ($languages as $language)
   {
@@ -1309,6 +1284,7 @@ function load_language($filename, $dirname = '',
       if ( !isset($lang) ) $lang=array();
       if ( !isset($lang_info) ) $lang_info=array();
 
+      /* Note: target charset is always utf-8
       if ( 'utf-8'!=$target_charset)
       {
         if ( is_array($load_lang) )
@@ -1333,16 +1309,16 @@ function load_language($filename, $dirname = '',
         }
       }
       else
-      {
+      {*/
         $lang = array_merge( $lang, (array)$load_lang );
         $lang_info = array_merge( $lang_info, (array)$load_lang_info );
-      }
+      //}
       return true;
     }
     else
     {
       $content = @file_get_contents($source_file);
-      $content = convert_charset($content, 'utf-8', $target_charset);
+      //Note: target charset is always utf-8 $content = convert_charset($content, 'utf-8', $target_charset);
       return $content;
     }
   }
@@ -1604,36 +1580,20 @@ function get_privacy_level_options()
   global $conf;
 
   $options = array();
+  $label = '';
   foreach (array_reverse($conf['available_permission_levels']) as $level)
   {
-    $label = null;
-
     if (0 == $level)
     {
       $label = l10n('Everybody');
     }
     else
     {
-      $labels = array();
-      $sub_levels = array_reverse($conf['available_permission_levels']);
-      foreach ($sub_levels as $sub_level)
+      if (strlen($label))
       {
-        if ($sub_level == 0 or $sub_level < $level)
-        {
-          break;
-        }
-        array_push(
-          $labels,
-          l10n(
-            sprintf(
-              'Level %d',
-              $sub_level
-              )
-            )
-          );
+        $label .= ', ';
       }
-
-      $label = implode(', ', $labels);
+      $label .= l10n( sprintf('Level %d',$level) );
     }
     $options[$level] = $label;
   }
