@@ -33,12 +33,7 @@ SELECT id
   FROM '.CATEGORIES_TABLE.'
   WHERE site_id = '.$id.'
 ;';
-  $result = pwg_query($query);
-  $category_ids = array();
-  while ($row = pwg_db_fetch_assoc($result))
-  {
-    array_push($category_ids, $row['id']);
-  }
+  $category_ids = array_from_query($query, 'id');
   delete_categories($category_ids);
 
   // destruction of the site
@@ -79,12 +74,7 @@ SELECT id
   WHERE storage_category_id IN (
 '.wordwrap(implode(', ', $ids), 80, "\n").')
 ;';
-  $result = pwg_query($query);
-  $element_ids = array();
-  while ($row = pwg_db_fetch_assoc($result))
-  {
-    array_push($element_ids, $row['id']);
-  }
+  $element_ids = array_from_query($query, 'id');
   delete_elements($element_ids);
 
   // now, should we delete photos that are virtually linked to the category?
@@ -395,7 +385,7 @@ function delete_orphan_tags()
     $orphan_tag_ids = array();
     foreach ($orphan_tags as $tag)
     {
-      array_push($orphan_tag_ids, $tag['id']);
+      $orphan_tag_ids[] = $tag['id'];
     }
 
     $query = '
@@ -412,8 +402,6 @@ DELETE
  */
 function get_orphan_tags()
 {
-  $orphan_tags = array();
-
   $query = '
 SELECT
     id,
@@ -422,13 +410,7 @@ SELECT
     LEFT JOIN '.IMAGE_TAG_TABLE.' ON id = tag_id
   WHERE tag_id IS NULL
 ;';
-  $result = pwg_query($query);
-  while ($row = pwg_db_fetch_assoc($result))
-  {
-    array_push($orphan_tags, $row);
-  }
-
-  return $orphan_tags;
+  return array_from_query($query);
 }
 
 /**
@@ -785,8 +767,6 @@ SELECT id, galleries_url
   $galleries_url = simple_hash_from_query($query, 'id', 'galleries_url');
 
   // categories : id, site_id, uppercats
-  $categories = array();
-
   $query = '
 SELECT id, uppercats, site_id
   FROM '.CATEGORIES_TABLE.'
@@ -794,11 +774,7 @@ SELECT id, uppercats, site_id
     AND id IN (
 '.wordwrap(implode(', ', $cat_ids), 80, "\n").')
 ;';
-  $result = pwg_query($query);
-  while ($row = pwg_db_fetch_assoc($result))
-  {
-    array_push($categories, $row);
-  }
+  $categories = array_from_query($query);
 
   // filling $cat_fulldirs
   $cat_fulldirs = array();
@@ -1603,7 +1579,7 @@ DELETE '.IMAGE_CATEGORY_TABLE.'.*
     JOIN '.IMAGES_TABLE.' ON image_id=id
   WHERE id IN ('.implode(',', $images).')
 ';
-  
+
   if (is_array($categories) and count($categories) > 0)
   {
     $query.= '
@@ -2083,7 +2059,6 @@ function get_active_menu($menu_page)
     case 'photos_add':
     case 'rating':
     case 'tags':
-    case 'picture_modify':
     case 'batch_manager':
       return 0;
 
@@ -2145,15 +2120,6 @@ function get_taglist($query, $only_user_language=true)
     if (!$only_user_language)
     {
       $alt_names = trigger_event('get_tag_alt_names', array(), $raw_name);
-
-      // TEMP 2.4
-      if (count($alt_names)==0 and preg_match_all('#\[lang=(.*?)\](.*?)\[/lang\]#is', $row['name'], $matches))
-      {
-        foreach ($matches[2] as $alt)
-        {
-          $alt_names[] = $alt;
-        }
-      }
 
       foreach( array_diff( array_unique($alt_names), array($name) ) as $alt)
       {

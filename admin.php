@@ -253,7 +253,6 @@ if (
         'cat_list',     // delete cat
         'cat_move',     // ?only POST
         'cat_options',  // ?only POST; public/private; lock/unlock
-        'picture_modify', // ?only POST; associate/dissociate
         'user_perm',
         'group_perm',
         'group_list',   // delete group

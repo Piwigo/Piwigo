@@ -78,13 +78,13 @@ class themes
         if (isset($missing_parent))
         {
           array_push(
-            $errors, 
+            $errors,
             sprintf(
               l10n('Impossible to activate this theme, the parent theme is missing: %s'),
               $missing_parent
               )
             );
-          
+
           break;
         }
 
@@ -211,7 +211,7 @@ DELETE
             );
           break;
         }
-        
+
         if (!$this->deltree(PHPWG_THEMES_PATH.$theme_id))
         {
           $this->send_to_trash(PHPWG_THEMES_PATH.$theme_id);
@@ -220,7 +220,7 @@ DELETE
 
       case 'set_default':
         // first we need to know which users are using the current default theme
-        $this->set_default_theme($theme_id);        
+        $this->set_default_theme($theme_id);
         break;
     }
     return $errors;
@@ -232,14 +232,14 @@ DELETE
     {
       return null;
     }
-    
+
     $parent = $this->fs_themes[$theme_id]['parent'];
-      
+
     if ('default' == $parent)
     {
       return null;
     }
-      
+
     if (!isset($this->fs_themes[$parent]))
     {
       return $parent;
@@ -251,7 +251,7 @@ DELETE
   function get_children_themes($theme_id)
   {
     $children = array();
-    
+
     foreach ($this->fs_themes as $test_child)
     {
       if (isset($test_child['parent']) and $test_child['parent'] == $theme_id)
@@ -261,15 +261,15 @@ DELETE
     }
 
     return $children;
-  } 
+  }
 
   function set_default_theme($theme_id)
   {
     global $conf;
-    
+
     // first we need to know which users are using the current default theme
     $default_theme = get_default_theme();
-    
+
     $query = '
 SELECT
     user_id
@@ -300,7 +300,7 @@ UPDATE '.USER_INFOS_TABLE.'
 SELECT
     *
   FROM '.THEMES_TABLE;
-    
+
     $clauses = array();
     if (!empty($id))
     {
@@ -321,14 +321,14 @@ SELECT
     return $themes;
   }
 
-  
+
   /**
   *  Get themes defined in the theme directory
-  */  
+  */
   function get_fs_themes()
   {
     $dir = opendir(PHPWG_THEMES_PATH);
-    
+
     while ($file = readdir($dir))
     {
       if ($file!='.' and $file!='..')
@@ -531,7 +531,7 @@ SELECT
     }
     return false;
   }
-  
+
   /**
    * Sort $server_themes
    */
@@ -653,7 +653,7 @@ SELECT
     @unlink($archive);
     return $status;
   }
-  
+
   /**
    * delete $path directory
    * @param string - path
@@ -774,39 +774,5 @@ SELECT
     $this->fs_themes = $active_themes + $inactive_themes + $not_installed;
   }
 
-  // themes specific methods
-  function get_fs_themes_with_ini()
-  {
-    $themes_dir = PHPWG_ROOT_PATH.'themes';
-
-    $fs_themes = array();
-
-    foreach (get_dirs($themes_dir) as $theme)
-    {
-      $conf_file = $themes_dir.'/'.$theme.'/themeconf.inc.php';
-      if (file_exists($conf_file))
-      {
-        $theme_data = array(
-          'name' => $theme,
-          );
-        
-        $ini_file = $themes_dir.'/'.$theme.'/theme.ini';
-        if (file_exists($ini_file))
-        {
-          $theme_ini = parse_ini_file($ini_file);
-          if (isset($theme_ini['extension_id']))
-          {
-            $theme_data['extension_id'] = $theme_ini['extension_id'];
-          }
-        }
-
-        array_push($fs_themes, $theme_data);
-      }
-    }
-
-    echo '<pre>'; print_r($fs_themes); echo '</pre>';
-  }
-
-  
 }
 ?>
