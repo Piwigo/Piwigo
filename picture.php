@@ -736,7 +736,7 @@ elseif ($conf['picture_slideshow_icon'])
 
 $template->assign(
   array(
-    'SECTION_TITLE' => $page['title'],
+    'SECTION_TITLE' => $page['section_title'],
     'PHOTO' => $title_nb,
     'IS_HOME' => ('categories'==$page['section'] and !isset($page['category']) ),
 

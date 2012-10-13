@@ -111,7 +111,7 @@ $page['body_id'] = 'theCategoryPage';
 
 $template->set_filenames( array('index'=>'index.tpl') );
 //-------------------------------------------------------------- category title
-$template_title = $page['title'];
+$template_title = $page['section_title'];
 if (count($page['items']) > 0)
 {
   $template_title.= ' ['.count($page['items']).']';

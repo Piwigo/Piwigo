@@ -561,9 +561,22 @@ if (isset($page['title']))
 {
   if (!empty($page['title']))
 	{
-	  $page['title'] = $conf['level_separator'].$page['title'];
+    $page['section_title'] = '<a href="'.get_gallery_home_url().'">'.l10n('Home').'</a>'.$conf['level_separator'].$page['title'];
 	}
-  $page['title'] = '<a href="'.get_gallery_home_url().'">'.l10n('Home').'</a>'.$page['title'];
+  else
+  {
+    if ('picture'==script_basename())
+    {
+      $used_title = l10n('Home');
+      $used_link = duplicate_index_url(array('start'=>0));
+    }
+    else
+    {
+      $used_title = @$page['is_homepage'] ? $conf['gallery_title'] :l10n('Home');
+      $used_link = get_gallery_home_url();
+    }
+    $page['section_title'] = $page['title'] = '<a href="'.$used_link.'">'.$used_title.'</a>';
+  }
 }
 
 // add meta robots noindex, nofollow to avoid unnecesary robot crawls

@@ -182,10 +182,6 @@ $conf['links'] = array();
 //    );
 $conf['random_index_redirect'] = array();
 
-// reverse_home_title: if Piwigo is your home page for a better robot index
-// we recommend to set it true (Only index page will reverse its title)
-$conf['reverse_home_title'] = false;
-
 // List of notes to display on all header page
 // example $conf['header_notes']  = array('Test', 'Hello');
 $conf['header_notes']  = array();
