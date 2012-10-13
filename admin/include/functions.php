@@ -1676,7 +1676,7 @@ function create_table_add_character_set($query)
   defined('DB_CHARSET') or fatal_error('create_table_add_character_set DB_CHARSET undefined');
   if ('DB_CHARSET'!='')
   {
-    if ( version_compare(mysql_get_server_info(), '4.1.0', '<') )
+    if ( version_compare(pwg_get_db_version(), '4.1.0', '<') )
     {
       return $query;
     }

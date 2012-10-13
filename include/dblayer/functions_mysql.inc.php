@@ -178,6 +178,11 @@ function pwg_db_insert_id($table=null, $column='id')
   return mysql_insert_id();
 }
 
+function pwg_db_close($link=null)
+{
+  return mysql_close($link);
+}
+
 /**
  *
  * complex functions

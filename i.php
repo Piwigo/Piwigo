@@ -518,7 +518,7 @@ else
 {
   $page['rotation_angle'] = 0;
 }
-mysql_close($pwg_db_link);
+pwg_db_close($pwg_db_link);
 
 if (!try_switch_source($params, $src_mtime) && $params->type==IMG_CUSTOM)
 {
