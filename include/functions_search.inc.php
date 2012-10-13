@@ -305,7 +305,7 @@ function analyse_qsearch($q, &$qtokens, &$qtoken_modifiers)
   for ($i=0; $i<strlen($q); $i++)
   {
     $ch = $q[$i];
-    if ($crt_token_modifier&QST_QUOTED==0)
+    if ( ($crt_token_modifier&QST_QUOTED)==0)
     {
         if ($ch=='"')
         {
@@ -356,12 +356,12 @@ function analyse_qsearch($q, &$qtokens, &$qtoken_modifiers)
         $tokens[] = $crt_token; $token_modifiers[] = $crt_token_modifier;
         $crt_token = ""; $crt_token_modifier = 0;
         $state=0;
-        break;
       }
       else
         $crt_token .= $ch;
     }
   }
+
   if (strlen($crt_token))
   {
     $tokens[] = $crt_token;
@@ -389,7 +389,7 @@ function analyse_qsearch($q, &$qtokens, &$qtoken_modifiers)
 
 
 /**
- * returns the LIKE sql clause corresponding to the quick search query 
+ * returns the LIKE sql clause corresponding to the quick search query
  * that has been split into tokens
  * for example file LIKE '%john%' OR file LIKE '%bill%'.
  */
@@ -412,96 +412,22 @@ function get_qsearch_like_clause($tokens, $token_modifiers, $field)
 }
 
 /**
- * returns the search results corresponding to a quick/query search.
- * A quick/query search returns many items (search is not strict), but results
- * are sorted by relevance unless $super_order_by is true. Returns:
- * array (
- * 'items' => array(85,68,79...)
- * 'qs'    => array(
- *    'matching_tags' => array of matching tags
- *    'matching_cats' => array of matching categories
- *    'matching_cats_no_images' =>array(99) - matching categories without images
- *      ))
- *
- * @param string q
- * @param bool super_order_by
- * @param string images_where optional aditional restriction on images table
- * @return array
- */
-function get_quick_search_results($q, $super_order_by, $images_where='')
+*/
+function get_qsearch_tags($tokens, $token_modifiers, &$token_tag_ids, &$not_tag_ids, &$all_tags)
 {
-  global $user, $conf;
+  $token_tag_ids = array_fill(0, count($tokens), array() );
+  $not_tag_ids = $all_tags = array();
 
-  $search_results =
-    array(
-      'items' => array(),
-      'qs' => array('q'=>stripslashes($q)),
-    );
-  $q = trim($q);
-  analyse_qsearch($q, $tokens, $token_modifiers);
-  if (count($tokens)==0)
-  {
-    return $search_results;
-  }
-  $debug[] = '<!--'.count($tokens).' tokens';
-  
-  $q_like_field = '@@__db_field__@@'; //something never in a search
-  $q_like_clause = get_qsearch_like_clause($tokens, $token_modifiers, $q_like_field );
-
-  // Step 1 - first we find matches in #images table ===========================
-  $where_clauses='MATCH(i.name, i.comment) AGAINST( \''.$q.'\' IN BOOLEAN MODE)';
-  if (!empty($q_like_clause))
-  {
-    $where_clauses .= '
-    OR '. str_replace($q_like_field, 'CONVERT(file, CHAR)', $q_like_clause);
-    $where_clauses = '('.$where_clauses.')';
-  }
-  $where_clauses = array($where_clauses);
-  if (!empty($images_where))
-  {
-    $where_clauses[]='('.$images_where.')';
-  }
-  $where_clauses[] .= get_sql_condition_FandF
-      (
-        array( 'visible_images' => 'i.id' ), null, true
-      );
-  $query = '
-SELECT i.id,
-    MATCH(i.name, i.comment) AGAINST( \''.$q.'\' IN BOOLEAN MODE) AS weight
-  FROM '.IMAGES_TABLE.' i
-  WHERE '.implode("\n AND ", $where_clauses);
-
-  $by_weights=array();
-  $result = pwg_query($query);
-  while ($row = pwg_db_fetch_assoc($result))
-  { // weight is important when sorting images by relevance
-    if ($row['weight'])
-    {
-      $by_weights[(int)$row['id']] =  2*$row['weight'];
-    }
-    else
-    {//full text does not match but file name match
-      $by_weights[(int)$row['id']] =  2;
-    }
-  }
-  $debug[] = count($by_weights).' fulltext';
-  $debug[] = 'ft score min:'.min($by_weights).' max:'.max($by_weights);
-
-
-  // Step 2 - search tags corresponding to the query $q ========================
+  $token_tag_scores = $token_tag_ids;
   $transliterated_tokens = array();
-  $token_tags = array();
   foreach ($tokens as $token)
   {
     $transliterated_tokens[] = transliterate($token);
-    $token_tags[] = array();
   }
 
-  // Step 2.1 - find match tags for every token in the query search
-  $all_tags = array();
   $query = '
-SELECT id, name, url_name, COUNT(image_id) AS nb_images
-  FROM '.TAGS_TABLE.'
+SELECT t.*, COUNT(image_id) AS counter
+  FROM '.TAGS_TABLE.' t
     INNER JOIN '.IMAGE_TAG_TABLE.' ON id=tag_id
   GROUP BY id';
   $result = pwg_query($query);
@@ -512,8 +438,6 @@ SELECT id, name, url_name, COUNT(image_id) AS nb_images
     // find how this tag matches query tokens
     for ($i=0; $i<count($tokens); $i++)
     {
-      if ($token_modifiers[$i]&QST_NOT)
-        continue;// ignore this NOT token
       $transliterated_token = $transliterated_tokens[$i];
 
       $match = false;
@@ -579,47 +503,163 @@ SELECT id, name, url_name, COUNT(image_id) AS nb_images
       {
         $tag_id = (int)$tag['id'];
         $all_tags[$tag_id] = $tag;
-        $token_tags[$i][] = array('tag_id'=>$tag_id, 'score'=>$match);
+        $token_tag_ids[$i][] = $tag_id;
+        $token_tag_scores[$i][] = $match;
       }
     }
   }
-  $search_results['qs']['matching_tags']=$all_tags;
-  $debug[] = count($all_tags).' tags';
 
-  // Step 2.2 - reduce matching tags for every token in the query search
-  $score_cmp_fn = create_function('$a,$b', 'return 100*($b["score"]-$a["score"]);');
-  foreach ($token_tags as &$tt)
+  // process not tags
+  for ($i=0; $i<count($tokens); $i++)
   {
-    usort($tt, $score_cmp_fn);
-    $nb_images = 0;
-    $prev_score = 0;
-    for ($j=0; $j<count($tt); $j++)
+    if ( ! ($token_modifiers[$i]&QST_NOT) )
+      continue;
+
+    array_multisort($token_tag_scores[$i], SORT_DESC|SORT_NUMERIC, $token_tag_ids[$i]);
+
+    for ($j=0; $j<count($token_tag_scores[$i]); $j++)
     {
-      if ($nb_images > 200 && $prev_score > $tt[$j]['score'] )
+      if ($token_tag_scores[$i][$j] < 0.8)
+        break;
+      if ($j>0 && $token_tag_scores[$i][$j] < $token_tag_scores[$i][0])
+        break;
+      $tag_id = $token_tag_ids[$i][$j];
+      if ( isset($all_tags[$tag_id]) )
+      {
+        unset($all_tags[$tag_id]);
+        $not_tag_ids[] = $tag_id;
+      }
+    }
+    $token_tag_ids[$i] = array();
+  }
+
+  // process regular tags
+  for ($i=0; $i<count($tokens); $i++)
+  {
+    if ( $token_modifiers[$i]&QST_NOT )
+      continue;
+
+    array_multisort($token_tag_scores[$i], SORT_DESC|SORT_NUMERIC, $token_tag_ids[$i]);
+
+    $counter = 0;
+    for ($j=0; $j<count($token_tag_scores[$i]); $j++)
+    {
+      $tag_id = $token_tag_ids[$i][$j];
+      if ( ! isset($all_tags[$tag_id]) )
+      {
+        array_splice($token_tag_ids[$i], $j, 1);
+        array_splice($token_tag_scores[$i], $j, 1);
+      }
+
+      $counter += $all_tags[$tag_id]['counter'];
+      if ($counter > 200 && $j>0 && $token_tag_scores[$i][0] > $token_tag_scores[$i][$j] )
       {// "many" images in previous tags and starting from this tag is less relevent
-        $tt = array_slice( $tt, 0, $j);
+        array_splice($token_tag_ids[$i], $j);
+        array_splice($token_tag_scores[$i], $j);
         break;
       }
-      $nb_images += $all_tags[ $tt[$j]['tag_id'] ]['nb_images'];
-      $prev_score = $tt[$j]['score'];
     }
   }
+  
+  usort($all_tags, 'tag_alpha_compare');
+  foreach ( $all_tags as &$tag )
+    $tag['name'] = trigger_event('render_tag_name', $tag['name']);
+}
 
-  // Step 2.3 - get the images for tags
-  for ($i=0; $i<count($token_tags); $i++)
+/**
+ * returns the search results corresponding to a quick/query search.
+ * A quick/query search returns many items (search is not strict), but results
+ * are sorted by relevance unless $super_order_by is true. Returns:
+ * array (
+ * 'items' => array(85,68,79...)
+ * 'qs'    => array(
+ *    'matching_tags' => array of matching tags
+ *    'matching_cats' => array of matching categories
+ *    'matching_cats_no_images' =>array(99) - matching categories without images
+ *      ))
+ *
+ * @param string q
+ * @param bool super_order_by
+ * @param string images_where optional aditional restriction on images table
+ * @return array
+ */
+function get_quick_search_results($q, $super_order_by, $images_where='')
+{
+  global $user, $conf;
+
+  $search_results =
+    array(
+      'items' => array(),
+      'qs' => array('q'=>stripslashes($q)),
+    );
+  $q = trim($q);
+  analyse_qsearch($q, $tokens, $token_modifiers);
+  if (count($tokens)==0)
   {
-    $tag_ids = array();
-    foreach($token_tags[$i] as $arr)
-      $tag_ids[] = $arr['tag_id'];
-    $tag_ids = array_unique($tag_ids);
+    return $search_results;
+  }
+  $debug[] = '<!--'.count($tokens).' tokens';
+
+  $q_like_field = '@@__db_field__@@'; //something never in a search
+  $q_like_clause = get_qsearch_like_clause($tokens, $token_modifiers, $q_like_field );
+
+  // Step 1 - first we find matches in #images table ===========================
+  $where_clauses='MATCH(i.name, i.comment) AGAINST( \''.$q.'\' IN BOOLEAN MODE)';
+  if (!empty($q_like_clause))
+  {
+    $where_clauses .= '
+    OR '. str_replace($q_like_field, 'CONVERT(file, CHAR)', $q_like_clause);
+    $where_clauses = '('.$where_clauses.')';
+  }
+  $where_clauses = array($where_clauses);
+  if (!empty($images_where))
+  {
+    $where_clauses[]='('.$images_where.')';
+  }
+  $where_clauses[] .= get_sql_condition_FandF
+      (
+        array( 'visible_images' => 'i.id' ), null, true
+      );
+  $query = '
+SELECT i.id,
+    MATCH(i.name, i.comment) AGAINST( \''.$q.'\' IN BOOLEAN MODE) AS weight
+  FROM '.IMAGES_TABLE.' i
+  WHERE '.implode("\n AND ", $where_clauses);
+
+  $by_weights=array();
+  $result = pwg_query($query);
+  while ($row = pwg_db_fetch_assoc($result))
+  { // weight is important when sorting images by relevance
+    if ($row['weight'])
+    {
+      $by_weights[(int)$row['id']] =  2*$row['weight'];
+    }
+    else
+    {//full text does not match but file name match
+      $by_weights[(int)$row['id']] =  2;
+    }
+  }
+  $debug[] = count($by_weights).' fulltext';
+  if (!empty($by_weights))
+  {
+    $debug[] = 'ft score min:'.min($by_weights).' max:'.max($by_weights);
+  }
+
+
+  // Step 2 - get the tags and the images for tags
+  get_qsearch_tags($tokens, $token_modifiers, $token_tag_ids, $not_tag_ids, $search_results['qs']['matching_tags']);
+  $debug[] = count($search_results['qs']['matching_tags']).' tags';
+
+  for ($i=0; $i<count($token_tag_ids); $i++)
+  {
+    $tag_ids = $token_tag_ids[$i];
     $debug[] = count($tag_ids).' unique tags';
 
     if (!empty($tag_ids))
     {
       $tag_photo_count=0;
       $query = '
-SELECT image_id
-  FROM '.IMAGE_TAG_TABLE.'
+SELECT image_id FROM '.IMAGE_TAG_TABLE.'
   WHERE tag_id IN ('.implode(',',$tag_ids).')
   GROUP BY image_id';
       $result = pwg_query($query);
@@ -629,8 +669,8 @@ SELECT image_id
         @$by_weights[$image_id] += 1;
         $tag_photo_count++;
       }
-      $debug[] = $tag_photo_count.' photos for tags';
-      $debug[] = count($by_weights).' photos after tags';
+      $debug[] = $tag_photo_count.' photos for tag';
+      $debug[] = count($by_weights).' photos after';
     }
   }
 
@@ -663,6 +703,20 @@ SELECT id, name, permalink, nb_images
     return $search_results;
   }
 
+  if (!empty($not_tag_ids))
+  {
+    $query = '
+SELECT image_id FROM '.IMAGE_TAG_TABLE.'
+  WHERE tag_id IN ('.implode(',',$not_tag_ids).')
+  GROUP BY image_id';
+      $result = pwg_query($query);
+      while ($row = pwg_db_fetch_row($result))
+      {
+        $id = $row[0];
+        unset($by_weights[$id]);
+      }
+      $debug[] = count($by_weights).' after not tags';
+  }
   // Step 4 - now we have $by_weights ( array image id => weight ) that need
   // permission checks and/or matching categories to get images from
   $where_clauses = array();

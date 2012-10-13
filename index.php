@@ -226,18 +226,10 @@ if ( $page['section']=='search' and $page['start']==0 and
   }
 
   $tags = (array)@$page['qsearch_details']['matching_tags'];
-  if (count($tags))
+  foreach ( $tags as $tag )
   {
-    usort($tags, 'name_compare');
-    $hints = array();
-    foreach ( $tags as $tag )
-    {
-      $hints[] =
-        '<a href="' . make_index_url(array('tags'=>array($tag))) . '">'
-        .trigger_event('render_tag_name', $tag['name'])
-        .'</a>';
-    }
-    $template->assign( 'tag_search_results', $hints);
+    $tag['URL'] = make_index_url(array('tags'=>array($tag)));
+    $template->append( 'tag_search_results', $tag);
   }
 }
 
