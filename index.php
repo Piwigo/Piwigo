@@ -98,7 +98,12 @@ if (isset($page['is_homepage']) and $page['is_homepage'])
 }
 else
 {
-  $canonical_url = duplicate_index_url();
+  $start = $page['nb_image_page'] * round($page['start'] / $page['nb_image_page']);
+  if ($start>0 && $start >= count($page['items']) )
+  {
+    $start -= $page['nb_image_page'];
+  }
+  $canonical_url = duplicate_index_url(array('start' => $start));
 }
 $template->assign('U_CANONICAL', $canonical_url);
 

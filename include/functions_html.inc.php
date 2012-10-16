@@ -434,8 +434,9 @@ $btrace_msg
 function get_tags_content_title()
 {
   global $page;
-  $title = count($page['tags']) > 1 ? l10n('Tag') : l10n('Tag');
-  $title.= ' ';
+  $title = '<a href="'.get_root_url().'tags.php" title="'.l10n('display available tags').'">'
+    . l10n( count($page['tags']) > 1 ? 'Tags' : 'Tag' )
+    . '</a> ';
 
   for ($i=0; $i<count($page['tags']); $i++)
   {
@@ -454,12 +455,7 @@ function get_tags_content_title()
       .trigger_event('render_tag_name', $page['tags'][$i]['name'])
       .'</a>';
 
-    $remove_url = null;
-    if (count($page['tags']) == 1)
-    {
-      $remove_url = get_root_url().'tags.php';
-    }
-    else
+    if (count($page['tags']) > 2)
     {
       $other_tags = $page['tags'];
       unset($other_tags[$i]);
@@ -468,15 +464,15 @@ function get_tags_content_title()
           'tags' => $other_tags
           )
         );
-    }
 
-    $title.=
-      '<a href="'.$remove_url.'" style="border:none;" title="'
-      .l10n('remove this tag from the list')
-      .'"><img src="'
-        .get_root_url().get_themeconf('icon_dir').'/remove_s.png'
-      .'" alt="x" style="vertical-align:bottom;">'
-      .'</a>';
+      $title.=
+        '<a href="'.$remove_url.'" style="border:none;" title="'
+        .l10n('remove this tag from the list')
+        .'"><img src="'
+          .get_root_url().get_themeconf('icon_dir').'/remove_s.png'
+        .'" alt="x" style="vertical-align:bottom;">'
+        .'</a>';
+    }
   }
   return $title;
 }
