@@ -572,7 +572,7 @@ if (isset($page['title']))
     }
     else
     {
-      $used_title = @$page['is_homepage'] ? $conf['gallery_title'] :l10n('Home');
+      $used_title = ('categories'==$page['section'] && !isset($page['category']) && !isset($page['chronology_field']) ) ? $conf['gallery_title'] : l10n('Home');
       $used_link = get_gallery_home_url();
     }
     $page['section_title'] = $page['title'] = '<a href="'.$used_link.'">'.$used_title.'</a>';
