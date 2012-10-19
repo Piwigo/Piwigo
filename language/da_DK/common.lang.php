@@ -22,7 +22,7 @@
 // +-----------------------------------------------------------------------+
 /*
 Language Name: Dansk [DK]
-Version: 2.4.0
+Version: 2.3.0
 Language URI: http://piwigo.org/ext/extension_view.php?eid=415
 Author: Piwigo team
 Author URI: http://piwigo.org
@@ -61,7 +61,7 @@ $lang['Close this window'] = 'Luk dette vindue';
 $lang['Complete RSS feed (photos, comments)'] = 'Komplet RSS-feed (fotografier, kommentarer)';
 $lang['Confirm Password'] = 'Bekræft adgangskode';
 $lang['Connection settings'] = 'Loginindstillinger';
-$lang['Login'] = 'Log ind';
+$lang['Login'] = 'Log på';
 $lang['Contact webmaster'] = 'Kontakt webmaster';
 $lang['Create a new account'] = 'Opret en ny konto';
 $lang['Created on'] = 'Oprettet den';
@@ -96,7 +96,7 @@ $lang['Password'] = 'Adgangskode';
 $lang['Post date'] = 'Tilføjelsesdato';
 $lang['Posted on'] = 'Tilføjet den';
 $lang['Profile'] = 'Profil';
-$lang['Quick connect'] = 'Hurtig logind';
+$lang['Quick connect'] = 'Log på hurtigt';
 $lang['RSS feed'] = 'RSS-feed';
 $lang['Register'] = 'Registrer';
 $lang['Registration'] = 'Registrering';
@@ -185,7 +185,7 @@ $lang['display this album'] = 'vis dette album';
 $lang['display last user comments'] = 'se seneste brugers kommentarer';
 $lang['customize the appareance of the gallery'] = 'tilpas visningen af galleriet';
 $lang['search'] = 'søg';
-$lang['Home'] = 'Hjem';
+$lang['Home'] = 'Forside';
 $lang['Identification'] = 'Identifikation';
 $lang['in this album'] = 'i dette album';
 $lang['in %d sub-album'] = 'i %d underalbum';
@@ -195,7 +195,7 @@ $lang['Invalid password!'] = 'Forkert adgangskode!';
 $lang['Language']='Sprog';
 $lang['last %d days'] = 'seneste %d dage';
 $lang['Last'] = 'Seneste';
-$lang['Logout'] = 'Log ud';
+$lang['Logout'] = 'Log af';
 $lang['obligatory'] = 'obligatorisk';
 $lang['display a calendar by creation date'] = 'viser en kalender over oprettelsesdatoer';
 $lang['display all photos in all sub-albums'] = 'vis alle fotografier i alle underalbummer';
@@ -240,7 +240,7 @@ $lang['Recent period'] = 'Seneste periode';
 $lang['Recent photos'] = 'Nye fotografier';
 $lang['display most recent photos'] = 'vis de nyeste fotografier';
 $lang['Redirection...'] = 'Omdirigering ...';
-$lang['Please, enter a login'] = 'Indtast login';
+$lang['Please, enter a login'] = 'Skriv loginoplysninger';
 $lang['login mustn\'t end with a space character'] = 'login må ikke slutte med mellemrum';
 $lang['login mustn\'t start with a space character'] = 'login må ikke begynde med mellemrum';
 $lang['this login is already used'] = 'dette login er allerede i brug';
@@ -269,7 +269,7 @@ $lang['Show number of hits'] = 'Vis antal af visninger';
 $lang['slideshow'] = 'slideshow';
 $lang['stop the slideshow'] = 'stop slideshow';
 $lang['Specials'] = 'Særligt';
-$lang['SQL queries in'] = 'SQL-forespørgsler i';
+$lang['SQL queries in'] = 'SQL-forespørgsler på';
 $lang['display only recently posted photos'] = 'vis kun nyligt tilføjede fotografier';
 $lang['return to the display of all photos'] = 'tilbage til alle fotoer';
 $lang['the beginning'] = 'begyndelsen';
@@ -400,7 +400,6 @@ $lang['Visits, low &rarr; high'] = 'Besøgende, lav &rarr; høj';
 $lang['Numeric identifier, 1 &rarr; 9'] = 'Numerisk identifikation, 1 &rarr; 9'; 
 $lang['Numeric identifier, 9 &rarr; 1'] = 'Numerisk identifikation, 9 &rarr; 1'; 
 $lang['Manual sort order'] = 'Manuel sorteringsrækkefølge';
-
 $lang['%d rate'] = '%d bedømmelse';
 $lang['Bad request'] = 'Fejlagtig forespørgsel';
 $lang['Forbidden'] = 'Ikke tilladt';
