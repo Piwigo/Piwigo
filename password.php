@@ -324,7 +324,7 @@ if ('lost' == $page['action'])
 
   if (isset($_POST['username_or_email']))
   {
-    $template->assign('username_or_email', stripslashes(strip_tags($_POST['username_or_email'])));
+    $template->assign('username_or_email', htmlspecialchars(stripslashes($_POST['username_or_email'])));
   }
 }
 
