@@ -1,4 +1,11 @@
 {$MENUBAR}
+
+{if isset($errors) or isset($infos)}
+<div class="content messages {if isset($MENUBAR)}contentWithMenu{/if}">
+{include file='infos_errors.tpl'}
+</div>
+{/if}
+
 {if !empty($PLUGIN_INDEX_CONTENT_BEFORE)}{$PLUGIN_INDEX_CONTENT_BEFORE}{/if}
 <div id="content" class="content{if isset($MENUBAR)} contentWithMenu{/if}">
 <div class="titrePage{if isset($chronology.TITLE)} calendarTitleBar{/if}">
@@ -125,9 +132,6 @@ jQuery("#derivativeSwitchBox").on("mouseleave", function() {
 
 </div>{* <!-- titrePage --> *}
 
-{if isset($errors) or not empty($infos)}
-{include file='infos_errors.tpl'}
-{/if}
 {if !empty($PLUGIN_INDEX_CONTENT_BEGIN)}{$PLUGIN_INDEX_CONTENT_BEGIN}{/if}
 
 {if !empty($category_search_results)}

@@ -685,6 +685,12 @@ INPUT[type="radio"], INPUT[type="checkbox"] {
 }
 
 
+.content.messages {
+  padding:0;
+  background:none;
+  border:none;
+}
+
 .errors { /* Errors display */
 	color: red;
 	font-weight: bold;
