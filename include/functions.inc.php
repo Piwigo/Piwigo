@@ -509,7 +509,7 @@ function format_date($date, $show_time = false, $show_day_name = true)
   {
     $formated_date.= ' '.$lang['month'][(int)$ymdhms[1]];
   }
-  
+
   $formated_date.= ' '.$ymdhms[0];
   if ($show_time and count($ymdhms)>=5 )
   {
@@ -532,14 +532,14 @@ function time_since($original, $stop = 'minute')
       $ymdhms[] = $tok;
       $tok = strtok('- :');
     }
-    
+
     if ($ymdhms[0] < 1970) return false;
     if (!isset($ymdhms[3])) $ymdhms[3] = 12;
     if (!isset($ymdhms[4])) $ymdhms[4] = 0;
     if (!isset($ymdhms[5])) $ymdhms[5] = 0;
     $original = mktime($ymdhms[3],$ymdhms[4],$ymdhms[5],$ymdhms[1],$ymdhms[2],$ymdhms[0]);
   }
-  
+
   // array of time period chunks
   $chunks = array(
     'year' => 60 * 60 * 24 * 365,
@@ -550,10 +550,10 @@ function time_since($original, $stop = 'minute')
     'minute' => 60,
     'second' => 1,
   );
-  
+
   $today = time(); /* Current unix time  */
   $since = abs($today - $original);
-  
+
   $print = null;
   foreach ($chunks as $name => $seconds)
   {
@@ -568,7 +568,7 @@ function time_since($original, $stop = 'minute')
     }
   }
 
-  if ($today > $original) 
+  if ($today > $original)
   {
     $print = sprintf(l10n('%s ago'), $print);
   }
@@ -576,7 +576,7 @@ function time_since($original, $stop = 'minute')
   {
     $print = sprintf(l10n('%s in the future'), $print);
   }
-  
+
   return $print;
 }
 
@@ -1421,38 +1421,38 @@ function create_navigation_bar($url, $nb_element, $start, $nb_element_page, $cle
   // navigation bar useful only if more than one page to display !
   if ($nb_element > $nb_element_page)
   {
-    $cur_page = ceil($start / $nb_element_page) + 1;
+    $url_start = $url.$start_str;
+
+    $cur_page = $navbar['CURRENT_PAGE'] = $start / $nb_element_page + 1;
     $maximum = ceil($nb_element / $nb_element_page);
+
+    $start = $nb_element_page * round( $start / $nb_element_page );
     $previous = $start - $nb_element_page;
     $next = $start + $nb_element_page;
     $last = ($maximum - 1) * $nb_element_page;
-
-    $navbar['CURRENT_PAGE'] = $cur_page;
 
     // link to first page and previous page?
     if ($cur_page != 1)
     {
       $navbar['URL_FIRST'] = $url;
-      $navbar['URL_PREV'] = $url.($previous > 0 ? $start_str.$previous : '');
+      $navbar['URL_PREV'] = $previous > 0 ? $url_start.$previous : $url;
     }
     // link on next page and last page?
     if ($cur_page != $maximum)
     {
-      $navbar['URL_NEXT'] = $url.$start_str.$next;
-      $navbar['URL_LAST'] = $url.$start_str.$last;
+      $navbar['URL_NEXT'] = $url_start.($next < $last ? $next : $last);
+      $navbar['URL_LAST'] = $url_start.$last;
     }
 
     // pages to display
     $navbar['pages'] = array();
     $navbar['pages'][1] = $url;
-    $navbar['pages'][$maximum] = $url.$start_str.$last;
-
-    for ($i = max($cur_page - $pages_around , 2), $stop = min($cur_page + $pages_around + 1, $maximum);
+    for ($i = max( floor($cur_page) - $pages_around , 2), $stop = min( ceil($cur_page) + $pages_around + 1, $maximum);
          $i < $stop; $i++)
     {
       $navbar['pages'][$i] = $url.$start_str.(($i - 1) * $nb_element_page);
     }
-    ksort($navbar['pages']);
+    $navbar['pages'][$maximum] = $url_start.$last;
   }
   return $navbar;
 }
