@@ -148,6 +148,12 @@ function ws_std_get_urls($image_row)
 {
   $ret = array();
 
+  $ret['page_url'] = make_picture_url( array(
+            'image_id' => $image_row['id'],
+            'image_file' => $image_row['file'],
+          )
+        );
+
   $src_image = new SrcImage($image_row);
 
   if ( $src_image->is_original() )
@@ -182,7 +188,7 @@ function ws_std_get_urls($image_row)
 function ws_std_get_image_xml_attributes()
 {
   return array(
-    'id','element_url', 'file','width','height','hit','date_available','date_creation'
+    'id','element_url', 'page_url', 'file','width','height','hit','date_available','date_creation'
     );
 }
 
