@@ -361,9 +361,7 @@ function send_derivative($expires)
     include_once(PHPWG_ROOT_PATH.'include/functions_cookie.inc.php');
     include_once(PHPWG_ROOT_PATH.'include/functions_url.inc.php');
 
-    $response = new json_response();
-    $response->url = embellish_url(get_absolute_root_url().$page['derivative_path']);
-    echo json_encode($response);
+    echo json_encode( array( 'url'=>embellish_url(get_absolute_root_url().$page['derivative_path']) ) );
     return;
   }
   $fp = fopen($page['derivative_path'], 'rb');
@@ -388,11 +386,6 @@ function send_derivative($expires)
 
   fpassthru($fp);
   fclose($fp);
-}
-
-class json_response
-{
-  var $url;
 }
 
 $page=array();
