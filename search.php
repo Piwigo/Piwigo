@@ -30,7 +30,7 @@ include_once( PHPWG_ROOT_PATH.'include/common.inc.php' );
 // +-----------------------------------------------------------------------+
 check_status(ACCESS_GUEST);
 
-triggr_action('loc_begin_search');
+trigger_action('loc_begin_search');
 
 //------------------------------------------------------------------ form check
 $search = array();
