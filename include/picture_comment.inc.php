@@ -31,7 +31,7 @@
 $page['show_comments'] = false;
 foreach ($related_categories as $category)
 {
-  if ($category['commentable'])
+  if ($category['commentable']=='true')
   {
     $page['show_comments'] = true;
     break;

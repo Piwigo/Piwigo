@@ -453,7 +453,7 @@ UPDATE
 
 //---------------------------------------------------------- related categories
 $query = '
-SELECT category_id,uppercats,commentable,global_rank
+SELECT id,uppercats,commentable,visible,status,global_rank
   FROM '.IMAGE_CATEGORY_TABLE.'
     INNER JOIN '.CATEGORIES_TABLE.' ON category_id = id
   WHERE image_id = '.$page['image_id'].'
@@ -461,19 +461,13 @@ SELECT category_id,uppercats,commentable,global_rank
   (
     array
       (
-        'forbidden_categories' => 'category_id',
-        'visible_categories' => 'category_id'
+        'forbidden_categories' => 'id',
+        'visible_categories' => 'id'
       ),
     'AND'
   ).'
 ;';
-$result = pwg_query($query);
-$related_categories = array();
-while ($row = pwg_db_fetch_assoc($result))
-{
-  $row['commentable'] = get_boolean($row['commentable']);
-  array_push($related_categories, $row);
-}
+$related_categories = array_from_query($query);
 usort($related_categories, 'global_rank_compare');
 //-------------------------first, prev, current, next & last picture management
 $picture = array();
