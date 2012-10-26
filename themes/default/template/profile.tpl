@@ -2,6 +2,8 @@
 <div id="content" class="content{if isset($MENUBAR)} contentWithMenu{/if}">
 
 <div class="titrePage">
+	<ul class="categoryActions">
+	</ul>
 	<h2><a href="{$U_HOME}">{'Home'|@translate}</a>{$LEVEL_SEPARATOR}{'Profile'|@translate}</h2>
 </div>
 
