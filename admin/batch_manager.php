@@ -93,14 +93,23 @@ if (isset($_POST['submitFilter']))
   
   if (isset($_POST['filter_dimension_use']))
   {
-    if ( $_POST['filter_dimension'] != 'format' and !preg_match('#^[0-9]+$#', $_POST['filter_dimension_'. $_POST['filter_dimension'] ]) )
+    foreach (array('min_width','max_width','min_height','max_height') as $type)
     {
-      array_push($page['errors'], l10n('Invalid dimension'));
+      if ( preg_match('#^[0-9]+$#', $_POST['filter_dimension_'. $type ]) )
+      {
+        $_SESSION['bulk_manager_filter']['dimension'][$type] = $_POST['filter_dimension_'. $type ];
+      }
     }
-    else
+  }
+  
+  if (isset($_POST['filter_ratio_use']))
+  {
+    foreach (array('min','max') as $type)
     {
-      $_SESSION['bulk_manager_filter']['dimension'] = $_POST['filter_dimension'];
-      $_SESSION['bulk_manager_filter']['dimension_'. $_POST['filter_dimension'] ] = $_POST['filter_dimension_'. $_POST['filter_dimension'] ];
+      if ( preg_match('#^[0-9\.,]+$#', $_POST['filter_ratio_'. $type ]) )
+      {
+        $_SESSION['bulk_manager_filter']['ratio'][$type] = str_replace(',','.',$_POST['filter_ratio_'. $type ]);
+      }
     }
   }
 }
@@ -340,39 +349,38 @@ if (!empty($_SESSION['bulk_manager_filter']['tags']))
     );
 }
 
-if (isset($_SESSION['bulk_manager_filter']['dimension']))
+if (isset($_SESSION['bulk_manager_filter']['dimension']) or isset($_SESSION['bulk_manager_filter']['ratio']))
 {
-  switch ($_SESSION['bulk_manager_filter']['dimension'])
+  $where_clauses = array();
+  if (isset($_SESSION['bulk_manager_filter']['dimension']['min_width']))
   {
-    case 'min_width':
-      $where_clause = 'width >= '.$_SESSION['bulk_manager_filter']['dimension_min_width']; break;
-    case 'max_width':
-      $where_clause = 'width <= '.$_SESSION['bulk_manager_filter']['dimension_max_width']; break;
-    case 'min_height':
-      $where_clause = 'height >= '.$_SESSION['bulk_manager_filter']['dimension_min_height']; break;
-    case 'max_height':
-      $where_clause = 'height <= '.$_SESSION['bulk_manager_filter']['dimension_max_height']; break;
-    case 'format':
-    {
-      switch ($_SESSION['bulk_manager_filter']['dimension_format'])
-      {
-        case 'portrait':
-          $where_clause = 'width/height < 0.95'; break;
-        case 'square':
-          $where_clause = 'width/height >= 0.95 AND width/height <= 1.05'; break;
-        case 'landscape':
-          $where_clause = 'width/height > 1.05 AND width/height < 2.5'; break;
-        case 'panorama':
-          $where_clause = 'width/height >= 2.5'; break;
-      }
-      break;
-    }
+    $where_clause[] = 'width >= '.$_SESSION['bulk_manager_filter']['dimension']['min_width'];
+  }
+  if (isset($_SESSION['bulk_manager_filter']['dimension']['max_width']))
+  {
+    $where_clause[] = 'width <= '.$_SESSION['bulk_manager_filter']['dimension']['max_width'];
+  }
+  if (isset($_SESSION['bulk_manager_filter']['dimension']['min_height']))
+  {
+    $where_clause[] = 'height >= '.$_SESSION['bulk_manager_filter']['dimension']['min_height'];
+  }
+  if (isset($_SESSION['bulk_manager_filter']['dimension']['max_height']))
+  {
+    $where_clause[] = 'height <= '.$_SESSION['bulk_manager_filter']['dimension']['max_height'];
+  }
+  if (isset($_SESSION['bulk_manager_filter']['ratio']['min']))
+  {
+    $where_clause[] = 'width/height >= '.$_SESSION['bulk_manager_filter']['ratio']['min'];
+  }
+  if (isset($_SESSION['bulk_manager_filter']['ratio']['max']))
+  {
+    $where_clause[] = 'width/height <= '.$_SESSION['bulk_manager_filter']['ratio']['max'];
   }
   
   $query = '
 SELECT id
   FROM '.IMAGES_TABLE.'
-  WHERE '.$where_clause.'
+  WHERE '.implode(' AND ',$where_clause).'
   '.$conf['order_by'];
 
   $filter_sets[] = array_from_query($query, 'id');

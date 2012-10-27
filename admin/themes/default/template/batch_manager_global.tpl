@@ -392,6 +392,11 @@ $(document).ready(function() {
     $("span[id^='filter_dimension_']").hide();
     $("span#filter_dimension_"+ $(this).attr("value")).show();
   });
+  
+  $("a.ratio-choice").click(function() {
+    $("input[name='filter_ratio_min']").val($(this).data("min"));
+    $("input[name='filter_ratio_max']").val($(this).data("max"));
+  });
 
   function filter_disable(filter) {
     /* hide the filter line */
@@ -552,25 +557,23 @@ $(document).ready(function() {
       <li id="filter_dimension" {if !isset($filter.dimension)}style="display:none"{/if}>
         <a href="#" class="removeFilter" title="remove this filter"><span>[x]</span></a>
         <input type="checkbox" name="filter_dimension_use" class="useFilterCheckbox" {if isset($filter.dimension)}checked="checked"{/if}>
-        <select name="filter_dimension">
-          <option value="min_width" {if $filter.dimension=='min_width'}selected="selected"{/if}>{'Minimum width'|@translate}</option>
-          <option value="max_width" {if $filter.dimension=='max_width'}selected="selected"{/if}>{'Maximum width'|@translate}</option>
-          <option value="min_height" {if $filter.dimension=='min_height'}selected="selected"{/if}>{'Minimum height'|@translate}</option>
-          <option value="max_height" {if $filter.dimension=='max_height'}selected="selected"{/if}>{'Maximum height'|@translate}</option>
-          <option value="format" {if $filter.dimension=='format'}selected="selected"{/if}>{'Format'|@translate}</option>
-        </select>
-        <span id="filter_dimension_min_width" {if !isset($filter.dimension_min_width) and isset($filter.dimension)}style="display:none;"{/if}><input type="text" name="filter_dimension_min_width" value="{$filter.dimension_min_width}" size="4"> px</span>
-        <span id="filter_dimension_max_width" {if !isset($filter.dimension_max_width)}style="display:none;"{/if}><input type="text" name="filter_dimension_max_width" value="{$filter.dimension_max_width}" size="4"> px</span>
-        <span id="filter_dimension_min_height" {if !isset($filter.dimension_min_height)}style="display:none;"{/if}><input type="text" name="filter_dimension_min_height" value="{$filter.dimension_min_height}" size="4"> px</span>
-        <span id="filter_dimension_max_height" {if !isset($filter.dimension_max_height)}style="display:none;"{/if}><input type="text" name="filter_dimension_max_height" value="{$filter.dimension_max_height}" size="4"> px</span>
-        <span id="filter_dimension_format" {if !isset($filter.dimension_format)}style="display:none;"{/if}>
-          <select name="filter_dimension_format">
-            <option value="portrait" {if $filter.dimension_format=='portrait'}selected="selected"{/if}>{'Portrait'|@translate}</option>
-            <option value="square" {if $filter.dimension_format=='square'}selected="selected"{/if}>{'square'|@translate}</option>
-            <option value="landscape" {if $filter.dimension_format=='landscape'}selected="selected"{/if}>{'Landscape'|@translate}</option>
-            <option value="panorama" {if $filter.dimension_format=='panorama'}selected="selected"{/if}>{'Panorama'|@translate}</option>
-          </select>
-        </span>
+        {'Dimensions'|@translate} :
+        <label>{'Minimum width'|@translate} <input type="text" name="filter_dimension_min_width" value="{$filter.dimension.min_width}" size="4"></label> —
+        <label>{'Maximum width'|@translate} <input type="text" name="filter_dimension_max_width" value="{$filter.dimension.max_width}" size="4"></label> —
+        <label>{'Minimum height'|@translate} <input type="text" name="filter_dimension_min_height" value="{$filter.dimension.min_height}" size="4"></label>	—
+        <label>{'Maximum height'|@translate} <input type="text" name="filter_dimension_max_height" value="{$filter.dimension.max_height}" size="4"></label>
+      </li>
+      
+      <li id="filter_ratio" {if !isset($filter.ratio)}style="display:none"{/if}>
+        <a href="#" class="removeFilter" title="remove this filter"><span>[x]</span></a>
+        <input type="checkbox" name="filter_ratio_use" class="useFilterCheckbox" {if isset($filter.ratio)}checked="checked"{/if}>
+        {'Ratio'|@translate} :
+        <label>{'Minimum'|@translate} <input type="text" name="filter_ratio_min" value="{$filter.ratio.min}" size="4"></label> —
+        <label>{'Maximum'|@translate} <input type="text" name="filter_ratio_max" value="{$filter.ratio.max}" size="4"></label> —
+        <a class="ratio-choice" data-min="" data-max="0.95">{'Portrait'|@translate}</a> |
+        <a class="ratio-choice" data-min="0.95" data-max="1.05">{'square'|@translate}</a> |
+        <a class="ratio-choice" data-min="1.05" data-max="2.5">{'Landscape'|@translate}</a> |
+        <a class="ratio-choice" data-min="2.5" data-max="">{'Panorama'|@translate}</a>
       </li>
     </ul>
 
@@ -583,6 +586,7 @@ $(document).ready(function() {
         <option value="filter_tags" {if isset($filter.tags)}disabled="disabled"{/if}>{'Tags'|@translate}</option>
         <option value="filter_level" {if isset($filter.level)}disabled="disabled"{/if}>{'Privacy level'|@translate}</option>
         <option value="filter_dimension" {if isset($filter.dimension)}disabled="disabled"{/if}>{'Dimensions'|@translate}</option>
+        <option value="filter_ratio" {if isset($filter.ratio)}disabled="disabled"{/if}>{'Ratio'|@translate}</option>
       </select>
       <a id="removeFilters" href="">{'Remove all filters'|@translate}</a>
     </p>
