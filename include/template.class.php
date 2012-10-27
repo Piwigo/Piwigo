@@ -46,6 +46,9 @@ class Template {
 
   const COMBINED_CSS_TAG = '<!-- COMBINED_CSS -->';
   var $css_by_priority = array();
+  
+  var $picture_buttons = array();
+  var $index_buttons = array();
 
   function Template($root = ".", $theme= "", $path = "template")
   {
@@ -852,6 +855,39 @@ var s,after = document.getElementsByTagName(\'script\')[document.getElementsByTa
     }
     return $themeconfs[$dir];
   }
+  
+  function add_picture_button($content, $rank)
+  {
+    $this->picture_buttons[$rank][] = $content;
+  }
+  
+  function add_index_button($content, $rank)
+  {
+    $this->index_buttons[$rank][] = $content;
+  }
+  
+  function parse_picture_buttons()
+  {
+    if (!empty($this->picture_buttons))
+    {
+      ksort($this->picture_buttons);
+      foreach ($this->picture_buttons as $ranked)
+        foreach ($ranked as $content)
+          $this->concat('PLUGIN_PICTURE_ACTIONS', $content);
+    }
+  }
+    
+  function parse_index_buttons()
+  {
+    if (!empty($this->index_buttons))
+    {
+      ksort($this->index_buttons);
+      foreach ($this->index_buttons as $ranked)
+        foreach ($ranked as $content)
+          $this->concat('PLUGIN_INDEX_ACTIONS', $content);
+    }
+  }
+    
 }
 
 

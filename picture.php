@@ -999,6 +999,7 @@ if ($page['slideshow'] and $conf['light_slideshow'])
 }
 else
 {
+  $template->parse_picture_buttons();
   $template->pparse('picture');
 }
 //------------------------------------------------------------ log informations
