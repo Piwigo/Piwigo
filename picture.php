@@ -908,7 +908,7 @@ if ( count($tags) )
 // related categories
 if ( count($related_categories)==1 and
     isset($page['category']) and
-    $related_categories[0]['category_id']==$page['category']['id'] )
+    $related_categories[0]['id']==$page['category']['id'] )
 { // no need to go to db, we have all the info
   $template->append(
       'related_categories',
