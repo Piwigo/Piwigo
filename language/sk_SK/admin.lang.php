@@ -938,4 +938,7 @@ $lang['Format'] = 'Formát';
 $lang['Manage photos'] = 'Spravovať fotky';
 $lang['View in gallery'] = 'Zobraziť v galérii';
 $lang['Number of albums per page'] = 'Počet albumov na stránku';
+$lang['Ratio'] = 'Hodnotenie';
+$lang['Minimum'] = 'Minimum';
+$lang['Maximum'] = 'Maximum';
 ?>
