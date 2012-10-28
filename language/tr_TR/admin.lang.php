@@ -932,4 +932,7 @@ $lang['Portrait'] = 'Portre';
 $lang['Manage photos'] = 'Fotoğrafları yönet';
 $lang['Number of albums per page'] = 'Sayfa başına albüm sayısı';
 $lang['View in gallery'] = 'Galeride göster';
+$lang['Maximum'] = 'En çok';
+$lang['Minimum'] = 'En az';
+$lang['Ratio'] = 'Oran';
 ?>
