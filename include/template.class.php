@@ -598,6 +598,14 @@ class Template {
         default: $this->smarty->trigger_error("combine_script: invalid 'load' parameter", E_USER_ERROR);
       }
     }
+
+    // TEMP in 2.5 for backward compatibility
+    if(!empty($params['require']))
+    {
+      $params['require'] = str_replace('jquery.effects.', 'jquery.ui.effect-', $params['require'] );
+      $params['require'] = str_replace('jquery.effects', 'jquery.ui.effect', $params['require'] );
+    }
+
     $this->scriptLoader->add( $params['id'], $load,
       empty($params['require']) ? array() : explode( ',', $params['require'] ),
       @$params['path'],
@@ -680,6 +688,14 @@ var s,after = document.getElementsByTagName(\'script\')[document.getElementsByTa
     $content = trim($content);
     if ( !empty($content) )
     { // second call
+
+      // TEMP in 2.5 for backward compatibility
+      if(!empty($params['require']))
+      {
+        $params['require'] = str_replace('jquery.effects.', 'jquery.ui.effect-', $params['require'] );
+        $params['require'] = str_replace('jquery.effects', 'jquery.ui.effect', $params['require'] );
+      }
+
       $this->scriptLoader->add_inline(
         $content,
         empty($params['require']) ? array() : explode(',', $params['require'])
