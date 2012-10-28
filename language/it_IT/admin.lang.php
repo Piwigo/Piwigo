@@ -937,4 +937,7 @@ $lang['Panorama'] = 'Panorama';
 $lang['Manage photos'] = 'Gestisci foto';
 $lang['View in gallery'] = 'Mostra nella galleria';
 $lang['Number of albums per page'] = 'Numero d\'album per pagina';
+$lang['Maximum'] = 'Massimo';
+$lang['Minimum'] = 'Minimo';
+$lang['Ratio'] = 'Rapporto';
 ?>
