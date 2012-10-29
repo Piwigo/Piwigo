@@ -934,4 +934,7 @@ $lang['Portrait'] = 'Retrato';
 $lang['Manage photos'] = 'Administrar fotos';
 $lang['View in gallery'] = 'Ver en galería';
 $lang['Number of albums per page'] = 'Numero de álbumes por paginas';
+$lang['Maximum'] = 'Máximo';
+$lang['Minimum'] = 'Mínimo';
+$lang['Ratio'] = 'Proporción';
 ?>
