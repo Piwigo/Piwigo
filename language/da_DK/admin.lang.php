@@ -939,4 +939,7 @@ $lang['The version of %s [%s] installed is not compatible with the version requi
 $lang['Manage photos'] = 'Håndter fotografier';
 $lang['View in gallery'] = 'Se i galleri';
 $lang['Number of albums per page'] = 'Antal albummer pr. side';
+$lang['Maximum'] = 'Maksimum';
+$lang['Minimum'] = 'Minimum';
+$lang['Ratio'] = 'Faktor';
 ?>
