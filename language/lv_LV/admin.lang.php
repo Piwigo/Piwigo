@@ -932,4 +932,7 @@ $lang['Format'] = 'Formāts';
 $lang['Number of albums per page'] = 'Albumu skaits lapā';
 $lang['View in gallery'] = 'Ieskatīties galarijā';
 $lang['Manage photos'] = 'Pārvaldīt fotogrāfijas';
+$lang['Ratio'] = 'Attiecība';
+$lang['Minimum'] = 'Minimums';
+$lang['Maximum'] = 'Maksimums';
 ?>
