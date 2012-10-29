@@ -938,4 +938,7 @@ $lang['Portrait'] = 'Portré';
 $lang['Manage photos'] = 'Képek kezelése';
 $lang['View in gallery'] = 'Megtekintés a galériában';
 $lang['Number of albums per page'] = 'Albumok száma oldalanként';
+$lang['Maximum'] = 'Maximum';
+$lang['Minimum'] = 'Minimum';
+$lang['Ratio'] = 'Arány';
 ?>
