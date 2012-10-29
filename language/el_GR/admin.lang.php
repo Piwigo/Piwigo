@@ -939,4 +939,7 @@ $lang['Format'] = 'Μορφή';
 $lang['View in gallery'] = 'Δείτε στην γκαλερί';
 $lang['Manage photos'] = 'Διαχειριστείτε τις φωτογραφίες';
 $lang['Number of albums per page'] = 'Αριθμός λευκωμάτων ανά σελίδα';
+$lang['Ratio'] = 'Αναλογία';
+$lang['Minimum'] = 'Ελάχιστο';
+$lang['Maximum'] = 'Μέγιστο';
 ?>
