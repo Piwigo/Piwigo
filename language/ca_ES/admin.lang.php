@@ -947,4 +947,7 @@ $lang['Panorama'] = 'Panorama';
 $lang['Portrait'] = 'Retrat';
 $lang['View in gallery'] = 'Veure en la galeria';
 $lang['Number of albums per page'] = 'Nombre d\'àlbums per pàgina';
+$lang['Maximum'] = 'Màxim';
+$lang['Minimum'] = 'Mínim';
+$lang['Ratio'] = 'Ràtio';
 ?>
