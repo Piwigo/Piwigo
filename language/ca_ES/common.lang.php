@@ -415,4 +415,7 @@ $lang['Permalink for album not found'] = 'No es troba l\'enllaç permanent per a
 $lang['Piwigo encountered a non recoverable error'] = 'Piwigo ha detectat un error no recuperable';
 $lang['Requested album does not exist'] = 'No existeix l\'àlbum sol·licitat';
 $lang['Requested tag does not exist'] = 'No existeix l\'etiqueta sol·licitada';
+$lang['Email address is mandatory'] = 'L\'adreça de correu és obligatòria';
+$lang['Username is mandatory'] = 'El nom d\'usuari és obligatori';
+$lang['mandatory'] = 'obligatori';
 ?>
