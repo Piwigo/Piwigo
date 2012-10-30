@@ -410,4 +410,7 @@ $lang['Requested tag does not exist'] = 'Zahtevan tag ne obstaja';
 $lang['Bad request'] = 'Nepravilna zahteva';
 $lang['Permalink for album not found'] = 'Stalne povezave za album ni bilo mogoče najti';
 $lang['Piwigo encountered a non recoverable error'] = 'Prišlo je do napake v Piwigo';
+$lang['Email address is mandatory'] = 'E-pošta je obvezna';
+$lang['Username is mandatory'] = 'Uporabniško ime je obvezno';
+$lang['mandatory'] = 'obvezno';
 ?>
