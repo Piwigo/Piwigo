@@ -36,7 +36,7 @@
  */
 function get_cat_display_name($cat_informations,
                               $url = '',
-                              $replace_space = true)
+                              $replace_space = false)
 {
   global $conf;
 
@@ -111,7 +111,7 @@ function get_cat_display_name($cat_informations,
  */
 function get_cat_display_name_cache($uppercats,
                                     $url = '',
-                                    $replace_space = true,
+                                    $replace_space = false,
                                     $single_link = false,
                                     $link_class = null)
 {
@@ -232,7 +232,7 @@ function render_comment_content($content)
 
 function get_cat_display_name_from_id($cat_id,
                                       $url = '',
-                                      $replace_space = true)
+                                      $replace_space = false)
 {
   $cat_info = get_cat_info($cat_id);
   return get_cat_display_name($cat_info['upper_names'], $url, $replace_space);
