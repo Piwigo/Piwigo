@@ -274,9 +274,9 @@ $lang['Anomaly'] = 'Anomalie';
 $lang['Rate'] = 'Evaluare';
 $lang['Add to caddie'] = 'adaugă în cărucior';
 
-$lang['%s has been successfully updated.'] = '% a fost actualizat cu succes.';
-$lang['%s photos can not be regenerated'] = '% fotografii nu pot fi regenerate';
-$lang['%s photos have been regenerated'] = '% fotografii au fost regenerate';
+$lang['%s has been successfully updated.'] = '%s a fost actualizat cu succes.';
+$lang['%s photos can not be regenerated'] = '%s fotografii nu pot fi regenerate';
+$lang['%s photos have been regenerated'] = '%s fotografii au fost regenerate';
 $lang['(this tag will be deleted)'] = '(această etichetă va fi ștearsă)';
 $lang['... or '] = '...sau';
 $lang['Activate comments'] = 'Activează comentarii';

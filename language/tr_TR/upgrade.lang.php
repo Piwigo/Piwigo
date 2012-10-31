@@ -22,7 +22,7 @@
 // +-----------------------------------------------------------------------+
 
 $lang['Upgrade'] = "Güncellestirme";
-$lang['This page proposes to upgrade your database corresponding to your old version of Piwigo to the current version. The upgrade assistant thinks you are currently running a <strong>release %s</strong> (or equivalent).'] = "Bu sayfa yeni sürüme Piwigo eski sürümünden veritabani yükseltme öneriyor. Yükseltme yardimcisi Su anda bir <strong> sürüm% (veya esdegeri) </ strong> çalistiran düsünüyor.";
+$lang['This page proposes to upgrade your database corresponding to your old version of Piwigo to the current version. The upgrade assistant thinks you are currently running a <strong>release %s</strong> (or equivalent).'] = "Bu sayfa yeni sürüme Piwigo eski sürümünden veritabani yükseltme öneriyor. Yükseltme yardimcisi Su anda bir <strong> sürüm %s (veya esdegeri) </strong> çalistiran düsünüyor.";
 $lang['Upgrade from version %s to %s'] = "%s sürümden %s sürümüne güncellestir";
 $lang['Statistics'] = "Istatistik";
 $lang['total upgrade time'] = "toplam güncelleme zamani";

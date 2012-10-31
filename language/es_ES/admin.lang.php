@@ -647,7 +647,7 @@ $lang['This theme was not designed to be directly activated'] = 'Este tema no es
 $lang['Who can see this photo?'] = 'Compartir';
 $lang['Pending Comments'] = 'Comentarios en espera de validación';
 $lang['Menu Management'] = 'Administrar menús';
-$lang['In your php.ini file, the upload_max_filesize (%sB) is bigger than post_max_size (%sB), you should change this setting'] = 'En el archivo php.ini, la variable upload_max_filesize (% SB) es mayor que post_max_size (SB%). Debe cambiar esta configuración';
+$lang['In your php.ini file, the upload_max_filesize (%sB) is bigger than post_max_size (%sB), you should change this setting'] = 'En el archivo php.ini, la variable upload_max_filesize (%sB) es mayor que post_max_size (%sB). Debe cambiar esta configuración';
 $lang['Exif extension not available, admin should disable exif use'] = 'La extension Exif no esta disponible. Un administrador debería deshabilitar el uso de metadatos Exif';
 $lang['The uploaded file exceeds the upload_max_filesize directive in php.ini: %sB'] = 'El peso del archivo subido excede el valor de upload_max_filesize en el archivo php.ini: sB%';
 $lang['The uploaded files exceed the post_max_size directive in php.ini: %sB'] = 'El peso total de los archivos transferidos excede el valor de post_max_size en su archivo php.ini: sB%';
@@ -787,7 +787,7 @@ $lang['An error has occured during upgrade.'] = 'Ha habido un error durante el p
 $lang['An error has occured during extract. Please check files permissions of your piwigo installation.<br><a href="%s">Click here to show log error</a>.'] = 'Imposible extraer los archivos. Por favor, verifique los permisos de los archivoss de su instalación. <Br> <a href="%s"> Haga clic aquí para ver el informe de errores</a>.';
 $lang['Piwigo cannot retrieve upgrade file from server'] = 'Piwigo no puede recuperar el archivo de actualización desde el servidor';
 $lang['Zoom'] = 'Ampliar';
-$lang['%s has been successfully updated.'] = '% se ha actualizado correctamente.';
+$lang['%s has been successfully updated.'] = '%s ha actualizado correctamente.';
 $lang['Add tags'] = 'Añadir etiquetas';
 $lang['Add to caddie'] = 'Añadir al carrito';
 $lang['Last import'] = 'Última importación';
