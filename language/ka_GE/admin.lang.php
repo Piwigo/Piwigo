@@ -753,9 +753,9 @@ $lang['You can update to Piwigo %s directly, without upgrading to Piwigo %s (rec
 
 
 
-$lang['%s has been successfully updated.'] = '% წარმატებით განახლდა';
-$lang['%s photos can not be regenerated'] = '% ფოტო არ არის რეგენერირებილი';
-$lang['%s photos have been regenerated'] = '% ფოტო გენერირებულია';
+$lang['%s has been successfully updated.'] = '%s წარმატებით განახლდა';
+$lang['%s photos can not be regenerated'] = '%s ფოტო არ არის რეგენერირებილი';
+$lang['%s photos have been regenerated'] = '%s ფოტო გენერირებულია';
 $lang['(this tag will be deleted)'] = '( ეს ტეგი წაშლილია)';
 $lang['... or '] = '... ან';
 $lang['Activate comments'] = 'კომენტარების გააქტიურება';
@@ -794,8 +794,8 @@ $lang['Tags <em>%s</em> merged into tag <em>%s</em>'] = 'ტეგი <em>%s</em
 $lang['The original image quality must be a number between %d and %d'] = 'გამოსახულების თავდაპირველი ხარისხი უნდა იყოს ციფრი %d და %d';
 $lang['The original maximum height must be a number between %d and %d'] = 'ორიგინალური მაქსიმალური სიმაღლე უნდა იყოს %d და %d';
 $lang['The original maximum width must be a number between %d and %d'] = 'ორიგინალური მაქსიმალური სიგანე უნდა იყოს %d და %d';
-$lang['This album contains %d photos, added between %s and %s.'] = 'ეს ალბომი შეიცავს % ფოტოს, დამატებულია % და % შორის';
-$lang['This album contains %d photos, added on %s.'] = 'ეს ალბომი შეიცავს % ფოტოს, დამატებულია %/';
+$lang['This album contains %d photos, added between %s and %s.'] = 'ეს ალბომი შეიცავს %d ფოტოს, დამატებულია %s და %s შორის';
+$lang['This album contains %d photos, added on %s.'] = 'ეს ალბომი შეიცავს %d ფოტოს, დამატებულია %s';
 $lang['This album contains no photo.'] = 'ამ ალბომში ფოტო არ არის.';
 $lang['Thumbnails generation in progress...'] = 'მიმდინარეობს ხატულების გენერაცია...';
 $lang['You can activate only one mobile theme.'] = 'თქვენ უნდა გაააქტიუროთ მხოლოდ ერთი მობილური თემა.';
