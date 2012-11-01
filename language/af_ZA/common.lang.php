@@ -411,4 +411,7 @@ $lang['Permalink for album not found'] = 'Permaskakel vir album kan nie gevind w
 $lang['Piwigo encountered a non recoverable error'] = 'Piwigo het \'n onherstelbare fout teëgekom';
 $lang['Requested album does not exist'] = 'Aangevraagde album bestaan nie';
 $lang['Requested tag does not exist'] = 'Aangevraagde etiket bestaan nie';
+$lang['Email address is mandatory'] = 'Epos adres is verpligtend';
+$lang['Username is mandatory'] = 'Gebruikersnaam is nie opsioneel nie';
+$lang['mandatory'] = 'verpligtend';
 ?>
