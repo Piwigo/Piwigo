@@ -405,6 +405,10 @@ $conf['remember_me_length'] = 5184000;
 // session_length : time of validity for normal session, in seconds.
 $conf['session_length'] = 3600;
 
+// session_use_ip_address: avoid session hijacking by using a part of the IP
+// address
+$conf['session_use_ip_address'] = true;
+
 // +-----------------------------------------------------------------------+
 // |                            debug/performance                          |
 // +-----------------------------------------------------------------------+

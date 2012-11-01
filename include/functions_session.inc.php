@@ -94,6 +94,13 @@ function pwg_session_close()
 
 function get_remote_addr_session_hash()
 {
+  global $conf;
+
+  if (!$conf['session_use_ip_address'])
+  {
+    return '';
+  }
+  
   if (strpos($_SERVER['REMOTE_ADDR'],':')===false)
   {//ipv4
     return vsprintf(
