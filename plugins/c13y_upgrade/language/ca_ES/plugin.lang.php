@@ -20,9 +20,9 @@
 // | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
-$lang['c13y_correction_dbl_email_user'] = 'Eliminar usuaris duplicats';
+$lang['c13y_correction_dbl_email_user'] = 'Elimina usuaris duplicats';
 $lang['c13y_correction_obsolete_plugin'] = 'El complement (plug-in) "%s" ja s\'ha inclòs de sèrie en aquesta versió de l\'aplicació. Desinstal·la\'l.';
-$lang['c13y_dbl_email_user'] = 'Usuaris amb la mateixa adreça de correu electrònic';
-$lang['c13y_obsolete_plugin'] = 'Complement (plug-in) obsolet.';
-$lang['c13y_upgrade_no_anomaly'] = 'No s\'ha detectat cap anomalia després de l\'actualitzar-se l\'aplicació. El complement (plug-in) "Comprovar actualitzacions" s\'ha desactivat.';
+$lang['c13y_dbl_email_user'] = 'Hi ha usuaris amb la mateixa adreça de correu electrònic';
+$lang['c13y_obsolete_plugin'] = 'Connector (plug-in) obsolet.';
+$lang['c13y_upgrade_no_anomaly'] = 'No s\'ha detectat cap anomalia després d\'actualitzar-se l\'aplicació. El connector (plug-in) "Comprovar actualitzacions" s\'ha desactivat.';
 ?>
