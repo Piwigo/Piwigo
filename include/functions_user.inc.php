@@ -182,7 +182,7 @@ SELECT MAX('.$conf['user_fields']['id'].') + 1
       array(
         $conf['user_fields']['id'] => $next_id,
         $conf['user_fields']['username'] => pwg_db_real_escape_string($login),
-        $conf['user_fields']['password'] => $conf['pass_convert']($password),
+        $conf['user_fields']['password'] => $conf['password_hash']($password),
         $conf['user_fields']['email'] => $mail_address
         );
 
@@ -1095,6 +1095,76 @@ function auto_login() {
 }
 
 /**
+ * hashes a password, with the PasswordHash class from phpass security
+ * library. We use an "pwg_" prefix because function password_hash is
+ * planned for PHP 5.5. Code inspired from Wordpress.
+ *
+ * @param string $password Plain text user password to hash
+ * @return string The hash string of the password
+ */
+function pwg_password_hash($password)
+{
+  global $pwg_hasher;
+
+  if (empty($pwg_hasher))
+  {
+    require_once(PHPWG_ROOT_PATH.'include/passwordhash.class.php');
+    
+    // We use the portable hash feature from phpass because we can't be sure
+    // Piwigo runs on PHP 5.3+ (and won't run on an older version in the
+    // future)
+    $pwg_hasher = new PasswordHash(13, true);
+  }
+  
+  return $pwg_hasher->HashPassword($password);
+}
+
+/**
+ * Verifies a password, with the PasswordHash class from phpass security
+ * library. We use an "pwg_" prefix because function password_verify is
+ * planned for PHP 5.5. Code inspired from Wordpress.
+ *
+ * @param string $password Plain text user password to hash
+ * @param string $hash may be md5 or phpass hashed password
+ * @param integer $account_id only useful to update password hash from md5 to phpass
+ * @return string The hash string of the password
+ */
+function pwg_password_verify($password, $hash, $user_id=null)
+{
+  global $conf, $pwg_hasher;
+
+  // If the hash is still md5...
+  if (strlen($hash) <= 32)
+  {
+    $check = ($hash == md5($password));
+    
+    if ($check and isset($user_id) and !$conf['external_authentification'])
+    {
+      // Rehash using new hash.
+      $hash = pwg_password_hash($password);
+
+      single_update(
+        USERS_TABLE,
+        array('password' => $hash),
+        array('id' => $user_id)
+        );
+    }
+  }
+
+  // If the stored hash is longer than an MD5, presume the
+  // new style phpass portable hash.
+  if (empty($pwg_hasher))
+  {
+    require_once(PHPWG_ROOT_PATH.'include/passwordhash.class.php');
+    
+    // We use the portable hash feature
+    $pwg_hasher = new PasswordHash(13, true);
+  }
+
+  return $pwg_hasher->CheckPassword($password, $hash);
+}
+
+/**
  * Tries to login a user given username and password (must be MySql escaped)
  * return true on success
  */
@@ -1112,7 +1182,7 @@ SELECT '.$conf['user_fields']['id'].' AS id,
   WHERE '.$conf['user_fields']['username'].' = \''.pwg_db_real_escape_string($username).'\'
 ;';
   $row = pwg_db_fetch_assoc(pwg_query($query));
-  if ($row['password'] == $conf['pass_convert']($password))
+  if ($conf['password_verify']($password, $row['password'], $row['id']))
   {
     log_user($row['id'], $remember_me);
     trigger_action('login_success', stripslashes($username));

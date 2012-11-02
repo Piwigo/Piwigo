@@ -506,12 +506,20 @@ $conf['user_fields'] = array(
   'email' => 'mail_address'
   );
 
-// pass_convert : function to crypt or hash the clear user password to store
-// it in the database
-$conf['pass_convert'] = create_function('$s', 'return md5($s);');
+// password_hash: function hash the clear user password to store it in the
+// database. The function takes only one parameter: the clear password.
+$conf['password_hash'] = 'pwg_password_hash';
+
+// password_verify: function that checks the password against its hash. The
+// function takes 2 mandatory parameter : clear password, hashed password +
+// an optional parameter user_id. The user_id is used to update the password
+// with the new hash introduced in Piwigo 2.5. See function
+// pwg_password_verify in include/functions_user.inc.php
+$conf['password_verify'] = 'pwg_password_verify';
 
 // guest_id : id of the anonymous user
 $conf['guest_id'] = 2;
+
 // default_user_id : id of user used for default value
 $conf['default_user_id'] = $conf['guest_id'];
 

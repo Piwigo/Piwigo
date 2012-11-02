@@ -441,7 +441,7 @@ DROP TABLE IF EXISTS `piwigo_users`;
 CREATE TABLE `piwigo_users` (
   `id` smallint(5) NOT NULL auto_increment,
   `username` varchar(100) binary NOT NULL default '',
-  `password` varchar(32) default NULL,
+  `password` varchar(255) default NULL,
   `mail_address` varchar(255) default NULL,
   PRIMARY KEY  (`id`),
   UNIQUE KEY `users_ui1` (`username`)

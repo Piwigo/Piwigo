@@ -247,12 +247,7 @@ WHERE '.$conf['user_fields']['username'].'=\''.$username.'\'
   }
   $row = pwg_db_fetch_assoc(pwg_query($query));
 
-  if (!isset($conf['pass_convert']))
-  {
-    $conf['pass_convert'] = create_function('$s', 'return md5($s);');
-  }
-
-  if ($row['password'] != $conf['pass_convert']($password))
+  if (!$conf['password_verify']($password, $row['password']))
   {
     array_push($page['errors'], l10n('Invalid password!'));
   }
