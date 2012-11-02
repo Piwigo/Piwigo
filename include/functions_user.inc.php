@@ -1133,10 +1133,17 @@ function pwg_password_verify($password, $hash, $user_id=null)
 {
   global $conf, $pwg_hasher;
 
-  // If the hash is still md5...
-  if (strlen($hash) <= 32)
+  // If the password has not been hashed with the current algorithm.
+  if (strpos('$P', $hash) !== 0)
   {
-    $check = ($hash == md5($password));
+    if (!empty($conf['pass_convert']))
+    {
+      $check = ($hash == $conf['pass_convert']($password));
+    }
+    else
+    {
+      $check = ($hash == md5($password));
+    }
     
     if ($check and isset($user_id) and !$conf['external_authentification'])
     {
