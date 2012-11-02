@@ -69,29 +69,13 @@ if ('recent_cats' != $page['section'])
 $query.= '
 ;';
 
-$categories_sql = hash_from_query($query, 'id');
-
-if ($page['section']=='recent_cats')
-{
-  usort($categories_sql, 'global_rank_compare');
-}
-
-$page['total_categories'] = count($categories_sql);
-
-$categories_sql = array_slice(
-  array_values($categories_sql),
-  $page['startcat'],
-  $conf['nb_categories_page']
-  );
-
-$categories_sql = trigger_event('loc_index_categories_selection', $categories_sql);
-
+$result = pwg_query($query);
 $categories = array();
 $category_ids = array();
 $image_ids = array();
 $user_representative_updates_for = array();
 
-foreach ($categories_sql as $row)
+while ($row = pwg_db_fetch_assoc($result))
 {
   $row['is_child_date_last'] = @$row['max_date_last']>@$row['date_last'];
 
@@ -185,6 +169,11 @@ SELECT
         );
     }
   }
+}
+
+if ($page['section']=='recent_cats')
+{
+  usort($categories, 'global_rank_compare');
 }
 
 if (count($categories) > 0)
@@ -386,6 +375,15 @@ if (count($categories) > 0)
 
     $tpl_thumbnails_var[] = $tpl_var;
   }
+	
+  // pagination
+  $page['total_categories'] = count($tpl_thumbnails_var);
+
+  $tpl_thumbnails_var = array_slice(
+    array_values($tpl_thumbnails_var),
+    $page['startcat'],
+    $conf['nb_categories_page']
+    );
 
   $derivative_params = trigger_event('get_index_album_derivative_params', ImageStdParams::get_by_type(IMG_THUMB) );
   $tpl_thumbnails_var = trigger_event('loc_end_index_category_thumbnails', $tpl_thumbnails_var, $categories);
