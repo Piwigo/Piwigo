@@ -342,7 +342,6 @@ TD.calDayCellFull, TD.calDayCellEmpty {
 
 #imageToolBar {
 	text-align: center;
-	clear: both;
 	margin-bottom: 2px;
 	padding: 0;
 	height: 28px;
@@ -373,12 +372,11 @@ TD.calDayCellFull, TD.calDayCellEmpty {
 }
 
 #theImage {
-	clear: left;
 	text-align: center;
 }
 
 #imageInfos {
-	position: relative;
+	position: relative; /*for IE7 positioning of "who can see this photo"*/
 	min-height: 120px;
 }
 
@@ -420,11 +418,6 @@ TD.calDayCellFull, TD.calDayCellEmpty {
 
 .rateButtonStarEmpty {
 	background: url('icon/rating-stars.gif') no-repeat 0 center; width:16px;
-}
-
-.contentWithMenu #imageToolBar, 
-.contentWithMenu #theImage { 
-	clear: none;
 }
 
 /**
