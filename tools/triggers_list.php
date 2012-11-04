@@ -517,7 +517,7 @@ array(
 array(
   'name' => 'loc_end_index_category_thumbnails',
   'type' => 'trigger_event',
-  'vars' => array('array', 'tpl_thumbnails_var', 'array', 'categories'),
+  'vars' => array('array', 'tpl_thumbnails_var'),
   'files' => array('include\category_cats.inc.php'),
 ),
 array(
