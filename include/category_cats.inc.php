@@ -39,10 +39,10 @@ SELECT
     count_images,
     count_categories
   FROM '.CATEGORIES_TABLE.' c
-    INNER JOIN '.USER_CACHE_CATEGORIES_TABLE.' ucc 
-    ON id = cat_id 
+    INNER JOIN '.USER_CACHE_CATEGORIES_TABLE.' ucc
+    ON id = cat_id
     AND user_id = '.$user['id'];
-  
+
 if ('recent_cats' == $page['section'])
 {
   $query.= '
@@ -59,7 +59,7 @@ $query.= '
         array('visible_categories' => 'id'),
         'AND'
         );
-  
+
 if ('recent_cats' != $page['section'])
 {
   $query.= '
@@ -127,7 +127,7 @@ while ($row = pwg_db_fetch_assoc($result))
     {
       $user_representative_updates_for[ $user['id'].'#'.$row['id'] ] = $image_id;
     }
-    
+
     $row['representative_picture_id'] = $image_id;
     array_push($image_ids, $image_id);
     array_push($categories, $row);
@@ -219,7 +219,7 @@ SELECT *
           {
             $user_representative_updates_for[ $user['id'].'#'.$category['id'] ] = $image_id;
           }
-          
+
           $category['representative_picture_id'] = $image_id;
         }
       }
@@ -240,7 +240,7 @@ SELECT *
       $infos_of_image[$row['id']] = $row;
     }
   }
-  
+
   foreach ($infos_of_image as &$info)
   {
     $info['src_image'] = new SrcImage($info);
@@ -251,11 +251,11 @@ SELECT *
 if (count($user_representative_updates_for))
 {
   $updates = array();
-  
+
   foreach ($user_representative_updates_for as $user_cat => $image_id)
   {
     list($user_id, $cat_id) = explode('#', $user_cat);
-    
+
     array_push(
       $updates,
       array(
@@ -296,7 +296,7 @@ if (count($categories) > 0)
     {
       continue;
     }
-    
+
     $category['name'] = trigger_event(
         'render_category_name',
         $category['name'],
@@ -314,9 +314,8 @@ if (count($categories) > 0)
 
     $representative_infos = $infos_of_image[ $category['representative_picture_id'] ];
 
-    $tpl_var =
-        array(
-          'ID'    => $category['id'],
+    $tpl_var = array_merge( $category, array(
+          'ID'    => $category['id'] /*obsolete*/,
           'representative'   => $representative_infos,
           'TN_ALT'   => strip_tags($category['name']),
 
@@ -339,7 +338,7 @@ if (count($categories) > 0)
                 @$category['comment'],
                 'subcatify_category_description')),
           'NAME'  => $name,
-        );
+        ) );
     if ($conf['index_new_icon'])
     {
       $tpl_var['icon_ts'] = get_icon($category['max_date_last'], $category['is_child_date_last']);
@@ -375,25 +374,25 @@ if (count($categories) > 0)
 
     $tpl_thumbnails_var[] = $tpl_var;
   }
-	
+
   // pagination
   $page['total_categories'] = count($tpl_thumbnails_var);
 
   $tpl_thumbnails_var = array_slice(
-    array_values($tpl_thumbnails_var),
+    $tpl_thumbnails_var,
     $page['startcat'],
     $conf['nb_categories_page']
     );
 
   $derivative_params = trigger_event('get_index_album_derivative_params', ImageStdParams::get_by_type(IMG_THUMB) );
-  $tpl_thumbnails_var = trigger_event('loc_end_index_category_thumbnails', $tpl_thumbnails_var, $categories);
+  $tpl_thumbnails_var = trigger_event('loc_end_index_category_thumbnails', $tpl_thumbnails_var);
   $template->assign( array(
     'category_thumbnails' => $tpl_thumbnails_var,
     'derivative_params' => $derivative_params,
     ) );
 
   $template->assign_var_from_handle('CATEGORIES', 'index_category_thumbnails');
-  
+
   // navigation bar
   $page['cats_navigation_bar'] = array();
   if ($page['total_categories'] > $conf['nb_categories_page'])
