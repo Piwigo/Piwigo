@@ -138,7 +138,7 @@ SELECT
       'COMMENTS_ORDER_URL' => add_url_params( duplicate_picture_url(), array('comments_order'=> ($comments_order == 'ASC' ? 'DESC' : 'ASC') ) ),
       'COMMENTS_ORDER_TITLE' => $comments_order == 'ASC' ? l10n('Show latest comments first') : l10n('Show oldest comments first'),
       ));
-        
+
     $query = '
 SELECT
     com.id,
@@ -167,13 +167,13 @@ SELECT
       {
         $row['author'] = l10n('guest');
       }
-      
+
       $email = null;
       if (!empty($row['user_email']))
       {
         $email = $row['user_email'];
       }
-      else if (!empty($row['email']))
+      elseif (!empty($row['email']))
       {
         $email = $row['email'];
       }
@@ -220,7 +220,7 @@ SELECT
       if (is_admin())
       {
         $tpl_comment['EMAIL'] = $email;
-        
+
         if ($row['validated'] != 'true')
         {
           $tpl_comment['U_VALIDATE'] = add_url_params(
@@ -250,20 +250,28 @@ SELECT
   if ($show_add_comment_form)
   {
     $key = get_ephemeral_key(3, $page['image_id']);
-    
-    $template->assign('comment_add',
-        array(
-          'F_ACTION' =>         $url_self,
-          'KEY' =>              $key,
-          'CONTENT' =>          stripslashes(@$_POST['content']),
-          'SHOW_AUTHOR' =>      !is_classic_user(),
-          'AUTHOR_MANDATORY' => $conf['comments_author_mandatory'],
-          'AUTHOR' =>           stripslashes(@$_POST['author']),
-          'WEBSITE_URL' =>      stripslashes(@$_POST['website_url']),
-          'SHOW_EMAIL' =>       !is_classic_user() or empty($user['email']),
-          'EMAIL_MANDATORY' =>  $conf['comments_email_mandatory'],
-          'EMAIL' =>            stripslashes(@$_POST['email']), 
-        ));
+
+    $tpl_var =  array(
+        'F_ACTION' =>         $url_self,
+        'KEY' =>              $key,
+        'CONTENT' =>          '',
+        'SHOW_AUTHOR' =>      !is_classic_user(),
+        'AUTHOR_MANDATORY' => $conf['comments_author_mandatory'],
+        'AUTHOR' =>           '',
+        'WEBSITE_URL' =>      '',
+        'SHOW_EMAIL' =>       !is_classic_user() or empty($user['email']),
+        'EMAIL_MANDATORY' =>  $conf['comments_email_mandatory'],
+        'EMAIL' =>            '',
+      );
+
+    if ('reject'==@$comment_action)
+    {
+      foreach( array('content', 'author', 'website_url', 'email') as $k)
+      {
+        $tpl_var[strtoupper($k)] = htmlspecialchars( stripslashes(@$_POST[$k]) );
+      }
+    }
+    $template->assign('comment_add', $tpl_var);
   }
 }
 

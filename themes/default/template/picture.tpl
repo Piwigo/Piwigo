@@ -2,7 +2,7 @@
 {include file='include/autosize.inc.tpl'}
 *}
 {if isset($MENUBAR)}{$MENUBAR}{/if}
-<div id="content" {if isset($MENUBAR)}class="contentWithMenu"{/if}>
+<div id="content"{if isset($MENUBAR)} class="contentWithMenu"{/if}>
 {if isset($errors) or not empty($infos)}
 {include file='infos_errors.tpl'}
 {/if}

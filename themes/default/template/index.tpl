@@ -167,8 +167,7 @@ jQuery("#derivativeSwitchBox").on("mouseleave", function() {
 
 {if !empty($CATEGORIES)}{$CATEGORIES}{/if}
 {if !empty($cats_navbar)}
-  {assign var=navbar value=$cats_navbar}
-  {include file='navigation_bar.tpl'|@get_extent:'navbar'}
+	{include file='navigation_bar.tpl'|@get_extent:'navbar' navbar=$cats_navbar}
 {/if}
 
 {if !empty($THUMBNAILS)}
@@ -177,8 +176,7 @@ jQuery("#derivativeSwitchBox").on("mouseleave", function() {
 </ul>
 {/if}
 {if !empty($thumb_navbar)}
-  {assign var=navbar value=$thumb_navbar}
-  {include file='navigation_bar.tpl'|@get_extent:'navbar'}
+	{include file='navigation_bar.tpl'|@get_extent:'navbar' navbar=$thumb_navbar}
 {/if}
 
 {if !empty($PLUGIN_INDEX_CONTENT_END)}{$PLUGIN_INDEX_CONTENT_END}{/if}
