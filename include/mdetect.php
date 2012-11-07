@@ -3,6 +3,22 @@
 /* *******************************************
 // Copyright 2010-2012, Anthony Hand
 //
+// File version date: April 23, 2012
+//              Update:
+//              - Updated DetectAmazonSilk(): Fixed an issue in the detection logic.  
+//
+// File version date: April 22, 2012 - Second update
+//              Update: To address additional Kindle issues...
+//              - Updated DetectRichCSS(): Excluded e-Ink Kindle devices. 
+//              - Created DetectAmazonSilk(): Created to detect Kindle Fire devices in Silk mode. 
+//              - Updated DetectMobileQuick(): Updated to include e-Ink Kindle devices and the Kindle Fire in Silk mode.  
+//
+// File version date: April 11, 2012
+//              Update: 
+//              - Added a new variable for the new BlackBerry Curve Touch (9380): deviceBBCurveTouch. 
+//              - Updated DetectBlackBerryTouch() to support the new BlackBerry Curve Touch (9380). 
+//              - Updated DetectKindle(): Added the missing 'this' class identifier for the DetectAndroid() call.
+//
 // File version date: January 21, 2012
 //              Update: 
 //              - Added the constructor method per new features in PHP 5.0: __construct(). 
@@ -18,13 +34,6 @@
 // File version date: August 16, 2011
 //              Update: 
 //              - Updated DetectAndroidTablet() to exclude Opera Mini, which was falsely reporting as running on a tablet device when on a phone.
-//
-// File version date: August 7, 2011
-//              Update: 
-//              - The Opera for Android browser doesn't follow Google's recommended useragent string guidelines, so some fixes were needed.
-//              - Updated DetectAndroidPhone() and DetectAndroidTablet() to properly detect devices running Opera Mobile.
-//              - Created 2 new methods: DetectOperaAndroidPhone() and DetectOperaAndroidTablet(). 
-//              - Updated DetectTierIphone(). Removed the call to DetectMaemoTablet(), an obsolete mobile OS.
 //
 //
 // LICENSE INFORMATION
@@ -113,6 +122,7 @@ class uagent_info
    var $deviceBBBoldTouch = 'blackberry 99'; //Bold 99x0 (touchscreen)
    var $deviceBBTour = 'blackberry96'; //Tour
    var $deviceBBCurve = 'blackberry89'; //Curve2
+   var $deviceBBCurveTouch = 'blackberry 938'; //Curve Touch
    var $deviceBBTorch = 'blackberry 98'; //Torch
    var $deviceBBPlaybook = 'playbook'; //PlayBook tablet
    
@@ -123,7 +133,8 @@ class uagent_info
    var $engineBlazer = 'blazer'; //Old Palm browser
    var $engineXiino = 'xiino'; //Another old Palm
    
-   var $deviceKindle = 'kindle'; //Amazon Kindle, eInk one.
+   var $deviceKindle = 'kindle'; //Amazon Kindle, eInk one
+   var $engineSilk = 'silk'; //Amazon's accelerated Silk browser for Kindle Fire
    
    //Initialize variables for mobile-specific content.
    var $vndwap = 'vnd.wap';
@@ -494,13 +505,14 @@ class uagent_info
    }
 
    //**************************
-   // Detects if the current browser is a BlackBerry Touch phone
-   //    device, such as the Storm, Torch, and Bold Touch. Excludes the Playbook.
+   // Detects if the current browser is a BlackBerry Touch phone device with
+   //    a large screen, such as the Storm, Torch, and Bold Touch. Excludes the Playbook.
    function DetectBlackBerryTouch()
-   {
+   {  
        if ((stripos($this->useragent, $this->deviceBBStorm) > -1) ||
                 (stripos($this->useragent, $this->deviceBBTorch) > -1) ||
-                (stripos($this->useragent, $this->deviceBBBoldTouch) > -1))
+                (stripos($this->useragent, $this->deviceBBBoldTouch) > -1) ||
+                (stripos($this->useragent, $this->deviceBBCurveTouch) > -1))
          return $this->true; 
        else
          return $this->false; 
@@ -709,7 +721,18 @@ class uagent_info
    function DetectKindle()
    {
       if (stripos($this->useragent, $this->deviceKindle) > -1 &&
-          DetectAndroid() == $this->false)
+          $this->DetectAndroid() == $this->false)
+         return $this->true; 
+      else
+         return $this->false; 
+   }
+   
+   //**************************
+   // Detects if the current Amazon device is using the Silk Browser.
+   // Note: Typically used by the the Kindle Fire.
+   function DetectAmazonSilk()
+   {
+      if (stripos($this->useragent, $this->engineSilk) > -1)
          return $this->true; 
       else
          return $this->false; 
@@ -725,7 +748,7 @@ class uagent_info
       //Let's exclude tablets
       if ($this->isTierTablet == $this->true) 
          return $this->false;
-
+      
       //Most mobile browsing is done on smartphones
       if ($this->DetectSmartphone() == $this->true) 
          return $this->true;
@@ -751,6 +774,11 @@ class uagent_info
          return $this->true; 
        if (stripos($this->useragent, $this->mobile) > -1)
          return $this->true; 
+
+      //We also look for Kindle devices
+      if ($this->DetectKindle() == $this->true ||
+         $this->DetectAmazonSilk() == $this->true) 
+         return $this->true;
 
       else
          return $this->false; 
@@ -952,7 +980,9 @@ class uagent_info
    {
       if ($this->DetectMobileQuick() == $this->true) 
       {
-        if (($this->DetectTierIphone() == $this->true))
+        //Exclude iPhone Tier and e-Ink Kindle devices
+        if (($this->DetectTierIphone() == $this->true) ||
+            ($this->DetectKindle() == $this->true))
            return $this->false;
            
         //The following devices are explicitly ok.
@@ -969,8 +999,8 @@ class uagent_info
         if ($this->DetectWindowsMobile() == $this->true)
            return $this->true;
         if (stripos($this->useragent, $this->engineTelecaQ) > -1)
-           return $this->true; 
-           
+           return $this->true;
+         
         //default
         else
            return $this->false;
@@ -997,4 +1027,7 @@ class uagent_info
 
 }
 
-?>
+
+//Was informed by a MobileESP user that it's a best practice 
+//  to omit the closing ?&gt; marks here. They can sometimes
+//  cause errors with HTML headers.
