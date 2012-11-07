@@ -765,7 +765,7 @@ $lang['The uploaded file exceeds the upload_max_filesize directive in php.ini: %
 $lang['The uploaded file was only partially uploaded'] = 'Το αρχείο που μεταφορτώθηκε δεν ολοκλήρωσε την αποστολή';
 $lang['The uploaded files exceed the post_max_size directive in php.ini: %sB'] = 'Το αρχείο υπερβαίνει την οδηγία  post_max_size στο php.ini: %sB';
 $lang['The version of %s [%s] installed is not compatible with the version required ']['%s'] = 'Η έκδοση του %s[%s] που εγκαταστάθηκε δεν είναι συμβατή με την έκδοση που απαιτείται [%s]';
-$lang['The webmaster has subscribed you to receiving notifications by mail.'] = 'Ο webmaster σας έκανε συνδρομητή για πέρνετε πληροφορίες μέσω ηλεκρονικού ταχυδρομείου.';
+$lang['The webmaster has subscribed you to receiving notifications by mail.'] = 'Ο webmaster σας έκανε εγγραφή για την παραλαβή κοινοποιήσεων μέσω ηλεκρονικού ταχυδρομείου.';
 $lang['The webmaster has unsubscribed you from receiving notifications by mail.'] = 'Ο webmaster σας έχει διαγράψει από την παραλαβή κοινοποιήσεων μέσω ταχυδρομείου.';
 $lang['The whole page'] = 'Ολόκληρη η σελίδα';
 $lang['The whole set'] = 'Το σύνολο';
