@@ -1620,7 +1620,7 @@ function get_device()
   {
     include_once(PHPWG_ROOT_PATH.'include/mdetect.php');
     $uagent_obj = new uagent_info();
-    if ($uagent_obj->DetectTierIphone())
+    if ($uagent_obj->DetectSmartphone())
     {
       $device = 'mobile';
     }
@@ -1654,7 +1654,6 @@ function mobile_theme()
   {
     $is_mobile_theme = get_boolean($_GET['mobile']);
     pwg_set_session_var('mobile_theme', $is_mobile_theme);
-    unset($_GET['mobile']);
   }
   else
   {
