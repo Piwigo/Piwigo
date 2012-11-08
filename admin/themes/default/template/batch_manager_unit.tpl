@@ -4,19 +4,9 @@
 
 {combine_script id='jquery.tokeninput' load='async' require='jquery' path='themes/default/js/plugins/jquery.tokeninput.js'}
 {footer_script require='jquery.tokeninput'}
-var tag_boxes_selector = "";
-{foreach from=$elements item=element name=element}
-{if $smarty.foreach.element.first}
-var prefix = "";
-{else}
-prefix = ", ";
-{/if}
-	tag_boxes_selector = tag_boxes_selector + prefix + "#tags-" + {$element.id};
-{/foreach}
-
 jQuery(document).ready(function() {ldelim}
-  jQuery(tag_boxes_selector).tokenInput(
-    [{foreach from=$tags item=tag name=tags}{ldelim}"name":"{$tag.name|@escape:'javascript'}","id":"{$tag.id}"{rdelim}{if !$smarty.foreach.tags.last},{/if}{/foreach}],
+	jQuery('select[name|="tags"]').tokenInput(
+		[{foreach from=$tags item=tag name=tags}{ldelim}name:"{$tag.name|@escape:'javascript'}",id:"{$tag.id}"{rdelim}{if !$smarty.foreach.tags.last},{/if}{/foreach}],
     {ldelim}
       hintText: '{'Type in a search term'|@translate}',
       noResultsText: '{'No results'|@translate}',
@@ -112,7 +102,7 @@ jQuery(document).ready(function() {ldelim}
       <td><strong>{'Tags'|@translate}</strong></td>
       <td>
 
-<select id="tags-{$element.id}" name="tags-{$element.id}">
+<select name="tags-{$element.id}">
 {foreach from=$element.TAGS item=tag}
   <option value="{$tag.id}" class="selected">{$tag.name}</option>
 {/foreach}
@@ -131,24 +121,24 @@ jQuery(document).ready(function() {ldelim}
 </fieldset>
 {/foreach}
 
-{if !empty($navbar) }{include file='navigation_bar.tpl'|@get_extent:'navbar'}{/if}
+{if !empty($navbar)}{include file='navigation_bar.tpl'|@get_extent:'navbar'}{/if}
 
 <p>
-  <input class="submit" type="submit" value="{'Submit'|@translate}" name="submit">
-  <input class="submit" type="reset" value="{'Reset'|@translate}">
+  <input type="submit" value="{'Submit'|@translate}" name="submit">
+  <input type="reset" value="{'Reset'|@translate}">
 </p>
 {/if}
 
 </form>
 
-<script type="text/javascript">// <![CDATA[
+{footer_script}
 {literal}$(document).ready(function() {
-	$(".elementEdit img").fadeTo("slow", 0.6); // Opacity on page load
-	$(".elementEdit img").hover(function(){
-		$(this).fadeTo("slow", 1.0); // Opacity on hover
-	},function(){
+	$(".elementEdit img")
+		.fadeTo("slow", 0.6) // Opacity on page load
+		.hover(function(){
+			$(this).fadeTo("slow", 1.0); // Opacity on hover
+		},function(){
    		$(this).fadeTo("slow", 0.6); // Opacity on mouseout
-	});
+		});
 });{/literal}
-// ]]>
-</script>
+{/footer_script}
