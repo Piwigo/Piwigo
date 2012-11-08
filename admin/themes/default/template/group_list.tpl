@@ -9,11 +9,9 @@
       <label for="groupname">{'Group name'|@translate}</label>
     </span>
     <input type="text" id="groupname" name="groupname" maxlength="50" size="20">
+		<input type="submit" name="submit_add" value="{'Add'|@translate}">
+		<input type="hidden" name="pwg_token" value="{$PWG_TOKEN}"> 
 
-    <p>
-      <input class="submit" type="submit" name="submit_add" value="{'Add'|@translate}">
-      <input type="hidden" name="pwg_token" value="{$PWG_TOKEN}"> 
-    </p>
   </fieldset>
 </form>
 

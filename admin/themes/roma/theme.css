@@ -72,12 +72,15 @@ UL.thumbnails span.wrap2 {
 /* borders */
 fieldset { border: 2px solid #333; }
 INPUT, SELECT, TEXTAREA { border: 1px solid #666; }
-input:focus, select:focus, textarea:focus, input.focus, form .focus { background-color:#444;color: #999; }
+input:focus, select:focus, textarea:focus {
+	background-color: #444;
+	color: #999;
+}
+
 TEXTAREA { cursor:text; font-size: 13px; }
 .tagSelection label { padding-right:12px; }
 .tagSelection LI.tagSelected {background-color:#aaa;}
 .tagSelected LABEL {color:#000;}
-.content ul.categoryActions a img { margin-left: 10px; }
 ul.thumbnails input { color:#999; font-size:10px; margin:0; background-color:#444; text-align: center;}
 INPUT[type="submit"]:hover , INPUT[type="reset"]:hover  { cursor: pointer; }
 INPUT.bigbutton:hover { background-color: #222;  color:#f33; border: 0; }

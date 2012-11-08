@@ -25,38 +25,23 @@ INPUT, select, textarea { color:#666; background-color: #ccc; }
 option[disabled] { background-color: #ccc; }
 input[type="radio"], input[type="checkbox"] { background-color: transparent; }
 
-INPUT[type="submit"], INPUT[type="button"], INPUT[type="reset"] {
-	color:#666;
-	border: 1px solid #777;
-	background-color: #ddd;
-	padding: 1px 15px;
-}
 
 
-INPUT[type="text"], INPUT[type="password"], INPUT[type="button"],
-INPUT[type="submit"], INPUT[type="reset"], INPUT[type="file"] {
+INPUT[type="text"], INPUT[type="password"], INPUT[type="file"] {
 	background-color: #ddd;
 }
 
-INPUT.text, INPUT.password, INPUT.button,
-INPUT.submit, INPUT.reset, INPUT.file,
 SELECT, TEXTAREA {
 	background-color: #ddd;
 }
 
-INPUT:focus, SELECT:focus, TEXTAREA:focus, INPUT.focus, FORM .focus, INPUT.submit:hover {
+INPUT:focus, SELECT:focus, TEXTAREA:focus {
   background-color: #eee;
   color: #666;
 }
 
 INPUT, SELECT, TEXTAREA { border: 1px solid #999; }
 
-
-INPUT[type="button"]:hover, INPUT[type="submit"]:hover, INPUT[type="reset"]:hover {
-  cursor:pointer;
-  color:#666;
-  border-color: #999;
-}
 
 
 #copyright { color:#777; margin:5px auto 0px 240px; text-align:center;
@@ -70,8 +55,11 @@ padding-bottom: 15px; }
   width: 550px;
   top: 70px;
 }
-html, body { min-height: 100%; }
-body { margin: 0; padding: 0; background:#f9f9f9 }
+html, body {
+	min-height: 100%;
+	background-color: #f9f9f9;
+}
+
 /* #the_page { margin: 0; padding: 0; z-index: 1; top:0px; */
 /* padding-top: 0; min-height: 100%; width:100%; position:absolute; left:0px; } */
 #headbranch { width: 233px; height: 240px; margin: 0; padding: 0;
@@ -109,7 +97,6 @@ TEXTAREA { cursor:text; font-size: 13px; }
 .tagSelection LI.tagSelected {background-color:#dbe8f3;}
 .tagSelected LABEL {color:black;}
 
-.content ul.categoryActions a img { margin-left: 10px; }
 ul.thumbnails input { color:#666; font-size:10px; margin:0; background-color:#bbb; text-align: center;}
 INPUT.bigbutton:hover { background-color: #ddd;  color:#0cc; border: 0; }
 .throw  { font-size: 120%; line-height: 26px; padding-top: 10px; font-weight: bold; }
@@ -311,6 +298,7 @@ input[type="submit"], input[type="button"], input[type="reset"], a.bigButton {
 }
 
 input[type="submit"]:hover, input[type="button"]:hover, input[type="reset"]:hover, a.bigButton:hover {
+	cursor: pointer;
   background-color:#ff7700;
   color:white;
 }
