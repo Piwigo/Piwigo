@@ -2,6 +2,8 @@
 {include file='include/datepicker.inc.tpl'}
 {include file='include/colorbox.inc.tpl'}
 {include file='include/add_album.inc.tpl'}
+{combine_script id='jquery.ui.slider' require='jquery.ui' load='footer' path='themes/default/js/ui/minified/jquery.ui.slider.min.js'}
+{combine_css path="themes/default/js/ui/theme/jquery.ui.slider.css"}
 
 {footer_script}{literal}
   pwg_initialization_datepicker("#date_creation_day", "#date_creation_month", "#date_creation_year", "#date_creation_linked_date", "#date_creation_action_set");
@@ -387,16 +389,6 @@ $(document).ready(function() {
     filter_enable(filter);
     $(this).attr("value", -1);
   });
-  
-  $("select[name='filter_dimension']").change(function () {
-    $("span[id^='filter_dimension_']").hide();
-    $("span#filter_dimension_"+ $(this).attr("value")).show();
-  });
-  
-  $("a.ratio-choice").click(function() {
-    $("input[name='filter_ratio_min']").val($(this).data("min"));
-    $("input[name='filter_ratio_max']").val($(this).data("max"));
-  });
 
   function filter_disable(filter) {
     /* hide the filter line */
@@ -493,11 +485,67 @@ $(document).ready(function() {
 		} );
 	}
 
-  checkPermitAction()
+  checkPermitAction();
+{/literal}
+  
+  /* dimensions sliders */
+  $("#filter_dimension_width_slider").slider({ldelim}
+    range: true,
+    min: {$dimensions.bounds.min_width},
+    max: {$dimensions.bounds.max_width},
+    values: [{$dimensions.selected.min_width}, {$dimensions.selected.max_width}],
+    slide: function(event, ui) {ldelim}
+      $("input[name='filter_dimension_min_width']").val(ui.values[0]);
+      $("input[name='filter_dimension_max_width']").val(ui.values[1]);
+      $("#filter_dimension_width_info").html(sprintf("{'between %d and %d pixels'|@translate}", ui.values[0], ui.values[1]));
+    },
+    change: function(event, ui) {ldelim}
+      $("input[name='filter_dimension_min_width']").val(ui.values[0]);
+      $("input[name='filter_dimension_max_width']").val(ui.values[1]);
+      $("#filter_dimension_width_info").html(sprintf("{'between %d and %d pixels'|@translate}", ui.values[0], ui.values[1]));
+    }
+  });
+  $("#filter_dimension_height_slider").slider({ldelim}
+    range: true,
+    min: {$dimensions.bounds.min_height},
+    max: {$dimensions.bounds.max_height},
+    values: [{$dimensions.selected.min_height}, {$dimensions.selected.max_height}],
+    slide: function(event, ui) {ldelim}
+      $("input[name='filter_dimension_min_height']").val(ui.values[0]);
+      $("input[name='filter_dimension_max_height']").val(ui.values[1]);
+      $("#filter_dimension_height_info").html(sprintf("{'between %d and %d pixels'|@translate}", ui.values[0], ui.values[1]));
+    },
+    change: function(event, ui) {ldelim}
+      $("input[name='filter_dimension_min_height']").val(ui.values[0]);
+      $("input[name='filter_dimension_max_height']").val(ui.values[1]);
+      $("#filter_dimension_height_info").html(sprintf("{'between %d and %d pixels'|@translate}", ui.values[0], ui.values[1]));
+    }
+  });
+  $("#filter_dimension_ratio_slider").slider({ldelim}
+    range: true,
+    step: 0.01,
+    min: {$dimensions.bounds.min_ratio},
+    max: {$dimensions.bounds.max_ratio},
+    values: [{$dimensions.selected.min_ratio}, {$dimensions.selected.max_ratio}],
+    slide: function(event, ui) {ldelim}
+      $("input[name='filter_dimension_min_ratio']").val(ui.values[0]);
+      $("input[name='filter_dimension_max_ratio']").val(ui.values[1]);
+      $("#filter_dimension_ratio_info").html(sprintf("{'between %.2f and %.2f'|@translate}", ui.values[0], ui.values[1]));
+    },
+    change: function(event, ui) {ldelim}
+      $("input[name='filter_dimension_min_ratio']").val(ui.values[0]);
+      $("input[name='filter_dimension_max_ratio']").val(ui.values[1]);
+      $("#filter_dimension_ratio_info").html(sprintf("{'between %.2f and %.2f'|@translate}", ui.values[0], ui.values[1]));
+    }
+  });
+  
+  $("a.dimensions-choice").click(function() {ldelim}
+    $("#filter_dimension_"+ $(this).data("type") +"_slider").slider("values", 0, $(this).data("min"));
+    $("#filter_dimension_"+ $(this).data("type") +"_slider").slider("values", 1, $(this).data("max"));
+  });
 });
 
-
-{/literal}{/footer_script}
+{/footer_script}
 
 <div id="batchManagerGlobal">
 
@@ -558,22 +606,31 @@ $(document).ready(function() {
         <a href="#" class="removeFilter" title="remove this filter"><span>[x]</span></a>
         <input type="checkbox" name="filter_dimension_use" class="useFilterCheckbox" {if isset($filter.dimension)}checked="checked"{/if}>
         {'Dimensions'|@translate} :
-        <label>{'Minimum width'|@translate} <input type="text" name="filter_dimension_min_width" value="{$filter.dimension.min_width}" size="4"></label> —
-        <label>{'Maximum width'|@translate} <input type="text" name="filter_dimension_max_width" value="{$filter.dimension.max_width}" size="4"></label> —
-        <label>{'Minimum height'|@translate} <input type="text" name="filter_dimension_min_height" value="{$filter.dimension.min_height}" size="4"></label>	—
-        <label>{'Maximum height'|@translate} <input type="text" name="filter_dimension_max_height" value="{$filter.dimension.max_height}" size="4"></label>
-      </li>
-      
-      <li id="filter_ratio" {if !isset($filter.ratio)}style="display:none"{/if}>
-        <a href="#" class="removeFilter" title="remove this filter"><span>[x]</span></a>
-        <input type="checkbox" name="filter_ratio_use" class="useFilterCheckbox" {if isset($filter.ratio)}checked="checked"{/if}>
-        {'Ratio'|@translate} :
-        <label>{'Minimum'|@translate} <input type="text" name="filter_ratio_min" value="{$filter.ratio.min}" size="4"></label> —
-        <label>{'Maximum'|@translate} <input type="text" name="filter_ratio_max" value="{$filter.ratio.max}" size="4"></label> —
-        <a class="ratio-choice" data-min="" data-max="0.95">{'Portrait'|@translate}</a> |
-        <a class="ratio-choice" data-min="0.95" data-max="1.05">{'square'|@translate}</a> |
-        <a class="ratio-choice" data-min="1.05" data-max="2.5">{'Landscape'|@translate}</a> |
-        <a class="ratio-choice" data-min="2.5" data-max="">{'Panorama'|@translate}</a>
+        
+        <blockquote>
+          {'Width'|@translate} : <span id="filter_dimension_width_info">{'between %d and %d pixels'|@translate|sprintf:$dimensions.selected.min_width:$dimensions.selected.max_width}</span>
+          | <a class="dimensions-choice" data-type="width" data-min="{$dimensions.bounds.min_width}" data-max="{$dimensions.bounds.max_width}">{'Reset'|@translate}</a>
+          <div id="filter_dimension_width_slider"></div>
+          
+          {'Height'|@translate} : <span id="filter_dimension_height_info">{'between %d and %d pixels'|@translate|sprintf:$dimensions.selected.min_height:$dimensions.selected.max_height}</span>
+          | <a class="dimensions-choice" data-type="height" data-min="{$dimensions.bounds.min_height}" data-max="{$dimensions.bounds.max_height}">{'Reset'|@translate}</a>
+          <div id="filter_dimension_height_slider"></div>
+          
+          {'Ratio'|@translate} : <span id="filter_dimension_ratio_info">{'between %.2f and %.2f'|@translate|sprintf:$dimensions.selected.min_ratio:$dimensions.selected.max_ratio}</span>
+          | <a class="dimensions-choice" data-type="ratio" data-min="{$dimensions.bounds.min_ratio}" data-max="0.95">{'Portrait'|@translate}</a>
+          | <a class="dimensions-choice" data-type="ratio" data-min="0.95" data-max="1.05">{'square'|@translate}</a>
+          | <a class="dimensions-choice" data-type="ratio" data-min="1.05" data-max="2.5">{'Landscape'|@translate}</a>
+          | <a class="dimensions-choice" data-type="ratio" data-min="2.5" data-max="{$dimensions.bounds.max_ratio}">{'Panorama'|@translate}</a>
+          | <a class="dimensions-choice" data-type="ratio" data-min="{$dimensions.bounds.min_ratio}" data-max="{$dimensions.bounds.max_ratio}">{'Reset'|@translate}</a>
+          <div id="filter_dimension_ratio_slider"></div>
+        </blockquote>
+        
+        <input type="hidden" name="filter_dimension_min_width" value="{$dimensions.selected.min_width}">
+        <input type="hidden" name="filter_dimension_max_width" value="{$dimensions.selected.max_width}">
+        <input type="hidden" name="filter_dimension_min_height" value="{$dimensions.selected.min_height}">
+        <input type="hidden" name="filter_dimension_max_height" value="{$dimensions.selected.max_height}">
+        <input type="hidden" name="filter_dimension_min_ratio" value="{$dimensions.selected.min_ratio}">
+        <input type="hidden" name="filter_dimension_max_ratio" value="{$dimensions.selected.max_ratio}">
       </li>
     </ul>
 
@@ -586,7 +643,6 @@ $(document).ready(function() {
         <option value="filter_tags" {if isset($filter.tags)}disabled="disabled"{/if}>{'Tags'|@translate}</option>
         <option value="filter_level" {if isset($filter.level)}disabled="disabled"{/if}>{'Privacy level'|@translate}</option>
         <option value="filter_dimension" {if isset($filter.dimension)}disabled="disabled"{/if}>{'Dimensions'|@translate}</option>
-        <option value="filter_ratio" {if isset($filter.ratio)}disabled="disabled"{/if}>{'Ratio'|@translate}</option>
       </select>
       <a id="removeFilters" href="">{'Remove all filters'|@translate}</a>
     </p>

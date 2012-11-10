@@ -100,15 +100,11 @@ if (isset($_POST['submitFilter']))
         $_SESSION['bulk_manager_filter']['dimension'][$type] = $_POST['filter_dimension_'. $type ];
       }
     }
-  }
-  
-  if (isset($_POST['filter_ratio_use']))
-  {
-    foreach (array('min','max') as $type)
+    foreach (array('min_ratio','max_ratio') as $type)
     {
-      if ( preg_match('#^[0-9\.,]+$#', $_POST['filter_ratio_'. $type ]) )
+      if ( preg_match('#^[0-9\.]+$#', $_POST['filter_dimension_'. $type ]) )
       {
-        $_SESSION['bulk_manager_filter']['ratio'][$type] = str_replace(',','.',$_POST['filter_ratio_'. $type ]);
+        $_SESSION['bulk_manager_filter']['dimension'][$type] = $_POST['filter_dimension_'. $type ];
       }
     }
   }
@@ -349,7 +345,7 @@ if (!empty($_SESSION['bulk_manager_filter']['tags']))
     );
 }
 
-if (isset($_SESSION['bulk_manager_filter']['dimension']) or isset($_SESSION['bulk_manager_filter']['ratio']))
+if (isset($_SESSION['bulk_manager_filter']['dimension']))
 {
   $where_clauses = array();
   if (isset($_SESSION['bulk_manager_filter']['dimension']['min_width']))
@@ -368,13 +364,13 @@ if (isset($_SESSION['bulk_manager_filter']['dimension']) or isset($_SESSION['bul
   {
     $where_clause[] = 'height <= '.$_SESSION['bulk_manager_filter']['dimension']['max_height'];
   }
-  if (isset($_SESSION['bulk_manager_filter']['ratio']['min']))
+  if (isset($_SESSION['bulk_manager_filter']['dimension']['min_ratio']))
   {
-    $where_clause[] = 'width/height >= '.$_SESSION['bulk_manager_filter']['ratio']['min'];
+    $where_clause[] = 'width/height >= '.$_SESSION['bulk_manager_filter']['dimension']['min_ratio'];
   }
-  if (isset($_SESSION['bulk_manager_filter']['ratio']['max']))
+  if (isset($_SESSION['bulk_manager_filter']['dimension']['max_ratio']))
   {
-    $where_clause[] = 'width/height <= '.$_SESSION['bulk_manager_filter']['ratio']['max'];
+    $where_clause[] = 'width/height <= '.$_SESSION['bulk_manager_filter']['dimension']['max_ratio'];
   }
   
   $query = '
@@ -441,6 +437,30 @@ SELECT id, name
   FROM '.TAGS_TABLE.'
 ;';
 $template->assign('tags', get_taglist($query, false));
+
+// +-----------------------------------------------------------------------+
+// |                              dimensions                               |
+// +-----------------------------------------------------------------------+
+$query = '
+SELECT
+    MIN(width) as min_width,
+    MAX(width) as max_width,
+    MIN(height) as min_height,
+    MAX(height) as max_height,
+    MIN(width/height) as min_ratio,
+    MAX(width/height) as max_ratio
+  FROM '.IMAGES_TABLE.'
+;';
+$dimensions['bounds'] = pwg_db_fetch_assoc(pwg_query($query));
+$dimensions['bounds']['min_ratio'] = floor($dimensions['bounds']['min_ratio']*100)/100;
+$dimensions['bounds']['max_ratio'] = ceil($dimensions['bounds']['max_ratio']*100)/100;
+
+foreach (array_keys($dimensions['bounds']) as $type)
+{
+  $dimensions['selected'][$type] = isset($_SESSION['bulk_manager_filter']['dimension'][$type]) ? $_SESSION['bulk_manager_filter']['dimension'][$type] : $dimensions['bounds'][$type];
+}
+$template->assign('dimensions', $dimensions);
+
 
 // +-----------------------------------------------------------------------+
 // |                         open specific mode                            |
