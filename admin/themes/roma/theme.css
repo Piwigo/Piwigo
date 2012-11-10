@@ -96,6 +96,10 @@ a.Piwigo:hover  span.Piwigo  {
   border-bottom: 1px solid #FF3363;
 }
 
+.categoryUl li:not(.virtual_cat) {
+  background:url(images/stripe-cat.png);
+}
+
 /* RADU - I comment this because it makes FF form controls activation very slow)
 *, *:focus, *:active, input:active, a:active, input:focus, a:focus { outline: none; -moz-outline-width: 0px; }
 */
