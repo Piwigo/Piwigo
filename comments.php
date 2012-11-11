@@ -233,21 +233,33 @@ if (isset($action))
       if (!empty($_POST['content']))
       {
         check_pwg_token();
-        update_user_comment(
+        $comment_action = update_user_comment(
           array(
             'comment_id' => $_GET['edit'],
             'image_id' => $_POST['image_id'],
-            'content' => $_POST['content']
+            'content' => $_POST['content'],
+            'website_url' => @$_POST['website_url'],
             ),
           $_POST['key']
           );
-
-        $perform_redirect = true;
+        
+        switch ($comment_action)
+        {
+          case 'moderate':
+            $_SESSION['page_infos'][] = l10n('An administrator must authorize your comment before it is visible.');
+          case 'validate':
+            $_SESSION['page_infos'][] = l10n('Your comment has been registered');
+            $perform_redirect = true;
+            break;
+          case 'reject':
+            $_SESSION['page_errors'][] = l10n('Your comment has NOT been registered because it did not pass the validation rules');
+            break;
+          default:
+            trigger_error('Invalid comment action '.$comment_action, E_USER_WARNING);
+        }
       }
-      else
-      {
-        $edit_comment = $_GET['edit'];
-      }
+      
+      $edit_comment = $_GET['edit'];
     }
 
     if ($perform_redirect)

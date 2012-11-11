@@ -392,6 +392,7 @@ $lang['View'] = "View";
 $lang['Visits'] = "Visits";
 $lang['Visits, high &rarr; low'] = 'Visits, high &rarr; low';
 $lang['Visits, low &rarr; high'] = 'Visits, low &rarr; high';
+$lang['Website'] = 'Website';
 $lang['Webmaster'] = "Webmaster";
 $lang['Week %d'] = "Week %d";
 $lang['Welcome to your Piwigo photo gallery!'] = 'Welcome to your Piwigo photo gallery!';
@@ -409,5 +410,6 @@ $lang['Your favorites'] = "Your favorites";
 $lang['Your Gallery Customization'] = "Your gallery customization";
 $lang['Your password has been reset'] = 'Your password has been reset';
 $lang['Your username has been successfully changed to : %s'] = 'Your username has been successfully changed to : %s';
+$lang['Your website URL is invalid'] = 'Your website URL is invalid';
 $lang['mandatory'] = 'mandatory';
 ?>

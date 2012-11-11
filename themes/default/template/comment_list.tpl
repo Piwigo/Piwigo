@@ -5,7 +5,7 @@
 }
 
 .content .commentElement .description{ldelim}
-	height: {$comment_derivative_params->max_height()+5}px
+	min-height: {$comment_derivative_params->max_height()+5}px
 }
 {/html_style}{/strip}
 {/if}
@@ -28,7 +28,7 @@
 		</a>
 	</div>
 	{/if}
-	<div class="description"{if isset($comment.IN_EDIT)} style="height:200px"{/if}>
+	<div class="description">
 		{if isset($comment.U_DELETE) or isset($comment.U_VALIDATE) or isset($comment.U_EDIT)}
 		<div class="actions" style="float:right;font-size:90%">
 		{if isset($comment.U_DELETE)}
@@ -39,7 +39,7 @@
 		{if isset($comment.U_CANCEL)}
 			<a href="{$comment.U_CANCEL}">
 				{'Cancel'|@translate}
-			</a>{if isset($comment.U_VALIDATE) or isset($comment.U_EDIT)} | {/if}
+			</a>{if isset($comment.U_VALIDATE)} | {/if}
 		{/if}
 		{if isset($comment.U_EDIT) and !isset($comment.IN_EDIT)}
 			<a class="editComment" href="{$comment.U_EDIT}#edit_comment">
@@ -60,8 +60,10 @@
 		{if isset($comment.IN_EDIT)}
 		<a name="edit_comment"></a>
 		<form method="post" action="{$comment.U_EDIT}" id="editComment">
-			<p><label>{'Edit a comment'|@translate} :</label></p>
+			<p><label for="contenteditid">{'Edit a comment'|@translate} :</label></p>
 			<p><textarea name="content" id="contenteditid" rows="5" cols="80">{$comment.CONTENT|@escape}</textarea></p>
+			<p><label for="website_url">{'Website'|@translate} :</label></p>
+			<p><input type="text" name="website_url" id="website_url" value="{$comment.WEBSITE_URL}" size="40"></p>
 			<p><input type="hidden" name="key" value="{$comment.KEY}">
 				<input type="hidden" name="pwg_token" value="{$comment.PWG_TOKEN}">
 				<input type="hidden" name="image_id" value="{$comment.IMAGE_ID|@default:$current.id}">

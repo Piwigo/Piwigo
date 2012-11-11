@@ -309,7 +309,7 @@ $user_where_clause.'
 
 function update_user_comment($comment, $post_key)
 {
-  global $conf;
+  global $conf, $page;
 
   $comment_action = 'validate';
 
@@ -335,6 +335,20 @@ function update_user_comment($comment, $post_key)
 			      )
 		  );
 
+  // website
+  if (!empty($comment['website_url']))
+  {
+    if (!preg_match('/^https?/i', $comment['website_url']))
+    {
+      $comment['website_url'] = 'http://'.$comment['website_url'];
+    }
+    if (!url_check_format($comment['website_url']))
+    {
+      array_push($page['errors'], l10n('Your website URL is invalid'));
+      $comment_action='reject';
+    }
+  }
+
   if ( $comment_action!='reject' )
   {
     $user_where_clause = '';
@@ -347,6 +361,7 @@ function update_user_comment($comment, $post_key)
     $query = '
 UPDATE '.COMMENTS_TABLE.'
   SET content = \''.$comment['content'].'\',
+      website_url = '.(!empty($comment['website_url']) ? '\''.$comment['website_url'].'\'' : 'NULL').',
       validated = \''.($comment_action=='validate' ? 'true':'false').'\',
       validation_date = '.($comment_action=='validate' ? 'NOW()':'NULL').'
   WHERE id = '.$comment['comment_id'].

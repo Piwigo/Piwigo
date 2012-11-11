@@ -349,7 +349,8 @@ UPDATE '.USER_CACHE_CATEGORIES_TABLE.'
             array(
               'comment_id' => $_GET['comment_to_edit'],
               'image_id' => $page['image_id'],
-              'content' => $_POST['content']
+              'content' => $_POST['content'],
+              'website_url' => @$_POST['website_url'],
               ),
             $_POST['key']
             );
@@ -365,7 +366,6 @@ UPDATE '.USER_CACHE_CATEGORIES_TABLE.'
               break;
             case 'reject':
               $_SESSION['page_errors'][] = l10n('Your comment has NOT been registered because it did not pass the validation rules');
-              $perform_redirect = true;
               break;
             default:
               trigger_error('Invalid comment action '.$comment_action, E_USER_WARNING);
@@ -377,10 +377,8 @@ UPDATE '.USER_CACHE_CATEGORIES_TABLE.'
           }
           unset($_POST['content']);
         }
-        else
-        {
-          $edit_comment = $_GET['comment_to_edit'];
-        }
+        
+        $edit_comment = $_GET['comment_to_edit'];
       }
       break;
     }
