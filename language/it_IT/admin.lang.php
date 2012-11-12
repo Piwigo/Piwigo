@@ -930,14 +930,13 @@ $lang['Duplicate selected tags'] = 'Duplicare i Tag selezionati';
 $lang['Invalid dimension'] = 'Dimensione non valida';
 $lang['Minimum height'] = 'Altezza minima';
 $lang['Minimum width'] = 'Larghezza minima';
-$lang['Format'] = 'Formato';
 $lang['Portrait'] = 'Ritratto';
 $lang['Landscape'] = 'Paesaggio';
 $lang['Panorama'] = 'Panorama';
 $lang['Manage photos'] = 'Gestisci foto';
 $lang['View in gallery'] = 'Mostra nella galleria';
 $lang['Number of albums per page'] = 'Numero d\'album per pagina';
-$lang['Maximum'] = 'Massimo';
-$lang['Minimum'] = 'Minimo';
 $lang['Ratio'] = 'Rapporto';
+$lang['between %d and %d pixels'] = 'tra %d e %d pixels';
+$lang['between %.2f and %.2f'] = 'tra %.2f e %.2f';
 ?>
