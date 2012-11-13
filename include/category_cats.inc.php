@@ -378,16 +378,16 @@ if (count($categories) > 0)
   // pagination
   $page['total_categories'] = count($tpl_thumbnails_var);
 
-  $tpl_thumbnails_var = array_slice(
+  $tpl_thumbnails_var_selection = array_slice(
     $tpl_thumbnails_var,
     $page['startcat'],
     $conf['nb_categories_page']
     );
 
   $derivative_params = trigger_event('get_index_album_derivative_params', ImageStdParams::get_by_type(IMG_THUMB) );
-  $tpl_thumbnails_var = trigger_event('loc_end_index_category_thumbnails', $tpl_thumbnails_var);
+  $tpl_thumbnails_var_selection = trigger_event('loc_end_index_category_thumbnails', $tpl_thumbnails_var_selection);
   $template->assign( array(
-    'category_thumbnails' => $tpl_thumbnails_var,
+    'category_thumbnails' => $tpl_thumbnails_var_selection,
     'derivative_params' => $derivative_params,
     ) );
 
