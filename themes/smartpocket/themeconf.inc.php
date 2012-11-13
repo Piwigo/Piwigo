@@ -28,6 +28,15 @@ function sp_select_all_thumbnails($selection)
   return $page['items'];
 }
 
+// Retrive all categories on thumbnails page
+add_event_handler('loc_end_index_category_thumbnails', 'sp_select_all_categories');
+
+function sp_select_all_categories($selection)
+{
+  global $tpl_thumbnails_var;
+  return $tpl_thumbnails_var;
+}
+
 // Get better derive parameters for screen size
 if (!empty($_COOKIE['screen_size']))
 {
