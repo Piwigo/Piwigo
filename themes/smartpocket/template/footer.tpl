@@ -1,5 +1,5 @@
-{if !empty($navbar)}
-{include file='navigation_bar.tpl'|@get_extent:'navbar'}
+{if !empty($thumb_navbar)}
+{include file='navigation_bar.tpl'|@get_extent:'navbar' navbar=$thumb_navbar}
 {else}
 <div class="pwg_footer ui-bar-a">
   <h6>
