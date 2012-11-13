@@ -1,7 +1,7 @@
 {$MENUBAR}
 
 {if isset($errors) or isset($infos)}
-<div class="content messages {if isset($MENUBAR)}contentWithMenu{/if}">
+<div class="content messages{if isset($MENUBAR)} contentWithMenu{/if}">
 {include file='infos_errors.tpl'}
 </div>
 {/if}
