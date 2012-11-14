@@ -725,6 +725,7 @@ INPUT[type="radio"], INPUT[type="checkbox"] {
 
 LEGEND {
 	font-style: italic;
+	color: inherit; /*for IE*/
 }
 
 #piwigoAbout {width:600px;margin:0 auto;}
