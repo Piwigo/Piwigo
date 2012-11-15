@@ -950,4 +950,6 @@ $lang['Number of albums per page'] = 'Nombre d\'àlbums per pàgina';
 $lang['Maximum'] = 'Màxim';
 $lang['Minimum'] = 'Mínim';
 $lang['Ratio'] = 'Ràtio';
+$lang['between %.2f and %.2f'] = 'entre %.2f i %.2f';
+$lang['between %d and %d pixels'] = 'entre %d i %d píxels';
 ?>
