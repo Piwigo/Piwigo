@@ -410,4 +410,6 @@ $lang['Requested tag does not exist'] = 'No existeix l\'etiqueta sol·licitada';
 $lang['Email address is mandatory'] = 'L\'adreça de correu és obligatòria';
 $lang['Username is mandatory'] = 'El nom d\'usuari és obligatori';
 $lang['mandatory'] = 'obligatori';
+$lang['Website'] = 'lloc web';
+$lang['Your website URL is invalid'] = 'La URL del vostre lloc web és invàlida';
 ?>
