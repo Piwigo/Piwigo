@@ -412,4 +412,9 @@ $lang['thumb'] = 'תמונה ממוזערת';
 $lang['xlarge'] = 'XL - גדול מאוד';
 $lang['xsmall'] = 'XS - קטן מאוד';
 $lang['xxlarge'] = 'XXL - ענק';
+$lang['Your website URL is invalid'] = 'כתובת האתר שלך לא טובה';
+$lang['Email address is mandatory'] = 'שדה דואר אלקטרוני חובה';
+$lang['Username is mandatory'] = 'שדה שם משתמש חובה';
+$lang['Website'] = 'אתר';
+$lang['mandatory'] = 'הכרחי';
 ?>
