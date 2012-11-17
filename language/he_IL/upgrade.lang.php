@@ -28,4 +28,7 @@ $lang['total upgrade time'] = "זמן שידרוג כולל";
 $lang['total SQL time'] = "זמןSQLכולל";
 $lang['SQL queries'] = "SQLשאילתות";
 $lang['Upgrade informations'] = "מידע לשידרוג";
+$lang['User permissions and group permissions have been erased'] = 'הרשאות משתמשים וקבוצות נמחקו';
+$lang['Only administrator can run upgrade: please sign in below.'] = 'רק מנהל יכול להריץ שדרוג : בבקשה התחבר למטה';
+$lang['You do not have access rights to run upgrade'] = 'אין לך גישה להפעיל שדרוג';
 ?>
