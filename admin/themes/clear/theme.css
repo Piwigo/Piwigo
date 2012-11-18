@@ -112,7 +112,7 @@ a.Piwigo:hover  span.Piwigo  {
 }
 TABLE.table2 { border: 2px solid #dddddd; }
 
-.categoryUl li:not(.virtual_cat) {
+.categoryUl>li:not(.virtual_cat) {
   background:url(images/stripe-cat.png);
 }
 

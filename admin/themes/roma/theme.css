@@ -96,7 +96,7 @@ a.Piwigo:hover  span.Piwigo  {
   border-bottom: 1px solid #FF3363;
 }
 
-.categoryUl li:not(.virtual_cat) {
+.categoryUl>li:not(.virtual_cat) {
   background:url(images/stripe-cat.png);
 }
 
