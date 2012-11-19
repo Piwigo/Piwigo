@@ -370,7 +370,7 @@ if (isset($_SESSION['bulk_manager_filter']['dimension']))
   }
   if (isset($_SESSION['bulk_manager_filter']['dimension']['max_ratio']))
   {
-    $where_clause[] = 'width/height <= '.$_SESSION['bulk_manager_filter']['dimension']['max_ratio'];
+    $where_clause[] = 'width/height <= '.sprintf('%.2f99', $_SESSION['bulk_manager_filter']['dimension']['max_ratio']);
   }
   
   $query = '
@@ -441,24 +441,99 @@ $template->assign('tags', get_taglist($query, false));
 // +-----------------------------------------------------------------------+
 // |                              dimensions                               |
 // +-----------------------------------------------------------------------+
+
+$widths = array();
+$heights = array();
+$ratios = array();
+
 $query = '
 SELECT
-    MIN(width) as min_width,
-    MAX(width) as max_width,
-    MIN(height) as min_height,
-    MAX(height) as max_height,
-    MIN(width/height) as min_ratio,
-    MAX(width/height) as max_ratio
+  DISTINCT width, height
   FROM '.IMAGES_TABLE.'
+  WHERE width IS NOT NULL
+    AND height IS NOT NULL
 ;';
+$result = pwg_query($query);
+while ($row = pwg_db_fetch_assoc($result))
+{
+  $widths[] = $row['width'];
+  $heights[] = $row['height'];
+  $ratios[] = floor($row['width'] * 100 / $row['height']) / 100;
+}
+
+$widths = array_unique($widths);
+sort($widths);
+
+$heights = array_unique($heights);
+sort($heights);
+
+$ratios = array_unique($ratios);
+sort($ratios);
+
+$dimensions['widths'] = implode(',', $widths);
+$dimensions['heights'] = implode(',', $heights);
+$dimensions['ratios'] = implode(',', $ratios);
+
 $dimensions['bounds'] = pwg_db_fetch_assoc(pwg_query($query));
-$dimensions['bounds']['min_ratio'] = floor($dimensions['bounds']['min_ratio']*100)/100;
-$dimensions['bounds']['max_ratio'] = ceil($dimensions['bounds']['max_ratio']*100)/100;
+
+$dimensions['bounds'] = array(
+  'min_width' => $widths[0],
+  'max_width' => $widths[count($widths)-1],
+  'min_height' => $heights[0],
+  'max_height' => $heights[count($heights)-1],
+  'min_ratio' => $ratios[0],
+  'max_ratio' => $ratios[count($ratios)-1],
+  );
+
+$ratio_categories = array(
+  'portrait' => array(),
+  'square' => array(),
+  'landscape' => array(),
+  'panorama' => array(),
+  );
+
+foreach ($ratios as $ratio)
+{
+  if ($ratio < 0.95)
+  {
+    $ratio_categories['portrait'][] = $ratio;
+  }
+
+  if ($ratio >= 0.95 and $ratio < 1.05)
+  {
+    $ratio_categories['square'][] = $ratio;
+  }
+
+  if ($ratio > 1.05 and $ratio <= 2.5)
+  {
+    $ratio_categories['landscape'][] = $ratio;
+  }
+
+  if ($ratio > 2.5)
+  {
+    $ratio_categories['panorama'][] = $ratio;
+  }
+}
+
+foreach (array_keys($ratio_categories) as $ratio_category)
+{
+  if (count($ratio_categories[$ratio_category]) > 0)
+  {
+    $dimensions['ratio_'.$ratio_category] = array(
+      'min' => $ratio_categories[$ratio_category][0],
+      'max' => $ratio_categories[$ratio_category][count($ratio_categories[$ratio_category]) - 1]
+      );
+  }
+}
 
 foreach (array_keys($dimensions['bounds']) as $type)
 {
-  $dimensions['selected'][$type] = isset($_SESSION['bulk_manager_filter']['dimension'][$type]) ? $_SESSION['bulk_manager_filter']['dimension'][$type] : $dimensions['bounds'][$type];
+  $dimensions['selected'][$type] = isset($_SESSION['bulk_manager_filter']['dimension'][$type])
+    ? $_SESSION['bulk_manager_filter']['dimension'][$type]
+    : $dimensions['bounds'][$type]
+  ;
 }
+
 $template->assign('dimensions', $dimensions);
 
 

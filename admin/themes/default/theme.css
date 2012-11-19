@@ -969,6 +969,9 @@ LEGEND {
 #batchManagerGlobal #applyFilterBlock {margin-top:20px;}
 #batchManagerGlobal .useFilterCheckbox {display:none;}
 
+#batchManagerGlobal #filter_dimension blockquote {margin:5px 0 20px 15px;}
+#batchManagerGlobal #filter_dimension .ui-slider-horizontal {width:650px;margin:5px 0 10px 0;}
+
 
 /* TokenInput (with Facebook style) */
 ul.token-input-list {overflow: hidden; height: auto !important; height: 1%;width: 400px;border: 1px solid #8496ba;cursor: text;font-size: 12px;font-family: Verdana;min-height: 1px;z-index: 999;margin: 0;padding: 0;background-color: #fff;list-style-type: none;clear: left;}

@@ -229,9 +229,14 @@ body .ui-resizable-autohide .ui-resizable-handle { display: none; } /* use 'body
 #ui-datepicker-div .ui-datepicker-days-cell { background-color:#bbb; border:1px solid #ddd; border-top-color: #bbb; border-left-color: #bbb;}
 img.ui-datepicker-trigger{margin:-2px 10px 1px -2px;}
 
-.ui-slider { background:#ddd;border-radius:2px;border:1px solid #999; }
-.ui-slider .ui-slider-handle { border:1px solid #005e89;background:#fff;border-radius:0.6em; }
-.ui-slider .ui-slider-range { background:#999;border-radius:2px; }
+.ui-slider { background:#fff;border-radius:2px;border:none; }
+.ui-slider .ui-slider-range { background:#aaa;border-radius:2px; }
+
+.ui-slider .ui-slider-handle {
+    background-color: #eee;
+    border: 1px solid #aaa;
+    border-radius: 3px;
+}
 
 INPUT[type="text"].large  { width: 317px; }
 
@@ -282,6 +287,7 @@ UL.thumbnails li.rank-of-image {background-color: #ddd;}
 
 #batchManagerGlobal .thumbSelected {background-color:#C2F5C2 !important}
 #batchManagerGlobal #selectedMessage {background-color:#C2F5C2;}
+#filter_dimension_width_info, #filter_dimension_height_info, #filter_dimension_ratio_info {color:#ff7700;font-weight:bold;}
 
 .selectedComment {background-color:#C2F5C2;}
 
