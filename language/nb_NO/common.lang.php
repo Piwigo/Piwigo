@@ -410,4 +410,6 @@ $lang['Requested tag does not exist'] = 'Forespurt tag finnes ikke';
 $lang['Email address is mandatory'] = 'Emailadresse er obligatorisk';
 $lang['Username is mandatory'] = 'Brukernavn er obligatorisk';
 $lang['mandatory'] = 'obligatorisk';
+$lang['Website'] = 'Nettside';
+$lang['Your website URL is invalid'] = 'Adressen til nettsiden er feil';
 ?>
