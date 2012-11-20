@@ -923,4 +923,7 @@ $lang['Number of albums per page'] = 'Albumeid lehekülje kohta';
 $lang['Panorama'] = 'Panoraama';
 $lang['Portrait'] = 'Portree';
 $lang['View in gallery'] = 'Vaata galeriis';
+$lang['Ratio'] = 'Suhe';
+$lang['Operation in progress'] = 'Kohandusi viiakse läbi.
+';
 ?>
