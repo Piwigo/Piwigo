@@ -434,4 +434,9 @@ $lang['useful when password forgotten'] = 'abiks juhul kui unustad parooli';
 $lang['xlarge'] = 'XL — väga suur';
 $lang['xsmall'] = 'XS — väga väike';
 $lang['xxlarge'] = 'XXL — hiigelsuur';
+$lang['Email address is mandatory'] = 'E-posti aadress on kohustuslik';
+$lang['Username is mandatory'] = 'Kasutajanimi on kohustuslik';
+$lang['Website'] = 'Veebileht';
+$lang['Your website URL is invalid'] = 'Antud veebilehe aadress on vigane';
+$lang['mandatory'] = 'kohustuslik';
 ?>
