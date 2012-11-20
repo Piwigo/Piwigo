@@ -410,4 +410,6 @@ $lang['Requested tag does not exist'] = 'Talep edilen etiket yok';
 $lang['Email address is mandatory'] = 'e-Posta adresi mecburidir';
 $lang['Username is mandatory'] = 'Kullanıcı adı mecburidir';
 $lang['mandatory'] = 'mecburi';
+$lang['Website'] = 'Website';
+$lang['Your website URL is invalid'] = 'Website bağlantınız hatalı';
 ?>
