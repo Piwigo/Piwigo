@@ -413,4 +413,6 @@ $lang['Requested tag does not exist'] = '标签不存在';
 $lang['Email address is mandatory'] = '必须输入邮件地址';
 $lang['Username is mandatory'] = '必须输入用户名';
 $lang['mandatory'] = '必填';
+$lang['Website'] = '网站';
+$lang['Your website URL is invalid'] = '你的网站地址无效';
 ?>
