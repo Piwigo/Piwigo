@@ -417,4 +417,6 @@ $lang['Requested tag does not exist'] = 'Požadovaná visačka neexistuje';
 $lang['Email address is mandatory'] = 'Emailová adresa je povinná';
 $lang['Username is mandatory'] = 'Uživatelské jméno je povinné';
 $lang['mandatory'] = 'povinné';
+$lang['Website'] = 'Webová stránka';
+$lang['Your website URL is invalid'] = 'URL vaší stránky je neplatné';
 ?>
