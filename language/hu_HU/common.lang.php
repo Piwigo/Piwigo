@@ -415,4 +415,6 @@ $lang['Requested tag does not exist'] = 'A kért címke nem létezik';
 $lang['Email address is mandatory'] = 'E-mail cím szükséges';
 $lang['Username is mandatory'] = 'Felhasználónév szükséges';
 $lang['mandatory'] = 'szükséges';
+$lang['Website'] = 'Weboldal';
+$lang['Your website URL is invalid'] = 'A weboldal URL érvénytelen';
 ?>
