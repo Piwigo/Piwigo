@@ -941,4 +941,6 @@ $lang['Number of albums per page'] = 'Počet albumov na stránku';
 $lang['Ratio'] = 'Hodnotenie';
 $lang['Minimum'] = 'Minimum';
 $lang['Maximum'] = 'Maximum';
+$lang['between %.2f and %.2f'] = 'medzi %.2f and %.2f';
+$lang['between %d and %d pixels'] = 'medzi %d and %d pixelmi';
 ?>
