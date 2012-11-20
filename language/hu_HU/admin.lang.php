@@ -941,4 +941,6 @@ $lang['Number of albums per page'] = 'Albumok száma oldalanként';
 $lang['Maximum'] = 'Maximum';
 $lang['Minimum'] = 'Minimum';
 $lang['Ratio'] = 'Arány';
+$lang['between %.2f and %.2f'] = '%.2f és %.2f között';
+$lang['between %d and %d pixels'] = '%d és %d pixel között';
 ?>
