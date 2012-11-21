@@ -370,7 +370,8 @@ if (isset($_SESSION['bulk_manager_filter']['dimension']))
   }
   if (isset($_SESSION['bulk_manager_filter']['dimension']['max_ratio']))
   {
-    $where_clause[] = 'width/height <= '.sprintf('%.2f99', $_SESSION['bulk_manager_filter']['dimension']['max_ratio']);
+    // max_ratio is a floor value, so must be a bit increased
+    $where_clause[] = 'width/height < '.($_SESSION['bulk_manager_filter']['dimension']['max_ratio']+0.01);
   }
   
   $query = '
@@ -446,6 +447,7 @@ $widths = array();
 $heights = array();
 $ratios = array();
 
+// get all width, height and ratios
 $query = '
 SELECT
   DISTINCT width, height
@@ -454,6 +456,7 @@ SELECT
     AND height IS NOT NULL
 ;';
 $result = pwg_query($query);
+
 while ($row = pwg_db_fetch_assoc($result))
 {
   $widths[] = $row['width'];
@@ -474,8 +477,6 @@ $dimensions['widths'] = implode(',', $widths);
 $dimensions['heights'] = implode(',', $heights);
 $dimensions['ratios'] = implode(',', $ratios);
 
-$dimensions['bounds'] = pwg_db_fetch_assoc(pwg_query($query));
-
 $dimensions['bounds'] = array(
   'min_width' => $widths[0],
   'max_width' => $widths[count($widths)-1],
@@ -485,6 +486,7 @@ $dimensions['bounds'] = array(
   'max_ratio' => $ratios[count($ratios)-1],
   );
 
+// find ratio categories
 $ratio_categories = array(
   'portrait' => array(),
   'square' => array(),
@@ -498,18 +500,15 @@ foreach ($ratios as $ratio)
   {
     $ratio_categories['portrait'][] = $ratio;
   }
-
-  if ($ratio >= 0.95 and $ratio < 1.05)
+  else if ($ratio >= 0.95 and $ratio <= 1.05)
   {
     $ratio_categories['square'][] = $ratio;
   }
-
-  if ($ratio > 1.05 and $ratio <= 2.5)
+  else if ($ratio > 1.05 and $ratio < 2)
   {
     $ratio_categories['landscape'][] = $ratio;
   }
-
-  if ($ratio > 2.5)
+  else if ($ratio >= 2)
   {
     $ratio_categories['panorama'][] = $ratio;
   }
@@ -526,6 +525,7 @@ foreach (array_keys($ratio_categories) as $ratio_category)
   }
 }
 
+// selected=bound if nothing selected
 foreach (array_keys($dimensions['bounds']) as $type)
 {
   $dimensions['selected'][$type] = isset($_SESSION['bulk_manager_filter']['dimension'][$type])
