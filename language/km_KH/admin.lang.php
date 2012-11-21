@@ -190,4 +190,23 @@ $lang['Apply action'] = 'ដំណើរ​ការ​សកម្មភាព�
 $lang['Apply selected corrections'] = 'ដំណើរ​ការ​កំណែរ​ប្រែ​ដែល​បាន​ជ្រើស​រើស​';
 $lang['Apply to sub-albums'] = 'ដំណើរ​​ការ​ទៅ​កាន់​សៀវ​ភៅ​រូប​ថត​រង​';
 
+$lang['<em>Piwigo for Android</em> application empowers you to connect your Android phone or table to your Piwigo gallery, create some albums and upload several photos at once.'] = '<em>Piwigo សំរាប់​ Android</em> ធ្វើ​ឲ្យលោក​អ្នក​អាច​ភ្ជាប់​ទូរស័ព្វ​ Android របស់​អ្នក ឬ​ក៏ Table ទៅកាន់​ Piwigo gallery របស់​អ្នក​​ ដែលលោក​​អ្នក​អាច​បង្កើត​សៀវភៅ​រូប​ថត ហើយ​ ដាក់បញ្ចូល​នូវ​រូប​ថត​ជា​ច្រើន​ក្នុង​ពេល​តែ​មួយ។';
+$lang['<em>Piwigo for iOS</em> application empowers you to connect to your Piwigo gallery from your iPhone, iPad or iPod Touch, create some albums and upload several photos at once.'] = '<em>Piwigo សំរាប់​ iOS</em> ធ្វើ​ឲ្យលោក​​អ្នក​អាច​ភ្ជាប់ទៅកាន់​ Piwigo gallery របស់​អ្នក​ពី​ទូរស័ព្វ iPhone, iPad ឬ iPod Touch របស់​អ្នក ដែលលោក​អ្នក​អាច​បង្កើត​សៀវភៅ​រូប​ថត ហើយ​ ដាក់បញ្ចូល​នូវ​រូប​ថត​ជា​ច្រើន​ក្នុង​ពេល​តែ​មួយ។';
+$lang['%d day'] = '%d ថ្ងៃ';
+$lang['%d days'] = '%d ថ្ងៃ';
+$lang['%d hour'] = '%d ម៉ោង';
+$lang['%d hours'] = '%d ម៉ោង';
+$lang['%d minute'] = '%d នាទី';
+$lang['%d minutes'] = '%d នាទី';
+$lang['%d month'] = '%d ខែ';
+$lang['%d months'] = '%d ខែ';
+$lang['%d second'] = '%d វិនាទី';
+$lang['%d seconds'] = '%d វិនាទី';
+$lang['%d week'] = '%d សប្តាហ៍';
+$lang['%d weeks'] = '%d សប្តាហ៍';
+$lang['%d year'] = '%d ឆ្នាំ';
+$lang['%d years'] = '%d ឆ្នាំ';
+$lang['%s ago'] = '%s កន្លងទៅ';
+$lang['%s in the future'] = '%s ក្នុង​ពេល​ខាងមុខ';
+$lang['%u users have automatic permission because they belong to a granted group.'] = '%u អ្នកប្រើប្រាស់​ទាំងនេះ​មានការអនុញ្ញាត​ដោយ​ស្វ័យ​ប្រវត្តិ​ ពីព្រោះ​ពួកគេ​ស្ថិត​ក្នុង​ក្រុម​ដែល​បាន​ផ្តល់​សិទ្ធអនុញ្ញាត​រួច​ហើយ។';
 ?>
