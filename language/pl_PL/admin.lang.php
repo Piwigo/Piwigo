@@ -938,4 +938,6 @@ $lang['View in gallery'] = 'Obejrzyj w galerii';
 $lang['Maximum'] = 'Maksimum';
 $lang['Minimum'] = 'Minimum';
 $lang['Ratio'] = 'Proporcje';
+$lang['between %d and %d pixels'] = 'pomiędzy %d i %d pikseli';
+$lang['between %.2f and %.2f'] = 'pomiędzy %.2f i %.2f';
 ?>
