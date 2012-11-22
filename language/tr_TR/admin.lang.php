@@ -935,4 +935,6 @@ $lang['View in gallery'] = 'Galeride göster';
 $lang['Maximum'] = 'En çok';
 $lang['Minimum'] = 'En az';
 $lang['Ratio'] = 'Oran';
+$lang['between %.2f and %.2f'] = '%.2f ve %.2f arasında';
+$lang['between %d and %d pixels'] = '%d ve %d piksel arasında';
 ?>
