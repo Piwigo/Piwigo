@@ -410,4 +410,6 @@ $lang['Piwigo encountered a non recoverable error'] = 'Piwigo зіткнувся
 $lang['Email address is mandatory'] = 'Адреса електронної пошти обов\'язкова';
 $lang['Username is mandatory'] = 'Ім\'я користувача є обов\'язковим';
 $lang['mandatory'] = 'обов\'язковий';
+$lang['Website'] = 'Веб-сайт';
+$lang['Your website URL is invalid'] = 'Адрес вашого сайту є недійсним';
 ?>
