@@ -411,4 +411,6 @@ $lang['Requested tag does not exist'] = 'Η ζητούμενη ετικετα δ
 $lang['mandatory'] = 'υποχρεωτικό';
 $lang['Username is mandatory'] = 'Το όνομα χρήστη είναι υποχρεωτικό';
 $lang['Email address is mandatory'] = 'Η διεύθυνση ηλεκτρονικού ταχυδρομείου είναι υποχρεωτική';
+$lang['Your website URL is invalid'] = 'Το URL της ιστοσελίδας δεν είναι έγκυρο';
+$lang['Website'] = 'Ιστοσελίδα';
 ?>
