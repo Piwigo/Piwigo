@@ -935,4 +935,6 @@ $lang['Manage photos'] = 'Pārvaldīt fotogrāfijas';
 $lang['Ratio'] = 'Attiecība';
 $lang['Minimum'] = 'Minimums';
 $lang['Maximum'] = 'Maksimums';
+$lang['between %d and %d pixels'] = 'starp %d un %d pikseļiem';
+$lang['between %.2f and %.2f'] = 'starp %.2f un %.2f';
 ?>
