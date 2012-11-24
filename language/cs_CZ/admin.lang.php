@@ -942,4 +942,7 @@ $lang['Number of albums per page'] = 'Počet alb na stránku';
 $lang['Panorama'] = 'Panorama';
 $lang['Portrait'] = 'Na výšku';
 $lang['View in gallery'] = 'Zobrazit v galerii';
+$lang['Ratio'] = 'Poměr';
+$lang['between %.2f and %.2f'] = 'mezi %.2f a %.2f';
+$lang['between %d and %d pixels'] = 'mezi %d a %d pixely';
 ?>
