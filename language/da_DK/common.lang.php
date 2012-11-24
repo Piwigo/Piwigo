@@ -413,4 +413,6 @@ $lang['day']['1'] = 'Mandag';
 $lang['Email address is mandatory'] = 'E-mail-adresse er krævet';
 $lang['Username is mandatory'] = 'Brugernavn er krævet';
 $lang['mandatory'] = 'krævet';
+$lang['Website'] = 'Websted';
+$lang['Your website URL is invalid'] = 'Dit websteds URL er ugyldig';
 ?>
