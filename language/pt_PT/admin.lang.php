@@ -934,4 +934,7 @@ $lang['Number of albums per page'] = 'Número de albuns por página';
 $lang['Panorama'] = 'Panorama';
 $lang['Portrait'] = 'retrato';
 $lang['View in gallery'] = 'Ver na galeria';
+$lang['Ratio'] = 'Rácio';
+$lang['between %.2f and %.2f'] = 'entre %.2f e %.2f';
+$lang['between %d and %d pixels'] = 'entre %d e %d pixels';
 ?>
