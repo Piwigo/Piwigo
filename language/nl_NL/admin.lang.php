@@ -939,4 +939,6 @@ $lang['Minimum width'] = 'Minimum breedte';
 $lang['Number of albums per page'] = 'Aantal albums per pagina';
 $lang['Panorama'] = 'Panorama';
 $lang['Portrait'] = 'Portret';
+$lang['between %.2f and %.2f'] = 'tussen %.2f en %.2f';
+$lang['between %d and %d pixels'] = 'tussen %d en %d pixels';
 ?>
