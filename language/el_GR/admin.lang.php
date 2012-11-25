@@ -942,4 +942,6 @@ $lang['Number of albums per page'] = 'Αριθμός λευκωμάτων ανά
 $lang['Ratio'] = 'Αναλογία';
 $lang['Minimum'] = 'Ελάχιστο';
 $lang['Maximum'] = 'Μέγιστο';
+$lang['between %d and %d pixels'] = 'μεταξύ %d και %d πίξελ';
+$lang['between %.2f and %.2f'] = 'μεταξύ %.2f και %.2f';
 ?>
