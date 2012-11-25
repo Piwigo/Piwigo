@@ -82,7 +82,7 @@ if (isset($_GET['processed']))
           );
 
         define('PCLZIP_TEMPORARY_DIR', $upload_dir.'/');
-        include(PHPWG_ROOT_PATH.'admin/include/pclzip.lib.php');
+        include_once(PHPWG_ROOT_PATH.'admin/include/pclzip.lib.php');
         $zip = new PclZip($archive_path);
         if ($list = $zip->listContent())
         {
