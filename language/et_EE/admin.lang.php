@@ -926,4 +926,18 @@ $lang['View in gallery'] = 'Vaata galeriis';
 $lang['Ratio'] = 'Suhe';
 $lang['Operation in progress'] = 'Kohandusi viiakse läbi.
 ';
+$lang['Keep in touch with Piwigo project, subscribe to Piwigo Announcement Newsletter. You will receive emails when a new release is available (sometimes including a security bug fix, it\'s important to know and upgrade) and when major events happen to the project. Only a few emails a year.'] = 'Hoia end Piwigo projektiga kursis! Telli Piwigo teadaannete infolehte. Sulle saadetakse meilile teadaanne kui uus Piwigo väljalase on saadaval (teinekord teavitatakse tähtsatest turvaparandustest) või muu suur sündmus toimub. Ainult paar infolehte aastas.';
+$lang['ReGalAndroid (RemoteGallery client for Android) is an open source (GPL v3) Piwigo client for the Android platform.'] = 'ReGalAndroid (RemoteGallery client for Android) on vaba tarkvara litsentsiga (GPL v3) Piwigo klient Android süsteemile.';
+$lang['Prepared time for list of users to send mail is limited. Others users are not listed.'] = 'Teavitusmeilide saatmise aeg on piiratud. Ainult saadetud kasutajad loetletakse.';
+$lang['reduce to single existing albums'] = 'kahanda ainult olemasolevateks albumiteks';
+$lang['iPhoto is the default photo manager on MacOSX. The Piwigo export plugin let you create new albums and export your photos directly from iPhoto to your Piwigo photo gallery.'] = 'iPhoto on MacOSX-i vaikimisi fotohaldur. Piwigo eksport plugin võimaldab sul luua uusi albumeid ja laadida üles oma fotod otse iPhotost.';
+$lang['digiKam is designed for photographers who want to view, manage, edit, enhance, organize, tag, and share photographs.'] = 'digiKam on mõeldud fotograafidele, kes tahavad vaadata, hallata, töödelda, toimetada, parandada, organiseerida ning jagada oma pilte.';
+$lang['digiKam is an advanced digital photo management free software for Linux, Windows, and MacOSX.'] = 'digiKam on vaba tarkvaraline rakendus digipiltide haldamiseks, saadaval nii GNU/Linuxile, Windowsile kui ka MacOSX-ile.';
+$lang['You need to upgrade your system to take full advantage of the application else the application will not work correctly, or not at all'] = 'Uuendamine on soovitatud rakendusest parima saamiseks';
+$lang['Toggle \'default group\' property'] = 'Pööra \'default group\' omadus ümber';
+$lang['To export your photos from digiKam to Piwigo, simply install digiKam and the Kipi-plugins.'] = 'Võimaldada lihtsat eksportimist digiKamist Piwigosse, paigalda laiendused digiKam ja Kipi-plugins.';
+$lang['Subscribers could be listed (available) only if there is new elements to notify.'] = 'Tellijate loetelu on võimalik ainult siis, kui on uusi teavitusi. ';
+$lang['Replacement of original templates by customized templates from template-extension subfolder'] = 'Asenda originaalšabloonid kohandatud šablooniga (template-extension kaustast)';
+$lang['between %.2f and %.2f'] = '%.2f ja %.2f vahel';
+$lang['between %d and %d pixels'] = '%d ja %d pikslite vahel';
 ?>
