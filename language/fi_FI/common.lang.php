@@ -413,4 +413,6 @@ $lang['Requested tag does not exist'] = 'Pyydettyä tagia ei ole';
 $lang['Email address is mandatory'] = 'Sähköpostiosoite on pakollinen';
 $lang['Username is mandatory'] = 'Käyttäjätunnus on pakollinen';
 $lang['mandatory'] = 'pakollinen';
+$lang['Your website URL is invalid'] = 'Sivustosi URL osoite on virheellinen';
+$lang['Website'] = 'Verkkosivusto';
 ?>
