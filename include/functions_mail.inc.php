@@ -63,11 +63,17 @@ function get_mail_sender_name()
 /*
  * Returns an array of mail configuration parameters :
  *
- * - mail_options: see $conf['mail_options']
- * - send_bcc_mail_webmaster: see $conf['send_bcc_mail_webmaster']
- * - email_webmaster: mail corresponding to $conf['webmaster_id']
- * - formated_email_webmaster: the name of webmaster is $conf['gallery_title']
- * - text_footer: Piwigo and version
+ * - mail_options
+ * - send_bcc_mail_webmaster
+ * - default_email_format
+ * - alternative_email_format
+ * - use_smtp
+ * - smtp_host
+ * - smtp_user
+ * - smtp_password
+ * - boundary_key
+ * - email_webmaster
+ * - formated_email_webmaster
  *
  * @return array
  */
@@ -83,7 +89,8 @@ function get_mail_configuration()
     'use_smtp' => !empty($conf['smtp_host']),
     'smtp_host' => $conf['smtp_host'],
     'smtp_user' => $conf['smtp_user'],
-    'smtp_password' => $conf['smtp_password']
+    'smtp_password' => $conf['smtp_password'],
+    'boundary_key' => generate_key(32),
     );
 
   // we have webmaster id among user list, what's his email address ?
@@ -92,8 +99,6 @@ function get_mail_configuration()
   // name of the webmaster is the title of the gallery
   $conf_mail['formated_email_webmaster'] =
     format_email(get_mail_sender_name(), $conf_mail['email_webmaster']);
-
-  $conf_mail['boundary_key'] = generate_key(32);
 
   return $conf_mail;
 }
@@ -147,18 +152,15 @@ function get_strict_email_list($email_list)
     $result[] = trim($email);
   }
 
-  return implode(',', $result);
+  return implode(',', array_unique($result));
 }
 
 
 /**
  * Return an new mail template
  *
- * @params:
- *   - email_format: mail format
- *   - args: function params of mail function:
- *       o template: template to use [default get_default_theme()]
- *       o theme: template to use [default get_default_theme()]
+ * @param string email_format: mail format, text/html or text/plain
+ * @param string theme: theme to use [default get_default_theme()]
  */
 function & get_mail_template($email_format, $theme='')
 {
@@ -173,7 +175,7 @@ function & get_mail_template($email_format, $theme='')
 }
 
 /**
- * Return string email format (html or not)
+ * Return string email format (text/html or text/plain)
  *
  * @param string format
  */
@@ -274,6 +276,7 @@ function switch_lang_back()
  * @param:
  *   - keyargs_subject: mail subject on l10n_args format
  *   - keyargs_content: mail content on l10n_args format
+ *   - send_technical_details: send user IP and browser
  *
  * @return boolean (Ok or not)
  */
@@ -317,17 +320,17 @@ SELECT
 
   if (count($admins) > 0)
   {
-    $keyargs_content_admin_info = array(
-      get_l10n_args('Connected user: %s', stripslashes($user['username'])),
-      get_l10n_args('IP: %s', $_SERVER['REMOTE_ADDR']),
-      get_l10n_args('Browser: %s', $_SERVER['HTTP_USER_AGENT'])
-      );
-
     switch_lang_to(get_default_language());
 
     $content = l10n_args($keyargs_content)."\n";
     if ($send_technical_details)
     {
+      $keyargs_content_admin_info = array(
+        get_l10n_args('Connected user: %s', stripslashes($user['username'])),
+        get_l10n_args('IP: %s', $_SERVER['REMOTE_ADDR']),
+        get_l10n_args('Browser: %s', $_SERVER['HTTP_USER_AGENT'])
+        );
+      
       $content.= "\n".l10n_args($keyargs_content_admin_info)."\n";
     }
 
@@ -354,7 +357,6 @@ SELECT
  *   - group_id: mail are sent to group with this Id
  *   - email_format: mail format
  *   - keyargs_subject: mail subject on l10n_args format
- *   - dirname: short name of directory including template
  *   - tpl_shortname: short template name without extension
  *   - assign_vars: array used to assign_vars to mail template
  *   - language_selected: send mail only to user with this selected language

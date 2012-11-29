@@ -902,8 +902,7 @@ function l10n_dec($singular_fmt_key, $plural_fmt_key, $decimal)
  * returns a single element to use with l10n_args
  *
  * @param string key: translation key
- * @param array/string/../number args:
- *   arguments to use on sprintf($key, args)
+ * @param mixed args: arguments to use on sprintf($key, args)
  *   if args is a array, each values are used on sprintf
  * @return string
  */
@@ -921,11 +920,10 @@ function get_l10n_args($key, $args)
 }
 
 /*
- * returns a string with formated with l10n_args elements
+ * returns a string formated with l10n elements
  *
- * @param element/array $key_args: element or array of l10n_args elements
- * @param $sep: if $key_args is array,
- *   separator is used when translated l10n_args elements are concated
+ * @param array $key_args: l10n_args element or array of l10n_args elements
+ * @param string $sep: used when translated elements are concatened
  * @return string
  */
 function l10n_args($key_args, $sep = "\n")
@@ -945,7 +943,7 @@ function l10n_args($key_args, $sep = "\n")
 
       if ($key === 'key_args')
       {
-        array_unshift($element, l10n(array_shift($element)));
+        array_unshift($element, l10n(array_shift($element))); // translate the key
         $result .= call_user_func_array('sprintf', $element);
       }
       else
