@@ -16,7 +16,7 @@
 <meta name="description" content="{$PAGE_TITLE}{if isset($INFO_FILE)} - {$INFO_FILE}{/if}">
 {/if}
 {/if}
-<title>{$PAGE_TITLE}{if $PAGE_TITLE!=$GALLERY_TITLE} | {$GALLERY_TITLE}{/if}</title>
+<title>{if $PAGE_TITLE!=l10n('Home') && $PAGE_TITLE!=$GALLERY_TITLE}{$PAGE_TITLE} | {/if}{$GALLERY_TITLE}</title>
 <link rel="shortcut icon" type="image/x-icon" href="{$ROOT_URL}{$themeconf.icon_dir}/favicon.ico">
 
 <link rel="start" title="{'Home'|@translate}" href="{$U_HOME}" >

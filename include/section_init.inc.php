@@ -567,15 +567,13 @@ if (isset($page['title']))
   {
     if ('picture'==script_basename())
     {
-      $used_title = l10n('Home');
       $used_link = duplicate_index_url(array('start'=>0));
     }
     else
     {
-      $used_title = ('categories'==$page['section'] && !isset($page['category']) && !isset($page['chronology_field']) ) ? $conf['gallery_title'] : l10n('Home');
       $used_link = get_gallery_home_url();
     }
-    $page['section_title'] = $page['title'] = '<a href="'.$used_link.'">'.$used_title.'</a>';
+    $page['section_title'] = $page['title'] = '<a href="'.$used_link.'">'.l10n('Home').'</a>';
   }
 }
 
