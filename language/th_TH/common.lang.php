@@ -411,4 +411,6 @@ $lang['xsmall'] = 'XS - เล็กพิเศษ';
 $lang['Email address is mandatory'] = 'จำเป็นต้องมีที่อยู่อีเมล์';
 $lang['Username is mandatory'] = 'จำเป็นต้องมีชื่อผู้ใช้งาน';
 $lang['mandatory'] = 'จำเป็น';
+$lang['Website'] = 'เว็บไซต์';
+$lang['Your website URL is invalid'] = 'ที่อยู่เว็บไซต์ของคุณไม่ถูกต้อง';
 ?>
