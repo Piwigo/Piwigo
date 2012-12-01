@@ -615,8 +615,8 @@ $lang['The uploaded file exceeds the upload_max_filesize directive in php.ini: %
 $lang['The uploaded file was only partially uploaded'] = 'ไฟล์ที่อัพโหลดได้ถูกอัพโหลดไปบางส่วน';
 $lang['The uploaded files exceed the post_max_size directive in php.ini: %sB'] = 'ไฟล์ที่จะอัพโหลดมีขนาดใหญ่เกินที่กำหนดไว้ในไฟล์การตั้งค่า php.ini: %sB';
 $lang['The version of %s [%s] installed is not compatible with the version required [%s]'] = "เวอร์ชั่นของ %s [%s] ที่ได้ติดตั้งไปไม่สามารถรองรับการทำงาน กับเวอร์ชั่นที่ต้องการ [%s]";
-$lang['The webmaster has subscribed you to receiving notifications by mail.'] = "เว็บมาสเตอร์ได้บอกรับคุณโดยการแจ้งผ่านเมล.";
-$lang['The webmaster has unsubscribed you from receiving notifications by mail.'] = "เว็บมาสเตอร์ได้ยกเลิกบอกรับคุณโดยการแจ้งผ่านเมล.";
+$lang['The webmaster has subscribed you to receiving notifications by mail.'] = 'เว็บมาสเตอร์ได้บอกรับคุณโดยการแจ้งผ่านเมล์.';
+$lang['The webmaster has unsubscribed you from receiving notifications by mail.'] = 'เว็บมาสเตอร์ได้ยกเลิกบอกรับคุณโดยการแจ้งผ่านเมล์.';
 $lang['The whole page'] = 'หน้าทั้งหมด';
 $lang['The whole set'] = 'ชุดการตั้งค่าทั้งหมด';
 $lang['the wiki'] = "วิกิ wiki";
@@ -940,4 +940,7 @@ $lang['The Piwigo export plugin allows you to create albums and export photos.']
 $lang['To export your photos from digiKam to Piwigo, simply install digiKam and the Kipi-plugins.'] = 'ส่งออกรูปภาพจาก digiKam ไปยัง แกลลอรี่ Piwigo, ง่ายในการติดตั้ง digiKam และ Kipi-plugin';
 $lang['The center of interest is the most meaningful zone in the photo.'] = 'ศูนย์กลางของความสนใจเป็นพื้นที่ที่มีความหมายมากที่สุดของภาพ';
 $lang['Shotwell is an open source digital photo organizer that runs on Linux. It is the default photo manager in Ubuntu and Fedora.'] = 'Shotwell คือซอฟต์แวร์เสรีเกี่ยวกับการจัดการรูปภาพที่รันบน ลีนุกซ์,โดยเริ่มต้นมันเป็นซอฟต์แวร์ที่จัดการรูปภาพบน Ubuntu และ Fedora';
+$lang['Ratio'] = 'อัตราส่วน';
+$lang['between %.2f and %.2f'] = 'ระหว่าง %.2f และ %.2f';
+$lang['between %d and %d pixels'] = 'ระหว่าง %d และ %d พิกเซล';
 ?>
