@@ -940,4 +940,6 @@ $lang['View in gallery'] = 'Смотреть в галерее';
 $lang['Maximum'] = 'максимально';
 $lang['Minimum'] = 'минимально';
 $lang['Ratio'] = 'способ';
+$lang['between %.2f and %.2f'] = 'между %.2f и %.2f';
+$lang['between %d and %d pixels'] = 'между %d и %d пикселями';
 ?>
