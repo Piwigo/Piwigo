@@ -37,50 +37,6 @@ if (!empty($_POST) or isset($_GET['delete']) or isset($_GET['toggle_is_default']
 {
   check_pwg_token();
 }
-
-// +-----------------------------------------------------------------------+
-// |                             delete a group                            |
-// +-----------------------------------------------------------------------+
-
-if (isset($_GET['delete']) and is_numeric($_GET['delete']))
-{
-  // destruction of the access linked to the group
-  $query = '
-DELETE
-  FROM '.GROUP_ACCESS_TABLE.'
-  WHERE group_id = '.$_GET['delete'].'
-;';
-  pwg_query($query);
-  
-  // destruction of the users links for this group
-  $query = '
-DELETE
-  FROM '.USER_GROUP_TABLE.'
-  WHERE group_id = '.$_GET['delete'].'
-;';
-  pwg_query($query);
-
-  $query = '
-SELECT name
-  FROM '.GROUPS_TABLE.'
-  WHERE id = '.$_GET['delete'].'
-;';
-  list($groupname) = pwg_db_fetch_row(pwg_query($query));
-  
-  // destruction of the group
-  $query = '
-DELETE
-  FROM '.GROUPS_TABLE.'
-  WHERE id = '.$_GET['delete'].'
-;';
-  pwg_query($query);
-
-  array_push(
-    $page['infos'],
-    sprintf(l10n('group "%s" deleted'), $groupname)
-    );
-}
-
 // +-----------------------------------------------------------------------+
 // |                              add a group                              |
 // +-----------------------------------------------------------------------+
@@ -124,32 +80,195 @@ INSERT INTO '.GROUPS_TABLE.'
 }
 
 // +-----------------------------------------------------------------------+
-// | toggle is default group property                                      |
+// |                             action send                               |
 // +-----------------------------------------------------------------------+
-
-if (isset($_GET['toggle_is_default']) and is_numeric($_GET['toggle_is_default']))
+if (isset($_POST['submit']) and isset($_POST['selectAction']) and isset($_POST['group_selection']))
 {
-  $query = '
-SELECT name, is_default
-  FROM '.GROUPS_TABLE.'
-  WHERE id = '.$_GET['toggle_is_default'].'
-;';
-  list($groupname, $is_default) = pwg_db_fetch_row(pwg_query($query));
+  // if the user tries to apply an action, it means that there is at least 1
+  // photo in the selection
+  $groups = $_POST['group_selection'];
+  if (count($groups) == 0)
+  {
+    array_push($page['errors'], l10n('Select at least one group'));
+  }
+
+  $action = $_POST['selectAction'];
+
+  // +
+  // |rename a group
+  // +
+
+  if ($action=="rename")
+  {
+    foreach($groups as $group)
+    {
+      if ( !empty($_POST['rename_'.$group.'']) )
+      {
+        $query = '
+        UPDATE '.GROUPS_TABLE.'
+        SET name = \''.$_POST['rename_'.$group.''].'\'
+        WHERE id = '.$group.'
+      ;';
+        pwg_query($query);
+      }
+    }
+  }
+
+  // +
+  // |delete a group
+  // +
+
+  if ($action=="delete" and $_POST['confirm_deletion'])
+  {
+    foreach($groups as $group)
+    {
+        // destruction of the access linked to the group
+      $query = '
+    DELETE
+      FROM '.GROUP_ACCESS_TABLE.'
+      WHERE group_id = '.$group.'
+    ;';
+      pwg_query($query);
+      
+      // destruction of the users links for this group
+      $query = '
+    DELETE
+      FROM '.USER_GROUP_TABLE.'
+      WHERE group_id = '.$group.'
+    ;';
+      pwg_query($query);
+    
+      $query = '
+    SELECT name
+      FROM '.GROUPS_TABLE.'
+      WHERE id = '.$group.'
+    ;';
+      list($groupname) = pwg_db_fetch_row(pwg_query($query));
+      
+      // destruction of the group
+      $query = '
+    DELETE
+      FROM '.GROUPS_TABLE.'
+      WHERE id = '.$group.'
+    ;';
+      pwg_query($query);
+    
+      array_push(
+        $page['infos'],
+        sprintf(l10n('group "%s" deleted'), $groupname)
+        );
+    }
+  }
+
+  // +
+  // |duplicate a group
+  // +
+
+  if ($action=="duplicate" )
+  {
+    foreach($groups as $group)
+    {
+      if ( empty($_POST['duplicate_'.$group.'']) )
+      {
+        break;
+      }
+      // is the group not already existing ?
+      $query = '
+  SELECT COUNT(*)
+    FROM '.GROUPS_TABLE.'
+    WHERE name = \''.pwg_db_real_escape_string($_POST['duplicate_'.$group.'']).'\'
+  ;';
+      list($count) = pwg_db_fetch_row(pwg_query($query));
+      if ($count != 0)
+      {
+        array_push($page['errors'], l10n('This name is already used by another group.'));
+        break;
+      }
+      // creating the group
+      $query = '
+  INSERT INTO '.GROUPS_TABLE.'
+    (name)
+    VALUES
+    (\''.pwg_db_real_escape_string($_POST['duplicate_'.$group.'']).'\')
+  ;';
+      pwg_query($query);
+      $query = '
+      SELECT id
+        FROM '.GROUPS_TABLE.'
+        WHERE name = \''.pwg_db_real_escape_string($_POST['duplicate_'.$group.'']).'\'
+      ;';
+      
+      list($groupid) = pwg_db_fetch_row(pwg_query($query));
+      $query = '
+    SELECT *
+      FROM '.GROUP_ACCESS_TABLE.'
+      WHERE group_id = '.$group.'
+    ;';
+      $grp_access = array();
+      $res=pwg_query($query);
+      while ($row = pwg_db_fetch_assoc($res))
+      {
+          $grp_access[] = array(
+            'cat_id' => $row['cat_id'],
+            'group_id' => $groupid
+          );
+      }
+      mass_inserts(GROUP_ACCESS_TABLE, array('group_id','cat_id'), $grp_access);
+
+      $query = '
+    SELECT *
+      FROM '.USER_GROUP_TABLE.'
+      WHERE group_id = '.$group.'
+    ;';
+      $usr_grp = array();
+      $res=pwg_query($query);
+      while ($row = pwg_db_fetch_assoc($res))
+      {
+          $usr_grp[] = array(
+            'user_id' => $row['user_id'],
+            'group_id' => $groupid
+          );
+      }
+      mass_inserts(USER_GROUP_TABLE, array('user_id','group_id'), $usr_grp);
   
-  // update of the group
-  $query = '
-UPDATE '.GROUPS_TABLE.'
-  SET is_default = \''.boolean_to_string(!get_boolean($is_default)).'\'
-  WHERE id = '.$_GET['toggle_is_default'].'
-;';
-  pwg_query($query);
+      array_push(
+        $page['infos'],
+        sprintf(l10n('group "%s" added'), $_POST['duplicate_'.$group.''])
+        );
+    }
+  }
 
-  array_push(
-    $page['infos'],
-    sprintf(l10n('group "%s" updated'), $groupname)
-    );
+
+  // +
+  // | toggle_default
+  // +
+  
+  if ($action=="toggle_default")
+  {
+    foreach($groups as $group)
+    {
+      $query = '
+    SELECT name, is_default
+      FROM '.GROUPS_TABLE.'
+      WHERE id = '.$group.'
+    ;';
+      list($groupname, $is_default) = pwg_db_fetch_row(pwg_query($query));
+      
+      // update of the group
+      $query = '
+    UPDATE '.GROUPS_TABLE.'
+      SET is_default = \''.boolean_to_string(!get_boolean($is_default)).'\'
+      WHERE id = '.$group.'
+    ;';
+      pwg_query($query);
+    
+      array_push(
+        $page['infos'],
+        sprintf(l10n('group "%s" updated'), $groupname)
+        );
+    }
+  }
 }
-
 // +-----------------------------------------------------------------------+
 // |                             template init                             |
 // +-----------------------------------------------------------------------+
@@ -194,7 +313,9 @@ SELECT COUNT(*)
     'groups',
     array(
       'NAME' => $row['name'],
+      'ID' => $row['id'],
       'IS_DEFAULT' => (get_boolean($row['is_default']) ? ' ['.l10n('default').']' : ''),
+      'NB_MEMBERS' => $counter,
       'MEMBERS' => l10n_dec('%d member', '%d members', $counter),
       'U_MEMBERS' => $members_url.$row['id'],
       'U_DELETE' => $del_url.$row['id'].'&amp;pwg_token='.get_pwg_token(),

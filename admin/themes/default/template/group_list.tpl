@@ -3,10 +3,10 @@
 $(document).ready(function() {
 
   $(".grp_action").hide();
-  $("input[name=group_selection]").click(function() {
+  $("input.group_selection").click(function() {
 
     var nbSelected = 0;
-    nbSelected = $("input[name=group_selection]").filter(':checked').length;
+    nbSelected = $("input.group_selection").filter(':checked').length;
 
     if (nbSelected == 0) {
       $("#permitAction").hide();
@@ -76,7 +76,7 @@ $(document).ready(function() {
     {if not empty($groups)}
     {foreach from=$groups item=group name=group_loop}
     <tr class="{if $smarty.foreach.group_loop.index is odd}row1{else}row2{/if}">
-      <td><input name="group_selection" type="checkbox" value="{$group.ID}"></td>
+      <td><input class="group_selection" name="group_selection[]" type="checkbox" value="{$group.ID}"></td>
       <td>{$group.NAME}<i><small>{$group.IS_DEFAULT}</small></i></td>
       <td><a href="{$group.U_MEMBERS}">{$group.MEMBERS}</a></td>
       <td style="text-align:center;">
@@ -96,8 +96,8 @@ $(document).ready(function() {
   
   <fieldset id="action">
     <legend>{'Action'|@translate}</legend>
-      <div id="forbidAction"{if count($selection) != 0} style="display:none"{/if}>{'No group selected, no action possible.'|@translate}</div>
-      <div id="permitAction"{if count($selection) == 0} style="display:none"{/if}>
+      <div id="forbidAction">{'No group selected, no action possible.'|@translate}</div>
+      <div id="permitAction" style="display:none">
 
         <select name="selectAction">
           <option value="-1">{'Choose an action'|@translate}</option>
