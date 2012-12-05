@@ -935,5 +935,14 @@ $lang['Duplicate selected tags'] = 'Dupliquer les mots clés sélectionnés';
 $lang['Name of the duplicate'] = 'Nom du duplicata';
 $lang['Source tag'] = 'Source du mot clé';
 $lang['Tag "%s" is now a duplicate of "%s"'] = 'Le mot clé "%s" est désormais une copie de "%s"';
-
+$lang['Manage the members'] = 'Gérer les membres';
+$lang['Type here the name of the new group'] = 'Inscrivez ici le nom du nouveau groupe';
+$lang['No group selected, no action possible.'] = 'Pas de groupes sélectionnés, pas d\'actions possibles.';
+$lang['Please select at least two groups'] = 'Merci de sélectionner au moins deux groupes';
+$lang['Duplicate'] = 'Dupliquer';
+$lang['Merge selected groups'] = 'Fusionner les groupes sélectionnés';
+$lang['This group will be set to default'] = "Ce groupe deviendra par défaut";
+$lang['This group will be unset to default'] = "Ce groupe ne sera plus par défaut";
+$lang['No members to manage'] = "Aucun membre à gérer";
+$lang['Rename'] = 'Renommer';
 ?>

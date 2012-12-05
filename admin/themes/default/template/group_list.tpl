@@ -96,7 +96,7 @@ $(document).ready(function() {
           <option value="merge">{'Merge selected groups'|@translate}</option>
           <option value="duplicate">{'Duplicate'|@translate}</option>
           <option value="manage_members">{'Manage the members'|@translate}</option>
-          <option value="manage_pemissions">{'Manage permissions'|@translate}</option>
+          <option value="manage_pemissions">{'Manage Permissions'|@translate}</option>
           <option value="toggle_default">{'Toggle \'default group\' property'|@translate}</option>
       {if !empty($element_set_groupe_plugins_actions)}
         {foreach from=$element_set_groupe_plugins_actions item=action}
@@ -158,7 +158,7 @@ $(document).ready(function() {
         {if not empty($groups)}
         {foreach from=$groups item=group}
         <p group_id="{$group.ID}" class="grp_action">
-          {$group.NAME} > <a href="{$group.U_PERM}" title="{'Permissions'|@translate}">{'Manage permissions'|@translate}</a>
+          {$group.NAME} > <a href="{$group.U_PERM}" title="{'Permissions'|@translate}">{'Manage Permissions'|@translate}</a>
         </p>
         {/foreach}
         {/if}

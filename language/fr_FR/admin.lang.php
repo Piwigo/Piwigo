@@ -939,4 +939,15 @@ $lang['Number of albums per page'] = 'Nombre d\'albums par page';
 $lang['Ratio'] = 'Ratio';
 $lang['between %d and %d pixels'] = 'entre %d et %d pixels';
 $lang['between %.2f and %.2f'] = 'entre %.2f et %.2f';
+$lang['Manage the members'] = 'Gérer les membres';
+$lang['Type here the name of the new group'] = 'Inscrivez ici le nom du nouveau groupe';
+$lang['No group selected, no action possible.'] = 'Pas de groupes sélectionnés, pas d\'actions possibles.';
+$lang['Please select at least two groups'] = 'Merci de sélectionner au moins deux groupes';
+$lang['Duplicate'] = 'Dupliquer';
+$lang['Merge selected groups'] = 'Fusionner les groupes sélectionnés';
+$lang['This group will be set to default'] = "Ce groupe deviendra par défaut";
+$lang['This group will be unset to default'] = "Ce groupe ne sera plus par défaut";
+$lang['No members to manage'] = "Aucun membre à gérer";
+$lang['Rename'] = 'Renommer';
+
 ?>
