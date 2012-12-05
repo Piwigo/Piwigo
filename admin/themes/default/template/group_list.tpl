@@ -71,24 +71,13 @@ $(document).ready(function() {
       <th></th>
       <th>{'Group name'|@translate}</th>
       <th>{'Members'|@translate}</th>
-      <th>{'Actions'|@translate}</th>
     </tr>
     {if not empty($groups)}
     {foreach from=$groups item=group name=group_loop}
     <tr class="{if $smarty.foreach.group_loop.index is odd}row1{else}row2{/if}">
       <td><input class="group_selection" name="group_selection[]" type="checkbox" value="{$group.ID}"></td>
       <td>{$group.NAME}<i><small>{$group.IS_DEFAULT}</small></i></td>
-      <td><a href="{$group.U_MEMBERS}">{$group.MEMBERS}</a></td>
-      <td style="text-align:center;">
-        <a href="{$group.U_PERM}">
-          <img src="{$ROOT_URL}{$themeconf.admin_icon_dir}/permissions.png" style="border:none" alt="{'Permissions'|@translate}" title="{'Permissions'|@translate}"></a>
-        <a href="{$group.U_DELETE}" onclick="return confirm('{'delete'|@translate|@escape:'javascript'}' 
-          + '\n\n' + '{'Are you sure?'|@translate|@escape:'javascript'}');">
-          <img src="{$ROOT_URL}{$themeconf.admin_icon_dir}/delete.png" style="border:none" alt="{'Delete'|@translate}" title="{'Delete'|@translate}"></a>
-        <a href="{$group.U_ISDEFAULT}" onclick="return confirm('{'Toggle \'default group\' property'|@translate|@escape:'javascript'}' 
-          +'\n\n' + '{'Are you sure?'|@translate|@escape:'javascript'}');">
-          <img src="{$ROOT_URL}{$themeconf.admin_icon_dir}/toggle_is_default_group.png" style="border:none" alt="{'Toggle \'default group\' property'|@translate}" title="{'Toggle \'default group\' property'|@translate}"></a>
-      </td>
+      <td>{if $group.MEMBERS>0}<a href="{$group.U_MEMBERS}" title="{'Manage the members'|@translate}">{$group.MEMBERS}</a><br>{$group.L_MEMBERS}{else}{$group.MEMBERS}{/if}</td>
     </tr>
     {/foreach}
     {/if}

@@ -118,7 +118,7 @@ if (isset($_POST['submit']) and isset($_POST['selectAction']) and isset($_POST['
   // |delete a group
   // +
 
-  if ($action=="delete" and $_POST['confirm_deletion'])
+  if ($action=="delete" and isset($_POST['confirm_deletion']) and $_POST['confirm_deletion'])
   {
     foreach($groups as $group)
     {
@@ -160,6 +160,88 @@ if (isset($_POST['submit']) and isset($_POST['selectAction']) and isset($_POST['
     }
   }
 
+  // +
+  // |merge groups into a new one
+  // +
+
+  if ($action=="merge" )
+  {
+    // is the group not already existing ?
+    $query = '
+SELECT COUNT(*)
+  FROM '.GROUPS_TABLE.'
+  WHERE name = \''.pwg_db_real_escape_string($_POST['merge']).'\'
+;';
+    list($count) = pwg_db_fetch_row(pwg_query($query));
+    if ($count != 0)
+    {
+      array_push($page['errors'], l10n('This name is already used by another group.'));
+    }
+    else
+    {
+      // creating the group
+      $query = '
+  INSERT INTO '.GROUPS_TABLE.'
+    (name)
+    VALUES
+    (\''.pwg_db_real_escape_string($_POST['merge']).'\')
+  ;';
+      pwg_query($query);
+      $query = '
+      SELECT id
+        FROM '.GROUPS_TABLE.'
+        WHERE name = \''.pwg_db_real_escape_string($_POST['merge']).'\'
+      ;';
+      list($groupid) = pwg_db_fetch_row(pwg_query($query));
+    }
+    $grp_access = array();
+    $usr_grp = array();
+    foreach($groups as $group)
+    {
+      $query = '
+    SELECT *
+      FROM '.GROUP_ACCESS_TABLE.'
+      WHERE group_id = '.$group.'
+    ;';
+      $res=pwg_query($query);
+      while ($row = pwg_db_fetch_assoc($res))
+      {
+        $new_grp_access= array(
+          'cat_id' => $row['cat_id'],
+          'group_id' => $groupid
+        );
+        if (!in_array($new_grp_access,$grp_access))
+        {
+          $grp_access[]=$new_grp_access;
+        }
+      }
+
+      $query = '
+    SELECT *
+      FROM '.USER_GROUP_TABLE.'
+      WHERE group_id = '.$group.'
+    ;';
+      $res=pwg_query($query);
+      while ($row = pwg_db_fetch_assoc($res))
+      {
+        $new_usr_grp= array(
+          'user_id' => $row['user_id'],
+          'group_id' => $groupid
+        );
+        if (!in_array($new_usr_grp,$usr_grp))
+        {
+          $usr_grp[]=$new_usr_grp;
+        }
+      }
+    }
+    mass_inserts(USER_GROUP_TABLE, array('user_id','group_id'), $usr_grp);
+    mass_inserts(GROUP_ACCESS_TABLE, array('group_id','cat_id'), $grp_access);
+    array_push(
+      $page['infos'],
+      sprintf(l10n('group "%s" added'), $_POST['merge'])
+      );
+  }
+  
   // +
   // |duplicate a group
   // +
@@ -303,20 +385,27 @@ $toggle_is_default_url     = $admin_url.'group_list&amp;toggle_is_default=';
 while ($row = pwg_db_fetch_assoc($result))
 {
   $query = '
-SELECT COUNT(*)
-  FROM '.USER_GROUP_TABLE.'
-  WHERE group_id = '.$row['id'].'
+SELECT username
+  FROM '.USERS_TABLE.' AS u
+  INNER JOIN '.USER_GROUP_TABLE.' AS ug
+    ON u.'.$conf['user_fields']['id'].' = ug.user_id
+  WHERE ug.group_id = '.$row['id'].'
 ;';
-  list($counter) = pwg_db_fetch_row(pwg_query($query));
-  
+  $members=array();
+  $res=pwg_query($query);
+  while ($us= pwg_db_fetch_assoc($res))
+  {
+    $members[]=$us['username'];
+  }
   $template->append(
     'groups',
     array(
       'NAME' => $row['name'],
       'ID' => $row['id'],
       'IS_DEFAULT' => (get_boolean($row['is_default']) ? ' ['.l10n('default').']' : ''),
-      'NB_MEMBERS' => $counter,
-      'MEMBERS' => l10n_dec('%d member', '%d members', $counter),
+      'NB_MEMBERS' => count($members),
+      'L_MEMBERS' => implode(' - ', $members),
+      'MEMBERS' => l10n_dec('%d member', '%d members', count($members)),
       'U_MEMBERS' => $members_url.$row['id'],
       'U_DELETE' => $del_url.$row['id'].'&amp;pwg_token='.get_pwg_token(),
       'U_PERM' => $perm_url.$row['id'],
