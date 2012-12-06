@@ -299,6 +299,11 @@ $conf['graphics_library'] = 'auto';
 // you can define imagemagick directory.
 $conf['ext_imagick_dir'] = '';
 
+// how many user comments to display by default on comments.php. Use 'all'
+// to display all user comments without pagination. Default available values
+// are array(5,10,20,50,'all') but you can set any other numeric value.
+$conf['comments_page_nb_comments'] = 10;
+
 // +-----------------------------------------------------------------------+
 // |                               metadata                                |
 // +-----------------------------------------------------------------------+

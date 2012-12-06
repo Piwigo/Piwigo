@@ -52,6 +52,27 @@ $sort_by = array(
 // items_number : list of number of items to display per page
 $items_number = array(5,10,20,50,'all');
 
+// if the default value is not in the expected values, we add it in the $items_number array
+if (!in_array($conf['comments_page_nb_comments'], $items_number))
+{
+  $items_number_new = array();
+
+  $is_inserted = false;
+
+  foreach ($items_number as $number)
+  {
+    if ($number > $conf['comments_page_nb_comments'] or ($number == 'all' and !$is_inserted))
+    {
+      $items_number_new[] = $conf['comments_page_nb_comments'];
+      $is_inserted = true;
+    }
+    
+    $items_number_new[] = $number;
+  }
+
+  $items_number = $items_number_new;
+}
+
 // since when display comments ?
 //
 $since_options = array(
@@ -96,7 +117,7 @@ if (isset($_GET['sort_order']) and isset($sort_order[$_GET['sort_order']]))
 
 // number of items to display
 //
-$page['items_number'] = 10;
+$page['items_number'] = $conf['comments_page_nb_comments'];
 if (isset($_GET['items_number']))
 {
   $page['items_number'] = $_GET['items_number'];
