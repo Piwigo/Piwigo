@@ -940,4 +940,14 @@ $lang['Minimum'] = 'Minimum';
 $lang['Ratio'] = 'Proporcje';
 $lang['between %d and %d pixels'] = 'pomiędzy %d i %d pikseli';
 $lang['between %.2f and %.2f'] = 'pomiędzy %.2f i %.2f';
+$lang['Duplicate'] = 'Duplikuj';
+$lang['Manage the members'] = 'Zarządzaj członkami';
+$lang['Merge selected groups'] = 'Połącz wybrane grupy';
+$lang['No group selected, no action possible.'] = 'Nie wybrano grup, nie można wykonywać żadnych akcji';
+$lang['No members to manage'] = 'Nie ma członków do zarządzania';
+$lang['Please select at least two groups'] = 'Wybierz conajmniej dwie grupy';
+$lang['Rename'] = 'Zmień nazwę';
+$lang['This group will be set to default'] = 'Ta grupa zostanie zaznaczona jako domyślna';
+$lang['This group will be unset to default'] = 'Ta grupa zostanie odznaczona jako domyślna';
+$lang['Type here the name of the new group'] = 'Wpisz nazwę nowej grupy';
 ?>
