@@ -115,6 +115,12 @@
   padding:0 25px;
 }
 
+/* category and tag results paragraphs on a quick search */
+.content .category_search_results, .content .tag_search_results {
+  font-size: 16px;
+  margin: 10px 16px;
+}
+
 /* actions */
 .categoryActions {
 	margin: 0 2px;

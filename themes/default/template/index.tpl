@@ -135,7 +135,7 @@ jQuery("#derivativeSwitchBox").on("mouseleave", function() {
 {if !empty($PLUGIN_INDEX_CONTENT_BEGIN)}{$PLUGIN_INDEX_CONTENT_BEGIN}{/if}
 
 {if !empty($category_search_results)}
-<div style="font-size:16px;margin:10px 16px">{'Album results for'|@translate} <strong>{$QUERY_SEARCH}</strong> :
+<div class="category_search_results">{'Album results for'|@translate} <strong>{$QUERY_SEARCH}</strong> :
 	<em><strong>
 	{foreach from=$category_search_results item=res name=res_loop}
 	{if !$smarty.foreach.res_loop.first} &mdash; {/if}
@@ -146,7 +146,7 @@ jQuery("#derivativeSwitchBox").on("mouseleave", function() {
 {/if}
 
 {if !empty($tag_search_results)}
-<div style="font-size:16px;margin:10px 16px">{'Tag results for'|@translate} <strong>{$QUERY_SEARCH}</strong> :
+<div class="tag_search_results">{'Tag results for'|@translate} <strong>{$QUERY_SEARCH}</strong> :
 	<em><strong>
 	{foreach from=$tag_search_results item=tag name=res_loop}
 	{if !$smarty.foreach.res_loop.first} &mdash; {/if} <a href="{$tag.URL}">{$tag.name}</a>
