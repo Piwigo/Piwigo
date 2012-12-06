@@ -944,4 +944,14 @@ $lang['Minimum'] = 'Minimum';
 $lang['Ratio'] = 'Faktor';
 $lang['between %.2f and %.2f'] = 'mellem %.2f og %.2f';
 $lang['between %d and %d pixels'] = 'mellem %d og %d pixels';
+$lang['Duplicate'] = 'Kopier';
+$lang['Manage the members'] = 'Medlemshåndtering';
+$lang['Merge selected groups'] = 'Læg valgte grupper sammen';
+$lang['No group selected, no action possible.'] = 'Ingen grupper valgt, handling ikke mulig.';
+$lang['No members to manage'] = 'Der er ingen medlemmer at håndtere';
+$lang['Please select at least two groups'] = 'Vælg mindst to grupper';
+$lang['Rename'] = 'Omdøb';
+$lang['This group will be set to default'] = 'Denne gruppe vil blive opsat som standard';
+$lang['This group will be unset to default'] = 'Denne gruppe vil ikke længere være opsat som standard';
+$lang['Type here the name of the new group'] = 'Skriv navnet på den nye gruppe';
 ?>
