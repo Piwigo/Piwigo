@@ -944,4 +944,14 @@ $lang['Minimum'] = 'Ελάχιστο';
 $lang['Maximum'] = 'Μέγιστο';
 $lang['between %d and %d pixels'] = 'μεταξύ %d και %d πίξελ';
 $lang['between %.2f and %.2f'] = 'μεταξύ %.2f και %.2f';
+$lang['Type here the name of the new group'] = 'Πληκτρολογήστε εδώ το όνομα της νέας ομάδας';
+$lang['This group will be unset to default'] = 'Η ομάδα αυτή θα φύγει από τις προεπιλεγμένες';
+$lang['This group will be set to default'] = 'Η ομάδα αυτή θα οριστεί ως προεπιλογή';
+$lang['Rename'] = 'Μετονομασία';
+$lang['Please select at least two groups'] = 'Παρακαλώ επιλέξτε τουλάχιστον δύο ομάδες';
+$lang['No members to manage'] = 'Κανένα μέλος για διαχείριση';
+$lang['No group selected, no action possible.'] = 'Καμία ομάδα δεν επιλέχτηκε, δεν είναι δυνατή η συνέχεια.';
+$lang['Merge selected groups'] = 'Συγχώνευση επιλεγμένων ομάδων';
+$lang['Duplicate'] = 'Διπλότυπο';
+$lang['Manage the members'] = 'Διαχειριστείτε τα μέλη';
 ?>
