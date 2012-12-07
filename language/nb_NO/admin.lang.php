@@ -936,4 +936,16 @@ $lang['View in gallery'] = 'Se i galleri';
 $lang['Maximum'] = 'Maksimalt';
 $lang['Minimum'] = 'Minimalt';
 $lang['Ratio'] = 'Ratio';
+$lang['Duplicate'] = 'Duplikat';
+$lang['Manage the members'] = 'Behandle medlemmene';
+$lang['Merge selected groups'] = 'Flett markerte grupper';
+$lang['No group selected, no action possible.'] = 'Ingen gruppe markert, kan ikke gjøre noe.';
+$lang['No members to manage'] = 'Ingen medlemmer å behandle';
+$lang['Please select at least two groups'] = 'Vennligst marker minst to grupper';
+$lang['Rename'] = 'Gi nytt navn';
+$lang['This group will be set to default'] = 'Denne gruppen bli satt til standard';
+$lang['This group will be unset to default'] = 'Denne gruppen mister merket standard';
+$lang['Type here the name of the new group'] = 'Skriv her navnet på den nye gruppen';
+$lang['between %.2f and %.2f'] = 'mellom %.2f og %.2f';
+$lang['between %d and %d pixels'] = 'mellom %d og %d piksler';
 ?>
