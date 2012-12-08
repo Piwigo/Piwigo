@@ -940,4 +940,14 @@ $lang['Subscribers could be listed (available) only if there is new elements to 
 $lang['Replacement of original templates by customized templates from template-extension subfolder'] = 'Asenda originaalšabloonid kohandatud šablooniga (template-extension kaustast)';
 $lang['between %.2f and %.2f'] = '%.2f ja %.2f vahel';
 $lang['between %d and %d pixels'] = '%d ja %d pikslite vahel';
+$lang['This group will be unset to default'] = 'Seda rühma ei kasutata edaspidi vaikerühmana';
+$lang['Type here the name of the new group'] = 'Nimeta uus rühm';
+$lang['Merge selected groups'] = 'Liida valitud rühmad';
+$lang['No group selected, no action possible.'] = 'Ühtegi rühma pole valitud, seega ei saa midagi teha.';
+$lang['No members to manage'] = 'Puudub liikmeid keda hallata';
+$lang['Please select at least two groups'] = 'Vali vähemalt kaks rühma';
+$lang['Rename'] = 'Nimeta ümber';
+$lang['This group will be set to default'] = 'See rühm valitakse vaikerühmaks';
+$lang['Manage the members'] = 'Halda liikmeid';
+$lang['Duplicate'] = 'Tee koopia';
 ?>
