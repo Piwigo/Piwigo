@@ -417,4 +417,6 @@ $lang['Requested tag does not exist'] = 'الكلمة الدلائلية غير 
 $lang['Email address is mandatory'] = 'عنوان البريد الإلكتروني إلزامي';
 $lang['Username is mandatory'] = 'أسم المستخدم  إلزامي';
 $lang['mandatory'] = 'إلزامي';
+$lang['Website'] = 'الموقع';
+$lang['Your website URL is invalid'] = 'URL موقع الويب الخاص بك غير صالح';
 ?>
