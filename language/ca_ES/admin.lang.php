@@ -421,9 +421,7 @@ $lang['%d anomaly has been detected.'] = 'S\'ha detectat %d anomalia.';
 $lang['%d anomalies have been detected.'] = 'S\'han detectat %d anomalies.';
 $lang['%d anomaly has been corrected.'] = 'S\'ha corregit %d anomalia.';
 $lang['%d anomalies have been detected corrected.'] = 'S\'han detectat i corregit %d anomalies.';
-$lang['%d anomaly has not been corrected.'] = '%d anomalia no s\'ha pogut corregit.
-';
-';
+$lang['%d anomaly has not been corrected.'] = '%d anomalia no s\'ha pogut corregit.';
 $lang['%d anomalies have not been corrected.'] = 'No s\'han pogut corregit %d anomalies.';
 $lang['Go to %s or %s for more informations'] = 'Aneu a %s o %s per a més informació';
 $lang['the forum'] = 'el fòrum';
