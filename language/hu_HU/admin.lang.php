@@ -943,4 +943,14 @@ $lang['Minimum'] = 'Minimum';
 $lang['Ratio'] = 'Arány';
 $lang['between %.2f and %.2f'] = '%.2f és %.2f között';
 $lang['between %d and %d pixels'] = '%d és %d pixel között';
+$lang['Duplicate'] = 'Másolat';
+$lang['Manage the members'] = 'Tagok kezelése';
+$lang['Merge selected groups'] = 'Kiválasztott csoportok egyesítése';
+$lang['No group selected, no action possible.'] = 'Nincs kiválasztott csoport, művelet nem lehetséges.';
+$lang['No members to manage'] = 'Nem tagok kezelése';
+$lang['Please select at least two groups'] = 'Jelöljön ki legalább két csoport';
+$lang['Rename'] = 'Átnevezés';
+$lang['This group will be set to default'] = 'Ez a csoport lesz az alapértelmezett';
+$lang['This group will be unset to default'] = 'Ez a csoport nem lesz az alapértelmezett';
+$lang['Type here the name of the new group'] = 'Ide írja be az új csoport nevét';
 ?>
