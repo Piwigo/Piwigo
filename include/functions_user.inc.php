@@ -1491,7 +1491,7 @@ function get_sql_condition_FandF(
           {
             $sql_list[]=$table_prefix.'level<='.$user['level'];
           }
-          else
+          else if ( !empty($user['image_access_list']) and !empty($user['image_access_type']) )
           {
             $sql_list[]=$field_name.' '.$user['image_access_type']
                 .' ('.$user['image_access_list'].')';
