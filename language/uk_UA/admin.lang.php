@@ -938,4 +938,14 @@ $lang['Minimum'] = 'Мінімальний';
 $lang['Ratio'] = 'Співвідношення';
 $lang['between %.2f and %.2f'] = 'між %.2f і %.2f';
 $lang['between %d and %d pixels'] = 'між %d і %d пікселями';
+$lang['Duplicate'] = 'Дублювати';
+$lang['Manage the members'] = 'Керування учасниками';
+$lang['Merge selected groups'] = 'Злиття вибраних груп';
+$lang['No group selected, no action possible.'] = 'Жодна група не вибрана, не можливі ніякі дії.';
+$lang['No members to manage'] = 'Немає учасників для управління';
+$lang['Please select at least two groups'] = 'Виберіть щонайменше дві групи';
+$lang['Rename'] = 'Перейменувати';
+$lang['This group will be set to default'] = 'Ця група буде встановлена за замовчуванням';
+$lang['This group will be unset to default'] = 'Ця група буде знята з замовчування';
+$lang['Type here the name of the new group'] = 'Введіть назву нової групи';
 ?>
