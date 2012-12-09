@@ -937,4 +937,14 @@ $lang['Minimum'] = 'En az';
 $lang['Ratio'] = 'Oran';
 $lang['between %.2f and %.2f'] = '%.2f ve %.2f arasında';
 $lang['between %d and %d pixels'] = '%d ve %d piksel arasında';
+$lang['This group will be set to default'] = 'Bu grup varsayılan olarak seçilecek';
+$lang['This group will be unset to default'] = 'Bu grup varsayılan olmaktan çıkartılacak';
+$lang['Type here the name of the new group'] = 'Buraya yeni grubun ismini yazın';
+$lang['Duplicate'] = 'Kopyasını al';
+$lang['Manage the members'] = 'Üyeleri yönet';
+$lang['Merge selected groups'] = 'Seçili grupları birleştir';
+$lang['No group selected, no action possible.'] = 'Hiç bir grup seçili değil, herhangi bir eylem yapılamaz';
+$lang['No members to manage'] = 'Yönetecek üye yok';
+$lang['Please select at least two groups'] = 'En azından iki grup seçin';
+$lang['Rename'] = 'Yeniden adlandır';
 ?>
