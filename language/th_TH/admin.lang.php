@@ -943,4 +943,14 @@ $lang['Shotwell is an open source digital photo organizer that runs on Linux. It
 $lang['Ratio'] = 'อัตราส่วน';
 $lang['between %.2f and %.2f'] = 'ระหว่าง %.2f และ %.2f';
 $lang['between %d and %d pixels'] = 'ระหว่าง %d และ %d พิกเซล';
+$lang['Duplicate'] = 'สำเนา';
+$lang['Manage the members'] = 'จัดการสมาชิก';
+$lang['Merge selected groups'] = 'รวมกลุ่มที่เลือก';
+$lang['No group selected, no action possible.'] = 'ยังไม่ได้เลือกกลุ่ม, ไม่สามารถรวมกลุ่มได้';
+$lang['No members to manage'] = 'ไม่มีสมาชิกที่จะจัดการ';
+$lang['Please select at least two groups'] = 'โปรดเลือกกลุ่มอย่างน้อยสองกลุ่ม';
+$lang['Rename'] = 'เปลี่ยนชื่อ';
+$lang['This group will be set to default'] = 'กลุ่มนี้ถูกกำหนดให้เป็นกลุ่มปกติ';
+$lang['This group will be unset to default'] = 'กลุ่มนี้ไม่ได้ถูกกำหนดให้เป็นกลุ่มปกติ';
+$lang['Type here the name of the new group'] = 'พิมพ์ชื่อของกลุ่มใหม่';
 ?>
