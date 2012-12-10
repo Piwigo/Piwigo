@@ -411,4 +411,6 @@ $lang['Requested tag does not exist'] = 'Търсения таг не същес
 $lang['mandatory'] = 'задължително';
 $lang['Username is mandatory'] = 'Потребителското име е задължително';
 $lang['Email address is mandatory'] = 'Имейл адреса е задължителен';
+$lang['Your website URL is invalid'] = 'Вашия уебсайт адрес е грешен';
+$lang['Website'] = 'Уебсайт';
 ?>
