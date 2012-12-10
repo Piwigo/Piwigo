@@ -823,8 +823,8 @@ $lang['This is a major update, with <a href="%s">new exciting features</a>.'] = 
 $lang['This is a minor update, with only bug corrections.'] = 'This is a minor update, with only bug corrections.';
 $lang['This name is already used by another group.'] = "This name is already used by another group.";
 $lang['THIS PLUGIN IS NOW PART OF PIWIGO CORE! DELETE IT NOW.'] = 'THIS PLUGIN IS NOW PART OF PIWIGO CORE! UNINSTALL IT NOW!';
-$lang['This group will be set to default'] = "This group will be set to default";
-$lang['This group will be unset to default'] = "This group will be unset to default";
+$lang['This group will be set to default'] = "This group will be used by default";
+$lang['This group will be unset to default'] = "This group will no longer be used by default";
 $lang['This site already exists'] = "This site already exists";
 $lang['This theme was not designed to be directly activated'] = 'This theme was not designed to be directly activated';
 $lang['Thumbnail'] = "Thumbnail";
