@@ -354,7 +354,7 @@ if (count($categories) > 0)
         {
           $info = '';
 
-          if ($from == $to)
+          if (date('Y-m-d', strtotime($from)) == date('Y-m-d', strtotime($to)))
           {
             $info = format_date($from);
           }
