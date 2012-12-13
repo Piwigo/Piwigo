@@ -945,4 +945,14 @@ $lang['The version of %s [%s] installed is not compatible with the version requi
 $lang['Ratio'] = '比例';
 $lang['between %.2f and %.2f'] = '在 %.2f 与 %.2f 之间';
 $lang['between %d and %d pixels'] = '在 %d 与 %d 像素之间';
+$lang['This group will be set to default'] = '本组将用作默认组';
+$lang['This group will be unset to default'] = '本组将不再用作默认组';
+$lang['No members to manage'] = '没有可管理的用户';
+$lang['Please select at least two groups'] = '请至少选择两个组';
+$lang['Rename'] = '重命名';
+$lang['Type here the name of the new group'] = '在此输入新组的名称';
+$lang['Duplicate'] = '复制';
+$lang['Manage the members'] = '管理用户';
+$lang['Merge selected groups'] = '合并所选组';
+$lang['No group selected, no action possible.'] = '没有组被选中，不能执行任何操作。';
 ?>
