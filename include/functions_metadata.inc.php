@@ -60,7 +60,10 @@ function get_iptc_data($filename, $map)
 
           foreach (array_keys($map, $iptc_key) as $pwg_key)
           {
-            $result[$pwg_key] = $value;
+            // in case the origin of the photo is unsecure (user upload), we
+            // remove HTML tags to avoid XSS (malicious execution of
+            // javascript)
+            $result[$pwg_key] = strip_tags($value);
           }
         }
       }
@@ -138,6 +141,13 @@ function get_exif_data($filename, $map)
         }
       }
     }
+  }
+
+  foreach ($result as $key => $value)
+  {
+    // in case the origin of the photo is unsecure (user upload), we remove
+    // HTML tags to avoid XSS (malicious execution of javascript)
+    $result[$key] = strip_tags($value);
   }
 
   return $result;
