@@ -60,5 +60,25 @@ $lang['... or please deactivate this message, I will find my way by myself'] = '
 $lang['A comment on your site'] = 'तुमचे सायटीटचेर टिप्पणी';
 $lang['About Piwigo'] = 'Piwigo विशीं';
 $lang['About'] = 'विशीं';
+$lang['Date'] = "तारीख";
+$lang['day'][0] = "आयतार";
+$lang['day'][1] = "सोमार";
+$lang['day'][2] = "मंगळार";
+$lang['day'][3] = "बुधवार";
+$lang['day'][4] = "बिरेस्तार";
+$lang['day'][5] = "शुक्रार";
+$lang['day'][6] = "शेनवार";
+$lang['month'][10] = "ऑक्टोबर";
+$lang['month'][11] = "नोव्हेंबर";
+$lang['month'][12] = "डिसेंबर";
+$lang['month'][1] = "जानेवारी";
+$lang['month'][2] = "फेब्रुवारी";
+$lang['month'][3] = "मार्च";
+$lang['month'][4] = "एप्रिल";
+$lang['month'][5] = "मे";
+$lang['month'][6] = "जून";
+$lang['month'][7] = "जुलाय";
+$lang['month'][8] = "ऑगस्ट";
+$lang['month'][9] = "सप्टेंबर";
 
 ?>
