@@ -943,4 +943,14 @@ $lang['Minimum'] = 'Minimum';
 $lang['Maximum'] = 'Maximum';
 $lang['between %.2f and %.2f'] = 'medzi %.2f and %.2f';
 $lang['between %d and %d pixels'] = 'medzi %d and %d pixelmi';
+$lang['Type here the name of the new group'] = 'Sem napíšte názov novej skupiny';
+$lang['This group will be unset to default'] = 'Táto skupina už viac nebude použitá ako predvolená';
+$lang['This group will be set to default'] = 'Táto skupina bude použitá ako predvolená';
+$lang['Rename'] = 'Premenovať';
+$lang['Please select at least two groups'] = 'Prosím označte aspoň dve skupiny';
+$lang['No group selected, no action possible.'] = 'Žiadna skupina nie je označená, žiadna akcia nie je možná.';
+$lang['No members to manage'] = 'Žiadni používatelia na spravovanie';
+$lang['Manage the members'] = 'Spravovať používateľov';
+$lang['Merge selected groups'] = 'Pridať označené skupiny';
+$lang['Duplicate'] = 'Duplikovať';
 ?>
