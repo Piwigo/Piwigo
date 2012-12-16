@@ -937,4 +937,17 @@ $lang['Number of albums per page'] = 'عدد الالبومات في كل صفح
 $lang['Panorama'] = 'بانوراما';
 $lang['Portrait'] = 'صوره شخصية';
 $lang['View in gallery'] = 'عرض في المعرض';
+$lang['Duplicate'] = 'كرر ';
+$lang['Manage the members'] = 'إدارة الأعضاء';
+$lang['This group will be unset to default'] = 'لم يتم استخدام هذه المجموعة من قبل';
+$lang['Ratio'] = 'نبسة';
+$lang['Please select at least two groups'] = 'فضلا ً لا أمرا ٍ أختر فيما لا يقل عن مجموعتين ';
+$lang['No members to manage'] = 'لا يوجد أعضاد لإدارتهم';
+$lang['No group selected, no action possible.'] = 'لم يتم تحديد أي مجموعة  ، لا تتوقع التفاعل';
+$lang['Merge selected groups'] = 'إدارة المجموعة المختارة';
+$lang['between %d and %d pixels'] = 'ما بين  %d و %d  بكسل';
+$lang['between %.2f and %.2f'] = 'ما بين %.2f  و %.2f ';
+$lang['Type here the name of the new group'] = 'أكتب هنا أسم المجموعة الجديدة';
+$lang['Rename'] = 'إعادة تسمية';
+$lang['This group will be set to default'] = 'هذا المجموعة ستستخدم كمجموعة افتراضية';
 ?>
