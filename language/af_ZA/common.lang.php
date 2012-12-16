@@ -414,4 +414,6 @@ $lang['Requested tag does not exist'] = 'Aangevraagde etiket bestaan nie';
 $lang['Email address is mandatory'] = 'Epos adres is verpligtend';
 $lang['Username is mandatory'] = 'Gebruikersnaam is nie opsioneel nie';
 $lang['mandatory'] = 'verpligtend';
+$lang['Website'] = 'Webblad';
+$lang['Your website URL is invalid'] = 'Jou webblad URL is ongeldig';
 ?>
