@@ -937,4 +937,14 @@ $lang['View in gallery'] = 'Ver na galeria';
 $lang['Ratio'] = 'Rácio';
 $lang['between %.2f and %.2f'] = 'entre %.2f e %.2f';
 $lang['between %d and %d pixels'] = 'entre %d e %d pixels';
+$lang['Duplicate'] = 'Duplicar';
+$lang['Manage the members'] = 'Gerir os membros';
+$lang['Merge selected groups'] = 'Omitir os grupos selecionados';
+$lang['No group selected, no action possible.'] = 'Npossivelão existe grupo selecionado, não é possivel qualquer ação';
+$lang['No members to manage'] = 'Sem membros para gerir';
+$lang['Please select at least two groups'] = 'Selecione, por favor, pelo menos dois grupo.';
+$lang['Rename'] = 'Renomear';
+$lang['This group will be set to default'] = 'Este grupo será usado por defeito';
+$lang['This group will be unset to default'] = 'Este grupo não mais será usado por defeito';
+$lang['Type here the name of the new group'] = 'Escreva aqui o nome do novo grupo';
 ?>
