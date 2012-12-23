@@ -279,6 +279,7 @@ BODY {
 	font-size: 0.8em;
 	font-family: "Lucida Grande",Verdana,Arial,"Bitstream Vera Sans",sans-serif;
 	text-align: center; /* be nice to IE5 */
+	min-width: 60em;  /* ~ 3* #menubar width */
 }
 
 H1 {
@@ -293,7 +294,12 @@ margin: 0;
 float:left;
 }
 
-#pwgHead {color:#aaa;}
+#pwgHead {
+	color: #aaa;
+  background-color: #464646;
+	height: 36px;
+}
+
 #pwgHead A {color:#ccc;}
 #pwgHead A:hover {color:#fff;border-bottom:1px solid #fff}
 
@@ -578,11 +584,6 @@ img.ui-datepicker-trigger {
   width:50%;
 }
 
-#pwgHead {
-  background-color:#464646;
-	height: 36px;
-}
-
 html, body {height:100%; margin:0; padding:0;}
 #the_page {min-height:100%; position:absolute; width:100%; padding:0;margin:0;}
 
@@ -748,13 +749,9 @@ html, body {height:100%; margin:0; padding:0;}
   margin: 0 5px 0 227px;
   z-index:99;
 }
-/* Set minimum width of the page before getting a scrollbar */
-/* IE5 and IE6 don't get that */
-BODY {
-  min-width: 60em;  /* ~ 3* #menubar width */
-}
+
 #thePopuphelpPage {
-  min-width: 0;
+  min-width: 0; /*reset default min width because no scrollbar here*/
 }
 
 #thePopuphelpPage #pwgHead {display:none}
@@ -909,10 +906,6 @@ INPUT:focus, SELECT:focus, TEXTAREA:focus {
 /* some theme set a border on INPUT  which is not pretty for radio/checkbox */
 INPUT[type="radio"], INPUT[type="checkbox"] {
   border: none;	/* <= Opera needs this */
-}
-
-INPUT.radio, INPUT.checkbox {
-  border: none;	/* <= IE6 needs this */
 }
 
 

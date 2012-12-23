@@ -38,8 +38,10 @@ h2 { color: #ccc; }
 }
 html, body { min-height: 100%; }
 
-body { margin: 0; padding: 0;
-background-color:#111111; }
+body {
+	background-color:#111111;
+}
+
 /* #the_page { margin: 0; padding: 0; z-index: 1; top:0px; */
 /* padding-top: 0; min-height: 100%; width:100%; position:absolute; left:0px; } */
 #headbranch { width: 233px; height: 240px; margin: 0; padding: 0;
