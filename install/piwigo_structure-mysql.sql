@@ -28,7 +28,7 @@ CREATE TABLE `piwigo_categories` (
   `dir` varchar(255) default NULL,
   `rank` smallint(5) unsigned default NULL,
   `status` enum('public','private') NOT NULL default 'public',
-  `site_id` tinyint(4) unsigned default '1',
+  `site_id` tinyint(4) unsigned default NULL,
   `visible` enum('true','false') NOT NULL default 'true',
   `representative_picture_id` mediumint(8) unsigned default NULL,
   `uppercats` varchar(255) NOT NULL default '',
