@@ -1387,8 +1387,8 @@ final class FileCombiner
     $js = file_get_contents(PHPWG_ROOT_PATH . $file);
     if (strpos($file, '.min')===false and strpos($file, '.packed')===false )
     {
-      require_once(PHPWG_ROOT_PATH.'include/jsmin.class.php');
-      try { $js = JSMin::minify($js); } catch(Exception $e) {}
+      require_once(PHPWG_ROOT_PATH.'include/jshrink.class.php');
+      try { $js = JShrink_Minifier::minify($js); } catch(Exception $e) {}
     }
     return trim($js, " \t\r\n;").";\n";
   }
