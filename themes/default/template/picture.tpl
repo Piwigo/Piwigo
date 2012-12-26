@@ -258,9 +258,9 @@ y.callService(
 						if (e) e.innerHTML = rating.score;
 						e = document.getElementById("ratingCount");
 						if (e) {ldelim}
-							if (rating.count == 1) {
+							if (rating.count == 1) {ldelim}
 								e.innerHTML = "({'%d rate'|@translate|@escape:'javascript'})".replace( "%d", rating.count);
-							} else {
+							} else {ldelim}
 								e.innerHTML = "({'%d rates'|@translate|@escape:'javascript'})".replace( "%d", rating.count);
               }
 						{rdelim}
