@@ -45,9 +45,9 @@ $lang['also given by your host provider'] = "également fourni par votre héberg
 $lang['Database table prefix'] = "Préfixe des noms de tables";
 $lang['database tables names will be prefixed with it (enables you to manage better your tables)'] = "le nom des tables sera précédé de ce préfixe (permet de mieux gérer sa base de données)";
 $lang['enter a login for webmaster'] = "veuillez rentrer un pseudo pour le webmaster";
-$lang['webmaster login can\'t contain characters \' or "'] = "le pseudo du webmaster ne doit pas comporter les caractères \" et '";
+$lang['webmaster login can\'t contain characters \' or "'] = 'le pseudo du webmestre ne doit pas comporter les caractères " et \'';
 $lang['please enter your password again'] = "veuillez resaisir votre mot de passe";
-$lang['Webmaster password'] = "Mot de passe du webmaster";
+$lang['Webmaster password'] = 'Mot de passe du webmestre';
 $lang['Keep it confidential, it enables you to access administration panel'] = "Il doit rester confidentiel, il permet d'accéder à l'écran d'administration.";
 $lang['Password [confirm]'] = "Mot de passe [Confirmer]";
 $lang['verification'] = "vérification";
@@ -71,7 +71,7 @@ $lang['Download the config file'] = 'Télécharger le fichier de configuration';
 $lang['You can download the config file and upload it to local/config directory of your installation.'] = 'Vous pouvez télécharger le fichier de configuration et le transférer dans le répertoire local/config de votre installation Piwigo.';
 $lang['Just another Piwigo gallery'] = 'Une galerie Piwigo de plus';
 $lang['Welcome to my photo gallery'] = 'Bienvenue sur ma galerie photo';
-$lang['Welcome to your new installation of Piwigo!'] = 'Bienvenue sur votre nouvelle installtion de Piwigo!';
+$lang['Welcome to your new installation of Piwigo!'] = 'Bienvenue sur votre nouvelle installation de Piwigo !';
 $lang['Don\'t hesitate to consult our forums for any help : %s'] = 'N\'hésitez pas à consulter nos forums si vous avez le moindre problème : %s';
 
 ?>
