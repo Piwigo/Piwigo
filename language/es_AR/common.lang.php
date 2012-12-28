@@ -196,10 +196,6 @@ $lang['last %d days'] = '%d últimos días';
 $lang['Last'] = 'Última';
 $lang['Logout'] = 'Desconectarse';
 $lang['obligatory'] = 'obligatorio';
-$lang['Maximum photo height'] = 'Altura máxima de las imágenes';
-$lang['Maximum height must be a number superior to 50'] = 'La altura de las imágenes debe ser superior a 50';
-$lang['Maximum photo width'] = 'Ancho máximo de las imágenes';
-$lang['Maximum width must be a number superior to 50'] = 'El ancho de las imágenes debe ser superior a 50';
 $lang['display a calendar by creation date'] = 'mostrar un calendario por fecha de creación';
 $lang['display all photos in all sub-albums'] = 'mostrar de plano los elementos de categorías y sub-categorías';
 $lang['return to normal view mode'] = 'volver a la apariencia inicial';
@@ -412,5 +408,8 @@ $lang['Piwigo encountered a non recoverable error'] = 'Piwigo ha detectado un er
 $lang['Requested album does not exist'] = 'El álbum solicitado no existe';
 $lang['Permalink for album not found'] = 'No se encontró el enlace (Permalink) para el álbum';
 $lang['Requested tag does not exist'] = 'El tag solicitado no existe';
+$lang['Email address is mandatory'] = 'La dirección de correo electrónico es obligatoria';
+$lang['Username is mandatory'] = 'El nombre de usuario es obligatorio';
+$lang['mandatory'] = 'obligatorio';
 
 ?>
