@@ -941,4 +941,14 @@ $lang['Panorama'] = 'Panorama';
 $lang['Portrait'] = 'Portret';
 $lang['between %.2f and %.2f'] = 'tussen %.2f en %.2f';
 $lang['between %d and %d pixels'] = 'tussen %d en %d pixels';
+$lang['Duplicate'] = 'Kopieer';
+$lang['Manage the members'] = 'Beheer de gebruikers';
+$lang['Merge selected groups'] = 'Voeg de geselecteerde groepen samen';
+$lang['No group selected, no action possible.'] = 'Geen groep geselecteerd, handeling niet mogelijk';
+$lang['No members to manage'] = 'Geen gebruikers te beheren';
+$lang['Please select at least two groups'] = 'Selecteer tenminste 2 groepen';
+$lang['Rename'] = 'Hernoem';
+$lang['This group will be set to default'] = 'Deze groep zal standaard worden gebruikt';
+$lang['This group will be unset to default'] = 'Deze groep zal niet langer als standaard worden gebruikt';
+$lang['Type here the name of the new group'] = 'Voer de naam in van de nieuwe groep';
 ?>
