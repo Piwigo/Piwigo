@@ -945,4 +945,13 @@ $lang['This group will be set to default'] = "Ce groupe deviendra par défaut";
 $lang['This group will be unset to default'] = "Ce groupe ne sera plus par défaut";
 $lang['No members to manage'] = "Aucun membre à gérer";
 $lang['Rename'] = 'Renommer';
+$lang['Landscape'] = 'Paysage';
+$lang['Manage photos'] = 'Gérer les photos';
+$lang['Minimum width'] = 'Largeur minimale';
+$lang['Minimum height'] = 'Hauteur minimale';
+$lang['Number of albums per page'] = 'Nombre d\'albums par page';
+$lang['Panorama'] = 'Panorama';
+$lang['Portrait'] = 'Portrait';
+$lang['Ratio'] = 'Ratio';
+$lang['View in gallery'] = 'Voir dans la galerie';
 ?>
