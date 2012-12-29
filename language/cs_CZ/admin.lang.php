@@ -945,4 +945,14 @@ $lang['View in gallery'] = 'Zobrazit v galerii';
 $lang['Ratio'] = 'Poměr';
 $lang['between %.2f and %.2f'] = 'mezi %.2f a %.2f';
 $lang['between %d and %d pixels'] = 'mezi %d a %d pixely';
+$lang['Duplicate'] = 'Duplikovat';
+$lang['Manage the members'] = 'Organizovat členy';
+$lang['Merge selected groups'] = 'Spojit vybrané skupiny';
+$lang['No group selected, no action possible.'] = 'Není vybrána žádná skupina, není možná řádná akce';
+$lang['No members to manage'] = 'Žádní členové k organizování';
+$lang['Please select at least two groups'] = 'Prosím vyberte nejméně dvě skupiny';
+$lang['Rename'] = 'Přejmenovat';
+$lang['This group will be set to default'] = 'Tato skupina bude použita jako defaultní';
+$lang['This group will be unset to default'] = 'Tato skupina nebude dále použita jako defaultní';
+$lang['Type here the name of the new group'] = 'Napište sem jméno nové skupiny';
 ?>
