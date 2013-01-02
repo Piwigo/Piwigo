@@ -923,4 +923,11 @@ $lang['Name of the duplicate'] = '名稱重複';
 $lang['No order field selected'] = '未選取排序欄位';
 $lang['Source tag'] = '來源標籤';
 $lang['Tag "%s" is now a duplicate of "%s"'] = '"%s" 標籤與 "%s" 標籤重複';
+$lang['between %d and %d pixels'] = '在％d和％d像素之間';
+$lang['between %.2f and %.2f'] = '在％.2 f和％.2 f之間';
+$lang['Duplicate'] = '重複';
+$lang['Landscape'] = '橫向';
+$lang['Manage photos'] = '管理照片';
+$lang['Manage the members'] = '會員管理';
+$lang['Merge selected groups'] = '合併選擇群組';
 ?>
