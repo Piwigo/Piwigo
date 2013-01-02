@@ -411,5 +411,7 @@ $lang['Requested tag does not exist'] = 'El tag solicitado no existe';
 $lang['Email address is mandatory'] = 'La dirección de correo electrónico es obligatoria';
 $lang['Username is mandatory'] = 'El nombre de usuario es obligatorio';
 $lang['mandatory'] = 'obligatorio';
+$lang['Website'] = 'Sitio web';
+$lang['Your website URL is invalid'] = 'La dirección de su sitio web no es válida';
 
 ?>
