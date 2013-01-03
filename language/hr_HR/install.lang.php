@@ -69,4 +69,6 @@ $lang['You can download the config file and upload it to local/config directory 
 $lang['Just another Piwigo gallery'] = 'Samo još jedna Piwigo galerija';
 $lang['Welcome to my photo gallery'] = 'Dobrodošli u moju fotogaleriju';
 
+$lang['Don\'t hesitate to consult our forums for any help : %s'] = 'Ukoliko trebate pomoć slobodno pitajte na forumu: %s';
+$lang['Welcome to your new installation of Piwigo!'] = 'Dobrodošli na vašu novu Piwigo instalaciju!';
 ?>
