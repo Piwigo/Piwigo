@@ -774,4 +774,23 @@ $lang['Create'] = 'Kreiraj';
 $lang['Crop'] = 'Izreži';
 $lang['display'] = 'prikaz';
 
+$lang['%d day'] = '%d dan';
+$lang['%d days'] = '%d dana';
+$lang['%d hour'] = '%d sat';
+$lang['%d hours'] = '%d sati';
+$lang['%d minute'] = '%d minuta';
+$lang['%d minutes'] = '%d minuta';
+$lang['%d month'] = '%d mjesec';
+$lang['%d months'] = '%d mjeseci';
+$lang['%d second'] = '%d sekunda';
+$lang['%d seconds'] = '%d sekundi';
+$lang['%d week'] = '%d tjedan';
+$lang['%d weeks'] = '%d tjedana';
+$lang['%d year'] = '%d godina';
+$lang['%d years'] = '%d godina';
+$lang['%s ago'] = '%s prije';
+$lang['%s in the future'] = '%s u budućnosti';
+$lang['%u users have automatic permission because they belong to a granted group.'] = '%u korisnici su u grupi koja ima pristup';
+$lang['<em>Piwigo for Android</em> application empowers you to connect your Android phone or table to your Piwigo gallery, create some albums and upload several photos at once.'] = '<em>Piwigo za Android</em> je aplikacija koja vam omogućava spajanje vašeg tableta ili mobilnog telefona na vašu Piwigo galeriju. Kreirajte albume i postavite fotografije.';
+$lang['<em>Piwigo for iOS</em> application empowers you to connect to your Piwigo gallery from your iPhone, iPad or iPod Touch, create some albums and upload several photos at once.'] = '<em>Piwigo za iOS</em> je aplikacija koja vam omogućava spajanje vašeg iPhone-a, iPada-a ili iPod Touch-a na vašu Piwigo galeriju. Kreirajte albume i postavite fotografije.';
 ?>
