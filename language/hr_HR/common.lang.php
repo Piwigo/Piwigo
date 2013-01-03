@@ -412,4 +412,9 @@ $lang['thumb'] = 'Sličica';
 $lang['xlarge'] = 'XL - jako veliko';
 $lang['xsmall'] = 'Xs - jako malo';
 $lang['xxlarge'] = 'XXL - ogromno';
+$lang['Email address is mandatory'] = 'E-mail adresa je obavezna';
+$lang['Username is mandatory'] = 'Korisničko ime je obavezno';
+$lang['Website'] = 'Web sjedište';
+$lang['Your website URL is invalid'] = 'URL vašeg web sjedišta nije valjan';
+$lang['mandatory'] = 'obavezno';
 ?>
