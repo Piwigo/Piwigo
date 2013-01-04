@@ -105,7 +105,10 @@ class Template {
     if ( !empty($theme) )
     {
       $this->set_theme($root, $theme, $path);
-      $this->set_prefilter( 'header', array('Template', 'prefilter_local_css') );
+      if (!defined('IN_ADMIN'))
+      {
+        $this->set_prefilter( 'header', array('Template', 'prefilter_local_css') );
+      }
     }
     else
       $this->set_template_dir($root);
