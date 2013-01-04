@@ -80,5 +80,27 @@ $lang['month'][6] = "जून";
 $lang['month'][7] = "जुलाय";
 $lang['month'][8] = "ऑगस्ट";
 $lang['month'][9] = "सप्टेंबर";
+$lang['Username is mandatory'] = 'वापरप्याचें नांव सक्तीचें आसा';
+$lang['Username: %s'] = 'वापरप्याचें नांव: %s';
+$lang['View in'] = 'दृश्य करचें';
+$lang['View'] = 'दृश्य';
+$lang['Visits'] = 'भेटी';
+$lang['Visits, high → low'] = 'भेटी, चड → निम्न';
+$lang['Visits, low → high'] = 'भेटी, निम्न → चड';
+$lang['Website'] = 'वॅबसायट';
+$lang['Webmaster'] = 'वॅबमास्टर';
+$lang['Week %d'] = 'सप्तक %d';
+$lang['Welcome to your Piwigo photo gallery!'] = 'तुमचे Piwigo फोटो गॅलरीक येवकार!';
+$lang['Welcome'] = 'येवकार';
+$lang['wrong date'] = 'चुकीची तारीख';
+$lang['xlarge'] = 'XL – मायझ व्हड';
+$lang['xsmall'] = 'XS – मायझ ल्हान';
+$lang['xxlarge'] = 'XXL - व्हडलें';
+$lang['Yes'] = 'हय';
+$lang['You are not authorized to access the requested page'] = 'मागणी केल्ल्या पानांक ऍक्सॅस करूंक तुमकां अधिकार ना';
+$lang['You will receive a link to create a new password via email.'] = 'तुमकां ई-मेली वरवीं नवो पासवर्ड निर्माण करूंक एक लिंक मेळटलें.';
+$lang['Your comment has been registered'] = 'तुमची टिप्पणीची नोंदणी केल्या';
+$lang['Your comment has NOT been registered because it did not pass the validation rules'] = 'तुमची टिप्पणी नोंदणी केल्ली ना कारण ती वैधताय नियमाचो पाळो करिना';
+$lang['Your favorites'] = 'तुमचे आवडीचे';
 
 ?>
