@@ -108,7 +108,7 @@ if (pwg_image::get_library() == 'gd')
 $upload_modes = array('html', 'multiple');
 $upload_mode = isset($conf['upload_mode']) ? $conf['upload_mode'] : 'multiple';
 
-if (isset($_GET['upload_mode']) and in_array($_GET['upload_mode'], $upload_modes))
+if (isset($_GET['upload_mode']) and $upload_mode != $_GET['upload_mode'] and in_array($_GET['upload_mode'], $upload_modes))
 {
   $upload_mode = $_GET['upload_mode'];
   conf_update_param('upload_mode', $upload_mode);

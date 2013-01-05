@@ -76,11 +76,13 @@ jQuery(document).ready(function(){
   jQuery("#uploadWarningsSummary a.showInfo").click(function() {
     jQuery("#uploadWarningsSummary").hide();
     jQuery("#uploadWarnings").show();
+    return false;
   });
 
   jQuery("#showPermissions").click(function() {
     jQuery(this).parent(".showFieldset").hide();
     jQuery("#permissions").show();
+    return false;
   });
 
 {/literal}
