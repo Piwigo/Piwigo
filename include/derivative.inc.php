@@ -19,6 +19,8 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
+/*A source image is used to get a derivative image. A source image is either the original file for a jpg or a 
+'representative' image of a non image file or a standard icon for the non-image file.*/
 final class SrcImage
 {
   const IS_ORIGINAL = 0x01;
@@ -32,6 +34,7 @@ final class SrcImage
   private $size=null;
   private $flags=0;
 
+  /*@param infos assoc array of data from images table*/
   function __construct($infos)
   {
     global $conf;
@@ -115,6 +118,7 @@ final class SrcImage
     return $this->size != null;
   }
 
+  /* @return a 2-element array containing width/height or null if dimensions are not available*/
   function get_size()
   {
     if ($this->size == null)
@@ -133,7 +137,9 @@ final class SrcImage
 }
 
 
-
+/*Holds information (path, url, dimensions) about a derivative image. A derivative image is constructed from a source
+image (SrcImage class) and derivative parameters (DerivativeParams class).
+*/
 final class DerivativeImage
 {
   public $src_image;
@@ -141,7 +147,10 @@ final class DerivativeImage
   private $params;
   private $rel_path, $rel_url, $is_cached=true;
 
-  function __construct($type, $src_image)
+  /*
+  @param type string of standard derivative param type (e.g. IMG_???) or a DerivativeParams object
+  @param src_image the source image of this derivative*/
+  function __construct($type, SrcImage $src_image)
   {
     $this->src_image = $src_image;
     if (is_string($type))
@@ -161,6 +170,11 @@ final class DerivativeImage
     return self::url(IMG_THUMB, $infos);
   }
 
+  /** 
+  @return derivative image url
+  @param type string of standard derivative param type (e.g. IMG_???) or a DerivativeParams object
+  @param infos assoc array of data from images table or a SrcImage object
+  */
   static function url($type, $infos)
   {
     $src_image = is_object($infos) ? $infos : new SrcImage($infos);
@@ -177,14 +191,22 @@ final class DerivativeImage
           ) );
   }
 
+  /**
+  @return an associative array of derivative images with keys all standard derivative image types:
+  Disabled derivative types can be still found in the return mapped to an enabled derivative (e.g. the values are not
+  unique in the return array). This is useful for any plugin/theme to just use $deriv[IMG_XLARGE] even if the XLARGE is
+  disabled.
+  */
   static function get_all($src_image)
   {
     $ret = array();
+    // build enabled types
     foreach (ImageStdParams::get_defined_type_map() as $type => $params)
     {
       $derivative = new DerivativeImage($params, $src_image);
       $ret[$type] = $derivative;
     }
+    // disabled types fqllbqck to enqbled types
     foreach (ImageStdParams::get_undefined_type_map() as $type => $type2)
     {
       $ret[$type] = $ret[$type2];
@@ -196,9 +218,9 @@ final class DerivativeImage
   private static function build($src, &$params, &$rel_path, &$rel_url, &$is_cached=null)
   {
     if ( $src->has_size() && $params->is_identity( $src->get_size() ) )
-    {
+    {// the source image is smaller than what we should do - we do not upsample
       if (!$params->will_watermark($src->get_size()) && !$src->rotation)
-      {
+      {// no watermark, no rotation required -> we will use the source image
         $params = null;
         $rel_path = $rel_url = $src->rel_path;
         return;
