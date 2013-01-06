@@ -30,7 +30,7 @@ $lang['Start Install'] = 'インストールを開始する';
 $lang['mail address must be like xxx@yyy.eee (example : jack@altern.org)'] = 'メールアドレスは、 xxx@yyy.eee のような形式にしてください (例: jack@altern.org)。';
 
 $lang['Webmaster login'] = 'ウェブマスタログイン';
-$lang['It will be shown to the visitors. It is necessary for website administration'] = '訪問者一覧に表示されます。ウェブサイト管理に必要です。';
+$lang['It will be shown to the visitors. It is necessary for website administration'] = 'ゲスト一覧に表示されます。ウェブサイト管理に必要です。';
 
 $lang['Connection to server succeed, but it was impossible to connect to database'] = 'サーバへ接続することができましたが、データベースに接続できません。';
 $lang['Can\'t connect to server'] = 'サーバに接続できません。';
@@ -54,7 +54,7 @@ $lang['Password [confirm]'] = 'パスワード [もう一度]';
 $lang['verification'] = '確認';
 $lang['Need help ? Ask your question on <a href="%s">Piwigo message board</a>.'] = 'ヘルプが必要ですか? <a href="%s">Piwigoメッセージボード</a>にて、あなたの質問を投稿してください。';
 $lang['Webmaster mail address'] = 'ウェブマスタメールアドレス';
-$lang['Visitors will be able to contact site administrator with this mail'] = '訪問者は、このメールアドレスでサイト管理者に連絡することができます。';
+$lang['Visitors will be able to contact site administrator with this mail'] = 'ゲストは、このメールアドレスでサイト管理者に連絡することができます。';
 $lang['PHP 5 is required'] = 'PHP 5が必要です';
 $lang['It appears your webhost is currently running PHP %s.'] = 'あなたのウェブホストは現在PHP %sを使っています。';
 $lang['Piwigo may try to switch your configuration to PHP 5 by creating or modifying a .htaccess file.'] = 'Piwigoは.htaccess ファイルを作成するか変更して、PHP 5を設定してみます。';
