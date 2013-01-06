@@ -457,12 +457,22 @@ SELECT
 ;';
 $result = pwg_query($query);
 
-while ($row = pwg_db_fetch_assoc($result))
-{
-  $widths[] = $row['width'];
-  $heights[] = $row['height'];
-  $ratios[] = floor($row['width'] * 100 / $row['height']) / 100;
+if (!pwg_db_num_rows($result))
+{ // arbitrary values, only used when no photos on the gallery
+  $widths = array(600, 1920, 3500);
+  $heights = array(480, 1080, 2300);
+  $ratios = array(1.25, 1.52, 1.78);
 }
+else
+{
+  while ($row = pwg_db_fetch_assoc($result))
+  {
+    $widths[] = $row['width'];
+    $heights[] = $row['height'];
+    $ratios[] = floor($row['width'] * 100 / $row['height']) / 100;
+  }
+}
+
 
 $widths = array_unique($widths);
 sort($widths);
