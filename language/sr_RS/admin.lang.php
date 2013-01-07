@@ -851,4 +851,5 @@ $lang['Last import'] = 'Последљи увоз';
 $lang['Gallery unlocked'] = 'Галерија откључана';
 $lang['Duplicate'] = 'Дупликат';
 $lang['Delete multiple size images'] = 'Избришите вишеструке величине слика';
+$lang['Zoom'] = 'Увећање';
 ?>
