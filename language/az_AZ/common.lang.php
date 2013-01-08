@@ -61,4 +61,17 @@ $lang['... or please deactivate this message, I will find my way by myself'] = '
 $lang['A comment on your site'] = 'Saytınızdakı şərh';
 $lang['About Piwigo'] = 'Piwigo haqqında';
 $lang['About'] = 'Haqqında';
+$lang['Album'] = 'albom
+';
+$lang['File'] = 'fayl';
+$lang['Display'] = 'göstər';
+$lang['Delete'] = 'sil
+';
+$lang['Date'] = 'tarix';
+$lang['Contact'] = 'təmas';
+$lang['Calendar'] = 'təqvim';
+$lang['Are you sure?'] = 'əminsinizmi?';
+$lang['All'] = 'Bütün';
+$lang['Author'] = 'Müəllif
+';
 ?>
