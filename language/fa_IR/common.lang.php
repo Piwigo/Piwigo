@@ -36,7 +36,7 @@ $lang_info['zero_plural'] = true;
 
 $lang['%d Kb'] = '%d کیلوبایت';
 $lang['%d album updated'] = "%d آلبوم بروزرسانی شد";
-$lang['%d albums updated'] = "%d آلبوم بروزرسانی شدند";
+$lang['%d albums updated'] = '%d آلبوم ها بروزرسانی شدند';
 $lang['%d comment to validate'] = '%d دیدگاه در انتظار پذیرش است.';
 $lang['%d comments to validate'] = '%d دیدگاه در انتظار پذیرش هستند.';
 $lang['%d new comment'] = "%d دیدگاه تازه";
@@ -414,4 +414,8 @@ $lang['Requested tag does not exist'] = 'برچسب مورد نظر شما وج�
 $lang['Email address is mandatory'] = 'آدرس ایمیل الزامی است';
 $lang['Username is mandatory'] = 'نام کاربری الزامی است';
 $lang['mandatory'] = 'الزامی';
+$lang['Your website URL is invalid'] = 'آدرس وب سایت شما نامعتبر است
+';
+$lang['Website'] = 'سایت اینترنتی
+';
 ?>
