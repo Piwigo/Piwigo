@@ -26,6 +26,7 @@
 {footer_script}{literal}
 $(document).ready(function() {
   $('#identification').change(function() {
+    $(this).selectmenu('close');
     window.location = this.value;
   });
 });
