@@ -80,4 +80,17 @@ $lang['%d hour'] = '%d tunti';
 $lang['%d hours'] = '%d tuntia';
 $lang['%d member'] = '%d jäsen';
 $lang['%d members'] = '%d jäsentä';
+$lang['Allow user customization'] = 'Salli kustomointi käyttäjille';
+$lang['Allow users to edit their own comments'] = 'Salli käyttäjien muokata kommenttejaan';
+$lang['Allow users to delete their own comments'] = 'Salli käyttäjien poistaa kommenttejaan';
+$lang['Allow user registration'] = 'Salli käyttäjien rekisteröityminen';
+$lang['All themes are up to date.'] = 'Kaikki teemat ovat ajan tasalla.';
+$lang['%d parameters were updated.'] = '%d parametriä päivitetty.';
+$lang['%d parameter was updated.'] = '%d parametri päivitetty.';
+$lang['%d mails were sent.'] = '%d sähköpostiviestiä lähetetty.';
+$lang['%d mail was sent.'] = '%d sähköpostiviesti lähetetty.';
+$lang['%d mail was not sent.'] = '%d sähköpostiviesti lähettämättä.';
+$lang['%d mails were not sent.'] = '%d sähköpostiviestiä lähettämättä.';
+$lang['%d albums including'] = '%d albumia sisältäen';
+$lang['%d album including'] = '%d albumi sisältäen';
 ?>
