@@ -93,4 +93,9 @@ $lang['%d mail was not sent.'] = '%d sähköpostiviesti lähettämättä.';
 $lang['%d mails were not sent.'] = '%d sähköpostiviestiä lähettämättä.';
 $lang['%d albums including'] = '%d albumia sisältäen';
 $lang['%d album including'] = '%d albumi sisältäen';
+$lang['Choose an action'] = 'Valitse toiminto';
+$lang['%d user was updated.'] = '%d käyttäjä päivitetty.';
+$lang['%d users were not updated.'] = '%d käyttäjää ei päivitetty.';
+$lang['%d users were updated.'] = '%d käyttäjää päivitetty.';
+$lang['%d album moved'] = '%d albumi siirretty';
 ?>
