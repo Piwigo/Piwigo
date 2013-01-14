@@ -387,6 +387,7 @@ if (count($categories) > 0)
   $derivative_params = trigger_event('get_index_album_derivative_params', ImageStdParams::get_by_type(IMG_THUMB) );
   $tpl_thumbnails_var_selection = trigger_event('loc_end_index_category_thumbnails', $tpl_thumbnails_var_selection);
   $template->assign( array(
+    'maxRequests' =>$conf['maxRequests'],
     'category_thumbnails' => $tpl_thumbnails_var_selection,
     'derivative_params' => $derivative_params,
     ) );

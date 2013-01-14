@@ -769,4 +769,7 @@ $conf['chmod_value']= substr_compare(PHP_SAPI, 'apa', 0, 3)==0 ? 0777 : 0755;
 
 // 'small', 'medium' or 'large'
 $conf['derivative_default_size'] = 'medium';
+
+//Maximum Ajax requests at once, for thumbnails on-the-fly generation
+$conf['maxRequests']=3;
 ?>

@@ -23,15 +23,51 @@
 {/html_style}
 {foreach from=$thumbnails item=thumbnail}
 {assign var=derivative value=$pwg->derivative($derivative_params, $thumbnail.src_image)}
-{if !$derivative->is_cached()}
+{if !$derivative->is_cached() and !$js_loaded}
 {combine_script id='jquery.ajaxmanager' path='themes/default/js/plugins/jquery.ajaxmanager.js' load='footer'}
-{combine_script id='thumbnails.loader' path='themes/default/js/thumbnails.loader.js' require='jquery.ajaxmanager' load='footer'}
+{*combine_script id='thumbnails.loader' path='themes/default/js/thumbnails.loader.js' require='jquery.ajaxmanager' load='footer'*}
+{footer_script}{literal}
+var thumbnails_queue = jQuery.manageAjax.create('queued', {
+  queue: true,  
+  cacheResponse: false,
+  maxRequests: {/literal}{$maxRequests}{literal},
+  preventDoubleRequests: false
+});
+
+function add_thumbnail_to_queue(img, loop) {
+  thumbnails_queue.add({
+    type: 'GET', 
+    url: img.data('src'), 
+    data: { ajaxload: 'true' },
+    dataType: 'json',
+    beforeSend: function(){jQuery('.loader').show()},
+    success: function(result) {
+      img.attr('src', result.url);
+      jQuery('.loader').hide();
+    },
+    error: function() {
+      if (loop < 3)
+        add_thumbnail_to_queue(img, ++loop); // Retry 3 times
+      img.attr('src', {/literal}"{$ROOT_URL}{$themeconf.icon_dir}/errors_small.png"{literal});
+      jQuery('.loader').hide();
+    }
+  }); 
+}
+
+function pwg_ajax_thumbnails_loader() {
+  jQuery('img[data-src]').each(function() {
+    add_thumbnail_to_queue(jQuery(this), 0);
+  });
+}
+jQuery(document).ready(pwg_ajax_thumbnails_loader);
+{/literal}{/footer_script}
+{assign var=js_loaded value=true}
 {/if}
 <li>
 	<span class="wrap1">
 		<span class="wrap2">
 		<a href="{$thumbnail.URL}">
-			<img class="thumbnail" {if $derivative->is_cached()}src="{$derivative->get_url()}"{else}src="{$ROOT_URL}{$themeconf.img_dir}/ajax-loader-small.gif" data-src="{$derivative->get_url()}"{/if} alt="{$thumbnail.TN_ALT}" title="{$thumbnail.TN_TITLE}">
+			<img class="thumbnail" {if $derivative->is_cached()}src="{$derivative->get_url()}"{else}src="{$ROOT_URL}{$themeconf.icon_dir}/img_small.png" data-src="{$derivative->get_url()}"{/if} alt="{$thumbnail.TN_ALT}" title="{$thumbnail.TN_TITLE}">
 		</a>
 		</span>
 		{if $SHOW_THUMBNAIL_CAPTION }
