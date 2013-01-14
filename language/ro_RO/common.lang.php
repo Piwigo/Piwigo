@@ -112,7 +112,7 @@ $lang['Sort by'] = 'Sortare după';
 $lang['Sort order'] = 'Ordine de sortare';
 $lang['Tag'] = 'Etichetă';
 $lang['Tags'] = 'Etichete';
-$lang['The RSS notification feed provides notification on news from this website : new photos, updated albums, new comments. Use a RSS feed reader.'] = 'Notificarea RSS feed prevede notificarea cu privire la noutăţile din acest site: poze noi, albume actualizate, noi comentarii. Folosiţi un RSS feed reader.';
+$lang['The RSS notification feed provides notification on news from this website : new photos, updated albums, new comments. Use a RSS feed reader.'] = 'Notificarea RSS feed prevede notificarea cu privire la noutăţile din acest sit: poze noi, albume actualizate, noi comentarii. Folosiţi un RSS feed reader.';
 $lang['Unknown feed identifier'] = 'Identificator RSS feed  necunoscut';
 $lang['User comments'] = 'Comentarii utilizator ';
 $lang['Username'] = 'Nume de utilizator';
@@ -413,4 +413,6 @@ $lang['Requested tag does not exist'] = 'Eticheta căutată nu există';
 $lang['Email address is mandatory'] = 'Adresa de email este obligatorie';
 $lang['Username is mandatory'] = 'Numele de utlizator este obligatoriu';
 $lang['mandatory'] = 'obligatoriu (obligatorie)';
+$lang['Website'] = 'Sit';
+$lang['Your website URL is invalid'] = 'URL-ul sitului tău este invalid';
 ?>
