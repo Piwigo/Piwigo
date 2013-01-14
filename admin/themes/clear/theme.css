@@ -160,7 +160,7 @@ margin-top:4px; padding-bottom:3px; padding-top:3px; top:1px;
   margin-left:0;
 }
 
-#menubar ul.scroll { overflow-y:auto;
+#menubar ul.scroll { overflow-y:auto; max-height:500px;
  /* Only IE family supports colored scrollbar */
  scrollbar-face-color: #ddd; scrollbar-shadow-color: #bbb; scrollbar-highlight-color: #fff;
  scrollbar-3dlight-color: #d6d6d6; scrollbar-darkshadow-color: #ccc; scrollbar-track-color: #eee;
