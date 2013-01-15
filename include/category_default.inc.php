@@ -153,7 +153,7 @@ foreach ($pictures as $row)
 
 $template->assign( array(
   'derivative_params' => trigger_event('get_index_derivative_params', ImageStdParams::get_by_type( pwg_get_session_var('index_deriv', IMG_THUMB) ) ),
-  'maxRequests' =>$conf['maxRequests'],
+  'maxRequests' =>$conf['max_requests'],
   'SHOW_THUMBNAIL_CAPTION' =>$conf['show_thumbnail_caption'],
     ) );
 $tpl_thumbnails_var = trigger_event('loc_end_index_thumbnails', $tpl_thumbnails_var, $pictures);
