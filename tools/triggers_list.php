@@ -1,26 +1,4 @@
 <?php
-// +-----------------------------------------------------------------------+
-// | Piwigo - a PHP based photo gallery                                    |
-// +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2009 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
-// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation                                          |
-// |                                                                       |
-// | This program is distributed in the hope that it will be useful, but   |
-// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
-// | General Public License for more details.                              |
-// |                                                                       |
-// | You should have received a copy of the GNU General Public License     |
-// | along with this program; if not, write to the Free Software           |
-// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
-// | USA.                                                                  |
-// +-----------------------------------------------------------------------+
-
 $core = array(
 array(
   'name' => 'allow_increment_element_hit_count',
@@ -815,75 +793,180 @@ array(
 ),
 );
 ?>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
-   "http://www.w3.org/TR/html4/strict.dtd">
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" dir="ltr">
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <title>Piwigo Core Triggers</title>
   
-  <link type="text/css" rel="stylesheet" media="screen" href="tablesorter/jquery.tablesorter.css">
-  <script type="text/javascript" src="../themes/default/js/jquery.min.js"></script>
-  <script type="text/javascript" src="tablesorter/jquery.tablesorter.min.js"></script>
-
+  <link rel="stylesheet" type="text/css" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css">
+  <link rel="stylesheet" type="text/css" href="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTables_themeroller.css">
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+  <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js"></script>
   
-  <script type="text/javascript">
-  $(document).ready(function() { 
-        $('#triggers').tablesorter({
-          sortList: [[0,0]]
-        }); 
-  });  
-  </script>
+  <style type="text/css">
+  /* BEGIN CSS RESET
+    http://meyerweb.com/eric/tools/css/reset
+    v2.0 | 20110126 | License: none (public domain) */
+  html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code,
+  del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li,
+  fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, 
+  figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video
+  {margin:0;padding:0;border:0;font-size:100%;vertical-align:baseline;}
+
+  article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {display:block;}
+  body {line-height:1.1;}
+  blockquote, q {quotes:none;}
+  blockquote:before, blockquote:after, q:before, q:after {content:'';content:none;}
+  table {border-collapse:collapse;border-spacing:0;}
+  /* END CSS RESET */
+  
+  html {font-family:"Corbel","Lucida Grande","Verdana",sans-serif;color:#222;font-size:13px;}
+
+  a {color:#247EBF;text-decoration:none;}
+  a:hover {color:#EB9C39;border-bottom-width:1px;border-style:dotted;
+    text-shadow:1px 1px 0 #ddd;-moz-text-shadow:1px 1px 0 #ddd;-webkit-text-shadow:1px 1px 0 #ddd;
+  }
+
+  h1 {color:#fff;font-size:26px;padding:10px 15px;
+    text-shadow:1px 1px 0 #999;-moz-text-shadow:1px 1px 0 #999;-webkit-text-shadow:1px 1px 0 #999;
+    background:#45484d;background:-moz-linear-gradient(top, #45484d 0%, #333333 100%);background:-webkit-gradient(linear, left top, left bottom, color-stop(0%,#45484d), color-stop(100%,#333333));background:-webkit-linear-gradient(top, #45484d 0%,#333333 100%);background:-o-linear-gradient(top, #45484d 0%,#333333 100%);background:-ms-linear-gradient(top, #45484d 0%,#333333 100%);background:linear-gradient(to bottom, #45484d 0%,#333333 100%);filter:progid:DXImageTransform.Microsoft.gradient( startColorstr='#45484d', endColorstr='#333333',GradientType=0 );
+  }
+
+  #the_header {border-bottom:1px solid #cdcdcd;margin-bottom:1px;}
+  #the_footer {background:#EAEAEA;border-top:1px solid #cdcdcd;padding:10px;clear:both;}
+
+  #the_page {padding:20px;background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAMAAAADCAIAAADZSiLoAAAAH0lEQVQImSXHMQEAMAwCMOrfK0jIjuVL2gLBzyHJtgd7wBdU3Vt/7AAAAABJRU5ErkJggg==);}
+  
+  tfoot input {width:80%;}
+  tfoot .search_input {color:#999;}
+  tfoot select.search_input option:not(:first-child) {color:#222;}
+  </style>
 </head>
 
-<body style="font-family:arial;">
-<h2>Piwigo Core Triggers</h2>
+<body>
 
-<a href="http://piwigo.org/doc/doku.php?id=dev:plugins">For more infos about triggers</a>
+<div id="the_header">
+  <h1>Piwigo Core Triggers</h1>
+</div> <!-- the_header -->
 
-<table id="triggers" class="tablesorter">
-<thead> 
-<tr>
-  <th>Name</th>
-  <th>Type</th>
-  <th>Vars</th>
-  <th>Usage in the core <span style="font-weight:normal !important;">file (<i>function</i>)</span></th>
-  <th>Commentary</th>
-</tr>
-</thead> 
-<tbody>
+<div id="the_page">
+  <table id="list">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Variables</th>
+      <th>Usage in the core</th>
+      <th>Commentary</th>
+    </tr>
+  </thead>
+  <tbody>
 
-<?php  
-  foreach ($core as $trigger)
-  {
-    echo '
-  <tr>
-    <td>'.$trigger['name'].'</td>
-    <td>'.$trigger['type'].'</td>
-    <td>';
-    for ($i=0; $i<count($trigger['vars']); $i+=2)
+  <?php  
+    foreach ($core as $trigger)
     {
-      if ($i>0) echo ', ';
-      echo $trigger['vars'][$i].' '.(!empty($trigger['vars'][$i+1])?'<i>$'.$trigger['vars'][$i+1].'</i>':null);
+      echo '
+    <tr>
+      <td>'.$trigger['name'].'</td>
+      <td>'.$trigger['type'].'</td>
+      <td>';
+      for ($i=0; $i<count($trigger['vars']); $i+=2)
+      {
+        if ($i>0) echo ', ';
+        echo $trigger['vars'][$i].' '.(!empty($trigger['vars'][$i+1])?'<i>$'.$trigger['vars'][$i+1].'</i>':null);
+      }
+      echo '
+      </td>
+      <td>';
+      $f=1;
+      foreach ($trigger['files'] as $file)
+      {
+        if (!$f) echo '<br>'; $f=0;
+        echo preg_replace('#\((.+)\)#', '(<i>$1</i>)', $file);
+      }
+      echo '
+      </td>
+      <td>'.@$trigger['infos'].'</td>
+    </tr>';
     }
-    echo '
-    </td>
-    <td>';
-    $f=1;
-    foreach ($trigger['files'] as $file)
-    {
-      if (!$f) echo '<br>'; $f=0;
-      echo preg_replace('#\((.+)\)#', '(<i>$1</i>)', $file);
-    }
-    echo '
-    </td>
-    <td>'.@$trigger['infos'].'</td>
-  </tr>';
+  ?>
+
+  </tbody>
+  <tfoot>
+    <tr>
+      <td><input type="text" value="Name" class="search_input"></td>
+      <td>
+        <select class="search_input">
+          <option value="">Type</option>
+          <option value="trigger_action">trigger_action</option>
+          <option value="trigger_event">trigger_event</option>
+        </select>
+      </td>
+      <td><input type="text" value="Variables" class="search_input"></td>
+      <td><input type="text" value="Usage" class="search_input"></td>
+      <td><input type="text" value="Commentary" class="search_input"></td>
+    </tr>
+  </tfoot>
+  </table>
+</div> <!-- the_page -->
+
+<div id="the_footer">
+  Copyright &copy; 2002-2013 <a href="http://piwigo.org">Piwigo Team</a>
+</div> <!-- the_footer -->
+
+  
+<script type="text/javascript">
+var oTable = $('#list').dataTable({
+  "bJQueryUI": true,
+  "aaSorting": [ [0,'asc'] ],
+  "sPaginationType": "full_numbers",
+  "aLengthMenu": [[10, 30, 50, 70, 90, -1], [10, 30, 50, 70, 90, "All"]],
+  "iDisplayLength": 30,
+  "oLanguage": {
+      "sSearch": "Search all columns :"
   }
-?>
+});
 
-</tbody>
-</table>
+// search input
+$("tfoot td").each(function (i) {
+  $('select', this).change(function () {
+    oTable.fnFilter($(this).val(), i);
+  });
+  $('input', this).keyup(function () {
+    oTable.fnFilter($(this).val(), i);
+  });
+});
+
+// search helpers
+var asInitVals = new Array();
+$("tfoot input").each(function (i) {
+  asInitVals[i] = $(this).val();
+});
+ 
+$("tfoot input").focus(function () {
+  if (this.className == "search_input") {
+    $(this).removeClass("search_input");
+    $(this).val("");
+  }
+});
+ 
+$("tfoot input").blur(function (i) {
+  if ($(this).val() == "") {
+    $(this).addClass("search_input");
+    $(this).val(asInitVals[$("tfoot input").index(this)]);
+  }
+});
+
+$("tfoot select").change(function () {
+  if ($(this).val() == "") {
+    $(this).addClass("search_input");
+  }
+  else {
+    $(this).removeClass("search_input");
+  }
+});
+</script>
 
 </body>
 </html>
