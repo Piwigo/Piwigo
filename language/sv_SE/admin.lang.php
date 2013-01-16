@@ -922,4 +922,9 @@ $lang['Edit photo'] = 'Redigera bild';
 
 $lang['create a new site'] = 'skapa en ny site';
 $lang['No order field selected'] = 'Inget ordningsfält valt';
+$lang['Manage the members'] = 'Hantera medlemmar';
+$lang['Manage photos'] = 'Hantera bilder';
+$lang['Landscape'] = 'Liggande';
+$lang['Duplicate selected tags'] = 'Duplicera markerade taggar';
+$lang['Duplicate'] = 'Duplicera';
 ?>
