@@ -940,4 +940,15 @@ $lang['Portrait'] = 'پرتره';
 $lang['View in gallery'] = 'نمایش در گالری';
 $lang['Duplicate'] = 'دوتایی کردن';
 $lang['Manage the members'] = 'مدیریت کاربران';
+$lang['Merge selected groups'] = 'ترکیب گروه‌های انتخاب شده';
+$lang['No group selected, no action possible.'] = 'گروهی انتخاب نشده است، هیچ کاری انجام نخواهد شد.';
+$lang['No members to manage'] = 'کاربری برای ترکیب وجود ندارد';
+$lang['Please select at least two groups'] = 'دست کم باید دو گروه را انتخاب کنید';
+$lang['Ratio'] = 'نسبت';
+$lang['Rename'] = 'تغییر نام';
+$lang['This group will be set to default'] = 'این گروه در حالت پیشفرض استفاده خواهد شد';
+$lang['This group will be unset to default'] = 'این گروه دیگر در حالت پیشفرض استفاده نخواهد شد';
+$lang['Type here the name of the new group'] = 'نام گروه تازه را اینجا بنویسید';
+$lang['between %.2f and %.2f'] = 'میان %.2f و %.2f';
+$lang['between %d and %d pixels'] = 'میان %d و %d پیکسل';
 ?>
