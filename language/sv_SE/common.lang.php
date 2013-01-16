@@ -412,4 +412,9 @@ $lang['Requested album does not exist'] = 'Det efterfrågade albumet finns inte'
 $lang['Permalink for album not found'] = 'Permalänk till albumet kan ej hittas';
 $lang['Requested tag does not exist'] = 'Den efterfrågade taggen finns inte';
 
+$lang['Email address is mandatory'] = 'E-postadress är obligatorisk';
+$lang['Username is mandatory'] = 'Användarnamn är obligatorisk';
+$lang['Website'] = 'Hemsida';
+$lang['Your website URL is invalid'] = 'URL för hemsida är ogiltig';
+$lang['mandatory'] = 'obligatorisk';
 ?>
