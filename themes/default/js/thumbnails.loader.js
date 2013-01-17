@@ -1,7 +1,10 @@
+if ( typeof( max_requests ) == "undefined" )
+  max_requests = 3;
+
 var thumbnails_queue = jQuery.manageAjax.create('queued', {
   queue: true,  
   cacheResponse: false,
-  maxRequests: 3,
+  maxRequests: max_requests,
   preventDoubleRequests: false
 });
 
