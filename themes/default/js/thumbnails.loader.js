@@ -11,12 +11,17 @@ function add_thumbnail_to_queue(img, loop) {
     url: img.data('src'), 
     data: { ajaxload: 'true' },
     dataType: 'json',
+    beforeSend: function(){jQuery('.loader').show()},
     success: function(result) {
       img.attr('src', result.url);
+      jQuery('.loader').hide();
     },
     error: function() {
       if (loop < 3)
         add_thumbnail_to_queue(img, ++loop); // Retry 3 times
+      if ( typeof( error_icon ) != "undefined" )
+        img.attr('src', error_icon);
+      jQuery('.loader').hide();
     }
   }); 
 }
