@@ -794,4 +794,7 @@ $lang['You can activate only one mobile theme.'] = 'Poţi activa numai o temă p
 $lang['You cannot move an album in its own sub album'] = 'Nu poţi muta un album în popriul său sub-album';
 $lang['You have %d orphan tags: %s.'] = 'Ai %d etichete orfane:%s.';
 $lang['between %.2f and %.2f'] = 'între %.2f şi %.2f';
+$lang['With no virtual album'] = 'Fără album virtual';
+$lang['Year'] = 'An';
+$lang['Zoom'] = 'Marește';
 ?>
