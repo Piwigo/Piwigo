@@ -1063,6 +1063,7 @@ function log_user($user_id, $remember_me)
   $_SESSION['pwg_uid'] = (int)$user_id;
 
   $user['id'] = $_SESSION['pwg_uid'];
+  trigger_action('user_login', $user['id']);
 }
 
 /*
@@ -1177,6 +1178,18 @@ function pwg_password_verify($password, $hash, $user_id=null)
  */
 function try_log_user($username, $password, $remember_me)
 {
+  return trigger_event('try_log_user', false, $username, $password, $remember_me);
+}
+
+add_event_handler('try_log_user', 'pwg_login', EVENT_HANDLER_PRIORITY_NEUTRAL, 4);
+
+function pwg_login($success, $username, $password, $remember_me)
+{
+  if ($success===true) 
+  {
+    return true;
+  }
+  
   // we force the session table to be clean
   pwg_session_gc();
 
@@ -1203,6 +1216,9 @@ SELECT '.$conf['user_fields']['id'].' AS id,
 function logout_user()
 {
   global $conf;
+  
+  trigger_action('user_logout', @$_SESSION['pwg_uid']);
+  
   $_SESSION = array();
   session_unset();
   session_destroy();

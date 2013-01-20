@@ -791,6 +791,25 @@ array(
   'vars' => array('bool', null, 'string', 'methodName', 'array', 'params'),
   'files' => array('include\ws_core.inc.php (PwgServer::invoke)'),
 ),
+array(
+  'name' => 'user_logout',
+  'type' => 'trigger_action',
+  'vars' => array('int', 'user_id'),
+  'files' => array('include\functions_user.inc.php (logout_user)'),
+),
+array(
+  'name' => 'user_login',
+  'type' => 'trigger_action',
+  'vars' => array('int', 'user_id'),
+  'files' => array('include\functions_user.inc.php (log_user)'),
+),
+array(
+  'name' => 'try_log_user',
+  'type' => 'trigger_event',
+  'vars' => array('boolean', 'success', 'string', 'username', 'string', 'password', 'bool', 'remember_me'),
+  'files' => array('include\functions_user.inc.php (try_log_user)'),
+  'infos' => 'Used by identification form to check user credentials and log user. If success is true, another login method already succeed. Return true if your method succeed.',
+),
 );
 ?>
 <!DOCTYPE html>
