@@ -74,4 +74,12 @@ $lang['Are you sure?'] = 'əminsinizmi?';
 $lang['All'] = 'Bütün';
 $lang['Author'] = 'Müəllif
 ';
+$lang['Album: %s'] = 'Albom: %5';
+$lang['Administration'] = 'Müdiriyyət';
+$lang['Accelerate diaporama speed'] = 'Sürətin artır
+';
+$lang['Add a comment'] = 'Geyd əlavə et';
+$lang['Admin: %s'] = 'Müdir: %5';
+$lang['%d rate'] = '%d norma';
+$lang['2small'] = 'XXS-bapbalaca';
 ?>
