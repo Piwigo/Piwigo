@@ -21,6 +21,7 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
+include_once( PHPWG_ROOT_PATH .'include/functions_plugins.inc.php' );
 include_once( PHPWG_ROOT_PATH .'include/functions_user.inc.php' );
 include_once( PHPWG_ROOT_PATH .'include/functions_cookie.inc.php' );
 include_once( PHPWG_ROOT_PATH .'include/functions_session.inc.php' );
@@ -28,7 +29,6 @@ include_once( PHPWG_ROOT_PATH .'include/functions_category.inc.php' );
 include_once( PHPWG_ROOT_PATH .'include/functions_html.inc.php' );
 include_once( PHPWG_ROOT_PATH .'include/functions_tag.inc.php' );
 include_once( PHPWG_ROOT_PATH .'include/functions_url.inc.php' );
-include_once( PHPWG_ROOT_PATH .'include/functions_plugins.inc.php' );
 include_once( PHPWG_ROOT_PATH .'include/derivative_params.inc.php');
 include_once( PHPWG_ROOT_PATH .'include/derivative_std_params.inc.php');
 include_once( PHPWG_ROOT_PATH .'include/derivative.inc.php');
@@ -1256,7 +1256,8 @@ function load_language($filename, $dirname = '',
     $target_charset = $options['target_charset'];
   }
   $target_charset = strtolower($target_charset);*/
-  $source_file    = '';
+  $source_file       = '';
+  $selected_language = '';
   foreach ($languages as $language)
   {
     $f = @$options['local'] ?
@@ -1265,6 +1266,7 @@ function load_language($filename, $dirname = '',
 
     if (file_exists($f))
     {
+      $selected_language = $language;
       $source_file = $f;
       break;
     }
@@ -1281,6 +1283,13 @@ function load_language($filename, $dirname = '',
       global $lang, $lang_info;
       if ( !isset($lang) ) $lang=array();
       if ( !isset($lang_info) ) $lang_info=array();
+      
+      $parent_language = !empty($load_lang_info['parent']) ? $load_lang_info['parent'] : (
+                            !empty($lang_info['parent']) ? $lang_info['parent'] : null );
+      if (!empty($parent_language))
+      {
+        @include(str_replace($selected_language, $parent_language, $source_file));
+      }
 
       /* Note: target charset is always utf-8
       if ( 'utf-8'!=$target_charset)
