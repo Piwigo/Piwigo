@@ -22,8 +22,7 @@
 {/if}
 {/html_style}
 {footer_script}
-  var error_icon = "{$ROOT_URL}{$themeconf.icon_dir}/errors_small.png";
-  var max_requests = "{$maxRequests}";
+  var error_icon = "{$ROOT_URL}{$themeconf.icon_dir}/errors_small.png", max_requests = {$maxRequests};
 {/footer_script}
 {foreach from=$thumbnails item=thumbnail}
 {assign var=derivative value=$pwg->derivative($derivative_params, $thumbnail.src_image)}
