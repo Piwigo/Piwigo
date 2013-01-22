@@ -70,6 +70,9 @@ final class ImageRect
     return $this->b - $this->t;
   }
 
+  /** crops horizontally this rectangle by increasing left side and/or reducing the right side.
+  @param pixels the amount to substract from the width
+  @param coi a 4 character string (or null) containing the center of interest*/
   function crop_h($pixels, $coi)
   {
     if ($this->width() <= $pixels)
@@ -98,6 +101,9 @@ final class ImageRect
     $this->r -= $pixels - $tlcrop;
   }
 
+  /** crops vertically this rectangle by increasing top side and/or reducing the bottom side.
+  @param pixels the amount to substract from the height
+  @param coi a 4 character string (or null) containing the center of interest*/
   function crop_v($pixels, $coi)
   {
     if ($this->height() <= $pixels)
@@ -129,13 +135,18 @@ final class ImageRect
 }
 
 
-/*how we crop and/or resize an image*/
+/** Paramaters for derivative scaling and cropping. Instance of this class contained by DerivativeParams class.*/
 final class SizingParams
 {
+  /**
+  @param ideal_size two element array of maximum output dimensions (width, height)
+  @param max_crop range 0=no cropping ... 1= max cropping (100% of width/height); expressed as a factor of the input width/height
+  @param min_size used only if max_crop != 0 - two element array of output dimensions (width, height)
+  */
   function __construct($ideal_size, $max_crop = 0, $min_size = null)
   {
     $this->ideal_size = $ideal_size;
-    $this->max_crop = $max_crop;
+    $this->max_crop = $max_crop; // range 0=no cropping ... 1= max cropping (100% of width/height)
     $this->min_size = $min_size;
   }
 
@@ -167,6 +178,12 @@ final class SizingParams
       }
   }
 
+  /* calculate the cropping rectangle and the scaled size for an input image size
+  @param in_size two element array of input dimensions (width, height)
+  @param coi empty or a four character encoded string containing the center of interest (unused if max_crop=0)
+  @param crop_rect output ImageRect containing the cropping rectangle or null if cropping is not required
+  @param scale_size output two element array containing width and height of the scaled image
+  */
   function compute($in_size, $coi, &$crop_rect, &$scale_size)
   {
     $destCrop = new ImageRect($in_size);
@@ -232,14 +249,14 @@ final class SizingParams
 }
 
 
-/*how we generate a derivative image*/
+/** All needed parameters to generate a derivative image.*/
 final class DerivativeParams
 {
-  public $type = IMG_CUSTOM;
+  public $type = IMG_CUSTOM; // string IMG_xxx
   public $last_mod_time = 0; // used for non-custom images to regenerate the cached files
   public $use_watermark = false;
-  public $sizing;
-  public $sharpen = 0;
+  public $sizing; // of type SizingParams
+  public $sharpen = 0; // range 0= no sharpening ... 1= max sharpening
 
   function __construct($sizing)
   {
@@ -281,7 +298,7 @@ final class DerivativeParams
     }
     return true;
   }
-  
+
   function will_watermark($out_size)
   {
     if ($this->use_watermark)
