@@ -412,4 +412,9 @@ $lang['Permalink for album not found'] = 'Không tìm thấy liên kết cho alb
 $lang['Piwigo encountered a non recoverable error'] = 'Piwigo gặp lỗi ngoài tầm kiểm soát';
 $lang['Requested album does not exist'] = 'Không có album như bạn yêu cầu';
 $lang['Requested tag does not exist'] = 'Không có tag như bạn yêu cầu';
+$lang['Email address is mandatory'] = 'Phải có địa chỉ email';
+$lang['Username is mandatory'] = 'Phải có tên người dùng';
+$lang['Website'] = 'Trang web';
+$lang['Your website URL is invalid'] = 'Địa chỉ trang web không bình thường';
+$lang['mandatory'] = 'bắt buộc';
 ?>
