@@ -82,4 +82,7 @@ $lang['Add a comment'] = 'Geyd əlavə et';
 $lang['Admin: %s'] = 'Müdir: %5';
 $lang['%d rate'] = '%d norma';
 $lang['2small'] = 'XXS-bapbalaca';
+$lang['Comment'] = '	
+qeyd';
+$lang['Albums'] = 'Albomlar';
 ?>
