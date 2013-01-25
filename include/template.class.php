@@ -527,7 +527,7 @@ class Template {
     $content = trim($content);
     if ( !empty($content) )
     { // second call
-      $this->html_style .= $content;
+      $this->html_style .= "\n".$content;
     }
   }
 
