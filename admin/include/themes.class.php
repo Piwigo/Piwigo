@@ -454,10 +454,10 @@ SELECT
    */
   function get_server_themes($new=false)
   {
-    global $user;
+    global $user, $conf;
 
     $get_data = array(
-      'category_id' => 10,
+      'category_id' => $conf['pem_themes_category'],
       'format' => 'php',
     );
 

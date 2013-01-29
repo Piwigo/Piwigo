@@ -292,7 +292,7 @@ DELETE FROM ' . PLUGINS_TABLE . ' WHERE id=\'' . $plugin_id . '\'';
    */
   function get_server_plugins($new=false)
   {
-    global $user;
+    global $user, $conf;
 
     $versions_to_check = $this->get_versions_to_check();
     if (empty($versions_to_check))
@@ -313,7 +313,7 @@ DELETE FROM ' . PLUGINS_TABLE . ' WHERE id=\'' . $plugin_id . '\'';
     // Retrieve PEM plugins infos
     $url = PEM_URL . '/api/get_revision_list.php';
     $get_data = array(
-      'category_id' => 12,
+      'category_id' => $conf['pem_plugins_category'],
       'format' => 'php',
       'last_revision_only' => 'true',
       'version' => implode(',', $versions_to_check),
@@ -363,6 +363,8 @@ DELETE FROM ' . PLUGINS_TABLE . ' WHERE id=\'' . $plugin_id . '\'';
     {
       return false;
     }
+    
+    global $conf;
 
     // Plugins to check
     $plugins_to_check = array();
@@ -377,7 +379,7 @@ DELETE FROM ' . PLUGINS_TABLE . ' WHERE id=\'' . $plugin_id . '\'';
     // Retrieve PEM plugins infos
     $url = PEM_URL . '/api/get_revision_list.php';
     $get_data = array(
-      'category_id' => 12,
+      'category_id' => $conf['pem_plugins_category'],
       'format' => 'php',
       'version' => implode(',', $versions_to_check),
       'extension_include' => implode(',', $plugins_to_check),

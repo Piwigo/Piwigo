@@ -755,8 +755,13 @@ $conf['enable_synchronization'] = true;
 // permitted characters for files/directoris during synchronization
 $conf['sync_chars_regex'] = '/^[a-zA-Z0-9-_.]+$/';
 
-// PEM url
+// PEM url (default is http://piwigo.org/ext)
 $conf['alternative_pem_url'] = '';
+
+// categories ID on PEM
+$conf['pem_plugins_category'] = 12;
+$conf['pem_themes_category'] = 10;
+$conf['pem_languages_category'] = 8;
 
 // based on the EXIF "orientation" tag, should we rotate photos added in the
 // upload form or through pwg.images.addSimple web API method?

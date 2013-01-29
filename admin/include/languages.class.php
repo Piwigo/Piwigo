@@ -217,10 +217,10 @@ UPDATE '.USER_INFOS_TABLE.'
    */
   function get_server_languages($new=false)
   {
-    global $user;
+    global $user, $conf;
 
     $get_data = array(
-      'category_id' => 8,
+      'category_id' => $conf['pem_languages_category'],
       'format' => 'php',
     );
 
