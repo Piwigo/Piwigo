@@ -171,7 +171,7 @@ jQuery("#derivativeSwitchBox").on("mouseleave", function() {
 {/if}
 
 {if !empty($THUMBNAILS)}
-<div class="loader" style="display: none; position: fixed; right: 0;bottom: 0;"><img src="{$ROOT_URL}{$themeconf.img_dir}/ajax_loader.gif"></div>
+<div class="loader"><img src="{$ROOT_URL}{$themeconf.img_dir}/ajax_loader.gif"></div>
 <ul class="thumbnails" id="thumbnails">
   {$THUMBNAILS}
 </ul>

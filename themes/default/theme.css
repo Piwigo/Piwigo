@@ -253,6 +253,13 @@ TD.calDayCellFull, TD.calDayCellEmpty {
 	float: left;
 }
 
+/* Loader gif new in 2.5 */
+.loader {
+  display: none;
+  position: fixed;
+  right: 0;
+  bottom: 0;
+}
 
 /* User comments */
 #comments {

@@ -10,7 +10,7 @@
 {footer_script}
   var error_icon = "{$ROOT_URL}{$themeconf.icon_dir}/errors_small.png", max_requests = {$maxRequests};
 {/footer_script}
-<div class="loader" style="display: none; position: fixed; right: 0;bottom: 0;"><img src="{$ROOT_URL}{$themeconf.img_dir}/ajax_loader.gif"></div>
+<div class="loader"><img src="{$ROOT_URL}{$themeconf.img_dir}/ajax_loader.gif"></div>
 <ul class="thumbnailCategories">
 {foreach from=$category_thumbnails item=cat name=cat_loop}
 {assign var=derivative value=$pwg->derivative($derivative_params, $cat.representative.src_image)}
