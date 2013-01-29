@@ -83,11 +83,18 @@ $tokens = explode('/', ltrim($rewritten, '/') );
 //   );
 
 $next_token = 0;
-if (script_basename() == 'picture') // basename without file extention
-{ // the first token must be the identifier for the picture
+
+// +-----------------------------------------------------------------------+
+// |                             picture page                              |
+// +-----------------------------------------------------------------------+
+// the first token must be the identifier for the picture
+if (script_basename() == 'picture')
+{
+  // url compatibility with versions below 1.6
   if ( isset($_GET['image_id'])
-       and isset($_GET['cat']) and is_numeric($_GET['cat']) )
-  {// url compatibility with versions below 1.6
+       and isset($_GET['cat']) 
+       and is_numeric($_GET['cat']) )
+  {
     $url = make_picture_url( array(
         'section' => 'categories',
         'category' => get_cat_info($_GET['cat']),
@@ -95,6 +102,7 @@ if (script_basename() == 'picture') // basename without file extention
       ) );
     redirect($url);
   }
+  
   $token = $tokens[$next_token];
   $next_token++;
   if ( is_numeric($token) )
@@ -131,6 +139,7 @@ if (script_basename() == 'picture') // basename without file extention
   }
 }
 
+
 $page = array_merge( $page, parse_section_url( $tokens, $next_token) );
 
 if ( !isset($page['section']) )
@@ -143,8 +152,8 @@ if ( !isset($page['section']) )
       break;
     case 'index':
     {
-      // No section defined, go to selected url
-      if (!empty($conf['random_index_redirect']) and empty($tokens[$next_token]) )
+      // No section defined, go to random url
+      if ( !empty($conf['random_index_redirect']) and empty($tokens[$next_token]) )
       {
         $random_index_redirect = array();
         foreach ($conf['random_index_redirect'] as $random_url => $random_url_condition)
@@ -169,10 +178,12 @@ if ( !isset($page['section']) )
 }
 
 $page = array_merge( $page, parse_well_known_params_url( $tokens, $next_token) );
+
+//access a picture only by id, file or id-file without given section
 if ( script_basename()=='picture' and 'categories'==$page['section'] and
       !isset($page['category']) and !isset($page['chronology_field']) )
-{ //access a picture only by id, file or id-file without given section
-  $page['flat']=true;
+{
+  $page['flat'] = true;
 }
 
 // $page['nb_image_page'] is the number of picture to display on this page
@@ -201,12 +212,11 @@ if (pwg_get_session_var('image_order',0) > 0)
   if ($orders[$image_order_id][2])
   {
     $conf['order_by'] = str_replace(
-      'ORDER BY ',
-      'ORDER BY '.$orders[$image_order_id][1].',',
-      $conf['order_by']
-    );
+        'ORDER BY ',
+        'ORDER BY '.$orders[$image_order_id][1].',',
+        $conf['order_by']
+        );
     $page['super_order_by'] = true;
-
   }
   else
   {
@@ -216,11 +226,10 @@ if (pwg_get_session_var('image_order',0) > 0)
 }
 
 $forbidden = get_sql_condition_FandF(
-      array
-        (
-          'forbidden_categories' => 'category_id',
-          'visible_categories' => 'category_id',
-          'visible_images' => 'id'
+      array(
+        'forbidden_categories' => 'category_id',
+        'visible_categories' => 'category_id',
+        'visible_images' => 'id'
         ),
       'AND'
   );
@@ -233,27 +242,27 @@ if ('categories' == $page['section'])
   if (isset($page['category']))
   {
     $page = array_merge(
-      $page,
+      $page, 
       array(
-        'comment'           =>
-            trigger_event(
-              'render_category_description',
-              $page['category']['comment'],
-              'main_page_category_description'
+        'comment' => trigger_event(
+            'render_category_description',
+            $page['category']['comment'],
+            'main_page_category_description'
             ),
-        'title'             => get_cat_display_name($page['category']['upper_names'], '', false),
+        'title'   => get_cat_display_name($page['category']['upper_names'], '', false),
         )
       );
   }
   else
+  {
     $page['title'] = ''; // will be set later
+  }
 
-    
   // GET IMAGES LIST
   if
     (
       $page['startcat'] == 0 and
-      (!isset($page['chronology_field'])) and
+      (!isset($page['chronology_field'])) and // otherwise the calendar will requery all subitems
       (
         (isset($page['category'])) or
         (isset($page['flat']))
@@ -265,23 +274,25 @@ if ('categories' == $page['section'])
       $conf[ 'order_by' ] = ' ORDER BY '.$page['category']['image_order'];
     }
 
+    // flat categories mode
     if (isset($page['flat']))
-    {// flat categories mode
+    {
+      // get all allowed sub-categories
       if ( isset($page['category']) )
-      { // get all allowed sub-categories
+      {
         $query = '
 SELECT id
   FROM '.CATEGORIES_TABLE.'
   WHERE
     uppercats LIKE \''.$page['category']['uppercats'].',%\' '
     .get_sql_condition_FandF(
-      array
-        (
+        array(
           'forbidden_categories' => 'id',
           'visible_categories' => 'id',
-        ),
-      "\n  AND"
-          );
+          ),
+        "\n  AND"
+        );
+        
         $subcat_ids = array_from_query($query, 'id');
         $subcat_ids[] = $page['category']['id'];
         $where_sql = 'category_id IN ('.implode(',',$subcat_ids).')';
@@ -297,12 +308,13 @@ SELECT id
         $where_sql = '1=1';
       }
     }
+    // normal mode
     else
-    {// Normal mode
+    {
       $where_sql = 'category_id = '.$page['category']['id'];
     }
 
-    // Main query
+    // main query
     $query = '
 SELECT DISTINCT(image_id)
   FROM '.IMAGE_CATEGORY_TABLE.'
@@ -314,7 +326,7 @@ SELECT DISTINCT(image_id)
 ;';
 
     $page['items'] = array_from_query($query, 'image_id');
-  } //otherwise the calendar will requery all subitems
+  }
 }
 // special sections
 else
@@ -343,13 +355,14 @@ else
 // +-----------------------------------------------------------------------+
 // |                           search section                              |
 // +-----------------------------------------------------------------------+
-  if ($page['section'] == 'search')
+  else if ($page['section'] == 'search')
   {
     include_once( PHPWG_ROOT_PATH .'include/functions_search.inc.php' );
 
     $search_result = get_search_results($page['search'], @$page['super_order_by'] );
+    //save the details of the query search
     if ( isset($search_result['qs']) )
-    {//save the details of the query search
+    {
       $page['qsearch_details'] = $search_result['qs'];
     }
 
@@ -358,7 +371,7 @@ else
       array(
         'items' => $search_result['items'],
         'title' => '<a href="'.duplicate_index_url(array('start'=>0)).'">'
-                  .l10n('Search results').'</a>',
+                    .l10n('Search results').'</a>',
         )
       );
   }
@@ -392,34 +405,32 @@ SELECT image_id
   FROM '.FAVORITES_TABLE.'
     INNER JOIN '.IMAGES_TABLE.' ON image_id = id
   WHERE user_id = '.$user['id'].'
-'.get_sql_condition_FandF
-  (
-    array
-      (
+'.get_sql_condition_FandF(
+      array(
         'visible_images' => 'id'
-      ),
-    'AND'
-  ).'
+        ),
+      'AND'
+      ).'
   '.$conf['order_by'].'
 ;';
       $page = array_merge(
-	$page,
-	array(
-	  'items' => array_from_query($query, 'image_id'),
-         )
-      );
+        $page,
+        array(
+          'items' => array_from_query($query, 'image_id'),
+          )
+        );
 
       if (count($page['items'])>0)
       {
-	$template->assign(
-	  'favorite',
-	  array(
-	    'U_FAVORITE'    => add_url_params(
-	      make_index_url( array('section'=>'favorites') ),
-	      array('action'=>'remove_all_from_favorites')
-	       ),
-	     )
-           );
+        $template->assign(
+            'favorite',
+            array(
+              'U_FAVORITE' => add_url_params(
+                  make_index_url( array('section'=>'favorites') ),
+                  array('action'=>'remove_all_from_favorites')
+                  ),
+              )
+            );
       }
     }
   }
@@ -431,10 +442,10 @@ SELECT image_id
     if ( !isset($page['super_order_by']) )
     {
       $conf['order_by'] = str_replace(
-        'ORDER BY ',
-        'ORDER BY date_available DESC,',
-        $conf['order_by']
-        );
+          'ORDER BY ',
+          'ORDER BY date_available DESC,',
+          $conf['order_by']
+          );
     }
 
     $query = '
@@ -451,7 +462,7 @@ SELECT DISTINCT(id)
       $page,
       array(
         'title' => '<a href="'.duplicate_index_url(array('start'=>0)).'">'
-                  .l10n('Recent photos').'</a>',
+                    .l10n('Recent photos').'</a>',
         'items' => array_from_query($query, 'id'),
         )
       );
@@ -475,6 +486,7 @@ SELECT DISTINCT(id)
   {
     $page['super_order_by'] = true;
     $conf['order_by'] = ' ORDER BY hit DESC, id DESC';
+    
     $query = '
 SELECT DISTINCT(id)
   FROM '.IMAGES_TABLE.'
@@ -489,7 +501,7 @@ SELECT DISTINCT(id)
       $page,
       array(
         'title' => '<a href="'.duplicate_index_url(array('start'=>0)).'">'
-                  .$conf['top_number'].' '.l10n('Most visited').'</a>',
+                    .$conf['top_number'].' '.l10n('Most visited').'</a>',
         'items' => array_from_query($query, 'id'),
         )
       );
@@ -515,7 +527,7 @@ SELECT DISTINCT(id)
       $page,
       array(
         'title' => '<a href="'.duplicate_index_url(array('start'=>0)).'">'
-                  .$conf['top_number'].' '.l10n('Best rated').'</a>',
+                    .$conf['top_number'].' '.l10n('Best rated').'</a>',
         'items' => array_from_query($query, 'id'),
         )
       );
@@ -548,7 +560,6 @@ SELECT DISTINCT(id)
 // +-----------------------------------------------------------------------+
 // |                             chronology                                |
 // +-----------------------------------------------------------------------+
-
 if (isset($page['chronology_field']))
 {
   unset($page['is_homepage']);
@@ -585,7 +596,7 @@ if ( isset($page['chronology_field'])
 {
   $page['meta_robots']=array('noindex'=>1, 'nofollow'=>1);
 }
-elseif ('tags' == $page['section'])
+elseif ('tags'==$page['section'])
 {
   if ( count($page['tag_ids'])>1 )
   {
@@ -627,10 +638,8 @@ if ( 'categories'==$page['section'] and isset($page['category']) )
 
   if ($need_redirect)
   {
-    $redirect_url = ( script_basename()=='picture'
-        ? duplicate_picture_url()
-          : duplicate_index_url()
-      );
+    $redirect_url = script_basename()=='picture' ? duplicate_picture_url() : duplicate_index_url();
+    
     if (!headers_sent())
     { // this is a permanent redirection
       set_status_header(301);
