@@ -197,7 +197,7 @@ $template->assign(
     'PWG_VERSION' => PHPWG_VERSION,
     'OS' => PHP_OS,
     'PHP_VERSION' => phpversion(),
-    'DB_ENGINE' => $conf['dblayer'],
+    'DB_ENGINE' => 'MySQL',
     'DB_VERSION' => $db_version,
     'DB_ELEMENTS' => l10n_dec('%d photo', '%d photos', $nb_elements),
     'DB_CATEGORIES' =>

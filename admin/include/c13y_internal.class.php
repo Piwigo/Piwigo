@@ -42,13 +42,17 @@ class c13y_internal
 
     $check_list = array();
 
-    $check_list[] = array('type' => 'PHP', 'current' => phpversion(), 'required' => REQUIRED_PHP_VERSION);
+    $check_list[] = array(
+        'type' => 'PHP',
+        'current' => phpversion(),
+        'required' => REQUIRED_PHP_VERSION,
+        );
 
-    $db_version = pwg_get_db_version();
-    $check_list[] = array('type' => $conf['dblayer'],
-			  'current' => $db_version, 
-			  'required' => constant('REQUIRED_'.str_replace('-', '_', strtoupper($conf['dblayer'])).'_VERSION')
-			  );
+    $check_list[] = array(
+        'type' => 'MySQL',
+        'current' => pwg_get_db_version(), 
+        'required' => REQUIRED_MYSQL_VERSION,
+        );
 
     foreach ($check_list as $elem)
     {

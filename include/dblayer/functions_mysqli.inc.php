@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | Piwigo - a PHP based photo gallery                                    |
 // +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2013 Piwigo Team                  http://piwigo.org |
+// | Copyright(C) 2008-2012 Piwigo Team                  http://piwigo.org |
 // | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
 // | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
 // +-----------------------------------------------------------------------+
@@ -34,13 +34,15 @@ define('DB_RANDOM_FUNCTION', 'RAND');
  */
 
 function pwg_db_connect($host, $user, $password, $database)
-{  
-  $link = @mysql_connect($host, $user, $password);
-  if (!$link)
+{
+  global $mysqli;
+  
+  $mysqli = new mysqli($host, $user, $password);
+  if (mysqli_connect_error())
   {
     throw new Exception("Can't connect to server");
   }
-  if (!mysql_select_db($database, $link))
+  if (!$mysqli->select_db($database))
   {
     throw new Exception('Connection to server succeed, but it was impossible to connect to database');
   }
@@ -73,15 +75,17 @@ function pwg_db_check_version()
 
 function pwg_get_db_version() 
 {
-  return mysql_get_server_info();
+  global $mysqli;
+  
+  return $mysqli->server_info;
 }
 
 function pwg_query($query)
 {
-  global $conf,$page,$debug,$t2;
+  global $mysqli, $conf, $page, $debug, $t2;
 
   $start = microtime(true);
-  ($result = mysql_query($query)) or my_error($query, $conf['die_on_sql_error']);
+  ($result = $mysqli->query($query)) or my_error($query, $conf['die_on_sql_error']);
 
   $time = microtime(true) - $start;
 
@@ -108,13 +112,13 @@ function pwg_query($query)
     if ( $result!=null and preg_match('/\s*SELECT\s+/i',$query) )
     {
       $output.= "\n".'(num rows        : ';
-      $output.= mysql_num_rows($result).' )';
+      $output.= pwg_db_num_rows($result).' )';
     }
     elseif ( $result!=null
       and preg_match('/\s*INSERT|UPDATE|REPLACE|DELETE\s+/i',$query) )
     {
       $output.= "\n".'(affected rows   : ';
-      $output.= mysql_affected_rows().' )';
+      $output.= pwg_db_changes().' )';
     }
     $output.= "</pre>\n";
 
@@ -136,47 +140,55 @@ SELECT IF(MAX('.$column.')+1 IS NULL, 1, MAX('.$column.')+1)
 
 function pwg_db_changes() 
 {
-  return mysql_affected_rows();
+  global $mysqli;
+  
+  return $mysqli->affected_rows;
 }
 
 function pwg_db_num_rows($result) 
 {
-  return mysql_num_rows($result);
+  return $result->num_rows;
 }
 
 function pwg_db_fetch_assoc($result)
 {
-  return mysql_fetch_assoc($result);
+  return $result->fetch_assoc();
 }
 
 function pwg_db_fetch_row($result)
 {
-  return mysql_fetch_row($result);
+  return $result->fetch_row();
 }
 
 function pwg_db_fetch_object($result)
 {
-  return mysql_fetch_object($result);
+  return $result->fetch_object();
 }
 
 function pwg_db_free_result($result) 
 {
-  return mysql_free_result($result);
+  return $result->free_result();
 }
 
 function pwg_db_real_escape_string($s)
 {
-  return mysql_real_escape_string($s);
+  global $mysqli;
+  
+  return $mysqli->real_escape_string($s);
 }
 
 function pwg_db_insert_id()
 {
-  return mysql_insert_id();
+  global $mysqli;
+  
+  return $mysqli->insert_id;
 }
 
 function pwg_db_close()
 {
-  return mysql_close();
+  global $mysqli;
+  
+  return $mysqli->close();
 }
 
 /**
@@ -200,14 +212,14 @@ function array_from_query($query, $fieldname=false)
   $result = pwg_query($query);
   if (false === $fieldname)
   {
-    while ($row = mysql_fetch_assoc($result))
+    while ($row = pwg_db_fetch_assoc($result))
     {
       $array[] = $row;      
     }
   }
   else
   {
-    while ($row = mysql_fetch_assoc($result))
+    while ($row = pwg_db_fetch_assoc($result))
     {
       $array[] = $row[$fieldname];
     }
@@ -279,7 +291,7 @@ UPDATE '.$tablename.'
         pwg_query($query);
       }
     } // foreach update
-  } // if mysql_ver or count<X
+  } // if mysqli_ver or count<X
   else
   {
     // creation of the temporary table
@@ -554,7 +566,7 @@ function do_maintenance_all_tables()
 
   // Repair all tables
   $query = 'REPAIR TABLE '.implode(', ', $all_tables);
-  $mysql_rc = pwg_query($query);
+  $mysqli_rc = pwg_query($query);
 
   // Re-Order all tables
   foreach ($all_tables as $table_name)
@@ -574,14 +586,14 @@ function do_maintenance_all_tables()
     if (count($all_primary_key) != 0)
     {
       $query = 'ALTER TABLE '.$table_name.' ORDER BY '.implode(', ', $all_primary_key).';';
-      $mysql_rc = $mysql_rc && pwg_query($query);
+      $mysqli_rc = $mysqli_rc && pwg_query($query);
     }
   }
 
   // Optimize all tables
   $query = 'OPTIMIZE TABLE '.implode(', ', $all_tables);
-  $mysql_rc = $mysql_rc && pwg_query($query);
-  if ($mysql_rc)
+  $mysqli_rc = $mysqli_rc && pwg_query($query);
+  if ($mysqli_rc)
   {
     array_push(
           $page['infos'],
@@ -769,7 +781,9 @@ function pwg_db_date_to_ts($date)
 // error occured for the last mysql query.
 function my_error($header, $die)
 {
-  $error = "[mysql error ".mysql_errno().'] '.mysql_error()."\n";
+  global $mysqli;
+  
+  $error = "[mysql error ".$mysqli->errno.'] '.$mysqli->error."\n";
   $error .= $header;
 
   if ($die)
