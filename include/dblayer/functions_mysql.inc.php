@@ -144,6 +144,11 @@ function pwg_db_num_rows($result)
   return mysql_num_rows($result);
 }
 
+function pwg_db_fetch_array($result)
+{
+  return mysql_fetch_array($result);
+}
+
 function pwg_db_fetch_assoc($result)
 {
   return mysql_fetch_assoc($result);

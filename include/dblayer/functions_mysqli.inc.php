@@ -150,6 +150,11 @@ function pwg_db_num_rows($result)
   return $result->num_rows;
 }
 
+function pwg_db_fetch_array($result)
+{
+  return $result->fetch_array();
+}
+
 function pwg_db_fetch_assoc($result)
 {
   return $result->fetch_assoc();
