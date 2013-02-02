@@ -19,7 +19,7 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
-/*A source image is used to get a derivative image. A source image is either the original file for a jpg or a 
+/*A source image is used to get a derivative image. A source image is either the original file for a jpg or a
 'representative' image of a non image file or a standard icon for the non-image file.*/
 final class SrcImage
 {
@@ -78,7 +78,7 @@ final class SrcImage
           $width = $infos['height'];
           $height = $infos['width'];
         }
-        
+
         $this->size = array($width, $height);
       }
       elseif (!array_key_exists('width', $infos))
@@ -106,7 +106,7 @@ final class SrcImage
   function get_url()
   {
     $url = get_root_url().$this->rel_path;
-    if ($this->flags & self::IS_ORIGINAL)
+    if ( !($this->flags & self::IS_MIMETYPE) )
     {
       $url = trigger_event('get_src_image_url', $url, $this);
     }
@@ -170,7 +170,7 @@ final class DerivativeImage
     return self::url(IMG_THUMB, $infos);
   }
 
-  /** 
+  /**
   @return derivative image url
   @param type string of standard derivative param type (e.g. IMG_???) or a DerivativeParams object
   @param infos assoc array of data from images table or a SrcImage object

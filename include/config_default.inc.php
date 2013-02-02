@@ -777,4 +777,8 @@ $conf['derivative_default_size'] = 'medium';
 
 //Maximum Ajax requests at once, for thumbnails on-the-fly generation
 $conf['max_requests']=3;
+
+// one of '', 'images', 'all'
+//TODO: Put this in admin and also manage .htaccess in #sites and upload folders
+$conf['original_url_protection'] = '';
 ?>

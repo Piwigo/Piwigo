@@ -593,4 +593,25 @@ function get_thumbnail_title($info, $title, $comment)
   return $title;
 }
 
+/** optional event handler to protect src image urls */
+function get_src_image_url_protection_handler($url, $src_image)
+{
+  return get_action_url($src_image->id, $src_image->is_original() ? 'e' : 'r', false);
+}
+
+/** optional event handler to protect element urls */
+function get_element_url_protection_handler($url, $infos)
+{
+  global $conf;
+  if ('images'==$conf['original_url_protection'])
+  {// protect only images and not other file types (for example large movies that we don't want to send through our file proxy)
+    $ext = get_extension($infos['path']);
+    if (!in_array($ext, $conf['picture_ext']))
+    {
+      return $url;
+    }
+  }
+  return get_action_url($infos['id'], 'e', false);
+}
+
 ?>
