@@ -104,7 +104,8 @@ pwg_initialization_datepicker("#date_creation_day", "#date_creation_month", "#da
 
       <input id="date_creation_year" name="date_creation_year" type="text" size="4" maxlength="4" value="{$DATE_CREATION_YEAR_VALUE}">
       <input id="date_creation_linked_date" name="date_creation_linked_date" type="hidden" size="10" disabled="disabled">
-    <a href="#" id="unset_date_creation" style="display:none">unset</a>
+      <input name="date_creation_time" type="hidden" value="{$DATE_CREATION_TIME_VALUE}">
+      <a href="#" id="unset_date_creation" style="display:none">unset</a>
     </p>
 
     <p>

@@ -146,7 +146,8 @@ if (isset($_POST['submit']) and count($page['errors']) == 0)
     $data{'date_creation'} =
       $_POST['date_creation_year']
       .'-'.$_POST['date_creation_month']
-      .'-'.$_POST['date_creation_day'];
+      .'-'.$_POST['date_creation_day']
+      .' '.$_POST['date_creation_time'];
   }
   else
   {
@@ -349,18 +350,20 @@ unset($day, $month, $year);
 if (isset($_POST['date_creation_action'])
     and 'set' == $_POST['date_creation_action'])
 {
-  foreach (array('day', 'month', 'year') as $varname)
+  foreach (array('day', 'month', 'year', 'time') as $varname)
   {
     $$varname = $_POST['date_creation_'.$varname];
   }
 }
 else if (isset($row['date_creation']) and !empty($row['date_creation']))
 {
-  list($year, $month, $day) = explode('-', $row['date_creation']);
+  list($year, $month, $day) = explode('-', substr($row['date_creation'],0,10));
+  $time = substr($row['date_creation'],11);
 }
 else
 {
   list($year, $month, $day) = array('', 0, 0);
+  $time = '00:00:00';
 }
 
 
@@ -373,6 +376,7 @@ $template->assign(
       'DATE_CREATION_DAY_VALUE' => $day,
       'DATE_CREATION_MONTH_VALUE' => $month,
       'DATE_CREATION_YEAR_VALUE' => $year,
+      'DATE_CREATION_TIME_VALUE' => $time,
       'month_list' => $month_list,
       )
     );
