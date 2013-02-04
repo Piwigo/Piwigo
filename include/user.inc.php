@@ -26,7 +26,10 @@ $user['id'] = $conf['guest_id'];
 
 if (isset($_COOKIE[session_name()]))
 {
-  session_start();
+  if (session_id() == '')
+  {
+    session_start();
+  }
   if (isset($_GET['act']) and $_GET['act'] == 'logout')
   { // logout
     logout_user();
