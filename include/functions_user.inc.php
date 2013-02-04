@@ -808,17 +808,25 @@ function get_default_user_info($convert_str = true)
 
   if (!isset($cache['default_user']))
   {
-    $query = 'SELECT * FROM '.USER_INFOS_TABLE.
-            ' WHERE user_id = '.$conf['default_user_id'].';';
+    $query = '
+SELECT *
+  FROM '.USER_INFOS_TABLE.'
+  WHERE user_id = '.$conf['default_user_id'].'
+;';
 
     $result = pwg_query($query);
-    $cache['default_user'] = pwg_db_fetch_assoc($result);
 
-    if ($cache['default_user'] !== false)
+    if (pwg_db_num_rows($result) > 0)
     {
+      $cache['default_user'] = pwg_db_fetch_assoc($result);
+      
       unset($cache['default_user']['user_id']);
       unset($cache['default_user']['status']);
       unset($cache['default_user']['registration_date']);
+    }
+    else
+    {
+      $cache['default_user'] = false;
     }
   }
 
