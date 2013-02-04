@@ -947,4 +947,5 @@ $lang['No group selected, no action possible.'] = 'Hiç bir grup seçili değil,
 $lang['No members to manage'] = 'Yönetecek üye yok';
 $lang['Please select at least two groups'] = 'En azından iki grup seçin';
 $lang['Rename'] = 'Yeniden adlandır';
+$lang['Purge user cache'] = 'Kullaıcı önbelleğini temizle';
 ?>
