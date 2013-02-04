@@ -59,8 +59,8 @@ legend {font-style:normal;}
 
 /* icons */ 
 
-.pwg-icon									{ background-image: url(../default/s26/outline_808080.png);}
-A:hover .pwg-icon 							{ background-image: url(../default/s26/outline_ffffff.png);}
+.pwg-icon									{ background-image: url(icon/icons_sprite.png);}
+A:hover .pwg-icon 							{ background-image: url(icon/icons_sprite-hover.png);}
 
 
 /* general rules */
