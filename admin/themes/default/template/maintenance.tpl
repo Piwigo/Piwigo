@@ -27,6 +27,7 @@
 </ul>
 
 <ul>
+	<li><a href="{$U_MAINT_USER_CACHE}">{'Purge user cache'|@translate}</a></li>
 	<li><a href="{$U_MAINT_ORPHAN_TAGS}">{'Delete orphan tags'|@translate}</a></li>
 	<li><a href="{$U_MAINT_HISTORY_DETAIL}" onclick="return confirm('{'Purge history detail'|@translate|@escape:'javascript'}');">{'Purge history detail'|@translate}</a></li>
 	<li><a href="{$U_MAINT_HISTORY_SUMMARY}" onclick="return confirm('{'Purge history summary'|@translate|@escape:'javascript'}');">{'Purge history summary'|@translate}</a></li>

@@ -62,6 +62,7 @@ switch ($action)
   }
   case 'categories' :
   {
+    images_integrity();
     update_uppercats();
     update_category('all');
     update_global_rank();
@@ -70,14 +71,21 @@ switch ($action)
   }
   case 'images' :
   {
+    images_integrity();
     update_path();
 		include_once(PHPWG_ROOT_PATH.'include/functions_rate.inc.php');
     update_rating_score();
+    invalidate_user_cache();
     break;
   }
   case 'delete_orphan_tags' :
   {
     delete_orphan_tags();
+    break;
+  }
+  case 'user_cache' :
+  {
+    invalidate_user_cache();
     break;
   }
   case 'history_detail' :
@@ -171,6 +179,7 @@ $template->assign(
     'U_MAINT_CATEGORIES' => sprintf($url_format, 'categories'),
     'U_MAINT_IMAGES' => sprintf($url_format, 'images'),
     'U_MAINT_ORPHAN_TAGS' => sprintf($url_format, 'delete_orphan_tags'),
+    'U_MAINT_USER_CACHE' => sprintf($url_format, 'user_cache'),
     'U_MAINT_HISTORY_DETAIL' => sprintf($url_format, 'history_detail'),
     'U_MAINT_HISTORY_SUMMARY' => sprintf($url_format, 'history_summary'),
     'U_MAINT_SESSIONS' => sprintf($url_format, 'sessions'),

@@ -949,5 +949,5 @@ $lang['This group will be set to default'] = "Ce groupe deviendra par défaut";
 $lang['This group will be unset to default'] = "Ce groupe ne sera plus par défaut";
 $lang['No members to manage'] = "Aucun membre à gérer";
 $lang['Rename'] = 'Renommer';
-
+$lang['Purge user cache'] = 'Purger le cache utilisateur';
 ?>

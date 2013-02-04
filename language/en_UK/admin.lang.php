@@ -947,4 +947,5 @@ $lang['Your configuration settings are saved'] = 'Your configuration settings ar
 $lang['Zoom'] = 'Zoom';
 $lang['[%s] Visit album %s'] = "[%s] Visit album %s";
 $lang['[NBM] Problems or questions'] = "[NBM] Problems or questions";
+$lang['Purge user cache'] = 'Purge user cache';
 ?>

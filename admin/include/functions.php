@@ -485,6 +485,34 @@ SELECT DISTINCT id
 }
 
 /**
+ * check and repair images integrity
+ *
+ * TODO see delete_elements function to check all linked tables
+ */
+function images_integrity()
+{
+  $query = '
+SELECT
+    image_id
+  FROM '.IMAGE_CATEGORY_TABLE.'
+    LEFT JOIN '.IMAGES_TABLE.' ON id = image_id
+  WHERE id IS NULL
+;';
+  $result = pwg_query($query);
+  $orphan_image_ids = array_from_query($query, 'image_id');
+
+  if (count($orphan_image_ids) > 0)
+  {
+    $query = '
+DELETE
+  FROM '.IMAGE_CATEGORY_TABLE.'
+  WHERE image_id IN ('.implode(',', $orphan_image_ids).')
+;';
+    pwg_query($query);
+  }
+}
+
+/**
  * returns an array containing sub-directories which can be a category,
  * recursive by default
  *
