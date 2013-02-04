@@ -953,4 +953,5 @@ $lang['Rename'] = 'Átnevezés';
 $lang['This group will be set to default'] = 'Ez a csoport lesz az alapértelmezett';
 $lang['This group will be unset to default'] = 'Ez a csoport nem lesz az alapértelmezett';
 $lang['Type here the name of the new group'] = 'Ide írja be az új csoport nevét';
+$lang['Purge user cache'] = 'Felhasználói gyorsítótár ürítése';
 ?>
