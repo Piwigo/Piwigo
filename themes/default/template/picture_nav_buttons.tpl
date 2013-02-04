@@ -39,6 +39,11 @@
 		<span class="pwg-icon pwg-icon-arrowstop-w">&nbsp;</span><span class="pwg-button-text">{'First'|@translate}</span>
 	</span>
 {/if}{/strip}-->*}
+{strip}{if isset($U_UP) and !isset($slideshow)}
+	<a href="{$U_UP}" title="{'Thumbnails'|@translate}" class="pwg-state-default pwg-button">
+		<span class="pwg-icon pwg-icon-arrow-n">&nbsp;</span><span class="pwg-button-text">{'Thumbnails'|@translate}</span>
+	</a>
+{/if}{/strip}
 {strip}{if isset($previous)}
 	<a href="{$previous.U_IMG}" title="{'Previous'|@translate} : {$previous.TITLE}" class="pwg-state-default pwg-button">
 		<span class="pwg-icon pwg-icon-arrow-w">&nbsp;</span><span class="pwg-button-text">{'Previous'|@translate}</span>
@@ -58,11 +63,6 @@
 		<span class="pwg-icon pwg-icon-pause">&nbsp;</span><span class="pwg-button-text">{'Pause of slideshow'|@translate}</span>
 	</a>
 {/if}
-{strip}{if isset($U_UP) and !isset($slideshow)}
-	<a href="{$U_UP}" title="{'Thumbnails'|@translate}" class="pwg-state-default pwg-button">
-		<span class="pwg-icon pwg-icon-arrow-n">&nbsp;</span><span class="pwg-button-text">{'Thumbnails'|@translate}</span>
-	</a>
-{/if}{/strip}
 {strip}{if isset($next)}
 	<a href="{$next.U_IMG}" title="{'Next'|@translate} : {$next.TITLE}" class="pwg-state-default pwg-button pwg-button-icon-right">
 		<span class="pwg-icon pwg-icon-arrow-e">&nbsp;</span><span class="pwg-button-text">{'Next'|@translate}</span>
