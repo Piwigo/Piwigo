@@ -13,7 +13,7 @@ $themeconf = array(
 );
 
 // Redirect if page is not compatible with mobile theme
-if (!in_array(script_basename(), array('index', 'register', 'profile', 'identification', 'ws')))
+if (!in_array(script_basename(), array('index', 'register', 'profile', 'identification', 'ws', 'admin')))
   redirect(duplicate_index_url());
 
 //Retrive all pictures on thumbnails page
