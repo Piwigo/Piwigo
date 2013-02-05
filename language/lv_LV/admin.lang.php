@@ -947,4 +947,5 @@ $lang['No group selected, no action possible.'] = 'Nav izvēlēta neviena grupa,
 $lang['Manage the members'] = 'Pārvaldīt biedrus';
 $lang['Merge selected groups'] = 'Sapludināt atlasītās grupas';
 $lang['Duplicate'] = 'Dublikāts';
+$lang['Purge user cache'] = 'Iztīrīt lietotāja kešatmiņu';
 ?>
