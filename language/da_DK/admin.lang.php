@@ -954,4 +954,5 @@ $lang['Rename'] = 'Omdøb';
 $lang['This group will be set to default'] = 'Denne gruppe vil blive opsat som standard';
 $lang['This group will be unset to default'] = 'Denne gruppe vil ikke længere være opsat som standard';
 $lang['Type here the name of the new group'] = 'Skriv navnet på den nye gruppe';
+$lang['Purge user cache'] = 'Tøm brugercache';
 ?>
