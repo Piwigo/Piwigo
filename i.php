@@ -303,7 +303,6 @@ function try_switch_source(DerivativeParams $params, $original_mtime)
       return false; // cannot really know if a watermark is required
     $dsize = $params->compute_final_size($original_size);
     $use_watermark = $params->will_watermark($dsize);
-    ilog($use_watermark, $dsize);
   }
 
   $candidates = array();
