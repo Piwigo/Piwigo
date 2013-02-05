@@ -955,4 +955,5 @@ $lang['Duplicate'] = '复制';
 $lang['Manage the members'] = '管理用户';
 $lang['Merge selected groups'] = '合并所选组';
 $lang['No group selected, no action possible.'] = '没有组被选中，不能执行任何操作。';
+$lang['Purge user cache'] = '清除用户缓存';
 ?>
