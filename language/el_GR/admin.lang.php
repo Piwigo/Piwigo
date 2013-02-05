@@ -954,4 +954,5 @@ $lang['No group selected, no action possible.'] = 'Καμία ομάδα δεν 
 $lang['Merge selected groups'] = 'Συγχώνευση επιλεγμένων ομάδων';
 $lang['Duplicate'] = 'Διπλότυπο';
 $lang['Manage the members'] = 'Διαχειριστείτε τα μέλη';
+$lang['Purge user cache'] = 'Εκκαθάριση cache χρήστη';
 ?>
