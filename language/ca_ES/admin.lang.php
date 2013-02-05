@@ -961,4 +961,5 @@ $lang['This group will be set to default'] = 'Estableix aquest grup com a predet
 $lang['This group will be unset to default'] = 'Aquest grup deixarà de ser el predeterminat';
 $lang['Type here the name of the new group'] = 'Escriviu aquí el nom del nou grup';
 $lang['Manage the members'] = 'Gestiona els membres';
+$lang['Purge user cache'] = 'Elimina la memòria cau de l\'usuari';
 ?>
