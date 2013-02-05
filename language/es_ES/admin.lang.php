@@ -950,4 +950,5 @@ $lang['This group will be set to default'] = 'Este grupo se usa de forma predete
 $lang['This group will be unset to default'] = 'Este grupo ya no se utiliza por defecto';
 $lang['Type here the name of the new group'] = 'Escriba aquí el nombre del nuevo grupo';
 
+$lang['Purge user cache'] = 'Limpiar cache de usuario';
 ?>
