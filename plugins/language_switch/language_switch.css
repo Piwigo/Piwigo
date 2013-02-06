@@ -11,277 +11,246 @@
   margin-top: 5px;
 }
 #languageSwitch .flags {
-    background: url(flag_sprite.png) no-repeat top left;
+    background: url('flag_sprite.jpg') no-repeat 24px 16px;
     margin-right: 3px;
+    width: 24px;
+    height: 16px;
 }
 
 /** Change the langflag-XX label to match a new language. All flags are represented there**/
-#languageSwitch .langflag-ad{ background-position: 0 0; width: 24px; height: 16px; } 
-#languageSwitch .langflag-ae{ background-position: 0 -18px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-af{ background-position: 0 -36px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-af_ZA{ background-position: 0 -54px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-ag{ background-position: 0 -72px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-ai{ background-position: 0 -90px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-al{ background-position: 0 -108px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-alderney{ background-position: 0 -126px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-am{ background-position: 0 -144px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-an{ background-position: 0 -162px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-ao{ background-position: 0 -180px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-aq{ background-position: 0 -198px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-ar_SA{ background-position: 0 -216px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-as{ background-position: 0 -234px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-at{ background-position: 0 -252px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-au{ background-position: 0 -270px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-aw{ background-position: 0 -288px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-ax{ background-position: 0 -306px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-az_AZ{ background-position: 0 -324px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-azores{ background-position: 0 -342px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-ba{ background-position: 0 -360px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-bb{ background-position: 0 -378px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-bd{ background-position: 0 -396px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-be{ background-position: 0 -414px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-bf{ background-position: 0 -432px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-bg_BG{ background-position: 0 -450px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-bh{ background-position: 0 -468px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-bi{ background-position: 0 -486px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-bj{ background-position: 0 -504px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-bl{ background-position: 0 -522px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-bm{ background-position: 0 -540px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-bn{ background-position: 0 -558px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-bn_IN{ background-position: 0 -576px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-bo{ background-position: 0 -594px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-bonaire{ background-position: 0 -612px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-british_antarctic_territory{ background-position: 0 -630px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-bs{ background-position: 0 -648px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-bt{ background-position: 0 -666px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-bv{ background-position: 0 -684px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-bw{ background-position: 0 -702px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-by{ background-position: 0 -720px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-bz{ background-position: 0 -738px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-ca{ background-position: 0 -756px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-ca_ES{ background-position: 0 -774px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-cc{ background-position: 0 -792px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-cd{ background-position: 0 -810px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-cf{ background-position: 0 -828px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-cg{ background-position: 0 -846px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-ch{ background-position: 0 -864px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-ci{ background-position: 0 -882px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-ck{ background-position: 0 -900px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-cl{ background-position: 0 -918px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-cm{ background-position: 0 -936px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-co{ background-position: 0 -954px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-cr{ background-position: 0 -972px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-cs_CZ{ background-position: 0 -990px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-cu{ background-position: 0 -1008px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-cv{ background-position: 0 -1026px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-cx{ background-position: 0 -1044px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-cy{ background-position: 0 -1062px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-cz{ background-position: 0 -1080px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-da_DK{ background-position: 0 -1098px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-de_DE{ background-position: 0 -1116px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-dj{ background-position: 0 -1134px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-dm{ background-position: 0 -1152px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-do{ background-position: 0 -1170px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-dv_MV{ background-position: 0 -1188px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-dz{ background-position: 0 -1206px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-ec{ background-position: 0 -1224px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-eg{ background-position: 0 -1242px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-eh{ background-position: 0 -1260px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-el_GR{ background-position: 0 -1278px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-en_UK{ background-position: 0 -1296px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-eo_EO{ background-position: 0 -1314px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-er{ background-position: 0 -1332px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-es_AR{ background-position: 0 -1350px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-es_ES{ background-position: 0 -1368px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-et{ background-position: 0 -1386px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-et_EE{ background-position: 0 -1404px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-eu{ background-position: 0 -1422px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-fa_IR{ background-position: 0 -1440px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-fi_FI{ background-position: 0 -1458px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-fj{ background-position: 0 -1476px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-fk{ background-position: 0 -1494px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-fm{ background-position: 0 -1512px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-fo{ background-position: 0 -1530px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-fr_CA{ background-position: 0 -1548px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-fr_FR{ background-position: 0 -1566px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-ga{ background-position: 0 -1584px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-gb{ background-position: 0 -1602px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-gd{ background-position: 0 -1620px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-gf{ background-position: 0 -1638px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-gg{ background-position: 0 -1656px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-gh{ background-position: 0 -1674px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-gi{ background-position: 0 -1692px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-gl{ background-position: 0 -1710px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-gm{ background-position: 0 -1728px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-gn{ background-position: 0 -1746px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-gp{ background-position: 0 -1764px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-gq{ background-position: 0 -1782px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-gs{ background-position: 0 -1800px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-gt{ background-position: 0 -1818px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-gu{ background-position: 0 -1836px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-gw{ background-position: 0 -1854px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-gy{ background-position: 0 -1872px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-he_IL{ background-position: 0 -1890px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-herm{ background-position: 0 -1908px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-hm{ background-position: 0 -1926px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-hn{ background-position: 0 -1944px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-hr_HR{ background-position: 0 -1962px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-ht{ background-position: 0 -1980px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-hu_HU{ background-position: -26px 0; width: 24px; height: 16px; } 
-#languageSwitch .langflag-id{ background-position: -26px -18px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-ie{ background-position: -26px -36px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-im{ background-position: -26px -54px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-io{ background-position: -26px -72px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-iq{ background-position: -26px -90px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-is_IS{ background-position: -26px -108px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-it_IT{ background-position: -26px -126px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-ja_JP{ background-position: -26px -144px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-je{ background-position: -26px -162px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-jm{ background-position: -26px -180px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-jo{ background-position: -26px -198px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-ka_GE{ background-position: -26px -216px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-ke{ background-position: -26px -234px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-kg{ background-position: -26px -252px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-ki{ background-position: -26px -270px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-km{ background-position: -26px -288px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-km_KH{ background-position: -26px -306px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-kn{ background-position: -26px -324px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-ko_KR{ background-position: -26px -342px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-kok_IN{ background-position: -26px -360px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-kosovo{ background-position: -26px -378px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-kp{ background-position: -26px -396px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-kw{ background-position: -26px -414px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-ky{ background-position: -26px -432px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-kz{ background-position: -26px -450px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-la{ background-position: -26px -468px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-lb{ background-position: -26px -486px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-lc{ background-position: -26px -504px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-li{ background-position: -26px -522px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-lk{ background-position: -26px -540px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-lr{ background-position: -26px -558px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-ls{ background-position: -26px -576px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-lt_LT{ background-position: -26px -594px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-lu{ background-position: -26px -612px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-lv_LV{ background-position: -26px -630px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-ly{ background-position: -26px -648px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-ma{ background-position: -26px -666px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-madeira{ background-position: -26px -684px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-mc{ background-position: -26px -702px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-md{ background-position: -26px -720px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-me{ background-position: -26px -738px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-mf{ background-position: -26px -756px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-mg{ background-position: -26px -774px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-mh{ background-position: -26px -792px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-mk_MK{ background-position: -26px -810px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-ml{ background-position: -26px -828px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-mm{ background-position: -26px -846px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-mn{ background-position: -26px -864px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-mo{ background-position: -26px -882px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-mp{ background-position: -26px -900px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-mq{ background-position: -26px -918px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-mr{ background-position: -26px -936px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-ms{ background-position: -26px -954px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-ms_MY{ background-position: -26px -972px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-mt{ background-position: -26px -990px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-mu{ background-position: -26px -1008px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-mw{ background-position: -26px -1026px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-mx{ background-position: -26px -1044px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-mz{ background-position: -26px -1062px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-na{ background-position: -26px -1080px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-nb_NO{ background-position: -26px -1098px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-nc{ background-position: -26px -1116px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-ne{ background-position: -26px -1134px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-nf{ background-position: -26px -1152px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-ng{ background-position: -26px -1170px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-ni{ background-position: -26px -1188px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-nl_NL{ background-position: -26px -1206px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-np{ background-position: -26px -1224px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-nr{ background-position: -26px -1242px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-nu{ background-position: -26px -1260px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-nz{ background-position: -26px -1278px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-om{ background-position: -26px -1296px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-pa{ background-position: -26px -1314px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-pe{ background-position: -26px -1332px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-pf{ background-position: -26px -1350px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-pg{ background-position: -26px -1368px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-ph{ background-position: -26px -1386px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-pk{ background-position: -26px -1404px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-pl_PL{ background-position: -26px -1422px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-pm{ background-position: -26px -1440px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-pn{ background-position: -26px -1458px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-pr{ background-position: -26px -1476px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-ps{ background-position: -26px -1494px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-pt_BR{ background-position: -26px -1512px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-pt_PT{ background-position: -26px -1530px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-pw{ background-position: -26px -1548px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-py{ background-position: -26px -1566px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-qa{ background-position: -26px -1584px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-re{ background-position: -26px -1602px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-ro_RO{ background-position: -26px -1620px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-ru_RU{ background-position: -26px -1638px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-rw{ background-position: -26px -1656px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-saba{ background-position: -26px -1674px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-sark{ background-position: -26px -1692px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-sb{ background-position: -26px -1710px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-sc{ background-position: -26px -1728px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-scotland{ background-position: -26px -1746px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-sd{ background-position: -26px -1764px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-sg{ background-position: -26px -1782px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-sh{ background-position: -26px -1800px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-sh_RS{ background-position: -26px -1818px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-sint_eustatius{ background-position: -26px -1836px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-sint_maarten{ background-position: -26px -1854px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-sj{ background-position: -26px -1872px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-sk_SK{ background-position: -26px -1890px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-sl{ background-position: -26px -1908px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-sl_SI{ background-position: -26px -1926px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-sm{ background-position: -26px -1944px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-sn{ background-position: -26px -1962px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-so{ background-position: -26px -1980px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-sr{ background-position: -52px 0; width: 24px; height: 16px; } 
-#languageSwitch .langflag-sr_RS{ background-position: -52px -18px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-st{ background-position: -52px -36px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-sv{ background-position: -52px -54px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-sv_SE{ background-position: -52px -72px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-sy{ background-position: -52px -90px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-sz{ background-position: -52px -108px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-ta_IN{ background-position: -52px -126px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-tc{ background-position: -52px -144px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-td{ background-position: -52px -162px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-tf{ background-position: -52px -180px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-tg{ background-position: -52px -198px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-th_TH{ background-position: -52px -216px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-tj{ background-position: -52px -234px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-tk{ background-position: -52px -252px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-tl{ background-position: -52px -270px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-tm{ background-position: -52px -288px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-tn{ background-position: -52px -306px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-to{ background-position: -52px -324px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-tr_TR{ background-position: -52px -342px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-tristan_da_cunha{ background-position: -52px -360px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-tt{ background-position: -52px -378px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-tv{ background-position: -52px -396px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-tz{ background-position: -52px -414px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-ug{ background-position: -52px -432px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-uk_UA{ background-position: -52px -450px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-um{ background-position: -52px -468px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-us{ background-position: -52px -486px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-uy{ background-position: -52px -504px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-uz{ background-position: -52px -522px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-va{ background-position: -52px -540px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-vc{ background-position: -52px -558px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-ve{ background-position: -52px -576px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-vg{ background-position: -52px -594px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-vi{ background-position: -52px -612px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-vi_VN{ background-position: -52px -630px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-vu{ background-position: -52px -648px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-wales{ background-position: -52px -666px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-wf{ background-position: -52px -684px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-ws{ background-position: -52px -702px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-ye{ background-position: -52px -720px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-yt{ background-position: -52px -738px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-zh_CN{ background-position: -52px -756px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-zh_HK{ background-position: -52px -774px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-zh_TW{ background-position: -52px -792px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-zm{ background-position: -52px -810px; width: 24px; height: 16px; } 
-#languageSwitch .langflag-zw{ background-position: -52px -828px; width: 24px; height: 16px; } 
+#languageSwitch .langflag-ad { background-position:0px 0px; }
+#languageSwitch .langflag-ae { background-position:-24px 0px; }
+#languageSwitch .langflag-af { background-position:-48px 0px; }
+#languageSwitch .langflag-ag { background-position:-72px 0px; }
+#languageSwitch .langflag-al { background-position:-96px 0px; }
+#languageSwitch .langflag-am { background-position:-120px 0px; }
+#languageSwitch .langflag-an { background-position:-144px 0px; }
+#languageSwitch .langflag-ao { background-position:-168px 0px; }
+#languageSwitch .langflag-es_AR { background-position:-192px 0px; }
+#languageSwitch .langflag-as { background-position:-216px 0px; }
+#languageSwitch .langflag-at { background-position:-240px 0px; }
+#languageSwitch .langflag-aw { background-position:-264px 0px; }
+#languageSwitch .langflag-ax { background-position:-288px 0px; }
+#languageSwitch .langflag-az_AZ { background-position:-312px 0px; }
+#languageSwitch .langflag-ba { background-position:-336px 0px; }
+#languageSwitch .langflag-bb { background-position:0px -16px; }
+#languageSwitch .langflag-bd { background-position:-24px -16px; }
+#languageSwitch .langflag-be { background-position:-48px -16px; }
+#languageSwitch .langflag-bf { background-position:-72px -16px; }
+#languageSwitch .langflag-bg_BG { background-position:-96px -16px; }
+#languageSwitch .langflag-bh { background-position:-120px -16px; }
+#languageSwitch .langflag-bi { background-position:-144px -16px; }
+#languageSwitch .langflag-bj { background-position:-168px -16px; }
+#languageSwitch .langflag-bl { background-position:-192px -16px; }
+#languageSwitch .langflag-bm { background-position:-216px -16px; }
+#languageSwitch .langflag-bn{ background-position:-240px -16px; }
+#languageSwitch .langflag-bo { background-position:-264px -16px; }
+#languageSwitch .langflag-bonaire { background-position:-288px -16px; }
+#languageSwitch .langflag-pt_BR { background-position:-312px -16px; }
+#languageSwitch .langflag-bs { background-position:-336px -16px; }
+#languageSwitch .langflag-bt { background-position:0px -32px; }
+#languageSwitch .langflag-bv { background-position:-24px -32px; }
+#languageSwitch .langflag-bw { background-position:-48px -32px; }
+#languageSwitch .langflag-by { background-position:-72px -32px; }
+#languageSwitch .langflag-bz { background-position:-96px -32px; }
+#languageSwitch .langflag-ca { background-position:-120px -32px; }
+#languageSwitch .langflag-ca_ES { background-position:-144px -32px; }
+#languageSwitch .langflag-cc { background-position:-168px -32px; }
+#languageSwitch .langflag-cd { background-position:-192px -32px; }
+#languageSwitch .langflag-cf { background-position:-216px -32px; }
+#languageSwitch .langflag-cg { background-position:-240px -32px; }
+#languageSwitch .langflag-ch { background-position:-264px -32px; }
+#languageSwitch .langflag-ci { background-position:-288px -32px; }
+#languageSwitch .langflag-cl { background-position:-312px -32px; }
+#languageSwitch .langflag-cm { background-position:-336px -32px; }
+#languageSwitch .langflag-zh_CN { background-position:0px -48px; }
+#languageSwitch .langflag-co { background-position:-24px -48px; }
+#languageSwitch .langflag-cr { background-position:-48px -48px; }
+#languageSwitch .langflag-cs_CZ { background-position:-72px -48px; }
+#languageSwitch .langflag-cu { background-position:-96px -48px; }
+#languageSwitch .langflag-cv { background-position:-120px -48px; }
+#languageSwitch .langflag-cx { background-position:-144px -48px; }
+#languageSwitch .langflag-cy { background-position:-168px -48px; }
+#languageSwitch .langflag-cz { background-position:-192px -48px; }
+#languageSwitch .langflag-de_DE { background-position:-216px -48px; }
+#languageSwitch .langflag-dj { background-position:-240px -48px; }
+#languageSwitch .langflag-da_DK { background-position:-264px -48px; }
+#languageSwitch .langflag-dm { background-position:-288px -48px; }
+#languageSwitch .langflag-do { background-position:-312px -48px; }
+#languageSwitch .langflag-dz { background-position:-336px -48px; }
+#languageSwitch .langflag-ec { background-position:0px -64px; }
+#languageSwitch .langflag-et_EE { background-position:-24px -64px; }
+#languageSwitch .langflag-eg { background-position:-48px -64px; }
+#languageSwitch .langflag-eh { background-position:-72px -64px; }
+#languageSwitch .langflag-en_UK { background-position:-96px -64px; }
+#languageSwitch .langflag-eo_EO { background-position:-120px -64px; }
+#languageSwitch .langflag-er { background-position:-144px -64px; }
+#languageSwitch .langflag-es_ES { background-position:-168px -64px; }
+#languageSwitch .langflag-et { background-position:-192px -64px; }
+#languageSwitch .langflag-fi_FI { background-position:-216px -64px; }
+#languageSwitch .langflag-fm { background-position:-240px -64px; }
+#languageSwitch .langflag-fo { background-position:-264px -64px; }
+#languageSwitch .langflag-fr_FR { background-position:-288px -64px; }
+#languageSwitch .langflag-ga { background-position:-312px -64px; }
+#languageSwitch .langflag-gb { background-position:-336px -64px; }
+#languageSwitch .langflag-gd { background-position:0px -80px; }
+#languageSwitch .langflag-ka_GE { background-position:-24px -80px; }
+#languageSwitch .langflag-gg { background-position:-48px -80px; }
+#languageSwitch .langflag-gh { background-position:-72px -80px; }
+#languageSwitch .langflag-gi { background-position:-96px -80px; }
+#languageSwitch .langflag-gl { background-position:-120px -80px; }
+#languageSwitch .langflag-gm { background-position:-144px -80px; }
+#languageSwitch .langflag-gn { background-position:-168px -80px; }
+#languageSwitch .langflag-gq { background-position:-192px -80px; }
+#languageSwitch .langflag-el_GR { background-position:-216px -80px; }
+#languageSwitch .langflag-gt { background-position:-240px -80px; }
+#languageSwitch .langflag-gu { background-position:-264px -80px; }
+#languageSwitch .langflag-gw { background-position:-288px -80px; }
+#languageSwitch .langflag-gy { background-position:-312px -80px; }
+#languageSwitch .langflag-zh_HK { background-position:-336px -80px; }
+#languageSwitch .langflag-hn { background-position:0px -96px; }
+#languageSwitch .langflag-hr_HR { background-position:-24px -96px; }
+#languageSwitch .langflag-ht { background-position:-48px -96px; }
+#languageSwitch .langflag-hu_HU { background-position:-72px -96px; }
+#languageSwitch .langflag-id { background-position:-96px -96px; }
+#languageSwitch .langflag-ie { background-position:-120px -96px; }
+#languageSwitch .langflag-he_IL { background-position:-144px -96px; }
+#languageSwitch .langflag-im { background-position:-168px -96px; }
+#languageSwitch .langflag-kok_IN { background-position:-192px -96px; }
+#languageSwitch .langflag-ta_IN { background-position:-192px -96px; }
+#languageSwitch .langflag-bn_IN { background-position:-192px -96px; }
+#languageSwitch .langflag-iq { background-position:-216px -96px; }
+#languageSwitch .langflag-fa_IR { background-position:-240px -96px; }
+#languageSwitch .langflag-is_IS { background-position:-264px -96px; }
+#languageSwitch .langflag-it_IT { background-position:-288px -96px; }
+#languageSwitch .langflag-je { background-position:-312px -96px; }
+#languageSwitch .langflag-jm { background-position:-336px -96px; }
+#languageSwitch .langflag-jo { background-position:0px -112px; }
+#languageSwitch .langflag-ja_JP { background-position:-24px -112px; }
+#languageSwitch .langflag-ke { background-position:-48px -112px; }
+#languageSwitch .langflag-kg { background-position:-72px -112px; }
+#languageSwitch .langflag-km_KH { background-position:-96px -112px; }
+#languageSwitch .langflag-ki { background-position:-120px -112px; }
+#languageSwitch .langflag-km { background-position:-144px -112px; }
+#languageSwitch .langflag-kn { background-position:-168px -112px; }
+#languageSwitch .langflag-kosovo { background-position:-192px -112px; }
+#languageSwitch .langflag-kp { background-position:-216px -112px; }
+#languageSwitch .langflag-ko_KR { background-position:-240px -112px; }
+#languageSwitch .langflag-kw { background-position:-264px -112px; }
+#languageSwitch .langflag-kz { background-position:-288px -112px; }
+#languageSwitch .langflag-la { background-position:-312px -112px; }
+#languageSwitch .langflag-lb { background-position:-336px -112px; }
+#languageSwitch .langflag-lc { background-position:0px -128px; }
+#languageSwitch .langflag-li { background-position:-24px -128px; }
+#languageSwitch .langflag-lk { background-position:-48px -128px; }
+#languageSwitch .langflag-lr { background-position:-72px -128px; }
+#languageSwitch .langflag-ls { background-position:-96px -128px; }
+#languageSwitch .langflag-lt_LT { background-position:-120px -128px; }
+#languageSwitch .langflag-lu { background-position:-144px -128px; }
+#languageSwitch .langflag-lv_LV { background-position:-168px -128px; }
+#languageSwitch .langflag-ly { background-position:-192px -128px; }
+#languageSwitch .langflag-ma { background-position:-216px -128px; }
+#languageSwitch .langflag-mc { background-position:-240px -128px; }
+#languageSwitch .langflag-md { background-position:-264px -128px; }
+#languageSwitch .langflag-me { background-position:-288px -128px; }
+#languageSwitch .langflag-mg { background-position:-312px -128px; }
+#languageSwitch .langflag-mh { background-position:-336px -128px; }
+#languageSwitch .langflag-mk_MK { background-position:0px -144px; }
+#languageSwitch .langflag-ml { background-position:-24px -144px; }
+#languageSwitch .langflag-mm { background-position:-48px -144px; }
+#languageSwitch .langflag-mn { background-position:-72px -144px; }
+#languageSwitch .langflag-mo { background-position:-96px -144px; }
+#languageSwitch .langflag-mp { background-position:-120px -144px; }
+#languageSwitch .langflag-mq { background-position:-144px -144px; }
+#languageSwitch .langflag-mr { background-position:-168px -144px; }
+#languageSwitch .langflag-mt { background-position:-192px -144px; }
+#languageSwitch .langflag-mu { background-position:-216px -144px; }
+#languageSwitch .langflag-dv_MV { background-position:-240px -144px; }
+#languageSwitch .langflag-mw { background-position:-264px -144px; }
+#languageSwitch .langflag-mx { background-position:-288px -144px; }
+#languageSwitch .langflag-ms_MY { background-position:-312px -144px; }
+#languageSwitch .langflag-mz { background-position:-336px -144px; }
+#languageSwitch .langflag-na { background-position:0px -160px; }
+#languageSwitch .langflag-ne { background-position:-24px -160px; }
+#languageSwitch .langflag-nf { background-position:-48px -160px; }
+#languageSwitch .langflag-ng { background-position:-72px -160px; }
+#languageSwitch .langflag-ni { background-position:-96px -160px; }
+#languageSwitch .langflag-nl_NL { background-position:-120px -160px; }
+#languageSwitch .langflag-nb_NO { background-position:-144px -160px; }
+#languageSwitch .langflag-np { background-position:-168px -160px; }
+#languageSwitch .langflag-nr { background-position:-192px -160px; }
+#languageSwitch .langflag-nu { background-position:-216px -160px; }
+#languageSwitch .langflag-om { background-position:-240px -160px; }
+#languageSwitch .langflag-pa { background-position:-264px -160px; }
+#languageSwitch .langflag-pe { background-position:-288px -160px; }
+#languageSwitch .langflag-pf { background-position:-312px -160px; }
+#languageSwitch .langflag-pg { background-position:-336px -160px; }
+#languageSwitch .langflag-ph { background-position:0px -176px; }
+#languageSwitch .langflag-pk { background-position:-24px -176px; }
+#languageSwitch .langflag-pl_PL { background-position:-48px -176px; }
+#languageSwitch .langflag-pm { background-position:-72px -176px; }
+#languageSwitch .langflag-pr { background-position:-96px -176px; }
+#languageSwitch .langflag-ps { background-position:-120px -176px; }
+#languageSwitch .langflag-pt_PT { background-position:-144px -176px; }
+#languageSwitch .langflag-pw { background-position:-168px -176px; }
+#languageSwitch .langflag-py { background-position:-192px -176px; }
+#languageSwitch .langflag-qa { background-position:-216px -176px; }
+#languageSwitch .langflag-fr_CA { background-position:-240px -176px; }
+#languageSwitch .langflag-ro_RO { background-position:-264px -176px; }
+#languageSwitch .langflag-sh_RS { background-position:-288px -176px; }
+#languageSwitch .langflag-sr_RS { background-position:-288px -176px; }
+#languageSwitch .langflag-ru_RU { background-position:-312px -176px; }
+#languageSwitch .langflag-rw { background-position:-336px -176px; }
+#languageSwitch .langflag-ar_SA { background-position:0px -192px; }
+#languageSwitch .langflag-saba { background-position:-24px -192px; }
+#languageSwitch .langflag-sark { background-position:-48px -192px; }
+#languageSwitch .langflag-sb { background-position:-72px -192px; }
+#languageSwitch .langflag-sc { background-position:-96px -192px; }
+#languageSwitch .langflag-scotland { background-position:-120px -192px; }
+#languageSwitch .langflag-sd { background-position:-144px -192px; }
+#languageSwitch .langflag-sv_SE { background-position:-168px -192px; }
+#languageSwitch .langflag-sg { background-position:-192px -192px; }
+#languageSwitch .langflag-si { background-position:-216px -192px; }
+#languageSwitch .langflag-sj { background-position:-240px -192px; }
+#languageSwitch .langflag-sk_SK { background-position:-264px -192px; }
+#languageSwitch .langflag-sl_SI { background-position:-288px -192px; }
+#languageSwitch .langflag-sm { background-position:-312px -192px; }
+#languageSwitch .langflag-sn { background-position:-336px -192px; }
+#languageSwitch .langflag-so { background-position:0px -208px; }
+#languageSwitch .langflag-sr { background-position:-24px -208px; }
+#languageSwitch .langflag-st { background-position:-48px -208px; }
+#languageSwitch .langflag-sv { background-position:-72px -208px; }
+#languageSwitch .langflag-sy { background-position:-96px -208px; }
+#languageSwitch .langflag-sz { background-position:-120px -208px; }
+#languageSwitch .langflag-td { background-position:-144px -208px; }
+#languageSwitch .langflag-tg { background-position:-168px -208px; }
+#languageSwitch .langflag-th_TH { background-position:-192px -208px; }
+#languageSwitch .langflag-tj { background-position:-216px -208px; }
+#languageSwitch .langflag-tk { background-position:-240px -208px; }
+#languageSwitch .langflag-tl { background-position:-264px -208px; }
+#languageSwitch .langflag-tm { background-position:-288px -208px; }
+#languageSwitch .langflag-tn { background-position:-312px -208px; }
+#languageSwitch .langflag-to { background-position:-336px -208px; }
+#languageSwitch .langflag-tr_TR { background-position:0px -224px; }
+#languageSwitch .langflag-tt { background-position:-24px -224px; }
+#languageSwitch .langflag-zh_TW{ background-position:-48px -224px; }
+#languageSwitch .langflag-tz { background-position:-72px -224px; }
+#languageSwitch .langflag-uk_UA { background-position:-96px -224px; }
+#languageSwitch .langflag-ug { background-position:-120px -224px; }
+#languageSwitch .langflag-us { background-position:-144px -224px; }
+#languageSwitch .langflag-uy { background-position:-168px -224px; }
+#languageSwitch .langflag-uz { background-position:-192px -224px; }
+#languageSwitch .langflag-va { background-position:-216px -224px; }
+#languageSwitch .langflag-vc { background-position:-240px -224px; }
+#languageSwitch .langflag-ve { background-position:-264px -224px; }
+#languageSwitch .langflag-vi { background-position:-288px -224px; }
+#languageSwitch .langflag-vi_VN { background-position:-312px -224px; }
+#languageSwitch .langflag-vu { background-position:-336px -224px; }
+#languageSwitch .langflag-wales { background-position:0px -240px; }
+#languageSwitch .langflag-wf { background-position:-24px -240px; }
+#languageSwitch .langflag-ws { background-position:-48px -240px; }
+#languageSwitch .langflag-ye { background-position:-72px -240px; }
+#languageSwitch .langflag-yt { background-position:-96px -240px; }
+#languageSwitch .langflag-af_ZA { background-position:-120px -240px; }
+#languageSwitch .langflag-zm { background-position:-144px -240px; }
+#languageSwitch .langflag-zw { background-position:-168px -240px; }
