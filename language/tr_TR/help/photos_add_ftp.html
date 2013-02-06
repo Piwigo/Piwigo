@@ -1,0 +1,68 @@
+<fieldset>
+  <legend>Hızlı Başlangıç</legend>
+
+<ol>
+  <li>Bilgisayarınızda bir klasör oluşturun.</li>  
+
+  <li>Webde görüntülemek için yeniden boyutlandırdığınız fotoğraflarınızı oluşturduğunuz klasörün içine kopyalayın . <em>Önemli Uyarı </em>: Oluşturmuş olduğunuz klasör ve dosya isimleri sadece harf ve rakamlardan oluşmalı, "-", "_" or ".". Boşluk karakteri olmamalı, ve diğer karakterleri içermemelidir.</li>
+
+  <li>FTP Client ile masaüstünde oluşturduğunuz klasörü Piwigo Yüklediğiniz dizindeki 'galleries' klasörüne kopyalayın. </li>
+
+  <li>Galeri sitenizin Admin paneline giriş yaptıktan sonra <span class="pwgScreen">Yönetim Ana Sayfasına </span> girerek  Senkronizasyon butonuna basın.</li>
+</ol>
+
+<p>Tebrikler!İlk albümünüzü başarı ile oluşturdunuz..</p>
+</fieldset>
+
+<fieldset>
+  <legend>Dizin ve dosya organizasyonu</legend>
+
+<ul>
+
+  <li>
+
+    <p>"galleries" klasörünün altındaki albüm dizinleri Piwigo nun bir çok özelliğini kullanmış olarak aşağıdaki gibi sıralanmıştır.</p>
+
+    <pre>
+galleries
+|-- wedding
+|   |-- celebration
+|   |   |-- arrival
+|   |   |   |-- paul-alone.jpg
+|   |   |   +-- sarah-alone.jpg
+|   |   +-- departure
+|   |       +-- paul-and-sarah.jpg
+|   +-- party
+|       |-- dancers001.jpg
+|       |-- dancers002.jpg
+|       +-- dancers003.jpg
++-- honeymoon
+    |-- hotel.png
+    |-- video-from-plane.avi
+    +-- pwg_representative
+        +-- video-from-plane.jpg
+</pre>
+
+  </li>
+
+  <li>Except for "pwg_representative" (see explanations below), each directory under "galleries" produces a album. There is no limit on deepness.</li>
+
+  <li>Basically, an element is represented by a file. A file can be a
+  Piwigo element if its extension is among <code>file_ext</code>
+  configuration parameter possibilities (see <span
+  class="filename">include/config_default.inc.php</span> file). A file can
+  be a picture if its extension is among <code>picture_ext</code>
+  configuration parameter possibilities.</li>
+
+  <li>No photo elements (video, sounds, file texts, whatever you want...) are represented by default by an icon corresponding to the filename
+  extension. Optionally, you can associate a thumbnail and a representative
+  file (see video.avi in the example above).</li>
+
+  <li><em>Warning</em>: the name of directories and files must contain only letters, figures, "-", "_" or ".". No blank space, nor accentuated characters.</li>
+
+  <li>Once photos are correctly placed in the
+  directories, go to: <span class="pwgScreen">Administration &raquo; Tools &raquo;
+  Synchronize</span></li>
+
+</ul>
+</fieldset>
