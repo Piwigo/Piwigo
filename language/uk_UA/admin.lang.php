@@ -948,4 +948,5 @@ $lang['Rename'] = 'Перейменувати';
 $lang['This group will be set to default'] = 'Ця група буде встановлена за замовчуванням';
 $lang['This group will be unset to default'] = 'Ця група буде знята з замовчування';
 $lang['Type here the name of the new group'] = 'Введіть назву нової групи';
+$lang['Purge user cache'] = 'Очистити кеш користувача';
 ?>
