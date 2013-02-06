@@ -953,4 +953,5 @@ $lang['Rename'] = 'เปลี่ยนชื่อ';
 $lang['This group will be set to default'] = 'กลุ่มนี้ถูกกำหนดให้เป็นกลุ่มปกติ';
 $lang['This group will be unset to default'] = 'กลุ่มนี้ไม่ได้ถูกกำหนดให้เป็นกลุ่มปกติ';
 $lang['Type here the name of the new group'] = 'พิมพ์ชื่อของกลุ่มใหม่';
+$lang['Purge user cache'] = 'ล้างแคชผู้ใช้งาน';
 ?>
