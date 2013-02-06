@@ -1,10 +1,12 @@
-<li>{strip}<a id="languageSwitchLink" title="{'Language'|@translate}" class="pwg-state-default pwg-button" rel="nofollow">
-  <span class="pwg-icon" style="background:url('{$lang_switch.Active.img}') center center no-repeat;">&nbsp;</span><span class="pwg-button-text">{'Language'|@translate}</span>
+<li id="languageSwitch">{strip}<a id="languageSwitchLink" title="{'Language'|@translate}" class="pwg-state-default pwg-button" rel="nofollow">
+  <span class="pwg-icon flags langflag-{$lang_switch.Active.code}" >&nbsp;</span><span class="pwg-button-text">{'Language'|@translate}</span>
 </a>
 <div id="languageSwitchBox" class="switchBox">
   <div class="switchBoxTitle">{'Language'|@translate}</div> 
   {foreach from=$lang_switch.flags item=flag name=f}
-  <a rel="nofollow" href="{$flag.url}"><img class="flags" src="{$flag.img}" alt="{$flag.alt}"> {$flag.title}</a>
+  <a rel="nofollow" href="{$flag.url}">
+    <span class="pwg-icon flags langflag-{$flag.code}">{$flag.alt}</span>{$flag.title}
+  </a>
   {if ($smarty.foreach.f.index+1)%3 == 0}<br>{/if}
   {/foreach}
 </div>

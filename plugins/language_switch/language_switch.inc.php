@@ -109,12 +109,11 @@ function language_controler_flags()
   
   foreach ($available_lang as $code => $displayname)
   {
-    
     $qlc = array (
       'url' => add_url_params($base_url, array('lang'=> $code)),
       'alt' => ucwords($displayname),
       'title' => substr($displayname, 0, -4), // remove [FR] or [RU]
-      'img' => get_root_url().'language/'.$code.'/'.$code.'.jpg',
+      'code' => $code,
       );
     
     $lsw['flags'][$code] = $qlc;
