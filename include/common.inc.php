@@ -133,6 +133,7 @@ if (!$conf['check_upgrade_feed'])
 
 ImageStdParams::load_from_db();
 
+session_start();
 load_plugins();
 
 // users can have defined a custom order pattern, incompatible with GUI form

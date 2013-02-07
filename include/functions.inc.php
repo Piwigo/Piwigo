@@ -1621,10 +1621,6 @@ function get_branch_from_version($version)
  */
 function get_device()
 {
-  if (session_id() == '')
-  {
-    session_start();
-  }
   $device = pwg_get_session_var('device');
 
   if (is_null($device))
@@ -1659,11 +1655,6 @@ function mobile_theme()
   if (empty($conf['mobile_theme']))
   {
     return false;
-  }
-
-  if (session_id() == '')
-  {
-    session_start();
   }
 
   if (isset($_GET['mobile']))
