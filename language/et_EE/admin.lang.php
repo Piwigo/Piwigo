@@ -950,4 +950,5 @@ $lang['Rename'] = 'Nimeta ümber';
 $lang['This group will be set to default'] = 'See rühm valitakse vaikerühmaks';
 $lang['Manage the members'] = 'Halda liikmeid';
 $lang['Duplicate'] = 'Tee koopia';
+$lang['Purge user cache'] = 'Tühjenda vahemälu';
 ?>
