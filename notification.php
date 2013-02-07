@@ -115,7 +115,7 @@ if (!isset($themeconf['hide_menu_on']) OR !in_array('theNotificationPage', $them
 // +-----------------------------------------------------------------------+
 include(PHPWG_ROOT_PATH.'include/page_header.php');
 trigger_action('loc_end_notification');
-include(PHPWG_ROOT_PATH.'include/page_messages.php');
+flush_page_messages();
 $template->pparse('notification');
 include(PHPWG_ROOT_PATH.'include/page_tail.php');
 

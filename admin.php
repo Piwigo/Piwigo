@@ -292,7 +292,7 @@ include(PHPWG_ROOT_PATH.'include/page_header.php');
 
 trigger_action('loc_end_admin');
 
-include(PHPWG_ROOT_PATH.'include/page_messages.php');
+flush_page_messages();
 
 $template->pparse('admin');
 

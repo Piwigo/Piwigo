@@ -614,4 +614,26 @@ function get_element_url_protection_handler($url, $infos)
   return get_action_url($infos['id'], 'e', false);
 }
 
+
+function flush_page_messages()
+{
+  global $template, $page;
+  if ($template->get_template_vars('page_refresh') === null)
+  {
+    foreach (array('errors','infos','warnings') as $mode)
+    {
+      if (isset($_SESSION['page_'.$mode]))
+      {
+        $page[$mode] = array_merge($page[$mode], $_SESSION['page_'.$mode]);
+        unset($_SESSION['page_'.$mode]);
+      }
+
+      if (count($page[$mode]) != 0)
+      {
+        $template->assign($mode, $page[$mode]);
+      }
+    }
+  }
+}
+
 ?>

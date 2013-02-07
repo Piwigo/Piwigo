@@ -131,7 +131,7 @@ if (!isset($themeconf['hide_menu_on']) OR !in_array('theRegisterPage', $themecon
 
 include(PHPWG_ROOT_PATH.'include/page_header.php');
 trigger_action('loc_end_register');
-include(PHPWG_ROOT_PATH.'include/page_messages.php');
+flush_page_messages();
 $template->parse('register');
 include(PHPWG_ROOT_PATH.'include/page_tail.php');
 ?>

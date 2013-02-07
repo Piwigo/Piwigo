@@ -57,7 +57,7 @@ if (!isset($themeconf['hide_menu_on']) OR !in_array('theAboutPage', $themeconf['
 }
 
 include(PHPWG_ROOT_PATH.'include/page_header.php');
-include(PHPWG_ROOT_PATH.'include/page_messages.php');
+flush_page_messages();
 $template->pparse('about');
 include(PHPWG_ROOT_PATH.'include/page_tail.php');
 ?>

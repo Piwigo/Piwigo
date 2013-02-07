@@ -609,7 +609,7 @@ if (!isset($themeconf['hide_menu_on']) OR !in_array('theCommentsPage', $themecon
 // +-----------------------------------------------------------------------+
 include(PHPWG_ROOT_PATH.'include/page_header.php');
 trigger_action('loc_end_comments');
-include(PHPWG_ROOT_PATH.'include/page_messages.php');
+flush_page_messages();
 $template->pparse('comments');
 include(PHPWG_ROOT_PATH.'include/page_tail.php');
 ?>
