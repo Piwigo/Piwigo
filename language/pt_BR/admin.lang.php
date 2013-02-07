@@ -949,4 +949,5 @@ $lang['Rename'] = 'Renomear';
 $lang['This group will be set to default'] = 'Esse grupo será usado por padrão';
 $lang['This group will be unset to default'] = 'Esse grupo nao será mais usado por padrao';
 $lang['Type here the name of the new group'] = 'Digite aqui o nome do novo grupo.';
+$lang['Purge user cache'] = 'limpa o cache do usuário';
 ?>
