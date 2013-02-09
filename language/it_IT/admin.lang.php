@@ -949,4 +949,5 @@ $lang['No group selected, no action possible.'] = 'Nessun gruppo selezionato, ne
 $lang['Duplicate'] = 'Duplicare';
 $lang['Merge selected groups'] = 'Unire i gruppi selezionati';
 $lang['Manage the members'] = 'Gestisci membri';
+$lang['Purge user cache'] = 'Svuotare la cache utente';
 ?>
