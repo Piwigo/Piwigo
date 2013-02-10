@@ -953,4 +953,5 @@ $lang['No members to manage'] = 'Žiadni používatelia na spravovanie';
 $lang['Manage the members'] = 'Spravovať používateľov';
 $lang['Merge selected groups'] = 'Pridať označené skupiny';
 $lang['Duplicate'] = 'Duplikovať';
+$lang['Purge user cache'] = 'Vyčistiť cache používateľa';
 ?>
