@@ -951,4 +951,5 @@ $lang['This group will be unset to default'] = 'این گروه دیگر در ح
 $lang['Type here the name of the new group'] = 'نام گروه تازه را اینجا بنویسید';
 $lang['between %.2f and %.2f'] = 'میان %.2f و %.2f';
 $lang['between %d and %d pixels'] = 'میان %d و %d پیکسل';
+$lang['Purge user cache'] = 'پاک کردن مخزن کاربر (کش)';
 ?>
