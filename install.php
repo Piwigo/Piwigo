@@ -109,7 +109,11 @@ include(PHPWG_ROOT_PATH . 'include/config_default.inc.php');
 @include(PHPWG_ROOT_PATH. 'local/config/config.inc.php');
 defined('PWG_LOCAL_DIR') or define('PWG_LOCAL_DIR', 'local/');
 
+include(PHPWG_ROOT_PATH . 'include/functions.inc.php');
+
 // download database config file if exists
+check_input_parameter('dl', $_GET, false, '/^[a-f0-9]{32}$/');
+
 if (!empty($_GET['dl']) && file_exists(PHPWG_ROOT_PATH.$conf['data_location'].'pwg_'.$_GET['dl']))
 {
   $filename = PHPWG_ROOT_PATH.$conf['data_location'].'pwg_'.$_GET['dl'];
@@ -156,7 +160,6 @@ if (@file_exists($config_file))
 }
 
 include(PHPWG_ROOT_PATH . 'include/constants.php');
-include(PHPWG_ROOT_PATH . 'include/functions.inc.php');
 include(PHPWG_ROOT_PATH . 'admin/include/functions.php');
 
 include(PHPWG_ROOT_PATH . 'admin/include/languages.class.php');
@@ -284,6 +287,9 @@ define(\'DB_COLLATE\', \'\');
     // writing the configuration file
     if ( !($fp = @fopen( $config_file, 'w' )))
     {
+      // make sure nobody can list files of _data directory
+      secure_directory(PHPWG_ROOT_PATH.$conf['data_location']);
+      
       $tmp_filename = md5(uniqid(time()));
       $fh = @fopen( PHPWG_ROOT_PATH.$conf['data_location'] . 'pwg_' . $tmp_filename, 'w' );
       @fputs($fh, $file_content, strlen($file_content));
