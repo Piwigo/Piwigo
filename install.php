@@ -311,14 +311,14 @@ define(\'DB_COLLATE\', \'\');
       PHPWG_ROOT_PATH.'install/piwigo_structure-mysql.sql',
       DEFAULT_PREFIX_TABLE,
       $prefixeTable,
-      $dblayer
+      'mysql'
       );
     // We fill the tables with basic informations
     execute_sqlfile(
       PHPWG_ROOT_PATH.'install/config.sql',
       DEFAULT_PREFIX_TABLE,
       $prefixeTable,
-      $dblayer
+      'mysql'
       );
 
     $query = '
@@ -467,6 +467,8 @@ else
     }
     session_name($conf['session_name']);
     session_set_cookie_params(0, cookie_path());
+    register_shutdown_function('session_write_close');
+    
     $user = build_user(1, true);
     log_user($user['id'], false);
     

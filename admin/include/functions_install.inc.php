@@ -69,61 +69,6 @@ function execute_sqlfile($filepath, $replaced, $replacing, $dblayer)
 }
 
 /**
- * Search for database engines available
- *
- * We search for functions_DATABASE_ENGINE.inc.php 
- * and we check if the connect function for that database exists 
- *
- * @return array
- */
-function available_engines()
-{
-  $engines = array();
-
-  $pattern = PHPWG_ROOT_PATH. 'include/dblayer/functions_%s.inc.php';
-  include_once PHPWG_ROOT_PATH. 'include/dblayer/dblayers.inc.php';
-
-  foreach ($dblayers as $engine_name => $engine)
-  {
-    if (file_exists(sprintf($pattern, $engine_name))) 
-    {
-      $engines[$engine_name]['label'] = $engine['engine'];
-      $engines[$engine_name]['available'] = false;
-
-      if (isset($engine['function_available'])
-	  && function_exists($engine['function_available']))
-      {
-	$engines[$engine_name]['available'] = true;
-      }
-      elseif (isset($engine['class_available']) 
-	      && class_exists($engine['class_available']))
-      {
-	$engines[$engine_name]['available'] = true;
-      } 
-    }
-  }
-
-  if ($engines['sqlite']['available'] and !$engines['pdo-sqlite']['available'])
-  {
-    unset($engines['pdo-sqlite']);
-  }
-  elseif ($engines['pdo-sqlite']['available'] and !$engines['sqlite']['available'])
-  {
-    unset($engines['sqlite']);
-  }
-  elseif (DEFAULT_DB_SQLITE=='native')
-  {
-    unset($engines['pdo-sqlite']);
-  }
-  else
-  {
-    unset($engines['sqlite']);
-  }
-
-  return $engines;
-}
-
-/**
  * Automatically activate all core themes in the "themes" directory.
  *
  * @return void
