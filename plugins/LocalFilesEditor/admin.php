@@ -66,6 +66,8 @@ if (isset($_POST['restore']))
 // +-----------------------------------------------------------------------+
 if (isset($_POST['submit']))
 {
+  check_pwg_token();
+
   if (!is_webmaster())
   {
     array_push($page['errors'], l10n('locfiledit_webmaster_only'));
@@ -140,6 +142,7 @@ if (!empty($edited_file))
 $template->assign(array(
   'F_ACTION' => PHPWG_ROOT_PATH.'admin.php?page=plugin-LocalFilesEditor-'.$page['tab'],
   'LOCALEDIT_PATH' => LOCALEDIT_PATH,
+  'PWG_TOKEN' => get_pwg_token(),
   'CODEMIRROR_MODE' => @$codemirror_mode
   )
 );
