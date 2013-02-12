@@ -27,6 +27,7 @@ if (document.getElementById("text") != null)
 </div>
 
 <form method="post" class="properties" action="{$F_ACTION}" ENCTYPE="multipart/form-data" name="form">
+<input type="hidden" name="pwg_token" value="{$PWG_TOKEN}">
 
 <div id="LocalFilesEditor">
 
