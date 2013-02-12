@@ -30,7 +30,18 @@ if (document.getElementById("text") != null)
 
 <div id="LocalFilesEditor">
 
-<input type="hidden" value="{$zone_edit.EDITED_FILE}" name="edited_file"/>
+{if isset($theme)}
+<input type="hidden" value="{$theme}" name="theme">
+{/if}
+
+{if isset($language)}
+<input type="hidden" value="{$language}" name="language">
+{/if}
+
+{if isset($template)}
+<input type="hidden" value="{$template}" name="template">
+{/if}
+
 
 {if isset ($create_tpl)}
   <table>
@@ -52,20 +63,18 @@ if (document.getElementById("text") != null)
 {/if}
 
 {if isset ($css_lang_tpl)}
-<select name="file_to_edit">
-{foreach from=$css_lang_tpl.OPTIONS item=theme key=value}
-  <option value="{$value}" {if $value == $css_lang_tpl.SELECTED}selected="selected"{/if} {if is_numeric($value)}disabled="disabled"{/if}>{$theme}</option>
-{/foreach}
+<select name="{$css_lang_tpl.SELECT_NAME}">
+{html_options options=$css_lang_tpl.OPTIONS selected=$css_lang_tpl.SELECTED}
 </select>
-
 
 <input class="submit" type="submit" value="{'locfiledit_edit'|@translate}" name="edit" />
 <br><br>
-  {if isset ($css_lang_tpl.NEW_FILE_URL)}
-  <span class="{$css_lang_tpl.NEW_FILE_CLASS}">
-  <a href="{$css_lang_tpl.NEW_FILE_URL}">{'locfiledit_new_tpl'|@translate}</a>
-  </span>
-  {/if}
+{/if}
+
+{if isset ($css_lang_tpl.NEW_FILE_URL)}
+<span class="{$css_lang_tpl.NEW_FILE_CLASS}">
+<a href="{$css_lang_tpl.NEW_FILE_URL}">{'locfiledit_new_tpl'|@translate}</a>
+</span>
 {/if}
 
 {if isset ($zone_edit)}

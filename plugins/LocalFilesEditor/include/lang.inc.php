@@ -1,32 +1,46 @@
 <?php
-
 if (!defined('PHPWG_ROOT_PATH')) die('Hacking attempt!');
 
-$edited_file = isset($_POST['edited_file']) ? $_POST['edited_file'] : '';
-$content_file = '';
+$languages = get_languages();
 
-if ((isset($_POST['edit'])) and !is_numeric($_POST['file_to_edit']))
+if (isset($_POST['edit']))
 {
-  $edited_file = $_POST['file_to_edit'];
-  if (file_exists($edited_file))
-  {
-    $content_file = file_get_contents($edited_file);
-  }
-  else
-  {
-    $content_file = "<?php\n\n/* ".l10n('locfiledit_newfile')." */\n\n\n\n\n?>";
-  }
+  $_POST['language'] = $_POST['language_select'];
 }
 
-$selected = 0; 
-$options[] = l10n('locfiledit_choose_file');
-$options[] = '----------------------';
+if (isset($_POST['language']))
+{
+  $page['language'] = $_POST['language'];
+}
+  
+if (!isset($page['language']) or !in_array($page['language'], array_keys($languages)))
+{
+  $page['language'] = get_default_language();
+}
+
+$template->assign('language', $page['language']);
+
+$edited_file = PHPWG_ROOT_PATH.PWG_LOCAL_DIR.'language/'.$page['language'].'.lang.php';;
+
+if (file_exists($edited_file))
+{
+  $content_file = file_get_contents($edited_file);
+}
+else
+{
+  $content_file = "<?php\n\n/* ".l10n('locfiledit_newfile')." */\n\n\n\n\n?>";
+}
+
+$selected = 0;
 foreach (get_languages() as $language_code => $language_name)
 {
-  $value = PHPWG_ROOT_PATH.PWG_LOCAL_DIR.'language/'.$language_code.'.lang.php';
-  if ($edited_file == $value)
+  $file = PHPWG_ROOT_PATH.PWG_LOCAL_DIR.'language/'.$language_code.'.lang.php';
+
+  $options[$language_code] = (file_exists($file) ? '&#x2714;' : '&#x2718;').' '.$language_name;
+  
+  if ($page['language'] == $language_code)
   {
-    $selected = $value;
+    $selected = $language_code;
     $template->assign('show_default', array(
       array(
         'URL' => LOCALEDIT_PATH.'show_default.php?file=language/'.$language_code.'/common.lang.php',
@@ -39,10 +53,12 @@ foreach (get_languages() as $language_code => $language_name)
       )
     );
   }
-  $options[$value] = $language_name;
 }
 
-$template->assign('css_lang_tpl', array(
+$template->assign(
+  'css_lang_tpl',
+  array(
+    'SELECT_NAME' => 'language_select',
     'OPTIONS' => $options,
     'SELECTED' => $selected
     )

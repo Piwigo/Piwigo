@@ -55,7 +55,6 @@ include_once(LOCALEDIT_PATH.'include/'.$page['tab'].'.inc.php');
 // +-----------------------------------------------------------------------+
 if (isset($_POST['restore']))
 {
-  $edited_file = $_POST['edited_file'];
   $content_file = file_get_contents(get_bak_file($edited_file));
   array_push($page['infos'],
     l10n('locfiledit_bak_loaded1'),
@@ -73,7 +72,6 @@ if (isset($_POST['submit']))
   }
   else
   {
-    $edited_file = $_POST['edited_file'];
     $content_file = stripslashes($_POST['text']);
     if (get_extension($edited_file) == 'php')
     {

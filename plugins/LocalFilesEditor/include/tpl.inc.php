@@ -1,21 +1,34 @@
 <?php
-
 if (!defined('PHPWG_ROOT_PATH')) die('Hacking attempt!');
 
-$edited_file = isset($_POST['edited_file']) ? $_POST['edited_file'] : '';
-$content_file = '';
+$edited_file = '';
 
-if ((isset($_POST['edit'])) and !is_numeric($_POST['file_to_edit']))
+if (isset($_POST['edit']))
 {
-  $edited_file = $_POST['file_to_edit'];
-  if (file_exists($edited_file))
+  $_POST['template'] = $_POST['file_to_edit'];
+}
+
+if (!empty($_POST['template']))
+{
+  if (preg_match('#\.\./#', $_POST['template']))
   {
-    $content_file = file_get_contents($edited_file);
+    die('Hacking attempt! template extension must be in template-extension directory');
   }
-  else
+
+  if (!preg_match('#\.tpl$#', $_POST['template']))
   {
-    $content_file = '';
+    die('Hacking attempt! template extension must be a *.tpl file');
   }
+
+  $template->assign('template', $_POST['template']);
+  
+  $edited_file = './template-extension/'.$_POST['template'];
+}
+
+$content_file = '';
+if (file_exists($edited_file))
+{
+  $content_file = file_get_contents($edited_file);
 }
 
 $newfile_page = isset($_GET['newfile']);
@@ -50,6 +63,7 @@ if (isset($_POST['create_tpl']))
   }
   else
   {
+    $template->assign('template', $filename);
     $edited_file = $_POST['tpl_parent'] . '/' . $filename;
     $content_file = ($_POST['tpl_model'] == '0') ? '' : file_get_contents($_POST['tpl_model']);
   }
@@ -117,7 +131,7 @@ else
   $options[] = '----------------------';
   foreach (get_extents() as $pwg_template)
   {
-    $value = './template-extension/' . $pwg_template;
+    $value = $pwg_template;
     $options[$value] =  str_replace('/', ' / ', $pwg_template);
     if ($edited_file == $value) $selected = $value;
   }
@@ -126,13 +140,16 @@ else
     $options[$edited_file] =  str_replace(array('./template-extension/', '/'), array('', ' / '), $edited_file);
     $selected = $edited_file;
   }
-  $template->assign('css_lang_tpl', array(
-    'OPTIONS' => $options,
-    'SELECTED' => $selected,
-    'NEW_FILE_URL' => $my_base_url.'-tpl&amp;newfile',
-    'NEW_FILE_CLASS' => empty($edited_file) ? '' : 'top_right'
-    )
-  );
+  $template->assign(
+    'css_lang_tpl',
+    array(
+      'SELECT_NAME' => 'file_to_edit',
+      'OPTIONS' => $options,
+      'SELECTED' => $selected,
+      'NEW_FILE_URL' => $my_base_url.'-tpl&amp;newfile',
+      'NEW_FILE_CLASS' => empty($edited_file) ? '' : 'top_right'
+      )
+    );
 }
 
 $codemirror_mode = 'text/html';
