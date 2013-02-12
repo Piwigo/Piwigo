@@ -950,4 +950,5 @@ $lang['between %.2f and %.2f'] = 'ما بين %.2f  و %.2f ';
 $lang['Type here the name of the new group'] = 'أكتب هنا أسم المجموعة الجديدة';
 $lang['Rename'] = 'إعادة تسمية';
 $lang['This group will be set to default'] = 'هذا المجموعة ستستخدم كمجموعة افتراضية';
+$lang['Purge user cache'] = 'مسح الذاكرة المؤقتة للمستخدم';
 ?>
