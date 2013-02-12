@@ -1,23 +1,39 @@
 <?php
-
 if (!defined('PHPWG_ROOT_PATH')) die('Hacking attempt!');
 
-if ((isset($_POST['edit'])) and !is_numeric($_POST['file_to_edit']))
+include_once(PHPWG_ROOT_PATH.'admin/include/themes.class.php');
+$themes = new themes();
+
+if (isset($_POST['edit']))
 {
-  $edited_file = $_POST['file_to_edit'];
+  $_POST['theme'] = $_POST['theme_select'];
 }
-elseif (isset($_POST['edited_file']))
+
+if (isset($_POST['theme']) and '~common~' == $_POST['theme'])
 {
-  $edited_file = $_POST['edited_file'];
-}
-elseif (isset($_GET['theme']) and in_array($_GET['theme'], array_keys(get_pwg_themes(true))))
-{
-  $edited_file = PHPWG_ROOT_PATH.PWG_LOCAL_DIR . 'css/'.$_GET['theme'].'-rules.css';
+  $page['theme'] = $_POST['theme'];
+  $edited_file = PHPWG_ROOT_PATH.PWG_LOCAL_DIR.'css/rules.css';
 }
 else
 {
-  $edited_file = PHPWG_ROOT_PATH.PWG_LOCAL_DIR . 'css/'.get_default_theme().'-rules.css';
+  if (isset($_GET['theme']))
+  {
+    $page['theme'] = $_GET['theme'];
+  }
+  elseif (isset($_POST['theme']))
+  {
+    $page['theme'] = $_POST['theme'];
+  }
+  
+  if (!isset($page['theme']) or !in_array($page['theme'], array_keys($themes->fs_themes)))
+  {
+    $page['theme'] = get_default_theme();
+  }
+  
+  $edited_file = PHPWG_ROOT_PATH.PWG_LOCAL_DIR . 'css/'.$page['theme'].'-rules.css';
 }
+
+$template->assign('theme', $page['theme']);
 
 if (file_exists($edited_file))
 {
@@ -29,12 +45,11 @@ else
 }
 
 $selected = 0; 
-// $options[] = l10n('locfiledit_choose_file');
-// $options[] = '----------------------';
-$value = PHPWG_ROOT_PATH.PWG_LOCAL_DIR . "css/rules.css";
+$value = '~common~';
+$file = PHPWG_ROOT_PATH.PWG_LOCAL_DIR . 'css/rules.css';
 
-$options[$value] = (file_exists($value) ? '&#x2714;' : '&#x2718;').' local / css / rules.css';
-if ($edited_file == $value)
+$options[$value] = (file_exists($file) ? '&#x2714;' : '&#x2718;').' local / css / rules.css';
+if ($page['theme'] == $value)
 {
   $selected = $value;
 }
@@ -42,8 +57,6 @@ if ($edited_file == $value)
 // themes are displayed in the same order as on screen
 // [Administration > Configuration > Themes]
 
-include_once(PHPWG_ROOT_PATH.'admin/include/themes.class.php');
-$themes = new themes();
 $themes->sort_fs_themes();
 $default_theme = get_default_theme();
 $db_themes = $themes->get_db_themes();
@@ -81,47 +94,57 @@ foreach ($themes->fs_themes as $theme_id => $fs_theme)
   }
 }
 
-$options[] = '';
-$options[] = '----- '.l10n('Active Themes').' -----';
-$options[] = '';
+$active_theme_options = array();
 foreach ($active_themes as $theme)
 {
-  $value = PHPWG_ROOT_PATH.PWG_LOCAL_DIR . 'css/'.$theme['id'].'-rules.css';
+  $file = PHPWG_ROOT_PATH.PWG_LOCAL_DIR . 'css/'.$theme['id'].'-rules.css';
 
-  $options[$value] = (file_exists($value) ? '&#x2714;' : '&#x2718;').' '.$theme['name'];
+  $label = (file_exists($file) ? '&#x2714;' : '&#x2718;').' '.$theme['name'];
 
   if ($default_theme == $theme['id'])
   {
-    $options[$value].= ' ('.l10n('default').')';
+    $label.= ' ('.l10n('default').')';
   }
+
+  $active_theme_options[$theme['id']] = $label;
   
-  if ($edited_file == $value)
+  if ($theme['id'] == $page['theme'])
   {
-    $selected = $value;
+    $selected = $theme['id'];
   }
 }
 
-$options[] = '';
-$options[] = '----- '.l10n('Inactive Themes').' -----';
-$options[] = '';
+if (count($active_theme_options) > 0)
+{
+  $options[l10n('Active Themes')] = $active_theme_options;
+}
+
+$inactive_theme_options = array();
 foreach ($inactive_themes as $theme)
 {
-  $value = PHPWG_ROOT_PATH.PWG_LOCAL_DIR . 'css/'.$theme['id'].'-rules.css';
+  $file = PHPWG_ROOT_PATH.PWG_LOCAL_DIR . 'css/'.$theme['id'].'-rules.css';
 
-  $options[$value] = (file_exists($value) ? '&#x2714;' : '&#x2718;').' '.$theme['name'];
+  $inactive_theme_options[$theme['id']] = (file_exists($file) ? '&#x2714;' : '&#x2718;').' '.$theme['name'];
   
-  if ($edited_file == $value)
+  if ($theme['id'] == $page['theme'])
   {
-    $selected = $value;
+    $selected = $theme['id'];
   }
 }
 
-$template->assign('css_lang_tpl', array(
-  'OPTIONS' => $options,
-  'SELECTED' => $selected
-  )
+if (count($inactive_theme_options) > 0)
+{
+  $options[l10n('Inactive Themes')] = $inactive_theme_options;
+}
+
+$template->assign(
+  'css_lang_tpl',
+  array(
+    'SELECT_NAME' => 'theme_select',
+    'OPTIONS' => $options,
+    'SELECTED' => $selected
+    )
 );
 
 $codemirror_mode = 'text/css';
-
 ?>
