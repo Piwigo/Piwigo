@@ -1977,10 +1977,10 @@ SELECT *
   if (isset($params['tags']) and !empty($params['tags']))
   {
     $tag_ids = array();
-    $tag_names = explode(',', $params['tags']);
+    $tag_names = preg_split('~(?<!\\\),~', $params['tags']);
     foreach ($tag_names as $tag_name)
     {
-      $tag_id = tag_id_from_tag_name($tag_name);
+      $tag_id = tag_id_from_tag_name(preg_replace('#\\\\*,#', ',', $tag_name));
       array_push($tag_ids, $tag_id);
     }
 
