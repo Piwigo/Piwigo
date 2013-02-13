@@ -164,7 +164,7 @@ if (isset($_POST['submit']) and isset($_POST['selectAction']) and isset($_POST['
   // |merge groups into a new one
   // +
 
-  if ($action=="merge" )
+  if ($action=="merge" and count($groups) > 1)
   {
     // is the group not already existing ?
     $query = '
