@@ -572,6 +572,10 @@ Request format: ".@$this->_requestFormat." Response format: ".@$this->_responseF
       {
         $param_data['defaultValue'] = $options['default'];
       }
+      if (isset($options['info']))
+      {
+        $param_data['info'] = $options['info'];
+      }
       $res['params'][] = $param_data;
     }
     return $res;
