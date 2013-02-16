@@ -771,4 +771,12 @@ $lang['Level 0'] = '–––';
 $lang['Keep in touch with Piwigo project, subscribe to Piwigo Announcement Newsletter. You will receive emails when a new release is available (sometimes including a security bug fix, it\'s important to know and upgrade) and when major events happen to the project. Only a few emails a year.'] = 'Дръжте връзка с проектът Piwigo, абонирайте се за рекламният Newsletter на Piwigo. Ще ви бъдат изпращани имейли за новости (понякога включващи насоки за "security bug fix",които е важно да знаете и да обновявате),както и когато се случват същестшени промени с проекта. Само няколко имейла годишно.';
 $lang['In your php.ini file, the upload_max_filesize (%sB) is bigger than post_max_size (%sB), you should change this setting'] = 'Във вашият php.ini файл, файлът "upload_max_filesize(%sB)  е по-голям от "post_max_size (%sB)"", трябва да промените тази настройка.';
 $lang['If no HD is available and if the current websize is bigger than resize dimensions, Piwigo will move it as HD and create a downsized websize photo from it.'] = 'Ако няма налично HD и,ако настоящият уеб размер е по-голям от параметрите на новия мащаб, Piwigo  ще го премести като HD формат и ще създаде по-малка по размер снимка,копие на оригинала.';
+$lang['Number of albums per page'] = 'Брой албуми на страница';
+$lang['Number of comments per page'] = 'Брой коментари на страница';
+$lang['Number of downloads'] = 'Брой на свалянията';
+$lang['Number of rates'] = 'Брой на ставките';
+$lang['Only private albums are listed'] = 'Само частни албуми са изброени';
+$lang['Optimizations have been completed with some errors.'] = 'Оптимизацията завършена с някои грешки.';
+$lang['Pages seen'] = 'Посетени страници';
+$lang['Pending Comments'] = 'Очакващи одобрение коментари';
 ?>
