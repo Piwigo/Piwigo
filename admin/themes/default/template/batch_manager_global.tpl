@@ -31,7 +31,7 @@ jQuery(document).ready(function() {
 
           for (var i=first; i<=last;i++) {
             input = $(inputs[i]);
-            $(input).attr('checked', last_clickedstatus);
+            $(input).prop('checked', last_clickedstatus);
             if (last_clickedstatus)
             {
               $(input).siblings("span.wrap2").addClass("thumbSelected");
@@ -246,13 +246,13 @@ $(document).ready(function() {
 
   $("select[name=selectAction]").change(function () {
     $("[id^=action_]").hide();
-    $("#action_"+$(this).attr("value")).show();
+    $("#action_"+$(this).prop("value")).show();
 
     /* make sure the #albumSelect is on the right select box so that the */
     /* "add new album" popup fills the right select box                  */
-    if ("associate" == $(this).attr("value") || "move" == $(this).attr("value")) {
+    if ("associate" == $(this).prop("value") || "move" == $(this).prop("value")) {
       jQuery("#albumSelect").removeAttr("id");
-      jQuery("#action_"+$(this).attr("value")+" select").attr("id", "albumSelect");
+      jQuery("#action_"+$(this).prop("value")+" select").attr("id", "albumSelect");
     }
 
     if ($(this).val() != -1) {
@@ -264,7 +264,7 @@ $(document).ready(function() {
   });
 
   $(".wrap1 label").click(function (event) {
-    $("input[name=setSelected]").attr('checked', false);
+    $("input[name=setSelected]").prop('checked', false);
 
     var wrap2 = $(this).children(".wrap2");
     var checkbox = $(this).children("input[type=checkbox]");
@@ -282,7 +282,7 @@ $(document).ready(function() {
   });
 
   $("#selectAll").click(function () {
-    $("input[name=setSelected]").attr('checked', false);
+    $("input[name=setSelected]").prop('checked', false);
     selectPageThumbnails();
     checkPermitAction();
     return false;
@@ -293,19 +293,19 @@ $(document).ready(function() {
       var wrap2 = $(this).children(".wrap2");
       var checkbox = $(this).children("input[type=checkbox]");
 
-      $(checkbox).attr('checked', true);
+      $(checkbox).prop('checked', true);
       $(wrap2).addClass("thumbSelected"); 
     });
   }
 
   $("#selectNone").click(function () {
-    $("input[name=setSelected]").attr('checked', false);
+    $("input[name=setSelected]").prop('checked', false);
 
     $(".thumbnails label").each(function() {
       var wrap2 = $(this).children(".wrap2");
       var checkbox = $(this).children("input[type=checkbox]");
 
-      $(checkbox).attr('checked', false);
+      $(checkbox).prop('checked', false);
       $(wrap2).removeClass("thumbSelected"); 
     });
     checkPermitAction();
@@ -313,13 +313,13 @@ $(document).ready(function() {
   });
 
   $("#selectInvert").click(function () {
-    $("input[name=setSelected]").attr('checked', false);
+    $("input[name=setSelected]").prop('checked', false);
 
     $(".thumbnails label").each(function() {
       var wrap2 = $(this).children(".wrap2");
       var checkbox = $(this).children("input[type=checkbox]");
 
-      $(checkbox).attr('checked', !$(checkbox).is(':checked'));
+      $(checkbox).prop('checked', !$(checkbox).is(':checked'));
 
       if ($(checkbox).is(':checked')) {
         $(wrap2).addClass("thumbSelected"); 
@@ -334,7 +334,7 @@ $(document).ready(function() {
 
   $("#selectSet").click(function () {
     selectPageThumbnails();
-    $("input[name=setSelected]").attr('checked', true);
+    $("input[name=setSelected]").prop('checked', true);
     checkPermitAction();
     return false;
   });
@@ -378,16 +378,16 @@ $(document).ready(function() {
     $("#"+filter).show();
 
     /* check the checkbox to declare we use this filter */
-    $("input[type=checkbox][name="+filter+"_use]").attr("checked", true);
+    $("input[type=checkbox][name="+filter+"_use]").prop("checked", true);
 
     /* forbid to select this filter in the addFilter list */
     $("#addFilter").children("option[value="+filter+"]").attr("disabled", "disabled");
   }
 
   $("#addFilter").change(function () {
-    var filter = $(this).attr("value");
+    var filter = $(this).prop("value");
     filter_enable(filter);
-    $(this).attr("value", -1);
+    $(this).prop("value", -1);
   });
 
   function filter_disable(filter) {
@@ -395,7 +395,7 @@ $(document).ready(function() {
     $("#"+filter).hide();
 
     /* uncheck the checkbox to declare we do not use this filter */
-    $("input[name="+filter+"_use]").removeAttr("checked");
+    $("input[name="+filter+"_use]").prop("checked", false);
 
     /* give the possibility to show it again */
     $("#addFilter").children("option[value="+filter+"]").removeAttr("disabled");
@@ -433,11 +433,11 @@ $(document).ready(function() {
 		});
 
 		derivatives.elements = [];
-		if (jQuery('input[name="setSelected"]').attr('checked'))
+		if (jQuery('input[name="setSelected"]').is(':checked'))
 			derivatives.elements = all_elements;
 		else
 			jQuery('.thumbnails input[type=checkbox]').each(function() {
-				if (jQuery(this).attr('checked')) {
+				if (jQuery(this).is(':checked')) {
 					derivatives.elements.push(jQuery(this).val());
 				}
 			});
@@ -455,7 +455,7 @@ $(document).ready(function() {
 		var ids = derivatives.elements.splice(0, 500);
 		var params = {max_urls: 100000, ids: ids, types: []};
 		jQuery("#action_generate_derivatives input").each( function(i, t) {
-			if ($(t).attr("checked"))
+			if ($(t).is(":checked"))
 				params.types.push( t.value );
 		} );
 
@@ -938,10 +938,10 @@ UL.thumbnails SPAN.wrap2 {ldelim}
 			{/foreach}
 			{footer_script}
 			function selectGenerateDerivAll() {ldelim}
-				$("#action_generate_derivatives input[type=checkbox]").attr("checked", true);
+				$("#action_generate_derivatives input[type=checkbox]").prop("checked", true);
 			}
 			function selectGenerateDerivNone() {ldelim}
-				$("#action_generate_derivatives input[type=checkbox]").attr("checked", false);
+				$("#action_generate_derivatives input[type=checkbox]").prop("checked", false);
 			}
 			{/footer_script}
 		</div>
@@ -956,10 +956,10 @@ UL.thumbnails SPAN.wrap2 {ldelim}
 			{/foreach}
 			{footer_script}
 			function selectDelDerivAll() {ldelim}
-				$("#action_delete_derivatives input[type=checkbox]").attr("checked", true);
+				$("#action_delete_derivatives input[type=checkbox]").prop("checked", true);
 			}
 			function selectDelDerivNone() {ldelim}
-				$("#action_delete_derivatives input[type=checkbox]").attr("checked", false);
+				$("#action_delete_derivatives input[type=checkbox]").prop("checked", false);
 			}
 			{/footer_script}
 		</div>
