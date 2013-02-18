@@ -103,24 +103,32 @@ function ws_addDefaultMethods( $arr )
   
   include_once(PHPWG_ROOT_PATH.'include/ws_functions.inc.php');
   
-  $service->addMethod('pwg.getVersion', 'ws_getVersion',
+  $service->addMethod(
+      'pwg.getVersion',
+      'ws_getVersion',
       null,
       'retrieves the PWG version'
     );
 	  
-  $service->addMethod('pwg.getInfos', 'ws_getInfos',
+  $service->addMethod(
+      'pwg.getInfos',
+      'ws_getInfos',
       null,
       'retrieves general informations'
     );
 
-  $service->addMethod('pwg.caddie.add', 'ws_caddie_add',
+  $service->addMethod(
+      'pwg.caddie.add',
+      'ws_caddie_add',
       array(
         'image_id'=> array('flags'=>WS_PARAM_FORCE_ARRAY),
         ),
       'adds the elements to the caddie'
     );
 
-  $service->addMethod('pwg.categories.getImages', 'ws_categories_getImages',
+  $service->addMethod(
+      'pwg.categories.getImages',
+      'ws_categories_getImages',
       array(
         'cat_id' =>     array('default'=>0, 
                               'flags'=>WS_PARAM_FORCE_ARRAY),
@@ -146,7 +154,9 @@ function ws_addDefaultMethods( $arr )
 <br><b>order</b> comma separated fields for sorting (file,id, rating_score,...)'
     );
 
-  $service->addMethod('pwg.categories.getList', 'ws_categories_getList',
+  $service->addMethod(
+      'pwg.categories.getList',
+      'ws_categories_getList',
       array(
         'cat_id' =>       array('default'=>0),
         'recursive' =>    array('default'=>false),
@@ -157,7 +167,9 @@ function ws_addDefaultMethods( $arr )
       'retrieves a list of categories (tree_output option only compatible with json/php output format'
     );
 
-  $service->addMethod('pwg.getMissingDerivatives', 'ws_getMissingDerivatives',
+  $service->addMethod(
+      'pwg.getMissingDerivatives',
+      'ws_getMissingDerivatives',
       array(
         'types' =>      array('default'=>array(),
                               'flags'=>WS_PARAM_FORCE_ARRAY),
@@ -180,7 +192,9 @@ function ws_addDefaultMethods( $arr )
       'retrieves a list of derivatives to build'
     );
 
-  $service->addMethod('pwg.images.addComment', 'ws_images_addComment',
+  $service->addMethod(
+      'pwg.images.addComment',
+      'ws_images_addComment',
       array(
         'image_id' => array(),
         'author' =>   array('default'=>is_a_guest()?'guest':$user['username']),
@@ -190,7 +204,9 @@ function ws_addDefaultMethods( $arr )
       'add a comment to an image'
     );
 
-  $service->addMethod('pwg.images.getInfo', 'ws_images_getInfo',
+  $service->addMethod(
+      'pwg.images.getInfo',
+      'ws_images_getInfo',
       array(
         'image_id' =>           array(),
         'comments_page' =>      array('default'=>0 ),
@@ -200,12 +216,16 @@ function ws_addDefaultMethods( $arr )
       'retrieves information about the given photo'
     );
 
-  $service->addMethod('pwg.images.rate', 'ws_images_rate',
+  $service->addMethod(
+      'pwg.images.rate',
+      'ws_images_rate',
       array('image_id', 'rate'),
       'rate the image'
     );
 
-  $service->addMethod('pwg.images.search', 'ws_images_search',
+  $service->addMethod(
+      'pwg.images.search',
+      'ws_images_search',
       array(
         'query' =>      array(),
         'per_page' =>   array('default'=>100, 
@@ -227,7 +247,9 @@ function ws_addDefaultMethods( $arr )
       'Returns elements for the corresponding query search.'
     );
 
-  $service->addMethod('pwg.images.setPrivacyLevel', 'ws_images_setPrivacyLevel',
+  $service->addMethod(
+      'pwg.images.setPrivacyLevel',
+      'ws_images_setPrivacyLevel',
       array(
         'image_id' => array('flags'=>WS_PARAM_FORCE_ARRAY),
         'level' =>    array('maxValue'=>$conf['available_permission_levels']),
@@ -235,12 +257,16 @@ function ws_addDefaultMethods( $arr )
       'sets the privacy levels for the images (POST method only)'
     );
 
-  $service->addMethod('pwg.images.setRank', 'ws_images_setRank',
+  $service->addMethod(
+      'pwg.images.setRank',
+      'ws_images_setRank',
       array('image_id', 'category_id', 'rank'),
       'sets the rank of a photo for a given album (POST method only, for admins)'
     );
 
-  $service->addMethod('pwg.rates.delete', 'ws_rates_delete',
+  $service->addMethod(
+      'pwg.rates.delete',
+      'ws_rates_delete',
       array(
         'user_id' =>      array(),
         'anonymous_id' => array('default'=>null),
@@ -248,23 +274,39 @@ function ws_addDefaultMethods( $arr )
       'deletes all rates for a user (POST method only, admins only)'
     );
 
-  $service->addMethod('pwg.session.getStatus', 'ws_session_getStatus', null, '');
+  $service->addMethod(
+      'pwg.session.getStatus',
+      'ws_session_getStatus',
+      null,
+      null
+    );
 
-  $service->addMethod('pwg.session.login', 'ws_session_login',
+  $service->addMethod(
+      'pwg.session.login',
+      'ws_session_login',
       array('username', 'password'),
       'POST method only'
     );
 
-  $service->addMethod('pwg.session.logout', 'ws_session_logout', null, '');
+  $service->addMethod(
+      'pwg.session.logout',
+      'ws_session_logout',
+      null,
+      null
+    );
 
-  $service->addMethod('pwg.tags.getList', 'ws_tags_getList',
+  $service->addMethod(
+      'pwg.tags.getList',
+      'ws_tags_getList',
       array(
         'sort_by_counter' => array('default' =>false),
         ),
       'retrieves a list of available tags'
     );
 
-  $service->addMethod('pwg.tags.getImages', 'ws_tags_getImages',
+  $service->addMethod(
+      'pwg.tags.getImages',
+      'ws_tags_getImages',
       array(
         'tag_id' =>       array('default'=>null,
                                 'flags'=>WS_PARAM_FORCE_ARRAY),
@@ -292,18 +334,24 @@ function ws_addDefaultMethods( $arr )
       'Returns elements for the corresponding tags. Note that tag_id, tag_url_name, tag_name an be arrays. Fill at least one of them. '
     );
 
-  $service->addMethod('pwg.images.addChunk', 'ws_images_add_chunk',
+  $service->addMethod(
+      'pwg.images.addChunk',
+      'ws_images_add_chunk',
       array('data', 'original_sum', 'type', 'position'),
       'POST method only. For admin only.'
     );
 
-  $service->addMethod('pwg.images.addFile', 'ws_images_addFile',
+  $service->addMethod(
+      'pwg.images.addFile',
+      'ws_images_addFile',
       array('image_id', 'type', 'sum'),
       'Add or update a file for an existing photo. pwg.images.addChunk must have been called  before (maybe several times)'
     );
 
 
-  $service->addMethod('pwg.images.add', 'ws_images_add',
+  $service->addMethod(
+      'pwg.images.add',
+      'ws_images_add',
       array(
         'file_sum' =>           array(),
         'thumbnail_sum' =>      array('default'=>null),
@@ -326,7 +374,9 @@ function ws_addDefaultMethods( $arr )
 The rank is optional and is equivalent to "auto" if not given.'
     );
 
-  $service->addMethod('pwg.images.addSimple', 'ws_images_addSimple',
+  $service->addMethod(
+      'pwg.images.addSimple',
+      'ws_images_addSimple',
       array(
         'category' => array('default'=>null),
         'name' =>     array('default'=>null),
@@ -343,7 +393,9 @@ The rank is optional and is equivalent to "auto" if not given.'
 <br>You can update an existing photo if you define an existing image_id.'
     );
 
-  $service->addMethod('pwg.images.delete', 'ws_images_delete',
+  $service->addMethod(
+      'pwg.images.delete',
+      'ws_images_delete',
       array(
         'image_id' =>   array('default'=>0),
         'pwg_token' =>  array(),
@@ -351,12 +403,16 @@ The rank is optional and is equivalent to "auto" if not given.'
       'Delete photos. You can give several image_ids, comma separated'
     );
 
-  $service->addMethod('pwg.categories.getAdminList', 'ws_categories_getAdminList',
+  $service->addMethod(
+      'pwg.categories.getAdminList',
+      'ws_categories_getAdminList',
       null,
       'administration method only'
     );
 
-  $service->addMethod('pwg.categories.add', 'ws_categories_add',
+  $service->addMethod(
+      'pwg.categories.add',
+      'ws_categories_add',
       array(
         'name' =>         array(),
         'parent' =>       array('default'=>null),
@@ -368,7 +424,9 @@ The rank is optional and is equivalent to "auto" if not given.'
       'administration method only'
     );
 
-  $service->addMethod('pwg.categories.delete', 'ws_categories_delete',
+  $service->addMethod(
+      'pwg.categories.delete',
+      'ws_categories_delete',
       array(
         'category_id'=>           array('default'=>0),
         'pwg_token' =>            array(),
@@ -379,7 +437,9 @@ The rank is optional and is equivalent to "auto" if not given.'
 (default mode, only deletes photos linked to no other album) or "force_delete" (delete all photos, even those linked to other albums)'
     );
 
-  $service->addMethod('pwg.categories.move', 'ws_categories_move',
+  $service->addMethod(
+      'pwg.categories.move',
+      'ws_categories_move',
       array(
         'category_id' =>  array('default'=>0),
         'parent' =>       array('default'=>0),
@@ -388,7 +448,9 @@ The rank is optional and is equivalent to "auto" if not given.'
       'Move categories. You can give several category_ids, comma separated. Set parent as 0 to move to gallery root. Only virtual categories can be moved.'
     );
 
-  $service->addMethod('pwg.categories.setRepresentative', 'ws_categories_setRepresentative',
+  $service->addMethod(
+      'pwg.categories.setRepresentative',
+      'ws_categories_setRepresentative',
       array(
         'category_id' =>  array('default'=>0),
         'image_id' =>     array('default'=>0),
@@ -396,17 +458,23 @@ The rank is optional and is equivalent to "auto" if not given.'
       'Set the representative photo for an album. The photo doesn\'t have to belong to the album. POST method only. Administration method only.'
     );
 
-  $service->addMethod('pwg.tags.getAdminList', 'ws_tags_getAdminList',
+  $service->addMethod(
+      'pwg.tags.getAdminList',
+      'ws_tags_getAdminList',
       null,
       'administration method only'
     );
 
-  $service->addMethod('pwg.tags.add', 'ws_tags_add',
+  $service->addMethod(
+      'pwg.tags.add',
+      'ws_tags_add',
       array('name'),
       'administration method only'
     );
 
-  $service->addMethod('pwg.images.exist', 'ws_images_exist',
+  $service->addMethod(
+      'pwg.images.exist',
+      'ws_images_exist',
       array(
         'md5sum_list' =>    array('default'=>null),
         'filename_list' =>  array('default'=>null),
@@ -414,7 +482,9 @@ The rank is optional and is equivalent to "auto" if not given.'
       'check existence of a photo list'
     );
 
-  $service->addMethod('pwg.images.checkFiles', 'ws_images_checkFiles',
+  $service->addMethod(
+      'pwg.images.checkFiles',
+      'ws_images_checkFiles',
       array(
         'image_id' =>       array(),
         'thumbnail_sum' =>  array('default'=>null),
@@ -424,12 +494,16 @@ The rank is optional and is equivalent to "auto" if not given.'
       'check if you have updated version of your files for a given photo, for each requested file type, the answer can be "missing", "equals" or "differs"'
     );
 
-  $service->addMethod('pwg.images.checkUpload', 'ws_images_checkUpload',
+  $service->addMethod(
+      'pwg.images.checkUpload',
+      'ws_images_checkUpload',
       null,
       'check if Piwigo is ready for upload'
     );
 
-  $service->addMethod('pwg.images.setInfo', 'ws_images_setInfo',
+  $service->addMethod(
+      'pwg.images.setInfo',
+      'ws_images_setInfo',
       array(
         'image_id' =>       array(),
         'file' =>           array('default'=>null),
@@ -451,7 +525,9 @@ The rank is optional and is equivalent to "auto" if not given.'
 <br><b>multiple_value_mode</b> can be "append" (no change on existing values, add the new values) or "replace" and applies to multiple values properties like tag_ids/categories'
     );
 
-  $service->addMethod('pwg.categories.setInfo', 'ws_categories_setInfo',
+  $service->addMethod(
+      'pwg.categories.setInfo',
+      'ws_categories_setInfo',
       array(
         'category_id' =>  array(),
         'name' =>         array('default'=>null),
@@ -460,30 +536,40 @@ The rank is optional and is equivalent to "auto" if not given.'
       'POST method only.'
     );
   
-  $service->addMethod('pwg.plugins.getList', 'ws_plugins_getList',
+  $service->addMethod(
+      'pwg.plugins.getList',
+      'ws_plugins_getList',
       null,
       'Admin only
 <br>get the list of plugin with id, name, version, state and description'
     );
 
-  $service->addMethod('pwg.plugins.performAction', 'ws_plugins_performAction',
+  $service->addMethod(
+      'pwg.plugins.performAction',
+      'ws_plugins_performAction',
       array('action', 'plugin', 'pwg_token'),
       'Admin only
 <br>install/activate/deactivate/uninstall/delete a plugin'
     );
 
-  $service->addMethod('pwg.themes.performAction', 'ws_themes_performAction',
+  $service->addMethod(
+      'pwg.themes.performAction',
+      'ws_themes_performAction',
       array('action', 'theme', 'pwg_token'),
       'activate/deactivate/delete/set_default a theme<br>administration status required'
     );
 
-  $service->addMethod('pwg.extensions.update', 'ws_extensions_update',
+  $service->addMethod(
+      'pwg.extensions.update',
+      'ws_extensions_update',
       array('type', 'id', 'revision', 'pwg_token'),
       'Update an extension. Webmaster only.
 <br>Parameter type must be "plugins", "languages" or "themes".'
   );
 
-  $service->addMethod('pwg.extensions.ignoreUpdate', 'ws_extensions_ignoreupdate',
+  $service->addMethod(
+      'pwg.extensions.ignoreUpdate',
+      'ws_extensions_ignoreupdate',
       array(
         'type' =>       array('default'=>null),
         'id' =>         array('default'=>null),
@@ -495,7 +581,9 @@ The rank is optional and is equivalent to "auto" if not given.'
 <br>If reset parameter is true, all ignored extensions will be reinitilized.'
   );
 
-  $service->addMethod('pwg.extensions.checkUpdates', 'ws_extensions_checkupdates',
+  $service->addMethod(
+      'pwg.extensions.checkUpdates',
+      'ws_extensions_checkupdates',
       null,
       'Check if piwigo or extensions are up to date.'
   );
