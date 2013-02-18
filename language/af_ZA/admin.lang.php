@@ -944,4 +944,5 @@ $lang['This group will be unset to default'] = 'Hierdie groep sal nie meer by ve
 $lang['Type here the name of the new group'] = 'Tik hier die naam van die nuwe groep';
 $lang['View in gallery'] = 'Wys in gallery';
 $lang['between %.2f and %.2f'] = 'tussen %.2f en %.2f';
+$lang['Purge user cache'] = 'Maak pakstoor leeg';
 ?>
