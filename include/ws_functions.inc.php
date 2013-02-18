@@ -1977,11 +1977,22 @@ SELECT *
   if (isset($params['tags']) and !empty($params['tags']))
   {
     $tag_ids = array();
-    $tag_names = preg_split('~(?<!\\\),~', $params['tags']);
-    foreach ($tag_names as $tag_name)
+    if (is_array($params[tags]))
     {
-      $tag_id = tag_id_from_tag_name(preg_replace('#\\\\*,#', ',', $tag_name));
-      array_push($tag_ids, $tag_id);
+      foreach ($params[tags] as $tag_name)
+      {
+        $tag_id = tag_id_from_tag_name($tag_name);
+        array_push($tag_ids, $tag_id);
+      }
+    }
+    else
+    {
+      $tag_names = preg_split('~(?<!\\\),~', $params['tags']);
+      foreach ($tag_names as $tag_name)
+      {
+        $tag_id = tag_id_from_tag_name(preg_replace('#\\\\*,#', ',', $tag_name));
+        array_push($tag_ids, $tag_id);
+      }
     }
 
     add_tags($tag_ids, array($image_id));
