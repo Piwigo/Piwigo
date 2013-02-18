@@ -2129,6 +2129,11 @@ function get_active_menu($menu_page)
   return 0;
 }
 
+/*
+ * get tags list from SQL query (ids are surrounded by ~~, for get_tag_ids())
+ * @param string: query
+ * @param boolean: only_user_language, if true, only local name is returned for multilingual tags
+ */
 function get_taglist($query, $only_user_language=true)
 {
   $result = pwg_query($query);
@@ -2169,6 +2174,11 @@ function get_taglist($query, $only_user_language=true)
   return $taglist;
 }
 
+/*
+ * get tags ids from a list of raw tags (existing tags or new tags)
+ * @param mixed: raw_tags, array or comma separated string
+ * @param boolean: allow_create
+ */
 function get_tag_ids($raw_tags, $allow_create=true)
 {
   // In $raw_tags we receive something like array('~~6~~', '~~59~~', 'New
@@ -2177,7 +2187,10 @@ function get_tag_ids($raw_tags, $allow_create=true)
   // or "1234" (numeric characters only)
 
   $tag_ids = array();
-  $raw_tags = explode(',',$raw_tags);
+  if (!is_array($raw_tags))
+  {
+    $raw_tags = explode(',',$raw_tags);
+  }
 
   foreach ($raw_tags as $raw_tag)
   {
