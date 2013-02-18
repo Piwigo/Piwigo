@@ -1,8 +1,8 @@
 /*!
- * jQuery UI Autocomplete 1.9.0
+ * jQuery UI Autocomplete 1.10.1
  * http://jqueryui.com
  *
- * Copyright 2012 jQuery Foundation and other contributors
+ * Copyright 2013 jQuery Foundation and other contributors
  * Released under the MIT license.
  * http://jquery.org/license
  *
@@ -20,10 +20,10 @@
 var requestIndex = 0;
 
 $.widget( "ui.autocomplete", {
-	version: "1.9.0",
+	version: "1.10.1",
 	defaultElement: "<input>",
 	options: {
-		appendTo: "body",
+		appendTo: null,
 		autoFocus: false,
 		delay: 300,
 		minLength: 1,
@@ -54,18 +54,30 @@ $.widget( "ui.autocomplete", {
 		// so we use the suppressKeyPressRepeat flag to avoid handling keypress
 		// events when we know the keydown event was used to modify the
 		// search term. #7799
-		var suppressKeyPress, suppressKeyPressRepeat, suppressInput;
+		var suppressKeyPress, suppressKeyPressRepeat, suppressInput,
+			nodeName = this.element[0].nodeName.toLowerCase(),
+			isTextarea = nodeName === "textarea",
+			isInput = nodeName === "input";
 
-		this.isMultiLine = this._isMultiLine();
-		this.valueMethod = this.element[ this.element.is( "input,textarea" ) ? "val" : "text" ];
+		this.isMultiLine =
+			// Textareas are always multi-line
+			isTextarea ? true :
+			// Inputs are always single-line, even if inside a contentEditable element
+			// IE also treats inputs as contentEditable
+			isInput ? false :
+			// All other element types are determined by whether or not they're contentEditable
+			this.element.prop( "isContentEditable" );
+
+		this.valueMethod = this.element[ isTextarea || isInput ? "val" : "text" ];
 		this.isNewMenu = true;
 
 		this.element
 			.addClass( "ui-autocomplete-input" )
 			.attr( "autocomplete", "off" );
 
-		this._on({
+		this._on( this.element, {
 			keydown: function( event ) {
+				/*jshint maxcomplexity:15*/
 				if ( this.element.prop( "readOnly" ) ) {
 					suppressKeyPress = true;
 					suppressInput = true;
@@ -180,17 +192,17 @@ $.widget( "ui.autocomplete", {
 
 		this._initSource();
 		this.menu = $( "<ul>" )
-			.addClass( "ui-autocomplete" )
-			.appendTo( this.document.find( this.options.appendTo || "body" )[ 0 ] )
+			.addClass( "ui-autocomplete ui-front" )
+			.appendTo( this._appendTo() )
 			.menu({
 				// custom key handling for now
 				input: $(),
 				// disable ARIA support, the live region takes care of that
 				role: null
 			})
-			.zIndex( this.element.zIndex() + 1 )
 			.hide()
-			.data( "menu" );
+			.data( "ui-menu" );
+
 		this._on( this.menu.element, {
 			mousedown: function( event ) {
 				// prevent moving focus out of the text field
@@ -236,9 +248,7 @@ $.widget( "ui.autocomplete", {
 					}
 				}
 
-				// back compat for _renderItem using item.autocomplete, via #7810
-				// TODO remove the fallback, see #8156
-				var item = ui.item.data( "ui-autocomplete-item" ) || ui.item.data( "item.autocomplete" );
+				var item = ui.item.data( "ui-autocomplete-item" );
 				if ( false !== this._trigger( "focus", event, { item: item } ) ) {
 					// use value to match what will end up in the input, if it was a key event
 					if ( event.originalEvent && /^key/.test( event.originalEvent.type ) ) {
@@ -254,9 +264,7 @@ $.widget( "ui.autocomplete", {
 				}
 			},
 			menuselect: function( event, ui ) {
-				// back compat for _renderItem using item.autocomplete, via #7810
-				// TODO remove the fallback, see #8156
-				var item = ui.item.data( "ui-autocomplete-item" ) || ui.item.data( "item.autocomplete" ),
+				var item = ui.item.data( "ui-autocomplete-item" ),
 					previous = this.previous;
 
 				// only trigger when focus was lost (click on menu)
@@ -291,10 +299,6 @@ $.widget( "ui.autocomplete", {
 			.addClass( "ui-helper-hidden-accessible" )
 			.insertAfter( this.element );
 
-		if ( $.fn.bgiframe ) {
-			 this.menu.element.bgiframe();
-		}
-
 		// turning off autocomplete prevents the browser from remembering the
 		// value when navigating through history, so we re-enable autocomplete
 		// if the page is unloaded before the widget is destroyed. #7790
@@ -320,25 +324,31 @@ $.widget( "ui.autocomplete", {
 			this._initSource();
 		}
 		if ( key === "appendTo" ) {
-			this.menu.element.appendTo( this.document.find( value || "body" )[0] );
+			this.menu.element.appendTo( this._appendTo() );
 		}
 		if ( key === "disabled" && value && this.xhr ) {
 			this.xhr.abort();
 		}
 	},
 
-	_isMultiLine: function() {
-		// Textareas are always multi-line
-		if ( this.element.is( "textarea" ) ) {
-			return true;
+	_appendTo: function() {
+		var element = this.options.appendTo;
+
+		if ( element ) {
+			element = element.jquery || element.nodeType ?
+				$( element ) :
+				this.document.find( element ).eq( 0 );
 		}
-		// Inputs are always single-line, even if inside a contentEditable element
-		// IE also treats inputs as contentEditable
-		if ( this.element.is( "input" ) ) {
-			return false;
+
+		if ( !element ) {
+			element = this.element.closest( ".ui-front" );
 		}
-		// All other element types are determined by whether or not they're contentEditable
-		return this.element.prop( "isContentEditable" );
+
+		if ( !element.length ) {
+			element = this.document[0].body;
+		}
+
+		return element;
 	},
 
 	_initSource: function() {
@@ -359,7 +369,7 @@ $.widget( "ui.autocomplete", {
 					url: url,
 					data: request,
 					dataType: "json",
-					success: function( data, status ) {
+					success: function( data ) {
 						response( data );
 					},
 					error: function() {
@@ -478,9 +488,7 @@ $.widget( "ui.autocomplete", {
 	},
 
 	_suggest: function( items ) {
-		var ul = this.menu.element
-			.empty()
-			.zIndex( this.element.zIndex() + 1 );
+		var ul = this.menu.element.empty();
 		this._renderMenu( ul, items );
 		this.menu.refresh();
 
@@ -541,7 +549,7 @@ $.widget( "ui.autocomplete", {
 		return this.menu.element;
 	},
 
-	_value: function( value ) {
+	_value: function() {
 		return this.valueMethod.apply( this.element, arguments );
 	},
 
@@ -596,6 +604,5 @@ $.widget( "ui.autocomplete", $.ui.autocomplete, {
 		this.liveRegion.text( message );
 	}
 });
-
 
 }( jQuery ));
