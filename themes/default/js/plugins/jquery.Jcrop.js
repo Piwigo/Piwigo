@@ -1,9 +1,9 @@
 /**
- * jquery.Jcrop.js v0.9.10
+ * jquery.Jcrop.js v0.9.12
  * jQuery Image Cropping Plugin - released under MIT License 
  * Author: Kelly Hallman <khallman@gmail.com>
  * http://github.com/tapmodo/Jcrop
- * Copyright (c) 2008-2012 Tapmodo Interactive LLC {{{
+ * Copyright (c) 2008-2013 Tapmodo Interactive LLC {{{
  *
  * Permission is hereby granted, free of charge, to any person
  * obtaining a copy of this software and associated documentation
@@ -33,11 +33,14 @@
 
   $.Jcrop = function (obj, opt) {
     var options = $.extend({}, $.Jcrop.defaults),
-        docOffset, lastcurs, ie6mode = false;
+        docOffset,
+        _ua = navigator.userAgent.toLowerCase(),
+        is_msie = /msie/.test(_ua),
+        ie6mode = /msie [1-6]\./.test(_ua);
 
     // Internal Methods {{{
     function px(n) {
-      return n + 'px';
+      return Math.round(n) + 'px';
     }
     function cssClass(cl) {
       return options.baseClass + '-' + cl;
@@ -66,13 +69,13 @@
       });
     }
     //}}}
-    function startDragMode(mode, pos) //{{{
+    function startDragMode(mode, pos, touch) //{{{
     {
       docOffset = getPos($img);
       Tracker.setCursor(mode === 'move' ? mode : mode + '-resize');
 
       if (mode === 'move') {
-        return Tracker.activateHandlers(createMover(pos), doneSelect);
+        return Tracker.activateHandlers(createMover(pos), doneSelect, touch);
       }
 
       var fc = Coords.getFixed();
@@ -82,7 +85,7 @@
       Coords.setPressed(Coords.getCorner(opp));
       Coords.setCurrent(opc);
 
-      Tracker.activateHandlers(dragmodeHandler(mode, fc), doneSelect);
+      Tracker.activateHandlers(dragmodeHandler(mode, fc), doneSelect, touch);
     }
     //}}}
     function dragmodeHandler(mode, f) //{{{
@@ -237,7 +240,7 @@
       var pos = mouseAbs(e);
       Coords.setPressed(pos);
       Selection.update();
-      Tracker.activateHandlers(selectDrag, doneSelect);
+      Tracker.activateHandlers(selectDrag, doneSelect, e.type.substring(0,5)==='touch');
       KeyManager.watchKeys();
 
       e.stopPropagation();
@@ -254,7 +257,7 @@
     function newTracker() //{{{
     {
       var trk = $('<div></div>').addClass(cssClass('tracker'));
-      if ($.browser.msie) {
+      if (is_msie) {
         trk.css({
           opacity: 0,
           backgroundColor: 'white'
@@ -267,9 +270,6 @@
     // }}}
     // Initialization {{{
     // Sanitize some options {{{
-    if ($.browser.msie && ($.browser.version.split('.')[0] === '6')) {
-      ie6mode = true;
-    }
     if (typeof(obj) !== 'object') {
       obj = $(obj)[0];
     }
@@ -398,8 +398,7 @@
       // Touch support detection function adapted (under MIT License)
       // from code by Jeffrey Sambells - http://github.com/iamamused/
       function hasTouchSupport() {
-        var support = {},
-            events = ['touchstart', 'touchmove', 'touchend'],
+        var support = {}, events = ['touchstart', 'touchmove', 'touchend'],
             el = document.createElement('div'), i;
 
         try {
@@ -427,25 +426,27 @@
       return {
         createDragger: function (ord) {
           return function (e) {
-            e.pageX = e.originalEvent.changedTouches[0].pageX;
-            e.pageY = e.originalEvent.changedTouches[0].pageY;
             if (options.disabled) {
               return false;
             }
             if ((ord === 'move') && !options.allowMove) {
               return false;
             }
+            docOffset = getPos($img);
             btndown = true;
-            startDragMode(ord, mouseAbs(e));
+            startDragMode(ord, mouseAbs(Touch.cfilter(e)), true);
             e.stopPropagation();
             e.preventDefault();
             return false;
           };
         },
         newSelection: function (e) {
+          return newSelection(Touch.cfilter(e));
+        },
+        cfilter: function (e){
           e.pageX = e.originalEvent.changedTouches[0].pageX;
           e.pageY = e.originalEvent.changedTouches[0].pageY;
-          return newSelection(e);
+          return e;
         },
         isSupported: hasTouchSupport,
         support: detectSupport()
@@ -622,21 +623,13 @@
       //}}}
       function rebound(p) //{{{
       {
-        if (p[0] < 0) {
-          p[0] = 0;
-        }
-        if (p[1] < 0) {
-          p[1] = 0;
-        }
+        if (p[0] < 0) p[0] = 0;
+        if (p[1] < 0) p[1] = 0;
 
-        if (p[0] > boundx) {
-          p[0] = boundx;
-        }
-        if (p[1] > boundy) {
-          p[1] = boundy;
-        }
+        if (p[0] > boundx) p[0] = boundx;
+        if (p[1] > boundy) p[1] = boundy;
 
-        return [p[0], p[1]];
+        return [Math.round(p[0]), Math.round(p[1])];
       }
       //}}}
       function flipCoords(x1, y1, x2, y2) //{{{
@@ -896,10 +889,15 @@
       //}}}
       function insertHandle(ord) //{{{
       {
-        var hs = options.handleSize;
-        return dragDiv(ord, hdep++).css({
-          opacity: options.handleOpacity
-        }).width(hs).height(hs).addClass(cssClass('handle'));
+        var hs = options.handleSize,
+
+          div = dragDiv(ord, hdep++).css({
+            opacity: options.handleOpacity
+          }).addClass(cssClass('handle'));
+
+        if (hs) { div.width(hs).height(hs); }
+
+        return div;
       }
       //}}}
       function insertDragbar(ord) //{{{
@@ -953,7 +951,7 @@
       //}}}
       function resize(w, h) //{{{
       {
-        $sel.width(w).height(h);
+        $sel.width(Math.round(w)).height(Math.round(h));
       }
       //}}}
       function refresh() //{{{
@@ -1053,9 +1051,11 @@
       //}}}
       function animMode(v) //{{{
       {
-        if (animating === v) {
+        if (v) {
+          animating = true;
           disableHandles();
         } else {
+          animating = false;
           enableHandles();
         }
       } 
@@ -1128,21 +1128,21 @@
           onDone = function () {},
           trackDoc = options.trackDocument;
 
-      function toFront() //{{{
+      function toFront(touch) //{{{
       {
         $trk.css({
           zIndex: 450
         });
-        if (Touch.support) {
+
+        if (touch)
           $(document)
             .bind('touchmove.jcrop', trackTouchMove)
             .bind('touchend.jcrop', trackTouchEnd);
-        }
-        if (trackDoc) {
+
+        else if (trackDoc)
           $(document)
             .bind('mousemove.jcrop',trackMove)
             .bind('mouseup.jcrop',trackUp);
-        }
       } 
       //}}}
       function toBack() //{{{
@@ -1181,27 +1181,24 @@
         return false;
       }
       //}}}
-      function activateHandlers(move, done) //{{{
+      function activateHandlers(move, done, touch) //{{{
       {
         btndown = true;
         onMove = move;
         onDone = done;
-        toFront();
+        toFront(touch);
         return false;
       }
       //}}}
       function trackTouchMove(e) //{{{
       {
-        e.pageX = e.originalEvent.changedTouches[0].pageX;
-        e.pageY = e.originalEvent.changedTouches[0].pageY;
-        return trackMove(e);
+        onMove(mouseAbs(Touch.cfilter(e)));
+        return false;
       }
       //}}}
       function trackTouchEnd(e) //{{{
       {
-        e.pageX = e.originalEvent.changedTouches[0].pageX;
-        e.pageY = e.originalEvent.changedTouches[0].pageY;
-        return trackUp(e);
+        return trackUp(Touch.cfilter(e));
       }
       //}}}
       function setCursor(t) //{{{
@@ -1227,8 +1224,9 @@
         position: 'fixed',
         left: '-120px',
         width: '12px'
-      }),
-          $keywrap = $('<div />').css({
+      }).addClass('jcrop-keymgr'),
+
+        $keywrap = $('<div />').css({
           position: 'absolute',
           overflow: 'hidden'
         }).append($keymgr);
@@ -1337,8 +1335,8 @@
           pcent = 0,
           velocity = options.swingSpeed;
 
-      x = animat[0];
-      y = animat[1];
+      x1 = animat[0];
+      y1 = animat[1];
       x2 = animat[2];
       y2 = animat[3];
 
@@ -1352,10 +1350,10 @@
         return function () {
           pcent += (100 - pcent) / velocity;
 
-          animat[0] = x + ((pcent / 100) * ix1);
-          animat[1] = y + ((pcent / 100) * iy1);
-          animat[2] = x2 + ((pcent / 100) * ix2);
-          animat[3] = y2 + ((pcent / 100) * iy2);
+          animat[0] = Math.round(x1 + ((pcent / 100) * ix1));
+          animat[1] = Math.round(y1 + ((pcent / 100) * iy1));
+          animat[2] = Math.round(x2 + ((pcent / 100) * ix2));
+          animat[3] = Math.round(y2 + ((pcent / 100) * iy2));
 
           if (pcent >= 99.8) {
             pcent = 100;
@@ -1365,6 +1363,7 @@
             queueAnimator();
           } else {
             Selection.done();
+            Selection.animMode(false);
             if (typeof(callback) === 'function') {
               callback.call(api);
             }
@@ -1428,6 +1427,7 @@
     {
       $div.remove();
       $origimg.show();
+      $origimg.css('visibility','visible');
       $(obj).removeData('Jcrop');
     }
     //}}}
@@ -1576,8 +1576,7 @@
       }
     };
 
-    if ($.browser.msie)
-      $div.bind('selectstart', function () { return false; });
+    if (is_msie) $div.bind('selectstart', function () { return false; });
 
     $origimg.data('Jcrop', api);
     return api;
@@ -1659,7 +1658,7 @@
     bgFade: false,
     borderOpacity: 0.4,
     handleOpacity: 0.5,
-    handleSize: 7,
+    handleSize: null,
 
     aspectRatio: 0,
     keySupport: true,
