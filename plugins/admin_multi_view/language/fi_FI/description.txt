@@ -1,0 +1,1 @@
+Mahdollistaa ylläpitäjien tarkastella galleriaa sellaisena kuin vieraat sen näkevät, sekä vaihtaa kieltä ja teemaa lennosta.
