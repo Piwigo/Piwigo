@@ -1,0 +1,1 @@
+Edite arquivos locais do painel de administração.
