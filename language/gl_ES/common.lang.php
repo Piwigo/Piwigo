@@ -95,4 +95,14 @@ $lang['author(s) : %s'] = 'autor(es): %s';
 $lang['Author: %s'] = 'Autor: %s';
 $lang['Auto login'] = 'Auto identificación';
 
+$lang['%d photo is also linked to current tags'] = '%d foi ligada as etiquetas actuais';
+$lang['%d photos are also linked to current tags'] = '%d foron ligadas as etiquetas actuais';
+$lang['(!) This comment requires validation'] = '(!) Este comentario require validación';
+$lang['... or browse your empty gallery'] = '... ou examina a  túa galería baleira';
+$lang['... or please deactivate this message, I will find my way by myself'] = '... ou desactiva esta mensaxe, atoparei o camiño eu mesmo';
+$lang['2small'] = 'XXS - tini';
+$lang['An administrator must authorize your comment before it is visible.'] = 'O comentario ha de ser autorizado por un administrador antes de ser visible.';
+$lang['Anti-flood system : please wait for a moment before trying to post another comment'] = 'Sistema anti-inundación: agarda un intre antes de enviar outro comentario';
+$lang['At least one listed rule must be satisfied.'] = 'Hase de satisfacer polo menos un criterio';
+$lang['Bad request'] = 'Resposta incorrecta';
 ?>
