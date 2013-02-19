@@ -1,0 +1,100 @@
+<h2>Seadistused</h2>
+
+<p>Sellel leheküljel saab administraator teha põhilisi muudatusi galeriis. Kuigi siin on võimalik muuta lihtsamaid parameetreid, peaks see olema piisav enamusele administraatoritele. Kui soovid näha paljusid teisi (ja edasijõudnumaid) seadistamis parameetreid, vaata vaikimisi seadistuste faili <span
+class="filename">include/config_default.inc.php</span>.</p>
+
+<p>Lehekülg on jaotaud erinevateks sektsioonideks, grupeerides seadistusparameetreid teemade järgi.</p>
+
+
+<h3>Peamine</h3>
+<ul>
+  <li><strong>Galerii nimi</strong>: kasutatakse RSS voos ja teadetes emailile.</li>
+
+  <li><strong>Lehekülje päistiitel</strong>: näidatakse iga avaliku lehe päises.</li>
+
+  <li><strong>Galerii URL</strong>: kasutatakse RSS voos.</li>
+
+  <li><strong>Lukusta galerii</strong>: Lukusta kogu galerii. Ainult administraatori staatuses kasutajad näevad galeriid selle seade puhul.</li>
+
+  <li><strong>Hindamine</strong>: Fotode hindamise lubamine.</li>
+
+  <li><strong>Hindamine külastajate poolt</strong>: Ka mitteregistreeritud kasutajad saavad pilte hinnata.</li>
+
+  <li><strong>Luba kasutajate registreerimine</strong>: Igaüks võib registreeruda.</li>
+
+  <li><strong>Meiliaadress on kohustuslik kõigile kasutajatele</strong>: meiliaadressi kontrollitakse registreerumisel või profiili uuendamisel, välja arvatud, kui neid toiminguid tehakse administraatori poolt.</li>
+
+  <li><strong>Saada email administraatorile, kui uus kasutaja registreerub</strong>: administraatorid saavad meilile teate igast uuest registreerumisest.</li>
+  
+  <li><strong>Fotode vaikimisi järjestus</strong>: saad määrata fotode järjekorra nende rippmenüüde abil.</li>
+
+</ul>
+
+<h3>Ajalugu</h3>
+
+  <p>Külastused lehtedel <span
+  class="pwgScreen">category.php</span> and <span
+  class="pwgScreen">picture.php</span> salvestatakse <code>history</code> tabelis.</p>
+  
+  <p>Külastusi näidatakse:<span  class="pwgScreen">Administratsioon &raquo; Tööriistad &raquo; Ajalugu</span>.</p>
+
+<ul>
+  <li><strong>Salvesta lehe külastuste arv külaliste põhiselt</strong>: külaliste külastused lehele salvestatakse .</li>
+
+  <li><strong>Salvesta lehe külastuste arv kasutajate põhiselt</strong>: registreeritud kasutajate külastused salvestatakse.</li>
+
+  <li><strong>Salvesta lehe külastuste arv administraatorite põhiselt</strong>: administraatorite külastused salvestatakse.</li>
+
+</ul>
+
+<h3>Kommentaarid</h3>
+<ul>
+
+  <li><strong>Kommentaarid kõigile</strong>: Ka mitteregistreeritud kasutajad võivad kommenteerida.</li>
+
+  <li><strong>Kommentaaride arv lehel</strong>.</li>
+
+  <li><strong>Kinnitamine</strong>: administraator peab kinnitama kommentaarid, enne kui need lehel nähtavaks saavad. Kommentaaride kinnitamine toimub: <span class="pwgScreen">Administreerimine &raquo; Tööriistad &raquo; Ootel kommentaarid</span>.</li>
+
+  <li><strong>Teavita admine kui kinnitatud kommentaar on sisestatud</strong>: Saadab emaili administraatoreile kui kasutaja sisestab kommentaari mis on kinnitatud.</li>
+
+  <li><strong>Teavita admine kui kommentaar vajab kinnitamist</strong>:
+Saadab emaili administraatoreile kui kasutaja sisestab kommentaari mis vajab kinnitamist admini poolt.
+Kasutajate kommentaaride lubamine toimub lehel: <span class="pwgScreen">Administreerimine &raquo; Tööriistad &raquo; Ootel kommentaarid</span>.</li>
+
+</ul>
+
+<h3>Kuva seadistamine</h3>
+
+<p>Siin saad muuta millisena näevad kuva külastajad, suvalised kasutajad, kes pole sisse logitud. Pärast sisselogimist, näeb iga kasutaja oma valikute järgi kujundust
+(muudetav <span class="pwgScreen">profiilis</span>).</p>
+
+<p>On võimalik muuta kuva valikuid kõigi kasutajate jaoks: <span class="pwgScreen">Administreerimine &raquo;
+Kasutajad &raquo; Halda</span> lehel, kus saad valida kasutajate nimekirja.</p>
+
+<ul>
+
+  <li><strong>Language</strong>: Apply to Piwigo labels only. Album names, photo names and all descriptions fields are not localized.</li>
+
+  <li><strong>Number of photos per row</strong></li>
+
+  <li><strong>Number of rows per page</strong></li>
+
+  <li><strong>Interface theme</strong></li>
+
+  <li><strong>Recent period</strong>: By days. Period during which a photo is shown as new. Must be greater than 1 day.</li>
+
+  <li><strong>Expand all albums</strong>: Expand all albums by
+  default in the menu <em>Warning</em>: this option is resources intensive and may generate a huge menu if your album tree contains many albums.</li>
+
+  <li><strong>Show number of comments</strong>: Show the number of comments for each photo on the thumbnails page. Resource intensive.</li>
+
+  <li><strong>Show hits count</strong>: Display hits observed on photo just under its thumbnail on the thumbnails page. Only when advanced configuration parameter is: <br>
+  $conf['show_nb_hits'] = true; <br>
+  Notice: false by default.</li>
+
+  <li><strong>Maximum width of the photos</strong>: maximum displayed width.  Photos larger than this setting will be resized on display.  Rather than choosing this option, you might consider modifying the width of your photos; that would be a better practice.</li>
+
+  <li><strong>Maximum height of the photos</strong>: Same as for the maximum width setting.</li>
+
+</ul>
