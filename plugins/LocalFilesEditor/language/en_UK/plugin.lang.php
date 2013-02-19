@@ -27,7 +27,8 @@ $lang['locfiledit_onglet_tpl'] = 'Templates';
 $lang['locfiledit_onglet_lang'] = 'Languages';
 $lang['locfiledit_onglet_plug'] = 'Personal Plugin';
 $lang['locfiledit_cant_save'] = 'Current file isn\'t writeable. Check if a directory "local/" is writeable (chmod).';
-$lang['locfiledit_newfile'] = 'File does not exist and will be created by LocalFiles Editor';
+$lang['locfiledit_newfile'] = ' The file does not exist until some information is entered 
+below. Once information is entered and saved, the file will be created.';
 $lang['locfiledit_save_config'] = 'File written successfully.';
 $lang['locfiledit_show_default'] = 'Display reference file: ';
 $lang['locfiledit_save_bak'] = 'Backup copy will be created on save.';
