@@ -22,7 +22,7 @@
 // +-----------------------------------------------------------------------+
 /*
 Language Name: Estonian [EE]
-Version: 2.4.1
+Version: 2.5.0
 Language URI: http://piwigo.org/ext/extension_view.php?eid=569
 Author: Piwigo team
 Author URI: http://piwigo.org

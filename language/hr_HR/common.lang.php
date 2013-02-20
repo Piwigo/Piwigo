@@ -22,7 +22,7 @@
 // +-----------------------------------------------------------------------+
 /*
 Language Name: Hrvatski [HR]
-Version: 2.3.0
+Version: 2.5.0
 Language URI: http://piwigo.org/ext/extension_view.php?eid=422
 Author: Piwigo team
 Author URI: http://piwigo.org
