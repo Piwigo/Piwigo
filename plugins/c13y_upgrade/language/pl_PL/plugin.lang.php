@@ -23,8 +23,8 @@
 
 // --------- Starting below: New or revised $lang ---- from Butterfly (1.8)
 $lang['c13y_upgrade_no_anomaly'] = 'Nie wykryto żadnych problemów po aktualizacji aplikacji, wtyczka "Sprawdź aktualizacje" została wyłączona.';
-$lang['c13y_dbl_email_user'] = 'Adresy e-mail użytkowników są identyczne';
+$lang['c13y_dbl_email_user'] = 'Użytkownicy z identycznymi adresami e-mail';
 $lang['c13y_correction_dbl_email_user'] = 'Usuwanie powtórzonych nazw użytkowników';
-$lang['c13y_obsolete_plugin'] = 'Wtyczka jest nieaktualna';
-$lang['c13y_correction_obsolete_plugin'] = '"%s" wtyczka została dołączona do tej wersji aplikacji i musisz ją odinstalować.';
+$lang['c13y_obsolete_plugin'] = 'Wtyczka jest przestarzała';
+$lang['c13y_correction_obsolete_plugin'] = 'Wtyczka "%s" została dołączona do tej wersji aplikacji, więc musisz ją odinstalować.';
 ?>
