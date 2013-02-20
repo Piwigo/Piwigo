@@ -795,4 +795,5 @@ $lang['Permalink'] = 'Персонализиран линков';
 $lang['Permalink %s is already used by album %s'] = 'Пермалинкае %s се използва вече от друг албум %s';
 $lang['Permalink history'] = 'История на пермалинковете';
 $lang['Permalinks'] = 'Персонализирани линкове';
+$lang['Other plugins'] = 'Други налични плъгини';
 ?>
