@@ -796,4 +796,7 @@ $lang['Permalink %s is already used by album %s'] = 'Пермалинкае %s �
 $lang['Permalink history'] = 'История на пермалинковете';
 $lang['Permalinks'] = 'Персонализирани линкове';
 $lang['Other plugins'] = 'Други налични плъгини';
+$lang['Please check "plugins" folder and sub-folders permissions (CHMOD).'] = 'Моля,проверете "plugins" папката и под папките за права  (CHMOD). ';
+$lang['Operation in progress'] = 'Лечение в ход.';
+$lang['Notify administrators when a comment is'] = 'Уведомяване на администратора когато има коментар';
 ?>
