@@ -955,4 +955,5 @@ $lang['Rename'] = 'Přejmenovat';
 $lang['This group will be set to default'] = 'Tato skupina bude použita jako defaultní';
 $lang['This group will be unset to default'] = 'Tato skupina nebude dále použita jako defaultní';
 $lang['Type here the name of the new group'] = 'Napište sem jméno nové skupiny';
+$lang['Purge user cache'] = 'Provést údržbu uživatelské mezipaměťi';
 ?>
