@@ -947,4 +947,5 @@ $lang['Name of the duplicate'] = 'Namn på kopia';
 $lang['Minimum width'] = 'Minsta bredd';
 $lang['Minimum height'] = 'Minsta höjd';
 $lang['Merge selected groups'] = 'Sammanfoga markerade grupper';
+$lang['Purge user cache'] = 'Rensa användarecache';
 ?>
