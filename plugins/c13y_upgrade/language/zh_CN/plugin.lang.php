@@ -22,10 +22,10 @@
 // +-----------------------------------------------------------------------+
 
 // --------- Starting below: New or revised $lang ---- from Butterfly (1.8)
-$lang['c13y_upgrade_no_anomaly'] = '应用程序升级后没有发现异常，"检查更新" 插件已停用.';
-$lang['c13y_dbl_email_user'] = '用户使用相同的邮件地址';
+$lang['c13y_upgrade_no_anomaly'] = '应用程序升级后没有发现异常，"检查更新" 插件已停用。';
+$lang['c13y_dbl_email_user'] = '使用相同email地址的用户';
 $lang['c13y_correction_dbl_email_user'] = '删除重复的用户';
-$lang['c13y_obsolete_plugin'] = '已无效的插件';
-$lang['c13y_correction_obsolete_plugin'] = '"%s" 插件已包含此应用程序版本，您必须先卸载。';
+$lang['c13y_obsolete_plugin'] = '已过时的插件';
+$lang['c13y_correction_obsolete_plugin'] = '"%s" 插件已包含在此应用程序版本中，请卸载原插件。';
 
 ?>
