@@ -893,7 +893,7 @@ $lang['X Position'] = 'Posição X';
 $lang['X Repeat'] = 'Repetir X';
 $lang['Y Position'] = 'Posição Y';
 $lang['Multiple Size'] = 'Tamanho multiplo';
-$lang['%d day'] = '%d hoje';
+$lang['%d day'] = '%d dia';
 $lang['%d days'] = '%d dias';
 $lang['%d hour'] = '%d hora';
 $lang['%d hours'] = '%d horas';
@@ -947,4 +947,5 @@ $lang['Rename'] = 'Renomear';
 $lang['This group will be set to default'] = 'Este grupo será usado por defeito';
 $lang['This group will be unset to default'] = 'Este grupo não mais será usado por defeito';
 $lang['Type here the name of the new group'] = 'Escreva aqui o nome do novo grupo';
+$lang['Purge user cache'] = 'Purgar cache de utilizador';
 ?>
