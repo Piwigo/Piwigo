@@ -47,7 +47,7 @@
 	<input type="submit" name="login" value="{'Submit'|@translate}">
 	<span class="categoryActions">
 {if isset($U_REGISTER)}
-		<a href="{$U_REGISTER}" title="{'Create a new account'|@translate}" class="pwg-state-default pwg-button">
+		<a href="{$U_REGISTER}" title="{'Create a new account'|@translate}" class="pwg-state-default pwg-button" rel="nofollow">
 			<span class="pwg-icon pwg-icon-register"> </span>
 		</a>
 {/if}
