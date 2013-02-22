@@ -15,6 +15,7 @@
     margin-right: 3px;
     width: 24px;
     height: 16px;
+    direction: ltr;
 }
 
 /** Change the langflag-XX label to match a new language. All flags are represented there**/

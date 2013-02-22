@@ -5,7 +5,7 @@
   <div class="switchBoxTitle">{'Language'|@translate}</div> 
   {foreach from=$lang_switch.flags item=flag name=f}
   <a rel="nofollow" href="{$flag.url}">
-    <span class="pwg-icon flags langflag-{$flag.code}">{$flag.alt}</span>{$flag.title}
+    {if $lang_info.direction=="ltr"}<span class="pwg-icon flags langflag-{$flag.code}">{$flag.alt}</span>{$flag.title}{else}{$flag.title}<span class="pwg-icon flags langflag-{$flag.code}">{$flag.alt}</span>{/if}
   </a>
   {if ($smarty.foreach.f.index+1)%3 == 0}<br>{/if}
   {/foreach}
