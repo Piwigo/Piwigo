@@ -22,10 +22,10 @@
 // +-----------------------------------------------------------------------+
 
 // --------- Starting below: New or revised $lang ---- from Butterfly (1.8)
-$lang['c13y_upgrade_no_anomaly'] = 'Anormallik bulunamadi ,"Check upgrades" eklentisi pasiflestirildi..';
-$lang['c13y_dbl_email_user'] = 'Ayni emaili kullananlar';
-$lang['c13y_correction_dbl_email_user'] = 'Ayni emaili kullananlari sil';
+$lang['c13y_upgrade_no_anomaly'] = 'Anormallik bulunamadı ,"Check upgrades" eklentisi devre dışı bırakıldı.';
+$lang['c13y_dbl_email_user'] = 'Aynı e-posta adresini kullananlar';
+$lang['c13y_correction_dbl_email_user'] = 'Mükerrer kullanıcıları sil';
 $lang['c13y_obsolete_plugin'] = 'Eski eklenti';
-$lang['c13y_correction_obsolete_plugin'] = '"%s" Bu uygulama yeni sürümü dahil edilmistir eklentiyi kaldirmaniz gerekir.';
+$lang['c13y_correction_obsolete_plugin'] = '"%s" eklentisi bu uygulamanın yeni sürümüne dahil edilmiştir, eklentiyi kaldırmanız gerekir.';
 
 ?>
