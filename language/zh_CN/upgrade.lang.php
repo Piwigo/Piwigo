@@ -31,12 +31,12 @@ $lang['total SQL time'] = '总 SQL 用时';
 $lang['SQL queries'] = "SQL 查询";
 $lang['Upgrade informations'] = '更新信息';
 $lang['Perform a maintenance check in [Administration>Tools>Maintenance] if you encounter any problem.'] = '如果你遇上任何问题请到 [管理>工具>维护] 运行一次维护检查。';
-$lang['As a precaution, following plugins have been deactivated. You must check for plugins upgrade before reactiving them:'] = '小心起见，以下插件已被停用。您在重新启用它们之前，必须先检查插件的更新版本：';
+$lang['As a precaution, following plugins have been deactivated. You must check for plugins upgrade before reactiving them:'] = '保险起见，以下插件已被停用。您在重新启用它们之前，必须先检查插件的更新版本：';
 $lang['Only administrator can run upgrade: please sign in below.'] = '只有站长才能运行更新，请在下面登入：';
 $lang['You do not have access rights to run upgrade'] = "你没有权限运行更新";
 $lang['All sub-albums of private albums become private'] = '所有非公开相册的子相册均变为非公开';
 $lang['User permissions and group permissions have been erased'] = "用户权限和组权限已经删除";
 $lang['Only thumbnails prefix and webmaster mail address have been saved from previous configuration'] = '之前的设置只有缩略图前缀和站长电子邮件地址被保存';
 $lang['In <i>%s</i>, before <b>?></b>, insert:'] = '在<i>%s</i>中，<b>?></b>之前，插入：';
-$lang['As a precaution, following themes have been deactivated. You must check for themes upgrade before reactiving them:'] = '小心起见，以下主题已被停用。您在重新启用它们之前，必须先检查主题的更新版本：';
+$lang['As a precaution, following themes have been deactivated. You must check for themes upgrade before reactiving them:'] = '保险起见，以下主题已被停用。您在重新启用它们之前，必须先检查主题的更新版本：';
 ?>
