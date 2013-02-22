@@ -1,1 +1,1 @@
-Ana sayfadaki dil bayraklarindan dil degisimi.
+Ana sayfadaki dil bayraklarından dil değişimi.
