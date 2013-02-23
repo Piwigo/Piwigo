@@ -221,7 +221,6 @@ $lang['Preferences'] = 'Preferinţe';
 $lang['Random photos'] = 'Imagini aleatoare';
 $lang['display a set of random photos'] = 'afişează un set de imagini aleatoare';
 $lang['Recent albums'] = 'Albume recente';
-$lang['Recent albums'] = 'Categorii recente';
 $lang['display recently updated albums'] = 'afişează albumele create sau actualizate recent ';
 $lang['Recent period'] = 'Recent';
 $lang['Recent photos'] = 'Imagini recente';
