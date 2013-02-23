@@ -39,7 +39,7 @@ function multiview_loc_end_page_header()
   $my_root_url = get_root_url().'plugins/'. basename(dirname(__FILE__)).'/';
   $js =
 '<script type="text/javascript">
-var theController = window.open("", "mview_controller", "alwaysRaised=yes,dependent=yes,toolbar=no,height=230,width=220,menubar=no,resizable=yes,scrollbars=yes,status=no");
+var theController = window.open("", "mview_controller", "alwaysRaised=yes,dependent=yes,toolbar=no,height=200,width=220,menubar=no,resizable=yes,scrollbars=yes,status=no");
 if ( theController.location.toString()=="about:blank" || !theController.location.toString().match(/^(https?.*\/)controller\.php(\?.+)?$/))
 {
   theController.location = "'.$my_root_url.'controller.php";

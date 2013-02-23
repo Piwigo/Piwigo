@@ -22,8 +22,7 @@ if (!is_admin() or !function_exists('multiview_user_init') )
   exit();
 }
 ?>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
-"http://www.w3.org/TR/html4/strict.dtd">
+<!DOCTYPE html">
 <?php
 
 $refresh_main = false;
@@ -224,6 +223,15 @@ else
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=<?php echo get_pwg_charset() ?>">
+<style>
+BODY, TABLE {
+  font-family: sans-serif;
+  font-size: small;
+}
+BODY{
+  margin: 2px;
+}
+</style>
 <title>Controller</title>
 
 </head>
