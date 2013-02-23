@@ -91,8 +91,6 @@
 	margin-left: 20em;  /* = #menubar width + 2em */
 }
 
-.content H2 { margin-bottom: 3px;} /*<- for IE otherwise calendar select is displaced to middle of page*/
-
 .content .navigationBar, .content .additional_info, .content .calendarBar {
 	margin: 8px 4px;
 	text-align: center;
@@ -116,7 +114,7 @@
 }
 
 /* category and tag results paragraphs on a quick search */
-.content .category_search_results, .content .tag_search_results {
+.category_search_results, .tag_search_results {
   font-size: 16px;
   margin: 10px 16px;
 }
@@ -140,7 +138,7 @@
 .calendarViews {
 	display: block;
 	float: right;
-	margin: 2px 0 0;
+	margin: 5px 5px 0 0;
 }
 
 .calItem, .calItemEmpty {

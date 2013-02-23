@@ -79,7 +79,7 @@ a:hover 		{ border-bottom: none;}
 #content,.content 			{ margin-bottom: 4px; padding-bottom: 4px;}
 #thePicturePage #content 	{ padding-bottom: 0;}
 .content .titrePage 			{ padding:0; margin-bottom:4px;}
-.content .titrePage H2 		{ line-height: 20px; margin: 0; padding: 8px 0 0 2px;}
+.content .titrePage H2 		{ line-height: 20px; padding: 8px 0 0 2px;}
 
 
 /* menubar */

@@ -118,11 +118,26 @@ jQuery("#derivativeSwitchBox").on("mouseleave", function() {
 
 {if isset($chronology_views)}
 <div class="calendarViews">{'View'|@translate}:
-	<select onchange="document.location = this.options[this.selectedIndex].value;">
-		{foreach from=$chronology_views item=view}
-		<option value="{$view.VALUE}"{if $view.SELECTED} selected="selected"{/if}>{$view.CONTENT}</option>
+	<a id="calendarViewSwitchLink" href="javascript:toggleCalendarViewsBox()">
+	{foreach from=$chronology_views item=view}{if $view.SELECTED}{$view.CONTENT}{/if}{/foreach}
+	</a> 
+	<div id="calendarViewSwitchBox" class="switchBox">
+		{foreach from=$chronology_views item=view name=loop}{if !$smarty.foreach.loop.first}<br>{/if}
+		<span{if !$view.SELECTED} style="visibility:hidden"{/if}>&#x2714; </span><a href="{$view.VALUE}">{$view.CONTENT}</a>
 		{/foreach}
-	</select>
+	</div>
+	{footer_script require='jquery'}{literal}
+function toggleCalendarViewsBox() {
+	var elt = jQuery("#calendarViewSwitchBox")
+		, ePos = jQuery("#calendarViewSwitchLink");
+	elt.css("left", Math.min( ePos.offset().left, jQuery(window).width() - elt.outerWidth(true) - 5))
+		.css("top", ePos.offset().top + ePos.outerHeight(true))
+		.toggle();
+};
+jQuery("#calendarViewSwitchBox").on("mouseleave", function() {
+	jQuery(this).hide();
+});
+	{/literal}{/footer_script}
 </div>
 {/if}
 
