@@ -27,20 +27,21 @@ $lang['locfiledit_onglet_tpl'] = 'Şablonlar';
 $lang['locfiledit_onglet_lang'] = 'Diller';
 $lang['locfiledit_onglet_plug'] = 'Kişisel Eklenti';
 $lang['locfiledit_cant_save'] = 'Seçili dosyanın yazılabilirlik izni yok. Lütfen "local/" klasörünü yazılabilir (chmod) olup olmadığını kontrol ediniz.';
-$lang['locfiledit_newfile'] = 'Böyle bir dosya yok ve LocalFiles Editör tarafından oluşturulacak';
+$lang['locfiledit_newfile'] = 'Aşağıya bazı bilgiler girilmeden dosya yaratılmaz.
+Bilgiler girilip kaydedildikten sonra dosya yaratılacaktır.';
 $lang['locfiledit_save_config'] = 'Dosya başarıyla yazıldı.';
-$lang['locfiledit_show_default'] = 'Referans dosyayi göster: ';
+$lang['locfiledit_show_default'] = 'Referans dosyasını göster: ';
 $lang['locfiledit_save_bak'] = 'Yedekleme kopyası kaydedilirken yaratılacak.';
 $lang['locfiledit_saved_bak'] = 'Yedekleme dosyası yaratıldı (%s)';
 $lang['locfiledit_save_file'] = 'Dosyayı kaydet';
 $lang['locfiledit_choose_file'] = 'Düzenlenecek dosyayı seçiniz';
 $lang['locfiledit_edit'] = 'Düzenle';
 $lang['locfiledit_restore'] = 'Yedekleme dosyasını geri yükle';
-$lang['locfiledit_restore_confirm'] = 'Lütfen onayla? 
-Bir sonraki kaydetmeye kadar geri yükleme yapılamayacak.';
+$lang['locfiledit_restore_confirm'] = 'Lütfen onaylayınız? 
+Bir sonraki kaydetmeye kadar geri yükleme etkin olmayacak.';
 $lang['locfiledit_bak_loaded1'] = 'Yedekleme dosyası yüklendi.';
 $lang['locfiledit_bak_loaded2'] = 'Geri yüklemek için dosyayı kaydetmeniz gerekir.';
-$lang['locfiledit_syntax_error'] = 'Sözdizimi (syntax) hatası! Dosya kayıt edilemiyor.';
+$lang['locfiledit_syntax_error'] = 'Sözdizimi (syntax) hatası! Dosya kaydedilemiyor.';
 $lang['locfiledit_new_tpl'] = 'Yeni dosya yarat';
 $lang['locfiledit_new_filename'] = 'Dosya adı';
 $lang['locfiledit_model'] = 'Model';
