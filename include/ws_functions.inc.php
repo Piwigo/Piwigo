@@ -1277,7 +1277,7 @@ function ws_images_search($params, &$service)
 
   $search_result = get_quick_search_results($params['query'],
       $super_order_by,
-      implode(',', $where_clauses)
+      implode(' AND ', $where_clauses)
     );
 
   $image_ids = array_slice(
