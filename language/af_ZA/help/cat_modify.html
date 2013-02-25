@@ -1,0 +1,110 @@
+<h2>Redigeer album</h2>
+
+<h3>Inligting</h3>
+
+<ul>
+
+  <li><strong>naam</strong>: vernoem die album ('n virtuele vernoeming in geval van 'n fisiese album).</li>
+
+  <li><strong>beskrywing</strong>: kort teks met 'n algemene oorsig van die inhoud, hierdie teks sal op die onderkant van die duimnael blad vertoon word.</li>
+
+</ul>
+
+<h3>Skuif</h3>
+
+<p>As die album virtueel is, kan jy dit skuif. Skuif beteken dat die ouer album verander word.</p>
+
+<h3>Opsies</h3>
+
+<ul>
+
+  <li><strong>Toegang tipe</strong>: Toestemmingsbeheer. As jy 'n album privaat maak, word al die kinder albums privaat. As jy 'n album publiek maak, word al die ouer albums publiek.</li>
+
+  <li><strong>Sluit</strong>: Die album en sub-albums sal tydelik gesluit wees vir onderhoud.</li>
+
+  <li><strong>Opmerkings</strong>: Magtig gebruikers om kommentaar te lewer op fotos in hierdie album.</li>
+
+</ul>
+
+<p>Jy kan hierdie keuses ook op die "Eienskappe" bestuurblad verander (skerm <span
+class="pwgScreen">Opmerkings</span>, <span class="pwgScreen">Sluit</span>,
+<span class="pwgScreen">Publiek/Privaat</span>, <span
+class="pwgScreen">Verteenwoordiger</span> beskikbaar vanaf <span
+class="pwgScreen">Administrasie &raquo; Albums &raquo; Eienskappe</span>).</p>
+
+<h3>Sorteer orde</h3>
+
+<p>Gebruik die verstek beeld sorteer orde.</p>
+
+<p>Dui aan of hierdie orde ook op subalbums van toepassing sal wees.</p>
+
+<p>Select specific sorting criteria to be used with this album.</p>
+<ul>
+<li><strong>Skep datum</strong>: Datum waarop foto geneem is</li>
+<li><strong>Pos datum</strong>: Sinkronisasie datum</li>
+<li><strong>Gemiddelde evaluering (*)</strong>: Gemiddelde evaluering kan deur die besoeker se evaluering verander word</li>
+<li><strong>Meeste besoeke (*)</strong>: Die huidige besoek kan die meeste besoeke volgorde verander</li>
+<li><strong>Lêer naam</strong>: Naam gegee in die inligtingsveld</li>
+<li><strong>Id</strong>: Interne Id (onlangse kategorieë het 'n hoër id as voriges.</li>
+
+</ul>
+<p><strong>(*)</strong>Waarskuwing: Toets self hierdie sorteer volgordes want dit kan onverwagte resultate tot gevolg hê.</p>
+
+
+<h3>Verteenwoordiger</h3>
+
+<p>Die album verteenwoordiger is die duimnael wat vertoon word op die hoofblad (<span class="pwgScreen">category.php</span>) om die album te verteenwoordig indien dit slegs subalbums en nie direkte fotos bevat nie (soos die basis album).</p>
+foto van 'n album :</p>
+
+<ul>
+
+  <li><span class="pwgScreen">Foto blad</span>: een van die aksie knoppies laat jou toe om die huidige foto as verteenwoordigend van die vertoonde album te kies. Hierdie knoppie is slegs beskikbaar vir administrateurs.</li>
+
+  <li><span class="pwgScreen">Verander inligting van 'n foto</span> in
+  administrasie. Hierdie skerm kan bereik word deur <span
+  class="pwgScreen">picture.php</span> of <span class="pwgScreen">Groep adminstrasie</span> in <em>eenheidsmodus</em>. Sien die help van hierdie skerm vir meer inligting.</li>
+
+  <li><span class="pwgScreen">Administrasie &raquo; Albums &raquo; Eienskappe,
+  Verteenwoordiger</span>. Sien die help van hierdie skerm vir meer inligting.</li>
+
+  <li><span class="pwgScreen">Redigeer album</span> (die huidige skerm).</li>
+
+</ul>
+
+<p>Die keuse van 'n verteenwoordiger hang af van die <code>allow_random_representative</code> konfigurasie parameter (sien <span
+class="filename">include/config_default.inc.php</span>).</p>
+
+<p>In verstek modus (<code>allow_random_representative</code> gekies as vals),
+word elke album met ten minste een element verteenwoordig deur 'n vaste element. As dit gekies is (met die skep van 'n album), verander die verteenwoordiger eers wanneer 'n administrateur daarvoor vra. As die verteenwoordiger nie toepaslik is nie, kan jy vra dat <strong>'n Nuwe verteenwoordiger lukraak gekies moet word</strong>.</p>
+
+<p>As die <code>allow_random_representative</code> konfigurasie parameter as waar gesit is, kan 'n kategorie met fotos nie 'n vaste verteenwoordiger hê nie. Gebruik net <strong>Verwyder verteenwoordiger</strong> knoppie.</p>
+
+<p>As die album net sub-albums en geen fotos bevat nie, kan dit nog steeds verteenwoordig word deur enige element, deur die <span class="pwgScreen">Modifiseer inligting oor 'n foto</span> skerm. Die enigste opsie op die huidige skerm is die <strong>Verwyder verteenwoordiger</strong> knoppie.</p>
+
+<h3>Verbind alle album fotos aan 'n nuwe album</h3>
+
+<ul>
+
+<li><strong>Virtuele album naam</strong>: Naam van die album wat geskep moet word, al die fotos van die huidige kategorie sal aan die nuwe geskakel word.</li>
+
+<li><strong>Ouer album</strong>: Waar die nuwe album sal kom, laat leeg om dit aan die basis te skep.</li>
+
+</ul>
+
+<h3>Verbind alle album fotos aan 'n bestaande album</h3>
+
+<ul>
+
+<li><strong>Albums</strong>: Kies die bestemming album.</li>
+
+</ul>
+
+<h3>Stuur 'n inligtings-epos aan al die groeplede</h3>
+
+<ul>
+
+<li><strong>Groep</strong>: ontvangersgroep</li>
+
+<li><strong>Epos inhoud</strong>: Enige teks om aan hulle te stuur.</li>
+
+</ul>
