@@ -772,7 +772,8 @@ if (is_admin())
       'U_CADDIE' => add_url_params($url_self,
                   array('action'=>'add_to_caddie')
                ),
-      'U_ADMIN' => $url_admin,
+      'U_PHOTO_ADMIN' => $url_admin,
+      'U_ADMIN' => $url_admin, // TEMP 2.5 for backward compatibility
       )
     );
 
@@ -985,7 +986,7 @@ if ($conf['picture_menu'] AND (!isset($themeconf['hide_menu_on']) OR !in_array('
 {
   if (!isset($page['start'])) $page['start'] = 0;
   include( PHPWG_ROOT_PATH.'include/menubar.inc.php');
-  if (is_admin()) $template->assign('U_ADMIN', $url_admin); // overwrited by the menu
+  if (is_admin()) $template->assign('U_ADMIN', $url_admin); // overwrited by the menu TEMP 2.5 for backward compatibility
 }
 
 include(PHPWG_ROOT_PATH.'include/page_header.php');

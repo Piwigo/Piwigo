@@ -87,8 +87,8 @@ jQuery("#derivativeSwitchBox").on("mouseleave click", function() {
 		<span class="pwg-icon pwg-icon-representative"> </span><span class="pwg-button-text">{'representative'|@translate}</span>
 	</a>
 {/if}{/strip}
-{strip}{if isset($U_ADMIN)}
-	<a href="{$U_ADMIN}" title="{'Modify information'|@translate}" class="pwg-state-default pwg-button" rel="nofollow">
+{strip}{if isset($U_PHOTO_ADMIN)}
+	<a href="{$U_PHOTO_ADMIN}" title="{'Modify information'|@translate}" class="pwg-state-default pwg-button" rel="nofollow">
 		<span class="pwg-icon pwg-icon-edit"> </span><span class="pwg-button-text">{'Edit'|@translate}</span>
 	</a>
 {/if}{/strip}
