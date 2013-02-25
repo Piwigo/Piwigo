@@ -111,7 +111,7 @@ function initialize_menu()
 
 //------------------------------------------------------------------------ tags
   $block = $menu->get_block('mbTags');
-  if ( $block!=null and !empty($page['items']) )
+  if ( $block!=null and !empty($page['items']) and 'picture' != script_basename() )
   {
     if ('tags'==@$page['section'])
     {
