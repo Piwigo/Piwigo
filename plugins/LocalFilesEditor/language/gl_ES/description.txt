@@ -1,0 +1,1 @@
+Modifica ficheiros locais desde o panel de administración.
