@@ -1,0 +1,1 @@
+Comprobar a integridade das actualizacións.
