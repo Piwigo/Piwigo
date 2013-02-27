@@ -1,0 +1,124 @@
+<h2>Modificar álbum</h2>
+
+<h3>Información</h3>
+
+<ul>
+
+  <li><strong>nome</strong>: renomear o álbum (un renomeado virtutal no caso de álbum físico).</li>
+
+  <li><strong>descrición</strong>: texto curto que da unha idea xeral do contido,
+este texto amosarase na parte de abaixo da páxina das miniaturas.</li>
+
+</ul>
+
+<h3>Mover</h3>
+
+<p>Se o ábum é virtual, podes movelo. Mover un álbum significa mudar o álbum pai.</p>
+
+<h3>Opcións</h3>
+
+<ul>
+
+  <li><strong>Tipo de acceso</strong>: xestión de permisos. Se fas un álbum privado
+tódolos álbums fillos convertense en privados. Se fas un álbum público, 
+tódolos álbums fillos convertense en públicos.</li>
+
+  <li><strong>Bloquear</strong>: o álbum e seus subálbums desactivaranse de xeito 
+temporal para o mantemento.</li>
+
+  <li><strong>Comentarios</strong>: autoriza ós usuarios a comentar fotos de este álbum.</li>
+
+</ul>
+
+<p>Tamén podes xestionar esta opción nas "Propiedades"
+ (pantallas <span
+class="pwgScreen">Comentarios</span>, <span class="pwgScreen">Bloquear</span>,
+<span class="pwgScreen">Público/Privado</span>, <span
+class="pwgScreen">Representante</span> available from <span
+class="pwgScreen">Administración &raquo; Álbums &raquo; Propiedades</span>).</p>
+
+<h3>Orde de selección</h3>
+
+<p>Empregar a orde de selección das imaxes de xeito predeterminado.</p>
+
+<p>Indicar se tamén se aplicará a orde de selección ós subálbums.</p>
+
+<p>Seleccionar un criterio de ordenación a empregar neste álbum.</p>
+<ul>
+<li><strong>Data de creacón</strong>: data na que se fixo a foto</li>
+<li><strong>Data de envío</strong>: data da sincronización</li>
+<li><strong>Valoración média (*)</strong>: media da valoración podendo ser mudada pola valoración dos visitantes</li>
+<li><strong>Máis vista (*)</strong>: as actuais visitas poden mudar a orde da máis visitada</li>
+<li><strong>Nome do ficheirog>: Identificador interno (álbums mais recentes poden ter un identificador máis alto que os anteriores.</li>
+
+</ul>
+<p><strong>(*)</strong>Aviso: asegúrate de probar estas ordes de selección por ti mesmo xa que poden dar resultados inesperados.</p>
+
+
+<h3>Representante</h3>
+
+<p>O representante dun álbum é a miniatura amosada na páxina principal (<span class="pwgScreen">category.php</span>) para representar o álbum cando este contén só subálbums e non ten ningunha foto de xeito directo (igual que o álbum raíz).</p>
+
+<p>Hai 4 xeitos de escoller o representante dun álbum:</p>
+
+<ul>
+
+  <li><span class="pwgScreen">Páxina da foto</span>: unha das accións dos botóns é a de poder establecer a actual foto como a representante do álbum amosado. Este botón só esta dispoñible para os administradores.</li>
+
+  <li><span class="pwgScreen">Modificar a información da imaxe</span> na administración. 
+Pode accederse a esta pantalla desde <span
+  class="pwgScreen">picture.php</span> ou <span class="pwgScreen">xestión por lotes</span> no <em>modo unitario</em>. Para máis detalles ver a axuda desta pantalla.</li>
+
+  <li><span class="pwgScreen">Administración &raquo; Álbums &raquo; Propiedades,
+  Representante</span>. Para máis detalles ver a axuda desta pantalla.</li>
+
+  <li><span class="pwgScreen">Modificar álbum</span> (a presente pantalla).</li>
+
+</ul>
+
+<p>A elección do representante depende do parámetro de configuración 
+<code>allow_random_representative</code> (ver <span
+class="filename">include/config_default.inc.php</span>).</p>
+
+<p>De xeito predeterminado (<code>allow_random_representative</code> está como falso),
+cada categoría que contén polo menos un elemento é representada por un elemento fixo.
+Unha vez fixado (na creación do álbum), o representante só muda cando un administrador o pide.
+Se o representante non é axeitado pode solicitarse <strong>atopar un novo representante ó chou</strong>.</p>
+
+<p>Se o parámetro de configuración <code>allow_random_representative</code> está establecido 
+como true, as fotos do álbum poden non ter un representante fixo. 
+Simplemente usa o botón <strong>Eliminar o representante</strong>.</p>
+
+<p>Se o álbum contén só subálbums e ningunha foto, pode ser representado a pesar de todo 
+por calquera elemento grazas á pantalla  <span class="pwgScreen">Modificar información sobre a foto</span>. 
+A única opción na actual pantalla é o botón <strong>Eliminar o representante</strong>.</p>
+
+<h3>Ligar tódolos elementos do álbum a un novo álbum</h3>
+
+<ul>
+
+<li><strong>Nome do álbum virtual</strong>: nome do novo álbum a crear, 
+tódalas fotos do actual álbum serán ligadas ó novo álbum.</li>
+
+<li><strong>Álbum pai</strong>: onde ten que estar o novo álbum, 
+deixar baleiro para crear na raíz.</li>
+
+</ul>
+
+<h3>Ligar tódolos elementos do álbum a álbums existentes</h3>
+
+<ul>
+
+<li><strong>Álbums</strong>: escolle o álbum de destino.</li>
+
+</ul>
+
+<h3>Enviar un correo informativo ós membros do grupo</h3>
+
+<ul>
+
+<li><strong>Grupo</strong>: grupo de destinatarios</li>
+
+<li><strong>Contido do correo</strong>: texto libre para enviarlles.</li>
+
+</ul>  
