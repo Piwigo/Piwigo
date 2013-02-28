@@ -1253,7 +1253,7 @@ function create_virtual_category($category_name, $parent_id=null, $options=array
   // any description for this album?
   if (isset($options['comment']))
   {
-    $insert['comment'] = strip_tags($options['comment']);
+    $insert['comment'] = $conf['allow_html_descriptions'] ? $options['comment'] : strip_tags($options['comment']);
   }
 
   if (!empty($parent_id) and is_numeric($parent_id))

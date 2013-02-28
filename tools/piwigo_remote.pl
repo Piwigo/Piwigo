@@ -240,6 +240,7 @@ if ($opt{action} eq 'pwg.categories.add') {
         method => 'pwg.categories.add',
         name => $opt{define}{name},
         parent => $opt{define}{parent},
+        comment => $opt{define}{comment},
     };
 
     my $response = $ua->post(
