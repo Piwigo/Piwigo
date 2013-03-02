@@ -189,6 +189,20 @@ function pwg_db_insert_id()
   return $mysqli->insert_id;
 }
 
+function pwg_db_errno()
+{
+  global $mysqli;
+  
+  return $mysqli->errno;
+}
+
+function pwg_db_error()
+{
+  global $mysqli;
+  
+  return $mysqli->error;
+}
+
 function pwg_db_close()
 {
   global $mysqli;

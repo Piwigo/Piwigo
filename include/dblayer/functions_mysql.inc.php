@@ -179,6 +179,16 @@ function pwg_db_insert_id()
   return mysql_insert_id();
 }
 
+function pwg_db_errno()
+{
+  return mysql_errno();
+}
+
+function pwg_db_error()
+{
+  return mysql_error();
+}
+
 function pwg_db_close()
 {
   return mysql_close();
