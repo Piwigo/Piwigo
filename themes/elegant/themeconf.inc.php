@@ -1,7 +1,7 @@
 <?php
 /*
 Theme Name: elegant
-Version: 2.3.0
+Version: 2.5.0
 Description: Dark background, grayscale.
 Theme URI: 
 Author: Piwigo team
