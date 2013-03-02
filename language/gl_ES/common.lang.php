@@ -21,8 +21,8 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 /*
-Language Name: Galiza [ES]
-Version: 2.5.0
+Language Name: Galego [ES]
+Version: 2.4.1
 Language URI: http://piwigo.org/ext/extension_view.php?eid=681
 Author: Piwigo team
 Author URI: http://piwigo.org
