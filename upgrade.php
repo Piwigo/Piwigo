@@ -322,6 +322,10 @@ else if (!in_array('rating_score', $columns_of[PREFIX_TABLE.'images']))
 {
   $current_release = '2.2.0';
 }
+else if (!in_array('rotation', $columns_of[PREFIX_TABLE.'images']))
+{
+  $current_release = '2.3.0';
+}
 else
 {
   // retrieve already applied upgrades
@@ -331,9 +335,9 @@ SELECT id
 ;';
   $applied_upgrades = array_from_query($query, 'id');
 
-  if (!in_array(127, $applied_upgrades))
+  if (!in_array(134, $applied_upgrades))
   {
-    $current_release = '2.3.0';
+    $current_release = '2.4.0';
   }
   else
   {

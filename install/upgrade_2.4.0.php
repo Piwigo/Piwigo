@@ -52,7 +52,7 @@ $to_apply = array_diff($existing, $applied);
 $inserts = array();
 foreach ($to_apply as $upgrade_id)
 {
-  if ($upgrade_id >= 112) // TODO change on each release
+  if ($upgrade_id >= 128) // TODO change on each release
   {
     break;
   }
@@ -62,7 +62,7 @@ foreach ($to_apply as $upgrade_id)
     array(
       'id' => $upgrade_id,
       'applied' => CURRENT_DATE,
-      'description' => '[migration from 2.3.0 to '.PHPWG_VERSION.'] not applied',
+      'description' => '[migration from 2.4.0 to '.PHPWG_VERSION.'] not applied',
       )
     );
 }
@@ -83,7 +83,7 @@ if (!empty($inserts))
 ob_start();
 echo '<pre>';
 
-for ($upgrade_id = 112; $upgrade_id <= 127; $upgrade_id++) // TODO change on each release
+for ($upgrade_id = 128; $upgrade_id <= 134; $upgrade_id++) // TODO change on each release
 {
   if (!file_exists(UPGRADES_PATH.'/'.$upgrade_id.'-database.php'))
   {
@@ -112,7 +112,7 @@ for ($upgrade_id = 112; $upgrade_id <= 127; $upgrade_id++) // TODO change on eac
 INSERT INTO `'.PREFIX_TABLE.'upgrade`
   (id, applied, description)
   VALUES
-  (\''.$upgrade_id.'\', NOW(), \'[migration from 2.3.0 to '.PHPWG_VERSION.'] '.$upgrade_description.'\')
+  (\''.$upgrade_id.'\', NOW(), \'[migration from 2.4.0 to '.PHPWG_VERSION.'] '.$upgrade_description.'\')
 ;';
   pwg_query($query);
 }
@@ -120,6 +120,6 @@ INSERT INTO `'.PREFIX_TABLE.'upgrade`
 echo '</pre>';
 ob_end_clean();
 
-// now we upgrade from 2.4.0
-include_once(PHPWG_ROOT_PATH.'install/upgrade_2.4.0.php');
+// now we upgrade from 2.5.0
+// include_once(PHPWG_ROOT_PATH.'install/upgrade_2.5.0.php');
 ?>
