@@ -1,0 +1,26 @@
+<h2>Manutenção</h2>
+
+<p>Para otimizar o tempo de geração da página o Piwigo usa informações armazenadas em cache. Por exemplo, em vez de contar o número de imagens contidas em cada álbum, em cada página recarregada esta informação está armazenada na base de dados. Em teoria, esta informação deve ser sempre correta mas, por vezes, pode ocorrer um erro e as informações  em cache se tornam desatualizadas.</p>
+
+<p>Algumas informações se tornam menos útil quando o tempo passa. Excluindo esta informação inútil do banco de dados vai lhe poupar algum espaço em disco.</p>
+
+<ul>
+	<li><strong>Excluir tags órfãs</strong></li>
+</ul>
+<ul>
+  <li><strong>Atualizar informações de álbuns:</strong> Para cada álbum, a seguinte informação é verificada e atualizada, se necessário: lista de álbuns dos pais, número de fotos, data da última foto, a posição entre os álbuns irmãos, posição entre todos os álbuns. Esta ação também verifica a consistência de fotos representante.</li>
+  <li><strong>Atualização de informações de fotos:</strong> Para cada foto, informações atualizadas são: caminho completo para o arquivo, a taxa média. <em>Aviso</em>, não confundir-se: informações de metadados devem ser sincronizados a partir de <span class="pwgScreen">Administração &raquo; Ferramentas &raquo; sincronização</span>, ou na tela de modificação de uma foto simples (através de <span class="pwgScreen">Foto</span> por exemplo).</li>
+</ul>
+<ul>
+  <li><strong>Reparar e otimizar o banco de dados:</strong>Realizar operações de reordenamento, reparação e otimizar em cada tabela do banco de dados</li>
+  <li><strong>Reinicializar verificação de integridade</strong></li>
+</ul>
+
+<ul>
+  <li><strong>Purgar detalhes de história:</strong> Eliminar todas as linhas da tabela história. Tela <span class="pwgScreen">Administração &raquo; Ferramentas &raquo; Histórico</span> não vai mais mostrar informações para a história do passado. <em>Aviso:</em> todos os dados serão perdidos, sem qualquer forma de recupera-los de volta.</li>
+  <li><strong>Purgar resumo histórico:</strong> Eliminar todas as informações de resumo sobre visitas. Este resumo é calculado a partir dos detalhes da história.</li>
+  <li><strong>Purgar seções:</strong> Excluir sessões de usuários expirados.</li>
+  <li><strong>Purgar notificações feeds nunca usadas</strong></li>
+  <li><strong>Purgar historia de pesquisas</strong></li>
+  <li><strong>Purgar modelos compilados</strong></li>  
+</ul>

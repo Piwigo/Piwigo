@@ -1,0 +1,101 @@
+<h2>Configuração</h2>
+
+<p>Esta tela permitir que ao administrador fazer a configuração básica da galeria. Na verdade, esta tela mostra apenas os parâmetros de configuração simples que devem ser suficientes para a grande maioria dos administradores. Se você quiser ver outras inúmeros (e avançados) parâmetros de configuração, leia o arquivo de configuração padrão <span
+class="filename">include/config_default.inc.php</span>.</p>
+
+<p>A tela é dividida em seções diferentes, agrupando os parâmetros de configuração por tema.</p>
+
+
+<h3>Principal</h3>
+<ul>
+  <li><strong>Título da galeria</strong>: usada em RSS feed e notificações por e-mail.</li>
+
+  <li><strong>Página banner</strong>: exibida na parte superior de cada página pública.</li>
+
+  <li><strong>URL da Galeria</strong>: usedo para o RSS feed.</li>
+
+  <li><strong>Bloqueio da galeria</strong>: Bloquear toda a galeria para a manutenção. Somente usuários administradores serão capazes de acessar a galeria.</li>
+
+  <li><strong>Classificação</strong>: Recurso de classificação da foto está habilitado.</li>
+
+  <li><strong>Avaliação pelos visitantes</strong>: Mesmo usuários não cadastrados podem avaliar as imagens.</li>
+
+  <li><strong>Permitir o registo de usuário</strong>: Qualquer pessoa pode se cadastrar.</li>
+
+  <li><strong>Endereço de email é obrigatória para todos os usuários</strong>: endereço de e-mail será verificado na atualização de registro ou perfil, exceto se a ação é feita por um administrador.</li>
+
+  <li><strong>Administrar e-mail quando um novo usuário se registrar</strong>: aadministradores serão notificados por e-mail para cada registro.</li>
+  
+  <li><strong>Ordem padrão de fotos</strong>: você pode definir uma ordem personalizada com esses menus drop-down.</li>
+
+</ul>
+
+<h3>Histórico</h3>
+
+  <p>Visitas nas páginas <span
+  class="pwgScreen">category.php</span> e <span
+  class="pwgScreen">picture.php</span> será salva na tabela <code>histórico</code>.</p>
+  
+  <p>Visitas serão mostradas em <span  class="pwgScreen">Administração &raquo; Ferramentas &raquo; Histórico</span>.</p>
+
+<ul>
+  <li><strong>Salvar páginas visitadas pelos visitantes</strong>: as visitas as páginas pelos visitantes serão gravadas.</li>
+
+  <li><strong>Salvar páginas visitadas pelos usuários</strong>: as visitas as páginas pelos usuários registrados visitantes serão gravadas.</li>
+
+  <li><strong>Salvar páginas visitadas pelos administradores</strong>: as visitas as páginas pelos administradores serão gravadas.</li>
+
+</ul>
+
+<h3>Comentários</h3>
+<ul>
+
+  <li><strong>Comentários para todos </strong>: Mesmo visitantes não registrados podem postar comentários.</li>
+
+  <li><strong>Número de comentários por página</strong>.</li>
+
+  <li><strong>Validação </strong>: um administrador deve validar comentários dos usuários antes que eles se tornam visíveis no site. Validação de comentários de usuários
+   ocorrem na tela <span class="pwgScreen">Administração &raquo; Ferramenta &raquo; Pending Comentários</span>.</li>
+
+  <li><strong>Administrar e-mail quando um comentário válido é inserido </strong>: Envia um e-mail para os administradores quando um usuário digita um comentário e este comentário é validado.</li>
+
+  <li><strong>Administrar e-mail quando um comentário necessita de validação</strong>:
+Envia um e-mail para os administradores quando um usuário entra um comentário que requer a validação pelo administrador.
+Validação de comentários de usuários tem lugar na tela <span class="pwgScreen">Administração &raquo; Ferramentas &raquo; Comentários Pendentes</span>.</li>
+
+</ul>
+
+<h3>Exibição padrão</h3>
+
+<p>Aqui você pode alterar as opções de exibição usados ​​por visitantes, o usuário padrão que não está conectado. Uma vez conectado, estas opções são substituídas por opções do próprio usuário
+(modificável em <span class="pwgScreen">perfil</span>).</p>
+
+<p>É possível alterar as opções de exibição de todos os usuários existentes no <span class="pwgScreen">Administração &raquo;
+Usuários &raquo; Gerenciar</span> tela onde você pode selecionar uma lista de usuários.</p>
+
+<ul>
+
+  <li><strong>Idioma</strong>: Aplicar a rótulos do Piwigo apenas. Nomes de álbuns de fotos, nomes e descrições de todos os campos não são localizados.</li>
+
+  <li><strong>Número de fotos por linha</strong></li>
+
+  <li><strong>Número de linhas por página</strong></li>
+
+  <li><strong>Tema da interface </strong></li>
+
+  <li><strong>Período recente </strong>: Por dia. Período durante o qual a foto é mostrada como nova. Deve ser maior do que 1 dia.</li>
+
+  <li><strong>Expandir todos os álbuns </strong>: Expandir todos os álbuns por
+padrão no menu <em> Alerta</em>: esta opção é intensiva em recursos e pode gerar uma enorme menu se sua árvore álbum contendo muitos álbuns.</li>
+
+  <li><strong>Mostrar número de comentários </strong>: Ver o número de comentários para cada foto na página de miniaturas. Uso intensivo de recursos.</li>
+
+  <li><strong>Mostrar número de acessos</strong>: Mostrar sucessos de exibição observados na foto apenas para sua miniatura na página de miniaturas. Somente quando o parâmetro de configuração avançada é: <br>
+  $conf['show_nb_hits'] = verdadeira; <br>
+  Notice: falso por padrão.</li>
+
+  <li><strong>Largura máxima das fotos</strong>: máxima largura apresentada . Fotos maiores do que esta definição vão ser redimensionada em exibição. Em vez de escolher esta opção, você pode considerar modificar a largura de suas fotos, o que seria uma melhor prática.</li>
+
+  <li><strong>Altura máxima das fotos </strong>: O mesmo que para a configuração de largura máxima.</li>
+
+</ul>
