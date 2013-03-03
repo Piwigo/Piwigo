@@ -22,10 +22,10 @@
 // +-----------------------------------------------------------------------+
 
 // --------- Starting below: New or revised $lang ---- from Butterfly (1.8)
-$lang['c13y_upgrade_no_anomaly'] = 'Nenhuma anomalia detectada depois da actualização. O plugin "Check upgrades" foi desactivado.';
-$lang['c13y_dbl_email_user'] = 'Utilizadores com o mesmo endereço de email';
+$lang['c13y_upgrade_no_anomaly'] = 'Nenhuma anomalia detectada depois da actualizaÃ§Ã£o. A extensÃ£o "Check upgrades" foi desactivada.';
+$lang['c13y_dbl_email_user'] = 'Utilizadores com o mesmo endereÃ§o de email';
 $lang['c13y_correction_dbl_email_user'] = 'Apagar Utilizadores duplicados';
-$lang['c13y_obsolete_plugin'] = ' Plugin obsoleto';
-$lang['c13y_correction_obsolete_plugin'] = 'O plugin "%s" foi incluído nesta versão da aplicação e deverá ser desinstalado primeiro.';
+$lang['c13y_obsolete_plugin'] = 'ExtensÃ£o obsoleta';
+$lang['c13y_correction_obsolete_plugin'] = 'A extensÃ£o "%s" foi incluÃ­da nesta versÃ£o PIWIGO e deverÃ¡ ser desinstalada.';
 
 ?>
