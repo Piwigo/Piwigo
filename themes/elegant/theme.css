@@ -21,7 +21,7 @@ html, body									{ background-color: #111;}
 INPUT[type="text"], INPUT[type="password"],
 INPUT[type="button"], INPUT[type="submit"],
 INPUT[type="reset"], INPUT[type="file"],
-SELECT, TEXTAREA							{ background-color: #555;}
+SELECT, TEXTAREA, OPTION							{ background-color: #555;}
 INPUT:focus, SELECT:focus, TEXTAREA:focus	{ background-color: #666;}
 
 
