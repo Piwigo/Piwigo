@@ -134,7 +134,7 @@ y.callService(
 {if $DISPLAY_NAV_THUMB}
 	<div class="navThumbs">
 		{if isset($previous)}
-			<a class="navThumb" id="linkPrev" href="{$previous.U_IMG}" title="{'Previous'|@translate} :: {$previous.TITLE|@escape}" rel="prev">
+			<a class="navThumb" id="linkPrev" href="{$previous.U_IMG}" title="{'Previous'|@translate} : {$previous.TITLE|@escape}" rel="prev">
 				<span class="thumbHover prevThumbHover"></span>
 				<img src="{$previous.derivatives.square->get_url()}" alt="{$previous.TITLE|@escape}">
 			</a>
