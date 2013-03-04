@@ -413,4 +413,6 @@ $lang['Piwigo encountered a non recoverable error'] = 'Prišlo je do napake v Pi
 $lang['Email address is mandatory'] = 'E-pošta je obvezna';
 $lang['Username is mandatory'] = 'Uporabniško ime je obvezno';
 $lang['mandatory'] = 'obvezno';
+$lang['Website'] = 'Spletna stran';
+$lang['Your website URL is invalid'] = 'Naslov spletne strani je nepravilen';
 ?>
