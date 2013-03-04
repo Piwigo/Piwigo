@@ -134,15 +134,15 @@ y.callService(
 {if $DISPLAY_NAV_THUMB}
 	<div class="navThumbs">
 		{if isset($previous)}
-			<a class="navThumb" id="linkPrev" href="{$previous.U_IMG}" title="{'Previous'|@translate} : {$previous.TITLE}" rel="prev">
+			<a class="navThumb" id="linkPrev" href="{$previous.U_IMG}" title="{'Previous'|@translate} :: {$previous.TITLE|@escape}" rel="prev">
 				<span class="thumbHover prevThumbHover"></span>
-				<img src="{$previous.derivatives.square->get_url()}" alt="{$previous.TITLE}">
+				<img src="{$previous.derivatives.square->get_url()}" alt="{$previous.TITLE|@escape}">
 			</a>
 		{/if}
 		{if isset($next)}
-			<a class="navThumb" id="linkNext" href="{$next.U_IMG}" title="{'Next'|@translate} : {$next.TITLE}" rel="next">
+			<a class="navThumb" id="linkNext" href="{$next.U_IMG}" title="{'Next'|@translate} : {$next.TITLE|@escape}" rel="next">
 				<span class="thumbHover nextThumbHover"></span>
-				<img src="{$next.derivatives.square->get_url()}" alt="{$next.TITLE}">
+				<img src="{$next.derivatives.square->get_url()}" alt="{$next.TITLE|@escape}">
 			</a>
 		{/if}
 	</div>

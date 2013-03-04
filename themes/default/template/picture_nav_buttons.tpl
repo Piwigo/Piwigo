@@ -45,7 +45,7 @@
 	</a>
 {/if}{/strip}
 {strip}{if isset($previous)}
-	<a href="{$previous.U_IMG}" title="{'Previous'|@translate} : {$previous.TITLE}" class="pwg-state-default pwg-button">
+	<a href="{$previous.U_IMG}" title="{'Previous'|@translate} : {$previous.TITLE|@escape}" class="pwg-state-default pwg-button">
 		<span class="pwg-icon pwg-icon-arrow-w">&nbsp;</span><span class="pwg-button-text">{'Previous'|@translate}</span>
 	</a>
 {else}
@@ -64,7 +64,7 @@
 	</a>
 {/if}
 {strip}{if isset($next)}
-	<a href="{$next.U_IMG}" title="{'Next'|@translate} : {$next.TITLE}" class="pwg-state-default pwg-button pwg-button-icon-right">
+	<a href="{$next.U_IMG}" title="{'Next'|@translate} : {$next.TITLE|@escape}" class="pwg-state-default pwg-button pwg-button-icon-right">
 		<span class="pwg-icon pwg-icon-arrow-e">&nbsp;</span><span class="pwg-button-text">{'Next'|@translate}</span>
 	</a>
 {else}
