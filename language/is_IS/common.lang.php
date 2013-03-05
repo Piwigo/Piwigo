@@ -23,7 +23,7 @@
 /*
 Language Name: Íslenska [IS]
 Version: 2.5.0
-Language URI: http://piwigo.org/ext/extension_view.php?eid=
+Language URI: http://piwigo.org/ext/extension_view.php?eid=518
 Author: Piwigo team
 Author URI: http://piwigo.org
 */
