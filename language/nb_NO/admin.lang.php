@@ -948,4 +948,5 @@ $lang['This group will be unset to default'] = 'Denne gruppen mister merket stan
 $lang['Type here the name of the new group'] = 'Skriv her navnet på den nye gruppen';
 $lang['between %.2f and %.2f'] = 'mellom %.2f og %.2f';
 $lang['between %d and %d pixels'] = 'mellom %d og %d piksler';
+$lang['Purge user cache'] = 'Rens bruker cache';
 ?>
