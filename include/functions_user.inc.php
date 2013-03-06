@@ -1154,8 +1154,13 @@ function pwg_password_verify($password, $hash, $user_id=null)
       $check = ($hash == md5($password));
     }
     
-    if ($check and isset($user_id) and !$conf['external_authentification'])
+    if ($check)
     {
+      if (!isset($user_id) or $conf['external_authentification'])
+      {
+        return true;
+      }
+      
       // Rehash using new hash.
       $hash = pwg_password_hash($password);
 
