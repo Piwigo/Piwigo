@@ -35,7 +35,7 @@ $lang['It will be shown to the visitors. It is necessary for website administrat
 $lang['Connection to server succeed, but it was impossible to connect to database'] = 'Connessione al server riuscita, ma non è stato possibile connettersi al database.';
 $lang['Can\'t connect to server'] = 'Impossibile connettersi al server';
 $lang['Host'] = 'Host';
-$lang['localhost, sql.multimania.com, toto.freesurf.fr'] = 'localhost, sql.multimania.com, toto.freesurf.fr';
+$lang['localhost, sql.multimania.com, toto.freesurf.fr'] = 'localhost o altro, datovi dal vostro provider';
 $lang['User'] = 'Utente';
 $lang['user login given by your host provider'] = 'login utente database fornito dal vostro provider';
 $lang['Password'] = 'Password';
