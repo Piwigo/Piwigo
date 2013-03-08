@@ -124,15 +124,15 @@ function language_controler_flags()
     }
   }
   
-  $template->set_filename('language_flags', dirname(__FILE__) . '/flags.tpl');
+  $safe_themes = array('clear','dark','elegant','Sylvia','simple-grey','simple-black','simple-white','kardon','luciano','montblancxl'); // stripped (2.6)
   
-  $template->assign(
-    array(
+  $template->assign(array(
       'lang_switch'=> $lsw,
       'LANGUAGE_SWITCH_PATH' => LANGUAGE_SWITCH_PATH,
-      )
-    );
+      'LANGUAGE_SWITCH_LOAD_STYLE' => !in_array($user['theme'], $safe_themes),
+      ));
   
+  $template->set_filename('language_flags', dirname(__FILE__) . '/flags.tpl');
   $template->concat('PLUGIN_INDEX_ACTIONS', $template->parse('language_flags', true) );
   $template->clear_assign('lang_switch');
 }

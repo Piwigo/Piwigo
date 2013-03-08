@@ -1,5 +1,5 @@
 <li id="languageSwitch">{strip}<a id="languageSwitchLink" title="{'Language'|@translate}" class="pwg-state-default pwg-button" rel="nofollow">
-  <span class="pwg-icon flags langflag-{$lang_switch.Active.code}" >&nbsp;</span><span class="pwg-button-text">{'Language'|@translate}</span>
+  <span class="pwg-icon flags langflag-{$lang_switch.Active.code}">&nbsp;</span><span class="pwg-button-text">{'Language'|@translate}</span>
 </a>
 <div id="languageSwitchBox" class="switchBox">
   <div class="switchBoxTitle">{'Language'|@translate}</div> 
@@ -24,13 +24,8 @@ jQuery("#languageSwitchBox").on("mouseleave", function() {
 });
 {/literal}{/footer_script}
 
-{* <!-- switchBox structure for theme which don't include default style --> *}
-{if $themeconf.parent != 'default' or (isset($themeconf.load_parent_local_head) and $themeconf.load_parent_local_head == false) }
-{combine_css path=$LANGUAGE_SWITCH_PATH|@cat:"default.css"}
-{/if}
-
-{* <!-- stylish for non core themes (should be removed when all themes are updated) --> *}
-{if $themeconf.name != 'clear' and $themeconf.name != 'dark' and $themeconf.name != 'elegant' and $themeconf.name != 'Sylvia'}
+{* <!-- stylish for themes missing .switchBox styles --> *
+{if $LANGUAGE_SWITCH_LOAD_STYLE}
 {combine_css path=$LANGUAGE_SWITCH_PATH|@cat:"style.css"}
 {/if}
 

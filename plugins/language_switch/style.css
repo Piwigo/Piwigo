@@ -1,9 +1,18 @@
 #languageSwitchBox {
+	padding: 0.5em 5px;
+	border-radius: 4px;
+	z-index: 100;
+	text-align:left;
+	display: none;
+	position: absolute;
+	left: 0; top: 0; /*left, right set through js*/
   background-color: #555;
   border: 1px solid #000;
 }
 
 #languageSwitchBox .switchBoxTitle {
+  padding-bottom:5px;
+  margin-bottom:5px;
   border-bottom: 1px solid #444;
 }
 #languageSwitchBox a {
