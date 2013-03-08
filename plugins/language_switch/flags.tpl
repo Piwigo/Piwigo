@@ -24,7 +24,7 @@ jQuery("#languageSwitchBox").on("mouseleave", function() {
 });
 {/literal}{/footer_script}
 
-{* <!-- stylish for themes missing .switchBox styles --> *
+{* <!-- stylish for themes missing .switchBox styles --> *}
 {if $LANGUAGE_SWITCH_LOAD_STYLE}
 {combine_css path=$LANGUAGE_SWITCH_PATH|@cat:"style.css"}
 {/if}
