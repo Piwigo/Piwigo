@@ -860,7 +860,7 @@ $lang['Shotwell is an open source digital photo organizer that runs on Linux. It
 $lang['Show info'] = 'Amosar información';
 $lang['Show menubar'] = 'Amosar a barra de menú';
 $lang['Simulation'] = 'Simulación';
-$lang['Site manager'] = 'Xestor do sitio';
+$lang['Site manager'] = 'Xestión de sitios';
 $lang['Some themes and plugins may be not available yet.'] = 'Algúns temas e engadidos poden non estar dispoñibles aínda.';
 $lang['Environment'] = 'Ambiente';
 $lang['visitors need to login and have the appropriate permissions to see this album'] = 'os visitantes precisan identificarse e ter os permisos apropiados para ver este álbum';
