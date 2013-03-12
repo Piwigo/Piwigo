@@ -1460,6 +1460,7 @@ function create_navigation_bar($url, $nb_element, $start, $nb_element_page, $cle
       $navbar['pages'][$i] = $url.$start_str.(($i - 1) * $nb_element_page);
     }
     $navbar['pages'][$maximum] = $url_start.$last;
+    $navbar['NB_PAGE']=$nb_element;
   }
   return $navbar;
 }
