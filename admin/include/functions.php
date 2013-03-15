@@ -2456,4 +2456,30 @@ function delete_element_derivatives($infos, $type='all')
     }
   }
 }
+
+/**
+ * returns an array contening sub-directories, excluding ".svn"
+ *
+ * @param string $dir
+ * @return array
+ */
+function get_dirs($directory)
+{
+  $sub_dirs = array();
+  if ($opendir = opendir($directory))
+  {
+    while ($file = readdir($opendir))
+    {
+      if ($file != '.'
+          and $file != '..'
+          and is_dir($directory.'/'.$file)
+          and $file != '.svn')
+      {
+        array_push($sub_dirs, $file);
+      }
+    }
+    closedir($opendir);
+  }
+  return $sub_dirs;
+}
 ?>

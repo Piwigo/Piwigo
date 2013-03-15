@@ -113,32 +113,6 @@ $eligible_templates = array(
 
 $flip_templates = array_flip($eligible_templates);
 
-/**
- * returns an array contening sub-directories, excluding ".svn"
- *
- * @param string $dir
- * @return array
- */
-function get_dirs($directory)
-{
-  $sub_dirs = array();
-  if ($opendir = opendir($directory))
-  {
-    while ($file = readdir($opendir))
-    {
-      if ($file != '.'
-          and $file != '..'
-          and is_dir($directory.'/'.$file)
-          and $file != '.svn')
-      {
-        array_push($sub_dirs, $file);
-      }
-    }
-    closedir($opendir);
-  }
-  return $sub_dirs;
-}
-
 $available_templates = array_merge(
   array('N/A' => '----------'),
   get_dirs(PHPWG_ROOT_PATH.'themes'));
