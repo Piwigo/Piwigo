@@ -413,4 +413,11 @@ $lang['Username is mandatory'] = 'Gebruikersnaam is verplicht';
 $lang['mandatory'] = 'verplicht';
 $lang['Website'] = 'Website';
 $lang['Your website URL is invalid'] = 'De URL van deze website is ongeldig';
+$lang['day']['0'] = 'zondag';
+$lang['day']['1'] = 'maandag';
+$lang['day']['2'] = 'dinsdag';
+$lang['day']['3'] = 'woensdag';
+$lang['day']['4'] = 'donderdag';
+$lang['day']['5'] = 'vrijdag';
+$lang['day']['6'] = 'zaterdag';
 ?>
