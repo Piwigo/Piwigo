@@ -917,4 +917,12 @@ $lang['Minimum height'] = 'גובה מינימלי';
 $lang['Minimum width'] = 'רוחב מינימלי';
 $lang['Number of albums per page'] = 'מספר אלבומים בעמוד';
 $lang['Opacity'] = 'אטימות';
+$lang['Rename'] = 'שנה שם';
+$lang['Duplicate'] = 'כפילות';
+$lang['Manage the members'] = 'נהל את החברים';
+$lang['Merge selected groups'] = 'מזג את הקבוצות שנבחרו';
+$lang['No group selected, no action possible.'] = 'אף קבוצה לא נבחרה,אף שינוי לא בוצע.';
+$lang['No members to manage'] = 'אין חברים לנהל';
+$lang['Notify administrators when a comment is'] = 'עדכן מנהלים כאשר נכתבת תגובה';
+$lang['Piwigo cannot retrieve upgrade file from server'] = 'Piwigo לא יכולה להוציא את קבצי העדכון מהשרת';
 ?>
