@@ -29,22 +29,21 @@ function sp_select_all_thumbnails($selection)
 }
 
 // Get better derive parameters for screen size
+$type = IMG_LARGE;
 if (!empty($_COOKIE['screen_size']))
 {
   $screen_size = explode('x', $_COOKIE['screen_size']);
   $derivative_params = new ImageStdParams;
   $derivative_params->load_from_db();
-  $type = IMG_LARGE;
 
   foreach ($derivative_params->get_all_type_map() as $type => $map)
   {
     if (max($map->sizing->ideal_size) >= max($screen_size) and min($map->sizing->ideal_size) >= min($screen_size))
       break;
   }
-  pwg_set_session_var('sp_picture_deriv', $type);
 }
 
-$this->assign('picture_derivative_params', ImageStdParams::get_by_type(pwg_get_session_var('sp_picture_deriv', IMG_LARGE)));
+$this->assign('picture_derivative_params', ImageStdParams::get_by_type($type));
 $this->assign('thumbnail_derivative_params', ImageStdParams::get_by_type(IMG_SQUARE));
 
 ?>
