@@ -352,6 +352,9 @@ CREATE TABLE `piwigo_user_cache` (
   `cache_update_time` integer unsigned NOT NULL default 0,
   `forbidden_categories` mediumtext,
   `nb_total_images` mediumint(8) unsigned default NULL,
+  `last_photo_date` datetime DEFAULT NULL,
+  `nb_available_tags` INT(5) DEFAULT NULL,
+  `nb_available_comments` INT(5) DEFAULT NULL
   `image_access_type` enum('NOT IN','IN') NOT NULL default 'NOT IN',
   `image_access_list` mediumtext default NULL,
   PRIMARY KEY  (`user_id`)
@@ -416,7 +419,7 @@ CREATE TABLE `piwigo_user_infos` (
   `enabled_high` enum('true','false') NOT NULL default 'true',
   `level` tinyint unsigned NOT NULL default '0',
   `activation_key` char(20) default NULL,
-  UNIQUE KEY `user_infos_ui1` (`user_id`)
+  PRIMARY KEY (`user_id`)
 ) ENGINE=MyISAM;
 
 --

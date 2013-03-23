@@ -459,12 +459,14 @@ DELETE FROM '.USER_CACHE_TABLE.'
       $query = '
 INSERT IGNORE INTO '.USER_CACHE_TABLE.'
   (user_id, need_update, cache_update_time, forbidden_categories, nb_total_images,
+    last_photo_date,
     image_access_type, image_access_list)
   VALUES
   ('.$userdata['id'].',\''.boolean_to_string($userdata['need_update']).'\','
   .$userdata['cache_update_time'].',\''
-  .$userdata['forbidden_categories'].'\','.$userdata['nb_total_images'].',\''
-  .$userdata['image_access_type'].'\',\''.$userdata['image_access_list'].'\')';
+  .$userdata['forbidden_categories'].'\','.$userdata['nb_total_images'].','.
+  (empty($userdata['last_photo_date']) ? 'NULL': '\''.$userdata['last_photo_date'].'\'').
+  ',\''.$userdata['image_access_type'].'\',\''.$userdata['image_access_list'].'\')';
       pwg_query($query);
     }
   }
@@ -678,7 +680,7 @@ function compute_categories_data(&$cats)
  * @param int filter_days number of recent days to filter on or null
  * @return array
  */
-function get_computed_categories($userdata, $filter_days=null)
+function get_computed_categories(&$userdata, $filter_days=null)
 {
   $query = 'SELECT c.id AS cat_id, global_rank';
   // Count by date_available to avoid count null
@@ -702,10 +704,11 @@ FROM '.CATEGORIES_TABLE.' as c
   }
 
   $query.= '
-  GROUP BY c.id, c.global_rank';
+  GROUP BY c.id';
 
   $result = pwg_query($query);
 
+  $userdata['last_photo_date'] = null;
   $cats = array();
   while ($row = pwg_db_fetch_assoc($result))
   {
@@ -713,6 +716,10 @@ FROM '.CATEGORIES_TABLE.' as c
     $row['count_categories'] = 0;
     $row['count_images'] = (int)$row['nb_images'];
     $row['max_date_last'] = $row['date_last'];
+    if ($row['date_last'] > $userdata['last_photo_date'])
+    {
+      $userdata['last_photo_date'] = $row['date_last'];
+    }
 
     $cats += array($row['cat_id'] => $row);
   }
@@ -1515,7 +1522,7 @@ function get_sql_condition_FandF(
           {
             $sql_list[]=$table_prefix.'level<='.$user['level'];
           }
-          else if ( !empty($user['image_access_list']) and !empty($user['image_access_type']) )
+          elseif ( !empty($user['image_access_list']) and !empty($user['image_access_type']) )
           {
             $sql_list[]=$field_name.' '.$user['image_access_type']
                 .' ('.$user['image_access_list'].')';
