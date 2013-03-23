@@ -54,7 +54,7 @@ function ws_std_image_sql_filter( $params, $tbl_name='' )
   $clauses = array();
   if ( is_numeric($params['f_min_rate']) )
   {
-    $clauses[] = $tbl_name.'rating_score>'.$params['f_min_rate'];
+    $clauses[] = $tbl_name.'rating_score>='.$params['f_min_rate'];
   }
   if ( is_numeric($params['f_max_rate']) )
   {
@@ -62,7 +62,7 @@ function ws_std_image_sql_filter( $params, $tbl_name='' )
   }
   if ( is_numeric($params['f_min_hit']) )
   {
-    $clauses[] = $tbl_name.'hit>'.$params['f_min_hit'];
+    $clauses[] = $tbl_name.'hit>='.$params['f_min_hit'];
   }
   if ( is_numeric($params['f_max_hit']) )
   {
@@ -86,7 +86,7 @@ function ws_std_image_sql_filter( $params, $tbl_name='' )
   }
   if ( is_numeric($params['f_min_ratio']) )
   {
-    $clauses[] = $tbl_name.'width/'.$tbl_name.'height>'.$params['f_min_ratio'];
+    $clauses[] = $tbl_name.'width/'.$tbl_name.'height>='.$params['f_min_ratio'];
   }
   if ( is_numeric($params['f_max_ratio']) )
   {
@@ -1977,9 +1977,9 @@ SELECT *
   if (isset($params['tags']) and !empty($params['tags']))
   {
     $tag_ids = array();
-    if (is_array($params[tags]))
+    if (is_array($params['tags']))
     {
-      foreach ($params[tags] as $tag_name)
+      foreach ($params['tags'] as $tag_name)
       {
         $tag_id = tag_id_from_tag_name($tag_name);
         array_push($tag_ids, $tag_id);
