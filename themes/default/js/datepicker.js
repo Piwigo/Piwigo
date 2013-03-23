@@ -16,13 +16,13 @@ function pwg_common_initialization_datepicker(buttonImageName, day, month, year,
   // return if linked_date is valid date
   function is_valid_linked_value(linked_date_name)
   {
-    array_date = $(linked_date_name).val().split('-');
-    return (
-      (array_date.length == 3) &&
-      (array_date[0] != "") &&
-      (array_date[1] != "") && (array_date[1] != "0") &&
-      (array_date[2] != "") && (array_date[2] != "0")
-      )
+		var array_date = $(linked_date_name).val().split('-');
+		return (
+			(array_date.length == 3) &&
+			(array_date[0].length) &&
+			(array_date[1].length) && (array_date[1] != "0") &&
+			(array_date[2].length) && (array_date[2] != "0")
+			)
   }
   
   // Action on change date value
@@ -31,16 +31,16 @@ function pwg_common_initialization_datepicker(buttonImageName, day, month, year,
     pwg_check_date();
     if (checked_on_change != null)
     {
-      $(checked_on_change).attr("checked", "true");
+			$(checked_on_change).prop("checked", true);
     }
   }
 
   // In order to desable element of list
   function pwg_disabled_selection()
   {
-    array_date = $(linked_date).val().split('-');
-    y = array_date[0];
-    m = array_date[1];
+		var array_date = $(linked_date).val().split('-')
+			, y = array_date[0]
+			, m = array_date[1];
 
     // Init list
     $(day + " option").removeAttr("disabled");
@@ -95,7 +95,8 @@ function pwg_common_initialization_datepicker(buttonImageName, day, month, year,
   // Prevent selection of invalid dates through the select controls 
   function pwg_check_date()
   {
-    last_date = $(linked_date).val();
+		var last_date = $(linked_date).val()
+			, cancel=false;
 
     $(linked_date).val(pwg_get_fmt_from_ctrls());
 
@@ -107,14 +108,10 @@ function pwg_common_initialization_datepicker(buttonImageName, day, month, year,
     {
       cancel = ($(max_linked_date).datepicker("getDate") < $(linked_date).datepicker("getDate"));
     }
-    else
-    {
-      cancel = false;
-    }
 
     if (cancel)
     {
-      array_date = last_date.split('-');
+      var array_date = last_date.split('-');
       $(year).val(array_date[0]);
       $(month).val(array_date[1]);
       $(day).val(array_date[2]);
@@ -157,7 +154,7 @@ function pwg_common_initialization_datepicker(buttonImageName, day, month, year,
             }
             else
             {
-              array_date = date.split('-');
+              var array_date = date.split('-');
               $(year).val(array_date[0]);
               $(month).val(array_date[1]);
               $(day).val(array_date[2]);
