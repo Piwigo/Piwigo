@@ -452,10 +452,10 @@ SELECT image_id
 SELECT DISTINCT(id)
   FROM '.IMAGES_TABLE.'
     INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON id = ic.image_id
-  WHERE
-    date_available >= '.pwg_db_get_recent_period_expression($user['recent_period']).'
-    '.$forbidden.'
-  '.$conf['order_by'].'
+  WHERE '
+  .get_recent_photos_sql('date_available').'
+  '.$forbidden
+  .$conf['order_by'].'
 ;';
 
     $page = array_merge(

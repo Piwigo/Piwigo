@@ -826,7 +826,7 @@ SELECT *
     if (pwg_db_num_rows($result) > 0)
     {
       $cache['default_user'] = pwg_db_fetch_assoc($result);
-      
+
       unset($cache['default_user']['user_id']);
       unset($cache['default_user']['status']);
       unset($cache['default_user']['registration_date']);
@@ -1125,13 +1125,13 @@ function pwg_password_hash($password)
   if (empty($pwg_hasher))
   {
     require_once(PHPWG_ROOT_PATH.'include/passwordhash.class.php');
-    
+
     // We use the portable hash feature from phpass because we can't be sure
     // Piwigo runs on PHP 5.3+ (and won't run on an older version in the
     // future)
     $pwg_hasher = new PasswordHash(13, true);
   }
-  
+
   return $pwg_hasher->HashPassword($password);
 }
 
@@ -1160,7 +1160,7 @@ function pwg_password_verify($password, $hash, $user_id=null)
     {
       $check = ($hash == md5($password));
     }
-    
+
     if ($check and isset($user_id) and !$conf['external_authentification'])
     {
       // Rehash using new hash.
@@ -1179,7 +1179,7 @@ function pwg_password_verify($password, $hash, $user_id=null)
   if (empty($pwg_hasher))
   {
     require_once(PHPWG_ROOT_PATH.'include/passwordhash.class.php');
-    
+
     // We use the portable hash feature
     $pwg_hasher = new PasswordHash(13, true);
   }
@@ -1200,11 +1200,11 @@ add_event_handler('try_log_user', 'pwg_login', EVENT_HANDLER_PRIORITY_NEUTRAL, 4
 
 function pwg_login($success, $username, $password, $remember_me)
 {
-  if ($success===true) 
+  if ($success===true)
   {
     return true;
   }
-  
+
   // we force the session table to be clean
   pwg_session_gc();
 
@@ -1231,9 +1231,9 @@ SELECT '.$conf['user_fields']['id'].' AS id,
 function logout_user()
 {
   global $conf;
-  
+
   trigger_action('user_logout', @$_SESSION['pwg_uid']);
-  
+
   $_SESSION = array();
   session_unset();
   session_destroy();
@@ -1552,6 +1552,19 @@ function get_sql_condition_FandF(
   }
 
   return $sql;
+}
+
+/** @return the sql condition to show recent photos/albums based on user preferences and latest available photo.*/
+function get_recent_photos_sql($db_field)
+{
+  global $user;
+  if (!isset($user['last_photo_date']))
+  {
+    return '0=1';
+  }
+  return $db_field.'>=LEAST('
+    .pwg_db_get_recent_period_expression($user['recent_period'])
+    .','.pwg_db_get_recent_period_expression(1,$user['last_photo_date']).')';
 }
 
 /**

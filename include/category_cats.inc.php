@@ -46,7 +46,7 @@ SELECT
 if ('recent_cats' == $page['section'])
 {
   $query.= '
-  WHERE date_last >= '.pwg_db_get_recent_period_expression($user['recent_period']);
+  WHERE '.get_recent_photos_sql('date_last');
 }
 else
 {
@@ -66,9 +66,6 @@ if ('recent_cats' != $page['section'])
   ORDER BY rank';
 }
 
-$query.= '
-;';
-
 $result = pwg_query($query);
 $categories = array();
 $category_ids = array();
@@ -83,43 +80,40 @@ while ($row = pwg_db_fetch_assoc($result))
   {
     $image_id = $row['user_representative_picture_id'];
   }
-  else if (!empty($row['representative_picture_id']))
+  elseif (!empty($row['representative_picture_id']))
   { // if a representative picture is set, it has priority
     $image_id = $row['representative_picture_id'];
   }
-  else if ($conf['allow_random_representative'])
-  {
-    // searching a random representant among elements in sub-categories
+  elseif ($conf['allow_random_representative'])
+  { // searching a random representant among elements in sub-categories
     $image_id = get_random_image_in_category($row);
   }
-  else
+  elseif ($row['count_categories']>0 and $row['count_images']>0)
   { // searching a random representant among representant of sub-categories
-    if ($row['count_categories']>0 and $row['count_images']>0)
+    $query = '
+SELECT representative_picture_id
+  FROM '.CATEGORIES_TABLE.' INNER JOIN '.USER_CACHE_CATEGORIES_TABLE.'
+  ON id = cat_id and user_id = '.$user['id'].'
+  WHERE uppercats LIKE \''.$row['uppercats'].',%\'
+    AND representative_picture_id IS NOT NULL'
+  .get_sql_condition_FandF
+  (
+    array
+      (
+        'visible_categories' => 'id',
+      ),
+    "\n  AND"
+  ).'
+  ORDER BY '.DB_RANDOM_FUNCTION.'()
+  LIMIT 1
+;';
+    $subresult = pwg_query($query);
+    if (pwg_db_num_rows($subresult) > 0)
     {
-      $query = '
-  SELECT representative_picture_id
-    FROM '.CATEGORIES_TABLE.' INNER JOIN '.USER_CACHE_CATEGORIES_TABLE.'
-    ON id = cat_id and user_id = '.$user['id'].'
-    WHERE uppercats LIKE \''.$row['uppercats'].',%\'
-      AND representative_picture_id IS NOT NULL'
-    .get_sql_condition_FandF
-    (
-      array
-        (
-          'visible_categories' => 'id',
-        ),
-      "\n  AND"
-    ).'
-    ORDER BY '.DB_RANDOM_FUNCTION.'()
-    LIMIT 1
-  ;';
-      $subresult = pwg_query($query);
-      if (pwg_db_num_rows($subresult) > 0)
-      {
-        list($image_id) = pwg_db_fetch_row($subresult);
-      }
+      list($image_id) = pwg_db_fetch_row($subresult);
     }
   }
+
 
   if (isset($image_id))
   {
@@ -129,9 +123,9 @@ while ($row = pwg_db_fetch_assoc($result))
     }
 
     $row['representative_picture_id'] = $image_id;
-    array_push($image_ids, $image_id);
-    array_push($categories, $row);
-    array_push($category_ids, $row['id']);
+    $image_ids[] = $image_id;
+    $categories[] = $row;
+    $category_ids[] = $row['id'];
   }
   unset($image_id);
 }
