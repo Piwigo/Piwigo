@@ -1711,4 +1711,42 @@ function email_check_format($mail_address)
     return (bool)preg_match($regex, $mail_address);
   }
 }
+
+/** returns the number of available comments for the connected user */
+function get_nb_available_comments()
+{
+  global $user;
+  if (!isset($user['nb_available_comments']))
+  {
+    $where = array();
+    if ( !is_admin() )
+      $where[] = 'validated=\'true\'';
+    $where[] = get_sql_condition_FandF
+      (
+        array
+          (
+            'forbidden_categories' => 'category_id',
+            'visible_categories' => 'category_id',
+            'visible_images' => 'ic.image_id'
+          ),
+        '', true
+      );
+
+    $query = '
+SELECT COUNT(DISTINCT(com.id))
+  FROM '.IMAGE_CATEGORY_TABLE.' AS ic
+    INNER JOIN '.COMMENTS_TABLE.' AS com
+    ON ic.image_id = com.image_id
+  WHERE '.implode('
+    AND ', $where);
+    list($user['nb_available_comments']) = pwg_db_fetch_row(pwg_query($query));
+
+    single_update(USER_CACHE_TABLE, 
+      array('nb_available_comments'=>$user['nb_available_comments']),
+      array('user_id'=>$user['id'])
+      );
+  }
+  return $user['nb_available_comments'];
+}
+
 ?>

@@ -220,10 +220,10 @@ INSERT INTO '.COMMENTS_TABLE.'
     '.(!empty($comm['email']) ? '\''.$comm['email'].'\'' : 'NULL').'
   )
 ';
-
     pwg_query($query);
-
     $comm['id'] = pwg_db_insert_id(COMMENTS_TABLE);
+
+    invalidate_user_cache_nb_comments();
 
     if ( ($conf['email_admin_on_comment'] && 'validate' == $comment_action)
         or ($conf['email_admin_on_comment_validation'] and 'moderate' == $comment_action))
@@ -283,17 +283,17 @@ DELETE FROM '.COMMENTS_TABLE.'
   WHERE '.$where_clause.
 $user_where_clause.'
 ;';
-  $result = pwg_query($query);
   
-  if ($result) 
+  if ( pwg_db_changes(pwg_query($query)) )
   {
+    invalidate_user_cache_nb_comments();
+
     email_admin('delete', 
                 array('author' => $GLOBALS['user']['username'],
                       'comment_id' => $comment_id
                   ));
+    trigger_action('user_comment_deletion', $comment_id);
   }
-  
-  trigger_action('user_comment_deletion', $comment_id);
 }
 
 /**
@@ -344,7 +344,7 @@ function update_user_comment($comment, $post_key)
     }
     if (!url_check_format($comment['website_url']))
     {
-      array_push($page['errors'], l10n('Your website URL is invalid'));
+      $page['errors'][] = l10n('Your website URL is invalid');
       $comment_action='reject';
     }
   }
@@ -393,7 +393,7 @@ $user_where_clause.'
       );
     }
     // just mail admin
-    else if ($result)
+    elseif ($result)
     {
       email_admin('edit', array('author' => $GLOBALS['user']['username'],
 				'content' => stripslashes($comment['content'])) );
@@ -481,6 +481,19 @@ UPDATE '.COMMENTS_TABLE.'
 ;';
   pwg_query($query);
   
+  invalidate_user_cache_nb_comments();
   trigger_action('user_comment_validation', $comment_id);
 }
+
+
+function invalidate_user_cache_nb_comments()
+{
+  global $user;
+  unset($user['nb_available_comments']);
+  $query = '
+UPDATE '.USER_CACHE_TABLE.'
+  SET nb_available_comments = NULL';
+  pwg_query($query);
+}
+
 ?>

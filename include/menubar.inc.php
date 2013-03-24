@@ -191,14 +191,6 @@ function initialize_menu()
         );
     }
 
-    $block->data['random'] =
-      array(
-        'URL' => get_root_url().'random.php',
-        'TITLE' => l10n('display a set of random photos'),
-        'NAME' => l10n('Random photos'),
-        'REL'=> 'rel="nofollow"'
-      );
-
     $block->data['recent_pics'] =
       array(
         'URL' => make_index_url(array('section' => 'recent_pics')),
@@ -213,6 +205,13 @@ function initialize_menu()
         'NAME' => l10n('Recent albums'),
       );
 
+    $block->data['random'] =
+      array(
+        'URL' => get_root_url().'random.php',
+        'TITLE' => l10n('display a set of random photos'),
+        'NAME' => l10n('Random photos'),
+        'REL'=> 'rel="nofollow"'
+      );
 
     $block->data['calendar'] =
       array(
@@ -246,6 +245,7 @@ function initialize_menu()
         'TITLE' => l10n('display available tags'),
         'NAME' => l10n('Tags'),
         'URL'=> get_root_url().'tags.php',
+        'COUNTER' => get_nb_available_tags(),
       );
 
     // search link
@@ -265,6 +265,7 @@ function initialize_menu()
           'TITLE'=>l10n('display last user comments'),
           'NAME'=>l10n('Comments'),
           'URL'=> get_root_url().'comments.php',
+          'COUNTER' => get_nb_available_comments(),
         );
     }
 

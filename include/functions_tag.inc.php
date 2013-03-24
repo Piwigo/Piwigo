@@ -22,6 +22,21 @@
 // +-----------------------------------------------------------------------+
 
 
+/** returns the number of available tags for the connected user */
+function get_nb_available_tags()
+{
+  global $user;
+  if (!isset($user['nb_available_tags']))
+  {
+    $user['nb_available_tags'] = count(get_available_tags());
+    single_update(USER_CACHE_TABLE, 
+      array('nb_available_tags'=>$user['nb_available_tags']),
+      array('user_id'=>$user['id'])
+      );
+  }
+  return $user['nb_available_tags'];
+}
+
 /**
  * Tags available. Each return tag is represented as an array with its id,
  * its name, its weight (count), its url name. Tags are not sorted.

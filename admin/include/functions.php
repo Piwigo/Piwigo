@@ -1367,6 +1367,7 @@ DELETE
     array_keys($inserts[0]),
     $inserts
     );
+  invalidate_user_cache_nb_tags();
 }
 
 /**
@@ -1397,6 +1398,8 @@ DELETE
   WHERE id IN ('.implode(',', $tag_ids).')
 ;';
   pwg_query($query);
+
+  invalidate_user_cache_nb_tags();
 }
 
 function tag_id_from_tag_name($tag_name)
@@ -1486,6 +1489,8 @@ DELETE
         $inserts
         );
     }
+
+    invalidate_user_cache_nb_tags();
   }
 }
 
@@ -1692,6 +1697,17 @@ UPDATE '.USER_CACHE_TABLE.'
     pwg_query($query);
   }
   trigger_action('invalidate_user_cache', $full);
+}
+
+
+function invalidate_user_cache_nb_tags()
+{
+  global $user;
+  unset($user['nb_available_tags']);
+  $query = '
+UPDATE '.USER_CACHE_TABLE.'
+  SET nb_available_tags = NULL';
+  pwg_query($query);
 }
 
 /**
