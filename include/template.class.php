@@ -46,7 +46,7 @@ class Template {
 
   const COMBINED_CSS_TAG = '<!-- COMBINED_CSS -->';
   var $css_by_priority = array();
-  
+
   var $picture_buttons = array();
   var $index_buttons = array();
 
@@ -602,13 +602,6 @@ class Template {
       }
     }
 
-    // TEMP in 2.5 for backward compatibility
-    if(!empty($params['require']))
-    {
-      $params['require'] = str_replace('jquery.effects.', 'jquery.ui.effect-', $params['require'] );
-      $params['require'] = str_replace('jquery.effects', 'jquery.ui.effect', $params['require'] );
-    }
-
     $this->scriptLoader->add( $params['id'], $load,
       empty($params['require']) ? array() : explode( ',', $params['require'] ),
       @$params['path'],
@@ -691,13 +684,6 @@ var s,after = document.getElementsByTagName(\'script\')[document.getElementsByTa
     $content = trim($content);
     if ( !empty($content) )
     { // second call
-
-      // TEMP in 2.5 for backward compatibility
-      if(!empty($params['require']))
-      {
-        $params['require'] = str_replace('jquery.effects.', 'jquery.ui.effect-', $params['require'] );
-        $params['require'] = str_replace('jquery.effects', 'jquery.ui.effect', $params['require'] );
-      }
 
       $this->scriptLoader->add_inline(
         $content,
@@ -874,17 +860,17 @@ var s,after = document.getElementsByTagName(\'script\')[document.getElementsByTa
     }
     return $themeconfs[$dir];
   }
-  
+
   function add_picture_button($content, $rank)
   {
     $this->picture_buttons[$rank][] = $content;
   }
-  
+
   function add_index_button($content, $rank)
   {
     $this->index_buttons[$rank][] = $content;
   }
-  
+
   function parse_picture_buttons()
   {
     if (!empty($this->picture_buttons))
@@ -895,7 +881,7 @@ var s,after = document.getElementsByTagName(\'script\')[document.getElementsByTa
           $this->concat('PLUGIN_PICTURE_ACTIONS', $content);
     }
   }
-    
+
   function parse_index_buttons()
   {
     if (!empty($this->index_buttons))
@@ -906,7 +892,7 @@ var s,after = document.getElementsByTagName(\'script\')[document.getElementsByTa
           $this->concat('PLUGIN_INDEX_ACTIONS', $content);
     }
   }
-    
+
 }
 
 

@@ -150,7 +150,7 @@ trigger_action('loc_begin_picture');
 function default_picture_content($content, $element_info)
 {
   global $conf;
-  
+
   if ( !empty($content) )
   {// someone hooked us - so we skip;
     return $content;
@@ -377,7 +377,7 @@ UPDATE '.USER_CACHE_CATEGORIES_TABLE.'
           }
           unset($_POST['content']);
         }
-        
+
         $edit_comment = $_GET['comment_to_edit'];
       }
       break;
@@ -773,7 +773,6 @@ if (is_admin())
                   array('action'=>'add_to_caddie')
                ),
       'U_PHOTO_ADMIN' => $url_admin,
-      'U_ADMIN' => $url_admin, // TEMP 2.5 for backward compatibility
       )
     );
 
@@ -986,7 +985,6 @@ if ($conf['picture_menu'] AND (!isset($themeconf['hide_menu_on']) OR !in_array('
 {
   if (!isset($page['start'])) $page['start'] = 0;
   include( PHPWG_ROOT_PATH.'include/menubar.inc.php');
-  if (is_admin()) $template->assign('U_ADMIN', $url_admin); // overwrited by the menu TEMP 2.5 for backward compatibility
 }
 
 include(PHPWG_ROOT_PATH.'include/page_header.php');
