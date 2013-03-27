@@ -309,4 +309,10 @@ $lang['%d comment to validate'] = '%d kommentar for godkjenning';
 $lang['%d comment'] = '%d kommentar';
 $lang['%d albums updated'] = '%d album er oppdatera';
 $lang['%d album updated'] = '%d album er oppdatera';
+$lang['Search by date'] = 'databasekall på';
+$lang['Search for Author'] = 'Søk';
+$lang['Someone requested that the password be reset for the following user account:'] = 'Søk i stikkord';
+$lang['Search tags'] = 'Søk i stikkord';
+$lang['SQL queries in'] = 'databasekall på';
+$lang['Search'] = 'Søk';
 ?>
