@@ -396,7 +396,7 @@ SELECT
     {
       $tags_string = preg_replace(
         '/(\d+)/e',
-        'isset($name_of_tag["$1"]) ? $name_of_tag["$1"] : "$1"',
+        'isset($name_of_tag["$1"]) ? trigger_event("render_tag_name", $name_of_tag["$1"]) : "$1"',
         str_replace(
           ',',
           ', ',
