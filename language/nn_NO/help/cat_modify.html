@@ -1,0 +1,118 @@
+<h2>Endre album</h2>
+
+<h3>Informasjon</h3>
+
+<ul>
+
+  <li><strong>namn</strong>: gje nytt namn til album (ein virtuell namneendring om dette er eit fysisk album).</li>
+
+  <li><strong>Skildring</strong>: kort tekst som gjev ein ide om innhaldet,
+  denne teksten vil visast i botnen av sida med miniatyrbileta.</li>
+
+</ul>
+
+<h3>Flytte</h3>
+
+<p>Om albumet er virtuelt, kan du flytte det. Flytting av album tyder å endre mappe/album det høyrer til.</p>
+
+<h3>Alternativ</h3>
+
+<ul>
+
+  <li><strong>Tilgangstype</strong>: Rettighetshantdering. Om du gjer eit album privat, vil all underalbum og verta private.
+   Om du gjer eit album tilgjengelig for alle, vil alle "foreldrealbum" bli tilgjengelig for alle.</li>
+  <li><strong>Lås</strong>: Albumet og underalbum vil verta midlertidig utilgjengeleg for endringar.</li>
+  <li><strong>Kommentarar</strong>: Autoriser brukarar for å kunne kommentere dette albumet.</li>
+  <li><strong>Autoriser opplastingar</strong>: Autoriser brukerar til å laste opp biletfiler. Dette alternativet er kun tilgjengelig for fysiske (ikke virtuelle) album.</li>
+
+</ul>
+
+<p>Du kan og endre desse alternativa via "eigenskapar" i
+album-menyen (Arkfane <span class="pwgScreen">Last opp</span>, <span
+class="pwgScreen">Kommentarar</span>, <span class="pwgScreen">Lås</span>,
+<span class="pwgScreen">Offentleg/Privat</span>, <span
+class="pwgScreen">Alternativ</span> tilgjengeleg frå <span
+class="pwgScreen">Administrasjon &raquo; Album &raquo; Eigenskapar</span>).</p>
+
+<h3>Sorteringsrekkefylgje</h3>
+
+<p>Bruk standard bilet-sorteringsrekkefylgje.</p>
+
+<p>Indikerer om denne sorteringsrekkefylgja og vil gjelde underalbum.</p>
+
+<p>Velg spesifisera sorteringsrekkefylgje på desse albuma.</p>
+<ul>
+<li><strong>Opprettingsdato</strong>: Dato for når biletet er teke</li>
+<li><strong>Opplastingsdato</strong>: Synkroniseringsdato</li>
+<li><strong>Gjennomsnittleg rangering (*)</strong>: Gjennomsittleg rangering kan bli endra av rangering besøkande gjev</li>
+<li><strong>Mest besøkte (*)</strong>: Det siste besøket kan endre rekkefylgje på mest besøkte</li>
+<li><strong>Filnamn</strong>: Namn som er sett i informasjonsfeltet</li>
+<li><strong>Id</strong>: Intern Id (siste album har ein høgare id enn den før der.</li>
+
+</ul>
+<p><strong>(*)</strong>Advarsel: Ver nøye med å test desse sorteringsrekkefylgjene sjølv, då dei kan gje uventa resultat.</p>
+
+
+<h3>Representantar</h3>
+
+<p>Albumet sin representat er miniatyrbiletet som visast på hovudsida (<span class="pwgScreen">category.php</span>) for å
+representera albumet når det kun inneheld underalbum og ingen bilete direkte(akkurat som et underalbum).</p>
+Bilete frå eit album :</p>
+
+<ul>
+
+  <li><span class="pwgScreen">Biletside</span>: ein av knappane let deg sette gjeldande bilete som representant for gjeldande
+vist album. Knappen er kun synleg for administratorar.</li>
+  <li><span class="pwgScreen">Endre informasjon om eit bilete</span> i
+  administrasjon. Dette skjermbiletet kan nås frå <span
+  class="pwgScreen">picture.php</span> eller <span class="pwgScreen">Batch
+  behandlar</span> i <em>unit modus</em>. Sjå hjelp for dette skjermbildetet for fleire detaljar.</li>
+  <li><span class="pwgScreen">Administrasjon &raquo; Album &raquo; Eigenskapar,
+  Representantar</span>. Sjå hjelpe for dette skjermbildet for meir detaljer.</li>
+  <li><span class="pwgScreen">Endre album</span> (forrige skjermbilete).</li>
+
+</ul>
+
+<p>Valet for en representant avhenger av <code>allow_random_representative</code> konfigurasjons parametere (se <span
+class="filename">include/config_default.inc.php</span>).</p>
+
+<p>I standardmodus (<code>allow_random_representative</code> satt til usant(false)),
+vil kvart album som inneheld minst eit element bli representert av eit sett
+ellement. Når dette er sett (ved oppretting av album), vil representanten kun endrast når ein administrator ber om det.
+Om det representative bildet ikkje passer,
+kan du få eit nytt bilete i<strong>Finn ein ny tilfeldig representant</strong>.</p>
+
+<p>Om <code>allow_random_representative</code> konfigurasjonsparameter er sett til sant (true), kan eit album som bare inneheld bilete ikkje ha nokon representant. Bare bruk <strong>Slett representant</strong>-knappen.</p>
+
+<p>Om albumet inneheld bare underalbum og ingen bilete, kan det bli representert av kva som helst element takket
+være <span class="pwgScreen">Endre informasjon om biletet</span>-skjermbiletet. Det eineste alterantivet på gjeldande skjermbilete
+er <strong>Slett representant</strong>-knappen.</
+
+
+<h3>Link alle albumbilete til eit nytt album</h3>
+
+<ul>
+
+<li><strong>Virtuelle albumnamn</strong>: Namnet på det nye albumet som blir oppretta,
+alle bilete i dette albumet vil bli linket til det nye.</li>
+
+<li><strong>Foreldrealbum</strong>: Kvar det nye albumet vil vera,
+La dette være tomt for å legge det på øvste nivå.</li>
+
+</ul>
+
+<h3>Link alle albumbilete til eksisterande album</h3>
+
+<ul>
+
+<li><strong>Album</strong>: Velg målalbumet som bileta skal knyttast til.</li>
+
+</ul>
+
+<h3>Send en informasjonsmelding til gruppemedlemmer</h3>
+
+<ul>
+
+<li><strong>Gruppe</strong>: mottakar si gruppe</li>
+
+<li><strong>E-postinnhald</strong>: Tekst som skal sendast.</li>
