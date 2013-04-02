@@ -412,10 +412,6 @@ Request format: ".@$this->_requestFormat." Response format: ".@$this->_responseF
         {
           $flags |= WS_PARAM_OPTIONAL;
         }
-        if ( $flags & WS_PARAM_FORCE_ARRAY )
-        {
-          $flags |= WS_PARAM_ACCEPT_ARRAY;
-        }
         $options['flags'] = $flags;
         $params[$param] = $options;
       }
@@ -496,7 +492,7 @@ Request format: ".@$this->_requestFormat." Response format: ".@$this->_responseF
         else if ( array_key_exists('default',$options) )
         {
           $params[$name] = $options['default'];
-          if ( ($flags&WS_PARAM_FORCE_ARRAY) )
+          if ( ($flags&WS_PARAM_FORCE_ARRAY)==WS_PARAM_FORCE_ARRAY )
           {
             $this->makeArrayParam( $params[$name] );
           }
@@ -509,7 +505,7 @@ Request format: ".@$this->_requestFormat." Response format: ".@$this->_responseF
         {
           return new PwgError(WS_ERR_INVALID_PARAM, $name.' must be scalar' );
         }
-        if ( ($flags&WS_PARAM_FORCE_ARRAY) )
+        if ( ($flags&WS_PARAM_FORCE_ARRAY)==WS_PARAM_FORCE_ARRAY )
         {
           $this->makeArrayParam( $the_param );
         }
