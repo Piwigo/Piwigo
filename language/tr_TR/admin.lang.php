@@ -949,4 +949,5 @@ $lang['Please select at least two groups'] = 'En azından iki grup seçin';
 $lang['Rename'] = 'Yeniden adlandır';
 $lang['Purge user cache'] = 'Kullaıcı önbelleğini temizle';
 $lang['The version of %s [%s] installed is not compatible with the version required ']['%s'] = 'Yüklenen %s [%s] sürümü, gereken sürüm [%s] ile uyumlu değildir.';
+$lang['The picture dimensions will be reduced to %dx%d pixels.'] = 'Resim boyutları %dx%d piksele düşürülecektir.';
 ?>
