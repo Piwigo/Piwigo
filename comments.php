@@ -148,8 +148,7 @@ if (isset($_GET['cat']) and 0 != $_GET['cat'])
 if (!empty($_GET['author']))
 {
   $page['where_clauses'][] =
-    'u.'.$conf['user_fields']['username'].' = \''.$_GET['author'].'\'
-     OR author = \''.$_GET['author'].'\'';
+    '(u.'.$conf['user_fields']['username'].' = \''.$_GET['author'].'\' OR author = \''.$_GET['author'].'\')';
 }
 
 // search a specific comment (if you're coming directly from an admin
