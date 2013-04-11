@@ -948,4 +948,5 @@ $lang['Manage the members'] = 'Pārvaldīt biedrus';
 $lang['Merge selected groups'] = 'Sapludināt atlasītās grupas';
 $lang['Duplicate'] = 'Dublikāts';
 $lang['Purge user cache'] = 'Iztīrīt lietotāja kešatmiņu';
+$lang['The picture dimensions will be reduced to %dx%d pixels.'] = 'Attēla izmēri tiks samazināti uz %dx%d pikseļiem. ';
 ?>
