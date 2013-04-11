@@ -943,4 +943,5 @@ $lang['height must be a number superior to'] = 'a altura debe ser un número mai
 $lang['hide details'] = 'agochar detalles';
 $lang['high'] = 'alto';
 $lang['iPhoto is the default photo manager on MacOSX. The Piwigo export plugin let you create new albums and export your photos directly from iPhoto to your Piwigo photo gallery.'] = 'iPhoto é o xestor de fotos predeterminado de MacOSX. O engadido de exportación Piwigo crea novos ábums e exporta túas fotos directamente de iPhoto á túa galería de fotos Piwigo.';
+$lang['The picture dimensions will be reduced to %dx%d pixels.'] = 'As dimensións da imaxe reduciranse a %dx%d pixeis.';
 ?>
