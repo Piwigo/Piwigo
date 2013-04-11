@@ -289,6 +289,8 @@ var sizeLimit = Math.round({$upload_max_filesize} / 1024); /* in KBytes */
 
     <fieldset>
       <legend>{'Select files'|@translate}</legend>
+ 
+    {if isset($original_resize_maxheight)}<p class="uploadInfo">{'The picture dimensions will be reduced to %dx%d pixels.'|@translate|@sprintf:$original_resize_maxwidth:$original_resize_maxheight}</p>{/if}
 
     <p id="uploadWarningsSummary">{$upload_max_filesize_shorthand}B. {$upload_file_types}. {if isset($max_upload_resolution)}{$max_upload_resolution}Mpx{/if} <a class="showInfo" title="{'Learn more'|@translate}">i</a></p>
 
@@ -299,6 +301,8 @@ var sizeLimit = Math.round({$upload_max_filesize} / 1024); /* in KBytes */
 {'Approximate maximum resolution: %dM pixels (that\'s %dx%d pixels).'|@translate|@sprintf:$max_upload_resolution:$max_upload_width:$max_upload_height}
   {/if}
     </p>
+
+
 
 {if $upload_mode eq 'html'}
       <div id="uploadBoxes"></div>

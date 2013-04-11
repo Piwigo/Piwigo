@@ -105,6 +105,18 @@ if (pwg_image::get_library() == 'gd')
   }
 }
 
+//warn the user if the picture will be resized after upload
+if ($conf['original_resize'])
+{
+  $template->assign(
+    array(
+        'original_resize_maxwidth' => $conf['original_resize_maxwidth'],
+        'original_resize_maxheight' => $conf['original_resize_maxheight'],
+      )
+    );
+}
+
+
 $upload_modes = array('html', 'multiple');
 $upload_mode = isset($conf['upload_mode']) ? $conf['upload_mode'] : 'multiple';
 
@@ -255,7 +267,6 @@ if (!isset($_SESSION['upload_hide_warnings']))
         )
       );
   }
-
   $template->assign(
     array(
       'setup_warnings' => $setup_warnings,

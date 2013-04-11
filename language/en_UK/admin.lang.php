@@ -796,6 +796,7 @@ $lang['The original image quality must be a number between %d and %d'] = 'The or
 $lang['The original maximum height must be a number between %d and %d'] = 'The original maximum height must be a number between %d and %d';
 $lang['The original maximum width must be a number between %d and %d'] = 'The original maximum width must be a number between %d and %d';
 $lang['The permalink name must be composed of a-z, A-Z, 0-9, "-", "_" or "/". It must not be numeric or start with number followed by "-"'] = "The permalink name must be composed of a-z, A-Z, 0-9, \"-\", \"_\" or \"/\". It must not be numeric or begin with a number followed by \"-\"";
+$lang['The picture dimensions will be reduced to %dx%d pixels.'] = 'The picture dimensions will be reduced to %dx%d pixels.';
 $lang['The Piwigo export plugin allows you to create albums and export photos.'] = 'The Piwigo export plugin allows you to create albums and export photos.';
 $lang['The Piwigo publish Plug-in allows you to export and synchronize photos from Lightroom directly to your Piwigo photo gallery.'] = 'The Piwigo publish Plug-in allows you to export and synchronize photos from Lightroom directly to your Piwigo photo gallery.';
 $lang['The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form'] = 'The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form';

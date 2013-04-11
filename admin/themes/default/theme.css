@@ -995,6 +995,7 @@ div.token-input-dropdown ul li.token-input-selected-dropdown-item {background-co
 #uploadBoxes {margin-top:20px;}
 #addUploadBox {margin-bottom:2em;}
 
+p.uploadInfo {text-align:left;font-size:90%;color:#999;}
 p#uploadWarningsSummary {text-align:left;margin-bottom:1em;font-size:90%;color:#999;}
 p#uploadWarningsSummary .showInfo {position:static;display:inline;padding:1px 6px;margin-left:3px;}
 p#uploadWarnings {display:none;text-align:left;margin-bottom:1em;font-size:90%;color:#999;}
