@@ -950,4 +950,5 @@ $lang['This group will be set to default'] = 'Questo gruppo sarà impostato sul 
 $lang['No members to manage'] = 'Nessun membro da gestire';
 $lang['Rename'] = 'Rinomina';
 $lang['Purge user cache'] = 'Svuotare la cache utente';
+$lang['The picture dimensions will be reduced to %dx%d pixels.'] = 'Le dimensioni dell\'immagine saranno ridotte a %dx%d pixel.';
 ?>
