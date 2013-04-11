@@ -955,4 +955,5 @@ $lang['Merge selected groups'] = 'Συγχώνευση επιλεγμένων ο
 $lang['Duplicate'] = 'Διπλότυπο';
 $lang['Manage the members'] = 'Διαχειριστείτε τα μέλη';
 $lang['Purge user cache'] = 'Εκκαθάριση cache χρήστη';
+$lang['The picture dimensions will be reduced to %dx%d pixels.'] = 'Το μέγεθος της εικόνας θα μικρίνει κατα  %dx%d pixels.';
 ?>
