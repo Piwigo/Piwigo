@@ -354,7 +354,7 @@ CREATE TABLE `piwigo_user_cache` (
   `nb_total_images` mediumint(8) unsigned default NULL,
   `last_photo_date` datetime DEFAULT NULL,
   `nb_available_tags` INT(5) DEFAULT NULL,
-  `nb_available_comments` INT(5) DEFAULT NULL
+  `nb_available_comments` INT(5) DEFAULT NULL,
   `image_access_type` enum('NOT IN','IN') NOT NULL default 'NOT IN',
   `image_access_list` mediumtext default NULL,
   PRIMARY KEY  (`user_id`)
