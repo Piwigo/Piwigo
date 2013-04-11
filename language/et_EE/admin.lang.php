@@ -951,4 +951,5 @@ $lang['This group will be set to default'] = 'See rühm valitakse vaikerühmaks'
 $lang['Manage the members'] = 'Halda liikmeid';
 $lang['Duplicate'] = 'Tee koopia';
 $lang['Purge user cache'] = 'Tühjenda vahemälu';
+$lang['The picture dimensions will be reduced to %dx%d pixels.'] = 'Pildi mõõtmed kahanetakse %dx%d piksli peale.';
 ?>
