@@ -945,4 +945,5 @@ $lang['This group will be unset to default'] = '該組別不再被使用為預�
 $lang['Type here the name of the new group'] = '在這輸入新的組別名稱'; 
 $lang['View in gallery'] = '以畫廊模式瀏覽'; 
 $lang['Purge user cache'] = '清除用戶快取';
+$lang['The picture dimensions will be reduced to %dx%d pixels.'] = '圖片的尺寸將減少到 %dx%d 像素。';
 ?>
