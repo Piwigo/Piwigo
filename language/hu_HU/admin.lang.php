@@ -954,4 +954,5 @@ $lang['This group will be set to default'] = 'Ez a csoport lesz az alapértelmez
 $lang['This group will be unset to default'] = 'Ez a csoport nem lesz az alapértelmezett';
 $lang['Type here the name of the new group'] = 'Ide írja be az új csoport nevét';
 $lang['Purge user cache'] = 'Felhasználói gyorsítótár ürítése';
+$lang['The picture dimensions will be reduced to %dx%d pixels.'] = 'A kép mérete csökken %dx%d pixel-re.';
 ?>
