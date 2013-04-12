@@ -37,7 +37,7 @@ function pwg_db_connect($host, $user, $password, $database)
 {
   global $mysqli;
 
-  // exemples of $host
+  // $host can be:
   //
   // $host = localhost
   // $host = 1.2.3.4:3405
