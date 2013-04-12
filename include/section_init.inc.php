@@ -578,7 +578,7 @@ if (isset($page['title']))
   {
     if ('picture'==script_basename())
     {
-      $used_link = duplicate_index_url(array('start'=>0));
+      $used_link = duplicate_index_url(array('start'=>0), array('flat'));
     }
     else
     {
