@@ -372,12 +372,12 @@ function analyse_qsearch($q, &$qtokens, &$qtoken_modifiers)
   $qtoken_modifiers = array();
   for ($i=0; $i<count($tokens); $i++)
   {
-    if (strstr($token_modifiers[$i], 'q')===false)
+    if ( !($token_modifiers[$i] & QST_QUOTED) )
     {
       if ( substr($tokens[$i], -1)=='*' )
       {
         $tokens[$i] = rtrim($tokens[$i], '*');
-        $token_modifiers[$i] .= '*';
+        $token_modifiers[$i] |= QST_WILDCARD_END;
       }
     }
     if ( strlen($tokens[$i])==0)
@@ -549,6 +549,8 @@ SELECT t.*, COUNT(image_id) AS counter
       {
         array_splice($token_tag_ids[$i], $j, 1);
         array_splice($token_tag_scores[$i], $j, 1);
+        $j--;
+        continue;
       }
 
       $counter += $all_tags[$tag_id]['counter'];
@@ -560,7 +562,7 @@ SELECT t.*, COUNT(image_id) AS counter
       }
     }
   }
-  
+
   usort($all_tags, 'tag_alpha_compare');
   foreach ( $all_tags as &$tag )
     $tag['name'] = trigger_event('render_tag_name', $tag['name']);
@@ -766,12 +768,14 @@ SELECT DISTINCT(id)
 
   $allowed_images = array_flip( $allowed_images );
   $divisor = 5.0 * count($allowed_images);
-  foreach ($allowed_images as $id=>$rank )
+  foreach ($allowed_images as $id=> &$rank )
   {
     $weight = isset($by_weights[$id]) ? $by_weights[$id] : 1;
     $weight -= $rank/$divisor;
-    $allowed_images[$id] = $weight;
+    $rank = $weight;
   }
+  unset($rank);
+
   arsort($allowed_images, SORT_NUMERIC);
   $search_results['items'] = array_keys($allowed_images);
   return $search_results;
