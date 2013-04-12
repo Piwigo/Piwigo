@@ -949,4 +949,5 @@ $lang['This group will be set to default'] = 'Ця група буде вста�
 $lang['This group will be unset to default'] = 'Ця група буде знята з замовчування';
 $lang['Type here the name of the new group'] = 'Введіть назву нової групи';
 $lang['Purge user cache'] = 'Очистити кеш користувача';
+$lang['The picture dimensions will be reduced to %dx%d pixels.'] = 'Розміри зображення будє зменьшено до %dx%d пікселів';
 ?>
