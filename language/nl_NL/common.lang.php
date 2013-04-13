@@ -22,7 +22,7 @@
 // +-----------------------------------------------------------------------+
 /*
 Language Name: Nederlands [NL]
-Version: 2.5.0
+Version: 2.5.1
 Language URI: http://piwigo.org/ext/extension_view.php?eid=429
 Author: Piwigo team
 Author URI: http://piwigo.org
@@ -54,7 +54,7 @@ $lang['About'] = 'Over';
 $lang['All tags'] = 'Alle label';
 $lang['Any tag'] = 'Elk label';
 $lang['At least one listed rule must be satisfied.'] = 'Op zijn minst moet aan één regel worden voldaan.';
-$lang['Author'] = 'Fotograaf/Maker';
+$lang['Author'] = 'Naam';
 $lang['Albums'] = 'Albums';
 $lang['Album'] = 'Album';
 $lang['Close this window'] = 'Sluit dit venster';
@@ -125,7 +125,7 @@ $lang['add this photo to your favorites'] = 'Voeg deze foto toe aan uw favoriete
 $lang['Administration'] = 'Beheer';
 $lang['all'] = 'alle';
 $lang['ascending'] = 'Oplopend';
-$lang['author(s) : %s'] = 'Fotogra(a)f(en)/Maker(s) : %s';
+$lang['author(s) : %s'] = 'Naam/Namen: %s';
 $lang['Expand all albums'] = 'Toon alle albums';
 $lang['posted after %s (%s)'] = 'geplaatst na %s (%s)';
 $lang['posted before %s (%s)'] = 'geplaatst voor %s (%s)';
@@ -249,7 +249,7 @@ $lang['please enter your password again'] = 'vul uw wachtwoord nogmaals in';
 $lang['Auto login'] = 'Auto login';
 $lang['remove this tag from the list'] = 'Verwijder dit label uit de lijst';
 $lang['representative'] = 'album klikplaatje';
-$lang['Search for Author'] = 'Zoek naar fotograaf/maker';
+$lang['Search for Author'] = 'Zoek naar naam';
 $lang['Search in albums'] = 'Zoeken in albums';
 $lang['Search by date'] = 'Zoeken op datum';
 $lang['Date'] = 'Begindatum';
@@ -285,7 +285,7 @@ $lang['Quick search'] = 'Snel zoeken';
 $lang['Connected user: %s'] = 'Aangemeld als gebruiker: %s';
 $lang['IP: %s'] = 'IP: %s';
 $lang['Browser: %s'] = 'Browser: %s';
-$lang['Author: %s'] = 'Fotograaf/Maker: %s';
+$lang['Author: %s'] = 'Naam: %s';
 $lang['Comment: %s'] = 'Commentaar: %s';
 $lang['Comment by %s'] = 'Commentaar van %s';
 $lang['User: %s'] = 'Gebruiker: %s';
@@ -379,7 +379,7 @@ $lang['Username: %s'] = 'Gebruikersnaam %s';
 $lang['Your username has been successfully changed to : %s'] = 'Uw gebruikersnaam is succesvol gewijzigd in: %s';
 $lang['Show oldest comments first'] = 'Toon oudste commentaren eerst';
 $lang['Show latest comments first'] = 'Toon nieuwste commentaren eerst';
-$lang['Photo sizes'] = 'Foto-groottes';
+$lang['Photo sizes'] = 'Fotoformaat';
 $lang['View in'] = 'Bekijk in';
 $lang['Mobile'] = 'Mobiel';
 $lang['Desktop'] = 'Bureaublad';
@@ -413,4 +413,11 @@ $lang['Username is mandatory'] = 'Gebruikersnaam is verplicht';
 $lang['mandatory'] = 'verplicht';
 $lang['Website'] = 'Website';
 $lang['Your website URL is invalid'] = 'De URL van deze website is ongeldig';
+$lang['day']['0'] = 'zondag';
+$lang['day']['1'] = 'maandag';
+$lang['day']['2'] = 'dinsdag';
+$lang['day']['3'] = 'woensdag';
+$lang['day']['4'] = 'donderdag';
+$lang['day']['5'] = 'vrijdag';
+$lang['day']['6'] = 'zaterdag';
 ?>

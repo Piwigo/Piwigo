@@ -1,0 +1,96 @@
+<h2>Configuración</h2>
+
+<p>Esta pantalla permite ó administrador realizar unha configuración básica da galería. De feito, só se amosan as opcións básicas da configuración as cales deben ser suficientes para a gran maioría dos administradores. Se queres ver os outros numerosos (e avanzados) parámetros de configuración,   lee o ficheiro  de configuración predeterminado <span class="filename">include/config_default.inc.php</span>.</p>
+
+<p>Este pantalla está dividida en diferentes seccións, agrupando os parámetros de configuración por tema.</p>
+
+
+<h3>Principal</h3>
+<ul>
+  <li><strong>Título da galería</strong>: usado no alimentador RSS e por notificacións de correo electrónico.</li>
+
+  <li><strong>Cartel da páxina</strong>: amosado na parte de arriba de cada unha das páxinas públicas.</li>
+
+  <li><strong>URL da galería</strong>: usado para as semente RSS.</li>
+
+  <li><strong>Bloqueo da galería</strong>: bloquea a galería por completo para o mantemento. Só poderán acceder á galería para o mantemento os usuarios administradores.</li>
+
+  <li><strong>Valoración</strong>: activase a funcionalidade de valoración.</li>
+
+  <li><strong>Valoración por invitados</strong>: os usuarios aínda non rexistrados poden valorar as imaxes.</li>
+
+  <li><strong>Permitir o rexistro ós usuarios</strong>: calquera pode rexistrarse.</li>
+
+  <li><strong>Enderezo de correo obrigatorio para tódolos usuarios</strong>: o enderezo de correo electrónico será comprobado no rexistro ou actualización do perfil, exceptuase cando a acción é realizada por un administrador.</li>
+
+  <li><strong>Notificar mediante correo ós administradores cando se rexistra un novo usuario</strong>: notificarase ós administradores cada vez que produza un rexistro.</li>
+  
+  <li><strong>Orde predeterminado das fotos</strong>: podes establecer unha orde predeterminada cos menús despregables.</li>
+
+</ul>
+
+<h3>Histórico</h3>
+
+  <p>Visitas nas páxinas <span
+  class="pwgScreen">category.php</span> e <span
+  class="pwgScreen">picture.php</span> hase gardar na táboa <code>history</code>.</p>
+  
+  <p>Amosaranse as visitas en <span  class="pwgScreen">Administration &raquo; Tools &raquo; History</span>.</p>
+
+<ul>
+  <li><strong>Gardar as páxinas visitadas polos invitados</strong>: lembraranse as páxinas visitadas polos usuarios sen identificar.</li>
+
+  <li><strong>Gardar as páxinas visitadas polos usuarios</strong>: lembraranse as páxinas visitadas polos usuarios rexistrados.</li>
+
+  <li><strong>Gardar páxinas visitadas polos administradores</strong>: lembraranse as páxinas visitadas polos administradores.</li>
+
+</ul>
+
+<h3>Comentarios</h3>
+<ul>
+
+  <li><strong>Comentarios para todos</strong>: mesmo os invitados poden enviar comentarios.</li>
+
+  <li><strong>Número de comentarios por páxina</strong>.</li>
+
+  <li><strong>Validación</strong>: un administrador debe validar os comentarios dos usuarios antes de que poidan ser visibles no sitio. A validación dos comentarios dos usuarios faise na pantalla <span class="pwgScreen">Administración &raquo; Ferramentas &raquo; Comentarios pendentes</span>.</li>
+
+  <li><strong>Correo electrónico ós administradores cando se insire un comentario válido</strong>: envía un correo electrónico ós administradores cando un usuario insire un comentario e este comentario é validado.</li>
+
+  <li><strong>Correo electrónico ós administradores cando un comentario require de validación</strong>: envía un correo electrónico ós administradores cando un usuario insire un comentario que require a validación dun administrador.
+A validación dos comentarios dos usuarios faise na pantalla <span class="pwgScreen">Administración &raquo; Ferramentas &raquo; Comentarios pendentes</span>.</li>
+
+</ul>
+
+<h3>Vista predeterminada</h3>
+
+<p>Aquí podes mudar as opcións da vista usada polos invitados, usuario predeterminado que non se conectou. Unha vez que se conecte, estas opcións serán substituídas polas propias opcións do usuario (modificable no <span class="pwgScreen">perfil</span>).</p>
+
+<p>É posible mudar as opcións da vista para todos os usuarios existentes na pantalla <span class="pwgScreen">Administración &raquo;
+Usuarios &raquo; Xestión </span> onde podes seleccionar unha lista de usuarios.</p>
+
+<ul>
+
+  <li><strong>Idioma</strong>: só se aplica as etiquetas de Piwigo. Non se localizan os nomes dos álbums nin os campos das descricións.</li>
+
+  <li><strong>Número de fotos por liña</strong></li>
+
+  <li><strong>Número de fotos por páxina</strong></li>
+
+  <li><strong>Tema da interface</strong></li>
+
+  <li><strong>Período recente</strong>: En dias. Período durante o cal unha foto é amosada como nova. Debe ser superior a un día.</li>
+
+  <li><strong>Expande tódolos álbums</strong>: de xeito predeterminado expande tódolos álbums no menú <em>Aviso</em>: esta opción pode consumir os recursos de xeito intensivo e xerar un enorme menú se a árbore ten moitos álbums.</li>
+
+  <li><strong>Amosar o número de comentarios</strong>: amosa o número de comentarios de cada foto na páxina de miniaturas. Isto produce un uso intensivo de recursos.</li>
+
+  <li><strong>Amosar a conta de accesos</strong>: amosa o número de veces que se ollou unha foto como miniatura na páxina de miniaturas. Só cando o parámetro de configuración avanzada é: <br>
+  $conf['show_nb_hits'] = true; <br>
+  Nota: por defecto é false.</li>
+
+  <li><strong>Largura máxima das fotos</strong>: máxima largura a amosar. As fotos con máis largura que o establecido serán redimensionadas na pantalla.  Mellor que escoller esta opción, podes considerar a modificación da largura das fotos, o que sería unha mellor práctica.</li>
+
+  <li><strong>Altura máxima das fotos</strong>: o mesmo que para a configuración da largura máxima.</li>
+
+</ul>

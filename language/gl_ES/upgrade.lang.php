@@ -36,5 +36,5 @@ $lang['Only administrator can run upgrade: please sign in below.'] = 'Só o admi
 $lang['In <i>%s</i>, before <b>?></b>, insert:'] = 'En <i>%s</i>, antes de <b>?></b>, insira:';
 $lang['As a precaution, following plugins have been deactivated. You must check for plugins upgrade before reactiving them:'] = 'Por precaución, os seguintes engadidos foron desactivados. Tes que comprobar se teñen actualización antes de reactivalos:';
 $lang['As a precaution, following themes have been deactivated. You must check for themes upgrade before reactiving them:'] = 'Por precaución, os seguintes temas foron desactivados. Tes que comprobar se teñen actualización antes de reactivalos:';
-$lang['All sub-albums of private albums become private'] = 'Todos os sub-álbums de álbums privados tórnanse privados';
+$lang['All sub-albums of private albums become private'] = 'Tódolos sub-álbums de álbums privados tórnanse privados';
 ?>

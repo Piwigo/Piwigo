@@ -24,109 +24,101 @@
 всички под албуми стават частни. Ако направите албума публичен, 
 всички под албуми стават публични.</li>
 
-  <li><strong>Lock</strong>: The album and its sub-albums will
-  be temporary disabled for maintenance.</li>
+  <li><strong>Заключване </strong>: Албума и под-албумите
+  са временно извън подръжка.</li>
 
-  <li><strong>Comments</strong>: Authorize users to comment photos of this
-  album.</li>
+  <li><strong>Коментари</strong>: Разрешаване на потребителите да коментират снимки в този
+  албум.</li>
 
 </ul>
 
-<p>You can also manage these options on the "Properties"
-management screen (screens <span
-class="pwgScreen">Comments</span>, <span class="pwgScreen">Lock</span>,
-<span class="pwgScreen">Public/Private</span>, <span
-class="pwgScreen">Representative</span> available from <span
-class="pwgScreen">Administration &raquo; Albums &raquo; Properties</span>).</p>
+<p>Също можете да управлявате тези опции от страницата "Properties"
+(страници <span
+class="pwgScreen">Коментари</span>, <span class="pwgScreen">Заключено</span>,
+<span class="pwgScreen">Публично/Частно</span>, <span
+class="pwgScreen">Представително</span> Налично от <span
+class="pwgScreen">Администрация &raquo; Албуми &raquo; Опции </span>).</p>
 
-<h3>Sort order</h3>
+<h3>Подреди опции </h3>
 
-<p>Use the default images sort order.</p>
+<p>Използвай зададените снимки подреди ред.</p>
 
-<p>Indicate whether this sort order will apply to subalbums also.</p>
+<p>Посочете дали този ред важи и за всички подалбуми. </p>
 
-<p>Select specific sorting criteria to be used with this album.</p>
+<p>Изберете специфичен критерии за подредба, приложим за този албум.</p>
 <ul>
-<li><strong>Creation date</strong>: Photo shooting date</li>
-<li><strong>Post date</strong>: Synchronization date</li>
-<li><strong>Average rate (*)</strong>: Average rate could be changed by the visitor rating</li>
-<li><strong>Most visited (*)</strong>: The current visit might change the most visited order</li>
-<li><strong>File name</strong>: Name given in information field</li>
-<li><strong>Id</strong>: Internal Id (recent categories have an higher id than previous ones.</li>
+<li><strong>Дата на създаване</strong>: Фото Дата на снимане</li>
+<li><strong>Дата на постване</strong>: Синхронизация дата</li>
+<li><strong>Среден рейт (*)</strong>:Средният рейт може да бъде променян в зависимост от оценките на потребителите</li>
+<li><strong>Най-посещавани(*)</strong>:Натоящото посещение може да промени реда на най-посещавани </li>
+<li><strong>Име на файла</strong>: Име,посочено в информационното поле</li>
+<li><strong>Идентификация</strong>:Вътрешна идентификация(скоро създадени/посетени категории имат по-високо id от по-старите такива)</li>
 
 </ul>
-<p><strong>(*)</strong>Warning: Be sure to test these sort orders by yourself as they can give unexpected results.</p>
+<p><strong>(*)</strong>Внимание:Прегледайте този ред на подредба,тъй като може да даде неочаквани резултати .</p>
 
 
-<h3>Representant</h3>
+<h3>Представител</h3>
 
-<p>The album representative is the thumbnail displayed on the main page (<span class="pwgScreen">category.php</span>) to represent
-the album when
-it contains only sub-albums and no direct photo (just as the root album).</p>
-photo of a album :</p>
+<p>Представителната икона за албума, съвпада с тази,показана на главната страница(<span class="pwgScreen">category.php</span>) да представя албума,когато той съдържа само подалбуми и никакви директни сними (както в началния албум).</p>
+снимка на албума :</p>
 
 <ul>
 
-  <li><span class="pwgScreen">Photo page</span>: one of the action buttons let you set the current photo as the representative for the
-  displayed album. This button is available only for administrators.</li>
+  <li><span class="pwgScreen">Photo page</span>:един от бутоните ви позволява да направите настоящата снимка представителна за албума.Този бутон е активен само за администратори.</li>
 
-  <li><span class="pwgScreen">Modify informations about a photo</span> in
-  administration. This screen can be reached from <span
-  class="pwgScreen">picture.php</span> or <span class="pwgScreen">Batch
-  management</span> in <em>unit mode</em>. See the help of this screen for
-  details.</li>
+  <li><span class="pwgScreen">Промени информацията за снимката</span> в администрацията. До това поле може да се достигне чрез <span
+  class="pwgScreen">picture.php</span> или <span class="pwgScreen">Batch
+  management</span> in <em>unit mode</em>.Вижте помощното менщ за повече информация</li>
+ 
+  <li><span class="pwgScreen">Администрация &raquo; Албуми&raquo; Опции,
+ Представител</span>.Вижте помощното менщ за повече информация.</li>
 
-  <li><span class="pwgScreen">Administration &raquo; Albums &raquo; Properties,
-  Representative</span>. See the help of this screen for details.</li>
-
-  <li><span class="pwgScreen">Edit album</span> (the present screen).</li>
+  <li><span class="pwgScreen"Промени настройките на албума</span> (the present screen).</li>
 
 </ul>
 
-<p>The choice of a representative depends on the 
-<code>allow_random_representative</code> configuration parameter (see <span
+<p>Изборът на представителна снимка зависи от
+<code>allow_random_representative</code> параметрите на конфигурация(see <span
 class="filename">include/config_default.inc.php</span>).</p>
 
-<p>In default mode (<code>allow_random_representative</code> set to false),
-each album containing at least one element is represented by a fixed
-element. Once set (at album creation), the representative changes only
-when an administrator ask for it. If the representative is not appropriate,
-you can ask to <strong>Find a new representant by random</strong>.</p>
+<p>В настоящият модел (<code>allow_random_representative</code> set to false),
+всеки албум,съдържащ поне един елемент е представен от сборен такъв.Веднъж настроен (при създаването на албума), предтсавителната снимка се променя само
+когато администраторът пожелае това. Ако представителната снимка не е подходяща,
+може да пожелаете да  <strong>бъде намерена нова произвелна представителна снимка</strong>.</p>
 
 <p>If the <code>allow_random_representative</code> configuration parameter is
 set to true, a category containing photos may have no fixed
 representant. Just use <strong>Delete representant</strong> button.</p>
 
-<p>If the album contains only sub-albums and no photo, it can nonetheless be represented by any element thanks to <span class="pwgScreen">Modify
-informations about a photo</span> screen. The only option on the current screen
-is the <strong>Delete representant</strong> button.</p>
+<p>Ако албумът съдържа само подалбуми и никакви снимки, може да бъде предтавен от произволен елемент <span class="pwgScreen">Промени информацията за снимка</span> екран. Единствената опция в настоящето поле е  <strong>Изтрий предтавителна снимка </strong> бутон.</p>
 
-<h3>Link all album photos to a new album</h3>
+<h3>Обвържете всички снимки опт албума с нов албум</h3>
 
 <ul>
 
-<li><strong>Virtual album name</strong>: Name of the new album to be created, 
-all photos of the current category will be linked to the new one.</li>
+<li><strong>Виртуално име на албума</strong>:Име на новосъздадения албум, 
+всички снимки от настоящата категория ще бъдат обвързани с новия албум.</li>
 
-<li><strong>Parent album</strong>: Where the new album will be, 
-leave empty to create it at root.</li>
+<li><strong>Албум майка</strong>: Където ще се намира новият албум, 
+оставете празно място.</li>
 
 </ul>
 
-<h3>Link all album photos to existing albums</h3>
+<h3>Връзка на всички албуми със снимки на съществуващите албуми</h3>
 
 <ul>
 
-<li><strong>Албуми</strong>: Choose the destination album.</li>
+<li><strong>Албуми</strong>: Изберете дестинацията на албума.</li>
 
 </ul>
 
-<h3>Send an information email to group members</h3>
+<h3>Изпрати имейл с информация за членовете на групата</h3>
 
 <ul>
 
-<li><strong>Group</strong>: recipients group</li>
+<li><strong>Група</strong>: Група получатели</li>
 
-<li><strong>Mail content</strong>: Free text to send to them.</li>
+<li><strong>Mail съдържание</strong>: Свободен текст, за да изпрати на тях.</li>
 
 </ul>  

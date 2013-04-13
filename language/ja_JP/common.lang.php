@@ -22,7 +22,7 @@
 // +-----------------------------------------------------------------------+
 /*
 Language Name: 日本語 [JP]
-Version: 2.5.0
+Version: 2.5.1
 Language URI: http://piwigo.org/ext/extension_view.php?eid=425
 Author: Piwigo team
 Author URI: http://piwigo.org
@@ -411,4 +411,9 @@ $lang['Permalink for album not found'] = 'このエントリーのアルバム�
 $lang['Piwigo encountered a non recoverable error'] = 'Piwigoは、回復不能エラーが発生しました';
 $lang['Requested album does not exist'] = '要求されたアルバムは存在しません。';
 $lang['Requested tag does not exist'] = '要求されたタグは存在しません。';
+$lang['Email address is mandatory'] = '電子メールアドレスは必須です';
+$lang['Username is mandatory'] = 'ユーザー名は必須です';
+$lang['Website'] = 'ウェブサイト';
+$lang['Your website URL is invalid'] = 'あなたのウェブサイトのURLが無効です';
+$lang['mandatory'] = '必須';
 ?>

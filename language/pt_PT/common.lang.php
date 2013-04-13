@@ -22,7 +22,7 @@
 // +-----------------------------------------------------------------------+
 /*
 Language Name: Português [PT]
-Version: 2.5.0
+Version: 2.5.1
 Language URI: http://piwigo.org/ext/extension_view.php?eid=432
 Author: Piwigo team
 Author URI: http://piwigo.org
@@ -53,24 +53,24 @@ $lang['%d new users'] = '%d novos utilizadores ';
 $lang['About'] = 'Sobre';
 $lang['All tags'] = 'Todas as etiquetas';
 $lang['Any tag'] = 'Qualquer etiqueta';
-$lang['At least one listed rule must be satisfied.'] = 'No mínimo, um dos critérios deverá ser satisfeito.';
+$lang['At least one listed rule must be satisfied.'] = 'No m�nimo, um dos crit�rios dever� ser satisfeito.';
 $lang['Author'] = 'Autor';
 $lang['Albums'] = 'Albuns';
 $lang['Album'] = 'Album';
 $lang['Close this window'] = 'Fechar a janela';
-$lang['Complete RSS feed (photos, comments)'] = 'RSS completo (fotos e comentários)';
+$lang['Complete RSS feed (photos, comments)'] = 'RSS completo (fotos e coment�rios)';
 $lang['Confirm Password'] = 'Confirmar a senha';
-$lang['Connection settings'] = 'Definições de ligação';
+$lang['Connection settings'] = 'Defini��es de liga��o';
 $lang['Login'] = 'Entrar';
 $lang['Contact webmaster'] = 'Contactar o webmaster';
 $lang['Create a new account'] = 'Abrir uma conta nova';
 $lang['Created on'] = 'Aberta em';
 $lang['Creation date'] = 'Data de abertura';
-$lang['Current password is wrong'] = 'A Senha actual está errada';
-$lang['Dimensions'] = 'Dimensões';
+$lang['Current password is wrong'] = 'A Senha actual est� errada';
+$lang['Dimensions'] = 'Dimens�es';
 $lang['Display'] = 'Mostrar';
-$lang['Each listed rule must be satisfied.'] = 'Todos os critérios listados devem ser satisfeitos';
-$lang['Email address is missing. Please specify an email address.'] = 'Esqueceu o endereço de email. Por favor indique um email.';
+$lang['Each listed rule must be satisfied.'] = 'Todos os crit�rios listados devem ser satisfeitos';
+$lang['Email address is missing. Please specify an email address.'] = 'Esqueceu o endere�o de email. Por favor indique um email.';
 $lang['Email address'] = 'Endereço de email';
 $lang['Enter your personnal informations'] = 'Introduza os seus dados pessoais';
 $lang['Error sending email'] = 'Erro durante o envio do email';
@@ -105,7 +105,7 @@ $lang['Reset'] = 'Recomeçar';
 $lang['Retrieve password'] = 'Recuperar a Senha';
 $lang['Search rules'] = 'Critérios de pesquisa';
 $lang['Search tags'] = 'Pesquisar as estiquetas';
-$lang['Search'] = 'pesquisar';
+$lang['Search'] = 'Pesquisar';
 $lang['display available tags'] = 'Mostrar etiquetas disponíveis';
 $lang['Since'] = 'Desde ';
 $lang['Sort by'] = 'Ordenar por';
@@ -150,10 +150,10 @@ $lang['An administrator must authorize your comment before it is visible.'] = 'U
 $lang['This login is already used by another user'] = 'Esta entrada já é usada por outro utilizador.';
 $lang['Comments'] = 'Comentários';
 $lang['Add a comment'] = 'Adicionar um comentário';
-$lang['created after %s (%s)'] = 'Feito depois de %s (%s)';
-$lang['created before %s (%s)'] = 'Feito antes de %s (%s)';
-$lang['created between %s (%s) and %s (%s)'] = 'Feito entre  %s (%s) e  %s (%s)';
-$lang['created on %s'] = 'Feito em %s';
+$lang['created after %s (%s)'] = 'Criado depois de %s (%s)';
+$lang['created before %s (%s)'] = 'Criado antes de %s (%s)';
+$lang['created between %s (%s) and %s (%s)'] = 'Criado entre  %s (%s) e  %s (%s)';
+$lang['created on %s'] = 'Criado em %s';
 $lang['Customize'] = 'Personalizar';
 $lang['Your Gallery Customization'] = 'Personalização da sua galeria';
 $lang['day'][0] = 'Domingo';
@@ -196,6 +196,10 @@ $lang['last %d days'] = '%d últimos dias';
 $lang['Last'] = 'Última página';
 $lang['Logout'] = 'Sair';
 $lang['obligatory'] = 'mandatário';
+
+
+
+
 $lang['display a calendar by creation date'] = 'Mostra um calendário ordenado pela data de criação';
 $lang['display all photos in all sub-albums'] = 'Mostra todas as fotos em todos os sub-albuns';
 $lang['return to normal view mode'] = 'Voltar ao modo normal de visionamento';
@@ -231,7 +235,7 @@ $lang['Show file metadata'] = 'Mostrar os metadados do arquivo.';
 $lang['Powered by'] = 'Powered by';
 $lang['Preferences'] = 'Preferências';
 $lang['Previous'] = 'Prévia';
-$lang['Random photos'] = 'Fotos aliatórias';
+$lang['Random photos'] = 'Fotos aleatórias';
 $lang['display a set of random photos'] = 'Exibir um conjunto aleatório de fotos';
 $lang['Recent albums'] = 'Albuns recentes';
 $lang['display recently updated albums'] = 'Exibir albums actualizados recentemente.';
@@ -274,7 +278,7 @@ $lang['return to the display of all photos'] = 'Voltar a visionar todas as fotos
 $lang['the beginning'] = 'O começo';
 $lang['Interface theme'] = 'Tema';
 $lang['Thumbnails'] = 'Miniaturas';
-$lang['Menu'] = 'Menú';
+$lang['Menu'] = 'Menu';
 $lang['A comment on your site'] = 'Um comentário no seu sitio';
 $lang['today'] = 'hoje';
 $lang['Update your rating'] = 'Actualizar a sua classificação';
