@@ -956,4 +956,5 @@ $lang['This group will be set to default'] = 'Diese Gruppe wird als Standard ver
 $lang['This group will be unset to default'] = 'Dies Gruppe wird nicht länger als Standard verwendet';
 $lang['Type here the name of the new group'] = 'Name der neuen Gruppe hier eingeben';
 $lang['Purge user cache'] = 'Benutzer cache löschen';
+$lang['The picture dimensions will be reduced to %dx%d pixels.'] = 'Die Bildgröße wird auf %dx%d Pixel reduziert.';
 ?>
