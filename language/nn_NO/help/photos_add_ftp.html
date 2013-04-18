@@ -1,0 +1,66 @@
+<fieldset>
+  <legend>Kvikkstart</legend>
+
+<ol>
+  <li>Lag ei mappe på din datamaskin.</li>  
+
+  <li>Kopier nokre bilete til denne mappa, skaler dei for vising på web. <em>Varsel</em>: namn på mapper og filer kan bare innehalde bokstavar (a - z, A - Z), tal, "-", "_" or ".". Ikkje bruk mellomrom eller spesielle tegn.</li>
+
+  <li>Med ein FTP-klient, kopier mappa til "galleries" mappa i din Piwigo installasjon.</li>
+
+  <li>Logg inn på ditt galleri og gå til <span class="pwgScreen">Administrasjon</span> og klikk på den store Synkronisering-knappen.</li>
+</ol>
+
+<p>Gratulere! Du har nå laga ditt fyrste album i biletgalleriet.</p>
+</fieldset>
+
+<fieldset>
+  <legend>Organisering av mapper og filer</legend>
+
+<ul>
+
+  <li>
+
+    <p>Albummapper er i Piwigo-mappa
+    "galleries". Her er mappestrukturen for eit lite galleri (men med bruk av mange funksjonar):</p>
+
+    <pre>
+galleries
+|-- bryllaup
+|   |-- vielse
+|   |   |-- mottaking
+|   |   |   |-- olav-aleine.jpg
+|   |   |   +-- kari-aleie.jpg
+|   |   +-- avreise
+|   |       +-- olav-og-kari.jpg
+|   +-- fest
+|       |-- dansarar001.jpg
+|       |-- dansarar002.jpg
+|       +-- dansarar003.jpg
++-- bryllaupsreise
+    |-- hotell.png
+    |-- video-fraa-fly.avi
+    +-- pwg_representative
+        +-- video-fraa-fly.jpg
+</pre>
+
+  </li>
+
+  <li>Bortsett frå "pwg_representative" (sjå forklaring under), vil kvar mappe under "galleries" lage eit album. Det er ingen avgrensing på djubde.</li>
+
+  <li>Som utgangspunkt er eit element representera av ei file. Ei fil kan vera eit
+  Piwigo element om filtypa er blant <code>file_ext</code>
+  konfigurasjons-eigenskapan (sjå <span
+  class="filename">include/config_default.inc.php</span> file). Ei fil kan vera eit bilete om filtypa
+  er blant <code>picture_ext</code>
+  konfigurasjons-eigenskapan.</li>
+
+  <li>Ingen bilet-element (video, lyd, tekstfiler, eller kva som helst...) er som standard vist med eit ikon som samsvarar med filtypa. Valfritt, kan du knytte til ei miniatyrbilete og ein representatnt--fil til ei fil (sjå video.avi i dømet over).</li>
+
+  <li><em>Varsel</em>: namn på mapper og filer kan bare innehalde bokstavar (a - z, A - Z), tal, "-", "_" or ".". Ikkje bruk mellomrom eller spesielle tegn.</li>
+
+  <li>Når bilete er plassera korrekt i mapper, gå til: <span class="pwgScreen">Administrasjon &raquo; Verktøy &raquo;
+  Synkroniser</span></li>
+
+</ul>
+</fieldset>
