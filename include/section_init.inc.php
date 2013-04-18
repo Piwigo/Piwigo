@@ -570,21 +570,14 @@ if (isset($page['chronology_field']))
 // title update
 if (isset($page['title']))
 {
+  $page['section_title'] = '<a href="'.get_gallery_home_url().'">'.l10n('Home').'</a>';
   if (!empty($page['title']))
-	{
-    $page['section_title'] = '<a href="'.get_gallery_home_url().'">'.l10n('Home').'</a>'.$conf['level_separator'].$page['title'];
-	}
+  {
+    $page['section_title'] .= $conf['level_separator'].$page['title'];
+  }
   else
   {
-    if ('picture'==script_basename())
-    {
-      $used_link = duplicate_index_url(array('start'=>0), array('flat'));
-    }
-    else
-    {
-      $used_link = get_gallery_home_url();
-    }
-    $page['section_title'] = $page['title'] = '<a href="'.$used_link.'">'.l10n('Home').'</a>';
+    $page['title'] = $page['section_title'];
   }
 }
 
