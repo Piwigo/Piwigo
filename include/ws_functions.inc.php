@@ -2620,7 +2620,17 @@ SELECT *
   // and now, let's create tag associations
   if (isset($params['tag_ids']))
   {
-    $tag_ids = explode(',', $params['tag_ids']);
+    $tag_ids = array();
+
+    foreach (explode(',', $params['tag_ids']) as $candidate)
+    {
+      $candidate = trim($candidate);
+
+      if (preg_match(PATTERN_ID, $candidate))
+      {
+        $tag_ids[] = $candidate;
+      }
+    }
 
     if ('replace' == $params['multiple_value_mode'])
     {
