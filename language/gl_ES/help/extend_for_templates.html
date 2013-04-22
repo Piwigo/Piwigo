@@ -1,0 +1,51 @@
+<h2>Configuración para estender os temas</h2>
+
+<h3>Sobre</h3>
+<p>A galería Piwigo pódese personalizar substituíndo os ficheiros do tema con versións personalizadas. Por exemplo, a cabeceira predeterminada do tema (header.tpl) pódese substituír por un tema de cabeceira personalizado (my-header.tpl).  Despois de enviar os cambios á base de datos a galería amosará a cabedeira personalizada no canto da orixinal.<br>
+As extensións dos temas son un xeito poderoso de crear temas personalizados tanto para usuarios noveis como os avanzados. Empregado xunto co editor de ficheiros locais podes crear teus propios temas fillo.</p>
+
+<h3>Tema orixinal</h3>
+<p>O tema contén un número de ficheiros de tema que compoñen as páxinas da galería. Estes son os temas orixinais.</p>
+
+<h3>Palabra chave URL opcional</h3>
+<p>Estas son palabras atopadas no URL da galería despois do módulo nome. Esta poden ser ligazóns permanentes activos (Ver a documentación das ligazóns permanentes para máis información).  <a href="#warnings">Aviso:</a> se o mesmo tema orixinal e mesma palabra chave é empregada en máis dun tema personalizado, só estará activo o último.</p>
+
+<h3>Bound Theme</h3>
+<p>The bound theme is the theme from which the template files are being replaced.</p>
+
+<h3>Where are the original templates?</h3>
+<p>Original templates are the template files shipped with each theme.  These are saved in <em>/themes/default/template</em> (or <em>themes/<theme name>/template</em>).  These template files should not be edited in place as changes will be lost with theme upgrades.<br>
+Supported original templates include:</p>
+<ul>
+  <li><span class="filename">index.tpl</span></li>
+  <li><span class="filename">mainpage_categories.tpl</span> and/or <span class="filename">thumbnails.tpl</span></li>
+  <li><span class="filename">menubar.tpl</span></li>
+  <li><span class="filename">header.tpl</span> and/or <span class="filename">footer.tpl</span></li>
+  <li><span class="filename">picture_content.tpl</span> and/or <span class="filename">picture.tpl</span></li>
+  <!-- <li><span class="filename">slideshow.tpl</span></li> -->
+  <li><span class="filename">profile.tpl</span> and/or <span class="filename">profile_content.tpl</span></li>
+  <li><span class="filename">tags.tpl</span></li>
+  <li><span class="filename">upload.tpl</span></li>
+  <li><span class="filename">about.tpl</span></li>
+  <li><span class="filename">popuphelp.tpl</span></li>
+  <li><span class="filename">search.tpl</span> and/or <span class="filename">search_rules.tpl</span></li>
+  <li><span class="filename">nbm.tpl</span> and/or <span class="filename">notification.tpl</span></li>
+  <li><span class="filename">identification.tpl</span> and/or <span class="filename">register.tpl</span></li>
+  <li><span class="filename">redirect.tpl</span></li>
+</ul>
+<h3>Saving customised templates</h3>
+<p>Customised templates should be saved in the template-extension folder or subfolders.  For example, <em>/template-extension/my-default/header.tpl</em> (or <em>/template-extension/<my-theme-name>/header.tpl</em>)  Template files can have any name with a .tpl extension.  The template files in subfolders appear in the Template configuration screen as available custom templates.</p>
+<h3>Activating customised templates</h3>
+<p>Select the original template to replace.  Optionally choose a URL keyword to ensure that the customised template is only shown on pages with that keyword.  Select a bound theme and the changes will be effective on that theme.  Submit the changes to the database.</p>
+<h3>Deactivating customised templates</h3>
+<p>Unselect the original template and submit the changes to the database.<br>
+Delete the customised template files from the template-extension folder.</p>
+
+<a name="warnings"></a>
+<h3>Warnings</h3>
+<ul>
+  <li><strong>The original template</strong> must be the original template otherwise you may have unpredictable results.</li>
+  <li>If the same original template and same URL keyword is used on more than one customised template only the last one is active.</li>
+  <li>Distributed sample template files are for test purposes only.  Do not edit them.  Create your own ones or copy existing theme template files into <em>/template-extension/<my-theme>/</em></li>
+  <li>When the customised template is deleted the original template file is immediately reactivated.</li>
+</ul>
