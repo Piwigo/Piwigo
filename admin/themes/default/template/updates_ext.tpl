@@ -1,6 +1,6 @@
 {combine_script id='jquery.ajaxmanager' load='footer' require='jquery' path='themes/default/js/plugins/jquery.ajaxmanager.js'}
 {combine_script id='jquery.jgrowl' load='footer' require='jquery' path='themes/default/js/plugins/jquery.jgrowl_minimized.js'}
-{combine_css path="admin/themes/default/uploadify.jGrowl.css"}
+{combine_css path="themes/default/js/plugins/jquery.jgrowl.css"}
 
 {footer_script require='jquery.ui.effect-blind,jquery.ajaxmanager,jquery.jgrowl'}
 var pwg_token = '{$PWG_TOKEN}';

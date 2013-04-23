@@ -2,7 +2,7 @@
 {combine_script id='jquery.jgrowl' load='footer' require='jquery' path='themes/default/js/plugins/jquery.jgrowl_minimized.js' }
 {combine_script id='jquery.uploadify' load='footer' require='jquery' path='admin/include/uploadify/jquery.uploadify.v3.0.0.min.js' }
 {combine_script id='jquery.ui.progressbar' load='footer'}
-{combine_css path="admin/themes/default/uploadify.jGrowl.css"}
+{combine_css path="themes/default/js/plugins/jquery.jgrowl.css"}
 {combine_css path="admin/include/uploadify/uploadify.css"}
 {/if}
 
