@@ -16,10 +16,10 @@ $(document).ready(function() {
       $("#permitAction").show();
       $("#forbidAction").hide();
     }
-    $("p[group_id="+$(this).attr("value")+"]").each(function () {
+    $("p[group_id="+$(this).prop("value")+"]").each(function () {
      $(this).toggle();
     });
-    
+
     if (nbSelected<2) {
       $("#two_to_select").show();
       $("#two_atleast").hide();
@@ -32,7 +32,7 @@ $(document).ready(function() {
   $("[id^=action_]").hide();
   $("select[name=selectAction]").change(function () {
     $("[id^=action_]").hide();
-    $("#action_"+$(this).attr("value")).show();  
+    $("#action_"+$(this).prop("value")).show();
     if ($(this).val() != -1) {
       $("#applyActionBlock").show();
     }
@@ -59,13 +59,13 @@ $(document).ready(function() {
     </span>
     <input type="text" id="groupname" name="groupname" maxlength="50" size="20">
 		<input type="submit" name="submit_add" value="{'Add'|@translate}">
-		<input type="hidden" name="pwg_token" value="{$PWG_TOKEN}"> 
+		<input type="hidden" name="pwg_token" value="{$PWG_TOKEN}">
 
   </fieldset>
 </form>
 <form method="post" name="add_user" action="{$F_ADD_ACTION}" class="properties">
   <input type="hidden" name="pwg_token" value="{$PWG_TOKEN}">
-  
+
   <table class="table2">
     <tr class="throw">
       <th></th>
@@ -82,7 +82,7 @@ $(document).ready(function() {
     {/foreach}
     {/if}
   </table>
-  
+
   <fieldset id="action">
     <legend>{'Action'|@translate}</legend>
       <div id="forbidAction">{'No group selected, no action possible.'|@translate}</div>
@@ -174,8 +174,8 @@ $(document).ready(function() {
         {/foreach}
         {/if}
         </div>
-    
-    
+
+
         <!-- plugins -->
     {if !empty($element_set_groupe_plugins_actions)}
       {foreach from=$element_set_groupe_plugins_actions item=action}
@@ -184,7 +184,7 @@ $(document).ready(function() {
         </div>
       {/foreach}
     {/if}
-    
+
         <p id="applyActionBlock" style="display:none" class="actionButtons">
           <input id="applyAction" class="submit" type="submit" value="{'Apply action'|@translate}" name="submit"> <span id="applyOnDetails"></span></p>
     </div> <!-- #permitAction -->
