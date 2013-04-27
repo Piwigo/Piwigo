@@ -956,4 +956,5 @@ $lang['Ratio'] = 'Ratio';
 $lang['View in gallery'] = 'Voir dans la galerie';
 $lang['between %d and %d pixels'] = 'entre %d et %d pixels';
 $lang['between %.2f and %.2f'] = 'entre %.2f et %.2f';
+$lang['Purge user cache'] = 'Purger le cache utilisateur';
 ?>
