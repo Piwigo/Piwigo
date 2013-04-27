@@ -1,0 +1,1 @@
+Leidžia administratoriams peržiūrėti galeriją svečio teisėmis, greitai keisti kalbas, išvaizdą. Naudinga debuginant pasikeitimus.
