@@ -344,4 +344,7 @@ $lang['If you think you\'ve received this email in error, please contact us at %
 $lang['Default'] = 'Үндсэн';
 $lang['Admin: %s'] = 'Admin:%s';
 $lang['Accelerate diaporama speed'] = 'Хурдыг нь нэмэх';
+$lang['The gallery is locked for maintenance. Please, come back later.'] = 'Уучлаарай манай сайт засвартай байна. Дараа эргэн зочилно уу.';
+$lang['Author'] = 'Сэтгэгдэл бичэгч';
+$lang['Author: %s'] = 'Сэтгэгдэл бичэгч: %s';
 ?>
