@@ -309,13 +309,8 @@ UPDATE '.CATEGORIES_TABLE.'
 ;';
         pwg_query($query);
 
-        $query = '
-UPDATE '.USER_CACHE_CATEGORIES_TABLE.'
-  SET user_representative_picture_id = NULL
-  WHERE user_id = '.$user['id'].'
-    AND cat_id = '.$page['category']['id'].'
-;';
-        pwg_query($query);
+        include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
+        invalidate_user_cache();
       }
 
       redirect($url_self);
