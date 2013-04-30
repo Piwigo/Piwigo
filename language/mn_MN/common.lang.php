@@ -348,4 +348,5 @@ $lang['The gallery is locked for maintenance. Please, come back later.'] = 'Уу
 $lang['Author'] = 'Сэтгэгдэл бичэгч';
 $lang['Author: %s'] = 'Сэтгэгдэл бичэгч: %s';
 $lang['Please, enter a login'] = 'Уучлаарай, шаардлагатай талбаруудыг гүйцэд бөглөнө үү.';
+$lang['Page generated in'] = 'Хуудсыг ачаалсан хугацаа:';
 ?>
