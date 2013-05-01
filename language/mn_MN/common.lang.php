@@ -351,4 +351,7 @@ $lang['Please, enter a login'] = 'Уучлаарай, шаардлагатай �
 $lang['Page generated in'] = 'Хуудсыг ачаалсан хугацаа:';
 $lang['This author removed the comment with id %d'] = '%d сэтгэгдэлийг бичэгч нь устгасан байна';
 $lang['Tag results for'] = 'Хайлтын үр дүн:';
+$lang['Someone requested that the password be reset for the following user account:'] = 'Дараахь хэрэглэгчийн нууц үгийг сэргээх хүсэлт ирлээ:';
+$lang['Registration of %s'] = '%s-н бүртгэл';
+$lang['Powered by'] = 'Вэб хөгжүүлэгч';
 ?>
