@@ -354,4 +354,12 @@ $lang['Tag results for'] = 'Хайлтын үр дүн:';
 $lang['Someone requested that the password be reset for the following user account:'] = 'Дараахь хэрэглэгчийн нууц үгийг сэргээх хүсэлт ирлээ:';
 $lang['Registration of %s'] = '%s-н бүртгэл';
 $lang['Powered by'] = 'Вэб хөгжүүлэгч';
+$lang['... or browse your empty gallery'] = '... эсвэл хоосон галерейгаа үзнэ үү';
+$lang['set as album representative'] = 'цомогны дүрс зураг болгох';
+$lang['representative'] = 'цомогны дүрс зураг';
+$lang['return to normal view mode'] = 'энгийн горимд шилжэх';
+$lang['author(s) : %s'] = 'Бичэгч: %s';
+$lang['Related tags'] = 'Холбоотой түлхүүр үгс';
+$lang['At least one listed rule must be satisfied.'] = 'Дор хаяж нэг утга оруулна уу';
+$lang['Permalink for album not found'] = 'Уучлаарай. Ийм холбоос бүхий цомог олдсонгүй';
 ?>
