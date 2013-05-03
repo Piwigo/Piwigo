@@ -68,6 +68,6 @@ $lang['Download the config file'] = 'Загрузить файл конфигу�
 $lang['You can download the config file and upload it to local/config directory of your installation.'] = 'Вы можете загрузить файл конфигурации и передать его в local/config directory.';
 $lang['Just another Piwigo gallery'] = 'Еще одна галерея Piwigo';
 $lang['Welcome to my photo gallery'] = 'Добро пожаловать в мою фотогалерею';
-$lang['Don\'t hesitate to consult our forums for any help : %s'] = 'Пожалуйста консультируйтесь на нашем форуме для любой помощи:';
+$lang['Don\'t hesitate to consult our forums for any help : %s'] = 'Не стесняйтесь консультироваться на наших форумах для получения любой помощи, %s';
 $lang['Welcome to your new installation of Piwigo!'] = 'Добро пожаловать в новую установку Piwigo!';
 ?>
