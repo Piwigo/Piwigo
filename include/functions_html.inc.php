@@ -585,6 +585,7 @@ function get_thumbnail_title($info, $title, $comment)
 
   if (!empty($comment))
   {
+    $info['comment'] = trigger_event('render_element_description', $info['comment']); 
     $title.= ' '.substr($info['comment'], 0, 100).(strlen($info['comment']) > 100 ? '...' : '');
   }
 
