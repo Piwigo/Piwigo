@@ -33,7 +33,7 @@ $(document).ready(function() {
   $("select[name=selectAction]").change(function () {
     $("[id^=action_]").hide();
     $("#action_"+$(this).prop("value")).show();
-    if ($(this).val() != -1) {
+    if ($(this).val() != -1 && $(this).val() !="manage_pemissions" && $(this).val() !="manage_members" ) {
       $("#applyActionBlock").show();
     }
     else {

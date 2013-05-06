@@ -293,7 +293,7 @@ UL.thumbnails li.rank-of-image {background-color: #ddd;}
 
 #pwgMain {padding-left:0}
 
-input[type="submit"], input[type="button"], input[type="reset"], a.bigButton {
+.grp_action A, input[type="submit"], input[type="button"], input[type="reset"], a.bigButton {
   font-size:12px;
   font-weight:bold;
   letter-spacing:1px;
@@ -307,7 +307,7 @@ input[type="submit"], input[type="button"], input[type="reset"], a.bigButton {
   margin-left:0;
 }
 
-input[type="submit"]:hover, input[type="button"]:hover, input[type="reset"]:hover, a.bigButton:hover {
+.grp_action A:hover, input[type="submit"]:hover, input[type="button"]:hover, input[type="reset"]:hover, a.bigButton:hover {
 	cursor: pointer;
   background-color:#ff7700;
   color:white;

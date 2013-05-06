@@ -24,7 +24,7 @@ option[disabled] { background-color: #999; color: #444; }
 input[type="radio"], input[type="checkbox"] { background-color: transparent; }
 /* INPUT[type="checkbox"], INPUT[type="radio"]
 { color:#999; background-color: #eee; }  */
-INPUT[type="submit"], INPUT[type="reset"]  { color:#999; border: 1px solid #666; background-color: #444; padding: 1px 15px; }
+.grp_action A, INPUT[type="submit"], INPUT[type="reset"]  { color:#999; border: 1px solid #666; background-color: #444; padding: 1px 15px; }
 
 h2 { color: #ccc; }
 
@@ -73,7 +73,7 @@ UL.thumbnails span.wrap2 {
  background-image: url(images/fillet.png); background-repeat: repeat-x; }
 /* borders */
 fieldset { border: 2px solid #333; }
-INPUT, SELECT, TEXTAREA { border: 1px solid #666; }
+.grp_action A, INPUT, SELECT, TEXTAREA { border: 1px solid #666; }
 input:focus, select:focus, textarea:focus {
 	background-color: #444;
 	color: #999;
@@ -211,9 +211,9 @@ body .ui-resizable-autohide .ui-resizable-handle { display: none; } /* use 'body
 #ui-datepicker-div .ui-datepicker-current-day { background-color: #111 !important; border-color: #444; border-top-color: #111; border-left-color: #111;}
 #ui-datepicker-div .ui-datepicker-days-cell { background-color:#444; border:1px solid #222; border-top-color: #444; border-left-color: #444;}
 INPUT[type="text"].large  { width: 317px; }
-input[type="button"], input[type="submit"], input[type="reset"] {
+.grp_action A, input[type="button"], input[type="submit"], input[type="reset"] {
 color:#ff3363; background-color:#222; border-color: #ff3363; }
-input[type="button"]:hover, input[type="submit"]:hover, input[type="reset"]:hover {
+.grp_action A:hover, input[type="button"]:hover, input[type="submit"]:hover, input[type="reset"]:hover {
 color:#999; border-color: #666; }
 .bigbutton { background:transparent url(images/quickLocalSync_inactiv.png) no-repeat scroll left top; display: block;
 color:#111; font-size:28px; height:161px; margin: 0 20px 0 auto; padding:0 18px 0; text-align:center; width:625px;
