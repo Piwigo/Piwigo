@@ -205,4 +205,14 @@ $lang['%d users deleted'] = '%d хэрэглэгчийг устаглаа';
 $lang['%d users'] = '%d хэрэглэгч';
 $lang['%d user deleted'] = '%d хэрэглэгчийг устаглаа';
 $lang['%d user'] = '%d хэрэглэгч';
+$lang['Drop into album'] = 'Цомогоо сонгоно уу';
+$lang['Dump Database'] = 'Мэдээллийг санг устгах';
+$lang['Download,'] = 'Татаж авах,';
+$lang['Delete selected tags'] = 'Сонгосон түлхүүр үгсийг устгах';
+$lang['Delete selected users'] = 'Сонгосон хэрэглэгчдийг устгах';
+$lang['Database'] = 'Өгөгдлийн сан';
+$lang['Can\'t connect to server.'] = 'Сервертэй холбогдох боломжгүй байна.';
+$lang['By rank'] = 'Үнэлгээгээр';
+$lang['Are you sure you want to delete this plugin?'] = 'Энэ нэмэлт өргөтгөлийг устгана гэдэгтээ итгэлтэй байна уу?';
+$lang['Are you sure you want to install this plugin?'] = 'Энэ нэмэлт өргөтгөлийг суулгана гэдэгтээ итгэлтэй байна уу?';
 ?>
