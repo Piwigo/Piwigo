@@ -96,7 +96,7 @@ display:block; position:absolute; z-index:101; padding:8px 0 0 3px; color:white;
 /* History tables */
 TABLE.table2 {
 	border: 1px solid #111;
-	margin: 1em auto;
+	margin: 0 auto;
 	padding: 0;
 }
 
@@ -110,7 +110,6 @@ TABLE.table2 TR {
 
 TABLE.table2 THEAD TD { padding:7px 10px 3px 10px; }
 TABLE.table2 TR.throw { text-align: center; }
-TABLE.table2 { margin:0pt auto; }
 .sort { display:block; padding:8px 5px 0px 1px; clear: right; float:left; }
 
 
@@ -301,19 +300,15 @@ float:left;
 }
 
 #pwgHead A {color:#ccc;}
-#pwgHead A:hover {color:#fff;border-bottom:1px solid #fff}
+#pwgHead A:hover {color:#fff}
 
 #headActions {float:right; height:36px; line-height:36px; margin-right:10px;}
 
 A {
-	text-decoration:none;
-	border-bottom: 0;
+	text-decoration: none;
 }
 A:hover {
-	border-bottom: 1px solid #FF3363;
-}
-A.button, A.button:hover {
-	border: 0;
+	text-decoration: underline;
 }
 IMG {
 	border: none;
@@ -494,9 +489,6 @@ UL.actions {
 UL.actions LI {
 	display: inline;
 }
-UL.actions A {
-	border: none;
-}
 
 UL.tagSelection {
 	width: 99%;
@@ -604,7 +596,7 @@ html, body {height:100%; margin:0; padding:0;}
 }
 
 #footer A {color:#ccc;}
-#footer A:hover {color:#fff;border-bottom:1px solid #fff;}
+#footer A:hover {color:#fff}
 
 #adminHome {
   text-align:center;
@@ -616,7 +608,7 @@ html, body {height:100%; margin:0; padding:0;}
 }
 
 #adminHome A {display:block; font-size:1.1em; font-weight:bold;}
-#adminHome A {border:none;}
+#adminHome A {text-decoration:none;}
 
 #piwigoInfos {float:left; margin-left:140px;}
 #pageInfos {float:right; margin-right:10px;}
@@ -816,7 +808,6 @@ h2:lang(en) { text-transform:capitalize; }
 .infos .submit {margin-left:30px;}
 
 .checkActions {text-align:left;padding:0;margin:0;}
-.comment A:hover {border:none;}
 
 .pluginBoxes {
   text-align:left;
@@ -878,7 +869,6 @@ h2:lang(en) { text-transform:capitalize; }
 }
 
 .HelpActions a { border:0; margin:0; }
-.HelpActions a:hover {border:0;}
 .HelpActions li {list-style-image:none; list-style-position:outside; list-style-type:none; text-align:center; text-indent:0pt; }
 
 legend {text-align:left;}
@@ -948,16 +938,14 @@ LEGEND {
 #batchManagerGlobal #checkActions {text-align:left; margin:0 0 20px 0;}
 #batchManagerGlobal ul.thumbnails div.actions {display:none;position:absolute;top:0;right:5px;color:#fff}
 #batchManagerGlobal ul.thumbnails div.actions a {color:#fff;}
-#batchManagerGlobal ul.thumbnails div.actions a:hover {border-color:#fff;}
 #batchManagerGlobal ul.thumbnails span.wrap1:hover div.actions {display:block;}
 #batchManagerGlobal #selectedMessage {padding:5px; border-radius:5px;}
-#batchManagerGlobal #selectSet a {border-bottom:1px dotted;}
 #batchManagerGlobal #applyOnDetails {font-style:italic;}
 #batchManagerGlobal .actionButtons {text-align:left;}
 #batchManagerGlobal #filterList {padding-left:5px;}
 #batchManagerGlobal #filterList li {margin-bottom:5px; list-style-type:none;}
 #batchManagerGlobal a.removeFilter {background: url(icon/remove_filter.png) no-repeat top left;width:7px;height:7px;display:inline-block;}
-#batchManagerGlobal a.removeFilter:hover {background: url(icon/remove_filter_hover.png); border:none;}
+#batchManagerGlobal a.removeFilter:hover {background: url(icon/remove_filter_hover.png);}
 #batchManagerGlobal .removeFilter span {display:none}
 #batchManagerGlobal #applyFilterBlock {margin-top:20px;}
 #batchManagerGlobal .useFilterCheckbox {display:none;}

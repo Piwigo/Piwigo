@@ -117,8 +117,15 @@ TABLE.table2 { border: 2px solid #dddddd; }
 }
 
 *, *:focus, *:active, input:active, a:active, input:focus, a:focus { outline: none; -moz-outline-width: 0px; }
-a { color:#005E89; border-width: 0; }
-a:hover, a:active { color: #d54e21; border-bottom: 1px dotted #d54e21; cursor: pointer; }
+A{
+	color:#005E89;
+}
+
+A:hover, A:active {
+	color: #d54e21;
+	cursor: pointer; 
+}
+
 .content .navigationBar {color:#999;}
 ul.actions, .content form#waiting  {text-align:center;}
 
@@ -175,7 +182,7 @@ position:relative; padding: 5px 1px 4px 5px; font-size: 13px; color: #777; }
 #menubar dt  span { cursor:pointer; }
 #menubar li { margin: 0; padding-left:10px; }
 #menubar li A { display:block; }
-#menubar li A:hover { border:none; color:black;}
+#menubar li A:hover {color:black; text-decoration:none}
 #menubar li:hover {background-color:#dbe8f3;}
 #menubar ul { color: #ccc; margin:0; line-height: 25px;
   list-style-type: none; list-style-position: inside; padding: 0; }
@@ -221,7 +228,7 @@ body .ui-resizable-autohide .ui-resizable-handle { display: none; } /* use 'body
 #ui-datepicker-div .ui-datepicker-week-end-cell, #ui-datepicker-div .ui-datepicker-week-end-cell  a { background-color: #ddd; color: #0cc; border-color: #bbb; border-top-color: #ddd; border-left-color: #ddd;}
 #ui-datepicker-div .ui-datepicker-title-row { background-color: #eee;}
 #ui-datepicker-div .ui-datepicker-title-row .ui-datepicker-week-end-cell a { color: #0cc;}
-#ui-datepicker-div  a:hover { color: #0cccc !important; border: 0; background-color: #eee !important;}
+#ui-datepicker-div  a:hover { color: #0cccc !important; background-color: #eee !important;}
 #ui-datepicker-div .ui-datepicker-header select { background-color:#bbb; color:#666; font-weight:normal;}
 #ui-datepicker-div .ui-datepicker-links { background-color:#ddd;}
 #ui-datepicker-div .ui-datepicker-header { background-color:#bbb;}
@@ -259,9 +266,6 @@ INPUT[type="text"].large  { width: 317px; }
 
 #pluginsMenuSeparator {border:1px solid #ddd;}
 
-#helpContent A {border-bottom:1px dotted #005E89;}
-#helpContent A:hover {border-bottom:1px solid #d54e21;}
-
 #pwgHead, #footer {
 	background-color: #ddd;
 	color: #666;
@@ -269,7 +273,7 @@ INPUT[type="text"].large  { width: 317px; }
 
 
 #pwgHead A, #footer A {color:#444;}
-#pwgHead A:hover, #footer A:hover {color:black; border-color:black;}
+#pwgHead A:hover, #footer A:hover {color:black;}
 #footer { background-image: url(images/piwigo_logo_small.png);}
 
 .pluginBox, .pluginMiniBox {background-color:#ddd;color:#353535;border-color:#ddd;}
