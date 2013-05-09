@@ -215,4 +215,11 @@ $lang['Can\'t connect to server.'] = 'Сервертэй холбогдох бо
 $lang['By rank'] = 'Үнэлгээгээр';
 $lang['Are you sure you want to delete this plugin?'] = 'Энэ нэмэлт өргөтгөлийг устгана гэдэгтээ итгэлтэй байна уу?';
 $lang['Are you sure you want to install this plugin?'] = 'Энэ нэмэлт өргөтгөлийг суулгана гэдэгтээ итгэлтэй байна уу?';
+$lang['%d of %d photos selected'] = '%d (нийт %d-с) зураг сонгосон байна';
+$lang['Link all album photos to some existing albums'] = 'Энэ цомогны зурагнуудыг өөр цомогтой холбох';
+$lang['Link all album photos to a new album'] = 'Энэ цомогны зурагнуудыг шинэ цомогтой холбох';
+$lang['New photos were added'] = 'Шинэ зурагнууд нэмэгдлээ';
+$lang['Manage photo ranks'] = 'Зурагны дараалал';
+$lang['New photos added'] = 'Шинэ зурагнууд нэмэгдлээ';
+$lang['%d photos were deleted'] = '%d зургыг устаглаа';
 ?>
