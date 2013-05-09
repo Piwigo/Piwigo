@@ -155,6 +155,9 @@ if (in_array( substr($user['language'],0,2), array('fr','it','de','es','pl','hu'
 elseif ('zh_CN' == $user['language']) {
   define('PHPWG_DOMAIN', 'cn.piwigo.org');
 }
+elseif ('pt_BR' == $user['language']) {
+  define('PHPWG_DOMAIN', 'br.piwigo.org');
+}
 else {
   define('PHPWG_DOMAIN', 'piwigo.org');
 }
