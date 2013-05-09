@@ -222,4 +222,5 @@ $lang['New photos were added'] = 'Шинэ зурагнууд нэмэгдлээ
 $lang['Manage photo ranks'] = 'Зурагны дараалал';
 $lang['New photos added'] = 'Шинэ зурагнууд нэмэгдлээ';
 $lang['%d photos were deleted'] = '%d зургыг устаглаа';
+$lang['(this tag will be deleted)'] = '(энэ түлхүүр үг устах болно)';
 ?>
