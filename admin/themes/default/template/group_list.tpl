@@ -147,7 +147,7 @@ $(document).ready(function() {
         {if not empty($groups)}
         {foreach from=$groups item=group}
         <p group_id="{$group.ID}" class="grp_action">
-          {$group.NAME} > {if $group.NB_MEMBERS!=0}<a href="{$group.U_MEMBERS}" title="{'Manage the members'|@translate}">{'Manage the members'|@translate}</a>{else}{'No members to manage'|@translate}{/if}
+          {$group.NAME} > {if $group.NB_MEMBERS!=0}<a class="buttonLike" href="{$group.U_MEMBERS}" title="{'Manage the members'|@translate}">{'Manage the members'|@translate}</a>{else}{'No members to manage'|@translate}{/if}
         </p>
         {/foreach}
         {/if}
@@ -158,7 +158,7 @@ $(document).ready(function() {
         {if not empty($groups)}
         {foreach from=$groups item=group}
         <p group_id="{$group.ID}" class="grp_action">
-          {$group.NAME} > <a href="{$group.U_PERM}" title="{'Permissions'|@translate}">{'Manage Permissions'|@translate}</a>
+          {$group.NAME} > <a class="buttonLike" href="{$group.U_PERM}" title="{'Permissions'|@translate}">{'Manage Permissions'|@translate}</a>
         </p>
         {/foreach}
         {/if}

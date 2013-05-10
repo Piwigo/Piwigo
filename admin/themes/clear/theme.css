@@ -62,15 +62,13 @@ html, body {
 
 /* #the_page { margin: 0; padding: 0; z-index: 1; top:0px; */
 /* padding-top: 0; min-height: 100%; width:100%; position:absolute; left:0px; } */
-#headbranch { width: 233px; height: 240px; margin: 0; padding: 0;
-position:absolute; left:0px; top:0px; z-index: 0;
-background:transparent }
-h3, .content, .throw, .row1 { background-color: #ddd; }
+h3, .throw, .row1 { background-color: #ddd; }
 .row2 { background-color:#eeeeee; }
-#content { background: #f1f1f1; min-height: 467px;}
 
-.content {
+#content {
+	background: #f1f1f1;
   border: 1px solid #aaa;
+	min-height: 467px;
   margin-left:217px;
   margin-top: 7px;
 }
@@ -98,7 +96,6 @@ TEXTAREA { cursor:text; font-size: 13px; }
 .tagSelected LABEL {color:black;}
 
 ul.thumbnails input { color:#666; font-size:10px; margin:0; background-color:#bbb; text-align: center;}
-INPUT.bigbutton:hover { background-color: #ddd;  color:#0cc; border: 0; }
 .throw  { font-size: 120%; line-height: 26px; padding-top: 10px; font-weight: bold; }
 label { cursor:pointer }
 .categoryLi, .menuLi { background: #ddd }
@@ -297,7 +294,7 @@ UL.thumbnails li.rank-of-image {background-color: #ddd;}
 
 #pwgMain {padding-left:0}
 
-.grp_action A, input[type="submit"], input[type="button"], input[type="reset"], a.bigButton {
+.buttonLike, input[type="submit"], input[type="button"], input[type="reset"] {
   font-size:12px;
   font-weight:bold;
   letter-spacing:1px;
@@ -311,10 +308,11 @@ UL.thumbnails li.rank-of-image {background-color: #ddd;}
   margin-left:0;
 }
 
-.grp_action A:hover, input[type="submit"]:hover, input[type="button"]:hover, input[type="reset"]:hover, a.bigButton:hover {
+.buttonLike:hover, input[type="submit"]:hover, input[type="button"]:hover, input[type="reset"]:hover {
 	cursor: pointer;
-  background-color:#ff7700;
-  color:white;
+  background-color: #ff7700;
+  color: white;
+	text-decoration: none;
 }
 
 p.albumTitle img {margin-bottom:-3px;}
