@@ -17,7 +17,7 @@ jQuery(document).ready(function() {
         });
       });
 
-      jQuery('#image_order_rank').attr('checked', true);
+      jQuery('#image_order_rank').prop('checked', true);
       checkOrderOptions();
     }
   });
@@ -43,7 +43,7 @@ jQuery('.thumbnail').tipTip({
 
 <form action="{$F_ACTION}" method="post">
 {if !empty($thumbnails)}
-  <p><input class="submit" type="submit" value="{'Submit'|@translate}" name="submit"></p>
+  <p><input type="submit" value="{'Submit'|@translate}" name="submit"></p>
   <fieldset>
     <legend>{'Manual order'|@translate}</legend>
     {if !empty($thumbnails)}
@@ -84,7 +84,7 @@ jQuery('.thumbnail').tipTip({
       </div>
   </fieldset>
   <p>
-    <input class="submit" type="submit" value="{'Submit'|@translate}" name="submit">
+    <input type="submit" value="{'Submit'|@translate}" name="submit">
 
     <label>
       <input type="checkbox" name="image_order_subcats" id="image_order_subcats">

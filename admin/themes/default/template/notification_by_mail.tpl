@@ -4,12 +4,12 @@
 jQuery(document).ready(function(){
 
 	jQuery("#checkAllLink").click(function () {
-		jQuery("#notification_by_mail input[type=checkbox]").attr('checked', true);
+		jQuery("#notification_by_mail input[type=checkbox]").prop('checked', true);
 		return false;
 	});
 
 	jQuery("#uncheckAllLink").click(function () {
-		jQuery("#notification_by_mail input[type=checkbox]").attr('checked', false);
+		jQuery("#notification_by_mail input[type=checkbox]").prop('checked', false);
 		return false;
 	});
 
@@ -24,7 +24,7 @@ jQuery(document).ready(function(){
   {if isset($REPOST_SUBMIT_NAME)}
   <fieldset>
     <div class="infos">
-      <input class="submit" type="submit" value="{'Continue processing treatment'|@translate}" name="{$REPOST_SUBMIT_NAME}">
+      <input type="submit" value="{'Continue processing treatment'|@translate}" name="{$REPOST_SUBMIT_NAME}">
     </div>
   </fieldset>
   {/if}
@@ -72,8 +72,8 @@ jQuery(document).ready(function(){
   </fieldset>
 
   <p>
-    <input class="submit" type="submit" value="{'Submit'|@translate}" name="param_submit">
-    <input class="submit" type="reset" value="{'Reset'|@translate}" name="param_reset">
+    <input type="submit" value="{'Submit'|@translate}" name="param_submit">
+    <input type="reset" value="{'Reset'|@translate}" name="param_reset">
   </p>
   {/if}{* isset $param*}
 
@@ -128,7 +128,7 @@ jQuery(document).ready(function(){
     </fieldset>
 
     <p>
-      <input class="submit" type="submit" value="{'Send'|@translate}" name="send_submit">
+      <input type="submit" value="{'Send'|@translate}" name="send_submit">
     </p>
     {/if}
   {/if}{* isset $send*}
