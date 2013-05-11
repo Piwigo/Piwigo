@@ -97,7 +97,7 @@ jQuery(document).ready(function(){
       {'New tag'|@translate}
       <input type="text" name="add_tag" size="50">
     </label>
-    
+
     <p><input class="submit" type="submit" name="add" value="{'Submit'|@translate}"></p>
   </fieldset>
 
@@ -116,6 +116,35 @@ jQuery('.showInfo').tipTip({
     'activation':'click'
   });
 {/literal}{/footer_script}
+{if count($all_tags)}
+<div><label>{'Search'|@translate}: <input id="searchInput" type="text" size="12"></label></div>
+{footer_script}{literal}
+$("#searchInput").on( "keydown", function() {
+	var $this = $(this),
+		timer = $this.data("timer");
+	if (timer)
+		clearTimeout(timer);
+
+	$this.data("timer", setTimeout( function() {
+		var val = $this.val();
+		if (!val)
+			$(".tagSelection>li").show();
+		else {
+			var regex = new RegExp( val.replace(/[\-\[\]{}()*+?.,\\\^$|#\s]/g, "\\$&"), "i" );
+			$(".tagSelection>li").each( function(i, li) {
+				var $li = $(li),
+					text = $.trim( $("label", $li).text() );
+				if (regex.test( text ))
+					$li.show();
+				else
+					$li.hide();
+			});
+		}
+
+	}, 300) );
+});
+{/literal}{/footer_script}
+{/if}
 <ul class="tagSelection">
 {foreach from=$all_tags item=tag}
 	<li>{capture name='showInfo'}<b>{$tag.name}</b> ({$pwg->l10n_dec('%d photo', '%d photos', $tag.counter)}) <br> <a href="{$tag.U_VIEW}">{'View in gallery'|@translate}</a> | <a href="{$tag.U_EDIT}">{'Manage photos'|@translate}</a>{if !empty($tag.alt_names)}<br>{$tag.alt_names}{/if}{/capture}
@@ -127,13 +156,13 @@ jQuery('.showInfo').tipTip({
 {/foreach}
 </ul>
 
-    <p>
-      <input type="hidden" name="pwg_token" value="{$PWG_TOKEN}">
-      <input class="submit" type="submit" name="edit" value="{'Edit selected tags'|@translate}">
-      <input class="submit" type="submit" name="duplicate" value="{'Duplicate selected tags'|@translate}">
-      <input class="submit" type="submit" name="merge" value="{'Merge selected tags'|@translate}">
-      <input class="submit" type="submit" name="delete" value="{'Delete selected tags'|@translate}" onclick="return confirm('{'Are you sure?'|@translate}');">
-    </p>
+		<p>
+			<input type="hidden" name="pwg_token" value="{$PWG_TOKEN}">
+			<input type="submit" name="edit" value="{'Edit selected tags'|@translate}">
+			<input type="submit" name="duplicate" value="{'Duplicate selected tags'|@translate}">
+			<input type="submit" name="merge" value="{'Merge selected tags'|@translate}">
+			<input type="submit" name="delete" value="{'Delete selected tags'|@translate}" onclick="return confirm('{'Are you sure?'|@translate}');">
+		</p>
   </fieldset>
 
 </form>
