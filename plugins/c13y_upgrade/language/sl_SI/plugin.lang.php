@@ -21,8 +21,8 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 $lang['c13y_correction_dbl_email_user'] = 'Izbriši podvojene uporabnike';
-$lang['c13y_correction_obsolete_plugin'] = '"%s" je vključen v tej verziji aplikancije in ga morate odstraniti';
+$lang['c13y_correction_obsolete_plugin'] = '"%s" je vključen v tej verziji aplikacije in ga morate odstraniti';
 $lang['c13y_dbl_email_user'] = 'Uporabniki z enakim e-mail naslovom';
-$lang['c13y_obsolete_plugin'] = 'Zastareli vtičnik';
+$lang['c13y_obsolete_plugin'] = 'Zastarel vtičnik';
 $lang['c13y_upgrade_no_anomaly'] = 'Po posodobitvi aplikacije ni bilo zaznati nepravilnosti. Vtičnik "Preveri za nadgradnje" je bil deaktiviran';
 ?>
