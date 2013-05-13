@@ -27,14 +27,14 @@ $lang['SQL queries'] = 'SQL poizvedbe';
 $lang['Statistics'] = 'Statistika';
 $lang['This page proposes to upgrade your database corresponding to your old version of Piwigo to the current version. The upgrade assistant thinks you are currently running a <strong>release %s</strong> (or equivalent).'] = 'Ta stran predlaga, da nadgradite podatkovno bazo vaše Piwigo različice na novejšo različico. Čarovnik nadgradnje je zaznal, da trenutno uporabljate <strong>različico %s</strong> (ali enakovredno).';
 $lang['Upgrade'] = 'Nadgradi';
-$lang['Upgrade from version %s to %s'] = 'Nadgradi iz različice %s na %s';
+$lang['Upgrade from version %s to %s'] = 'Nadgradi iz različice %s na različico %s';
 $lang['Upgrade informations'] = 'Informacije nadgradnje';
 $lang['User permissions and group permissions have been erased'] = 'Dovoljenja uporabnikov in skupin so bila izbrisana';
 $lang['You do not have access rights to run upgrade'] = 'Nimate dovoljenja za izvedbo nadgradnje';
 $lang['total SQL time'] = 'skupen SQL čas';
 $lang['total upgrade time'] = 'skupen čas nadgradnje';
 $lang['In <i>%s</i>, before <b>?></b>, insert:'] = 'V <i>%s</i>, pred <b>?></b>, vstavi:';
-$lang['Only administrator can run upgrade: please sign in below.'] = 'Nadgradnjo lahko opravi le Administrator.Prosimo prijavite se spodaj:';
+$lang['Only administrator can run upgrade: please sign in below.'] = 'Nadgradnjo lahko opravi le Administrator. Prosimo prijavite se spodaj:';
 $lang['As a precaution, following themes have been deactivated. You must check for themes upgrade before reactiving them:'] = 'Kot previdnostni ukrep so sledeče preobleke onemogočene. Preveriti morate posodobitve za te preobleke in jih nato ponovno omogočiti:';
 $lang['All sub-albums of private albums become private'] = 'Vsi pod-albumi zasebnega albuma postanejo zasebni';
 ?>
