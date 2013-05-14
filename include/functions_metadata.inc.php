@@ -30,6 +30,8 @@
  */
 function get_iptc_data($filename, $map)
 {
+  global $conf;
+  
   $result = array();
 
   $imginfo = array();
@@ -60,10 +62,15 @@ function get_iptc_data($filename, $map)
 
           foreach (array_keys($map, $iptc_key) as $pwg_key)
           {
-            // in case the origin of the photo is unsecure (user upload), we
-            // remove HTML tags to avoid XSS (malicious execution of
-            // javascript)
-            $result[$pwg_key] = strip_tags($value);
+            $result[$pwg_key] = $value;
+
+            if (!$conf['allow_html_in_metadata'])
+            {
+              // in case the origin of the photo is unsecure (user upload), we
+              // remove HTML tags to avoid XSS (malicious execution of
+              // javascript)
+              $result[$pwg_key] = strip_tags($result[$pwg_key]);
+            }
           }
         }
       }
@@ -112,6 +119,8 @@ function clean_iptc_value($value)
  */
 function get_exif_data($filename, $map)
 {
+  global $conf;
+  
   $result = array();
 
   if (!function_exists('read_exif_data'))
@@ -143,11 +152,14 @@ function get_exif_data($filename, $map)
     }
   }
 
-  foreach ($result as $key => $value)
+  if (!$conf['allow_html_in_metadata'])
   {
-    // in case the origin of the photo is unsecure (user upload), we remove
-    // HTML tags to avoid XSS (malicious execution of javascript)
-    $result[$key] = strip_tags($value);
+    foreach ($result as $key => $value)
+    {
+      // in case the origin of the photo is unsecure (user upload), we remove
+      // HTML tags to avoid XSS (malicious execution of javascript)
+      $result[$key] = strip_tags($value);
+    }
   }
 
   return $result;
