@@ -187,6 +187,10 @@ position:relative; padding: 5px 1px 4px 5px; font-size: 13px; color: #777; }
 #adminHome:hover {background-color:#d0d0d0;}
 
 /* jQuery tooltips */
+.ui-tooltip {
+	color: #000;
+	background-color: #eee;
+}
 .cluetip-outer { border-color:#999; color: #777; background-color: #eee; }
 .cluetip-title { background-color: #ddd; }
 /* jQuery ui resizable */

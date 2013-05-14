@@ -6,9 +6,7 @@
 	pwg_initialization_datepicker("#end_day", "#end_month", "#end_year", "#end_linked_date", null, "#start_linked_date", null);
 {/literal}{/footer_script}
 
-<div class="titrePage">
-  <h2>{'History'|@translate} {$TABSHEET_TITLE}</h2>
-</div>
+<h2>{'History'|@translate} {$TABSHEET_TITLE}</h2>
 
 <form class="filter" method="post" name="filter" action="{$F_ACTION}">
 <fieldset>
@@ -83,7 +81,7 @@
     </select>
   </label>
 
-  <input class="submit" type="submit" name="submit" value="{'Submit'|@translate}">
+  <input type="submit" name="submit" value="{'Submit'|@translate}">
 </fieldset>
 </form>
 
@@ -124,7 +122,7 @@
   <td class="hour">{$detail.DATE}</td>
   <td class="hour">{$detail.TIME}</td>
   <td>{$detail.USER}</td>
-  <td>{$detail.IP}</td>
+  <td class="IP">{$detail.IP}</td>
   <td>{$detail.IMAGE}</td>
   <td>{$detail.TYPE}</td>
   <td>{$detail.SECTION}</td>
@@ -136,3 +134,20 @@
 </table>
 
 {if !empty($navbar) }{include file='navigation_bar.tpl'|@get_extent:'navbar'}{/if}
+
+{combine_script id='jquery.geoip' load='async' path='admin/themes/default/js/jquery.geoip.js'}
+{combine_script id='jquery.ui.tooltip' load='footer'}
+
+{footer_script}{literal}
+jQuery(".IP").tooltip( {
+	items: "*",
+	/*show: {delay:0, effect:"show"},
+	hide: {delay:50, effect:"hide"},*/
+	content: function(response) {
+		var that = $(this);
+		GeoIp.get( that.text(), function(data) {
+			response( data.fullName );
+		});
+	}
+});
+{/literal}{/footer_script}

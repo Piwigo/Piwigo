@@ -160,6 +160,10 @@ position:relative; padding: 5px 1px 4px 5px; top:-8px; font-size: 13px; color: #
 #menubar ul.scroll { overflow-y:auto; max-height:500px;}
 
 /* jQuery tooltips */
+.ui-tooltip {
+	color: #eee;
+	background-color: #000;
+}
 .cluetip-outer { border-color: #666; color: #666; background-color: #222; }
 .cluetip-title { color: #ff3363; background-color: #111; }
 /* jQuery ui resizable */
