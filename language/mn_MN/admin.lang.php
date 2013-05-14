@@ -233,4 +233,16 @@ $lang['Edit selected tags'] = 'Сонгосон түлхүүр үгсийг за
 $lang['Current name'] = 'Одоогын нэр';
 $lang['Confirm merge'] = 'Нэгтгэх';
 $lang['By %s'] = '%s-р';
+$lang['Password is missing. Please enter the password.'] = 'Уучлаарай. Нууц үгээ оруулна уу.';
+$lang['Parent album'] = 'Эх цомог';
+$lang['Parameter'] = 'Тохиргоо';
+$lang['Original file : %s'] = 'Үндсэн хэмжээ: %s';
+$lang['Original Size'] = 'Үндсэн хэмжээ';
+$lang['Tag selection'] = 'Түлхүүр үгсийг сонгох';
+$lang['Tags <em>%s</em> merged into tag <em>%s</em>'] = '<em>%s</em> гэсэн түлхүүр үгсийг нэгтгэж <em>%s</em> болголоо';
+$lang['Select at least two tags for merging'] = 'Нэгтгэхийн тулд дор хаяж хоёр үг сонгоно уу';
+$lang['New tag'] = 'Шинэ түлхүүр үг';
+$lang['Merge tags'] = 'Түлхүүр үгсийг нэгтгэх';
+$lang['Maximum height'] = 'Өндрийн хязгаар';
+$lang['Maximum width'] = 'Өргөний хязгаар';
 ?>
