@@ -403,4 +403,12 @@ $lang['html tags are not allowed in login'] = 'нэвтрэх хэсэгт html 
 $lang['Your comment has NOT been registered because it did not pass the validation rules'] = 'Уучлаарай Таны бичсэн сэтгэгдэлийг нийтлэх боломжгүй байна. ';
 $lang['View in'] = 'Харах';
 $lang['Your Gallery Customization'] = 'Цомогны тохиргоо';
+$lang['Unknown feed identifier'] = 'Үлмэдэгдэх ID дугаар байна';
+$lang['Unknown identifier'] = 'Ийм бүртгэл байхгүй байна';
+$lang['Bad status for user "guest", using default status. Please notify the webmaster.'] = '"guest" хэрэглэгчийн тохиргоо эвдэрсэн түл үндсэн тохиргоог ашиглалаа. Вэбмастерт мэдэгдэнэ үү.';
+$lang['N/A'] = 'боломжгүй';
+$lang['Username "%s" on gallery %s'] = '%s цомог дахь хэрэглэгч "%s" ';
+$lang['show tag cloud'] = 'түлхүүр үгсийг харуулах';
+$lang['included'] = 'агуулсан';
+$lang['cloud'] = 'үүлэн тооцоолол';
 ?>
