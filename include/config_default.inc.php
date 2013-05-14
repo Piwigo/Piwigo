@@ -374,6 +374,11 @@ $conf['use_exif_mapping'] = array(
   'date_creation' => 'DateTimeOriginal'
   );
 
+// allow_html_in_metadata: in case the origin of the photo is unsecure (user
+// upload), we remove HTML tags to avoid XSS (malicious execution of
+// javascript)
+$conf['allow_html_in_metadata'] = false;
+
 // +-----------------------------------------------------------------------+
 // |                               sessions                                |
 // +-----------------------------------------------------------------------+
