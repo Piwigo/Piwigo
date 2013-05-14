@@ -223,4 +223,14 @@ $lang['Manage photo ranks'] = 'Зурагны дараалал';
 $lang['New photos added'] = 'Шинэ зурагнууд нэмэгдлээ';
 $lang['%d photos were deleted'] = '%d зургыг устаглаа';
 $lang['(this tag will be deleted)'] = '(энэ түлхүүр үг устах болно)';
+$lang['Name'] = 'Нэр';
+$lang['Language has been successfully installed'] = 'Хэлийг амжилттай нэмлээ';
+$lang['Hello'] = 'Сайн байна уу';
+$lang['Hello,'] = 'Сайн байна уу, ';
+$lang['History'] = 'Түүх';
+$lang['Edit tags'] = 'Түлхүүр үгсийг засах';
+$lang['Edit selected tags'] = 'Сонгосон түлхүүр үгсийг засах';
+$lang['Current name'] = 'Одоогын нэр';
+$lang['Confirm merge'] = 'Нэгтгэх';
+$lang['By %s'] = '%s-р';
 ?>
