@@ -69,4 +69,6 @@ $lang['%d day'] = '%d tago';
 $lang['%d days'] = '%d tagoj';
 $lang['%d group'] = '%d grupo';
 $lang['%d groups'] = '%d grupoj';
+$lang['%d hour'] = '%d horo';
+$lang['%d hours'] = '%d horoj';
 ?>
