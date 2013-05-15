@@ -412,4 +412,6 @@ $lang['Requested tag does not exist'] = 'Petita etikedo ne ekzistas';
 $lang['Email address is mandatory'] = 'Retadreso estas deviga';
 $lang['Username is mandatory'] = 'Uzantnomo estas deviga';
 $lang['mandatory'] = 'deviga';
+$lang['Your website URL is invalid'] = 'Via reteja URL ne validas.';
+$lang['Website'] = 'Retejo';
 ?>
