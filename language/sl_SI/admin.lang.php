@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 // +-----------------------------------------------------------------------+
 // | Piwigo - a PHP based photo gallery                                    |
 // +-----------------------------------------------------------------------+
@@ -946,5 +946,4 @@ $lang['Order of menubar items has been updated successfully.'] = 'Razvrstitev el
 $lang['No photo selected, no action possible.'] = 'Ker ni izbrana nobena slika, ni možno nobeno dejanje.';
 $lang['No results'] = 'Ni rezultatov';
 $lang['No user to send notifications by mail.'] = 'Noben uporabnik ne bo obveščen preko e-pošte.';
-
 ?>
