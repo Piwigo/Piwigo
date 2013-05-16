@@ -1026,6 +1026,11 @@ p#uploadModeInfos {text-align:left;margin-top:1em;font-size:90%;color:#999;}
   padding-left:10px;
 }
 
+/* Album Manager */
+#addAlbumForm input[name="category_name"], #formCreateAlbum input[name="virtual_name"] {
+  width:300px;
+}
+
 /* Pending Comments */
 #pendingComments {
   padding:0 5px 0 10px;
