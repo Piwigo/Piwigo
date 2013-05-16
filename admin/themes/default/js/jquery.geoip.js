@@ -9,10 +9,10 @@ GeoIp = {
 			var cache = localStorage.getItem("freegeoip");
 			if (cache) {
 				cache = JSON.parse(cache);
-				for (var ip in cache) {
-					var data = cache[ip];
+				for (var key in cache) {
+					var data = cache[key];
 					if ( (new Date()).getTime() - data.reqTime > 36 * 3600000)
-						delete cache[ip];
+						delete cache[key];
 				}
 				GeoIp.cache = cache;
 			}
@@ -31,6 +31,7 @@ GeoIp = {
 				url: "http://freegeoip.net/json/" + ip,
 				dataType: "jsonp",
 				cache: true,
+				timeout: 5000,
 				success: function(data) {
 					data.reqTime = (new Date()).getTime();
 					var res=[];
@@ -47,7 +48,7 @@ GeoIp = {
 				},
 
 				error: function() {
-					var data = {ip:ip, fullName:"", reqTime: (new Date()).getTime()};
+					var data = {ip:ip, reqTime: (new Date()).getTime()};
 
 					GeoIp.cache[ip] = data;
 					var callbacks = GeoIp.pending[ip];

@@ -138,6 +138,7 @@
 {combine_script id='jquery.geoip' load='async' path='admin/themes/default/js/jquery.geoip.js'}
 
 {footer_script}{literal}
+jQuery(document).ready( function(){
 jQuery(".IP").one( "mouseenter", function(){
 	var that = $(this);
 	that
@@ -147,11 +148,19 @@ jQuery(".IP").one( "mouseenter", function(){
 		});
 	GeoIp.get( that.text(), function(data) {
 		if (!data.fullName) return;
+		var content = data.fullName;
+		if (data.latitude && data.region_name) {
+			content += "<br><img width=300 height=220 src=\"http://maps.googleapis.com/maps/api/staticmap?sensor=false&size=300x220&zoom=6"
+				+ "&markers=size:tiny%7C" + data.latitude + "," + data.longitude
+				+ "\">";
+		}
 		that.tipTip( {
-			content: data.fullName
+			content: content,
+			maxWidth: 320
 			}	);
 		if (that.data("isOver"))
 			that.trigger("mouseenter");
 	});
 } );
+});
 {/literal}{/footer_script}
