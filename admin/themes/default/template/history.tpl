@@ -136,18 +136,22 @@
 {if !empty($navbar) }{include file='navigation_bar.tpl'|@get_extent:'navbar'}{/if}
 
 {combine_script id='jquery.geoip' load='async' path='admin/themes/default/js/jquery.geoip.js'}
-{combine_script id='jquery.ui.tooltip' load='footer'}
 
 {footer_script}{literal}
-jQuery(".IP").tooltip( {
-	items: "*",
-	/*show: {delay:0, effect:"show"},
-	hide: {delay:50, effect:"hide"},*/
-	content: function(response) {
-		var that = $(this);
-		GeoIp.get( that.text(), function(data) {
-			response( data.fullName );
+jQuery(".IP").one( "mouseenter", function(){
+	var that = $(this);
+	that
+		.data("isOver", true)
+		.one("mouseleave", function() {
+			that.removeData("isOver");
 		});
-	}
-});
+	GeoIp.get( that.text(), function(data) {
+		if (!data.fullName) return;
+		that.tipTip( {
+			content: data.fullName
+			}	);
+		if (that.data("isOver"))
+			that.trigger("mouseenter");
+	});
+} );
 {/literal}{/footer_script}
