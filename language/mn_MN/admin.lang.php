@@ -268,4 +268,15 @@ $lang['Webmaster cannot be deleted'] = 'Вебмастерийг устгах б
 $lang['Webmaster status is required.'] = 'Вебмастерийн эрх шаардлагатай';
 $lang['Who can see these photos?'] = 'Энэ зурагыг хэн харах боломжтой вэ?';
 $lang['Who can see this photo?'] = 'Энэ зурагыг хэн харах боломжтой вэ?';
+$lang['Manage tags'] = 'Түлхүүр үгсийг зохицуулах';
+$lang['%d tags'] = '%d -н түлхүүр үг';
+$lang['The %d following tags were deleted'] = 'Дараахь %d түлхүүр үгсийг устаглаа';
+$lang['All %d photos are selected'] = 'Бүх %d зурагнууд сонгогдсон байна';
+$lang['Duplicate selected tags'] = 'Сонгосон түлхүүр үгсийг хувилах';
+$lang['Merge selected tags'] = 'Сонгосон түлхүүр үгсийг нэгтгэх';
+$lang['selection'] = 'сонголт';
+$lang['Select at least one album'] = 'Дор хаяж нэг цомог сонгоно уу';
+$lang['Select at least one comment'] = 'Дор хаяж нэг сэтгэгдэл сонгоно уу';
+$lang['Select at least one photo'] = 'Дор хаяж нэг зураг сонгоно уу';
+$lang['Select:'] = 'Сонгох:';
 ?>
