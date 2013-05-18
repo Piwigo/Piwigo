@@ -174,14 +174,6 @@ function mkgetdir($dir, $flags=MKGETDIR_DEFAULT)
   return true;
 }
 
-/* Returns true if the string appears to be encoded in UTF-8. (from wordpress)
- * @param string Str
- */
-function seems_utf8($Str) {
-  // OBSOLETE !!!
-  return qualify_utf8($Str) >= 0;
-}
-
 /* returns 0 if $str is Ascii, 1 if utf-8, -1 otherwise */
 function qualify_utf8($Str)
 {

@@ -226,11 +226,9 @@ class PwgRestEncoder extends PwgResponseEncoder
         continue;
       if ( is_null($value) )
         continue; // null means we dont put it
-      if ($name!=WS_XML_CONTENT)
-        $this->_writer->start_element($name);
+      $this->_writer->start_element($name);
       $this->encode($value);
-      if ($name!=WS_XML_CONTENT)
-        $this->_writer->end_element($name);
+      $this->_writer->end_element($name);
     }
   }
 
@@ -270,7 +268,7 @@ class PwgRestEncoder extends PwgResponseEncoder
             $this->encode_array($data->_content, $data->_itemName, $data->_xmlAttributes);
             break;
           case 'pwgnamedstruct':
-            $this->encode_array( array($data->_content), $data->_name, $data->_xmlAttributes);
+						$this->encode_struct($data->_content, false, $data->_xmlAttributes);
             break;
           default:
             $this->encode_struct(get_object_vars($data), true);

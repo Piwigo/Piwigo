@@ -192,7 +192,21 @@ function ws_std_get_image_xml_attributes()
     );
 }
 
-function ws_getMissingDerivatives($params, &$service)
+function ws_std_get_category_xml_attributes()
+{
+  return array(
+    'id', 'url', 'nb_images', 'total_nb_images', 'nb_categories', 'date_last', 'max_date_last',
+    );
+}
+
+function ws_std_get_tag_xml_attributes()
+{
+  return array(
+    'id', 'name', 'url_name', 'counter', 'url', 'page_url',
+    );
+}
+
+function ws_getMissingDerivatives($params, $service)
 {
   if (!is_admin())
   {
@@ -291,7 +305,7 @@ function ws_getMissingDerivatives($params, &$service)
 /**
  * returns PWG version (web service method)
  */
-function ws_getVersion($params, &$service)
+function ws_getVersion($params, $service)
 {
   global $conf;
   if ($conf['show_version'] or is_admin() )
@@ -303,7 +317,7 @@ function ws_getVersion($params, &$service)
 /**
  * returns general informations (web service method)
  */
-function ws_getInfos($params, &$service)
+function ws_getInfos($params, $service)
 {
   if (!is_admin())
   {
@@ -367,7 +381,7 @@ function ws_getInfos($params, &$service)
   return array('infos' => new PwgNamedArray($output, 'item'));
 }
 
-function ws_caddie_add($params, &$service)
+function ws_caddie_add($params, $service)
 {
   if (!is_admin())
   {
@@ -400,7 +414,7 @@ SELECT id
 /**
  * returns images per category (web service method)
  */
-function ws_categories_getImages($params, &$service)
+function ws_categories_getImages($params, $service)
 {
   global $user, $conf;
 
@@ -469,6 +483,9 @@ SELECT id, name, permalink, image_order
     }
     $order_by = empty($order_by) ? $conf['order_by'] : 'ORDER BY '.$order_by;
 
+    $params['per_page'] = (int)$params['per_page'];
+    $params['page'] = (int)$params['page'];
+
     $query = '
 SELECT i.*, GROUP_CONCAT(category_id) AS cat_ids
   FROM '.IMAGES_TABLE.' i
@@ -477,7 +494,7 @@ SELECT i.*, GROUP_CONCAT(category_id) AS cat_ids
     AND ', $where_clauses).'
 GROUP BY i.id
 '.$order_by.'
-LIMIT '.(int)$params['per_page'].' OFFSET '.(int)($params['per_page']*$params['page']);
+LIMIT '.$params['per_page'].' OFFSET '.($params['per_page']*$params['page']);
 
     $result = pwg_query($query);
     while ($row = pwg_db_fetch_assoc($result))
@@ -511,34 +528,28 @@ LIMIT '.(int)$params['per_page'].' OFFSET '.(int)($params['per_page']*$params['p
                   'image_file' => $row['file'],
                   )
                 );
-        array_push( $image_cats,  array(
-              WS_XML_ATTRIBUTES => array (
-                  'id' => (int)$cat_id,
-                  'url' => $url,
-                  'page_url' => $page_url,
-                )
-            )
-          );
+        $image_cats[] = array (
+                'id' => (int)$cat_id,
+                'url' => $url,
+                'page_url' => $page_url,
+            );
       }
 
       $image['categories'] = new PwgNamedArray(
             $image_cats,'category', array('id','url','page_url')
           );
-      array_push($images, $image);
+      $images[] = $image;
     }
   }
 
-  return array( 'images' =>
-    array (
-      WS_XML_ATTRIBUTES =>
+  return array (
+      'paging' => new PwgNamedStruct(
         array(
             'page' => $params['page'],
             'per_page' => $params['per_page'],
             'count' => count($images)
-          ),
-       WS_XML_CONTENT => new PwgNamedArray($images, 'image',
-          ws_std_get_image_xml_attributes() )
-      )
+          ) ),
+       'images' => new PwgNamedArray($images, 'image', ws_std_get_image_xml_attributes() )
     );
 }
 
@@ -557,16 +568,16 @@ function categories_flatlist_to_tree($categories)
 
     if (!isset($node['id_uppercat']))
     {
-      $tree[$key] = &$node;
+      $tree[] = &$node;
     }
     else
     {
       if (!isset($categories[ $key_of_cat[ $node['id_uppercat'] ] ]['sub_categories']))
       {
-        $categories[ $key_of_cat[ $node['id_uppercat'] ] ]['sub_categories'] = array();
+        $categories[ $key_of_cat[ $node['id_uppercat'] ] ]['sub_categories'] = new PwgNamedArray(array(), 'category', ws_std_get_category_xml_attributes());
       }
 
-      $categories[ $key_of_cat[ $node['id_uppercat'] ] ]['sub_categories'][$key] = &$node;
+      $categories[ $key_of_cat[ $node['id_uppercat'] ] ]['sub_categories']->_content[] = &$node;
     }
   }
 
@@ -576,25 +587,9 @@ function categories_flatlist_to_tree($categories)
 /**
  * returns a list of categories (web service method)
  */
-function ws_categories_getList($params, &$service)
+function ws_categories_getList($params, $service)
 {
   global $user,$conf;
-
-  if ($params['tree_output'])
-  {
-    if (!isset($_GET['format']) or !in_array($_GET['format'], array('php', 'json')))
-    {
-      // the algorithm used to build a tree from a flat list of categories
-      // keeps original array keys, which is not compatible with
-      // PwgNamedArray.
-      //
-      // PwgNamedArray is useful to define which data is an attribute and
-      // which is an element in the XML output. The "hierarchy" output is
-      // only compatible with json/php output.
-
-      return new PwgError(405, "The tree_output option is only compatible with json/php output formats");
-    }
-  }
 
   $where = array('1=1');
   $join_type = 'INNER';
@@ -608,7 +603,7 @@ function ws_categories_getList($params, &$service)
     else
       $where[] = 'id_uppercat IS NULL';
   }
-  else if ($params['cat_id']>0)
+  elseif ($params['cat_id']>0)
   {
     $where[] = 'uppercats '.DB_REGEX_OPERATOR.' \'(^|,)'.
       (int)($params['cat_id'])
@@ -704,11 +699,11 @@ SELECT id, name, permalink, uppercats, global_rank, id_uppercat,
     {
       $image_id = $row['user_representative_picture_id'];
     }
-    else if (!empty($row['representative_picture_id']))
+    elseif (!empty($row['representative_picture_id']))
     { // if a representative picture is set, it has priority
       $image_id = $row['representative_picture_id'];
     }
-    else if ($conf['allow_random_representative'])
+    elseif ($conf['allow_random_representative'])
     {
       // searching a random representant among elements in sub-categories
       $image_id = get_random_image_in_category($row);
@@ -746,18 +741,18 @@ SELECT id, name, permalink, uppercats, global_rank, id_uppercat,
     {
       if ($conf['representative_cache_on_subcats'] and $row['user_representative_picture_id'] != $image_id)
       {
-        $user_representative_updates_for[ $user['id'].'#'.$row['id'] ] = $image_id;
+        $user_representative_updates_for[ $row['id'] ] = $image_id;
       }
 
       $row['representative_picture_id'] = $image_id;
-      array_push($image_ids, $image_id);
-      array_push($categories, $row);
+      $image_ids[] = $image_id;
+      $categories[] = $row;
     }
     unset($image_id);
     // management of the album thumbnail -- stops here
 
 
-    array_push($cats, $row);
+    $cats[] = $row;
   }
   usort($cats, 'global_rank_compare');
 
@@ -803,7 +798,7 @@ SELECT id, path, representative_ext, level
 
             if ($conf['representative_cache_on_level'])
             {
-              $user_representative_updates_for[ $user['id'].'#'.$category['id'] ] = $image_id;
+              $user_representative_updates_for[ $category['id'] ] = $image_id;
             }
 
             $category['representative_picture_id'] = $image_id;
@@ -835,14 +830,12 @@ SELECT id, path, representative_ext
   {
     $updates = array();
 
-    foreach ($user_representative_updates_for as $user_cat => $image_id)
+    foreach ($user_representative_updates_for as $cat_id => $image_id)
     {
-      list($user_id, $cat_id) = explode('#', $user_cat);
-
       array_push(
         $updates,
         array(
-          'user_id' => $user_id,
+          'user_id' => $user['id'],
           'cat_id' => $cat_id,
           'user_representative_picture_id' => $image_id,
           )
@@ -878,26 +871,12 @@ SELECT id, path, representative_ext
 
   if ($params['tree_output'])
   {
-    return categories_flatlist_to_tree($cats);
+    $cats = categories_flatlist_to_tree($cats);
   }
-  else
-  {
-    return array(
-      'categories' => new PwgNamedArray(
-        $cats,
-        'category',
-        array(
-          'id',
-          'url',
-          'nb_images',
-          'total_nb_images',
-          'nb_categories',
-          'date_last',
-          'max_date_last',
-          )
-        )
-      );
-  }
+
+  return array(
+    'categories' => new PwgNamedArray($cats, 'category', ws_std_get_category_xml_attributes())
+    );
 }
 
 /**
@@ -907,7 +886,7 @@ SELECT id, path, representative_ext
  * Only admin can run this method and permissions are not taken into
  * account.
  */
-function ws_categories_getAdminList($params, &$service)
+function ws_categories_getAdminList($params, $service)
 {
   if (!is_admin())
   {
@@ -953,7 +932,7 @@ SELECT
         'ws_categories_getAdminList'
         )
       );
-    array_push($cats, $row);
+    $cats[] = $row;
   }
 
   usort($cats, 'global_rank_compare');
@@ -975,7 +954,7 @@ SELECT
 /**
  * returns detailed information for an element (web service method)
  */
-function ws_images_addComment($params, &$service)
+function ws_images_addComment($params, $service)
 {
   if (!$service->isPost())
   {
@@ -1023,11 +1002,7 @@ SELECT DISTINCT image_id
           'id' => $comm['id'],
           'validation' => $comment_action=='validate',
         );
-      return new PwgNamedStruct(
-          'comment',
-          $ret,
-          null, array()
-        );
+      return array( 'comment' =>  new PwgNamedStruct($ret) );
     default:
       return new PwgError(500, "Unknown comment action ".$comment_action );
   }
@@ -1036,7 +1011,7 @@ SELECT DISTINCT image_id
 /**
  * returns detailed information for an element (web service method)
  */
-function ws_images_getInfo($params, &$service)
+function ws_images_getInfo($params, $service)
 {
   global $user, $conf;
   $params['image_id'] = (int)$params['image_id'];
@@ -1171,7 +1146,7 @@ SELECT id, date, author, content
     while ($row = pwg_db_fetch_assoc($result))
     {
       $row['id']=(int)$row['id'];
-      array_push($related_comments, $row);
+      $related_comments[] = $row;
     }
   }
 
@@ -1201,30 +1176,31 @@ SELECT id, date, author, content
 
   $ret['rates'] = array( WS_XML_ATTRIBUTES => $rating );
   $ret['categories'] = new PwgNamedArray($related_categories, 'category', array('id','url', 'page_url') );
-  $ret['tags'] = new PwgNamedArray($related_tags, 'tag', array('id','url_name','url','name','page_url') );
+  $ret['tags'] = new PwgNamedArray($related_tags, 'tag', ws_std_get_tag_xml_attributes() );
   if ( isset($comment_post_data) )
   {
     $ret['comment_post'] = array( WS_XML_ATTRIBUTES => $comment_post_data );
   }
-  $ret['comments'] = array(
-     WS_XML_ATTRIBUTES =>
-        array(
-          'page' => $params['comments_page'],
-          'per_page' => $params['comments_per_page'],
-          'count' => count($related_comments),
-          'nb_comments' => $nb_comments,
-        ),
-     WS_XML_CONTENT => new PwgNamedArray($related_comments, 'comment', array('id','date') )
-      );
+  $ret['comments_paging'] = new PwgNamedStruct( array(
+        'page' => $params['comments_page'],
+        'per_page' => $params['comments_per_page'],
+        'count' => count($related_comments),
+        'total_count' => $nb_comments,
+      ) );
 
-  return new PwgNamedStruct('image',$ret, null, array('name','comment') );
+  $ret['comments'] = new PwgNamedArray($related_comments, 'comment', array('id','date') );
+
+  if ($service->_responseFormat != 'rest')
+    return $ret; // for backward compatibility only
+  else
+    return array( 'image' => new PwgNamedStruct($ret, null, array('name','comment') ) );
 }
 
 
 /**
  * rates the image_id in the parameter
  */
-function ws_images_Rate($params, &$service)
+function ws_images_Rate($params, $service)
 {
   $image_id = (int)$params['image_id'];
   $query = '
@@ -1258,7 +1234,7 @@ SELECT DISTINCT id FROM '.IMAGES_TABLE.'
 /**
  * returns a list of elements corresponding to a query search
  */
-function ws_images_search($params, &$service)
+function ws_images_search($params, $service)
 {
   global $page;
   $images = array();
@@ -1279,6 +1255,9 @@ function ws_images_search($params, &$service)
       $super_order_by,
       implode(' AND ', $where_clauses)
     );
+
+  $params['per_page'] = (int)$params['per_page'];
+  $params['page'] = (int)$params['page'];
 
   $image_ids = array_slice(
       $search_result['items'],
@@ -1315,22 +1294,20 @@ SELECT * FROM '.IMAGES_TABLE.'
     $images = array_values($images);
   }
 
-
-  return array( 'images' =>
-    array (
-      WS_XML_ATTRIBUTES =>
-        array(
-            'page' => $params['page'],
-            'per_page' => $params['per_page'],
-            'count' => count($images)
-          ),
-       WS_XML_CONTENT => new PwgNamedArray($images, 'image',
-          ws_std_get_image_xml_attributes() )
-      )
+  return array (
+    'paging' => new PwgNamedStruct(
+      array(
+        'page' => $params['page'],
+        'per_page' => $params['per_page'],
+        'count' => count($images),
+        'total_count' => count($search_result['items']),
+        ) ),
+     'images' => new PwgNamedArray($images, 'image',
+        ws_std_get_image_xml_attributes() )
     );
 }
 
-function ws_images_setPrivacyLevel($params, &$service)
+function ws_images_setPrivacyLevel($params, $service)
 {
   if (!is_admin())
   {
@@ -1365,7 +1342,7 @@ UPDATE '.IMAGES_TABLE.'
   return $affected_rows;
 }
 
-function ws_images_setRank($params, &$service)
+function ws_images_setRank($params, $service)
 {
   if (!is_admin())
   {
@@ -1477,7 +1454,7 @@ UPDATE '.IMAGE_CATEGORY_TABLE.'
     );
 }
 
-function ws_images_add_chunk($params, &$service)
+function ws_images_add_chunk($params, $service)
 {
   global $conf;
 
@@ -1636,7 +1613,7 @@ function remove_chunks($original_sum, $type)
   }
 }
 
-function ws_images_addFile($params, &$service)
+function ws_images_addFile($params, $service)
 {
   ws_logfile(__FUNCTION__.', input :  '.var_export($params, true));
   // image_id
@@ -1731,7 +1708,7 @@ SELECT
     );
 }
 
-function ws_images_add($params, &$service)
+function ws_images_add($params, $service)
 {
   global $conf, $user;
   if (!is_admin())
@@ -1889,7 +1866,7 @@ SELECT id, name, permalink
     );
 }
 
-function ws_images_addSimple($params, &$service)
+function ws_images_addSimple($params, $service)
 {
   global $conf;
   if (!is_admin())
@@ -2026,7 +2003,7 @@ SELECT id, name, permalink
     );
 }
 
-function ws_rates_delete($params, &$service)
+function ws_rates_delete($params, $service)
 {
   global $conf;
 
@@ -2068,7 +2045,7 @@ DELETE FROM '.RATE_TABLE.'
 /**
  * perform a login (web service method)
  */
-function ws_session_login($params, &$service)
+function ws_session_login($params, $service)
 {
   global $conf;
 
@@ -2087,7 +2064,7 @@ function ws_session_login($params, &$service)
 /**
  * performs a logout (web service method)
  */
-function ws_session_logout($params, &$service)
+function ws_session_logout($params, $service)
 {
   if (!is_a_guest())
   {
@@ -2096,7 +2073,7 @@ function ws_session_logout($params, &$service)
   return true;
 }
 
-function ws_session_getStatus($params, &$service)
+function ws_session_getStatus($params, $service)
 {
   global $user;
   $res = array();
@@ -2118,7 +2095,7 @@ function ws_session_getStatus($params, &$service)
 /**
  * returns a list of tags (web service method)
  */
-function ws_tags_getList($params, &$service)
+function ws_tags_getList($params, $service)
 {
   $tags = get_available_tags();
   if ($params['sort_by_counter'])
@@ -2140,7 +2117,7 @@ function ws_tags_getList($params, &$service)
         )
       );
   }
-  return array('tags' => new PwgNamedArray($tags, 'tag', array('id','url_name','url', 'name', 'counter' )) );
+  return array('tags' => new PwgNamedArray($tags, 'tag', ws_std_get_tag_xml_attributes()) );
 }
 
 /**
@@ -2150,7 +2127,7 @@ function ws_tags_getList($params, &$service)
  * Only admin can run this method and permissions are not taken into
  * account.
  */
-function ws_tags_getAdminList($params, &$service)
+function ws_tags_getAdminList($params, $service)
 {
   if (!is_admin())
   {
@@ -2162,11 +2139,7 @@ function ws_tags_getAdminList($params, &$service)
     'tags' => new PwgNamedArray(
       $tags,
       'tag',
-      array(
-        'name',
-        'id',
-        'url_name',
-        )
+      ws_std_get_tag_xml_attributes()
       )
     );
 }
@@ -2174,7 +2147,7 @@ function ws_tags_getAdminList($params, &$service)
 /**
  * returns a list of images for tags (web service method)
  */
-function ws_tags_getImages($params, &$service)
+function ws_tags_getImages($params, $service)
 {
   global $conf;
 
@@ -2202,8 +2175,10 @@ function ws_tags_getImages($params, &$service)
     $where_clauses,
     ws_std_image_sql_order($params) );
 
-
-  $image_ids = array_slice($image_ids, (int)($params['per_page']*$params['page']), (int)$params['per_page'] );
+  $count_set = count($image_ids);
+  $params['per_page'] = (int)$params['per_page'];
+  $params['page'] = (int)$params['page'];
+  $image_ids = array_slice($image_ids, $params['per_page']*$params['page'], $params['per_page'] );
 
   $image_tag_map = array();
   if ( !empty($image_ids) and !$params['tag_mode_and'] )
@@ -2217,7 +2192,7 @@ SELECT image_id, GROUP_CONCAT(tag_id) AS tag_ids
     while ( $row=pwg_db_fetch_assoc($result) )
     {
       $row['image_id'] = (int)$row['image_id'];
-      array_push( $image_ids, $row['image_id'] );
+      $image_ids[] = $row['image_id'];
       $image_tag_map[ $row['image_id'] ] = explode(',', $row['tag_ids']);
     }
   }
@@ -2264,37 +2239,33 @@ SELECT * FROM '.IMAGES_TABLE.'
                   'image_file' => $row['file'],
                 )
               );
-        array_push($image_tags, array(
+        $image_tags[] = array(
                 'id' => (int)$tag_id,
                 'url' => $url,
                 'page_url' => $page_url,
-              )
-            );
+              );
       }
-      $image['tags'] = new PwgNamedArray($image_tags, 'tag',
-              array('id','url_name','url','page_url')
-            );
-      array_push($images, $image);
+      $image['tags'] = new PwgNamedArray($image_tags, 'tag', ws_std_get_tag_xml_attributes() );
+      $images[] = $image;
     }
     usort($images, 'rank_compare');
     unset($rank_of);
   }
 
-  return array( 'images' =>
-    array (
-      WS_XML_ATTRIBUTES =>
+  return array( 
+      'paging' => new PwgNamedStruct(
         array(
-            'page' => $params['page'],
-            'per_page' => $params['per_page'],
-            'count' => count($images)
-          ),
-       WS_XML_CONTENT => new PwgNamedArray($images, 'image',
+          'page' => $params['page'],
+          'per_page' => $params['per_page'],
+          'count' => count($images),
+          'total_count' => $count_set,
+          ) ),
+       'images' => new PwgNamedArray($images, 'image',
           ws_std_get_image_xml_attributes() )
-      )
     );
 }
 
-function ws_categories_add($params, &$service)
+function ws_categories_add($params, $service)
 {
   if (!is_admin())
   {
@@ -2341,7 +2312,7 @@ function ws_categories_add($params, &$service)
   return $creation_output;
 }
 
-function ws_tags_add($params, &$service)
+function ws_tags_add($params, $service)
 {
   if (!is_admin())
   {
@@ -2360,7 +2331,7 @@ function ws_tags_add($params, &$service)
   return $creation_output;
 }
 
-function ws_images_exist($params, &$service)
+function ws_images_exist($params, $service)
 {
   ws_logfile(__FUNCTION__.' '.var_export($params, true));
 
@@ -2440,7 +2411,7 @@ SELECT
   return $result;
 }
 
-function ws_images_checkFiles($params, &$service)
+function ws_images_checkFiles($params, $service)
 {
   ws_logfile(__FUNCTION__.', input :  '.var_export($params, true));
 
@@ -2513,7 +2484,7 @@ SELECT
   return $ret;
 }
 
-function ws_images_setInfo($params, &$service)
+function ws_images_setInfo($params, $service)
 {
   global $conf;
   if (!is_admin())
@@ -2660,7 +2631,7 @@ SELECT *
   invalidate_user_cache();
 }
 
-function ws_images_delete($params, &$service)
+function ws_images_delete($params, $service)
 {
   global $conf;
   if (!is_admin())
@@ -2851,7 +2822,7 @@ SELECT
   update_category($new_cat_ids);
 }
 
-function ws_categories_setInfo($params, &$service)
+function ws_categories_setInfo($params, $service)
 {
   global $conf;
   if (!is_admin())
@@ -2909,7 +2880,7 @@ function ws_categories_setInfo($params, &$service)
 
 }
 
-function ws_categories_setRepresentative($params, &$service)
+function ws_categories_setRepresentative($params, $service)
 {
   global $conf;
 
@@ -2981,7 +2952,7 @@ UPDATE '.USER_CACHE_CATEGORIES_TABLE.'
   pwg_query($query);
 }
 
-function ws_categories_delete($params, &$service)
+function ws_categories_delete($params, $service)
 {
   global $conf;
   if (!is_admin())
@@ -3049,7 +3020,7 @@ SELECT id
   update_global_rank();
 }
 
-function ws_categories_move($params, &$service)
+function ws_categories_move($params, $service)
 {
   global $conf, $page;
 
@@ -3185,7 +3156,7 @@ function ws_logfile($string)
     );
 }
 
-function ws_images_checkUpload($params, &$service)
+function ws_images_checkUpload($params, $service)
 {
   global $conf;
 
@@ -3206,7 +3177,7 @@ function ws_images_checkUpload($params, &$service)
   return $ret;
 }
 
-function ws_plugins_getList($params, &$service)
+function ws_plugins_getList($params, $service)
 {
   global $conf;
 
@@ -3231,16 +3202,14 @@ function ws_plugins_getList($params, &$service)
       $state = 'uninstalled';
     }
 
-    array_push(
-      $plugin_list,
+    $plugin_list[] =
       array(
         'id' => $plugin_id,
         'name' => $fs_plugin['name'],
         'version' => $fs_plugin['version'],
         'state' => $state,
         'description' => $fs_plugin['description'],
-        )
-      );
+        );
   }
 
   return $plugin_list;
@@ -3280,7 +3249,7 @@ function ws_plugins_performAction($params, &$service)
   }
 }
 
-function ws_themes_performAction($params, &$service)
+function ws_themes_performAction($params, $service)
 {
   global $template;
 
@@ -3313,7 +3282,7 @@ function ws_themes_performAction($params, &$service)
   }
 }
 
-function ws_extensions_update($params, &$service)
+function ws_extensions_update($params, $service)
 {
   if (!is_webmaster())
   {
@@ -3403,7 +3372,7 @@ function ws_extensions_update($params, &$service)
   }
 }
 
-function ws_extensions_ignoreupdate($params, &$service)
+function ws_extensions_ignoreupdate($params, $service)
 {
   global $conf;
 
@@ -3457,7 +3426,7 @@ function ws_extensions_ignoreupdate($params, &$service)
   return true;
 }
 
-function ws_extensions_checkupdates($params, &$service)
+function ws_extensions_checkupdates($params, $service)
 {
   global $conf;
 

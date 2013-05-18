@@ -40,7 +40,6 @@ define( 'WS_ERR_MISSING_PARAM',   1002 );
 define( 'WS_ERR_INVALID_PARAM',   1003 );
 
 define( 'WS_XML_ATTRIBUTES', 'attributes_xml_');
-define( 'WS_XML_CONTENT', 'content_xml_');
 
 /**
  * PwgError object can be returned from any web service function implementation.
@@ -98,7 +97,6 @@ class PwgNamedArray
 class PwgNamedStruct
 {
   /*private*/ var $_content;
-  /*private*/ var $_name;
   /*private*/ var $_xmlAttributes;
 
   /**
@@ -110,9 +108,8 @@ class PwgNamedStruct
    *    encoded as xml attributes (if null - automatically prefer xml attributes
    *    whenever possible)
    */
-  function PwgNamedStruct($name, $content, $xmlAttributes=null, $xmlElements=null )
+  function PwgNamedStruct($content, $xmlAttributes=null, $xmlElements=null )
   {
-    $this->_name = $name;
     $this->_content = $content;
     if ( isset($xmlAttributes) )
     {
@@ -182,115 +179,42 @@ class PwgResponseEncoder
    * removes all XML formatting from $response (named array, named structs, etc)
    * usually called by every response encoder, except rest xml.
    */
-  static function flattenResponse(&$response)
+  static function flattenResponse(&$value)
   {
-    PwgResponseEncoder::_mergeAttributesAndContent($response);
-    PwgResponseEncoder::_removeNamedArray($response);
-    PwgResponseEncoder::_removeNamedStruct($response);
-    if (is_array($response))
-    { // need to call 2 times (first time might add new arrays)
-      array_walk_recursive($response, array('PwgResponseEncoder', '_remove_named_callback') );
-      array_walk_recursive($response, array('PwgResponseEncoder', '_remove_named_callback') );
-    }
-//print_r($response);
-    PwgResponseEncoder::_mergeAttributesAndContent($response);
+    self::flatten($value);
   }
 
-  private static function _remove_named_callback(&$value, $key)
+  private static function flatten(&$value)
   {
-    do
+    if (is_object($value))
     {
-      $changed = 0;
-      $changed += PwgResponseEncoder::_removeNamedArray($value);
-      $changed += PwgResponseEncoder::_removeNamedStruct($value);
-  //    print_r('walk '.$key."<br>\n");
+      $class = strtolower( @get_class($value) );
+      if ($class == 'pwgnamedarray')
+      {
+        $value = $value->_content;
+      }
+      if ($class == 'pwgnamedstruct')
+      {
+        $value = $value->_content;
+      }
     }
-    while ($changed);
-  }
 
-  private static function _mergeAttributesAndContent(&$value)
-  {
-    if ( !is_array($value) )
+    if (!is_array($value))
       return;
-/*    $first_key = '';
-    if (count($value)) { $ak = array_keys($value); $first_key = $ak[0]; }
 
-    print_r( '_mergeAttributesAndContent is_struct='.PwgResponseEncoder::is_struct($value)
-      .' count='.count($value)
-      .' first_key='.$first_key
-      ."<br>\n"
-      );*/
-    $ret = 0;
-    if (PwgResponseEncoder::is_struct($value))
+    if (self::is_struct($value))
     {
       if ( isset($value[WS_XML_ATTRIBUTES]) )
       {
         $value = array_merge( $value, $value[WS_XML_ATTRIBUTES] );
         unset( $value[WS_XML_ATTRIBUTES] );
-        $ret=1;
-      }
-      if ( isset($value[WS_XML_CONTENT]) )
-      {
-        $cont_processed = 0;
-        if ( count($value)==1 )
-        {
-          $value = $value[WS_XML_CONTENT];
-          $cont_processed=1;
-        }
-        else
-        {
-          if (PwgResponseEncoder::is_struct($value[WS_XML_CONTENT]))
-          {
-            $value = array_merge( $value, $value[WS_XML_CONTENT] );
-            unset( $value[WS_XML_CONTENT] );
-            $cont_processed=1;
-          }
-        }
-        $ret += $cont_processed;
-        if (!$cont_processed)
-        {
-          $value['_content'] = $value[WS_XML_CONTENT];
-          unset( $value[WS_XML_CONTENT] );
-          $ret++;
-        }
       }
     }
 
-    foreach ($value as $key=>$v)
+    foreach ($value as $key=>&$v)
     {
-      if ( PwgResponseEncoder::_mergeAttributesAndContent($v) )
-      {
-        $value[$key]=$v;
-        $ret++;
-      }
+      self::flatten($v);
     }
-    return $ret;
-  }
-
-  private static function _removeNamedArray(&$value)
-  {
-    if ( strtolower( @get_class($value) ) =='pwgnamedarray')
-    {
-      $value = $value->_content;
-      return 1;
-    }
-    return 0;
-  }
-
-  private static function _removeNamedStruct(&$value)
-  {
-    if ( strtolower( @get_class($value) ) =='pwgnamedstruct')
-    {
-      if ( isset($value->_content['']) )
-      {
-        $unknown = $value->_content[''];
-        unset( $value->_content[''] );
-        $value->_content[$value->_name] = $unknown;
-      }
-      $value = $value->_content;
-      return 1;
-    }
-    return 0;
   }
 }
 
