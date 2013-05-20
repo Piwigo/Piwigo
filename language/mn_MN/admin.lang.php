@@ -287,4 +287,7 @@ $lang['set to'] = 'өөрчлөх';
 $lang['You have %d orphan tags: %s.'] = 'Нийт %d -н сондгой түлхүүр үгс байна: %s.';
 $lang['Delete orphan tags'] = 'Сондгой түлхүүр үгсийг устгах';
 $lang['Orphan tags deleted'] = 'Сондгой түлхүүр үгсийг амжилттай устаглаа';
+$lang['Inactive Languages'] = 'Идэвхжүүлээгүй байгаа хэл';
+$lang['Album "%s" has been added'] = '"%s" цомогыг амжилттай нэмлээ';
+$lang['Album "%s" now contains %d photos'] = '"%s" цомогт нийт %d зураг байна';
 ?>
