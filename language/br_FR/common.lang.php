@@ -30,7 +30,7 @@ Author URI: http://piwigo.org
 
 // Langage informations
 $lang_info['language_name'] = 'Brezhoneg';
-$lang_info['country'] = 'Bro-C\'hall';
+$lang_info['country'] = 'Frañs';
 $lang_info['direction'] = 'ltr';
 $lang_info['code'] = 'br';
 $lang_info['zero_plural'] = true;
