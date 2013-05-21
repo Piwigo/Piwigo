@@ -15,26 +15,26 @@ jQuery(document).ready(function(){
   jQuery(".checkComment").click(function(event) {
     var checkbox = jQuery(this).children("input[type=checkbox]");
     if (event.target.type !== 'checkbox') {
-      jQuery(checkbox).attr('checked', !jQuery(checkbox).is(':checked'));
+      jQuery(checkbox).prop('checked', !jQuery(checkbox).prop('checked'));
     }
     highlighComments();
   });
 
   jQuery("#commentSelectAll").click(function () {
-    jQuery(".checkComment input[type=checkbox]").attr('checked', true);
+    jQuery(".checkComment input[type=checkbox]").prop('checked', true);
     highlighComments();
     return false;
   });
 
   jQuery("#commentSelectNone").click(function () {
-    jQuery(".checkComment input[type=checkbox]").attr('checked', false);
+    jQuery(".checkComment input[type=checkbox]").prop('checked', false);
     highlighComments();
     return false;
   });
 
   jQuery("#commentSelectInvert").click(function () {
     jQuery(".checkComment input[type=checkbox]").each(function() {
-      jQuery(this).attr('checked', !$(this).is(':checked'));
+      jQuery(this).prop('checked', !$(this).prop('checked'));
     });
     highlighComments();
     return false;
@@ -43,9 +43,7 @@ jQuery(document).ready(function(){
 });
 {/literal}{/footer_script}
 
-<div class="titrePage">
-  <h2>{'Pending Comments'|@translate} {$TABSHEET_TITLE}</h2>
-</div>
+<h2>{'Pending Comments'|@translate} {$TABSHEET_TITLE}</h2>
 
 {if !empty($comments) }
 <form method="post" action="{$F_ACTION}" id="pendingComments">
@@ -75,8 +73,8 @@ jQuery(document).ready(function(){
   </p>
 
   <p class="bottomButtons">
-    <input class="submit" type="submit" name="validate" value="{'Validate'|@translate}">
-    <input class="submit" type="submit" name="reject" value="{'Reject'|@translate}">
+    <input type="submit" name="validate" value="{'Validate'|@translate}">
+    <input type="submit" name="reject" value="{'Reject'|@translate}">
   </p>
 
 </form>
