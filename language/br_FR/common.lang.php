@@ -80,4 +80,7 @@ $lang['%d comment to validate'] = '%d evezhiadenn implijer da gadarnaat';
 $lang['%d comments to validate'] = '%d evezhiadenn implijerien da gadarnaat';
 $lang['%d photo'] = '%d luc\'hskeudenn';
 $lang['%d photos'] = '%d luc\'hskeudenn';
+$lang['About Piwigo'] = 'Diwar-benn Piwigo';
+$lang['About'] = 'Diwar-benn';
+$lang['A comment on your site'] = 'Un evezhiadenn war ho lec\'hienn';
 ?>
