@@ -83,4 +83,14 @@ $lang['%d photos'] = '%d luc\'hskeudenn';
 $lang['About Piwigo'] = 'Diwar-benn Piwigo';
 $lang['About'] = 'Diwar-benn';
 $lang['A comment on your site'] = 'Un evezhiadenn war ho lec\'hienn';
+$lang['All tags'] = 'An holl merkerioù';
+$lang['Album'] = 'Rummad';
+$lang['Album results for'] = 'Disoc\'hoù ar rummadoù evit';
+$lang['Album: %s'] = 'Rummad : %s';
+$lang['Albums'] = 'Rummadoù';
+$lang['All'] = 'Holl';
+$lang['Administration'] = 'Mererezh';
+$lang['Admin: %s'] = 'Mererezh : %s';
+$lang['Add a comment'] = 'Lakaat un evezhiadenn ouzhpenn';
+$lang['Accelerate diaporama speed'] = 'Buanaat an diaporama';
 ?>
