@@ -93,4 +93,5 @@ $lang['Administration'] = 'Mererezh';
 $lang['Admin: %s'] = 'Mererezh : %s';
 $lang['Add a comment'] = 'Lakaat un evezhiadenn ouzhpenn';
 $lang['Accelerate diaporama speed'] = 'Buanaat an diaporama';
+$lang['An administrator must authorize your comment before it is visible.'] = 'Gwelet vo hoc\'h evezhiadenn goude ma vo aotreet gant ur merour';
 ?>
