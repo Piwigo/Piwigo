@@ -94,4 +94,6 @@ $lang['Admin: %s'] = 'Mererezh : %s';
 $lang['Add a comment'] = 'Lakaat un evezhiadenn ouzhpenn';
 $lang['Accelerate diaporama speed'] = 'Buanaat an diaporama';
 $lang['An administrator must authorize your comment before it is visible.'] = 'Gwelet vo hoc\'h evezhiadenn goude ma vo aotreet gant ur merour';
+$lang['Anti-flood system : please wait for a moment before trying to post another comment'] = 'Lusker enepstrob : gortozit a-raok lakaat un evezhiadenn ouzhpenn';
+$lang['Any tag'] = 'Ur merker bennak';
 ?>
