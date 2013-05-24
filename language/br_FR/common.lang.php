@@ -96,4 +96,12 @@ $lang['Accelerate diaporama speed'] = 'Buanaat an diaporama';
 $lang['An administrator must authorize your comment before it is visible.'] = 'Gwelet vo hoc\'h evezhiadenn goude ma vo aotreet gant ur merour';
 $lang['Anti-flood system : please wait for a moment before trying to post another comment'] = 'Lusker enepstrob : gortozit a-raok lakaat un evezhiadenn ouzhpenn';
 $lang['Any tag'] = 'Ur merker bennak';
+$lang['Best rated'] = 'Notet ar gwellañ';
+$lang['Bad status for user "guest", using default status. Please notify the webmaster.'] = 'Statud fall evit an implijer "guest", ar statud dre ziouer a vo implijet. Kemennit ar mestr-gwiad.';
+$lang['Bad request'] = 'Reked fall';
+$lang['Author'] = 'Oberour';
+$lang['Author: %s'] = 'Oberour: %s';
+$lang['Auto login'] = 'Kevreadenn emgefre';
+$lang['At least one listed rule must be satisfied.'] = 'Un dezverk d\'an neubeutañ a renk bezañ gwiriet';
+$lang['Are you sure?'] = 'Ha sur oc\'h ?';
 ?>
