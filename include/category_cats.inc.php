@@ -37,6 +37,7 @@ SELECT
     date_last,
     max_date_last,
     count_images,
+    nb_categories,
     count_categories
   FROM '.CATEGORIES_TABLE.' c
     INNER JOIN '.USER_CACHE_CATEGORIES_TABLE.' ucc
@@ -119,7 +120,7 @@ SELECT representative_picture_id
   {
     if ($conf['representative_cache_on_subcats'] and $row['user_representative_picture_id'] != $image_id)
     {
-      $user_representative_updates_for[ $user['id'].'#'.$row['id'] ] = $image_id;
+      $user_representative_updates_for[ $row['id'] ] = $image_id;
     }
 
     $row['representative_picture_id'] = $image_id;
@@ -211,7 +212,7 @@ SELECT *
 
           if ($conf['representative_cache_on_level'])
           {
-            $user_representative_updates_for[ $user['id'].'#'.$category['id'] ] = $image_id;
+            $user_representative_updates_for[ $category['id'] ] = $image_id;
           }
 
           $category['representative_picture_id'] = $image_id;
@@ -246,18 +247,14 @@ if (count($user_representative_updates_for))
 {
   $updates = array();
 
-  foreach ($user_representative_updates_for as $user_cat => $image_id)
+  foreach ($user_representative_updates_for as $cat_id => $image_id)
   {
-    list($user_id, $cat_id) = explode('#', $user_cat);
-
-    array_push(
-      $updates,
+    $updates[] =
       array(
-        'user_id' => $user_id,
+        'user_id' => $user['id'],
         'cat_id' => $cat_id,
         'user_representative_picture_id' => $image_id,
-        )
-      );
+        );
   }
 
   mass_updates(

@@ -410,7 +410,7 @@ SELECT COUNT(DISTINCT(image_id)) as total
           if ($cat['count_images']==0)
           {
             $forbidden_ids[] = $cat['cat_id'];
-            unset( $user_cache_cats[$cat['cat_id']] );
+            remove_computed_category($user_cache_cats, $cat);
           }
         }
         if ( !empty($forbidden_ids) )
@@ -441,7 +441,7 @@ DELETE FROM '.USER_CACHE_CATEGORIES_TABLE.'
         array
         (
           'user_id', 'cat_id',
-          'date_last', 'max_date_last', 'nb_images', 'count_images', 'count_categories'
+          'date_last', 'max_date_last', 'nb_images', 'count_images', 'nb_categories', 'count_categories'
         ),
         $user_cache_cats,
         array('ignore' => true)
@@ -602,75 +602,29 @@ SELECT id
   return implode(',', $forbidden_array);
 }
 
-/**
- * compute data of categories branches (one branch only)
- */
-function compute_branch_cat_data(&$cats, &$list_cat_id, &$level, &$ref_level)
+
+/*update counters with a category removal*/
+function remove_computed_category(&$cats, $cat)
 {
-  $date = '';
-  $count_images = 0;
-  $count_categories = 0;
-  do
+  if ( isset( $cats[$cat['id_uppercat']] ) )
   {
-    $cat_id = array_pop($list_cat_id);
-    if (!is_null($cat_id))
-    {
-      // Count images and categories
-      $cats[$cat_id]['count_images'] += $count_images;
-      $cats[$cat_id]['count_categories'] += $count_categories;
-      $count_images = $cats[$cat_id]['count_images'];
-      $count_categories = $cats[$cat_id]['count_categories'] + 1;
+    $parent = & $cats[ $cat['id_uppercat'] ];
+    $parent['nb_categories']--;
 
-      if ((empty($cats[$cat_id]['max_date_last'])) or ($cats[$cat_id]['max_date_last'] < $date))
-      {
-        $cats[$cat_id]['max_date_last'] = $date;
-      }
-      else
-      {
-        $date = $cats[$cat_id]['max_date_last'];
-      }
-      $ref_level = substr_count($cats[$cat_id]['global_rank'], '.') + 1;
-    }
-    else
+    do
     {
-      $ref_level = 0;
-    }
-  } while ($level <= $ref_level);
 
-  // Last cat updating must be added to list for next branch
-  if ($ref_level <> 0)
-  {
-    $list_cat_id[] = $cat_id;
-  }
-}
+      $parent['count_images'] -= $cat['nb_images'];
+      $parent['count_categories'] -= 1+$cat['count_categories'];
 
-/**
- * compute data of categories branches
- */
-function compute_categories_data(&$cats)
-{
-  $ref_level = 0;
-  $level = 0;
-  $list_cat_id = array();
-
-  foreach ($cats as $id => $category)
-  {
-    // Compute
-    $level = substr_count($category['global_rank'], '.') + 1;
-    if ($level > $ref_level)
-    {
-      $list_cat_id[] = $id;
+      if ( !isset( $cats[$parent['id_uppercat']] ) )
+        break;
+      $parent = & $cats[$parent['id_uppercat']];
     }
-    else
-    {
-      compute_branch_cat_data($cats, $list_cat_id, $level, $ref_level);
-      $list_cat_id[] = $id;
-    }
-    $ref_level = $level;
+    while (true);
   }
 
-  $level = 1;
-  compute_branch_cat_data($cats, $list_cat_id, $level, $ref_level);
+  unset($cats[$cat['cat_id']]);
 }
 
 /**
@@ -682,7 +636,7 @@ function compute_categories_data(&$cats)
  */
 function get_computed_categories(&$userdata, $filter_days=null)
 {
-  $query = 'SELECT c.id AS cat_id, global_rank';
+  $query = 'SELECT c.id AS cat_id, id_uppercat';
   // Count by date_available to avoid count null
   $query .= ',
   MAX(date_available) AS date_last, COUNT(date_available) AS nb_images
@@ -713,6 +667,7 @@ FROM '.CATEGORIES_TABLE.' as c
   while ($row = pwg_db_fetch_assoc($result))
   {
     $row['user_id'] = $userdata['id'];
+    $row['nb_categories'] = 0;
     $row['count_categories'] = 0;
     $row['count_images'] = (int)$row['nb_images'];
     $row['max_date_last'] = $row['date_last'];
@@ -721,30 +676,44 @@ FROM '.CATEGORIES_TABLE.' as c
       $userdata['last_photo_date'] = $row['date_last'];
     }
 
-    $cats += array($row['cat_id'] => $row);
+    $cats[$row['cat_id']] = $row;
   }
-  uasort($cats, 'global_rank_compare');
 
-  compute_categories_data($cats);
+  foreach ($cats as $cat)
+  {
+    if ( !isset( $cat['id_uppercat'] ) )
+      continue;
+
+    $parent = & $cats[ $cat['id_uppercat'] ];
+    $parent['nb_categories']++;
+
+    do
+    {
+      $parent['count_images'] += $cat['nb_images'];
+      $parent['count_categories']++;
+
+      if ((empty($parent['max_date_last'])) or ($parent['max_date_last'] < $cat['date_last']))
+      {
+        $parent['max_date_last'] = $cat['date_last'];
+      }
+
+      if ( !isset( $parent['id_uppercat'] ) )
+        break;
+      $parent = & $cats[$parent['id_uppercat']];
+    }
+    while (true);
+    unset($parent);
+  }
 
   if ( isset($filter_days) )
   {
-    $cat_tmp = $cats;
-    $cats = array();
-
-    foreach ($cat_tmp as $category)
+    foreach ($cats as $category)
     {
-      if (!empty($category['max_date_last']))
+      if (empty($category['max_date_last']))
       {
-        // Re-init counters
-        $category['count_categories'] = 0;
-        $category['count_images'] = (int)$category['nb_images'];
-        // Keep category
-        $cats[$category['cat_id']] = $category;
+        remove_computed_category($cats, $category);
       }
     }
-    // Compute a second time
-    compute_categories_data($cats);
   }
   return $cats;
 }
