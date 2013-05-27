@@ -104,4 +104,6 @@ $lang['Author: %s'] = 'Oberour: %s';
 $lang['Auto login'] = 'Kevreadenn emgefre';
 $lang['At least one listed rule must be satisfied.'] = 'Un dezverk d\'an neubeutañ a renk bezañ gwiriet';
 $lang['Are you sure?'] = 'Ha sur oc\'h ?';
+$lang['Calendar'] = 'Deiziadur';
+$lang['Browser: %s'] = 'Ergerzher: %s';
 ?>
