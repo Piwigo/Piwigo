@@ -49,4 +49,7 @@ $lang['verification'] = 'баталгаажуулалт';
 $lang['Visitors will be able to contact site administrator with this mail'] = 'Хэрэглэгчид энэ имэйл хаягаар админтай холбогдох боломжтой';
 $lang['Hope to see you back soon.'] = 'Тантай удахгүй эргэн уулзана гэдэгт найдаж байна.';
 $lang['Welcome to your new installation of Piwigo!'] = 'Piwigo-г шинээр суулгах хэсэгт тавтай морилно уу!';
+$lang['enter a login for webmaster'] = 'Вэбмастерийн мэдээллээ оруулна уу';
+$lang['Need help ? Ask your question on <a href="%s">Piwigo message board</a>.'] = 'Тусламж хэрэгтэй бол <a href="%s">Piwigo message board</a> хаягаар хандаж асуултаа асуугаарай.';
+$lang['Creation of config file local/config/database.inc.php failed.'] = 'Тохиргооны файл local/config/database.inc.php-г үүсгэж чадсангүй';
 ?>
