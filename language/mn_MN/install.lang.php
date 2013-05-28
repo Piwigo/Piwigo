@@ -44,4 +44,9 @@ $lang['PHP 5 is required'] = 'PHP 5 шаардлагатай';
 $lang['Download the config file'] = 'Тохиргооны файлыг татах';
 $lang['Admin configuration'] = 'Админий тохиргоо';
 $lang['Basic configuration'] = 'Үндсэн тохиргоо';
+$lang['webmaster login can\'t contain characters \' or "'] = 'Вэбмастерийн нэрэнд \' or " гэсэн тэмдэгт орох ёсгүй.';
+$lang['verification'] = 'баталгаажуулалт';
+$lang['Visitors will be able to contact site administrator with this mail'] = 'Хэрэглэгчид энэ имэйл хаягаар админтай холбогдох боломжтой';
+$lang['Hope to see you back soon.'] = 'Тантай удахгүй эргэн уулзана гэдэгт найдаж байна.';
+$lang['Welcome to your new installation of Piwigo!'] = 'Piwigo-г шинээр суулгах хэсэгт тавтай морилно уу!';
 ?>
