@@ -64,7 +64,9 @@ DELETE FROM '.USER_ACCESS_TABLE.'
 ;';
   pwg_query($query);
 }
-else if (isset($_POST['trueify']))
+elseif (isset($_POST['trueify'])
+    and isset($_POST['cat_false'])
+    and count($_POST['cat_false']) > 0)
 {
   add_permission_on_category($_POST['cat_false'], $page['user']);
 }
