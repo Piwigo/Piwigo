@@ -106,4 +106,6 @@ $lang['At least one listed rule must be satisfied.'] = 'Un dezverk d\'an neubeut
 $lang['Are you sure?'] = 'Ha sur oc\'h ?';
 $lang['Calendar'] = 'Deiziadur';
 $lang['Browser: %s'] = 'Ergerzher: %s';
+$lang['Check your email for the confirmation link'] = 'Sellit ouzh ho posteloù evit al liamm-kadarnaat';
+$lang['Change my password'] = 'Cheñch va tremeneger';
 ?>
