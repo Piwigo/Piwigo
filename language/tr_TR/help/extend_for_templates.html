@@ -1,7 +1,7 @@
 <h2>Şablon Uzantı Yapılandırması</h2>
 
 <h3>Hakkında</h3>
-<p>Piwigo galeriniz var olan şablon dosyalarının kişisel uyarlamalarla değiştirilmesi ile kişiselleştirilebilir. Örneğin, varsayılan başlık şablonu (header.tpl) kişiselleştirilmiş bir başlık şablonu (my-header.tpl) ile değiştirilebilir. Değişiklik veri tabanına gönderildiğinde galeriniz varsayılan yerine yenilediğiniz şablonu görüntüleyecektir.<br>
+<p>Piwigo galeriniz var olan şablon dosyalarının kişisel uyarlamalarla değiştirilmesi ile özelleştirilebilir. Örneğin, varsayılan başlık şablonu (header.tpl) özelleştirilmiş bir başlık şablonu (my-header.tpl) ile değiştirilebilir. Değişiklik veri tabanına gönderildiğinde galeriniz varsayılan yerine yenilediğiniz şablonu görüntüleyecektir.<br>
 Şablon uzantıları yeni veya uzman her iki kullanıcı grubu için de tema oluşturmak için güçlü bir yol sağlar. LocalFiles düzenleyicisi ile çalışarak kendinize ait alt temalar yaratabilirsiniz.</p>
 
 <h3>Esas (Orjinal) Şablon</h3>
@@ -34,5 +34,22 @@ Desteklenen esas (orjinal) şablonlar arasında bunlar vardır:</p>
   <li><span class="filename">redirect.tpl</span></li>
 </ul>
 
+<h3>Özelleştirilmiş şablonların kaydedilmesi</h3>
+<p>Özelleştirilmiş şablonlar template-extension dizini veya alt dizinlerine kaydedilmelidir. Örneğin, <em>/template-extension/my-default/header.tpl</em> (yada <em>/template-extension/<my-theme-name>/header.tpl</em>). Şablon dosyaları uzantısı .tpl olacak şekilde her adı alabilirler. Alt dizinlerdeki şablon dosyaları Şablon yapılandırma ekranında kullanılabilir özelleştirilmiş şablonlar olarak gözükürler.</p>
 
-NOTE: TRANSLATION NOT COMPLETED YET! / ONGOING!
+<h3>Özelleştirilmiş şablonların etkinleştirilmesi</h3>
+<p>Değiştirmek için esas (orjinal) şablonu seçin. İsteğe bağlı olarak özelleştirilmiş şablonun sadece o anahtar kelime ile sayfalarda gösterildiğinden emin olmak için bir URL anahtar kelimesi seçin. Bağlantılı temayı seçin ve değişiklikler o temada etkinleşecektir.
+Değişiklikleri veri tabanına gönderin..</p>
+
+<h3>Özelleştirilmiş şablonları devredışı bırakmak</h3>
+<p>Esas (orjinal) şablondaki seçimi kaldırın ve değişikliği veritabanına gönderin.<br>
+template-extension dizinindeki özelleştirilmiş şablon dosyalarını silin.</p>
+
+<a name="warnings"></a>
+<h3>Uyarılar</h3>
+<ul>
+  <li><strong>Esas (orjinal) şablon</strong> mutlaka esas şablon olmalıdır aksi durumda öngörülemez sonuçlar alınabilir.</li>
+  <li>Eğer aynı esas şablon ve aynı URL anahtar kelimesi birden fazla özelleştirilmiş şablonda kullanılıyorsa sadece en sonuncu etkinleşir.</li>
+  <li>Dağıtımı yapılan örnek şablon dosyaları sadece test amaçlıdır. Bunları düzenlemeyin. Kendiniz bir tane yaratın veya <em>/template-extension/<my-theme>/</em> dizininde yer alan şablon dosyalarını kopyalayın.</li>
+  <li>Özelleştirilmiş şablon silindiğinde esas (orjinal) şablon derhal etkinleşir.</li>
+</ul>
