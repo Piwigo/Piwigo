@@ -108,4 +108,12 @@ $lang['Calendar'] = 'Deiziadur';
 $lang['Browser: %s'] = 'Ergerzher: %s';
 $lang['Check your email for the confirmation link'] = 'Sellit ouzh ho posteloù evit al liamm-kadarnaat';
 $lang['Change my password'] = 'Cheñch va tremeneger';
+$lang['Complete RSS feed (photos, comments)'] = 'gwazh RSS klok (luc\'hskeudennoù, evezhiadennoù)';
+$lang['Comment'] = 'evezhiadenn';
+$lang['Comment by %s'] = 'evezhiadenn gant %s';
+$lang['Comment: %s'] = 'evezhiadenn : %s';
+$lang['Comments'] = 'evezhiadennoù';
+$lang['Close this window'] = 'Serriñ ar prenestr-mañ';
+$lang['Click on the photo to see it in high definition'] = 'Klikit war al luc\'hskeudenn evit gwelet anezhi uhel e zespizadur';
+$lang['Click here if your browser does not automatically forward you'] = 'Klikit amañ ma ne vez ket kerzhet emgefreek';
 ?>
