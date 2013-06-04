@@ -1,0 +1,30 @@
+Font license info
+
+
+## Font Awesome
+
+   Copyright (C) 2012 by Dave Gandy
+
+   Author:    Dave Gandy
+   License:   SIL ()
+   Homepage:  http://fortawesome.github.com/Font-Awesome/
+
+
+## Elusive
+
+   Copyright (C) 2013 by Aristeides Stathopoulos
+
+   Author:    Aristeides Stathopoulos
+   License:   SIL (http://scripts.sil.org/OFL)
+   Homepage:  http://aristeides.com/
+
+
+## Typicons
+
+   (c) Stephen Hutchings 2012
+
+   Author:    Stephen Hutchings
+   License:   CC BY-SA 3.0 (http://creativecommons.org/licenses/by-sa/3.0/)
+   Homepage:  http://typicons.com/
+
+

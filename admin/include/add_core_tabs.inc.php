@@ -30,16 +30,16 @@ function add_core_tabs($sheets, $tab_id)
     case 'album':
       global $admin_album_base_url;
       $sheets['properties'] = array('caption' => l10n('Properties'), 'url' => $admin_album_base_url.'-properties');
-      $sheets['sort_order'] = array('caption' => l10n('Manage photo ranks'), 'url' => $admin_album_base_url.'-sort_order');
-      $sheets['permissions'] = array('caption' => l10n('Permissions'), 'url' => $admin_album_base_url.'-permissions');
-      $sheets['notification'] = array('caption' => l10n('Notification'), 'url' => $admin_album_base_url.'-notification');
+      $sheets['sort_order'] = array('caption' => '<span class="icon-shuffle"></span>'.l10n('Manage photo ranks'), 'url' => $admin_album_base_url.'-sort_order');
+      $sheets['permissions'] = array('caption' => '<span class="icon-lock"></span>'.l10n('Permissions'), 'url' => $admin_album_base_url.'-permissions');
+      $sheets['notification'] = array('caption' => '<span class="icon-mail-alt"></span>'.l10n('Notification'), 'url' => $admin_album_base_url.'-notification');
       break;
       
     case 'albums':
       global $my_base_url;
       $sheets['list'] = array('caption' => l10n('List'), 'url' => $my_base_url.'cat_list');
       $sheets['move'] = array('caption' => l10n('Move'), 'url' => $my_base_url.'cat_move');
-      $sheets['permalinks'] = array('caption' => l10n('Permalinks'), 'url' => $my_base_url.'permalinks');
+      $sheets['permalinks'] = array('caption' => '<span class="icon-link"></span>'.l10n('Permalinks'), 'url' => $my_base_url.'permalinks');
       break;
       
     case 'batch_manager':
@@ -50,10 +50,10 @@ function add_core_tabs($sheets, $tab_id)
       
     case 'cat_options':
       global $link_start, $conf;
-      $sheets['status'] = array('caption' => l10n('Public / Private'), 'url' => $link_start.'cat_options&amp;section=status');
-      $sheets['visible'] = array('caption' => l10n('Lock'), 'url' => $link_start.'cat_options&amp;section=visible');
+      $sheets['status'] = array('caption' => '<span class="icon-lock"></span>'.l10n('Public / Private'), 'url' => $link_start.'cat_options&amp;section=status');
+      $sheets['visible'] = array('caption' => '<span class="icon-block"></span>'.l10n('Lock'), 'url' => $link_start.'cat_options&amp;section=visible');
       if ($conf['activate_comments'])
-        $sheets['comments'] = array('caption' => l10n('Comments'), 'url' => $link_start.'cat_options&amp;section=comments');
+        $sheets['comments'] = array('caption' => '<span class="icon-chat"></span>'.l10n('Comments'), 'url' => $link_start.'cat_options&amp;section=comments');
       if ($conf['allow_random_representative'])
         $sheets['representative'] = array('caption' => l10n('Representative'), 'url' => $link_start.'cat_options&amp;section=representative');
       break;
@@ -104,7 +104,7 @@ function add_core_tabs($sheets, $tab_id)
     case 'photo':
       global $admin_photo_base_url;
       $sheets['properties'] = array('caption' => l10n('Properties'), 'url' => $admin_photo_base_url.'-properties');
-      $sheets['coi'] = array('caption' => l10n('Center of interest'), 'url' => $admin_photo_base_url.'-coi');
+      $sheets['coi'] = array('caption' => '<span class="icon-crop"></span>'.l10n('Center of interest'), 'url' => $admin_photo_base_url.'-coi');
       break;
       
     case 'photos_add':

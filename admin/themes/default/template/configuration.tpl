@@ -792,14 +792,14 @@ jQuery(document).ready(function() {
 </fieldset>
 {/if}
 
+</div> <!-- configContent -->
+
 {if !isset($default)}
 	<p class="formButtons">
 		<input type="submit" name="submit" value="{'Save Settings'|@translate}">
 	</p>
 </form>
 {/if}
-
-</div> <!-- configContent -->
 
 {if isset($default)}
 {$PROFILE_CONTENT}

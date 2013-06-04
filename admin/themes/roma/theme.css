@@ -132,7 +132,7 @@ text-align:right; text-decoration:none; margin: 0; }
 margin-top:4px; padding-bottom:3px; padding-top:3px; top:1px;
  }
 .tabsheet a:hover, .tabsheet li.selected_tab  a { color: #F36; }
-.tabsheet a span { background-color:#222; display:block; font-size:10px; margin-right:2px; padding:0 3px 0 1px; }
+.tabsheet a span { background-color:#222; font-size:10px; margin-right:2px; padding:0 3px 0 1px; }
 /* menubar is on all admin pages => No specific css file */
 #menubar {
 background:transparent url(images/menuBoxBottom_new.png) no-repeat scroll left bottom;
@@ -149,9 +149,12 @@ width: 207px; border:0; margin: 0; padding: 0; display: block; min-height:35px; 
 #menubar dl.first {
 background:transparent url(images/menubar-top.png) no-repeat scroll left 1px; }
 #menubar dl.last { padding: 0 0 24px 0;}
-#menubar dt { margin: 0; display: block; background: none; left:10px; font-weight:bold;
-position:relative; padding: 5px 1px 4px 5px; top:-8px; font-size: 13px; color: #666;  outline:none;}
-#menubar dt  span { background-color: #111; cursor:pointer; }
+#menubar dt { 
+	margin: 0; display: block; background: none; left:10px; font-weight:bold;
+	position:relative; padding: 5px 1px 4px 5px; top:-8px; font-size: 13px; color: #666;  outline:none;
+	cursor:pointer;
+}
+#menubar dt  span { background-color: #111; }
 #menubar li { margin: 0 0 0 6px; }
 #menubar li.external { list-style-image:url(images/external_inactive.png); padding:10px 0px 0pt 10px; }
 #menubar li.external:hover { list-style-image:url(images/external_active.png); }

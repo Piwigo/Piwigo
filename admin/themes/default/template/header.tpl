@@ -19,6 +19,7 @@
 {/if}
 {if !empty($theme.local_head)}{include file=$theme.local_head load_css=$theme.load_css}{/if}
 {/foreach}
+{combine_css path="admin/themes/default/fontello/css/fontello.css"}
 
 <!-- BEGIN get_combined_scripts -->
 {get_combined_scripts load='header'}
@@ -53,8 +54,8 @@
 <div id="pwgHead">
   <h1>
     <a href="{$U_RETURN}" title="{'Visit Gallery'|@translate}">
-      <img src="{$ROOT_URL}admin/themes/{$theme.id}/icon/home.png" alt="{'Home'|@translate}">
-      {$GALLERY_TITLE}
+			<span class="icon-home" style="font-size:larger"></span>
+			{$GALLERY_TITLE}
     </a>
   </h1>
 

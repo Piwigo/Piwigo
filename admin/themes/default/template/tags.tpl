@@ -117,7 +117,7 @@ jQuery('.showInfo').tipTip({
   });
 {/literal}{/footer_script}
 {if count($all_tags)}
-<div><label>{'Search'|@translate}: <input id="searchInput" type="text" size="12"></label></div>
+<div><label><span class="icon-filter" style="visibility:hidden" id="filterIcon"></span>{'Search'|@translate}: <input id="searchInput" type="text" size="12"></label></div>
 {footer_script}{literal}
 $("#searchInput").on( "keydown", function() {
 	var $this = $(this),
@@ -127,9 +127,12 @@ $("#searchInput").on( "keydown", function() {
 
 	$this.data("timer", setTimeout( function() {
 		var val = $this.val();
-		if (!val)
+		if (!val) {
 			$(".tagSelection>li").show();
+			$("#filterIcon").css("visibility","hidden");
+		}
 		else {
+			$("#filterIcon").css("visibility","visible");
 			var regex = new RegExp( val.replace(/[\-\[\]{}()*+?.,\\\^$|#\s]/g, "\\$&"), "i" );
 			$(".tagSelection>li").each( function(i, li) {
 				var $li = $(li),

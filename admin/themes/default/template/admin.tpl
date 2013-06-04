@@ -10,28 +10,25 @@ jQuery(document).ready(function(){ldelim}
 });
 {/footer_script}
 
-{combine_script id='raphael' load='async' path='themes/default/js/raphael.js'}
-{combine_script id='raphael.menu_icons' require='raphael' load='async' path='admin/themes/default/js/menu_icons.js'}
-
 <div id="menubar">
   <div id="adminHome"><a href="{$U_ADMIN}">{'Administration Home'|@translate}</a></div>
-  <dl class="first">
-    <dt class="rdion"><span id="menubarPhotos">&nbsp;{'Photos'|@translate}&nbsp;</span></dt>
-    <dd>
-      <ul>
-        <li><a href="{$U_ADD_PHOTOS}">{'Add'|@translate}</a></li>
-        <li><a href="{$U_RATING}">{'Rating'|@translate}</a></li>
-        <li><a href="{$U_TAGS}">{'Tags'|@translate}</a></li>
-        <li><a href="{$U_RECENT_SET}">{'Recent photos'|@translate}</a></li>
-        <li><a href="{$U_BATCH}">{'Batch Manager'|@translate}</a></li>
+	<dl class="first">
+		<dt class="rdion"><span class="icon-picture"> </span>{'Photos'|@translate}</dt>
+		<dd>
+			<ul>
+				<li><a class="icon-plus-circled" href="{$U_ADD_PHOTOS}">{'Add'|@translate}</a></li>
+				<li><a class="icon-star" href="{$U_RATING}">{'Rating'|@translate}</a></li>
+				<li><a class="icon-tags" href="{$U_TAGS}">{'Tags'|@translate}</a></li>
+				<li><a class="icon-clock" href="{$U_RECENT_SET}">{'Recent photos'|@translate}</a></li>
+				<li><a href="{$U_BATCH}">{'Batch Manager'|@translate}</a></li>
 {if $NB_PHOTOS_IN_CADDIE > 0}
-        <li><a href="{$U_CADDIE}">{'Caddie'|@translate}<span class="adminMenubarCounter">{$NB_PHOTOS_IN_CADDIE}</span></a></li>
+				<li><a class="icon-basket" href="{$U_CADDIE}">{'Caddie'|@translate}<span class="adminMenubarCounter">{$NB_PHOTOS_IN_CADDIE}</span></a></li>
 {/if}
-      </ul>
-    </dd>
-  </dl>
-  <dl>
-    <dt class="rdion"><span id="menubarAlbums">&nbsp;{'Albums'|@translate}&nbsp;</span></dt>
+			</ul>
+		</dd>
+	</dl>
+	<dl>
+		<dt class="rdion"><span class="icon-sitemap"> </span>{'Albums'|@translate}</dt>
     <dd>
       <ul>
         <li><a href="{$U_CATEGORIES}">{'Manage'|@translate}</a></li>
@@ -39,18 +36,18 @@ jQuery(document).ready(function(){ldelim}
       </ul>
     </dd>
   </dl>
-  <dl>
-    <dt class="rdion"><span id="menubarUsers">&nbsp;{'Users'|@translate}&nbsp;</span></dt>
+	<dl>
+		<dt class="rdion"><span class="icon-users"> </span>{'Users'|@translate}</dt>
     <dd>
       <ul>
         <li><a href="{$U_USERS}">{'Manage'|@translate}</a></li>
         <li><a href="{$U_GROUPS}">{'Groups'|@translate}</a></li>
-        <li><a href="{$U_NOTIFICATION_BY_MAIL}">{'Notification'|@translate}</a></li>
+				<li><a class="icon-mail-alt" href="{$U_NOTIFICATION_BY_MAIL}">{'Notification'|@translate}</a></li>
       </ul>
     </dd>
   </dl>
-  <dl>
-    <dt class="rdion"><span id="menubarPlugins">&nbsp;{'Plugins'|@translate}&nbsp;</span></dt>
+	<dl>
+		<dt class="rdion"><span class="icon-puzzle"> </span>{'Plugins'|@translate}</dt>
     <dd>
       <ul>
         <li><a href="{$U_PLUGINS}">{'Manage'|@translate}</a></li>
@@ -65,31 +62,31 @@ jQuery(document).ready(function(){ldelim}
 {/if}
     </dd>
   </dl>
-  <dl>
-    <dt class="rdion"><span id="menubarTools">&nbsp;{'Tools'|@translate}&nbsp;</span></dt>
+	<dl>
+		<dt class="rdion"><span class="icon-wrench"> </span>{'Tools'|@translate}</dt>
     <dd>
       <ul>
 {if $ENABLE_SYNCHRONIZATION}
         <li><a href="{$U_CAT_UPDATE}">{'Synchronize'|@translate}</a></li>
         <li><a href="{$U_SITE_MANAGER}">{'Site manager'|@translate}</a></li>
 {/if}
-        <li><a href="{$U_HISTORY_STAT}">{'History'|@translate}</a></li>
-        <li><a href="{$U_MAINTENANCE}">{'Maintenance'|@translate}</a></li>
+				<li><a class="icon-eye" href="{$U_HISTORY_STAT}">{'History'|@translate}</a></li>
+				<li><a class="icon-tasks" href="{$U_MAINTENANCE}">{'Maintenance'|@translate}</a></li>
 {if isset($U_PENDING_COMMENTS)}
-        <li><a href="{$U_PENDING_COMMENTS}">{'Pending Comments'|@translate}</a></li>
+				<li><a class="icon-chat" href="{$U_PENDING_COMMENTS}">{'Pending Comments'|@translate}</a></li>
 {/if}
         <li><a href="{$U_UPDATES}">{'Updates'|@translate}</a></li>
       </ul>
     </dd>
   </dl>
-  <dl class="last">
-    <dt class="rdion"><span id="menubarConfiguration">&nbsp;{'Configuration'|@translate}&nbsp;</span></dt>
+	<dl class="last">
+		<dt class="rdion"><span class="icon-cog"> </span>{'Configuration'|@translate}</dt>
     <dd>
       <ul>
         <li><a href="{$U_CONFIG_GENERAL}">{'Options'|@translate}</a></li>
         <li><a href="{$U_CONFIG_MENUBAR}">{'Menu Management'|@translate}</a></li>
         <li><a href="{$U_CONFIG_EXTENTS}">{'Templates'|@translate}</a></li>
-        <li><a href="{$U_CONFIG_LANGUAGES}">{'Languages'|@translate}</a></li>
+				<li><a class="icon-asl" href="{$U_CONFIG_LANGUAGES}">{'Languages'|@translate}</a></li>
         <li><a href="{$U_CONFIG_THEMES}">{'Themes'|@translate}</a></li>
       </ul>
     </dd>
@@ -107,7 +104,7 @@ jQuery(document).ready(function(){ldelim}
     <li><a href="{$U_HELP}" onclick="popuphelp(this.href); return false;" title="{'Help'|@translate}"><img src="{$ROOT_URL}{$themeconf.admin_icon_dir}/help.png" alt="(?)"></a></li>
   </ul>
   {/if}
-  
+
   {if isset($errors)}
   <div class="errors">
     <ul>
