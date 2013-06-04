@@ -117,4 +117,8 @@ $lang['Close this window'] = 'Serriñ ar prenestr-mañ';
 $lang['Click on the photo to see it in high definition'] = 'Klikit war al luc\'hskeudenn evit gwelet anezhi uhel e zespizadur';
 $lang['Click here if your browser does not automatically forward you'] = 'Klikit amañ ma ne vez ket kerzhet emgefreek';
 $lang['Confirm Password'] = 'Kadarnaat an tremeneger';
+$lang['Contact'] = 'Mont e darempred';
+$lang['Contact webmaster'] = 'Mont e darempred gant ar mestr-gwiad';
+$lang['Connection settings'] = 'Arventennoù kevreañ';
+$lang['Connected user: %s'] = 'Implijer enlinenn : %s';
 ?>
