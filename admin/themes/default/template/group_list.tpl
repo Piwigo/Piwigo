@@ -66,22 +66,17 @@ $(document).ready(function() {
 <form method="post" name="add_user" action="{$F_ADD_ACTION}" class="properties">
   <input type="hidden" name="pwg_token" value="{$PWG_TOKEN}">
 
-  <table class="table2">
-    <tr class="throw">
-      <th></th>
-      <th>{'Group name'|@translate}</th>
-      <th>{'Members'|@translate}</th>
-    </tr>
+  <ul style="text-align:center;">
     {if not empty($groups)}
     {foreach from=$groups item=group name=group_loop}
-    <tr class="{if $smarty.foreach.group_loop.index is odd}row1{else}row2{/if}">
-      <td><input class="group_selection" name="group_selection[]" type="checkbox" value="{$group.ID}"></td>
-      <td>{$group.NAME}<i><small>{$group.IS_DEFAULT}</small></i></td>
-      <td>{if $group.MEMBERS>0}<a href="{$group.U_MEMBERS}" title="{'Manage the members'|@translate}">{$group.MEMBERS}</a><br>{$group.L_MEMBERS}{else}{$group.MEMBERS}{/if}</td>
-    </tr>
+    <li style="vertical-align: middle;position: relative;display: inline-block;text-align: left;background-color: #ccc;height: 300px; width: 250px; margin: 5px">
+      <p style="text-align: left;"><label>{$group.NAME}<i><small>{$group.IS_DEFAULT}</small></i><input class="group_selection" name="group_selection[]" type="checkbox" value="{$group.ID}"></label></p>
+      <p style="text-align: left;max-height: 200px;overflow: auto;">{if $group.MEMBERS>0}<a href="{$group.U_MEMBERS}" title="{'Manage the members'|@translate}">{$group.MEMBERS}</a><br>{$group.L_MEMBERS}{else}{$group.MEMBERS}{/if}</p>
+      <p style="text-align: left;position: absolute;bottom: 0"><a class="buttonLike" href="{$group.U_PERM}" title="{'Permissions'|@translate}">{'Manage Permissions'|@translate}</a></p>
+    </li>
     {/foreach}
     {/if}
-  </table>
+  </ul>
 
   <fieldset id="action">
     <legend>{'Action'|@translate}</legend>
