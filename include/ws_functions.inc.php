@@ -2668,6 +2668,7 @@ function ws_images_delete($params, $service)
 
   include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
   delete_elements($image_ids, true);
+  invalidate_user_cache();
 }
 
 function ws_add_image_category_relations($image_id, $categories_string, $replace_mode=false)
