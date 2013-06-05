@@ -810,7 +810,7 @@ UL.thumbnails SPAN.wrap2 {ldelim}
     <select name="selectAction">
       <option value="-1">{'Choose an action'|@translate}</option>
       <option disabled="disabled">------------------</option>
-      <option value="delete">{'Delete selected photos'|@translate}</option>
+      <option value="delete" class="icon-trash">{'Delete selected photos'|@translate}</option>
       <option value="associate">{'Associate to album'|@translate}</option>
       <option value="move">{'Move to album'|@translate}</option>
   {if !empty($dissociate_options)}
@@ -823,7 +823,7 @@ UL.thumbnails SPAN.wrap2 {ldelim}
       <option value="author">{'Set author'|@translate}</option>
       <option value="title">{'Set title'|@translate}</option>
       <option value="date_creation">{'Set creation date'|@translate}</option>
-      <option value="level">{'Who can see these photos?'|@translate}</option>
+      <option value="level" class="icon-lock">{'Who can see these photos?'|@translate}</option>
       <option value="metadata">{'Synchronize metadata'|@translate}</option>
   {if ($IN_CADDIE)}
       <option value="remove_from_caddie">{'Remove from caddie'|@translate}</option>
