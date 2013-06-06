@@ -121,4 +121,17 @@ $lang['Contact'] = 'Mont e darempred';
 $lang['Contact webmaster'] = 'Mont e darempred gant ar mestr-gwiad';
 $lang['Connection settings'] = 'Arventennoù kevreañ';
 $lang['Connected user: %s'] = 'Implijer enlinenn : %s';
+$lang['Default'] = 'Dre ziouer';
+$lang['Delete'] = 'Dilemel';
+$lang['Desktop'] = 'Klasel';
+$lang['Date posted, new &rarr; old'] = 'Deiziad ouzhpennañ, nevez &rarr; kozh';
+$lang['Date posted, old &rarr; new'] = 'Deiziad ouzhpennañ, kozh &rarr; nevez';
+$lang['Date created, new &rarr; old'] = 'Deiziad krouiñ, nevez &rarr; kozh';
+$lang['Date created, old &rarr; new'] = 'Deiziad krouiñ, kozh &rarr; nevez';
+$lang['Customize'] = 'Personelaat';
+$lang['Creation date'] = 'Deiziad krouiñ';
+$lang['Current password is wrong'] = 'Fazi gant an tremeneger a vremañ';
+$lang['Created on'] = 'Krouet d\'an';
+$lang['Create a new account'] = 'Krouiñ ur gont nevez';
+$lang['Cookies are blocked or not supported by your browser. You must enable cookies to connect.'] = 'Stanket eo an toupinoù pe n\'int ket skoret gant hoc\'h ergerzher. Ret eo deoc\'h aotren an toupinoù evit kevreañ.';
 ?>
