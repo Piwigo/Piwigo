@@ -404,6 +404,7 @@ SELECT COUNT(DISTINCT(image_id)) as total
       $user_cache_cats = get_computed_categories($userdata, null);
       if ( !is_admin($userdata['status']) )
       { // for non admins we forbid categories with no image (feature 1053)
+        $uppercats_of = null;
         $forbidden_ids = array();
         foreach ($user_cache_cats as $cat)
         {
@@ -411,6 +412,33 @@ SELECT COUNT(DISTINCT(image_id)) as total
           {
             $forbidden_ids[] = $cat['cat_id'];
             unset( $user_cache_cats[$cat['cat_id']] );
+
+            if (empty($uppercats_of))
+            {
+              $query = '
+SELECT
+    id,
+    uppercats
+  FROM '.CATEGORIES_TABLE.'
+;';
+              $uppercats_of = simple_hash_from_query($query, 'id', 'uppercats');
+            }
+
+            // if child album is removed, we must decrease the number of
+            // sub-albums of all parent albums (to the root)
+            if (isset($uppercats_of[$cat['cat_id']]))
+            {
+              foreach (explode(',', $uppercats_of[$cat['cat_id']]) as $id)
+              {
+                // the last $id is the current album removed, it will always
+                // fail the following condition because it was removed a few
+                // lines before.
+                if (isset($user_cache_cats[$id]))
+                {
+                  $user_cache_cats[$id]['count_categories']--;
+                }
+              }
+            }
           }
         }
         if ( !empty($forbidden_ids) )
