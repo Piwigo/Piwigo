@@ -339,4 +339,15 @@ $lang['Continue processing treatment'] = 'Pludaŭrigi okazantan traktadon';
 $lang['I decide to update anyway'] = 'Mi decidas ĉiel ĝisdatigi';
 $lang['IP'] = 'IP';
 $lang['Administration Home'] = 'Administra hejmo';
+$lang['remove author'] = 'Forigi aŭtoron';
+$lang['remove tags'] = 'Forigi etikedojn';
+$lang['remove this filter'] = 'Forigi tiun filtrilon';
+$lang['remove title'] = 'Forigi titolon';
+$lang['show details'] = 'Montri detalojn';
+$lang['the wiki'] = 'la vikio';
+$lang['top left corner'] = 'supra maldekstra angulo';
+$lang['top right corner'] = 'supra dekstra angulo';
+$lang['total time'] = 'tuta tempo';
+$lang['unknown'] = 'nekonata';
+$lang['the forum'] = 'la forumo';
 ?>
