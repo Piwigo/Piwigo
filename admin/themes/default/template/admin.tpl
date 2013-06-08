@@ -13,7 +13,7 @@ jQuery(document).ready(function(){ldelim}
 <div id="menubar">
   <div id="adminHome"><a href="{$U_ADMIN}">{'Administration Home'|@translate}</a></div>
 	<dl class="first">
-		<dt class="rdion"><span class="icon-picture"> </span>{'Photos'|@translate}</dt>
+		<dt class="rdion"><span class="icon-picture"> </span><span>{'Photos'|@translate}&nbsp;</span></dt>
 		<dd>
 			<ul>
 				<li><a class="icon-plus-circled" href="{$U_ADD_PHOTOS}">{'Add'|@translate}</a></li>
@@ -28,27 +28,27 @@ jQuery(document).ready(function(){ldelim}
 		</dd>
 	</dl>
 	<dl>
-		<dt class="rdion"><span class="icon-sitemap"> </span>{'Albums'|@translate}</dt>
+		<dt class="rdion"><span class="icon-sitemap"> </span><span>{'Albums'|@translate}&nbsp;</span></dt>
     <dd>
       <ul>
         <li><a href="{$U_CATEGORIES}">{'Manage'|@translate}</a></li>
         <li><a href="{$U_CAT_OPTIONS}">{'Properties'|@translate}</a></li>
       </ul>
     </dd>
-  </dl>
+	</dl>
 	<dl>
-		<dt class="rdion"><span class="icon-users"> </span>{'Users'|@translate}</dt>
-    <dd>
+		<dt class="rdion"><span class="icon-users"> </span><span>{'Users'|@translate}&nbsp;</span></dt>
+		<dd>
       <ul>
         <li><a href="{$U_USERS}">{'Manage'|@translate}</a></li>
         <li><a href="{$U_GROUPS}">{'Groups'|@translate}</a></li>
 				<li><a class="icon-mail-alt" href="{$U_NOTIFICATION_BY_MAIL}">{'Notification'|@translate}</a></li>
       </ul>
-    </dd>
-  </dl>
+		</dd>
+	</dl>
 	<dl>
-		<dt class="rdion"><span class="icon-puzzle"> </span>{'Plugins'|@translate}</dt>
-    <dd>
+		<dt class="rdion"><span class="icon-puzzle"> </span><span>{'Plugins'|@translate}&nbsp;</span></dt>
+		<dd>
       <ul>
         <li><a href="{$U_PLUGINS}">{'Manage'|@translate}</a></li>
       </ul>
@@ -60,11 +60,11 @@ jQuery(document).ready(function(){ldelim}
   {/foreach}
       </ul>
 {/if}
-    </dd>
-  </dl>
+		</dd>
+	</dl>
 	<dl>
-		<dt class="rdion"><span class="icon-wrench"> </span>{'Tools'|@translate}</dt>
-    <dd>
+		<dt class="rdion"><span class="icon-wrench"> </span><span>{'Tools'|@translate}&nbsp;</span></dt>
+		<dd>
       <ul>
 {if $ENABLE_SYNCHRONIZATION}
         <li><a href="{$U_CAT_UPDATE}">{'Synchronize'|@translate}</a></li>
@@ -77,11 +77,11 @@ jQuery(document).ready(function(){ldelim}
 {/if}
         <li><a href="{$U_UPDATES}">{'Updates'|@translate}</a></li>
       </ul>
-    </dd>
-  </dl>
+		</dd>
+	</dl>
 	<dl class="last">
-		<dt class="rdion"><span class="icon-cog"> </span>{'Configuration'|@translate}</dt>
-    <dd>
+		<dt class="rdion"><span class="icon-cog"> </span><span>{'Configuration'|@translate}&nbsp;</span></dt>
+		<dd>
       <ul>
         <li><a href="{$U_CONFIG_GENERAL}">{'Options'|@translate}</a></li>
         <li><a href="{$U_CONFIG_MENUBAR}">{'Menu Management'|@translate}</a></li>
