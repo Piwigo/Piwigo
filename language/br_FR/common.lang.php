@@ -134,4 +134,16 @@ $lang['Current password is wrong'] = 'Fazi gant an tremeneger a vremañ';
 $lang['Created on'] = 'Krouet d\'an';
 $lang['Create a new account'] = 'Krouiñ ur gont nevez';
 $lang['Cookies are blocked or not supported by your browser. You must enable cookies to connect.'] = 'Stanket eo an toupinoù pe n\'int ket skoret gant hoc\'h ergerzher. Ret eo deoc\'h aotren an toupinoù evit kevreañ.';
+$lang['Email: %s'] = 'Postel: %s';
+$lang['Email address is missing. Please specify an email address.'] = 'Mankout a ra ar chomlec\'h postel. Lakit ho postel mar-plij.';
+$lang['Each listed rule must be satisfied.'] = 'An holl dezverkoù a renk bezañ gwiriet';
+$lang['Edit'] = 'Aozañ';
+$lang['Edit a comment'] = 'Aozañ un evezhiadenn';
+$lang['Email address'] = 'Chomlec\'h postel';
+$lang['Email address is mandatory'] = 'Chomlec\'h postel a zo ret';
+$lang['EXIF Metadata'] = 'Metaroadennoù EXIF';
+$lang['Download this file'] = 'Pellgargañ ar restr-mañ';
+$lang['Download'] = 'Pellgargañ';
+$lang['Display'] = 'Diskwel';
+$lang['Dimensions'] = 'Mentoù';
 ?>
