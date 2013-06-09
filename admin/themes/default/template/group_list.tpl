@@ -1,7 +1,7 @@
 {footer_script}
 {literal}
 $(document).ready(function() {
-
+  $('.groups input').change(function () { $(this).parent('p').toggleClass('group_select'); });
   $(".grp_action").hide();
   $("input.group_selection").click(function() {
 
@@ -33,7 +33,7 @@ $(document).ready(function() {
   $("select[name=selectAction]").change(function () {
     $("[id^=action_]").hide();
     $("#action_"+$(this).prop("value")).show();
-    if ($(this).val() != -1 && $(this).val() !="manage_pemissions" && $(this).val() !="manage_members" ) {
+    if ($(this).val() != -1 ) {
       $("#applyActionBlock").show();
     }
     else {
@@ -66,13 +66,13 @@ $(document).ready(function() {
 <form method="post" name="add_user" action="{$F_ADD_ACTION}" class="properties">
   <input type="hidden" name="pwg_token" value="{$PWG_TOKEN}">
 
-  <ul style="text-align:center;">
+  <ul class="groups">
     {if not empty($groups)}
     {foreach from=$groups item=group name=group_loop}
-    <li style="vertical-align: middle;position: relative;display: inline-block;text-align: left;background-color: #ccc;height: 300px; width: 250px; margin: 5px">
-      <p style="text-align: left;"><label>{$group.NAME}<i><small>{$group.IS_DEFAULT}</small></i><input class="group_selection" name="group_selection[]" type="checkbox" value="{$group.ID}"></label></p>
-      <p style="text-align: left;max-height: 200px;overflow: auto;">{if $group.MEMBERS>0}<a href="{$group.U_MEMBERS}" title="{'Manage the members'|@translate}">{$group.MEMBERS}</a><br>{$group.L_MEMBERS}{else}{$group.MEMBERS}{/if}</p>
-      <p style="text-align: left;position: absolute;bottom: 0"><a class="buttonLike" href="{$group.U_PERM}" title="{'Permissions'|@translate}">{'Manage Permissions'|@translate}</a></p>
+    <li>
+      <label><p>{$group.NAME}<i><small>{$group.IS_DEFAULT}</small></i><input class="group_selection" name="group_selection[]" type="checkbox" value="{$group.ID}"></p></label>
+      <p class="list_user">{if $group.MEMBERS>0}<a href="{$group.U_MEMBERS}" title="{'Manage the members'|@translate}">{$group.MEMBERS}</a><br>{$group.L_MEMBERS}{else}{$group.MEMBERS}{/if}</p>
+      <a class="buttonLike group_perm" href="{$group.U_PERM}" title="{'Permissions'|@translate}">{'Manage Permissions'|@translate}</a>
     </li>
     {/foreach}
     {/if}
@@ -90,8 +90,6 @@ $(document).ready(function() {
           <option value="delete">{'Delete'|@translate}</option>
           <option value="merge">{'Merge selected groups'|@translate}</option>
           <option value="duplicate">{'Duplicate'|@translate}</option>
-          <option value="manage_members">{'Manage the members'|@translate}</option>
-          <option value="manage_pemissions">{'Manage Permissions'|@translate}</option>
           <option value="toggle_default">{'Toggle \'default group\' property'|@translate}</option>
       {if !empty($element_set_groupe_plugins_actions)}
         {foreach from=$element_set_groupe_plugins_actions item=action}
@@ -132,28 +130,6 @@ $(document).ready(function() {
         {foreach from=$groups item=group}
         <p group_id="{$group.ID}" class="grp_action">
           {$group.NAME} > <input type="text" class="large" name="duplicate_{$group.ID}" value="{$duplicateDefaultValue}" onfocus="this.value=(this.value=='{$duplicateDefaultValue}') ? '' : this.value;" onblur="this.value=(this.value=='') ? '{$duplicateDefaultValue}' : this.value;">
-        </p>
-        {/foreach}
-        {/if}
-        </div>
-
-        <!-- manage_members -->
-        <div id="action_manage_members" class="bulkAction">
-        {if not empty($groups)}
-        {foreach from=$groups item=group}
-        <p group_id="{$group.ID}" class="grp_action">
-          {$group.NAME} > {if $group.NB_MEMBERS!=0}<a class="buttonLike" href="{$group.U_MEMBERS}" title="{'Manage the members'|@translate}">{'Manage the members'|@translate}</a>{else}{'No members to manage'|@translate}{/if}
-        </p>
-        {/foreach}
-        {/if}
-        </div>
-
-        <!-- manage_pemissions -->
-        <div id="action_manage_pemissions" class="bulkAction">
-        {if not empty($groups)}
-        {foreach from=$groups item=group}
-        <p group_id="{$group.ID}" class="grp_action">
-          {$group.NAME} > <a class="buttonLike" href="{$group.U_PERM}" title="{'Permissions'|@translate}">{'Manage Permissions'|@translate}</a>
         </p>
         {/foreach}
         {/if}

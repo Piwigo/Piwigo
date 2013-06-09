@@ -6,3 +6,6 @@
 UL.thumbnails li.rank-of-image {
 	text-align:left;
 }
+.groups li {
+  display: inline;
+}

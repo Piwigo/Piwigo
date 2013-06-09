@@ -279,7 +279,7 @@ INPUT[type="text"].large  { width: 317px; }
 #pwgHead A:hover, #footer A:hover {color:black;}
 #footer { background-image: url(images/piwigo_logo_small.png);}
 
-.pluginBox, .pluginMiniBox {background-color:#ddd;color:#353535;border-color:#ddd;}
+.pluginBox, .pluginMiniBox, .groups li {background-color:#ddd;color:#353535;border-color:#ddd;}
 .pluginBoxNameCell, .pluginMiniBoxNameCell {color:#111;}
 .pluginBox.incompatible, .pluginMiniBox.incompatible {border-color:#a00 !important;}
 .pluginBoxes .merged, .pluginBoxes .missing  {background-color:#d99;border:1px solid #a00;}
@@ -322,3 +322,13 @@ UL.thumbnails li.rank-of-image {background-color: #ddd;}
 }
 
 p.albumTitle img {margin-bottom:-3px;}
+
+.groups label>p {
+  font-size: 1.2em;
+  color: #111;
+  background-color:#ccc;
+}
+label>p.group_select {
+  color: #666;
+  background-color:#F9F9F9;
+}

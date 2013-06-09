@@ -262,7 +262,7 @@ color:transparent;}
 #pwgHead, #footer {background-color:#222;}
 #footer {background-image: url(images/piwigo_logo_small.png);}
 
-.pluginBox, .pluginMiniBox {background-color:#333;color:#999;border-color:#333;}
+.pluginBox, .pluginMiniBox, .groups li {background-color:#333;color:#999;border-color:#333;}
 .pluginBoxNameCell, .pluginMiniBoxNameCell {color:#ddd;}
 .pluginBox.incompatible, .pluginMiniBox.incompatible {border-color:#800 !important;}
 .pluginBoxes .merged, .pluginBoxes .missing {background-color:#422;border:1px solid #800;}
@@ -289,3 +289,13 @@ div.token-input-dropdown ul li.token-input-selected-dropdown-item {background-co
 }
 
 .selectedComment {background-color:#555; color:#fff;}
+
+.groups label>p {
+  color: #ccc;
+  font-size: 1.2em;
+  background-color:#111;
+}
+label>p.group_select {
+  color: #111;
+  background-color:#ccc;
+}

@@ -1103,3 +1103,40 @@ input[type="text"].dError {border-color:#ff7070; background-color:#FFe5e5;}
   -border-radius:10px;
   margin-left:5px;
 }
+
+.groups {
+  text-align:center;
+}
+.groups li {
+  vertical-align: middle;
+  position: relative;
+  display: inline-block;
+  text-align: left;
+  height: 300px;
+  width: 250px;
+  margin: 5px;
+  border-radius: 5px;
+}
+.groups p {
+  text-align:left;
+}
+.groups label>p {
+  margin: 0;
+  border-radius: 5px 5px 0 0;
+  padding: 2px;
+  text-align: center;
+}
+
+.groups input {
+  float: right;
+}
+p.list_user {
+  text-align: left;
+  max-height: 200px;
+  overflow: auto;  
+}
+a.group_perm {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+}
