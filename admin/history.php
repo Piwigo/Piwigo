@@ -337,9 +337,14 @@ SELECT
     $query = '
 SELECT
     id,
-    name
+    name, url_name
   FROM '.TAGS_TABLE;
-    $name_of_tag = simple_hash_from_query($query, 'id', 'name');
+    $name_of_tag = array();
+    $result = pwg_query($query);
+    while ($row=pwg_db_fetch_assoc($result))
+    {
+      $name_of_tag[ $row['id'] ] = '<a href="'.make_index_url( array('tags'=>array($row))).'">'.trigger_event("render_tag_name", $row['name']).'</a>';
+    }
   }
 
   $i = 0;

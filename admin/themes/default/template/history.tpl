@@ -105,6 +105,7 @@
 {if !empty($navbar) }{include file='navigation_bar.tpl'|@get_extent:'navbar'}{/if}
 
 <table class="table2" id="detailedStats">
+<thead>
 <tr class="throw">
   <th>{'Date'|@translate}</th>
   <th>{'Time'|@translate}</th>
@@ -113,10 +114,10 @@
   <th>{'Element'|@translate}</th>
   <th>{'Element type'|@translate}</th>
   <th>{'Section'|@translate}</th>
-  <th>{'Album'|@translate}</th>
-  <th>{'Tags'|@translate}</th>
+	<th>{'Album'|@translate} / {'Tags'|@translate}</th>
 </tr>
-{if !empty($search_results) }
+</thead>
+{if !empty($search_results)}
 {foreach from=$search_results item=detail name=res_loop}
 <tr class="{if $smarty.foreach.res_loop.index is odd}row1{else}row2{/if}">
   <td class="hour">{$detail.DATE}</td>
@@ -126,8 +127,7 @@
   <td>{$detail.IMAGE}</td>
   <td>{$detail.TYPE}</td>
   <td>{$detail.SECTION}</td>
-  <td>{$detail.CATEGORY}</td>
-  <td>{$detail.TAGS}</td>
+	<td>{$detail.CATEGORY}{$detail.TAGS}</td>
 </tr>
 {/foreach}
 {/if}
