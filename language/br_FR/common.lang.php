@@ -157,4 +157,10 @@ $lang['New password'] = 'Ger-tremen nevez';
 $lang['End-Date'] = 'Deizad an dibenn';
 $lang['Empty query. No criteria has been entered.'] = 'Reked goullo. Dezverk ebet a zo bet lakaet.';
 $lang['Search rules'] = 'Dezverk an enklask';
+$lang['Error sending email'] = 'Fazi en ur gas ar postel';
+$lang['this email address is already in use'] = 'En implij emañ ar postel-se dija';
+$lang['Please enter your username or email address.'] = 'Roit ho anv implijer pe postel';
+$lang['Invalid username or email'] = 'Anv implijer pe postel direiz';
+$lang['Username or email'] = 'Anv implijer pe postel';
+$lang['Username: %s'] = 'Anv implijer: %s';
 ?>
