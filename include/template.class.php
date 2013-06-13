@@ -957,7 +957,7 @@ final class Script
 
   function is_remote()
   {
-    return url_is_remote( $this->path );
+    return url_is_remote( $this->path ) || strncmp($this->path, '//', 2)==0;
   }
 }
 
