@@ -796,19 +796,21 @@ array(
   'type' => 'trigger_action',
   'vars' => array('int', 'user_id'),
   'files' => array('include\functions_user.inc.php (logout_user)'),
+  'infos' => 'New in 2.5',
 ),
 array(
   'name' => 'user_login',
   'type' => 'trigger_action',
   'vars' => array('int', 'user_id'),
   'files' => array('include\functions_user.inc.php (log_user)'),
+  'infos' => 'New in 2.5',
 ),
 array(
   'name' => 'try_log_user',
   'type' => 'trigger_event',
   'vars' => array('boolean', 'success', 'string', 'username', 'string', 'password', 'bool', 'remember_me'),
   'files' => array('include\functions_user.inc.php (try_log_user)'),
-  'infos' => 'Used by identification form to check user credentials and log user. If success is true, another login method already succeed. Return true if your method succeed.',
+  'infos' => 'New in 2.5. Used by identification form to check user credentials and log user. If <i>success</i> is <i>true</i>, another login method already succeed. Return <i>true</i> if your method succeed.',
 ),
 );
 ?>
