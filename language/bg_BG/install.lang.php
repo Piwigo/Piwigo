@@ -20,6 +20,7 @@
 // | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
+
 $lang['also given by your host provider'] = 'също предоставена от доставчика на услугата';
 $lang['Basic configuration'] = 'Основно конфигуриране';
 $lang['Database configuration'] = 'Конфигуриране на базата данни';
@@ -32,13 +33,11 @@ $lang['enter a login for webmaster'] = 'въведете потребителс�
 $lang['Installation'] = 'Инсталиране';
 $lang['Just another Piwigo gallery'] = 'Още една  Piwigo фотогалерия';
 $lang['Keep it confidential, it enables you to access administration panel'] = 'Пазете я в тайна, тя Ви дава достъп до административния панел';
-$lang['Password'] = 'Парола';
 $lang['Password [confirm]'] = 'Парола [потвърждаване]';
 $lang['please enter your password again'] = 'моля, въведете паролата още веднъж';
 $lang['User'] = 'Потребител';
 $lang['verification'] = 'проверка';
 $lang['webmaster login can\'t contain characters \' or "'] = 'потребителското име за уебмастера, не може да съдържа символите\' или "';
-$lang['Webmaster password'] = 'Парола на уебмастера';
 $lang['Welcome to my photo gallery'] = 'Здравейте и добре дошли в моята фотогалерия';
 $lang['Welcome to your new installation of Piwigo!'] = 'Здравейте и добре дошли във вашата нова Piwigo инсталация! ';
 $lang['You can download the config file and upload it to local/config directory of your installation.'] = 'Вие можете да изтеглите конфигурационния файл и да го качите в директорията  local/config на вашата инсталация';
@@ -55,15 +54,11 @@ $lang['Try to configure PHP 5'] = 'Опитайте да настройте PHP 
 $lang['user login given by your host provider'] = 'потребителско име за достъп до вашия доставчик';
 $lang['user password given by your host provider'] = 'парола за достъп до вашия доставчик';
 $lang['Visitors will be able to contact site administrator with this mail'] = 'Потребителите ще могат да използват този имейл за контакт с Администратора на сайта';
-$lang['Webmaster mail address'] = 'Webmaster имейл адрес';
 $lang['Can\'t connect to server'] = 'Невъзможен достъп до сървъра';
 $lang['Connection to server succeed, but it was impossible to connect to database'] = 'Връзката със сървъра е успешна, но достъпа до базата данни е невъзможен';
 $lang['It will be shown to the visitors. It is necessary for website administration'] = 'Това ще е видимо от потребителите. Необходимо е за администриране на сайта';
-$lang['localhost, sql.multimania.com, toto.freesurf.fr'] = 'localhost, sql.multimania.com, toto.freesurf.fr';
-$lang['mail address must be like xxx@yyy.eee (example : jack@altern.org)'] = 'имейл адреса трябва да е като xxx@yyy.eee (example : jack@altern.org)';
 $lang['Need help ? Ask your question on <a href="%s">Piwigo message board</a>.'] = 'Нужна ви е помощ? Задайте вашият въпрос в <a href="%s">Piwigo борда за съобщения</a>.';
 $lang['Note you can change your configuration by yourself and restart Piwigo after that.'] = 'Вие може да промените конфигурацията и сами и да рестартирате Piwigo след това.';
-$lang['Webmaster login'] = 'Webmaster вход';
 $lang['An alternate solution is to copy the text in the box above and paste it into the file "local/config/database.inc.php" (Warning : database.inc.php must only contain what is in the textarea, no line return or space character)'] = 'Алтернативно решение е да копирате текста от кутията горе и да го добавите ръчно във файла "local/config/database.inc.php" (ВНИМАНИЕ: database.inc.php трябва да съдържа само това от текстовото поле, без празни знаци)';
 $lang['Creation of config file local/config/database.inc.php failed.'] = 'Създаването на конфигурационен файл local/config/database.inc.php е неуспещно.';
 $lang['It appears your webhost is currently running PHP %s.'] = 'Изглежда вашият уеб хост се изпълнява в PHP %s';

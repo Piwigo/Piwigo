@@ -225,7 +225,7 @@ jQuery().ready(function(){ldelim}
     <tr>
       <td style="width: 30%;" class="fieldname">{'Host'|@translate}</td>
       <td><input type="text" name="dbhost" value="{$F_DB_HOST}"></td>
-      <td class="fielddesc">{'localhost, sql.multimania.com, toto.freesurf.fr'|@translate}</td>
+      <td class="fielddesc">{'localhost or other, supplied by your host provider'|@translate}</td>
     </tr>
     <tr>
       <td class="fieldname">{'User'|@translate}</td>
@@ -255,12 +255,12 @@ jQuery().ready(function(){ldelim}
 
   <table class="table2">
     <tr>
-      <td style="width: 30%;" class="fieldname">{'Webmaster login'|@translate}</td>
+      <td style="width: 30%;" class="fieldname">{'Username'|@translate}</td>
       <td><input type="text" name="admin_name" value="{$F_ADMIN}"></td>
       <td class="fielddesc">{'It will be shown to the visitors. It is necessary for website administration'|@translate}</td>
     </tr>
     <tr>
-      <td class="fieldname">{'Webmaster password'|@translate}</td>
+      <td class="fieldname">{'Password'|@translate}</td>
       <td><input type="password" name="admin_pass1" value=""></td>
       <td class="fielddesc">{'Keep it confidential, it enables you to access administration panel'|@translate}</td>
     </tr>
@@ -270,7 +270,7 @@ jQuery().ready(function(){ldelim}
       <td class="fielddesc">{'verification'|@translate}</td>
     </tr>
     <tr>
-      <td class="fieldname">{'Webmaster mail address'|@translate}</td>
+      <td class="fieldname">{'Email address'|@translate}</td>
       <td><input type="text" name="admin_mail" id="admin_mail" value="{$F_ADMIN_EMAIL}"></td>
       <td class="fielddesc">{'Visitors will be able to contact site administrator with this mail'|@translate}</td>
     </tr>

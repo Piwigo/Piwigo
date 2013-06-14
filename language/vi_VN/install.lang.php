@@ -27,17 +27,12 @@ $lang['Default gallery language'] = 'Ngôn ngữ hiển thị gallery mặc đ�
 $lang['Database configuration'] = 'Cấu hình cơ sở dữ liệu';
 $lang['Admin configuration'] = 'Cấu hình Quản trị';
 $lang['Start Install'] = 'Bắt đầu Cài đặt';
-$lang['mail address must be like xxx@yyy.eee (example : jack@altern.org)'] = 'địa chỉ thư điện tử phải có dạng xxx@yyy.eee (ví dụ : jack@altern.org)';
-$lang['Webmaster login'] = 'Đăng nhập của Webmaster';
 $lang['It will be shown to the visitors. It is necessary for website administration'] = 'Khách thăm quan gallery sẽ thấy được thông tin của Webmaster. Điều này cần thiết cho Quản trị Webmaster';
 $lang['Connection to server succeed, but it was impossible to connect to database'] = 'Kết nối thành công vào máy chủ, nhưng không thể kết nối vào cơ sở dữ liệu.';
 $lang['Can\'t connect to server'] = 'Không thể kết nối vào máy chủ';
-
 $lang['Host'] = 'Máy chủ MySQL';
-$lang['localhost, sql.multimania.com, toto.freesurf.fr'] = 'localhost, sql.multimania.com, toto.freesurf.fr';
 $lang['User'] = 'Người dùng';
 $lang['user login given by your host provider'] = 'thông tin đăng nhập của người dùng do nhà cung cấp máy chủ của của bạn đưa ra.';
-$lang['Password'] = 'Mật khẩu';
 $lang['user password given by your host provider'] = 'mật khẩu người dùng do nhà cung cấp máy chủ của bạn đưa ra';
 $lang['Database name'] = 'Tên cơ sở dữ liệu';
 $lang['also given by your host provider'] = 'cũng được cấp bởi nhà cung cấp máy chủ';
@@ -46,12 +41,10 @@ $lang['database tables names will be prefixed with it (enables you to manage bet
 $lang['enter a login for webmaster'] = 'nhập tên đăng nhập của Webmaster';
 $lang['webmaster login can\'t contain characters \' or "'] = 'đăng nhập của Webmaster không thể chứa các ký tự hoặc';
 $lang['please enter your password again'] = 'vui lòng nhập lại mật khẩu của bạn';
-$lang['Webmaster password'] = 'Mật khẩu của Webmaster';
 $lang['Keep it confidential, it enables you to access administration panel'] = 'Bảo quản kỹ thông tin này, nó cho phép bạn truy cập vào Bảng điều khiển của Quản trị.';
 $lang['Password [confirm]'] = 'Mật khẩu [xác nhận]';
 $lang['verification'] = 'xác nhận';
 $lang['Need help ? Ask your question on <a href="%s">Piwigo message board</a>.'] = 'Cần trợ giúp ? Hãy gởi thắc mắc của bạn tại <a href="%s">diễn đàn của Piwigo</a>.';
-$lang['Webmaster mail address'] = 'Địa chỉ thư điện tử của Webmaster';
 $lang['Visitors will be able to contact site administrator with this mail'] = 'Khách tham quan có thể liên lạc với Quản trị thông qua địa chỉ thư điện tử này.';
 $lang['PHP 5 is required'] = 'Phải có PHP 5 ';
 $lang['It appears your webhost is currently running PHP %s.'] = 'Do máy chủ web của bạn đang chạy phiên bản PHP  %s.';

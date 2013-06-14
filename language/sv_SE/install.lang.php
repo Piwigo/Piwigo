@@ -21,24 +21,18 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
-
-
 $lang['Installation'] = 'Installation';
 $lang['Basic configuration'] = 'Grund Inställningar';
 $lang['Default gallery language'] = 'Standard språk för galleriet';
 $lang['Database configuration'] = 'Databas konfiguration';
 $lang['Admin configuration'] = 'Admin konfiguration';
 $lang['Start Install'] = 'Påbörja installation';
-$lang['mail address must be like xxx@yyy.eee (example : jack@altern.org)'] = 'E-mail adressen måste se ut som följande: xxx@yyy.eee (exempel : jack@altern.org)';
-$lang['Webmaster login'] = 'Webbansvarig login';
 $lang['It will be shown to the visitors. It is necessary for website administration'] = 'Det kommer att visas för besökare. Det är nödvändigt för administrering av hemsidan.';
 $lang['Connection to server succeed, but it was impossible to connect to database'] = 'Ansluten till server, men kunde inte ansluta till databasen.';
 $lang['Can\'t connect to server'] = 'Kan inte ansluta till servern';
 $lang['Host'] = 'Värd';
-$lang['localhost, sql.multimania.com, toto.freesurf.fr'] = 'localhost, sql.multimania.com, toto.freesurf.fr';
 $lang['User'] = 'Användare';
 $lang['user login given by your host provider'] = 'användares inloggning given av ditt webbhotell';
-$lang['Password'] = 'Lösenord';
 $lang['user password given by your host provider'] = 'användares lösenord given av ditt webbhotell';
 $lang['Database name'] = 'Databas namn';
 $lang['also given by your host provider'] = 'också tilldelad av din webbhotell';
@@ -47,12 +41,10 @@ $lang['database tables names will be prefixed with it (enables you to manage bet
 $lang['enter a login for webmaster'] = 'ange inloggning för webmaster';
 $lang['webmaster login can\'t contain characters \' or "'] = 'login för webmaster får inte innehålla symbolerna \' eller "';
 $lang['please enter your password again'] = 'ange ditt lösenord igen';
-$lang['Webmaster password'] = 'Webmaster lösenord';
 $lang['Keep it confidential, it enables you to access administration panel'] = 'Håll det hemligt, lösenordet ger dig tillgång till administrationspanelen';
 $lang['Password [confirm]'] = 'Lösenord [bekräfta]';
 $lang['verification'] = 'verifiering';
 $lang['Need help ? Ask your question on <a href="%s">Piwigo message board</a>.'] = 'Behöver du hjälp? Ställ din fråga på <a href="%s">Piwigo message board</a>.';
-$lang['Webmaster mail address'] = 'Webmaster e-mail adress';
 $lang['Visitors will be able to contact site administrator with this mail'] = 'Besökare kommer att kunna kontakta sidans administratör med denna e-mail adress';
 $lang['PHP 5 is required'] = 'PHP 5 krävs';
 $lang['It appears your webhost is currently running PHP %s.'] = 'Ditt webbhotell använder just nu PHP %s.';
@@ -72,6 +64,4 @@ $lang['Just another Piwigo gallery'] = 'Ännu ett Piwigo galleri';
 $lang['Welcome to my photo gallery'] = 'Välkommen till mitt fotogalleri';
 $lang['Welcome to your new installation of Piwigo!'] = 'Välkomment till din nya installation av Piwigo!';
 $lang['Don\'t hesitate to consult our forums for any help : %s'] = 'Tveka inte att kontakta våra forum för hjälp: %s';
-
-
 ?>

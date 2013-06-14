@@ -20,8 +20,8 @@
 // | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
+
 $lang['It appears your webhost is currently running PHP %s.'] = 'Таны вэбсервер PHP %s хувилбарыг ашиглаж байна';
-$lang['mail address must be like xxx@yyy.eee (example : jack@altern.org)'] = 'имэйл хаяг xxx@yyy.eee гэсэн хэлбэртэй байх ёстой (жишээ нь: jack@altern.org)';
 $lang['Piwigo was not able to configure PHP 5.'] = 'Piwigo PHP 5-г тохиргоог өөрчилж чадсангүй';
 $lang['Congratulations, Piwigo installation is completed'] = 'Танд баяр хүргэе, Piwigo амжилттай сууж дууслаа.';
 $lang['Connection to server succeed, but it was impossible to connect to database'] = 'Сервертэй амжилттай холбогдсон боловч мэдээллийн сантай холбогдох боломж алга байна.';
@@ -29,13 +29,10 @@ $lang['Try to configure PHP 5'] = 'PHP 5 тохиргоогоо өөрчилж �
 $lang['User'] = 'Хэрэглэгч';
 $lang['Just another Piwigo gallery'] = 'Бас нэг Piwigo-н галарей ';
 $lang['Database configuration'] = 'Мэдээллийн сангийн тохиргоо';
-$lang['Webmaster mail address'] = 'Вэбмастерийн имэйл хаяг';
-$lang['Webmaster password'] = 'Вэбмастерийн нууц үг';
 $lang['Welcome to my photo gallery'] = 'Миний зургийн цомогт тавтай морилно уу';
 $lang['please enter your password again'] = 'нууц үгээ дахин оруулна уу';
 $lang['Start Install'] = 'Суулгаж эхлэх';
 $lang['Sorry!'] = 'Уучлаарай';
-$lang['Password'] = 'Нууц үг';
 $lang['Password ']['confirm'] = 'Нууц үгээ давтах';
 $lang['Can\'t connect to server'] = 'Сервертэй холбогдож чадахгүй байна';
 $lang['Database name'] = 'Мэдээллийн сангын нэр';

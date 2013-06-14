@@ -21,23 +21,18 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
-
 $lang['Installation'] = 'Инсталација';
 $lang['Basic configuration'] = 'Основна подешења';
 $lang['Default gallery language'] = 'Подразумевани језик галерије';
 $lang['Database configuration'] = 'Подешавање базе';
 $lang['Admin configuration'] = 'Администраторска подешења';
 $lang['Start Install'] = 'Покрени инсталацију';
-$lang['mail address must be like xxx@yyy.eee (example : jack@altern.org)'] = 'Адреса електронске поште мора бити у облику xxx@yyy.eee (пример : milos@firma.org)';
-$lang['Webmaster login'] = 'Приступ уредника интернет страница';
 $lang['It will be shown to the visitors. It is necessary for website administration'] = 'Биће приказано посетиоцима. Неопходно је за администрацију интернет страница';
 $lang['Connection to server succeed, but it was impossible to connect to database'] = 'Повезивање на сервер успешно, али повезивање на базу је немогућа';
 $lang['Can\'t connect to server'] = 'Немогуће повезивање на сервер';
 $lang['Host'] = 'Хост';
-$lang['localhost, sql.multimania.com, toto.freesurf.fr'] = 'localhost, sql.multimania.com, toto.freesurf.fr';
 $lang['User'] = 'Корисник';
 $lang['user login given by your host provider'] = 'корисничко име дато од стране Вашег давалаца интернет услуга';
-$lang['Password'] = 'Лозинка';
 $lang['user password given by your host provider'] = 'корисничка лозинка дата од стране Вашег давалаца интернет услуга';
 $lang['Database name'] = 'Име базе';
 $lang['also given by your host provider'] = 'такоде дато од Вашег дистрибутера интернет услуга';
@@ -46,12 +41,10 @@ $lang['database tables names will be prefixed with it (enables you to manage bet
 $lang['enter a login for webmaster'] = 'Унеси приступне податке за уредника интернет страница';
 $lang['webmaster login can\'t contain characters \' or "'] = 'приступни подаци за уредника интернет страница не могу садржати знаке \' или "';
 $lang['please enter your password again'] = 'молим унесите Вашу лозинку поново';
-$lang['Webmaster password'] = 'Лозинка уредника интернет страница';
 $lang['Keep it confidential, it enables you to access administration panel'] = 'Сачувајте у тајности, омогућава приступ администраторском делу';
 $lang['Password [confirm]'] = 'Лозинка[потврди]';
 $lang['verification'] = 'Провера';
 $lang['Need help ? Ask your question on <a href="%s">Piwigo message board</a>.'] = 'Потребна Вам је помоц? Питајте на  <a href="%s">Piwigo табли за поруке</a>.';
-$lang['Webmaster mail address'] = 'Адреса електронске поште  уредника интернет страница';
 $lang['Visitors will be able to contact site administrator with this mail'] = 'Посетиоци ће бити у могућности да са ове електронске адресе контактирају администратора странице';
 $lang['PHP 5 is required'] = 'PHP 5 је неопходан';
 $lang['It appears your webhost is currently running PHP %s.'] = 'Изгледа да Ваш сервер тренутно користи PHP %s.';

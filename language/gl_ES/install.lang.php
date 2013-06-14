@@ -20,10 +20,9 @@
 // | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
+
 $lang['database tables names will be prefixed with it (enables you to manage better your tables)'] = 'os nomes das táboas da base de datos irán prefixadas con el (permite unha mellor xestión das táboas)';
-$lang['localhost, sql.multimania.com, toto.freesurf.fr'] = 'localhost, sql.multimania.com, toto.freesurf.fr';
 $lang['enter a login for webmaster'] = 'insire o nome de usuario do administrador web';
-$lang['mail address must be like xxx@yyy.eee (example : jack@altern.org)'] = 'o enderezo de correo debe ter o formato xxx@yyy.eee (exemplo: proxecto@trasno.net';
 $lang['please enter your password again'] = 'insire a túa clave outra vez';
 $lang['user login given by your host provider'] = 'nome de usuario fornecido polo teu provedor do aloxamento';
 $lang['user password given by your host provider'] = 'clave de usuario fornecida polo teu provedor do aloxamento';
@@ -38,14 +37,10 @@ $lang['Start Install'] = 'Comezar a instalación';
 $lang['Try to configure PHP 5'] = 'Tratar de configurar PHP 5';
 $lang['User'] = 'Usuario';
 $lang['Visitors will be able to contact site administrator with this mail'] = 'Os visitantes poderán empregar este correo electrónico para contactar co administrador do sitio';
-$lang['Webmaster login'] = 'Usuario do administrador web';
-$lang['Webmaster mail address'] = 'Correo electrónico do administrador web';
-$lang['Webmaster password'] = 'Clave do administrador web';
 $lang['Welcome to my photo gallery'] = 'Benvido a miña galería de fotos';
 $lang['Welcome to your new installation of Piwigo!'] = 'Benvido a túa nova instalación de piwigo!';
 $lang['You can download the config file and upload it to local/config directory of your installation.'] = 'Podes descargar o ficheiro de configuración e subilo a local/config na túa instalación.';
 $lang['PHP 5 is required'] = 'É preciso PHP 5';
-$lang['Password'] = 'Clave';
 $lang['Password ']['confirm'] = 'Clave [confirmar]';
 $lang['Note you can change your configuration by yourself and restart Piwigo after that.'] = 'Fíxate que podes mudar ti mesmo a túa configuración e reiniciar o Piwigo despois.';
 $lang['Need help ? Ask your question on <a href="%s">Piwigo message board</a>.'] = 'Precisas axuda? Pregunta as túas dúbidas no <a href="%s">panel de mensaxes Piwigo</a>. ';

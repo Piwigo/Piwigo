@@ -20,6 +20,7 @@
 // | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
+
 $lang['Admin configuration'] = 'Pääkäyttäjän konfiguroiminen';
 $lang['Basic configuration'] = 'Perusasetukset';
 $lang['Can\'t connect to server'] = 'Ei pysty yhdistämään palvelimeen';
@@ -31,13 +32,10 @@ $lang['Default gallery language'] = 'Gallerian oletuskieli';
 $lang['Host'] = 'Isäntäkone';
 $lang['Installation'] = 'Asennus';
 $lang['It will be shown to the visitors. It is necessary for website administration'] = 'Tullaan näyttämään vierailijoille. Olennainen sivuston hallintaa ajatellen';
-$lang['Password'] = 'Salasana';
 $lang['Start Install'] = 'Aloita asennus';
 $lang['User'] = 'Käyttäjä';
-$lang['Webmaster login'] = 'Webmaster -kirjatuminen';
 $lang['also given by your host provider'] = 'myöskin palveluntarjoajan määrittelemä';
-$lang['localhost, sql.multimania.com, toto.freesurf.fr'] = 'paikallinen isäntäkone';
-$lang['mail address must be like xxx@yyy.eee (example : jack@altern.org)'] = 'sähköpostin tulee olla muodossa xxx@yyy.eee (esim. jack@altern.org)';
+$lang['localhost or other, supplied by your host provider'] = 'paikallinen isäntäkone';
 $lang['user login given by your host provider'] = 'käyttäjänimi, jonka palveluntarjoaja on määrittänyt';
 $lang['user password given by your host provider'] = 'käyttäjän salasana, jonka palveluntarjoaja on määrittänyt';
 $lang['Congratulations, Piwigo installation is completed'] = 'Onnittelut, Piwigon asennus on onnistunut';
@@ -49,8 +47,6 @@ $lang['PHP 5 is required'] = 'PHP 5 vaaditaan';
 $lang['Password ']['confirm'] = 'Salasana [hyväksy]';
 $lang['Try to configure PHP 5'] = 'Yritä määrittää PHP 5';
 $lang['Visitors will be able to contact site administrator with this mail'] = 'Vierailijat voivat ottaa yhteyttä sivuston ylläpitäjään tätä sähköpostiosoitetta käyttäen';
-$lang['Webmaster mail address'] = 'Ylläpitäjän sähköpostiosoite';
-$lang['Webmaster password'] = 'Ylläpitäjän salasana';
 $lang['Welcome to my photo gallery'] = 'Tervetuloa kuvagalleriaani';
 $lang['enter a login for webmaster'] = 'Lisää käyttäjätunnus ylläpitäjälle';
 $lang['please enter your password again'] = 'Salasana uudelleen';

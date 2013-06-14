@@ -20,12 +20,11 @@
 // | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
+
 $lang['webmaster login can\'t contain characters \' or "'] = 'la retejestra salutnomo ne devas enteni la signoj \' aŭ "';
 $lang['user password given by your host provider'] = 'uzanto-pasvorto provizita de via provizanto de gastigo';
 $lang['user login given by your host provider'] = 'uzanto-salutnomo provizita de via provizanto de gastigo';
 $lang['please enter your password again'] = 'bonvolu tajpi vian pasvorton denove';
-$lang['mail address must be like xxx@yyy.eee (example : jack@altern.org)'] = 'retadresa formato devas kongrui kun xxx@yyy.eee (ekz-e: jack@altern.org)';
-$lang['localhost, sql.multimania.com, toto.freesurf.fr'] = 'localhost, sql.multimania.com, toto.freesurf.fr';
 $lang['enter a login for webmaster'] = 'entajpu retestran salutnomon';
 $lang['database tables names will be prefixed with it (enables you to manage better your tables)'] = 'per ĝi, prefiksoj aldoniĝos sur la nomojn de la datumtabelo (ebligas al vi pli bone mastrumi viajn tabelojn)';
 $lang['You may referer to your hosting provider\'s support and see how you could switch to PHP 5 by yourself.'] = 'Vi devus vin direkti al la subtenoservo de via provizanto de gastigo, kaj serĉi kiel vi mem povas interŝanĝi al PHP 5.';
@@ -43,15 +42,11 @@ $lang['Try to configure PHP 5'] = 'Provu agordi PHP 5';
 $lang['Sorry!'] = 'Pardonu!';
 $lang['Visitors will be able to contact site administrator with this mail'] = 'La vizitantoj povos uzi tiun retadreson por kontakti la retestron';
 $lang['Welcome to my photo gallery'] = 'Bonvenon al mia foto-galerio';
-$lang['Webmaster password'] = 'Retestra pasvorto';
-$lang['Webmaster mail address'] = 'Retestra retadreso';
-$lang['Webmaster login'] = 'Retestra salutnomo';
 $lang['Piwigo was not able to configure PHP 5.'] = 'Piwigo ne kapablis agordi PHP 5.';
 $lang['verification'] = 'kontrolado';
 $lang['Hope to see you back soon.'] = 'Ĝis baldaŭa vizito via.';
 $lang['Start Install'] = 'Komenci la instaladon';
 $lang['Password ']['confirm'] = 'Pasvorto [konfirmu]';
-$lang['Password'] = 'Pasvorto';
 $lang['PHP 5 is required'] = 'Necesas PHP 5';
 $lang['User'] = 'Uzanto';
 $lang['Download the config file'] = 'Elŝuti la agordan dosieron';

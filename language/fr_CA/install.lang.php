@@ -21,24 +21,18 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
-
-
 $lang['Installation'] = "Installation";
 $lang['Basic configuration'] = "Configuration de base";
 $lang['Default gallery language'] = "Langue par défaut de la galerie";
 $lang['Database configuration'] = "Configuration de la base de données";
 $lang['Admin configuration'] = "Configuration du compte administrateur";
 $lang['Start Install'] = "Démarrer l'installation";
-$lang['mail address must be like xxx@yyy.eee (example : jack@altern.org)'] = "L'adresse de courriel doit être de la forme xxx@yyy.eee (exemple : jack@altern.org)";
-$lang['Webmaster login'] = "Identifiant de l'administrateur";
 $lang['It will be shown to the visitors. It is necessary for website administration'] = "Cet identifiant apparaîtra à tous vos visiteurs. Il vous sert pour administrer le site";
 $lang['Connection to server succeed, but it was impossible to connect to database'] = "La connexion au serveur est OK, mais la connection à cette base de données est impossible";
 $lang['Can\'t connect to server'] = "Impossible de se connecter au serveur";
 $lang['Host'] = "Hôte";
-$lang['localhost, sql.multimania.com, toto.freesurf.fr'] = "localhost, sql.multimania.com, toto.freesurf.fr";
 $lang['User'] = "Utilisateur";
 $lang['user login given by your host provider'] = "nom d'utilisateur communiqué par votre hébergeur";
-$lang['Password'] = "Mot de passe";
 $lang['user password given by your host provider'] = "mot de passe utilisateur communiqué par votre hébergeur";
 $lang['Database name'] = "Nom de la base de données";
 $lang['also given by your host provider'] = "également fourni par votre hébergeur";
@@ -47,12 +41,10 @@ $lang['database tables names will be prefixed with it (enables you to manage bet
 $lang['enter a login for webmaster'] = "veuillez rentrer un pseudo pour le webmaster";
 $lang['webmaster login can\'t contain characters \' or "'] = "le pseudo du webmaster ne doit pas comporter les caractères \" et '";
 $lang['please enter your password again'] = "veuillez resaisir votre mot de passe";
-$lang['Webmaster password'] = "Mot de passe du webmaster";
 $lang['Keep it confidential, it enables you to access administration panel'] = "Il doit rester confidentiel, il permet d'accéder à l'écran d'administration.";
 $lang['Password [confirm]'] = "Mot de passe [Confirmer]";
 $lang['verification'] = "vérification";
 $lang['Need help ? Ask your question on <a href="%s">Piwigo message board</a>.'] = "Besoin d'aide ? Posez votre question sur le <a href=\"%s\">forum de Piwigo</a>.";
-$lang['Webmaster mail address'] = "Adresse de courriel de l'administrateur";
 $lang['Visitors will be able to contact site administrator with this mail'] = "Les visiteurs pourront contacter l'administrateur du site par ce courriel";
 $lang['PHP 5 is required'] = "PHP 5 est requis";
 $lang['It appears your webhost is currently running PHP %s.'] = "Apparemment, la version PHP de votre hébergeur est PHP %s.";
@@ -72,5 +64,4 @@ $lang['Just another Piwigo gallery'] = 'Une galerie Piwigo de plus';
 $lang['Welcome to my photo gallery'] = 'Bienvenue sur ma galerie photo';
 $lang['Welcome to your new installation of Piwigo!'] = 'Bienvenue sur votre nouvelle installtion de Piwigo!';
 $lang['Don\'t hesitate to consult our forums for any help : %s'] = 'N\'hésitez pas à consulter bos forums si vous avez le moindre problème : %s';
-
 ?>

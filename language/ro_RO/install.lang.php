@@ -20,10 +20,10 @@
 // | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
+
 $lang['Admin configuration'] = 'Configurarea Adminului';
 $lang['also given by your host provider'] = 'De asemenea oferita de host';
-$lang['An alternate solution is to copy the text in the box above and paste it into the file "local/config/database.inc.php" (Warning : database.inc.php must only contain what is in the textarea, no line return or space character)'] = 'O solutie alternativa ar fi sa copiezi textul din casuta de deasupra si sa il scrii in fila "local/config/database.inc.php" 
-(Atentie database.inc.php trebuie sa contina doar caracterele din text, fara linie sau space)';
+$lang['An alternate solution is to copy the text in the box above and paste it into the file "local/config/database.inc.php" (Warning : database.inc.php must only contain what is in the textarea, no line return or space character)'] = 'O solutie alternativa ar fi sa copiezi textul din casuta de deasupra si sa il scrii in fila "local/config/database.inc.php" (Atentie database.inc.php trebuie sa contina doar caracterele din text, fara linie sau space)';
 $lang['Basic configuration'] = 'Configurarea de baza';
 $lang['Can\'t connect to server'] = 'Nu se poate conecta la server';
 $lang['Congratulations, Piwigo installation is completed'] = 'Felicitari, Piwigo s-a instalat cu succes.';
@@ -44,12 +44,9 @@ $lang['It appears your webhost is currently running PHP %s.'] = 'Se pare ca webh
 $lang['It will be shown to the visitors. It is necessary for website administration'] = 'Va fi afisata vizitatorilor. Este necesara pentru administrarea site-ului.';
 $lang['Just another Piwigo gallery'] = 'Doar o alta galerie Piwigo';
 $lang['Keep it confidential, it enables you to access administration panel'] = 'Tine-o secreta, iti permite accesul la panoul de administrare';
-$lang['localhost, sql.multimania.com, toto.freesurf.fr'] = 'localhost, sql.multimania.com, toto.freesurf.fr';
-$lang['mail address must be like xxx@yyy.eee (example : jack@altern.org)'] = 'Adresa de mail trebuie sa fie de forma  xxx@yyy.eee (example : jack@altern.org)';
 $lang['Need help ? Ask your question on <a href="%s">Piwigo message board</a>.'] = 'Ai nevoie de ajutor? Intreaba pe <a href="%s">Forumul Piwigo</a>.';
 $lang['Note you can change your configuration by yourself and restart Piwigo after that.'] = 'Poti sa schimbi configuratia manual si sa restartezi Piwigo dupa aceea.';
 $lang['Password [confirm]'] = 'Parola [confirma]';
-$lang['Password'] = 'Parola';
 $lang['PHP 5 is required'] = 'PHP5 este necesar';
 $lang['Piwigo may try to switch your configuration to PHP 5 by creating or modifying a .htaccess file.'] = 'Piwigo va incerca sa treaca configuratia ta la PHP5 folosind o fila  .htaccess';
 $lang['Piwigo was not able to configure PHP 5.'] = 'Piwigo nu a putut sa configureze PHP5';
@@ -63,9 +60,6 @@ $lang['User'] = 'User';
 $lang['verification'] = 'verificarea';
 $lang['Visitors will be able to contact site administrator with this mail'] = 'Vizitatorii vor folosii aceasta adresa pentru a contacta administratorul';
 $lang['webmaster login can\'t contain characters \' or "'] = 'Userul nu poate sa contina caracterele \' sau "';
-$lang['Webmaster login'] = 'Webmaster login';
-$lang['Webmaster mail address'] = 'Adresa de e-mail a webmasterului';
-$lang['Webmaster password'] = 'Parola';
 $lang['Welcome to my photo gallery'] = 'Bine ati venit la galeria mea foto';
 $lang['Welcome to your new installation of Piwigo!'] = 'Bine ai venit la noua instalare Piwigo!';
 $lang['You can download the config file and upload it to local/config directory of your installation.'] = 'Poti sa descarci fila de configurare si sa o uploadezi in folderul local/config al instalarii.';

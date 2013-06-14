@@ -21,24 +21,18 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
-
-
 $lang['Installation'] = "התקנה";
 $lang['Basic configuration'] = "הגדרות בסיסיות";
 $lang['Default gallery language'] = "שפת גלריה ברירת מחדל";
 $lang['Database configuration'] = "הגדרות בסיס נתונים";
 $lang['Admin configuration'] = "הגדרות מנהל";
 $lang['Start Install'] = "התחל התקנה";
-$lang['mail address must be like xxx@yyy.eee (example : jack@altern.org)'] = "כתובת דואר אלקטרוני xxx@yyy.eee (example : jack@altern.com)";
-$lang['Webmaster login'] = "התחברות מנהל האתר";
 $lang['It will be shown to the visitors. It is necessary for website administration'] = "יוצג בפני המבקרים. נחוץ בשביל מנהל האתר";
 $lang['Connection to server succeed, but it was impossible to connect to database'] = "התחבר לשרת בהצלחה, אך לא הצליח להתחבר לבסיס נתונים";
 $lang['Can\'t connect to server'] = "לא מצליח להתחבר לשרת";
 $lang['Host'] = "שרת מארח";
-$lang['localhost, sql.multimania.com, toto.freesurf.fr'] = "localhost, sql.multimania.com, toto.freesurf.fr";
 $lang['User'] = "משתמש";
 $lang['user login given by your host provider'] = "המשתמש שניתן לך על ידי השרת המארח שלך";
-$lang['Password'] = "סיסמה";
 $lang['user password given by your host provider'] = "הסיסמה שניתנה לך על ידיד השרת המארח שלך";
 $lang['Database name'] = "שם בסיס הנתונים";
 $lang['also given by your host provider'] = "גם ניתן על ידי השרת המארח שלך";
@@ -47,12 +41,10 @@ $lang['database tables names will be prefixed with it (enables you to manage bet
 $lang['enter a login for webmaster'] = "הזן פרטי התחברות עבור מהל האתר";
 $lang['webmaster login can\'t contain characters \' or "'] = "משתמש מנהל האתר לא יכול להחיל את התווים \' או מרחאות";
 $lang['please enter your password again'] = "הכנס בבקשה את הסיסמה שוב";
-$lang['Webmaster password'] = "ססמת מנהל האתר";
 $lang['Keep it confidential, it enables you to access administration panel'] = "שמור זאת בסוד, זה מאפשר לך להיכנס לפאנל ניהול האתר";
 $lang['Password [confirm]'] = "סיסמה [אושרה]";
 $lang['verification'] = "אימות";
 $lang['Need help ? Ask your question on <a href="%s">Piwigo message board</a>.'] = "צריך עזרה? היעזר ב <a href=\"%s\">הפורום של Piwigo</a>.";
-$lang['Webmaster mail address'] = "דואר אלקטרוני של מנהל האתר";
 $lang['Visitors will be able to contact site administrator with this mail'] = "אורחים יוכלו להשתמש בדואר האלקטרוני הזה כדי ליצור קשר עם מנהל האתר";
 $lang['PHP 5 is required'] = "נדרש גירסת PHP 5";
 $lang['It appears your webhost is currently running PHP %s.'] = "שרת המארח שלך רץ על גירסת PHP %s.";

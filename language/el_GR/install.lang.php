@@ -21,18 +21,14 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
-
-
 $lang['database tables names will be prefixed with it (enables you to manage better your tables)'] = "τα ονόματα των πινάκων της βάσης δεδομένων θα πάρουν αυτό το πρόθεμα (σας επιτρέπει να διαχειρίζεστε τους πίνακες σας καλύτερα)";
 $lang['enter a login for webmaster'] = "Εισάγετε ένα όνομα χρήστη για τον webmaster";
 $lang['webmaster login can\'t contain characters \' or "'] = "Το όνομα χρήστη δεν μπορεί να περιέχει τους χαρακτήρες ' ή \"";
 $lang['please enter your password again'] = "Παρακαλώ εισάγετε τον κωδικό πάλι";
-$lang['Webmaster password'] = "Ο κωδικός του Webmaster";
 $lang['Keep it confidential, it enables you to access administration panel'] = "Κρατήστε το εμπιστευτικό, επιτρέπει να έχετε πρόσβαση σε πίνακα διαχείρισης";
 $lang['Password [confirm]'] = "Κωδικός [επιβεβαίωση]";
 $lang['verification'] = "Επιβεβαίωση";
 $lang['Need help ? Ask your question on <a href="%s">Piwigo message board</a>.'] = "Χρειάζεστε βοήθεια; Ρωτήστε στο <a href=\"%s\">Πίνακα μηνυμάτων του Piwigo</a>.";
-$lang['Webmaster mail address'] = "Διεύθυνση ταχυδρομείου του Webmaster";
 $lang['Visitors will be able to contact site administrator with this mail'] = "Οι επισκέπτες θα μπορούν να χρησιμοποιήσουν αυτό το email για να επικοινωνήσουν με τον διαχειριστή του site";
 $lang['PHP 5 is required'] = "Aπαιτείτε PHP 5";
 $lang['It appears your webhost is currently running PHP %s.'] = "Φαίνετται ότι ο webhost τώρα τρέχει PHP %s.";
@@ -50,9 +46,6 @@ $lang['Download the config file'] = 'Κατέβασμα του αρχείου δ
 $lang['You can download the config file and upload it to local/config directory of your installation.'] = 'Μπορείς να κατεβάσεις το αρχείο διαμόρφωσης και να το ανεβάσεις στο local/config κατάλογο της εγκατάστασης σου.';
 $lang['Just another Piwigo gallery'] = 'Ακόμα μια γκαλερί Piwigo';
 $lang['Welcome to my photo gallery'] = 'Καλώς ήλθατε στη φωτογραφική μου γκαλερί'; 
-
-
-
 $lang['Admin configuration'] = 'Ρυθμίσεις Διαχειριστή της ιστοσελίδας';
 $lang['Basic configuration'] = 'Βασικές διαμόρφωση';
 $lang['Can\'t connect to server'] = 'Δεν είναι δυνατή η σύνδεση με τον διακομιστή';
@@ -65,14 +58,10 @@ $lang['Don\'t hesitate to consult our forums for any help : %s'] = 'Μην δι�
 $lang['Host'] = 'διακομιστήw υποδοχής';
 $lang['Installation'] = 'Εγκατάσταση';
 $lang['It will be shown to the visitors. It is necessary for website administration'] = 'Έτσι Θα δείχνει στους επισκέπτες. Είναι απαραίτητο για την διαχείριση της ιστοσελίδας';
-$lang['Password'] = 'Κωδικός προσβασης';
 $lang['Start Install'] = 'Ξεκινήστε την εγκατάσταση';
 $lang['User'] = 'Χρήστης';
-$lang['Webmaster login'] = 'Σύνδεση Υπεύθυνου';
 $lang['Welcome to your new installation of Piwigo!'] = 'Καλώς ήρθατε στην νέα σας εγκατάσταση του Piwigo!';
 $lang['also given by your host provider'] = 'Επίσης, δίνεται από την εταιρία φιλοξενίας σας';
-$lang['localhost, sql.multimania.com, toto.freesurf.fr'] = 'localhost, sql.multimania.com, toto.freesurf.fr';
-$lang['mail address must be like xxx@yyy.eee (example : jack@altern.org)'] = 'Η διεύθυνση ηλεκτρονικού ταχυδρομείου πρέπει να είναι σαν xxx@yyy.eee (παράδειγμα: jack@altern.org)';
 $lang['user login given by your host provider'] = 'Όνομα χρήστη που έχει λάβει από το φορέα υποδοχής σας';
 $lang['user password given by your host provider'] = 'Κωδικός προσβασης χρήστη που έχει λάβει από το φορέα υποδοχής σας';
 ?>

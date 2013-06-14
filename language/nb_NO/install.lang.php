@@ -27,16 +27,12 @@ $lang['Default gallery language'] = 'Standard galleri språk';
 $lang['Database configuration'] = 'Database konfigurasjon';
 $lang['Admin configuration'] = 'Admin konfigurasjon';
 $lang['Start Install'] = 'Start installasjon';
-$lang['mail address must be like xxx@yyy.eee (example : jack@altern.org)'] = 'mail addresse må være lik xxx@yyy.eee (eksempel : jack@altern.org)';
-$lang['Webmaster login'] = 'Webmaster innlogging';
 $lang['It will be shown to the visitors. It is necessary for website administration'] = 'Det vil vises for besøkende. Det er nødvendig med side administrasjon';
 $lang['Connection to server succeed, but it was impossible to connect to database'] = 'Tilkobling til server er ok, men tilkobling til databasen er ikke mulig';
 $lang['Can\'t connect to server'] = 'Kan ikke koble til server';
 $lang['Host'] = 'Host';
-$lang['localhost, sql.multimania.com, toto.freesurf.fr'] = 'localhost, sql.multimania.com, toto.freesurf.fr';
 $lang['User'] = 'bruker (user)';
 $lang['user login given by your host provider'] = 'bruker (user) innlogging gitt av din web tilbyder';
-$lang['Password'] = 'Passord';
 $lang['user password given by your host provider'] = 'bruker (user) passord gitt av din web tilbyder';
 $lang['Database name'] = 'Database navn';
 $lang['also given by your host provider'] = 'også gitt av din web tilbyder';
@@ -45,12 +41,10 @@ $lang['database tables names will be prefixed with it (enables you to manage bet
 $lang['enter a login for webmaster'] = 'skriv et brukernavn for webmaster';
 $lang['webmaster login can\'t contain characters \' or "'] = 'webmasters brukernavn kan ikke inneholde tegn som \' eller "';
 $lang['please enter your password again'] = 'vennligst skriv passord igjen';
-$lang['Webmaster password'] = 'Webmaster passord';
 $lang['Keep it confidential, it enables you to access administration panel'] = 'Hold det hemmelig, dette gir deg tilgang til administrasjons panelet';
 $lang['Password [confirm]'] = 'Passord [bekreft]';
 $lang['verification'] = 'verifisering';
 $lang['Need help ? Ask your question on <a href="%s">Piwigo message board</a>.'] = 'Trenger du hjelp? Still et spørsmål på <a href="%s">Piwigo message board</a>.';
-$lang['Webmaster mail address'] = 'Webmasters mail addresse';
 $lang['Visitors will be able to contact site administrator with this mail'] = 'Besøkende vil kunne bruke denne mailen for å kontakte side administrator.';
 $lang['PHP 5 is required'] = 'PHP 5 er nødvendig';
 $lang['It appears your webhost is currently running PHP %s.'] = 'Det kan se ut som om din leverandør kjører PHP %s.';
@@ -66,7 +60,6 @@ $lang['An alternate solution is to copy the text in the box above and paste it i
 $lang['Creation of config file local/config/database.inc.php failed.'] = 'Opprettelse av konfig fil local/config/database.inc.php feilet.';
 $lang['Download the config file'] = 'Last ned konfig fil';
 $lang['You can download the config file and upload it to local/config directory of your installation.'] = 'Du kan laste ned konfig filen og laste den opp til local/config mappen i din installasjon.';
-
 $lang['Don\'t hesitate to consult our forums for any help : %s'] = 'Ikke nøl med å sjekke vårt forum for hjelp: %s';
 $lang['Just another Piwigo gallery'] = 'Enda et Piwigo bildegalleri';
 $lang['Welcome to my photo gallery'] = 'Velkommen til mitt bildegalleri';

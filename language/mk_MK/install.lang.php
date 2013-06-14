@@ -20,6 +20,7 @@
 // | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
+
 $lang['Admin configuration'] = 'Администраторски поднесувања';
 $lang['Basic configuration'] = 'Основни поднесувања';
 $lang['Congratulations, Piwigo installation is completed'] = 'Браво, Piwago инсталацијата е завршена';
@@ -28,7 +29,6 @@ $lang['Database name'] = 'Име на датабазата';
 $lang['Default gallery language'] = 'Основен јазик на галеријата';
 $lang['Hope to see you back soon.'] = 'Се надеваме дека ќе се видиме наскоро.';
 $lang['Installation'] = 'Инсталација';
-$lang['Password'] = 'Лозинка';
 $lang['Sorry!'] = 'Извини !';
 $lang['Start Install'] = 'Стартувај ја инсталацијата';
 $lang['Try to configure PHP 5'] = 'Пробај да го сетираш PHP 5';

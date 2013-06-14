@@ -21,24 +21,18 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
-
-
 $lang['Installation'] = "การติดตั้ง";
 $lang['Basic configuration'] = "การตั้งค่าพื้นฐาน";
 $lang['Default gallery language'] = "กำหนดภาษาพื้นฐานสำหรับแกลลอรี่";
 $lang['Database configuration'] = "การตั้งค่าฐานข้อมูล";
 $lang['Admin configuration'] = "การตั้งค่าผู้ดูแลระบบ";
 $lang['Start Install'] = "เริ่มการติดตั้ง";
-$lang['mail address must be like xxx@yyy.eee (example : jack@altern.org)'] = "ที่อยู่อีเมลจะต้องมีลักษณะ xxx@yyy.eee (ตัวอย่าง : jack@altern.org)";
-$lang['Webmaster login'] = "ชื่อเข้าสู่ระบบ";
 $lang['It will be shown to the visitors. It is necessary for website administration'] = "มันจะแสดงส่วนนี้ไปยังผู้เยี่ยมชม. ซึ่งมันจำเป็นสำหรับผู้ดูแลระบบของเว็บไซต์";
 $lang['Connection to server succeed, but it was impossible to connect to database'] = "เชื่อมต่อเซิร์ฟเวอร์เรียบร้อยแล้ว, แต่ไม่สามารถเชื่อมต่อฐานข้อมูลได้";
 $lang['Can\'t connect to server'] = "ไม่สามารถเชื่อมต่อกับเซิร์ฟเวอร์ได้";
 $lang['Host'] = "เซิร์ฟเวอร์";
-$lang['localhost, sql.multimania.com, toto.freesurf.fr'] = "ตัวอย่าง localhost, sql.multimania.com, toto.freesurf.fr";
 $lang['User'] = "ชื่อผู้ใช้งาน";
 $lang['user login given by your host provider'] = "ชื่อผู้ใช้งานจะได้รับจากผู้ให้บริการเซิร์ฟเวอร์";
-$lang['Password'] = "รหัสผ่าน";
 $lang['user password given by your host provider'] = "รหัสผ่านของผู้ใช้งานจะได้รับจากผู้ให้บริการเซิร์ฟเวอร์";
 $lang['Database name'] = "ชื่อฐานข้อมูล";
 $lang['also given by your host provider'] = "ซึ่งจะได้รับจากผู้ให้บริการเซิร์ฟเวอร์ของคุณ";
@@ -47,12 +41,10 @@ $lang['database tables names will be prefixed with it (enables you to manage bet
 $lang['enter a login for webmaster'] = "กำหนดชื่อในการเข้าสู่ระบบสำหรับเว็บมาสเตอร์";
 $lang['webmaster login can\'t contain characters \' or "'] = "ชื่อเข้าสู่ระบบจะต้องไม่ประกอบด้วยเครื่องหมาย ' หรือ \"";
 $lang['please enter your password again'] = "กรุณากรอกรหัสผ่านอีกครั้ง";
-$lang['Webmaster password'] = "รหัสผ่าน";
 $lang['Keep it confidential, it enables you to access administration panel'] = "โปรดเก็บไว้เป็นความลับ, เพราะมันสามารถใช้เพื่อเข้าถึงหน้าการจัดการระบบ Piwigo แกลลอรี่ ของคุณได้";
 $lang['Password [confirm]'] = "รหัสผ่าน [ยืนยัน]";
 $lang['verification'] = "การยืนยัน";
 $lang['Need help ? Ask your question on <a href="%s">Piwigo message board</a>.'] = "ต้องการความช่วยเหลือ? โปรดถามคำถามไว้ได้ที่ <a href=\"%s\">บอร์ดข้อความของ Piwigo</a>.";
-$lang['Webmaster mail address'] = "ที่อยู่อีเมล";
 $lang['Visitors will be able to contact site administrator with this mail'] = "ผู้เยี่ยมชมจะสามารถที่จะใช้อีเมลนี้ เพื่อติดต่อกับผู้ดูแลระบบได้";
 $lang['PHP 5 is required'] = "PHP 5 จำเป็นต้องมี";
 $lang['It appears your webhost is currently running PHP %s.'] = "มันจะแสดงบนเวิร์ฟเวอร์ที่คุณใช้งานอยู่ ซึ่งคุณใช้งานอยู่บน PHP %s.";

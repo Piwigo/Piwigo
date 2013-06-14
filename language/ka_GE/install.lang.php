@@ -27,19 +27,12 @@ $lang['Default gallery language'] = 'პრიორიტეტული ენ
 $lang['Database configuration'] = 'მონაცემთა ბაზის გასწორება';
 $lang['Admin configuration'] = 'ადმინისტრირების გასწორება';
 $lang['Start Install'] = 'დავიწყოთ დაყენება';
-$lang['mail address must be like xxx@yyy.eee (example : jack@altern.org)'] = 'ელ.ფოსტის მისამართი უნდა გავდეს  xxx@yyy.eee (მაგალითად: jack@altern.org)';
-
-$lang['Webmaster login'] = 'ვებმასტერის სახელი(ლოგინი)';
 $lang['It will be shown to the visitors. It is necessary for website administration'] = 'მას დაინახავენ მნახველები.საჭიროა საიტის ადმინისტრირებისათვის';
-
 $lang['Connection to server succeed, but it was impossible to connect to database'] = 'წარმატებით დაუკავშირდით სერვერს,მაგრამ მონაცემთა ბაზასთან დაკავშირება შეუძლებელია';
 $lang['Can\'t connect to server'] = 'შეუძლებელია სერვერთან დაკავშირება';
-
 $lang['Host'] = 'MySQL ხოსტი';
-$lang['localhost, sql.multimania.com, toto.freesurf.fr'] = 'localhost, sql.multimania.com, toto.freesurf.fr';
 $lang['User'] = 'მომხმარებელი';
 $lang['user login given by your host provider'] = 'სახელი(ლოგინი),რომელიც პროვაიდერმა მოგცათ';
-$lang['Password'] = 'პაროლი';
 $lang['user password given by your host provider'] = 'პაროლი,რომელიც პროვაიდერმა მოგცათ';
 $lang['Database name'] = 'მონაცემთა ბაზის სახელი';
 $lang['also given by your host provider'] = 'ასევე გაიცემა პროვაიდერის მიერ.ხშირად ემთხვევა სახელს(ლოგინს)';
@@ -48,14 +41,11 @@ $lang['database tables names will be prefixed with it (enables you to manage bet
 $lang['enter a login for webmaster'] = 'საჭიროა შეიყვანოთ ლოგინი ვებმასტერისათვის';
 $lang['webmaster login can\'t contain characters \' or "'] = 'ლოგინი ვებმასტერისათვის არ უნდა შეიცავდეს სიმბოლოებს  \' ან "';
 $lang['please enter your password again'] = 'პაროლი კიდევ ერთხელ';
-$lang['Webmaster password'] = 'ვებმასტერის პარილო';
 $lang['Keep it confidential, it enables you to access administration panel'] = 'არ გაუმხილოთ არავის,იგი საჭიროა ადმინისტრირების პანელთან დასაშვებად';
 $lang['Password [confirm]'] = 'გაიმეორეთ პაროლი';
 $lang['verification'] = 'კიდევ ერთხელ,შეცდომის გამოსარიცხად';
 $lang['Need help ? Ask your question on <a href="%s">Piwigo message board</a>.'] = 'გჭირდებათ დახმარება?დასვით შეკითხვები <a href="%s">Piwigo–ს ფორუმზე</a>.';
-$lang['Webmaster mail address'] = 'ვებმასტერის ელ.ფოსტა';
 $lang['Visitors will be able to contact site administrator with this mail'] = 'გამოყენებული იქნება მომხმარებლების მიერ ადმინისტრატორთან კავშირისათვის';
-
 $lang['PHP 5 is required'] = 'საჭიროა PHP 5';
 $lang['It appears your webhost is currently running PHP %s.'] = 'სავარაუდოდ თქვენი ხოსტინგი ამჟამად იყენებს PHP %s.';
 $lang['Piwigo may try to switch your configuration to PHP 5 by creating or modifying a .htaccess file.'] = 'Piwigo–ს შეუძლია შეეცადოს გადართოს თქვენი კონფიგურაცია PHP 5, .htaccess ფაილს შექმნით ან შეცვლით.';

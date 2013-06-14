@@ -21,38 +21,31 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
-
-
 $lang['Installation'] = "Installation";
 $lang['Basic configuration'] = "Basic configuration";
 $lang['Default gallery language'] = "Default gallery language";
 $lang['Database configuration'] = "Database configuration";
-$lang['Admin configuration'] = "Admin configuration";
+$lang['Admin configuration'] = "Administration configuration";
 $lang['Start Install'] = "Start installation";
-$lang['mail address must be like xxx@yyy.eee (example : jack@altern.org)'] = 'mail address must in the format xxx@yyy.eee (example: jack@altern.org)';
-$lang['Webmaster login'] = "Webmaster login";
 $lang['It will be shown to the visitors. It is necessary for website administration'] = 'It will be shown to visitors. It is necessary for website administration';
 $lang['Connection to server succeed, but it was impossible to connect to database'] = 'Connection to server successful, but the connection to the database was not possible.';
 $lang['Can\'t connect to server'] = "Cannot connect to server";
 $lang['Host'] = "Host";
-$lang['localhost, sql.multimania.com, toto.freesurf.fr'] = "localhost, sql.multimania.com, toto.freesurf.fr";
+$lang['localhost or other, supplied by your host provider'] = "localhost or other, supplied by your host provider";
 $lang['User'] = "User";
 $lang['user login given by your host provider'] = 'user login supplied by your host provider';
-$lang['Password'] = "Password";
 $lang['user password given by your host provider'] = 'user password supplied by your host provider';
 $lang['Database name'] = "Database name";
 $lang['also given by your host provider'] = 'also supplied by your hosting provider';
 $lang['Database table prefix'] = "Database tables prefix";
 $lang['database tables names will be prefixed with it (enables you to manage better your tables)'] = 'database table names will be prefixed with it (enables you to manage your tables better)';
-$lang['enter a login for webmaster'] = 'enter a webmaster login';
+$lang['enter a login for webmaster'] = 'please enter the webmaster username';
 $lang['webmaster login can\'t contain characters \' or "'] = 'the webmaster login may not contain the characters \' or "';
 $lang['please enter your password again'] = "please enter your password again";
-$lang['Webmaster password'] = "Webmaster password";
 $lang['Keep it confidential, it enables you to access administration panel'] = 'Keep it confidential, it enables you to access the administration panel';
 $lang['Password [confirm]'] = "Password [confirm]";
 $lang['verification'] = "verification";
 $lang['Need help ? Ask your question on <a href="%s">Piwigo message board</a>.'] = 'Need help? Ask your question on the <a href="%s">Piwigo message board</a>.';
-$lang['Webmaster mail address'] = "Webmaster mail address";
 $lang['Visitors will be able to contact site administrator with this mail'] = 'Visitors will be able to use this email to contact the site administrator';
 $lang['PHP 5 is required'] = "PHP 5 is required";
 $lang['It appears your webhost is currently running PHP %s.'] = "It appears your webhost is currently running PHP %s.";
@@ -72,5 +65,4 @@ $lang['Just another Piwigo gallery'] = 'Just another Piwigo gallery';
 $lang['Welcome to my photo gallery'] = 'Welcome to my photo gallery';
 $lang['Welcome to your new installation of Piwigo!'] = 'Welcome to your new installation of Piwigo!';
 $lang['Don\'t hesitate to consult our forums for any help : %s'] = 'Don\'t hesitate to consult our forums for any help: %s';
-
 ?>

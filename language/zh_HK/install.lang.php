@@ -20,10 +20,9 @@
 // | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
+
 $lang['database tables names will be prefixed with it (enables you to manage better your tables)'] = '數據庫表將使用前綴詞(它另您更好管理)';
 $lang['enter a login for webmaster'] = '輸入網站管理員登錄名稱';
-$lang['localhost, sql.multimania.com, toto.freesurf.fr'] = 'localhost, sql.multimania.com, toto.freesurf.fr';
-$lang['mail address must be like xxx@yyy.eee (example : jack@altern.org)'] = '郵件位址格式為必須為 xxx@yyy.eee (例如： jack@altern.org)';
 $lang['please enter your password again'] = '請您再次輸入密碼';
 $lang['user login given by your host provider'] = '供應商姶你的登錄用戶名稱';
 $lang['user password given by your host provider'] = '供應商姶你的登錄用戶密碼';
@@ -32,7 +31,6 @@ $lang['webmaster login can\'t contain characters \' or "'] = '網站管理員登
 $lang['Need help ? Ask your question on <a href="%s">Piwigo message board</a>.'] = '需要幫助嗎？你可以在<a href="%s">Piwigo 留言板</a>提出問題。';
 $lang['Note you can change your configuration by yourself and restart Piwigo after that.'] = '注意：你可以更改設定，然後重新啟動Piwigo。';
 $lang['PHP 5 is required'] = '需要PHP5';
-$lang['Password'] = '密碼';
 $lang['Password ']['confirm'] = '密碼[確認]';
 $lang['Piwigo may try to switch your configuration to PHP 5 by creating or modifying a .htaccess file.'] = 'Piwigo嘗試建立或修改您的.htaccess檔案, 來設定系統使用PHP5。';
 $lang['Piwigo was not able to configure PHP 5.'] = 'Piwigo的無法設定使用PHP5。';
@@ -41,9 +39,6 @@ $lang['Start Install'] = '開始安裝';
 $lang['Try to configure PHP 5'] = '嘗試設定PHP5';
 $lang['User'] = '用戶';
 $lang['Visitors will be able to contact site administrator with this mail'] = '訪客可以使用這個電子郵件與網站管理員聯繫';
-$lang['Webmaster login'] = '網站管理員登錄';
-$lang['Webmaster mail address'] = '網站管理員郵件地址';
-$lang['Webmaster password'] = '網站管理員密碼';
 $lang['Welcome to my photo gallery'] = '歡迎來到我的相簿';
 $lang['Welcome to your new installation of Piwigo!'] = '歡迎來到你新安裝的Piwigo！';
 $lang['You can download the config file and upload it to local/config directory of your installation.'] = '您可以下載設定檔案，並裝它上傳到local/config目錄中安裝。';

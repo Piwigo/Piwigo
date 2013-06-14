@@ -27,16 +27,12 @@ $lang['Default gallery language'] = 'Idioma padrão da galeria';
 $lang['Database configuration'] = 'Configuração da base de dados';
 $lang['Admin configuration'] = 'Configuração da administração';
 $lang['Start Install'] = 'Iniciar a instalação';
-$lang['mail address must be like xxx@yyy.eee (example : jack@altern.org)'] = 'o endereço de email deve ser do tipo xxx@yyy.eee (exemplo : jack@altern.org)';
-$lang['Webmaster login'] = 'Entrada do Webmaster';
 $lang['It will be shown to the visitors. It is necessary for website administration'] = 'Será mostrado aos visitantes. É necessário para a administração do sitio';
 $lang['Connection to server succeed, but it was impossible to connect to database'] = 'A ligação ao servidor foi bem sucedida, mas foi impossível ligar à base de dados';
 $lang['Can\'t connect to server'] = 'Não foi possível ligar ao servidor';
 $lang['Host'] = 'Servidor MySQL';
-$lang['localhost, sql.multimania.com, toto.freesurf.fr'] = 'localhost, sql.multimania.com, toto.freesurf.fr';
 $lang['User'] = 'Utilizador';
 $lang['user login given by your host provider'] = 'Login de utilizador fornecido pelo seu fornecedor de alojamento';
-$lang['Password'] = 'Senha';
 $lang['user password given by your host provider'] = 'Palavra-passe fornecida pelo seu fornecedor de alojamento';
 $lang['Database name'] = 'Nome da base de dados';
 $lang['also given by your host provider'] = 'Também fornecido pelo seu fornecedor de alojamento';
@@ -45,12 +41,10 @@ $lang['database tables names will be prefixed with it (enables you to manage bet
 $lang['enter a login for webmaster'] = 'Introduza um nome para o webmaster';
 $lang['webmaster login can\'t contain characters \' or "'] = 'O nome do webmaster não pode conter os caracteres \' ou "';
 $lang['please enter your password again'] = 'Por favor, escreva a sua senha novamente';
-$lang['Webmaster password'] = 'Palavra-passe do Webmaster';
 $lang['Keep it confidential, it enables you to access administration panel'] = 'Mantenha-a bem guardada, é ela que lhe permite aceder ao painel administrativo';
 $lang['Password [confirm]'] = 'Palavra-passe [confirmação]';
 $lang['verification'] = 'Verificar Senha inserida';
 $lang['Need help ? Ask your question on <a href="%s">Piwigo message board</a>.'] = 'Precisa de ajuda? Faça a sua pergunta no <a href="%s">Fórum Piwigo</a>.';
-$lang['Webmaster mail address'] = 'Endereço de email do Webmaster';
 $lang['Visitors will be able to contact site administrator with this mail'] = 'Os visitantes poderão entrar em contacto com o administrador da galeria através deste email';
 $lang['PHP 5 is required'] = 'PHP 5 é necessário';
 $lang['It appears your webhost is currently running PHP %s.'] = 'Parece que o seu provedor de hospedagem usa actualmente PHP %s.';
@@ -70,7 +64,6 @@ $lang['Just another Piwigo gallery'] = 'Apenas mais uma galeria Piwigo';
 $lang['Welcome to my photo gallery'] = 'Bem-vindo à minha galeria de fotos';
 $lang['Welcome to your new installation of Piwigo!'] = 'Bem-vindo à sua nova instalação do Piwigo!';
 $lang['Don\'t hesitate to consult our forums for any help : %s'] = 'Não hesite em visitar nossos foruns para qualquer ajuda: %s';
-
 $lang['You may referer to your hosting provider\'s support and see how you could switch to PHP 5 by yourself.'] = 'Você deve entrar em contacto com o suporte do seu fornecedor de alojamento e saber como pode mudar para PHP 5.';
 $lang['Password ']['confirm'] = 'Senha [confirme]';
 ?>

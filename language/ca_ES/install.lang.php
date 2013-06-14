@@ -21,24 +21,18 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
-
-
 $lang['Installation'] = "Instal·lació";
 $lang['Basic configuration'] = "Configuració bàsica";
 $lang['Default gallery language'] = "Idioma predeterminat de la galeria";
 $lang['Database configuration'] = "Configuració de la base de dades";
 $lang['Admin configuration'] = "Configuració de l'administrador";
 $lang['Start Install'] = "Inicia la instal·lació";
-$lang['mail address must be like xxx@yyy.eee (example : jack@altern.org)'] = "l'adreça de correu electrònic ha de ser com  xxx@yyy.eee (exemple : jack@altern.org)";
-$lang['Webmaster login'] = "Nom de l'usuari administrador";
 $lang['It will be shown to the visitors. It is necessary for website administration'] = 'Això es mostrarà als visitants. És necessari pel web d\'administració';
 $lang['Connection to server succeed, but it was impossible to connect to database'] = 'La connexió amb el servidor s\'ha establert correctament però no és possible connectar amb la base de dades.';
 $lang['Can\'t connect to server'] = "No es pot connectar amb el servidor";
 $lang['Host'] = 'Allotjament';
-$lang['localhost, sql.multimania.com, toto.freesurf.fr'] = "localhost, sql.multimania.com, toto.freesurf.fr";
 $lang['User'] = "Usuari";
 $lang['user login given by your host provider'] = 'nom d\'usuari facilitat pel teu proveïdor d\'allotjament';
-$lang['Password'] = 'Clau d\'accès';
 $lang['user password given by your host provider'] = 'clau d\'accès de l\'usuari facilitada pel teu proveïdor d\'allotjament';
 $lang['Database name'] = "Nom de la base de dades";
 $lang['also given by your host provider'] = 'també el dóna el teu proveïdor d\'allotjament';
@@ -47,12 +41,10 @@ $lang['database tables names will be prefixed with it (enables you to manage bet
 $lang['enter a login for webmaster'] = "Introdueix un nom d'usuari per l'administrador de la web";
 $lang['webmaster login can\'t contain characters \' or "'] = "El nom d'usuari de l'administrador de la web no pot contenir caràcters \' o \"";
 $lang['please enter your password again'] = "si us plau introduïu una altra vegada la vostra contrasenya";
-$lang['Webmaster password'] = "Contrasenya de l'administrador de la web";
 $lang['Keep it confidential, it enables you to access administration panel'] = 'Manté la confidencialitat, permet accedir al panell d\'administració';
 $lang['Password [confirm]'] = "Contrasenya [confirmeu]";
 $lang['verification'] = "verificació";
 $lang['Need help ? Ask your question on <a href="%s">Piwigo message board</a>.'] = "Necessiteu ajuda? Feu la vostra pregunta a <a href=\"%s\">Piwigo message board</a>.";
-$lang['Webmaster mail address'] = "Adreça de correu electrònic de l'administrador del web";
 $lang['Visitors will be able to contact site administrator with this mail'] = "Els visitants poden utilitzar aquesta adreça de correu electrònic per a contactar amb l'administrador del lloc";
 $lang['PHP 5 is required'] = "Es requereix PHP 5 ";
 $lang['It appears your webhost is currently running PHP %s.'] = "Sembla que el vostre amfitrió web està executant la versió PHP %s.";

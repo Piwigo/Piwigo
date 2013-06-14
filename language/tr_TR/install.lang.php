@@ -21,24 +21,18 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
-
-
 $lang['Installation'] = 'Yükleme';
 $lang['Basic configuration'] = 'Temel yapılandırma';
 $lang['Default gallery language'] = 'Varsayılan galeri dili';
 $lang['Database configuration'] = 'Veritabanı yapılandırması';
 $lang['Admin configuration'] = 'Yönetici yapılandırması';
 $lang['Start Install'] = 'Yüklemeyi başlat';
-$lang['mail address must be like xxx@yyy.eee (example : jack@altern.org)'] = 'e-Posta adresiniz xxx@yyy.eee (örnek : erkan@test.org) şeklinde olmalıdır.';
-$lang['Webmaster login'] = 'Site yöneticisi girişi';
 $lang['It will be shown to the visitors. It is necessary for website administration'] = 'Bu ziyaretçilere gösterilecek. Bu web sitesi yönetimi için gereklidir';
 $lang['Connection to server succeed, but it was impossible to connect to database'] = 'Sunucuya bağlantı başarılı ancak veritabanı bağlantısı kurulamadı.';
 $lang['Can\'t connect to server'] = 'Sunucuya bağlanamadı';
 $lang['Host'] = 'Sunucu';
-$lang['localhost, sql.multimania.com, toto.freesurf.fr'] = 'localhost, sql.multimania.com, toto.freesurf.fr';
 $lang['User'] = 'Kullanıcı';
 $lang['user login given by your host provider'] = 'barındırma sağlağıcı tarafından size verilen kullanıcı adı';
-$lang['Password'] = 'Şifre';
 $lang['user password given by your host provider'] = 'barındırma sağlağıcı tarafından size verilen şifre';
 $lang['Database name'] = 'Veritabanı adı';
 $lang['also given by your host provider'] = 'ayrıca barındırma sağlayıcınız tarafından verilen';
@@ -47,12 +41,10 @@ $lang['database tables names will be prefixed with it (enables you to manage bet
 $lang['enter a login for webmaster'] = 'Site yöneticisi için bir kullanıcı adı girin';
 $lang['webmaster login can\'t contain characters \' or "'] = 'Site yöneticisi adı \' veya " karakterlerini içeremez';
 $lang['please enter your password again'] = 'lütfen şifrenizi tekrar giriniz';
-$lang['Webmaster password'] = 'Site yöneticisi şifresi';
 $lang['Keep it confidential, it enables you to access administration panel'] = 'Gizli tutun, yönetim paneline ulaşmanızı sağlar';
 $lang['Password [confirm]'] = 'Şifre [kabul]';
 $lang['verification'] = 'doğrulama';
 $lang['Need help ? Ask your question on <a href="%s">Piwigo message board</a>.'] = 'Yardım ihtiyacınız var? Sorularınızı <a href="%s">Piwigo forumda sorabilirsiniz</a>.';
-$lang['Webmaster mail address'] = 'Site yöneticisi e-posta adresi';
 $lang['Visitors will be able to contact site administrator with this mail'] = 'Ziyaretçilerin site yöneticisi ile bağlantıya geçmesi için bu e-posta adresini kullanabileceklerdir.';
 $lang['PHP 5 is required'] = 'PHP 5 gereklidir';
 $lang['It appears your webhost is currently running PHP %s.'] = 'Web sunucunuz şu anda PHP %s çalıştırıyor görünüyor.';

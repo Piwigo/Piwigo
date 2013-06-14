@@ -27,19 +27,12 @@ $lang['Default gallery language'] = 'Standardsprache der Galerie';
 $lang['Database configuration'] = 'Konfiguration der Datenbank';
 $lang['Admin configuration'] = 'Konfiguration des Administrator-Accounts';
 $lang['Start Install'] = 'Start der Installation';
-$lang['mail address must be like xxx@yyy.eee (example : jack@altern.org)'] = 'Die E-Mail-Adresse muss dem Muster xxx@yyy.eee (Beispiel: jack@altern.org) entsprechen.';
-
-$lang['Webmaster login'] = 'Webmaster-Login';
 $lang['It will be shown to the visitors. It is necessary for website administration'] = 'Benutzername des Administrators';
-
 $lang['Connection to server succeed, but it was impossible to connect to database'] = 'Eine Verbindung zum Server konnte hergestellt werden, nicht aber zur Datenbank.';
 $lang['Can\'t connect to server'] = 'Es konnte keine Verbindung zum Datenbankserver aufgebaut werden.';
-
 $lang['Host'] = 'MySQL-Host';
-$lang['localhost, sql.multimania.com, toto.freesurf.fr'] = 'localhost, sql.multimania.com, toto.freesurf.fr';
 $lang['User'] = 'Benutzer';
 $lang['user login given by your host provider'] = 'Benutzername Ihrer MySQL-Datenbank (wie von Ihrem Hosting-Provider angegeben)';
-$lang['Password'] = 'Passwort';
 $lang['user password given by your host provider'] = 'Passwort Ihrer MySQL-Datenbank (wie von Ihrem Hosting-Provider angegeben)';
 $lang['Database name'] = 'Name der Datenbank';
 $lang['also given by your host provider'] = 'ebenso von Ihrem Host-Provider bereitgestellt';
@@ -48,14 +41,11 @@ $lang['database tables names will be prefixed with it (enables you to manage bet
 $lang['enter a login for webmaster'] = 'Geben Sie einen Benutzernamen für den Webmaster an';
 $lang['webmaster login can\'t contain characters \' or "'] = 'Der Benutzername des Webmasters darf nicht die Zeichen \' und " enthalten';
 $lang['please enter your password again'] = 'Bitte geben Sie Ihr Passwort erneut ein';
-$lang['Webmaster password'] = 'Webmaster-Passwort';
 $lang['Keep it confidential, it enables you to access administration panel'] = 'Administrator-Passwort';
 $lang['Password [confirm]'] = 'Passwort [Bestätigung]';
 $lang['verification'] = 'Wiederholen Sie das eingegebene Passwort';
 $lang['Need help ? Ask your question on <a href="%s">Piwigo message board</a>.'] = 'Brauchen Sie Hilfe? Stellen Sie Ihre Fragen im <a href="%s"> Piwigo-Forum</ a>.';
-$lang['Webmaster mail address'] = 'Webmaster-E-Mail-Adresse';
 $lang['Visitors will be able to contact site administrator with this mail'] = 'Kontakt-E-Mail-Adresse (nur für angemeldete Benutzer sichtbar)';
-
 $lang['PHP 5 is required'] = 'PHP5 ist erforderlich';
 $lang['It appears your webhost is currently running PHP %s.'] = 'Warscheinlich läuft auf Ihrem Server die PHP-Version %s.';
 $lang['Piwigo may try to switch your configuration to PHP 5 by creating or modifying a .htaccess file.'] = 'Piwigo wird versuchen, Ihre Konfiguration auf PHP5 umzustellen. Zu diesem Zweck wird eine .htaccess-Datei erstellt oder geändert.';
@@ -65,9 +55,7 @@ $lang['Sorry!'] = 'Sorry!';
 $lang['Piwigo was not able to configure PHP 5.'] = 'Piwigo ist nicht in der Lage PHP5 zu konfigurieren.';
 $lang["You may referer to your hosting provider's support and see how you could switch to PHP 5 by yourself."] = "Sie können Kontakt zu ihrem Hosting-Provider aufnehmen und um Unterstützung bitten zur Umstellung auf PHP 5.";
 $lang['Hope to see you back soon.'] = 'Hoffentlich sehen wir uns bald wieder!';
-
 $lang['Congratulations, Piwigo installation is completed'] = 'Glückwunsch! Sie haben Piwigo erfolgreich installiert.';
-
 $lang['An alternate solution is to copy the text in the box above and paste it into the file "local/config/database.inc.php" (Warning : database.inc.php must only contain what is in the textarea, no line return or space character)'] = 'Sie können auch den Text in der Box unten kopieren und in die Datei local/config/database.inc.php einfügen. (Warnung: database.inc.php darf nur den reinen Text ohne Zeilenumbrüche und Leerzeichen enthalten.)';
 $lang['Creation of config file local/config/database.inc.php failed.'] = 'Die Erstellung der Datei local/config/database.inc.php ist fehlgeschlagen.';
 $lang['Download the config file'] = 'Lade die Konfigurationsdatei herunter';

@@ -21,24 +21,18 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
-
-
 $lang['Installation'] = "نصب";
 $lang['Basic configuration'] = 'تنظیمات اساسی';
 $lang['Default gallery language'] = 'زبان پیشفرض گالری';
 $lang['Database configuration'] = 'تنظیمات پایگاه داده';
 $lang['Admin configuration'] = 'تنظیمات مدیریت';
 $lang['Start Install'] = 'آغاز نصب';
-$lang['mail address must be like xxx@yyy.eee (example : jack@altern.org)'] = 'آدرس ایمیل باید چیزی شبیه به xxx@yyy.eee باشد. (مانند: jack@altern.org)';
-$lang['Webmaster login'] = 'ورود مدیرکل';
 $lang['It will be shown to the visitors. It is necessary for website administration'] = 'این برای بازدیدکنندگان نمایش داده می شود. برای مدیریت سایت ضروری است';
 $lang['Connection to server succeed, but it was impossible to connect to database'] = 'ارتباط با سرور با موفقیت انجام شد، اما ارتباط با پایگاه داده با مشکل مواجه شد';
 $lang['Can\'t connect to server'] = 'ارتباط با سرور ممکن نیست';
 $lang['Host'] = 'میزبان (Host)';
-$lang['localhost, sql.multimania.com, toto.freesurf.fr'] = 'localhost، sql.multimania.com، toto.freesurf.fr';
 $lang['User'] = 'نام کاربری';
 $lang['user login given by your host provider'] = 'نام کاربری خود را باید از هاست دریافت نمایید';
-$lang['Password'] = "گذرواژه";
 $lang['user password given by your host provider'] = 'گذرواژه را باید از هاست دریافت نمایید';
 $lang['Database name'] = 'نام پایگاه داده';
 $lang['also given by your host provider'] = 'نام پایگاه داده را باید از هاست دریافت نمایید';
@@ -47,12 +41,10 @@ $lang['database tables names will be prefixed with it (enables you to manage bet
 $lang['enter a login for webmaster'] = 'مشخصات ورود مدیرکل را وارد نمایید';
 $lang['webmaster login can\'t contain characters \' or "'] = 'مشخصات ورود نباید دارای کاراکترهای \' و " باشند';
 $lang['please enter your password again'] = 'خواهشمند است گذرواژه خود را دوباره وارد نمایید';
-$lang['Webmaster password'] = 'گذرواژه ی مدیرکل';
 $lang['Keep it confidential, it enables you to access administration panel'] = 'گذرواژه را محرمانه نگه دارید، آن دسترسی شما را به مدیریت فراهم می کند';
 $lang['Password [confirm]'] = "تاييد گذرواژه";
 $lang['verification'] = 'تأیید';
 $lang['Need help ? Ask your question on <a href="%s">Piwigo message board</a>.'] = 'به کمک نیاز دارید ؟ پرسش خود را در <a href="%s">تالارهای پشتیبانی Piwigo</a> مطرح نمایید.';
-$lang['Webmaster mail address'] = 'آدرس ایمیل مدیرکل';
 $lang['Visitors will be able to contact site administrator with this mail'] = 'بازدیدکنندگان می توانند بوسیله ی این ایمیل با مدیرکل ارتباط برقرار کنند';
 $lang['PHP 5 is required'] = 'نگارش پنجم PHP لازم است';
 $lang['It appears your webhost is currently running PHP %s.'] = 'به نظر می رسد هاست شما دارای نگارش PHP %s باشد.';

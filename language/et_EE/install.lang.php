@@ -20,6 +20,7 @@
 // | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
+
 $lang['Admin configuration'] = 'Halduri häälestamine';
 $lang['An alternate solution is to copy the text in the box above and paste it into the file "local/config/database.inc.php" (Warning : database.inc.php must only contain what is in the textarea, no line return or space character)'] = 'Alternatiivne viis lahendada, on kopeerida üleval pool kastis oleva teksti faili "local/config/database.inc.php" (NB! fail peab sisaldama vaid selle teksti, ei midagi muud ega ühtki tühikutki)';
 $lang['Basic configuration'] = 'Põhiline häälestamine';
@@ -41,14 +42,10 @@ $lang['Just another Piwigo gallery'] = 'Lihtsalt veel üks järjekordne Piwigo g
 $lang['Keep it confidential, it enables you to access administration panel'] = 'Hoia seda salaja, sellega saad lehekülje haldurisse sisse';
 $lang['PHP 5 is required'] = 'Vajatakse PHP versiooni 5';
 $lang['Password ']['confirm'] = 'Kinnita parooli';
-$lang['Password'] = 'Parool';
 $lang['Sorry!'] = 'Vabandust!';
 $lang['Start Install'] = 'Alusta paigaldamist';
 $lang['Try to configure PHP 5'] = 'Proovi häälestada PHP 5';
 $lang['User'] = 'Kasutaja';
-$lang['Webmaster login'] = 'Veebimeistri sissepääs';
-$lang['Webmaster mail address'] = 'Veebimeistri eposti aadress';
-$lang['Webmaster password'] = 'Veebimeistri parool';
 $lang['Welcome to my photo gallery'] = 'Tere tulemast mu fotogalleriisse';
 $lang['Welcome to your new installation of Piwigo!'] = 'Tere tulemast äsja installitud Piwigosse!';
 $lang['You can download the config file and upload it to local/config directory of your installation.'] = 'Sa võid laadida häälestusfaili alla ja ise paigaldada selle oma "local/config" kaustasse.';
@@ -62,8 +59,6 @@ $lang['Visitors will be able to contact site administrator with this mail'] = 'K
 $lang['also given by your host provider'] = 'samuti antud veebimajutuse teenusepakkuja poolt';
 $lang['database tables names will be prefixed with it (enables you to manage better your tables)'] = 'andmebaasi tabelite nimed alustatakse selle eesliitega (see hõlpsustab tabelite korraspidamist samas andmebaasis)';
 $lang['enter a login for webmaster'] = 'sisesta veebimeistri jaoks kasutajanimi';
-$lang['localhost, sql.multimania.com, toto.freesurf.fr'] = 'localhost, sql.multimania.com, toto.freesurf.fr';
-$lang['mail address must be like xxx@yyy.eee (example : jack@altern.org)'] = 'eposti aadress peab ühilduma malliga xxx@yyy.zzz (näiteks: keegi@siin.ee)';
 $lang['please enter your password again'] = 'palun sisesta parool uuesti';
 $lang['user login given by your host provider'] = 'veebimajutuse kasutajanimi';
 $lang['user password given by your host provider'] = 'veebimajutuse parool';

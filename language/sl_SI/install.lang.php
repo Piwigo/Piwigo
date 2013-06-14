@@ -20,8 +20,8 @@
 // | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
+
 $lang['PHP 5 is required'] = 'Zahtevan je PHP 5';
-$lang['Password'] = 'Geslo';
 $lang['Password [confirm]'] = 'Geslo [potrdi]';
 $lang['Piwigo may try to switch your configuration to PHP 5 by creating or modifying a .htaccess file.'] = 'Piwigo bo poskušal preklopiti vaše nastavitve na PHP 5 z ustvarjanjem ali urejanjem .htacceess datoteke';
 $lang['Piwigo was not able to configure PHP 5.'] = 'Piwigo ni mogel nastaviti PHP 5.';
@@ -30,9 +30,6 @@ $lang['Start Install'] = 'Začni namestitev';
 $lang['Try to configure PHP 5'] = 'Poskušam nastaviti PHP 5';
 $lang['User'] = 'Uporabnik';
 $lang['Visitors will be able to contact site administrator with this mail'] = 'Obiskovalci bodo lahko ta elektronski naslov uporabljali za kontakt s skrbnikom spletne strani ';
-$lang['Webmaster login'] = 'Prijava za spletne skrbnike';
-$lang['Webmaster mail address'] = 'Elektronski naslov skrbnika';
-$lang['Webmaster password'] = 'Skrbniško geslo';
 $lang['Welcome to my photo gallery'] = 'Dobrodošli v moji foto galeriji';
 $lang['Welcome to your new installation of Piwigo!'] = 'Dobrodošli v vaši novi namestitvi Piwigo!';
 $lang['You can download the config file and upload it to local/config directory of your installation.'] = 'Lahko prenesete namestitveno datoteko ter jo naložite v local/config imenik vaše namestitve.';
@@ -55,8 +52,6 @@ $lang['It appears your webhost is currently running PHP %s.'] = 'Zdi se, da  je 
 $lang['It will be shown to the visitors. It is necessary for website administration'] = 'Vidno bo obiskovalcem. To je potrebno za upravljanje spletne strani';
 $lang['Just another Piwigo gallery'] = 'To je zgolj še ena Piwigo galerija';
 $lang['enter a login for webmaster'] = 'vnesite prijavno ime skrbnika';
-$lang['localhost, sql.multimania.com, toto.freesurf.fr'] = 'localhost, sql.domena.com, nekaj.domena.si';
-$lang['mail address must be like xxx@yyy.eee (example : jack@altern.org)'] = 'e-poštni naslov mora imeti obliko xxx@yyyy.zzz (primer:nekdo@domena.com)';
 $lang['please enter your password again'] = 'prosimo ponovno vnesite vaše geslo';
 $lang['user login given by your host provider'] = 'prijavno ime uporabnika pridobljeno od vašega ponudnika gostovanja';
 $lang['user password given by your host provider'] = 'geslo uporabnika pridobljeno od vašega ponudnika gostovanja';

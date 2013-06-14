@@ -21,23 +21,18 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
-
 $lang['Installation'] = 'Instalacija';
 $lang['Basic configuration'] = 'Osnovna podešenja';
 $lang['Default gallery language'] = 'Podrazumevani jezik galerije';
 $lang['Database configuration'] = 'Podešavanje baze';
 $lang['Admin configuration'] = 'Administratorska podešenja';
 $lang['Start Install'] = 'Pokreni instalaciju';
-$lang['mail address must be like xxx@yyy.eee (example : jack@altern.org)'] = 'mail adresa mora biti u formatu xxx@yyy.eee (primer : milos@firma.org)';
-$lang['Webmaster login'] = 'Webmaster pristup';
 $lang['It will be shown to the visitors. It is necessary for website administration'] = 'Bice prikazano posetiocima. Neophodno je za administraciju stranice';
 $lang['Connection to server succeed, but it was impossible to connect to database'] = 'Konekcija na server uspešna, ali konecija na bazu je nemoguca';
 $lang['Can\'t connect to server'] = 'Nemoguce povezivanje na server';
 $lang['Host'] = 'Host';
-$lang['localhost, sql.multimania.com, toto.freesurf.fr'] = 'localhost, sql.multimania.com, toto.freesurf.fr';
 $lang['User'] = 'Korisnik';
 $lang['user login given by your host provider'] = 'korisnicko ime dat od strane Vašeg host distributera';
-$lang['Password'] = 'Lozinka';
 $lang['user password given by your host provider'] = 'korisnicka lozinka data od strane Vašeg host distributera ';
 $lang['Database name'] = 'Ime baze';
 $lang['also given by your host provider'] = 'takode dato od Vašeg Host distributera';
@@ -46,12 +41,10 @@ $lang['database tables names will be prefixed with it (enables you to manage bet
 $lang['enter a login for webmaster'] = 'Unesi pristupne podatke za webmaster';
 $lang['webmaster login can\'t contain characters \' or "'] = 'pristupni podaci za webmastera ne mogu sadržati znake \' ili "';
 $lang['please enter your password again'] = 'molim unesite Vašu lozinku ponovo';
-$lang['Webmaster password'] = 'Webmaster lozinka';
 $lang['Keep it confidential, it enables you to access administration panel'] = 'Sacuvajte u tajnosti, omogucava pristup administratorskom delu';
 $lang['Password [confirm]'] = 'Lozinka[potvrdi]';
 $lang['verification'] = 'Provera';
 $lang['Need help ? Ask your question on <a href="%s">Piwigo message board</a>.'] = 'Potrebna Vam je pomoc? Pitajte na  <a href="%s">Piwigo tabli za poruke</a>.';
-$lang['Webmaster mail address'] = 'E-mail adresa Webmaster-a';
 $lang['Visitors will be able to contact site administrator with this mail'] = 'Posetioci ce biti u mogucnosti da koriste ovaj mail da kontaktiraju administratora stranice';
 $lang['PHP 5 is required'] = 'PHP 5 je neophodan';
 $lang['It appears your webhost is currently running PHP %s.'] = 'Izgleda da Vaš webhost trenutno koristi PHP %s.';
@@ -67,7 +60,6 @@ $lang['An alternate solution is to copy the text in the box above and paste it i
 $lang['Creation of config file local/config/database.inc.php failed.'] = 'Kreiranje konfiguracione datoteke local/config/database.inc.php neuspešno.';
 $lang['Download the config file'] = 'Snimi na racunar konfiguracionu datoteku';
 $lang['You can download the config file and upload it to local/config directory of your installation.'] = 'Možete snimiti na racunar konfiguracionu datoteku i poslati je na local/config direktorijum Vaše instalacije.';
-
 $lang['Don\'t hesitate to consult our forums for any help : %s'] = 'Ne oklevajte da zatražite pomoć na našem forumu oko bilo čega: %s';
 $lang['Just another Piwigo gallery'] = 'Još jedna Piwigo galerija';
 $lang['Welcome to my photo gallery'] = 'Dobrodošli u moju foto galeriju';

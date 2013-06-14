@@ -27,16 +27,12 @@ $lang['Default gallery language'] = 'اللغة الافتراضية للمعر�
 $lang['Database configuration'] = 'تكوين قاعدة البيانات';
 $lang['Admin configuration'] = 'اعدادات المدير';
 $lang['Start Install'] = 'ابدأ التثبيت';
-$lang['mail address must be like xxx@yyy.eee (example : jack@altern.org)'] = 'البريد يجب ان يكون على هذه الهيئة xxx@yyy.ee ( مثلاً : Jack@altern.org)';
-$lang['Webmaster login'] = 'دخول المدير';
 $lang['It will be shown to the visitors. It is necessary for website administration'] = 'سوف تظهر للزوار ، ضرورية للادارة و لوحة التحكم';
 $lang['Connection to server succeed, but it was impossible to connect to database'] = 'تم الاتصال بالخادم الموقع ، لكن لم يتم يتم الاتصال بقاعدة البيانات';
 $lang['Can\'t connect to server'] = 'لا يمكن الاتصال بالخادم';
 $lang['Host'] = 'المضيف';
-$lang['localhost, sql.multimania.com, toto.freesurf.fr'] = 'localhost, sql.multimania.com, toto.freesurf.fr';
 $lang['User'] = 'المستخدم';
 $lang['user login given by your host provider'] = 'اصرح للمستخدم  الدخول بواسطة المضيف الخاص بك';
-$lang['Password'] = 'كلمة المرور';
 $lang['user password given by your host provider'] = 'اعطي  للمستخدم كلمة المرور  بواسطة المضيف الخاص بك';
 $lang['Database name'] = 'أسم قاعدة البيانات';
 $lang['also given by your host provider'] = 'ايضا بواسط المضيف الخاص بك ';
@@ -45,12 +41,10 @@ $lang['database tables names will be prefixed with it (enables you to manage bet
 $lang['enter a login for webmaster'] = 'دخول مدير الموقع';
 $lang['webmaster login can\'t contain characters \' or "'] = 'دخول المدر لا \ يمكن تتضمن الأحرف  \' أو "';
 $lang['please enter your password again'] = 'فضلا ً أعد كتابة كلمة المرور مرةأخرى';
-$lang['Webmaster password'] = 'كلمة مرور مدير الموقع';
 $lang['Keep it confidential, it enables you to access administration panel'] = 'ابقائه سريا، فإنه يتيح لك الوصول إلى لوحة الإدارة';
 $lang['Password [confirm]'] = 'كلمة المرور [confirm]';
 $lang['verification'] = 'التحقق';
 $lang['Need help ? Ask your question on <a href="%s">Piwigo message board</a>.'] = 'هل تحتاج لمساعده؟ يمكنك السؤال  <a href="%s">Piwigo لجنة الأسئلة في </a>.';
-$lang['Webmaster mail address'] = 'بريد مدير الموقع';
 $lang['Visitors will be able to contact site administrator with this mail'] = ' سيتمكن الزوار لاستخدام هذا البريد إلى الاتصال بالمسؤول عن الموقع';
 $lang['PHP 5 is required'] = 'مطلوب  PHP 5 ';
 $lang['It appears your webhost is currently running PHP %s.'] = 'PHP %s يبدوا أن المضيف يستخدم حاليا ';
@@ -66,7 +60,6 @@ $lang['An alternate solution is to copy the text in the box above and paste it i
 $lang['Creation of config file local/config/database.inc.php failed.'] = 'فشل في إنشاء ملف التكوين local/config/database.inc.php ';
 $lang['Download the config file'] = 'تحميل ملف التكوين';
 $lang['You can download the config file and upload it to local/config directory of your installation.'] = 'يمكنك تحميل ملف التكوين وتحميله إلى الدليل المحلي';
-
 $lang['Don\'t hesitate to consult our forums for any help : %s'] = 'لاتتردد في طلب الإستشارة و الاستفسار من خلال منتدانا للمساعده : %s';
 $lang['Just another Piwigo gallery'] = 'معرض آخر من Piwigo';
 $lang['Welcome to my photo gallery'] = 'مرحباً بك في معرض الصور';

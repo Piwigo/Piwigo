@@ -21,24 +21,18 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
-
-
 $lang['Installation'] = 'Telepítés';
 $lang['Basic configuration'] = 'Alap konfiguráció';
 $lang['Default gallery language'] = 'Galéria alapértelmezett nyelve';
 $lang['Database configuration'] = 'Adatbázis konfiguráció';
 $lang['Admin configuration'] = 'Rendszergazda fiókjának beállítása';
 $lang['Start Install'] = 'Telepítés indítása';
-$lang['mail address must be like xxx@yyy.eee (example : jack@altern.org)'] = 'E-mail formátuma: xxx@yyy.eee (pl.: kedvenc@nyuszi.hu)';
-$lang['Webmaster login'] = 'Webmester';
 $lang['It will be shown to the visitors. It is necessary for website administration'] = 'A látogatók látni fogják. Szükséges a weboldal adminisztrációjához';
 $lang['Connection to server succeed, but it was impossible to connect to database'] = 'A kapcsolat a kiszolgálóval rendben, de nem sikerült csatlakozni az adatbázishoz';
 $lang['Can\'t connect to server'] = 'Nem sikerült kapcsolódni a szerverhez';
 $lang['Host'] = 'MySQL host';
-$lang['localhost, sql.multimania.com, toto.freesurf.fr'] = 'localhost, sql, stb.';
 $lang['User'] = 'Felhasználó név';
 $lang['user login given by your host provider'] = 'a tárhelyszolgáltató által adott felhasználónév';
-$lang['Password'] = 'Jelszó';
 $lang['user password given by your host provider'] = 'a tárhelyen használt jelszó';
 $lang['Database name'] = 'Adatbázis neve';
 $lang['also given by your host provider'] = 'a szolgáltatótól kapott adatbázis név';
@@ -47,12 +41,10 @@ $lang['database tables names will be prefixed with it (enables you to manage bet
 $lang['enter a login for webmaster'] = 'írja be a webmester bejelentkezési adatokat';
 $lang['webmaster login can\'t contain characters \' or "'] = 'A webmester nevében nem használhatók a \' és " karakterek';
 $lang['please enter your password again'] = 'kérjük, adja meg újra a jelszót';
-$lang['Webmaster password'] = 'Webmester jelszó';
 $lang['Keep it confidential, it enables you to access administration panel'] = 'Kezelje bizalmasan az adatokat, ezek lehetővé teszik a hozzáférést az adminisztrációs felülethez';
 $lang['Password [confirm]'] = 'Jelszó [megerősítés]';
 $lang['verification'] = 'jelszó egyezőségének ellenőrzése';
 $lang['Need help ? Ask your question on <a href="%s">Piwigo message board</a>.'] = 'Segítségre van szüksége ? Kérdéseit itt teheti fel: <a href="%s">Piwigo üzenőfal</a>.';
-$lang['Webmaster mail address'] = 'Webmester e-mail cím';
 $lang['Visitors will be able to contact site administrator with this mail'] = 'A látogatók ezen az e-mail címen tudják felvenni a kapcsolatot az adminisztrátorral';
 $lang['PHP 5 is required'] = 'PHP 5 szükséges';
 $lang['It appears your webhost is currently running PHP %s.'] = 'Úgy tűnik, a tárhelyszolgáltatójánál jelenleg futó PHP %s.';

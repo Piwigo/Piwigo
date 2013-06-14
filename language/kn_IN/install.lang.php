@@ -20,19 +20,15 @@
 // | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
-$lang['localhost, sql.multimania.com, toto.freesurf.fr'] = 'localhost, sql.multimania.com, toto.freesurf.fr';
+
 $lang['Start Install'] = 'ಸ್ಥಾಪನಾ ಕಾರ್ಯವನ್ನು ಆರಂಭಿಸಿ';
 $lang['verification'] = 'ಪರಿಶೀಲನೆ';
 $lang['user password given by your host provider'] = 'ಹೋಸ್ಟ್ ಪ್ರೊವೈಡರ್ ಒದಗಿಸಿರುವ ನಿಮ್ಮ ಬಳಕೆದಾರರ ಪ್ರವೇಶಪದ ';
 $lang['user login given by your host provider'] = 'ಹೋಸ್ಟ್ ಪ್ರೊವೈಡರ್ ಒದಗಿಸಿರುವ ನಿಮ್ಮ ಬಳಕೆದಾರರ ಲಾಗಿನ್';
-$lang['mail address must be like xxx@yyy.eee (example : jack@altern.org)'] = 'ಮಿಂಚೆ ವಿಳಾಸ ಈ ರೀತಿಯಲ್ಲಿರಲೇಬೇಕು xxx@yyy.eee (example: jack@altern.org)';
 $lang['please enter your password again'] = 'ನಿಮ್ಮ ಪ್ರವೇಶಪದವನ್ನು ಮತ್ತೊಮ್ಮೆ ನಮೂದಿಸಿ';
 $lang['enter a login for webmaster'] = 'ವೆಬ್ ಮಾಸ್ಟರ್ ನ ಲಾಗಿನ್ ಅನ್ನು ನಮೂದಿಸಿ';
 $lang['Welcome to your new installation of Piwigo!'] = 'ನಿಮ್ಮ ಹೊಸ Piwigo ಸ್ಥಾಪನಾ ಕಾರ್ಯಕ್ಕೆ ಸುಸ್ವಾಗತ';
 $lang['Welcome to my photo gallery'] = 'ನನ್ನ ಚಿತ್ರಶಾಲೆ (ಗ್ಯಾಲರಿ) ಗೆ ಸುಸ್ವಾಗತ.';
-$lang['Webmaster password'] = 'ವೆಬ್ ಮಾಸ್ಟರ್ ಪ್ರವೇಶಪದ';
-$lang['Webmaster mail address'] = 'ವೆಬ್ ಮಾಸ್ಟರ್ ಮಿಂಚೆ ವಿಳಾಸ';
-$lang['Webmaster login'] = 'ವೆಬ್ ಮಾಸ್ಟರ್ ಲಾಗಿನ್';
 $lang['User'] = 'ಬಳಕೆದಾರ';
 $lang['Sorry!'] = 'ಕ್ಷಮಿಸಿ!';
 $lang['Default gallery language'] = 'ಚಿತ್ರಶಾಲೆ (ಗ್ಯಾಲರಿ)ಯ  ಪೂರ್ವನಿಯೋಜಿತ ಭಾಷೆ';
@@ -58,7 +54,6 @@ $lang['database tables names will be prefixed with it (enables you to manage bet
 $lang['Don\'t hesitate to consult our forums for any help : %s'] = 'ಯಾವುದೇ ಬಗೆಯ ಸಹಾಯಕ್ಕೆ ನಮ್ಮ ಈ ಚರ್ಚಾವೇದಿಕೆ (forum) ಗಳನ್ನು ಬಳಸುವಲ್ಲಿ ಹಿಂಜರಿಯಬೇಡಿ : %s';
 $lang['Database table prefix'] = 'ಡೇಟಾಬೇಸ್ ಟೇಬಲ್ ಗಳ ಪೂರ್ವಪ್ರತ್ಯಯ ( prefix )';
 $lang['Password ']['confirm'] = 'ಪ್ರವೇಶಪದ [ಖಾತ್ರಿ]';
-$lang['Password'] = 'ಪ್ರವೇಶಪದ';
 $lang['PHP 5 is required'] = 'PHP 5 ಅತ್ಯಗತ್ಯವಾಗಿದೆ.';
 $lang['Keep it confidential, it enables you to access administration panel'] = 'ಈ ವಿವರಗಳನ್ನು ಸುರಕ್ಷಿತವಾಗಿ ಇಡಿ, ಇದು ನಿಮಗೆ ನಿರ್ವಹಣಾ ಪ್ಯಾನೆಲ್ ಅನ್ನು ಬಳಸುವಾಗ ಉಪಯೊಗಕ್ಕೆ ಬರುತ್ತದೆ.';
 $lang['It will be shown to the visitors. It is necessary for website administration'] = 'ಈ ವಿವರಗಳು ನೋಡುಗರಿಗೆ ಲಭ್ಯವಿರುತ್ತವೆ, ಜಾಲತಾಣ ನಿರ್ವಹಣಾ ಕಾರ್ಯಕ್ಕೆ ಇದು ಅತ್ಯಗತ್ಯ.';

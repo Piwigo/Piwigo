@@ -20,6 +20,7 @@
 // | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
+
 $lang['Admin configuration'] = 'Admin konfigurasie';
 $lang['Basic configuration'] = 'Basiese konfigurasie';
 $lang['Congratulations, Piwigo installation is completed'] = 'Baie geluk, Piwigo installasie is voltooi';
@@ -33,8 +34,6 @@ $lang['Sorry!'] = 'Jammer!';
 $lang['Start Install'] = 'Begin installasie';
 $lang['User'] = 'Gebruiker';
 $lang['verification'] = 'verifikasie';
-$lang['Webmaster login'] = 'Webmeester login';
-$lang['Webmaster mail address'] = 'Webmeester epos adres';
 $lang['Welcome to my photo gallery'] = 'Welkom by my fotogallery';
 $lang['You can download the config file and upload it to local/config directory of your installation.'] = 'Jy kan die konfigurasie lêer aflaai en oplaai na die local/config gids van jou installasie';
 $lang['An alternate solution is to copy the text in the box above and paste it into the file "local/config/database.inc.php" (Warning : database.inc.php must only contain what is in the textarea, no line return or space character)'] = 'Alternatiewelik kan die teks in die boksie hier bo gekopiëer word en in die lêer "local/config/database.inc.php" gestoor word. Maak seker die lêer bevat slegs die teks hier bo en geen nuwe-lyn karakters of spasies nie.';
@@ -52,19 +51,15 @@ $lang['It will be shown to the visitors. It is necessary for website administrat
 $lang['Keep it confidential, it enables you to access administration panel'] = 'Hou dit geheim. Dit laat jou toe om administrasieblasye te sien';
 $lang['Need help ? Ask your question on <a href="%s">Piwigo message board</a>.'] = 'Benodig hulp? Vra jou vraag op die <a href="%s">Piwigo aanplakbord</a>';
 $lang['Note you can change your configuration by yourself and restart Piwigo after that.'] = 'Let op dat jy self die opstelling kan verander en daarna Piwigo heruitvoer.';
-$lang['Password'] = 'Wagwoord';
 $lang['Piwigo may try to switch your configuration to PHP 5 by creating or modifying a .htaccess file.'] = 'Piwigo kan probeer om PHP 5 te gebruik deur \'n .htaccess-lêer te skep of te verander.';
 $lang['Piwigo was not able to configure PHP 5.'] = 'Piwigo kon nie PHP 5 opstel nie.';
 $lang['Try to configure PHP 5'] = 'Probeer PHP 5 op te stel';
 $lang['Visitors will be able to contact site administrator with this mail'] = 'Besoekers sal hierdie adres kan gebruik om die webmeester te kontak';
-$lang['Webmaster password'] = 'Webmeester wagwoord';
 $lang['Welcome to your new installation of Piwigo!'] = 'Welkom by jou nuwe Piwigo webtuiste!';
 $lang['You may referer to your hosting provider\'s support and see how you could switch to PHP 5 by yourself.'] = 'Verwys na jou diensverskaffer om uit te vind hoe jy PHP 5 kan gebruik.';
 $lang['also given by your host provider'] = 'ook deur diensverskaffer voorsien';
 $lang['database tables names will be prefixed with it (enables you to manage better your tables)'] = 'dit sal vooraan tabelname geheg word om tabelle beter te bestuur';
 $lang['enter a login for webmaster'] = 'kies \'n gebruikersnaam vir die webmeester';
-$lang['localhost, sql.multimania.com, toto.freesurf.fr'] = 'localhost, sql.multimania.com, toto.freesurf.fr';
-$lang['mail address must be like xxx@yyy.eee (example : jack@altern.org)'] = 'e-pos-adresse moet in die vorm aaa@bbb.ccc wees (voorbeeld: jack@altern.org)';
 $lang['please enter your password again'] = 'tike assblief weer jou wagwoord in';
 $lang['user login given by your host provider'] = 'gebruikersnaam deur diensverskaffer voorsien';
 $lang['user password given by your host provider'] = 'wagwoord deur diensverskaffer voorsien';
