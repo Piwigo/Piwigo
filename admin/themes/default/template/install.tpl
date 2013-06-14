@@ -1,5 +1,4 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
-"http://www.w3.org/TR/html4/strict.dtd">
+<!DOCTYPE html>
 <html lang="{$lang_info.code}" dir="{$lang_info.direction}">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset={$T_CONTENT_ENCODING}">
@@ -44,13 +43,13 @@ body {
   font-size:12px;
 }
 
-.content {
- width: 800px;
- margin: auto;
- text-align: center;
- padding:0;
- background-color:transparent !important;
- border:none;
+#content {
+  width: 800px;
+  margin: auto;
+  text-align: center;
+  padding:0;
+  background-color:transparent !important;
+  border:none;
 }
 
 #theHeader {
