@@ -576,7 +576,12 @@ $.TokenList = function (input, url_or_data, settings) {
 
     // Highlight the query part of the search term
     function highlight_term(value, term) {
-        return value.replace(new RegExp("(?![^&;]+;)(?!<[^<>]*)(" + term + ")(?![^<>]*>)(?![^&;]+;)", "gi"), "<b>$1</b>");
+        return value.replace(new RegExp("(?![^&;]+;)(?!<[^<>]*)(" + escape_regexp_chars(term) + ")(?![^<>]*>)(?![^&;]+;)", "gi"), "<b>$1</b>");
+    }
+    
+    function escape_regexp_chars(string) {
+        var specials = new RegExp("[.*+?|()\\[\\]{}\\\\]", "g"); // .*+?|()[]{}\
+        return string.replace(specials, "\\$&");
     }
 
     // Populate the results dropdown with some results
