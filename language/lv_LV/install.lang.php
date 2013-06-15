@@ -64,4 +64,5 @@ $lang['Just another Piwigo gallery'] = 'Vēl viena Piwigo galerija';
 $lang['Welcome to my photo gallery'] = 'Laipni lūgti manā foto galerijā';
 $lang['Welcome to your new installation of Piwigo!'] = 'Laipni lūgti Jūsu Piwigo jaunajā instalācijā!';
 $lang['Don\'t hesitate to consult our forums for any help : %s'] = 'Nevilcinieties izmantot mūsu forumu palīdzību: %s';
+$lang['localhost or other, supplied by your host provider'] = 'vietējais pakalpojuma sniedzējs vai cits, tas ko atbalsta vietējais pakalpojuma sniedzējs';
 ?>
