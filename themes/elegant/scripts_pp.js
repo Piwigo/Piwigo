@@ -155,7 +155,22 @@ jQuery("document").ready(function(jQuery){
 		commentsswicther.click(function() { commentsToggle() });
 	
 	}
-	
+  
+  var top = jQuery('#commentAdd').offset().top - parseFloat(jQuery('#commentAdd').css('marginTop').replace(/auto/, 0));
+  jQuery(window).scroll(function (event) {
+    // what the y position of the scroll is
+    var y = jQuery(this).scrollTop();
+  
+    // whether that's below the form
+    if (y >= top) {
+      // if so, ad the fixed class
+      jQuery('#commentAdd').addClass('fixed');
+    } else {
+      // otherwise remove it
+      jQuery('#commentAdd').removeClass('fixed');
+    }
+  });
+
 	
 });
 

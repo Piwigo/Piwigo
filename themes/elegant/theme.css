@@ -256,7 +256,7 @@ a:hover 		{ border-bottom: none;}
 	font-family: Arial,Helvetica,sans-serif;
 	font-size: 100%;
 }
-
+#commentAdd.fixed {  position: fixed; top: 10px; }
 #pictureCommentList .commentsOrder	{ float: left; margin-bottom: 5px;}
 #pictureCommentList .navigationBar	{ float: right; margin-bottom: 5px;}
 #pictureComments h4					{ margin: 0;}
