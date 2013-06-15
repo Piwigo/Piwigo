@@ -38,7 +38,8 @@ var DEFAULT_SETTINGS = {
     onResult: null,
     onAdd: null,
     onDelete: null,
-    allowCreation: false
+    allowCreation: false,
+    caseSensitive: false
 };
 
 // Default classes to use when theming
@@ -576,7 +577,9 @@ $.TokenList = function (input, url_or_data, settings) {
 
     // Highlight the query part of the search term
     function highlight_term(value, term) {
-        return value.replace(new RegExp("(?![^&;]+;)(?!<[^<>]*)(" + escape_regexp_chars(term) + ")(?![^<>]*>)(?![^&;]+;)", "gi"), "<b>$1</b>");
+        var param = "g";
+        if (!settings.caseSensitive) param+= "i";
+        return value.replace(new RegExp("(?![^&;]+;)(?!<[^<>]*)(" + escape_regexp_chars(term) + ")(?![^<>]*>)(?![^&;]+;)", param), "<b>$1</b>");
     }
     
     function escape_regexp_chars(string) {
@@ -652,7 +655,8 @@ $.TokenList = function (input, url_or_data, settings) {
     // Do a search and show the "searching" dropdown if the input is longer
     // than settings.minChars
     function do_search() {
-        var query = input_box.val().toLowerCase();
+        var query = input_box.val();
+        if (!settings.caseSensitive) query = query.toLowerCase();
 
         if(query && query.length) {
             if(selected_token) {
@@ -716,7 +720,9 @@ $.TokenList = function (input, url_or_data, settings) {
                   cache.add(query, settings.jsonContainer ? results[settings.jsonContainer] : results);
 
                   // only populate the dropdown if the results are associated with the active search query
-                  if(input_box.val().toLowerCase() === query) {
+                  var value = input_box.val();
+                  if (!settings.caseSensitive) value = value.toLowerCase();
+                  if(value === query) {
                       populate_dropdown(query, settings.jsonContainer ? results[settings.jsonContainer] : results);
                   }
                 };
@@ -726,7 +732,12 @@ $.TokenList = function (input, url_or_data, settings) {
             } else if(settings.local_data) {
                 // Do the search through local data
                 var results = $.grep(settings.local_data, function (row) {
-                    return row.name.toLowerCase().indexOf(query.toLowerCase()) > -1;
+                    if (settings.caseSensitive) {
+                        return row.name.indexOf(query) > -1;
+                    }
+                    else {
+                        return row.name.toLowerCase().indexOf(query.toLowerCase()) > -1;
+                    }
                 });
 
                 if($.isFunction(settings.onResult)) {
