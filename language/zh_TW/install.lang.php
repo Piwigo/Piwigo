@@ -64,4 +64,5 @@ $lang['Just another Piwigo gallery'] = '另一本Piwigo相片集';
 $lang['Welcome to my photo gallery'] = '歡迎進入我的相片集';
 $lang['Welcome to your new installation of Piwigo!'] = '歡迎安裝Piwigo!';
 $lang['Don\'t hesitate to consult our forums for any help : %s'] = '如有任何問題，請至我們的論壇提出：%s ';
+$lang['localhost or other, supplied by your host provider'] = '本地主機或其它，由你的主機提供商提供';
 ?>
