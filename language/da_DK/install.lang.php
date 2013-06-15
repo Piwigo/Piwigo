@@ -66,4 +66,5 @@ $lang['Don\'t hesitate to consult our forums for any help : %s'] = 'Tøv ikke me
 $lang['Welcome to your new installation of Piwigo!'] = 'Velkommen til din nye Piwigo-installation';
 $lang['Password ']['confirm'] = 'Adgangskode [bekræft]';
 $lang['You may referer to your hosting provider\'s support and see how you could switch to PHP 5 by yourself.'] = 'Du henvises til din webhosts support for at finde ud af, om du selv kan skifte til PHP 5.';
+$lang['localhost or other, supplied by your host provider'] = 'localhost eller andet, oplyst af din hostingleverandør';
 ?>
