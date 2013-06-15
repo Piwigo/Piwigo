@@ -65,4 +65,5 @@ $lang['Welcome to my photo gallery'] = 'Fotoğraf galerime hoş geldiniz';
 $lang['Don\'t hesitate to consult our forums for any help : %s'] = 'Herhangi bir sebeple yardım gerektiğinde, forumlarımıza danışmakta tereddüt etmeyin: %s';
 $lang['Welcome to your new installation of Piwigo!'] = 'Piwigo\'nunuzun yeni kurulumuna hoşgeldiniz!';
 $lang['Password ']['confirm'] = 'Şifre [doğrula]';
+$lang['localhost or other, supplied by your host provider'] = 'localhost veya diğer, bulundurma hizmeti sağlayıcınız tarafından verilen';
 ?>
