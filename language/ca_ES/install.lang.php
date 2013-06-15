@@ -64,4 +64,5 @@ $lang['Don\'t hesitate to consult our forums for any help : %s'] = 'No dubtis en
 $lang['Just another Piwigo gallery'] = 'Just another Piwigo gallery';
 $lang['Welcome to my photo gallery'] = 'Benvingut a la meva galeria fotogràfica';
 $lang['Welcome to your new installation of Piwigo!'] = 'Benvingut a la nova instal·lació de Piwigo!';
+$lang['localhost or other, supplied by your host provider'] = 'localhost o un altre, facilitat pel teu proveïdor d\'allotjament';
 ?>
