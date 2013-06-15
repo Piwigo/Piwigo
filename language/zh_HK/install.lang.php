@@ -64,4 +64,5 @@ $lang['It appears your webhost is currently running PHP %s.'] = '目前您的網
 $lang['It will be shown to the visitors. It is necessary for website administration'] = '這是必要的網站管理,因它會顯示給所有訪客。';
 $lang['Just another Piwigo gallery'] = '只是另一個Piwigo相簿';
 $lang['Keep it confidential, it enables you to access administration panel'] = '請保密，它使您能夠訪問管理面板';
+$lang['localhost or other, supplied by your host provider'] = '本地主機或其它，由你的主機提供商提供';
 ?>
