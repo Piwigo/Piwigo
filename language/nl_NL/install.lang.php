@@ -41,7 +41,7 @@ $lang['database tables names will be prefixed with it (enables you to manage bet
 $lang['enter a login for webmaster'] = 'Geef een gebruikersnaam voor de beheerder';
 $lang['webmaster login can\'t contain characters \' or "'] = 'De gebruikersnaam mag geen \' of " bevatten';
 $lang['please enter your password again'] = 'Vul a.u.b. nogmaals uw wachtwoord in';
-$lang['Keep it confidential, it enables you to access administration panel'] = 'Hou dit vertrouwlijk, het geeft toegang tot de beheermodule';
+$lang['Keep it confidential, it enables you to access administration panel'] = 'Hou dit vertrouwelijk, het geeft toegang tot de beheermodule';
 $lang['Password [confirm]'] = 'Bevestig wachtwoord';
 $lang['verification'] = 'verificatie';
 $lang['Need help ? Ask your question on <a href="%s">Piwigo message board</a>.'] = 'Hulp nodig ? Stel uw vraag op het <a href="%s" target="_blank">Piwigo forum</a>.';
@@ -56,7 +56,7 @@ $lang['Piwigo was not able to configure PHP 5.'] = 'Piwigo kon PHP 5 niet config
 $lang['You may referer to your hosting provider\'s support and see how you could switch to PHP 5 by yourself.'] = 'Neem contact op met de support van uw hosting provider en probeer met hen te bepalen hoe u kunt omschakelen naar PHP 5.';
 $lang['Hope to see you back soon.'] = 'Hoop u snel weer te zien op deze site !.';
 $lang['Congratulations, Piwigo installation is completed'] = 'Gefeliciteerd, de Piwigo installatie is afgerond';
-$lang['An alternate solution is to copy the text in the box above and paste it into the file "local/config/database.inc.php" (Warning : database.inc.php must only contain what is in the textarea, no line return or space character)'] = 'Als alternatieve oplossing kunt de tekst in de bovenstaande box kopieren en plakken in bestand "local/config/database.inc.php" (Opgelet : in database.inc.php mag alleen datgene staan dat in het tekstgebied staat, geen return- of spatie-tekens)';
+$lang['An alternate solution is to copy the text in the box above and paste it into the file "local/config/database.inc.php" (Warning : database.inc.php must only contain what is in the textarea, no line return or space character)'] = 'Als alternatieve oplossing kunt u de tekst in de bovenstaande box kopiëren en plakken in bestand "local/config/database.inc.php" (Opgelet : in database.inc.php mag alleen datgene staan dat in het tekstgebied staat, geen return- of spatie-tekens)';
 $lang['Creation of config file local/config/database.inc.php failed.'] = 'Het aanmaken van config-bestand local/config/database.inc.php is mislukt.';
 $lang['Download the config file'] = 'Download het config-bestand';
 $lang['You can download the config file and upload it to local/config directory of your installation.'] = 'U kunt het config-bestand downloaden en het uploaden naar de local/config directory van uw Piwigo-installatie.';
@@ -64,4 +64,5 @@ $lang['Just another Piwigo gallery'] = 'Alweer een Piwigo galerie';
 $lang['Welcome to my photo gallery'] = 'Welkom bij mijn foto galerie';
 $lang['Welcome to your new installation of Piwigo!'] = 'Welkom bij uw nieuwe installatie van Piwigo!';
 $lang['Don\'t hesitate to consult our forums for any help : %s'] = 'Aarzel niet om onze forum\'s te raadplegen voor hulp: %s';
+$lang['localhost or other, supplied by your host provider'] = 'localhost of andere, geleverd door uw provider';
 ?>
