@@ -111,6 +111,7 @@ jQuery("#derivativeSwitchBox").on("mouseleave", function() {
 			<span class="pwg-icon pwg-icon-camera-calendar">&nbsp;</span><span class="pwg-button-text">{'Calendar'|@translate}</span>
 		</a>{/strip}</li>
 {/if}
+{foreach from=$PLUGIN_INDEX_BUTTONS item=button}<li>{$button}</li>{/foreach}
 {if !empty($PLUGIN_INDEX_ACTIONS)}{$PLUGIN_INDEX_ACTIONS}{/if}
 	</ul>
 

@@ -21,6 +21,7 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
+define('BUTTONS_RANK_NEUTRAL', 50);
 
 class Template {
 
@@ -861,12 +862,12 @@ var s,after = document.getElementsByTagName(\'script\')[document.getElementsByTa
     return $themeconfs[$dir];
   }
 
-  function add_picture_button($content, $rank)
+  function add_picture_button($content, $rank=BUTTONS_RANK_NEUTRAL)
   {
     $this->picture_buttons[$rank][] = $content;
   }
 
-  function add_index_button($content, $rank)
+  function add_index_button($content, $rank=BUTTONS_RANK_NEUTRAL)
   {
     $this->index_buttons[$rank][] = $content;
   }
@@ -876,9 +877,12 @@ var s,after = document.getElementsByTagName(\'script\')[document.getElementsByTa
     if (!empty($this->picture_buttons))
     {
       ksort($this->picture_buttons);
-      foreach ($this->picture_buttons as $ranked)
-        foreach ($ranked as $content)
-          $this->concat('PLUGIN_PICTURE_ACTIONS', $content);
+      $this->assign('PLUGIN_PICTURE_BUTTONS', 
+          array_reduce(
+            $this->picture_buttons, 
+            create_function('$v,$w', 'return array_merge($v, $w);'), 
+            array()
+          ));
     }
   }
 
@@ -887,9 +891,12 @@ var s,after = document.getElementsByTagName(\'script\')[document.getElementsByTa
     if (!empty($this->index_buttons))
     {
       ksort($this->index_buttons);
-      foreach ($this->index_buttons as $ranked)
-        foreach ($ranked as $content)
-          $this->concat('PLUGIN_INDEX_ACTIONS', $content);
+      $this->assign('PLUGIN_INDEX_BUTTONS', 
+          array_reduce(
+            $this->index_buttons, 
+            create_function('$v,$w', 'return array_merge($v, $w);'), 
+            array()
+          ));
     }
   }
 
