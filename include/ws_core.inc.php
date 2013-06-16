@@ -303,15 +303,18 @@ Request format: ".@$this->_requestFormat." Response format: ".@$this->_responseF
    * @param methodName string - the name of the method as seen externally
    * @param callback mixed - php method to be invoked internally
    * @param params array - map of allowed parameter names with optional default
-   * values and parameter flags. Example of $params:
-   * array( 'param1' => array('default'=>523, 'flags'=>WS_PARAM_FORCE_ARRAY) ) .
-   * Possible parameter flags are:
-   * WS_PARAM_ALLOW_ARRAY - this parameter can be an array
-   * WS_PARAM_FORCE_ARRAY - if this parameter is scalar, force it to an array
-   *  before invoking the method
+   *   values and parameter flags. Example of $params:
+   *     array( 'param1' => array('default'=>523, 'flags'=>WS_PARAM_FORCE_ARRAY) ).
+   *   Possible parameter flags are:
+   *     WS_PARAM_ALLOW_ARRAY - this parameter can be an array
+   *     WS_PARAM_FORCE_ARRAY - if this parameter is scalar, force it to an array
+   *       before invoking the method
    * @param description string - a description of the method.
+   * @param include_file string - a file to be included befaore the callback is executed
+   * @param options array - Available options are:
+   *   hidden - if true, this method won't be visible by reflection.getMethodList
    */
-  function addMethod($methodName, $callback, $params=array(), $description, $include_file='')
+  function addMethod($methodName, $callback, $params=array(), $description, $include_file='', $options=array())
   {
     if (!is_array($params))
     {
@@ -323,21 +326,21 @@ Request format: ".@$this->_requestFormat." Response format: ".@$this->_responseF
       $params = array_flip($params);
     }
 
-    foreach( $params as $param=>$options)
+    foreach( $params as $param=>$data)
     {
-      if ( !is_array($options) )
+      if ( !is_array($data) )
       {
         $params[$param] = array('flags'=>0);
       }
       else
       {
-        $flags = isset($options['flags']) ? $options['flags'] : 0;
-        if ( array_key_exists('default', $options) )
+        $flags = isset($data['flags']) ? $data['flags'] : 0;
+        if ( array_key_exists('default', $data) )
         {
           $flags |= WS_PARAM_OPTIONAL;
         }
-        $options['flags'] = $flags;
-        $params[$param] = $options;
+        $data['flags'] = $flags;
+        $params[$param] = $data;
       }
     }
 
@@ -346,6 +349,7 @@ Request format: ".@$this->_requestFormat." Response format: ".@$this->_responseF
       'description' => $description,
       'signature'   => $params,
       'include'     => $include_file,
+      'options'     => $options,
       );
   }
 
@@ -461,7 +465,9 @@ Request format: ".@$this->_requestFormat." Response format: ".@$this->_responseF
    */
   static function ws_getMethodList($params, &$service)
   {
-    return array('methods' => new PwgNamedArray( array_keys($service->_methods),'method' ) );
+    $methods = array_filter($service->_methods,
+            create_function('$m', 'return empty($m["options"]["hidden"]) || !$m["options"]["hidden"];'));
+    return array('methods' => new PwgNamedArray( array_keys($methods),'method' ) );
   }
 
   /**
