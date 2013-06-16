@@ -64,4 +64,5 @@ $lang['Just another Piwigo gallery'] = 'Csak egy újabb Piwigo galéria';
 $lang['Welcome to my photo gallery'] = 'Üdvözöljük a képgalériában';
 $lang['Don\'t hesitate to consult our forums for any help : %s'] = 'Kérdése van? Keresse fel fórumunkat: %s';
 $lang['Welcome to your new installation of Piwigo!'] = 'Köszönt a frissen telepített Piwigo galéria!';
+$lang['localhost or other, supplied by your host provider'] = 'localhost vagy egyéb, a fogadó szolgáltató által megadott';
 ?>
