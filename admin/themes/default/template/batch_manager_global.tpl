@@ -55,6 +55,7 @@ jQuery(document).ready(function() {
 });
 {/literal}{/footer_script}
 
+{combine_css path='themes/default/js/plugins/jquery.tokeninput.css'}
 {combine_script id='jquery.tokeninput' load='footer' require='jquery' path='themes/default/js/plugins/jquery.tokeninput.js'}
 {combine_script id='jquery.progressBar' load='footer' path='themes/default/js/plugins/jquery.progressbar.min.js'}
 {combine_script id='jquery.ajaxmanager' load='footer' path='themes/default/js/plugins/jquery.ajaxmanager.js'}
@@ -73,7 +74,7 @@ jQuery(document).ready(function() {ldelim}
       newText: ' ({'new'|@translate})',
       animateDropdown: false,
       preventDuplicates: true,
-      allowCreation: true
+      allowFreeTagging: true
     }
   );
 	
@@ -85,7 +86,7 @@ jQuery(document).ready(function() {ldelim}
       searchingText: '{'Searching...'|@translate}',
       animateDropdown: false,
       preventDuplicates: true,
-      allowCreation: false
+      allowFreeTagging: false
     }
   );
 

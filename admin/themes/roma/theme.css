@@ -274,12 +274,12 @@ color:transparent;}
 #batchManagerGlobal #selectedMessage {background-color:#555; color:#ddd;}
 
 /* TokenInput (with Facebook style for ROMA) */
-ul.token-input-list {border-color:#666;background-color:#444;}
-ul.token-input-list li input {background-color:#444;}
-li.token-input-token span {color:#878787;}
-div.token-input-dropdown {background-color:#eee;border-color:#666;}
-div.token-input-dropdown ul li {background-color:#eee;}
-div.token-input-dropdown ul li.token-input-selected-dropdown-item {background-color:#FF7800;}
+ul.token-input-list {border-color:#666 !important;background-color:#444 !important;}
+ul.token-input-list li input {background-color:#444 !important;}
+li.token-input-token span {color:#878787 !important;}
+div.token-input-dropdown {background-color:#eee !important;border-color:#666 !important;}
+div.token-input-dropdown ul li {background-color:#eee !important;}
+div.token-input-dropdown ul li.token-input-selected-dropdown-item {background-color:#FF7800 !important;}
 
 #progressbar {border:1px solid #666; background-color:#666;}
 

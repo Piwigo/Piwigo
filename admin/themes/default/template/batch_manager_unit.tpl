@@ -2,6 +2,7 @@
 {include file='include/datepicker.inc.tpl'}
 {include file='include/colorbox.inc.tpl'}
 
+{combine_css path='themes/default/js/plugins/jquery.tokeninput.css'}
 {combine_script id='jquery.tokeninput' load='async' require='jquery' path='themes/default/js/plugins/jquery.tokeninput.js'}
 {footer_script require='jquery.tokeninput'}
 jQuery(document).ready(function() {ldelim}
@@ -14,7 +15,7 @@ jQuery(document).ready(function() {ldelim}
       newText: ' ({'new'|@translate})',
       animateDropdown: false,
       preventDuplicates: true,
-      allowCreation: true
+      allowFreeTagging: true
     }
   );
 
