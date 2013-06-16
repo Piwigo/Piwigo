@@ -64,4 +64,5 @@ $lang['Just another Piwigo gallery'] = 'Apenas outra galeria Piwigo.';
 $lang['Welcome to my photo gallery'] = 'Bem-Vindo a minha galeria de fotos.';
 $lang['Welcome to your new installation of Piwigo!'] = 'Bem-Vindo a sua nova instalação do Piwigo.';
 $lang['You can download the config file and upload it to local/config directory of your installation.'] = 'Você pode baixar o arquivo de configuração e colocá-lo na pasta local/config de sua instalação.';
+$lang['localhost or other, supplied by your host provider'] = 'localhost ou outro, fornecido pelo seu provedor de hospedagem';
 ?>
