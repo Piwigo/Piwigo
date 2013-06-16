@@ -65,4 +65,5 @@ $lang['Just another Piwigo gallery'] = '另一个崭新的Piwigo图库';
 $lang['Don\'t hesitate to consult our forums for any help : %s'] = '欢迎来我们的论坛咨询任何Piwigo相关问题：%s';
 $lang['Welcome to your new installation of Piwigo!'] = '欢迎安装Piwigo！';
 $lang['You may referer to your hosting provider\'s support and see how you could switch to PHP 5 by yourself.'] = '您需要联系您的主机供应商的技术支持，向其咨询如何自行转换为PHP 5。';
+$lang['localhost or other, supplied by your host provider'] = '由你的服务器提供商提供本地服务器或者其他的';
 ?>
