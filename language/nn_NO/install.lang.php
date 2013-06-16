@@ -64,4 +64,5 @@ $lang['It will be shown to the visitors. It is necessary for website administrat
 $lang['Just another Piwigo gallery'] = 'Enda eit Piwigo galleri';
 $lang['Keep it confidential, it enables you to access administration panel'] = 'Hald dette hemmeleg, det gjev deg tilgang til administrasjonspanelet';
 $lang['Need help ? Ask your question on <a href="%s">Piwigo message board</a>.'] = 'Treng du hjelp? Still spørsmålet ditt på <a href="%s"> Piwigo sitt forum</a>.';
+$lang['localhost or other, supplied by your host provider'] = 'localhost eller servernamn gjeve av administrator for server';
 ?>
