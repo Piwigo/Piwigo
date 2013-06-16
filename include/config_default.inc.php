@@ -786,4 +786,11 @@ $conf['max_requests']=3;
 // one of '', 'images', 'all'
 //TODO: Put this in admin and also manage .htaccess in #sites and upload folders
 $conf['original_url_protection'] = '';
+
+
+// Default behaviour when a new album is created: should the new album inherit the group/user
+// permissions from its parent? Note that config is only used for Ftp synchro,
+// and if that option is not explicitly transmit when the album is created.
+$conf['inheritance_by_default'] = false;
+
 ?>

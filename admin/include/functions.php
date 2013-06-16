@@ -1303,7 +1303,36 @@ SELECT id, uppercats, global_rank, visible, status
 
   update_global_rank();
 
-  if ('private' == $insert['status'])
+  if ('private' == $insert['status'] and ((isset($options['inherit']) and $options['inherit']) or $conf['inheritance_by_default']) )
+  {
+    $query = '
+      SELECT group_id
+      FROM '.GROUP_ACCESS_TABLE.'
+      WHERE cat_id = '.$insert['id_uppercat'].'
+    ;';
+    $granted_grps =  array_from_query($query, 'group_id');
+    $inserts = array();
+    foreach ($granted_grps as $granted_grp)
+    {
+      array_push(
+        $inserts,
+        array(
+          'group_id' => $granted_grp,
+          'cat_id' => $inserted_id
+          )
+        );
+    }
+    mass_inserts(GROUP_ACCESS_TABLE, array('group_id','cat_id'), $inserts);
+
+    $query = '
+      SELECT user_id
+      FROM '.USER_ACCESS_TABLE.'
+      WHERE cat_id = '.$insert['id_uppercat'].'
+    ;';
+    $granted_users =  array_from_query($query, 'user_id');
+    add_permission_on_category($inserted_id, array_unique(array_merge(get_admins(), array($user['id']), $granted_users)));
+  }
+  else if ('private' == $insert['status'])
   {
     add_permission_on_category($inserted_id, array_unique(array_merge(get_admins(), array($user['id']))));
   }
