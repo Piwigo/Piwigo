@@ -217,7 +217,7 @@ DELETE
           include($file_to_include);
           if (function_exists('theme_delete'))
           {
-            theme_delete($theme_id, $this->fs_themes[$theme_id]['version'], $errors);
+            theme_delete($theme_id);
           }
         }
 
