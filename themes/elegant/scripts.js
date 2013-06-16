@@ -49,17 +49,21 @@ jQuery("document").ready(function(jQuery){
 	var sidemenu = jQuery.cookie('page-menu');
 	var menubar=jQuery("#menubar");
 
-	if (menubar.length == 1) {
+	if (menubar.length == 1 && p_main_menu!="disabled") {
 
 		jQuery("#menuSwitcher").html("<div class=\"switchArrow\">&nbsp;</div>");
 
 		// if cookie says the menu is hiding, keep it hidden!
 		if (sidemenu == 'hidden') {
 			hideMenu(0);
-		} else {
+		} else if (sidemenu == 'visible') {
+			showMenu(0);
+		} else if (p_main_menu == 'off') {
+			hideMenu(0);
+		}	else {
 			showMenu(0);
 		}
-	
+    
 		jQuery("#menuSwitcher").click(function(){
 			if (jQuery("#menubar").is(":hidden")) {
 				showMenu(0);

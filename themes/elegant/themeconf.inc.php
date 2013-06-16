@@ -12,4 +12,16 @@ $themeconf = array(
   'parent' => 'default',
   'local_head'  => 'local_head.tpl'
 );
+// Need upgrade?
+global $conf;
+include(PHPWG_THEMES_PATH.'elegant/admin/upgrade.inc.php');
+
+add_event_handler('init', 'set_config_values_elegant');
+function set_config_values_elegant()
+{
+  global $conf, $template;
+  $config = unserialize( $conf['elegant'] );
+  $template->assign( 'elegant', $config );
+}
+
 ?>

@@ -77,15 +77,19 @@ jQuery("document").ready(function(jQuery){
 	var sidemenu = jQuery.cookie('picture-menu');
 	var menubar=jQuery("#menubar");
 
-	if (menubar.length == 1) {
+	if (menubar.length == 1 && p_main_menu!="disabled") {
 
 		jQuery("#menuSwitcher").html("<div class=\"switchArrow\">&nbsp;</div>");
 
 		// if cookie says the menu is hiding, keep it hidden!
-		if (sidemenu == 'visible') {
-			showMenu(0);
-		} else {
+		if (sidemenu == 'hidden') {
 			hideMenu(0);
+		} else if (sidemenu == 'visible') {
+			showMenu(0);
+		} else if (p_main_menu == 'off') {
+			hideMenu(0);
+		}	else {
+			showMenu(0);
 		}
 	
 		jQuery("#menuSwitcher").click(function(){
@@ -105,12 +109,16 @@ jQuery("document").ready(function(jQuery){
 	var sideinfo = jQuery.cookie('side-info');
 	var imageInfos=jQuery("#imageInfos");
 
-	if (imageInfos.length == 1) {
+	if (imageInfos.length == 1 && p_pict_descr!="disabled") {
 
 		jQuery("#infoSwitcher").html("<div class=\"switchArrow\">&nbsp;</div>");
 
 		// if cookie says the menu is hiding, keep it hidden!
 		if (sideinfo == 'hidden') {
+			hideInfo(0);
+		} else if (sideinfo == 'visible') {
+			showInfo(0);
+		} else if (p_pict_descr == 'off') {
 			hideInfo(0);
 		} else {
 			showInfo(0);
@@ -135,7 +143,7 @@ jQuery("document").ready(function(jQuery){
 	
 	commentsswicther.html("<div class=\"switchArrow\">&nbsp;</div>");
 	
-	if (comments.length == 1) {
+	if (comments.length == 1 && p_pict_comment!="disabled") {
 		var comments_button=jQuery("#comments h3");
 
 		if (comments_button.length == 0) {
@@ -143,12 +151,18 @@ jQuery("document").ready(function(jQuery){
 			comments_button=jQuery("#comments h3");
 		}
 	
-		if (jQuery.cookie('comments') == 'visible') {
-			comments.addClass("commentsshown");
-			comments_button.addClass("comments_toggle").addClass("comments_toggle_off");
-		} else {
+		if (jQuery.cookie('comments') == 'hidden') {
 			comments.addClass("commentshidden");
 			comments_button.addClass("comments_toggle").addClass("comments_toggle_on");
+		} else if (jQuery.cookie('comments') == 'visible') {
+			comments.addClass("commentsshown");
+			comments_button.addClass("comments_toggle").addClass("comments_toggle_off");
+		} else if (p_pict_comment == 'off') {
+			comments.addClass("commentshidden");
+			comments_button.addClass("comments_toggle").addClass("comments_toggle_on");
+		} else {
+			comments.addClass("commentsshown");
+			comments_button.addClass("comments_toggle").addClass("comments_toggle_off");
 		}
 		
 		comments_button.click(function() { commentsToggle() });
