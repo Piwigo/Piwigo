@@ -53,7 +53,7 @@ $lang['Note you can change your configuration by yourself and restart Piwigo aft
 $lang['Try to configure PHP 5'] = 'Попытаться переконфигурировать PHP 5';
 $lang['Sorry!'] = 'Извините!';
 $lang['Piwigo was not able to configure PHP 5.'] = 'Piwigo не в состоянии переконфигурировать PHP 5.';
-$lang['You may referer to your hosting provider\'s support and see how you could switch to PHP 5 by yourself.'] = 'Вы должны обратиться к своему провайдеру за поддержой и разъяснениями  как Вы можете переключиться на PHP 5.';
+$lang['You may referer to your hosting provider\'s support and see how you could switch to PHP 5 by yourself.'] = 'Вы должны обратиться к своему провайдеру за поддержой и разъяснениями, как переключиться на PHP 5.';
 $lang['Hope to see you back soon.'] = 'Надеемся скоро увидеть Вас вновь.';
 $lang['Congratulations, Piwigo installation is completed'] = 'Поздравляем, установка Piwigo полностью завершена';
 $lang['An alternate solution is to copy the text in the box above and paste it into the file "local/config/database.inc.php" (Warning : database.inc.php must only contain what is in the textarea, no line return or space character)'] = 'Альтернативное решение состоит в том, чтобы скопировать текст в блоке выше и вставить это в файл "local/config/database.inc.php"   (Предупреждение: database.inc.php должен только содержать то, что находится в textarea, без линий возврата строки или пробелов)';
@@ -64,4 +64,5 @@ $lang['Just another Piwigo gallery'] = 'Еще одна галерея Piwigo';
 $lang['Welcome to my photo gallery'] = 'Добро пожаловать в мою фотогалерею';
 $lang['Don\'t hesitate to consult our forums for any help : %s'] = 'Не стесняйтесь консультироваться на наших форумах для получения любой помощи, %s';
 $lang['Welcome to your new installation of Piwigo!'] = 'Добро пожаловать в новую установку Piwigo!';
+$lang['localhost or other, supplied by your host provider'] = 'localhost или другой, который указан провайдером';
 ?>
