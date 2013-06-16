@@ -758,10 +758,10 @@ html, body {height:100%; margin:0; padding:0;}
 #thePopuphelpPage #pwgHead {display:none}
 #thePopuphelpPage #footer  {display:none}
 
-.themeBox {display:inline-table; text-align:center; height:192px; background-color:#eee; margin:5px; -moz-border-radius:5px; overflow:hidden; }
+.themeBox {display:inline-table; text-align:center; height:192px; background-color:#eee; margin:5px; border-radius:5px; overflow:hidden; }
 
 .themeBox IMG {border:1px solid white; margin:0 15px;}
-.themeName {font-size:1.1em; margin:5px 0;}
+.themeName {font-size:1em; margin:5px 0; position:relative; }
 .themeActions {display: table-row; font-size:12px; height: 43px; }
 .themeActions DIV {display: table-cell; vertical-align: middle; line-height:18px; }
 .themeActions A {}
@@ -864,7 +864,7 @@ h2:lang(en) { text-transform:capitalize; }
 .languageActions {display: table-row; font-size:12px; }
 .languageActions DIV {display: table-cell; vertical-align: middle; line-height:18px; }
 
-#ui-datepicker-div {-moz-border-radius:5px;}
+#ui-datepicker-div {-moz-border-radius:5px; border-radius:5px;}
 #ui-datepicker-div .ui-icon-circle-triangle-w, #ui-datepicker-div .ui-icon-circle-triangle-e {color:transparent;}
 #ui-datepicker-div A.ui-datepicker-prev, #ui-datepicker-div A.ui-datepicker-next {background-color:transparent;}
 #ui-datepicker-div A.ui-datepicker-prev:hover, #ui-datepicker-div A.ui-datepicker-next:hover {-moz-border-radius:5px;}
@@ -1100,7 +1100,6 @@ input[type="text"].dError {border-color:#ff7070; background-color:#FFe5e5;}
   border-radius:10px;
   -moz-border-radius:10px;
   -webkit-border-radius:10px;
-  -border-radius:10px;
   margin-left:5px;
 }
 

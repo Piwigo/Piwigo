@@ -65,8 +65,7 @@ foreach ($db_themes as $db_theme)
   array_push($db_theme_ids, $db_theme['id']);
 }
 
-$active_themes = array();
-$inactive_themes = array();
+$tpl_themes = array();
 
 foreach ($themes->fs_themes as $theme_id => $fs_theme)
 {
@@ -74,46 +73,55 @@ foreach ($themes->fs_themes as $theme_id => $fs_theme)
   {
     continue;
   }
+  
+  $tpl_theme = array(
+    'ID' => $theme_id,
+    'NAME' => $fs_theme['name'],
+    'VISIT_URL' => $fs_theme['uri'],
+    'VERSION' => $fs_theme['version'],
+    'DESC' => $fs_theme['description'],
+    'AUTHOR' => $fs_theme['author'],
+    'AUTHOR_URL' => @$fs_theme['author uri'],
+    'PARENT' => @$fs_theme['parent'],
+    'SCREENSHOT' => $fs_theme['screenshot'],
+    'IS_MOBILE' => $fs_theme['mobile'],
+    'ADMIN_URI' => @$fs_theme['admin_uri'],
+    );
 
   if (in_array($theme_id, $db_theme_ids))
   {
-    $fs_theme['deactivable'] = true;
+    $tpl_theme['STATE'] = 'active';
+    $tpl_theme['DEACTIVABLE'] = true;
 
     if (count($db_theme_ids) <= 1)
     {
-      $fs_theme['deactivable'] = false;
-      $fs_theme['deactivate_tooltip'] = l10n('Impossible to deactivate this theme, you need at least one theme.');
+      $tpl_theme['DEACTIVABLE'] = false;
+      $tpl_theme['DEACTIVATE_TOOLTIP'] = l10n('Impossible to deactivate this theme, you need at least one theme.');
     }
-
-    if ($theme_id == $default_theme)
-    {
-      $fs_theme['is_default'] = true;
-      array_unshift($active_themes, $fs_theme);
-    }
-    else
-    {
-      $fs_theme['is_default'] = false;
-      array_push($active_themes, $fs_theme);
-    }
+    
+    $tpl_theme['IS_DEFAULT'] = ($theme_id == $default_theme);
   }
   else
   {
+    $tpl_theme['STATE'] = 'inactive';
+    
     // is the theme "activable" ?
     if (isset($fs_theme['activable']) and !$fs_theme['activable'])
     {
-      $fs_theme['activate_tooltip'] = l10n('This theme was not designed to be directly activated');
+      $tpl_theme['ACTIVABLE'] = false;
+      $tpl_theme['ACTIVABLE_TOOLTIP'] = l10n('This theme was not designed to be directly activated');
     }
     else
     {
-      $fs_theme['activable'] = true;
+      $tpl_theme['ACTIVABLE'] = true;
     }
 
     $missing_parent = $themes->missing_parent_theme($theme_id);
     if (isset($missing_parent))
     {
-      $fs_theme['activable'] = false;
+      $tpl_theme['ACTIVABLE'] = false;
 
-      $fs_theme['activate_tooltip'] = sprintf(
+      $tpl_theme['ACTIVABLE_TOOLTIP'] = sprintf(
         l10n('Impossible to activate this theme, the parent theme is missing: %s'),
         $missing_parent
         );
@@ -122,21 +130,36 @@ foreach ($themes->fs_themes as $theme_id => $fs_theme)
     // is the theme "deletable" ?
     $children = $themes->get_children_themes($theme_id);
 
-    $fs_theme['deletable'] = true;
+    $tpl_theme['DELETABLE'] = true;
 
     if (count($children) > 0)
     {
-      $fs_theme['deletable'] = false;
+      $tpl_theme['DELETABLE'] = false;
 
-      $fs_theme['delete_tooltip'] = sprintf(
+      $tpl_theme['DELETE_TOOLTIP'] = sprintf(
         l10n('Impossible to delete this theme. Other themes depends on it: %s'),
         implode(', ', $children)
         );
     }
-
-    array_push($inactive_themes, $fs_theme);
   }
+  
+  array_push($tpl_themes, $tpl_theme);
 }
+
+// sort themes by state then by name
+function cmp($a, $b)
+{ 
+  $s = array('active' => 0, 'inactive' => 1);
+  
+  if (@$a['IS_DEFAULT']) return -1;
+  if (@$b['IS_DEFAULT']) return 1;
+  
+  if($a['STATE'] == $b['STATE'])
+    return strcasecmp($a['NAME'], $b['NAME']); 
+  else
+    return $s[$a['STATE']] >= $s[$b['STATE']]; 
+}
+usort($tpl_themes, 'cmp');
 
 $template->assign(
     array(
@@ -145,8 +168,7 @@ $template->assign(
       'set_default_baseurl' => $base_url.'&amp;action=set_default&amp;theme=',
       'delete_baseurl' => $base_url.'&amp;action=delete&amp;theme=',
 
-      'active_themes' => $active_themes,
-      'inactive_themes' => $inactive_themes,
+      'tpl_themes' => $tpl_themes,
     )
   );
 
