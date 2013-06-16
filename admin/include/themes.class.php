@@ -212,6 +212,15 @@ DELETE
           break;
         }
 
+        if (file_exists($file_to_include))
+        {
+          include($file_to_include);
+          if (function_exists('theme_delete'))
+          {
+            theme_delete($theme_id, $this->fs_themes[$theme_id]['version'], $errors);
+          }
+        }
+
         if (!$this->deltree(PHPWG_THEMES_PATH.$theme_id))
         {
           $this->send_to_trash(PHPWG_THEMES_PATH.$theme_id);
