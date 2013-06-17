@@ -64,4 +64,5 @@ $lang['user login given by your host provider'] = 'veebimajutuse kasutajanimi';
 $lang['user password given by your host provider'] = 'veebimajutuse parool';
 $lang['verification'] = 'kinnitamine';
 $lang['webmaster login can\'t contain characters \' or "'] = 'veebimeistri kasutajanimi ei saa sisaldada jutumärke';
+$lang['localhost or other, supplied by your host provider'] = 'localhost või teised, antud teenusepakkuja poolt';
 ?>
