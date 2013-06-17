@@ -64,4 +64,5 @@ $lang['Creation of config file local/config/database.inc.php failed.'] = 'Съз
 $lang['It appears your webhost is currently running PHP %s.'] = 'Изглежда вашият уеб хост се изпълнява в PHP %s';
 $lang['Piwigo may try to switch your configuration to PHP 5 by creating or modifying a .htaccess file.'] = 'Piwigo може да се опита да превключите вашата конфигурация на PHP 5 като създаде или промени .htaccess файла.';
 $lang['You may referer to your hosting provider\'s support and see how you could switch to PHP 5 by yourself.'] = 'Обърнете се към вашия хостинг доставчик и вижте как можете да преминете към PHP 5 самостоятелно.';
+$lang['localhost or other, supplied by your host provider'] = 'localhost или друг, предоставен от вашият хост провайдер';
 ?>
