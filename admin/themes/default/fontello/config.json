@@ -34,12 +34,6 @@
       "src": "fontawesome"
     },
     {
-      "uid": "31972e4e9d080eaa796290349ae6c1fd",
-      "css": "users",
-      "code": 128101,
-      "src": "fontawesome"
-    },
-    {
       "uid": "381da2c2f7fd51f8de877c044d7f439d",
       "css": "picture",
       "code": 127748,
@@ -82,6 +76,12 @@
       "src": "fontawesome"
     },
     {
+      "uid": "7034e4d22866af82bef811f52fb1ba46",
+      "css": "code",
+      "code": 59402,
+      "src": "fontawesome"
+    },
+    {
       "uid": "d35a1d35efeb784d1dc9ac18b9b6c2b6",
       "css": "pencil",
       "code": 9998,
@@ -97,6 +97,12 @@
       "uid": "f48ae54adfb27d8ada53d0fd9e34ee10",
       "css": "trash",
       "code": 59177,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "c95735c17a10af81448c7fed98a04546",
+      "css": "folder-open",
+      "code": 59398,
       "src": "fontawesome"
     },
     {
@@ -136,9 +142,27 @@
       "src": "fontawesome"
     },
     {
+      "uid": "a73c5deb486c8d66249811642e5d719a",
+      "css": "arrows-cw",
+      "code": 59396,
+      "src": "fontawesome"
+    },
+    {
       "uid": "37c5ab63f10d7ad0b84d0978dcd0c7a8",
       "css": "shuffle",
       "code": 128256,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "6020aff067fc3c119cdd75daa5249220",
+      "css": "exchange",
+      "code": 59397,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "d407a4707f719b042ed2ad28d2619d7e",
+      "css": "signal",
+      "code": 59393,
       "src": "fontawesome"
     },
     {
@@ -166,10 +190,46 @@
       "src": "fontawesome"
     },
     {
+      "uid": "2cfb3f2b46b34a1790aec0aa846297b6",
+      "css": "menu",
+      "code": 59401,
+      "src": "entypo"
+    },
+    {
+      "uid": "6a7b9d4863bb7e6c79e9457a72d689b6",
+      "css": "tools",
+      "code": 59395,
+      "src": "entypo"
+    },
+    {
+      "uid": "39c4d0e225a1263a398a47523cb5b9bd",
+      "css": "brush",
+      "code": 59399,
+      "src": "entypo"
+    },
+    {
+      "uid": "ddecf5ad7935e3fb1b70dac6ed00d06a",
+      "css": "language",
+      "code": 59392,
+      "src": "entypo"
+    },
+    {
+      "uid": "4bcb3aaa98736be3027bef7c76c55021",
+      "css": "flow-branch",
+      "code": 59400,
+      "src": "entypo"
+    },
+    {
       "uid": "xoidjr6q3rzi7tpw6hci1k6srz15g11l",
       "css": "puzzle",
       "code": 59318,
       "src": "typicons"
+    },
+    {
+      "uid": "05ef9b5e8742971aa85b23cfcbe71594",
+      "css": "users",
+      "code": 59394,
+      "src": "mfglabs"
     },
     {
       "uid": "10fdd98fb50c590b805a3ad6ff9c55f5",

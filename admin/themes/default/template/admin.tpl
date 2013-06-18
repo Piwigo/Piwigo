@@ -20,7 +20,7 @@ jQuery(document).ready(function(){ldelim}
 				<li><a class="icon-star" href="{$U_RATING}">{'Rating'|@translate}</a></li>
 				<li><a class="icon-tags" href="{$U_TAGS}">{'Tags'|@translate}</a></li>
 				<li><a class="icon-clock" href="{$U_RECENT_SET}">{'Recent photos'|@translate}</a></li>
-				<li><a href="{$U_BATCH}">{'Batch Manager'|@translate}</a></li>
+				<li><a class="icon-pencil" href="{$U_BATCH}">{'Batch Manager'|@translate}</a></li>
 {if $NB_PHOTOS_IN_CADDIE > 0}
 				<li><a class="icon-basket" href="{$U_CADDIE}">{'Caddie'|@translate}<span class="adminMenubarCounter">{$NB_PHOTOS_IN_CADDIE}</span></a></li>
 {/if}
@@ -67,15 +67,15 @@ jQuery(document).ready(function(){ldelim}
 		<dd>
       <ul>
 {if $ENABLE_SYNCHRONIZATION}
-        <li><a href="{$U_CAT_UPDATE}">{'Synchronize'|@translate}</a></li>
-        <li><a href="{$U_SITE_MANAGER}">{'Site manager'|@translate}</a></li>
+        <li><a class="icon-exchange" href="{$U_CAT_UPDATE}">{'Synchronize'|@translate}</a></li>
+        <li><a class="icon-flow-branch" href="{$U_SITE_MANAGER}">{'Site manager'|@translate}</a></li>
 {/if}
-				<li><a class="icon-eye" href="{$U_HISTORY_STAT}">{'History'|@translate}</a></li>
-				<li><a class="icon-tasks" href="{$U_MAINTENANCE}">{'Maintenance'|@translate}</a></li>
+				<li><a class="icon-signal" href="{$U_HISTORY_STAT}">{'History'|@translate}</a></li>
+				<li><a class="icon-tools" href="{$U_MAINTENANCE}">{'Maintenance'|@translate}</a></li>
 {if isset($U_PENDING_COMMENTS)}
 				<li><a class="icon-chat" href="{$U_PENDING_COMMENTS}">{'Pending Comments'|@translate}</a></li>
 {/if}
-        <li><a href="{$U_UPDATES}">{'Updates'|@translate}</a></li>
+        <li><a class="icon-arrows-cw" href="{$U_UPDATES}">{'Updates'|@translate}</a></li>
       </ul>
 		</dd>
 	</dl>
@@ -83,11 +83,11 @@ jQuery(document).ready(function(){ldelim}
 		<dt class="rdion"><span class="icon-cog"> </span><span>{'Configuration'|@translate}&nbsp;</span></dt>
 		<dd>
       <ul>
-        <li><a href="{$U_CONFIG_GENERAL}">{'Options'|@translate}</a></li>
-        <li><a href="{$U_CONFIG_MENUBAR}">{'Menu Management'|@translate}</a></li>
-        <li><a href="{$U_CONFIG_EXTENTS}">{'Templates'|@translate}</a></li>
-				<li><a class="icon-asl" href="{$U_CONFIG_LANGUAGES}">{'Languages'|@translate}</a></li>
-        <li><a href="{$U_CONFIG_THEMES}">{'Themes'|@translate}</a></li>
+        <li><a class="icon-cog-alt" href="{$U_CONFIG_GENERAL}">{'Options'|@translate}</a></li>
+        <li><a class="icon-menu" href="{$U_CONFIG_MENUBAR}">{'Menu Management'|@translate}</a></li>
+        <li><a class="icon-code" href="{$U_CONFIG_EXTENTS}">{'Templates'|@translate}</a></li>
+				<li><a class="icon-language" href="{$U_CONFIG_LANGUAGES}">{'Languages'|@translate}</a></li>
+        <li><a class="icon-brush" href="{$U_CONFIG_THEMES}">{'Themes'|@translate}</a></li>
       </ul>
     </dd>
   </dl>
