@@ -64,4 +64,5 @@ $lang['Congratulations, Piwigo installation is completed'] = 'Gratulon, la insta
 $lang['Can\'t connect to server'] = 'Ne eblas konekti kun la servilo';
 $lang['Basic configuration'] = 'Baza agordo';
 $lang['Admin configuration'] = 'Administra agordo';
+$lang['localhost or other, supplied by your host provider'] = 'loka gasto (localhost) aŭ alia, provizita de via provizanto de gastigo';
 ?>
