@@ -370,4 +370,11 @@ $lang['GD library is missing'] = 'La biblioteko GD mankas';
 $lang['GD version'] = 'GD versio';
 $lang['Generate multiple size images'] = 'Generi multoblajn grandecojn de bildoj';
 $lang['Get Support on Piwigo Forum'] = 'Obteni helpon ĉe la forumo de Piwigo';
+$lang['Replacement of original templates by customized templates from template-extension subfolder'] = 'Anstataŭigado de originalaj ŝablonoj per tajloritaj ŝablonoj el la subdosierujo por ŝablonaj etendaĵoj';
+$lang['All extensions are up to date.'] = 'Ĉiuj kromaĵoj estas ĝisdataj.';
+$lang['All languages are up to date.'] = 'Ĉiuj lingvoj estas ĝisdataj.';
+$lang['All plugins are up to date.'] = 'Ĉiuj kromaprogramoj estas ĝisdataj.';
+$lang['All themes are up to date.'] = 'Ĉiuj temoj estas ĝisdataj.';
+$lang['Album "%s" now contains %d photos'] = 'Fotaro "%s" nun enhavas %d fotojn';
+$lang['Album "%s" has been added'] = 'Fotaro "%s" aldoniĝis';
 ?>
