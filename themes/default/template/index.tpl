@@ -1,4 +1,6 @@
+{combine_script id='core.switchbox' load='footer' require='jquery' path='themes/default/js/switchbox.js'}
 {$MENUBAR}
+
 
 {if isset($errors) or isset($infos)}
 <div class="content messages{if isset($MENUBAR)} contentWithMenu{/if}">
@@ -24,17 +26,7 @@
 			{/if}
 			{/foreach}
 		</div>
-		{footer_script require='jquery'}{literal}
-jQuery("#sortOrderLink").click(function() {
-	var elt = jQuery("#sortOrderBox");
-	elt.css("left", Math.min( jQuery(this).offset().left, jQuery(window).width() - elt.outerWidth(true) - 5))
-		.css("top", jQuery(this).offset().top + jQuery(this).outerHeight(true))
-		.toggle();
-});
-jQuery("#sortOrderBox").on("mouseleave", function() {
-	jQuery(this).hide();
-});
-		{/literal}{/footer_script}
+		{footer_script require='core.switchbox'}switchBox("#sortOrderLink", "#sortOrderBox");{/footer_script}
 		{/strip}</li>
 {/if}
 {if !empty($image_derivatives)}
@@ -51,17 +43,7 @@ jQuery("#sortOrderBox").on("mouseleave", function() {
 			{/if}
 			{/foreach}
 		</div>
-		{footer_script require='jquery'}{literal}
-jQuery("#derivativeSwitchLink").click(function() {
-	var elt = jQuery("#derivativeSwitchBox");
-	elt.css("left", Math.min( jQuery(this).offset().left, jQuery(window).width() - elt.outerWidth(true) - 5))
-		.css("top", jQuery(this).offset().top + jQuery(this).outerHeight(true))
-		.toggle();
-});
-jQuery("#derivativeSwitchBox").on("mouseleave", function() {
-	jQuery(this).hide();
-});
-		{/literal}{/footer_script}
+		{footer_script require='core.switchbox'}switchBox("#derivativeSwitchLink", "#derivativeSwitchBox");{/footer_script}
 		{/strip}</li>
 {/if}
 

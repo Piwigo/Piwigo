@@ -1,11 +1,11 @@
-{* Example of resizeable
-{include file='include/autosize.inc.tpl'}
-*}
+{combine_script id='core.switchbox' load='footer' require='jquery' path='themes/default/js/switchbox.js'}
 {if isset($MENUBAR)}{$MENUBAR}{/if}
 <div id="content"{if isset($MENUBAR)} class="contentWithMenu"{/if}>
+
 {if isset($errors) or not empty($infos)}
 {include file='infos_errors.tpl'}
 {/if}
+
 {if !empty($PLUGIN_PICTURE_BEFORE)}{$PLUGIN_PICTURE_BEFORE}{/if}
 
 <div id="imageHeaderBar">
@@ -17,9 +17,10 @@
 <div id="imageToolBar">
 <div class="imageNumber">{$PHOTO}</div>
 {include file='picture_nav_buttons.tpl'|@get_extent:'picture_nav_buttons'}
+
 <div class="actionButtons">
 {if isset($current.unique_derivatives) && count($current.unique_derivatives)>1}
-{footer_script require='jquery'}{literal}
+{footer_script require='jquery,core.switchbox'}{literal}
 function changeImgSrc(url,typeSave,typeMap)
 {
 	var theImg = document.getElementById("theMainImage");
@@ -33,15 +34,7 @@ function changeImgSrc(url,typeSave,typeMap)
 	jQuery('#derivativeChecked'+typeSave).css('visibility','visible');
 	document.cookie = 'picture_deriv='+typeSave+';path={/literal}{$COOKIE_PATH}{literal}';
 }
-jQuery("#derivativeSwitchLink").click(function() {
-	var elt = jQuery("#derivativeSwitchBox");
-	elt.css("left", Math.min( jQuery(this).offset().left, jQuery(window).width() - elt.outerWidth(true) - 5))
-		.css("top", jQuery(this).offset().top + jQuery(this).outerHeight(true))
-		.toggle();
-});
-jQuery("#derivativeSwitchBox").on("mouseleave click", function() {
-	jQuery(this).hide();
-});
+switchBox("#derivativeSwitchLink", "#derivativeSwitchBox");
 {/literal}{/footer_script}
 {strip}<a id="derivativeSwitchLink" title="{'Photo sizes'|@translate}" class="pwg-state-default pwg-button" rel="nofollow">
   <span class="pwg-icon pwg-icon-sizes">&nbsp;</span><span class="pwg-button-text">{'Photo sizes'|@translate}</span>
