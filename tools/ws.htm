@@ -372,6 +372,7 @@ function getMethodList() {
 // select method
 function selectMethod(methodName) {
   $("#introMessage").hide();
+  $("#tiptip_holder").fadeOut(200);
   
   if (cachedMethods[ methodName ]) {
     fillNewMethod(methodName);
