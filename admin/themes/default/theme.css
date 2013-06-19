@@ -749,6 +749,10 @@ html, body {height:100%; margin:0; padding:0;}
   font-size:120%;
 }
 
+#menubar dd [class^="icon-"]:before {
+    margin-right: 0.5em;
+}
+
 .content {
   padding:0 5px 0 0;
   margin: 0 5px 0 227px;

@@ -29,7 +29,7 @@ function add_core_tabs($sheets, $tab_id)
   {
     case 'album':
       global $admin_album_base_url;
-      $sheets['properties'] = array('caption' => l10n('Properties'), 'url' => $admin_album_base_url.'-properties');
+      $sheets['properties'] = array('caption' => '<span class="icon-pencil"></span>'.l10n('Properties'), 'url' => $admin_album_base_url.'-properties');
       $sheets['sort_order'] = array('caption' => '<span class="icon-shuffle"></span>'.l10n('Manage photo ranks'), 'url' => $admin_album_base_url.'-sort_order');
       $sheets['permissions'] = array('caption' => '<span class="icon-lock"></span>'.l10n('Permissions'), 'url' => $admin_album_base_url.'-permissions');
       $sheets['notification'] = array('caption' => '<span class="icon-mail-alt"></span>'.l10n('Notification'), 'url' => $admin_album_base_url.'-notification');
@@ -37,8 +37,8 @@ function add_core_tabs($sheets, $tab_id)
       
     case 'albums':
       global $my_base_url;
-      $sheets['list'] = array('caption' => l10n('List'), 'url' => $my_base_url.'cat_list');
-      $sheets['move'] = array('caption' => l10n('Move'), 'url' => $my_base_url.'cat_move');
+      $sheets['list'] = array('caption' => '<span class="icon-menu"></span>'.l10n('List'), 'url' => $my_base_url.'cat_list');
+      $sheets['move'] = array('caption' => '<span class="icon-move"></span>'.l10n('Move'), 'url' => $my_base_url.'cat_move');
       $sheets['permalinks'] = array('caption' => '<span class="icon-link"></span>'.l10n('Permalinks'), 'url' => $my_base_url.'permalinks');
       break;
       
@@ -83,15 +83,15 @@ function add_core_tabs($sheets, $tab_id)
       
     case 'history':
       global $link_start;
-      $sheets['stats'] = array('caption' => l10n('Statistics'), 'url' => $link_start.'stats');
-      $sheets['history'] = array('caption' => l10n('Search'), 'url' => $link_start.'history');
+      $sheets['stats'] = array('caption' => '<span class="icon-signal"></span>'.l10n('Statistics'), 'url' => $link_start.'stats');
+      $sheets['history'] = array('caption' => '<span class="icon-search"></span>'.l10n('Search'), 'url' => $link_start.'history');
       break;
       
     case 'languages':
       global $my_base_url;
-      $sheets['installed'] = array('caption' => l10n('Installed Languages'), 'url' => $my_base_url.'&amp;tab=installed');
-      $sheets['update'] = array('caption' => l10n('Check for updates'), 'url' => $my_base_url.'&amp;tab=update');
-      $sheets['new'] = array('caption' => l10n('Add New Language'), 'url' => $my_base_url.'&amp;tab=new');
+      $sheets['installed'] = array('caption' => '<span class="icon-language"></span>'.l10n('Installed Languages'), 'url' => $my_base_url.'&amp;tab=installed');
+      $sheets['update'] = array('caption' => '<span class="icon-arrows-cw"></span>'.l10n('Check for updates'), 'url' => $my_base_url.'&amp;tab=update');
+      $sheets['new'] = array('caption' => '<span class="icon-plus-circled"></span>'.l10n('Add New Language'), 'url' => $my_base_url.'&amp;tab=new');
       break;
       
     case 'nbm':
@@ -109,17 +109,17 @@ function add_core_tabs($sheets, $tab_id)
       
     case 'photos_add':
       global $conf;
-      $sheets['direct'] = array('caption' => l10n('Web Form'), 'url' => PHOTOS_ADD_BASE_URL.'&amp;section=direct');
-      $sheets['applications'] = array('caption' => l10n('Applications'), 'url' => PHOTOS_ADD_BASE_URL.'&amp;section=applications');
+      $sheets['direct'] = array('caption' => '<span class="icon-upload"></span>'.l10n('Web Form'), 'url' => PHOTOS_ADD_BASE_URL.'&amp;section=direct');
+      $sheets['applications'] = array('caption' => '<span class="icon-network"></span>'.l10n('Applications'), 'url' => PHOTOS_ADD_BASE_URL.'&amp;section=applications');
       if ($conf['enable_synchronization'])
-        $sheets['ftp'] = array('caption' => l10n('FTP + Synchronization'), 'url' => PHOTOS_ADD_BASE_URL.'&amp;section=ftp');
+        $sheets['ftp'] = array('caption' => '<span class="icon-exchange"></span>'.l10n('FTP + Synchronization'), 'url' => PHOTOS_ADD_BASE_URL.'&amp;section=ftp');
       break;
       
     case 'plugins':
       global $my_base_url;
-      $sheets['installed'] = array('caption' => l10n('Plugin list'), 'url' => $my_base_url.'&amp;tab=installed');
-      $sheets['update'] = array('caption' => l10n('Check for updates'), 'url' => $my_base_url.'&amp;tab=update');
-      $sheets['new'] = array('caption' => l10n('Other plugins'), 'url' => $my_base_url.'&amp;tab=new');
+      $sheets['installed'] = array('caption' => '<span class="icon-equalizer"></span>'.l10n('Plugin list'), 'url' => $my_base_url.'&amp;tab=installed');
+      $sheets['update'] = array('caption' => '<span class="icon-arrows-cw"></span>'.l10n('Check for updates'), 'url' => $my_base_url.'&amp;tab=update');
+      $sheets['new'] = array('caption' => '<span class="icon-plus-circled"></span>'.l10n('Other plugins'), 'url' => $my_base_url.'&amp;tab=new');
       break;
       
     case 'rating':
@@ -129,9 +129,9 @@ function add_core_tabs($sheets, $tab_id)
       
     case 'themes':
       global $my_base_url;
-      $sheets['installed'] = array('caption' => l10n('Installed Themes'), 'url' => $my_base_url.'&amp;tab=installed');
-      $sheets['update'] = array('caption' => l10n('Check for updates'), 'url' => $my_base_url.'&amp;tab=update');
-      $sheets['new'] = array('caption' => l10n('Add New Theme'), 'url' => $my_base_url.'&amp;tab=new');
+      $sheets['installed'] = array('caption' => '<span class="icon-brush"></span>'.l10n('Installed Themes'), 'url' => $my_base_url.'&amp;tab=installed');
+      $sheets['update'] = array('caption' => '<span class="icon-arrows-cw"></span>'.l10n('Check for updates'), 'url' => $my_base_url.'&amp;tab=update');
+      $sheets['new'] = array('caption' => '<span class="icon-plus-circled"></span>'.l10n('Add New Theme'), 'url' => $my_base_url.'&amp;tab=new');
       break;
       
     case 'updates':

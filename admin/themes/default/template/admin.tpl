@@ -31,8 +31,8 @@ jQuery(document).ready(function(){ldelim}
 		<dt class="rdion"><span class="icon-sitemap"> </span><span>{'Albums'|@translate}&nbsp;</span></dt>
     <dd>
       <ul>
-        <li><a href="{$U_CATEGORIES}">{'Manage'|@translate}</a></li>
-        <li><a href="{$U_CAT_OPTIONS}">{'Properties'|@translate}</a></li>
+        <li><a class="icon-folder-open" href="{$U_CATEGORIES}">{'Manage'|@translate}</a></li>
+        <li><a class="icon-pencil" href="{$U_CAT_OPTIONS}">{'Properties'|@translate}</a></li>
       </ul>
     </dd>
 	</dl>
@@ -40,9 +40,9 @@ jQuery(document).ready(function(){ldelim}
 		<dt class="rdion"><span class="icon-users"> </span><span>{'Users'|@translate}&nbsp;</span></dt>
 		<dd>
       <ul>
-        <li><a href="{$U_USERS}">{'Manage'|@translate}</a></li>
-        <li><a href="{$U_GROUPS}">{'Groups'|@translate}</a></li>
-				<li><a class="icon-mail-alt" href="{$U_NOTIFICATION_BY_MAIL}">{'Notification'|@translate}</a></li>
+        <li><a class="icon-user-add" href="{$U_USERS}">{'Manage'|@translate}</a></li>
+        <li><a class="icon-group" href="{$U_GROUPS}">{'Groups'|@translate}</a></li>
+				<li><a class="icon-mail-1" href="{$U_NOTIFICATION_BY_MAIL}">{'Notification'|@translate}</a></li>
       </ul>
 		</dd>
 	</dl>
@@ -50,7 +50,7 @@ jQuery(document).ready(function(){ldelim}
 		<dt class="rdion"><span class="icon-puzzle"> </span><span>{'Plugins'|@translate}&nbsp;</span></dt>
 		<dd>
       <ul>
-        <li><a href="{$U_PLUGINS}">{'Manage'|@translate}</a></li>
+        <li><a class="icon-equalizer" href="{$U_PLUGINS}">{'Manage'|@translate}</a></li>
       </ul>
       <div id="pluginsMenuSeparator"></div>
 {if !empty($plugin_menu_items)}
