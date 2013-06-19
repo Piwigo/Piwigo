@@ -1020,6 +1020,8 @@ SELECT param, value
     }
     $conf[ $row['param'] ] = $val;
   }
+  
+  trigger_action('load_conf', $condition);
 }
 
 function conf_update_param($param, $value)

@@ -245,6 +245,13 @@ array(
   'files' => array('admin\include\functions.inc.php (invalidate_user_cache)'),
 ),
 array(
+  'name' => 'load_conf',
+  'type' => 'trigger_action',
+  'vars' => array('string', 'condition'),
+  'files' => array('include\functions.inc.php (load_conf_from_db)'),
+  'infos' => 'New in 2.6. <b>Warning:</b> you can\'t trigger the first call done une common.inc.php. Use <i>init</i> instead.',
+),
+array(
   'name' => 'list_check_integrity',
   'type' => 'trigger_action',
   'vars' => array('object', 'this'),
