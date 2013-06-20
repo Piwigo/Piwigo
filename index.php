@@ -68,8 +68,8 @@ if (isset($_GET['display']))
     pwg_set_session_var('index_deriv', $_GET['display']);
   }
 }
-//-------------------------------------------------------------- initialization
 
+//-------------------------------------------------------------- initialization
 // navigation bar
 $page['navigation_bar'] = array();
 if (count($page['items']) > $page['nb_image_page'])
@@ -107,15 +107,8 @@ else
 }
 $template->assign('U_CANONICAL', $canonical_url);
 
-//----------------------------------------------------- template initialization
-//
-// Start output of page
-//
+//-------------------------------------------------------------- page title
 $title = $page['title'];
-$page['body_id'] = 'theCategoryPage';
-
-$template->set_filenames( array('index'=>'index.tpl') );
-//-------------------------------------------------------------- category title
 $template_title = $page['section_title'];
 if (count($page['items']) > 0)
 {
@@ -123,219 +116,240 @@ if (count($page['items']) > 0)
 }
 $template->assign('TITLE', $template_title);
 
-if (isset($page['flat']) or isset($page['chronology_field']))
-{
-  $template->assign(
-    'U_MODE_NORMAL',
-    duplicate_index_url( array(), array('chronology_field', 'start', 'flat') )
-    );
-}
+//-------------------------------------------------------------- menubar
+include( PHPWG_ROOT_PATH.'include/menubar.inc.php');
 
-if ($conf['index_flat_icon'] and !isset($page['flat']) and 'categories' == $page['section'])
-{
-  $template->assign(
-    'U_MODE_FLAT',
-    duplicate_index_url(array('flat' => ''), array('start', 'chronology_field'))
-    );
-}
 
-if (!isset($page['chronology_field']))
+// +-----------------------------------------------------------------------+
+// |  index page (categories, thumbnails, search, calendar, random, etc.)  |
+// +-----------------------------------------------------------------------+
+if ( empty($page['is_external']) or !$page['is_external'] )
 {
-  $chronology_params =
-      array(
-          'chronology_field' => 'created',
-          'chronology_style' => 'monthly',
-          'chronology_view' => 'list',
-      );
-  if ($conf['index_created_date_icon'])
+  //----------------------------------------------------- template initialization
+  $page['body_id'] = 'theCategoryPage';
+
+  $template->set_filename('index', 'index.tpl');
+  
+  if (isset($page['flat']) or isset($page['chronology_field']))
   {
     $template->assign(
-      'U_MODE_CREATED',
-      duplicate_index_url( $chronology_params, array('start', 'flat') )
+      'U_MODE_NORMAL',
+      duplicate_index_url( array(), array('chronology_field', 'start', 'flat') )
       );
   }
-  if ($conf['index_posted_date_icon'])
+
+  if ($conf['index_flat_icon'] and !isset($page['flat']) and 'categories' == $page['section'])
   {
-    $chronology_params['chronology_field'] = 'posted';
     $template->assign(
-      'U_MODE_POSTED',
-      duplicate_index_url( $chronology_params, array('start', 'flat') )
+      'U_MODE_FLAT',
+      duplicate_index_url(array('flat' => ''), array('start', 'chronology_field'))
       );
   }
-}
-else
-{
-  if ($page['chronology_field'] == 'created')
+
+  if (!isset($page['chronology_field']))
   {
-    $chronology_field = 'posted';
+    $chronology_params = array(
+      'chronology_field' => 'created',
+      'chronology_style' => 'monthly',
+      'chronology_view' => 'list',
+      );
+    if ($conf['index_created_date_icon'])
+    {
+      $template->assign(
+        'U_MODE_CREATED',
+        duplicate_index_url( $chronology_params, array('start', 'flat') )
+        );
+    }
+    if ($conf['index_posted_date_icon'])
+    {
+      $chronology_params['chronology_field'] = 'posted';
+      $template->assign(
+        'U_MODE_POSTED',
+        duplicate_index_url( $chronology_params, array('start', 'flat') )
+        );
+    }
   }
   else
   {
-    $chronology_field = 'created';
+    if ($page['chronology_field'] == 'created')
+    {
+      $chronology_field = 'posted';
+    }
+    else
+    {
+      $chronology_field = 'created';
+    }
+    if ($conf['index_'.$chronology_field.'_date_icon'])
+    {
+      $url = duplicate_index_url(
+                array('chronology_field'=>$chronology_field ),
+                array('chronology_date', 'start', 'flat')
+              );
+      $template->assign(
+          'U_MODE_'.strtoupper($chronology_field),
+          $url
+        );
+    }
   }
-  if ($conf['index_'.$chronology_field.'_date_icon'])
+
+  if ('search' == $page['section'])
   {
-    $url = duplicate_index_url(
-              array('chronology_field'=>$chronology_field ),
-              array('chronology_date', 'start', 'flat')
-            );
     $template->assign(
-        'U_MODE_'.strtoupper($chronology_field),
-        $url
+      'U_SEARCH_RULES',
+      get_root_url().'search_rules.php?search_id='.$page['search']
       );
   }
-}
 
-if ('search' == $page['section'])
-{
-  $template->assign(
-    'U_SEARCH_RULES',
-    get_root_url().'search_rules.php?search_id='.$page['search']
-    );
-}
-
-if (isset($page['category']) and is_admin())
-{
-  $template->assign(
-    'U_EDIT',
-    get_root_url().'admin.php?page=album-'.$page['category']['id']
-    );
-}
-
-if (is_admin() and !empty($page['items']))
-{
-  $template->assign(
-    'U_CADDIE',
-     add_url_params(duplicate_index_url(), array('caddie'=>1) )
-    );
-}
-
-if ( $page['section']=='search' and $page['start']==0 and
-    !isset($page['chronology_field']) and isset($page['qsearch_details']) )
-{
-  $template->assign('QUERY_SEARCH',
-    htmlspecialchars($page['qsearch_details']['q']) );
-
-  $cats = array_merge(
-      (array)@$page['qsearch_details']['matching_cats_no_images'],
-      (array)@$page['qsearch_details']['matching_cats'] );
-  if (count($cats))
+  if (isset($page['category']) and is_admin())
   {
-    usort($cats, 'name_compare');
-    $hints = array();
-    foreach ( $cats as $cat )
+    $template->assign(
+      'U_EDIT',
+      get_root_url().'admin.php?page=album-'.$page['category']['id']
+      );
+  }
+
+  if (is_admin() and !empty($page['items']))
+  {
+    $template->assign(
+      'U_CADDIE',
+       add_url_params(duplicate_index_url(), array('caddie'=>1) )
+      );
+  }
+
+  if ( $page['section']=='search' and $page['start']==0 and
+      !isset($page['chronology_field']) and isset($page['qsearch_details']) )
+  {
+    $template->assign('QUERY_SEARCH',
+      htmlspecialchars($page['qsearch_details']['q']) );
+
+    $cats = array_merge(
+        (array)@$page['qsearch_details']['matching_cats_no_images'],
+        (array)@$page['qsearch_details']['matching_cats'] );
+    if (count($cats))
     {
-      $hints[] = get_cat_display_name( array($cat), '', false );
+      usort($cats, 'name_compare');
+      $hints = array();
+      foreach ( $cats as $cat )
+      {
+        $hints[] = get_cat_display_name( array($cat), '', false );
+      }
+      $template->assign( 'category_search_results', $hints);
     }
-    $template->assign( 'category_search_results', $hints);
+
+    $tags = (array)@$page['qsearch_details']['matching_tags'];
+    foreach ( $tags as $tag )
+    {
+      $tag['URL'] = make_index_url(array('tags'=>array($tag)));
+      $template->append( 'tag_search_results', $tag);
+    }
   }
 
-  $tags = (array)@$page['qsearch_details']['matching_tags'];
-  foreach ( $tags as $tag )
+
+  if ( $conf['index_sort_order_input']
+      and count($page['items']) > 0
+      and $page['section'] != 'most_visited'
+      and $page['section'] != 'best_rated')
   {
-    $tag['URL'] = make_index_url(array('tags'=>array($tag)));
-    $template->append( 'tag_search_results', $tag);
+    // image order
+    $order_idx = pwg_get_session_var( 'image_order', 0 );
+
+    $url = add_url_params(
+            duplicate_index_url(),
+            array('image_order' => '')
+          );
+    foreach (get_category_preferred_image_orders() as $order_id => $order)
+    {
+      if ($order[2])
+      {
+        $template->append(
+          'image_orders',
+          array(
+            'DISPLAY' => $order[0],
+            'URL' => $url.$order_id,
+            'SELECTED' => ($order_idx == $order_id ? true:false),
+            )
+          );
+      }
+    }
   }
-}
 
-
-if ( $conf['index_sort_order_input']
-    and count($page['items']) > 0
-    and $page['section'] != 'most_visited'
-    and $page['section'] != 'best_rated')
-{
-  // image order
-  $order_idx = pwg_get_session_var( 'image_order', 0 );
-
-  $url = add_url_params(
-          duplicate_index_url(),
-          array('image_order' => '')
-        );
-  foreach (get_category_preferred_image_orders() as $order_id => $order)
+  // category comment
+  if ($page['start']==0 and !isset($page['chronology_field']) and !empty($page['comment']) )
   {
-    if ($order[2])
+    $template->assign('CONTENT_DESCRIPTION', $page['comment'] );
+  }
+
+  if ( isset($page['category']['count_categories']) and $page['category']['count_categories']==0 )
+  {// count_categories might be computed by menubar - if the case unassign flat link if no sub albums
+    $template->clear_assign('U_MODE_FLAT');
+  }
+
+  //------------------------------------------------------ main part : thumbnails
+  if ( 0==$page['start']
+    and !isset($page['flat'])
+    and !isset($page['chronology_field'])
+    and ('recent_cats'==$page['section'] or 'categories'==$page['section'])
+    and (!isset($page['category']['count_categories']) or $page['category']['count_categories']>0 )
+  )
+  {
+    include(PHPWG_ROOT_PATH.'include/category_cats.inc.php');
+  }
+
+  if ( !empty($page['items']) )
+  {
+    include(PHPWG_ROOT_PATH.'include/category_default.inc.php');
+    $url = add_url_params(
+            duplicate_index_url(),
+            array('display' => '')
+          );
+    
+    $selected_type = $template->get_template_vars('derivative_params')->type;
+    $template->clear_assign( 'derivative_params' );
+    $type_map = ImageStdParams::get_defined_type_map();
+    unset($type_map[IMG_XXLARGE], $type_map[IMG_XLARGE]);
+    
+    foreach($type_map as $params)
     {
       $template->append(
-        'image_orders',
+        'image_derivatives',
         array(
-          'DISPLAY' => $order[0],
-          'URL' => $url.$order_id,
-          'SELECTED' => ($order_idx == $order_id ? true:false),
+          'DISPLAY' => l10n($params->type),
+          'URL' => $url.$params->type,
+          'SELECTED' => ($params->type == $selected_type ? true:false),
           )
         );
     }
   }
-}
 
-// category comment
-if ($page['start']==0 and !isset($page['chronology_field']) and !empty($page['comment']) )
-{
-  $template->assign('CONTENT_DESCRIPTION', $page['comment'] );
-}
-
-// include menubar
-include( PHPWG_ROOT_PATH.'include/menubar.inc.php');
-
-if ( isset($page['category']['count_categories']) and $page['category']['count_categories']==0 )
-{// count_categories might be computed by menubar - if the case unassign flat link if no sub albums
-	$template->clear_assign('U_MODE_FLAT');
-}
-
-//------------------------------------------------------ main part : thumbnails
-if ( 0==$page['start']
-  and !isset($page['flat'])
-  and !isset($page['chronology_field'])
-  and ('recent_cats'==$page['section'] or 'categories'==$page['section'])
-  and (!isset($page['category']['count_categories']) or $page['category']['count_categories']>0 )
-)
-{
-  include(PHPWG_ROOT_PATH.'include/category_cats.inc.php');
-}
-
-if ( !empty($page['items']) )
-{
-  include(PHPWG_ROOT_PATH.'include/category_default.inc.php');
-  $url = add_url_params(
-          duplicate_index_url(),
-          array('display' => '')
-        );
-  $selected_type = $template->get_template_vars('derivative_params')->type;
-  $template->clear_assign( 'derivative_params' );
-  $type_map = ImageStdParams::get_defined_type_map();
-  unset($type_map[IMG_XXLARGE], $type_map[IMG_XLARGE]);
-  foreach($type_map as $params)
+  // slideshow
+  // execute after init thumbs in order to have all picture informations
+  if (!empty($page['cat_slideshow_url']))
   {
-    $template->append(
-      'image_derivatives',
-      array(
-        'DISPLAY' => l10n($params->type),
-        'URL' => $url.$params->type,
-        'SELECTED' => ($params->type == $selected_type ? true:false),
-        )
-      );
+    if (isset($_GET['slideshow']))
+    {
+      redirect($page['cat_slideshow_url']);
+    }
+    elseif ($conf['index_slideshow_icon'])
+    {
+      $template->assign('U_SLIDESHOW', $page['cat_slideshow_url']);
+    }
   }
 }
-//------------------------------------------------------- category informations
-
-// slideshow
-// execute after init thumbs in order to have all picture informations
-if (!empty($page['cat_slideshow_url']))
+// +-----------------------------------------------------------------------+
+// |  other pages (added by plugins)                                       |
+// +-----------------------------------------------------------------------+
+else
 {
-  if (isset($_GET['slideshow']))
-  {
-    redirect($page['cat_slideshow_url']);
-  }
-  elseif ($conf['index_slideshow_icon'])
-  {
-    $template->assign('U_SLIDESHOW', $page['cat_slideshow_url']);
-  }
+  $template->set_filename('index', 'common_page.tpl');
 }
 
+//------------------------------------------------------------ end
 include(PHPWG_ROOT_PATH.'include/page_header.php');
 trigger_action('loc_end_index');
 flush_page_messages();
 $template->parse_index_buttons();
 $template->pparse('index');
+
 //------------------------------------------------------------ log informations
 pwg_log();
 include(PHPWG_ROOT_PATH.'include/page_tail.php');
