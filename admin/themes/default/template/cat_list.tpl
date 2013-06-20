@@ -127,16 +127,16 @@ jQuery(document).ready(function(){
       </p>
 
       <p class="albumActions">
-        <a href="{$category.U_EDIT}">{'Edit'|@translate}</a>
+        <a href="{$category.U_EDIT}"><span class="icon-pencil"></span>{'Edit'|@translate}</a>
         {if isset($category.U_MANAGE_ELEMENTS) }
-        | <a href="{$category.U_MANAGE_ELEMENTS}">{'manage album photos'|@translate}</a>
+        | <a href="{$category.U_MANAGE_ELEMENTS}"><span class="icon-picture"></span>{'manage album photos'|@translate}</a>
         {/if}
-        | <a href="{$category.U_CHILDREN}">{'manage sub-albums'|@translate}</a>
+        | <a href="{$category.U_CHILDREN}"><span class="icon-sitemap"></span>{'manage sub-albums'|@translate}</a>
         {if isset($category.U_SYNC) }
-        | <a href="{$category.U_SYNC}">{'Synchronize'|@translate}</a>
+        | <a href="{$category.U_SYNC}"><span class="icon-exchange"></span>{'Synchronize'|@translate}</a>
         {/if}
         {if isset($category.U_DELETE) }
-        | <a href="{$category.U_DELETE}" onclick="return confirm('{'Are you sure?'|@translate|@escape:javascript}');">{'delete album'|@translate}</a>
+        | <a href="{$category.U_DELETE}" onclick="return confirm('{'Are you sure?'|@translate|@escape:javascript}');"><span class="icon-trash"></span>{'delete album'|@translate}</a>
       {/if}
       {if cat_admin_access($category.ID)}
         | <a href="{$category.U_JUMPTO}">{'jump to album'|@translate} →</a>
