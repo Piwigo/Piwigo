@@ -105,22 +105,22 @@ jQuery(document).ready(function(){
         <label>{'Default photos order'|@translate}</label>
         
         {foreach from=$main.order_by item=order}
-        <span class="filter {if $ORDER_BY_IS_CUSTOM}transparent{/if}">          
-          <select name="order_by[]" {if $ORDER_BY_IS_CUSTOM}disabled{/if}>
+        <span class="filter {if isset($ORDER_BY_IS_CUSTOM)}transparent{/if}">          
+          <select name="order_by[]" {if isset($ORDER_BY_IS_CUSTOM)}disabled{/if}>
             {html_options options=$main.order_by_options selected=$order}
           </select>
           <a class="removeFilter">{'delete'|@translate}</a>
         </span>
         {/foreach}
         
-        {if !$ORDER_BY_IS_CUSTOM}
+        {if !isset($ORDER_BY_IS_CUSTOM)}
           <a class="addFilter">{'Add a criteria'|@translate}</a>
         {else}
           <span class="order_by_is_custom">{'You can\'t define a default photo order because you have a custom setting in your local configuration.'|@translate}</span>
         {/if}
     </li>
     
-{if !$ORDER_BY_IS_CUSTOM}
+{if !isset($ORDER_BY_IS_CUSTOM)}
 {footer_script require='jquery'}
 // counters for displaying of addFilter link
 fields = {$main.order_by|@count}; max_fields = Math.ceil({$main.order_by_options|@count}/2);
@@ -383,7 +383,7 @@ jQuery(document).ready(function(){
   <legend>{'Multiple Size'|@translate}</legend>
 
 <div class="showDetails">
-  <a href="#" id="showDetails"{if $show_details or isset($ferrors)} style="display:none"{/if}>{'show details'|@translate}</a>
+  <a href="#" id="showDetails"{if isset($ferrors)} style="display:none"{/if}>{'show details'|@translate}</a>
 </div>
 
 <table style="margin:0">

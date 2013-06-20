@@ -1,14 +1,10 @@
-{* Smarty *}
-{* debug.tpl, last updated version 2.1.0 *}
-{assign_debug_info}
-{capture assign=debug_output}
+{capture name='_smarty_debug' assign=debug_output}
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
     <title>Smarty Debug Console</title>
-{literal}
 <style type="text/css">
-/* <![CDATA[ */
+{literal}
 body, h1, h2, td, th, p {
     font-family: sans-serif;
     font-weight: normal;
@@ -85,73 +81,53 @@ td {
 #table_config_vars th {
     color: maroon;
 }
-/* ]]> */
-</style>
 {/literal}
+</style>
 </head>
 <body>
 
-<h1>Smarty Debug Console</h1>
+<h1>Smarty Debug Console  -  {if isset($template_name)}{$template_name|debug_print_var nofilter}{else}Total Time {$execution_time|string_format:"%.5f"}{/if}</h1>
 
+{if !empty($template_data)}
 <h2>included templates &amp; config files (load time in seconds)</h2>
 
 <div>
-{section name=templates loop=$_debug_tpls}
-    {section name=indent loop=$_debug_tpls[templates].depth}&nbsp;&nbsp;&nbsp;{/section}
-    <font color={if $_debug_tpls[templates].type eq "template"}brown{elseif $_debug_tpls[templates].type eq "insert"}black{else}green{/if}>
-        {$_debug_tpls[templates].filename|escape:html}</font>
-    {if isset($_debug_tpls[templates].exec_time)}
-        <span class="exectime">
-        ({$_debug_tpls[templates].exec_time|string_format:"%.5f"})
-        {if %templates.index% eq 0}(total){/if}
-        </span>
-    {/if}
-    <br />
-{sectionelse}
-    <p>no templates included</p>
-{/section}
+{foreach $template_data as $template}
+  <font color=brown>{$template.name}</font>
+  <span class="exectime">
+   (compile {$template['compile_time']|string_format:"%.5f"}) (render {$template['render_time']|string_format:"%.5f"}) (cache {$template['cache_time']|string_format:"%.5f"})
+  </span>
+  <br>
+{/foreach}
 </div>
+{/if}
 
 <h2>assigned template variables</h2>
 
 <table id="table_assigned_vars">
-    {section name=vars loop=$_debug_keys}
-        <tr class="{cycle values="odd,even"}">
-            <th>{ldelim}${$_debug_keys[vars]|escape:'html'}{rdelim}</th>
-            <td>{$_debug_vals[vars]|@debug_print_var}</td></tr>
-    {sectionelse}
-        <tr><td><p>no template variables assigned</p></td></tr>
-    {/section}
+    {foreach $assigned_vars as $vars}
+       <tr class="{if $vars@iteration % 2 eq 0}odd{else}even{/if}">   
+       <th>${$vars@key|escape:'html'}</th>
+       <td>{$vars|debug_print_var nofilter}</td></tr>
+    {/foreach}
 </table>
 
 <h2>assigned config file variables (outer template scope)</h2>
 
 <table id="table_config_vars">
-    {section name=config_vars loop=$_debug_config_keys}
-        <tr class="{cycle values="odd,even"}">
-            <th>{ldelim}#{$_debug_config_keys[config_vars]|escape:'html'}#{rdelim}</th>
-            <td>{$_debug_config_vals[config_vars]|@debug_print_var}</td></tr>
-    {sectionelse}
-        <tr><td><p>no config vars assigned</p></td></tr>
-    {/section}
+    {foreach $config_vars as $vars}
+       <tr class="{if $vars@iteration % 2 eq 0}odd{else}even{/if}">   
+       <th>{$vars@key|escape:'html'}</th>
+       <td>{$vars|debug_print_var nofilter}</td></tr>
+    {/foreach}
+
 </table>
 </body>
 </html>
 {/capture}
-{if isset($_smarty_debug_output) and $_smarty_debug_output eq "html"}
-    {$debug_output}
-{else}
 <script type="text/javascript">
-// <![CDATA[
-    if ( self.name == '' ) {ldelim}
-       var title = 'Console';
-    {rdelim}
-    else {ldelim}
-       var title = 'Console_' + self.name;
-    {rdelim}
-    _smarty_console = window.open("",title.value,"width=680,height=600,resizable,scrollbars=yes");
-    _smarty_console.document.write('{$debug_output|escape:'javascript'}');
+{$id = $template_name|default:''|md5}
+    _smarty_console = window.open("","console{$id}","width=680,height=600,resizable,scrollbars=yes");
+    _smarty_console.document.write("{$debug_output|escape:'javascript' nofilter}");
     _smarty_console.document.close();
-// ]]>
 </script>
-{/if}

@@ -14,7 +14,7 @@
   <ul>
   {else}
     </li>
-    {'</ul></li>'|@str_repeat:$ref_level-$cat.LEVEL}
+    {'</ul></li>'|@str_repeat:($ref_level-$cat.LEVEL)}
   {/if}
     <li {if $cat.SELECTED}class="selected"{/if}>
       <a href="{$cat.URL}" {if $cat.IS_UPPERCAT}rel="up"{/if} title="{$cat.TITLE}">{$cat.NAME}</a>

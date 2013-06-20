@@ -56,7 +56,7 @@ class Template {
     global $conf, $lang_info;
 
     $this->scriptLoader = new ScriptLoader;
-    $this->smarty = new Smarty;
+    $this->smarty = new SmartyBC;
     $this->smarty->debugging = $conf['debug_template'];
     $this->smarty->compile_check = $conf['template_compile_check'];
     $this->smarty->force_compile = $conf['template_force_compile'];
@@ -85,9 +85,9 @@ class Template {
     $compile_dir = PHPWG_ROOT_PATH.$conf['data_location'].'templates_c';
     mkgetdir( $compile_dir );
 
-    $this->smarty->compile_dir = $compile_dir;
+    $this->smarty->setCompileDir($compile_dir);
 
-    $this->smarty->assign_by_ref( 'pwg', new PwgTemplateAdapter() );
+    $this->smarty->assign( 'pwg', new PwgTemplateAdapter() );
     $this->smarty->register_modifier( 'translate', array('Template', 'mod_translate') );
     $this->smarty->register_modifier( 'explode', array('Template', 'mod_explode') );
     $this->smarty->register_modifier( 'get_extent', array(&$this, 'get_extent') );
@@ -105,7 +105,7 @@ class Template {
       $this->smarty->register_prefilter( array('Template', 'prefilter_language') );
     }
 
-    $this->smarty->template_dir = array();
+    $this->smarty->setTemplateDir(array());
     if ( !empty($theme) )
     {
       $this->set_theme($root, $theme, $path);
@@ -165,7 +165,7 @@ class Template {
    */
   function set_template_dir($dir)
   {
-    $this->smarty->template_dir[] = $dir;
+    $this->smarty->addTemplateDir($dir);
 
     if (!isset($this->smarty->compile_id))
     {
@@ -180,7 +180,7 @@ class Template {
    */
   function get_template_dir()
   {
-    return $this->smarty->template_dir;
+    return $this->smarty->getTemplateDir();
   }
 
   /**
@@ -190,14 +190,14 @@ class Template {
   {
       $save_compile_id = $this->smarty->compile_id;
       $this->smarty->compile_id = null;
-      $this->smarty->clear_compiled_tpl();
+      $this->smarty->clearCompiledTemplate();
       $this->smarty->compile_id = $save_compile_id;
-      file_put_contents($this->smarty->compile_dir.'/index.htm', 'Not allowed!');
+      file_put_contents($this->smarty->getCompileDir().'/index.htm', 'Not allowed!');
   }
 
   function get_themeconf($val)
   {
-    $tc = $this->smarty->get_template_vars('themeconf');
+    $tc = $this->smarty->getTemplateVars('themeconf');
     return isset($tc[$val]) ? $tc[$val] : '';
   }
 
@@ -340,9 +340,9 @@ class Template {
   }
 
   /** see smarty get_template_vars http://www.smarty.net/manual/en/api.get_template_vars.php */
-  function &get_template_vars($name=null)
+  function get_template_vars($name=null)
   {
-    return $this->smarty->get_template_vars( $name );
+    return $this->smarty->getTemplateVars( $name );
   }
 
 
@@ -369,7 +369,7 @@ class Template {
       $this->smarty->compile_id .= '.'.$lang_info['code'];
     }
 
-    $v = $this->smarty->fetch($this->files[$handle], null, null, false);
+    $v = $this->smarty->fetch($this->files[$handle]);
 
     $this->smarty->compile_id = $save_compile_id;
     $this->unload_external_filters($handle);
@@ -485,8 +485,7 @@ class Template {
         'AAAA_DEBUG_TOTAL_TIME__' => get_elapsed_time($t2, get_moment())
         )
         );
-      require_once(SMARTY_CORE_DIR . 'core.display_debug_console.php');
-      echo smarty_core_display_debug_console(null, $this->smarty);
+      Smarty_Internal_Debug::display_debug($this->smarty);
     }
   }
 
@@ -589,7 +588,7 @@ class Template {
   {
     if (!isset($params['id']))
     {
-      $this->smarty->trigger_error("combine_script: missing 'id' parameter", E_USER_ERROR);
+      trigger_error("combine_script: missing 'id' parameter", E_USER_ERROR);
     }
     $load = 0;
     if (isset($params['load']))
@@ -599,7 +598,7 @@ class Template {
         case 'header': break;
         case 'footer': $load=1; break;
         case 'async': $load=2; break;
-        default: $this->smarty->trigger_error("combine_script: invalid 'load' parameter", E_USER_ERROR);
+        default: trigger_error("combine_script: invalid 'load' parameter", E_USER_ERROR);
       }
     }
 
@@ -614,7 +613,7 @@ class Template {
   {
     if (!isset($params['load']))
     {
-      $this->smarty->trigger_error("get_combined_scripts: missing 'load' parameter", E_USER_ERROR);
+      trigger_error("get_combined_scripts: missing 'load' parameter", E_USER_ERROR);
     }
     $load = $params['load']=='header' ? 0 : 1;
     $content = array();
@@ -711,7 +710,7 @@ var s,after = document.getElementsByTagName(\'script\')[document.getElementsByTa
 
   function func_get_combined_css($params)
   {
-    return 'echo '.var_export(self::COMBINED_CSS_TAG,true);
+    return self::COMBINED_CSS_TAG;
   }
 
 
@@ -777,7 +776,7 @@ var s,after = document.getElementsByTagName(\'script\')[document.getElementsByTa
     }
   }
 
-  static function prefilter_white_space($source, &$smarty)
+  static function prefilter_white_space($source, $smarty)
   {
     $ld = $smarty->left_delimiter;
     $rd = $smarty->right_delimiter;
@@ -804,7 +803,7 @@ var s,after = document.getElementsByTagName(\'script\')[document.getElementsByTa
    * Smarty prefilter to allow caching (whenever possible) language strings
    * from templates.
    */
-  static function prefilter_language($source, &$smarty)
+  static function prefilter_language($source, $smarty)
   {
     global $lang;
     $ldq = preg_quote($smarty->left_delimiter, '~');
@@ -822,10 +821,10 @@ var s,after = document.getElementsByTagName(\'script\')[document.getElementsByTa
     return $source;
   }
 
-  static function prefilter_local_css($source, &$smarty)
+  static function prefilter_local_css($source, $smarty)
   {
     $css = array();
-    foreach ($smarty->get_template_vars('themes') as $theme)
+    foreach ($smarty->getTemplateVars('themes') as $theme)
     {
       $f = PWG_LOCAL_DIR.'css/'.$theme['id'].'-rules.css';
       if (file_exists(PHPWG_ROOT_PATH.$f))

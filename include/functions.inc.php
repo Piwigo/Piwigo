@@ -32,7 +32,8 @@ include_once( PHPWG_ROOT_PATH .'include/functions_url.inc.php' );
 include_once( PHPWG_ROOT_PATH .'include/derivative_params.inc.php');
 include_once( PHPWG_ROOT_PATH .'include/derivative_std_params.inc.php');
 include_once( PHPWG_ROOT_PATH .'include/derivative.inc.php');
-require_once( PHPWG_ROOT_PATH .'include/smarty/libs/Smarty.class.php');
+//require_once( PHPWG_ROOT_PATH .'include/smarty/libs/Smarty.class.php');
+require_once( PHPWG_ROOT_PATH .'include/smarty/libs/SmartyBC.class.php');
 include_once( PHPWG_ROOT_PATH .'include/template.class.php');
 
 //----------------------------------------------------------- generic functions
