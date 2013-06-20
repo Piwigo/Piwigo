@@ -93,7 +93,7 @@
 			<span class="pwg-icon pwg-icon-camera-calendar">&nbsp;</span><span class="pwg-button-text">{'Calendar'|@translate}</span>
 		</a>{/strip}</li>
 {/if}
-{if isset($PLUGIN_INDEX_BUTTONS)}{foreach from=$PLUGIN_INDEX_BUTTONS item=button}<li>{$button}</li>{/foreach}{/if}
+{if !empty($PLUGIN_INDEX_BUTTONS)}{foreach from=$PLUGIN_INDEX_BUTTONS item=button}<li>{$button}</li>{/foreach}{/if}
 {if !empty($PLUGIN_INDEX_ACTIONS)}{$PLUGIN_INDEX_ACTIONS}{/if}
 	</ul>
 
@@ -163,7 +163,10 @@ jQuery("#calendarViewSwitchBox").on("mouseleave", function() {
 </div>
 {/if}
 
+{if !empty($CONTENT)}{$CONTENT}{/if}
+
 {if !empty($CATEGORIES)}{$CATEGORIES}{/if}
+
 {if !empty($cats_navbar)}
 	{include file='navigation_bar.tpl'|@get_extent:'navbar' navbar=$cats_navbar}
 {/if}

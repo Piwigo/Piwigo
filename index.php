@@ -119,6 +119,7 @@ $template->assign('TITLE', $template_title);
 //-------------------------------------------------------------- menubar
 include( PHPWG_ROOT_PATH.'include/menubar.inc.php');
 
+$template->set_filename('index', 'index.tpl');
 
 // +-----------------------------------------------------------------------+
 // |  index page (categories, thumbnails, search, calendar, random, etc.)  |
@@ -127,8 +128,6 @@ if ( empty($page['is_external']) or !$page['is_external'] )
 {
   //----------------------------------------------------- template initialization
   $page['body_id'] = 'theCategoryPage';
-
-  $template->set_filename('index', 'index.tpl');
   
   if (isset($page['flat']) or isset($page['chronology_field']))
   {
@@ -334,13 +333,6 @@ if ( empty($page['is_external']) or !$page['is_external'] )
       $template->assign('U_SLIDESHOW', $page['cat_slideshow_url']);
     }
   }
-}
-// +-----------------------------------------------------------------------+
-// |  other pages (added by plugins)                                       |
-// +-----------------------------------------------------------------------+
-else
-{
-  $template->set_filename('index', 'common_page.tpl');
 }
 
 //------------------------------------------------------------ end
