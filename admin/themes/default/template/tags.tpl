@@ -104,7 +104,7 @@ jQuery(document).ready(function(){
   <fieldset>
     <legend>{'Tag selection'|@translate}</legend>
 {html_style}
-.showInfo{ldelim}position:static; display:inline-block; text-indent:6px}
+.showInfo{ldelim}text-indent:5px}
 {/html_style}
 {footer_script}{literal}
 jQuery('.showInfo').tipTip({
@@ -151,7 +151,7 @@ $("#searchInput").on( "keydown", function() {
 <ul class="tagSelection">
 {foreach from=$all_tags item=tag}
 	<li>{capture name='showInfo'}<b>{$tag.name}</b> ({$pwg->l10n_dec('%d photo', '%d photos', $tag.counter)}) <br> <a href="{$tag.U_VIEW}">{'View in gallery'|@translate}</a> | <a href="{$tag.U_EDIT}">{'Manage photos'|@translate}</a>{if !empty($tag.alt_names)}<br>{$tag.alt_names}{/if}{/capture}
-		<a class="showInfo" title="{$smarty.capture.showInfo|@htmlspecialchars}">i</a>
+		<a class="icon-info-circled-1 showInfo" title="{$smarty.capture.showInfo|@htmlspecialchars}"></a>
 		<label>
 			<input type="checkbox" name="tags[]" value="{$tag.id}"> {$tag.name}
 		</label>

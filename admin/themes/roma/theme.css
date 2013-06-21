@@ -24,6 +24,9 @@ option[disabled] { background-color: #999; color: #444; }
 input[type="radio"], input[type="checkbox"] { background-color: transparent; }
 
 
+.showInfo { color:#666; }
+.showInfo:hover { color:#999; }
+
 h2 { color: #ccc; }
 
 .header_notes {
@@ -164,7 +167,6 @@ background:transparent url(images/menubar-top.png) no-repeat scroll left 1px; }
 
 #menubar dd [class^="icon-"]:before {
     color: #666;
-    text-decoration:none;
 }
 
 /* jQuery tooltips */

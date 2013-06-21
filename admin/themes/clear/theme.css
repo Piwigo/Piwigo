@@ -42,6 +42,8 @@ INPUT:focus, SELECT:focus, TEXTAREA:focus {
 
 INPUT, SELECT, TEXTAREA { border: 1px solid #999; }
 
+.showInfo { color:#999; }
+.showInfo:hover { color:#333; }
 
 
 #copyright { color:#777; margin:5px auto 0px 240px; text-align:center;
@@ -283,8 +285,6 @@ INPUT[type="text"].large  { width: 317px; }
 .pluginBoxNameCell, .pluginMiniBoxNameCell {color:#111;}
 .pluginBox.incompatible, .pluginMiniBox.incompatible {border-color:#a00 !important;}
 .pluginBoxes .merged, .pluginBoxes .missing  {background-color:#d99;border:1px solid #a00;}
-.showInfo {color:#fff;background-color:#999; }
-.showInfo:hover {color:#fff;border:none;background-color:#333}
 
 .languageBox {background-color:#ddd;}
 .languageName {color:black;}

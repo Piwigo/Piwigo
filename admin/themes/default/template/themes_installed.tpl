@@ -58,7 +58,7 @@ jQuery(document).ready(function() {
   <div class="themeBox{if $theme.IS_DEFAULT} themeDefault{/if}">
     <div class="themeName">
       {$theme.NAME} {if $theme.IS_DEFAULT}<em>({'default'|@translate})</em>{/if} {if $theme.IS_MOBILE}<em>({'Mobile'|@translate})</em>{/if}
-      <a class="showInfo" title="{if !empty($author)}{'By %s'|@translate|@sprintf:$author} | {/if}{'Version'|@translate} {$version}<br/>{$theme.DESC|@escape:'html'}">i</a>
+      <a class="icon-info-circled-1 showInfo" title="{if !empty($author)}{'By %s'|@translate|@sprintf:$author} | {/if}{'Version'|@translate} {$version}<br/>{$theme.DESC|@escape:'html'}"></a>
     </div>
     <div class="themeShot"><a href="{$theme.SCREENSHOT}" class="preview-box" title="{$theme.NAME}"><img src="{$theme.SCREENSHOT}" alt=""></a></div>
     <div class="themeActions">
