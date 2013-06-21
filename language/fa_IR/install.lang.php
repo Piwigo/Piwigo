@@ -65,4 +65,5 @@ $lang['Just another Piwigo gallery'] = 'یک گالری دیگر با Piwigo';
 $lang['Password ']['confirm'] = 'تأیید گذرواژه';
 $lang['Welcome to my photo gallery'] = 'به گالری عکس من خوش آمدید';
 $lang['Welcome to your new installation of Piwigo!'] = 'به گالری Piwigo ی خود خوش آمدید!';
+$lang['localhost or other, supplied by your host provider'] = 'localhost یا ادرس دیگر ، این را باید از هاست دریافت نمایید(در حالت معمول localhost میباشد)';
 ?>
