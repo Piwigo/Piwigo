@@ -83,14 +83,14 @@
   <p>
     <strong>{'Lock'|@translate}</strong>
     <br>
-    {html_radios name='visible' values='true,false'|@explode output='No,Yes'|@explode|translate selected=$CAT_VISIBLE}
+		{html_radios name='visible' values=['true','false'] output=['No'|translate,'Yes'|translate] selected=$CAT_VISIBLE}
   </p>
 
   {if isset($CAT_COMMENTABLE)}
   <p>
     <strong>{'Comments'|@translate}</strong>
     <br>
-    {html_radios name='commentable' values='false,true'|@explode output='No,Yes'|@explode|translate selected=$CAT_COMMENTABLE}
+		{html_radios name='commentable' values=['false','true'] output=['No'|translate,'Yes'|translate] selected=$CAT_COMMENTABLE}
   </p>
   {/if}
 

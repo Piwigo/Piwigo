@@ -58,6 +58,8 @@ class Template {
     $this->scriptLoader = new ScriptLoader;
     $this->smarty = new SmartyBC;
     $this->smarty->debugging = $conf['debug_template'];
+    if (!$this->smarty->debugging)
+      $this->smarty->error_reporting = error_reporting() & ~E_NOTICE;
     $this->smarty->compile_check = $conf['template_compile_check'];
     $this->smarty->force_compile = $conf['template_force_compile'];
 
@@ -88,21 +90,21 @@ class Template {
     $this->smarty->setCompileDir($compile_dir);
 
     $this->smarty->assign( 'pwg', new PwgTemplateAdapter() );
-    $this->smarty->register_modifier( 'translate', array('Template', 'mod_translate') );
-    $this->smarty->register_modifier( 'explode', array('Template', 'mod_explode') );
-    $this->smarty->register_modifier( 'get_extent', array(&$this, 'get_extent') );
-    $this->smarty->register_block('html_head', array(&$this, 'block_html_head') );
-    $this->smarty->register_block('html_style', array(&$this, 'block_html_style') );
-    $this->smarty->register_function('combine_script', array(&$this, 'func_combine_script') );
-    $this->smarty->register_function('get_combined_scripts', array(&$this, 'func_get_combined_scripts') );
-    $this->smarty->register_function('combine_css', array(&$this, 'func_combine_css') );
-    $this->smarty->register_function('define_derivative', array(&$this, 'func_define_derivative') );
-    $this->smarty->register_compiler_function('get_combined_css', array(&$this, 'func_get_combined_css') );
-    $this->smarty->register_block('footer_script', array(&$this, 'block_footer_script') );
-    $this->smarty->register_prefilter( array('Template', 'prefilter_white_space') );
+    $this->smarty->registerPlugin('modifiercompiler', 'translate', array('Template', 'modcompiler_translate') );
+    $this->smarty->registerPlugin('modifier', 'explode', array('Template', 'mod_explode') );
+    $this->smarty->registerPlugin( 'modifier', 'get_extent', array($this, 'get_extent') );
+    $this->smarty->registerPlugin('block', 'html_head', array($this, 'block_html_head') );
+    $this->smarty->registerPlugin('block', 'html_style', array($this, 'block_html_style') );
+    $this->smarty->registerPlugin('function', 'combine_script', array($this, 'func_combine_script') );
+    $this->smarty->registerPlugin('function', 'get_combined_scripts', array($this, 'func_get_combined_scripts') );
+    $this->smarty->registerPlugin('function', 'combine_css', array($this, 'func_combine_css') );
+    $this->smarty->registerPlugin('function', 'define_derivative', array($this, 'func_define_derivative') );
+    $this->smarty->registerPlugin('compiler', 'get_combined_css', array($this, 'func_get_combined_css') );
+    $this->smarty->registerPlugin('block', 'footer_script', array($this, 'block_footer_script') );
+    $this->smarty->registerFilter('pre', array('Template', 'prefilter_white_space') );
     if ( $conf['compiled_template_cache_language'] )
     {
-      $this->smarty->register_prefilter( array('Template', 'prefilter_language') );
+      $this->smarty->registerFilter('pre', array('Template', 'prefilter_language') );
     }
 
     $this->smarty->setTemplateDir(array());
@@ -169,9 +171,9 @@ class Template {
 
     if (!isset($this->smarty->compile_id))
     {
-      $real_dir = realpath($dir);
-      $compile_id = crc32( $real_dir===false ? $dir : $real_dir);
-      $this->smarty->compile_id = base_convert($compile_id, 10, 36 );
+      $compile_id = "1";
+      $compile_id .= ($real_dir = realpath($dir))===false ? $dir : $real_dir;
+      $this->smarty->compile_id = base_convert(crc32($compile_id), 10, 36 );
     }
   }
 
@@ -322,15 +324,8 @@ class Template {
    */
   function concat($tpl_var, $value)
   {
-    $old_val = & $this->smarty->get_template_vars($tpl_var);
-    if ( isset($old_val) )
-    {
-      $old_val .= $value;
-    }
-    else
-    {
-      $this->assign($tpl_var, $value);
-    }
+    $this->assign($tpl_var,
+      $this->smarty->getTemplateVars($tpl_var) . $value);
   }
 
   /** see smarty append http://www.smarty.net/manual/en/api.clear_assign.php */
@@ -489,13 +484,33 @@ class Template {
     }
   }
 
-  /**
-   * translate variable modifier - translates a text to the currently loaded
-   * language
-   */
-  static function mod_translate($text)
+  static function get_php_str_val($str)
   {
-    return l10n($text);
+    if (is_string($str) && strlen($str)>1)
+    {
+      if ( ($str[0]=='\'' && $str[strlen($str)-1]=='\'')
+        || ($str[0]=='"' && $str[strlen($str)-1]=='"'))
+      {
+        eval('$tmp='.$str.';');
+        return $tmp;
+      }
+    }
+    return null;
+  }
+
+  /**
+   * translate variable modifier - translates a text to the currently loaded language
+   */
+  static function modcompiler_translate($params)
+  {
+    global $conf, $lang;
+    if ( $conf['compiled_template_cache_language']
+      && ($key=self::get_php_str_val($params[0])) !== null)
+    {
+      if (isset($lang[$key]))
+        return var_export($lang[$key], true);
+    }
+    return 'l10n('.$params[0].')';
   }
 
   /**
@@ -809,14 +824,8 @@ var s,after = document.getElementsByTagName(\'script\')[document.getElementsByTa
     $ldq = preg_quote($smarty->left_delimiter, '~');
     $rdq = preg_quote($smarty->right_delimiter, '~');
 
-    $regex = "~$ldq *\'([^'$]+)\'\|@translate *$rdq~";
+    $regex = "~$ldq\'([^'$]+)\'\|@translate *$rdq~";
     $source = preg_replace_callback( $regex, create_function('$m', 'global $lang; return isset($lang[$m[1]]) ? $lang[$m[1]] : $m[0];'), $source);
-
-    $regex = "~$ldq *\'([^'$]+)\'\|@translate\|~";
-    $source = preg_replace_callback( $regex, create_function('$m', 'global $lang; return isset($lang[$m[1]]) ? \'{\'.var_export($lang[$m[1]],true).\'|\' : $m[0];'), $source);
-
-    $regex = "~($ldq *assign +var=.+ +value=)\'([^'$]+)\'\|@translate~";
-    $source = preg_replace_callback( $regex, create_function('$m', 'global $lang; return isset($lang[$m[2]]) ? $m[1].var_export($lang[$m[2]],true) : $m[0];'), $source);
 
     return $source;
   }
@@ -876,10 +885,10 @@ var s,after = document.getElementsByTagName(\'script\')[document.getElementsByTa
     if (!empty($this->picture_buttons))
     {
       ksort($this->picture_buttons);
-      $this->assign('PLUGIN_PICTURE_BUTTONS', 
+      $this->assign('PLUGIN_PICTURE_BUTTONS',
           array_reduce(
-            $this->picture_buttons, 
-            create_function('$v,$w', 'return array_merge($v, $w);'), 
+            $this->picture_buttons,
+            create_function('$v,$w', 'return array_merge($v, $w);'),
             array()
           ));
     }
@@ -890,10 +899,10 @@ var s,after = document.getElementsByTagName(\'script\')[document.getElementsByTa
     if (!empty($this->index_buttons))
     {
       ksort($this->index_buttons);
-      $this->assign('PLUGIN_INDEX_BUTTONS', 
+      $this->assign('PLUGIN_INDEX_BUTTONS',
           array_reduce(
-            $this->index_buttons, 
-            create_function('$v,$w', 'return array_merge($v, $w);'), 
+            $this->index_buttons,
+            create_function('$v,$w', 'return array_merge($v, $w);'),
             array()
           ));
     }
