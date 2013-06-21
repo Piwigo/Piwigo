@@ -322,7 +322,7 @@ SELECT id_uppercat, MAX(rank)+1 AS next_rank
           $granted_grps = array();
           while ($row = pwg_db_fetch_assoc($result))
           {
-            if (!is_array ($granted_grps[$row['cat_id']]))
+            if (!isset($granted_grps[$row['cat_id']]))
             {
               $granted_grps[$row['cat_id']]=array();
             }
@@ -333,33 +333,7 @@ SELECT id_uppercat, MAX(rank)+1 AS next_rank
               )
             );
           }
-          $insert_granted_grps=array();
-          foreach ($category_ids as $ids)
-          {
-            $parent_id=$db_categories[$ids]['parent'];
-            while (in_array($parent_id, $category_ids))
-            {
-              $parent_id= $db_categories[$parent_id]['parent'];
-            }
-            if ($db_categories[$ids]['status']=='private' and !is_null($parent_id))
-            {
-              foreach ($granted_grps[$parent_id] as $granted_grp)
-              {
-                array_push(
-                  $insert_granted_grps,
-                  array(
-                    'group_id' => $granted_grp,
-                    'cat_id' => $ids
-                  )
-                );
-               
-              }
-            }
-          }
-  
-          mass_inserts(GROUP_ACCESS_TABLE, array('group_id','cat_id'), $insert_granted_grps);
         }
-
         $query = '
           SELECT *
           FROM '.USER_ACCESS_TABLE.'
@@ -368,11 +342,10 @@ SELECT id_uppercat, MAX(rank)+1 AS next_rank
         $result = pwg_query($query);
         if (!empty($result))
         {
-
           $granted_users = array();
           while ($row = pwg_db_fetch_assoc($result))
           {
-            if (!is_array ($granted_users[$row['cat_id']]))
+            if (!isset($granted_users[$row['cat_id']]))
             {
               $granted_users[$row['cat_id']]=array();
             }
@@ -383,15 +356,32 @@ SELECT id_uppercat, MAX(rank)+1 AS next_rank
               )
             );
           }
-          $insert_granted_users=array();
-          foreach ($category_ids as $ids)
+        }
+        $insert_granted_users=array();
+        $insert_granted_grps=array();
+        foreach ($category_ids as $ids)
+        {
+          $parent_id=$db_categories[$ids]['parent'];
+          while (in_array($parent_id, $category_ids))
           {
-            $parent_id=$db_categories[$ids]['parent'];
-             while (in_array($parent_id, $category_ids))
+            $parent_id= $db_categories[$parent_id]['parent'];
+          }
+          if ($db_categories[$ids]['status']=='private' and !is_null($parent_id))
+          {
+            if (isset($granted_grps[$parent_id]))
             {
-              $parent_id= $db_categories[$parent_id]['parent'];
+              foreach ($granted_grps[$parent_id] as $granted_grp)
+              {
+                array_push(
+                  $insert_granted_grps,
+                  array(
+                    'group_id' => $granted_grp,
+                    'cat_id' => $ids
+                  )
+                );
+              }
             }
-            if ($db_categories[$ids]['status']=='private' and !is_null($parent_id))
+            if (isset($granted_users[$parent_id]))
             {
               foreach ($granted_users[$parent_id] as $granted_user)
               {
@@ -404,10 +394,22 @@ SELECT id_uppercat, MAX(rank)+1 AS next_rank
                 );
               }
             }
+            foreach (get_admins() as $granted_user)
+            {
+              array_push(
+                $insert_granted_users,
+                array(
+                  'user_id' => $granted_user,
+                  'cat_id' => $ids
+                )
+              );
+            }
           }
-          mass_inserts(USER_ACCESS_TABLE, array('user_id','cat_id'), $insert_granted_users);
         }
-      }     
+        mass_inserts(GROUP_ACCESS_TABLE, array('group_id','cat_id'), $insert_granted_grps);
+        $insert_granted_users=array_unique($insert_granted_users, SORT_REGULAR);
+        mass_inserts(USER_ACCESS_TABLE, array('user_id','cat_id'), $insert_granted_users);
+      }
       else
       {
         add_permission_on_category($category_ids, get_admins());

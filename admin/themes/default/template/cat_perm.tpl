@@ -150,7 +150,7 @@ jQuery(document).ready(function() {
 
   <p style="margin:12px;text-align:left;">
     <input class="submit" type="submit" value="{'Save Settings'|@translate}" name="submit">
-    <label id="applytoSubAction" style="display:none;"><input type="checkbox" name="apply_on_sub">{'Apply to sub-albums'|@translate}</label>
+    <label id="applytoSubAction" style="display:none;"><input type="checkbox" name="apply_on_sub" {if $INHERIT}checked="checked"{/if}>{'Apply to sub-albums'|@translate}</label>
   </p>
 
 <input type="hidden" name="pwg_token" value="{$PWG_TOKEN}">

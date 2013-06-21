@@ -319,7 +319,7 @@ SELECT user_id, group_id
 // +-----------------------------------------------------------------------+
 // |                           sending html code                           |
 // +-----------------------------------------------------------------------+
-$template->assign(array('PWG_TOKEN' => get_pwg_token()));
+$template->assign(array('PWG_TOKEN' => get_pwg_token(), 'INHERIT' => $conf['inheritance_by_default']));
 
 $template->assign_var_from_handle('ADMIN_CONTENT', 'cat_perm');
 ?>
