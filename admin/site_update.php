@@ -266,7 +266,7 @@ SELECT id_uppercat, MAX(rank)+1 AS next_rank
       $db_categories[$insert{'id'}] =
         array(
           'id' => $insert['id'],
-          'parent' => $parent,
+          'parent' => (isset($parent)) ? $parent : Null,
           'status' => $insert['status'],
           'visible' => $insert['visible'],
           'uppercats' => $insert['uppercats'],
@@ -303,7 +303,10 @@ SELECT id_uppercat, MAX(rank)+1 AS next_rank
       foreach ($inserts as $category)
       {
         $category_ids[] = $category['id'];
-        $category_up[] = $category['id_uppercat'];
+        if (!empty($category['id_uppercat']))
+        {
+          $category_up[] = $category['id_uppercat'];
+        }
       }
       $category_up=implode(',',array_unique($category_up));
       if ($conf['inheritance_by_default'])
@@ -314,38 +317,48 @@ SELECT id_uppercat, MAX(rank)+1 AS next_rank
           WHERE cat_id IN ('.$category_up.')
         ;';
         $result = pwg_query($query);
-        $granted_grps = array();
-        while ($row = pwg_db_fetch_assoc($result))
+        if (!empty($result))
         {
-          if (is_null($granted_grps[$row['cat_id']]))
+          $granted_grps = array();
+          while ($row = pwg_db_fetch_assoc($result))
           {
-            $granted_grps[$row['cat_id']]=array();
-          }
-          array_push(
-            $granted_grps,
-            array(
-              $row['cat_id'] => array_push($granted_grps[$row['cat_id']],$row['group_id'])
-            )
-          );
-        }
-        $insert_granted_grps=array();
-        foreach ($category_ids as $ids)
-        {
-          $parent=$db_categories[$ids]['parent'];
-          foreach ($granted_grps[$parent] as $granted_grp)
-          {
+            if (!is_array ($granted_grps[$row['cat_id']]))
+            {
+              $granted_grps[$row['cat_id']]=array();
+            }
             array_push(
-              $insert_granted_grps,
+              $granted_grps,
               array(
-                'group_id' => $granted_grp,
-                'cat_id' => $ids
+                $row['cat_id'] => array_push($granted_grps[$row['cat_id']],$row['group_id'])
               )
             );
-           
           }
+          $insert_granted_grps=array();
+          foreach ($category_ids as $ids)
+          {
+            $parent_id=$db_categories[$ids]['parent'];
+            while (in_array($parent_id, $category_ids))
+            {
+              $parent_id= $db_categories[$parent_id]['parent'];
+            }
+            if ($db_categories[$ids]['status']=='private' and !is_null($parent_id))
+            {
+              foreach ($granted_grps[$parent_id] as $granted_grp)
+              {
+                array_push(
+                  $insert_granted_grps,
+                  array(
+                    'group_id' => $granted_grp,
+                    'cat_id' => $ids
+                  )
+                );
+               
+              }
+            }
+          }
+  
+          mass_inserts(GROUP_ACCESS_TABLE, array('group_id','cat_id'), $insert_granted_grps);
         }
-
-        mass_inserts(GROUP_ACCESS_TABLE, array('group_id','cat_id'), $insert_granted_grps);
 
         $query = '
           SELECT *
@@ -353,38 +366,47 @@ SELECT id_uppercat, MAX(rank)+1 AS next_rank
           WHERE cat_id IN ('.$category_up.')
         ;';
         $result = pwg_query($query);
-        $granted_users = array();
-        while ($row = pwg_db_fetch_assoc($result))
+        if (!empty($result))
         {
-          if (is_null($granted_users[$row['cat_id']]))
+
+          $granted_users = array();
+          while ($row = pwg_db_fetch_assoc($result))
           {
-            $granted_users[$row['cat_id']]=array();
-          }
-          array_push(
-            $granted_users,
-            array(
-              $row['cat_id'] => array_push($granted_users[$row['cat_id']],$row['user_id'])
-            )
-          );
-        }
-        $insert_granted_users=array();
-        foreach ($category_ids as $ids)
-        {
-          $parent=$db_categories[$ids]['parent'];
-          foreach ($granted_users[$parent] as $granted_user)
-          {
+            if (!is_array ($granted_users[$row['cat_id']]))
+            {
+              $granted_users[$row['cat_id']]=array();
+            }
             array_push(
-              $insert_granted_users,
+              $granted_users,
               array(
-                'user_id' => $granted_user,
-                'cat_id' => $ids
+                $row['cat_id'] => array_push($granted_users[$row['cat_id']],$row['user_id'])
               )
             );
-           
           }
+          $insert_granted_users=array();
+          foreach ($category_ids as $ids)
+          {
+            $parent_id=$db_categories[$ids]['parent'];
+             while (in_array($parent_id, $category_ids))
+            {
+              $parent_id= $db_categories[$parent_id]['parent'];
+            }
+            if ($db_categories[$ids]['status']=='private' and !is_null($parent_id))
+            {
+              foreach ($granted_users[$parent_id] as $granted_user)
+              {
+                array_push(
+                  $insert_granted_users,
+                  array(
+                    'user_id' => $granted_user,
+                    'cat_id' => $ids
+                  )
+                );
+              }
+            }
+          }
+          mass_inserts(USER_ACCESS_TABLE, array('user_id','cat_id'), $insert_granted_users);
         }
-        mass_inserts(USER_ACCESS_TABLE, array('user_id','cat_id'), $insert_granted_users);
-
       }     
       else
       {
