@@ -1,4 +1,4 @@
-{combine_script id='core.switchbox' load='footer' require='jquery' path='themes/default/js/switchbox.js'}
+{combine_script id='core.switchbox' load='async' require='jquery' path='themes/default/js/switchbox.js'}
 {$MENUBAR}
 
 
@@ -26,7 +26,7 @@
 			{/if}
 			{/foreach}
 		</div>
-		{footer_script require='core.switchbox'}switchBox("#sortOrderLink", "#sortOrderBox");{/footer_script}
+		{footer_script}(SwitchBox=window.SwitchBox||[]).push("#sortOrderLink", "#sortOrderBox");{/footer_script}
 		{/strip}</li>
 {/if}
 {if !empty($image_derivatives)}
@@ -43,7 +43,7 @@
 			{/if}
 			{/foreach}
 		</div>
-		{footer_script require='core.switchbox'}switchBox("#derivativeSwitchLink", "#derivativeSwitchBox");{/footer_script}
+		{footer_script}(SwitchBox=window.SwitchBox||[]).push("#derivativeSwitchLink", "#derivativeSwitchBox");{/footer_script}
 		{/strip}</li>
 {/if}
 
@@ -101,26 +101,15 @@
 
 {if isset($chronology_views)}
 <div class="calendarViews">{'View'|@translate}:
-	<a id="calendarViewSwitchLink" href="javascript:toggleCalendarViewsBox()">
+	<a id="calendarViewSwitchLink" href="#">
 	{foreach from=$chronology_views item=view}{if $view.SELECTED}{$view.CONTENT}{/if}{/foreach}
-	</a> 
+	</a>
 	<div id="calendarViewSwitchBox" class="switchBox">
 		{foreach from=$chronology_views item=view name=loop}{if !$smarty.foreach.loop.first}<br>{/if}
 		<span{if !$view.SELECTED} style="visibility:hidden"{/if}>&#x2714; </span><a href="{$view.VALUE}">{$view.CONTENT}</a>
 		{/foreach}
 	</div>
-	{footer_script require='jquery'}{literal}
-function toggleCalendarViewsBox() {
-	var elt = jQuery("#calendarViewSwitchBox")
-		, ePos = jQuery("#calendarViewSwitchLink");
-	elt.css("left", Math.min( ePos.offset().left, jQuery(window).width() - elt.outerWidth(true) - 5))
-		.css("top", ePos.offset().top + ePos.outerHeight(true))
-		.toggle();
-};
-jQuery("#calendarViewSwitchBox").on("mouseleave", function() {
-	jQuery(this).hide();
-});
-	{/literal}{/footer_script}
+	{footer_script}(SwitchBox=window.SwitchBox||[]).push("#calendarViewSwitchLink", "#calendarViewSwitchBox");{/footer_script}
 </div>
 {/if}
 

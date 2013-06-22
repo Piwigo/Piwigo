@@ -1,4 +1,4 @@
-{combine_script id='core.switchbox' load='footer' require='jquery' path='themes/default/js/switchbox.js'}
+{combine_script id='core.switchbox' load='async' require='jquery' path='themes/default/js/switchbox.js'}
 {if isset($MENUBAR)}{$MENUBAR}{/if}
 <div id="content"{if isset($MENUBAR)} class="contentWithMenu"{/if}>
 
@@ -20,7 +20,7 @@
 
 <div class="actionButtons">
 {if isset($current.unique_derivatives) && count($current.unique_derivatives)>1}
-{footer_script require='jquery,core.switchbox'}{literal}
+{footer_script require='jquery'}{literal}
 function changeImgSrc(url,typeSave,typeMap)
 {
 	var theImg = document.getElementById("theMainImage");
@@ -34,7 +34,7 @@ function changeImgSrc(url,typeSave,typeMap)
 	jQuery('#derivativeChecked'+typeSave).css('visibility','visible');
 	document.cookie = 'picture_deriv='+typeSave+';path={/literal}{$COOKIE_PATH}{literal}';
 }
-switchBox("#derivativeSwitchLink", "#derivativeSwitchBox");
+(SwitchBox=window.SwitchBox||[]).push("#derivativeSwitchLink", "#derivativeSwitchBox");
 {/literal}{/footer_script}
 {strip}<a id="derivativeSwitchLink" title="{'Photo sizes'|@translate}" class="pwg-state-default pwg-button" rel="nofollow">
   <span class="pwg-icon pwg-icon-sizes">&nbsp;</span><span class="pwg-button-text">{'Photo sizes'|@translate}</span>
