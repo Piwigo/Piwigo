@@ -64,4 +64,5 @@ $lang['It appears your webhost is currently running PHP %s.'] = 'Jūsų webhost\
 $lang['It will be shown to the visitors. It is necessary for website administration'] = 'Tai bus rodoma lankytojams. Tai būtina puslapio administracijai';
 $lang['Just another Piwigo gallery'] = 'Tiesiog dar viena Piwigo galerija';
 $lang['Keep it confidential, it enables you to access administration panel'] = 'Saugokite tai slaptai, nes tai leidžia prisijungti prie administratoriaus valdymo skydo.';
+$lang['localhost or other, supplied by your host provider'] = 'localhost arba kitas, suteiktas jūsų paslaugų tiekėjo';
 ?>
