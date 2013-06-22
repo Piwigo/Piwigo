@@ -377,4 +377,10 @@ $lang['All plugins are up to date.'] = 'Ĉiuj kromaprogramoj estas ĝisdataj.';
 $lang['All themes are up to date.'] = 'Ĉiuj temoj estas ĝisdataj.';
 $lang['Album "%s" now contains %d photos'] = 'Fotaro "%s" nun enhavas %d fotojn';
 $lang['Album "%s" has been added'] = 'Fotaro "%s" aldoniĝis';
+$lang['Adobe Photoshop Lightroom is a photography software designed to manage large quantities of digital images and doing post production work.'] = 'Adobe Photoshop Lightroom estas fota programaro desegnita por administri grandajn kvantojn de ciferecaj bildoj kaj post-trakti ilin.';
+$lang['Add write access to the "%s" directory'] = 'Aldonu skribaliron al la dosierujo "%s"';
+$lang['<em>Piwigo for iOS</em> application empowers you to connect to your Piwigo gallery from your iPhone, iPad or iPod Touch, create some albums and upload several photos at once.'] = 'La aplikaĵo <em>Piwigo por iOS<em> ebligas vin konektiĝi al via galerio Piwigo, por krei fotarojn kaj elŝuti plurajn fotojn unufoje el via iPhone, iPas aŭ iPod Touch.';
+$lang['<em>Piwigo for Android</em> application empowers you to connect your Android phone or table to your Piwigo gallery, create some albums and upload several photos at once.'] = 'La aplikaĵo <em>Piwigo por Android<em> ebligas vin konektiĝi al via galerio Piwigo, por krei fotarojn kaj elŝuti plurajn fotojn unufoje el via telefono aŭ tabuleto Android.';
+$lang['Advanced features'] = 'Specialaj funkcioj';
+$lang['Access type'] = 'Tipo de atingo';
 ?>
