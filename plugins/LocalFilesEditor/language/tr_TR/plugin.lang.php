@@ -21,7 +21,7 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
-$lang['locfiledit_onglet_localconf'] = 'Yerel ayarlar';
+$lang['locfiledit_onglet_localconf'] = 'Yerel yapılandırma';
 $lang['locfiledit_onglet_css'] = 'CSS';
 $lang['locfiledit_onglet_tpl'] = 'Şablonlar';
 $lang['locfiledit_onglet_lang'] = 'Diller';
@@ -49,7 +49,7 @@ $lang['locfiledit_empty_page'] = 'Boş sayfa';
 $lang['locfiledit_parent_directory'] = 'Üst dizin';
 $lang['locfiledit_filename_error'] = 'Dosya adında yasaklanmış karakterler var.';
 $lang['locfiledit_file_already_exists'] = 'Bu dosya zaten var.';
-$lang['locfiledit_model_error'] = 'Bir model seçmek zorundasınız.';
+$lang['locfiledit_model_error'] = 'Bir model seçmelisiniz.';
 $lang['locfiledit_empty_filename'] = 'Dosya ismini girmelisiniz.';
-$lang['locfiledit_webmaster_only'] = 'Sadece yöneticiler dosyaları yaratabilir veya değiştirebilir.';
+$lang['locfiledit_webmaster_only'] = 'Sadece yöneticiler yerel dosyaları yaratabilir veya değiştirebilir.';
 ?>
