@@ -342,7 +342,7 @@ function togglePrivacyLevelBox()
 					<p><input type="text" name="author" id="author" value="{$comment_add.AUTHOR}"></p>
 				{/if}
 				{if $comment_add.SHOW_EMAIL}
-					<p><label for="email">{'Email'|@translate}{if $comment_add.EMAIL_MANDATORY} ({'mandatory'|@translate}){/if} :</label></p>
+					<p><label for="email">{'Email address'|@translate}{if $comment_add.EMAIL_MANDATORY} ({'mandatory'|@translate}){/if} :</label></p>
 					<p><input type="text" name="email" id="email" value="{$comment_add.EMAIL}"></p>
 				{/if}
 				<p><label for="website_url">{'Website'|@translate} :</label></p>
