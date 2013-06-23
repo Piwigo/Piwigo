@@ -12,7 +12,7 @@
 		&nbsp;
 	{else}
 		{foreach from=$bar.items item=item}
-		<span class="calItem{if !isset($item.URL)}Empty{/if}" {if isset($item.NB_IMAGES)}title="{$pwg->l10n_dec('%d photo', '%d photos', $item.NB_IMAGES)}"{/if}>
+		<span class="calItem{if !isset($item.URL)}Empty{/if}" {if isset($item.NB_IMAGES)}title="{$item.NB_IMAGES|@translate_dec:'%d photo':'%d photos'}"{/if}>
 		{if isset($item.URL)}
 		<a href="{$item.URL}">{$item.LABEL}</a>
 		{else}
@@ -68,7 +68,7 @@ TABLE.calMonth TBODY TD, TABLE.calMonth TBODY TD DIV.calImg {ldelim}
 	 			<div class="calBackDate">{$day.DAY}</div><div class="calForeDate">{$day.DAY}</div>
 	 			<div class="calImg">
 					<a href="{$day.U_IMG_LINK}">
-			  			<img style="{$day.IMAGE_STYLE}" src="{$day.IMAGE}" alt="{$day.IMAGE_ALT}" title="{$pwg->l10n_dec('%d photo','%d photos', $day.NB_ELEMENTS)}">
+			  			<img style="{$day.IMAGE_STYLE}" src="{$day.IMAGE}" alt="{$day.IMAGE_ALT}" title="{$day.NB_ELEMENTS|@translate_dec:'%d photo':'%d photos'}">
 					</a>
 				</div>
  		{else}

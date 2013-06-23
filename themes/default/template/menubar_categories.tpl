@@ -28,5 +28,5 @@
 {/foreach}
 {'</li></ul>'|@str_repeat:$ref_level}
 
-	<p class="totalImages">{$pwg->l10n_dec('%d photo', '%d photos', $block->data.NB_PICTURE)}</p>
+	<p class="totalImages">{$block->data.NB_PICTURE|@translate_dec:'%d photo':'%d photos'}</p>
 </dd>

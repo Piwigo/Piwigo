@@ -55,6 +55,8 @@ class Template {
   {
     global $conf, $lang_info;
 
+    SmartyException::$escape = false;
+
     $this->scriptLoader = new ScriptLoader;
     $this->smarty = new SmartyBC;
     $this->smarty->debugging = $conf['debug_template'];
@@ -91,6 +93,7 @@ class Template {
 
     $this->smarty->assign( 'pwg', new PwgTemplateAdapter() );
     $this->smarty->registerPlugin('modifiercompiler', 'translate', array('Template', 'modcompiler_translate') );
+    $this->smarty->registerPlugin('modifiercompiler', 'translate_dec', array('Template', 'modcompiler_translate_dec') );
     $this->smarty->registerPlugin('modifier', 'explode', array('Template', 'mod_explode') );
     $this->smarty->registerPlugin( 'modifier', 'get_extent', array($this, 'get_extent') );
     $this->smarty->registerPlugin('block', 'html_head', array($this, 'block_html_head') );
@@ -331,7 +334,7 @@ class Template {
   /** see smarty append http://www.smarty.net/manual/en/api.clear_assign.php */
   function clear_assign($tpl_var)
   {
-    $this->smarty->clear_assign( $tpl_var );
+    $this->smarty->clearAssign( $tpl_var );
   }
 
   /** see smarty get_template_vars http://www.smarty.net/manual/en/api.get_template_vars.php */
@@ -361,7 +364,7 @@ class Template {
     global $conf, $lang_info;
     if ( $conf['compiled_template_cache_language'] and isset($lang_info['code']) )
     {
-      $this->smarty->compile_id .= '.'.$lang_info['code'];
+      $this->smarty->compile_id .= '_'.$lang_info['code'];
     }
 
     $v = $this->smarty->fetch($this->files[$handle]);
@@ -511,6 +514,31 @@ class Template {
         return var_export($lang[$key], true);
     }
     return 'l10n('.$params[0].')';
+  }
+
+  static function modcompiler_translate_dec($params)
+  {
+    global $conf, $lang, $lang_info;
+    if ( $conf['compiled_template_cache_language'])
+    {
+      $ret = 'sprintf(';
+      if ($lang_info['zero_plural'])
+      {
+        $ret .= '($tmp=('.$params[0].'))>1||$tmp==0';
+      }
+      else
+      {
+        $ret .= '('.$params[0].')>1';
+      }
+      $ret .= '?';
+      $ret .= self::modcompiler_translate( array($params[2]) );
+      $ret .= ':';
+      $ret .= self::modcompiler_translate( array($params[1]) );
+      $ret .= ','.$params[0];
+      $ret .= ')';
+      return $ret;
+    }
+    return 'l10n_dec('.$params[1].','.$params[2].','.$params[0].')';
   }
 
   /**
@@ -769,7 +797,7 @@ var s,after = document.getElementsByTagName(\'script\')[document.getElementsByTa
         {
           list($type, $callback) = $filter;
           $compile_id .= $type.( is_array($callback) ? implode('', $callback) : $callback );
-          call_user_func(array($this->smarty, 'register_'.$type), $callback);
+          $this->smarty->registerFilter($type, $callback);
         }
       }
       $this->smarty->compile_id .= '.'.base_convert(crc32($compile_id), 10, 36);
@@ -785,7 +813,7 @@ var s,after = document.getElementsByTagName(\'script\')[document.getElementsByTa
         foreach ($filters as $filter)
         {
           list($type, $callback) = $filter;
-          call_user_func(array($this->smarty, 'unregister_'.$type), $callback);
+          $this->smarty->unregisterFilter($type, $callback);
         }
       }
     }

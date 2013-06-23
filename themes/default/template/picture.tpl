@@ -212,12 +212,7 @@ y.callService(
 		<dt>{'Rating score'|@translate}</dt>
 		<dd>
 		{if $rate_summary.count}
-                  {if $rate_summary.count == 1}
-                    {assign var='rate_text' value='%d rate'|@translate}
-                  {else}
-                    {assign var='rate_text' value='%d rates'|@translate}
-                  {/if}
-			<span id="ratingScore">{$rate_summary.score}</span> <span id="ratingCount">({$pwg->sprintf($rate_text, $rate_summary.count)})</span>
+			<span id="ratingScore">{$rate_summary.score}</span> <span id="ratingCount">({$rate_summary.count|@translate_dec:'%d rate':'%d rates'})</span>
 		{else}
 			<span id="ratingScore">{'no rate'|@translate}</span> <span id="ratingCount"></span>
 		{/if}
@@ -335,7 +330,7 @@ function togglePrivacyLevelBox()
 
 {if isset($COMMENT_COUNT)}
 <div id="comments" {if (!isset($comment_add) && ($COMMENT_COUNT == 0))}class="noCommentContent"{else}class="commentContent"{/if}><div id="commentsSwitcher"></div>
-	<h3>{$pwg->l10n_dec('%d comment', '%d comments',$COMMENT_COUNT)}</h3>
+	<h3>{$COMMENT_COUNT|@translate_dec:'%d comment':'%d comments'}</h3>
 
 	<div id="pictureComments">
 		{if isset($comment_add)}

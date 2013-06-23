@@ -5,7 +5,7 @@
 		<span>{strip}
 			<a class="tagLevel{$tag.level}" href=
 			{if isset($tag.U_ADD)}
-				"{$tag.U_ADD}" title="{$pwg->l10n_dec('%d photo is also linked to current tags', '%d photos are also linked to current tags', $tag.counter)}" rel="nofollow">+
+				"{$tag.U_ADD}" title="{$tag.counter|@translate_dec:'%d photo is also linked to current tags':'%d photos are also linked to current tags'}" rel="nofollow">+
 			{else}
 				"{$tag.URL}" title="{'display photos linked to this tag'|@translate}">
 			{/if}
