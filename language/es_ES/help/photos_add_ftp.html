@@ -1,63 +1,43 @@
 <fieldset>
-  <legend>Introducción</legend>
-
-<ol>
-  <li>Cree una carpeta en su ordenador.</li>
-
-  <li>Copie las fotos dentro de esta carpeta, luego redimensionelas para una correcta visualización en la web. <em>Atención</em> : El nombre de las carpetas y de los ficheros debe contener sólo letras, cifras y los carácteres  "-", "_" y ".". Ningún espacio o caracteres acentuados.</li>
-
-  <li>Con un cliente FTP, copie la carpeta en la carpeta " galleries " de su instalación de Piwigo.</li>
-
-  <li>Inicie sesión en su galería y vaya a <span class="pwgScreen">Administracion</span> y haga click en el botón grande que pone "Sincronización".</li>
-</ol>
-
-<p>¡Felicidades! Usted creó con éxito el primer álbum de su galería.</p>
-
+	<legend>Guía de inicio rápido</legend>
+	<ol>
+		<li>Crea una nueva carpeta en tu ordenador.</li>
+		<li>Copia las fotos que quieras dentro de esta carpeta, luego redimensiónalas si es preciso para una óptima visualización en la web. <em>Atención</em>: El nombre de las carpetas y de los archivos debe contener sólo letras, números y/o los carácteres  "-", "_" y ".". Sin espacios ni caracteres acentuados. Truco: Sustituye los espacios por "_". Ejemplo: Renombra "Cumpleaños de Ana" por "Cumpleaños_de_Ana".</li>
+		<li>Con un cliente FTP, sube la carpeta dentro del directorio "galleries" de tu instalación de Piwigo.</li>
+		<li>Inicia sesión en tu galería y dirígete a <span class="pwgScreen">Administración</span> y haz click en el botón grande situado en la parte inferior derecha que pone "Sincronización Rápida".</li>
+	</ol>
+	<p>¡Felicidades! Acabas de crear con éxito el primer álbum de tu galería.</p>
 </fieldset>
 <fieldset>
-  <legend>Organización de las carpetas y de los ficheros</legend>
-
-<ul>
-
-  <li>
-
-    <p>Las carpetas que representan las categorías están en la carpeta " galleries ". Más abajo está el árbol de las carpetas de una galería muy pequeña (pero utilizando muchas funcionalidades): </p>
-  
-  <pre>
-galleries
-|-- wedding
-|   |-- celebration
-|   |   |-- arrival
-|   |   |   |-- paul-alone.jpg
-|   |   |   +-- sarah-alone.jpg
-|   |   +-- departure
-|   |       +-- paul-and-sarah.jpg
-|   +-- party
-|       |-- dancers001.jpg
-|       |-- dancers002.jpg
-|       +-- dancers003.jpg
-+-- honeymoon
-    |-- hotel.png
-    |-- video-from-plane.avi
-    +-- pwg_representative
-        +-- video-from-plane.jpg
-</pre>
-
-  </li>
-  
-  <li>A parte de "pwg_representative" (ver la explicación más abajo), cada directorio debajo de "galleries" genera un álbum. No hay limite en el número de subniveles.</li>
-
-  <li>Fundamentalmente, un elemento es representado por un fichero. Un fichero puede ser un elemento para Piwigo si la extensión del nombre del fichero está entre la lista del parámetro de configuración <code>file_ext</code> (Ver 
-  fichero <span class="filename">include/config.inc.php</span>). Un fichero puede ser una imagen si su extensión está entre el parámetro de configuración
-<code>picture_ext</code>.</li>
-
-
-  <li>Los elementos que no son imagen (vídeos, sonidos, archivos de texto, todo lo que usted quiera) por defecto son representado por iconos que corresponden a la extensión del nombre del fichero. Opcionalmente puede asociar iconos a un archivo (ver video de abajo con ejemplo).</li>
-
-  <li><em>Atención</em> : El nombre de un repertorio o de un fichero debe estar constituido sólo por letras, cifras, de "-", "_" o ".". Ningún espacio o carácteres acentuados.</li>
-
-  <li>Cuando las fotos estén correctamente situadas en sus carpetas, ir a <span
-class="pwgScreen">Administración &raquo; Categorías &raquo; Sincronizar</span>.</li>
-
-</ul>
+	<legend>Organización de archivos y carpetas</legend>
+	<ul>
+		<li>
+			<p>Cada álbum se representa por una carpeta dentro del directorio "galleries". 
+			He aquí un ejemplo del árbol de directorios de una galería muy pequeña (pero
+			utilizando muchas características):</p>
+			<pre>
+			galleries
+			|-- boda
+			|   |-- celebracion
+			|   |   |-- llegada
+			|   |   |   |-- paul-solo.jpg
+			|   |   |   +-- sara-sola.jpg
+			|   |   +-- salida
+			|   |       +-- paul-y-sara.jpg
+			|   +-- fiesta
+			|       |-- baile001.jpg
+			|       |-- baile002.jpg
+			|       +-- baile003.jpg
+			+-- luna-de-miel
+				|-- hotel.png
+				|-- video-desde-el-avion.avi
+				+-- pwg_representative
+					+-- video-desde-el-avion.jpg
+			</pre>
+		</li>
+		<li>A excepción de "pwg_representative" (ver explicaciones debajo), cada subdirectorio de "galleries" genera un álbum. No hay limite de profundidad en cuanto el número de subniveles a crear.</li>
+		<li>Fundamentalmente, cada elemento es representado por un archivo. Piwigo sólo reconocerá los archivos cuyas extensiones figuren en los parámetros de configuración <code>file_ext</code> (Ver archivo <span class="filename">include/config_default.inc.php</span>). Para Piwigo, un archivo de imagen será reconocido como una imagen sólo si su extensión se encuentra dentro de los parámetros de configuración <code>picture_ext</code>.</li>
+		<li>Los elementos que no son imágenes (vídeos, sonidos, archivos de texto, todo lo que quieras...) son representados de forma predeterminada por iconos que corresponden a la extensión cada archivo. Opcionalmente, puedes asociar una miniatura y un archivo de representación (ver video.avi en el ejemplo anterior).</li>
+		<li>Una vez todas las fotos estén organizadas y correctamente situadas en sus correspondientes carpetas, ir a <span class="pwgScreen">Administración &raquo; Herramientas &raquo; Sincronizar</span>.</li>
+	</ul>
 </fieldset>

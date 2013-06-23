@@ -22,7 +22,7 @@
 // +-----------------------------------------------------------------------+
 /*
 Language Name: 中文 (香港) [HK]
-Version: 2.5.0
+Version: 2.5.1
 Language URI: http://piwigo.org/ext/extension_view.php?eid=614
 Author: Piwigo team
 Author URI: http://piwigo.org
@@ -412,4 +412,9 @@ $lang['wrong date'] = '日期錯誤';
 $lang['xlarge'] = 'XL - 特大';
 $lang['xsmall'] = 'XL - 特小';
 $lang['xxlarge'] = 'XLL - 極大';
+$lang['Email address is mandatory'] = '必須填寫電郵地址';
+$lang['Username is mandatory'] = '必須填寫使用者名稱';
+$lang['Website'] = '網站';
+$lang['Your website URL is invalid'] = '你的網址無效';
+$lang['mandatory'] = '必填';
 ?>

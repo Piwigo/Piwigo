@@ -1,0 +1,55 @@
+<h2>Şablon Uzantı Yapılandırması</h2>
+
+<h3>Hakkında</h3>
+<p>Piwigo galeriniz var olan şablon dosyalarının kişisel uyarlamalarla değiştirilmesi ile özelleştirilebilir. Örneğin, varsayılan başlık şablonu (header.tpl) özelleştirilmiş bir başlık şablonu (my-header.tpl) ile değiştirilebilir. Değişiklik veri tabanına gönderildiğinde galeriniz varsayılan yerine yenilediğiniz şablonu görüntüleyecektir.<br>
+Şablon uzantıları yeni veya uzman her iki kullanıcı grubu için de tema oluşturmak için güçlü bir yol sağlar. LocalFiles düzenleyicisi ile çalışarak kendinize ait alt temalar yaratabilirsiniz.</p>
+
+<h3>Esas (Orjinal) Şablon</h3>
+<p>Bir tema, galeri sayfalarınızı oluşturan bir kaç adet şablon dosyasından oluşur. Bunlar esas (orjinal) şablonlardır.</p>
+
+<h3>İsteğe bağlı URL anahtar kelimeleri</h3>
+<p>Bunlar modül adından sonra gelen galeri URL'sinde bulunan kelimelerdir. Bunlar aynı zamanda kalıcı bağlantı olabilirler (Detaylı bilgi için kalıcı bağlantı dokümanını inceleyebilirsiniz).  <a href="#warnings">UYARI:</a> Eğer aynı esas şablon ve aynı anahtar kelime bir veya bir kaç kişisel şablonda kullanılırsa, sadece en sonuncusu etkinleştirilir.</p>
+
+<h3>Bağlı Tema</h3>
+<p>Şablon dosyalarının yenileriyle değiştirileceği temaya Bağlı Tema denir.</p>
+
+<h3>Esas (Orjinal) şablonlar nerdedir?</h3>
+<p>Orijinal şablonlar, her tema ile birlikte gelen şablon dosyalarıdır. Bunlar <em>/themes/default/template</em> (yada <em>themes/<theme name>/template</em>) alanında bulunurlar. Bu şablon dosyaları yerinde düzenleme yapılmamalıdır, tema güncellemesi sırasında değişiklikler kaybedilir.<br>
+Desteklenen esas (orjinal) şablonlar arasında bunlar vardır:</p>
+<ul>
+  <li><span class="filename">index.tpl</span></li>
+  <li><span class="filename">mainpage_categories.tpl</span> and/or <span class="filename">thumbnails.tpl</span></li>
+  <li><span class="filename">menubar.tpl</span></li>
+  <li><span class="filename">header.tpl</span> and/or <span class="filename">footer.tpl</span></li>
+  <li><span class="filename">picture_content.tpl</span> and/or <span class="filename">picture.tpl</span></li>
+  <!-- <li><span class="filename">slideshow.tpl</span></li> -->
+  <li><span class="filename">profile.tpl</span> and/or <span class="filename">profile_content.tpl</span></li>
+  <li><span class="filename">tags.tpl</span></li>
+  <li><span class="filename">upload.tpl</span></li>
+  <li><span class="filename">about.tpl</span></li>
+  <li><span class="filename">popuphelp.tpl</span></li>
+  <li><span class="filename">search.tpl</span> and/or <span class="filename">search_rules.tpl</span></li>
+  <li><span class="filename">nbm.tpl</span> and/or <span class="filename">notification.tpl</span></li>
+  <li><span class="filename">identification.tpl</span> and/or <span class="filename">register.tpl</span></li>
+  <li><span class="filename">redirect.tpl</span></li>
+</ul>
+
+<h3>Özelleştirilmiş şablonların kaydedilmesi</h3>
+<p>Özelleştirilmiş şablonlar template-extension dizini veya alt dizinlerine kaydedilmelidir. Örneğin, <em>/template-extension/my-default/header.tpl</em> (yada <em>/template-extension/<my-theme-name>/header.tpl</em>). Şablon dosyaları uzantısı .tpl olacak şekilde her adı alabilirler. Alt dizinlerdeki şablon dosyaları Şablon yapılandırma ekranında kullanılabilir özelleştirilmiş şablonlar olarak gözükürler.</p>
+
+<h3>Özelleştirilmiş şablonların etkinleştirilmesi</h3>
+<p>Değiştirmek için esas (orjinal) şablonu seçin. İsteğe bağlı olarak özelleştirilmiş şablonun sadece o anahtar kelime ile sayfalarda gösterildiğinden emin olmak için bir URL anahtar kelimesi seçin. Bağlantılı temayı seçin ve değişiklikler o temada etkinleşecektir.
+Değişiklikleri veri tabanına gönderin..</p>
+
+<h3>Özelleştirilmiş şablonları devredışı bırakmak</h3>
+<p>Esas (orjinal) şablondaki seçimi kaldırın ve değişikliği veritabanına gönderin.<br>
+template-extension dizinindeki özelleştirilmiş şablon dosyalarını silin.</p>
+
+<a name="warnings"></a>
+<h3>Uyarılar</h3>
+<ul>
+  <li><strong>Esas (orjinal) şablon</strong> mutlaka esas şablon olmalıdır aksi durumda öngörülemez sonuçlar alınabilir.</li>
+  <li>Eğer aynı esas şablon ve aynı URL anahtar kelimesi birden fazla özelleştirilmiş şablonda kullanılıyorsa sadece en sonuncu etkinleşir.</li>
+  <li>Dağıtımı yapılan örnek şablon dosyaları sadece test amaçlıdır. Bunları düzenlemeyin. Kendiniz bir tane yaratın veya <em>/template-extension/<my-theme>/</em> dizininde yer alan şablon dosyalarını kopyalayın.</li>
+  <li>Özelleştirilmiş şablon silindiğinde esas (orjinal) şablon derhal etkinleşir.</li>
+</ul>

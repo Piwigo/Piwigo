@@ -422,8 +422,8 @@ $lang['guest'] = 'ospite';
 $lang['default values'] = 'valori predefiniti';
 $lang['Guest cannot be deleted'] = 'L\'utente ospite non può essere cancellato';
 $lang['Default user cannot be deleted'] = 'L\'utente predefinito non può essere cancellato';
-$lang['Purge history detail'] = 'Ripulire i dettagli dalla cronoligia';
-$lang['Purge history summary'] = 'Ripulire il sommario dalla cronoligia';
+$lang['Purge history detail'] = 'Ripulire i dettagli dalla cronologia';
+$lang['Purge history summary'] = 'Ripulire il sommario dalla cronologia';
 $lang['Check integrity'] = 'Controllo d\'integrità ';
 $lang['Anomaly'] = 'Anomalia';
 $lang['Correction'] = 'Correzione';
@@ -771,7 +771,7 @@ $lang['... or '] = '... oppure ';
 $lang['Create'] = 'Creare';
 $lang['Start Upload'] = 'Avviare il caricamento';
 $lang['You are using the Flash uploader. Problems? Try the <a href="%s">Browser uploader</a> instead.'] = 'Si sta utilizzando il Flash uploader. Problemi? Provare il <a href="%s">Browser uploader</a> invece.';
-$lang['You are using the Browser uploader. Try the <a href="%s">Flash uploader</a> instead.'] = 'Atate utilizzando il Browser uploader. Provate con il <a href="%s">Flash uploader</a> invece.';
+$lang['You are using the Browser uploader. Try the <a href="%s">Flash uploader</a> instead.'] = 'State utilizzando il Browser uploader. Provate con il <a href="%s">Flash uploader</a> invece.';
 $lang['Maximum file size: %sB.'] = 'Grandezza massima dei file: %sB.';
 $lang['Allowed file types: %s.'] = 'Tipi di file autorizzati: %s.';
 $lang['Approximate maximum resolution: %dM pixels (that\'s %dx%d pixels).'] = 'Risoluzione massima approssimativa: %dM pixels (sia %dx%d pixels)';
@@ -950,4 +950,5 @@ $lang['This group will be set to default'] = 'Questo gruppo sarà impostato sul 
 $lang['No members to manage'] = 'Nessun membro da gestire';
 $lang['Rename'] = 'Rinomina';
 $lang['Purge user cache'] = 'Svuotare la cache utente';
+$lang['The picture dimensions will be reduced to %dx%d pixels.'] = 'Le dimensioni dell\'immagine saranno ridotte a %dx%d pixel.';
 ?>

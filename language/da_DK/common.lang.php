@@ -22,7 +22,7 @@
 // +-----------------------------------------------------------------------+
 /*
 Language Name: Dansk [DK]
-Version: 2.5.0
+Version: 2.5.1
 Language URI: http://piwigo.org/ext/extension_view.php?eid=415
 Author: Piwigo team
 Author URI: http://piwigo.org
@@ -60,7 +60,7 @@ $lang['Album'] = 'Album';
 $lang['Close this window'] = 'Luk dette vindue';
 $lang['Complete RSS feed (photos, comments)'] = 'Komplet RSS-feed (fotografier, kommentarer)';
 $lang['Confirm Password'] = 'Bekræft adgangskode';
-$lang['Connection settings'] = 'Loginindstillinger';
+$lang['Connection settings'] = 'Loginoplysninger';
 $lang['Login'] = 'Log på';
 $lang['Contact webmaster'] = 'Kontakt webmaster';
 $lang['Create a new account'] = 'Opret en ny konto';
@@ -276,7 +276,7 @@ $lang['the beginning'] = 'begyndelsen';
 $lang['Interface theme'] = 'Grænsefladetema';
 $lang['Thumbnails'] = 'Miniaturebilleder';
 $lang['Menu'] = 'Menu';
-$lang['A comment on your site'] = 'En kommentar på din side';
+$lang['A comment on your site'] = 'En kommentar vedrørende dit fotogalleri';
 $lang['today'] = 'i dag';
 $lang['Update your rating'] = 'Opdater din bedømmelse';
 $lang['the username must be given'] = 'brugernavn skal angives';

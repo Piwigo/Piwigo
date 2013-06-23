@@ -25,7 +25,7 @@
 // +-----------------------------------------------------------------------+
 /*
 Language Name: Česky [CZ]
-Version: 2.5.0
+Version: 2.5.1
 Language URI: http://piwigo.org/ext/extension_view.php?eid=414
 Author: Piwigo team
 Author URI: http://piwigo.org
@@ -55,8 +55,8 @@ $lang['%d new photos'] = '%d nových objektů';
 $lang['%d new user'] = '%d nový uživatel';
 $lang['%d new users'] = '%d nových uživatelů';
 $lang['About'] = 'O mě';
-$lang['All tags'] = 'Všechna klíčová slova';
-$lang['Any tag'] = 'Kterékoliv klíčové slovo';
+$lang['All tags'] = 'Všechny štítky';
+$lang['Any tag'] = 'Kterýkoliv štítek';
 $lang['At least one listed rule must be satisfied.'] = 'Alespoň jedno pravidlo ze seznamu musí být splněno.';
 $lang['Author'] = 'Autor';
 $lang['Albums'] = 'Alba';
@@ -104,18 +104,18 @@ $lang['Quick connect'] = 'Rychlé přihlášení';
 $lang['RSS feed'] = 'RSS čtečka';
 $lang['Register'] = 'Zaregistrovat se';
 $lang['Registration'] = 'Registrace';
-$lang['Related tags'] = 'Související klíčová slova';
+$lang['Related tags'] = 'Související štítky';
 $lang['Reset'] = 'Vynulovat';
 $lang['Retrieve password'] = 'Obnovit heslo';
 $lang['Search rules'] = 'Podmínky pro vyhledávání';
-$lang['Search tags'] = 'Hledat podle klíčových slov';
+$lang['Search tags'] = 'Hledat podle štítků';
 $lang['Search'] = 'Vyhledat';
-$lang['display available tags'] = 'Ukázat dostupná klíčová slova';
+$lang['display available tags'] = 'Ukázat dostupné štítky';
 $lang['Since'] = 'Od';
 $lang['Sort by'] = 'Řadit podle';
 $lang['Sort order'] = 'Směr řazení';
-$lang['Tag'] = 'Klíčové slovo';
-$lang['Tags'] = 'Klíčová slova';
+$lang['Tag'] = 'Štítek';
+$lang['Tags'] = 'Štítky';
 $lang['The RSS notification feed provides notification on news from this website : new photos, updated albums, new comments. Use a RSS feed reader.'] = 'RSS zdroj obsahuje upozornění na nové události z tohoto webu: nové fotky, aktualizované galerie, nové komentáře. K použití se čtečkami RSS kanálů.';
 $lang['Unknown feed identifier'] = 'Neznámý identifikátor vlákna';
 $lang['User comments'] = 'Komentáře uživatelů';
@@ -251,7 +251,7 @@ $lang['this login is already used'] = 'tyto přihlašovací údaje už jsou pou�
 $lang['mail address must be like xxx@yyy.eee (example : jack@altern.org)'] = 'E-mail musí být ve formátu xxx@yyy.eee (například : novak@seznam.cz)';
 $lang['please enter your password again'] = 'prosím zadejte znovu heslo ';
 $lang['Auto login'] = 'Automatické přihlášení';
-$lang['remove this tag from the list'] = 'odstranit toto klíčové slovo ze seznamu';
+$lang['remove this tag from the list'] = 'odstranit tento štítek ze seznamu';
 $lang['representative'] = 'Reprezentant';
 $lang['Search for Author'] = 'Hledat autora';
 $lang['Search in albums'] = 'Hledat v albech';
@@ -300,7 +300,7 @@ $lang['Album: %s'] = 'Album: %s';
 $lang['Bad status for user "guest", using default status. Please notify the webmaster.'] = 'Špatný stav pro uživatele "host", bude použit výchozí stav. Prosím informujte administrátora.';
 $lang['this email address is already in use'] = 'Tato e-mailová adresa je již používána';
 $lang['Album results for'] = 'Alba výsledky pro';
-$lang['Tag results for'] = 'Výsledky pro klíčová slova';
+$lang['Tag results for'] = 'Výsledky pro štítky';
 $lang['from %s to %s'] = 'od %s do %s';
 $lang['Play of slideshow'] = 'Spustit prezentaci';
 $lang['Pause of slideshow'] = 'Zastavit prezentaci';
@@ -313,16 +313,16 @@ $lang['Yes'] = 'Ano';
 $lang['No'] = 'Ne';
 $lang['%d photo'] = '%d fotografie';
 $lang['%d photos'] = '%d fotografií';
-$lang['%d photo is also linked to current tags'] = '%d fotografie je také spojena s aktuálními klíčovými slovy';
-$lang['%d photos are also linked to current tags'] = '%d fotografií je také spojeno s aktuálními klíčovými slovy';
-$lang['display photos linked to this tag'] = 'Ukázat pouze fotografie spojené s aktuálním klíčovým slovem';
+$lang['%d photo is also linked to current tags'] = '%d fotografie je také spojena s aktuálními štítky';
+$lang['%d photos are also linked to current tags'] = '%d fotografií je také spojeno s aktuálními štítky';
+$lang['display photos linked to this tag'] = 'Ukázat pouze fotografie spojené s aktuálním štítkem';
 $lang['photos posted during the last %d days'] = 'fotografie vložené za posledních %d dnů';
 $lang['Piwigo Help'] = 'Nápověda Piwigo';
 $lang['Rank'] = 'Hodnotit';
 $lang['group by letters'] = 'Setřídit podle abecedy';
 $lang['letters'] = 'Roztřídit dle počátečního písmene';
-$lang['show tag cloud'] = 'Zobrazit klíčová slova pohromadě';
-$lang['cloud'] = 'Klíčová slova na jedné hromadě';
+$lang['show tag cloud'] = 'Zobrazit shluk štítků';
+$lang['cloud'] = 'Shluk';
 $lang['Are you sure?'] = 'Jste si jistý?';
 $lang['Reset to default values'] = 'Obnovit výchozí hodnoty';
 $lang['delete all photos from your favorites'] = 'vymazat všechny obrázky z Vašich oblíbených';

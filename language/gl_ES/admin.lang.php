@@ -274,7 +274,7 @@ $lang['Album photos associated to the following albums: %s'] = 'Álbum de fotos 
 $lang['Album updated successfully'] = 'O álbum actualizouse con éxito';
 $lang['Albums authorized thanks to group associations'] = 'O álbum autorizouse grazas ás asociacións do grupo';
 $lang['Albums automatically sorted'] = 'Os álbums ordenáronse automaticamente';
-$lang['All extensions are up to date.'] = 'Tódalas extensións están actualizados.';
+$lang['All extensions are up to date.'] = 'Tódolos engadidos están actualizad0s.';
 $lang['All languages are up to date.'] = 'Tódolos idiomas están actualizados.';
 $lang['All optimizations have been successfully completed.'] = 'Tódalas optimizacións foron completadas con éxito.';
 $lang['All plugins are up to date.'] = 'Tódolos engadidos están actualizados.';
@@ -943,4 +943,5 @@ $lang['height must be a number superior to'] = 'a altura debe ser un número mai
 $lang['hide details'] = 'agochar detalles';
 $lang['high'] = 'alto';
 $lang['iPhoto is the default photo manager on MacOSX. The Piwigo export plugin let you create new albums and export your photos directly from iPhoto to your Piwigo photo gallery.'] = 'iPhoto é o xestor de fotos predeterminado de MacOSX. O engadido de exportación Piwigo crea novos ábums e exporta túas fotos directamente de iPhoto á túa galería de fotos Piwigo.';
+$lang['The picture dimensions will be reduced to %dx%d pixels.'] = 'As dimensións da imaxe reduciranse a %dx%d pixeis.';
 ?>

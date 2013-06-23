@@ -131,7 +131,7 @@ $lang['Albums authorized thanks to group associations'] = 'Albümler grup ilişk
 $lang['Albums automatically sorted'] = 'Albümler otomatik olarak sıralandı';
 $lang['albums deleted in the database'] = 'veri tabanından silinen albümler';
 $lang['All %d photos are selected'] = 'Bütün %d fotoğraf seçildi';
-$lang['All extensions are up to date.'] = 'Tüm uzantılar güncel.';
+$lang['All extensions are up to date.'] = 'Tüm eklentiler güncel.';
 $lang['All languages are up to date.'] = 'Bütün diller güncel.';
 $lang['All optimizations have been successfully completed.'] = 'Tüm iyileştirmeler başarıyla tamamlandı.';
 $lang['All plugins are up to date.'] = 'Bütün eklentiler güncel.';
@@ -782,7 +782,7 @@ $lang['With no virtual album'] = 'sıfır sanal albüm ile';
 $lang['wrong filename'] = 'yanlış dosya ismi';
 $lang['Year'] = 'Yıl';
 $lang['You are running on development sources, no check possible.'] = 'Gelistirme kaynaklarini kullaniyorsunuz incelemek mümkün degil';
-$lang['You are running the latest version of Piwigo.'] = 'Piwigo son sürümünü çalıştırıyorsunuz.';
+$lang['You are running the latest version of Piwigo.'] = 'Piwigo\'nun son sürümü çalıştırılmaktadır.';
 $lang['You are using the Browser uploader. Try the <a href="%s">Flash uploader</a> instead.'] = 'Tarayıcı yükleyiciyi kullanıyorsunuz. <a href="%s">Flash Yükleyiciyi</a> deneyiniz.';
 $lang['You are using the Flash uploader. Problems? Try the <a href="%s">Browser uploader</a> instead.'] = 'Flash Yükleyiciyi kullanıyorsunuz. Sorun mu var? <a href="%s">Tarayıcı Yükleyiciyi</a> deneyiniz.';
 $lang['You can update to Piwigo %s directly, without upgrading to Piwigo %s (recommended).'] = 'Piwigoyu direkt olarak %s\'e güncelleyebilirsiniz, Piwigo %s\'e güncellemeden (önerilir).';
@@ -949,4 +949,5 @@ $lang['Please select at least two groups'] = 'En azından iki grup seçin';
 $lang['Rename'] = 'Yeniden adlandır';
 $lang['Purge user cache'] = 'Kullaıcı önbelleğini temizle';
 $lang['The version of %s [%s] installed is not compatible with the version required ']['%s'] = 'Yüklenen %s [%s] sürümü, gereken sürüm [%s] ile uyumlu değildir.';
+$lang['The picture dimensions will be reduced to %dx%d pixels.'] = 'Resim boyutları %dx%d piksele düşürülecektir.';
 ?>
