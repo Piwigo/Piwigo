@@ -780,6 +780,10 @@ $conf['chmod_value']= substr_compare(PHP_SAPI, 'apa', 0, 3)==0 ? 0777 : 0755;
 // 'small', 'medium' or 'large'
 $conf['derivative_default_size'] = 'medium';
 
+// below which size (in pixels, ie width*height) do we remove metadata
+// EXIF/IPTC... from derivative?
+$conf['derivatives_strip_metadata_threshold'] = 256000;
+
 //Maximum Ajax requests at once, for thumbnails on-the-fly generation
 $conf['max_requests']=3;
 
