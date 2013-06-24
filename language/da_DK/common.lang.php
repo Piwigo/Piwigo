@@ -415,4 +415,5 @@ $lang['Username is mandatory'] = 'Brugernavn er krævet';
 $lang['mandatory'] = 'krævet';
 $lang['Website'] = 'Websted';
 $lang['Your website URL is invalid'] = 'Dit websteds URL er ugyldig';
+$lang['Email'] = 'E-mail';
 ?>
