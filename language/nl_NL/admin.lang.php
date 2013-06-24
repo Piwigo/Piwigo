@@ -222,7 +222,7 @@ $lang['Prepared time for list of users to send mail is limited. Others users are
 $lang['Time to send mail is limited. Others mails are skipped.'] = 'Tijd om email te sturen is gelimiteerd. Andere emailtjes worden overgeslagen.';
 $lang['To send ?'] = 'aan sturen ?';
 $lang['Last send'] = 'Laatst sturen';
-$lang['email'] = 'email';
+$lang['Email'] = 'email';
 $lang['User'] = 'Gebruiker';
 $lang['See you soon,'] = 'Tot ziens op onze webpagina,';
 $lang['Go to'] = 'Ga naar ';

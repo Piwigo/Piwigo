@@ -382,7 +382,6 @@ $lang['deleted'] = 'șters';
 $lang['delete'] = 'șterge';
 $lang['directories + files'] = 'diurectoare + fișiere';
 $lang['display'] = 'vizualizează';
-$lang['email'] = 'Email';
 $lang['errors during synchronization'] = 'erori în timpul sincronizării';
 $lang['even already synchronized photos'] = 'chiar și imaginile deja sincronizate';
 $lang['existing album'] = 'album existent';

@@ -414,4 +414,5 @@ $lang['Username is mandatory'] = 'Numele de utilizator este obligatoriu';
 $lang['mandatory'] = 'obligatoriu';
 $lang['Website'] = 'Site';
 $lang['Your website URL is invalid'] = 'URL-ul sitului tău este invalid';
+$lang['Email'] = 'Email';
 ?>

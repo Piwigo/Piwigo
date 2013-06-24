@@ -224,7 +224,7 @@ $lang['Prepared time for list of users to send mail is limited. Others users are
 $lang['Time to send mail is limited. Others mails are skipped.'] = 'Vrijeme za slanje poruke je ograničeno. Ostale poruke su preskočene.';
 $lang['To send ?'] = 'Poslati ?';
 $lang['Last send'] = 'Zadnje poslano';
-$lang['email'] = 'e-mail';
+$lang['Email'] = 'e-mail';
 $lang['User'] = 'Korisnik';
 $lang['See you soon,'] = 'Vidimo se uskoro,';
 $lang['Go to'] = 'Idi na ';

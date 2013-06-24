@@ -412,4 +412,5 @@ $lang['Your password has been reset'] = 'Your password has been reset';
 $lang['Your username has been successfully changed to : %s'] = 'Your username has been successfully changed to: %s';
 $lang['Your website URL is invalid'] = 'Your website URL is invalid';
 $lang['mandatory'] = 'mandatory';
+$lang['Email'] = "Email";
 ?>

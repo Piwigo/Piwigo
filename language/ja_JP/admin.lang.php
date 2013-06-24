@@ -223,7 +223,7 @@ $lang['Prepared time for list of users to send mail is limited. Others users are
 $lang['Time to send mail is limited. Others mails are skipped.'] = 'メール送信時間が制限されています。他のメールはスキップされます。';
 $lang['To send ?'] = '送信?';
 $lang['Last send'] = '最終送信';
-$lang['email'] = 'メール';
+$lang['Email'] = 'メール';
 $lang['User'] = 'ユーザ';
 $lang['See you soon,'] = 'それでは ';
 $lang['Go to'] = '移動 ';

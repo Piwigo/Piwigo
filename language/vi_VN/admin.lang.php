@@ -223,7 +223,7 @@ $lang['Prepared time for list of users to send mail is limited. Others users are
 $lang['Time to send mail is limited. Others mails are skipped.'] = 'Thời gian gởi mail là có giới hạn. Các email khác đã được bỏ qua.';
 $lang['To send ?'] = 'Để gởi ?';
 $lang['Last send'] = 'Gởi lần cuối';
-$lang['email'] = 'địa chỉ email';
+$lang['Email'] = 'địa chỉ email';
 $lang['User'] = 'Người dùng';
 $lang['See you soon,'] = 'Hẹn gặp lại bạn,';
 $lang['Go to'] = 'Đi đến ';

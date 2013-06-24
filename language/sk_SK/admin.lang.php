@@ -226,7 +226,7 @@ $lang['Prepared time for list of users to send mail is limited. Others users are
 $lang['Time to send mail is limited. Others mails are skipped.'] = 'Nastavený čas pre odoslanie správy bol prekročený. Ďalšie správy nebudú odoslané.';
 $lang['To send ?'] = 'Odoslať?';
 $lang['Last send'] = 'Naposledy odoslané';
-$lang['email'] = 'E-mail';
+$lang['Email'] = 'E-mail';
 $lang['User'] = 'Používateľ';
 $lang['See you soon,'] = 'Dovidenia';
 $lang['Go to'] = 'Prejsť na';

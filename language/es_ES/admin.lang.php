@@ -221,7 +221,7 @@ $lang['Prepared time for list of users to send mail is limited. Others users are
 $lang['Time to send mail is limited. Others mails are skipped.'] = 'El tiempo de envío de los mails es limitado. Los otros envíos de mails han sido ignorados.';
 $lang['To send ?'] = '¿Enviar?';
 $lang['Last send'] = 'Último envío';
-$lang['email'] = 'e-mail';
+$lang['Email'] = 'e-mail';
 $lang['User'] = 'Usuario';
 $lang['See you soon,'] = 'Hasta pronto,';
 $lang['Go to'] = 'Ir a ';

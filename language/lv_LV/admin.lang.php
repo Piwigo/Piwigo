@@ -225,7 +225,7 @@ $lang['Prepared time for list of users to send mail is limited. Others users are
 $lang['Time to send mail is limited. Others mails are skipped.'] = 'E-pasta izsūtīšanas laiks ierobežots. Citas vēstules izlaistas.';
 $lang['To send ?'] = 'Nosūtīt?';
 $lang['Last send'] = 'Pēdējais nosūtītais';
-$lang['email'] = 'E-pasts';
+$lang['Email'] = 'E-pasts';
 $lang['User'] = 'Lietotājs';
 $lang['Complementary mail content'] = 'Vēstules saturs';
 $lang['See you soon,'] = 'Visu labu,';

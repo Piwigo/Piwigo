@@ -223,7 +223,7 @@ $lang['Prepared time for list of users to send mail is limited. Others users are
 $lang['Time to send mail is limited. Others mails are skipped.'] = 'הזמן כדי לשלוח דואר אלקטרוני מוגבל אחרים כבר דילג..';
 $lang['To send ?'] = 'כדי לשלוח?';
 $lang['Last send'] = 'לאחרונה שלחה';
-$lang['email'] = 'דואר אלקטרוני';
+$lang['Email'] = 'דואר אלקטרוני';
 $lang['User'] = 'משתמש';
 $lang['See you soon,'] = 'נתראה בקרוב';
 $lang['Go to'] = 'עבור';

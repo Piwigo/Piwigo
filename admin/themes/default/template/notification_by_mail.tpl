@@ -98,7 +98,7 @@ jQuery(document).ready(function(){
       <table class="table2">
         <tr class="throw">
           <th>{'User'|@translate}</th>
-          <th>{'email'|@translate}</th>
+          <th>{'Email'|@translate}</th>
           <th>{'Last send'|@translate}</th>
           <th>{'To send ?'|@translate}</th>
         </tr>

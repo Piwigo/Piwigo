@@ -222,7 +222,7 @@ $lang['Prepared time for list of users to send mail is limited. Others users are
 $lang['Time to send mail is limited. Others mails are skipped.'] = 'Az e-mail küldési idő korlátozott. További e-mail küldés megszakításra kerül.';
 $lang['To send ?'] = 'Elküldjük?';
 $lang['Last send'] = 'Utolsó küldése';
-$lang['email'] = 'E-mail';
+$lang['Email'] = 'E-mail';
 $lang['User'] = 'Felhasználó';
 $lang['See you soon,'] = 'Viszont látásra,';
 $lang['Go to'] = 'Ugrás ';

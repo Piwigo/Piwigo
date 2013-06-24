@@ -208,7 +208,7 @@ $lang['Execution time is out, treatment must be continue [Estimated time: %d sec
 $lang['Prepared time for list of users to send mail is limited. Others users are not listed.'] = 'El temps requerit per a processar la llista d\'usuaris a enviar-los correus és limitat. No s\'han pogut processar tots els usuaris.';
 $lang['Time to send mail is limited. Others mails are skipped.'] = 'El temps d\'enviament del correu és limitat. No tots els missatges han pogut ser enviats. S\'han omès missatges de correu electrònic.';
 $lang['To send ?'] = 'Enviar-ho?';
-$lang['email'] = 'Correu electrònic';
+$lang['Email'] = 'Correu electrònic';
 $lang['User'] = 'Usuari';
 $lang['Complementary mail content'] = 'Contingut complementari del correu electrònic';
 $lang['See you soon,'] = 'Fins aviat,';

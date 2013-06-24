@@ -224,7 +224,7 @@ $lang['Prepared time for list of users to send mail is limited. Others users are
 $lang['Time to send mail is limited. Others mails are skipped.'] = 'ფოსტის გაგზავნის დრო შეზღუდულია. სხვა წერილები გამოტოვებულია.';
 $lang['To send ?'] = 'გავგზავნოთ?';
 $lang['Last send'] = 'ბოლო გაგზავნილები';
-$lang['email'] = 'email';
+$lang['Email'] = 'email';
 $lang['User'] = 'მომხმარებელი';
 $lang['See you soon,'] = 'ნახვამდის,';
 $lang['Go to'] = 'გადავიდეთ ';
