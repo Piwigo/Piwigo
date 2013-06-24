@@ -765,19 +765,19 @@ var s,after = document.getElementsByTagName(\'script\')[document.getElementsByTa
    */
   function set_prefilter($handle, $callback, $weight=50)
   {
-    $this->external_filters[$handle][$weight][] = array('prefilter', $callback);
+    $this->external_filters[$handle][$weight][] = array('pre', $callback);
     ksort($this->external_filters[$handle]);
   }
 
   function set_postfilter($handle, $callback, $weight=50)
   {
-    $this->external_filters[$handle][$weight][] = array('postfilter', $callback);
+    $this->external_filters[$handle][$weight][] = array('post', $callback);
     ksort($this->external_filters[$handle]);
   }
 
   function set_outputfilter($handle, $callback, $weight=50)
   {
-    $this->external_filters[$handle][$weight][] = array('outputfilter', $callback);
+    $this->external_filters[$handle][$weight][] = array('output', $callback);
     ksort($this->external_filters[$handle]);
   }
 
