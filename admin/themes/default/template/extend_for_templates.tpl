@@ -17,19 +17,19 @@
         {$tpl.replacer}
       </td>
       <td>
-        {html_options name=original[] output=$tpl.original_tpl values=$tpl.original_tpl selected=$tpl.selected_tpl}
+				{html_options name='original[]' output=$tpl.original_tpl values=$tpl.original_tpl selected=$tpl.selected_tpl}
       </td>
       <td>
-        {html_options name=url[] output=$tpl.url_parameter values=$tpl.url_parameter selected=$tpl.selected_url}
+				{html_options name='url[]' output=$tpl.url_parameter values=$tpl.url_parameter selected=$tpl.selected_url}
       </td>
       <td>
-        {html_options name=bound[] output=$tpl.bound_tpl values=$tpl.bound_tpl selected=$tpl.selected_bound}
+				{html_options name='bound[]' output=$tpl.bound_tpl values=$tpl.bound_tpl selected=$tpl.selected_bound}
       </td>
     </tr>
     {/foreach}
   </table>
   <p>
-    <input class="submit" type="submit" value="{'Submit'|@translate}" name="submit">
+		<input type="submit" value="{'Submit'|@translate}" name="submit">
   </p>
 </form>
 {/if}
