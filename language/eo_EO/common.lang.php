@@ -71,7 +71,7 @@ $lang['Display'] = 'Ekrano';
 $lang['Each listed rule must be satisfied.'] = 'Ĉiuj reguloj devas kongrui';
 $lang['Email address'] = 'Retadreso';
 $lang['Enter your personnal informations'] = 'Entajpu viajn personajn informojn';
-$lang['Error sending email'] = 'Eraro okazis dum sendiĝis la retmesaĝo';
+$lang['Error sending email'] = 'Eraro okazis dum sendo de la retmesaĝo';
 $lang['File name'] = 'Dosiernomo';
 $lang['File'] = 'Dosiero';
 $lang['Filesize'] = 'Dosierpezo';
@@ -414,4 +414,5 @@ $lang['Username is mandatory'] = 'Uzantnomo estas deviga';
 $lang['mandatory'] = 'deviga';
 $lang['Your website URL is invalid'] = 'Via reteja URL ne validas.';
 $lang['Website'] = 'Retejo';
+$lang['Email'] = 'Retmesaĝo';
 ?>
