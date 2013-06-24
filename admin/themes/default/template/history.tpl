@@ -138,43 +138,45 @@
 {combine_script id='jquery.geoip' load='async' path='admin/themes/default/js/jquery.geoip.js'}
 
 {footer_script}{literal}
-jQuery(".IP").one( "mouseenter", function(){
-	var that = $(this);
-	that
-		.data("isOver", true)
-		.one("mouseleave", function() {
-			that.removeData("isOver");
-		});
-	GeoIp.get( that.text(), function(data) {
-		if (!data.fullName) return;
-
-    var content = data.fullName;
-    if (data.latitude && data.region_name) {
-      content += '<br><a class="ipGeoOpen" data-lat="'+data.latitude+'" data-lon="'+data.longitude+'"';
-      content += ' href="#">show on a Google Map</a>';
-    }
-
-		that.tipTip( {
-			content: content,
-      keepAlive: true,
-      defaultPosition: "right",
-      maxWidth: 320,
-			}	);
-		if (that.data("isOver"))
-			that.trigger("mouseenter");
-	});
-} );
-
-jQuery(document).on('click', '.ipGeoOpen',  function() {
-  var lat = jQuery(this).data("lat");
-  var lon = jQuery(this).data("lon");
-  var parent = jQuery(this).parent();
-  jQuery(this).remove();
-
-  var append = '<br><img width=300 height=220 src="http://maps.googleapis.com/maps/api/staticmap';
-  append += '?sensor=false&size=300x220&zoom=6&markers=size:tiny%7C' + lat + ',' + lon + '">';
-
-  jQuery(parent).append(append);
-  return false;
+jQuery(document).ready( function() {
+  jQuery(".IP").one( "mouseenter", function(){
+  	var that = $(this);
+  	that
+  		.data("isOver", true)
+  		.one("mouseleave", function() {
+  			that.removeData("isOver");
+  		});
+  	GeoIp.get( that.text(), function(data) {
+  		if (!data.fullName) return;
+  
+      var content = data.fullName;
+      if (data.latitude && data.region_name) {
+        content += '<br><a class="ipGeoOpen" data-lat="'+data.latitude+'" data-lon="'+data.longitude+'"';
+        content += ' href="#">show on a Google Map</a>';
+      }
+  
+  		that.tipTip( {
+  			content: content,
+        keepAlive: true,
+        defaultPosition: "right",
+        maxWidth: 320,
+  			}	);
+  		if (that.data("isOver"))
+  			that.trigger("mouseenter");
+  	});
+  } );
+  
+  jQuery(document).on('click', '.ipGeoOpen',  function() {
+    var lat = jQuery(this).data("lat");
+    var lon = jQuery(this).data("lon");
+    var parent = jQuery(this).parent();
+    jQuery(this).remove();
+  
+    var append = '<br><img width=300 height=220 src="http://maps.googleapis.com/maps/api/staticmap';
+    append += '?sensor=false&size=300x220&zoom=6&markers=size:tiny%7C' + lat + ',' + lon + '">';
+  
+    jQuery(parent).append(append);
+    return false;
+  });
 });
 {/literal}{/footer_script}
