@@ -421,4 +421,5 @@ $lang['Username is mandatory'] = 'El nombre de usuario es obligatorio';
 $lang['mandatory'] = 'obligatorio';
 $lang['Website'] = 'Página web';
 $lang['Your website URL is invalid'] = 'La url de tu página web es incorrecta';
+$lang['Email'] = 'Correo electrónico';
 ?>
