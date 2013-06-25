@@ -417,4 +417,5 @@ $lang['Username is mandatory'] = 'Felhasználónév szükséges';
 $lang['mandatory'] = 'szükséges';
 $lang['Website'] = 'Weboldal';
 $lang['Your website URL is invalid'] = 'A weboldal URL érvénytelen';
+$lang['Email'] = 'E-mail';
 ?>
