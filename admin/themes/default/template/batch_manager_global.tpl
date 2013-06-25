@@ -769,8 +769,8 @@ UL.thumbnails SPAN.wrap2 {ldelim}
 					<span class="wrap2{if $isSelected} thumbSelected{/if}">
 					<div class="actions"><a href="{$thumbnail.FILE_SRC}" class="preview-box">{'Zoom'|@translate}</a> &middot; <a href="{$thumbnail.U_EDIT}" target="_blank">{'Edit'|@translate}</a></div>
 						{if $thumbnail.level > 0}
-						<em class="levelIndicatorB">{$pwg->l10n($pwg->sprintf('Level %d',$thumbnail.level))}</em>
-						<em class="levelIndicatorF" title="{'Who can see these photos?'|@translate} : ">{$pwg->l10n($pwg->sprintf('Level %d',$thumbnail.level))}</em>
+						<em class="levelIndicatorB">{'Level %d'|@sprintf:$thumbnail.level|@translate}</em>
+						<em class="levelIndicatorF" title="{'Who can see these photos?'|@translate} : ">{'Level %d'|@sprintf:$thumbnail.level|@translate}</em>
 						{/if}
 						<img src="{$thumbnail.thumb->get_url()}" alt="{$thumbnail.file}" title="{$thumbnail.TITLE|@escape:'html'}" {$thumbnail.thumb->get_size_htm()}>
 					</span>

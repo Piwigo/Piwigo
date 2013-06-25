@@ -41,14 +41,14 @@ jQuery(document).ready(function(){
   <legend></legend>
   <ul>
     <li>
-      
+
         <label for="gallery_title">{'Gallery title'|@translate}</label>
       <br>
       <input type="text" maxlength="255" size="50" name="gallery_title" id="gallery_title" value="{$main.CONF_GALLERY_TITLE}">
     </li>
 
     <li>
-      
+
         <label for="page_banner">{'Page banner'|@translate}</label>
       <br>
       <textarea rows="5" cols="50" class="description" name="page_banner" id="page_banner">{$main.CONF_PAGE_BANNER}</textarea>
@@ -100,26 +100,26 @@ jQuery(document).ready(function(){
       <label>{'Week starts on'|@translate}
       {html_options name="week_starts_on" options=$main.week_starts_on_options selected=$main.week_starts_on_options_selected}</label>
     </li>
-    
+
     <li>
         <label>{'Default photos order'|@translate}</label>
-        
+
         {foreach from=$main.order_by item=order}
-        <span class="filter {if isset($ORDER_BY_IS_CUSTOM)}transparent{/if}">          
+        <span class="filter {if isset($ORDER_BY_IS_CUSTOM)}transparent{/if}">
           <select name="order_by[]" {if isset($ORDER_BY_IS_CUSTOM)}disabled{/if}>
             {html_options options=$main.order_by_options selected=$order}
           </select>
           <a class="removeFilter">{'delete'|@translate}</a>
         </span>
         {/foreach}
-        
+
         {if !isset($ORDER_BY_IS_CUSTOM)}
           <a class="addFilter">{'Add a criteria'|@translate}</a>
         {else}
           <span class="order_by_is_custom">{'You can\'t define a default photo order because you have a custom setting in your local configuration.'|@translate}</span>
         {/if}
     </li>
-    
+
 {if !isset($ORDER_BY_IS_CUSTOM)}
 {footer_script require='jquery'}
 // counters for displaying of addFilter link
@@ -140,7 +140,7 @@ function updateRemoveFilterTrigger() {
     fields--;
     updateAddFilterLink();
   });
-  
+
   $(".removeFilter").css('display', '');
   $(".filter:first .removeFilter").css('display', 'none');
 }
@@ -149,12 +149,12 @@ jQuery(document).ready(function () {
   $('.addFilter').click(function() {
     $(this).prev('span.filter').clone().insertBefore($(this));
     $(this).prev('span.filter').children('select[name="order_by[]"]').val('');
-    
+
     fields++;
     updateRemoveFilterTrigger();
     updateAddFilterLink();
   });
-  
+
   updateRemoveFilterTrigger();
   updateAddFilterLink();
 });
@@ -196,7 +196,7 @@ jQuery(document).ready(function () {
       </label>
     </li>
   </ul>
-  
+
   <ul id="comments_param_warp"{if not ($comments.activate_comments)} style="display:none;"{/if}>
     <li>
       <label>
@@ -211,7 +211,7 @@ jQuery(document).ready(function () {
         <input type="text" size="3" maxlength="4" name="nb_comment_page" id="nb_comment_page" value="{$comments.NB_COMMENTS_PAGE}">
       </label>
     </li>
-    
+
     <li>
       <label>
         {'Default comments order'|@translate}
@@ -227,14 +227,14 @@ jQuery(document).ready(function () {
         {'Validation'|@translate}
       </label>
     </li>
-    
+
     <li>
       <label>
         <input type="checkbox" name="comments_author_mandatory" {if ($comments.comments_author_mandatory)}checked="checked"{/if}>
         {'Username is mandatory'|@translate}
       </label>
     </li>
-    
+
     <li>
       <label>
         <input type="checkbox" name="comments_email_mandatory" {if ($comments.comments_email_mandatory)}checked="checked"{/if}>
@@ -600,10 +600,10 @@ jQuery(document).ready(function() {
     <li>
       <label>
         <input type="checkbox" name="menubar_filter_icon" {if ($display.menubar_filter_icon)}checked="checked"{/if}>
-        {'display only recently posted photos'|@translate|@ucfirst|@string_format:$pwg->l10n('Activate icon "%s"')}
+				{'Activate icon "%s"'|@translate|@sprintf:('display only recently posted photos'|@translate|@ucfirst)}
       </label>
-    </li>    
-    
+    </li>
+
     <li>
       <label>
         <input type="checkbox" name="index_new_icon" {if ($display.index_new_icon)}checked="checked"{/if}>
@@ -614,38 +614,38 @@ jQuery(document).ready(function() {
     <li>
       <label>
         <input type="checkbox" name="index_sort_order_input" {if ($display.index_sort_order_input)}checked="checked"{/if}>
-        {'Sort order'|@translate|@string_format:$pwg->l10n('Activate icon "%s"')}
+				{'Activate icon "%s"'|@translate|@sprintf:('Sort order'|@translate)}
       </label>
     </li>
 
     <li>
       <label>
         <input type="checkbox" name="index_flat_icon" {if ($display.index_flat_icon)}checked="checked"{/if}>
-        {'display all photos in all sub-albums'|@translate|@ucfirst|@string_format:$pwg->l10n('Activate icon "%s"')}
+				{'Activate icon "%s"'|@translate|@sprintf:('display all photos in all sub-albums'|@translate|@ucfirst)}
       </label>
     </li>
 
     <li>
       <label>
         <input type="checkbox" name="index_posted_date_icon" {if ($display.index_posted_date_icon)}checked="checked"{/if}>
-        {'display a calendar by posted date'|@translate|@ucfirst|@string_format:$pwg->l10n('Activate icon "%s"')}
+				{'Activate icon "%s"'|@translate|@sprintf:('display a calendar by posted date'|@translate|@ucfirst)}
       </label>
     </li>
 
     <li>
       <label>
         <input type="checkbox" name="index_created_date_icon" {if ($display.index_created_date_icon)}checked="checked"{/if}>
-        {'display a calendar by creation date'|@translate|@ucfirst|@string_format:$pwg->l10n('Activate icon "%s"')}
+				{'Activate icon "%s"'|@translate|@sprintf:('display a calendar by creation date'|@translate|@ucfirst)}
       </label>
     </li>
 
     <li>
       <label>
         <input type="checkbox" name="index_slideshow_icon" {if ($display.index_slideshow_icon)}checked="checked"{/if}>
-        {'slideshow'|@translate|@ucfirst|@string_format:$pwg->l10n('Activate icon "%s"')}
+				{'Activate icon "%s"'|@translate|@sprintf:('slideshow'|@translate|@ucfirst)}
       </label>
     </li>
-    
+
     <li>
       <label>
         {'Number of albums per page'|@translate}
@@ -661,28 +661,28 @@ jQuery(document).ready(function() {
     <li>
       <label>
         <input type="checkbox" name="picture_slideshow_icon" {if ($display.picture_slideshow_icon)}checked="checked"{/if}>
-        {'slideshow'|@translate|@ucfirst|@string_format:$pwg->l10n('Activate icon "%s"')}
+				{'Activate icon "%s"'|@translate|@sprintf:('slideshow'|@translate|@ucfirst)}
       </label>
     </li>
 
     <li>
       <label>
         <input type="checkbox" name="picture_metadata_icon" {if ($display.picture_metadata_icon)}checked="checked"{/if}>
-        {'Show file metadata'|@translate|@string_format:$pwg->l10n('Activate icon "%s"')}
+				{'Activate icon "%s"'|@translate|@sprintf:('Show file metadata'|@translate)}
       </label>
     </li>
 
     <li>
       <label>
         <input type="checkbox" name="picture_download_icon" {if ($display.picture_download_icon)}checked="checked"{/if}>
-        {'Download this file'|@translate|@ucfirst|@string_format:$pwg->l10n('Activate icon "%s"')}
+				{'Activate icon "%s"'|@translate|@sprintf:('Download this file'|@translate|@ucfirst)}
       </label>
     </li>
 
     <li>
       <label>
         <input type="checkbox" name="picture_favorite_icon" {if ($display.picture_favorite_icon)}checked="checked"{/if}>
-        {'add this photo to your favorites'|@translate|@ucfirst|@string_format:$pwg->l10n('Activate icon "%s"')}
+				{'Activate icon "%s"'|@translate|@sprintf:('add this photo to your favorites'|@translate|@ucfirst)}
       </label>
     </li>
 
@@ -699,7 +699,7 @@ jQuery(document).ready(function() {
         {'Activate Navigation Thumbnails'|@translate}
       </label>
     </li>
-    
+
     <li>
       <label>
         <input type="checkbox" name="picture_menu" {if ($display.picture_menu)}checked="checked"{/if}>
