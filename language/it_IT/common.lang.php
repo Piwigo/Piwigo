@@ -412,4 +412,5 @@ $lang['Email address is mandatory'] = 'L\'indirizzo email è obbligatorio';
 $lang['mandatory'] = 'obbligatorio';
 $lang['Website'] = 'Sito web';
 $lang['Your website URL is invalid'] = 'L\'indirizzo del vostro sito web non è valido';
+$lang['Email'] = 'Email';
 ?>
