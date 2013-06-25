@@ -64,4 +64,5 @@ $lang['Just another Piwigo gallery'] = 'Ännu ett Piwigo galleri';
 $lang['Welcome to my photo gallery'] = 'Välkommen till mitt fotogalleri';
 $lang['Welcome to your new installation of Piwigo!'] = 'Välkomment till din nya installation av Piwigo!';
 $lang['Don\'t hesitate to consult our forums for any help : %s'] = 'Tveka inte att kontakta våra forum för hjälp: %s';
+$lang['localhost or other, supplied by your host provider'] = 'localhost eller det värdnams som du valt eller tilldelats av din webhotells leverantör/server';
 ?>
