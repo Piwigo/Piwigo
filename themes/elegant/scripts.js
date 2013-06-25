@@ -73,9 +73,10 @@ jQuery("document").ready(function(jQuery){
 				return false;
 			}
 		});
-
-
-	}	
+	}
+  else if (menubar.length == 1 && p_main_menu=="disabled") {
+    showMenu(0);
+  }
 	
 });
 
