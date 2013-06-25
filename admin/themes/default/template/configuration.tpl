@@ -600,7 +600,7 @@ jQuery(document).ready(function() {
     <li>
       <label>
         <input type="checkbox" name="menubar_filter_icon" {if ($display.menubar_filter_icon)}checked="checked"{/if}>
-				{'Activate icon "%s"'|@translate|@sprintf:('display only recently posted photos'|@translate|@ucfirst)}
+        {'Activate icon "%s"'|@translate|@sprintf:('display only recently posted photos'|@translate|@ucfirst)}
       </label>
     </li>
 
@@ -614,35 +614,35 @@ jQuery(document).ready(function() {
     <li>
       <label>
         <input type="checkbox" name="index_sort_order_input" {if ($display.index_sort_order_input)}checked="checked"{/if}>
-				{'Activate icon "%s"'|@translate|@sprintf:('Sort order'|@translate)}
+        {'Activate icon "%s"'|@translate|@sprintf:('Sort order'|@translate)}
       </label>
     </li>
 
     <li>
       <label>
         <input type="checkbox" name="index_flat_icon" {if ($display.index_flat_icon)}checked="checked"{/if}>
-				{'Activate icon "%s"'|@translate|@sprintf:('display all photos in all sub-albums'|@translate|@ucfirst)}
+        {'Activate icon "%s"'|@translate|@sprintf:('display all photos in all sub-albums'|@translate|@ucfirst)}
       </label>
     </li>
 
     <li>
       <label>
         <input type="checkbox" name="index_posted_date_icon" {if ($display.index_posted_date_icon)}checked="checked"{/if}>
-				{'Activate icon "%s"'|@translate|@sprintf:('display a calendar by posted date'|@translate|@ucfirst)}
+        {'Activate icon "%s"'|@translate|@sprintf:('display a calendar by posted date'|@translate|@ucfirst)}
       </label>
     </li>
 
     <li>
       <label>
         <input type="checkbox" name="index_created_date_icon" {if ($display.index_created_date_icon)}checked="checked"{/if}>
-				{'Activate icon "%s"'|@translate|@sprintf:('display a calendar by creation date'|@translate|@ucfirst)}
+        {'Activate icon "%s"'|@translate|@sprintf:('display a calendar by creation date'|@translate|@ucfirst)}
       </label>
     </li>
 
     <li>
       <label>
         <input type="checkbox" name="index_slideshow_icon" {if ($display.index_slideshow_icon)}checked="checked"{/if}>
-				{'Activate icon "%s"'|@translate|@sprintf:('slideshow'|@translate|@ucfirst)}
+        {'Activate icon "%s"'|@translate|@sprintf:('slideshow'|@translate|@ucfirst)}
       </label>
     </li>
 
@@ -661,28 +661,28 @@ jQuery(document).ready(function() {
     <li>
       <label>
         <input type="checkbox" name="picture_slideshow_icon" {if ($display.picture_slideshow_icon)}checked="checked"{/if}>
-				{'Activate icon "%s"'|@translate|@sprintf:('slideshow'|@translate|@ucfirst)}
+        {'Activate icon "%s"'|@translate|@sprintf:('slideshow'|@translate|@ucfirst)}
       </label>
     </li>
 
     <li>
       <label>
         <input type="checkbox" name="picture_metadata_icon" {if ($display.picture_metadata_icon)}checked="checked"{/if}>
-				{'Activate icon "%s"'|@translate|@sprintf:('Show file metadata'|@translate)}
+        {'Activate icon "%s"'|@translate|@sprintf:('Show file metadata'|@translate)}
       </label>
     </li>
 
     <li>
       <label>
         <input type="checkbox" name="picture_download_icon" {if ($display.picture_download_icon)}checked="checked"{/if}>
-				{'Activate icon "%s"'|@translate|@sprintf:('Download this file'|@translate|@ucfirst)}
+        {'Activate icon "%s"'|@translate|@sprintf:('Download this file'|@translate|@ucfirst)}
       </label>
     </li>
 
     <li>
       <label>
         <input type="checkbox" name="picture_favorite_icon" {if ($display.picture_favorite_icon)}checked="checked"{/if}>
-				{'Activate icon "%s"'|@translate|@sprintf:('add this photo to your favorites'|@translate|@ucfirst)}
+        {'Activate icon "%s"'|@translate|@sprintf:('add this photo to your favorites'|@translate|@ucfirst)}
       </label>
     </li>
 
