@@ -417,4 +417,5 @@ $lang['Username is mandatory'] = '必須填寫使用者名稱';
 $lang['Website'] = '網站';
 $lang['Your website URL is invalid'] = '你的網址無效';
 $lang['mandatory'] = '必填';
+$lang['Email'] = '電郵';
 ?>
