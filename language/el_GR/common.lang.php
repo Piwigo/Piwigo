@@ -413,4 +413,5 @@ $lang['Username is mandatory'] = 'Το όνομα χρήστη είναι υπο
 $lang['Email address is mandatory'] = 'Η διεύθυνση ηλεκτρονικού ταχυδρομείου είναι υποχρεωτική';
 $lang['Your website URL is invalid'] = 'Το URL της ιστοσελίδας δεν είναι έγκυρο';
 $lang['Website'] = 'Ιστοσελίδα';
+$lang['Email'] = 'Email';
 ?>
