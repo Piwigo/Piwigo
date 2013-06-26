@@ -422,4 +422,5 @@ $lang['Username is mandatory'] = 'Meno používateľa je povinné';
 $lang['mandatory'] = 'povinné';
 $lang['Your website URL is invalid'] = 'URL Vašej web stránky je neplatné';
 $lang['Website'] = 'Web stránka';
+$lang['Email'] = 'Email';
 ?>
