@@ -416,4 +416,5 @@ $lang['Username is mandatory'] = 'Nazwa użytkownika jest obowiązkowa';
 $lang['mandatory'] = 'obowiązkowo';
 $lang['Website'] = 'Strona internetowa';
 $lang['Your website URL is invalid'] = 'Adres Twojej strony internetowej jest niepoprawny';
+$lang['Email'] = 'E-mail';
 ?>
