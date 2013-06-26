@@ -413,4 +413,5 @@ $lang['Username is mandatory'] = 'Lietotājvārds ir obligāts';
 $lang['Email address is mandatory'] = 'E-pasta adrese ir obligāta';
 $lang['Website'] = 'Interneta vietne';
 $lang['Your website URL is invalid'] = 'Jūsu interneta vietnes URL ir kļūdains';
+$lang['Email'] = 'e-pasts';
 ?>
