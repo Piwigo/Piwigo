@@ -522,4 +522,5 @@ $lang['View in'] = 'Žiūrėti kaip';
 $lang['display each day with photos, month per month'] = 'rodyti kalendorių su fotografijomis, diena po dienos, menėsis po mėnesio';
 $lang['Permalink for album not found'] = 'Fiksuota nuoroda į albumą nerasta';
 $lang['%d rate'] = 'Įvertinimas: %d';
+$lang['Email'] = 'Elektroninis paštas';
 ?>
