@@ -412,4 +412,5 @@ $lang['Username is mandatory'] = 'Kullanıcı adı mecburidir';
 $lang['mandatory'] = 'zorunlu';
 $lang['Website'] = 'Web sitesi';
 $lang['Your website URL is invalid'] = 'Web sitenizin URL adresi geçersiz';
+$lang['Email'] = 'E-posta';
 ?>
