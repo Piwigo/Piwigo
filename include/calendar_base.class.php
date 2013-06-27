@@ -294,7 +294,7 @@ GROUP BY period';
     $upper_items_rank = array_flip($upper_items);
     if ( !isset($upper_items_rank[$current]) )
     {
-      array_push($upper_items, $current);// just in case (external link)
+      $upper_items[] = $current;// just in case (external link)
       usort($upper_items, 'version_compare');
       $upper_items_rank = array_flip($upper_items);
     }
@@ -330,11 +330,11 @@ GROUP BY period';
 
     if ( !empty($tpl_var) )
     {
-      $existing = & $template->get_template_vars('chronology_navigation_bars');
-      if ( !empty($existing) )
+      $existing = $template->smarty->getVariable('chronology_navigation_bars');
+      if (! ($existing instanceof Undefined_Smarty_Variable))
       {
-        $existing[ sizeof($existing)-1 ] =
-          array_merge( $existing[ sizeof($existing)-1 ], $tpl_var);
+        $existing->value[ sizeof($existing->value)-1 ] =
+          array_merge( $existing->value[ sizeof($existing->value)-1 ], $tpl_var);
       }
       else
       {

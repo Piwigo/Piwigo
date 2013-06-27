@@ -1,4 +1,3 @@
-
 {if !empty($chronology_navigation_bars) }
 {foreach from=$chronology_navigation_bars item=bar}
 <div class="calendarBar">
@@ -12,7 +11,7 @@
 		&nbsp;
 	{else}
 		{foreach from=$bar.items item=item}
-		<span class="calItem{if !isset($item.URL)}Empty{/if}" {if isset($item.NB_IMAGES)}title="{$item.NB_IMAGES|@translate_dec:'%d photo':'%d photos'}"{/if}>
+		<span class="calItem{if !isset($item.URL)}Empty{/if}"{if isset($item.NB_IMAGES)} title="{$item.NB_IMAGES|@translate_dec:'%d photo':'%d photos'}"{/if}>
 		{if isset($item.URL)}
 		<a href="{$item.URL}">{$item.LABEL}</a>
 		{else}
@@ -52,13 +51,11 @@
  {/foreach}
  </tr>
  </thead>
-{html_head} {*add the style to html head for strict standard compliance*}
-<style type="text/css">
-TABLE.calMonth TBODY TD, TABLE.calMonth TBODY TD DIV.calImg {ldelim}
-  width:{$chronology_calendar.month_view.CELL_WIDTH}px;height:{$chronology_calendar.month_view.CELL_HEIGHT}px;
+{html_style}
+TABLE.calMonth TBODY TD, TABLE.calMonth TBODY TD DIV.calImg{
+	width:{$chronology_calendar.month_view.CELL_WIDTH}px;height:{$chronology_calendar.month_view.CELL_HEIGHT}px
 }
-</style>
-{/html_head}
+{/html_style}
  {foreach from=$chronology_calendar.month_view.weeks item=week}
  <tr>
  	{foreach from=$week item=day}
@@ -68,7 +65,7 @@ TABLE.calMonth TBODY TD, TABLE.calMonth TBODY TD DIV.calImg {ldelim}
 	 			<div class="calBackDate">{$day.DAY}</div><div class="calForeDate">{$day.DAY}</div>
 	 			<div class="calImg">
 					<a href="{$day.U_IMG_LINK}">
-			  			<img style="{$day.IMAGE_STYLE}" src="{$day.IMAGE}" alt="{$day.IMAGE_ALT}" title="{$day.NB_ELEMENTS|@translate_dec:'%d photo':'%d photos'}">
+ 						<img style="{$day.IMAGE_STYLE}" src="{$day.IMAGE}" alt="{$day.IMAGE_ALT}" title="{$day.NB_ELEMENTS|@translate_dec:'%d photo':'%d photos'}">
 					</a>
 				</div>
  		{else}
@@ -78,9 +75,9 @@ TABLE.calMonth TBODY TD, TABLE.calMonth TBODY TD DIV.calImg {ldelim}
  		<td>
  	{/if}
  	</td>
- 	{/foreach} {*day in week*}
+ 	{/foreach}{*day in week*}
  </tr>
- {/foreach}  {*week in month*}
+ {/foreach}{*week in month*}
 </table>
 {/if}
 
