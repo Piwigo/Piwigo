@@ -406,7 +406,7 @@ class Template {
                   .'"></script>';
           }
 
-          $this->output = substr_replace( $this->output, "\n".implode( "\n", $content ), $pos, strlen(self::COMBINED_SCRIPTS_TAG) );
+          $this->output = substr_replace( $this->output, implode( "\n", $content ), $pos, strlen(self::COMBINED_SCRIPTS_TAG) );
       } //else maybe error or warning ?
     }
 
@@ -574,13 +574,13 @@ class Template {
     }
   }
 
-  function func_define_derivative($params)
+  function func_define_derivative($params, $smarty)
   {
     !empty($params['name']) or fatal_error('define_derivative missing name');
     if (isset($params['type']))
     {
       $derivative = ImageStdParams::get_by_type($params['type']);
-      $this->smarty->assign( $params['name'], $derivative);
+      $smarty->assign( $params['name'], $derivative);
       return;
     }
     !empty($params['width']) or fatal_error('define_derivative missing width');
@@ -612,7 +612,7 @@ class Template {
       }
     }
 
-    $this->smarty->assign( $params['name'], ImageStdParams::get_custom($w, $h, $crop, $minw, $minh) );
+    $smarty->assign( $params['name'], ImageStdParams::get_custom($w, $h, $crop, $minw, $minh) );
   }
 
    /**
@@ -830,13 +830,13 @@ var s,after = document.getElementsByTagName(\'script\')[document.getElementsByTa
     $tags = array('if','foreach','section','footer_script');
     foreach($tags as $tag)
     {
-      array_push($regex, "#^[ \t]+($ldq$tag"."[^$ld$rd]*$rdq)\s*$#m");
-      array_push($regex, "#^[ \t]+($ldq/$tag$rdq)\s*$#m");
+      $regex[] = "#^[ \t]+($ldq$tag"."[^$ld$rd]*$rdq)\s*$#m";
+      $regex[] = "#^[ \t]+($ldq/$tag$rdq)\s*$#m";
     }
     $tags = array('include','else','combine_script','html_head');
     foreach($tags as $tag)
     {
-      array_push($regex, "#^[ \t]+($ldq$tag"."[^$ld$rd]*$rdq)\s*$#m");
+      $regex[] = "#^[ \t]+($ldq$tag"."[^$ld$rd]*$rdq)\s*$#m";
     }
     $source = preg_replace( $regex, "$1", $source);
     return $source;
@@ -866,13 +866,13 @@ var s,after = document.getElementsByTagName(\'script\')[document.getElementsByTa
       $f = PWG_LOCAL_DIR.'css/'.$theme['id'].'-rules.css';
       if (file_exists(PHPWG_ROOT_PATH.$f))
       {
-        array_push($css, "{combine_css path='$f' order=10}");
+        $css[] = "{combine_css path='$f' order=10}";
       }
     }
     $f = PWG_LOCAL_DIR.'css/rules.css';
     if (file_exists(PHPWG_ROOT_PATH.$f))
     {
-      array_push($css, "{combine_css path='$f' order=10}");
+      $css[] = "{combine_css path='$f' order=10}";
     }
 
     if (!empty($css))
