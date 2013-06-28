@@ -220,10 +220,10 @@ a:hover 		{ border-bottom: none;}
 }
 
 #imageInfos .navThumbs 				{ width: 250px; height: 130px; margin: auto; padding: 0 5px;}
-#imageInfos .navThumb 				{ position: relative; width: 120px; height: 120px; margin: 0; overflow: hidden;}
+#imageInfos .navThumb 				{ position: relative; margin: 0; overflow: hidden;}
 #imageInfos #linkPrev 				{ float: left;}
-#imageInfos #linkNext				{ float: right;} 
-#imageInfos .thumbHover 				{ position: absolute; width: 100%; height: 100%;}
+#imageInfos #linkNext			  	{ float: right;}
+#imageInfos #linkFirst, #imageInfos #linkLast { border-color: #444444;}
 #imageInfos .prevThumbHover 			{ background: transparent url(icon/none.png) no-repeat center center;}
 #imageInfos .prevThumbHover:hover 	{ background: transparent url(icon/img_prev.png) no-repeat center center;}
 #imageInfos .nextThumbHover 			{ background: transparent url(icon/none.png) no-repeat center center;}

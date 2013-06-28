@@ -132,11 +132,19 @@ y.callService(
 				<span class="thumbHover prevThumbHover"></span>
 				<img src="{$previous.derivatives.square->get_url()}" alt="{$previous.TITLE|@escape}">
 			</a>
+		{elseif isset($U_UP)}
+			<a class="navThumb" id="linkFirst" href="{$U_UP}" title="{'Thumbnails'|@translate}" rel="prev">
+				<div class="thumbHover">{'First Page'|@translate}<br><br>{'Go back to the album'|@translate}</div>
+			</a>
 		{/if}
 		{if isset($next)}
 			<a class="navThumb" id="linkNext" href="{$next.U_IMG}" title="{'Next'|@translate} : {$next.TITLE|@escape}" rel="next">
 				<span class="thumbHover nextThumbHover"></span>
 				<img src="{$next.derivatives.square->get_url()}" alt="{$next.TITLE|@escape}">
+			</a>
+		{elseif isset($U_UP)}
+			<a class="navThumb" id="linkLast"  href="{$U_UP}"  title="{'Thumbnails'|@translate}" rel="next">
+				<div class="thumbHover">{'Last Page'|@translate}<br><br>{'Go back to the album'|@translate}</div>
 			</a>
 		{/if}
 	</div>

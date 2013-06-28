@@ -391,14 +391,29 @@ TD.calDayCellFull, TD.calDayCellEmpty {
 	min-height: 120px;
 }
 
-#linkPrev {
+#linkPrev, #linkFirst {
 	float: left;
 	margin: 5px 10px 0 5px;
 }
 
-#linkNext {
+#linkNext, #linkLast {
 	float: right;
 	margin: 5px 5px 0 10px;
+  text-align: right;
+}
+
+#linkFirst, #linkLast {
+  border: 1px solid #ccc;
+  height: 118px;
+  line-height: 118px;
+}
+
+#linkFirst div, #linkLast div {
+  display: inline-block;
+  vertical-align: middle;
+  width: 108px;
+  line-height: 1.2;
+  margin: 0 5px;
 }
 
 .imageInfoTable UL { /*this is the album list*/
