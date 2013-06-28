@@ -805,6 +805,7 @@ $lang['Synchronize metadata'] = "Synchroniser les méta-données";
 $lang['Add to caddie'] = 'Ajouter au panier';
 $lang['Zoom'] = 'Zoom';
 $lang['Resize after upload'] = 'Redimensionner après transfert';
+$lang['Resize after upload disabled due to the use of GD as graphic library'] = 'Redimensionnement après transfert désactivé car GD est la librairie graphique utilisée actuellement';
 $lang['Original Size'] = 'Taille originale';
 $lang['Send connection settings by email'] = 'Envoyer les identifiants par email';
 $lang['Activate comments'] = 'Activer les commentaires';

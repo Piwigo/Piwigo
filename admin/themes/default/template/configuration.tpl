@@ -345,7 +345,17 @@ jQuery(document).ready(function(){
 
 <fieldset id="sizesConf">
   <legend>{'Original Size'|@translate}</legend>
-
+{if $is_gd}
+  <div>
+    <label>
+      {'Resize after upload disabled due to the use of GD as graphic library'|@translate}
+      <input type="checkbox" name="original_resize" id="original_resize" disabled="disabled" style="visibility: hidden">
+      <input type="hidden" name="original_resize_maxwidth" value="{$sizes.original_resize_maxwidth}">
+      <input type="hidden" name="original_resize_maxheight" value="{$sizes.original_resize_maxheight}">
+      <input type="hidden" name="original_resize_quality" value="{$sizes.original_resize_quality}">
+    </label>
+  </div>
+{else}
   <div>
     <label for="original_resize">
       <input type="checkbox" name="original_resize" id="original_resize" {if ($sizes.original_resize)}checked="checked"{/if}>
@@ -376,7 +386,7 @@ jQuery(document).ready(function(){
       </td>
     </tr>
   </table>
-
+{/if}
 </fieldset>
 
 <fieldset id="multiSizesConf">

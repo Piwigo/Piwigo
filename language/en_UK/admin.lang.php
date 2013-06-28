@@ -692,6 +692,7 @@ $lang['Representative'] = 'Album thumbnail';
 $lang['Represents'] = 'Is thumbnail for';
 $lang['Reset ignored updates'] = 'Reset ignored updates';
 $lang['Resize after upload'] = 'Resize after upload';
+$lang['Resize after upload disabled due to the use of GD as graphic library'] = 'Resize after upload disabled due to the use of GD as graphic library';
 $lang['Resize'] = 'Resize';
 $lang['Restore default configuration. You will lose your plugin settings!'] = "Restore default configuration. You will lose your plugin settings!";
 $lang['Restore'] = "Restore";
