@@ -418,4 +418,8 @@ $lang['Your website URL is invalid'] = 'آدرس وب سایت شما نامعت
 ';
 $lang['Website'] = 'سایت اینترنتی
 ';
+$lang['Email'] = 'ایمیل';
+$lang['First Page'] = 'نخستین برگه';
+$lang['Go back to the album'] = 'برگشتن به آلبوم';
+$lang['Last Page'] = 'آخرین برگه';
 ?>
