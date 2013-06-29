@@ -414,4 +414,7 @@ $lang['Email address is mandatory'] = 'E-pasta adrese ir obligāta';
 $lang['Website'] = 'Interneta vietne';
 $lang['Your website URL is invalid'] = 'Jūsu interneta vietnes URL ir kļūdains';
 $lang['Email'] = 'e-pasts';
+$lang['Go back to the album'] = 'Iet atpakaļ uz albūmu';
+$lang['Last Page'] = 'Pēdējā lapa';
+$lang['First Page'] = 'Pirmā lapa';
 ?>
