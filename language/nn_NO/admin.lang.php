@@ -944,4 +944,5 @@ $lang['You have specified <i>$conf[\'order_by\']</i> in your local configuration
 $lang['digiKam is designed for photographers who want to view, manage, edit, enhance, organize, tag, and share photographs.'] = 'digiKam er laga for fotografar som vil sjå, handtere, endre, forbetre, organisere, merke og dele bilete.';
 $lang['pLoader stands for <em>Piwigo Uploader</em>. From your computer, pLoader prepares your photos and transfer them to your Piwigo photo gallery.'] = 'pLoader står for <em>Piwigo Uploader</em>. Frå datamaskina di kan pLoader tilrettelegge bileta dine og overføre dei til ditt Piwigo biletgalleri.';
 $lang['photos candidates for metadata synchronization'] = 'bilete som er kanditatar for synkronisering av metadata';
+$lang['Resize after upload disabled due to the use of GD as graphic library'] = 'Endring av storleik etter opplasting er ikkje tilgjengeleg avdi GD vert bruka som grafikkbibliotek';
 ?>
