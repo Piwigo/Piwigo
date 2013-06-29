@@ -412,4 +412,8 @@ $lang['Username is mandatory'] = 'nome de usuário obrigatório';
 $lang['mandatory'] = 'obrigatório';
 $lang['Website'] = 'Website';
 $lang['Your website URL is invalid'] = 'Seu endereço de site é inválido';
+$lang['Email'] = 'Email';
+$lang['First Page'] = 'Primeira Página';
+$lang['Go back to the album'] = 'Retornar para o album';
+$lang['Last Page'] = 'Última página';
 ?>
