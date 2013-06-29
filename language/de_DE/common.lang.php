@@ -414,4 +414,7 @@ $lang['mandatory'] = 'erforderlich';
 $lang['Website'] = 'Webseite';
 $lang['Your website URL is invalid'] = 'Deine Webseiten URL ist falsch';
 $lang['Email'] = 'E-Mail';
+$lang['First Page'] = 'Erste Seite';
+$lang['Go back to the album'] = 'Zurück zum Album';
+$lang['Last Page'] = 'Letzte Seite';
 ?>
