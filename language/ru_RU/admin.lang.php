@@ -954,4 +954,5 @@ $lang['This group will be unset to default'] = 'Эта группа не буд�
 $lang['Type here the name of the new group'] = 'Введите имя новой группы';
 $lang['Purge user cache'] = 'Очистить кэш пользователя';
 $lang['The picture dimensions will be reduced to %dx%d pixels.'] = 'Размер изображения будет уменьшен до %dx%d пикселей.';
+$lang['Resize after upload disabled due to the use of GD as graphic library'] = 'Изменение размеров изображений отключено из-за использования GD в качестве графической библиотеки';
 ?>
