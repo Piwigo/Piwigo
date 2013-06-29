@@ -421,4 +421,7 @@ $lang['day']['4'] = 'donderdag';
 $lang['day']['5'] = 'vrijdag';
 $lang['day']['6'] = 'zaterdag';
 $lang['Email'] = 'Email';
+$lang['First Page'] = 'Eerste bladzijde';
+$lang['Go back to the album'] = 'Ga terug naar het album';
+$lang['Last Page'] = 'Laatste bladzijde';
 ?>
