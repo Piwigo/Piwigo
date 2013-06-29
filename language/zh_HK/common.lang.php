@@ -418,4 +418,7 @@ $lang['Website'] = '網站';
 $lang['Your website URL is invalid'] = '你的網址無效';
 $lang['mandatory'] = '必填';
 $lang['Email'] = '電郵';
+$lang['First Page'] = '第一頁';
+$lang['Go back to the album'] = '回到相冊';
+$lang['Last Page'] = '最後一頁';
 ?>
