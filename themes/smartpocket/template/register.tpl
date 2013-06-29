@@ -4,8 +4,8 @@
 <form method="post" action="{$F_ACTION}" class="properties" name="register_form">
 
   <div data-role="fieldcontain">
-  <label for="username">* {'Username'|@translate}</label>
-  <input type="text" name="username" id="username" value="{$F_LOGIN}">
+  <label for="login">* {'Username'|@translate}</label>
+  <input type="text" name="login" id="login" value="{$F_LOGIN}">
   </div>
 
   <div data-role="fieldcontain">
