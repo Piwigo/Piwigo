@@ -417,4 +417,7 @@ $lang['mandatory'] = 'обязательно';
 $lang['Website'] = 'Вэб-сайт';
 $lang['Your website URL is invalid'] = 'URL-адрес Вашего сайта неверен';
 $lang['Email'] = 'Электронная почта';
+$lang['First Page'] = 'Первая страница';
+$lang['Go back to the album'] = 'Вернуться в альбом';
+$lang['Last Page'] = 'Последняя страница';
 ?>
