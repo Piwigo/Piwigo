@@ -412,4 +412,8 @@ $lang['Forbidden'] = 'Ikkje tillaten';
 $lang['Go through the gallery as a visitor'] = 'Naviger i galleriet som ein gjest';
 $lang['Help'] = 'Hjelp';
 $lang['Home'] = 'Heim';
+$lang['Email'] = 'E-post';
+$lang['First Page'] = 'Fyrste side';
+$lang['Go back to the album'] = 'Attende til album';
+$lang['Last Page'] = 'Siste side';
 ?>
