@@ -412,4 +412,8 @@ $lang['Username is mandatory'] = 'El nom d\'usuari és obligatori';
 $lang['mandatory'] = 'obligatori';
 $lang['Website'] = 'lloc web';
 $lang['Your website URL is invalid'] = 'La URL del vostre lloc web és invàlida';
+$lang['Email'] = 'Correu elecrònic';
+$lang['First Page'] = 'Primera pàgina';
+$lang['Go back to the album'] = 'Tornar a l\'àlbum';
+$lang['Last Page'] = 'Última pàgina';
 ?>
