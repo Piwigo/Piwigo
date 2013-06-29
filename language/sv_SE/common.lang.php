@@ -417,4 +417,8 @@ $lang['Username is mandatory'] = 'Användarnamn är obligatorisk';
 $lang['Website'] = 'Hemsida';
 $lang['Your website URL is invalid'] = 'URL för hemsida är ogiltig';
 $lang['mandatory'] = 'obligatorisk';
+$lang['Email'] = 'Email';
+$lang['First Page'] = 'Första sidan';
+$lang['Go back to the album'] = 'Gå tillbaka till album';
+$lang['Last Page'] = 'Sista sidan';
 ?>
