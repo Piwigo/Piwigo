@@ -422,4 +422,7 @@ $lang['mandatory'] = 'obligatorio';
 $lang['Website'] = 'Página web';
 $lang['Your website URL is invalid'] = 'La url de tu página web es incorrecta';
 $lang['Email'] = 'Correo electrónico';
+$lang['First Page'] = 'Primera pagina';
+$lang['Go back to the album'] = 'Volver al álbum';
+$lang['Last Page'] = 'Ultima pagina';
 ?>
