@@ -107,7 +107,7 @@ class Template {
     $this->smarty->registerFilter('pre', array('Template', 'prefilter_white_space') );
     if ( $conf['compiled_template_cache_language'] )
     {
-      $this->smarty->registerFilter('pre', array('Template', 'prefilter_language') );
+      $this->smarty->registerFilter('post', array('Template', 'postfilter_language') );
     }
 
     $this->smarty->setTemplateDir(array());
@@ -528,13 +528,13 @@ class Template {
       }
       else
       {
-        $ret .= '('.$params[0].')>1';
+        $ret .= '($tmp=('.$params[0].'))>1';
       }
       $ret .= '?';
       $ret .= self::modcompiler_translate( array($params[2]) );
       $ret .= ':';
       $ret .= self::modcompiler_translate( array($params[1]) );
-      $ret .= ','.$params[0];
+      $ret .= ',$tmp';
       $ret .= ')';
       return $ret;
     }
@@ -843,18 +843,15 @@ var s,after = document.getElementsByTagName(\'script\')[document.getElementsByTa
   }
 
   /**
-   * Smarty prefilter to allow caching (whenever possible) language strings
-   * from templates.
+   * Smarty postfilter
    */
-  static function prefilter_language($source, $smarty)
+  static function postfilter_language($source, $smarty)
   {
-    global $lang;
-    $ldq = preg_quote($smarty->left_delimiter, '~');
-    $rdq = preg_quote($smarty->right_delimiter, '~');
-
-    $regex = "~$ldq\'([^'$]+)\'\|@translate *$rdq~";
-    $source = preg_replace_callback( $regex, create_function('$m', 'global $lang; return isset($lang[$m[1]]) ? $lang[$m[1]] : $m[0];'), $source);
-
+    // replaces echo PHP_STRING_LITERAL; with the string literal value
+    $source = preg_replace_callback(
+      '/\\<\\?php echo ((?:\'(?:(?:\\\\.)|[^\'])*\')|(?:"(?:(?:\\\\.)|[^"])*"));\\?\\>\\n/',
+      create_function('$matches', 'eval(\'$tmp=\'.$matches[1].\';\');return $tmp;'),
+      $source);
     return $source;
   }
 
