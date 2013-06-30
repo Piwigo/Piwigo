@@ -12,6 +12,11 @@ $themeconf = array(
   'mobile' => true,
 );
 
+// Need upgrade?
+global $conf;
+include(PHPWG_THEMES_PATH.'smartpocket/admin/upgrade.inc.php');
+
+
 // Redirect if page is not compatible with mobile theme
 /*if (!in_array(script_basename(), array('index', 'register', 'profile', 'identification', 'ws', 'admin')))
   redirect(duplicate_index_url());
@@ -56,20 +61,19 @@ if (!empty($_COOKIE['screen_size']))
 $this->assign('picture_derivative_params', ImageStdParams::get_by_type($type));
 $this->assign('thumbnail_derivative_params', ImageStdParams::get_by_type(IMG_SQUARE));
 
-//------------------------------------------------------------- mobile version
+//------------------------------------------------------------- mobile version & theme config
 add_event_handler('init', 'mobile_link');
 
 function mobile_link()
 {
   global $template, $conf;
+  $config = unserialize( $conf['smartpocket'] );
+  $template->assign( 'smartpocket', $config );
   if ( !empty($conf['mobile_theme']) && (get_device() != 'desktop' || mobile_theme()))
   {
-    $template->assign('TOGGLE_MOBILE_THEME_URL',
-        add_url_params(
-          duplicate_index_url(),
-          array('mobile' => mobile_theme() ? 'false' : 'true')
-        )
-      );
+    $template->assign(array(
+                            'TOGGLE_MOBILE_THEME_URL' => add_url_params(duplicate_index_url(),array('mobile' => mobile_theme() ? 'false' : 'true')),
+      ));
   }
 }
 

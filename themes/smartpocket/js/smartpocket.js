@@ -2,10 +2,11 @@
   $(document).ready(function(){
     var options = {
       jQueryMobile: true,
-      captionAndToolbarAutoHideDelay: 0,
+      loop: var_loop,
+      captionAndToolbarAutoHideDelay: var_autohide,
       imageScaleMethod: "fitNoUpscale",
       getToolbar: function(){
-return '<div class="ps-toolbar-close"><div class="ps-toolbar-content"></div></div><div class="ps-toolbar-play"><div class="ps-toolbar-content"></div></div><a href="#" id="more_link">More Information</a><div class="ps-toolbar-previous"><div class="ps-toolbar-content"></div></div><div class="ps-toolbar-next"><div class="ps-toolbar-content"></div></div>';},
+return '<div class="ps-toolbar-close"><div class="ps-toolbar-content"></div></div><div class="ps-toolbar-play"><div class="ps-toolbar-content"></div></div><a href="#" id="more_link">'+var_trad+'</a><div class="ps-toolbar-previous"><div class="ps-toolbar-content"></div></div><div class="ps-toolbar-next"><div class="ps-toolbar-content"></div></div>';},
       getImageMetaData:function(el){
         return {
             picture_url: $(el).attr('data-picture-url')

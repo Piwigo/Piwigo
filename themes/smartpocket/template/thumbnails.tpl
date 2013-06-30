@@ -4,6 +4,9 @@
 {combine_script id='smartpocket' path='themes/smartpocket/js/smartpocket.js' require='photoswipe'}
 {combine_script id='jquery.ajaxmanager' path='themes/default/js/plugins/jquery.ajaxmanager.js' load='footer'}
 {combine_script id='thumbnails.loader' path='themes/default/js/thumbnails.loader.js' require='jquery.ajaxmanager' load='footer'}
+{footer_script}
+  var var_loop = {if $smartpocket.loop}true{else}false{/if}, var_autohide = {$smartpocket.autohide}, var_trad = "{'More Information'|@translate}";
+{/footer_script}
 
 <ul class="thumbnails">
 {foreach from=$thumbnails item=thumbnail}{strip}
