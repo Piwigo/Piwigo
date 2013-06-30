@@ -957,4 +957,5 @@ $lang['This group will be unset to default'] = 'Dies Gruppe wird nicht länger a
 $lang['Type here the name of the new group'] = 'Name der neuen Gruppe hier eingeben';
 $lang['Purge user cache'] = 'Benutzer cache löschen';
 $lang['The picture dimensions will be reduced to %dx%d pixels.'] = 'Die Bildgröße wird auf %dx%d Pixel reduziert.';
+$lang['Resize after upload disabled due to the use of GD as graphic library'] = 'Größenänderung nach hochladen deaktiviert, da die GD Library aktiviert ist. ';
 ?>
