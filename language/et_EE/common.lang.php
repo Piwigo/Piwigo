@@ -439,4 +439,8 @@ $lang['Username is mandatory'] = 'Kasutajanimi on kohustuslik';
 $lang['Website'] = 'Veebileht';
 $lang['Your website URL is invalid'] = 'Antud veebilehe aadress on vigane';
 $lang['mandatory'] = 'kohustuslik';
+$lang['Email'] = 'E-kiri';
+$lang['First Page'] = 'Esimene leht';
+$lang['Go back to the album'] = 'Mine tagasi albumi juurde';
+$lang['Last Page'] = 'Viimane leht';
 ?>
