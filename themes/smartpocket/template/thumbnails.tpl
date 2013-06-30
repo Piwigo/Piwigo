@@ -8,9 +8,15 @@
 <ul class="thumbnails">
 {foreach from=$thumbnails item=thumbnail}{strip}
 {assign var=derivative value=$pwg->derivative($thumbnail_derivative_params, $thumbnail.src_image)}
-{if isset($page_selection[$thumbnail.id])}
+{if isset($page_selection[$thumbnail.id]) and !isset($thumbnail.representative_ext)}
   <li>
     <a href="{$pwg->derivative_url($picture_derivative_params, $thumbnail.src_image)}" data-picture-url="{$thumbnail.URL}" rel="external">
+     <img {if !$derivative->is_cached()}data-{/if}src="{$derivative->get_url()}" alt="{$thumbnail.TN_ALT}">
+    </a>
+  </li>
+{elseif isset($thumbnail.representative_ext)}
+  <li>
+    <a href="{$thumbnail.URL}" target="_blank" onClick="window.location='{$thumbnail.URL}'">
      <img {if !$derivative->is_cached()}data-{/if}src="{$derivative->get_url()}" alt="{$thumbnail.TN_ALT}">
     </a>
   </li>
