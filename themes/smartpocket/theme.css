@@ -3,7 +3,7 @@
 
 .title { margin: 10px; text-align: center; }
 .title .ui-btn { margin-top: -5px; }
-.menubar { float: right; }
+. { float: right; }
 .home_button { float: left; }
 .pwg_footer h6 { margin: 8px; text-align:right;}
 
@@ -21,3 +21,23 @@
 .thumbnails li { float: left;  }
 .thumbnails li a { display: block; margin: 5px; }
 .thumbnails li img { display: block; width: 100%; height: auto; }
+#more_link {
+  color: #FFFFFF;
+  display: table-cell;
+  font-size: 1.1em;
+  text-decoration: none;
+  vertical-align: middle;
+}
+.ui-panel-inner > .ui-listview {
+ margin: -15px -15px 0;
+}
+.ui-li-desc {
+  text-overflow: clip;
+  white-space: normal;
+}
+#PictureInfo  {
+  font-size: 0.8em;
+}
+#PictureInfo * {
+  font-size: 1em;
+}

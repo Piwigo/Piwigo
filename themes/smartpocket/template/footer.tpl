@@ -1,7 +1,9 @@
 {if !empty($thumb_navbar)}
 {include file='navigation_bar.tpl'|@get_extent:'navbar' navbar=$thumb_navbar}
+{elseif !empty($navbar) and !isset($ELEMENT_CONTENT)}
+{include file='navigation_bar.tpl'|@get_extent:'navbar'}
 {else}
-<div class="pwg_footer ui-bar-a">
+<div data-role="footer" class="pwg_footer">
   <h6>
 	{'Powered by'|@translate}	<a href="{$PHPWG_URL}" class="Piwigo">Piwigo</a>
 	{$VERSION}

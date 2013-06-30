@@ -1,5 +1,5 @@
 {capture}{$navbar.pages|@end}{/capture}
-<div class="ui-bar ui-bar-a" style="text-align:center;">
+<div data-role="footer" class="ui-bar ui-bar-a" style="text-align:center;">
 <div data-role="controlgroup" data-type="horizontal">
 {strip}
   {if isset($navbar.URL_PREV)}

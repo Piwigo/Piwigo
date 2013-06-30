@@ -38,7 +38,6 @@
 
 {get_combined_scripts load='header'}
 
-{combine_script id='jquery' path='themes/smartpocket/js/jquery-1.6.4.min.js'}
 {combine_script id='config' path='themes/smartpocket/js/config.js' require='jquery'}
 {combine_script id='jquery.mobile' path='themes/smartpocket/js/jquery.mobile.min.js' require='jquery,config'}
 
@@ -46,12 +45,14 @@
 
 <body>
 <div data-role="page" data-theme="a">
-
+{if isset($MENUBAR)}<div data-role="panel" id="menubar" data-position="right" data-display="overlay">
+  {$MENUBAR}
+</div>{/if}
 <div data-role="header">
   <div class="title">
     <a href="{$U_HOME}" class="home_button" data-icon="home" data-iconpos="notext" data-role="button"></a>
     {$GALLERY_TITLE}
-    <span class="menubar">{$MENUBAR}</span>
+    <a href="#menubar" data-icon="grid" data-iconpos="notext" data-role="button" style="float: right" >Menu</a>
   </div>
 </div>
 

@@ -1,33 +1,15 @@
-<select name="identification" id="identification" data-icon="grid" data-iconpos="notext" data-native-menu="false">
-
-  <option></option>
-  <optgroup label="{'Identification'|@translate}">
-
-	{if isset($U_REGISTER)}
-	<option value="{$U_REGISTER}">{'Register'|@translate}</option>
-	{/if}
-	{if isset($U_LOGIN)}
-	<option value="{$U_LOGIN}">{'Login'|@translate}</option>
-	{/if}
-	{if isset($U_LOGOUT)}
-	<option value="{$U_LOGOUT}">{'Logout'|@translate}</option>
-	{/if}
-	{if isset($U_PROFILE)}
-	<option value="{$U_PROFILE}">{'Customize'|@translate}</option>
-	{/if}
-	{if isset($U_ADMIN)}
-	<option value="{$U_ADMIN}">{'Administration'|@translate}</option>
-	{/if}
-
-  </optgroup>
-
-</select>
-
-{footer_script}{literal}
-$(document).ready(function() {
-  $('#identification').change(function() {
-    $(this).selectmenu('close');
-    window.location = this.value;
-  });
-});
-{/literal}{/footer_script}
+{if !empty($blocks) }
+<ul data-role="listview">
+  <li data-icon="delete"><a href="#menubar" data-rel="close">Close</a></li>
+</ul>
+	{foreach from=$blocks key=id item=block}
+		<div data-role="collapsible" data-inset="false" data-icon="false">
+		{if not empty($block->template)}
+		{include file=$block->template assign=the_block|@get_extent:$id}
+    {$the_block|replace:'dt':'h3'|replace:'<dd>':''|replace:'</dd>':''}
+		{else}
+		{$block->raw_content|replace:'dt':'h3'|replace:'<dd>':''|replace:'</dd>':''}
+		{/if}
+    </div>
+	{/foreach}
+{/if}
