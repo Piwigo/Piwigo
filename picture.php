@@ -541,6 +541,7 @@ while ($row = pwg_db_fetch_assoc($result))
 
   $picture[$i] = $row;
   $picture[$i]['TITLE'] = render_element_name($row);
+  $picture[$i]['TITLE_ESC'] = str_replace('"', '&quot;', $picture[$i]['TITLE']);
 
   if ('previous'==$i and $page['previous_item']==$page['first_item'])
   {
