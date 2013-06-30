@@ -829,8 +829,6 @@ array(
   
   <link rel="stylesheet" type="text/css" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css">
   <link rel="stylesheet" type="text/css" href="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTables_themeroller.css">
-  <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
-  <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js"></script>
   
   <style type="text/css">
   /* BEGIN CSS RESET
@@ -852,13 +850,10 @@ array(
   html {font-family:"Corbel","Lucida Grande","Verdana",sans-serif;color:#222;font-size:13px;}
 
   a {color:#247EBF;text-decoration:none;}
-  a:hover {color:#EB9C39;border-bottom-width:1px;border-style:dotted;
-    text-shadow:1px 1px 0 #ddd;-moz-text-shadow:1px 1px 0 #ddd;-webkit-text-shadow:1px 1px 0 #ddd;
-  }
+  a:hover {color:#EB9C39;border-bottom-width:1px;border-style:dotted;text-shadow:1px 1px 0 #ddd;}
 
-  h1 {color:#fff;font-size:26px;padding:10px 15px;
-    text-shadow:1px 1px 0 #999;-moz-text-shadow:1px 1px 0 #999;-webkit-text-shadow:1px 1px 0 #999;
-    background:#45484d;background:-moz-linear-gradient(top, #45484d 0%, #333333 100%);background:-webkit-gradient(linear, left top, left bottom, color-stop(0%,#45484d), color-stop(100%,#333333));background:-webkit-linear-gradient(top, #45484d 0%,#333333 100%);background:-o-linear-gradient(top, #45484d 0%,#333333 100%);background:-ms-linear-gradient(top, #45484d 0%,#333333 100%);background:linear-gradient(to bottom, #45484d 0%,#333333 100%);filter:progid:DXImageTransform.Microsoft.gradient( startColorstr='#45484d', endColorstr='#333333',GradientType=0 );
+  h1 {color:#fff;font-size:26px;padding:10px 15px;text-shadow:1px 1px 0 #999;
+    background:#45484d;background:linear-gradient(to bottom, #45484d 0%,#333333 100%);
   }
 
   #the_header {border-bottom:1px solid #cdcdcd;margin-bottom:1px;}
@@ -943,6 +938,9 @@ array(
   Copyright &copy; 2002-2013 <a href="http://piwigo.org">Piwigo Team</a>
 </div> <!-- the_footer -->
 
+
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js"></script>
   
 <script type="text/javascript">
 var oTable = $('#list').dataTable({

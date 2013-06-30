@@ -5,8 +5,6 @@
   <title>Piwigo web API (web-services) explorer</title>
   
   <link rel="stylesheet" type="text/css" href="http://cdn.jsdelivr.net/tiptip/1.3/tipTip.css">
-  <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/tiptip/1.3/jquery.tipTip.minified.js"></script>
   
   <style type="text/css">
   /* BEGIN CSS RESET
@@ -28,29 +26,25 @@
   html {font-family:"Corbel","Lucida Grande","Verdana",sans-serif;color:#222;font-size:13px;}
 
   a {color:#247EBF;text-decoration:none;}
-  a:hover {color:#EB9C39;border-bottom-width:1px;border-style:dotted;
-    text-shadow:1px 1px 0 #ddd;-moz-text-shadow:1px 1px 0 #ddd;-webkit-text-shadow:1px 1px 0 #ddd;
-  }
+  a:hover {color:#EB9C39;border-bottom-width:1px;border-style:dotted;text-shadow:1px 1px 0 #ddd;}
+  
   blockquote {border:1px solid #cdcdcd;background:#F9F9F9;padding:8px;}
   hr {margin:10px 30px;color:#fff;}
   ul {margin-left:25px;}
   p {margin:8px 0;}
 
-  h1 {color:#fff;font-size:26px;padding:10px 15px;
-    text-shadow:1px 1px 0 #999;-moz-text-shadow:1px 1px 0 #999;-webkit-text-shadow:1px 1px 0 #999;
-    background:#45484d;background:-moz-linear-gradient(top, #45484d 0%, #333333 100%);background:-webkit-gradient(linear, left top, left bottom, color-stop(0%,#45484d), color-stop(100%,#333333));background:-webkit-linear-gradient(top, #45484d 0%,#333333 100%);background:-o-linear-gradient(top, #45484d 0%,#333333 100%);background:-ms-linear-gradient(top, #45484d 0%,#333333 100%);background:linear-gradient(to bottom, #45484d 0%,#333333 100%);filter:progid:DXImageTransform.Microsoft.gradient( startColorstr='#45484d', endColorstr='#333333',GradientType=0 );
+  h1 {color:#fff;font-size:26px;padding:10px 15px;text-shadow:1px 1px 0 #999;
+    background:#45484d;background:linear-gradient(to bottom, #45484d 0%,#333333 100%);
   }
-  h2 {color:#fff;font-size:20px;padding:5px 10px;
-    text-shadow:1px 1px 0 #555;-moz-text-shadow:1px 1px 0 #555;-webkit-text-shadow:1px 1px 0 #555;
-    background:#f2a841;background:-moz-linear-gradient(top, #f2a841 0%, #ef6b13 100%);background:-webkit-gradient(linear, left top, left bottom, color-stop(0%,#f2a841), color-stop(100%,#ef6b13));background:-webkit-linear-gradient(top, #f2a841 0%,#ef6b13 100%);background:-o-linear-gradient(top, #f2a841 0%,#ef6b13 100%);background:-ms-linear-gradient(top, #f2a841 0%,#ef6b13 100%);background:linear-gradient(to bottom, #f2a841 0%,#ef6b13 100%);filter:progid:DXImageTransform.Microsoft.gradient( startColorstr='#f2a841', endColorstr='#ef6b13',GradientType=0 );
+  h2 {color:#fff;font-size:20px;padding:5px 10px;text-shadow:1px 1px 0 #555;
+    background:#f2a841;background:linear-gradient(to bottom, #f2a841 0%,#ef6b13 100%);
   }
   h2#errorWrapper {color:#F42C00;font-weight:normal;
-    background:#eaeaea;background:-moz-linear-gradient(top, #eaeaea 0%, #afafaf 100%);background:-webkit-gradient(linear, lefttop, leftbottom, color-stop(0%,#eaeaea), color-stop(100%,#afafaf));background:-webkit-linear-gradient(top, #eaeaea 0%, #afafaf 100%);background:-o-linear-gradient(top, #eaeaea 0%, #afafaf 100%);background:-ms-linear-gradient(top, #eaeaea 0%, #afafaf 100%);background:linear-gradient(tobottom, #eaeaea 0%, #afafaf 100%);filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#eaeaea', endColorstr='#afafaf', GradientType=0);
+    background:#eaeaea;background:linear-gradient(to bottom, #eaeaea 0%, #afafaf 100%);
   }
   h3 {display:inline-block;padding:5px 10px;color:#555;font-weight:bold;text-align:center;
-    border-radius:8px 8px 0 0;-moz-border-radius:8px 8px 0 0;-webkit-border-radius:8px 8px 0 0;
-    text-shadow:1px 1px 0 #bbb;-moz-text-shadow:1px 1px 0 #bbb;-webkit-text-shadow:1px 1px 0 #bbb;
-    background:#f2f2f2;background:-moz-linear-gradient(top, #f2f2f2 0%, #cecece 100%);background:-webkit-gradient(linear, left top, left bottom, color-stop(0%,#f2f2f2), color-stop(100%,#cecece));background:-webkit-linear-gradient(top, #f2f2f2 0%,#cecece 100%);background:-o-linear-gradient(top, #f2f2f2 0%,#cecece 100%);background:-ms-linear-gradient(top, #f2f2f2 0%,#cecece 100%);background:linear-gradient(to bottom, #f2f2f2 0%,#cecece 100%);filter:progid:DXImageTransform.Microsoft.gradient( startColorstr='#f2f2f2', endColorstr='#cecece',GradientType=0 );
+    border-radius:8px 8px 0 0;text-shadow:1px 1px 0 #bbb;
+    background:#f2f2f2;background:linear-gradient(to bottom, #f2f2f2 0%,#cecece 100%);
   }
 
   #the_header {border-bottom:1px solid #cdcdcd;margin-bottom:1px;}
@@ -74,9 +68,7 @@
   #methodParams td.mini {width:0px;text-align:center;}
   #methodParams tfoot {font-size:0.95em;}
   #methodParams td.input {text-align:center;}
-  #methodParams td.input input[type="text"] {width:97%;font-size:0.9em;background:#f7f7f7;border:1px solid #ccc;
-    border-radius:2px;-moz-border-radius:2px;-webkit-border-radius:2px;
-  }
+  #methodParams td.input input[type="text"] {width:97%;font-size:0.9em;background:#f7f7f7;border:1px solid #ccc;border-radius:2px;}
   #methodParams td.input input[type="text"]:hover, #methodParams td.input input[type="text"]:focus {border-color:#C7E2F1;border-top-color:#96BCD7;background:#fff;}
 
   #testForm {display:inline-block;margin-left:15px;}
@@ -88,9 +80,8 @@
   #urlForm {margin-bottom:10px;}
 
   a.button {color:#fff;padding:3px 8px;border:1px solid #91bb5c;font-size:0.9em;margin-right:3px;display:inline-block;
-    border-radius:5px;-moz-border-radius:5px;-webkit-border-radius:5px;
-    text-shadow:1px 1px 0 #666;-moz-text-shadow:1px 1px 0 #666;-webkit-text-shadow:1px 1px 0 #666;
-    background:#84bb3c;background:-moz-linear-gradient(top, #84bb3c 0%, #3f5a1d 100%);background:-webkit-gradient(linear, lefttop, leftbottom, color-stop(0%,#84bb3c), color-stop(100%,#3f5a1d));background:-webkit-linear-gradient(top, #84bb3c 0%, #3f5a1d 100%);background:-o-linear-gradient(top, #84bb3c 0%, #3f5a1d 100%);background:-ms-linear-gradient(top, #84bb3c 0%, #3f5a1d 100%);background:linear-gradient(tobottom, #84bb3c 0%, #3f5a1d 100%);filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#84bb3c', endColorstr='#3f5a1d', GradientType=0);
+    border-radius:5px;text-shadow:1px 1px 0 #666;
+    background:#84bb3c;background:linear-gradient(to bottom, #84bb3c 0%, #3f5a1d 100%);
   }
   a.button:hover {color:#E5FF00;}
   
@@ -235,6 +226,8 @@
   Copyright &copy; 2002-2013 <a href="http://piwigo.org">Piwigo Team</a>
 </div> <!-- the_footer -->
 
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/tiptip/1.3/jquery.tipTip.minified.js"></script>
 
 <script type="text/javascript">  
 // global vars
