@@ -416,4 +416,7 @@ $lang['mandatory'] = '必填';
 $lang['Website'] = '网站';
 $lang['Your website URL is invalid'] = '你的网站地址无效';
 $lang['Email'] = '电子邮件';
+$lang['First Page'] = '第一页';
+$lang['Go back to the album'] = '返回相册';
+$lang['Last Page'] = '最后一页';
 ?>
