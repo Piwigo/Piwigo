@@ -56,8 +56,8 @@ INSERT INTO piwigo_config (param,value,comment)
   );
 INSERT INTO piwigo_config (param,value,comment) VALUES ('week_starts_on','monday','Monday may not be the first day of the week');
 INSERT INTO piwigo_config (param,value,comment) VALUES ('updates_ignored','a:3:{s:7:"plugins";a:0:{}s:6:"themes";a:0:{}s:9:"languages";a:0:{}}','Extensions ignored for update');
-INSERT INTO piwigo_config (param,value,comment) VALUES ('order_by','ORDER BY date_available DESC, file ASC, id ASC','default photo order');
-INSERT INTO piwigo_config (param,value,comment) VALUES ('order_by_inside_category','ORDER BY date_available DESC, file ASC, id ASC','default photo order inside category');
+INSERT INTO piwigo_config (param,value,comment) VALUES ('order_by','ORDER BY date_available DESC,file,id','default photo order');
+INSERT INTO piwigo_config (param,value,comment) VALUES ('order_by_inside_category','ORDER BY date_available DESC,file,id','default photo order inside category');
 INSERT INTO piwigo_config (param,value) VALUES ('original_resize','false');
 INSERT INTO piwigo_config (param,value) VALUES ('original_resize_maxwidth','2016');
 INSERT INTO piwigo_config (param,value) VALUES ('original_resize_maxheight','2016');
