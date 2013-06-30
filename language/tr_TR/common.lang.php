@@ -413,4 +413,7 @@ $lang['mandatory'] = 'zorunlu';
 $lang['Website'] = 'Web sitesi';
 $lang['Your website URL is invalid'] = 'Web sitenizin URL adresi geçersiz';
 $lang['Email'] = 'E-posta';
+$lang['First Page'] = 'İlk sayfa';
+$lang['Go back to the album'] = 'Albüme geri dön';
+$lang['Last Page'] = 'Son sayfa';
 ?>
