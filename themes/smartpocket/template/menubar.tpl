@@ -1,7 +1,7 @@
-{if !empty($blocks) }
 <ul data-role="listview">
-  <li data-icon="delete"><a href="#menubar" data-rel="close">Close</a></li>
+  <li data-icon="delete"><a href="#menubar" data-rel="close">{'Close'|@translate}</a></li>
 </ul>
+{if !empty($blocks) }
 	{foreach from=$blocks key=id item=block}
 		<div data-role="collapsible" data-inset="false" data-icon="false">
 		{if not empty($block->template)}
@@ -13,3 +13,8 @@
     </div>
 	{/foreach}
 {/if}
+<br>
+<ul data-role="listview">
+  <li data-role="list-divider">{'View in'|@translate}</li>
+  <li><a href="{$TOGGLE_MOBILE_THEME_URL}">{'Desktop'|@translate}</a></li>
+</ul>

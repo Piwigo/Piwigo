@@ -56,6 +56,22 @@ if (!empty($_COOKIE['screen_size']))
 $this->assign('picture_derivative_params', ImageStdParams::get_by_type($type));
 $this->assign('thumbnail_derivative_params', ImageStdParams::get_by_type(IMG_SQUARE));
 
+//------------------------------------------------------------- mobile version
+add_event_handler('init', 'mobile_link');
+
+function mobile_link()
+{
+  global $template, $conf;
+  if ( !empty($conf['mobile_theme']) && (get_device() != 'desktop' || mobile_theme()))
+  {
+    $template->assign('TOGGLE_MOBILE_THEME_URL',
+        add_url_params(
+          duplicate_index_url(),
+          array('mobile' => mobile_theme() ? 'false' : 'true')
+        )
+      );
+  }
+}
 
 
 if ( !function_exists( 'add_menu_on_public_pages' ) ) { 
