@@ -418,4 +418,7 @@ $lang['mandatory'] = 'szükséges';
 $lang['Website'] = 'Weboldal';
 $lang['Your website URL is invalid'] = 'A weboldal URL érvénytelen';
 $lang['Email'] = 'E-mail';
+$lang['First Page'] = 'Első oldal';
+$lang['Go back to the album'] = 'Vissza az albumhoz';
+$lang['Last Page'] = 'Utolsó oldal';
 ?>
