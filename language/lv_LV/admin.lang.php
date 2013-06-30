@@ -949,4 +949,5 @@ $lang['Merge selected groups'] = 'Sapludināt atlasītās grupas';
 $lang['Duplicate'] = 'Dublikāts';
 $lang['Purge user cache'] = 'Iztīrīt lietotāja kešatmiņu';
 $lang['The picture dimensions will be reduced to %dx%d pixels.'] = 'Attēla izmēri tiks samazināti uz %dx%d pikseļiem. ';
+$lang['Resize after upload disabled due to the use of GD as graphic library'] = 'Sakarā ar GD kā grafiskās bibliotēkas izmantošanu, attēla izmēra mainīšana pēc augšupielādes ir atslēgta';
 ?>
