@@ -955,4 +955,5 @@ $lang['Merge selected groups'] = 'Pridať označené skupiny';
 $lang['Duplicate'] = 'Duplikovať';
 $lang['Purge user cache'] = 'Vyčistiť cache používateľa';
 $lang['The picture dimensions will be reduced to %dx%d pixels.'] = 'Fotka bola zmenšená na %dx%d pixelov.';
+$lang['Resize after upload disabled due to the use of GD as graphic library'] = 'Zmena veľkosti po odoslaní zakázaná kvôli použitiu GD ako grafickej knižnice';
 ?>
