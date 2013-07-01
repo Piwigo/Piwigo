@@ -957,4 +957,5 @@ $lang['Merge selected groups'] = '合并所选组';
 $lang['No group selected, no action possible.'] = '没有组被选中，不能执行任何操作。';
 $lang['Purge user cache'] = '清除用户缓存';
 $lang['The picture dimensions will be reduced to %dx%d pixels.'] = '相片的分辨率将会被减少到 %dx%d 象素.';
+$lang['Resize after upload disabled due to the use of GD as graphic library'] = '由于使用 GD 图形库，因此禁用上传后调整大小';
 ?>
