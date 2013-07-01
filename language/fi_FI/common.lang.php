@@ -415,4 +415,8 @@ $lang['Username is mandatory'] = 'Käyttäjätunnus on pakollinen';
 $lang['mandatory'] = 'pakollinen';
 $lang['Your website URL is invalid'] = 'Sivustosi URL osoite on virheellinen';
 $lang['Website'] = 'Verkkosivusto';
+$lang['Email'] = 'Sähköposti';
+$lang['First Page'] = 'Ensimmäinen sivu';
+$lang['Go back to the album'] = 'Takaisin albumiin';
+$lang['Last Page'] = 'Viimeinen sivu';
 ?>
