@@ -416,4 +416,7 @@ $lang['mandatory'] = 'krævet';
 $lang['Website'] = 'Websted';
 $lang['Your website URL is invalid'] = 'Dit websteds URL er ugyldig';
 $lang['Email'] = 'E-mail';
+$lang['First Page'] = 'Første side';
+$lang['Go back to the album'] = 'Gå tilbage til albummet';
+$lang['Last Page'] = 'Sidste side';
 ?>
