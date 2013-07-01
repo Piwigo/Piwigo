@@ -951,4 +951,5 @@ $lang['No members to manage'] = 'Nessun membro da gestire';
 $lang['Rename'] = 'Rinomina';
 $lang['Purge user cache'] = 'Svuotare la cache utente';
 $lang['The picture dimensions will be reduced to %dx%d pixels.'] = 'Le dimensioni dell\'immagine saranno ridotte a %dx%d pixel.';
+$lang['Resize after upload disabled due to the use of GD as graphic library'] = 'Ridimensionamento dopo l\'upload disattivato a causa dell\'uso di GD come libreria grafica';
 ?>
