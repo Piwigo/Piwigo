@@ -1,26 +1,32 @@
 (function(window, $, PhotoSwipe){
   $(document).ready(function(){
+    var more_link
     var options = {
       jQueryMobile: true,
       loop: var_loop,
       captionAndToolbarAutoHideDelay: var_autohide,
       imageScaleMethod: "fitNoUpscale",
       getToolbar: function(){
-return '<div class="ps-toolbar-close"><div class="ps-toolbar-content"></div></div><div class="ps-toolbar-play"><div class="ps-toolbar-content"></div></div><a href="#" id="more_link">'+var_trad+'</a><div class="ps-toolbar-previous"><div class="ps-toolbar-content"></div></div><div class="ps-toolbar-next"><div class="ps-toolbar-content"></div></div>';},
+return '<div class="ps-toolbar-close"><div class="ps-toolbar-content"></div></div><div class="ps-toolbar-play"><div class="ps-toolbar-content"></div></div><div id="more_link">'+var_trad+'</div><div class="ps-toolbar-previous"><div class="ps-toolbar-content"></div></div><div class="ps-toolbar-next"><div class="ps-toolbar-content"></div></div>';},
       getImageMetaData:function(el){
         return {
             picture_url: $(el).attr('data-picture-url')
         };}
     };
     var myPhotoSwipe = $(".thumbnails a").photoSwipe(options);
-    myPhotoSwipe.addEventHandler(PhotoSwipe.EventTypes.onDisplayImage, function(e){
+    // onShow - store a reference to our "more_link" button
+    myPhotoSwipe.addEventHandler(PhotoSwipe.EventTypes.onShow, function(e){
+      more_link = window.document.querySelectorAll('#more_link')[0];
+    });
+    // onToolbarTap - listen out for when the toolbar is tapped
+    myPhotoSwipe.addEventHandler(PhotoSwipe.EventTypes.onToolbarTap, function(e){
+    if (e.toolbarAction === PhotoSwipe.Toolbar.ToolbarAction.none){
+      if (e.tapTarget === more_link || Util.DOM.isChildOf(e.tapTarget, more_link)){
         var currentImage = myPhotoSwipe.getCurrentImage();
-        $("#more_link").attr("href", currentImage.metaData.picture_url);
-      });
-    $(document).bind('orientationchange', set_thumbnails_width);
-    $("#more_link").click(function(){
-      console.log($(this).attr('href'));
-      });
+        window.location=currentImage.metaData.picture_url;
+      }
+    }
+});     $(document).bind('orientationchange', set_thumbnails_width);
     set_thumbnails_width();
   });
 }(window, window.jQuery, window.Code.PhotoSwipe));

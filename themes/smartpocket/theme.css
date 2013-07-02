@@ -27,6 +27,7 @@
   font-size: 1.1em;
   text-decoration: none;
   vertical-align: middle;
+  cursor: pointer;
 }
 .ui-panel-inner > .ui-listview {
  margin: -15px -15px 0;
