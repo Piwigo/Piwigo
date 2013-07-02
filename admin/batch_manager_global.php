@@ -432,6 +432,7 @@ $base_url = get_root_url().'admin.php';
 
 $prefilters = array(
   array('ID' => 'caddie', 'NAME' => l10n('Caddie')),
+  array('ID' => 'favorites', 'NAME' => l10n('Your favorites')),
   array('ID' => 'last import', 'NAME' => l10n('Last import')),
   array('ID' => 'with no album', 'NAME' => l10n('With no album')),
   array('ID' => 'with no tag', 'NAME' => l10n('With no tag')),

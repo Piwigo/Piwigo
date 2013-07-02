@@ -168,6 +168,19 @@ SELECT element_id
       );
   }
 
+  if ('favorites' == $_SESSION['bulk_manager_filter']['prefilter'])
+  {
+    $query = '
+SELECT image_id
+  FROM '.FAVORITES_TABLE.'
+  WHERE user_id = '.$user['id'].'
+;';
+    array_push(
+      $filter_sets,
+      array_from_query($query, 'image_id')
+      );
+  }
+
   if ('last import'== $_SESSION['bulk_manager_filter']['prefilter'])
   {
     $query = '
