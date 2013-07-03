@@ -414,4 +414,7 @@ $lang['Email address is mandatory'] = 'Η διεύθυνση ηλεκτρονι�
 $lang['Your website URL is invalid'] = 'Το URL της ιστοσελίδας δεν είναι έγκυρο';
 $lang['Website'] = 'Ιστοσελίδα';
 $lang['Email'] = 'Email';
+$lang['Last Page'] = 'Τελευταία Σελίδα';
+$lang['Go back to the album'] = 'Επιστροφή Στο Λεύκωμα';
+$lang['First Page'] = 'Αρχική Σελίδα';
 ?>
