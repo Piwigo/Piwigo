@@ -412,4 +412,8 @@ $lang['SQL queries in'] = 'SQL queries in';
 $lang['RSS feed'] = 'RSS feed';
 $lang['Powered by'] = 'Powered by';
 $lang['N/A'] = 'N/A';
+$lang['Email'] = 'ಮಿಂಚೆ';
+$lang['First Page'] = 'ಮೊದಲ ಪುಟ';
+$lang['Go back to the album'] = 'ಸಂಪುಟಕ್ಕೆ ಹಿಂತಿರುಗಿ';
+$lang['Last Page'] = 'ಕೊನೆಯ ಪುಟ';
 ?>
