@@ -946,4 +946,5 @@ $lang['Type here the name of the new group'] = '在這輸入新的群組別名�
 $lang['View in gallery'] = '以畫廊模式瀏覽'; 
 $lang['Purge user cache'] = '清除用戶快取';
 $lang['The picture dimensions will be reduced to %dx%d pixels.'] = '圖片的尺寸將減少到 %dx%d 像素。';
+$lang['Resize after upload disabled due to the use of GD as graphic library'] = '由於使用了GD圖形程式，上傳後調整尺寸的功能已關閉。';
 ?>
