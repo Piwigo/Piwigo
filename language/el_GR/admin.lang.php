@@ -956,4 +956,5 @@ $lang['Duplicate'] = 'Διπλότυπο';
 $lang['Manage the members'] = 'Διαχειριστείτε τα μέλη';
 $lang['Purge user cache'] = 'Εκκαθάριση cache χρήστη';
 $lang['The picture dimensions will be reduced to %dx%d pixels.'] = 'Το μέγεθος της εικόνας θα μικρίνει κατα  %dx%d pixels.';
+$lang['Resize after upload disabled due to the use of GD as graphic library'] = 'Η Αλλαγή μεγέθους μετά τη μεταφόρτωση έχει απενεργοποιηθεί λόγω της χρήσης της βιβλιοθήκης γραφικών GD ';
 ?>
