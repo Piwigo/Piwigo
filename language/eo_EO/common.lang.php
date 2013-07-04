@@ -415,4 +415,7 @@ $lang['mandatory'] = 'deviga';
 $lang['Your website URL is invalid'] = 'Via reteja URL ne validas.';
 $lang['Website'] = 'Retejo';
 $lang['Email'] = 'Retmesaĝo';
+$lang['First Page'] = 'Unua paĝo';
+$lang['Go back to the album'] = 'Reiri al la fotaro';
+$lang['Last Page'] = 'Lasta paĝo';
 ?>
