@@ -952,4 +952,5 @@ $lang['Manage the members'] = 'Halda liikmeid';
 $lang['Duplicate'] = 'Tee koopia';
 $lang['Purge user cache'] = 'Tühjenda vahemälu';
 $lang['The picture dimensions will be reduced to %dx%d pixels.'] = 'Pildi mõõtmed kahanetakse %dx%d piksli peale.';
+$lang['Resize after upload disabled due to the use of GD as graphic library'] = 'Pildu suuruse muutmine pärast üles laadimist on välja lülitatud, sest kasutusel on GD graafika arhiiv.';
 ?>
