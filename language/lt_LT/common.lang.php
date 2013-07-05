@@ -22,7 +22,7 @@
 // +-----------------------------------------------------------------------+
 /*
 Language Name: Lietuviu [LT]
-Version: 2.5.3
+Version: 2.5.4
 Language URI: http://piwigo.org/ext/extension_view.php?eid=648
 Author: Piwigo team
 Author URI: http://piwigo.org
@@ -111,7 +111,7 @@ $lang['Password forgotten'] = 'Pamiršote slaptažodį';
 $lang['Password'] = 'Slaptažodis';
 $lang['Post date'] = "Publikavimo data";
 $lang['Posted on'] = "Paskelbta";
-$lang['Profile'] = "Prifilis";
+$lang['Profile'] = 'Profilis';
 $lang['Quick connect'] = "Greitas prisijungimas";
 $lang['RSS feed'] = 'RSS srautas';
 $lang['Rate'] = "&#303;vertinti";
@@ -151,7 +151,7 @@ $lang['posted after %s (%s)'] = "paskelbta po %s (%s)";
 $lang['posted before %s (%s)'] = 'paskelbta prieš %s (%s)';
 $lang['posted between %s (%s) and %s (%s)'] = "paskelbta tarp %s (%s) ir %s (%s)";
 $lang['posted on %s'] = "paskelbta %s";
-$lang['Best rated'] = 'Geriausiai įvertintos';
+$lang['Best rated'] = 'Geriausiai vertinamos';
 $lang['display best rated items'] = "rodyti geriausia &#303;vertintas nuotraukas";
 $lang['caddie'] = "Krep&#352;elis";
 $lang['Calendar'] = "Kalendorius";
@@ -167,7 +167,7 @@ $lang['Comment'] = "Komentuoti";
 $lang['Your comment has been registered'] = 'Tavo komentaras užregistruotas';
 $lang['Anti-flood system : please wait for a moment before trying to post another comment'] = 'Anti-flood sistema: prašome šiek tiek palaukti prieš bandant rašyti kitą komentarą';
 $lang['Your comment has NOT been registered because it did not pass the validation rules'] = 'Jūsų komentaras nebuvo užregistruotas, nes neatitiko komentavimo taisyklių';
-$lang['An administrator must authorize your comment before it is visible.'] = 'Administratorius privalo patvirtinti tavo komentarą, kol jis tampa matomas.';
+$lang['An administrator must authorize your comment before it is visible.'] = 'Administratorius turi patvirtinti tavo komentarą, kad jis taptu matomau.';
 $lang['This login is already used by another user'] = 'Šis prisijungimo vardas jau naudojamas';
 $lang['Comments'] = "Komentarai";
 $lang['Add a comment'] = 'Rašyti komentarą';
@@ -206,7 +206,7 @@ $lang['shows images at the root of this category'] = "Rodyti nuotraukas vir&#352
 $lang['See last users comments'] = "Rodyti paskutinius komentarus";
 $lang['customize the appareance of the gallery'] = 'redaguoti galerijos išvaizdą';
 $lang['search'] = 'ieškoti';
-$lang['Home'] = "Namai";
+$lang['Home'] = 'Pradžia';
 $lang['Identification'] = "Identifikacija";
 $lang['in this category'] = "&#352;ioje kategorijoje";
 $lang['in %d sub-category'] = "&#352;ioje %d sub-kategorijoje";
@@ -303,8 +303,8 @@ $lang['SQL queries in'] = "SQL queries in";
 $lang['display only recently posted images'] = "rodyti tik neseniai paskelbtas vaizdus";
 $lang['return to the display of all images'] = "gr&#303;&#382;ti prie vis&#371; nuotrauk&#371;";
 $lang['the beginning'] = 'pradžia';
-$lang['Interface theme'] = "Dizainas";
-$lang['Thumbnails'] = 'Miniatiūros';
+$lang['Interface theme'] = 'Išvaizda';
+$lang['Thumbnails'] = 'Piktogramos';
 $lang['Menu'] = "Meniu";
 $lang['A comment on your site'] = "Komenentaras svetain&#279;je";
 $lang['today'] = 'Šiandien';
@@ -340,7 +340,7 @@ $lang['Picture name: %s'] = "Nuotraukos pavadinimas: %s";
 $lang['Creation date: %s'] = "Suk&#363;rimo data: %s";
 $lang['Waiting page: %s'] = "Laukia puslapio: %s";
 $lang['Picture uploaded by %s'] = "Nuotrauk&#261; ik&#279;l&#279; %s";
-$lang['Bad status for user "guest", using default status. Please notify the webmaster.'] = 'Blogas vartotojo statusas "guest", numatytoji busena bus naudojama. Prašome pranešti apie tai administratoriui.';
+$lang['Bad status for user "guest", using default status. Please notify the webmaster.'] = 'Blogas vartotojo "guest "statusas, bus naudojama numatytoji busena. Prašome apie tai pranešti administratoriui.';
 $lang['Administrator, webmaster and special user cannot use this method'] = "Tik administratorius, moderatorius ir specialus vartotojai gali naudoti &#352;&#303; metod&#261;";
 $lang['a user use already this mail address'] = "Kitas narys jau vartoja &#352;&#303; elektronin&#303; pa&#352;to adres&#261;";
 $lang['Category results for'] = "Kategorij&#371; rezultatai";
@@ -440,7 +440,7 @@ $lang['photo'] = 'nuotrauka';
 $lang['small'] = 'S - Maža';
 $lang['square'] = 'Kvadratas';
 $lang['this email address is already in use'] = 'šis el-pašto adresas užimtas';
-$lang['thumb'] = 'Miniatiūra';
+$lang['thumb'] = 'Piktograma';
 $lang['xlarge'] = 'XL - Labai didelė';
 $lang['xsmall'] = 'XS - Labai maža';
 $lang['xxlarge'] = 'XXL - milžiniška';
@@ -522,4 +522,8 @@ $lang['View in'] = 'Žiūrėti kaip';
 $lang['display each day with photos, month per month'] = 'rodyti kalendorių su fotografijomis, diena po dienos, menėsis po mėnesio';
 $lang['Permalink for album not found'] = 'Fiksuota nuoroda į albumą nerasta';
 $lang['%d rate'] = 'Įvertinimas: %d';
+$lang['Email'] = 'Elektroninis paštas';
+$lang['First Page'] = 'Pirmas puslapis';
+$lang['Go back to the album'] = 'Grįžti į albumą';
+$lang['Last Page'] = 'Paskutinis puslapis';
 ?>
