@@ -447,7 +447,7 @@ $lang['Dump Database'] = 'Ŝuti la datumbazon';
 $lang['Duplicate'] = 'Duobligi';
 $lang['Duplicate selected tags'] = 'Duobligi la selektitajn etikedojn';
 $lang['Give write access (chmod 777) to "%s" directory at the root of your Piwigo installation'] = 'Doni skribaliron (chmod777) al la "%s" dosierujo ĉe la radiko de via Piwigo-instalo';
-$lang['If no HD is available and if the current websize is bigger than resize dimensions, Piwigo will move it as HD and create a downsized websize photo from it.'] = 'Se neniu eg-distingivo disponeblas kaj se la kuranta retgrandeco plias ol la ĉisubaj grandecoj, Piwigo konsideros ĝin kiel eg-distingivo kaj kreos la novan retgrandecon de ĝi.';
+$lang['If no HD is available and if the current websize is bigger than resize dimensions, Piwigo will move it as HD and create a downsized websize photo from it.'] = 'Se neniu tredistingiva versio disponeblas kaj se la kuranta retgrandeco plias ol la ĉisubaj grandecoj, Piwigo konsideros ĝin kiel tredistingiva versio kaj kreos la novan retgrandecon de ĝi.';
 $lang['If you encounter problems or have any question, please send a message to'] = 'En kazo de problemoj aŭ demandoj, bonvolu sendi mesaĝon al';
 $lang['Do you want to activate anyway?'] = 'Ĉu vi tamen volas aktivigi ĝin?';
 $lang['Dissociated'] = 'Malligita';
@@ -461,4 +461,7 @@ $lang['Default comments order'] = 'Apriora ordo de komentoj';
 $lang['Database synchronization with files'] = 'Sinkronigo de la datumbazo kun la dosieroj';
 $lang['Complementary mail content'] = 'Komplementa enhavo de retmesaĝo';
 $lang['Check integrity'] = 'Kontrolo pri integreco';
+$lang['Manage photos'] = 'Administri la fotojn';
+$lang['Manage tags'] = 'Administri la etikedojn';
+$lang['Manage the members'] = 'Administri la membrojn';
 ?>
