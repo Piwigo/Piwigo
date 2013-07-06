@@ -112,21 +112,21 @@ $display_info_checkboxes = array(
 // image order management
 $sort_fields = array(
   ''                    => '',
-  'file'                => l10n('File name, A &rarr; Z'),
+  'file ASC'            => l10n('File name, A &rarr; Z'),
   'file DESC'           => l10n('File name, Z &rarr; A'),
-  'name'                => l10n('Photo title, A &rarr; Z'),
+  'name ASC'            => l10n('Photo title, A &rarr; Z'),
   'name DESC'           => l10n('Photo title, Z &rarr; A'),
   'date_creation DESC'  => l10n('Date created, new &rarr; old'),
-  'date_creation'       => l10n('Date created, old &rarr; new'),
+  'date_creation ASC'   => l10n('Date created, old &rarr; new'),
   'date_available DESC' => l10n('Date posted, new &rarr; old'),
-  'date_available'      => l10n('Date posted, old &rarr; new'),
+  'date_available ASC'  => l10n('Date posted, old &rarr; new'),
   'rating_score DESC'   => l10n('Rating score, high &rarr; low'),
-  'rating_score'        => l10n('Rating score, low &rarr; high'),
+  'rating_score ASC'    => l10n('Rating score, low &rarr; high'),
   'hit DESC'            => l10n('Visits, high &rarr; low'),
-  'hit'                 => l10n('Visits, low &rarr; high'),
-  'id'                  => l10n('Numeric identifier, 1 &rarr; 9'),
+  'hit ASC'             => l10n('Visits, low &rarr; high'),
+  'id ASC'              => l10n('Numeric identifier, 1 &rarr; 9'),
   'id DESC'             => l10n('Numeric identifier, 9 &rarr; 1'),
-  'rank'                => l10n('Manual sort order'),
+  'rank ASC'            => l10n('Manual sort order'),
   );
 
 $comments_order = array(
@@ -162,7 +162,7 @@ if (isset($_POST['submit']))
             $order_by = $order_by_inside_category = array_slice($_POST['order_by'], 0, ceil(count($sort_fields)/2));
 
             // there is no rank outside categories
-            if ( ($i = array_search('rank', $order_by)) !== false)
+            if ( ($i = array_search('rank ASC', $order_by)) !== false)
             {
               unset($order_by[$i]);
             }
@@ -170,11 +170,11 @@ if (isset($_POST['submit']))
             // must define a default order_by if user want to order by rank only
             if ( count($order_by) == 0 )
             {
-              $order_by = array('id');
+              $order_by = array('id ASC');
             }
 
-            $_POST['order_by'] = 'ORDER BY '.implode(',', $order_by);
-            $_POST['order_by_inside_category'] = 'ORDER BY '.implode(',', $order_by_inside_category);
+            $_POST['order_by'] = 'ORDER BY '.implode(', ', $order_by);
+            $_POST['order_by_inside_category'] = 'ORDER BY '.implode(', ', $order_by_inside_category);
           }
         }
         else
@@ -334,18 +334,10 @@ switch ($page['section'])
     }
     else
     {
+      $out = array();
       $order_by = trim($conf['order_by_inside_category']);
       $order_by = str_replace('ORDER BY ', null, $order_by);
-      $order_by = explode(',', $order_by);
-      foreach($order_by as &$order)
-      {
-        $order = trim($order);
-        if (substr_compare($order, ' ASC', -4)==0)
-        {
-          $order = substr($order, 0, -4);
-        }
-      }
-      unset($order);
+      $order_by = explode(', ', $order_by);
     }
 
     $template->assign(

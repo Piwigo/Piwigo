@@ -221,16 +221,16 @@ function get_category_preferred_image_orders()
 
   return trigger_event('get_category_preferred_image_orders', array(
     array(l10n('Default'),                        '',                     true),
-    array(l10n('Photo title, A &rarr; Z'),        'name',                 true),
+    array(l10n('Photo title, A &rarr; Z'),        'name ASC',             true),
     array(l10n('Photo title, Z &rarr; A'),        'name DESC',            true),
     array(l10n('Date created, new &rarr; old'),   'date_creation DESC',   true),
-    array(l10n('Date created, old &rarr; new'),   'date_creation',        true),
+    array(l10n('Date created, old &rarr; new'),   'date_creation ASC',    true),
     array(l10n('Date posted, new &rarr; old'),    'date_available DESC',  true),
-    array(l10n('Date posted, old &rarr; new'),    'date_available',       true),
+    array(l10n('Date posted, old &rarr; new'),    'date_available ASC',   true),
     array(l10n('Rating score, high &rarr; low'),  'rating_score DESC',    $conf['rate']),
-    array(l10n('Rating score, low &rarr; high'),  'rating_score',         $conf['rate']),
+    array(l10n('Rating score, low &rarr; high'),  'rating_score ASC',     $conf['rate']),
     array(l10n('Visits, high &rarr; low'),        'hit DESC',             true),
-    array(l10n('Visits, low &rarr; high'),        'hit',                  true),
+    array(l10n('Visits, low &rarr; high'),        'hit ASC',              true),
     array(l10n('Permissions'),                    'level DESC',           is_admin()),
     ));
 }
