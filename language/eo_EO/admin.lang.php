@@ -464,4 +464,10 @@ $lang['Check integrity'] = 'Kontrolo pri integreco';
 $lang['Manage photos'] = 'Administri la fotojn';
 $lang['Manage tags'] = 'Administri la etikedojn';
 $lang['Manage the members'] = 'Administri la membrojn';
+$lang['Impossible automatic correction'] = 'Neeblas aŭtomata korektado';
+$lang['Impossible to activate this theme, the parent theme is missing: %s'] = 'Neeblis malaktivigi tiun temon, ĉar la patra temo mankas: %s.';
+$lang['Impossible to deactivate this language, first set another language as default.'] = 'Neeblas malaktivigi tiun lingvon, unue elektu alian aprioran lingvon.';
+$lang['Impossible to deactivate this language, you need at least one language.'] = 'Neeblas malaktivigi tiun lingvon, nepras almenaŭ unu lingvo.';
+$lang['Impossible to deactivate this theme, you need at least one theme.'] = 'Neeblas malaktivigi tiun temon, nepras almenaŭ unu temo.';
+$lang['Impossible to delete this theme. Other themes depends on it: %s'] = 'Neeblas forigi tiun temon, ĉar aliaj temoj dependas de ĝi: %s.';
 ?>
