@@ -64,4 +64,5 @@ $lang['Welcome to my photo gallery'] = 'Bine ati venit la galeria mea foto';
 $lang['Welcome to your new installation of Piwigo!'] = 'Bine ai venit la noua instalare Piwigo!';
 $lang['You can download the config file and upload it to local/config directory of your installation.'] = 'Poti sa descarci fila de configurare si sa o uploadezi in folderul local/config al instalarii.';
 $lang['You may referer to your hosting provider\'s support and see how you could switch to PHP 5 by yourself.'] = 'Ar trebui sa te adresezi hostului si sa intrebi cum poti sa treci la PHP5';
+$lang['localhost or other, supplied by your host provider'] = 'localhost sau alta, furnizat de furnizorul de găzduire';
 ?>
