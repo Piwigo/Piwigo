@@ -415,4 +415,7 @@ $lang['mandatory'] = 'obligatoriu';
 $lang['Website'] = 'Site';
 $lang['Your website URL is invalid'] = 'URL-ul sitului tău este invalid';
 $lang['Email'] = 'Email';
+$lang['First Page'] = 'Prima pagină';
+$lang['Go back to the album'] = 'Înapoi la album';
+$lang['Last Page'] = 'Ultima pagină';
 ?>
