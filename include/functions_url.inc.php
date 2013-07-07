@@ -234,7 +234,7 @@ function make_picture_url($params)
       $url .= $params['image_id'];
       if ( isset($params['image_file']) )
       {
-        $url .= '-'.get_filename_wo_extension($params['image_file']);
+        $url .= '-'.str2url(get_filename_wo_extension($params['image_file']));
       }
       break;
     case 'file':
