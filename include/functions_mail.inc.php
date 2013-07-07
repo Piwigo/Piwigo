@@ -192,7 +192,7 @@ function get_str_email_format($is_html)
  */
 function switch_lang_to($language)
 {
-  global $switch_lang, $user, $lang, $lang_info;
+  global $switch_lang, $user, $lang, $lang_info, $language_files;
 
   // explanation of switch_lang
   // $switch_lang['language'] contains data of language
@@ -224,6 +224,14 @@ function switch_lang_to($language)
     // No test admin because script is checked admin (user selected no)
     // Translations are in admin file too
     load_language('admin.lang', '', array('language'=>$language) );
+    
+    if (!empty($language_files))
+    {
+      foreach ($language_files as $dirname => $files)
+        foreach ($files as $filename)
+          load_language($filename, $dirname, array('language'=>$language) );
+    }
+    
     trigger_action('loading_lang');
     load_language('lang', PHPWG_ROOT_PATH.PWG_LOCAL_DIR,
       array('language'=>$language, 'no_fallback'=>true, 'local'=>true)

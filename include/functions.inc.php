@@ -1209,7 +1209,15 @@ function get_pwg_charset()
 function load_language($filename, $dirname = '',
     $options = array() )
 {
-  global $user;
+  global $user, $language_files;
+  
+  if ( !empty($dirname) and !empty($filename) )
+  {
+    if ( empty($language_files[$dirname]) or !in_array($filename,$language_files[$dirname]) )
+    {
+      $language_files[$dirname][] = $filename;
+    }
+  }
 
   if (! @$options['return'] )
   {
