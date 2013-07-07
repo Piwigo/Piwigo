@@ -112,10 +112,7 @@ UPDATE '.USER_INFOS_TABLE.'
 ;';
         pwg_query($query);
 
-        if (!$this->deltree(PHPWG_ROOT_PATH.'language/'.$language_id))
-        {
-          $this->send_to_trash(PHPWG_ROOT_PATH.'language/'.$language_id);
-        }
+        deltree(PHPWG_ROOT_PATH.'language/'.$language_id, PHPWG_ROOT_PATH.'language/trash');
         break;
 
       case 'set_default':
@@ -381,10 +378,7 @@ UPDATE '.USER_INFOS_TABLE.'
                     }
                     elseif (is_dir($path))
                     {
-                      if (!$this->deltree($path))
-                      {
-                        $this->send_to_trash($path);
-                      }
+                      deltree($path, PHPWG_ROOT_PATH.'language/trash');
                     }
                   }
                 }
@@ -403,59 +397,6 @@ UPDATE '.USER_INFOS_TABLE.'
 
     @unlink($archive);
     return $status;
-  }
-
-  /**
-   * delete $path directory
-   * @param string - path
-   */
-  function deltree($path)
-  {
-    if (is_dir($path))
-    {
-      $fh = opendir($path);
-      while ($file = readdir($fh))
-      {
-        if ($file != '.' and $file != '..')
-        {
-          $pathfile = $path . '/' . $file;
-          if (is_dir($pathfile))
-          {
-            $this->deltree($pathfile);
-          }
-          else
-          {
-            @unlink($pathfile);
-          }
-        }
-      }
-      closedir($fh);
-      return @rmdir($path);
-    }
-  }
-
-  /**
-   * send $path to trash directory
-   * @param string - path
-   */
-  function send_to_trash($path)
-  {
-    $trash_path = PHPWG_ROOT_PATH . 'language/trash';
-    if (!is_dir($trash_path))
-    {
-      @mkdir($trash_path);
-      $file = @fopen($trash_path . '/.htaccess', 'w');
-      @fwrite($file, 'deny from all');
-      @fclose($file);
-    }
-    while ($r = $trash_path . '/' . md5(uniqid(rand(), true)))
-    {
-      if (!is_dir($r))
-      {
-        @rename($path, $r);
-        break;
-      }
-    }
   }
 
   /**

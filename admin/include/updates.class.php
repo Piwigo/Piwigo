@@ -33,7 +33,7 @@ class updates
     }
   }
 
-  function check_piwigo_upgrade()
+  static function check_piwigo_upgrade()
   {
     $_SESSION['need_update'] = null;
 
@@ -242,48 +242,7 @@ class updates
     return $this->$type->$version_compare($a, $b);
   }
 
-  function deltree($path, $move_to_trash=false)
-  {
-    if (is_dir($path))
-    {
-      $fh = opendir($path);
-      while ($file = readdir($fh))
-      {
-        if ($file != '.' and $file != '..')
-        {
-          $pathfile = $path . '/' . $file;
-          if (is_dir($pathfile))
-          {
-            self::deltree($pathfile, $move_to_trash);
-          }
-          else
-          {
-            @unlink($pathfile);
-          }
-        }
-      }
-      closedir($fh);
-      if (@rmdir($path))
-      {
-        return true;
-      }
-      elseif ($move_to_trash)
-      {
-        $trash = PHPWG_ROOT_PATH.'_trash';
-        if (!is_dir($trash))
-        {
-          @mkgetdir($trash);
-        }
-        return @rename($path, $trash . '/'.md5(uniqid(rand(), true)));
-      }
-      else
-      {
-        return false;
-      }
-    }
-  }
-
-  function process_obsolete_list($file)
+  static function process_obsolete_list($file)
   {
     if (file_exists(PHPWG_ROOT_PATH.$file)
       and $old_files = file(PHPWG_ROOT_PATH.$file, FILE_IGNORE_NEW_LINES)
@@ -299,13 +258,13 @@ class updates
         }
         elseif (is_dir($path))
         {
-          self::deltree($path, true);
+          deltree($path, PHPWG_ROOT_PATH.'_trash');
         }
       }
     }
   }
 
-  function dump_database($include_history=false)
+  static function dump_database($include_history=false)
   {
     global $page, $conf, $cfgBase;
 
@@ -350,7 +309,7 @@ class updates
       }
 
       @readfile($backupFile);
-      self::deltree(PHPWG_ROOT_PATH.$conf['data_location'].'update');
+      deltree(PHPWG_ROOT_PATH.$conf['data_location'].'update');
       exit();
     }
     else
@@ -359,7 +318,7 @@ class updates
     }
   }
 
-  function upgrade_to($upgrade_to, &$step, $check_current_version=true)
+  static function upgrade_to($upgrade_to, &$step, $check_current_version=true)
   {
     global $page, $conf, $template;
 
@@ -449,7 +408,7 @@ class updates
           if (empty($error))
           {
             self::process_obsolete_list($obsolete_list);
-            self::deltree(PHPWG_ROOT_PATH.$conf['data_location'].'update');
+            deltree(PHPWG_ROOT_PATH.$conf['data_location'].'update');
             invalidate_user_cache(true);
             $template->delete_compiled_templates();
             unset($_SESSION['need_update']);
@@ -477,7 +436,7 @@ class updates
         }
         else
         {
-          self::deltree(PHPWG_ROOT_PATH.$conf['data_location'].'update');
+          deltree(PHPWG_ROOT_PATH.$conf['data_location'].'update');
           array_push($page['errors'], l10n('An error has occured during upgrade.'));
         }
       }

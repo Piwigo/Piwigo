@@ -221,10 +221,7 @@ DELETE
           }
         }
 
-        if (!$this->deltree(PHPWG_THEMES_PATH.$theme_id))
-        {
-          $this->send_to_trash(PHPWG_THEMES_PATH.$theme_id);
-        }
+        deltree(PHPWG_THEMES_PATH.$theme_id, PHPWG_THEMES_PATH . 'trash');
         break;
 
       case 'set_default':
@@ -641,10 +638,7 @@ SELECT
                   }
                   elseif (is_dir($path))
                   {
-                    if (!$this->deltree($path))
-                    {
-                      $this->send_to_trash($path);
-                    }
+                    deltree($path, PHPWG_THEMES_PATH . 'trash');
                   }
                 }
               }
@@ -661,59 +655,6 @@ SELECT
 
     @unlink($archive);
     return $status;
-  }
-
-  /**
-   * delete $path directory
-   * @param string - path
-   */
-  function deltree($path)
-  {
-    if (is_dir($path))
-    {
-      $fh = opendir($path);
-      while ($file = readdir($fh))
-      {
-        if ($file != '.' and $file != '..')
-        {
-          $pathfile = $path . '/' . $file;
-          if (is_dir($pathfile))
-          {
-            $this->deltree($pathfile);
-          }
-          else
-          {
-            @unlink($pathfile);
-          }
-        }
-      }
-      closedir($fh);
-      return @rmdir($path);
-    }
-  }
-
-  /**
-   * send $path to trash directory
-   * @param string - path
-   */
-  function send_to_trash($path)
-  {
-    $trash_path = PHPWG_THEMES_PATH . 'trash';
-    if (!is_dir($trash_path))
-    {
-      @mkdir($trash_path);
-      $file = @fopen($trash_path . '/.htaccess', 'w');
-      @fwrite($file, 'deny from all');
-      @fclose($file);
-    }
-    while ($r = $trash_path . '/' . md5(uniqid(rand(), true)))
-    {
-      if (!is_dir($r))
-      {
-        @rename($path, $r);
-        break;
-      }
-    }
   }
 
   /**

@@ -2527,4 +2527,58 @@ function get_dirs($directory)
   }
   return $sub_dirs;
 }
+
+/**
+ * recursively delete a directory
+ * @param string $path
+ * @param string $trash_path, try to move the directory to this path if it cannot be delete
+ */
+function deltree($path, $trash_path=null)
+{
+  if (is_dir($path))
+  {
+    $fh = opendir($path);
+    while ($file = readdir($fh))
+    {
+      if ($file != '.' and $file != '..')
+      {
+        $pathfile = $path . '/' . $file;
+        if (is_dir($pathfile))
+        {
+          deltree($pathfile, $trash_path);
+        }
+        else
+        {
+          @unlink($pathfile);
+        }
+      }
+    }
+    closedir($fh);
+    
+    if (@rmdir($path))
+    {
+      return true;
+    }
+    elseif (!empty($trash_path))
+    {
+      if (!is_dir($trash_path))
+      {
+        @mkgetdir($trash_path, MKGETDIR_RECURSIVE|MKGETDIR_DIE_ON_ERROR|MKGETDIR_PROTECT_HTACCESS);
+      }
+      while ($r = $trash_path . '/' . md5(uniqid(rand(), true)))
+      {
+        if (!is_dir($r))
+        {
+          @rename($path, $r);
+          break;
+        }
+      }
+    }
+    else
+    {
+      return false;
+    }
+  }
+}
+
 ?>

@@ -166,10 +166,7 @@ DELETE FROM ' . PLUGINS_TABLE . ' WHERE id=\'' . $plugin_id . '\'';
         {
           break;
         }
-        if (!$this->deltree(PHPWG_PLUGINS_PATH . $plugin_id))
-        {
-          $this->send_to_trash(PHPWG_PLUGINS_PATH . $plugin_id);
-        }
+        deltree(PHPWG_PLUGINS_PATH . $plugin_id, PHPWG_PLUGINS_PATH . 'trash');
         break;
     }
     return $errors;
@@ -514,10 +511,7 @@ DELETE FROM ' . PLUGINS_TABLE . ' WHERE id=\'' . $plugin_id . '\'';
                   }
                   elseif (is_dir($path))
                   {
-                    if (!$this->deltree($path))
-                    {
-                      $this->send_to_trash($path);
-                    }
+                    deltree($path, PHPWG_PLUGINS_PATH . 'trash');
                   }
                 }
               }
@@ -552,59 +546,6 @@ DELETE FROM ' . PLUGINS_TABLE . ' WHERE id=\'' . $plugin_id . '\'';
       }
     }
     return $merged_extensions;
-  }
-  
-  /**
-   * delete $path directory
-   * @param string - path
-   */
-  function deltree($path)
-  {
-    if (is_dir($path))
-    {
-      $fh = opendir($path);
-      while ($file = readdir($fh))
-      {
-        if ($file != '.' and $file != '..')
-        {
-          $pathfile = $path . '/' . $file;
-          if (is_dir($pathfile))
-          {
-            $this->deltree($pathfile);
-          }
-          else
-          {
-            @unlink($pathfile);
-          }
-        }
-      }
-      closedir($fh);
-      return @rmdir($path);
-    }
-  }
-
-  /**
-   * send $path to trash directory
-   * @param string - path
-   */
-  function send_to_trash($path)
-  {
-    $trash_path = PHPWG_PLUGINS_PATH . 'trash';
-    if (!is_dir($trash_path))
-    {
-      @mkdir($trash_path);
-      $file = @fopen($trash_path . '/.htaccess', 'w');
-      @fwrite($file, 'deny from all');
-      @fclose($file);
-    }
-    while ($r = $trash_path . '/' . md5(uniqid(rand(), true)))
-    {
-      if (!is_dir($r))
-      {
-        @rename($path, $r);
-        break;
-      }
-    }
   }
 
   /**
