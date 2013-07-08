@@ -31,7 +31,7 @@ function changeImgSrc(url,typeSave,typeMap)
 		theImg.useMap = "#map"+typeMap;
 	}
 	jQuery('#derivativeSwitchBox .switchCheck').css('visibility','hidden');
-	jQuery('#derivativeChecked'+typeSave).css('visibility','visible');
+	jQuery('#derivativeChecked'+typeMap).css('visibility','visible');
 	document.cookie = 'picture_deriv='+typeSave+';path={/literal}{$COOKIE_PATH}{literal}';
 }
 (SwitchBox=window.SwitchBox||[]).push("#derivativeSwitchLink", "#derivativeSwitchBox");
@@ -42,7 +42,7 @@ function changeImgSrc(url,typeSave,typeMap)
 <div id="derivativeSwitchBox" class="switchBox">
   <div class="switchBoxTitle">{'Photo sizes'|@translate}</div>
   {foreach from=$current.unique_derivatives item=derivative key=derivative_type}
-  <span class="switchCheck" id="derivativeChecked{$derivative_type}"{if $derivative->get_type() ne $current.selected_derivative->get_type()} style="visibility:hidden"{/if}>&#x2714; </span>
+  <span class="switchCheck" id="derivativeChecked{$derivative->get_type()}"{if $derivative->get_type() ne $current.selected_derivative->get_type()} style="visibility:hidden"{/if}>&#x2714; </span>
   <a href="javascript:changeImgSrc('{$derivative->get_url()|@escape:javascript}','{$derivative_type}','{$derivative->get_type()}')">
     {$derivative->get_type()|@translate}<span class="derivativeSizeDetails"> ({$derivative->get_size_hr()})</span>
   </a><br>

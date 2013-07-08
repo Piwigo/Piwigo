@@ -944,6 +944,7 @@ $template->assign( 'ELEMENT_CONTENT', $element_content );
 
 if (isset($picture['next'])
     and $picture['next']['src_image']->is_original()
+    and $template->get_template_vars('U_PREFETCH') == null
     and strpos($_SERVER['HTTP_USER_AGENT'], 'Chrome/') === false)
 {
   $template->assign(
