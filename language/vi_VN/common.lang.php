@@ -413,4 +413,8 @@ $lang['Username is mandatory'] = 'Phải có tên người dùng';
 $lang['Website'] = 'Trang web';
 $lang['Your website URL is invalid'] = 'Địa chỉ trang web không bình thường';
 $lang['mandatory'] = 'bắt buộc';
+$lang['Email'] = 'Email';
+$lang['First Page'] = 'Trang đầu';
+$lang['Go back to the album'] = 'Quay trở lại album';
+$lang['Last Page'] = 'Trang cuối';
 ?>
