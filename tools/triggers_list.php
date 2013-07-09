@@ -232,6 +232,13 @@ array(
   'infos' => 'New in 2.4',
 ),
 array(
+  'name' => 'get_webmaster_mail_address',
+  'type' => 'trigger_event',
+  'vars' => array('string', 'email'),
+  'files' => array('include\functions.inc.php (get_webmaster_mail_address)'),
+  'infos' => 'New in 2.6',
+),
+array(
   'name' => 'init',
   'type' => 'trigger_action',
   'vars' => array(),
