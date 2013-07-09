@@ -983,6 +983,8 @@ SELECT '.$conf['user_fields']['email'].'
 ;';
   list($email) = pwg_db_fetch_row(pwg_query($query));
 
+  $email = trigger_event('get_webmaster_mail_address', $email);
+
   return $email;
 }
 
