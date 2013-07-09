@@ -1303,7 +1303,7 @@ SELECT id, uppercats, global_rank, visible, status
 
   update_global_rank();
 
-  if ('private' == $insert['status'] and ((isset($options['inherit']) and $options['inherit']) or $conf['inheritance_by_default']) )
+  if ('private' == $insert['status'] and !empty($insert['id_uppercat']) and ((isset($options['inherit']) and $options['inherit']) or $conf['inheritance_by_default']) )
   {
     $query = '
       SELECT group_id
