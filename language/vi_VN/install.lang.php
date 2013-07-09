@@ -64,4 +64,5 @@ $lang['Just another Piwigo gallery'] = 'Lại thêm một thư viện Piwigo n�
 $lang['Welcome to my photo gallery'] = 'Chào mừng bạn đến với thư viện hình của tôi';
 $lang['Welcome to your new installation of Piwigo!'] = 'Chào mừng bạn đến với bản cài đặt mới của Piwigo!';
 $lang['Don\'t hesitate to consult our forums for any help : %s'] = 'Đừng do dự  thảo luận tại diễn đàn của chúng tôi để được trợ giúp: %s';
+$lang['localhost or other, supplied by your host provider'] = 'localhost hoặc tên máy chủ cấp bởi nhà cung cấp host';
 ?>
