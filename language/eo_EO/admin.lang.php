@@ -470,4 +470,26 @@ $lang['Impossible to deactivate this language, first set another language as def
 $lang['Impossible to deactivate this language, you need at least one language.'] = 'Neeblas malaktivigi tiun lingvon, nepras almenaŭ unu lingvo.';
 $lang['Impossible to deactivate this theme, you need at least one theme.'] = 'Neeblas malaktivigi tiun temon, nepras almenaŭ unu temo.';
 $lang['Impossible to delete this theme. Other themes depends on it: %s'] = 'Neeblas forigi tiun temon, ĉar aliaj temoj dependas de ĝi: %s.';
+$lang['Modify information'] = 'Modifi informon';
+$lang['Month'] = 'Monato';
+$lang['Move'] = 'Movi';
+$lang['Move albums'] = 'Movi fotarojn';
+$lang['Move to album'] = 'Movi al fotaro';
+$lang['Name of the duplicate'] = 'Nomo de la duoblo';
+$lang['New Version'] = 'Nova Versio';
+$lang['New name'] = 'Nova nomo';
+$lang['New parent album'] = 'Nova patra fotaro';
+$lang['New photos added'] = 'Novaj fotoj aldonitaj';
+$lang['New photos were added'] = 'Novaj fotoj aldoniĝis';
+$lang['New tag'] = 'Nova etikedo';
+$lang['No file was uploaded'] = 'Neniu dosiero alŝutiĝis';
+$lang['No group selected, no action possible.'] = 'Neniu grupo estis selektita, neniu ago eblas.';
+$lang['No mail to send.'] = 'Neniu mesaĝo sendenda.';
+$lang['No members to manage'] = 'Neniu membro administrenda ';
+$lang['Maximum width'] = 'Maksimuma larĝo';
+$lang['Members'] = 'Membroj';
+$lang['Menu Management'] = 'Menuoj';
+$lang['Merge selected groups'] = 'Kunfandi la selektitajn grupojn';
+$lang['Merge selected tags'] = 'Kunfandi la selektitajn etikedojn';
+$lang['Merge tags'] = 'Kunfandi etikedojn';
 ?>
