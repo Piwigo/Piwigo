@@ -942,4 +942,11 @@ $lang['X Repeat'] = 'Lặp lại X';
 $lang['Y Position'] = 'Vị trí Y';
 $lang['Purge user cache'] = 'Lọc bộ nhớ đệm của người dùng';
 
+$lang['Posted %s on %s'] = 'Gửi %s vào %s';
+$lang['Rated %d times, score : %.2f'] = 'Đã được đánh giá %d lần, điểm số : %.2f';
+$lang['ReGalAndroid (RemoteGallery client for Android) is an open source (GPL v3) Piwigo client for the Android platform.'] = 'ReGalAndroid (RemoteGallery client cho Android) là một phần mềm máy khách Piwigo mã mở (GPL v3)cho nền tảng Android.';
+$lang['Resize after upload disabled due to the use of GD as graphic library'] = 'Đổi kích thước sau khi tải lên bị vô hiệu vì sử dụng thư viện đồ họa GD';
+$lang['Shotwell is an open source digital photo organizer that runs on Linux. It is the default photo manager in Ubuntu and Fedora.'] = 'Shotwell là một trình quản lý ảnh số mã mở và là trình quản lý ảnh mặc định trong Ubuntu và Fedora.';
+$lang['The Piwigo publish Plug-in allows you to export and synchronize photos from Lightroom directly to your Piwigo photo gallery.'] = 'Piwigo phát hành các plug-in cho phép đồng bộ hóa và xuất trực tiếp các ảnh từ Lightroom vào trong thư viện ảnh Piwigo.';
+$lang['To export your photos from digiKam to Piwigo, simply install digiKam and the Kipi-plugins.'] = 'Để xuất các ảnh từ digiKam vào Piwigo, đơn giản hãy cài đặt digiKam và Kipi-plugins.';
 ?>
