@@ -492,4 +492,11 @@ $lang['Menu Management'] = 'Menuoj';
 $lang['Merge selected groups'] = 'Kunfandi la selektitajn grupojn';
 $lang['Merge selected tags'] = 'Kunfandi la selektitajn etikedojn';
 $lang['Merge tags'] = 'Kunfandi etikedojn';
+$lang['No photo can be deleted'] = 'Eblas forigi neniun foton ';
+$lang['No photo in this album'] = 'Neniu foto en tiu fotaro';
+$lang['No photo selected, no action possible.'] = 'Sen foto selektita, neniu ago eblas.';
+$lang['No results'] = 'Neniu rezulto';
+$lang['No user to send notifications by mail.'] = 'Neniun uzanton oni sciigos retmesaĝe.';
+$lang['None'] = 'Nenio';
+$lang['Not cropped correctly?'] = 'Ĉu la foto ne estis taŭge stucita?';
 ?>
