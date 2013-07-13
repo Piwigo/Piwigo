@@ -419,4 +419,8 @@ $lang['Username is mandatory'] = 'Uživatelské jméno je povinné';
 $lang['mandatory'] = 'povinné';
 $lang['Website'] = 'Webová stránka';
 $lang['Your website URL is invalid'] = 'URL vaší stránky je neplatné';
+$lang['Last Page'] = 'Poslední stránka';
+$lang['Go back to the album'] = 'Zpět do alba';
+$lang['First Page'] = 'První stránka';
+$lang['Email'] = 'E-mail';
 ?>
