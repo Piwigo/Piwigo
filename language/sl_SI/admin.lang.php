@@ -946,4 +946,5 @@ $lang['Order of menubar items has been updated successfully.'] = 'Razvrstitev el
 $lang['No photo selected, no action possible.'] = 'Ker ni izbrana nobena slika, ni možno nobeno dejanje.';
 $lang['No results'] = 'Ni rezultatov';
 $lang['No user to send notifications by mail.'] = 'Noben uporabnik ne bo obveščen preko e-pošte.';
+$lang['Resize after upload disabled due to the use of GD as graphic library'] = 'Stiskanje fotografij pred nalaganjem je onemogočeno zaradi uporabe GD grafične knjižnice.';
 ?>
