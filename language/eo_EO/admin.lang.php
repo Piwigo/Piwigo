@@ -499,4 +499,10 @@ $lang['No results'] = 'Neniu rezulto';
 $lang['No user to send notifications by mail.'] = 'Neniun uzanton oni sciigos retmesaĝe.';
 $lang['None'] = 'Nenio';
 $lang['Not cropped correctly?'] = 'Ĉu la foto ne estis taŭge stucita?';
+$lang['Multiple Size'] = 'Multopla grandeco';
+$lang['Number of albums per page'] = 'Nombro da fotaroj ĉe ĉiu paĝo';
+$lang['Number of comments per page'] = 'Nombro da komentoj ĉe ĉiu paĝo';
+$lang['Number of downloads'] = 'Nombro da elŝutadoj';
+$lang['Number of thumbnails to create'] = 'Nombro da miniaturoj kreendaj';
+$lang['Opacity'] = 'Opakeco';
 ?>
