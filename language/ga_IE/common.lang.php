@@ -37,4 +37,5 @@ $lang_info['zero_plural'] = true;
 
 $lang['%d album updated'] = '%d albam suas chun dáta';
 $lang['%d albums updated'] = '%d albaim suas chun dáta';
+$lang['Hello'] = 'Dia Duit';
 ?>
