@@ -160,12 +160,9 @@ $template->assign(
 
 // we need to know the category in which the last photo was added
 $selected_category = array();
-$selected_parent = array();
 
 $query = '
-SELECT
-    category_id,
-    id_uppercat
+SELECT category_id
   FROM '.IMAGES_TABLE.' AS i
     JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON image_id = i.id
     JOIN '.CATEGORIES_TABLE.' AS c ON category_id = c.id
@@ -178,11 +175,6 @@ if (pwg_db_num_rows($result) > 0)
   $row = pwg_db_fetch_assoc($result);
   
   $selected_category = array($row['category_id']);
-
-  if (!empty($row['id_uppercat']))
-  {
-    $selected_parent = array($row['id_uppercat']);
-  }
 }
 
 // existing album
@@ -195,13 +187,6 @@ display_select_cat_wrapper(
   $query,
   $selected_category,
   'category_options'
-  );
-
-// new category
-display_select_cat_wrapper(
-  $query,
-  $selected_parent,
-  'category_parent_options'
   );
 
 

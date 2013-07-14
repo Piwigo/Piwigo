@@ -1,81 +1,67 @@
 {footer_script}{literal}
 jQuery(document).ready(function(){
-  function fillCategoryListbox(selectId, selectedValue) {
-    jQuery.getJSON(
-      "ws.php?format=json&method=pwg.categories.getList",
-      {
-        recursive: true,
-        fullname: true,
-        format: "json",
-      },
-      function(data) {
-        jQuery.each(
-          data.result.categories,
-          function(i,category) {
-            var selected = null;
-            if (category.id == selectedValue) {
-              selected = "selected";
-            }
-            
-            jQuery("<option/>")
-              .attr("value", category.id)
-              .attr("selected", selected)
-              .text(category.name)
-              .appendTo("#"+selectId)
-              ;
-          }
-        );
-      }
-    );
-  }
-
   jQuery(".addAlbumOpen").colorbox({
-    inline:true,
-    href:"#addAlbumForm",
-    onComplete:function(){
+    inline: true,
+    href: "#addAlbumForm",
+    onComplete: function() {
       jQuery("input[name=category_name]").focus();
+      
+      jQuery("#category_parent").html('<option value="0">------------</option>')
+        .append(jQuery("#albumSelect").html())
+        .val(jQuery("#albumSelect").val());
     }
   });
 
-  jQuery("#addAlbumForm form").submit(function(){
+  jQuery("#addAlbumForm form").submit(function() {
       jQuery("#categoryNameError").text("");
+      
+      var parent_id = jQuery("select[name=category_parent] option:selected").val(),
+          name = jQuery("input[name=category_name]").val();
 
       jQuery.ajax({
-        url: "ws.php?format=json&method=pwg.categories.add",
+        url: "ws.php",
+        dataType: 'json',
         data: {
-          parent: jQuery("select[name=category_parent] option:selected").val(),
-          name: jQuery("input[name=category_name]").val(),
+          format: 'json',
+          method: 'pwg.categories.add',
+          parent: parent_id,
+          name: name
         },
         beforeSend: function() {
           jQuery("#albumCreationLoading").show();
         },
-        success:function(html) {
+        success: function(data) {
           jQuery("#albumCreationLoading").hide();
-
-          var newAlbum = jQuery.parseJSON(html).result.id;
           jQuery(".addAlbumOpen").colorbox.close();
 
-          jQuery("#albumSelect").find("option").remove();
-          fillCategoryListbox("albumSelect", newAlbum);
-
-          /* we refresh the album creation form, in case the user wants to create another album */
-          jQuery("#category_parent").find("option").remove();
-
-          jQuery("<option/>")
-            .attr("value", 0)
-            .text("------------")
-            .appendTo("#category_parent")
-          ;
-
-          fillCategoryListbox("category_parent", newAlbum);
+          var newAlbum = data.result.id,
+              newAlbum_name = '';
+              
+          if (parent_id!=0) {
+            newAlbum_name = jQuery("#category_parent").find("option[value="+ parent_id +"]").text() +' / ';
+          }
+          newAlbum_name+= name;
+          
+          var new_option = jQuery("<option/>")
+              .attr("value", newAlbum)
+              .attr("selected", "selected")
+              .text(newAlbum_name);
+              
+          jQuery("#albumSelect").find("option").removeAttr('selected');
+          
+          if (parent_id==0) {
+            jQuery("#albumSelect").append(new_option);
+          }
+          else {
+            jQuery("#albumSelect").find("option[value="+ parent_id +"]").after(new_option);
+          }
 
           jQuery("#addAlbumForm form input[name=category_name]").val('');
-
           jQuery("#albumSelection").show();
 
           return true;
         },
-        error:function(XMLHttpRequest, textStatus, errorThrows) {
+        error: function(XMLHttpRequest, textStatus, errorThrows) {
             jQuery("#albumCreationLoading").hide();
             jQuery("#categoryNameError").text(errorThrows).css("color", "red");
         }
@@ -90,13 +76,16 @@ jQuery(document).ready(function(){
   <div id="addAlbumForm" style="text-align:left;padding:1em;">
     <form>
       {'Parent album'|@translate}<br>
-      <select id ="category_parent" name="category_parent">
-        <option value="0">------------</option>
-        {html_options options=$category_parent_options selected=$category_parent_options_selected}
+      <select id="category_parent" name="category_parent">
       </select>
-
-      <br><br>{'Album name'|@translate}<br><input name="category_name" type="text" maxlength="255"> <span id="categoryNameError"></span>
-      <br><br><br><input type="submit" value="{'Create'|@translate}"> <span id="albumCreationLoading" style="display:none"><img src="themes/default/images/ajax-loader-small.gif"></span>
+      <br><br>
+      
+      {'Album name'|@translate}<br>
+      <input name="category_name" type="text" maxlength="255"> <span id="categoryNameError"></span>
+      <br><br><br>
+      
+      <input type="submit" value="{'Create'|@translate}">
+      <span id="albumCreationLoading" style="display:none"><img src="themes/default/images/ajax-loader-small.gif"></span>
     </form>
   </div>
 </div>
