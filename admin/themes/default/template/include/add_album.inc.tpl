@@ -50,7 +50,7 @@ jQuery(document).ready(function(){
           jQuery("#albumSelect").find("option").removeAttr('selected');
           
           if (parent_id==0) {
-            jQuery("#albumSelect").append(new_option);
+            jQuery("#albumSelect").prepend(new_option);
           }
           else {
             jQuery("#albumSelect").find("option[value="+ parent_id +"]").after(new_option);
