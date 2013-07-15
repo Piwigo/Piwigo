@@ -948,4 +948,6 @@ $lang['Minimum width'] = 'Minsta bredd';
 $lang['Minimum height'] = 'Minsta höjd';
 $lang['Merge selected groups'] = 'Sammanfoga markerade grupper';
 $lang['Purge user cache'] = 'Rensa användarecache';
+$lang['Resize after upload disabled due to the use of GD as graphic library'] = 'Skalning efter uppladdning är inaktiverat eftersom GD används som grafikbibliotek.';
+$lang['The picture dimensions will be reduced to %dx%d pixels.'] = 'Bildens dimension kommer att reduceras till %dx%d pixlar.';
 ?>
