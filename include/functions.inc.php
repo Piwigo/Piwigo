@@ -1546,10 +1546,11 @@ function get_pwg_token()
  * @param array param_array
  * @param boolean is_array
  * @param string pattern
+ * @param boolean mandatory
  *
  * @return void
  */
-function check_input_parameter($param_name, $param_array, $is_array, $pattern)
+function check_input_parameter($param_name, $param_array, $is_array, $pattern, $mandatory=false)
 {
   $param_value = null;
   if (isset($param_array[$param_name]))
@@ -1560,6 +1561,10 @@ function check_input_parameter($param_name, $param_array, $is_array, $pattern)
   // it's ok if the input parameter is null
   if (empty($param_value))
   {
+    if ($mandatory)
+    {
+      fatal_error('[Hacking attempt] the input parameter "'.$param_name.'" is not valid');
+    }
     return true;
   }
 
