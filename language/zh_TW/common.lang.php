@@ -413,4 +413,8 @@ $lang['Username is mandatory'] = '用戶名為必填';
 $lang['Website'] = '網頁';
 $lang['Your website URL is invalid'] = '你的網址無效';
 $lang['mandatory'] = '必填';
+$lang['Email'] = '電子郵件';
+$lang['First Page'] = '第一頁';
+$lang['Go back to the album'] = '返回相冊';
+$lang['Last Page'] = '最後一頁';
 ?>
