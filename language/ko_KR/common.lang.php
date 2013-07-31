@@ -411,4 +411,15 @@ $lang['Photo title, Z &rarr; A'] = '사진 제목, Z->A';
 $lang['Rating score, high &rarr; low'] = '평점, 내림차순';
 $lang['Rating score'] = '평점';
 $lang['useful when password forgotten'] = '암호를 잊은 경우를 대비';
+$lang['Username "%s" on gallery %s'] = '갤러리 %s에 있는 사용자명 "%s"';
+$lang['Tag results for'] = '태그 겸색 결과 : ';
+$lang['The number of photos per page must be a not null scalar'] = '페이지당 사진 수는 0이 아닌 정수여야 합니다';
+$lang['Password reset is not allowed for this user'] = '해당 사용자는 암호 초기화를 할 수 없습니다.';
+$lang['Please enter your username or email address.'] = '사용자명 혹은 이메일 주소를 입력하십시오.';
+$lang['Specials'] = '특집';
+$lang['Registration of %s'] = '%s 등록';
+$lang['Search for all terms'] = '모든 단어로 검색';
+$lang['Search for any term'] = '아무 단어나 검색';
+$lang['Search for words'] = '단어로 검색';
+$lang['Your username has been successfully changed to : %s'] = '성공적으로 사용자명을 %s로 변경하였습니다.';
 ?>
