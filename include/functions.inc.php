@@ -457,120 +457,179 @@ INSERT INTO '.HISTORY_TABLE.'
   return true;
 }
 
-// format_date returns a formatted date for display. The date given in
-// argument must be an american format (2003-09-15). By option, you can show the time.
-// The output is internationalized.
-//
-// format_date( "2003-09-15", true ) -> "Monday 15 September 2003 21:52"
-function format_date($date, $show_time = false, $show_day_name = true)
+/**
+ * converts a string into a DateTime object
+ * @param: mixed, datetime string or timestamp int
+ * @param: string, input format
+ * @return: DateTime or false
+ */
+function str2DateTime($original, $format=null)
+{
+  if (!empty($format))// from known date format
+  {
+    return DateTime::createFromFormat('!'.$format, $original); // ! char to reset fields to UNIX epoch
+  }
+  else
+  {
+    $date = new DateTime();
+    
+    $t = trim($original, '0123456789');
+    if (empty($t)) // from timestamp
+    {
+      $date->setTimestamp($original);
+    }
+    else // from unknown date format (assuming something like Y-m-d H:i:s)
+    {
+      $ymdhms = array();
+      $tok = strtok($original, '- :/');
+      while ($tok !== false)
+      {
+        $ymdhms[] = $tok;
+        $tok = strtok('- :/');
+      }
+      
+      if (count($ymdhms)<3) return false;
+      if (!isset($ymdhms[3])) $ymdhms[3] = 0;
+      if (!isset($ymdhms[4])) $ymdhms[4] = 0;
+      if (!isset($ymdhms[5])) $ymdhms[5] = 0;
+      
+      $date->setDate($ymdhms[0], $ymdhms[1], $ymdhms[2]);
+      $date->setTime($ymdhms[3], $ymdhms[4], $ymdhms[5]);
+    }
+    
+    return $date;
+  }
+}
+
+/**
+ * returns a formatted date for display
+ * @param: mixed, datetime string or timestamp int
+ * @param: bool, show time
+ * @param: bool, show day name
+ * @param: string, input format
+ * @return: string
+ */
+function format_date($original, $show_time=false, $show_day_name=true, $format=null)
 {
   global $lang;
+  
+  $date = str2DateTime($original, $format);
 
-  if (strpos($date, '0') == 0)
+  if (!$date)
   {
     return l10n('N/A');
   }
 
-  $ymdhms = array();
-  $tok = strtok( $date, '- :');
-  while ($tok !== false)
+  $print = '';
+  if ($show_day_name)
   {
-    $ymdhms[] = $tok;
-    $tok = strtok('- :');
+    $print.= $lang['day'][ $date->format('w') ];
+  }
+  
+  $print.= ' '.$date->format('d');
+  $print.= ' '.$lang['month'][ $date->format('n') ];
+  $print.= ' '.$date->format('Y');
+  
+  if ($show_time)
+  {
+    $temp = $date->format('H:i');
+    if ($temp != '00:00')
+    {
+      $print.= ' '.$temp;
+    }
   }
 
-  if ( count($ymdhms)<3 )
-  {
-    return false;
-  }
-
-  $formated_date = '';
-  // before 1970, Microsoft Windows can't mktime
-  if ($ymdhms[0] >= 1970 and $ymdhms[1] != 0 and $ymdhms[2] != 0)
-  {
-    // we ask midday because Windows think it's prior to midnight with a
-    // zero and refuse to work
-    $formated_date.= $lang['day'][date('w', mktime(12,0,0,$ymdhms[1],$ymdhms[2],$ymdhms[0]))];
-  }
-
-  if ($ymdhms[2] != 0)
-  {
-    $formated_date.= ' '.$ymdhms[2];
-  }
-
-  if ($ymdhms[1] != 0)
-  {
-    $formated_date.= ' '.$lang['month'][(int)$ymdhms[1]];
-  }
-
-  $formated_date.= ' '.$ymdhms[0];
-  if ($show_time and count($ymdhms)>=5 )
-  {
-    $formated_date.= ' '.$ymdhms[3].':'.$ymdhms[4];
-  }
-  return $formated_date;
+  return trim($print);
 }
 
 /**
- * Works out the time since the entry post, takes a an argument in unix time or datetime
+ * Works out the time since the given date
+ * @param: mixed, datetime string or timestamp int
+ * @param: string, stop (year,month,week,day,hour,minute,second)
+ * @param: string, input format
+ * @param: bool, append text ("ago" or "in the future")
+ * @param: bool, display weeks
+ * @return: string
  */
-function time_since($original, $stop = 'minute')
+function time_since($original, $stop='minute', $format=null, $with_text=true, $with_week=true)
 {
-  if (!is_int($original))
-  {
-    $ymdhms = array();
-    $tok = strtok($original, '- :');
-    while ($tok !== false)
-    {
-      $ymdhms[] = $tok;
-      $tok = strtok('- :');
-    }
+  $date = str2DateTime($original, $format);
 
-    if ($ymdhms[0] < 1970) return false;
-    if (!isset($ymdhms[3])) $ymdhms[3] = 12;
-    if (!isset($ymdhms[4])) $ymdhms[4] = 0;
-    if (!isset($ymdhms[5])) $ymdhms[5] = 0;
-    $original = mktime($ymdhms[3],$ymdhms[4],$ymdhms[5],$ymdhms[1],$ymdhms[2],$ymdhms[0]);
+  if (!$date)
+  {
+    return l10n('N/A');
   }
-
-  // array of time period chunks
-  $chunks = array(
-    'year' => 60 * 60 * 24 * 365,
-    'month' => 60 * 60 * 24 * 30,
-    'week' => 60 * 60 * 24 * 7,
-    'day' => 60 * 60 * 24,
-    'hour' => 60 * 60,
-    'minute' => 60,
-    'second' => 1,
-  );
-
-  $today = time(); /* Current unix time  */
-  $since = abs($today - $original);
-
-  $print = null;
-  foreach ($chunks as $name => $seconds)
+  
+  $now = new DateTime();
+  $diff = $now->diff($date);
+  
+  if ($with_week)
   {
-    if (($count = floor($since / $seconds)) != 0)
-    {
-      $print.= l10n_dec('%d '.$name, '%d '.$name.'s', $count);
-      $since-= $count*$seconds;
-    }
-    if (!empty($print) and $chunks[$name] <= $chunks[$stop])
-    {
-      break;
-    }
-  }
-
-  if ($today > $original)
-  {
-    $print = sprintf(l10n('%s ago'), $print);
+    // DateInterval does not compute the number of weeks
+    $diff->w = (int)floor($diff->d/7);
+    $diff->d = $diff->d - $diff->w*7;
   }
   else
   {
-    $print = sprintf(l10n('%s in the future'), $print);
+    $diff->w = 0;
+  }
+  
+  $chunks = array(
+    'year' => 'y',
+    'month' => 'm',
+    'week' => 'w',
+    'day' => 'd',
+    'hour' => 'h',
+    'minute' => 'i',
+    'second' => 's',
+  );
+  
+  $j = array_search($stop, array_keys($chunks));
+  
+  $print = ''; $i=0;
+  foreach ($chunks as $name => $var)
+  {
+    if ($diff->{$var} != 0)
+    {
+      $print.= ' '.l10n_dec('%d '.$name, '%d '.$name.'s', $diff->{$var});
+    }
+    if (!empty($print) && $i >= $j)
+    {
+      break;
+    }
+    $i++;
+  }
+  
+  $print = trim($print);
+  
+  if ($with_text)
+  {
+    if ($diff->invert)
+    {
+      $print = sprintf(l10n('%s ago'), $print);
+    }
+    else
+    {
+      $print = sprintf(l10n('%s in the future'), $print);
+    }
   }
 
   return $print;
+}
+
+/**
+ * transform a date string from a format to another (MySQL to d/M/Y for instance)
+ * @param: string, date
+ * @param: string, input format
+ * @param: string, output format
+ * @param: string, default value if inout is empty
+ * @return: string
+ */
+function transform_date($original, $format_in, $format_out, $default=null)
+{
+  if (empty($original)) return $default;
+  $date = str2DateTime($original, $format_in);
+  return $date->format($format_out);
 }
 
 function pwg_debug( $string )
