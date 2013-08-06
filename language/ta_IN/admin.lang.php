@@ -60,4 +60,25 @@ $lang['%d mail was not sent.'] = '%d மின்னஞ்சல் அனுப
 $lang['%d line filtered'] = '% d கோடு வடிகட்டப்பட்டது';
 $lang['%d parameters were updated.'] = '% d அளவுருக்கள் மேம்படுத்தப்பட்டது.';
 $lang['%d photo was deleted'] = '% d படம் நீக்கப்பட்டது';
+$lang['%d tag'] = '% d குறிச்சொல்';
+$lang['%d tags'] = '% d குறிச்சொற்கள்';
+$lang['%d user'] = '% d பயனர்';
+$lang['%d user comment rejected'] = '% d பயனர் கருத்துரை நிராகரிக்கப்பட்டது';
+$lang['%d user comment validated'] = '% d பயனர் கருத்துரை சரிபார்க்கப்பட்டது';
+$lang['%d user comments rejected'] = '% d பயனர் கருத்துரைகள் நிராகரிக்கப்பட்டது';
+$lang['%d user comments validated'] = '% d பயனர் கருத்துரைகள் சரிபார்க்கப்பட்டது';
+$lang['%d user deleted'] = '% d பயனாளர் அழிக்கப்பட';
+$lang['%d user was not updated.'] = '% d பயனாளர் மேம்படுத்தப்பட்டு இல்லை
+';
+$lang['%d user was updated.'] = '% d பயனாளர் மேம்படுத்தப்பட்டு.';
+$lang['%d users'] = '% d பயனர்களுக்கு';
+$lang['%d users deleted'] = '% d பயனர்கள் நீக்கப்பட்டன';
+$lang['%d users were not updated.'] = '% d பயனர்கள் மேம்படுத்தப்பட்டு இல்லை.';
+$lang['%d seconds'] = '% d விநாடிகளில்';
+$lang['%d second'] = '% d விநாடி';
+$lang['%d physicals'] = '% d பருநிலை';
+$lang['%d physical'] = '% d பருநிலை';
+$lang['%d anomaly has not been corrected.'] = '% d ஒழுங்கின்மை சரி செய்யப்படவில்லை.';
+$lang['%d anomaly has been ignored.'] = '% d ஒழுங்கின்மை புறக்கணிக்கப்பட்டது';
+$lang['%d anomaly has been detected.'] = '% d ஒழுங்கின்மை கண்டறியப்பட்டது.';
 ?>
