@@ -38,4 +38,7 @@ $lang['%d album moved'] = '% D ஆல்பம் நகர்த்தப்ப
 $lang['%d album including'] = '% d ஆல்பம் அடங்கும்';
 $lang[' and %d virtual'] = 'மற்றும் %d நிஜமான';
 $lang[' and %d virtuals'] = 'மற்றும் %d நிஜமான';
+$lang['%d anomaly has been corrected.'] = '% d ஒழுங்கின்மை சரி செய்யப்பட்டது.';
+$lang['%d anomalies have not been corrected.'] = '% d முரண்பாடுகள் சரி, இல்ல';
+$lang['%d anomalies have been ignored.'] = '%d நேரின்மைகளுடன் புறக்கணிக்கப்பட்டது.';
 ?>
