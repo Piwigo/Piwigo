@@ -64,4 +64,5 @@ $lang['Don\'t hesitate to consult our forums for any help : %s'] = 'Ikke nøl me
 $lang['Just another Piwigo gallery'] = 'Enda et Piwigo bildegalleri';
 $lang['Welcome to my photo gallery'] = 'Velkommen til mitt bildegalleri';
 $lang['Welcome to your new installation of Piwigo!'] = 'Velkommen til din nye installasjon av Piwigo!';
+$lang['localhost or other, supplied by your host provider'] = 'lokal tjener eller annen tjenesteleverandør';
 ?>
