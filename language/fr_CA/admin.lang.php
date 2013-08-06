@@ -958,4 +958,5 @@ $lang['between %d and %d pixels'] = 'entre %d et %d pixels';
 $lang['between %.2f and %.2f'] = 'entre %.2f et %.2f';
 $lang['Purge user cache'] = 'Purger le cache utilisateur';
 $lang['The picture dimensions will be reduced to %dx%d pixels.'] = 'La tailles des images sera réduite à %dx%d pixels.';
+$lang['Resize after upload disabled due to the use of GD as graphic library'] = 'Redimensionnement après transfert désactivé car GD est la librairie graphique utilisée actuellement';
 ?>
