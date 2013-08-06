@@ -412,4 +412,8 @@ $lang['Username is mandatory'] = 'Brukernavn er obligatorisk';
 $lang['mandatory'] = 'obligatorisk';
 $lang['Website'] = 'Nettside';
 $lang['Your website URL is invalid'] = 'Adressen til nettsiden er feil';
+$lang['Email'] = 'Epost';
+$lang['First Page'] = 'Første side';
+$lang['Go back to the album'] = 'Tilbake til albumet';
+$lang['Last Page'] = 'Siste side';
 ?>
