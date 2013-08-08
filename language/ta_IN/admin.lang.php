@@ -81,4 +81,25 @@ $lang['%d physical'] = '% d பருநிலை';
 $lang['%d anomaly has not been corrected.'] = '% d ஒழுங்கின்மை சரி செய்யப்படவில்லை.';
 $lang['%d anomaly has been ignored.'] = '% d ஒழுங்கின்மை புறக்கணிக்கப்பட்டது';
 $lang['%d anomaly has been detected.'] = '% d ஒழுங்கின்மை கண்டறியப்பட்டது.';
+$lang['%d users were updated.'] = '% d பயனர்கள் மேம்படுத்தப்பட்டது.';
+$lang['%d waiting for validation'] = '% d காத்திருக்கிறது சரிபார்த்தல்';
+$lang['%d week'] = '% d வாரம்';
+$lang['%d weeks'] = '% d வாரங்கள்';
+$lang['%d year'] = '% d வருடம்';
+$lang['%d years'] = '% d வருடங்கள்';
+$lang['%s ago'] = '% கள் முன்பு ';
+$lang['%s has been successfully updated.'] = '% கள் வெற்றிகரமாக மேம்படுத்தப்பட்டது.';
+$lang['%s in the future'] = '%கள் எதிர்காலத்தில்';
+$lang['%s must be to set to false in your local/config/config.inc.php file'] = '% கள் உங்கள்  local/config/config.inc.php கோப்பில் தவறான என்று அமைக்கப்பட்டிருக்க வேண்டும்';
+$lang['%s photos can not be regenerated'] = '% கள் புகைப்படங்கள் மறு உருவாக்கம் செய்ய முடியாது';
+$lang['%s photos have been regenerated'] = '% கள் புகைப்படங்கள் மீண்டும் உருவாக்கப்படுகிறது';
+$lang['%s value is not correct file because exif are not supported'] = '% s மதிப்பு தவறானது ஏனெனில் எக்ஸிப் ஆதரிக்கப்படவில்லை';
+$lang['%u users have automatic permission because they belong to a granted group.'] = '% u பயனர்களுக்கு தானியங்கு அனுமதி
+அவர்கள் ஒரு வழங்கப்பட்ட குழுவை சேர்ந்தவை என்பதால்.';
+$lang['(this tag will be deleted)'] = '(இந்த குறி நீக்கப்படும்)';
+$lang['+ Add an upload box'] = '+ ஒரு பதிவேற்ற பெட்டியை சேர்க்கவும்';
+$lang[', click on'] = 'சொடுக்கவும் மீது';
+$lang['... or '] = '... அல்லது';
+$lang['<em>Piwigo for Android</em> application empowers you to connect your Android phone or table to your Piwigo gallery, create some albums and upload several photos at once.'] = '<em> Android க்கான Piwigo </ em>  பயன்பாட்டு உங்கள் Piwigo கேலரியில் உங்கள் Android தொலைபேசி அல்லது வரைபட்டிகை இணைக்க அனுமதிக்கும், சில ஆல்பங்களை உருவாக்க மற்றும் ஒரே நேரத்தில் பல புகைப்படங்களை பதிவேற்றலாம்.';
+$lang['<em>Piwigo for iOS</em> application empowers you to connect to your Piwigo gallery from your iPhone, iPad or iPod Touch, create some albums and upload several photos at once.'] = '<em> Piwigo iOS க்கு </ em> பயன்பாட்டு சில ஆல்பங்களை உருவாக்கி ஒரே நேரத்தில் பல புகைப்படங்களை பதிவேற்ற, உங்கள் ஐபோன், ஐபாட் அல்லது ஐபாட் டச் உங்கள் Piwigo கேலரி இணைக்க நீங்கள் அதிகாரமளிக்கிகிறது.';
 ?>
