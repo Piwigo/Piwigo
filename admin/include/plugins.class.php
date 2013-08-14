@@ -264,8 +264,10 @@ DELETE FROM ' . PLUGINS_TABLE . ' WHERE id=\'' . $plugin_id . '\'';
   // Retrieve PEM versions
   function get_versions_to_check($version=PHPWG_VERSION)
   {
+    global $conf;
+    
     $versions_to_check = array();
-    $url = PEM_URL . '/api/get_version_list.php?category=12&format=php';
+    $url = PEM_URL . '/api/get_version_list.php?category_id='. $conf['pem_plugins_category'] .'&format=php';
     if (fetchRemote($url, $result) and $pem_versions = @unserialize($result))
     {
       if (!preg_match('/^\d+\.\d+\.\d+$/', $version))
