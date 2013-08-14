@@ -252,4 +252,42 @@ function load_plugins()
     trigger_action('plugins_loaded');
   }
 }
+
+/*
+ * test if a plugin needs to be updated and call a update function
+ * @param: string $plugin_id, id of the plugin as seen in PLUGINS_TABLE and $pwg_loaded_plugins
+ * @param: string $version, version exposed by the plugin
+ * @param: callable $on_update, function to call when and update is needed
+ *          it receives the previous version as first parameter
+ */
+function request_plugin_update($plugin_id, $version, $on_update)
+{
+  global $pwg_loaded_plugins;
+  
+  if (
+    $version == 'auto' or
+    $pwg_loaded_plugins[$plugin_id]['version'] == 'auto' or
+    version_compare($pwg_loaded_plugins[$plugin_id]['version'], $version, '<')
+  )
+  {
+    // call update function
+    if (!empty($on_update))
+    {
+      call_user_func($on_update, $pwg_loaded_plugins[$plugin_id]['version']);
+    }
+    
+    // update plugin version in database
+    if ($version != 'auto')
+    {
+      $query = '
+UPDATE '. PLUGINS_TABLE .'
+SET version = "'. $version .'"
+WHERE id = "'. $plugin_id .'"';
+      pwg_query($query);
+      
+      $pwg_loaded_plugins[$plugin_id]['version'] = $version;
+    }
+  }
+}
+
 ?>
