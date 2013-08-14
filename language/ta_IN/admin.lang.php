@@ -102,4 +102,18 @@ $lang[', click on'] = 'சொடுக்கவும் மீது';
 $lang['... or '] = '... அல்லது';
 $lang['<em>Piwigo for Android</em> application empowers you to connect your Android phone or table to your Piwigo gallery, create some albums and upload several photos at once.'] = '<em> Android க்கான Piwigo </ em>  பயன்பாட்டு உங்கள் Piwigo கேலரியில் உங்கள் Android தொலைபேசி அல்லது வரைபட்டிகை இணைக்க அனுமதிக்கும், சில ஆல்பங்களை உருவாக்க மற்றும் ஒரே நேரத்தில் பல புகைப்படங்களை பதிவேற்றலாம்.';
 $lang['<em>Piwigo for iOS</em> application empowers you to connect to your Piwigo gallery from your iPhone, iPad or iPod Touch, create some albums and upload several photos at once.'] = '<em> Piwigo iOS க்கு </ em> பயன்பாட்டு சில ஆல்பங்களை உருவாக்கி ஒரே நேரத்தில் பல புகைப்படங்களை பதிவேற்ற, உங்கள் ஐபோன், ஐபாட் அல்லது ஐபாட் டச் உங்கள் Piwigo கேலரி இணைக்க நீங்கள் அதிகாரமளிக்கிகிறது.';
+$lang['ACCESS_3'] = 'நிர்வாகிகள் அணுகல்';
+$lang['ACCESS_4'] = 'வலை மேலாளர்கள் அணுகல்';
+$lang['ACCESS_5'] = 'அணுகுவதற்கு இல்லை
+';
+$lang['Access type'] = 'அணுகல் வகையான';
+$lang['Action'] = 'செயல்';
+$lang['Actions'] = 'செயல்கள்';
+$lang['Activate'] = 'செயலாக்க';
+$lang['ACCESS_2'] = 'பதிவு செய்த பயனர் அணுகல்';
+$lang['ACCESS_1'] = 'அனைத்து அணுகல்
+';
+$lang['ACCESS_0'] = 'இலவச அணுகல்';
+$lang['A new version of Piwigo is available.'] = 'ஒரு புதிய Piwigo பதிப்பு உள்ளது.';
+$lang['A locked gallery is only visible to administrators'] = 'ஒரு பூட்டிய கேலரி நிர்வாகிகளால் மட்டுமே காண முடியும்';
 ?>
