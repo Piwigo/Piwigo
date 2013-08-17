@@ -68,4 +68,5 @@ $lang['Just another Piwigo gallery'] = 'Jen další galerie Piwigo';
 $lang['Welcome to my photo gallery'] = 'Vítejte na mé fotogalerii';
 $lang['Welcome to your new installation of Piwigo!'] = 'Vítejte v nové instalaci Piwigo!';
 $lang['Don\'t hesitate to consult our forums for any help : %s'] = 'Neváhejte navštívit naše fórum v případě jakýchkoliv dotazů: %s'; 
+$lang['localhost or other, supplied by your host provider'] = 'localhost, nebo jiný, dodaný poskytovatelem hostingu';
 ?>
