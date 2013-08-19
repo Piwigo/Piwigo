@@ -559,4 +559,9 @@ $lang['Private'] = 'Privata';
 $lang['Properties'] = 'Propreco';
 $lang['Public'] = 'Publika';
 $lang['Public / Private'] = 'Publika / Privata';
+$lang['Send'] = 'Sendi';
+$lang['Send mail as'] = 'Sendi mesaĝon kiel';
+$lang['Send mail on HTML format'] = 'Sendi la mesaĝon laŭ HTML-formato';
+$lang['Send mail to users'] = 'Sendi mesaĝo al uzantoj';
+$lang['Set author'] = 'Defini aŭtoron';
 ?>
