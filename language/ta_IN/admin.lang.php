@@ -156,4 +156,11 @@ $lang['Albums automatically sorted'] = 'தன்னிச்சையாக வ
 $lang['All %d photos are selected'] = 'அனைத்து% d புகைப்படங்கள் தேர்ந்தெடுக்கப்பட்டன';
 $lang['All extensions are up to date.'] = 'அனைத்து நீட்சிகள் இருக்கின்றன இன்றுவரை.';
 $lang['All languages are up to date.'] = 'அனைத்து மொழிகளும் இருக்கின்றன இன்றுவரை.';
+$lang['All plugins are up to date.'] = 'அனைத்து செருகுநிரல்கள் இன்றுவரை புதுப்பிக்கப்பட்ட நிலையில் உள்ளன';
+$lang['All themes are up to date.'] = 'அனைத்து கருப்பொருள்கள் இன்றுவரை புதுப்பிக்கப்பட்ட நிலையில் உள்ளன';
+$lang['Allow rating'] = 'அனுமதிக்க மதிப்பீடு';
+$lang['Allow user customization'] = 'பயனர் தனிபயனாக்கத்திற்கு அனுமதிக்கிறது';
+$lang['Allow user registration'] = 'பயனர் பதிவுசெய்தல் அனுமதிக்கிறது';
+$lang['Allow users to delete their own comments'] = 'பயனர்கள் தங்கள் சொந்த கருத்துக்களையும் நீக்க அனுமதிக்கிறது';
+$lang['All optimizations have been successfully completed.'] = 'அனைத்து உகந்ததாக்கல்களை  வெற்றிகரமாக முடிக்கப்பட்டது.';
 ?>
