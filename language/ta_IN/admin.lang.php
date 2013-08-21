@@ -163,4 +163,6 @@ $lang['Allow user customization'] = 'பயனர் தனிபயனாக்
 $lang['Allow user registration'] = 'பயனர் பதிவுசெய்தல் அனுமதிக்கிறது';
 $lang['Allow users to delete their own comments'] = 'பயனர்கள் தங்கள் சொந்த கருத்துக்களையும் நீக்க அனுமதிக்கிறது';
 $lang['All optimizations have been successfully completed.'] = 'அனைத்து உகந்ததாக்கல்களை  வெற்றிகரமாக முடிக்கப்பட்டது.';
+$lang['Allow users to edit their own comments'] = 'பயனர்கள் தங்கள் சொந்த கருத்துரைகளை திருத்த அனுமதிக்கின்றன';
+$lang['Allowed file types: %s.'] = 'அனுமதிக்கப்பட்ட கோப்பு வகைகள்:% கள்.';
 ?>
