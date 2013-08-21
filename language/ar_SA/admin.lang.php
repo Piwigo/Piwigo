@@ -951,4 +951,6 @@ $lang['Type here the name of the new group'] = 'أكتب هنا أسم المج�
 $lang['Rename'] = 'إعادة تسمية';
 $lang['This group will be set to default'] = 'هذا المجموعة ستستخدم كمجموعة افتراضية';
 $lang['Purge user cache'] = 'مسح الذاكرة المؤقتة للمستخدم';
+$lang['Resize after upload disabled due to the use of GD as graphic library'] = 'تغيير حجم بعد تعطيل الرفع نتيجة لاستخدام GD كما مكتبة الرسم';
+$lang['The picture dimensions will be reduced to %dx%d pixels.'] = 'سيتم تخفيض أبعاد الصورة لل %dx%d  بكسل.';
 ?>
