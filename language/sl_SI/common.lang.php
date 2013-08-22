@@ -411,4 +411,8 @@ $lang['Username is mandatory'] = 'Uporabniško ime je obvezno';
 $lang['mandatory'] = 'obvezno';
 $lang['Website'] = 'Spletna stran';
 $lang['Your website URL is invalid'] = 'Naslov spletne strani je nepravilen';
+$lang['Email'] = 'E-pošta';
+$lang['First Page'] = 'Prva stran';
+$lang['Go back to the album'] = 'Nazaj na album';
+$lang['Last Page'] = 'Zadnja stran';
 ?>
