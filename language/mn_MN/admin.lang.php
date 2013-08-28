@@ -300,4 +300,15 @@ $lang['Uploaded Photos'] = 'Нэмэгдсэн зурагнууд';
 $lang['Upload Photos'] = 'Зураг нэмэх';
 $lang['%d albums including'] = 'Нийт %d цомог';
 $lang['first photo added on %s'] = 'анхны зураг оруулсан огноо: %s';
+$lang['Version'] = 'Хувилбар';
+$lang['Time'] = 'Хугацаа';
+$lang['Status'] = 'Байдал';
+$lang['Resize'] = 'Хэмжээг өөрчлөх';
+$lang['Rate'] = 'Үнэлэх';
+$lang['Level 0'] = '---';
+$lang['Lock'] = 'Түгжэх';
+$lang['Crop'] = 'Тасдах';
+$lang['An error has occured during upgrade.'] = 'Шинэчлэх явцад алдаа гарлаа.';
+$lang['Add a filter'] = 'Шүүлтүүр нэмэх';
+$lang['Activate'] = 'Идэвхжүүлэх';
 ?>
