@@ -64,4 +64,5 @@ $lang['Need help ? Ask your question on <a href="%s">Piwigo message board</a>.']
 $lang['Note you can change your configuration by yourself and restart Piwigo after that.'] = 'Upoštevajte da lahko sami spremenite nastavitve in nato ponovno zaženete Piwigo.';
 $lang['An alternate solution is to copy the text in the box above and paste it into the file "local/config/database.inc.php" (Warning : database.inc.php must only contain what is in the textarea, no line return or space character)'] = 'Druga rešitev je, da kopirate besedilo v polje zgoraj in ga prilepite v datoteko "local/config/database.inc.php" (Opozorilo: database.inc.php mora vsebovati le to kar je v besedilnem polju, brez znakov prehoda v novo vrstico(line return)ali znakov za presledke)';
 $lang['Keep it confidential, it enables you to access administration panel'] = 'Varno shranite, omogoča vam dostop do administratorske nadzorne plošče!';
+$lang['localhost or other, supplied by your host provider'] = 'localhost ali drug naslov ki ga imate pri svojem ponudniku gostovanja';
 ?>
