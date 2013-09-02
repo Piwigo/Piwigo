@@ -311,4 +311,12 @@ $lang['Crop'] = 'Тасдах';
 $lang['An error has occured during upgrade.'] = 'Шинэчлэх явцад алдаа гарлаа.';
 $lang['Add a filter'] = 'Шүүлтүүр нэмэх';
 $lang['Activate'] = 'Идэвхжүүлэх';
+$lang['Watermark'] = 'Усан хээ';
+$lang['Rename'] = 'Нэрийг солих';
+$lang['Position'] = 'Байршил';
+$lang['Number of comments per page'] = 'Нэг хуудасанд харуулах сэтгэгдэлийн тоо';
+$lang['Number of albums per page'] = 'Нэг хуудасанд харуулах цомогийн тоо';
+$lang['Number of rates'] = 'Үнэлсэн тоо';
+$lang['Main Page'] = 'Үндсэн хуудас';
+$lang['Activate comments'] = 'Сэтгэгдэлийг идэвхжүүлэх';
 ?>
