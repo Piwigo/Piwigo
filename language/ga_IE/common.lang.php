@@ -67,7 +67,7 @@ $lang['Here are your connection settings'] = 'Seo duit conn sett...';
 $lang['First Page'] = 'Leathaineacht amhain';
 $lang['Email address'] = 'Seoladh Ríomhpoist';
 $lang['Email address is missing. Please specify an email address.'] = 'Chaill do Email, thug do email mais e do thoil e';
-$lang['Email'] = 'Riomhpoist';
+$lang['Email'] = 'Ríomhpoist';
 $lang['Author: %s'] = 'Údar: %s';
 $lang['Author'] = 'Údar';
 $lang['Date'] = 'Data';
@@ -75,5 +75,5 @@ $lang['Bad request'] = 'Ceist dana';
 $lang['Are you sure?'] = 'An bhfuil tu cinnte';
 $lang['Close this window'] = 'Dun bhfuinneog seo';
 $lang['All'] = 'Gach rud';
-$lang['Email: %s'] = 'Riomhpoist: %s';
+$lang['Email: %s'] = 'Ríomhpoist: %s';
 ?>
