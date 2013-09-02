@@ -319,4 +319,6 @@ $lang['Number of albums per page'] = 'Нэг хуудасанд харуулах
 $lang['Number of rates'] = 'Үнэлсэн тоо';
 $lang['Main Page'] = 'Үндсэн хуудас';
 $lang['Activate comments'] = 'Сэтгэгдэлийг идэвхжүүлэх';
+$lang['Description'] = 'Тайлбар';
+$lang['Comments for all'] = 'Бүх сэтгэгдэлүүд';
 ?>
