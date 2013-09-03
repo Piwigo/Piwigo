@@ -321,4 +321,9 @@ $lang['Main Page'] = 'Үндсэн хуудас';
 $lang['Activate comments'] = 'Сэтгэгдэлийг идэвхжүүлэх';
 $lang['Description'] = 'Тайлбар';
 $lang['Comments for all'] = 'Бүх сэтгэгдэлүүд';
+$lang['Manage permissions for user "%s"'] = '"%s" хэрэглэгчийн эрхийг зохицуулах';
+$lang['Manage permissions for group "%s"'] = '"%s" бүлгийн эрхийг зохицуулах';
+$lang['Mail content'] = 'Имэйлийн агуулга';
+$lang['Mail sent to %s [%s].'] = 'Имэйлийг %s [%s] уруу амжилттай илгээлээ.';
+$lang['Main'] = 'Үндсэн';
 ?>
