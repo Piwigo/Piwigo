@@ -340,4 +340,6 @@ $lang['Piwigo for Android'] = 'Android-д зориулсан Piwigo';
 $lang['Piwigo for iOS (iPhone, iPad, iPod Touch)'] = 'iOS (iPhone, iPad, iPod Touch)-д зориулсан Piwigo';
 $lang['Permalink'] = 'Холбоос';
 $lang['Permalinks'] = 'Холбоосууд';
+$lang['Allow users to delete their own comments'] = 'Хэрэглэгчид сэтгэгдэлээ устгаж болно';
+$lang['Allow users to edit their own comments'] = 'Хэрэглэгчид сэтгэгдэлээ засаж болно';
 ?>
