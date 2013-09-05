@@ -48,8 +48,8 @@ function pwg_db_connect($host, $user, $password, $database)
   
   if (strpos($host, '/') === 0)
   {
-    $host = null;
     $socket = $host;
+    $host = null;
   }
   elseif (strpos($host, ':') !== false)
   {
