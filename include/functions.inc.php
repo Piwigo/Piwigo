@@ -1086,6 +1086,11 @@ SELECT param, value
   trigger_action('load_conf', $condition);
 }
 
+/**
+ * Add or update a config parameter
+ * @param string $param
+ * @param string $value
+ */
 function conf_update_param($param, $value)
 {
   $query = '
@@ -1115,6 +1120,36 @@ UPDATE '.CONFIG_TABLE.'
   WHERE param = \''.$param.'\'
 ;';
     pwg_query($query);
+  }
+}
+
+/**
+ * Delete on or more config parameters
+ * @since 2.6
+ * @param string|string[] $params
+ */
+function conf_delete_param($params)
+{
+  global $conf;
+  
+  if (!is_array($params))
+  {
+    $params = array($params);
+  }
+  if (empty($params))
+  {
+    return;
+  }
+  
+  $query = '
+DELETE FROM '.CONFIG_TABLE.'
+  WHERE param IN(\''. implode('\',\'', $params) .'\')
+;';
+  pwg_query($query);
+  
+  foreach ($params as $param)
+  {
+    unset($conf[$param]);
   }
 }
 
