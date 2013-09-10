@@ -284,4 +284,16 @@ $lang['Original'] = 'Skouerenn orin';
 $lang['Original dimensions'] = 'Mentoù orin';
 $lang['Invalid key'] = 'Alc\'hwez direiz';
 $lang['Your website URL is invalid'] = 'Chomlec\'h hol lec\'hienn web a zo direiz';
+$lang['The passwords do not match'] = 'Ar gerioù-tremen n\'int ket mat';
+$lang['To reset your password, visit the following address:'] = 'Evit cheñch ho ger-tremen, kit d\'ar chomlec\'h-mañ :';
+$lang['User "%s" has no email address, password reset is not possible'] = 'N\'en deus ket an implijer "%s" a bostel, n\'eo ket posubl cheñch e ger-tremen';
+$lang['Password reset is not allowed for this user'] = 'N\'eo ket posubl cheñch ger-tremen an implijer-mañ';
+$lang['Someone requested that the password be reset for the following user account:'] = 'Unan-bennak en deus goulennet cheñchamant ar ger-tremen evit an implijer :';
+$lang['Retrieve password'] = 'Adtapout ur ger-tremen';
+$lang['You will receive a link to create a new password via email.'] = 'Dre bostel, ul liamm a resevit da glikañ evit cheñch ho ger-tremen.';
+$lang['password updated'] = 'Ger-tremen hizivaet';
+$lang['useful when password forgotten'] = 'Talvoudus m\'ho peus ankounac\'haet ho ger-tremen';
+$lang['No'] = 'Ket';
+$lang['Powered by'] = 'Pajennoù graet gant';
+$lang['Profile'] = 'Profil';
 ?>
