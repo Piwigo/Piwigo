@@ -296,4 +296,15 @@ $lang['useful when password forgotten'] = 'Talvoudus m\'ho peus ankounac\'haet h
 $lang['No'] = 'Ket';
 $lang['Powered by'] = 'Pajennoù graet gant';
 $lang['Profile'] = 'Profil';
+$lang['Rank'] = 'Renk';
+$lang['Rating score'] = 'Skor';
+$lang['Reset'] = 'Nullañ';
+$lang['Search'] = 'Klask';
+$lang['Your comment has NOT been registered because it did not pass the validation rules'] = 'N\'eo ket bet enrollet hoc\'h evezhiadenn peogwir ne pleg ket d\'ar reolennoù kadarnaat';
+$lang['display last user comments'] = 'Gwelet evezhiadennoù diwezhañ an implijerien';
+$lang['Register'] = 'Enrollañ';
+$lang['Registration'] = 'Enrollañ';
+$lang['Registration of %s'] = 'Enrolladenn %s';
+$lang['Your comment has been registered'] = 'Enrollet eo bet hoc\'h evezhiadenn';
+$lang['Mobile'] = 'Hezoug';
 ?>
