@@ -19,50 +19,49 @@
 
 <ul>
 
-  <li><strong>Tipos de acessos</strong>: Gerenciamento de permissoes. Se você fizer um álbum privado, todos os seus álbun filhos tornam-se privados. Se você faz um álbum público, todos os seus álbuns pais tornam-se públicos.
+  <li><strong>Tipos de acessos</strong>: Gerenciamento de permissões. Se você fizer um álbum privado, todos os seus álbuns filhos tornam-se privados. Se você faz um álbum público, todos os seus álbuns pais tornam-se públicos.
   
-  <li><strong>Trancar</strong>: Os álbuns e seus sub-álbuns ficarao temporariamente desabilitados para manutençao.</li>
+  <li><strong>Trancar</strong>: Os álbuns e seus sub-álbuns ficarão temporariamente desabilitados para manutenção.</li>
 
   <li><strong>Comentários</strong>: Autoriza usuários a comentar fotos desse álbum.</li>
 
 </ul>
 
-<p>Você também pode gerenciar essas opções nas "Propriedades"
-tela de gerenciamento (screens <span
+<p>Você também pode gerenciar essas opções na tela de gerenciamento de "Propriedades"(screens <span
 class="pwgScreen">Comentários</span>, <span class="pwgScreen">Trancar</span>,
 <span class="pwgScreen">Público/Privado</span>, <span
 class="pwgScreen">Representante</span> disponível a partir de <span
-class="pwgScreen">Administração &raquo; Albums &raquo; Propriedades</span>).</p>
+class="pwgScreen">Administração &raquo; Álbums &raquo; Propriedades</span>).</p>
 
 <h3>Ordem de Classificação</h3>
 
 <p>Use o padrão ordem de classificação de imagens.</p>
 
-<p>Indique se esta ordem de classificação será aplicada também a subalbums.</p>
+<p>Indique se esta ordem de classificação será aplicada também a sub-álbuns.</p>
 
 <p>Selecione critérios específicos de classificação para serem usados com este álbum.</p>
 <ul>
-<li><strong>Data de criação</strong>: Data de filmagem, foto</li>
+<li><strong>Data de criação</strong>: Data em que a foto foi tirada</li>
 <li><strong>Data da publicação</strong>: Data da sincronização</li>
 <li><strong>Taxa média (*)</strong>: Taxa média poderá ser alterada pela avaliação do visitante</li>
 <li><strong>Mais visitadas (*)</strong>: A visita atual pode alterar a ordem do mais visitado</li>
 <li><strong>Nome do arquivo</strong>: Nome dado no campo de informações</li>
-<li><strong>Id</strong>: ID interna (categorias recentes têm uma maior identificação do que as anteriores.</li>
+<li><strong>Id</strong>: Identificação interna (categorias recentes têm identificação interna maior.</li>
 
 </ul>
-<p><strong>(*)</strong>Aviso: Certifique-se de testar essas ordens de classificação por si mesmo porque elas podem dar resultados inesperados.</p>
+<p><strong>(*)</strong>Aviso: Certifique-se de testar essas ordens de classificação pois elas podem provocar resultados inesperados.</p>
 
 
 <h3>Representante</h3>
 
 <p>A representação do álbum é a miniatura exibida na página principal (<span class="pwgScreen">category.php</span>) para representar
 o álbum quando
-ele contém apenas sub-álbuns e não fotografias direta (assim como o álbum raiz).</p>
+ele contém apenas sub-álbuns e não fotografias (assim como o álbum raiz).</p>
 foto de um álbum :</p>
 
 <ul>
 
-  <li><span class="pwgScreen">Página da foto</span>: um dos botões de ação permitem definir a foto atual como representante para o
+  <li><span class="pwgScreen">Página da foto</span>: um dos botões de ação que permite definir a foto atual como representante do 
 álbum exibido. Este botão está disponível apenas para administradores.</li>
 
   <li><span class="pwgScreen">Modificar informações sobre uma foto</span> em
@@ -70,10 +69,10 @@ administração. Esta tela pode ser alcançada a partir <span
   class="pwgScreen">picture.php</span> ou <span class="pwgScreen">Gerenciamento</span> em <em>modo de unidade</em>. Consulte a ajuda da tela para
    detalhes.</li>
 
-  <li><span class="pwgScreen">Administration &raquo; Albums &raquo; Properties,
-  Representative</span>. See the help of this screen for details.</li>
+  <li><span class="pwgScreen">Administração &raquo; Álbuns &raquo; Propriedades,
+  Representação</span>. Veja a ajuda dessa tela para maiores informações.</li>
 
-  <li><span class="pwgScreen">Editar álbum</span> (a presente tela).</li>
+  <li><span class="pwgScreen">Editar álbum</span> (a tela atual).</li>
 
 </ul>
 
@@ -81,18 +80,17 @@ administração. Esta tela pode ser alcançada a partir <span
 <code>permitir_representante_aleatório</code> parâmetro de configuração (ver <span
 class="filename">include/config_default.inc.php</span>).</p>
 
-<p>No modo padrão (<code>permitir_representante_aleatório</code> definido como falso),
-cada álbum que contém pelo menos um elemento é representado por um elemento  fixo
-. Uma vez definida (a criação do álbum), o representante muda apenas
-quando um administrador perguntar para ele. Se o representante não é adequado,
+<p>No modo padrão (<code>allow_random_representative</code> definido como falso),
+cada álbum que contém pelo menos um elemento é representado por um elemento fixo. 
+Uma vez definida (a criação do álbum), o representante muda apenas
+quando um administrador solicitar. Se o representante não é adequado,
 você pode pedir para <strong>Encontre um representante novo aleatoriamente</strong>.</p>
 
-<p>Se <code>permitir_representante_aleatório</code> parâmetro de configuração é
+<p>Se o parâmetro de configuração <code>allow_random_representative</code> é
 definido como verdadeiro, uma categoria contendo fotos pode não ter representante fixo. Apenas use o botão <strong>Eliminar representante</strong>.</p>
 
-<p>Se o álbum contém apenas sub-álbuns e nenhuma foto, pode no entanto ser representado por qualquer elemento graças ao <span class="pwgScreen">modificar
-informações sobre uma foto</span>. A única opção na tela atual
-é o botão <strong>Eliminar representamte</strong>.</p>
+<p>Se o álbum contém apenas sub-álbuns e nenhuma foto, ele pode no entanto ser representado por qualquer elemento graças ao <span class="pwgScreen">modificar informações sobre uma foto</span>. A única opção na tela atual
+é o botão <strong>Eliminar representante</strong>.</p>
 
 <h3>Vincular todas as fotos do álbum para um novo álbum</h3>
 
@@ -101,7 +99,7 @@ informações sobre uma foto</span>. A única opção na tela atual
 <li><strong>Nome do álbum virtual</strong>: Nome do novo álbum a ser criado,
 todas as fotos da categoria corrente serão ligadas ao novo álbum.</li>
 
-<li><strong>Album pai</strong>: Onde o novo álbum vai ser,
+<li><strong>Álbum pai</strong>: Onde o novo álbum vai ser criado,
 deixe em branco para criá-lo na raiz.</li>
 
 </ul>
@@ -110,7 +108,7 @@ deixe em branco para criá-lo na raiz.</li>
 
 <ul>
 
-<li><strong>Albuns</strong>: Escolha o álbum de destino.</li>
+<li><strong>Álbuns</strong>: Escolha o álbum de destino.</li>
 
 </ul>
 
