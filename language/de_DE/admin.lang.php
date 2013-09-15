@@ -645,8 +645,7 @@ $lang['Impossible to deactivate this language, you need at least one language.']
 $lang['Inactive Languages'] = 'Deaktivierte Sprachen';
 $lang['Make this language available to users'] = 'Aktiviere diese Sprache für Benutzer';
 $lang['Set as default language for unregistered and new users'] = 'Als Standardsprache für neue und unregistrierte Benutzer festlegen';
-$lang['delete'] = 'löschen
-';
+$lang['delete'] = 'löschen';
 $lang['Add Photos'] = 'Fotos hinzufügen';
 $lang['The following tag was deleted'] = 'Folgendes Schlagwort wurde gelöscht';
 $lang['There is no other language available.'] = 'Es ist keine weitere Sprache verfügbar.';
