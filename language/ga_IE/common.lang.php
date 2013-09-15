@@ -76,4 +76,8 @@ $lang['Are you sure?'] = 'An bhfuil tu cinnte';
 $lang['Close this window'] = 'Dun bhfuinneog seo';
 $lang['All'] = 'Gach rud';
 $lang['Email: %s'] = 'Ríomhpoist: %s';
+$lang['square'] = 'Cearnóg';
+$lang['the beginning'] = 'an tús';
+$lang['small'] = 'B - beag';
+$lang['today'] = 'inniu';
 ?>
