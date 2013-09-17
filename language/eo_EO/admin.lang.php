@@ -657,4 +657,18 @@ $lang['Settings'] = 'Agordojn';
 $lang['Sharpen'] = 'Pliakrigi';
 $lang['Shotwell is an open source digital photo organizer that runs on Linux. It is the default photo manager in Ubuntu and Fedora.'] = '"Shotwell" estas malfermitkoda fotoorganizilo funkcianta ĉe Linux. Estas la apriora fotoadministrilo ĉe Ubuntu kaj Fedora.';
 $lang['Show info'] = 'Montri informaĵon';
+$lang['There is no other theme available.'] = 'Ne estas alia disponebla temo.';
+$lang['This album contains %d photos, added between %s and %s.'] = 'Tiu fotaro enhavas %d fotojn, aldonitajn inter la %s kaj la %s.';
+$lang['This album contains %d photos, added on %s.'] = 'Tiu fotaro enhavas %d fotojn, aldonitajn je la %s.';
+$lang['This album contains no photo.'] = 'Tiu fotaro enhavas neniun foton.';
+$lang['This group will be set to default'] = 'Tiu grupo uziĝos apriore';
+$lang['This group will be unset to default'] = 'Tiu grupo ne plu uziĝos apriore';
+$lang['This is a major update, with <a href="%s">new exciting features</a>.'] = 'Tiu estas grava ĝisdatigo, kun <a href="%s">amaso da novaj trajtoj</a>.';
+$lang['This is a minor update, with only bug corrections.'] = 'Tiu estas malgrava ĝisdatigo, kun nur cimoriparoj.';
+$lang['This name is already used by another group.'] = 'La nomon jam uzas alia grupo';
+$lang['This site already exists'] = 'Tiu retejo jam ekzistas';
+$lang['This theme was not designed to be directly activated'] = 'Tiu temo ne desegniĝis por rekte aktiviĝi';
+$lang['Thumbnail'] = 'Miniaturo';
+$lang['Thumbnails generation in progress...'] = 'Generado de miniaturoj farata...';
+$lang['Time'] = 'Tempo';
 ?>
