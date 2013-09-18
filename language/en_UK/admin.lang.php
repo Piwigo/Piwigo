@@ -714,6 +714,7 @@ $lang['Select at least one album'] = "Select at least one album";
 $lang['Select at least one comment'] = 'Select at least one comment';
 $lang['Select at least one photo'] = "Select at least one photo";
 $lang['Select at least one user'] = "Select at least one user";
+$lang['Select at least one tag'] = "Select at least one tag";
 $lang['Select at least two tags for merging'] = 'Select at least two tags for merging';
 $lang['Select files'] = 'Select files';
 $lang['Select groups...'] = 'Select groups...';
