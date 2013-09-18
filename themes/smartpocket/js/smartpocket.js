@@ -20,20 +20,22 @@ return '<div class="ps-toolbar-close"><div class="ps-toolbar-content"></div></di
     });
     // onToolbarTap - listen out for when the toolbar is tapped
     myPhotoSwipe.addEventHandler(PhotoSwipe.EventTypes.onToolbarTap, function(e){
-    if (e.toolbarAction === PhotoSwipe.Toolbar.ToolbarAction.none){
-      if (e.tapTarget === more_link || Util.DOM.isChildOf(e.tapTarget, more_link)){
-        var currentImage = myPhotoSwipe.getCurrentImage();
-        window.location=currentImage.metaData.picture_url;
-      }
-    }
-});     $(document).bind('orientationchange', set_thumbnails_width);
-    set_thumbnails_width();
+			if (e.toolbarAction === PhotoSwipe.Toolbar.ToolbarAction.none){
+				if (e.tapTarget === more_link || Util.DOM.isChildOf(e.tapTarget, more_link)){
+					var currentImage = myPhotoSwipe.getCurrentImage();
+					window.location=currentImage.metaData.picture_url;
+				}
+			}
+		});
+		$(window).bind('orientationchange', set_thumbnails_width);
+		set_thumbnails_width();
   });
 }(window, window.jQuery, window.Code.PhotoSwipe));
 
 function set_thumbnails_width() {
-  nb_thumbs = Math.max(3, Math.ceil($('.thumbnails').width() / 130));
-  width = Math.floor(1000000 / nb_thumbs) / 10000;
-  $('.thumbnails li').css('width', width+'%');
+	var dpr = window.devicePixelRatio>1 ? window.devicePixelRatio : 1
+		, nb_thumbs = Math.max(2, Math.ceil($('.thumbnails').width() / (var_thumb_width/dpr+2*5)))
+		, width = Math.floor(1000000 / nb_thumbs) / 10000;
+	$('.thumbnails li').css('width', width+'%');
 }
 
