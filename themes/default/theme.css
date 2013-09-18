@@ -405,12 +405,10 @@ TD.calDayCellFull, TD.calDayCellEmpty {
 #linkFirst, #linkLast {
   border: 1px solid #ccc;
   height: 118px;
-  line-height: 118px;
 }
 
 #linkFirst div, #linkLast div {
   display: inline-block;
-  vertical-align: middle;
   width: 108px;
   line-height: 1.2;
   margin: 0 5px;
@@ -605,7 +603,7 @@ FIELDSET {
 	font-size: 120%;
 	text-align: justify;
 	padding: 0;
-	margin: 1em 2em;
+	margin: 1em;
 }
 
 #fullTagCloud SPAN {
