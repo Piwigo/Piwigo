@@ -121,11 +121,8 @@ DELETE
 
   if ('del_tags' == $action)
   {
-    if (count($_POST['del_tags']) == 0)
+    if (isset($_POST['del_tags']) and count($_POST['del_tags']) > 0)
     {
-      array_push($page['errors'], l10n('Select at least one tag'));
-    }
-    
     $query = '
 DELETE
   FROM '.IMAGE_TAG_TABLE.'
@@ -133,6 +130,11 @@ DELETE
     AND tag_id IN ('.implode(',', $_POST['del_tags']).')
 ;';
     pwg_query($query);
+    }
+	else
+	{
+	 array_push($page['errors'], l10n('Select at least one tag'));
+	}
   }
 
   if ('associate' == $action)
