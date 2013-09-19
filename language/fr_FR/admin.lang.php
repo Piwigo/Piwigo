@@ -952,4 +952,5 @@ $lang['Rename'] = 'Renommer';
 $lang['Purge user cache'] = 'Purger le cache utilisateur';
 $lang['The picture dimensions will be reduced to %dx%d pixels.'] = 'La tailles des images sera réduite à %dx%d pixels.';
 
+$lang['Select at least one tag'] = 'Sélectionnez au moins un tag';
 ?>
