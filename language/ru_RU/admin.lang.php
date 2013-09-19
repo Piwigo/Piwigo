@@ -955,4 +955,5 @@ $lang['Type here the name of the new group'] = 'Введите имя новой
 $lang['Purge user cache'] = 'Очистить кэш пользователя';
 $lang['The picture dimensions will be reduced to %dx%d pixels.'] = 'Размер изображения будет уменьшен до %dx%d пикселей.';
 $lang['Resize after upload disabled due to the use of GD as graphic library'] = 'Изменение размеров изображений отключено из-за использования GD в качестве графической библиотеки';
+$lang['Select at least one tag'] = 'Выберите хотя бы один тэг';
 ?>
