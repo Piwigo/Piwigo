@@ -951,4 +951,5 @@ $lang['between %d and %d pixels'] = 'mellom %d og %d piksler';
 $lang['Purge user cache'] = 'Rens bruker cache';
 $lang['Resize after upload disabled due to the use of GD as graphic library'] = 'Endring av bildestørrelse er slått av, siden du bruker GD som grafikkgalleri.';
 $lang['The picture dimensions will be reduced to %dx%d pixels.'] = 'Bildets dimensjoner vil bli redusert til %dx%d piksler.';
+$lang['Select at least one tag'] = 'Velg minst en tag';
 ?>
