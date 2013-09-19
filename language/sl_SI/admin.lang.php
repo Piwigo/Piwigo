@@ -947,4 +947,5 @@ $lang['No photo selected, no action possible.'] = 'Ker ni izbrana nobena slika, 
 $lang['No results'] = 'Ni rezultatov';
 $lang['No user to send notifications by mail.'] = 'Noben uporabnik ne bo obveščen preko e-pošte.';
 $lang['Resize after upload disabled due to the use of GD as graphic library'] = 'Stiskanje fotografij pred nalaganjem je onemogočeno zaradi uporabe GD grafične knjižnice.';
+$lang['Select at least one tag'] = 'Izberite vsaj eno oznako';
 ?>
