@@ -953,4 +953,5 @@ $lang['Type here the name of the new group'] = 'Escriba aquí el nombre del nuev
 $lang['Purge user cache'] = 'Limpiar cache de usuario';
 $lang['The picture dimensions will be reduced to %dx%d pixels.'] = 'Las dimensiones de la imagen se reducirá a %dx%d píxeles.';
 $lang['Resize after upload disabled due to the use of GD as graphic library'] = 'Redimensionado después de la carga al servidor debido a la utilización de GD como librería gráfica.';
+$lang['Select at least one tag'] = 'Selecciona al menos una etiqueta';
 ?>
