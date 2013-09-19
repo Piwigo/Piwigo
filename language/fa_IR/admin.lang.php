@@ -954,4 +954,5 @@ $lang['between %d and %d pixels'] = 'میان %d و %d پیکسل';
 $lang['Purge user cache'] = 'پاک کردن مخزن کاربر (کش)';
 $lang['The picture dimensions will be reduced to %dx%d pixels.'] = 'اندازه‌ی این عکس به %dx%d پیکسل کاهش خواهد یافت.';
 $lang['Resize after upload disabled due to the use of GD as graphic library'] = 'بدلیل استفاده از کتابخانه‌ی گرافیکیِ GD، امکان ویرایش سایز عکس پس از آپلود وجود ندارد.';
+$lang['Select at least one tag'] = 'دست کم باید یک برچسب انتخاب کنید';
 ?>
