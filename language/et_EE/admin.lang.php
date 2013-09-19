@@ -552,7 +552,7 @@ $lang['guest'] = 'külaline';
 $lang['user_status_guest'] = 'Külaline';
 $lang['visitors need to login and have the appropriate permissions to see this album'] = 'Külalised peavad logima sisse ja omama õiged ligipääsuload, et kuvada seda albumit';
 $lang['Optimizations have been completed with some errors.'] = 'Optimeeringud on läbiviidud mõne veaga.';
-$lang['Order of menubar items has been updated successfully.'] = 'Menüüde järjestus uuendati edukalt';
+$lang['Order of menubar items has been updated successfully.'] = 'Menüüde järjestus on muudetud';
 $lang['Plugin list'] = 'Pluginate nimekiri';
 $lang['Plugins which need upgrade'] = 'Uuendatavad pluginad';
 $lang['Plugins'] = 'Pluginad';
@@ -953,4 +953,5 @@ $lang['Duplicate'] = 'Tee koopia';
 $lang['Purge user cache'] = 'Tühjenda vahemälu';
 $lang['The picture dimensions will be reduced to %dx%d pixels.'] = 'Pildi mõõtmed kahanetakse %dx%d piksli peale.';
 $lang['Resize after upload disabled due to the use of GD as graphic library'] = 'Pildu suuruse muutmine pärast üles laadimist on välja lülitatud, sest kasutusel on GD graafika arhiiv.';
+$lang['Select at least one tag'] = 'Vali vähemalt üks märksõna';
 ?>
