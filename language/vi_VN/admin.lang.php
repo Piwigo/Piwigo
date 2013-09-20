@@ -949,4 +949,5 @@ $lang['Resize after upload disabled due to the use of GD as graphic library'] = 
 $lang['Shotwell is an open source digital photo organizer that runs on Linux. It is the default photo manager in Ubuntu and Fedora.'] = 'Shotwell là một trình quản lý ảnh số mã mở và là trình quản lý ảnh mặc định trong Ubuntu và Fedora.';
 $lang['The Piwigo publish Plug-in allows you to export and synchronize photos from Lightroom directly to your Piwigo photo gallery.'] = 'Piwigo phát hành các plug-in cho phép đồng bộ hóa và xuất trực tiếp các ảnh từ Lightroom vào trong thư viện ảnh Piwigo.';
 $lang['To export your photos from digiKam to Piwigo, simply install digiKam and the Kipi-plugins.'] = 'Để xuất các ảnh từ digiKam vào Piwigo, đơn giản hãy cài đặt digiKam và Kipi-plugins.';
+$lang['Select at least one tag'] = 'Hãy chọn ít nhất một tag';
 ?>
