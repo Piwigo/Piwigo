@@ -404,12 +404,12 @@ TD.calDayCellFull, TD.calDayCellEmpty {
 
 #linkFirst, #linkLast {
   border: 1px solid #ccc;
-  height: 118px;
 }
 
 #linkFirst div, #linkLast div {
   display: inline-block;
   width: 108px;
+	height: 118px;
   line-height: 1.2;
   margin: 0 5px;
 }
