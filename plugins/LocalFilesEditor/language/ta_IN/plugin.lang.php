@@ -27,4 +27,6 @@ $lang['locfiledit_empty_page'] = 'வெற்று பக்கம்';
 $lang['locfiledit_choose_file'] = 'திருத்த வேண்டும் என்ற கோப்பினை தேர்வுசெய்க
 ';
 $lang['locfiledit_bak_loaded1'] = 'மறுபிரதி கோப்பு ஏற்றப்படும்.';
+$lang['locfiledit_bak_loaded2'] = 'அதை மீட்க கோப்பு சேமிக்க வேண்டும்.';
+$lang['locfiledit_cant_save'] = 'தற்போதைய கோப்பு எழுதக்கூடிய அல்ல. கோப்பகம் "local/" எழுதக்கூடிய (chmod) என்று சரிபார்க்கவும்.';
 ?>
