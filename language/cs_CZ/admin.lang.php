@@ -957,4 +957,5 @@ $lang['Type here the name of the new group'] = 'Napište sem jméno nové skupin
 $lang['Purge user cache'] = 'Provést údržbu uživatelské mezipaměťi';
 $lang['The picture dimensions will be reduced to %dx%d pixels.'] = 'Rozměry obrázku budou zmenšeny na %dx%d pixelů.';
 $lang['Resize after upload disabled due to the use of GD as graphic library'] = 'Změna velikosti po uploadu není aktivní, kvůli používání GD jako grafické knihovny.';
+$lang['Select at least one tag'] = 'vyberte alespoň jeden tag';
 ?>
