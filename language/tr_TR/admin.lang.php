@@ -951,4 +951,5 @@ $lang['Purge user cache'] = 'Kullaıcı önbelleğini temizle';
 $lang['The version of %s [%s] installed is not compatible with the version required ']['%s'] = 'Yüklenen %s [%s] sürümü, gereken sürüm [%s] ile uyumlu değildir.';
 $lang['The picture dimensions will be reduced to %dx%d pixels.'] = 'Resim boyutları %dx%d piksele düşürülecektir.';
 $lang['Resize after upload disabled due to the use of GD as graphic library'] = 'GD \'nin grafik kütüphanesi olarak kullanımından dolayı yükleme sonrası yeniden boyutlandırma devredışı';
+$lang['Select at least one tag'] = 'En azından bir etiket seçin';
 ?>
