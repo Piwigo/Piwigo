@@ -343,4 +343,5 @@ $lang['Permalinks'] = 'Холбоосууд';
 $lang['Allow users to delete their own comments'] = 'Хэрэглэгчид сэтгэгдэлээ устгаж болно';
 $lang['Allow users to edit their own comments'] = 'Хэрэглэгчид сэтгэгдэлээ засаж болно';
 $lang['Cannot delete the old permalink !'] = 'Хуучин холбоосыг устгах боломжгүй байна.';
+$lang['Center of interest'] = 'Сонирхол татах хэсэг';
 ?>
