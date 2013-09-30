@@ -951,4 +951,5 @@ $lang['Piwigo publish plugin for Shotwell'] = 'Piwigo издаде плъгин 
 $lang['Piwigo export plugin for iPhoto'] = 'Piwigo издаде плъгин за iPhoto';
 $lang['The picture dimensions will be reduced to %dx%d pixels.'] = 'Размерите на снимката ще бъдат редуцирани до %dx%d пиксела.';
 $lang['Resize after upload disabled due to the use of GD as graphic library'] = 'Преоразмеряване след качването е забранено ако ползвате GD за графична библиотека';
+$lang['Select at least one tag'] = 'Изберете поне един таг';
 ?>
