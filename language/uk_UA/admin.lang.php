@@ -951,4 +951,5 @@ $lang['Type here the name of the new group'] = 'Введіть назву нов
 $lang['Purge user cache'] = 'Очистити кеш користувача';
 $lang['The picture dimensions will be reduced to %dx%d pixels.'] = 'Розміри зображення будє зменьшено до %dx%d пікселів';
 $lang['Resize after upload disabled due to the use of GD as graphic library'] = 'Зміну розміру після вивантаження вимкнено через використання бібліотеки GD';
+$lang['Select at least one tag'] = 'Виберіть принаймні один теґ';
 ?>
