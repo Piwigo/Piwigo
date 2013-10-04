@@ -964,4 +964,5 @@ $lang['Manage the members'] = 'Gestiona els membres';
 $lang['Purge user cache'] = 'Elimina la memòria cau de l\'usuari';
 $lang['The picture dimensions will be reduced to %dx%d pixels.'] = 'Es reduiran les mides de les fotos a %dx%d píxels.';
 $lang['Resize after upload disabled due to the use of GD as graphic library'] = 'Redimensionar després de penjar la foto al servidor deshabilitat degut a l\'ús de la llibreria gràfica GD';
+$lang['Select at least one tag'] = 'Seleccioneu almenys una etiqueta';
 ?>
