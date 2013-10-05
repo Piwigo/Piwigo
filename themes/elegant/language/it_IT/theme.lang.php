@@ -27,6 +27,6 @@ $lang['Hidden'] = 'Nascosto';
 $lang['Elegant, Configuration Page'] = 'Elegante, Pagina di configurazione';
 $lang['Displayed'] = 'Visualizza';
 $lang['Disable the animation'] = 'Disabilita l\'animazione';
-$lang['Comments Panel'] = 'Pannello commenti';
+$lang['Comments Panel'] = 'Pannello Commenti';
 $lang['Choose what should be the default state for each panel, or disable the animation:'] = 'Scegli quello che dovrebbe essere lo stato predefinito per ogni pannello, o disattiva l\'animazione:';
 ?>
