@@ -43,4 +43,11 @@ $lang['day'][3] = 'Mettwoch';
 $lang['day'][4] = 'Donneschten';
 $lang['day'][5] = 'Freiden';
 $lang['day'][6] = 'Samschten';
+$lang['%d album updated'] = '%d Album aktualiséiert';
+$lang['%d albums updated'] = '%d D\'Albumen aktualiséiert';
+$lang['%d comment'] = '%d Kommentar';
+$lang['%d comment to validate'] = '%d Kommentar fräigin';
+$lang['%d comments'] = '%d Kommentaren';
+$lang['%d comments to validate'] = '%d Kommentaren fräigin';
+$lang['%d hit'] = '%d Opruff';
 ?>
