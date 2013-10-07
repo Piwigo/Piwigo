@@ -5,12 +5,12 @@
 	<ul class="categoryActions">
 {if $display_mode == 'letters'}
 		<li><a href="{$U_CLOUD}" title="{'show tag cloud'|@translate}" class="pwg-state-default pwg-button">
-			<span class="pwg-icon pwg-icon-cloud">&nbsp;</span><span class="pwg-button-text">{'cloud'|@translate}</span>
+			<span class="pwg-icon pwg-icon-cloud"></span><span class="pwg-button-text">{'cloud'|@translate}</span>
 		</a></li>
 {/if}
 {if $display_mode == 'cloud'}
 		<li><a href="{$U_LETTERS}" title="{'group by letters'|@translate}" class="pwg-state-default pwg-button" rel="nofollow">
-			<span class="pwg-icon pwg-icon-letters">&nbsp;</span><span class="pwg-button-text">{'letters'|@translate}</span>
+			<span class="pwg-icon pwg-icon-letters"></span><span class="pwg-button-text">{'letters'|@translate}</span>
 		</a></li>
 {/if}
 	</ul>
