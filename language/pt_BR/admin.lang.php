@@ -780,7 +780,7 @@ $lang['ReGalAndroid (RemoteGallery client for Android) is an open source (GPL v3
 $lang['Read Piwigo Documentation'] = 'Leia da Documentação do Piwigo';
 $lang['Refresh photo set'] = 'Recarregue as fotos';
 $lang['Remove all filters'] = 'Remova todos os filtros';
-$lang['Remove from caddie'] = 'Remova do cofre';
+$lang['Remove from caddie'] = 'Remova da cesta';
 $lang['Reset ignored updates'] = 'Reset atualizações ignoradas';
 $lang['Resize after upload'] = 'Redimensione depois de enviar';
 $lang['Resize'] = 'Redimensione';
