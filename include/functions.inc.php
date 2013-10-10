@@ -763,25 +763,18 @@ function get_query_string_diff($rejects=array(), $escape=true)
     return '';
   }
 
-  $query_string = '';
+  parse_str($_SERVER['QUERY_STRING'], $vars);
 
-  $str = $_SERVER['QUERY_STRING'];
-  parse_str($str, $vars);
-
-  $is_first = true;
-  foreach ($vars as $key => $value)
-  {
-    if (!in_array($key, $rejects))
-    {
-      $query_string.= $is_first ? '?' : ($escape ? '&amp;' : '&' );
-      $is_first = false;
-      $query_string.= $key.'='.$value;
-    }
-  }
-
-  return $query_string;
+  $vars = array_diff_key($vars, array_flip($rejects));
+  
+  return '?' . http_build_query($vars, '', $escape ? '&amp;' : '&');
 }
 
+/**
+ * returns true if the url is absolute (begins with http)
+ * @param string $url
+ * @returns boolean
+ */
 function url_is_remote($url)
 {
   if ( strncmp($url, 'http://', 7)==0
