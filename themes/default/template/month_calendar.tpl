@@ -2,10 +2,10 @@
 {foreach from=$chronology_navigation_bars item=bar}
 <div class="calendarBar">
 	{if isset($bar.previous)}
-		<div style="float:left">&laquo; <a href="{$bar.previous.URL}">{$bar.previous.LABEL}</a></div>
+		<div style="float:left;margin-right:5px">&laquo; <a href="{$bar.previous.URL}">{$bar.previous.LABEL}</a></div>
 	{/if}
 	{if isset($bar.next)}
-		<div style="float:right"><a href="{$bar.next.URL}">{$bar.next.LABEL}</a> &raquo;</div>
+		<div style="float:right;margin-left:5px"><a href="{$bar.next.URL}">{$bar.next.LABEL}</a> &raquo;</div>
 	{/if}
 	{if empty($bar.items)}
 		&nbsp;

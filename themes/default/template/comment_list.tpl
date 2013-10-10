@@ -1,16 +1,16 @@
 {if isset($comment_derivative_params)}
 {strip}{html_style}
-.commentElement .illustration{ldelim}
-	width: {$comment_derivative_params->max_width()+5}px
+.commentElement .illustration{
+	width:{$comment_derivative_params->max_width()+5}px
 }
 
-.content .commentElement .description{ldelim}
-	min-height: {$comment_derivative_params->max_height()+5}px
+.content .commentElement .description{
+	min-height:{$comment_derivative_params->max_height()+5}px
 }
 {/html_style}{/strip}
-{/if}
 {footer_script}var error_icon = "{$ROOT_URL}{$themeconf.icon_dir}/errors_small.png";{/footer_script}
 <div class="loader"><img src="{$ROOT_URL}{$themeconf.img_dir}/ajax_loader.gif"></div>
+{/if}
 <ul class="commentsList">
 {foreach from=$comments item=comment name=comment_loop}
 <li class="commentElement {if $smarty.foreach.comment_loop.index is odd}odd{else}even{/if}">
