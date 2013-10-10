@@ -30,13 +30,6 @@ jQuery().ready(function(){
         jQuery(".warnings ul").append('<li>'+ext_need_update_msg+'</li>');
     }
   });
-  jQuery('.tips').cluetip({
-    multiple: true,
-		width: 300,
-		splitTitle: '|',
-		positionBy: 'bottomTop',
-    attribute:'data-help'
-	});
 });
 {/literal}
 {/footer_script}
@@ -53,8 +46,7 @@ jQuery().ready(function(){
 {/if}
     </ul>
   </dd>
-<a href="javascript:void(0)" class="externalLink tips" data-help="{'Piwigo Announcements Newsletter'|@translate}|{'Keep in touch with Piwigo project, subscribe to Piwigo Announcement Newsletter. You will receive emails when a new release is available (sometimes including a security bug fix, it\'s important to know and upgrade) and when major events happen to the project. Only a few emails a year.'|@translate|@htmlspecialchars|@nl2br}">TRIGGER</a>
-<span data-help="TITLE|BLABLA">TEXT</span>
+
   <dt>{'Environment'|@translate}</dt>
   <dd>
     <ul>
