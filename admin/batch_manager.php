@@ -490,21 +490,25 @@ SELECT
 ;';
 $result = pwg_query($query);
 
-if (!pwg_db_num_rows($result))
+if (pwg_db_num_rows($result))
+{
+  while ($row = pwg_db_fetch_assoc($result))
+  {
+    if ($row['width']>0 && $row['height']>0)
+    {
+      $widths[] = $row['width'];
+      $heights[] = $row['height'];
+      $ratios[] = floor($row['width'] / $row['height'] * 100) / 100;
+    }
+  }
+}
+if (empty($widths))
 { // arbitrary values, only used when no photos on the gallery
   $widths = array(600, 1920, 3500);
   $heights = array(480, 1080, 2300);
   $ratios = array(1.25, 1.52, 1.78);
 }
-else
-{
-  while ($row = pwg_db_fetch_assoc($result))
-  {
-    $widths[] = $row['width'];
-    $heights[] = $row['height'];
-    $ratios[] = floor($row['width'] * 100 / $row['height']) / 100;
-  }
-}
+
 
 
 $widths = array_unique($widths);
@@ -563,7 +567,7 @@ foreach (array_keys($ratio_categories) as $ratio_category)
   {
     $dimensions['ratio_'.$ratio_category] = array(
       'min' => $ratio_categories[$ratio_category][0],
-      'max' => $ratio_categories[$ratio_category][count($ratio_categories[$ratio_category]) - 1]
+      'max' => array_pop($ratio_categories[$ratio_category]),
       );
   }
 }
