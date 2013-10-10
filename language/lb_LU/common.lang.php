@@ -50,4 +50,12 @@ $lang['%d comment to validate'] = '%d Kommentar fräigin';
 $lang['%d comments'] = '%d Kommentaren';
 $lang['%d comments to validate'] = '%d Kommentaren fräigin';
 $lang['%d hit'] = '%d Opruff';
+$lang['%d photo'] = 'Foto';
+$lang['%d photos'] = 'Fotoen';
+$lang['%d new user'] = 'neien Benotzer';
+$lang['%d new photos'] = 'nei Fotoen';
+$lang['%d new photo'] = 'nei Foto';
+$lang['%d new comments'] = 'nei Kommentaren';
+$lang['%d new comment'] = 'neien Kommentar';
+$lang['%d hits'] = 'Opriff';
 ?>
