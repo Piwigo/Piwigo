@@ -252,7 +252,7 @@ if ($category['has_images'])
 {
   $template->assign(
     'U_MANAGE_ELEMENTS',
-    $base_url.'batch_manager&amp;cat='.$category['id']
+    $base_url.'batch_manager&amp;filter=album-'.$category['id']
     );
 
   $query = '

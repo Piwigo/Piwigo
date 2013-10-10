@@ -112,7 +112,7 @@ DELETE
       $tag_ids = get_tag_ids($_POST['add_tags']);
       add_tags($tag_ids, $collection);
 
-      if ('with no tag' == $page['prefilter'])
+      if ('no_tag' == $page['prefilter'])
       {
         redirect($redirect_url);
       }
@@ -149,12 +149,12 @@ DELETE
       );
     
     // let's refresh the page because we the current set might be modified
-    if ('with no album' == $page['prefilter'])
+    if ('no_album' == $page['prefilter'])
     {
       redirect($redirect_url);
     }
 
-    if ('with no virtual album' == $page['prefilter'])
+    if ('no_virtual_album' == $page['prefilter'])
     {
       $category_info = get_cat_info($_POST['associate']);
       if (empty($category_info['dir']))
@@ -173,12 +173,12 @@ DELETE
       );
     
     // let's refresh the page because we the current set might be modified
-    if ('with no album' == $page['prefilter'])
+    if ('no_album' == $page['prefilter'])
     {
       redirect($redirect_url);
     }
 
-    if ('with no virtual album' == $page['prefilter'])
+    if ('no_virtual_album' == $page['prefilter'])
     {
       $category_info = get_cat_info($_POST['move']);
       if (empty($category_info['dir']))
@@ -435,17 +435,17 @@ $base_url = get_root_url().'admin.php';
 $prefilters = array(
   array('ID' => 'caddie', 'NAME' => l10n('Caddie')),
   array('ID' => 'favorites', 'NAME' => l10n('Your favorites')),
-  array('ID' => 'last import', 'NAME' => l10n('Last import')),
-  array('ID' => 'with no album', 'NAME' => l10n('With no album')),
-  array('ID' => 'with no tag', 'NAME' => l10n('With no tag')),
+  array('ID' => 'last_import', 'NAME' => l10n('Last import')),
+  array('ID' => 'no_album', 'NAME' => l10n('With no album')),
+  array('ID' => 'no_tag', 'NAME' => l10n('With no tag')),
   array('ID' => 'duplicates', 'NAME' => l10n('Duplicates')),
-  array('ID' => 'all photos', 'NAME' => l10n('All'))
+  array('ID' => 'all_photos', 'NAME' => l10n('All'))
 );
 
 if ($conf['enable_synchronization'])
 {
   array_push($prefilters,
-    array('ID' => 'with no virtual album', 'NAME' => l10n('With no virtual album'))
+    array('ID' => 'no_virtual_album', 'NAME' => l10n('With no virtual album'))
   );
 }
 
@@ -460,7 +460,7 @@ $template->assign(
     'all_elements' => $page['cat_elements_id'],
     'START' => $page['start'],
     'U_DISPLAY'=>$base_url.get_query_string_diff(array('display')),
-    'F_ACTION'=>$base_url.get_query_string_diff(array('cat','start','tag')),
+    'F_ACTION'=>$base_url.get_query_string_diff(array('cat','start','tag','filter')),
    )
  );
 

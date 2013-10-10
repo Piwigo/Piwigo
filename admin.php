@@ -189,7 +189,7 @@ $template->assign(
     'U_CAT_OPTIONS'=> $link_start.'cat_options',
     'U_CAT_UPDATE'=> $link_start.'site_update&amp;site=1',
     'U_RATING'=> $link_start.'rating',
-    'U_RECENT_SET'=> $link_start.'batch_manager&amp;cat=recent',
+    'U_RECENT_SET'=> $link_start.'batch_manager&amp;filter=prefilter-last_import',
     'U_BATCH'=> $link_start.'batch_manager',
     'U_TAGS'=> $link_start.'tags',
     'U_USERS'=> $link_start.'user_list',
@@ -222,7 +222,7 @@ if ($nb_photos_in_caddie > 0)
   $template->assign(
     array(
       'NB_PHOTOS_IN_CADDIE' => $nb_photos_in_caddie,
-      'U_CADDIE' => $link_start.'batch_manager&amp;cat=caddie',
+      'U_CADDIE' => $link_start.'batch_manager&amp;filter=prefilter-caddie',
       )
     );
 }

@@ -57,7 +57,7 @@ DELETE FROM '.CADDIE_TABLE.'
     $inserts
     );
 
-  redirect(get_root_url().'admin.php?page=batch_manager&cat=caddie');
+  redirect(get_root_url().'admin.php?page=batch_manager&filter=prefilter-caddie');
 }
 
 // +-----------------------------------------------------------------------+

@@ -322,7 +322,7 @@ foreach ($categories as $category)
   if ( array_key_exists($category['id'], $categories_with_images) )
   {
     $tpl_cat['U_MANAGE_ELEMENTS']=
-      $base_url.'batch_manager&amp;cat='.$category['id'];
+      $base_url.'batch_manager&amp;filter=album-'.$category['id'];
   }
 
   $template->append('categories', $tpl_cat);

@@ -43,10 +43,12 @@ check_status(ACCESS_ADMINISTRATOR);
 
 check_input_parameter('selection', $_POST, true, PATTERN_ID);
 
+
 // +-----------------------------------------------------------------------+
 // |                      initialize current set                           |
 // +-----------------------------------------------------------------------+
 
+// filters from form
 if (isset($_POST['submitFilter']))
 {
   // echo '<pre>'; print_r($_POST); echo '</pre>';
@@ -109,39 +111,52 @@ if (isset($_POST['submitFilter']))
     }
   }
 }
-else if (isset($_GET['cat']))
+// filters from url
+else if (isset($_GET['filter']))
 {
-  if ('caddie' == $_GET['cat'])
+  if (!is_array($_GET['filter']))
   {
-    $_SESSION['bulk_manager_filter'] = array(
-      'prefilter' => 'caddie'
-      );
+    $_GET['filter'] = explode(',', $_GET['filter']);
   }
-  else if ('recent' == $_GET['cat'])
+  
+  $_SESSION['bulk_manager_filter'] = array();
+  
+  foreach ($_GET['filter'] as $filter)
   {
-    $_SESSION['bulk_manager_filter'] = array(
-      'prefilter' => 'last import'
-      );
-  }
-  else if (is_numeric($_GET['cat']))
-  {
-    $_SESSION['bulk_manager_filter'] = array(
-      'category' => $_GET['cat']
-      );
-  }
-}
-else if (isset($_GET['tag']))
-{
-  if (is_numeric($_GET['tag']))
-  {
-    $_SESSION['bulk_manager_filter'] = array(
-      'tags' => array($_GET['tag']),
-      'tag_mode' => 'AND',
-      );
+    list($type, $value) = explode('-', $filter);
+    
+    switch ($type)
+    {
+    case 'prefilter':
+      $_SESSION['bulk_manager_filter']['prefilter'] = $value;
+      break;
+    
+    case 'album':
+      if (is_numeric($value))
+      {
+        $_SESSION['bulk_manager_filter']['category'] = $value;
+      }
+      break;
+      
+    case 'tag':
+      if (is_numeric($value))
+      {
+        $_SESSION['bulk_manager_filter']['tags'] = array($value);
+        $_SESSION['bulk_manager_filter']['tag_mode'] = 'AND';
+      }
+      break;
+      
+    case 'level':
+      if (is_numeric($value) && in_array($value, $conf['available_permission_levels']))
+      {
+        $_SESSION['bulk_manager_filter']['level'] = $value;
+      }
+      break;
+    }
   }
 }
 
-if (!isset($_SESSION['bulk_manager_filter']))
+if (empty($_SESSION['bulk_manager_filter']))
 {
   $_SESSION['bulk_manager_filter'] = array(
     'prefilter' => 'caddie'
@@ -150,13 +165,13 @@ if (!isset($_SESSION['bulk_manager_filter']))
 
 // echo '<pre>'; print_r($_SESSION['bulk_manager_filter']); echo '</pre>';
 
-// depending on the current filter (in session), we find the appropriate
-// photos
+// depending on the current filter (in session), we find the appropriate photos
 $filter_sets = array();
 if (isset($_SESSION['bulk_manager_filter']['prefilter']))
 {
-  if ('caddie' == $_SESSION['bulk_manager_filter']['prefilter'])
+  switch ($_SESSION['bulk_manager_filter']['prefilter'])
   {
+  case 'caddie':
     $query = '
 SELECT element_id
   FROM '.CADDIE_TABLE.'
@@ -166,10 +181,10 @@ SELECT element_id
       $filter_sets,
       array_from_query($query, 'element_id')
       );
-  }
+    
+    break;
 
-  if ('favorites' == $_SESSION['bulk_manager_filter']['prefilter'])
-  {
+  case 'favorites':
     $query = '
 SELECT image_id
   FROM '.FAVORITES_TABLE.'
@@ -179,10 +194,10 @@ SELECT image_id
       $filter_sets,
       array_from_query($query, 'image_id')
       );
-  }
+    
+    break;
 
-  if ('last import'== $_SESSION['bulk_manager_filter']['prefilter'])
-  {
+  case 'last_import':
     $query = '
 SELECT MAX(date_available) AS date
   FROM '.IMAGES_TABLE.'
@@ -200,10 +215,10 @@ SELECT id
         array_from_query($query, 'id')
         );
     }
-  }
+    
+    break;
 
-  if ('with no virtual album' == $_SESSION['bulk_manager_filter']['prefilter'])
-  {
+  case 'no_virtual_album':
     // we are searching elements not linked to any virtual category
     $query = '
  SELECT id
@@ -231,10 +246,10 @@ SELECT id
       $filter_sets,
       array_diff($all_elements, $linked_to_virtual)
       );
-  }
+    
+    break;
 
-  if ('with no album' == $_SESSION['bulk_manager_filter']['prefilter'])
-  {
+  case 'no_album':
     $query = '
 SELECT
     id
@@ -246,10 +261,10 @@ SELECT
       $filter_sets,
       array_from_query($query, 'id')
       );
-  }
+    
+    break;
 
-  if ('with no tag' == $_SESSION['bulk_manager_filter']['prefilter'])
-  {
+  case 'no_tag':
     $query = '
 SELECT
     id
@@ -261,15 +276,14 @@ SELECT
       $filter_sets,
       array_from_query($query, 'id')
       );
-  }
+    
+    break;
 
 
-  if ('duplicates' == $_SESSION['bulk_manager_filter']['prefilter'])
-  {
+  case 'duplicates':
     // we could use the group_concat MySQL function to retrieve the list of
     // image_ids but it would not be compatible with PostgreSQL, so let's
     // perform 2 queries instead. We hope there are not too many duplicates.
-
     $query = '
 SELECT file
   FROM '.IMAGES_TABLE.'
@@ -288,16 +302,18 @@ SELECT id
       $filter_sets,
       array_from_query($query, 'id')
       );
-  }
+    
+    break;
 
-  if ('all photos' == $_SESSION['bulk_manager_filter']['prefilter'])
-  {
+  case 'all_photos':
     $query = '
 SELECT id
   FROM '.IMAGES_TABLE.'
   '.$conf['order_by'];
 
     $filter_sets[] = array_from_query($query, 'id');
+    
+    break;
   }
 
   $filter_sets = trigger_event('perform_batch_manager_prefilters', $filter_sets, $_SESSION['bulk_manager_filter']['prefilter']);
@@ -403,6 +419,7 @@ foreach ($filter_sets as $set)
 }
 $page['cat_elements_id'] = $current_set;
 
+
 // +-----------------------------------------------------------------------+
 // |                       first element to display                        |
 // +-----------------------------------------------------------------------+
@@ -423,6 +440,7 @@ else
   $page['start'] = $_REQUEST['start'];
 }
 
+
 // +-----------------------------------------------------------------------+
 // |                                 Tabs                                  |
 // +-----------------------------------------------------------------------+
@@ -442,6 +460,7 @@ $tabsheet->set_id('batch_manager');
 $tabsheet->select($page['tab']);
 $tabsheet->assign();
 
+
 // +-----------------------------------------------------------------------+
 // |                              tags                                     |
 // +-----------------------------------------------------------------------+
@@ -451,6 +470,7 @@ SELECT id, name
   FROM '.TAGS_TABLE.'
 ;';
 $template->assign('tags', get_taglist($query, false));
+
 
 // +-----------------------------------------------------------------------+
 // |                              dimensions                               |
