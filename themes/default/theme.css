@@ -378,10 +378,6 @@ TD.calDayCellFull, TD.calDayCellEmpty {
   margin-bottom:5px;
 }
 
-.relSwitchBox {
-	position: relative;
-}
-
 #theImage {
 	text-align: center;
 }

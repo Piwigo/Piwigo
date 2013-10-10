@@ -26,5 +26,4 @@
 .imageInfo {display:block; line-height:16px;}
 .imageInfo dt  {display:block; text-align:left; font-weight:bold; padding-right:0.5em;}
 .imageInfo dd {display:block; text-align:left; font-weight:normal;}
-.relSwitchBox {position:static;}
 #imageInfos dd { margin: 0 0 5px 20px;}
