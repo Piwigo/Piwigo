@@ -64,4 +64,5 @@ $lang['Don\'t hesitate to consult our forums for any help : %s'] = 'لاتترد
 $lang['Just another Piwigo gallery'] = 'معرض آخر من Piwigo';
 $lang['Welcome to my photo gallery'] = 'مرحباً بك في معرض الصور';
 $lang['Welcome to your new installation of Piwigo!'] = 'مرحبا بكم في التثبيت الجديد من Piwigo!';
+$lang['localhost or other, supplied by your host provider'] = 'المضيف المحلي او المقدم من قبل موفر الخدمة الخاص بك';
 ?>
