@@ -2272,7 +2272,7 @@ static public $yy_action = array(
 #line 220 "smarty_internal_templateparser.y"
     function yy_r11(){
     if ($this->strip) {
-        $this->_retvalue = new _smarty_text($this, preg_replace('![\t ]*[\r\n]+[\t ]*!', '', self::escape_start_tag($this->yystack[$this->yyidx + 0]->minor)));
+        $this->_retvalue = new _smarty_text($this, preg_replace('![\t ]*[\r\n]+[\t ]*!', ' ', self::escape_start_tag($this->yystack[$this->yyidx + 0]->minor)));
     } else {
         $this->_retvalue = new _smarty_text($this, self::escape_start_tag($this->yystack[$this->yyidx + 0]->minor));
     }
@@ -2290,7 +2290,7 @@ static public $yy_action = array(
 #line 238 "smarty_internal_templateparser.y"
     function yy_r13(){
     if ($this->strip) {
-        $this->_retvalue = new _smarty_text($this, preg_replace('![\t ]*[\r\n]+[\t ]*!', '', $this->yystack[$this->yyidx + 0]->minor));
+        $this->_retvalue = new _smarty_text($this, preg_replace('![\t ]*[\r\n]+[\t ]*!', ' ', $this->yystack[$this->yyidx + 0]->minor));
     } else {
         $this->_retvalue = new _smarty_text($this, $this->yystack[$this->yyidx + 0]->minor);
     }
