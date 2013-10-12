@@ -58,4 +58,12 @@ $lang['%d new photo'] = 'nei Foto';
 $lang['%d new comments'] = 'nei Kommentaren';
 $lang['%d new comment'] = 'neien Kommentar';
 $lang['%d hits'] = 'Opriff';
+$lang['%d rates'] = 'Bewäertungen';
+$lang['(!) This comment requires validation'] = 'Dëse Kommentar muss iwwerpréift ginn';
+$lang['2small'] = 'klinzeg';
+$lang['A comment on your site'] = 'Ee Kommentar op hirer Homepage';
+$lang['About'] = 'Iwwert eis';
+$lang['About Piwigo'] = 'Iwert Piwingo';
+$lang['%d new users'] = 'nei Benotzer';
+$lang['%d rate'] = 'Bewäertung';
 ?>
