@@ -133,7 +133,7 @@ y.callService(
 				<img src="{$previous.derivatives.square->get_url()}" alt="{$previous.TITLE_ESC}">
 			</a>
 		{elseif isset($U_UP)}
-			<a class="navThumb" id="linkFirst" href="{$U_UP}" title="{'Thumbnails'|@translate}" rel="prev">
+			<a class="navThumb" id="linkPrev" href="{$U_UP}" title="{'Thumbnails'|@translate}">
 				<div class="thumbHover">{'First Page'|@translate}<br><br>{'Go back to the album'|@translate}</div>
 			</a>
 		{/if}
@@ -143,7 +143,7 @@ y.callService(
 				<img src="{$next.derivatives.square->get_url()}" alt="{$next.TITLE_ESC}">
 			</a>
 		{elseif isset($U_UP)}
-			<a class="navThumb" id="linkLast"  href="{$U_UP}"  title="{'Thumbnails'|@translate}" rel="next">
+			<a class="navThumb" id="linkNext"  href="{$U_UP}"  title="{'Thumbnails'|@translate}">
 				<div class="thumbHover">{'Last Page'|@translate}<br><br>{'Go back to the album'|@translate}</div>
 			</a>
 		{/if}

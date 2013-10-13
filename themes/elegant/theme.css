@@ -223,7 +223,6 @@ a:hover 		{ border-bottom: none;}
 #imageInfos .navThumb 				{ position: relative; margin: 0; overflow: hidden;}
 #imageInfos #linkPrev 				{ float: left;}
 #imageInfos #linkNext			  	{ float: right;}
-#imageInfos #linkFirst, #imageInfos #linkLast { border-color: #444444;}
 #imageInfos .prevThumbHover 			{ background: transparent url(icon/none.png) no-repeat center center;}
 #imageInfos .prevThumbHover:hover 	{ background: transparent url(icon/img_prev.png) no-repeat center center;}
 #imageInfos .nextThumbHover 			{ background: transparent url(icon/none.png) no-repeat center center;}
