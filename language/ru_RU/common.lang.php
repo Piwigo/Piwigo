@@ -22,7 +22,7 @@
 // +-----------------------------------------------------------------------+
 /*
 Language Name: Русский [RU]
-Version: 2.5.1
+Version: 2.5.2
 Language URI: http://piwigo.org/ext/extension_view.php?eid=434
 Author: Piwigo team
 Author URI: http://piwigo.org
@@ -219,7 +219,7 @@ $lang['Unknown identifier'] = 'Неизвестный идентификатор
 $lang['New password'] = 'Новый пароль';
 $lang['Rate this photo'] = 'Оценить эту фотографию';
 $lang['Next'] = 'Следующая';
-$lang['no rate'] = 'не оценено';
+$lang['no rate'] = 'оценок изображений нет';
 $lang['Photos posted within the last %d day.'] = 'Фотографии, загруженные в течении последнего %d дня.';
 $lang['Photos posted within the last %d days.'] = 'Фотографии, загруженные в течении последних %d дней.';
 $lang['password updated'] = 'пароль изменен';
@@ -287,7 +287,7 @@ $lang['Author: %s'] = 'Автор: %s';
 $lang['Comment: %s'] = 'Комментарий: %s';
 $lang['Comment by %s'] = 'Комментарий от %s';
 $lang['User: %s'] = 'Посетитель: %s';
-$lang['Email: %s'] = 'адрес: %s';
+$lang['Email: %s'] = 'Электронная почта: %s';
 $lang['Admin: %s'] = 'Администратор: %s';
 $lang['Registration of %s'] = 'Регистрация %s';
 $lang['Album: %s'] = 'Альбом: %s';
@@ -347,7 +347,7 @@ $lang['User "%s" has no email address, password reset is not possible'] = 'У п
 $lang['Someone requested that the password be reset for the following user account:'] = 'Поступил запрос на изменение пароля для следуюшей учетной записи:';
 $lang['Username "%s" on gallery %s'] = 'Пользователь "%s" в галерее %s';
 $lang['To reset your password, visit the following address:'] = 'Чтобы сбросить пароль пройдите по ссылке:';
-$lang['If this was a mistake, just ignore this email and nothing will happen.'] = 'Если Вы получили это сообщение по ошибке, просто не предпринимайте никаких действий и ничего не произойдет.';
+$lang['If this was a mistake, just ignore this email and nothing will happen.'] = 'Если Вы получили это сообщение по ошибке, просто не предпринимайте никаких действий, и ничего не произойдет.';
 $lang['Password Reset'] = 'Сброс пароля';
 $lang['Check your email for the confirmation link'] = 'Проверьте Ваш адрес электронной почты, на который выслано сообщение с подтверждающей ссылкой';
 $lang['Invalid key'] = 'Неверный ключ';
@@ -416,4 +416,8 @@ $lang['Username is mandatory'] = 'Имя пользователя являетс
 $lang['mandatory'] = 'обязательно';
 $lang['Website'] = 'Вэб-сайт';
 $lang['Your website URL is invalid'] = 'URL-адрес Вашего сайта неверен';
+$lang['Email'] = 'Электронная почта';
+$lang['First Page'] = 'Первая страница';
+$lang['Go back to the album'] = 'Вернуться в альбом';
+$lang['Last Page'] = 'Последняя страница';
 ?>

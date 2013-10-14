@@ -22,7 +22,7 @@
 // +-----------------------------------------------------------------------+
 /*
 Language Name: Esperanto [EO]
-Version: 2.5.1
+Version: 2.5.2
 Language URI: http://piwigo.org/ext/extension_view.php?eid=596
 Author: Piwigo team
 Author URI: http://piwigo.org
@@ -71,7 +71,7 @@ $lang['Display'] = 'Ekrano';
 $lang['Each listed rule must be satisfied.'] = 'Ĉiuj reguloj devas kongrui';
 $lang['Email address'] = 'Retadreso';
 $lang['Enter your personnal informations'] = 'Entajpu viajn personajn informojn';
-$lang['Error sending email'] = 'Eraro okazis dum sendiĝis la retmesaĝo';
+$lang['Error sending email'] = 'Eraro okazis dum sendo de la retmesaĝo';
 $lang['File name'] = 'Dosiernomo';
 $lang['File'] = 'Dosiero';
 $lang['Filesize'] = 'Dosierpezo';
@@ -414,4 +414,8 @@ $lang['Username is mandatory'] = 'Uzantnomo estas deviga';
 $lang['mandatory'] = 'deviga';
 $lang['Your website URL is invalid'] = 'Via reteja URL ne validas.';
 $lang['Website'] = 'Retejo';
+$lang['Email'] = 'Retmesaĝo';
+$lang['First Page'] = 'Unua paĝo';
+$lang['Go back to the album'] = 'Reiri al la fotaro';
+$lang['Last Page'] = 'Lasta paĝo';
 ?>
