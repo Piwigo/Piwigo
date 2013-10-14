@@ -22,7 +22,7 @@
 // +-----------------------------------------------------------------------+
 /*
 Language Name: Esperanto [EO]
-Version: 2.5.1
+Version: 2.5.2
 Language URI: http://piwigo.org/ext/extension_view.php?eid=596
 Author: Piwigo team
 Author URI: http://piwigo.org
