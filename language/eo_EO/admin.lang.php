@@ -801,4 +801,9 @@ $lang['Page end'] = 'Paĝofino';
 $lang['Pages seen'] = 'Paĝoj viditaj';
 $lang['Panorama'] = 'Panoramo';
 $lang['Parameter'] = 'Agordoj';
+$lang['Parameters'] = 'Parametroj';
+$lang['Path'] = 'Vojo';
+$lang['Pending Comments'] = 'Pritraktataj komentoj';
+$lang['Permalink'] = 'Konstanta ligilo';
+$lang['Piwigo Uploader'] = 'Alŝutilo de Piwigo';
 ?>
