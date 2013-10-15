@@ -23,7 +23,7 @@
 
 /*
 Plugin Name: Multi view
-Version: 2.5.2
+Version: 2.5.3
 Description: Allows administrators to view gallery as guests and/or change the language and/or theme on the fly. Practical to debug changes...
 Plugin URI: http://piwigo.org/ext/extension_view.php?eid=286
 Author: Piwigo team
