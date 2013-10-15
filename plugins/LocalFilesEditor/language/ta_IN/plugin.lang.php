@@ -3,7 +3,7 @@
 // | Piwigo - a PHP based photo gallery                                    |
 // +-----------------------------------------------------------------------+
 // | Copyright(C) 2008-2013 Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery team    http://phpwebgallery.net |
+// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
 // | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
 // +-----------------------------------------------------------------------+
 // | This program is free software; you can redistribute it and/or modify  |
@@ -20,54 +20,13 @@
 // | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
-
-/*
-Plugin Name: LocalFiles Editor
-Version: 2.5.3
-Description: Edit local files from administration panel
-Plugin URI: http://piwigo.org/ext/extension_view.php?eid=144
-Author: Piwigo team
-Author URI: http://piwigo.org
-*/
-
-if (!defined('PHPWG_ROOT_PATH')) die('Hacking attempt!');
-define('LOCALEDIT_PATH' , PHPWG_PLUGINS_PATH . basename(dirname(__FILE__)) . '/');
-
-function localfiles_admin_menu($menu)
-{
-  array_push(
-    $menu,
-    array(
-      'NAME' => 'LocalFiles Editor',
-      'URL' => get_root_url().'admin.php?page=plugin-'.basename(dirname(__FILE__))
-      )
-    );
-  
-  return $menu;
-}
-
-function localfiles_css_link()
-{
-  global $template;
-  
-  $template->set_prefilter('themes', 'localfiles_css_link_prefilter');
-}
-
-function localfiles_css_link_prefilter($content, &$smarty)
-{
-  $search = '#{if isset\(\$theme.admin_uri\)}.*?{/if}#s';
-  $replacement = '
-{if isset($theme.admin_uri)}
-      <br><a href="{$theme.admin_uri}" class="tiptip" title="{\'Configuration\'|@translate}">{\'Configuration\'|@translate}</a>
-      | <a href="admin.php?page=plugin-LocalFilesEditor-css&amp;theme={$theme.id}">CSS</a>
-{else}
-      <br><a href="admin.php?page=plugin-LocalFilesEditor-css&amp;theme={$theme.id}">CSS</a>
-{/if}
+$lang['locfiledit_file_already_exists'] = 'கோப்பு ஏற்கனவே உள்ளது.';
+$lang['locfiledit_edit'] = 'திருத்துக';
+$lang['locfiledit_empty_filename'] = 'நீங்கள் கோப்பின் பெயரை உள்ளிட வேண்டும்.';
+$lang['locfiledit_empty_page'] = 'வெற்று பக்கம்';
+$lang['locfiledit_choose_file'] = 'திருத்த வேண்டும் என்ற கோப்பினை தேர்வுசெய்க
 ';
-
-  return preg_replace($search, $replacement, $content);
-}
-
-add_event_handler('get_admin_plugin_menu_links', 'localfiles_admin_menu');
-add_event_handler('loc_begin_admin', 'localfiles_css_link');
+$lang['locfiledit_bak_loaded1'] = 'மறுபிரதி கோப்பு ஏற்றப்படும்.';
+$lang['locfiledit_bak_loaded2'] = 'அதை மீட்க கோப்பு சேமிக்க வேண்டும்.';
+$lang['locfiledit_cant_save'] = 'தற்போதைய கோப்பு எழுதக்கூடிய அல்ல. கோப்பகம் "local/" எழுதக்கூடிய (chmod) என்று சரிபார்க்கவும்.';
 ?>
