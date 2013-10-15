@@ -24,5 +24,5 @@ $lang['c13y_correction_dbl_email_user'] = 'Eliminar usuários duplicados';
 $lang['c13y_correction_obsolete_plugin'] = 'plugin "%s" foi incluído nesta versão do aplicativo e você deve desinstalá-lo.';
 $lang['c13y_dbl_email_user'] = 'Usuários com o mesmo endereço de email';
 $lang['c13y_obsolete_plugin'] = 'Plugin obsoleto';
-$lang['c13y_upgrade_no_anomaly'] = 'Nenhuma anomalia detectada após a atualização do aplicativo, "Verificar atualizações" plugin foi desativado.';
+$lang['c13y_upgrade_no_anomaly'] = 'Nenhuma anomalia foi detectada após a atualização do aplicativo, o plugin "Verificar atualizações" foi desativado.';
 ?>
