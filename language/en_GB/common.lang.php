@@ -33,6 +33,7 @@ $lang_info['country'] = "Great Britain";
 $lang_info['direction'] = "ltr";
 $lang_info['code'] = "en";
 $lang_info['zero_plural'] = true;
+$lang_info['parent']= "en_UK";
 
 $lang['%d photo is also linked to current tags'] = "%d photo is also linked to current keywords";
 $lang['%d photos are also linked to current tags'] = "%d photos are also linked to current keywords";
