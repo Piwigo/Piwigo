@@ -373,8 +373,8 @@ ksort($month_list);
 
 $template->assign(
     array(
-      'DATE_CREATION_DAY_VALUE' => $day,
-      'DATE_CREATION_MONTH_VALUE' => $month,
+      'DATE_CREATION_DAY_VALUE' => (int)$day,
+      'DATE_CREATION_MONTH_VALUE' => (int)$month,
       'DATE_CREATION_YEAR_VALUE' => $year,
       'DATE_CREATION_TIME_VALUE' => $time,
       'month_list' => $month_list,
