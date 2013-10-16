@@ -34,6 +34,7 @@ $lang_info['country'] = 'Argentina';
 $lang_info['direction'] = 'ltr';
 $lang_info['code'] = 'es';
 $lang_info['zero_plural'] = false;
+$lang_info['parent']= "es_ES";
 
 $lang['%d Kb'] = '%d Kb';
 $lang['%d album updated'] = '%d categoría actualizada';
