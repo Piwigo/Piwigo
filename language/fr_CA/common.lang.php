@@ -34,6 +34,7 @@ $lang_info['country'] = 'Québec';
 $lang_info['direction'] = 'ltr';
 $lang_info['code'] = 'fr';
 $lang_info['zero_plural'] = false;
+$lang_info['parent']= "fr_FR";
 
 $lang['%d Kb'] = '%d Ko';
 $lang['%d album updated'] = '%d catégorie mise à jour';
