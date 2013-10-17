@@ -516,7 +516,6 @@ $lang['Minimum privacy level'] = 'Minimum privaatvlak';
 $lang['default values'] = 'verstekwaardes';
 $lang['default'] = 'verstek';
 $lang['delete album'] = 'verwyder album';
-$lang['Email'] = 'E-pos';
 $lang['errors during synchronization'] = 'foute gedurende sinchronisasie';
 $lang['existing album'] = 'Bestaande album';
 $lang['include child albums'] = 'sluit subalbums in';
@@ -945,4 +944,6 @@ $lang['Type here the name of the new group'] = 'Tik hier die naam van die nuwe g
 $lang['View in gallery'] = 'Wys in gallery';
 $lang['between %.2f and %.2f'] = 'tussen %.2f en %.2f';
 $lang['Purge user cache'] = 'Maak pakstoor leeg';
+$lang['Select at least one tag'] = 'Kies ten minste een etiket';
+$lang['The picture dimensions will be reduced to %dx%d pixels.'] = 'Die beeld se grootte sal verminder word tot %dx%d piksels.';
 ?>
