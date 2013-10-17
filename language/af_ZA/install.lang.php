@@ -64,4 +64,5 @@ $lang['please enter your password again'] = 'tike assblief weer jou wagwoord in'
 $lang['user login given by your host provider'] = 'gebruikersnaam deur diensverskaffer voorsien';
 $lang['user password given by your host provider'] = 'wagwoord deur diensverskaffer voorsien';
 $lang['webmaster login can\'t contain characters \' or "'] = 'gebruikersnaam kan nie die karakter \' en " bevat nie';
+$lang['localhost or other, supplied by your host provider'] = 'localhost of ander, voorsien deur jou diensverskaffer';
 ?>
