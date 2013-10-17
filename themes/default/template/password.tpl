@@ -11,6 +11,8 @@
 
 {if $action ne 'none'}
 <form id="lostPassword" action="{$form_action}?action={$action}{if isset($key)}&amp;key={$key}{/if}" method="post">
+<fieldset>
+	<legend>{'Forgot your password?'|translate}</legend>
   <input type="hidden" name="pwg_token" value="{$PWG_TOKEN}">
 
   {if $action eq 'lost'}
@@ -44,7 +46,7 @@
       <input type="password" name="passwordConf" id="passwordConf" value="">
     </label>
   </p>
-
+</fieldset>
   <p class="bottomButtons"><input type="submit" name="submit" value="{'Submit'|@translate}"></p>
   {/if}
 

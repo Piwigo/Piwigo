@@ -539,8 +539,6 @@ function pwg_mail($to, $args = array())
 
   if (!empty($args['Bcc']))
   {
-    $headers.= 'Bcc: '.implode(',', $args['Bcc'])."\n";
-
     foreach ($args['Bcc'] as $bcc)
     {
       $mail->addBCC($bcc);
@@ -704,14 +702,13 @@ function pwg_mail($to, $args = array())
       $mail->Password = $conf_mail['smtp_password'];
     }
   }
-  
-  if(!$mail->send())
+
+  $ret = $mail->send();
+  if(!$ret)
   {
-    // TODO use standard error
-    echo 'Message could not be sent.';
-    echo 'Mailer Error: ' . $mail->ErrorInfo;
-    exit;
+    trigger_error( 'Mailer Error: ' . $mail->ErrorInfo, E_USER_WARNING);
   }
+  return $ret;
 }
 
 /* DEPRECATED

@@ -136,7 +136,6 @@
 
 /* begin chronology/calendar elements*/
 .calendarViews {
-	display: block;
 	float: right;
 	margin: 5px 5px 0 0;
 }
@@ -147,11 +146,10 @@
 	border: 1px solid gray;
 }
 
-.calItem A { border:0 }
+.calItem A { text-decoration:none }
 
 .calendarCalBar {
 	margin: 10px;
-	text-align: left;
 }
 
 .calCalHead {
@@ -580,14 +578,12 @@ FIELDSET {
 }
 
 .tagSelection {
-	width: 99%;
-	margin: 1em 0;
-	padding: 0;
+	margin: 1em 0 !important;
 }
 
 .tagSelection LI {
 	display:inline-block;
-	width:150px!important;
+	width: 150px;
 	overflow:hidden;
 	white-space: nowrap;
 }
@@ -757,10 +753,6 @@ LEGEND {
   -khtml-border-radius: 3px;
   -webkit-border-radius: 3px;
   border-radius: 3px;
-}
-
-#lostPassword {
-  padding: 1em;
 }
 
 #lostPassword p {
