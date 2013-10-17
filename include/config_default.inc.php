@@ -262,6 +262,8 @@ $conf['smtp_host'] = '';
 $conf['smtp_user'] = '';
 $conf['smtp_password'] = '';
 
+// 'ssl' or 'tls'
+$conf['smtp_secure'] = null;
 
 // check_upgrade_feed: check if there are database upgrade required. Set to
 // true, a message will strongly encourage you to upgrade your database if

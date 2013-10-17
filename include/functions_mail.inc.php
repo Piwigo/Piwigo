@@ -25,29 +25,6 @@
 // |                               functions                               |
 // +-----------------------------------------------------------------------+
 
-
-/**
- * Encodes a string using Q form if required (RFC2045)
- * mail headers MUST contain only US-ASCII characters
- */
-function encode_mime_header($str)
-{
-  $x = preg_match_all('/[\000-\010\013\014\016-\037\177-\377]/', $str, $matches);
-  if ($x==0)
-  {
-    return $str;
-  }
-  // Replace every high ascii, control =, ? and _ characters
-  $str = preg_replace('/([\000-\011\013\014\016-\037\075\077\137\177-\377])/e',
-                  "'='.sprintf('%02X', ord('\\1'))", $str);
-
-  // Replace every spaces to _ (more readable than =20)
-  $str = str_replace(" ", "_", $str);
-
-  global $lang_info;
-  return '=?'.get_pwg_charset().'?Q?'.$str.'?=';
-}
-
 /*
  * Returns the name of the mail sender :
  *
@@ -90,15 +67,14 @@ function get_mail_configuration()
     'smtp_host' => $conf['smtp_host'],
     'smtp_user' => $conf['smtp_user'],
     'smtp_password' => $conf['smtp_password'],
-    'boundary_key' => generate_key(32),
+    'smtp_secure' => $conf['smtp_secure'],
     );
 
   // we have webmaster id among user list, what's his email address ?
   $conf_mail['email_webmaster'] = get_webmaster_mail_address();
 
   // name of the webmaster is the title of the gallery
-  $conf_mail['formated_email_webmaster'] =
-    format_email(get_mail_sender_name(), $conf_mail['email_webmaster']);
+  $conf_mail['formated_email_webmaster'] = format_email(get_mail_sender_name(), $conf_mail['email_webmaster']);
 
   return $conf_mail;
 }
@@ -117,11 +93,7 @@ function format_email($name, $email)
 
   if ($cvt_name!="")
   {
-    $cvt_name = encode_mime_header(
-              '"'
-              .addcslashes($cvt_name,'"')
-              .'"');
-    $cvt_name .= ' ';
+    $cvt_name = '"'.addcslashes($cvt_name,'"').'"'.' ';
   }
 
   if (strpos($cvt_email, '<') === false)
@@ -348,7 +320,7 @@ SELECT
         'subject' => '['.$conf['gallery_title'].'] '.l10n_args($keyargs_subject),
         'content' => $content,
         'content_format' => 'text/plain',
-        'email_format' => 'text/plain',
+        'email_format' => 'text/html',
         )
       );
     
@@ -515,31 +487,71 @@ function pwg_mail($to, $args = array())
     $conf_mail = get_mail_configuration();
   }
 
-  if (empty($args['email_format']))
-  {
-    $args['email_format'] = $conf_mail['default_email_format'];
-  }
+  include_once(PHPWG_ROOT_PATH.'include/class.phpmailer.php');
 
+  $mail = new PHPMailer;
+
+  foreach (explode(',', get_strict_email_list($to)) as $recipient)
+  {
+    $mail->addAddress($recipient);
+  }
+  
+  $mail->WordWrap = 76;
+  $mail->CharSet = 'UTF-8';
+  
   // Compute root_path in order have complete path
   set_make_full_url();
 
   if (empty($args['from']))
   {
-    $args['from'] = $conf_mail['formated_email_webmaster'];
+    $mail->From = get_webmaster_mail_address();
+    $mail->FromName = get_mail_sender_name();
+
+    $mail->addReplyTo(get_webmaster_mail_address(), get_mail_sender_name());
   }
   else
   {
-    $args['from'] = format_email('', $args['from']);
+    $mail->From = $args['from'];
+    $mail->addReplyTo($args['from']);
   }
 
+  // Subject
   if (empty($args['subject']))
   {
     $args['subject'] = 'Piwigo';
   }
-  // Spring cleaning
-  $cvt_subject = trim(preg_replace('#[\n\r]+#s', '', $args['subject']));
-  // Ascii convertion
-  $cvt_subject = encode_mime_header($cvt_subject);
+  
+  $args['subject'] = trim(preg_replace('#[\n\r]+#s', '', $args['subject']));
+
+  $mail->Subject = $args['subject'];
+
+  // Cc
+  if (!empty($args['Cc']))
+  {
+    $mail->addCC($args['Cc']);
+  }
+
+  // Bcc
+  if ($conf_mail['send_bcc_mail_webmaster'])
+  {
+    $args['Bcc'][] = get_webmaster_mail_address();;
+  }
+
+  if (!empty($args['Bcc']))
+  {
+    $headers.= 'Bcc: '.implode(',', $args['Bcc'])."\n";
+
+    foreach ($args['Bcc'] as $bcc)
+    {
+      $mail->addBCC($bcc);
+    }
+  }
+
+  // content
+  if (empty($args['email_format']))
+  {
+    $args['email_format'] = $conf_mail['default_email_format'];
+  }
 
   if (!isset($args['content']))
   {
@@ -551,43 +563,18 @@ function pwg_mail($to, $args = array())
     $args['content_format'] = 'text/plain';
   }
 
-  if ($conf_mail['send_bcc_mail_webmaster'])
-  {
-    $args['Bcc'][] = $conf_mail['formated_email_webmaster'];
-  }
-
   if (empty($args['theme']))
   {
     $args['theme'] = get_default_theme();
   }
 
-  $headers = 'From: '.$args['from']."\n";
-  $headers.= 'Reply-To: '.$args['from']."\n";
-
-  if (!empty($args['Cc']))
-  {
-    $headers.= 'Cc: '.implode(',', $args['Cc'])."\n";
-  }
-
-  if (!empty($args['Bcc']))
-  {
-    $headers.= 'Bcc: '.implode(',', $args['Bcc'])."\n";
-  }
-
-  $headers.= 'Content-Type: multipart/alternative;'."\n";
-  $headers.= '  boundary="---='.$conf_mail['boundary_key'].'";'."\n";
-  $headers.= '  reply-type=original'."\n";
-  $headers.= 'MIME-Version: 1.0'."\n";
-  $headers.= 'X-Mailer: Piwigo Mailer'."\n";
-
-  // List on content-type
   $content_type_list[] = $args['email_format'];
   if (!empty($conf_mail['alternative_email_format']))
   {
     $content_type_list[] = $conf_mail['alternative_email_format'];
   }
 
-  $content = '';
+  $contents = array();
 
   foreach (array_unique($content_type_list) as $content_type)
   {
@@ -606,22 +593,14 @@ function pwg_mail($to, $args = array())
 
       $conf_mail[$cache_key]['theme']->assign(
         array(
-          //Header
-          'BOUNDARY_KEY' => $conf_mail['boundary_key'],
-          'CONTENT_TYPE' => $content_type,
-          'CONTENT_ENCODING' => get_pwg_charset(),
-
-          // Footer
           'GALLERY_URL' => get_gallery_home_url(),
-          'GALLERY_TITLE' =>
-            isset($page['gallery_title']) ?
-                  $page['gallery_title'] : $conf['gallery_title'],
+          'GALLERY_TITLE' => isset($page['gallery_title']) ? $page['gallery_title'] : $conf['gallery_title'],
           'VERSION' => $conf['show_version'] ? PHPWG_VERSION : '',
           'PHPWG_URL' => PHPWG_URL,
-
           'TITLE_MAIL' => urlencode(l10n('A comment on your site')),
           'MAIL' => get_webmaster_mail_address()
-          ));
+          )
+        );
 
       if ($content_type == 'text/html')
       {
@@ -640,21 +619,19 @@ function pwg_mail($to, $args = array())
       }
 
       // what are displayed on the header of each mail ?
-      $conf_mail[$cache_key]['header'] =
-        $conf_mail[$cache_key]['theme']->parse('mail_header', true);
+      $conf_mail[$cache_key]['header'] = $conf_mail[$cache_key]['theme']->parse('mail_header', true);
 
       // what are displayed on the footer of each mail ?
-      $conf_mail[$cache_key]['footer'] =
-        $conf_mail[$cache_key]['theme']->parse('mail_footer', true);
+      $conf_mail[$cache_key]['footer'] = $conf_mail[$cache_key]['theme']->parse('mail_footer', true);
     }
 
     // Header
-    $content.= $conf_mail[$cache_key]['header'];
+    $contents[$content_type] = $conf_mail[$cache_key]['header'];
 
     // Content
     if (($args['content_format'] == 'text/plain') and ($content_type == 'text/html'))
     {
-      $content.= '<p>'.
+      $contents[$content_type].= '<p>'.
                   nl2br(
                     preg_replace("/(http:\/\/)([^\s,]*)/i",
                                  "<a href='$1$2' class='thumblnk'>$1$2</a>",
@@ -664,38 +641,80 @@ function pwg_mail($to, $args = array())
     else if (($args['content_format'] == 'text/html') and ($content_type == 'text/plain'))
     {
       // convert html text to plain text
-      $content.= strip_tags($args['content']);
+      $contents[$content_type].= strip_tags($args['content']);
     }
     else
     {
-      $content.= $args['content'];
+      $contents[$content_type].= $args['content'];
     }
 
     // Footer
-    $content.= $conf_mail[$cache_key]['footer'];
-
-  // Close boundary
-  $content.= "\n".'-----='.$conf_mail['boundary_key'].'--'."\n";
+    $contents[$content_type].= $conf_mail[$cache_key]['footer'];
   }
 
-  //~ // Close boundary
-  //~ $content.= "\n".'-----='.$conf_mail['boundary_key'].'--'."\n";
-
-   // Undo Compute root_path in order have complete path
+  // Undo Compute root_path in order have complete path
   unset_make_full_url();
 
-  return
-    trigger_event('send_mail',
-      false, /* Result */
-      trigger_event('send_mail_to', get_strict_email_list($to)),
-      trigger_event('send_mail_subject', $cvt_subject),
-      trigger_event('send_mail_content', $content),
-      trigger_event('send_mail_headers', $headers),
-      $args
-    );
+  if (isset($contents['text/html']))
+  {
+    $mail->isHTML(true); // Set email format to HTML
+    $mail->Body = $contents['text/html'];
+    
+    if (isset($contents['text/plain']))
+    {
+      $mail->AltBody = $contents['text/plain'];
+    }
+  }
+  else
+  {
+    $mail->isHTML(false);
+    $mail->Body = $contents['text/plain'];
+  }
+
+  if ($conf_mail['use_smtp'])
+  {
+    // now we need to split port number
+    if (strpos($conf_mail['smtp_host'], ':') !== false)
+    {
+      list($smtp_host, $smtp_port) = explode(':', $conf_mail['smtp_host']);
+    }
+    else
+    {
+      $smtp_host = $conf_mail['smtp_host'];
+      $smtp_port = 25;
+    }
+
+    $mail->IsSMTP();
+
+    // enables SMTP debug information (for testing) 2 - debug, 0 - no message
+    $mail->SMTPDebug = 0;
+    
+    $mail->Host = $smtp_host;
+    $mail->Port = $smtp_port;
+
+    if (!empty($conf_mail['smtp_secure']) and in_array($conf_mail['smtp_secure'], array('ssl', 'tls')))
+    {
+      $mail->SMTPSecure = $conf_mail['smtp_secure'];
+    }
+    
+    if (!empty($conf_mail['smtp_user']))
+    {
+      $mail->SMTPAuth = true;
+      $mail->Username = $conf_mail['smtp_user'];
+      $mail->Password = $conf_mail['smtp_password'];
+    }
+  }
+  
+  if(!$mail->send())
+  {
+    // TODO use standard error
+    echo 'Message could not be sent.';
+    echo 'Mailer Error: ' . $mail->ErrorInfo;
+    exit;
+  }
 }
 
-/*
+/* DEPRECATED
  * pwg sendmail
  *
  * @param:
@@ -707,10 +726,12 @@ function pwg_mail($to, $args = array())
  *
  * @return boolean (Ok or not)
  */
-function pwg_send_mail($result, $to, $subject, $content, $headers)
+function pwg_send_mail($result, $to, $subject, $contents, $headers)
 {
   if (!$result)
   {
+    include_once(PHPWG_ROOT_PATH.'include/class.phpmailer.php');
+    
     global $conf_mail;
 
     if ($conf_mail['use_smtp'])
@@ -723,15 +744,54 @@ function pwg_send_mail($result, $to, $subject, $content, $headers)
     }
     else
     {
-      if ($conf_mail['mail_options'])
+      $mail = new PHPMailer;
+
+      $mail->From = 'plg@pigolabs.com';
+      $mail->FromName = 'Pierrick en local';
+      foreach (explode(',', $to) as $recipient)
       {
-        $options = '-f '.$conf_mail['email_webmaster'];
-        return mail($to, $subject, $content, $headers, $options);
+        $mail->addAddress($recipient);  // Add a recipient
+      }
+      // $mail->addReplyTo('plg@piwigo.org', 'Pierrick de Piwigo.org');
+      // $mail->addCC('cc@example.com');
+      // $mail->addBCC('bcc@example.com');
+
+      $mail->WordWrap = 76;                                // Set word wrap to 50 characters
+
+      if (isset($contents['text/html']))
+      {
+        $mail->isHTML(true);                                 // Set email format to HTML
+        $mail->Body = $contents['text/html'];
+
+        if (isset($contents['text/plain']))
+        {
+          $mail->AltBody = $contents['text/plain'];
+        }
       }
       else
       {
-        return mail($to, $subject, $content, $headers);
+        $mail->isHTML(false);
+        $mail->Body = $contents['text/plain'];
       }
+
+      $mail->CharSet = 'UTF-8';
+      $mail->Subject = $subject;
+
+      if(!$mail->send()) {
+        echo 'Message could not be sent.';
+        echo 'Mailer Error: ' . $mail->ErrorInfo;
+        exit;
+      }
+
+      // if ($conf_mail['mail_options'])
+      // {
+      //   $options = '-f '.$conf_mail['email_webmaster'];
+      //   return mail($to, $subject, $content, $headers, $options);
+      // }
+      // else
+      // {
+      //   return mail($to, $subject, $content, $headers);
+      // }
     }
   }
   else
@@ -742,6 +802,7 @@ function pwg_send_mail($result, $to, $subject, $content, $headers)
 
 function move_ccs_rules_to_body($content)
 {
+  return $content;
   // We search all css rules in style tags
   preg_match('#<style>(.*?)</style>#s', $content, $matches);
 
