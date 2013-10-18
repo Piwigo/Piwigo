@@ -37,7 +37,7 @@ $lang['Authorized'] = "Authorised";
 $lang['Caddie management'] = "Collection management";
 $lang['Caddie'] = "Collection";
 $lang['Complementary mail content'] = "Extra mail content";
-$lang['Database synchronization with files'] = "Database synchronization with files";
+$lang['Database synchronization with files'] = 'Database synchronisation with files';
 $lang['Does not represent'] = "Is not thumbnail for";
 $lang['Duplicate selected tags'] = 'Duplicate selected keywords';
 $lang['Edit selected tags'] = "Edit selected keywords";
@@ -121,4 +121,6 @@ $lang['Delete orphan tags'] = 'Delete orphan keywords';
 $lang['Delete selected tags'] = 'Deleted selected keywords';
 $lang['Add tags'] = 'Add keywords';
 $lang['Add a tag'] = 'Add a keyword';
+$lang['%d albums including'] = '%d albums included';
+$lang['%d album including'] = '%d album included';
 ?>
