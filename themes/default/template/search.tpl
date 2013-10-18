@@ -21,7 +21,7 @@
 		<ul class="categoryActions">
 			{combine_script id='core.scripts' load='async' path='themes/default/js/scripts.js'}
 			<li><a href="{$U_HELP}" onclick="popuphelp(this.href); return false;" title="{'Help'|@translate}" class="pwg-state-default pwg-button">
-				<span class="pwg-icon pwg-icon-help">&nbsp;</span><span class="pwg-button-text">{'Help'|@translate}</span>
+				<span class="pwg-icon pwg-icon-help"></span><span class="pwg-button-text">{'Help'|@translate}</span>
 			</a></li>
 		</ul>
 		<h2><a href="{$U_HOME}">{'Home'|@translate}</a>{$LEVEL_SEPARATOR}{'Search'|@translate}</h2>
@@ -33,7 +33,7 @@
 <fieldset>
   <legend>{'Filter'|@translate}</legend>
   <label>{'Search for words'|@translate}
-    <input type="text" style="width: 300px" name="search_allwords" size="30">
+    <input type="text" name="search_allwords" size="35">
   </label>
   <ul>
     <li><label>
@@ -44,7 +44,7 @@
     </label></li>
   </ul>
   <label>{'Search for Author'|@translate}
-    <input type="text" style="width: 300px" name="search_author" size="30">
+    <input type="text" name="search_author" size="35">
   </label>
 </fieldset>
 
@@ -111,7 +111,7 @@
 <fieldset>
   <legend>{'Search in albums'|@translate}</legend>
   <label>{'Albums'|@translate}
-    <select class="categoryList" name="cat[]" multiple="multiple" >
+    <select class="categoryList" name="cat[]" multiple="multiple" size="15">
       {html_options options=$category_options selected=$category_options_selected}
     </select>
   </label>
