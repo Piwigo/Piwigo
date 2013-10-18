@@ -1,8 +1,6 @@
 {footer_script require='jquery.ui.sortable'}{literal}
 jQuery(document).ready(function(){
-  jQuery(".catPos").hide();
   jQuery(".drag_button").show();
-  jQuery("#manualOrder").hide();
   jQuery(".categoryLi").css("cursor","move");
   jQuery(".categoryUl").sortable({
     axis: "y",
@@ -104,7 +102,7 @@ jQuery(document).ready(function(){
 
 <form id="categoryOrdering" action="{$F_ACTION}" method="post">
   <input type="hidden" name="pwg_token" value="{$PWG_TOKEN}">
-  <p id="manualOrder">
+  <p id="manualOrder" style="display:none">
     <input class="submit" name="submitManualOrder" type="submit" value="{'Save manual order'|@translate}">
     {'... or '|@translate} <a href="#" id="cancelManualOrder">{'cancel manual order'|@translate}</a>
   </p>
@@ -119,12 +117,7 @@ jQuery(document).ready(function(){
         <strong><a href="{$category.U_CHILDREN}" title="{'manage sub-albums'|@translate}">{$category.NAME}</a></strong>
       </p>
 
-      <p class="catPos">
-        <label>
-          {'Position'|@translate} :
-          <input type="text" size="4" name="catOrd[{$category.ID}]" maxlength="4" value="{$category.RANK}">
-        </label>
-      </p>
+      <input type="hidden" name="catOrd[{$category.ID}]" value="{$category.RANK}">
 
       <p class="albumActions">
         <a href="{$category.U_EDIT}"><span class="icon-pencil"></span>{'Edit'|@translate}</a>
