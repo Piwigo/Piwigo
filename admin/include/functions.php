@@ -1139,46 +1139,39 @@ SELECT status
   {
     foreach ($categories as $cat_id => $category)
     {
-      switch ($category['status'])
+      if ('public' == $category['status'])
       {
-        case 'public' :
-        {
-          set_cat_status(array($cat_id), 'private');
-          break;
-        }
-        case 'private' :
-        {
-          $subcats = get_subcat_ids(array($cat_id));
+        set_cat_status(array($cat_id), 'private');
+      }
+      
+      $subcats = get_subcat_ids(array($cat_id));
 
-          foreach ($tables as $table => $field)
-          {
-            $query = '
+      foreach ($tables as $table => $field)
+      {
+        $query = '
 SELECT '.$field.'
   FROM '.$table.'
   WHERE cat_id = '.$cat_id.'
 ;';
-            $category_access = array_from_query($query, $field);
+        $category_access = array_from_query($query, $field);
 
-            $query = '
+        $query = '
 SELECT '.$field.'
   FROM '.$table.'
   WHERE cat_id = '.$new_parent.'
 ;';
-            $parent_access = array_from_query($query, $field);
+        $parent_access = array_from_query($query, $field);
 
-            $to_delete = array_diff($parent_access, $category_access);
+        $to_delete = array_diff($category_access, $parent_access);
 
-            if (count($to_delete) > 0)
-            {
-              $query = '
+        if (count($to_delete) > 0)
+        {
+          $query = '
 DELETE FROM '.$table.'
   WHERE '.$field.' IN ('.implode(',', $to_delete).')
     AND cat_id IN ('.implode(',', $subcats).')
 ;';
-              pwg_query($query);
-            }
-          }
-          break;
+          pwg_query($query);
         }
       }
     }
