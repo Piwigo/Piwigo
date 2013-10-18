@@ -200,7 +200,7 @@ var sizeLimit = Math.round({$upload_max_filesize} / 1024); /* in KBytes */
         'level' : jQuery("select[name=level] option:selected").val(),
         'upload_id' : upload_id,
         'session_id' : session_id,
-        'pwg_token' : pwg_token,
+        'pwg_token' : pwg_token
       }
     );
 

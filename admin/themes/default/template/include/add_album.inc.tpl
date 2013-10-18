@@ -6,7 +6,7 @@ jQuery(document).ready(function(){
       {
         recursive: true,
         fullname: true,
-        format: "json",
+        format: "json"
       },
       function(data) {
         jQuery.each(
@@ -44,7 +44,7 @@ jQuery(document).ready(function(){
         url: "ws.php?format=json&method=pwg.categories.add",
         data: {
           parent: jQuery("select[name=category_parent] option:selected").val(),
-          name: jQuery("input[name=category_name]").val(),
+          name: jQuery("input[name=category_name]").val()
         },
         beforeSend: function() {
           jQuery("#albumCreationLoading").show();

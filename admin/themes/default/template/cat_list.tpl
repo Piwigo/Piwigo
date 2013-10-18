@@ -12,7 +12,7 @@ jQuery(document).ready(function(){
       jQuery("#notManualOrder").hide();
       jQuery("#formAutoOrder").hide();
       jQuery("#formCreateAlbum").hide();
-    },
+    }
   });
 
   jQuery("#categoryOrdering").submit(function(){
