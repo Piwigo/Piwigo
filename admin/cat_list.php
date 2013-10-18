@@ -273,6 +273,15 @@ SELECT DISTINCT category_id
 
 $template->assign('categories', array());
 $base_url = get_root_url().'admin.php?page=';
+
+if (isset($_GET['parent_id']))
+{
+  $template->assign(
+    'PARENT_EDIT',
+    $base_url.'album-'.$_GET['parent_id']
+    );
+}
+
 foreach ($categories as $category)
 {
   $cat_list_url = $base_url.'cat_list';
