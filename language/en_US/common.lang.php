@@ -29,11 +29,11 @@ Author URI: http://piwigo.org
 */
 
 $lang_info['language_name'] = "English";
-$lang_info['country'] = "Great Britain";
+$lang_info['country'] = "United States";
 $lang_info['direction'] = "ltr";
 $lang_info['code'] = "en";
 $lang_info['zero_plural'] = true;
-
+$lang_info['parent']= "en_UK";
 
 $lang['%d album updated'] = "%d album updated";
 $lang['%d albums updated'] = "%d albums updated";
