@@ -81,7 +81,7 @@ SELECT id
   $result = pwg_query($query);
   while ($row = pwg_db_fetch_assoc($result))
   {
-    array_push($private_uppercats, $row['id']);
+    $private_uppercats[] = $row['id'];
   }
 
   // retrying to authorize a category which is already authorized may cause
@@ -98,19 +98,16 @@ SELECT cat_id
 
   while ($row = pwg_db_fetch_assoc($result))
   {
-    array_push($authorized_ids, $row['cat_id']);
+    $authorized_ids[] = $row['cat_id'];
   }
 
   $inserts = array();
   $to_autorize_ids = array_diff($private_uppercats, $authorized_ids);
   foreach ($to_autorize_ids as $to_autorize_id)
   {
-    array_push(
-      $inserts,
-      array(
-        'group_id' => $page['group'],
-        'cat_id' => $to_autorize_id
-        )
+    $inserts[] = array(
+      'group_id' => $page['group'],
+      'cat_id' => $to_autorize_id
       );
   }
 
@@ -158,7 +155,7 @@ $result = pwg_query($query_true);
 $authorized_ids = array();
 while ($row = pwg_db_fetch_assoc($result))
 {
-  array_push($authorized_ids, $row['id']);
+  $authorized_ids[] = $row['id'];
 }
 
 $query_false = '

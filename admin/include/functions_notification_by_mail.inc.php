@@ -169,7 +169,7 @@ order by';
     {
       while ($nbm_user = pwg_db_fetch_assoc($result))
       {
-        array_push($data_users, $nbm_user);
+        $data_users[] = $nbm_user;
       }
     }
   }
@@ -285,7 +285,7 @@ function inc_mail_sent_success($nbm_user)
   global $page, $env_nbm;
 
   $env_nbm['sent_mail_count'] += 1;
-  array_push($page['infos'], sprintf($env_nbm['msg_info'], stripslashes($nbm_user['username']), $nbm_user['mail_address']));
+  $page['infos'][] = sprintf($env_nbm['msg_info'], stripslashes($nbm_user['username']), $nbm_user['mail_address']);
 }
 
 /*
@@ -298,7 +298,7 @@ function inc_mail_sent_failed($nbm_user)
   global $page, $env_nbm;
 
   $env_nbm['error_on_mail_count'] += 1;
-  array_push($page['errors'], sprintf($env_nbm['msg_error'], stripslashes($nbm_user['username']), $nbm_user['mail_address']));
+  $page['errors'][] = sprintf($env_nbm['msg_error'], stripslashes($nbm_user['username']), $nbm_user['mail_address']);
 }
 
 /*
@@ -312,16 +312,32 @@ function display_counter_info()
 
   if ($env_nbm['error_on_mail_count'] != 0)
   {
-    array_push($page['errors'], l10n_dec('%d mail was not sent.', '%d mails were not sent.', $env_nbm['error_on_mail_count']));
+    $page['errors'][] = l10n_dec(
+      '%d mail was not sent.', '%d mails were not sent.',
+      $env_nbm['error_on_mail_count']
+      );
+      
     if ($env_nbm['sent_mail_count'] != 0)
-      array_push($page['infos'], l10n_dec('%d mail was sent.', '%d mails were sent.', $env_nbm['sent_mail_count']));
+    {
+      $page['infos'][] = l10n_dec(
+        '%d mail was sent.', '%d mails were sent.',
+        $env_nbm['sent_mail_count']
+        );
+    }
   }
   else
   {
     if ($env_nbm['sent_mail_count'] == 0)
-      array_push($page['infos'], l10n('No mail to send.'));
+    {
+      $page['infos'][] = l10n('No mail to send.');
+    }
     else
-      array_push($page['infos'], l10n_dec('%d mail was sent.', '%d mails were sent.', $env_nbm['sent_mail_count']));
+    {
+      $page['infos'][] = l10n_dec(
+        '%d mail was sent.', '%d mails were sent.',
+        $env_nbm['sent_mail_count']
+        );
+    }
   }
 }
 
@@ -394,12 +410,12 @@ function do_subscribe_unsubscribe_notification_by_mail($is_admin_request, $is_su
       if (check_sendmail_timeout())
       {
         // Stop fill list on 'send', if the quota is override
-        array_push($page['errors'], $msg_break_timeout);
+        $page['errors'][] = $msg_break_timeout;
         break;
       }
 
       // Fill return list
-      array_push($check_key_treated, $nbm_user['check_key']);
+      $check_key_treated[] = $nbm_user['check_key'];
 
       $do_update = true;
       if ($nbm_user['mail_address'] != '')
@@ -453,22 +469,17 @@ function do_subscribe_unsubscribe_notification_by_mail($is_admin_request, $is_su
 
       if ($do_update)
       {
-        array_push
-        (
-          $updates,
-          array
-          (
-            'check_key' => $nbm_user['check_key'],
-            'enabled' => $enabled_value
-          )
-        );
+        $updates[] = array(
+          'check_key' => $nbm_user['check_key'],
+          'enabled' => $enabled_value
+          );
         $updated_data_count += 1;
-        array_push($page['infos'], sprintf($msg_info, stripslashes($nbm_user['username']), $nbm_user['mail_address']));
+        $page['infos'][] = sprintf($msg_info, stripslashes($nbm_user['username']), $nbm_user['mail_address']);
       }
       else
       {
         $error_on_updated_data_count += 1;
-        array_push($page['errors'], sprintf($msg_error, stripslashes($nbm_user['username']), $nbm_user['mail_address']));
+        $page['errors'][] = sprintf($msg_error, stripslashes($nbm_user['username']), $nbm_user['mail_address']);
       }
 
     }
@@ -489,13 +500,17 @@ function do_subscribe_unsubscribe_notification_by_mail($is_admin_request, $is_su
 
   }
 
-  array_push($page['infos'], l10n_dec('%d user was updated.', '%d users were updated.', $updated_data_count));
+  $page['infos'][] = l10n_dec(
+    '%d user was updated.', '%d users were updated.',
+    $updated_data_count
+    );
+  
   if ($error_on_updated_data_count != 0)
   {
-    array_push($page['errors'],
-      l10n_dec('%d user was not updated.',
-               '%d users were not updated.',
-               $error_on_updated_data_count));
+    $page['errors'][] = l10n_dec(
+      '%d user was not updated.', '%d users were not updated.',
+      $error_on_updated_data_count
+      );
   }
 
   unset_make_full_url();

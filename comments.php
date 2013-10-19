@@ -446,8 +446,8 @@ $query.= '
 $result = pwg_query($query);
 while ($row = pwg_db_fetch_assoc($result))
 {
-  array_push($comments, $row);
-  array_push($element_ids, $row['image_id']);
+  $comments[] = $row;
+  $element_ids[] = $row['image_id'];
 }
 
 if (count($comments) > 0)

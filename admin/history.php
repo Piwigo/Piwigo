@@ -164,7 +164,7 @@ INSERT INTO '.SEARCH_TABLE.'
   }
   else
   {
-    array_push($page['errors'], l10n('Empty query. No criteria has been entered.'));
+    $page['errors'][] = l10n('Empty query. No criteria has been entered.');
   }
 }
 

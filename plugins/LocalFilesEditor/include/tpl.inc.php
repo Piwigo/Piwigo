@@ -39,7 +39,7 @@ if (isset($_POST['create_tpl']))
   $filename = $_POST['tpl_name'];
   if (empty($filename))
   {
-    array_push($page['errors'], l10n('locfiledit_empty_filename'));
+    $page['errors'][] = l10n('locfiledit_empty_filename');
   }
   if (get_extension($filename) != 'tpl')
   {
@@ -47,15 +47,15 @@ if (isset($_POST['create_tpl']))
   }
   if (!preg_match('/^[a-zA-Z0-9-_.]+$/', $filename))
   {
-    array_push($page['errors'], l10n('locfiledit_filename_error'));
+    $page['errors'][] = l10n('locfiledit_filename_error');
   }
   if (is_numeric($_POST['tpl_model']) and $_POST['tpl_model'] != '0')
   {
-    array_push($page['errors'], l10n('locfiledit_model_error'));
+    $page['errors'][] = l10n('locfiledit_model_error');
   }
   if (file_exists($_POST['tpl_parent'] . '/' . $filename))
   {
-    array_push($page['errors'], l10n('locfiledit_file_already_exists'));
+    $page['errors'][] = l10n('locfiledit_file_already_exists');
   }
   if (!empty($page['errors']))
   {

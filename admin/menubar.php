@@ -148,7 +148,7 @@ UPDATE '.CONFIG_TABLE.'
   ';
   pwg_query($query);
 
-  array_push($page['infos'], l10n('Order of menubar items has been updated successfully.'));
+  $page['infos'][] = l10n('Order of menubar items has been updated successfully.');
 }
 
 make_consecutive( $mb_conf );

@@ -73,7 +73,7 @@ SHOW TABLES
   {
     if (preg_match('/^'.PREFIX_TABLE.'/', $row[0]))
     {
-      array_push($tables, $row[0]);
+      $tables[] = $row[0];
     }
   }
 
@@ -100,7 +100,7 @@ DESC '.$table.'
 
     while ($row = pwg_db_fetch_row($result))
     {
-      array_push($columns_of[$table], $row[0]);
+      $columns_of[$table][] = $row[0];
     }
   }
 
@@ -389,15 +389,12 @@ if ((isset($_POST['submit']) or isset($_GET['now']))
 
       if (!@file_put_contents($config_file, $config_file_contents))
       {
-        array_push(
-          $page['infos'],
-          sprintf(
-            l10n('In <i>%s</i>, before <b>?></b>, insert:'),
-            PWG_LOCAL_DIR.'config/database.inc.php'
-            )
-          .'<p><textarea rows="4" cols="40">'
-          .implode("\r\n" , $mysql_changes).'</textarea></p>'
-          );
+        $page['infos'][] = l10n(
+          'In <i>%s</i>, before <b>?></b>, insert:',
+          PWG_LOCAL_DIR.'config/database.inc.php'
+          )
+        .'<p><textarea rows="4" cols="40">'
+        .implode("\r\n" , $mysql_changes).'</textarea></p>';
       }
     }
 
@@ -430,9 +427,7 @@ if ((isset($_POST['submit']) or isset($_GET['now']))
         )
       );
 
-    array_push($page['infos'],
-      l10n('Perform a maintenance check in [Administration>Tools>Maintenance] if you encounter any problem.')
-      );
+    $page['infos'][] = l10n('Perform a maintenance check in [Administration>Tools>Maintenance] if you encounter any problem.');
 
     // Save $page['infos'] in order to restore after maintenance actions
     $page['infos_sav'] = $page['infos'];

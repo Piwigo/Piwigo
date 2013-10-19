@@ -119,7 +119,7 @@ SELECT DISTINCT u.'.$conf['user_fields']['id'].' AS id,
     $user = $row;
     $user['groups'] = array();
 
-    array_push($users, $user);
+    $users[] = $user;
   }
 
   // add group lists
@@ -140,10 +140,7 @@ SELECT user_id, group_id
     $result = pwg_query($query);
     while ($row = pwg_db_fetch_assoc($result))
     {
-      array_push(
-        $users[$user_nums[$row['user_id']]]['groups'],
-        $row['group_id']
-        );
+      $users[ $user_nums[ $row['user_id'] ] ]['groups'][] = $row['group_id'];
     }
   }
 
@@ -191,19 +188,19 @@ if ($conf['double_password_type_in_admin'] == true)
   {
     if(empty($_POST['password']))
     {
-      array_push($page['errors'], l10n('Password is missing. Please enter the password.'));
+      $page['errors'][] = l10n('Password is missing. Please enter the password.');
     }
     else if(empty($_POST['password_conf']))
     {
-      array_push($page['errors'], l10n('Password confirmation is missing. Please confirm the chosen password.'));
+      $page['errors'][] = l10n('Password confirmation is missing. Please confirm the chosen password.');
     }
     else if(empty($_POST['email']))
     {
-      array_push($page['errors'], l10n('Email address is missing. Please specify an email address.'));
+      $page['errors'][] = l10n('Email address is missing. Please specify an email address.');
     }
     else if ($_POST['password'] != $_POST['password_conf'])
     {
-      array_push($page['errors'], l10n('The passwords do not match'));
+      $page['errors'][] = l10n('The passwords do not match');
     }
     else
     {
@@ -212,13 +209,7 @@ if ($conf['double_password_type_in_admin'] == true)
 
       if (count($page['errors']) == 0)
       {
-        array_push(
-          $page['infos'],
-          l10n(
-            'user "%s" added',
-            $_POST['login']
-          )
-        );
+        $page['infos'][] = l10n('user "%s" added', $_POST['login']);
       }
     }
   }
@@ -232,13 +223,7 @@ else if ($conf['double_password_type_in_admin'] == false)
 
     if (count($page['errors']) == 0)
     {
-      array_push(
-        $page['infos'],
-        l10n(
-          'user "%s" added',
-          stripslashes($_POST['login'])
-          )
-        );
+      $page['infos'][] = l10n('user "%s" added', stripslashes($_POST['login']));
     }
   }
 }
@@ -295,7 +280,7 @@ if (isset($_POST['delete']) or isset($_POST['pref_submit']))
     {
       foreach($page['filtered_users'] as $local_user)
       {
-        array_push($collection, $local_user['id']);
+        $collection[] = $local_user['id'];
       }
       break;
     }
@@ -311,7 +296,7 @@ if (isset($_POST['delete']) or isset($_POST['pref_submit']))
 
   if (count($collection) == 0)
   {
-    array_push($page['errors'], l10n('Select at least one user'));
+    $page['errors'][] = l10n('Select at least one user');
   }
 }
 
@@ -322,20 +307,20 @@ if (isset($_POST['delete']) and count($collection) > 0)
 {
   if (in_array($conf['guest_id'], $collection))
   {
-    array_push($page['errors'], l10n('Guest cannot be deleted'));
+    $page['errors'][] = l10n('Guest cannot be deleted');
   }
   if (($conf['guest_id'] != $conf['default_user_id']) and
       in_array($conf['default_user_id'], $collection))
   {
-    array_push($page['errors'], l10n('Default user cannot be deleted'));
+    $page['errors'][] = l10n('Default user cannot be deleted');
   }
   if (in_array($conf['webmaster_id'], $collection))
   {
-    array_push($page['errors'], l10n('Webmaster cannot be deleted'));
+    $page['errors'][] = l10n('Webmaster cannot be deleted');
   }
   if (in_array($user['id'], $collection))
   {
-    array_push($page['errors'], l10n('You cannot delete your account'));
+    $page['errors'][] = l10n('You cannot delete your account');
   }
 
   if (count($page['errors']) == 0)
@@ -346,13 +331,12 @@ if (isset($_POST['delete']) and count($collection) > 0)
       {
         delete_user($user_id);
       }
-      array_push(
-        $page['infos'],
-        l10n_dec(
-          '%d user deleted', '%d users deleted',
-          count($collection)
-          )
+      
+      $page['infos'][] = l10n_dec(
+        '%d user deleted', '%d users deleted',
+        count($collection)
         );
+      
       foreach ($page['filtered_users'] as $filter_key => $filter_user)
       {
         if (in_array($filter_user['id'], $collection))
@@ -363,7 +347,7 @@ if (isset($_POST['delete']) and count($collection) > 0)
     }
     else
     {
-      array_push($page['errors'], l10n('You need to confirm deletion'));
+      $page['errors'][] = l10n('You need to confirm deletion');
     }
   }
 }
@@ -391,9 +375,10 @@ SELECT user_id
     {
       foreach ($associable as $item)
       {
-        array_push($datas,
-                   array('group_id'=>$_POST['associate'],
-                         'user_id'=>$item));
+        $datas[] = array(
+          'group_id' => $_POST['associate'],
+          'user_id' => $item
+          );
       }
 
       mass_inserts(USER_GROUP_TABLE,
@@ -426,8 +411,8 @@ DELETE FROM '.USER_GROUP_TABLE.'
   
   if ($conf['activate_comments'])
   {
-    array_push($formfields, 'show_nb_comments');
-    array_push($true_false_fields, 'show_nb_comments');
+    $formfields[] = 'show_nb_comments';
+    $true_false_fields[] = 'show_nb_comments';
   }
 
   foreach ($formfields as $formfield)
@@ -444,7 +429,7 @@ DELETE FROM '.USER_GROUP_TABLE.'
 
     if ($_POST[$test] != 'leave')
     {
-      array_push($dbfields['update'], $formfield);
+      $dbfields['update'][] = $formfield;
     }
   }
 
@@ -480,7 +465,7 @@ DELETE FROM '.USER_GROUP_TABLE.'
           $data['level'] = 8;
           if (!in_array('level', $dbfields['update']))
           {
-            array_push($dbfields['update'], 'level');
+            $dbfields['update'][] = 'level';
           }
         }
       }
@@ -507,7 +492,7 @@ DELETE FROM '.USER_GROUP_TABLE.'
         }
       }
 
-      array_push($datas, $data);
+      $datas[] = $data;
     }
 
     mass_updates(USER_INFOS_TABLE, $dbfields, $datas);

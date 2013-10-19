@@ -149,8 +149,7 @@ UPDATE '.CONFIG_TABLE.'
 WHERE param = \'extents_for_templates\';';
   if (pwg_query($query))
   {
-    array_push($page['infos'], 
-      l10n('Templates configuration has been recorded.'));
+    $page['infos'][] = l10n('Templates configuration has been recorded.');
   }
 }
 

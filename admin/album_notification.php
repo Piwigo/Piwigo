@@ -113,13 +113,7 @@ SELECT
 ;';
   list($group_name) = pwg_db_fetch_row(pwg_query($query));
 
-  array_push(
-    $page['infos'],
-    l10n(
-      'An information email was sent to group "%s"',
-      $group_name
-      )
-    );
+  $page['infos'][] = l10n('An information email was sent to group "%s"', $group_name);
 }
 
 // +-----------------------------------------------------------------------+

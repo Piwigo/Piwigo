@@ -212,7 +212,7 @@ WHERE id IN (' . implode(',',$page['items']) .')';
             $chronology_date = array();
             if ( isset($page['chronology_date'][0]) )
             {
-              array_push($chronology_date, $page['chronology_date'][0]);
+              $chronology_date[] = $page['chronology_date'][0];
             }
           }
           else

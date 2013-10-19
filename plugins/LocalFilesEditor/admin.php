@@ -56,9 +56,8 @@ include_once(LOCALEDIT_PATH.'include/'.$page['tab'].'.inc.php');
 if (isset($_POST['restore']))
 {
   $content_file = file_get_contents(get_bak_file($edited_file));
-  array_push($page['infos'],
-    l10n('locfiledit_bak_loaded1'),
-    l10n('locfiledit_bak_loaded2'));
+  $page['infos'][] = l10n('locfiledit_bak_loaded1'),
+  $page['infos'][] = l10n('locfiledit_bak_loaded2');
 }
 
 // +-----------------------------------------------------------------------+
@@ -70,7 +69,7 @@ if (isset($_POST['submit']))
 
   if (!is_webmaster())
   {
-    array_push($page['errors'], l10n('locfiledit_webmaster_only'));
+    $page['errors'][] = l10n('locfiledit_webmaster_only');
   }
   else
   {
@@ -81,7 +80,7 @@ if (isset($_POST['submit']))
     }
     if ($content_file === false)
     {
-      array_push($page['errors'], l10n('locfiledit_syntax_error'));
+      $page['errors'][] = l10n('locfiledit_syntax_error');
     }
     else
     {
@@ -92,7 +91,7 @@ if (isset($_POST['submit']))
       if (file_exists($edited_file))
       {
         @copy($edited_file, get_bak_file($edited_file));
-        array_push($page['infos'], l10n('locfiledit_saved_bak', substr(get_bak_file($edited_file), 2)));
+        $page['infos'][] = l10n('locfiledit_saved_bak', substr(get_bak_file($edited_file), 2));
       }
       
       if ($file = @fopen($edited_file , "w"))
@@ -104,7 +103,7 @@ if (isset($_POST['submit']))
       }
       else
       {
-        array_push($page['errors'], l10n('locfiledit_cant_save'));
+        $page['errors'][] = l10n('locfiledit_cant_save');
       }
     }
   }

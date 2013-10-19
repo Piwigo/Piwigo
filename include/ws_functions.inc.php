@@ -401,7 +401,7 @@ SELECT id
   $datas = array();
   foreach ( array_from_query($query, 'id') as $id )
   {
-    array_push($datas, array('element_id'=>$id, 'user_id'=>$user['id']) );
+    $datas[] = array('element_id'=>$id, 'user_id'=>$user['id']);
   }
   if (count($datas))
   {
@@ -793,7 +793,7 @@ SELECT id, path, representative_ext, level
 
             if (isset($image_id) and !in_array($image_id, $image_ids))
             {
-              array_push($new_image_ids, $image_id);
+              $new_image_ids[] = $image_id;
             }
 
             if ($conf['representative_cache_on_level'])
@@ -832,13 +832,10 @@ SELECT id, path, representative_ext
 
     foreach ($user_representative_updates_for as $cat_id => $image_id)
     {
-      array_push(
-        $updates,
-        array(
-          'user_id' => $user['id'],
-          'cat_id' => $cat_id,
-          'user_representative_picture_id' => $image_id,
-          )
+      $updates[] = array(
+        'user_id' => $user['id'],
+        'cat_id' => $cat_id,
+        'user_representative_picture_id' => $image_id,
         );
     }
 
@@ -994,13 +991,13 @@ SELECT DISTINCT image_id
   switch ($comment_action)
   {
     case 'reject':
-      array_push($infos, l10n('Your comment has NOT been registered because it did not pass the validation rules') );
+      $infos[] = l10n('Your comment has NOT been registered because it did not pass the validation rules');
       return new PwgError(403, implode("; ", $infos) );
     case 'validate':
     case 'moderate':
       $ret = array(
-          'id' => $comm['id'],
-          'validation' => $comment_action=='validate',
+        'id' => $comm['id'],
+        'validation' => $comment_action=='validate',
         );
       return array( 'comment' =>  new PwgNamedStruct($ret) );
     default:
@@ -1071,7 +1068,7 @@ SELECT id, name, permalink, uppercats, global_rank, commentable
           )
       );
     $row['id']=(int)$row['id'];
-    array_push($related_categories, $row);
+    $related_categories[] = $row;
   }
   usort($related_categories, 'global_rank_compare');
   if ( empty($related_categories) )
@@ -1544,7 +1541,7 @@ function merge_chunks($output_filepath, $original_sum, $type)
       if (preg_match($pattern, $file))
       {
         ws_logfile($file);
-        array_push($chunks, $upload_dir.'/'.$file);
+        $chunks[] = $upload_dir.'/'.$file;
       }
     }
     closedir($handle);
@@ -1601,7 +1598,7 @@ function remove_chunks($original_sum, $type)
     {
       if (preg_match($pattern, $file))
       {
-        array_push($chunks, $upload_dir.'/'.$file);
+        $chunks[] = $upload_dir.'/'.$file;
       }
     }
     closedir($handle);
@@ -1958,8 +1955,7 @@ SELECT *
     {
       foreach ($params['tags'] as $tag_name)
       {
-        $tag_id = tag_id_from_tag_name($tag_name);
-        array_push($tag_ids, $tag_id);
+        $tag_ids[] = tag_id_from_tag_name($tag_name);
       }
     }
     else
@@ -1967,8 +1963,7 @@ SELECT *
       $tag_names = preg_split('~(?<!\\\),~', $params['tags']);
       foreach ($tag_names as $tag_name)
       {
-        $tag_id = tag_id_from_tag_name(preg_replace('#\\\\*,#', ',', $tag_name));
-        array_push($tag_ids, $tag_id);
+        $tag_ids[] = tag_id_from_tag_name(preg_replace('#\\\\*,#', ',', $tag_name));
       }
     }
 
@@ -2662,7 +2657,7 @@ function ws_images_delete($params, $service)
   {
     if ($image_id > 0)
     {
-      array_push($image_ids, $image_id);
+      $image_ids[] = $image_id;
     }
   }
 
@@ -2694,7 +2689,7 @@ function ws_add_image_category_relations($image_id, $categories_string, $replace
       continue;
     }
 
-    array_push($cat_ids, $cat_id);
+    $cat_ids[] = $cat_id;
 
     if (!isset($rank))
     {
@@ -2803,13 +2798,10 @@ SELECT
 
   foreach ($new_cat_ids as $cat_id)
   {
-    array_push(
-      $inserts,
-      array(
-        'image_id' => $image_id,
-        'category_id' => $cat_id,
-        'rank' => $rank_on_category[$cat_id],
-        )
+    $inserts[] = array(
+      'image_id' => $image_id,
+      'category_id' => $cat_id,
+      'rank' => $rank_on_category[$cat_id],
       );
   }
 
@@ -2995,7 +2987,7 @@ function ws_categories_delete($params, $service)
   {
     if ($category_id > 0)
     {
-      array_push($category_ids, $category_id);
+      $category_ids[] = $category_id;
     }
   }
 
@@ -3053,7 +3045,7 @@ function ws_categories_move($params, $service)
   {
     if ($category_id > 0)
     {
-      array_push($category_ids, $category_id);
+      $category_ids[] = $category_id;
     }
   }
 
@@ -3420,7 +3412,7 @@ function ws_extensions_ignoreupdate($params, $service)
   // Add or remove extension from ignore list
   if (!in_array($params['id'], $conf['updates_ignored'][$params['type']]))
   {
-    array_push($conf['updates_ignored'][$params['type']], $params['id']);
+    $conf['updates_ignored'][ $params['type'] ][] = $params['id'];
   }
   conf_update_param('updates_ignored', pwg_db_real_escape_string(serialize($conf['updates_ignored'])));
   unset($_SESSION['extensions_need_update']);

@@ -66,7 +66,7 @@ class PwgXmlWriter
     }
     $this->_output( '<'.$name );
     $this->_lastTagOpen = true;
-    array_push( $this->_elementStack, $name);
+    $this->_elementStack[] = $name;
   }
 
   function end_element($x)

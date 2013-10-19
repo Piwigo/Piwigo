@@ -103,7 +103,7 @@ SELECT id, date_creation
       $data['date_creation'] = $row['date_creation'];
     }
 
-    array_push($datas, $data);
+    $datas[] = $data;
 
     // tags management
     $tag_ids = array();
@@ -123,7 +123,7 @@ SELECT id, date_creation
     $datas
     );
 
-  array_push($page['infos'], l10n('Photo informations updated'));
+  $page['infos'][] = l10n('Photo informations updated');
 }
 
 // +-----------------------------------------------------------------------+
@@ -232,7 +232,7 @@ SELECT *
 
   while ($row = pwg_db_fetch_assoc($result))
   {
-    array_push($element_ids, $row['id']);
+    $element_ids[] = $row['id'];
 
     $src_image = new SrcImage($row);
 

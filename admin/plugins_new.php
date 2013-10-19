@@ -39,7 +39,7 @@ if (isset($_GET['revision']) and isset($_GET['extension']))
 {
   if (!is_webmaster())
   {
-    array_push($page['errors'], l10n('Webmaster status is required.'));
+    $page['errors'][] = l10n('Webmaster status is required.');
   }
   else
   {
@@ -57,27 +57,25 @@ if (isset($_GET['installstatus']))
   switch ($_GET['installstatus'])
   {
     case 'ok':
-      array_push($page['infos'],
-        l10n('Plugin has been successfully copied'),
-        l10n('You might go to plugin list to install and activate it.'));
+      $page['infos'][] = l10n('Plugin has been successfully copied');
+      $page['infos'][] = l10n('You might go to plugin list to install and activate it.');
       break;
 
     case 'temp_path_error':
-      array_push($page['errors'], l10n('Can\'t create temporary file.'));
+      $page['errors'][] = l10n('Can\'t create temporary file.');
       break;
 
     case 'dl_archive_error':
-      array_push($page['errors'], l10n('Can\'t download archive.'));
+      $page['errors'][] = l10n('Can\'t download archive.');
       break;
 
     case 'archive_error':
-      array_push($page['errors'], l10n('Can\'t read or extract archive.'));
+      $page['errors'][] = l10n('Can\'t read or extract archive.');
       break;
 
     default:
-      array_push($page['errors'],
-        l10n('An error occured during extraction (%s).', htmlspecialchars($_GET['installstatus'])),
-        l10n('Please check "plugins" folder and sub-folders permissions (CHMOD).'));
+      $page['errors'][] = l10n('An error occured during extraction (%s).', htmlspecialchars($_GET['installstatus']));
+      $page['errors'][] = l10n('Please check "plugins" folder and sub-folders permissions (CHMOD).');
   }  
 }
 
@@ -135,7 +133,7 @@ if ($plugins->get_server_plugins(true))
 }
 else
 {
-  array_push($page['errors'], l10n('Can\'t connect to server.'));
+  $page['errors'][] = l10n('Can\'t connect to server.');
 }
 
 $template->assign_var_from_handle('ADMIN_CONTENT', 'plugins');

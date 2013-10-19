@@ -64,13 +64,10 @@ function save_images_order($category_id, $images)
   $datas = array();
   foreach ($images as $id)
   {
-    array_push(
-      $datas,
-      array(
-        'category_id' => $category_id,
-        'image_id' => $id,
-        'rank' => ++$current_rank,
-        )
+    $datas[] = array(
+      'category_id' => $category_id,
+      'image_id' => $id,
+      'rank' => ++$current_rank,
       );
   }
   $fields = array(
@@ -98,10 +95,7 @@ if (isset($_POST['submit']))
       array_keys($_POST['rank_of_image'])
       );
 
-    array_push(
-      $page['infos'],
-      l10n('Images manual order was saved')
-      );
+    $page['infos'][] = l10n('Images manual order was saved');
   }
 
   if (!empty($_POST['image_order_choice'])
@@ -143,7 +137,7 @@ UPDATE '.CATEGORIES_TABLE.'
     pwg_query($query);
   }
 
-  array_push($page['infos'], l10n('Your configuration settings are saved'));
+  $page['infos'][] = l10n('Your configuration settings are saved');
 }
 
 // +-----------------------------------------------------------------------+

@@ -293,7 +293,7 @@ SELECT
     {
       if (!empty($admin['mail_address']))
       {
-        array_push($admins, format_email($admin['username'], $admin['mail_address']));
+        $admins[] = format_email($admin['username'], $admin['mail_address']);
       }
     }
   }
@@ -419,7 +419,7 @@ WHERE
         {
           if (!empty($row['mail_address']))
           {
-            array_push($Bcc, format_email(stripslashes($row['username']), $row['mail_address']));
+            $Bcc[] = format_email(stripslashes($row['username']), $row['mail_address']);
           }
         }
 

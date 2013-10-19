@@ -34,12 +34,9 @@ if (isset($_GET['processed']))
   // exceeded the post_max_size (but not the upload_max_size)
   if (!isset($_POST['submit_upload']))
   {
-    array_push(
-      $page['errors'],
-      sprintf(
-        l10n('The uploaded files exceed the post_max_size directive in php.ini: %sB'),
-        ini_get('post_max_size')
-        )
+    $page['errors'][] = l10n(
+      'The uploaded files exceed the post_max_size directive in php.ini: %sB',
+      ini_get('post_max_size')
       );
   }
   else
@@ -51,7 +48,7 @@ if (isset($_GET['processed']))
   {
     foreach ($_POST['onUploadError'] as $error)
     {
-      array_push($page['errors'], $error);
+      $page['errors'][] = $error;
     }
   }
     
@@ -97,14 +94,11 @@ if (isset($_GET['processed']))
 
             if (is_valid_image_extension(pathinfo($node['filename'], PATHINFO_EXTENSION)))
             {
-              array_push($indexes_to_extract, $node['index']);
+              $indexes_to_extract[] = $node['index'];
               
-              array_push(
-                $images_to_add,
-                array(
-                  'source_filepath' => $upload_dir.'/'.$temporary_archive_name.'/'.$node['filename'],
-                  'original_filename' => basename($node['filename']),
-                  )
+              $images_to_add[] = array(
+                'source_filepath' => $upload_dir.'/'.$temporary_archive_name.'/'.$node['filename'],
+                'original_filename' => basename($node['filename']),
                 );
             }
           }
@@ -121,12 +115,9 @@ if (isset($_GET['processed']))
       }
       elseif (is_valid_image_extension($extension))
       {
-        array_push(
-          $images_to_add,
-          array(
-            'source_filepath' => $_FILES['image_upload']['tmp_name'][$idx],
-            'original_filename' => $_FILES['image_upload']['name'][$idx],
-            )
+        $images_to_add[] = array(
+          'source_filepath' => $_FILES['image_upload']['tmp_name'][$idx],
+          'original_filename' => $_FILES['image_upload']['name'][$idx],
           );
       }
 
@@ -139,7 +130,7 @@ if (isset($_GET['processed']))
           $_POST['level']
           );
 
-        array_push($image_ids, $image_id);
+        $image_ids[] = $image_id;
 
         // TODO: if $image_id is not an integer, something went wrong
       }
@@ -148,13 +139,10 @@ if (isset($_GET['processed']))
     {
       $error_message = file_upload_error_message($error);
       
-      array_push(
-        $page['errors'],
-        sprintf(
-          l10n('Error on file "%s" : %s'),
-          $_FILES['image_upload']['name'][$idx],
-          $error_message
-          )
+      $page['errors'][] = l10n(
+        'Error on file "%s" : %s',
+        $_FILES['image_upload']['name'][$idx],
+        $error_message
         );
     }
   }
@@ -172,7 +160,7 @@ if (isset($_GET['processed']))
     {
       foreach ($_SESSION['uploads_error'][ $_POST['upload_id'] ] as $error)
       {
-        array_push($page['errors'], $error);
+        $page['errors'][] = $error;
       }
     }
 
@@ -216,29 +204,18 @@ SELECT
 
     $thumbnail['link'] = get_root_url().'admin.php?page=photo-'.$image_id.'&amp;cat_id='.$category_id;
 
-    array_push($page['thumbnails'], $thumbnail);
+    $page['thumbnails'][] = $thumbnail;
   }
   
   if (!empty($page['thumbnails']))
   {
-    array_push(
-      $page['infos'],
-      sprintf(
-        l10n('%d photos uploaded'),
-        count($page['thumbnails'])
-        )
-      );
+    $page['infos'][] = l10n('%d photos uploaded', count($page['thumbnails']));
     
     if (0 != $_POST['level'])
     {
-      array_push(
-        $page['infos'],
-        sprintf(
-          l10n('Privacy level set to "%s"'),
-          l10n(
-            sprintf('Level %d', $_POST['level'])
-            )
-          )
+      $page['infos'][] = l10n(
+        'Privacy level set to "%s"',
+        l10n(sprintf('Level %d', $_POST['level']))
         );
     }
 
@@ -252,13 +229,10 @@ SELECT
     $category_name = get_cat_display_name_from_id($category_id, 'admin.php?page=album-');
     
     // information
-    array_push(
-      $page['infos'],
-      sprintf(
-        l10n('Album "%s" now contains %d photos'),
-        '<em>'.$category_name.'</em>',
-        $count
-        )
+    $page['infos'][] = l10n(
+      'Album "%s" now contains %d photos',
+      '<em>'.$category_name.'</em>',
+      $count
       );
     
     $page['batch_link'] = PHOTOS_ADD_BASE_URL.'&batch='.implode(',', $image_ids);

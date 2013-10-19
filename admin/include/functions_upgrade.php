@@ -93,7 +93,7 @@ AND id NOT IN (\'' . implode('\',\'', $standard_plugins) . '\')
   $plugins = array();
   while ($row = pwg_db_fetch_assoc($result))
   {
-    array_push($plugins, $row['id']);
+    $plugins[] = $row['id'];
   }
 
   if (!empty($plugins))
@@ -105,8 +105,8 @@ WHERE id IN (\'' . implode('\',\'', $plugins) . '\')
 ;';
     pwg_query($query);
 
-    array_push($page['infos'],
-      l10n('As a precaution, following plugins have been deactivated. You must check for plugins upgrade before reactiving them:').'<p><i>'.implode(', ', $plugins).'</i></p>');
+    $page['infos'][] = l10n('As a precaution, following plugins have been deactivated. You must check for plugins upgrade before reactiving them:')
+                        .'<p><i>'.implode(', ', $plugins).'</i></p>';
   }
 }
 
@@ -135,8 +135,8 @@ SELECT
   $theme_names = array();
   while ($row = pwg_db_fetch_assoc($result))
   {
-    array_push($theme_ids, $row['id']);
-    array_push($theme_names, $row['name']);
+    $theme_ids[] = $row['id'];
+    $theme_names[] = $row['name'];
   }
 
   if (!empty($theme_ids))
@@ -148,8 +148,8 @@ DELETE
 ;';
     pwg_query($query);
 
-    array_push($page['infos'],
-      l10n('As a precaution, following themes have been deactivated. You must check for themes upgrade before reactiving them:').'<p><i>'.implode(', ', $theme_names).'</i></p>');
+    $page['infos'][] = l10n('As a precaution, following themes have been deactivated. You must check for themes upgrade before reactiving them:')
+                        .'<p><i>'.implode(', ', $theme_names).'</i></p>';
 
     // what is the default theme?
     $query = '
@@ -249,11 +249,11 @@ WHERE '.$conf['user_fields']['username'].'=\''.$username.'\'
 
   if (!$conf['password_verify']($password, $row['password']))
   {
-    array_push($page['errors'], l10n('Invalid password!'));
+    $page['errors'][] = l10n('Invalid password!');
   }
   elseif ($row['status'] != 'admin' and $row['status'] != 'webmaster')
   {
-    array_push($page['errors'], l10n('You do not have access rights to run upgrade'));
+    $page['errors'][] = l10n('You do not have access rights to run upgrade');
   }
   else
   {
@@ -279,7 +279,7 @@ function get_available_upgrade_ids()
       if (is_file($upgrades_path.'/'.$node)
           and preg_match('/^(.*?)-database\.php$/', $node, $match))
       {
-        array_push($available_upgrade_ids, $match[1]);
+        $available_upgrade_ids[] = $match[1];
       }
     }
   }

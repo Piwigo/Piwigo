@@ -39,7 +39,7 @@ function get_admin_plugin_menu_link($file)
   }
   else if (isset($page['errors']))
   {
-    array_push($page['errors'], 'PLUGIN ERROR: "'.$file.'" is not a valid file');
+    $page['errors'][] = 'PLUGIN ERROR: "'.$file.'" is not a valid file';
   }
   return $url;
 }

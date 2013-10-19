@@ -77,12 +77,9 @@ class themes
         $missing_parent = $this->missing_parent_theme($theme_id);
         if (isset($missing_parent))
         {
-          array_push(
-            $errors,
-            sprintf(
-              l10n('Impossible to activate this theme, the parent theme is missing: %s'),
-              $missing_parent
-              )
+          $errors[] = l10n(
+            'Impossible to activate this theme, the parent theme is missing: %s',
+            $missing_parent
             );
 
           break;
@@ -93,7 +90,7 @@ class themes
             and !empty($conf['mobile_theme'])
             and $conf['mobile_theme'] != $theme_id)
         {
-          array_push($errors, l10n('You can activate only one mobile theme.'));
+          $errors[] = l10n('You can activate only one mobile theme.');
           break;
         }
 
@@ -134,10 +131,7 @@ INSERT INTO '.THEMES_TABLE.'
         // you can't deactivate the last theme
         if (count($this->db_themes_by_id) <= 1)
         {
-          array_push(
-            $errors,
-            l10n('Impossible to deactivate this theme, you need at least one theme.')
-            );
+          $errors[] = l10n('Impossible to deactivate this theme, you need at least one theme.');
           break;
         }
 
@@ -190,7 +184,7 @@ DELETE
       case 'delete':
         if (!empty($crt_db_theme))
         {
-          array_push($errors, 'CANNOT DELETE - THEME IS INSTALLED');
+          $errors[] = 'CANNOT DELETE - THEME IS INSTALLED';
           break;
         }
         if (!isset($this->fs_themes[$theme_id]))
@@ -202,12 +196,9 @@ DELETE
         $children = $this->get_children_themes($theme_id);
         if (count($children) > 0)
         {
-          array_push(
-            $errors,
-            sprintf(
-              l10n('Impossible to delete this theme. Other themes depends on it: %s'),
-              implode(', ', $children)
-              )
+          $errors[] = l10n(
+            'Impossible to delete this theme. Other themes depends on it: %s',
+            implode(', ', $children)
             );
           break;
         }
@@ -262,7 +253,7 @@ DELETE
     {
       if (isset($test_child['parent']) and $test_child['parent'] == $theme_id)
       {
-        array_push($children, $test_child['name']);
+        $children[] = $test_child['name'];
       }
     }
 
@@ -322,7 +313,7 @@ SELECT
     $themes = array();
     while ($row = pwg_db_fetch_assoc($result))
     {
-      array_push($themes, $row);
+      $themes[] = $row;
     }
     return $themes;
   }
@@ -628,7 +619,7 @@ SELECT
                 and $old_files = file($extract_path.'/obsolete.list', FILE_IGNORE_NEW_LINES)
                 and !empty($old_files))
               {
-                array_push($old_files, 'obsolete.list');
+                $old_files[] = 'obsolete.list';
                 foreach($old_files as $old_file)
                 {
                   $path = $extract_path.'/'.$old_file;

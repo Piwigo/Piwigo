@@ -57,7 +57,7 @@ class languages
       case 'activate':
         if (isset($crt_db_language))
         {
-          array_push($errors, 'CANNOT ACTIVATE - LANGUAGE IS ALREADY ACTIVATED');
+          $errors[] = 'CANNOT ACTIVATE - LANGUAGE IS ALREADY ACTIVATED';
           break;
         }
 
@@ -74,13 +74,13 @@ INSERT INTO '.LANGUAGES_TABLE.'
       case 'deactivate':
         if (!isset($crt_db_language))
         {
-          array_push($errors, 'CANNOT DEACTIVATE - LANGUAGE IS ALREADY DEACTIVATED');
+          $errors[] = 'CANNOT DEACTIVATE - LANGUAGE IS ALREADY DEACTIVATED';
           break;
         }
 
         if ($language_id == get_default_language())
         {
-          array_push($errors, 'CANNOT DEACTIVATE - LANGUAGE IS DEFAULT LANGUAGE');
+          $errors[] = 'CANNOT DEACTIVATE - LANGUAGE IS DEFAULT LANGUAGE';
           break;
         }
 
@@ -95,12 +95,12 @@ DELETE
       case 'delete':
         if (!empty($crt_db_language))
         {
-          array_push($errors, 'CANNOT DELETE - LANGUAGE IS ACTIVATED');
+          $errors[] = 'CANNOT DELETE - LANGUAGE IS ACTIVATED';
           break;
         }
         if (!isset($this->fs_languages[$language_id]))
         {
-          array_push($errors, 'CANNOT DELETE - LANGUAGE DOES NOT EXIST');
+          $errors[] = 'CANNOT DELETE - LANGUAGE DOES NOT EXIST';
           break;
         }
 
@@ -368,7 +368,7 @@ UPDATE '.USER_INFOS_TABLE.'
                   and $old_files = file($extract_path.'/obsolete.list', FILE_IGNORE_NEW_LINES)
                   and !empty($old_files))
                 {
-                  array_push($old_files, 'obsolete.list');
+                  $old_files[] = 'obsolete.list';
                   foreach($old_files as $old_file)
                   {
                     $path = $extract_path.'/'.$old_file;

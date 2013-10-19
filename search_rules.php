@@ -138,7 +138,7 @@ SELECT id, uppercats, global_rank
   {
     while ($row = pwg_db_fetch_assoc($result))
     {
-      array_push($categories, $row);
+      $categories[] = $row;
     }
   }
   usort($categories, 'global_rank_compare');

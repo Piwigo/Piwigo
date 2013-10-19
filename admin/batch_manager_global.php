@@ -82,7 +82,7 @@ if (isset($_POST['submit']))
   // photo in the selection
   if (count($collection) == 0)
   {
-    array_push($page['errors'], l10n('Select at least one photo'));
+    $page['errors'][] = l10n('Select at least one photo');
   }
 
   $action = $_POST['selectAction'];
@@ -105,7 +105,7 @@ DELETE
   {
     if (empty($_POST['add_tags']))
     {
-      array_push($page['errors'], l10n('Select at least one tag'));
+      $page['errors'][] = l10n('Select at least one tag');
     }
     else
     {
@@ -133,7 +133,7 @@ DELETE
     }
      else
      {
-      array_push($page['errors'], l10n('Select at least one tag'));
+      $page['errors'][] = l10n('Select at least one tag');
      }
   }
 
@@ -241,12 +241,9 @@ DELETE
     $datas = array();
     foreach ($collection as $image_id)
     {
-      array_push(
-        $datas,
-        array(
-          'id' => $image_id,
-          'author' => $_POST['author']
-          )
+      $datas[] = array(
+        'id' => $image_id,
+        'author' => $_POST['author']
         );
     }
 
@@ -268,12 +265,9 @@ DELETE
     $datas = array();
     foreach ($collection as $image_id)
     {
-      array_push(
-        $datas,
-        array(
-          'id' => $image_id,
-          'name' => $_POST['title']
-          )
+      $datas[] = array(
+        'id' => $image_id,
+        'name' => $_POST['title']
         );
     }
 
@@ -302,12 +296,9 @@ DELETE
     $datas = array();
     foreach ($collection as $image_id)
     {
-      array_push(
-        $datas,
-        array(
-          'id' => $image_id,
-          'date_creation' => $date_creation
-          )
+      $datas[] = array(
+        'id' => $image_id,
+        'date_creation' => $date_creation
         );
     }
 
@@ -324,12 +315,9 @@ DELETE
     $datas = array();
     foreach ($collection as $image_id)
     {
-      array_push(
-        $datas,
-        array(
-          'id' => $image_id,
-          'level' => $_POST['level']
-          )
+      $datas[] = array(
+        'id' => $image_id,
+        'level' => $_POST['level']
         );
     }
 
@@ -362,15 +350,9 @@ DELETE
       $deleted_count = delete_elements($collection, true);
       if ($deleted_count > 0)
       {
-        $_SESSION['page_infos'] = array(
-          sprintf(
-            l10n_dec(
-              '%d photo was deleted',
-              '%d photos were deleted',
-              $deleted_count
-              ),
-            $deleted_count
-            )
+        $_SESSION['page_infos'][] = l10n_dec(
+          '%d photo was deleted', '%d photos were deleted',
+          $deleted_count
           );
 
         $redirect_url = get_root_url().'admin.php?page='.$_GET['page'];
@@ -378,12 +360,12 @@ DELETE
       }
       else
       {
-        array_push($page['errors'], l10n('No photo can be deleted'));
+        $page['errors'][] = l10n('No photo can be deleted');
       }
     }
     else
     {
-      array_push($page['errors'], l10n('You need to confirm deletion'));
+      $page['errors'][] = l10n('You need to confirm deletion');
     }
   }
 
@@ -391,11 +373,7 @@ DELETE
   if ('metadata' == $action)
   {
     sync_metadata($collection);
-
-    array_push(
-      $page['infos'],
-      l10n('Metadata synchronized from file')
-      );
+    $page['infos'][] = l10n('Metadata synchronized from file');
   }
 
   if ('delete_derivatives' == $action)
@@ -415,11 +393,13 @@ DELETE
   if ('generate_derivatives' == $action)
   {
     if ($_POST['regenerateSuccess'] != '0')
-      array_push($page['infos'], l10n('%s photos have been regenerated', $_POST['regenerateSuccess']));
-
+    {
+      $page['infos'][] = l10n('%s photos have been regenerated', $_POST['regenerateSuccess']);
+    }
     if ($_POST['regenerateError'] != '0')
-      array_push($page['warnings'], l10n('%s photos can not be regenerated', $_POST['regenerateError']));
-
+    {
+      $page['warnings'][] = l10n('%s photos can not be regenerated', $_POST['regenerateError']);
+    }
   }
 
   trigger_action('element_set_global_action', $action, $collection);
@@ -444,9 +424,7 @@ $prefilters = array(
 
 if ($conf['enable_synchronization'])
 {
-  array_push($prefilters,
-    array('ID' => 'no_virtual_album', 'NAME' => l10n('With no virtual album'))
-  );
+  $prefilters[] = array('ID' => 'no_virtual_album', 'NAME' => l10n('With no virtual album'));
 }
 
 $prefilters = trigger_event('get_batch_manager_prefilters', $prefilters);

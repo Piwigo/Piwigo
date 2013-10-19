@@ -125,7 +125,7 @@ SELECT
       $result = pwg_query($query);
       while ($row = pwg_db_fetch_assoc($result))
       {
-        array_push($granteds[$row['cat_id']], $row['group_id']);
+        $granteds[ $row['cat_id'] ][] = $row['group_id'];
       }
 
       $inserts = array();
@@ -135,12 +135,9 @@ SELECT
         $group_ids = array_diff($grant_groups, $granteds[$cat_id]);
         foreach ($group_ids as $group_id)
         {
-          array_push(
-            $inserts,
-            array(
-              'group_id' => $group_id,
-              'cat_id' => $cat_id
-              )
+          $inserts[] = array(
+            'group_id' => $group_id,
+            'cat_id' => $cat_id
             );
         }
       }
@@ -190,7 +187,7 @@ DELETE
     }
   }
 
-  array_push($page['infos'], l10n('Album updated successfully'));
+  $page['infos'][] = l10n('Album updated successfully');
 }
 
 // +-----------------------------------------------------------------------+
@@ -272,11 +269,11 @@ SELECT user_id, group_id
   $result = pwg_query($query);
   while ($row = pwg_db_fetch_assoc($result))
   {
-    if (!isset($granted_groups[$row['group_id']]))
+    if (!isset($granted_groups[ $row['group_id'] ]))
     {
-      $granted_groups[$row['group_id']] = array();
+      $granted_groups[ $row['group_id'] ] = array();
     }
-    array_push($granted_groups[$row['group_id']], $row['user_id']);
+    $granted_groups[ $row['group_id'] ][] = $row['user_id'];
   }
 
   $user_granted_by_group_ids = array();
@@ -302,7 +299,7 @@ SELECT user_id, group_id
     {
       if (in_array($user_id, $user_granted_indirect_ids))
       {
-        array_push($group_usernames, $users[$user_id]);
+        $group_usernames[] = $users[$user_id];
       }
     }
 

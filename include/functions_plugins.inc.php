@@ -220,7 +220,7 @@ SELECT * FROM '.PLUGINS_TABLE;
   $plugins = array();
   while ($row = pwg_db_fetch_assoc($result))
   {
-    array_push($plugins, $row);
+    $plugins[] = $row;
   }
   return $plugins;
 }

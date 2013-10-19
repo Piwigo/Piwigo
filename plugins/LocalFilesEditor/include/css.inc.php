@@ -64,7 +64,7 @@ $db_themes = $themes->get_db_themes();
 $db_theme_ids = array();
 foreach ($db_themes as $db_theme)
 {
-  array_push($db_theme_ids, $db_theme['id']);
+  $db_theme_ids[] = $db_theme['id'];
 }
 
 $active_themes = array();
@@ -85,12 +85,12 @@ foreach ($themes->fs_themes as $theme_id => $fs_theme)
     }
     else
     {
-      array_push($active_themes, $fs_theme);
+      $active_themes[] = $fs_theme;
     }
   }
   else
   {
-    array_push($inactive_themes, $fs_theme);
+    $inactive_themes[] = $fs_theme;
   }
 }
 

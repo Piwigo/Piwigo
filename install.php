@@ -252,25 +252,35 @@ include(PHPWG_ROOT_PATH .'include/dblayer/functions_'.$dblayer.'.inc.php');
 include(PHPWG_ROOT_PATH . 'admin/include/functions_install.inc.php');
 include(PHPWG_ROOT_PATH . 'admin/include/functions_upgrade.php');
 
-if ( isset( $_POST['install'] ))
+if (isset($_POST['install']))
 {
   install_db_connect($infos, $errors);
   pwg_db_check_charset();
 
-  $webmaster = trim(preg_replace( '/\s{2,}/', ' ', $admin_name ));
-  if ( empty($webmaster))
-    array_push( $errors, l10n('enter a login for webmaster') );
-  else if ( preg_match( '/[\'"]/', $webmaster ) )
-    array_push( $errors, l10n('webmaster login can\'t contain characters \' or "') );
-  if ( $admin_pass1 != $admin_pass2 || empty($admin_pass1) )
-    array_push( $errors, l10n('please enter your password again') );
-  if ( empty($admin_mail))
-    array_push( $errors, l10n('mail address must be like xxx@yyy.eee (example : jack@altern.org)') );
+  $webmaster = trim(preg_replace('/\s{2,}/', ' ', $admin_name));
+  if (empty($webmaster))
+  {
+    $errors[] = l10n('enter a login for webmaster');
+  }
+  else if (preg_match( '/[\'"]/', $webmaster))
+  {
+    $errors[] = l10n('webmaster login can\'t contain characters \' or "');
+  }
+  if ($admin_pass1 != $admin_pass2 || empty($admin_pass1))
+  {
+    $errors[] = l10n('please enter your password again');
+  }
+  if (empty($admin_mail))
+  {
+    $errors[] = l10n('mail address must be like xxx@yyy.eee (example : jack@altern.org)');
+  }
   else
   {
     $error_mail_address = validate_mail_address(null, $admin_mail);
     if (!empty($error_mail_address))
-      array_push( $errors, $error_mail_address );
+    {
+      $errors[] = $error_mail_address;
+    }
   }
 
   if ( count( $errors ) == 0 )
@@ -388,13 +398,10 @@ INSERT INTO '.$prefixeTable.'config (param,value,comment)
     $datas = array();
     foreach (get_available_upgrade_ids() as $upgrade_id)
     {
-      array_push(
-        $datas,
-        array(
-          'id'          => $upgrade_id,
-          'applied'     => CURRENT_DATE,
-          'description' => 'upgrade included in installation',
-          )
+      $datas[] = array(
+        'id'          => $upgrade_id,
+        'applied'     => CURRENT_DATE,
+        'description' => 'upgrade included in installation',
         );
     }
     mass_inserts(
@@ -449,14 +456,11 @@ if ($step == 1)
 }
 else
 {
-  array_push(
-    $infos,
-    l10n('Congratulations, Piwigo installation is completed')
-    );
+  $infos[] = l10n('Congratulations, Piwigo installation is completed');
 
   if (isset($error_copy))
   {
-    array_push($errors, $error_copy);
+    $errors[] = $error_copy;
   }
   else
   {

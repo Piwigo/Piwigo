@@ -388,7 +388,7 @@ SELECT id, file,representative_ext,path,width,height,rotation, '.pwg_db_get_dayo
         $first_day_dow -= 1;
       }
 
-      array_push( $wday_labels, array_shift($wday_labels) );
+      $wday_labels[] = array_shift($wday_labels);
     }
 
     list($cell_width, $cell_height) = ImageStdParams::get_by_type(IMG_SQUARE)->sizing->ideal_size;

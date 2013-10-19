@@ -53,7 +53,7 @@ if (isset($_GET['revision']))
 {
   if (!is_webmaster())
   {
-    array_push($page['errors'], l10n('Webmaster status is required.'));
+    $page['errors'][] = l10n('Webmaster status is required.');
   }
   else
   {
@@ -73,28 +73,23 @@ if (isset($_GET['installstatus']))
   switch ($_GET['installstatus'])
   {
     case 'ok':
-      array_push($page['infos'],
-        l10n('Language has been successfully installed')
-      );
+      $page['infos'][] = l10n('Language has been successfully installed');
       break;
 
     case 'temp_path_error':
-      array_push($page['errors'], l10n('Can\'t create temporary file.'));
+      $page['errors'][] = l10n('Can\'t create temporary file.');
       break;
 
     case 'dl_archive_error':
-      array_push($page['errors'], l10n('Can\'t download archive.'));
+      $page['errors'][] = l10n('Can\'t download archive.');
       break;
 
     case 'archive_error':
-      array_push($page['errors'], l10n('Can\'t read or extract archive.'));
+      $page['errors'][] = l10n('Can\'t read or extract archive.');
       break;
 
     default:
-      array_push(
-        $page['errors'],
-        l10n('An error occured during extraction (%s).', htmlspecialchars($_GET['installstatus']))
-      );
+      $page['errors'][] = l10n('An error occured during extraction (%s).', htmlspecialchars($_GET['installstatus']));
   }  
 }
 
@@ -126,7 +121,7 @@ if ($languages->get_server_languages(true))
 }
 else
 {
-  array_push($page['errors'], l10n('Can\'t connect to server.'));
+  $page['errors'][] = l10n('Can\'t connect to server.');
 }
 
 $template->assign_var_from_handle('ADMIN_CONTENT', 'languages');

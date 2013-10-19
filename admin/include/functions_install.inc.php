@@ -96,7 +96,7 @@ function install_db_connect(&$infos, &$errors)
   }
   catch (Exception $e)
   {
-    array_push( $errors, l10n($e->getMessage()));
+    $errors[] = l10n($e->getMessage());
   }
 }
 ?>

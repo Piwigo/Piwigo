@@ -149,7 +149,7 @@ if ($step == 3 and is_webmaster())
 
 if (!is_webmaster())
 {
-  array_push($page['errors'], l10n('Webmaster status is required.'));
+  $page['errors'][] = l10n('Webmaster status is required.');
 }
 
 $template->assign(array(

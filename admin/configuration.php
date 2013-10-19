@@ -154,7 +154,7 @@ if (isset($_POST['submit']))
           }
           if ( !count($_POST['order_by']) )
           {
-            array_push($page['errors'], l10n('No order field selected'));
+            $page['errors'][] = l10n('No order field selected');
           }
           else
           {
@@ -179,7 +179,7 @@ if (isset($_POST['submit']))
         }
         else
         {
-          array_push($page['errors'], l10n('No order field selected'));
+          $page['errors'][] = l10n('No order field selected');
         }
       }
 
@@ -207,7 +207,7 @@ if (isset($_POST['submit']))
            or $_POST['nb_comment_page'] < 5
            or $_POST['nb_comment_page'] > 50)
       {
-        array_push($page['errors'], l10n('The number of comments a page must be between 5 and 50 included.'));
+        $page['errors'][] = l10n('The number of comments a page must be between 5 and 50 included.');
       }
       foreach( $comments_checkboxes as $checkbox)
       {
@@ -225,7 +225,7 @@ if (isset($_POST['submit']))
       if (!preg_match($int_pattern, $_POST['nb_categories_page'])
             or $_POST['nb_categories_page'] < 4)
       {
-        array_push($page['errors'], l10n('The number of albums a page must be above 4.'));
+        $page['errors'][] = l10n('The number of albums a page must be above 4.');
       }
       foreach( $display_checkboxes as $checkbox)
       {
@@ -268,7 +268,7 @@ WHERE param = \''.$row['param'].'\'
         pwg_query($query);
       }
     }
-    array_push($page['infos'], l10n('Information data registered in database'));
+    $page['infos'][] = l10n('Information data registered in database');
   }
 
   //------------------------------------------------------ $conf reinitialization
@@ -282,10 +282,7 @@ if ('sizes' == $page['section'] and isset($_GET['action']) and 'restore_settings
   pwg_query('DELETE FROM '.CONFIG_TABLE.' WHERE param = \'disabled_derivatives\'');
   clear_derivative_cache();
 
-  array_push(
-    $page['infos'],
-    l10n('Your configuration settings are saved')
-    );
+  $page['infos'][] = l10n('Your configuration settings are saved');
 }
 
 //----------------------------------------------------- template initialization
@@ -324,7 +321,7 @@ switch ($page['section'])
 
     if (order_by_is_local())
     {
-      array_push($page['warnings'], l10n('You have specified <i>$conf[\'order_by\']</i> in your local configuration file, this parameter in deprecated, please remove it or rename it into <i>$conf[\'order_by_custom\']</i> !'));
+      $page['warnings'][] = l10n('You have specified <i>$conf[\'order_by\']</i> in your local configuration file, this parameter in deprecated, please remove it or rename it into <i>$conf[\'order_by_custom\']</i> !');
     }
 
     if ( isset($conf['order_by_custom']) or isset($conf['order_by_inside_category_custom']) )
@@ -400,7 +397,7 @@ switch ($page['section'])
     {
       // Reload user
       $edit_user = build_user($conf['guest_id'], false);
-      array_push($page['infos'], l10n('Information data registered in database'));
+      $page['infos'][] = l10n('Information data registered in database');
     }
     $page['errors'] = array_merge($page['errors'], $errors);
 

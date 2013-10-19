@@ -71,9 +71,10 @@ class check_integrity
     // Information
     if (count($this->retrieve_list) > 0)
     {
-      $header_notes[] =
-        l10n_dec('%d anomaly has been detected.', '%d anomalies have been detected.',
-          count($this->retrieve_list));
+      $header_notes[] = l10n_dec(
+        '%d anomaly has been detected.', '%d anomalies have been detected.',
+        count($this->retrieve_list)
+        );
     }
 
     // Treatments
@@ -116,15 +117,17 @@ class check_integrity
 
       if ($corrected_count > 0)
       {
-        $page['infos'][] =
-          l10n_dec('%d anomaly has been corrected.', '%d anomalies have been detected corrected.',
-            $corrected_count);
+        $page['infos'][] = l10n_dec(
+          '%d anomaly has been corrected.', '%d anomalies have been detected corrected.',
+          $corrected_count
+          );
       }
       if ($not_corrected_count > 0)
       {
-        $page['errors'][] =
-          l10n_dec('%d anomaly has not been corrected.', '%d anomalies have not been corrected.',
-            $not_corrected_count);
+        $page['errors'][] = l10n_dec(
+          '%d anomaly has not been corrected.', '%d anomalies have not been corrected.',
+          $not_corrected_count
+          );
       }
     }
     else
@@ -145,9 +148,10 @@ class check_integrity
 
         if ($ignored_count > 0)
         {
-          $page['infos'][] =
-            l10n_dec('%d anomaly has been ignored.', '%d anomalies have been ignored.',
-              $ignored_count);
+          $page['infos'][] = l10n_dec(
+            '%d anomaly has been ignored.', '%d anomalies have been ignored.',
+            $ignored_count
+            );
         }
       }
     }

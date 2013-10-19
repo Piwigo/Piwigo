@@ -59,13 +59,13 @@ function parse_sort_variables(
       }
       elseif (isset($default_field) and !isset($_GET[$get_param]) )
       {
-        array_push($ret, $field);
+        $ret[] = $field;
         $disp = '<em>'.$disp.'</em>';
       }
     }
     else
     {
-      array_push($ret, $field);
+      $ret[] = $field;
       $disp = '<em>'.$disp.'</em>';
     }
     if ( isset($template_var) )
@@ -100,7 +100,9 @@ DELETE FROM '.OLD_PERMALINKS_TABLE.'
   LIMIT 1';
   $result = pwg_query($query);
   if (pwg_db_changes($result)==0)
-    array_push($page['errors'], l10n('Cannot delete the old permalink !'));
+  {
+    $page['errors'][] = l10n('Cannot delete the old permalink !');
+  }
 }
 
 

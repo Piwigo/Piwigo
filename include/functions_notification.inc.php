@@ -206,7 +206,7 @@ function custom_notification_query($action, $type, $start, $end)
 
     while ($row = pwg_db_fetch_assoc($result))
     {
-      array_push($infos, $row);
+      $infos[] = $row;
     }
 
     return $infos;
@@ -369,7 +369,7 @@ function add_news_line(&$news, $count, $singular_fmt_key, $plural_fmt_key, $url=
     {
       $line = '<a href="'.$url.'">'.$line.'</a>';
     }
-    array_push($news, $line);
+    $news[] = $line;
   }
 }
 
@@ -450,7 +450,7 @@ SELECT date_available,
   $dates = array();
   while ($row = pwg_db_fetch_assoc($result))
   {
-    array_push($dates, $row);
+    $dates[] = $row;
   }
 
   for ($i=0; $i<count($dates); $i++)
@@ -469,7 +469,7 @@ SELECT DISTINCT i.*
       $result = pwg_query($query);
       while ($row = pwg_db_fetch_assoc($result))
       {
-        array_push($dates[$i]['elements'], $row);
+        $dates[$i]['elements'][] = $row;
       }
     }
 
@@ -489,7 +489,7 @@ SELECT DISTINCT c.uppercats, COUNT(DISTINCT i.id) AS img_count
       $result = pwg_query($query);
       while ($row = pwg_db_fetch_assoc($result))
       {
-        array_push($dates[$i]['categories'], $row);
+        $dates[$i]['categories'][] = $row;
       }
     }
   }
@@ -546,8 +546,7 @@ function get_html_description_recent_post_date($date_detail)
 
   $description .=
         '<li>'
-        .l10n_dec('%d album updated', '%d albums updated',
-                  $date_detail['nb_cats'])
+        .l10n_dec('%d album updated', '%d albums updated', $date_detail['nb_cats'])
         .'</li>';
 
   $description .= '<ul>';
@@ -557,8 +556,7 @@ function get_html_description_recent_post_date($date_detail)
           '<li>'
           .get_cat_display_name_cache($cat['uppercats'])
           .' ('.
-          l10n_dec('%d new photo',
-                   '%d new photos', $cat['img_count']).')'
+          l10n_dec('%d new photo', '%d new photos', $cat['img_count']).')'
           .'</li>';
   }
   $description .= '</ul>';

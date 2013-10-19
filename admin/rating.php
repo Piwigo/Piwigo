@@ -194,7 +194,7 @@ $images = array();
 $result = pwg_query($query);
 while ($row = pwg_db_fetch_assoc($result))
 {
-  array_push($images, $row);
+  $images[] = $row;
 }
 
 $template->assign( 'images', array() );

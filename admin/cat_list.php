@@ -78,7 +78,7 @@ function save_categories_order($categories)
       $current_rank++;
     }
     
-    array_push($datas, array('id' => $id, 'rank' => $current_rank));
+    $datas[] = array('id' => $id, 'rank' => $current_rank);
   }
   $fields = array('primary' => array('id'), 'update' => array('rank'));
   mass_updates(CATEGORIES_TABLE, $fields, $datas);
@@ -133,11 +133,11 @@ else if (isset($_POST['submitAdd']))
 
   if (isset($output_create['error']))
   {
-    array_push($page['errors'], $output_create['error']);
+    $page['errors'][] = $output_create['error'];
   }
   else
   {
-    array_push($page['infos'], $output_create['info']);
+    $page['infos'][] = $output_create['info'];
   }
 }
 // save manual category ordering
@@ -146,10 +146,7 @@ else if (isset($_POST['submitManualOrder']))
   asort($_POST['catOrd'], SORT_NUMERIC);
   save_categories_order(array_keys($_POST['catOrd']));
 
-  array_push(
-    $page['infos'],
-    l10n('Album manual order was saved')
-    );
+  $page['infos'][] = l10n('Album manual order was saved');
 }
 else if (isset($_POST['submitAutoOrder']))
 {
@@ -178,17 +175,11 @@ SELECT id, name, id_uppercat
   $result = pwg_query($query);
   while ($row = pwg_db_fetch_assoc($result))
   {
-    array_push(
-      $categories,
-      array(
-        'id' => $row['id'],
-        'id_uppercat' => $row['id_uppercat'],
-        )
+    $categories[] = array(
+      'id' => $row['id'],
+      'id_uppercat' => $row['id_uppercat'],
       );
-    array_push(
-      $names,
-      $row['name']
-      );
+    $names[] = $row['name'];
   }
 
   array_multisort(
@@ -199,10 +190,7 @@ SELECT id, name, id_uppercat
     );
   save_categories_order($categories);
 
-  array_push(
-    $page['infos'],
-    l10n('Albums automatically sorted')
-    );
+  $page['infos'][] = l10n('Albums automatically sorted');
 }
 
 // +-----------------------------------------------------------------------+

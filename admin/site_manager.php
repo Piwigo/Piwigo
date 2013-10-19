@@ -75,15 +75,13 @@ SELECT COUNT(id) AS count
   $row = pwg_db_fetch_assoc(pwg_query($query));
   if ($row['count'] > 0)
   {
-    array_push($page['errors'],
-      l10n('This site already exists').' ['.$url.']');
+    $page['errors'][] = l10n('This site already exists').' ['.$url.']';
   }
   if (count($page['errors']) == 0)
   {
     if ( ! file_exists($url) )
     {
-      array_push($page['errors'],
-        l10n('Directory does not exist').' ['.$url.']');
+      $page['errors'][] = l10n('Directory does not exist').' ['.$url.']';
     }
   }
 
@@ -96,8 +94,7 @@ INSERT INTO '.SITES_TABLE.'
   (\''.$url.'\')
 ;';
     pwg_query($query);
-    array_push($page['infos'],
-               $url.' '.l10n('created'));
+    $page['infos'][] = $url.' '.l10n('created');
   }
 }
 
@@ -121,8 +118,7 @@ SELECT galleries_url
     case 'delete' :
     {
       delete_site($page['site']);
-      array_push($page['infos'],
-                 $galleries_url.' '.l10n('deleted'));
+      $page['infos'][] = $galleries_url.' '.l10n('deleted');
       break;
     }
   }

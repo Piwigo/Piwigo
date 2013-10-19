@@ -45,7 +45,7 @@ if (isset($_POST['submit_add']))
 {
   if (empty($_POST['groupname']))
   {
-    array_push($page['errors'], l10n('The name of a group must not contain " or \' or be empty.'));
+    $page['errors'][] = l10n('The name of a group must not contain " or \' or be empty.');
   }
   if (count($page['errors']) == 0)
   {
@@ -58,7 +58,7 @@ SELECT COUNT(*)
     list($count) = pwg_db_fetch_row(pwg_query($query));
     if ($count != 0)
     {
-      array_push($page['errors'], l10n('This name is already used by another group.'));
+      $page['errors'][] = l10n('This name is already used by another group.');
     }
   }
   if (count($page['errors']) == 0)
@@ -86,7 +86,7 @@ if (isset($_POST['submit']) and isset($_POST['selectAction']) and isset($_POST['
   $groups = $_POST['group_selection'];
   if (count($groups) == 0)
   {
-    array_push($page['errors'], l10n('Select at least one group'));
+    $page['errors'][] = l10n('Select at least one group');
   }
 
   $action = $_POST['selectAction'];
@@ -169,7 +169,7 @@ SELECT COUNT(*)
     list($count) = pwg_db_fetch_row(pwg_query($query));
     if ($count != 0)
     {
-      array_push($page['errors'], l10n('This name is already used by another group.'));
+      $page['errors'][] = l10n('This name is already used by another group.');
     }
     else
     {
@@ -255,7 +255,7 @@ SELECT COUNT(*)
       list($count) = pwg_db_fetch_row(pwg_query($query));
       if ($count != 0)
       {
-        array_push($page['errors'], l10n('This name is already used by another group.'));
+        $page['errors'][] = l10n('This name is already used by another group.');
         break;
       }
       // creating the group

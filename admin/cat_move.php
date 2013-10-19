@@ -51,10 +51,7 @@ if (isset($_POST['submit']))
   }
   else
   {
-    array_push(
-      $page['errors'],
-      l10n('Select at least one album')
-      );
+    $page['errors'][] = l10n('Select at least one album');
   }
 }
 

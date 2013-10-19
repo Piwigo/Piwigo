@@ -43,12 +43,9 @@ DELETE FROM '.CADDIE_TABLE.'
   $inserts = array();
   foreach (explode(',', $_GET['batch']) as $image_id)
   {
-    array_push(
-      $inserts,
-      array(
-        'user_id' => $user['id'],
-        'element_id' => $image_id,
-        )
+    $inserts[] = array(
+      'user_id' => $user['id'],
+      'element_id' => $image_id,
       );
   }
   mass_inserts(

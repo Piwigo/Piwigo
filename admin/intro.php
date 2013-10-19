@@ -45,7 +45,7 @@ if (isset($_GET['action']) and 'check_upgrade' == $_GET['action'])
 {
   if (!fetchRemote(PHPWG_URL.'/download/latest_version', $result))
   {
-    array_push($page['errors'], l10n('Unable to check for upgrade.'));
+    $page['errors'][] = l10n('Unable to check for upgrade.');
   }
   else
   {
@@ -73,33 +73,21 @@ if (isset($_GET['action']) and 'check_upgrade' == $_GET['action'])
 
     if ('' == $versions['latest'])
     {
-      array_push(
-        $page['errors'],
-        l10n('Check for upgrade failed for unknown reasons.')
-        );
+      $page['errors'][] = l10n('Check for upgrade failed for unknown reasons.');
     }
     // concatenation needed to avoid automatic transformation by release
     // script generator
     else if ('%'.'PWGVERSION'.'%' == $versions['current'])
     {
-      array_push(
-        $page['infos'],
-        l10n('You are running on development sources, no check possible.')
-        );
+      $page['infos'][] = l10n('You are running on development sources, no check possible.');
     }
     else if (version_compare($versions['current'], $versions['latest']) < 0)
     {
-      array_push(
-        $page['infos'],
-        l10n('A new version of Piwigo is available.')
-        );
+      $page['infos'][] = l10n('A new version of Piwigo is available.');
     }
     else
     {
-      array_push(
-        $page['infos'],
-        l10n('You are running the latest version of Piwigo.')
-        );
+      $page['infos'][] = l10n('You are running the latest version of Piwigo.');
     }
   }
 }
@@ -201,12 +189,9 @@ $template->assign(
     'DB_VERSION' => $db_version,
     'DB_ELEMENTS' => l10n_dec('%d photo', '%d photos', $nb_elements),
     'DB_CATEGORIES' =>
-      l10n_dec('%d album including', '%d albums including',
-        $nb_categories).
-      l10n_dec('%d physical', '%d physicals',
-        $nb_physical).
-      l10n_dec(' and %d virtual', ' and %d virtuals',
-        $nb_virtual),
+      l10n_dec('%d album including', '%d albums including', $nb_categories).
+      l10n_dec('%d physical', '%d physicals', $nb_physical).
+      l10n_dec(' and %d virtual', ' and %d virtuals', $nb_virtual),
     'DB_IMAGE_CATEGORY' => l10n_dec('%d association', '%d associations', $nb_image_category),
     'DB_TAGS' => l10n_dec('%d tag', '%d tags', $nb_tags),
     'DB_IMAGE_TAG' => l10n_dec('%d association', '%d associations', $nb_image_tag),

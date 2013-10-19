@@ -102,8 +102,8 @@ SELECT id
       {
         if ('best_rated'==$page['section'])
         {
-          $page['rank_of'][$page['image_id']] = count($page['items']);
-          array_push($page['items'], $page['image_id'] );
+          $page['rank_of'][ $page['image_id'] ] = count($page['items']);
+          $page['items'][] = $page['image_id'];
         }
         else
         {
@@ -468,13 +468,13 @@ $picture = array();
 $ids = array($page['image_id']);
 if (isset($page['previous_item']))
 {
-  array_push($ids, $page['previous_item']);
-  array_push($ids, $page['first_item']);
+  $ids[] = $page['previous_item'];
+  $ids[] = $page['first_item'];
 }
 if (isset($page['next_item']))
 {
-  array_push($ids, $page['next_item']);
-  array_push($ids, $page['last_item']);
+  $ids[] = $page['next_item'];
+  $ids[] = $page['last_item'];
 }
 
 $query = '

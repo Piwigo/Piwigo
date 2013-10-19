@@ -47,20 +47,7 @@ $image_id = add_uploaded_file(
   $_POST['level']
   );
 
-if (!isset($_SESSION['uploads']))
-{
-  $_SESSION['uploads'] = array();
-}
-
-if (!isset($_SESSION['uploads'][ $_POST['upload_id'] ]))
-{
-  $_SESSION['uploads'][ $_POST['upload_id'] ] = array();
-}
-
-array_push(
-  $_SESSION['uploads'][ $_POST['upload_id'] ],
-  $image_id
-  );
+$_SESSION['uploads'][ $_POST['upload_id'] ][] = $image_id;
 
 $query = '
 SELECT

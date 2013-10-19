@@ -339,7 +339,7 @@ else
     $page['tag_ids'] = array();
     foreach ($page['tags'] as $tag)
     {
-      array_push($page['tag_ids'], $tag['id']);
+      $page['tag_ids'][] = $tag['id'];
     }
 
     $items = get_image_ids_for_tags($page['tag_ids']);

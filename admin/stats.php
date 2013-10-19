@@ -97,7 +97,7 @@ SELECT
   $output = array();
   while ($row = pwg_db_fetch_assoc($result))
   {
-    array_push($output, $row);
+    $output[] = $row;
   }
 
   return $output;
@@ -226,7 +226,7 @@ SELECT *
     if (isset($need_update[$key]))
     {
       $row['nb_pages'] += $need_update[$key];
-      array_push($updates, $row);
+      $updates[] = $row;
       unset($need_update[$key]);
     }
   }
@@ -236,16 +236,13 @@ foreach ($need_update as $time_key => $nb_pages)
 {
   $time_tokens = explode('-', $time_key);
 
-  array_push(
-      $inserts,
-      array(
-        'year'     => $time_tokens[0],
-        'month'    => @$time_tokens[1],
-        'day'      => @$time_tokens[2],
-        'hour'     => @$time_tokens[3],
-        'nb_pages' => $nb_pages,
-        )
-      );
+  $inserts[] = array(
+    'year'     => $time_tokens[0],
+    'month'    => @$time_tokens[1],
+    'day'      => @$time_tokens[2],
+    'hour'     => @$time_tokens[3],
+    'nb_pages' => $nb_pages,
+    );
 }
 
 if (count($updates) > 0)
@@ -323,10 +320,7 @@ $title_parts = array();
 
 $url = PHPWG_ROOT_PATH.'admin.php?page=stats';
 
-array_push(
-  $title_parts,
-  '<a href="'.$url.'">'.l10n('Overall').'</a>'
-  );
+$title_parts[] = '<a href="'.$url.'">'.l10n('Overall').'</a>';
 
 $period_label = l10n('Year');
 
@@ -334,10 +328,7 @@ if (isset($page['year']))
 {
   $url.= '&amp;year='.$page['year'];
 
-  array_push(
-    $title_parts,
-    '<a href="'.$url.'">'.$page['year'].'</a>'
-    );
+  $title_parts[] = '<a href="'.$url.'">'.$page['year'].'</a>';
 
   $period_label = l10n('Month');
 }
@@ -346,10 +337,7 @@ if (isset($page['month']))
 {
   $url.= '&amp;month='.$page['month'];
 
-  array_push(
-    $title_parts,
-    '<a href="'.$url.'">'.$lang['month'][$page['month']].'</a>'
-    );
+  $title_parts[] = '<a href="'.$url.'">'.$lang['month'][$page['month']].'</a>';
 
   $period_label = l10n('Day');
 }
@@ -366,10 +354,7 @@ if (isset($page['day']))
     $lang['day'][date('w', $time)]
     );
 
-  array_push(
-    $title_parts,
-    '<a href="'.$url.'">'.$day_title.'</a>'
-    );
+  $title_parts[] = '<a href="'.$url.'">'.$day_title.'</a>';
 
   $period_label = l10n('Hour');
 }

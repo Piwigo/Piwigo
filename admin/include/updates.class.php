@@ -161,7 +161,7 @@ class updates
           {
             if (in_array($ext_id, $conf['updates_ignored'][$type]))
             {
-              array_push($ignore_list, $ext_id);
+              $ignore_list[] = $ext_id;
             }
             else
             {
@@ -248,7 +248,7 @@ class updates
       and $old_files = file(PHPWG_ROOT_PATH.$file, FILE_IGNORE_NEW_LINES)
       and !empty($old_files))
     {
-      array_push($old_files, $file);
+      $old_files[] = $file;
       foreach($old_files as $old_file)
       {
         $path = PHPWG_ROOT_PATH.$old_file;
@@ -314,7 +314,7 @@ class updates
     }
     else
     {
-      array_push($page['errors'], l10n('Unable to dump database.'));
+      $page['errors'][] = l10n('Unable to dump database.');
     }
   }
 
@@ -414,7 +414,8 @@ class updates
             unset($_SESSION['need_update']);
             if ($step == 2)
             {
-              array_push($page['infos'], l10n('Update Complete'), $upgrade_to);
+              $page['infos'][] = l10n('Update Complete');
+              $page['infos'][] = $upgrade_to;
               $step = -1;
             }
             else
@@ -425,24 +426,22 @@ class updates
           else
           {
             file_put_contents(PHPWG_ROOT_PATH.$conf['data_location'].'update/log_error.txt', $error);
-            array_push(
-              $page['errors'],
-              sprintf(
-                l10n('An error has occured during extract. Please check files permissions of your piwigo installation.<br><a href="%s">Click here to show log error</a>.'),
-                get_root_url().$conf['data_location'].'update/log_error.txt'
-              )
-            );
+            
+            $page['errors'][] = l10n(
+              'An error has occured during extract. Please check files permissions of your piwigo installation.<br><a href="%s">Click here to show log error</a>.',
+              get_root_url().$conf['data_location'].'update/log_error.txt'
+              );
           }
         }
         else
         {
           deltree(PHPWG_ROOT_PATH.$conf['data_location'].'update');
-          array_push($page['errors'], l10n('An error has occured during upgrade.'));
+          $page['errors'][] = l10n('An error has occured during upgrade.');
         }
       }
       else
       {
-        array_push($page['errors'], l10n('Piwigo cannot retrieve upgrade file from server'));
+        $page['errors'][] = l10n('Piwigo cannot retrieve upgrade file from server');
       }
     }
   }

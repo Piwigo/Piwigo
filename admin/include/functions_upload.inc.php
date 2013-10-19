@@ -122,13 +122,9 @@ function save_upload_form_config($data, &$errors=array(), &$form_errors=array())
       }
       else
       {
-        array_push(
-          $errors,
-          sprintf(
-            $upload_form_config[$field]['error_message'],
-            $min,
-            $max
-            )
+        $errors[] = sprintf(
+          $upload_form_config[$field]['error_message'],
+          $min, $max
           );
         
         $form_errors[$field] = '['.$min.' .. '.$max.']';
@@ -494,16 +490,7 @@ function convert_shorthand_notation_to_bytes($value)
 
 function add_upload_error($upload_id, $error_message)
 {
-  if (!isset($_SESSION['uploads_error']))
-  {
-    $_SESSION['uploads_error'] = array();
-  }
-  if (!isset($_SESSION['uploads_error'][$upload_id]))
-  {
-    $_SESSION['uploads_error'][$upload_id] = array();
-  }
-
-  array_push($_SESSION['uploads_error'][$upload_id], $error_message);
+  $_SESSION['uploads_error'][$upload_id][] = $error_message;
 }
 
 function ready_for_upload_message()

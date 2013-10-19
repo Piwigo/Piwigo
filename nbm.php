@@ -45,15 +45,14 @@ if (isset($_GET['subscribe'])
 {
   subscribe_notification_by_mail(false, array($_GET['subscribe']));
 }
-else
-if (isset($_GET['unsubscribe'])
+else if (isset($_GET['unsubscribe'])
     and preg_match('/^[A-Za-z0-9]{16}$/', $_GET['unsubscribe']))
 {
   unsubscribe_notification_by_mail(false, array($_GET['unsubscribe']));
 }
 else
 {
-  array_push($page['errors'], l10n('Unknown identifier'));
+  $page['errors'][] = l10n('Unknown identifier');
 }
 
 // +-----------------------------------------------------------------------+

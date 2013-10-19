@@ -254,10 +254,7 @@ if (count($errors) == 0)
     clear_derivative_cache($changed_types);
   }
 
-  array_push(
-    $page['infos'],
-    l10n('Your configuration settings are saved')
-    );
+  $page['infos'][] = l10n('Your configuration settings are saved');
 }
 else
 {

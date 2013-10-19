@@ -131,17 +131,10 @@ if ($page['display_mode'] == 'letters') {
         );
     }
 
-    array_push(
-      $letter['tags'],
-      array_merge(
-        $tag,
-        array(
-          'URL' => make_index_url(
-            array(
-              'tags' => array($tag),
-              )
-            ),
-          )
+    $letter['tags'][] = array_merge(
+      $tag,
+      array(
+        'URL' => make_index_url(array('tags' => array($tag))),
         )
       );
 

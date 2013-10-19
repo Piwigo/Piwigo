@@ -540,7 +540,7 @@ function get_fs_directories($path, $recursive = true)
             and $node != 'pwg_representative'
             and is_dir($path.'/'.$node))
         {
-          array_push($dirs, $path.'/'.$node);
+          $dirs[] = $path.'/'.$node;
           if ($recursive)
           {
             $dirs = array_merge($dirs, get_fs_directories($path.'/'.$node));
@@ -747,12 +747,9 @@ SELECT image_id
 ;';
     list($representative) = pwg_db_fetch_row(pwg_query($query));
 
-    array_push(
-      $datas,
-      array(
-        'id' => $category_id,
-        'representative_picture_id' => $representative,
-        )
+    $datas[] = array(
+      'id' => $category_id,
+      'representative_picture_id' => $representative,
       );
   }
 
@@ -862,26 +859,26 @@ function get_fs($path, $recursive = true)
           {
             if (basename($path) == 'thumbnail')
             {
-              array_push($fs['thumbnails'], $path.'/'.$node);
+              $fs['thumbnails'][] = $path.'/'.$node;
             }
             else if (basename($path) == 'pwg_representative')
             {
-              array_push($fs['representatives'], $path.'/'.$node);
+              $fs['representatives'][] = $path.'/'.$node;
             }
             else
             {
-              array_push($fs['elements'], $path.'/'.$node);
+              $fs['elements'][] = $path.'/'.$node;
             }
           }
 //          else if (in_array($extension, $conf['file_ext']))
           else if (isset($conf['flip_file_ext'][$extension]))
           {
-            array_push($fs['elements'], $path.'/'.$node);
+            $fs['elements'][] = $path.'/'.$node;
           }
         }
         else if (is_dir($path.'/'.$node) and $node != 'pwg_high' and $recursive)
         {
-          array_push($subdirs, $node);
+          $subdirs[] = $node;
         }
       }
     }
@@ -995,19 +992,16 @@ SELECT id, id_uppercat, uppercats
     $uppercat = $id;
     while ($uppercat)
     {
-      array_push($upper_list, $uppercat);
+      $upper_list[] = $uppercat;
       $uppercat = $cat_map[$uppercat]['id_uppercat'];
     }
 
     $new_uppercats = implode(',', array_reverse($upper_list));
     if ($new_uppercats != $cat['uppercats'])
     {
-      array_push(
-        $datas,
-        array(
-          'id' => $id,
-          'uppercats' => $new_uppercats
-          )
+      $datas[] = array(
+        'id' => $id,
+        'uppercats' => $new_uppercats
         );
     }
   }
@@ -1095,10 +1089,7 @@ SELECT uppercats
       // into a new parent category with uppercats 12,125,13,14,24
       if (preg_match('/^'.$category['uppercats'].'(,|$)/', $new_parent_uppercats))
       {
-        array_push(
-          $page['errors'],
-          l10n('You cannot move an album in its own sub album')
-          );
+        $page['errors'][] = l10n('You cannot move an album in its own sub album');
         return;
       }
     }
@@ -1177,12 +1168,9 @@ DELETE FROM '.$table.'
     }
   }
 
-  array_push(
-    $page['infos'],
-    l10n_dec(
-      '%d album moved', '%d albums moved',
-      count($categories)
-      )
+  $page['infos'][] = l10n_dec(
+    '%d album moved', '%d albums moved',
+    count($categories)
     );
 }
 
@@ -1307,12 +1295,9 @@ SELECT id, uppercats, global_rank, visible, status
     $inserts = array();
     foreach ($granted_grps as $granted_grp)
     {
-      array_push(
-        $inserts,
-        array(
-          'group_id' => $granted_grp,
-          'cat_id' => $inserted_id
-          )
+      $inserts[] = array(
+        'group_id' => $granted_grp,
+        'cat_id' => $inserted_id
         );
     }
     mass_inserts(GROUP_ACCESS_TABLE, array('group_id','cat_id'), $inserts);
@@ -1586,13 +1571,10 @@ SELECT
       {
         $rank = ++$current_rank_of[$category_id];
 
-        array_push(
-          $inserts,
-          array(
-            'image_id' => $image_id,
-            'category_id' => $category_id,
-            'rank' => $rank,
-            )
+        $inserts[] = array(
+          'image_id' => $image_id,
+          'category_id' => $category_id,
+          'rank' => $rank,
           );
       }
     }
@@ -2315,7 +2297,7 @@ SELECT
   $result = pwg_query($query);
   while ($row = pwg_db_fetch_assoc($result))
   {
-    array_push($granteds[$row['cat_id']], $row['user_id']);
+    $granteds[ $row['cat_id'] ][] = $row['user_id'];
   }
 
   $inserts = array();
@@ -2326,12 +2308,9 @@ SELECT
 
     foreach ($grant_to_users as $user_id)
     {
-      array_push(
-        $inserts,
-        array(
-          'user_id' => $user_id,
-          'cat_id' => $cat_id
-          )
+      $inserts[] = array(
+        'user_id' => $user_id,
+        'cat_id' => $cat_id
         );
     }
   }
@@ -2513,7 +2492,7 @@ function get_dirs($directory)
           and is_dir($directory.'/'.$file)
           and $file != '.svn')
       {
-        array_push($sub_dirs, $file);
+        $sub_dirs[] = $file;
       }
     }
     closedir($opendir);

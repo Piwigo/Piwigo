@@ -62,7 +62,7 @@ $db_themes = $themes->get_db_themes();
 $db_theme_ids = array();
 foreach ($db_themes as $db_theme)
 {
-  array_push($db_theme_ids, $db_theme['id']);
+  $db_theme_ids[] = $db_theme['id'];
 }
 
 $tpl_themes = array();
@@ -143,7 +143,7 @@ foreach ($themes->fs_themes as $theme_id => $fs_theme)
     }
   }
   
-  array_push($tpl_themes, $tpl_theme);
+  $tpl_themes[] = $tpl_theme;
 }
 
 // sort themes by state then by name

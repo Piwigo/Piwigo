@@ -87,7 +87,7 @@ foreach($languages->fs_languages as $language_id => $language)
   else
   {
     $language['is_default'] = false;
-    array_push($tpl_languages, $language);
+    $tpl_languages[] = $language;
   }
 }
 

@@ -41,10 +41,7 @@ if (!empty($_POST))
 {
   if (empty($_POST['comments']))
   {
-    array_push(
-      $page['errors'],
-      l10n('Select at least one comment')
-      );
+    $page['errors'][] = l10n('Select at least one comment');
   }
   else
   {
@@ -55,12 +52,9 @@ if (!empty($_POST))
     {
       validate_user_comment($_POST['comments']);
 
-      array_push(
-        $page['infos'],
-        l10n_dec(
-          '%d user comment validated', '%d user comments validated',
-          count($_POST['comments'])
-          )
+      $page['infos'][] = l10n_dec(
+        '%d user comment validated', '%d user comments validated',
+        count($_POST['comments'])
         );
     }
 
@@ -68,12 +62,9 @@ if (!empty($_POST))
     {
       delete_user_comment($_POST['comments']);
 
-      array_push(
-        $page['infos'],
-        l10n_dec(
-          '%d user comment rejected', '%d user comments rejected',
-          count($_POST['comments'])
-          )
+      $page['infos'][] = l10n_dec(
+        '%d user comment rejected', '%d user comments rejected',
+        count($_POST['comments'])
         );
     }
   }
@@ -148,7 +139,7 @@ while ($row = pwg_db_fetch_assoc($result))
       )
     );
 
-  array_push($list, $row['id']);
+  $list[] = $row['id'];
 }
 
 $template->assign('LIST', implode(',', $list) );

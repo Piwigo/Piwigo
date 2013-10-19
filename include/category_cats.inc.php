@@ -207,7 +207,7 @@ SELECT *
 
           if (isset($image_id) and !in_array($image_id, $image_ids))
           {
-            array_push($new_image_ids, $image_id);
+            $new_image_ids[] = $image_id;
           }
 
           if ($conf['representative_cache_on_level'])

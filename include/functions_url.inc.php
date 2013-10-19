@@ -466,14 +466,13 @@ function parse_section_url( $tokens, &$next_token)
         {
           if (empty($maybe_permalinks))
           {
-            array_push($maybe_permalinks, $tokens[$current_token]);
+            $maybe_permalinks[] = $tokens[$current_token];
           }
           else
           {
-            array_push($maybe_permalinks,
+            $maybe_permalinks[] = 
                 $maybe_permalinks[count($maybe_permalinks)-1]
-                . '/' . $tokens[$current_token]
-              );
+                . '/' . $tokens[$current_token];
           }
           $current_token++;
         }
@@ -527,11 +526,11 @@ function parse_section_url( $tokens, &$next_token)
 
       if ( $conf['tag_url_style'] != 'tag' and preg_match('/^(\d+)(?:-(.*)|)$/', $tokens[$i], $matches) )
       {
-        array_push($requested_tag_ids, $matches[1]);
+        $requested_tag_ids[] = $matches[1];
       }
       else
       {
-        array_push($requested_tag_url_names, $tokens[$i]);
+        $requested_tag_url_names[] = $tokens[$i];
       }
       $i++;
     }
@@ -597,7 +596,7 @@ function parse_section_url( $tokens, &$next_token)
     if (empty($tokens[$next_token]))
     {
       // Add dummy element list
-      array_push($page['list'], -1);
+      $page['list'][] = -1;
     }
     // With pictures list
     else
@@ -608,7 +607,7 @@ function parse_section_url( $tokens, &$next_token)
       }
       foreach (explode(',', $tokens[$next_token]) as $image_id)
       {
-        array_push($page['list'], $image_id);
+        $page['list'][] = $image_id;
       }
     }
     $next_token++;

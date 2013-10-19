@@ -328,7 +328,7 @@ SHOW FULL COLUMNS FROM '.$tablename;
         {
           $column.= " collate '".$row['Collation']."'";
         }
-        array_push($columns, $column);
+        $columns[] = $column;
       }
     }
 
@@ -564,7 +564,7 @@ function do_maintenance_all_tables()
   $result = pwg_query($query);
   while ($row = pwg_db_fetch_row($result))
   {
-    array_push($all_tables, $row[0]);
+    $all_tables[] = $row[0];
   }
 
   // Repair all tables
@@ -582,7 +582,7 @@ function do_maintenance_all_tables()
     {
       if ($row['Key'] == 'PRI')
       {
-        array_push($all_primary_key, $row['Field']);
+        $all_primary_key[] = $row['Field'];
       }
     }
 
@@ -598,17 +598,11 @@ function do_maintenance_all_tables()
   $mysql_rc = $mysql_rc && pwg_query($query);
   if ($mysql_rc)
   {
-    array_push(
-          $page['infos'],
-          l10n('All optimizations have been successfully completed.')
-          );
+    $page['infos'][] = l10n('All optimizations have been successfully completed.');
   }
   else
   {
-    array_push(
-          $page['errors'],
-          l10n('Optimizations have been completed with some errors.')
-          );
+    $page['errors'][] = l10n('Optimizations have been completed with some errors.');
   }
 }
 

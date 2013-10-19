@@ -199,7 +199,7 @@ SELECT id_uppercat, MAX(rank)+1 AS next_rank
   // category directory, we need to include it in our array
   if (isset($_POST['cat']))
   {
-    array_push($fs_fulldirs, $basedir);
+    $fs_fulldirs[] = $basedir;
   }
   // If $_POST['subcats-included'] != 1 ("Search in sub-albums" is unchecked)
   // $db_fulldirs doesn't include any subdirectories and $fs_fulldirs does
@@ -253,10 +253,8 @@ SELECT id_uppercat, MAX(rank)+1 AS next_rank
         $insert['global_rank'] = $insert['rank'];
       }
 
-      array_push($inserts, $insert);
-      array_push(
-        $infos,
-        array(
+      $inserts[] = $insert;
+      $infos[] = array(
           'path' => $fulldir,
           'info' => l10n('added')
           )
@@ -277,12 +275,9 @@ SELECT id_uppercat, MAX(rank)+1 AS next_rank
     }
     else
     {
-      array_push(
-        $errors,
-        array(
-          'path' => $fulldir,
-          'type' => 'PWG-UPDATE-1'
-          )
+      $errors[] = array(
+        'path' => $fulldir,
+        'type' => 'PWG-UPDATE-1'
         );
     }
   }
@@ -326,6 +321,7 @@ SELECT id_uppercat, MAX(rank)+1 AS next_rank
             {
               $granted_grps[$row['cat_id']]=array();
             }
+            // TODO: explanaition
             array_push(
               $granted_grps,
               array(
@@ -349,6 +345,7 @@ SELECT id_uppercat, MAX(rank)+1 AS next_rank
             {
               $granted_users[$row['cat_id']]=array();
             }
+            // TODO: explanaition
             array_push(
               $granted_users,
               array(
@@ -372,37 +369,28 @@ SELECT id_uppercat, MAX(rank)+1 AS next_rank
             {
               foreach ($granted_grps[$parent_id] as $granted_grp)
               {
-                array_push(
-                  $insert_granted_grps,
-                  array(
-                    'group_id' => $granted_grp,
-                    'cat_id' => $ids
-                  )
-                );
+                $insert_granted_grps[] = array(
+                  'group_id' => $granted_grp,
+                  'cat_id' => $ids
+                  );
               }
             }
             if (isset($granted_users[$parent_id]))
             {
               foreach ($granted_users[$parent_id] as $granted_user)
               {
-                array_push(
-                  $insert_granted_users,
-                  array(
-                    'user_id' => $granted_user,
-                    'cat_id' => $ids
-                  )
-                );
+                $insert_granted_users[] = array(
+                  'user_id' => $granted_user,
+                  'cat_id' => $ids
+                  );
               }
             }
             foreach (get_admins() as $granted_user)
             {
-              array_push(
-                $insert_granted_users,
-                array(
-                  'user_id' => $granted_user,
-                  'cat_id' => $ids
-                )
-              );
+              $insert_granted_users[] = array(
+                'user_id' => $granted_user,
+                'cat_id' => $ids
+                );
             }
           }
         }
@@ -420,19 +408,26 @@ SELECT id_uppercat, MAX(rank)+1 AS next_rank
   }
 
   // to delete categories
-  $to_delete = array(); $to_delete_derivative_dirs = array();
+  $to_delete = array();
+  $to_delete_derivative_dirs = array();
+  
   foreach (array_diff(array_keys($db_fulldirs), $fs_fulldirs) as $fulldir)
   {
-    array_push($to_delete, $db_fulldirs[$fulldir]);
+    $to_delete[] = $db_fulldirs[$fulldir];
     unset($db_fulldirs[$fulldir]);
-    array_push($infos, array('path' => $fulldir,
-                             'info' => l10n('deleted')));
+    
+    $infos[] = array(
+      'path' => $fulldir,
+      'info' => l10n('deleted')
+      );
+      
     if (substr_compare($fulldir, '../', 0, 3)==0)
     {
       $fulldir = substr($fulldir, 3);
     }
     $to_delete_derivative_dirs[] = PHPWG_ROOT_PATH.PWG_DERIVATIVE_DIR.$fulldir;
   }
+  
   if (count($to_delete) > 0)
   {
     if (!$simulate)
@@ -505,12 +500,9 @@ SELECT id, path
     $filename = basename($path);
     if (!preg_match($conf['sync_chars_regex'], $filename))
     {
-      array_push(
-        $errors,
-        array(
-          'path' => $path,
-          'type' => 'PWG-UPDATE-1'
-          )
+      $errors[] = array(
+        'path' => $path,
+        'type' => 'PWG-UPDATE-1'
         );
 
       continue;
@@ -532,25 +524,16 @@ SELECT id, path
       $insert['level'] = $_POST['privacy_level'];
     }
 
-    array_push(
-      $inserts,
-      $insert
+    $inserts[] = $insert;
+
+    $insert_links[] = array(
+      'image_id'    => $insert['id'],
+      'category_id' => $insert['storage_category_id'],
       );
 
-    array_push(
-      $insert_links,
-      array(
-        'image_id'    => $insert['id'],
-        'category_id' => $insert['storage_category_id'],
-        )
-      );
-
-    array_push(
-      $infos,
-      array(
-        'path' => $insert['path'],
-        'info' => l10n('added')
-        )
+    $infos[] = array(
+      'path' => $insert['path'],
+      'info' => l10n('added')
       );
 
     $caddiables[] = $insert['id'];
@@ -587,9 +570,11 @@ SELECT id, path
   $to_delete_elements = array();
   foreach (array_diff($db_elements, array_keys($fs)) as $path)
   {
-    array_push($to_delete_elements, array_search($path, $db_elements));
-    array_push($infos, array('path' => $path,
-                             'info' => l10n('deleted')));
+    $to_delete_elements[] = array_search($path, $db_elements);
+    $infos[] = array(
+      'path' => $path,
+      'info' => l10n('deleted')
+      );
   }
   if (count($to_delete_elements) > 0)
   {
@@ -658,7 +643,7 @@ if (isset($_POST['submit'])
       }
 
       $data['id']=$id;
-      array_push($datas, $data);
+      $datas[] = $data;
     } // end foreach file
 
     $counts['upd_elements'] = count($datas);
@@ -739,7 +724,7 @@ if (isset($_POST['submit']) and isset($_POST['sync_meta'])
     {
       $data['date_metadata_update'] = CURRENT_DATE;
       $data['id']=$id;
-      array_push($datas, $data);
+      $datas[] = $data;
 
       foreach (array('keywords', 'tags') as $key)
       {
@@ -752,17 +737,17 @@ if (isset($_POST['submit']) and isset($_POST['sync_meta'])
 
           foreach (explode(',', $data[$key]) as $tag_name)
           {
-            array_push(
-              $tags_of[$id],
-              tag_id_from_tag_name($tag_name)
-              );
+            $tags_of[$id][] = tag_id_from_tag_name($tag_name);
           }
         }
       }
     }
     else
     {
-      array_push($errors, array('path' => $element_infos['path'], 'type' => 'PWG-ERROR-NO-FS'));
+      $errors[] = array(
+        'path' => $element_infos['path'],
+        'type' => 'PWG-ERROR-NO-FS'
+        );
     }
   }
 

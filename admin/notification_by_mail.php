@@ -80,10 +80,11 @@ function do_timeout_treatment($post_keyname, $check_key_treated = array())
       $_POST[$post_keyname] = array_diff($_POST[$post_keyname], $check_key_treated);
 
       $must_repost = true;
-      array_push($page['errors'],
-        l10n_dec('Execution time is out, treatment must be continue [Estimated time: %d second].',
-                 'Execution time is out, treatment must be continue [Estimated time: %d seconds].',
-                  $time_refresh));
+      $page['errors'][] = l10n_dec(
+        'Execution time is out, treatment must be continue [Estimated time: %d second].',
+        'Execution time is out, treatment must be continue [Estimated time: %d seconds].',
+        $time_refresh
+        );
     }
   }
 
@@ -156,29 +157,20 @@ order by
       $nbm_user['check_key'] = find_available_check_key();
 
       // Save key
-      array_push($check_key_list, $nbm_user['check_key']);
+      $check_key_list[] = $nbm_user['check_key'];
 
       // Insert new nbm_users
-      array_push
-      (
-        $inserts,
-        array
-        (
-          'user_id' => $nbm_user['user_id'],
-          'check_key' => $nbm_user['check_key'],
-          'enabled' => 'false' // By default if false, set to true with specific functions
-        )
-      );
+      $inserts[] = array(
+        'user_id' => $nbm_user['user_id'],
+        'check_key' => $nbm_user['check_key'],
+        'enabled' => 'false' // By default if false, set to true with specific functions
+        );
 
-      array_push
-      (
-        $page['infos'],
-        l10n(
-          'User %s [%s] added.',
-          stripslashes($nbm_user['username']),
-          get_email_address_as_display_text($nbm_user['mail_address'])
-        )
-      );
+      $page['infos'][] = l10n(
+        'User %s [%s] added.',
+        stripslashes($nbm_user['username']),
+        get_email_address_as_display_text($nbm_user['mail_address'])
+        );
     }
 
     // Insert new nbm_users
@@ -282,13 +274,13 @@ function do_action_send_mail_notification($action = 'list_to_send', $check_key_l
           if ((!$is_action_send) and check_sendmail_timeout())
           {
             // Stop fill list on 'list_to_send', if the quota is override
-            array_push($page['infos'], $msg_break_timeout);
+            $page['infos'][] = $msg_break_timeout;
             break;
           }
           if (($is_action_send) and check_sendmail_timeout())
           {
             // Stop fill list on 'send', if the quota is override
-            array_push($page['errors'], $msg_break_timeout);
+            $page['errors'][] = $msg_break_timeout;
             break;
           }
 
@@ -299,7 +291,7 @@ function do_action_send_mail_notification($action = 'list_to_send', $check_key_l
           {
             set_make_full_url();
             // Fill return list of "treated" check_key for 'send'
-            array_push($return_list, $nbm_user['check_key']);
+            $return_list[] = $nbm_user['check_key'];
 
             if ($conf['nbm_send_detailed_content'])
             {
@@ -402,9 +394,10 @@ function do_action_send_mail_notification($action = 'list_to_send', $check_key_l
               {
                 inc_mail_sent_success($nbm_user);
 
-                $data = array('user_id' => $nbm_user['user_id'],
-                              'last_send' => $dbnow);
-                array_push($datas, $data);
+                $datas[] = array(
+                  'user_id' => $nbm_user['user_id'],
+                  'last_send' => $dbnow
+                  );
               }
               else
               {
@@ -419,7 +412,7 @@ function do_action_send_mail_notification($action = 'list_to_send', $check_key_l
             if (news_exists($nbm_user['last_send'], $dbnow))
             {
               // Fill return list of "selected" users for 'list_to_send'
-              array_push($return_list, $nbm_user);
+              $return_list[] = $nbm_user;
             }
           }
 
@@ -448,7 +441,7 @@ function do_action_send_mail_notification($action = 'list_to_send', $check_key_l
       {
         if ($is_action_send)
         {
-          array_push($page['errors'], l10n('No user to send notifications by mail.'));
+          $page['errors'][] = l10n('No user to send notifications by mail.');
         }
       }
     }
@@ -529,9 +522,10 @@ where
         }
       }
 
-      array_push($page['infos'],
-        l10n_dec('%d parameter was updated.', '%d parameters were updated.',
-          $updated_param_count));
+      $page['infos'][] = l10n_dec(
+        '%d parameter was updated.', '%d parameters were updated.',
+        $updated_param_count
+        );
 
       // Reload conf with new values
       load_conf_from_db('param like \'nbm\\_%\'');

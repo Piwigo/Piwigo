@@ -60,13 +60,13 @@ if ( $page['show_comments'] and isset( $_POST['content'] ) )
   switch ($comment_action)
   {
     case 'moderate':
-      array_push($page['infos'], l10n('An administrator must authorize your comment before it is visible.') );
+      $page['infos'][] = l10n('An administrator must authorize your comment before it is visible.');
     case 'validate':
-      array_push($page['infos'], l10n('Your comment has been registered'));
+      $page['infos'][] = l10n('Your comment has been registered');
       break;
     case 'reject':
       set_status_header(403);
-      array_push($page['errors'], l10n('Your comment has NOT been registered because it did not pass the validation rules') );
+      $page['errors'][] = l10n('Your comment has NOT been registered because it did not pass the validation rules');
       break;
     default:
       trigger_error('Invalid comment action '.$comment_action, E_USER_WARNING);

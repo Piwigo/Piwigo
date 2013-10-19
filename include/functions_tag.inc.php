@@ -332,7 +332,7 @@ SELECT *
   $tags = array();
   while ($row = pwg_db_fetch_assoc($result))
   {
-    array_push($tags, $row);
+    $tags[] = $row;
   }
   return $tags;
 }

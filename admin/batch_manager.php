@@ -177,10 +177,7 @@ SELECT element_id
   FROM '.CADDIE_TABLE.'
   WHERE user_id = '.$user['id'].'
 ;';
-    array_push(
-      $filter_sets,
-      array_from_query($query, 'element_id')
-      );
+    $filter_sets[] = array_from_query($query, 'element_id');
     
     break;
 
@@ -190,10 +187,7 @@ SELECT image_id
   FROM '.FAVORITES_TABLE.'
   WHERE user_id = '.$user['id'].'
 ;';
-    array_push(
-      $filter_sets,
-      array_from_query($query, 'image_id')
-      );
+    $filter_sets[] = array_from_query($query, 'image_id');
     
     break;
 
@@ -210,10 +204,7 @@ SELECT id
   FROM '.IMAGES_TABLE.'
   WHERE date_available BETWEEN '.pwg_db_get_recent_period_expression(1, $row['date']).' AND \''.$row['date'].'\'
 ;';
-      array_push(
-        $filter_sets,
-        array_from_query($query, 'id')
-        );
+      $filter_sets[] = array_from_query($query, 'id');
     }
     
     break;
@@ -242,10 +233,7 @@ SELECT id
       $linked_to_virtual = array_from_query($query, 'image_id');
     }
 
-    array_push(
-      $filter_sets,
-      array_diff($all_elements, $linked_to_virtual)
-      );
+    $filter_sets[] = array_diff($all_elements, $linked_to_virtual);
     
     break;
 
@@ -257,10 +245,7 @@ SELECT
     LEFT JOIN '.IMAGE_CATEGORY_TABLE.' ON id = image_id
   WHERE category_id is null
 ;';
-    array_push(
-      $filter_sets,
-      array_from_query($query, 'id')
-      );
+    $filter_sets[] = array_from_query($query, 'id');
     
     break;
 
@@ -272,10 +257,7 @@ SELECT
     LEFT JOIN '.IMAGE_TAG_TABLE.' ON id = image_id
   WHERE tag_id is null
 ;';
-    array_push(
-      $filter_sets,
-      array_from_query($query, 'id')
-      );
+    $filter_sets[] = array_from_query($query, 'id');
     
     break;
 
@@ -297,11 +279,7 @@ SELECT id
   FROM '.IMAGES_TABLE.'
   WHERE file IN (\''.implode("','", $duplicate_files).'\')
 ;';
-
-    array_push(
-      $filter_sets,
-      array_from_query($query, 'id')
-      );
+    $filter_sets[] = array_from_query($query, 'id');
     
     break;
 
@@ -337,10 +315,7 @@ if (isset($_SESSION['bulk_manager_filter']['category']))
    FROM '.IMAGE_CATEGORY_TABLE.'
    WHERE category_id IN ('.implode(',', $categories).')
  ;';
-  array_push(
-    $filter_sets,
-    array_from_query($query, 'image_id')
-    );
+  $filter_sets[] = array_from_query($query, 'image_id');
 }
 
 if (isset($_SESSION['bulk_manager_filter']['level']))
@@ -362,15 +337,12 @@ SELECT id
 
 if (!empty($_SESSION['bulk_manager_filter']['tags']))
 {
-  array_push(
-    $filter_sets,
-    get_image_ids_for_tags(
-      $_SESSION['bulk_manager_filter']['tags'],
-      $_SESSION['bulk_manager_filter']['tag_mode'],
-      null,
-      null,
-      false // we don't apply permissions in administration screens
-      )
+  $filter_sets[] = get_image_ids_for_tags(
+    $_SESSION['bulk_manager_filter']['tags'],
+    $_SESSION['bulk_manager_filter']['tag_mode'],
+    null,
+    null,
+    false // we don't apply permissions in administration screens
     );
 }
 

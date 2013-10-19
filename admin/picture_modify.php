@@ -104,7 +104,7 @@ SELECT category_id
 if (isset($_GET['sync_metadata']))
 {
   sync_metadata(array( intval($_GET['image_id'])));
-  array_push($page['infos'], l10n('Metadata synchronized from file'));
+  $page['infos'][] = l10n('Metadata synchronized from file');
 }
 
 //--------------------------------------------------------- update informations
@@ -120,7 +120,7 @@ if (isset($_POST['date_creation_action'])
           $_POST['date_creation_year'])
     )
   {
-    array_push($page['errors'], l10n('wrong date'));
+    $page['errors'][] = l10n('wrong date');
   }
 }
 
@@ -203,7 +203,7 @@ UPDATE '.CATEGORIES_TABLE.'
 
   $represent_options_selected = $_POST['represent'];
   
-  array_push($page['infos'], l10n('Photo informations updated'));
+  $page['infos'][] = l10n('Photo informations updated');
 }
 
 // tags

@@ -93,7 +93,7 @@ function insert_user_comment( &$comm, $key, &$infos )
     {
       if ($conf['comments_author_mandatory'])
       {
-        array_push($infos, l10n('Username is mandatory') );
+        $infos[] = l10n('Username is mandatory');
         $comment_action='reject';
       }
       $comm['author'] = 'guest';
@@ -110,7 +110,7 @@ SELECT COUNT(*) AS user_exists
       $row = pwg_db_fetch_assoc( pwg_query( $query ) );
       if ( $row['user_exists'] == 1 )
       {
-        array_push($infos, l10n('This login is already used by another user') );
+        $infos[] = l10n('This login is already used by another user');
         $comment_action='reject';
       }
     }
@@ -141,7 +141,7 @@ SELECT COUNT(*) AS user_exists
     }
     if (!url_check_format($comm['website_url']))
     {
-      array_push($infos, l10n('Your website URL is invalid'));
+      $infos[] = l10n('Your website URL is invalid');
       $comment_action='reject';
     }
   }
@@ -155,13 +155,13 @@ SELECT COUNT(*) AS user_exists
     }
     else if ($conf['comments_email_mandatory'])
     {
-      array_push($infos, l10n('Email address is missing. Please specify an email address.') );
+      $infos[] = l10n('Email address is missing. Please specify an email address.');
       $comment_action='reject';
     }
   }
   else if (!email_check_format($comm['email']))
   {
-    array_push($infos, l10n('mail address must be like xxx@yyy.eee (example : jack@altern.org)'));
+    $infos[] = l10n('mail address must be like xxx@yyy.eee (example : jack@altern.org)');
     $comment_action='reject';
   }
   
@@ -192,7 +192,7 @@ SELECT count(1) FROM '.COMMENTS_TABLE.'
     list($counter) = pwg_db_fetch_row(pwg_query($query));
     if ( $counter > 0 )
     {
-      array_push( $infos, l10n('Anti-flood system : please wait for a moment before trying to post another comment') );
+      $infos[] = l10n('Anti-flood system : please wait for a moment before trying to post another comment');
       $comment_action='reject';
     }
   }

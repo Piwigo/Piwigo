@@ -69,23 +69,14 @@ SELECT id, name
     {
       if (in_array($tag_name, $existing_names))
       {
-        array_push(
-          $page['errors'],
-          l10n(
-            'Tag "%s" already exists',
-            $tag_name
-            )
-          );
+        $page['errors'][] = l10n('Tag "%s" already exists', $tag_name);
       }
       else if (!empty($tag_name))
       {
-        array_push(
-          $updates,
-          array(
-            'id' => $tag_id,
-            'name' => addslashes($tag_name),
-            'url_name' => trigger_event('render_tag_url', $tag_name),
-            )
+        $updates[] = array(
+          'id' => $tag_id,
+          'name' => addslashes($tag_name),
+          'url_name' => trigger_event('render_tag_url', $tag_name),
           );
       }
     }
@@ -134,13 +125,7 @@ SELECT id, name
     {
       if (in_array($tag_name, $existing_names))
       {
-        array_push(
-          $page['errors'],
-          l10n(
-            'Tag "%s" already exists',
-            $tag_name
-            )
-          );
+        $page['errors'][] = l10n('Tag "%s" already exists', $tag_name);
       }
       else if (!empty($tag_name))
       {
@@ -171,12 +156,9 @@ SELECT id, name
         $inserts = array();
         foreach ($destination_tag_image_ids as $image_id)
         {
-          array_push(
-            $inserts,
-            array(
-              'tag_id' => $destination_tag_id,
-              'image_id' => $image_id
-              )
+          $inserts[] = array(
+            'tag_id' => $destination_tag_id,
+            'image_id' => $image_id
             );
         }
 
@@ -188,13 +170,11 @@ SELECT id, name
             $inserts
             );
         }
-        array_push(
-          $page['infos'],
-          l10n(
-            'Tag "%s" is now a duplicate of "%s"',
-            stripslashes($tag_name),
-            $current_name_of[$tag_id]
-            )
+        
+        $page['infos'][] = l10n(
+          'Tag "%s" is now a duplicate of "%s"',
+          stripslashes($tag_name),
+          $current_name_of[$tag_id]
           );
       }
     }
@@ -217,10 +197,7 @@ if (isset($_POST['confirm_merge']))
 {
   if (!isset($_POST['destination_tag']))
   {
-    array_push(
-      $page['errors'],
-      l10n('No destination tag selected')
-      );
+    $page['errors'][] = l10n('No destination tag selected');
   }
   else
   {
@@ -274,12 +251,9 @@ SELECT
       $inserts = array();
       foreach ($image_ids_to_link as $image_id)
       {
-        array_push(
-          $inserts,
-          array(
-            'tag_id' => $destination_tag_id,
-            'image_id' => $image_id
-            )
+        $inserts[] = array(
+          'tag_id' => $destination_tag_id,
+          'image_id' => $image_id
           );
       }
 
@@ -298,13 +272,10 @@ SELECT
         $tags_deleted[] = $name_of_tag[$tag_id];
       }
 
-      array_push(
-        $page['infos'],
-        l10n(
-          'Tags <em>%s</em> merged into tag <em>%s</em>',
-          implode(', ', $tags_deleted),
-          $name_of_tag[$destination_tag_id]
-          )
+      $page['infos'][] = l10n(
+        'Tags <em>%s</em> merged into tag <em>%s</em>',
+        implode(', ', $tags_deleted),
+        $name_of_tag[$destination_tag_id]
         );
     }
   }
@@ -326,14 +297,11 @@ SELECT name
 
   delete_tags($_POST['tags']);
 
-  array_push(
-    $page['infos'],
-    l10n_dec(
-      'The following tag was deleted',
-      'The %d following tags were deleted',
-      count($tag_names)).' : '.
-      implode(', ', $tag_names)
-    );
+  $page['infos'][] = l10n_dec(
+    'The following tag was deleted', 'The %d following tags were deleted',
+    count($tag_names)
+    )
+  .' : '.implode(', ', $tag_names);
 }
 
 // +-----------------------------------------------------------------------+
@@ -378,23 +346,11 @@ SELECT id
         )
       );
 
-    array_push(
-      $page['infos'],
-      l10n(
-        'Tag "%s" was added',
-        stripslashes($tag_name)
-        )
-      );
+    $page['infos'][] = l10n('Tag "%s" was added', stripslashes($tag_name));
   }
   else
   {
-    array_push(
-      $page['errors'],
-      l10n(
-        'Tag "%s" already exists',
-        stripslashes($tag_name)
-        )
-      );
+    $page['errors'][] = l10n('Tag "%s" already exists', stripslashes($tag_name));
   }
 }
 
@@ -420,19 +376,16 @@ $orphan_tags = get_orphan_tags();
 $orphan_tag_names = array();
 foreach ($orphan_tags as $tag)
 {
-  array_push($orphan_tag_names, trigger_event('render_tag_name', $tag['name']));
+  $orphan_tag_names[] = trigger_event('render_tag_name', $tag['name']);
 }
 
 if (count($orphan_tag_names) > 0)
 {
-  array_push(
-    $page['warnings'],
-    sprintf(
-      l10n('You have %d orphan tags: %s.').' <a href="%s">'.l10n('Delete orphan tags').'</a>',
-      count($orphan_tag_names),
-      implode(', ', $orphan_tag_names),
-      get_root_url().'admin.php?page=tags&amp;action=delete_orphans&amp;pwg_token='.get_pwg_token()
-      )
+  $page['warnings'][] = sprintf(
+    l10n('You have %d orphan tags: %s.').' <a href="%s">'.l10n('Delete orphan tags').'</a>',
+    count($orphan_tag_names),
+    implode(', ', $orphan_tag_names),
+    get_root_url().'admin.php?page=tags&amp;action=delete_orphans&amp;pwg_token='.get_pwg_token()
     );
 }
 

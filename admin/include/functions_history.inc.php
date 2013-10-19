@@ -58,18 +58,12 @@ SELECT
 
   if (isset($search['fields']['date-after']))
   {
-    array_push(
-      $clauses,
-      "date >= '".$search['fields']['date-after']."'"
-      );
+    $clauses[] = "date >= '".$search['fields']['date-after']."'";
   }
 
   if (isset($search['fields']['date-before']))
   {
-    array_push(
-      $clauses,
-      "date <= '".$search['fields']['date-before']."'"
-      );
+    $clauses[] = "date <= '".$search['fields']['date-before']."'";
   }
 
   if (isset($search['fields']['types']))
@@ -88,34 +82,25 @@ SELECT
           $clause.= "= '".$type."'";
         }
         
-        array_push($local_clauses, $clause);
+        $local_clauses[] = $clause;
       }
     }
     
     if (count($local_clauses) > 0)
     {
-      array_push(
-        $clauses,
-        implode(' OR ', $local_clauses)
-        );
+      $clauses[] = implode(' OR ', $local_clauses);
     }
   }
 
   if (isset($search['fields']['user'])
       and $search['fields']['user'] != -1)
   {
-    array_push(
-      $clauses,
-      'user_id = '.$search['fields']['user']
-      );
+    $clauses[] = 'user_id = '.$search['fields']['user'];
   }
 
   if (isset($search['fields']['image_id']))
   {
-    array_push(
-      $clauses,
-      'image_id = '.$search['fields']['image_id']
-      );
+    $clauses[] = 'image_id = '.$search['fields']['image_id'];
   }
   
   if (isset($search['fields']['filename']))
@@ -123,14 +108,11 @@ SELECT
     if (count($search['image_ids']) == 0)
     {
       // a clause that is always false
-      array_push($clauses, '1 = 2 ');
+      $clauses[] = '1 = 2 ';
     }
     else
     {
-      array_push(
-        $clauses,
-        'image_id IN ('.implode(', ', $search['image_ids']).')'
-        );
+      $clauses[] = 'image_id IN ('.implode(', ', $search['image_ids']).')';
     }
   }
 
@@ -168,7 +150,7 @@ SELECT
 
   while ($row = pwg_db_fetch_assoc($result))
   {
-    array_push($data, $row);
+    $data[] = $row;
   }
 
   return $data;

@@ -201,7 +201,7 @@ function save_profile_from_post($userdata, &$errors)
       // password is updated only if filled
       if (!empty($_POST['use_new_pwd']))
       {
-        array_push($fields, $conf['user_fields']['password']);
+        $fields[] = $conf['user_fields']['password'];
         // password is hashed with function $conf['password_hash']
         $data{$conf['user_fields']['password']} = $conf['password_hash']($_POST['use_new_pwd']);
       }
@@ -211,12 +211,12 @@ function save_profile_from_post($userdata, &$errors)
       {
         if ($_POST['username'] != $userdata['username'] and get_userid($_POST['username']))
         {
-          array_push($page['errors'], l10n('this login is already used'));
+          $page['errors'][] = l10n('this login is already used');
           unset($_POST['redirect']);
         }
         else
         {
-          array_push($fields, $conf['user_fields']['username']);
+          $fields[] = $conf['user_fields']['username'];
           $data{$conf['user_fields']['username']} = $_POST['username'];
           
           // send email to the user
@@ -262,7 +262,7 @@ function save_profile_from_post($userdata, &$errors)
         
       if ($conf['activate_comments'])
       {
-        array_push($fields, 'show_nb_comments');
+        $fields[] = 'show_nb_comments';
       }
 
       $data = array();

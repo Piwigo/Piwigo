@@ -878,8 +878,10 @@ SELECT element_id
 
   foreach ($caddiables as $caddiable)
   {
-    array_push($datas, array('element_id' => $caddiable,
-                             'user_id' => $user['id']));
+    $datas[] = array(
+      'element_id' => $caddiable,
+      'user_id' => $user['id'],
+      );
   }
 
   if (count($caddiables) > 0)

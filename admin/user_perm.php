@@ -119,8 +119,8 @@ if (pwg_db_num_rows($result) > 0)
   $cats = array();
   while ($row = pwg_db_fetch_assoc($result))
   {
-    array_push($cats, $row);
-    array_push($group_authorized, $row['cat_id']);
+    $cats[] = $row;
+    $group_authorized[] = $row['cat_id'];
   }
   usort($cats, 'global_rank_compare');
 
@@ -152,7 +152,7 @@ $result = pwg_query($query_true);
 $authorized_ids = array();
 while ($row = pwg_db_fetch_assoc($result))
 {
-  array_push($authorized_ids, $row['id']);
+  $authorized_ids[] = $row['id'];
 }
 
 $query_false = '

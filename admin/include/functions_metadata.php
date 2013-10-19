@@ -219,23 +219,20 @@ SELECT id, path, representative_ext
 
         foreach (explode(',', $data[$key]) as $tag_name)
         {
-          array_push(
-            $tags_of[$id],
-            tag_id_from_tag_name($tag_name)
-            );
+          $tags_of[$id][] = tag_id_from_tag_name($tag_name);
         }
       }
     }
 
     $data['date_metadata_update'] = CURRENT_DATE;
 
-    array_push($datas, $data);
+    $datas[] = $data;
   }
 
   if (count($datas) > 0)
   {
     $update_fields = get_sync_metadata_attributes();
-    array_push($update_fields, 'date_metadata_update');
+    $update_fields[] = 'date_metadata_update';
 
     $update_fields = array_diff(
       $update_fields,
@@ -297,7 +294,7 @@ SELECT id
   $result = pwg_query($query);
   while ($row = pwg_db_fetch_assoc($result))
   {
-    array_push($cat_ids, $row['id']);
+    $cat_ids[] = $row['id'];
   }
 
   if (count($cat_ids) == 0)

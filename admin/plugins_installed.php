@@ -64,7 +64,7 @@ if (isset($_GET['action']) and isset($_GET['plugin']))
 {
   if (!is_webmaster())
   {
-    array_push($page['errors'], l10n('Webmaster status is required.'));
+    $page['errors'][] = l10n('Webmaster status is required.');
   }
   else
   {
@@ -90,7 +90,7 @@ if (isset($_GET['incompatible_plugins']))
   foreach ($plugins->get_incompatible_plugins() as $plugin => $version)
   {
     if ($plugin == '~~expire~~') continue;
-    array_push($incompatible_plugins, $plugin);
+    $incompatible_plugins[] = $plugin;
     
   }
   echo json_encode($incompatible_plugins);
@@ -152,7 +152,7 @@ foreach($plugins->fs_plugins as $plugin_id => $fs_plugin)
     $active_plugins++;
   }
 
-  array_push($tpl_plugins, $tpl_plugin);
+  $tpl_plugins[] = $tpl_plugin;
 }
 
 $template->append('plugin_states', 'active');
@@ -170,17 +170,14 @@ $missing_plugin_ids = array_diff(
 
 if (count($missing_plugin_ids) > 0)
 {
-  foreach($missing_plugin_ids as $plugin_id)
+  foreach ($missing_plugin_ids as $plugin_id)
   {
-    array_push(
-      $tpl_plugins,
-      array(
-        'NAME' => $plugin_id,
-        'VERSION' => $plugins->db_plugins_by_id[$plugin_id]['version'],
-        'DESC' => l10n('ERROR: THIS PLUGIN IS MISSING BUT IT IS INSTALLED! UNINSTALL IT NOW.'),
-        'U_ACTION' => sprintf($action_url, $plugin_id),
-        'STATE' => 'missing',
-        )
+    $tpl_plugins[] = array(
+      'NAME' => $plugin_id,
+      'VERSION' => $plugins->db_plugins_by_id[$plugin_id]['version'],
+      'DESC' => l10n('ERROR: THIS PLUGIN IS MISSING BUT IT IS INSTALLED! UNINSTALL IT NOW.'),
+      'U_ACTION' => sprintf($action_url, $plugin_id),
+      'STATE' => 'missing',
       );
   }
   $template->append('plugin_states', 'missing');

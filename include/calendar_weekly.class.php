@@ -68,8 +68,7 @@ class Calendar extends CalendarBase
     {
       $this->calendar_levels[CWEEK]['sql'] = pwg_db_get_week($this->date_field, 5).'+1';
       $this->calendar_levels[CDAY]['sql'] = pwg_db_get_weekday($this->date_field);
-      array_push( $this->calendar_levels[CDAY]['labels'],
-                  array_shift( $this->calendar_levels[CDAY]['labels'] ) );
+      $this->calendar_levels[CDAY]['labels'][] = array_shift($this->calendar_levels[CDAY]['labels']);
     }
   }
 

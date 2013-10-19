@@ -68,18 +68,15 @@ function get_sql_search_clause($search)
       $local_clauses = array();
       foreach ($search['fields'][$textfield]['words'] as $word)
       {
-        array_push($local_clauses, $textfield." LIKE '%".$word."%'");
+        $local_clauses[] = $textfield." LIKE '%".$word."%'";
       }
 
       // adds brackets around where clauses
       $local_clauses = prepend_append_array_items($local_clauses, '(', ')');
 
-      array_push(
-        $clauses,
-        implode(
-          ' '.$search['fields'][$textfield]['mode'].' ',
-          $local_clauses
-          )
+      $clauses[] = implode(
+        ' '.$search['fields'][$textfield]['mode'].' ',
+        $local_clauses
         );
     }
   }
@@ -100,15 +97,12 @@ function get_sql_search_clause($search)
       $field_clauses = array();
       foreach ($fields as $field)
       {
-        array_push($field_clauses, $field." LIKE '%".$word."%'");
+        $field_clauses[] = $field." LIKE '%".$word."%'";
       }
       // adds brackets around where clauses
-      array_push(
-        $word_clauses,
-        implode(
-          "\n          OR ",
-          $field_clauses
-          )
+      $word_clauses[] = implode(
+        "\n          OR ",
+        $field_clauses
         );
     }
 
@@ -117,26 +111,18 @@ function get_sql_search_clause($search)
       create_function('&$s','$s="(".$s.")";')
       );
 
-    array_push(
-      $clauses,
-      "\n         ".
+    $clauses[] = "\n         ".
       implode(
-        "\n         ".
-              $search['fields']['allwords']['mode'].
-        "\n         ",
+        "\n         ". $search['fields']['allwords']['mode']. "\n         ",
         $word_clauses
-        )
-      );
+        );
   }
 
   foreach (array('date_available', 'date_creation') as $datefield)
   {
     if (isset($search['fields'][$datefield]))
     {
-      array_push(
-        $clauses,
-        $datefield." = '".$search['fields'][$datefield]['date']."'"
-        );
+      $clauses[] = $datefield." = '".$search['fields'][$datefield]['date']."'"
     }
 
     foreach (array('after','before') as $suffix)
@@ -145,15 +131,10 @@ function get_sql_search_clause($search)
 
       if (isset($search['fields'][$key]))
       {
-        array_push(
-          $clauses,
-
-          $datefield.
+        $clauses[] = $datefield.
           ($suffix == 'after'             ? ' >' : ' <').
           ($search['fields'][$key]['inc'] ? '='  : '').
-          " '".$search['fields'][$key]['date']."'"
-
-          );
+          " '".$search['fields'][$key]['date']."'";
       }
     }
   }
@@ -171,7 +152,7 @@ function get_sql_search_clause($search)
     }
 
     $local_clause = 'category_id IN ('.implode(',', $cat_ids).')';
-    array_push($clauses, $local_clause);
+    $clauses[] = $local_clause;
   }
 
   // adds brackets around where clauses

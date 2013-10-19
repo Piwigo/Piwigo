@@ -52,12 +52,9 @@ function open()
 
   if (!is_dir($this->site_url))
   {
-    array_push(
-      $errors,
-      array(
-        'path' => $this->site_url,
-        'type' => 'PWG-ERROR-NO-FS'
-        )
+    $errors[] = array(
+      'path' => $this->site_url,
+      'type' => 'PWG-ERROR-NO-FS'
       );
 
     return false;
@@ -108,12 +105,12 @@ function get_elements($path)
             );
         }
       }
-      elseif (is_dir($path.'/'.$node)
+      else if (is_dir($path.'/'.$node)
                and $node != 'pwg_high'
                and $node != 'pwg_representative'
                and $node != 'thumbnail' )
       {
-        array_push($subdirs, $node);
+        $subdirs[] = $node;
       }
     } //end while readdir
     closedir($contents);

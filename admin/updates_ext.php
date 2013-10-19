@@ -32,8 +32,8 @@ $autoupdate = new updates($page['page']);
 $show_reset = false;
 if (!$autoupdate->get_server_extensions())
 {
-  array_push($page['errors'], l10n('Can\'t connect to server.'));
-  return;
+  $page['errors'][] = l10n('Can\'t connect to server.');
+  return; // TODO: remove this return and add a proper "page killer"
 }
 
 foreach ($autoupdate->types as $type)

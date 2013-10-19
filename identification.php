@@ -39,7 +39,7 @@ if ( !empty($_GET['redirect']) )
   $redirect_to = urldecode($_GET['redirect']);
   if ( is_a_guest() )
   {
-    array_push($page['errors'], l10n('You are not authorized to access the requested page'));
+    $page['errors'][] = l10n('You are not authorized to access the requested page');
   }
 }
 
@@ -47,10 +47,7 @@ if (isset($_POST['login']))
 {
   if (!isset($_COOKIE[session_name()]))
   {
-    array_push(
-      $page['errors'],
-      l10n('Cookies are blocked or not supported by your browser. You must enable cookies to connect.')
-      );
+    $page['errors'][] = l10n('Cookies are blocked or not supported by your browser. You must enable cookies to connect.');
   }
   else
   { 
@@ -68,7 +65,7 @@ if (isset($_POST['login']))
     }
     else
     {
-      array_push($page['errors'], l10n('Invalid password!') );
+      $page['errors'][] = l10n('Invalid password!');
     }
   }
 }

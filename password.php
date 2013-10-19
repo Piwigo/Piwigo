@@ -53,7 +53,7 @@ function process_password_request()
   
   if (empty($_POST['username_or_email']))
   {
-    array_push($page['errors'], l10n('Invalid username or email'));
+    $page['errors'][] = l10n('Invalid username or email');
     return false;
   }
   
@@ -66,7 +66,7 @@ function process_password_request()
 
   if (!is_numeric($user_id))
   {
-    array_push($page['errors'], l10n('Invalid username or email'));
+    $page['errors'][] = l10n('Invalid username or email');
     return false;
   }
 
@@ -76,18 +76,15 @@ function process_password_request()
   $status = $userdata['status'];
   if (is_a_guest($status) or is_generic($status))
   {
-    array_push($page['errors'], l10n('Password reset is not allowed for this user'));
+    $page['errors'][] = l10n('Password reset is not allowed for this user');
     return false;
   }
 
   if (empty($userdata['email']))
   {
-    array_push(
-      $page['errors'],
-      l10n(
-        'User "%s" has no email address, password reset is not possible',
-        $userdata['username']
-        )
+    $page['errors'][] = l10n(
+      'User "%s" has no email address, password reset is not possible',
+      $userdata['username']
       );
     return false;
   }
@@ -130,12 +127,12 @@ function process_password_request()
 
   if (pwg_mail($userdata['email'], $email_params))
   {
-    array_push($page['infos'], l10n('Check your email for the confirmation link'));
+    $page['infos'][] = l10n('Check your email for the confirmation link');
     return true;
   }
   else
   {
-    array_push($page['errors'], l10n('Error sending email'));
+    $page['errors'][] = l10n('Error sending email');
     return false;
   }
 }
@@ -152,7 +149,7 @@ function check_password_reset_key($key)
   
   if (!preg_match('/^[a-z0-9]{20}$/i', $key))
   {
-    array_push($page['errors'], l10n('Invalid key'));
+    $page['errors'][] = l10n('Invalid key');
     return false;
   }
 
@@ -167,7 +164,7 @@ SELECT
 
   if (pwg_db_num_rows($result) == 0)
   {
-    array_push($page['errors'], l10n('Invalid key'));
+    $page['errors'][] = l10n('Invalid key');
     return false;
   }
   
@@ -175,7 +172,7 @@ SELECT
 
   if (is_a_guest($userdata['status']) or is_generic($userdata['status']))
   {
-    array_push($page['errors'], l10n('Password reset is not allowed for this user'));
+    $page['errors'][] = l10n('Password reset is not allowed for this user');
     return false;
   }
 
@@ -194,7 +191,7 @@ function reset_password()
 
   if ($_POST['use_new_pwd'] != $_POST['passwordConf'])
   {
-    array_push($page['errors'], l10n('The passwords do not match'));
+    $page['errors'][] = l10n('The passwords do not match');
     return false;
   }
 
@@ -203,7 +200,7 @@ function reset_password()
     $user_id = check_password_reset_key($_GET['key']);
     if (!is_numeric($user_id))
     {
-      array_push($page['errors'], l10n('Invalid key'));
+      $page['errors'][] = l10n('Invalid key');
       return false;
     }
   }
@@ -212,7 +209,7 @@ function reset_password()
     // we check the currently logged in user
     if (is_a_guest() or is_generic())
     {
-      array_push($page['errors'], l10n('Password reset is not allowed for this user'));
+      $page['errors'][] = l10n('Password reset is not allowed for this user');
       return false;
     }
 
@@ -225,15 +222,15 @@ function reset_password()
     array($conf['user_fields']['id'] => $user_id)
     );
 
-  array_push($page['infos'], l10n('Your password has been reset'));
+  $page['infos'][] = l10n('Your password has been reset');
 
   if (isset($_GET['key']))
   {
-    array_push($page['infos'], '<a href="'.get_root_url().'identification.php">'.l10n('Login').'</a>');
+    $page['infos'][] = '<a href="'.get_root_url().'identification.php">'.l10n('Login').'</a>';
   }
   else
   {
-    array_push($page['infos'], '<a href="'.get_gallery_home_url().'">'.l10n('Return to home page').'</a>');
+    $page['infos'][] = '<a href="'.get_gallery_home_url().'">'.l10n('Return to home page').'</a>';
   }
 
   return true;

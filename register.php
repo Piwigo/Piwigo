@@ -44,12 +44,12 @@ if (isset($_POST['submit']))
   if (!verify_ephemeral_key(@$_POST['key']))
   {
 		set_status_header(403);
-    array_push($page['errors'], 'Invalid/expired form key');
+    $page['errors'][] = l10n('Invalid/expired form key');
   }
 
   if ($_POST['password'] != $_POST['password_conf'])
   {
-    array_push($page['errors'], l10n('please enter your password again'));
+    $page['errors'][] = l10n('please enter your password again');
   }
 
   $page['errors'] =

@@ -399,7 +399,7 @@ DELETE FROM ' . PLUGINS_TABLE . ' WHERE id=\'' . $plugin_id . '\'';
         {
           $server_plugins[$plugin['extension_id']] = array();
         }
-        array_push($server_plugins[$plugin['extension_id']], $plugin['revision_name']);
+        $server_plugins[$plugin['extension_id']][] = $plugin['revision_name'];
       }
 
       foreach ($this->fs_plugins as $plugin_id => $fs_plugin)
@@ -503,7 +503,7 @@ DELETE FROM ' . PLUGINS_TABLE . ' WHERE id=\'' . $plugin_id . '\'';
                 and $old_files = file($extract_path.'/obsolete.list', FILE_IGNORE_NEW_LINES)
                 and !empty($old_files))
               {
-                array_push($old_files, 'obsolete.list');
+                $old_files[] = 'obsolete.list';
                 foreach($old_files as $old_file)
                 {
                   $path = $extract_path.'/'.$old_file;
