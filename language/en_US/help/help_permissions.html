@@ -1,0 +1,57 @@
+<fieldset>
+<legend>Permissions on photos</legend>
+
+<p>Each photo has a <strong>privacy level</strong> (a lock). Each user also has a privacy level (a key). There are 5 privacy levels:</p>
+<ol>
+  <li>None</li>
+  <li><em>Contacts</em></li>
+  <li><em>Friends (which is higher than a contact)</em></li>
+  <li><em>Family (which is higher than a friend)</em></li>
+  <li><em>Admins (which is higher than any other level)</em></li>
+</ol>
+
+<p>Higher levels have permissions on lower levels. For a given user, the higher the privacy level, the more photos he can see.</p>
+
+<p>For example, if photo "peter_wedding-0024.jpg" has <em>"Family"</em> privacy level, then:</p>
+<ul>
+  <li>Peter (who is an <em>"Admin"</em>) will see the photo because <em>"Admins"</em> can see all photos</li>
+  <li>Beth (who is a <em>"Family"</em> member) will also see the photo</li>
+  <li>Mary (who is just a <em>"Friend"</em>) won't see the photo</li>
+</ul>
+
+<p>A user that has no permission to see the content of a album won't see the album itself, not even its title. The same principle applies to a tag.</p>
+
+<p>You can set the privacy level of a user on <span class="pwgScreen">Administration &raquo; Users &raquo; Manage</span> screen.</p>
+
+</fieldset>
+
+<fieldset>
+<legend>Permissions on albums</legend>
+
+<p>If privacy levels do not fit your needs, you can also manage permissions on albums for a user or a group. You can manage permissions on photos and albums at the same time, without conflict.</p>
+
+<p>You can forbid access to albums. Switch the album access type to
+"private" if you want to manage permissions.</p>
+
+<p>You can set a album to private by editing a single album
+(<span class="pwgScreen">Administration &raquo; Albums &raquo; Manage
+&raquo; edit</span>) or by setting options to your whole album tree
+(<span class="pwgScreen">Administration &raquo; Albums &raquo;
+Properties &raquo; Public / Private</span>).</p>
+
+<p>Once the album is private, you can manage permissions for groups and
+users with 3 screens:</p>
+
+<ul>
+
+  <li><span class="pwgScreen">Administration &raquo; Users &raquo; Manage &raquo;
+  permissions action</span> (one link per user)</li>
+
+  <li><span class="pwgScreen">Administration &raquo; Users &raquo; Groups &raquo;
+  permissions action</span> (one link per group)</li>
+
+  <li><span class="pwgScreen">Administration &raquo; Albums &raquo; Manage &raquo; edit
+  album permissions action</span> (one link per album)</li>
+
+</ul>
+</fieldset>
