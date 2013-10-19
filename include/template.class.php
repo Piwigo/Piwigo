@@ -95,7 +95,7 @@ class Template {
     $this->smarty->registerPlugin('modifiercompiler', 'translate', array('Template', 'modcompiler_translate') );
     $this->smarty->registerPlugin('modifiercompiler', 'translate_dec', array('Template', 'modcompiler_translate_dec') );
     $this->smarty->registerPlugin('modifier', 'explode', array('Template', 'mod_explode') );
-    $this->smarty->registerPlugin( 'modifier', 'get_extent', array($this, 'get_extent') );
+    $this->smarty->registerPlugin('modifier', 'get_extent', array($this, 'get_extent') );
     $this->smarty->registerPlugin('block', 'html_head', array($this, 'block_html_head') );
     $this->smarty->registerPlugin('block', 'html_style', array($this, 'block_html_style') );
     $this->smarty->registerPlugin('function', 'combine_script', array($this, 'func_combine_script') );
@@ -487,7 +487,7 @@ class Template {
     }
   }
 
-  static function get_php_str_val($str)
+  private static function get_php_str_val($str)
   {
     if (is_string($str) && strlen($str)>1)
     {
@@ -507,19 +507,35 @@ class Template {
   static function modcompiler_translate($params)
   {
     global $conf, $lang;
-    if ( $conf['compiled_template_cache_language']
-      && ($key=self::get_php_str_val($params[0])) !== null)
+
+    switch (count($params))
     {
-      if (isset($lang[$key]))
+    case 1:
+      if ($conf['compiled_template_cache_language']
+        && ($key=self::get_php_str_val($params[0])) !== null
+        && isset($lang[$key])
+      ) {
         return var_export($lang[$key], true);
+      }
+      return 'l10n('.$params[0].')';
+      
+    default:
+      if ($conf['compiled_template_cache_language'])
+      {
+        $ret = 'sprintf(';
+        $ret .= self::modcompiler_translate( array($params[0]) );
+        $ret .= ','. implode(',', array_slice($params, 1));
+        $ret .= ')';
+        return $ret;
+      }
+      return 'l10n('.$params[0].','.implode(',', array_slice($params, 1)).')';
     }
-    return 'l10n('.$params[0].')';
   }
 
   static function modcompiler_translate_dec($params)
   {
     global $conf, $lang, $lang_info;
-    if ( $conf['compiled_template_cache_language'])
+    if ($conf['compiled_template_cache_language'])
     {
       $ret = 'sprintf(';
       if ($lang_info['zero_plural'])

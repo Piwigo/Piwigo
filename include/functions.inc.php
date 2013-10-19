@@ -900,10 +900,11 @@ function get_name_from_file($filename)
 }
 
 /**
- * returns the corresponding value from $lang if existing. Else, the key is
- * returned
- *
- * @param string key
+ * translation function
+ * returns the corresponding value from $lang if existing, else the key is returned
+ * if more than one parameter is provided sprintf is applied
+ * @param string $key
+ * @param mixed $args,... optional arguments
  * @return string
  */
 function l10n($key)
@@ -914,15 +915,21 @@ function l10n($key)
   {
     if ($conf['debug_l10n'] and !isset($lang[$key]) and !empty($key))
     {
-      trigger_error('[l10n] language key "'.$key.'" is not defined', E_USER_WARNING);
+      trigger_error('[l10n] language key "'. $key .'" not defined', E_USER_WARNING);
     }
     $val = $key;
   }
+
+  if (func_num_args() > 1)
+  {
+    $val = vsprintf($val, array_slice(func_get_args(), 1));
+  }
+
   return $val;
 }
 
 /**
- * returns the prinft value for strings including %d
+ * returns the printf value for strings including %d
  * return is concorded with decimal value (singular, plural)
  *
  * @param singular string key
