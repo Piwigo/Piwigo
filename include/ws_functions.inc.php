@@ -405,8 +405,11 @@ SELECT id
   }
   if (count($datas))
   {
-    include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
-    mass_inserts(CADDIE_TABLE, array('element_id','user_id'), $datas);
+    mass_inserts(
+      CADDIE_TABLE,
+      array('element_id','user_id'),
+      $datas
+      );
   }
   return count($datas);
 }
@@ -1726,8 +1729,6 @@ function ws_images_add($params, $service)
   $params['image_id'] = (int)$params['image_id'];
   if ($params['image_id'] > 0)
   {
-    include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
-
     $query='
 SELECT *
   FROM '.IMAGES_TABLE.'
@@ -1884,8 +1885,6 @@ function ws_images_addSimple($params, $service)
   $params['image_id'] = (int)$params['image_id'];
   if ($params['image_id'] > 0)
   {
-    include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
-
     $query='
 SELECT *
   FROM '.IMAGES_TABLE.'
@@ -1935,21 +1934,19 @@ SELECT *
   if (count(array_keys($update)) > 0)
   {
     $update['id'] = $image_id;
-
-    include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
-    mass_updates(
+    
+    single_update(
       IMAGES_TABLE,
-      array(
-        'primary' => array('id'),
-        'update'  => array_diff(array_keys($update), array('id'))
-        ),
-      array($update)
+      $update,
+      array('id', $update['id'])
       );
   }
 
 
   if (isset($params['tags']) and !empty($params['tags']))
   {
+    include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
+    
     $tag_ids = array();
     if (is_array($params['tags']))
     {
@@ -2564,13 +2561,10 @@ SELECT *
   {
     $update['id'] = $params['image_id'];
 
-    mass_updates(
+    single_update(
       IMAGES_TABLE,
-      array(
-        'primary' => array('id'),
-        'update'  => array_diff(array_keys($update), array('id'))
-        ),
-      array($update)
+      $update,
+      array('id', $update['id'])
       );
   }
 
@@ -2805,13 +2799,13 @@ SELECT
       );
   }
 
-  include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
   mass_inserts(
     IMAGE_CATEGORY_TABLE,
     array_keys($inserts[0]),
     $inserts
     );
 
+  include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
   update_category($new_cat_ids);
 }
 
@@ -2860,17 +2854,12 @@ function ws_categories_setInfo($params, $service)
 
   if ($perform_update)
   {
-    include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
-    mass_updates(
+    single_update(
       CATEGORIES_TABLE,
-      array(
-        'primary' => array('id'),
-        'update'  => array_diff(array_keys($update), array('id'))
-        ),
-      array($update)
+      $update,
+      array('id', $update['id'])
       );
   }
-
 }
 
 function ws_categories_setRepresentative($params, $service)

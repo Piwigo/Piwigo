@@ -114,27 +114,23 @@ if ( !isset( $_GET['cat_id'] ) || !is_numeric( $_GET['cat_id'] ) )
 //--------------------------------------------------------- form criteria check
 if (isset($_POST['submit']))
 {
-  $data =
-    array(
-      'id' => $_GET['cat_id'],
-      'name' => @$_POST['name'],
-      'comment' =>
-        $conf['allow_html_descriptions'] ?
-          @$_POST['comment'] : strip_tags(@$_POST['comment']),
-      );
+  $data = array(
+    'id' => $_GET['cat_id'],
+    'name' => @$_POST['name'],
+    'comment' =>
+      $conf['allow_html_descriptions'] ?
+        @$_POST['comment'] : strip_tags(@$_POST['comment']),
+    );
      
   if ($conf['activate_comments'])
   {
     $data['commentable'] = isset($_POST['commentable'])?$_POST['commentable']:'false';
   }
-
-  mass_updates(
+  
+  single_update(
     CATEGORIES_TABLE,
-    array(
-      'primary' => array('id'),
-      'update' => array_diff(array_keys($data), array('id'))
-      ),
-    array($data)
+    $data,
+    array('id' => $data['id'])
     );
 
   // retrieve cat infos before continuing (following updates are expensive)

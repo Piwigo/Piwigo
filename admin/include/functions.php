@@ -1816,34 +1816,25 @@ SELECT id
 
   if (count($existing_tags) == 0)
   {
-    mass_inserts(
+    single_insert(
       TAGS_TABLE,
-      array('name', 'url_name'),
       array(
-        array(
-          'name' => $tag_name,
-          'url_name' => trigger_event('render_tag_url', $tag_name),
-          )
+        'name' => $tag_name,
+        'url_name' => trigger_event('render_tag_url', $tag_name),
         )
       );
 
     $inserted_id = pwg_db_insert_id(TAGS_TABLE);
 
     return array(
-      'info' => sprintf(
-        l10n('Tag "%s" was added'),
-        stripslashes($tag_name)
-        ),
+      'info' => l10n('Tag "%s" was added', stripslashes($tag_name)),
       'id' => $inserted_id,
       );
   }
   else
   {
     return array(
-      'error' => sprintf(
-        l10n('Tag "%s" already exists'),
-        stripslashes($tag_name)
-        )
+      'error' => l10n('Tag "%s" already exists', stripslashes($tag_name))
       );
   }
 }

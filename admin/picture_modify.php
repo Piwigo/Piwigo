@@ -154,13 +154,10 @@ if (isset($_POST['submit']) and count($page['errors']) == 0)
     $data{'date_creation'} = null;
   }
 
-  mass_updates(
+  single_update(
     IMAGES_TABLE,
-    array(
-      'primary' => array('id'),
-      'update' => array_diff(array_keys($data), array('id'))
-      ),
-    array($data)
+    $data,
+    array('id' => $data['id'])
     );
 
   // time to deal with tags

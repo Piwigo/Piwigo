@@ -186,7 +186,7 @@ SELECT MAX('.$conf['user_fields']['id'].') + 1
         $conf['user_fields']['email'] => $mail_address
         );
 
-    mass_inserts(USERS_TABLE, array_keys($insert), array($insert));
+    single_insert(USERS_TABLE, $insert);
 
     // Assign by default groups
     {
@@ -435,14 +435,12 @@ DELETE FROM '.USER_CACHE_CATEGORIES_TABLE.'
       // Due to concurrency issues, we ask MySQL to ignore errors on
       // insert. This may happen when cache needs refresh and that Piwigo is
       // called "very simultaneously".
-      mass_inserts
-      (
+      mass_inserts(
         USER_CACHE_CATEGORIES_TABLE,
-        array
-        (
+        array(
           'user_id', 'cat_id',
           'date_last', 'max_date_last', 'nb_images', 'count_images', 'nb_categories', 'count_categories'
-        ),
+          ),
         $user_cache_cats,
         array('ignore' => true)
       );

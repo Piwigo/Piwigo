@@ -129,16 +129,14 @@ SELECT id, name
       }
       else if (!empty($tag_name))
       {
-        mass_inserts(
+        single_insert(
           TAGS_TABLE,
-          array('name', 'url_name'),
           array(
-            array(
-              'name' => $tag_name,
-              'url_name' => trigger_event('render_tag_url', $tag_name),
-              )
+            'name' => $tag_name,
+            'url_name' => trigger_event('render_tag_url', $tag_name),
             )
           );
+
         $query = '
         SELECT id
           FROM '.TAGS_TABLE.'
@@ -146,6 +144,7 @@ SELECT id, name
         ;';
         $destination_tag = array_from_query($query, 'id');
         $destination_tag_id = $destination_tag[0];
+
         $query = '
         SELECT
             image_id
@@ -153,6 +152,7 @@ SELECT id, name
           WHERE tag_id = '.$tag_id.'
         ;';
         $destination_tag_image_ids = array_from_query($query, 'image_id');
+
         $inserts = array();
         foreach ($destination_tag_image_ids as $image_id)
         {
@@ -179,6 +179,7 @@ SELECT id, name
       }
     }
   }
+
   mass_updates(
     TAGS_TABLE,
     array(
@@ -323,34 +324,15 @@ if (isset($_GET['action']) and 'delete_orphans' == $_GET['action'])
 
 if (isset($_POST['add']) and !empty($_POST['add_tag']))
 {
-  $tag_name = $_POST['add_tag'];
-
-  // does the tag already exists?
-  $query = '
-SELECT id
-  FROM '.TAGS_TABLE.'
-  WHERE name = \''.$tag_name.'\'
-;';
-  $existing_tags = array_from_query($query, 'id');
-
-  if (count($existing_tags) == 0)
+  $ret = create_tag($_POST['add_tag']);
+  
+  if (isset($ret['error']))
   {
-    mass_inserts(
-      TAGS_TABLE,
-      array('name', 'url_name'),
-      array(
-        array(
-          'name' => $tag_name,
-          'url_name' => trigger_event('render_tag_url', $tag_name),
-          )
-        )
-      );
-
-    $page['infos'][] = l10n('Tag "%s" was added', stripslashes($tag_name));
+    $page['errors'][] = $ret['error'];
   }
   else
   {
-    $page['errors'][] = l10n('Tag "%s" already exists', stripslashes($tag_name));
+    $page['infos'][] = $ret['info'];
   }
 }
 
