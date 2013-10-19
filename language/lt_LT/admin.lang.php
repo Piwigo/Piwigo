@@ -944,4 +944,5 @@ $lang['Refresh photo set'] = 'Atnaujinti nuotraukų rinkinį';
 $lang['Reinitialize check integrity'] = 'Iš naujo pradėti vientisumo patikrinimą';
 $lang['Reject'] = 'Atmesti';
 $lang['Resize after upload disabled due to the use of GD as graphic library'] = 'Dydžio keitimas po įkėlimo išjungtas dėl to, kad naudojate GD kaip grafinę biblioteką';
+$lang['Select at least one tag'] = 'Pasirinkite bent vieną žymą';
 ?>
