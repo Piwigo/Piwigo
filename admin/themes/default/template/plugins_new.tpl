@@ -77,7 +77,7 @@ jQuery(document).ready(function(){
       <td>
         <em>{'Downloads'|@translate}: {$plugin.DOWNLOADS}</em>
         {'Version'|@translate} {$plugin.VERSION}
-        | {'By %s'|@translate|@sprintf:$plugin.AUTHOR}
+        | {'By %s'|@translate:$plugin.AUTHOR}
         | <a class="externalLink" href="{$plugin.EXT_URL}">{'Visit plugin site'|@translate}</a>
       </td>
     </tr>

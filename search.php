@@ -108,10 +108,10 @@ if (isset($_POST['submit']))
   {
     $search['fields'][$type_date.'-after'] = array(
       'date' => sprintf(
-	'%d-%02d-%02d',
-	$_POST['start_year'],
-	$_POST['start_month'] != 0 ? $_POST['start_month'] : '01',
-	$_POST['start_day']   != 0 ? $_POST['start_day']   : '01'
+        '%d-%02d-%02d',
+        $_POST['start_year'],
+        $_POST['start_month'] != 0 ? $_POST['start_month'] : '01',
+        $_POST['start_day']   != 0 ? $_POST['start_day']   : '01'
         ),
       'inc' => true,
       );
@@ -121,10 +121,10 @@ if (isset($_POST['submit']))
   {
     $search['fields'][$type_date.'-before'] = array(
       'date' => sprintf(
-	'%d-%02d-%02d',
-	$_POST['end_year'],
-	$_POST['end_month'] != 0 ? $_POST['end_month'] : '12',
-	$_POST['end_day']   != 0 ? $_POST['end_day']   : '31'
+        '%d-%02d-%02d',
+        $_POST['end_year'],
+        $_POST['end_month'] != 0 ? $_POST['end_month'] : '12',
+        $_POST['end_day']   != 0 ? $_POST['end_day']   : '31'
       ),
       'inc' => true,
       );

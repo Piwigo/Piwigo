@@ -677,15 +677,15 @@ $(document).ready(function() {
         {'Dimensions'|@translate}
         
         <blockquote>
-          {'Width'|@translate} <span id="filter_dimension_width_info">{'between %d and %d pixels'|@translate|sprintf:$dimensions.selected.min_width:$dimensions.selected.max_width}</span>
+          {'Width'|@translate} <span id="filter_dimension_width_info">{'between %d and %d pixels'|@translate:$dimensions.selected.min_width:$dimensions.selected.max_width}</span>
           | <a class="dimensions-choice" data-type="width" data-min="{$dimensions.bounds.min_width}" data-max="{$dimensions.bounds.max_width}">{'Reset'|@translate}</a>
           <div id="filter_dimension_width_slider"></div>
           
-          {'Height'|@translate} <span id="filter_dimension_height_info">{'between %d and %d pixels'|@translate|sprintf:$dimensions.selected.min_height:$dimensions.selected.max_height}</span>
+          {'Height'|@translate} <span id="filter_dimension_height_info">{'between %d and %d pixels'|@translate:$dimensions.selected.min_height:$dimensions.selected.max_height}</span>
           | <a class="dimensions-choice" data-type="height" data-min="{$dimensions.bounds.min_height}" data-max="{$dimensions.bounds.max_height}">{'Reset'|@translate}</a>
           <div id="filter_dimension_height_slider"></div>
           
-          {'Ratio'|@translate} ({'Width'|@translate}/{'Height'|@translate}) <span id="filter_dimension_ratio_info">{'between %.2f and %.2f'|@translate|sprintf:$dimensions.selected.min_ratio:$dimensions.selected.max_ratio}</span>
+          {'Ratio'|@translate} ({'Width'|@translate}/{'Height'|@translate}) <span id="filter_dimension_ratio_info">{'between %.2f and %.2f'|@translate:$dimensions.selected.min_ratio:$dimensions.selected.max_ratio}</span>
 {if isset($dimensions.ratio_portrait)}
           | <a class="dimensions-choice" data-type="ratio" data-min="{$dimensions.ratio_portrait.min}" data-max="{$dimensions.ratio_portrait.max}">{'Portrait'|@translate}</a>
 {/if}

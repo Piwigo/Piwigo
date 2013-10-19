@@ -42,7 +42,7 @@ jQuery().ready(function(){
       <li><a href="{$PHPWG_URL}" class="externalLink">Piwigo</a> {$PWG_VERSION}</li>
       <li><a href="{$U_CHECK_UPGRADE}">{'Check for upgrade'|@translate}</a></li>
 {if isset($SUBSCRIBE_BASE_URL)}
-      <li><a href="{$SUBSCRIBE_BASE_URL}{$EMAIL}" class="externalLink cluetip" title="{'Piwigo Announcements Newsletter'|@translate}|{'Keep in touch with Piwigo project, subscribe to Piwigo Announcement Newsletter. You will receive emails when a new release is available (sometimes including a security bug fix, it\'s important to know and upgrade) and when major events happen to the project. Only a few emails a year.'|@translate|@htmlspecialchars|@nl2br}">{'Subscribe %s to Piwigo Announcements Newsletter'|@translate|@sprintf:$EMAIL}</a></li>
+      <li><a href="{$SUBSCRIBE_BASE_URL}{$EMAIL}" class="externalLink cluetip" title="{'Piwigo Announcements Newsletter'|@translate}|{'Keep in touch with Piwigo project, subscribe to Piwigo Announcement Newsletter. You will receive emails when a new release is available (sometimes including a security bug fix, it\'s important to know and upgrade) and when major events happen to the project. Only a few emails a year.'|@translate|@htmlspecialchars|@nl2br}">{'Subscribe %s to Piwigo Announcements Newsletter'|@translate:$EMAIL}</a></li>
 {/if}
     </ul>
   </dd>

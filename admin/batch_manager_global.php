@@ -415,10 +415,10 @@ DELETE
   if ('generate_derivatives' == $action)
   {
     if ($_POST['regenerateSuccess'] != '0')
-      array_push($page['infos'], sprintf(l10n('%s photos have been regenerated'), $_POST['regenerateSuccess']));
+      array_push($page['infos'], l10n('%s photos have been regenerated', $_POST['regenerateSuccess']));
 
     if ($_POST['regenerateError'] != '0')
-      array_push($page['warnings'], sprintf(l10n('%s photos can not be regenerated'), $_POST['regenerateError']));
+      array_push($page['warnings'], l10n('%s photos can not be regenerated', $_POST['regenerateError']));
 
   }
 

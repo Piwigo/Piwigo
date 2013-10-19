@@ -173,8 +173,8 @@ order by
       array_push
       (
         $page['infos'],
-        sprintf(
-          l10n('User %s [%s] added.'),
+        l10n(
+          'User %s [%s] added.',
           stripslashes($nbm_user['username']),
           get_email_address_as_display_text($nbm_user['mail_address'])
         )

@@ -3357,7 +3357,7 @@ function ws_extensions_update($params, $service)
   switch ($upgrade_status)
   {
     case 'ok':
-      return sprintf(l10n('%s has been successfully updated.'), $extension_name);
+      return l10n('%s has been successfully updated.', $extension_name);
 
     case 'temp_path_error':
       return new PwgError(null, l10n('Can\'t create temporary file.'));
@@ -3369,7 +3369,7 @@ function ws_extensions_update($params, $service)
       return new PwgError(null, l10n('Can\'t read or extract archive.'));
 
     default:
-      return new PwgError(null, sprintf(l10n('An error occured during extraction (%s).'), $upgrade_status));
+      return new PwgError(null, l10n('An error occured during extraction (%s).', $upgrade_status));
   }
 }
 

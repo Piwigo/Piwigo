@@ -39,13 +39,7 @@ $themes = new themes();
 $themes_dir = PHPWG_ROOT_PATH.'themes';
 if (!is_writable($themes_dir))
 {
-  array_push(
-    $page['errors'],
-    sprintf(
-      l10n('Add write access to the "%s" directory'),
-      'themes'
-      )
-    );
+  $page['errors'][] = l10n('Add write access to the "%s" directory', 'themes');
 }
 
 // +-----------------------------------------------------------------------+
@@ -102,7 +96,7 @@ if (isset($_GET['installstatus']))
     default:
       array_push(
         $page['errors'],
-        sprintf(l10n('An error occured during extraction (%s).'), htmlspecialchars($_GET['installstatus']))
+        l10n('An error occured during extraction (%s).', htmlspecialchars($_GET['installstatus']))
         );
   }  
 }

@@ -439,7 +439,7 @@ $template->assign(
     'F_ADMIN_EMAIL' => $admin_mail,
     'EMAIL' => '<span class="adminEmail">'.$admin_mail.'</span>',
     'F_NEWSLETTER_SUBSCRIBE' => $is_newsletter_subscribe,
-    'L_INSTALL_HELP' => sprintf(l10n('Need help ? Ask your question on <a href="%s">Piwigo message board</a>.'), PHPWG_URL.'/forum'),
+    'L_INSTALL_HELP' => l10n('Need help ? Ask your question on <a href="%s">Piwigo message board</a>.', PHPWG_URL.'/forum'),
     ));
 
 //------------------------------------------------------ errors & infos display

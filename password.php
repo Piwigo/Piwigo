@@ -84,8 +84,8 @@ function process_password_request()
   {
     array_push(
       $page['errors'],
-      sprintf(
-        l10n('User "%s" has no email address, password reset is not possible'),
+      l10n(
+        'User "%s" has no email address, password reset is not possible',
         $userdata['username']
         )
       );
@@ -108,8 +108,8 @@ function process_password_request()
   set_make_full_url();
   
   $message = l10n('Someone requested that the password be reset for the following user account:') . "\r\n\r\n";
-  $message.= sprintf(
-    l10n('Username "%s" on gallery %s'),
+  $message.= l10n(
+    'Username "%s" on gallery %s',
     $userdata['username'],
     get_gallery_home_url()
     );

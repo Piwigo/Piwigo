@@ -78,9 +78,9 @@ if (!in_array($conf['comments_page_nb_comments'], $items_number))
 $since_options = array(
   1 => array('label' => l10n('today'),
              'clause' => 'date > '.pwg_db_get_recent_period_expression(1)),
-  2 => array('label' => sprintf(l10n('last %d days'), 7),
+  2 => array('label' => l10n('last %d days', 7),
              'clause' => 'date > '.pwg_db_get_recent_period_expression(7)),
-  3 => array('label' => sprintf(l10n('last %d days'), 30),
+  3 => array('label' => l10n('last %d days', 30),
              'clause' => 'date > '.pwg_db_get_recent_period_expression(30)),
   4 => array('label' => l10n('the beginning'),
              'clause' => '1=1') // stupid but generic

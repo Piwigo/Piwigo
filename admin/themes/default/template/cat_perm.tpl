@@ -76,7 +76,7 @@ jQuery(document).ready(function() {
 
 {if isset($nb_users_granted_indirect)}
   <p>
-    {'%u users have automatic permission because they belong to a granted group.'|@translate|@sprintf:$nb_users_granted_indirect}
+    {'%u users have automatic permission because they belong to a granted group.'|@translate:$nb_users_granted_indirect}
     <a href="#" id="indirectPermissionsDetailsHide" style="display:none">{'hide details'|@translate}</a>
     <a href="#" id="indirectPermissionsDetailsShow">{'show details'|@translate}</a>
 

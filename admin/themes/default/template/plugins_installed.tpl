@@ -162,7 +162,7 @@ jQuery(document).ready(function() {
             {'Version'|@translate} {$plugin.VERSION}
             
           {if not empty($author)}
-            | {'By %s'|@translate|@sprintf:$author}
+            | {'By %s'|@translate:$author}
           {/if}
 
           {if not empty($plugin.VISIT_URL)}
@@ -183,7 +183,7 @@ jQuery(document).ready(function() {
     <div id="{$plugin.ID}" class="pluginMiniBox {$plugin.STATE}">
       <div class="pluginMiniBoxNameCell">
         {$plugin.NAME}
-        <a class="icon-info-circled-1 showInfo" title="{if !empty($author)}{'By %s'|@translate|@sprintf:$author} | {/if}{'Version'|@translate} {$version}<br/>{$plugin.DESC|@escape:'html'}"></a>
+        <a class="icon-info-circled-1 showInfo" title="{if !empty($author)}{'By %s'|@translate:$author} | {/if}{'Version'|@translate} {$version}<br/>{$plugin.DESC|@escape:'html'}"></a>
       </div>
       <div class="pluginActions">
         <div>

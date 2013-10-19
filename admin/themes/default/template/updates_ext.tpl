@@ -180,7 +180,7 @@ checkFieldsets();
         <img src="{$ROOT_URL}{$themeconf.admin_icon_dir}/plus.gif" alt="" class="button_{$plugin.ID}">
         <img src="{$ROOT_URL}{$themeconf.admin_icon_dir}/minus.gif" alt="" class="button_{$plugin.ID}" style="display:none;">
         {'New Version'|@translate} : {$plugin.NEW_VERSION}
-        | {'By %s'|@translate|@sprintf:$plugin.AUTHOR}
+        | {'By %s'|@translate:$plugin.AUTHOR}
       </td>
     </tr>
     <tr>
@@ -222,7 +222,7 @@ checkFieldsets();
         <img src="{$ROOT_URL}{$themeconf.admin_icon_dir}/plus.gif" alt="" class="button_{$theme.ID}">
         <img src="{$ROOT_URL}{$themeconf.admin_icon_dir}/minus.gif" alt="" class="button_{$theme.ID}" style="display:none;">
         {'New Version'|@translate} : {$theme.NEW_VERSION}
-        | {'By %s'|@translate|@sprintf:$theme.AUTHOR}
+        | {'By %s'|@translate:$theme.AUTHOR}
       </td>
     </tr>
     <tr>
@@ -264,7 +264,7 @@ checkFieldsets();
         <img src="{$ROOT_URL}{$themeconf.admin_icon_dir}/plus.gif" alt="" class="button_{$language.ID}">
         <img src="{$ROOT_URL}{$themeconf.admin_icon_dir}/minus.gif" alt="" class="button_{$language.ID}" style="display:none;">
         {'New Version'|@translate} : {$language.NEW_VERSION}
-        | {'By %s'|@translate|@sprintf:$language.AUTHOR}
+        | {'By %s'|@translate:$language.AUTHOR}
       </td>
     </tr>
     <tr>

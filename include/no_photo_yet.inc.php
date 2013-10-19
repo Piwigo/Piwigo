@@ -76,8 +76,8 @@ SELECT
       $template->assign(
         array(
           'step' => 2,
-          'intro' => sprintf(
-            l10n('Hello %s, your Piwigo photo gallery is empty!'),
+          'intro' => l10n(
+            'Hello %s, your Piwigo photo gallery is empty!',
             $user['username']
             ),
           'next_step_url' => $url,

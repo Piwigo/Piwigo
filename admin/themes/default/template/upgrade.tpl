@@ -161,7 +161,7 @@ input[type="text"]:focus, input[type="password"]:focus, select:focus {
   </tr>
 </table>
 
-<p>{'This page proposes to upgrade your database corresponding to your old version of Piwigo to the current version. The upgrade assistant thinks you are currently running a <strong>release %s</strong> (or equivalent).'|@translate|@sprintf:$introduction.CURRENT_RELEASE}</p>
+<p>{'This page proposes to upgrade your database corresponding to your old version of Piwigo to the current version. The upgrade assistant thinks you are currently running a <strong>release %s</strong> (or equivalent).'|@translate:$introduction.CURRENT_RELEASE}</p>
 {if isset($login)}
 <p>{'Only administrator can run upgrade: please sign in below.'|@translate}</p>
 {/if}
@@ -180,19 +180,19 @@ input[type="text"]:focus, input[type="password"]:focus, select:focus {
 {/if}
 </fieldset>
 <p style="text-align: center;">
-<input class="submit" type="submit" name="submit" value="{'Upgrade from version %s to %s'|@translate|@sprintf:$introduction.CURRENT_RELEASE:$RELEASE}">
+<input class="submit" type="submit" name="submit" value="{'Upgrade from version %s to %s'|@translate:$introduction.CURRENT_RELEASE:$RELEASE}">
 </p>
 </form>
 <!--
 <p style="text-align: center;">
-<a href="{$introduction.RUN_UPGRADE_URL}">{'Upgrade from version %s to %s'|@translate|@sprintf:$introduction.CURRENT_RELEASE:$RELEASE}</a>
+<a href="{$introduction.RUN_UPGRADE_URL}">{'Upgrade from version %s to %s'|@translate:$introduction.CURRENT_RELEASE:$RELEASE}</a>
 </p>
 -->
 
 {/if}
 
 {if isset($upgrade)}
-<h2>{'Upgrade from version %s to %s'|@translate|@sprintf:$upgrade.VERSION:$RELEASE}</h2>
+<h2>{'Upgrade from version %s to %s'|@translate:$upgrade.VERSION:$RELEASE}</h2>
 
 <fieldset>
 <legend>{'Statistics'|@translate}</legend>

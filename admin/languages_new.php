@@ -42,13 +42,7 @@ $languages->get_db_languages();
 $languages_dir = PHPWG_ROOT_PATH.'language';
 if (!is_writable($languages_dir))
 {
-  array_push(
-    $page['errors'],
-    sprintf(
-      l10n('Add write access to the "%s" directory'),
-      'language'
-      )
-    );
+  $page['errors'][] = l10n('Add write access to the "%s" directory', 'language');
 }
 
 // +-----------------------------------------------------------------------+
@@ -99,7 +93,7 @@ if (isset($_GET['installstatus']))
     default:
       array_push(
         $page['errors'],
-        sprintf(l10n('An error occured during extraction (%s).'), htmlspecialchars($_GET['installstatus']))
+        l10n('An error occured during extraction (%s).', htmlspecialchars($_GET['installstatus']))
       );
   }  
 }

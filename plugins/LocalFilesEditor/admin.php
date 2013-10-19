@@ -92,7 +92,7 @@ if (isset($_POST['submit']))
       if (file_exists($edited_file))
       {
         @copy($edited_file, get_bak_file($edited_file));
-        array_push($page['infos'], sprintf(l10n('locfiledit_saved_bak'), substr(get_bak_file($edited_file), 2)));
+        array_push($page['infos'], l10n('locfiledit_saved_bak', substr(get_bak_file($edited_file), 2)));
       }
       
       if ($file = @fopen($edited_file , "w"))

@@ -121,8 +121,8 @@ foreach ($themes->fs_themes as $theme_id => $fs_theme)
     {
       $tpl_theme['ACTIVABLE'] = false;
 
-      $tpl_theme['ACTIVABLE_TOOLTIP'] = sprintf(
-        l10n('Impossible to activate this theme, the parent theme is missing: %s'),
+      $tpl_theme['ACTIVABLE_TOOLTIP'] = l10n(
+        'Impossible to activate this theme, the parent theme is missing: %s',
         $missing_parent
         );
     }
@@ -136,8 +136,8 @@ foreach ($themes->fs_themes as $theme_id => $fs_theme)
     {
       $tpl_theme['DELETABLE'] = false;
 
-      $tpl_theme['DELETE_TOOLTIP'] = sprintf(
-        l10n('Impossible to delete this theme. Other themes depends on it: %s'),
+      $tpl_theme['DELETE_TOOLTIP'] = l10n(
+        'Impossible to delete this theme. Other themes depends on it: %s',
         implode(', ', $children)
         );
     }

@@ -533,10 +533,7 @@ SELECT
         ),
       'MEMBERS' => sprintf(
         l10n_dec('%d member', '%d members', $summary['nb_members']).': %s',
-        implode(
-          ', ',
-          $member_strings
-          )
+        implode(', ', $member_strings)
         ),
       'GUESTS' => l10n_dec(
         '%d guest', '%d guests',

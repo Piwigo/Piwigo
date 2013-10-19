@@ -41,11 +41,11 @@ li { margin: 5px; }
 <h4>{'Two updates are available'|@translate}:</h4>
 <p>
 <ul>
-  <li><a href="admin.php?page=updates&amp;step=2&amp;to={$MINOR_VERSION}"><strong>{'Update to Piwigo %s'|@translate|@sprintf:$MINOR_VERSION}</strong></a>: {'This is a minor update, with only bug corrections.'|@translate}</li>
-  <li><a href="admin.php?page=updates&amp;step=3&amp;to={$MAJOR_VERSION}"><strong>{'Update to Piwigo %s'|@translate|@sprintf:$MAJOR_VERSION}</strong></a>: {'This is a major update, with <a href="%s">new exciting features</a>.'|@translate|@sprintf:$RELEASE_URL} {'Some themes and plugins may be not available yet.'|@translate}</li>
+  <li><a href="admin.php?page=updates&amp;step=2&amp;to={$MINOR_VERSION}"><strong>{'Update to Piwigo %s'|@translate:$MINOR_VERSION}</strong></a>: {'This is a minor update, with only bug corrections.'|@translate}</li>
+  <li><a href="admin.php?page=updates&amp;step=3&amp;to={$MAJOR_VERSION}"><strong>{'Update to Piwigo %s'|@translate:$MAJOR_VERSION}</strong></a>: {'This is a major update, with <a href="%s">new exciting features</a>.'|@translate:$RELEASE_URL} {'Some themes and plugins may be not available yet.'|@translate}</li>
 </ul>
 </p>
-<p>{'You can update to Piwigo %s directly, without upgrading to Piwigo %s (recommended).'|@translate|@sprintf:$MAJOR_VERSION:$MINOR_VERSION}</p>
+<p>{'You can update to Piwigo %s directly, without upgrading to Piwigo %s (recommended).'|@translate:$MAJOR_VERSION:$MINOR_VERSION}</p>
 {/if}
 
 {if $STEP == 2}
@@ -54,7 +54,7 @@ li { margin: 5px; }
   {'This is a minor update, with only bug corrections.'|@translate}
 </p>
 <form action="" method="post">
-<p><input type="submit" name="submit" value="{'Update to Piwigo %s'|@translate|@sprintf:$UPGRADE_TO}"></p>
+<p><input type="submit" name="submit" value="{'Update to Piwigo %s'|@translate:$UPGRADE_TO}"></p>
 <p class="autoupdate_bar" style="display:none;">&nbsp; {'Update in progress...'|@translate}<br><img src="admin/themes/default/images/ajax-loader-bar.gif"></p>
 <p><input type="hidden" name="upgrade_to" value="{$UPGRADE_TO}"></p>
 </form>
@@ -63,7 +63,7 @@ li { margin: 5px; }
 {if $STEP == 3}
 <p>
   {'A new version of Piwigo is available.'|@translate}<br>
-  {'This is a major update, with <a href="%s">new exciting features</a>.'|@translate|@sprintf:$RELEASE_URL} {'Some themes and plugins may be not available yet.'|@translate}
+  {'This is a major update, with <a href="%s">new exciting features</a>.'|@translate:$RELEASE_URL} {'Some themes and plugins may be not available yet.'|@translate}
 </p>
 <form action="" method="post">
 
@@ -76,7 +76,7 @@ li { margin: 5px; }
 
 {counter assign=i}
 <fieldset>
-  <legend>{'Update to Piwigo %s'|@translate|@sprintf:$UPGRADE_TO}</legend>
+  <legend>{'Update to Piwigo %s'|@translate:$UPGRADE_TO}</legend>
   {if !empty($missing.plugins)}
   <p><i>{'Following plugins may not be compatible with the new version of Piwigo:'|@translate}</i></p>
   <p><ul>{foreach from=$missing.plugins item=plugin}<li><a href="{$plugin.uri}" class="externalLink">{$plugin.name}</a></li>{/foreach}</ul><br></p>
@@ -89,7 +89,7 @@ li { margin: 5px; }
   {if !empty($missing.plugins) or !empty($missing.themes)}
   <p><label><input type="checkbox" name="understand"> &nbsp;{'I decide to update anyway'|@translate}</label></p>
   {/if}
-  <p><input type="submit" name="submit" value="{'Update to Piwigo %s'|@translate|@sprintf:$UPGRADE_TO}" {if !empty($missing.plugins) or !empty($missing.themes)}disabled="disabled"{/if}>
+  <p><input type="submit" name="submit" value="{'Update to Piwigo %s'|@translate:$UPGRADE_TO}" {if !empty($missing.plugins) or !empty($missing.themes)}disabled="disabled"{/if}>
   </p>
   <p class="autoupdate_bar" style="display:none;">&nbsp; {'Update in progress...'|@translate}<br><img src="admin/themes/default/images/ajax-loader-bar.gif"></p>
 </fieldset>

@@ -44,7 +44,7 @@ class Calendar extends CalendarBase
     $week_no_labels=array();
     for ($i=1; $i<=53; $i++)
     {
-      $week_no_labels[$i] = sprintf( l10n("Week %d"), $i);
+      $week_no_labels[$i] = l10n('Week %d', $i);
       //$week_no_labels[$i] = $i;
     }
 

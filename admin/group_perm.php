@@ -131,10 +131,9 @@ $template->set_filenames(
 $template->assign(
   array(
     'TITLE' =>
-      sprintf(
-        l10n('Manage permissions for group "%s"'),
-        get_groupname($page['group']
-          )
+      l10n(
+        'Manage permissions for group "%s"',
+        get_groupname($page['group'])
         ),
     'L_CAT_OPTIONS_TRUE'=>l10n('Authorized'),
     'L_CAT_OPTIONS_FALSE'=>l10n('Forbidden'),

@@ -77,9 +77,10 @@ else
 
 if (isset($search['fields']['allwords']))
 {
-  $template->append( 'search_words',
-      sprintf(
-        l10n('searched words : %s'),
+  $template->append(
+      'search_words',
+      l10n(
+        'searched words : %s',
         join(', ', $search['fields']['allwords']['words'])
         )
       );
@@ -103,10 +104,10 @@ SELECT name
 if (isset($search['fields']['author']))
 {
   $template->append(
-    'search_words',
-     sprintf(
-          l10n('author(s) : %s'),
-          join(', ', $search['fields']['author']['words'])
+      'search_words',
+      l10n(
+        'author(s) : %s',
+        join(', ', $search['fields']['author']['words'])
         )
       );
 }

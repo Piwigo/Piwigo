@@ -214,8 +214,8 @@ if ($conf['double_password_type_in_admin'] == true)
       {
         array_push(
           $page['infos'],
-          sprintf(
-            l10n('user "%s" added'),
+          l10n(
+            'user "%s" added',
             $_POST['login']
           )
         );
@@ -234,8 +234,8 @@ else if ($conf['double_password_type_in_admin'] == false)
     {
       array_push(
         $page['infos'],
-        sprintf(
-          l10n('user "%s" added'),
+        l10n(
+          'user "%s" added',
           stripslashes($_POST['login'])
           )
         );

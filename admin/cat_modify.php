@@ -268,16 +268,16 @@ SELECT
 
   if ($min_date == $max_date)
   {
-    $intro = sprintf(
-      l10n('This album contains %d photos, added on %s.'),
+    $intro = l10n(
+      'This album contains %d photos, added on %s.',
       $image_count,
       format_date($min_date)
       );
   }
   else
   {
-    $intro = sprintf(
-      l10n('This album contains %d photos, added between %s and %s.'),
+    $intro = l10n(
+      'This album contains %d photos, added between %s and %s.',
       $image_count,
       format_date($min_date),
       format_date($max_date)
@@ -289,7 +289,7 @@ else
   $intro = l10n('This album contains no photo.');
 }
 
-$intro.= '<br>'.sprintf(l10n('Numeric identifier : %d'), $category['id']);
+$intro.= '<br>'.l10n('Numeric identifier : %d', $category['id']);
 
 $template->assign('INTRO', $intro);
 

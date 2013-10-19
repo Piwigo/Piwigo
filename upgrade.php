@@ -234,7 +234,7 @@ $template = new Template(PHPWG_ROOT_PATH.'admin/themes', 'clear');
 $template->set_filenames(array('upgrade'=>'upgrade.tpl'));
 $template->assign(array(
   'RELEASE' => PHPWG_VERSION,
-  'L_UPGRADE_HELP' => sprintf(l10n('Need help ? Ask your question on <a href="%s">Piwigo message board</a>.'), PHPWG_URL.'/forum'),
+  'L_UPGRADE_HELP' => l10n('Need help ? Ask your question on <a href="%s">Piwigo message board</a>.', PHPWG_URL.'/forum'),
   )
 );
 

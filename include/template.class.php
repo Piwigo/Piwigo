@@ -73,8 +73,8 @@ class Template {
       {
         load_language('admin.lang');
         fatal_error(
-          sprintf(
-            l10n('Give write access (chmod 777) to "%s" directory at the root of your Piwigo installation'),
+          l10n(
+            'Give write access (chmod 777) to "%s" directory at the root of your Piwigo installation',
             $conf['data_location']
             ),
           l10n('an error happened'),

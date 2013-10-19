@@ -352,8 +352,8 @@ if (count($categories) > 0)
           }
           else
           {
-            $info = sprintf(
-              l10n('from %s to %s'),
+            $info = l10n(
+              'from %s to %s',
               format_date($from),
               format_date($to)
               );

@@ -71,8 +71,8 @@ SELECT id, name
       {
         array_push(
           $page['errors'],
-          sprintf(
-            l10n('Tag "%s" already exists'),
+          l10n(
+            'Tag "%s" already exists',
             $tag_name
             )
           );
@@ -136,8 +136,8 @@ SELECT id, name
       {
         array_push(
           $page['errors'],
-          sprintf(
-            l10n('Tag "%s" already exists'),
+          l10n(
+            'Tag "%s" already exists',
             $tag_name
             )
           );
@@ -190,8 +190,8 @@ SELECT id, name
         }
         array_push(
           $page['infos'],
-          sprintf(
-            l10n('Tag "%s" is now a duplicate of "%s"'),
+          l10n(
+            'Tag "%s" is now a duplicate of "%s"',
             stripslashes($tag_name),
             $current_name_of[$tag_id]
             )
@@ -300,8 +300,8 @@ SELECT
 
       array_push(
         $page['infos'],
-        sprintf(
-          l10n('Tags <em>%s</em> merged into tag <em>%s</em>'),
+        l10n(
+          'Tags <em>%s</em> merged into tag <em>%s</em>',
           implode(', ', $tags_deleted),
           $name_of_tag[$destination_tag_id]
           )
@@ -380,8 +380,8 @@ SELECT id
 
     array_push(
       $page['infos'],
-      sprintf(
-        l10n('Tag "%s" was added'),
+      l10n(
+        'Tag "%s" was added',
         stripslashes($tag_name)
         )
       );
@@ -390,8 +390,8 @@ SELECT id
   {
     array_push(
       $page['errors'],
-      sprintf(
-        l10n('Tag "%s" already exists'),
+      l10n(
+        'Tag "%s" already exists',
         stripslashes($tag_name)
         )
       );

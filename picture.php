@@ -859,8 +859,7 @@ if ($picture['current']['src_image']->is_original() and isset($picture['current'
 // filesize
 if (!empty($picture['current']['filesize']))
 {
-  $infos['INFO_FILESIZE'] =
-    sprintf(l10n('%d Kb'), $picture['current']['filesize']);
+  $infos['INFO_FILESIZE'] = l10n('%d Kb', $picture['current']['filesize']);
 }
 
 // number of visits

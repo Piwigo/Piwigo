@@ -122,7 +122,7 @@ if (!$image_only)
   if (count($news) > 0)
   {
     $item = new FeedItem();
-    $item->title = sprintf(l10n('New on %s'), format_date($dbnow) );
+    $item->title = l10n('New on %s', format_date($dbnow) );
     $item->link = get_gallery_home_url();
 
     // content creation

@@ -606,11 +606,11 @@ function time_since($original, $stop='minute', $format=null, $with_text=true, $w
   {
     if ($diff->invert)
     {
-      $print = sprintf(l10n('%s ago'), $print);
+      $print = l10n('%s ago', $print);
     }
     else
     {
-      $print = sprintf(l10n('%s in the future'), $print);
+      $print = l10n('%s in the future', $print);
     }
   }
 
@@ -1578,8 +1578,8 @@ function get_icon($date, $is_child_date = false)
 
   if (!isset($cache['get_icon']['title']))
   {
-    $cache['get_icon']['title'] = sprintf(
-      l10n('photos posted during the last %d days'),
+    $cache['get_icon']['title'] = l10n(
+      'photos posted during the last %d days',
       $user['recent_period']
       );
   }
@@ -1705,7 +1705,7 @@ function get_privacy_level_options()
       {
         $label .= ', ';
       }
-      $label .= l10n( sprintf('Level %d',$level) );
+      $label .= l10n( sprintf('Level %d', $level) );
     }
     $options[$level] = $label;
   }

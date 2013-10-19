@@ -72,10 +72,7 @@ INSERT INTO '.GROUPS_TABLE.'
 ;';
     pwg_query($query);
 
-    array_push(
-      $page['infos'],
-      sprintf(l10n('group "%s" added'), $_POST['groupname'])
-      );
+    $page['infos'][] = l10n('group "%s" added', $_POST['groupname']);
   }
 }
 
@@ -153,10 +150,7 @@ if (isset($_POST['submit']) and isset($_POST['selectAction']) and isset($_POST['
     ;';
       pwg_query($query);
     
-      array_push(
-        $page['infos'],
-        sprintf(l10n('group "%s" deleted'), $groupname)
-        );
+      $page['infos'][] = l10n('group "%s" deleted', $groupname);
     }
   }
 
@@ -236,10 +230,8 @@ SELECT COUNT(*)
     }
     mass_inserts(USER_GROUP_TABLE, array('user_id','group_id'), $usr_grp);
     mass_inserts(GROUP_ACCESS_TABLE, array('group_id','cat_id'), $grp_access);
-    array_push(
-      $page['infos'],
-      sprintf(l10n('group "%s" added'), $_POST['merge'])
-      );
+    
+    $page['infos'][] = l10n('group "%s" added', $_POST['merge']);
   }
   
   // +
@@ -313,10 +305,7 @@ SELECT COUNT(*)
       }
       mass_inserts(USER_GROUP_TABLE, array('user_id','group_id'), $usr_grp);
   
-      array_push(
-        $page['infos'],
-        sprintf(l10n('group "%s" added'), $_POST['duplicate_'.$group.''])
-        );
+      $page['infos'][] = l10n('group "%s" added', $_POST['duplicate_'.$group.'']);
     }
   }
 
@@ -344,10 +333,7 @@ SELECT COUNT(*)
     ;';
       pwg_query($query);
     
-      array_push(
-        $page['infos'],
-        sprintf(l10n('group "%s" updated'), $groupname)
-        );
+      $page['infos'][] = l10n('group "%s" updated', $groupname);
     }
   }
 }

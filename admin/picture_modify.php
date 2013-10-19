@@ -306,12 +306,12 @@ while ($user_row = pwg_db_fetch_assoc($result))
 }
 
 $intro_vars = array(
-  'file' => sprintf(l10n('Original file : %s'), $row['file']),
-  'add_date' => sprintf(l10n('Posted %s on %s'), time_since($row['date_available'], 'year'), format_date($row['date_available'], false, false)),
-  'added_by' => sprintf(l10n('Added by %s'), $row['added_by']),
+  'file' => l10n('Original file : %s', $row['file']),
+  'add_date' => l10n('Posted %s on %s', time_since($row['date_available'], 'year'), format_date($row['date_available'], false, false)),
+  'added_by' => l10n('Added by %s', $row['added_by']),
   'size' => $row['width'].'&times;'.$row['height'].' pixels, '.sprintf('%.2f', $row['filesize']/1024).'MB',
-  'stats' => sprintf(l10n('Visited %d times'), $row['hit']),
-  'id' => sprintf(l10n('Numeric identifier : %d'), $row['id']),
+  'stats' => l10n('Visited %d times', $row['hit']),
+  'id' => l10n('Numeric identifier : %d', $row['id']),
   );
 
 if ($conf['rate'] and !empty($row['rating_score']))

@@ -290,15 +290,15 @@ var sizeLimit = Math.round({$upload_max_filesize} / 1024); /* in KBytes */
     <fieldset>
       <legend>{'Select files'|@translate}</legend>
  
-    {if isset($original_resize_maxheight)}<p class="uploadInfo">{'The picture dimensions will be reduced to %dx%d pixels.'|@translate|@sprintf:$original_resize_maxwidth:$original_resize_maxheight}</p>{/if}
+    {if isset($original_resize_maxheight)}<p class="uploadInfo">{'The picture dimensions will be reduced to %dx%d pixels.'|@translate:$original_resize_maxwidth:$original_resize_maxheight}</p>{/if}
 
     <p id="uploadWarningsSummary">{$upload_max_filesize_shorthand}B. {$upload_file_types}. {if isset($max_upload_resolution)}{$max_upload_resolution}Mpx{/if} <a class="icon-info-circled-1 showInfo" title="{'Learn more'|@translate}"></a></p>
 
     <p id="uploadWarnings">
-{'Maximum file size: %sB.'|@translate|@sprintf:$upload_max_filesize_shorthand}
-{'Allowed file types: %s.'|@translate|@sprintf:$upload_file_types}
+{'Maximum file size: %sB.'|@translate:$upload_max_filesize_shorthand}
+{'Allowed file types: %s.'|@translate:$upload_file_types}
   {if isset($max_upload_resolution)}
-{'Approximate maximum resolution: %dM pixels (that\'s %dx%d pixels).'|@translate|@sprintf:$max_upload_resolution:$max_upload_width:$max_upload_height}
+{'Approximate maximum resolution: %dM pixels (that\'s %dx%d pixels).'|@translate:$max_upload_resolution:$max_upload_width:$max_upload_height}
   {/if}
     </p>
 
@@ -310,14 +310,14 @@ var sizeLimit = Math.round({$upload_max_filesize} / 1024); /* in KBytes */
         <a href="javascript:">{'+ Add an upload box'|@translate}</a>
       </div>
 
-    <p id="uploadModeInfos">{'You are using the Browser uploader. Try the <a href="%s">Flash uploader</a> instead.'|@translate|@sprintf:$switch_url}</p>
+    <p id="uploadModeInfos">{'You are using the Browser uploader. Try the <a href="%s">Flash uploader</a> instead.'|@translate:$switch_url}</p>
 
 {elseif $upload_mode eq 'multiple'}
     <div id="uploadify">You've got a problem with your JavaScript</div> 
 
     <div id="fileQueue" style="display:none"></div>
 
-    <p id="uploadModeInfos">{'You are using the Flash uploader. Problems? Try the <a href="%s">Browser uploader</a> instead.'|@translate|@sprintf:$switch_url}</p>
+    <p id="uploadModeInfos">{'You are using the Flash uploader. Problems? Try the <a href="%s">Browser uploader</a> instead.'|@translate:$switch_url}</p>
 
 {/if}
     </fieldset>
@@ -345,7 +345,7 @@ var sizeLimit = Math.round({$upload_max_filesize} / 1024); /* in KBytes */
 </form>
 
 <div id="uploadProgress" style="display:none">
-{'Photo %s of %s'|@translate|@sprintf:'<span id="progressCurrent">1</span>':'<span id="progressMax">10</span>'}
+{'Photo %s of %s'|@translate:'<span id="progressCurrent">1</span>':'<span id="progressMax">10</span>'}
 <br>
 <div id="progressbar"></div>
 </div>
