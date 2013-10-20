@@ -168,7 +168,6 @@ $lang['deleted'] = 'fjerna';
 $lang['directories + files'] = 'katalogar + filer';
 $lang['display'] = 'vis';
 $lang['display maximum informations (added albums and photos, deleted albums and photos)'] = 'vis maksimal informasjon (album og bilete lagt til eller sletta';
-$lang['Email'] = 'E-post';
 $lang['errors during synchronization'] = 'feil under synkronisering';
 $lang['existing album'] = 'eksisterande album';
 $lang['first photo added on %s'] = 'fyrste bilete lagt til %s';
@@ -945,4 +944,5 @@ $lang['digiKam is designed for photographers who want to view, manage, edit, enh
 $lang['pLoader stands for <em>Piwigo Uploader</em>. From your computer, pLoader prepares your photos and transfer them to your Piwigo photo gallery.'] = 'pLoader står for <em>Piwigo Uploader</em>. Frå datamaskina di kan pLoader tilrettelegge bileta dine og overføre dei til ditt Piwigo biletgalleri.';
 $lang['photos candidates for metadata synchronization'] = 'bilete som er kanditatar for synkronisering av metadata';
 $lang['Resize after upload disabled due to the use of GD as graphic library'] = 'Endring av storleik etter opplasting er ikkje tilgjengeleg avdi GD vert bruka som grafikkbibliotek';
+$lang['Select at least one tag'] = 'Vel minst eitt nøkkelord';
 ?>
