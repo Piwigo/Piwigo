@@ -21,7 +21,7 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
-class PwgRestRequestHandler
+class PwgRestRequestHandler extends PwgRequestHandler
 {
   function handleRequest(&$service)
   {

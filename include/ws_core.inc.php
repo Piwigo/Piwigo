@@ -136,28 +136,28 @@ class PwgNamedStruct
 /**
  * Abstract base class for request handlers.
  */
-class PwgRequestHandler
+abstract class PwgRequestHandler
 {
   /** Virtual abstract method. Decodes the request (GET or POST) handles the
    * method invocation as well as response sending.
    */
-  function handleRequest(&$server) { assert(false); }
+  abstract function handleRequest(&$service);
 }
 
 /**
  *
  * Base class for web service response encoder.
  */
-class PwgResponseEncoder
+abstract class PwgResponseEncoder
 {
   /** encodes the web service response to the appropriate output format
    * @param response mixed the unencoded result of a service method call
    */
-  function encodeResponse($response) { assert(false); }
+  abstract function encodeResponse($response);
 
   /** default "Content-Type" http header for this kind of response format
    */
-  function getContentType() { assert(false); }
+  abstract function getContentType();
 
   /**
    * returns true if the parameter is a 'struct' (php array type whose keys are
