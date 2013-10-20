@@ -228,7 +228,6 @@ $lang['Prepared time for list of users to send mail is limited. Others users are
 $lang['Time to send mail is limited. Others mails are skipped.'] = "Le temps d'envoi des courriels est limité. Les autres envois de courriel ont été ignorés.";
 $lang['To send ?'] = "À envoyer ?";
 $lang['Last send'] = "Dernier envoi";
-$lang['Email'] = "Courriel";
 $lang['User'] = "Utilisateur";
 $lang['See you soon,'] = "À bientôt,";
 $lang['Go to'] = "Rendez-vous sur";
@@ -959,4 +958,5 @@ $lang['between %.2f and %.2f'] = 'entre %.2f et %.2f';
 $lang['Purge user cache'] = 'Purger le cache utilisateur';
 $lang['The picture dimensions will be reduced to %dx%d pixels.'] = 'La tailles des images sera réduite à %dx%d pixels.';
 $lang['Resize after upload disabled due to the use of GD as graphic library'] = 'Redimensionnement après transfert désactivé car GD est la librairie graphique utilisée actuellement';
+$lang['Select at least one tag'] = 'Sélectionnez au moins un mot clé';
 ?>
