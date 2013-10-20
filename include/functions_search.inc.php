@@ -122,7 +122,7 @@ function get_sql_search_clause($search)
   {
     if (isset($search['fields'][$datefield]))
     {
-      $clauses[] = $datefield." = '".$search['fields'][$datefield]['date']."'"
+      $clauses[] = $datefield." = '".$search['fields'][$datefield]['date']."'";
     }
 
     foreach (array('after','before') as $suffix)
