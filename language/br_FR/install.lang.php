@@ -30,4 +30,8 @@ $lang['It will be shown to the visitors. It is necessary for website administrat
 $lang['Keep it confidential, it enables you to access administration panel'] = 'Ret eo dezhañ chom kuzhut, gantañ e vez digoret skramm ar mererezh.';
 $lang['Visitors will be able to contact site administrator with this mail'] = 'An implijerien a c\'hello dont e darempred gant merour al lec\'hienn gant ar bostel-mañ';
 $lang['Admin configuration'] = 'Kefluniadur ar mererezh';
+$lang['User'] = 'Implijer';
+$lang['please enter your password again'] = 'Lakait ho ger-tremen adarre';
+$lang['user password given by your host provider'] = 'Ger-tremen roet gant ho pourvezer moned war ar Genrouedad';
+$lang['Password ']['confirm'] = 'Ger-tremen [evit kadarnaat]';
 ?>
