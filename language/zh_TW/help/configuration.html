@@ -1,0 +1,101 @@
+<h2>配置</h2>
+
+<p>這個畫面讓管理員做基本畫廊配置。事實上，這個畫面只顯示簡單的配置參數，對於絕大多數的管理員，應該是足夠的。如果你想看到其他眾多（高級）配置參數，讀取默認的配置文件 
+<span class="filename">include/config_default.inc.php</span>.</p>
+
+<p>畫面分成不同的部分，按主題分組來配置參數。</p>
+
+
+<h3>主要</h3>
+<ul>
+  <li><strong>圖庫標題</strong>: 通過電子郵件，使用RSS訂閱和通知。</li>
+
+  <li><strong>網頁橫幅</strong>: 顯示每個公共頁面頂部。</li>
+
+  <li><strong>圖庫網址</strong>: 用於RSS提要。</li>
+
+  <li><strong>鎖定圖庫</strong>: 鎖定整個圖庫來維護。只有管​​理員組的用戶將能夠到達圖庫。</li>
+
+  <li><strong>評分</strong>: 照片評分功能被啟用。</li>
+
+  <li><strong>客人也可評分</strong>: 即使是未註冊的用戶，也能評分圖片。</li>
+
+  <li><strong>允許用戶註冊</strong>: 任何人都可以註冊。</li>
+
+  <li><strong>強制所有用戶留下郵件地址</strong>: 除了管理員以外，所有用戶登記或更新資料時，將檢查郵件地址。</li>
+
+  <li><strong>當一個新用戶註冊用電子郵件通知管理員</strong>: 每個註冊都將用郵件通知管理員。</li>
+  
+  <li><strong>默認照片順序</strong>: 你可以將下拉菜單定義個人化的順序</li>
+
+</ul>
+
+<h3>History</h3>
+
+  <p>Visits on pages <span
+  class="pwgScreen">category.php</span> and <span
+  class="pwgScreen">picture.php</span> will be saved in the <code>history</code> table.</p>
+  
+  <p>Visits will be shown in <span  class="pwgScreen">Administration &raquo; Tools &raquo; History</span>.</p>
+
+<ul>
+  <li><strong>Save page visits by guests</strong>: page visits by guests will be recorded.</li>
+
+  <li><strong>Save page visits by users</strong>: visits by registrered users will be recorded.</li>
+
+  <li><strong>Save page visits by administrators</strong>: page visits by administrators will be recorded.</li>
+
+</ul>
+
+<h3>Comments</h3>
+<ul>
+
+  <li><strong>Comments for all</strong>: Even unregistered guest can post comments.</li>
+
+  <li><strong>Number of comments per page</strong>.</li>
+
+  <li><strong>Validation</strong>: an administrator must validate users comments before they become visible on the site. User comments validation
+  takes place in screen <span class="pwgScreen">Administration &raquo; Tools &raquo; Pending Comments</span>.</li>
+
+  <li><strong>Email admins when a valid comment is entered</strong>: Sends an email to the administrators when a user enters a comment and this comment is validated.</li>
+
+  <li><strong>Email admins when a comment requires validation</strong>:
+Sends an email to the administrators when a user enters a comment that requires validation by the admin.
+User comments validation takes place in the screen <span class="pwgScreen">Administration &raquo; Tools &raquo; Pending Comments</span>.</li>
+
+</ul>
+
+<h3>Default display</h3>
+
+<p>Here you can change display options used by guest, the default user that is not connected. Once connected, these options are overridden by the user's own options
+(modifiable in <span class="pwgScreen">profile</span>).</p>
+
+<p>It is possible to change the display options for all existing users on the <span class="pwgScreen">Administration &raquo;
+Users &raquo; Manage</span> screen where you can select a list of users.</p>
+
+<ul>
+
+  <li><strong>Language</strong>: Apply to Piwigo labels only. Album names, photo names and all descriptions fields are not localized.</li>
+
+  <li><strong>Number of photos per row</strong></li>
+
+  <li><strong>Number of rows per page</strong></li>
+
+  <li><strong>Interface theme</strong></li>
+
+  <li><strong>Recent period</strong>: By days. Period during which a photo is shown as new. Must be greater than 1 day.</li>
+
+  <li><strong>Expand all albums</strong>: Expand all albums by
+  default in the menu <em>Warning</em>: this option is resources intensive and may generate a huge menu if your album tree contains many albums.</li>
+
+  <li><strong>Show number of comments</strong>: Show the number of comments for each photo on the thumbnails page. Resource intensive.</li>
+
+  <li><strong>Show hits count</strong>: Display hits observed on photo just under its thumbnail on the thumbnails page. Only when advanced configuration parameter is: <br>
+  $conf['show_nb_hits'] = true; <br>
+  Notice: false by default.</li>
+
+  <li><strong>Maximum width of the photos</strong>: maximum displayed width.  Photos larger than this setting will be resized on display.  Rather than choosing this option, you might consider modifying the width of your photos; that would be a better practice.</li>
+
+  <li><strong>Maximum height of the photos</strong>: Same as for the maximum width setting.</li>
+
+</ul>
