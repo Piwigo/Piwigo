@@ -226,11 +226,7 @@ function ws_getMissingDerivatives($params, $service)
     }
   }
 
-  if ( ($max_urls = intval($params['max_urls'])) <= 0)
-  {
-    return new PwgError(WS_ERR_INVALID_PARAM, "Invalid max_urls");
-  }
-
+  $max_urls = $params['max_urls'];
   list($max_id, $image_count) = pwg_db_fetch_row( pwg_query('SELECT MAX(id)+1, COUNT(*) FROM '.IMAGES_TABLE) );
 
   if (0 == $image_count)
@@ -308,10 +304,14 @@ function ws_getMissingDerivatives($params, $service)
 function ws_getVersion($params, $service)
 {
   global $conf;
-  if ($conf['show_version'] or is_admin() )
+  if ( $conf['show_version'] or is_admin() )
+  {
     return PHPWG_VERSION;
+  }
   else
+  {
     return new PwgError(403, 'Forbidden');
+  }
 }
 
 /**
@@ -387,11 +387,6 @@ function ws_caddie_add($params, $service)
   {
     return new PwgError(401, 'Access denied');
   }
-  $params['image_id'] = array_map( 'intval',$params['image_id'] );
-  if ( empty($params['image_id']) )
-  {
-    return new PwgError(WS_ERR_INVALID_PARAM, "Invalid image_id");
-  }
   global $user;
   $query = '
 SELECT id
@@ -427,9 +422,6 @@ function ws_categories_getImages($params, $service)
   $where_clauses = array();
   foreach($params['cat_id'] as $cat_id)
   {
-    $cat_id = (int)$cat_id;
-    if ($cat_id<=0)
-      continue;
     if ($params['recursive'])
     {
       $where_clauses[] = 'uppercats '.DB_REGEX_OPERATOR.' \'(^|,)'.$cat_id.'(,|$)\'';
@@ -960,7 +952,7 @@ function ws_images_addComment($params, $service)
   {
     return new PwgError(405, "This method requires HTTP POST");
   }
-  $params['image_id'] = (int)$params['image_id'];
+
   $query = '
 SELECT DISTINCT image_id
   FROM '.IMAGE_CATEGORY_TABLE.' INNER JOIN '.CATEGORIES_TABLE.' ON category_id=id
@@ -1014,11 +1006,6 @@ SELECT DISTINCT image_id
 function ws_images_getInfo($params, $service)
 {
   global $user, $conf;
-  $params['image_id'] = (int)$params['image_id'];
-  if ( $params['image_id']<=0 )
-  {
-    return new PwgError(WS_ERR_INVALID_PARAM, "Invalid image_id");
-  }
 
   $query='
 SELECT * FROM '.IMAGES_TABLE.'
@@ -1028,12 +1015,14 @@ SELECT * FROM '.IMAGES_TABLE.'
       ' AND'
     ).'
 LIMIT 1';
-
-  $image_row = pwg_db_fetch_assoc(pwg_query($query));
-  if ($image_row==null)
+  $result = pwg_query($query);
+  
+  if (pwg_db_num_rows($resul) == 0)
   {
     return new PwgError(404, "image_id not found");
   }
+  
+  $image_row = pwg_db_fetch_assoc($result);
   $image_row = array_merge( $image_row, ws_std_get_urls($image_row) );
 
   //-------------------------------------------------------- related categories
@@ -1202,11 +1191,10 @@ SELECT id, date, author, content
  */
 function ws_images_Rate($params, $service)
 {
-  $image_id = (int)$params['image_id'];
   $query = '
 SELECT DISTINCT id FROM '.IMAGES_TABLE.'
   INNER JOIN '.IMAGE_CATEGORY_TABLE.' ON id=image_id
-  WHERE id='.$image_id
+  WHERE id='.$params['image_id']
   .get_sql_condition_FandF(
     array(
         'forbidden_categories' => 'category_id',
@@ -1221,7 +1209,7 @@ SELECT DISTINCT id FROM '.IMAGES_TABLE.'
   }
   $rate = (int)$params['rate'];
   include_once(PHPWG_ROOT_PATH.'include/functions_rate.inc.php');
-  $res = rate_picture( $image_id, $rate );
+  $res = rate_picture( $params['image_id'], $rate );
   if ($res==false)
   {
     global $conf;
@@ -1255,9 +1243,6 @@ function ws_images_search($params, $service)
       $super_order_by,
       implode(' AND ', $where_clauses)
     );
-
-  $params['per_page'] = (int)$params['per_page'];
-  $params['page'] = (int)$params['page'];
 
   $image_ids = array_slice(
       $search_result['items'],
@@ -1317,13 +1302,8 @@ function ws_images_setPrivacyLevel($params, $service)
   {
     return new PwgError(405, "This method requires HTTP POST");
   }
-  $params['image_id'] = array_map( 'intval',$params['image_id'] );
-  if ( empty($params['image_id']) )
-  {
-    return new PwgError(WS_ERR_INVALID_PARAM, "Invalid image_id");
-  }
   global $conf;
-  if ( !in_array( (int)$params['level'], $conf['available_permission_levels']) )
+  if ( !in_array($params['level'], $conf['available_permission_levels']) )
   {
     return new PwgError(WS_ERR_INVALID_PARAM, "Invalid level");
   }
@@ -1354,53 +1334,28 @@ function ws_images_setRank($params, $service)
     return new PwgError(405, "This method requires HTTP POST");
   }
 
-  // is the image_id valid?
-  $params['image_id'] = (int)$params['image_id'];
-  if ($params['image_id'] <= 0)
-  {
-    return new PwgError(WS_ERR_INVALID_PARAM, "Invalid image_id");
-  }
-
-  // is the category valid?
-  $params['category_id'] = (int)$params['category_id'];
-  if ($params['category_id'] <= 0)
-  {
-    return new PwgError(WS_ERR_INVALID_PARAM, "Invalid category_id");
-  }
-
-  // is the rank valid?
-  $params['rank'] = (int)$params['rank'];
-  if ($params['rank'] <= 0)
-  {
-    return new PwgError(WS_ERR_INVALID_PARAM, "Invalid rank");
-  }
-
   // does the image really exist?
   $query='
-SELECT
-    *
+SELECT COUNT(*)
   FROM '.IMAGES_TABLE.'
   WHERE id = '.$params['image_id'].'
 ;';
 
-  $image_row = pwg_db_fetch_assoc(pwg_query($query));
-  if ($image_row == null)
+  list($count) = pwg_db_fetch_row(pwg_query($query));
+  if ($count == 0)
   {
     return new PwgError(404, "image_id not found");
   }
 
   // is the image associated to this category?
   $query = '
-SELECT
-    image_id,
-    category_id,
-    rank
+SELECT COUNT(*)
   FROM '.IMAGE_CATEGORY_TABLE.'
   WHERE image_id = '.$params['image_id'].'
     AND category_id = '.$params['category_id'].'
 ;';
-  $category_row = pwg_db_fetch_assoc(pwg_query($query));
-  if ($category_row == null)
+  list($count) = pwg_db_fetch_row(pwg_query($query));
+  if ($count == 0)
   {
     return new PwgError(404, "This image is not associated to this category");
   }
@@ -1626,12 +1581,6 @@ function ws_images_addFile($params, $service)
     return new PwgError(401, 'Access denied');
   }
 
-  $params['image_id'] = (int)$params['image_id'];
-  if ($params['image_id'] <= 0)
-  {
-    return new PwgError(WS_ERR_INVALID_PARAM, "Invalid image_id");
-  }
-
   //
   // what is the path and other infos about the photo?
   //
@@ -1646,12 +1595,14 @@ SELECT
   FROM '.IMAGES_TABLE.'
   WHERE id = '.$params['image_id'].'
 ;';
-  $image = pwg_db_fetch_assoc(pwg_query($query));
+  $result = pwg_query($query);
 
-  if ($image == null)
+  if (pwg_db_num_rows($result) == 0)
   {
     return new PwgError(404, "image_id not found");
   }
+  
+  $image = pwg_db_fetch_assoc($result);
 
   // since Piwigo 2.4 and derivatives, we do not take the imported "thumb"
   // into account
@@ -1726,17 +1677,16 @@ function ws_images_add($params, $service)
       );
   }
 
-  $params['image_id'] = (int)$params['image_id'];
   if ($params['image_id'] > 0)
   {
     $query='
-SELECT *
+SELECT COUNT(*)
   FROM '.IMAGES_TABLE.'
   WHERE id = '.$params['image_id'].'
 ;';
 
-    $image_row = pwg_db_fetch_assoc(pwg_query($query));
-    if ($image_row == null)
+    list($count) = pwg_db_fetch_row(pwg_query($query));
+    if ($count == 0)
     {
       return new PwgError(404, "image_id not found");
     }
@@ -1755,8 +1705,7 @@ SELECT *
     }
 
     $query = '
-SELECT
-    COUNT(*) AS counter
+SELECT COUNT(*)
   FROM '.IMAGES_TABLE.'
   WHERE '.$where_clause.'
 ;';
@@ -1879,30 +1828,22 @@ function ws_images_addSimple($params, $service)
 
   if (!isset($_FILES['image']))
   {
-    return new PwgError(405, "The image (file) parameter is missing");
+    return new PwgError(405, "The image (file) is missing");
   }
 
-  $params['image_id'] = (int)$params['image_id'];
   if ($params['image_id'] > 0)
   {
     $query='
-SELECT *
+SELECT COUNT(*)
   FROM '.IMAGES_TABLE.'
   WHERE id = '.$params['image_id'].'
 ;';
 
-    $image_row = pwg_db_fetch_assoc(pwg_query($query));
-    if ($image_row == null)
+    list($count) = pwg_db_fetch_row(pwg_query($query));
+    if ($count == 0)
     {
       return new PwgError(404, "image_id not found");
     }
-  }
-
-  // category
-  $params['category'] = (int)$params['category'];
-  if ($params['category'] <= 0 and $params['image_id'] <= 0)
-  {
-    return new PwgError(WS_ERR_INVALID_PARAM, "Invalid category_id");
   }
 
   include_once(PHPWG_ROOT_PATH.'admin/include/functions_upload.inc.php');
@@ -1910,7 +1851,7 @@ SELECT *
   $image_id = add_uploaded_file(
     $_FILES['image']['tmp_name'],
     $_FILES['image']['name'],
-    $params['category'] > 0 ? array($params['category']) : null,
+    $params['category'],
     8,
     $params['image_id'] > 0 ? $params['image_id'] : null
     );
@@ -1931,14 +1872,14 @@ SELECT *
     }
   }
 
-  if (count(array_keys($update)) > 0)
+  if (count($update) > 0)
   {
     $update['id'] = $image_id;
     
     single_update(
       IMAGES_TABLE,
       $update,
-      array('id', $update['id'])
+      array('id' => $update['id'])
       );
   }
 
@@ -1969,12 +1910,12 @@ SELECT *
 
   $url_params = array('image_id' => $image_id);
 
-  if ($params['category'] > 0)
+  if (!empty($params['category']))
   {
     $query = '
 SELECT id, name, permalink
   FROM '.CATEGORIES_TABLE.'
-  WHERE id = '.$params['category'].'
+  WHERE id = '.$params['category'][0].'
 ;';
     $result = pwg_query($query);
     $category = pwg_db_fetch_assoc($result);
@@ -2009,15 +1950,9 @@ function ws_rates_delete($params, $service)
     return new PwgError(401, 'Access denied');
   }
 
-  $user_id = (int)$params['user_id'];
-  if ($user_id<=0)
-  {
-    return new PwgError(WS_ERR_INVALID_PARAM, 'Invalid user_id');
-  }
-
   $query = '
 DELETE FROM '.RATE_TABLE.'
-  WHERE user_id='.$user_id;
+  WHERE user_id='.$params['user_id'];
 
   if (!empty($params['anonymous_id']))
   {
@@ -2144,7 +2079,6 @@ function ws_tags_getImages($params, $service)
   global $conf;
 
   // first build all the tag_ids we are interested in
-  $params['tag_id'] = array_map( 'intval',$params['tag_id'] );
   $tags = find_tags($params['tag_id'], $params['tag_url_name'], $params['tag_name']);
   $tags_by_id = array();
   foreach( $tags as $tag )
@@ -2168,8 +2102,6 @@ function ws_tags_getImages($params, $service)
     ws_std_image_sql_order($params) );
 
   $count_set = count($image_ids);
-  $params['per_page'] = (int)$params['per_page'];
-  $params['page'] = (int)$params['page'];
   $image_ids = array_slice($image_ids, $params['per_page']*$params['page'], $params['per_page'] );
 
   $image_tag_map = array();
@@ -2272,16 +2204,6 @@ function ws_categories_add($params, $service)
     $options['status'] = $params['status'];
   }
   
-  if (!empty($params['visible']) and in_array($params['visible'], array('true','false')))
-  {
-    $options['visible'] = get_boolean($params['visible']);
-  }
-  
-  if (!empty($params['commentable']) and in_array($params['commentable'], array('true','false')) )
-  {
-    $options['commentable'] = get_boolean($params['commentable']);
-  }
-  
   if (!empty($params['comment']))
   {
     $options['comment'] = $params['comment'];
@@ -2367,8 +2289,7 @@ SELECT
       }
     }
   }
-
-  if ('filename' == $conf['uniqueness_mode'])
+  else if ('filename' == $conf['uniqueness_mode'])
   {
     // search among photos the list of photos already added, based on
     // filename list
@@ -2418,12 +2339,6 @@ function ws_images_checkFiles($params, $service)
   // thumbnail_sum
   // file_sum
   // high_sum
-
-  $params['image_id'] = (int)$params['image_id'];
-  if ($params['image_id'] <= 0)
-  {
-    return new PwgError(WS_ERR_INVALID_PARAM, "Invalid image_id");
-  }
 
   $query = '
 SELECT
@@ -2489,12 +2404,6 @@ function ws_images_setInfo($params, $service)
     return new PwgError(405, "This method requires HTTP POST");
   }
 
-  $params['image_id'] = (int)$params['image_id'];
-  if ($params['image_id'] <= 0)
-  {
-    return new PwgError(WS_ERR_INVALID_PARAM, "Invalid image_id");
-  }
-
   include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
 
   $query='
@@ -2502,12 +2411,14 @@ SELECT *
   FROM '.IMAGES_TABLE.'
   WHERE id = '.$params['image_id'].'
 ;';
-
-  $image_row = pwg_db_fetch_assoc(pwg_query($query));
-  if ($image_row == null)
+  $result = pwg_query($query);
+  
+  if (pwg_db_num_rows($result) == 0)
   {
     return new PwgError(404, "image_id not found");
   }
+  
+  $image_row = pwg_db_fetch_assoc($result);
 
   // database registration
   $update = array();
@@ -2564,7 +2475,7 @@ SELECT *
     single_update(
       IMAGES_TABLE,
       $update,
-      array('id', $update['id'])
+      array('id' => $update['id'])
       );
   }
 
@@ -2633,17 +2544,20 @@ function ws_images_delete($params, $service)
     return new PwgError(405, "This method requires HTTP POST");
   }
 
-  if (empty($params['pwg_token']) or get_pwg_token() != $params['pwg_token'])
+  if (get_pwg_token() != $params['pwg_token'])
   {
     return new PwgError(403, 'Invalid security token');
   }
 
-  $params['image_id'] = preg_split(
-    '/[\s,;\|]/',
-    $params['image_id'],
-    -1,
-    PREG_SPLIT_NO_EMPTY
-    );
+  if (!is_array($params['image_id']))
+  {
+    $params['image_id'] = preg_split(
+      '/[\s,;\|]/',
+      $params['image_id'],
+      -1,
+      PREG_SPLIT_NO_EMPTY
+      );
+  }
   $params['image_id'] = array_map('intval', $params['image_id']);
 
   $image_ids = array();
@@ -2826,12 +2740,6 @@ function ws_categories_setInfo($params, $service)
   // name
   // comment
 
-  $params['category_id'] = (int)$params['category_id'];
-  if ($params['category_id'] <= 0)
-  {
-    return new PwgError(WS_ERR_INVALID_PARAM, "Invalid category_id");
-  }
-
   // database registration
   $update = array(
     'id' => $params['category_id'],
@@ -2857,7 +2765,7 @@ function ws_categories_setInfo($params, $service)
     single_update(
       CATEGORIES_TABLE,
       $update,
-      array('id', $update['id'])
+      array('id' => $update['id'])
       );
   }
 }
@@ -2879,41 +2787,27 @@ function ws_categories_setRepresentative($params, $service)
   // category_id
   // image_id
 
-  $params['category_id'] = (int)$params['category_id'];
-  if ($params['category_id'] <= 0)
-  {
-    return new PwgError(WS_ERR_INVALID_PARAM, "Invalid category_id");
-  }
-
   // does the category really exist?
   $query='
-SELECT
-    *
+SELECT COUNT(*)
   FROM '.CATEGORIES_TABLE.'
   WHERE id = '.$params['category_id'].'
 ;';
-  $row = pwg_db_fetch_assoc(pwg_query($query));
-  if ($row == null)
+  list($count) = pwg_db_fetch_row(pwg_query($query));
+  if ($count == 0)
   {
     return new PwgError(404, "category_id not found");
   }
 
-  $params['image_id'] = (int)$params['image_id'];
-  if ($params['image_id'] <= 0)
-  {
-    return new PwgError(WS_ERR_INVALID_PARAM, "Invalid image_id");
-  }
-
   // does the image really exist?
   $query='
-SELECT
-    *
+SELECT COUNT(*)
   FROM '.IMAGES_TABLE.'
   WHERE id = '.$params['image_id'].'
 ;';
 
-  $row = pwg_db_fetch_assoc(pwg_query($query));
-  if ($row == null)
+  list($count) = pwg_db_fetch_row(pwg_query($query));
+  if ($count == 0)
   {
     return new PwgError(404, "image_id not found");
   }
@@ -2947,7 +2841,7 @@ function ws_categories_delete($params, $service)
     return new PwgError(405, "This method requires HTTP POST");
   }
 
-  if (empty($params['pwg_token']) or get_pwg_token() != $params['pwg_token'])
+  if (get_pwg_token() != $params['pwg_token'])
   {
     return new PwgError(403, 'Invalid security token');
   }
@@ -2963,12 +2857,15 @@ function ws_categories_delete($params, $service)
       );
   }
 
-  $params['category_id'] = preg_split(
-    '/[\s,;\|]/',
-    $params['category_id'],
-    -1,
-    PREG_SPLIT_NO_EMPTY
-    );
+  if (!is_array($params['category_id']))
+  {
+    $params['category_id'] = preg_split(
+      '/[\s,;\|]/',
+      $params['category_id'],
+      -1,
+      PREG_SPLIT_NO_EMPTY
+      );
+  }
   $params['category_id'] = array_map('intval', $params['category_id']);
 
   $category_ids = array();
@@ -3016,17 +2913,20 @@ function ws_categories_move($params, $service)
     return new PwgError(405, "This method requires HTTP POST");
   }
 
-  if (empty($params['pwg_token']) or get_pwg_token() != $params['pwg_token'])
+  if (get_pwg_token() != $params['pwg_token'])
   {
     return new PwgError(403, 'Invalid security token');
   }
 
-  $params['category_id'] = preg_split(
-    '/[\s,;\|]/',
-    $params['category_id'],
-    -1,
-    PREG_SPLIT_NO_EMPTY
-    );
+  if (!is_array($params['category_id']))
+  {
+    $params['category_id'] = preg_split(
+      '/[\s,;\|]/',
+      $params['category_id'],
+      -1,
+      PREG_SPLIT_NO_EMPTY
+      );
+  }
   $params['category_id'] = array_map('intval', $params['category_id']);
 
   $category_ids = array();
@@ -3095,15 +2995,8 @@ SELECT
 
   // does this parent exists? This check should be made in the
   // move_categories function, not here
-  //
   // 0 as parent means "move categories at gallery root"
-  if (!is_numeric($params['parent']))
-  {
-    return new PwgError(403, 'Invalid parent input parameter');
-  }
-
   if (0 != $params['parent']) {
-    $params['parent'] = intval($params['parent']);
     $subcat_ids = get_subcat_ids(array($params['parent']));
     if (count($subcat_ids) == 0)
     {
@@ -3206,7 +3099,7 @@ function ws_plugins_performAction($params, &$service)
     return new PwgError(401, 'Access denied');
   }
 
-  if (empty($params['pwg_token']) or get_pwg_token() != $params['pwg_token'])
+  if (get_pwg_token() != $params['pwg_token'])
   {
     return new PwgError(403, 'Invalid security token');
   }
@@ -3240,7 +3133,7 @@ function ws_themes_performAction($params, $service)
     return new PwgError(401, 'Access denied');
   }
 
-  if (empty($params['pwg_token']) or get_pwg_token() != $params['pwg_token'])
+  if (get_pwg_token() != $params['pwg_token'])
   {
     return new PwgError(403, 'Invalid security token');
   }
@@ -3271,19 +3164,14 @@ function ws_extensions_update($params, $service)
     return new PwgError(401, l10n('Webmaster status is required.'));
   }
 
-  if (empty($params['pwg_token']) or get_pwg_token() != $params['pwg_token'])
+  if (get_pwg_token() != $params['pwg_token'])
   {
     return new PwgError(403, 'Invalid security token');
   }
 
-  if (empty($params['type']) or !in_array($params['type'], array('plugins', 'themes', 'languages')))
+  if (!in_array($params['type'], array('plugins', 'themes', 'languages')))
   {
     return new PwgError(403, "invalid extension type");
-  }
-
-  if (empty($params['id']) or empty($params['revision']))
-  {
-    return new PwgError(null, 'Wrong parameters');
   }
 
   include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
@@ -3366,7 +3254,7 @@ function ws_extensions_ignoreupdate($params, $service)
     return new PwgError(401, 'Access denied');
   }
 
-  if (empty($params['pwg_token']) or get_pwg_token() != $params['pwg_token'])
+  if (get_pwg_token() != $params['pwg_token'])
   {
     return new PwgError(403, 'Invalid security token');
   }

@@ -53,9 +53,9 @@
   #the_methods {width:250px;float:left;border-style:solid;border-color:#cdcdcd;border-width:1px 1px 0 0;
     background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAMAAAADCAIAAADZSiLoAAAAH0lEQVQImSXHMQEAMAwCMOrfK0jIjuVL2gLBzyHJtgd7wBdU3Vt/7AAAAABJRU5ErkJggg==);
   }
-  #the_methods ul {font-size:1.1em;margin:5px 0 10px 10px;list-style:none;}
-  #the_methods li:before {content:"\203A\00A0";font-weight:bold;color:#EB9C39;font-size:1.1em;}
-  #the_methods li:hover:before {content:"\00A0\203A";}
+  #methodsList {font-size:1.1em;margin:5px 0 10px 10px;list-style:none;}
+  #methodsList li:before {content:"\203A\00A0";font-weight:bold;color:#EB9C39;font-size:1.1em;}
+  #methodsList li:hover:before {content:"\00A0\203A";}
 
   #the_page {margin-left:252px;border-style:solid;border-color:#cdcdcd;border-width:1px 0 0 1px;}
   #the_content {padding:10px;}
@@ -70,6 +70,8 @@
   #methodParams td.input {text-align:center;}
   #methodParams td.input input[type="text"] {width:97%;font-size:0.9em;background:#f7f7f7;border:1px solid #ccc;border-radius:2px;}
   #methodParams td.input input[type="text"]:hover, #methodParams td.input input[type="text"]:focus {border-color:#C7E2F1;border-top-color:#96BCD7;background:#fff;}
+  #methodParams .type {display:inline-block;width:16px;height:16px;font-size:12px;line-height:16px;background:#ddd;border-radius:8px;font-weight:bold;text-align:center;color:#222;}
+  #methodParams .subtype {vertical-align:super;}
 
   #testForm {display:inline-block;margin-left:15px;}
   #testForm td {padding:2px 0;}
@@ -87,6 +89,7 @@
   
   .methodInfo {float:right;display:inline-block;width:16px;height:16px;font-size:12px;line-height:16px;background:#555;border-radius:8px;font-family:"Times New Roman",sans-serif;font-style:italic;font-weight:bold;text-align:center;color:#fff;}
   .methodInfo:hover {border:none;text-shadow:none;background:#888;cursor:pointer;color:#fff;}
+  #tiptip_content { font-size:12px; }
   
   #iframeWrapper {width:100%;height:300px;padding:3px 3px 20px 3px;background:#F9F9F9;border:1px solid #cdcdcd;overflow:hidden;position:relative;}
   iframe {width:100%;height:100%;background:#fff;}
@@ -155,6 +158,7 @@
             <tr>
               <td style="width:150px;">Name</td>
               <td class="mini">Extra</td>
+              <td class="mini">Type</td>
               <td style="width:300px;">Value</td>
               <td class="mini">Send</td>
             </tr>
@@ -165,7 +169,10 @@
           
           <tfoot>
             <tr>
-              <td colspan="4"><b>*</b>: required parameter, <b>?</b>: optional parameter, <b>[]</b>: parameter can be an array (use a pipe | to split values)</td>
+              <td colspan="5">
+                <b>*</b>: required, <b>?</b>: optional, <b>[]</b>: can be an array (use a pipe | to split values)<br>
+                <b>B</b>: boolean, <b>I</b>: integer, <b>F</b>: float, <b>+</b>: positive, <b>&oslash;</b>: not null
+              </td>
             </tr>
           </tfoot>
         </table>
@@ -305,11 +312,11 @@ function displayError(error) {
 
 // display ws_url form
 function askForUrl() {
+  displayError("can't contact web-services, please give absolute url to 'ws.php'");
   if ($("#urlForm input[name='ws_url']").val() == "") {
     $("#urlForm input[name='ws_url']").val(ws_url);
   }
   $("#urlForm").show();
-  displayError("can't contact web-services, please give absolute url to 'ws.php'");
 }
 
 // parse Piwigo JSON
@@ -404,10 +411,18 @@ function fillNewMethod(methodName) {
   var methodParams = '';
   if (method.params && method.params.length>0) {
     for (var i=0; i<method.params.length; i++) {
-      var isOptional = method.params[i].optional;
-      var acceptArray = method.params[i].acceptArray;
-      var defaultValue = method.params[i].defaultValue == null ? '' : method.params[i].defaultValue;
-      var info = method.params[i].info == null ? '' : '<a class="methodInfo" title="'+ method.params[i].info + '">i</a>';
+      var param = method.params[i],
+          isOptional = param.optional,
+          acceptArray = param.acceptArray,
+          defaultValue = param.defaultValue == null ? '' : param.defaultValue,
+          info = param.info == null ? '' : '<a class="methodInfo" title="'+ param.info.replace(/"/g, '&quot;') + '">i</a>',
+          type = '';
+      
+      if (param.type.match(/bool/)) type+= '<span class=type>B</span>';
+      if (param.type.match(/int/)) type+= '<span class=type>I</span>';
+      if (param.type.match(/float/)) type+= '<span class=type>F</span>';
+      if (param.type.match(/positive/)) type+= '<span class=subtype>+</span>';
+      if (param.type.match(/notnull/)) type+= '<span class=subtype>&oslash;</span>';
       
       // if an array is direclty printed, the delimiter is a comma where we use a pipe
       if (typeof defaultValue == 'object') {
@@ -415,8 +430,9 @@ function fillNewMethod(methodName) {
       }
 
       methodParams+= '<tr>'+
-        '<td>'+ method.params[i].name + info +'</td>'+
+        '<td>'+ param.name + info +'</td>'+
         '<td class="mini">'+ (isOptional ? '?':'*') + (acceptArray ? ' []':'') +'</td>'+
+        '<td class="mini">'+ type +'</td>'+
         '<td class="input"><input type="text" class="methodParameterValue" data-id="'+ i +'" value="'+ defaultValue +'"></td>'+
         '<td class="mini"><input type="checkbox" class="methodParameterSend" data-id="'+ i +'" '+ (isOptional ? '':'checked="checked"') +'></td>'+
       '</tr>';
@@ -438,10 +454,8 @@ function fillNewMethod(methodName) {
   
   // tiptip
   $(".methodInfo").tipTip({
-    activation:"click",
     maxWidth:"300px",
     defaultPosition:"right",
-    keepAlive:true,
     delay:0
   });
 }
