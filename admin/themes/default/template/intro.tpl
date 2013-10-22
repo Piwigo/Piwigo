@@ -74,10 +74,7 @@ jQuery().ready(function(){
       <li>{$DB_GROUPS}</li>
     {if isset($DB_COMMENTS)}
       <li>
-        {$DB_COMMENTS}
-        {if isset($unvalidated)}
-        (<a href="{$unvalidated.URL}">{$unvalidated.INFO}</a>)
-        {/if}
+        {$DB_COMMENTS}{if $NB_PENDING_COMMENTS > 0} (<a href="{$U_COMMENTS}">{'%d waiting for validation'|translate:$NB_PENDING_COMMENTS}</a>){/if}
       </li>
     {/if}
 			<li>{$DB_RATES}</li>

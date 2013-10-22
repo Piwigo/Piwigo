@@ -213,25 +213,6 @@ SELECT COUNT(*)
 ;';
   list($nb_comments) = pwg_db_fetch_row(pwg_query($query));
   $template->assign('DB_COMMENTS', l10n_dec('%d comment', '%d comments', $nb_comments));
-  
-  // unvalidated comments
-  $query = '
-SELECT COUNT(*)
-  FROM '.COMMENTS_TABLE.'
-  WHERE validated=\'false\'
-;';
-  list($nb_comments) = pwg_db_fetch_row(pwg_query($query));
-
-  if ($nb_comments > 0)
-  {
-    $template->assign(
-      'unvalidated',
-      array(
-        'URL' => PHPWG_ROOT_PATH.'admin.php?page=comments',
-        'INFO' => l10n('%d waiting for validation', $nb_comments)
-        )
-      );
-  }
 }
 
 if ($nb_elements > 0)

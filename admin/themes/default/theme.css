@@ -27,6 +27,9 @@ ul.categoryActions { margin: 0 2px; width: auto; list-style-position:outside;
 .content div.comment blockquote {
   margin-right: 0.5em; overflow: visible; /*avoid a very strange margin behaviour (all browsers) */ }
 
+.commentFilterSelected {color:#666;text-decoration:underline;}
+.comment .pendingFlag {font-style:italic;color:red;}
+
 /* not used but should be */
 #thePopuphelpPage .content { margin: 1em; }
 
