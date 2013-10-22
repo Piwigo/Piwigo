@@ -43,7 +43,12 @@ jQuery(document).ready(function(){
 });
 {/literal}{/footer_script}
 
-<h2>{'Pending Comments'|@translate} {$TABSHEET_TITLE}</h2>
+<h2>{'User comments'|@translate} {$TABSHEET_TITLE}</h2>
+
+<p style="text-align:left;margin-left:1em;">
+  <a href="{$F_ACTION}&amp;filter=all" class="{if $filter == 'all'}commentFilterSelected{/if}">{'All'|@translate}</a> ({$nb_total})
+  | <a href="{$F_ACTION}&amp;filter=pending" class="{if $filter == 'pending'}commentFilterSelected{/if}">{'Waiting'|@translate}</a> ({$nb_pending})
+</p>
 
 {if !empty($comments) }
 <form method="post" action="{$F_ACTION}" id="pendingComments">
@@ -57,7 +62,7 @@ jQuery(document).ready(function(){
     <td>
   <div class="comment">
     <a class="illustration" href="{$comment.U_PICTURE}"><img src="{$comment.TN_SRC}"></a>
-    <p class="commentHeader"><strong>{$comment.AUTHOR}</strong> - <em>{$comment.DATE}</em></p>
+    <p class="commentHeader">{if $comment.IS_PENDING}<span class="pendingFlag">{'Waiting'|@translate}</span> - {/if}<strong>{$comment.AUTHOR}</strong> - <em>{$comment.DATE}</em></p>
     <blockquote>{$comment.CONTENT}</blockquote>
   </div>
     </td>

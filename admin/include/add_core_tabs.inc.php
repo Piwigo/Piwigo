@@ -59,7 +59,7 @@ function add_core_tabs($sheets, $tab_id)
       break;
       
     case 'comments':
-      $sheets[''] = array('caption' => l10n('User comments validation'), 'url' => '');
+      $sheets[''] = array('caption' => l10n('User comments'), 'url' => '');
       break;
       
     case 'configuration':

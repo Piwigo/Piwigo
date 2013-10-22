@@ -97,17 +97,73 @@ $tabsheet->assign();
 // |                           comments display                            |
 // +-----------------------------------------------------------------------+
 
-$list = array();
+$nb_total = 0;
+$nb_pending = 0;
 
 $query = '
-SELECT c.id, c.image_id, c.date, c.author, '.
-$conf['user_fields']['username'].' AS username, c.content, i.path, i.representative_ext
+SELECT
+    COUNT(*) AS counter,
+    validated
+  FROM '.COMMENTS_TABLE.'
+  GROUP BY validated
+;';
+$result = pwg_query($query);
+while ($row = pwg_db_fetch_assoc($result))
+{
+  $nb_total+= $row['counter'];
+
+  if ('false' == $row['validated'])
+  {
+    $nb_pending = $row['counter'];
+  }
+}
+
+if (!isset($_GET['filter']) and $nb_pending > 0)
+{
+  $page['filter'] = 'pending';
+}
+else
+{
+  $page['filter'] = 'all';
+}
+
+if (isset($_GET['filter']) and 'pending' == $_GET['filter'])
+{
+  $page['filter'] = $_GET['filter'];
+}
+
+$template->assign(
+  array(
+    'nb_total' => $nb_total,
+    'nb_pending' => $nb_pending,
+    'filter' => $page['filter'],
+    )
+  );
+
+$where_clauses = array('1=1');
+
+if ('pending' == $page['filter'])
+{
+  $where_clauses[] = 'validated=\'false\'';
+}
+
+$query = '
+SELECT
+    c.id,
+    c.image_id,
+    c.date,
+    c.author,
+    '.$conf['user_fields']['username'].' AS username,
+    c.content,
+    i.path,
+    i.representative_ext,
+    validated
   FROM '.COMMENTS_TABLE.' AS c
     INNER JOIN '.IMAGES_TABLE.' AS i
       ON i.id = c.image_id
     LEFT JOIN '.USERS_TABLE.' AS u
       ON u.'.$conf['user_fields']['id'].' = c.author_id
-  WHERE validated = \'false\'
+  WHERE '.implode(' AND ', $where_clauses).'
   ORDER BY c.date DESC
 ;';
 $result = pwg_query($query);
@@ -135,14 +191,13 @@ while ($row = pwg_db_fetch_assoc($result))
       'TN_SRC' => $thumb,
       'AUTHOR' => trigger_event('render_comment_author', $author_name),
       'DATE' => format_date($row['date'], true),
-      'CONTENT' => trigger_event('render_comment_content',$row['content'])
+      'CONTENT' => trigger_event('render_comment_content',$row['content']),
+      'IS_PENDING' => ('false' == $row['validated']),
       )
     );
 
   $list[] = $row['id'];
 }
-
-$template->assign('LIST', implode(',', $list) );
 
 // +-----------------------------------------------------------------------+
 // |                           sending html code                           |

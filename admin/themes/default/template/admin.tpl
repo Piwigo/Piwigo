@@ -72,8 +72,8 @@ jQuery(document).ready(function(){ldelim}
 {/if}
 				<li><a class="icon-signal" href="{$U_HISTORY_STAT}">{'History'|@translate}</a></li>
 				<li><a class="icon-tools" href="{$U_MAINTENANCE}">{'Maintenance'|@translate}</a></li>
-{if isset($U_PENDING_COMMENTS)}
-				<li><a class="icon-chat" href="{$U_PENDING_COMMENTS}">{'Pending Comments'|@translate}</a></li>
+{if isset($U_COMMENTS)}
+				<li><a class="icon-chat" href="{$U_COMMENTS}">{'Comments'|@translate}{if $NB_PENDING_COMMENTS > 0}<span class="adminMenubarCounter" title="{'%d waiting for validation'|translate:$NB_PENDING_COMMENTS}">{$NB_PENDING_COMMENTS}</span>{/if}</a></li>
 {/if}
         <li><a class="icon-arrows-cw" href="{$U_UPDATES}">{'Updates'|@translate}</a></li>
       </ul>
