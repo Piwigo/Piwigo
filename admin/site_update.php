@@ -256,9 +256,8 @@ SELECT id_uppercat, MAX(rank)+1 AS next_rank
       $inserts[] = $insert;
       $infos[] = array(
           'path' => $fulldir,
-          'info' => l10n('added')
-          )
-        );
+          'info' => l10n('added'),
+          );
 
       // add the new category to $db_categories and $db_fulldirs array
       $db_categories[$insert{'id'}] =
