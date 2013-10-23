@@ -56,7 +56,7 @@ include_once(LOCALEDIT_PATH.'include/'.$page['tab'].'.inc.php');
 if (isset($_POST['restore']))
 {
   $content_file = file_get_contents(get_bak_file($edited_file));
-  $page['infos'][] = l10n('locfiledit_bak_loaded1'),
+  $page['infos'][] = l10n('locfiledit_bak_loaded1');
   $page['infos'][] = l10n('locfiledit_bak_loaded2');
 }
 
