@@ -107,7 +107,7 @@ $lang['Are you sure?'] = 'Ha sur oc\'h ?';
 $lang['Calendar'] = 'Deiziadur';
 $lang['Browser: %s'] = 'Ergerzher: %s';
 $lang['Check your email for the confirmation link'] = 'Sellit ouzh ho posteloù evit al liamm-kadarnaat';
-$lang['Change my password'] = 'Cheñch va tremeneger';
+$lang['Change my password'] = 'Cheñch va ger-tremen';
 $lang['Complete RSS feed (photos, comments)'] = 'Gwazh RSS klok (luc\'hskeudennoù, evezhiadennoù)';
 $lang['Comment'] = 'evezhiadenn';
 $lang['Comment by %s'] = 'evezhiadenn gant %s';
@@ -415,4 +415,6 @@ $lang['edit'] = 'aozañ';
 $lang['excluded'] = 'dispelled';
 $lang['from %s to %s'] = 'eus an %s betek an %s';
 $lang['group by letters'] = 'strollañ dre lizherenn';
+$lang['Password confirmation is missing. Please confirm the chosen password.'] = 'N\'ho peus ket kadarnaet ar ger-tremen. Kadarnait ar ger-tremen ho peus skrivet.';
+$lang['Password is missing. Please enter the password.'] = 'Mankout a ra ar ger-tremen. Skrivit ar ger-tremen.';
 ?>
