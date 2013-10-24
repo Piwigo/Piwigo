@@ -219,7 +219,6 @@ $lang['login mustn\'t end with a space character'] = "Prisijungimo vardas negali
 $lang['login mustn\'t start with a space character'] = "Prisijungimo vardas negali prasideti tarpu";
 $lang['this login is already used'] = 'Šis prisijungimo vardas jau naudojamas';
 $lang['mail address must be like xxx@yyy.eee (example : jack@altern.org)'] = 'Elektroninio pašto adresas turi būti toks: xxx@yyy.eee (pavyzdys : jack@altern.org)';
-$lang['please enter your password again'] = 'Pakartokite savo slaptažodį';
 $lang['Auto login'] = "Automatinis prisijungimas";
 $lang['remove this tag from the list'] = 'ištrinti šią žymą iš šio sąrašo';
 $lang['representative'] = "atstovauti";
@@ -430,4 +429,7 @@ $lang['Email'] = 'Elektroninis paštas';
 $lang['First Page'] = 'Pirmas puslapis';
 $lang['Go back to the album'] = 'Grįžti į albumą';
 $lang['Last Page'] = 'Paskutinis puslapis';
+$lang['Password is missing. Please enter the password.'] = 'Nėra slaptažodžio. Prašome įvesti slaptažodį';
+$lang['Password confirmation is missing. Please confirm the chosen password.'] = 'Nėra slaptažodžio patvirtinimo. Prašome pakartoti slaptažodį';
+$lang['Password confirmation is missing. Please confirm the chosen password.'] = 'Nav paroles apstiprinājuma. Lūdzu apstipriniet paroli.';
 ?>

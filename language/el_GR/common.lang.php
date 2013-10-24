@@ -100,7 +100,6 @@ $lang['login mustn\'t end with a space character'] = "το όνομα χρήστ
 $lang['login mustn\'t start with a space character'] = "το όνομα χρήστη δεν πρέπει να ξεκινάει με κενό";
 $lang['this login is already used'] = "αυτό το όνομα χρήστη χρησιμοποιείται ήδη";
 $lang['mail address must be like xxx@yyy.eee (example : jack@altern.org)'] = "η διεύθυνση ηλεκτρονικού ταχυδρομείου πρέπει να είναι της μορφής xxx@yyy.eee (παράδειγμα: jack@altern.org)";
-$lang['please enter your password again'] = "παρακαλώ εισάγετε το κωδικό σας ξανά";
 $lang['Auto login'] = "Αυτόματη σύνδεση";
 $lang['remove this tag from the list'] = "αφαίρεση ετικέτας από τη λίστα";
 $lang['representative'] = "αντιπροσωπευτική";
@@ -417,4 +416,6 @@ $lang['Email'] = 'Email';
 $lang['Last Page'] = 'Τελευταία Σελίδα';
 $lang['Go back to the album'] = 'Επιστροφή Στο Λεύκωμα';
 $lang['First Page'] = 'Αρχική Σελίδα';
+$lang['Password is missing. Please enter the password.'] = 'Κωδικός λείπει. Παρακαλώ εισάγετε τον κωδικό πρόσβασης.';
+$lang['Password confirmation is missing. Please confirm the chosen password.'] = 'Η επιβεβαίωση κωδικού λείπει. Επιβεβαιώστε τον επιλεγμένο κωδικό πρόσβασης';
 ?>

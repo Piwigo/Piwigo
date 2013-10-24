@@ -281,7 +281,6 @@ $lang['Photos posted within the last %d days.'] = "Photos posted within the last
 $lang['Piwigo encountered a non recoverable error'] = 'Piwigo encountered an unrecoverable error';
 $lang['Piwigo Help'] = "Piwigo help";
 $lang['Play of slideshow'] = "Play slideshow";
-$lang['please enter your password again'] = "please enter your password again";
 $lang['Please enter your username or email address.'] = 'Please enter your username or email address.';
 $lang['Please, enter a login'] = "Please, enter a login";
 $lang['Post date'] = "Post date";
@@ -416,4 +415,6 @@ $lang['Your username has been successfully changed to : %s'] = 'Your username ha
 $lang['Your website URL is invalid'] = 'Your website URL is invalid';
 $lang['mandatory'] = 'mandatory';
 $lang['Email'] = "Email";
+$lang['Password is missing. Please enter the password.'] = "Password is missing. Please enter the password.";
+$lang['Password confirmation is missing. Please confirm the chosen password.'] = "Password confirmation is missing. Please confirm the chosen password.";
 ?>

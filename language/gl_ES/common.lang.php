@@ -344,7 +344,6 @@ $lang['obligatory'] = 'obrigatorio';
 $lang['password updated'] = 'clave actualizada';
 $lang['photo'] = 'foto';
 $lang['photos posted during the last %d days'] = 'fotos enviadas durante os últimos %d días';
-$lang['please enter your password again'] = 'insire túa clave novamente';
 $lang['posted after %s (%s)'] = 'enviada despois de %s (%s)';
 $lang['posted before %s (%s)'] = 'enviada antes de %s (%s)';
 $lang['posted between %s (%s) and %s (%s)'] = 'enviada entre %s (%s) e %s (%s)';
@@ -411,4 +410,6 @@ $lang['Week %d'] = 'Semana %d';
 $lang['Welcome'] = 'Benvido';
 $lang['Welcome to your Piwigo photo gallery!'] = 'Benvido a túa galería de fotos Piwigo!';
 $lang['Yes'] = 'Si';
+$lang['Password is missing. Please enter the password.'] = 'Falta a clave. Insire unha clave.';
+$lang['Password confirmation is missing. Please confirm the chosen password.'] = 'Falta a confirmación da clave. Confirma a clave escollida.';
 ?>

@@ -243,7 +243,6 @@ $lang['login mustn\'t end with a space character'] = 'Benutzername darf nicht mi
 $lang['login mustn\'t start with a space character'] = 'Benutzername darf nicht mit einem Leerzeichen anfangen';
 $lang['this login is already used'] = 'Dieser Benutzername ist bereits vergeben';
 $lang['mail address must be like xxx@yyy.eee (example : jack@altern.org)'] = 'E-Mail-Adresse muss dem Muster xxx@yyy.eee (Beispiel: jack@altern.org) entsprechen';
-$lang['please enter your password again'] = 'Bitte geben Sie erneut Ihr Passwort ein.';
 $lang['Auto login'] = 'Auto-Login';
 $lang['remove this tag from the list'] = 'Entferne dieses Schlagwort von der Liste.';
 $lang['representative'] = 'Album-Vorschaubild';
@@ -417,4 +416,6 @@ $lang['Email'] = 'E-Mail';
 $lang['First Page'] = 'Erste Seite';
 $lang['Go back to the album'] = 'Zurück zum Album';
 $lang['Last Page'] = 'Letzte Seite';
+$lang['Password is missing. Please enter the password.'] = 'Das Kennwort fehlt. Bitte geben Sie Ihr Kennwort ein.';
+$lang['Password confirmation is missing. Please confirm the chosen password.'] = 'Das Kennwort zum Überprüfen fehlt. Bitte geben Sie ihr gewähltes Kennwort noch einmal ein.';
 ?>

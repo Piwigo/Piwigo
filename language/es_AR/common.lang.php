@@ -245,7 +245,6 @@ $lang['login mustn\'t end with a space character'] = 'el nombre de usuario no de
 $lang['login mustn\'t start with a space character'] = 'el nombre de usuario no debe empezar por un espacio';
 $lang['this login is already used'] = 'ese nombre de usuario ya existe';
 $lang['mail address must be like xxx@yyy.eee (example : jack@altern.org)'] = 'la dirección de correo electrónico debe tener esta forma: xxx@yyy.eee (ejemplo : jack@altern.org)';
-$lang['please enter your password again'] = 'Por favor vuelva a ingresar su contraseña';
 $lang['Auto login'] = 'Connexión automática';
 $lang['remove this tag from the list'] = 'borrar este tag de la lista';
 $lang['representative'] = 'Representante';

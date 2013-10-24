@@ -250,7 +250,6 @@ $lang['login mustn\'t end with a space character'] = 'notendanafn má ekki enda 
 $lang['login mustn\'t start with a space character'] = 'notendanafn má ekki byrja á bili';
 $lang['this login is already used'] = 'þetta notendanafn er nú þegar í notkun';
 $lang['mail address must be like xxx@yyy.eee (example : jack@altern.org)'] = 'netfang verður að vera xxx@yyy.eee (example : jack@altern.org)';
-$lang['please enter your password again'] = 'vinsamlegast sláið lykilorð aftur inn';
 $lang['Auto login'] = 'Sjálfvirk innskráning';
 $lang['remove this tag from the list'] = 'fjarlægja merki úr lista';
 $lang['representative'] = 'Fulltrúi';

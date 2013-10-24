@@ -249,7 +249,6 @@ $lang['login mustn\'t end with a space character'] = 'uživatelské jméno nesm�
 $lang['login mustn\'t start with a space character'] = 'uživatelské jméno nesmí začínat mezerou';
 $lang['this login is already used'] = 'tyto přihlašovací údaje už jsou používány';
 $lang['mail address must be like xxx@yyy.eee (example : jack@altern.org)'] = 'E-mail musí být ve formátu xxx@yyy.eee (například : novak@seznam.cz)';
-$lang['please enter your password again'] = 'prosím zadejte znovu heslo ';
 $lang['Auto login'] = 'Automatické přihlášení';
 $lang['remove this tag from the list'] = 'odstranit tento štítek ze seznamu';
 $lang['representative'] = 'Reprezentant';
@@ -423,4 +422,6 @@ $lang['Last Page'] = 'Poslední stránka';
 $lang['Go back to the album'] = 'Zpět do alba';
 $lang['First Page'] = 'První stránka';
 $lang['Email'] = 'E-mail';
+$lang['Password is missing. Please enter the password.'] = 'Chybí heslo. Prosím napište heslo.';
+$lang['Password confirmation is missing. Please confirm the chosen password.'] = 'Chybí potvrzení hesla. Prosím potvrďte vybrané heslo.';
 ?>

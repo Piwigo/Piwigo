@@ -182,7 +182,6 @@ $lang['obligatory'] = 'påkrevd';
 $lang['password updated'] = 'passordet er oppdatera';
 $lang['photo'] = 'bilete';
 $lang['photos posted during the last %d days'] = 'bilete lagt inn dei siste %d dagane';
-$lang['please enter your password again'] = 'skriv inn passord på nytt';
 $lang['posted after %s (%s)'] = 'lagt til etter %s (%s)';
 $lang['posted before %s (%s)'] = 'lagt til før %s (%s)';
 $lang['posted between %s (%s) and %s (%s)'] = 'lagt til mellom %s (%s) og %s (%s)';
@@ -416,4 +415,6 @@ $lang['Email'] = 'E-post';
 $lang['First Page'] = 'Fyrste side';
 $lang['Go back to the album'] = 'Attende til album';
 $lang['Last Page'] = 'Siste side';
+$lang['Password is missing. Please enter the password.'] = 'Passord manglar. Skriv inn eit passord.';
+$lang['Password confirmation is missing. Please confirm the chosen password.'] = 'Stadfesting av passord manglar. Skriv inn stadfesting av passord.';
 ?>

@@ -272,7 +272,6 @@ $lang['login mustn\'t end with a space character'] = 'лоґін не повин
 $lang['login mustn\'t start with a space character'] = 'лоґін не повинен починатися з пробілу';
 $lang['this login is already used'] = 'цей лоґін вже використовується';
 $lang['mail address must be like xxx@yyy.eee (example : jack@altern.org)'] = 'адреса електронної пошти повинна бути у вигляді xxx@yyy.eee (наприклад : jack@altern.org)';
-$lang['please enter your password again'] = 'будь ласка, введіть свій пароль ще раз';
 $lang['Auto login'] = 'Автолоґін';
 $lang['remove this tag from the list'] = 'видалити цей теґ зі списку';
 $lang['representative'] = 'зразок';
@@ -416,4 +415,6 @@ $lang['Email'] = 'Електронна пошта';
 $lang['First Page'] = 'Перша сторінка';
 $lang['Go back to the album'] = 'Повернутися до альбому';
 $lang['Last Page'] = 'Остання сторінка';
+$lang['Password is missing. Please enter the password.'] = 'Пароль відсутній. Будь ласка введіть пароль.';
+$lang['Password confirmation is missing. Please confirm the chosen password.'] = 'Відсутнє підтвердження пароля. Будь ласка, підтвердіть вибраний пароль.';
 ?>

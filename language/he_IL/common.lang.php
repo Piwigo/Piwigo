@@ -245,7 +245,6 @@ $lang['login mustn\'t end with a space character'] = "שם משתמש לא יכ�
 $lang['login mustn\'t start with a space character'] = "שם משתמש לא יכול להתחיל עם רווח";
 $lang['this login is already used'] = "השם משתמש הזה קיים כבר";
 $lang['mail address must be like xxx@yyy.eee (example : jack@altern.org)'] = "דואר אלקטרוני חייב להיות כמו adir@biton.com (לדוגמה : adir@gmail.com)";
-$lang['please enter your password again'] = "הכנס בבקשה את הסיסמה שוב";
 $lang['Auto login'] = "התחברות אוטומטית";
 $lang['remove this tag from the list'] = "מחק את התווית הזאת מהרשימה";
 $lang['representative'] = "נבחר";
@@ -417,4 +416,6 @@ $lang['Email address is mandatory'] = 'שדה דואר אלקטרוני חובה
 $lang['Username is mandatory'] = 'שדה שם משתמש חובה';
 $lang['Website'] = 'אתר';
 $lang['mandatory'] = 'הכרחי';
+$lang['Password is missing. Please enter the password.'] = 'סיסמה חסרה, נה להזין סיסמה..';
+$lang['Password confirmation is missing. Please confirm the chosen password.'] = 'אישור סיסמה חסר, נה להזיר אישור סיסמה..';
 ?>

@@ -256,7 +256,6 @@ $lang['login mustn\'t end with a space character'] = 'Корисничкото �
 $lang['login mustn\'t start with a space character'] = 'Корисничкото име не може да започнува со space место';
 $lang['this login is already used'] = 'Корисничкото име веќе постои. Ве молиме одберете друго.';
 $lang['mail address must be like xxx@yyy.eee (example : jack@altern.org)'] = 'e-mail адресата мора да изгледа вака xxx@yyy.eee (пример: pero@makedonija.com.mk)';
-$lang['please enter your password again'] = 'Ве молиме повторно внесете ја вашата лозинка.';
 $lang['Auto login'] = 'Логирај ме автоматски на секоја моја посета';
 $lang['remove this tag from the list'] = 'избриши ја оваа етикета од листата';
 $lang['representative'] = 'главна икона';

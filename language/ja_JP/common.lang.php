@@ -242,7 +242,6 @@ $lang['login mustn\'t end with a space character'] = 'ユーザIDの末尾にス
 $lang['login mustn\'t start with a space character'] = 'ユーザIDの最初にスペースを使用しないでください。';
 $lang['this login is already used'] = 'このユーザIDは、すでに使用されています。';
 $lang['mail address must be like xxx@yyy.eee (example : jack@altern.org)'] = 'メールアドレスは、xxx@yyy.eee のようなフォーマットを使用してください (例 : jack@altern.org)。';
-$lang['please enter your password again'] = 'あなたのパスワードを再度入力してください。';
 $lang['Auto login'] = '自動ログイン';
 $lang['remove this tag from the list'] = 'このタグをリストから削除する';
 $lang['representative'] = '見本';
@@ -416,4 +415,6 @@ $lang['Email'] = 'メールアドレス';
 $lang['First Page'] = '初めのページ';
 $lang['Go back to the album'] = 'アルバムに戻る';
 $lang['Last Page'] = '最後のページ';
+$lang['Password is missing. Please enter the password.'] = 'パスワードがありません。パスワードを入力して下さい。';
+$lang['Password confirmation is missing. Please confirm the chosen password.'] = 'パスワードの再確認がありません。パスワードの再確認を確認して下さい。';
 ?>

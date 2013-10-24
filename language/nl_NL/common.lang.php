@@ -245,7 +245,6 @@ $lang['login mustn\'t end with a space character'] = 'Gebruikersnaam mag niet ei
 $lang['login mustn\'t start with a space character'] = 'Gebruikersnaam mag niet beginnen met een spatie';
 $lang['this login is already used'] = 'Deze gebruikersnaam is al in gebruik';
 $lang['mail address must be like xxx@yyy.eee (example : jack@altern.org)'] = 'email-adres moet zijn xxx@yyy.eee (bijvoorbeeld : jack@altern.org)';
-$lang['please enter your password again'] = 'vul uw wachtwoord nogmaals in';
 $lang['Auto login'] = 'Auto login';
 $lang['remove this tag from the list'] = 'Verwijder dit label uit de lijst';
 $lang['representative'] = 'album klikplaatje';
@@ -424,4 +423,6 @@ $lang['Email'] = 'Email';
 $lang['First Page'] = 'Eerste bladzijde';
 $lang['Go back to the album'] = 'Ga terug naar het album';
 $lang['Last Page'] = 'Laatste bladzijde';
+$lang['Password is missing. Please enter the password.'] = 'Wachtwoord ontbreekt. Geef uw wachtwoord aub.';
+$lang['Password confirmation is missing. Please confirm the chosen password.'] = 'Wachtwoord-bevestiging ontbreekt. Bevestig aub uw gekozen wachtwoord.';
 ?>

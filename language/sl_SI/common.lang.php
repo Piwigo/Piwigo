@@ -219,7 +219,6 @@ $lang['login mustn\'t end with a space character'] = 'prijava se ne sme končati
 $lang['login mustn\'t start with a space character'] = 'prijava se ne sme začeti s presledkom';
 $lang['this login is already used'] = 'ta uporabnik je že prijavljen';
 $lang['mail address must be like xxx@yyy.eee (example : jack@altern.org)'] = 'e-mail mora biti oblike xxx@yyy.eee (primer : nekdo@domena.org)';
-$lang['please enter your password again'] = 'prosimo ponovno vpišite svoje geslo';
 $lang['Auto login'] = 'Samodejna prijava';
 $lang['remove this tag from the list'] = 'odstrani oznako s seznama';
 $lang['representative'] = 'sličica albuma';
@@ -415,4 +414,6 @@ $lang['Email'] = 'E-pošta';
 $lang['First Page'] = 'Prva stran';
 $lang['Go back to the album'] = 'Nazaj na album';
 $lang['Last Page'] = 'Zadnja stran';
+$lang['Password is missing. Please enter the password.'] = 'Manjka geslo. Prosimo vpišite geslo.';
+$lang['Password confirmation is missing. Please confirm the chosen password.'] = 'Manjka potrditev gesla. Prosimo potrdite izbrano geslo.';
 ?>

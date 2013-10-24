@@ -240,7 +240,6 @@ $lang['login mustn\'t end with a space character'] = 'Uzantnomo ne finiĝu per s
 $lang['login mustn\'t start with a space character'] = 'Uzantnomo ne komenciĝu per spaceto';
 $lang['this login is already used'] = 'Tiu uzantnomo jam uziĝas';
 $lang['mail address must be like xxx@yyy.eee (example : jack@altern.org)'] = 'La retadreso devas simili al xxx@yyy.eee (ekzemple: zamenhof@bialistoko.pl)';
-$lang['please enter your password again'] = 'Bonvolu tajpi vian pasvorton denove (aŭ kopi-gluu ĝin)';
 $lang['Auto login'] = 'Aŭtomata konekto';
 $lang['remove this tag from the list'] = 'forigi tiun etikedon de la listo';
 $lang['representative'] = 'delegito';
@@ -418,4 +417,6 @@ $lang['Email'] = 'Retmesaĝo';
 $lang['First Page'] = 'Unua paĝo';
 $lang['Go back to the album'] = 'Reiri al la fotaro';
 $lang['Last Page'] = 'Lasta paĝo';
+$lang['Password is missing. Please enter the password.'] = 'Mankas pasvorto. Bonvolu redakti la pasvorton.';
+$lang['Password confirmation is missing. Please confirm the chosen password.'] = 'Mankas konfirmado de pasvorto. Bonvolu konfirmi la elektitan pasvorton.';
 ?>

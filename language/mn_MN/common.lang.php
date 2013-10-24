@@ -206,7 +206,6 @@ $lang['remove this tag from the list'] = 'жагсаалтаас энэ үгий
 $lang['this email address is already in use'] = 'энэ имэйл хаягаар бүртгүүлсэн байна';
 $lang['the beginning'] = 'эхнээс нь';
 $lang['the username must be given'] = 'хэрэглэгчийн нэр заавал шаардлагатай';
-$lang['please enter your password again'] = 'нууц үгээ давтан оруулна уу';
 $lang['created after %s (%s)'] = '%s (%s)-с хойш авсан';
 $lang['created before %s (%s)'] = '%s (%s)-с өмнө авсан';
 $lang['customize the appareance of the gallery'] = 'галерейн харагдах байдлыг засах';
@@ -415,4 +414,5 @@ $lang['Email'] = 'и-мэйл';
 $lang['First Page'] = 'эхний хуудас';
 $lang['Go back to the album'] = 'Цомог уруу буцах';
 $lang['Last Page'] = 'сүүлийн хуудас';
+$lang['Password is missing. Please enter the password.'] = 'Уучлаарай. Нууц үгээ оруулна уу.';
 ?>

@@ -245,7 +245,6 @@ $lang['login mustn\'t end with a space character'] = 'login må ikke slutte med 
 $lang['login mustn\'t start with a space character'] = 'login må ikke begynde med mellemrum';
 $lang['this login is already used'] = 'dette login er allerede i brug';
 $lang['mail address must be like xxx@yyy.eee (example : jack@altern.org)'] = 'mailadresse skal være på formen xxx@yyy.eee (eksempel: jack@altern.org)';
-$lang['please enter your password again'] = 'Indtast din adgangskode igen';
 $lang['Auto login'] = 'Autologin';
 $lang['remove this tag from the list'] = 'fjern dette tag fra listen';
 $lang['representative'] = 'albums miniaturebillede';
@@ -419,4 +418,6 @@ $lang['Email'] = 'E-mail';
 $lang['First Page'] = 'Første side';
 $lang['Go back to the album'] = 'Gå tilbage til albummet';
 $lang['Last Page'] = 'Sidste side';
+$lang['Password is missing. Please enter the password.'] = 'Adgangskoden mangler. Indtast adgangskoden.';
+$lang['Password confirmation is missing. Please confirm the chosen password.'] = 'Adgangskodebekræftelse mangler. Bekræft den valgte adgangskode.';
 ?>

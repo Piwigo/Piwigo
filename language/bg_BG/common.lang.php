@@ -296,7 +296,6 @@ $lang['login mustn\'t end with a space character'] = 'потребителско
 $lang['login mustn\'t start with a space character'] = 'потребителското име неможе да започва с интервал';
 $lang['this login is already used'] = 'потребителското име е заето';
 $lang['mail address must be like xxx@yyy.eee (example : jack@altern.org)'] = 'мейл адресът трябва да бъде подобно на xxx@yyy.eee (пример : jack@altern.org)';
-$lang['please enter your password again'] = 'моля въведете Вашата парола отново';
 $lang['Auto login'] = 'Автоматично влизане';
 $lang['remove this tag from the list'] = 'премахване на този маркер от списъка';
 $lang['representative'] = 'представител';
@@ -417,4 +416,6 @@ $lang['Email'] = 'Имейл';
 $lang['First Page'] = 'Първа страница';
 $lang['Go back to the album'] = 'Връщане обратно към албума';
 $lang['Last Page'] = 'Последна страница';
+$lang['Password is missing. Please enter the password.'] = 'Липсва парола. Моля въведете.';
+$lang['Password confirmation is missing. Please confirm the chosen password.'] = 'Потвърждение на паролата липсва. Моля повторете паролата.';
 ?>

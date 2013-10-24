@@ -247,7 +247,6 @@ $lang['this login is already used'] = 'this login is already used';
 $lang['mail address must be like xxx@yyy.eee (example : jack@altern.org)'] = 'mail address must be like xxx@yyy.eee (example : jack@altern.org)';
 $lang['this login is already used'] = 'هذا المستخدم موجود حاليا';
 $lang['mail address must be like xxx@yyy.eee (example : jack@altern.org)'] = 'يجب ان يكون البريد بهذه الكيفيةxxx@yyy.eee (مثلا : jack@altern.org)';
-$lang['please enter your password again'] = 'من فضلك أعد كتابة كلمة المرور مرة أخرى';
 $lang['Auto login'] = 'دخول آلي';
 $lang['remove this tag from the list'] = 'حذف هذه الكلمات من القائمة';
 $lang['representative'] = 'صفه /نموذجي';
@@ -423,4 +422,6 @@ $lang['Email'] = 'البريد الإلكتروني';
 $lang['First Page'] = 'الصفحة الأولى';
 $lang['Go back to the album'] = 'إرجع للألبوم';
 $lang['Last Page'] = 'الصفحة الأخيرة';
+$lang['Password is missing. Please enter the password.'] = 'لم تكتب كلمة المرور، فضلا ً أكتب كلمة المرور';
+$lang['Password confirmation is missing. Please confirm the chosen password.'] = 'لم يتم تأكيد كلمة المرور، فضلا ً لا أمر أكد المرور رحم الله والديك';
 ?>

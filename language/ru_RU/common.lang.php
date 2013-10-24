@@ -243,7 +243,6 @@ $lang['login mustn\'t end with a space character'] = 'логин не долже
 $lang['login mustn\'t start with a space character'] = 'логин не должен начинаться с пробела';
 $lang['this login is already used'] = 'такой логин уже есть';
 $lang['mail address must be like xxx@yyy.eee (example : jack@altern.org)'] = 'адрес электронной почты должен выглядеть как-то типа xxx@yyy.eee (например: jack@altern.org)';
-$lang['please enter your password again'] = 'введите пароль еще раз';
 $lang['Auto login'] = 'Запомнить меня';
 $lang['remove this tag from the list'] = 'удалить этот тэг из списка';
 $lang['representative'] = 'миниатюра альбома';
@@ -420,4 +419,6 @@ $lang['Email'] = 'Электронная почта';
 $lang['First Page'] = 'Первая страница';
 $lang['Go back to the album'] = 'Вернуться в альбом';
 $lang['Last Page'] = 'Последняя страница';
+$lang['Password is missing. Please enter the password.'] = 'Пароль не верен. Пожалуйста, повторите попытку.';
+$lang['Password confirmation is missing. Please confirm the chosen password.'] = 'Подтверждение пароля отсутствует. Пожалуйста, подтвердите выбранный пароль.';
 ?>

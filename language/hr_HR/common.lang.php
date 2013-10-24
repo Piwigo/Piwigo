@@ -248,7 +248,6 @@ $lang['login mustn\'t end with a space character'] = 'prijava ne smije završava
 $lang['login mustn\'t start with a space character'] = 'prijava ne smije počinjati razmakom';
 $lang['this login is already used'] = 'ovo korisničko ime se već koristi';
 $lang['mail address must be like xxx@yyy.eee (example : jack@altern.org)'] = 'e-mail adresa mora biti oblika xxx@yyy.eee (npr : pasko@stranica.org)';
-$lang['please enter your password again'] = 'molimo unesite zaporku ponovo';
 $lang['Auto login'] = 'Samoprijava';
 $lang['remove this tag from the list'] = 'ukloni  ovaj tag iz popisa';
 $lang['representative'] = 'predstavnik';
@@ -417,4 +416,6 @@ $lang['Username is mandatory'] = 'Korisničko ime je obavezno';
 $lang['Website'] = 'Web sjedište';
 $lang['Your website URL is invalid'] = 'URL vašeg web sjedišta nije valjan';
 $lang['mandatory'] = 'obavezno';
+$lang['Password is missing. Please enter the password.'] = 'Nedostaje zaporka. Molimo unesite zaporku.';
+$lang['Password confirmation is missing. Please confirm the chosen password.'] = 'Nedostaje potvrda zaporke. Molimo potvrdite odabranu zaporku.';
 ?>

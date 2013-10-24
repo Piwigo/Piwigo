@@ -246,7 +246,6 @@ $lang['login mustn\'t end with a space character'] = '공백문자로 끝낼 수
 $lang['login mustn\'t start with a space character'] = '공백문자로 시작할 수 없습니다';
 $lang['this login is already used'] = '이 정보는 이미 사용중입니다';
 $lang['mail address must be like xxx@yyy.eee (example : jack@altern.org)'] = '메일 주소는 xxx@yyy.eee 처럼 되야 합니다. (예 : jack@altern.org)';
-$lang['please enter your password again'] = '비밀번호를 다시 입력 해 주세요';
 $lang['Auto login'] = '자동 로그인';
 $lang['remove this tag from the list'] = '목록에서 이 태그를 삭제';
 $lang['representative'] = '대표사진';

@@ -238,7 +238,6 @@ $lang['login mustn\'t end with a space character'] = 'اطلاعات ورود ن
 $lang['login mustn\'t start with a space character'] = 'اطلاعات ورود نباید با فاصله آغاز شوند';
 $lang['this login is already used'] = "این اطلاعات ورود از قبل وجود دارد";
 $lang['mail address must be like xxx@yyy.eee (example : jack@altern.org)'] = 'آدرس ایمیل باید چیزی شبیه به xxx@yyy.eee باشد. (مانند: jack@altern.org)';
-$lang['please enter your password again'] = "خواهشمند است گذرواژه خود را دوباره وارد نمایید";
 $lang['Auto login'] = "ورود اتوماتیک";
 $lang['remove this tag from the list'] = "پاک کردن این برچسب از لیست";
 $lang['representative'] = 'عکس بندانگشتی آلبوم';
@@ -422,4 +421,6 @@ $lang['Email'] = 'ایمیل';
 $lang['First Page'] = 'نخستین برگه';
 $lang['Go back to the album'] = 'برگشتن به آلبوم';
 $lang['Last Page'] = 'آخرین برگه';
+$lang['Password is missing. Please enter the password.'] = 'گذرواژه ای نوشته نشده است. خواهشمندیم گذرواژه‌ای بنویسید.';
+$lang['Password confirmation is missing. Please confirm the chosen password.'] = 'پذیرش گذرواژه با گذرواژه‌ی اصلی همخوانی ندارد. خواهشمندیم گذرواژه‌ی اصلی را در بخش پذیرش گذرواژه نیز بنویسید.';
 ?>

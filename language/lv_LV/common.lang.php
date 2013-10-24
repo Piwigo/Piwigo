@@ -243,7 +243,6 @@ $lang['login mustn\'t end with a space character'] = "logins nedrīkst beigties 
 $lang['login mustn\'t start with a space character'] = "logins nedrīkst sākties ar tukšumu - spacebar";
 $lang['this login is already used'] = "šo loginu jau lieto";
 $lang['mail address must be like xxx@yyy.eee (example : jack@altern.org)'] = "e-pasta adresei jāizskatās xxx@yyy.eee (piemēram : jack@altern.org)";
-$lang['please enter your password again'] = "lūdzu ievadiet savu paroli vēlreiz";
 $lang['Auto login'] = "Auto logins";
 $lang['remove this tag from the list'] = "izņemt šo tagu no saraksta";
 $lang['representative'] = "pārstāvis";
@@ -417,4 +416,5 @@ $lang['Email'] = 'e-pasts';
 $lang['Go back to the album'] = 'Iet atpakaļ uz albūmu';
 $lang['Last Page'] = 'Pēdējā lapa';
 $lang['First Page'] = 'Pirmā lapa';
+$lang['Password is missing. Please enter the password.'] = 'Nepareiza parole. Lūdzu atkārtojiet mēģinājumu.';
 ?>

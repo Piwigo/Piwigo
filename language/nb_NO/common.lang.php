@@ -281,7 +281,6 @@ $lang['login mustn\'t end with a space character'] = 'login må ikke ende med et
 $lang['login mustn\'t start with a space character'] = 'login må ikke starte med et mellomrom';
 $lang['this login is already used'] = 'denne innloggingen er allerede i bruk';
 $lang['mail address must be like xxx@yyy.eee (example : jack@altern.org)'] = 'mail addresse må være tilsvarende xxx@yyy.eee (eksempel : jack@altern.org)';
-$lang['please enter your password again'] = 'vennligst skriv ditt passord på ny';
 $lang['Auto login'] = 'Auto innlogging';
 $lang['%d Kb'] = '%d Kb';
 $lang['Week %d'] = 'Uke %d';
@@ -416,4 +415,6 @@ $lang['Email'] = 'Epost';
 $lang['First Page'] = 'Første side';
 $lang['Go back to the album'] = 'Tilbake til albumet';
 $lang['Last Page'] = 'Siste side';
+$lang['Password is missing. Please enter the password.'] = 'Passord mangler. Vennligst skriv passord.';
+$lang['Password confirmation is missing. Please confirm the chosen password.'] = 'Passord bekreftelse mangler. Vennligst bekreft det valgte passord.';
 ?>

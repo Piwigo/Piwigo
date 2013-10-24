@@ -290,7 +290,6 @@ $lang['login mustn\'t end with a space character'] = "Aanteken naam mag nie op '
 $lang['login mustn\'t start with a space character'] = "Aanteken naam kan nie met 'n spasie begin nie";
 $lang['this login is already used'] = "die aanteken naam is reeds in gebruik";
 $lang['mail address must be like xxx@yyy.eee (example : jack@altern.org)'] = "epos adres moet wees soos xxx@yyy.ee.ee (voorbeeld : koos@vlooi.co.za)";
-$lang['please enter your password again'] = "Sleutel jou wagwoord weer in";
 $lang['Auto login'] = 'Automatiese aanteken';
 $lang['Contact'] = "Kontak";
 $lang['set as album representative'] = "Stel as album verteenwoordiger";
@@ -416,4 +415,6 @@ $lang['Email'] = 'Epos';
 $lang['First Page'] = 'Eerste blad';
 $lang['Go back to the album'] = 'Gaan terug na die album';
 $lang['Last Page'] = 'Laaste blad';
+$lang['Password is missing. Please enter the password.'] = 'Wagwoord nie ingevul nie. Vul asseblief die wagwoord in.';
+$lang['Password confirmation is missing. Please confirm the chosen password.'] = 'Wagwoord bevestiging nie gedoen. Bevestig asseblief die gekose wagwoord.';
 ?>

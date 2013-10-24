@@ -251,7 +251,6 @@ $lang['Photos posted within the last %d day.'] = 'Sadece son %d gün içinde yü
 $lang['Photos posted within the last %d days.'] = 'Sadece son %d gün içinde yüklenen fotoğraflar.';
 $lang['Piwigo Help'] = 'Piwigo yardım';
 $lang['Play of slideshow'] = 'Slayt gösterisini yürüt';
-$lang['please enter your password again'] = 'lütfen şifrenizi tekrar giriniz';
 $lang['Please enter your username or email address.'] = 'Lütfen kullanıcı adınızı veya e-posta adresinizi giriniz.';
 $lang['Please, enter a login'] = 'Lütfen kullanıcı adınızı giriniz';
 $lang['Post date'] = 'Gönderim tarihi';
@@ -416,4 +415,6 @@ $lang['Email'] = 'E-posta';
 $lang['First Page'] = 'İlk sayfa';
 $lang['Go back to the album'] = 'Albüme geri dön';
 $lang['Last Page'] = 'Son sayfa';
+$lang['Password is missing. Please enter the password.'] = 'Şifre eksik. Lütfen şifrenizi girin.';
+$lang['Password confirmation is missing. Please confirm the chosen password.'] = 'Şifre doğrulama eksik. Lütfen seçtiğiniz şifreyi doğrulayın.';
 ?>

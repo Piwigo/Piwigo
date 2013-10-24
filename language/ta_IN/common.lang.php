@@ -294,7 +294,6 @@ $lang['xlarge'] = 'XL - மிகப் பெரியது';
 $lang['xsmall'] = 'XS - மிகப் சிறியது';
 $lang['xxlarge'] = 'XXL - பிரம்மாண்டமான';
 $lang['photos posted during the last %d days'] = 'கடந்த %d நாட்களில் இடப்பட்ட புகைப்படங்கள்';
-$lang['please enter your password again'] = 'மீண்டும் உங்கள் கடவுச்சொல்லை உள்ளிடவும்';
 $lang['posted after %s (%s)'] = 'பிறகு பதிவிடப்பட்டது %s (%s)';
 $lang['posted before %s (%s)'] = 'முன்னர் பதிவிடப்பட்டது %s (%s)';
 $lang['posted between %s (%s) and %s (%s)'] = 'இடையே பதிவிடப்பட்டது %s (%s) மறும் %s (%s)';

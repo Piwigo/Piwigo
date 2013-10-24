@@ -415,7 +415,6 @@ $lang['login mustn\'t start with a space character'] = 'kasutajanimi ei saa alga
 $lang['mail address must be like xxx@yyy.eee (example : jack@altern.org)'] = 'eposti aadress peab ühilduma malliga xxx@yyy.zzz (näiteks: keegi@siin.ee)';
 $lang['medium'] = 'M — keskmine';
 $lang['photos posted during the last %d days'] = 'fotod postitud viimase %d päeva vältel';
-$lang['please enter your password again'] = 'palun sisesta parool uuesti';
 $lang['representative'] = 'albumi pisipilt';
 $lang['return to the display of all photos'] = 'tagasi kõikide fotode kuvamisele';
 $lang['searched words : %s'] = 'otsitud sõnad: %s';
@@ -443,4 +442,6 @@ $lang['Email'] = 'E-kiri';
 $lang['First Page'] = 'Esimene leht';
 $lang['Go back to the album'] = 'Mine tagasi albumi juurde';
 $lang['Last Page'] = 'Viimane leht';
+$lang['Password is missing. Please enter the password.'] = 'Parool puudub. Palun sisesta parool.';
+$lang['Password confirmation is missing. Please confirm the chosen password.'] = 'Parooli kinnitus puudub. Palun kinnita valitud parool.';
 ?>

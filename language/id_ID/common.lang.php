@@ -103,7 +103,6 @@ $lang['obligatory'] = 'diperlukan';
 $lang['password updated'] = 'kata sandi diperbaharui';
 $lang['photo'] = 'foto';
 $lang['photos posted during the last %d days'] = 'foto dipublikasikan dalam %d hari terakhir';
-$lang['please enter your password again'] = 'harap masukkan kata sandi anda lagi';
 $lang['posted after %s (%s)'] = 'dipublikasikan setelah %s (%s)';
 $lang['posted before %s (%s)'] = 'dipublikasikan sebelum %s (%s)';
 $lang['posted between %s (%s) and %s (%s)'] = 'dipublikasikan diantara  %s (%s) dan  %s (%s)';

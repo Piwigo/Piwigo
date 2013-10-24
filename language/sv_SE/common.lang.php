@@ -281,7 +281,6 @@ $lang['login mustn\'t end with a space character'] = 'användarnamn får inte sl
 $lang['login mustn\'t start with a space character'] = 'användarnamn får inte börja med ett mellanslag';
 $lang['this login is already used'] = 'Detta användarnamn används redan';
 $lang['mail address must be like xxx@yyy.eee (example : jack@altern.org)'] = 'e-postadress måste vara av formen ”arne@anka.org';
-$lang['please enter your password again'] = 'vänligen ange ditt lösenord igen';
 $lang['Auto login'] = 'Automatisk inloggning';
 $lang['remove this tag from the list'] = 'ta bort taggen från listan';
 $lang['representative'] = 'representant';
@@ -421,4 +420,6 @@ $lang['Email'] = 'Email';
 $lang['First Page'] = 'Första sidan';
 $lang['Go back to the album'] = 'Gå tillbaka till album';
 $lang['Last Page'] = 'Sista sidan';
+$lang['Password is missing. Please enter the password.'] = 'Lösenord saknas. Ange lösenord.';
+$lang['Password confirmation is missing. Please confirm the chosen password.'] = 'Bekräftelse av lösenord saknas. Vänligen bekräfta ditt valda lösenord.';
 ?>

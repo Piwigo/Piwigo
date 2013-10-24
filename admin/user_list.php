@@ -194,10 +194,6 @@ if ($conf['double_password_type_in_admin'] == true)
     {
       $page['errors'][] = l10n('Password confirmation is missing. Please confirm the chosen password.');
     }
-    else if(empty($_POST['email']))
-    {
-      $page['errors'][] = l10n('Email address is missing. Please specify an email address.');
-    }
     else if ($_POST['password'] != $_POST['password_conf'])
     {
       $page['errors'][] = l10n('The passwords do not match');

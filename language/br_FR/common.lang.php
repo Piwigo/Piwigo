@@ -187,7 +187,6 @@ $lang['Permalink for album not found'] = 'N\'eo ket bet kavet peurliamm ar rumma
 $lang['Recent albums'] = 'Rummadoù a-nevez';
 $lang['Expand all albums'] = 'Displegañ an holl rummadoù';
 $lang['Please, enter a login'] = 'Lakait un anv implijer';
-$lang['please enter your password again'] = 'Lakait ho ger-tremen adarre';
 $lang['Enter your personnal informations'] = 'Lakait ho titouroù personel';
 $lang['This author removed the comment with id %d'] = 'An oberour-mañ en deus dilemet an evezhiadenn gant an anavezer %d';
 $lang['author(s) : %s'] = 'oberour(ien) : %s';

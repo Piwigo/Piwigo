@@ -253,7 +253,6 @@ $lang['Photos posted within the last %d day.'] = 'N\'afficher que les photos ré
 $lang['Photos posted within the last %d days.'] = 'N\'afficher que les photos récentes de moins de %d jours.';
 $lang['Piwigo Help'] = 'Aide de Piwigo';
 $lang['Play of slideshow'] = 'Lecture du diaporama';
-$lang['please enter your password again'] = 'Merci d\'entrer à nouveau votre mot de passe';
 $lang['Please enter your username or email address.'] = 'Merci d\'entrer votre nom d\'utilisateur ou votre adresse email.';
 $lang['Please, enter a login'] = 'S\'il vous plaît, entrez un nom d\'utilisateur';
 $lang['Post date'] = 'Date d\'ajout';
@@ -416,4 +415,6 @@ $lang['mandatory'] = 'obligatoire';
 $lang['Website'] = 'Site web';
 $lang['Your website URL is invalid'] = 'L\'adresse de votre site web est invalide';
 $lang['Email'] = "Email";
+$lang['Password is missing. Please enter the password.'] = "Le mot de passe manque. Veuillez saisir le mot de passe.";
+$lang['Password confirmation is missing. Please confirm the chosen password.'] = "La confirmation du mot de passe manque. Veuillez confirmer le mot de passe choisi.";
 ?>

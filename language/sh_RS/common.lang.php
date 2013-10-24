@@ -248,7 +248,6 @@ $lang['login mustn\'t end with a space character'] = 'prijava ne sme završavati
 $lang['login mustn\'t start with a space character'] = 'prijava ne sme počinjati razmakom';
 $lang['this login is already used'] = 'ovo korisničko ime se već koristi';
 $lang['mail address must be like xxx@yyy.eee (example : jack@altern.org)'] = 'e-mail adresa mora biti oblika xxx@yyy.eee (npr : korisnik@stranica.org)';
-$lang['please enter your password again'] = 'molimo unesite lozinku ponovo';
 $lang['Auto login'] = 'Upamti me';
 $lang['remove this tag from the list'] = 'ukloni  ovaj tag iz popisa';
 $lang['representative'] = 'predstavnik';
@@ -404,4 +403,6 @@ $lang['Rating score, low &rarr; high'] = 'Ocena, niska &rarr; visoka';
 $lang['Visits, high &rarr; low'] = 'Posete, više &rarr; manje';
 $lang['Visits, low &rarr; high'] = 'Posete, manje &rarr; više';
 $lang['%d rate'] = '%d ocena';
+$lang['Password is missing. Please enter the password.'] = 'Lozinka nedostaje. Molim unesite lozinku.';
+$lang['Password confirmation is missing. Please confirm the chosen password.'] = 'Potvrda lozinke nedostaje. Molim potvrdite izabranu lozinku.';
 ?>

@@ -241,7 +241,6 @@ $lang['login mustn\'t end with a space character'] = 'tên tài khoản không �
 $lang['login mustn\'t start with a space character'] = 'tên tài khoản không được có ký tự trắng đầu tiên';
 $lang['this login is already used'] = 'tài khoản này đã được đăng ký trước đó';
 $lang['mail address must be like xxx@yyy.eee (example : jack@altern.org)'] = 'địa chỉ email phải có dạng xxx@yyy.eee (ví dụ : jack@altern.org)';
-$lang['please enter your password again'] = 'vui lòng nhập lại mật khẩu';
 $lang['Auto login'] = 'Tự động đăng nhập';
 $lang['remove this tag from the list'] = 'bỏ tag này khỏi danh sách';
 $lang['representative'] = 'đại diện';
@@ -417,4 +416,6 @@ $lang['Email'] = 'Email';
 $lang['First Page'] = 'Trang đầu';
 $lang['Go back to the album'] = 'Quay trở lại album';
 $lang['Last Page'] = 'Trang cuối';
+$lang['Password is missing. Please enter the password.'] = 'Thiếu mật khẩu. Vui lòng nhập mật khẩu.';
+$lang['Password confirmation is missing. Please confirm the chosen password.'] = 'Xác nhận mật khẩu bị thiếu. Vui lòng xác nhận lại mật khẩu đã chọn.';
 ?>

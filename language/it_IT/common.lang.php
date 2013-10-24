@@ -250,7 +250,6 @@ $lang['Photos posted within the last %d day.'] = 'Foto pubblicate nelle ultime 2
 $lang['Photos posted within the last %d days.'] = 'Foto pubblicate negli ultimi %d giorni.';
 $lang['Piwigo Help'] = 'Aiuto di Piwigo';
 $lang['Play of slideshow'] = 'Avvia proiezione';
-$lang['please enter your password again'] = 'si prega di inserire nuovamente la password';
 $lang['Please enter your username or email address.'] = 'Inserisci il tuo nome utente o indirizzo e-mail.';
 $lang['Please, enter a login'] = 'Per favore, inserire nome utente';
 $lang['Post date'] = 'Data d\'invio';
@@ -416,4 +415,6 @@ $lang['Email'] = 'Email';
 $lang['Go back to the album'] = 'Ritorna all\'album';
 $lang['Last Page'] = 'Ultima pagina';
 $lang['First Page'] = 'Prima pagina';
+$lang['Password is missing. Please enter the password.'] = 'Campo password vuoto. Prego inserire la password.';
+$lang['Password confirmation is missing. Please confirm the chosen password.'] = 'Campo conferma della password vuoto. Si prega di confermare la password scelta.';
 ?>

@@ -249,7 +249,6 @@ $lang['login mustn\'t end with a space character'] = 'používateľské meno nes
 $lang['login mustn\'t start with a space character'] = 'používateľské meno nesmie začínať medzerou';
 $lang['this login is already used'] = 'tieto prihlasovacie údaje už sú používané';
 $lang['mail address must be like xxx@yyy.eee (example : jack@altern.org)'] = 'E-mail musí byť vo formáte xxx@yyy.eee (napríklad: kovac@zoznam.sk)';
-$lang['please enter your password again'] = 'prosím zadajte znovu heslo';
 $lang['Auto login'] = 'Automatické prihlásenie';
 $lang['remove this tag from the list'] = 'odstrániť toto kľúčové slovo zo zoznamu';
 $lang['representative'] = 'vzorový';
@@ -426,4 +425,6 @@ $lang['Email'] = 'Email';
 $lang['Go back to the album'] = 'Späť do albumu';
 $lang['Last Page'] = 'Posledná strana';
 $lang['First Page'] = 'Prvá strana';
+$lang['Password is missing. Please enter the password.'] = 'Chýba heslo. Prosím napíšte heslo.';
+$lang['Password confirmation is missing. Please confirm the chosen password.'] = 'Chýba potvrdenie hesla. Prosím potvrďte vybrané heslo.';
 ?>

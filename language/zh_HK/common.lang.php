@@ -295,7 +295,6 @@ $lang['in %d sub-albums'] = '在子相簿 %d 中';
 $lang['in %d sub-album'] = '在子相簿 %d 中';
 $lang['in this album'] = '在這相簿中';
 $lang['password updated'] = '密碼已更新';
-$lang['please enter your password again'] = '請再輸入密碼';
 $lang['remove this tag from the list'] = '在列表中刪除此標籤';
 $lang['representative'] = '相簿縮圖';
 $lang['searched words : %s'] = '搜尋詞語:  %s';

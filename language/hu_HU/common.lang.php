@@ -246,7 +246,6 @@ $lang['login mustn\'t end with a space character'] = 'A felhasználói név nem 
 $lang['login mustn\'t start with a space character'] = 'A felhasználói név nem kezdődhet SPACE karakterrel';
 $lang['this login is already used'] = 'Ilyen felhasználónk már van!';
 $lang['mail address must be like xxx@yyy.eee (example : jack@altern.org)'] = 'E-mail formátuma: xxx@yyy.eee (pl.: kedvenc@nyuszi.hu)';
-$lang['please enter your password again'] = 'Kérem, adja meg újra jelszavát';
 $lang['Auto login'] = 'Jegyezz meg';
 $lang['remove this tag from the list'] = 'Ezt a címkét távolítsa el a listáról';
 $lang['representative'] = 'képviselő';
@@ -421,4 +420,6 @@ $lang['Email'] = 'E-mail';
 $lang['First Page'] = 'Első oldal';
 $lang['Go back to the album'] = 'Vissza az albumhoz';
 $lang['Last Page'] = 'Utolsó oldal';
+$lang['Password is missing. Please enter the password.'] = 'Jelszó hiányzik. Kérem írja be a jelszót.';
+$lang['Password confirmation is missing. Please confirm the chosen password.'] = 'Jelszó megerősítése hiányzik. Kérem erősítse meg a választott jelszót.';
 ?>

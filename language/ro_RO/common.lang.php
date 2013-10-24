@@ -231,7 +231,6 @@ $lang['login mustn\'t end with a space character'] = 'numele de utilizator nu tr
 $lang['login mustn\'t start with a space character'] = 'numele de utilizator nu trebuie sa înceapă cu un spaţiu';
 $lang['this login is already used'] = 'acest nume este deja folosit';
 $lang['mail address must be like xxx@yyy.eee (example : jack@altern.org)'] = 'adresa de e-mail trebuie să fie de genul xxx@yyy.eee (de exemplu: jack@altern.org)';
-$lang['please enter your password again'] = 'vă rugăm să introduceţi parola din nou';
 $lang['Auto login'] = 'Conectare automatică';
 $lang['remove this tag from the list'] = 'eliminaţi această etichetă de pe lista';
 $lang['representative'] = 'reprezentant';
@@ -418,4 +417,6 @@ $lang['Email'] = 'Email';
 $lang['First Page'] = 'Prima pagină';
 $lang['Go back to the album'] = 'Înapoi la album';
 $lang['Last Page'] = 'Ultima pagină';
+$lang['Password is missing. Please enter the password.'] = 'Parola lipseşte. Te rog sa introduci parola-';
+$lang['Password confirmation is missing. Please confirm the chosen password.'] = 'Lipseşte confirmarea parolei. Te rog să confirmi parola aleasă.';
 ?>

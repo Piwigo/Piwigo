@@ -273,7 +273,6 @@ $lang['Page generated in'] = 'Sivu luotu';
 $lang['Password reset is not allowed for this user'] = 'Salasanan palautus ei ole sallittu tälle käyttäjälle';
 $lang['Password: %s'] = 'Salasana:%s';
 $lang['Play of slideshow'] = 'Käynnistä diaesitys';
-$lang['please enter your password again'] = 'kirjoita salasanasi uudelleen';
 $lang['Please enter your username or email address.'] = 'Kirjoita käyttäjätunnus tai sähköpostiosoite';
 $lang['posted after %s (%s)'] = 'lähetetty %s(%s) jälkeen';
 $lang['posted before %s (%s)'] = 'lähetetty ennen %s(%s)';

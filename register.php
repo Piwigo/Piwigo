@@ -47,9 +47,17 @@ if (isset($_POST['submit']))
     $page['errors'][] = l10n('Invalid/expired form key');
   }
 
-  if ($_POST['password'] != $_POST['password_conf'])
+  if(empty($_POST['password']))
   {
-    $page['errors'][] = l10n('please enter your password again');
+    $page['errors'][] = l10n('Password is missing. Please enter the password.');
+  }
+  else if(empty($_POST['password_conf']))
+  {
+    $page['errors'][] = l10n('Password confirmation is missing. Please confirm the chosen password.');
+  }
+  else if ($_POST['password'] != $_POST['password_conf'])
+  {
+    $page['errors'][] = l10n('The passwords do not match');
   }
 
   register_user($_POST['login'],

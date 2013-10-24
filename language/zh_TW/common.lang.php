@@ -242,7 +242,6 @@ $lang['login mustn\'t end with a space character'] = '用戶名不能以空格�
 $lang['login mustn\'t start with a space character'] = '用戶名不能以空格開頭';
 $lang['this login is already used'] = '用戶名已存在';
 $lang['mail address must be like xxx@yyy.eee (example : jack@altern.org)'] = '郵件地址格式必須符合標準郵件地址格式 xxx@yyy.eee (例如 : jack@altern.org)';
-$lang['please enter your password again'] = '請輸入新密碼';
 $lang['Auto login'] = '自動登入';
 $lang['remove this tag from the list'] = '刪除此標籤';
 $lang['representative'] = '相冊縮略圖';
@@ -417,4 +416,6 @@ $lang['Email'] = '電子郵件';
 $lang['First Page'] = '第一頁';
 $lang['Go back to the album'] = '返回相冊';
 $lang['Last Page'] = '最後一頁';
+$lang['Password is missing. Please enter the password.'] = '密碼沒有輸入，請輸入密碼。';
+$lang['Password confirmation is missing. Please confirm the chosen password.'] = '密碼確認未完成，請確認所選定的密碼。';
 ?>

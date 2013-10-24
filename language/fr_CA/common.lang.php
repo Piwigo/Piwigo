@@ -245,7 +245,6 @@ $lang['login mustn\'t end with a space character'] = 'le nom d\'utilisateur ne d
 $lang['login mustn\'t start with a space character'] = 'le nom d\'utilisateur ne doit pas commencer par un espace';
 $lang['this login is already used'] = 'ce nom d\'utilisateur est déjà pris';
 $lang['mail address must be like xxx@yyy.eee (example : jack@altern.org)'] = 'l\'adresse de courriel doit être de la forme xxx@yyy.eee (exemple : luc@altern.org)';
-$lang['please enter your password again'] = 'Merci d\'entrer à nouveau votre mot de passe';
 $lang['Auto login'] = 'Connexion auto';
 $lang['remove this tag from the list'] = 'retirer ce mot clé de la liste';
 $lang['representative'] = 'représentante';
@@ -421,5 +420,6 @@ $lang['First Page'] = 'Première page';
 $lang['Go back to the album'] = 'Retourner à l\'album';
 $lang['Last Page'] = 'Dernière page';
 $lang['Email'] = 'Courriel';
-
+$lang['Password is missing. Please enter the password.'] = "Le mot de passe manque. Veuillez saisir le mot de passe.";
+$lang['Password confirmation is missing. Please confirm the chosen password.'] = "La confirmation du mot de passe manque. Veuillez confirmer le mot de passe choisi.";
 ?>

@@ -246,7 +246,6 @@ $lang['login mustn\'t end with a space character'] = 'ការ​ភ្ជា�
 $lang['login mustn\'t start with a space character'] = 'ការ​ភ្ជាប់​ចូល​ត្រូវ​តែ​ មិន​ចាប់​ផ្តើម​ជាមួយ​ដក​ឃ្លា​';
 $lang['this login is already used'] = 'ការ​ភ្ជាប់​ចូល​ជាមួយ​ឈ្មោះ​នេះ​ បាន​ប្រើ​ប្រាស់​រួច​ហើយ';
 $lang['mail address must be like xxx@yyy.eee (example : jack@altern.org)'] = 'អាស័យដ្ឋាន​សារ​អេឡិច​ត្រូនិច​ត្រូវ​តែ​ក្នុង​ទំ​រង់​ xxx@yyy.eee (example : jack@altern.org)';
-$lang['please enter your password again'] = 'សូម​បញ្ចូល​អក្សរ​សម្ងាត់​របស់​អ្នក​ម្តង​ទៀត​';
 $lang['Auto login'] = 'ភ្ជាប់​ចូល​ដោយ​ស្វ័យ​ប្រវត្តិ';
 $lang['remove this tag from the list'] = 'លុបស្លាក​នេះ​ចេញ​ពី​តារាង​';
 $lang['representative'] = 'រូប​ជា​គំរប​នៃ​សៀវ​ភៅ​រូប​ថត​';

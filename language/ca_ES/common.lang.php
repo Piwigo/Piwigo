@@ -240,7 +240,6 @@ $lang['login mustn\'t end with a space character'] = 'el nom d\'usuari no pot ac
 $lang['login mustn\'t start with a space character'] = 'el nom d\'usuari no pot començar amb el caràcter \'espai\'';
 $lang['this login is already used'] = 'aquest nom d\'usuari ja s\'està utilitzant';
 $lang['mail address must be like xxx@yyy.eee (example : jack@altern.org)'] = 'L\'adreça de correu ha de ser com xxx@yyy.eee (exemple: jack@altern.org)';
-$lang['please enter your password again'] = 'si us plau, introdueixi la seva contrasenya una altra vegada';
 $lang['Auto login'] = 'Recordar';
 $lang['remove this tag from the list'] = 'elimineu aquesta etiqueta de la llista';
 $lang['representative'] = 'miniatura de l\'àlbum';
@@ -416,4 +415,6 @@ $lang['Email'] = 'Correu elecrònic';
 $lang['First Page'] = 'Primera pàgina';
 $lang['Go back to the album'] = 'Tornar a l\'àlbum';
 $lang['Last Page'] = 'Última pàgina';
+$lang['Password is missing. Please enter the password.'] = 'Falta la clau d\'accès. Si us plau, introdueix-la.';
+$lang['Password confirmation is missing. Please confirm the chosen password.'] = 'Falta confirmar la contrasenya. Si us plau, confirmeu la contrasenya escollida.';
 ?>
