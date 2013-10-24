@@ -64,4 +64,7 @@ $lang['Your Gallery Customization'] = "Your gallery customisation";
 $lang['no rate'] = 'no rating';
 $lang['display your favorites photos'] = 'display your favourite photos';
 $lang['You are not authorized to access the requested page'] = 'You are not authorised to access the requested page';
+$lang['Successfully registered, you will soon receive an email with your connection settings. Welcome!'] = 'Successfully registered; you will soon receive an email with your connection settings. Welcome!';
+$lang['Please, enter a login'] = 'Please enter a login';
+$lang['Piwigo encountered a non recoverable error'] = 'Piwigo encountered an irrecoverable error';
 ?>
