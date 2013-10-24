@@ -458,6 +458,75 @@ INSERT INTO '.HISTORY_TABLE.'
 }
 
 /**
+ * Computes the difference between two dates
+ * returns a DateInterval object or a stdClass with the same attributes
+ * http://stephenharris.info/date-intervals-in-php-5-2
+ *
+ * @param DateTime $date1
+ * @param DateTime $date2
+ * @return DateInterval
+ */
+function dateDiff($date1, $date2)
+{
+  if (version_compare(PHP_VERSION, '5.3.0') >= 0)
+  {
+    return $date1->diff($date2);
+  }
+  
+  $diff = new stdClass();
+  
+  //Make sure $date1 is ealier
+  $diff->invert = $date2 < $date1;
+  if ($diff->invert)
+  {
+    list($date1, $date2) = array($date2, $date1);
+  }
+  
+  //Calculate R values
+  $R = ($date1 <= $date2 ? '+' : '-');
+  $r = ($date1 <= $date2 ? '' : '-');
+
+  //Calculate total days
+  $diff->days = round(abs($date1->format('U') - $date2->format('U'))/86400);
+
+  //A leap year work around - consistent with DateInterval
+  $leap_year = $date1->format('m-d') == '02-29';
+  if ($leap_year)
+  {
+    $date1->modify('-1 day');
+  }
+
+  //Years, months, days, hours
+  $periods = array('years'=>-1, 'months'=>-1, 'days'=>-1, 'hours'=>-1);
+
+  foreach ($periods as $period => &$i)
+  {
+    if ($period == 'days' && $leap_year)
+    {
+      $date1->modify('+1 day');
+    }
+
+    while ($date1 <= $date2 )
+    {
+      $date1->modify('+1 '.$period);
+      $i++;
+    }
+
+    //Reset date and record increments
+    $date1->modify('-1 '.$period);
+  }
+  
+  list($diff->y, $diff->m, $diff->d, $diff->h) = array_values($periods);
+
+  //Minutes, seconds
+  $diff->s = round(abs($date1->format('U') - $date2->format('U')));
+  $diff->i = floor($diff->s/60);
+  $diff->s = $diff->s - $diff->i*60;
+  
+  return $diff;
+}
+
+/**
  * converts a string into a DateTime object
  * @param: mixed, datetime string or timestamp int
  * @param: string, input format
@@ -465,7 +534,7 @@ INSERT INTO '.HISTORY_TABLE.'
  */
 function str2DateTime($original, $format=null)
 {
-  if (!empty($format))// from known date format
+  if ( !empty($format) && version_compare(PHP_VERSION, '5.3.0') >= 0 )// from known date format
   {
     return DateTime::createFromFormat('!'.$format, $original); // ! char to reset fields to UNIX epoch
   }
@@ -561,37 +630,33 @@ function time_since($original, $stop='minute', $format=null, $with_text=true, $w
   }
   
   $now = new DateTime();
-  $diff = $now->diff($date);
-  
-  if ($with_week)
-  {
-    // DateInterval does not compute the number of weeks
-    $diff->w = (int)floor($diff->d/7);
-    $diff->d = $diff->d - $diff->w*7;
-  }
-  else
-  {
-    $diff->w = 0;
-  }
+  $diff = dateDiff($now, $date);
   
   $chunks = array(
-    'year' => 'y',
-    'month' => 'm',
-    'week' => 'w',
-    'day' => 'd',
-    'hour' => 'h',
-    'minute' => 'i',
-    'second' => 's',
+    'year' => $diff->y,
+    'month' => $diff->m,
+    'week' => 0,
+    'day' => $diff->d,
+    'hour' => $diff->h,
+    'minute' => $diff->i,
+    'second' => $diff->s,
   );
+  
+  // DateInterval does not contain the number of weeks
+  if ($with_week)
+  {
+    $chunks['week'] = (int)floor($chunks['day']/7);
+    $chunks['day'] = $chunks['day'] - $chunks['week']*7;
+  }
   
   $j = array_search($stop, array_keys($chunks));
   
   $print = ''; $i=0;
-  foreach ($chunks as $name => $var)
+  foreach ($chunks as $name => $value)
   {
-    if ($diff->{$var} != 0)
+    if ($value != 0)
     {
-      $print.= ' '.l10n_dec('%d '.$name, '%d '.$name.'s', $diff->{$var});
+      $print.= ' '.l10n_dec('%d '.$name, '%d '.$name.'s', $value);
     }
     if (!empty($print) && $i >= $j)
     {
