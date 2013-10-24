@@ -208,11 +208,6 @@ function ws_std_get_tag_xml_attributes()
 
 function ws_getMissingDerivatives($params, $service)
 {
-  if (!is_admin())
-  {
-    return new PwgError(403, 'Forbidden');
-  }
-
   if ( empty($params['types']) )
   {
     $types = array_keys(ImageStdParams::get_defined_type_map());
@@ -319,11 +314,6 @@ function ws_getVersion($params, $service)
  */
 function ws_getInfos($params, $service)
 {
-  if (!is_admin())
-  {
-    return new PwgError(403, 'Forbidden');
-  }
-
   $infos['version'] = PHPWG_VERSION;
 
   $query = 'SELECT COUNT(*) FROM '.IMAGES_TABLE.';';
@@ -383,10 +373,6 @@ function ws_getInfos($params, $service)
 
 function ws_caddie_add($params, $service)
 {
-  if (!is_admin())
-  {
-    return new PwgError(401, 'Access denied');
-  }
   global $user;
   $query = '
 SELECT id
@@ -880,11 +866,6 @@ SELECT id, path, representative_ext
  */
 function ws_categories_getAdminList($params, $service)
 {
-  if (!is_admin())
-  {
-    return new PwgError(401, 'Access denied');
-  }
-
   $query = '
 SELECT
     category_id,
@@ -948,11 +929,6 @@ SELECT
  */
 function ws_images_addComment($params, $service)
 {
-  if (!$service->isPost())
-  {
-    return new PwgError(405, "This method requires HTTP POST");
-  }
-
   $query = '
 SELECT DISTINCT image_id
   FROM '.IMAGE_CATEGORY_TABLE.' INNER JOIN '.CATEGORIES_TABLE.' ON category_id=id
@@ -1294,14 +1270,6 @@ SELECT * FROM '.IMAGES_TABLE.'
 
 function ws_images_setPrivacyLevel($params, $service)
 {
-  if (!is_admin())
-  {
-    return new PwgError(401, 'Access denied');
-  }
-  if (!$service->isPost())
-  {
-    return new PwgError(405, "This method requires HTTP POST");
-  }
   global $conf;
   if ( !in_array($params['level'], $conf['available_permission_levels']) )
   {
@@ -1324,16 +1292,6 @@ UPDATE '.IMAGES_TABLE.'
 
 function ws_images_setRank($params, $service)
 {
-  if (!is_admin())
-  {
-    return new PwgError(401, 'Access denied');
-  }
-
-  if (!$service->isPost())
-  {
-    return new PwgError(405, "This method requires HTTP POST");
-  }
-
   // does the image really exist?
   $query='
 SELECT COUNT(*)
@@ -1417,16 +1375,6 @@ function ws_images_add_chunk($params, $service)
   // original_sum
   // type {thumb, file, high}
   // position
-
-  if (!is_admin())
-  {
-    return new PwgError(401, 'Access denied');
-  }
-
-  if (!$service->isPost())
-  {
-    return new PwgError(405, "This method requires HTTP POST");
-  }
 
   foreach ($params as $param_key => $param_value) {
     if ('data' == $param_key) {
@@ -1576,10 +1524,6 @@ function ws_images_addFile($params, $service)
   // sum -> not used currently (Piwigo 2.4)
 
   global $conf;
-  if (!is_admin())
-  {
-    return new PwgError(401, 'Access denied');
-  }
 
   //
   // what is the path and other infos about the photo?
@@ -1662,10 +1606,6 @@ SELECT
 function ws_images_add($params, $service)
 {
   global $conf, $user;
-  if (!is_admin())
-  {
-    return new PwgError(401, 'Access denied');
-  }
 
   foreach ($params as $param_key => $param_value) {
     ws_logfile(
@@ -1816,15 +1756,6 @@ SELECT id, name, permalink
 function ws_images_addSimple($params, $service)
 {
   global $conf;
-  if (!is_admin())
-  {
-    return new PwgError(401, 'Access denied');
-  }
-
-  if (!$service->isPost())
-  {
-    return new PwgError(405, "This method requires HTTP POST");
-  }
 
   if (!isset($_FILES['image']))
   {
@@ -1938,18 +1869,6 @@ SELECT id, name, permalink
 
 function ws_rates_delete($params, $service)
 {
-  global $conf;
-
-  if (!$service->isPost())
-  {
-    return new PwgError(405, 'This method requires HTTP POST');
-  }
-
-  if (!is_admin())
-  {
-    return new PwgError(401, 'Access denied');
-  }
-
   $query = '
 DELETE FROM '.RATE_TABLE.'
   WHERE user_id='.$params['user_id'];
@@ -1974,12 +1893,6 @@ DELETE FROM '.RATE_TABLE.'
  */
 function ws_session_login($params, $service)
 {
-  global $conf;
-
-  if (!$service->isPost())
-  {
-    return new PwgError(405, "This method requires HTTP POST");
-  }
   if (try_log_user($params['username'], $params['password'],false))
   {
     return true;
@@ -2056,11 +1969,6 @@ function ws_tags_getList($params, $service)
  */
 function ws_tags_getAdminList($params, $service)
 {
-  if (!is_admin())
-  {
-    return new PwgError(401, 'Access denied');
-  }
-
   $tags = get_all_tags();
   return array(
     'tags' => new PwgNamedArray(
@@ -2228,11 +2136,6 @@ function ws_categories_add($params, $service)
 
 function ws_tags_add($params, $service)
 {
-  if (!is_admin())
-  {
-    return new PwgError(401, 'Access denied');
-  }
-
   include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
 
   $creation_output = create_tag($params['name']);
@@ -2250,11 +2153,6 @@ function ws_images_exist($params, $service)
   ws_logfile(__FUNCTION__.' '.var_export($params, true));
 
   global $conf;
-
-  if (!is_admin())
-  {
-    return new PwgError(401, 'Access denied');
-  }
 
   $split_pattern = '/[\s,;\|]/';
 
@@ -2328,11 +2226,6 @@ function ws_images_checkFiles($params, $service)
 {
   ws_logfile(__FUNCTION__.', input :  '.var_export($params, true));
 
-  if (!is_admin())
-  {
-    return new PwgError(401, 'Access denied');
-  }
-
   // input parameters
   //
   // image_id
@@ -2394,15 +2287,6 @@ SELECT
 function ws_images_setInfo($params, $service)
 {
   global $conf;
-  if (!is_admin())
-  {
-    return new PwgError(401, 'Access denied');
-  }
-
-  if (!$service->isPost())
-  {
-    return new PwgError(405, "This method requires HTTP POST");
-  }
 
   include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
 
@@ -2534,15 +2418,6 @@ SELECT *
 function ws_images_delete($params, $service)
 {
   global $conf;
-  if (!is_admin())
-  {
-    return new PwgError(401, 'Access denied');
-  }
-
-  if (!$service->isPost())
-  {
-    return new PwgError(405, "This method requires HTTP POST");
-  }
 
   if (get_pwg_token() != $params['pwg_token'])
   {
@@ -2726,15 +2601,6 @@ SELECT
 function ws_categories_setInfo($params, $service)
 {
   global $conf;
-  if (!is_admin())
-  {
-    return new PwgError(401, 'Access denied');
-  }
-
-  if (!$service->isPost())
-  {
-    return new PwgError(405, "This method requires HTTP POST");
-  }
 
   // category_id
   // name
@@ -2773,16 +2639,6 @@ function ws_categories_setInfo($params, $service)
 function ws_categories_setRepresentative($params, $service)
 {
   global $conf;
-
-  if (!is_admin())
-  {
-    return new PwgError(401, 'Access denied');
-  }
-
-  if (!$service->isPost())
-  {
-    return new PwgError(405, "This method requires HTTP POST");
-  }
 
   // category_id
   // image_id
@@ -2831,15 +2687,6 @@ UPDATE '.USER_CACHE_CATEGORIES_TABLE.'
 function ws_categories_delete($params, $service)
 {
   global $conf;
-  if (!is_admin())
-  {
-    return new PwgError(401, 'Access denied');
-  }
-
-  if (!$service->isPost())
-  {
-    return new PwgError(405, "This method requires HTTP POST");
-  }
 
   if (get_pwg_token() != $params['pwg_token'])
   {
@@ -2902,16 +2749,6 @@ SELECT id
 function ws_categories_move($params, $service)
 {
   global $conf, $page;
-
-  if (!is_admin())
-  {
-    return new PwgError(401, 'Access denied');
-  }
-
-  if (!$service->isPost())
-  {
-    return new PwgError(405, "This method requires HTTP POST");
-  }
 
   if (get_pwg_token() != $params['pwg_token'])
   {
@@ -3035,11 +2872,6 @@ function ws_images_checkUpload($params, $service)
 {
   global $conf;
 
-  if (!is_admin())
-  {
-    return new PwgError(401, 'Access denied');
-  }
-
   include_once(PHPWG_ROOT_PATH.'admin/include/functions_upload.inc.php');
   $ret['message'] = ready_for_upload_message();
   $ret['ready_for_upload'] = true;
@@ -3055,11 +2887,6 @@ function ws_images_checkUpload($params, $service)
 function ws_plugins_getList($params, $service)
 {
   global $conf;
-
-  if (!is_admin())
-  {
-    return new PwgError(401, 'Access denied');
-  }
 
   include_once(PHPWG_ROOT_PATH.'admin/include/plugins.class.php');
   $plugins = new plugins();
@@ -3094,11 +2921,6 @@ function ws_plugins_performAction($params, &$service)
 {
   global $template;
 
-  if (!is_admin())
-  {
-    return new PwgError(401, 'Access denied');
-  }
-
   if (get_pwg_token() != $params['pwg_token'])
   {
     return new PwgError(403, 'Invalid security token');
@@ -3127,11 +2949,6 @@ function ws_plugins_performAction($params, &$service)
 function ws_themes_performAction($params, $service)
 {
   global $template;
-
-  if (!is_admin())
-  {
-    return new PwgError(401, 'Access denied');
-  }
 
   if (get_pwg_token() != $params['pwg_token'])
   {
@@ -3304,11 +3121,6 @@ function ws_extensions_checkupdates($params, $service)
   include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
   include_once(PHPWG_ROOT_PATH.'admin/include/updates.class.php');
   $update = new updates();
-
-  if (!is_admin())
-  {
-    return new PwgError(401, 'Access denied');
-  }
 
   $result = array();
 

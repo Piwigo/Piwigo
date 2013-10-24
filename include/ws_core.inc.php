@@ -324,7 +324,9 @@ Request format: ".@$this->_requestFormat." Response format: ".@$this->_responseF
    * @param description string - a description of the method.
    * @param include_file string - a file to be included befaore the callback is executed
    * @param options array
-   *    @option bool hidden (hidden) - if true, this method won't be visible by reflection.getMethodList
+   *    @option bool hidden (optional) - if true, this method won't be visible by reflection.getMethodList
+   *    @option bool admin_only (optional)
+   *    @option bool post_only (optional)
    */
   function addMethod($methodName, $callback, $params=array(), $description='', $include_file='', $options=array())
   {
@@ -388,7 +390,7 @@ Request format: ".@$this->_requestFormat." Response format: ".@$this->_responseF
     return isset($signature) ? $signature : array();
   }
 
-  /*static*/ function isPost()
+  static function isPost()
   {
     return isset($HTTP_RAW_POST_DATA) or !empty($_POST);
   }
@@ -509,6 +511,16 @@ Request format: ".@$this->_requestFormat." Response format: ".@$this->_responseF
     if ( $method == null )
     {
       return new PwgError(WS_ERR_INVALID_METHOD, 'Method name is not valid');
+    }
+    
+    if ( isset($method['options']['post_only']) and $method['options']['post_only'] and !self::isPost() )
+    {
+      return new PwgError(405, 'This method requires HTTP POST');
+    }
+    
+    if ( isset($method['options']['admin_only']) and $method['options']['admin_only'] and !is_admin() )
+    {
+      return new PwgError(401, 'Access denied');
     }
 
     // parameter check and data correction
