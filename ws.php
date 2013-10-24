@@ -675,7 +675,7 @@ function ws_addDefaultMethods( $arr )
       '<b>Webmaster only.</b>',
       null,
       array('admin_only'=>true)
-  );
+    );
 
   $service->addMethod(
       'pwg.extensions.ignoreUpdate',
@@ -692,7 +692,7 @@ function ws_addDefaultMethods( $arr )
       '<b>Webmaster only.</b> Ignores an extension if it needs update.',
       null,
       array('admin_only'=>true)
-  );
+    );
 
   $service->addMethod(
       'pwg.extensions.checkUpdates',
@@ -701,7 +701,164 @@ function ws_addDefaultMethods( $arr )
       '<b>Admin only.</b> Checks if piwigo or extensions are up to date.',
       null,
       array('admin_only'=>true)
-  );
+    );
+
+  $service->addMethod(
+      'pwg.groups.getList',
+      'ws_groups_getList',
+      array(
+        'group_id' => array('default'=>null,
+                            'flags'=>WS_PARAM_FORCE_ARRAY,
+                            'type'=>WS_TYPE_ID),
+        'name' =>     array('default'=>null,
+                            'info'=>'Use "%" as wildcard.'),
+        'per_page' => array('default'=>100,
+                            'maxValue'=>$conf['ws_max_users_per_page'],
+                            'type'=>WS_TYPE_INT|WS_TYPE_POSITIVE),
+        'page' =>     array('default'=>0,
+                            'type'=>WS_TYPE_INT|WS_TYPE_POSITIVE),
+        'order' =>    array('default'=>'name',
+                            'info'=>'id, name, nb_users, is_default'),
+        ),
+      '<b>Admin only.</b> Retrieves a list of all groups. The list can be filtered.',
+      null,
+      array('admin_only'=>true)
+    );
+
+  $service->addMethod(
+      'pwg.groups.add',
+      'ws_groups_add',
+      array(
+        'name' =>       array(),
+        'is_default' => array('default'=>false,
+                              'type'=>WS_TYPE_BOOL),
+        ),
+      '<b>Admin & POST only.</b> Creates a group and returns the new group record.',
+      null,
+      array('admin_only'=>true, 'post_only'=>true)
+    );
+
+  $service->addMethod(
+      'pwg.groups.delete',
+      'ws_groups_delete',
+      array(
+        'group_id' => array('flags'=>WS_PARAM_FORCE_ARRAY,
+                            'type'=>WS_TYPE_ID),
+        ),
+      '<b>Admin & POST only.</b> Deletes a or more groups. Users and photos are not deleted.',
+      null,
+      array('admin_only'=>true, 'post_only'=>true)
+    );
+
+  $service->addMethod(
+      'pwg.groups.setInfo',
+      'ws_groups_setInfo',
+      array(
+        'group_id' =>   array('type'=>WS_TYPE_ID),
+        'name' =>       array('default'=>null),
+        'is_default' => array('default'=>null,
+                              'type'=>WS_TYPE_BOOL),
+        ),
+      '<b>Admin & POST only.</b> Updates a group. Leave a field blank to keep the current value.',
+      null,
+      array('admin_only'=>true, 'post_only'=>true)
+    );
+
+  $service->addMethod(
+      'pwg.groups.addUser',
+      'ws_groups_addUser',
+      array(
+        'group_id' => array('type'=>WS_TYPE_ID),
+        'user_id' =>  array('flags'=>WS_PARAM_FORCE_ARRAY,
+                            'type'=>WS_TYPE_ID),
+        ),
+      '<b>Admin only.</b> Adds one or more users to a group.',
+      null,
+      array('admin_only'=>true)
+    );
+
+  $service->addMethod(
+      'pwg.groups.deleteUser',
+      'ws_groups_deleteUser',
+      array(
+        'group_id' => array('type'=>WS_TYPE_ID),
+        'user_id' =>  array('flags'=>WS_PARAM_FORCE_ARRAY,
+                            'type'=>WS_TYPE_ID),
+        ),
+      '<b>Admin & POST only.</b> Removes one or more users from a group.',
+      null,
+      array('admin_only'=>true, 'post_only'=>true)
+    );
+
+  $service->addMethod(
+      'pwg.users.getList',
+      'ws_users_getList',
+      array(
+        'user_id' =>    array('default'=>null,
+                              'flags'=>WS_PARAM_FORCE_ARRAY,
+                              'type'=>WS_TYPE_ID),
+        'username' =>   array('default'=>null,
+                              'info'=>'Use "%" as wildcard.'),
+        'status' =>     array('default'=>null,
+                              'flags'=>WS_PARAM_FORCE_ARRAY,
+                              'info'=>'guest,generic,normal,admin,webmaster'),
+        'min_level' =>  array('default'=>0,
+                              'maxValue'=>max($conf['available_permission_levels']),
+                              'type'=>WS_TYPE_INT|WS_TYPE_POSITIVE),
+        'group_id' =>   array('default'=>null,
+                              'flags'=>WS_PARAM_FORCE_ARRAY,
+                              'type'=>WS_TYPE_ID),
+        'per_page' =>   array('default'=>100,
+                              'maxValue'=>$conf['ws_max_users_per_page'],
+                              'type'=>WS_TYPE_INT|WS_TYPE_POSITIVE),
+        'page' =>       array('default'=>0,
+                              'type'=>WS_TYPE_INT|WS_TYPE_POSITIVE),
+        'order' =>      array('default'=>'id',
+                              'info'=>'id, username, level, email'),
+        ),
+      '<b>Admin only.</b> Retrieves a list of all the users.',
+      null,
+      array('admin_only'=>true)
+    );
+
+  $service->addMethod(
+      'pwg.users.add',
+      'ws_users_add',
+      array(
+        'username' => array(),
+        'password' => array('default'=>null),
+        'email' =>    array('default'=>null),
+        ),
+      '<b>Admin & POST only.</b> Registers a new user.',
+      null,
+      array('admin_only'=>true, 'post_only'=>true)
+    );
+
+  $service->addMethod(
+      'pwg.users.delete',
+      'ws_users_delete',
+      array(
+        'user_id' =>  array('flags'=>WS_PARAM_FORCE_ARRAY,
+                            'type'=>WS_TYPE_ID),
+        ),
+      '<b>Admin & POST only.</b> Deletes on or more users. Photos owned by this user are not deleted.',
+      null,
+      array('admin_only'=>true, 'post_only'=>true)
+    );
+
+  $service->addMethod(
+      'pwg.users.setInfo',
+      'ws_users_setInfo',
+      array(
+        'user_id' =>  array('type'=>WS_TYPE_ID),
+        'username' => array('default'=>null),
+        'password' => array('default'=>null),
+        'email' =>    array('default'=>null),
+        ),
+      '<b>Admin & POST only.</b> Updates a user. Leave a field blank to keep the current value.',
+      null,
+      array('admin_only'=>true, 'post_only'=>true)
+    );
 }
 
 ?>

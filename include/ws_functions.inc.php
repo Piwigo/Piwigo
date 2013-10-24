@@ -464,9 +464,6 @@ SELECT id, name, permalink, image_order
     }
     $order_by = empty($order_by) ? $conf['order_by'] : 'ORDER BY '.$order_by;
 
-    $params['per_page'] = (int)$params['per_page'];
-    $params['page'] = (int)$params['page'];
-
     $query = '
 SELECT i.*, GROUP_CONCAT(category_id) AS cat_ids
   FROM '.IMAGES_TABLE.' i
@@ -3143,4 +3140,467 @@ function ws_extensions_checkupdates($params, $service)
 
   return $result;
 }
+
+/**
+ * API method
+ * Returns the list of groups
+ * @param mixed[] $params
+ *    @option int[] group_id (optional)
+ *    @option string name (optional)
+ */
+function ws_groups_getList($params, &$service)
+{
+  $where_clauses = array('1=1');
+  
+  if (!empty($params['name']))
+  {
+    $where_clauses[] = 'LOWER(name) LIKE \''. pwg_db_real_escape_string($params['name']) .'\'';
+  }
+  
+  if (!empty($params['group_id']))
+  {
+    $where_clauses[] = 'id IN('. implode(',', $params['group_id']) .')';
+  }
+  
+  $query = '
+SELECT
+    g.*,
+    COUNT(user_id) AS nb_users
+  FROM '.GROUPS_TABLE.' AS g
+    LEFT JOIN '.USER_GROUP_TABLE.' AS ug
+    ON ug.group_id = g.id
+  WHERE '. implode(' AND ', $where_clauses) .'
+  GROUP BY id
+  ORDER BY '.$params['order'].'
+  LIMIT '.$params['per_page'].'
+  OFFSET '.($params['per_page']*$params['page']).'
+;';
+
+  $groups = array_from_query($query);
+
+  return array(
+    'paging' => new PwgNamedStruct(array(
+      'page' => $params['page'],
+      'per_page' => $params['per_page'],
+      'count' => count($groups)
+      )),
+    'groups' => new PwgNamedArray($groups, 'group')
+    );
+}
+
+/**
+ * API method
+ * Adds a group
+ * @param mixed[] $params
+ *    @option string name
+ *    @option bool is_default
+ */
+function ws_groups_add($params, &$service)
+{
+  $params['name'] = pwg_db_real_escape_string($params['name']);
+  
+  // is the name not already used ?
+  $query = '
+SELECT COUNT(*)
+  FROM '.GROUPS_TABLE.'
+  WHERE name = \''.$params['name'].'\'
+;';
+  list($count) = pwg_db_fetch_row(pwg_query($query));
+  if ($count != 0)
+  {
+    return new PwgError(WS_ERR_INVALID_PARAM, 'This name is already used by another group.');
+  }
+
+  // creating the group
+  single_insert(
+    GROUPS_TABLE,
+    array(
+      'name' => $params['name'],
+      'is_default' => $params['is_default'],
+      )
+    );
+    
+  return $service->invoke('pwg.groups.getList', array('group_id' => pwg_db_insert_id()));
+}
+
+/**
+ * API method
+ * Deletes a group
+ * @param mixed[] $params
+ *    @option int[] group_id
+ */
+function ws_groups_delete($params, &$service)
+{
+  $group_id_string = implode(',', $params['group_id']);
+
+  // destruction of the access linked to the group
+  $query = '
+DELETE
+  FROM '.GROUP_ACCESS_TABLE.'
+  WHERE group_id IN('. $group_id_string  .')
+;';
+  pwg_query($query);
+  
+  // destruction of the users links for this group
+  $query = '
+DELETE
+  FROM '.USER_GROUP_TABLE.'
+  WHERE group_id IN('. $group_id_string  .')
+;';
+  pwg_query($query);
+
+  $query = '
+SELECT name
+  FROM '.GROUPS_TABLE.'
+  WHERE id IN('. $group_id_string  .')
+;';
+  $groupnames = array_from_query($query, 'name');
+  
+  // destruction of the group
+  $query = '
+DELETE
+  FROM '.GROUPS_TABLE.'
+  WHERE id IN('. $group_id_string  .')
+;';
+  pwg_query($query);
+
+  return new PwgNamedArray($groupnames, 'group_deleted');
+}
+
+/**
+ * API method
+ * Updates a group
+ * @param mixed[] $params
+ *    @option int group_id
+ *    @option string name (optional)
+ *    @option bool is_default (optional)
+ */
+function ws_groups_setInfo($params, &$service)
+{
+  $updates = array();
+  
+  // does the group exist ?
+  $query = '
+SELECT COUNT(*)
+  FROM '.GROUPS_TABLE.'
+  WHERE id = '.$params['group_id'].'
+;';
+  list($count) = pwg_db_fetch_row(pwg_query($query));
+  if ($count == 0)
+  {
+    return new PwgError(WS_ERR_INVALID_PARAM, 'This group does not exist.');
+  }
+  
+  if (!empty($params['name']))
+  {
+    $params['name'] = pwg_db_real_escape_string($params['name']);
+    
+    // is the name not already used ?
+    $query = '
+SELECT COUNT(*)
+  FROM '.GROUPS_TABLE.'
+  WHERE name = \''.$params['name'].'\'
+;';
+    list($count) = pwg_db_fetch_row(pwg_query($query));
+    if ($count != 0)
+    {
+      return new PwgError(WS_ERR_INVALID_PARAM, 'This name is already used by another group.');
+    }
+    
+    $updates['name'] = $params['name'];
+  }
+  
+  if ($params['is_default'] !== null)
+  {
+    $updates['is_default'] = $params['is_default'];
+  }
+  
+  single_update(
+    GROUPS_TABLE,
+    $updates,
+    array('id' => $params['group_id'])
+    );
+  
+  return $service->invoke('pwg.groups.getList', array('group_id' => $params['group_id']));
+}
+
+/**
+ * API method
+ * Adds user(s) to a group
+ * @param mixed[] $params
+ *    @option int group_id
+ *    @option int[] user_id
+ */
+function ws_groups_addUser($params, &$service)
+{
+  // does the group exist ?
+  $query = '
+SELECT COUNT(*)
+  FROM '.GROUPS_TABLE.'
+  WHERE id = '.$params['group_id'].'
+;';
+  list($count) = pwg_db_fetch_row(pwg_query($query));
+  if ($count == 0)
+  {
+    return new PwgError(WS_ERR_INVALID_PARAM, 'This group does not exist.');
+  }
+  
+  $inserts = array();
+  foreach ($params['user_id'] as $user_id)
+  {
+    $inserts[] = array(
+      'group_id' => $params['group_id'],
+      'user_id' => $user_id,
+      );
+  }
+
+  mass_inserts(
+    USER_GROUP_TABLE,
+    array('group_id', 'user_id'),
+    $inserts,
+    array('ignore'=>true)
+    );
+    
+  return $service->invoke('pwg.users.getList', array('group_id' => $params['group_id']));
+}
+
+/**
+ * API method
+ * Removes user(s) from a group
+ * @param mixed[] $params
+ *    @option int group_id
+ *    @option int[] user_id
+ */
+function ws_groups_deleteUser($params, &$service)
+{
+  // does the group exist ?
+  $query = '
+SELECT COUNT(*)
+  FROM '.GROUPS_TABLE.'
+  WHERE id = '.$params['group_id'].'
+;';
+  list($count) = pwg_db_fetch_row(pwg_query($query));
+  if ($count == 0)
+  {
+    return new PwgError(WS_ERR_INVALID_PARAM, 'This group does not exist.');
+  }
+  
+  $query = '
+DELETE FROM '.USER_GROUP_TABLE.'
+  WHERE
+    group_id = '.$params['group_id'].'
+    AND user_id IN('. implode(',', $params['user_id']) .')
+;';
+  pwg_query($query);
+
+  return $service->invoke('pwg.users.getList', array('group_id' => $params['group_id']));
+}
+
+/**
+ * API method
+ * Returns a list of users
+ * @param mixed[] $params
+ *    @option int[] user_id (optional)
+ *    @option string username (optional)
+ *    @option string[] status (optional)
+ *    @option int min_level (optional)
+ *    @option int[] group_id (optional)
+ *    @option int per_page
+ *    @option int page
+ *    @option string order
+ */
+function ws_users_getList($params, &$service)
+{
+  global $conf;
+  
+  $where_clauses = array('1=1');
+  
+  if (!empty($params['user_id']))
+  {
+    $where_clauses[] = 'u.'.$conf['user_fields']['id'].' IN('. implode(',', $params['user_id']) .')';
+  }
+  
+  if (!empty($params['username']))
+  {
+    $where_clauses[] = 'u.'.$conf['user_fields']['username'].' LIKE \''.pwg_db_real_escape_string($params['username']).'\'';
+  }
+  
+  if (!empty($params['status']))
+  {
+    $params['status'] = array_intersect($params['status'], get_enums(USER_INFOS_TABLE, 'status'));
+    if (count($params['status']) > 0)
+    {
+      $where_clauses[] = 'ui.status IN("'. implode('","', $params['status']) .'")';
+    }
+  }
+  
+  if (!empty($params['min_level']))
+  {
+    if ( !in_array($params['min_level'], $conf['available_permission_levels']) )
+    {
+      return new PwgError(WS_ERR_INVALID_PARAM, 'Invalid level');
+    }
+    $where_clauses[] = 'ui.level >= '.$params['min_level'];
+  }
+  
+  if (!empty($params['group_id']))
+  {
+    $where_clauses[] = 'ug.group_id IN('. implode(',', $params['group_id']) .')';
+  }
+  
+  $query = '
+SELECT DISTINCT
+    u.'.$conf['user_fields']['id'].' AS id,
+    u.'.$conf['user_fields']['username'].' AS username,
+    u.'.$conf['user_fields']['email'].' AS email,
+    ui.status,
+    ui.level,
+    "" AS groups
+  FROM '.USERS_TABLE.' AS u
+    INNER JOIN '.USER_INFOS_TABLE.' AS ui
+      ON u.'.$conf['user_fields']['id'].' = ui.user_id
+    LEFT JOIN '.USER_GROUP_TABLE.' AS ug
+      ON u.'.$conf['user_fields']['id'].' = ug.user_id
+  WHERE
+    '. implode(' AND ', $where_clauses) .'
+  ORDER BY '.$params['order'].'
+  LIMIT '.$params['per_page'].'
+  OFFSET '.($params['per_page']*$params['page']).'
+;';
+
+  $users = hash_from_query($query, 'id');
+  
+  if (count($users) > 0)
+  {
+    $query = '
+SELECT user_id, group_id
+  FROM '.USER_GROUP_TABLE.'
+  WHERE user_id IN ('.implode(',', array_keys($users)).')
+;';
+    $result = pwg_query($query);
+    
+    while ($row = pwg_db_fetch_assoc($result))
+    {
+      $users[ $row['user_id'] ]['groups'][] = $row['group_id'];
+    }
+  }
+
+  return array(
+    'paging' => new PwgNamedStruct(array(
+      'page' => $params['page'],
+      'per_page' => $params['per_page'],
+      'count' => count($users)
+      )),
+    'users' => new PwgNamedArray(array_values($users), 'user')
+    );
+}
+
+/**
+ * API method
+ * Adds a user
+ * @param mixed[] $params
+ *    @option string username
+ *    @option string password (optional)
+ *    @option string email (optional)
+ */
+function ws_users_add($params, &$service)
+{
+  $user_id = register_user($params['username'], $params['password'], $params['email'], false, $errors);
+  
+  if (!$user_id)
+  {
+    return new PwgError(WS_ERR_INVALID_PARAM, $errors[0]);
+  }
+  
+  return $service->invoke('pwg.users.getList', array('user_id'=>$user_id));
+}
+
+/**
+ * API method
+ * Deletes users
+ * @param mixed[] $params
+ *    @option int[] user_id
+ */
+function ws_users_delete($params, &$service)
+{
+  global $conf, $user;
+  
+  include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
+  
+  // protect some users
+  $params['user_id'] = array_diff($params['user_id'], array($user['id'],
+                                                        $conf['guest_id'],
+                                                        $conf['default_user_id'],
+                                                        $conf['webmaster_id']));
+  
+  foreach ($params['user_id'] as $user_id)
+  {
+    delete_user($user_id);
+  }
+  
+  return l10n_dec(
+        '%d user deleted', '%d users deleted',
+        count($params['user_id'])
+        );
+}
+
+/**
+ * API method
+ * @param mixed[] $params
+ *    @option int user_id
+ *    @option string username (optional)
+ *    @option string password (optional)
+ *    @option string email (optional)
+ */
+function ws_users_setInfo($params, &$service)
+{
+  global $conf;
+  
+  include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
+  
+  if (get_username($params['user_id']) === false)
+  {
+    return new PwgError(WS_ERR_INVALID_PARAM, 'This user does not exist.');
+  }
+  
+  $updates = array();
+  $params = array_map('trim', $params);
+  
+  if (!empty($params['username']))
+  {
+    $user_id = get_userid($params['username']);
+    if ($user_id and $user_id != $params['user_id'])
+    {
+      return new PwgError(WS_ERR_INVALID_PARAM, l10n('this login is already used'));
+    }
+    if ($params['username'] != strip_tags($params['username']))
+    {
+      return new PwgError(WS_ERR_INVALID_PARAM, l10n('html tags are not allowed in login'));
+    }
+    $updates[ $conf['user_fields']['username'] ] = $params['username'];
+  }
+  
+  if (!empty($params['email']))
+  {
+    if ( ($error = validate_mail_address($params['user_id'], $params['email'])) != '')
+    {
+      return new PwgError(WS_ERR_INVALID_PARAM, $error);
+    }
+    $updates[ $conf['user_fields']['email'] ] = $params['email'];
+  }
+  
+  if (!empty($params['password']))
+  {
+    $updates[ $conf['user_fields']['password'] ] = $conf['password_hash']($params['password']);
+  }
+  
+  single_update(
+    USERS_TABLE,
+    $updates,
+    array($conf['user_fields']['id'] => $params['user_id'])
+    );
+
+  return $service->invoke('pwg.users.getList', array('user_id' => $params['user_id']));
+}
+
 ?>
