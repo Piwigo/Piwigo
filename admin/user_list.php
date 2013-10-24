@@ -204,8 +204,11 @@ if ($conf['double_password_type_in_admin'] == true)
     }
     else
     {
-      $page['errors'] = register_user(
-        $_POST['login'], $_POST['password'], $_POST['email'], false);
+      register_user($_POST['login'],
+                    $_POST['password'],
+                    $_POST['email'],
+                    false,
+                    $page['errors']);
 
       if (count($page['errors']) == 0)
       {
@@ -218,8 +221,11 @@ else if ($conf['double_password_type_in_admin'] == false)
 {
   if (isset($_POST['submit_add']))
   {
-    $page['errors'] = register_user(
-      $_POST['login'], $_POST['password'], $_POST['email'], false);
+    register_user($_POST['login'],
+                  $_POST['password'],
+                  $_POST['email'],
+                  false,
+                  $page['errors']);
 
     if (count($page['errors']) == 0)
     {

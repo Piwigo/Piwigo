@@ -119,8 +119,18 @@ function search_case_username($username)
   else
    return $users_found[0];
 }
+
+/**
+ * create a new user
+ * @param string $login
+ * @param string $password
+ * @param string $mail_adress
+ * @param bool $with_notifications
+ * @param &array $errors
+ * @return int|bool
+ */
 function register_user($login, $password, $mail_address,
-  $with_notification = true, $errors = array())
+  $with_notification = true, &$errors = array())
 {
   global $conf;
 
@@ -171,41 +181,32 @@ function register_user($login, $password, $mail_address,
   // if no error until here, registration of the user
   if (count($errors) == 0)
   {
-    // what will be the inserted id ?
-    $query = '
-SELECT MAX('.$conf['user_fields']['id'].') + 1
-  FROM '.USERS_TABLE.'
-;';
-    list($next_id) = pwg_db_fetch_row(pwg_query($query));
-
     $insert =
       array(
-        $conf['user_fields']['id'] => $next_id,
         $conf['user_fields']['username'] => pwg_db_real_escape_string($login),
         $conf['user_fields']['password'] => $conf['password_hash']($password),
         $conf['user_fields']['email'] => $mail_address
         );
 
     single_insert(USERS_TABLE, $insert);
+    $user_id = pwg_db_insert_id();
 
     // Assign by default groups
-    {
-      $query = '
+    $query = '
 SELECT id
   FROM '.GROUPS_TABLE.'
   WHERE is_default = \''.boolean_to_string(true).'\'
   ORDER BY id ASC
 ;';
-      $result = pwg_query($query);
+    $result = pwg_query($query);
 
-      $inserts = array();
-      while ($row = pwg_db_fetch_assoc($result))
-      {
-          $inserts[] = array(
-            'user_id' => $next_id,
-            'group_id' => $row['id']
-          );
-      }
+    $inserts = array();
+    while ($row = pwg_db_fetch_assoc($result))
+    {
+        $inserts[] = array(
+          'user_id' => $user_id,
+          'group_id' => $row['id']
+        );
     }
 
     if (count($inserts) != 0)
@@ -219,7 +220,7 @@ SELECT id
       if ( !get_browser_language($override['language']) )
         $override=null;
     }
-    create_user_infos($next_id, $override);
+    create_user_infos($user_id, $override);
 
     if ($with_notification and $conf['email_admin_on_new_user'])
     {
@@ -244,14 +245,18 @@ SELECT id
 
     trigger_action('register_user',
       array(
-        'id'=>$next_id,
+        'id'=>$user_id,
         'username'=>$login,
         'email'=>$mail_address,
        )
       );
+      
+    return $user_id;
   }
-
-  return $errors;
+  else
+  {
+    return false;
+  }
 }
 
 function build_user( $user_id, $use_cache )

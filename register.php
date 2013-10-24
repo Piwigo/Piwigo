@@ -52,12 +52,11 @@ if (isset($_POST['submit']))
     $page['errors'][] = l10n('please enter your password again');
   }
 
-  $page['errors'] =
-      register_user($_POST['login'],
-                    $_POST['password'],
-                    $_POST['mail_address'],
-                    true,
-                    $page['errors']);
+  register_user($_POST['login'],
+                $_POST['password'],
+                $_POST['mail_address'],
+                true,
+                $page['errors']);
 
   if (count($page['errors']) == 0)
   {
