@@ -97,13 +97,23 @@ if (isset($_POST['submit']) and isset($_POST['selectAction']) and isset($_POST['
 
   if ($action=="rename")
   {
+    // is the group not already existing ?
+    $query = '
+SELECT name
+  FROM '.GROUPS_TABLE.'
+;';
+    $group_names = array_from_query($query, 'name');
     foreach($groups as $group)
     {
-      if ( !empty($_POST['rename_'.$group.'']) )
+      if (  in_array($_POST['rename_'.$group.''], $group_names))
+      {
+        $page['errors'][] = $_POST['rename_'.$group.''].' | '.l10n('This name is already used by another group.');
+      }
+      elseif ( !empty($_POST['rename_'.$group.'']))
       {
         $query = '
         UPDATE '.GROUPS_TABLE.'
-        SET name = \''.$_POST['rename_'.$group.''].'\'
+        SET name = \''.pwg_db_real_escape_string($_POST['rename_'.$group.'']).'\'
         WHERE id = '.$group.'
       ;';
         pwg_query($query);
