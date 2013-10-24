@@ -3216,7 +3216,7 @@ SELECT COUNT(*)
     GROUPS_TABLE,
     array(
       'name' => $params['name'],
-      'is_default' => $params['is_default'],
+      'is_default' => boolean_to_string($params['is_default']),
       )
     );
     
@@ -3312,7 +3312,7 @@ SELECT COUNT(*)
   
   if ($params['is_default'] !== null)
   {
-    $updates['is_default'] = $params['is_default'];
+    $updates['is_default'] = boolean_to_string($params['is_default']);
   }
   
   single_update(
@@ -3554,7 +3554,7 @@ function ws_users_delete($params, &$service)
  */
 function ws_users_setInfo($params, &$service)
 {
-  global $conf;
+  global $conf, $user;
   
   include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
   
@@ -3563,7 +3563,7 @@ function ws_users_setInfo($params, &$service)
     return new PwgError(WS_ERR_INVALID_PARAM, 'This user does not exist.');
   }
   
-  $updates = array();
+  $updates = $updates_infos = array();
   $params = array_map('trim', $params);
   
   if (!empty($params['username']))
@@ -3594,10 +3594,42 @@ function ws_users_setInfo($params, &$service)
     $updates[ $conf['user_fields']['password'] ] = $conf['password_hash']($params['password']);
   }
   
+  if (!empty($params['status']))
+  {
+    if ( $params['status'] == 'webmaster' and !is_webmaster() )
+    {
+      return new PwgError(403, 'Only webmasters can grant "webmaster" status');
+    }
+    if ( $user['id'] == $params['user_id'] )
+    {
+      $params['status'] = $user['status'];
+    }
+    if ( $conf['guest_id'] == $params['user_id'] )
+    {
+      $params['status'] = 'guest';
+    }
+    $updates_infos['status'] = $params['status'];
+  }
+  
+  if ($params['level'] !== null)
+  {
+    if ( !in_array($params['level'], $conf['available_permission_levels']) )
+    {
+      return new PwgError(WS_ERR_INVALID_PARAM, 'Invalid level');
+    }
+    $updates_infos['level'] = $params['level'];
+  }
+  
   single_update(
     USERS_TABLE,
     $updates,
     array($conf['user_fields']['id'] => $params['user_id'])
+    );
+    
+  single_update(
+    USER_INFOS_TABLE,
+    $updates_infos,
+    array('user_id' => $params['user_id'])
     );
 
   return $service->invoke('pwg.users.getList', array('user_id' => $params['user_id']));
