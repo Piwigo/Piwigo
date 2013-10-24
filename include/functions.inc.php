@@ -924,7 +924,8 @@ function l10n($key)
 
   if (func_num_args() > 1)
   {
-    $val = vsprintf($val, array_slice(func_get_args(), 1));
+    $args = func_get_args();
+    $val = vsprintf($val, array_slice($args, 1));
   }
 
   return $val;
