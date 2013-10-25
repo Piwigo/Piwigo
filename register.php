@@ -47,7 +47,7 @@ if (isset($_POST['submit']))
     array_push($page['errors'], 'Invalid/expired form key');
   }
 
-  if ($_POST['password'] != $_POST['password_conf'])
+  if ($_POST['password'] != $_POST['password_conf'] or empty($_POST['password']))
   {
     array_push($page['errors'], l10n('please enter your password again'));
   }
