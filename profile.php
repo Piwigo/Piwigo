@@ -133,7 +133,7 @@ function save_profile_from_post($userdata, &$errors)
 
     // periods must be integer values, they represents number of days
     if (!preg_match($int_pattern, $_POST['recent_period'])
-        or $_POST['recent_period'] <= 0)
+        or $_POST['recent_period'] < 0)
     {
       $errors[] = l10n('Recent period must be a positive integer value') ;
     }
