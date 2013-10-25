@@ -556,12 +556,19 @@ DELETE FROM ' . PLUGINS_TABLE . ' WHERE id=\'' . $plugin_id . '\'';
   function plugin_version_compare($a, $b)
   {
     if (strtolower($a) == 'auto') return false;
-
-    $pattern = array('/([a-z])/ei', '/\.+/', '/\.\Z|\A\./');
-    $replacement = array( "'.'.intval('\\1', 36).'.'", '.', '');
-
-    $array = preg_replace($pattern, $replacement, array($a, $b));
-
+    
+    $array = preg_replace(
+      array('/\.+/', '/\.\Z|\A\./'),
+      array('.', ''),
+      array($a, $b)
+      );
+      
+    $array = preg_replace_callback(
+      '/([a-z])/i',
+      create_function('$m', 'return intval($m[1], 36);'),
+      $array
+      );
+    
     return version_compare($array[0], $array[1], '>=');
   }
 
