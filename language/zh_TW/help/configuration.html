@@ -1,0 +1,107 @@
+<h2>配置</h2>
+
+<p>這個畫面讓管理員做基本畫廊配置。事實上，這個畫面只顯示簡單的配置參數，對於絕大多數的管理員，應該是足夠的。如果你想看到其他眾多（高級）配置參數，讀取默認的配置文件 
+<span class="filename">include/config_default.inc.php</span>.</p>
+
+<p>畫面分成不同的部分，按主題分組來配置參數。</p>
+
+
+<h3>主要</h3>
+<ul>
+  <li><strong>圖庫標題</strong>: 通過電子郵件，使用RSS訂閱和通知。</li>
+
+  <li><strong>網頁橫幅</strong>: 顯示每個公共頁面頂部。</li>
+
+  <li><strong>圖庫網址</strong>: 用於RSS提要。</li>
+
+  <li><strong>鎖定圖庫</strong>: 鎖定整個圖庫來維護。只有管​​理員組的用戶將能夠到達圖庫。</li>
+
+  <li><strong>評分</strong>: 照片評分功能被啟用。</li>
+
+  <li><strong>客人也可評分</strong>: 即使是未註冊的用戶，也能評分圖片。</li>
+
+  <li><strong>允許用戶註冊</strong>: 任何人都可以註冊。</li>
+
+  <li><strong>強制所有用戶留下郵件地址</strong>: 除了管理員以外，所有用戶登記或更新資料時，將檢查郵件地址。</li>
+
+  <li><strong>當一個新用戶註冊用電子郵件通知管理員</strong>: 每個註冊都將用郵件通知管理員。</li>
+  
+  <li><strong>默認照片順序</strong>: 你可以將下拉菜單定義個人化的順序</li>
+
+</ul>
+
+<h3>歷史</h3>
+
+  <p>頁面的訪客 <span
+  class="pwgScreen">category.php</span> 和 <span
+  class="pwgScreen">picture.php</span> 將被保存在在 <code>history</code> 表。</p>
+  
+  <p>訪客將顯示在 <span  class="pwgScreen">管理 &raquo; 工具 &raquo; 歷史</span>.</p>
+
+<ul>
+  <li><strong>保存訪客的訪問頁面 </strong>: 訪客的訪問頁面將會被記錄</li>
+
+  <li><strong>保存用戶的訪問頁面 </strong>: 用戶的訪問頁面將會被記錄</li>
+
+  <li><strong>保存管理員的訪問頁面 </strong>: 管理員的訪問頁面將會被記錄</li>
+
+</ul>
+
+<h3>評論</h3>
+<ul>
+
+  <li><strong>所有人都可評論</strong>: 即使是未登記的訪客也可以發表評論</li>
+
+  <li><strong>每頁的意見數</strong>.</li>
+
+  <li><strong>驗證</strong>: 管理員必須驗證用戶的評論，才能在網站上看到。用戶評論驗證發生在畫面 
+<span class="pwgScreen">管理 &raquo; 工具 &raquo; 掛起的評論</span>.</li>
+
+  <li><strong>當輸入一個有效的評論，用電子郵件通知管理員</strong>: 當用戶輸入一個有效的評論，發送電子郵件給管理員。</li>
+
+  <li><strong>當評論需要審核，用電子郵件通知管理員</strong>:
+發送電子郵件給管理員，當用戶輸入的評論需要由管理員驗證。用戶評論驗證發生在畫面
+<span class="pwgScreen">管理 &raquo; 工具 &raquo; 掛起的評論</span>.</li>
+
+</ul>
+
+<h3>默認顯示</h3>
+
+<p>
+在這裡，你可以改變訪客使用的顯示選項，默認用戶是沒有連接的。
+一旦連接成功，這些選項是由用戶自己選擇覆蓋。
+(修改中的 <span class="pwgScreen">配置</span>).</p>
+
+<p>
+這可能改變所有現有用戶的顯示選項，在<span class="pwgScreen">管理 &raquo; 用戶 &raquo; 管理</span>
+ 畫面，在那裡你可以選擇一個用戶列表。</p>
+
+<ul>
+
+  <li><strong>語言</strong>: 只應用在Piwigo的標籤、相冊名稱、相片名稱，和所有沒有本地化的描述欄位</li>
+
+  <li><strong>每行的照片數</strong></li>
+
+  <li><strong>每頁的行數</strong></li>
+
+  <li><strong>界面主題</strong></li>
+
+  <li><strong>最近一段時期</strong>: 按天數。顯示此期間的新照片。必須大於1天。</li>
+
+  <li><strong>展開所有的相冊</strong>: 默認情況下，在菜單中展開所有的相冊
+  <em>警告</em>: ​​此選項在資源密集時，比如你的相冊集中包含多本相冊時，可能會產生巨大的菜單。</li>
+
+  <li><strong>顯示評論數</strong>: 每張照片縮略圖頁面上，顯示評論的數量。資源密集型的。</li>
+
+  <li><strong>顯示點擊數</strong>:
+ 在縮略圖頁面上的縮略圖照片中，顯示點擊數。
+ 只有當進階的配置參數是: <br>
+ $conf['show_nb_hits'] = true; <br>
+ 注意：默認為不顯示</li>
+
+  <li><strong>照片的最大寬度</strong>: 最大顯示寬度。 照片大於這個設置，顯示時將被調整。
+ 如果不選擇此項,你可能會考慮修改照片的寬度，這將是一個更好的做法。</li>
+
+  <li><strong>照片的最大高度</strong>: 設置為與最大寬度相同。</li>
+
+</ul>
