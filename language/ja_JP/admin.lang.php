@@ -223,7 +223,6 @@ $lang['Prepared time for list of users to send mail is limited. Others users are
 $lang['Time to send mail is limited. Others mails are skipped.'] = 'メール送信時間が制限されています。他のメールはスキップされます。';
 $lang['To send ?'] = '送信?';
 $lang['Last send'] = '最終送信';
-$lang['Email'] = 'メール';
 $lang['User'] = 'ユーザ';
 $lang['See you soon,'] = 'それでは ';
 $lang['Go to'] = '移動 ';
@@ -890,4 +889,7 @@ $lang['Duplicate selected tags'] = '選択したタグを複製します';
 $lang['Apply watermark if height is bigger than'] = 'これ以上の高さの際にウォーターマークを付ける';
 $lang['Apply watermark if width is bigger than'] = 'これ以上の幅の際にウォーターマークを付ける';
 $lang['Adobe Photoshop Lightroom is a photography software designed to manage large quantities of digital images and doing post production work.'] = 'Adobe Photoshop Lightroomは、大量のデジタル画像の管理と、撮影後の仕事のために設計されて写真用ソフトウェアです。';
+$lang['Permission granted for groups'] = 'グループ権限';
+$lang['Panorama'] = 'パノラマ';
+$lang['Number of albums per page'] = '１ページ当りのアルバム数';
 ?>
