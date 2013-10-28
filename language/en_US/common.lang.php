@@ -33,7 +33,7 @@ $lang_info['country'] = "United States";
 $lang_info['direction'] = "ltr";
 $lang_info['code'] = "en";
 $lang_info['zero_plural'] = true;
-$lang_info['parent']= "en_US";
+$lang_info['parent']= "en_UK";
 
 
 ?>
