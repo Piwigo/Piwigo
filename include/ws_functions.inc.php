@@ -3448,14 +3448,70 @@ function ws_users_getList($params, &$service)
     $where_clauses[] = 'ug.group_id IN('. implode(',', $params['group_id']) .')';
   }
   
+  $display = array('u.'.$conf['user_fields']['id'] => 'id');
+  
+  if ($params['display'] != 'none')
+  {
+    $params['display'] = explode(',', $params['display']);
+    
+    if (in_array('all', $params['display']))
+    {
+      $params['display'] = array_merge($params['display'], array(
+        'username','email','status','level','groups','language','theme',
+        'nb_image_page','recent_period','expand','show_nb_comments','show_nb_hits',
+        'enabled_high',
+        ));
+    }
+    else if (in_array('basics', $params['display']))
+    {
+      $params['display'] = array_merge($params['display'], array(
+        'username','email','status','level','groups',
+        ));
+    }
+    
+    if (in_array('username', $params['display']))
+    {
+      $display['u.'.$conf['user_fields']['username']] = 'username';
+    }
+    if (in_array('email', $params['display']))
+    {
+      $display['u.'.$conf['user_fields']['email']] = 'email';
+    }
+    
+    $ui_fields = array(
+      'status','level','language','theme','nb_image_page','recent_period','expand',
+      'show_nb_comments','show_nb_hits','enabled_high',
+      );
+    foreach ($ui_fields as $field)
+    {
+      if (in_array($field, $params['display']))
+      {
+        $display['ui.'.$field] = $field;
+      }
+    }
+  }
+  else
+  {
+    $params['display'] = array();
+  }
+
   $query = '
-SELECT DISTINCT
-    u.'.$conf['user_fields']['id'].' AS id,
-    u.'.$conf['user_fields']['username'].' AS username,
-    u.'.$conf['user_fields']['email'].' AS email,
-    ui.status,
-    ui.level,
-    "" AS groups
+SELECT DISTINCT ';
+
+  $first = true;
+  foreach ($display as $field => $name)
+  {
+    if (!$first) $query.= ', ';
+    else $first = false;
+    $query.= $field .' AS '. $name;
+  }
+  if (in_array('groups', $params['display']))
+  {
+    if (!$first) $query.= ', ';
+    $query.= '"" AS groups';
+  }
+  
+  $query.= '
   FROM '.USERS_TABLE.' AS u
     INNER JOIN '.USER_INFOS_TABLE.' AS ui
       ON u.'.$conf['user_fields']['id'].' = ui.user_id
@@ -3470,7 +3526,7 @@ SELECT DISTINCT
 
   $users = hash_from_query($query, 'id');
   
-  if (count($users) > 0)
+  if ( count($users) > 0 and in_array('groups', $params['display']) )
   {
     $query = '
 SELECT user_id, group_id
@@ -3618,7 +3674,7 @@ function ws_users_setInfo($params, &$service)
     {
       return new PwgError(403, 'Only webmasters can grant "webmaster" status');
     }
-    if ( !in_array($params['status'], array('generic','normal','admin','webmaster')) )
+    if ( !in_array($params['status'], array('guest','generic','normal','admin','webmaster')) )
     {
       return new PwgError(WS_ERR_INVALID_PARAM, 'Invalid status');
     }
@@ -3732,7 +3788,10 @@ UPDATE '. USER_INFOS_TABLE .' SET ';
     pwg_query($query);
   }
 
-  return $service->invoke('pwg.users.getList', array('user_id' => $params['user_id']));
+  return $service->invoke('pwg.users.getList', array(
+    'user_id' => $params['user_id'],
+    'display' => 'basics,'.implode(',', array_keys($updates_infos)),
+    ));
 }
 
 ?>

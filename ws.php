@@ -811,8 +811,11 @@ function ws_addDefaultMethods( $arr )
                               'type'=>WS_TYPE_INT|WS_TYPE_POSITIVE),
         'order' =>      array('default'=>'id',
                               'info'=>'id, username, level, email'),
+        'display' =>    array('default'=>'basics',
+                              'info'=>'all,basics,none,username,email,status,level,groups,language,theme,nb_image_page,recent_period,expand,show_nb_comments,show_nb_hits,enabled_high'),
         ),
-      '<b>Admin only.</b> Retrieves a list of all the users.',
+      '<b>Admin only.</b> Retrieves a list of all the users.
+<br>"display" controls which data are returned, "basics" stands for "username,email,status,level,groups"',
       null,
       array('admin_only'=>true)
     );
@@ -852,7 +855,7 @@ function ws_addDefaultMethods( $arr )
         'password' =>         array('flags'=>WS_PARAM_OPTIONAL),
         'email' =>            array('flags'=>WS_PARAM_OPTIONAL),
         'status' =>           array('flags'=>WS_PARAM_OPTIONAL,
-                                    'info'=>'generic,normal,admin'),
+                                    'info'=>'guest,generic,normal,admin,webmaster'),
         'level'=>             array('flags'=>WS_PARAM_OPTIONAL,
                                     'maxValue'=>max($conf['available_permission_levels']),
                                     'type'=>WS_TYPE_INT|WS_TYPE_POSITIVE),
