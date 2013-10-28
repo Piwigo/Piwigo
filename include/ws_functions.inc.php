@@ -3310,7 +3310,7 @@ SELECT COUNT(*)
     $updates['name'] = $params['name'];
   }
   
-  if ($params['is_default'] !== null)
+  if (!empty($params['is_default']) or @$params['is_default']===false)
   {
     $updates['is_default'] = boolean_to_string($params['is_default']);
   }
@@ -3528,10 +3528,15 @@ function ws_users_delete($params, &$service)
   include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
   
   // protect some users
-  $params['user_id'] = array_diff($params['user_id'], array($user['id'],
-                                                        $conf['guest_id'],
-                                                        $conf['default_user_id'],
-                                                        $conf['webmaster_id']));
+  $params['user_id'] = array_diff(
+    $params['user_id'],
+    array(
+      $user['id'],
+      $conf['guest_id'],
+      $conf['default_user_id'],
+      $conf['webmaster_id'],
+      )
+    );
   
   foreach ($params['user_id'] as $user_id)
   {
@@ -3547,10 +3552,20 @@ function ws_users_delete($params, &$service)
 /**
  * API method
  * @param mixed[] $params
- *    @option int user_id
+ *    @option int[] user_id
  *    @option string username (optional)
  *    @option string password (optional)
  *    @option string email (optional)
+ *    @option string status (optional)
+ *    @option int level (optional)
+ *    @option string language (optional)
+ *    @option string theme (optional)
+ *    @option int nb_image_page (optional)
+ *    @option int recent_period (optional)
+ *    @option bool expand (optional)
+ *    @option bool show_nb_comments (optional)
+ *    @option bool show_nb_hits (optional)
+ *    @option bool enabled_high (optional)
  */
 function ws_users_setInfo($params, &$service)
 {
@@ -3558,40 +3573,43 @@ function ws_users_setInfo($params, &$service)
   
   include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
   
-  if (get_username($params['user_id']) === false)
-  {
-    return new PwgError(WS_ERR_INVALID_PARAM, 'This user does not exist.');
-  }
-  
   $updates = $updates_infos = array();
-  $params = array_map('trim', $params);
+  $update_status = null;
   
-  if (!empty($params['username']))
+  if (count($params['user_id']) == 1)
   {
-    $user_id = get_userid($params['username']);
-    if ($user_id and $user_id != $params['user_id'])
+    if (get_username($params['user_id'][0]) === false)
     {
-      return new PwgError(WS_ERR_INVALID_PARAM, l10n('this login is already used'));
+      return new PwgError(WS_ERR_INVALID_PARAM, 'This user does not exist.');
     }
-    if ($params['username'] != strip_tags($params['username']))
+    
+    if (!empty($params['username']))
     {
-      return new PwgError(WS_ERR_INVALID_PARAM, l10n('html tags are not allowed in login'));
+      $user_id = get_userid($params['username']);
+      if ($user_id and $user_id != $params['user_id'][0])
+      {
+        return new PwgError(WS_ERR_INVALID_PARAM, l10n('this login is already used'));
+      }
+      if ($params['username'] != strip_tags($params['username']))
+      {
+        return new PwgError(WS_ERR_INVALID_PARAM, l10n('html tags are not allowed in login'));
+      }
+      $updates[ $conf['user_fields']['username'] ] = $params['username'];
     }
-    $updates[ $conf['user_fields']['username'] ] = $params['username'];
-  }
-  
-  if (!empty($params['email']))
-  {
-    if ( ($error = validate_mail_address($params['user_id'], $params['email'])) != '')
+    
+    if (!empty($params['email']))
     {
-      return new PwgError(WS_ERR_INVALID_PARAM, $error);
+      if ( ($error = validate_mail_address($params['user_id'][0], $params['email'])) != '')
+      {
+        return new PwgError(WS_ERR_INVALID_PARAM, $error);
+      }
+      $updates[ $conf['user_fields']['email'] ] = $params['email'];
     }
-    $updates[ $conf['user_fields']['email'] ] = $params['email'];
-  }
-  
-  if (!empty($params['password']))
-  {
-    $updates[ $conf['user_fields']['password'] ] = $conf['password_hash']($params['password']);
+    
+    if (!empty($params['password']))
+    {
+      $updates[ $conf['user_fields']['password'] ] = $conf['password_hash']($params['password']);
+    }
   }
   
   if (!empty($params['status']))
@@ -3600,18 +3618,28 @@ function ws_users_setInfo($params, &$service)
     {
       return new PwgError(403, 'Only webmasters can grant "webmaster" status');
     }
-    if ( $user['id'] == $params['user_id'] )
+    if ( !in_array($params['status'], array('generic','normal','admin','webmaster')) )
     {
-      $params['status'] = $user['status'];
+      return new PwgError(WS_ERR_INVALID_PARAM, 'Invalid status');
     }
-    if ( $conf['guest_id'] == $params['user_id'] )
-    {
-      $params['status'] = 'guest';
-    }
-    $updates_infos['status'] = $params['status'];
+    
+    /*
+     * status update query is separated from the rest as not applying to the same
+     * set of users (current, guest and webmaster can't be changed)
+     */
+    $params['user_id_for_status'] = array_diff(
+      $params['user_id'],
+      array(
+        $user['id'],
+        $conf['guest_id'],
+        $conf['webmaster_id'],
+        )
+      );
+    
+    $update_status = $params['status'];
   }
   
-  if ($params['level'] !== null)
+  if (!empty($params['level']) or @$params['level']===0)
   {
     if ( !in_array($params['level'], $conf['available_permission_levels']) )
     {
@@ -3620,17 +3648,89 @@ function ws_users_setInfo($params, &$service)
     $updates_infos['level'] = $params['level'];
   }
   
+  if (!empty($params['language']))
+  {
+    if ( !in_array($params['language'], array_keys(get_languages())) )
+    {
+      return new PwgError(WS_ERR_INVALID_PARAM, 'Invalid language');
+    }
+    $updates_infos['language'] = $params['language'];
+  }
+  
+  if (!empty($params['theme']))
+  {
+    if ( !in_array($params['theme'], array_keys(get_pwg_themes())) )
+    {
+      return new PwgError(WS_ERR_INVALID_PARAM, 'Invalid theme');
+    }
+    $updates_infos['theme'] = $params['theme'];
+  }
+  
+  if (!empty($params['nb_image_page']))
+  {
+    $updates_infos['nb_image_page'] = $params['nb_image_page'];
+  }
+  
+  if (!empty($params['recent_period']) or @$params['recent_period']===0)
+  {
+    $updates_infos['recent_period'] = $params['recent_period'];
+  }
+  
+  if (!empty($params['expand']) or @$params['expand']===false)
+  {
+    $updates_infos['expand'] = boolean_to_string($params['expand']);
+  }
+  
+  if (!empty($params['show_nb_comments']) or @$params['show_nb_comments']===false)
+  {
+    $updates_infos['show_nb_comments'] = boolean_to_string($params['show_nb_comments']);
+  }
+  
+  if (!empty($params['show_nb_hits']) or @$params['show_nb_hits']===false)
+  {
+    $updates_infos['show_nb_hits'] = boolean_to_string($params['show_nb_hits']);
+  }
+  
+  if (!empty($params['enabled_high']) or @$params['enabled_high']===false)
+  {
+    $updates_infos['enabled_high'] = boolean_to_string($params['enabled_high']);
+  }
+  
+  // perform updates
   single_update(
     USERS_TABLE,
     $updates,
-    array($conf['user_fields']['id'] => $params['user_id'])
+    array($conf['user_fields']['id'] => $params['user_id'][0])
     );
     
-  single_update(
-    USER_INFOS_TABLE,
-    $updates_infos,
-    array('user_id' => $params['user_id'])
-    );
+  if (isset($update_status) and count($params['user_id_for_status']) > 0)
+  {
+    $query = '
+UPDATE '. USER_INFOS_TABLE .' SET
+    status = "'. $update_status .'"
+  WHERE user_id IN('. implode(',', $params['user_id_for_status']) .')
+;';
+    pwg_query($query);
+  }
+  
+  if (count($updates_infos) > 0)
+  {
+    $query = '
+UPDATE '. USER_INFOS_TABLE .' SET ';
+
+    $first = true;
+    foreach ($updates_infos as $field => $value)
+    {
+      if (!$first) $query.= ', ';
+      else $first = false;
+      $query.= $field .' = "'. $value .'"';
+    }
+    
+    $query.= '
+  WHERE user_id IN('. implode(',', $params['user_id']) .')
+;';
+    pwg_query($query);
+  }
 
   return $service->invoke('pwg.users.getList', array('user_id' => $params['user_id']));
 }
