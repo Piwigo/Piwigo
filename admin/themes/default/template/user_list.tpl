@@ -166,7 +166,7 @@ jQuery(document).ready(function() {
 
   jQuery("#applyAction").click(function() {
     var action = jQuery("select[name=selectAction]").prop("value");
-    var method = null;
+    var method = 'pwg.users.setInfo';
     var data = {
       user_id: selection
     };
@@ -187,6 +187,39 @@ jQuery(document).ready(function() {
         method = 'pwg.groups.deleteUser';
         data.group_id = jQuery("select[name=dissociate]").prop("value");
         break;
+      case 'status':
+        data.status = jQuery("select[name=status]").prop("value");
+        break;
+      case 'enabled_high':
+        data.enabled_high = jQuery("input[name=enabled_high]:checked").val();
+        break;
+      case 'level':
+        data.level = jQuery("select[name=level]").val();
+        break;
+      case 'nb_image_page':
+        data.nb_image_page = jQuery("input[name=nb_image_page]").val();
+        break;
+      case 'theme':
+        data.theme = jQuery("select[name=theme]").val();
+        break;
+      case 'language':
+        data.language = jQuery("select[name=language]").val();
+        break;
+      case 'recent_period':
+        data.recent_period = jQuery("input[name=recent_period]").val();
+        break;
+      case 'expand':
+        data.expand = jQuery("input[name=expand]:checked").val();
+        break;
+      case 'show_nb_comments':
+        data.show_nb_comments = jQuery("input[name=show_nb_comments]:checked").val();
+        break;
+      case 'show_nb_hits':
+        data.show_nb_hits = jQuery("input[name=show_nb_hits]:checked").val();
+        break;
+      default:
+        alert("Unexpected action");
+        return false;
     }
 
     jQuery.ajax({
@@ -331,7 +364,7 @@ table.dataTable {clear:right;padding-top:10px;}
     {* enabled_high *}
     <div id="action_enabled_high" class="bulkAction">
       <label><input type="radio" name="enabled_high" value="true">{'Yes'|@translate}</label>
-      <label><input type="radio" name="enabled_high" value="false">{'No'|@translate}</label>
+      <label><input type="radio" name="enabled_high" value="false" checked="checked">{'No'|@translate}</label>
     </div>
 
     {* level *}
@@ -368,19 +401,19 @@ table.dataTable {clear:right;padding-top:10px;}
     {* expand *}
     <div id="action_expand" class="bulkAction">
       <label><input type="radio" name="expand" value="true">{'Yes'|@translate}</label>
-      <label><input type="radio" name="expand" value="false">{'No'|@translate}</label>
+      <label><input type="radio" name="expand" value="false" checked="checked">{'No'|@translate}</label>
     </div>
 
     {* show_nb_comments *}
     <div id="action_show_nb_comments" class="bulkAction">
       <label><input type="radio" name="show_nb_comments" value="true">{'Yes'|@translate}</label>
-      <label><input type="radio" name="show_nb_comments" value="false">{'No'|@translate}</label>
+      <label><input type="radio" name="show_nb_comments" value="false" checked="checked">{'No'|@translate}</label>
     </div>
 
     {* show_nb_hits *}
     <div id="action_show_nb_hits" class="bulkAction">
       <label><input type="radio" name="show_nb_hits" value="true">{'Yes'|@translate}</label>
-      <label><input type="radio" name="show_nb_hits" value="false">{'No'|@translate}</label>
+      <label><input type="radio" name="show_nb_hits" value="false" checked="checked">{'No'|@translate}</label>
     </div>
 
     <p id="applyActionBlock" style="display:none" class="actionButtons">
