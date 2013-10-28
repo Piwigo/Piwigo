@@ -1,0 +1,71 @@
+<h2>模板擴展配置</h2>
+
+<h3>關於</h3>
+<p>
+可以自定義你的Piwigo畫​​廊，用定制的版本取代現有的模板文件。
+例如，默認的的標頭模板（header.tpl）可以用定制標頭模板（my-header.tpl）取代。提交更改到數據庫後，畫廊將展示定制的標頭 - 而不是原來的標頭。<br>
+模板擴展是一種強大的方式，來創建新及先進的用戶自定義主題。與LocalFiles編輯器一起使用，你可以創建自己的子主題。</p>
+
+<h3>原始模板</h3>
+<p>主題包含了一些模板文件，來增強畫廊頁。這些是原始模板。</p>
+
+<h3>選擇性的URL關鍵字</h3>
+<p>在畫廊網址的模塊名稱後，發現關鍵字的話。它們也可以是活躍的永久鏈接（參考永久鏈接的文檔，了解更多信息）。
+<a href="#warnings">警告：</a>
+如果​​相同的原始模板，並使用相同的關鍵字在一個以上的自定義模板，只有最後一個是活躍的。</p>
+
+<h3>綁定主題</h3>
+<p>綁定主題是主題的模板文件被替換。</p>
+
+<h3>原始模板在哪裡？</h3>
+<p>原始模板隨每個主題的模板文件。
+這些被保存在<em>/themes/default/template</em> (或 <em>themes/<theme name>/template</em>)。
+這些模板文件不應該被編輯，更改將會失去主題的升級。<br>
+支持的原始模板包括：</p>
+
+<ul>
+  <li><span class="filename">index.tpl</span></li>
+  <li><span class="filename">mainpage_categories.tpl</span> 和/或 <span class="filename">thumbnails.tpl</span></li>
+  <li><span class="filename">menubar.tpl</span></li>
+  <li><span class="filename">header.tpl</span> 和/或 <span class="filename">footer.tpl</span></li>
+  <li><span class="filename">picture_content.tpl</span> 和/或 <span class="filename">picture.tpl</span></li>
+  <!-- <li><span class="filename">slideshow.tpl</span></li> -->
+  <li><span class="filename">profile.tpl</span> 和/或 <span class="filename">profile_content.tpl</span></li>
+  <li><span class="filename">tags.tpl</span></li>
+  <li><span class="filename">upload.tpl</span></li>
+  <li><span class="filename">about.tpl</span></li>
+  <li><span class="filename">popuphelp.tpl</span></li>
+  <li><span class="filename">search.tpl</span> 和/或 <span class="filename">search_rules.tpl</span></li>
+  <li><span class="filename">nbm.tpl</span> 和/或 <span class="filename">notification.tpl</span></li>
+  <li><span class="filename">identification.tpl</span> 和/或 <span class="filename">register.tpl</span></li>
+  <li><span class="filename">redirect.tpl</span></li>
+</ul>
+
+<h3>保存自定義模板</h3>
+<p>
+定制模板應保存在模板的擴展文件夾或子文件夾。
+例如，<em>/template-extension/my-default/header.tpl</em> (或 <em>/template-extension/<my-theme-name>/header.tpl</em>)
+模板文件可以使用任何名稱，與.tpl的副檔名。
+子文件夾中的模板文件，會顯示在模板配置屏幕中，可用的自定義模板。</p>
+
+<h3>激活定制模板</h3>
+<p>
+選擇要取代的原來模板。
+選擇一個URL關鍵字，以確保定制的模板，只顯示在該關鍵字的頁面上。
+選擇綁定的主題，該主題的變化將是有效的。
+提交更改到數據庫中。</p>
+
+<h3>停用定制模板</h3>
+<p>取消選擇原始模板，並提交改變到數據庫。<br>
+在模板的擴展文件夾中，刪除自定義模板文件。</p>
+
+<a name="warnings"></a>
+<h3>警告</h3>
+<ul>
+  <li><strong>原始模板</strong> >必須是原始模板，否則你可能會產生不可預知的結果。</li>
+  <li>如果不止一個定制模板，使用相同的原始模板，和相同的URL關鍵字，只有最後一個是活躍的。</li>
+  <li>分佈式樣本模板文件，僅用於測試目的。不能編輯它們。創建你自己的或複製現有的主題模板文件 <em>/template-extension/<my-theme>/</em></li>
+  <li>當定制模板被刪除，原來的模板文件將立即激活。</li>
+</ul>
+
+ 
