@@ -808,7 +808,9 @@ if (isset($picture['current']['comment'])
   $template->assign(
       'COMMENT_IMG',
         trigger_event('render_element_description',
-          $picture['current']['comment'])
+          $picture['current']['comment'],
+          'picture_page_element_description'
+          )
       );
 }
 

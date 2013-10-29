@@ -111,7 +111,7 @@ foreach ($pictures as $row)
   }
 
   $name = render_element_name($row);
-  $desc = render_element_description($row);
+  $desc = render_element_description($row, 'main_page_element_description');
 
   $tpl_var = array_merge( $row, array(
     'TN_ALT' => htmlspecialchars(strip_tags($name)),

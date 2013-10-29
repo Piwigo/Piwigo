@@ -543,12 +543,12 @@ function render_element_name($info)
   return get_name_from_file($info['file']);
 }
 
-function render_element_description($info)
+function render_element_description($info, $param='')
 {
   $comment = $info['comment'];
   if (!empty($comment))
   {
-    $comment = trigger_event('render_element_description', $comment);
+    $comment = trigger_event('render_element_description', $comment, $param);
     return $comment;
   }
   return '';

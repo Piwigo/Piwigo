@@ -672,8 +672,8 @@ array(
 array(
   'name' => 'render_element_description',
   'type' => 'trigger_event',
-  'vars' => array('string', 'element_secription'),
-  'files' => array('picture.php'),
+  'vars' => array('string', 'element_description', 'string', 'action'),
+  'files' => array('picture.php', 'include\functions_html.inc.php (render_element_description)'),
 ),
 array(
   'name' => 'render_lost_password_mail_content',
