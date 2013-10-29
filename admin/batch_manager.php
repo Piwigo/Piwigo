@@ -277,7 +277,7 @@ SELECT file
     $query = '
 SELECT id
   FROM '.IMAGES_TABLE.'
-  WHERE file IN (\''.implode("','", $duplicate_files).'\')
+  WHERE file IN (\''.implode("','", array_map('pwg_db_real_escape_string', $duplicate_files)).'\')
 ;';
     $filter_sets[] = array_from_query($query, 'id');
     
