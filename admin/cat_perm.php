@@ -98,42 +98,11 @@ DELETE
       {
         $cat_ids = array_merge($cat_ids, get_subcat_ids(array($page['cat'])));
       }
-
-      $query = '
-SELECT id
-  FROM '.CATEGORIES_TABLE.'
-  WHERE id IN ('.implode(',', $cat_ids).')
-    AND status = \'private\'
-;';
-      $private_cats = array_from_query($query, 'id');
-
-      // We must not reinsert already existing lines in group_access table
-      $granteds = array();
-      foreach ($private_cats as $cat_id)
-      {
-        $granteds[$cat_id] = array();
-      }
-
-      $query = '
-SELECT
-    group_id,
-    cat_id
-  FROM '.GROUP_ACCESS_TABLE.'
-  WHERE cat_id IN ('.implode(',', $private_cats).')
-    AND group_id IN ('.implode(',', $grant_groups).')
-;';
-      $result = pwg_query($query);
-      while ($row = pwg_db_fetch_assoc($result))
-      {
-        $granteds[ $row['cat_id'] ][] = $row['group_id'];
-      }
-
-      $inserts = array();
       
-      foreach ($private_cats as $cat_id)
+      $inserts = array();
+      foreach ($cat_ids as $cat_id)
       {
-        $group_ids = array_diff($grant_groups, $granteds[$cat_id]);
-        foreach ($group_ids as $group_id)
+        foreach ($grant_groups as $group_id)
         {
           $inserts[] = array(
             'group_id' => $group_id,
@@ -141,8 +110,13 @@ SELECT
             );
         }
       }
-
-      mass_inserts(GROUP_ACCESS_TABLE, array('group_id','cat_id'), $inserts);
+      
+      mass_inserts(
+        GROUP_ACCESS_TABLE,
+        array('group_id','cat_id'),
+        $inserts,
+        array('ignore'=>true)
+        );
     }
 
     //
