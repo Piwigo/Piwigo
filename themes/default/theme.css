@@ -140,13 +140,12 @@
 	margin: 5px 5px 0 0;
 }
 
-.calItem, .calItemEmpty {
+.calItem {
 	font-weight: bold;
 	margin: 0 1px;
+	padding: 0 1px;
 	border: 1px solid gray;
 }
-
-.calItem A { text-decoration:none }
 
 .calendarCalBar {
 	margin: 10px;
@@ -664,7 +663,7 @@ IMG.ui-datepicker-trigger {
  */
 
  /* So that non-links are slightly greyed out */
-.content .navigationBar, .calItemEmpty, TD.calDayCellEmpty {
+.content .navigationBar, SPAN.calItem, TD.calDayCellEmpty {
 	color: #b0b0b0;
 }
 

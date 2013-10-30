@@ -72,7 +72,7 @@ A.navThumb, A.navThumb:hover {
 }
 
 /*calendar elements*/
-.calItem, .calItemEmpty
+.calItem
 {
   border: 1px solid silver;
 }

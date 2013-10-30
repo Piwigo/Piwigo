@@ -11,13 +11,11 @@
 		&nbsp;
 	{else}
 		{foreach from=$bar.items item=item}
-		<span class="calItem{if !isset($item.URL)}Empty{/if}"{if isset($item.NB_IMAGES)} title="{$item.NB_IMAGES|@translate_dec:'%d photo':'%d photos'}"{/if}>
-		{if isset($item.URL)}
-		<a href="{$item.URL}">{$item.LABEL}</a>
+		{if !isset($item.URL)}
+		<span class="calItem">{$item.LABEL}</span>
 		{else}
-		{$item.LABEL}
+		<a class="calItem"{if isset($item.NB_IMAGES)} title="{$item.NB_IMAGES|@translate_dec:'%d photo':'%d photos'}"{/if} href="{$item.URL}">{$item.LABEL}</a>
 		{/if}
-		</span>
 		{/foreach}
 	{/if}
 </div>

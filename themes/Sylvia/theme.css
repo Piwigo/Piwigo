@@ -318,7 +318,7 @@
 	margin:0 5px; 
 	padding:2px 5px 0 8px;
 }
-.calItemEmpty, td.calDayCellEmpty, td.calDayCellFull {
+SPAN.calItem, td.calDayCellEmpty, td.calDayCellFull {
 	border:1px solid #666;
 }
 
