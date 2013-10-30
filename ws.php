@@ -882,6 +882,58 @@ function ws_addDefaultMethods( $arr )
       null,
       array('admin_only'=>true, 'post_only'=>true)
     );
+    
+  $service->addMethod(
+      'pwg.permissions.getList',
+      'ws_permissions_getList',
+      array(
+        'cat_id' =>     array('flags'=>WS_PARAM_FORCE_ARRAY|WS_PARAM_OPTIONAL,
+                              'type'=>WS_TYPE_ID),
+        'group_id' =>   array('flags'=>WS_PARAM_FORCE_ARRAY|WS_PARAM_OPTIONAL,
+                              'type'=>WS_TYPE_ID),
+        'user_id' =>    array('flags'=>WS_PARAM_FORCE_ARRAY|WS_PARAM_OPTIONAL,
+                              'type'=>WS_TYPE_ID),
+        ),
+      '<b>Admin only.</b> Returns permissions: user ids and group ids having access to each album ; this list can be filterd with "cat_id".
+<br>If "user_id" OR "group_id" is provided it returns a list of album ids the user or group has access to.
+<br>Provide only on parameter!',
+      null,
+      array('admin_only'=>true)
+    );
+    
+  $service->addMethod(
+      'pwg.permissions.add',
+      'ws_permissions_add',
+      array(
+        'cat_id' =>     array('flags'=>WS_PARAM_FORCE_ARRAY,
+                              'type'=>WS_TYPE_ID),
+        'group_id' =>   array('flags'=>WS_PARAM_FORCE_ARRAY|WS_PARAM_OPTIONAL,
+                              'type'=>WS_TYPE_ID),
+        'user_id' =>    array('flags'=>WS_PARAM_FORCE_ARRAY|WS_PARAM_OPTIONAL,
+                              'type'=>WS_TYPE_ID),
+        'recursive' =>  array('default'=>false,
+                              'type'=>WS_TYPE_BOOL),
+        ),
+      '<b>Admin only.</b> Adds permissions to an album.',
+      null,
+      array('admin_only'=>true)
+    );
+    
+  $service->addMethod(
+      'pwg.permissions.remove',
+      'ws_permissions_remove',
+      array(
+        'cat_id' =>   array('flags'=>WS_PARAM_FORCE_ARRAY,
+                            'type'=>WS_TYPE_ID),
+        'group_id' => array('flags'=>WS_PARAM_FORCE_ARRAY|WS_PARAM_OPTIONAL,
+                            'type'=>WS_TYPE_ID),
+        'user_id' =>  array('flags'=>WS_PARAM_FORCE_ARRAY|WS_PARAM_OPTIONAL,
+                            'type'=>WS_TYPE_ID),
+        ),
+      '<b>Admin & POST only.</b> Removes permissions from an album.',
+      null,
+      array('admin_only'=>true, 'post_only'=>true)
+    );
 }
 
 ?>
