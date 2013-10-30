@@ -894,9 +894,8 @@ function ws_addDefaultMethods( $arr )
         'user_id' =>    array('flags'=>WS_PARAM_FORCE_ARRAY|WS_PARAM_OPTIONAL,
                               'type'=>WS_TYPE_ID),
         ),
-      '<b>Admin only.</b> Returns permissions: user ids and group ids having access to each album ; this list can be filterd with "cat_id".
-<br>If "user_id" OR "group_id" is provided it returns a list of album ids the user or group has access to.
-<br>Provide only on parameter!',
+      '<b>Admin only.</b> Returns permissions: user ids and group ids having access to each album ; this list can be filtered.
+<br>Provide only one parameter!',
       null,
       array('admin_only'=>true)
     );
