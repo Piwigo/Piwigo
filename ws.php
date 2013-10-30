@@ -826,7 +826,9 @@ function ws_addDefaultMethods( $arr )
       array(
         'username' => array(),
         'password' => array('default'=>null),
+        'password_confirm' => array('flags'=>WS_PARAM_OPTIONAL),
         'email' =>    array('default'=>null),
+        'send_password_by_mail' => array('default'=>false, 'type'=>WS_TYPE_BOOL),
         ),
       '<b>Admin & POST only.</b> Registers a new user.',
       null,

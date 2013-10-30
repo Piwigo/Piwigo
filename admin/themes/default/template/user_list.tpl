@@ -8,7 +8,9 @@ var selectedMessage_pattern = "{'%d of %d photos selected'|@translate}";
 var selectedMessage_none = "{'No photo selected, %d photos in current set'|@translate}";
 var selectedMessage_all = "{'All %d photos are selected'|@translate}";
 var applyOnDetails_pattern = "{'on the %d selected users'|@translate}";
+var newUser_pattern = "&#x2714; {'User %s added'|translate}";
 var missingConfirm = "{'You need to confirm deletion'|translate}";
+var missingUsername = "{'Please, enter a login'|translate}";
 
 var allUsers = [{$all_users}];
 var selection = [{$selection}];
@@ -16,6 +18,67 @@ var selection = [{$selection}];
 
 {footer_script}{literal}
 jQuery(document).ready(function() {
+  /**
+   * Add user
+   */
+  jQuery("#addUser").click(function() {
+    jQuery("#addUserForm").toggle();
+    jQuery("#showAddUser .infos").hide();
+    jQuery("input[name=username]").focus();
+    return false;
+  });
+
+  jQuery("#addUserClose").click(function() {
+    jQuery("#addUserForm").hide();
+    return false;
+  });
+
+  jQuery("#addUserForm").submit(function() {
+    jQuery.ajax({
+      url: "ws.php?format=json&method=pwg.users.add",
+      type:"POST",
+      data: jQuery(this).serialize(),
+      beforeSend: function() {
+        jQuery("#addUserForm .errors").hide();
+
+        if (jQuery("input[name=username]").val() == "") {
+          jQuery("#addUserForm .errors").html('&#x2718; '+missingUsername).show();
+          return false;
+        }
+
+        jQuery("#addUserForm .loading").show();
+      },
+      success:function(data) {
+        oTable.fnDraw();
+        jQuery("#addUserForm .loading").hide();
+
+        var data = jQuery.parseJSON(data);
+        if (data.stat == 'ok') {
+          jQuery("#addUserForm input[type=text], #addUserForm input[type=password]").val("");
+
+          var new_user = data.result.users[0];
+          allUsers.push(parseInt(new_user.id));
+          jQuery("#showAddUser .infos").html(sprintf(newUser_pattern, new_user.username)).show();
+          checkSelection();
+
+          jQuery("#addUserForm").hide();
+        }
+        else {
+          jQuery("#addUserForm .errors").html('&#x2718; '+data.message).show();
+        }
+      },
+      error:function(XMLHttpRequest, textStatus, errorThrows) {
+        jQuery("#addUserForm .loading").hide();
+      }
+    });
+
+    return false;
+  });
+
+  /**
+   * Table with users
+   */
+
   /* first column must be prefixed with the open/close icon */
   var aoColumns = [
     {
@@ -264,8 +327,9 @@ jQuery(document).ready(function() {
 .dataTables_wrapper, .dataTables_info {clear:none;}
 table.dataTable {clear:right;padding-top:10px;}
 .bulkAction {margin-top:10px;}
-.actionButtons {margin-left:0;}
-#applyActionBlock .infos {background-image:none; padding:2px 5px; margin:0;border-radius:5px;}
+#addUserForm p {margin-left:0;}
+#applyActionBlock .actionButtons {margin-left:0;}
+span.infos, span.errors {background-image:none; padding:2px 5px; margin:0;border-radius:5px;}
 </style>
 {/literal}
 
@@ -273,19 +337,47 @@ table.dataTable {clear:right;padding-top:10px;}
   <h2>{'User list'|@translate}</h2>
 </div>
 
-<form style="display:none" class="filter" method="post" name="add_user" action="{$F_ADD_ACTION}">
+<p class="showCreateAlbum" id="showAddUser">
+  <a href="#" id="addUser">{'Add a user'|translate}</a>
+  <span class="infos" style="display:none"></span>
+</p>
+
+<form id="addUserForm" style="display:none" method="post" name="add_user" action="{$F_ADD_ACTION}">
   <fieldset>
     <legend>{'Add a user'|@translate}</legend>
-    <label>{'Username'|@translate} <input type="text" name="login" maxlength="50" size="20"></label>
-    {if $Double_Password}
-		<label>{'Password'|@translate} <input type="password" name="password"></label>
-		<label>{'Confirm Password'|@translate} <input type="password" name="password_conf" id="password_conf"></label>
-		{else}
-		<label>{'Password'|@translate} <input type="text" name="password"></label>
-		{/if}
-		<label>{'Email address'|@translate} <input type="text" name="email"></label>
-    <label>{'Send connection settings by email'|@translate} <input type="checkbox" name="send_password_by_mail" value="1" checked="checked"></label>
-    <label>&nbsp; <input class="submit" type="submit" name="submit_add" value="{'Submit'|@translate}"></label>
+
+    <p>
+      <strong>{'Username'|translate}</strong><br>
+      <input type="text" name="username" maxlength="50" size="20">
+    </p>
+
+    <p>
+      <strong>{'Password'|translate}</strong><br>
+      <input type="{if $Double_Password}password{else}text{/if}" name="password">
+    </p>
+    
+{if $Double_Password}
+    <p>
+      <strong>{'Confirm Password'|@translate}</strong><br>
+      <input type="password" name="password_confirm">
+    </p>
+{/if}
+
+    <p>
+      <strong>{'Email address'|@translate}</strong><br>
+      <input type="text" name="email">
+    </p>
+
+    <p>
+      <label><input type="checkbox" name="send_password_by_mail"> <strong>{'Send connection settings by email'|@translate}</strong></label>
+    </p>
+
+    <p class="actionButtons">
+      <input class="submit" name="submit_add" type="submit" value="{'Submit'|@translate}">
+      <a href="#" id="addUserClose">{'Cancel'|@translate}</a>
+      <span class="loading" style="display:none"><img src="themes/default/images/ajax-loader-small.gif"></span>
+      <span class="errors" style="display:none"></span>
+    </p>
   </fieldset>
 </form>
 

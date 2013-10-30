@@ -3561,7 +3561,24 @@ SELECT user_id, group_id
  */
 function ws_users_add($params, &$service)
 {
-  $user_id = register_user($params['username'], $params['password'], $params['email'], false, $errors);
+  global $conf;
+
+  if ($conf['double_password_type_in_admin'])
+  {
+    if ($params['password'] != $params['password_confirm'])
+    {
+      return new PwgError(WS_ERR_INVALID_PARAM, l10n('The passwords do not match'));
+    }
+  }
+
+  $user_id = register_user(
+    $params['username'],
+    $params['password'],
+    $params['email'],
+    false, // notify admin
+    $errors,
+    $params['send_password_by_mail']
+    );
   
   if (!$user_id)
   {

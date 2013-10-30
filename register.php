@@ -60,40 +60,20 @@ if (isset($_POST['submit']))
     $page['errors'][] = l10n('The passwords do not match');
   }
 
-  register_user($_POST['login'],
-                $_POST['password'],
-                $_POST['mail_address'],
-                true,
-                $page['errors']);
+  register_user(
+    $_POST['login'],
+    $_POST['password'],
+    $_POST['mail_address'],
+    true,
+    $page['errors'],
+    isset($_POST['send_password_by_mail'])
+    );
 
   if (count($page['errors']) == 0)
   {
     // email notification
-    if (isset($_POST['send_password_by_mail']) and isset($_POST['mail_address']))
+    if (isset($_POST['send_password_by_mail']) and email_check_format($_POST['mail_address']))
     {
-      include_once(PHPWG_ROOT_PATH.'include/functions_mail.inc.php');
-            
-      $keyargs_content = array(
-        get_l10n_args('Hello %s,', $_POST['login']),
-        get_l10n_args('Thank you for registering at %s!', $conf['gallery_title']),
-        get_l10n_args('', ''),
-        get_l10n_args('Here are your connection settings', ''),
-        get_l10n_args('Username: %s', $_POST['login']),
-        get_l10n_args('Password: %s', $_POST['password']),
-        get_l10n_args('Email: %s', $_POST['mail_address']),
-        get_l10n_args('', ''),
-        get_l10n_args('If you think you\'ve received this email in error, please contact us at %s', get_webmaster_mail_address()),
-        );
-        
-      pwg_mail(
-        $_POST['mail_address'],
-        array(
-          'subject' => '['.$conf['gallery_title'].'] '.l10n('Registration'),
-          'content' => l10n_args($keyargs_content),
-          'content_format' => 'text/plain',
-          )
-        );
-        
       $_SESSION['page_infos'][] = l10n('Successfully registered, you will soon receive an email with your connection settings. Welcome!');
     }
     

@@ -26,6 +26,19 @@
  */
 
 // +-----------------------------------------------------------------------+
+// | tabs                                                                  |
+// +-----------------------------------------------------------------------+
+
+include_once(PHPWG_ROOT_PATH.'admin/include/tabsheet.class.php');
+
+$my_base_url = get_root_url().'admin.php?page=';
+
+$tabsheet = new tabsheet();
+$tabsheet->set_id('users');
+$tabsheet->select('user_list');
+$tabsheet->assign();
+
+// +-----------------------------------------------------------------------+
 // |                              groups list                              |
 // +-----------------------------------------------------------------------+
 
@@ -73,6 +86,7 @@ $template->assign(
   array(
     'users' => $users,
     'all_users' => join(',', $user_ids),
+    'Double_Password' => $conf['double_password_type_in_admin']
     )
   );
 

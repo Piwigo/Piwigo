@@ -61,6 +61,10 @@ function add_core_tabs($sheets, $tab_id)
     case 'comments':
       $sheets[''] = array('caption' => l10n('User comments'), 'url' => '');
       break;
+
+    case 'users':
+      $sheets[''] = array('caption' => '<span class="icon-users"> </span>'.l10n('User list'), 'url' => '');
+      break;
       
     case 'configuration':
       global $conf_link;

@@ -125,12 +125,12 @@ function search_case_username($username)
  * @param string $login
  * @param string $password
  * @param string $mail_adress
- * @param bool $with_notifications
+ * @param bool $notify_admin
  * @param &array $errors
+ * @param bool $notify_user
  * @return int|bool
  */
-function register_user($login, $password, $mail_address,
-  $with_notification = true, &$errors = array())
+function register_user($login, $password, $mail_address, $notify_admin=true, &$errors = array(), $notify_user=false)
 {
   global $conf;
 
@@ -169,24 +169,24 @@ function register_user($login, $password, $mail_address,
     }
   }
 
-  $errors = trigger_event('register_user_check',
-              $errors,
-              array(
-                'username'=>$login,
-                'password'=>$password,
-                'email'=>$mail_address,
-              )
-            );
+  $errors = trigger_event(
+    'register_user_check',
+    $errors,
+    array(
+      'username'=>$login,
+      'password'=>$password,
+      'email'=>$mail_address,
+      )
+    );
 
   // if no error until here, registration of the user
   if (count($errors) == 0)
   {
-    $insert =
-      array(
-        $conf['user_fields']['username'] => pwg_db_real_escape_string($login),
-        $conf['user_fields']['password'] => $conf['password_hash']($password),
-        $conf['user_fields']['email'] => $mail_address
-        );
+    $insert = array(
+      $conf['user_fields']['username'] => pwg_db_real_escape_string($login),
+      $conf['user_fields']['password'] => $conf['password_hash']($password),
+      $conf['user_fields']['email'] => $mail_address
+      );
 
     single_insert(USERS_TABLE, $insert);
     $user_id = pwg_db_insert_id();
@@ -203,9 +203,9 @@ SELECT id
     $inserts = array();
     while ($row = pwg_db_fetch_assoc($result))
     {
-        $inserts[] = array(
-          'user_id' => $user_id,
-          'group_id' => $row['id']
+      $inserts[] = array(
+        'user_id' => $user_id,
+        'group_id' => $row['id']
         );
     }
 
@@ -215,40 +215,66 @@ SELECT id
     }
 
     $override = null;
-    if ($with_notification and $conf['browser_language'])
+    if ($notify_admin and $conf['browser_language'])
     {
-      if ( !get_browser_language($override['language']) )
+      if (!get_browser_language($override['language']))
+      {
         $override=null;
+      }
     }
     create_user_infos($user_id, $override);
 
-    if ($with_notification and $conf['email_admin_on_new_user'])
+    if ($notify_admin and $conf['email_admin_on_new_user'])
     {
       include_once(PHPWG_ROOT_PATH.'include/functions_mail.inc.php');
-      $admin_url = get_absolute_root_url()
-                   .'admin.php?page=user_list&username='.$login;
+      $admin_url = get_absolute_root_url().'admin.php?page=user_list&username='.$login;
 
-      $keyargs_content = array
-      (
+      $keyargs_content = array(
         get_l10n_args('User: %s', stripslashes($login)),
         get_l10n_args('Email: %s', $_POST['mail_address']),
         get_l10n_args('', ''),
         get_l10n_args('Admin: %s', $admin_url)
-      );
+        );
 
-      pwg_mail_notification_admins
-      (
+      pwg_mail_notification_admins(
         get_l10n_args('Registration of %s', stripslashes($login)),
         $keyargs_content
-      );
+        );
     }
 
-    trigger_action('register_user',
+    if ($notify_user and email_check_format($mail_address))
+    {
+      include_once(PHPWG_ROOT_PATH.'include/functions_mail.inc.php');
+            
+      $keyargs_content = array(
+        get_l10n_args('Hello %s,', $login),
+        get_l10n_args('Thank you for registering at %s!', $conf['gallery_title']),
+        get_l10n_args('', ''),
+        get_l10n_args('Here are your connection settings', ''),
+        get_l10n_args('Username: %s', $login),
+        get_l10n_args('Password: %s', $password),
+        get_l10n_args('Email: %s', $mail_address),
+        get_l10n_args('', ''),
+        get_l10n_args('If you think you\'ve received this email in error, please contact us at %s', get_webmaster_mail_address()),
+        );
+        
+      pwg_mail(
+        $mail_address,
+        array(
+          'subject' => '['.$conf['gallery_title'].'] '.l10n('Registration'),
+          'content' => l10n_args($keyargs_content),
+          'content_format' => 'text/plain',
+          )
+        );
+    }
+
+    trigger_action(
+      'register_user',
       array(
         'id'=>$user_id,
         'username'=>$login,
         'email'=>$mail_address,
-       )
+        )
       );
       
     return $user_id;
