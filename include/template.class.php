@@ -487,7 +487,7 @@ class Template {
     }
   }
 
-  private static function get_php_str_val($str)
+  static function get_php_str_val($str)
   {
     if (is_string($str) && strlen($str)>1)
     {
