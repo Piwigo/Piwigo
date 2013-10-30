@@ -892,4 +892,6 @@ $lang['Adobe Photoshop Lightroom is a photography software designed to manage la
 $lang['Permission granted for groups'] = 'グループ権限';
 $lang['Panorama'] = 'パノラマ';
 $lang['Number of albums per page'] = '１ページ当りのアルバム数';
+$lang['Please select at least two groups'] = 'グループを２つ以上選んで下さい。';
+$lang['Permission granted for users'] = 'ユーザー権限';
 ?>
