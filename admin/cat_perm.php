@@ -99,8 +99,16 @@ DELETE
         $cat_ids = array_merge($cat_ids, get_subcat_ids(array($page['cat'])));
       }
       
+      $query = '
+SELECT id
+  FROM '.CATEGORIES_TABLE.'
+  WHERE id IN ('.implode(',', $cat_ids).')
+    AND status = \'private\'
+;';
+      $private_cats = array_from_query($query, 'id');
+      
       $inserts = array();
-      foreach ($cat_ids as $cat_id)
+      foreach ($private_cats as $cat_id)
       {
         foreach ($grant_groups as $group_id)
         {
