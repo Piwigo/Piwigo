@@ -479,7 +479,7 @@ function ws_addDefaultMethods( $arr )
       array(
         'name' =>         array(),
         'parent' =>       array('default'=>null,
-                                'type'=>WS_TYPE_ID),
+                                'type'=>WS_TYPE_INT|WS_TYPE_POSITIVE),
         'comment' =>      array('default'=>null),
         'visible' =>      array('default'=>true,
                                 'type'=>WS_TYPE_BOOL),
