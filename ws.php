@@ -25,15 +25,15 @@ define ('PHPWG_ROOT_PATH', './');
 
 include_once(PHPWG_ROOT_PATH.'include/common.inc.php');
 check_status(ACCESS_FREE);
-include_once(PHPWG_ROOT_PATH.'include/ws_core.inc.php');
 
 if ( !$conf['allow_web_services'] )
 {
   page_forbidden('Web services are disabled');
 }
 
-add_event_handler('ws_add_methods', 'ws_addDefaultMethods');
+include_once(PHPWG_ROOT_PATH.'include/ws_core.inc.php');
 
+add_event_handler('ws_add_methods', 'ws_addDefaultMethods');
 add_event_handler('ws_invoke_allowed', 'ws_isInvokeAllowed', EVENT_HANDLER_PRIORITY_NEUTRAL, 3);
 
 $requestFormat = 'rest';
@@ -102,6 +102,7 @@ function ws_addDefaultMethods( $arr )
   $service = &$arr[0];
   
   include_once(PHPWG_ROOT_PATH.'include/ws_functions.inc.php');
+  $ws_functions_root = PHPWG_ROOT_PATH.'include/ws_functions/';
   
   $f_params = array(
     'f_min_rate' => array('default'=>null,
@@ -128,7 +129,8 @@ function ws_addDefaultMethods( $arr )
       'pwg.getVersion',
       'ws_getVersion',
       null,
-      'Returns the Piwigo version.'
+      'Returns the Piwigo version.',
+      $ws_functions_root . 'pwg.php'
     );
 	  
   $service->addMethod(
@@ -136,7 +138,7 @@ function ws_addDefaultMethods( $arr )
       'ws_getInfos',
       null,
       '<b>Admin only.</b> Returns general informations.',
-      null,
+      $ws_functions_root . 'pwg.php',
       array('admin_only'=>true)
     );
 
@@ -148,7 +150,7 @@ function ws_addDefaultMethods( $arr )
                            'type'=>WS_TYPE_ID),
         ),
       '<b>Admin only.</b> Adds elements to the caddie. Returns the number of elements added.',
-      null,
+      $ws_functions_root . 'pwg.php',
       array('admin_only'=>true)
     );
 
@@ -171,7 +173,8 @@ function ws_addDefaultMethods( $arr )
         ), $f_params),
       'Returns elements for the corresponding categories.
 <br><b>cat_id</b> can be empty if <b>recursive</b> is true.
-<br><b>order</b> comma separated fields for sorting'
+<br><b>order</b> comma separated fields for sorting',
+      $ws_functions_root . 'pwg.categories.php'
     );
 
   $service->addMethod(
@@ -190,7 +193,8 @@ function ws_addDefaultMethods( $arr )
         'fullname' =>     array('default'=>false,
                                 'type'=>WS_TYPE_BOOL),
         ),
-      'Returns a list of categories.'
+      'Returns a list of categories.',
+      $ws_functions_root . 'pwg.categories.php'
     );
 
   $service->addMethod(
@@ -209,7 +213,7 @@ function ws_addDefaultMethods( $arr )
                                 'type'=>WS_TYPE_INT|WS_TYPE_POSITIVE),
         ), $f_params),
       '<b>Admin only.</b> Returns a list of derivatives to build.',
-      null,
+      $ws_functions_root . 'pwg.php',
       array('admin_only'=>true)
     );
 
@@ -223,7 +227,7 @@ function ws_addDefaultMethods( $arr )
         'key' =>      array(),
         ),
       '<b>POST only.</b> Adds a comment to an image.',
-      null,
+      $ws_functions_root . 'pwg.images.php',
       array('post_only'=>true)
     );
 
@@ -238,7 +242,8 @@ function ws_addDefaultMethods( $arr )
                                       'maxValue'=>2*$conf['nb_comment_page'],
                                       'type'=>WS_TYPE_INT|WS_TYPE_POSITIVE),
         ),
-      'Returns information about an image.'
+      'Returns information about an image.',
+      $ws_functions_root . 'pwg.images.php'
     );
 
   $service->addMethod(
@@ -248,7 +253,8 @@ function ws_addDefaultMethods( $arr )
         'image_id' => array('type'=>WS_TYPE_ID),
         'rate' =>     array('type'=>WS_TYPE_FLOAT),
       ),
-      'Rates an image.'
+      'Rates an image.',
+      $ws_functions_root . 'pwg.images.php'
     );
 
   $service->addMethod(
@@ -264,7 +270,8 @@ function ws_addDefaultMethods( $arr )
         'order' =>        array('default'=>null,
                                 'info'=>'id, file, name, hit, rating_score, date_creation, date_available, random'),
         ), $f_params),
-      'Returns elements for the corresponding query search.'
+      'Returns elements for the corresponding query search.',
+      $ws_functions_root . 'pwg.images.php'
     );
 
   $service->addMethod(
@@ -277,7 +284,7 @@ function ws_addDefaultMethods( $arr )
                             'type'=>WS_TYPE_INT|WS_TYPE_POSITIVE),
         ),
       '<b>Admin & POST only.</b> Sets the privacy levels for the images.',
-      null,
+      $ws_functions_root . 'pwg.images.php',
       array('admin_only'=>true, 'post_only'=>true)
     );
 
@@ -290,7 +297,7 @@ function ws_addDefaultMethods( $arr )
         'rank'        => array('type'=>WS_TYPE_INT|WS_TYPE_POSITIVE|WS_TYPE_NOTNULL)
         ),
       '<b>Admin & POST only.</b> Sets the rank of a photo for a given album.',
-      null,
+      $ws_functions_root . 'pwg.images.php',
       array('admin_only'=>true, 'post_only'=>true)
     );
 
@@ -302,7 +309,7 @@ function ws_addDefaultMethods( $arr )
         'anonymous_id' => array('default'=>null),
         ),
       '<b>Admin & POST only.</b> Deletes all rates for a user.',
-      null,
+      $ws_functions_root . 'pwg.php',
       array('admin_only'=>true, 'post_only'=>true)
     );
 
@@ -310,7 +317,8 @@ function ws_addDefaultMethods( $arr )
       'pwg.session.getStatus',
       'ws_session_getStatus',
       null,
-      'Gets information about the current session. Also provides a token useable with admin methods.'
+      'Gets information about the current session. Also provides a token useable with admin methods.',
+      $ws_functions_root . 'pwg.php'
     );
 
   $service->addMethod(
@@ -318,7 +326,7 @@ function ws_addDefaultMethods( $arr )
       'ws_session_login',
       array('username', 'password'),
       '<b>POST only.</b> Tries to login the user.',
-      null,
+      $ws_functions_root . 'pwg.php',
       array('post_only'=>true)
     );
 
@@ -326,7 +334,8 @@ function ws_addDefaultMethods( $arr )
       'pwg.session.logout',
       'ws_session_logout',
       null,
-      'Ends the current session.'
+      'Ends the current session.',
+      $ws_functions_root . 'pwg.php'
     );
 
   $service->addMethod(
@@ -336,7 +345,8 @@ function ws_addDefaultMethods( $arr )
         'sort_by_counter' => array('default'=>false,
                                    'type'=>WS_TYPE_BOOL),
         ),
-      'Retrieves a list of available tags.'
+      'Retrieves a list of available tags.',
+      $ws_functions_root . 'pwg.tags.php'
     );
 
   $service->addMethod(
@@ -360,7 +370,8 @@ function ws_addDefaultMethods( $arr )
         'order' =>        array('default'=>null,
                                 'info'=>'id, file, name, hit, rating_score, date_creation, date_available, random'),
         ), $f_params),
-      'Returns elements for the corresponding tags. Fill at least tag_id, tag_url_name or tag_name.'
+      'Returns elements for the corresponding tags. Fill at least tag_id, tag_url_name or tag_name.',
+      $ws_functions_root . 'pwg.tags.php'
     );
 
   $service->addMethod(
@@ -374,7 +385,7 @@ function ws_addDefaultMethods( $arr )
         'position' =>     array()
         ),
       '<b>Admin & POST only.</b> Add a chunk of a file.',
-      null,
+      $ws_functions_root . 'pwg.images.php',
       array('admin_only'=>true, 'post_only'=>true)
     );
 
@@ -389,7 +400,7 @@ function ws_addDefaultMethods( $arr )
         ),
       '<b>Admin only.</b> Add or update a file for an existing photo.
 <br>pwg.images.addChunk must have been called before (maybe several times).',
-      null,
+      $ws_functions_root . 'pwg.images.php',
       array('admin_only'=>true)
     );
 
@@ -422,7 +433,7 @@ function ws_addDefaultMethods( $arr )
       '<b>Admin only.</b> Add an image.
 <br>pwg.images.addChunk must have been called before (maybe several times).
 <br>Don\'t use "thumbnail_sum" and "high_sum", these parameters are here for backward compatibility.',
-      null,
+      $ws_functions_root . 'pwg.images.php',
       array('admin_only'=>true)
     );
 
@@ -448,7 +459,7 @@ function ws_addDefaultMethods( $arr )
 <br>Use the <b>$_FILES[image]</b> field for uploading file.
 <br>Set the form encoding to "form-data".
 <br>You can update an existing photo if you define an existing image_id.',
-      null,
+      $ws_functions_root . 'pwg.images.php',
       array('admin_only'=>true, 'post_only'=>true)
     );
 
@@ -460,7 +471,7 @@ function ws_addDefaultMethods( $arr )
         'pwg_token' =>  array(),
         ),
       '<b>Admin & POST only.</b> Deletes image(s).',
-      null,
+      $ws_functions_root . 'pwg.images.php',
       array('admin_only'=>true, 'post_only'=>true)
     );
 
@@ -469,7 +480,7 @@ function ws_addDefaultMethods( $arr )
       'ws_categories_getAdminList',
       null,
       '<b>Admin only.</b>',
-      null,
+      $ws_functions_root . 'pwg.categories.php',
       array('admin_only'=>true)
     );
 
@@ -488,7 +499,9 @@ function ws_addDefaultMethods( $arr )
         'commentable' =>  array('default'=>true,
                                 'type'=>WS_TYPE_BOOL),
         ),
-      '<b>Admin only.</b> Adds an album.'
+      '<b>Admin only.</b> Adds an album.',
+      $ws_functions_root . 'pwg.categories.php',
+      array('admin_only'=>true)
     );
 
   $service->addMethod(
@@ -502,7 +515,7 @@ function ws_addDefaultMethods( $arr )
       '<b>Admin & POST only.</b> Deletes album(s).
 <br><b>photo_deletion_mode</b> can be "no_delete" (may create orphan photos), "delete_orphans"
 (default mode, only deletes photos linked to no other album) or "force_delete" (delete all photos, even those linked to other albums)',
-      null,
+      $ws_functions_root . 'pwg.categories.php',
       array('admin_only'=>true, 'post_only'=>true)
     );
 
@@ -516,7 +529,7 @@ function ws_addDefaultMethods( $arr )
         ),
       '<b>Admin & POST only.</b> Move album(s).
 <br>Set parent as 0 to move to gallery root. Only virtual categories can be moved.',
-      null,
+      $ws_functions_root . 'pwg.categories.php',
       array('admin_only'=>true, 'post_only'=>true)
     );
 
@@ -528,7 +541,7 @@ function ws_addDefaultMethods( $arr )
         'image_id' =>     array('type'=>WS_TYPE_ID),
         ),
       '<b>Admin & POST only.</b> Sets the representative photo for an album. The photo doesn\'t have to belong to the album.',
-      null,
+      $ws_functions_root . 'pwg.categories.php',
       array('admin_only'=>true, 'post_only'=>true)
     );
 
@@ -537,7 +550,7 @@ function ws_addDefaultMethods( $arr )
       'ws_tags_getAdminList',
       null,
       '<b>Admin only.</b>',
-      null,
+      $ws_functions_root . 'pwg.tags.php',
       array('admin_only'=>true)
     );
 
@@ -546,7 +559,7 @@ function ws_addDefaultMethods( $arr )
       'ws_tags_add',
       array('name'),
       '<b>Admin only.</b> Adds a new tag.',
-      null,
+      $ws_functions_root . 'pwg.tags.php',
       array('admin_only'=>true)
     );
 
@@ -559,7 +572,7 @@ function ws_addDefaultMethods( $arr )
         ),
       '<b>Admin only.</b>  Checks existence of images.
 <br>Give <b>md5sum_list</b> if $conf[uniqueness_mode]==md5sum. Give <b>filename_list</b> if $conf[uniqueness_mode]==filename.',
-      null,
+      $ws_functions_root . 'pwg.images.php',
       array('admin_only'=>true)
     );
 
@@ -574,7 +587,7 @@ function ws_addDefaultMethods( $arr )
         ),
       '<b>Admin only.</b> Checks if you have updated version of your files for a given photo, the answer can be "missing", "equals" or "differs".
 <br>Don\'t use "thumbnail_sum" and "high_sum", these parameters are here for backward compatibility.',
-      null,
+      $ws_functions_root . 'pwg.images.php',
       array('admin_only'=>true)
     );
 
@@ -583,7 +596,7 @@ function ws_addDefaultMethods( $arr )
       'ws_images_checkUpload',
       null,
       '<b>Admin only.</b> Checks if Piwigo is ready for upload.',
-      null,
+      $ws_functions_root . 'pwg.images.php',
       array('admin_only'=>true)
     );
 
@@ -611,7 +624,7 @@ function ws_addDefaultMethods( $arr )
 <br><b>single_value_mode</b> can be "fill_if_empty" (only use the input value if the corresponding values is currently empty) or "replace"
 (overwrite any existing value) and applies to single values properties like name/author/date_creation/comment.
 <br><b>multiple_value_mode</b> can be "append" (no change on existing values, add the new values) or "replace" and applies to multiple values properties like tag_ids/categories.',
-      null,
+      $ws_functions_root . 'pwg.images.php',
       array('admin_only'=>true, 'post_only'=>true)
     );
 
@@ -624,7 +637,7 @@ function ws_addDefaultMethods( $arr )
         'comment' =>      array('default'=>null),
         ),
       '<b>Admin & POST only.</b> Changes properties of an album.',
-      null,
+      $ws_functions_root . 'pwg.categories.php',
       array('admin_only'=>true, 'post_only'=>true)
     );
   
@@ -633,7 +646,7 @@ function ws_addDefaultMethods( $arr )
       'ws_plugins_getList',
       null,
       '<b>Admin only.</b> Gets the list of plugins with id, name, version, state and description.',
-      null,
+      $ws_functions_root . 'pwg.extensions.php',
       array('admin_only'=>true)
     );
 
@@ -646,7 +659,7 @@ function ws_addDefaultMethods( $arr )
         'pwg_token' => array(),
         ),
       '<b>Admin only.</b>',
-      null,
+      $ws_functions_root . 'pwg.extensions.php',
       array('admin_only'=>true)
     );
 
@@ -659,7 +672,7 @@ function ws_addDefaultMethods( $arr )
         'pwg_token' => array(),
         ),
       '<b>Admin only.</b>',
-      null,
+      $ws_functions_root . 'pwg.extensions.php',
       array('admin_only'=>true)
     );
 
@@ -673,7 +686,7 @@ function ws_addDefaultMethods( $arr )
         'pwg_token' => array(),
         ),
       '<b>Webmaster only.</b>',
-      null,
+      $ws_functions_root . 'pwg.extensions.php',
       array('admin_only'=>true)
     );
 
@@ -690,7 +703,7 @@ function ws_addDefaultMethods( $arr )
         'pwg_token' =>  array(),
       ),
       '<b>Webmaster only.</b> Ignores an extension if it needs update.',
-      null,
+      $ws_functions_root . 'pwg.extensions.php',
       array('admin_only'=>true)
     );
 
@@ -699,7 +712,7 @@ function ws_addDefaultMethods( $arr )
       'ws_extensions_checkupdates',
       null,
       '<b>Admin only.</b> Checks if piwigo or extensions are up to date.',
-      null,
+      $ws_functions_root . 'pwg.extensions.php',
       array('admin_only'=>true)
     );
 
@@ -720,7 +733,7 @@ function ws_addDefaultMethods( $arr )
                             'info'=>'id, name, nb_users, is_default'),
         ),
       '<b>Admin only.</b> Retrieves a list of all groups. The list can be filtered.',
-      null,
+      $ws_functions_root . 'pwg.groups.php',
       array('admin_only'=>true)
     );
 
@@ -733,7 +746,7 @@ function ws_addDefaultMethods( $arr )
                               'type'=>WS_TYPE_BOOL),
         ),
       '<b>Admin & POST only.</b> Creates a group and returns the new group record.',
-      null,
+      $ws_functions_root . 'pwg.groups.php',
       array('admin_only'=>true, 'post_only'=>true)
     );
 
@@ -743,9 +756,10 @@ function ws_addDefaultMethods( $arr )
       array(
         'group_id' => array('flags'=>WS_PARAM_FORCE_ARRAY,
                             'type'=>WS_TYPE_ID),
+        'pwg_token' =>  array(),
         ),
       '<b>Admin & POST only.</b> Deletes a or more groups. Users and photos are not deleted.',
-      null,
+      $ws_functions_root . 'pwg.groups.php',
       array('admin_only'=>true, 'post_only'=>true)
     );
 
@@ -759,7 +773,7 @@ function ws_addDefaultMethods( $arr )
                               'type'=>WS_TYPE_BOOL),
         ),
       '<b>Admin & POST only.</b> Updates a group. Leave a field blank to keep the current value.',
-      null,
+      $ws_functions_root . 'pwg.groups.php',
       array('admin_only'=>true, 'post_only'=>true)
     );
 
@@ -772,7 +786,7 @@ function ws_addDefaultMethods( $arr )
                             'type'=>WS_TYPE_ID),
         ),
       '<b>Admin only.</b> Adds one or more users to a group.',
-      null,
+      $ws_functions_root . 'pwg.groups.php',
       array('admin_only'=>true)
     );
 
@@ -785,7 +799,7 @@ function ws_addDefaultMethods( $arr )
                             'type'=>WS_TYPE_ID),
         ),
       '<b>Admin & POST only.</b> Removes one or more users from a group.',
-      null,
+      $ws_functions_root . 'pwg.groups.php',
       array('admin_only'=>true, 'post_only'=>true)
     );
 
@@ -816,7 +830,7 @@ function ws_addDefaultMethods( $arr )
         ),
       '<b>Admin only.</b> Retrieves a list of all the users.
 <br>"display" controls which data are returned, "basics" stands for "username,email,status,level,groups"',
-      null,
+      $ws_functions_root . 'pwg.users.php',
       array('admin_only'=>true)
     );
 
@@ -831,7 +845,7 @@ function ws_addDefaultMethods( $arr )
         'send_password_by_mail' => array('default'=>false, 'type'=>WS_TYPE_BOOL),
         ),
       '<b>Admin & POST only.</b> Registers a new user.',
-      null,
+      $ws_functions_root . 'pwg.users.php',
       array('admin_only'=>true, 'post_only'=>true)
     );
 
@@ -841,9 +855,10 @@ function ws_addDefaultMethods( $arr )
       array(
         'user_id' =>  array('flags'=>WS_PARAM_FORCE_ARRAY,
                             'type'=>WS_TYPE_ID),
+        'pwg_token' =>  array(),
         ),
       '<b>Admin & POST only.</b> Deletes on or more users. Photos owned by this user are not deleted.',
-      null,
+      $ws_functions_root . 'pwg.users.php',
       array('admin_only'=>true, 'post_only'=>true)
     );
 
@@ -879,7 +894,7 @@ function ws_addDefaultMethods( $arr )
         ),
       '<b>Admin & POST only.</b> Updates a user. Leave a field blank to keep the current value.
 <br>"username", "password" and "email" are ignored if "user_id" is an array.',
-      null,
+      $ws_functions_root . 'pwg.users.php',
       array('admin_only'=>true, 'post_only'=>true)
     );
     
@@ -896,7 +911,7 @@ function ws_addDefaultMethods( $arr )
         ),
       '<b>Admin only.</b> Returns permissions: user ids and group ids having access to each album ; this list can be filtered.
 <br>Provide only one parameter!',
-      null,
+      $ws_functions_root . 'pwg.permissions.php',
       array('admin_only'=>true)
     );
     
@@ -914,7 +929,7 @@ function ws_addDefaultMethods( $arr )
                               'type'=>WS_TYPE_BOOL),
         ),
       '<b>Admin only.</b> Adds permissions to an album.',
-      null,
+      $ws_functions_root . 'pwg.permissions.php',
       array('admin_only'=>true)
     );
     
@@ -930,7 +945,7 @@ function ws_addDefaultMethods( $arr )
                             'type'=>WS_TYPE_ID),
         ),
       '<b>Admin & POST only.</b> Removes permissions from an album.',
-      null,
+      $ws_functions_root . 'pwg.permissions.php',
       array('admin_only'=>true, 'post_only'=>true)
     );
 }
