@@ -1353,6 +1353,31 @@ function get_pwg_charset()
 }
 
 /**
+ * returns the parent language of the current language or any language
+ * @since 2.6
+ * @param string $lang_id
+ * @return string
+ */
+function get_parent_language($lang_id=null)
+{
+  if (empty($lang_id))
+  {
+    global $lang_info;
+    return !empty($lang_info['parent']) ? $lang_info['parent'] : null;
+  }
+  else
+  {
+    $f = PHPWG_ROOT_PATH.'language/'.$lang_id.'/common.lang.php';
+    if (file_exists($f))
+    {
+      include($f);
+      return !empty($lang_info['parent']) ? $lang_info['parent'] : null;
+    }
+  }
+  return null;
+}
+
+/**
  * includes a language file or returns the content of a language file
  * availability of the file
  *
@@ -1401,6 +1426,10 @@ function load_language($filename, $dirname = '',
   if ( !empty($user['language']) )
   {
     $languages[] = $user['language'];
+  }
+  if ( ($parent = get_parent_language()) != null)
+  {
+    $languages[] = $parent;
   }
   if ( ! @$options['no_fallback'] )
   {
@@ -1453,7 +1482,7 @@ function load_language($filename, $dirname = '',
       
       $parent_language = !empty($load_lang_info['parent']) ? $load_lang_info['parent'] : (
                             !empty($lang_info['parent']) ? $lang_info['parent'] : null );
-      if (!empty($parent_language))
+      if (!empty($parent_language) and $parent_language != $selected_language)
       {
         @include(str_replace($selected_language, $parent_language, $source_file));
       }
