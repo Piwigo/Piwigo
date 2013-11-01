@@ -1,5 +1,7 @@
 {footer_script}{literal}
 jQuery(document).ready(function(){
+  var $albumSelect = jQuery("#albumSelect");
+  
   jQuery(".addAlbumOpen").colorbox({
     inline: true,
     href: "#addAlbumForm",
@@ -7,8 +9,8 @@ jQuery(document).ready(function(){
       jQuery("input[name=category_name]").focus();
       
       jQuery("#category_parent").html('<option value="0">------------</option>')
-        .append(jQuery("#albumSelect").html())
-        .val(jQuery("#albumSelect").val());
+        .append($albumSelect.html())
+        .val($albumSelect.val() || 0);
     }
   });
 
@@ -47,13 +49,13 @@ jQuery(document).ready(function(){
               .attr("selected", "selected")
               .text(newAlbum_name);
               
-          jQuery("#albumSelect").find("option").removeAttr('selected');
+          $albumSelect.find("option").removeAttr('selected');
           
           if (parent_id==0) {
-            jQuery("#albumSelect").prepend(new_option);
+            $albumSelect.prepend(new_option);
           }
           else {
-            jQuery("#albumSelect").find("option[value="+ parent_id +"]").after(new_option);
+            $albumSelect.find("option[value="+ parent_id +"]").after(new_option);
           }
 
           jQuery("#addAlbumForm form input[name=category_name]").val('');
