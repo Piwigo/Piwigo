@@ -990,7 +990,7 @@ SELECT * FROM '.IMAGES_TABLE.'
 LIMIT 1';
   $result = pwg_query($query);
   
-  if (pwg_db_num_rows($resul) == 0)
+  if (pwg_db_num_rows($result) == 0)
   {
     return new PwgError(404, "image_id not found");
   }
