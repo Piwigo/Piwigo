@@ -96,6 +96,7 @@ $default_user = get_default_user_info(true);
 
 $template->assign(
   array(
+    'PWG_TOKEN' => get_pwg_token(),
     'NB_IMAGE_PAGE' => $default_user['nb_image_page'],
     'RECENT_PERIOD' => $default_user['recent_period'],
     'theme_options' => get_pwg_themes(),

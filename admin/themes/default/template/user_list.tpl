@@ -14,6 +14,7 @@ var missingUsername = "{'Please, enter a login'|translate}";
 
 var allUsers = [{$all_users}];
 var selection = [{$selection}];
+var pwg_token = "{$PWG_TOKEN}";
 {/footer_script}
 
 {footer_script}{literal}
@@ -241,6 +242,7 @@ jQuery(document).ready(function() {
           return false;
         }
         method = 'pwg.users.delete';
+        data.pwg_token = pwg_token;
         break;
       case 'group_associate':
         method = 'pwg.groups.addUser';
