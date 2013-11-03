@@ -1,11 +1,11 @@
 {footer_script}{literal}
 jQuery(document).ready(function(){
-  var $albumSelect = jQuery("#albumSelect");
-  
   jQuery(".addAlbumOpen").colorbox({
     inline: true,
     href: "#addAlbumForm",
     onComplete: function() {
+      var $albumSelect = jQuery("#albumSelect");
+
       jQuery("input[name=category_name]").focus();
       
       jQuery("#category_parent").html('<option value="0">------------</option>')
@@ -48,7 +48,8 @@ jQuery(document).ready(function(){
               .attr("value", newAlbum)
               .attr("selected", "selected")
               .text(newAlbum_name);
-              
+
+          var $albumSelect = jQuery("#albumSelect");
           $albumSelect.find("option").removeAttr('selected');
           
           if (parent_id==0) {
