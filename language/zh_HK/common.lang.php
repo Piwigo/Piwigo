@@ -169,10 +169,6 @@ $lang['Login'] = '登入';
 $lang['Logout'] = '登出';
 $lang['Manage this user comment: %s'] = '管理這個用戶留言: %s';
 $lang['Manual sort order'] = '手動排序';
-$lang['Maximum height must be a number superior to 50'] = '最大高度必須大於50';
-$lang['Maximum photo height'] = '相片最大高度';
-$lang['Maximum photo width'] = '相片最大寬度';
-$lang['Maximum width must be a number superior to 50'] = '最大寬度必須大於50';
 $lang['Menu'] = '選單';
 $lang['Mobile'] = '移動裝置';
 $lang['Most visited'] = '最多點閱';
@@ -420,4 +416,6 @@ $lang['Email'] = '電郵';
 $lang['First Page'] = '第一頁';
 $lang['Go back to the album'] = '回到相冊';
 $lang['Last Page'] = '最後一頁';
+$lang['Password confirmation is missing. Please confirm the chosen password.'] = '確認密碼未完成，請確認所選定的密碼。';
+$lang['Password is missing. Please enter the password.'] = '缺少了密碼。請輸入密碼。';
 ?>
