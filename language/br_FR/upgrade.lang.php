@@ -30,4 +30,5 @@ $lang['Upgrade from version %s to %s'] = 'Hizivaat eus stumm %s betek %s';
 $lang['Upgrade informations'] = 'Titouroù hizivadur';
 $lang['total SQL time'] = 'Hollad an amzer SQL ';
 $lang['SQL queries'] = 'Rekedoù SQL';
+$lang['Only administrator can run upgrade: please sign in below.'] = 'Ret eo bezañ merour evit hizivaat: kevreit amañ dindan mar plij.';
 ?>
