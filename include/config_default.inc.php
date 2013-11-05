@@ -229,42 +229,6 @@ $conf['users_page'] = 20;
 // image level permissions available in the admin interface
 $conf['available_permission_levels'] = array(0,1,2,4,8);
 
-// mail_options: only set it true if you have a send mail warning with
-// "options" parameter missing on mail() function execution.
-$conf['mail_options'] = false;
-
-// send_bcc_mail_webmaster: send bcc mail to webmaster. Set true for debug
-// or test.
-$conf['send_bcc_mail_webmaster'] = false;
-
-// default_email_format:
-//  Define the default email format use to send email
-//  Value could be text/plain  or text/html
-$conf['default_email_format'] = 'text/html';
-
-// alternative_email_format:
-//  Define the alternative email format use to send email
-//  Value could be text/plain  or text/html
-$conf['alternative_email_format'] = 'text/plain';
-
-// define the name of sender mail:
-// If value is empty, gallery title is used
-$conf['mail_sender_name'] = '';
-
-// smtp configuration
-// (work if fsockopen function is allowed for smtp port)
-// smtp_host: smtp server host
-//  if null, regular mail function is used
-//   format: hoststring[:port]
-//   exemple: smtp.pwg.net:21
-// smtp_user/smtp_password: user & password for smtp identication
-$conf['smtp_host'] = '';
-$conf['smtp_user'] = '';
-$conf['smtp_password'] = '';
-
-// 'ssl' or 'tls'
-$conf['smtp_secure'] = null;
-
 // check_upgrade_feed: check if there are database upgrade required. Set to
 // true, a message will strongly encourage you to upgrade your database if
 // needed.
@@ -305,6 +269,39 @@ $conf['ext_imagick_dir'] = '';
 // to display all user comments without pagination. Default available values
 // are array(5,10,20,50,'all') but you can set any other numeric value.
 $conf['comments_page_nb_comments'] = 10;
+
+// +-----------------------------------------------------------------------+
+// |                                 email                                 |
+// +-----------------------------------------------------------------------+
+
+// send_bcc_mail_webmaster: send bcc mail to webmaster. Set true for debug
+// or test.
+$conf['send_bcc_mail_webmaster'] = false;
+
+// define the name of sender mail: if value is empty, gallery title is used
+$conf['mail_sender_name'] = '';
+
+// define the email of sender mail: if valie is empty, webmaster email is used
+$conf['mail_sender_email'] = '';
+
+// set true to allow text/html emails
+$conf['allow_html_email'] = true;
+
+// 'clear' or 'dark'
+$conf['mail_theme'] = 'clear';
+
+// smtp configuration (work if fsockopen function is allowed for smtp port)
+// smtp_host: smtp server host
+//  if null, regular mail function is used
+//   format: hoststring[:port]
+//   exemple: smtp.pwg.net:21
+// smtp_user/smtp_password: user & password for smtp identication
+$conf['smtp_host'] = '';
+$conf['smtp_user'] = '';
+$conf['smtp_password'] = '';
+
+// 'ssl' or 'tls'
+$conf['smtp_secure'] = null;
 
 // +-----------------------------------------------------------------------+
 // |                               metadata                                |

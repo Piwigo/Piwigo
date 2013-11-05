@@ -1,3 +1,6 @@
+{$MAIL_TITLE}
+{if not empty($MAIL_SUBTITLE)}{$MAIL_SUBTITLE}
+{/if}
+----
 {literal}
-
-{/literal}{*note that there must be an empty line to separate the mime headers*}
+{/literal}

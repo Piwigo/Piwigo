@@ -1,11 +1,103 @@
-/* Global mail css */
+{strip}
+/* page */
+body {
+  font-family:"Verdana", "Helvetica", "Optima", sans-serif;
+  font-size:12px;
+  margin:0px;
+  padding:0px;
+}
 
-body {ldelim} font-family: Univers, Helvetica, Optima; font-size:12px; margin:0px; padding:0px; }
-#the_page {ldelim} margin:0px; padding:0px; text-align:left;}
-#content {ldelim} margin:0px; padding:30px 0px 0px 30px; width:732px;}
-hr {ldelim} width:632px; margin-left:0;}
-#copyright {ldelim} font-size:10px; margin:0px; padding:48px 0px 32px 62px;}
-.PWG {ldelim} font-family:verdana, sans-serif !important; font-size:0.9em; font-weight:normal; letter-spacing:0px;}
-h2 {ldelim} padding:7px 15px; width:617px; font-weight:bold;}
-img {ldelim} margin:16px; border:16px solid #aaa; -moz-border-radius: 4px; border-radius: 4px 4px; }
-img:hover {ldelim} padding: 15px; border: 1px solid yellow; -moz-border-radius: 4px; border-radius: 4px 4px; }
+html, body, #bodyTable {
+  width:100%;
+  height:100%;
+}
+
+/* main block */
+#header {
+  padding:20px;
+}
+#header #title {
+  font-size:26px;
+  font-weight:bold;
+}
+#header #subtitle {
+  font-size:20px;
+}
+#content {
+  padding:0 20px 20px 20px;
+}
+#footer {
+  font-size:10px;
+  padding:5px;
+}
+#topSpacer {
+  margin-bottom:20px;
+}
+
+/* images */
+img {
+  border:none;
+}
+
+h1, h2, h3, h4, h5 {
+  margin:0.5em 0 0.25em 0;
+}
+h1 { font-size:26px; }
+h2 { font-size:20px; }
+h3 { font-size:16px; }
+h4 { font-size:12px; }
+h5 { font-size:10px; }
+
+/* paragraphs */
+p {
+  margin:0.25em 0 0.5em 0;
+}
+blockquote {
+  margin-left:10px;
+  padding-left:10px;
+  font-family:"Times",serif;
+  font-size:14px;
+}
+
+/* list */
+ul, ol {
+  margin:0.5em 0 0.25em 30px;
+  padding:0;
+}
+dl {
+  margin:0.5em 0 0.25em 10px;
+}
+dt {
+  margin:0.25em 0 0 0;
+  font-weight:bold;
+}
+dd {
+  margin:0 0 0.25em 10px;
+}
+
+/* tables */
+#content table {
+  width:100%;
+  border-spacing:0;
+  border-collapse:collapse;
+}
+#content table td {
+  padding:2px 3px;
+}
+#content table th {
+  font-weight:bold;
+  text-align:center;
+  padding:4px 0;
+}
+#content table tfoot td {
+  font-size:0.8em;
+}
+
+/* line */
+hr {
+  border-width:0 0 1px 0;
+  border-color:#ddd;
+  border-style:solid;
+  margin:1em;
+}
+{/strip}

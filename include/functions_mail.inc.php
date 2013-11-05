@@ -21,13 +21,8 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
-// +-----------------------------------------------------------------------+
-// |                               functions                               |
-// +-----------------------------------------------------------------------+
-
-/*
- * Returns the name of the mail sender :
- *
+/**
+ * Returns the name of the mail sender
  * @return string
  */
 function get_mail_sender_name()
@@ -37,20 +32,29 @@ function get_mail_sender_name()
   return (empty($conf['mail_sender_name']) ? $conf['gallery_title'] : $conf['mail_sender_name']);
 }
 
-/*
+/**
+ * Returns the email of the mail sender
+ * @since 2.6
+ * @return string
+ */
+function get_mail_sender_email()
+{
+  global $conf;
+
+  return (empty($conf['mail_sender_email']) ? get_webmaster_mail_address() : $conf['mail_sender_email']);
+}
+
+/**
  * Returns an array of mail configuration parameters :
- *
- * - mail_options
  * - send_bcc_mail_webmaster
- * - default_email_format
- * - alternative_email_format
+ * - allow_html_email
  * - use_smtp
  * - smtp_host
  * - smtp_user
  * - smtp_password
- * - boundary_key
+ * - smtp_secure
  * - email_webmaster
- * - formated_email_webmaster
+ * - name_webmaster
  *
  * @return array
  */
@@ -59,35 +63,28 @@ function get_mail_configuration()
   global $conf;
 
   $conf_mail = array(
-    'mail_options' => $conf['mail_options'],
     'send_bcc_mail_webmaster' => $conf['send_bcc_mail_webmaster'],
-    'default_email_format' => $conf['default_email_format'],
-    'alternative_email_format' => $conf['alternative_email_format'],
+    'allow_html_email' => $conf['allow_html_email'],
+    'mail_theme' => $conf['mail_theme'],
     'use_smtp' => !empty($conf['smtp_host']),
     'smtp_host' => $conf['smtp_host'],
     'smtp_user' => $conf['smtp_user'],
     'smtp_password' => $conf['smtp_password'],
     'smtp_secure' => $conf['smtp_secure'],
+    'email_webmaster' => get_mail_sender_email(),
+    'name_webmaster' => get_mail_sender_name(),
     );
-
-  // we have webmaster id among user list, what's his email address ?
-  $conf_mail['email_webmaster'] = get_webmaster_mail_address();
-
-  // name of the webmaster is the title of the gallery
-  $conf_mail['formated_email_webmaster'] = format_email(get_mail_sender_name(), $conf_mail['email_webmaster']);
 
   return $conf_mail;
 }
 
 /**
  * Returns an email address with an associated real name
- *
  * @param string name
  * @param string email
  */
 function format_email($name, $email)
 {
-  // Spring cleaning
   $cvt_email = trim(preg_replace('#[\n\r]+#s', '', $email));
   $cvt_name = trim(preg_replace('#[\n\r]+#s', '', $name));
 
@@ -107,14 +104,45 @@ function format_email($name, $email)
 }
 
 /**
+ * Returns the mail and the name from a formatted address
+ * @since 2.6
+ * @param string|array $input
+ * @return array
+ */
+function unformat_email($input)
+{
+  if (is_array($input))
+  {
+    return $input;
+  }
+
+  if (preg_match('/(.*)<(.*)>.*/', $input, $matches))
+  {
+    return array(
+      'email' => trim($matches[2]),
+      'name' => trim($matches[1]),
+      );
+  }
+  else
+  {
+    return array(
+      'email' => trim($input),
+      'name' => '',
+      );
+  }
+}
+  
+
+/**
  * Returns an email address list with minimal email string
- *
- * @param string with email list (email separated by comma)
+ * @param string $email_list - comma separated
+ * @return string
  */
 function get_strict_email_list($email_list)
 {
   $result = array();
   $list = explode(',', $email_list);
+
   foreach ($list as $email)
   {
     if (strpos($email, '<') !== false)
@@ -130,37 +158,19 @@ function get_strict_email_list($email_list)
 
 /**
  * Return an new mail template
- *
- * @param string email_format: mail format, text/html or text/plain
- * @param string theme: theme to use [default get_default_theme()]
+ * @param string $email_format - text/html or text/plain
+ * @return Template
  */
-function & get_mail_template($email_format, $theme='')
+function &get_mail_template($email_format)
 {
-  if (empty($theme))
-  {
-    $theme = get_default_theme();
-  }
-
-  $mail_template = new Template(PHPWG_ROOT_PATH.'themes', $theme, 'template/mail/'.$email_format);
-
-  return $mail_template;
+  $template = new Template(PHPWG_ROOT_PATH.'themes', 'default', 'template/mail/'.$email_format);
+  return $template;
 }
 
 /**
- * Return string email format (text/html or text/plain)
- *
- * @param string format
- */
-function get_str_email_format($is_html)
-{
-  return ($is_html ? 'text/html' : 'text/plain');
-}
-
-/*
- * Switch language to param language
+ * Switch language to specified language
  * All entries are push on language stack
- *
- * @param string language
+ * @param string $language
  */
 function switch_lang_to($language)
 {
@@ -197,6 +207,7 @@ function switch_lang_to($language)
     // Translations are in admin file too
     load_language('admin.lang', '', array('language'=>$language) );
     
+    // Reload all plugins files (see load_language declaration)
     if (!empty($language_files))
     {
       foreach ($language_files as $dirname => $files)
@@ -219,10 +230,8 @@ function switch_lang_to($language)
   }
 }
 
-/*
+/**
  * Switch back language pushed with switch_lang_to function
- *
- * @param: none
  */
 function switch_lang_back()
 {
@@ -456,12 +465,11 @@ WHERE
   return $return;
 }
 
-/*
+/**
  * sends an email, using Piwigo specific informations
  *
- * @param:
- *   - to: receiver(s) of the mail (list separated by comma).
- *   - args: function params of mail function:
+ * @param string|string[] $to
+ * @param array $args
  *       o from: sender [default value webmaster email]
  *       o Cc: array of carbon copy receivers of the mail. [default value empty]
  *       o Bcc: array of blind carbon copy receivers of the mail. [default value empty]
@@ -469,9 +477,11 @@ WHERE
  *       o content: content of mail    [default value '']
  *       o content_format: format of mail content  [default value 'text/plain']
  *       o email_format: global mail format  [default value $conf_mail['default_email_format']]
- *       o theme: template to use [default get_default_theme()]
+ *       o theme: theme to use [default value $conf_mail['mail_theme']]
+ *       o mail_title: main title of the mail [default value $conf['gallery_title']]
+ *       o mail_subtitle: subtitle of the mail [default value subject]
  *
- * @return boolean (Ok or not)
+ * @return boolean
  */
 function pwg_mail($to, $args = array())
 {
@@ -491,11 +501,13 @@ function pwg_mail($to, $args = array())
 
   $mail = new PHPMailer;
 
-  foreach (explode(',', get_strict_email_list($to)) as $recipient)
+  $recipients = !is_array($to) ? explode(',', $to) : $to;
+  foreach ($recipients as $recipient)
   {
-    $mail->addAddress($recipient);
+    $recipient = unformat_email($recipient);
+    $mail->addAddress($recipient['email'], $recipient['name']);
   }
-  
+
   $mail->WordWrap = 76;
   $mail->CharSet = 'UTF-8';
   
@@ -504,86 +516,97 @@ function pwg_mail($to, $args = array())
 
   if (empty($args['from']))
   {
-    $mail->From = get_webmaster_mail_address();
-    $mail->FromName = get_mail_sender_name();
-
-    $mail->addReplyTo(get_webmaster_mail_address(), get_mail_sender_name());
+    $from = array(
+      'email' => $conf_mail['email_webmaster'],
+      'name' => $conf_mail['name_webmaster'],
+      );
   }
   else
   {
-    $mail->From = $args['from'];
-    $mail->addReplyTo($args['from']);
+    $from = unformat_email($args['from']);
   }
+  $mail->setFrom($from['email'], $from['name']);
+  $mail->addReplyTo($from['email'], $from['name']);
 
   // Subject
   if (empty($args['subject']))
   {
     $args['subject'] = 'Piwigo';
   }
-  
   $args['subject'] = trim(preg_replace('#[\n\r]+#s', '', $args['subject']));
-
   $mail->Subject = $args['subject'];
 
   // Cc
   if (!empty($args['Cc']))
   {
-    $mail->addCC($args['Cc']);
+    foreach ($args['Cc'] as $cc)
+    {
+      $cc = unformat_email($cc);
+      $mail->addCC($cc['email'], $cc['name']);
+    }
   }
 
   // Bcc
   if ($conf_mail['send_bcc_mail_webmaster'])
   {
-    $args['Bcc'][] = get_webmaster_mail_address();;
+    $args['Bcc'][] = get_webmaster_mail_address();
   }
-
   if (!empty($args['Bcc']))
   {
     foreach ($args['Bcc'] as $bcc)
     {
-      $mail->addBCC($bcc);
+      $bcc = unformat_email($bcc);
+      $mail->addBCC($bcc['email'], $bcc['name']);
     }
   }
 
-  // content
-  if (empty($args['email_format']))
+  // theme
+  if (empty($args['theme']) or !in_array($args['theme'], array('clear','dark')))
   {
-    $args['email_format'] = $conf_mail['default_email_format'];
+    $args['theme'] = $conf_mail['mail_theme'];
   }
 
+  // content
   if (!isset($args['content']))
   {
     $args['content'] = '';
   }
+  if (!isset($args['mail_title']))
+  {
+    $args['mail_title'] = $conf['gallery_title'];
+  }
+  if (!isset($args['mail_subtitle']))
+  {
+    $args['mail_subtitle'] = $args['subject'];
+  }
 
+  // content type
   if (empty($args['content_format']))
   {
     $args['content_format'] = 'text/plain';
   }
 
-  if (empty($args['theme']))
+  $content_type_list = array();
+  if ($conf_mail['allow_html_email'] and @$args['email_format'] != 'text/plain')
   {
-    $args['theme'] = get_default_theme();
+    $content_type_list[] = 'text/html';
   }
-
-  $content_type_list[] = $args['email_format'];
-  if (!empty($conf_mail['alternative_email_format']))
-  {
-    $content_type_list[] = $conf_mail['alternative_email_format'];
-  }
+  $content_type_list[] = 'text/plain';
 
   $contents = array();
-
-  foreach (array_unique($content_type_list) as $content_type)
+  foreach ($content_type_list as $content_type)
   {
-    // key compose of indexes witch allow ti cache mail data
-    $cache_key = $content_type.'-'.$lang_info['code'].'-'.$args['theme'];
+    // key compose of indexes witch allow to cache mail data
+    $cache_key = $content_type.'-'.$lang_info['code'];
+    $cache_key.= '-'.crc32(@$args['mail_title'] . @$args['mail_subtitle']);
 
     if (!isset($conf_mail[$cache_key]))
     {
+      // instanciate a new Template
       if (!isset($conf_mail[$cache_key]['theme']))
       {
-        $conf_mail[$cache_key]['theme'] = get_mail_template($content_type, $args['theme']);
+        $conf_mail[$cache_key]['theme'] = get_mail_template($content_type);
+        trigger_action('before_parse_mail_template', $cache_key, $content_type);
       }
 
       $conf_mail[$cache_key]['theme']->set_filename('mail_header', 'header.tpl');
@@ -594,9 +617,11 @@ function pwg_mail($to, $args = array())
           'GALLERY_URL' => get_gallery_home_url(),
           'GALLERY_TITLE' => isset($page['gallery_title']) ? $page['gallery_title'] : $conf['gallery_title'],
           'VERSION' => $conf['show_version'] ? PHPWG_VERSION : '',
-          'PHPWG_URL' => PHPWG_URL,
-          'TITLE_MAIL' => urlencode(l10n('A comment on your site')),
-          'MAIL' => get_webmaster_mail_address()
+          'PHPWG_URL' => defined('PHPWG_URL') ? PHPWG_URL : '',
+          'CONTENT_ENCODING' => get_pwg_charset(),
+          'CONTACT_MAIL' => $conf_mail['email_webmaster'],
+          'MAIL_TITLE' => $args['mail_title'],
+          'MAIL_SUBTITLE' => $args['mail_subtitle'],
           )
         );
 
@@ -608,18 +633,14 @@ function pwg_mail($to, $args = array())
           $conf_mail[$cache_key]['theme']->assign_var_from_handle('GLOBAL_MAIL_CSS', 'css');
         }
 
-        $file = PHPWG_ROOT_PATH.'themes/'.$args['theme'].'/mail-css.tpl';
-        if (is_file($file))
+        if ($conf_mail[$cache_key]['theme']->smarty->template_exists('mail-css-'. $args['theme'] .'.tpl'))
         {
-          $conf_mail[$cache_key]['theme']->set_filename('css', realpath($file));
+          $conf_mail[$cache_key]['theme']->set_filename('css', 'mail-css-'. $args['theme'] .'.tpl');
           $conf_mail[$cache_key]['theme']->assign_var_from_handle('MAIL_CSS', 'css');
         }
       }
 
-      // what are displayed on the header of each mail ?
       $conf_mail[$cache_key]['header'] = $conf_mail[$cache_key]['theme']->parse('mail_header', true);
-
-      // what are displayed on the footer of each mail ?
       $conf_mail[$cache_key]['footer'] = $conf_mail[$cache_key]['theme']->parse('mail_footer', true);
     }
 
@@ -627,16 +648,21 @@ function pwg_mail($to, $args = array())
     $contents[$content_type] = $conf_mail[$cache_key]['header'];
 
     // Content
-    if (($args['content_format'] == 'text/plain') and ($content_type == 'text/html'))
+    if ($args['content_format'] == 'text/plain' and $content_type == 'text/html')
     {
-      $contents[$content_type].= '<p>'.
-                  nl2br(
-                    preg_replace("/(http:\/\/)([^\s,]*)/i",
-                                 "<a href='$1$2' class='thumblnk'>$1$2</a>",
-                                 htmlspecialchars($args['content']))).
-                  '</p>';
+      // convert plain text to html
+      $contents[$content_type].=
+        '<p>'.
+        nl2br(
+          preg_replace(
+            '/(https?:\/\/([-\w\.]+[-\w])+(:\d+)?(\/([\w\/_\.\#-]*(\?\S+)?[^\.\s])?)?)/i',
+            '<a href="$1">$1</a>',
+            htmlspecialchars($args['content'])
+            )
+          ).
+        '</p>';
     }
-    else if (($args['content_format'] == 'text/html') and ($content_type == 'text/plain'))
+    else if ($args['content_format'] == 'text/html' and $content_type == 'text/plain')
     {
       // convert html text to plain text
       $contents[$content_type].= strip_tags($args['content']);
@@ -653,10 +679,11 @@ function pwg_mail($to, $args = array())
   // Undo Compute root_path in order have complete path
   unset_make_full_url();
 
+  // Send content to PHPMailer
   if (isset($contents['text/html']))
   {
-    $mail->isHTML(true); // Set email format to HTML
-    $mail->Body = $contents['text/html'];
+    $mail->isHTML(true);
+    $mail->Body = move_css_to_body($contents['text/html']);
     
     if (isset($contents['text/plain']))
     {
@@ -703,93 +730,34 @@ function pwg_mail($to, $args = array())
     }
   }
 
-  $ret = $mail->send();
-  if(!$ret)
+  $ret = true;
+  $pre_result = trigger_event('before_send_mail', true, $to, $args, $mail);
+
+  if ($pre_result)
   {
-    trigger_error( 'Mailer Error: ' . $mail->ErrorInfo, E_USER_WARNING);
+    $ret = $mail->send();
+    if (!$ret and is_admin())
+    {
+      trigger_error('Mailer Error: ' . $mail->ErrorInfo, E_USER_WARNING);
+    }
   }
+
   return $ret;
 }
 
-/* DEPRECATED
- * pwg sendmail
- *
- * @param:
- *   - result of other sendmail
- *   - to: Receiver or receiver(s) of the mail.
- *   - subject  [default value 'Piwigo']
- *   - content: content of mail
- *   - headers: headers of mail
- *
- * @return boolean (Ok or not)
+/**
+ * @deprecated 2.6
  */
-function pwg_send_mail($result, $to, $subject, $contents, $headers)
+function pwg_send_mail($result, $to, $subject, $content, $headers)
 {
+  trigger_error('pwg_send_mail function is deprecated', E_USER_NOTICE);
+  
   if (!$result)
   {
-    include_once(PHPWG_ROOT_PATH.'include/class.phpmailer.php');
-    
-    global $conf_mail;
-
-    if ($conf_mail['use_smtp'])
-    {
-      include_once( PHPWG_ROOT_PATH.'include/class_smtp_mail.inc.php' );
-      $smtp_mail = new smtp_mail(
-        $conf_mail['smtp_host'], $conf_mail['smtp_user'], $conf_mail['smtp_password'],
-        $conf_mail['email_webmaster']);
-      return $smtp_mail->mail($to, $subject, $content, $headers);
-    }
-    else
-    {
-      $mail = new PHPMailer;
-
-      $mail->From = 'plg@pigolabs.com';
-      $mail->FromName = 'Pierrick en local';
-      foreach (explode(',', $to) as $recipient)
-      {
-        $mail->addAddress($recipient);  // Add a recipient
-      }
-      // $mail->addReplyTo('plg@piwigo.org', 'Pierrick de Piwigo.org');
-      // $mail->addCC('cc@example.com');
-      // $mail->addBCC('bcc@example.com');
-
-      $mail->WordWrap = 76;                                // Set word wrap to 50 characters
-
-      if (isset($contents['text/html']))
-      {
-        $mail->isHTML(true);                                 // Set email format to HTML
-        $mail->Body = $contents['text/html'];
-
-        if (isset($contents['text/plain']))
-        {
-          $mail->AltBody = $contents['text/plain'];
-        }
-      }
-      else
-      {
-        $mail->isHTML(false);
-        $mail->Body = $contents['text/plain'];
-      }
-
-      $mail->CharSet = 'UTF-8';
-      $mail->Subject = $subject;
-
-      if(!$mail->send()) {
-        echo 'Message could not be sent.';
-        echo 'Mailer Error: ' . $mail->ErrorInfo;
-        exit;
-      }
-
-      // if ($conf_mail['mail_options'])
-      // {
-      //   $options = '-f '.$conf_mail['email_webmaster'];
-      //   return mail($to, $subject, $content, $headers, $options);
-      // }
-      // else
-      // {
-      //   return mail($to, $subject, $content, $headers);
-      // }
-    }
+    return pwg_mail($to, array(
+        'content' => $content,
+        'subject' => $subject,
+      ));
   }
   else
   {
@@ -797,95 +765,73 @@ function pwg_send_mail($result, $to, $subject, $contents, $headers)
   }
 }
 
+/**
+ * @deprecated 2.6
+ */
 function move_ccs_rules_to_body($content)
 {
-  return $content;
-  // We search all css rules in style tags
-  preg_match('#<style>(.*?)</style>#s', $content, $matches);
+  trigger_error('move_ccs_rules_to_body function is deprecated, use move_css_to_body', E_USER_NOTICE);
+  
+  return move_css_to_body($content);
+}
 
-  if (!empty($matches[1]))
+/**
+ * Moves CSS rules contained in the <style> tag to inline CSS
+ * (for compatibility with Gmail and such clients)
+ * @since 2.6
+ * @param string $content
+ * @return string
+ */
+function move_css_to_body($content)
+{
+  include_once(PHPWG_ROOT_PATH.'include/emogrifier.class.php');
+
+  $e = new Emogrifier($content);
+  $e->preserveStyleTag = true;
+  return $e->emogrify();
+}
+
+/**
+ * Saves a copy of the mail if _data/tmp
+ * @param boolean $result
+ * @param string $to
+ * @param array $args
+ * @param PHPMailer $mail
+ * @return boolean $result
+ */
+function pwg_send_mail_test($result, $to, $args, $mail)
+{
+  global $conf, $user, $lang_info;
+  
+  $dir = PHPWG_ROOT_PATH.$conf['data_location'].'tmp';
+  if (mkgetdir($dir, MKGETDIR_DEFAULT&~MKGETDIR_DIE_ON_ERROR))
   {
-    preg_match_all('#([^\n]*?)\{(.*?)\}#s', $matches[1], $matches);
-
-    $selectors = array();
-    $unknow_selectors = '';
-
-    foreach ($matches[1] as $key => $value)
+    $filename = $dir.'/mail.'.stripslashes($user['username']).'.'.$lang_info['code'].'.'.$args['theme'].'-'.date('YmdHis');
+    if ($args['content_format'] == 'text/plain')
     {
-      $selects = explode(',', $value);
-      $style = trim($matches[2][$key], ' ;');
-
-      foreach($selects as $select)
-      {
-        $select = trim($select);
-        $selectors[$select][] = $style;
-      }
-    }
-
-    foreach ($selectors as $selector => $style)
-    {
-      if (!preg_match('/^(#|\.|)([A-Za-z0-9_-]*)$/', $selector, $matches))
-      {
-        $unknow_selectors .= $selector.' {'.implode(";\n", $style).";}\n";
-      }
-      else switch ($matches[1])
-      {
-        case '#':
-          $content = preg_replace('|id="'.$matches[2].'"|', 'id="'.$matches[2].'" style="'.implode(";\n", $style).";\"\n", $content);
-          break;
-        case '.':
-          $content = preg_replace('|class="'.$matches[2].'"|', 'class="'.$matches[2].'" style="'.implode(";\n", $style).";\"\n", $content);
-          break;
-        default:
-          $content = preg_replace('#<'.$matches[2].'( |>)#', '<'.$matches[2].' style="'.implode(";\n", $style).";\"\n$1", $content);
-          break;
-      }
-    }
-
-    // Keep unknow tags in page head
-    if (!empty($unknow_selectors))
-    {
-      $content = preg_replace('#<style>.*?</style>#s', "<style type=\"text/css\">\n$unknow_selectors</style>", $content);
+      $filename .= '.txt';
     }
     else
     {
-      $content = preg_replace('#<style>.*?</style>#s', '', $content);
+      $filename .= '.html';
     }
+    
+    $file = fopen($filename, 'w+');
+    fwrite($file, implode(', ', $to) ."\n");
+    fwrite($file, $mail->Subject ."\n");
+    fwrite($file, $mail->createHeader() ."\n");
+    fwrite($file, $mail->createBody());
+    fclose($file);
   }
-  return $content;
+  
+  return $result;
 }
 
-/*Testing block*/
-function pwg_send_mail_test($result, $to, $subject, $content, $headers, $args)
-{
-    global $conf, $user, $lang_info;
-    $dir = PHPWG_ROOT_PATH.$conf['data_location'].'tmp';
-    if ( mkgetdir( $dir,  MKGETDIR_DEFAULT&~MKGETDIR_DIE_ON_ERROR) )
-    {
-      $filename = $dir.'/mail.'.stripslashes($user['username']).'.'.$lang_info['code'].'.'.$args['theme'].'-'.date('YmdHis');
-      if ($args['content_format'] == 'text/plain')
-      {
-        $filename .= '.txt';
-      }
-      else
-      {
-        $filename .= '.html';
-      }
-      $file = fopen($filename, 'w+');
-      fwrite($file, $to ."\n");
-      fwrite($file, $subject ."\n");
-      fwrite($file, $headers);
-      fwrite($file, $content);
-      fclose($file);
-    }
-    return $result;
-}
 if ($conf['debug_mail'])
-  add_event_handler('send_mail', 'pwg_send_mail_test', EVENT_HANDLER_PRIORITY_NEUTRAL+10, 6);
+{
+  add_event_handler('before_send_mail', 'pwg_send_mail_test', EVENT_HANDLER_PRIORITY_NEUTRAL+10, 4);
+}
 
-
-add_event_handler('send_mail', 'pwg_send_mail', EVENT_HANDLER_PRIORITY_NEUTRAL, 5);
-add_event_handler('send_mail_content', 'move_ccs_rules_to_body');
 trigger_action('functions_mail_included');
 
 ?>
