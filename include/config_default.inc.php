@@ -492,7 +492,7 @@ $conf['apache_authentication'] = false;
 // delete from piwigo_user_infos;
 // delete from piwigo_sessions;
 // delete from piwigo_rate;
-// update piwigo_images set rating_score = null;
+// update piwigo_images set rating_score = null, added_by = <webmaster_id>;
 // delete from piwigo_caddie;
 // delete from piwigo_favorites;
 //
