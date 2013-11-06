@@ -25,6 +25,8 @@ html, body, #bodyTable {
 }
 #content {
   padding:0 20px 20px 20px;
+  font-family:"Verdana", "Helvetica", "Optima", sans-serif;
+  font-size:13px;
 }
 #footer {
   font-size:10px;

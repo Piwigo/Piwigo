@@ -1,7 +1,7 @@
 {$CONTENT}
 
 {if isset($TECHNICAL)}
-<p style="margin-top:10px;font-size:10px;">
+<p style="padding-top:10px;font-size:11px;">
 {$TECHNICAL|nl2br}
 </p>
 {/if}

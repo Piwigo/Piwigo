@@ -307,6 +307,7 @@ function pwg_mail_notification_admins($subject, $content, $send_technical_detail
  * Send a email to all administrators
  * current user (if admin) is excluded
  * @see pwg_mail()
+ * @since 2.6
  *
  * @param array $args - as in pwg_mail()
  * @param array $tpl - as in pwg_mail()
@@ -582,7 +583,6 @@ function pwg_mail($to, $args=array(), $tpl=array())
   {
     // key compose of indexes witch allow to cache mail data
     $cache_key = $content_type.'-'.$lang_info['code'];
-    $cache_key.= '-'.crc32(@$args['mail_title'] . @$args['mail_subtitle']); // TODO: find a way to not cache by mail_title
 
     if (!isset($conf_mail[$cache_key]))
     {
@@ -605,8 +605,6 @@ function pwg_mail($to, $args=array(), $tpl=array())
           'PHPWG_URL' => defined('PHPWG_URL') ? PHPWG_URL : '',
           'CONTENT_ENCODING' => get_pwg_charset(),
           'CONTACT_MAIL' => $conf_mail['email_webmaster'],
-          'MAIL_TITLE' => $args['mail_title'],
-          'MAIL_SUBTITLE' => $args['mail_subtitle'],
           )
         );
 
@@ -624,13 +622,18 @@ function pwg_mail($to, $args=array(), $tpl=array())
           $template->assign_var_from_handle('MAIL_CSS', 'css');
         }
       }
-
-      $conf_mail[$cache_key]['header'] = $template->parse('mail_header', true);
-      $conf_mail[$cache_key]['footer'] = $template->parse('mail_footer', true);
     }
+    
+    $template = &$conf_mail[$cache_key]['theme'];
+    $template->assign(
+      array(
+        'MAIL_TITLE' => $args['mail_title'],
+        'MAIL_SUBTITLE' => $args['mail_subtitle'],
+        )
+      );
 
     // Header
-    $contents[$content_type] = $conf_mail[$cache_key]['header'];
+    $contents[$content_type] = $template->parse('mail_header', true);
 
     // Content
     // Stored in a temp variable, if a content template is used it will be assigned
@@ -662,7 +665,6 @@ function pwg_mail($to, $args=array(), $tpl=array())
     // Runtime template
     if (isset($tpl['filename']))
     {
-      $template = &$conf_mail[$cache_key]['theme'];
       if (isset($tpl['dirname']))
       {
         $template->set_template_dir($tpl['dirname'] .'/'. $content_type);
@@ -688,7 +690,7 @@ function pwg_mail($to, $args=array(), $tpl=array())
     }
 
     // Footer
-    $contents[$content_type].= $conf_mail[$cache_key]['footer'];
+    $contents[$content_type].= $template->parse('mail_footer', true);
   }
 
   // Undo Compute root_path in order have complete path
@@ -795,7 +797,7 @@ function move_css_to_body($content)
   include_once(PHPWG_ROOT_PATH.'include/emogrifier.class.php');
 
   $e = new Emogrifier($content);
-  $e->preserveStyleTag = true;
+  // $e->preserveStyleTag = true;
   return $e->emogrify();
 }
 
