@@ -568,12 +568,6 @@ array(
   'files' => array('include\functions_user.inc.php (auto_login, try_log_user)'),
 ),
 array(
-  'name' => 'mail_group_assign_vars',
-  'type' => 'trigger_event',
-  'vars' => array('array', 'assign_vars'),
-  'files' => array('include\functions_mail.inc.php (pwg_mail_group)'),
-),
-array(
   'name' => 'nbm_event_handler_added',
   'type' => 'trigger_action',
   'vars' => array(),
@@ -706,33 +700,15 @@ array(
   'files' => array('profile.php (save_profile_from_post)'),
 ),
 array(
-  'name' => 'send_mail',
+  'name' => 'before_send_mail',
   'type' => 'trigger_event',
-  'vars' => array('bool', 'result', 'string', 'mail_to', 'string', 'mail_subject', 'string', 'mail_content', 'array', 'mail_headers'),
+  'vars' => array('bool', 'result', 'mixed', 'to', 'array', 'arguments', 'PHPMailer', 'mail'),
   'files' => array('include\functions_mail.inc.php (pwg_mail)'),
 ),
 array(
-  'name' => 'send_mail_content',
-  'type' => 'trigger_event',
-  'vars' => array('string', 'content'),
-  'files' => array('include\functions_mail.inc.php (pwg_mail)'),
-),
-array(
-  'name' => 'send_mail_headers',
-  'type' => 'trigger_event',
-  'vars' => array('array', 'headers'),
-  'files' => array('include\functions_mail.inc.php (pwg_mail)'),
-),
-array(
-  'name' => 'send_mail_subject',
-  'type' => 'trigger_event',
-  'vars' => array('string', 'cvt_subject'),
-  'files' => array('include\functions_mail.inc.php (pwg_mail)'),
-),
-array(
-  'name' => 'send_mail_to',
-  'type' => 'trigger_event',
-  'vars' => array('string', 'to'),
+  'name' => 'before_parse_mail_template',
+  'type' => 'trigger_action',
+  'vars' => array('string', 'cache_key', 'string', 'content_type'),
   'files' => array('include\functions_mail.inc.php (pwg_mail)'),
 ),
 array(

@@ -305,7 +305,7 @@ function do_action_send_mail_notification($action = 'list_to_send', $check_key_l
 
             if ($exist_data)
             {
-              $subject = '['.$conf['gallery_title'].']: '.l10n('New photos added');
+              $subject = '['.$conf['gallery_title'].'] '.l10n('New photos added');
 
               // Assign current var for nbm mail
               assign_vars_nbm_mail_content($nbm_user);
@@ -377,20 +377,22 @@ function do_action_send_mail_notification($action = 'list_to_send', $check_key_l
                   'SEND_AS_NAME'      => $env_nbm['send_as_name'],
                 )
               );
+              
+              $ret = pwg_mail(
+                array(
+                  'name' => stripslashes($nbm_user['username']),
+                  'email' => $nbm_user['mail_address'],
+                  ),
+                array(
+                  'from' => $env_nbm['send_as_mail_formated'],
+                  'subject' => $subject,
+                  'email_format' => $env_nbm['email_format'],
+                  'content' => $env_nbm['mail_template']->parse('notification_by_mail', true),
+                  'content_format' => $env_nbm['email_format'],
+                  )
+                );
 
-              if (pwg_mail
-                  (
-                    format_email(stripslashes($nbm_user['username']), $nbm_user['mail_address']),
-                    array
-                    (
-                      'from' => $env_nbm['send_as_mail_formated'],
-                      'subject' => $subject,
-                      'email_format' => $env_nbm['email_format'],
-                      'content' => $env_nbm['mail_template']->parse('notification_by_mail', true),
-                      'content_format' => $env_nbm['email_format'],
-                      'theme' => $nbm_user['theme']
-                    )
-                  ))
+              if ($ret)
               {
                 inc_mail_sent_success($nbm_user);
 

@@ -168,6 +168,16 @@ function &get_mail_template($email_format)
 }
 
 /**
+ * Return string email format (text/html or text/plain)
+ * @param bool is_html
+ * @return string
+ */
+function get_str_email_format($is_html)
+{
+  return ($is_html ? 'text/html' : 'text/plain');
+}
+
+/**
  * Switch language to specified language
  * All entries are push on language stack
  * @param string $language
@@ -255,8 +265,8 @@ function switch_lang_back()
 /**
  * Send a notification email to all administrators
  * current user (if admin) is not notified
- * @param string $subject
- * @param string $content
+ * @param string|array $subject
+ * @param string|array $content
  * @param boolean $send_technical_details - send user IP and browser
  * @return boolean
  */
@@ -266,26 +276,33 @@ function pwg_mail_notification_admins($subject, $content, $send_technical_detail
   {
     return false;
   }
-  
-  // for backward compatibility < 2.6
-  if (is_array($subject))
-  {
-    $subject = l10n_args($subject);
-  }
-  if (is_array($content))
-  {
-    $content = l10n_args($content);
-  }
 
   global $conf, $user;
-  
+
+  if (is_array($subject) or is_array($content))
+  {
+    switch_lang_to(get_default_language());
+
+    if (is_array($subject))
+    {
+      $subject = l10n_args($subject);
+    }
+    if (is_array($content))
+    {
+      $content = l10n_args($content);
+    }
+
+    switch_lang_back();
+  }
+
   $tpl_vars = array();
   if ($send_technical_details)
   {
-    $tpl_vars['TECHNICAL'] = 
-      l10n('Connected user: %s', stripslashes($user['username'])) ."\n".
-      l10n('IP: %s', $_SERVER['REMOTE_ADDR']) . "\n" .
-      l10n('Browser: %s', $_SERVER['HTTP_USER_AGENT']);
+    $tpl_vars['TECHNICAL'] = array(
+      'username' => stripslashes($user['username']),
+      'ip' => $_SERVER['REMOTE_ADDR'],
+      'user_agent' => $_SERVER['HTTP_USER_AGENT'],
+      );
   }
 
   return pwg_mail_admins(

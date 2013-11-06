@@ -256,8 +256,7 @@ function set_user_on_env_nbm(&$nbm_user, $is_action_send)
 
   if ($is_action_send)
   {
-    $nbm_user['theme'] = $user['theme'];
-    $env_nbm['mail_template'] = get_mail_template($env_nbm['email_format'], $nbm_user['theme']);
+    $env_nbm['mail_template'] = get_mail_template($env_nbm['email_format']);
     $env_nbm['mail_template']->set_filename('notification_by_mail', 'notification_by_mail.tpl');
   }
 }
@@ -423,7 +422,7 @@ function do_subscribe_unsubscribe_notification_by_mail($is_admin_request, $is_su
         // set env nbm user
         set_user_on_env_nbm($nbm_user, true);
 
-        $subject = '['.$conf['gallery_title'].']: '.($is_subscribe ? l10n('Subscribe to notification by mail'): l10n('Unsubscribe from notification by mail'));
+        $subject = '['.$conf['gallery_title'].'] '.($is_subscribe ? l10n('Subscribe to notification by mail'): l10n('Unsubscribe from notification by mail'));
 
         // Assign current var for nbm mail
         assign_vars_nbm_mail_content($nbm_user);
@@ -439,20 +438,22 @@ function do_subscribe_unsubscribe_notification_by_mail($is_admin_request, $is_su
             'GOTO_GALLERY_URL' => get_gallery_home_url(),
           )
         );
+        
+        $ret = pwg_mail(
+          array(
+            'name' => stripslashes($nbm_user['username']),
+            'email' => $nbm_user['mail_address'],
+            ),
+          array(
+            'from' => $env_nbm['send_as_mail_formated'],
+            'subject' => $subject,
+            'email_format' => $env_nbm['email_format'],
+            'content' => $env_nbm['mail_template']->parse('notification_by_mail', true),
+            'content_format' => $env_nbm['email_format'],
+            )
+          );
 
-        if (pwg_mail
-            (
-              format_email(stripslashes($nbm_user['username']), $nbm_user['mail_address']),
-              array
-              (
-                'from' => $env_nbm['send_as_mail_formated'],
-                'subject' => $subject,
-                'email_format' => $env_nbm['email_format'],
-                'content' => $env_nbm['mail_template']->parse('notification_by_mail', true),
-                'content_format' => $env_nbm['email_format'],
-                'theme' => $nbm_user['theme']
-              )
-            ))
+        if ($ret)
         {
           inc_mail_sent_success($nbm_user);
         }

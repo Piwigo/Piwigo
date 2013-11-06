@@ -38,13 +38,13 @@
 {/if}
 <p>{'See you soon,'|@translate}</p>
 <p style="text-align:center">{$SEND_AS_NAME}</p>
+<hr>
 <p>
-<br><hr>
 {'To unsubscribe'|@translate}{', click on'|@translate} <a href="{$UNSUBSCRIBE_LINK}">{$UNSUBSCRIBE_LINK}</a><br>
 {'To subscribe'|@translate}{', click on'|@translate} <a href="{$SUBSCRIBE_LINK}">{$SUBSCRIBE_LINK}</a><br>
 {'If you encounter problems or have any question, please send a message to'|@translate} <a href="mailto:{$CONTACT_EMAIL}?subject={'[NBM] Problems or questions'|@translate}">{$CONTACT_EMAIL}</a><br>
-<hr><br>
 </p>
+<hr>
 {if not empty($recent_posts)}
 </div>
 <div id="nbm_recent_post">

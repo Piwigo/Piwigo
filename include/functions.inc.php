@@ -1026,7 +1026,7 @@ function l10n_dec($singular_fmt_key, $plural_fmt_key, $decimal)
  *   if args is a array, each values are used on sprintf
  * @return string
  */
-function get_l10n_args($key, $args)
+function get_l10n_args($key, $args='')
 {
   if (is_array($args))
   {
