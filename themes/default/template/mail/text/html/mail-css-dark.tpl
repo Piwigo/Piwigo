@@ -14,7 +14,7 @@ html, body, #bodyTable {
 /* main block */
 #header {
   background:#444;
-  background:radial-gradient(ellipse at center, #555, #333);
+  background-image:radial-gradient(ellipse at center, #555, #333);
   border:1px solid #000;
   border-top:4px solid #f70;
   text-align:center;

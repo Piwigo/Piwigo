@@ -232,25 +232,22 @@ INSERT INTO '.COMMENTS_TABLE.'
 
       $comment_url = get_absolute_root_url().'comments.php?comment_id='.$comm['id'];
 
-      $keyargs_content = array
-      (
-        get_l10n_args('Author: %s', stripslashes($comm['author']) ),
-        get_l10n_args('Email: %s', stripslashes($comm['email']) ),
-        get_l10n_args('Comment: %s', stripslashes($comm['content']) ),
-        get_l10n_args('', ''),
-        get_l10n_args('Manage this user comment: %s', $comment_url)
+      $content = array(
+        l10n('Author: %s', stripslashes($comm['author']) ),
+        l10n('Email: %s', stripslashes($comm['email']) ),
+        l10n('Comment: %s', stripslashes($comm['content']) ),
+        '',
+        l10n('Manage this user comment: %s', $comment_url),
       );
 
       if ('moderate' == $comment_action)
       {
-        $keyargs_content[] = get_l10n_args('', '');
-        $keyargs_content[] = get_l10n_args('(!) This comment requires validation', '');
+        $content[] = l10n('(!) This comment requires validation');
       }
 
-      pwg_mail_notification_admins
-      (
-        get_l10n_args('Comment by %s', stripslashes($comm['author']) ),
-        $keyargs_content
+      pwg_mail_notification_admins(
+        l10n('Comment by %s', stripslashes($comm['author']) ),
+        implode("\n", $content)
       );
     }
   }
@@ -376,20 +373,17 @@ $user_where_clause.'
 
       $comment_url = get_absolute_root_url().'comments.php?comment_id='.$comment['comment_id'];
 
-      $keyargs_content = array
-      (
-        get_l10n_args('Author: %s', stripslashes($GLOBALS['user']['username']) ),
-        get_l10n_args('Comment: %s', stripslashes($comment['content']) ),
-        get_l10n_args('', ''),
-        get_l10n_args('Manage this user comment: %s', $comment_url),
-        get_l10n_args('', ''),
-        get_l10n_args('(!) This comment requires validation', ''),
+      $content = array(
+        l10n('Author: %s', stripslashes($GLOBALS['user']['username']) ),
+        l10n('Comment: %s', stripslashes($comment['content']) ),
+        '',
+        l10n('Manage this user comment: %s', $comment_url),
+        l10n('(!) This comment requires validation'),
       );
 
-      pwg_mail_notification_admins
-      (
-        get_l10n_args('Comment by %s', stripslashes($GLOBALS['user']['username']) ),
-        $keyargs_content
+      pwg_mail_notification_admins(
+        l10n('Comment by %s', stripslashes($GLOBALS['user']['username']) ),
+        implode("\n", $content)
       );
     }
     // just mail admin
@@ -416,24 +410,24 @@ function email_admin($action, $comment)
 
   include_once(PHPWG_ROOT_PATH.'include/functions_mail.inc.php');
 
-  $keyargs_content = array();
-  $keyargs_content[] = get_l10n_args('Author: %s', $comment['author']);
+  $content = array(
+    l10n('Author: %s', $comment['author']),
+    );
+
   if ($action=='delete')
   {
-    $keyargs_content[] = get_l10n_args('This author removed the comment with id %d',
-				       $comment['comment_id']
-				       );
+    $content[] = l10n('This author removed the comment with id %d', $comment['comment_id']);
   }
   else
   {
-    $keyargs_content[] = get_l10n_args('This author modified following comment:', '');
-    $keyargs_content[] = get_l10n_args('Comment: %s', $comment['content']);
+    $content[] = l10n('This author modified following comment:');
+    $content[] = l10n('Comment: %s', $comment['content']);
   }
 
-  pwg_mail_notification_admins(get_l10n_args('Comment by %s',
-					     $comment['author']),
-			       $keyargs_content
-			       );
+  pwg_mail_notification_admins(
+    l10n('Comment by %s', $comment['author']),
+		implode("\n", $content)
+		);
 }
 
 function get_comment_author_id($comment_id, $die_on_error=true)

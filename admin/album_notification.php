@@ -80,28 +80,29 @@ SELECT id, file, path, representative_ext
     $img_url = '';
   }
 
-  // TODO Mettre un array pour traduction subjet
   pwg_mail_group(
     $_POST['group'],
-    get_str_email_format(true), /* TODO add a checkbox in order to choose format*/
-    get_l10n_args('[%s] Visit album %s',
-      array($conf['gallery_title'], $category['name'])),
-    'cat_group_info',
-    array
-    (
-      'IMG_URL' => $img_url,
-      'CAT_NAME' => $category['name'],
-      'LINK' => make_index_url(
-          array(
+    array(
+      'subject' => l10n('[%s] Visit album %s', $conf['gallery_title'], $category['name']),
+      // TODO : change this language variable to 'Visit album %s'
+      // TODO : 'language_selected' => ....
+    ),
+    array(
+      'filename' => 'cat_group_info',
+      'assign' => array(
+        'IMG_URL' => $img_url,
+        'CAT_NAME' => $category['name'],
+        'LINK' => make_index_url(array(
             'category' => array(
               'id' => $category['id'],
               'name' => $category['name'],
               'permalink' => $category['permalink']
-              ))),
-      'CPL_CONTENT' => empty($_POST['mail_content'])
-                          ? '' : stripslashes($_POST['mail_content'])
-    ),
-    '' /* TODO Add listbox in order to choose Language selected */);
+              )
+            )),
+        'CPL_CONTENT' => empty($_POST['mail_content']) ? '' : stripslashes($_POST['mail_content']),
+        )
+      )
+    );
 
   unset_make_full_url();
 

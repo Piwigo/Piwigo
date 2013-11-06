@@ -47,7 +47,7 @@ function get_mail_sender_email()
 /**
  * Returns an array of mail configuration parameters :
  * - send_bcc_mail_webmaster
- * - allow_html_email
+ * - mail_allow_html
  * - use_smtp
  * - smtp_host
  * - smtp_user
@@ -64,7 +64,7 @@ function get_mail_configuration()
 
   $conf_mail = array(
     'send_bcc_mail_webmaster' => $conf['send_bcc_mail_webmaster'],
-    'allow_html_email' => $conf['allow_html_email'],
+    'mail_allow_html' => $conf['mail_allow_html'],
     'mail_theme' => $conf['mail_theme'],
     'use_smtp' => !empty($conf['smtp_host']),
     'smtp_host' => $conf['smtp_host'],
@@ -253,118 +253,117 @@ function switch_lang_back()
 }
 
 /**
- * Returns email of all administrator
- *
- * @return string
+ * Send a notification email to all administrators
+ * current user (if admin) is not notified
+ * @param string $subject
+ * @param string $content
+ * @param boolean $send_technical_details - send user IP and browser
+ * @return boolean
  */
-/*
- * send en notification email to all administrators
- * if a administrator is doing action,
- * he's be removed to email list
- *
- * @param:
- *   - keyargs_subject: mail subject on l10n_args format
- *   - keyargs_content: mail content on l10n_args format
- *   - send_technical_details: send user IP and browser
- *
- * @return boolean (Ok or not)
- */
-function pwg_mail_notification_admins($keyargs_subject, $keyargs_content, $send_technical_details=true)
+function pwg_mail_notification_admins($subject, $content, $send_technical_details=true)
 {
+  if (empty($subject) or empty($content))
+  {
+    return false;
+  }
+  
+  // for backward compatibility < 2.6
+  if (is_array($subject))
+  {
+    $subject = l10n_args($subject);
+  }
+  if (is_array($content))
+  {
+    $content = l10n_args($content);
+  }
+
   global $conf, $user;
   
-  // Check arguments
-  if (empty($keyargs_subject) or empty($keyargs_content))
+  $tpl_vars = array();
+  if ($send_technical_details)
+  {
+    $tpl_vars['TECHNICAL'] = 
+      l10n('Connected user: %s', stripslashes($user['username'])) ."\n".
+      l10n('IP: %s', $_SERVER['REMOTE_ADDR']) . "\n" .
+      l10n('Browser: %s', $_SERVER['HTTP_USER_AGENT']);
+  }
+
+  return pwg_mail_admins(
+    array(
+      'subject' => '['. $conf['gallery_title'] .'] '. $subject,
+      'mail_title' => $conf['gallery_title'],
+      'mail_subtitle' => $subject,
+      'content' => $content,
+      'content_format' => 'text/plain',
+      ),
+    array(
+      'filename' => 'notification_admin',
+      'assign' => $tpl_vars,
+      )
+    );
+}
+
+/**
+ * Send a email to all administrators
+ * current user (if admin) is excluded
+ * @see pwg_mail()
+ *
+ * @param array $args - as in pwg_mail()
+ * @param array $tpl - as in pwg_mail()
+ * @return boolean
+ */
+function pwg_mail_admins($args=array(), $tpl=array())
+{
+  if (empty($args['content']) and empty($tpl))
   {
     return false;
   }
 
+  global $conf, $user;
   $return = true;
 
-  $admins = array();
-
+  // get admins (except ourself)
   $query = '
 SELECT
-    u.'.$conf['user_fields']['username'].' AS username,
-    u.'.$conf['user_fields']['email'].' AS mail_address
+    u.'.$conf['user_fields']['username'].' AS name,
+    u.'.$conf['user_fields']['email'].' AS email
   FROM '.USERS_TABLE.' AS u
-    JOIN '.USER_INFOS_TABLE.' AS i ON i.user_id =  u.'.$conf['user_fields']['id'].'
+    JOIN '.USER_INFOS_TABLE.' AS i
+    ON i.user_id =  u.'.$conf['user_fields']['id'].'
   WHERE i.status in (\'webmaster\',  \'admin\')
-    AND '.$conf['user_fields']['email'].' IS NOT NULL
+    AND u.'.$conf['user_fields']['email'].' IS NOT NULL
     AND i.user_id <> '.$user['id'].'
   ORDER BY username
 ;';
+  $admins = array_from_query($query);
 
-  $datas = pwg_query($query);
-  if (!empty($datas))
+  if (empty($admins))
   {
-    while ($admin = pwg_db_fetch_assoc($datas))
-    {
-      if (!empty($admin['mail_address']))
-      {
-        $admins[] = format_email($admin['username'], $admin['mail_address']);
-      }
-    }
+    return $return;
   }
 
-  if (count($admins) > 0)
-  {
-    switch_lang_to(get_default_language());
+  switch_lang_to(get_default_language());
 
-    $content = l10n_args($keyargs_content)."\n";
-    if ($send_technical_details)
-    {
-      $keyargs_content_admin_info = array(
-        get_l10n_args('Connected user: %s', stripslashes($user['username'])),
-        get_l10n_args('IP: %s', $_SERVER['REMOTE_ADDR']),
-        get_l10n_args('Browser: %s', $_SERVER['HTTP_USER_AGENT'])
-        );
-      
-      $content.= "\n".l10n_args($keyargs_content_admin_info)."\n";
-    }
+  $return = pwg_mail($admins, $args, $tpl);
 
-    $return = pwg_mail(
-      implode(', ', $admins),
-      array(
-        'subject' => '['.$conf['gallery_title'].'] '.l10n_args($keyargs_subject),
-        'content' => $content,
-        'content_format' => 'text/plain',
-        'email_format' => 'text/html',
-        )
-      );
-    
-    switch_lang_back();
-  }
+  switch_lang_back();
 
   return $return;
 }
 
-/*
- * send en email to user's group
+/**
+ * Send an email to a group
+ * @see pwg_mail()
  *
- * @param:
- *   - group_id: mail are sent to group with this Id
- *   - email_format: mail format
- *   - keyargs_subject: mail subject on l10n_args format
- *   - tpl_shortname: short template name without extension
- *   - assign_vars: array used to assign_vars to mail template
- *   - language_selected: send mail only to user with this selected language
- *
- * @return boolean (Ok or not)
+ * @param int $group_id
+ * @param array $args - as in pwg_mail()
+ *    @option string language_selected - filters users of the group by language
+ * @param array $tpl - as in pwg_mail()
+ * @return boolean
  */
-function pwg_mail_group(
-  $group_id, $email_format, $keyargs_subject,
-  $tpl_shortname,
-  $assign_vars = array(), $language_selected = '')
-{
-  // Check arguments
-  if
-    (
-      empty($group_id) or
-      empty($email_format) or
-      empty($keyargs_subject) or
-      empty($tpl_shortname)
-    )
+function pwg_mail_group($group_id, $args=array(), $tpl=array())
+{  
+  if (empty($group_id) or ( empty($args['content']) and empty($tpl) ))
   {
     return false;
   }
@@ -372,94 +371,65 @@ function pwg_mail_group(
   global $conf;
   $return = true;
 
+  // get distinct languages of targeted users
   $query = '
-SELECT
-  distinct language, theme
-FROM
-  '.USER_GROUP_TABLE.' as ug
-  INNER JOIN '.USERS_TABLE.' as u  ON '.$conf['user_fields']['id'].' = ug.user_id
-  INNER JOIN '.USER_INFOS_TABLE.' as ui  ON ui.user_id = ug.user_id
-WHERE
-        '.$conf['user_fields']['email'].' IS NOT NULL
-    AND group_id = '.$group_id;
-
-  if (!empty($language_selected))
+SELECT DISTINCT language
+  FROM '.USER_GROUP_TABLE.' AS ug
+    INNER JOIN '.USERS_TABLE.' AS u
+    ON '.$conf['user_fields']['id'].' = ug.user_id
+    INNER JOIN '.USER_INFOS_TABLE.' AS ui
+    ON ui.user_id = ug.user_id
+  WHERE group_id = '.$group_id.'
+    AND '.$conf['user_fields']['email'].' <> ""';
+  if (!empty($args['language_selected']))
   {
     $query .= '
-    AND language = \''.$language_selected.'\'';
+    AND language = \''.$args['language_selected'].'\'';
   }
 
     $query .= '
 ;';
+  $languages = array_from_query($query, 'language');
 
-  $result = pwg_query($query);
-
-  if (pwg_db_num_rows($result) > 0)
+  if (empty($languages))
   {
-    $list = array();
-    while ($row = pwg_db_fetch_assoc($result))
-    {
-      $list[] = $row;
-    }
+    return $return;
+  }
 
-    foreach ($list as $elem)
-    {
-      $query = '
+  foreach ($languages as $language)
+  {
+    // get subset of users in this group for a specific language
+    $query = '
 SELECT
-  u.'.$conf['user_fields']['username'].' as username,
-  u.'.$conf['user_fields']['email'].' as mail_address
-FROM
-  '.USER_GROUP_TABLE.' as ug
-  INNER JOIN '.USERS_TABLE.' as u  ON '.$conf['user_fields']['id'].' = ug.user_id
-  INNER JOIN '.USER_INFOS_TABLE.' as ui  ON ui.user_id = ug.user_id
-WHERE
-        '.$conf['user_fields']['email'].' IS NOT NULL
-    AND group_id = '.$group_id.'
-    AND language = \''.$elem['language'].'\'
-    AND theme = \''.$elem['theme'].'\'
+    u.'.$conf['user_fields']['username'].' AS name,
+    u.'.$conf['user_fields']['email'].' AS email
+  FROM '.USER_GROUP_TABLE.' AS ug
+    INNER JOIN '.USERS_TABLE.' AS u
+    ON '.$conf['user_fields']['id'].' = ug.user_id
+    INNER JOIN '.USER_INFOS_TABLE.' AS ui
+    ON ui.user_id = ug.user_id
+  WHERE group_id = '.$group_id.'
+    AND '.$conf['user_fields']['email'].' <> ""
+    AND language = \''.$language.'\'
 ;';
+    $users = array_from_query($query);
 
-      $result = pwg_query($query);
-
-      if (pwg_db_num_rows($result) > 0)
-      {
-        $Bcc = array();
-        while ($row = pwg_db_fetch_assoc($result))
-        {
-          if (!empty($row['mail_address']))
-          {
-            $Bcc[] = format_email(stripslashes($row['username']), $row['mail_address']);
-          }
-        }
-
-        if (count($Bcc) > 0)
-        {
-          switch_lang_to($elem['language']);
-
-          $mail_template = get_mail_template($email_format, $elem['theme']);
-          $mail_template->set_filename($tpl_shortname, $tpl_shortname.'.tpl');
-
-          $mail_template->assign(
-            trigger_event('mail_group_assign_vars', $assign_vars));
-
-          $return = pwg_mail
-          (
-            '',
-            array
-            (
-              'Bcc' => $Bcc,
-              'subject' => l10n_args($keyargs_subject),
-              'email_format' => $email_format,
-              'content' => $mail_template->parse($tpl_shortname, true),
-              'content_format' => $email_format,
-              'theme' => $elem['theme']
-            )
-          ) and $return;
-
-          switch_lang_back();
-        }
-      }
+    if (empty($users))
+    {
+      continue;
     }
+
+    switch_lang_to($language);
+
+    $return&= pwg_mail(null,
+      array_merge(
+        $args,
+        array('Bcc' => $users)
+        ),
+      $tpl
+      );
+
+    switch_lang_back();
   }
 
   return $return;
@@ -473,17 +443,21 @@ WHERE
  *       o from: sender [default value webmaster email]
  *       o Cc: array of carbon copy receivers of the mail. [default value empty]
  *       o Bcc: array of blind carbon copy receivers of the mail. [default value empty]
- *       o subject  [default value 'Piwigo']
- *       o content: content of mail    [default value '']
- *       o content_format: format of mail content  [default value 'text/plain']
- *       o email_format: global mail format  [default value $conf_mail['default_email_format']]
+ *       o subject [default value 'Piwigo']
+ *       o content: content of mail [default value '']
+ *       o content_format: format of mail content [default value 'text/plain']
+ *       o email_format: global mail format [default value $conf_mail['default_email_format']]
  *       o theme: theme to use [default value $conf_mail['mail_theme']]
  *       o mail_title: main title of the mail [default value $conf['gallery_title']]
  *       o mail_subtitle: subtitle of the mail [default value subject]
+ * @param array $tpl - use these options to define a custom content template file
+ *       o filename
+ *       o dirname (optional)
+ *       o assign (optional)
  *
  * @return boolean
  */
-function pwg_mail($to, $args = array())
+function pwg_mail($to, $args=array(), $tpl=array())
 {
   global $conf, $conf_mail, $lang_info, $page;
 
@@ -571,6 +545,16 @@ function pwg_mail($to, $args = array())
   {
     $args['content'] = '';
   }
+  
+  // try to decompose subject like "[....] ...."
+  if (!isset($args['mail_title']) and !isset($args['mail_subtitle']))
+  {
+    if (preg_match('#^\[(.*)\](.*)$#',  $args['subject'], $matches))
+    {
+      $args['mail_title'] = $matches[1];
+      $args['mail_subtitle'] = $matches[2];
+    }
+  }
   if (!isset($args['mail_title']))
   {
     $args['mail_title'] = $conf['gallery_title'];
@@ -587,7 +571,7 @@ function pwg_mail($to, $args = array())
   }
 
   $content_type_list = array();
-  if ($conf_mail['allow_html_email'] and @$args['email_format'] != 'text/plain')
+  if ($conf_mail['mail_allow_html'] and @$args['email_format'] != 'text/plain')
   {
     $content_type_list[] = 'text/html';
   }
@@ -598,7 +582,7 @@ function pwg_mail($to, $args = array())
   {
     // key compose of indexes witch allow to cache mail data
     $cache_key = $content_type.'-'.$lang_info['code'];
-    $cache_key.= '-'.crc32(@$args['mail_title'] . @$args['mail_subtitle']);
+    $cache_key.= '-'.crc32(@$args['mail_title'] . @$args['mail_subtitle']); // TODO: find a way to not cache by mail_title
 
     if (!isset($conf_mail[$cache_key]))
     {
@@ -608,11 +592,12 @@ function pwg_mail($to, $args = array())
         $conf_mail[$cache_key]['theme'] = get_mail_template($content_type);
         trigger_action('before_parse_mail_template', $cache_key, $content_type);
       }
+      $template = &$conf_mail[$cache_key]['theme'];
 
-      $conf_mail[$cache_key]['theme']->set_filename('mail_header', 'header.tpl');
-      $conf_mail[$cache_key]['theme']->set_filename('mail_footer', 'footer.tpl');
+      $template->set_filename('mail_header', 'header.tpl');
+      $template->set_filename('mail_footer', 'footer.tpl');
 
-      $conf_mail[$cache_key]['theme']->assign(
+      $template->assign(
         array(
           'GALLERY_URL' => get_gallery_home_url(),
           'GALLERY_TITLE' => isset($page['gallery_title']) ? $page['gallery_title'] : $conf['gallery_title'],
@@ -627,31 +612,33 @@ function pwg_mail($to, $args = array())
 
       if ($content_type == 'text/html')
       {
-        if ($conf_mail[$cache_key]['theme']->smarty->template_exists('global-mail-css.tpl'))
+        if ($template->smarty->template_exists('global-mail-css.tpl'))
         {
-          $conf_mail[$cache_key]['theme']->set_filename('css', 'global-mail-css.tpl');
-          $conf_mail[$cache_key]['theme']->assign_var_from_handle('GLOBAL_MAIL_CSS', 'css');
+          $template->set_filename('css', 'global-mail-css.tpl');
+          $template->assign_var_from_handle('GLOBAL_MAIL_CSS', 'css');
         }
 
-        if ($conf_mail[$cache_key]['theme']->smarty->template_exists('mail-css-'. $args['theme'] .'.tpl'))
+        if ($template->smarty->template_exists('mail-css-'. $args['theme'] .'.tpl'))
         {
-          $conf_mail[$cache_key]['theme']->set_filename('css', 'mail-css-'. $args['theme'] .'.tpl');
-          $conf_mail[$cache_key]['theme']->assign_var_from_handle('MAIL_CSS', 'css');
+          $template->set_filename('css', 'mail-css-'. $args['theme'] .'.tpl');
+          $template->assign_var_from_handle('MAIL_CSS', 'css');
         }
       }
 
-      $conf_mail[$cache_key]['header'] = $conf_mail[$cache_key]['theme']->parse('mail_header', true);
-      $conf_mail[$cache_key]['footer'] = $conf_mail[$cache_key]['theme']->parse('mail_footer', true);
+      $conf_mail[$cache_key]['header'] = $template->parse('mail_header', true);
+      $conf_mail[$cache_key]['footer'] = $template->parse('mail_footer', true);
     }
 
     // Header
     $contents[$content_type] = $conf_mail[$cache_key]['header'];
 
     // Content
+    // Stored in a temp variable, if a content template is used it will be assigned
+    // to the $CONTENT template variable, otherwise it will be appened to the mail
     if ($args['content_format'] == 'text/plain' and $content_type == 'text/html')
     {
       // convert plain text to html
-      $contents[$content_type].=
+      $mail_content =
         '<p>'.
         nl2br(
           preg_replace(
@@ -665,11 +652,39 @@ function pwg_mail($to, $args = array())
     else if ($args['content_format'] == 'text/html' and $content_type == 'text/plain')
     {
       // convert html text to plain text
-      $contents[$content_type].= strip_tags($args['content']);
+      $mail_content = strip_tags($args['content']);
     }
     else
     {
-      $contents[$content_type].= $args['content'];
+      $mail_content = $args['content'];
+    }
+
+    // Runtime template
+    if (isset($tpl['filename']))
+    {
+      $template = &$conf_mail[$cache_key]['theme'];
+      if (isset($tpl['dirname']))
+      {
+        $template->set_template_dir($tpl['dirname'] .'/'. $content_type);
+      }
+      if ($template->smarty->template_exists($tpl['filename'] .'.tpl'))
+      {
+        $template->set_filename($tpl['filename'], $tpl['filename'] .'.tpl');
+        if (!empty($tpl['assign']))
+        {
+          $template->assign($tpl['assign']);
+        }
+        $template->assign('CONTENT', $mail_content);
+        $contents[$content_type].= $template->parse($tpl['filename'], true);
+      }
+      else
+      {
+        $contents[$content_type].= $mail_content;
+      }
+    }
+    else
+    {
+      $contents[$content_type].= $mail_content;
     }
 
     // Footer
@@ -750,7 +765,10 @@ function pwg_mail($to, $args = array())
  */
 function pwg_send_mail($result, $to, $subject, $content, $headers)
 {
-  trigger_error('pwg_send_mail function is deprecated', E_USER_NOTICE);
+  if (is_admin())
+  {
+    trigger_error('pwg_send_mail function is deprecated', E_USER_NOTICE);
+  }
   
   if (!$result)
   {
@@ -763,16 +781,6 @@ function pwg_send_mail($result, $to, $subject, $content, $headers)
   {
     return $result;
   }
-}
-
-/**
- * @deprecated 2.6
- */
-function move_ccs_rules_to_body($content)
-{
-  trigger_error('move_ccs_rules_to_body function is deprecated, use move_css_to_body', E_USER_NOTICE);
-  
-  return move_css_to_body($content);
 }
 
 /**

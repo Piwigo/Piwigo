@@ -285,7 +285,7 @@ $conf['mail_sender_name'] = '';
 $conf['mail_sender_email'] = '';
 
 // set true to allow text/html emails
-$conf['allow_html_email'] = true;
+$conf['mail_allow_html'] = true;
 
 // 'clear' or 'dark'
 $conf['mail_theme'] = 'clear';

@@ -229,16 +229,16 @@ SELECT id
       include_once(PHPWG_ROOT_PATH.'include/functions_mail.inc.php');
       $admin_url = get_absolute_root_url().'admin.php?page=user_list&username='.$login;
 
-      $keyargs_content = array(
-        get_l10n_args('User: %s', stripslashes($login)),
-        get_l10n_args('Email: %s', $_POST['mail_address']),
-        get_l10n_args('', ''),
-        get_l10n_args('Admin: %s', $admin_url)
+      $content = array(
+        l10n('User: %s', stripslashes($login) ),
+        l10n('Email: %s', $_POST['mail_address']),
+        '',
+        l10n('Admin: %s', $admin_url),
         );
 
       pwg_mail_notification_admins(
-        get_l10n_args('Registration of %s', stripslashes($login)),
-        $keyargs_content
+        l10n('Registration of %s', stripslashes($login) ),
+        implode("\n", $content)
         );
     }
 
