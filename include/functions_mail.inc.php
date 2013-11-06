@@ -113,6 +113,10 @@ function unformat_email($input)
 {
   if (is_array($input))
   {
+    if (!isset($input['name']))
+    {
+      $input['name'] = '';
+    }
     return $input;
   }
 
@@ -131,7 +135,58 @@ function unformat_email($input)
       );
   }
 }
+
+/**
+ * Return a clean array of hashmaps (email, name) from various inputs
+ * - comma separated list
+ * - array of emails
+ * - single hashmap (email[, name])
+ * @since 2.6
+ *
+ * @param mixed $data
+ * @return string[][]
+ */
+function get_clean_recipients_list($data)
+{
+  if (empty($data))
+  {
+    return array();
+  }
+  else if (is_array($data))
+  {
+    $values = array_values($data);
+    if (!is_array($values[0]))
+    {
+      $keys = array_keys($data);
+      if (is_int($keys[0]))
+      { // simple array of emails
+        foreach ($data as &$item)
+        {
+          $item = array(
+            'email' => $item,
+            'name' => '',
+            );
+        }
+        unset($item);
+      }
+      else
+      { // hashmap of one recipient
+        $data = array(unformat_email($data));
+      }
+    }
+    else
+    { // array of hashmaps
+      $data = array_map('unformat_email', $data);
+    }
+  }
+  else
+  {
+    $data = explode(',', $data);
+    $data = array_map('unformat_email', $data);
+  }
   
+  return $data;
+}
 
 /**
  * Returns an email address list with minimal email string
@@ -154,7 +209,6 @@ function get_strict_email_list($email_list)
 
   return implode(',', array_unique($result));
 }
-
 
 /**
  * Return an new mail template
@@ -493,10 +547,8 @@ function pwg_mail($to, $args=array(), $tpl=array())
 
   $mail = new PHPMailer;
 
-  $recipients = !is_array($to) ? explode(',', $to) : $to;
-  foreach ($recipients as $recipient)
+  foreach (get_clean_recipients_list($to) as $recipient)
   {
-    $recipient = unformat_email($recipient);
     $mail->addAddress($recipient['email'], $recipient['name']);
   }
 
@@ -531,24 +583,23 @@ function pwg_mail($to, $args=array(), $tpl=array())
   // Cc
   if (!empty($args['Cc']))
   {
-    foreach ($args['Cc'] as $cc)
+    foreach (get_clean_recipients_list($args['Cc']) as $recipient)
     {
-      $cc = unformat_email($cc);
-      $mail->addCC($cc['email'], $cc['name']);
+      $mail->addCC($recipient['email'], $recipient['name']);
     }
   }
 
   // Bcc
+  $Bcc = get_clean_recipients_list(@$args['Bcc']);
   if ($conf_mail['send_bcc_mail_webmaster'])
   {
-    $args['Bcc'][] = get_webmaster_mail_address();
+    $Bcc[] = get_webmaster_mail_address();
   }
-  if (!empty($args['Bcc']))
+  if (!empty($Bcc))
   {
-    foreach ($args['Bcc'] as $bcc)
+    foreach ($Bcc as $recipient)
     {
-      $bcc = unformat_email($bcc);
-      $mail->addBCC($bcc['email'], $bcc['name']);
+      $mail->addBCC($recipient['email'], $recipient['name']);
     }
   }
 
