@@ -253,7 +253,6 @@ $lang['Allow users to edit their own comments'] = 'Tillat brukarar å endre sine
 $lang['Allowed file types: %s.'] = 'Tillatne filtyper: %s';
 $lang['Mail content'] = 'Send innhald på e-post';
 $lang['Mail sent to %s [%s].'] = 'E-post sendt til %s [%s].';
-$lang['Main'] = 'Hovud';
 $lang['Main Page'] = 'Hovudside';
 $lang['Multiple Size'] = 'Fleire størrelsar';
 $lang['Level 2'] = 'Vener';
@@ -945,4 +944,7 @@ $lang['pLoader stands for <em>Piwigo Uploader</em>. From your computer, pLoader 
 $lang['photos candidates for metadata synchronization'] = 'bilete som er kanditatar for synkronisering av metadata';
 $lang['Resize after upload disabled due to the use of GD as graphic library'] = 'Endring av storleik etter opplasting er ikkje tilgjengeleg avdi GD vert bruka som grafikkbibliotek';
 $lang['Select at least one tag'] = 'Vel minst eitt nøkkelord';
+$lang['Basic settings'] = 'Grunnleggjande innstillingar';
+$lang['General'] = 'Generelt';
+$lang['Mail theme'] = 'E-posttema';
 ?>
