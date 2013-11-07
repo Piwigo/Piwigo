@@ -787,7 +787,7 @@ function ws_addDefaultMethods( $arr )
         ),
       '<b>Admin only.</b> Adds one or more users to a group.',
       $ws_functions_root . 'pwg.groups.php',
-      array('admin_only'=>true)
+      array('admin_only'=>true, 'post_only'=>true)
     );
 
   $service->addMethod(
@@ -930,7 +930,7 @@ function ws_addDefaultMethods( $arr )
         ),
       '<b>Admin only.</b> Adds permissions to an album.',
       $ws_functions_root . 'pwg.permissions.php',
-      array('admin_only'=>true)
+      array('admin_only'=>true, 'post_only'=>true)
     );
     
   $service->addMethod(
