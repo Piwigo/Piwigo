@@ -1,13 +1,5 @@
-{footer_script}{literal}
-jQuery(document).ready(function(){
-  jQuery("#activate_comments").change(function(){
-    if ($(this).is(':checked')) {
-      jQuery("#comments_param_warp").show();
-    } else {
-      jQuery("#comments_param_warp").hide();
-    }
-  });
-
+{footer_script}
+(function(){
   var targets = {
     'input[name="rate"]' : '#rate_anonymous',
     'input[name="allow_user_registration"]' : '#email_admin_on_new_user',
@@ -22,47 +14,110 @@ jQuery(document).ready(function(){
     jQuery(target).toggle(jQuery(selector).is(':checked'));
 
     (function(target){
-      jQuery(selector).bind('change', function() {
+      jQuery(selector).on('change', function() {
         jQuery(target).toggle($(this).is(':checked'));
       });
     })(target);
   };
-});
-{/literal}{/footer_script}
+}());
+{/footer_script}
 
 <h2>{'Piwigo configuration'|@translate} {$TABSHEET_TITLE}</h2>
 
 {if !isset($default)}
 <form method="post" action="{$F_ACTION}" class="properties"{if isset($watermark)} enctype="multipart/form-data"{/if}>
 {/if}
+
 <div id="configContent">
 {if isset($main)}
-<fieldset id="mainConf">
-  <legend></legend>
+<fieldset class="mainConf">
+  <legend>{'Basic settings'|translate}</legend>
   <ul>
     <li>
-
-        <label for="gallery_title">{'Gallery title'|@translate}</label>
+      <label for="gallery_title">{'Gallery title'|@translate}</label>
       <br>
       <input type="text" maxlength="255" size="50" name="gallery_title" id="gallery_title" value="{$main.CONF_GALLERY_TITLE}">
     </li>
 
     <li>
-
-        <label for="page_banner">{'Page banner'|@translate}</label>
+      <label for="page_banner">{'Page banner'|@translate}</label>
       <br>
       <textarea rows="5" cols="50" class="description" name="page_banner" id="page_banner">{$main.CONF_PAGE_BANNER}</textarea>
     </li>
+    
+   <li id="order_filters">
+      <label>{'Default photos order'|@translate}</label>
 
+    {foreach from=$main.order_by item=order}
+      <span class="filter {if isset($ORDER_BY_IS_CUSTOM)}transparent{/if}">
+        <select name="order_by[]" {if isset($ORDER_BY_IS_CUSTOM)}disabled{/if}>
+          {html_options options=$main.order_by_options selected=$order}
+        </select>
+        <a class="removeFilter">{'delete'|@translate}</a>
+      </span>
+    {/foreach}
+
+    {if !isset($ORDER_BY_IS_CUSTOM)}
+      <a class="addFilter">{'Add a criteria'|@translate}</a>
+    {else}
+      <span class="order_by_is_custom">{'You can\'t define a default photo order because you have a custom setting in your local configuration.'|@translate}</span>
+    {/if}
+    </li>
+  </ul>
+  
+{if !isset($ORDER_BY_IS_CUSTOM)}
+{footer_script require='jquery'}
+(function(){
+// counters for displaying of addFilter link
+var fields = {$main.order_by|@count},
+    max_fields = Math.ceil({$main.order_by_options|@count}/2);
+
+function updateAddFilterLink() {
+  if (fields >= max_fields) {
+    jQuery('.addFilter').css('display', 'none');
+  } else {
+    jQuery('.addFilter').css('display', '');
+  }
+}
+
+function updateRemoveFilterTrigger() {
+  jQuery(".removeFilter").click(function() {
+    jQuery(this).parent('span.filter').remove();
+    fields--;
+    updateAddFilterLink();
+  });
+
+  jQuery(".removeFilter").css('display', '');
+  jQuery(".filter:first .removeFilter").css('display', 'none');
+}
+
+
+jQuery('.addFilter').click(function() {
+  jQuery(this).prev('span.filter').clone().insertBefore($(this));
+  jQuery(this).prev('span.filter').children('select[name="order_by[]"]').val('');
+
+  fields++;
+  updateRemoveFilterTrigger();
+  updateAddFilterLink();
+});
+
+updateRemoveFilterTrigger();
+updateAddFilterLink();
+}());
+{/footer_script}
+{/if}
+</fieldset>
+
+<fieldset class="mainConf">
+  <legend>{'Permissions'|translate}</legend>
+  <ul>
     <li>
       <label>
         <input type="checkbox" name="rate" {if ($main.rate)}checked="checked"{/if}>
         {'Allow rating'|@translate}
       </label>
-    </li>
 
-    <li id="rate_anonymous">
-      <label>
+      <label id="rate_anonymous" class="no-bold">
         <input type="checkbox" name="rate_anonymous" {if ($main.rate_anonymous)}checked="checked"{/if}>
         {'Rating by guests'|@translate}
       </label>
@@ -73,10 +128,8 @@ jQuery(document).ready(function(){
         <input type="checkbox" name="allow_user_registration" {if ($main.allow_user_registration)}checked="checked"{/if}>
         {'Allow user registration'|@translate}
       </label>
-    </li>
 
-    <li id="email_admin_on_new_user">
-      <label>
+      <label id="email_admin_on_new_user" class="no-bold">
         <input type="checkbox" name="email_admin_on_new_user" {if ($main.email_admin_on_new_user)}checked="checked"{/if}>
         {'Email admins when a new user registers'|@translate}
       </label>
@@ -95,98 +148,82 @@ jQuery(document).ready(function(){
         {'Mail address is obligatory for all users'|@translate}
       </label>
     </li>
+  </ul>
 
+{footer_script require='jquery'}
+jQuery("#activate_comments").change(function(){
+  if ($(this).is(':checked')) {
+    jQuery("#comments_param_warp").show();
+  } else {
+    jQuery("#comments_param_warp").hide();
+  }
+});
+{/footer_script}
+</fieldset>
+
+<fieldset class="mainConf">
+  <legend>{'Miscellaneous'|translate}</legend>
+  <ul>
     <li>
       <label>{'Week starts on'|@translate}
       {html_options name="week_starts_on" options=$main.week_starts_on_options selected=$main.week_starts_on_options_selected}</label>
     </li>
 
     <li>
-        <label>{'Default photos order'|@translate}</label>
-
-        {foreach from=$main.order_by item=order}
-        <span class="filter {if isset($ORDER_BY_IS_CUSTOM)}transparent{/if}">
-          <select name="order_by[]" {if isset($ORDER_BY_IS_CUSTOM)}disabled{/if}>
-            {html_options options=$main.order_by_options selected=$order}
-          </select>
-          <a class="removeFilter">{'delete'|@translate}</a>
-        </span>
-        {/foreach}
-
-        {if !isset($ORDER_BY_IS_CUSTOM)}
-          <a class="addFilter">{'Add a criteria'|@translate}</a>
-        {else}
-          <span class="order_by_is_custom">{'You can\'t define a default photo order because you have a custom setting in your local configuration.'|@translate}</span>
-        {/if}
-    </li>
-
-{if !isset($ORDER_BY_IS_CUSTOM)}
-{footer_script require='jquery'}
-// counters for displaying of addFilter link
-fields = {$main.order_by|@count}; max_fields = Math.ceil({$main.order_by_options|@count}/2);
-
-{literal}
-function updateAddFilterLink() {
-  if (fields >= max_fields) {
-    $('.addFilter').css('display', 'none');
-  } else {
-    $('.addFilter').css('display', '');
-  }
-}
-
-function updateRemoveFilterTrigger() {
-  $(".removeFilter").click(function () {
-    $(this).parent('span.filter').remove();
-    fields--;
-    updateAddFilterLink();
-  });
-
-  $(".removeFilter").css('display', '');
-  $(".filter:first .removeFilter").css('display', 'none');
-}
-
-jQuery(document).ready(function () {
-  $('.addFilter').click(function() {
-    $(this).prev('span.filter').clone().insertBefore($(this));
-    $(this).prev('span.filter').children('select[name="order_by[]"]').val('');
-
-    fields++;
-    updateRemoveFilterTrigger();
-    updateAddFilterLink();
-  });
-
-  updateRemoveFilterTrigger();
-  updateAddFilterLink();
-});
-{/literal}
-{/footer_script}
-{/if}
-
-    <li>
       <strong>{'Save visits in history for'|@translate}</strong>
 
-      <label>
+      <label class="no-bold">
         <input type="checkbox" name="history_guest" {if ($main.history_guest)}checked="checked"{/if}>
         {'simple visitors'|@translate}
       </label>
 
-      <label>
+      <label class="no-bold">
         <input type="checkbox" name="log" {if ($main.log)}checked="checked"{/if}>
         {'registered users'|@translate}
       </label>
 
-      <label>
+      <label class="no-bold">
         <input type="checkbox" name="history_admin" {if ($main.history_admin)}checked="checked"{/if}>
         {'administrators'|@translate}
       </label>
-
     </li>
+
+    <li>
+      <label>{'Mail theme'|@translate}</label>
+      
+      <div class="themeBoxes">
+      {foreach from=$main.mail_theme_options item=name key=theme}
+        <div class="themeBox {if $main.mail_theme==$theme}themeDefault{/if}">
+          <label>
+            <div class="themeName">
+              <input type="radio" name="mail_theme" value="{$theme}" {if $main.mail_theme==$theme}checked{/if}>
+              {$name}
+            </div>
+            <div class="themeShot">
+              <img src="{$ROOT_URL}themes/default/template/mail/screenshot-{$theme}.png" width="150"/>
+            </div>
+          </label>
+          <a href="{$ROOT_URL}themes/default/template/mail/screenshot-{$theme}.png">{'Preview'|translate}</a>
+        </div>
+      {/foreach}
+      </div>
+    </li>
+   
+{include file='include/colorbox.inc.tpl'}
+{footer_script require='jquery'}
+jQuery(".themeBoxes a").colorbox();
+
+jQuery("input[name='mail_theme']").change(function() {
+  jQuery("input[name='mail_theme']").parents(".themeBox").removeClass("themeDefault");
+  jQuery(this).parents(".themeBox").addClass("themeDefault");
+});
+{/footer_script}
   </ul>
 </fieldset>
 {/if}
 
 {if isset($comments)}
-<fieldset id="commentsConf">
+<fieldset id="commentsConf" class="no-border">
   <legend></legend>
   <ul>
     <li>
@@ -248,6 +285,7 @@ jQuery(document).ready(function () {
         {'Allow users to edit their own comments'|@translate}
       </label>
     </li>
+
     <li>
       <label>
         <input type="checkbox" name="user_can_delete_comment" {if ($comments.user_can_delete_comment)}checked="checked"{/if}>
@@ -258,19 +296,19 @@ jQuery(document).ready(function () {
     <li id="notifyAdmin">
       <strong>{'Notify administrators when a comment is'|@translate}</strong>
 
-      <label id="email_admin_on_comment_validation">
+      <label id="email_admin_on_comment_validation" class="no-bold">
         <input type="checkbox" name="email_admin_on_comment_validation" {if ($comments.email_admin_on_comment_validation)}checked="checked"{/if}> {'pending validation'|@translate}
       </label>
 
-      <label>
+      <label class="no-bold">
         <input type="checkbox" name="email_admin_on_comment" {if ($comments.email_admin_on_comment)}checked="checked"{/if}> {'added'|@translate}
       </label>
 
-      <label id="email_admin_on_comment_edition">
+      <label id="email_admin_on_comment_edition" class="no-bold">
         <input type="checkbox" name="email_admin_on_comment_edition" {if ($comments.email_admin_on_comment_edition)}checked="checked"{/if}> {'modified'|@translate}
       </label>
 
-      <label id="email_admin_on_comment_deletion">
+      <label id="email_admin_on_comment_deletion" class="no-bold">
         <input type="checkbox" name="email_admin_on_comment_deletion" {if ($comments.email_admin_on_comment_deletion)}checked="checked"{/if}> {'deleted'|@translate}
       </label>
     </li>
@@ -281,13 +319,12 @@ jQuery(document).ready(function () {
 {if isset($sizes)}
 
 {footer_script}
-var labelMaxWidth = "{'Maximum width'|@translate}";
-var labelWidth = "{'Width'|@translate}";
+(function(){
+  var labelMaxWidth = "{'Maximum width'|@translate}",
+      labelWidth = "{'Width'|@translate}",
+      labelMaxHeight = "{'Maximum height'|@translate}",
+      labelHeight = "{'Height'|@translate}";
 
-var labelMaxHeight = "{'Maximum height'|@translate}";
-var labelHeight = "{'Height'|@translate}";
-{literal}
-jQuery(document).ready(function(){
   function toggleResizeFields(size) {
     var checkbox = jQuery("#original_resize");
     var needToggle = jQuery("#sizeEdit-original");
@@ -301,7 +338,9 @@ jQuery(document).ready(function(){
   }
 
   toggleResizeFields("original");
-  jQuery("#original_resize").click(function () {toggleResizeFields("original")});
+  jQuery("#original_resize").click(function () {
+    toggleResizeFields("original");
+  });
 
   jQuery("a[id^='sizeEditOpen-']").click(function(){
     var sizeName = jQuery(this).attr("id").split("-")[1];
@@ -329,9 +368,8 @@ jQuery(document).ready(function(){
     jQuery(this).css("visibility", "hidden");
 		return false;
   });
-
-});
-{/literal}{/footer_script}
+}());
+{/footer_script}
 
 {html_style}{literal}
 .sizeEnable {width:50px;}
@@ -347,13 +385,11 @@ jQuery(document).ready(function(){
   <legend>{'Original Size'|@translate}</legend>
 {if $is_gd}
   <div>
-    <label>
-      {'Resize after upload disabled due to the use of GD as graphic library'|@translate}
-      <input type="checkbox" name="original_resize" id="original_resize" disabled="disabled" style="visibility: hidden">
-      <input type="hidden" name="original_resize_maxwidth" value="{$sizes.original_resize_maxwidth}">
-      <input type="hidden" name="original_resize_maxheight" value="{$sizes.original_resize_maxheight}">
-      <input type="hidden" name="original_resize_quality" value="{$sizes.original_resize_quality}">
-    </label>
+    {'Resize after upload disabled due to the use of GD as graphic library'|@translate}
+    <input type="checkbox" name="original_resize" id="original_resize" disabled="disabled" style="visibility: hidden">
+    <input type="hidden" name="original_resize_maxwidth" value="{$sizes.original_resize_maxwidth}">
+    <input type="hidden" name="original_resize_maxheight" value="{$sizes.original_resize_maxheight}">
+    <input type="hidden" name="original_resize_quality" value="{$sizes.original_resize_quality}">
   </div>
 {else}
   <div>
@@ -392,99 +428,102 @@ jQuery(document).ready(function(){
 <fieldset id="multiSizesConf">
   <legend>{'Multiple Size'|@translate}</legend>
 
-<div class="showDetails">
-  <a href="#" id="showDetails"{if isset($ferrors)} style="display:none"{/if}>{'show details'|@translate}</a>
-</div>
+  <div class="showDetails">
+    <a href="#" id="showDetails"{if isset($ferrors)} style="display:none"{/if}>{'show details'|@translate}</a>
+  </div>
 
-<table style="margin:0">
-{foreach from=$derivatives item=d key=type}
-  <tr>
-    <td>
-      <label>
-        <span class="sizeEnable">
-  {if $d.must_enable}
-          &#x2714;
-  {else}
-          <input type="checkbox" name="d[{$type}][enabled]" {if $d.enabled}checked="checked"{/if}>
-  {/if}
+  <table style="margin:0">
+  {foreach from=$derivatives item=d key=type}
+    <tr>
+      <td>
+        <label>
+          <span class="sizeEnable">
+    {if $d.must_enable}
+            &#x2714;
+    {else}
+            <input type="checkbox" name="d[{$type}][enabled]" {if $d.enabled}checked="checked"{/if}>
+    {/if}
+          </span>
+          {$type|@translate}
+        </label>
+      </td>
+
+      <td>
+        <span class="sizeDetails"{if isset($ferrors)} style="display:inline"{/if}>{$d.w} x {$d.h} {'pixels'|@translate}{if $d.crop}, {'Crop'|@translate|lower}{/if}</span>
+      </td>
+
+      <td>
+        <span class="sizeDetails"{if isset($ferrors) and !isset($ferrors.$type)} style="display:inline"{/if}>
+          <a href="#" id="sizeEditOpen-{$type}" class="sizeEditOpen">{'edit'|@translate}</a>
         </span>
-        {$type|@translate}
-      </label>
-    </td>
+      </td>
+    </tr>
 
-    <td>
-      <span class="sizeDetails"{if isset($ferrors)} style="display:inline"{/if}>{$d.w} x {$d.h} {'pixels'|@translate}{if $d.crop}, {'Crop'|@translate|lower}{/if}</span>
-    </td>
+    <tr id="sizeEdit-{$type}" class="sizeEdit" {if isset($ferrors.$type)} style="display:block"{/if}>
+      <td colspan="3">
+        <table class="sizeEditForm">
+    {if !$d.must_square}
+          <tr>
+            <td colspan="2">
+              <label>
+                <input type="checkbox" class="cropToggle" name="d[{$type}][crop]" {if $d.crop}checked="checked"{/if}>
+                {'Crop'|@translate}
+              </label>
+            </td>
+          </tr>
+    {/if}
 
-    <td>
-      <span class="sizeDetails"{if isset($ferrors) and !isset($ferrors.$type)} style="display:inline"{/if}>
-        <a href="#" id="sizeEditOpen-{$type}" class="sizeEditOpen">{'edit'|@translate}</a>
-      </span>
-    </td>
-  </tr>
+          <tr>
+            <td class="sizeEditWidth">{if $d.must_square or $d.crop}{'Width'|@translate}{else}{'Maximum width'|@translate}{/if}</td>
+            <td>
+              <input type="text" name="d[{$type}][w]" maxlength="4" size="4" value="{$d.w}"{if isset($ferrors.$type.w)} class="dError"{/if}>
+              {'pixels'|@translate}
+              {if isset($ferrors.$type.w)}<span class="dErrorDesc" title="{$ferrors.$type.w}">!</span>{/if}
+            </td>
+          </tr>
 
-  <tr id="sizeEdit-{$type}" class="sizeEdit" {if isset($ferrors.$type)} style="display:block"{/if}>
-    <td colspan="3">
-      <table class="sizeEditForm">
-  {if !$d.must_square}
-        <tr>
-          <td colspan="2">
-            <label>
-              <input type="checkbox" class="cropToggle" name="d[{$type}][crop]" {if $d.crop}checked="checked"{/if}>
-              {'Crop'|@translate}
-            </label>
-          </td>
-        </tr>
-  {/if}
-
-        <tr>
-          <td class="sizeEditWidth">{if $d.must_square or $d.crop}{'Width'|@translate}{else}{'Maximum width'|@translate}{/if}</td>
+    {if !$d.must_square}
+          <tr>
+            <td class="sizeEditHeight">{if $d.crop}{'Height'|@translate}{else}{'Maximum height'|@translate}{/if}</td>
+            <td>
+              <input type="text" name="d[{$type}][h]" maxlength="4" size="4"  value="{$d.h}"{if isset($ferrors.$type.h)} class="dError"{/if}>
+              {'pixels'|@translate}
+              {if isset($ferrors.$type.h)}<span class="dErrorDesc" title="{$ferrors.$type.h}">!</span>{/if}
+            </td>
+          </tr>
+    {/if}
+          <tr>
+          <td>{'Sharpen'|@translate}</td>
           <td>
-            <input type="text" name="d[{$type}][w]" maxlength="4" size="4" value="{$d.w}"{if isset($ferrors.$type.w)} class="dError"{/if}>
-            {'pixels'|@translate}
-            {if isset($ferrors.$type.w)}<span class="dErrorDesc" title="{$ferrors.$type.w}">!</span>{/if}
+            <input type="text" name="d[{$type}][sharpen]" maxlength="4" size="4"  value="{$d.sharpen}"{if isset($ferrors.$type.sharpen)} class="dError"{/if}>
+            %
+            {if isset($ferrors.$type.sharpen)}<span class="dErrorDesc" title="{$ferrors.$type.sharpen}">!</span>{/if}
           </td>
-        </tr>
+          </tr>
+        </table> {* #sizeEdit *}
+      </td>
+    </tr>
+  {/foreach}
+  </table>
 
-  {if !$d.must_square}
-        <tr>
-          <td class="sizeEditHeight">{if $d.crop}{'Height'|@translate}{else}{'Maximum height'|@translate}{/if}</td>
-          <td>
-            <input type="text" name="d[{$type}][h]" maxlength="4" size="4"  value="{$d.h}"{if isset($ferrors.$type.h)} class="dError"{/if}>
-            {'pixels'|@translate}
-            {if isset($ferrors.$type.h)}<span class="dErrorDesc" title="{$ferrors.$type.h}">!</span>{/if}
-          </td>
-        </tr>
-  {/if}
-				<tr>
-				<td>{'Sharpen'|@translate}</td>
-				<td>
-					<input type="text" name="d[{$type}][sharpen]" maxlength="4" size="4"  value="{$d.sharpen}"{if isset($ferrors.$type.sharpen)} class="dError"{/if}>
-					%
-					{if isset($ferrors.$type.sharpen)}<span class="dErrorDesc" title="{$ferrors.$type.sharpen}">!</span>{/if}
-				</td>
-				</tr>
-      </table> {* #sizeEdit *}
-    </td>
-  </tr>
-{/foreach}
-</table>
-
-<p style="margin:10px 0 0 0;{if isset($ferrors)} display:block;{/if}" class="sizeDetails">
-  {'Image Quality'|@translate}
-  <input type="text" name="resize_quality" value="{$resize_quality}" size="3" maxlength="3"{if isset($ferrors.resize_quality)} class="dError"{/if}> %
-  {if isset($ferrors.resize_quality)}<span class="dErrorDesc" title="{$ferrors.resize_quality}">!</span>{/if}
-</p>
-<p style="margin:10px 0 0 0;{if isset($ferrors)} display:block;{/if}" class="sizeDetails">
-  <a href="{$F_ACTION}&action=restore_settings" onclick="return confirm('{'Are you sure?'|@translate|@escape:javascript}');">{'Reset to default values'|@translate}</a>
-</p>
+  <p style="margin:10px 0 0 0;{if isset($ferrors)} display:block;{/if}" class="sizeDetails">
+    {'Image Quality'|@translate}
+    <input type="text" name="resize_quality" value="{$resize_quality}" size="3" maxlength="3"{if isset($ferrors.resize_quality)} class="dError"{/if}> %
+    {if isset($ferrors.resize_quality)}<span class="dErrorDesc" title="{$ferrors.resize_quality}">!</span>{/if}
+  </p>
+  <p style="margin:10px 0 0 0;{if isset($ferrors)} display:block;{/if}" class="sizeDetails">
+    <a href="{$F_ACTION}&action=restore_settings" onclick="return confirm('{'Are you sure?'|@translate|@escape:javascript}');">{'Reset to default values'|@translate}</a>
+  </p>
 
 {if !empty($custom_derivatives)}
-<fieldset class="sizeDetails"><legend>{'custom'|@translate}</legend><table style="margin:0">
-{foreach from=$custom_derivatives item=time key=custom}
-<tr><td><label><input type="checkbox" name="delete_custom_derivative_{$custom}"> {'Delete'|@translate} {$custom} ({'Last hit'|@translate}: {$time})</label></td></tr>
-{/foreach}
-</table></fieldset>
+  <fieldset class="sizeDetails">
+    <legend>{'custom'|@translate}</legend>
+    <table style="margin:0">
+    {foreach from=$custom_derivatives item=time key=custom}
+      <tr><td><label><input type="checkbox" name="delete_custom_derivative_{$custom}"> {'Delete'|@translate} {$custom} ({'Last hit'|@translate}: {$time})</label></td></tr>
+    {/foreach}
+    </table>
+  </fieldset>
 {/if}
 
 </fieldset>
@@ -492,13 +531,12 @@ jQuery(document).ready(function(){
 
 {if isset($watermark)}
 
-{footer_script}{literal}
-jQuery(document).ready(function() {
-
+{footer_script}
+(function(){
   function onWatermarkChange() {
     var val = jQuery("#wSelect").val();
     if (val.length) {
-      jQuery("#wImg").attr('src', {/literal}'{$ROOT_URL}'{literal}+val).show();
+      jQuery("#wImg").attr('src', '{$ROOT_URL}'+val).show();
     }
     else {
       jQuery("#wImg").hide();
@@ -526,22 +564,24 @@ jQuery(document).ready(function() {
     jQuery("#addWatermark, #selectWatermark").toggle();
 		return false;
   });
-});
-{/literal}{/footer_script}
+}());
+{/footer_script}
 
-<fieldset id="watermarkConf">
+<fieldset id="watermarkConf" class="no-border">
   <legend></legend>
   <ul>
     <li>
       <span id="selectWatermark"{if isset($ferrors.watermarkImage)} style="display:none"{/if}><label>{'Select a file'|@translate}</label>
       <select name="w[file]" id="wSelect">
-	{html_options options=$watermark_files selected=$watermark.file}
+        {html_options options=$watermark_files selected=$watermark.file}
       </select>
       {'... or '|@translate}<a href="#" class="addWatermarkOpen">{'add a new watermark'|@translate}</a>
-      <br><img id="wImg"></img></span>{* #selectWatermark *}
+      <br>
+      <img id="wImg"></img></span>{* #selectWatermark *}
       <span id="addWatermark"{if isset($ferrors.watermarkImage)} style="display:inline"{/if}>
       {'add a new watermark'|@translate} {'... or '|@translate}<a href="#" class="addWatermarkOpen">{'Select a file'|@translate}</a>
-      <br><input type="file" size="60" id="watermarkImage" name="watermarkImage"{if isset($ferrors.watermarkImage)} class="dError"{/if}> (png)
+      <br>
+      <input type="file" size="60" id="watermarkImage" name="watermarkImage"{if isset($ferrors.watermarkImage)} class="dError"{/if}> (png)
       {if isset($ferrors.watermarkImage)}<span class="dErrorDesc" title="{$ferrors.watermarkImage|@htmlspecialchars}">!</span>{/if}
       </span>{* #addWatermark *}
     </li>
@@ -557,7 +597,7 @@ jQuery(document).ready(function() {
     <li>
       <label>
         {'Apply watermark if height is bigger than'|@translate}
-	<input  size="4" maxlength="4" type="text" name="w[minh]" value="{$watermark.minh}"{if isset($ferrors.watermark.minh)} class="dError"{/if}>
+        <input  size="4" maxlength="4" type="text" name="w[minh]" value="{$watermark.minh}"{if isset($ferrors.watermark.minh)} class="dError"{/if}>
       </label>
       {'pixels'|@translate}
     </li>
@@ -572,10 +612,11 @@ jQuery(document).ready(function() {
         <label class="right">{'bottom right corner'|@translate} <input name="w[position]" type="radio" value="bottomright"{if $watermark.position eq 'bottomright'} checked="checked"{/if}></label>
         <label><input name="w[position]" type="radio" value="bottomleft"{if $watermark.position eq 'bottomleft'} checked="checked"{/if}> {'bottom left corner'|@translate}</label>
       </div>
+      
       <label style="display:block;margin-top:10px;font-weight:normal;"><input name="w[position]" type="radio" value="custom"{if $watermark.position eq 'custom'} checked="checked"{/if}> {'custom'|@translate}</label>
       <div id="positionCustomDetails">
         <label>{'X Position'|@translate}
-	  <input size="3" maxlength="3" type="text" name="w[xpos]" value="{$watermark.xpos}"{if isset($ferrors.watermark.xpos)} class="dError"{/if}>%
+          <input size="3" maxlength="3" type="text" name="w[xpos]" value="{$watermark.xpos}"{if isset($ferrors.watermark.xpos)} class="dError"{/if}>%
           {if isset($ferrors.watermark.xpos)}<span class="dErrorDesc" title="{$ferrors.watermark.xpos}">!</span>{/if}
         </label>
 
@@ -812,5 +853,7 @@ jQuery(document).ready(function() {
 {/if}
 
 {if isset($default)}
+<div id="configContent">
 {$PROFILE_CONTENT}
+</div>
 {/if}

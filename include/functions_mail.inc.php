@@ -680,8 +680,8 @@ function pwg_mail($to, $args=array(), $tpl=array())
       {
         if ($template->smarty->template_exists('global-mail-css.tpl'))
         {
-          $template->set_filename('css', 'global-mail-css.tpl');
-          $template->assign_var_from_handle('GLOBAL_MAIL_CSS', 'css');
+          $template->set_filename('global-css', 'global-mail-css.tpl');
+          $template->assign_var_from_handle('GLOBAL_MAIL_CSS', 'global-css');
         }
 
         if ($template->smarty->template_exists('mail-css-'. $args['theme'] .'.tpl'))

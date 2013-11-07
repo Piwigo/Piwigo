@@ -16,7 +16,7 @@ html, body, #bodyTable {
   background:#444;
   background-image:radial-gradient(ellipse at center, #555, #333);
   border:1px solid #000;
-  border-top:4px solid #f70;
+  border-top:4px solid #f36;
   text-align:center;
   text-shadow:1px 1px 0px #000;
 }
@@ -24,7 +24,7 @@ html, body, #bodyTable {
   color:#eee;
 }
 #header #subtitle {
-  color:#e06900;
+  color:#C9224C;
 }
 #content {
   background:#111;
@@ -36,12 +36,12 @@ html, body, #bodyTable {
 #footer {
   background:#333;
   border:1px solid #000;
-  border-bottom:2px solid #f70;
+  border-bottom:2px solid #f36;
 }
 
 /* links */
 a {
-  color:#f70;
+  color:#f36;
   text-decoration:none;
 }
 a:hover {

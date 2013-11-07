@@ -306,3 +306,7 @@ label>p.group_select {
   color: #111;
   background-color:#ccc;
 }
+
+#configContent fieldset:not(.no-border) {
+  border-top-color:#444;
+}

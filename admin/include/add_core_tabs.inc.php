@@ -68,7 +68,7 @@ function add_core_tabs($sheets, $tab_id)
       
     case 'configuration':
       global $conf_link;
-      $sheets['main'] = array('caption' => l10n('Main'), 'url' => $conf_link.'main');
+      $sheets['main'] = array('caption' => l10n('General'), 'url' => $conf_link.'main');
       $sheets['sizes'] = array('caption' => l10n('Photo sizes'), 'url' => $conf_link.'sizes');
       $sheets['watermark'] = array('caption' => l10n('Watermark'), 'url' => $conf_link.'watermark');
       $sheets['display'] = array('caption' => l10n('Display'), 'url' => $conf_link.'display');

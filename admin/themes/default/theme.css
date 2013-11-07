@@ -469,18 +469,23 @@ FORM.properties SPAN.property {
 	padding: 0 0.5em 0 0;
 }
 
-#mainConf, #historyConf, #commentsConf, #watermarkConf {border:none}
-
-#configContent label {
+#configContent fieldset {
+  border:none;
+  padding-left:20px;
+}
+#configContent fieldset:not(.no-border) {
+  border-top:1px solid #bbb;
+}
+#configContent legend {
+  padding-left:0;
+  margin-left:-20px;
+}
+#configContent label:not(.no-bold) {
   font-weight: bold;
 }
 
 #notifyAdmin label {
    white-space:nowrap;
-}
-
-#mainConf li {
-  margin-bottom: 1em;
 }
 
 #theHeader H1 {
@@ -975,12 +980,12 @@ LEGEND {
 #batchManagerGlobal #filter_dimension blockquote {margin:5px 0 20px 15px;}
 #batchManagerGlobal #filter_dimension .ui-slider-horizontal {width:650px;margin:5px 0 10px 0;}
 
-#mainConf a.addFilter {font-weight:normal;margin-left:20px;}
-#mainConf a.removeFilter {font-weight:normal;}
-#mainConf span.property span.filter:first-child a.removeFilter {display:none;} /* can't delete the first field */
-#mainConf span.filter {display:block;margin-left:20px;}
-#mainConf .transparent {opacity:0.5;filter:alpha(opacity=50);}
-#mainConf .order_by_is_custom {display:block;font-weight:normal;font-style:italic;margin-left:20px;}
+#order_filters a.addFilter {font-weight:normal;margin-left:20px;}
+#order_filters a.removeFilter {font-weight:normal;}
+#order_filters span.property span.filter:first-child a.removeFilter {display:none;} /* can't delete the first field */
+#order_filters span.filter {display:block;margin-left:20px;}
+#order_filters .transparent {opacity:0.5;filter:alpha(opacity=50);}
+#order_filters .order_by_is_custom {display:block;font-weight:normal;font-style:italic;margin-left:20px;}
 
 /* Upload Form */
 #uploadBoxes .file {margin-bottom:5px;text-align:left;}

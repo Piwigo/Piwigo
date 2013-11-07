@@ -134,6 +134,10 @@ $comments_order = array(
   'DESC' => l10n('Show latest comments first'),
   );
 
+$mail_themes = array(
+  'clear' => 'Clear',
+  'dark' => 'Dark',
+  );
 
 //------------------------------ verification and registration of modifications
 if (isset($_POST['submit']))
@@ -347,6 +351,8 @@ switch ($page['section'])
           'monday' => $lang['day'][1],
           ),
         'week_starts_on_options_selected' => $conf['week_starts_on'],
+        'mail_theme' => $conf['mail_theme'],
+        'mail_theme_options' => $mail_themes,
         'order_by' => $order_by,
         'order_by_options' => $sort_fields,
         )

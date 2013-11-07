@@ -287,9 +287,6 @@ $conf['mail_sender_email'] = '';
 // set true to allow text/html emails
 $conf['mail_allow_html'] = true;
 
-// 'clear' or 'dark'
-$conf['mail_theme'] = 'clear';
-
 // smtp configuration (work if fsockopen function is allowed for smtp port)
 // smtp_host: smtp server host
 //  if null, regular mail function is used
