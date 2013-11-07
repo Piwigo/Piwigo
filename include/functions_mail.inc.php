@@ -678,13 +678,13 @@ function pwg_mail($to, $args=array(), $tpl=array())
 
       if ($content_type == 'text/html')
       {
-        if ($template->smarty->template_exists('global-mail-css.tpl'))
+        if ($template->smarty->templateExists('global-mail-css.tpl'))
         {
           $template->set_filename('global-css', 'global-mail-css.tpl');
           $template->assign_var_from_handle('GLOBAL_MAIL_CSS', 'global-css');
         }
 
-        if ($template->smarty->template_exists('mail-css-'. $args['theme'] .'.tpl'))
+        if ($template->smarty->templateExists('mail-css-'. $args['theme'] .'.tpl'))
         {
           $template->set_filename('css', 'mail-css-'. $args['theme'] .'.tpl');
           $template->assign_var_from_handle('MAIL_CSS', 'css');
@@ -737,7 +737,7 @@ function pwg_mail($to, $args=array(), $tpl=array())
       {
         $template->set_template_dir($tpl['dirname'] .'/'. $content_type);
       }
-      if ($template->smarty->template_exists($tpl['filename'] .'.tpl'))
+      if ($template->smarty->templateExists($tpl['filename'] .'.tpl'))
       {
         $template->set_filename($tpl['filename'], $tpl['filename'] .'.tpl');
         if (!empty($tpl['assign']))
@@ -821,9 +821,13 @@ function pwg_mail($to, $args=array(), $tpl=array())
   if ($pre_result)
   {
     $ret = $mail->send();
-    if (!$ret and is_admin())
+    if (!$ret and (!ini_get('display_errors') || is_admin()))
     {
       trigger_error('Mailer Error: ' . $mail->ErrorInfo, E_USER_WARNING);
+    }
+    if ($conf['debug_mail'])
+    {
+      pwg_send_mail_test($ret, $mail, $args);
     }
   }
 
@@ -877,14 +881,14 @@ function move_css_to_body($content)
  * @param PHPMailer $mail
  * @return boolean $result
  */
-function pwg_send_mail_test($result, $to, $args, $mail)
+function pwg_send_mail_test($success, $mail, $args)
 {
   global $conf, $user, $lang_info;
   
   $dir = PHPWG_ROOT_PATH.$conf['data_location'].'tmp';
   if (mkgetdir($dir, MKGETDIR_DEFAULT&~MKGETDIR_DIE_ON_ERROR))
   {
-    $filename = $dir.'/mail.'.stripslashes($user['username']).'.'.$lang_info['code'].'.'.$args['theme'].'-'.date('YmdHis');
+    $filename = $dir.'/mail.'.stripslashes($user['username']).'.'.$lang_info['code'].'-'.date('YmdHis').($success ? '' : '.ERROR');
     if ($args['content_format'] == 'text/plain')
     {
       $filename .= '.txt';
@@ -895,19 +899,13 @@ function pwg_send_mail_test($result, $to, $args, $mail)
     }
     
     $file = fopen($filename, 'w+');
-    fwrite($file, implode(', ', $to) ."\n");
-    fwrite($file, $mail->Subject ."\n");
-    fwrite($file, $mail->createHeader() ."\n");
-    fwrite($file, $mail->createBody());
+    if (!$success)
+    {
+      fwrite($file, "ERROR: " . $mail->ErrorInfo . "\n\n");
+    }
+    fwrite($file, $mail->getSentMIMEMessage());
     fclose($file);
   }
-  
-  return $result;
-}
-
-if ($conf['debug_mail'])
-{
-  add_event_handler('before_send_mail', 'pwg_send_mail_test', EVENT_HANDLER_PRIORITY_NEUTRAL+10, 4);
 }
 
 trigger_action('functions_mail_included');
