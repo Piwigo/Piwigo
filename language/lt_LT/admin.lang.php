@@ -533,7 +533,6 @@ $lang['Locked'] = 'Užrakinta';
 $lang['Mail address is obligatory for all users'] = 'Pašto adresas privalomas visiems vartotojams';
 $lang['Mail content'] = 'Pranešimo turinys';
 $lang['Mail sent to %s [%s].'] = 'Pranešimas išsiųstas %s [%s].';
-$lang['Main'] = 'Pagrindinis';
 $lang['Main "guest" user does not exist'] = 'Pagrindinis "guest" vartotojas neegzistuoja';
 $lang['Main "guest" user status is incorrect'] = 'Neteisingas pagrindinio "guest" vartotojo statusas';
 $lang['Main "webmaster" user does not exist'] = 'Pagrindinis "webmaster" vartotojas neegzistuoja';
@@ -945,4 +944,7 @@ $lang['Reinitialize check integrity'] = 'Iš naujo pradėti vientisumo patikrini
 $lang['Reject'] = 'Atmesti';
 $lang['Resize after upload disabled due to the use of GD as graphic library'] = 'Dydžio keitimas po įkėlimo išjungtas dėl to, kad naudojate GD kaip grafinę biblioteką';
 $lang['Select at least one tag'] = 'Pasirinkite bent vieną žymą';
+$lang['Basic settings'] = 'Paprasti nustatymai';
+$lang['General'] = 'Bendra';
+$lang['Mail theme'] = 'Pašto tema';
 ?>
