@@ -418,4 +418,7 @@ $lang['Last Page'] = 'கடைசி பக்கம்';
 $lang['Website'] = 'இணையதளம்';
 $lang['Your website URL is invalid'] = 'உங்கள் வலைத்தளத்தின் URL தவறானது';
 $lang['First Page'] = 'முதல் பக்கம்';
+$lang['Password is missing. Please enter the password.'] = 'கடவுச்சொல் விடுபட்டுள்ளது. தயவு செய்து
+கடவுச்சொல்லை உள்ளிடவும்';
+$lang['Password confirmation is missing. Please confirm the chosen password.'] = 'கடவுச்சொல்லை உறுதிப்படுத்தல் விடுபட்டுள்ளது. தேர்ந்தெடுத்த கடவுச்சொல்லை உறுதிப்படுத்தவும்';
 ?>
