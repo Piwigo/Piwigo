@@ -49,7 +49,7 @@ function mkgetdir($dir)
     $umask = umask(0);
     $mkd = @mkdir($dir, $conf['chmod_value'], true);
     umask($umask);
-    if ($mkd==false)
+    if ($mkd==false && !is_dir($dir) /* retest existence because of potential concurrent i.php with slow file systems*/)
     {
       return false;
     }
