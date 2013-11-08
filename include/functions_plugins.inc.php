@@ -31,8 +31,117 @@ string.
 */
 
 define('PHPWG_PLUGINS_PATH', PHPWG_ROOT_PATH.'plugins/');
-
 define('EVENT_HANDLER_PRIORITY_NEUTRAL', 50);
+
+
+/**
+ * class PluginMaintain
+ * used to declare maintenance methods of a plugin
+ */
+abstract class PluginMaintain 
+{
+  protected $plugin_id;
+  
+  function __construct($id)
+  {
+    $this->plugin_id = $id;
+  }
+  
+  abstract function install($plugin_version, &$errors=array());
+  abstract function activate($plugin_version, &$errors=array());
+  abstract function deactivate();
+  abstract function uninstall();
+  
+  /*
+   * test if a plugin needs to be updated and call a update function
+   * @param: string $version, version exposed by the plugin
+   * @param: string $on_update, name of a method to call when an update is needed
+   *          it receives the previous version as first parameter
+   */
+  function autoUpdate($version, $on_update=null)
+  {
+    global $pwg_loaded_plugins;
+    
+    $current_version = $pwg_loaded_plugins[$this->plugin_id]['version'];
+    
+    if ( $version == 'auto' or $current_version == 'auto'
+        or version_compare($current_version, $version, '<')
+      )
+    {
+      if (!empty($on_update))
+      {
+        call_user_func(array(&$this, $on_update), $current_version);
+      }
+      
+      if ($version != 'auto')
+      {
+        $query = '
+UPDATE '. PLUGINS_TABLE .'
+  SET version = "'. $version .'"
+  WHERE id = "'. $this->plugin_id .'"
+;';
+        pwg_query($query);
+        
+        $pwg_loaded_plugins[$this->plugin_id]['version'] = $version;
+      }
+    }
+  }
+}
+
+/**
+ * class ThemeMaintain
+ * used to declare maintenance methods of a theme
+ */
+abstract class ThemeMaintain 
+{
+  protected $theme_id;
+  
+  function __construct($id)
+  {
+    $this->theme_id = $id;
+  }
+  
+  abstract function activate($theme_version, &$errors=array());
+  abstract function deactivate();
+  abstract function delete();
+  
+  /*
+   * test if a theme needs to be updated and call a update function
+   * @param: string $version, version exposed by the theme
+   * @param: string $on_update, name of a method to call when an update is needed
+   *          it receives the previous version as first parameter
+   */
+  function autoUpdate($version, $on_update=null)
+  {
+    $query = '
+SELECT version
+  FROM '. THEMES_TABLE .'
+  WHERE id = "'. $this->theme_id .'"
+;';
+    list($current_version) = pwg_db_fetch_row(pwg_query($query));
+    
+    if ( $version == 'auto' or $current_version == 'auto'
+        or version_compare($current_version, $version, '<')
+      )
+    {
+      if (!empty($on_update))
+      {
+        call_user_func(array(&$this, $on_update), $current_version);
+      }
+      
+      if ($version != 'auto')
+      {
+        $query = '
+UPDATE '. THEMES_TABLE .'
+  SET version = "'. $version .'"
+  WHERE id = "'. $this->theme_id .'"
+;';
+        pwg_query($query);
+      }
+    }
+  }
+}
+
 
 /* Register a event handler.
  * @param string $event the name of the event to listen to
@@ -250,43 +359,6 @@ function load_plugins()
       load_plugin($plugin);
     }
     trigger_action('plugins_loaded');
-  }
-}
-
-/*
- * test if a plugin needs to be updated and call a update function
- * @param: string $plugin_id, id of the plugin as seen in PLUGINS_TABLE and $pwg_loaded_plugins
- * @param: string $version, version exposed by the plugin
- * @param: callable $on_update, function to call when and update is needed
- *          it receives the previous version as first parameter
- */
-function request_plugin_update($plugin_id, $version, $on_update)
-{
-  global $pwg_loaded_plugins;
-  
-  if (
-    $version == 'auto' or
-    $pwg_loaded_plugins[$plugin_id]['version'] == 'auto' or
-    version_compare($pwg_loaded_plugins[$plugin_id]['version'], $version, '<')
-  )
-  {
-    // call update function
-    if (!empty($on_update))
-    {
-      call_user_func($on_update, $pwg_loaded_plugins[$plugin_id]['version']);
-    }
-    
-    // update plugin version in database
-    if ($version != 'auto')
-    {
-      $query = '
-UPDATE '. PLUGINS_TABLE .'
-SET version = "'. $version .'"
-WHERE id = "'. $plugin_id .'"';
-      pwg_query($query);
-      
-      $pwg_loaded_plugins[$plugin_id]['version'] = $version;
-    }
   }
 }
 

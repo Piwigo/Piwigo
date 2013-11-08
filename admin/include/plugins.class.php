@@ -21,6 +21,41 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
+/**
+ * class DummyPlugin_maintain
+ * used when a plugin uses the old procedural declaration of maintenance methods
+ */
+class DummyPlugin_maintain extends PluginMaintain
+{
+  function install($plugin_version, &$errors=array())
+  {
+    return $this->__call(__FUNCTION__, func_get_args());
+  }
+  function activate($plugin_version, &$errors=array())
+  {
+    return $this->__call(__FUNCTION__, func_get_args());
+  }
+  function deactivate()
+  {
+    return $this->__call(__FUNCTION__, func_get_args());
+  }
+  function uninstall()
+  {
+    return $this->__call(__FUNCTION__, func_get_args());
+  }
+
+  function __call($name, $arguments)
+  {
+    if (is_callable('plugin_'.$name))
+    {
+      array_unshift($arguments, $this->plugin_id);
+      return call_user_func_array('plugin_'.$name, $arguments);
+    }
+    return null;
+  }
+}
+
+
 class plugins
 {
   var $fs_plugins = array();
@@ -30,7 +65,7 @@ class plugins
 
   /**
    * Initialize $fs_plugins and $db_plugins_by_id
-  */
+   */
   function plugins()
   {
     $this->get_fs_plugins();
@@ -41,19 +76,51 @@ class plugins
     }
   }
 
- /**
+  /**
+   * Returns the maintain class of a plugin
+   * or build a new class with the procedural methods
+   * @param string $plugin_id
+   */
+  private static function build_maintain_class($plugin_id)
+  {
+    $file_to_include = PHPWG_PLUGINS_PATH . $plugin_id . '/maintain.inc.php';
+    $classname = $plugin_id.'_maintain';
+
+    if (file_exists($file_to_include))
+    {
+      include_once($file_to_include);
+
+      if (class_exists($classname))
+      {
+        $plugin_maintain = new $classname($plugin_id);
+      }
+      else
+      {
+        $plugin_maintain = new DummyPlugin_maintain($plugin_id);
+      }
+    }
+    else
+    {
+      $plugin_maintain = new DummyPlugin_maintain($plugin_id);
+    }
+
+    return $plugin_maintain;
+  }
+
+  /**
    * Perform requested actions
-  *  @param string - action
-  * @param string - plugin id
-  * @param array - errors
-  */
+   * @param string - action
+   * @param string - plugin id
+   * @param array - errors
+   */
   function perform_action($action, $plugin_id)
   {
     if (isset($this->db_plugins_by_id[$plugin_id]))
     {
       $crt_db_plugin = $this->db_plugins_by_id[$plugin_id];
     }
-    $file_to_include = PHPWG_PLUGINS_PATH . $plugin_id . '/maintain.inc.php';
+    
+    $plugin_maintain = self::build_maintain_class($plugin_id);
 
     $errors = array();
 
@@ -64,20 +131,15 @@ class plugins
         {
           break;
         }
-        if (file_exists($file_to_include))
-        {
-          include_once($file_to_include);
-          if (function_exists('plugin_install'))
-          {
-            plugin_install($plugin_id, $this->fs_plugins[$plugin_id]['version'], $errors);
-          }
-        }
+
+        $plugin_maintain->install($this->fs_plugins[$plugin_id]['version'], $errors);
+
         if (empty($errors))
         {
           $query = '
-INSERT INTO ' . PLUGINS_TABLE . ' (id,version) VALUES (\''
-. $plugin_id . '\',\'' . $this->fs_plugins[$plugin_id]['version'] . '\'
-)';
+INSERT INTO '. PLUGINS_TABLE .' (id,version)
+  VALUES (\''. $plugin_id .'\', \''. $this->fs_plugins[$plugin_id]['version'] .'\')
+;';
           pwg_query($query);
         }
         break;
@@ -93,20 +155,20 @@ INSERT INTO ' . PLUGINS_TABLE . ' (id,version) VALUES (\''
         {
           break;
         }
-        if (empty($errors) and file_exists($file_to_include))
+
+        if (empty($errors))
         {
-          include_once($file_to_include);
-          if (function_exists('plugin_activate'))
-          {
-            plugin_activate($plugin_id, $crt_db_plugin['version'], $errors);
-          }
+          $plugin_maintain->activate($crt_db_plugin['version'], $errors);
         }
+
         if (empty($errors))
         {
           $query = '
-UPDATE ' . PLUGINS_TABLE . '
-SET state=\'active\', version=\''.$this->fs_plugins[$plugin_id]['version'].'\'
-WHERE id=\'' . $plugin_id . '\'';
+UPDATE '. PLUGINS_TABLE .'
+  SET state=\'active\',
+    version=\''. $this->fs_plugins[$plugin_id]['version'] .'\'
+  WHERE id=\''. $plugin_id .'\'
+;';
           pwg_query($query);
         }
         break;
@@ -116,17 +178,15 @@ WHERE id=\'' . $plugin_id . '\'';
         {
           break;
         }
+
         $query = '
-UPDATE ' . PLUGINS_TABLE . ' SET state=\'inactive\' WHERE id=\'' . $plugin_id . '\'';
+UPDATE '. PLUGINS_TABLE .'
+  SET state=\'inactive\'
+  WHERE id=\''. $plugin_id .'\'
+;';
         pwg_query($query);
-        if (file_exists($file_to_include))
-        {
-          include_once($file_to_include);
-          if (function_exists('plugin_deactivate'))
-          {
-            plugin_deactivate($plugin_id);
-          }
-        }
+        
+        $plugin_maintain->deactivate();
         break;
 
       case 'uninstall':
@@ -138,17 +198,14 @@ UPDATE ' . PLUGINS_TABLE . ' SET state=\'inactive\' WHERE id=\'' . $plugin_id . 
         {
           $this->perform_action('deactivate', $plugin_id);
         }
+
         $query = '
-DELETE FROM ' . PLUGINS_TABLE . ' WHERE id=\'' . $plugin_id . '\'';
+DELETE FROM '. PLUGINS_TABLE .'
+  WHERE id=\''. $plugin_id .'\'
+;';
         pwg_query($query);
-        if (file_exists($file_to_include))
-        {
-          include_once($file_to_include);
-          if (function_exists('plugin_uninstall'))
-          {
-            plugin_uninstall($plugin_id);
-          }
-        }
+        
+        $plugin_maintain->uninstall();
         break;
 
       case 'restore':
@@ -166,15 +223,17 @@ DELETE FROM ' . PLUGINS_TABLE . ' WHERE id=\'' . $plugin_id . '\'';
         {
           break;
         }
+
         deltree(PHPWG_PLUGINS_PATH . $plugin_id, PHPWG_PLUGINS_PATH . 'trash');
         break;
     }
+
     return $errors;
   }
 
   /**
-  *  Get plugins defined in the plugin directory
-  */  
+   * Get plugins defined in the plugin directory
+   */  
   function get_fs_plugins()
   {
     $dir = opendir(PHPWG_PLUGINS_PATH);

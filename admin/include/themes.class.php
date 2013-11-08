@@ -21,6 +21,37 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
+/**
+ * class DummyTheme_maintain
+ * used when a theme uses the old procedural declaration of maintenance methods
+ */
+class DummyTheme_maintain extends ThemeMaintain
+{
+  function activate($theme_version, &$errors=array())
+  {
+    return $this->__call(__FUNCTION__, func_get_args());
+  }
+  function deactivate()
+  {
+    return $this->__call(__FUNCTION__, func_get_args());
+  }
+  function delete()
+  {
+    return $this->__call(__FUNCTION__, func_get_args());
+  }
+
+  function __call($name, $arguments)
+  {
+    if (is_callable('theme_'.$name))
+    {
+      array_unshift($arguments, $this->theme_id);
+      return call_user_func_array('theme_'.$name, $arguments);
+    }
+    return null;
+  }
+}
+
+
 class themes
 {
   var $fs_themes = array();
@@ -41,6 +72,37 @@ class themes
   }
 
   /**
+   * Returns the maintain class of a theme
+   * or build a new class with the procedural methods
+   * @param string $theme_id
+   */
+  private static function build_maintain_class($theme_id)
+  {
+    $file_to_include = PHPWG_THEMES_PATH.'/'.$theme_id.'/admin/maintain.inc.php';
+    $classname = $theme_id.'_maintain';
+
+    if (file_exists($file_to_include))
+    {
+      include_once($file_to_include);
+
+      if (class_exists($classname))
+      {
+        $theme_maintain = new $classname($theme_id);
+      }
+      else
+      {
+        $theme_maintain = new DummyTheme_maintain($theme_id);
+      }
+    }
+    else
+    {
+      $theme_maintain = new DummyTheme_maintain($theme_id);
+    }
+
+    return $theme_maintain;
+  }
+
+  /**
    * Perform requested actions
    * @param string - action
    * @param string - theme id
@@ -55,7 +117,7 @@ class themes
       $crt_db_theme = $this->db_themes_by_id[$theme_id];
     }
 
-    $file_to_include = PHPWG_THEMES_PATH.'/'.$theme_id.'/admin/maintain.inc.php';
+    $theme_maintain = self::build_maintain_class($theme_id);
 
     $errors = array();
 
@@ -85,7 +147,6 @@ class themes
           break;
         }
 
-
         if ($this->fs_themes[$theme_id]['mobile']
             and !empty($conf['mobile_theme'])
             and $conf['mobile_theme'] != $theme_id)
@@ -94,14 +155,7 @@ class themes
           break;
         }
 
-        if (file_exists($file_to_include))
-        {
-          include($file_to_include);
-          if (function_exists('theme_activate'))
-          {
-            theme_activate($theme_id, $this->fs_themes[$theme_id]['version'], $errors);
-          }
-        }
+        $theme_maintain->activate($this->fs_themes[$theme_id]['version'], $errors);
 
         if (empty($errors))
         {
@@ -141,8 +195,7 @@ INSERT INTO '.THEMES_TABLE.'
           $new_theme = null;
 
           $query = '
-SELECT
-    id
+SELECT id
   FROM '.THEMES_TABLE.'
   WHERE id != \''.$theme_id.'\'
 ;';
@@ -159,14 +212,7 @@ SELECT
           $this->set_default_theme($new_theme);
         }
 
-        if (file_exists($file_to_include))
-        {
-          include($file_to_include);
-          if (function_exists('theme_deactivate'))
-          {
-            theme_deactivate($theme_id);
-          }
-        }
+        $theme_maintain->deactivate();
 
         $query = '
 DELETE
@@ -203,14 +249,7 @@ DELETE
           break;
         }
 
-        if (file_exists($file_to_include))
-        {
-          include($file_to_include);
-          if (function_exists('theme_delete'))
-          {
-            theme_delete($theme_id);
-          }
-        }
+        $theme_maintain->delete();
 
         deltree(PHPWG_THEMES_PATH.$theme_id, PHPWG_THEMES_PATH . 'trash');
         break;
