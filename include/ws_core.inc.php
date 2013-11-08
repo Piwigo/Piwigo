@@ -389,6 +389,15 @@ Request format: ".@$this->_requestFormat." Response format: ".@$this->_responseF
     $signature = @$this->_methods[$methodName]['signature'];
     return isset($signature) ? $signature : array();
   }
+  
+  /**
+   * @since 2.6
+   */
+  function getMethodOptions($methodName)
+  {
+    $options = @$this->_methods[$methodName]['options'];
+    return isset($options) ? $options : array();
+  }
 
   static function isPost()
   {
@@ -628,6 +637,7 @@ Request format: ".@$this->_requestFormat." Response format: ".@$this->_responseF
       'name' => $methodName,
       'description' => $service->getMethodDescription($methodName),
       'params' => array(),
+      'options' => $service->getMethodOptions($methodName),
     );
     
     foreach ($service->getMethodSignature($methodName) as $name => $options)
@@ -642,6 +652,10 @@ Request format: ".@$this->_requestFormat." Response format: ".@$this->_responseF
       if (isset($options['default']))
       {
         $param_data['defaultValue'] = $options['default'];
+      }
+      if (isset($options['maxValue']))
+      {
+        $param_data['maxValue'] = $options['maxValue'];
       }
       if (isset($options['info']))
       {
