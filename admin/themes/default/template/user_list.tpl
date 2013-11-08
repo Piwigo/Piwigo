@@ -15,6 +15,11 @@ var missingUsername = "{'Please, enter a login'|translate}";
 var allUsers = [{$all_users}];
 var selection = [{$selection}];
 var pwg_token = "{$PWG_TOKEN}";
+
+var truefalse = {
+  true:"{'Yes'|translate}",
+  false:"{'No'|translate}",
+};
 {/footer_script}
 
 {footer_script}{literal}
@@ -79,6 +84,201 @@ jQuery(document).ready(function() {
   /**
    * Table with users
    */
+  /* Formating function for row details */
+  function fnFormatDetails(oTable, nTr) {
+    var userId = oTable.fnGetData(nTr)[0];
+    console.log("userId = "+userId);
+    var sOut = null;
+
+    jQuery.ajax({
+      url: "ws.php?format=json&method=pwg.users.getList",
+      type:"POST",
+      data: {
+        user_id: userId,
+        display: "all",
+      },
+      success:function(data) {
+        jQuery("#user"+userId+" .loading").hide();
+
+        var data = jQuery.parseJSON(data);
+        if (data.stat == 'ok') {
+          var user = data.result.users[0];
+
+          var userDetails = '<input type="hidden" name="user_id" value="'+user.id+'">';
+          userDetails += '<fieldset><legend>{/literal}{'Properties'|translate}{literal}</legend>';
+          userDetails += '<div class="userProperty"><strong>{/literal}{'Username'|translate}{literal}</strong>';
+          userDetails += '<br>'+user.username+'</div>';
+
+          userDetails += '<div class="userProperty"><strong>{/literal}{'Email address'|translate}{literal}</strong>';
+          userDetails += '<br><input name="email" type="text" value="'+user.email+'"></div>';
+
+          userDetails += '<div class="userProperty"><strong>{/literal}{'Status'|translate}{literal}</strong>';
+          userDetails += '<br><select name="status">';
+          jQuery("#action select[name=status] option").each(function() {
+            var selected = '';
+            if (user.status == jQuery(this).val()) {
+              selected = ' selected="selected"';
+            }
+            userDetails += '<option value="'+jQuery(this).val()+'"'+selected+'>'+jQuery(this).html()+'</option>';
+          });
+          userDetails += '</select></div>';
+
+/*
+          userDetails += '<div class="userProperty"><strong>{/literal}{'Groups'|translate}{literal}</strong>';
+          userDetails += '<br><select multiple class="chzn-select" style="width:200px;">';
+          jQuery("#action select[name=associate] option").each(function() {
+            var selected = '';
+            if (user.groups.indexOf(jQuery(this).val()) != -1) {
+              selected = ' selected="selected"';
+            }
+            userDetails += '<option value="'+jQuery(this).val()+'"'+selected+'>'+jQuery(this).html()+'</option>';
+          });
+          userDetails += '</select></div>';
+          // userDetails += '<br>'+user.groups.join(",")+'</div>';
+*/
+
+          userDetails += '<div class="userProperty"><strong>{/literal}{'Privacy level'|translate}{literal}</strong>';
+          userDetails += '<br><select name="level">';
+          jQuery("#action select[name=level] option").each(function() {
+            var selected = '';
+            if (user.level == jQuery(this).val()) {
+              selected = ' selected="selected"';
+            }
+            userDetails += '<option value="'+jQuery(this).val()+'"'+selected+'>'+jQuery(this).html()+'</option>';
+          });
+          userDetails += '</select></div>';
+
+          userDetails += '<div class="userProperty"><strong>{/literal}{'High definition enabled'|translate}{literal}</strong>';
+          userDetails += '<br>';
+          jQuery.each(truefalse, function(value, label) {
+            var checked = '';
+            if (user.enabled_high == value) {
+              checked = ' checked="checked"';
+            }
+            userDetails += '<label><input type="radio" name="enabled_high" value="'+value+'"'+checked+'>'+label+'</label>';
+          });
+          userDetails += '</div>';
+
+          userDetails += '</fieldset><fieldset><legend>{/literal}{'Preferences'|translate}{literal}</legend>';
+
+          userDetails += '<div class="userProperty"><strong>{/literal}{'Number of photos per page'|translate}{literal}</strong>';
+          userDetails += '<br>'+user.nb_image_page+'</div>';
+
+          userDetails += '<div class="userProperty"><strong>{/literal}{'Theme'|translate}{literal}</strong>';
+          userDetails += '<br><select name="theme">';
+          jQuery("#action select[name=theme] option").each(function() {
+            var selected = '';
+            if (user.theme == jQuery(this).val()) {
+              selected = ' selected="selected"';
+            }
+            userDetails += '<option value="'+jQuery(this).val()+'"'+selected+'>'+jQuery(this).html()+'</option>';
+          });
+          userDetails += '</select></div>';
+
+          userDetails += '<div class="userProperty"><strong>{/literal}{'Language'|translate}{literal}</strong>';
+          userDetails += '<br><select name="language">';
+          jQuery("#action select[name=language] option").each(function() {
+            var selected = '';
+            if (user.language == jQuery(this).val()) {
+              selected = ' selected="selected"';
+            }
+            userDetails += '<option value="'+jQuery(this).val()+'"'+selected+'>'+jQuery(this).html()+'</option>';
+          });
+          userDetails += '</select></div>';
+
+          userDetails += '<div class="userProperty"><strong>{/literal}{'Recent period'|translate}{literal}</strong>';
+          userDetails += '<br>'+user.recent_period+'</div>';
+
+          userDetails += '<div class="userProperty"><strong>{/literal}{'Expand all albums'|translate}{literal}</strong>';
+          userDetails += '<br>';
+          jQuery.each(truefalse, function(value, label) {
+            var checked = '';
+            if (user.expand == value) {
+              checked = ' checked="checked"';
+            }
+            userDetails += '<label><input type="radio" name="expand" value="'+value+'"'+checked+'>'+label+'</label>';
+          });
+          userDetails += '</div>';
+
+          userDetails += '<div class="userProperty"><strong>{/literal}{'Show number of comments'|translate}{literal}</strong>';
+          userDetails += '<br>';
+          jQuery.each(truefalse, function(value, label) {
+            var checked = '';
+            if (user.show_nb_comments == value) {
+              checked = ' checked="checked"';
+            }
+            userDetails += '<label><input type="radio" name="show_nb_comments" value="'+value+'"'+checked+'>'+label+'</label>';
+          });
+          userDetails += '</div>';
+
+          userDetails += '<div class="userProperty"><strong>{/literal}{'Show number of hits'|translate}{literal}</strong>';
+          userDetails += '<br>';
+          jQuery.each(truefalse, function(value, label) {
+            var checked = '';
+            if (user.show_nb_hits == value) {
+              checked = ' checked="checked"';
+            }
+            userDetails += '<label><input type="radio" name="show_nb_hits" value="'+value+'"'+checked+'>'+label+'</label>';
+          });
+          userDetails += '</div>';
+          userDetails += '</fieldset>';
+
+          userDetails += '<input type="submit" value="{/literal}{'Submit'|translate}{literal}" data-user_id="'+userId+'">';
+          userDetails += '<img class="submitWait" src="themes/default/images/ajax-loader-small.gif" style="display:none">'
+
+          jQuery("#user"+userId).append(userDetails);
+        }
+        else {
+          console.log('error loading user details');
+        }
+      },
+      error:function(XMLHttpRequest, textStatus, errorThrows) {
+        console.log('technical error loading user details');
+      }
+    });
+  
+    return '<div id="user'+userId+'" class="userProperties"><img class="loading" src="themes/default/images/ajax-loader-small.gif"></div>';
+  }
+
+  jQuery(document).on('click', '.userProperties input[type=submit]',  function() {
+    var userId = jQuery(this).data('user_id');
+
+    jQuery.ajax({
+      url: "ws.php?format=json&method=pwg.users.setInfo",
+      type:"POST",
+      data: jQuery('#user'+userId).find('select, input').serialize(),
+      beforeSend: function() {
+        jQuery('#user'+userId+' .submitWait').show();
+      },
+      success:function(data) {
+        jQuery('#user'+userId+' .submitWait').hide();
+      },
+      error:function(XMLHttpRequest, textStatus, errorThrows) {
+        jQuery('#user'+userId+' .submitWait').hide();
+      }
+    });
+
+    return false;
+  });
+
+  /* Add event listener for opening and closing details
+   * Note that the indicator for showing which row is open is not controlled by DataTables,
+   * rather it is done here
+   */
+  jQuery(document).on('click', '#userList tbody td img',  function() {
+    var nTr = this.parentNode.parentNode;
+    if ( this.src.match('details_close') ) {
+      /* This row is already open - close it */
+      this.src = "admin/themes/default/icon/details_open.png";
+      oTable.fnClose( nTr );
+    }
+    else {
+      /* Open this row */
+      this.src = "admin/themes/default/icon/details_close.png";
+      oTable.fnOpen( nTr, fnFormatDetails(oTable, nTr), 'details' );
+    }
+  });
+
 
   /* first column must be prefixed with the open/close icon */
   var aoColumns = [
@@ -87,7 +287,7 @@ jQuery(document).ready(function() {
     },
     {
       "mRender": function(data, type, full) {
-        return '<label><input type="checkbox" data-user_id="'+full[0]+'"> '+data+'</label>';
+        return '<img src="admin/themes/default/icon/details_open.png"> <label><input type="checkbox" data-user_id="'+full[0]+'"> '+data+'</label>';
       }
     }
   ];
@@ -328,10 +528,16 @@ jQuery(document).ready(function() {
 <style>
 .dataTables_wrapper, .dataTables_info {clear:none;}
 table.dataTable {clear:right;padding-top:10px;}
+.dataTable td img {margin-bottom: -6px;margin-left: -6px;}
 .bulkAction {margin-top:10px;}
 #addUserForm p {margin-left:0;}
 #applyActionBlock .actionButtons {margin-left:0;}
 span.infos, span.errors {background-image:none; padding:2px 5px; margin:0;border-radius:5px;}
+
+.userProperties {max-width:850px;}
+.userProperties fieldset {border-width:0; border-top-width:1px;}
+.userProperties fieldset legend {margin-left:-20px;padding-left:0;}
+.userProperty {width:220px;float:left;margin-bottom:15px;}
 </style>
 {/literal}
 
