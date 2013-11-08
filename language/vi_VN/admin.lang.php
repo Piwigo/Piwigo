@@ -188,7 +188,6 @@ $lang['Access type'] = 'Kiểu truy cập';
 $lang['Information data registered in database'] = 'Dữ liệu thông tin đã thêm vào cơ sở dữ liệu';
 $lang['Default display'] = 'Hiển thị theo mặc định';
 $lang['The gallery URL is not valid.'] = 'Địa chỉ của gallery không tồn tại.';
-$lang['Main'] = 'Mục chính';
 $lang['The number of comments a page must be between 5 and 50 included.'] = 'Số lời bình trên một trang phải từ 5 đến 50.';
 $lang['Configuration'] = 'Cấu hình';
 $lang['confirm'] = 'xác nhận';
@@ -223,7 +222,6 @@ $lang['Prepared time for list of users to send mail is limited. Others users are
 $lang['Time to send mail is limited. Others mails are skipped.'] = 'Thời gian gởi mail là có giới hạn. Các email khác đã được bỏ qua.';
 $lang['To send ?'] = 'Để gởi ?';
 $lang['Last send'] = 'Gởi lần cuối';
-$lang['Email'] = 'địa chỉ email';
 $lang['User'] = 'Người dùng';
 $lang['See you soon,'] = 'Hẹn gặp lại bạn,';
 $lang['Go to'] = 'Đi đến ';
@@ -950,4 +948,7 @@ $lang['Shotwell is an open source digital photo organizer that runs on Linux. It
 $lang['The Piwigo publish Plug-in allows you to export and synchronize photos from Lightroom directly to your Piwigo photo gallery.'] = 'Piwigo phát hành các plug-in cho phép đồng bộ hóa và xuất trực tiếp các ảnh từ Lightroom vào trong thư viện ảnh Piwigo.';
 $lang['To export your photos from digiKam to Piwigo, simply install digiKam and the Kipi-plugins.'] = 'Để xuất các ảnh từ digiKam vào Piwigo, đơn giản hãy cài đặt digiKam và Kipi-plugins.';
 $lang['Select at least one tag'] = 'Hãy chọn ít nhất một tag';
+$lang['Basic settings'] = 'Thiết lập cơ bản';
+$lang['General'] = 'Tổng quát';
+$lang['Mail theme'] = 'Chủ đề mail';
 ?>
