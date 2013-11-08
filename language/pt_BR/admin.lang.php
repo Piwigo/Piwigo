@@ -188,7 +188,6 @@ $lang['Access type'] = 'Tipo de acesso';
 $lang['Information data registered in database'] = 'Dado de informação registrado na base de dados';
 $lang['Default display'] = 'Exibição padrão (Default display)';
 $lang['The gallery URL is not valid.'] = 'O URL (endereço) da galeria não é valido.';
-$lang['Main'] = 'Principal';
 $lang['The number of comments a page must be between 5 and 50 included.'] = 'O número de comentários por página deve ser entre 5 e 50 .';
 $lang['Configuration'] = 'Configuração';
 $lang['confirm'] = 'confirmar';
@@ -950,4 +949,7 @@ $lang['Purge user cache'] = 'limpa o cache do usuário';
 $lang['The picture dimensions will be reduced to %dx%d pixels.'] = 'As dimensões da imagem serão reduzida para %dx%d pixels.';
 $lang['Resize after upload disabled due to the use of GD as graphic library'] = 'Redimensionamento após envio foi desativado devido ao uso de GD como biblioteca gráfica';
 $lang['Select at least one tag'] = 'Selecione pelo menos uma tag';
+$lang['Basic settings'] = 'Configurações básicas';
+$lang['General'] = 'Geral';
+$lang['Mail theme'] = 'Tema correio';
 ?>
