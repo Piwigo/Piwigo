@@ -1,0 +1,117 @@
+<h2>Editovanie albumov</h2>
+
+<h3>Informácie</h3>
+
+<ul>
+
+  <li><strong>názov</strong>: premenujte album (virtuálne premenovanie v prípade fyzických albumov).</li>
+
+  <li><strong>popis</strong>: krátky text všeobecne popisujúci obsah, tento text sa zobrazí v spodnej časti pod stránkou s náhľadmi.</li>
+
+</ul>
+
+<h3>Presun</h3>
+
+<p>Ak je album virtuálny, môžete ho presunúť. Presun albumu znamená zmenu jeho rodičovského (nadradeného) albumu.</p>
+
+<h3>Možnosti</h3>
+
+<ul>
+
+  <li><strong>Typ prístupu</strong>: Správa oprávnení. Keď album nastavíte ako súkromný, všetci jeho potomkovia (podalbumy) sa stanú súkromnými. Keď nastavíte album ako verejný, stanú sa verejnými aj jeho nadradené albumy.</li>
+
+  <li><strong>Zámok</strong>: Album a jeho podalbumy sa dočasne kvôli údržbe zneprístupnia.</li>
+
+  <li><strong>Komentáre</strong>: Oprávení užívatelia, ktorí môžu komentovať obrázky tohto albumu.</li>
+
+</ul>
+
+<p>Tieto možnosti môžete tiež spravovať v správe  "Vlastnosti" (záložky <span
+class="pwgScreen">Komentáre</span>, <span class="pwgScreen">Zámok</span>,
+<span class="pwgScreen">Verejný/Súkromný</span>, <span
+class="pwgScreen">Reprezentatívny</span> dostupné v<span
+class="pwgScreen">Administrácia &raquo; Albumov &raquo; Vlastnosti</span>).</p>
+
+<h3>Poradie</h3>
+
+<p>Použiť východzie poradie obrázkov.</p>
+
+<p>Určuje, či toto radenie použiť tiež na podalbumy.</p>
+
+<p>Vyberte špecifické radenie, ktoré sa použije na tento album.</p>
+<ul>
+<li><strong>Dátum vytvorenia</strong>: Dátum vytvorenia obrázku</li>
+<li><strong>Dátum zverejnenia</strong>: Dátum synchronizácie</li>
+<li><strong>Priemerné hodnotenie (*)</strong>: Priemer sa mení podľa hodnotenia návštevníkov</li>
+<li><strong>Najčastejšie navštevované (*)</strong>: Poradie je ovlyvnené aktuálnou návštevnosťou</li>
+<li><strong>Názov súboru</strong>: Názov určený v informačnom poli</li>
+<li><strong>ID</strong>: Interné ID (novšie albumy majú vyššie ID než predchádzajúce).</li>
+
+</ul>
+<p><strong>(*)</strong>Varovanie: Vlastné radenie vždy otestujte, občas vie dať neočakávané výsledky.</p>
+
+
+<h3>Reprezentant</h3>
+
+<p>Reprezentant albumu je náhľad, ktorý sa zobrazí na hlavnej stránke (<span class="pwgScreen">category.php</span>) v prípade, keď obsahuje len podalbumy a nie priamo obrázky (rovnako ako koreňový album).</p>
+
+<ul>
+
+  <li><span class="pwgScreen">Stránka s obrázkami</span>: Jedným z tlačidiel nastavíte aktuálny obrázok ako reprezentatívny. Toto tlačidlo je prístupné len administrátorom.</li>
+
+  <li><span class="pwgScreen">Úprava informácii o obrázku</span> v administrácii. Dostupné z <span
+  class="pwgScreen">picture.php</span>alebo <span class="pwgScreen">v Správe dávky</span> pri  <em>móde jednotlivo</em>. Viac v zodpovedajúcom pomocníkovi.</li>
+
+  <li><span class="pwgScreen">Administrácia &raquo; Albumy &raquo; Vlastnosti,
+  Reprezentatívny</span>. Viac v zodpovedajúcom pomocníkovi.</li>
+
+  <li><span class="pwgScreen">Editácia albumu</span> (súčasná obrazovka).</li>
+
+</ul>
+
+<p>Voľba reprezentanta záleží na
+<code>allow_random_representative</code> konfiguračnom parametre (v súbore <span
+class="filename">include/config_default.inc.php</span>).</p>
+
+<p>Vo defaultnom móde (<code>allow_random_representative</code> nastavená na false),
+každý album, ktorý obsahuje aspoň jeden prvok, je reprezentovaný fixným prvkom.
+Keď sa reprezentant nastaví (pri tvorbe albumu), môže ho zmeniť len administrátor. Pokiaľ reprezentant nevyhovuje,
+môžete použiť <strong>Nájsť reprezentanta pomocou náhodného výberu</strong>.</p>
+
+<p>Ak je konfiguračný parameter <code>allow_random_representative</code> nastavený na true,  album obsahujúci obrázky nemusí mať fixného reprezentanta.
+Len použite tlačidlo <strong>Vymazať reprezentanta</strong> .</p>
+
+<p>Ak album obstahuje len podalbumy a žiadne obrázky, aj tak môže byť reprezentovaný ľubovoľným prvkom vďaka oknu <span class="pwgScreen">Zmena informácii o obrázku</span>. Jediná možnosť v aktuálnom okne
+je tlačidlo <strong>Vymazať reprezentanta</strong>.</p>
+
+<h3>Napojiť všetky obrázky albumu na nový album</h3>
+
+<ul>
+
+<li><strong>Názov virtuálneho albumu</strong>: Názov novo vytvoreného albumu, 
+všetky obrázky z aktuálneho albumu sa napoja na tento album.</li>
+
+<li><strong>Nadradený album</strong>: Kde sa bude nachádzať nový album, 
+Nechajte prázdne, ak má byť v koreňovom adresári.</li>
+
+</ul>
+
+<h3>Napojiť všetky obrázky na existujúci album</h3>
+
+<ul>
+
+<li><strong>Albums</strong>: Vyberte cieľový album.</li>
+
+</ul>
+
+<h3>Poslať informačný email členom skupiny</h3>
+
+<ul>
+
+<ul>
+
+<li><strong>Skupina</strong>: skupina adresátov</li>
+
+<li><strong>Obsah emailu</strong>: ľubovoľný text emailu, ktorý sa odošle.</li>
+
+</ul>  
