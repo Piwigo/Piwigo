@@ -1,0 +1,85 @@
+<fieldset>
+  <legend>快速入門</legend>
+
+<ol>
+  <li>在您的電腦上創建一個目錄。</li>  
+
+  <li>複製這個目錄裡面的一些照片，並在網頁顯示中調整他們。<em>警告</em>：​​目錄和文件的名稱必須只包含字母，數字，“ - ”，“_” 或“.”。不能空白，及特殊字符。</li>
+
+  <li>一個FTP客戶端，複製目錄到Piwigo安裝的“照片庫”目錄。</li>
+
+  <li>登錄您的畫廊，去到 <span class="pwgScreen">管理</span> ，然後按一下大型的同步按鈕。</li>
+</ol>
+
+<p>恭喜您！您已成功創建您的照片庫的第一本相冊</p>
+</fieldset>
+
+<fieldset>
+  <legend>組織目錄和文件</legend>
+
+<ul>
+
+  <li>
+
+    <p>Piwigo目錄中的相冊目錄
+    "照片庫"。下面的目錄樹中一個非常小的畫廊（但
+    使用許多功能）：</p>
+
+    <pre>
+照片庫
+|-- 婚禮
+|   |-- 慶祝
+|   |   |-- 到達
+|   |   |   |-- paul-alone.jpg
+|   |   |   +-- sarah-alone.jpg
+|   |   +-- 出發
+|   |       +-- paul-and-sarah.jpg
+|   +-- 聚會
+|       |-- dancers001.jpg
+|       |-- dancers002.jpg
+|       +-- dancers003.jpg
++-- 蜜月
+    |-- hotel.png
+    |-- video-from-plane.avi
+    +-- pwg_representative
+        +-- video-from-plane.jpg
+</pre>
+
+  </li>
+
+  <li>Except for "pwg_representative" (see explanations below), each directory under "galleries" produces a album. There is no limit on deepness.</li>
+
+  <li>Basically, an element is represented by a file. A file can be a
+  Piwigo element if its extension is among <code>file_ext</code>
+  configuration parameter possibilities (see <span
+  class="filename">include/config_default.inc.php</span> file). A file can
+  be a picture if its extension is among <code>picture_ext</code>
+  configuration parameter possibilities.</li>
+
+  <li>No photo elements (video, sounds, file texts, whatever you want...) are represented by default by an icon corresponding to the filename
+  extension. Optionally, you can associate a thumbnail and a representative
+  file (see video.avi in the example above).</li>
+
+  <li><em>警告</em>: ​​目錄和文件的名稱必須包含字母，數字，“ - ”，“_”或“.”。不能空白，及特殊字符。</li>
+
+  <li>一旦照片被放置在正確的
+  目錄， 去到： <span class="pwgScreen">管理 &raquo; 工具 &raquo;
+  同步</span></li>
+
+</ul>
+</fieldset>
+
+
+
+  每個目錄下的“畫廊”除為“pwg_representative”（見下面的說明），<LI>產生一個專輯。有沒有深度的限制。</ LI>
+
+  <LI>基本上，一個元素表示的一個文件。一個文件就可以了
+  Piwigo的元素，如果其擴展名之間的<code> file_ext </代碼>
+  配置參數的可能性（請參閱<跨度
+  類=“文件名”> / config_default.inc.php </ SPAN>文件）。一個文件可以
+  是一個圖片，如果其擴展名之間的<code> picture_ext </代碼>
+  配置參數的可能性。</ LI>
+
+  <LI>沒有照片元素（視頻，聲音，文件文本，無論你想...）默認情況下，文件名對應一個圖標代表
+  擴展名。或者，您可以將一個縮略圖，並代表
+  文件（見video.avi在上面的例子）。</ LI>
