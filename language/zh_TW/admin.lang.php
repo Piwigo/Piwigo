@@ -190,7 +190,6 @@ $lang['Access type'] = '權限類型';
 $lang['Information data registered in database'] = '信息已保存到資料庫中';
 $lang['Default display'] = '預設顯示資訊';
 $lang['The gallery URL is not valid.'] = '圖片庫 URL 是無效的。';
-$lang['Main'] = '主頁';
 $lang['The number of comments a page must be between 5 and 50 included.'] = '每頁用戶評論數必須在5和50之間。';
 $lang['Configuration'] = '設定';
 $lang['confirm'] = '確定';
@@ -225,7 +224,6 @@ $lang['Prepared time for list of users to send mail is limited. Others users are
 $lang['Time to send mail is limited. Others mails are skipped.'] = '發送郵件時間有限,其餘郵件被忽略。';
 $lang['To send ?'] = '發送?';
 $lang['Last send'] = '最後一次發送';
-$lang['Email'] = '郵件';
 $lang['User'] = '用戶';
 $lang['See you soon,'] = '很快再見，';
 $lang['Go to'] = '轉至 ';
@@ -948,4 +946,7 @@ $lang['Purge user cache'] = '清除用戶快取';
 $lang['The picture dimensions will be reduced to %dx%d pixels.'] = '圖片的尺寸將減少到 %dx%d 像素。';
 $lang['Resize after upload disabled due to the use of GD as graphic library'] = '由於使用了GD圖形程式，上傳後調整尺寸的功能已關閉。';
 $lang['Select at least one tag'] = '選擇至少一個標籤';
+$lang['Basic settings'] = '基本設置';
+$lang['General'] = '能用';
+$lang['Mail theme'] = '郵件主題';
 ?>
