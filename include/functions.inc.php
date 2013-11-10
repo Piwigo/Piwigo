@@ -64,53 +64,6 @@ function get_elapsed_time( $start, $end )
   return number_format( $end - $start, 3, '.', ' ').' s';
 }
 
-// - The replace_space function replaces space and '-' characters
-//   by their HTML equivalent  &nbsb; and &minus;
-// - The function does not replace characters in HTML tags
-// - This function was created because IE5 does not respect the
-//   CSS "white-space: nowrap;" property unless space and minus
-//   characters are replaced like this function does.
-// - Example :
-//                 <div class="foo">My friend</div>
-//               ( 01234567891111111111222222222233 )
-//               (           0123456789012345678901 )
-// becomes :
-//             <div class="foo">My&nbsp;friend</div>
-function replace_space( $string )
-{
-  //return $string;
-  $return_string = '';
-  // $remaining is the rest of the string where to replace spaces characters
-  $remaining = $string;
-  // $start represents the position of the next '<' character
-  // $end   represents the position of the next '>' character
-  ; // -> 0
-  $end   = strpos ( $remaining, '>' ); // -> 16
-  // as long as a '<' and his friend '>' are found, we loop
-  while ( ($start=strpos( $remaining, '<' )) !==false
-        and ($end=strpos( $remaining, '>' )) !== false )
-  {
-    // $treatment is the part of the string to treat
-    // In the first loop of our example, this variable is empty, but in the
-    // second loop, it equals 'My friend'
-    $treatment = substr ( $remaining, 0, $start );
-    // Replacement of ' ' by his equivalent '&nbsp;'
-    $treatment = str_replace( ' ', '&nbsp;', $treatment );
-    $treatment = str_replace( '-', '&minus;', $treatment );
-    // composing the string to return by adding the treated string and the
-    // following HTML tag -> 'My&nbsp;friend</div>'
-    $return_string.= $treatment.substr( $remaining, $start, $end-$start+1 );
-    // the remaining string is deplaced to the part after the '>' of this
-    // loop
-    $remaining = substr ( $remaining, $end + 1, strlen( $remaining ) );
-  }
-  $treatment = str_replace( ' ', '&nbsp;', $remaining );
-  $treatment = str_replace( '-', '&minus;', $treatment );
-  $return_string.= $treatment;
-
-  return $return_string;
-}
-
 // get_extension returns the part of the string after the last "."
 function get_extension( $filename )
 {

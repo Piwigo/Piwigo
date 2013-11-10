@@ -259,7 +259,7 @@ SELECT
 
     if ($params['fullname'])
     {
-      $row['name'] = strip_tags(get_cat_display_name_cache($row['uppercats'], null, false));
+      $row['name'] = strip_tags(get_cat_display_name_cache($row['uppercats'], null));
     }
     else
     {

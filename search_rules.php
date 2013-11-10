@@ -149,8 +149,7 @@ SELECT id, uppercats, global_rank
       'search_categories',
       get_cat_display_name_cache(
           $category['uppercats'],
-          null,                      // no url on category names
-          false                    // no blank replacement
+          null                      // no url on category names
           )
       );
   }

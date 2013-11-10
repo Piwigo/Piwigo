@@ -296,7 +296,7 @@ if (count($categories) > 0)
 
     if ($page['section']=='recent_cats')
     {
-      $name = get_cat_display_name_cache($category['uppercats'], null, false);
+      $name = get_cat_display_name_cache($category['uppercats'], null);
     }
     else
     {

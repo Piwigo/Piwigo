@@ -31,12 +31,9 @@
  *
  * @param array cat_informations
  * @param string url
- * @param boolean replace_space
  * @return string
  */
-function get_cat_display_name($cat_informations,
-                              $url = '',
-                              $replace_space = false)
+function get_cat_display_name($cat_informations, $url = '')
 {
   global $conf;
 
@@ -86,14 +83,7 @@ function get_cat_display_name($cat_informations,
       $output.= $cat['name'].'</a>';
     }
   }
-  if ($replace_space)
-  {
-    return replace_space($output);
-  }
-  else
-  {
-    return $output;
-  }
+  return $output;
 }
 
 /**
@@ -106,12 +96,10 @@ function get_cat_display_name($cat_informations,
  *
  * @param string uppercats
  * @param string url
- * @param boolean replace_space
  * @return string
  */
 function get_cat_display_name_cache($uppercats,
                                     $url = '',
-                                    $replace_space = false,
                                     $single_link = false,
                                     $link_class = null)
 {
@@ -184,14 +172,7 @@ SELECT id, name, permalink
     $output.= '</a>';
   }
 
-  if ($replace_space)
-  {
-    return replace_space($output);
-  }
-  else
-  {
-    return $output;
-  }
+  return $output;
 }
 
 /**
@@ -230,12 +211,10 @@ function render_comment_content($content)
   return $content;
 }
 
-function get_cat_display_name_from_id($cat_id,
-                                      $url = '',
-                                      $replace_space = false)
+function get_cat_display_name_from_id($cat_id, $url = '')
 {
   $cat_info = get_cat_info($cat_id);
-  return get_cat_display_name($cat_info['upper_names'], $url, $replace_space);
+  return get_cat_display_name($cat_info['upper_names'], $url);
 }
 
 /**

@@ -230,7 +230,7 @@ if ( empty($page['is_external']) or !$page['is_external'] )
       $hints = array();
       foreach ( $cats as $cat )
       {
-        $hints[] = get_cat_display_name( array($cat), '', false );
+        $hints[] = get_cat_display_name( array($cat), '' );
       }
       $template->assign( 'category_search_results', $hints);
     }

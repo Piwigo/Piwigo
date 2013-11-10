@@ -203,8 +203,7 @@ if (isset($_GET['parent_id']))
 
   $navigation.= get_cat_display_name_from_id(
     $_GET['parent_id'],
-    $base_url.'&amp;parent_id=',
-    false
+    $base_url.'&amp;parent_id='
     );
 }
 // +-----------------------------------------------------------------------+

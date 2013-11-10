@@ -128,7 +128,7 @@ if (pwg_db_num_rows($result) > 0)
   {
     $template->append(
       'categories_because_of_groups',
-      get_cat_display_name_cache($category['uppercats'], null, false)
+      get_cat_display_name_cache($category['uppercats'], null)
       );
   }
 }

@@ -250,8 +250,7 @@ function display_select_categories($categories,
       $option = strip_tags(
         get_cat_display_name_cache(
           $category['uppercats'],
-          null,
-          false
+          null
           )
         );
     }
