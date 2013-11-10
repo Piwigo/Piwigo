@@ -187,7 +187,6 @@ $lang['Access type'] = 'Hozzáférés típusa';
 $lang['Information data registered in database'] = 'Az információk bekerültek az adatbázisba';
 $lang['Default display'] = 'Alapértelmezett megjelenítés';
 $lang['The gallery URL is not valid.'] = 'A galéria URL nem létezik.';
-$lang['Main'] = 'Általános';
 $lang['The number of comments a page must be between 5 and 50 included.'] = 'A felhasználói hozzászólások száma egy oldalon 5 és  50 között.';
 $lang['Configuration'] = 'Beállítások';
 $lang['confirm'] = 'Megerősítés';
@@ -952,4 +951,7 @@ $lang['Purge user cache'] = 'Felhasználói gyorsítótár ürítése';
 $lang['The picture dimensions will be reduced to %dx%d pixels.'] = 'A kép mérete csökken %dx%d pixel-re.';
 $lang['Resize after upload disabled due to the use of GD as graphic library'] = 'A feltöltés utáni átméretezés kikapcsolva, oka: a GD, mint grafikuskönyvtár használata';
 $lang['Select at least one tag'] = 'Válassz ki legalább egy cimkét';
+$lang['Basic settings'] = 'Alapbeállítások';
+$lang['General'] = 'Általános';
+$lang['Mail theme'] = 'Levelező-sablon';
 ?>
