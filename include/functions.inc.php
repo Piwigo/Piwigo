@@ -1314,6 +1314,37 @@ function hash_from_query($query, $keyname)
 }
 
 /**
+ * creates a numeric array based on a SQL query.
+ * if _$fieldname_ is empty the returned value will be an array of arrays
+ * if _$fieldname_ is provided the returned value will be a one dimension array
+ *
+ * @param string $query
+ * @param string $fieldname
+ * @return array
+ */
+function array_from_query($query, $fieldname=false)
+{
+  $array = array();
+
+  $result = pwg_query($query);
+  if (false === $fieldname)
+  {
+    while ($row = pwg_db_fetch_assoc($result))
+    {
+      $array[] = $row;      
+    }
+  }
+  else
+  {
+    while ($row = pwg_db_fetch_assoc($result))
+    {
+      $array[] = $row[$fieldname];
+    }
+  }
+  return $array;
+}
+
+/**
  * Return the basename of the current script.
  * The lowercase case filename of the current script without extension
  *

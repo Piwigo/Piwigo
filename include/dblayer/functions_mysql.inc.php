@@ -200,36 +200,6 @@ function pwg_db_close()
  *
  */
 
-/**
- * creates an array based on a query, this function is a very common pattern
- * used here
- *
- * @param string $query
- * @param string $fieldname optional
- * @return array
- */
-function array_from_query($query, $fieldname=false)
-{
-  $array = array();
-
-  $result = pwg_query($query);
-  if (false === $fieldname)
-  {
-    while ($row = mysql_fetch_assoc($result))
-    {
-      $array[] = $row;      
-    }
-  }
-  else
-  {
-    while ($row = mysql_fetch_assoc($result))
-    {
-      $array[] = $row[$fieldname];
-    }
-  }
-  return $array;
-}
-
 define('MASS_UPDATES_SKIP_EMPTY', 1);
 /**
  * updates multiple lines in a table
