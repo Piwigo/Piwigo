@@ -188,7 +188,6 @@ $lang['Access type'] = 'アクセスタイプ';
 $lang['Information data registered in database'] = 'データベースに登録された情報データ';
 $lang['Default display'] = 'デフォルト表示';
 $lang['The gallery URL is not valid.'] = 'ギャラリーURIが有効ではありません。';
-$lang['Main'] = 'メイン';
 $lang['The number of comments a page must be between 5 and 50 included.'] = '1ページあたりのコメント数は、5から50の間にしてください。';
 $lang['Configuration'] = '設定';
 $lang['confirm'] = '確認';
@@ -894,4 +893,6 @@ $lang['Panorama'] = 'パノラマ';
 $lang['Number of albums per page'] = '１ページ当りのアルバム数';
 $lang['Please select at least two groups'] = 'グループを２つ以上選んで下さい。';
 $lang['Permission granted for users'] = 'ユーザー権限';
+$lang['Basic settings'] = '基本設定';
+$lang['General'] = '全般';
 ?>
