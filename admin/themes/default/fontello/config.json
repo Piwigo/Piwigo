@@ -2,6 +2,9 @@
   "name": "",
   "css_prefix_text": "icon-",
   "css_use_suffix": false,
+  "hinting": true,
+  "units_per_em": 1000,
+  "ascent": 850,
   "glyphs": [
     {
       "uid": "bf882b30900da12fca090d9796bc3030",
@@ -145,6 +148,18 @@
       "uid": "6605ee6441bf499ffa3c63d3c7409471",
       "css": "move",
       "code": 59410,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "8cbd5bcfb00043b8094fd7ac21ae5e06",
+      "css": "angle-circled-up",
+      "code": 59417,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "c35e0796f6f806945a44b1655ce7bbe7",
+      "css": "angle-circled-down",
+      "code": 59416,
       "src": "fontawesome"
     },
     {

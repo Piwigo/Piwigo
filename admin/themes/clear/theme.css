@@ -336,3 +336,25 @@ label>p.group_select {
 .userSeparator {
   color:#999;
 }
+
+table.dataTable tr.even {
+  background-color: #ddd !important;
+}
+
+table.dataTable tr.even td.sorting_1 {
+  background-color: #ccc !important;
+  color:#333;
+}
+
+table.dataTable tr.odd {
+  background-color: #eee !important;
+}
+
+table.dataTable tr.odd td.sorting_1 {
+  background-color: #ddd !important;
+  color:#333;
+}
+
+table.dataTable thead th {
+  border-color: #aaa !important;
+}

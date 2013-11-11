@@ -314,3 +314,23 @@ label>p.group_select {
 #configContent fieldset:not(.no-border) {
   border-top-color:#444;
 }
+
+table.dataTable tr.even {
+  background-color: #111 !important;
+}
+
+table.dataTable tr.even td.sorting_1 {
+  background-color: #181818 !important;
+}
+
+table.dataTable tr.odd {
+  background-color: #222 !important;
+}
+
+table.dataTable tr.odd td.sorting_1 {
+  background-color: #282828 !important;
+}
+
+table.dataTable thead th {
+  border-color: #333 !important;
+}

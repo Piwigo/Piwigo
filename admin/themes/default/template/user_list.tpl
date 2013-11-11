@@ -267,16 +267,16 @@ jQuery(document).ready(function() {
    * Note that the indicator for showing which row is open is not controlled by DataTables,
    * rather it is done here
    */
-  jQuery(document).on('click', '#userList tbody td img',  function() {
+  jQuery(document).on('click', '#userList tbody td .openUserDetails',  function() {
     var nTr = this.parentNode.parentNode;
-    if ( this.src.match('details_close') ) {
+    if (jQuery(this).hasClass('icon-angle-circled-up')) {
       /* This row is already open - close it */
-      this.src = "admin/themes/default/icon/details_open.png";
+      jQuery(this).removeClass('icon-angle-circled-up').addClass('icon-angle-circled-down').attr('title', 'Open user details');
       oTable.fnClose( nTr );
     }
     else {
       /* Open this row */
-      this.src = "admin/themes/default/icon/details_close.png";
+      jQuery(this).removeClass('icon-angle-circled-down').addClass('icon-angle-circled-up').attr('title', 'Close user details');
       oTable.fnOpen( nTr, fnFormatDetails(oTable, nTr), 'details' );
     }
   });
@@ -289,7 +289,7 @@ jQuery(document).ready(function() {
     },
     {
       "mRender": function(data, type, full) {
-        return '<img src="admin/themes/default/icon/details_open.png"> <label><input type="checkbox" data-user_id="'+full[0]+'"> '+data+'</label>';
+        return '<span title="Open user details" class="icon-angle-circled-down openUserDetails"></span> <label><input type="checkbox" data-user_id="'+full[0]+'"> '+data+'</label>';
       }
     }
   ];
@@ -548,7 +548,7 @@ span.infos, span.errors {background-image:none; padding:2px 5px; margin:0;border
 </div>
 
 <p class="showCreateAlbum" id="showAddUser">
-  <a href="#" id="addUser">{'Add a user'|translate}</a>
+  <a href="#" id="addUser" class="icon-plus-circled">{'Add a user'|translate}</a>
   <span class="infos" style="display:none"></span>
 </p>
 

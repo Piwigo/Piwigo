@@ -1139,3 +1139,9 @@ a.group_perm {
   bottom: 5px;
   right: 5px;
 }
+
+.openUserDetails {
+  font-size:16px;
+  margin-left:-8px;
+  cursor:pointer;
+}
