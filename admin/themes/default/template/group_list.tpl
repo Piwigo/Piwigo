@@ -1,6 +1,20 @@
 {footer_script}
 {literal}
 $(document).ready(function() {
+  /**
+   * Add group
+   */
+  jQuery("#addGroup").click(function() {
+    jQuery("#addGroupForm").toggle();
+    jQuery("input[name=groupname]").focus();
+    return false;
+  });
+
+  jQuery("#addGroupClose").click(function() {
+    jQuery("#addGroupForm").hide();
+    return false;
+  });
+
   $('.groups input').change(function () { $(this).parent('p').toggleClass('group_select'); });
   $(".grp_action").hide();
   $("input.group_selection").click(function() {
@@ -51,18 +65,29 @@ $(document).ready(function() {
   <h2>{'Group management'|@translate}</h2>
 </div>
 
-<form method="post" name="add_user" action="{$F_ADD_ACTION}" class="properties">
+<p class="showCreateAlbum" id="showAddGroup">
+  <a class="icon-plus-circled" href="#" id="addGroup">{'Add group'|translate}</a>
+</p>
+
+<form method="post" style="display:none" id="addGroupForm" name="add_user" action="{$F_ADD_ACTION}" class="properties">
   <fieldset>
     <legend>{'Add group'|@translate}</legend>
-    <span class="property">
-      <label for="groupname">{'Group name'|@translate}</label>
-    </span>
-    <input type="text" id="groupname" name="groupname" maxlength="50" size="20">
-		<input type="submit" name="submit_add" value="{'Add'|@translate}">
-		<input type="hidden" name="pwg_token" value="{$PWG_TOKEN}">
+
+    <p>
+      <strong>{'Group name'|translate}</strong><br>
+      <input type="text" name="groupname" maxlength="50" size="20">
+    </p>
+
+    <p class="actionButtons">
+      <input class="submit" name="submit_add" type="submit" value="{'Add'|translate}">
+      <a href="#" id="addGroupClose">{'Cancel'|@translate}</a>
+    </p>
+
+    <input type="hidden" name="pwg_token" value="{$PWG_TOKEN}">
 
   </fieldset>
 </form>
+
 <form method="post" name="add_user" action="{$F_ADD_ACTION}" class="properties">
   <input type="hidden" name="pwg_token" value="{$PWG_TOKEN}">
 
@@ -72,7 +97,7 @@ $(document).ready(function() {
     <li>
       <label><p>{$group.NAME}<i><small>{$group.IS_DEFAULT}</small></i><input class="group_selection" name="group_selection[]" type="checkbox" value="{$group.ID}"></p></label>
       <p class="list_user">{if $group.MEMBERS>0}<a href="{$group.U_MEMBERS}" title="{'Manage the members'|@translate}">{$group.MEMBERS}</a><br>{$group.L_MEMBERS}{else}{$group.MEMBERS}{/if}</p>
-      <a class="buttonLike group_perm" href="{$group.U_PERM}" title="{'Permissions'|@translate}">{'Manage Permissions'|@translate}</a>
+      <a class="icon-lock group_perm" href="{$group.U_PERM}" title="{'Permissions'|@translate}">{'Permissions'|translate}</a>
     </li>
     {/foreach}
     {/if}

@@ -29,6 +29,19 @@ if( !defined("PHPWG_ROOT_PATH") )
 include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
 
 // +-----------------------------------------------------------------------+
+// | tabs                                                                  |
+// +-----------------------------------------------------------------------+
+
+include_once(PHPWG_ROOT_PATH.'admin/include/tabsheet.class.php');
+
+$my_base_url = get_root_url().'admin.php?page=';
+
+$tabsheet = new tabsheet();
+$tabsheet->set_id('groups');
+$tabsheet->select('group_list');
+$tabsheet->assign();
+
+// +-----------------------------------------------------------------------+
 // | Check Access and exit when user status is not ok                      |
 // +-----------------------------------------------------------------------+
 check_status(ACCESS_ADMINISTRATOR);
@@ -400,7 +413,7 @@ SELECT username
       'ID' => $row['id'],
       'IS_DEFAULT' => (get_boolean($row['is_default']) ? ' ['.l10n('default').']' : ''),
       'NB_MEMBERS' => count($members),
-      'L_MEMBERS' => implode(' - ', $members),
+      'L_MEMBERS' => implode(' <span class="userSeparator">&middot;</span> ', $members),
       'MEMBERS' => l10n_dec('%d member', '%d members', count($members)),
       'U_MEMBERS' => $members_url.$row['id'],
       'U_DELETE' => $del_url.$row['id'].'&amp;pwg_token='.get_pwg_token(),

@@ -329,6 +329,10 @@ p.albumTitle img {margin-bottom:-3px;}
   background-color:#ccc;
 }
 label>p.group_select {
-  color: #666;
-  background-color:#F9F9F9;
+  color: #000;
+  background-color:#C2F5C2;
+}
+
+.userSeparator {
+  color:#999;
 }

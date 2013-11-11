@@ -303,8 +303,12 @@ div.token-input-dropdown ul li.token-input-selected-dropdown-item {background-co
   background-color:#111;
 }
 label>p.group_select {
-  color: #111;
-  background-color:#ccc;
+  color: #fff;
+  background-color:#555;
+}
+
+.userSeparator {
+  color:#666;
 }
 
 #configContent fieldset:not(.no-border) {
