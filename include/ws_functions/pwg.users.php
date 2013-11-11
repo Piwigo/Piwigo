@@ -84,7 +84,9 @@ function ws_users_getList($params, &$service)
       $params['display'] = array_merge($params['display'], array(
         'username','email','status','level','groups','language','theme',
         'nb_image_page','recent_period','expand','show_nb_comments','show_nb_hits',
-        'enabled_high',
+        'enabled_high','registration_date','registration_date_string',
+        'registration_date_since', 'last_visit', 'last_visit_string',
+        'last_visit_since'
         ));
     }
     else if (in_array('basics', $params['display']))
@@ -105,7 +107,7 @@ function ws_users_getList($params, &$service)
 
     $ui_fields = array(
       'status','level','language','theme','nb_image_page','recent_period','expand',
-      'show_nb_comments','show_nb_hits','enabled_high',
+      'show_nb_comments','show_nb_hits','enabled_high','registration_date'
       );
     foreach ($ui_fields as $field)
     {
@@ -163,6 +165,64 @@ SELECT user_id, group_id
     while ($row = pwg_db_fetch_assoc($result))
     {
       $users[ $row['user_id'] ]['groups'][] = $row['group_id'];
+    }
+  }
+
+  if (count($users) > 0 and in_array('registration_date_string', $params['display']))
+  {
+    foreach ($users as $cur_user)
+    {
+      $users[ $cur_user['id'] ]['registration_date_string'] = format_date($cur_user['registration_date'], false, false);
+    }
+  }
+
+  if (count($users) > 0 and in_array('registration_date_since', $params['display']))
+  {
+    foreach ($users as $cur_user)
+    {
+      $users[ $cur_user['id'] ]['registration_date_since'] = time_since($cur_user['registration_date'], 'month');
+    }
+  }
+
+  if (count($users) > 0 and in_array('last_visit', $params['display']))
+  {
+    $query = '
+SELECT
+    MAX(id) as history_id
+  FROM '.HISTORY_TABLE.'
+  WHERE user_id IN ('.implode(',', array_keys($users)).')
+  GROUP BY user_id
+;';
+    $history_ids = array_from_query($query, 'history_id');
+
+    if (count($history_ids) == 0)
+    {
+      $history_ids[] = -1;
+    }
+    
+    $query = '
+SELECT
+    user_id,
+    date,
+    time
+  FROM '.HISTORY_TABLE.'
+  WHERE id IN ('.implode(',', $history_ids).')
+;';
+    $result = pwg_query($query);
+    while ($row = pwg_db_fetch_assoc($result))
+    {
+      $last_visit = $row['date'].' '.$row['time'];
+      $users[ $row['user_id'] ]['last_visit'] = $last_visit;
+
+      if (in_array('last_visit_string', $params['display']))
+      {
+        $users[ $row['user_id'] ]['last_visit_string'] = format_date($last_visit, false, false);
+      }
+      
+      if (in_array('last_visit_since', $params['display']))
+      {
+        $users[ $row['user_id'] ]['last_visit_since'] = time_since($last_visit, 'day');
+      }
     }
   }
 

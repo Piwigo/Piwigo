@@ -598,10 +598,10 @@ function format_date($original, $show_time=false, $show_day_name=true, $format=n
   $print = '';
   if ($show_day_name)
   {
-    $print.= $lang['day'][ $date->format('w') ];
+    $print.= $lang['day'][ $date->format('w') ].' ';
   }
   
-  $print.= ' '.$date->format('d');
+  $print.= $date->format('j');
   $print.= ' '.$lang['month'][ $date->format('n') ];
   $print.= ' '.$date->format('Y');
   
