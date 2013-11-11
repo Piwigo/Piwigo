@@ -104,7 +104,8 @@ jQuery(document).ready(function() {
         if (data.stat == 'ok') {
           var user = data.result.users[0];
 
-          var userDetails = '<input type="hidden" name="user_id" value="'+user.id+'">';
+          var userDetails = '<form>';
+          userDetails += '<input type="hidden" name="user_id" value="'+user.id+'">';
           userDetails += '<fieldset><legend>{/literal}{'Properties'|translate}{literal}</legend>';
           userDetails += '<div class="userProperty"><strong>{/literal}{'Username'|translate}{literal}</strong>';
           userDetails += '<br>'+user.username+'</div>';
@@ -225,6 +226,7 @@ jQuery(document).ready(function() {
 
           userDetails += '<input type="submit" value="{/literal}{'Submit'|translate}{literal}" data-user_id="'+userId+'">';
           userDetails += '<img class="submitWait" src="themes/default/images/ajax-loader-small.gif" style="display:none">'
+          userDetails += '</form>';
 
           jQuery("#user"+userId).append(userDetails);
         }
@@ -246,7 +248,7 @@ jQuery(document).ready(function() {
     jQuery.ajax({
       url: "ws.php?format=json&method=pwg.users.setInfo",
       type:"POST",
-      data: jQuery('#user'+userId).find('select, input').serialize(),
+      data: jQuery('#user'+userId+' form').serialize(),
       beforeSend: function() {
         jQuery('#user'+userId+' .submitWait').show();
       },
