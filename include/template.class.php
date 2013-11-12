@@ -1372,9 +1372,8 @@ final class FileCombiner
       else
       {
         $this->flush_pending($result, $pending, $key, $force);
-        $pending = array();
         $key = $this->is_css ? array(get_absolute_root_url(false)): array(); //because for css we modify bg url
-        $result[] = $combinable;
+        $pending = array($combinable);
       }
     }
     $this->flush_pending($result, $pending, $key, $force);
@@ -1413,6 +1412,7 @@ final class FileCombiner
 
   private function process_combinable($combinable, $return_content, $force)
   {
+    global $conf;
     if ($combinable->is_template)
     {
       if (!$return_content)
@@ -1420,7 +1420,7 @@ final class FileCombiner
         $key = array($combinable->path, $combinable->version);
         if ($conf['template_compile_check'])
           $key[] = filemtime( PHPWG_ROOT_PATH . $combinable->path );
-        $file = PWG_COMBINED_DIR . 't' . base_convert(crc32($key),10,36) . '.' . $this->type;
+        $file = PWG_COMBINED_DIR . 't' . base_convert(crc32(implode(',',$key)),10,36) . '.' . $this->type;
         if (!$force && file_exists(PHPWG_ROOT_PATH.$file) )
         {
           $combinable->path = $file;
