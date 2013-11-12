@@ -31,4 +31,10 @@ $lang['Upgrade informations'] = 'Titouroù hizivadur';
 $lang['total SQL time'] = 'Hollad an amzer SQL ';
 $lang['SQL queries'] = 'Rekedoù SQL';
 $lang['Only administrator can run upgrade: please sign in below.'] = 'Ret eo bezañ merour evit hizivaat: kevreit amañ dindan mar plij.';
+$lang['Perform a maintenance check in [Administration>Tools>Maintenance] if you encounter any problem.'] = 'Gwiriit an trezalc\'h e [Mererezh>Ostilhoù>Trezalc\'h] m\'ho peus kudennoù.';
+$lang['Only thumbnails prefix and webmaster mail address have been saved from previous configuration'] = 'Nemet rakger ar skeudennoùigoù ha postel ar mestr-gwiad a zo bet saveteet eus ar c\'hefluniadur kozh';
+$lang['In <i>%s</i>, before <b>?></b>, insert:'] = 'E <i>%s</i>, a-raok <b>?></b>, lakaat:';
+$lang['As a precaution, following themes have been deactivated. You must check for themes upgrade before reactiving them:'] = 'Evit diwall, an tenoù-se a zo bet diweredekaet. Ret e vo deoc\'h sellout ma\'z eus temoù da hizivaat a-raok gweredekaat anezho en-dro.';
+$lang['All sub-albums of private albums become private'] = 'An holl iz-rummadoù e-barzh rummadoù prevez a vo prevez';
+$lang['As a precaution, following plugins have been deactivated. You must check for plugins upgrade before reactiving them:'] = 'Evit diwall, al lugantoù-se a zo bet diweredekaet. Ret e vo deoc\'h sellout ma\'z eus lugantoù da hizivaat a-raok gweredekaat anezho en-dro.';
 ?>
