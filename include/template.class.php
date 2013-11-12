@@ -1373,7 +1373,10 @@ final class FileCombiner
       {
         $this->flush_pending($result, $pending, $key, $force);
         $key = $this->is_css ? array(get_absolute_root_url(false)): array(); //because for css we modify bg url
-        $pending = array($combinable);
+        if ($combinable->is_remote())
+          $result[] = $combinable;
+        else
+          $pending = array($combinable);
       }
     }
     $this->flush_pending($result, $pending, $key, $force);
