@@ -415,32 +415,22 @@ class Template {
       ksort($this->css_by_priority);
 
       global $conf;
-      $css = array();
-      if ($conf['template_combine_files'])
+      $combiner = new FileCombiner('css');
+      foreach ($this->css_by_priority as $files)
       {
-        $combiner = new FileCombiner('css');
-        foreach ($this->css_by_priority as $files)
-        {
-          foreach ($files as $file_ver)
-            $combiner->add( $file_ver[0], $file_ver[1] );
-        }
-        if ( $combiner->combine( $out_file, $out_version) )
-          $css[] = array($out_file, $out_version);
+        foreach ($files as $combi)
+            $combiner->add( $combi );
       }
-      else
-      {
-        foreach ($this->css_by_priority as $files)
-          $css = array_merge($css, $files);
-      }
+      $css = $combiner->combine();
 
       $content = array();
-      foreach( $css as $file_ver )
+      foreach( $css as $combi )
       {
-        $href = embellish_url(get_root_url().$file_ver[0]);
-        if ($file_ver[1] !== false)
-          $href .= '?v' . ($file_ver[1] ? $file_ver[1] : PHPWG_VERSION);
+        $href = embellish_url(get_root_url().$combi->path);
+        if ($combi->version !== false)
+          $href .= '?v' . ($combi->version ? $combi->version : PHPWG_VERSION);
         // trigger the event for eventual use of a cdn
-        $href = trigger_event('combined_css', $href, $file_ver[0], $file_ver[1]);
+        $href = trigger_event('combined_css', $href, $combi);
         $content[] = '<link rel="stylesheet" type="text/css" href="'.$href.'">';
       }
       $this->output = str_replace(self::COMBINED_CSS_TAG,
@@ -518,7 +508,7 @@ class Template {
         return var_export($lang[$key], true);
       }
       return 'l10n('.$params[0].')';
-      
+
     default:
       if ($conf['compiled_template_cache_language'])
       {
@@ -764,7 +754,9 @@ var s,after = document.getElementsByTagName(\'script\')[document.getElementsByTa
     !empty($params['path']) || fatal_error('combine_css missing path');
     $order = (int)@$params['order'];
     $version = isset($params['version']) ? $params['version'] : 0;
-    $this->css_by_priority[$order][] = array( $params['path'], $version);
+    $css = new Css('', $params['path'], $version, $order);
+    $css->is_template = isset($params['template']) && !empty($params['template']);
+    $this->css_by_priority[$order][] = $css;
   }
 
   function func_get_combined_css($params)
@@ -986,23 +978,18 @@ class PwgTemplateAdapter
 }
 
 
-final class Script
+class Combinable
 {
   public $id;
-  public $load_mode;
-  public $precedents = array();
   public $path;
   public $version;
-  public $extra = array();
+  public $is_template;
 
-  function Script($load_mode, $id, $path, $version, $precedents)
+  function __construct($id, $path, $version)
   {
-    $this->id = $id;
-    $this->load_mode = $load_mode;
     $this->id = $id;
     $this->set_path($path);
     $this->version = $version;
-    $this->precedents = $precedents;
   }
 
   function set_path($path)
@@ -1014,6 +1001,31 @@ final class Script
   function is_remote()
   {
     return url_is_remote( $this->path ) || strncmp($this->path, '//', 2)==0;
+  }
+}
+
+final class Script extends Combinable
+{
+  public $load_mode;
+  public $precedents = array();
+  public $extra = array();
+
+  function __construct($load_mode, $id, $path, $version, $precedents)
+  {
+    parent::__construct($id, $path, $version);
+    $this->load_mode = $load_mode;
+    $this->precedents = $precedents;
+  }
+}
+
+final class Css extends Combinable
+{
+  public $order;
+
+  function __construct($id, $path, $version, $order)
+  {
+    parent::__construct($id, $path, $version);
+    $this->order = $order;
   }
 }
 
@@ -1184,29 +1196,12 @@ class ScriptLoader
 
   private static function do_combine($scripts, $load_mode)
   {
-    global $conf;
-    if (count($scripts)<2 or !$conf['template_combine_files'])
-      return $scripts;
     $combiner = new FileCombiner('js');
-    $result = array();
     foreach ($scripts as $script)
     {
-      if ($script->is_remote())
-      {
-        if ( $combiner->combine( $out_file, $out_version) )
-        {
-          $results[] = new Script($load_mode, 'combi', $out_file, $out_version, array() );
-        }
-        $results[] = $script;
-      }
-      else
-        $combiner->add( $script->path, $script->version );
+      $combiner->add( $script);
     }
-    if ( $combiner->combine( $out_file, $out_version) )
-    {
-      $results[] = new Script($load_mode, 'combi', $out_file, $out_version, array() );
-    }
-    return $results;
+    return $combiner->combine();
   }
 
   // checks that if B depends on A, then B->load_mode >= A->load_mode in order to respect execution order
@@ -1325,12 +1320,13 @@ class ScriptLoader
 final class FileCombiner
 {
   private $type; // js or css
-  private $files = array();
-  private $versions = array();
+  private $is_css;
+  private $combinables = array();
 
   function FileCombiner($type)
   {
     $this->type = $type;
+    $this->is_css = $type=='css';
   }
 
   static function clear_combined_files()
@@ -1344,92 +1340,124 @@ final class FileCombiner
     closedir($dir);
   }
 
-  function add($file, $version)
+  function add($combinable)
   {
-    $this->files[] = $file;
-    $this->versions[] = $version;
+    $this->combinables[] = $combinable;
   }
 
-  function clear()
+  function combine()
   {
-    $this->files = array();
-    $this->versions = array();
-  }
-
-  function combine(&$out_file, &$out_version)
-  {
-    if (count($this->files) == 0)
-    {
-      return false;
-    }
-    if (count($this->files) == 1)
-    {
-      $out_file = $this->files[0];
-      $out_version = $this->versions[0];
-      $this->clear();
-      return 1;
-    }
-
-    $is_css = $this->type == "css";
     global $conf;
-    $key = array();
-    if ($is_css)
-      $key[] = get_absolute_root_url(false);//because we modify bg url
-    for ($i=0; $i<count($this->files); $i++)
+    $force = false;
+    if (is_admin() && ($this->is_css || !$conf['template_compile_check']) )
     {
-      $key[] = $this->files[$i];
-      $key[] = $this->versions[$i];
-      if ($conf['template_compile_check']) $key[] = filemtime( PHPWG_ROOT_PATH . $this->files[$i] );
-    }
-    $key = join('>', $key);
-
-    $file = base_convert(crc32($key),10,36);
-    $file = PWG_COMBINED_DIR . $file . '.' . $this->type;
-
-    $exists = file_exists( PHPWG_ROOT_PATH . $file );
-    if ($exists)
-    {
-      $is_reload =
-        (isset($_SERVER['HTTP_CACHE_CONTROL']) && strpos($_SERVER['HTTP_CACHE_CONTROL'], 'max-age=0') !== false)
+      $force = (isset($_SERVER['HTTP_CACHE_CONTROL']) && strpos($_SERVER['HTTP_CACHE_CONTROL'], 'max-age=0') !== false)
         || (isset($_SERVER['HTTP_PRAGMA']) && strpos($_SERVER['HTTP_PRAGMA'], 'no-cache'));
-      if (is_admin() && $is_reload)
-      {// the user pressed F5 in the browser
-        if ($is_css || $conf['template_compile_check']==false)
-          $exists = false; // we foce regeneration of css because @import sub-files are never checked for modification
+    }
+
+    $result = array();
+    $pending = array();
+    $key = $this->is_css ? array(get_absolute_root_url(false)): array(); //because for css we modify bg url
+
+    foreach ($this->combinables as $combinable)
+    {
+      if ($conf['template_combine_files'] && !$combinable->is_remote())
+      {
+        $key[] = $combinable->path;
+        $key[] = $combinable->version;
+        if ($conf['template_compile_check'])
+          $key[] = filemtime( PHPWG_ROOT_PATH . $combinable->path );
+        $pending[] = $combinable;
+      }
+      else
+      {
+        $this->flush_pending($result, $pending, $key, $force);
+        $pending = array();
+        $key = $this->is_css ? array(get_absolute_root_url(false)): array(); //because for css we modify bg url
+        $result[] = $combinable;
       }
     }
-
-    if ($exists)
-    {
-      $out_file = $file;
-      $out_version = false;
-      $this->clear();
-      return 2;
-    }
-
-    $output = '';
-    foreach ($this->files as $input_file)
-    {
-      $output .= "/*BEGIN $input_file */\n";
-      if ($is_css)
-        $output .= self::process_css($input_file);
-      else
-        $output .= self::process_js($input_file);
-      $output .= "\n";
-    }
-
-    mkgetdir( dirname(PHPWG_ROOT_PATH.$file) );
-    file_put_contents( PHPWG_ROOT_PATH.$file,  $output );
-    @chmod(PHPWG_ROOT_PATH.$file, 0644);
-    $out_file = $file;
-    $out_version = false;
-    $this->clear();
-    return 2;
+    $this->flush_pending($result, $pending, $key, $force);
+    return $result;
   }
 
-  private static function process_js($file)
+  private function flush_pending(&$result, $pending, $key, $force)
   {
-    $js = file_get_contents(PHPWG_ROOT_PATH . $file);
+    if (count($pending)>1)
+    {
+      $key = join('>', $key);
+      $file = PWG_COMBINED_DIR . base_convert(crc32($key),10,36) . '.' . $this->type;
+      if ($force || !file_exists(PHPWG_ROOT_PATH.$file) )
+      {
+        $output = '';
+        foreach ($pending as $combinable)
+        {
+          $output .= "/*BEGIN $combinable->path */\n";
+          $output .= $this->process_combinable($combinable, true, $force);
+          $output .= "\n";
+        }
+        mkgetdir( dirname(PHPWG_ROOT_PATH.$file) );
+        file_put_contents( PHPWG_ROOT_PATH.$file, $output );
+        @chmod(PHPWG_ROOT_PATH.$file, 0644);
+      }
+      $result[] = new Combinable("combi", $file, false);
+    }
+    elseif ( count($pending)==1)
+    {
+      $this->process_combinable($pending[0], false, $force);
+      $result[] = $pending[0];
+    }
+    $key = array();
+    $pending = array();
+  }
+
+  private function process_combinable($combinable, $return_content, $force)
+  {
+    if ($combinable->is_template)
+    {
+      if (!$return_content)
+      {
+        $key = array($combinable->path, $combinable->version);
+        if ($conf['template_compile_check'])
+          $key[] = filemtime( PHPWG_ROOT_PATH . $combinable->path );
+        $file = PWG_COMBINED_DIR . 't' . base_convert(crc32($key),10,36) . '.' . $this->type;
+        if (!$force && file_exists(PHPWG_ROOT_PATH.$file) )
+        {
+          $combinable->path = $file;
+          $combinable->version = false;
+          return;
+        }
+      }
+
+      global $template;
+      $handle = $this->type. '.' .$combinable->id;
+      $template->set_filename($handle, realpath(PHPWG_ROOT_PATH.$combinable->path));
+      trigger_action( 'combinable_preparse', $template, $combinable, $this); //allow themes and plugins to set their own vars to template ...
+      $content = $template->parse($handle, true);
+
+      if ($this->is_css)
+        $content = self::process_css($content, dirname($combinable->path) );
+      else
+        $content = self::process_js($content, $combinable->path );
+
+      if ($return_content)
+        return $content;
+      file_put_contents( PHPWG_ROOT_PATH.$file, $content );
+      $combinable->path = $file;
+    }
+    elseif ($return_content)
+    {
+      $content = file_get_contents(PHPWG_ROOT_PATH . $combinable->path);
+      if ($this->is_css)
+        $content = self::process_css($content, dirname($combinable->path) );
+      else
+        $content = self::process_js($content, $combinable->path );
+      return $content;
+    }
+  }
+
+  private static function process_js($js, $file)
+  {
     if (strpos($file, '.min')===false and strpos($file, '.packed')===false )
     {
       require_once(PHPWG_ROOT_PATH.'include/jshrink.class.php');
@@ -1438,9 +1466,9 @@ final class FileCombiner
     return trim($js, " \t\r\n;").";\n";
   }
 
-  private static function process_css($file)
+  private static function process_css($css, $dir)
   {
-    $css = self::process_css_rec($file);
+    $css = self::process_css_rec($css, $dir);
     if (version_compare(PHP_VERSION, '5.2.4', '>='))
     {
       require_once(PHPWG_ROOT_PATH.'include/cssmin.class.php');
@@ -1450,10 +1478,10 @@ final class FileCombiner
     return $css;
   }
 
-  private static function process_css_rec($file)
+  private static function process_css_rec($css, $dir)
   {
     static $PATTERN = "#url\(\s*['|\"]{0,1}(.*?)['|\"]{0,1}\s*\)#";
-    $css = file_get_contents(PHPWG_ROOT_PATH . $file);
+
     if (preg_match_all($PATTERN, $css, $matches, PREG_SET_ORDER))
     {
       $search = $replace = array();
@@ -1461,7 +1489,7 @@ final class FileCombiner
       {
         if ( !url_is_remote($match[1]) && $match[1][0] != '/')
         {
-          $relative = dirname($file) . "/$match[1]";
+          $relative = $dir . "/$match[1]";
           $search[] = $match[0];
           $replace[] = 'url('.embellish_url(get_absolute_root_url(false).$relative).')';
         }
@@ -1476,12 +1504,14 @@ final class FileCombiner
       foreach ($matches as $match)
       {
         $search[] = $match[0];
-        $replace[] = self::process_css_rec(dirname($file) . "/$match[1]");
+        $sub_css = file_get_contents(PHPWG_ROOT_PATH . $dir . "/$match[1]");
+        $replace[] = self::process_css_rec($sub_css, dirname($dir . "/$match[1]") );
       }
       $css = str_replace($search, $replace, $css);
     }
     return $css;
   }
+
 }
 
 ?>
