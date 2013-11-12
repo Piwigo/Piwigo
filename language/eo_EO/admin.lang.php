@@ -875,4 +875,11 @@ $lang['Select a zone with your mouse to define a new center of interest.'] = 'Se
 $lang['Select at least one album'] = 'Selekti almenaŭ unu fotaron';
 $lang['Select at least one tag'] = 'Selekti almenaŭ unu etikedon';
 $lang['Switch to clear or dark colors for administration'] = 'Ŝalti al helaj aŭ malhelaj koloroj por administro';
+$lang['THIS PLUGIN IS NOW PART OF PIWIGO CORE! DELETE IT NOW.'] = 'TIU KROMPROGRAMO NUN APARTENAS AL LA KERNO DE PIWIGO! MALINSTALIGU ĜIN NUN!';
+$lang['Tags <em>%s</em> merged into tag <em>%s</em>'] = 'La etikedoj <em>%s</em> kunfandiĝis en etikedon <em>%s</em>';
+$lang['Templates configuration has been recorded.'] = 'La ŝablonoj registriĝis';
+$lang['The %d following tags were deleted'] = 'La jenaj %d etikedoj foriĝis';
+$lang['The following tag was deleted'] = 'La jena etikedo foriĝis';
+$lang['The name of a group must not contain " or \' or be empty.'] = 'La grupnomo ne enhavu " or " aŭ ne malplenu.';
+$lang['The name of an album must not be empty'] = 'La fotaronomo ne malplenu';
 ?>
