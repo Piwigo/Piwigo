@@ -826,10 +826,16 @@ function ws_addDefaultMethods( $arr )
         'order' =>      array('default'=>'id',
                               'info'=>'id, username, level, email'),
         'display' =>    array('default'=>'basics',
-                              'info'=>'all,basics,none,username,email,status,level,groups,language,theme,nb_image_page,recent_period,expand,show_nb_comments,show_nb_hits,enabled_high'),
+                              'info'=>'Comma saparated list (see method description)'),
         ),
-      'Retrieves a list of all the users.
-<br>"display" controls which data are returned, "basics" stands for "username,email,status,level,groups"',
+      'Retrieves a list of all the users.<br>
+<br>
+<b>display</b> controls which data are returned, possible values are:<br>
+all, basics, none,<br>
+username, email, status, level, groups,<br>
+language, theme, nb_image_page, recent_period, expand, show_nb_comments, show_nb_hits,<br>
+enabled_high, registration_date, registration_date_string, registration_date_since, last_visit, last_visit_string, last_visit_since<br>
+<b>basics</b> stands for "username,email,status,level,groups"',
       $ws_functions_root . 'pwg.users.php',
       array('admin_only'=>true)
     );

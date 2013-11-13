@@ -33,6 +33,7 @@
  *    @option int per_page
  *    @option int page
  *    @option string order
+ *    @option string display
  */
 function ws_users_getList($params, &$service)
 {
@@ -77,17 +78,17 @@ function ws_users_getList($params, &$service)
 
   if ($params['display'] != 'none')
   {
-    $params['display'] = explode(',', $params['display']);
+    $params['display'] = array_map('trim', explode(',', $params['display']));
 
     if (in_array('all', $params['display']))
     {
-      $params['display'] = array_merge($params['display'], array(
+      $params['display'] = array(
         'username','email','status','level','groups','language','theme',
         'nb_image_page','recent_period','expand','show_nb_comments','show_nb_hits',
         'enabled_high','registration_date','registration_date_string',
         'registration_date_since', 'last_visit', 'last_visit_string',
         'last_visit_since'
-        ));
+        );
     }
     else if (in_array('basics', $params['display']))
     {
@@ -95,36 +96,27 @@ function ws_users_getList($params, &$service)
         'username','email','status','level','groups',
         ));
     }
+    $params['display'] = array_flip($params['display']);
 
     // if registration_date_string or registration_date_since is requested,
     // then registration_date is automatically added
-    if (in_array('registration_date_string', $params['display']) and !in_array('registration_date', $params['display']))
+    if (isset($params['display']['registration_date_string']) or isset($params['display']['registration_date_since']))
     {
-      $params['display'][] = 'registration_date';
-    }
-
-    if (in_array('registration_date_since', $params['display']) and !in_array('registration_date', $params['display']))
-    {
-      $params['display'][] = 'registration_date';
+      $params['display']['registration_date'] = true;
     }
 
     // if last_visit_string or last_visit_since is requested, then
     // last_visit is automatically added
-    if (in_array('last_visit_string', $params['display']) and !in_array('last_visit', $params['display']))
+    if (isset($params['display']['last_visit_string']) or isset($params['display']['last_visit_since']))
     {
-      $params['display'][] = 'last_visit';
+      $params['display']['last_visit'] = true;
     }
 
-    if (in_array('last_visit_since', $params['display']) and !in_array('last_visit', $params['display']))
-    {
-      $params['display'][] = 'last_visit';
-    }
-
-    if (in_array('username', $params['display']))
+    if (isset($params['display']['username']))
     {
       $display['u.'.$conf['user_fields']['username']] = 'username';
     }
-    if (in_array('email', $params['display']))
+    if (isset($params['display']['email']))
     {
       $display['u.'.$conf['user_fields']['email']] = 'email';
     }
@@ -135,7 +127,7 @@ function ws_users_getList($params, &$service)
       );
     foreach ($ui_fields as $field)
     {
-      if (in_array($field, $params['display']))
+      if (isset($params['display'][$field]))
       {
         $display['ui.'.$field] = $field;
       }
@@ -156,7 +148,7 @@ SELECT DISTINCT ';
     else $first = false;
     $query.= $field .' AS '. $name;
   }
-  if (in_array('groups', $params['display']))
+  if (isset($params['display']['groups']))
   {
     if (!$first) $query.= ', ';
     $query.= '"" AS groups';
@@ -179,7 +171,7 @@ SELECT DISTINCT ';
 
   if (count($users) > 0)
   {
-    if (in_array('groups', $params['display']))
+    if (isset($params['display']['groups']))
     {
       $query = '
 SELECT user_id, group_id
@@ -194,7 +186,7 @@ SELECT user_id, group_id
       }
     }
     
-    if (in_array('registration_date_string', $params['display']))
+    if (isset($params['display']['registration_date_string']))
     {
       foreach ($users as $cur_user)
       {
@@ -202,7 +194,7 @@ SELECT user_id, group_id
       }
     }
 
-    if (in_array('registration_date_since', $params['display']))
+    if (isset($params['display']['registration_date_since']))
     {
       foreach ($users as $cur_user)
       {
@@ -210,7 +202,7 @@ SELECT user_id, group_id
       }
     }
 
-    if (in_array('last_visit', $params['display']))
+    if (isset($params['display']['last_visit']))
     {
       $query = '
 SELECT
@@ -240,12 +232,12 @@ SELECT
         $last_visit = $row['date'].' '.$row['time'];
         $users[ $row['user_id'] ]['last_visit'] = $last_visit;
         
-        if (in_array('last_visit_string', $params['display']))
+        if (isset($params['display']['last_visit_string']))
         {
           $users[ $row['user_id'] ]['last_visit_string'] = format_date($last_visit, false, false);
         }
         
-        if (in_array('last_visit_since', $params['display']))
+        if (isset($params['display']['last_visit_since']))
         {
           $users[ $row['user_id'] ]['last_visit_since'] = time_since($last_visit, 'day');
         }
