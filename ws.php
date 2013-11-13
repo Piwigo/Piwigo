@@ -884,6 +884,7 @@ enabled_high, registration_date, registration_date_string, registration_date_sin
                                     'type'=>WS_TYPE_INT|WS_TYPE_POSITIVE),
         'language' =>         array('flags'=>WS_PARAM_OPTIONAL),
         'theme' =>            array('flags'=>WS_PARAM_OPTIONAL),
+        'group_id' => array('flags'=>WS_PARAM_OPTIONAL|WS_PARAM_FORCE_ARRAY, 'type'=>WS_TYPE_INT),
         // bellow are parameters removed in a future version
         'nb_image_page' =>    array('flags'=>WS_PARAM_OPTIONAL,
                                     'type'=>WS_TYPE_INT|WS_TYPE_POSITIVE|WS_TYPE_NOTNULL),
@@ -899,7 +900,8 @@ enabled_high, registration_date, registration_date_string, registration_date_sin
                                     'type'=>WS_TYPE_BOOL),
         ),
       'Updates a user. Leave a field blank to keep the current value.
-<br>"username", "password" and "email" are ignored if "user_id" is an array.',
+<br>"username", "password" and "email" are ignored if "user_id" is an array.
+<br>set "group_id" to -1 if you want to dissociate users from all groups',
       $ws_functions_root . 'pwg.users.php',
       array('admin_only'=>true, 'post_only'=>true)
     );

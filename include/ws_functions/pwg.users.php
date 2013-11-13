@@ -516,6 +516,44 @@ UPDATE '. USER_INFOS_TABLE .' SET ';
     pwg_query($query);
   }
 
+  // manage association to groups
+  if (!empty($params['group_id']))
+  {
+    $query = '
+DELETE
+  FROM '.USER_GROUP_TABLE.'
+  WHERE user_id IN ('.implode(',', $params['user_id']).')
+;';
+    pwg_query($query);
+
+    // we remove all provided groups that do not really exist
+    $query = '
+SELECT
+    id
+  FROM '.GROUPS_TABLE.'
+  WHERE id IN ('.implode(',', $params['group_id']).')
+;';
+    $group_ids = array_from_query($query, 'id');
+
+    // if only -1 (a group id that can't exist) is in the list, then no
+    // group is associated
+    
+    if (count($group_ids) > 0)
+    {
+      $inserts = array();
+      
+      foreach ($group_ids as $group_id)
+      {
+        foreach ($params['user_id'] as $user_id)
+        {
+          $inserts[] = array('user_id' => $user_id, 'group_id' => $group_id);
+        }
+      }
+
+      mass_inserts(USER_GROUP_TABLE, array_keys($inserts[0]), $inserts);
+    }
+  }
+
   return $service->invoke('pwg.users.getList', array(
     'user_id' => $params['user_id'],
     'display' => 'basics,'.implode(',', array_keys($updates_infos)),
