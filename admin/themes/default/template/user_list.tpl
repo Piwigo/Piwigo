@@ -3,12 +3,17 @@
 {combine_script id='jquery.dataTables' load='footer' path='themes/default/js/plugins/jquery.dataTables.js'}
 {combine_css path="themes/default/js/plugins/datatables/css/jquery.dataTables.css"}
 
+{combine_script id='jquery.chosen' load='footer' path='themes/default/js/plugins/chosen.jquery.min.js'}
+{combine_css path="themes/default/js/plugins/chosen.css"}
+
 {footer_script}
 var selectedMessage_pattern = "{'%d of %d photos selected'|@translate}";
 var selectedMessage_none = "{'No photo selected, %d photos in current set'|@translate}";
 var selectedMessage_all = "{'All %d photos are selected'|@translate}";
 var applyOnDetails_pattern = "{'on the %d selected users'|@translate}";
 var newUser_pattern = "&#x2714; {'User %s added'|translate}";
+var registeredOn_pattern = "{'Registered on %s, %s.'|translate}";
+var lastVisit_pattern = "{'Last visit on %s, %s.'|translate}";
 var missingConfirm = "{'You need to confirm deletion'|translate}";
 var missingUsername = "{'Please, enter a login'|translate}";
 
@@ -105,10 +110,23 @@ jQuery(document).ready(function() {
           var user = data.result.users[0];
 
           var userDetails = '<form>';
+          userDetails += '<div class="userActions">';
+          userDetails += '<a class="icon-key" href="#">Change password</a>';
+          userDetails += '<br><a href="#" class="icon-lock">Permissions</a>';
+          userDetails += '<br><a href="#" class="icon-trash">Delete</a>';
+          userDetails += '</div>';
+          userDetails += '<strong>'+user.username+'</strong> <span class="icon-pencil"></span>';
+          userDetails += '<br><br>';
+          userDetails += sprintf(registeredOn_pattern, user.registration_date_string, user.registration_date_since);
+
+          if (typeof user.last_visit != 'undefined') {
+            userDetails += '<br>'+sprintf(lastVisit_pattern, user.last_visit_string, user.last_visit_since);
+          }
+
+          userDetails += '<div class="userPropertiesContainer">';
           userDetails += '<input type="hidden" name="user_id" value="'+user.id+'">';
-          userDetails += '<fieldset><legend>{/literal}{'Properties'|translate}{literal}</legend>';
-          userDetails += '<div class="userProperty"><strong>{/literal}{'Username'|translate}{literal}</strong>';
-          userDetails += '<br>'+user.username+'</div>';
+          userDetails += '<div class="userPropertiesSet">';
+          userDetails += '<div class="userPropertiesSetTitle">{/literal}{'Properties'|translate}{literal}</div>';
 
           userDetails += '<div class="userProperty"><strong>{/literal}{'Email address'|translate}{literal}</strong>';
           userDetails += '<br><input name="email" type="text" value="'+user.email+'"></div>';
@@ -124,20 +142,6 @@ jQuery(document).ready(function() {
           });
           userDetails += '</select></div>';
 
-/*
-          userDetails += '<div class="userProperty"><strong>{/literal}{'Groups'|translate}{literal}</strong>';
-          userDetails += '<br><select multiple class="chzn-select" style="width:200px;">';
-          jQuery("#action select[name=associate] option").each(function() {
-            var selected = '';
-            if (user.groups.indexOf(jQuery(this).val()) != -1) {
-              selected = ' selected="selected"';
-            }
-            userDetails += '<option value="'+jQuery(this).val()+'"'+selected+'>'+jQuery(this).html()+'</option>';
-          });
-          userDetails += '</select></div>';
-          // userDetails += '<br>'+user.groups.join(",")+'</div>';
-*/
-
           userDetails += '<div class="userProperty"><strong>{/literal}{'Privacy level'|translate}{literal}</strong>';
           userDetails += '<br><select name="level">';
           jQuery("#action select[name=level] option").each(function() {
@@ -149,18 +153,27 @@ jQuery(document).ready(function() {
           });
           userDetails += '</select></div>';
 
-          userDetails += '<div class="userProperty"><strong>{/literal}{'High definition enabled'|translate}{literal}</strong>';
-          userDetails += '<br>';
-          jQuery.each(truefalse, function(value, label) {
-            var checked = '';
-            if (user.enabled_high == value) {
-              checked = ' checked="checked"';
-            }
-            userDetails += '<label><input type="radio" name="enabled_high" value="'+value+'"'+checked+'>'+label+'</label>';
-          });
+          var checked = '';
+          if (user.enabled_high == 'true') {
+            checked = ' checked="checked"';
+          }
+          userDetails += '<div class="userProperty"><label><input type="checkbox" name="enabled_high"'+checked+'> <strong>{/literal}{'High definition enabled'|translate}{literal}</strong></label>';
           userDetails += '</div>';
 
-          userDetails += '</fieldset><fieldset><legend>{/literal}{'Preferences'|translate}{literal}</legend>';
+          userDetails += '<div class="userProperty"><strong>{/literal}{'Groups'|translate}{literal}</strong>';
+          userDetails += '<br><select multiple class="chzn-select" style="width:340px;" name="group_id[]">';
+          jQuery("#action select[name=associate] option").each(function() {
+            var selected = '';
+            if (user.groups.indexOf(jQuery(this).val()) != -1) {
+              selected = ' selected="selected"';
+            }
+            userDetails += '<option value="'+jQuery(this).val()+'"'+selected+'>'+jQuery(this).html()+'</option>';
+          });
+          userDetails += '</select></div>';
+          // userDetails += '<br>'+user.groups.join(",")+'</div>';
+
+          userDetails += '</div><div class="userPropertiesSet userPrefs">';
+          userDetails += '<div class="userPropertiesSetTitle">{/literal}{'Preferences'|translate}{literal}</div>';
 
           userDetails += '<div class="userProperty"><strong>{/literal}{'Number of photos per page'|translate}{literal}</strong>';
           userDetails += '<br>'+user.nb_image_page+'</div>';
@@ -190,45 +203,36 @@ jQuery(document).ready(function() {
           userDetails += '<div class="userProperty"><strong>{/literal}{'Recent period'|translate}{literal}</strong>';
           userDetails += '<br>'+user.recent_period+'</div>';
 
-          userDetails += '<div class="userProperty"><strong>{/literal}{'Expand all albums'|translate}{literal}</strong>';
-          userDetails += '<br>';
-          jQuery.each(truefalse, function(value, label) {
-            var checked = '';
-            if (user.expand == value) {
-              checked = ' checked="checked"';
-            }
-            userDetails += '<label><input type="radio" name="expand" value="'+value+'"'+checked+'>'+label+'</label>';
-          });
+          var checked = '';
+          if (user.expand == 'true') {
+            checked = ' checked="checked"';
+          }
+          userDetails += '<div class="userProperty"><label><input type="checkbox" name="expand"'+checked+'> <strong>{/literal}{'Expand all albums'|translate}{literal}</strong></label>';
           userDetails += '</div>';
 
-          userDetails += '<div class="userProperty"><strong>{/literal}{'Show number of comments'|translate}{literal}</strong>';
-          userDetails += '<br>';
-          jQuery.each(truefalse, function(value, label) {
-            var checked = '';
-            if (user.show_nb_comments == value) {
-              checked = ' checked="checked"';
-            }
-            userDetails += '<label><input type="radio" name="show_nb_comments" value="'+value+'"'+checked+'>'+label+'</label>';
-          });
+          var checked = '';
+          if (user.show_nb_comments == 'true') {
+            checked = ' checked="checked"';
+          }
+          userDetails += '<div class="userProperty"><label><input type="checkbox" name="show_nb_comments"'+checked+'> <strong>{/literal}{'Show number of comments'|translate}{literal}</strong></label>';
           userDetails += '</div>';
 
-          userDetails += '<div class="userProperty"><strong>{/literal}{'Show number of hits'|translate}{literal}</strong>';
-          userDetails += '<br>';
-          jQuery.each(truefalse, function(value, label) {
-            var checked = '';
-            if (user.show_nb_hits == value) {
-              checked = ' checked="checked"';
-            }
-            userDetails += '<label><input type="radio" name="show_nb_hits" value="'+value+'"'+checked+'>'+label+'</label>';
-          });
+          var checked = '';
+          if (user.show_nb_hits == 'true') {
+            checked = ' checked="checked"';
+          }
+          userDetails += '<div class="userProperty"><label><input type="checkbox" name="show_nb_hits"'+checked+'> <strong>{/literal}{'Show number of hits'|translate}{literal}</strong></label>';
           userDetails += '</div>';
-          userDetails += '</fieldset>';
+          userDetails += '</div>';
+          userDetails += '<div style="clear:both"></div></div>';
 
-          userDetails += '<input type="submit" value="{/literal}{'Submit'|translate}{literal}" data-user_id="'+userId+'">';
+          userDetails += '<span class="infos" style="display:none">&#x2714; User updated</span>';
+          userDetails += '<input type="submit" value="{/literal}{'Save Settings'|translate}{literal}" style="display:none;" data-user_id="'+userId+'">';
           userDetails += '<img class="submitWait" src="themes/default/images/ajax-loader-small.gif" style="display:none">'
           userDetails += '</form>';
 
           jQuery("#user"+userId).append(userDetails);
+          jQuery(".chzn-select").chosen();
         }
         else {
           console.log('error loading user details');
@@ -242,18 +246,49 @@ jQuery(document).ready(function() {
     return '<div id="user'+userId+'" class="userProperties"><img class="loading" src="themes/default/images/ajax-loader-small.gif"></div>';
   }
 
+  jQuery(document).on('change', '.userProperties input, .userProperties select',  function() {
+    var userId = jQuery(this).parentsUntil('form').parent().find('input[name=user_id]').val();
+
+    jQuery('#user'+userId+' input[type=submit]').show();
+    jQuery('#user'+userId+' .infos').hide();
+  });
+
   jQuery(document).on('click', '.userProperties input[type=submit]',  function() {
     var userId = jQuery(this).data('user_id');
+
+    var formData = jQuery('#user'+userId+' form').serialize();
+
+    if (jQuery('#user'+userId+' form select[name="group_id[]"] option:selected').length == 0) {
+      formData += '&group_id=-1';
+    }
+
+    if (!jQuery('#user'+userId+' form input[name=enabled_high]').is(':checked')) {
+      formData += '&enabled_high=false';
+    }
+
+    if (!jQuery('#user'+userId+' form input[name=expand]').is(':checked')) {
+      formData += '&expand=false';
+    }
+
+    if (!jQuery('#user'+userId+' form input[name=show_nb_hits]').is(':checked')) {
+      formData += '&show_nb_hits=false';
+    }
+
+    if (!jQuery('#user'+userId+' form input[name=show_nb_comments]').is(':checked')) {
+      formData += '&show_nb_comments=false';
+    }
 
     jQuery.ajax({
       url: "ws.php?format=json&method=pwg.users.setInfo",
       type:"POST",
-      data: jQuery('#user'+userId+' form').serialize(),
+      data: formData,
       beforeSend: function() {
         jQuery('#user'+userId+' .submitWait').show();
       },
       success:function(data) {
         jQuery('#user'+userId+' .submitWait').hide();
+        jQuery('#user'+userId+' input[type=submit]').hide();
+        jQuery('#user'+userId+' .infos').show();
       },
       error:function(XMLHttpRequest, textStatus, errorThrows) {
         jQuery('#user'+userId+' .submitWait').hide();
@@ -304,6 +339,24 @@ jQuery(document).ready(function() {
     "bProcessing": true,
     "bServerSide": true,
     "sAjaxSource": "admin/user_list_backend.php",
+    "oLanguage": {
+      "sProcessing":     "Traitement en cours...",
+      "sLengthMenu":     "Afficher _MENU_ éléments",
+      "sZeroRecords":    "Aucun élément à afficher",
+      "sInfo":           "Affichage des élements _START_ à _END_ sur _TOTAL_",
+      "sInfoEmpty":      "Affichage de l'élement 0 à 0 sur 0 éléments",
+      "sInfoFiltered":   "<br>(filtré de _MAX_ éléments au total{/literal}{if $is_a_guest} <span class='limitedVersionWarning'>dans la version complète</span>{/if}{literal})",
+      "sInfoPostFix":    "",
+      "sSearch":         "Rechercher",
+      "sLoadingRecords": "Téléchargement...",
+      "sUrl":            "",
+      "oPaginate": {
+          "sFirst":    "Premier",
+          "sPrevious": "← Précédent",
+          "sNext":     "Suivant →",
+          "sLast":     "Dernier"
+      }
+    },
     "fnDrawCallback": function( oSettings ) {
       jQuery("#userList input[type=checkbox]").each(function() {
         var user_id = jQuery(this).data("user_id");
@@ -531,15 +584,24 @@ jQuery(document).ready(function() {
 .dataTables_wrapper, .dataTables_info {clear:none;}
 table.dataTable {clear:right;padding-top:10px;}
 .dataTable td img {margin-bottom: -6px;margin-left: -6px;}
+.paginate_enabled_previous, .paginate_enabled_previous:hover, .paginate_disabled_previous, .paginate_enabled_next, .paginate_enabled_next:hover, .paginate_disabled_next {background:none;}
+.paginate_enabled_previous, .paginate_enabled_next {color:#005E89 !important;}
+.paginate_enabled_previous:hover, .paginate_enabled_next:hover {color:#D54E21 !important; text-decoration:underline !important;}
+
+.paginate_disabled_next, .paginate_enabled_next {padding-right:3px;}
 .bulkAction {margin-top:10px;}
 #addUserForm p {margin-left:0;}
 #applyActionBlock .actionButtons {margin-left:0;}
 span.infos, span.errors {background-image:none; padding:2px 5px; margin:0;border-radius:5px;}
 
-.userProperties {max-width:850px;}
-.userProperties fieldset {border-width:0; border-top-width:1px;}
-.userProperties fieldset legend {margin-left:-20px;padding-left:0;}
+.userProperties {max-width:730px;}
+.userPropertiesContainer {border-top:1px solid #ddd;margin-top:1em;}
+.userPropertiesSet {width:350px;float:left;padding-top:5px}
+.userPropertiesSetTitle {font-weight:bold;margin-bottom:1em;}
+.userPrefs {border-left:1px solid #ddd;padding-left:10px;}
 .userProperty {width:220px;float:left;margin-bottom:15px;}
+
+.userActions {float:right;text-align:right;}
 </style>
 {/literal}
 
@@ -600,6 +662,7 @@ span.infos, span.errors {background-image:none; padding:2px 5px; margin:0;border
       <th>{'Username'|@translate}</th>
       <th>{'Status'|@translate}</th>
       <th>{'Email address'|@translate}</th>
+      <th>{'registration date'|@translate}</th>
     </tr>
   </thead>
 </table>
