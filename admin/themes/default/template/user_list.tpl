@@ -112,10 +112,10 @@ jQuery(document).ready(function() {
           var userDetails = '<form>';
           userDetails += '<div class="userActions">';
           userDetails += '<a class="icon-key" href="#">Change password</a>';
-          userDetails += '<br><a href="#" class="icon-lock">Permissions</a>';
-          userDetails += '<br><a href="#" class="icon-trash">Delete</a>';
+          userDetails += '<br><a target="_blank" href="admin.php?page=user_perm&amp;user_id='+userId+'" class="icon-lock">Permissions</a>';
+          userDetails += '<br><span class="userDelete"><img class="loading" src="themes/default/images/ajax-loader-small.gif" style="display:none;"><a href="#" class="icon-trash" data-user_id="'+userId+'">Delete</a></span>';
           userDetails += '</div>';
-          userDetails += '<strong>'+user.username+'</strong> <span class="icon-pencil"></span>';
+          userDetails += '<strong class="username">'+user.username+'</strong> <span class="icon-pencil"></span>';
           userDetails += '<br><br>';
           userDetails += sprintf(registeredOn_pattern, user.registration_date_string, user.registration_date_since);
 
@@ -226,8 +226,8 @@ jQuery(document).ready(function() {
           userDetails += '</div>';
           userDetails += '<div style="clear:both"></div></div>';
 
-          userDetails += '<span class="infos" style="display:none">&#x2714; User updated</span>';
-          userDetails += '<input type="submit" value="{/literal}{'Save Settings'|translate}{literal}" style="display:none;" data-user_id="'+userId+'">';
+          userDetails += '<span class="infos" style="display:none">&#x2714; User '+user.username+' updated</span>';
+          userDetails += '<input type="submit" value="{/literal}{'Update user'|translate}{literal}" style="display:none;" data-user_id="'+userId+'">';
           userDetails += '<img class="submitWait" src="themes/default/images/ajax-loader-small.gif" style="display:none">'
           userDetails += '</form>';
 
@@ -251,6 +251,36 @@ jQuery(document).ready(function() {
 
     jQuery('#user'+userId+' input[type=submit]').show();
     jQuery('#user'+userId+' .infos').hide();
+  });
+
+  jQuery(document).on('click', '.userDelete a',  function() {
+    if (!confirm("{/literal}{'Are you sure?'|translate|escape:javascript}{literal}")) {
+      return false;
+    }
+
+    var userId = jQuery(this).data('user_id');
+    var username = jQuery('#user'+userId+' .username').html();
+
+    jQuery.ajax({
+      url: "ws.php?format=json&method=pwg.users.delete",
+      type:"POST",
+      data: {
+        user_id:userId,
+        pwg_token:pwg_token
+      },
+      beforeSend: function() {
+        jQuery('#user'+userId+' .userDelete .loading').show();
+      },
+      success:function(data) {
+        oTable.fnDraw();
+        jQuery('#showAddUser .infos').html('&#x2714; User '+username+' deleted').show();
+      },
+      error:function(XMLHttpRequest, textStatus, errorThrows) {
+        jQuery('#user'+userId+' .userDelete .loading').hide();
+      }
+    });
+
+    return false;
   });
 
   jQuery(document).on('click', '.userProperties input[type=submit]',  function() {
@@ -593,15 +623,6 @@ table.dataTable {clear:right;padding-top:10px;}
 #addUserForm p {margin-left:0;}
 #applyActionBlock .actionButtons {margin-left:0;}
 span.infos, span.errors {background-image:none; padding:2px 5px; margin:0;border-radius:5px;}
-
-.userProperties {max-width:730px;}
-.userPropertiesContainer {border-top:1px solid #ddd;margin-top:1em;}
-.userPropertiesSet {width:350px;float:left;padding-top:5px}
-.userPropertiesSetTitle {font-weight:bold;margin-bottom:1em;}
-.userPrefs {border-left:1px solid #ddd;padding-left:10px;}
-.userProperty {width:220px;float:left;margin-bottom:15px;}
-
-.userActions {float:right;text-align:right;}
 </style>
 {/literal}
 

@@ -334,3 +334,6 @@ table.dataTable tr.odd td.sorting_1 {
 table.dataTable thead th {
   border-color: #333 !important;
 }
+
+.userPropertiesContainer {border-color:#333;}
+.userPrefs {border-color:#333;}

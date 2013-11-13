@@ -1145,3 +1145,12 @@ a.group_perm {
   margin-left:-8px;
   cursor:pointer;
 }
+
+.userProperties {max-width:730px;}
+.userPropertiesContainer {border-top:1px solid #ddd;margin-top:1em;}
+.userPropertiesSet {width:350px;float:left;padding-top:5px}
+.userPropertiesSetTitle {font-weight:bold;margin-bottom:1em;}
+.userPrefs {border-left:1px solid #ddd;padding-left:10px;}
+.userProperty {width:220px;float:left;margin-bottom:15px;}
+.userActions {float:right;text-align:right;}
+
