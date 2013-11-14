@@ -111,18 +111,26 @@ jQuery(document).ready(function() {
 
           var userDetails = '<form>';
           userDetails += '<div class="userActions">';
-          userDetails += '<a class="icon-key" href="#">Change password</a>';
+          userDetails += '<span class="changePasswordDone infos" style="display:none">&#x2714; Password updated</span>';
+          userDetails += '<span class="changePassword" style="display:none">{/literal}{'New password'|translate}{literal} <input type="text"> <a href="#" class="buttonLike updatePassword"><img src="themes/default/images/ajax-loader-small.gif" style="margin-bottom:-1px;margin-left:1px;display:none;"><span class="text">{/literal}{'Submit'|translate}{literal}</span></a> <a href="#" class="cancel">Cancel</a></span>';
+          userDetails += '<a class="icon-key changePasswordOpen" href="#">Change password</a>';
           userDetails += '<br><a target="_blank" href="admin.php?page=user_perm&amp;user_id='+userId+'" class="icon-lock">Permissions</a>';
           userDetails += '<br><span class="userDelete"><img class="loading" src="themes/default/images/ajax-loader-small.gif" style="display:none;"><a href="#" class="icon-trash" data-user_id="'+userId+'">Delete</a></span>';
           userDetails += '</div>';
-          userDetails += '<strong class="username">'+user.username+'</strong> <span class="icon-pencil"></span>';
-          userDetails += '<br><br>';
+
+          userDetails += '<span class="changeUsernameOpen"><strong class="username">'+user.username+'</strong> <a href="#" class="icon-pencil">Change username</a></span>';
+          userDetails += '<span class="changeUsername" style="display:none">';
+          userDetails += '<input type="text"> <a href="#" class="buttonLike updateUsername"><img src="themes/default/images/ajax-loader-small.gif" style="margin-bottom:-1px;margin-left:1px;display:none;"><span class="text">{/literal}{'Submit'|translate}{literal}</span></a> <a href="#" class="cancel">Cancel</a>';
+          userDetails += '</span>';
+
+          userDetails += '<div class="userStats">';
           userDetails += sprintf(registeredOn_pattern, user.registration_date_string, user.registration_date_since);
 
           if (typeof user.last_visit != 'undefined') {
             userDetails += '<br>'+sprintf(lastVisit_pattern, user.last_visit_string, user.last_visit_since);
           }
 
+          userDetails += '</div>';
           userDetails += '<div class="userPropertiesContainer">';
           userDetails += '<input type="hidden" name="user_id" value="'+user.id+'">';
           userDetails += '<div class="userPropertiesSet">';
@@ -226,7 +234,7 @@ jQuery(document).ready(function() {
           userDetails += '</div>';
           userDetails += '<div style="clear:both"></div></div>';
 
-          userDetails += '<span class="infos" style="display:none">&#x2714; User '+user.username+' updated</span>';
+          userDetails += '<span class="infos propertiesUpdateDone" style="display:none">&#x2714; User '+user.username+' updated</span>';
           userDetails += '<input type="submit" value="{/literal}{'Update user'|translate}{literal}" style="display:none;" data-user_id="'+userId+'">';
           userDetails += '<img class="submitWait" src="themes/default/images/ajax-loader-small.gif" style="display:none">'
           userDetails += '</form>';
@@ -246,13 +254,116 @@ jQuery(document).ready(function() {
     return '<div id="user'+userId+'" class="userProperties"><img class="loading" src="themes/default/images/ajax-loader-small.gif"></div>';
   }
 
+  /* change password */
+  jQuery(document).on('click', '.changePasswordOpen',  function() {
+    var userId = jQuery(this).parentsUntil('form').parent().find('input[name=user_id]').val();
+
+    jQuery(this).hide();
+    jQuery('#user'+userId+' .changePasswordDone').hide();
+    jQuery('#user'+userId+' .changePassword').show();
+    jQuery('#user'+userId+' .changePassword input[type=text]').focus();
+
+    return false;
+  });
+
+  jQuery(document).on('click', '.changePassword a.updatePassword',  function() {
+    var userId = jQuery(this).parentsUntil('form').parent().find('input[name=user_id]').val();
+
+    jQuery('#user'+userId+' .changePassword a .text').hide();
+    jQuery('#user'+userId+' .changePassword a img').show();
+
+    jQuery.ajax({
+      url: "ws.php?format=json&method=pwg.users.setInfo",
+      type:"POST",
+      data: {
+        user_id:userId,
+        password: jQuery('#user'+userId+' .changePassword input[type=text]').val()
+      },
+      beforeSend: function() {
+        jQuery('#user'+userId+' .changePassword input[type=text]').val("");
+      },
+      success:function(data) {
+        jQuery('#user'+userId+' .changePassword a .text').show();
+        jQuery('#user'+userId+' .changePassword a img').hide();
+        jQuery('#user'+userId+' .changePassword').hide();
+        jQuery('#user'+userId+' .changePasswordOpen').show();
+        jQuery('#user'+userId+' .changePasswordDone').show();
+      },
+      error:function(XMLHttpRequest, textStatus, errorThrows) {
+      }
+    });
+
+    return false;
+  });
+
+  jQuery(document).on('click', '.changePassword a.cancel',  function() {
+    var userId = jQuery(this).parentsUntil('form').parent().find('input[name=user_id]').val();
+
+    jQuery('#user'+userId+' .changePassword').hide();
+    jQuery('#user'+userId+' .changePasswordOpen').show();
+
+    return false;
+  });
+
+  /* change username */
+  jQuery(document).on('click', '.changeUsernameOpen a',  function() {
+    var userId = jQuery(this).parentsUntil('form').parent().find('input[name=user_id]').val();
+    var username = jQuery('#user'+userId+' .username').html();
+
+    jQuery('#user'+userId+' .changeUsernameOpen').hide();
+    jQuery('#user'+userId+' .changeUsername').show();
+    jQuery('#user'+userId+' .changeUsername input[type=text]').val(username).focus();
+
+    return false;
+  });
+
+  jQuery(document).on('click', 'a.updateUsername',  function() {
+    var userId = jQuery(this).parentsUntil('form').parent().find('input[name=user_id]').val();
+
+    jQuery('#user'+userId+' .changeUsername a .text').hide();
+    jQuery('#user'+userId+' .changeUsername a img').show();
+
+    jQuery.ajax({
+      url: "ws.php?format=json&method=pwg.users.setInfo",
+      type:"POST",
+      data: {
+        user_id:userId,
+        username: jQuery('#user'+userId+' .changeUsername input[type=text]').val()
+      },
+      success:function(data) {
+        jQuery('#user'+userId+' .changeUsername a .text').show();
+        jQuery('#user'+userId+' .changeUsername a img').hide();
+        jQuery('#user'+userId+' .changeUsername').hide();
+        jQuery('#user'+userId+' .changeUsernameOpen').show();
+
+        var data = jQuery.parseJSON(data);
+        jQuery('#user'+userId+' .username').html(data.result.users[0].username);
+      },
+      error:function(XMLHttpRequest, textStatus, errorThrows) {
+      }
+    });
+
+    return false;
+  });
+
+  jQuery(document).on('click', '.changeUsername a.cancel',  function() {
+    var userId = jQuery(this).parentsUntil('form').parent().find('input[name=user_id]').val();
+
+    jQuery('#user'+userId+' .changeUsername').hide();
+    jQuery('#user'+userId+' .changeUsernameOpen').show();
+
+    return false;
+  });
+
+  /* display the "save" button when a field changes */
   jQuery(document).on('change', '.userProperties input, .userProperties select',  function() {
     var userId = jQuery(this).parentsUntil('form').parent().find('input[name=user_id]').val();
 
     jQuery('#user'+userId+' input[type=submit]').show();
-    jQuery('#user'+userId+' .infos').hide();
+    jQuery('#user'+userId+' .propertiesUpdateDone').hide();
   });
 
+  /* delete user */
   jQuery(document).on('click', '.userDelete a',  function() {
     if (!confirm("{/literal}{'Are you sure?'|translate|escape:javascript}{literal}")) {
       return false;
@@ -318,7 +429,7 @@ jQuery(document).ready(function() {
       success:function(data) {
         jQuery('#user'+userId+' .submitWait').hide();
         jQuery('#user'+userId+' input[type=submit]').hide();
-        jQuery('#user'+userId+' .infos').show();
+        jQuery('#user'+userId+' .propertiesUpdateDone').show();
       },
       error:function(XMLHttpRequest, textStatus, errorThrows) {
         jQuery('#user'+userId+' .submitWait').hide();
@@ -623,6 +734,8 @@ table.dataTable {clear:right;padding-top:10px;}
 #addUserForm p {margin-left:0;}
 #applyActionBlock .actionButtons {margin-left:0;}
 span.infos, span.errors {background-image:none; padding:2px 5px; margin:0;border-radius:5px;}
+
+.userStats {margin-top:10px;}
 </style>
 {/literal}
 
