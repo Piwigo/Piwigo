@@ -97,7 +97,7 @@ jQuery(document).ready(function() {
    */
   function getSliderKeyFromValue(value, values) {
     for (var key in values) {
-      if (values[key] == value) {
+      if (values[key] >= value) {
         return key;
       }
     }
