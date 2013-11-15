@@ -6,6 +6,9 @@
 {combine_script id='jquery.chosen' load='footer' path='themes/default/js/plugins/chosen.jquery.min.js'}
 {combine_css path="themes/default/js/plugins/chosen.css"}
 
+{combine_script id='jquery.ui.slider' require='jquery.ui' load='footer' path='themes/default/js/ui/minified/jquery.ui.slider.min.js'}
+{combine_css path="themes/default/js/ui/theme/jquery.ui.slider.css"}
+
 {footer_script}
 var selectedMessage_pattern = "{'%d of %d photos selected'|@translate}";
 var selectedMessage_none = "{'No photo selected, %d photos in current set'|@translate}";
@@ -89,6 +92,36 @@ jQuery(document).ready(function() {
   /**
    * Table with users
    */
+  /**
+   * find the key from a value in the startStopValues array
+   */
+  function getSliderKeyFromValue(value, values) {
+    for (var key in values) {
+      if (values[key] == value) {
+        return key;
+      }
+    }
+    return 0;
+  }
+
+  var recent_period_values = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,25,30,40,50,60,80,99];
+
+  function getRecentPeriodInfoFromIdx(idx) {
+    return sprintf(
+      "{/literal}{'%d days'|@translate}{literal}",
+      recent_period_values[idx]
+    );
+  }
+
+  var nb_image_page_values = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,35,40,45,50,60,70,80,90,100,200,300,500,999];
+
+  function getNbImagePageInfoFromIdx(idx) {
+    return sprintf(
+      "{/literal}{'%d photos per page'|@translate}{literal}",
+      nb_image_page_values[idx]
+    );
+  }
+
   /* Formating function for row details */
   function fnFormatDetails(oTable, nTr) {
     var userId = oTable.fnGetData(nTr)[0];
@@ -183,8 +216,10 @@ jQuery(document).ready(function() {
           userDetails += '</div><div class="userPropertiesSet userPrefs">';
           userDetails += '<div class="userPropertiesSetTitle">{/literal}{'Preferences'|translate}{literal}</div>';
 
-          userDetails += '<div class="userProperty"><strong>{/literal}{'Number of photos per page'|translate}{literal}</strong>';
-          userDetails += '<br>'+user.nb_image_page+'</div>';
+          userDetails += '<div class="userProperty"><strong class="nb_image_page_infos"></strong>';
+          userDetails += '<div class="nb_image_page"></div>';
+          userDetails += '<input type="hidden" name="nb_image_page" value="'+user.nb_image_page+'">';
+          userDetails += '</div>';
 
           userDetails += '<div class="userProperty"><strong>{/literal}{'Theme'|translate}{literal}</strong>';
           userDetails += '<br><select name="theme">';
@@ -208,8 +243,10 @@ jQuery(document).ready(function() {
           });
           userDetails += '</select></div>';
 
-          userDetails += '<div class="userProperty"><strong>{/literal}{'Recent period'|translate}{literal}</strong>';
-          userDetails += '<br>'+user.recent_period+'</div>';
+          userDetails += '<div class="userProperty"><strong>{/literal}{'Recent period'|translate}{literal}</strong> <span class="recent_period_infos"></span>';
+          userDetails += '<div class="recent_period"></div>';
+          userDetails += '<input type="hidden" name="recent_period" value="'+user.recent_period+'">';
+          userDetails += '</div>';
 
           var checked = '';
           if (user.expand == 'true') {
@@ -241,6 +278,41 @@ jQuery(document).ready(function() {
 
           jQuery("#user"+userId).append(userDetails);
           jQuery(".chzn-select").chosen();
+
+          /* nb_image_page slider */
+          var nb_image_page_init = getSliderKeyFromValue(jQuery('input[name=nb_image_page]').val(), nb_image_page_values);
+          
+          jQuery('#user'+userId+' .nb_image_page_infos').html(getNbImagePageInfoFromIdx(nb_image_page_init));
+          
+          jQuery('#user'+userId+' .nb_image_page').slider({
+            range: "min",
+            min: 0,
+            max: nb_image_page_values.length - 1,
+            value: nb_image_page_init,
+            slide: function( event, ui ) {
+              jQuery('#user'+userId+' .nb_image_page_infos').html(getNbImagePageInfoFromIdx(ui.value));
+            },
+            stop: function( event, ui ) {
+              jQuery('#user'+userId+' input[name=nb_image_page]').val(nb_image_page_values[ui.value]).trigger('change');
+            }
+          });
+
+          /* recent_period slider */
+          var recent_period_init = getSliderKeyFromValue(jQuery('input[name=recent_period]').val(), recent_period_values);
+          jQuery('#user'+userId+' .recent_period_infos').html(getRecentPeriodInfoFromIdx(recent_period_init));
+          
+          jQuery('#user'+userId+' .recent_period').slider({
+            range: "min",
+            min: 0,
+            max: recent_period_values.length - 1,
+            value: recent_period_init,
+            slide: function( event, ui ) {
+              jQuery('#user'+userId+' .recent_period_infos').html(getRecentPeriodInfoFromIdx(ui.value));
+            },
+            stop: function( event, ui ) {
+              jQuery('#user'+userId+' input[name=recent_period]').val(recent_period_values[ui.value]).trigger('change');
+            }
+          });
         }
         else {
           console.log('error loading user details');
@@ -736,6 +808,8 @@ table.dataTable {clear:right;padding-top:10px;}
 span.infos, span.errors {background-image:none; padding:2px 5px; margin:0;border-radius:5px;}
 
 .userStats {margin-top:10px;}
+.recent_period_infos {margin-left:10px;}
+.nb_image_page, .recent_period {width:340px;margin-top:5px;}
 </style>
 {/literal}
 
