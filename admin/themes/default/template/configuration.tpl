@@ -68,41 +68,34 @@
 {if !isset($ORDER_BY_IS_CUSTOM)}
 {footer_script require='jquery'}
 (function(){
-// counters for displaying of addFilter link
-var fields = {$main.order_by|@count},
-    max_fields = Math.ceil({$main.order_by_options|@count}/2);
+var max_fields = Math.ceil({$main.order_by_options|@count}/2);
 
-function updateAddFilterLink() {
-  if (fields >= max_fields) {
-    jQuery('.addFilter').css('display', 'none');
-  } else {
-    jQuery('.addFilter').css('display', '');
-  }
-}
+function updateFilters() {
+  var $selects = jQuery('#order_filters select');
 
-function updateRemoveFilterTrigger() {
-  jQuery(".removeFilter").click(function() {
-    jQuery(this).parent('span.filter').remove();
-    fields--;
-    updateAddFilterLink();
+  jQuery('#order_filters .addFilter').toggle($selects.length <= max_fields);
+  jQuery('#order_filters .removeFilter').css('display', '').filter(':first').css('display', 'none');
+  
+  $selects.find('option').removeAttr('disabled');
+  $selects.each(function() {
+    $selects.not(this).find('option[value="'+ jQuery(this).val() +'"]').attr('disabled', 'disabled');
   });
-
-  jQuery(".removeFilter").css('display', '');
-  jQuery(".filter:first .removeFilter").css('display', 'none');
 }
 
-
-jQuery('.addFilter').click(function() {
-  jQuery(this).prev('span.filter').clone().insertBefore($(this));
-  jQuery(this).prev('span.filter').children('select[name="order_by[]"]').val('');
-
-  fields++;
-  updateRemoveFilterTrigger();
-  updateAddFilterLink();
+jQuery('#order_filters').on('click', '.removeFilter', function() {
+  jQuery(this).parent('span.filter').remove();
+  updateFilters();
 });
 
-updateRemoveFilterTrigger();
-updateAddFilterLink();
+jQuery('#order_filters').on('change', 'select', updateFilters);
+
+jQuery('#order_filters .addFilter').click(function() {
+  jQuery(this).prev('span.filter').clone().insertBefore(jQuery(this));
+  jQuery(this).prev('span.filter').children('select').val('');
+  updateFilters();
+});
+
+updateFilters();
 }());
 {/footer_script}
 {/if}

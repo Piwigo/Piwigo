@@ -152,9 +152,17 @@ if (isset($_POST['submit']))
       {
         if ( !empty($_POST['order_by']) )
         {
+          $used = array();
           foreach ($_POST['order_by'] as $i => $val)
           {
-            if (empty($val)) unset($_POST['order_by'][$i]);
+            if (empty($val) or isset($used[$val]))
+            {
+              unset($_POST['order_by'][$i]);
+            }
+            else
+            {
+              $used[$val] = true;
+            }
           }
           if ( !count($_POST['order_by']) )
           {
