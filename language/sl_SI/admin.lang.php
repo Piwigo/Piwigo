@@ -485,7 +485,6 @@ $lang['In your php.ini file, the upload_max_filesize (%sB) is bigger than post_m
 $lang['Keep in touch with Piwigo project, subscribe to Piwigo Announcement Newsletter. You will receive emails when a new release is available (sometimes including a security bug fix, it\'s important to know and upgrade) and when major events happen to the project. Only a few emails a year.'] = 'Ostanite v stiku s projektom Piwigo, naročite se na obvestila o spremembah in novostih. Poslali vam bomo obvestilo z informacijami o novih verzijah programa Piwigo, ki lahko vključujejo tudi pomembne varnostne popravke in ostale pomembnejše posodobitve. Obvestila pošiljamo samo takrat, ko je to nujno potrebno.';
 $lang['Include display of recent photos grouped by dates'] = 'Vključi pogled novejših fotografij združenih po datumu';
 $lang['Linked albums'] = 'Povezani albumi';
-$lang['Main'] = 'Osnovno';
 $lang['Main "guest" user does not exist'] = 'Osnoven uporabnik "gost" ne obstaja';
 $lang['Mail content'] = 'Vsebina e-pošte';
 $lang['Mail address is obligatory for all users'] = 'E-mail naslov je obvezen za vse uporabnike';
@@ -593,7 +592,6 @@ $lang['custom'] = 'Po meri';
 $lang['digiKam is an advanced digital photo management free software for Linux, Windows, and MacOSX.'] = 'digiKam je napreden, brezplačen program za delo z digitalnimi fotografijami na sistemih Linux, Windows in MacOSX.';
 $lang['digiKam is designed for photographers who want to view, manage, edit, enhance, organize, tag, and share photographs.'] = 'digiKam je namenjen fotografom, ki želijo pregledovati, upravljati, urejati, izboljšati, organizirati, označevati in dati svoje fotografije v skupno rabo.';
 $lang['dissociate from group'] = 'loči od skupine';
-$lang['Email'] = 'Email';
 $lang['errors during synchronization'] = 'napake med sinhronizacijo';
 $lang['With no virtual album'] = 'Brez navideznega albuma';
 $lang['X Position'] = 'X Pozicija';
@@ -948,4 +946,7 @@ $lang['No results'] = 'Ni rezultatov';
 $lang['No user to send notifications by mail.'] = 'Noben uporabnik ne bo obveščen preko e-pošte.';
 $lang['Resize after upload disabled due to the use of GD as graphic library'] = 'Stiskanje fotografij pred nalaganjem je onemogočeno zaradi uporabe GD grafične knjižnice.';
 $lang['Select at least one tag'] = 'Izberite vsaj eno oznako';
+$lang['Basic settings'] = 'Osnovne nastavitve';
+$lang['General'] = 'Splošno';
+$lang['Mail theme'] = 'Videz e-pošte';
 ?>
