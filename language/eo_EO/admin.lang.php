@@ -903,4 +903,18 @@ $lang['The file or directory cannot be accessed (either it does not exist or the
 $lang['The permalink name must be composed of a-z, A-Z, 0-9, "-", "_" or "/". It must not be numeric or start with number followed by "-"'] = 'La nomo de la konstanta ligilo enhavu signojn a-z, A-Z, 0-9, "-", "_", aŭ "/". Ĝi ne estu nur numera nek komenciĝu de nombro sekvata de "-"';
 $lang['Update All'] = 'Ĝisdatigi ĉion';
 $lang['Update Complete'] = 'Ĝisdatigo finiĝis';
+$lang['The Piwigo export plugin allows you to create albums and export photos.'] = 'La eksportokromaĵo de Piwigo permesas al vi krei fotarojn kaj eksporti fotojn.';
+$lang['Toggle \'default group\' property'] = 'Inversigi la econ \'apriora grupo\'';
+$lang['Your configuration settings are saved'] = 'Viaj agordoj konserviĝis';
+$lang['Zoom'] = 'Zomo';
+$lang['[%s] Visit album %s'] = '[%s] Viziti fotaron %s';
+$lang['[NBM] Problems or questions'] = '[NBM] Problemoj aŭ demandoj';
+$lang['add a new watermark'] = 'aldoni novan filigranon';
+$lang['add new photos to caddie'] = 'aldoni novajn fotojn al la korbo';
+$lang['User "%s" created with "%s" like password'] = 'Uzanto "%s" kreiĝis kun "%s" kiel pasvorto';
+$lang['You can activate only one mobile theme.'] = 'Vi povas aktivigi nur unu porteblan temon.';
+$lang['You have subscribed to receiving notifications by mail.'] = 'Vi abonis la retmesaĝan atentigon';
+$lang['You have unsubscribed from receiving notifications by mail.'] = 'Vi malabonis la retmesaĝan atentigon';
+$lang['You might go to plugin list to install and activate it.'] = 'Iru al la listo de kromprogramoj por instali kaj aktivigi ĝin.';
+$lang['You need to confirm deletion'] = 'Vi devas konfirmi la forigon';
 ?>
