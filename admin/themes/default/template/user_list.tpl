@@ -10,15 +10,15 @@
 {combine_css path="themes/default/js/ui/theme/jquery.ui.slider.css"}
 
 {footer_script}
-var selectedMessage_pattern = "{'%d of %d photos selected'|@translate}";
-var selectedMessage_none = "{'No photo selected, %d photos in current set'|@translate}";
-var selectedMessage_all = "{'All %d photos are selected'|@translate}";
-var applyOnDetails_pattern = "{'on the %d selected users'|@translate}";
-var newUser_pattern = "&#x2714; {'User %s added'|translate}";
-var registeredOn_pattern = "{'Registered on %s, %s.'|translate}";
-var lastVisit_pattern = "{'Last visit on %s, %s.'|translate}";
-var missingConfirm = "{'You need to confirm deletion'|translate}";
-var missingUsername = "{'Please, enter a login'|translate}";
+var selectedMessage_pattern = "{'%d of %d users selected'|translate|escape:javascript}";
+var selectedMessage_none = "{'No user selected of %d users'|translate|escape:javascript}";
+var selectedMessage_all = "{'All %d users are selected'|translate|escape:javascript}";
+var applyOnDetails_pattern = "{'on the %d selected users'|translate|escape:javascript}";
+var newUser_pattern = "&#x2714; {'User %s added'|translate|escape:javascript}";
+var registeredOn_pattern = "{'Registered on %s, %s.'|translate|escape:javascript}";
+var lastVisit_pattern = "{'Last visit on %s, %s.'|translate|escape:javascript}";
+var missingConfirm = "{'You need to confirm deletion'|translate|escape:javascript}";
+var missingUsername = "{'Please, enter a login'|translate|escape:javascript}";
 
 var allUsers = [{$all_users}];
 var selection = [{$selection}];
@@ -144,16 +144,16 @@ jQuery(document).ready(function() {
 
           var userDetails = '<form>';
           userDetails += '<div class="userActions">';
-          userDetails += '<span class="changePasswordDone infos" style="display:none">&#x2714; Password updated</span>';
-          userDetails += '<span class="changePassword" style="display:none">{/literal}{'New password'|translate}{literal} <input type="text"> <a href="#" class="buttonLike updatePassword"><img src="themes/default/images/ajax-loader-small.gif" style="margin-bottom:-1px;margin-left:1px;display:none;"><span class="text">{/literal}{'Submit'|translate}{literal}</span></a> <a href="#" class="cancel">Cancel</a></span>';
-          userDetails += '<a class="icon-key changePasswordOpen" href="#">Change password</a>';
-          userDetails += '<br><a target="_blank" href="admin.php?page=user_perm&amp;user_id='+userId+'" class="icon-lock">Permissions</a>';
-          userDetails += '<br><span class="userDelete"><img class="loading" src="themes/default/images/ajax-loader-small.gif" style="display:none;"><a href="#" class="icon-trash" data-user_id="'+userId+'">Delete</a></span>';
+          userDetails += '<span class="changePasswordDone infos" style="display:none">&#x2714; {/literal}{'Password updated'|translate|escape:javascript}{literal}</span>';
+          userDetails += '<span class="changePassword" style="display:none">{/literal}{'New password'|translate}{literal} <input type="text"> <a href="#" class="buttonLike updatePassword"><img src="themes/default/images/ajax-loader-small.gif" style="margin-bottom:-1px;margin-left:1px;display:none;"><span class="text">{/literal}{'Submit'|translate|escape:javascript}{literal}</span></a> <a href="#" class="cancel">{/literal}{'Cancel'|translate|escape:javascript}{literal}</a></span>';
+          userDetails += '<a class="icon-key changePasswordOpen" href="#">{/literal}{'Change password'|translate|escape:javascript}{literal}</a>';
+          userDetails += '<br><a target="_blank" href="admin.php?page=user_perm&amp;user_id='+userId+'" class="icon-lock">{/literal}{'Permissions'|translate|escape:javascript}{literal}</a>';
+          userDetails += '<br><span class="userDelete"><img class="loading" src="themes/default/images/ajax-loader-small.gif" style="display:none;"><a href="#" class="icon-trash" data-user_id="'+userId+'">{/literal}{'Delete'|translate|escape:javascript}{literal}</a></span>';
           userDetails += '</div>';
 
-          userDetails += '<span class="changeUsernameOpen"><strong class="username">'+user.username+'</strong> <a href="#" class="icon-pencil">Change username</a></span>';
+          userDetails += '<span class="changeUsernameOpen"><strong class="username">'+user.username+'</strong> <a href="#" class="icon-pencil">{/literal}{'Change username'|translate|escape:javascript}{literal}</a></span>';
           userDetails += '<span class="changeUsername" style="display:none">';
-          userDetails += '<input type="text"> <a href="#" class="buttonLike updateUsername"><img src="themes/default/images/ajax-loader-small.gif" style="margin-bottom:-1px;margin-left:1px;display:none;"><span class="text">{/literal}{'Submit'|translate}{literal}</span></a> <a href="#" class="cancel">Cancel</a>';
+          userDetails += '<input type="text"> <a href="#" class="buttonLike updateUsername"><img src="themes/default/images/ajax-loader-small.gif" style="margin-bottom:-1px;margin-left:1px;display:none;"><span class="text">{/literal}{'Submit'|translate}{literal}</span></a> <a href="#" class="cancel">{/literal}{'Cancel'|translate|escape:javascript}{literal}</a>';
           userDetails += '</span>';
 
           userDetails += '<div class="userStats">';
@@ -221,7 +221,7 @@ jQuery(document).ready(function() {
           userDetails += '<input type="hidden" name="nb_image_page" value="'+user.nb_image_page+'">';
           userDetails += '</div>';
 
-          userDetails += '<div class="userProperty"><strong>{/literal}{'Theme'|translate}{literal}</strong>';
+          userDetails += '<div class="userProperty"><strong>{/literal}{'Interface theme'|translate|escape:javascript}{literal}</strong>';
           userDetails += '<br><select name="theme">';
           jQuery("#action select[name=theme] option").each(function() {
             var selected = '';
@@ -271,8 +271,10 @@ jQuery(document).ready(function() {
           userDetails += '</div>';
           userDetails += '<div style="clear:both"></div></div>';
 
-          userDetails += '<span class="infos propertiesUpdateDone" style="display:none">&#x2714; User '+user.username+' updated</span>';
-          userDetails += '<input type="submit" value="{/literal}{'Update user'|translate}{literal}" style="display:none;" data-user_id="'+userId+'">';
+          userDetails += '<span class="infos propertiesUpdateDone" style="display:none">&#x2714; ';
+          userDetails += sprintf("{/literal}{'User %s updated'|translate|escape:javascript}{literal}", user.username);
+          userDetails += '</span>';
+          userDetails += '<input type="submit" value="{/literal}{'Update user'|translate|escape:javascript}{literal}" style="display:none;" data-user_id="'+userId+'">';
           userDetails += '<img class="submitWait" src="themes/default/images/ajax-loader-small.gif" style="display:none">'
           userDetails += '</form>';
 
@@ -553,21 +555,19 @@ jQuery(document).ready(function() {
     "bServerSide": true,
     "sAjaxSource": "admin/user_list_backend.php",
     "oLanguage": {
-      "sProcessing":     "Traitement en cours...",
-      "sLengthMenu":     "Afficher _MENU_ éléments",
-      "sZeroRecords":    "Aucun élément à afficher",
-      "sInfo":           "Affichage des élements _START_ à _END_ sur _TOTAL_",
-      "sInfoEmpty":      "Affichage de l'élement 0 à 0 sur 0 éléments",
-      "sInfoFiltered":   "<br>(filtré de _MAX_ éléments au total{/literal}{if $is_a_guest} <span class='limitedVersionWarning'>dans la version complète</span>{/if}{literal})",
-      "sInfoPostFix":    "",
-      "sSearch":         "Rechercher",
-      "sLoadingRecords": "Téléchargement...",
-      "sUrl":            "",
+      "sProcessing": "{/literal}{'Loading...'|translate|escape:'javascript'}{literal}",
+      "sLengthMenu": sprintf("{/literal}{'Show %s users'|translate|escape:'javascript'}{literal}", '_MENU_'),
+      "sZeroRecords": "{/literal}{'No matching users found'|translate|escape:'javascript'}{literal}",
+      "sInfo": sprintf("{/literal}{'Showing %s to %s of %s users'|translate|escape:'javascript'}{literal}", '_START_', '_END_', '_TOTAL_'),
+      "sInfoEmpty": "{/literal}{'No matching users found'|translate|escape:'javascript'}{literal}",
+      "sInfoFiltered": sprintf("{/literal}{'(filtered from %s total users)'|translate|escape:'javascript'}{literal}", '_MAX_'),
+      "sSearch": '<span class="icon-search"></span>'+"{/literal}{'Search'|translate|escape:'javascript'}{literal}",
+      "sLoadingRecords": "{/literal}{'Loading...'|translate|escape:'javascript'}{literal}",
       "oPaginate": {
-          "sFirst":    "Premier",
-          "sPrevious": "← Précédent",
-          "sNext":     "Suivant →",
-          "sLast":     "Dernier"
+          "sFirst":    "{/literal}{'First'|translate|escape:'javascript'}{literal}",
+          "sPrevious": '← '+"{/literal}{'Previous'|translate|escape:'javascript'}{literal}",
+          "sNext":     "{/literal}{'Next'|translate|escape:'javascript'}{literal}"+' →',
+          "sLast":     "{/literal}{'Last'|translate|escape:'javascript'}{literal}",
       }
     },
     "fnDrawCallback": function( oSettings ) {
@@ -992,7 +992,7 @@ span.infos, span.errors {background-image:none; padding:2px 5px; margin:0;border
     <p id="applyActionBlock" style="display:none" class="actionButtons">
       <input id="applyAction" class="submit" type="submit" value="{'Apply action'|@translate}" name="submit"> <span id="applyOnDetails"></span>
       <span id="applyActionLoading" style="display:none"><img src="themes/default/images/ajax-loader-small.gif"></span>
-      <span class="infos" style="display:none">&#x2714; Users modified</span>
+      <span class="infos" style="display:none">&#x2714; {'Users modified'|translate}</span>
     </p>
 
   </div> {* #permitAction *}

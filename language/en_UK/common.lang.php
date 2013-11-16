@@ -417,4 +417,5 @@ $lang['mandatory'] = 'mandatory';
 $lang['Email'] = "Email";
 $lang['Password is missing. Please enter the password.'] = "Password is missing. Please enter the password.";
 $lang['Password confirmation is missing. Please confirm the chosen password.'] = "Password confirmation is missing. Please confirm the chosen password.";
+$lang['%d photos per page'] = '%d photos per page';
 ?>
