@@ -41,7 +41,7 @@ array(
 array(
   'name' => 'combined_css',
   'type' => 'trigger_event',
-  'vars' => array('string', 'href', 'int', 'file_ver0', 'int', 'file_ver1'),
+  'vars' => array('string', 'href', 'Combinable', '$combinable'),
   'files' => array('include\template.class.php (Template::flush)'),
 ),
 array(
@@ -801,6 +801,13 @@ array(
   'vars' => array('boolean', 'success', 'string', 'username', 'string', 'password', 'bool', 'remember_me'),
   'files' => array('include\functions_user.inc.php (try_log_user)'),
   'infos' => 'New in 2.5. Used by identification form to check user credentials and log user. If <i>success</i> is <i>true</i>, another login method already succeed. Return <i>true</i> if your method succeed.',
+),
+array(
+  'name' => 'combinable_preparse',
+  'type' => 'trigger_action',
+  'vars' => array('Template', 'template', 'Combinable', '$combinable', 'FileCombiner', '$combiner'),
+  'files' => array('include\template.class.php (FileCombiner::process_combinable)'),
+  'infos' => 'New in 2.6.',
 ),
 );
 ?>
