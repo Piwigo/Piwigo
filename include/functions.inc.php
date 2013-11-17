@@ -935,7 +935,7 @@ function original_to_representative($path, $representative_ext)
  * get the full path of an image
  *
  * @param array $element_info element information from db (at least 'path')
- * @return strinf
+ * @return string
  */
 function get_element_path($element_info)
 {

@@ -21,9 +21,19 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
+/**
+ * @package functions\calendar
+ */
+
+/** URL keyword for list view */
 define('CAL_VIEW_LIST',     'list');
+/** URL keyword for calendar view */
 define('CAL_VIEW_CALENDAR', 'calendar');
 
+
+/**
+ * Initialize _$page_ and _$template_ vars for calendar view.
+ */
 function initialize_calendar()
 {
   global $page, $conf, $user, $template, $filter;
@@ -124,7 +134,8 @@ WHERE id IN (' . implode(',',$page['items']) .')';
   }
   $cal_style = $page['chronology_style'];
   include(PHPWG_ROOT_PATH.'include/'. $styles[$cal_style]['include']);
-  $calendar = new Calendar();
+  // TODO : class name overlap, rename them in CalendarMonth and CalendarWeek
+  $calendar = new Calendar(); 
 
   // Retrieve view
 
@@ -289,4 +300,5 @@ WHERE id IN (' . implode(',',$page['items']) .')';
   }
   pwg_debug('end initialize_calendar');
 }
+
 ?>

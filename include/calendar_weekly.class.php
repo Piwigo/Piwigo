@@ -21,21 +21,28 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
+/**
+ * @package functions\calendar
+ */
+
 include_once(PHPWG_ROOT_PATH.'include/calendar_base.class.php');
 
-define ('CYEAR', 0);
-define ('CWEEK', 1);
-define ('CDAY',  2);
+/** level of year view */
+define('CYEAR', 0);
+/** level of week view */
+define('CWEEK', 1);
+/** level of day view */
+define('CDAY',  2);
+
 
 /**
  * Weekly calendar style (composed of years/week in years and days in week)
  */
 class Calendar extends CalendarBase
 {
-
   /**
    * Initialize the calendar
-   * @param string inner_sql used for queries (INNER JOIN or normal)
+   * @param string $inner_sql
    */
   function initialize($inner_sql)
   {
@@ -72,67 +79,66 @@ class Calendar extends CalendarBase
     }
   }
 
-/**
- * Generate navigation bars for category page
- * @return boolean false to indicate that thumbnails where not included here
- */
-function generate_category_content()
-{
-  global $conf, $page;
+  /**
+   * Generate navigation bars for category page.
+   *
+   * @return boolean false indicates that thumbnails where not included
+   */
+  function generate_category_content()
+  {
+    global $conf, $page;
 
-  if ( count($page['chronology_date'])==0 )
-  {
-    $this->build_nav_bar(CYEAR); // years
-  }
-  if ( count($page['chronology_date'])==1 )
-  {
-    $this->build_nav_bar(CWEEK, array()); // week nav bar 1-53
-  }
-  if ( count($page['chronology_date'])==2 )
-  {
-    $this->build_nav_bar(CDAY); // days nav bar Mon-Sun
-  }
-  $this->build_next_prev();
-  return false;
-}
-
-
-/**
- * Returns a sql where subquery for the date field
- * @param int max_levels return the where up to this level
- * (e.g. 2=only year and week in year)
- * @return string
- */
-function get_date_where($max_levels=3)
-{
-  global $page;
-  $date = $page['chronology_date'];
-  while (count($date)>$max_levels)
-  {
-    array_pop($date);
-  }
-  $res = '';
-  if (isset($date[CYEAR]) and $date[CYEAR]!=='any')
-  {
-    $y = $date[CYEAR];
-    $res = " AND $this->date_field BETWEEN '$y-01-01' AND '$y-12-31 23:59:59'";
+    if ( count($page['chronology_date'])==0 )
+    {
+      $this->build_nav_bar(CYEAR); // years
+    }
+    if ( count($page['chronology_date'])==1 )
+    {
+      $this->build_nav_bar(CWEEK, array()); // week nav bar 1-53
+    }
+    if ( count($page['chronology_date'])==2 )
+    {
+      $this->build_nav_bar(CDAY); // days nav bar Mon-Sun
+    }
+    $this->build_next_prev();
+    return false;
   }
 
-  if (isset($date[CWEEK]) and $date[CWEEK]!=='any')
+  /**
+   * Returns a sql WHERE subquery for the date field.
+   *
+   * @param int $max_levels (e.g. 2=only year and month)
+   * @return string
+   */
+  function get_date_where($max_levels=3)
   {
-    $res .= ' AND '.$this->calendar_levels[CWEEK]['sql'].'='.$date[CWEEK];
-  }
-  if (isset($date[CDAY]) and $date[CDAY]!=='any')
-  {
-    $res .= ' AND '.$this->calendar_levels[CDAY]['sql'].'='.$date[CDAY];
-  }
-  if (empty($res))
-  {
-    $res = ' AND '.$this->date_field.' IS NOT NULL';
-  }
-  return $res;
-}
+    global $page;
+    $date = $page['chronology_date'];
+    while (count($date)>$max_levels)
+    {
+      array_pop($date);
+    }
+    $res = '';
+    if (isset($date[CYEAR]) and $date[CYEAR]!=='any')
+    {
+      $y = $date[CYEAR];
+      $res = " AND $this->date_field BETWEEN '$y-01-01' AND '$y-12-31 23:59:59'";
+    }
 
+    if (isset($date[CWEEK]) and $date[CWEEK]!=='any')
+    {
+      $res .= ' AND '.$this->calendar_levels[CWEEK]['sql'].'='.$date[CWEEK];
+    }
+    if (isset($date[CDAY]) and $date[CDAY]!=='any')
+    {
+      $res .= ' AND '.$this->calendar_levels[CDAY]['sql'].'='.$date[CDAY];
+    }
+    if (empty($res))
+    {
+      $res = ' AND '.$this->date_field.' IS NOT NULL';
+    }
+    return $res;
+  }
 }
 
 ?>

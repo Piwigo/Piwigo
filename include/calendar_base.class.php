@@ -22,20 +22,41 @@
 // +-----------------------------------------------------------------------+
 
 /**
+ * @package functions\calendar
+ */
+
+
+/**
  * Base class for monthly and weekly calendar styles
  */
-class CalendarBase
+abstract class CalendarBase
 {
-  // db column on which this calendar works
+  /** db column on which this calendar works */
   var $date_field;
-  // used for queries (INNER JOIN or normal)
+  /** used for queries (INNER JOIN or normal) */
   var $inner_sql;
-  //
+  /** used to store db fields */
   var $calendar_levels;
 
   /**
-   * Initialize the calendar
-   * @param string inner_sql used for queries (INNER JOIN or normal)
+   * Generate navigation bars for category page.
+   *
+   * @return boolean false indicates that thumbnails where not included
+   */
+  abstract function generate_category_content();
+
+  /**
+   * Returns a sql WHERE subquery for the date field.
+   *
+   * @param int $max_levels (e.g. 2=only year and month)
+   * @return string
+   */
+  abstract function get_date_where($max_levels);
+
+  /**
+   * Initialize the calendar.
+   *
+   * @param string $inner_sql
    */
   function initialize($inner_sql)
   {
@@ -51,6 +72,11 @@ class CalendarBase
     $this->inner_sql = $inner_sql;
   }
 
+  /**
+   * Returns the calendar title (with HTML).
+   *
+   * @return string
+   */
   function get_display_name()
   {
     global $conf, $page;
@@ -82,11 +108,12 @@ class CalendarBase
     return $res;
   }
 
-//--------------------------------------------------------- private members ---
   /**
-   * Returns a display name for a date component optionally using labels
-  */
-  function get_date_component_label($level, $date_component)
+   * Returns a display name for a date component optionally using labels.
+   *
+   * @return string
+   */
+  protected function get_date_component_label($level, $date_component)
   {
     $label = $date_component;
     if (isset($this->calendar_levels[$level]['labels'][$date_component]))
@@ -101,9 +128,12 @@ class CalendarBase
   }
 
   /**
-   * Gets a nice display name for a date to be shown in previos/next links.
+   * Gets a nice display name for a date to be shown in previous/next links
+   *
+   * @param string $date
+   * @return string
    */
-  function get_date_nice_name($date)
+  protected function get_date_nice_name($date)
   {
     $date_components = explode('-', $date);
     $res = '';
@@ -125,14 +155,14 @@ class CalendarBase
   /**
    * Creates a calendar navigation bar.
    *
-   * @param array date_components
-   * @param array items - hash of items to put in the bar (e.g. 2005,2006)
-   * @param bool show_any - adds any link to the end of the bar
-   * @param bool show_empty - shows all labels even those without items
-   * @param array labels - optional labels for items (e.g. Jan,Feb,...)
-   * @return string the navigation bar
+   * @param array $date_components
+   * @param array $items - hash of items to put in the bar (e.g. 2005,2006)
+   * @param bool $show_any - adds any link to the end of the bar
+   * @param bool $show_empty - shows all labels even those without items
+   * @param array $labels - optional labels for items (e.g. Jan,Feb,...)
+   * @return string
    */
-  function get_nav_bar_from_items($date_components, $items,
+  protected function get_nav_bar_from_items($date_components, $items,
                                   $show_any,
                                   $show_empty=false, $labels=null)
   {
@@ -203,10 +233,9 @@ class CalendarBase
   /**
    * Creates a calendar navigation bar for a given level.
    *
-   * @param int level - the level (0-year,1-month/week,2-day)
-   * @return void
+   * @param int $level - 0-year, 1-month/week, 2-day
    */
-  function build_nav_bar($level, $labels=null)
+  protected function build_nav_bar($level, $labels=null)
   {
     global $template, $conf, $page;
 
@@ -261,7 +290,7 @@ $this->get_date_where($level).'
    * Assigns the next/previous link to the template with regards to
    * the currently choosen date.
    */
-  function build_next_prev()
+  protected function build_next_prev()
   {
     global $template, $page;
 
@@ -343,4 +372,5 @@ GROUP BY period';
     }
   }
 }
+
 ?>
