@@ -246,7 +246,6 @@ $lang['A comment on your site'] = "Komenentaras svetain&#279;je";
 $lang['today'] = 'Šiandien';
 $lang['Update your rating'] = "Atnaujinti savo ivertinimus";
 $lang['the username must be given'] = "reikalingas slapyvardis";
-$lang['Upload a picture'] = "&#303;kelti nuotrauka";
 $lang['useful when password forgotten'] = 'naudinga tuo atveju, jei slaptažodi pamiršote';
 $lang['Quick search'] = "Greita paieska";
 $lang['Connected user: %s'] = 'Prisijungę vartotojai: %s';
@@ -432,4 +431,5 @@ $lang['Last Page'] = 'Paskutinis puslapis';
 $lang['Password is missing. Please enter the password.'] = 'Nėra slaptažodžio. Prašome įvesti slaptažodį';
 $lang['Password confirmation is missing. Please confirm the chosen password.'] = 'Nėra slaptažodžio patvirtinimo. Prašome pakartoti slaptažodį';
 $lang['Password confirmation is missing. Please confirm the chosen password.'] = 'Nav paroles apstiprinājuma. Lūdzu apstipriniet paroli.';
+$lang['%d photos per page'] = '%d nuotr. puslapyje';
 ?>
