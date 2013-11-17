@@ -417,4 +417,5 @@ $lang['Go back to the album'] = 'Tornar a l\'àlbum';
 $lang['Last Page'] = 'Última pàgina';
 $lang['Password is missing. Please enter the password.'] = 'Falta la clau d\'accès. Si us plau, introdueix-la.';
 $lang['Password confirmation is missing. Please confirm the chosen password.'] = 'Falta confirmar la contrasenya. Si us plau, confirmeu la contrasenya escollida.';
+$lang['%d photos per page'] = '%d fotos per pàgina';
 ?>
