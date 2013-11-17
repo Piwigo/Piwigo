@@ -46,7 +46,7 @@ class Template {
   var $scriptLoader;
 
   const COMBINED_CSS_TAG = '<!-- COMBINED_CSS -->';
-  var $css_by_priority = array();
+  var $cssLoader;
 
   var $picture_buttons = array();
   var $index_buttons = array();
@@ -58,6 +58,7 @@ class Template {
     SmartyException::$escape = false;
 
     $this->scriptLoader = new ScriptLoader;
+    $this->cssLoader = new CssLoader;
     $this->smarty = new SmartyBC;
     $this->smarty->debugging = $conf['debug_template'];
     if (!$this->smarty->debugging)
@@ -410,34 +411,22 @@ class Template {
       } //else maybe error or warning ?
     }
 
-    if(!empty($this->css_by_priority))
+    $css = $this->cssLoader->get_css();
+
+    $content = array();
+    foreach( $css as $combi )
     {
-      ksort($this->css_by_priority);
-
-      global $conf;
-      $combiner = new FileCombiner('css');
-      foreach ($this->css_by_priority as $files)
-      {
-        foreach ($files as $combi)
-            $combiner->add( $combi );
-      }
-      $css = $combiner->combine();
-
-      $content = array();
-      foreach( $css as $combi )
-      {
-        $href = embellish_url(get_root_url().$combi->path);
-        if ($combi->version !== false)
-          $href .= '?v' . ($combi->version ? $combi->version : PHPWG_VERSION);
-        // trigger the event for eventual use of a cdn
-        $href = trigger_event('combined_css', $href, $combi);
-        $content[] = '<link rel="stylesheet" type="text/css" href="'.$href.'">';
-      }
-      $this->output = str_replace(self::COMBINED_CSS_TAG,
-          implode( "\n", $content ),
-          $this->output );
-			$this->css_by_priority = array();
+      $href = embellish_url(get_root_url().$combi->path);
+      if ($combi->version !== false)
+        $href .= '?v' . ($combi->version ? $combi->version : PHPWG_VERSION);
+      // trigger the event for eventual use of a cdn
+      $href = trigger_event('combined_css', $href, $combi);
+      $content[] = '<link rel="stylesheet" type="text/css" href="'.$href.'">';
     }
+    $this->output = str_replace(self::COMBINED_CSS_TAG,
+        implode( "\n", $content ),
+        $this->output );
+    $this->cssLoader->clear();
 
     if ( count($this->html_head_elements) || strlen($this->html_style) )
     {
@@ -751,12 +740,17 @@ var s,after = document.getElementsByTagName(\'script\')[document.getElementsByTa
     */
   function func_combine_css($params)
   {
-    !empty($params['path']) || fatal_error('combine_css missing path');
-    $order = (int)@$params['order'];
-    $version = isset($params['version']) ? $params['version'] : 0;
-    $css = new Css('', $params['path'], $version, $order);
-    $css->is_template = isset($params['template']) && !empty($params['template']);
-    $this->css_by_priority[$order][] = $css;
+    if (empty($params['path']))
+    {
+      fatal_error('combine_css missing path');
+    }
+
+    if (!isset($params['id']))
+    {
+      $params['id'] = md5($params['path']);
+    }
+
+    $this->cssLoader->add($params['id'], $params['path'], (int)@$params['version'], (int)@$params['order'], (bool)@$params['template']);
   }
 
   function func_get_combined_css($params)
@@ -1030,6 +1024,69 @@ final class Css extends Combinable
 }
 
 
+/** Manage a list of css files */
+class CssLoader
+{
+  private $registered_css;
+  
+  /** used to keep declaration order */
+  private $counter;
+  
+  function __construct()
+  {
+    $this->clear();
+  }
+  
+  function clear()
+  {
+    $this->registered_css = array();
+    $this->counter = 0;
+  }
+  
+  function get_css()
+  {
+    uasort($this->registered_css, array('CssLoader', 'cmp_by_order'));
+    return self::do_combine($this->registered_css);
+  }
+  
+  private static function cmp_by_order($a, $b)
+  {
+    return $a->order - $b->order;
+  }
+  
+  private static function do_combine($files)
+  {
+    $combiner = new FileCombiner('css');
+    foreach ($files as $css)
+    {
+      $combiner->add( $css);
+    }
+    return $combiner->combine();
+  }
+  
+  function add($id, $path, $version=0, $order=0, $is_template=false)
+  {
+    if (!isset($this->registered_css[$id]))
+    {
+      // costum order as an higher impact than declaration order
+      $css = new Css($id, $path, $version, $order*1000+$this->counter);
+      $css->is_template = $is_template;
+      $this->registered_css[$id] = $css;
+      $this->counter++;
+    }
+    else
+    {
+      $css = $this->registered_css[$id];
+      if ($css->order<$order || version_compare($css->version, $version)<0)
+      {
+        unset($this->registered_css[$id]);
+        $this->add($id, $path, $version, $order, $is_template);
+      }
+    }
+  }
+}
+
+
 /** Manage a list of required scripts for a page, by optimizing their loading location (head, bottom, async)
 and later on by combining them in a unique file respecting at the same time dependencies.*/
 class ScriptLoader
@@ -1132,7 +1189,6 @@ class ScriptLoader
       if ($load_mode < $script->load_mode)
         $script->load_mode = $load_mode;
     }
-
   }
 
   function did_head()
