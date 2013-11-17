@@ -421,4 +421,5 @@ $lang['Go back to the album'] = 'Wróć do albumu';
 $lang['Last Page'] = 'Ostatnia strona';
 $lang['Password is missing. Please enter the password.'] = 'Brak hasła. Proszę wprowadzić hasło.';
 $lang['Password confirmation is missing. Please confirm the chosen password.'] = 'Brak potwierdzenia hasła. Proszę potwierdzić wybrane hasło.';
+$lang['%d photos per page'] = '%d zdjęc na każdej stronie';
 ?>
