@@ -22,19 +22,31 @@
 // +-----------------------------------------------------------------------+
 
 /**
- * Provides functions to handle categories.
- *
- *
+ * @package functions\category
  */
+
+
+/**
+ * Callback used for sorting by global_rank
+ */
+function global_rank_compare($a, $b)
+{
+  return strnatcasecmp($a['global_rank'], $b['global_rank']);
+}
+
+/**
+ * Callback used for sorting by rank
+ */
+function rank_compare($a, $b)
+{
+  return $a['rank'] - $b['rank'];
+}
 
 /**
  * Is the category accessible to the connected user ?
+ * If the user is not authorized to see this category, script exits
  *
- * Note : if the user is not authorized to see this category, page creation
- * ends (exit command in this function)
- *
- * @param int category id to verify
- * @return void
+ * @param int $category_id
  */
 function check_restrictions($category_id)
 {
@@ -48,6 +60,11 @@ function check_restrictions($category_id)
   }
 }
 
+/**
+ * Returns template vars for main categories menu.
+ *
+ * @return array[]
+ */
 function get_categories_menu()
 {
   global $page, $user, $filter, $conf;
@@ -143,25 +160,13 @@ WHERE '.$where.'
   return $cats;
 }
 
-
 /**
- * Retrieve informations about a category in the database
+ * Retrieves informations about a category.
  *
- * Returns an array with following keys :
- *
- *  - comment
- *  - dir : directory, might be empty for virtual categories
- *  - name : an array with indexes from 0 (lowest cat name) to n (most
- *           uppercat name findable)
- *  - nb_images
- *  - id_uppercat
- *  - site_id
- *  -
- *
- * @param int category id
+ * @param int $id
  * @return array
  */
-function get_cat_info( $id )
+function get_cat_info($id)
 {
   $query = '
 SELECT *
@@ -212,9 +217,15 @@ SELECT *
   return $cat;
 }
 
-
-
-// returns an array of image orders available for users/visitors
+/**
+ * Returns an array of image orders available for users/visitors.
+ * Each entry is an array containing
+ *  0: name
+ *  1: SQL ORDER command
+ *  2: visiblity (true or false)
+ *
+ * @return array[]
+ */
 function get_category_preferred_image_orders()
 {
   global $conf, $page;
@@ -235,6 +246,14 @@ function get_category_preferred_image_orders()
     ));
 }
 
+/**
+ * Assign a template var useable with {html_options} from a list of categories
+ *
+ * @param array[] $categories (at least id,name,global_rank,uppercats for each)
+ * @param int[] $selected ids of selected items
+ * @param string $blockname variable name in template
+ * @param bool $fullname full breadcrumb or not
+ */
 function display_select_categories($categories,
                                    $selecteds,
                                    $blockname,
@@ -274,7 +293,13 @@ function display_select_categories($categories,
   $template->assign( $blockname.'_selected', $selecteds);
 }
 
-function display_select_cat_wrapper($query, $selecteds, $blockname,
+/**
+ * Same as display_select_categories but categories are ordered by rank
+ * @see display_select_categories()
+ */
+function display_select_cat_wrapper($query,
+                                    $selecteds,
+                                    $blockname,
                                     $fullname = true)
 {
   $categories = array_from_query($query);
@@ -283,10 +308,10 @@ function display_select_cat_wrapper($query, $selecteds, $blockname,
 }
 
 /**
- * returns all subcategory identifiers of given category ids
+ * Returns all subcategory identifiers of given category ids
  *
- * @param array ids
- * @return array
+ * @param int[] $ids
+ * @return int[]
  */
 function get_subcat_ids($ids)
 {
@@ -313,12 +338,14 @@ SELECT DISTINCT(id)
   return array_from_query($query, 'id');
 }
 
-/** finds a matching category id from a potential list of permalinks
- * @param array permalinks example: holiday holiday/france holiday/france/paris
- * @param int idx - output of the index in $permalinks that matches
- * return category id or null if no match
+/**
+ * Finds a matching category id from a potential list of permalinks
+ *
+ * @param string[] $permalinks
+ * @param int $idx filled with the index in $permalinks that matches
+ * @return int|null
  */
-function get_cat_id_from_permalinks( $permalinks, &$idx )
+function get_cat_id_from_permalinks($permalinks, &$idx)
 {
   $in = '';
   foreach($permalinks as $permalink)
@@ -359,23 +386,17 @@ UPDATE '.OLD_PERMALINKS_TABLE.' SET last_hit=NOW(), hit=hit+1
   return null;
 }
 
-function global_rank_compare($a, $b)
-{
-  return strnatcasecmp($a['global_rank'], $b['global_rank']);
-}
-
-function rank_compare($a, $b)
-{
-  return $a['rank'] - $b['rank'];
-}
-
 /**
- * returns display text for information images of category
+ * Returns display text for images counter of category
  *
- * @param array categories
+ * @param int $cat_nb_images nb images directly in category
+ * @param int $cat_count_images nb images in category (including subcats)
+ * @param int $cat_count_categories nb subcats
+ * @param bool $short_message if true append " in this album"
+ * @param string $separator
  * @return string
  */
-function get_display_images_count($cat_nb_images, $cat_count_images, $cat_count_categories, $short_message = true, $Separator = '\n')
+function get_display_images_count($cat_nb_images, $cat_count_images, $cat_count_categories, $short_message = true, $separator = '\n')
 {
   $display_text = '';
 
@@ -383,7 +404,7 @@ function get_display_images_count($cat_nb_images, $cat_count_images, $cat_count_
   {
     if ($cat_nb_images > 0 and $cat_nb_images < $cat_count_images)
     {
-      $display_text.= get_display_images_count($cat_nb_images, $cat_nb_images, 0, $short_message, $Separator).$Separator;
+      $display_text.= get_display_images_count($cat_nb_images, $cat_nb_images, 0, $short_message, $separator).$separator;
       $cat_count_images-= $cat_nb_images;
       $cat_nb_images = 0;
     }
@@ -394,7 +415,7 @@ function get_display_images_count($cat_nb_images, $cat_count_images, $cat_count_
     if ($cat_count_categories == 0 or $cat_nb_images == $cat_count_images)
     {
       //no descendant categories or descendants do not contain images
-      if (! $short_message)
+      if (!$short_message)
       {
         $display_text.= ' '.l10n('in this album');
       }
@@ -409,10 +430,11 @@ function get_display_images_count($cat_nb_images, $cat_count_images, $cat_count_
 }
 
 /**
- * Find a random photo among all photos below a given album in the tree (not
- * only photo directly associated to the album but also to sub-albums)
+ * Find a random photo among all photos inside an album (including sub-albums)
  *
- * we need $category['uppercats'], $category['id'], $category['count_images']
+ * @param array $category (at least id,uppercats,count_images)
+ * @param bool $recursive
+ * @return int|null
  */
 function get_random_image_in_category($category, $recursive=true)
 {
@@ -457,6 +479,5 @@ SELECT image_id
 
   return $image_id;
 }
-
 
 ?>
