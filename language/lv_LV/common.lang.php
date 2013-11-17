@@ -418,4 +418,5 @@ $lang['Last Page'] = 'Pēdējā lapa';
 $lang['First Page'] = 'Pirmā lapa';
 $lang['Password is missing. Please enter the password.'] = 'Nepareiza parole. Lūdzu atkārtojiet mēģinājumu.';
 $lang['Password confirmation is missing. Please confirm the chosen password.'] = 'Trūkst paroles apstiprinājuma. Lūdzu apstipriniet izvēlēto paroli.';
+$lang['%d photos per page'] = '%d fotogrāfiju lapā';
 ?>
