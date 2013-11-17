@@ -426,4 +426,5 @@ $lang['Go back to the album'] = 'Volver al álbum';
 $lang['Last Page'] = 'Ultima pagina';
 $lang['Password is missing. Please enter the password.'] = 'Falta la contraseña. Por favor, introdúzcala.';
 $lang['Password confirmation is missing. Please confirm the chosen password.'] = 'La contraseña no ha sido confirmada. Por favor, confirme la contraseña elegida.';
+$lang['%d photos per page'] = '%d fotos por paginas';
 ?>
