@@ -418,4 +418,7 @@ $lang['Email'] = 'Sähköposti';
 $lang['First Page'] = 'Ensimmäinen sivu';
 $lang['Go back to the album'] = 'Takaisin albumiin';
 $lang['Last Page'] = 'Viimeinen sivu';
+$lang['%d photos per page'] = '%d kuvaa sivua kohti';
+$lang['Password confirmation is missing. Please confirm the chosen password.'] = 'Salasanan vahvistus puuttuu. Ole hyvä ja vahvista salasanasi.';
+$lang['Password is missing. Please enter the password.'] = 'Salasana puuttuu. ';
 ?>
