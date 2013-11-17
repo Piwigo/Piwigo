@@ -243,10 +243,6 @@ $lang['Username "%s" on gallery %s'] = 'Kasutajanimi "%s" galeriis %s';
 $lang['To reset your password, visit the following address:'] = 'Parooli algseadistamiseks külasta järgnevat aadressi:';
 $lang['If this was a mistake, just ignore this email and nothing will happen.'] = 'Kui see on eksitus, siis lihtsalt ignoreeri seda kirja ja midagi ei juhtu.';
 $lang['Password Reset'] = 'Parooli algseadistamine';
-$lang['Maximum photo height'] = 'Foto maksimaalne kõrgus';
-$lang['Maximum height must be a number superior to 50'] = 'Maksimaalne kõrgus peab olema suurem kui 50';
-$lang['Maximum photo width'] = 'Foto maksimaalne kõrgus';
-$lang['Maximum width must be a number superior to 50'] = 'Maksimaalne laius peab olema suurem kui 50';
 $lang['display a calendar by creation date'] = 'kuva kalender loomiskuupäeva järgi';
 $lang['display all photos in all sub-albums'] = 'kuva kõikide allalbumite fotod korraga';
 $lang['return to normal view mode'] = 'naase tavalisse kuvarežiimi';
@@ -444,4 +440,5 @@ $lang['Go back to the album'] = 'Mine tagasi albumi juurde';
 $lang['Last Page'] = 'Viimane leht';
 $lang['Password is missing. Please enter the password.'] = 'Parool puudub. Palun sisesta parool.';
 $lang['Password confirmation is missing. Please confirm the chosen password.'] = 'Parooli kinnitus puudub. Palun kinnita valitud parool.';
+$lang['%d photos per page'] = '%d pilte lehel';
 ?>
