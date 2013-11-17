@@ -192,13 +192,22 @@ final class DerivativeImage
   }
 
   /**
-  @return an associative array of derivative images with keys all standard derivative image types:
-  Disabled derivative types can be still found in the return mapped to an enabled derivative (e.g. the values are not
-  unique in the return array). This is useful for any plugin/theme to just use $deriv[IMG_XLARGE] even if the XLARGE is
-  disabled.
-  */
+   * Return associative an array of all DerivativeImage for a specific image.
+   * Disabled derivative types can be still found in the return mapped to an
+   * enabled derivative (e.g. the values are not unique in the return array).
+   * This is useful for any plugin/theme to just use $deriv[IMG_XLARGE] even if 
+   * the XLARGE is disabled.
+   *
+   * @param array|SrcImage $src_image array of info from db or SrcImage
+   * @return DerivativeImage[]
+   */
   static function get_all($src_image)
   {
+    if (!is_object($src_image))
+    {
+      $src_image = new SrcImage($src_image);
+    }
+
     $ret = array();
     // build enabled types
     foreach (ImageStdParams::get_defined_type_map() as $type => $params)
@@ -206,13 +215,43 @@ final class DerivativeImage
       $derivative = new DerivativeImage($params, $src_image);
       $ret[$type] = $derivative;
     }
-    // disabled types fqllbqck to enqbled types
+    // disabled types, fallback to enabled types
     foreach (ImageStdParams::get_undefined_type_map() as $type => $type2)
     {
       $ret[$type] = $ret[$type2];
     }
 
     return $ret;
+  }
+
+  /**
+   * Returns an instance of DerivativeImage for a specific image and size.
+   * Disabled derivatives fallback to an enabled derivative.
+   *
+   * @param string $type
+   * @param array|SrcImage $src_image array of info from db or SrcImage
+   * @return DerivativeImage|null null if $type not found
+   */
+  static function get_one($type, $src_image)
+  {
+    if (!is_object($src_image))
+    {
+      $src_image = new SrcImage($src_image);
+    }
+
+    $defined = ImageStdParams::get_defined_type_map();
+    if (isset($defined[$type]))
+    {
+      return new DerivativeImage($defined[$type], $src_image);
+    }
+
+    $undefined = ImageStdParams::get_undefined_type_map();
+    if (isset($undefined[$type]))
+    {
+      return new DerivativeImage($defined[ $undefined[$type] ], $src_image);
+    }
+
+    return null;
   }
 
   private static function build($src, &$params, &$rel_path, &$rel_url, &$is_cached=null)
