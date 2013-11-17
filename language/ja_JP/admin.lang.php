@@ -895,4 +895,10 @@ $lang['Please select at least two groups'] = 'グループを２つ以上選ん�
 $lang['Permission granted for users'] = 'ユーザー権限';
 $lang['Basic settings'] = '基本設定';
 $lang['General'] = '全般';
+$lang['Ratio'] = 'ートレート\'比率';
+$lang['Portrait'] = 'ポートレート';
+$lang['Purge user cache'] = 'ユーザーのキャッシュを削除';
+$lang['Photo sizes with crop'] = '写真サイズ';
+$lang['Mail theme'] = 'メールの件名';
+$lang['Numeric identifier : %d'] = '割り当てる数値 : 整数 : %d';
 ?>
