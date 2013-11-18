@@ -418,4 +418,5 @@ $lang['Go back to the album'] = '返回相冊';
 $lang['Last Page'] = '最後一頁';
 $lang['Password is missing. Please enter the password.'] = '密碼沒有輸入，請輸入密碼。';
 $lang['Password confirmation is missing. Please confirm the chosen password.'] = '密碼確認未完成，請確認所選定的密碼。';
+$lang['%d photos per page'] = '每頁 %d 相片';
 ?>
