@@ -416,4 +416,5 @@ $lang['Forbidden'] = '금지됨';
 $lang['If you think you\'ve received this email in error, please contact us at %s'] = '만약 오류로 이 메일을 수신했다고 생각하시면, %s 로 연락 바랍니다.';
 $lang['Password confirmation is missing. Please confirm the chosen password.'] = '암호 확인이 입력되지 않았습니다. 선택한 암호를 확인하십시오.';
 $lang['Password is missing. Please enter the password.'] = '암호가 입력되지 않았습니다. 암호를 입력하십시오.';
+$lang['%d photos per page'] = '페이지당 %d 개의 사진';
 ?>
