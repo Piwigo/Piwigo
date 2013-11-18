@@ -203,7 +203,7 @@ function get_clean_recipients_list($data)
   $existing = array();
   foreach ($data as $i => $entry)
   {
-    if (isset($existing[ $entry['email'] ])
+    if (isset($existing[ $entry['email'] ]))
     {
       unset($data[$i]);
     }
