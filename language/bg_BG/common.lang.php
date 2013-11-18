@@ -108,7 +108,6 @@ $lang['SQL queries in'] = 'SQL запитвания в';
 $lang['display only recently posted photos'] = 'покажи само наскоро добавени снимки';
 $lang['return to the display of all photos'] = 'върни се на преглед на всички снимки';
 $lang['the beginning'] = 'началото';
-$lang['Interface theme'] = 'Тема на интерфейса';
 $lang['Thumbnails'] = 'Умален преглед';
 $lang['Menu'] = 'Меню';
 $lang['A comment on your site'] = 'Коментар на Вашият сайт';

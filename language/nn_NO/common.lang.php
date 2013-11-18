@@ -375,7 +375,6 @@ $lang['Related tags'] = 'Liknande stikkord';
 $lang['Identification'] = 'Brukarmeny';
 $lang['If this was a mistake, just ignore this email and nothing will happen.'] = 'Dersom dette var ein feil, kan du ignorere denne e-posten og ingen ting vil skje vidare.';
 $lang['If you think you\'ve received this email in error, please contact us at %s'] = 'Dersom du mottok denne e-posten ved ein feil, ta kontakt med oss på %s';
-$lang['Interface theme'] = 'Tema for brukargrensesnitt';
 $lang['Invalid key'] = 'Ugyldig nøkkel';
 $lang['Invalid password!'] = 'Ugyldig passord1';
 $lang['Invalid username or email'] = 'Ugyldig brukarnamn eller e-post';

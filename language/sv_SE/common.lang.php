@@ -315,7 +315,6 @@ $lang['SQL queries in'] = 'SQL-frågor i';
 $lang['display only recently posted photos'] = 'visa endast nyligen publicerade bilder';
 $lang['return to the display of all photos'] = 'återgå till visning av alla bilder';
 $lang['the beginning'] = 'början';
-$lang['Interface theme'] = 'Gränssnittstema';
 $lang['Thumbnails'] = 'Miniatyrer';
 $lang['Menu'] = 'Meny';
 $lang['A comment on your site'] = 'En kommentar på din sida';

@@ -272,7 +272,6 @@ $lang['SQL queries in'] = 'SQL-forespørgsler på';
 $lang['display only recently posted photos'] = 'vis kun nyligt tilføjede fotografier';
 $lang['return to the display of all photos'] = 'tilbage til alle fotoer';
 $lang['the beginning'] = 'begyndelsen';
-$lang['Interface theme'] = 'Grænsefladetema';
 $lang['Thumbnails'] = 'Miniaturebilleder';
 $lang['Menu'] = 'Menu';
 $lang['A comment on your site'] = 'En kommentar vedrørende dit fotogalleri';

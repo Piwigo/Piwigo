@@ -250,7 +250,6 @@ $lang['SQL queries in'] = 'SQL povpraševanje v';
 $lang['display only recently posted photos'] = 'prikaži samo nedavno objavljene slike';
 $lang['return to the display of all photos'] = 'vrni se v prikaz vseh slik';
 $lang['the beginning'] = 'začetek';
-$lang['Interface theme'] = 'Tema vmesnika';
 $lang['Thumbnails'] = 'Sličice';
 $lang['Menu'] = 'Meni';
 $lang['A comment on your site'] = 'Komentar na vaši strani';

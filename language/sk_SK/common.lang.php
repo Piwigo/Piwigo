@@ -276,7 +276,6 @@ $lang['SQL queries in'] = 'SQL dotazov behom';
 $lang['display only recently posted photos'] = 'zobrazí len novo vložené fotografie';
 $lang['return to the display of all photos'] = 'návrat k zobrazeniu všetkých fotografií';
 $lang['the beginning'] = 'začiatok';
-$lang['Interface theme'] = 'Šablona vzhľadu';
 $lang['Thumbnails'] = 'Náhľady';
 $lang['Menu'] = 'Ďalšie funkcie';
 $lang['A comment on your site'] = 'Komentár v Vašim stránkam';

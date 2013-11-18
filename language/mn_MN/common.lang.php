@@ -380,7 +380,6 @@ $lang['Numeric identifier, 9 &rarr; 1'] = 'Тоон дараалал: 9 &rarr; 1
 $lang['An administrator must authorize your comment before it is visible.'] = 'Таны бичсэн сэтгэгдэл админ хянаж, зөвшшөрсөний дараа нийтлэгдэх болно. ';
 $lang['Anti-flood system : please wait for a moment before trying to post another comment'] = 'Уучлаарай. Системийн ачаалал өндөр байгаа тул сэтгэгдэл бичихын тулд түр хүлээнэ үү.';
 $lang['Recent period must be a positive integer value'] = 'Сүүлийн үеийн хоногын тоо эерэг утгатай байх ёстой';
-$lang['Interface theme'] = 'Харагдах байдал';
 $lang['Profile'] = 'Бүртгэл';
 $lang['Preferences'] = 'Тохиргоо';
 $lang['excluded'] = 'хасагдсан';

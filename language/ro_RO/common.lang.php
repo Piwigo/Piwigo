@@ -259,7 +259,6 @@ $lang['SQL queries in'] = 'interogări SQL în';
 $lang['display only recently posted photos'] = 'Arată numai elementele publicate recent';
 $lang['return to the display of all photos'] = 'reveniţi la afişarea tuturor imaginilor';
 $lang['the beginning'] = 'începutul';
-$lang['Interface theme'] = 'Tema Interfeţei';
 $lang['Thumbnails'] = 'Miniaturi';
 $lang['Menu'] = 'Meniu';
 $lang['A comment on your site'] = 'Un comentariu pe site-ul dvs.';

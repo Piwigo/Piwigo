@@ -325,7 +325,6 @@ $lang['Here are your connection settings'] = 'Sellised on su ühenduse määrang
 $lang['IP: %s'] = 'IP: %s';
 $lang['IPTC Metadata'] = 'IPTC metaandmed';
 $lang['If you think you\'ve received this email in error, please contact us at %s'] = 'Kui arvad, et oled saanud selle eposti eksituse teel, palun teavita meid aadressil %s';
-$lang['Interface theme'] = 'Kasutajaliidese kujundus';
 $lang['Invalid key'] = 'Vigane võti';
 $lang['Kind of date'] = 'Kuupäeva välimus';
 $lang['Links'] = 'Lingid';

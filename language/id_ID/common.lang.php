@@ -311,7 +311,6 @@ $lang['IPTC Metadata'] = 'IPTC Metadata';
 $lang['Identification'] = 'Identifikasi';
 $lang['If this was a mistake, just ignore this email and nothing will happen.'] = 'Jika ini adalah sebuah kesalahan, harap abaikan email ini dan tidak ada perubahan yang terjadi';
 $lang['If you think you\'ve received this email in error, please contact us at %s'] = 'Jika anda menerima email ini akibat sebuah kesalahan, harap hubungi webmaster di %s';
-$lang['Interface theme'] = 'Tema antar muka';
 $lang['Invalid key'] = 'Kata kunci salah';
 $lang['Invalid password!'] = 'Kata sandi salah';
 $lang['Invalid username or email'] = 'Kata sandi atau email yang salah';

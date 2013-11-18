@@ -270,7 +270,6 @@ $lang['SQL queries in'] = 'SQL-Abfragen in';
 $lang['display only recently posted photos'] = 'Zeige nur kürzlich eingestellte Fotos';
 $lang['return to the display of all photos'] = 'Zurück zu allen Fotos';
 $lang['the beginning'] = 'Beginn';
-$lang['Interface theme'] = 'Galerie-Layout';
 $lang['Thumbnails'] = 'Vorschaubilder';
 $lang['Menu'] = 'Menü';
 $lang['A comment on your site'] = 'Ein Kommentar auf Ihrer Website';

@@ -269,7 +269,6 @@ $lang['SQL queries in'] = 'SQL搜索语句';
 $lang['display only recently posted photos'] = '只显示最新图片';
 $lang['return to the display of all photos'] = '返回到显示所有图片';
 $lang['the beginning'] = '起始';
-$lang['Interface theme'] = '界面主题';
 $lang['Thumbnails'] = '缩略图';
 $lang['Menu'] = '菜单';
 $lang['A comment on your site'] = '一个网站评论';

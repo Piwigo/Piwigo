@@ -193,7 +193,6 @@ $lang['in %d sub-album'] = 'dans %d sous-album';
 $lang['in %d sub-albums'] = 'dans %d sous-albums';
 $lang['in this album'] = 'dans cet album';
 $lang['included'] = 'inclus';
-$lang['Interface theme'] = 'Thème de l\'interface';
 $lang['Invalid key'] = 'Clef invalide';
 $lang['Invalid password!'] = 'Mot de passe invalide !';
 $lang['Invalid username or email'] = 'Nom d\'utilisateur ou adresse email invalide';
@@ -418,4 +417,5 @@ $lang['Email'] = "Email";
 $lang['Password is missing. Please enter the password.'] = "Le mot de passe manque. Veuillez saisir le mot de passe.";
 $lang['Password confirmation is missing. Please confirm the chosen password.'] = "La confirmation du mot de passe manque. Veuillez confirmer le mot de passe choisi.";
 $lang['%d photos per page'] = '%d photos par page';
+$lang['Theme'] = 'Thème';
 ?>

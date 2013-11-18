@@ -272,7 +272,6 @@ $lang['SQL queries in'] = "שאילתות SQL";
 $lang['display only recently posted photos'] = "הראה רק תמונות שפורסמו לאחרונה";
 $lang['return to the display of all photos'] = "חזור להצגת כל התמונות";
 $lang['the beginning'] = "ההתחלה";
-$lang['Interface theme'] = "ממשק הערכה";
 $lang['Thumbnails'] = "תמונות ממוזערות";
 $lang['Menu'] = "תפריט";
 $lang['A comment on your site'] = "תגובה באתר שלך";

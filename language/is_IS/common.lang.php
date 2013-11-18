@@ -277,7 +277,6 @@ $lang['SQL queries in'] = 'SQL spurningar inn';
 $lang['display only recently posted photos'] = 'aðeins sýna myndir sem nýlega voru settar inn';
 $lang['return to the display of all photos'] = 'aftur í sýningu á öllum myndum';
 $lang['the beginning'] = 'upphafið';
-$lang['Interface theme'] = 'Þema';
 $lang['Thumbnails'] = 'Smámyndir';
 $lang['Menu'] = 'Valmynd';
 $lang['A comment on your site'] = 'Athugasemd á síðuni þinni';

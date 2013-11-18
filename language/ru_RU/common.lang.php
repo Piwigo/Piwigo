@@ -270,7 +270,6 @@ $lang['SQL queries in'] = 'SQL-запрос в';
 $lang['display only recently posted photos'] = 'показать только недавно загруженные фотографии';
 $lang['return to the display of all photos'] = 'вернуться к полному списку фотографий';
 $lang['the beginning'] = 'с начала';
-$lang['Interface theme'] = 'Оформление';
 $lang['Thumbnails'] = 'Миниатюры';
 $lang['Menu'] = 'Меню';
 $lang['A comment on your site'] = 'Комментарий с вашего сайта';

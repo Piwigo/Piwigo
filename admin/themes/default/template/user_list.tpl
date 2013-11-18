@@ -221,7 +221,7 @@ jQuery(document).ready(function() {
           userDetails += '<input type="hidden" name="nb_image_page" value="'+user.nb_image_page+'">';
           userDetails += '</div>';
 
-          userDetails += '<div class="userProperty"><strong>{/literal}{'Interface theme'|translate|escape:javascript}{literal}</strong>';
+          userDetails += '<div class="userProperty"><strong>{/literal}{'Theme'|translate|escape:javascript}{literal}</strong>';
           userDetails += '<br><select name="theme">';
           jQuery("#action select[name=theme] option").each(function() {
             var selected = '';
@@ -903,7 +903,7 @@ span.infos, span.errors {background-image:none; padding:2px 5px; margin:0;border
       <option value="enabled_high">{'High definition enabled'|@translate}</option>
       <option value="level">{'Privacy level'|@translate}</option>
       <option value="nb_image_page">{'Number of photos per page'|@translate}</option>
-      <option value="theme">{'Interface theme'|@translate}</option>
+      <option value="theme">{'Theme'|@translate}</option>
       <option value="language">{'Language'|@translate}</option>
       <option value="recent_period">{'Recent period'|@translate}</option>
       <option value="expand">{'Expand all albums'|@translate}</option>

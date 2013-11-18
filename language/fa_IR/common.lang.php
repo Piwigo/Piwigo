@@ -263,7 +263,6 @@ $lang['SQL queries in'] = 'معیار های SQL در';
 $lang['display only recently posted photos'] = "فقط آخرین عکس های فرستاده شده را نمایش بده";
 $lang['return to the display of all photos'] = "بازگشت به نمایش همه ی عکس ها";
 $lang['the beginning'] = "آغاز";
-$lang['Interface theme'] = "رابط قالب";
 $lang['Thumbnails'] = 'عکس بندانگشتی';
 $lang['Menu'] = "منو";
 $lang['A comment on your site'] = "یادداشتی روی سایت شما";

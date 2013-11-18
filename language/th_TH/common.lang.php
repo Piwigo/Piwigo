@@ -268,7 +268,6 @@ $lang['SQL queries in'] = "SQL queries ใน";
 $lang['display only recently posted photos'] = "แสดงเฉพาะรูปภาพที่เพิ่งถูกโพสเมื่อเร็วๆ นี้";
 $lang['return to the display of all photos'] = "กลับไปแสดงรูปภาพทั้งหมด";
 $lang['the beginning'] = "การเริ่มต้น";
-$lang['Interface theme'] = "ธีม";
 $lang['Thumbnails'] = "รูปภาพขนาดย่อ";
 $lang['Menu'] = "เมนู";
 $lang['A comment on your site'] = "แสดงความคิดเห็นถึงคุณ";

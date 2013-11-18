@@ -273,7 +273,6 @@ $lang['SQL queries in'] = 'SQL queries ក្នុង​';
 $lang['display only recently posted photos'] = 'បង្ហាញ​តែ​រូប​ថត​ដែល​ទើប​បាន​ប្រកាស​ថ្មី​ៗ';
 $lang['return to the display of all photos'] = 'ត្រឡប់​ទៅ​បង្ហាញ​រូប​ថត​ទាំង​អស់​';
 $lang['the beginning'] = 'ចាប់​ផ្តើម​ដំបូង​';
-$lang['Interface theme'] = 'រូប​រាង​ផ្ទៃសំរាប់​​បង្ហាញ​';
 $lang['Thumbnails'] = 'រូប​គំរប​ផ្ទៃ​លើ​';
 $lang['Menu'] = 'មីនុយ​';
 $lang['A comment on your site'] = 'មតិ​មួយ​នៅ​លើ​ប្រព័ន្ធ​របស់​អ្នក​';

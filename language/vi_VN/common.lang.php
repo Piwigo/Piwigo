@@ -268,7 +268,6 @@ $lang['SQL queries in'] = 'Truy vấn SQL trong';
 $lang['display only recently posted photos'] = 'chỉ hiển thị những hình vừa được gởi';
 $lang['return to the display of all photos'] = 'trở lại hiển thị tất cả các hình';
 $lang['the beginning'] = 'bắt đầu';
-$lang['Interface theme'] = 'Giao diện';
 $lang['Thumbnails'] = 'Hình nhỏ';
 $lang['Menu'] = 'Trình đơn';
 $lang['A comment on your site'] = 'Một lời bình trên trang của bạn';

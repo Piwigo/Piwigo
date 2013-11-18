@@ -310,7 +310,6 @@ $lang['SQL queries in'] = 'SQL spørring' ;
 $lang['display only recently posted photos'] = 'Vis kun sisite postede bilder';
 $lang['return to the display of all photos'] = 'tilbake til visning av alle bilder';
 $lang['the beginning'] = 'begynnelsen';
-$lang['Interface theme'] = 'Brukerflate tema';
 $lang['Thumbnails'] = 'Miniatyrbilder';
 $lang['Menu'] = 'Meny';
 $lang['A comment on your site'] = 'En kommentar på din side';

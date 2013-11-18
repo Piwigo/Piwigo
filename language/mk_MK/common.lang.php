@@ -284,7 +284,6 @@ $lang['SQL queries in'] = 'SQL queries in';
 $lang['display only recently posted photos'] = 'Прикажи ги само новите фотографии';
 $lang['return to the display of all photos'] = 'Врати се кон прикажување на сите фотографии';
 $lang['the beginning'] = 'почетокот';
-$lang['Interface theme'] = 'Изглед на галеријата';
 $lang['Thumbnails'] = 'Сликички';
 $lang['Menu'] = 'Систем';
 $lang['A comment on your site'] = 'Коментар на твојата страна';

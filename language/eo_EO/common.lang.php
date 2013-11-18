@@ -265,7 +265,6 @@ $lang['SQL queries in'] = 'SQL peto en';
 $lang['display only recently posted photos'] = 'montri nur la lastaj fotoj';
 $lang['return to the display of all photos'] = 'reiri al ĉiuj fotoj';
 $lang['the beginning'] = 'la komenco';
-$lang['Interface theme'] = 'Etoso';
 $lang['Thumbnails'] = 'Miniaturo';
 $lang['Menu'] = 'Menuo';
 $lang['A comment on your site'] = 'Komento sur via retejo';

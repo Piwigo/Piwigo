@@ -248,7 +248,6 @@ $lang['Manual sort order'] = 'Orde manual';
 $lang['Menu'] = 'Menú';
 $lang['Mobile'] = 'dispositivos móbiles';
 $lang['Most visited'] = 'Máis visitadas';
-$lang['Interface theme'] = 'Tema da interface';
 $lang['Invalid key'] = 'Chave non válida';
 $lang['Invalid password!'] = 'Clave non válida!';
 $lang['Invalid username or email'] = 'O nome de usuario ou correo non é valido ';

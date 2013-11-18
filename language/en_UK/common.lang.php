@@ -207,7 +207,6 @@ $lang['in %d sub-album'] = "in %d sub-album";
 $lang['in %d sub-albums'] = "in %d sub-albums";
 $lang['in this album'] = "in this album";
 $lang['included'] = "included";
-$lang['Interface theme'] = "Interface theme";
 $lang['Invalid key'] = 'Invalid key';
 $lang['Invalid password!'] = "Invalid password!";
 $lang['Invalid username or email'] = 'Invalid username or email';
@@ -418,4 +417,5 @@ $lang['Email'] = "Email";
 $lang['Password is missing. Please enter the password.'] = "Password is missing. Please enter the password.";
 $lang['Password confirmation is missing. Please confirm the chosen password.'] = "Password confirmation is missing. Please confirm the chosen password.";
 $lang['%d photos per page'] = '%d photos per page';
+$lang['Theme'] = 'Theme';
 ?>

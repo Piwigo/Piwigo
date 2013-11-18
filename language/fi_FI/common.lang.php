@@ -258,7 +258,6 @@ $lang['in %d sub-album'] = '%d ala-albumissa';
 $lang['in %d sub-albums'] = '%d ala-albumissa';
 $lang['in this album'] = 'tässä albumissa';
 $lang['included'] = 'sisältyy';
-$lang['Interface theme'] = 'Käyttöliittymän teema';
 $lang['Invalid key'] = 'Väärä avain';
 $lang['Invalid password!'] = 'Väärä salasana!';
 $lang['Invalid username or email'] = 'Väärä käyttäjätunnus tai sähköpostiosoite';

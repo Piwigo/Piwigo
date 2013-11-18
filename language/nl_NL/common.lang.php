@@ -272,7 +272,6 @@ $lang['SQL queries in'] = 'SQL queries in';
 $lang['display only recently posted photos'] = 'Toon alleen de recent geplaatste foto\'s';
 $lang['return to the display of all photos'] = 'Toon alle foto\'s';
 $lang['the beginning'] = 'het begin';
-$lang['Interface theme'] = 'Thema';
 $lang['Thumbnails'] = 'Klikplaatjes';
 $lang['Menu'] = 'Menu';
 $lang['A comment on your site'] = 'Commentaar op uw site';

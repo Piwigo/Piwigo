@@ -198,7 +198,6 @@ $lang['in %d sub-album'] = "%d ಉಪ-ಸಂಪುಟ ದಲ್ಲಿ";
 $lang['in %d sub-albums'] = "%d ಉಪ-ಸಂಪುಟಗಳಲ್ಲಿ";
 $lang['in this album'] = "ಈ ಸಂಪುಟದಲ್ಲಿ";
 $lang['included'] = "ಸೇರಿಸಲಾದವು";
-$lang['Interface theme'] = "ಹೊರನೋಟ ವಿನ್ಯಾಸದ ಥೀಮ್";
 $lang['Invalid key'] = 'ಅಸಿಂಧುವಾದ ಕೀ';
 $lang['Invalid password!'] = 'ತಪ್ಪಾದ ಪ್ರವೇಶಪದ!';
 $lang['Invalid username or email'] = 'ತಪ್ಪಾದ ಬಳಕೆದಾರರ ಹೆಸರು ಅಥವಾ ಮಿಂಚೆ ವಿಳಾಸ';

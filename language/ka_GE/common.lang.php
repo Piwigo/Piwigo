@@ -276,7 +276,6 @@ $lang['SQL queries in'] = 'SQL-მოთხოვნა';
 $lang['display only recently posted photos'] = ' ვნახოთ მხოლოდ ახლახანს გამოქვეყნებული ფოტოები';
 $lang['return to the display of all photos'] = 'ყველა ფოტოს ნახვასთან დაბრუნება';
 $lang['the beginning'] = 'თავიდან';
-$lang['Interface theme'] = 'გაფორმება';
 $lang['Thumbnails'] = 'მინიატურები';
 $lang['Menu'] = 'მენიუ';
 $lang['A comment on your site'] = 'კომენტარები თქვენი საიტიდან';

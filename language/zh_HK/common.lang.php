@@ -156,7 +156,6 @@ $lang['IPTC Metadata'] = 'IPTC 資料';
 $lang['Identification'] = '身份';
 $lang['If this was a mistake, just ignore this email and nothing will happen.'] = '如果這是一個錯誤, 不理會這電郵就不會發生任合事.';
 $lang['If you think you\'ve received this email in error, please contact us at %s'] = '如果你認你不應該數到這電郵, 請到 %s 聯絡我們';
-$lang['Interface theme'] = '介面主題';
 $lang['Invalid key'] = '無效鑰匙';
 $lang['Invalid password!'] = '無效密碼!';
 $lang['Invalid username or email'] = '無效用戶名稱或電郵';

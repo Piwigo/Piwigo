@@ -273,7 +273,6 @@ $lang['SQL queries in'] = 'adatbázis-lekérdezés';
 $lang['display only recently posted photos'] = 'Csak nemrégiben küldött képek';
 $lang['return to the display of all photos'] = 'Vissza (összes kép megjelenítése)';
 $lang['the beginning'] = 'Kezdet';
-$lang['Interface theme'] = 'Megjelenítés témája';
 $lang['Thumbnails'] = 'Bélyegképek';
 $lang['Menu'] = 'Menü';
 $lang['A comment on your site'] = 'Komment az oldalon';

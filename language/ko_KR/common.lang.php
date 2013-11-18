@@ -304,7 +304,6 @@ $lang['from %s to %s'] = '%s님이 %s님에게';
 $lang['Hello %s,'] = '%s님 안녕하세요,';
 $lang['html tags are not allowed in login'] = '로그인 폼에 html태그는 허용되지 않습니다';
 $lang['If this was a mistake, just ignore this email and nothing will happen.'] = '만약 실수였다면 이 이메일을 무시하셔도 됩니다.';
-$lang['Interface theme'] = '인터페이스 테마';
 $lang['Invalid key'] = '잘못된 키';
 $lang['Invalid username or email'] = '잘못된 사용자 이름이나 이메일';
 $lang['IP: %s'] = 'IP: %s';

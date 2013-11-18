@@ -179,7 +179,6 @@ $lang['IPTC Metadata'] = 'IPTC மேல்நிலை தரவு';
 $lang['Identification'] = 'அடையாளம்';
 $lang['If this was a mistake, just ignore this email and nothing will happen.'] = 'இது தவறு என்றால், இந்த மின்னஞ்சல் புறக்கணிக்கவும், எதுவும் நடக்காது.';
 $lang['If you think you\'ve received this email in error, please contact us at %s'] = 'நீங்கள் தவறுதலாக இந்த மின்னஞ்சல் வந்துள்ளது நினைத்தால், எங்களைத் தொடர்பு கொள்க %s';
-$lang['Interface theme'] = 'முகப்பு வார்ப்புரு';
 $lang['Invalid key'] = 'செல்லாத விசை';
 $lang['Invalid password!'] = 'கடவுச்சொல்லை தவறானது!';
 $lang['Invalid username or email'] = 'தவறான பயனர்பெயர் அல்லது மின்னஞ்சல்';

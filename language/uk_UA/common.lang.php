@@ -300,7 +300,6 @@ $lang['SQL queries in'] = 'SQL запитів за';
 $lang['display only recently posted photos'] = 'показувати тільки нещодавно завантажені фотографії';
 $lang['return to the display of all photos'] = 'повернутися до всіх зображень';
 $lang['the beginning'] = 'початок';
-$lang['Interface theme'] = 'Тема інтерфейсу';
 $lang['Thumbnails'] = 'Ескізи';
 $lang['Menu'] = 'Меню';
 $lang['A comment on your site'] = 'Коментар на вашому сайті';

@@ -189,7 +189,6 @@ $lang['in %d sub-album'] = '%d alt albümde';
 $lang['in %d sub-albums'] = '%d alt albümde';
 $lang['in this album'] = 'bu albümde';
 $lang['included'] = 'dahil edildi';
-$lang['Interface theme'] = 'Arayüz Temaları';
 $lang['Invalid key'] = 'Hatalı anahtar';
 $lang['Invalid password!'] = 'Yanlış şifre!';
 $lang['Invalid username or email'] = 'Hatalı kullanıcı adı veya e-Posta';

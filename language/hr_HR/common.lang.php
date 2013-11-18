@@ -275,7 +275,6 @@ $lang['SQL queries in'] = 'SQL upita u ';
 $lang['display only recently posted photos'] = 'prikaz samo nedavno objavljenih slika';
 $lang['return to the display of all photos'] = 'povratak u prikaz svih slika';
 $lang['the beginning'] = 'početak';
-$lang['Interface theme'] = 'tema sučelja';
 $lang['Thumbnails'] = 'Povezne sličice';
 $lang['Menu'] = 'Izbornik';
 $lang['A comment on your site'] = 'Komentar na vašem web mjestu';

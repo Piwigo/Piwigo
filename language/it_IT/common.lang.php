@@ -191,7 +191,6 @@ $lang['in %d sub-album'] = 'in %d sub-album';
 $lang['in %d sub-albums'] = 'in %d sub-album';
 $lang['in this album'] = 'In questo album';
 $lang['included'] = 'incluso';
-$lang['Interface theme'] = 'Tema dell\'interfaccia';
 $lang['Invalid key'] = 'Chiave non valida';
 $lang['Invalid password!'] = 'Password non valida!';
 $lang['Invalid username or email'] = 'Nome utente o indirizzo email non valido';

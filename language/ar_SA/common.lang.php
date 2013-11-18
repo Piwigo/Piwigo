@@ -274,7 +274,6 @@ $lang['SQL queries in'] = 'استفسارات في SQL';
 $lang['display only recently posted photos'] = 'عرض الصور المضافة حديثا';
 $lang['return to the display of all photos'] = 'العودة لعرض جميع الصورة';
 $lang['the beginning'] = 'البداية';
-$lang['Interface theme'] = 'واجة العرض';
 $lang['Thumbnails'] = 'الصور المصغرة';
 $lang['Menu'] = 'القائمة الرئيسية';
 $lang['A comment on your site'] = 'استفسار مهم';

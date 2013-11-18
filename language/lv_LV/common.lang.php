@@ -270,7 +270,6 @@ $lang['SQL queries in'] = "SQL pieprasījums";
 $lang['display only recently posted photos'] = 'rādīt tikai tagad ievietotos fotoattēlus';
 $lang['return to the display of all photos'] = 'atgriezties pie visu foto rādīšanas režīma';
 $lang['the beginning'] = "sākums";
-$lang['Interface theme'] = "Interfeisa tēmas";
 $lang['Thumbnails'] = "Sīkbildes";
 $lang['Menu'] = "Izvēlne";
 $lang['A comment on your site'] = "Komentārijs no jūsu vietnes";

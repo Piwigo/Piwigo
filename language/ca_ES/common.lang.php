@@ -265,7 +265,6 @@ $lang['SQL queries in'] = 'consultes SQL en';
 $lang['display only recently posted photos'] = 'visualitza només les fotos publicades recentment';
 $lang['return to the display of all photos'] = 'torna a la visualització de totes les fotos';
 $lang['the beginning'] = 'principi';
-$lang['Interface theme'] = 'Tema predeterminat';
 $lang['Thumbnails'] = 'Miniatures';
 $lang['Menu'] = 'Menú';
 $lang['A comment on your site'] = 'Un comentari sobre el vostre lloc web';

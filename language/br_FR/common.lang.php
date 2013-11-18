@@ -273,7 +273,6 @@ $lang['Manual sort order'] = 'Urzh dre zorn';
 $lang['Preferences'] = 'Dibaboù';
 $lang['Notification'] = 'Kemennoù RSS';
 $lang['Not repeat the slideshow'] = 'Harzañ adlenn an diaporama';
-$lang['Interface theme'] = 'Tem an etrefas';
 $lang['Pause of slideshow'] = 'Ehanañ an diaporama';
 $lang['Play of slideshow'] = 'Lenn an diaporama';
 $lang['Post date'] = 'Deiziad-ouzhpennañ';

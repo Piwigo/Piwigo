@@ -273,7 +273,6 @@ $lang['SQL queries in'] = 'requêtes SQL en';
 $lang['display only recently posted photos'] = 'n\'afficher que les éléments publiés récemment';
 $lang['return to the display of all photos'] = 'retourner à l\'affichage de tous les éléments';
 $lang['the beginning'] = 'le début';
-$lang['Interface theme'] = 'Thème de l\'interface';
 $lang['Thumbnails'] = 'Miniatures';
 $lang['Menu'] = 'Menu';
 $lang['A comment on your site'] = 'Un commentaire sur le site';

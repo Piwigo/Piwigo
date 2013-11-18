@@ -127,7 +127,6 @@ $lang['SQL queries in'] = 'Ερωτήματα SQL στη';
 $lang['display only recently posted photos'] = "προβολή μόνο πρόσφατα αναρτηθέντων φωτογραφιών";
 $lang['return to the display of all photos'] = "επιστροφή στην προβολή όλων των φωτογραφιών";
 $lang['the beginning'] = "αρχή";
-$lang['Interface theme'] = "Στυλ εμφάνισης";
 $lang['Thumbnails'] = 'Μικρογραφίες';
 $lang['Menu'] = "Μενού";
 $lang['display a calendar by creation date'] = 'προβολή ημερολογίου κατά ημέρα λήψης';

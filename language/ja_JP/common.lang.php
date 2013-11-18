@@ -269,7 +269,6 @@ $lang['SQL queries in'] = 'SQLクエリー:';
 $lang['display only recently posted photos'] = '最近投稿されたイメージのみ表示する';
 $lang['return to the display of all photos'] = 'すべてのイメージ表示に戻る';
 $lang['the beginning'] = '最初';
-$lang['Interface theme'] = 'インターフェーステーマ';
 $lang['Thumbnails'] = 'サムネイル';
 $lang['Menu'] = 'メニュー';
 $lang['A comment on your site'] = 'あなたのサイトのコメント';

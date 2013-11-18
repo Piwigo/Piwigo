@@ -239,7 +239,6 @@ $lang['stop the slideshow'] = 'stabdyti skaidrių peržiūrą';
 $lang['Specials'] = "Specials";
 $lang['SQL queries in'] = "SQL queries in";
 $lang['the beginning'] = 'pradžia';
-$lang['Interface theme'] = 'Išvaizda';
 $lang['Thumbnails'] = 'Piktogramos';
 $lang['Menu'] = "Meniu";
 $lang['A comment on your site'] = "Komenentaras svetain&#279;je";

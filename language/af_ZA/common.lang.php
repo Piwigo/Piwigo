@@ -302,7 +302,6 @@ $lang['SQL queries in'] = "SQL navrae in";
 $lang['display only recently posted photos'] = "Vertoon slegs fotos wat onlangs gepos is";
 $lang['return to the display of all photos'] = "gaan terug na vertoning van alle fotos";
 $lang['the beginning'] = "die begin";
-$lang['Interface theme'] = "Koppelvlak tema";
 $lang['Thumbnails'] = "Duimnale";
 $lang['Menu'] = "Keusepaneel";
 $lang['A comment on your site'] = "Kommentaar op u werf";

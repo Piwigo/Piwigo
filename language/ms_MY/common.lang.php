@@ -62,7 +62,6 @@ $lang['A comment on your site'] = 'Satu komen di laman anda';
 $lang['About Piwigo'] = 'Mengenai Piwigo';
 $lang['About'] = 'Mengenai';
 
-$lang['Interface theme'] = 'Tema antarmuka';
 $lang['Invalid key'] = 'Kunci tidak cocok';
 $lang['Invalid password!'] = 'kata sandi tidak cocok!';
 $lang['Invalid username or email'] = 'Nama pengguna atau email yang tidak cocok';
