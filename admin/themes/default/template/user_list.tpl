@@ -205,7 +205,7 @@ jQuery(document).ready(function() {
           userDetails += '<br><select multiple class="chzn-select" style="width:340px;" name="group_id[]">';
           jQuery("#action select[name=associate] option").each(function() {
             var selected = '';
-            if (user.groups.indexOf(jQuery(this).val()) != -1) {
+            if (user.groups.indexOf( parseInt(jQuery(this).val()) ) != -1) {
               selected = ' selected="selected"';
             }
             userDetails += '<option value="'+jQuery(this).val()+'"'+selected+'>'+jQuery(this).html()+'</option>';
@@ -553,6 +553,7 @@ jQuery(document).ready(function() {
     "bDeferRender": true,
     "bProcessing": true,
     "bServerSide": true,
+		"sServerMethod": "POST",
     "sAjaxSource": "admin/user_list_backend.php",
     "oLanguage": {
       "sProcessing": "{/literal}{'Loading...'|translate|escape:'javascript'}{literal}",

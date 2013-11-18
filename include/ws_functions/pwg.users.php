@@ -167,7 +167,13 @@ SELECT DISTINCT ';
   OFFSET '. ($params['per_page']*$params['page']) .'
 ;';
 
-  $users = hash_from_query($query, 'id');
+  $users = array();
+  $result = pwg_query($query);
+  while ($row = pwg_db_fetch_assoc($result))
+  {
+    $row['id'] = intval($row['id']);
+    $users[ $row['id'] ] = $row;
+  }
 
   if (count($users) > 0)
   {
@@ -182,7 +188,7 @@ SELECT user_id, group_id
       
       while ($row = pwg_db_fetch_assoc($result))
       {
-        $users[ $row['user_id'] ]['groups'][] = $row['group_id'];
+        $users[ $row['user_id'] ]['groups'][] = intval($row['group_id']);
       }
     }
     

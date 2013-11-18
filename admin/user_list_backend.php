@@ -28,25 +28,25 @@ $sTable = USERS_TABLE.' INNER JOIN '.USER_INFOS_TABLE.' AS ui ON id = ui.user_id
  * Paging
  */
 $sLimit = "";
-if ( isset( $_GET['iDisplayStart'] ) && $_GET['iDisplayLength'] != '-1' )
+if ( isset( $_REQUEST['iDisplayStart'] ) && $_REQUEST['iDisplayLength'] != '-1' )
 {
-  $sLimit = "LIMIT ".pwg_db_real_escape_string( $_GET['iDisplayStart'] ).", ".
-    pwg_db_real_escape_string( $_GET['iDisplayLength'] );
+  $sLimit = "LIMIT ".pwg_db_real_escape_string( $_REQUEST['iDisplayStart'] ).", ".
+    pwg_db_real_escape_string( $_REQUEST['iDisplayLength'] );
 }
 	
 	
 /*
  * Ordering
  */
-if ( isset( $_GET['iSortCol_0'] ) )
+if ( isset( $_REQUEST['iSortCol_0'] ) )
 {
   $sOrder = "ORDER BY  ";
-  for ( $i=0 ; $i<intval( $_GET['iSortingCols'] ) ; $i++ )
+  for ( $i=0 ; $i<intval( $_REQUEST['iSortingCols'] ) ; $i++ )
   {
-    if ( $_GET[ 'bSortable_'.intval($_GET['iSortCol_'.$i]) ] == "true" )
+    if ( $_REQUEST[ 'bSortable_'.intval($_REQUEST['iSortCol_'.$i]) ] == "true" )
     {
-      $sOrder .= $aColumns[ intval( $_GET['iSortCol_'.$i] ) ]."
-				 	".pwg_db_real_escape_string( $_GET['sSortDir_'.$i] ) .", ";
+      $sOrder .= $aColumns[ intval( $_REQUEST['iSortCol_'.$i] ) ]."
+				 	".pwg_db_real_escape_string( $_REQUEST['sSortDir_'.$i] ) .", ";
     }
   }
 		
@@ -65,12 +65,12 @@ if ( isset( $_GET['iSortCol_0'] ) )
  * on very large tables, and MySQL's regex functionality is very limited
  */
 $sWhere = "";
-if ( $_GET['sSearch'] != "" )
+if ( $_REQUEST['sSearch'] != "" )
 {
   $sWhere = "WHERE (";
   for ( $i=0 ; $i<count($aColumns) ; $i++ )
   {
-    $sWhere .= $aColumns[$i]." LIKE '%".pwg_db_real_escape_string( $_GET['sSearch'] )."%' OR ";
+    $sWhere .= $aColumns[$i]." LIKE '%".pwg_db_real_escape_string( $_REQUEST['sSearch'] )."%' OR ";
   }
   $sWhere = substr_replace( $sWhere, "", -3 );
   $sWhere .= ')';
@@ -79,7 +79,7 @@ if ( $_GET['sSearch'] != "" )
 /* Individual column filtering */
 for ( $i=0 ; $i<count($aColumns) ; $i++ )
 {
-  if ( $_GET['bSearchable_'.$i] == "true" && $_GET['sSearch_'.$i] != '' )
+  if ( $_REQUEST['bSearchable_'.$i] == "true" && $_REQUEST['sSearch_'.$i] != '' )
   {
     if ( $sWhere == "" )
     {
@@ -89,7 +89,7 @@ for ( $i=0 ; $i<count($aColumns) ; $i++ )
     {
       $sWhere .= " AND ";
     }
-    $sWhere .= $aColumns[$i]." LIKE '%".pwg_db_real_escape_string($_GET['sSearch_'.$i])."%' ";
+    $sWhere .= $aColumns[$i]." LIKE '%".pwg_db_real_escape_string($_REQUEST['sSearch_'.$i])."%' ";
   }
 }
 	
@@ -129,7 +129,7 @@ $iTotal = $aResultTotal[0];
  * Output
  */
 $output = array(
-  "sEcho" => intval($_GET['sEcho']),
+  "sEcho" => intval($_REQUEST['sEcho']),
   "iTotalRecords" => $iTotal,
   "iTotalDisplayRecords" => $iFilteredTotal,
   "aaData" => array()

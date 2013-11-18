@@ -57,9 +57,9 @@ SELECT user_id, cat_id
   {
     if (!isset($perms[ $row['cat_id'] ]))
     {
-      $perms[ $row['cat_id'] ]['id'] = $row['cat_id'];
+      $perms[ $row['cat_id'] ]['id'] = intval($row['cat_id']);
     }
-    $perms[ $row['cat_id'] ]['users'][] = $row['user_id'];
+    $perms[ $row['cat_id'] ]['users'][] = intval($row['user_id']);
   }
 
   // indirect users
@@ -76,9 +76,9 @@ SELECT ug.user_id, ga.cat_id
   {
     if (!isset($perms[ $row['cat_id'] ]))
     {
-      $perms[ $row['cat_id'] ]['id'] = $row['cat_id'];
+      $perms[ $row['cat_id'] ]['id'] = intval($row['cat_id']);
     }
-    $perms[ $row['cat_id'] ]['users_indirect'][] = $row['user_id'];
+    $perms[ $row['cat_id'] ]['users_indirect'][] = intval($row['user_id']);
   }
 
   // groups
@@ -93,9 +93,9 @@ SELECT group_id, cat_id
   {
     if (!isset($perms[ $row['cat_id'] ]))
     {
-      $perms[ $row['cat_id'] ]['id'] = $row['cat_id'];
+      $perms[ $row['cat_id'] ]['id'] = intval($row['cat_id']);
     }
-    $perms[ $row['cat_id'] ]['groups'][] = $row['group_id'];
+    $perms[ $row['cat_id'] ]['groups'][] = intval($row['group_id']);
   }
 
   // filter by group and user
@@ -120,9 +120,9 @@ SELECT group_id, cat_id
       }
     }
 
-    $cat['groups'] = !empty($cat['groups']) ? array_unique($cat['groups']) : array();
-    $cat['users'] = !empty($cat['users']) ? array_unique($cat['users']) : array();
-    $cat['users_indirect'] = !empty($cat['users_indirect']) ? array_unique($cat['users_indirect']) : array();
+    $cat['groups'] = !empty($cat['groups']) ? array_values(array_unique($cat['groups'])) : array();
+    $cat['users'] = !empty($cat['users']) ? array_values(array_unique($cat['users'])) : array();
+    $cat['users_indirect'] = !empty($cat['users_indirect']) ? array_values(array_unique($cat['users_indirect'])) : array();
   }
   unset($cat);
 
