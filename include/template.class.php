@@ -1046,22 +1046,13 @@ class CssLoader
   function get_css()
   {
     uasort($this->registered_css, array('CssLoader', 'cmp_by_order'));
-    return self::do_combine($this->registered_css);
+    $combiner = new FileCombiner('css', $this->registered_css);
+    return $combiner->combine();
   }
   
   private static function cmp_by_order($a, $b)
   {
     return $a->order - $b->order;
-  }
-  
-  private static function do_combine($files)
-  {
-    $combiner = new FileCombiner('css');
-    foreach ($files as $css)
-    {
-      $combiner->add( $css);
-    }
-    return $combiner->combine();
   }
   
   function add($id, $path, $version=0, $order=0, $is_template=false)
@@ -1252,11 +1243,7 @@ class ScriptLoader
 
   private static function do_combine($scripts, $load_mode)
   {
-    $combiner = new FileCombiner('js');
-    foreach ($scripts as $script)
-    {
-      $combiner->add( $script);
-    }
+    $combiner = new FileCombiner('js', $scripts);
     return $combiner->combine();
   }
 
@@ -1377,12 +1364,13 @@ final class FileCombiner
 {
   private $type; // js or css
   private $is_css;
-  private $combinables = array();
+  private $combinables;
 
-  function FileCombiner($type)
+  function FileCombiner($type, $combinables)
   {
     $this->type = $type;
     $this->is_css = $type=='css';
+    $this->combinables = $combinables;
   }
 
   static function clear_combined_files()
@@ -1396,9 +1384,10 @@ final class FileCombiner
     closedir($dir);
   }
 
-  function add($combinable)
+  function add($combinables)
   {
-    $this->combinables[] = $combinable;
+    foreach($combinables as $combinable)
+      $this->combinables[] = $combinable;
   }
 
   function combine()
@@ -1413,27 +1402,29 @@ final class FileCombiner
 
     $result = array();
     $pending = array();
-    $key = $this->is_css ? array(get_absolute_root_url(false)): array(); //because for css we modify bg url
+    $ini_key = $this->is_css ? array(get_absolute_root_url(false)): array(); //because for css we modify bg url;
+    $key = $ini_key;
 
     foreach ($this->combinables as $combinable)
     {
-      if ($conf['template_combine_files'] && !$combinable->is_remote())
-      {
-        $key[] = $combinable->path;
-        $key[] = $combinable->version;
-        if ($conf['template_compile_check'])
-          $key[] = filemtime( PHPWG_ROOT_PATH . $combinable->path );
-        $pending[] = $combinable;
-      }
-      else
+      if ($combinable->is_remote())
       {
         $this->flush_pending($result, $pending, $key, $force);
-        $key = $this->is_css ? array(get_absolute_root_url(false)): array(); //because for css we modify bg url
-        if ($combinable->is_remote())
-          $result[] = $combinable;
-        else
-          $pending = array($combinable);
+        $key = $ini_key;
+        $result[] = $combinable;
+        continue;
       }
+      elseif (!$conf['template_combine_files'])
+      {
+        $this->flush_pending($result, $pending, $key, $force);
+        $key = $ini_key;
+      }
+
+      $key[] = $combinable->path;
+      $key[] = $combinable->version;
+      if ($conf['template_compile_check'])
+        $key[] = filemtime( PHPWG_ROOT_PATH . $combinable->path );
+      $pending[] = $combinable;
     }
     $this->flush_pending($result, $pending, $key, $force);
     return $result;
