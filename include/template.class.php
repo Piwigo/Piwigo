@@ -1366,7 +1366,7 @@ final class FileCombiner
   private $is_css;
   private $combinables;
 
-  function FileCombiner($type, $combinables)
+  function FileCombiner($type, $combinables=array())
   {
     $this->type = $type;
     $this->is_css = $type=='css';
@@ -1386,8 +1386,15 @@ final class FileCombiner
 
   function add($combinables)
   {
-    foreach($combinables as $combinable)
-      $this->combinables[] = $combinable;
+    if ($combinables instanceof Combinable)
+    {
+      $this->combinables[] = $combinables;
+    }
+    else
+    {
+      foreach($combinables as $combinable)
+        $this->combinables[] = $combinable;
+    }
   }
 
   function combine()
