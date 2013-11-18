@@ -21,13 +21,15 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
+/**
+ * @package functions\filter
+ */
 
 
 /**
- * update data of categories with filtered values
+ * Updates data of categories with filtered values
  *
- * @param array list of categories
- * @return null
+ * @param array $cats
  */
 function update_cats_with_filtered_data(&$cats)
 {

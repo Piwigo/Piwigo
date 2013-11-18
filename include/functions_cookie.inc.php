@@ -21,10 +21,19 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
-// cookie_path returns the path to use for the Piwigo cookie.
-// If Piwigo is installed on :
-// http://domain.org/meeting/gallery/category.php
-// cookie_path will return : "/meeting/gallery"
+/**
+ * @package functions\cookie
+ */
+
+
+/**
+ * Returns the path to use for the Piwigo cookie.
+ * If Piwigo is installed on :
+ * http://domain.org/meeting/gallery/
+ * it will return : "/meeting/gallery"
+ *
+ * @return string
+ */
 function cookie_path()
 {
   if ( isset($_SERVER['REDIRECT_SCRIPT_NAME']) and
@@ -83,9 +92,13 @@ function cookie_path()
 }
 
 /**
- * persistently stores a variable in pwg cookie
- * @return boolean true on success
- * @see pwg_get_cookie_var
+ * Persistently stores a variable in pwg cookie.
+ * Set $value to null to delete the cookie.
+ *
+ * @param string $car
+ * @param mixed $value
+ * @param int|null $expire
+ * @return bool
  */
 function pwg_set_cookie_var($var, $value, $expire=null)
 {
@@ -104,9 +117,12 @@ function pwg_set_cookie_var($var, $value, $expire=null)
 }
 
 /**
- * retrieves the value of a persistent variable in pwg cookie
- * @return mixed
+ * Retrieves the value of a persistent variable in pwg cookie
  * @see pwg_set_cookie_var
+ *
+ * @param string $var
+ * @param mixed $default
+ * @return mixed
  */
 function pwg_get_cookie_var($var, $default = null)
 {

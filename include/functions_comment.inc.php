@@ -21,7 +21,22 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
-//returns string action to perform on a new comment: validate, moderate, reject
+/**
+ * @package functions\comment
+ */
+ 
+
+add_event_handler('user_comment_check', 'user_comment_check',
+  EVENT_HANDLER_PRIORITY_NEUTRAL, 2);
+
+/**
+ * Does basic check on comment and returns action to perform.
+ * This method is called by a trigger_event()
+ *
+ * @param string $action before check
+ * @param array $comment
+ * @return string validate, moderate, reject
+ */
 function user_comment_check($action, $comment)
 {
   global $conf,$user;
@@ -54,18 +69,15 @@ function user_comment_check($action, $comment)
   return $action;
 }
 
-
-add_event_handler('user_comment_check', 'user_comment_check',
-  EVENT_HANDLER_PRIORITY_NEUTRAL, 2);
-
 /**
- * Tries to insert a user comment in the database and returns one of :
- * validate, moderate, reject
- * @param array comm contains author, content, image_id
- * @param string key secret key sent back to the browser
- * @param array infos out array of messages
+ * Tries to insert a user comment and returns action to perform.
+ *
+ * @param array $comm
+ * @param string $key secret key sent back to the browser
+ * @param array $infos output array of error messages
+ * @return string validate, moderate, reject
  */
-function insert_user_comment( &$comm, $key, &$infos )
+function insert_user_comment(&$comm, $key, &$infos)
 {
   global $conf, $user;
 
@@ -251,16 +263,17 @@ INSERT INTO '.COMMENTS_TABLE.'
       );
     }
   }
+
   return $comment_action;
 }
 
 /**
- * Tries to delete a user comment in the database
- * only admin can delete all comments
- * other users can delete their own comments
- * so to avoid a new sql request we add author in where clause
+ * Tries to delete a (or more) user comment.
+ *    only admin can delete all comments
+ *    other users can delete their own comments
  *
- * @param int or array of int comment_id
+ * @param int|int[] $comment_id
+ * @return bool false if nothing deleted
  */
 function delete_user_comment($comment_id)
 {
@@ -290,18 +303,21 @@ $user_where_clause.'
                       'comment_id' => $comment_id
                   ));
     trigger_action('user_comment_deletion', $comment_id);
+
+    return true;
   }
+
+  return false;
 }
 
 /**
- * Tries to update a user comment in the database
- * only admin can update all comments
- * users can edit their own comments if admin allow them
- * so to avoid a new sql request we add author in where clause
+ * Tries to update a user comment
+ *    only admin can update all comments
+ *    users can edit their own comments if admin allow them
  *
- * @param comment_id
- * @param post_key
- * @param content
+ * @param array $comment
+ * @param string $post_key secret key sent back to the browser
+ * @return string validate, moderate, reject
  */
 
 function update_user_comment($comment, $post_key)
@@ -397,6 +413,13 @@ $user_where_clause.'
   return $comment_action;
 }
 
+/**
+ * Notifies admins about updated or deleted comment.
+ * Only used when no validation is needed, otherwise pwg_mail_notification_admins() is used.
+ *
+ * @param string $action edit, delete
+ * @param array $comment
+ */
 function email_admin($action, $comment)
 {
   global $conf;
@@ -430,6 +453,13 @@ function email_admin($action, $comment)
     );
 }
 
+/**
+ * Returns the author id of a comment
+ *
+ * @param int $comment_id
+ * @param bool $die_on_error
+ * @return int
+ */
 function get_comment_author_id($comment_id, $die_on_error=true)
 {
   $query = '
@@ -457,8 +487,9 @@ SELECT
 }
 
 /**
- * Tries to validate a user comment in the database
- * @param int or array of int comment_id
+ * Tries to validate a user comment.
+ *
+ * @param int|int[] $comment_id
  */
 function validate_user_comment($comment_id)
 {
@@ -479,14 +510,19 @@ UPDATE '.COMMENTS_TABLE.'
   trigger_action('user_comment_validation', $comment_id);
 }
 
-
+/**
+ * Clears cache of nb comments for all users
+ */
 function invalidate_user_cache_nb_comments()
 {
   global $user;
+
   unset($user['nb_available_comments']);
+
   $query = '
 UPDATE '.USER_CACHE_TABLE.'
-  SET nb_available_comments = NULL';
+  SET nb_available_comments = NULL
+;';
   pwg_query($query);
 }
 

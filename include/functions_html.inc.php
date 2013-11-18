@@ -22,18 +22,22 @@
 // +-----------------------------------------------------------------------+
 
 /**
- * returns the list of categories as a HTML string
- *
- * categories string returned contains categories as given in the input
+ * @package functions\html
+ */
+
+
+/**
+ * Generates breadcrumb from categories list.
+ * Categories string returned contains categories as given in the input
  * array $cat_informations. $cat_informations array must be an array
  * of array( id=>?, name=>?, permalink=>?). If url input parameter is null,
  * returns only the categories name without links.
  *
- * @param array cat_informations
- * @param string url
+ * @param array $cat_informations
+ * @param string|null $url
  * @return string
  */
-function get_cat_display_name($cat_informations, $url = '')
+function get_cat_display_name($cat_informations, $url='')
 {
   global $conf;
 
@@ -87,15 +91,13 @@ function get_cat_display_name($cat_informations, $url = '')
 }
 
 /**
- * returns the list of categories as a HTML string, with cache of names
+ * Generates breadcrumb from categories list using a cache.
+ * @see get_cat_display_name()
  *
- * categories string returned contains categories as given in the input
- * array $cat_informations. $uppercats is the list of category ids to
- * display in the right order. If url input parameter is empty, returns only
- * the categories name without links.
- *
- * @param string uppercats
- * @param string url
+ * @param string $uppercats
+ * @param string|null $url
+ * @param bool $single_link
+ * @param string|null $link_class
  * @return string
  */
 function get_cat_display_name_cache($uppercats,
@@ -176,12 +178,28 @@ SELECT id, name, permalink
 }
 
 /**
- * returns HTMLized comment contents retrieved from database
+ * Generates breadcrumb for a category.
+ * @see get_cat_display_name()
  *
- * newlines becomes br tags, _word_ becomes underline, /word/ becomes
- * italic, *word* becomes bolded
+ * @param int $cat_id
+ * @param string|null $url
+ * @return string
+ */
+function get_cat_display_name_from_id($cat_id, $url = '')
+{
+  $cat_info = get_cat_info($cat_id);
+  return get_cat_display_name($cat_info['upper_names'], $url);
+}
+
+/**
+ * Apply basic markdown transformations to a text.
+ * newlines becomes br tags
+ * _word_ becomes underline
+ * /word/ becomes italic
+ * *word* becomes bolded
+ * urls becomes a tags
  *
- * @param string content
+ * @param string $content
  * @return string
  */
 function render_comment_content($content)
@@ -208,13 +226,9 @@ function render_comment_content($content)
   $replacement = '<span style="font-style:italic;">$1$2</span>';
   $content = preg_replace($pattern, $replacement, $content);
 
-  return $content;
-}
+  // TODO : add a trigger
 
-function get_cat_display_name_from_id($cat_id, $url = '')
-{
-  $cat_info = get_cat_info($cat_id);
-  return get_cat_display_name($cat_info['upper_names'], $url);
+  return $content;
 }
 
 /**
@@ -266,11 +280,17 @@ function get_html_tag_selection(
   return $output;
 }
 
+/**
+ * Callback used for sorting by name.
+ */
 function name_compare($a, $b)
 {
   return strcmp(strtolower($a['name']), strtolower($b['name']));
 }
 
+/**
+ * Callback used for sorting by name (slug) with cache.
+ */
 function tag_alpha_compare($a, $b)
 {
   global $cache;
@@ -287,7 +307,7 @@ function tag_alpha_compare($a, $b)
 }
 
 /**
- * exits the current script (either exit or redirect)
+ * Exits the current script (or redirect to login page if not logged).
  */
 function access_denied()
 {
@@ -314,9 +334,11 @@ function access_denied()
 }
 
 /**
- * exits the current script with 403 code
- * @param string msg a message to display
- * @param string alternate_url redirect to this url
+ * Exits the current script with 403 code.
+ * TODO : nice display if $template loaded
+ *
+ * @param string $msg
+ * @param string|null $alternate_url redirect to this url
  */
 function page_forbidden($msg, $alternate_url=null)
 {
@@ -331,9 +353,11 @@ function page_forbidden($msg, $alternate_url=null)
 }
 
 /**
- * exits the current script with 400 code
- * @param string msg a message to display
- * @param string alternate_url redirect to this url
+ * Exits the current script with 400 code.
+ * TODO : nice display if $template loaded
+ *
+ * @param string $msg
+ * @param string|null $alternate_url redirect to this url
  */
 function bad_request($msg, $alternate_url=null)
 {
@@ -348,9 +372,11 @@ function bad_request($msg, $alternate_url=null)
 }
 
 /**
- * exits the current script with 404 code when a page cannot be found
- * @param string msg a message to display
- * @param string alternate_url redirect to this url
+ * Exits the current script with 404 code.
+ * TODO : nice display if $template loaded
+ *
+ * @param string $msg
+ * @param string|null $alternate_url redirect to this url
  */
 function page_not_found($msg, $alternate_url=null)
 {
@@ -365,9 +391,12 @@ function page_not_found($msg, $alternate_url=null)
 }
 
 /**
- * exits the current script with 500 http code
- * this method can be called at any time (does not use template/language/user etc...)
- * @param string msg a message to display
+ * Exits the current script with 500 code.
+ * TODO : nice display if $template loaded
+ *
+ * @param string $msg
+ * @param string|null $title
+ * @param bool $show_trace
  */
 function fatal_error($msg, $title=null, $show_trace=true)
 {
@@ -408,7 +437,10 @@ $btrace_msg
   die(0); // just in case
 }
 
-/* returns the title to be displayed above thumbnails on tag page
+/**
+ * Returns the breadcrumb to be displayed above thumbnails on tag page.
+ *
+ * @return string
  */
 function get_tags_content_title()
 {
@@ -457,7 +489,9 @@ function get_tags_content_title()
 }
 
 /**
-  Sets the http status header (200,401,...)
+ * Sets the http status header (200,401,...)
+ * @param int $code
+ * @param string $text for exotic http codes
  */
 function set_status_header($code, $text='')
 {
@@ -486,16 +520,25 @@ function set_status_header($code, $text='')
   trigger_action('set_status_header', $code, $text);
 }
 
-/** returns the category comment for rendering in html textual mode (subcatify)
- * this is an event handler. don't call directly
+/**
+ * Returns the category comment for rendering in html textual mode (subcatify)
+ * This method is called by a trigger_action()
+ *
+ * @param string $desc
+ * @return string
  */
 function render_category_literal_description($desc)
 {
   return strip_tags($desc, '<span><p><a><br><b><i><small><big><strong><em>');
 }
 
-/*event handler for menu*/
-function register_default_menubar_blocks( $menu_ref_arr )
+/**
+ * Add known menubar blocks.
+ * This method is called by a trigger_event()
+ *
+ * @param BlockManager[] $menu_ref_arr
+ */
+function register_default_menubar_blocks($menu_ref_arr)
 {
   $menu = & $menu_ref_arr[0];
   if ($menu->get_id() != 'menubar')
@@ -509,34 +552,46 @@ function register_default_menubar_blocks( $menu_ref_arr )
 }
 
 /**
+ * Returns display name for an element.
+ * Returns 'name' if exists of name from 'file'.
+ *
+ * @param array $info at least file or name
+ * @return string
  */
 function render_element_name($info)
 {
-  $name = $info['name'];
-  if (!empty($name))
+  if (!empty($info['name']))
   {
-    $name = trigger_event('render_element_name', $name);
-    return $name;
+    return trigger_event('render_element_name', $info['name']);
   }
-
   return get_name_from_file($info['file']);
 }
 
+/**
+ * Returns display description for an element.
+ *
+ * @param array $info at least comment
+ * @param string $param used to identify the trigger
+ * @return string
+ */
 function render_element_description($info, $param='')
 {
-  $comment = $info['comment'];
-  if (!empty($comment))
+  if (!empty($info['comment']))
   {
-    $comment = trigger_event('render_element_description', $comment, $param);
-    return $comment;
+    return trigger_event('render_element_description', $info['comment'], $param);
   }
   return '';
 }
 
 /**
- * returns the title of the thumbnail based on photo properties
+ * Add info to the title of the thumbnail based on photo properties.
+ *
+ * @param array $info hit, rating_score, nb_comments
+ * @param string $title
+ * @param string $comment
+ * @return string
  */
-function get_thumbnail_title($info, $title, $comment)
+function get_thumbnail_title($info, $title, $comment='')
 {
   global $conf, $user;
 
@@ -570,16 +625,29 @@ function get_thumbnail_title($info, $title, $comment)
 
   $title = htmlspecialchars(strip_tags($title));
   $title = trigger_event('get_thumbnail_title', $title, $info);
+
   return $title;
 }
 
-/** optional event handler to protect src image urls */
+/**
+ * Event handler to protect src image urls.
+ *
+ * @param string $url
+ * @param SrcImage $src_image
+ * @return string
+ */
 function get_src_image_url_protection_handler($url, $src_image)
 {
   return get_action_url($src_image->id, $src_image->is_original() ? 'e' : 'r', false);
 }
 
-/** optional event handler to protect element urls */
+/**
+ * Event handler to protect element urls.
+ *
+ * @param string $url
+ * @param array $infos id, path
+ * @return string
+ */
 function get_element_url_protection_handler($url, $infos)
 {
   global $conf;
@@ -594,7 +662,9 @@ function get_element_url_protection_handler($url, $infos)
   return get_action_url($infos['id'], 'e', false);
 }
 
-
+/**
+ * Sends to the template all messages stored in $page and in the session.
+ */
 function flush_page_messages()
 {
   global $template, $page;
