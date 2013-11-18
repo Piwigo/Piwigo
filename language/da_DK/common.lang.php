@@ -419,4 +419,6 @@ $lang['Go back to the album'] = 'Gå tilbage til albummet';
 $lang['Last Page'] = 'Sidste side';
 $lang['Password is missing. Please enter the password.'] = 'Adgangskoden mangler. Indtast adgangskoden.';
 $lang['Password confirmation is missing. Please confirm the chosen password.'] = 'Adgangskodebekræftelse mangler. Bekræft den valgte adgangskode.';
+$lang['%d photos per page'] = '%d fotografier pr. side';
+$lang['Theme'] = 'Tema';
 ?>
