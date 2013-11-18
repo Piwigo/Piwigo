@@ -103,12 +103,19 @@ function get_filename_wo_extension( $filename )
   return ($pos===false) ? $filename : substr( $filename, 0, $pos);
 }
 
+/** no option for mkgetdir() */
 define('MKGETDIR_NONE', 0);
+/** sets mkgetdir() recursive */
 define('MKGETDIR_RECURSIVE', 1);
+/** sets mkgetdir() exit script on error */
 define('MKGETDIR_DIE_ON_ERROR', 2);
+/** sets mkgetdir() add a index.htm file */
 define('MKGETDIR_PROTECT_INDEX', 4);
+/** sets mkgetdir() add a .htaccess file*/
 define('MKGETDIR_PROTECT_HTACCESS', 8);
-define('MKGETDIR_DEFAULT', 7);
+/** default options for mkgetdir() = MKGETDIR_RECURSIVE | MKGETDIR_DIE_ON_ERROR | MKGETDIR_PROTECT_INDEX */
+define('MKGETDIR_DEFAULT', MKGETDIR_RECURSIVE | MKGETDIR_DIE_ON_ERROR | MKGETDIR_PROTECT_INDEX);
+
 /**
  * creates directory if not exists and ensures that directory is writable
  *

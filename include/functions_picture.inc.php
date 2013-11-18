@@ -21,13 +21,18 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
+/**
+ * @package functions\picture
+ */
 
-/*
- * get slideshow default params into array
+
+/**
+ * Returns slideshow default params.
+ * - period
+ * - repeat
+ * - play
  *
- * @param void
- *
- * @return slideshow default values into array
+ * @return array
  */
 function get_default_slideshow_params()
 {
@@ -40,14 +45,13 @@ function get_default_slideshow_params()
     );
 }
 
-/*
- * check and correct slideshow params from array
+/**
+ * Checks and corrects slideshow params
  *
- * @param array of params
- *
- * @return slideshow corrected values into array
+ * @param array $params
+ * @return array
  */
-function correct_slideshow_params($params = array())
+function correct_slideshow_params($params=array())
 {
   global $conf;
 
@@ -63,14 +67,13 @@ function correct_slideshow_params($params = array())
   return $params;
 }
 
-/*
- * Decode slideshow string params into array
+/**
+ * Decodes slideshow string params into array
  *
- * @param string params like ""
- *
- * @return slideshow values into array
+ * @param string $encode_params
+ * @return array
  */
-function decode_slideshow_params($encode_params = null)
+function decode_slideshow_params($encode_params=null)
 {
   global $conf;
 
@@ -105,14 +108,13 @@ function decode_slideshow_params($encode_params = null)
   return correct_slideshow_params($result);
 }
 
-/*
- * Encode slideshow array params into array
+/**
+ * Encodes slideshow array params into a string
  *
- * @param array params
- *
- * @return slideshow values into string
+ * @param array $decode_params
+ * @return string
  */
-function encode_slideshow_params($decode_params = array())
+function encode_slideshow_params($decode_params=array())
 {
   global $conf;
 
@@ -127,4 +129,5 @@ function encode_slideshow_params($decode_params = array())
 
   return $result;
 }
+
 ?>

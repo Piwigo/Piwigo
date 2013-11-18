@@ -22,10 +22,15 @@
 // +-----------------------------------------------------------------------+
 
 /**
- * returns informations from IPTC metadata, mapping is done at the beginning
- * of the function
+ * @package functions\metadata
+ */
+
+
+/**
+ * returns informations from IPTC metadata, mapping is done in this function.
  *
  * @param string $filename
+ * @param array $map
  * @return array
  */
 function get_iptc_data($filename, $map)
@@ -80,9 +85,9 @@ function get_iptc_data($filename, $map)
 }
 
 /**
- * return a cleaned IPTC value
+ * return a cleaned IPTC value.
  *
- * @param string value
+ * @param string $value
  * @return string
  */
 function clean_iptc_value($value)
@@ -127,10 +132,10 @@ function clean_iptc_value($value)
 }
 
 /**
- * returns informations from EXIF metadata, mapping is done at the beginning
- * of the function
+ * returns informations from EXIF metadata, mapping is done in this function.
  *
  * @param string $filename
+ * @param array $map
  * @return array
  */
 function get_exif_data($filename, $map)
@@ -180,4 +185,5 @@ function get_exif_data($filename, $map)
 
   return $result;
 }
+
 ?>

@@ -22,7 +22,13 @@
 // +-----------------------------------------------------------------------+
 
 /**
+ * @package functions\mail
+ */
+
+
+/**
  * Returns the name of the mail sender
+ *
  * @return string
  */
 function get_mail_sender_name()
@@ -34,6 +40,7 @@ function get_mail_sender_name()
 
 /**
  * Returns the email of the mail sender
+ *
  * @since 2.6
  * @return string
  */
@@ -45,7 +52,7 @@ function get_mail_sender_email()
 }
 
 /**
- * Returns an array of mail configuration parameters :
+ * Returns an array of mail configuration parameters.
  * - send_bcc_mail_webmaster
  * - mail_allow_html
  * - use_smtp
@@ -79,9 +86,14 @@ function get_mail_configuration()
 }
 
 /**
- * Returns an email address with an associated real name
- * @param string name
- * @param string email
+ * Returns an email address with an associated real name.
+ * Can return either:
+ *    - email@domain.com
+ *    - name <email@domain.com>
+ *
+ * @param string $name
+ * @param string $email
+ * @return string
  */
 function format_email($name, $email)
 {
@@ -104,10 +116,11 @@ function format_email($name, $email)
 }
 
 /**
- * Returns the mail and the name from a formatted address
+ * Returns the email and the name from a formatted address.
  * @since 2.6
- * @param string|array $input
- * @return array
+ *
+ * @param string|string[] $input - if is an array must contain email[, name]
+ * @return array email, name
  */
 function unformat_email($input)
 {
@@ -137,10 +150,12 @@ function unformat_email($input)
 }
 
 /**
- * Return a clean array of hashmaps (email, name) from various inputs
- * - comma separated list
- * - array of emails
- * - single hashmap (email[, name])
+ * Return a clean array of hashmaps (email, name) removing duplicates.
+ * It accepts various inputs:
+ *    - comma separated list
+ *    - array of emails
+ *    - single hashmap (email[, name])
+ *    - array of incomplete hashmaps
  * @since 2.6
  *
  * @param mixed $data
@@ -163,7 +178,7 @@ function get_clean_recipients_list($data)
         foreach ($data as &$item)
         {
           $item = array(
-            'email' => $item,
+            'email' => trim($item),
             'name' => '',
             );
         }
@@ -184,12 +199,27 @@ function get_clean_recipients_list($data)
     $data = explode(',', $data);
     $data = array_map('unformat_email', $data);
   }
-  
-  return $data;
+
+  $existing = array();
+  foreach ($data as $i => $entry)
+  {
+    if (isset($existing[ $entry['email'] ])
+    {
+      unset($data[$i]);
+    }
+    else
+    {
+      $existing[ $entry['email'] ] = true;
+    }
+  }
+
+  return array_values($data);
 }
 
 /**
- * Returns an email address list with minimal email string
+ * Returns an email address list with minimal email string.
+ * @deprecated 2.6
+ *
  * @param string $email_list - comma separated
  * @return string
  */
@@ -211,7 +241,8 @@ function get_strict_email_list($email_list)
 }
 
 /**
- * Return an new mail template
+ * Return an new mail template.
+ *
  * @param string $email_format - text/html or text/plain
  * @return Template
  */
@@ -222,8 +253,9 @@ function &get_mail_template($email_format)
 }
 
 /**
- * Return string email format (text/html or text/plain)
- * @param bool is_html
+ * Return string email format (text/html or text/plain).
+ *
+ * @param bool $is_html
  * @return string
  */
 function get_str_email_format($is_html)
@@ -232,8 +264,9 @@ function get_str_email_format($is_html)
 }
 
 /**
- * Switch language to specified language
+ * Switch language to specified language.
  * All entries are push on language stack
+ *
  * @param string $language
  */
 function switch_lang_to($language)
@@ -295,7 +328,8 @@ function switch_lang_to($language)
 }
 
 /**
- * Switch back language pushed with switch_lang_to function
+ * Switch back language pushed with switch_lang_to() function.
+ * @see switch_lang_to()
  */
 function switch_lang_back()
 {
@@ -317,8 +351,9 @@ function switch_lang_back()
 }
 
 /**
- * Send a notification email to all administrators
+ * Send a notification email to all administrators.
  * current user (if admin) is not notified
+ *
  * @param string|array $subject
  * @param string|array $content
  * @param boolean $send_technical_details - send user IP and browser
@@ -375,7 +410,7 @@ function pwg_mail_notification_admins($subject, $content, $send_technical_detail
 }
 
 /**
- * Send a email to all administrators
+ * Send a email to all administrators.
  * current user (if admin) is excluded
  * @see pwg_mail()
  * @since 2.6
@@ -424,12 +459,12 @@ SELECT
 }
 
 /**
- * Send an email to a group
+ * Send an email to a group.
  * @see pwg_mail()
  *
  * @param int $group_id
  * @param array $args - as in pwg_mail()
- *    @option string language_selected - filters users of the group by language
+ *       o language_selected: filters users of the group by language [default value empty]
  * @param array $tpl - as in pwg_mail()
  * @return boolean
  */
@@ -508,9 +543,9 @@ SELECT
 }
 
 /**
- * sends an email, using Piwigo specific informations
+ * Sends an email, using Piwigo specific informations.
  *
- * @param string|string[] $to
+ * @param string|array $to
  * @param array $args
  *       o from: sender [default value webmaster email]
  *       o Cc: array of carbon copy receivers of the mail. [default value empty]
@@ -593,7 +628,10 @@ function pwg_mail($to, $args=array(), $tpl=array())
   $Bcc = get_clean_recipients_list(@$args['Bcc']);
   if ($conf_mail['send_bcc_mail_webmaster'])
   {
-    $Bcc[] = get_webmaster_mail_address();
+    $Bcc[] = array(
+      'email' => get_webmaster_mail_address(),
+      'name' => '',
+      );
   }
   if (!empty($Bcc))
   {
@@ -821,7 +859,7 @@ function pwg_mail($to, $args=array(), $tpl=array())
   if ($pre_result)
   {
     $ret = $mail->send();
-    if (!$ret and (!ini_get('display_errors') || is_admin()))
+    if (!$ret and (!ini_get('display_errors') or is_admin()))
     {
       trigger_error('Mailer Error: ' . $mail->ErrorInfo, E_USER_WARNING);
     }
@@ -858,9 +896,10 @@ function pwg_send_mail($result, $to, $subject, $content, $headers)
 }
 
 /**
- * Moves CSS rules contained in the <style> tag to inline CSS
- * (for compatibility with Gmail and such clients)
+ * Moves CSS rules contained in the <style> tag to inline CSS.
+ * Used for compatibility with Gmail and such clients
  * @since 2.6
+ *
  * @param string $content
  * @return string
  */
@@ -874,12 +913,11 @@ function move_css_to_body($content)
 }
 
 /**
- * Saves a copy of the mail if _data/tmp
- * @param boolean $result
- * @param string $to
- * @param array $args
+ * Saves a copy of the mail if _data/tmp.
+ *
+ * @param boolean $success
  * @param PHPMailer $mail
- * @return boolean $result
+ * @param array $args
  */
 function pwg_send_mail_test($success, $mail, $args)
 {
