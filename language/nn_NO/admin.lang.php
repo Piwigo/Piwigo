@@ -947,4 +947,17 @@ $lang['Select at least one tag'] = 'Vel minst eitt nøkkelord';
 $lang['Basic settings'] = 'Grunnleggjande innstillingar';
 $lang['General'] = 'Generelt';
 $lang['Mail theme'] = 'E-posttema';
+$lang['User %s added'] = 'Brukar %s lagt til';
+$lang['User %s updated'] = 'Brukar %s er oppdatera';
+$lang['Users modified'] = 'Brukarar er endra';
+$lang['%d of %d users selected'] = '%d av %d brukarar er valde';
+$lang['(filtered from %s total users)'] = '(filtrera frå %s brukarar totalt)';
+$lang['All %d users are selected'] = 'Alle %d brukarar er valde';
+$lang['Change password'] = 'Endre passord';
+$lang['Change username'] = 'Endre brukarnamn';
+$lang['Last visit on %s, %s.'] = 'Sist vitja %s, %s.';
+$lang['Loading...'] = 'Lastar...';
+$lang['No matching users found'] = 'Ingen brukarar vart funne';
+$lang['Password updated'] = 'Passordet er endra';
+$lang['Show %s users'] = 'Vis %s brukarar';
 ?>
