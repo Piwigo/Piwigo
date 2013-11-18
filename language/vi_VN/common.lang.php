@@ -418,4 +418,5 @@ $lang['Go back to the album'] = 'Quay trở lại album';
 $lang['Last Page'] = 'Trang cuối';
 $lang['Password is missing. Please enter the password.'] = 'Thiếu mật khẩu. Vui lòng nhập mật khẩu.';
 $lang['Password confirmation is missing. Please confirm the chosen password.'] = 'Xác nhận mật khẩu bị thiếu. Vui lòng xác nhận lại mật khẩu đã chọn.';
+$lang['%d photos per page'] = '%d ảnh mỗi trang';
 ?>
