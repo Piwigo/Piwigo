@@ -161,20 +161,52 @@ $template->assign(
 // we need to know the category in which the last photo was added
 $selected_category = array();
 
-$query = '
+if (isset($_GET['album']))
+{
+  // set the category from get url or ...
+  check_input_parameter('album', $_GET, false, PATTERN_ID);
+  
+  // test if album really exists
+  $query = '
+SELECT id
+  FROM '.CATEGORIES_TABLE.'
+  WHERE id = '.$_GET['album'].'
+;';
+  $result = pwg_query($query);
+  if (pwg_db_num_rows($result) == 1)
+  {
+    $selected_category = array($_GET['album']);
+    
+    // lets put in the session to persist in case of upload method switch
+    $_SESSION['selected_category'] = $selected_category;
+  }
+  else
+  {
+    fatal_error('[Hacking attempt] the album id = "'.$_GET['album'].'" is not valid');
+  }
+}
+else if (isset($_SESSION['selected_category']))
+{
+  $selected_category = $_SESSION['selected_category'];
+}
+else
+{
+  // we need to know the category in which the last photo was added
+  $query = '
 SELECT category_id
   FROM '.IMAGES_TABLE.' AS i
     JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON image_id = i.id
     JOIN '.CATEGORIES_TABLE.' AS c ON category_id = c.id
   ORDER BY i.id DESC
   LIMIT 1
-;';
-$result = pwg_query($query);
-if (pwg_db_num_rows($result) > 0)
-{
-  $row = pwg_db_fetch_assoc($result);
-  
-  $selected_category = array($row['category_id']);
+;
+';
+  $result = pwg_query($query);
+  if (pwg_db_num_rows($result) > 0)
+  {
+    $row = pwg_db_fetch_assoc($result);
+    $selected_category = array($row['category_id']);
+  }
 }
 
 // existing album

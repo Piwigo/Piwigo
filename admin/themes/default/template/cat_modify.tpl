@@ -38,6 +38,8 @@
   <li><a href="{$U_MANAGE_ELEMENTS}">{'manage album photos'|@translate}</a></li>
 {/if}
 
+  <li style="text-transform:lowercase;"><a href="{$U_ADD_PHOTOS_ALBUM}">{'Add Photos'|translate}</a></li>
+
   <li><a href="{$U_CHILDREN}">{'manage sub-albums'|@translate}</a></li>
 
 {if isset($U_SYNC) }
