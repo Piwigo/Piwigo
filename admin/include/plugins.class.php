@@ -29,29 +29,31 @@ class DummyPlugin_maintain extends PluginMaintain
 {
   function install($plugin_version, &$errors=array())
   {
-    return $this->__call(__FUNCTION__, func_get_args());
+    if (is_callable('plugin_install'))
+    {
+      return plugin_install($this->plugin_id, $plugin_version, $errors);
+    }
   }
   function activate($plugin_version, &$errors=array())
   {
-    return $this->__call(__FUNCTION__, func_get_args());
+    if (is_callable('plugin_activate'))
+    {
+      return plugin_activate($this->plugin_id, $plugin_version, $errors);
+    }
   }
   function deactivate()
   {
-    return $this->__call(__FUNCTION__, func_get_args());
+    if (is_callable('plugin_install'))
+    {
+      return plugin_install($this->plugin_id);
+    }
   }
   function uninstall()
   {
-    return $this->__call(__FUNCTION__, func_get_args());
-  }
-
-  function __call($name, $arguments)
-  {
-    if (is_callable('plugin_'.$name))
+    if (is_callable('plugin_uninstall'))
     {
-      array_unshift($arguments, $this->plugin_id);
-      return call_user_func_array('plugin_'.$name, $arguments);
+      return plugin_uninstall($this->plugin_id);
     }
-    return null;
   }
 }
 

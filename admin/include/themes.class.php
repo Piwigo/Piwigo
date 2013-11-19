@@ -29,25 +29,24 @@ class DummyTheme_maintain extends ThemeMaintain
 {
   function activate($theme_version, &$errors=array())
   {
-    return $this->__call(__FUNCTION__, func_get_args());
+    if (is_callable('theme_activate'))
+    {
+      return theme_activate($this->theme_id, $theme_version, $errors);
+    }
   }
   function deactivate()
   {
-    return $this->__call(__FUNCTION__, func_get_args());
+    if (is_callable('theme_deactivate'))
+    {
+      return theme_deactivate($this->theme_id);
+    }
   }
   function delete()
   {
-    return $this->__call(__FUNCTION__, func_get_args());
-  }
-
-  function __call($name, $arguments)
-  {
-    if (is_callable('theme_'.$name))
+    if (is_callable('theme_delete'))
     {
-      array_unshift($arguments, $this->theme_id);
-      return call_user_func_array('theme_'.$name, $arguments);
+      return theme_delete($this->theme_id);
     }
-    return null;
   }
 }
 
