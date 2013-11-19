@@ -417,4 +417,6 @@ $lang['Go back to the album'] = 'Zurück zum Album';
 $lang['Last Page'] = 'Letzte Seite';
 $lang['Password is missing. Please enter the password.'] = 'Das Kennwort fehlt. Bitte geben Sie Ihr Kennwort ein.';
 $lang['Password confirmation is missing. Please confirm the chosen password.'] = 'Das Kennwort zum Überprüfen fehlt. Bitte geben Sie ihr gewähltes Kennwort noch einmal ein.';
+$lang['%d photos per page'] = '%d Bilder pro Seite';
+$lang['Theme'] = 'Thema';
 ?>
