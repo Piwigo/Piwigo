@@ -417,4 +417,5 @@ $lang['Last Page'] = 'Son sayfa';
 $lang['Password is missing. Please enter the password.'] = 'Şifre eksik. Lütfen şifrenizi girin.';
 $lang['Password confirmation is missing. Please confirm the chosen password.'] = 'Şifre doğrulama eksik. Lütfen seçtiğiniz şifreyi doğrulayın.';
 $lang['%d photos per page'] = 'sayfa başına %d fotoğraf';
+$lang['Theme'] = 'Tema';
 ?>
