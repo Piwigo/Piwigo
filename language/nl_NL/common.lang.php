@@ -425,4 +425,5 @@ $lang['Last Page'] = 'Laatste bladzijde';
 $lang['Password is missing. Please enter the password.'] = 'Wachtwoord ontbreekt. Geef uw wachtwoord aub.';
 $lang['Password confirmation is missing. Please confirm the chosen password.'] = 'Wachtwoord-bevestiging ontbreekt. Bevestig aub het gekozen wachtwoord.';
 $lang['%d photos per page'] = '%d foto\'s per pagina';
+$lang['Theme'] = 'Thema';
 ?>
