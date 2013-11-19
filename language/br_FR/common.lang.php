@@ -417,4 +417,5 @@ $lang['group by letters'] = 'strollañ dre lizherenn';
 $lang['Password confirmation is missing. Please confirm the chosen password.'] = 'N\'ho peus ket kadarnaet ar ger-tremen. Kadarnait ar ger-tremen ho peus skrivet.';
 $lang['Password is missing. Please enter the password.'] = 'Mankout a ra ar ger-tremen. Skrivit ar ger-tremen.';
 $lang['%d photos per page'] = '%d luc\'hskeudenn e pep pajenn';
+$lang['Theme'] = 'Tem';
 ?>
