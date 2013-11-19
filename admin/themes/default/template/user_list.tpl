@@ -558,9 +558,9 @@ jQuery(document).ready(function() {
     "oLanguage": {
       "sProcessing": "{/literal}{'Loading...'|translate|escape:'javascript'}{literal}",
       "sLengthMenu": sprintf("{/literal}{'Show %s users'|translate|escape:'javascript'}{literal}", '_MENU_'),
-      "sZeroRecords": "{/literal}{'No matching users found'|translate|escape:'javascript'}{literal}",
+      "sZeroRecords": "{/literal}{'No matching user found'|translate|escape:'javascript'}{literal}",
       "sInfo": sprintf("{/literal}{'Showing %s to %s of %s users'|translate|escape:'javascript'}{literal}", '_START_', '_END_', '_TOTAL_'),
-      "sInfoEmpty": "{/literal}{'No matching users found'|translate|escape:'javascript'}{literal}",
+      "sInfoEmpty": "{/literal}{'No matching user found'|translate|escape:'javascript'}{literal}",
       "sInfoFiltered": sprintf("{/literal}{'(filtered from %s total users)'|translate|escape:'javascript'}{literal}", '_MAX_'),
       "sSearch": '<span class="icon-search"></span>'+"{/literal}{'Search'|translate|escape:'javascript'}{literal}",
       "sLoadingRecords": "{/literal}{'Loading...'|translate|escape:'javascript'}{literal}",
