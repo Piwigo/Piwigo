@@ -750,7 +750,7 @@ var s,after = document.getElementsByTagName(\'script\')[document.getElementsByTa
       $params['id'] = md5($params['path']);
     }
 
-    $this->cssLoader->add($params['id'], $params['path'], (int)@$params['version'], (int)@$params['order'], (bool)@$params['template']);
+    $this->cssLoader->add($params['id'], $params['path'], isset($params['version']) ? $params['version'] : 0, (int)@$params['order'], (bool)@$params['template']);
   }
 
   function func_get_combined_css($params)
@@ -1437,7 +1437,7 @@ final class FileCombiner
     return $result;
   }
 
-  private function flush_pending(&$result, $pending, $key, $force)
+  private function flush_pending(&$result, &$pending, $key, $force)
   {
     if (count($pending)>1)
     {
