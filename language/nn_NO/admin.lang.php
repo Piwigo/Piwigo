@@ -957,7 +957,7 @@ $lang['Change password'] = 'Endre passord';
 $lang['Change username'] = 'Endre brukarnamn';
 $lang['Last visit on %s, %s.'] = 'Sist vitja %s, %s.';
 $lang['Loading...'] = 'Lastar...';
-$lang['No matching users found'] = 'Ingen brukarar vart funne';
+$lang['No matching user found'] = 'Ingen brukarar vart funne';
 $lang['Password updated'] = 'Passordet er endra';
 $lang['Show %s users'] = 'Vis %s brukarar';
 ?>
