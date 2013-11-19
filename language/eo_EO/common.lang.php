@@ -419,4 +419,5 @@ $lang['Last Page'] = 'Lasta paĝo';
 $lang['Password is missing. Please enter the password.'] = 'Mankas pasvorto. Bonvolu redakti la pasvorton.';
 $lang['Password confirmation is missing. Please confirm the chosen password.'] = 'Mankas konfirmado de pasvorto. Bonvolu konfirmi la elektitan pasvorton.';
 $lang['%d photos per page'] = '%d fotoj sur ĉiu paĝo';
+$lang['Theme'] = 'Temo';
 ?>
