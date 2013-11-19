@@ -416,4 +416,5 @@ $lang['Last Page'] = 'Zadnja stran';
 $lang['Password is missing. Please enter the password.'] = 'Manjka geslo. Prosimo vpišite geslo.';
 $lang['Password confirmation is missing. Please confirm the chosen password.'] = 'Manjka potrditev gesla. Prosimo potrdite izbrano geslo.';
 $lang['%d photos per page'] = '%d slik na stran';
+$lang['Theme'] = 'Preobleka';
 ?>
