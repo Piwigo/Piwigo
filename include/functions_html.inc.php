@@ -335,7 +335,7 @@ function access_denied()
 
 /**
  * Exits the current script with 403 code.
- * TODO : nice display if $template loaded
+ * @todo nice display if $template loaded
  *
  * @param string $msg
  * @param string|null $alternate_url redirect to this url
@@ -354,7 +354,7 @@ function page_forbidden($msg, $alternate_url=null)
 
 /**
  * Exits the current script with 400 code.
- * TODO : nice display if $template loaded
+ * @todo nice display if $template loaded
  *
  * @param string $msg
  * @param string|null $alternate_url redirect to this url
@@ -373,7 +373,7 @@ function bad_request($msg, $alternate_url=null)
 
 /**
  * Exits the current script with 404 code.
- * TODO : nice display if $template loaded
+ * @todo nice display if $template loaded
  *
  * @param string $msg
  * @param string|null $alternate_url redirect to this url
@@ -392,7 +392,7 @@ function page_not_found($msg, $alternate_url=null)
 
 /**
  * Exits the current script with 500 code.
- * TODO : nice display if $template loaded
+ * @todo nice display if $template loaded
  *
  * @param string $msg
  * @param string|null $title

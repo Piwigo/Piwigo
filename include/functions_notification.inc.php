@@ -24,8 +24,6 @@
 /**
  * @package functions\notification
  */
- 
-// TODO : use a cache for all data returned by custom_notification_query()
 
 
 /**
@@ -54,6 +52,7 @@ function get_std_sql_where_restrict_filter($prefix_condition,
 
 /**
  * Execute custom notification query.
+ * @todo use a cache for all data returned by custom_notification_query()
  *
  * @param string $action 'count', 'info'
  * @param string $type 'new_comments', 'unvalidated_comments', 'new_elements', 'updated_categories', 'new_users'
@@ -343,7 +342,7 @@ function new_users($start=null, $end=null)
  * Takes in account: number of new comments, number of new elements, number of
  * updated categories. Administrators are also informed about: number of
  * unvalidated comments, number of new users.
- * TODO : number of unvalidated elements
+ * @todo number of unvalidated elements
  *
  * @param string $start (mysql datetime format)
  * @param string $end (mysql datetime format)
@@ -388,7 +387,7 @@ function add_news_line(&$news, $count, $singular_key, $plural_key, $url='', $add
  * Takes in account: number of new comments, number of new elements, number of
  * updated categories. Administrators are also informed about: number of
  * unvalidated comments, number of new users.
- * TODO : number of unvalidated elements
+ * @todo number of unvalidated elements
  *
  * @param string $start (mysql datetime format)
  * @param string $end (mysql datetime format)
@@ -517,7 +516,7 @@ function get_recent_post_dates_array($args)
 
 /**
  * Returns html description about recently published elements grouped by post date.
- * TODO : clean up HTML output, currently messy and invalid !
+ * @todo clean up HTML output, currently messy and invalid !
  *
  * @param array $date_detail returned value of get_recent_post_dates()
  * @return string

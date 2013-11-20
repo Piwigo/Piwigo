@@ -238,14 +238,26 @@ function remove_event_handler($event, $func,
 
 /**
  * Triggers a modifier event and calls all registered event handlers.
- * trigger_modify() is used as a modifier: it allows to transmit _$data_
+ * trigger_change() is used as a modifier: it allows to transmit _$data_
  * through all handlers, thus each handler MUST return a value,
  * optional _$args_ are not transmitted.
+ *
+ * @since 2.6
+ * @todo remove trigger_event()
  *
  * @param string $event
  * @param mixed $data data to transmit to all handlers
  * @param mixed $args,... optional arguments
  * @return mixed $data 
+ */
+function trigger_change($event, $data=null)
+{
+  return call_user_func_array('trigger_event', func_get_args());
+}
+
+/**
+ * @deprecated 2.6
+ * @see trigger_change
  */
 function trigger_event($event, $data=null)
 {
@@ -279,11 +291,23 @@ function trigger_event($event, $data=null)
 }
 
 /**
- * Triggers an notifier event and calls all registered event handlers.
- * trigger_action() is only used as a notifier, no modification of data is possible
+ * Triggers a notifier event and calls all registered event handlers.
+ * trigger_notify() is only used as a notifier, no modification of data is possible
+ *
+ * @since 2.6
+ * @todo remove trigger_action()
  *
  * @param string $event
  * @param mixed $args,... optional arguments
+ */
+function trigger_notify($event)
+{
+  return call_user_func_array('trigger_action', func_get_args());
+}
+
+/**
+ * @deprecated 2.6
+ * @see trigger_notify
  */
 function trigger_action($event)
 {
