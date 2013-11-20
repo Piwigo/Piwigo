@@ -21,41 +21,54 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
-/*
-Events and event handlers are the core of Piwigo plugin management.
-Plugins are addons that are found in plugins subdirectory. If activated, PWG
-will include the index.php of each plugin.
-Events are triggered by PWG core code. Plugins (or even PWG itself) can
-register their functions to handle these events. An event is identified by a
-string.
-*/
+/**
+ * @package functions\plugins
+ */
 
+
+/** base directory of plugins */
 define('PHPWG_PLUGINS_PATH', PHPWG_ROOT_PATH.'plugins/');
+/** default priority for plugins handlers */
 define('EVENT_HANDLER_PRIORITY_NEUTRAL', 50);
 
 
 /**
- * class PluginMaintain
- * used to declare maintenance methods of a plugin
+ * Used to declare maintenance methods of a plugin.
  */
 abstract class PluginMaintain 
 {
+  /** @var string $plugin_id */
   protected $plugin_id;
-  
+
+  /**
+   * @param string $id
+   */
   function __construct($id)
   {
     $this->plugin_id = $id;
   }
-  
+
+  /**
+   * @param string $plugin_version
+   * @param array $errors - used to return error messages
+   */
   abstract function install($plugin_version, &$errors=array());
+
+  /**
+   * @param string $plugin_version
+   * @param array $errors - used to return error messages
+   */
   abstract function activate($plugin_version, &$errors=array());
+
   abstract function deactivate();
+
   abstract function uninstall();
-  
-  /*
-   * test if a plugin needs to be updated and call a update function
-   * @param: string $version, version exposed by the plugin
-   * @param: string $on_update, name of a method to call when an update is needed
+
+  /**
+   * Tests if the plugin needs to be updated and call an update function
+   *
+   * @param string $version version exposed by the plugin (potentially new)
+   * @param string $on_update name of a method to call when an update is needed
    *          it receives the previous version as first parameter
    */
   function autoUpdate($version, $on_update=null)
@@ -89,26 +102,36 @@ UPDATE '. PLUGINS_TABLE .'
 }
 
 /**
- * class ThemeMaintain
- * used to declare maintenance methods of a theme
+ * Used to declare maintenance methods of a theme.
  */
 abstract class ThemeMaintain 
 {
+  /** @var string $theme_id */
   protected $theme_id;
-  
+
+  /**
+   * @param string $id
+   */
   function __construct($id)
   {
     $this->theme_id = $id;
   }
-  
+
+  /**
+   * @param string $theme_version
+   * @param array $errors - used to return error messages
+   */
   abstract function activate($theme_version, &$errors=array());
+
   abstract function deactivate();
+
   abstract function delete();
   
-  /*
-   * test if a theme needs to be updated and call a update function
-   * @param: string $version, version exposed by the theme
-   * @param: string $on_update, name of a method to call when an update is needed
+  /**
+   * Tests if the theme needs to be updated and call an update function
+   *
+   * @param string $version version exposed by the theme (potentially new)
+   * @param string $on_update name of a method to call when an update is needed
    *          it receives the previous version as first parameter
    */
   function autoUpdate($version, $on_update=null)
@@ -143,12 +166,13 @@ UPDATE '. THEMES_TABLE .'
 }
 
 
-/* Register a event handler.
+/**
+ * Register an event handler.
+ *
  * @param string $event the name of the event to listen to
- * @param mixed $func the function that will handle the event
- * @param int $priority optional priority (greater priority will
- * be executed at last)
-*/
+ * @param Callable $func the callback function
+ * @param int $priority greater priority will be executed at last
+ */
 function add_event_handler($event, $func,
     $priority=EVENT_HANDLER_PRIORITY_NEUTRAL, $accepted_args=1)
 {
@@ -173,12 +197,14 @@ function add_event_handler($event, $func,
   return true;
 }
 
-/* Register a event handler.
- * @param string $event the name of the event to listen to
- * @param mixed $func the function that needs removal
- * @param int $priority optional priority (greater priority will
- * be executed at last)
-*/
+/**
+ * Removes an event handler.
+ * @see add_event_handler()
+ *
+ * @param string $event
+ * @param Callable $func
+ * @param int $priority
+ */
 function remove_event_handler($event, $func,
    $priority=EVENT_HANDLER_PRIORITY_NEUTRAL)
 {
@@ -210,10 +236,17 @@ function remove_event_handler($event, $func,
   return false;
 }
 
-/* Triggers an event and calls all registered event handlers
- * @param string $event name of the event
- * @param mixed $data data to pass to handlers
-*/
+/**
+ * Triggers a modifier event and calls all registered event handlers.
+ * trigger_modify() is used as a modifier: it allows to transmit _$data_
+ * through all handlers, thus each handler MUST return a value,
+ * optional _$args_ are not transmitted.
+ *
+ * @param string $event
+ * @param mixed $data data to transmit to all handlers
+ * @param mixed $args,... optional arguments
+ * @return mixed $data 
+ */
 function trigger_event($event, $data=null)
 {
   global $pwg_event_handlers;
@@ -245,13 +278,20 @@ function trigger_event($event, $data=null)
   return $data;
 }
 
-function trigger_action($event, $data=null)
+/**
+ * Triggers an notifier event and calls all registered event handlers.
+ * trigger_action() is only used as a notifier, no modification of data is possible
+ *
+ * @param string $event
+ * @param mixed $args,... optional arguments
+ */
+function trigger_action($event)
 {
   global $pwg_event_handlers;
   if ( isset($pwg_event_handlers['trigger']) and $event!='trigger' )
   {// special case for debugging - avoid recursive calls
     trigger_action('trigger',
-        array('type'=>'action', 'event'=>$event, 'data'=>$data) );
+        array('type'=>'action', 'event'=>$event, 'data'=>null) );
   }
 
   if ( !isset($pwg_event_handlers[$event]) )
@@ -272,11 +312,14 @@ function trigger_action($event, $data=null)
   }
 }
 
-/** Saves some data with the associated plugim id. It can be retrieved later (
- * during this script lifetime) using get_plugin_data
- * @param string plugin_id
- * @param mixed data
- * returns true on success, false otherwise
+/**
+ * Saves some data with the associated plugin id, data are only available
+ * during script lifetime.
+ * @depracted 2.6
+ *
+ * @param string $plugin_id
+ * @param mixed $data
+ * @return bool
  */
 function set_plugin_data($plugin_id, &$data)
 {
@@ -289,23 +332,31 @@ function set_plugin_data($plugin_id, &$data)
   return false;
 }
 
-/** Retrieves plugin data saved previously with set_plugin_data
- * @param string plugin_id
+/**
+ * Retrieves plugin data saved previously with set_plugin_data.
+ * @see set_plugin_data()
+ * @depracted 2.6
+ *
+ * @param string $plugin_id
+ * @return mixed
  */
 function &get_plugin_data($plugin_id)
 {
   global $pwg_loaded_plugins;
-  if ( isset($pwg_loaded_plugins[$plugin_id]) )
+  if ( isset($pwg_loaded_plugins[$plugin_id]['plugin_data']) )
   {
     return $pwg_loaded_plugins[$plugin_id]['plugin_data'];
   }
   return null;
 }
 
-/* Returns an array of plugins defined in the database
- * @param string $state optional filter on this state
- * @param string $id optional returns only data about given plugin
-*/
+/**
+ * Returns an array of plugins defined in the database.
+ *
+ * @param string $state optional filter
+ * @param string $id returns only data about given plugin
+ * @return array
+ */
 function get_db_plugins($state='', $id='')
 {
   $query = '
@@ -334,7 +385,11 @@ SELECT * FROM '.PLUGINS_TABLE;
   return $plugins;
 }
 
-
+/**
+ * Loads a plugin, it includes the main.inc.php file and updates _$pwg_loaded_plugins_.
+ *
+ * @param string $plugin
+ */
 function load_plugin($plugin)
 {
   $file_name = PHPWG_PLUGINS_PATH.$plugin['id'].'/main.inc.php';
@@ -346,7 +401,9 @@ function load_plugin($plugin)
   }
 }
 
-/*loads all the plugins on startup*/
+/**
+ * Loads all the registered plugins.
+ */
 function load_plugins()
 {
   global $conf, $pwg_loaded_plugins;
