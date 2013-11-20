@@ -417,4 +417,6 @@ $lang['Go back to the album'] = 'Επιστροφή Στο Λεύκωμα';
 $lang['First Page'] = 'Αρχική Σελίδα';
 $lang['Password is missing. Please enter the password.'] = 'Κωδικός λείπει. Παρακαλώ εισάγετε τον κωδικό πρόσβασης.';
 $lang['Password confirmation is missing. Please confirm the chosen password.'] = 'Η επιβεβαίωση κωδικού λείπει. Επιβεβαιώστε τον επιλεγμένο κωδικό πρόσβασης';
+$lang['Theme'] = 'Θέμα';
+$lang['%d photos per page'] = '%d φωτογραφίες ανά σελίδα';
 ?>
