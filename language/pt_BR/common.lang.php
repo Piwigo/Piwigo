@@ -263,7 +263,7 @@ $lang['searched words : %s'] = 'Palavras pesquisadas : %s';
 $lang['Contact'] = 'Contatar';
 $lang['set as album representative'] = 'eleger para representar este álbum';
 $lang['Show number of comments'] = 'Exibir o número de comentários';
-$lang['Show number of hits'] = 'Exibir o número de vizualisações';
+$lang['Show number of hits'] = 'Exibir o número de visualizações';
 $lang['slideshow'] = 'Slideshow';
 $lang['stop the slideshow'] = 'interromper o Slideshow';
 $lang['Specials'] = 'Ferramentas';
@@ -417,4 +417,6 @@ $lang['Last Page'] = 'Última página';
 $lang['day']['4'] = 'Quinta-feira';
 $lang['Password is missing. Please enter the password.'] = 'Senha perdida. Por favor entre com a senha.';
 $lang['Password confirmation is missing. Please confirm the chosen password.'] = 'Confirmação de senhas perdida. Por favor confirme a senha escolhida.';
+$lang['%d photos per page'] = '%d fotos por página';
+$lang['Theme'] = 'Tema';
 ?>
