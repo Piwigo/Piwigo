@@ -832,43 +832,6 @@ function redirect( $url , $msg = '', $refresh_time = 0)
 }
 
 /**
- * returns $_SERVER['QUERY_STRING'] whithout keys given in parameters
- *
- * @param string[] $rejects
- * @param boolean $escape escape *&* to *&amp;*
- * @returns string
- */
-function get_query_string_diff($rejects=array(), $escape=true)
-{
-  if (empty($_SERVER['QUERY_STRING']))
-  {
-    return '';
-  }
-
-  parse_str($_SERVER['QUERY_STRING'], $vars);
-
-  $vars = array_diff_key($vars, array_flip($rejects));
-  
-  return '?' . http_build_query($vars, '', $escape ? '&amp;' : '&');
-}
-
-/**
- * returns true if the url is absolute (begins with http)
- *
- * @param string $url
- * @returns boolean
- */
-function url_is_remote($url)
-{
-  if ( strncmp($url, 'http://', 7)==0
-    or strncmp($url, 'https://', 8)==0 )
-  {
-    return true;
-  }
-  return false;
-}
-
-/**
  * returns available themes
  *
  * @param bool $show_mobile
