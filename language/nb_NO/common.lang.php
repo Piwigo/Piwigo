@@ -416,4 +416,6 @@ $lang['Go back to the album'] = 'Tilbake til albumet';
 $lang['Last Page'] = 'Siste side';
 $lang['Password is missing. Please enter the password.'] = 'Passord mangler. Vennligst skriv passord.';
 $lang['Password confirmation is missing. Please confirm the chosen password.'] = 'Passord bekreftelse mangler. Vennligst bekreft det valgte passord.';
+$lang['%d photos per page'] = '%d bilder pr side';
+$lang['Theme'] = 'Tema';
 ?>
