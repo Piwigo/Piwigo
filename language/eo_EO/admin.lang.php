@@ -963,4 +963,11 @@ $lang['global mode'] = 'malloka reĝimo';
 $lang['group "%s" added'] = 'grupo "%s" aldoniĝis';
 $lang['group "%s" deleted'] = 'grupo "%s" foriĝis';
 $lang['group "%s" updated'] = 'grupo "%s" ĝisdatiĝis';
+$lang['In your php.ini file, the upload_max_filesize (%sB) is bigger than post_max_size (%sB), you should change this setting'] = 'En via dosiero php.ini, la grandeco upload_max_filesize (%sB) estas pli granda ol post_max_size (%sB), vi devus modifi tiun agordon';
+$lang['ReGalAndroid (RemoteGallery client for Android) is an open source (GPL v3) Piwigo client for the Android platform.'] = 'ReGalAndroid (RemoteGallery Android) estas malfermitkoda kliento (GPL v3) por Piwigo sur Android.';
+$lang['The Piwigo publish Plug-in allows you to export and synchronize photos from Lightroom directly to your Piwigo photo gallery.'] = 'La publikiga kromaĵo de Piwigo por Lightroom permesas al vi eksporti kaj sinkronigi viajn fotojn de Lightroom al via Piwigo-galerio.';
+$lang['You have specified <i>$conf[\'order_by\']</i> in your local configuration file, this parameter in deprecated, please remove it or rename it into <i>$conf[\'order_by_custom\']</i> !'] = 'Vi precizigis <i>$conf[\'order_by\']</i> en via loka agordodosiero, tiu parametro ne plu validas, bonvolu forigi ĝin aŭ renomi ĝin al <i>$conf[\'order_by_custom\']</i>!';
+$lang['digiKam is an advanced digital photo management free software for Linux, Windows, and MacOSX.'] = 'digiKam estas ĉiesaĵo por altnivela administrado de ciferecaj fotoj por Linux, Windows kaj MacOSX.';
+$lang['digiKam is designed for photographers who want to view, manage, edit, enhance, organize, tag, and share photographs.'] = 'digiKam estas kreita por la fotantoj kaj fotistoj dezirantaj vidi, administri, redakti, plibonigi, organizi, etikedi kaj kunhavigi siajn fotojn.';
+$lang['iPhoto is the default photo manager on MacOSX. The Piwigo export plugin let you create new albums and export your photos directly from iPhoto to your Piwigo photo gallery.'] = 'iPhoto estas la apriora fotoadministrilo ĉe MacOSX. La eksportokromaĵo de Piwigo lasas vin krei novajn fotarojn kaj eksporti viajn fotojn rekte de iPhoto ak via Piwigo-galerio.';
 ?>
