@@ -1148,7 +1148,7 @@ function pwg_password_verify($password, $hash, $user_id=null)
   global $conf, $pwg_hasher;
 
   // If the password has not been hashed with the current algorithm.
-  if (strpos('$P', $hash) !== 0)
+  if (strpos($hash, '$P') !== 0)
   {
     if (!empty($conf['pass_convert']))
     {
