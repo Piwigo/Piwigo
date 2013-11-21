@@ -22,11 +22,16 @@
 // +-----------------------------------------------------------------------+
 
 /**
- * rate a picture by a user
+ * @package functions\rate
+ */
+
+
+/**
+ * Rate a picture by the current user.
  *
- * @param int image identifier
- * @param int rate
- * @return void
+ * @param int $image_id
+ * @param float $rate
+ * @return array as return by update_rating_score()
  */
 function rate_picture($image_id, $rate)
 {
@@ -120,13 +125,14 @@ INSERT
 }
 
 
-/* update images.rating_score field
-  * we use a bayesian average (http://en.wikipedia.org/wiki/Bayesian_average) with
-C = average number of rates per item
-m = global average rate (all rates)
-
- * param int $element_id optional, otherwise applies to all
- * @return array(rating_score, count) if element_id is specified
+/**
+ * Update images.rating_score field.
+ * We use a bayesian average (http://en.wikipedia.org/wiki/Bayesian_average) with
+ *  C = average number of rates per item
+ *  m = global average rate (all rates)
+ *
+ * @param int|false $element_id if false applies to all
+ * @return array (score, average, count) values are null if $element_id is false
 */
 function update_rating_score($element_id = false)
 {

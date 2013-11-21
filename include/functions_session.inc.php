@@ -21,12 +21,45 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
-// The function generate_key creates a string with pseudo random characters.
-// the size of the string depends on the $conf['session_id_size'].
-// Characters used are a-z A-Z and numerical values. Examples :
-//                    "Er4Tgh6", "Rrp08P", "54gj"
-// input  : none (using global variable)
-// output : $key
+/**
+ * @package functions\session
+ */
+
+
+if (isset($conf['session_save_handler'])
+  and ($conf['session_save_handler'] == 'db')
+  and defined('PHPWG_INSTALLED'))
+{
+  session_set_save_handler(
+    'pwg_session_open',
+    'pwg_session_close',
+    'pwg_session_read',
+    'pwg_session_write',
+    'pwg_session_destroy',
+    'pwg_session_gc'
+  );
+
+  if (function_exists('ini_set'))
+  {
+    ini_set('session.use_cookies', $conf['session_use_cookies']);
+    ini_set('session.use_only_cookies', $conf['session_use_only_cookies']);
+    ini_set('session.use_trans_sid', intval($conf['session_use_trans_sid']));
+    ini_set('session.cookie_httponly', 1);
+  }
+
+  session_name($conf['session_name']);
+  session_set_cookie_params(0, cookie_path());
+  register_shutdown_function('session_write_close');
+}
+
+
+/**
+ * Generates a pseudo random string.
+ * Characters used are a-z A-Z and numerical values.
+ *
+ * @param int $size
+ * @return string
+ */
 function generate_key($size)
 {
   global $conf;
@@ -50,33 +83,12 @@ function generate_key($size)
   return $key;
 }
 
-if (isset($conf['session_save_handler'])
-  and ($conf['session_save_handler'] == 'db')
-  and defined('PHPWG_INSTALLED'))
-{
-  session_set_save_handler('pwg_session_open',
-    'pwg_session_close',
-    'pwg_session_read',
-    'pwg_session_write',
-    'pwg_session_destroy',
-    'pwg_session_gc'
-  );
-  if ( function_exists('ini_set') )
-  {
-    ini_set('session.use_cookies', $conf['session_use_cookies']);
-    ini_set('session.use_only_cookies', $conf['session_use_only_cookies']);
-    ini_set('session.use_trans_sid', intval($conf['session_use_trans_sid']));
-    ini_set('session.cookie_httponly', 1);
-  }
-  session_name($conf['session_name']);
-  session_set_cookie_params(0, cookie_path());
-  register_shutdown_function('session_write_close');
-}
-
 /**
- * returns true; used when the session_start() function is called
+ * Called by PHP session manager, always return true.
  *
- * @params not use but useful for php engine
+ * @param string $path
+ * @param sring $name
+ * @return true
  */
 function pwg_session_open($path, $name)
 {
@@ -84,14 +96,20 @@ function pwg_session_open($path, $name)
 }
 
 /**
- * returns true; used when the session is closed (unset($_SESSION))
+ * Called by PHP session manager, always return true.
  *
+ * @return true
  */
 function pwg_session_close()
 {
   return true;
 }
 
+/**
+ * Returns a hash from current user IP
+ *
+ * @return string
+ */
 function get_remote_addr_session_hash()
 {
   global $conf;
@@ -112,11 +130,10 @@ function get_remote_addr_session_hash()
 }
 
 /**
- * this function returns
- * a string corresponding to the value of the variable save in the session
- * or an empty string when the variable doesn't exist
+ * Called by PHP session manager, retrieves data stored in the sessions table.
  *
- * @param string session id
+ * @param string $session_id
+ * @return string
  */
 function pwg_session_read($session_id)
 {
@@ -138,10 +155,11 @@ SELECT data
 }
 
 /**
- * returns true; writes set a variable in the active session
+ * Called by PHP session manager, writes data in the sessions table.
  *
- * @param string session id
- * @data string value of date to be saved
+ * @param string $session_id
+ * @param sring $data
+ * @return true
  */
 function pwg_session_write($session_id, $data)
 {
@@ -155,9 +173,10 @@ REPLACE INTO '.SESSIONS_TABLE.'
 }
 
 /**
- * returns true; delete the active session
+ * Called by PHP session manager, deletes data in the sessions table.
  *
- * @param string session id
+ * @param string $session_id
+ * @return true
  */
 function pwg_session_destroy($session_id)
 {
@@ -171,8 +190,9 @@ DELETE
 }
 
 /**
- * returns true; delete expired sessions
- * called each time a session is closed.
+ * Called by PHP session manager, garbage collector for expired sessions.
+ *
+ * @return true
  */
 function pwg_session_gc()
 {
@@ -188,12 +208,12 @@ DELETE
   return true;
 }
 
-
 /**
- * persistently stores a variable for the current session
- * currently we use standard php sessions but it might change
- * @return boolean true on success
- * @see pwg_get_session_var, pwg_unset_session_var
+ * Persistently stores a variable for the current session.
+ *
+ * @param string $var
+ * @param mixed $value
+ * @return bool
  */
 function pwg_set_session_var($var, $value)
 {
@@ -204,10 +224,11 @@ function pwg_set_session_var($var, $value)
 }
 
 /**
- * retrieves the value of a persistent variable for the current session
- * currently we use standard php sessions but it might change
+ * Retrieves the value of a persistent variable for the current session.
+ *
+ * @param string $var
+ * @param mixed $default
  * @return mixed
- * @see pwg_set_session_var, pwg_unset_session_var
  */
 function pwg_get_session_var($var, $default = null)
 {
@@ -219,10 +240,10 @@ function pwg_get_session_var($var, $default = null)
 }
 
 /**
- * deletes a persistent variable for the current session
- * currently we use standard php sessions but it might change
- * @return boolean true on success
- * @see pwg_set_session_var, pwg_get_session_var
+ * Deletes a persistent variable for the current session.
+ *
+ * @param string $var
+ * @return bool
  */
 function pwg_unset_session_var($var)
 {
