@@ -423,4 +423,6 @@ $lang['Go back to the album'] = 'إرجع للألبوم';
 $lang['Last Page'] = 'الصفحة الأخيرة';
 $lang['Password is missing. Please enter the password.'] = 'لم تكتب كلمة المرور، فضلا ً أكتب كلمة المرور';
 $lang['Password confirmation is missing. Please confirm the chosen password.'] = 'لم يتم تأكيد كلمة المرور، فضلا ً لا أمر أكد المرور رحم الله والديك';
+$lang['%d photos per page'] = 'عدد الصور في كل صفحة %d';
+$lang['Theme'] = 'الواجهة';
 ?>
