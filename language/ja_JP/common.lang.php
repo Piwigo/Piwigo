@@ -416,4 +416,6 @@ $lang['Go back to the album'] = 'アルバムに戻る';
 $lang['Last Page'] = '最後のページ';
 $lang['Password is missing. Please enter the password.'] = 'パスワードがありません。パスワードを入力して下さい。';
 $lang['Password confirmation is missing. Please confirm the chosen password.'] = 'パスワードの再確認がありません。パスワードの再確認を確認して下さい。';
+$lang['%d photos per page'] = '%d ページ当りの写真の数';
+$lang['Theme'] = '件名';
 ?>
