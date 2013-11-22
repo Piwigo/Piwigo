@@ -215,4 +215,16 @@ $lang['unknown'] = 'tuntematon';
 $lang['user_status_admin'] = 'Ylläpitäjä';
 $lang['user_status_guest'] = 'Vieras';
 $lang['user_status_normal'] = 'Käyttäjä';
+$lang['Create'] = 'Luo';
+$lang['Change password'] = 'Vaihda salasana';
+$lang['Change username'] = 'Vaihda käyttäjätunnus';
+$lang['Check for upgrade'] = 'Tarkista päivitykset';
+$lang['Classic display'] = 'Klassinen näkymä';
+$lang['Configuration'] = 'Asetukset';
+$lang['Applications'] = 'Sovellukset';
+$lang['Activate'] = 'Aktivoi';
+$lang['Activate comments'] = 'Aktivoi kommentit';
+$lang['Active Languages'] = 'Aktiiviset kielet';
+$lang['Add New Language'] = 'Lisää kieli';
+$lang['Add Photos'] = 'Lisää valokuvia';
 ?>
