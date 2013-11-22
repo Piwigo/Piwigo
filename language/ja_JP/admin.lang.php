@@ -901,4 +901,7 @@ $lang['Purge user cache'] = 'ユーザーのキャッシュを削除';
 $lang['Photo sizes with crop'] = '写真サイズ';
 $lang['Mail theme'] = 'メールの件名';
 $lang['Numeric identifier : %d'] = '割り当てる数値 : 整数 : %d';
+$lang['Loading...'] = 'ロード中 ...';
+$lang['Change password'] = 'パスワードを変える';
+$lang['Change username'] = 'ユーザー名を変える';
 ?>
