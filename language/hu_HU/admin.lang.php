@@ -954,4 +954,18 @@ $lang['Select at least one tag'] = 'Válassz ki legalább egy cimkét';
 $lang['Basic settings'] = 'Alapbeállítások';
 $lang['General'] = 'Általános';
 $lang['Mail theme'] = 'Levelező-sablon';
+$lang['Show %s users'] = '%s felhasználó megjelenítése';
+$lang['All %d users are selected'] = 'Összes, %d felhasználó kiválasztva
+
+';
+$lang['Change password'] = 'Jelszó módosítása';
+$lang['Change username'] = 'Felhasználónév módosítása';
+$lang['Loading...'] = 'Töltés...';
+$lang['No matching user found'] = 'Felhasználó nem található';
+$lang['No user selected, no action possible.'] = 'Választott felhasználó nem található, művelet nem lehetséges';
+$lang['Password updated'] = 'Jelszó frissítve';
+$lang['Update user'] = 'Felhasználó frissítése';
+$lang['User %s added'] = '%s felhasználó hozzáadva';
+$lang['User %s updated'] = '%s felhasználó frissítve';
+$lang['Users modified'] = 'Felhasználók módosítva';
 ?>
