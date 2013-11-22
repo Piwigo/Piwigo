@@ -421,4 +421,6 @@ $lang['Go back to the album'] = 'Vissza az albumhoz';
 $lang['Last Page'] = 'Utolsó oldal';
 $lang['Password is missing. Please enter the password.'] = 'Jelszó hiányzik. Kérem írja be a jelszót.';
 $lang['Password confirmation is missing. Please confirm the chosen password.'] = 'Jelszó megerősítése hiányzik. Kérem erősítse meg a választott jelszót.';
+$lang['%d photos per page'] = '%d kép/oldal';
+$lang['Theme'] = 'Téma';
 ?>
