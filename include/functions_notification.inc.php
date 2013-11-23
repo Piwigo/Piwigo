@@ -361,7 +361,7 @@ function news_exists($start=null, $end=null)
 /**
  * Formats a news line and adds it to the array (e.g. '5 new elements')
  *
- * @param array $news
+ * @param array &$news
  * @param int $count
  * @param string $singular_key
  * @param string $plural_key

@@ -342,7 +342,7 @@ SELECT DISTINCT(id)
  * Finds a matching category id from a potential list of permalinks
  *
  * @param string[] $permalinks
- * @param int $idx filled with the index in $permalinks that matches
+ * @param int &$idx filled with the index in $permalinks that matches
  * @return int|null
  */
 function get_cat_id_from_permalinks($permalinks, &$idx)

@@ -50,13 +50,13 @@ abstract class PluginMaintain
 
   /**
    * @param string $plugin_version
-   * @param array $errors - used to return error messages
+   * @param array &$errors - used to return error messages
    */
   abstract function install($plugin_version, &$errors=array());
 
   /**
    * @param string $plugin_version
-   * @param array $errors - used to return error messages
+   * @param array &$errors - used to return error messages
    */
   abstract function activate($plugin_version, &$errors=array());
 
@@ -119,7 +119,7 @@ abstract class ThemeMaintain
 
   /**
    * @param string $theme_version
-   * @param array $errors - used to return error messages
+   * @param array &$errors - used to return error messages
    */
   abstract function activate($theme_version, &$errors=array());
 
@@ -342,7 +342,7 @@ function trigger_action($event)
  * @depracted 2.6
  *
  * @param string $plugin_id
- * @param mixed $data
+ * @param mixed &$data
  * @return bool
  */
 function set_plugin_data($plugin_id, &$data)

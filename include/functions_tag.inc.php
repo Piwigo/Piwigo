@@ -21,8 +21,16 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
+/**
+ * @package functions\tag
+ */
 
-/** returns the number of available tags for the connected user */
+
+/**
+ * Returns the number of available tags for the connected user.
+ *
+ * @return int
+ */
 function get_nb_available_tags()
 {
   global $user;
@@ -38,14 +46,11 @@ function get_nb_available_tags()
 }
 
 /**
- * Tags available. Each return tag is represented as an array with its id,
- * its name, its weight (count), its url name. Tags are not sorted.
+ * Returns all available tags for the connected user (not sorted).
+ * The returned list can be a subset of all existing tags due to permissions,
+ * also tags with no images are not returned.
  *
- * The returned list can be a subset of all existing tags due to
- * permissions, only if a list of forbidden categories is provided
- *
- * @param array forbidden categories
- * @return array
+ * @return array [id, name, counter, url_name]
  */
 function get_available_tags()
 {
@@ -53,18 +58,18 @@ function get_available_tags()
   $query = '
 SELECT tag_id, COUNT(DISTINCT(it.image_id)) AS counter
   FROM '.IMAGE_CATEGORY_TABLE.' ic
-    INNER JOIN '.IMAGE_TAG_TABLE.' it ON ic.image_id=it.image_id'.get_sql_condition_FandF
-    (
-      array
-        (
-          'forbidden_categories' => 'category_id',
-          'visible_categories' => 'category_id',
-          'visible_images' => 'ic.image_id'
-        ),
-      '
-  WHERE'
+    INNER JOIN '.IMAGE_TAG_TABLE.' it
+    ON ic.image_id=it.image_id
+  '.get_sql_condition_FandF(
+    array(
+      'forbidden_categories' => 'category_id',
+      'visible_categories' => 'category_id',
+      'visible_images' => 'ic.image_id'
+      ),
+    ' WHERE '
     ).'
-  GROUP BY tag_id';
+  GROUP BY tag_id
+;';
   $tag_counters = simple_hash_from_query($query, 'tag_id', 'counter');
 
   if ( empty($tag_counters) )
@@ -76,6 +81,7 @@ SELECT tag_id, COUNT(DISTINCT(it.image_id)) AS counter
 SELECT *
   FROM '.TAGS_TABLE;
   $result = pwg_query($query);
+
   $tags = array();
   while ($row = pwg_db_fetch_assoc($result))
   {
@@ -91,9 +97,9 @@ SELECT *
 }
 
 /**
- * All tags, even tags associated to no image.
+ * Returns all tags even associated to no image.
  *
- * @return array
+ * @return array [id, name, url_name]
  */
 function get_all_tags()
 {
@@ -119,11 +125,11 @@ SELECT *
  * level of each tag.
  *
  * The level of each tag depends on the average count of tags. This
- * calcylation method avoid having very different levels for tags having
+ * calculation method avoid having very different levels for tags having
  * nearly the same count when set are small.
  *
- * @param array tags
- * @return array
+ * @param array $tags at least [id, counter]
+ * @return array [..., level]
  */
 function add_level_to_tags($tags)
 {
@@ -173,13 +179,14 @@ function add_level_to_tags($tags)
 }
 
 /**
- * return the list of image ids corresponding to given tags. AND & OR mode
- * supported.
+ * Return the list of image ids corresponding to given tags.
+ * AND & OR mode supported.
  *
- * @param array tag ids
+ * @param int[] $tag_ids
  * @param string mode
- * @param string extra_images_where_sql - optionally apply a sql where filter to retrieved images
- * @param string order_by - optionally overwrite default photo order
+ * @param string $extra_images_where_sql - optionally apply a sql where filter to retrieved images
+ * @param string $order_by - optionally overwrite default photo order
+ * @param bool $user_permissions
  * @return array
  */
 function get_image_ids_for_tags($tag_ids, $mode='AND', $extra_images_where_sql='', $order_by='', $use_permissions=true)
@@ -190,7 +197,8 @@ function get_image_ids_for_tags($tag_ids, $mode='AND', $extra_images_where_sql='
     return array();
   }
 
-  $query = 'SELECT id
+  $query = '
+SELECT id
   FROM '.IMAGES_TABLE.' i ';
 
   if ($use_permissions)
@@ -229,14 +237,14 @@ function get_image_ids_for_tags($tag_ids, $mode='AND', $extra_images_where_sql='
 }
 
 /**
- * return a list of tags corresponding to given items.
+ * Return a list of tags corresponding to given items.
  *
- * @param array items
- * @param array max_tags
- * @param array excluded_tag_ids
- * @return array
+ * @param int[] $items
+ * @param int $max_tags
+ * @param int[] $excluded_tag_ids
+ * @return array [id, name, counter, url_name]
  */
-function get_common_tags($items, $max_tags, $excluded_tag_ids=null)
+function get_common_tags($items, $max_tags, $excluded_tag_ids=array())
 {
   if (empty($items))
   {
@@ -256,7 +264,7 @@ SELECT t.*, count(*) AS counter
   GROUP BY t.id
   ORDER BY ';
   if ($max_tags>0)
-  {
+  { // TODO : why ORDER field is in the if ?
     $query .= 'counter DESC
   LIMIT '.$max_tags;
   }
@@ -277,45 +285,29 @@ SELECT t.*, count(*) AS counter
 }
 
 /**
- * return a list of tags corresponding to any of ids, url_names, names
+ * Return a list of tags corresponding to any of ids, url_names or names.
  *
- * @param array ids
- * @param array url_names
- * @param array names
- * @return array
+ * @param int[] $ids
+ * @param string[] $url_names
+ * @param string[] $names
+ * @return array [id, name, url_name]
  */
-function find_tags($ids, $url_names=array(), $names=array() )
+function find_tags($ids=array(), $url_names=array(), $names=array() )
 {
   $where_clauses = array();
-  if ( !empty($ids) )
+  if (!empty($ids))
   {
     $where_clauses[] = 'id IN ('.implode(',', $ids).')';
   }
-  if ( !empty($url_names) )
+  if (!empty($url_names))
   {
     $where_clauses[] =
-      'url_name IN ('.
-      implode(
-        ',',
-        array_map(
-          create_function('$s', 'return "\'".$s."\'";'),
-          $url_names
-          )
-        )
-      .')';
+      'url_name IN (\''. implode('\', \'', $url_names) .'\')';
   }
-  if ( !empty($names) )
+  if (!empty($names))
   {
     $where_clauses[] =
-      'name IN ('.
-      implode(
-        ',',
-        array_map(
-          create_function('$s', 'return "\'".$s."\'";'),
-          $names
-          )
-        )
-      .')';
+      'name IN (\''. implode('\', \'', $names) .'\')';
   }
   if (empty($where_clauses))
   {
@@ -336,4 +328,5 @@ SELECT *
   }
   return $tags;
 }
+
 ?>

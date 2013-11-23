@@ -21,12 +21,16 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
+/**
+ * @package functions\search
+ */
+
 
 /**
- * returns search rules stored into a serialized array in "search"
+ * Returns search rules stored into a serialized array in "search"
  * table. Each search rules set is numericaly identified.
  *
- * @param int search_id
+ * @param int $search_id
  * @return array
  */
 function get_search_array($search_id)
@@ -47,12 +51,10 @@ SELECT rules
 }
 
 /**
- * returns the SQL clause from a search identifier
+ * Returns the SQL clause for a search.
+ * Transforms the array returned by get_search_array() into SQL sub-query.
  *
- * Search rules are stored in search table as a serialized array. This array
- * need to be transformed into an SQL clause to be used in queries.
- *
- * @param array search
+ * @param array $search
  * @return string
  */
 function get_sql_search_clause($search)
@@ -170,12 +172,13 @@ function get_sql_search_clause($search)
 }
 
 /**
- * returns the list of items corresponding to the advanced search array
+ * Returns the list of items corresponding to the advanced search array.
  *
- * @param array search
+ * @param array $search
+ * @param string $images_where optional additional restriction on images table
  * @return array
  */
-function get_regular_search_results($search, $images_where)
+function get_regular_search_results($search, $images_where='')
 {
   global $conf;
   $forbidden = get_sql_condition_FandF(
@@ -246,34 +249,55 @@ SELECT DISTINCT(id)
   return $items;
 }
 
-
+/**
+ * Finds if a char is a letter, a figure or any char of the extended ASCII table (>127).
+ *
+ * @param char $ch
+ * @return bool
+ */
 function is_word_char($ch)
 {
   return ($ch>='0' && $ch<='9') || ($ch>='a' && $ch<='z') || ($ch>='A' && $ch<='Z') || ord($ch)>127;
 }
 
+/**
+ * Finds if a char is a special token for word start: [{<=*+
+ *
+ * @param char $ch
+ * @return bool
+ */
 function is_odd_wbreak_begin($ch)
 {
   return strpos('[{<=*+', $ch)===false ? false:true;
 }
 
+/**
+ * Finds if a char is a special token for word end: ]}>=*+
+ *
+ * @param char $ch
+ * @return bool
+ */
 function is_odd_wbreak_end($ch)
 {
   return strpos(']}>=*+', $ch)===false ? false:true;
 }
 
-define('QST_QUOTED',   0x01);
-define('QST_NOT',      0x02);
-define('QST_WILDCARD_BEGIN',0x04);
-define('QST_WILDCARD_END',  0x08);
+
+define('QST_QUOTED',         0x01);
+define('QST_NOT',            0x02);
+define('QST_WILDCARD_BEGIN', 0x04);
+define('QST_WILDCARD_END',   0x08);
 define('QST_WILDCARD', QST_WILDCARD_BEGIN|QST_WILDCARD_END);
 
-
 /**
- * analyzes and splits the quick/query search query $q into tokens
+ * Analyzes and splits the quick/query search query $q into tokens.
  * q='john bill' => 2 tokens 'john' 'bill'
  * Special characters for MySql full text search (+,<,>,~) appear in the token modifiers.
  * The query can contain a phrase: 'Pierre "New York"' will return 'pierre' qnd 'new york'.
+ *
+ * @param string $q
+ * @param array &$qtokens
+ * @param array &$qtoken_modifiers
  */
 function analyse_qsearch($q, &$qtokens, &$qtoken_modifiers)
 {
@@ -368,11 +392,15 @@ function analyse_qsearch($q, &$qtokens, &$qtoken_modifiers)
   }
 }
 
-
 /**
- * returns the LIKE sql clause corresponding to the quick search query
- * that has been split into tokens
+ * Returns the LIKE SQL clause corresponding to the quick search query
+ * that has been split into tokens.
  * for example file LIKE '%john%' OR file LIKE '%bill%'.
+ *
+ * @param array $tokens
+ * @param array $token_modifiers
+ * @param string $field
+ * @return string|null
  */
 function get_qsearch_like_clause($tokens, $token_modifiers, $field)
 {
@@ -393,7 +421,14 @@ function get_qsearch_like_clause($tokens, $token_modifiers, $field)
 }
 
 /**
-*/
+ * Returns tags corresponding to the quick search query that has been split into tokens.
+ *
+ * @param array $tokens
+ * @param array $token_modifiers
+ * @param array &$token_tag_ids
+ * @param array &$not_tag_ids
+ * @param array &$all_tags
+ */
 function get_qsearch_tags($tokens, $token_modifiers, &$token_tag_ids, &$not_tag_ids, &$all_tags)
 {
   $token_tag_ids = array_fill(0, count($tokens), array() );
@@ -546,24 +581,27 @@ SELECT t.*, COUNT(image_id) AS counter
 
   usort($all_tags, 'tag_alpha_compare');
   foreach ( $all_tags as &$tag )
+  {
     $tag['name'] = trigger_event('render_tag_name', $tag['name']);
+  }
 }
 
 /**
- * returns the search results corresponding to a quick/query search.
+ * Returns the search results corresponding to a quick/query search.
  * A quick/query search returns many items (search is not strict), but results
  * are sorted by relevance unless $super_order_by is true. Returns:
- * array (
- * 'items' => array(85,68,79...)
- * 'qs'    => array(
- *    'matching_tags' => array of matching tags
- *    'matching_cats' => array of matching categories
- *    'matching_cats_no_images' =>array(99) - matching categories without images
- *      ))
+ *  array (
+ *    'items' => array of matching images
+ *    'qs'    => array(
+ *      'matching_tags' => array of matching tags
+ *      'matching_cats' => array of matching categories
+ *      'matching_cats_no_images' =>array(99) - matching categories without images
+ *      )
+ *    )
  *
- * @param string q
- * @param bool super_order_by
- * @param string images_where optional aditional restriction on images table
+ * @param string $q
+ * @param bool $super_order_by
+ * @param string $images_where optional additional restriction on images table
  * @return array
  */
 function get_quick_search_results($q, $super_order_by, $images_where='')
@@ -763,10 +801,12 @@ SELECT DISTINCT(id)
 }
 
 /**
- * returns an array of 'items' corresponding to the search id
+ * Returns an array of 'items' corresponding to the search id.
+ * It can be either a quick search or a regular search.
  *
- * @param int search id
- * @param string images_where optional aditional restriction on images table
+ * @param int $search_id
+ * @param bool $super_order_by
+ * @param string $images_where optional aditional restriction on images table
  * @return array
  */
 function get_search_results($search_id, $super_order_by, $images_where='')
@@ -782,4 +822,5 @@ function get_search_results($search_id, $super_order_by, $images_where='')
     return get_quick_search_results($search['q'], $super_order_by, $images_where);
   }
 }
+
 ?>
