@@ -243,10 +243,6 @@ $lang['last %d days'] = 'sista %d dagarna';
 $lang['Last'] = 'Sista';
 $lang['Logout'] = 'Logga ut';
 $lang['obligatory'] = 'obligatorisk';
-$lang['Maximum photo height'] = 'Maximal höjd på bilderna';
-$lang['Maximum height must be a number superior to 50'] = 'Maximal höjd måste vara större än 50';
-$lang['Maximum photo width'] = 'Maximal bredd på bilderna';
-$lang['Maximum width must be a number superior to 50'] = 'Maximal bredd måste vara större än 50';
 $lang['display a calendar by creation date'] = 'visa en kalender sorterad efter datum för skapande';
 $lang['display all photos in all sub-albums'] = 'visa alla bilder i alla underliggande album';
 $lang['return to normal view mode'] = 'återgå till normalt visningsläge';
@@ -421,4 +417,6 @@ $lang['Go back to the album'] = 'Gå tillbaka till album';
 $lang['Last Page'] = 'Sista sidan';
 $lang['Password is missing. Please enter the password.'] = 'Lösenord saknas. Ange lösenord.';
 $lang['Password confirmation is missing. Please confirm the chosen password.'] = 'Bekräftelse av lösenord saknas. Vänligen bekräfta ditt valda lösenord.';
+$lang['%d photos per page'] = '%d fotografier per sida';
+$lang['Theme'] = 'Tema';
 ?>
