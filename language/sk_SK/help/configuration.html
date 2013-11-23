@@ -1,0 +1,100 @@
+<h2>Konfigurácia</h2>
+
+<p>Na tejto stránke je možné vykonávať základné nastavenie. Okno zobrazuje jednoduché konfiguračné parametre, ktoré by mali stačiť väčšine administrátorov. Ďalšie nastavenia nájdete v súbore<span
+class="filename">include/config_default.inc.php</span>.</p>
+
+<p>Stránka je rozdelená do niekoľkých záložiek, ktoré zoskupujú konfiguračné nastavenia podľa ich typu.</p>
+
+<h3>Hlavné</h3>
+
+<ul>
+<li><strong>Názov galérie</strong>: používa sa v RSS vláknach a emailových upozorneniach.</li>
+
+<li><strong>Banner stránky</strong>: zobrazuje sa v hornej časti každej verejnej stránky.</li>
+
+<li><strong>URL galérie</strong>: používa sa RSS vláknach.</li>
+
+<li><strong>Zamknúť galériu</strong>: Uzavrie galériu, aby sa mohla vykonať údržba. Ku galérii budú mať prístup len užívatelia s oprávnením administrátor.</li>
+
+<li><strong>Povoliť hodnotenia</strong>: Hodnotenie obrázkov je povolené.</li>
+
+<li><strong>Hodnotenie hosťami</strong>: Hodnotiť obrázky môže aj neregistrovaný užívateľ.</li>
+
+<li><strong>Povoliť registráciu užívateľov</strong>: Ktokoľvek sa môže registrovať ako užívateľ.</li>
+
+<li><strong>E-mailová adresa je povinná pre všetkých užívateľov</strong>: pri registrácii alebo aktualizácii profilu sa skontroluje e-mailová adresa, s výnimkou situácii, kedy akciu vykonal administrátor.</li>
+
+<li><strong>Poslať e-mail administrátorovi pri registrácii nového užívateľa</strong>: na každú novú registráciu užívateľa budú upozornení administrátori.</li>
+
+<li><strong>Východzie poradie fotografií</strong>: výberom z drop-menu môžete určiť prispôsobené poradie.</li>
+</ul>
+
+<h3>História</h3>
+
+<p>Návšteva stránok <span   class="pwgScreen">category.php</span> a <span class="pwgScreen">picture.php</span> bude uložená v tabuľke <code>história</code>.</p>
+
+<p>Návštevy se zobrazujú v menu:<span
+  class="pwgScreen">Administrácia, Nástroje, História</span>.</p>
+
+<ul>
+<li><strong>Ukladať stránky navštívené hosťami</strong>: uložia se návštevy hosťov.</li>
+
+<li><strong>Ukladať stránky navštívené užívateľmi</strong>: uložia se návštevy registrovaných užívateľov.</li>
+
+<li><strong>Ukládať stránky navštívené administrátormi</strong>: uložia se stránky navštívené administrátormi.</li>
+
+</ul>
+
+<h3>Komentáre</h3>
+
+<ul>
+
+<li><strong>Komentáre pre všetkých</strong>: Aj neregistrovaný užívateľ môže zanechať komentár.</li>
+
+<li><strong>Počet komentárov na stránke</strong>.</li>
+
+<li><strong>Schválenie</strong>: Pred zobrazením na stránke musí byť každý komentár schválený administrátorom. Schvaľovanie komentárov sa vykonáva v menu<span class="pwgScreen">Administrácia, Nástroje, Komentáre na schválenie</span>.</li>
+
+<li><strong>Poslať e-mail administrátorovi pri vložení nového komentára</strong>:
+Pokiaľ je zadaný komentár, ktorý nevyžaduje schválenie, pošle se administrátorovi email.</li>
+
+<li><strong>Poslať e-mail administrátorovi pri vložení nového komentáře vyžadujúceho schválenie.</strong>:
+Pokiaľ je odoslaný komentár, ktorý vyžaduje schválenie, pošle se administrátorovi email.
+Schvaľování komentárov možno vykonať v menu: <span class="pwgScreen">Administrácia, Nástroje, Komentáre na schválenie</span>.</li>
+
+</ul>
+
+<h3>Východzie nastavenie</h3>
+
+<p>Tu sa nastavuje východzie nastavenie pre hosťov a neprihlásených užívateľov. Po prihlásení sa prestavia podľa vlastných nastavení užívateľa
+(nastaviteľné v  <span class="pwgScreen">profil</span>).</p>
+
+<p>Je možné zmeniť  nastavenie zobrazenie pre všetkých existujúcich užívateľov v <span class="pwgScreen">Administrácia,
+Užívatelia, Správa</span>: kde je možné vybrať zoznam užívateľov.</p>
+
+<ul>
+ 
+
+<li><strong>Jazyk</strong>: týka sa iba Piwigo popisiek. Názvy kategórii, názvy obrázkov a všetky popisy nie sú lokalizované.</li>
+
+<li><strong>Počet fotografií v riadku</strong></li>
+
+<li><strong>Počet riadkov na stránke</strong></li>
+
+<li><strong>Vzhľad užívatelského rozhrania</strong></li>
+
+<li><strong>Čas, počas ktorého sú fotografie zobrazené ako novo pridané</strong>: V dňoch. Musí byť väčší než jeden deň.</li>
+
+<li><strong>Rozbaliť všetky albumy</strong>: Rozbalí všetky albumy. <em>UPOZORNENIE</em>: táto voľba je náročná na systémové zdroje a pokiaľ strom albumov obsahuje veľké množstvo položiek, môže vygenerovať rozsiahle menu.</li>
+
+<li><strong>Zobraziť počet komentárov</strong>: Na stránke s náhľadmi zobrazí počet komentárov u každého obrázku. Spomaľuje systém.</li>
+
+<li><strong>Ukázať počet zobrazení</strong>: zobrazí počet návštěv priamo pod náhľaom obrázku. Voľba je funkčná iba ak je nastavený rozšířený konfiguračný parametr: <br>
+  $conf['show_nb_hits'] = true; <br>
+  poznámka: východzia hodnota je false.</li>
+
+<li><strong>Maximálna šířka fotografií</strong>: maximálna zobrazená šírka. Obrázky, ktoré sú väčšie, sa zmenšia. Je lepšie rovno obrázky pred nahratím zmenšiť, než používať túto voľbu.</li>
+
+<li><strong>Maximálna výška fotografií</strong>: maximálna zobrazená výška. To isté platí aj pre výšku.</li>
+
+</ul> 

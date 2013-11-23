@@ -1,0 +1,55 @@
+<h2>Konfigurácia rozšírenia šablóny</h2>
+
+<h3>O čom je</h3>
+<p>Vaša Piwigo galéria sa dá prispôsobiť tým, že nahradíte existujúce súbory šablóny upravenými verziami. Napr. defaultná šablóna hlavičky (header.tpl) sa dá nahradiť upravenou šablónou hlavičky (my-header.tpl).  
+Po odoslaní zmien do databázy sa galéria zobrazí s upravenou hlavičkou namiesto originálnej hlavičky.<br>
+Rozšírenia šablóny sú mocným nástrojom ako vytvoriť upravené témy aj pre nových aj pre pokročilých užívateľov. Pri použití spolu s LocalFiles Editor dokážete vytvoriť svoje vlastné child témy.</p>
+
+<h3>Originálna šablóna</h3>
+<p>Téma obsahuje množstvo súborov šablóny, ktoré vytvárajú stránky galérie. To sú originálne (pôvodné) šablóny.</p>
+
+<h3>Voliteľné kľúčové URL slovo</h3>
+<p>Toto sú slová, ktorá sa nachádzajú v URL galérie po názve modulu.  Tiež to môžu byť aktívne trvalé odkazy (Pre viac informácii pozrite dokumentáciu k trvalým odkazom).  <a href="#warnings">VAROVANIE:</a> 
+Ak je na viac než na jednej upravenej šablóne použitá tá istá originálna šablóna a to isté URL kľúčové slovo, je aktívne len to posledné.</p>
+
+<h3>Zviazaná téma</h3>
+<p>Zviazaná (prepojená) téma je téma, z ktorej sú nahradzované súbory šablóny.</p>
+ 
+<h3>Kde sa nachádzajú originálne šablóny?</h3>
+<p>Originálne šablóny sú súbory šablony, ktoré sú dodávané s každou témou.  Sú uložené v <em>/themes/default/template</em> 
+(or <em>themes/<theme name>/template</em>).  Tieto súbory by sa nemali editovať, aby ste neprišli o zmeny pri ďalšej aktualizácii.<br>
+Podporované originálne šablóny zahŕňajú:</p>
+<ul>
+  <li><span class="filename">index.tpl</span></li>
+  <li><span class="filename">mainpage_categories.tpl</span> and/or <span class="filename">thumbnails.tpl</span></li>
+  <li><span class="filename">menubar.tpl</span></li>
+  <li><span class="filename">header.tpl</span> and/or <span class="filename">footer.tpl</span></li>
+  <li><span class="filename">picture_content.tpl</span> and/or <span class="filename">picture.tpl</span></li>
+  <!-- <li><span class="filename">slideshow.tpl</span></li> -->
+  <li><span class="filename">profile.tpl</span> and/or <span class="filename">profile_content.tpl</span></li>
+  <li><span class="filename">tags.tpl</span></li>
+  <li><span class="filename">upload.tpl</span></li>
+  <li><span class="filename">about.tpl</span></li>
+  <li><span class="filename">popuphelp.tpl</span></li>
+  <li><span class="filename">search.tpl</span> and/or <span class="filename">search_rules.tpl</span></li>
+  <li><span class="filename">nbm.tpl</span> and/or <span class="filename">notification.tpl</span></li>
+  <li><span class="filename">identification.tpl</span> and/or <span class="filename">register.tpl</span></li>
+  <li><span class="filename">redirect.tpl</span></li>
+</ul>
+<h3>Uloženie upravených šablón</h3>
+<p>Upravené šablóny by mali byť uložené v sdresári template-extension alebo podadresároch.  Napríklad, <em>/template-extension/my-default/header.tpl</em> (alebo <em>/template-extension/<my-theme-name>/header.tpl</em>)
+Súbory šablónu môžu mať akýkoľvek názov s koncovkou .tpl. Súbory šablóny v podadresároch sa zobrazia v okne Konfigurácia šablóny ako dostupné custom šablóny.</p>
+<h3>Aktivácia upravených šablón</h3>
+<p>Zvoľte originálnu šablónu, ktorú chcete nahradiť. Voliteľne zvoľne kľúčové URL slovo, aby ste sa uistili, že sa  upravená šablóna zobrazí len na stránkach s týmto slovom. Zvoľte spojenú tému a zmeny budú účinné v tejto téme.Odošlite zmeny do databázy.</p>
+<h3>Deaktivácia upravených šablón</h3>
+<p>Zrušte výber pôvodnej šablóny a odošli zmeny do databázy.<br>
+Vymažte upravené šablóny z adresára template-extension.</p>
+
+<a name="warnings"></a>
+<h3>Varovania</h3>
+<ul>
+  <li><strong>Originálna šablóna</strong> musí byť originálna šablóna, inak môžete dosiahnuť neočakávané výsledky.</li>
+  <li>Ak je na viac než na jednej upravenej šablóne použitá tá istá originálna šablóna a to isté URL kľúčové slovo, je aktívne len to posledné.</li>
+  <li>Distribuované príklady súborov šablón sú len na testovacie účely. Nemeňte ich.  Vytvorte si svoje vlastné alebo skopírujte existujúce súbory z témy do <em>/template-extension/<my-theme>/</em></li>
+  <li>Keď sa vymaže upravená šablóna, okamžite sa znova aktivuje originálny súbor šablóny.</li>
+</ul>
