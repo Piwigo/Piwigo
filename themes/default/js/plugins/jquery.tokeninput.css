@@ -1,6 +1,6 @@
 /* TokenInput (with Facebook style) */
 ul.token-input-list {overflow: hidden; height: auto !important; height: 1%;width: 400px;border: 1px solid #8496ba;cursor: text;font-size: 12px;font-family: Verdana;min-height: 1px;z-index: 999;margin: 0;padding: 0;background-color: #fff;list-style-type: none;clear: left;}
-ul.token-input-list li input {border: 0;width: 100px;padding: 3px 8px;background-color: white;margin: 2px 0;-webkit-appearance: caret;}
+ul.token-input-list li input {border: 0;width: 100px;padding: 3px 8px;background-color: white;margin: 2px 0;-webkit-appearance: caret;color: black;}
 li.token-input-token {overflow: hidden; height: auto !important; height: 15px;margin: 3px;padding: 1px 3px;background-color: #eff2f7;color: #000;cursor: default;border: 1px solid #ccd5e4;font-size: 11px;border-radius: 5px;-moz-border-radius: 5px;-webkit-border-radius: 5px;float: left;white-space: nowrap;}
 li.token-input-token p {display: inline;padding: 0;margin: 0;}
 li.token-input-token span {color: #a6b3cf;margin-left: 5px;font-weight: bold;cursor: pointer;}
