@@ -227,4 +227,14 @@ $lang['Activate comments'] = 'Aktivoi kommentit';
 $lang['Active Languages'] = 'Aktiiviset kielet';
 $lang['Add New Language'] = 'Lisää kieli';
 $lang['Add Photos'] = 'Lisää valokuvia';
+$lang['Active Plugins'] = 'Aktiiviset liitännäiset';
+$lang['Active Themes'] = 'Aktiiviset teemat';
+$lang['Add New Theme'] = 'Lisää uusi teema';
+$lang['Album updated successfully'] = 'Albumi päivittyi onnistuneesti';
+$lang['All languages are up to date.'] = 'Kaikki kielet ovat päivitettyjä.';
+$lang['All plugins are up to date.'] = 'Kaikki liitännäiset ovat päivitettyjä.';
+$lang['%d of %d users selected'] = '%d/%d käyttäjistä valittu';
+$lang['%s in the future'] = '%s tulevaisuudessa';
+$lang['%s photos can not be regenerated'] = '%s ei voida regeneroida';
+$lang['%s photos have been regenerated'] = '%s on regeneroitu';
 ?>
