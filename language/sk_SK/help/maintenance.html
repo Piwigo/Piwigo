@@ -1,0 +1,32 @@
+<h2>Údržba</h2>
+
+<p>Pre optimalizáciu času generovania stránok využívá Piwigo informácie uložené v medzipaměti. Napríklad, miesto zisťovania počtu fotografií, ktoré albumy obsahujú, pri každom nahratí stránky, je táto informácia uložena v databáze. 
+Teoreticky by táto informácia mala býť vždy správna, avšak občas môže dojsť k chybe a informácia uložená v databáze je zastaralá.</p>
+
+<p>Niektoré informácie sa po čase stanú nepotrebnými. Vymazanie týchto zbytočných informácii z databázy uvoľní miesto na disku.</p>
+
+<ul>
+	<li><strong>Vymazať opustené (nepriradené) tagy</strong></li>
+</ul>
+<ul>
+  <li><strong>Aktualizovať informácie albumov:</strong>
+  Pre každý album sa kontrolujú nasledovné informácie a aktualizujú sa, ak je to potrebné: zoznam rodičovských albumov, počet fotiek, posledný dátum fotografie,
+  pozícia medzi sesterskými albumami, pozícia medzi všetkými albumami. Táto akcia taktiež kontroluje konzistenciu reprezentatívnych fotografii.</li>
+  <li><strong>Aktualizovať informácie fotiek:</strong> Pre každú fotografiu sa aktualizujú informácie:  plná cesta k súboru, priemerné hodnotenie. <em>
+  Varovanie</em>, nezameňte si to: Informácie metadát musia byť synchronizované z <span class="pwgScreen">Administrácia, Nástroje, Synchronizácia</span>,
+   alebo na stránke úprav jednotlivých fotografií (cez <span class="pwgScreen">Photo</span> napríklad).</li>
+</ul>
+<ul>
+  <li><strong>Opraviť a optimalizovať databázu:</strong>Vykoná operácie: Opätovné zoradenie, oprava a optimalizácie na každej tabuľke v databáze.</li>
+  <li><strong>Znovu spustiť kontrolu integrity</strong></li>
+</ul>
+
+<ul>
+  <li><strong>Vykonať údržbu detailov histórie:</strong> Vymaže všetky riadky z tabuľky histórie. Okno <span class="pwgScreen">Administrácia &raquo; Nástroje 
+  &raquo; História</span> potom nezobrazí žiadne informácie ohľadne histórie. <em>Varovanie:</em> všetky dáta(história a štatistiky) budú NENÁVRATNE zmazané!</li>
+  <li><strong>Vykonať údržbu celej histórie:</strong> Vymaže všetky sumárne informácie o histórii návštev. Tento sumár je počítaný z detailov histórie.</li>
+  <li><strong>Vykonať údržbu relácii:</strong>Vymaže expirované užívateľské sessions.</li>
+  <li><strong>Vykonať údržbu nepoužitých RSS vlákien</strong></li>
+  <li><strong>Vykonať údržbu histórie hľadaní</strong></li>
+  <li><strong>Vykonať údržbu kompilovaných šablón</strong></li>  
+</ul>
