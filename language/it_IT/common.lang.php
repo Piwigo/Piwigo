@@ -417,4 +417,5 @@ $lang['First Page'] = 'Prima pagina';
 $lang['Password is missing. Please enter the password.'] = 'Campo password vuoto. Prego inserire la password.';
 $lang['Password confirmation is missing. Please confirm the chosen password.'] = 'Campo conferma della password vuoto. Si prega di confermare la password scelta.';
 $lang['%d photos per page'] = '%d foto per pagina';
+$lang['Theme'] = 'Tema';
 ?>
