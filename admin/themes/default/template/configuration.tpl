@@ -221,7 +221,7 @@ jQuery("input[name='mail_theme']").change(function() {
   <ul>
     <li>
       <label>
-        <input type="checkbox" name="activate_comments" id="activate_comments"{if ($comments.activate_comments)}checked="checked"{/if}>
+        <input type="checkbox" name="activate_comments" id="activate_comments"{if ($comments.activate_comments)} checked="checked"{/if}>
         {'Activate comments'|@translate}
       </label>
     </li>
