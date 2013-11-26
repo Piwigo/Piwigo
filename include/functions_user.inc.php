@@ -1317,18 +1317,6 @@ function is_webmaster($user_status='')
 }
 
 /**
- * Adviser status is depreciated from piwigo 2.2
- * @return false
- */
-function is_adviser()
-{
-  // TODO for Piwigo 2.4 : trigger a warning. We don't do it on Piwigo 2.3
-  // to avoid changes for plugin contributors
-  // trigger_error('call to obsolete function is_adviser', E_USER_WARNING);
-  return false;
-}
-
-/**
  * Returns if current user can edit/delete/validate a comment.
  *
  * @param string $action edit/delete/validate
@@ -1369,24 +1357,6 @@ function can_manage_comment($action, $comment_author_id)
   }
 
   return false;
-}
-
-/**
- * Return mail address as display text
- * @return string
- */
-function get_email_address_as_display_text($email_address)
-{
-  global $conf;
-
-  if (!isset($email_address) or (trim($email_address) == ''))
-  {
-    return '';
-  }
-  else
-  {
-    return $email_address;
-  }
 }
 
 /**

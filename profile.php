@@ -304,7 +304,7 @@ function load_profile_in_template($url_action, $url_redirect, $userdata)
   $template->assign(
     array(
       'USERNAME'=>stripslashes($userdata['username']),
-      'EMAIL'=>get_email_address_as_display_text(@$userdata['email']),
+      'EMAIL'=>@$userdata['email'],
       'ALLOW_USER_CUSTOMIZATION'=>$conf['allow_user_customization'],
       'ACTIVATE_COMMENTS'=>$conf['activate_comments'],
       'NB_IMAGE_PAGE'=>$userdata['nb_image_page'],
