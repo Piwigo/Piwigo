@@ -480,4 +480,126 @@ SELECT image_id
   return $image_id;
 }
 
+/**
+ * Get computed array of categories, that means cache data of all categories
+ * available for the current user (count_categories, count_images, etc.).
+ *
+ * @param array &$userdata
+ * @param int $filter_days number of recent days to filter on or null
+ * @return array
+ */
+function get_computed_categories(&$userdata, $filter_days=null)
+{
+  $query = 'SELECT c.id AS cat_id, id_uppercat';
+  // Count by date_available to avoid count null
+  $query .= ',
+  MAX(date_available) AS date_last, COUNT(date_available) AS nb_images
+FROM '.CATEGORIES_TABLE.' as c
+  LEFT JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON ic.category_id = c.id
+  LEFT JOIN '.IMAGES_TABLE.' AS i
+    ON ic.image_id = i.id
+      AND i.level<='.$userdata['level'];
+
+  if ( isset($filter_days) )
+  {
+    $query .= ' AND i.date_available > '.pwg_db_get_recent_period_expression($filter_days);
+  }
+
+  if ( !empty($userdata['forbidden_categories']) )
+  {
+    $query.= '
+  WHERE c.id NOT IN ('.$userdata['forbidden_categories'].')';
+  }
+
+  $query.= '
+  GROUP BY c.id';
+
+  $result = pwg_query($query);
+
+  $userdata['last_photo_date'] = null;
+  $cats = array();
+  while ($row = pwg_db_fetch_assoc($result))
+  {
+    $row['user_id'] = $userdata['id'];
+    $row['nb_categories'] = 0;
+    $row['count_categories'] = 0;
+    $row['count_images'] = (int)$row['nb_images'];
+    $row['max_date_last'] = $row['date_last'];
+    if ($row['date_last'] > $userdata['last_photo_date'])
+    {
+      $userdata['last_photo_date'] = $row['date_last'];
+    }
+
+    $cats[$row['cat_id']] = $row;
+  }
+
+  foreach ($cats as $cat)
+  {
+    if ( !isset( $cat['id_uppercat'] ) )
+      continue;
+
+    $parent = & $cats[ $cat['id_uppercat'] ];
+    $parent['nb_categories']++;
+
+    do
+    {
+      $parent['count_images'] += $cat['nb_images'];
+      $parent['count_categories']++;
+
+      if ((empty($parent['max_date_last'])) or ($parent['max_date_last'] < $cat['date_last']))
+      {
+        $parent['max_date_last'] = $cat['date_last'];
+      }
+
+      if ( !isset( $parent['id_uppercat'] ) )
+        break;
+      $parent = & $cats[$parent['id_uppercat']];
+    }
+    while (true);
+    unset($parent);
+  }
+
+  if ( isset($filter_days) )
+  {
+    foreach ($cats as $category)
+    {
+      if (empty($category['max_date_last']))
+      {
+        remove_computed_category($cats, $category);
+      }
+    }
+  }
+  return $cats;
+}
+
+/**
+ * Removes a category from computed array of categories and updates counters.
+ *
+ * @param array &$cats
+ * @param array $cat category to remove
+ */
+function remove_computed_category(&$cats, $cat)
+{
+  if ( isset($cats[$cat['id_uppercat']]) )
+  {
+    $parent = &$cats[ $cat['id_uppercat'] ];
+    $parent['nb_categories']--;
+
+    do
+    {
+      $parent['count_images'] -= $cat['nb_images'];
+      $parent['count_categories'] -= 1+$cat['count_categories'];
+
+      if ( !isset($cats[$parent['id_uppercat']]) )
+      {
+        break;
+      }
+      $parent = &$cats[$parent['id_uppercat']];
+    }
+    while (true);
+  }
+
+  unset($cats[$cat['cat_id']]);
+}
+
 ?>

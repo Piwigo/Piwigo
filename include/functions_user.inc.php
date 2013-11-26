@@ -21,15 +21,18 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
-// validate_mail_address:
-//   o verifies whether the given mail address has the
-//     right format. ie someone@domain.com "someone" can contain ".", "-" or
-//     even "_". Exactly as "domain". The extension doesn't have to be
-//     "com". The mail address can also be empty.
-//   o check if address could be empty
-//   o check if address is not used by a other user
-// If the mail address doesn't correspond, an error message is returned.
-//
+/**
+ * @package functions\user
+ */
+
+
+/**
+ * Checks if an email is well formed and not already in use.
+ *
+ * @param int $user_id
+ * @param string $mail_address
+ * @return string|void error message or nothing
+ */
 function validate_mail_address($user_id, $mail_address)
 {
   global $conf;
@@ -62,10 +65,13 @@ WHERE upper('.$conf['user_fields']['email'].') = upper(\''.$mail_address.'\')
   }
 }
 
-// validate_login_case:
-//   o check if login is not used by a other user
-// If the login doesn't correspond, an error message is returned.
-//
+/**
+ * Checks if a login is not already in use.
+ * Comparision is case insensitive.
+ *
+ * @param string $login
+ * @return string|void error message or nothing
+ */
 function validate_login_case($login)
 {
   global $conf;
@@ -87,12 +93,10 @@ WHERE LOWER(".stripslashes($conf['user_fields']['username']).") = '".strtolower(
   }
 }
 /**
- * For test on username case sensitivity
+ * Searches for user with the same username in different case.
  *
- * @param : $username typed in by user for identification
- *
- * @return : $username found in database
- *
+ * @param string $username typically typed in by user for identification
+ * @return string $username found in database
  */
 function search_case_username($username)
 {
@@ -121,14 +125,15 @@ function search_case_username($username)
 }
 
 /**
- * create a new user
+ * Creates a new user.
+ *
  * @param string $login
  * @param string $password
  * @param string $mail_adress
  * @param bool $notify_admin
- * @param &array $errors
+ * @param array &$errors populated with error messages
  * @param bool $notify_user
- * @return int|bool
+ * @return int|false user id or false
  */
 function register_user($login, $password, $mail_address, $notify_admin=true, &$errors = array(), $notify_user=false)
 {
@@ -285,7 +290,15 @@ SELECT id
   }
 }
 
-function build_user( $user_id, $use_cache )
+/**
+ * Fetches user data from database.
+ * Same that getuserdata() but with additional tests for guest.
+ *
+ * @param int $user_id
+ * @param boolean $user_cache
+ * @return array
+ */
+function build_user($user_id, $use_cache=true)
 {
   global $conf;
 
@@ -308,13 +321,13 @@ function build_user( $user_id, $use_cache )
 }
 
 /**
- * find informations related to the user identifier
+ * Finds informations related to the user identifier.
  *
- * @param int user identifier
- * @param boolean use_cache
- * @param array
+ * @param int $user_id
+ * @param boolean $use_cache
+ * @return array
  */
-function getuserdata($user_id, $use_cache)
+function getuserdata($user_id, $use_cache=false)
 {
   global $conf;
 
@@ -503,10 +516,8 @@ INSERT IGNORE INTO '.USER_CACHE_TABLE.'
   return $userdata;
 }
 
-/*
- * deletes favorites of the current user if he's not allowed to see them
- *
- * @return void
+/**
+ * Deletes favorites of the current user if he's not allowed to see them.
  */
 function check_user_favorites()
 {
@@ -526,14 +537,12 @@ SELECT DISTINCT f.image_id
   FROM '.FAVORITES_TABLE.' AS f INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic
     ON f.image_id = ic.image_id
   WHERE f.user_id = '.$user['id'].'
-'.get_sql_condition_FandF
-  (
-    array
-      (
+  '.get_sql_condition_FandF(
+      array(
         'forbidden_categories' => 'ic.category_id',
-      ),
-    'AND'
-  ).'
+        ),
+      'AND'
+    ).'
 ;';
   $authorizeds = array_from_query($query, 'image_id');
 
@@ -557,16 +566,16 @@ DELETE FROM '.FAVORITES_TABLE.'
 }
 
 /**
- * calculates the list of forbidden categories for a given user
+ * Calculates the list of forbidden categories for a given user.
  *
  * Calculation is based on private categories minus categories authorized to
  * the groups the user belongs to minus the categories directly authorized
- * to the user. The list contains at least -1 to be compliant with queries
+ * to the user. The list contains at least 0 to be compliant with queries
  * such as "WHERE category_id NOT IN ($forbidden_categories)"
  *
- * @param int user_id
- * @param string user_status
- * @return string forbidden_categories
+ * @param int $user_id
+ * @param string $user_status
+ * @return string comma separated ids
  */
 function calculate_permissions($user_id, $user_status)
 {
@@ -631,127 +640,11 @@ SELECT id
   return implode(',', $forbidden_array);
 }
 
-
-/*update counters with a category removal*/
-function remove_computed_category(&$cats, $cat)
-{
-  if ( isset( $cats[$cat['id_uppercat']] ) )
-  {
-    $parent = & $cats[ $cat['id_uppercat'] ];
-    $parent['nb_categories']--;
-
-    do
-    {
-
-      $parent['count_images'] -= $cat['nb_images'];
-      $parent['count_categories'] -= 1+$cat['count_categories'];
-
-      if ( !isset( $cats[$parent['id_uppercat']] ) )
-        break;
-      $parent = & $cats[$parent['id_uppercat']];
-    }
-    while (true);
-  }
-
-  unset($cats[$cat['cat_id']]);
-}
-
 /**
- * get computed array of categories
+ * Returns user identifier thanks to his name.
  *
- * @param array userdata
- * @param int filter_days number of recent days to filter on or null
- * @return array
- */
-function get_computed_categories(&$userdata, $filter_days=null)
-{
-  $query = 'SELECT c.id AS cat_id, id_uppercat';
-  // Count by date_available to avoid count null
-  $query .= ',
-  MAX(date_available) AS date_last, COUNT(date_available) AS nb_images
-FROM '.CATEGORIES_TABLE.' as c
-  LEFT JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON ic.category_id = c.id
-  LEFT JOIN '.IMAGES_TABLE.' AS i
-    ON ic.image_id = i.id
-      AND i.level<='.$userdata['level'];
-
-  if ( isset($filter_days) )
-  {
-    $query .= ' AND i.date_available > '.pwg_db_get_recent_period_expression($filter_days);
-  }
-
-  if ( !empty($userdata['forbidden_categories']) )
-  {
-    $query.= '
-  WHERE c.id NOT IN ('.$userdata['forbidden_categories'].')';
-  }
-
-  $query.= '
-  GROUP BY c.id';
-
-  $result = pwg_query($query);
-
-  $userdata['last_photo_date'] = null;
-  $cats = array();
-  while ($row = pwg_db_fetch_assoc($result))
-  {
-    $row['user_id'] = $userdata['id'];
-    $row['nb_categories'] = 0;
-    $row['count_categories'] = 0;
-    $row['count_images'] = (int)$row['nb_images'];
-    $row['max_date_last'] = $row['date_last'];
-    if ($row['date_last'] > $userdata['last_photo_date'])
-    {
-      $userdata['last_photo_date'] = $row['date_last'];
-    }
-
-    $cats[$row['cat_id']] = $row;
-  }
-
-  foreach ($cats as $cat)
-  {
-    if ( !isset( $cat['id_uppercat'] ) )
-      continue;
-
-    $parent = & $cats[ $cat['id_uppercat'] ];
-    $parent['nb_categories']++;
-
-    do
-    {
-      $parent['count_images'] += $cat['nb_images'];
-      $parent['count_categories']++;
-
-      if ((empty($parent['max_date_last'])) or ($parent['max_date_last'] < $cat['date_last']))
-      {
-        $parent['max_date_last'] = $cat['date_last'];
-      }
-
-      if ( !isset( $parent['id_uppercat'] ) )
-        break;
-      $parent = & $cats[$parent['id_uppercat']];
-    }
-    while (true);
-    unset($parent);
-  }
-
-  if ( isset($filter_days) )
-  {
-    foreach ($cats as $category)
-    {
-      if (empty($category['max_date_last']))
-      {
-        remove_computed_category($cats, $category);
-      }
-    }
-  }
-  return $cats;
-}
-
-/**
- * returns user identifier thanks to his name, false if not found
- *
- * @param string username
- * @param int user identifier
+ * @param string $username
+ * @param int|false
  */
 function get_userid($username)
 {
@@ -777,6 +670,12 @@ SELECT '.$conf['user_fields']['id'].'
   }
 }
 
+/**
+ * Returns user identifier thanks to his email.
+ *
+ * @param string $email
+ * @param int|false
+ */
 function get_userid_by_email($email)
 {
   global $conf;
@@ -802,12 +701,13 @@ SELECT
   }
 }
 
-/*
- * Returns a array with default user value
+/**
+ * Returns a array with default user valuees.
  *
- * @param convert_str allows to convert string value if necessary
+ * @param convert_str ceonferts 'true' and 'false' into booleans
+ * @return array
  */
-function get_default_user_info($convert_str = true)
+function get_default_user_info($convert_str=true)
 {
   global $cache, $conf;
 
@@ -858,18 +758,19 @@ SELECT *
   }
 }
 
-/*
- * Returns a default user value
+/**
+ * Returns a default user value.
  *
- * @param value_name: name of value
- * @param sos_value: value used if don't exist value
+ * @param string $value_name
+ * @param mixed $default
+ * @return mixed
  */
-function get_default_user_value($value_name, $sos_value)
+function get_default_user_value($value_name, $default)
 {
   $default_user = get_default_user_info(true);
   if ($default_user === false or empty($default_user[$value_name]))
   {
-    return $sos_value;
+    return $default;
   }
   else
   {
@@ -877,9 +778,11 @@ function get_default_user_value($value_name, $sos_value)
   }
 }
 
-/*
- * Returns the default template value
+/**
+ * Returns the default theme.
+ * If the default theme is not available it returns the first available one.
  *
+ * @return string
  */
 function get_default_theme()
 {
@@ -890,16 +793,14 @@ function get_default_theme()
   }
 
   // let's find the first available theme
-  $active_themes = get_pwg_themes();
-  foreach (array_keys(get_pwg_themes()) as $theme_id)
-  {
-    return $theme_id;
-  }
+  $active_themes = array_keys(get_pwg_themes());
+  return $active_themes[0];
 }
 
-/*
- * Returns the default language value
+/**
+ * Returns the default language.
  *
+ * @return string
  */
 function get_default_language()
 {
@@ -907,9 +808,12 @@ function get_default_language()
 }
 
 /**
-  * Returns true if the browser language value is set into param $lang
-  *
-  */
+ * Tries to find the browser language among available languages.
+ * @todo : try to match 'fr_CA' before 'fr'
+ *
+ * @param string &$lang
+ * @return bool
+ */
 function get_browser_language(&$lang)
 {
   $browser_language = substr(@$_SERVER["HTTP_ACCEPT_LANGUAGE"], 0, 2);
@@ -925,26 +829,18 @@ function get_browser_language(&$lang)
 }
 
 /**
- * add user informations based on default values
+ * Creates user informations based on default values.
  *
- * @param int user_id / array of user_if
- * @param array of values used to override default user values
+ * @param int|int[] $user_ids
+ * @param array $override_values values used to override default user values
  */
-function create_user_infos($arg_id, $override_values = null)
+function create_user_infos($user_ids, $override_values=null)
 {
   global $conf;
 
-  if (is_array($arg_id))
+  if (!is_array($user_ids))
   {
-    $user_ids = $arg_id;
-  }
-  else
-  {
-    $user_ids = array();
-    if (is_numeric($arg_id))
-    {
-      $user_ids[] = $arg_id;
-    }
+    $user_ids = array($user_ids);
   }
 
   if (!empty($user_ids))
@@ -999,11 +895,13 @@ function create_user_infos($arg_id, $override_values = null)
 }
 
 /**
- * returns the auto login key or false on error
- * @param int user_id
- * @param time_t time
- * @param string [out] username
-*/
+ * Returns the auto login key for an user or false if the user is not found.
+ *
+ * @param int $user_id
+ * @param int $time
+ * @param string &$username fille with corresponding username
+ * @return string|false
+ */
 function calculate_auto_login_key($user_id, $time, &$username)
 {
   global $conf;
@@ -1024,12 +922,12 @@ WHERE '.$conf['user_fields']['id'].' = '.$user_id;
   return false;
 }
 
-/*
- * Performs all required actions for user login
- * @param int user_id
- * @param bool remember_me
- * @return void
-*/
+/**
+ * Performs all required actions for user login.
+ *
+ * @param int $user_id
+ * @param bool $remember_me
+ */
 function log_user($user_id, $remember_me)
 {
   global $conf, $user;
@@ -1079,11 +977,13 @@ function log_user($user_id, $remember_me)
   trigger_action('user_login', $user['id']);
 }
 
-/*
- * Performs auto-connexion when cookie remember_me exists
- * @return true/false
-*/
-function auto_login() {
+/**
+ * Performs auto-connection when cookie remember_me exists.
+ *
+ * @return bool
+ */
+function auto_login()
+{
   global $conf;
 
   if ( isset( $_COOKIE[$conf['remember_me_name']] ) )
@@ -1109,12 +1009,11 @@ function auto_login() {
 }
 
 /**
- * hashes a password, with the PasswordHash class from phpass security
- * library. We use an "pwg_" prefix because function password_hash is
- * planned for PHP 5.5. Code inspired from Wordpress.
+ * Hashes a password with the PasswordHash class from phpass security library.
+ * @since 2.5
  *
- * @param string $password Plain text user password to hash
- * @return string The hash string of the password
+ * @param string $password plain text
+ * @return string
  */
 function pwg_password_hash($password)
 {
@@ -1134,14 +1033,15 @@ function pwg_password_hash($password)
 }
 
 /**
- * Verifies a password, with the PasswordHash class from phpass security
- * library. We use an "pwg_" prefix because function password_verify is
- * planned for PHP 5.5. Code inspired from Wordpress.
+ * Verifies a password, with the PasswordHash class from phpass security library.
+ * If the hash is 'old' (assumed MD5) the hash is updated in database, used for
+ * migration from Piwigo 2.4.
+ * @since 2.5
  *
- * @param string $password Plain text user password to hash
+ * @param string $password plain text
  * @param string $hash may be md5 or phpass hashed password
- * @param integer $account_id only useful to update password hash from md5 to phpass
- * @return string The hash string of the password
+ * @param integer $user_id only useful to update password hash from md5 to phpass
+ * @return bool
  */
 function pwg_password_verify($password, $hash, $user_id=null)
 {
@@ -1191,8 +1091,12 @@ function pwg_password_verify($password, $hash, $user_id=null)
 }
 
 /**
- * Tries to login a user given username and password (must be MySql escaped)
- * return true on success
+ * Tries to login a user given username and password (must be MySql escaped).
+ *
+ * @param string $username
+ * @param string $password
+ * @param bool $remember_me
+ * @return bool
  */
 function try_log_user($username, $password, $remember_me)
 {
@@ -1201,6 +1105,15 @@ function try_log_user($username, $password, $remember_me)
 
 add_event_handler('try_log_user', 'pwg_login', EVENT_HANDLER_PRIORITY_NEUTRAL, 4);
 
+/**
+ * Default method for user login, can be overwritten with 'try_log_user' trigger.
+ * @see try_log_user()
+ *
+ * @param string $username
+ * @param string $password
+ * @param bool $remember_me
+ * @return bool
+ */
 function pwg_login($success, $username, $password, $remember_me)
 {
   if ($success===true)
@@ -1230,7 +1143,9 @@ SELECT '.$conf['user_fields']['id'].' AS id,
   return false;
 }
 
-/** Performs all the cleanup on user logout */
+/**
+ * Performs all the cleanup on user logout.
+ */
 function logout_user()
 {
   global $conf;
@@ -1247,11 +1162,13 @@ function logout_user()
   setcookie($conf['remember_me_name'], '', 0, cookie_path(),ini_get('session.cookie_domain'));
 }
 
-/*
- * Return user status used in this library
+/**
+ * Return user status.
+ *
+ * @param string $user_status used if $user not initialized
  * @return string
-*/
-function get_user_status($user_status)
+ */
+function get_user_status($user_status='')
 {
   global $user;
 
@@ -1270,11 +1187,12 @@ function get_user_status($user_status)
   return $user_status;
 }
 
-/*
- * Return access_type definition of user
- * Test does with user status
- * @return bool
-*/
+/**
+ * Return ACCESS_* value for a given $status.
+ *
+ * @param string $user_status used if $user not initialized
+ * @return int one of ACCESS_* constants
+ */
 function get_access_type_status($user_status='')
 {
   global $conf;
@@ -1317,23 +1235,25 @@ function get_access_type_status($user_status='')
   return $access_type_status;
 }
 
-/*
- * Return if user have access to access_type definition
- * Test does with user status
+/**
+ * Returns if user has access to a particular ACCESS_*
+ *
+ * @return int $access_type one of ACCESS_* constants
+ * @param string $user_status used if $user not initialized
  * @return bool
-*/
-function is_autorize_status($access_type, $user_status = '')
+ */
+function is_autorize_status($access_type, $user_status='')
 {
   return (get_access_type_status($user_status) >= $access_type);
 }
 
-/*
- * Check if user have access to access_type definition
- * Stop action if there are not access
- * Test does with user status
- * @return none
-*/
-function check_status($access_type, $user_status = '')
+/**
+ * Abord script if user has no access to a particular ACCESS_*
+ *
+ * @return int $access_type one of ACCESS_* constants
+ * @param string $user_status used if $user not initialized
+ */
+function check_status($access_type, $user_status='')
 {
   if (!is_autorize_status($access_type, $user_status))
   {
@@ -1341,55 +1261,65 @@ function check_status($access_type, $user_status = '')
   }
 }
 
-/*
- * Return if user is generic
+/**
+ * Returns if user is generic.
+ *
+ * @param string $user_status used if $user not initialized
  * @return bool
-*/
- function is_generic($user_status = '')
+ */
+function is_generic($user_status='')
 {
   return get_user_status($user_status) == 'generic';
 }
 
-/*
- * Return if user is only a guest
+/**
+ * Returns if user is a guest.
+ *
+ * @param string $user_status used if $user not initialized
  * @return bool
-*/
- function is_a_guest($user_status = '')
+ */
+function is_a_guest($user_status='')
 {
   return get_user_status($user_status) == 'guest';
 }
 
-/*
- * Return if user is, at least, a classic user
+/**
+ * Returns if user is, at least, a classic user.
+ *
+ * @param string $user_status used if $user not initialized
  * @return bool
-*/
- function is_classic_user($user_status = '')
+ */
+function is_classic_user($user_status='')
 {
   return is_autorize_status(ACCESS_CLASSIC, $user_status);
 }
 
-/*
- * Return if user is, at least, an administrator
+/**
+ * Returns if user is, at least, an administrator.
+ *
+ * @param string $user_status used if $user not initialized
  * @return bool
-*/
- function is_admin($user_status = '')
+ */
+function is_admin($user_status='')
 {
   return is_autorize_status(ACCESS_ADMINISTRATOR, $user_status);
 }
 
-/*
- * Return if user is, at least, a webmaster
+/**
+ * Returns if user is a webmaster.
+ *
+ * @param string $user_status used if $user not initialized
  * @return bool
-*/
- function is_webmaster($user_status = '')
+ */
+function is_webmaster($user_status='')
 {
   return is_autorize_status(ACCESS_WEBMASTER, $user_status);
 }
 
-/*
+/**
  * Adviser status is depreciated from piwigo 2.2
  * @return false
-*/
+ */
 function is_adviser()
 {
   // TODO for Piwigo 2.4 : trigger a warning. We don't do it on Piwigo 2.3
@@ -1398,9 +1328,11 @@ function is_adviser()
   return false;
 }
 
-/*
- * Return if current user can edit/delete/validate a comment
- * @param action edit/delete/validate
+/**
+ * Returns if current user can edit/delete/validate a comment.
+ *
+ * @param string $action edit/delete/validate
+ * @param int $comment_author_id
  * @return bool
  */
 function can_manage_comment($action, $comment_author_id)
@@ -1439,10 +1371,10 @@ function can_manage_comment($action, $comment_author_id)
   return false;
 }
 
-/*
+/**
  * Return mail address as display text
  * @return string
-*/
+ */
 function get_email_address_as_display_text($email_address)
 {
   global $conf;
@@ -1457,15 +1389,18 @@ function get_email_address_as_display_text($email_address)
   }
 }
 
-/*
- * Compute sql where condition with restrict and filter data. "FandF" means
- * Forbidden and Filters.
+/**
+ * Compute sql WHERE condition with restrict and filter data.
+ * "FandF" means Forbidden and Filters.
  *
- * @param array condition_fields: read function body
- * @param string prefix_condition: prefixes sql if condition is not empty
- * @param boolean force_one_condition: use at least "1 = 1"
- *
- * @return string sql where/conditions
+ * @param array $condition_fields one witch fields apply each filter
+ *    - forbidden_categories
+ *    - visible_categories
+ *    - forbidden_images
+ *    - visible_images
+ * @param string $prefix_condition prefixes query if condition is not empty
+ * @param boolean $force_one_condition use at least "1 = 1"
+ * @return string
  */
 function get_sql_condition_FandF(
   $condition_fields,
@@ -1557,7 +1492,12 @@ function get_sql_condition_FandF(
   return $sql;
 }
 
-/** @return the sql condition to show recent photos/albums based on user preferences and latest available photo.*/
+/** 
+ * Returns sql WHERE condition for recent photos/albums for current user.
+ *
+ * @param string $db_field
+ * @return string
+ */
 function get_recent_photos_sql($db_field)
 {
   global $user;
@@ -1571,7 +1511,7 @@ function get_recent_photos_sql($db_field)
 }
 
 /**
- * search an available activation_key
+ * Returns a unique activation key.
  *
  * @return string
  */
