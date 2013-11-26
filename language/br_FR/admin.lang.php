@@ -30,4 +30,8 @@ $lang['Virtual album deleted'] = 'Rummad galloudel dilimet';
 $lang['Virtual album name'] = 'Anv ar rummad galloudel';
 $lang['Virtual albums to move'] = 'Rummadoù galloudel da zilec\'hiañ';
 $lang['With no virtual album'] = 'Hep rummad galloudel';
+$lang['%d album moved'] = 'dilec\'hiet %d rummad';
+$lang['%d albums moved'] = 'dilec\'hiet %d rummad';
+$lang['%d day'] = '%d deiz';
+$lang['%d days'] = '%d deiz';
 ?>
