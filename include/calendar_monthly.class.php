@@ -419,10 +419,6 @@ class Calendar extends CalendarBase
       }
 
       list($cell_width, $cell_height) = ImageStdParams::get_by_type(IMG_SQUARE)->sizing->ideal_size;
-      if ($cell_width>120)
-      {
-        $cell_width = $cell_height = 120;
-      }
 
       $tpl_weeks    = array();
       $tpl_crt_week = array();
@@ -455,47 +451,6 @@ class Calendar extends CalendarBase
         }
         else
         {
-          list($tn_width,$tn_height) = $items[$day]['derivative']->get_size();
-
-          // now need to fit the thumbnail of size tn_size within
-          // a cell of size cell_size by playing with CSS position (left/top)
-          // and the width and height of <img>.
-          $ratio_w = $tn_width/$cell_width;
-          $ratio_h = $tn_height/$cell_height;
-
-          $pos_top=$pos_left=0;
-          $css_style = '';
-
-          if ( $ratio_w>1 and $ratio_h>1)
-          {// cell completely smaller than the thumbnail so we will let the browser
-           // resize the thumbnail
-            if ($ratio_w > $ratio_h )
-            {// thumbnail ratio compared to cell -> wide format
-              $css_style = 'height:'.$cell_height.'px;';
-              $browser_img_width = $cell_height*$tn_width/$tn_height;
-              $pos_left = ($browser_img_width-$cell_width)/2;
-            }
-            else
-            {
-              $css_style = 'width:'.$cell_width.'px;';
-              $browser_img_height = $cell_width*$tn_height/$tn_width;
-              $pos_top = ($browser_img_height-$cell_height)/2;
-            }
-          }
-          else
-          {
-            $pos_left = ($tn_width-$cell_width)/2;
-            $pos_top = ($tn_height-$cell_height)/2;
-          }
-
-          if ( round($pos_left)!=0)
-          {
-            $css_style.='left:'.round(-$pos_left).'px;';
-          }
-          if ( round($pos_top)!=0)
-          {
-            $css_style.='top:'.round(-$pos_top).'px;';
-          }
           $url = duplicate_index_url(
               array(
                 'chronology_date' =>
@@ -514,7 +469,6 @@ class Calendar extends CalendarBase
                 'NB_ELEMENTS' => $items[$day]['nb_images'],
                 'IMAGE'       => $items[$day]['derivative']->get_url(),
                 'U_IMG_LINK'  => $url,
-                'IMAGE_STYLE' => $css_style,
                 'IMAGE_ALT'   => $items[$day]['file'],
               );
         }

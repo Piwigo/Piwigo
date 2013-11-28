@@ -1,4 +1,4 @@
-{if !empty($chronology_navigation_bars) }
+{if !empty($chronology_navigation_bars)}
 {foreach from=$chronology_navigation_bars item=bar}
 <div class="calendarBar">
 	{if isset($bar.previous)}
@@ -22,7 +22,7 @@
 {/foreach}
 {/if}
 
-{if !empty($chronology_calendar.calendar_bars) }
+{if !empty($chronology_calendar.calendar_bars)}
 {foreach from=$chronology_calendar.calendar_bars item=bar}
 <div class="calendarCalBar">
 	<span class="calCalHead"><a href="{$bar.U_HEAD}">{$bar.HEAD_LABEL}</a>  ({$bar.NB_IMAGES})</span><br>
@@ -40,7 +40,7 @@
 {/foreach}
 {/if}
 
-{if isset($chronology_calendar.month_view) }
+{if isset($chronology_calendar.month_view)}
 <table class="calMonth">
  <thead>
  <tr>
@@ -50,7 +50,7 @@
  </tr>
  </thead>
 {html_style}
-TABLE.calMonth TBODY TD, TABLE.calMonth TBODY TD DIV.calImg{
+.calMonth TD, .calMonth .calImg{
 	width:{$chronology_calendar.month_view.CELL_WIDTH}px;height:{$chronology_calendar.month_view.CELL_HEIGHT}px
 }
 {/html_style}
@@ -63,7 +63,7 @@ TABLE.calMonth TBODY TD, TABLE.calMonth TBODY TD DIV.calImg{
 	 			<div class="calBackDate">{$day.DAY}</div><div class="calForeDate">{$day.DAY}</div>
 	 			<div class="calImg">
 					<a href="{$day.U_IMG_LINK}">
- 						<img style="{$day.IMAGE_STYLE}" src="{$day.IMAGE}" alt="{$day.IMAGE_ALT}" title="{$day.NB_ELEMENTS|@translate_dec:'%d photo':'%d photos'}">
+ 						<img src="{$day.IMAGE}" alt="{$day.IMAGE_ALT}" title="{$day.NB_ELEMENTS|@translate_dec:'%d photo':'%d photos'}">
 					</a>
 				</div>
  		{else}

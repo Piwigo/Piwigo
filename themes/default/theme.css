@@ -173,18 +173,6 @@ TD.calDayCellFull, TD.calDayCellEmpty {
 	border: 1px solid gray;
 }
 
-.calImg {
-	overflow: hidden;
-	vertical-align: bottom;
-	z-index: 1;
-	position: relative; /*<- this required by IE*/
-}
-
-.calImg IMG {
-	position: relative;
-	border: 0;
-}
-
 .calBackDate {
 	padding-left: 4px;
 	padding-top: 0;
