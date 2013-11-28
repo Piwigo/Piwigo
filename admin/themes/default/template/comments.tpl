@@ -45,10 +45,13 @@ jQuery(document).ready(function(){
 
 <h2>{'User comments'|@translate} {$TABSHEET_TITLE}</h2>
 
-<p style="text-align:left;margin-left:1em;">
+<div class="commentFilter">
   <a href="{$F_ACTION}&amp;filter=all" class="{if $filter == 'all'}commentFilterSelected{/if}">{'All'|@translate}</a> ({$nb_total})
   | <a href="{$F_ACTION}&amp;filter=pending" class="{if $filter == 'pending'}commentFilterSelected{/if}">{'Waiting'|@translate}</a> ({$nb_pending})
-</p>
+{if !empty($navbar) }{include file='navigation_bar.tpl'|@get_extent:'navbar'}{/if}
+</div>
+
+
 
 {if !empty($comments) }
 <form method="post" action="{$F_ACTION}" id="pendingComments">

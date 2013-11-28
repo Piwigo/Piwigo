@@ -28,9 +28,19 @@ if (!defined('PHPWG_ROOT_PATH'))
 
 include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
 
+if (isset($_GET['start']) and is_numeric($_GET['start']))
+{
+  $page['start'] = $_GET['start'];
+}
+else
+{
+  $page['start'] = 0;
+}
+
 // +-----------------------------------------------------------------------+
 // | Check Access and exit when user status is not ok                      |
 // +-----------------------------------------------------------------------+
+
 check_status(ACCESS_ADMINISTRATOR);
 
 // +-----------------------------------------------------------------------+
@@ -165,6 +175,7 @@ SELECT
       ON u.'.$conf['user_fields']['id'].' = c.author_id
   WHERE '.implode(' AND ', $where_clauses).'
   ORDER BY c.date DESC
+  LIMIT '.$page['start'].', '.$conf['comments_page_nb_comments'].'
 ;';
 $result = pwg_query($query);
 while ($row = pwg_db_fetch_assoc($result))
@@ -198,6 +209,19 @@ while ($row = pwg_db_fetch_assoc($result))
 
   $list[] = $row['id'];
 }
+
+// +-----------------------------------------------------------------------+
+// |                            navigation bar                             |
+// +-----------------------------------------------------------------------+
+
+$navbar = create_navigation_bar(
+  get_root_url().'admin.php'.get_query_string_diff(array('start')),
+  ('pending' == $page['filter'] ? $nb_pending : $nb_total),
+  $page['start'],
+  $conf['comments_page_nb_comments']
+  );
+
+$template->assign('navbar', $navbar);
 
 // +-----------------------------------------------------------------------+
 // |                           sending html code                           |

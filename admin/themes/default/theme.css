@@ -1044,6 +1044,9 @@ p#uploadModeInfos {text-align:left;margin-top:1em;font-size:90%;color:#999;}
   text-align:left;
 }
 
+.commentFilter {text-align:left;margin:5px 1em;}
+.commentFilter .navigationBar {float:right; margin:0;}
+
 FORM#categoryOrdering p.albumTitle {margin:0;}
 FORM#categoryOrdering p.albumActions {visibility:hidden; margin:0}
 FORM#categoryOrdering .categoryLi:hover p.albumActions {visibility:visible;}
