@@ -953,4 +953,13 @@ $lang['Select at least one tag'] = 'حدد علامة واحدة على الأق
 $lang['Mail theme'] = 'طراز بريد';
 $lang['General'] = 'عام';
 $lang['Basic settings'] = 'الإعدادات الأساسية';
+$lang['Change password'] = 'تغيير كلمة السر';
+$lang['Registered on %s, %s.'] = 'سُجِّل في%s, %s';
+$lang['Change username'] = 'تغيير اسم المستخدم';
+$lang['Loading...'] = 'تحميل ...';
+$lang['No matching user found'] = 'لم يتم العثور على مستخدم مطابق';
+$lang['No user selected, no action possible.'] = 'لم يتم إختيار المستخدم، أي إجراء غير ممكن';
+$lang['Password updated'] = 'كلمة السر تم تحديثها';
+$lang['Update user'] = 'تحديث المستعمل';
+$lang['Users modified'] = 'المستخدمين تم تعديلهم';
 ?>
