@@ -1026,6 +1026,22 @@ p#uploadModeInfos {text-align:left;margin-top:1em;font-size:90%;color:#999;}
   padding-left:10px;
 }
 
+#albumLinks ul, .photoLinks ul {
+  padding-left:0;
+}
+
+#albumLinks li, .photoLinks li {
+  list-style:none;
+}
+
+.photoLinks {
+  vertical-align:top;
+}
+
+.photoLinks ul {
+  margin:0;
+}
+
 /* Album Manager */
 #addAlbumForm input[name="category_name"], #formCreateAlbum input[name="virtual_name"] {
   width:300px;

@@ -133,6 +133,12 @@
       "src": "fontawesome"
     },
     {
+      "uid": "0d20938846444af8deb1920dc85a29fb",
+      "css": "logout",
+      "code": 59419,
+      "src": "fontawesome"
+    },
+    {
       "uid": "598a5f2bcf3521d1615de8e1881ccd17",
       "css": "clock",
       "code": 128340,
@@ -226,6 +232,12 @@
       "uid": "6274e0601f2feef7eced89146e708de0",
       "css": "user-add",
       "code": 59403,
+      "src": "entypo"
+    },
+    {
+      "uid": "de9a631a7d18106aea1c89ba51b1990a",
+      "css": "help-circled",
+      "code": 59418,
       "src": "entypo"
     },
     {

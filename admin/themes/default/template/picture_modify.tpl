@@ -57,15 +57,15 @@ pwg_initialization_datepicker("#date_creation_day", "#date_creation_month", "#da
             <li>{$INTRO.id}</li>
           </ul>
         </td>
-        <td style="vertical-align:top;">
-          <ul style="padding-left:15px;margin:0;">
+        <td class="photoLinks">
+          <ul>
           {if isset($U_JUMPTO) }
-            <li><a href="{$U_JUMPTO}">{'jump to photo'|@translate} →</a></li>
+            <li><a class="icon-eye" href="{$U_JUMPTO}">{'jump to photo'|@translate} →</a></li>
           {/if}
           {if !url_is_remote($PATH)}
-            <li><a href="{$U_SYNC}">{'Synchronize metadata'|@translate}</a></li>
+            <li><a class="icon-arrows-cw" href="{$U_SYNC}">{'Synchronize metadata'|@translate}</a></li>
 
-            <li><a href="{$U_DELETE}" onclick="return confirm('{'Are you sure?'|@translate|@escape:javascript}');">{'delete photo'|@translate}</a></li>
+            <li><a class="icon-trash" href="{$U_DELETE}" onclick="return confirm('{'Are you sure?'|@translate|@escape:javascript}');">{'delete photo'|@translate}</a></li>
           {/if}
           </ul>
         </td>

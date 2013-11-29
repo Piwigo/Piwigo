@@ -29,25 +29,25 @@
 
       <td id="albumLinks">
 <p>{$INTRO}</p>
-<ul style="padding-left:15px;">
+<ul>
 {if cat_admin_access($CAT_ID)}
-  <li><a href="{$U_JUMPTO}">{'jump to album'|@translate} →</a></li>
+  <li><a class="icon-eye" href="{$U_JUMPTO}">{'jump to album'|@translate} →</a></li>
 {/if}
 
 {if isset($U_MANAGE_ELEMENTS) }
-  <li><a href="{$U_MANAGE_ELEMENTS}">{'manage album photos'|@translate}</a></li>
+  <li><a class="icon-picture" href="{$U_MANAGE_ELEMENTS}">{'manage album photos'|@translate}</a></li>
 {/if}
 
-  <li style="text-transform:lowercase;"><a href="{$U_ADD_PHOTOS_ALBUM}">{'Add Photos'|translate}</a></li>
+  <li style="text-transform:lowercase;"><a class="icon-plus-circled" href="{$U_ADD_PHOTOS_ALBUM}">{'Add Photos'|translate}</a></li>
 
-  <li><a href="{$U_CHILDREN}">{'manage sub-albums'|@translate}</a></li>
+  <li><a class="icon-sitemap" href="{$U_CHILDREN}">{'manage sub-albums'|@translate}</a></li>
 
 {if isset($U_SYNC) }
-  <li><a href="{$U_SYNC}">{'Synchronize'|@translate}</a> ({'Directory'|@translate} = {$CAT_FULL_DIR})</li>
+  <li><a class="icon-exchange" href="{$U_SYNC}">{'Synchronize'|@translate}</a> ({'Directory'|@translate} = {$CAT_FULL_DIR})</li>
 {/if}
 
 {if isset($U_DELETE) }
-  <li><a href="{$U_DELETE}" onclick="return confirm('{'Are you sure?'|@translate|@escape:javascript}');">{'delete album'|@translate}</a></li>
+  <li><a class="icon-trash" href="{$U_DELETE}" onclick="return confirm('{'Are you sure?'|@translate|@escape:javascript}');">{'delete album'|@translate}</a></li>
 {/if}
 
 </ul>
