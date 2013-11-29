@@ -22,7 +22,7 @@ jQuery(document).ready(function(){ldelim}
 				<li><a class="icon-clock" href="{$U_RECENT_SET}">{'Recent photos'|@translate}</a></li>
 				<li><a class="icon-pencil" href="{$U_BATCH}">{'Batch Manager'|@translate}</a></li>
 {if $NB_PHOTOS_IN_CADDIE > 0}
-				<li><a class="icon-basket" href="{$U_CADDIE}">{'Caddie'|@translate}<span class="adminMenubarCounter">{$NB_PHOTOS_IN_CADDIE}</span></a></li>
+				<li><a class="icon-flag" href="{$U_CADDIE}">{'Caddie'|@translate}<span class="adminMenubarCounter">{$NB_PHOTOS_IN_CADDIE}</span></a></li>
 {/if}
 			</ul>
 		</dd>
