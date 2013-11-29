@@ -10,8 +10,8 @@ $config_send= array();
 
 if(isset($_POST['submit_smartpocket']))
 {
-  $config_send['loop']=(isset($_POST['loop']) and $_POST['loop']=="false") ? false : true;
-  $config_send['autohide']=(isset($_POST['autohide']) and $_POST['autohide']=="0") ? 0 : 5000;
+  $config_send['loop'] = isset($_POST['loop']);
+  $config_send['autohide'] = (isset($_POST['autohide']) ? 5000 : 0);
   
   $conf['smartpocket'] = serialize($config_send);
   conf_update_param('smartpocket', pwg_db_real_escape_string($conf['smartpocket']));

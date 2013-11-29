@@ -1,12 +1,27 @@
-{combine_css path="themes/default/js/ui/theme/jquery.ui.button.css"}
-{combine_css path="themes/smartpocket/admin/jquery.ui.button.css"}
-{footer_script require='jquery.ui.button'}
-{literal}
-jQuery(document).ready(function(){
-  jQuery( ".radio" ).buttonset();
+{html_style}
+.graphicalCheckbox {
+  font-size:16px;
+  line-height:16px;
+}
+
+input[type=checkbox] {
+  display:none;
+}
+{/html_style}
+
+{footer_script}{literal}
+jQuery(document).ready(function() {
+  jQuery('form li label input[type=checkbox]').change(function() {
+    var graphicalCheckbox = jQuery(this).parent().find('.graphicalCheckbox');
+    if (jQuery(this).is(':checked')) {
+      jQuery(graphicalCheckbox).removeClass('icon-check-empty').addClass('icon-check');
+    }
+    else {
+      jQuery(graphicalCheckbox).removeClass('icon-check').addClass('icon-check-empty');
+    }
+  });
 });
-{/literal}
-{/footer_script}
+{/literal}{/footer_script}
 
 <div class="titrePage">
   <h2>{'Smartpocket, Configuration Page'|@translate}</h2>
@@ -16,16 +31,19 @@ jQuery(document).ready(function(){
   <fieldset>
     <legend>{'Slideshow Options'|@translate}</legend>
     <ul>
-      <li class="radio" >
-        <label for="loop"><span class="property">{'Loop the slideshow'|@translate}</span>&nbsp;</label>
-        <input type="radio" id="loop_true" name="loop" value="true" {if $options.loop}checked="checked"{/if}><label for="loop_true">{'Yes'|@translate}</label>
-        <input type="radio" id="loop_false" name="loop" value="false" {if !$options.loop}checked="checked"{/if}><label for="loop_false">{'No'|@translate}</label>
-      </li>
-      <li class="radio" >
-        <label for="autohide"><span class="property">{'Autohide the bar of the slideshow'|@translate}</span>&nbsp;</label>
-        <input type="radio" id="autohide_on" name="autohide" value="5000" {if $options.autohide==5000}checked="checked"{/if}><label for="autohide_on">{'Yes'|@translate}</label>
-        <input type="radio" id="autohide_off" name="autohide" value="0" {if $options.autohide==0}checked="checked"{/if}><label for="autohide_off">{'No'|@translate}</label>
-      </li>
+
+      <li><label>
+        <span class="property">{'Loop the slideshow'|translate}</span>&nbsp;
+        <span class="graphicalCheckbox icon-check{if not $options.loop}-empty{/if}">&nbsp;</span>
+        <input type="checkbox" name="loop"{if $options.loop} checked="checked"{/if}>
+      </label></li>
+
+      <li><label>
+        <span class="property">{'Autohide the bar of the slideshow'|translate}</span>&nbsp;
+        <span class="graphicalCheckbox icon-check{if $options.autohide != 5000}-empty{/if}">&nbsp;</span>
+        <input type="checkbox" name="autohide"{if $options.autohide == 5000} checked="checked"{/if}>
+      </label></li>
+
     </ul>
   </fieldset>
 </div>

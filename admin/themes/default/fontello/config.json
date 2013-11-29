@@ -7,6 +7,12 @@
   "ascent": 850,
   "glyphs": [
     {
+      "uid": "9bc2902722abb366a213a052ade360bc",
+      "css": "spin6",
+      "code": 59421,
+      "src": "fontelico"
+    },
+    {
       "uid": "bf882b30900da12fca090d9796bc3030",
       "css": "mail",
       "code": 9993,
@@ -205,6 +211,18 @@
       "src": "fontawesome"
     },
     {
+      "uid": "dd6c6b221a1088ff8a9b9cd32d0b3dd5",
+      "css": "check",
+      "code": 59423,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "4b900d04e8ab8c82f080c1cfbac5772c",
+      "css": "check-empty",
+      "code": 59424,
+      "src": "fontawesome"
+    },
+    {
       "uid": "9396b2d8849e0213a0f11c5fd7fcc522",
       "css": "tasks",
       "code": 61614,
@@ -274,6 +292,12 @@
       "uid": "6a7b9d4863bb7e6c79e9457a72d689b6",
       "css": "tools",
       "code": 59395,
+      "src": "entypo"
+    },
+    {
+      "uid": "7f6916533c0842b6cec699fd773693d3",
+      "css": "hourglass",
+      "code": 59422,
       "src": "entypo"
     },
     {
