@@ -411,4 +411,10 @@ $lang['Welcome to your Piwigo photo gallery!'] = 'Benvido a túa galería de fot
 $lang['Yes'] = 'Si';
 $lang['Password is missing. Please enter the password.'] = 'Falta a clave. Insire unha clave.';
 $lang['Password confirmation is missing. Please confirm the chosen password.'] = 'Falta a confirmación da clave. Confirma a clave escollida.';
+$lang['%d photos per page'] = '%d fotos por páxina';
+$lang['Email'] = 'Correo electrónico';
+$lang['First Page'] = 'Primeira páxina';
+$lang['Go back to the album'] = 'Volver ó álbum';
+$lang['Last Page'] = 'Última páxina ';
+$lang['Theme'] = 'Tema';
 ?>
