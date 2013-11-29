@@ -19,22 +19,36 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
-/*A source image is used to get a derivative image. A source image is either the original file for a jpg or a
-'representative' image of a non image file or a standard icon for the non-image file.*/
+/**
+ * @package Derivatives
+ */
+
+
+/**
+ * A source image is used to get a derivative image. It is either
+ * the original file for a jpg/png/... or a 'representative' image
+ * of a  non image file or a standard icon for the non-image file.
+ */
 final class SrcImage
 {
   const IS_ORIGINAL = 0x01;
   const IS_MIMETYPE = 0x02;
   const DIM_NOT_GIVEN = 0x04;
 
+  /** @var int */
   public $id;
+  /** @var string */
   public $rel_path;
+  /** @var int */
   public $rotation = 0;
-
+  /** @var int[] */
   private $size=null;
+  /** @var int */
   private $flags=0;
 
-  /*@param infos assoc array of data from images table*/
+  /**
+   * @param array $infos assoc array of data from images table
+   */
   function __construct($infos)
   {
     global $conf;
@@ -88,21 +102,33 @@ final class SrcImage
     }
   }
 
+  /**
+   * @return bool
+   */
   function is_original()
   {
     return $this->flags & self::IS_ORIGINAL;
   }
 
+  /**
+   * @return bool
+   */
   function is_mimetype()
   {
     return $this->flags & self::IS_MIMETYPE;
   }
 
+  /**
+   * @return string
+   */
   function get_path()
   {
     return PHPWG_ROOT_PATH.$this->rel_path;
   }
 
+  /**
+   * @return string
+   */
   function get_url()
   {
     $url = get_root_url().$this->rel_path;
@@ -113,12 +139,17 @@ final class SrcImage
     return embellish_url($url);
   }
 
+  /**
+   * @return bool
+   */
   function has_size()
   {
     return $this->size != null;
   }
 
-  /* @return a 2-element array containing width/height or null if dimensions are not available*/
+  /**
+   * @return int[]|null 0=width, 1=height or null if fail to compute size
+   */
   function get_size()
   {
     if ($this->size == null)
@@ -137,19 +168,29 @@ final class SrcImage
 }
 
 
-/*Holds information (path, url, dimensions) about a derivative image. A derivative image is constructed from a source
-image (SrcImage class) and derivative parameters (DerivativeParams class).
-*/
+/**
+ * Holds information (path, url, dimensions) about a derivative image.
+ * A derivative image is constructed from a source image (SrcImage class)
+ * and derivative parameters (DerivativeParams class).
+ */
 final class DerivativeImage
 {
+  /** @var SrcImage */
   public $src_image;
-
+  /** @var array */
   private $params;
-  private $rel_path, $rel_url, $is_cached=true;
+  /** @var string */
+  private $rel_path;
+  /** @var string */
+  private $rel_url;
+  /** @var bool */
+  private $is_cached=true;
 
-  /*
-  @param type string of standard derivative param type (e.g. IMG_???) or a DerivativeParams object
-  @param src_image the source image of this derivative*/
+  /**
+   * @param string|DerivativeParams $type standard derivative param type (e.g. IMG_*)
+   *    or a DerivativeParams object
+   * @param SrcImage $src_image the source image of this derivative
+   */
   function __construct($type, SrcImage $src_image)
   {
     $this->src_image = $src_image;
@@ -165,16 +206,25 @@ final class DerivativeImage
     self::build($src_image, $this->params, $this->rel_path, $this->rel_url, $this->is_cached);
   }
 
+  /**
+   * Generates the url of a thumbnail.
+   *
+   * @param array|SrcImage $infos array of info from db or SrcImage
+   * @return string
+   */
   static function thumb_url($infos)
   {
     return self::url(IMG_THUMB, $infos);
   }
 
   /**
-  @return derivative image url
-  @param type string of standard derivative param type (e.g. IMG_???) or a DerivativeParams object
-  @param infos assoc array of data from images table or a SrcImage object
-  */
+   * Generates the url for a particular photo size.
+   *
+   * @param string|DerivativeParams $type standard derivative param type (e.g. IMG_*)
+   *    or a DerivativeParams object
+   * @param array|SrcImage $infos array of info from db or SrcImage
+   * @return string
+   */
   static function url($type, $infos)
   {
     $src_image = is_object($infos) ? $infos : new SrcImage($infos);
@@ -193,7 +243,7 @@ final class DerivativeImage
 
   /**
    * Return associative an array of all DerivativeImage for a specific image.
-   * Disabled derivative types can be still found in the return mapped to an
+   * Disabled derivative types can be still found in the return, mapped to an
    * enabled derivative (e.g. the values are not unique in the return array).
    * This is useful for any plugin/theme to just use $deriv[IMG_XLARGE] even if 
    * the XLARGE is disabled.
@@ -228,7 +278,7 @@ final class DerivativeImage
    * Returns an instance of DerivativeImage for a specific image and size.
    * Disabled derivatives fallback to an enabled derivative.
    *
-   * @param string $type
+   * @param string $type standard derivative param type (e.g. IMG_*)
    * @param array|SrcImage $src_image array of info from db or SrcImage
    * @return DerivativeImage|null null if $type not found
    */
@@ -254,6 +304,9 @@ final class DerivativeImage
     return null;
   }
 
+  /**
+   * @todo : documentation of DerivativeImage::build
+   */
   private static function build($src, &$params, &$rel_path, &$rel_url, &$is_cached=null)
   {
     if ( $src->has_size() && $params->is_identity( $src->get_size() ) )
@@ -334,11 +387,17 @@ final class DerivativeImage
     }
   }
 
+  /**
+   * @return string
+   */
   function get_path()
   {
     return PHPWG_ROOT_PATH.$this->rel_path;
   }
 
+  /**
+   * @return string
+   */
   function get_url()
   {
     if ($this->params == null)
@@ -352,12 +411,17 @@ final class DerivativeImage
           ) );
   }
 
+  /**
+   * @return bool
+   */
   function same_as_source()
   {
     return $this->params == null;
   }
 
-
+  /**
+   * @return string one if IMG_* or 'Original'
+   */
   function get_type()
   {
     if ($this->params == null)
@@ -365,7 +429,9 @@ final class DerivativeImage
     return $this->params->type;
   }
 
-  /* returns the size of the derivative image*/
+  /**
+   * @return int[]
+   */
   function get_size()
   {
     if ($this->params == null)
@@ -375,6 +441,11 @@ final class DerivativeImage
     return $this->params->compute_final_size($this->src_image->get_size());
   }
 
+  /**
+   * Returns the size as CSS rule.
+   *
+   * @return string
+   */
   function get_size_css()
   {
     $size = $this->get_size();
@@ -384,6 +455,11 @@ final class DerivativeImage
     }
   }
 
+  /**
+   * Returns the size as HTML attributes.
+   *
+   * @return string
+   */
   function get_size_htm()
   {
     $size = $this->get_size();
@@ -393,6 +469,11 @@ final class DerivativeImage
     }
   }
 
+  /**
+   * Returns literal size: $widthx$height.
+   *
+   * @return string
+   */
   function get_size_hr()
   {
     $size = $this->get_size();
@@ -402,6 +483,11 @@ final class DerivativeImage
     }
   }
 
+  /**
+   * @param int $maxw
+   * @param int $mawh
+   * @return int[]
+   */
   function get_scaled_size($maxw, $maxh)
   {
     $size = $this->get_size();
@@ -426,6 +512,13 @@ final class DerivativeImage
     return $size;
   }
 
+  /**
+   * Returns the scaled size as HTML attributes.
+   *
+   * @param int $maxw
+   * @param int $mawh
+   * @return string
+   */
   function get_scaled_size_htm($maxw=9999, $maxh=9999)
   {
     $size = $this->get_scaled_size($maxw, $maxh);
@@ -435,6 +528,9 @@ final class DerivativeImage
     }
   }
 
+  /**
+   * @return bool
+   */
   function is_cached()
   {
     return $this->is_cached;
