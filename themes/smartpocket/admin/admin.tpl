@@ -12,13 +12,7 @@ input[type=checkbox] {
 {footer_script}{literal}
 jQuery(document).ready(function() {
   jQuery('form li label input[type=checkbox]').change(function() {
-    var graphicalCheckbox = jQuery(this).parent().find('.graphicalCheckbox');
-    if (jQuery(this).is(':checked')) {
-      jQuery(graphicalCheckbox).removeClass('icon-check-empty').addClass('icon-check');
-    }
-    else {
-      jQuery(graphicalCheckbox).removeClass('icon-check').addClass('icon-check-empty');
-    }
+    jQuery(this).prev().toggleClass('icon-check icon-check-empty');
   });
 });
 {/literal}{/footer_script}
