@@ -22,14 +22,16 @@
 // +-----------------------------------------------------------------------+
 
 /**
- * This file is included by the main page to show the menu bar
- *
+ * @package functions\menubar
  */
 
 include_once(PHPWG_ROOT_PATH.'include/block.class.php');
 
 initialize_menu();
 
+/**
+ * Setups each block the main menubar.
+ */ 
 function initialize_menu()
 {
   global $page, $conf, $user, $template, $filter;
@@ -329,4 +331,5 @@ function initialize_menu()
   }
   $menu->apply('MENUBAR',  'menubar.tpl' );
 }
+
 ?>
