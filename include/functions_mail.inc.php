@@ -907,9 +907,17 @@ function move_css_to_body($content)
 {
   include_once(PHPWG_ROOT_PATH.'include/emogrifier.class.php');
 
+  // disable DOM warnings
+  $e_state = libxml_use_internal_errors(true);
+
   $e = new Emogrifier($content);
   // $e->preserveStyleTag = true;
-  return $e->emogrify();
+  $content = $e->emogrify();
+
+  libxml_clear_errors();
+  libxml_use_internal_errors($e_state);
+
+  return $content;
 }
 
 /**
