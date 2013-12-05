@@ -284,24 +284,21 @@ function parse_request()
 function try_switch_source(DerivativeParams $params, $original_mtime)
 {
   global $page;
-  $original_size = null;
-  if (isset($page['original_size']))
+  if (!isset($page['original_size']))
+    return false;
+
+  $original_size = $page['original_size'];
+  if ($page['rotation_angle']==90 || $page['rotation_angle']==270)
   {
-    $original_size = $page['original_size'];
-    if ($page['rotation_angle']==90 || $page['rotation_angle']==270)
-    {
-      $tmp = $original_size[0];
-      $original_size[0] = $original_size[1];
-      $original_size[1] = $tmp;
-    }
+    $tmp = $original_size[0];
+    $original_size[0] = $original_size[1];
+    $original_size[1] = $tmp;
   }
+  $dsize = $params->compute_final_size($original_size);
 
   $use_watermark = $params->use_watermark;
   if ($use_watermark)
   {
-    if (!isset($original_size))
-      return false; // cannot really know if a watermark is required
-    $dsize = $params->compute_final_size($original_size);
     $use_watermark = $params->will_watermark($dsize);
   }
 
@@ -314,6 +311,10 @@ function try_switch_source(DerivativeParams $params, $original_mtime)
       continue;
     if ($candidate->max_width() < $params->max_width() || $candidate->max_height() < $params->max_height())
       continue;
+    $candidate_size = $candidate->compute_final_size($original_size);
+    if ($dsize != $params->compute_final_size($candidate_size))
+      continue;
+
     if ($params->sizing->max_crop==0)
     {
       if ($candidate->sizing->max_crop!=0)
@@ -323,9 +324,6 @@ function try_switch_source(DerivativeParams $params, $original_mtime)
     {
       if ($candidate->sizing->max_crop!=0)
         continue; // this could be optimized
-      if (!isset($original_size))
-        continue;
-      $candidate_size = $candidate->compute_final_size($original_size);
       if ($candidate_size[0] < $params->sizing->min_size[0] || $candidate_size[1] < $params->sizing->min_size[1] )
         continue;
     }
