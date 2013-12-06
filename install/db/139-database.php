@@ -57,14 +57,6 @@ UPDATE '. IMAGES_TABLE .'
     AND lon != NULL
 ;';
   pwg_query($query);
-  
-  // delete old fields
-  $query = '
-ALTER TABLE '. IMAGES_TABLE .'
-  DROP `lat`,
-  DROP `lon`
-;';
-  pwg_query($query);
 }
 
 echo "\n".$upgrade_description."\n";
