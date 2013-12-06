@@ -196,13 +196,16 @@ CREATE TABLE `piwigo_images` (
   `level` tinyint unsigned NOT NULL default '0',
   `md5sum` char(32) default NULL,
   `added_by` smallint(5) NOT NULL default '0',
-  `rotation` tinyint unsigned default null,
+  `rotation` tinyint unsigned default NULL,
+  `latitude` double(8, 6) default NULL,
+  `longitude` double(9, 6) default NULL,
   PRIMARY KEY  (`id`),
   KEY `images_i2` (`date_available`),
   KEY `images_i3` (`rating_score`),
   KEY `images_i4` (`hit`),
   KEY `images_i5` (`date_creation`),
-  KEY `images_i1` (`storage_category_id`)
+  KEY `images_i1` (`storage_category_id`),
+  KEY `images_i6` (`latitude`)
 ) ENGINE=MyISAM;
 
 --

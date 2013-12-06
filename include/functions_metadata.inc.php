@@ -152,7 +152,9 @@ function get_exif_data($filename, $map)
   // Read EXIF data
   if ($exif = @read_exif_data($filename))
   {
-    $exif = trigger_event('format_exif_data', $exif, $filename, $map );
+    $exif = trigger_event('format_exif_data', $exif, $filename, $map);
+
+    // configured fields
     foreach ($map as $key => $field)
     {
       if (strpos($field, ';') === false)
@@ -171,6 +173,20 @@ function get_exif_data($filename, $map)
         }
       }
     }
+
+    // GPS data
+    $gps_exif = array_intersect_key($exif, array_flip(array('GPSLatitudeRef', 'GPSLatitude', 'GPSLongitudeRef', 'GPSLongitude')));
+    if (count($gps_exif) == 4)
+    {
+      if (
+        is_array($gps_exif['GPSLatitude'])  and in_array($gps_exif['GPSLatitudeRef'], array('S', 'N')) and
+        is_array($gps_exif['GPSLongitude']) and in_array($gps_exif['GPSLongitudeRef'], array('W', 'E'))
+        )
+      {
+        $result['latitude'] = parse_exif_gps_data($gps_exif['GPSLatitude'], $gps_exif['GPSLatitudeRef']);
+        $result['longitude'] = parse_exif_gps_data($gps_exif['GPSLongitude'], $gps_exif['GPSLongitudeRef']);
+      }
+    }
   }
 
   if (!$conf['allow_html_in_metadata'])
@@ -184,6 +200,35 @@ function get_exif_data($filename, $map)
   }
 
   return $result;
+}
+
+
+/**
+ * Converts EXIF GPS format to a float value.
+ * @since 2.6
+ *
+ * @param string[] $raw eg:
+ *    - 41/1
+ *    - 54/1
+ *    - 9843/500
+ * @param string $ref 'S', 'N', 'E', 'W'. eg: 'N'
+ * @return float eg: 41.905468
+ */
+function parse_exif_gps_data($raw, $ref)
+{
+  foreach ($raw as &$i)
+  {
+    $i = explode('/', $i);
+    $i = $i[1]==0 ? 0 : $i[0]/$i[1];
+  }
+  unset($i);
+
+  $v = $raw[0] + $raw[1]/60 + $raw[2]/3600;
+
+  $ref = strtoupper($ref);
+  if ($ref == 'S' or $ref == 'W') $v= -$v;
+
+  return $v;
 }
 
 ?>
