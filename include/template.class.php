@@ -1537,14 +1537,15 @@ final class FileCombiner
 
   private static function process_css_rec($css, $dir)
   {
-    static $PATTERN = "#url\(\s*['|\"]{0,1}(.*?)['|\"]{0,1}\s*\)#";
+    static $PATTERN_URL = "#url\(\s*['|\"]{0,1}(.*?)['|\"]{0,1}\s*\)#";
+    static $PATTERN_IMPORT = "#@import\s*['|\"]{0,1}(.*?)['|\"]{0,1};#";
 
-    if (preg_match_all($PATTERN, $css, $matches, PREG_SET_ORDER))
+    if (preg_match_all($PATTERN_URL, $css, $matches, PREG_SET_ORDER))
     {
       $search = $replace = array();
       foreach ($matches as $match)
       {
-        if ( !url_is_remote($match[1]) && $match[1][0] != '/')
+        if ( !url_is_remote($match[1]) && $match[1][0] != '/' && strpos($match[1], 'data:image/')===false)
         {
           $relative = $dir . "/$match[1]";
           $search[] = $match[0];
@@ -1554,8 +1555,7 @@ final class FileCombiner
       $css = str_replace($search, $replace, $css);
     }
 
-    $imports = preg_match_all("#@import\s*['|\"]{0,1}(.*?)['|\"]{0,1};#", $css, $matches, PREG_SET_ORDER);
-    if ($imports)
+    if (preg_match_all($PATTERN_IMPORT, $css, $matches, PREG_SET_ORDER))
     {
       $search = $replace = array();
       foreach ($matches as $match)
