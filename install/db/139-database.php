@@ -53,8 +53,8 @@ if (pwg_db_num_rows(pwg_query($query)))
 UPDATE '. IMAGES_TABLE .'
   SET latitude = lat,
     longitude = lon
-  WHERE lat != NULL
-    AND lon != NULL
+  WHERE lat IS NOT NULL
+    AND lon IS NOT NULL
 ;';
   pwg_query($query);
 }
