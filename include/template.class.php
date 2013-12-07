@@ -75,7 +75,7 @@ class Template
    * @var string $theme
    * @var string $path
    */
-  function __construct($root = ".", $theme= "", $path = "template")
+  function __construct($root=".", $theme="", $path="template")
   {
     global $conf, $lang_info;
 
@@ -1192,27 +1192,46 @@ var s,after = document.getElementsByTagName(\'script\')[document.getElementsByTa
  */
 class PwgTemplateAdapter
 {
+  /**
+   * @deprecated use "translate" modifier
+   */
   function l10n($text)
   {
     return l10n($text);
   }
 
+  /**
+   * @deprecated use "translate_dec" modifier
+   */
   function l10n_dec($s, $p, $v)
   {
     return l10n_dec($s, $p, $v);
   }
 
+  /**
+   * @deprecated use "translate" or "sprintf" modifier
+   */
   function sprintf()
   {
     $args = func_get_args();
     return call_user_func_array('sprintf',  $args );
   }
 
+  /**
+   * @param string $type
+   * @param array $img
+   * @return DerivativeImage
+   */
   function derivative($type, $img)
   {
     return new DerivativeImage($type, $img);
   }
 
+  /**
+   * @param string $type
+   * @param array $img
+   * @return string
+   */
   function derivative_url($type, $img)
   {
     return DerivativeImage::url($type, $img);
@@ -1220,51 +1239,94 @@ class PwgTemplateAdapter
 }
 
 
+/**
+ * A Combinable represents a JS or CSS file ready for cobination and minification.
+ */
 class Combinable
 {
+  /** @var string */
   public $id;
+  /** @var string */
   public $path;
+  /** @var string */
   public $version;
+  /** @var bool */
   public $is_template;
 
-  function __construct($id, $path, $version)
+  /**
+   * @param string $id
+   * @param string $path
+   * @param string $version
+   */
+  function __construct($id, $path, $version=0)
   {
     $this->id = $id;
     $this->set_path($path);
     $this->version = $version;
+    $this->is_template = false;
   }
 
+  /**
+   * @param string $path
+   */
   function set_path($path)
   {
     if (!empty($path))
       $this->path = $path;
   }
 
+  /**
+   * @return bool
+   */
   function is_remote()
   {
-    return url_is_remote( $this->path ) || strncmp($this->path, '//', 2)==0;
+    return url_is_remote($this->path) || strncmp($this->path, '//', 2)==0;
   }
 }
 
+/**
+ * Implementation of Combinable for JS files.
+ */
 final class Script extends Combinable
 {
+  /** @var int 0,1,2 */
   public $load_mode;
-  public $precedents = array();
-  public $extra = array();
+  /** @var array */
+  public $precedents;
+  /** @var array */
+  public $extra;
 
-  function __construct($load_mode, $id, $path, $version, $precedents)
+  /**
+   * @param int 0,1,2
+   * @param string $id
+   * @param string $path
+   * @param string $version
+   * @param array $precedents
+   */
+  function __construct($load_mode, $id, $path, $version=0, $precedents=array())
   {
     parent::__construct($id, $path, $version);
     $this->load_mode = $load_mode;
     $this->precedents = $precedents;
+    $this->extra = array();
   }
 }
 
+/**
+ * Implementation of Combinable for CSS files.
+ */
 final class Css extends Combinable
 {
+  /** @var int */
   public $order;
 
-  function __construct($id, $path, $version, $order)
+  /**
+   * @param string $id
+   * @param string $path
+   * @param string $version
+   * @param int $order
+   */
+  function __construct($id, $path, $version=0, $order=0)
   {
     parent::__construct($id, $path, $version);
     $this->order = $order;
@@ -1272,12 +1334,14 @@ final class Css extends Combinable
 }
 
 
-/** Manage a list of css files */
+/**
+ * Manages a list of CSS files and combining them in a unique file.
+ */
 class CssLoader
 {
+  /** @param Css[] */
   private $registered_css;
-  
-  /** used to keep declaration order */
+  /** @param int used to keep declaration order */
   private $counter;
   
   function __construct()
@@ -1291,6 +1355,9 @@ class CssLoader
     $this->counter = 0;
   }
   
+  /**
+   * @return Combinable[] array of combined CSS.
+   */
   function get_css()
   {
     uasort($this->registered_css, array('CssLoader', 'cmp_by_order'));
@@ -1298,11 +1365,24 @@ class CssLoader
     return $combiner->combine();
   }
   
+  /**
+   * Callback for CSS files sorting.
+   */
   private static function cmp_by_order($a, $b)
   {
     return $a->order - $b->order;
   }
   
+  /**
+   * Adds a new file, if a file with the same $id already exsists, the one with
+   * the higher $order or higher $version is kept.
+   *
+   * @param string $id
+   * @param string $path
+   * @param string $version
+   * @param int $order
+   * @param bool $is_template
+   */
   function add($id, $path, $version=0, $order=0, $is_template=false)
   {
     if (!isset($this->registered_css[$id]))
@@ -1326,15 +1406,22 @@ class CssLoader
 }
 
 
-/** Manage a list of required scripts for a page, by optimizing their loading location (head, bottom, async)
-and later on by combining them in a unique file respecting at the same time dependencies.*/
+/**
+ * Manage a list of required scripts for a page, by optimizing their loading location (head, footer, async)
+ * and later on by combining them in a unique file respecting at the same time dependencies.
+ */
 class ScriptLoader
 {
+  /** @var Script[] */
   private $registered_scripts;
+  /** @var string[] */
   public $inline_scripts;
 
+  /** @var bool */
   private $did_head;
+  /** @var bool */
   private $head_done_scripts;
+  /** @var bool */
   private $did_footer;
 
   private static $known_paths = array(
@@ -1363,11 +1450,26 @@ class ScriptLoader
     $this->did_head = $this->did_footer = false;
   }
 
+  /**
+   * @return bool
+   */
+  function did_head()
+  {
+    return $this->did_head;
+  }
+
+  /**
+   * @return Script[]
+   */
   function get_all()
   {
     return $this->registered_scripts;
   }
 
+  /**
+   * @param string $code
+   * @param string[] $require
+   */
   function add_inline($code, $require)
   {
     !$this->did_footer || trigger_error("Attempt to add inline script but the footer has been written", E_USER_WARNING);
@@ -1385,6 +1487,13 @@ class ScriptLoader
     $this->inline_scripts[] = $code;
   }
 
+  /**
+   * @param string $id
+   * @param int $load_mode
+   * @param string[] $require
+   * @param string $path
+   * @param string $version
+   */
   function add($id, $load_mode, $require, $path, $version=0)
   {
     if ($this->did_head && $load_mode==0)
@@ -1430,11 +1539,11 @@ class ScriptLoader
     }
   }
 
-  function did_head()
-  {
-    return $this->did_head;
-  }
-
+  /**
+   * Returns combined scripts loaded in header.
+   *
+   * @return Combinable[]
+   */
   function get_head_scripts()
   {
     self::check_load_dep($this->registered_scripts);
@@ -1458,6 +1567,11 @@ class ScriptLoader
     return self::do_combine($this->head_done_scripts, 0);
   }
 
+  /**
+   * Returns combined scripts loaded in footer.
+   *
+   * @return Combinable[]
+   */
   function get_footer_scripts()
   {
     if (!$this->did_head)
@@ -1489,13 +1603,23 @@ class ScriptLoader
     return array( self::do_combine($result[0],1), self::do_combine($result[1],2) );
   }
 
+  /**
+   * @param Script[] $scripts
+   * @param int $load_mode
+   * @return Combinable[]
+   */
   private static function do_combine($scripts, $load_mode)
   {
     $combiner = new FileCombiner('js', $scripts);
     return $combiner->combine();
   }
 
-  // checks that if B depends on A, then B->load_mode >= A->load_mode in order to respect execution order
+  /**
+   * Checks dependencies among Scripts.
+   * Checks that if B depends on A, then B->load_mode >= A->load_mode in order to respect execution order.
+   *
+   * @param Script[] $scripts
+   */
   private static function check_load_dep($scripts)
   {
     global $conf;
@@ -1525,7 +1649,12 @@ class ScriptLoader
     while ($changed);
   }
 
-
+  /**
+   * Fill a script dependancies with the known jQuery UI scripts.
+   *
+   * @param string $id in FileCombiner::$known_paths
+   * @param Script $script
+   */
   private static function fill_well_known($id, $script)
   {
     if ( empty($script->path) && isset(self::$known_paths[$id]))
@@ -1560,6 +1689,13 @@ class ScriptLoader
     }
   }
 
+  /**
+   * Add a known jQuery UI script to loaded scripts.
+   *
+   * @param string $id in FileCombiner::$known_paths
+   * @param int $load_mode
+   * @return bool
+   */
   private function load_known_required_script($id, $load_mode)
   {
     if ( isset(self::$known_paths[$id]) or strncmp($id, 'jquery.ui.', 10)==0  )
@@ -1570,6 +1706,14 @@ class ScriptLoader
     return false;
   }
 
+  /**
+   * Compute script order depending on dependencies.
+   * Assigned to $script->extra['order'].
+   *
+   * @param string $script_id
+   * @param int $recursion_limiter
+   * @return int
+   */
   private function compute_script_topological_order($script_id, $recursion_limiter=0)
   {
     if (!isset($this->registered_scripts[$script_id]))
@@ -1590,6 +1734,9 @@ class ScriptLoader
     return ($script->extra['order'] = $max);
   }
 
+  /**
+   * Callback for scripts sorter.
+   */
   private static function cmp_by_mode_and_order($s1, $s2)
   {
     $ret = $s1->load_mode - $s2->load_mode;
@@ -1607,20 +1754,32 @@ class ScriptLoader
 }
 
 
-/*Allows merging of javascript and css files into a single one.*/
+/**
+ * Allows merging of javascript and css files into a single one.
+ */
 final class FileCombiner
 {
-  private $type; // js or css
+  /** @var string 'js' or 'css' */
+  private $type;
+  /** @var bool */
   private $is_css;
+  /** @var Combinable[] */
   private $combinables;
 
-  function FileCombiner($type, $combinables=array())
+  /**
+   * @param string $type 'js' or 'css'
+   * @param Combinable[] $combinables
+   */
+  function __construct($type, $combinables=array())
   {
     $this->type = $type;
     $this->is_css = $type=='css';
     $this->combinables = $combinables;
   }
 
+  /**
+   * Deletes all combined files from cache directory.
+   */
   static function clear_combined_files()
   {
     $dir = opendir(PHPWG_ROOT_PATH.PWG_COMBINED_DIR);
@@ -1632,19 +1791,24 @@ final class FileCombiner
     closedir($dir);
   }
 
-  function add($combinables)
+  /**
+   * @param Combinable|Combinable[] $combinable
+   */
+  function add($combinable)
   {
-    if ($combinables instanceof Combinable)
+    if (is_array($combinable))
     {
-      $this->combinables[] = $combinables;
+      $this->combinables = array_merge($this->combinables, $combinable);
     }
     else
     {
-      foreach($combinables as $combinable)
-        $this->combinables[] = $combinable;
+      $this->combinables[] = $combinable;
     }
   }
 
+  /**
+   * @return Combinable[]
+   */
   function combine()
   {
     global $conf;
@@ -1685,6 +1849,14 @@ final class FileCombiner
     return $result;
   }
 
+  /**
+   * Process a set of pending files.
+   *
+   * @param array &$result
+   * @param array &$pending
+   * @param string[] $key
+   * @param bool $force
+   */
   private function flush_pending(&$result, &$pending, $key, $force)
   {
     if (count($pending)>1)
@@ -1715,6 +1887,14 @@ final class FileCombiner
     $pending = array();
   }
 
+  /**
+   * Process one combinable file.
+   *
+   * @param Combinable $combinable
+   * @param bool $return_content
+   * @param bool $force
+   * @return null|string
+   */
   private function process_combinable($combinable, $return_content, $force)
   {
     global $conf;
@@ -1741,7 +1921,7 @@ final class FileCombiner
       $content = $template->parse($handle, true);
 
       if ($this->is_css)
-        $content = self::process_css($content, dirname($combinable->path) );
+        $content = self::process_css($content, $combinable->path );
       else
         $content = self::process_js($content, $combinable->path );
 
@@ -1754,13 +1934,20 @@ final class FileCombiner
     {
       $content = file_get_contents(PHPWG_ROOT_PATH . $combinable->path);
       if ($this->is_css)
-        $content = self::process_css($content, dirname($combinable->path) );
+        $content = self::process_css($content, $combinable->path );
       else
         $content = self::process_js($content, $combinable->path );
       return $content;
     }
   }
 
+  /**
+   * Process a JS file.
+   *
+   * @param string $js file content
+   * @param string $file
+   * @return string
+   */
   private static function process_js($js, $file)
   {
     if (strpos($file, '.min')===false and strpos($file, '.packed')===false )
@@ -1771,10 +1958,17 @@ final class FileCombiner
     return trim($js, " \t\r\n;").";\n";
   }
 
-  private static function process_css($css, $dir)
+  /**
+   * Process a CSS file.
+   *
+   * @param string $css file content
+   * @param string $file
+   * @return string
+   */
+  private static function process_css($css, $file)
   {
-    $css = self::process_css_rec($css, $dir);
-    if (version_compare(PHP_VERSION, '5.2.4', '>='))
+    $css = self::process_css_rec($css, dirname($file));
+    if (strpos($file, '.min')===false and version_compare(PHP_VERSION, '5.2.4', '>='))
     {
       require_once(PHPWG_ROOT_PATH.'include/cssmin.class.php');
       $css = CssMin::minify($css, array('Variables'=>false));
@@ -1783,6 +1977,13 @@ final class FileCombiner
     return $css;
   }
 
+  /**
+   * Resolves relative links in CSS file.
+   *
+   * @param string $css file content
+   * @param string $dir
+   * @return string
+   */
   private static function process_css_rec($css, $dir)
   {
     static $PATTERN_URL = "#url\(\s*['|\"]{0,1}(.*?)['|\"]{0,1}\s*\)#";
@@ -1816,7 +2017,6 @@ final class FileCombiner
     }
     return $css;
   }
-
 }
 
 ?>
