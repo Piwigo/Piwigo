@@ -34,4 +34,12 @@ $lang['%d album moved'] = 'dilec\'hiet %d rummad';
 $lang['%d albums moved'] = 'dilec\'hiet %d rummad';
 $lang['%d day'] = '%d deiz';
 $lang['%d days'] = '%d deiz';
+$lang['%d anomalies have been detected corrected.'] = '%d direizhder a zo bet detektet ha reizhet.';
+$lang['%d anomalies have been detected.'] = '%d direizhder a zo bet detektet.';
+$lang['%d anomalies have been ignored.'] = '%d direizhder n\'int ket bet reizhet.';
+$lang['%d anomalies have not been corrected.'] = '%d direizhder n\'int ket bet posubl reizhañ.';
+$lang['%d anomaly has been corrected.'] = '%d direizhder a zo bet reizhet.';
+$lang['%d anomaly has been detected.'] = '%d direizhder a zo bet detektet.';
+$lang['%d anomaly has been ignored.'] = '%d direizhder n\'eo ket bet reizhet.';
+$lang['%d anomaly has not been corrected.'] = '%d direizhder n\'eo ket bet posubl reizhañ.';
 ?>
