@@ -421,4 +421,6 @@ $lang['Last Page'] = 'Dernière page';
 $lang['Email'] = 'Courriel';
 $lang['Password is missing. Please enter the password.'] = "Le mot de passe manque. Veuillez saisir le mot de passe.";
 $lang['Password confirmation is missing. Please confirm the chosen password.'] = "La confirmation du mot de passe manque. Veuillez confirmer le mot de passe choisi.";
+$lang['%d photos per page'] = '%d photos par page';
+$lang['Theme'] = 'Thème';
 ?>
