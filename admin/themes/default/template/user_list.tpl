@@ -170,7 +170,7 @@ jQuery(document).ready(function() {
           userDetails += '<div class="userPropertiesSetTitle">{/literal}{'Properties'|translate}{literal}</div>';
 
           userDetails += '<div class="userProperty"><strong>{/literal}{'Email address'|translate}{literal}</strong>';
-          userDetails += '<br><input name="email" type="text" value="'+user.email+'"></div>';
+          userDetails += '<br><input name="email" type="text" value="'+ (user.email||'') +'"></div>';
 
           userDetails += '<div class="userProperty"><strong>{/literal}{'Status'|translate}{literal}</strong>';
           userDetails += '<br><select name="status">';
