@@ -423,4 +423,6 @@ $lang['First Page'] = 'První stránka';
 $lang['Email'] = 'E-mail';
 $lang['Password is missing. Please enter the password.'] = 'Chybí heslo. Prosím napište heslo.';
 $lang['Password confirmation is missing. Please confirm the chosen password.'] = 'Chybí potvrzení hesla. Prosím potvrďte vybrané heslo.';
+$lang['%d photos per page'] = '%d fotek na stránce';
+$lang['Theme'] = 'Téma';
 ?>
