@@ -440,4 +440,5 @@ $lang['Last Page'] = 'Viimane leht';
 $lang['Password is missing. Please enter the password.'] = 'Parool puudub. Palun sisesta parool.';
 $lang['Password confirmation is missing. Please confirm the chosen password.'] = 'Parooli kinnitus puudub. Palun kinnita valitud parool.';
 $lang['%d photos per page'] = '%d pilte lehel';
+$lang['Theme'] = 'Teema';
 ?>
