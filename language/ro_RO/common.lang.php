@@ -418,4 +418,6 @@ $lang['Go back to the album'] = 'Înapoi la album';
 $lang['Last Page'] = 'Ultima pagină';
 $lang['Password is missing. Please enter the password.'] = 'Parola lipseşte. Te rog sa introduci parola-';
 $lang['Password confirmation is missing. Please confirm the chosen password.'] = 'Lipseşte confirmarea parolei. Te rog să confirmi parola aleasă.';
+$lang['%d photos per page'] = '%d fotografii per pagină';
+$lang['Theme'] = 'Temă';
 ?>
