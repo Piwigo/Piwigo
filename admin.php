@@ -103,7 +103,7 @@ $test_get = $_GET;
 unset($test_get['page']);
 unset($test_get['section']);
 unset($test_get['tag']);
-if (count($test_get) == 0)
+if (count($test_get) == 0 and !empty($_SERVER['QUERY_STRING']))
 {
   $change_theme_url.= str_replace('&', '&amp;', $_SERVER['QUERY_STRING']).'&amp;';
 }
