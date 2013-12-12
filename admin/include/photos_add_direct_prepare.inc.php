@@ -144,6 +144,13 @@ $template->assign(
   );
 
 $upload_file_types = 'jpeg, png, gif';
+
+if (pwg_image::get_library() == 'ext_imagick')
+{
+  $upload_file_types.= ', tiff';
+  $template->assign('tif_enabled', true);
+}
+
 if ('html' == $upload_mode)
 {
   $upload_file_types.= ', zip';

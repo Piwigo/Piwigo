@@ -796,4 +796,7 @@ $conf['original_url_protection'] = '';
 // and if that option is not explicitly transmit when the album is created.
 $conf['inheritance_by_default'] = false;
 
+// 'png' or 'jpg': your uploaded TIF photos will have a representative in
+// JPEG or PNG file format
+$conf['tiff_representative_ext'] = 'png';
 ?>

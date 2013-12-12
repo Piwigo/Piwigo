@@ -127,7 +127,7 @@ var sizeLimit = Math.round({$upload_max_filesize} / 1024); /* in KBytes */
     'auto'           : false,
     'multi'          : true,
     'fileTypeDesc'   : 'Photo files',
-    'fileTypeExts'   : '*.jpg;*.JPG;*.jpeg;*.JPEG;*.png;*.PNG;*.gif;*.GIF',
+    'fileTypeExts'   : '*.jpg;*.JPG;*.jpeg;*.JPEG;*.png;*.PNG;*.gif;*.GIF;{/literal}{if $tif_enabled}*.tif;*.TIF;*.tiff;*.TIFF{/if}{literal}',
     'fileSizeLimit'  : sizeLimit,
     'progressData'   : 'percentage',
     requeueErrors   : false,

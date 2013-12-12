@@ -171,6 +171,7 @@ function add_uploaded_file($source_filepath, $original_filename=null, $categorie
   }
 
   $file_path = null;
+  $is_tiff = false;
 
   if (isset($image_id))
   {
@@ -226,6 +227,11 @@ SELECT
     {
       $file_path.= 'gif';
     }
+    elseif (IMAGETYPE_TIFF_MM == $type or IMAGETYPE_TIFF_II == $type)
+    {
+      $is_tiff = true;
+      $file_path.= 'tif';
+    }
     else
     {
       $file_path.= 'jpg';
@@ -243,6 +249,50 @@ SELECT
     rename($source_filepath, $file_path);
   }
   @chmod($file_path, 0644);
+
+  if ($is_tiff and pwg_image::get_library() == 'ext_imagick')
+  {
+    // move the uploaded file to pwg_representative sub-directory
+    $representative_file_path = dirname($file_path).'/pwg_representative/';
+    $representative_file_path.= get_filename_wo_extension(basename($file_path)).'.';
+
+    $representative_ext = $conf['tiff_representative_ext'];
+    $representative_file_path.= $representative_ext;
+
+    prepare_directory(dirname($representative_file_path));
+    
+    $exec = $conf['ext_imagick_dir'].'convert';
+
+    if ('jpg' == $conf['tiff_representative_ext'])
+    {
+      $exec .= ' -quality 98';
+    }
+    
+    $exec .= ' "'.realpath($file_path).'"';
+
+    $dest = pathinfo($representative_file_path);
+    $exec .= ' "'.realpath($dest['dirname']).'/'.$dest['basename'].'"';
+    
+    $exec .= ' 2>&1';
+    @exec($exec, $returnarray);
+
+    // sometimes ImageMagick creates file-0.jpg (full size) + file-1.jpg
+    // (thumbnail). I don't know how to avoid it.
+    $representative_file_abspath = realpath($dest['dirname']).'/'.$dest['basename'];
+    if (!file_exists($representative_file_abspath))
+    {
+      $first_file_abspath = preg_replace(
+        '/\.'.$representative_ext.'$/',
+        '-0.'.$representative_ext,
+        $representative_file_abspath
+        );
+      
+      if (file_exists($first_file_abspath))
+      {
+        rename($first_file_abspath, $representative_file_abspath);
+      }
+    }
+  }
 
   if (pwg_image::get_library() != 'gd')
   {
@@ -318,6 +368,11 @@ SELECT
     if (isset($level))
     {
       $insert['level'] = $level;
+    }
+
+    if (isset($representative_ext))
+    {
+      $insert['representative_ext'] = $representative_ext;
     }
 
     single_insert(IMAGES_TABLE, $insert);
