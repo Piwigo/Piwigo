@@ -24,6 +24,9 @@ var allUsers = [{$all_users}];
 var selection = [{$selection}];
 var pwg_token = "{$PWG_TOKEN}";
 
+var protectedUsers = [{$protected_users}];
+var guestUser = {$guest_user};
+
 var truefalse = {
   true:"{'Yes'|translate}",
   false:"{'No'|translate}",
@@ -144,16 +147,30 @@ jQuery(document).ready(function() {
 
           var userDetails = '<form>';
           userDetails += '<div class="userActions">';
-          userDetails += '<span class="changePasswordDone infos" style="display:none">&#x2714; {/literal}{'Password updated'|translate|escape:javascript}{literal}</span>';
-          userDetails += '<span class="changePassword" style="display:none">{/literal}{'New password'|translate}{literal} <input type="text"> <a href="#" class="buttonLike updatePassword"><img src="themes/default/images/ajax-loader-small.gif" style="margin-bottom:-1px;margin-left:1px;display:none;"><span class="text">{/literal}{'Submit'|translate|escape:javascript}{literal}</span></a> <a href="#" class="cancel">{/literal}{'Cancel'|translate|escape:javascript}{literal}</a></span>';
-          userDetails += '<a class="icon-key changePasswordOpen" href="#">{/literal}{'Change password'|translate|escape:javascript}{literal}</a>';
-          userDetails += '<br><a target="_blank" href="admin.php?page=user_perm&amp;user_id='+userId+'" class="icon-lock">{/literal}{'Permissions'|translate|escape:javascript}{literal}</a>';
-          userDetails += '<br><span class="userDelete"><img class="loading" src="themes/default/images/ajax-loader-small.gif" style="display:none;"><a href="#" class="icon-trash" data-user_id="'+userId+'">{/literal}{'Delete'|translate|escape:javascript}{literal}</a></span>';
+
+          if (parseInt(userId) != guestUser) {
+            userDetails += '<span class="changePasswordDone infos" style="display:none">&#x2714; {/literal}{'Password updated'|translate|escape:javascript}{literal}</span>';
+            userDetails += '<span class="changePassword" style="display:none">{/literal}{'New password'|translate}{literal} <input type="text"> <a href="#" class="buttonLike updatePassword"><img src="themes/default/images/ajax-loader-small.gif" style="margin-bottom:-1px;margin-left:1px;display:none;"><span class="text">{/literal}{'Submit'|translate|escape:javascript}{literal}</span></a> <a href="#" class="cancel">{/literal}{'Cancel'|translate|escape:javascript}{literal}</a></span>';
+            userDetails += '<a class="icon-key changePasswordOpen" href="#">{/literal}{'Change password'|translate|escape:javascript}{literal}</a>';
+            userDetails += '<br>';
+          }
+
+          userDetails += '<a target="_blank" href="admin.php?page=user_perm&amp;user_id='+userId+'" class="icon-lock">{/literal}{'Permissions'|translate|escape:javascript}{literal}</a>';
+
+          if (protectedUsers.indexOf(parseInt(userId)) == -1) {
+            userDetails += '<br><span class="userDelete"><img class="loading" src="themes/default/images/ajax-loader-small.gif" style="display:none;"><a href="#" class="icon-trash" data-user_id="'+userId+'">{/literal}{'Delete'|translate|escape:javascript}{literal}</a></span>';
+          }
+
           userDetails += '</div>';
 
-          userDetails += '<span class="changeUsernameOpen"><strong class="username">'+user.username+'</strong> <a href="#" class="icon-pencil">{/literal}{'Change username'|translate|escape:javascript}{literal}</a></span>';
-          userDetails += '<span class="changeUsername" style="display:none">';
-          userDetails += '<input type="text"> <a href="#" class="buttonLike updateUsername"><img src="themes/default/images/ajax-loader-small.gif" style="margin-bottom:-1px;margin-left:1px;display:none;"><span class="text">{/literal}{'Submit'|translate}{literal}</span></a> <a href="#" class="cancel">{/literal}{'Cancel'|translate|escape:javascript}{literal}</a>';
+          userDetails += '<span class="changeUsernameOpen"><strong class="username">'+user.username+'</strong>';
+
+          if (parseInt(userId) != guestUser) {
+            userDetails += ' <a href="#" class="icon-pencil">{/literal}{'Change username'|translate|escape:javascript}{literal}</a></span>';
+            userDetails += '<span class="changeUsername" style="display:none">';
+            userDetails += '<input type="text"> <a href="#" class="buttonLike updateUsername"><img src="themes/default/images/ajax-loader-small.gif" style="margin-bottom:-1px;margin-left:1px;display:none;"><span class="text">{/literal}{'Submit'|translate}{literal}</span></a> <a href="#" class="cancel">{/literal}{'Cancel'|translate|escape:javascript}{literal}</a>';
+          }
+
           userDetails += '</span>';
 
           userDetails += '<div class="userStats">';
@@ -170,7 +187,14 @@ jQuery(document).ready(function() {
           userDetails += '<div class="userPropertiesSetTitle">{/literal}{'Properties'|translate}{literal}</div>';
 
           userDetails += '<div class="userProperty"><strong>{/literal}{'Email address'|translate}{literal}</strong>';
-          userDetails += '<br><input name="email" type="text" value="'+ (user.email||'') +'"></div>';
+          userDetails += '<br>';
+          if (parseInt(userId) != guestUser) {
+            userDetails += '<input name="email" type="text" value="'+ (user.email||'') +'">';
+          }
+          else {
+            userDetails += '{/literal}{'N/A'|translate}{literal}';
+          }
+          userDetails += '</div>';
 
           userDetails += '<div class="userProperty"><strong>{/literal}{'Status'|translate}{literal}</strong>';
           userDetails += '<br><select name="status">';

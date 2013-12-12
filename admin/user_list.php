@@ -90,9 +90,14 @@ $template->assign(
     )
   );
 
-// echo '<pre>'; print_r($users); echo '</pre>';
-
 $default_user = get_default_user_info(true);
+
+$protected_users = array(
+  $user['id'],
+  $conf['guest_id'],
+  $conf['default_user_id'],
+  $conf['webmaster_id'],
+  );
 
 $template->assign(
   array(
@@ -104,6 +109,8 @@ $template->assign(
     'language_options' => get_languages(),
     'language_selected' => get_default_language(),
     'association_options' => $groups,
+    'protected_users' => implode(',', array_unique($protected_users)),
+    'guest_user' => $conf['guest_id'],
     )
   );
 
