@@ -359,4 +359,6 @@ $lang['ACCESS_2'] = 'Pääsy rekisteröidyille käyttäjille';
 $lang['ACCESS_3'] = 'Pääsy ylläpitäjille';
 $lang['Add another set of photos'] = 'Lisää toinen sarja valokuvia';
 $lang['Add to caddie'] = 'Lisää caddieen';
+$lang['Add/delete a permalink'] = 'Lisää/poista permalinkki';
+$lang['All %d users are selected'] = 'Kaikki %d käyttäjää ovat valittuna';
 ?>
