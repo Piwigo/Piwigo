@@ -149,6 +149,9 @@ DELETE
 ;';
   pwg_query($query);
 
+  include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
+  invalidate_user_cache();
+
   return new PwgNamedArray($groupnames, 'group_deleted');
 }
 
@@ -246,6 +249,7 @@ SELECT COUNT(*)
     array('ignore'=>true)
     );
 
+  include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
   invalidate_user_cache();
 
   return $service->invoke('pwg.groups.getList', array('group_id' => $params['group_id']));
@@ -280,6 +284,7 @@ DELETE FROM '. USER_GROUP_TABLE .'
 ;';
   pwg_query($query);
 
+  include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
   invalidate_user_cache();
 
   return $service->invoke('pwg.groups.getList', array('group_id' => $params['group_id']));

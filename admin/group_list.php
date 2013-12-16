@@ -359,6 +359,7 @@ SELECT COUNT(*)
       $page['infos'][] = l10n('group "%s" updated', $groupname);
     }
   }
+  invalidate_user_cache();
 }
 // +-----------------------------------------------------------------------+
 // |                             template init                             |

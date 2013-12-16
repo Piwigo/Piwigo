@@ -112,6 +112,7 @@ SELECT cat_id
   }
 
   mass_inserts(GROUP_ACCESS_TABLE, array('group_id','cat_id'), $inserts);
+  invalidate_user_cache();
 }
 
 // +-----------------------------------------------------------------------+

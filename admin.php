@@ -263,20 +263,16 @@ if (
       array(
         'site_manager', // delete site
         'site_update',  // ?only POST
-        'cat_list',     // delete cat
-        'cat_move',     // ?only POST
-        'cat_options',  // ?only POST; public/private; lock/unlock
-        'user_perm',
-        'group_perm',
-        'group_list',   // delete group
       )
     )
     or ( !empty($_POST) and in_array($page['page'],
         array(
-          'photo',
           'album',        // public/private; lock/unlock, permissions
+          'cat_move',
+          'cat_options',  // public/private; lock/unlock
           'batch_manager',  // associate/dissociate; delete; set level
           'user_list',    // group assoc; user level
+          'user_perm',
         )
       )
     )

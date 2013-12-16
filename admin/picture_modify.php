@@ -82,7 +82,7 @@ SELECT category_id
     array_from_query($query, 'category_id'),
     explode(',', calculate_permissions($user['id'], $user['status']))
     );
-  
+
   foreach ($authorizeds as $category_id)
   {
     redirect(
@@ -175,12 +175,14 @@ if (isset($_POST['submit']) and count($page['errors']) == 0)
   }
   move_images_to_categories(array($_GET['image_id']), $_POST['associate']);
 
+  invalidate_user_cache();
+
   // thumbnail for albums
   if (!isset($_POST['represent']))
   {
     $_POST['represent'] = array();
   }
-  
+
   $no_longer_thumbnail_for = array_diff($represent_options_selected, $_POST['represent']);
   if (count($no_longer_thumbnail_for) > 0)
   {
@@ -199,7 +201,7 @@ UPDATE '.CATEGORIES_TABLE.'
   }
 
   $represent_options_selected = $_POST['represent'];
-  
+
   $page['infos'][] = l10n('Photo informations updated');
 }
 
@@ -320,12 +322,12 @@ SELECT
   WHERE element_id = '.$_GET['image_id'].'
 ;';
   list($row['nb_rates']) = pwg_db_fetch_row(pwg_query($query));
-  
+
   $intro_vars['stats'].= ', '.sprintf(l10n('Rated %d times, score : %.2f'), $row['nb_rates'], $row['rating_score']);
 }
 
 $template->assign('INTRO', $intro_vars);
- 
+
 
 if (in_array(get_extension($row['path']),$conf['picture_ext']))
 {

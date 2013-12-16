@@ -115,22 +115,24 @@ if (isset($_GET['delete']) and is_numeric($_GET['delete']))
   delete_categories(array($_GET['delete']));
   $_SESSION['page_infos'] = array(l10n('Virtual album deleted'));
   update_global_rank();
+  invalidate_user_cache();
 
   $redirect_url = get_root_url().'admin.php?page=cat_list';
   if (isset($_GET['parent_id']))
   {
     $redirect_url.= '&parent_id='.$_GET['parent_id'];
-  }  
+  }
   redirect($redirect_url);
 }
 // request to add a virtual category
-else if (isset($_POST['submitAdd']))
+elseif (isset($_POST['submitAdd']))
 {
   $output_create = create_virtual_category(
     $_POST['virtual_name'],
     @$_GET['parent_id']
     );
 
+  invalidate_user_cache();
   if (isset($output_create['error']))
   {
     $page['errors'][] = $output_create['error'];
@@ -141,14 +143,14 @@ else if (isset($_POST['submitAdd']))
   }
 }
 // save manual category ordering
-else if (isset($_POST['submitManualOrder']))
+elseif (isset($_POST['submitManualOrder']))
 {
   asort($_POST['catOrd'], SORT_NUMERIC);
   save_categories_order(array_keys($_POST['catOrd']));
 
   $page['infos'][] = l10n('Album manual order was saved');
 }
-else if (isset($_POST['submitAutoOrder']))
+elseif (isset($_POST['submitAutoOrder']))
 {
   $query = '
 SELECT id
