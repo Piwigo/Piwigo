@@ -335,9 +335,9 @@ function ws_users_delete($params, &$service)
   }
 
   return l10n_dec(
-        '%d user deleted', '%d users deleted',
-        count($params['user_id'])
-        );
+    '%d user deleted', '%d users deleted',
+    count($params['user_id'])
+    );
 }
 
 /**
@@ -559,6 +559,8 @@ SELECT
       mass_inserts(USER_GROUP_TABLE, array_keys($inserts[0]), $inserts);
     }
   }
+
+  invalidate_user_cache();
 
   return $service->invoke('pwg.users.getList', array(
     'user_id' => $params['user_id'],

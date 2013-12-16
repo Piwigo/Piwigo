@@ -246,6 +246,8 @@ SELECT COUNT(*)
     array('ignore'=>true)
     );
 
+  invalidate_user_cache();
+
   return $service->invoke('pwg.groups.getList', array('group_id' => $params['group_id']));
 }
 
@@ -277,6 +279,8 @@ DELETE FROM '. USER_GROUP_TABLE .'
     AND user_id IN('. implode(',', $params['user_id']) .')
 ;';
   pwg_query($query);
+
+  invalidate_user_cache();
 
   return $service->invoke('pwg.groups.getList', array('group_id' => $params['group_id']));
 }
