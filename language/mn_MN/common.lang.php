@@ -416,4 +416,5 @@ $lang['Last Page'] = 'сүүлийн хуудас';
 $lang['Password is missing. Please enter the password.'] = 'Уучлаарай. Нууц үгээ оруулна уу.';
 $lang['Password confirmation is missing. Please confirm the chosen password.'] = 'Нууц үгээ баталгаажуулж давтан оруулна уу.';
 $lang['%d photos per page'] = 'Нэг хуудасанд %d зураг';
+$lang['Theme'] = 'Загвар';
 ?>
