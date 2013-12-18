@@ -206,6 +206,7 @@ body .ui-resizable-autohide .ui-resizable-handle { display: none; } /* use 'body
 }
 .ui-datepicker th {color:#ccc;}
 .ui-state-disabled {color:#aaa;}
+.ui-timepicker-div, .ui-timepicker-div dt {color:#ccc;}
 
 .ui-slider { background:#444;border-radius:2px;border:1px solid #666; }
 .ui-slider .ui-slider-handle { border:1px solid #f36;background:#222;border-radius:0.6em; }
