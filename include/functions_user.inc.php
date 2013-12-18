@@ -252,12 +252,12 @@ SELECT id
       include_once(PHPWG_ROOT_PATH.'include/functions_mail.inc.php');
             
       $keyargs_content = array(
-        get_l10n_args('Hello %s,', $login),
+        get_l10n_args('Hello %s,', stripslashes($login)),
         get_l10n_args('Thank you for registering at %s!', $conf['gallery_title']),
         get_l10n_args('', ''),
         get_l10n_args('Here are your connection settings', ''),
-        get_l10n_args('Username: %s', $login),
-        get_l10n_args('Password: %s', $password),
+        get_l10n_args('Username: %s', stripslashes($login)),
+        get_l10n_args('Password: %s', stripslashes($password)),
         get_l10n_args('Email: %s', $mail_address),
         get_l10n_args('', ''),
         get_l10n_args('If you think you\'ve received this email in error, please contact us at %s', get_webmaster_mail_address()),
