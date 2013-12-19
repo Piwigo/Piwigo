@@ -1,0 +1,71 @@
+<fieldset>
+  <legend>Snabb Start</legend>
+
+<ol>
+  <li>Skapa en katalog på din dator.</li>  
+
+  <li>Kopiera några bilder till den nya katalogen, anpassa storleken för att visas på webben. <em>Varning</em>: Katalog och filnamnen får bara innehålla bokstäver, tecknen "-", "_" och ".". Inga mellanslag eller accentuerade bokstäver.</li>
+
+  <li>Med en FTP klient, kopiera din katalog till "galleries" katalogen i din piwigo installation.</li>
+
+  <li>Logga in i ditt galleri och gå till <span class="pwgScreen">Administration</span> och klicka på den stora knappen benämnd "snabb lokal synkronisering".</li>
+</ol>
+
+<p>Gratulerar! Du har nu lyckats skapa ditt första album i ditt galleri.</p>
+</fieldset>
+
+<fieldset>
+  <legend>Katalog och filstruktur</legend>
+
+<ul>
+
+  <li>
+
+    <p>Album ska läggas i "galleries" katalogen under Piwigo installationskatalogen. 
+    Här följer ett exempel på katalogstrukturen på ett väldigt litet galleri (men
+    som använder många funktioner):</p>
+
+    <pre>
+galleries
+|-- wedding
+|   |-- celebration
+|   |   |-- arrival
+|   |   |   |-- paul-alone.jpg
+|   |   |   +-- sarah-alone.jpg
+|   |   +-- departure
+|   |       +-- paul-and-sarah.jpg
+|   +-- party
+|       |-- dancers001.jpg
+|       |-- dancers002.jpg
+|       +-- dancers003.jpg
++-- honeymoon
+    |-- hotel.png
+    |-- video-from-plane.avi
+    +-- pwg_representative
+        +-- video-from-plane.jpg
+</pre>
+
+  </li>
+
+  <li>Förutom "pwg_representative" (se förklaring nedan) så skapar varje katalog i "galleries" ett eget album. Det finns ingen begränsning på hur många under album som går att skapa.</li>
+
+  <li>>I grunden representeras varje objekt av en fil. En fil kan vara ett
+  Piwigo objekt om filändelsen är med i <code>file_ext</code>
+  konfigurations parametern (se filen <span
+  class="filename">include/config_default.inc.php</span>). En fil kan
+  vara en bild om fileändelsen är med i <code>picture_ext</code>
+  konfigurations parametern.</li>
+
+  <li>Icke foto objekt (video, ljud, texter, vad som helst..) representeras som standard av en ikon som matchar filändelsen.
+  Du kan om du vill associera en "thumbnail" fil som visar istället för ikonen.
+  (se video.avi i exemplet ovan).</li>
+
+  <li><em>Varning</em>: Katalog och filnamn får bara bestå av bokstäver och dessa tecken "-", "_" or ".". Inga mellanslag eller accentuerade
+  bokstäver.</li>
+
+  <li>Nät bilderna är placerade i katalogen, gå till,
+  gå till: <span class="pwgScreen">Administration &raquo; Verktyg &raquo;
+  Synkronisera</span></li>
+
+</ul>
+</fieldset>
