@@ -3,6 +3,8 @@ define('PHPWG_ROOT_PATH','../');
 define('IN_ADMIN', true);
 
 include_once(PHPWG_ROOT_PATH.'include/common.inc.php');
+
+check_status(ACCESS_ADMINISTRATOR);
 	
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * Easy set variables
