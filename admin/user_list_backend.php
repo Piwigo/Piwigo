@@ -140,10 +140,9 @@ while ( $aRow = pwg_db_fetch_array( $rResult ) )
   $row = array();
   for ( $i=0 ; $i<count($aColumns) ; $i++ )
   {
-    if ( $aColumns[$i] == "version" )
+    if ( $aColumns[$i] == "status" )
     {
-      /* Special output formatting for 'version' column */
-      $row[] = ($aRow[ $aColumns[$i] ]=="0") ? '-' : $aRow[ $aColumns[$i] ];
+      $row[] = l10n('user_status_'.$aRow[ $aColumns[$i] ]);
     }
     else if ( $aColumns[$i] != ' ' )
     {
