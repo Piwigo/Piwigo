@@ -125,6 +125,41 @@ jQuery(document).ready(function() {
     );
   }
 
+  /* nb_image_page slider */
+  var nb_image_page_init = getSliderKeyFromValue(jQuery('#action_nb_image_page input[name=nb_image_page]').val(), nb_image_page_values);
+  
+  jQuery('#action_nb_image_page .nb_image_page_infos').html(getNbImagePageInfoFromIdx(nb_image_page_init));
+  
+  jQuery('#action_nb_image_page .nb_image_page').slider({
+    range: "min",
+    min: 0,
+    max: nb_image_page_values.length - 1,
+    value: nb_image_page_init,
+    slide: function( event, ui ) {
+      jQuery('#action_nb_image_page .nb_image_page_infos').html(getNbImagePageInfoFromIdx(ui.value));
+    },
+    stop: function( event, ui ) {
+      jQuery('#action_nb_image_page input[name=nb_image_page]').val(nb_image_page_values[ui.value]).trigger('change');
+    }
+  });
+
+  /* recent_period slider */
+  var recent_period_init = getSliderKeyFromValue(jQuery('#action_recent_period input[name=recent_period]').val(), recent_period_values);
+  jQuery('#action_recent_period .recent_period_infos').html(getRecentPeriodInfoFromIdx(recent_period_init));
+  
+  jQuery('#action_recent_period .recent_period').slider({
+    range: "min",
+    min: 0,
+    max: recent_period_values.length - 1,
+    value: recent_period_init,
+    slide: function( event, ui ) {
+      jQuery('#action_recent_period .recent_period_infos').html(getRecentPeriodInfoFromIdx(ui.value));
+    },
+    stop: function( event, ui ) {
+      jQuery('#action_recent_period input[name=recent_period]').val(recent_period_values[ui.value]).trigger('change');
+    }
+  });
+
   /* Formating function for row details */
   function fnFormatDetails(oTable, nTr) {
     var userId = oTable.fnGetData(nTr)[0];
@@ -306,7 +341,7 @@ jQuery(document).ready(function() {
           jQuery(".chzn-select").chosen();
 
           /* nb_image_page slider */
-          var nb_image_page_init = getSliderKeyFromValue(jQuery('input[name=nb_image_page]').val(), nb_image_page_values);
+          var nb_image_page_init = getSliderKeyFromValue(jQuery('#user'+userId+' input[name=nb_image_page]').val(), nb_image_page_values);
           
           jQuery('#user'+userId+' .nb_image_page_infos').html(getNbImagePageInfoFromIdx(nb_image_page_init));
           
@@ -324,7 +359,7 @@ jQuery(document).ready(function() {
           });
 
           /* recent_period slider */
-          var recent_period_init = getSliderKeyFromValue(jQuery('input[name=recent_period]').val(), recent_period_values);
+          var recent_period_init = getSliderKeyFromValue(jQuery('#user'+userId+' input[name=recent_period]').val(), recent_period_values);
           jQuery('#user'+userId+' .recent_period_infos').html(getRecentPeriodInfoFromIdx(recent_period_init));
           
           jQuery('#user'+userId+' .recent_period').slider({
@@ -817,8 +852,7 @@ jQuery(document).ready(function() {
 });
 {/literal}{/footer_script}
 
-{literal}
-<style>
+{html_style}{literal}
 .dataTables_wrapper, .dataTables_info {clear:none;}
 table.dataTable {clear:right;padding-top:10px;}
 .dataTable td img {margin-bottom: -6px;margin-left: -6px;}
@@ -835,8 +869,8 @@ span.infos, span.errors {background-image:none; padding:2px 5px; margin:0;border
 .userStats {margin-top:10px;}
 .recent_period_infos {margin-left:10px;}
 .nb_image_page, .recent_period {width:340px;margin-top:5px;}
-</style>
-{/literal}
+#action_recent_period .recent_period {display:inline-block;}
+{/literal}{/html_style}
 
 <div class="titrePage">
   <h2>{'User list'|@translate}</h2>
@@ -974,7 +1008,9 @@ span.infos, span.errors {background-image:none; padding:2px 5px; margin:0;border
 
     {* nb_image_page *}
     <div id="action_nb_image_page" class="bulkAction">
-      <input size="4" maxlength="3" type="text" name="nb_image_page" value="{$NB_IMAGE_PAGE}">
+      <strong class="nb_image_page_infos"></strong>
+      <div class="nb_image_page"></div>
+      <input type="hidden" name="nb_image_page" value="{$NB_IMAGE_PAGE}">
     </div>
 
     {* theme *}
@@ -993,7 +1029,9 @@ span.infos, span.errors {background-image:none; padding:2px 5px; margin:0;border
 
     {* recent_period *}
     <div id="action_recent_period" class="bulkAction">
-      <input type="text" size="3" maxlength="2" name="recent_period" value="{$RECENT_PERIOD}">
+      <div class="recent_period"></div>
+      <span class="recent_period_infos"></span>
+      <input type="hidden" name="recent_period" value="{$RECENT_PERIOD}">
     </div>
 
     {* expand *}
