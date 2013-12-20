@@ -1241,8 +1241,72 @@ function prepend_append_array_items($array, $prepend_str, $append_str)
 }
 
 /**
+ * Builds an data array from a SQL query.
+ * Depending on $key_name and $value_name it can return :
+ *
+ *    - an array of arrays of all fields (key=null, value=null)
+ *        array(
+ *          array('id'=>1, 'name'=>'DSC8956', ...),
+ *          array('id'=>2, 'name'=>'DSC8957', ...),
+ *          ...
+ *          )
+ *
+ *    - an array of a single field (key=null, value='...')
+ *        array('DSC8956', 'DSC8957', ...)
+ *
+ *    - an associative array of array of all fields (key='...', value=null)
+ *        array(
+ *          'DSC8956' => array('id'=>1, 'name'=>'DSC8956', ...),
+ *          'DSC8957' => array('id'=>2, 'name'=>'DSC8957', ...),
+ *          ...
+ *          )
+ *
+ *    - an associative array of a single field (key='...', value='...')
+ *        array(
+ *          'DSC8956' => 1,
+ *          'DSC8957' => 2,
+ *          ...
+ *          )
+ *
+ * @since 2.6
+ *
+ * @param string $query
+ * @param string $key_name
+ * @param string $value_name
+ * @return array
+ */
+function query2array($query, $key_name=null, $value_name=null)
+{
+  $result = pwg_query($query);
+  $data = array();
+
+  while ($row = pwg_db_fetch_assoc($result))
+  {
+    if (isset($value_name))
+    {
+      $value = $row[ $value_name ];
+    }
+    else
+    {
+      $value = $row;
+    }
+    if (isset($key_name))
+    {
+      $data[ $row[$key_name] ] = $value;
+    }
+    else
+    {
+      $data[] = $value;
+    }
+  }
+
+  return $data;
+}
+
+/**
  * creates an simple hashmap based on a SQL query.
  * choose one to be the key, another one to be the value.
+ * @deprecated 2.6
  *
  * @param string $query
  * @param string $keyname
@@ -1265,6 +1329,7 @@ function simple_hash_from_query($query, $keyname, $valuename)
 /**
  * creates an associative array based on a SQL query.
  * choose one to be the key
+ * @deprecated 2.6
  *
  * @param string $query
  * @param string $keyname
@@ -1285,6 +1350,7 @@ function hash_from_query($query, $keyname)
  * creates a numeric array based on a SQL query.
  * if _$fieldname_ is empty the returned value will be an array of arrays
  * if _$fieldname_ is provided the returned value will be a one dimension array
+ * @deprecated 2.6
  *
  * @param string $query
  * @param string $fieldname
