@@ -232,15 +232,27 @@ jQuery(document).ready(function() {
           userDetails += '</div>';
 
           userDetails += '<div class="userProperty"><strong>{/literal}{'Status'|translate}{literal}</strong>';
-          userDetails += '<br><select name="status">';
-          jQuery("#action select[name=status] option").each(function() {
-            var selected = '';
-            if (user.status == jQuery(this).val()) {
-              selected = ' selected="selected"';
-            }
-            userDetails += '<option value="'+jQuery(this).val()+'"'+selected+'>'+jQuery(this).html()+'</option>';
-          });
-          userDetails += '</select></div>';
+          userDetails += '<br>';
+
+          if (protectedUsers.indexOf(parseInt(userId)) == -1) {
+            userDetails += '<select name="status">';
+            jQuery("#action select[name=status] option").each(function() {
+              var selected = '';
+              if (user.status == jQuery(this).val()) {
+                selected = ' selected="selected"';
+              }
+              userDetails += '<option value="'+jQuery(this).val()+'"'+selected+'>'+jQuery(this).html()+'</option>';
+            });
+            userDetails += '</select>';
+          }
+          else {
+            jQuery("#action select[name=status] option").each(function() {
+              if (user.status == jQuery(this).val()) {
+                userDetails += jQuery(this).html();
+              }
+            });
+          }
+          userDetails += '</div>';
 
           userDetails += '<div class="userProperty"><strong>{/literal}{'Privacy level'|translate}{literal}</strong>';
           userDetails += '<br><select name="level">';
