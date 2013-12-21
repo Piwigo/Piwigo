@@ -1396,7 +1396,7 @@ class CssLoader
     else
     {
       $css = $this->registered_css[$id];
-      if ($css->order<$order || version_compare($css->version, $version)<0)
+      if ($css->order<$order*1000 || version_compare($css->version, $version)<0)
       {
         unset($this->registered_css[$id]);
         $this->add($id, $path, $version, $order, $is_template);
