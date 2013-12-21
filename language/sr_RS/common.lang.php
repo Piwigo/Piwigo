@@ -413,4 +413,10 @@ $lang['Website'] = 'Међумрежно место';
 $lang['Your website URL is invalid'] = 'Ваша адреса на глобалној мрежи (URL) је неисправна';
 $lang['Password is missing. Please enter the password.'] = 'Лозинка недостаје. Молим унесите лозинку.';
 $lang['Password confirmation is missing. Please confirm the chosen password.'] = 'Потврда лозинке недостаје. Молим потврдите изабрану лозинку.';
+$lang['%d photos per page'] = '%d слика по страници';
+$lang['Email'] = 'Електронска адреса';
+$lang['First Page'] = 'Прва страна';
+$lang['Go back to the album'] = 'Повратак на албум';
+$lang['Last Page'] = 'Последња страна';
+$lang['Theme'] = 'Тема';
 ?>
