@@ -38,6 +38,9 @@ if (!$conf['activate_comments'])
 // +-----------------------------------------------------------------------+
 check_status(ACCESS_GUEST);
 
+$url_self = PHPWG_ROOT_PATH.'comments.php'
+  .get_query_string_diff(array('delete','edit','validate','pwg_token'));
+
 $sort_order = array(
   'DESC' => l10n('descending'),
   'ASC'  => l10n('ascending')
@@ -284,12 +287,7 @@ if (isset($action))
 
     if ($perform_redirect)
     {
-      $redirect_url =
-        PHPWG_ROOT_PATH
-        .'comments.php'
-        .get_query_string_diff(array('delete','edit','validate','pwg_token'));
-
-      redirect($redirect_url);
+      redirect($url_self);
     }
   }
 }
@@ -386,9 +384,8 @@ SELECT COUNT(DISTINCT(com.id))
 ;';
 list($counter) = pwg_db_fetch_row(pwg_query($query));
 
-$url = PHPWG_ROOT_PATH
-    .'comments.php'
-  .get_query_string_diff(array('start','delete','validate','pwg_token'));
+$url = PHPWG_ROOT_PATH.'comments.php'
+  .get_query_string_diff(array('start','edit','delete','validate','pwg_token'));
 
 $navbar = create_navigation_bar($url,
                                 $counter,
@@ -397,10 +394,6 @@ $navbar = create_navigation_bar($url,
                                 '');
 
 $template->assign('navbar', $navbar);
-
-$url_self = PHPWG_ROOT_PATH
-    .'comments.php'
-  .get_query_string_diff(array('edit','delete','validate','pwg_token'));
 
 // +-----------------------------------------------------------------------+
 // |                        last comments display                          |
@@ -536,13 +529,8 @@ SELECT c.id, name, permalink, uppercats, com.id as comment_id
 
     if (can_manage_comment('delete', $comment['author_id']))
     {
-      $url =
-        get_root_url()
-        .'comments.php'
-        .get_query_string_diff(array('delete','validate','edit', 'pwg_token'));
-
       $tpl_comment['U_DELETE'] = add_url_params(
-        $url,
+        $url_self,
         array(
           'delete' => $comment['comment_id'],
           'pwg_token' => get_pwg_token(),
@@ -552,13 +540,8 @@ SELECT c.id, name, permalink, uppercats, com.id as comment_id
 
     if (can_manage_comment('edit', $comment['author_id']))
     {
-      $url =
-        get_root_url()
-        .'comments.php'
-	.get_query_string_diff(array('edit', 'delete','validate', 'pwg_token'));
-
       $tpl_comment['U_EDIT'] = add_url_params(
-        $url,
+        $url_self,
         array(
           'edit' => $comment['comment_id']
           )
@@ -581,7 +564,7 @@ SELECT c.id, name, permalink, uppercats, com.id as comment_id
       if ('true' != $comment['validated'])
       {
         $tpl_comment['U_VALIDATE'] = add_url_params(
-          $url,
+          $url_self,
           array(
             'validate'=> $comment['comment_id'],
             'pwg_token' => get_pwg_token(),
