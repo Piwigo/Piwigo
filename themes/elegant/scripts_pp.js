@@ -1,222 +1,165 @@
-﻿/**
- * Cookie plugin
- * Copyright (c) 2006 Klaus Hartl (stilbuero.de)
- * Dual licensed under the MIT and GPL licenses:
- */
-jQuery.cookie=function(name,value,options){if(typeof value!='undefined'){options=options||{};if(value===null){value='';options=jQuery.extend({},options);options.expires=-1;}
-var expires='';if(options.expires&&(typeof options.expires=='number'||options.expires.toUTCString)){var date;if(typeof options.expires=='number'){date=new Date();date.setTime(date.getTime()+(options.expires*24*60*60*1000));}else{date=options.expires;}
-expires='; expires='+date.toUTCString();}
-var path=options.path?'; path='+(options.path):'';var domain=options.domain?'; domain='+(options.domain):'';var secure=options.secure?'; secure':'';document.cookie=[name,'=',encodeURIComponent(value),expires,path,domain,secure].join('');}else{var cookieValue=null;if(document.cookie&&document.cookie!=''){var cookies=document.cookie.split(';');for(var i=0;i<cookies.length;i++){var cookie=jQuery.trim(cookies[i]);if(cookie.substring(0,name.length+1)==(name+'=')){cookieValue=decodeURIComponent(cookie.substring(name.length+1));break;}}}
-return cookieValue;}};
+﻿(function() {
+  var session_storage = window.sessionStorage || {};
 
-if (jQuery.cookie('picture-menu') == 'visible') {
-	jQuery("head").append("<style type=\"text/css\">#content.contentWithMenu, #the_page > .content {margin-left:240px;}</style>");
-} else {
-	jQuery("head").append("<style type=\"text/css\">#the_page #menubar {display:none;} #content.contentWithMenu, #the_page > .content {margin-left:35px;}</style>");
-}
+  var menubar=jQuery("#menubar"),
+      menuswitcher,
+      content=jQuery("#the_page > .content"),
+      pcontent=jQuery("#content"),
+      imageInfos=jQuery("#imageInfos"),
+      infoswitcher,
+      theImage=jQuery("#theImage"),
+      comments=jQuery("#thePicturePage #comments"),
+      comments_button,
+      commentsswitcher,
+      comments_add,
+      comments_top_offset = 0;
 
-function hideMenu(delay) {
-	var menubar=jQuery("#menubar");
-	var menuswitcher=jQuery("#menuSwitcher");
-	var content=jQuery("#the_page > .content");
-	var pcontent=jQuery("#content");
-	
-	menubar.hide(delay);
-	menuswitcher.addClass("menuhidden").removeClass("menushown");
-	content.addClass("menuhidden").removeClass("menushown");
-	pcontent.addClass("menuhidden").removeClass("menushown");
-	jQuery.cookie('picture-menu', 'hidden', {path: "/"});
-	
-}
+  if (session_storage['picture-menu'] == 'visible') {
+    jQuery("head").append('<style>#content.contentWithMenu, #the_page > .content {margin-left:240px;}</style>');
+  }
+  else {
+    jQuery("head").append('<style>#the_page #menubar {display:none;} #content.contentWithMenu, #the_page > .content {margin-left:35px;}</style>');
+  }
 
-function showMenu(delay) {
+  function hideMenu(delay) {
+    menubar.hide(delay);
+    menuswitcher.addClass("menuhidden").removeClass("menushown");
+    content.addClass("menuhidden").removeClass("menushown");
+    pcontent.addClass("menuhidden").removeClass("menushown");
+    session_storage['picture-menu'] = 'hidden';
+  }
 
-	var menubar=jQuery("#menubar");
-	var menuswitcher=jQuery("#menuSwitcher");
-	var content=jQuery("#the_page > .content");
-	var pcontent=jQuery("#content");
+  function showMenu(delay) {
+    menubar.show(delay);
+    menuswitcher.addClass("menushown").removeClass("menuhidden");
+    content.addClass("menushown").removeClass("menuhidden");
+    pcontent.addClass("menushown").removeClass("menuhidden");
+    session_storage['picture-menu'] = 'visible';
+  }
 
-	menubar.show(delay);
-	menuswitcher.addClass("menushown").removeClass("menuhidden");
-	content.addClass("menushown").removeClass("menuhidden");
-	pcontent.addClass("menushown").removeClass("menuhidden");
-	jQuery.cookie('picture-menu', 'visible', {path: "/"});
-	
-}
+  function hideInfo(delay) {
+    imageInfos.hide(delay);
+    infoswitcher.addClass("infohidden").removeClass("infoshown");
+    theImage.addClass("infohidden").removeClass("infoshown");
+    session_storage['side-info'] = 'hidden';
+  }
 
-function hideInfo(delay) {
+  function showInfo(delay) {
+    imageInfos.show(delay);
+    infoswitcher.addClass("infoshown").removeClass("infohidden");
+    theImage.addClass("infoshown").removeClass("infohidden");
+    session_storage['side-info'] = 'visible';
+  }
 
-	var imageInfos=jQuery("#imageInfos");
-	var infoswitcher=jQuery("#infoSwitcher");
-	var theImage=jQuery("#theImage");
-	
-	imageInfos.hide(delay);
-	infoswitcher.addClass("infohidden").removeClass("infoshown");
-	theImage.addClass("infohidden").removeClass("infoshown");
-	jQuery.cookie('side-info', 'hidden', {path: "/"});
+  function commentsToggle() {
+    if (comments.hasClass("commentshidden")) {
+        comments.removeClass("commentshidden").addClass("commentsshown");
+        comments_button.addClass("comments_toggle_off").removeClass("comments_toggle_on");;
+        session_storage['comments'] = 'visible';
 
-}
+        comments_top_offset = comments_add.offset().top - parseFloat(comments_add.css('marginTop').replace(/auto/, 0));
+      }
+      else {
+        comments.addClass("commentshidden").removeClass("commentsshown");
+        comments_button.addClass("comments_toggle_on").removeClass("comments_toggle_off");;
+        session_storage['comments'] = 'hidden';
+      }
+  }
 
-function showInfo(delay) {
+  jQuery(function(){
+    // side-menu show/hide
+    if (menubar.length == 1 && p_main_menu!="disabled") {
+      menuswitcher=jQuery("#menuSwitcher");
 
-	var imageInfos=jQuery("#imageInfos");
-	var infoswitcher=jQuery("#infoSwitcher");
-	var theImage=jQuery("#theImage");
-	
-	imageInfos.show(delay);
-	infoswitcher.addClass("infoshown").removeClass("infohidden");
-	theImage.addClass("infoshown").removeClass("infohidden");
-	jQuery.cookie('side-info', 'visible', {path: "/"});
+      menuswitcher.html('<div class="switchArrow">&nbsp;</div>');
 
-}
+      if (session_storage['picture-menu'] == 'hidden' || p_main_menu == 'off') {
+        hideMenu(0);
+      }
+      else {
+        showMenu(0);
+      }
 
-jQuery("document").ready(function(jQuery){
-	
-	// side-menu show/hide
-
-	var sidemenu = jQuery.cookie('picture-menu');
-	var menubar=jQuery("#menubar");
-
-	if (menubar.length == 1 && p_main_menu!="disabled") {
-
-		jQuery("#menuSwitcher").html("<div class=\"switchArrow\">&nbsp;</div>");
-
-		// if cookie says the menu is hiding, keep it hidden!
-		if (sidemenu == 'hidden') {
-			hideMenu(0);
-		} else if (sidemenu == 'visible') {
-			showMenu(0);
-		} else if (p_main_menu == 'off') {
-			hideMenu(0);
-		}	else {
-			showMenu(0);
-		}
-	
-		jQuery("#menuSwitcher").click(function(){
-			if (jQuery("#menubar").is(":hidden")) {
-				showMenu(0);
-				return false;
-			} else {
-				hideMenu(0);
-				return false;
-			}
-		});
-	
-	}
-
-	// info show/hide
-	
-	var sideinfo = jQuery.cookie('side-info');
-	var imageInfos=jQuery("#imageInfos");
-
-	if (imageInfos.length == 1 && p_pict_descr!="disabled") {
-
-		jQuery("#infoSwitcher").html("<div class=\"switchArrow\">&nbsp;</div>");
-
-		// if cookie says the menu is hiding, keep it hidden!
-		if (sideinfo == 'hidden') {
-			hideInfo(0);
-		} else if (sideinfo == 'visible') {
-			showInfo(0);
-		} else if (p_pict_descr == 'off') {
-			hideInfo(0);
-		} else {
-			showInfo(0);
-		}
-	
-		jQuery("#infoSwitcher").click(function(){
-			if (jQuery("#imageInfos").is(":hidden")) {
-				showInfo(0);
-				return false;
-			} else {
-				hideInfo(0);
-				return false;
-			}
-		});
-	
-	}
-
-	// comments show/hide
-
-	var commentsswicther=jQuery("#commentsSwitcher");
-	var comments=jQuery("#thePicturePage #comments");
-	
-	commentsswicther.html("<div class=\"switchArrow\">&nbsp;</div>");
-	
-	if (comments.length == 1 && p_pict_comment!="disabled") {
-		var comments_button=jQuery("#comments h3");
-
-		if (comments_button.length == 0) {
-			jQuery("#addComment").before("<h3>Comments</h3>");
-			comments_button=jQuery("#comments h3");
-		}
-	
-		if (jQuery.cookie('comments') == 'hidden') {
-			comments.addClass("commentshidden");
-			comments_button.addClass("comments_toggle").addClass("comments_toggle_on");
-		} else if (jQuery.cookie('comments') == 'visible') {
-			comments.addClass("commentsshown");
-			comments_button.addClass("comments_toggle").addClass("comments_toggle_off");
-		} else if (p_pict_comment == 'off') {
-			comments.addClass("commentshidden");
-			comments_button.addClass("comments_toggle").addClass("comments_toggle_on");
-		} else {
-			comments.addClass("commentsshown");
-			comments_button.addClass("comments_toggle").addClass("comments_toggle_off");
-		}
-		
-		comments_button.click(function() { commentsToggle() });
-		commentsswicther.click(function() { commentsToggle() });
-
-    if (jQuery('#commentAdd').is(":visible")) {
-      var top = jQuery('#commentAdd').offset().top - parseFloat(jQuery('#commentAdd').css('marginTop').replace(/auto/, 0));
-      jQuery(window).scroll(function (event) {
-        // what the y position of the scroll is
-        var y = jQuery(this).scrollTop();
-      
-        // whether that's below the form
-        if (y >= top) {
-          // if so, ad the fixed class
-          jQuery('#commentAdd').addClass('fixed');
-        } else {
-          // otherwise remove it
-          jQuery('#commentAdd').removeClass('fixed');
+      menuswitcher.click(function(e){
+        if (menubar.is(":hidden")) {
+          showMenu(0);
         }
+        else {
+          hideMenu(0);
+        }
+        e.preventDefault();
       });
     }
-	}
-  
 
-	
-});
+    // info show/hide
+    if (imageInfos.length == 1 && p_pict_descr!="disabled") {
+      infoswitcher=jQuery("#infoSwitcher");
 
-function commentsToggle() {
-	var comments=jQuery("#thePicturePage #comments");
-	var comments_button=jQuery("#comments h3");
+      infoswitcher.html('<div class="switchArrow">&nbsp;</div>');
 
-	if (comments.hasClass("commentshidden")) {
-			comments.removeClass("commentshidden").addClass("commentsshown");
-			comments_button.addClass("comments_toggle_off").removeClass("comments_toggle_on");;
-			jQuery.cookie('comments', 'visible', {path: "/"});
-      var top = jQuery('#commentAdd').offset().top - parseFloat(jQuery('#commentAdd').css('marginTop').replace(/auto/, 0));
+      if (session_storage['side-info'] == 'hidden' || p_pict_descr == 'off') {
+        hideInfo(0);
+      }
+      else {
+        showInfo(0);
+      }
+
+      infoswitcher.click(function(e){
+        if (imageInfos.is(":hidden")) {
+          showInfo(0);
+        }
+        else {
+          hideInfo(0);
+        }
+        e.preventDefault();
+      });
+    }
+
+    // comments show/hide
+    if (comments.length == 1 && p_pict_comment!="disabled") {
+      commentsswitcher=jQuery("#commentsSwitcher");
+      comments_button=jQuery("#comments h3");
+      comments_add=jQuery('#commentAdd');
+
+      commentsswitcher.html('<div class="switchArrow">&nbsp;</div>');
+
+      if (comments_button.length == 0) {
+        jQuery("#addComment").before("<h3>Comments</h3>");
+        comments_button=jQuery("#comments h3");
+      }
+
+      if (session_storage['comments'] == 'hidden' || p_pict_comment == 'off') {
+        comments.addClass("commentshidden");
+        comments_button.addClass("comments_toggle comments_toggle_on");
+      }
+      else {
+        comments.addClass("commentsshown");
+        comments_button.addClass("comments_toggle comments_toggle_off");
+      }
+
+      comments_button.click(commentsToggle);
+      commentsswitcher.click(commentsToggle);
+
       jQuery(window).scroll(function (event) {
+        if (comments_top_offset==0) return;
+
         // what the y position of the scroll is
         var y = jQuery(this).scrollTop();
-      
+
         // whether that's below the form
-        if (y >= top) {
+        if (y >= comments_top_offset) {
           // if so, ad the fixed class
-          jQuery('#commentAdd').addClass('fixed');
-        } else {
+          comments_add.addClass('fixed');
+        }
+        else {
           // otherwise remove it
-          jQuery('#commentAdd').removeClass('fixed');
+          comments_add.removeClass('fixed');
         }
       });
 
-		} else {
-			comments.addClass("commentshidden").removeClass("commentsshown");
-			comments_button.addClass("comments_toggle_on").removeClass("comments_toggle_off");;
-			jQuery.cookie('comments', 'hidden', {path: "/"});
-		}
-
-}
+      if (comments_add.is(":visible")) {
+        comments_top_offset = comments_add.offset().top - parseFloat(comments_add.css('marginTop').replace(/auto/, 0));
+      }
+    }
+  });
+}());
