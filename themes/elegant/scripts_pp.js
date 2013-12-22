@@ -53,17 +53,18 @@
 
   function commentsToggle() {
     if (comments.hasClass("commentshidden")) {
-        comments.removeClass("commentshidden").addClass("commentsshown");
-        comments_button.addClass("comments_toggle_off").removeClass("comments_toggle_on");;
-        session_storage['comments'] = 'visible';
+      comments.removeClass("commentshidden").addClass("commentsshown");
+      comments_button.addClass("comments_toggle_off").removeClass("comments_toggle_on");;
+      session_storage['comments'] = 'visible';
 
-        comments_top_offset = comments_add.offset().top - parseFloat(comments_add.css('marginTop').replace(/auto/, 0));
-      }
-      else {
-        comments.addClass("commentshidden").removeClass("commentsshown");
-        comments_button.addClass("comments_toggle_on").removeClass("comments_toggle_off");;
-        session_storage['comments'] = 'hidden';
-      }
+      comments_top_offset = comments_add.offset().top - parseFloat(comments_add.css('marginTop').replace(/auto/, 0));
+    }
+    else {
+      comments.addClass("commentshidden").removeClass("commentsshown");
+      comments_button.addClass("comments_toggle_on").removeClass("comments_toggle_off");;
+      session_storage['comments'] = 'hidden';
+      comments_top_offset = 0;
+    }
   }
 
   jQuery(function(){
@@ -143,17 +144,19 @@
       jQuery(window).scroll(function (event) {
         if (comments_top_offset==0) return;
 
-        // what the y position of the scroll is
         var y = jQuery(this).scrollTop();
 
-        // whether that's below the form
         if (y >= comments_top_offset) {
-          // if so, ad the fixed class
-          comments_add.addClass('fixed');
+          comments_add.css({
+            'position': 'absolute',
+            'top': y-comments.offset().top+10
+          });
         }
         else {
-          // otherwise remove it
-          comments_add.removeClass('fixed');
+          comments_add.css({
+            'position': 'static',
+            'top': 0
+          });
         }
       });
 

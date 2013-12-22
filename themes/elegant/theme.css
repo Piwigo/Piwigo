@@ -237,7 +237,7 @@ a:hover 		{ border-bottom: none;}
 
 /* image comments */
 
-#thePicturePage #comments 			{ padding: 2px 5px;}
+#thePicturePage #comments 			{ padding: 2px 5px; position:relative;}
 #thePicturePage #comments h3 			{ margin: 10px 0;}
 #thePicturePage #comments form 		{ margin: 10px 0;}
 #thePicturePage #comments fieldset		{ margin: 0 1em;}
@@ -255,7 +255,6 @@ a:hover 		{ border-bottom: none;}
 	font-family: Arial,Helvetica,sans-serif;
 	font-size: 100%;
 }
-#commentAdd.fixed {  position: fixed; top: 10px; }
 #pictureCommentList .commentsOrder	{ float: left; margin-bottom: 5px;}
 #pictureCommentList .navigationBar	{ float: right; margin-bottom: 5px;}
 #pictureComments h4					{ margin: 0;}
