@@ -56,7 +56,6 @@
       comments.removeClass("commentshidden").addClass("commentsshown");
       comments_button.addClass("comments_toggle_off").removeClass("comments_toggle_on");;
       session_storage['comments'] = 'visible';
-
       comments_top_offset = comments_add.offset().top - parseFloat(comments_add.css('marginTop').replace(/auto/, 0));
     }
     else {
@@ -74,7 +73,11 @@
 
       menuswitcher.html('<div class="switchArrow">&nbsp;</div>');
 
-      if (session_storage['picture-menu'] == 'hidden' || p_main_menu == 'off') {
+      if (session_storage['picture-menu'] == undefined && p_main_menu == 'off') {
+        session_storage['picture-menu'] = 'hidden';
+      }
+
+      if (session_storage['picture-menu'] == 'hidden') {
         hideMenu(0);
       }
       else {
@@ -98,7 +101,11 @@
 
       infoswitcher.html('<div class="switchArrow">&nbsp;</div>');
 
-      if (session_storage['side-info'] == 'hidden' || p_pict_descr == 'off') {
+      if (session_storage['side-info'] == undefined && p_pict_descr == 'off') {
+        session_storage['side-info'] = 'hidden';
+      }
+
+      if (session_storage['side-info'] == 'hidden') {
         hideInfo(0);
       }
       else {
@@ -129,7 +136,11 @@
         comments_button=jQuery("#comments h3");
       }
 
-      if (session_storage['comments'] == 'hidden' || p_pict_comment == 'off') {
+      if (session_storage['comments'] == undefined && p_pict_comment == 'off') {
+        session_storage['comments'] = 'hidden';
+      }
+
+      if (session_storage['comments'] == 'hidden') {
         comments.addClass("commentshidden");
         comments_button.addClass("comments_toggle comments_toggle_on");
       }
