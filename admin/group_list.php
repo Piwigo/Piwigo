@@ -389,7 +389,6 @@ $result = pwg_query($query);
 $admin_url = get_root_url().'admin.php?page=';
 $perm_url    = $admin_url.'group_perm&amp;group_id=';
 $del_url     = $admin_url.'group_list&amp;delete=';
-$members_url = $admin_url.'user_list&amp;group=';
 $toggle_is_default_url     = $admin_url.'group_list&amp;toggle_is_default=';
 
 while ($row = pwg_db_fetch_assoc($result))
@@ -416,7 +415,6 @@ SELECT username
       'NB_MEMBERS' => count($members),
       'L_MEMBERS' => implode(' <span class="userSeparator">&middot;</span> ', $members),
       'MEMBERS' => l10n_dec('%d member', '%d members', count($members)),
-      'U_MEMBERS' => $members_url.$row['id'],
       'U_DELETE' => $del_url.$row['id'].'&amp;pwg_token='.get_pwg_token(),
       'U_PERM' => $perm_url.$row['id'],
       'U_ISDEFAULT' => $toggle_is_default_url.$row['id'].'&amp;pwg_token='.get_pwg_token(),
