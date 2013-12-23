@@ -20,9 +20,12 @@
 // | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
-$lang['You do not have access rights to run upgrade'] = 'Уучлаарай, Танд шинэчлэх эрх байхгүй байна.';
+$lang['You do not have access rights to run upgrade'] = 'Уучлаарай, Танд программыг шинэчлэх эрх байхгүй байна.';
 $lang['Only administrator can run upgrade: please sign in below.'] = 'Уучлаарай, зөвхөн админ шинэчлэх эрхтэй. Админы эрхээр системд нэвтэрнэ үү.';
 $lang['total upgrade time'] = 'Зарцуулсан хугацаа';
 $lang['Upgrade from version %s to %s'] = '%s-с %s хувилбар уруу шинэчлэх';
 $lang['Upgrade'] = 'Шинэчлэх';
+$lang['Upgrade informations'] = 'Шинэчилсэн мэдээлэл';
+$lang['total SQL time'] = 'Нийт SQL хугацаа';
+$lang['Statistics'] = 'Статистик';
 ?>
