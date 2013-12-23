@@ -6,13 +6,6 @@
       content=jQuery("#the_page > .content"),
       pcontent=jQuery("#content");
 
-  if (session_storage['page-menu'] == 'hidden') {
-    jQuery("head").append('<style>#the_page #menubar {display:none;} #content.contentWithMenu, #the_page > .content {margin-left:35px;}</style>');
-  }
-  else {
-    jQuery("head").append('<style>#content.contentWithMenu, #the_page > .content {margin-left:240px;}</style>');
-  }
-
   function hideMenu(delay) {
     menubar.hide(delay);
     menuswitcher.addClass("menuhidden").removeClass("menushown");

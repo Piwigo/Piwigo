@@ -14,13 +14,6 @@
       comments_add,
       comments_top_offset = 0;
 
-  if (session_storage['picture-menu'] == 'visible') {
-    jQuery("head").append('<style>#content.contentWithMenu, #the_page > .content {margin-left:240px;}</style>');
-  }
-  else {
-    jQuery("head").append('<style>#the_page #menubar {display:none;} #content.contentWithMenu, #the_page > .content {margin-left:35px;}</style>');
-  }
-
   function hideMenu(delay) {
     menubar.hide(delay);
     menuswitcher.addClass("menuhidden").removeClass("menushown");
@@ -93,6 +86,9 @@
         }
         e.preventDefault();
       });
+    }
+    else if (menubar.length == 1 && p_main_menu=="disabled") {
+      showMenu(0);
     }
 
     // info show/hide
