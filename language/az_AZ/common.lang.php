@@ -61,28 +61,23 @@ $lang['... or please deactivate this message, I will find my way by myself'] = '
 $lang['A comment on your site'] = 'Saytınızdakı şərh';
 $lang['About Piwigo'] = 'Piwigo haqqında';
 $lang['About'] = 'Haqqında';
-$lang['Album'] = 'albom
-';
+$lang['Album'] = 'albom';
 $lang['File'] = 'fayl';
 $lang['Display'] = 'göstər';
-$lang['Delete'] = 'sil
-';
+$lang['Delete'] = 'sil';
 $lang['Date'] = 'tarix';
 $lang['Contact'] = 'təmas';
 $lang['Calendar'] = 'təqvim';
 $lang['Are you sure?'] = 'əminsinizmi?';
 $lang['All'] = 'Bütün';
-$lang['Author'] = 'Müəllif
-';
+$lang['Author'] = 'Müəllif';
 $lang['Album: %s'] = 'Albom: %5';
 $lang['Administration'] = 'Müdiriyyət';
-$lang['Accelerate diaporama speed'] = 'Sürətin artır
-';
+$lang['Accelerate diaporama speed'] = 'Sürətin artır';
 $lang['Add a comment'] = 'Geyd əlavə et';
 $lang['Admin: %s'] = 'Müdir: %5';
 $lang['%d rate'] = '%d norma';
 $lang['2small'] = 'XXS-bapbalaca';
-$lang['Comment'] = '	
-qeyd';
+$lang['Comment'] = 'qeyd';
 $lang['Albums'] = 'Albomlar';
 ?>
