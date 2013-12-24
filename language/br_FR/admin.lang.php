@@ -115,4 +115,17 @@ $lang['Pending Comments'] = 'Evezhiadennoù o c\'hortoz';
 $lang['%d tags'] = '%d merker';
 $lang['%d physical'] = '%d fizikel';
 $lang['%d physicals'] = '%d fizikel';
+$lang['... or '] = '… pe';
+$lang['Photo informations updated'] = 'Hizivaet titouroù al luc\'hskeudenn';
+$lang['Password updated'] = 'Hizivaet ar ger-tremen';
+$lang['Check for updates'] = 'Sell ma vez hizivadurioù';
+$lang['%d user was not updated.'] = '%d implijer n\'eo ket bet hizivaet';
+$lang['%d users were not updated.'] = '%d implijer n\'int ket bet hizivaet';
+$lang['Ignore this update'] = 'Leuskel an hizivadur-mañ';
+$lang['%d user was updated.'] = '%d implijer hizivaet';
+$lang['Album updated successfully'] = 'Rummad hizivaet mat';
+$lang['Piwigo Update'] = 'Hizivadur Piwigo';
+$lang['%d users were updated.'] = '%d implijer hizivaet';
+$lang['%s has been successfully updated.'] = '%s a zo bet hizivaet';
+$lang['Reset ignored updates'] = 'Adderaouiñ an hizivadurioù dilezet';
 ?>
