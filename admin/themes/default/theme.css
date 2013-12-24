@@ -1,5 +1,5 @@
 /* content.css */
-[class^="icon-"]:before { text-decoration:none !important; }
+[class*="icon-"]:before { text-decoration:none !important; }
 
 .showInfo { font-size:15px;cursor:pointer;line-height:15px; }
 
@@ -1161,6 +1161,7 @@ a.group_perm {
 
 #userList .openUserDetails {visibility:hidden;}
 #userList tr:hover .openUserDetails {visibility:visible;}
+#userList .icon-angle-circled-up {visibility:visible;}
 
 .userProperties {max-width:730px;}
 .userPropertiesContainer {border-top:1px solid #ddd;margin-top:1em;}
