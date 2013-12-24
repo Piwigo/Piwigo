@@ -64,4 +64,5 @@ $lang['Hope to see you back soon.'] = 'Esperamos verte de volta en breve.';
 $lang['Host'] = 'Servidor';
 $lang['Installation'] = 'Instalación';
 $lang['Admin configuration'] = 'Configuración da adminstración';
+$lang['localhost or other, supplied by your host provider'] = 'aloxamento local ou outro, fornecido polo seu aloxador';
 ?>
