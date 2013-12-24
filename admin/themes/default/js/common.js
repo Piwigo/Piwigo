@@ -3,6 +3,11 @@ function array_delete(arr, item) {
   if (i != -1) arr.splice(i, 1);
 }
 
+function str_repeat(i, m) {
+  for (var o = []; m > 0; o[--m] = i);
+  return o.join('');
+}
+
 function sprintf() {
   var i = 0, a, f = arguments[i++], o = [], m, p, c, x, s = '';
   while (f) {
