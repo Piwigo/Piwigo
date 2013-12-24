@@ -1159,11 +1159,8 @@ a.group_perm {
   right: 5px;
 }
 
-.openUserDetails {
-  font-size:16px;
-  margin-left:-8px;
-  cursor:pointer;
-}
+#userList .openUserDetails {visibility:hidden;}
+#userList tr:hover .openUserDetails {visibility:visible;}
 
 .userProperties {max-width:730px;}
 .userPropertiesContainer {border-top:1px solid #ddd;margin-top:1em;}

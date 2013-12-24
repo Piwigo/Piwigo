@@ -610,7 +610,7 @@ jQuery(document).ready(function() {
     },
     {
       "mRender": function(data, type, full) {
-        return '<span title="Open user details" class="icon-angle-circled-down openUserDetails"></span> <label><input type="checkbox" data-user_id="'+full[0]+'"> '+data+'</label>';
+        return '<label><input type="checkbox" data-user_id="'+full[0]+'"> '+data+'</label> <a title="Open user details" class="icon-angle-circled-down openUserDetails">{/literal}{'edit'|translate}{literal}</a>';
       }
     }
   ];
