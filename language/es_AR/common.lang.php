@@ -417,4 +417,8 @@ $lang['Go back to the album'] = 'Volver al álbum';
 $lang['Last Page'] = 'Última página';
 $lang['Email'] = 'Correo electrónico';
 
+$lang['%d photos per page'] = '%d fotos por página';
+$lang['Password confirmation is missing. Please confirm the chosen password.'] = 'Falta confirmación de su contraseña. Por favor confirme la contraseña elegida.';
+$lang['Password is missing. Please enter the password.'] = 'Falta la contraseña. Por favor escriba su contraseña';
+$lang['Theme'] = 'Tema';
 ?>
