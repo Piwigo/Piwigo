@@ -416,4 +416,5 @@ $lang['If you think you\'ve received this email in error, please contact us at %
 $lang['Password confirmation is missing. Please confirm the chosen password.'] = '암호 확인이 입력되지 않았습니다. 선택한 암호를 확인하십시오.';
 $lang['Password is missing. Please enter the password.'] = '암호가 입력되지 않았습니다. 암호를 입력하십시오.';
 $lang['%d photos per page'] = '페이지당 %d 개의 사진';
+$lang['Theme'] = '테마';
 ?>
