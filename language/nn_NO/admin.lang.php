@@ -960,4 +960,10 @@ $lang['Loading...'] = 'Lastar...';
 $lang['No matching user found'] = 'Ingen brukarar vart funne';
 $lang['Password updated'] = 'Passordet er endra';
 $lang['Show %s users'] = 'Vis %s brukarar';
+$lang['No user selected of %d users'] = 'Ingen brukarar valde (totalt %d brukarar)';
+$lang['No user selected, no action possible.'] = 'Ingen brukarar valde - ingen aksjon mogleg';
+$lang['Registered on %s, %s.'] = 'Registrera %s, %s.';
+$lang['Showing %s to %s of %s users'] = 'Viser %s til %s av %s brukarar';
+$lang['Update user'] = 'Endre brukar';
+$lang['on the %d selected users'] = 'med dei %d valde brukarane';
 ?>
