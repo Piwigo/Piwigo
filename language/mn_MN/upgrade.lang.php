@@ -26,6 +26,9 @@ $lang['total upgrade time'] = 'Зарцуулсан хугацаа';
 $lang['Upgrade from version %s to %s'] = '%s-с %s хувилбар уруу шинэчлэх';
 $lang['Upgrade'] = 'Шинэчлэх';
 $lang['Upgrade informations'] = 'Шинэчилсэн мэдээлэл';
-$lang['total SQL time'] = 'Нийт SQL хугацаа';
+$lang['total SQL time'] = 'SQL ажилласан хугацаа';
 $lang['Statistics'] = 'Статистик';
+$lang['SQL queries'] = 'SQL комманд';
+$lang['Perform a maintenance check in [Administration>Tools>Maintenance] if you encounter any problem.'] = 'Хэрвээ ямар нэгэн асуудал гарвал [Удирдлага>Tools>Засвар үйлчилгээ] хэсэгээс шалгаж үзнэ үү';
+$lang['User permissions and group permissions have been erased'] = 'Хэрэглэгч болон бүлгүүдийн эрхийг цуцаллаа';
 ?>
