@@ -973,4 +973,7 @@ $lang['Change password'] = 'Zmeniť heslo';
 $lang['All %d users are selected'] = 'Všetkých %d používateľov je označených';
 $lang['(filtered from %s total users)'] = '(odfotrovaných %s z celkového počtu používateľov)';
 $lang['%d of %d users selected'] = '%d z %d používateľov označených';
+$lang['Close user details'] = 'Uzavrieť detaily používateľa';
+$lang['Open user details'] = 'Otvoriť detaily používateľa';
+$lang['close'] = 'zavrieť';
 ?>
