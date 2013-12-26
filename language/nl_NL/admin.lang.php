@@ -972,4 +972,7 @@ $lang['Password updated'] = 'Wachtwoord aangepast';
 $lang['%d of %d users selected'] = '%d van %d gebruikers geselecteerd';
 $lang['All %d users are selected'] = 'Alle %d gebruikers zijn geselecteerd';
 $lang['Change password'] = 'Verander wachtwoord';
+$lang['Close user details'] = 'Sluit gebruikersdetails';
+$lang['Open user details'] = 'Open gebruikersdetails';
+$lang['close'] = 'Sluit';
 ?>
