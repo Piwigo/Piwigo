@@ -966,4 +966,7 @@ $lang['Installed Languages'] = '安裝語言';
 $lang['Installed Themes'] = '安裝主題';
 $lang['Instructions to use Piwigo'] = 'Piwigo 使用指南';
 $lang['Invert'] = '反轉';
+$lang['Close user details'] = '關閉用戶詳細信息';
+$lang['Open user details'] = '打開用戶詳細信息';
+$lang['close'] = '關閉';
 ?>
