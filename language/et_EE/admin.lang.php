@@ -972,4 +972,7 @@ $lang['No user selected, no action possible.'] = 'Kasutajaid pole valitud, ei sa
 $lang['Password updated'] = 'Parool uuendatud';
 $lang['Registered on %s, %s.'] = 'Registreeritud %s, %s.';
 $lang['Show %s users'] = 'Näita %s kasutajaid';
+$lang['Close user details'] = 'Peida kasutaja üksikasjad';
+$lang['Open user details'] = 'Ava kasutaja üksikasjad';
+$lang['close'] = 'sulge';
 ?>
