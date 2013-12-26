@@ -414,4 +414,8 @@ $lang['Email'] = 'ಮಿಂಚೆ';
 $lang['First Page'] = 'ಮೊದಲ ಪುಟ';
 $lang['Go back to the album'] = 'ಸಂಪುಟಕ್ಕೆ ಹಿಂತಿರುಗಿ';
 $lang['Last Page'] = 'ಕೊನೆಯ ಪುಟ';
+$lang['%d photos per page'] = '%d ಚಿತ್ರಗಳು ಪ್ರತಿ ಪುಟಕ್ಕೆ';
+$lang['Password confirmation is missing. Please confirm the chosen password.'] = 'ಪ್ರವೇಶಪದದ ಅನುಮೋದನೆ ಕಾಣೆಯಾಗಿದೆ. ದಯವಿಟ್ಟು ನಿಮ್ಮ ಆಯ್ಕೆಯ ಪ್ರವೇಶಪದವನ್ನು ಅನುಮೋದಿಸಿ.';
+$lang['Password is missing. Please enter the password.'] = 'ಪ್ರವೇಶಪದ ಕಾಣೆಯಾಗಿದೆ. ದಯವಿಟ್ಟು ಪ್ರವೇಶಪದವನ್ನು ನಮೂದಿಸಿ.';
+$lang['Theme'] = 'ಥೀಮ್';
 ?>
