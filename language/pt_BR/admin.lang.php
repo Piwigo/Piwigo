@@ -971,4 +971,7 @@ $lang['User %s updated'] = 'Usuário %s atualizado';
 $lang['Users modified'] = 'Usuários modificados';
 $lang['on the %d selected users'] = 'em %d usuários selecionados';
 $lang['%d of %d users selected'] = '%d de %d usuários selecionados';
+$lang['Close user details'] = 'Fechar detalhes de usuário';
+$lang['Open user details'] = 'Abrir detalhes de usuário';
+$lang['close'] = 'fechar';
 ?>
