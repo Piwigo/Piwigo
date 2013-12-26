@@ -968,4 +968,7 @@ $lang['Change username'] = 'Kullanıcı adı değiştir';
 $lang['All %d users are selected'] = 'Tüm %d kullanıcı seçildi';
 $lang['(filtered from %s total users)'] = '(toplam %s kullanıcıdan filtrelendi)';
 $lang['%d of %d users selected'] = '%d/%d kullanıcı seçildi';
+$lang['Close user details'] = 'Kullanıcı detaylarını kapat';
+$lang['Open user details'] = 'Kullanıcı detaylarını aç';
+$lang['close'] = 'kapat';
 ?>
