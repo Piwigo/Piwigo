@@ -970,4 +970,7 @@ $lang['Loading...'] = 'Wczytywanie...';
 $lang['Password updated'] = 'Hasło zostało zaktualizowane';
 $lang['Registered on %s, %s.'] = 'Zarejestrowany %s, %s.';
 $lang['Show %s users'] = 'Pokaż %s użytkowników';
+$lang['Close user details'] = 'Zamknij szczegóły użytkownika';
+$lang['Open user details'] = 'Otwórz szczegóły użytkownika';
+$lang['close'] = 'zamknij';
 ?>
