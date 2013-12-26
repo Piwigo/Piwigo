@@ -967,4 +967,7 @@ $lang['Last visit on %s, %s.'] = 'Pēdējais apmeklējums %s, %s.';
 $lang['Loading...'] = 'Ielādējas';
 $lang['Change username'] = 'Nomainīt lietotājvārdu';
 $lang['Change password'] = 'Nomainīt paroli';
+$lang['Open user details'] = 'Atvērt lietotāja informāciju';
+$lang['Close user details'] = 'Aizvērt lietotāja informāciju';
+$lang['close'] = 'aizvērt';
 ?>
