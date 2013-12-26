@@ -972,4 +972,7 @@ $lang['Last visit on %s, %s.'] = 'Последний визит был %s, %s.';
 $lang['Loading...'] = 'Загрузка...';
 $lang['Password updated'] = 'Пароль обновлен';
 $lang['Update user'] = 'Пользователь обновлен';
+$lang['Close user details'] = 'Закрыть детали пользователя';
+$lang['Open user details'] = 'Открыть детали пользователя';
+$lang['close'] = 'закрыть';
 ?>
