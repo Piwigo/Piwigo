@@ -49,6 +49,12 @@
       "src": "fontawesome"
     },
     {
+      "uid": "0f4cae16f34ae243a6144c18a003f2d8",
+      "css": "cancel-circled",
+      "code": 59425,
+      "src": "fontawesome"
+    },
+    {
       "uid": "4ba33d2607902cf690dd45df09774cb0",
       "css": "plus-circled",
       "code": 10133,
@@ -160,18 +166,6 @@
       "uid": "6605ee6441bf499ffa3c63d3c7409471",
       "css": "move",
       "code": 59410,
-      "src": "fontawesome"
-    },
-    {
-      "uid": "8cbd5bcfb00043b8094fd7ac21ae5e06",
-      "css": "angle-circled-up",
-      "code": 59417,
-      "src": "fontawesome"
-    },
-    {
-      "uid": "c35e0796f6f806945a44b1655ce7bbe7",
-      "css": "angle-circled-down",
-      "code": 59416,
       "src": "fontawesome"
     },
     {

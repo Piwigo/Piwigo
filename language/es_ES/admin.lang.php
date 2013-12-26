@@ -970,4 +970,5 @@ $lang['User %s added'] = 'Usuario %s añadido';
 $lang['User %s updated'] = 'Usuario %s actualizado';
 $lang['Users modified'] = 'Usuarios modificados';
 $lang['on the %d selected users'] = 'en los %d usuarios seleccionados';
+$lang['close'] = 'cerrar';
 ?>

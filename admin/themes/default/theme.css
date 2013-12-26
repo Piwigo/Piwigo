@@ -1161,7 +1161,7 @@ a.group_perm {
 
 #userList .openUserDetails {visibility:hidden;}
 #userList tr:hover .openUserDetails {visibility:visible;}
-#userList .icon-angle-circled-up {visibility:visible;}
+#userList .icon-cancel-circled {visibility:visible;}
 
 .userProperties {max-width:730px;}
 .userPropertiesContainer {border-top:1px solid #ddd;margin-top:1em;}

@@ -971,4 +971,7 @@ $lang['Change username'] = 'Change username';
 $lang['Update user'] = 'Update user';
 $lang['User %s updated'] = 'User %s updated';
 $lang['Users modified'] = 'Users modified';
+$lang['close'] = 'close';
+$lang['Open user details'] = 'Open user details';
+$lang['Close user details'] = 'Close user details';
 ?>

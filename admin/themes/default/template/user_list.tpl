@@ -590,14 +590,26 @@ jQuery(document).ready(function() {
    */
   jQuery(document).on('click', '#userList tbody td .openUserDetails',  function() {
     var nTr = this.parentNode.parentNode;
-    if (jQuery(this).hasClass('icon-angle-circled-up')) {
+    if (jQuery(this).hasClass('icon-cancel-circled')) {
       /* This row is already open - close it */
-      jQuery(this).removeClass('icon-angle-circled-up').addClass('icon-angle-circled-down').attr('title', 'Open user details');
+      jQuery(this)
+        .removeClass('icon-cancel-circled')
+        .addClass('icon-pencil')
+        .attr('title', "{/literal}{'Open user details'|translate|escape:'javascript'}{literal}")
+        .html("{/literal}{'edit'|translate|escape:'javascript'}{literal}")
+      ;
+
       oTable.fnClose( nTr );
     }
     else {
       /* Open this row */
-      jQuery(this).removeClass('icon-angle-circled-down').addClass('icon-angle-circled-up').attr('title', 'Close user details');
+      jQuery(this)
+        .removeClass('icon-pencil')
+        .addClass('icon-cancel-circled')
+        .attr('title', "{/literal}{'Close user details'|translate|escape:'javascript'}{literal}")
+        .html("{/literal}{'close'|translate|escape:'javascript'}{literal}")
+      ;
+
       oTable.fnOpen( nTr, fnFormatDetails(oTable, nTr), 'details' );
     }
   });
@@ -610,7 +622,7 @@ jQuery(document).ready(function() {
     },
     {
       "mRender": function(data, type, full) {
-        return '<label><input type="checkbox" data-user_id="'+full[0]+'"> '+data+'</label> <a title="Open user details" class="icon-angle-circled-down openUserDetails">{/literal}{'edit'|translate}{literal}</a>';
+        return '<label><input type="checkbox" data-user_id="'+full[0]+'"> '+data+'</label> <a title="{/literal}{'Open user details'|translate|escape:'javascript'}{literal}" class="icon-pencil openUserDetails">{/literal}{'edit'|translate}{literal}</a>';
       }
     }
   ];

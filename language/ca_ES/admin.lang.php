@@ -974,4 +974,5 @@ $lang['Password updated'] = 'La contrasenya s\'ha actualitzat';
 $lang['Update user'] = 'Actualitza l\'usuari';
 $lang['User %s added'] = 'S\'ha afegit l\'usuari %s';
 $lang['User %s updated'] = 'S\'ha actualitzat l\'usuari %s';
+$lang['close'] = 'tancar';
 ?>

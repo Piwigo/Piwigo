@@ -972,4 +972,5 @@ $lang['(filtered from %s total users)'] = '(filtrato da %s utenti totali)';
 $lang['%d of %d users selected'] = '%d di %d utenti selezionati';
 $lang['Change username'] = 'Cambia nome utente';
 $lang['Change password'] = 'Cambia password';
+$lang['close'] = 'chiudere';
 ?>

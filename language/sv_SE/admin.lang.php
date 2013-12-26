@@ -971,4 +971,5 @@ $lang['Showing %s to %s of %s users'] = 'Visar %s till %s av %s användare';
 $lang['Update user'] = 'Uppdatera användare';
 $lang['User %s added'] = 'Användare %s tillagd';
 $lang['User %s updated'] = 'Användare %s uppdaterad';
+$lang['close'] = 'stäng';
 ?>
