@@ -968,4 +968,7 @@ $lang['User %s added'] = 'Uporabnik %s dodan';
 $lang['User %s updated'] = 'Uporabnik %s posodobljen';
 $lang['Users modified'] = 'Uporabnik spremenjen';
 $lang['on the %d selected users'] = ' na %d izbranih uporabnikih';
+$lang['Close user details'] = 'Zapri uporabniške podate';
+$lang['Open user details'] = 'Odpri uporabniška navodila';
+$lang['close'] = 'zapri';
 ?>
