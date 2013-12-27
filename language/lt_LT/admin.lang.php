@@ -966,4 +966,7 @@ $lang['Show %s users'] = 'Rodyti %s vartotojus';
 $lang['User %s added'] = 'Vartotojas %s pridėtas';
 $lang['User %s updated'] = 'Vartotojo %s informacija atnaujinta';
 $lang['Users modified'] = 'Vartotojo informacija pakeista';
+$lang['Close user details'] = 'Užverti vartotojo detales';
+$lang['Open user details'] = 'Atverti vartotojo detales';
+$lang['close'] = 'uždaryti';
 ?>
