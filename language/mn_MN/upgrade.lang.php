@@ -31,4 +31,5 @@ $lang['Statistics'] = 'Статистик';
 $lang['SQL queries'] = 'SQL комманд';
 $lang['Perform a maintenance check in [Administration>Tools>Maintenance] if you encounter any problem.'] = 'Хэрвээ ямар нэгэн асуудал гарвал [Удирдлага>Tools>Засвар үйлчилгээ] хэсэгээс шалгаж үзнэ үү';
 $lang['User permissions and group permissions have been erased'] = 'Хэрэглэгч болон бүлгүүдийн эрхийг цуцаллаа';
+$lang['All sub-albums of private albums become private'] = 'Хувийн цомогт хамаарагдах дэд цомогууд мөн "хувийн" байх болно';
 ?>
