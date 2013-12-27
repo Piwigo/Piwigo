@@ -976,4 +976,7 @@ $lang['User %s added'] = 'Uživatel %s přidán';
 $lang['User %s updated'] = 'Uživatel %s aktualizován';
 $lang['Users modified'] = 'Uživatelé pozměněni';
 $lang['on the %d selected users'] = 'na %d vybraných uživatelích';
+$lang['Close user details'] = 'Zavřít detajly uživatele';
+$lang['Open user details'] = 'Otevřít detajly uživatele';
+$lang['close'] = 'Zavřít';
 ?>
