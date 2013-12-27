@@ -974,4 +974,7 @@ $lang['Change password'] = 'Αλλαγή κωδικού πρόσβασης';
 $lang['All %d users are selected'] = 'Όλοι οι %d χρήστες επιλέχτηκαν';
 $lang['(filtered from %s total users)'] = '(φιλτραρισμένο από %s σύνολο των χρηστών)';
 $lang['%d of %d users selected'] = '%d από %d επιλεγμένους χρήστες';
+$lang['close'] = 'κλείσιμο ';
+$lang['Open user details'] = 'Άνοιγμα Λεπτομεριών χρήστη';
+$lang['Close user details'] = 'Κλείστε τα στοιχεία χρήστη';
 ?>
