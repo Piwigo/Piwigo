@@ -975,4 +975,7 @@ $lang['Registered on %s, %s.'] = 'Înregistrat pe %s, %s';
 $lang['Select at least one tag'] = 'Alege cel puțin o etichetă';
 $lang['Show %s users'] = 'Arată %s utilizatori';
 $lang['User %s added'] = 'Utilizatorul %s adăugat';
+$lang['Close user details'] = 'Închide detalii utilizator';
+$lang['Open user details'] = 'Deschide detalii utilizator';
+$lang['close'] = 'închide';
 ?>
