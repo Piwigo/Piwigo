@@ -6,6 +6,8 @@
 {combine_script id='jquery.chosen' load='footer' path='themes/default/js/plugins/chosen.jquery.min.js'}
 {combine_css path="themes/default/js/plugins/chosen.css"}
 
+{combine_script id='jquery.underscore' load='footer' path='themes/default/js/plugins/underscore.js'}
+
 {combine_script id='jquery.ui.slider' require='jquery.ui' load='footer' path='themes/default/js/ui/minified/jquery.ui.slider.min.js'}
 {combine_css path="themes/default/js/ui/theme/jquery.ui.slider.css"}
 
@@ -180,176 +182,98 @@ jQuery(document).ready(function() {
         if (data.stat == 'ok') {
           var user = data.result.users[0];
 
-          var userDetails = '<form>';
-          userDetails += '<div class="userActions">';
-
-          if (parseInt(userId) != guestUser) {
-            userDetails += '<span class="changePasswordDone infos" style="display:none">&#x2714; {/literal}{'Password updated'|translate|escape:javascript}{literal}</span>';
-            userDetails += '<span class="changePassword" style="display:none">{/literal}{'New password'|translate}{literal} <input type="text"> <a href="#" class="buttonLike updatePassword"><img src="themes/default/images/ajax-loader-small.gif" style="margin-bottom:-1px;margin-left:1px;display:none;"><span class="text">{/literal}{'Submit'|translate|escape:javascript}{literal}</span></a> <a href="#" class="cancel">{/literal}{'Cancel'|translate|escape:javascript}{literal}</a></span>';
-            userDetails += '<a class="icon-key changePasswordOpen" href="#">{/literal}{'Change password'|translate|escape:javascript}{literal}</a>';
-            userDetails += '<br>';
-          }
-
-          userDetails += '<a target="_blank" href="admin.php?page=user_perm&amp;user_id='+userId+'" class="icon-lock">{/literal}{'Permissions'|translate|escape:javascript}{literal}</a>';
-
-          if (protectedUsers.indexOf(parseInt(userId)) == -1) {
-            userDetails += '<br><span class="userDelete"><img class="loading" src="themes/default/images/ajax-loader-small.gif" style="display:none;"><a href="#" class="icon-trash" data-user_id="'+userId+'">{/literal}{'Delete'|translate|escape:javascript}{literal}</a></span>';
-          }
-
-          userDetails += '</div>';
-
-          userDetails += '<span class="changeUsernameOpen"><strong class="username">'+user.username+'</strong>';
-
-          if (parseInt(userId) != guestUser) {
-            userDetails += ' <a href="#" class="icon-pencil">{/literal}{'Change username'|translate|escape:javascript}{literal}</a></span>';
-            userDetails += '<span class="changeUsername" style="display:none">';
-            userDetails += '<input type="text"> <a href="#" class="buttonLike updateUsername"><img src="themes/default/images/ajax-loader-small.gif" style="margin-bottom:-1px;margin-left:1px;display:none;"><span class="text">{/literal}{'Submit'|translate}{literal}</span></a> <a href="#" class="cancel">{/literal}{'Cancel'|translate|escape:javascript}{literal}</a>';
-          }
-
-          userDetails += '</span>';
-
-          userDetails += '<div class="userStats">';
-          userDetails += sprintf(registeredOn_pattern, user.registration_date_string, user.registration_date_since);
-
-          if (typeof user.last_visit != 'undefined') {
-            userDetails += '<br>'+sprintf(lastVisit_pattern, user.last_visit_string, user.last_visit_since);
-          }
-
-          userDetails += '</div>';
-          userDetails += '<div class="userPropertiesContainer">';
-          userDetails += '<input type="hidden" name="user_id" value="'+user.id+'">';
-          userDetails += '<div class="userPropertiesSet">';
-          userDetails += '<div class="userPropertiesSetTitle">{/literal}{'Properties'|translate}{literal}</div>';
-
-          userDetails += '<div class="userProperty"><strong>{/literal}{'Email address'|translate}{literal}</strong>';
-          userDetails += '<br>';
-          if (parseInt(userId) != guestUser) {
-            userDetails += '<input name="email" type="text" value="'+ (user.email||'') +'">';
-          }
-          else {
-            userDetails += '{/literal}{'N/A'|translate}{literal}';
-          }
-          userDetails += '</div>';
-
-          userDetails += '<div class="userProperty"><strong>{/literal}{'Status'|translate}{literal}</strong>';
-          userDetails += '<br>';
-
-          if (protectedUsers.indexOf(parseInt(userId)) == -1) {
-            userDetails += '<select name="status">';
-            jQuery("#action select[name=status] option").each(function() {
-              var selected = '';
-              if (user.status == jQuery(this).val()) {
-                selected = ' selected="selected"';
-              }
-              userDetails += '<option value="'+jQuery(this).val()+'"'+selected+'>'+jQuery(this).html()+'</option>';
-            });
-            userDetails += '</select>';
-          }
-          else {
-            jQuery("#action select[name=status] option").each(function() {
-              if (user.status == jQuery(this).val()) {
-                userDetails += jQuery(this).html();
-              }
-            });
-          }
-          userDetails += '</div>';
-
-          userDetails += '<div class="userProperty"><strong>{/literal}{'Privacy level'|translate}{literal}</strong>';
-          userDetails += '<br><select name="level">';
+          /* Prepare data for template */
+          user.statusOptions = [];
+          jQuery("#action select[name=status] option").each(function() {
+            var option = {value:jQuery(this).val(), label:jQuery(this).html(), isSelected:false};
+          
+            if (user.status == jQuery(this).val()) {
+              option.isSelected = true;
+            }
+          
+            user.statusOptions.push(option);
+          });
+          
+          user.levelOptions = [];
           jQuery("#action select[name=level] option").each(function() {
-            var selected = '';
+            var option = {value:jQuery(this).val(), label:jQuery(this).html(), isSelected:false};
+          
             if (user.level == jQuery(this).val()) {
-              selected = ' selected="selected"';
+              option.isSelected = true;
             }
-            userDetails += '<option value="'+jQuery(this).val()+'"'+selected+'>'+jQuery(this).html()+'</option>';
+          
+            user.levelOptions.push(option);
           });
-          userDetails += '</select></div>';
-
-          var checked = '';
-          if (user.enabled_high == 'true') {
-            checked = ' checked="checked"';
-          }
-          userDetails += '<div class="userProperty"><label><input type="checkbox" name="enabled_high"'+checked+'> <strong>{/literal}{'High definition enabled'|translate}{literal}</strong></label>';
-          userDetails += '</div>';
-
-          userDetails += '<div class="userProperty"><strong>{/literal}{'Groups'|translate}{literal}</strong>';
-          userDetails += '<br><select multiple class="chzn-select" style="width:340px;" name="group_id[]">';
+          
+          user.groupOptions = [];
           jQuery("#action select[name=associate] option").each(function() {
-            var selected = '';
+            var option = {value:jQuery(this).val(), label:jQuery(this).html(), isSelected:false};
+          
             if (user.groups.indexOf( parseInt(jQuery(this).val()) ) != -1) {
-              selected = ' selected="selected"';
+              option.isSelected = true;
             }
-            userDetails += '<option value="'+jQuery(this).val()+'"'+selected+'>'+jQuery(this).html()+'</option>';
+          
+            user.groupOptions.push(option);
           });
-          userDetails += '</select></div>';
-          // userDetails += '<br>'+user.groups.join(",")+'</div>';
-
-          userDetails += '</div><div class="userPropertiesSet userPrefs">';
-          userDetails += '<div class="userPropertiesSetTitle">{/literal}{'Preferences'|translate}{literal}</div>';
-
-          userDetails += '<div class="userProperty"><strong class="nb_image_page_infos"></strong>';
-          userDetails += '<div class="nb_image_page"></div>';
-          userDetails += '<input type="hidden" name="nb_image_page" value="'+user.nb_image_page+'">';
-          userDetails += '</div>';
-
-          userDetails += '<div class="userProperty"><strong>{/literal}{'Theme'|translate|escape:javascript}{literal}</strong>';
-          userDetails += '<br><select name="theme">';
+          
+          user.themeOptions = [];
           jQuery("#action select[name=theme] option").each(function() {
-            var selected = '';
+            var option = {value:jQuery(this).val(), label:jQuery(this).html(), isSelected:false};
+          
             if (user.theme == jQuery(this).val()) {
-              selected = ' selected="selected"';
+              option.isSelected = true;
             }
-            userDetails += '<option value="'+jQuery(this).val()+'"'+selected+'>'+jQuery(this).html()+'</option>';
+          
+            user.themeOptions.push(option);
           });
-          userDetails += '</select></div>';
-
-          userDetails += '<div class="userProperty"><strong>{/literal}{'Language'|translate}{literal}</strong>';
-          userDetails += '<br><select name="language">';
+          
+          user.languageOptions = [];
           jQuery("#action select[name=language] option").each(function() {
-            var selected = '';
+            var option = {value:jQuery(this).val(), label:jQuery(this).html(), isSelected:false};
+          
             if (user.language == jQuery(this).val()) {
-              selected = ' selected="selected"';
+              option.isSelected = true;
             }
-            userDetails += '<option value="'+jQuery(this).val()+'"'+selected+'>'+jQuery(this).html()+'</option>';
+          
+            user.languageOptions.push(option);
           });
-          userDetails += '</select></div>';
-
-          userDetails += '<div class="userProperty"><strong>{/literal}{'Recent period'|translate}{literal}</strong> <span class="recent_period_infos"></span>';
-          userDetails += '<div class="recent_period"></div>';
-          userDetails += '<input type="hidden" name="recent_period" value="'+user.recent_period+'">';
-          userDetails += '</div>';
-
-          var checked = '';
-          if (user.expand == 'true') {
-            checked = ' checked="checked"';
+          
+          user.isGuest = (parseInt(userId) == guestUser);
+          user.isProtected = (protectedUsers.indexOf(parseInt(userId)) != -1);
+          
+          user.registeredOn_string = sprintf(
+            registeredOn_pattern,
+            user.registration_date_string,
+            user.registration_date_since
+          );
+          
+          user.lastVisit_string = "";
+          if (typeof user.last_visit != 'undefined') {
+            user.lastVisit_string = sprintf(lastVisit_pattern, user.last_visit_string, user.last_visit_since);
           }
-          userDetails += '<div class="userProperty"><label><input type="checkbox" name="expand"'+checked+'> <strong>{/literal}{'Expand all albums'|translate}{literal}</strong></label>';
-          userDetails += '</div>';
+          
+          user.updateString = sprintf(
+            "{/literal}{'User %s updated'|translate|escape:javascript}{literal}",
+            user.username
+          );
+          
+          user.email = user.email || '';
+          
+          jQuery("#action select[name=status] option").each(function() {
+            if (user.status == jQuery(this).val()) {
+              user.statusLabel = jQuery(this).html();
+            }
+          });
+          
+		      /* Render the underscore template */
+          _.templateSettings.variable = "user";
+          
+          var template = _.template(
+            jQuery("script.userDetails").html()
+		      );
+          
+          jQuery("#user"+userId).append(template(user));
 
-          var checked = '';
-          if (user.show_nb_comments == 'true') {
-            checked = ' checked="checked"';
-          }
-          userDetails += '<div class="userProperty"><label><input type="checkbox" name="show_nb_comments"'+checked+'> <strong>{/literal}{'Show number of comments'|translate}{literal}</strong></label>';
-          userDetails += '</div>';
-
-          var checked = '';
-          if (user.show_nb_hits == 'true') {
-            checked = ' checked="checked"';
-          }
-          userDetails += '<div class="userProperty"><label><input type="checkbox" name="show_nb_hits"'+checked+'> <strong>{/literal}{'Show number of hits'|translate}{literal}</strong></label>';
-          userDetails += '</div>';
-          userDetails += '</div>';
-          userDetails += '<div style="clear:both"></div></div>';
-
-          userDetails += '<span class="infos propertiesUpdateDone" style="display:none">&#x2714; ';
-          userDetails += sprintf("{/literal}{'User %s updated'|translate|escape:javascript}{literal}", user.username);
-          userDetails += '</span>';
-          userDetails += '<input type="submit" value="{/literal}{'Update user'|translate|escape:javascript}{literal}" style="display:none;" data-user_id="'+userId+'">';
-          userDetails += '<img class="submitWait" src="themes/default/images/ajax-loader-small.gif" style="display:none">'
-          userDetails += '</form>';
-
-          jQuery("#user"+userId).append(userDetails);
           jQuery(".chzn-select").chosen();
 
           /* nb_image_page slider */
@@ -1086,3 +1010,128 @@ span.infos, span.errors {background-image:none; padding:2px 5px; margin:0;border
 </fieldset>
 
 </form> 
+
+{* Underscore Template Definition *}
+<script type="text/template" class="userDetails">
+<form>
+  <div class="userActions">
+<% if (!user.isGuest) { %>
+    <span class="changePasswordDone infos" style="display:none">&#x2714; {'Password updated'|translate}</span>
+    <span class="changePassword" style="display:none">{'New password'|translate} <input type="text"> <a href="#" class="buttonLike updatePassword"><img src="themes/default/images/ajax-loader-small.gif" style="margin-bottom:-1px;margin-left:1px;display:none;"><span class="text">{'Submit'|translate}</span></a> <a href="#" class="cancel">{'Cancel'|translate}</a></span>
+    <a class="icon-key changePasswordOpen" href="#">{'Change password'|translate}</a>
+    <br>
+<% } %>
+
+    <a target="_blank" href="admin.php?page=user_perm&amp;user_id=<%- user.id %>" class="icon-lock">{'Permissions'|translate}</a>
+
+<% if (!user.isProtected) { %>
+    <br><span class="userDelete"><img class="loading" src="themes/default/images/ajax-loader-small.gif" style="display:none;"><a href="#" class="icon-trash" data-user_id="<%- user.id %>">{'Delete'|translate}</a></span>
+<% } %>
+
+  </div>
+
+  <span class="changeUsernameOpen"><strong class="username"><%- user.username %></strong>
+
+<% if (!user.isGuest) { %>
+  <a href="#" class="icon-pencil">{'Change username'|translate}</a></span>
+  <span class="changeUsername" style="display:none">
+  <input type="text"> <a href="#" class="buttonLike updateUsername"><img src="themes/default/images/ajax-loader-small.gif" style="margin-bottom:-1px;margin-left:1px;display:none;"><span class="text">{'Submit'|translate}</span></a> <a href="#" class="cancel">{'Cancel'|translate}</a>
+<% } %>
+
+  </span>
+
+  <div class="userStats"><%- user.registeredOn_string %><br><%- user.lastVisit_string %></div>
+
+  <div class="userPropertiesContainer">
+    <input type="hidden" name="user_id" value="<%- user.id %>">
+    <div class="userPropertiesSet">
+      <div class="userPropertiesSetTitle">{'Properties'|translate}</div>
+
+      <div class="userProperty"><strong>{'Email address'|translate}</strong>
+        <br>
+<% if (!user.isGuest) { %>
+        <input name="email" type="text" value="<%- user.email %>">
+<% } else { %>
+      {'N/A'|translate}
+<% } %>
+      </div>
+
+      <div class="userProperty"><strong>{'Status'|translate}</strong>
+        <br>
+<% if (!user.isProtected) { %>
+        <select name="status">
+  <% _.each( user.statusOptions, function( option ){ %>
+          <option value="<%- option.value%>" <% if (option.isSelected) { %>selected="selected"<% } %>><%- option.label %></option>
+  <% }); %>
+        </select>
+<% } else { %>
+        <%- user.statusLabel %>
+<% } %>
+      </div>
+
+      <div class="userProperty"><strong>{'Privacy level'|translate}</strong>
+        <br>
+        <select name="level">
+<% _.each( user.levelOptions, function( option ){ %>
+          <option value="<%- option.value%>" <% if (option.isSelected) { %>selected="selected"<% } %>><%- option.label %></option>
+<% }); %>
+        </select>
+      </div>
+
+      <div class="userProperty"><label><input type="checkbox" name="enabled_high"<% if (user.enabled_high == 'true') { %> checked="checked"<% } %>> <strong>{'High definition enabled'|translate}</strong></label></div>
+
+      <div class="userProperty"><strong>{'Groups'|translate}</strong><br>
+        <select multiple class="chzn-select" style="width:340px;" name="group_id[]">
+<% _.each( user.groupOptions, function( option ){ %>
+          <option value="<%- option.value%>" <% if (option.isSelected) { %>selected="selected"<% } %>><%- option.label %></option>
+<% }); %>
+        </select>
+      </div>
+    </div>
+
+    <div class="userPropertiesSet userPrefs">
+      <div class="userPropertiesSetTitle">{'Preferences'|translate}</div>
+
+      <div class="userProperty"><strong class="nb_image_page_infos"></strong>
+        <div class="nb_image_page"></div>
+        <input type="hidden" name="nb_image_page" value="<%- user.nb_image_page %>">
+      </div>
+
+      <div class="userProperty"><strong>{'Theme'|translate}</strong><br>
+        <select name="theme">
+<% _.each( user.themeOptions, function( option ){ %>
+          <option value="<%- option.value%>" <% if (option.isSelected) { %>selected="selected"<% } %>><%- option.label %></option>
+<% }); %>
+        </select>
+      </div>
+
+      <div class="userProperty"><strong>{'Language'|translate}</strong><br>
+        <select name="language">
+<% _.each( user.languageOptions, function( option ){ %>
+          <option value="<%- option.value%>" <% if (option.isSelected) { %>selected="selected"<% } %>><%- option.label %></option>
+<% }); %>
+        </select>
+      </div>
+
+      <div class="userProperty"><strong>{'Recent period'|translate}</strong> <span class="recent_period_infos"></span>
+        <div class="recent_period"></div>
+        <input type="hidden" name="recent_period" value="<%- user.recent_period %>">
+      </div>
+
+      <div class="userProperty"><label><input type="checkbox" name="expand"<% if (user.expand == 'true') { %> checked="checked"<% }%>> <strong>{'Expand all albums'|translate}</strong></label></div>
+
+      <div class="userProperty"><label><input type="checkbox" name="show_nb_comments"<% if (user.show_nb_comments == 'true') { %> checked="checked"<% }%>> <strong>{'Show number of comments'|translate}</strong></label></div>
+
+      <div class="userProperty"><label><input type="checkbox" name="show_nb_hits"<% if (user.show_nb_hits == 'true') { %> checked="checked"<% }%>> <strong>{'Show number of hits'|translate}</strong></label></div>
+
+    </div>
+
+    <div style="clear:both"></div>
+  </div> {* userPropertiesContainer *}
+
+  <span class="infos propertiesUpdateDone" style="display:none">&#x2714; <%- user.updateString %></span>
+   
+  <input type="submit" value="{'Update user'|translate|escape:html}" style="display:none;" data-user_id="<%- user.id %>">
+  <img class="submitWait" src="themes/default/images/ajax-loader-small.gif" style="display:none">
+</form>
+</script>
