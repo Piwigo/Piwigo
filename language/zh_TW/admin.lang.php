@@ -968,4 +968,7 @@ $lang['User %s added'] = '用戶 %s添加';
 $lang['User %s updated'] = '用戶 %s更新';
 $lang['Users modified'] = '用戶修改';
 $lang['on the %d selected users'] = '%d的選定用戶';
+$lang['Close user details'] = '關閉用戶詳細信息';
+$lang['Open user details'] = '打開用戶詳細信息';
+$lang['close'] = '關閉';
 ?>
