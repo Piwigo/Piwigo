@@ -970,4 +970,7 @@ $lang['User %s added'] = 'Người dùng %s đã được thêm';
 $lang['User %s updated'] = 'Người dùng %s đã được cập nhật';
 $lang['Users modified'] = 'Người dùng đã được chỉnh sửa';
 $lang['on the %d selected users'] = 'trên %d người dùng được chọn';
+$lang['Close user details'] = 'Đóng chi tiết người dùng';
+$lang['Open user details'] = 'Mở chi tiết người dùng';
+$lang['close'] = 'đóng';
 ?>
