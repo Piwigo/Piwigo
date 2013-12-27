@@ -566,4 +566,8 @@ $lang['%d user comment validated'] = '%d хэрэглэгчийн сэтгэгд
 $lang['%d user comments rejected'] = '%d хэрэглэгчийн сэтгэгдэлийг цуцаллаа';
 $lang['%d user comments validated'] = '%d хэрэглэгчийн сэтгэгдэлийг идэвхжүүллээ';
 $lang['default'] = 'үндсэн';
+$lang['Default display'] = 'харуулна';
+$lang['No display'] = 'харуулахгүй';
+$lang['Element'] = 'Зүйл';
+$lang['Element type'] = 'Төрөл';
 ?>
