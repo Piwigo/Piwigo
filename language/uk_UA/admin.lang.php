@@ -969,4 +969,6 @@ $lang['User %s updated'] = 'Користувач %s оновленний';
 $lang['Users modified'] = 'Змінений користувач';
 $lang['on the %d selected users'] = 'на %d вибраних користувачів';
 $lang['close'] = 'Закрити';
+$lang['Close user details'] = 'Закрити деталі користувача';
+$lang['Open user details'] = 'Відкрити деталі користувача';
 ?>
