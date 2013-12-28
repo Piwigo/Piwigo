@@ -966,4 +966,7 @@ $lang['Registered on %s, %s.'] = 'Registrera %s, %s.';
 $lang['Showing %s to %s of %s users'] = 'Viser %s til %s av %s brukarar';
 $lang['Update user'] = 'Endre brukar';
 $lang['on the %d selected users'] = 'med dei %d valde brukarane';
+$lang['Close user details'] = 'Lukk brukardetaljar';
+$lang['Open user details'] = 'Opne brukardetaljar';
+$lang['close'] = 'lukk';
 ?>
