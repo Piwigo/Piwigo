@@ -22,4 +22,9 @@
 // +-----------------------------------------------------------------------+
 $lang['Comments Panel'] = 'コメント一覧';
 $lang['Disable the animation'] = 'アニメーションを使用しない';
+$lang['Photo Description Panel'] = '詳細';
+$lang['Panels options'] = 'オプション';
+$lang['Main Menu Panel'] = 'メインメニュー';
+$lang['Hidden'] = '隠す';
+$lang['Displayed'] = '表示する';
 ?>
