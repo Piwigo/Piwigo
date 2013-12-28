@@ -970,4 +970,7 @@ $lang['You have specified <i>$conf[\'order_by\']</i> in your local configuration
 $lang['digiKam is an advanced digital photo management free software for Linux, Windows, and MacOSX.'] = 'digiKam estas ĉiesaĵo por altnivela administrado de ciferecaj fotoj por Linux, Windows kaj MacOSX.';
 $lang['digiKam is designed for photographers who want to view, manage, edit, enhance, organize, tag, and share photographs.'] = 'digiKam estas kreita por la fotantoj kaj fotistoj dezirantaj vidi, administri, redakti, plibonigi, organizi, etikedi kaj kunhavigi siajn fotojn.';
 $lang['iPhoto is the default photo manager on MacOSX. The Piwigo export plugin let you create new albums and export your photos directly from iPhoto to your Piwigo photo gallery.'] = 'iPhoto estas la apriora fotoadministrilo ĉe MacOSX. La eksportokromaĵo de Piwigo lasas vin krei novajn fotarojn kaj eksporti viajn fotojn rekte de iPhoto ak via Piwigo-galerio.';
+$lang['close'] = 'fermi';
+$lang['Close user details'] = 'Fermi la detalojn de la uzanto';
+$lang['Open user details'] = 'Malfermi la detalojn de la uzanto';
 ?>
