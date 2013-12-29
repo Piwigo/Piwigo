@@ -22,6 +22,49 @@ include(PHPWG_THEMES_PATH.'smartpocket/admin/upgrade.inc.php');
   redirect(duplicate_index_url());
 */
 
+
+class SPThumbPicker
+{
+  var $candidates;
+  var $default;
+  var $height;
+  
+  function init($height)
+  {
+    $this->candidates = array();
+    foreach( ImageStdParams::get_defined_type_map() as $params)
+    {
+      if ($params->max_height() < $height || $params->sizing->max_crop)
+        continue;
+      if ($params->max_height() > 3*$height)
+        break;
+      $this->candidates[] = $params;
+    }
+    $this->default = ImageStdParams::get_custom($height*3, $height, 1, 0, $height );
+    $this->height = $height;
+  }
+  
+  function pick($src_image)
+  {
+    $ok = false;
+    foreach($this->candidates as $candidate)
+    {
+      $deriv = new DerivativeImage($candidate, $src_image);
+      $size = $deriv->get_size();
+      if ($size[1]>=$row_height-2)
+      {
+        $ok = true;
+        break;
+      }
+    }
+    if (!$ok)
+    {
+      $deriv = new DerivativeImage($this->default, $src_image);
+    }
+    return $deriv;
+  }
+}
+
 //Retrive all pictures on thumbnails page
 add_event_handler('loc_index_thumbnails_selection', 'sp_select_all_thumbnails');
 
@@ -30,7 +73,7 @@ function sp_select_all_thumbnails($selection)
   global $page, $template;
 
   $template->assign('page_selection', array_flip($selection));
-
+  $template->assign('thumb_picker', new SPThumbPicker() );
   return $page['items'];
 }
 
@@ -48,10 +91,7 @@ $type = IMG_LARGE;
 if (!empty($_COOKIE['screen_size']))
 {
   $screen_size = explode('x', $_COOKIE['screen_size']);
-  $derivative_params = new ImageStdParams;
-  $derivative_params->load_from_db();
-
-  foreach ($derivative_params->get_all_type_map() as $type => $map)
+  foreach (ImageStdParams::get_all_type_map() as $type => $map)
   {
     if (max($map->sizing->ideal_size) >= max($screen_size) and min($map->sizing->ideal_size) >= min($screen_size))
       break;

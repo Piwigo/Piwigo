@@ -16,11 +16,18 @@
 .ui-content { overflow: hidden; }
 .ui-field-contain, .ui-br { padding: 5px; border: 0 !important; }
 
-.thumbnails { list-style: none; padding: 0; margin: 0; }
+.thumbnails { list-style: none; padding: 0}
 .thumbnails:after { clear: both; content: "."; display: block; height: 0; visibility: hidden; }
-.thumbnails li { float: left;  }
-.thumbnails li a { display: block; margin: 5px; }
-.thumbnails li img { display: block; width: 100%; height: auto; }
+.thumbnails li {
+	float: left;
+	position: relative;
+	overflow: hidden;
+	display: inline;
+}
+.thumbnails li a { 
+	position: absolute;
+}
+
 #more_link {
   color: #FFFFFF;
   display: table-cell;

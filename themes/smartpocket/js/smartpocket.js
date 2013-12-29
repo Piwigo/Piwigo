@@ -27,15 +27,7 @@ return '<div class="ps-toolbar-close"><div class="ps-toolbar-content"></div></di
 				}
 			}
 		});
-		$(window).bind('orientationchange', set_thumbnails_width);
-		set_thumbnails_width();
+		var spThumbs = new SPThumbs(SPThumbsOpts);
   });
 }(window, window.jQuery, window.Code.PhotoSwipe));
-
-function set_thumbnails_width() {
-	var dpr = 1 //window.devicePixelRatio>1 ? window.devicePixelRatio : 1
-		, nb_thumbs = Math.max(2, Math.ceil($('.thumbnails').width() / (var_thumb_width/dpr+2*5)))
-		, width = Math.floor(1000000 / nb_thumbs) / 10000;
-	$('.thumbnails li').css('width', width+'%');
-}
 
