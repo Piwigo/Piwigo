@@ -967,4 +967,12 @@ $lang['(filtered from %s total users)'] = '(التي تمت تصفيتها من 
 $lang['All %d users are selected'] = 'يتم تحديد كافة المستخدمين %d';
 $lang['Close user details'] = 'تفاصيل المستخدم إغلاق';
 $lang['Last visit on %s, %s.'] = 'آخر زيارة على %s %s.';
+$lang['Open user details'] = 'أفتح تفاصيل المستخدم';
+$lang['User %s added'] = 'تم إضافة المستخدم %s';
+$lang['User %s updated'] = 'تم تحديث المستخدم %s';
+$lang['close'] = 'إغلاق';
+$lang['on the %d selected users'] = 'على %d المستخدمين المحددين';
+$lang['Show %s users'] = 'أظهر المستخدم  %s';
+$lang['Showing %s to %s of %s users'] = 'إظهار%s  إلي %s من %s المستخدمين ';
+$lang['No user selected of %d users'] = 'لا يوجد مستخدم محدد من %d المستخدمين';
 ?>
