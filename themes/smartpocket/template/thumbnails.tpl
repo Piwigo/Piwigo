@@ -21,7 +21,7 @@ var SPThumbsOpts ={ hMargin:{$hmargin},rowHeight:{$row_height}};
 <ul class="thumbnails">
 {foreach from=$thumbnails item=thumbnail}{strip}
 {$derivative=$thumb_picker->pick($thumbnail.src_image)}
-{if isset($page_selection[$thumbnail.id]) and !isset($thumbnail.representative_ext)}
+{if isset($page_selection[$thumbnail.id])}
 	<li class="liVisible">
 {if !isset($thumbnail.representative_ext)}
 		<a href="{$pwg->derivative_url($picture_derivative_params, $thumbnail.src_image)}" data-picture-url="{$thumbnail.URL}" rel="external">
