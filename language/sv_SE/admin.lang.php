@@ -972,4 +972,6 @@ $lang['Update user'] = 'Uppdatera användare';
 $lang['User %s added'] = 'Användare %s tillagd';
 $lang['User %s updated'] = 'Användare %s uppdaterad';
 $lang['close'] = 'stäng';
+$lang['Close user details'] = 'Stäng användar detaljer';
+$lang['Open user details'] = 'Öppna användar detaljer';
 ?>
