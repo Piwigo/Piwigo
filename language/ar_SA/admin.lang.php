@@ -962,4 +962,9 @@ $lang['No user selected, no action possible.'] = 'لم يتم إختيار ال�
 $lang['Password updated'] = 'كلمة السر تم تحديثها';
 $lang['Update user'] = 'تحديث المستعمل';
 $lang['Users modified'] = 'المستخدمين تم تعديلهم';
+$lang['%d of %d users selected'] = '%d من %d المستخدمين المحددين';
+$lang['(filtered from %s total users)'] = '(التي تمت تصفيتها من إجمالي المستخدمين %s)';
+$lang['All %d users are selected'] = 'يتم تحديد كافة المستخدمين %d';
+$lang['Close user details'] = 'تفاصيل المستخدم إغلاق';
+$lang['Last visit on %s, %s.'] = 'آخر زيارة على %s %s.';
 ?>
