@@ -43,9 +43,9 @@ class DummyPlugin_maintain extends PluginMaintain
   }
   function deactivate()
   {
-    if (is_callable('plugin_install'))
+    if (is_callable('plugin_deactivate'))
     {
-      return plugin_install($this->plugin_id);
+      return plugin_deactivate($this->plugin_id);
     }
   }
   function uninstall()
