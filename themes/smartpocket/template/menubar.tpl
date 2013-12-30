@@ -2,6 +2,7 @@
   <li data-icon="delete"><a href="#menubar" data-rel="close">{'Close'|@translate}</a></li>
 </ul>
 {if !empty($blocks) }
+<div data-role="collapsible-set" data-inset="false">
 	{foreach from=$blocks key=id item=block}
 		<div data-role="collapsible" data-inset="false" data-icon="false">
 		{if not empty($block->template)}
@@ -12,6 +13,7 @@
 		{/if}
     </div>
 	{/foreach}
+</div>
 {/if}
 <br>
 <ul data-role="listview">

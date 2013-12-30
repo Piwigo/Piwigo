@@ -39,6 +39,10 @@
 .ui-panel-inner > .ui-listview {
  margin: -15px -15px 0;
 }
+#menubar .ui-collapsible-heading-toggle.ui-btn-up-a {
+  background:linear-gradient(#6FACD5, #497BAE) repeat scroll 0 0 #5E87B0;
+}
+
 .ui-li-desc {
   text-overflow: clip;
   white-space: normal;
@@ -48,4 +52,10 @@
 }
 #PictureInfo * {
   font-size: 1em;
+}
+#addComment textarea.ui-input-text {
+  min-height: 100px;
+}
+#picture_page {
+    text-align: center;
 }

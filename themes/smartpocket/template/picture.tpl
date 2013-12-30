@@ -1,7 +1,7 @@
 {if isset($errors) or not empty($infos)}
 {include file='infos_errors.tpl'}
 {/if}
-<div data-role="content">
+<div data-role="content" id="picture_page">
 <ul data-role="listview" data-inset="true">
 	<li data-role="list-divider">{$SECTION_TITLE}<span class="browsePathSeparator">{$LEVEL_SEPARATOR}</span>{$current.TITLE}</li>
 </ul>
