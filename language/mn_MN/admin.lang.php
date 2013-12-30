@@ -254,7 +254,7 @@ $lang['General statistics'] = 'Ерөнхий байдал';
 $lang['Hit'] = 'Үзсэн';
 $lang['Guest Settings'] = 'Зочины тохиргоо';
 $lang['Help Me'] = 'Тусламж';
-$lang['IP'] = 'IP';
+$lang['IP'] = 'IP хаяг';
 $lang['Forbid this language to users'] = 'Хэрэглэгчид энэ хэлийг ашиглахыг хориглох';
 $lang['Edit album permissions'] = 'Цомогын тохиргоог засах';
 $lang['Edit ranks'] = 'Үнэлгээг засах';
@@ -570,4 +570,5 @@ $lang['Default display'] = 'харуулна';
 $lang['No display'] = 'харуулахгүй';
 $lang['Element'] = 'Зүйл';
 $lang['Element type'] = 'Төрөл';
+$lang['Section'] = 'Хэсэг';
 ?>
