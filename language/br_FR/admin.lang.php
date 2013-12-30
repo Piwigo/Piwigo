@@ -128,4 +128,16 @@ $lang['Piwigo Update'] = 'Hizivadur Piwigo';
 $lang['%d users were updated.'] = '%d implijer hizivaet';
 $lang['%s has been successfully updated.'] = '%s a zo bet hizivaet';
 $lang['Reset ignored updates'] = 'Adderaouiñ an hizivadurioù dilezet';
+$lang['Add Photos'] = 'Lakaat luc\'hskeudennoù ouzhpenn';
+$lang['Add a tag'] = 'Lakaat ur merker ouzhpenn';
+$lang['Add a user'] = 'Lakaat un implijer ouzhpenn';
+$lang['%s photos can not be regenerated'] = '%s luc\'hskeudenn a zo bet adgraet';
+$lang['%s photos have been regenerated'] = '%s luc\'hskeudenn a zo bet adgraet';
+$lang['Photos generation in progress...'] = 'Oc\'h ober al luc\'hskeudennoù…';
+$lang['Thumbnails generation in progress...'] = 'Oc\'h ober ar skeudennoùigoù…';
+$lang['Email admins when a comment requires validation'] = 'Kas ur bostel pa vez ezhom da gadarnaat un evezhiadenn';
+$lang['Validate'] = 'Kadarnaat';
+$lang['Validation'] = 'Kadarnadur';
+$lang['pending validation'] = 'o c\'hortoz ar c\'hadarnadur';
+$lang['%d waiting for validation'] = '%d o c\'hortoz ar c\'hadarnadur';
 ?>
