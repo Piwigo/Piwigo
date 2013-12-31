@@ -24,10 +24,10 @@
 $lang['It appears your webhost is currently running PHP %s.'] = 'Таны вэбсервер PHP %s хувилбарыг ашиглаж байна';
 $lang['Piwigo was not able to configure PHP 5.'] = 'Piwigo PHP 5-г тохиргоог өөрчилж чадсангүй';
 $lang['Congratulations, Piwigo installation is completed'] = 'Танд баяр хүргэе, Piwigo амжилттай сууж дууслаа.';
-$lang['Connection to server succeed, but it was impossible to connect to database'] = 'Сервертэй амжилттай холбогдсон боловч мэдээллийн сантай холбогдох боломж алга байна.';
+$lang['Connection to server succeed, but it was impossible to connect to database'] = 'Сервертэй амжилттай холбогдсон боловч мэдээллийн сантай холбогдох үед алдаа гарлаа.';
 $lang['Try to configure PHP 5'] = 'PHP 5 тохиргоогоо өөрчилж үзнэ үү';
 $lang['User'] = 'Хэрэглэгч';
-$lang['Just another Piwigo gallery'] = 'Бас нэг Piwigo-н галарей ';
+$lang['Just another Piwigo gallery'] = 'Piwigo-н галарей нэгээр нэмэгдлээ';
 $lang['Database configuration'] = 'Мэдээллийн сангийн тохиргоо';
 $lang['Welcome to my photo gallery'] = 'Миний зургийн цомогт тавтай морилно уу';
 $lang['please enter your password again'] = 'нууц үгээ дахин оруулна уу';
@@ -49,4 +49,10 @@ $lang['Welcome to your new installation of Piwigo!'] = 'Piwigo-г шинээр �
 $lang['enter a login for webmaster'] = 'Вэбмастерийн мэдээллээ оруулна уу';
 $lang['Need help ? Ask your question on <a href="%s">Piwigo message board</a>.'] = 'Тусламж хэрэгтэй бол <a href="%s">Piwigo message board</a> хаягаар хандаж асуултаа асуугаарай.';
 $lang['Creation of config file local/config/database.inc.php failed.'] = 'Тохиргооны файл local/config/database.inc.php-г үүсгэж чадсангүй';
+$lang['Keep it confidential, it enables you to access administration panel'] = 'Удирдлагын талбарт хандах эрхийг нээх тул энэ мэдээллийг нууцлан хадгална уу';
+$lang['database tables names will be prefixed with it (enables you to manage better your tables)'] = 'Мэдээллийн сангийн талбаруудад энэ утгыг угтвар хэсэг болгон ашиглах болно. Ингэснээр талбаруудыг удирдаж зохицуулахад илүү хялбар болдог.';
+$lang['localhost or other, supplied by your host provider'] = 'localhost эсвэл веб байршуулж буй компаниас өгсөн нэр';
+$lang['user login given by your host provider'] = 'веб байршуулж буй компаниас өгсөн хэрэглэгчийн нэр';
+$lang['user password given by your host provider'] = 'веб байршуулж буй компаниас өгсөн нууц үг';
+$lang['Database table prefix'] = 'Мэдээллийн сангийн талбарийн угтвар утга';
 ?>
