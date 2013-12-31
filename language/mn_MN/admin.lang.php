@@ -119,7 +119,7 @@ $lang['Everybody'] = 'Бүх хүн';
 $lang['Edit photo information'] = 'Зурагны мэдээллийг засах';
 $lang['Edit album'] = 'Цомогыг засах';
 $lang['ERROR'] = 'АЛДАА';
-$lang['Correction'] = 'Засвар';
+$lang['Correction'] = 'Засах арга';
 $lang['Create'] = 'Үүсгэх';
 $lang['Delete this language'] = 'Энэ хэлийг устгах';
 $lang['Delete selected photos'] = 'Сонгосон зургуудыг устгах';
@@ -571,4 +571,7 @@ $lang['No display'] = 'харуулахгүй';
 $lang['Element'] = 'Зүйл';
 $lang['Element type'] = 'Төрөл';
 $lang['Section'] = 'Хэсэг';
+$lang['The anomaly will be ignored until next application version'] = 'Дараагын шинэ хувилбар гартал тухайг алдааг хэрэгсэхгүй орхино.';
+$lang['%d anomaly has been ignored.'] = '%d алдааг хэрэгсэхгүй орхив.';
+$lang['Anomaly'] = 'Алдаа';
 ?>
