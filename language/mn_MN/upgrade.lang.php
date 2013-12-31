@@ -34,4 +34,7 @@ $lang['User permissions and group permissions have been erased'] = 'Хэрэгл
 $lang['All sub-albums of private albums become private'] = 'Хувийн цомогт хамаарагдах дэд цомогууд мөн "хувийн" байх болно';
 $lang['As a precaution, following plugins have been deactivated. You must check for plugins upgrade before reactiving them:'] = 'Алдаа гарахаас сэргийлж дараахь нэмэлт өргөтгөлүүдийг идэвхгүй болголоо. Дахин идэвхжүүлэхээсээ өмнө тохирох эсэхийг нь нягталж шалгана уу.';
 $lang['In <i>%s</i>, before <b>?></b>, insert:'] = '<i>%s</i> дотор, before <b>?></b>-н урд дараахь утгыг оруулах:';
+$lang['Only thumbnails prefix and webmaster mail address have been saved from previous configuration'] = 'Өмнөх тохиргооноос зөвхөн вэбмастерийн и-мэйл хаягыг л хадгалж үлдээлээ.';
+$lang['This page proposes to upgrade your database corresponding to your old version of Piwigo to the current version. The upgrade assistant thinks you are currently running a <strong>release %s</strong> (or equivalent).'] = 'Энэхүү хуудас Танд Piwigo-н мэдээллийн сангаа шинэ хувилбараар сайжруулахад тань туслах болно. Та одоо <strong>%s</strong> (буюу түүнтэй адилтгах) хувилбарыг ашиглаж байна.';
+$lang['As a precaution, following themes have been deactivated. You must check for themes upgrade before reactiving them:'] = 'Алдаа гарахаас сэргийлж дараахь загвар (theme)-г идэвхгүй болголоо. Дахин идэвхжүүлэхийн өмнө сайжруулсан хувилбар нь гарсан эсэхийг шалгана уу:';
 ?>
