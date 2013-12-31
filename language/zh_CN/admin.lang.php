@@ -977,4 +977,7 @@ $lang['Loading...'] = '加载中…';
 $lang['No matching user found'] = '未发现匹配的用户';
 $lang['%d of %d users selected'] = '已选中用户数/总数：%d / %d';
 $lang['(filtered from %s total users)'] = '（已从 %s 个总用户中过滤）';
+$lang['Close user details'] = '关闭用户明细';
+$lang['Open user details'] = '打开用户明细';
+$lang['close'] = '关闭';
 ?>
