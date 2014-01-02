@@ -55,4 +55,7 @@ $lang['localhost or other, supplied by your host provider'] = 'localhost эсв�
 $lang['user login given by your host provider'] = 'веб байршуулж буй компаниас өгсөн хэрэглэгчийн нэр';
 $lang['user password given by your host provider'] = 'веб байршуулж буй компаниас өгсөн нууц үг';
 $lang['Database table prefix'] = 'Мэдээллийн сангийн талбарийн угтвар утга';
+$lang['You can download the config file and upload it to local/config directory of your installation.'] = 'Тохиргооны файлыг татан авч өөрчлөөд local/config хавтас уруу буцаан хуулаах боломжтой.';
+$lang['Note you can change your configuration by yourself and restart Piwigo after that.'] = 'Тохиргоогоо өөрөө өөрчлөөд Piwigo-г дахин ачаалж болно гэдгийг санаарай.';
+$lang['Don\'t hesitate to consult our forums for any help : %s'] = 'Тусламж хэрэгтэй бол манай онлайн форумд хандаарай: %s';
 ?>
