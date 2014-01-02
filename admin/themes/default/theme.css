@@ -1064,8 +1064,8 @@ p#uploadModeInfos {text-align:left;margin-top:1em;font-size:90%;color:#999;}
 .commentFilter .navigationBar {float:right; margin:0;}
 
 FORM#categoryOrdering p.albumTitle {margin:0;}
-FORM#categoryOrdering p.albumActions {visibility:hidden; margin:0}
-FORM#categoryOrdering .categoryLi:hover p.albumActions {visibility:visible;}
+FORM#categoryOrdering p.albumActions, FORM#categoryOrdering span.albumInfos {visibility:hidden; margin:0}
+FORM#categoryOrdering .categoryLi:hover p.albumActions, FORM#categoryOrdering .categoryLi:hover span.albumInfos {visibility:visible;}
 
 .showCreateAlbum {text-align:left; margin:0 1em 1em 1em;line-height:22px;}
 #autoOrder p, #createAlbum p {text-align:left; margin:0 0 1em 0;}

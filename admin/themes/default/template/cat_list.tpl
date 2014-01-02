@@ -116,15 +116,13 @@ jQuery(document).ready(function(){
       <p class="albumTitle">
         <img src="{$themeconf.admin_icon_dir}/cat_move.png" class="drag_button" style="display:none;" alt="{'Drag to re-order'|@translate}" title="{'Drag to re-order'|@translate}">
         <strong><a href="{$category.U_CHILDREN}" title="{'manage sub-albums'|@translate}">{$category.NAME}</a></strong>
+        <span class="albumInfos"><span class="userSeparator">&middot;</span> {$category.NB_PHOTOS|translate_dec:'%d photo':'%d photos'} <span class="userSeparator">&middot;</span> {$category.NB_SUB_PHOTOS|translate_dec:'%d photo':'%d photos'} {$category.NB_SUB_ALBUMS|translate_dec:'in %d sub-album':'in %d sub-albums'}</span>
       </p>
 
       <input type="hidden" name="catOrd[{$category.ID}]" value="{$category.RANK}">
 
       <p class="albumActions">
         <a href="{$category.U_EDIT}"><span class="icon-pencil"></span>{'Edit'|@translate}</a>
-        {if isset($category.U_MANAGE_ELEMENTS) }
-        | <a href="{$category.U_MANAGE_ELEMENTS}"><span class="icon-picture"></span>{'manage album photos'|@translate}</a>
-        {/if}
         | <a href="{$category.U_CHILDREN}"><span class="icon-sitemap"></span>{'manage sub-albums'|@translate}</a>
         {if isset($category.U_SYNC) }
         | <a href="{$category.U_SYNC}"><span class="icon-exchange"></span>{'Synchronize'|@translate}</a>

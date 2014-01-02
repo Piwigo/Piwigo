@@ -251,13 +251,53 @@ $categories = hash_from_query($query, 'id');
 
 // get the categories containing images directly 
 $categories_with_images = array();
-if ( count($categories) )
+if (count($categories))
 {
   $query = '
-SELECT DISTINCT category_id 
+SELECT
+    category_id,
+    COUNT(*) AS nb_photos
   FROM '.IMAGE_CATEGORY_TABLE.'
-  WHERE category_id IN ('.implode(',', array_keys($categories)).')';
-  $categories_with_images = array_flip( array_from_query($query, 'category_id') );
+  GROUP BY category_id
+;';
+  // WHERE category_id IN ('.implode(',', array_keys($categories)).')
+
+  $nb_photos_in = query2array($query, 'category_id', 'nb_photos');
+
+  $query = '
+SELECT
+    id,
+    uppercats
+  FROM '.CATEGORIES_TABLE.'
+;';
+  $all_categories = query2array($query, 'id', 'uppercats');
+  $subcats_of = array();
+
+  foreach (array_keys($categories) as $cat_id)
+  {
+    foreach ($all_categories as $id => $uppercats)
+    {
+      if (preg_match('/(^|,)'.$cat_id.',/', $uppercats))
+      {
+        @$subcats_of[$cat_id][] = $id;
+      }
+    }
+  }
+
+  $nb_sub_photos = array();
+  foreach ($subcats_of as $cat_id => $subcat_ids)
+  {
+    $nb_photos = 0;
+    foreach ($subcat_ids as $id)
+    {
+      if (isset($nb_photos_in[$id]))
+      {
+        $nb_photos+= $nb_photos_in[$id];
+      }
+    }
+
+    $nb_sub_photos[$cat_id] = $nb_photos;
+  }
 }
 
 $template->assign('categories', array());
@@ -289,6 +329,9 @@ foreach ($categories as $category)
           $category['name'],
           'admin_cat_list'
           ),
+      'NB_PHOTOS' => isset($nb_photos_in[$category['id']]) ? $nb_photos_in[$category['id']] : 0,
+      'NB_SUB_PHOTOS' => isset($nb_sub_photos[$category['id']]) ? $nb_sub_photos[$category['id']] : 0,
+      'NB_SUB_ALBUMS' => isset($subcats_of[$category['id']]) ? count($subcats_of[$category['id']]) : 0,
       'ID'         => $category['id'],
       'RANK'       => $category['rank']*10,
 
@@ -315,12 +358,6 @@ foreach ($categories as $category)
     {
       $tpl_cat['U_SYNC'] = $base_url.'site_update&amp;site=1&amp;cat_id='.$category['id'];
     }
-  }
-
-  if ( array_key_exists($category['id'], $categories_with_images) )
-  {
-    $tpl_cat['U_MANAGE_ELEMENTS']=
-      $base_url.'batch_manager&amp;filter=album-'.$category['id'];
   }
 
   $template->append('categories', $tpl_cat);
