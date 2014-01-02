@@ -335,6 +335,10 @@ else if (!in_array('rotation', $columns_of[PREFIX_TABLE.'images']))
 {
   $current_release = '2.3.0';
 }
+else if (!in_array('website_url', $columns_of[PREFIX_TABLE.'comments']))
+{
+  $current_release = '2.4.0';
+}
 else
 {
   // retrieve already applied upgrades
@@ -344,15 +348,16 @@ SELECT id
 ;';
   $applied_upgrades = array_from_query($query, 'id');
 
-  if (!in_array(134, $applied_upgrades))
+  if (!in_array(139, $applied_upgrades))
   {
-    $current_release = '2.4.0';
+    $current_release = '2.5.0';
   }
   else
   {
     // confirm that the database is in the same version as source code files
     conf_update_param('piwigo_db_version', get_branch_from_version(PHPWG_VERSION));
-    
+
+    header('Content-Type: text/html; charset='.get_pwg_charset());
     echo 'No upgrade required, the database structure is up to date';
     echo '<br><a href="index.php">← back to gallery</a>';
     exit();

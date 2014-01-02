@@ -39,6 +39,7 @@ body {
 
 #content {
   min-height:0;
+  border:none;
 }
 
 #theHeader {
