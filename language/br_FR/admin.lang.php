@@ -140,4 +140,16 @@ $lang['Validate'] = 'Kadarnaat';
 $lang['Validation'] = 'Kadarnadur';
 $lang['pending validation'] = 'o c\'hortoz ar c\'hadarnadur';
 $lang['%d waiting for validation'] = '%d o c\'hortoz ar c\'hadarnadur';
+$lang['The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form'] = 'Ar restr ezkarget a zo pounneroc\'h eget sturiad MAX_FILE_SIZE lakaet e furmskrid HTML.';
+$lang['Start Upload'] = 'Kregiñ gant an ezkargañ';
+$lang['The uploaded file exceeds the upload_max_filesize directive in php.ini: %sB'] = 'Ar restr ezkarget a zo pounneroc\'h eget sturiad upload_max_filesize e php.ini: %sB';
+$lang['The uploaded file was only partially uploaded'] = 'Ar restr da ezkargañ a zo bet ezkarget a-zarn hepken';
+$lang['The uploaded files exceed the post_max_size directive in php.ini: %sB'] = 'Ar restroù ezkarget a zo pounneroc\'h eget sturiad post_max_size e php.ini: %sB';
+$lang['Unknown upload error'] = 'Fazi ezkargañ dianav';
+$lang['Upload'] = 'Ezkargañ';
+$lang['Upload Photos'] = 'Ezkargañ luc\'hskeudennoù';
+$lang['Uploaded Photos'] = 'Luc\'hskeudennoù ezkarget';
+$lang['You are using the Browser uploader. Try the <a href="%s">Flash uploader</a> instead.'] = 'Oc\'h implij an ezkarger er merdeer emaoc\'h. Esaeit an <a href="%s">ezkarger Flash</a> kentoc\'h.';
+$lang['You are using the Flash uploader. Problems? Try the <a href="%s">Browser uploader</a> instead.'] = 'Oc\'h implij an ezkarger Flash emaoc\'h. Kudennoù ? Esaeit an <a href="%s">ezkarger er merdeer</a> kentoc\'h.';
+$lang['pLoader stands for <em>Piwigo Uploader</em>. From your computer, pLoader prepares your photos and transfer them to your Piwigo photo gallery.'] = 'pLoader a zo un <em>ezkarger Piwigo</em>. pLoader a brient hol luc\'hskeudennoù ha treuzkas anezho eus hoc\'h urzhiater d\'ho palier luc\'hskeudennoù Piwigo.';
 ?>
