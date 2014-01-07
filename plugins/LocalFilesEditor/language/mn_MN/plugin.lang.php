@@ -45,4 +45,8 @@ $lang['locfiledit_new_filename'] = 'Файлын нэр';
 $lang['locfiledit_new_tpl'] = 'Шинэ файл үүсгэх';
 $lang['locfiledit_onglet_css'] = 'CSS';
 $lang['locfiledit_onglet_lang'] = 'Хэл';
+$lang['locfiledit_newfile'] = 'Доорхи талбарт мэдээлэл оруулахаас нааш файл шинээр үүсэхгүй. Мэдээлэл оруулж хадгалсаны дараа файл шинээр үүсэх болно.';
+$lang['locfiledit_bak_loaded1'] = 'Нөөцийн файлыг сэргээлээ.';
+$lang['locfiledit_bak_loaded2'] = 'Нөөцөөс сэргээхийн тулд хадгалах хэрэгтэй.';
+$lang['locfiledit_restore_confirm'] = 'Та итгэлтэй байна уу? Хадгалах хүртэл сэргээлт идэвхжихгүй гэдгийг анхаарна уу.';
 ?>
