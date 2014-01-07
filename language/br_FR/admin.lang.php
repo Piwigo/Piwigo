@@ -152,4 +152,5 @@ $lang['Uploaded Photos'] = 'Luc\'hskeudennoù ezkarget';
 $lang['You are using the Browser uploader. Try the <a href="%s">Flash uploader</a> instead.'] = 'Oc\'h implij an ezkarger er merdeer emaoc\'h. Esaeit an <a href="%s">ezkarger Flash</a> kentoc\'h.';
 $lang['You are using the Flash uploader. Problems? Try the <a href="%s">Browser uploader</a> instead.'] = 'Oc\'h implij an ezkarger Flash emaoc\'h. Kudennoù ? Esaeit an <a href="%s">ezkarger er merdeer</a> kentoc\'h.';
 $lang['pLoader stands for <em>Piwigo Uploader</em>. From your computer, pLoader prepares your photos and transfer them to your Piwigo photo gallery.'] = 'pLoader a zo un <em>ezkarger Piwigo</em>. pLoader a brient hol luc\'hskeudennoù ha treuzkas anezho eus hoc\'h urzhiater d\'ho palier luc\'hskeudennoù Piwigo.';
+$lang['%s must be to set to false in your local/config/config.inc.php file'] = 'Ret eo arventennañ %s da false en ho restr local/config/config.inc.php';
 ?>
