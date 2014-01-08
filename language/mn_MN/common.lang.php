@@ -297,7 +297,7 @@ $lang['Cookies are blocked or not supported by your browser. You must enable coo
 $lang['Any tag'] = 'Дурын түлхүүр үг';
 $lang['Album: %s'] = 'Цомог';
 $lang['%d photo'] = '%d зураг';
-$lang['Click here if your browser does not automatically forward you'] = 'Вэбхөтөч тань автоматаар шилжэхгүй байгаа энд дарна уу';
+$lang['Click here if your browser does not automatically forward you'] = 'Автоматаар шилжэхгүй бол энд дарна уу';
 $lang['Best rated'] = 'Өндөр үнэлгээтэй';
 $lang['Here are your connection settings'] = 'Таны бүртгэлийн тохиргоо';
 $lang['(!) This comment requires validation'] = '(!) Тухайн сэтгэгдэлийг ';
