@@ -2089,4 +2089,36 @@ SELECT COUNT(DISTINCT(com.id))
   return $user['nb_available_comments'];
 }
 
+/**
+ * Compare two versions with version_compare after having converted
+ * single chars to their decimal values.
+ * Needed because version_compare does not understand versions like '2.5.c'.
+ * @since 2.6
+ *
+ * @param string $a
+ * @param string $b
+ * @param string $op
+ */
+function safe_version_compare($a, $b, $op=null)
+{
+  $replace_chars = create_function('$m', 'return ord(strtolower($m[1]));');
+  
+  // add dot before groups of letters (version_compare does the same thing)
+  $a = preg_replace('#([0-9]+)([a-z]+)#i', '$1.$2', $a);
+  $b = preg_replace('#([0-9]+)([a-z]+)#i', '$1.$2', $b);
+  
+  // apply ord() to any single letter
+  $a = preg_replace_callback('#\b([a-z]{1})\b#i', $replace_chars, $a);
+  $b = preg_replace_callback('#\b([a-z]{1})\b#i', $replace_chars, $b);
+  
+  if (empty($op))
+  {
+    return version_compare($a, $b);
+  }
+  else
+  {
+    return version_compare($a, $b, $op);
+  }
+}
+
 ?>

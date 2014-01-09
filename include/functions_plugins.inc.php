@@ -78,7 +78,7 @@ abstract class PluginMaintain
     $current_version = $pwg_loaded_plugins[$this->plugin_id]['version'];
     
     if ( $version == 'auto' or $current_version == 'auto'
-        or version_compare($current_version, $version, '<')
+        or safe_version_compare($current_version, $version, '<')
       )
     {
       if (!empty($on_update))
@@ -144,7 +144,7 @@ SELECT version
     list($current_version) = pwg_db_fetch_row(pwg_query($query));
     
     if ( $version == 'auto' or $current_version == 'auto'
-        or version_compare($current_version, $version, '<')
+        or safe_version_compare($current_version, $version, '<')
       )
     {
       if (!empty($on_update))
