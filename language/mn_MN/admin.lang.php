@@ -20,7 +20,7 @@
 // | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
-$lang['Zoom'] = 'Томсгох';
+$lang['Zoom'] = 'Томруулах';
 $lang['add a new watermark'] = 'шинээр усан хээ нэмэх';
 $lang['average time'] = 'дундаж хугацаа';
 $lang['bottom left corner'] = 'зүүн доод булан';
@@ -71,7 +71,7 @@ $lang['Send mail on HTML format'] = 'Мэйлийг HTML хэлбэрээр ил
 $lang['Representant'] = 'Цомогны дүрс зураг';
 $lang['Representation of albums'] = 'Цомогны дүрс зураг';
 $lang['Representative'] = 'Цомогны дүрс зураг';
-$lang['Save Settings'] = 'Тохиргоог хадгалах';
+$lang['Save Settings'] = 'Хадгалах';
 $lang['Searching...'] = 'Хайж байна...';
 $lang['Select a file'] = 'Файлаа сонгох';
 $lang['Select an album'] = 'Цомогоо сонгох';
@@ -207,7 +207,7 @@ $lang['%d user'] = '%d хэрэглэгч';
 $lang['Drop into album'] = 'Цомогоо сонгох';
 $lang['Dump Database'] = 'Мэдээллийг санг устгах';
 $lang['Download,'] = 'Татаж авах,';
-$lang['Delete selected tags'] = 'Сонгосон үгсийг устгах';
+$lang['Delete selected tags'] = 'Устгах';
 $lang['Delete selected users'] = 'Сонгосон хэрэглэгчийг устгах';
 $lang['Database'] = 'Өгөгдлийн сан';
 $lang['Can\'t connect to server.'] = 'Сервертэй холбогдох боломжгүй байна.';
@@ -215,7 +215,7 @@ $lang['By rank'] = 'Үнэлгээгээр';
 $lang['Are you sure you want to delete this plugin?'] = 'Энэ нэмэлт өргөтгөлийг устгана гэдэгтээ итгэлтэй байна уу?';
 $lang['Are you sure you want to install this plugin?'] = 'Энэ нэмэлт өргөтгөлийг суулгана гэдэгтээ итгэлтэй байна уу?';
 $lang['%d of %d photos selected'] = '%d (нийт %d-с) зураг сонгосон байна';
-$lang['Link all album photos to some existing albums'] = 'Энэ цомогны зурагнуудыг өөр цомогтой холбох';
+$lang['Link all album photos to some existing albums'] = 'Энэ цомогны зургийг өөр цомогтой холбох';
 $lang['Link all album photos to a new album'] = 'Энэ цомогны зурагнуудыг шинэ цомогтой холбох';
 $lang['New photos were added'] = 'Шинэ зурагнууд нэмэгдлээ';
 $lang['Manage photo ranks'] = 'Зурагны дараалал';
@@ -271,8 +271,8 @@ $lang['Manage tags'] = 'Түлхүүр үгсийг цэгцлэх';
 $lang['%d tags'] = '%d -н түлхүүр үг';
 $lang['The %d following tags were deleted'] = 'Дараахь %d түлхүүр үгсийг устгалаа';
 $lang['All %d photos are selected'] = 'Нийт %d зураг сонгосон байна';
-$lang['Duplicate selected tags'] = 'Сонгосон  үгсийг хувилах';
-$lang['Merge selected tags'] = 'Сонгосон үгсийг нэгтгэх';
+$lang['Duplicate selected tags'] = 'Хувилах';
+$lang['Merge selected tags'] = 'Нэгтгэх';
 $lang['selection'] = 'сонголт';
 $lang['Select at least one album'] = 'Дор хаяж нэг цомог сонгоно уу';
 $lang['Select at least one comment'] = 'Дор хаяж нэг сэтгэгдэл сонгоно уу';
@@ -630,4 +630,6 @@ $lang['Ignore this update'] = 'Тухайн шинэчлэлийг үл хэрэ
 $lang['Ignore All'] = 'Бүгдийг үл хэрэгсэх';
 $lang['Gallery unlocked'] = 'Цомогны түгжээг гаргалаа';
 $lang['Manage Permissions'] = 'Эрхийг зохицуулах';
+$lang['Unsubscribed'] = 'Бүртгүүлээгүй';
+$lang['Other private albums'] = 'Бусад хувийн цомгууд';
 ?>
