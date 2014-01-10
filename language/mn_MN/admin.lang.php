@@ -332,7 +332,7 @@ $lang['Send connection settings by email'] = 'Холболтын тохирго�
 $lang['Selection'] = 'Сонголт';
 $lang['Save order'] = 'Эрэмбийг хадгалах';
 $lang['Restore'] = 'Сэргээх';
-$lang['Restore default configuration. You will lose your plugin settings!'] = 'Үндсэн тохиргоог сэргээх. Нэмэлт программийн тохиргоонууд алдагдах болно.';
+$lang['Restore default configuration. You will lose your plugin settings!'] = 'Үндсэн тохиргоог сэргээх. Тохиргоонууд алдагдах болно.';
 $lang['Repair and optimize database'] = 'Мэдээллийн санг засаж, цэгцэлэх';
 $lang['Piwigo for Android'] = 'Android-д зориулсан Piwigo';
 $lang['Piwigo for iOS (iPhone, iPad, iPod Touch)'] = 'iOS (iPhone, iPad, iPod Touch)-д зориулсан Piwigo';
@@ -435,7 +435,7 @@ $lang['You are using the Flash uploader. Problems? Try the <a href="%s">Browser 
 $lang['Maximum file size: %sB.'] = 'Файлын дээд хэмжээ: %sB.';
 $lang['Start Upload'] = 'Оруулах';
 $lang['Allowed file types: %s.'] = 'Зөвшөөрөгдөх зургийн төрлүүд: %s.';
-$lang['Select files'] = 'Зургийн файлаа сонгох';
+$lang['Select files'] = 'Файлаа сонгоно уу';
 $lang['... or '] = '...эсвэл';
 $lang['unit mode'] = 'дэлгэрэнгүй хэсэг';
 $lang['unset'] = 'өөрчлөөгүй';
@@ -626,4 +626,8 @@ $lang['Replacement of original templates by customized templates from template-e
 $lang['Resize after upload disabled due to the use of GD as graphic library'] = 'GD-г ашиглаж байгаа учир "Оруулсаны дараа хэмжээг шинэчлэх" функцыг идэвхгүй болголоо';
 $lang['A locked gallery is only visible to administrators'] = 'Нууцалсан цомог зөвхөн Зохицуулагчид харагдана';
 $lang['High definition enabled'] = 'Өндөр нарийвчлал идэвхтэй';
+$lang['Ignore this update'] = 'Тухайн шинэчлэлийг үл хэрэгсэх';
+$lang['Ignore All'] = 'Бүгдийг үл хэрэгсэх';
+$lang['Gallery unlocked'] = 'Цомогны түгжээг гаргалаа';
+$lang['Manage Permissions'] = 'Эрхийг зохицуулах';
 ?>
