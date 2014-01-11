@@ -975,4 +975,13 @@ $lang['Update user'] = 'Actualitza l\'usuari';
 $lang['User %s added'] = 'S\'ha afegit l\'usuari %s';
 $lang['User %s updated'] = 'S\'ha actualitzat l\'usuari %s';
 $lang['close'] = 'tancar';
+$lang['%d of %d users selected'] = '%d de %d usuaris seleccionats';
+$lang['(filtered from %s total users)'] = '(filtrat d\'un total de %s usuaris)';
+$lang['All %d users are selected'] = 'Tots els %d usuaris estan seleccionats';
+$lang['Close user details'] = 'Tanca detals de l\'usuari';
+$lang['No matching user found'] = 'No s\'ha trobat cap usuari coincident';
+$lang['No user selected of %d users'] = 'Cap usuari seleccionat de %d usuaris';
+$lang['Open user details'] = 'Obre detalls de l\'usuari';
+$lang['Showing %s to %s of %s users'] = 'Mostrant %s de %s de %s usuaris';
+$lang['on the %d selected users'] = 'sobre els %d usuaris seleccionats';
 ?>
