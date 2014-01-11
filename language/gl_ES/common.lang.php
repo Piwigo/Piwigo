@@ -22,7 +22,7 @@
 // +-----------------------------------------------------------------------+
 /*
 Language Name: Galego [ES]
-Version: 2.5.2
+Version: 2.6.0
 Language URI: http://piwigo.org/ext/extension_view.php?eid=681
 Author: Piwigo team
 Author URI: http://piwigo.org

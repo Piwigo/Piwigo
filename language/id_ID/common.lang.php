@@ -22,7 +22,7 @@
 // +-----------------------------------------------------------------------+
 /*
 Language Name: Bahasa Indonesia [ID]
-Version: 2.5.0
+Version: 2.6.0
 Language URI: http://piwigo.org/ext/extension_view.php?eid=707
 Author: Piwigo team
 Author URI: http://piwigo.org
