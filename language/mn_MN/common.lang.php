@@ -28,7 +28,7 @@ Author: Piwigo team
 Author URI: http://piwigo.org
 */
 
-$lang_info['language_name'] = 'Монгол хэл';
+$lang_info['language_name'] = 'Монгол';
 $lang_info['country'] = 'Монгол улс';
 $lang_info['direction'] = 'ltr';
 $lang_info['code'] = 'mn';
