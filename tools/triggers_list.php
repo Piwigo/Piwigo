@@ -809,6 +809,20 @@ array(
   'files' => array('include\template.class.php (FileCombiner::process_combinable)'),
   'infos' => 'New in 2.6.',
 ),
+array(
+  'name' => 'user_list_columns',
+  'type' => 'trigger_event',
+  'vars' => array('string[]', 'aColumns'),
+  'files' => array('admin\user_list_backend.php'),
+  'infos' => 'New in 2.6.',
+),
+array(
+  'name' => 'after_render_user_list',
+  'type' => 'trigger_event',
+  'vars' => array('array', 'output'),
+  'files' => array('admin\user_list_backend.php'),
+  'infos' => 'New in 2.6.',
+),
 );
 ?>
 <!DOCTYPE html>

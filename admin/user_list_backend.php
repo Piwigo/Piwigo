@@ -36,6 +36,7 @@ check_status(ACCESS_ADMINISTRATOR);
  * you want to insert a non-database field (for example a counter or static image)
  */
 $aColumns = array('id', 'username', 'status', 'mail_address', 'registration_date');
+$aColumns = trigger_change('user_list_columns', $aColumns);
 	
 /* Indexed column (used for fast and accurate table cardinality) */
 $sIndexColumn = "id";
@@ -103,7 +104,9 @@ if ( $_REQUEST['sSearch'] != "" )
 /* Individual column filtering */
 for ( $i=0 ; $i<count($aColumns) ; $i++ )
 {
-  if ( $_REQUEST['bSearchable_'.$i] == "true" && $_REQUEST['sSearch_'.$i] != '' )
+  if (isset($_REQUEST['bSearchable_'.$i]) && isset($_REQUEST['sSearch_'.$i])
+      &&$_REQUEST['bSearchable_'.$i] == "true" && $_REQUEST['sSearch_'.$i] != ''
+    )
   {
     if ( $sWhere == "" )
     {
@@ -132,12 +135,8 @@ $sQuery = "
 $rResult = pwg_query($sQuery);
 	
 /* Data set length after filtering */
-$sQuery = "
-		SELECT FOUND_ROWS()
-	";
-$rResultFilterTotal = pwg_query($sQuery);
-$aResultFilterTotal = pwg_db_fetch_array($rResultFilterTotal);
-$iFilteredTotal = $aResultFilterTotal[0];
+$rResultFilterTotal = pwg_query('SELECT FOUND_ROWS();');
+list($iFilteredTotal) = pwg_db_fetch_row($rResultFilterTotal);
 	
 /* Total data set length */
 $sQuery = "
@@ -176,6 +175,8 @@ while ( $aRow = pwg_db_fetch_array( $rResult ) )
   }
   $output['aaData'][] = $row;
 }
+
+$output = trigger_change('after_render_user_list', $output);
 	
 echo json_encode( $output );
 ?>

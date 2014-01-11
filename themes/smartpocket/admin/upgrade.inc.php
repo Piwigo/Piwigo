@@ -10,10 +10,7 @@ if (!isset($conf['smartpocket']))
     'loop'            => true,//true - false
     'autohide'            => 5000,//5000 - 0
   );
-  $query = "
-INSERT INTO " . CONFIG_TABLE . " (param,value,comment)
-VALUES ('smartpocket' , '".pwg_db_real_escape_string(serialize($config))."' , 'loop#autohide');";
-  pwg_query($query);
+  conf_update_param('smartpocket', pwg_db_real_escape_string(serialize($config)));
   load_conf_from_db();
 }
 elseif (count(unserialize( $conf['smartpocket'] ))!=2)
