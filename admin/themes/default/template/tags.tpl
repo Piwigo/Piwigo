@@ -1,26 +1,68 @@
 {include file='include/tag_selection.inc.tpl'}
 
-{footer_script}{literal}
-jQuery(document).ready(function(){
-  function displayDeletionWarnings() {
-    jQuery(".warningDeletion").show();
-    jQuery("input[name=destination_tag]:checked").parent("label").children(".warningDeletion").hide();
+{html_style}
+.showInfo { text-indent:5px; }
+{/html_style}
+
+{footer_script require='jquery'}
+jQuery('.showInfo').tipTip({
+  'delay' : 0,
+  'fadeIn' : 200,
+  'fadeOut' : 200,
+  'maxWidth':'300px',
+  'keepAlive':true,
+  'activation':'click'
+});
+
+function displayDeletionWarnings() {
+  jQuery(".warningDeletion").show();
+  jQuery("input[name=destination_tag]:checked").parent("label").children(".warningDeletion").hide();
+}
+
+displayDeletionWarnings();
+
+jQuery("#mergeTags label").click(function() {
+  displayDeletionWarnings();
+});
+
+jQuery("input[name=merge]").click(function() {
+  if (jQuery("ul.tagSelection input[type=checkbox]:checked").length < 2) {
+    alert("{'Select at least two tags for merging'|@translate}");
+    return false;
+  }
+});
+
+$("#searchInput").on("keydown", function(e) {
+  var $this = $(this),
+      timer = $this.data("timer");
+
+  if (timer) {
+    clearTimeout(timer);
   }
 
-  displayDeletionWarnings();
-
-  jQuery("#mergeTags label").click(function() {
-    displayDeletionWarnings();
-  });
-
-  jQuery("input[name=merge]").click(function() {
-    if (jQuery("ul.tagSelection input[type=checkbox]:checked").length < 2) {
-      alert("{/literal}{'Select at least two tags for merging'|@translate}{literal}");
-      return false;
+  $this.data("timer", setTimeout(function() {
+    var val = $this.val();
+    if (!val) {
+      $(".tagSelection>li").show();
+      $("#filterIcon").css("visibility","hidden");
     }
-  });
+    else {
+      $("#filterIcon").css("visibility","visible");
+      var regex = new RegExp( val.replace(/[\-\[\]{}()*+?.,\\\^$|#\s]/g, "\\$&"), "i" );
+      $(".tagSelection>li").each(function() {
+        var $li = $(this),
+            text = $.trim( $("label", $li).text() );
+        $li.toggle(regex.test(text));
+      });
+    }
+
+  }, 300) );
+
+  if (e.keyCode == 13) { // Enter
+    e.preventDefault();
+  }
 });
-{/literal}{/footer_script}
+{/footer_script}
 
 
 <div class="titrePage">
@@ -46,12 +88,12 @@ jQuery(document).ready(function(){
     </table>
 
     <p>
-      <input type="hidden" name="pwg_token" value="{$PWG_TOKEN}">
-      <input class="submit" type="submit" name="submit" value="{'Submit'|@translate}">
-      <input class="submit" type="reset" value="{'Reset'|@translate}">
+      <input type="submit" name="edit_submit" value="{'Submit'|@translate}">
+      <input type="submit" name="edit_cancel" value="{'Cancel'|@translate}">
     </p>
   </fieldset>
   {/if}
+
   {if isset($DUPLIC_TAGS_LIST)}
   <fieldset>
     <legend>{'Edit tags'|@translate}</legend>
@@ -70,23 +112,28 @@ jQuery(document).ready(function(){
     </table>
 
     <p>
-      <input type="hidden" name="pwg_token" value="{$PWG_TOKEN}">
-      <input class="submit" type="submit" name="duplic_submit" value="{'Submit'|@translate}">
-      <input class="submit" type="reset" value="{'Reset'|@translate}">
+      <input type="submit" name="duplic_submit" value="{'Submit'|@translate}">
+      <input type="submit" name="duplic_cancel" value="{'Cancel'|@translate}">
     </p>
   </fieldset>
   {/if}
 
   {if isset($MERGE_TAGS_LIST)}
-  <input type="hidden" name="merge_list" value="{$MERGE_TAGS_LIST}">
-
   <fieldset id="mergeTags">
     <legend>{'Merge tags'|@translate}</legend>
-    {'Select the destination tag'|@translate}<br><br>
+    {'Select the destination tag'|@translate}
+
+    <p>
     {foreach from=$tags item=tag name=tagloop}
     <label><input type="radio" name="destination_tag" value="{$tag.ID}"{if $smarty.foreach.tagloop.index == 0} checked="checked"{/if}> {$tag.NAME}<span class="warningDeletion"> {'(this tag will be deleted)'|@translate}</span></label><br>
     {/foreach}
-    <br><input type="submit" name="confirm_merge" value="{'Confirm merge'|@translate}">
+    </p>
+
+    <p>
+      <input type="hidden" name="merge_list" value="{$MERGE_TAGS_LIST}">
+      <input type="submit" name="merge_submit" value="{'Confirm merge'|@translate}">
+      <input type="submit" name="merge_cancel" value="{'Cancel'|@translate}">
+    </p>
   </fieldset>
   {/if}
 
@@ -103,73 +150,35 @@ jQuery(document).ready(function(){
 
   <fieldset>
     <legend>{'Tag selection'|@translate}</legend>
-{html_style}
-.showInfo{ldelim}text-indent:5px}
-{/html_style}
-{footer_script}{literal}
-jQuery('.showInfo').tipTip({
-    'delay' : 0,
-    'fadeIn' : 200,
-    'fadeOut' : 200,
-    'maxWidth':'300px',
-    'keepAlive':true,
-    'activation':'click'
-  });
-{/literal}{/footer_script}
-{if count($all_tags)}
-<div><label><span class="icon-filter" style="visibility:hidden" id="filterIcon"></span>{'Search'|@translate}: <input id="searchInput" type="text" size="12"></label></div>
-{footer_script}{literal}
-$("#searchInput").on( "keydown", function(e) {
-	var $this = $(this),
-		timer = $this.data("timer");
-	if (timer)
-		clearTimeout(timer);
 
-	$this.data("timer", setTimeout( function() {
-		var val = $this.val();
-		if (!val) {
-			$(".tagSelection>li").show();
-			$("#filterIcon").css("visibility","hidden");
-		}
-		else {
-			$("#filterIcon").css("visibility","visible");
-			var regex = new RegExp( val.replace(/[\-\[\]{}()*+?.,\\\^$|#\s]/g, "\\$&"), "i" );
-			$(".tagSelection>li").each( function(i, li) {
-				var $li = $(li),
-					text = $.trim( $("label", $li).text() );
-				if (regex.test( text ))
-					$li.show();
-				else
-					$li.hide();
-			});
-		}
+    {if count($all_tags)}
+    <div><label><span class="icon-filter" style="visibility:hidden" id="filterIcon"></span>{'Search'|@translate}: <input id="searchInput" type="text" size="12"></label></div>
+    {/if}
 
-	}, 300) );
-  
-  if (e.keyCode == 13) { // Enter
-    e.preventDefault();
-  }
-});
-{/literal}{/footer_script}
-{/if}
-<ul class="tagSelection">
-{foreach from=$all_tags item=tag}
-	<li>{capture name='showInfo'}<b>{$tag.name}</b> ({$tag.counter|@translate_dec:'%d photo':'%d photos'}) <br> <a href="{$tag.U_VIEW}">{'View in gallery'|@translate}</a> | <a href="{$tag.U_EDIT}">{'Manage photos'|@translate}</a>{if !empty($tag.alt_names)}<br>{$tag.alt_names}{/if}{/capture}
-		<a class="icon-info-circled-1 showInfo" title="{$smarty.capture.showInfo|@htmlspecialchars}"></a>
-		<label>
-			<input type="checkbox" name="tags[]" value="{$tag.id}"> {$tag.name}
-		</label>
-	</li>
-{/foreach}
-</ul>
+    <ul class="tagSelection">
+    {foreach from=$all_tags item=tag}
+      <li>
+        {capture name='showInfo'}{strip}
+          <b>{$tag.name}</b> ({$tag.counter|@translate_dec:'%d photo':'%d photos'})<br>
+          <a href="{$tag.U_VIEW}">{'View in gallery'|@translate}</a> |
+          <a href="{$tag.U_EDIT}">{'Manage photos'|@translate}</a>
+          {if !empty($tag.alt_names)}<br>{$tag.alt_names}{/if}
+        {/strip}{/capture}
+        <a class="icon-info-circled-1 showInfo" title="{$smarty.capture.showInfo|@htmlspecialchars}"></a>
+        <label>
+          <input type="checkbox" name="tags[]" value="{$tag.id}"> {$tag.name}
+        </label>
+      </li>
+    {/foreach}
+    </ul>
 
-		<p>
-			<input type="hidden" name="pwg_token" value="{$PWG_TOKEN}">
-			<input type="submit" name="edit" value="{'Edit selected tags'|@translate}">
-			<input type="submit" name="duplicate" value="{'Duplicate selected tags'|@translate}">
-			<input type="submit" name="merge" value="{'Merge selected tags'|@translate}">
-			<input type="submit" name="delete" value="{'Delete selected tags'|@translate}" onclick="return confirm('{'Are you sure?'|@translate}');">
-		</p>
+    <p>
+      <input type="hidden" name="pwg_token" value="{$PWG_TOKEN}">
+      <input type="submit" name="edit" value="{'Edit selected tags'|@translate}">
+      <input type="submit" name="duplicate" value="{'Duplicate selected tags'|@translate}">
+      <input type="submit" name="merge" value="{'Merge selected tags'|@translate}">
+      <input type="submit" name="delete" value="{'Delete selected tags'|@translate}" onclick="return confirm('{'Are you sure?'|@translate}');">
+    </p>
   </fieldset>
 
 </form>

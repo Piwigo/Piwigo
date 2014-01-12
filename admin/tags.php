@@ -38,7 +38,7 @@ if (!empty($_POST))
 // |                                edit tags                              |
 // +-----------------------------------------------------------------------+
 
-if (isset($_POST['submit']))
+if (isset($_POST['edit_submit']))
 {
   $query = '
 SELECT name
@@ -194,7 +194,7 @@ SELECT id, name
 // |                               merge tags                              |
 // +-----------------------------------------------------------------------+
 
-if (isset($_POST['confirm_merge']))
+if (isset($_POST['merge_submit']))
 {
   if (!isset($_POST['destination_tag']))
   {
@@ -428,11 +428,7 @@ if ((isset($_POST['edit']) or isset($_POST['duplicate']) or isset($_POST['merge'
     $list_name = 'MERGE_TAGS_LIST';
   }
 
-  $template->assign(
-    array(
-      $list_name => implode(',', $_POST['tags']),
-      )
-    );
+  $template->assign($list_name, implode(',', $_POST['tags']));
 
   $query = '
 SELECT id, name
@@ -442,16 +438,11 @@ SELECT id, name
   $result = pwg_query($query);
   while ($row = pwg_db_fetch_assoc($result))
   {
-    $name_of[ $row['id'] ] = $row['name'];
-  }
-
-  foreach ($_POST['tags'] as $tag_id)
-  {
     $template->append(
       'tags',
       array(
-        'ID' => $tag_id,
-        'NAME' => $name_of[$tag_id],
+        'ID' => $row['id'],
+        'NAME' => $row['name'],
         )
       );
   }
