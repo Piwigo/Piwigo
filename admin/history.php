@@ -343,7 +343,7 @@ SELECT
     $result = pwg_query($query);
     while ($row=pwg_db_fetch_assoc($result))
     {
-      $name_of_tag[ $row['id'] ] = '<a href="'.make_index_url( array('tags'=>array($row))).'">'.trigger_event("render_tag_name", $row['name']).'</a>';
+      $name_of_tag[ $row['id'] ] = '<a href="'.make_index_url( array('tags'=>array($row))).'">'.trigger_event("render_tag_name", $row['name'], $row).'</a>';
     }
   }
 

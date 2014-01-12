@@ -2154,7 +2154,7 @@ function get_taglist($query, $only_user_language=true)
   while ($row = pwg_db_fetch_assoc($result))
   {
     $raw_name = $row['name'];
-    $name = trigger_event('render_tag_name', $raw_name);
+    $name = trigger_event('render_tag_name', $raw_name, $row);
 
     $taglist[] =  array(
         'name' => $name,

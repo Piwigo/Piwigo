@@ -218,7 +218,7 @@ SELECT
       $result = pwg_query($query);
       while ($row = pwg_db_fetch_assoc($result))
       {
-        $name_of_tag[ $row['id'] ] = trigger_event('render_tag_name', $row['name']);
+        $name_of_tag[ $row['id'] ] = trigger_event('render_tag_name', $row['name'], $row);
       }
 
       $tag_ids_to_delete = array_diff(
@@ -358,7 +358,7 @@ $orphan_tags = get_orphan_tags();
 $orphan_tag_names = array();
 foreach ($orphan_tags as $tag)
 {
-  $orphan_tag_names[] = trigger_event('render_tag_name', $tag['name']);
+  $orphan_tag_names[] = trigger_event('render_tag_name', $tag['name'], $tag);
 }
 
 if (count($orphan_tag_names) > 0)
@@ -393,7 +393,7 @@ $all_tags = array();
 while ($tag = pwg_db_fetch_assoc($result))
 {
   $raw_name = $tag['name'];
-  $tag['name'] = trigger_event('render_tag_name', $raw_name);
+  $tag['name'] = trigger_event('render_tag_name', $raw_name, $tag);
   $tag['counter'] = intval(@$tag_counters[ $tag['id'] ]);
   $tag['U_VIEW'] = make_index_url(array('tags'=>array($tag)));
   $tag['U_EDIT'] = 'admin.php?page=batch_manager&amp;filter=tag-'.$tag['id'];

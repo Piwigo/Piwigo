@@ -463,7 +463,7 @@ function get_tags_content_title()
       .'" title="'
       .l10n('display photos linked to this tag')
       .'">'
-      .trigger_event('render_tag_name', $page['tags'][$i]['name'])
+      .trigger_event('render_tag_name', $page['tags'][$i]['name'], $page['tags'][$i])
       .'</a>';
 
     if (count($page['tags']) > 2)

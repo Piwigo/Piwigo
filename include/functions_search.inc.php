@@ -582,7 +582,7 @@ SELECT t.*, COUNT(image_id) AS counter
   usort($all_tags, 'tag_alpha_compare');
   foreach ( $all_tags as &$tag )
   {
-    $tag['name'] = trigger_event('render_tag_name', $tag['name']);
+    $tag['name'] = trigger_event('render_tag_name', $tag['name'], $tag);
   }
 }
 

@@ -684,14 +684,14 @@ array(
 array(
   'name' => 'render_tag_name',
   'type' => 'trigger_event',
-  'vars' => array('string', 'tag_name'),
-  'files' => array('admin\include\functions.php (get_taglist)', 'admin\tags.php', 'include\functions_tag.inc.php (get_available_tags, get_all_tags, get_common_tags)', 'index.php'),
+  'vars' => array('string', 'tag_name', 'array', 'tag'),
+  'files' => array('admin\include\functions.php (get_taglist)', 'admin\tags.php', 'admin\history.php', 'include\functions_tag.inc.php (get_available_tags, get_all_tags, get_common_tags)', 'include\functions_html.inc.php (get_tags_content_title)', 'include\functions_search.inc.php (get_qsearch_tags)'),
 ),
 array(
   'name' => 'render_tag_url',
   'type' => 'trigger_event',
   'vars' => array('string', 'tag_name'),
-  'files' => array('include\functions.php (tag_id_from_tag_name, create_tag)', 'admin\tags.php'),
+  'files' => array('admin\include\functions.php (tag_id_from_tag_name, create_tag)', 'admin\tags.php'),
 ),
 array(
   'name' => 'save_profile_from_post',
