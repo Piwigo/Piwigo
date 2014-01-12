@@ -119,7 +119,7 @@ jQuery('.showInfo').tipTip({
 {if count($all_tags)}
 <div><label><span class="icon-filter" style="visibility:hidden" id="filterIcon"></span>{'Search'|@translate}: <input id="searchInput" type="text" size="12"></label></div>
 {footer_script}{literal}
-$("#searchInput").on( "keydown", function() {
+$("#searchInput").on( "keydown", function(e) {
 	var $this = $(this),
 		timer = $this.data("timer");
 	if (timer)
@@ -145,6 +145,10 @@ $("#searchInput").on( "keydown", function() {
 		}
 
 	}, 300) );
+  
+  if (e.keyCode == 13) { // Enter
+    e.preventDefault();
+  }
 });
 {/literal}{/footer_script}
 {/if}
