@@ -632,4 +632,6 @@ $lang['Gallery unlocked'] = 'Цомогны түгжээг гаргалаа';
 $lang['Manage Permissions'] = 'Эрхийг зохицуулах';
 $lang['Unsubscribed'] = 'Бүртгүүлээгүй';
 $lang['Other private albums'] = 'Бусад хувийн цомгууд';
+$lang['%s photos can not be regenerated'] = '%s-н зураг үүсгэж чадсангүй';
+$lang['%s photos have been regenerated'] = '%s-н зураг амжилттай үүсгэлээ';
 ?>
