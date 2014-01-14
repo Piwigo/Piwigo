@@ -966,4 +966,7 @@ $lang['Mail theme'] = 'Tema do correo';
 $lang['Password updated'] = 'Contrasinal actualizado';
 $lang['Select at least one tag'] = 'Selecciona polo menos unha etiqueta';
 $lang['Update user'] = 'Actualizar usuario';
+$lang['Close user details'] = 'Pechar detalles de usuario';
+$lang['Open user details'] = 'Abrir detalles de usuario';
+$lang['close'] = 'pechar';
 ?>
