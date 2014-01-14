@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | Piwigo - a PHP based photo gallery                                    |
 // +-----------------------------------------------------------------------+
-// | Copyright(C) 2008-2014 Piwigo Team                  http://piwigo.org |
+// | Copyright(C) 2008-2013 Piwigo Team                  http://piwigo.org |
 // | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
 // | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
 // +-----------------------------------------------------------------------+
@@ -797,7 +797,8 @@ class Template
     $this->scriptLoader->add( $params['id'], $load,
       empty($params['require']) ? array() : explode( ',', $params['require'] ),
       @$params['path'],
-      isset($params['version']) ? $params['version'] : 0 );
+      isset($params['version']) ? $params['version'] : 0,
+      @$params['template']);
   }
 
   /**
@@ -1494,7 +1495,7 @@ class ScriptLoader
    * @param string $path
    * @param string $version
    */
-  function add($id, $load_mode, $require, $path, $version=0)
+  function add($id, $load_mode, $require, $path, $version=0, $is_template=false)
   {
     if ($this->did_head && $load_mode==0)
     {
@@ -1507,6 +1508,7 @@ class ScriptLoader
     if (! isset( $this->registered_scripts[$id] ) )
     {
       $script = new Script($load_mode, $id, $path, $version, $require);
+      $script->is_template = $is_template;
       self::fill_well_known($id, $script);
       $this->registered_scripts[$id] = $script;
 
