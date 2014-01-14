@@ -634,4 +634,5 @@ $lang['Unsubscribed'] = 'Бүртгүүлээгүй';
 $lang['Other private albums'] = 'Бусад хувийн цомгууд';
 $lang['%s photos can not be regenerated'] = '%s-н зураг үүсгэж чадсангүй';
 $lang['%s photos have been regenerated'] = '%s-н зураг амжилттай үүсгэлээ';
+$lang['All %d users are selected'] = 'Бүх %d хэрэглэгчийг сонгосон байна';
 ?>
