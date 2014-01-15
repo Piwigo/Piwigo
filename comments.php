@@ -372,29 +372,6 @@ else
   $start = 0;
 }
 
-$query = '
-SELECT COUNT(DISTINCT(com.id))
-  FROM '.IMAGE_CATEGORY_TABLE.' AS ic
-    INNER JOIN '.COMMENTS_TABLE.' AS com
-    ON ic.image_id = com.image_id
-    LEFT JOIN '.USERS_TABLE.' As u
-    ON u.'.$conf['user_fields']['id'].' = com.author_id
-  WHERE '.implode('
-    AND ', $page['where_clauses']).'
-;';
-list($counter) = pwg_db_fetch_row(pwg_query($query));
-
-$url = PHPWG_ROOT_PATH.'comments.php'
-  .get_query_string_diff(array('start','edit','delete','validate','pwg_token'));
-
-$navbar = create_navigation_bar($url,
-                                $counter,
-                                $start,
-                                $page['items_number'],
-                                '');
-
-$template->assign('navbar', $navbar);
-
 // +-----------------------------------------------------------------------+
 // |                        last comments display                          |
 // +-----------------------------------------------------------------------+
@@ -404,7 +381,7 @@ $element_ids = array();
 $category_ids = array();
 
 $query = '
-SELECT com.id AS comment_id,
+SELECT SQL_CALC_FOUND_ROWS com.id AS comment_id,
        com.image_id,
        com.author,
        com.author_id,
@@ -421,13 +398,7 @@ SELECT com.id AS comment_id,
     ON u.'.$conf['user_fields']['id'].' = com.author_id
   WHERE '.implode('
     AND ', $page['where_clauses']).'
-  GROUP BY comment_id,
-       com.image_id,
-       com.author,
-       com.author_id,
-       com.date,
-       com.content,
-       com.validated
+  GROUP BY comment_id
   ORDER BY '.$page['sort_by'].' '.$page['sort_order'];
 if ('all' != $page['items_number'])
 {
@@ -442,6 +413,19 @@ while ($row = pwg_db_fetch_assoc($result))
   $comments[] = $row;
   $element_ids[] = $row['image_id'];
 }
+list($counter) = pwg_db_fetch_row(pwg_query('SELECT FOUND_ROWS()'));
+
+$url = PHPWG_ROOT_PATH.'comments.php'
+  .get_query_string_diff(array('start','edit','delete','validate','pwg_token'));
+
+$navbar = create_navigation_bar($url,
+                                $counter,
+                                $start,
+                                $page['items_number'],
+                                '');
+
+$template->assign('navbar', $navbar);
+
 
 if (count($comments) > 0)
 {
