@@ -383,6 +383,7 @@ $category_ids = array();
 $query = '
 SELECT SQL_CALC_FOUND_ROWS com.id AS comment_id,
        com.image_id,
+       ic.category_id,
        com.author,
        com.author_id,
        u.'.$conf['user_fields']['email'].' AS user_email,
@@ -412,6 +413,7 @@ while ($row = pwg_db_fetch_assoc($result))
 {
   $comments[] = $row;
   $element_ids[] = $row['image_id'];
+  $category_ids[] = $row['category_id'];
 }
 list($counter) = pwg_db_fetch_row(pwg_query('SELECT FOUND_ROWS()'));
 
@@ -430,37 +432,18 @@ $template->assign('navbar', $navbar);
 if (count($comments) > 0)
 {
   // retrieving element informations
-  $elements = array();
   $query = '
 SELECT *
   FROM '.IMAGES_TABLE.'
   WHERE id IN ('.implode(',', $element_ids).')
 ;';
-  $result = pwg_query($query);
-  while ($row = pwg_db_fetch_assoc($result))
-  {
-    $elements[$row['id']] = $row;
-  }
+  $elements = hash_from_query($query, 'id');
 
   // retrieving category informations
-  $query = '
-SELECT c.id, name, permalink, uppercats, com.id as comment_id
-  FROM '.CATEGORIES_TABLE.' AS c
-  LEFT JOIN '.IMAGE_CATEGORY_TABLE.' AS ic
-  ON c.id=ic.category_id
-  LEFT JOIN '.COMMENTS_TABLE.' AS com
-  ON ic.image_id=com.image_id
-  '.get_sql_condition_FandF
-    (
-      array
-      (
-	'forbidden_categories' => 'c.id',
-	'visible_categories' => 'c.id'
-       ),
-      'WHERE'
-     ).'
-;';
-  $categories = hash_from_query($query, 'comment_id');
+  $query = 'SELECT id, name, permalink, uppercats 
+  FROM '.CATEGORIES_TABLE.'
+  WHERE id IN ('.implode(',', $category_ids).')';
+  $categories = hash_from_query($query, 'id');
 
   foreach ($comments as $comment)
   {
@@ -479,7 +462,7 @@ SELECT c.id, name, permalink, uppercats, com.id as comment_id
     // link to the full size picture
     $url = make_picture_url(
       array(
-        'category' => $categories[ $comment['comment_id'] ],
+        'category' => $categories[ $comment['category_id'] ],
         'image_id' => $comment['image_id'],
         'image_file' => $elements[$comment['image_id']]['file'],
         )
