@@ -404,7 +404,7 @@ $lang['With blank value, gallery title will be used'] = 'Хоосон бол г�
 $lang['Add to caddie'] = 'Устгах жагсаалтанд нэмэх';
 $lang['Caddie'] = 'Устгах';
 $lang['Remove from caddie'] = 'Устгах жагсаалтаас хасах';
-$lang['add new photos to caddie'] = 'шинэ зургийг "устгах жагсаалт"-д нэмэх';
+$lang['add new photos to caddie'] = '"устгах жагсаалт"-д зураг нэмэх';
 $lang['Duplicates'] = 'Давхардсан';
 $lang['With no album'] = 'Цомогт ороогүй';
 $lang['With no tag'] = 'Түлхүүр үггүй';
@@ -635,4 +635,6 @@ $lang['Other private albums'] = 'Бусад хувийн цомгууд';
 $lang['%s photos can not be regenerated'] = '%s-н зураг үүсгэж чадсангүй';
 $lang['%s photos have been regenerated'] = '%s-н зураг амжилттай үүсгэлээ';
 $lang['All %d users are selected'] = 'Бүх %d хэрэглэгчийг сонгосон байна';
+$lang['Advanced features'] = 'Нэмэлт боломжууд';
+$lang['Album manual order was saved'] = 'Цомогны дарааллыг хадгаллаа';
 ?>
