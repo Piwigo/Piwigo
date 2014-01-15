@@ -16,6 +16,8 @@ $themeconf = array(
 global $conf;
 include(PHPWG_THEMES_PATH.'smartpocket/admin/upgrade.inc.php');
 
+load_language('theme.lang', PHPWG_THEMES_PATH.'smartpocket/');
+
 
 // Redirect if page is not compatible with mobile theme
 /*if (!in_array(script_basename(), array('index', 'register', 'profile', 'identification', 'ws', 'admin')))
