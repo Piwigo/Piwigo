@@ -654,4 +654,14 @@ $lang['Name of the duplicate'] = 'Давхардсан нэр';
 $lang['Manage the members'] = 'Гишүүдийг зохицуулах';
 $lang['Locked'] = 'Түгжээтэй';
 $lang['Images manual order was saved'] = 'Зургийн дарааллыг хадгаллаа';
+$lang['Impossible automatic correction'] = 'Автоматаар засах боломжгүй';
+$lang['private'] = 'хувийн';
+$lang['public'] = 'нийтийн';
+$lang['Number of thumbnails to create'] = 'Үүсгэх дүрс зургийн тоо';
+$lang['Password confirmation is missing. Please confirm the chosen password.'] = 'Уучлаарай. Нууц үгээ баталгаажуулж, давтан оруулна уу.';
+$lang['Operation in progress'] = 'Засаж байна.';
+$lang['Only private albums are listed'] = 'Зөвхөн хувийн цомгуудийг жагсаав';
+$lang['existing album'] = 'одоо байгаа цомог';
+$lang['You cannot delete your account'] = 'Та өөрийнхөө бүртгэлийг устгах боломжгүй';
+$lang['albums deleted in the database'] = 'мэдээллийн сангаас цомгийг устаглаа';
 ?>
