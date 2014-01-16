@@ -21,11 +21,19 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
-include(PHPWG_ROOT_PATH.'admin/include/functions_metadata.php');
+/**
+ * @package functions\admin\___
+ */
 
-// The function delete_site deletes a site and call the function
-// delete_categories for each primary category of the site
-function delete_site( $id )
+include_once(PHPWG_ROOT_PATH.'admin/include/functions_metadata.php');
+
+
+/**
+ * Deletes a site and call delete_categories for each primary category of the site
+ *
+ * @param int $id
+ */
+function delete_site($id)
 {
   // destruction of the categories of the site
   $query = '
@@ -44,18 +52,19 @@ DELETE FROM '.SITES_TABLE.'
   pwg_query($query);
 }
 
-
-// The function delete_categories deletes the categories identified by the
-// (numeric) key of the array $ids. It also deletes (in the database) :
-//    - all the elements physically linked to the category (delete_elements, see further)
-//    - all the links between elements and this category
-//    - all the restrictions linked to the category
-// The function works recursively.
-//
-// the $photo_deletion_mode is for photos virtually linked to the categorty
-//   * no_delete : delete no photo, may create orphans
-//   * delete_orphans : delete photos that are no longer linked to any category
-//   * force_delete : delete photos even if they are linked to another category
+/**
+ * Recursively deletes one or more categories.
+ * It also deletes :
+ *    - all the elements physically linked to the category (with delete_elements)
+ *    - all the links between elements and this category
+ *    - all the restrictions linked to the category
+ *
+ * @param int[] $ids
+ * @param string $photo_deletion_mode
+ *    - no_delete : delete no photo, may create orphans
+ *    - delete_orphans : delete photos that are no longer linked to any category
+ *    - force_delete : delete photos even if they are linked to another category
+ */
 function delete_categories($ids, $photo_deletion_mode='no_delete')
 {
   if (count($ids) == 0)
@@ -156,8 +165,12 @@ DELETE FROM '.USER_CACHE_CATEGORIES_TABLE.'
   trigger_action('delete_categories', $ids);
 }
 
-// Deletes all files (on disk) related to given image ids
-// @return image ids where files are deleted successfully
+/**
+ * Deletes all files (on disk) related to given image ids.
+ *
+ * @param int[] $ids
+ * @return 0|int[] image ids where files were successfully deleted
+ */
 function delete_element_files($ids)
 {
   global $conf;
@@ -219,12 +232,18 @@ SELECT
   return $new_ids;
 }
 
-// The function delete_elements deletes the elements identified by the
-// (numeric) values of the array $ids. It also deletes (in the database) :
-//    - all the comments related to elements
-//    - all the links between categories and elements
-//    - all the favorites associated to elements
-// @return number of deleted elements
+/**
+ * Deletes elements from database.
+ * It also deletes :
+ *    - all the comments related to elements
+ *    - all the links between categories/tags and elements
+ *    - all the favorites/rates associated to elements
+ *    - removes elements from caddie
+ *
+ * @param int[] $ids
+ * @param bool $physical_deletion
+ * @return int number of deleted elements
+ */
 function delete_elements($ids, $physical_deletion=false)
 {
   if (count($ids) == 0)
@@ -241,60 +260,55 @@ function delete_elements($ids, $physical_deletion=false)
       return 0;
     }
   }
+  
+  $ids_str = wordwrap(implode(', ', $ids), 80, "\n");
 
   // destruction of the comments on the image
   $query = '
 DELETE FROM '.COMMENTS_TABLE.'
-  WHERE image_id IN (
-'.wordwrap(implode(', ', $ids), 80, "\n").')
+  WHERE image_id IN ('. $ids_str .')
 ;';
   pwg_query($query);
 
-  // destruction of the links between images and this category
+  // destruction of the links between images and categories
   $query = '
 DELETE FROM '.IMAGE_CATEGORY_TABLE.'
-  WHERE image_id IN (
-'.wordwrap(implode(', ', $ids), 80, "\n").')
+  WHERE image_id IN ('. $ids_str .')
 ;';
   pwg_query($query);
 
   // destruction of the links between images and tags
   $query = '
 DELETE FROM '.IMAGE_TAG_TABLE.'
-  WHERE image_id IN (
-'.wordwrap(implode(', ', $ids), 80, "\n").')
+  WHERE image_id IN ('. $ids_str .')
 ;';
   pwg_query($query);
 
   // destruction of the favorites associated with the picture
   $query = '
 DELETE FROM '.FAVORITES_TABLE.'
-  WHERE image_id IN (
-'.wordwrap(implode(', ', $ids), 80, "\n").')
+  WHERE image_id IN ('. $ids_str .')
 ;';
   pwg_query($query);
 
   // destruction of the rates associated to this element
   $query = '
 DELETE FROM '.RATE_TABLE.'
-  WHERE element_id IN (
-'.wordwrap(implode(', ', $ids), 80, "\n").')
+  WHERE element_id IN ('. $ids_str .')
 ;';
   pwg_query($query);
 
-  // destruction of the rates associated to this element
+  // destruction of the caddie associated to this element
   $query = '
 DELETE FROM '.CADDIE_TABLE.'
-  WHERE element_id IN (
-'.wordwrap(implode(', ', $ids), 80, "\n").')
+  WHERE element_id IN ('. $ids_str .')
 ;';
   pwg_query($query);
 
   // destruction of the image
   $query = '
 DELETE FROM '.IMAGES_TABLE.'
-  WHERE id IN (
-'.wordwrap(implode(', ', $ids), 80, "\n").')
+  WHERE id IN ('. $ids_str .')
 ;';
   pwg_query($query);
 
@@ -303,8 +317,7 @@ DELETE FROM '.IMAGES_TABLE.'
 SELECT
     id
   FROM '.CATEGORIES_TABLE.'
-  WHERE representative_picture_id IN (
-'.wordwrap(implode(', ', $ids), 80, "\n").')
+  WHERE representative_picture_id IN ('. $ids_str .')
 ;';
   $category_ids = array_from_query($query, 'id');
   if (count($category_ids) > 0)
@@ -316,13 +329,13 @@ SELECT
   return count($ids);
 }
 
-// The delete_user function delete a user identified by the $user_id
-// It also deletes :
-//     - all the access linked to this user
-//     - all the links to any group
-//     - all the favorites linked to this user
-//     - calculated permissions linked to the user
-//     - all datas about notifications for the user
+/**
+ * Deletes an user.
+ * It also deletes all related data (accesses, favorites, permissions, etc.)
+ * @todo : accept array input
+ *
+ * @param int $user_id
+ */
 function delete_user($user_id)
 {
   global $conf;
@@ -356,7 +369,7 @@ DELETE FROM '.$table.'
     pwg_query($query);
   }
 
-  // destruction of the user
+  // purge of sessions
   $query = '
 DELETE FROM '.SESSIONS_TABLE.'
   WHERE data LIKE \'pwg_uid|i:'.(int)$user_id.';%\'
@@ -415,10 +428,9 @@ SELECT
 
 /**
  * Verifies that the representative picture really exists in the db and
- * picks up a random represantive if possible and based on config.
+ * picks up a random representative if possible and based on config.
  *
- * @param mixed category id
- * @returns void
+ * @param 'all'|int|int[] $ids
  */
 function update_category($ids = 'all')
 {
@@ -485,9 +497,8 @@ SELECT DISTINCT id
 }
 
 /**
- * check and repair images integrity
- *
- * TODO see delete_elements function to check all linked tables
+ * Checks and repairs IMAGE_CATEGORY_TABLE integrity.
+ * Removes all entries from the table which correspond to a deleted image.
  */
 function images_integrity()
 {
@@ -513,18 +524,18 @@ DELETE
 }
 
 /**
- * returns an array containing sub-directories which can be a category,
- * recursive by default
+ * Returns an array containing sub-directories which are potentially
+ * a category.
+ * Directories named ".svn", "thumbnail", "pwg_high" or "pwg_representative"
+ * are omitted.
  *
- * directories nammed "thumbnail", "pwg_high" or "pwg_representative" are
- * omitted
- *
- * @param string $basedir
- * @return array
+ * @param string $basedir (eg: ./galleries)
+ * @return string[]
  */
 function get_fs_directories($path, $recursive = true)
 {
   $dirs = array();
+  $path = rtrim($path, '/');
 
   if (is_dir($path))
   {
@@ -555,9 +566,8 @@ function get_fs_directories($path, $recursive = true)
 }
 
 /**
- * order categories (update categories.rank and global_rank database fields)
- * so that rank field are consecutive integers starting at 1 for each child
- * @return void
+ * Orders categories (update categories.rank and global_rank database fields)
+ * so that rank field are consecutive integers starting at 1 for each child.
  */
 function update_global_rank()
 {
@@ -623,22 +633,21 @@ SELECT id, id_uppercat, uppercats, rank, global_rank
 }
 
 /**
- * change the visible property on a set of categories
+ * Change the **visible** property on a set of categories.
  *
- * @param array categories
- * @param string value
- * @return void
+ * @param int[] $categories
+ * @param boolean|string $value
  */
 function set_cat_visible($categories, $value)
 {
-  if (!in_array($value, array('true', 'false')))
+  if ( ($value = filter_var($value, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE)) === null )
   {
     trigger_error("set_cat_visible invalid param $value", E_USER_WARNING);
     return false;
   }
 
   // unlocking a category => all its parent categories become unlocked
-  if ($value == 'true')
+  if ($value)
   {
     $uppercats = get_uppercat_ids($categories);
     $query = '
@@ -648,7 +657,7 @@ UPDATE '.CATEGORIES_TABLE.'
     pwg_query($query);
   }
   // locking a category   => all its child categories become locked
-  if ($value == 'false')
+  else
   {
     $subcats = get_subcat_ids($categories);
     $query = '
@@ -660,11 +669,10 @@ UPDATE '.CATEGORIES_TABLE.'
 }
 
 /**
- * change the status property on a set of categories : private or public
+ * Change the **status** property on a set of categories : private or public.
  *
- * @param array categories
- * @param string value
- * @return void
+ * @param int[] $categories
+ * @param string $value
  */
 function set_cat_status($categories, $value)
 {
@@ -698,10 +706,10 @@ UPDATE '.CATEGORIES_TABLE.'
 }
 
 /**
- * returns all uppercats category ids of the given category ids
+ * Returns all uppercats category ids of the given category ids.
  *
- * @param array cat_ids
- * @return array
+ * @param int[] $cat_ids
+ * @return int[]
  */
 function get_uppercat_ids($cat_ids)
 {
@@ -729,9 +737,9 @@ SELECT uppercats
 }
 
 /**
- * set a new random representant to the categories
+ * Set a new random representant to the categories.
  *
- * @param array categories
+ * @param int[] $categories
  */
 function set_random_representant($categories)
 {
@@ -764,10 +772,10 @@ SELECT image_id
 }
 
 /**
- * returns the fulldir for each given category id
+ * Returns the fulldir for each given category id.
  *
- * @param array cat_ids
- * @return array
+ * @param int[] intcat_ids
+ * @return string[]
  */
 function get_fulldirs($cat_ids)
 {
@@ -816,11 +824,10 @@ SELECT id, uppercats, site_id
 }
 
 /**
- * returns an array with all file system files according to
- * $conf['file_ext']
+ * Returns an array with all file system files according to $conf['file_ext']
  *
  * @param string $path
- * @param bool recursive
+ * @param bool $recursive
  * @return array
  */
 function get_fs($path, $recursive = true)
@@ -902,14 +909,12 @@ function get_fs($path, $recursive = true)
 }
 
 /**
- * synchronize base users list and related users list
+ * Synchronize base users list and related users list.
  *
- * compares and synchronizes base users table (USERS_TABLE) with its child
+ * Compares and synchronizes base users table (USERS_TABLE) with its child
  * tables (USER_INFOS_TABLE, USER_ACCESS, USER_CACHE, USER_GROUP) : each
  * base user must be present in child tables, users in child tables not
  * present in base table must be deleted.
- *
- * @return void
  */
 function sync_users()
 {
@@ -971,10 +976,7 @@ DELETE
 }
 
 /**
- * updates categories.uppercats field based on categories.id +
- * categories.id_uppercat
- *
- * @return void
+ * Updates categories.uppercats field based on categories.id + categories.id_uppercat
  */
 function update_uppercats()
 {
@@ -1010,9 +1012,7 @@ SELECT id, id_uppercat, uppercats
 }
 
 /**
- * update images.path field
- *
- * @return void
+ * Update images.path field base on images.file and storage categories fulldirs.
  */
 function update_path()
 {
@@ -1036,12 +1036,11 @@ UPDATE '.IMAGES_TABLE.'
 }
 
 /**
- * change the parent category of the given categories. The categories are
+ * Change the parent category of the given categories. The categories are
  * supposed virtual.
  *
- * @param array category identifiers
- * @param int parent category identifier
- * @return void
+ * @param int[] $category_ids
+ * @param int $new_parent (-1 for root)
  */
 function move_categories($category_ids, $new_parent = -1)
 {
@@ -1095,11 +1094,10 @@ SELECT uppercats
     }
   }
 
-  $tables =
-    array(
-      USER_ACCESS_TABLE => 'user_id',
-      GROUP_ACCESS_TABLE => 'group_id'
-      );
+  $tables = array(
+    USER_ACCESS_TABLE => 'user_id',
+    GROUP_ACCESS_TABLE => 'group_id'
+    );
 
   $query = '
 UPDATE '.CATEGORIES_TABLE.'
@@ -1175,11 +1173,17 @@ DELETE FROM '.$table.'
 }
 
 /**
- * create a virtual category
+ * Create a virtual category.
  *
- * @param string category name
- * @param int parent category id
- * @return array with ('info' and 'id') or ('error') key
+ * @param string $category_name
+ * @param int $parent_id
+ * @param array $options
+ *    - boolean commentable
+ *    - boolean visible
+ *    - string status
+ *    - string comment
+ *    - boolean inherit
+ * @return array ('info', 'id') or ('error')
  */
 function create_virtual_category($category_name, $parent_id=null, $options=array())
 {
@@ -1322,12 +1326,11 @@ SELECT id, uppercats, global_rank, visible, status
 }
 
 /**
- * Set tags to an image. Warning: given tags are all tags associated to the
- * image, not additionnal tags.
+ * Set tags to an image.
+ * Warning: given tags are all tags associated to the image, not additionnal tags.
  *
- * @param array tag ids
- * @param int image id
- * @return void
+ * @param int[] $tags
+ * @param int $image_id
  */
 function set_tags($tags, $image_id)
 {
@@ -1337,9 +1340,8 @@ function set_tags($tags, $image_id)
 /**
  * Add new tags to a set of images.
  *
- * @param array tag ids
- * @param array image ids
- * @return void
+ * @param int[] $tags
+ * @param int[] $images
  */
 function add_tags($tags, $images)
 {
@@ -1378,7 +1380,9 @@ DELETE
 }
 
 /**
+ * Delete tags and tags associations.
  *
+ * @param int[] $tag_ids
  */
 function delete_tags($tag_ids)
 {
@@ -1409,7 +1413,13 @@ DELETE
   invalidate_user_cache_nb_tags();
 }
 
-function tag_id_from_tag_name($tag_name)
+/**
+ * Returns a tag id from its name. If nothing found, create a new tag.
+ *
+ * @param string $tag_name
+ * @return int
+ */
+function tag_id_from_tag_name($tag_name, $create=true)
 {
   global $page;
 
@@ -1454,6 +1464,9 @@ SELECT id
               )
             )
           );
+
+        invalidate_user_cache_nb_tags();
+
         $page['tag_id_from_tag_name_cache'][$tag_name] = pwg_db_insert_id(TAGS_TABLE);
         return $page['tag_id_from_tag_name_cache'][$tag_name];
       }
@@ -1464,6 +1477,11 @@ SELECT id
   return $page['tag_id_from_tag_name_cache'][$tag_name];
 }
 
+/**
+ * Set tags of images. Overwrites all existing associations.
+ *
+ * @param array $tags_of - keys are image ids, values are array of tag ids
+ */
 function set_tags_of($tags_of)
 {
   if (count($tags_of) > 0)
@@ -1503,12 +1521,10 @@ DELETE
 
 /**
  * Associate a list of images to a list of categories.
+ * The function will not duplicate links and will preserve ranks.
  *
- * The function will not duplicate links and will preserve ranks
- *
- * @param array images
- * @param array categories
- * @return void
+ * @param int[] $images
+ * @param int[] $categories
  */
 function associate_images_to_categories($images, $categories)
 {
@@ -1595,12 +1611,10 @@ SELECT
 /**
  * Dissociate images from all old categories except their storage category and
  * associate to new categories.
+ * This function will preserve ranks.
  *
- * This function will preserve ranks
- *
- * @param array images
- * @param array categories
- * @return void
+ * @param int[] $images
+ * @param int[] $categories
  */
 function move_images_to_categories($images, $categories)
 {
@@ -1639,9 +1653,8 @@ DELETE '.IMAGE_CATEGORY_TABLE.'.*
  * Associate images associated to a list of source categories to a list of
  * destination categories.
  *
- * @param array sources
- * @param array destinations
- * @return void
+ * @param int[] $sources
+ * @param int[] $destinations
  */
 function associate_categories_to_categories($sources, $destinations)
 {
@@ -1663,8 +1676,7 @@ SELECT image_id
 /**
  * Refer main Piwigo URLs (currently PHPWG_DOMAIN domain)
  *
- * @param void
- * @return array like $conf['links']
+ * @return string[]
  */
 function pwg_URL()
 {
@@ -1680,7 +1692,7 @@ function pwg_URL()
 }
 
 /**
- * Invalidates cahed data (permissions and category counts) for all users.
+ * Invalidates cached data (permissions and category counts) for all users.
  */
 function invalidate_user_cache($full = true)
 {
@@ -1703,11 +1715,14 @@ UPDATE '.USER_CACHE_TABLE.'
   trigger_action('invalidate_user_cache', $full);
 }
 
-
+/**
+ * Invalidates cached tags counter for all users.
+ */
 function invalidate_user_cache_nb_tags()
 {
   global $user;
   unset($user['nb_available_tags']);
+
   $query = '
 UPDATE '.USER_CACHE_TABLE.'
   SET nb_available_tags = NULL';
@@ -1715,9 +1730,11 @@ UPDATE '.USER_CACHE_TABLE.'
 }
 
 /**
- * adds the caracter set to a create table sql query.
- * all CREATE TABLE queries must call this function
- * @param string query - the sql query
+ * Adds the caracter set to a create table sql query.
+ * All CREATE TABLE queries must call this function
+ *
+ * @param string $query
+ * @return string
  */
 function create_table_add_character_set($query)
 {
@@ -1762,9 +1779,11 @@ function create_table_add_character_set($query)
 }
 
 /**
- * Returns array use on template with html_options method
- * @param Min and Max access to use
- * @return array of user access level
+ * Returns access levels as array used on template with html_options functions.
+ *
+ * @param int $MinLevelAccess
+ * @param int $MaxLevelAccess
+ * @return array
  */
 function get_user_access_level_html_options($MinLevelAccess = ACCESS_FREE, $MaxLevelAccess = ACCESS_CLOSED)
 {
@@ -1777,9 +1796,11 @@ function get_user_access_level_html_options($MinLevelAccess = ACCESS_FREE, $MaxL
 }
 
 /**
- * returns a list of templates currently available in template-extension
+ * returns a list of templates currently available in template-extension.
  * Each .tpl file is extracted from template-extension.
- * @return array
+ *
+ * @param string $start (internal use)
+ * @return string[]
  */
 function get_extents($start='')
 {
@@ -1804,6 +1825,12 @@ function get_extents($start='')
   return $extents;
 }
 
+/**
+ * Create a new tag.
+ *
+ * @param string $tag_name
+ * @return array ('id', info') or ('error')
+ */
 function create_tag($tag_name)
 {
   // does the tag already exists?
@@ -1841,11 +1868,10 @@ SELECT id
 
 /**
  * Is the category accessible to the (Admin) user ?
- *
  * Note : if the user is not authorized to see this category, category jump
  * will be replaced by admin cat_modify page
  *
- * @param int category id to verify
+ * @param int $category_id
  * @return bool
  */
 function cat_admin_access($category_id)
@@ -1862,10 +1888,14 @@ function cat_admin_access($category_id)
 }
 
 /**
- * Retrieve data from external URL
+ * Retrieve data from external URL.
  *
- * @param string $src: URL
- * @param global $dest: can be a file ressource or string
+ * @param string $src
+ * @param string|Ressource $dest - can be a file ressource or string
+ * @param array $get_data - data added to request url
+ * @param array $post_data - data transmitted with POST
+ * @param string $user_agent
+ * @param int $step (internal use)
  * @return bool
  */
 function fetchRemote($src, &$dest, $get_data=array(), $post_data=array(), $user_agent='Piwigo', $step=0)
@@ -2019,13 +2049,11 @@ function fetchRemote($src, &$dest, $get_data=array(), $post_data=array(), $user_
   return true;
 }
 
-
 /**
- * returns the groupname corresponding to the given group identifier if
- * exists
+ * Returns the groupname corresponding to the given group identifier if exists.
  *
- * @param int group_id
- * @return mixed
+ * @param int $group_id
+ * @return string|false
  */
 function get_groupname($group_id)
 {
@@ -2048,10 +2076,10 @@ SELECT name
 }
 
 /**
- * returns the username corresponding to the given user identifier if exists
+ * Returns the username corresponding to the given user identifier if exists.
  *
- * @param int user_id
- * @return mixed
+ * @param int $user_id
+ * @return string|false
  */
 function get_username($user_id)
 {
@@ -2075,13 +2103,22 @@ SELECT '.$conf['user_fields']['username'].'
   return stripslashes($username);
 }
 
-function get_newsletter_subscribe_base_url($language) {
+/**
+ * Get url on piwigo.org for newsletter subscription
+ *
+ * @param string $language (unused)
+ * @return string
+ */
+function get_newsletter_subscribe_base_url($language='en_UK')
+{
   return PHPWG_URL.'/announcement/subscribe/';
 }
 
 /**
- * Accordion menus need to know which section to open by default when
- * loading the page
+ * Return admin menu id for accordion.
+ *
+ * @param string $menu_page
+ * @return int
  */
 function get_active_menu($menu_page)
 {
@@ -2136,14 +2173,19 @@ function get_active_menu($menu_page)
     case 'theme':
     case 'languages':
       return 5;
+
+    default:
+      return 0;
   }
-  return 0;
 }
 
-/*
- * get tags list from SQL query (ids are surrounded by ~~, for get_tag_ids())
- * @param string: query
- * @param boolean: only_user_language, if true, only local name is returned for multilingual tags
+/**
+ * Get tags list from SQL query (ids are surrounded by ~~, for get_tag_ids()).
+ *
+ * @param string $query
+ * @param boolean $only_user_language - if true, only local name is returned for
+ *    multilingual tags (if ExtendedDescription plugin is active)
+ * @return array[] ('id', 'name')
  */
 function get_taglist($query, $only_user_language=true)
 {
@@ -2185,18 +2227,20 @@ function get_taglist($query, $only_user_language=true)
   return $taglist;
 }
 
-/*
- * get tags ids from a list of raw tags (existing tags or new tags)
- * @param mixed: raw_tags, array or comma separated string
- * @param boolean: allow_create
+/**
+ * Get tags ids from a list of raw tags (existing tags or new tags).
+ *
+ * In $raw_tags we receive something like array('~~6~~', '~~59~~', 'New
+ * tag', 'Another new tag') The ~~34~~ means that it is an existing
+ * tag. We added the surrounding ~~ to permit creation of tags like "10"
+ * or "1234" (numeric characters only)
+ *
+ * @param string|string[] $raw_tags - array or comma separated string
+ * @param boolean $allow_create
+ * @return int[]
  */
 function get_tag_ids($raw_tags, $allow_create=true)
 {
-  // In $raw_tags we receive something like array('~~6~~', '~~59~~', 'New
-  // tag', 'Another new tag') The ~~34~~ means that it is an existing
-  // tag. I've added the surrounding ~~ to permit creation of tags like "10"
-  // or "1234" (numeric characters only)
-
   $tag_ids = array();
   if (!is_array($raw_tags))
   {
@@ -2219,11 +2263,16 @@ function get_tag_ids($raw_tags, $allow_create=true)
   return $tag_ids;
 }
 
-/** returns the argument_ids array with new sequenced keys based on related
+/**
+ * Returns the argument_ids array with new sequenced keys based on related
  * names. Sequence is not case sensitive.
- * Warning: By definition, this function breaks original keys
+ * Warning: By definition, this function breaks original keys.
+ *
+ * @param int[] $elements_ids
+ * @param string[] $name - names of elements, indexed by ids
+ * @return int[]
  */
-function order_by_name($element_ids,$name)
+function order_by_name($element_ids, $name)
 {
   $ordered_element_ids = array();
   foreach ($element_ids as $k_id => $element_id)
@@ -2235,14 +2284,18 @@ function order_by_name($element_ids,$name)
   return $ordered_element_ids;
 }
 
+/**
+ * Grant access to a list of categories for a list of users.
+ *
+ * @param int[] $category_ids
+ * @param int[] $user_ids
+ */
 function add_permission_on_category($category_ids, $user_ids)
 {
-  // array-ify categories and users
   if (!is_array($category_ids))
   {
     $category_ids = array($category_ids);
   }
-
   if (!is_array($user_ids))
   {
     $user_ids = array($user_ids);
@@ -2294,7 +2347,12 @@ SELECT id
     );
 }
 
-
+/**
+ * Returns the list of admin users.
+ *
+ * @param boolean $include_webmaster
+ * @return int[]
+ */
 function get_admins($include_webmaster=true)
 {
   $status_list = array('admin');
@@ -2314,7 +2372,11 @@ SELECT
   return array_from_query($query, 'user_id');
 }
 
-/** delete all derivative files for one or several types */
+/**
+ * Delete all derivative files for one or several types
+ *
+ * @param 'all'|int[] $types
+ */
 function clear_derivative_cache($types='all')
 {
   if ($types === 'all')
@@ -2371,6 +2433,10 @@ function clear_derivative_cache($types='all')
   }
 }
 
+/**
+ * Used by clear_derivative_cache()
+ * @ignore
+ */
 function clear_derivative_cache_rec($path, $pattern)
 {
   $rmdir = true;
@@ -2417,6 +2483,12 @@ function clear_derivative_cache_rec($path, $pattern)
   }
 }
 
+/**
+ * Deletes derivatives of a particular element
+ *
+ * @param array $infos ('path'[, 'representative_ext'])
+ * @param 'all'|int $type
+ */
 function delete_element_derivatives($infos, $type='all')
 {
   $path = $infos['path'];
@@ -2448,10 +2520,10 @@ function delete_element_derivatives($infos, $type='all')
 }
 
 /**
- * returns an array contening sub-directories, excluding ".svn"
+ * Returns an array containing sub-directories, excluding ".svn"
  *
- * @param string $dir
- * @return array
+ * @param string $directory
+ * @return string[]
  */
 function get_dirs($directory)
 {
@@ -2474,7 +2546,8 @@ function get_dirs($directory)
 }
 
 /**
- * recursively delete a directory
+ * Recursively delete a directory.
+ *
  * @param string $path
  * @param string $trash_path, try to move the directory to this path if it cannot be delete
  */
