@@ -54,6 +54,12 @@ $upload_form_config = get_upload_form_config();
 if (isset($_GET['section']))
 {
   $page['tab'] = $_GET['section'];
+
+  // backward compatibility
+  if ('ploader' == $page['tab'])
+  {
+    $page['tab'] = 'applications';
+  }
 }
 else
 {
