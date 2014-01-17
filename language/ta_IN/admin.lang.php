@@ -193,4 +193,7 @@ $lang['Are you sure you want to install this plugin?'] = 'நீங்கள் 
 $lang['Associate to album'] = 'ஆல்பத்திற்கு இணைக்கவும்';
 $lang['Associated'] = '
 தொடர்புடையதாக';
+$lang['Authorized'] = 'அங்கீகரிக்கப்பட்ட';
+$lang['Automatic correction'] = 'தானியக்க திருத்தம்';
+$lang['Automatic sort order'] = 'தானியக்க வரிசை ஒழுங்கை';
 ?>
