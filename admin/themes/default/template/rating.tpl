@@ -40,28 +40,57 @@
 	<td>{'Rating score'|@translate}</td>
   <td>{'Average rate'|@translate}</td>
   <td>{'Sum of rates'|@translate}</td>
-  <td>{'Rate'|@translate}</td>
-  <td>{'Username'|@translate}</td>
-  <td>{'Rate date'|@translate}</td>
+  <td>{'Rate'|@translate}/{'Username'|@translate}/{'Rate date'|@translate}</td>
   <td></td>
 </tr>
 {foreach from=$images item=image name=image}
 <tr valign="top" class="{if $smarty.foreach.image.index is odd}row1{else}row2{/if}">
-	<td rowspan="{$image.NB_RATES_TOTAL+1}"><a href="{$image.U_URL}"><img src="{$image.U_THUMB}" alt="{$image.FILE}" title="{$image.FILE}"></a></td>
-	<td rowspan="{$image.NB_RATES_TOTAL+1}"><strong>{$image.NB_RATES}/{$image.NB_RATES_TOTAL}</strong></td>
-	<td rowspan="{$image.NB_RATES_TOTAL+1}"><strong>{$image.SCORE_RATE}</strong></td>
-	<td rowspan="{$image.NB_RATES_TOTAL+1}"><strong>{$image.AVG_RATE}</strong></td>
-	<td rowspan="{$image.NB_RATES_TOTAL+1}" style="border-right: 1px solid;" ><strong>{$image.SUM_RATE}</strong></td>
-</tr>
+	<td><a href="{$image.U_URL}"><img src="{$image.U_THUMB}" alt="{$image.FILE}" title="{$image.FILE}"></a></td>
+	<td><strong>{$image.NB_RATES}/{$image.NB_RATES_TOTAL}</strong></td>
+	<td><strong>{$image.SCORE_RATE}</strong></td>
+	<td><strong>{$image.AVG_RATE}</strong></td>
+	<td style="border-right:1px solid" ><strong>{$image.SUM_RATE}</strong></td>
+	<td>
+		<table style="width:100%">
 {foreach from=$image.rates item=rate name=rate}
-<tr class="{if ($smarty.foreach.image.index+$smarty.foreach.rate.index) is odd}row1{else}row2{/if}">
-	<td>{$rate.RATE}</td>
+<tr>
+	<td>{$rate.rate}</td>
 	<td><b>{$rate.USER}</b></td>
-	<td>{$rate.DATE}</td>
-	<td><a href="{$rate.U_DELETE}"><img src="{$themeconf.admin_icon_dir}/delete.png" alt="[{'Delete'|@translate}]"></a></td>
+	<td>{$rate.date}</td>
+	<td><a onclick="return del(this,{$image.id},{$rate.user_id}{if !empty({$rate.anonymous_id})},'{$rate.anonymous_id}'{/if})" class="icon-trash"> </a></td>
 </tr>
-{/foreach} {*rates*}
-{/foreach} {*images*}
+{/foreach}{*rates*}
+		</table>
+	</td>
+</tr>
+{/foreach}{*images*}
 </table>
+{combine_script id='core.scripts' load='async' path='themes/default/js/scripts.js'}
+{footer_script}
+function del(node,id,uid,aid){
+	var tr = jQuery(node).parents("tr").first().fadeTo(1000, 0.4),
+		data = {
+			image_id: id,
+			user_id: uid
+		};
+	if (aid)
+		data.anonymous_id = aid;
 
-{if !empty($navbar) }{include file='navigation_bar.tpl'|@get_extent:'navbar'}{/if}
+	(new PwgWS('{$ROOT_URL|@escape:javascript}')).callService(
+		'pwg.rates.delete', data,
+		{
+			method: 'POST',
+			onFailure: function(num, text) { tr.stop(); tr.fadeTo(0,1); alert(num + " " + text); },
+			onSuccess: function(result){
+				if (result)
+					tr.remove();
+				else 
+					alert(result); 
+			}
+		}
+	);
+	return false;
+}
+{/footer_script}
+
+{if !empty($navbar)}{include file='navigation_bar.tpl'|@get_extent:'navbar'}{/if}

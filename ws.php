@@ -307,6 +307,7 @@ function ws_addDefaultMethods( $arr )
       array(
         'user_id' =>      array('type'=>WS_TYPE_ID),
         'anonymous_id' => array('default'=>null),
+        'image_id' =>     array('flags'=>WS_PARAM_OPTIONAL, 'type'=>WS_TYPE_ID),
         ),
       'Deletes all rates for a user.',
       $ws_functions_root . 'pwg.php',

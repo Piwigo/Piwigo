@@ -271,6 +271,10 @@ DELETE FROM '. RATE_TABLE .'
   {
     $query .= ' AND anonymous_id=\''.$params['anonymous_id'].'\'';
   }
+  if (!empty($params['image_id']))
+  {
+    $query .= ' AND element_id='.$params['image_id'];
+  }
 
   $changes = pwg_db_changes(pwg_query($query));
   if ($changes)
