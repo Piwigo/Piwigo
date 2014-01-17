@@ -212,10 +212,11 @@ ORDER BY date DESC;';
   $nb_rates = pwg_db_num_rows($result);
 
   $tpl_image = 
-     array(
-       'U_THUMB' => $thumbnail_src,
-       'U_URL' => $image_url,
-			 'SCORE_RATE' => $image['score'],
+    array(
+      'id' => $image['id'],
+      'U_THUMB' => $thumbnail_src,
+      'U_URL' => $image_url,
+      'SCORE_RATE' => $image['score'],
        'AVG_RATE' => $image['avg_rates'],
        'SUM_RATE' => $image['sum_rates'],
        'NB_RATES' => (int)$image['nb_rates'],
@@ -226,16 +227,6 @@ ORDER BY date DESC;';
 
   while ($row = pwg_db_fetch_assoc($result))
   {
-
-    $url_del = PHPWG_ROOT_PATH.'admin.php'.
-                get_query_string_diff(array('del'));
-
-    $del_param = 'e='.$image['id'].
-                 '&u='.$row['user_id'].
-                 '&a='.$row['anonymous_id'];
-
-    $url_del .= '&amp;del='.urlencode(urlencode($del_param));
-
     if ( isset($users[$row['user_id']]) )
     {
       $user_rate = $users[$row['user_id']];
@@ -249,13 +240,8 @@ ORDER BY date DESC;';
       $user_rate .= '('.$row['anonymous_id'].')';
     }
 
-    $tpl_image['rates'][] =
-       array(
-         'DATE' => /*format_date*/($row['date']),
-         'RATE' => $row['rate'],
-         'USER' => $user_rate,
-         'U_DELETE' => $url_del
-     );
+    $row['USER'] = $user_rate;
+    $tpl_image['rates'][] = $row;
   }
   $template->append( 'images', $tpl_image );
 }
