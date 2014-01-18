@@ -51,7 +51,7 @@ abstract class CalendarBase
    * @param int $max_levels (e.g. 2=only year and month)
    * @return string
    */
-  abstract function get_date_where($max_levels);
+  abstract function get_date_where($max_levels=3);
 
   /**
    * Initialize the calendar.
