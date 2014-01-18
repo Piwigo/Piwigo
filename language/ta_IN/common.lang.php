@@ -420,4 +420,6 @@ $lang['First Page'] = 'முதல் பக்கம்';
 $lang['Password is missing. Please enter the password.'] = 'கடவுச்சொல் விடுபட்டுள்ளது. தயவு செய்து
 கடவுச்சொல்லை உள்ளிடவும்';
 $lang['Password confirmation is missing. Please confirm the chosen password.'] = 'கடவுச்சொல்லை உறுதிப்படுத்தல் விடுபட்டுள்ளது. தேர்ந்தெடுத்த கடவுச்சொல்லை உறுதிப்படுத்தவும்';
+$lang['Theme'] = 'கருப்பொருள்';
+$lang['%d photos per page'] = 'பக்கம் ஒன்றுக்கு%d புகைப்படங்கள்';
 ?>
