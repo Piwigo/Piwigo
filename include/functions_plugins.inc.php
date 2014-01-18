@@ -252,7 +252,8 @@ function remove_event_handler($event, $func,
  */
 function trigger_change($event, $data=null)
 {
-  return call_user_func_array('trigger_event', func_get_args());
+  $args = func_get_args();
+  return call_user_func_array('trigger_event', $args);
 }
 
 /**
@@ -302,7 +303,8 @@ function trigger_event($event, $data=null)
  */
 function trigger_notify($event)
 {
-  return call_user_func_array('trigger_action', func_get_args());
+  $args = func_get_args();
+  return call_user_func_array('trigger_action', $args);
 }
 
 /**
