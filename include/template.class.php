@@ -1159,12 +1159,20 @@ var s,after = document.getElementsByTagName(\'script\')[document.getElementsByTa
     if (!empty($this->picture_buttons))
     {
       ksort($this->picture_buttons);
-      $this->assign('PLUGIN_PICTURE_BUTTONS',
-          array_reduce(
-            $this->picture_buttons,
-            create_function('$v,$w', 'return array_merge($v, $w);'),
-            array()
-          ));
+      $buttons = array();
+      foreach ($this->picture_buttons as $k => $row)
+      {
+        $buttons = array_merge($buttons, $row);
+      }
+      $this->assign('PLUGIN_PICTURE_BUTTONS', $buttons);
+      
+      // only for PHP 5.3
+      // $this->assign('PLUGIN_PICTURE_BUTTONS',
+          // array_reduce(
+            // $this->picture_buttons,
+            // create_function('$v,$w', 'return array_merge($v, $w);'),
+            // array()
+          // ));
     }
   }
 
@@ -1176,12 +1184,20 @@ var s,after = document.getElementsByTagName(\'script\')[document.getElementsByTa
     if (!empty($this->index_buttons))
     {
       ksort($this->index_buttons);
-      $this->assign('PLUGIN_INDEX_BUTTONS',
-          array_reduce(
-            $this->index_buttons,
-            create_function('$v,$w', 'return array_merge($v, $w);'),
-            array()
-          ));
+      $buttons = array();
+      foreach ($this->index_buttons as $k => $row)
+      {
+        $buttons = array_merge($buttons, $row);
+      }
+      $this->assign('PLUGIN_INDEX_BUTTONS', $buttons);
+      
+      // only for PHP 5.3
+      // $this->assign('PLUGIN_INDEX_BUTTONS',
+          // array_reduce(
+            // $this->index_buttons,
+            // create_function('$v,$w', 'return array_merge($v, $w);'),
+            // array()
+          // ));
     }
   }
 }
