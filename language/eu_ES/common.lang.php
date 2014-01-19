@@ -30,7 +30,7 @@ Author URI: http://piwigo.org
 
 // Langage informations
 $lang_info['language_name'] = 'Euskara';
-$lang_info['country'] = 'Basque_Country';
+$lang_info['country'] = 'Euskadi';
 $lang_info['direction'] = 'ltr';
 $lang_info['code'] = 'eus';
 $lang_info['zero_plural'] = true;
