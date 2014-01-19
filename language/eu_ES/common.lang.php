@@ -64,4 +64,15 @@ $lang['month'][6] = 'Ekaina';
 $lang['month'][7] = 'Uztaia';
 $lang['month'][8] = 'Abuztua';
 $lang['month'][9] = 'Iraila';
+$lang['%d Kb'] = '%d Kb';
+$lang['Albums'] = 'Albumak';
+$lang['All'] = 'Dena';
+$lang['Album'] = 'Albuma';
+$lang['Album: %s'] = 'Albuma: %s';
+$lang['%d new user'] = '%d erabiltzaile berria';
+$lang['%d new users'] = '%d erabiltzaile berriak';
+$lang['%d photos'] = '%d argazkiak';
+$lang['%d photo'] = '%d argazki';
+$lang['%d new photos'] = '%d argazki berriak';
+$lang['%d new photo'] = '%d argazki berria';
 ?>
