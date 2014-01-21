@@ -35,6 +35,12 @@ if (isset($_GET['f_min_rates']))
   $filter_min_rates = (int)$_GET['f_min_rates'];
 }
 
+$consensus_top_number = $conf['top_number'];
+if (isset($_GET['consensus_top_number']))
+{
+  $consensus_top_number = (int)$_GET['consensus_top_number'];
+}
+
 // build users
 global $conf;
 $query = 'SELECT DISTINCT
@@ -60,7 +66,7 @@ foreach($conf['rate_items'] as $rate)
   $by_user_rating_model['rates'][$rate] = array();
 }
 
-
+// by user aggregation
 $image_ids = array();
 $by_user_ratings = array();
 $query = '
@@ -87,6 +93,7 @@ while ($row = pwg_db_fetch_assoc($result))
     $rating = $by_user_rating_model;
     $rating['uid'] = (int)$row['user_id'];
     $rating['aid'] = $usr['anon'] ? $row['anonymous_id'] : '';
+    $rating['last_date'] = $row['date'];
   }
   $rating['rates'][$row['rate']][] = array(
     'id' => $row['element_id'],
@@ -113,6 +120,7 @@ if (count($image_ids) > 0 )
   }
 }
 
+//all image averages
 $query='SELECT element_id,
     AVG(rate) AS avg
   FROM '.RATE_TABLE.'
@@ -124,9 +132,16 @@ while ($row = pwg_db_fetch_assoc($result))
   $all_img_sum[(int)$row['element_id']] = array( 'avg'=>(float)$row['avg'] );
 }
 
+$query='SELECT id
+  FROM '.IMAGES_TABLE.'
+  ORDER by rating_score DESC
+  LIMIT '.$consensus_top_number;
+$best_rated = array_flip( array_from_query($query, 'id'));
+
+// by user stats
 foreach($by_user_ratings as $id => &$rating)
 {
-  $c=0; $s=0; $ss=0; $consensus_dev=0;
+  $c=0; $s=0; $ss=0; $consensus_dev=0; $consensus_dev_top=0; $consensus_dev_top_count=0;
   foreach($rating['rates'] as $rate => $rates)
   {
     $ct = count($rates);
@@ -135,11 +150,19 @@ foreach($by_user_ratings as $id => &$rating)
     $ss += $ct * $rate * $rate;
     foreach($rates as $id_date)
     {
-      $consensus_dev += abs($rate - $all_img_sum[$id_date['id']]['avg']);
+      $dev = abs($rate - $all_img_sum[$id_date['id']]['avg']);
+      $consensus_dev += $dev;
+      if (isset($best_rated[$id_date['id']]))
+      {
+        $consensus_dev_top += $dev;
+        $consensus_dev_top_count++;
+      }
     }
   }
 
   $consensus_dev /= $c;
+  if ($consensus_dev_top_count)
+    $consensus_dev_top /= $consensus_dev_top_count;
 
   $var = ($ss - $s*$s/$c)/$c;
   $rating += array(
@@ -147,7 +170,8 @@ foreach($by_user_ratings as $id => &$rating)
     'count' => $c,
     'avg' => $s/$c,
     'cv'  => $s==0 ? -1 : sqrt($var)/($s/$c), // http://en.wikipedia.org/wiki/Coefficient_of_variation
-    'cd'  => $consensus_dev
+    'cd'  => $consensus_dev,
+    'cdtop'  => $consensus_dev_top_count ? $consensus_dev_top : ''
   );
 }
 unset($rating);
@@ -213,6 +237,7 @@ $x = uasort($by_user_ratings, $available_order_by[$order_by_index][1] );
 $template->assign( array(
   'F_ACTION' => get_root_url().'admin.php',
   'F_MIN_RATES' => $filter_min_rates,
+  'CONSENSUS_TOP_NUMBER' => $consensus_top_number,
   'available_rates' => $conf['rate_items'],
   'ratings' => $by_user_ratings,
   'image_urls' => $image_urls,

@@ -77,25 +77,6 @@ if (isset($_GET['users']))
   }
 }
 
-if (isset($_GET['del']))
-{
-  include_once(PHPWG_ROOT_PATH.'include/functions_rate.inc.php');
-  $del_params = urldecode( $_GET['del'] );
-  parse_str($del_params, $vars);
-  if ( !is_numeric($vars['e']) or !is_numeric($vars['u']) )
-  {
-    die('Hacking attempt');
-  }
-  $query = '
-DELETE FROM '. RATE_TABLE .'
-WHERE element_id=' . $vars['e'] . '
-AND user_id=' . $vars['u'] . '
-AND anonymous_id=\'' . $vars['a'] . '\'
-;';
-  pwg_query($query);
-  update_rating_score( $vars['e'] );
-}
-
 $users = array();
 $query = '
 SELECT '.$conf['user_fields']['username'].' as username, '.$conf['user_fields']['id'].' as id
