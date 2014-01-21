@@ -30,6 +30,11 @@
 	<label>{'Number of rates'|@translate}&gt;
 	<input type="text" size="5" name="f_min_rates" value="{$F_MIN_RATES}">
 	</label>
+	<label>{'Consensus deviation'|@translate}
+	<input type="text" size="5" name="consensus_top_number" value="{$CONSENSUS_TOP_NUMBER}">
+	{'Best rated'|@translate}
+	</label>
+
 	<input type="submit" value="{'Submit'|@translate}">
 	</label>
 	<input type="hidden" name="page" value="rating_user">
@@ -43,8 +48,12 @@ var oTable = jQuery('#rateTable').dataTable({
 	bPaginate: false,
 	aaSorting: [[4,'desc']],
 	aoColumnDefs: [
+		/*{
+			aTargets: ["dtc_user"]
+		},*/
 		{
-			aTargets: ["dtc_user"],
+			aTargets: ["dtc_date"],
+			asSorting: ["desc","asc"]
 		},
 		{
 			aTargets: ["dtc_stat"],
@@ -92,10 +101,12 @@ function del(elt,uid,aid){
 <thead>
 <tr class="throw">
 	<td class="dtc_user">{'Username'|@translate}</td>
+	<td class="dtc_date">{'Last'|@translate}</td>
 	<td class="dtc_stat">{'Number of rates'|@translate}</td>
 	<td class="dtc_stat">{'Average rate'|@translate}</td>
 	<td class="dtc_stat">{'Variation'|@translate}</td>
 	<td class="dtc_stat">{'Consensus deviation'|@translate|@replace:' ':'<br>'}</td>
+	<td class="dtc_stat">{'Consensus deviation'|@translate|@replace:' ':'<br>'} {$CONSENSUS_TOP_NUMBER}</td>
 {foreach from=$available_rates item=rate}
 	<td class="dtc_rate">{$rate}</td>
 {/foreach}
@@ -105,10 +116,12 @@ function del(elt,uid,aid){
 {foreach from=$ratings item=rating key=user}
 <tr>
 	<td>{$user}</td>
+	<td>{$rating.last_date}</td>
 	<td>{$rating.count}</td>
 	<td>{$rating.avg|@number_format:2}</td>
 	<td>{$rating.cv|@number_format:3}</td>
 	<td>{$rating.cd|@number_format:3}</td>
+	<td>{if !empty($rating.cdtop)}{$rating.cdtop|@number_format:3}{/if}</td>
 	{foreach from=$rating.rates item=rates key=rate}
 	<td>{if !empty($rates)}
 		{capture assign=rate_over}{foreach from=$rates item=rate_arr}<img src="{$image_urls[$rate_arr.id].tn}" alt="thumb-{$rate_arr.id}" title="{$rate_arr.date}"></img>
