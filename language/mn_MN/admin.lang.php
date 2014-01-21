@@ -586,7 +586,7 @@ $lang['none'] = 'нэгийг ч биш';
 $lang['No photo in the current set.'] = 'Тухайн хэсэгт зураг байхгүй байна.';
 $lang['No matching user found'] = 'Ийм хэрэглэгч олдсонгүй';
 $lang['Manage photos'] = 'Зургуудийг цэгцлэх';
-$lang['Manage this set of %d photos'] = 'Энэ %d зургуудийг цэгцлэх';
+$lang['Manage this set of %d photos'] = 'Энэ %d зургийг цэгцлэх';
 $lang['Miscellaneous'] = 'Бусад';
 $lang['No mail to send.'] = 'Илгээх и-мэйл байхгүй байна.';
 $lang['Loading...'] = 'Ачаалж байна...';
@@ -720,4 +720,5 @@ $lang['Last visit on %s, %s.'] = 'Хамгийн сүүлд зочилсон о�
 $lang['Registered on %s, %s.'] = 'Бүртгүүлсэн огноо %s, %s.';
 $lang['Select recipients'] = 'Хүлээн авагчаа сонгоно уу';
 $lang['Include display of recent photos grouped by dates'] = 'Шинэ зургуудийг огноогоор нь нэгтгэн хавсаргах';
+$lang['Notification'] = 'Мэдээлэл';
 ?>
