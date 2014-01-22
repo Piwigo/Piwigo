@@ -810,14 +810,18 @@ SELECT id, uppercats, site_id
   $categories = array_from_query($query);
 
   // filling $cat_fulldirs
+  $cat_dirs_callback = create_function('$m', 'global $cat_dirs; return $cat_dirs[$m[1]];');
+
   $cat_fulldirs = array();
   foreach ($categories as $category)
   {
     $uppercats = str_replace(',', '/', $category['uppercats']);
     $cat_fulldirs[$category['id']] = $galleries_url[$category['site_id']];
-    $cat_fulldirs[$category['id']].= preg_replace('/(\d+)/e',
-                                                  "\$cat_dirs['$1']",
-                                                  $uppercats);
+    $cat_fulldirs[$category['id']].= preg_replace_callback(
+      '/(\d+)/',
+      $cat_dirs_callback,
+      $uppercats
+      );
   }
 
   return $cat_fulldirs;
