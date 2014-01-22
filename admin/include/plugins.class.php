@@ -509,7 +509,7 @@ DELETE FROM '. PLUGINS_TABLE .'
    *  @param string - archive URL
     * @param string - plugin id or extension id
    */
-  function extract_plugin_files($action, $revision, $dest)
+  function extract_plugin_files($action, $revision, $dest, &$plugin_id=null)
   {
     if ($archive = tempnam( PHPWG_PLUGINS_PATH, 'zip'))
     {
@@ -541,13 +541,14 @@ DELETE FROM '. PLUGINS_TABLE .'
             $root = dirname($main_filepath); // main.inc.php path in archive
             if ($action == 'upgrade')
             {
-              $extract_path = PHPWG_PLUGINS_PATH . $dest;
+              $plugin_id = $dest;
             }
             else
             {
-              $extract_path = PHPWG_PLUGINS_PATH
-                  . ($root == '.' ? 'extension_' . $dest : basename($root));
+              $plugin_id = ($root == '.' ? 'extension_' . $dest : basename($root));
             }
+            $extract_path = PHPWG_PLUGINS_PATH . $plugin_id;
+
             if($result = $zip->extract(PCLZIP_OPT_PATH, $extract_path,
                                        PCLZIP_OPT_REMOVE_PATH, $root,
                                        PCLZIP_OPT_REPLACE_NEWER))

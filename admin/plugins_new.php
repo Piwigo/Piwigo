@@ -45,9 +45,9 @@ if (isset($_GET['revision']) and isset($_GET['extension']))
   {
     check_pwg_token();
     
-    $install_status = $plugins->extract_plugin_files('install', $_GET['revision'], $_GET['extension']);
+    $install_status = $plugins->extract_plugin_files('install', $_GET['revision'], $_GET['extension'], $plugin_id);
 
-    redirect($base_url.'&installstatus='.$install_status);
+    redirect($base_url.'&installstatus='.$install_status.'&plugin_id='.$plugin_id);
   }
 }
 
@@ -57,8 +57,13 @@ if (isset($_GET['installstatus']))
   switch ($_GET['installstatus'])
   {
     case 'ok':
+      $activate_url = get_root_url().'admin.php?page=plugins'
+        . '&amp;plugin=' . $_GET['plugin_id']
+        . '&amp;pwg_token=' . get_pwg_token()
+        . '&amp;action=activate';
+
       $page['infos'][] = l10n('Plugin has been successfully copied');
-      $page['infos'][] = l10n('You might go to plugin list to install and activate it.');
+      $page['infos'][] = '<a href="'. $activate_url . '">' . l10n('Activate it now') . '</a>';
       break;
 
     case 'temp_path_error':
