@@ -550,12 +550,10 @@ function str2DateTime($original, $format=null)
   }
   else
   {
-    $date = new DateTime();
-    
     $t = trim($original, '0123456789');
     if (empty($t)) // from timestamp
     {
-      $date->setTimestamp($original);
+      $date = new DateTime('@'.$original);
     }
     else // from unknown date format (assuming something like Y-m-d H:i:s)
     {
@@ -572,6 +570,7 @@ function str2DateTime($original, $format=null)
       if (!isset($ymdhms[4])) $ymdhms[4] = 0;
       if (!isset($ymdhms[5])) $ymdhms[5] = 0;
       
+      $date = new DateTime();
       $date->setDate($ymdhms[0], $ymdhms[1], $ymdhms[2]);
       $date->setTime($ymdhms[3], $ymdhms[4], $ymdhms[5]);
     }
