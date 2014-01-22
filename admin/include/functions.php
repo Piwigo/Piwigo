@@ -785,6 +785,7 @@ function get_fulldirs($cat_ids)
   }
 
   // caching directories of existing categories
+  global $cat_dirs; // used in preg_replace callback
   $query = '
 SELECT id, dir
   FROM '.CATEGORIES_TABLE.'
@@ -823,6 +824,8 @@ SELECT id, uppercats, site_id
       $uppercats
       );
   }
+
+  unset($cat_dirs);
 
   return $cat_fulldirs;
 }
