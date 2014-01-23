@@ -759,6 +759,9 @@ $conf['enable_synchronization'] = true;
 // permitted characters for files/directoris during synchronization
 $conf['sync_chars_regex'] = '/^[a-zA-Z0-9-_.]+$/';
 
+// folders name exluded during synchronization
+$conf['sync_exclude_folders'] = array();
+
 // PEM url (default is http://piwigo.org/ext)
 $conf['alternative_pem_url'] = '';
 

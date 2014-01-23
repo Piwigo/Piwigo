@@ -534,8 +534,20 @@ DELETE
  */
 function get_fs_directories($path, $recursive = true)
 {
+  global $conf;
+
   $dirs = array();
   $path = rtrim($path, '/');
+
+  $exclude_folders = array_merge(
+    $conf['sync_exclude_folders'],
+    array(
+      '.', '..', '.svn',
+      'thumbnail', 'pwg_high',
+      'pwg_representative',
+      )
+    );
+  $exclude_folders = array_flip($exclude_folders);
 
   if (is_dir($path))
   {
@@ -543,13 +555,7 @@ function get_fs_directories($path, $recursive = true)
     {
       while (($node = readdir($contents)) !== false)
       {
-        if ($node != '.'
-            and $node != '..'
-            and $node != '.svn'
-            and $node != 'thumbnail'
-            and $node != 'pwg_high'
-            and $node != 'pwg_representative'
-            and is_dir($path.'/'.$node))
+        if (is_dir($path.'/'.$node) and !isset($exclude_folders[$node]))
         {
           $dirs[] = $path.'/'.$node;
           if ($recursive)
