@@ -478,7 +478,6 @@ $lang['Are you sure you want to delete this plugin?'] = 'Er du sikker på, at du
 $lang['Are you sure you want to install this plugin?'] = 'Er du sikker på, at du vil installere denne plugin?';
 $lang['Are you sure to install this upgrade? You must verify if this version does not need uninstallation.'] = 'Er du sikker på, at du vil installere denne opgradering? Du skal undersøge hvorvidt denne version kræver forudgående afinstallering.';
 $lang['Plugin has been successfully copied'] = 'Plugin\'en er blevet kopieret';
-$lang['You might go to plugin list to install and activate it.'] = 'Gå til pluginlisten for at installere og aktivere den.';
 $lang['Can\'t create temporary file.']  =  'Midlertidige filer kan ikke oprettes.';
 $lang['Can\'t download archive.'] = 'Arkiv kan ikke downloades.';
 $lang['Can\'t read or extract archive.'] = 'Arkiv ikke kan læses eller udpakkes.';
@@ -977,4 +976,5 @@ $lang['on the %d selected users'] = 'på de %d valgte brugere';
 $lang['Close user details'] = 'Luk brugeroplysninger';
 $lang['Open user details'] = 'Åbn brugeroplysninger';
 $lang['close'] = 'luk';
+$lang['Activate it now'] = 'Aktiver nu';
 ?>
