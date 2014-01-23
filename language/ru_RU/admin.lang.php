@@ -472,7 +472,6 @@ $lang['Are you sure you want to delete this plugin?'] = 'Уверены, что 
 $lang['Are you sure you want to install this plugin?'] = 'Уверены, что хотите установить этот плагин?';
 $lang['Are you sure to install this upgrade? You must verify if this version does not need uninstallation.'] = 'Уверены, что хотите обновить? Проверьте, не нужна ли этой версии деинсталляция.';
 $lang['Plugin has been successfully copied'] = 'Плагин успешно скопирован';
-$lang['You might go to plugin list to install and activate it.'] = 'Вы можете перейти к списку плагинов для его установки и активации.';
 $lang['Can\'t create temporary file.'] = 'Невозможно создать временный файл.';
 $lang['Can\'t download archive.'] = 'Невозможно скачать архив.';
 $lang['Can\'t read or extract archive.'] = 'Невозможно прочитать или распаковать архив.';
@@ -975,4 +974,5 @@ $lang['Update user'] = 'Пользователь обновлен';
 $lang['Close user details'] = 'Закрыть детали пользователя';
 $lang['Open user details'] = 'Открыть детали пользователя';
 $lang['close'] = 'закрыть';
+$lang['Activate it now'] = 'Активировать это сейчас';
 ?>
