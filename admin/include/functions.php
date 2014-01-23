@@ -1426,7 +1426,7 @@ DELETE
  * @param string $tag_name
  * @return int
  */
-function tag_id_from_tag_name($tag_name, $create=true)
+function tag_id_from_tag_name($tag_name)
 {
   global $page;
 
@@ -1472,9 +1472,10 @@ SELECT id
             )
           );
 
+        $page['tag_id_from_tag_name_cache'][$tag_name] = pwg_db_insert_id(TAGS_TABLE);
+
         invalidate_user_cache_nb_tags();
 
-        $page['tag_id_from_tag_name_cache'][$tag_name] = pwg_db_insert_id(TAGS_TABLE);
         return $page['tag_id_from_tag_name_cache'][$tag_name];
       }
     }
