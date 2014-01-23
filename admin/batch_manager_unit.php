@@ -67,14 +67,6 @@ SELECT id, date_creation
     $data['author'] = $_POST['author-'.$row['id']];
     $data['level'] = $_POST['level-'.$row['id']];
 
-    foreach (array('name', 'level') as $field)
-    {
-      if (!empty($_POST[$field.'-'.$row['id']]))
-      {
-        $data[$field] = strip_tags($_POST[$field.'-'.$row['id']]);
-      }
-    }
-
     if ($conf['allow_html_descriptions'])
     {
       $data['comment'] = @$_POST['description-'.$row['id']];
