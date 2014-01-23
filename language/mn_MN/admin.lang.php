@@ -407,7 +407,7 @@ $lang['Remove from caddie'] = 'Устгах жагсаалтаас хасах';
 $lang['add new photos to caddie'] = '"устгах жагсаалт"-д зураг нэмэх';
 $lang['Duplicates'] = 'Давхардсан';
 $lang['With no album'] = 'Цомогт ороогүй';
-$lang['With no tag'] = 'Түлхүүр үггүй';
+$lang['With no tag'] = 'Түлхүүр үг байхгүй';
 $lang['With no virtual album'] = 'Виртуаль цомогт ороогүй';
 $lang['Last import'] = 'Сүүлд оруулсан';
 $lang['Predefined filter'] = 'Сонголт';
@@ -721,4 +721,6 @@ $lang['Registered on %s, %s.'] = 'Бүртгүүлсэн огноо %s, %s.';
 $lang['Select recipients'] = 'Хүлээн авагчаа сонгоно уу';
 $lang['Include display of recent photos grouped by dates'] = 'Шинэ зургуудийг огноогоор нь нэгтгэн хавсаргах';
 $lang['Notification'] = 'Мэдээлэл';
+$lang['Associate to album'] = 'Цомогт хамруулах';
+$lang['Activate it now'] = 'Одоо идэвхжүүлэх';
 ?>
