@@ -22,7 +22,7 @@
 // +-----------------------------------------------------------------------+
 /*
 Language Name: Монгол [MN]
-Version: 2.6.0
+Version: 2.6.1
 Language URI: http://piwigo.org/ext/extension_view.php?eid=696
 Author: Piwigo team
 Author URI: http://piwigo.org
