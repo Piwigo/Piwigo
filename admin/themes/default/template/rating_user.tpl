@@ -46,7 +46,7 @@
 var oTable = jQuery('#rateTable').dataTable({
 	sDom : '<"dtBar"f>rt',
 	bPaginate: false,
-	aaSorting: [[4,'desc']],
+	aaSorting: [[5,'desc']],
 	aoColumnDefs: [
 		/*{
 			aTargets: ["dtc_user"]
