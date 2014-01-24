@@ -21,8 +21,17 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
+/**
+ * @package functions\admin\history
+ */
+
+
 include_once(PHPWG_ROOT_PATH.'admin/include/tabsheet.class.php');
 
+/**
+ * Init tabsheet for history pages
+ * @ignore
+ */
 function history_tabsheet()
 {
   global $page, $link_start;
@@ -34,11 +43,22 @@ function history_tabsheet()
   $tabsheet->assign();
 }
 
+/**
+ * Callback used to sort history entries
+ */
 function history_compare($a, $b)
 {
   return strcmp($a['date'].$a['time'], $b['date'].$b['time']);
 }
 
+/**
+ * Perform history search.
+ *
+ * @param array $data  - used in trigger_change
+ * @param array $search
+ * @param string[] $types
+ * @param array
+ */
 function get_history($data, $search, $types)
 {
   if (isset($search['fields']['filename']))

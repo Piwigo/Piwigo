@@ -21,9 +21,21 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
+/**
+ * @package functions\admin\metadata
+ */
+
+
 include_once(PHPWG_ROOT_PATH.'/include/functions_metadata.inc.php');
 
 
+/**
+ * Returns IPTC metadata to sync from a file, depending on IPTC mapping.
+ * @toto : clean code (factorize foreach)
+ *
+ * @param string $file
+ * @return array
+ */
 function get_sync_iptc_data($file)
 {
   global $conf;
@@ -80,6 +92,12 @@ function get_sync_iptc_data($file)
   return $iptc;
 }
 
+/**
+ * Returns EXIF metadata to sync from a file, depending on EXIF mapping.
+ *
+ * @param string $file
+ * @return array
+ */
 function get_sync_exif_data($file)
 {
   global $conf;
@@ -110,7 +128,11 @@ function get_sync_exif_data($file)
   return $exif;
 }
 
-
+/**
+ * Get all potential file metadata fields, including IPTC and EXIF.
+ *
+ * @return string[]
+ */
 function get_sync_metadata_attributes()
 {
   global $conf;
@@ -139,6 +161,12 @@ function get_sync_metadata_attributes()
   return array_unique($update_fields);
 }
 
+/**
+ * Get all metadata of a file.
+ *
+ * @param array $infos - (path[, representative_ext])
+ * @return array - includes data provided in $infos
+ */
 function get_sync_metadata($infos)
 {
   global $conf;
@@ -178,7 +206,12 @@ function get_sync_metadata($infos)
   return $infos;
 }
 
-
+/**
+ * Sync all metadata of a list of images.
+ * Metadata are fetched from original files and saved in database.
+ *
+ * @param int[] $ids
+ */
 function sync_metadata($ids)
 {
   global $conf;
@@ -255,13 +288,13 @@ SELECT id, path, representative_ext
 }
 
 /**
- * returns an array associating element id (images.id) with its complete
+ * Returns an array associating element id (images.id) with its complete
  * path in the filesystem
  *
- * @param int id_uppercat
- * @param int site_id
- * @param boolean recursive ?
- * @param boolean only newly added files ?
+ * @param int $category_id
+ * @param int $site_id
+ * @param boolean $recursive
+ * @param boolean $only_new
  * @return array
  */
 function get_filelist($category_id = '', $site_id=1, $recursive = false,
@@ -317,4 +350,5 @@ SELECT id, path, representative_ext
 ;';
   return hash_from_query($query, 'id');
 }
+
 ?>
