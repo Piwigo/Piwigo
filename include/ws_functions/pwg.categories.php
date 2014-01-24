@@ -459,7 +459,7 @@ SELECT id, path, representative_ext
 
   if ($params['tree_output'])
   {
-    $cats = categories_flatlist_to_tree($cats);
+    return categories_flatlist_to_tree($cats);
   }
 
   return array(
