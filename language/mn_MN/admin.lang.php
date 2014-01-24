@@ -723,4 +723,5 @@ $lang['Include display of recent photos grouped by dates'] = 'Шинэ зург�
 $lang['Notification'] = 'Мэдээлэл';
 $lang['Associate to album'] = 'Цомогт хамруулах';
 $lang['Activate it now'] = 'Одоо идэвхжүүлэх';
+$lang['I decide to update anyway'] = 'Ямар ч байсан шинэчилье.';
 ?>
