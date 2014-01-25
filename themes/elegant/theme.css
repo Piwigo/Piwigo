@@ -273,3 +273,86 @@ a:hover 		{ border-bottom: none;}
 
 #the_page .content .stuffs 		{ margin: 0!important}
 .categoryActions .theme_menuf 	{ display: none;}
+
+/* BreadCrumb */
+.browsePath
+{
+	margin: 0;
+	padding: 0;
+	float: left;
+	display: block;
+	height: 26px;
+	overflow: hidden;
+	width: 990px;
+	padding:5px;
+}
+.browsePath ul
+{
+	margin: 0;
+	padding: 0;
+	height: 26px;
+	display: block;
+}
+.browsePath ul li
+{
+	display: block;
+	float: left;
+	position: relative;
+	height: 26px;
+	overflow: hidden;
+	line-height: 26px;
+	margin: 0px;
+	font-size: .9167em;
+}
+.browsePath ul li a:before, .browsePath ul li.last:before
+{
+  content: "/";
+  display: inline-block;
+  margin-left: 0.2em;
+  margin-right: 0.2em;
+  text-align: center;
+  text-decoration: inherit;
+  text-transform: none;
+  width: 1em;
+}
+.browsePath ul li div.chevronOverlay
+{
+	position: absolute;
+	right: 0;
+	top: 0;
+	z-index: 2;
+}
+.browsePath ul li span
+{
+	display: block;
+	overflow: hidden;
+}
+.browsePath ul li a
+{
+	display: block;
+	position: relative;
+	height: 26px;
+	line-height: 26px;
+	overflow: hidden;
+	float: left;
+}
+.browsePath ul li.first a
+{
+	height: 26px !important;
+	text-indent:-1000em;
+	width:26px;
+	padding: 0;
+	margin: 0;
+	overflow: hidden;
+  background:url(icon/icons_sprite.png) no-repeat -26px 0;
+}
+.browsePath ul li.first a:hover
+{
+  background-image:url(icon/icons_sprite-hover.png);  
+}
+.browsePath ul li.last
+{
+	background: none;
+	margin-right: 0;
+	padding-right: 0;
+}
