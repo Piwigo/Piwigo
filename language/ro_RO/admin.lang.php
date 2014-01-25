@@ -811,7 +811,6 @@ $lang['Unsubscribe from notification by mail'] = 'Dezabonați-vă de la notifica
 $lang['Uninstalled Plugins'] = 'Pluginuri dezinstalate';
 $lang['Unlock gallery'] = 'Deblocați galeria foto';
 $lang['Two updates are available'] = 'Două actualizări sunt disponibile';
-$lang['You might go to plugin list to install and activate it.'] = 'Mergeți la lista de plugin-uri pentru a le instala și activa.';
 $lang['You have unsubscribed from receiving notifications by mail.'] = 'V-ați dezabonat de la primirea notificărilor prin e-mail.';
 $lang['You have subscribed to receiving notifications by mail.'] = 'V-ați abonat pentru a primi notificări prin e-mail.';
 $lang['Y Position'] = 'Y Poziție';
@@ -978,4 +977,5 @@ $lang['User %s added'] = 'Utilizatorul %s adăugat';
 $lang['Close user details'] = 'Închide detalii utilizator';
 $lang['Open user details'] = 'Deschide detalii utilizator';
 $lang['close'] = 'închide';
+$lang['Activate it now'] = 'Aciveaza acum';
 ?>
