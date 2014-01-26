@@ -582,6 +582,7 @@ SELECT id, id_uppercat, uppercats, rank, global_rank
   FROM '.CATEGORIES_TABLE.'
   ORDER BY id_uppercat,rank,name';
 
+  global $cat_map; // used in preg_replace callback
   $cat_map = array();
 
   $current_rank = 0;
@@ -608,13 +609,16 @@ SELECT id, id_uppercat, uppercats, rank, global_rank
 
   $datas = array();
 
+  $cat_map_callback = create_function('$m', 'global $cat_map; return $cat_map[$m[1]]["rank"];');
+
   foreach( $cat_map as $id=>$cat )
   {
-    $new_global_rank = preg_replace(
-          '/(\d+)/e',
-          "\$cat_map['$1']['rank']",
-          str_replace(',', '.', $cat['uppercats'] )
-          );
+    $new_global_rank = preg_replace_callback(
+      '/(\d+)/',
+      $cat_map_callback,
+      str_replace(',', '.', $cat['uppercats'] )
+      );
+
     if ( $cat['rank_changed']
       or $new_global_rank!=$cat['global_rank']
       )
@@ -626,6 +630,8 @@ SELECT id, id_uppercat, uppercats, rank, global_rank
         );
     }
   }
+
+  unset($cat_map);
 
   mass_updates(
     CATEGORIES_TABLE,

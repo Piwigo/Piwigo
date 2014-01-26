@@ -35,6 +35,7 @@ UPDATES
                 Fixed some recent code introductions to make it cleaner to read.
     2012-05-01  Made removal of invisible nodes operate in a case-insensitive manner... Thanks Juha P.!
     2013-10-10  Add preserveStyleTag option
+    2014-01-26  PHP 5.5 compatibility (/e modifier is deprecated in preg_replace)
 */
 
 define('CACHE_CSS', 0);
@@ -124,7 +125,7 @@ class Emogrifier {
         $vistedNodes = $vistedNodeRef = array();
         $nodes = @$xpath->query('//*[@style]');
         foreach ($nodes as $node) {
-            $normalizedOrigStyle = preg_replace('/[A-z\-]+(?=\:)/Se',"strtolower('\\0')", $node->getAttribute('style'));
+            $normalizedOrigStyle = preg_replace_callback('/[A-z\-]+(?=\:)/S',create_function('$m', 'return strtolower($m[0]);'),$node->getAttribute('style'));
 
             // in order to not overwrite existing style attributes in the HTML, we have to save the original HTML styles
             $nodeKey = md5($node->getNodePath());
@@ -299,9 +300,6 @@ class Emogrifier {
                                '/([^\/]+):last-child/i', // last-child pseudo-selector
                                '/(\w)\[(\w+)\]/', // Matches element with attribute
                                '/(\w)\[(\w+)\=[\'"]?(\w+)[\'"]?\]/', // Matches element with EXACT attribute
-                               '/(\w+)?\#([\w\-]+)/e', // Matches id attributes
-                               '/(\w+|[\*\]])?((\.[\w\-]+)+)/e', // Matches class attributes
-
             );
             $replace = array(
                                '/',
@@ -311,11 +309,13 @@ class Emogrifier {
                                '*[last()]/self::\\1',
                                '\\1[@\\2]',
                                '\\1[@\\2="\\3"]',
-                               "(strlen('\\1') ? '\\1' : '*').'[@id=\"\\2\"]'",
-                               "(strlen('\\1') ? '\\1' : '*').'[contains(concat(\" \",@class,\" \"),concat(\" \",\"'.implode('\",\" \"))][contains(concat(\" \",@class,\" \"),concat(\" \",\"',explode('.',substr('\\2',1))).'\",\" \"))]'",
             );
 
             $css_selector = '//'.preg_replace($search, $replace, $css_selector);
+
+            // matches ids and classes
+            $css_selector = preg_replace_callback('/(\w+)?\#([\w\-]+)/', array($this, 'matchIdAttributes'), $css_selector);
+            $css_selector = preg_replace_callback('/(\w+|[\*\]])?((\.[\w\-]+)+)/', array($this, 'matchClassAttributes'), $css_selector);
 
             // advanced selectors are going to require a bit more advanced emogrification
             // if we required PHP 5.3 we could do this with closures
@@ -325,6 +325,14 @@ class Emogrifier {
             $this->caches[CACHE_SELECTOR][$xpathkey] = $css_selector;
         }
         return $this->caches[CACHE_SELECTOR][$xpathkey];
+    }
+
+    private function matchIdAttributes($m) {
+      return (strlen($m[1]) ? $m[1] : '*').'[@id="'.$m[2].'"]';
+    }
+
+    private function matchClassAttributes($m) {
+      return (strlen($m[1]) ? $m[1] : '*').'[contains(concat(" ",@class," "),concat(" ","'.implode('"," "))][contains(concat(" ",@class," "),concat(" ","',explode('.',substr($m[2],1))).'"," "))]';
     }
 
     private function translateNthChild($match) {

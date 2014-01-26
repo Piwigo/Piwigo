@@ -339,6 +339,8 @@ SELECT
     id,
     name, url_name
   FROM '.TAGS_TABLE;
+
+    global $name_of_tag; // used for preg_replace
     $name_of_tag = array();
     $result = pwg_query($query);
     while ($row=pwg_db_fetch_assoc($result))
@@ -399,9 +401,9 @@ SELECT
     $tags_string = '';
     if (isset($line['tag_ids']))
     {
-      $tags_string = preg_replace(
-        '/(\d+)/e',
-        'isset($name_of_tag["$1"]) ? $name_of_tag["$1"] : "$1"',
+      $tags_string = preg_replace_callback(
+        '/(\d+)/',
+        create_function('$m', 'return isset($name_of_tag[$m[1]]) ? $name_of_tag[$m[1]] : $m[1];'),
         str_replace(
           ',',
           ', ',
@@ -541,6 +543,8 @@ SELECT
         ),
       )
     );
+
+  unset($name_of_tag);
 }
 
 // +-----------------------------------------------------------------------+
