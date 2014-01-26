@@ -791,7 +791,6 @@ $lang['You have %d orphan tags: %s.'] = '%d etkisiz etiketleriniz: %s.';
 $lang['You have specified <i>$conf[\'order_by\']</i> in your local configuration file, this parameter in deprecated, please remove it or rename it into <i>$conf[\'order_by_custom\']</i> !'] = 'Yerel yapılandırma dosyasında <i>$conf[\'order_by\']</i> belirttiniz, bu parametre olarak önerilmemektedir, lütfen bu parametreyi siliniz veya <i>$conf[\'order_by_custom\']</i> olarak yeniden adlandırınız!';
 $lang['You have subscribed to receiving notifications by mail.'] = 'Posta yoluyla bildirimleri almak için abone oldunuz.';
 $lang['You have unsubscribed from receiving notifications by mail.'] = 'Posta yoluyla bildirimleri almak için olan aboneliginizi iptal ettiniz.';
-$lang['You might go to plugin list to install and activate it.'] = 'Yükleme ve aktif etmek için eklentiler listesine gidiniz';
 $lang['You need to confirm deletion'] = 'Silme islemini onaylayiniz';
 $lang['You need to upgrade your system to take full advantage of the application else the application will not work correctly, or not at all'] = 'Sisteminizi yükseltmelisiniz aksi taktirde uygulama yanlış veya hiç çalışmayabilir.';
 $lang['Your configuration settings are saved'] = 'Yapılandırma ayarları kaydedildi';
@@ -971,4 +970,5 @@ $lang['%d of %d users selected'] = '%d/%d kullanıcı seçildi';
 $lang['Close user details'] = 'Kullanıcı detaylarını kapat';
 $lang['Open user details'] = 'Kullanıcı detaylarını aç';
 $lang['close'] = 'kapat';
+$lang['Activate it now'] = 'Şimdi etkinleştir';
 ?>
