@@ -402,16 +402,6 @@ UPDATE '.USER_INFOS_TABLE.'
   /**
    * Sort functions
    */
-  function language_version_compare($a, $b)
-  {
-    $pattern = array('/([a-z])/ei', '/\.+/', '/\.\Z|\A\./');
-    $replacement = array( "'.'.intval('\\1', 36).'.'", '.', '');
-
-    $array = preg_replace($pattern, $replacement, array($a, $b));
-
-    return version_compare($array[0], $array[1], '>=');
-  }
-
   function extension_name_compare($a, $b)
   {
     return strcmp(strtolower($a['extension_name']), strtolower($b['extension_name']));
