@@ -612,8 +612,8 @@ $lang['Change username'] = 'Хэрэглэгчийн нэр солих';
 $lang['Available only with HTML format'] = 'Зөвхөн HTML хэлбэрээр боломжтой';
 $lang['Batch Manager'] = 'Цэгцлэх';
 $lang['Basic settings'] = 'Үндсэн тохиргоо';
-$lang['Apply watermark if height is bigger than'] = 'Өндөр нь их үед усан хээг ашиглах';
-$lang['Apply watermark if width is bigger than'] = 'Өргөн нь их үед усан хээг ашиглах';
+$lang['Apply watermark if height is bigger than'] = 'Усан хээг ашиглаж эхлэх өндөр';
+$lang['Apply watermark if width is bigger than'] = 'Усан хээг ашиглаж эхлэх өргөн';
 $lang['Impossible to delete this theme. Other themes depends on it: %s'] = 'Бусад (%s) загварууд тухайн загвараас хамаарч байгаа учир устгах боломжгүй байна.';
 $lang['All themes are up to date.'] = 'Шинэчлэх шаардлагатай загвар байхгүй байна';
 $lang['Following themes may not be compatible with the new version of Piwigo:'] = 'Дараахь загварууд Piwigo-н шинэ гарсан хувилбартай зохицохгүй байх магадлалтай:';
@@ -724,4 +724,5 @@ $lang['Notification'] = 'Мэдээлэл';
 $lang['Associate to album'] = 'Цомогт хамруулах';
 $lang['Activate it now'] = 'Одоо идэвхжүүлэх';
 $lang['I decide to update anyway'] = 'Ямар ч байсан шинэчилье.';
+$lang['Properties'] = 'Төлөв байдал';
 ?>
