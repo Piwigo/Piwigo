@@ -615,25 +615,6 @@ DELETE FROM '. PLUGINS_TABLE .'
   /**
    * Sort functions
    */
-  function plugin_version_compare($a, $b)
-  {
-    if (strtolower($a) == 'auto') return false;
-    
-    $array = preg_replace(
-      array('/\.+/', '/\.\Z|\A\./'),
-      array('.', ''),
-      array($a, $b)
-      );
-      
-    $array = preg_replace_callback(
-      '/([a-z])/i',
-      create_function('$m', 'return intval($m[1], 36);'),
-      $array
-      );
-    
-    return version_compare($array[0], $array[1], '>=');
-  }
-
   function extension_revision_compare($a, $b)
   {
     if ($a['revision_date'] < $b['revision_date']) return 1;
