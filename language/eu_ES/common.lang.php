@@ -197,4 +197,12 @@ $lang['Edit'] = 'Editatzea';
 $lang['Edit a comment'] = 'Iruzkina editatzea';
 $lang['Email'] = 'Posta elektronikoa';
 $lang['Email address'] = 'Posta elektronikoa';
+$lang['Mobile'] = 'Mobilak';
+$lang['Most visited'] = 'Bisitatuenak';
+$lang['N/A'] = 'ez erabilgarria';
+$lang['New on %s'] = 'Berria %s';
+$lang['New password'] = 'Pasahitza berria';
+$lang['Next'] = 'Hurrengoa';
+$lang['No'] = 'Ez';
+$lang['Not repeat the slideshow'] = 'Errepikapena desaktibatzea';
 ?>
