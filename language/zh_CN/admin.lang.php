@@ -478,7 +478,6 @@ $lang['Are you sure you want to install this plugin?'] = '确定要安装此插�
 $lang['Are you sure you want to delete this plugin?'] = '确定要删除此插件？';
 $lang['Are you sure to install this upgrade? You must verify if this version does not need uninstallation.'] = '确定安装此更新？您必须确定此版本是否无需先进行卸载操作。';
 $lang['Plugin has been successfully copied'] = '插件复制成功';
-$lang['You might go to plugin list to install and activate it.'] = '在插件列表页中安装并启用它。';
 $lang['Can\'t create temporary file.'] = '无法创建临时文件。';
 $lang['Can\'t download archive.'] = '无法下载归档文件。';
 $lang['Can\'t read or extract archive.'] = '无法读取或解压归档文件。';
@@ -980,4 +979,5 @@ $lang['(filtered from %s total users)'] = '（已从 %s 个总用户中过滤）
 $lang['Close user details'] = '关闭用户明细';
 $lang['Open user details'] = '打开用户明细';
 $lang['close'] = '关闭';
+$lang['Activate it now'] = '马上激活';
 ?>
