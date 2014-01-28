@@ -637,7 +637,7 @@ $lang['%s photos have been regenerated'] = '%s-н зураг амжилттай 
 $lang['All %d users are selected'] = 'Бүх %d хэрэглэгчийг сонгосон байна';
 $lang['Advanced features'] = 'Нэмэлт боломжууд';
 $lang['Album manual order was saved'] = 'Цомогны дарааллыг хадгаллаа';
-$lang['manage album photos'] = 'цомогийн зургийг цэгцлэх';
+$lang['manage album photos'] = 'цомгийн зургийг цэгцлэх';
 $lang['pixels'] = 'пиксель';
 $lang['cancel manual order'] = 'эрэмбийг цуцлах';
 $lang['close'] = 'хаах';
@@ -725,4 +725,6 @@ $lang['Associate to album'] = 'Цомогт хамруулах';
 $lang['Activate it now'] = 'Одоо идэвхжүүлэх';
 $lang['I decide to update anyway'] = 'Ямар ч байсан шинэчилье.';
 $lang['Properties'] = 'Төлөв байдал';
+$lang['Close user details'] = 'Хаах';
+$lang['%d tag'] = '%d түлхүүр үг';
 ?>
