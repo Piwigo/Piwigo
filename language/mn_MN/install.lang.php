@@ -58,4 +58,6 @@ $lang['Database table prefix'] = 'Мэдээллийн сангийн талба
 $lang['You can download the config file and upload it to local/config directory of your installation.'] = 'Тохиргооны файлыг татан авч өөрчлөөд local/config хавтас уруу буцаан хуулаах боломжтой.';
 $lang['Note you can change your configuration by yourself and restart Piwigo after that.'] = 'Тохиргоогоо өөрөө өөрчлөөд Piwigo-г дахин ачаалж болно гэдгийг санаарай.';
 $lang['Don\'t hesitate to consult our forums for any help : %s'] = 'Тусламж хэрэгтэй бол манай онлайн форумд хандаарай: %s';
+$lang['Host'] = 'Байршуулах компьютер';
+$lang['Installation'] = 'Суулгац';
 ?>
