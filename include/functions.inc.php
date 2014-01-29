@@ -544,7 +544,12 @@ function dateDiff($date1, $date2)
  */
 function str2DateTime($original, $format=null)
 {
-  if ( !empty($format) && version_compare(PHP_VERSION, '5.3.0') >= 0 )// from known date format
+  if (empty($original))
+  {
+    return false;
+  }
+
+  if (!empty($format) && version_compare(PHP_VERSION, '5.3.0') >= 0)// from known date format
   {
     return DateTime::createFromFormat('!'.$format, $original); // ! char to reset fields to UNIX epoch
   }
@@ -553,7 +558,7 @@ function str2DateTime($original, $format=null)
     $t = trim($original, '0123456789');
     if (empty($t)) // from timestamp
     {
-      $date = new DateTime('@'.$original);
+      return new DateTime('@'.$original);
     }
     else // from unknown date format (assuming something like Y-m-d H:i:s)
     {
@@ -573,9 +578,8 @@ function str2DateTime($original, $format=null)
       $date = new DateTime();
       $date->setDate($ymdhms[0], $ymdhms[1], $ymdhms[2]);
       $date->setTime($ymdhms[3], $ymdhms[4], $ymdhms[5]);
+      return $date;
     }
-    
-    return $date;
   }
 }
 
