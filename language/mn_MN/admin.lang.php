@@ -728,4 +728,15 @@ $lang['Properties'] = 'Төлөв байдал';
 $lang['Close user details'] = 'Хаах';
 $lang['%d tag'] = '%d түлхүүр үг';
 $lang['Can\'t download archive.'] = 'Архив файлыг татаж авах боломжгүй';
+$lang['created'] = 'үүсгэсэн';
+$lang['Upload'] = 'Оруулах';
+$lang['Unlock gallery'] = 'Галерейн түгжээг гаргах';
+$lang['Unable to dump database.'] = 'Мэдээллийн санг устгах боломжгүй байна';
+$lang['Search for new images in the directories'] = 'Хавтас дотор шинэ зурагнууд хайх';
+$lang['Photo %s of %s'] = 'Нийт %s зурагны %s нь';
+$lang['Minimum height'] = 'Өндөрийн доод хэмжээ';
+$lang['Minimum width'] = 'Өргөний доод хэмжээ';
+$lang['Lock gallery'] = 'Галерейг түгжих';
+$lang['Last send'] = 'Сүүлд илгээсэн';
+$lang['Learn more'] = 'Цааш нь үзэх';
 ?>
