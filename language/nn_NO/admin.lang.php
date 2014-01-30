@@ -810,7 +810,6 @@ $lang['pending validation'] = 'ventande validering';
 $lang['reduce to single existing albums'] = 'reduser til enkle eksiterande album';
 $lang['Your configuration settings are saved'] = 'Dine konfigurasjonsinnstillingar er lagra';
 $lang['You can activate only one mobile theme.'] = 'Du kan bare aktivere eit mobil-tema.';
-$lang['You might go to plugin list to install and activate it.'] = 'Gå til lista med tilleggsprogram for å installere og aktivere det.';
 $lang['Update Complete'] = 'Oppdatering ferdig';
 $lang['Update albums informations'] = 'Oppdater informasjon om album';
 $lang['Update in progress... Please wait.'] = 'Oppdatering igang... Vent.';
@@ -969,4 +968,5 @@ $lang['on the %d selected users'] = 'med dei %d valde brukarane';
 $lang['Close user details'] = 'Lukk brukardetaljar';
 $lang['Open user details'] = 'Opne brukardetaljar';
 $lang['close'] = 'lukk';
+$lang['Activate it now'] = 'Aktiver nå';
 ?>
