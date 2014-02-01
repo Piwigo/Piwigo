@@ -915,7 +915,6 @@ $lang['User "%s" created with "%s" like password'] = 'Uzanto "%s" kreiĝis kun "
 $lang['You can activate only one mobile theme.'] = 'Vi povas aktivigi nur unu porteblan temon.';
 $lang['You have subscribed to receiving notifications by mail.'] = 'Vi abonis la retmesaĝan atentigon';
 $lang['You have unsubscribed from receiving notifications by mail.'] = 'Vi malabonis la retmesaĝan atentigon';
-$lang['You might go to plugin list to install and activate it.'] = 'Iru al la listo de kromprogramoj por instali kaj aktivigi ĝin.';
 $lang['You need to confirm deletion'] = 'Vi devas konfirmi la forigon';
 $lang['delete this site and all its attached elements'] = 'forigi tiun retejon kaj ĉiujn koncernatajn informojn';
 $lang['errors during synchronization'] = 'eraroj dum la sinkronigado';
@@ -973,4 +972,5 @@ $lang['iPhoto is the default photo manager on MacOSX. The Piwigo export plugin l
 $lang['close'] = 'fermi';
 $lang['Close user details'] = 'Fermi la detalojn de la uzanto';
 $lang['Open user details'] = 'Malfermi la detalojn de la uzanto';
+$lang['Activate it now'] = 'Ĝin aktivigi nun';
 ?>
