@@ -974,4 +974,5 @@ $lang['Change password'] = 'Verander wachtwoord';
 $lang['Close user details'] = 'Sluit gebruikersdetails';
 $lang['Open user details'] = 'Open gebruikersdetails';
 $lang['close'] = 'Sluit';
+$lang['Activate it now'] = 'Activeer het nu';
 ?>
