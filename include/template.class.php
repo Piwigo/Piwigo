@@ -25,8 +25,7 @@
  * @package template
  */
 
-//require_once( PHPWG_ROOT_PATH .'include/smarty/libs/Smarty.class.php');
-require_once( PHPWG_ROOT_PATH .'include/smarty/libs/SmartyBC.class.php');
+require_once( PHPWG_ROOT_PATH .'include/smarty/libs/Smarty.class.php');
 
 
 /** default rank for buttons */
@@ -83,7 +82,7 @@ class Template
 
     $this->scriptLoader = new ScriptLoader;
     $this->cssLoader = new CssLoader;
-    $this->smarty = new SmartyBC;
+    $this->smarty = new Smarty;
     $this->smarty->debugging = $conf['debug_template'];
     if (!$this->smarty->debugging)
     {
