@@ -939,23 +939,12 @@ function log_user($user_id, $remember_me)
     if ($key!==false)
     {
       $cookie = $user_id.'-'.$now.'-'.$key;
-      if (version_compare(PHP_VERSION, '5.2', '>=') )
-      {
-        setcookie($conf['remember_me_name'],
-            $cookie,
-            time()+$conf['remember_me_length'],
-            cookie_path(),ini_get('session.cookie_domain'),ini_get('session.cookie_secure'),
-            ini_get('session.cookie_httponly')
-          );
-      }
-      else
-      {
-        setcookie($conf['remember_me_name'],
-            $cookie,
-            time()+$conf['remember_me_length'],
-            cookie_path(),ini_get('session.cookie_domain'),ini_get('session.cookie_secure')
-          );
-      }
+      setcookie($conf['remember_me_name'],
+        $cookie,
+        time()+$conf['remember_me_length'],
+        cookie_path(),ini_get('session.cookie_domain'),ini_get('session.cookie_secure'),
+        ini_get('session.cookie_httponly')
+        );
     }
   }
   else

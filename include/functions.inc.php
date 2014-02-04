@@ -2018,15 +2018,7 @@ function mobile_theme()
  */
 function url_check_format($url)
 {
-  if (version_compare(PHP_VERSION, '5.2.0') >= 0)
-  {
-    return filter_var($url, FILTER_VALIDATE_URL, FILTER_FLAG_SCHEME_REQUIRED | FILTER_FLAG_HOST_REQUIRED)!==false;
-  }
-  else
-  {
-    // http://mathiasbynens.be/demo/url-regex @imme_emosol
-    return (bool)preg_match('@^https?://(-\.)?([^\s/?\.#-]+\.?)+(/[^\s]*)?$@iS', $url);
-  }
+  return filter_var($url, FILTER_VALIDATE_URL, FILTER_FLAG_SCHEME_REQUIRED | FILTER_FLAG_HOST_REQUIRED)!==false;
 }
 
 /**
@@ -2037,18 +2029,7 @@ function url_check_format($url)
  */
 function email_check_format($mail_address)
 {
-  if (version_compare(PHP_VERSION, '5.2.0') >= 0)
-  {
-    return filter_var($mail_address, FILTER_VALIDATE_EMAIL)!==false;
-  }
-  else
-  {
-    $atom   = '[-a-z0-9!#$%&\'*+\\/=?^_`{|}~]';   // before  arobase
-    $domain = '([a-z0-9]([-a-z0-9]*[a-z0-9]+)?)'; // domain name
-    $regex = '/^' . $atom . '+' . '(\.' . $atom . '+)*' . '@' . '(' . $domain . '{1,63}\.)+' . $domain . '{2,63}$/i';
-
-    return (bool)preg_match($regex, $mail_address);
-  }
+  return filter_var($mail_address, FILTER_VALIDATE_EMAIL)!==false;
 }
 
 /**
