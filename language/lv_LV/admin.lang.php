@@ -477,7 +477,6 @@ $lang['Are you sure you want to delete this plugin?'] = 'Vai esat pārliecināts
 $lang['Are you sure you want to install this plugin?'] = 'Vai esat pārliecināts, ka gribat instalēt šo spraudni?';
 $lang['Are you sure to install this upgrade? You must verify if this version does not need uninstallation.'] = 'Vai esat pārliecināts, kagribat instalēt šo jauninājumu? Pārbaudies vai esošajo versiju nav jāatinstalē.';
 $lang['Plugin has been successfully copied'] = 'Šis spraudnis sekmīgi nokopēts';
-$lang['You might go to plugin list to install and activate it.'] = 'Pārejiet pie spraudņu saraksta, lai to instalētu un aktivētu.';
 $lang['Can\'t create temporary file.'] = 'Nevar izveidot pagaidu failu.';
 $lang['Can\'t download archive.'] = 'Nevar lejupielādēt arhīvu.';
 $lang['Can\'t read or extract archive.'] = 'Nevar lasīt vai izpakot arhīvu.';
@@ -970,4 +969,5 @@ $lang['Change password'] = 'Nomainīt paroli';
 $lang['Open user details'] = 'Atvērt lietotāja informāciju';
 $lang['Close user details'] = 'Aizvērt lietotāja informāciju';
 $lang['close'] = 'aizvērt';
+$lang['Activate it now'] = 'Aktivēt to tagad';
 ?>
