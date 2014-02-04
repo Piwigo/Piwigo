@@ -178,7 +178,7 @@ class updates
         {
           $ext_info = $server_ext[$fs_ext['extension']];
 
-          if (!$this->version_compare($fs_ext['version'], $ext_info['revision_name'], $type))
+          if (!safe_version_compare($fs_ext['version'], $ext_info['revision_name'], '>='))
           {
             if (in_array($ext_id, $conf['updates_ignored'][$type]))
             {
@@ -207,7 +207,7 @@ class updates
         foreach($this->$type->$fs as $ext_id => $fs_ext)
         {
           if (isset($_SESSION['extensions_need_update'][$type][$ext_id])
-            and $this->version_compare($fs_ext['version'], $_SESSION['extensions_need_update'][$type][$ext_id], $type))
+            and safe_version_compare($fs_ext['version'], $_SESSION['extensions_need_update'][$type][$ext_id], '>='))
           {
             // Extension have been upgraded
             $this->check_extensions();
@@ -254,13 +254,6 @@ class updates
         }
       }
     }
-  }
-
-  function version_compare($a, $b, $type)
-  {
-    $version_compare = rtrim($type, 's').'_version_compare';
-
-    return $this->$type->$version_compare($a, $b);
   }
 
   static function process_obsolete_list($file)

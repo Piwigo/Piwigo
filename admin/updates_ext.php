@@ -59,7 +59,7 @@ foreach ($autoupdate->types as $type)
 
     $ext_info = $server_ext[$fs_ext['extension']];
 
-    if (!$autoupdate->version_compare($fs_ext['version'], $ext_info['revision_name'], $type))
+    if (!safe_version_compare($fs_ext['version'], $ext_info['revision_name'], '>='))
     {
       $template->append('update_'.$type, array(
         'ID' => $ext_info['extension_id'],
