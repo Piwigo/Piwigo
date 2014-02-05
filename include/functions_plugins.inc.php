@@ -35,7 +35,7 @@ define('EVENT_HANDLER_PRIORITY_NEUTRAL', 50);
 /**
  * Used to declare maintenance methods of a plugin.
  */
-abstract class PluginMaintain 
+class PluginMaintain 
 {
   /** @var string $plugin_id */
   protected $plugin_id;
@@ -52,17 +52,17 @@ abstract class PluginMaintain
    * @param string $plugin_version
    * @param array &$errors - used to return error messages
    */
-  abstract function install($plugin_version, &$errors=array());
+  function install($plugin_version, &$errors=array()) {}
 
   /**
    * @param string $plugin_version
    * @param array &$errors - used to return error messages
    */
-  abstract function activate($plugin_version, &$errors=array());
+  function activate($plugin_version, &$errors=array()) {}
 
-  abstract function deactivate();
+  function deactivate() {}
 
-  abstract function uninstall();
+  function uninstall() {}
 
   /**
    * Tests if the plugin needs to be updated and call an update function
@@ -104,7 +104,7 @@ UPDATE '. PLUGINS_TABLE .'
 /**
  * Used to declare maintenance methods of a theme.
  */
-abstract class ThemeMaintain 
+class ThemeMaintain 
 {
   /** @var string $theme_id */
   protected $theme_id;
@@ -121,11 +121,11 @@ abstract class ThemeMaintain
    * @param string $theme_version
    * @param array &$errors - used to return error messages
    */
-  abstract function activate($theme_version, &$errors=array());
+  function activate($theme_version, &$errors=array()) {}
 
-  abstract function deactivate();
+  function deactivate() {}
 
-  abstract function delete();
+  function delete() {}
   
   /**
    * Tests if the theme needs to be updated and call an update function
@@ -398,17 +398,11 @@ SELECT * FROM '.PLUGINS_TABLE;
   }
   if (count($clauses))
   {
-      $query .= '
+    $query .= '
   WHERE '. implode(' AND ', $clauses);
   }
-
-  $result = pwg_query($query);
-  $plugins = array();
-  while ($row = pwg_db_fetch_assoc($result))
-  {
-    $plugins[] = $row;
-  }
-  return $plugins;
+  
+  return query2array($query);
 }
 
 /**
