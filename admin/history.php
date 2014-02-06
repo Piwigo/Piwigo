@@ -319,7 +319,7 @@ SELECT
     $result = pwg_query($query);
     while ($row = pwg_db_fetch_assoc($result))
     {
-      $label_of_image[ $row['id'] ] = $row['label'];
+      $label_of_image[ $row['id'] ] = trigger_event('render_element_description', $row['label']);
 
       if (isset($row['filesize']))
       {
