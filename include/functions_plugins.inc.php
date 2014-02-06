@@ -172,28 +172,31 @@ UPDATE '. THEMES_TABLE .'
  * @param string $event the name of the event to listen to
  * @param Callable $func the callback function
  * @param int $priority greater priority will be executed at last
+ * @param string $include_path file to include before executing the callback
+ * @return bool false is handler already exists
  */
 function add_event_handler($event, $func,
-    $priority=EVENT_HANDLER_PRIORITY_NEUTRAL, $accepted_args=1)
+    $priority=EVENT_HANDLER_PRIORITY_NEUTRAL, $include_path=null)
 {
   global $pwg_event_handlers;
 
-  if ( isset($pwg_event_handlers[$event][$priority]) )
+  if (isset($pwg_event_handlers[$event][$priority]))
   {
-    foreach($pwg_event_handlers[$event][$priority] as $handler)
+    foreach ($pwg_event_handlers[$event][$priority] as $handler)
     {
-      if ( $handler['function'] == $func )
+      if ($handler['function'] == $func)
       {
         return false;
       }
     }
   }
 
-  $pwg_event_handlers[$event][$priority][] =
-    array(
-      'function'=>$func,
-      'accepted_args'=>$accepted_args);
-  ksort( $pwg_event_handlers[$event] );
+  $pwg_event_handlers[$event][$priority][] = array(
+    'function' => $func,
+    'include_path' => is_string($include_path) ? $include_path : null,
+    );
+
+  ksort($pwg_event_handlers[$event]);
   return true;
 }
 
@@ -210,7 +213,7 @@ function remove_event_handler($event, $func,
 {
   global $pwg_event_handlers;
 
-  if (!isset( $pwg_event_handlers[$event][$priority] ) )
+  if (!isset($pwg_event_handlers[$event][$priority]))
   {
     return false;
   }
@@ -222,12 +225,12 @@ function remove_event_handler($event, $func,
       $pwg_event_handlers[$event][$priority] =
         array_values($pwg_event_handlers[$event][$priority]);
 
-      if ( empty($pwg_event_handlers[$event][$priority]) )
+      if (empty($pwg_event_handlers[$event][$priority]))
       {
-        unset( $pwg_event_handlers[$event][$priority] );
-        if (empty( $pwg_event_handlers[$event] ) )
+        unset($pwg_event_handlers[$event][$priority]);
+        if (empty($pwg_event_handlers[$event]))
         {
-          unset( $pwg_event_handlers[$event] );
+          unset($pwg_event_handlers[$event]);
         }
       }
       return true;
@@ -264,13 +267,14 @@ function trigger_event($event, $data=null)
 {
   global $pwg_event_handlers;
 
-  if ( isset($pwg_event_handlers['trigger']) )
-  {// just for debugging
+  if (isset($pwg_event_handlers['trigger']))
+  {// debugging
     trigger_action('trigger',
-        array('type'=>'event', 'event'=>$event, 'data'=>$data) );
+      array('type'=>'event', 'event'=>$event, 'data'=>$data)
+      );
   }
 
-  if ( !isset($pwg_event_handlers[$event]) )
+  if (!isset($pwg_event_handlers[$event]))
   {
     return $data;
   }
@@ -278,16 +282,26 @@ function trigger_event($event, $data=null)
 
   foreach ($pwg_event_handlers[$event] as $priority => $handlers)
   {
-    foreach($handlers as $handler)
+    foreach ($handlers as $handler)
     {
-      $function_name = $handler['function'];
-      $accepted_args = $handler['accepted_args'];
       $args[1] = $data;
-      $data = call_user_func_array($function_name, array_slice($args,1,$accepted_args) );
+
+      if (!empty($handler['include_path']))
+      {
+        include_once($handler['include_path']);
+      }
+
+      $data = call_user_func_array($handler['function'], array_slice($args, 1));
     }
   }
-  trigger_action('trigger',
-       array('type'=>'post_event', 'event'=>$event, 'data'=>$data) );
+
+  if (isset($pwg_event_handlers['trigger']))
+  {// debugging
+    trigger_action('trigger',
+      array('type'=>'post_event', 'event'=>$event, 'data'=>$data)
+      );
+  }
+
   return $data;
 }
 
@@ -314,13 +328,15 @@ function trigger_notify($event)
 function trigger_action($event)
 {
   global $pwg_event_handlers;
-  if ( isset($pwg_event_handlers['trigger']) and $event!='trigger' )
-  {// special case for debugging - avoid recursive calls
+
+  if (isset($pwg_event_handlers['trigger']) and $event!='trigger')
+  {// debugging - avoid recursive calls
     trigger_action('trigger',
-        array('type'=>'action', 'event'=>$event, 'data'=>null) );
+      array('type'=>'action', 'event'=>$event, 'data'=>null)
+      );
   }
 
-  if ( !isset($pwg_event_handlers[$event]) )
+  if (!isset($pwg_event_handlers[$event]))
   {
     return;
   }
@@ -328,12 +344,14 @@ function trigger_action($event)
 
   foreach ($pwg_event_handlers[$event] as $priority => $handlers)
   {
-    foreach($handlers as $handler)
+    foreach ($handlers as $handler)
     {
-      $function_name = $handler['function'];
-      $accepted_args = $handler['accepted_args'];
+      if (!empty($handler['include_path']))
+      {
+        include_once($handler['include_path']);
+      }
 
-      call_user_func_array($function_name, array_slice($args,1,$accepted_args) );
+      call_user_func_array($handler['function'], array_slice($args,1));
     }
   }
 }
