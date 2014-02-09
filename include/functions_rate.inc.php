@@ -136,6 +136,11 @@ INSERT
 */
 function update_rating_score($element_id = false)
 {
+  if ( ($alt_result = trigger_event('update_rating_score', false, $element_id)) !== false)
+  {
+    return $alt_result;
+  }
+
   $query = '
 SELECT element_id,
     COUNT(rate) AS rcount,
