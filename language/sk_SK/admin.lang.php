@@ -475,7 +475,6 @@ $lang['Are you sure you want to delete this plugin?'] = 'Prajete si odstrániť 
 $lang['Are you sure you want to install this plugin?'] = 'Prajete si nainštalovať tento doplnok?';
 $lang['Are you sure to install this upgrade? You must verify if this version does not need uninstallation.'] = 'Prajete si nainštalovať túto aktualizáciu? Je potrebné overiť, či súčasnú verziu nie je nutné najskôr odinštalovať.';
 $lang['Plugin has been successfully copied'] = 'Doplnok bol úspešne nainštalovaný';
-$lang['You might go to plugin list to install and activate it.'] = 'Doplnok je potrebné aktivovať v zozname doplnkov.';
 $lang['Can\'t create temporary file.'] = 'Nie je možné vytvoriť dočasný súbor.';
 $lang['Can\'t download archive.'] = 'Nie je možné stiahnuť archív.';
 $lang['Can\'t read or extract archive.'] = 'Archív nie je možné rozbaliť alebo prečítať.';
@@ -976,4 +975,5 @@ $lang['%d of %d users selected'] = '%d z %d používateľov označených';
 $lang['Close user details'] = 'Uzavrieť detaily používateľa';
 $lang['Open user details'] = 'Otvoriť detaily používateľa';
 $lang['close'] = 'zavrieť';
+$lang['Activate it now'] = 'Aktivovať teraz';
 ?>
