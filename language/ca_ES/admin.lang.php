@@ -465,7 +465,6 @@ $lang['Are you sure you want to delete this plugin?'] = 'Esteu segurs que vol el
 $lang['Are you sure you want to install this plugin?'] = 'Esteu segurs que voleu instal·lar aquest connector?';
 $lang['Are you sure to install this upgrade? You must verify if this version does not need uninstallation.'] = 'Està segur que vol instal·lar aquesta actualització? És important verificar abans d\'actualitzar si aquesta versió no necessita una desinstal·lació prèvia.';
 $lang['Plugin has been successfully copied'] = 'El connector s\'ha copiat correctament';
-$lang['You might go to plugin list to install and activate it.'] = 'Heu d\'anar a la llista de connectors instal·lats i activar-lo.';
 $lang['Can\'t create temporary file.'] = 'No s\'ha pogut crear el fitxer temporal.';
 $lang['Can\'t download archive.'] = 'No s\'ha pogut descarregar l\'arxiu.';
 $lang['Can\'t read or extract archive.'] = 'No s\'ha pogut llegir o extreure l\'arxiu.';
@@ -984,4 +983,5 @@ $lang['No user selected of %d users'] = 'Cap usuari seleccionat de %d usuaris';
 $lang['Open user details'] = 'Obre detalls de l\'usuari';
 $lang['Showing %s to %s of %s users'] = 'Mostrant %s de %s de %s usuaris';
 $lang['on the %d selected users'] = 'sobre els %d usuaris seleccionats';
+$lang['Activate it now'] = 'Activa-ho ara';
 ?>
