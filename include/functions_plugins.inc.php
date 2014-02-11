@@ -279,19 +279,20 @@ function trigger_event($event, $data=null)
     return $data;
   }
   $args = func_get_args();
+  array_shift($args);
 
   foreach ($pwg_event_handlers[$event] as $priority => $handlers)
   {
     foreach ($handlers as $handler)
     {
-      $args[1] = $data;
+      $args[0] = $data;
 
       if (!empty($handler['include_path']))
       {
         include_once($handler['include_path']);
       }
 
-      $data = call_user_func_array($handler['function'], array_slice($args, 1));
+      $data = call_user_func_array($handler['function'], $args);
     }
   }
 
@@ -341,6 +342,7 @@ function trigger_action($event)
     return;
   }
   $args = func_get_args();
+  array_shift($args);
 
   foreach ($pwg_event_handlers[$event] as $priority => $handlers)
   {
@@ -351,7 +353,7 @@ function trigger_action($event)
         include_once($handler['include_path']);
       }
 
-      call_user_func_array($handler['function'], array_slice($args,1));
+      call_user_func_array($handler['function'], $args);
     }
   }
 }
