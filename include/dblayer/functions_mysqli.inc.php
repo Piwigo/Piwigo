@@ -21,27 +21,33 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
+/**
+ * @package functions\mysql
+ */
+
 define('DB_ENGINE', 'MySQL');
 define('REQUIRED_MYSQL_VERSION', '5.0.0');
 
 define('DB_REGEX_OPERATOR', 'REGEXP');
 define('DB_RANDOM_FUNCTION', 'RAND');
 
-/**
- *
- * simple functions
- *
- */
 
+/**
+ * Connect to database and store MySQLi resource in __$mysqli__ global variable.
+ *
+ * @param string $host
+ *    - localhost
+ *    - 1.2.3.4:3405
+ *    - /path/to/socket
+ * @param string $user
+ * @param string $password
+ * @param string $database
+ *
+ * @throws Exception
+ */
 function pwg_db_connect($host, $user, $password, $database)
 {
   global $mysqli;
-
-  // $host can be:
-  //
-  // $host = localhost
-  // $host = 1.2.3.4:3405
-  // $host = /path/to/socket
 
   $port = null;
   $socket = null;
@@ -69,6 +75,9 @@ function pwg_db_connect($host, $user, $password, $database)
   }
 }
 
+/**
+ * Set charset for database connection.
+ */
 function pwg_db_check_charset() 
 {
   $db_charset = 'utf8';
@@ -79,6 +88,9 @@ function pwg_db_check_charset()
   pwg_query('SET NAMES "'.$db_charset.'"');
 }
 
+/**
+ * Check MySQL version. Can call fatal_error().
+ */
 function pwg_db_check_version()
 {
   $current_mysql = pwg_get_db_version();
@@ -94,6 +106,11 @@ function pwg_db_check_version()
   }
 }
 
+/**
+ * Get Mysql Version.
+ *
+ * @return string
+ */
 function pwg_get_db_version() 
 {
   global $mysqli;
@@ -101,6 +118,12 @@ function pwg_get_db_version()
   return $mysqli->server_info;
 }
 
+/**
+ * Execute a query
+ *
+ * @param string $query
+ * @return mysqli_result|bool
+ */
 function pwg_query($query)
 {
   global $mysqli, $conf, $page, $debug, $t2;
@@ -149,6 +172,13 @@ function pwg_query($query)
   return $result;
 }
 
+/**
+ * Get max value plus one of a particular column.
+ *
+ * @param string $column
+ * @param string $table
+ * @param int
+ */
 function pwg_db_nextval($column, $table)
 {
   $query = '
@@ -231,36 +261,35 @@ function pwg_db_close()
   return $mysqli->close();
 }
 
-/**
- *
- * complex functions
- *
- */
 
 define('MASS_UPDATES_SKIP_EMPTY', 1);
+
 /**
- * updates multiple lines in a table
+ * Updates multiple lines in a table.
  *
- * @param string table_name
- * @param array dbfields
- * @param array datas
- * @param int flags - if MASS_UPDATES_SKIP_EMPTY - empty values do not overwrite existing ones
- * @return void
+ * @param string $tablename
+ * @param array $dbfields - contains 'primary' and 'update' arrays
+ * @param array $datas - indexed by column names
+ * @param int $flags - if MASS_UPDATES_SKIP_EMPTY, empty values do not overwrite existing ones
  */
 function mass_updates($tablename, $dbfields, $datas, $flags=0)
 {
   if (count($datas) == 0)
+  {
     return;
-  
-  // depending on the MySQL version, we use the multi table update or N update queries
+  }
+
+  // we use the multi table update or N update queries
   if (count($datas) < 10)
   {
     foreach ($datas as $data)
     {
+      $is_first = true;
+
       $query = '
 UPDATE '.$tablename.'
   SET ';
-      $is_first = true;
+
       foreach ($dbfields['update'] as $key)
       {
         $separator = $is_first ? '' : ",\n    ";
@@ -271,24 +300,28 @@ UPDATE '.$tablename.'
         }
         else
         {
-          if ( $flags & MASS_UPDATES_SKIP_EMPTY )
+          if ($flags & MASS_UPDATES_SKIP_EMPTY)
+          {
             continue; // next field
+          }
           $query.= "$separator$key = NULL";
         }
         $is_first = false;
       }
+
       if (!$is_first)
       {// only if one field at least updated
+        $is_first = true;
+
         $query.= '
   WHERE ';
-        $is_first = true;
         foreach ($dbfields['primary'] as $key)
         {
           if (!$is_first)
           {
             $query.= ' AND ';
           }
-          if ( isset($data[$key]) )
+          if (isset($data[$key]))
           {
             $query.= $key.' = \''.$data[$key].'\'';
           }
@@ -298,18 +331,18 @@ UPDATE '.$tablename.'
           }
           $is_first = false;
         }
+
         pwg_query($query);
       }
     } // foreach update
-  } // if mysqli_ver or count<X
+  } // if count<X
   else
   {
     // creation of the temporary table
-    $query = '
-SHOW FULL COLUMNS FROM '.$tablename;
-    $result = pwg_query($query);
+    $result = pwg_query('SHOW FULL COLUMNS FROM '.$tablename);
     $columns = array();
     $all_fields = array_merge($dbfields['primary'], $dbfields['update']);
+
     while ($row = pwg_db_fetch_assoc($result))
     {
       if (in_array($row['Field'], $all_fields))
@@ -350,12 +383,13 @@ CREATE TABLE '.$temporary_tablename.'
 
     pwg_query($query);
     mass_inserts($temporary_tablename, $all_fields, $datas);
-    if ( $flags & MASS_UPDATES_SKIP_EMPTY )
+
+    if ($flags & MASS_UPDATES_SKIP_EMPTY)
       $func_set = create_function('$s', 'return "t1.$s = IFNULL(t2.$s, t1.$s)";');
     else
       $func_set = create_function('$s', 'return "t1.$s = t2.$s";');
 
-    // update of images table by joining with temporary table
+    // update of table by joining with temporary table
     $query = '
 UPDATE '.$tablename.' AS t1, '.$temporary_tablename.' AS t2
   SET '.
@@ -372,33 +406,33 @@ UPDATE '.$tablename.' AS t1, '.$temporary_tablename.' AS t2
           )
         );
     pwg_query($query);
-    $query = '
-DROP TABLE '.$temporary_tablename;
-    pwg_query($query);
+
+    pwg_query('DROP TABLE '.$temporary_tablename);
   }
 }
 
 /**
- * updates one line in a table
+ * Updates one line in a table.
  *
- * @param string table_name
- * @param array set_fields
- * @param array where_fields
- * @param int flags - if MASS_UPDATES_SKIP_EMPTY - empty values do not overwrite existing ones
- * @return void
+ * @param string $tablename
+ * @param array $datas
+ * @param array $where
+ * @param int $flags - if MASS_UPDATES_SKIP_EMPTY, empty values do not overwrite existing ones
  */
-function single_update($tablename, $set_fields, $where_fields, $flags=0)
+function single_update($tablename, $datas, $where, $flags=0)
 {
-  if (count($set_fields) == 0)
+  if (count($datas) == 0)
   {
     return;
   }
 
+  $is_first = true;
+
   $query = '
 UPDATE '.$tablename.'
   SET ';
-  $is_first = true;
-  foreach ($set_fields as $key => $value)
+
+  foreach ($datas as $key => $value)
   {
     $separator = $is_first ? '' : ",\n    ";
 
@@ -408,24 +442,29 @@ UPDATE '.$tablename.'
     }
     else
     {
-      if ( $flags & MASS_UPDATES_SKIP_EMPTY )
+      if ($flags & MASS_UPDATES_SKIP_EMPTY)
+      {
         continue; // next field
+      }
       $query.= "$separator$key = NULL";
     }
     $is_first = false;
   }
+
   if (!$is_first)
   {// only if one field at least updated
+    $is_first = true;
+
     $query.= '
   WHERE ';
-    $is_first = true;
-    foreach ($where_fields as $key => $value)
+
+    foreach ($where as $key => $value)
     {
       if (!$is_first)
       {
         $query.= ' AND ';
       }
-      if ( isset($value) )
+      if (isset($value))
       {
         $query.= $key.' = \''.$value.'\'';
       }
@@ -435,18 +474,19 @@ UPDATE '.$tablename.'
       }
       $is_first = false;
     }
+
     pwg_query($query);
   }
 }
 
-
 /**
- * inserts multiple lines in a table
+ * Inserts multiple lines in a table.
  *
- * @param string table_name
- * @param array dbfields
- * @param array inserts
- * @return void
+ * @param string $table_name
+ * @param array $dbfields - fields from $datas which will be used
+ * @param array $datas
+ * @param array $options
+ *    - boolean ignore - use "INSERT IGNORE"
  */
 function mass_inserts($table_name, $dbfields, $datas, $options=array())
 {
@@ -506,17 +546,16 @@ INSERT '.$ignore.' INTO '.$table_name.'
       }
       $query .= ')';
     }
+
     pwg_query($query);
   }
 }
 
 /**
- * inserts one line in a table
+ * Inserts one line in a table.
  *
- * @param string table_name
- * @param array dbfields
- * @param array insert
- * @return void
+ * @param string $table_name
+ * @param array $data
  */
 function single_insert($table_name, $data)
 {
@@ -555,10 +594,9 @@ INSERT INTO '.$table_name.'
   }
 }
 
+
 /**
- * Do maintenance on all PWG tables
- *
- * @return none
+ * Do maintenance on all Piwigo tables
  */
 function do_maintenance_all_tables()
 {
@@ -631,24 +669,20 @@ function pwg_db_cast_to_text($string)
 }
 
 /**
- * returns an array containing the possible values of an enum field
+ * Returns an array containing the possible values of an enum field.
  *
- * @param string tablename
- * @param string fieldname
+ * @param string $table
+ * @param string $field
+ * @return string[]
  */
 function get_enums($table, $field)
 {
-  // retrieving the properties of the table. Each line represents a field :
-  // columns are 'Field', 'Type'
-  $result = pwg_query('desc '.$table);
+  $result = pwg_query('DESC '.$table);
   while ($row = pwg_db_fetch_assoc($result))
   {
-    // we are only interested in the the field given in parameter for the
-    // function
     if ($row['Field'] == $field)
     {
-      // retrieving possible values of the enum field
-      // enum('blue','green','black')
+      // parse enum('blue','green','black')
       $options = explode(',', substr($row['Type'], 5, -1));
       foreach ($options as $i => $option)
       {
@@ -656,14 +690,15 @@ function get_enums($table, $field)
       }
     }
   }
+
   pwg_db_free_result($result);
   return $options;
 }
 
 /**
- * Smartly checks if a variable is equivalent to true or false
+ * Checks if a variable is equivalent to true or false.
  *
- * @param mixed input
+ * @param mixed $input
  * @return bool
  */
 function get_boolean($input)
@@ -677,7 +712,8 @@ function get_boolean($input)
 }
 
 /**
- * returns boolean string 'true' or 'false' if the given var is boolean
+ * Returns string 'true' or 'false' if the given var is boolean.
+ * If the input is another type, it is not changed.
  *
  * @param mixed $var
  * @return mixed
@@ -693,12 +729,6 @@ function boolean_to_string($var)
     return $var;
   }
 }
-
-/**
- *
- * interval and date functions 
- *
- */
 
 function pwg_db_get_recent_period_expression($period, $date='CURRENT_DATE')
 {
@@ -721,12 +751,12 @@ SELECT '.pwg_db_get_recent_period_expression($period);
 
 function pwg_db_get_flood_period_expression($seconds)
 {
-  return 'SUBDATE(now(), INTERVAL '.$seconds.' SECOND)';
+  return 'SUBDATE(NOW(), INTERVAL '.$seconds.' SECOND)';
 }
 
 function pwg_db_get_hour($date) 
 {
-  return 'hour('.$date.')';
+  return 'HOUR('.$date.')';
 }
 
 function pwg_db_get_date_YYYYMM($date)
@@ -781,8 +811,10 @@ function pwg_db_date_to_ts($date)
   return 'UNIX_TIMESTAMP('.$date.')';
 }
 
-// my_error returns (or send to standard output) the message concerning the
-// error occured for the last mysql query.
+/**
+ * Returns (or send to standard output) the message concerning the 
+ * error occured for the last mysql query.
+ */
 function my_error($header, $die)
 {
   global $mysqli;
