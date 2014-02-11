@@ -823,6 +823,13 @@ array(
   'files' => array('admin\user_list_backend.php'),
   'infos' => 'New in 2.6.',
 ),
+array(
+  'name' => 'update_rating_score',
+  'type' => 'trigger_event',
+  'vars' => array('boolean', 'done', 'int', 'element_id'),
+  'files' => array('include\functions_rate.inc.php'),
+  'infos' => 'New in 2.6.',
+),
 );
 ?>
 <!DOCTYPE html>
