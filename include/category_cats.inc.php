@@ -133,14 +133,13 @@ SELECT representative_picture_id
 
 if ($conf['display_fromto'])
 {
-  $dates_of_category = array();
   if (count($category_ids) > 0)
   {
     $query = '
 SELECT
     category_id,
-    MIN(date_creation) AS date_creation_min,
-    MAX(date_creation) AS date_creation_max
+    MIN(date_creation) AS `from`,
+    MAX(date_creation) AS `to`
   FROM '.IMAGE_CATEGORY_TABLE.'
     INNER JOIN '.IMAGES_TABLE.' ON image_id = id
   WHERE category_id IN ('.implode(',', $category_ids).')
@@ -155,14 +154,7 @@ SELECT
   ).'
   GROUP BY category_id
 ;';
-    $result = pwg_query($query);
-    while ($row = pwg_db_fetch_assoc($result))
-    {
-      $dates_of_category[ $row['category_id'] ] = array(
-        'from' => $row['date_creation_min'],
-        'to'   => $row['date_creation_max'],
-        );
-    }
+    $dates_of_category = query2array($query, 'category_id');
   }
 }
 

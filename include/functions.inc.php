@@ -1,4 +1,4 @@
-<?php 
+<?php
 // +-----------------------------------------------------------------------+
 // | Piwigo - a PHP based photo gallery                                    |
 // +-----------------------------------------------------------------------+
@@ -481,16 +481,16 @@ function dateDiff($date1, $date2)
   {
     return $date1->diff($date2);
   }
-  
+
   $diff = new stdClass();
-  
+
   //Make sure $date1 is ealier
   $diff->invert = $date2 < $date1;
   if ($diff->invert)
   {
     list($date1, $date2) = array($date2, $date1);
   }
-  
+
   //Calculate R values
   $R = ($date1 <= $date2 ? '+' : '-');
   $r = ($date1 <= $date2 ? '' : '-');
@@ -524,14 +524,14 @@ function dateDiff($date1, $date2)
     //Reset date and record increments
     $date1->modify('-1 '.$period);
   }
-  
+
   list($diff->y, $diff->m, $diff->d, $diff->h) = array_values($periods);
 
   //Minutes, seconds
   $diff->s = round(abs($date1->format('U') - $date2->format('U')));
   $diff->i = floor($diff->s/60);
   $diff->s = $diff->s - $diff->i*60;
-  
+
   return $diff;
 }
 
@@ -569,12 +569,12 @@ function str2DateTime($original, $format=null)
         $ymdhms[] = $tok;
         $tok = strtok('- :/');
       }
-      
+
       if (count($ymdhms)<3) return false;
       if (!isset($ymdhms[3])) $ymdhms[3] = 0;
       if (!isset($ymdhms[4])) $ymdhms[4] = 0;
       if (!isset($ymdhms[5])) $ymdhms[5] = 0;
-      
+
       $date = new DateTime();
       $date->setDate($ymdhms[0], $ymdhms[1], $ymdhms[2]);
       $date->setTime($ymdhms[3], $ymdhms[4], $ymdhms[5]);
@@ -595,7 +595,7 @@ function str2DateTime($original, $format=null)
 function format_date($original, $show_time=false, $show_day_name=true, $format=null)
 {
   global $lang;
-  
+
   $date = str2DateTime($original, $format);
 
   if (!$date)
@@ -608,11 +608,11 @@ function format_date($original, $show_time=false, $show_day_name=true, $format=n
   {
     $print.= $lang['day'][ $date->format('w') ].' ';
   }
-  
+
   $print.= $date->format('j');
   $print.= ' '.$lang['month'][ $date->format('n') ];
   $print.= ' '.$date->format('Y');
-  
+
   if ($show_time)
   {
     $temp = $date->format('H:i');
@@ -643,10 +643,10 @@ function time_since($original, $stop='minute', $format=null, $with_text=true, $w
   {
     return l10n('N/A');
   }
-  
+
   $now = new DateTime();
   $diff = dateDiff($now, $date);
-  
+
   $chunks = array(
     'year' => $diff->y,
     'month' => $diff->m,
@@ -656,16 +656,16 @@ function time_since($original, $stop='minute', $format=null, $with_text=true, $w
     'minute' => $diff->i,
     'second' => $diff->s,
   );
-  
+
   // DateInterval does not contain the number of weeks
   if ($with_week)
   {
     $chunks['week'] = (int)floor($chunks['day']/7);
     $chunks['day'] = $chunks['day'] - $chunks['week']*7;
   }
-  
+
   $j = array_search($stop, array_keys($chunks));
-  
+
   $print = ''; $i=0;
   foreach ($chunks as $name => $value)
   {
@@ -679,9 +679,9 @@ function time_since($original, $stop='minute', $format=null, $with_text=true, $w
     }
     $i++;
   }
-  
+
   $print = trim($print);
-  
+
   if ($with_text)
   {
     if ($diff->invert)
@@ -933,7 +933,7 @@ SELECT element_id
   FROM '.CADDIE_TABLE.'
   WHERE user_id = '.$user['id'].'
 ;';
-  $in_caddie = array_from_query($query, 'element_id');
+  $in_caddie = query2array($query, null, 'element_id');
 
   $caddiables = array_diff($elements_id, $in_caddie);
 
@@ -1042,7 +1042,7 @@ function get_l10n_args($key, $args='')
 /**
  * returns a string formated with l10n elements.
  * it is usefull to "prepare" a text and translate it later
- * @see get_l10n_args() 
+ * @see get_l10n_args()
  *
  * @param array $key_args one l10n_args element or array of l10n_args elements
  * @param string $sep used when translated elements are concatened
@@ -1152,7 +1152,7 @@ SELECT param, value
     }
     $conf[ $row['param'] ] = $val;
   }
-  
+
   trigger_action('load_conf', $condition);
 }
 
@@ -1165,13 +1165,11 @@ SELECT param, value
 function conf_update_param($param, $value)
 {
   $query = '
-SELECT
-    param,
-    value
+SELECT param
   FROM '.CONFIG_TABLE.'
   WHERE param = \''.$param.'\'
 ;';
-  $params = array_from_query($query, 'param');
+  $params = query2array($query, null, 'param');
 
   if (count($params) == 0)
   {
@@ -1203,7 +1201,7 @@ UPDATE '.CONFIG_TABLE.'
 function conf_delete_param($params)
 {
   global $conf;
-  
+
   if (!is_array($params))
   {
     $params = array($params);
@@ -1212,13 +1210,13 @@ function conf_delete_param($params)
   {
     return;
   }
-  
+
   $query = '
 DELETE FROM '.CONFIG_TABLE.'
   WHERE param IN(\''. implode('\',\'', $params) .'\')
 ;';
   pwg_query($query);
-  
+
   foreach ($params as $param)
   {
     unset($conf[$param]);
@@ -1241,69 +1239,6 @@ function prepend_append_array_items($array, $prepend_str, $append_str)
     );
 
   return $array;
-}
-
-/**
- * Builds an data array from a SQL query.
- * Depending on $key_name and $value_name it can return :
- *
- *    - an array of arrays of all fields (key=null, value=null)
- *        array(
- *          array('id'=>1, 'name'=>'DSC8956', ...),
- *          array('id'=>2, 'name'=>'DSC8957', ...),
- *          ...
- *          )
- *
- *    - an array of a single field (key=null, value='...')
- *        array('DSC8956', 'DSC8957', ...)
- *
- *    - an associative array of array of all fields (key='...', value=null)
- *        array(
- *          'DSC8956' => array('id'=>1, 'name'=>'DSC8956', ...),
- *          'DSC8957' => array('id'=>2, 'name'=>'DSC8957', ...),
- *          ...
- *          )
- *
- *    - an associative array of a single field (key='...', value='...')
- *        array(
- *          'DSC8956' => 1,
- *          'DSC8957' => 2,
- *          ...
- *          )
- *
- * @since 2.6
- *
- * @param string $query
- * @param string $key_name
- * @param string $value_name
- * @return array
- */
-function query2array($query, $key_name=null, $value_name=null)
-{
-  $result = pwg_query($query);
-  $data = array();
-
-  while ($row = pwg_db_fetch_assoc($result))
-  {
-    if (isset($value_name))
-    {
-      $value = $row[ $value_name ];
-    }
-    else
-    {
-      $value = $row;
-    }
-    if (isset($key_name))
-    {
-      $data[ $row[$key_name] ] = $value;
-    }
-    else
-    {
-      $data[] = $value;
-    }
-  }
-
-  return $data;
 }
 
 /**
@@ -1368,7 +1303,7 @@ function array_from_query($query, $fieldname=false)
   {
     while ($row = pwg_db_fetch_assoc($result))
     {
-      $array[] = $row;      
+      $array[] = $row;
     }
   }
   else
@@ -1493,7 +1428,7 @@ function get_parent_language($lang_id=null)
 function load_language($filename, $dirname = '', $options = array())
 {
   global $user, $language_files;
-  
+
   if ( !empty($dirname) and !empty($filename) )
   {
     if ( empty($language_files[$dirname]) or !in_array($filename,$language_files[$dirname]) )
@@ -1573,7 +1508,7 @@ function load_language($filename, $dirname = '', $options = array())
       global $lang, $lang_info;
       if ( !isset($lang) ) $lang=array();
       if ( !isset($lang_info) ) $lang_info=array();
-      
+
       $parent_language = !empty($load_lang_info['parent']) ? $load_lang_info['parent'] : (
                             !empty($lang_info['parent']) ? $lang_info['parent'] : null );
       if (!empty($parent_language) and $parent_language != $selected_language)
@@ -2065,7 +2000,7 @@ SELECT COUNT(DISTINCT(com.id))
     AND ', $where);
     list($user['nb_available_comments']) = pwg_db_fetch_row(pwg_query($query));
 
-    single_update(USER_CACHE_TABLE, 
+    single_update(USER_CACHE_TABLE,
       array('nb_available_comments'=>$user['nb_available_comments']),
       array('user_id'=>$user['id'])
       );
@@ -2086,15 +2021,15 @@ SELECT COUNT(DISTINCT(com.id))
 function safe_version_compare($a, $b, $op=null)
 {
   $replace_chars = create_function('$m', 'return ord(strtolower($m[1]));');
-  
+
   // add dot before groups of letters (version_compare does the same thing)
   $a = preg_replace('#([0-9]+)([a-z]+)#i', '$1.$2', $a);
   $b = preg_replace('#([0-9]+)([a-z]+)#i', '$1.$2', $b);
-  
+
   // apply ord() to any single letter
   $a = preg_replace_callback('#\b([a-z]{1})\b#i', $replace_chars, $a);
   $b = preg_replace_callback('#\b([a-z]{1})\b#i', $replace_chars, $b);
-  
+
   if (empty($op))
   {
     return version_compare($a, $b);

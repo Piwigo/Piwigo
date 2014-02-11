@@ -760,4 +760,74 @@ function my_error($header, $die)
   echo("</pre>");
 }
 
+/**
+ * Builds an data array from a SQL query.
+ * Depending on $key_name and $value_name it can return :
+ *
+ *    - an array of arrays of all fields (key=null, value=null)
+ *        array(
+ *          array('id'=>1, 'name'=>'DSC8956', ...),
+ *          array('id'=>2, 'name'=>'DSC8957', ...),
+ *          ...
+ *          )
+ *
+ *    - an array of a single field (key=null, value='...')
+ *        array('DSC8956', 'DSC8957', ...)
+ *
+ *    - an associative array of array of all fields (key='...', value=null)
+ *        array(
+ *          'DSC8956' => array('id'=>1, 'name'=>'DSC8956', ...),
+ *          'DSC8957' => array('id'=>2, 'name'=>'DSC8957', ...),
+ *          ...
+ *          )
+ *
+ *    - an associative array of a single field (key='...', value='...')
+ *        array(
+ *          'DSC8956' => 1,
+ *          'DSC8957' => 2,
+ *          ...
+ *          )
+ *
+ * @since 2.6
+ *
+ * @param string $query
+ * @param string $key_name
+ * @param string $value_name
+ * @return array
+ */
+function query2array($query, $key_name=null, $value_name=null)
+{
+  $result = pwg_query($query);
+  $data = array();
+
+  if (isset($key_name))
+  {
+    if (isset($value_name))
+    {
+      while ($row = pwg_db_fetch_assoc($result))
+        $data[ $row[$key_name] ] = $row[$value_name];
+    }
+    else
+    {
+      while ($row = pwg_db_fetch_assoc($result))
+        $data[ $row[$key_name] ] = $row;
+    }
+  }
+  else
+  {
+    if (isset($value_name))
+    {
+      while ($row = pwg_db_fetch_assoc($result))
+        $data[] = $row[$value_name];
+    }
+    else
+    {
+      while ($row = pwg_db_fetch_assoc($result))
+        $data[] = $row;
+    }
+  }
+
+  return $data;
+}
+
 ?>

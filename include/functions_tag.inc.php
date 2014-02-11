@@ -70,7 +70,7 @@ SELECT tag_id, COUNT(DISTINCT(it.image_id)) AS counter
     ).'
   GROUP BY tag_id
 ;';
-  $tag_counters = simple_hash_from_query($query, 'tag_id', 'counter');
+  $tag_counters = query2array($query, 'tag_id', 'counter');
 
   if ( empty($tag_counters) )
   {
@@ -233,7 +233,7 @@ SELECT id
   }
   $query .= "\n".(empty($order_by) ? $conf['order_by'] : $order_by);
 
-  return array_from_query($query, 'id');
+  return query2array($query, null, 'id');
 }
 
 /**
@@ -320,13 +320,7 @@ SELECT *
   WHERE '. implode( '
     OR ', $where_clauses);
 
-  $result = pwg_query($query);
-  $tags = array();
-  while ($row = pwg_db_fetch_assoc($result))
-  {
-    $tags[] = $row;
-  }
-  return $tags;
+  return query2array($query);
 }
 
 ?>
