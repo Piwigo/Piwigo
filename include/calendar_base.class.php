@@ -246,7 +246,7 @@ $this->inner_sql.
 $this->get_date_where($level).'
   GROUP BY period;';
 
-    $level_items = simple_hash_from_query($query, 'period', 'nb_images');
+    $level_items = query2array($query, 'period', 'nb_images');
 
     if ( count($level_items)==1 and
          count($page['chronology_date'])<count($this->calendar_levels)-1)
@@ -317,7 +317,7 @@ AND ' . $this->date_field . ' IS NOT NULL
 GROUP BY period';
     
     $current = implode('-', $page['chronology_date'] );
-    $upper_items = array_from_query( $query, 'period');
+    $upper_items = query2array($query,null, 'period');
 
     usort($upper_items, 'version_compare');
     $upper_items_rank = array_flip($upper_items);

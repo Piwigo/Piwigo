@@ -1253,15 +1253,7 @@ function prepend_append_array_items($array, $prepend_str, $append_str)
  */
 function simple_hash_from_query($query, $keyname, $valuename)
 {
-  $array = array();
-
-  $result = pwg_query($query);
-  while ($row = pwg_db_fetch_assoc($result))
-  {
-    $array[ $row[$keyname] ] = $row[$valuename];
-  }
-
-  return $array;
+	return query2array($query, $keyname, $valuename);
 }
 
 /**
@@ -1275,13 +1267,7 @@ function simple_hash_from_query($query, $keyname, $valuename)
  */
 function hash_from_query($query, $keyname)
 {
-  $array = array();
-  $result = pwg_query($query);
-  while ($row = pwg_db_fetch_assoc($result))
-  {
-    $array[ $row[$keyname] ] = $row;
-  }
-  return $array;
+	return query2array($query, $keyname);
 }
 
 /**
@@ -1296,24 +1282,14 @@ function hash_from_query($query, $keyname)
  */
 function array_from_query($query, $fieldname=false)
 {
-  $array = array();
-
-  $result = pwg_query($query);
   if (false === $fieldname)
   {
-    while ($row = pwg_db_fetch_assoc($result))
-    {
-      $array[] = $row;
-    }
+		return query2array($query);
   }
   else
   {
-    while ($row = pwg_db_fetch_assoc($result))
-    {
-      $array[] = $row[$fieldname];
-    }
+		return query2array($query, null, $fieldname);
   }
-  return $array;
 }
 
 /**

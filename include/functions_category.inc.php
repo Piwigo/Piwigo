@@ -205,7 +205,7 @@ SELECT *
     FROM '.CATEGORIES_TABLE.'
     WHERE id IN ('.$cat['uppercats'].')
   ;';
-    $names = hash_from_query($query, 'id');
+    $names = query2array($query, 'id');
 
     // category names must be in the same order than uppercats list
     $cat['upper_names'] = array();
@@ -302,7 +302,7 @@ function display_select_cat_wrapper($query,
                                     $blockname,
                                     $fullname = true)
 {
-  $categories = array_from_query($query);
+  $categories = query2array($query);
   usort($categories, 'global_rank_compare');
   display_select_categories($categories, $selecteds, $blockname, $fullname);
 }
@@ -362,7 +362,7 @@ SELECT id, permalink, 0 AS is_old
   FROM '.CATEGORIES_TABLE.'
   WHERE permalink IN ('.$in.')
 ;';
-  $perma_hash = hash_from_query($query, 'permalink');
+  $perma_hash = query2array($query, 'permalink');
 
   if ( empty($perma_hash) )
     return null;

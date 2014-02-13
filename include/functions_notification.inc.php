@@ -217,7 +217,7 @@ function custom_notification_query($action, $type, $start=null, $end=null)
           break;
       }
       $query = 'SELECT DISTINCT '.$field_id.' '.$query.';';
-      $infos = array_from_query($query);
+      $infos = query2array($query);
       return $infos;
       break;
     }
@@ -456,7 +456,7 @@ SELECT
   ORDER BY date_available DESC
   LIMIT '.$max_dates.'
 ;';
-  $dates = array_from_query($query);
+  $dates = query2array($query);
 
   for ($i=0; $i<count($dates); $i++)
   {
@@ -471,7 +471,7 @@ SELECT DISTINCT i.*
   ORDER BY '.DB_RANDOM_FUNCTION.'()
   LIMIT '.$max_elements.'
 ;';
-      $dates[$i]['elements'] = array_from_query($query);
+      $dates[$i]['elements'] = query2array($query);
     }
 
     if ($max_cats>0)
@@ -489,7 +489,7 @@ SELECT
   ORDER BY img_count DESC
   LIMIT '.$max_cats.'
 ;';
-      $dates[$i]['categories'] = array_from_query($query);
+      $dates[$i]['categories'] = query2array($query);
     }
   }
 

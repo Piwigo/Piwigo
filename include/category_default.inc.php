@@ -84,7 +84,7 @@ SELECT image_id, COUNT(*) AS nb_comments
     AND image_id IN ('.implode(',', $selection).')
   GROUP BY image_id
 ;';
-    $nb_comments_of = simple_hash_from_query($query, 'image_id', 'nb_comments');
+    $nb_comments_of = query2array($query, 'image_id', 'nb_comments');
   }
 }
 
