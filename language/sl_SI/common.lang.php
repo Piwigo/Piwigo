@@ -105,7 +105,8 @@ $lang['Visits'] = 'Ogledov';
 $lang['Webmaster'] = 'Skrbnik';
 $lang['Week %d'] = 'Teden %d';
 $lang['About Piwigo'] = 'O Piwigo';
-$lang['You are not authorized to access the requested page'] = 'Za dostop do zahtevane strani nimate pooblastil';
+$lang['You are not authorized to access the requested page'] = 'Za ogled strani nimate ustreznega dovoljenja! Če ste že registriran član se prijavite v fotogalerijo.
+V primeru, da še niste registrirani se morate registrirati, in nato prijaviti.';
 $lang['add this photo to your favorites'] = 'dodaj sliko med svoje priljubljene';
 $lang['Administration'] = 'Administracija';
 $lang['all'] = 'vse';
