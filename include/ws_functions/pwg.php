@@ -139,16 +139,7 @@ SELECT id, path, representative_ext, width, height, rotation
  */
 function ws_getVersion($params, &$service)
 {
-  global $conf;
-
-  if ($conf['show_version'] or is_admin())
-  {
-    return PHPWG_VERSION;
-  }
-  else
-  {
-    return new PwgError(403, 'Forbidden');
-  }
+  return PHPWG_VERSION;
 }
 
 /**
@@ -335,7 +326,7 @@ function ws_session_getStatus($params, &$service)
 
   list($dbnow) = pwg_db_fetch_row(pwg_query('SELECT NOW();'));
   $res['current_datetime'] = $dbnow;
-
+  $res['version'] = PHPWG_VERSION;
   return $res;
 }
 
