@@ -800,7 +800,6 @@ $lang['THIS PLUGIN IS NOW PART OF PIWIGO CORE! DELETE IT NOW.'] = 'TA VTIČNIK J
 $lang['To export your photos from digiKam to Piwigo, simply install digiKam and the Kipi-plugins.'] = 'Da bi vaše slike prenesli iz digiKam v Piwigo preprosto namestite digiKam in Kipi-vtičnike.';
 $lang['Uninstall'] = 'Odstrani';
 $lang['Uninstalled Plugins'] = 'Nenameščeni vtičniki';
-$lang['You might go to plugin list to install and activate it.'] = 'Za namestitev in aktiviranje pojdi na seznam vtičnikov';
 $lang['Representant'] = 'Sličica albuma';
 $lang['Representation of albums'] = 'Sličica albuma';
 $lang['Representative'] = 'Sličica albuma';
@@ -971,4 +970,5 @@ $lang['on the %d selected users'] = ' na %d izbranih uporabnikih';
 $lang['Close user details'] = 'Zapri uporabniške podate';
 $lang['Open user details'] = 'Odpri uporabniška navodila';
 $lang['close'] = 'zapri';
+$lang['Activate it now'] = 'Aktivirajte zdaj';
 ?>
