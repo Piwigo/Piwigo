@@ -49,7 +49,7 @@ class BlockManager
    */
   public function load_registered_blocks()
   {
-    trigger_action('blockmanager_register_blocks', array(&$this));
+    trigger_action('blockmanager_register_blocks', array($this));
   }
   
   /**
@@ -71,16 +71,15 @@ class BlockManager
   /**
    * Add a block with the menu. Usually called in 'blockmanager_register_blocks' event.
    *
-   * @param RegisteredBlock &$block
+   * @param RegisteredBlock $block
    */
-  public function register_block(&$block)
+  public function register_block($block)
   {
     if (isset($this->registered_blocks[$block->get_id()]))
     {
-      trigger_error("Block '".$block->get_id()."' is already registered", E_USER_WARNING);
       return false;
     }
-    $this->registered_blocks[$block->get_id()] = &$block;
+    $this->registered_blocks[$block->get_id()] = $block;
     return true;
   }
 
@@ -111,7 +110,7 @@ class BlockManager
       $idx++;
     }
     $this->sort_blocks();
-    trigger_action('blockmanager_prepare_display', array(&$this));
+    trigger_action('blockmanager_prepare_display', array($this));
     $this->sort_blocks();
   }
 
@@ -140,16 +139,15 @@ class BlockManager
    * Returns a visible block.
    *
    * @param string $block_id
-   * @return &DisplayBlock|null
+   * @return DisplayBlock|null
    */
-  public function &get_block($block_id)
+  public function get_block($block_id)
   {
-    $tmp = null;
     if (isset($this->display_blocks[$block_id]))
     {
       return $this->display_blocks[$block_id];
     }
-    return $tmp;
+    return null;
   }
 
   /**
@@ -193,7 +191,7 @@ class BlockManager
     global $template;
 
     $template->set_filename('menubar', $file);
-    trigger_action('blockmanager_apply', array(&$this) );
+    trigger_action('blockmanager_apply', array($this) );
 
     foreach ($this->display_blocks as $id=>$block)
     {
@@ -279,17 +277,17 @@ class DisplayBlock
   public $raw_content;
 
   /**
-   * @param RegisteredBlock &$block
+   * @param RegisteredBlock $block
    */
   public function __construct($block)
   {
-    $this->_registeredBlock = &$block;
+    $this->_registeredBlock = $block;
   }
 
   /**
-   * @return &RegisteredBlock
+   * @return RegisteredBlock
    */
-  public function &get_block()
+  public function get_block()
   {
     return $this->_registeredBlock;
   }
