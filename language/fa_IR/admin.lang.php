@@ -477,7 +477,6 @@ $lang['Are you sure you want to delete this plugin?'] = 'آیا می‌خواه�
 $lang['Are you sure you want to install this plugin?'] = 'آیا می‌خواهید این افزونه را نصب کنید؟';
 $lang['Are you sure to install this upgrade? You must verify if this version does not need uninstallation.'] = 'آیا می‌خواهید این آپگرید را نصب کنید؟ باید این را بپذیرید زیرا ممکن است نیاز به پاک کردن افزونه‌ای باشد.';
 $lang['Plugin has been successfully copied'] = 'افزونه با موفقیت کپی شد';
-$lang['You might go to plugin list to install and activate it.'] = 'برای نصب یا از کار انداختن این افزونه به لیست افزونه ها بروید.';
 $lang['Can\'t create temporary file.'] = 'امکان ایجاد فایل موقت وجود ندارد.';
 $lang['Can\'t download archive.'] = 'بایگانی را نمی‌توان دانلود کرد.';
 $lang['Can\'t read or extract archive.'] = 'بایگانی را نمی‌توان خواند یا باز کرد.';
@@ -976,4 +975,5 @@ $lang['Change password'] = 'تغيير رمز';
 $lang['All %d users are selected'] = 'تمام %d كاربر انتخاب شده اند.';
 $lang['(filtered from %s total users)'] = '(فيلتر شده از بين %s كاربر)';
 $lang['%d of %d users selected'] = 'تعداد %d كاربر از %d كاربران انتخاب شده‌اند.';
+$lang['Activate it now'] = 'فعال درحال حاضر';
 ?>
