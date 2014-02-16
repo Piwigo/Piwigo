@@ -132,7 +132,7 @@ function make_index_url($params = array())
   }
 
   $url_before_params = $url;
-  
+
   $url.= make_section_in_url($params);
   $url = add_well_known_params_in_url($url, $params);
 
@@ -140,7 +140,7 @@ function make_index_url($params = array())
   {
     $url = get_absolute_root_url( url_is_remote($url) );
   }
-  
+
   return $url;
 }
 
@@ -215,8 +215,6 @@ function duplicate_picture_url($redefined = array(), $removed = array())
 function make_picture_url($params)
 {
   global $conf;
-
-  isset($params['image_id']) or fatal_error('make_picture_url: image_id is a required parameter');
 
   $url = get_root_url().'picture';
   if ($conf['php_extension_in_urls'])
@@ -337,12 +335,6 @@ function make_section_in_url($params)
       }
       else
       {
-        is_array($params['category']) or trigger_error(
-            'make_section_in_url wrong type for category', E_USER_WARNING
-            );
-        is_numeric($params['category']['id']) or trigger_error(
-            'make_section_in_url category id not numeric', E_USER_WARNING
-            );
         isset($params['category']['name']) or trigger_error(
             'make_section_in_url category name not set', E_USER_WARNING
             );
@@ -370,11 +362,6 @@ function make_section_in_url($params)
     }
     case 'tags' :
     {
-      if (!isset($params['tags']) or count($params['tags']) == 0)
-      {
-        fatal_error('make_section_in_url: require at least one tag');
-      }
-
       $section_string.= '/tags';
 
       foreach ($params['tags'] as $tag)
@@ -403,13 +390,11 @@ function make_section_in_url($params)
     }
     case 'search' :
     {
-      isset($params['search']) or fatal_error('make_section_in_url: require a search identifier');
       $section_string.= '/search/'.$params['search'];
       break;
     }
     case 'list' :
     {
-      isset($params['list']) or fatal_error('make_section_in_url: require a list of items');
       $section_string.= '/list/'.implode(',', $params['list']);
       break;
     }
@@ -470,7 +455,7 @@ function parse_section_url( $tokens, &$next_token)
           }
           else
           {
-            $maybe_permalinks[] = 
+            $maybe_permalinks[] =
                 $maybe_permalinks[count($maybe_permalinks)-1]
                 . '/' . $tokens[$current_token];
           }
@@ -678,7 +663,7 @@ function get_action_url($id, $what_part, $download)
   {
     $params['download'] = null;
   }
-  
+
   return add_url_params(get_root_url().'action.php', $params);
 }
 
@@ -812,7 +797,7 @@ function get_query_string_diff($rejects=array(), $escape=true)
   parse_str($_SERVER['QUERY_STRING'], $vars);
 
   $vars = array_diff_key($vars, array_flip($rejects));
-  
+
   return '?' . http_build_query($vars, '', $escape ? '&amp;' : '&');
 }
 

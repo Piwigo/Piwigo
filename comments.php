@@ -69,7 +69,7 @@ if (!in_array($conf['comments_page_nb_comments'], $items_number))
       $items_number_new[] = $conf['comments_page_nb_comments'];
       $is_inserted = true;
     }
-    
+
     $items_number_new[] = $number;
   }
 
@@ -88,7 +88,7 @@ $since_options = array(
   4 => array('label' => l10n('the beginning'),
              'clause' => '1=1') // stupid but generic
   );
-  
+
 trigger_action('loc_begin_comments');
 
 if (!empty($_GET['since']) && is_numeric($_GET['since']))
@@ -265,7 +265,7 @@ if (isset($action))
             ),
           $_POST['key']
           );
-        
+
         switch ($comment_action)
         {
           case 'moderate':
@@ -281,7 +281,7 @@ if (isset($action))
             trigger_error('Invalid comment action '.$comment_action, E_USER_WARNING);
         }
       }
-      
+
       $edit_comment = $_GET['edit'];
     }
 
@@ -437,13 +437,13 @@ SELECT *
   FROM '.IMAGES_TABLE.'
   WHERE id IN ('.implode(',', $element_ids).')
 ;';
-  $elements = hash_from_query($query, 'id');
+  $elements = query2array($query, 'id');
 
   // retrieving category informations
-  $query = 'SELECT id, name, permalink, uppercats 
+  $query = 'SELECT id, name, permalink, uppercats
   FROM '.CATEGORIES_TABLE.'
   WHERE id IN ('.implode(',', $category_ids).')';
-  $categories = hash_from_query($query, 'id');
+  $categories = query2array($query, 'id');
 
   foreach ($comments as $comment)
   {
@@ -467,7 +467,7 @@ SELECT *
         'image_file' => $elements[$comment['image_id']]['file'],
         )
       );
-      
+
     $email = null;
     if (!empty($comment['user_email']))
     {
@@ -488,7 +488,7 @@ SELECT *
       'DATE'=>format_date($comment['date'], true),
       'CONTENT'=>trigger_event('render_comment_content',$comment['content']),
       );
-      
+
     if (is_admin())
     {
       $tpl_comment['EMAIL'] = $email;

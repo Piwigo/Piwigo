@@ -426,7 +426,7 @@ SELECT DISTINCT(id)
   FROM '.IMAGES_TABLE.' INNER JOIN '.IMAGE_CATEGORY_TABLE.' ON id=image_id
   WHERE category_id NOT IN ('.$userdata['forbidden_categories'].')
     AND level>'.$userdata['level'];
-      $forbidden_ids = array_from_query($query, 'id');
+      $forbidden_ids = query2array($query,null, 'id');
 
       if ( empty($forbidden_ids) )
       {
@@ -544,14 +544,14 @@ SELECT DISTINCT f.image_id
       'AND'
     ).'
 ;';
-  $authorizeds = array_from_query($query, 'image_id');
+  $authorizeds = query2array($query,null, 'image_id');
 
   $query = '
 SELECT image_id
   FROM '.FAVORITES_TABLE.'
   WHERE user_id = '.$user['id'].'
 ;';
-  $favorites = array_from_query($query, 'image_id');
+  $favorites = query2array($query,null, 'image_id');
 
   $to_deletes = array_diff($favorites, $authorizeds);
   if (count($to_deletes) > 0)
@@ -584,7 +584,7 @@ SELECT id
   FROM '.CATEGORIES_TABLE.'
   WHERE status = \'private\'
 ;';
-  $private_array = array_from_query($query, 'id');
+  $private_array = query2array($query,null, 'id');
 
   // retrieve category ids directly authorized to the user
   $query = '
@@ -592,7 +592,7 @@ SELECT cat_id
   FROM '.USER_ACCESS_TABLE.'
   WHERE user_id = '.$user_id.'
 ;';
-  $authorized_array = array_from_query($query, 'cat_id');
+  $authorized_array = query2array($query,null, 'cat_id');
 
   // retrieve category ids authorized to the groups the user belongs to
   $query = '
@@ -604,7 +604,7 @@ SELECT cat_id
   $authorized_array =
     array_merge(
       $authorized_array,
-      array_from_query($query, 'cat_id')
+      query2array($query,null, 'cat_id')
       );
 
   // uniquify ids : some private categories might be authorized for the
@@ -622,11 +622,7 @@ SELECT id
   FROM '.CATEGORIES_TABLE.'
   WHERE visible = \'false\'
 ;';
-    $result = pwg_query($query);
-    while ($row = pwg_db_fetch_assoc($result))
-    {
-      $forbidden_array[] = $row['id'];
-    }
+    $forbidden_array = array_merge($forbidden_array, query2array($query, null, 'id') );
     $forbidden_array = array_unique($forbidden_array);
   }
 
@@ -868,7 +864,7 @@ function create_user_infos($user_ids, $override_values=null)
         $status = 'webmaster';
         $level = max( $conf['available_permission_levels'] );
       }
-      else if (($user_id == $conf['guest_id']) or
+      elseif (($user_id == $conf['guest_id']) or
                ($user_id == $conf['default_user_id']))
       {
         $status = 'guest';
