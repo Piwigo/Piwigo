@@ -170,7 +170,7 @@ class Emogrifier {
     private function clearCache($key) {
         $allowedCacheKeys = array(self::CACHE_KEY_CSS, self::CACHE_KEY_SELECTOR, self::CACHE_KEY_XPATH);
         if (!in_array($key, $allowedCacheKeys, TRUE)) {
-            throw new \InvalidArgumentException('Invalid cache key: ' . $key, 1391822035);
+            throw new InvalidArgumentException('Invalid cache key: ' . $key, 1391822035);
         }
 
         $this->caches[$key] = array();
@@ -227,11 +227,11 @@ class Emogrifier {
      */
     public function emogrify() {
         if ($this->html === '') {
-            throw new \BadMethodCallException('Please set some HTML first before calling emogrify.', 1390393096);
+            throw new BadMethodCallException('Please set some HTML first before calling emogrify.', 1390393096);
         }
 
         $xmlDocument = $this->createXmlDocument();
-        $xpath = new \DOMXPath($xmlDocument);
+        $xpath = new DOMXPath($xmlDocument);
         $this->clearAllCaches();
 
         // before be begin processing the CSS file, parse the document and normalize all existing CSS attributes (changes 'DISPLAY: none' to 'display: none');
@@ -403,7 +403,7 @@ class Emogrifier {
      * @return \DOMDocument
      */
     private function createXmlDocument() {
-        $xmlDocument = new \DOMDocument;
+        $xmlDocument = new DOMDocument;
         $xmlDocument->encoding = self::ENCODING;
         $xmlDocument->strictErrorChecking = FALSE;
         $xmlDocument->formatOutput = TRUE;
