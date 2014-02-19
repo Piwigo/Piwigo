@@ -876,7 +876,6 @@ $lang['You have %d orphan tags: %s.'] = 'Έχετε %d ορφανές ετικέ
 $lang['You have specified <i>$conf[\'order_by\']</i> in your local configuration file, this parameter in deprecated, please remove it or rename it into <i>$conf[\'order_by_custom\']</i> !'] = 'Έχετε καθορίσε  <i>$conf[\'order_by\']</i>  στο τοπικό αρχείο ρυθμίσεων σας, αυτή η παράμετρος είναι παρωχημένη, παρακαλούμε να την αφαιρέσετε ή να το μετονομάσετε σε <i>$conf[\'order_by_custom\']</i> !';
 $lang['You have subscribed to receiving notifications by mail.'] = 'Έχετε εγγραφεί για να λαμβάνετε ειδοποιήσεις με e-mail.';
 $lang['You have unsubscribed from receiving notifications by mail.'] = 'Έχετε διαγραφεί από την κοινοποίηση μέσω ταχυδρομείου.';
-$lang['You might go to plugin list to install and activate it.'] = 'Πηγαίνετε στον κατάλογο πρόσθετων για να το εγκαταστήσετε και να το ενεργοποιήσετε.';
 $lang['You need to confirm deletion'] = 'Πρέπει να επιβεβαιώσετε τη διαγραφή';
 $lang['You need to upgrade your system to take full advantage of the application else the application will not work correctly, or not at all'] = 'Θα πρέπει να αναβαθμίσετε το σύστημά σας να επωφεληθελιται πλήρως από την εφαρμογή, διαφορετικά η εφαρμογή δεν θα μπορούσε να λειτουργήσει σωστά, ή και καθόλου';
 $lang['Your configuration settings are saved'] = 'Οι ρυθμίσεις σας έχουν αποθηκευτεί';
@@ -977,4 +976,5 @@ $lang['%d of %d users selected'] = '%d από %d επιλεγμένους χρή
 $lang['close'] = 'κλείσιμο ';
 $lang['Open user details'] = 'Άνοιγμα Λεπτομεριών χρήστη';
 $lang['Close user details'] = 'Κλείστε τα στοιχεία χρήστη';
+$lang['Activate it now'] = 'Ενεργοποιήστε τώρα';
 ?>
