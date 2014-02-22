@@ -172,4 +172,12 @@ $lang['Delete this theme'] = 'Dilemel an tem-mañ';
 $lang['Deleted on'] = 'Dilemet d\'an';
 $lang['%u users have automatic permission because they belong to a granted group.'] = 'implijerien %u o deus an aotre emgefreek peogwir int e-barzh ur strollad aotreet.';
 $lang['(filtered from %s total users)'] = '(silet etre %s implijer en holl)';
+$lang['A locked gallery is only visible to administrators'] = 'Ur palier prennet a vez gwelet gant ar verourien hepken';
+$lang['A new version of Piwigo is available.'] = 'Ur stumm nevez Piwigo a zo hegerz';
+$lang['ACCESS_0'] = 'Moned dieub';
+$lang['ACCESS_1'] = 'Gwelet gant an holl';
+$lang['ACCESS_2'] = 'Gwelet gant an implijerien enrollet';
+$lang['ACCESS_3'] = 'Gwelet gant ar verourien';
+$lang['ACCESS_4'] = 'Gwelet gant ar vistri-gwiad';
+$lang['ACCESS_5'] = 'Moned berzet';
 ?>
