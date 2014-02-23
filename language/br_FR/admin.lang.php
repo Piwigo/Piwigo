@@ -180,4 +180,16 @@ $lang['ACCESS_2'] = 'Gwelet gant an implijerien enrollet';
 $lang['ACCESS_3'] = 'Gwelet gant ar verourien';
 $lang['ACCESS_4'] = 'Gwelet gant ar vistri-gwiad';
 $lang['ACCESS_5'] = 'Moned berzet';
+$lang['Active Plugins'] = 'Lugantoù gweredekaet';
+$lang['Active Themes'] = 'Temoù gweredekaet';
+$lang['Active Languages'] = 'Yezhoù gweredekaet';
+$lang['Activate icon "%s"'] = 'Gweredekaat an arlun "%s"';
+$lang['Activate icon "new" next to albums and pictures'] = 'Gweredekaat an arlun "nevez" e-kichen ar rummadoù hag al luc\'hskeudennoù';
+$lang['Activate it now'] = 'Gweredekaat anezhañ diouzhtu';
+$lang['Activate'] = 'Gweredekaat';
+$lang['Activate Navigation Bar'] = 'Gweredekaat ar varrenn verdeiñ ';
+$lang['Activate Navigation Thumbnails'] = 'Gweredekaat skeudennoùigoù-merdeiñ';
+$lang['Action'] = 'Obererezh';
+$lang['Actions'] = 'Obererezhioù';
+$lang['Access type'] = 'Doare moned';
 ?>
