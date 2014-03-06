@@ -225,6 +225,7 @@ INSERT INTO '.SEARCH_TABLE.'
       );
   }
 
+  /*TODO - no need to get a huge number of rows from db (should take only what needed for display + SQL_CALC_FOUND_ROWS*/
   $data = trigger_event('get_history', array(), $page['search'], $types);
   usort($data, 'history_compare');
 
@@ -284,7 +285,7 @@ SELECT id, uppercats
   FROM '.CATEGORIES_TABLE.'
   WHERE id IN ('.implode(',', array_keys($category_ids)).')
 ;';
-    $uppercats_of = simple_hash_from_query($query, 'id', 'uppercats');
+    $uppercats_of = query2array($query, 'id', 'uppercats');
 
     $name_of_category = array();
 
@@ -309,27 +310,7 @@ SELECT
   FROM '.IMAGES_TABLE.'
   WHERE id IN ('.implode(',', array_keys($image_ids)).')
 ;';
-    // $label_of_image = simple_hash_from_query($query, 'id', 'label');
-    $label_of_image = array();
-    $filesize_of_image = array();
-    $file_of_image = array();
-    $path_of_image = array();
-    $representative_ext_of_image = array();
-
-    $result = pwg_query($query);
-    while ($row = pwg_db_fetch_assoc($result))
-    {
-      $label_of_image[ $row['id'] ] = trigger_event('render_element_description', $row['label']);
-
-      if (isset($row['filesize']))
-      {
-        $filesize_of_image[ $row['id'] ] = $row['filesize'];
-      }
-
-      $file_of_image[ $row['id'] ] = $row['file'];
-      $path_of_image[ $row['id'] ] = $row['path'];
-      $representative_ext_of_image[ $row['id'] ] = $row['representative_ext'];
-    }
+    $image_infos = query2array($query, 'id');
   }
 
   if ($has_tags > 0)
@@ -360,10 +341,7 @@ SELECT
   {
     if (isset($line['image_type']) and $line['image_type'] == 'high')
     {
-      if (isset($filesize_of_image[$line['image_id']]))
-      {
-        $summary['total_filesize'] += $filesize_of_image[$line['image_id']];
-      }
+      $summary['total_filesize'] += @intval($image_infos[$line['image_id']]['filesize']);
     }
 
     if ($line['user_id'] == $conf['guest_id'])
@@ -421,13 +399,13 @@ SELECT
           )
         );
 
-      if (isset($file_of_image[$line['image_id']]))
+      if (isset($image_infos[$line['image_id']]))
       {
         $element = array(
           'id' => $line['image_id'],
-          'file' => $file_of_image[$line['image_id']],
-          'path' => $path_of_image[$line['image_id']],
-          'representative_ext' => $representative_ext_of_image[$line['image_id']],
+          'file' => $image_infos[$line['image_id']]['file'],
+          'path' => $image_infos[$line['image_id']]['path'],
+          'representative_ext' => $image_infos[$line['image_id']]['representative_ext'],
           );
         $thumbnail_display = $page['search']['fields']['display_thumbnail'];
       }
@@ -438,9 +416,9 @@ SELECT
 
       $image_title = '('.$line['image_id'].')';
 
-      if (isset($label_of_image[$line['image_id']]))
+      if (isset($image_infos[$line['image_id']]['label']))
       {
-        $image_title.= ' '.$label_of_image[$line['image_id']];
+        $image_title.= ' '.trigger_event('render_element_description', $image_infos[$line['image_id']]['label']);
       }
       else
       {
@@ -659,7 +637,7 @@ SELECT
 ;';
 $template->assign(
   array(
-    'user_options' => simple_hash_from_query($query, 'id','username'),
+    'user_options' => query2array($query, 'id','username'),
     'user_options_selected' => array(@$form['user'])
   )
 );
