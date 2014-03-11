@@ -206,10 +206,6 @@ $lang['Last'] = 'ចុង​ក្រោយ​';
 $lang['Logout'] = 'ចាក​ចេញ​';
 $lang['Since'] = 'តាំងពី';
 $lang['obligatory'] = 'ដែល​ចាំ​បាច់​';
-$lang['Maximum photo height'] = 'កំពស់​វែង​បំផុត​នៃរូប​ថត​';
-$lang['Maximum height must be a number superior to 50'] = 'កំពស់​វែង​បំ​ផុត​ត្រូវ​តែ​ជា​លេខ​ដែល​មាន​តំលៃ​ធំ​ជាង​ ៥០';
-$lang['Maximum photo width'] = 'ទទឹង​វែង​បំ​ផុត​នៃ​រូប​ថត​';
-$lang['Maximum width must be a number superior to 50'] = 'ទទឹង​វែង​បំផុត​ត្រូវ​តែ​ជា​លេខ​មាន​តំលៃធំជាង​ ៥០';
 $lang['display a calendar by creation date'] = 'បង្ហាញ​ប្រតិទិន​​​ដោយ​ពិនិត្យ​តាម​ថ្ងៃ​បង្កើត​';
 $lang['display all photos in all sub-albums'] = 'បង្ហាញ​រូប​ថត​ទាំង​អស់​ដែល​មាន​នៅ​ក្នុង​សៀវ​ភៅ​រូប​ថត​រងទាំង​ឡាយ';
 $lang['return to normal view mode'] = 'ត្រឡប់​ទៅ​ការ​បង្ហាញ​បែប​សាមញ្ញ​';
@@ -410,4 +406,13 @@ $lang['Piwigo encountered a non recoverable error'] = 'Piwigo បាន​ជួ
 $lang['Requested album does not exist'] = 'ការ​ស្នើ​សុំ​សៀវភៅ​រូប​ថត​មិន​កើត​មាន​';
 $lang['Requested tag does not exist'] = 'ការ​ស្នើ​សុំ​ស្លាក​មិន​កើត​មាន​';
 
+$lang['Theme'] = 'សម្បក';
+$lang['Password confirmation is missing. Please confirm the chosen password.'] = 'ពាក្យសម្ងាត់បញ្ជាក់​មិនបានដាក់។ សូមបញ្ជាក់ពាក្យសម្ងាត់ដែល​ជ្រើសរើស​។';
+$lang['Password is missing. Please enter the password.'] = 'ពាក្យសម្ងាត់​មិនបានដាក់។ សូមបញ្ចូលពាក្យសម្ងាត់។';
+$lang['Last Page'] = 'ទំព័រ​ចុងក្រោយ';
+$lang['Go back to the album'] = 'បកទៅ​អាល់ប៊ុម​វិញ';
+$lang['%d photos per page'] = '%d រូបភាព/ទំព័រ';
+$lang['First Page'] = 'ទំព៍រ​ដើម';
+$lang['Email address is mandatory'] = 'អ៊ីម៉ែល​ត្រូវការជាចាំបាច់';
+$lang['Email'] = 'អ៊ីម៉ែល';
 ?>
