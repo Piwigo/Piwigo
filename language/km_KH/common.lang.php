@@ -415,4 +415,8 @@ $lang['%d photos per page'] = '%d រូបភាព/ទំព័រ';
 $lang['First Page'] = 'ទំព៍រ​ដើម';
 $lang['Email address is mandatory'] = 'អ៊ីម៉ែល​ត្រូវការជាចាំបាច់';
 $lang['Email'] = 'អ៊ីម៉ែល';
+$lang['mandatory'] = 'ត្រូវការចាំបាច់';
+$lang['Your website URL is invalid'] = 'វេបសាយ​របស់​អ្នក​មិនត្រឹមត្រូវទេ';
+$lang['Website'] = 'វេបសាយ';
+$lang['Username is mandatory'] = 'ត្រូវការ​ឈ្មោះ​អ្នក​ប្រើជាចាំបាច់';
 ?>
