@@ -209,4 +209,9 @@ $lang['%d years'] = '%d ឆ្នាំ';
 $lang['%s ago'] = '%s កន្លងទៅ';
 $lang['%s in the future'] = '%s ក្នុង​ពេល​ខាងមុខ';
 $lang['%u users have automatic permission because they belong to a granted group.'] = '%u អ្នកប្រើប្រាស់​ទាំងនេះ​មានការអនុញ្ញាត​ដោយ​ស្វ័យ​ប្រវត្តិ​ ពីព្រោះ​ពួកគេ​ស្ថិត​ក្នុង​ក្រុម​ដែល​បាន​ផ្តល់​សិទ្ធអនុញ្ញាត​រួច​ហើយ។';
+$lang['Are you sure you want to delete this plugin?'] = 'តើ​អ្នក​ចង់​លុបកម្មវិធីជំនួយនេះមែនឬ?';
+$lang['Are you sure you want to install this plugin?'] = 'តើ​អ្នក​ចង់​បញ្ចូលកម្មវិធីជំនួយនេះមែនឬ?';
+$lang['Associate to album'] = 'ដែលជាប់ទាក់ទង​នឹងអាល់ប៊ុម';
+$lang['Associated'] = 'ដែលជាប់ទាក់ទង';
+$lang['Adobe Photoshop Lightroom is a photography software designed to manage large quantities of digital images and doing post production work.'] = 'Adobe Photoshop Lightroom គឺជា​កម្មវិធី​ក្នុងវិស័យថតរូប ដែល​អាច​គ្រប់គ្រង​នូវ​បរិមាណ​រូបភាព​អេឡិចត្រូនិចធំៗ និង​ដើម្បី​ដំណើរការការងារ​ផលិតកម្ម​បាន';
 ?>
