@@ -20,6 +20,11 @@
 document.cookie = 'screen_size='+jQuery(document).width()+'x'+jQuery(document).height()+';path={$COOKIE_PATH}';
 {/footer_script}
 {get_combined_scripts load='footer'}
+{if isset($footer_elements)}
+{foreach $footer_elements as $v}
+{$v}
+{/foreach}
+{/if}
 </div><!-- /page -->
 
 </body>
