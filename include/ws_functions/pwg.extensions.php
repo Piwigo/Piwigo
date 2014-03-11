@@ -26,7 +26,7 @@
  * Returns the list of all plugins
  * @param mixed[] $params
  */
-function ws_plugins_getList($params, &$service)
+function ws_plugins_getList($params, $service)
 {
   include_once(PHPWG_ROOT_PATH.'admin/include/plugins.class.php');
 
@@ -65,7 +65,7 @@ function ws_plugins_getList($params, &$service)
  *    @option string plugin
  *    @option string pwg_token
  */
-function ws_plugins_performAction($params, &$service)
+function ws_plugins_performAction($params, $service)
 {
   global $template;
 
@@ -102,7 +102,7 @@ function ws_plugins_performAction($params, &$service)
  *    @option string theme
  *    @option string pwg_token
  */
-function ws_themes_performAction($params, &$service)
+function ws_themes_performAction($params, $service)
 {
   global $template;
 
@@ -141,7 +141,7 @@ function ws_themes_performAction($params, &$service)
  *    @option string pwg_token
  *    @option bool reactivate (optional - undocumented)
  */
-function ws_extensions_update($params, &$service)
+function ws_extensions_update($params, $service)
 {
   if (!is_webmaster())
   {
@@ -238,7 +238,7 @@ function ws_extensions_update($params, &$service)
  *    @option bool reset
  *    @option string pwg_token
  */
-function ws_extensions_ignoreupdate($params, &$service)
+function ws_extensions_ignoreupdate($params, $service)
 {
   global $conf;
 
@@ -299,11 +299,10 @@ function ws_extensions_ignoreupdate($params, &$service)
  * Checks for updates (core and extensions)
  * @param mixed[] $params
  */
-function ws_extensions_checkupdates($params, &$service)
+function ws_extensions_checkupdates($params, $service)
 {
   global $conf;
 
-  define('IN_ADMIN', true);
   include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
   include_once(PHPWG_ROOT_PATH.'admin/include/updates.class.php');
 
