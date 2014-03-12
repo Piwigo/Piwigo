@@ -837,6 +837,13 @@ array(
   'files' => array('admin\picture_modify.php'),
   'infos' => 'New in 2.6.2.',
 ),
+array(
+  'name' => 'ws_users_getList',
+  'type' => 'trigger_event',
+  'vars' => array('array', 'users'),
+  'files' => array('include\ws_functions\pwg.users.php'),
+  'infos' => 'New in 2.6.2.',
+),
 );
 ?>
 <!DOCTYPE html>
