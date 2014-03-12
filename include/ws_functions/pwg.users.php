@@ -251,6 +251,8 @@ SELECT
     }
   }
 
+  $users = trigger_change('ws_users_getList', $users);
+  
   return array(
     'paging' => new PwgNamedStruct(
       array(
