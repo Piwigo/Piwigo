@@ -154,6 +154,8 @@ if (isset($_POST['submit']) and count($page['errors']) == 0)
     $data{'date_creation'} = null;
   }
 
+  $data = trigger_change('picture_modify_before_update', $data);
+  
   single_update(
     IMAGES_TABLE,
     $data,
