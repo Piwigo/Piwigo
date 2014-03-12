@@ -30,4 +30,5 @@ $lang['Statistics'] = 'ស្ថិតិ';
 $lang['SQL queries'] = 'SQL queries';
 $lang['Upgrade from version %s to %s'] = 'បង្កើន​ជំនាន់​ពីជំនាន់ %s ទៅ %s';
 $lang['Upgrade'] = 'បង្កើន​ជំនាន់';
+$lang['All sub-albums of private albums become private'] = 'រាល់​អាល់ប៊ុមរងទាំងអស់​​នៃអាល់ប៊ុម';
 ?>
