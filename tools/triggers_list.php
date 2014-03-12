@@ -830,6 +830,13 @@ array(
   'files' => array('include\functions_rate.inc.php'),
   'infos' => 'New in 2.6.',
 ),
+array(
+  'name' => 'picture_modify_before_update',
+  'type' => 'trigger_event',
+  'vars' => array('array', 'data'),
+  'files' => array('admin\picture_modify.php'),
+  'infos' => 'New in 2.6.2.',
+),
 );
 ?>
 <!DOCTYPE html>
