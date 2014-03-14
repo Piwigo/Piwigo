@@ -31,4 +31,7 @@ $lang['SQL queries'] = 'SQL queries';
 $lang['Upgrade from version %s to %s'] = 'បង្កើន​ជំនាន់​ពីជំនាន់ %s ទៅ %s';
 $lang['Upgrade'] = 'បង្កើន​ជំនាន់';
 $lang['All sub-albums of private albums become private'] = 'រាល់​អាល់ប៊ុមរងទាំងអស់​​នៃអាល់ប៊ុម';
+$lang['Only administrator can run upgrade: please sign in below.'] = 'មាន​តែ​អ្នក​គ្រប់គ្រងបណ្តាញ​ទេ ដែល​អាច​បង្កើន​ជំនាន់​បាន៖ សូម​ចូល​ទៅ​ប្រព័ន្ធ​នៅខាងក្រោម។';
+$lang['As a precaution, following themes have been deactivated. You must check for themes upgrade before reactiving them:'] = 'សូម​ប្រុង​ប្រយ័ត្ន សម្បកខាង​ក្រោម​បាន​ដាក់​មិន​អោយ​ដំណើរការ។ អ្នក​ត្រូវ​តែ​ត្រួត​ពិនិត្យ​ថា​តើ​ សម្បក​ទាំង​នោះបាន​បង្កើន​ជំនាន់​មុន​ដាក់​អោយ​ដំណើរការ​ឡើងវិញ៖';
+$lang['As a precaution, following plugins have been deactivated. You must check for plugins upgrade before reactiving them:'] = 'សូម​ប្រុង​ប្រយ័ត្ន កម្មវិធី​ជំនួយ​ខាង​ក្រោម​បាន​ដាក់​មិន​អោយ​ដំណើរការ។ អ្នក​ត្រូវ​តែ​ត្រួត​ពិនិត្យ​ថា​តើ​ កម្មវិធី​ជំនួយ​ទាំង​នោះបាន​បង្កើន​ជំនាន់​មុន​ដាក់​អោយ​ដំណើរការ​ឡើងវិញ៖';
 ?>
