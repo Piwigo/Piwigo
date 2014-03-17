@@ -146,6 +146,11 @@ SELECT group_id, cat_id
  */
 function ws_permissions_add($params, &$service)
 {
+  if (get_pwg_token() != $params['pwg_token'])
+  {
+    return new PwgError(403, 'Invalid security token');
+  }
+
   include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
 
   if (!empty($params['group_id']))
@@ -203,6 +208,11 @@ SELECT id
  */
 function ws_permissions_remove($params, &$service)
 {
+  if (get_pwg_token() != $params['pwg_token'])
+  {
+    return new PwgError(403, 'Invalid security token');
+  }
+
   include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
 
   $cat_ids = get_subcat_ids($params['cat_id']);

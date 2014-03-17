@@ -275,6 +275,11 @@ SELECT
  */
 function ws_users_add($params, &$service)
 {
+  if (get_pwg_token() != $params['pwg_token'])
+  {
+    return new PwgError(403, 'Invalid security token');
+  }
+  
   global $conf;
 
   if ($conf['double_password_type_in_admin'])
@@ -363,6 +368,11 @@ function ws_users_delete($params, &$service)
  */
 function ws_users_setInfo($params, &$service)
 {
+  if (get_pwg_token() != $params['pwg_token'])
+  {
+    return new PwgError(403, 'Invalid security token');
+  }
+
   global $conf, $user;
 
   include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
