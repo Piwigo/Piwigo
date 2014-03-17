@@ -165,6 +165,11 @@ DELETE
  */
 function ws_groups_setInfo($params, &$service)
 {
+  if (get_pwg_token() != $params['pwg_token'])
+  {
+    return new PwgError(403, 'Invalid security token');
+  }
+
   $updates = array();
 
   // does the group exist ?
@@ -221,6 +226,11 @@ SELECT COUNT(*)
  */
 function ws_groups_addUser($params, &$service)
 {
+  if (get_pwg_token() != $params['pwg_token'])
+  {
+    return new PwgError(403, 'Invalid security token');
+  }
+
   // does the group exist ?
   $query = '
 SELECT COUNT(*)
@@ -264,6 +274,11 @@ SELECT COUNT(*)
  */
 function ws_groups_deleteUser($params, &$service)
 {
+  if (get_pwg_token() != $params['pwg_token'])
+  {
+    return new PwgError(403, 'Invalid security token');
+  }
+
   // does the group exist ?
   $query = '
 SELECT COUNT(*)

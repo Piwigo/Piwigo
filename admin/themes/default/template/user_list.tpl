@@ -56,7 +56,7 @@ jQuery(document).ready(function() {
     jQuery.ajax({
       url: "ws.php?format=json&method=pwg.users.add",
       type:"POST",
-      data: jQuery(this).serialize(),
+      data: jQuery(this).serialize()+"&pwg_token="+pwg_token,
       beforeSend: function() {
         jQuery("#addUserForm .errors").hide();
 
@@ -345,6 +345,7 @@ jQuery(document).ready(function() {
       url: "ws.php?format=json&method=pwg.users.setInfo",
       type:"POST",
       data: {
+        pwg_token:pwg_token,
         user_id:userId,
         password: jQuery('#user'+userId+' .changePassword input[type=text]').val()
       },
@@ -396,6 +397,7 @@ jQuery(document).ready(function() {
       url: "ws.php?format=json&method=pwg.users.setInfo",
       type:"POST",
       data: {
+        pwg_token:pwg_token,
         user_id:userId,
         username: jQuery('#user'+userId+' .changeUsername input[type=text]').val()
       },
@@ -467,6 +469,7 @@ jQuery(document).ready(function() {
     var userId = jQuery(this).data('user_id');
 
     var formData = jQuery('#user'+userId+' form').serialize();
+    formData += '&pwg_token='+pwg_token;
 
     if (jQuery('#user'+userId+' form select[name="group_id[]"] option:selected').length == 0) {
       formData += '&group_id=-1';
@@ -708,6 +711,7 @@ jQuery(document).ready(function() {
     var action = jQuery("select[name=selectAction]").prop("value");
     var method = 'pwg.users.setInfo';
     var data = {
+      pwg_token: pwg_token,
       user_id: selection
     };
 
@@ -718,7 +722,6 @@ jQuery(document).ready(function() {
           return false;
         }
         method = 'pwg.users.delete';
-        data.pwg_token = pwg_token;
         break;
       case 'group_associate':
         method = 'pwg.groups.addUser';
