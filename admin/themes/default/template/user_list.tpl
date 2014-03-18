@@ -880,6 +880,8 @@ span.infos, span.errors {background-image:none; padding:2px 5px; margin:0;border
       <th>{'Username'|@translate}</th>
       <th>{'Status'|@translate}</th>
       <th>{'Email address'|@translate}</th>
+      <th>{'Groups'|@translate}</th>
+      <th>{'Privacy level'|@translate}</th>
       <th>{'registration date'|@translate}</th>
     </tr>
   </thead>
