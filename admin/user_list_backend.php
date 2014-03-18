@@ -35,7 +35,7 @@ check_status(ACCESS_ADMINISTRATOR);
 /* Array of database columns which should be read and sent back to DataTables. Use a space where
  * you want to insert a non-database field (for example a counter or static image)
  */
-$aColumns = array('id', 'username', 'status', 'mail_address', 'registration_date');
+$aColumns = array('id', 'username', 'status', 'mail_address', 'recent_period', 'level', 'registration_date');
 $aColumns = trigger_change('user_list_columns', $aColumns);
 	
 /* Indexed column (used for fast and accurate table cardinality) */
@@ -157,15 +157,23 @@ $output = array(
   "iTotalDisplayRecords" => $iFilteredTotal,
   "aaData" => array()
 	);
-	
+
+$user_ids = array();
+
 while ( $aRow = pwg_db_fetch_array( $rResult ) )
 {
+  $user_ids[] = $aRow['id'];
+  
   $row = array();
   for ( $i=0 ; $i<count($aColumns) ; $i++ )
   {
     if ( $aColumns[$i] == "status" )
     {
       $row[] = l10n('user_status_'.$aRow[ $aColumns[$i] ]);
+    }
+    else if ( $aColumns[$i] == "level" )
+    {
+      $row[] = $aRow[ $aColumns[$i] ] == 0 ? '' : l10n(sprintf('Level %d', $aRow[ $aColumns[$i] ]));
     }
     else if ( $aColumns[$i] != ' ' )
     {
@@ -174,6 +182,36 @@ while ( $aRow = pwg_db_fetch_array( $rResult ) )
     }
   }
   $output['aaData'][] = $row;
+}
+
+// replace "recent_period" by the list of groups
+if (count($user_ids) > 0)
+{
+  $groups_of_user = array();
+  
+  $query = '
+SELECT
+    user_id,
+    GROUP_CONCAT(name ORDER BY name SEPARATOR ", ") AS groups
+  FROM '.USER_GROUP_TABLE.'
+    JOIN '.GROUPS_TABLE.' ON id = group_id
+  WHERE user_id IN ('.implode(',', $user_ids).')
+  GROUP BY user_id
+;';
+  $result = pwg_query($query);
+  while ($row = pwg_db_fetch_assoc($result))
+  {
+    $groups_of_user[ $row['user_id'] ] = $row['groups'];
+  }
+
+  $key_replace = array_search('recent_period', $aColumns);
+  
+  // replacement
+  foreach (array_keys($output['aaData']) as $idx)
+  {
+    $user_id = $output['aaData'][$idx][0];
+    $output['aaData'][$idx][$key_replace] = isset($groups_of_user[$user_id]) ? $groups_of_user[$user_id] : '';
+  }
 }
 
 $output = trigger_change('after_render_user_list', $output);
