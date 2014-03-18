@@ -64,4 +64,4 @@ $lang['Don\'t hesitate to consult our forums for any help : %s'] = 'Ne oklevajte
 $lang['Just another Piwigo gallery'] = 'Još jedna Piwigo galerija';
 $lang['Welcome to my photo gallery'] = 'Dobrodošli u moju foto galeriju';
 $lang['Welcome to your new installation of Piwigo!'] = 'Dobrodošli na Vašu novu instalaciju Piwigo-a!';
-?>
+$lang['localhost or other, supplied by your host provider'] = 'localhost ili drugi naziv koji ste dobili od provajdera';
