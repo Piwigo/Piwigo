@@ -476,7 +476,6 @@ $lang['Are you sure you want to delete this plugin?'] = 'Você tem certeza de qu
 $lang['Are you sure you want to install this plugin?'] = 'Tem a certeza de que quer instalar esta extenção?';
 $lang['Are you sure to install this upgrade? You must verify if this version does not need uninstallation.'] = 'Tem a certeza de que quer instalar esta atualização? Deve verificar se esta versão não necessita uma outra instalação prévia.';
 $lang['Plugin has been successfully copied'] = 'Extensão copiada com sucesso';
-$lang['You might go to plugin list to install and activate it.'] = 'Você deve ir à lista de Extenções para instalar e ativá-la.';
 $lang['Can\'t create temporary file.'] = 'Não é possível criar ficheiro temporário.';
 $lang['Can\'t download archive.'] = 'O arquivo não pode ser descarregado.';
 $lang['Can\'t read or extract archive.'] = 'O arquivo não pode ser lido ou extraído.';
@@ -972,4 +971,4 @@ $lang['on the %d selected users'] = 'Em %d utilizadores selecionados';
 $lang['Close user details'] = 'Fechar detalhes do utilizador';
 $lang['Open user details'] = 'Abrir detalhes do utilizador';
 $lang['close'] = 'Fechar';
-?>
+$lang['Activate it now'] = 'Ativar agora';
