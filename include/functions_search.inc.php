@@ -291,8 +291,9 @@ function is_odd_wbreak_end($ch)
 
 define('QST_QUOTED',         0x01);
 define('QST_NOT',            0x02);
-define('QST_WILDCARD_BEGIN', 0x04);
-define('QST_WILDCARD_END',   0x08);
+define('QST_OR',             0x04);
+define('QST_WILDCARD_BEGIN', 0x08);
+define('QST_WILDCARD_END',   0x10);
 define('QST_WILDCARD', QST_WILDCARD_BEGIN|QST_WILDCARD_END);
 
 /**
@@ -302,143 +303,275 @@ define('QST_WILDCARD', QST_WILDCARD_BEGIN|QST_WILDCARD_END);
  * The query can contain a phrase: 'Pierre "New York"' will return 'pierre' qnd 'new york'.
  *
  * @param string $q
- * @param array &$qtokens
- * @param array &$qtoken_modifiers
  */
-function analyse_qsearch($q, &$qtokens, &$qtoken_modifiers)
-{
-  $q = stripslashes($q);
-  $tokens = array();
-  $token_modifiers = array();
-  $crt_token = "";
-  $crt_token_modifier = 0;
 
-  for ($i=0; $i<strlen($q); $i++)
+class QSingleToken
+{
+  var $is_single = true;
+  var $token;
+  var $idx;
+
+  function __construct($token)
   {
-    $ch = $q[$i];
-    if ( ($crt_token_modifier&QST_QUOTED)==0)
+    $this->token = $token;
+  }
+}
+
+class QMultiToken
+{
+  var $is_single = false;
+  var $tokens = array();
+  var $token_modifiers = array();
+
+  function __toString()
+  {
+    $s = '';
+    for ($i=0; $i<count($this->tokens); $i++)
     {
-        if ($ch=='"')
-        {
-          if (strlen($crt_token))
-          {
-            $tokens[] = $crt_token; $token_modifiers[] = $crt_token_modifier;
-            $crt_token = ""; $crt_token_modifier = 0;
-          }
-          $crt_token_modifier |= QST_QUOTED;
-        }
-        elseif ( strcspn($ch, '*+-><~')==0 )
-        { //special full text modifier
-          if (strlen($crt_token))
-          {
-            $crt_token .= $ch;
-          }
-          else
-          {
-            if ( $ch=='*' )
-              $crt_token_modifier |= QST_WILDCARD_BEGIN;
-            if ( $ch=='-' )
-              $crt_token_modifier |= QST_NOT;
-          }
-        }
-        elseif (preg_match('/[\s,.;!\?]+/', $ch))
-        { // white space
-          if (strlen($crt_token))
-          {
-            $tokens[] = $crt_token; $token_modifiers[] = $crt_token_modifier;
-            $crt_token = "";
-          }
-          $crt_token_modifier = 0;
-        }
-        else
-        {
-          $crt_token .= $ch;
-        }
-    }
-    else // qualified with quotes
-    {
-      if ($ch=='"')
+      $modifier = $this->token_modifiers[$i];
+      if ($i)
+        $s .= ' ';
+      if ($modifier & QST_OR)
+        $s .= 'OR ';
+      if ($modifier & QST_NOT)
+        $s .= 'NOT ';
+      if ($modifier & QST_WILDCARD_BEGIN)
+        $s .= '*';
+      if ($modifier & QST_QUOTED)
+        $s .= '"';
+      if (! ($this->tokens[$i]->is_single) )
       {
-        if ($i+1 < strlen($q) && $q[$i+1]=='*')
-        {
-          $crt_token_modifier |= QST_WILDCARD_END;
-          $i++;
-        }
-        $tokens[] = $crt_token; $token_modifiers[] = $crt_token_modifier;
-        $crt_token = ""; $crt_token_modifier = 0;
-        $state=0;
+        $s .= '(';
+        $s .= $this->tokens[$i];
+        $s .= ')';
       }
       else
-        $crt_token .= $ch;
-    }
-  }
-
-  if (strlen($crt_token))
-  {
-    $tokens[] = $crt_token;
-    $token_modifiers[] = $crt_token_modifier;
-  }
-
-  $qtokens = array();
-  $qtoken_modifiers = array();
-  for ($i=0; $i<count($tokens); $i++)
-  {
-    if ( !($token_modifiers[$i] & QST_QUOTED) )
-    {
-      if ( substr($tokens[$i], -1)=='*' )
       {
-        $tokens[$i] = rtrim($tokens[$i], '*');
-        $token_modifiers[$i] |= QST_WILDCARD_END;
+        $s .= $this->tokens[$i]->token;
+      }
+      if ($modifier & QST_QUOTED)
+        $s .= '"';
+      if ($modifier & QST_WILDCARD_END)
+        $s .= '*';
+
+    }
+    return $s;
+  }
+
+  function push(&$token, &$modifier)
+  {
+    $this->tokens[] = new QSingleToken($token);
+    $this->token_modifiers[] = $modifier;
+    $token = "";
+    $modifier = 0;
+  }
+
+  protected function parse_expression($q, &$qi, $level)
+  {
+    $crt_token = "";
+    $crt_modifier = 0;
+
+    for ($stop=false; !$stop && $qi<strlen($q); $qi++)
+    {
+      $ch = $q[$qi];
+      if ( ($crt_modifier&QST_QUOTED)==0)
+      {
+        switch ($ch)
+        {
+          case '(':
+            if (strlen($crt_token))
+              $this->push($crt_token, $crt_modifier);
+            $sub = new QMultiToken;
+            $qi++;
+            $sub->parse_expression($q, $qi, $level+1);
+            $this->tokens[] = $sub;
+            $this->token_modifiers[] = $crt_modifier;
+            $crt_modifier = 0;
+            break;
+          case ')':
+            if ($level>0)
+              $stop = true;
+            break;
+          case '"':
+            if (strlen($crt_token))
+              $this->push($crt_token, $crt_modifier);
+            $crt_modifier |= QST_QUOTED;
+            break;
+          case '-':
+            if (strlen($crt_token))
+              $crt_token .= $ch;
+            else
+              $crt_modifier |= QST_NOT;
+            break;
+          case '*':
+            if (strlen($crt_token))
+              $crt_token .= $ch; // wildcard end later
+            else
+              $crt_modifier |= QST_WILDCARD_BEGIN;
+            break;
+          default:
+            if (preg_match('/[\s,.;!\?]+/', $ch))
+            { // white space
+              if (strlen($crt_token))
+                $this->push($crt_token, $crt_modifier);
+              $crt_modifier = 0;
+            }
+            else
+              $crt_token .= $ch;
+            break;
+        }
+      }
+      else
+      {// quoted
+        if ($ch=='"')
+        {
+          if ($qi+1 < strlen($q) && $q[$qi+1]=='*')
+          {
+            $crt_modifier |= QST_WILDCARD_END;
+            $ai++;
+          }
+          $this->push($crt_token, $crt_modifier);
+        }
+        else
+          $crt_token .= $ch;
       }
     }
-    if ( strlen($tokens[$i])==0)
-      continue;
-    $qtokens[] = $tokens[$i];
-    $qtoken_modifiers[] = $token_modifiers[$i];
+
+    if (strlen($crt_token))
+      $this->push($crt_token, $crt_modifier);
+
+    for ($i=0; $i<count($this->tokens); $i++)
+    {
+      $token = $this->tokens[$i];
+      $remove = false;
+      if ($token->is_single)
+      {
+        if ( ($this->token_modifiers[$i]&QST_QUOTED)==0 )
+        {
+          if ('not' == strtolower($token->token))
+          {
+            if ($i+1 < count($this->tokens))
+              $this->token_modifiers[$i+1] |= QST_NOT;
+            $token->token = "";
+          }
+          if ('or' == strtolower($token->token))
+          {
+            if ($i+1 < count($this->tokens))
+              $this->token_modifiers[$i+1] |= QST_OR;
+            $token->token = "";
+          }
+          if ('and' == strtolower($token->token))
+          {
+            $token->token = "";
+          }
+          if ( substr($token->token, -1)=='*' )
+          {
+            $token->token = rtrim($token->token, '*');
+            $this->token_modifiers[$i] |= QST_WILDCARD_END;
+          }
+        }
+        if (!strlen($token->token))
+          $remove = true;
+      }
+      else
+      {
+        if (!count($token->tokens))
+          $remove = true;
+      }
+      if ($remove)
+      {
+        array_splice($this->tokens, $i, 1);
+        array_splice($this->token_modifiers, $i, 1);
+        $i--;
+      }
+    }
   }
 }
 
-/**
- * Returns the LIKE SQL clause corresponding to the quick search query
- * that has been split into tokens.
- * for example file LIKE '%john%' OR file LIKE '%bill%'.
- *
- * @param array $tokens
- * @param array $token_modifiers
- * @param string $field
- * @return string|null
- */
-function get_qsearch_like_clause($tokens, $token_modifiers, $field)
+class QExpression extends QMultiToken
 {
-  $clauses = array();
-  for ($i=0; $i<count($tokens); $i++)
+  var $stokens = array();
+  var $stoken_modifiers = array();
+
+  function __construct($q)
   {
-    $token = trim($tokens[$i], '%');
-    if ($token_modifiers[$i]&QST_NOT)
-      continue;
-    if ( strlen($token)==0 )
-      continue;
-    $token = addslashes($token);
-    $token = str_replace( array('%','_'), array('\\%','\\_'), $token); // escape LIKE specials %_
-    $clauses[] = $field.' LIKE \'%'.$token.'%\'';
+    $i = 0;
+    $this->parse_expression($q, $i, 0);
+    //@TODO: manipulate the tree so that 'a OR b c' is the same as 'b c OR a'
+    $this->build_single_tokens($this);
   }
 
-  return count($clauses) ? '('.implode(' OR ', $clauses).')' : null;
+  private function build_single_tokens(QMultiToken $expr)
+  {
+    //@TODO: double negation results in no negation in token modifier
+    for ($i=0; $i<count($expr->tokens); $i++)
+    {
+      $token = $expr->tokens[$i];
+      if ($token->is_single)
+      {
+        $token->idx = count($this->stokens);
+        $this->stokens[] = $token->token;
+        $this->stoken_modifiers[] = $expr->token_modifiers[$i];
+      }
+      else
+        $this->build_single_tokens($token);
+    }
+  }
 }
 
-/**
- * Returns tags corresponding to the quick search query that has been split into tokens.
- *
- * @param array $tokens
- * @param array $token_modifiers
- * @param array &$token_tag_ids
- * @param array &$not_tag_ids
- * @param array &$all_tags
- */
-function get_qsearch_tags($tokens, $token_modifiers, &$token_tag_ids, &$not_tag_ids, &$all_tags)
+class QResults
 {
+  var $all_tags;
+  var $tag_ids;
+  var $tag_iids;
+  var $images_iids;
+  var $iids;
+}
+
+function qsearch_get_images(QExpression $expr, QResults $qsr)
+{
+  //@TODO: inflections for english / french
+  $qsr->images_iids = array_fill(0, count($expr->tokens), array());
+  $query_base = 'SELECT id from '.IMAGES_TABLE.' i WHERE ';
+  for ($i=0; $i<count($expr->stokens); $i++)
+  {
+    $token = $expr->stokens[$i];
+    $clauses = array();
+
+    $like = addslashes($token);
+    $like = str_replace( array('%','_'), array('\\%','\\_'), $like); // escape LIKE specials %_
+    $clauses[] = 'CONVERT(file, CHAR) LIKE \'%'.$like.'%\'';
+
+    if (strlen($token)>3) // default minimum full text index
+    {
+      $ft = $token;
+      if ($expr->stoken_modifiers[$i] & QST_QUOTED)
+        $ft = '"'.$ft.'"';
+      if ($expr->stoken_modifiers[$i] & QST_WILDCARD_END)
+        $ft .= '*';
+      $clauses[] = 'MATCH(i.name, i.comment) AGAINST( \''.addslashes($ft).'\' IN BOOLEAN MODE)';
+    }
+    else
+    {
+      foreach( array('i.name', 'i.comment') as $field)
+      {
+        $clauses[] = $field.' LIKE \''.$like.' %\'';
+        $clauses[] = $field.' LIKE \'% '.$like.'\'';
+        $clauses[] = $field.' LIKE \'% '.$like.' %\'';
+      }
+    }
+    $query = $query_base.'('.implode(' OR ', $clauses).')';
+    $qsr->images_iids[$i] = query2array($query,null,'id');
+  }
+}
+
+function qsearch_get_tags(QExpression $expr, QResults $qsr)
+{
+  $tokens = $expr->stokens;
+  $token_modifiers = $expr->stoken_modifiers;
+
   $token_tag_ids = array_fill(0, count($tokens), array() );
-  $not_tag_ids = $all_tags = array();
+  $all_tags = array();
 
   $token_tag_scores = $token_tag_ids;
   $transliterated_tokens = array();
@@ -531,65 +664,111 @@ SELECT t.*, COUNT(image_id) AS counter
     }
   }
 
-  // process not tags
+  // process tags
+  $not_tag_ids = array();
   for ($i=0; $i<count($tokens); $i++)
   {
-    if ( ! ($token_modifiers[$i]&QST_NOT) )
-      continue;
-
     array_multisort($token_tag_scores[$i], SORT_DESC|SORT_NUMERIC, $token_tag_ids[$i]);
-
-    for ($j=0; $j<count($token_tag_scores[$i]); $j++)
-    {
-      if ($token_tag_scores[$i][$j] < 0.8)
-        break;
-      if ($j>0 && $token_tag_scores[$i][$j] < $token_tag_scores[$i][0])
-        break;
-      $tag_id = $token_tag_ids[$i][$j];
-      if ( isset($all_tags[$tag_id]) )
-      {
-        unset($all_tags[$tag_id]);
-        $not_tag_ids[] = $tag_id;
-      }
-    }
-    $token_tag_ids[$i] = array();
-  }
-
-  // process regular tags
-  for ($i=0; $i<count($tokens); $i++)
-  {
-    if ( $token_modifiers[$i]&QST_NOT )
-      continue;
-
-    array_multisort($token_tag_scores[$i], SORT_DESC|SORT_NUMERIC, $token_tag_ids[$i]);
-
+    $is_not = $token_modifiers[$i]&QST_NOT;
     $counter = 0;
+
     for ($j=0; $j<count($token_tag_scores[$i]); $j++)
     {
-      $tag_id = $token_tag_ids[$i][$j];
-      if ( ! isset($all_tags[$tag_id]) )
+      if ($is_not)
       {
-        array_splice($token_tag_ids[$i], $j, 1);
-        array_splice($token_tag_scores[$i], $j, 1);
-        $j--;
-        continue;
+        if ($token_tag_scores[$i][$j] < 0.8 ||
+              ($j>0 && $token_tag_scores[$i][$j] < $token_tag_scores[$i][0]) )
+        {
+          array_splice($token_tag_scores[$i], $j);
+          array_splice($token_tag_ids[$i], $j);
+        }
       }
+      else
+      {
+        $tag_id = $token_tag_ids[$i][$j];
+        $counter += $all_tags[$tag_id]['counter'];
+        if ($counter > 200 && $j>0 && $token_tag_scores[$i][0] > $token_tag_scores[$i][$j] )
+        {// "many" images in previous tags and starting from this tag is less relevent
+          array_splice($token_tag_ids[$i], $j);
+          array_splice($token_tag_scores[$i], $j);
+          break;
+        }
+      }
+    }
 
-      $counter += $all_tags[$tag_id]['counter'];
-      if ($counter > 200 && $j>0 && $token_tag_scores[$i][0] > $token_tag_scores[$i][$j] )
-      {// "many" images in previous tags and starting from this tag is less relevent
-        array_splice($token_tag_ids[$i], $j);
-        array_splice($token_tag_scores[$i], $j);
-        break;
-      }
+    if ($is_not)
+    {
+      $not_tag_ids = array_merge($not_tag_ids, $token_tag_ids[$i]);
     }
   }
 
+  $all_tags = array_diff_key($all_tags, array_flip($not_tag_ids));
   usort($all_tags, 'tag_alpha_compare');
   foreach ( $all_tags as &$tag )
   {
     $tag['name'] = trigger_event('render_tag_name', $tag['name'], $tag);
   }
+  $qsr->all_tags = $all_tags;
+
+  $qsr->tag_ids = $token_tag_ids;
+  $qsr->tag_iids = array_fill(0, count($tokens), array() );
+
+  for ($i=0; $i<count($tokens); $i++)
+  {
+    $tag_ids = $token_tag_ids[$i];
+
+    if (!empty($tag_ids))
+    {
+      $query = '
+SELECT image_id FROM '.IMAGE_TAG_TABLE.'
+  WHERE tag_id IN ('.implode(',',$tag_ids).')
+  GROUP BY image_id';
+      $qsr->tag_iids[$i] = query2array($query, null, 'image_id');
+    }
+  }
+}
+
+
+function qsearch_eval(QExpression $expr, QResults $qsr, QMultiToken $crt_expr)
+{
+  $ids = $not_ids = array();
+  $first = true;
+  for ($i=0; $i<count($crt_expr->tokens); $i++)
+  {
+    $current = $crt_expr->tokens[$i];
+    if ($current->is_single)
+    {
+      $crt_ids = $qsr->iids[$current->idx] = array_unique( array_merge($qsr->images_iids[$current->idx], $qsr->tag_iids[$current->idx]) );
+    }
+    else
+      $crt_ids = qsearch_eval($expr, $qsr, $current);
+    $modifier = $crt_expr->token_modifiers[$i];
+
+    if ($modifier & QST_NOT)
+      $not_ids = array_unique( array_merge($not_ids, $crt_ids));
+    else
+    {
+      if ($modifier & QST_OR)
+        $ids = array_unique( array_merge($ids, $crt_ids) );
+      else
+      {
+        if ($current->is_single && empty($crt_ids))
+        {
+          //@TODO: mark this term as unmatched and tell users
+          //@TODO: if we don't find a term at all, maybe ignore it and produce some results
+        }
+        if ($first)
+          $ids = $crt_ids;
+        else
+          $ids = array_intersect($ids, $crt_ids);
+        $first= false;
+      }
+    }
+  }
+
+  if (count($not_ids))
+    $ids = array_diff($ids, $not_ids);
+  return $ids;
 }
 
 /**
@@ -620,144 +799,36 @@ function get_quick_search_results($q, $super_order_by, $images_where='')
       'qs' => array('q'=>stripslashes($q)),
     );
   $q = trim($q);
-  analyse_qsearch($q, $tokens, $token_modifiers);
-  if (count($tokens)==0)
+  $expression = new QExpression($q);
+//var_export($expression);
+
+  $qsr = new QResults;
+  qsearch_get_tags($expression, $qsr);
+  qsearch_get_images($expression, $qsr);
+//var_export($qsr->all_tags);
+
+  $ids = qsearch_eval($expression, $qsr, $expression);
+
+  $debug[] = "<!--\nparsed: ".$expression;
+  $debug[] = count($expression->stokens).' tokens';
+  for ($i=0; $i<count($expression->stokens); $i++)
   {
-    return $search_results;
+    $debug[] = $expression->stokens[$i].': '.count($qsr->tag_ids[$i]).' tags, '.count($qsr->tag_iids[$i]).' tiids, '.count($qsr->images_iids[$i]).' iiids, '.count($qsr->iids[$i]).' iids';
   }
-  $debug[] = '<!--'.count($tokens).' tokens';
+  $debug[] = 'before perms '.count($ids);
 
-  $q_like_field = '@@__db_field__@@'; //something never in a search
-  $q_like_clause = get_qsearch_like_clause($tokens, $token_modifiers, $q_like_field );
+  $search_results['qs']['matching_tags'] = $qsr->all_tags;
+  global $template;
 
-  // Step 1 - first we find matches in #images table ===========================
-  $where_clauses='MATCH(i.name, i.comment) AGAINST( \''.$q.'\' IN BOOLEAN MODE)';
-  if (!empty($q_like_clause))
+  if (empty($ids))
   {
-    $where_clauses .= '
-    OR '. str_replace($q_like_field, 'CONVERT(file, CHAR)', $q_like_clause);
-    $where_clauses = '('.$where_clauses.')';
-  }
-  $where_clauses = array($where_clauses);
-  if (!empty($images_where))
-  {
-    $where_clauses[]='('.$images_where.')';
-  }
-  $where_clauses[] .= get_sql_condition_FandF
-      (
-        array( 'visible_images' => 'i.id' ), null, true
-      );
-  $query = '
-SELECT i.id,
-    MATCH(i.name, i.comment) AGAINST( \''.$q.'\' IN BOOLEAN MODE) AS weight
-  FROM '.IMAGES_TABLE.' i
-  WHERE '.implode("\n AND ", $where_clauses);
-
-  $by_weights=array();
-  $result = pwg_query($query);
-  while ($row = pwg_db_fetch_assoc($result))
-  { // weight is important when sorting images by relevance
-    if ($row['weight'])
-    {
-      $by_weights[(int)$row['id']] =  2*$row['weight'];
-    }
-    else
-    {//full text does not match but file name match
-      $by_weights[(int)$row['id']] =  2;
-    }
-  }
-  $debug[] = count($by_weights).' fulltext';
-  if (!empty($by_weights))
-  {
-    $debug[] = 'ft score min:'.min($by_weights).' max:'.max($by_weights);
-  }
-
-
-  // Step 2 - get the tags and the images for tags
-  get_qsearch_tags($tokens, $token_modifiers, $token_tag_ids, $not_tag_ids, $search_results['qs']['matching_tags']);
-  $debug[] = count($search_results['qs']['matching_tags']).' tags';
-
-  for ($i=0; $i<count($token_tag_ids); $i++)
-  {
-    $tag_ids = $token_tag_ids[$i];
-    $debug[] = count($tag_ids).' unique tags';
-
-    if (!empty($tag_ids))
-    {
-      $tag_photo_count=0;
-      $query = '
-SELECT image_id FROM '.IMAGE_TAG_TABLE.'
-  WHERE tag_id IN ('.implode(',',$tag_ids).')
-  GROUP BY image_id';
-      $result = pwg_query($query);
-      while ($row = pwg_db_fetch_assoc($result))
-      { // weight is important when sorting images by relevance
-        $image_id=(int)$row['image_id'];
-        @$by_weights[$image_id] += 1;
-        $tag_photo_count++;
-      }
-      $debug[] = $tag_photo_count.' photos for tag';
-      $debug[] = count($by_weights).' photos after';
-    }
-  }
-
-  // Step 3 - search categories corresponding to the query $q ==================
-  $query = '
-SELECT id, name, permalink, nb_images
-  FROM '.CATEGORIES_TABLE.'
-    INNER JOIN '.USER_CACHE_CATEGORIES_TABLE.' ON id=cat_id
-  WHERE user_id='.$user['id'].'
-    AND MATCH(name, comment) AGAINST( \''.$q.'\' IN BOOLEAN MODE)'.
-  get_sql_condition_FandF (
-      array( 'visible_categories' => 'cat_id' ), "\n    AND"
-    );
-  $result = pwg_query($query);
-  while ($row = pwg_db_fetch_assoc($result))
-  { // weight is important when sorting images by relevance
-    if ($row['nb_images']==0)
-    {
-      $search_results['qs']['matching_cats_no_images'][] = $row;
-    }
-    else
-    {
-      $search_results['qs']['matching_cats'][$row['id']] = $row;
-    }
-  }
-  $debug[] = count(@$search_results['qs']['matching_cats']).' albums with images';
-
-  if ( empty($by_weights) and empty($search_results['qs']['matching_cats']) )
-  {
+    $debug[] = '-->';
+    $template->append('footer_elements', implode("\n", $debug) );
     return $search_results;
   }
 
-  if (!empty($not_tag_ids))
-  {
-    $query = '
-SELECT image_id FROM '.IMAGE_TAG_TABLE.'
-  WHERE tag_id IN ('.implode(',',$not_tag_ids).')
-  GROUP BY image_id';
-      $result = pwg_query($query);
-      while ($row = pwg_db_fetch_row($result))
-      {
-        $id = $row[0];
-        unset($by_weights[$id]);
-      }
-      $debug[] = count($by_weights).' after not tags';
-  }
-  // Step 4 - now we have $by_weights ( array image id => weight ) that need
-  // permission checks and/or matching categories to get images from
   $where_clauses = array();
-  if ( !empty($by_weights) )
-  {
-    $where_clauses[]='i.id IN ('
-      . implode(',', array_keys($by_weights)) . ')';
-  }
-  if ( !empty($search_results['qs']['matching_cats']) )
-  {
-    $where_clauses[]='category_id IN ('.
-      implode(',',array_keys($search_results['qs']['matching_cats'])).')';
-  }
-  $where_clauses = array( '('.implode("\n    OR ",$where_clauses).')' );
+  $where_clauses[]='i.id IN ('. implode(',', $ids) . ')';
   if (!empty($images_where))
   {
     $where_clauses[]='('.$images_where.')';
@@ -779,30 +850,12 @@ SELECT DISTINCT(id)
   WHERE '.implode("\n AND ", $where_clauses)."\n".
   $conf['order_by'];
 
-  $allowed_images = array_from_query( $query, 'id');
+  $ids = query2array($query, null, 'id');
 
-  $debug[] = count($allowed_images).' final photo count -->';
-  global $template;
-  $template->append('footer_elements', implode(', ', $debug) );
+  $debug[] = count($ids).' final photo count -->';
+  $template->append('footer_elements', implode("\n", $debug) );
 
-  if ( $super_order_by or empty($by_weights) )
-  {
-    $search_results['items'] = $allowed_images;
-    return $search_results;
-  }
-
-  $allowed_images = array_flip( $allowed_images );
-  $divisor = 5.0 * count($allowed_images);
-  foreach ($allowed_images as $id=> &$rank )
-  {
-    $weight = isset($by_weights[$id]) ? $by_weights[$id] : 1;
-    $weight -= $rank/$divisor;
-    $rank = $weight;
-  }
-  unset($rank);
-
-  arsort($allowed_images, SORT_NUMERIC);
-  $search_results['items'] = array_keys($allowed_images);
+  $search_results['items'] = $ids;
   return $search_results;
 }
 
