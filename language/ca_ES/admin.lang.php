@@ -684,7 +684,7 @@ $lang['Album photos associated to the following albums: %s'] = 'Àlbums de fotos
 $lang['Delete orphan tags'] = 'Elimina les etiquetes orfes';
 $lang['delete photo'] = 'Elimina la foto';
 $lang['Orphan tags deleted'] = 'S\'han eliminat les etiquetes orfes';
-$lang['Week starts on'] = 'La setmana comença el';
+$lang['Week starts on'] = 'La setmana comença en';
 $lang['You have %d orphan tags: %s.'] = 'Teniu %d etiquetes orfes: %s.';
 $lang['Remove from caddie'] = 'Treu del carret';
 $lang['Themes which need upgrade'] = 'Temes per actualitzar';
@@ -984,4 +984,3 @@ $lang['Open user details'] = 'Obre detalls de l\'usuari';
 $lang['Showing %s to %s of %s users'] = 'Mostrant %s de %s de %s usuaris';
 $lang['on the %d selected users'] = 'sobre els %d usuaris seleccionats';
 $lang['Activate it now'] = 'Activa-ho ara';
-?>
