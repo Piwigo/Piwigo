@@ -305,10 +305,11 @@ define('QST_WILDCARD', QST_WILDCARD_BEGIN|QST_WILDCARD_END);
  * @param string $q
  */
 
+/** Represents a single word or quoted phrase to be searched.*/
 class QSingleToken
 {
   var $is_single = true;
-  var $token;
+  var $token; /* the actual word/phrase string*/
   var $idx;
 
   function __construct($token)
@@ -317,11 +318,12 @@ class QSingleToken
   }
 }
 
+/** Represents an expression of several words or sub expressions to be searched.*/
 class QMultiToken
 {
   var $is_single = false;
-  var $tokens = array();
-  var $token_modifiers = array();
+  var $tokens = array(); // the actual array of QSingleToken or QMultiToken
+  var $token_modifiers = array(); // modifiers (OR,NOT,...) for every token
 
   function __toString()
   {
@@ -358,7 +360,7 @@ class QMultiToken
     return $s;
   }
 
-  function push(&$token, &$modifier)
+  private function push(&$token, &$modifier)
   {
     $this->tokens[] = new QSingleToken($token);
     $this->token_modifiers[] = $modifier;
@@ -366,6 +368,13 @@ class QMultiToken
     $modifier = 0;
   }
 
+  /**
+  * Parses the input query string by tokenizing the input, generating the modifiers (and/or/not/quotation/wildcards...).
+  * Recursivity occurs when parsing ()
+  * @param string $q the actual query to be parsed
+  * @param int $qi the character index in $q where to start parsing
+  * @param int $level the depth from root in the tree (number of opened and unclosed opening brackets)
+  */
   protected function parse_expression($q, &$qi, $level)
   {
     $crt_token = "";
@@ -486,6 +495,52 @@ class QMultiToken
       }
     }
   }
+
+  private static function priority($modifier)
+  {
+    return $modifier & QST_OR ? 0 :1;
+  }
+
+  /* because evaluations occur left to right, we ensure that 'a OR b c d' is interpreted as 'a OR (b c d)'*/
+  protected function check_operator_priority()
+  {
+    for ($i=0; $i<count($this->tokens); $i++)
+    {
+      if (!$this->tokens[$i]->is_single)
+        $this->tokens[$i]->check_operator_priority();
+      if ($i==1)
+        $crt_prio = self::priority($this->token_modifiers[$i]);
+      if ($i<=1)
+        continue;
+      $prio = self::priority($this->token_modifiers[$i]);
+      if ($prio > $crt_prio)
+      {// e.g. 'a OR b c d' i=2, operator(c)=AND -> prio(AND) > prio(OR) = operator(b)
+        $term_count = 2; // at least b and c to be regrouped
+        for ($j=$i+1; $j<count($this->tokens); $j++)
+        {
+          if (self::priority($this->token_modifiers[$j]) >= $prio)
+            $term_count++; // also take d
+          else
+            break;
+        }
+
+        $i--; // move pointer to b
+        // crate sub expression (b c d)
+        $sub = new QMultiToken;
+        $sub->tokens = array_splice($this->tokens, $i, $term_count);
+        $sub->token_modifiers = array_splice($this->token_modifiers, $i, $term_count);
+
+        // rewrite ourseleves as a (b c d)
+        array_splice($this->tokens, $i, 0, array($sub));
+        array_splice($this->token_modifiers, $i, 0, array($sub->token_modifiers[0]&QST_OR));
+        $sub->token_modifiers[0] &= ~QST_OR;
+
+        $sub->check_operator_priority();
+      }
+      else
+        $crt_prio = $prio;
+    }
+  }
 }
 
 class QExpression extends QMultiToken
@@ -497,28 +552,39 @@ class QExpression extends QMultiToken
   {
     $i = 0;
     $this->parse_expression($q, $i, 0);
-    //@TODO: manipulate the tree so that 'a OR b c' is the same as 'b c OR a'
-    $this->build_single_tokens($this);
+    //manipulate the tree so that 'a OR b c' is the same as 'b c OR a'
+    $this->check_operator_priority();
+    $this->build_single_tokens($this, 0);
   }
 
-  private function build_single_tokens(QMultiToken $expr)
+  private function build_single_tokens(QMultiToken $expr, $this_is_not)
   {
-    //@TODO: double negation results in no negation in token modifier
     for ($i=0; $i<count($expr->tokens); $i++)
     {
       $token = $expr->tokens[$i];
+      $crt_is_not = ($expr->token_modifiers[$i] ^ $this_is_not) & QST_NOT; // no negation OR double negation -> no negation;
+
       if ($token->is_single)
       {
         $token->idx = count($this->stokens);
         $this->stokens[] = $token->token;
-        $this->stoken_modifiers[] = $expr->token_modifiers[$i];
+
+        $modifier = $expr->token_modifiers[$i];
+        if ($crt_is_not)
+          $modifier |= QST_NOT;
+        else
+          $modifier &= ~QST_NOT;
+        $this->stoken_modifiers[] = $modifier;
       }
       else
-        $this->build_single_tokens($token);
+        $this->build_single_tokens($token, $crt_is_not);
     }
   }
 }
 
+/**
+  Structure of results being filled from different tables
+*/
 class QResults
 {
   var $all_tags;
@@ -729,39 +795,43 @@ SELECT image_id FROM '.IMAGE_TAG_TABLE.'
 }
 
 
-function qsearch_eval(QExpression $expr, QResults $qsr, QMultiToken $crt_expr)
+function qsearch_eval(QMultiToken $expr, QResults $qsr, &$qualifies, &$ignored_terms)
 {
+  $qualifies = false; // until we find at least one positive term
+  $ignored_terms = array();
+
   $ids = $not_ids = array();
-  $first = true;
-  for ($i=0; $i<count($crt_expr->tokens); $i++)
+
+  for ($i=0; $i<count($expr->tokens); $i++)
   {
-    $current = $crt_expr->tokens[$i];
-    if ($current->is_single)
+    $crt = $expr->tokens[$i];
+    if ($crt->is_single)
     {
-      $crt_ids = $qsr->iids[$current->idx] = array_unique( array_merge($qsr->images_iids[$current->idx], $qsr->tag_iids[$current->idx]) );
+      $crt_ids = $qsr->iids[$crt->idx] = array_unique( array_merge($qsr->images_iids[$crt->idx], $qsr->tag_iids[$crt->idx]) );
+      $crt_qualifies = count($crt_ids)>0 || count($qsr->tag_ids[$crt->idx])>0;
+      $crt_ignored_terms = $crt_qualifies ? array() : array($crt->token);
     }
     else
-      $crt_ids = qsearch_eval($expr, $qsr, $current);
-    $modifier = $crt_expr->token_modifiers[$i];
+      $crt_ids = qsearch_eval($crt, $qsr, $crt_qualifies, $crt_ignored_terms);
 
+    $modifier = $expr->token_modifiers[$i];
     if ($modifier & QST_NOT)
       $not_ids = array_unique( array_merge($not_ids, $crt_ids));
     else
     {
+      $ignored_terms = array_merge($ignored_terms, $crt_ignored_terms);
       if ($modifier & QST_OR)
-        $ids = array_unique( array_merge($ids, $crt_ids) );
-      else
       {
-        if ($current->is_single && empty($crt_ids))
-        {
-          //@TODO: mark this term as unmatched and tell users
-          //@TODO: if we don't find a term at all, maybe ignore it and produce some results
-        }
-        if ($first)
-          $ids = $crt_ids;
-        else
+        $ids = array_unique( array_merge($ids, $crt_ids) );
+        $qualifies |= $crt_qualifies;
+      }
+      elseif ($crt_qualifies)
+      {
+        if ($qualifies)
           $ids = array_intersect($ids, $crt_ids);
-        $first= false;
+        else
+          $ids = $crt_ids;
+        $qualifies = true;
       }
     }
   }
@@ -778,6 +848,7 @@ function qsearch_eval(QExpression $expr, QResults $qsr, QMultiToken $crt_expr)
  *  array (
  *    'items' => array of matching images
  *    'qs'    => array(
+ *      'unmatched_terms' => array of terms from the input string that were not matched
  *      'matching_tags' => array of matching tags
  *      'matching_cats' => array of matching categories
  *      'matching_cats_no_images' =>array(99) - matching categories without images
@@ -791,8 +862,8 @@ function qsearch_eval(QExpression $expr, QResults $qsr, QMultiToken $crt_expr)
  */
 function get_quick_search_results($q, $super_order_by, $images_where='')
 {
-  global $user, $conf;
-
+  global $conf;
+  //@TODO: maybe cache for 10 minutes the result set to avoid many expensive sql calls when navigating the pictures
   $search_results =
     array(
       'items' => array(),
@@ -807,7 +878,7 @@ function get_quick_search_results($q, $super_order_by, $images_where='')
   qsearch_get_images($expression, $qsr);
 //var_export($qsr->all_tags);
 
-  $ids = qsearch_eval($expression, $qsr, $expression);
+  $ids = qsearch_eval($expression, $qsr, $tmp, $search_results['qs']['unmatched_terms']);
 
   $debug[] = "<!--\nparsed: ".$expression;
   $debug[] = count($expression->stokens).' tokens';

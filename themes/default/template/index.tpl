@@ -121,25 +121,36 @@
 
 {if !empty($PLUGIN_INDEX_CONTENT_BEGIN)}{$PLUGIN_INDEX_CONTENT_BEGIN}{/if}
 
+{if !empty($no_search_results)}
+<p class="search_results">{'No results for'|@translate} :
+	<em><strong>
+	{foreach $no_search_results as $res}
+	{if !$res@first} &mdash; {/if}
+	{$res}
+	{/foreach}
+	</strong></em>
+</p>
+{/if}
+
 {if !empty($category_search_results)}
-<div class="category_search_results">{'Album results for'|@translate} <strong>{$QUERY_SEARCH}</strong> :
+<p class="search_results">{'Album results for'|@translate} <strong>{$QUERY_SEARCH}</strong> :
 	<em><strong>
 	{foreach from=$category_search_results item=res name=res_loop}
 	{if !$smarty.foreach.res_loop.first} &mdash; {/if}
 	{$res}
 	{/foreach}
 	</strong></em>
-</div>
+</p>
 {/if}
 
 {if !empty($tag_search_results)}
-<div class="tag_search_results">{'Tag results for'|@translate} <strong>{$QUERY_SEARCH}</strong> :
+<p class="search_results">{'Tag results for'|@translate} <strong>{$QUERY_SEARCH}</strong> :
 	<em><strong>
 	{foreach from=$tag_search_results item=tag name=res_loop}
 	{if !$smarty.foreach.res_loop.first} &mdash; {/if} <a href="{$tag.URL}">{$tag.name}</a>
 	{/foreach}
 	</strong></em>
-</div>
+</p>
 {/if}
 
 {if isset($FILE_CHRONOLOGY_VIEW)}

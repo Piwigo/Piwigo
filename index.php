@@ -241,6 +241,15 @@ if ( empty($page['is_external']) or !$page['is_external'] )
       $tag['URL'] = make_index_url(array('tags'=>array($tag)));
       $template->append( 'tag_search_results', $tag);
     }
+    
+    if (empty($page['items']))
+    {
+      $template->append( 'no_search_results', $page['qsearch_details']['q']);
+    }
+    elseif (!empty($page['qsearch_details']['unmatched_terms']))
+    {
+      $template->assign( 'no_search_results', $page['qsearch_details']['unmatched_terms']);
+    }
   }
 
   // image order
