@@ -421,4 +421,4 @@ $lang['Password is missing. Please enter the password.'] = 'Adgangskoden mangler
 $lang['Password confirmation is missing. Please confirm the chosen password.'] = 'Adgangskodebekræftelse mangler. Bekræft den valgte adgangskode.';
 $lang['%d photos per page'] = '%d fotografier pr. side';
 $lang['Theme'] = 'Tema';
-?>
+$lang['No results for'] = 'Ingen resultater for';
