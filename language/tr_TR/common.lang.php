@@ -418,4 +418,4 @@ $lang['Password is missing. Please enter the password.'] = 'Şifre eksik. Lütfe
 $lang['Password confirmation is missing. Please confirm the chosen password.'] = 'Şifre doğrulama eksik. Lütfen seçtiğiniz şifreyi doğrulayın.';
 $lang['%d photos per page'] = 'sayfa başına %d fotoğraf';
 $lang['Theme'] = 'Tema';
-?>
+$lang['No results for'] = 'Sonuç bulunamadı:';
