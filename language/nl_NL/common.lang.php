@@ -426,4 +426,4 @@ $lang['Password is missing. Please enter the password.'] = 'Wachtwoord ontbreekt
 $lang['Password confirmation is missing. Please confirm the chosen password.'] = 'Wachtwoord-bevestiging ontbreekt. Bevestig aub het gekozen wachtwoord.';
 $lang['%d photos per page'] = '%d foto\'s per pagina';
 $lang['Theme'] = 'Thema';
-?>
+$lang['No results for'] = 'Geen resultaten voor';
