@@ -478,6 +478,8 @@ SELECT id,name,uppercats,global_rank
 display_select_cat_wrapper($query, $associate_options_selected, 'associate_options');
 display_select_cat_wrapper($query, $represent_options_selected, 'represent_options');
 
+trigger_action('loc_end_picture_modify');
+
 //----------------------------------------------------------- sending html code
 
 $template->assign_var_from_handle('ADMIN_CONTENT', 'picture_modify');

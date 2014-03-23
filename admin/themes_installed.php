@@ -172,6 +172,7 @@ $template->assign(
     )
   );
 
+trigger_action('loc_end_themes_installed');
 
 $template->set_filenames(array('themes' => 'themes_installed.tpl'));
 $template->assign_var_from_handle('ADMIN_CONTENT', 'themes');
