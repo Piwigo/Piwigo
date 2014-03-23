@@ -423,4 +423,4 @@ $lang['Password is missing. Please enter the password.'] = 'Senha em falta. Por 
 $lang['Password confirmation is missing. Please confirm the chosen password.'] = 'Confirmação da Senha em falta. Por favor confirme a Palavra Passe escolhida.';
 $lang['%d photos per page'] = '%d Fotos por pÃ¡gina';
 $lang['Theme'] = 'Tema';
-?>
+$lang['No results for'] = 'Sem resultados para';
