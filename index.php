@@ -85,6 +85,11 @@ if (count($page['items']) > $page['nb_image_page'])
 
 $template->assign('thumb_navbar', $page['navigation_bar'] );
 
+if ( $page['section']=='search' and isset($page['qsearch_details']) )
+{
+  $template->assign('QUERY_SEARCH', htmlspecialchars($page['qsearch_details']['q']) );
+}
+
 // caddie filling :-)
 if (isset($_GET['caddie']))
 {
@@ -218,9 +223,6 @@ if ( empty($page['is_external']) or !$page['is_external'] )
   if ( $page['section']=='search' and $page['start']==0 and
       !isset($page['chronology_field']) and isset($page['qsearch_details']) )
   {
-    $template->assign('QUERY_SEARCH',
-      htmlspecialchars($page['qsearch_details']['q']) );
-
     $cats = array_merge(
         (array)@$page['qsearch_details']['matching_cats_no_images'],
         (array)@$page['qsearch_details']['matching_cats'] );

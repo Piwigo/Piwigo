@@ -592,12 +592,24 @@ class QResults
   var $tag_iids;
   var $images_iids;
   var $iids;
+
+  var $variants;
 }
 
 function qsearch_get_images(QExpression $expr, QResults $qsr)
 {
   //@TODO: inflections for english / french
   $qsr->images_iids = array_fill(0, count($expr->tokens), array());
+
+  $inflector = null;
+  $lang_code = substr(get_default_language(),0,2);
+  include_once(PHPWG_ROOT_PATH.'include/inflectors/'.$lang_code.'.php');
+  $class_name = 'Inflector_'.$lang_code;
+  if (class_exists($class_name))
+  {
+    $inflector = new $class_name;
+  }
+
   $query_base = 'SELECT id from '.IMAGES_TABLE.' i WHERE ';
   for ($i=0; $i<count($expr->stokens); $i++)
   {
@@ -608,6 +620,19 @@ function qsearch_get_images(QExpression $expr, QResults $qsr)
     $like = str_replace( array('%','_'), array('\\%','\\_'), $like); // escape LIKE specials %_
     $clauses[] = 'CONVERT(file, CHAR) LIKE \'%'.$like.'%\'';
 
+    if ($inflector!=null && strlen($token)>2
+      && ($expr->stoken_modifiers[$i] & (QST_QUOTED|QST_WILDCARD))==0
+      && strcspn($token, '\'0123456789') == strlen($token)
+      )
+    {
+      $variants = array_unique( array_diff( $inflector->get_variants($token), array($token) ) );
+      $qsr->variants[$token] = $variants;
+    }
+    else
+    {
+      $variants = array();
+    }
+
     if (strlen($token)>3) // default minimum full text index
     {
       $ft = $token;
@@ -615,15 +640,20 @@ function qsearch_get_images(QExpression $expr, QResults $qsr)
         $ft = '"'.$ft.'"';
       if ($expr->stoken_modifiers[$i] & QST_WILDCARD_END)
         $ft .= '*';
+      foreach ($variants as $variant)
+      {
+        $ft.=' '.$variant;
+      }
       $clauses[] = 'MATCH(i.name, i.comment) AGAINST( \''.addslashes($ft).'\' IN BOOLEAN MODE)';
     }
     else
     {
       foreach( array('i.name', 'i.comment') as $field)
       {
-        $clauses[] = $field.' LIKE \''.$like.' %\'';
+        /*$clauses[] = $field.' LIKE \''.$like.' %\'';
         $clauses[] = $field.' LIKE \'% '.$like.'\'';
-        $clauses[] = $field.' LIKE \'% '.$like.' %\'';
+        $clauses[] = $field.' LIKE \'% '.$like.' %\'';*/
+        $clauses[] = $field.' REGEXP \'[[:<:]]'.addslashes(preg_quote($token)).'[[:>:]]\'';
       }
     }
     $query = $query_base.'('.implode(' OR ', $clauses).')';
@@ -753,8 +783,12 @@ SELECT t.*, COUNT(image_id) AS counter
       {
         $tag_id = $token_tag_ids[$i][$j];
         $counter += $all_tags[$tag_id]['counter'];
-        if ($counter > 200 && $j>0 && $token_tag_scores[$i][0] > $token_tag_scores[$i][$j] )
-        {// "many" images in previous tags and starting from this tag is less relevent
+        if ( $j>0 && (
+          ($counter > 100 && $token_tag_scores[$i][0] > $token_tag_scores[$i][$j]) // "many" images in previous tags and starting from this tag is less relevant
+          || ($token_tag_scores[$i][0]==1 && $token_tag_scores[$i][$j]<0.8)
+          || ($token_tag_scores[$i][0]>0.8 && $token_tag_scores[$i][$j]<0.5)
+          ))
+        {// we remove this tag from the results, but we still leave it in all_tags list so that if we are wrong, the user chooses it
           array_splice($token_tag_ids[$i], $j);
           array_splice($token_tag_scores[$i], $j);
           break;
@@ -864,12 +898,13 @@ function get_quick_search_results($q, $super_order_by, $images_where='')
 {
   global $conf;
   //@TODO: maybe cache for 10 minutes the result set to avoid many expensive sql calls when navigating the pictures
+  $q = trim(stripslashes($q));
   $search_results =
     array(
       'items' => array(),
-      'qs' => array('q'=>stripslashes($q)),
+      'qs' => array('q'=>$q),
     );
-  $q = trim($q);
+
   $expression = new QExpression($q);
 //var_export($expression);
 
@@ -884,7 +919,8 @@ function get_quick_search_results($q, $super_order_by, $images_where='')
   $debug[] = count($expression->stokens).' tokens';
   for ($i=0; $i<count($expression->stokens); $i++)
   {
-    $debug[] = $expression->stokens[$i].': '.count($qsr->tag_ids[$i]).' tags, '.count($qsr->tag_iids[$i]).' tiids, '.count($qsr->images_iids[$i]).' iiids, '.count($qsr->iids[$i]).' iids';
+    $debug[] = $expression->stokens[$i].': '.count($qsr->tag_ids[$i]).' tags, '.count($qsr->tag_iids[$i]).' tiids, '.count($qsr->images_iids[$i]).' iiids, '.count($qsr->iids[$i]).' iids'
+      .( !empty($qsr->variants[$expression->stokens[$i]]) ? ' variants: '.implode(', ',$qsr->variants[$expression->stokens[$i]]): '');
   }
   $debug[] = 'before perms '.count($ids);
 
