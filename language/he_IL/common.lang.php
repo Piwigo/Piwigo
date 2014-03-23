@@ -22,7 +22,7 @@
 // +-----------------------------------------------------------------------+
 /*
 Language Name: עברית [IL]
-Version: 2.6.0
+Version: 2.6.1
 Language URI: http://piwigo.org/ext/extension_view.php?eid=457
 Author: Piwigo team
 Author URI: http://piwigo.org
@@ -195,10 +195,6 @@ $lang['last %d days'] = "ה %d ימים אחרונים";
 $lang['Last'] = "אחרון";
 $lang['Logout'] = "התנתק";
 $lang['obligatory'] = "הכרחי";
-$lang['Maximum photo height'] = "גובה מקסימלי לתמונה";
-$lang['Maximum height must be a number superior to 50'] = "הגובהה המקסימלי חייב להיות מעל 50";
-$lang['Maximum photo width'] = "רוחב  מקסימלי לתמונה";
-$lang['Maximum width must be a number superior to 50'] = "הרוחב המקסימלי חייב להיות מעל 50";
 $lang['display a calendar by creation date'] = "הצג לוח שנה לפי תאריך יצירה";
 $lang['display all photos in all sub-albums'] = "הצג את כל הפריטים בכל הקטגוריות ובכל התת קטגוריות";
 $lang['return to normal view mode'] = "חזור לתצוגה רגילה";
@@ -417,4 +413,10 @@ $lang['Website'] = 'אתר';
 $lang['mandatory'] = 'הכרחי';
 $lang['Password is missing. Please enter the password.'] = 'סיסמה חסרה, נה להזין סיסמה..';
 $lang['Password confirmation is missing. Please confirm the chosen password.'] = 'אישור סיסמה חסר, נה להזיר אישור סיסמה..';
+$lang['Last Page'] = 'עמוד אחרון';
+$lang['Theme'] = 'נושא';
+$lang['Go back to the album'] = 'חזור לאלבום';
+$lang['First Page'] = 'עמוד ראשון';
+$lang['Email'] = 'אימייל';
+$lang['%d photos per page'] = '%d תמונות בעמוד';
 ?>

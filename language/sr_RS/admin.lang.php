@@ -477,7 +477,6 @@ $lang['Are you sure you want to delete this plugin?'] = 'Сигурно жели
 $lang['Are you sure you want to install this plugin?'] = 'Сигурно желите инсталирати овај додатак?';
 $lang['Are you sure to install this upgrade? You must verify if this version does not need uninstallation.'] = 'Сигурно желите инсталирати овај додатак? Морате потврдити да ова пречица не треба уклањање.';
 $lang['Plugin has been successfully copied'] = 'Додатак је успјешно ископиран';
-$lang['You might go to plugin list to install and activate it.'] = 'Можете ићи на листу датотека за инсталацију и покретање.';
 $lang['Can\'t create temporary file.'] = 'Не могу направити привремени датотеку.';
 $lang['Can\'t download archive.'] = 'Не могу преузети датотеку.';
 $lang['Can\'t read or extract archive.'] = 'Не могу очитати или распаковати датотеку.';
@@ -885,4 +884,5 @@ $lang['Duplicate selected tags'] = 'Одабрана ознака је дупл�
 $lang['Basic settings'] = 'Основна подешавања';
 $lang['Change password'] = 'Промени лозинку';
 $lang['Change username'] = 'Промени корисничко име';
-?>
+$lang['%d of %d users selected'] = 'Изабрано је %d од %d корисника';
+$lang['%s ago'] = 'Пре %s';

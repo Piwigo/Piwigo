@@ -27,7 +27,7 @@ $lang['Congratulations, Piwigo installation is completed'] = 'Танд баяр 
 $lang['Connection to server succeed, but it was impossible to connect to database'] = 'Сервертэй амжилттай холбогдсон боловч мэдээллийн сантай холбогдох үед алдаа гарлаа.';
 $lang['Try to configure PHP 5'] = 'PHP 5 тохиргоогоо өөрчилж үзнэ үү';
 $lang['User'] = 'Хэрэглэгч';
-$lang['Just another Piwigo gallery'] = 'Piwigo-н галарей нэгээр нэмэгдлээ';
+$lang['Just another Piwigo gallery'] = 'Piwigo-н галерей нэгээр нэмэгдлээ';
 $lang['Database configuration'] = 'Мэдээллийн сангийн тохиргоо';
 $lang['Welcome to my photo gallery'] = 'Миний зургийн цомогт тавтай морилно уу';
 $lang['please enter your password again'] = 'нууц үгээ дахин оруулна уу';
@@ -58,4 +58,6 @@ $lang['Database table prefix'] = 'Мэдээллийн сангийн талба
 $lang['You can download the config file and upload it to local/config directory of your installation.'] = 'Тохиргооны файлыг татан авч өөрчлөөд local/config хавтас уруу буцаан хуулаах боломжтой.';
 $lang['Note you can change your configuration by yourself and restart Piwigo after that.'] = 'Тохиргоогоо өөрөө өөрчлөөд Piwigo-г дахин ачаалж болно гэдгийг санаарай.';
 $lang['Don\'t hesitate to consult our forums for any help : %s'] = 'Тусламж хэрэгтэй бол манай онлайн форумд хандаарай: %s';
+$lang['Host'] = 'Байршуулах компьютер';
+$lang['Installation'] = 'Суулгац';
 ?>
