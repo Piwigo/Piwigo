@@ -24,4 +24,5 @@ $lang['Autohide the bar of the slideshow'] = 'Diashow Menüleiste autom. verstec
 $lang['Loop the slideshow'] = 'Diashow in Endlosschleife';
 $lang['More Information'] = 'Mehr Informationen';
 $lang['Slideshow Options'] = 'Diashowoptionen';
+$lang['Smartpocket, Configuration Page'] = 'Smartpocket, Konfigurationsseite';
 ?>
