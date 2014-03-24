@@ -419,4 +419,4 @@ $lang['Password is missing. Please enter the password.'] = 'Κωδικός λε�
 $lang['Password confirmation is missing. Please confirm the chosen password.'] = 'Η επιβεβαίωση κωδικού λείπει. Επιβεβαιώστε τον επιλεγμένο κωδικό πρόσβασης';
 $lang['Theme'] = 'Θέμα';
 $lang['%d photos per page'] = '%d φωτογραφίες ανά σελίδα';
-?>
+$lang['No results for'] = 'Κανένα αποτέλεσμα για';
