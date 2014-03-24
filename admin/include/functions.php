@@ -705,15 +705,166 @@ UPDATE '.CATEGORIES_TABLE.'
 ;';
     pwg_query($query);
   }
+  
   // make a category private => all its child categories become private
   if ($value == 'private')
   {
     $subcats = get_subcat_ids($categories);
+    
     $query = '
 UPDATE '.CATEGORIES_TABLE.'
   SET status = \'private\'
   WHERE id IN ('.implode(',', $subcats).')';
     pwg_query($query);
+
+    // We have to keep permissions consistant: a sub-album can't be
+    // permitted to a user or group if its parent album is not permitted to
+    // the same user or group. Let's remove all permissions on sub-albums if
+    // it is not consistant. Let's take the following example:
+    //
+    // A1        permitted to U1,G1
+    // A1/A2     permitted to U1,U2,G1,G2
+    // A1/A2/A3  permitted to U3,G1
+    // A1/A2/A4  permitted to U2
+    // A1/A5     permitted to U4
+    // A6        permitted to U4
+    // A6/A7     permitted to G1
+    //
+    // (we consider that it can be possible to start with inconsistant
+    // permission, given that public albums can have hidden permissions,
+    // revealed once the album returns to private status)
+    //
+    // The admin selects A2,A3,A4,A5,A6,A7 to become private (all but A1,
+    // which is private, which can be true if we're moving A2 into A1). The
+    // result must be:
+    //
+    // A2 permission removed to U2,G2
+    // A3 permission removed to U3
+    // A4 permission removed to U2
+    // A5 permission removed to U2
+    // A6 permission removed to U4
+    // A7 no permission removed
+    // 
+    // 1) we must extract "top albums": A2, A5 and A6
+    // 2) for each top album, decide which album is the reference for permissions
+    // 3) remove all inconsistant permissions from sub-albums of each top-album
+
+    // step 1, search top albums
+    $all_categories = array();
+    $top_categories = array();
+    $parent_ids = array();
+    
+    $query = '
+SELECT
+    id,
+    name,
+    id_uppercat,
+    uppercats,
+    global_rank
+  FROM '.CATEGORIES_TABLE.'
+  WHERE id IN ('.implode(',', $categories).')
+;';
+    $result = pwg_query($query);
+    while ($row = pwg_db_fetch_assoc($result))
+    {
+      $all_categories[] = $row;
+    }
+    
+    usort($all_categories, 'global_rank_compare');
+
+    foreach ($all_categories as $cat)
+    {
+      $is_top = true;
+      
+      if (!empty($cat['id_uppercat']))
+      {
+        foreach (explode(',', $cat['uppercats']) as $id_uppercat)
+        {
+          if (isset($top_categories[$id_uppercat]))
+          {
+            $is_top = false;
+            break;
+          }
+        }
+      }
+
+      if ($is_top)
+      {
+        $top_categories[$cat['id']] = $cat;
+
+        if (!empty($cat['id_uppercat']))
+        {
+          $parent_ids[] = $cat['id_uppercat'];
+        }
+      }
+    }
+
+    // step 2, search the reference album for permissions
+    // 
+    // to find the reference of each top album, we will need the parent albums
+    $parent_cats = array();
+
+    if (count($parent_ids) > 0)
+    {
+      $query = '
+SELECT
+    id,
+    status
+  FROM '.CATEGORIES_TABLE.'
+  WHERE id IN ('.implode(',', $parent_ids).')
+;';
+      $result = pwg_query($query);
+      while ($row = pwg_db_fetch_assoc($result))
+      {
+        $parent_cats[$row['id']] = $row;
+      }
+    }
+
+    $tables = array(
+      USER_ACCESS_TABLE => 'user_id',
+      GROUP_ACCESS_TABLE => 'group_id'
+      );
+
+    foreach ($top_categories as $top_category)
+    {
+      // what is the "reference" for list of permissions? The parent album
+      // if it is private, else the album itself
+      $ref_cat_id = $top_category['id'];
+
+      if (!empty($top_category['id_uppercat'])
+          and isset($parent_cats[ $top_category['id_uppercat'] ])
+          and 'private' == $parent_cats[ $top_category['id_uppercat'] ]['status'])
+      {
+        $ref_cat_id = $top_category['id_uppercat'];
+      }
+
+      $subcats = get_subcat_ids(array($top_category['id']));
+
+      foreach ($tables as $table => $field)
+      {
+        // what are the permissions user/group of the reference album
+        $query = '
+SELECT '.$field.'
+  FROM '.$table.'
+  WHERE cat_id = '.$ref_cat_id.'
+;';
+        $ref_access = array_from_query($query, $field);
+
+        if (count($ref_access) == 0)
+        {
+          $ref_access[] = -1;
+        }
+
+        // step 3, remove the inconsistant permissions from sub-albums
+        $query = '
+DELETE
+  FROM '.$table.'
+  WHERE '.$field.' NOT IN ('.implode(',', $ref_access).')
+    AND cat_id IN ('.implode(',', $subcats).')
+;';
+        pwg_query($query);
+      }
+    }
   }
 }
 
@@ -1145,44 +1296,7 @@ SELECT status
 
   if ('private' == $parent_status)
   {
-    foreach ($categories as $cat_id => $category)
-    {
-      if ('public' == $category['status'])
-      {
-        set_cat_status(array($cat_id), 'private');
-      }
-      
-      $subcats = get_subcat_ids(array($cat_id));
-
-      foreach ($tables as $table => $field)
-      {
-        $query = '
-SELECT '.$field.'
-  FROM '.$table.'
-  WHERE cat_id = '.$cat_id.'
-;';
-        $category_access = array_from_query($query, $field);
-
-        $query = '
-SELECT '.$field.'
-  FROM '.$table.'
-  WHERE cat_id = '.$new_parent.'
-;';
-        $parent_access = array_from_query($query, $field);
-
-        $to_delete = array_diff($category_access, $parent_access);
-
-        if (count($to_delete) > 0)
-        {
-          $query = '
-DELETE FROM '.$table.'
-  WHERE '.$field.' IN ('.implode(',', $to_delete).')
-    AND cat_id IN ('.implode(',', $subcats).')
-;';
-          pwg_query($query);
-        }
-      }
-    }
+    set_cat_status(array_keys($categories), 'private');
   }
 
   $page['infos'][] = l10n_dec(
