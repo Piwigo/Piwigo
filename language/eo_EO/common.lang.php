@@ -420,4 +420,4 @@ $lang['Password is missing. Please enter the password.'] = 'Mankas pasvorto. Bon
 $lang['Password confirmation is missing. Please confirm the chosen password.'] = 'Mankas konfirmado de pasvorto. Bonvolu konfirmi la elektitan pasvorton.';
 $lang['%d photos per page'] = '%d fotoj sur ĉiu paĝo';
 $lang['Theme'] = 'Temo';
-?>
+$lang['No results for'] = 'Neniu rezulto por';
