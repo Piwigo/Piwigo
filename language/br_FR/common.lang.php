@@ -418,4 +418,4 @@ $lang['Password confirmation is missing. Please confirm the chosen password.'] =
 $lang['Password is missing. Please enter the password.'] = 'Mankout a ra ar ger-tremen. Skrivit ar ger-tremen.';
 $lang['%d photos per page'] = '%d luc\'hskeudenn e pep pajenn';
 $lang['Theme'] = 'Tem';
-?>
+$lang['No results for'] = 'Disoc\'h ebet evit';
