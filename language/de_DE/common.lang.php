@@ -419,4 +419,4 @@ $lang['Password is missing. Please enter the password.'] = 'Das Kennwort fehlt. 
 $lang['Password confirmation is missing. Please confirm the chosen password.'] = 'Das Kennwort zum Überprüfen fehlt. Bitte geben Sie ihr gewähltes Kennwort noch einmal ein.';
 $lang['%d photos per page'] = '%d Bilder pro Seite';
 $lang['Theme'] = 'Thema';
-?>
+$lang['No results for'] = 'Keine Ergebnisse für';
