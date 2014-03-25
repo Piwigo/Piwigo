@@ -1,4 +1,3 @@
-<?php
 // +-----------------------------------------------------------------------+
 // | Piwigo - a PHP based photo gallery                                    |
 // +-----------------------------------------------------------------------+
@@ -886,3 +885,23 @@ $lang['Change password'] = 'Промени лозинку';
 $lang['Change username'] = 'Промени корисничко име';
 $lang['%d of %d users selected'] = 'Изабрано је %d од %d корисника';
 $lang['%s ago'] = 'Пре %s';
+$lang['Applications'] = 'Апликације';
+$lang['You are using the Browser uploader. Try the <a href="%s">Flash uploader</a> instead.'] = 'Тренутно користите интернет прегледач за додавање слика. Испробајте додавање из <a href="%s">Флеш програмчета</a>.';
+$lang['You are using the Flash uploader. Problems? Try the <a href="%s">Browser uploader</a> instead.'] = 'Тренутно додајете слике помоћу Флеш програмчета. Ако имате проблема испробајте обично додавање из <a href="%s">интернет прегледача</a>.';
+$lang['You can activate only one mobile theme.'] = 'Можете да користите само једну тему за мобилне уређаје.';
+$lang['close'] = 'затвори';
+$lang['Update user'] = 'Уреди корисника';
+$lang['User %s added'] = 'Додат је корисник %s';
+$lang['User %s updated'] = 'Уређен је корисник %s';
+$lang['View in gallery'] = 'Погледај у галерији';
+$lang['Web Form'] = 'Веб формулар';
+$lang['With no virtual album'] = 'Без виртуелних албума';
+$lang['X Repeat'] = 'X понављања';
+$lang['pending validation'] = 'чека на потврду';
+$lang['visitors need to login and have the appropriate permissions to see this album'] = 'посетиоци морају бити пријављени и да поседују одговарајуће дозволе како би видели овај албум';
+$lang['(filtered from %s total users)'] = '(изфилтрирано од %s корисника)';
+$lang['<em>Piwigo for Android</em> application empowers you to connect your Android phone or table to your Piwigo gallery, create some albums and upload several photos at once.'] = 'Апликација <em>Piwigo за Андроид</em> вам омогућава да повежете телефон или таблет са Piwigo галеријом, правите албуме и шаљете по неколико слика одједном.';
+$lang['<em>Piwigo for iOS</em> application empowers you to connect to your Piwigo gallery from your iPhone, iPad or iPod Touch, create some albums and upload several photos at once.'] = 'Апликација <em>Piwigo за iOS</em> бам омогућава да повежете Piwigo галерију са iPhone, iPad или iPod Touch уређајима, правите албуме и шаљете по неколико слика одједном.';
+$lang['Activate it now'] = 'Активирај сада';
+$lang['Center of interest'] = 'Центар интереса';
+$lang['Last visit on %s, %s.'] = 'Последња посета %s, %s.';
