@@ -537,6 +537,13 @@ array(
   'files' => array('picture.php'),
 ),
 array(
+  'name' => 'loc_end_picture_modify',
+  'type' => 'trigger_action',
+  'vars' => array(),
+  'files' => array('admin\picture_modify.php'),
+  'infos' => 'New in 2.6.3',
+),
+array(
   'name' => 'loc_end_profile',
   'type' => 'trigger_action',
   'vars' => array(),
@@ -548,6 +555,13 @@ array(
   'vars' => array(),
   'files' => array('include\section_init.inc.php'),
   'infos' => 'this action is called after section initilization, $page variable is fully defined',
+),
+array(
+  'name' => 'loc_end_themes_installed',
+  'type' => 'trigger_action',
+  'vars' => array(),
+  'files' => array('admin\themes_installed.php'),
+  'infos' => 'New in 2.6.3',
 ),
 array(
   'name' => 'loc_visible_user_list',
