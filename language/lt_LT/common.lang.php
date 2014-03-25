@@ -432,4 +432,4 @@ $lang['Password confirmation is missing. Please confirm the chosen password.'] =
 $lang['Password confirmation is missing. Please confirm the chosen password.'] = 'Nav paroles apstiprinājuma. Lūdzu apstipriniet paroli.';
 $lang['%d photos per page'] = '%d nuotr. puslapyje';
 $lang['Theme'] = 'Tema';
-?>
+$lang['No results for'] = 'Nėra rezultatų';
