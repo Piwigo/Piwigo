@@ -47,6 +47,8 @@ if (isset($_POST['submit']))
   if (isset($_POST['search_allwords'])
       and !preg_match('/^\s*$/', $_POST['search_allwords']))
   {
+    check_input_parameter('mode', $_POST, false, '/^(OR|AND)$/');
+    
     $drop_char_match = array(
       '-','^','$',';','#','&','(',')','<','>','`','\'','"','|',',','@','_',
       '?','%','~','.','[',']','{','}',':','\\','/','=','\'','!','*');
@@ -73,6 +75,7 @@ if (isset($_POST['submit']))
   if (isset($_POST['tags']))
   {
     check_input_parameter('tags', $_POST, true, PATTERN_ID);
+    check_input_parameter('tag_mode', $_POST, false, '/^(OR|AND)$/');
     
     $search['fields']['tags'] = array(
       'words' => $_POST['tags'],
@@ -85,7 +88,7 @@ if (isset($_POST['submit']))
     $search['fields']['author'] = array(
       'words' => preg_split(
         '/\s+/',
-        $_POST['search_author']
+        strip_tags($_POST['search_author'])
         ),
       'mode' => 'OR',
       );

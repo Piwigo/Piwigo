@@ -106,7 +106,7 @@ if (isset($search['fields']['author']))
     'search_words',
      sprintf(
           l10n('author(s) : %s'),
-          join(', ', $search['fields']['author']['words'])
+          join(', ', array_map('strip_tags', $search['fields']['author']['words']))
         )
       );
 }

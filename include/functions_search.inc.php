@@ -117,9 +117,13 @@ function get_sql_search_clause($search)
       create_function('&$s','$s="(".$s.")";')
       );
 
-    array_push(
-      $clauses,
-      "\n         ".
+    // make sure the "mode" is either OR or AND
+    if ($search['fields']['allwords']['mode'] != 'AND' and $search['fields']['allwords']['mode'] != 'OR')
+    {
+      $search['fields']['allwords']['mode'] = 'AND';
+    }
+
+    $clauses[] = "\n         ".
       implode(
         "\n         ".
               $search['fields']['allwords']['mode'].
