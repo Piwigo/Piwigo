@@ -673,7 +673,6 @@ $lang['You have %d orphan tags: %s.'] = 'Jūs turite %d nepririštų žymų: %s.
 $lang['You have specified <i>$conf[\'order_by\']</i> in your local configuration file, this parameter in deprecated, please remove it or rename it into <i>$conf[\'order_by_custom\']</i> !'] = 'Jūs esate nurodęs <i>$conf[\'order_by\']</i> savo konfigūraciniame faile, šis parametras yra pasenęs, prašome jį pašalinti arba pervardinti į <i>$conf[\'order_by_custom\']</i> !';
 $lang['You have subscribed to receiving notifications by mail.'] = 'Jūs esate užsisakęs pranešimų prenumeratą paštu.';
 $lang['You have unsubscribed from receiving notifications by mail.'] = 'Jūs neužsisakęs pranešimų prenumeratos paštu.';
-$lang['You might go to plugin list to install and activate it.'] = 'Eikite į priedų sąrašą, kad jį instaliuoti ir aktyvuoti ';
 $lang['You need to upgrade your system to take full advantage of the application else the application will not work correctly, or not at all'] = 'Norėdami naudotis visais programos privalumais jūs turėtumėte atnaujinti savo sistemą, kitaip ji gali veikti neteisingai arba neveikti išvis';
 $lang['Your configuration settings are saved'] = 'Jūsų konfigūracijos parametrai išsaugoti';
 $lang['[%s] Visit album %s'] = '[%s] Aplankyti albumą %s';
@@ -969,4 +968,4 @@ $lang['Users modified'] = 'Vartotojo informacija pakeista';
 $lang['Close user details'] = 'Užverti vartotojo detales';
 $lang['Open user details'] = 'Atverti vartotojo detales';
 $lang['close'] = 'uždaryti';
-?>
+$lang['Activate it now'] = 'Aktyvuoti dabar';
