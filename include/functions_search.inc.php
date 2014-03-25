@@ -129,8 +129,7 @@ function get_sql_search_clause($search)
               $search['fields']['allwords']['mode'].
         "\n         ",
         $word_clauses
-        )
-      );
+        );
   }
 
   foreach (array('date_available', 'date_creation') as $datefield)
