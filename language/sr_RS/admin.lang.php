@@ -1,3 +1,4 @@
+<?php
 // | Piwigo - a PHP based photo gallery                                    |
 // +-----------------------------------------------------------------------+
 // | Copyright(C) 2008-2014 Piwigo Team                  http://piwigo.org |
