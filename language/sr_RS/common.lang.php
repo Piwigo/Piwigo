@@ -419,4 +419,4 @@ $lang['First Page'] = 'Прва страна';
 $lang['Go back to the album'] = 'Повратак на албум';
 $lang['Last Page'] = 'Последња страна';
 $lang['Theme'] = 'Тема';
-?>
+$lang['No results for'] = 'Нема резултата за';
