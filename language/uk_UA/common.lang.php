@@ -418,4 +418,4 @@ $lang['Password is missing. Please enter the password.'] = 'Пароль від�
 $lang['Password confirmation is missing. Please confirm the chosen password.'] = 'Відсутнє підтвердження пароля. Будь ласка, підтвердіть вибраний пароль.';
 $lang['%d photos per page'] = '%d зображень на сторінці';
 $lang['Theme'] = 'Тема';
-?>
+$lang['No results for'] = 'Нічого не знайдено для';
