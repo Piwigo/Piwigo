@@ -35,14 +35,23 @@ check_status(ACCESS_ADMINISTRATOR);
 /* Array of database columns which should be read and sent back to DataTables. Use a space where
  * you want to insert a non-database field (for example a counter or static image)
  */
-$aColumns = array('id', 'username', 'status', 'mail_address', 'recent_period', 'level', 'registration_date');
+$aColumns = array(
+  $conf['user_fields']['id'],
+  $conf['user_fields']['username'],
+  'status',
+  $conf['user_fields']['email'],
+  'recent_period',
+  'level',
+  'registration_date'
+  );
+
 $aColumns = trigger_change('user_list_columns', $aColumns);
 	
 /* Indexed column (used for fast and accurate table cardinality) */
-$sIndexColumn = "id";
+$sIndexColumn = 'user_id';
 	
 /* DB table to use */
-$sTable = USERS_TABLE.' INNER JOIN '.USER_INFOS_TABLE.' AS ui ON id = ui.user_id';
+$sTable = USERS_TABLE.' INNER JOIN '.USER_INFOS_TABLE.' AS ui ON '.$conf['user_fields']['id'].' = ui.user_id';
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * If you just want to use the basic configuration for DataTables with PHP server-side, there is
@@ -162,7 +171,7 @@ $user_ids = array();
 
 while ( $aRow = pwg_db_fetch_array( $rResult ) )
 {
-  $user_ids[] = $aRow['id'];
+  $user_ids[] = $aRow[ $conf['user_fields']['id'] ];
   
   $row = array();
   for ( $i=0 ; $i<count($aColumns) ; $i++ )
@@ -178,8 +187,18 @@ while ( $aRow = pwg_db_fetch_array( $rResult ) )
     else if ( $aColumns[$i] != ' ' )
     {
       /* General output */
-      $row[] = $aRow[ $aColumns[$i] ];
+      $colname = $aColumns[$i];
+      foreach ($conf['user_fields'] as $real_name => $alias)
+      {
+        if ($aColumns[$i] == $real_name)
+        {
+          $colname = $alias;
+        }
+      }
+      
+      $row[] = $aRow[$colname];
     }
+
   }
   $output['aaData'][] = $row;
 }

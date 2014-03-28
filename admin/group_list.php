@@ -394,7 +394,7 @@ $toggle_is_default_url     = $admin_url.'group_list&amp;toggle_is_default=';
 while ($row = pwg_db_fetch_assoc($result))
 {
   $query = '
-SELECT username
+SELECT u.'. $conf['user_fields']['username'].' AS username
   FROM '.USERS_TABLE.' AS u
   INNER JOIN '.USER_GROUP_TABLE.' AS ug
     ON u.'.$conf['user_fields']['id'].' = ug.user_id
