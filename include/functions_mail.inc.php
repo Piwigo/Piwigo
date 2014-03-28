@@ -440,7 +440,7 @@ SELECT
   WHERE i.status in (\'webmaster\',  \'admin\')
     AND u.'.$conf['user_fields']['email'].' IS NOT NULL
     AND i.user_id <> '.$user['id'].'
-  ORDER BY username
+  ORDER BY name
 ;';
   $admins = array_from_query($query);
 
