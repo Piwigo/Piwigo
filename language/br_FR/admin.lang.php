@@ -207,3 +207,17 @@ $lang['Give write access (chmod 777) to "%s" directory at the root of your Piwig
 $lang['Add write access to the "%s" directory'] = 'Reiñ gwirioù da skrivañ e kavlec\'h "%s"';
 $lang['Add another set of photos'] = 'Lakaat ur stroll luc\'hskeudennoù all';
 $lang['Add detailed content'] = 'Lakaat endalc\'h dre ar munud';
+$lang['Allow rating'] = 'Aotreiñ da reiñ notennoù';
+$lang['All %d photos are selected'] = 'An holl %d luc\'hskeudenn a zo diuzet';
+$lang['All %d users are selected'] = 'An holl %d implijer a zo diuzet';
+$lang['All languages are up to date.'] = 'An holl yezhoù a zo hizivaet';
+$lang['All plugins are up to date.'] = 'An holl lugantoù a zo hizivaet';
+$lang['All themes are up to date.'] = 'An holl temoù a zo hizivaet';
+$lang['Album manual order was saved'] = 'Urzh dre zorn ar rummad a zo bet enrollet';
+$lang['Album name'] = 'Anv ar rummad';
+$lang['Album photos associated to the following albums: %s'] = 'Luc\'hskeudennoù liammet gant ar rummadoù-mañ: %s';
+$lang['Albums authorized thanks to group associations'] = 'Rummadoù aotreet dre ar strolladoù';
+$lang['Albums automatically sorted'] = 'Rummadoù urzhiet emgefreek';
+$lang['Album "%s" has been added'] = 'Rummad "%s" a zo bet lakaet ouzhpenn';
+$lang['Album "%s" now contains %d photos'] = '%d luc\'hskeudenn a zo er rummad "%s" bremañ';
+$lang['Album list management'] = 'Merañ listenn ar rummadoù';
