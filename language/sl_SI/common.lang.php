@@ -80,7 +80,7 @@ $lang['Filter'] = 'Filter';
 $lang['Forgot your password?'] = 'Ste pozabili vaše geslo?';
 $lang['Go through the gallery as a visitor'] = 'Ogled galerije kot obiskovalec';
 $lang['Help'] = 'Pomoč';
-$lang['Identification'] = 'Identifikacija';
+$lang['Identification'] = 'Prijava';
 $lang['Photos only RSS feed'] = 'Slikovni RSS vir (samo slike)';
 $lang['Keyword'] = 'Ključna beseda';
 $lang['Links'] = 'Povezave';
@@ -417,4 +417,4 @@ $lang['Password is missing. Please enter the password.'] = 'Manjka geslo. Prosim
 $lang['Password confirmation is missing. Please confirm the chosen password.'] = 'Manjka potrditev gesla. Prosimo potrdite izbrano geslo.';
 $lang['%d photos per page'] = '%d slik na stran';
 $lang['Theme'] = 'Preobleka';
-?>
+$lang['No results for'] = 'Ni zadetkov za';
