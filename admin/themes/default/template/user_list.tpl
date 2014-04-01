@@ -30,8 +30,8 @@ var protectedUsers = [{$protected_users}];
 var guestUser = {$guest_user};
 
 var truefalse = {
-  true:"{'Yes'|translate}",
-  false:"{'No'|translate}",
+  'true':"{'Yes'|translate}",
+  'false':"{'No'|translate}",
 };
 {/footer_script}
 
