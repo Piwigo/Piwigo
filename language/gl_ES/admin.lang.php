@@ -682,7 +682,6 @@ $lang['[%s] Visit album %s'] = '[%s] visitar álbum %s';
 $lang['add a new watermark'] = 'engadir unha nova marca de auga';
 $lang['add new photos to caddie'] = 'engadir unha nova cesta de fotos';
 $lang['You need to upgrade your system to take full advantage of the application else the application will not work correctly, or not at all'] = 'Precisas actualizar o sistema para aproveitar ó máximo o aplicativo, do contrario o aplicativo non funcionará completo ou correctamente.';
-$lang['You might go to plugin list to install and activate it.'] = 'Tes que ir á lista de engadidos e activalo.';
 $lang['You need to confirm deletion'] = 'Tes que confirmar a eliminación';
 $lang['You cannot delete your account'] = 'Non podes eliminar túa conta';
 $lang['You cannot move an album in its own sub album'] = 'Non podes mover un álbum dentro dun subálbum propio.';
@@ -969,4 +968,4 @@ $lang['Update user'] = 'Actualizar usuario';
 $lang['Close user details'] = 'Pechar detalles de usuario';
 $lang['Open user details'] = 'Abrir detalles de usuario';
 $lang['close'] = 'pechar';
-?>
+$lang['Activate it now'] = 'Actívao agora';
