@@ -419,4 +419,4 @@ $lang['Password is missing. Please enter the password.'] = 'Липсва пар�
 $lang['Password confirmation is missing. Please confirm the chosen password.'] = 'Потвърждение на паролата липсва. Моля повторете паролата.';
 $lang['%d photos per page'] = '%d снимки за страница';
 $lang['Theme'] = 'Тема';
-?>
+$lang['No results for'] = 'Няма резултати за';
