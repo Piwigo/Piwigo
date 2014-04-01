@@ -372,7 +372,7 @@ $lang['display photos linked to this tag'] = 'amosar as fotos ligadas a esta eti
 $lang['display recently updated albums'] = 'amosar os álbums actualizados recentemente';
 $lang['display this album'] = 'amosar este álbum';
 $lang['display your favorites photos'] = 'amosar as túas fotos favoritas';
-$lang['edit'] = 'modificar';
+$lang['edit'] = 'Modificar';
 $lang['display last user comments'] = 'amosar os últimos comentarios do usuario';
 $lang['display each day with photos, month per month'] = 'amosar cada día con fotos, mes a mes';
 $lang['display a calendar by posted date'] = 'amosar un calendario por data de envío';
@@ -417,4 +417,4 @@ $lang['First Page'] = 'Primeira páxina';
 $lang['Go back to the album'] = 'Volver ó álbum';
 $lang['Last Page'] = 'Última páxina ';
 $lang['Theme'] = 'Tema';
-?>
+$lang['No results for'] = 'Non hai resultados para';
