@@ -309,12 +309,17 @@ define('QST_WILDCARD', QST_WILDCARD_BEGIN|QST_WILDCARD_END);
 class QSingleToken
 {
   var $is_single = true;
-  var $token; /* the actual word/phrase string*/
+  var $term; /* the actual word/phrase string*/
   var $idx;
 
-  function __construct($token)
+  function __construct($term)
   {
-    $this->token = $token;
+    $this->term = $term;
+  }
+  
+  function __toString()
+  {
+    return $this->term;
   }
 }
 
@@ -349,7 +354,7 @@ class QMultiToken
       }
       else
       {
-        $s .= $this->tokens[$i]->token;
+        $s .= $this->tokens[$i];
       }
       if ($modifier & QST_QUOTED)
         $s .= '"';
@@ -437,7 +442,7 @@ class QMultiToken
           if ($qi+1 < strlen($q) && $q[$qi+1]=='*')
           {
             $crt_modifier |= QST_WILDCARD_END;
-            $ai++;
+            $qi++;
           }
           $this->push($crt_token, $crt_modifier);
         }
@@ -457,29 +462,29 @@ class QMultiToken
       {
         if ( ($this->token_modifiers[$i]&QST_QUOTED)==0 )
         {
-          if ('not' == strtolower($token->token))
+          if ('not' == strtolower($token->term))
           {
             if ($i+1 < count($this->tokens))
               $this->token_modifiers[$i+1] |= QST_NOT;
-            $token->token = "";
+            $token->term = "";
           }
-          if ('or' == strtolower($token->token))
+          if ('or' == strtolower($token->term))
           {
             if ($i+1 < count($this->tokens))
               $this->token_modifiers[$i+1] |= QST_OR;
-            $token->token = "";
+            $token->term = "";
           }
-          if ('and' == strtolower($token->token))
+          if ('and' == strtolower($token->term))
           {
-            $token->token = "";
+            $token->term = "";
           }
-          if ( substr($token->token, -1)=='*' )
+          if ( substr($token->term, -1)=='*' )
           {
-            $token->token = rtrim($token->token, '*');
+            $token->term = rtrim($token->term, '*');
             $this->token_modifiers[$i] |= QST_WILDCARD_END;
           }
         }
-        if (!strlen($token->token))
+        if (!strlen($token->term))
           $remove = true;
       }
       else
@@ -567,7 +572,7 @@ class QExpression extends QMultiToken
       if ($token->is_single)
       {
         $token->idx = count($this->stokens);
-        $this->stokens[] = $token->token;
+        $this->stokens[] = $token;
 
         $modifier = $expr->token_modifiers[$i];
         if ($crt_is_not)
@@ -613,7 +618,7 @@ function qsearch_get_images(QExpression $expr, QResults $qsr)
   $query_base = 'SELECT id from '.IMAGES_TABLE.' i WHERE ';
   for ($i=0; $i<count($expr->stokens); $i++)
   {
-    $token = $expr->stokens[$i];
+    $token = $expr->stokens[$i]->term;
     $clauses = array();
 
     $like = addslashes($token);
@@ -673,7 +678,7 @@ function qsearch_get_tags(QExpression $expr, QResults $qsr)
   $transliterated_tokens = array();
   foreach ($tokens as $token)
   {
-    $transliterated_tokens[] = transliterate($token);
+    $transliterated_tokens[] = transliterate($token->term);
   }
 
   $query = '
@@ -843,7 +848,7 @@ function qsearch_eval(QMultiToken $expr, QResults $qsr, &$qualifies, &$ignored_t
     {
       $crt_ids = $qsr->iids[$crt->idx] = array_unique( array_merge($qsr->images_iids[$crt->idx], $qsr->tag_iids[$crt->idx]) );
       $crt_qualifies = count($crt_ids)>0 || count($qsr->tag_ids[$crt->idx])>0;
-      $crt_ignored_terms = $crt_qualifies ? array() : array($crt->token);
+      $crt_ignored_terms = $crt_qualifies ? array() : array($crt->term);
     }
     else
       $crt_ids = qsearch_eval($crt, $qsr, $crt_qualifies, $crt_ignored_terms);
@@ -920,7 +925,7 @@ function get_quick_search_results($q, $super_order_by, $images_where='')
   for ($i=0; $i<count($expression->stokens); $i++)
   {
     $debug[] = $expression->stokens[$i].': '.count($qsr->tag_ids[$i]).' tags, '.count($qsr->tag_iids[$i]).' tiids, '.count($qsr->images_iids[$i]).' iiids, '.count($qsr->iids[$i]).' iids'
-      .( !empty($qsr->variants[$expression->stokens[$i]]) ? ' variants: '.implode(', ',$qsr->variants[$expression->stokens[$i]]): '');
+      .( !empty($qsr->variants[$expression->stokens[$i]->term]) ? ' variants: '.implode(', ',$qsr->variants[$expression->stokens[$i]->term]): '');
   }
   $debug[] = 'before perms '.count($ids);
 
