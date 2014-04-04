@@ -11,7 +11,7 @@ GeoIp = {
 				cache = JSON.parse(cache);
 				for (var key in cache) {
 					var data = cache[key];
-					if ( (new Date()).getTime() - data.reqTime > 36 * 3600000)
+					if ( (new Date()).getTime() - data.reqTime > 96 * 3600000)
 						delete cache[key];
 				}
 				GeoIp.cache = cache;
