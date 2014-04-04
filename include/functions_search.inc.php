@@ -315,9 +315,11 @@ class QSearchScope
 
 class QNumericRangeScope extends QSearchScope
 {
-  function __construct($id, $aliases, $allow_empty=false)
+  private $epsilon;
+  function __construct($id, $aliases, $allow_empty=false, $epsilon=0)
   {
     parent::__construct($id, $aliases, $allow_empty, false);
+    $this->epsilon = $epsilon;
   }
 
   function parse($token)
@@ -326,10 +328,22 @@ class QNumericRangeScope extends QSearchScope
     if ( ($pos = strpos($str, '..')) !== false)
       $range = array( substr($str,0,$pos), substr($str, $pos+2));
     else
-      $range = array($str, $str);
+    {
+      if ('>' == @$str[0])// ratio:>1
+        $range = array( substr($str,1), '');
+      elseif ('<' == @$str[0]) // size:<5mp
+        $range = array('', substr($str,1));
+      else
+        $range = array($str, $str);
+    }
+
     foreach ($range as $i =>&$val)
     {
-      if (preg_match('/^([0-9.]+)([km])?/i', $val, $matches))
+      if (preg_match('#^([0-9.]+)/([0-9.]+)$#i', $val, $matches))
+      {
+        $val = floatval($matches[1]/$matches[2]);
+      }
+      elseif (preg_match('/^([0-9.]+)([km])?/i', $val, $matches))
       {
         $val = floatval($matches[1]);
         if (isset($matches[2]))
@@ -348,6 +362,13 @@ class QNumericRangeScope extends QSearchScope
       }
       else
         $val = '';
+      if (is_numeric($val))
+      {
+        if ($i)
+          $val += $this->epsilon;
+        else
+          $val -= $this->epsilon;
+      }
     }
 
     if (!$this->allow_empty && $range[0]=='' && $range[1] == '')
@@ -583,7 +604,7 @@ class QMultiToken
             if ('or' == strtolower($token->term))
             {
               if ($i+1 < count($this->tokens))
-                $this->token[$i+1]->modifier |= QST_OR;
+                $this->tokens[$i+1]->modifier |= QST_OR;
               $token->term = "";
             }
             if ('and' == strtolower($token->term))
@@ -615,6 +636,20 @@ class QMultiToken
         array_splice($this->tokens, $i, 1);
         $i--;
       }
+    }
+  }
+
+  private function apply_scope(QSearchScope $scope)
+  {
+    for ($i=0; $i<count($this->tokens); $i++)
+    {
+      if ($this->tokens[$i]->is_single)
+      {
+        if (!isset($this->tokens[$i]->scope))
+          $this->tokens[$i]->scope = $scope;
+      }
+      else
+        $this->tokens[$i]->aooky_scope($scope);
     }
   }
 
@@ -726,7 +761,7 @@ class QResults
 
 function qsearch_get_images(QExpression $expr, QResults $qsr)
 {
-  $qsr->images_iids = array_fill(0, count($expr->tokens), array());
+  $qsr->images_iids = array_fill(0, count($expr->stokens), array());
 
   $inflector = null;
   $lang_code = substr(get_default_language(),0,2);
@@ -829,7 +864,7 @@ function qsearch_get_tags(QExpression $expr, QResults $qsr)
   $transliterated_tokens = array();
   foreach ($tokens as $token)
   {
-    if (!isset($token->scope) || 'tag' == $token->scope)
+    if (!isset($token->scope) || 'tag' == $token->scope->id)
     {
       $transliterated_tokens[] = transliterate($token->term);
     }
@@ -1087,7 +1122,7 @@ function get_quick_search_results($q, $super_order_by, $images_where='')
   $scopes[] = new QSearchScope('file', array('filename'));
   $scopes[] = new QNumericRangeScope('width', array());
   $scopes[] = new QNumericRangeScope('height', array());
-  $scopes[] = new QNumericRangeScope('ratio', array());
+  $scopes[] = new QNumericRangeScope('ratio', array(), false, 0.001);
   $scopes[] = new QNumericRangeScope('size', array());
   $scopes[] = new QNumericRangeScope('filesize', array());
   $scopes[] = new QNumericRangeScope('hits', array('hit', 'visit', 'visits'));
