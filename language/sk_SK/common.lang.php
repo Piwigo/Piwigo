@@ -428,4 +428,4 @@ $lang['Password is missing. Please enter the password.'] = 'Chýba heslo. Prosí
 $lang['Password confirmation is missing. Please confirm the chosen password.'] = 'Chýba potvrdenie hesla. Prosím potvrďte vybrané heslo.';
 $lang['%d photos per page'] = '%d fotiek na stránku';
 $lang['Theme'] = 'Téma';
-?>
+$lang['No results for'] = 'Žiadne výsledky pre';
