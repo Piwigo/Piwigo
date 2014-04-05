@@ -86,7 +86,7 @@ if (isset($_POST['submit']))
   }
 
   $action = $_POST['selectAction'];
-  
+
   if ('remove_from_caddie' == $action)
   {
     $query = '
@@ -147,7 +147,7 @@ DELETE
     $_SESSION['page_infos'] = array(
       l10n('Information data registered in database')
       );
-    
+
     // let's refresh the page because we the current set might be modified
     if ('no_album' == $page['prefilter'])
     {
@@ -171,7 +171,7 @@ DELETE
     $_SESSION['page_infos'] = array(
       l10n('Information data registered in database')
       );
-    
+
     // let's refresh the page because we the current set might be modified
     if ('no_album' == $page['prefilter'])
     {
@@ -224,7 +224,7 @@ DELETE
       $_SESSION['page_infos'] = array(
         l10n('Information data registered in database')
         );
-      
+
       // let's refresh the page because the current set might be modified
       redirect($redirect_url);
     }
@@ -237,7 +237,7 @@ DELETE
     {
       $_POST['author'] = null;
     }
-    
+
     $datas = array();
     foreach ($collection as $image_id)
     {
@@ -261,7 +261,7 @@ DELETE
     {
       $_POST['title'] = null;
     }
-    
+
     $datas = array();
     foreach ($collection as $image_id)
     {
@@ -277,7 +277,7 @@ DELETE
       $datas
       );
   }
-  
+
   // date_creation
   if ('date_creation' == $action)
   {
@@ -308,7 +308,7 @@ DELETE
       $datas
       );
   }
-  
+
   // privacy_level
   if ('level' == $action)
   {
@@ -335,13 +335,13 @@ DELETE
       }
     }
   }
-  
+
   // add_to_caddie
   if ('add_to_caddie' == $action)
   {
     fill_caddie($collection);
   }
-  
+
   // delete
   if ('delete' == $action)
   {
@@ -664,11 +664,11 @@ if (count($page['cat_elements_id']) > 0)
   $query = '
 SELECT id,path,representative_ext,file,filesize,level,name,width,height,rotation
   FROM '.IMAGES_TABLE;
-  
+
   if ($is_category)
   {
     $category_info = get_cat_info($_SESSION['bulk_manager_filter']['category']);
-    
+
     $conf['order_by'] = $conf['order_by_inside_category'];
     if (!empty($category_info['image_order']))
     {

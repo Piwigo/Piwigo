@@ -665,6 +665,15 @@ $(document).ready(function() {
         <input type="hidden" name="filter_dimension_min_ratio" value="{$dimensions.selected.min_ratio}">
         <input type="hidden" name="filter_dimension_max_ratio" value="{$dimensions.selected.max_ratio}">
       </li>
+
+			<li id="filter_search"{if !isset($filter.search)} style="display:none"{/if}>
+				<a href="#" class="removeFilter" title="remove this filter"><span>[x]</span></a>
+				<input type="checkbox" name="filter_search_use" class="useFilterCheckbox"{if isset($filter.search)} checked="checked"{/if}>
+				{'Search'|@translate}
+				<input name="q" size=40 value="{$filter.search.q|stripslashes|htmlspecialchars}">
+				{combine_script id='core.scripts' load='async' path='themes/default/js/scripts.js'}
+				<a href="admin/popuphelp.php?page=quick_search"onclick="popuphelp(this.href);return false;" title="{'Help'|@translate}"><span class="icon-help-circled"></span></a>
+			</li>
     </ul>
 
     <p class="actionButtons">
@@ -676,6 +685,7 @@ $(document).ready(function() {
         <option value="filter_tags" {if isset($filter.tags)}disabled="disabled"{/if}>{'Tags'|@translate}</option>
         <option value="filter_level" {if isset($filter.level)}disabled="disabled"{/if}>{'Privacy level'|@translate}</option>
         <option value="filter_dimension" {if isset($filter.dimension)}disabled="disabled"{/if}>{'Dimensions'|@translate}</option>
+				<option value="filter_search"{if isset($filter.search)} disabled="disabled"{/if}>{'Search'|@translate}</option>
       </select>
       <a id="removeFilters" href="">{'Remove all filters'|@translate}</a>
     </p>

@@ -1,0 +1,129 @@
+<h2>Search</h2>
+<style>
+q {
+	font-family: Courier, Fixed;
+	font-weight: bold;
+}
+q:before {
+	content: '\'';
+	color: green;
+}
+q:after {
+	content: '\'';
+	color: green;
+}
+TD {
+	border: 1px solid
+}
+</style>
+
+
+<p>By default all searched terms must match. Searches are case-insesitive.</p>
+
+<table style="border-collapse:collapse;text-align:left">
+<tr>
+<td>quoted phrase<br>
+<q>"search"</q>
+</td>
+<td>Use quotes to search for an exact word or phrase.<br>
+<q>"george washington"</q></td>
+</tr>
+
+
+<tr>
+<td>either term<br>
+<q>OR search</q><br>
+</td>
+<td>Add a OR between words.<br>
+<q>john OR bill</q></td>
+</tr>
+
+
+<tr>
+<td>exclude<br>
+<q>NOT search</q><br>
+<q>-search</q>
+</td>
+<td>Add a dash (-) or NOT before a word to exclude from search. Note that NOT acts as a filtering operator so you cannot have a search containing only NOT operators. You cannot combine OR with NOT (<q>john OR NOT bill</q> is not valid)<br>
+<q>george washington NOT bush</q></td>
+</tr>
+
+<tr>
+<td>grouping<br>
+<q>()</q><br>
+</td>
+<td><br>
+<q>(mother OR father) AND (daugther OR son)</q></td>
+</tr>
+
+</table>
+
+<br>
+
+<table style="border-collapse:collapse;text-align:left">
+
+<tr>
+<td><q>tag:</q>
+</td>
+<td>Searches only in tag names without looking at photo titles or descriptions.<br>
+<q>tag:john</q>, <q>tag:(john OR bill)</q></td>
+</tr>
+
+<tr>
+<td><q>photo:</q>
+</td>
+<td></td>
+</tr>
+
+<tr>
+<td><q>file:</q>
+</td>
+<td>Searches by file name.</td>
+</tr>
+
+<tr>
+<td><q>created:</q><br>
+<q>taken:</q>
+</td>
+<td>Searches photos by taken date<br>
+<q>taken:2003</q> photos taken in 2003<br>
+<q>taken:20035</q>,<q>taken:2003-5</q>,<q>taken:2003-05</q> photos from may 2003<br>
+<q>taken:2003..2008</q> photos from 2003 to 2008<br>
+<q>taken:&gt;2008</q>,<q>taken:2008*</q>,<q>taken:2008..</q> photos afteer Jan 1st 2008<br>
+</td>
+</tr>
+
+<tr>
+<td><q>posted:</q>
+</td>
+<td></td>
+</tr>
+
+<tr>
+<td><q>width:</q><br>
+<q>height:</q>
+</td>
+<td></td>
+</tr>
+<tr>
+<td><q>size:</q>
+</td>
+<td></td>
+</tr>
+<tr>
+<td><q>ratio:</q>
+</td>
+<td></td>
+</tr>
+<tr>
+<td><q>hits:</q>
+</td>
+<td></td>
+</tr>
+<tr>
+<td><q>score:</q>
+</td>
+<td></td>
+</tr>
+
+</table>

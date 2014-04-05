@@ -1193,7 +1193,7 @@ function qsearch_eval(QMultiToken $expr, QResults $qsr, &$qualifies, &$ignored_t
  * @param string $images_where optional additional restriction on images table
  * @return array
  */
-function get_quick_search_results($q, $super_order_by, $images_where='')
+function get_quick_search_results($q, $options)
 {
   global $conf;
   //@TODO: maybe cache for 10 minutes the result set to avoid many expensive sql calls when navigating the pictures
@@ -1254,26 +1254,35 @@ function get_quick_search_results($q, $super_order_by, $images_where='')
     return $search_results;
   }
 
+  $permissions = !isset($options['permissions']) ? true : $options['permissions'];
+
   $where_clauses = array();
   $where_clauses[]='i.id IN ('. implode(',', $ids) . ')';
-  if (!empty($images_where))
+  if (!empty($options['images_where'))
   {
     $where_clauses[]='('.$images_where.')';
   }
-  $where_clauses[] = get_sql_condition_FandF(
-      array
-        (
-          'forbidden_categories' => 'category_id',
-          'visible_categories' => 'category_id',
-          'visible_images' => 'i.id'
-        ),
-      null,true
-    );
+  if ($permissions)
+  {
+    $where_clauses[] = get_sql_condition_FandF(
+        array
+          (
+            'forbidden_categories' => 'category_id',
+            'visible_categories' => 'category_id',
+            'visible_images' => 'i.id'
+          ),
+        null,true
+      );
+  }
 
   $query = '
-SELECT DISTINCT(id)
-  FROM '.IMAGES_TABLE.' i
-    INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON id = ic.image_id
+SELECT DISTINCT(id) FROM '.IMAGES_TABLE.' i';
+  if ($permissions)
+  {
+    $query .= '
+    INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON id = ic.image_id';
+  }
+  $query .= '
   WHERE '.implode("\n AND ", $where_clauses)."\n".
   $conf['order_by'];
 
@@ -1305,7 +1314,7 @@ function get_search_results($search_id, $super_order_by, $images_where='')
   }
   else
   {
-    return get_quick_search_results($search['q'], $super_order_by, $images_where);
+    return get_quick_search_results($search['q'], array('super_order_by'=>$super_order_by, 'images_where'=>$images_where) );
   }
 }
 
