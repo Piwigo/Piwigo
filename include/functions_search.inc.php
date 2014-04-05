@@ -302,23 +302,30 @@ class QSearchScope
   var $id;
   var $aliases;
   var $is_text;
-  var $allow_empty;
+  var $nullable;
 
-  function __construct($id, $aliases, $allow_empty=false, $is_text=true)
+  function __construct($id, $aliases, $nullable=false, $is_text=true)
   {
     $this->id = $id;
     $this->aliases = $aliases;
     $this->is_text = $is_text;
-    $this->allow_empty =$allow_empty;
+    $this->nullable =$nullable;
+  }
+
+  function parse($token)
+  {
+    if (!$this->nullable && 0==strlen($token->term))
+      return false;
+    return true;
   }
 }
 
 class QNumericRangeScope extends QSearchScope
 {
   private $epsilon;
-  function __construct($id, $aliases, $allow_empty=false, $epsilon=0)
+  function __construct($id, $aliases, $nullable=false, $epsilon=0)
   {
-    parent::__construct($id, $aliases, $allow_empty, false);
+    parent::__construct($id, $aliases, $nullable, false);
     $this->epsilon = $epsilon;
   }
 
@@ -327,15 +334,16 @@ class QNumericRangeScope extends QSearchScope
     $str = $token->term;
     if ( ($pos = strpos($str, '..')) !== false)
       $range = array( substr($str,0,$pos), substr($str, $pos+2));
+    elseif ('>' == @$str[0])// ratio:>1
+      $range = array( substr($str,1), '');
+    elseif ('<' == @$str[0]) // size:<5mp
+      $range = array('', substr($str,1));
+    elseif( ($token->modifier & QST_WILDCARD_BEGIN) )
+      $range = array('', $str);
+    elseif( ($token->modifier & QST_WILDCARD_END) )
+      $range = array($str, '');
     else
-    {
-      if ('>' == @$str[0])// ratio:>1
-        $range = array( substr($str,1), '');
-      elseif ('<' == @$str[0]) // size:<5mp
-        $range = array('', substr($str,1));
-      else
-        $range = array($str, $str);
-    }
+      $range = array($str, $str);
 
     foreach ($range as $i =>&$val)
     {
@@ -371,7 +379,7 @@ class QNumericRangeScope extends QSearchScope
       }
     }
 
-    if (!$this->allow_empty && $range[0]=='' && $range[1] == '')
+    if (!$this->nullable && $range[0]=='' && $range[1] == '')
       return false;
     $token->scope_data = $range;
     return true;
@@ -386,7 +394,77 @@ class QNumericRangeScope extends QSearchScope
       $clauses[] = $field.' <= ' .$token->scope_data[1].' ';
 
     if (empty($clauses))
-      return $field.' IS NULL';
+    {
+      if ($token->modifier & QST_WILDCARD)
+        return $field.' IS NOT NULL';
+      else
+        return $field.' IS NULL';
+    }
+    return '('.implode(' AND ', $clauses).')';
+  }
+}
+
+
+class QDateRangeScope extends QSearchScope
+{
+  function __construct($id, $aliases, $nullable=false)
+  {
+    parent::__construct($id, $aliases, $nullable, false);
+  }
+
+  function parse($token)
+  {
+    $str = $token->term;
+    if ( ($pos = strpos($str, '..')) !== false)
+      $range = array( substr($str,0,$pos), substr($str, $pos+2));
+    elseif ('>' == @$str[0])
+      $range = array( substr($str,1), '');
+    elseif ('<' == @$str[0])
+      $range = array('', substr($str,1));
+    elseif( ($token->modifier & QST_WILDCARD_BEGIN) )
+      $range = array('', $str);
+    elseif( ($token->modifier & QST_WILDCARD_END) )
+      $range = array($str, '');
+    else
+      $range = array($str, $str);
+
+    foreach ($range as $i =>&$val)
+    {
+      if (preg_match('/([0-9]{4})-?((?:0?[0-9])|(?:1[0-2]))?-?(((?:0?[0-9])|(?:[1-3][0-9])))?/', $val, $matches))
+      {
+        array_shift($matches);
+        if (!isset($matches[1]))
+          $matches[1] = !$i ? 1 : 12;
+        if (!isset($matches[2]))
+          $matches[2] = !$i ? 1 : 31;
+        $val = $matches;
+      }
+      elseif (strlen($val))
+        return false;
+    }
+
+    if (!$this->nullable && $range[0]=='' && $range[1] == '')
+      return false;
+
+    $token->scope_data = $range;
+    return true;
+  }
+
+  function get_sql($field, $token)
+  {
+    $clauses = array();
+    if ($token->scope_data[0]!=='')
+      $clauses[] = $field.' >= \'' . implode('-',$token->scope_data[0]).'\'';
+    if ($token->scope_data[1]!=='')
+      $clauses[] = $field.' <= \'' . implode('-',$token->scope_data[1]).' 23:59:59\'';
+
+    if (empty($clauses))
+    {
+      if ($token->modifier & QST_WILDCARD)
+        return $field.' IS NOT NULL';
+      else
+        return $field.' IS NULL';
+    }
     return '('.implode(' AND ', $clauses).')';
   }
 }
@@ -471,7 +549,7 @@ class QMultiToken
 
   private function push(&$token, &$modifier, &$scope)
   {
-    if (strlen($token) || (isset($scope) && $scope->allow_empty))
+    if (strlen($token) || (isset($scope) && $scope->nullable))
     {
       $this->tokens[] = new QSingleToken($token, $modifier, $scope);
     }
@@ -558,9 +636,7 @@ class QMultiToken
           default:
             if (preg_match('/[\s,.;!\?]+/', $ch))
             { // white space
-              if (strlen($crt_token))
-                $this->push($crt_token, $crt_modifier, $crt_scope);
-              $crt_modifier = 0;
+              $this->push($crt_token, $crt_modifier, $crt_scope);
             }
             else
               $crt_token .= $ch;
@@ -591,44 +667,46 @@ class QMultiToken
       $remove = false;
       if ($token->is_single)
       {
-        if (!isset($token->scope))
+        if ( ($token->modifier & QST_QUOTED)==0
+          && substr($token->term, -1)=='*' )
         {
-          if ( ($token->modifier & QST_QUOTED)==0 )
+          $token->term = rtrim($token->term, '*');
+          $token->modifier |= QST_WILDCARD_END;
+        }
+
+        if ( !isset($token->scope)
+          && ($token->modifier & (QST_QUOTED|QST_WILDCARD))==0 )
+        {
+          if ('not' == strtolower($token->term))
           {
-            if ('not' == strtolower($token->term))
-            {
-              if ($i+1 < count($this->tokens))
-                $this->tokens[$i+1]->modifier |= QST_NOT;
-              $token->term = "";
-            }
-            if ('or' == strtolower($token->term))
-            {
-              if ($i+1 < count($this->tokens))
-                $this->tokens[$i+1]->modifier |= QST_OR;
-              $token->term = "";
-            }
-            if ('and' == strtolower($token->term))
-            {
-              $token->term = "";
-            }
-            if ( substr($token->term, -1)=='*' )
-            {
-              $token->term = rtrim($token->term, '*');
-              $token->modifier |= QST_WILDCARD_END;
-            }
+            if ($i+1 < count($this->tokens))
+              $this->tokens[$i+1]->modifier |= QST_NOT;
+            $token->term = "";
           }
-          if (!strlen($token->term))
-            $remove = true;
+          if ('or' == strtolower($token->term))
+          {
+            if ($i+1 < count($this->tokens))
+              $this->tokens[$i+1]->modifier |= QST_OR;
+            $token->term = "";
+          }
+          if ('and' == strtolower($token->term))
+          {
+            $token->term = "";
+          }
         }
-        elseif (!$token->scope->is_text)
+
+        if (!strlen($token->term)
+          && (!isset($token->scope) || !$token->scope->nullable) )
         {
-          if (!$token->scope->parse($token))
-            $remove = true;
+          $remove = true;
         }
+
+        if ( isset($token->scope)
+          && !$token->scope->parse($token))
+          $remove = true;
       }
-      else
+      elseif (!count($token->tokens))
       {
-        if (!count($token->tokens))
           $remove = true;
       }
       if ($remove)
@@ -649,7 +727,7 @@ class QMultiToken
           $this->tokens[$i]->scope = $scope;
       }
       else
-        $this->tokens[$i]->aooky_scope($scope);
+        $this->tokens[$i]->apply_scope($scope);
     }
   }
 
@@ -829,8 +907,6 @@ function qsearch_get_images(QExpression $expr, QResults $qsr)
         break;
       case 'width':
       case 'height':
-      case 'hits':
-      case 'rating_score':
         $clauses[] = $token->scope->get_sql($scope_id, $token);
         break;
       case 'ratio':
@@ -839,8 +915,20 @@ function qsearch_get_images(QExpression $expr, QResults $qsr)
       case 'size':
         $clauses[] = $token->scope->get_sql('width*height', $token);
         break;
+      case 'hits':
+        $clauses[] = $token->scope->get_sql('hit', $token);
+        break;
+      case 'score':
+        $clauses[] = $token->scope->get_sql('rating_score', $token);
+        break;
       case 'filesize':
-        $clauses[] = $token->scope->get_sql('filesize', $token);
+        $clauses[] = $token->scope->get_sql('1024*filesize', $token);
+        break;
+      case 'created':
+        $clauses[] = $token->scope->get_sql('date_creation', $token);
+        break;
+      case 'posted':
+        $clauses[] = $token->scope->get_sql('date_available', $token);
         break;
 
     }
@@ -1126,7 +1214,17 @@ function get_quick_search_results($q, $super_order_by, $images_where='')
   $scopes[] = new QNumericRangeScope('size', array());
   $scopes[] = new QNumericRangeScope('filesize', array());
   $scopes[] = new QNumericRangeScope('hits', array('hit', 'visit', 'visits'));
-  $scopes[] = new QNumericRangeScope('rating_score', array('score'), true);
+  $scopes[] = new QNumericRangeScope('score', array('rating'), true);
+
+  $createdDateAliases = array('taken');
+  $postedDateAliases = array('added');
+  if ($conf['calendar_datefield'] == 'date_creation')
+    $createdDateAliases[] = 'date';
+  else
+    $postedDateAliases[] = 'date';
+  $scopes[] = new QDateRangeScope('created', $createdDateAliases, true);
+  $scopes[] = new QDateRangeScope('posted', $postedDateAliases);
+
   $expression = new QExpression($q, $scopes);
 //var_export($expression);
 
