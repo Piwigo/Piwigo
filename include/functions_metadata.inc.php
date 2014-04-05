@@ -33,7 +33,7 @@
  * @param array $map
  * @return array
  */
-function get_iptc_data($filename, $map)
+function get_iptc_data($filename, $map, $array_sep=',')
 {
   global $conf;
   
@@ -57,7 +57,7 @@ function get_iptc_data($filename, $map)
         {
           if ($iptc_key == '2#025')
           {
-            $value = implode(',',
+            $value = implode($array_sep,
                              array_map('clean_iptc_value',$iptc[$iptc_key]));
           }
           else
