@@ -867,17 +867,16 @@ function qsearch_get_images(QExpression $expr, QResults $qsr)
       case 'photo':
         $clauses[] = $file_like;
 
-        if ($inflector!=null && strlen($term)>2
+        $variants = array();
+        if (strlen($term)>2
           && ($expr->stoken_modifiers[$i] & (QST_QUOTED|QST_WILDCARD))==0
-          && strcspn($term, '\'0123456789') == strlen($term)
-          )
+          && strcspn($term, '\'0123456789') == strlen($term) )
         {
-          $variants = array_unique( array_diff( $inflector->get_variants($term), array($term) ) );
+          if ($inflector!=null)
+            $variants = array_unique( array_diff( $inflector->get_variants($term), array($term) ) );
+          $variants = trigger_event('qsearch_get_variants', $variants, $token, $expr);
+          $variants = array_unique( array_diff( $variants, array($term) ) );
           $qsr->variants[$term] = $variants;
-        }
-        else
-        {
-          $variants = array();
         }
 
         if (strlen($term)>3) // default minimum full text index
@@ -930,7 +929,10 @@ function qsearch_get_images(QExpression $expr, QResults $qsr)
       case 'posted':
         $clauses[] = $token->scope->get_sql('date_available', $token);
         break;
-
+      default:
+        // allow plugins to have their own scope with columns added in db by themselves
+        $clauses = trigger_event('qsearch_get_images_sql_scopes', $clauses, $token, $expr);
+        break;
     }
     if (!empty($clauses))
     {
@@ -1216,7 +1218,7 @@ function get_quick_search_results($q, $options)
   $scopes[] = new QNumericRangeScope('hits', array('hit', 'visit', 'visits'));
   $scopes[] = new QNumericRangeScope('score', array('rating'), true);
 
-  $createdDateAliases = array('taken');
+  $createdDateAliases = array('taken', 'shot');
   $postedDateAliases = array('added');
   if ($conf['calendar_datefield'] == 'date_creation')
     $createdDateAliases[] = 'date';
@@ -1225,13 +1227,22 @@ function get_quick_search_results($q, $options)
   $scopes[] = new QDateRangeScope('created', $createdDateAliases, true);
   $scopes[] = new QDateRangeScope('posted', $postedDateAliases);
 
+  // allow plugins to add their own scopes
+  $scopes = trigger_event('qsearch_get_scopes', $scopes);
   $expression = new QExpression($q, $scopes);
+  trigger_action('qsearch_expression_parsed', $expression);
 //var_export($expression);
 
+  if (count($expression->stokens)==0)
+  {
+    return $search_results;
+  }
   $qsr = new QResults;
   qsearch_get_tags($expression, $qsr);
   qsearch_get_images($expression, $qsr);
-//var_export($qsr->all_tags);
+
+  // allow plugins to evaluate their own scopes
+  trigger_action('qsearch_before_eval', $expression, $qsr);
 
   $ids = qsearch_eval($expression, $qsr, $tmp, $search_results['qs']['unmatched_terms']);
 
