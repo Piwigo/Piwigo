@@ -97,6 +97,8 @@ SELECT
         );
     }
 
+    trigger_action('loc_end_no_photo_yet');
+
     $template->pparse('no_photo_yet');
     exit();
   }
