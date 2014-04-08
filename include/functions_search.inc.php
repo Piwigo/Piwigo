@@ -484,6 +484,7 @@ class QSingleToken
   var $is_single = true;
   var $modifier;
   var $term; /* the actual word/phrase string*/
+  var $variants = array();
   var $scope;
 
   var $scope_data;
@@ -833,32 +834,21 @@ class QResults
   var $tag_iids;
   var $images_iids;
   var $iids;
-
-  var $variants;
 }
 
 function qsearch_get_images(QExpression $expr, QResults $qsr)
 {
   $qsr->images_iids = array_fill(0, count($expr->stokens), array());
 
-  $inflector = null;
-  $lang_code = substr(get_default_language(),0,2);
-  include_once(PHPWG_ROOT_PATH.'include/inflectors/'.$lang_code.'.php');
-  $class_name = 'Inflector_'.$lang_code;
-  if (class_exists($class_name))
-  {
-    $inflector = new $class_name;
-  }
-
-  $query_base = 'SELECT id from '.IMAGES_TABLE.' i WHERE ';
+  $query_base = 'SELECT id from '.IMAGES_TABLE.' i WHERE
+';
   for ($i=0; $i<count($expr->stokens); $i++)
   {
     $token = $expr->stokens[$i];
-    $term = $token->term;
     $scope_id = isset($token->scope) ? $token->scope->id : 'photo';
     $clauses = array();
 
-    $like = addslashes($term);
+    $like = addslashes($token->term);
     $like = str_replace( array('%','_'), array('\\%','\\_'), $like); // escape LIKE specials %_
     $file_like = 'CONVERT(file, CHAR) LIKE \'%'.$like.'%\'';
 
@@ -867,37 +857,32 @@ function qsearch_get_images(QExpression $expr, QResults $qsr)
       case 'photo':
         $clauses[] = $file_like;
 
-        $variants = array();
-        if (strlen($term)>2
-          && ($expr->stoken_modifiers[$i] & (QST_QUOTED|QST_WILDCARD))==0
-          && strcspn($term, '\'0123456789') == strlen($term) )
+        $variants = array_merge(array($token->term), $token->variants);
+        $fts = array();
+        foreach ($variants as $variant)
         {
-          if ($inflector!=null)
-            $variants = array_unique( array_diff( $inflector->get_variants($term), array($term) ) );
-          $variants = trigger_event('qsearch_get_variants', $variants, $token, $expr);
-          $variants = array_unique( array_diff( $variants, array($term) ) );
-          $qsr->variants[$term] = $variants;
+          if (mb_strlen($variant)<=3
+            || strcspn($variant, '!"#$%&()*+,./:;<=>?@[\]^`{|}~') < 3)
+          {// odd term or too short for full text search; fallback to regex but unfortunately this is diacritic/accent sensitive
+            $pre = ($token->modifier & QST_WILDCARD_BEGIN) ? '' : '[[:<:]]';
+            $post = ($token->modifier & QST_WILDCARD_END) ? '' : '[[:>:]]';
+            foreach( array('i.name', 'i.comment') as $field)
+              $clauses[] = $field.' REGEXP \''.$pre.addslashes(preg_quote($variant)).$post.'\'';
+          }
+          else
+          {
+            $ft = $variant;
+            if ($expr->stoken_modifiers[$i] & QST_QUOTED)
+              $ft = '"'.$ft.'"';
+            if ($expr->stoken_modifiers[$i] & QST_WILDCARD_END)
+              $ft .= '*';
+            $fts[] = $ft;
+          }
         }
 
-        if (strlen($term)>3) // default minimum full text index
+        if (count($fts))
         {
-          $ft = $term;
-          if ($expr->stoken_modifiers[$i] & QST_QUOTED)
-            $ft = '"'.$ft.'"';
-          if ($expr->stoken_modifiers[$i] & QST_WILDCARD_END)
-            $ft .= '*';
-          foreach ($variants as $variant)
-          {
-            $ft.=' '.$variant;
-          }
-          $clauses[] = 'MATCH(i.name, i.comment) AGAINST( \''.addslashes($ft).'\' IN BOOLEAN MODE)';
-        }
-        else
-        {
-          foreach( array('i.name', 'i.comment') as $field)
-          {
-            $clauses[] = $field.' REGEXP \'[[:<:]]'.addslashes(preg_quote($term)).'[[:>:]]\'';
-          }
+          $clauses[] = 'MATCH(i.name, i.comment) AGAINST( \''.addslashes(implode(' ',$fts)).'\' IN BOOLEAN MODE)';
         }
         break;
 
@@ -936,7 +921,7 @@ function qsearch_get_images(QExpression $expr, QResults $qsr)
     }
     if (!empty($clauses))
     {
-      $query = $query_base.'('.implode(' OR ', $clauses).')';
+      $query = $query_base.'('.implode("\n OR ", $clauses).')';
       $qsr->images_iids[$i] = query2array($query,null,'id');
     }
   }
@@ -1230,6 +1215,29 @@ function get_quick_search_results($q, $options)
   // allow plugins to add their own scopes
   $scopes = trigger_event('qsearch_get_scopes', $scopes);
   $expression = new QExpression($q, $scopes);
+
+  // get inflections for terms
+  $inflector = null;
+  $lang_code = substr(get_default_language(),0,2);
+  @include_once(PHPWG_ROOT_PATH.'include/inflectors/'.$lang_code.'.php');
+  $class_name = 'Inflector_'.$lang_code;
+  if (class_exists($class_name))
+  {
+    $inflector = new $class_name;
+    foreach( $expression->stokens as $token)
+    {
+      if (isset($token->scope) && !$token->scope->is_text)
+        continue;
+      if (strlen($token->term)>2
+        && ($token->modifier & (QST_QUOTED|QST_WILDCARD))==0
+        && strcspn($token->term, '\'0123456789') == strlen($token->term) )
+      {
+        $token->variants = array_unique( array_diff( $inflector->get_variants($token->term), array($token->term) ) );
+      }
+    }
+  }
+
+
   trigger_action('qsearch_expression_parsed', $expression);
 //var_export($expression);
 
@@ -1251,7 +1259,7 @@ function get_quick_search_results($q, $options)
   for ($i=0; $i<count($expression->stokens); $i++)
   {
     $debug[] = $expression->stokens[$i].': '.count($qsr->tag_ids[$i]).' tags, '.count($qsr->tag_iids[$i]).' tiids, '.count($qsr->images_iids[$i]).' iiids, '.count($qsr->iids[$i]).' iids'
-      .( !empty($qsr->variants[$expression->stokens[$i]->term]) ? ' variants: '.implode(', ',$qsr->variants[$expression->stokens[$i]->term]): '');
+      .( !empty($expression->stokens[$i]->variants) ? ' variants: '.implode(', ',$expression->stokens[$i]->variants): '');
   }
   $debug[] = 'before perms '.count($ids);
 

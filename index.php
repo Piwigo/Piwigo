@@ -246,7 +246,7 @@ if ( empty($page['is_external']) or !$page['is_external'] )
     
     if (empty($page['items']))
     {
-      $template->append( 'no_search_results', $page['qsearch_details']['q']);
+      $template->append( 'no_search_results', htmlspecialchars($page['qsearch_details']['q']));
     }
     elseif (!empty($page['qsearch_details']['unmatched_terms']))
     {
