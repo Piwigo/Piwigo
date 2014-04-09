@@ -418,4 +418,4 @@ $lang['Password is missing. Please enter the password.'] = 'Falta la clau d\'acc
 $lang['Password confirmation is missing. Please confirm the chosen password.'] = 'Falta confirmar la contrasenya. Si us plau, confirmeu la contrasenya escollida.';
 $lang['%d photos per page'] = '%d fotos per pàgina';
 $lang['Theme'] = 'Tema';
-?>
+$lang['No results for'] = 'No s\'ha trobat resultats per';
