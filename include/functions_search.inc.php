@@ -603,9 +603,15 @@ class QMultiToken
               $crt_token .= $ch;
               break;
             }
+            if (strlen($crt_token) && isdigit(substr($crt_token,0,-1)) 
+              && $qi+1<strlen($q) && isdigit($q[$qi+1]))
+            {// dot between digits is not a separator e.g. F2.8
+              $crt_token .= $ch;
+              break;
+            }
             // else white space go on..
           default:
-            if (preg_match('/[\s,.;!\?]+/', $ch))
+            if (strpos(' ,.;!?', $ch)!==false)
             { // white space
               $this->push($crt_token, $crt_modifier, $crt_scope);
             }
@@ -822,8 +828,21 @@ function qsearch_get_text_token_search_sql($token, $fields)
   $fts = array();
   foreach ($variants as $variant)
   {
-    if (mb_strlen($variant)<=3
-      || strcspn($variant, '!"#$%&()*+,./:;<=>?@[\]^`{|}~') < 3)
+    $use_ft = mb_strlen($variant)>3;
+    if ($token->modifier & QST_WILDCARD_BEGIN)
+      $use_ft = false;
+    if (($token->modifier & QST_QUOTED|QST_WILDCARD_END) == QST_QUOTED|QST_WILDCARD_END)
+      $use_ft = false;
+    if ($use_ft)
+    {
+      $max = max( array_map( 'mb_strlen', 
+        preg_split('/['.preg_quote('!"#$%&()*+,./:;<=>?@[\]^`{|}~','/').']+/', $variant0, PREG_SPLIT_NO_EMPTY)
+        ) );
+      if ($max<4)
+        $use_ft = false;
+    }
+
+    if (!$use_ft)
     {// odd term or too short for full text search; fallback to regex but unfortunately this is diacritic/accent sensitive
       $pre = ($token->modifier & QST_WILDCARD_BEGIN) ? '' : '[[:<:]]';
       $post = ($token->modifier & QST_WILDCARD_END) ? '' : '[[:>:]]';
