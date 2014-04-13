@@ -831,12 +831,13 @@ function qsearch_get_text_token_search_sql($token, $fields)
     $use_ft = mb_strlen($variant)>3;
     if ($token->modifier & QST_WILDCARD_BEGIN)
       $use_ft = false;
-    if (($token->modifier & QST_QUOTED|QST_WILDCARD_END) == QST_QUOTED|QST_WILDCARD_END)
+    if ($token->modifier & (QST_QUOTED|QST_WILDCARD_END) == (QST_QUOTED|QST_WILDCARD_END))
       $use_ft = false;
+
     if ($use_ft)
     {
       $max = max( array_map( 'mb_strlen', 
-        preg_split('/['.preg_quote('!"#$%&()*+,./:;<=>?@[\]^`{|}~','/').']+/', $variant0, PREG_SPLIT_NO_EMPTY)
+        preg_split('/['.preg_quote('!"#$%&()*+,./:;<=>?@[\]^`{|}~','/').']+/', $variant, PREG_SPLIT_NO_EMPTY)
         ) );
       if ($max<4)
         $use_ft = false;
