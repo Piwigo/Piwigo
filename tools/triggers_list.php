@@ -501,6 +501,12 @@ array(
   'files' => array('admin\batch_manager_unit.php'),
 ),
 array(
+  'name' => 'loc_end_help',
+  'type' => 'trigger_action',
+  'vars' => array(),
+  'files' => array('admin\help.php'),
+),
+array(
   'name' => 'loc_end_index',
   'type' => 'trigger_action',
   'vars' => array(),
@@ -517,6 +523,12 @@ array(
   'type' => 'trigger_event',
   'vars' => array('array', 'tpl_thumbnails_var', 'array', 'pictures'),
   'files' => array('include\category_default.inc.php'),
+),
+array(
+  'name' => 'loc_end_no_photo_yet',
+  'type' => 'trigger_action',
+  'vars' => array(),
+  'files' => array('include\no_photo_yet.inc.php'),
 ),
 array(
   'name' => 'loc_end_page_header',
