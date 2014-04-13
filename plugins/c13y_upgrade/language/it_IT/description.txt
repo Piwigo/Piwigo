@@ -1,1 +1,0 @@
-Controllo d'integrità degli aggiornamenti.

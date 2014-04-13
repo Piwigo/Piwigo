@@ -1,1 +1,0 @@
-Kolla ändringarnas integritet.
