@@ -303,8 +303,8 @@ $template->set_filenames(array('comments'=>'comments.tpl'));
 $template->assign(
   array(
     'F_ACTION'=>PHPWG_ROOT_PATH.'comments.php',
-    'F_KEYWORD'=> htmlspecialchars(stripslashes($_GET['keyword'])),
-    'F_AUTHOR'=> htmlspecialchars(stripslashes($_GET['author'])),
+    'F_KEYWORD'=> htmlspecialchars(stripslashes(@$_GET['keyword'])),
+    'F_AUTHOR'=> htmlspecialchars(stripslashes(@$_GET['author'])),
     )
   );
 
