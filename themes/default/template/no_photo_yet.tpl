@@ -31,7 +31,7 @@ border:2px solid #dddddd;
 #noPhotoWelcome {font-size:25px; color:#555;text-align:center; letter-spacing:1px; margin-top:30px;}
 .bigButton {}
 
-.bigButton {text-align:center; margin-top:120px;}
+.bigButton {text-align:center; margin-top:100px;}
 
 .bigButton a {
     background-color:#666;

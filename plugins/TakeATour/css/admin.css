@@ -1,0 +1,15 @@
+#helpContent .TAT_description {
+  text-align: justify;
+  text-indent: 1em;
+}
+#helpContent form {
+  text-align: center;
+}
+#helpContent form input {
+  width: 50%;
+  margin-top: 10px;
+}
+#helpContent P {
+  text-indent: 1em;
+  text-align: justify;
+}

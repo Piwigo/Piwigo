@@ -76,7 +76,7 @@ function deactivate_non_standard_plugins()
 
   $standard_plugins = array(
     'admin_multi_view',
-    'c13y_upgrade',
+    'TakeATour',
     'event_tracer',
     'language_switch',
     'LocalFilesEditor'

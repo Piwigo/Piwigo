@@ -438,14 +438,13 @@ if ((isset($_POST['submit']) or isset($_GET['now']))
     $page['infos_sav'] = $page['infos'];
     $page['infos'] = array();
 
-    // c13y_upgrade plugin means "check integrity after upgrade", so it
-    // becomes useful just after an upgrade
+    /* might be usefull when we will have a real integrity checker
     $query = '
 REPLACE INTO '.PLUGINS_TABLE.'
   (id, state)
   VALUES (\'c13y_upgrade\', \'active\')
 ;';
-    pwg_query($query);
+    pwg_query($query);*/
 
     // Delete cache data
     invalidate_user_cache(true);
