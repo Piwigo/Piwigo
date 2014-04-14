@@ -439,7 +439,7 @@ $conf['debug_mail'] = false;
 $conf['die_on_sql_error'] = true;
 
 // if true, some language strings are replaced during template compilation
-// (insted of template output). this results in better performance. however
+// (instead of template output). this results in better performance. however
 // any change in the language file will not be propagated until you purge
 // the compiled templates from the admin / maintenance menu
 $conf['compiled_template_cache_language'] = false;

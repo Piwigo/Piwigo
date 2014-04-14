@@ -26,11 +26,11 @@ elseif ( isset($_GET['tour_ended']) and in_array($_GET['tour_ended'], $avalaible
   pwg_unset_session_var('tour_to_launch');
 }
 
-if (pwg_get_session_var('tour_to_launch') and defined('IN_ADMIN') and IN_ADMIN and isset($_GET['page']) and $_GET['page']=="plugin-TakeATour" )
+if (pwg_get_session_var('tour_to_launch') and isset($_GET['page']) and $_GET['page']=="plugin-TakeATour" )
 { 
   pwg_unset_session_var('tour_to_launch');
 }
-elseif ( pwg_get_session_var('tour_to_launch') and defined('IN_ADMIN') and IN_ADMIN)
+elseif ( pwg_get_session_var('tour_to_launch') )
 {
   add_event_handler('init', 'TAT_add_js_css');
   include('tours/'.pwg_get_session_var('tour_to_launch').'/config.inc.php');
