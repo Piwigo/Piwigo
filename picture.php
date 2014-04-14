@@ -417,23 +417,24 @@ UPDATE '.CATEGORIES_TABLE.'
 
 
 //---------- incrementation of the number of hits
+$inc_hit_count = !isset($_POST['content']);
 // don't increment counter if in the Mozilla Firefox prefetch
 if (isset($_SERVER['HTTP_X_MOZ']) and $_SERVER['HTTP_X_MOZ'] == 'prefetch')
 {
-  add_event_handler('allow_increment_element_hit_count', create_function('$b', 'return false;'));
+  $inc_hit_count = false;
 }
 else
 {
   // don't increment counter if comming from the same picture (actions)
   if (pwg_get_session_var('referer_image_id',0) == $page['image_id'])
   {
-    add_event_handler('allow_increment_element_hit_count', create_function('$b', 'return false;'));
+    $inc_hit_count = false;
   }
   pwg_set_session_var('referer_image_id', $page['image_id']);
 }
 
 // don't increment if adding a comment
-if (trigger_event('allow_increment_element_hit_count', !isset($_POST['content']) ) )
+if (trigger_event('allow_increment_element_hit_count', $inc_hit_count, $page['image_id'] ) )
 {
   $query = '
 UPDATE
