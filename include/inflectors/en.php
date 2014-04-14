@@ -38,7 +38,9 @@ class Inflector_en
       'move' => 'moves',
       'mouse' => 'mice',
       'ox' => 'oxen',
-      'zombie' => 'zombies',
+      'zombie' => 'zombies', // pl->sg exc.
+			'serie' => 'series', // pl->sg exc.
+			'movie' => 'movies', // pl->sg exc.
     );
 
     $this->exceptions = $tmp;
@@ -71,7 +73,6 @@ class Inflector_en
     $this->singularizers = array_reverse(array(
       '/s$/' => '',
       '/(ss)$/' => '\1',
-      '/(n)ews$/' => '\1ews',
       '/([ti])a$/' => '\1um',
       '/((a)naly|(b)a|(d)iagno|(p)arenthe|(p)rogno|(s)ynop|(t)he)(sis|ses)$/' => '\1sis',
       '/(^analy)(sis|ses)$/' => '\1sis',
@@ -80,8 +81,6 @@ class Inflector_en
       '/(tive)s$/' => '\1',
       '/([lr])ves$/' => '\1f',
       '/([^aeiouy]|qu)ies$/' => '\1y',
-      '/(s)eries$/' => '\1eries',
-      '/(m)ovies$/' => '\1ovie',
       '/(x|ch|ss|sh)es$/' => '\1',
       '/(bus)(es)?$/' => '\1',
       '/(o)es$/' => '\1',
@@ -94,15 +93,26 @@ class Inflector_en
       '/(quiz)zes$/' => '\1',
       '/(database)s$/' => '\1',
       ));
+
+    $this->er2ing = array_reverse(array(
+      '/ers?$/' => 'ing',
+      '/((be|riv)ers?)$/' => '\1'
+    ));
+
+    $this->ing2er = array_reverse(array(
+      '/ing$/' => 'er',
+      '/(being)$/' => '\1'
+    ));
+
   }
 
   function get_variants($word)
   {
     $res = array();
 
-    $word = strtolower($word);
+    $lword = strtolower($word);
 
-    $rc = @$this->exceptions[$word];
+    $rc = @$this->exceptions[$lword];
     if ( isset($rc) )
     {
       if (!empty($rc))
@@ -110,27 +120,29 @@ class Inflector_en
       return $res;
     }
 
-    foreach ($this->pluralizers as $rule => $replacement)
+    self::run($this->pluralizers, $word, $res);
+    self::run($this->singularizers, $word, $res);
+    self::run($this->er2ing, $word, $res);
+    $rc = self::run($this->ing2er, $word, $res);
+    if ($rc !== false)
     {
-      $rc = preg_replace($rule, $replacement, $word, -1, $count);
-      if ($count)
-      {
-        $res[] = $rc;
-        break;
-      }
+      self::run($this->pluralizers, $rc, $res);
     }
-
-    foreach ($this->singularizers as $rule => $replacement)
-    {
-      $rc = preg_replace($rule, $replacement, $word, -1, $count);
-      if ($count)
-      {
-        $res[] = $rc;
-        break;
-      }
-    }
-
     return $res;
+  }
+
+  private static function run($rules, $word, &$res)
+  {
+    foreach ($rules as $rule => $replacement)
+    {
+      $rc = preg_replace($rule.'i', $replacement, $word, -1, $count);
+      if ($count)
+      {
+        $res[] = $rc;
+        return $rc;
+      }
+    }
+    return false;
   }
 }
 ?>
