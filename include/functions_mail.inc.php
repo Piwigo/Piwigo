@@ -908,7 +908,7 @@ function move_css_to_body($content)
   include_once(PHPWG_ROOT_PATH.'include/emogrifier.class.php');
 
   $e = new Emogrifier($content);
-  return $e->emogrify();
+  return @$e->emogrify();
 }
 
 /**
