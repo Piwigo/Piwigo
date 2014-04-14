@@ -48,7 +48,7 @@ if ( $page['show_comments'] and isset( $_POST['content'] ) )
   $comm = array(
     'author' => trim( @$_POST['author'] ),
     'content' => trim( $_POST['content'] ),
-    'website_url' => trim( $_POST['website_url'] ),
+    'website_url' => trim( @$_POST['website_url'] ),
     'email' => trim( @$_POST['email'] ),
     'image_id' => $page['image_id'],
    );
