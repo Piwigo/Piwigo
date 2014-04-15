@@ -73,3 +73,7 @@ $lang['Start the Tour'] = 'Comença la visita';
 $lang['Take a tour and discover the features of your Piwigo gallery » Go to the available tours'] = 'Feu una visita i descobriu les característiques de la vostra galeria Piwigo » Aneu a les visites disiponibles.';
 $lang['Visit your Piwigo!'] = 'Visita la teva Piwigo!';
 $lang['first_contact_descrp'] = 'Recomanada per a principiants. Aquesta visita introdueix les característiques bàsiques de Piwigo. Comença amb la gestió d\'imatges  i la gestió dels àlbums i permisos i continua amb la personalització de la galeria utilitzant els temes i els connectors.';
+$lang['first_contact_stp30'] = 'Començarem canviant el títol';
+$lang['first_contact_stp32'] = 'Ara guardeu els canvis';
+$lang['first_contact_stp14'] = 'Ara veurem la pàgina d\'edició d\'una imatge. Aquesta pàgina es pot trobar aquí, però també des de una pàgina publica entrant com a administrador. Cliqueu a sobre d\'Edita o aneu al següent pas.';
+$lang['first_contact_stp13'] = 'Amb el mode unitari del processament per lots podeu editar les descripcions i altres camps. De moment ens quedem amb el mode global.';
