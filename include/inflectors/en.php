@@ -96,12 +96,13 @@ class Inflector_en
 
     $this->er2ing = array_reverse(array(
       '/ers?$/' => 'ing',
-      '/((be|riv)ers?)$/' => '\1'
+      '/(be|draw)ers?$/' => '\0'
     ));
 
     $this->ing2er = array_reverse(array(
       '/ing$/' => 'er',
-      '/(being)$/' => '\1'
+      '/(th|r|hous)ing$/' => '\0',
+      '/(be|draw)ing$/' => '\0'
     ));
 
   }
@@ -138,8 +139,12 @@ class Inflector_en
       $rc = preg_replace($rule.'i', $replacement, $word, -1, $count);
       if ($count)
       {
-        $res[] = $rc;
-        return $rc;
+        if ($rc !== $word)
+        {
+          $res[] = $rc;
+          return $rc;
+        }
+        break;
       }
     }
     return false;
