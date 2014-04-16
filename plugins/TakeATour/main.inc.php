@@ -16,7 +16,7 @@ if (!defined('PHPWG_ROOT_PATH'))
 if ( isset($_REQUEST['submited_tour']) and defined('IN_ADMIN') and IN_ADMIN )
 {
   check_pwg_token();
-  pwg_set_session_var('tour_to_launch', $_POST['submited_tour']);
+  pwg_set_session_var('tour_to_launch', $_REQUEST['submited_tour']);
   global $TAT_restart;
   $TAT_restart=true;
 }
@@ -93,32 +93,9 @@ function TAT_no_photo_yet()
 }
 function TAT_no_photo_yet_prefilter($content, &$smarty)
 {
-  
   $search = '<div class="bigButton"><a href="{$next_step_url}">{\'I want to add photos\'|@translate}</a></div>';
-  $replacement = '<form style="text-align:center" action="{$F_ACTION}" method="post">
-  <input type="hidden" name="submited_tour" value="first_contact">
-  <input type="hidden" name="pwg_token" value="{$pwg_token}">
-  <input type="submit" name="button2" id="button2" value="{\'I want to discover my gallery and add photos\'|@translate}">
-</form>
+  $replacement = '<div class="bigButton"><a href="'.get_root_url().'admin.php?submited_tour=first_contact&pwg_token='.get_pwg_token().'">{\'I want to discover my gallery and add photos\'|@translate}</a></div>
 <div class="bigButton"><a href="{$next_step_url}">{\'I want to add photos\'|@translate}</a></div>';
-  $content=str_replace($search, $replacement, $content);
-  $search = '</style>';
-  $replacement = '
-form input[type="submit"] {
-  font-size: 25px;
-  letter-spacing: 2px;
-  margin: 0 5px;
-  padding: 20px;
-  border:none;
-  background-color:#666666;
-  color:#fff;
-  cursor:pointer;
-}
-form input[type="submit"]:hover {
-  background-color:#ff7700;
-  color:white;
-}
-</style>';
   return(str_replace($search, $replacement, $content));
 }
 
