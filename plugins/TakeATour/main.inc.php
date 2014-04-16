@@ -12,31 +12,31 @@ if (!defined('PHPWG_ROOT_PATH'))
   die('Hacking attempt!');
 }
 
-$avalaible_tour = array('first_contact', 'privacy', 'picture_protection');
-
-if ( isset($_POST['submited_tour']) and in_array($_POST['submited_tour'], $avalaible_tour) and defined('IN_ADMIN') and IN_ADMIN )
+/** Tour sended via $_POST or $_GET**/
+if ( isset($_REQUEST['submited_tour']) and defined('IN_ADMIN') and IN_ADMIN )
 {
   check_pwg_token();
   pwg_set_session_var('tour_to_launch', $_POST['submited_tour']);
   global $TAT_restart;
   $TAT_restart=true;
 }
-elseif ( isset($_GET['tour_ended']) and in_array($_GET['tour_ended'], $avalaible_tour) and defined('IN_ADMIN') and IN_ADMIN )
+elseif ( isset($_GET['tour_ended']) and defined('IN_ADMIN') and IN_ADMIN )
 {
   pwg_unset_session_var('tour_to_launch');
 }
 
+/** Setup the tour **/
 if (pwg_get_session_var('tour_to_launch') and isset($_GET['page']) and $_GET['page']=="plugin-TakeATour" )
 { 
   pwg_unset_session_var('tour_to_launch');
 }
 elseif ( pwg_get_session_var('tour_to_launch') )
 {
-  add_event_handler('init', 'TAT_add_js_css');
+  add_event_handler('init', 'TAT_tour_setup');
   include('tours/'.pwg_get_session_var('tour_to_launch').'/config.inc.php');
 }
 
-function TAT_add_js_css()
+function TAT_tour_setup()
 {
   global $template, $TAT_restart;
   $tour_to_launch=pwg_get_session_var('tour_to_launch');
@@ -56,7 +56,7 @@ function TAT_add_js_css()
   $template->parse('TAT_tour_tpl');
 }
 
-
+/** Add link in Help pages **/
 add_event_handler('loc_end_help','TAT_help');
 function TAT_help()
 {
@@ -76,6 +76,8 @@ function TAT_help_prefilter($content, &$smarty)
   return(str_replace($search, $replacement, $content));
 
 }
+
+/** Add link in no_photo_yet **/
 add_event_handler('loc_end_no_photo_yet','TAT_no_photo_yet');
 function TAT_no_photo_yet()
 {
@@ -120,6 +122,19 @@ form input[type="submit"]:hover {
   return(str_replace($search, $replacement, $content));
 }
 
+/** After a Piwigo Update **/
+add_event_handler('list_check_integrity', 'TAT_prompt'); 
+function TAT_prompt($c13y) 
+{ 
+  global $page;
+  $version_=str_replace('.','_',PHPWG_VERSION);
+  if (file_exists('tours/'.$version_.'/config.inc.php'))
+  {
+    $page['infos'][] = '<a href="'.get_root_url().'admin.php?submited_tour='.$version_.'&pwg_token='.get_pwg_token().'">'.l10n('Discover what is new in the version %s of Piwigo', PHPWG_VERSION).'</a>';
+  }
+}
+
+/** Add admin menu link **/
 add_event_handler('get_admin_plugin_menu_links', 'TAT_admin_menu' );
 function TAT_admin_menu($menu)
 {

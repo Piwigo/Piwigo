@@ -446,6 +446,13 @@ REPLACE INTO '.PLUGINS_TABLE.'
 ;';
     pwg_query($query);*/
 
+    $query = '
+REPLACE INTO '.PLUGINS_TABLE.'
+  (id, state)
+  VALUES (\'TakeATour\', \'active\')
+;';
+    pwg_query($query);
+
     // Delete cache data
     invalidate_user_cache(true);
     $template->delete_compiled_templates();
