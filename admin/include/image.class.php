@@ -547,6 +547,9 @@ class image_ext_imagick implements imageInterface
 
   function crop($width, $height, $x, $y)
   {
+    $this->width = $width;
+    $this->height = $height;
+
     $this->add_command('crop', $width.'x'.$height.'+'.$x.'+'.$y);
     return true;
   }
@@ -583,6 +586,9 @@ class image_ext_imagick implements imageInterface
 
   function resize($width, $height)
   {
+    $this->width = $width;
+    $this->height = $height;
+
     $this->add_command('filter', 'Lanczos');
     $this->add_command('resize', $width.'x'.$height.'!');
     return true;
