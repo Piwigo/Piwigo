@@ -24,4 +24,10 @@ $lang['first_contact_title31'] = '';
 $lang['first_contact_title32'] = '';
 $lang['first_contact_title40'] = '';
 $lang['first_contact_title41'] = '';
-?>
+$lang['first_contact_title4'] = 'Ajoutons des photos !';
+$lang['first_contact_title39'] = 'Plugins';
+$lang['first_contact_title43'] = 'Ce fut un grand moment';
+$lang['first_contact_title42'] = 'Langues';
+$lang['first_contact_stp22'] = 'Comme pour une image, vous pouvez éditer ici les propriété d\'un album';
+$lang['first_contact_stp2'] = 'Le lien est ici. Cliquez sur Suivant pour continuer';
+$lang['first_contact_stp11'] = 'Vous pouvez sélectionner ici une ou plusieurs photos';
