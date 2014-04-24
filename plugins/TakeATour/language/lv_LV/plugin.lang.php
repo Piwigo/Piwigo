@@ -56,3 +56,11 @@ $lang['Take a tour and discover the features of your Piwigo gallery » Go to the
 $lang['Visit your Piwigo!'] = 'Apmeklējiet savu Piwigo!';
 $lang['Start the Tour'] = 'Sākt Iepazīšanos';
 $lang['First Contact'] = 'Pirmā Iepazīšanās';
+$lang['first_contact_stp14'] = 'Mēs redzēsim viena attēla redakcijas lapu. Šī lapa ir sasniedzama no šejienes, kā arī no publiskās attēla lapas, kad ielogojaties kā administrators. Noklikšķiniet uz Rediģēt vai doties tālāk';
+$lang['first_contact_stp3'] = 'Šī pirmā cilne ir vieta, kur var pievienot fotogrāfijas tieši no jūsu pārlūka. Pārējās cilnēs ir citi veidi, kā augšupielādēt fotogrāfijas';
+$lang['first_contact_stp19_b'] = 'Visus albūmus sauc par "virtuāllajiem albūmiem". Šeit ir sakārtoti visi "top" virsējie albūmi, tie, kas atrodas jūsu galerijas saknē.';
+$lang['first_contact_stp22'] = '
+Līdzīgi kā attēlam, šeit varat rediģēt albūma īpašības';
+$lang['first_contact_stp18'] = '
+Iepriekšējais piemērs bija tikai neliels pārskats par iespējām un par to, cik spēcīgs ir Piwigo.Esmu stāstījis par privātiem albūmiem, bet kā mēs varam pārvaldīt albūmus? Noklikšķiniet uz albūma-> Manage vai klikšķiniet Next';
+$lang['first_contact_stp15'] = 'Šajā lapā jūs varat rediģēt visas foto īpašības, piemēram, ...';
