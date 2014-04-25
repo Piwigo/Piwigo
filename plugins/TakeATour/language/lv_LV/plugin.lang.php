@@ -64,3 +64,8 @@ Līdzīgi kā attēlam, šeit varat rediģēt albūma īpašības';
 $lang['first_contact_stp18'] = '
 Iepriekšējais piemērs bija tikai neliels pārskats par iespējām un par to, cik spēcīgs ir Piwigo.Esmu stāstījis par privātiem albūmiem, bet kā mēs varam pārvaldīt albūmus? Noklikšķiniet uz albūma-> Manage vai klikšķiniet Next';
 $lang['first_contact_stp15'] = 'Šajā lapā jūs varat rediģēt visas foto īpašības, piemēram, ...';
+$lang['first_contact_stp38'] = 'Visērtāk pielēgot Piwigo var ar spraudiem. Ar to palīdzību var gandrīz visu, ko varat iedomāties no maziem teksta aprakstiem līdz pageigtiem elementiem, piemēram kā Kopienas spraudnis, kas ļauj neadministratorlietotājiem augšupielādēt neieejot administrācijas daļā.';
+$lang['first_contact_stp13'] = 'Jūs varat rediģēt aprakstus un vēl vairāk no virknes pārvaldītāja vienības režīmā. Bet tagad, paliksim vispārīgajā režīmā';
+$lang['first_contact_stp37'] = 'Lai uzstādītu jaunas tēmas, jūs to varat tieši lejupielādēt no cilnes "Pievienot tēmu". Tiek rādītas tikai ar jūsu Pivigo versiju saderīgas tēmas. <br> Tagad atklāsim šos spraudņus priekš sevis! Noklikšķiniet uz Plugin-> Pārvaldīt';
+$lang['first_contact_stp25'] = 'Kā varat Piwigo Palīdzībā - saite labās puses augšā, albūmu atļaujas nosaka grupas un lietotāji. Jūs varat tieši uzstādīt vairākus privātos/ publiskos albūmus, izmantojot »Albums» Administrēšanas Properties lapā.';
+$lang['first_contact_stp24'] = 'Protams, viena no svarīgākajām lapām ir privātā albūma atļauju lapa. Noklikšķiniet uz atļaujas cilnes vai noklikšķiniet uz Tālāk';
