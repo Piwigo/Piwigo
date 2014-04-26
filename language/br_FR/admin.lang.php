@@ -236,3 +236,8 @@ $lang['Exif extension not available, admin should disable exif use'] = 'N\'eo ke
 $lang['Extensions Update'] = 'Hizivadur an astennoù';
 $lang['Administration Home'] = 'Pajenn-degemer ar merour';
 $lang['Advanced features'] = 'Arc\'hweladurioù araokaet';
+$lang['An error has occured during upgrade.'] = 'Ur fazi a zo c\'hoarvezet en ur hizivaat.';
+$lang['An error occured during extraction (%s).'] = 'Ur fazi a zo c\'hoarvezet en ur eztennañ ar restroù (%s).';
+$lang['An information email was sent to group "%s"'] = 'Ur postel gant titouroù a zo bet kaset da strollad "%s"';
+$lang['Anomaly'] = 'Direizhder';
+$lang['An error has occured during extract. Please check files permissions of your piwigo installation.<br><a href="%s">Click here to show log error</a>.'] = 'Ur fazi a zo c\'hoarvezet en ur eztennañ. Sellit ouzh aotreoù ar restroù ho staliadur Piwigo.<br><a href="%s">Klikit amañ evit diskouez renabl ar fazi</a>.';
