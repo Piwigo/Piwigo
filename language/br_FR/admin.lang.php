@@ -241,3 +241,15 @@ $lang['An error occured during extraction (%s).'] = 'Ur fazi a zo c\'hoarvezet e
 $lang['An information email was sent to group "%s"'] = 'Ur postel gant titouroù a zo bet kaset da strollad "%s"';
 $lang['Anomaly'] = 'Direizhder';
 $lang['An error has occured during extract. Please check files permissions of your piwigo installation.<br><a href="%s">Click here to show log error</a>.'] = 'Ur fazi a zo c\'hoarvezet en ur eztennañ. Sellit ouzh aotreoù ar restroù ho staliadur Piwigo.<br><a href="%s">Klikit amañ evit diskouez renabl ar fazi</a>.';
+$lang['By rank'] = 'Dre renk';
+$lang['Caddie'] = 'Karrigell';
+$lang['Caddie management'] = 'Merañ ar c\'harrigell';
+$lang['By %s'] = 'Dre %s';
+$lang['Associate to album'] = 'Liammañ ouzh ar rummad';
+$lang['Associated'] = 'Liammet';
+$lang['Authorized'] = 'Aotreet';
+$lang['Apply selected corrections'] = 'Arloañ ar reizhadurioù diuzet';
+$lang['Applications'] = 'Arloadoù';
+$lang['Apply action'] = 'Arloañ an obererezh';
+$lang['Apply to sub-albums'] = 'Arloañ d\'an iz-rummadoù';
+$lang['Anyway only webmasters can see this tab and never administrators.'] = 'Ar mestr-gwiad hepken a c\'hell gwellet an ivinell-mañ. Ar merourien ne c\'hellont ket.';
