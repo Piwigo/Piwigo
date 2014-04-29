@@ -266,4 +266,9 @@ $lang['Any tag'] = 'x-belibegt Schlagwuert';
 $lang['Bad request'] = 'Falsch Ufro';
 $lang['Close this window'] = 'Dës Fenster zoumaachen';
 $lang['Add a comment'] = 'Kommentar dobäisetzen';
-?>
+$lang['Bad status for user "guest", using default status. Please notify the webmaster.'] = 'Ongëltege Status fir de Benotzer "Gaascht". Amplaz dovunner gëtt de Standard-Status geholl. Kontaktéiert w.e.g. de Webmaster.';
+$lang['Best rated'] = 'Am beschte bewäert';
+$lang['Check your email for the confirmation link'] = 'Kuckt an Ärer Mailbox no enger Mail mat engem Confirmatiouns-Link';
+$lang['Click here if your browser does not automatically forward you'] = 'Klickt hei, wann Dir net vun Ärem Browser automatesch weidergeleet gitt';
+$lang['Click on the photo to see it in high definition'] = 'Klickt op d\'Fotto, fir se an enger héijer Opléisung ze gesinn';
+$lang['Create a new account'] = 'Neie Benotzer-Account creéieren';
