@@ -78,3 +78,4 @@ $lang['Visit your Piwigo!'] = 'Besuche dein Piwigo!';
 $lang['first_contact_stp11'] = 'So, von hier kannst du ein oder mehrere Fotos auswählen';
 $lang['first_contact_stp15'] = 'Hier zum Beispiel, kann man alle Eigenschaften eines Fotos bearbeiten';
 $lang['first_contact_stp2'] = 'Der Link ist hier. Klicke "Next" zum weitermachen';
+$lang['first_contact_descrp'] = 'Empfohlen für Anfänger, diese Tour stellt dir die Grundlagen von Piwigo vor. Sie startet mit hinzufügen und verwalten von Bildern. Die Tour geht weiter mit Album-Management und Zugriffsrechte und endet mit individueller Konfiguration der Themen und Plugins.';
