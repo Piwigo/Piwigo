@@ -96,13 +96,14 @@ class Inflector_en
 
     $this->er2ing = array_reverse(array(
       '/ers?$/' => 'ing',
-      '/(be|draw)ers?$/' => '\0'
+      '/(be|draw|liv)ers?$/' => '\0'
     ));
 
     $this->ing2er = array_reverse(array(
       '/ing$/' => 'er',
-      '/(th|r|hous)ing$/' => '\0',
-      '/(be|draw)ing$/' => '\0'
+      '/(snow|rain)ing$/' => '\1',
+      '/(th|hous|dur|spr|wedd)ing$/' => '\0',
+      '/(liv|draw)ing$/' => '\0'
     ));
 
   }
@@ -123,11 +124,17 @@ class Inflector_en
 
     self::run($this->pluralizers, $word, $res);
     self::run($this->singularizers, $word, $res);
-    self::run($this->er2ing, $word, $res);
-    $rc = self::run($this->ing2er, $word, $res);
-    if ($rc !== false)
+    if (strlen($word)>4)
     {
-      self::run($this->pluralizers, $rc, $res);
+      self::run($this->er2ing, $word, $res);
+    }
+    if (strlen($word)>5)
+    {
+      $rc = self::run($this->ing2er, $word, $res);
+      if ($rc !== false)
+      {
+        self::run($this->pluralizers, $rc, $res);
+      }
     }
     return $res;
   }
