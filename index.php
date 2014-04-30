@@ -85,11 +85,6 @@ if (count($page['items']) > $page['nb_image_page'])
 
 $template->assign('thumb_navbar', $page['navigation_bar'] );
 
-if ( $page['section']=='search' and isset($page['qsearch_details']) )
-{
-  $template->assign('QUERY_SEARCH', htmlspecialchars($page['qsearch_details']['q']) );
-}
-
 // caddie filling :-)
 if (isset($_GET['caddie']))
 {
