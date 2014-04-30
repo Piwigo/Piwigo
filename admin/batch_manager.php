@@ -289,13 +289,15 @@ SELECT id
     break;
 
   case 'all_photos':
-    $query = '
+    if ( count($_SESSION['bulk_manager_filter']) == 1 )
+    {// make the query only if this is the only filter
+      $query = '
 SELECT id
   FROM '.IMAGES_TABLE.'
   '.$conf['order_by'];
 
-    $filter_sets[] = array_from_query($query, 'id');
-
+      $filter_sets[] = array_from_query($query, 'id');
+    }
     break;
   }
 
