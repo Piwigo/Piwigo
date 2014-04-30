@@ -106,3 +106,7 @@ $lang['first_contact_title2'] = ' ';
 $lang['first_contact_title23'] = ' ';
 $lang['first_contact_title24'] = ' ';
 $lang['first_contact_title26'] = ' ';
+$lang['first_contact_stp21'] = 'Nākamā cilne ir lapa, kurā jūs varat pārvietot jebkuru virtuālo albūmu.<br>Permalinka cilne ir, lai iestatītu konkrētu url albūmam, tehnisku iemeslu dēļ, piemēram, lai iestatītu konkrētu veidni vai vienkārši pielāgotas saites nosūtīšanai.<br>Bet sāksim rediģēt albumu: noklikšķiniet uz Edit albūmā';
+$lang['first_contact_stp36'] = 'Tēmas ir sistēmiski atkarīgas: tas ir iemesls, kāpēc dažas tēmas nevar izdzēst (pamattēmu nevar izdzēst, ja ir iespējota atvasinātā tēma), vai nevar iespējot citas (atvasinātai tēma ir nepieciešama tās pamattēma). Piemēram, ja jūs novirzāt peli virs Delete saites, ja tēmu nevar izdzēst, uznirstošā informācijas paskaidros kāpēc.';
+$lang['first_contact_stp34'] = 'Tēmas ir viens no trim veidiem, kā pielāgot Piwigo,izmantojot Sprauņus un Veidnes. Uzstādītās Tēmas ir uzskaitītas šeit.<br> Iespējot var vairāk kā vienu tēmut: lietotāji var mainīt savu tēmu, izvēloties vienu no šeit iespējotajām, ja opcija "Atļaut lietotāja pielāgošanu" ir atzīmēta ​​Opciju lapā.';
+$lang['first_contact_stp23'] = 'Slēgt albumu nozīmē, ka tikai administratori varēs redzēt šo albumu: to ir parasti izmanto, ja admins pārvalda albūma rekvizītus  vai ja nevēlas uzreiz publicēt albūmu.';
