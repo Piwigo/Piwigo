@@ -90,19 +90,6 @@ $next_token = 0;
 // the first token must be the identifier for the picture
 if (script_basename() == 'picture')
 {
-  // url compatibility with versions below 1.6
-  if ( isset($_GET['image_id'])
-       and isset($_GET['cat'])
-       and is_numeric($_GET['cat']) )
-  {
-    $url = make_picture_url( array(
-        'section' => 'categories',
-        'category' => get_cat_info($_GET['cat']),
-        'image_id' => $_GET['image_id']
-      ) );
-    redirect($url);
-  }
-
   $token = $tokens[$next_token];
   $next_token++;
   if ( is_numeric($token) )
