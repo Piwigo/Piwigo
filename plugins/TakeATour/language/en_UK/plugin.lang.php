@@ -1,10 +1,13 @@
 <?php
-$lang['First Contact'] = 'First Contact';
 $lang['Start the Tour'] = 'Start the Tour';
 $lang['Visit your Piwigo!'] = 'Visit your Piwigo!';
 $lang['Take a tour and discover the features of your Piwigo gallery » Go to the available tours'] = 'Take a tour and discover the features of your Piwigo gallery » Go to the available tours';
 $lang['TAT_descrp'] = 'Welcome! Here are listed all the available tours to discover the features of your Piwigo gallery.<br>Launch a tour below, then follow the instructions. Click Next/Prev (or use the arrows of your keyboard) to navigate during a tour. During a tour, if you go to an other page of the administration, you will be redirected to the current page of the Tour. If you are stuck and can\'t end the tour, going to <em>Plugins » Take A Tour</em> will end the tour.';
 $lang['takeatour_configpage'] = 'Take A Tour » List of Tours';
+$lang['Prev'] = 'Prev';
+$lang['Next '] = 'Next';
+$lang['End tour'] = 'End tour';
+$lang['First Contact'] = 'First Contact';
 $lang['first_contact_descrp'] = 'Recommended for beginners, this tour introduce you Piwigo, its basic features. It will start by adding pictures, then manage them. The tour continues with album management and permissions, and ends on the customization using the configuration, the themes and the plugins.';
 $lang['first_contact_title1'] = 'Welcome in your Piwigo gallery';
 $lang['first_contact_stp1'] = 'Hello! I will be your guide to discover Piwigo. Please follow my instructions, and click Next (or use the arrows of your keyboard) to navigate. If you go to an other page of the administration, you will be redirected to the current page of the Tour. If you are stuck and can\'t end the tour, going to <em>Plugins » Take A Tour</em> will end the tour.<br>Let\'s start by adding pictures!';
@@ -25,7 +28,7 @@ $lang['first_contact_stp8'] = 'Let\'s edit them! Click on the link. If you don\'
 $lang['first_contact_title9'] = 'The Batch Manager';
 $lang['first_contact_stp9'] = 'You are know in the Batch Manager, where you can batch edit multiple pictures. Here the Caddy is set as a filter because we comes from the upload result page.';
 $lang['first_contact_title10'] = '';
-$lang['first_contact_stp10'] = 'Here is the link to directly access to your caddy: that/s a tool for administrators to easily add pictures to a set in order to edit them in the Batch Manager. You can add photos to the caddy from the public picture page when logged as an admin, or using the action \"Add to caddy\" on the Batch Manager';
+$lang['first_contact_stp10'] = 'Here is the link to directly access to your caddy: that/s a tool for administrators to easily add pictures to a set in order to edit them in the Batch Manager. You can add photos to the caddy from the public picture page when logged as an admin, or using the action "Add to caddy" on the Batch Manager';
 $lang['first_contact_title11'] = 'How to edit a photos';
 $lang['first_contact_stp11'] = 'So you can select from here one or more photos';
 $lang['first_contact_title12'] = '';
