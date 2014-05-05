@@ -85,3 +85,6 @@ $lang['first_contact_title5'] = ' ';
 $lang['first_contact_title6'] = ' ';
 $lang['first_contact_title7'] = ' ';
 $lang['first_contact_title8'] = ' ';
+$lang['Next '] = 'Avanti';
+$lang['Prev'] = 'Indietro';
+$lang['End tour'] = 'Fine Tour';
