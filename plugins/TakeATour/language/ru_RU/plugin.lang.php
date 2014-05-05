@@ -114,3 +114,6 @@ $lang['first_contact_title32'] = ' ';
 $lang['first_contact_title40'] = ' ';
 $lang['first_contact_title41'] = ' ';
 $lang['first_contact_title5'] = ' ';
+$lang['End tour'] = 'Конец тура';
+$lang['Next '] = 'Дальше';
+$lang['Prev'] = 'Назад';
