@@ -843,7 +843,7 @@ $lang['List'] = '列表';
 $lang['Piwigo for Android'] = 'Piwigo Android版';
 $lang['Piwigo for iOS (iPhone, iPad, iPod Touch)'] = 'Piwigo iOS版 (iPhone, iPad, iPod Touch)';
 $lang['Save manual order'] = '保存手动排序';
-$lang['Web Form'] = '网页表单';
+$lang['Web Form'] = '浏览器';
 $lang['You can activate only one mobile theme.'] = '您只能启用一套手机版主题';
 $lang['%u users have automatic permission because they belong to a granted group.'] = '%u 用户因属于有权限的组，所以自动拥有权限。';
 $lang['Adobe Photoshop Lightroom is a photography software designed to manage large quantities of digital images and doing post production work.'] = 'Adobe公司的Photoshop Lightroom是一款图片处理软件，用于管理大量的数字图像和后期制作工作。';
@@ -980,4 +980,3 @@ $lang['Close user details'] = '关闭用户明细';
 $lang['Open user details'] = '打开用户明细';
 $lang['close'] = '关闭';
 $lang['Activate it now'] = '马上激活';
-?>
