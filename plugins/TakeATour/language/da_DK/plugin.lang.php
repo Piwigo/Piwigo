@@ -114,3 +114,6 @@ $lang['first_contact_title5'] = ' ';
 $lang['first_contact_title6'] = ' ';
 $lang['first_contact_title7'] = ' ';
 $lang['first_contact_title8'] = ' ';
+$lang['End tour'] = 'Afslut tur';
+$lang['Next '] = 'Næste';
+$lang['Prev'] = 'Forrige';
