@@ -1180,7 +1180,7 @@ function get_quick_search_results($q, $options)
   $where_clauses[]='i.id IN ('. implode(',', $ids) . ')';
   if (!empty($options['images_where']))
   {
-    $where_clauses[]='('.$images_where.')';
+    $where_clauses[]='('.$options['images_where'].')';
   }
   if ($permissions)
   {
