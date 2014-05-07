@@ -42,3 +42,17 @@ $lang['first_contact_stp21'] = 'La siguiente pestaña es una página donde puede
 $lang['first_contact_stp2'] = 'El enlace está aquí. Haz click en siguiente para continuar.';
 $lang['first_contact_stp20'] = 'Cuando tu ratón está sobre un álbum, aparece información y enlaces. Si arrastras y sueltas un álbum -un bloque con esquinas redondeadas-, cambiarás la posición pudiendo guardar o cancelar el orden manual creado.';
 $lang['first_contact_stp19_b'] = 'Todos los álbumes son llamados "álbumes virtuales". Aquí aparecen listados todos los álbumes "top", los que aparecen en tu galería al abrirla.';
+$lang['first_contact_stp31'] = 'Seguidamente la bandera que se enseñara arriba de cada pagina. Como pueden ver las etiquetas HTML esta aquí autorizadas. Pueden también utilizar la etiqueta %gallery_title% para mostrar el titulo que acaba de seleccionar arriba.
+';
+$lang['first_contact_stp30'] = 'Empezamos por cambiar el titulo';
+$lang['first_contact_stp3'] = 'Pueden añadir fotos desde la primera pestaña con su navegador. Las otras pestañas están dedicadas a otros métodos de envio de fotos.';
+$lang['first_contact_stp29'] = 'En esta primera pagina, informara de lo esencial de la configuración básica de su galería.';
+$lang['first_contact_stp28'] = 'Vamos a ver ahorra las opciones disponibles para hacer funcionar Piwigo a su manera. Clic en Configuración->Opción Siguiente.';
+$lang['first_contact_stp27'] = 'Aviso importante : los web-maestres y administradores no tienen "pase libre" cuando navegan en la parte publica, pero pueden acceder a todos los álbumes y fotos en la parte administración.';
+$lang['first_contact_stp26'] = 'Aquí pueden saltar de un álbum corriente a uno privado, y autorizar el acceso a usuarios y grupos. Por defecto, los permisos no están reflejados en los subálbumes, pero los de los niveles superiores estarán actualizados con los mismos permisos para autorizar los usuarios a navegar hasta el álbum corriente.';
+$lang['first_contact_stp25'] = 'Como lo pueden ver en la ayuda de su Piwigo (enlace arriba derecha) , los permisos sobre los álbumes están posicionados por grupos o por usuarios. Pueden hacer privado/publico varios álbumes simultáneamente usando la pagina de administración de las propriedades de los álbumes.';
+$lang['first_contact_stp24'] = 'Sin ninguna duda, lo mas importante de las paginas son los permisos de un álbum privado. Clic en la pestaña Permisos o clic en Siguiente. ';
+$lang['first_contact_stp23'] = 'Bloquear un álbum significa que solo los administradores pueden ver este álbum. Eso se suele utilizar cuando un administrador cambia las propriedades de un álbum o que no quiere publicar enseguida el álbum. ';
+$lang['Prev'] = 'Anterior';
+$lang['Next '] = 'Siguiente';
+$lang['End tour'] = 'Terminar';
