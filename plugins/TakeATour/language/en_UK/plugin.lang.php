@@ -96,4 +96,40 @@ $lang['first_contact_title42'] = 'Languages';
 $lang['first_contact_stp42'] = 'Piwigo is multilingual. By default, the language displayed by Piwigo change according to the language of the browser of the visitor. If the language of the visitor is not available, the language set by default is used.';
 $lang['first_contact_title43'] = 'It\'s been a great time';
 $lang['first_contact_stp43'] = 'This tour was quite long, but we only have seen a small part of how powerful Piwigo is. Everything has a end, this overview is finished.<br>You can discover much deeper the features of Piwigo by taking an other tour or reading our documentation, on the piwigo.org website.';
+
+
+$lang['2.7 Tour'] = '2.7 Tour';
+$lang['2_7_0_descrp'] = 'Discover What\'s New in Piwigo 2.7';
+$lang['2_7_0_title1'] = 'Welcome in Piwigo 2.7';
+$lang['2_7_0_stp1'] = 'Hello! I will be your guide to discover Piwigo. Please follow my instructions, and click Next (or use the arrows of your keyboard) to navigate. If you go to an other page, you will be redirected to the current page of the Tour.';
+$lang['2_7_0_title2'] = 'First new feature';
+$lang['2_7_0_stp2'] = 'As you can see, a new default plugin has been added: Take A Tour. This plugin helps you to discover your Piwigo. Here is where are listed all the available tours.<br>This page is available in <em>Plugins » Take A Tour</em>';
+$lang['2_7_0_title3'] = 'Quick Search';
+$lang['2_7_0_stp3'] = 'The quick search has been reworked:<br>
+- add OR operator<br>
+- allow grouping using brackets ()<br>
+- add namespace search like:<br>
+ * #snow - searches only tag names for snow<br>
+ * ratio:0.9..1.1 - searches photos with width/height ratio between 0.9 and 1.1 (almost squares)<br>
+ * hits:>10 - searches photos with number of visits >10<br>
+ * size:>10mp - searches photos where width*height > 10 mega pixels<br>
+ * file:.jpg - only jpg images<br>
+- use singular/plural inflections (English/french only for now)<br>';
+$lang['2_7_0_title4'] = '';
+$lang['2_7_0_stp4'] = '';
+$lang['2_7_0_title5'] = '';
+$lang['2_7_0_stp5'] = '';
+$lang['2_7_0_title6'] = '';
+$lang['2_7_0_stp6'] = '';
+$lang['2_7_0_title7'] = '';
+$lang['2_7_0_stp7'] = '';
+$lang['2_7_0_title8'] = '';
+$lang['2_7_0_stp8'] = '';
+$lang['2_7_0_title9'] = '';
+$lang['2_7_0_stp9'] = '';
+$lang['2_7_0_title10'] = '';
+$lang['2_7_0_stp10'] = '';
+$lang['2_7_0_title11'] = 'See you soon!';
+$lang['2_7_0_stp11'] = 'This tour is over.<p style="text-align:center">Enjoy your Piwigo 2.7!</p>If you like Piwigo and want to support us, you can contribute by helping for translations, donating, etc. <a href="http://piwigo.org/basics/contribute" target="_blank">Click here to support us</a>';
+
 ?>
