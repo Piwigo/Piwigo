@@ -40,3 +40,21 @@ $lang['first_contact_title5'] = ' ';
 $lang['first_contact_title6'] = ' ';
 $lang['first_contact_title7'] = ' ';
 $lang['first_contact_title8'] = ' ';
+$lang['End tour'] = '
+';
+$lang['First Contact'] = '
+';
+$lang['Next '] = '
+';
+$lang['Prev'] = '
+';
+$lang['Start the Tour'] = '
+';
+$lang['2_7_0_title6'] = '
+';
+$lang['2_7_0_title7'] = '
+';
+$lang['2_7_0_title8'] = '
+';
+$lang['2_7_0_title9'] = '
+';
