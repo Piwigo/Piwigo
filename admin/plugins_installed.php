@@ -77,6 +77,7 @@ if (isset($_GET['action']) and isset($_GET['plugin']))
       if ($_GET['action'] == 'activate' or $_GET['action'] == 'deactivate')
       {
         $template->delete_compiled_templates();
+        $persistent_cache->purge(true);
       }
       redirect($base_url);
     }

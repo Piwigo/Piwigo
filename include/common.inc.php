@@ -103,6 +103,7 @@ if(isset($conf['show_php_errors']) && !empty($conf['show_php_errors']))
 include(PHPWG_ROOT_PATH . 'include/constants.php');
 include(PHPWG_ROOT_PATH . 'include/functions.inc.php');
 
+$persistent_cache = new PersistentFileCache();
 
 // Database connection
 try

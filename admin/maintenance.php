@@ -146,6 +146,7 @@ DELETE
   {
     $template->delete_compiled_templates();
     FileCombiner::clear_combined_files();
+    $persistent_cache->purge(true);
     break;
   }
   case 'derivatives':

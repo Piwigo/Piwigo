@@ -37,6 +37,7 @@ include_once( PHPWG_ROOT_PATH .'include/derivative_params.inc.php');
 include_once( PHPWG_ROOT_PATH .'include/derivative_std_params.inc.php');
 include_once( PHPWG_ROOT_PATH .'include/derivative.inc.php');
 include_once( PHPWG_ROOT_PATH .'include/template.class.php');
+include_once( PHPWG_ROOT_PATH .'include/cache.class.php');
 
 
 /**

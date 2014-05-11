@@ -291,6 +291,7 @@ SELECT id
       }
       else
       {
+        $cache_key = $persistent_cache->make_key('all_iids'.$user['id'].$user['cache_update_time'].$conf['order_by']);
         unset($page['is_homepage']);
         $where_sql = '1=1';
       }
@@ -301,8 +302,10 @@ SELECT id
       $where_sql = 'category_id = '.$page['category']['id'];
     }
 
-    // main query
-    $query = '
+    if ( !isset($cache_key) || !$persistent_cache->get($cache_key, $page['items']))
+    {
+      // main query
+      $query = '
 SELECT DISTINCT(image_id)
   FROM '.IMAGE_CATEGORY_TABLE.'
     INNER JOIN '.IMAGES_TABLE.' ON id = image_id
@@ -312,7 +315,11 @@ SELECT DISTINCT(image_id)
   '.$conf['order_by'].'
 ;';
 
-    $page['items'] = query2array($query,null, 'image_id');
+      $page['items'] = query2array($query,null, 'image_id');
+      
+      if ( isset($cache_key) )
+        $persistent_cache->set($cache_key, $page['items']);
+    }
   }
 }
 // special sections
