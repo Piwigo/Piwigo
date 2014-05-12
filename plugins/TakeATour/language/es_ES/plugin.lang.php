@@ -94,3 +94,5 @@ $lang['2_7_0_title8'] = ' ';
 $lang['2_7_0_title9'] = ' ';
 $lang['first_contact_title10'] = ' ';
 $lang['first_contact_title12'] = ' ';
+$lang['first_contact_title5'] = ' ';
+$lang['first_contact_title6'] = ' ';
