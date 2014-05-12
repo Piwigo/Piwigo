@@ -713,7 +713,7 @@ $lang['Orphan tags deleted'] = 'Forældreløse tags slettet';
 $lang['Restore'] = 'Genopret';
 $lang['Restore default configuration. You will lose your plugin settings!'] = 'Genopret standardopsætning. Du vil miste dine plugin-indstillinger!';
 $lang['Show menubar'] = 'Vis menubjælke';
-$lang['Add to caddie'] = 'tilføj til kurv';
+$lang['Add to caddie'] = 'Tilføj til kurv';
 $lang['%s has been successfully updated.'] = '%s er blevet opdateret.';
 $lang['%s photos can not be regenerated'] = '%s fotografier kan ikke gendannes';
 $lang['%s photos have been regenerated'] = '%s fotografier er gendannet';
@@ -977,4 +977,3 @@ $lang['Close user details'] = 'Luk brugeroplysninger';
 $lang['Open user details'] = 'Åbn brugeroplysninger';
 $lang['close'] = 'luk';
 $lang['Activate it now'] = 'Aktiver nu';
-?>
