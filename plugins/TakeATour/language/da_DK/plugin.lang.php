@@ -130,3 +130,4 @@ $lang['2_7_0_title6'] = ' ';
 $lang['2_7_0_title7'] = ' ';
 $lang['2_7_0_title8'] = ' ';
 $lang['2_7_0_title9'] = ' ';
+$lang['2_7_0_stp10'] = ' ';
