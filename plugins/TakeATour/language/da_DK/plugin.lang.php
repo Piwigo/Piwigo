@@ -20,18 +20,18 @@
 // | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
-$lang['TAT_descrp'] = 'Velkommen! Her finder du alle tilgængelige opdagelsesture rundt i dit Piwigo-galleris funktionalitet.<br>Start turen herunder, følg dernæst vejledningen. Klik Næste/Foregående (eller anvend pilene på dit tastatur) for at navigere under turen. Hvis du går til en anden administrationsside under turen, vil du blive stillet videre til turens aktuelle side. Hvis du er kørt fast og ikke kan afslutte turen, vil turen blive afsluttet ved at gå til <em>Plugins » Tag på en tur</em>.';
-$lang['first_contact_stp1'] = 'Hej! Jeg vil vise dig rundt i Piwigo. Følg min vejledning, og klik på Næste (eller benyt pilene på dit tastatur) for at navigere.  Hvis du går til en anden administrationsside, vil du blive stillet videre til turens aktuelle side. Hvis du er kørt fast og ikke kan afslutte turen, vil turen blive afsluttet ved at gå til <em>Plugins » Tag på en tur</em>.<br>Lad os begynde med at tilføje billeder!';
+$lang['TAT_descrp'] = 'Velkommen! Her finder du alle tilgængelige udflugter, som hjælper dig med at gå på opdagelse i dit Piwigo-galleris funktionalitet.<br>Start udflugten herunder, følg dernæst vejledningen. Klik Næste/Foregående (eller anvend pilene på dit tastatur) for at navigere under udflugten. Hvis du går til en anden administrationsside under udflugten, vil du blive stillet videre til dens aktuelle side. Hvis du er kørt fast og ikke kan afslutte udflugten, vil den blive afsluttet ved at gå til <em>Plugins » Take A Tour</em>.';
+$lang['first_contact_stp1'] = 'Hej! Jeg vil vise dig rundt i Piwigo. Følg min vejledning, og klik på Næste (eller benyt pilene på dit tastatur) for at navigere.  Hvis du går til en anden administrationsside, vil du blive stillet videre til udflugtens aktuelle side. Hvis du er kørt fast og ikke kan afslutte udflugten, vil den blive afsluttet ved at gå til <em>Plugins » Take A Tour</em>.<br>Lad os begynde med at tilføje billeder!';
 $lang['first_contact_stp10'] = 'Her er et link, som du direkte kan tilgå din kurv med: Det er et værktøj til administratorer, som gør det let at tilføje billeder til et sæt, hvis man ønsker at redigere dem i Batch Manager. Du kan tilføje billeder til kurven fra den offentlige billedside, når du er logget på som administrator, eller benytte handlingen \"Føj til kurv\" i Batch Manager';
 $lang['first_contact_stp11'] = 'Det vil sige, at du herfra kan vælge et eller flere fotografier';
 $lang['first_contact_stp12'] = 'Dernæst redigeres fotografierne ved hjælp af en handling. Men du kan eksempelvis ikke - i øjeblikket - masseredigere beskrivelser, da de for det meste er unikke';
 $lang['first_contact_stp13'] = 'Du kan redigere beskrivelser og mere fra Batch Manager i enhedstilstand. Men lige nu bliver vi i den gloable tilstand';
 $lang['first_contact_stp14'] = 'Du ser et enkelt billedes redigeringsside. Siden er tilgængelig herfra, men også fra den offentlige billedside, når man er logget på som administrator. Klik på Rediger og gå til næste punkt';
 $lang['first_contact_stp15'] = 'På den side kan du redigere alle et billedes egenskaber, eksempelvis ...';
-$lang['first_contact_descrp'] = 'Denne tur, som er anbefalet til begyndere, gør dig bekendt med Piwigo og de grundlæggende funktioner. Den begynder med at tilføje billeder og fortsætter med håndteringen af dem. Turen går videre med håndtering af album og tilladelser, og den slutter  med tilpasning ved hjælp af opsætningensiden, temaerne og plugins.';
+$lang['first_contact_descrp'] = 'Udflugten, som er anbefalet til begyndere, gør dig bekendt med Piwigo og de grundlæggende funktioner. Den begynder med at tilføje billeder og fortsætter med håndteringen af dem. Udflugten går videre med håndtering af album og tilladelser, og den slutter  med tilpasning ved hjælp af opsætningensiden, temaerne og plugins.';
 $lang['First Contact'] = 'Indledning';
-$lang['Start the Tour'] = 'Start turen';
-$lang['Take a tour and discover the features of your Piwigo gallery » Go to the available tours'] = 'Tag på en tur og opdag hvordan dit Piwigo-galleri fungerer » Gå til tilgængelige ture';
+$lang['Start the Tour'] = 'Start udflugten';
+$lang['Take a tour and discover the features of your Piwigo gallery » Go to the available tours'] = 'Tag på en udflugt og opdag hvordan dit Piwigo-galleri fungerer » Gå til tilgængelige udflugter';
 $lang['Visit your Piwigo!'] = 'Besøg din Piwigo!';
 $lang['first_contact_stp16'] = 'Her for at tilføje eller fjerne fotografier fra albummer. Linket er virtuelt, ingen fotografier vil nogensinde blive fjernet fysisk.';
 $lang['first_contact_stp17'] = 'Samt her for at opsætte fotografiet som et albums billedrepræsentant. Det vil sige at du kan opsætte det som repræsentant for et offentlig album, et fotografi i et privat album, hvilket er ideelt til opsætning af skræddersyede miniaturebilleder i albummer, men brugeren ser ikke billederne inde i albummerne. Det svarer til at benytte et portræt af nogen som repræsentant for et album, som indeholder fotografier af natur; det ville være underligt at se et billede af en mand eller kvinde, blandt billeder af træer eller dyr. ';
@@ -48,7 +48,7 @@ $lang['first_contact_stp9'] = 'Du er nu i Batch Manager, hvor man kan masseredig
 $lang['first_contact_stp40'] = 'Hov, det er mig! Deaktiver mig ikke nu, men den kan se, at en aktiveret plugin både kan deaktiveres og genaktiveres.';
 $lang['first_contact_stp41'] = 'På den sidste fane ser man alle tilgængelige plugins til din version af Piwigo. Der er hundredvis af plugins!';
 $lang['first_contact_stp42'] = 'Piwigo er flersproget. Som standard benytter Piwigo den besøgendes webbrowsers sprog. Hvis den besøgendes sprog ikke er tilgængeligt, anvendes i stedet standardsproget.';
-$lang['first_contact_stp43'] = 'Denne tur var ganske lang, og alligevel har vi kun set en lille del af alt det Piwigo kan. Alt må slutte et sted, og denne gennemgang er færdig.<br>Du kan udforske Piwigos funktionalitet meget grundigere, ved at tage på en anden tur eller læses vores dokumentation på hjemmesiden piwigo.org.';
+$lang['first_contact_stp43'] = 'Udflugten var ganske lang, og alligevel har vi kun set en lille del af alt det Piwigo kan. Alt må slutte et sted, og denne gennemgang er færdig.<br>Du kan udforske Piwigos funktionalitet meget grundigere, ved at tage på en anden udflugt eller ved at læse vores dokumentation på hjemmesiden piwigo.org.';
 $lang['first_contact_stp38'] = 'Med plugins er det meget let at tilpasse din Piwigo. De kan næsten alt, hvad man kan forestille sig, fra som teksttilføjelser til komplet funktionalitet, så som Community-plugin\'en, der gør det muligt for brugere, der ikke er administratorer, at uploade uden at gå ind i administrationsdelen.';
 $lang['first_contact_stp39'] = 'På den første side er de installerede plugins opremset. Øverst vises de aktive plugins, det vil sige dem der pt. kører. I bunden vises de plugins, som er installeret i /plugin-mappen, men som er deaktiveret. Slettes en plugin, betyder det at ethvert spor af den bliver fjernet (filer, valgmuligheder, osv.). Ved de fleste plugins bevares dens data, hvis den deaktiveres.';
 $lang['first_contact_stp4'] = 'Vælg først et album, opret et hvis der endnu ikke er nogen.';
@@ -59,7 +59,7 @@ $lang['first_contact_stp35'] = 'Teamer kan også opsættes som standard, hvilket
 $lang['first_contact_title42'] = 'Sprog';
 $lang['first_contact_title43'] = 'Det har været hyggeligt';
 $lang['first_contact_title9'] = 'Batch Manager';
-$lang['takeatour_configpage'] = 'Tag på en tur » Turliste';
+$lang['takeatour_configpage'] = 'Take A Tour » Udflugtsliste';
 $lang['first_contact_title33'] = 'Gæsteindstillinger';
 $lang['first_contact_title34'] = 'Temaer';
 $lang['first_contact_title35'] = 'Temaer';
@@ -114,7 +114,7 @@ $lang['first_contact_title5'] = ' ';
 $lang['first_contact_title6'] = ' ';
 $lang['first_contact_title7'] = ' ';
 $lang['first_contact_title8'] = ' ';
-$lang['End tour'] = 'Afslut tur';
+$lang['End tour'] = 'Afslut udflugt';
 $lang['Next '] = 'Næste';
 $lang['Prev'] = 'Forrige';
 $lang['2_7_0_stp4'] = ' ';
@@ -131,3 +131,22 @@ $lang['2_7_0_title7'] = ' ';
 $lang['2_7_0_title8'] = ' ';
 $lang['2_7_0_title9'] = ' ';
 $lang['2_7_0_stp10'] = ' ';
+$lang['2_7_0_stp3'] = 'Den hurtige søgning er lavet om:<br>
+- tilføjelse af OR-operator<br>
+- tillader parenteser i grupper<br>
+- tilføjer navnerumslignende søgning:<br>
+ * #sne - søger kun blandt tagnavne efter sne<br>
+ * ratio:0.9..1.1 - søger efter fotografier med et bredde-/højdestørrelsesforhold (<q>ratio</q>) mellem 0.9 og 1.1 (næsten kvardratisk)<br>
+ * hits:>10 - søger efter fotografier hvor antallet af visninger (<q>hits</q>) er større end 10<br>
+ * size:>10mp - søger efter fotografier hvor bredde*højde er større (<q>size</q>) end 10 megapixels<br>
+ * file:.jpg - kun jpg-billeder)<br>
+- anvender entals-/flertalsbøjninger (indtil videre kun på engelsk og fransk)<br>';
+$lang['2.7 Tour'] = 'Udflugt i 2.7';
+$lang['2_7_0_stp1'] = 'Hej! Jeg vil vise dig rundt i Piwigo. Følg min vejledning, og klik på Næste (eller benyt pilene på dit tastatur) for at navigere.  Hvis du går til en anden side, vil du blive stillet videre til udflugtens aktuelle side.';
+$lang['2_7_0_stp11'] = 'Udflugten er slut.<p style="text-align:center">God fornøjelse med Piwigo 2.7!</p>Hvis du kan lide Piwigo og ønsker at støtte os, kan du bidrage ved at hjælpe med oversættelser, donationer, osv. <a href="http://da.piwigo.org/basics/contribute" target="_blank">Klik her for at støtte os</a>';
+$lang['2_7_0_stp2'] = 'Som du kan se, er der tilføjet en ny standardplugin: Take A Tour (Tag på en udflugt). Plugin\'en hjælper dig med at udforske din Piwigo. Her er alle tilgængelige udflugter opremset.<br>Siden er tilgængelig under <em>Plugins » Take A Tour</em>';
+$lang['2_7_0_title1'] = 'Velkommen i Piwigo 2.7';
+$lang['2_7_0_title11'] = 'Vi ses snart igen!';
+$lang['2_7_0_title2'] = 'Første nye funktion';
+$lang['2_7_0_title3'] = 'Hurtig søgning';
+$lang['2_7_0_descrp'] = 'Opdag nyhederne i Piwigo 2.7';
