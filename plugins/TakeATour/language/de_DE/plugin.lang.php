@@ -123,3 +123,5 @@ $lang['2_7_0_descrp'] = 'Endecke die Neuigkeiten in Piwigo 2.7';
 $lang['2_7_0_title11'] = 'Bis bald!';
 $lang['2_7_0_title2'] = 'Die ersten neuen Funktionen';
 $lang['2_7_0_title3'] = 'Schnell Suche';
+$lang['first_contact_stp24'] = 'Einer der wichtigsten Seiten ist die Seite für die Zugriffsberechtigungen für Private Alben. Klicke auf den Berechtigungs - Tab oder auf weiter';
+$lang['first_contact_stp42'] = 'Piwigo ist Mehrsprachig. Die Voreinstellung zeigt die Sprache an die vom Browser des Besuchers benutzt wird. Falls die Sprache des Besuchers nicht vorhanden ist wird die Sprache aus der Grundeinstellung genommen.';
