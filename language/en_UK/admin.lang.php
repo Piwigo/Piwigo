@@ -284,7 +284,6 @@ $lang['delete this site and all its attached elements'] = "delete this site and 
 $lang['Delete this theme'] = 'Delete this theme';
 $lang['delete'] = "delete";
 $lang['Deleted on'] = "Deleted on";
-$lang['deleted'] = "deleted";
 $lang['deleted'] = 'deleted';
 $lang['Deletions'] = "Deletions";
 $lang['Deny selected groups'] = "Deny selected groups";
