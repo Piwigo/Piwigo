@@ -265,6 +265,9 @@ define('QST_WILDCARD_END',   0x10);
 define('QST_WILDCARD', QST_WILDCARD_BEGIN|QST_WILDCARD_END);
 define('QST_BREAK',          0x20);
 
+/**
+ * A search scope applies to a single token and restricts the search to a subset of searchable fields.
+ */
 class QSearchScope
 {
   var $id;
@@ -603,8 +606,8 @@ class QMultiToken
               $crt_token .= $ch;
               break;
             }
-            if (strlen($crt_token) && isdigit(substr($crt_token,0,-1)) 
-              && $qi+1<strlen($q) && isdigit($q[$qi+1]))
+            if (strlen($crt_token) && preg_match('/[0-9]/', substr($crt_token,-1)) 
+              && $qi+1<strlen($q) && preg_match('/[0-9]/', $q[$qi+1]))
             {// dot between digits is not a separator e.g. F2.8
               $crt_token .= $ch;
               break;
@@ -703,6 +706,10 @@ class QMultiToken
     }
   }
 
+  /**
+  * Applies recursively a search scope to all sub single tokens. We allow 'tag:(John Bill)' but we cannot evaluate 
+  * scopes on expressions so we rewrite as '(tag:John tag:Bill)'
+  */
   private function apply_scope(QSearchScope $scope)
   {
     for ($i=0; $i<count($this->tokens); $i++)
@@ -1061,6 +1068,7 @@ function qsearch_eval(QMultiToken $expr, QResults $qsr, &$qualifies, &$ignored_t
   return $ids;
 }
 
+
 /**
  * Returns the search results corresponding to a quick/query search.
  * A quick/query search returns many items (search is not strict), but results
@@ -1081,6 +1089,31 @@ function qsearch_eval(QMultiToken $expr, QResults $qsr, &$qualifies, &$ignored_t
  * @return array
  */
 function get_quick_search_results($q, $options)
+{
+  global $persistent_cache, $conf, $user;
+
+  $cache_key = $persistent_cache->make_key( array(
+    strtolower($q),
+    $conf['order_by'],
+    $user['id'],$user['cache_update_time'], 
+    isset($options['permissions']) ? (boolean)$options['permissions'] : true,
+    isset($options['images_where']) ? $options['images_where'] : '',
+    ) );
+  if ($persistent_cache->get($cache_key, $res))
+  {
+    return $res;
+  }
+
+  $res = get_quick_search_results_no_cache($q, $options);
+
+  $persistent_cache->set($cache_key, $res, 300);
+  return $res;
+}
+
+/**
+ * @see get_quick_search_results but without result caching
+ */
+function get_quick_search_results_no_cache($q, $options)
 {
   global $conf;
   //@TODO: maybe cache for 10 minutes the result set to avoid many expensive sql calls when navigating the pictures

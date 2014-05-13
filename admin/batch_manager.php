@@ -394,7 +394,7 @@ SELECT id
 if (isset($_SESSION['bulk_manager_filter']['search']))
 {
   include_once( PHPWG_ROOT_PATH .'include/functions_search.inc.php' );
-  $res = get_quick_search_results($_SESSION['bulk_manager_filter']['search']['q'], array('permissions'=>false));
+  $res = get_quick_search_results_no_cache($_SESSION['bulk_manager_filter']['search']['q'], array('permissions'=>false));
   $filter_sets[] = $res['items'];
 }
 
