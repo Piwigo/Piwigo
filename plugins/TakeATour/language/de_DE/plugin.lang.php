@@ -125,3 +125,5 @@ $lang['2_7_0_title2'] = 'Die ersten neuen Funktionen';
 $lang['2_7_0_title3'] = 'Schnell Suche';
 $lang['first_contact_stp24'] = 'Einer der wichtigsten Seiten ist die Seite für die Zugriffsberechtigungen für Private Alben. Klicke auf den Berechtigungs - Tab oder auf weiter';
 $lang['first_contact_stp42'] = 'Piwigo ist Mehrsprachig. Die Voreinstellung zeigt die Sprache an die vom Browser des Besuchers benutzt wird. Falls die Sprache des Besuchers nicht vorhanden ist wird die Sprache aus der Grundeinstellung genommen.';
+$lang['2_7_0_stp2'] = 'Wie du siehst, wurde ein vorgegebenes Plugin hinzugefügt. Mache eine Tour. Dieses Plugin hilft dir Piwigo zu entdecken. Hier sind alle verfügbaren Touren aufgelistet. <br> Diese Seite ist in <em> Plugins » mache eine Tour</em> verfügbar ';
+$lang['2_7_0_stp11'] = 'Diese Tour ist zu Ende. <p style="text-align:center"> Freue dich über Piwigo 2.7! </p> Wenn dir Piwigo gefällt und du uns unterstützen möchtest, dann kannst du beim übersetzen helfen, etwas Spenden usw.  <a href="http://piwigo.org/basics/contribute" target="_blank"> Klicke hier um uns zu unterstützen </a>';
