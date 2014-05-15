@@ -40,7 +40,7 @@ function initialize_menu()
   $menu->load_registered_blocks();
   $menu->prepare_display();
 
-  if ( $page['section']=='search' and isset($page['qsearch_details']) )
+  if ( @$page['section']=='search' and isset($page['qsearch_details']) )
   {
     $template->assign('QUERY_SEARCH', htmlspecialchars($page['qsearch_details']['q']) );
   }
