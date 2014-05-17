@@ -24,6 +24,7 @@
 .icon-cog-alt:before { content: '\26ef'; } /* '⛯' */
 .icon-wrench:before { content: '🔧'; } /* '\1f527' */
 .icon-basket:before { content: '\e73d'; } /* '' */
+.icon-calendar:before { content: '\e818'; } /* '' */
 .icon-logout:before { content: '\e81b'; } /* '' */
 .icon-clock:before { content: '🕔'; } /* '\1f554' */
 .icon-block:before { content: '🚫'; } /* '\1f6ab' */

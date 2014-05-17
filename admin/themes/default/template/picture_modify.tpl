@@ -76,7 +76,9 @@ tagsCache.get(function(tags) {
 });
 
 {* <!-- DATEPICKER --> *}
-pwg_initialization_datepicker("#date_creation_day", "#date_creation_month", "#date_creation_year", "#date_creation_linked_date", "#date_creation_action_set");
+jQuery(function(){ {* <!-- onLoad needed to wait localization loads --> *}
+  jQuery('[data-datepicker]').pwgDatepicker();
+});
 }());
 {/footer_script}
 
@@ -138,21 +140,13 @@ pwg_initialization_datepicker("#date_creation_day", "#date_creation_month", "#da
     <p>
       <strong>{'Creation date'|@translate}</strong>
       <br>
-      <select id="date_creation_day" name="date_creation_day">
-        <option value="0">--</option>
-{section name=day start=1 loop=32}
-        <option value="{$smarty.section.day.index}" {if $smarty.section.day.index==$DATE_CREATION_DAY_VALUE}selected="selected"{/if}>{$smarty.section.day.index}</option>
-{/section}
-      </select>
-
-      <select id="date_creation_month" name="date_creation_month">
-        {html_options options=$month_list selected=$DATE_CREATION_MONTH_VALUE}
-      </select>
-
-      <input id="date_creation_year" name="date_creation_year" type="text" size="4" maxlength="4" value="{$DATE_CREATION_YEAR_VALUE}">
-      <input id="date_creation_linked_date" name="date_creation_linked_date" type="hidden" size="10" disabled="disabled">
-      <input name="date_creation_time" type="hidden" value="{$DATE_CREATION_TIME_VALUE}">
-      <a href="#" id="unset_date_creation" style="display:none">unset</a>
+      <input type="hidden" name="date_creation_time" value="{$DATE_CREATION_TIME}">
+      <input type="hidden" name="date_creation" value="{$DATE_CREATION}">
+      <label>
+        <i class="icon-calendar"></i>
+        <input type="text" data-datepicker="date_creation" data-datepicker-unset="date_creation_unset" readonly>
+      </label>
+      <a href="#" class="icon-cancel-circled" id="date_creation_unset">{'unset'|translate}</a>
     </p>
 
     <p>

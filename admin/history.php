@@ -73,24 +73,14 @@ $search = array();
 if (isset($_POST['submit']))
 {
   // dates
-  if (!empty($_POST['start_year']))
+  if (!empty($_POST['start']))
   {
-    $search['fields']['date-after'] = sprintf(
-      '%d-%02d-%02d',
-      $_POST['start_year'],
-      $_POST['start_month'],
-      $_POST['start_day']
-      );
+    $search['fields']['date-after'] = $_POST['start'];
   }
 
-  if (!empty($_POST['end_year']))
+  if (!empty($_POST['end']))
   {
-    $search['fields']['date-before'] = sprintf(
-      '%d-%02d-%02d',
-      $_POST['end_year'],
-      $_POST['end_month'],
-      $_POST['end_day']
-      );
+    $search['fields']['date-before'] = $_POST['end'];
   }
 
   if (empty($_POST['types']))
@@ -551,20 +541,12 @@ if (isset($page['search']))
 {
   if (isset($page['search']['fields']['date-after']))
   {
-    $tokens = explode('-', $page['search']['fields']['date-after']);
-
-    $form['start_year']  = (int)$tokens[0];
-    $form['start_month'] = (int)$tokens[1];
-    $form['start_day']   = (int)$tokens[2];
+    $form['start'] = $page['search']['fields']['date-after'];
   }
 
   if (isset($page['search']['fields']['date-before']))
   {
-    $tokens = explode('-', $page['search']['fields']['date-before']);
-
-    $form['end_year']  = (int)$tokens[0];
-    $form['end_month'] = (int)$tokens[1];
-    $form['end_day']   = (int)$tokens[2];
+    $form['end'] = $page['search']['fields']['date-before'];
   }
 
   $form['types'] = $page['search']['fields']['types'];
@@ -588,9 +570,7 @@ else
 {
   // by default, at page load, we want the selected date to be the current
   // date
-  $form['start_year']  = $form['end_year']  = date('Y');
-  $form['start_month'] = $form['end_month'] = date('n');
-  $form['start_day']   = $form['end_day']   = date('j');
+  $form['start'] = $form['end'] = date('Y-n-j');
   $form['types'] = $types;
   // Hoverbox by default
   $form['display_thumbnail'] =
@@ -598,25 +578,13 @@ else
 }
 
 
-$month_list = $lang['month'];
-$month_list[0]='------------';
-ksort($month_list);
-
 $template->assign(
   array(
     'IMAGE_ID' => @$form['image_id'],
     'FILENAME' => @$form['filename'],
     'IP' => @$form['ip'],
-
-    'month_list' => $month_list,
-
-    'START_DAY_SELECTED' => @$form['start_day'],
-    'START_MONTH_SELECTED' => @$form['start_month'],
-    'START_YEAR' => @$form['start_year'],
-
-    'END_DAY_SELECTED' => @$form['end_day'],
-    'END_MONTH_SELECTED' => @$form['end_month'],
-    'END_YEAR'   => @$form['end_year'],
+    'START' => @$form['start'],
+    'END' => @$form['end'],
     )
   );
 

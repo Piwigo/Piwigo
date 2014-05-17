@@ -76,23 +76,21 @@ SELECT id, date_creation
       $data['comment'] = strip_tags(@$_POST['description-'.$row['id']]);
     }
 
-    if (isset($_POST['date_creation_action-'.$row['id']]))
+    if (!empty($_POST['date_creation-'.$row['id']]))
     {
-      if ('set' == $_POST['date_creation_action-'.$row['id']])
+      if (!empty($row['date_creation']))
       {
-        $data['date_creation'] =
-          $_POST['date_creation_year-'.$row['id']]
-            .'-'.$_POST['date_creation_month-'.$row['id']]
-            .'-'.$_POST['date_creation_day-'.$row['id']];
+        list(, $time) = explode(' ', $row['date_creation']);
       }
-      else if ('unset' == $_POST['date_creation_action-'.$row['id']])
+      else
       {
-        $data['date_creation'] = '';
+        $time = '00:00:00';
       }
+      $data['date_creation'] = $_POST['date_creation-'.$row['id']].' '.$time;
     }
     else
     {
-      $data['date_creation'] = $row['date_creation'];
+      $data['date_creation'] = null;
     }
 
     $datas[] = $data;
@@ -128,15 +126,10 @@ $template->set_filenames(
 
 $base_url = PHPWG_ROOT_PATH.'admin.php';
 
-$month_list = $lang['month'];
-$month_list[0]='------------';
-ksort($month_list);
-
 $template->assign(
   array(
     'U_ELEMENTS_PAGE' => $base_url.get_query_string_diff(array('display','start')),
-    'F_ACTION'=>$base_url.get_query_string_diff(array()),
-    'month_list' => $month_list,
+    'F_ACTION' => $base_url.get_query_string_diff(array()),
     'level_options' => get_privacy_level_options(),
     )
   );
@@ -232,11 +225,11 @@ SELECT *
     // creation date
     if (!empty($row['date_creation']))
     {
-      list($year,$month,$day) = explode('-', $row['date_creation']);
+      list($date) = explode(' ', $row['date_creation']);
     }
     else
     {
-      list($year,$month,$day) = array('',0,0);
+      $date = '';
     }
 
     $query = '
@@ -267,9 +260,7 @@ SELECT
         'AUTHOR' => htmlspecialchars(@$row['author']),
         'LEVEL' => !empty($row['level'])?$row['level']:'0',
         'DESCRIPTION' => htmlspecialchars(@$row['comment']),
-        'DATE_CREATION_YEAR' => $year,
-        'DATE_CREATION_MONTH' => (int)$month,
-        'DATE_CREATION_DAY' => (int)$day,
+        'DATE_CREATION' => $date,
         'TAGS' => $tag_selection,
         )
       ));

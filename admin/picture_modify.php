@@ -108,23 +108,7 @@ if (isset($_GET['sync_metadata']))
 }
 
 //--------------------------------------------------------- update informations
-
-// first, we verify whether there is a mistake on the given creation date
-if (isset($_POST['date_creation_action'])
-    and 'set' == $_POST['date_creation_action'])
-{
-  if (!is_numeric($_POST['date_creation_year'])
-    or !checkdate(
-          $_POST['date_creation_month'],
-          $_POST['date_creation_day'],
-          $_POST['date_creation_year'])
-    )
-  {
-    $page['errors'][] = l10n('wrong date');
-  }
-}
-
-if (isset($_POST['submit']) and count($page['errors']) == 0)
+if (isset($_POST['submit']))
 {
   $data = array();
   $data['id'] = $_GET['image_id'];
@@ -141,13 +125,9 @@ if (isset($_POST['submit']) and count($page['errors']) == 0)
     $data['comment'] = strip_tags(@$_POST['description']);
   }
 
-  if (!empty($_POST['date_creation_year']))
+  if (!empty($_POST['date_creation']))
   {
-    $data['date_creation'] =
-      $_POST['date_creation_year']
-      .'-'.$_POST['date_creation_month']
-      .'-'.$_POST['date_creation_day']
-      .' '.$_POST['date_creation_time'];
+    $data['date_creation'] = $_POST['date_creation'].' '.$_POST['date_creation_time'];
   }
   else
   {
@@ -339,37 +319,20 @@ $template->assign(
 // creation date
 unset($day, $month, $year);
 
-if (isset($_POST['date_creation_action'])
-    and 'set' == $_POST['date_creation_action'])
+if (!empty($row['date_creation']))
 {
-  foreach (array('day', 'month', 'year', 'time') as $varname)
-  {
-    $$varname = $_POST['date_creation_'.$varname];
-  }
-}
-else if (isset($row['date_creation']) and !empty($row['date_creation']))
-{
-  list($year, $month, $day) = explode('-', substr($row['date_creation'],0,10));
-  $time = substr($row['date_creation'],11);
+  list($date, $time) = explode(' ', $row['date_creation']);
 }
 else
 {
-  list($year, $month, $day) = array('', 0, 0);
+  $date = '';
   $time = '00:00:00';
 }
 
-
-$month_list = $lang['month'];
-$month_list[0]='------------';
-ksort($month_list);
-
 $template->assign(
     array(
-      'DATE_CREATION_DAY_VALUE' => (int)$day,
-      'DATE_CREATION_MONTH_VALUE' => (int)$month,
-      'DATE_CREATION_YEAR_VALUE' => $year,
-      'DATE_CREATION_TIME_VALUE' => $time,
-      'month_list' => $month_list,
+      'DATE_CREATION' => $date,
+      'DATE_CREATION_TIME' => $time,
       )
     );
 

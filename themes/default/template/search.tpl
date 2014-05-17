@@ -3,17 +3,6 @@
 {include file='include/resize.inc.tpl'}
 *}
 
-{* Example of datepicker *}
-{*
-{include file='include/datepicker.inc.tpl'}
-
-{footer_script}{literal}
-  pwg_initialization_datepicker("#start_day", "#start_month", "#start_year", "#start_linked_date", null, null, "#end_linked_date");
-  pwg_initialization_datepicker("#end_day", "#end_month", "#end_year", "#end_linked_date", null, "#start_linked_date", null);
- jQuery().ready(function(){ $(".date_today").hide(); });
-{/literal}{/footer_script}
-*}
-
 {if isset($MENUBAR)}{$MENUBAR}{/if}
 <div id="content" class="content{if isset($MENUBAR)} contentWithMenu{/if}">
 

@@ -286,16 +286,13 @@ DELETE
   // date_creation
   if ('date_creation' == $action)
   {
-    $date_creation = sprintf(
-      '%u-%u-%u',
-      $_POST['date_creation_year'],
-      $_POST['date_creation_month'],
-      $_POST['date_creation_day']
-      );
-
-    if (isset($_POST['remove_date_creation']))
+    if (isset($_POST['remove_date_creation']) || empty($_POST['date_creation']))
     {
       $date_creation = null;
+    }
+    else
+    {
+      $date_creation = $_POST['date_creation'].' 00:00:00';
     }
 
     $datas = array();
@@ -567,24 +564,8 @@ if (count($page['cat_elements_id']) > 0)
 }
 
 // creation date
-$day =
-empty($_POST['date_creation_day']) ? date('j') : $_POST['date_creation_day'];
-
-$month =
-empty($_POST['date_creation_month']) ? date('n') : $_POST['date_creation_month'];
-
-$year =
-empty($_POST['date_creation_year']) ? date('Y') : $_POST['date_creation_year'];
-
-$month_list = $lang['month'];
-$month_list[0]='------------';
-ksort($month_list);
-$template->assign( array(
-      'month_list'         => $month_list,
-      'DATE_CREATION_DAY'  => (int)$day,
-      'DATE_CREATION_MONTH'=> (int)$month,
-      'DATE_CREATION_YEAR' => (int)$year,
-    )
+$template->assign('DATE_CREATION',
+  empty($_POST['date_creation']) ? date('y-n-j') : $_POST['date_creation']
   );
 
 // image level options

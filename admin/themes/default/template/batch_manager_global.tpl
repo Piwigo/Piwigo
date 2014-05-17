@@ -8,10 +8,6 @@
 {combine_css path="themes/default/js/ui/theme/jquery.ui.slider.css"}
 
 {footer_script}{literal}
-  pwg_initialization_datepicker("#date_creation_day", "#date_creation_month", "#date_creation_year", "#date_creation_linked_date", "#date_creation_action_set");
-{/literal}{/footer_script}
-
-{footer_script}{literal}
 /* Shift-click: select all photos between the click and the shift+click */
 jQuery(document).ready(function() {
   var last_clicked=0;
@@ -64,6 +60,8 @@ jQuery(document).ready(function() {
 
 {footer_script require='jquery.tokeninput'}
 jQuery(document).ready(function() {ldelim}
+  jQuery('[data-datepicker]').pwgDatepicker();
+
   jQuery("a.preview-box").colorbox();
   
 	var tag_src = [{foreach from=$tags item=tag name=tags}{ldelim}name:"{$tag.name|@escape:'javascript'}",id:"{$tag.id}"{rdelim}{if !$smarty.foreach.tags.last},{/if}{/foreach}];
@@ -865,22 +863,11 @@ UL.thumbnails SPAN.wrap2 {ldelim}
     <div id="action_date_creation" class="bulkAction">
       <label><input type="checkbox" name="remove_date_creation"> {'remove creation date'|@translate}</label><br>
       <div id="set_date_creation">
-          <select id="date_creation_day" name="date_creation_day">
-             <option value="0">--</option>
-            {section name=day start=1 loop=32}
-              <option value="{$smarty.section.day.index}" {if $smarty.section.day.index==$DATE_CREATION_DAY}selected="selected"{/if}>{$smarty.section.day.index}</option>
-            {/section}
-          </select>
-          <select id="date_creation_month" name="date_creation_month">
-            {html_options options=$month_list selected=$DATE_CREATION_MONTH}
-          </select>
-          <input id="date_creation_year"
-                 name="date_creation_year"
-                 type="text"
-                 size="4"
-                 maxlength="4"
-                 value="{$DATE_CREATION_YEAR}">
-          <input id="date_creation_linked_date" name="date_creation_linked_date" type="hidden" size="10" disabled="disabled">
+        <input type="hidden" name="date_creation" value="{$DATE_CREATION}">
+        <label>
+          <i class="icon-calendar"></i>
+          <input type="text" data-datepicker="date_creation" readonly>
+        </label>
       </div>
     </div>
 

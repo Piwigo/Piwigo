@@ -1,10 +1,11 @@
 
 {include file='include/datepicker.inc.tpl'}
 
-{footer_script}{literal}
-	pwg_initialization_datepicker("#start_day", "#start_month", "#start_year", "#start_linked_date", null, null, "#end_linked_date");
-	pwg_initialization_datepicker("#end_day", "#end_month", "#end_year", "#end_linked_date", null, "#start_linked_date", null);
-{/literal}{/footer_script}
+{footer_script}
+jQuery(function(){ {* <!-- onLoad needed to wait localization loads --> *}
+  jQuery('[data-datepicker]').pwgDatepicker();
+});
+{/footer_script}
 
 <h2>{'History'|@translate} {$TABSHEET_TITLE}</h2>
 
@@ -14,33 +15,25 @@
   <ul>
     <li><label>{'Date'|@translate}</label></li>
     <li>
-      <select id="start_day" name="start_day">
-        <option value="0">--</option>
-        {section name=day start=1 loop=32}
-        <option value="{$smarty.section.day.index}" {if $smarty.section.day.index==$START_DAY_SELECTED}selected="selected"{/if}>{$smarty.section.day.index}</option>
-        {/section}
-      </select>
-      <select id="start_month" name="start_month">
-      {html_options options=$month_list selected=$START_MONTH_SELECTED}
-      </select>
-      <input id="start_year" name="start_year" value="{$START_YEAR}" type="text" size="4" maxlength="4" >
-      <input id="start_linked_date" name="start_linked_date" type="hidden" size="10" disabled="disabled">
+      <input type="hidden" name="start" value="{$START}">
+      <label>
+        <i class="icon-calendar"></i>
+        <input type="text" data-datepicker="start" data-datepicker-end="end" data-datepicker-unset="start_unset" readonly>
+      </label>
+      <br>
+      <a href="#" class="icon-cancel-circled" id="start_unset">{'unset'|translate}</a>
     </li>
   </ul>
   <ul>
     <li><label>{'End-Date'|@translate}</label></li>
     <li>
-      <select id="end_day" name="end_day">
-        <option value="0">--</option>
-        {section name=day start=1 loop=32}
-        <option value="{$smarty.section.day.index}" {if $smarty.section.day.index==$END_DAY_SELECTED}selected="selected"{/if}>{$smarty.section.day.index}</option>
-        {/section}
-      </select>
-      <select id="end_month" name="end_month">
-      {html_options options=$month_list selected=$END_MONTH_SELECTED}
-      </select>
-      <input id="end_year" name="end_year" value="{$END_YEAR}" type="text" size="4" maxlength="4" >
-      <input id="end_linked_date" name="end_linked_date" type="hidden" size="10" disabled="disabled">
+      <input type="hidden" name="end" value="{$END}">
+      <label>
+        <i class="icon-calendar"></i>
+        <input type="text" data-datepicker="end" data-datepicker-start="start" data-datepicker-unset="end_unset" readonly>
+      </label>
+      <br>
+      <a href="#" class="icon-cancel-circled" id="end_unset">{'unset'|translate}</a>
     </li>
   </ul>
 

@@ -48,6 +48,20 @@ tagsCache.get(function(tags) {
     }, this));
   });
 });
+
+{* <!-- DATEPICKER --> *}
+jQuery(function(){ {* <!-- onLoad needed to wait localization loads --> *}
+  jQuery('[data-datepicker]').pwgDatepicker();
+});
+
+{* <!-- THUMBNAILS --> *}
+$(".elementEdit img")
+  .css("opacity", 0.6) // Opacity on page load
+  .hover(function(){
+    $(this).fadeTo("slow", 1.0); // Opacity on hover
+  },function(){
+    $(this).fadeTo("slow", 0.6); // Opacity on mouseout
+  });
 }());
 {/footer_script}
 
@@ -94,28 +108,12 @@ tagsCache.get(function(tags) {
     <tr>
       <td><strong>{'Creation date'|@translate}</strong></td>
       <td>
-        <label><input type="radio" name="date_creation_action-{$element.id}" value="unset"> {'unset'|@translate}</label>
-        <label><input type="radio" name="date_creation_action-{$element.id}" value="set" id="date_creation_action_set-{$element.id}"> {'set to'|@translate}</label>
-
-        <select id="date_creation_day-{$element.id}" name="date_creation_day-{$element.id}">
-         	<option value="0">--</option>
-           {section name=day start=1 loop=32}
-             <option value="{$smarty.section.day.index}" {if $smarty.section.day.index==$element.DATE_CREATION_DAY}selected="selected"{/if}>{$smarty.section.day.index}</option>
-           {/section}
-        </select>
-        <select id="date_creation_month-{$element.id}" name="date_creation_month-{$element.id}">
-          {html_options options=$month_list selected=$element.DATE_CREATION_MONTH}
-        </select>
-        <input id="date_creation_year-{$element.id}"
-               name="date_creation_year-{$element.id}"
-               type="text"
-               size="4"
-               maxlength="4"
-               value="{$element.DATE_CREATION_YEAR}">
-        <input id="date_creation_linked_date-{$element.id}" name="date_creation_linked_date-{$element.id}" type="hidden" size="10" disabled="disabled">
-        {footer_script}
-          pwg_initialization_datepicker("#date_creation_day-{$element.id}", "#date_creation_month-{$element.id}", "#date_creation_year-{$element.id}", "#date_creation_linked_date-{$element.id}", "#date_creation_action_set-{$element.id}");
-        {/footer_script}
+        <input type="hidden" name="date_creation-{$element.id}" value="{$element.DATE_CREATION}">
+        <label>
+          <i class="icon-calendar"></i>
+          <input type="text" data-datepicker="date_creation-{$element.id}" data-datepicker-unset="date_creation_unset-{$element.id}" readonly>
+        </label>
+        <a href="#" class="icon-cancel-circled" id="date_creation_unset-{$element.id}">{'unset'|translate}</a>
       </td>
     </tr>
     <tr>
@@ -154,15 +152,3 @@ tagsCache.get(function(tags) {
 {/if}
 
 </form>
-
-{footer_script}
-{literal}$(document).ready(function() {
-	$(".elementEdit img")
-		.fadeTo("slow", 0.6) // Opacity on page load
-		.hover(function(){
-			$(this).fadeTo("slow", 1.0); // Opacity on hover
-		},function(){
-   		$(this).fadeTo("slow", 0.6); // Opacity on mouseout
-		});
-});{/literal}
-{/footer_script}
