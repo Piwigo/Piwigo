@@ -116,6 +116,7 @@ SELECT id, date_creation
     );
 
   $page['infos'][] = l10n('Photo informations updated');
+  invalidate_user_cache();
 }
 
 // +-----------------------------------------------------------------------+
@@ -134,7 +135,7 @@ ksort($month_list);
 $template->assign(
   array(
     'U_ELEMENTS_PAGE' => $base_url.get_query_string_diff(array('display','start')),
-    'F_ACTION'=>$base_url.get_query_string_diff(array()),    
+    'F_ACTION'=>$base_url.get_query_string_diff(array()),
     'month_list' => $month_list,
     'level_options' => get_privacy_level_options(),
     )
@@ -192,11 +193,11 @@ if (count($page['cat_elements_id']) > 0)
   $query = '
 SELECT *
   FROM '.IMAGES_TABLE;
-  
+
   if ($is_category)
   {
     $category_info = get_cat_info($_SESSION['bulk_manager_filter']['category']);
-    
+
     $conf['order_by'] = $conf['order_by_inside_category'];
     if (!empty($category_info['image_order']))
     {

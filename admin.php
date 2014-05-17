@@ -270,7 +270,6 @@ if (
           'album',        // public/private; lock/unlock, permissions
           'cat_move',
           'cat_options',  // public/private; lock/unlock
-          'batch_manager',  // associate/dissociate; delete; set level
           'user_list',    // group assoc; user level
           'user_perm',
         )

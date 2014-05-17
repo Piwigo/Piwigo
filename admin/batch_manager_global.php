@@ -87,6 +87,11 @@ if (isset($_POST['submit']))
 
   $action = $_POST['selectAction'];
 
+  if (!in_array($action, array('remove_from_caddie','add_to_caddie','delete_derivatives','generate_derivatives')))
+  {
+    invalidate_user_cache();
+  }
+
   if ('remove_from_caddie' == $action)
   {
     $query = '
@@ -376,7 +381,7 @@ DELETE
     $page['infos'][] = l10n('Metadata synchronized from file');
   }
 
-  if ('delete_derivatives' == $action)
+  if ('delete_derivatives' == $action && !empty($_POST['del_derivatives_type']))
   {
     $query='SELECT path,representative_ext FROM '.IMAGES_TABLE.'
   WHERE id IN ('.implode(',', $collection).')';
@@ -493,7 +498,8 @@ $categories = array_from_query($query);
 usort($categories, 'global_rank_compare');
 display_select_categories($categories, array(), 'category_full_name_options', true);
 
-display_select_cat_wrapper($query, array(), 'category_parent_options');
+$template->assign('category_parent_options', $template->get_template_vars('category_full_name_options'));
+$template->assign('category_parent_options_selected', array());
 
 // in the filter box, which category to select by default
 $selected_category = array();
