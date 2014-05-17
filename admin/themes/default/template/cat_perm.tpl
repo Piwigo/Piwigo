@@ -1,39 +1,75 @@
-{combine_script id='jquery.chosen' load='footer' path='themes/default/js/plugins/chosen.jquery.min.js'}
-{combine_css path="themes/default/js/plugins/chosen.css"}
+{combine_script id='LocalStorageCache' load='footer' path='admin/themes/default/js/LocalStorageCache.js'}
 
-{footer_script}{literal}
-jQuery(document).ready(function() {
-  jQuery(".chzn-select").chosen();
+{combine_script id='jquery.selectize' load='footer' path='themes/default/js/plugins/selectize.min.js'}
+{combine_css id='jquery.selectize' path="themes/default/js/plugins/selectize.default.css"}
 
-  function checkStatusOptions() {
-    if (jQuery("input[name=status]:checked").val() == "private") {
-      jQuery("#privateOptions, #applytoSubAction").show();
-    }
-    else {
-      jQuery("#privateOptions, #applytoSubAction").hide();
-    }
-  }
-
-  checkStatusOptions();
-  jQuery("#selectStatus").change(function() {
-    checkStatusOptions();
-  });
-
-  jQuery("#indirectPermissionsDetailsShow").click(function(){
-    jQuery("#indirectPermissionsDetailsShow").hide();
-    jQuery("#indirectPermissionsDetailsHide").show();
-    jQuery("#indirectPermissionsDetails").show();
-    return false;
-  });
-
-  jQuery("#indirectPermissionsDetailsHide").click(function(){
-    jQuery("#indirectPermissionsDetailsShow").show();
-    jQuery("#indirectPermissionsDetailsHide").hide();
-    jQuery("#indirectPermissionsDetails").hide();
-    return false;
+{footer_script}
+(function(){
+{* <!-- GROUPS --> *}
+var groupsCache = new LocalStorageCache('groupsAdminList', 5*60, function(callback) {
+  jQuery.getJSON('{$ROOT_URL}ws.php?format=json&method=pwg.groups.getList&per_page=99999', function(data) {
+    callback(data.result.groups);
   });
 });
-{/literal}{/footer_script}
+
+jQuery('[data-selectize=groups]').selectize({
+  valueField: 'id',
+  labelField: 'name',
+  searchField: ['name'],
+  plugins: ['remove_button']
+});
+
+groupsCache.get(function(groups) {
+  jQuery('[data-selectize=groups]').each(function() {
+    this.selectize.load(function(callback) {
+      callback(groups);
+    });
+
+    jQuery.each(jQuery(this).data('value'), jQuery.proxy(function(i, id) {
+      this.selectize.addItem(id);
+    }, this));
+  });
+});
+
+{* <!-- USERS --> *}
+var usersCache = new LocalStorageCache('usersAdminList', 5*60, function(callback) {
+  var page = 0,
+      users = [];
+   
+  (function load(page){
+    jQuery.getJSON('{$ROOT_URL}ws.php?format=json&method=pwg.users.getList&display=username&per_page=99999&page='+ page, function(data) {
+      users = users.concat(data.result.users);
+      
+      if (data.result.paging.count == data.result.paging.per_page) {
+        load(++page);
+      }
+      else {
+        callback(users);
+      }
+    });
+  }(page));
+});
+
+jQuery('[data-selectize=users]').selectize({
+  valueField: 'id',
+  labelField: 'username',
+  searchField: ['username'],
+  plugins: ['remove_button']
+});
+
+usersCache.get(function(users) {
+  jQuery('[data-selectize=users]').each(function() {
+    this.selectize.load(function(callback) {
+      callback(users);
+    });
+
+    jQuery.each(jQuery(this).data('value'), jQuery.proxy(function(i, id) {
+      this.selectize.addItem(id);
+    }, this));
+  });
+});
+}());
+{/footer_script}
 
 <div class="titrePage">
   <h2><span style="letter-spacing:0">{$CATEGORIES_NAV}</span> &#8250; {'Edit album'|@translate} {$TABSHEET_TITLE}</h2>
@@ -58,9 +94,8 @@ jQuery(document).ready(function() {
 {if count($groups) > 0}
     <strong>{'Permission granted for groups'|@translate}</strong>
     <br>
-    <select data-placeholder="{'Select groups...'|@translate}" class="chzn-select" multiple style="width:700px;" name="groups[]">
-      {html_options options=$groups selected=$groups_selected}
-    </select>
+    <select data-selectize="groups" data-value="{$groups_selected|@json_encode|escape:html}"
+        name="groups[]" multiple style="width:600px;" ></select>
 {else}
     {'There is no group in this gallery.'|@translate} <a href="admin.php?page=group_list" class="externalLink">{'Group management'|@translate}</a>
 {/if}
@@ -69,12 +104,11 @@ jQuery(document).ready(function() {
   <p>
     <strong>{'Permission granted for users'|@translate}</strong>
     <br>
-    <select data-placeholder="{'Select users...'|@translate}" class="chzn-select" multiple style="width:700px;" name="users[]">
-      {html_options options=$users selected=$users_selected}
-    </select>
+    <select data-selectize="users" data-value="{$users_selected|@json_encode|escape:html}"
+        name="users[]" multiple style="width:600px;" ></select>
   </p>
 
-{if isset($nb_users_granted_indirect)}
+{if isset($nb_users_granted_indirect) && $nb_users_granted_indirect>0}
   <p>
     {'%u users have automatic permission because they belong to a granted group.'|@translate:$nb_users_granted_indirect}
     <a href="#" id="indirectPermissionsDetailsHide" style="display:none">{'hide details'|@translate}</a>

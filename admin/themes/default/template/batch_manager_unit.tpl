@@ -2,25 +2,53 @@
 {include file='include/datepicker.inc.tpl'}
 {include file='include/colorbox.inc.tpl'}
 
-{combine_css path='themes/default/js/plugins/jquery.tokeninput.css'}
-{combine_script id='jquery.tokeninput' load='async' require='jquery' path='themes/default/js/plugins/jquery.tokeninput.js'}
-{footer_script require='jquery.tokeninput'}
-jQuery(document).ready(function() {ldelim}
-	jQuery('select[name|="tags"]').tokenInput(
-		[{foreach from=$tags item=tag name=tags}{ldelim}name:"{$tag.name|@escape:'javascript'}",id:"{$tag.id}"{rdelim}{if !$smarty.foreach.tags.last},{/if}{/foreach}],
-    {ldelim}
-      hintText: '{'Type in a search term'|@translate}',
-      noResultsText: '{'No results'|@translate}',
-      searchingText: '{'Searching...'|@translate}',
-      newText: ' ({'new'|@translate})',
-      animateDropdown: false,
-      preventDuplicates: true,
-      allowFreeTagging: true
-    }
-  );
+{combine_script id='LocalStorageCache' load='footer' path='admin/themes/default/js/LocalStorageCache.js'}
 
-  jQuery("a.preview-box").colorbox();
+{combine_script id='jquery.selectize' load='footer' path='themes/default/js/plugins/selectize.min.js'}
+{combine_css id='jquery.selectize' path="themes/default/js/plugins/selectize.default.css"}
+
+{footer_script}
+(function(){
+{* <!-- TAGS --> *}
+var tagsCache = new LocalStorageCache('tagsAdminList', 5*60, function(callback) {
+  jQuery.getJSON('{$ROOT_URL}ws.php?format=json&method=pwg.tags.getAdminList', function(data) {
+    var tags = data.result.tags;
+    
+    for (var i=0, l=tags.length; i<l; i++) {
+      tags[i].id = '~~' + tags[i].id + '~~';
+    }
+    
+    callback(tags);
+  });
 });
+
+jQuery('[data-selectize=tags]').selectize({
+  valueField: 'id',
+  labelField: 'name',
+  searchField: ['name'],
+  plugins: ['remove_button'],
+  create: function(input, callback) {
+    tagsCache.clear();
+    
+    callback({
+      id: input,
+      name: input
+    });
+  }
+});
+
+tagsCache.get(function(tags) {
+  jQuery('[data-selectize=tags]').each(function() {
+    this.selectize.load(function(callback) {
+      callback(tags);
+    });
+
+    jQuery.each(jQuery(this).data('value'), jQuery.proxy(function(i, tag) {
+      this.selectize.addItem(tag.id);
+    }, this));
+  });
+});
+}());
 {/footer_script}
 
 <h2>{'Batch Manager'|@translate}</h2>
@@ -102,13 +130,8 @@ jQuery(document).ready(function() {ldelim}
     <tr>
       <td><strong>{'Tags'|@translate}</strong></td>
       <td>
-
-<select name="tags-{$element.id}">
-{foreach from=$element.TAGS item=tag}
-  <option value="{$tag.id}" class="selected">{$tag.name}</option>
-{/foreach}
-</select>
-
+        <select data-selectize="tags" data-value="{$element.TAGS|@json_encode|escape:html}"
+          name="tags-{$element.id}[]" multiple style="width:500px;" ></select>
       </td>
     </tr>
 

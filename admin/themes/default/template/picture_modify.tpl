@@ -10,7 +10,7 @@
 {footer_script}
 (function(){
 {* <!-- CATEGORIES --> *}
-var categoriesCache = new LocalStorageCache('categoriesAdminList', 60, function(callback) {
+var categoriesCache = new LocalStorageCache('categoriesAdminList', 5*60, function(callback) {
   jQuery.getJSON('{$ROOT_URL}ws.php?format=json&method=pwg.categories.getAdminList', function(data) {
     callback(data.result.categories);
   });
@@ -24,25 +24,19 @@ jQuery('[data-selectize=categories]').selectize({
 });
 
 categoriesCache.get(function(categories) {
-  var selects = jQuery('[data-selectize=categories]');
-
-  jQuery.each(categories, function(i, category) {
-    selects.each(function() {
-      this.selectize.addOption(category);
+  jQuery('[data-selectize=categories]').each(function() {
+    this.selectize.load(function(callback) {
+      callback(categories);
     });
-  });
-  
-  selects.each(function() {
-    var that = this;
 
-    jQuery.each(jQuery(this).data('value'), function(i, id) {
-      that.selectize.addItem(id);
-    });
+    jQuery.each(jQuery(this).data('value'), jQuery.proxy(function(i, id) {
+      this.selectize.addItem(id);
+    }, this));
   });
 });
 
 {* <!-- TAGS --> *}
-var tagsCache = new LocalStorageCache('tagsAdminList', 60, function(callback) {
+var tagsCache = new LocalStorageCache('tagsAdminList', 5*60, function(callback) {
   jQuery.getJSON('{$ROOT_URL}ws.php?format=json&method=pwg.tags.getAdminList', function(data) {
     var tags = data.result.tags;
     
@@ -70,20 +64,14 @@ jQuery('[data-selectize=tags]').selectize({
 });
 
 tagsCache.get(function(tags) {
-  var selects = jQuery('[data-selectize=tags]');
-
-  jQuery.each(tags, function(i, tag) {
-    selects.each(function() {
-      this.selectize.addOption(tag);
+  jQuery('[data-selectize=tags]').each(function() {
+    this.selectize.load(function(callback) {
+      callback(tags);
     });
-  });
-  
-  selects.each(function() {
-    var that = this;
 
-    jQuery.each(jQuery(this).data('value'), function(i, tag) {
-      that.selectize.addItem(tag.id);
-    });
+    jQuery.each(jQuery(this).data('value'), jQuery.proxy(function(i, tag) {
+      this.selectize.addItem(tag.id);
+    }, this));
   });
 });
 

@@ -218,14 +218,6 @@ SELECT
 ;';
 $tag_selection = get_taglist($query);
 
-$query = '
-SELECT
-    id,
-    name
-  FROM '.TAGS_TABLE.'
-;';
-$tags = get_taglist($query, false);
-
 // retrieving direct information about picture
 $query = '
 SELECT *
@@ -258,7 +250,6 @@ $admin_url_start.= isset($_GET['cat_id']) ? '&amp;cat_id='.$_GET['cat_id'] : '';
 $template->assign(
   array(
     'tag_selection' => $tag_selection,
-    'tags' => $tags,
     'U_SYNC' => $admin_url_start.'&amp;sync_metadata=1',
     'U_DELETE' => $admin_url_start.'&amp;delete=1&amp;pwg_token='.get_pwg_token(),
 
