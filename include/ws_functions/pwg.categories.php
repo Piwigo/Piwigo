@@ -486,7 +486,7 @@ SELECT category_id, COUNT(*) AS counter
   FROM '. IMAGE_CATEGORY_TABLE .'
   GROUP BY category_id
 ;';
-  $nb_images_of = simple_hash_from_query($query, 'category_id', 'counter');
+  $nb_images_of = query2array($query, 'category_id', 'counter');
 
   $query = '
 SELECT id, name, comment, uppercats, global_rank
@@ -505,6 +505,12 @@ SELECT id, name, comment, uppercats, global_rank
         'render_category_name',
         $row['name'],
         'ws_categories_getAdminList'
+        )
+      );
+    $row['fullname'] = strip_tags(
+      get_cat_display_name_cache(
+        $row['uppercats'],
+        null
         )
       );
     $row['comment'] = strip_tags(

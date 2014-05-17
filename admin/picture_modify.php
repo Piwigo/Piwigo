@@ -42,7 +42,7 @@ SELECT id
   FROM '.CATEGORIES_TABLE.'
   WHERE representative_picture_id = '.$_GET['image_id'].'
 ;';
-$represent_options_selected = array_from_query($query, 'id');
+$represent_options_selected = query2array($query, null, 'id');
 
 // +-----------------------------------------------------------------------+
 // |                             delete photo                              |
@@ -127,23 +127,23 @@ if (isset($_POST['date_creation_action'])
 if (isset($_POST['submit']) and count($page['errors']) == 0)
 {
   $data = array();
-  $data{'id'} = $_GET['image_id'];
-  $data{'name'} = $_POST['name'];
-  $data{'author'} = $_POST['author'];
+  $data['id'] = $_GET['image_id'];
+  $data['name'] = $_POST['name'];
+  $data['author'] = $_POST['author'];
   $data['level'] = $_POST['level'];
 
   if ($conf['allow_html_descriptions'])
   {
-    $data{'comment'} = @$_POST['description'];
+    $data['comment'] = @$_POST['description'];
   }
   else
   {
-    $data{'comment'} = strip_tags(@$_POST['description']);
+    $data['comment'] = strip_tags(@$_POST['description']);
   }
 
   if (!empty($_POST['date_creation_year']))
   {
-    $data{'date_creation'} =
+    $data['date_creation'] =
       $_POST['date_creation_year']
       .'-'.$_POST['date_creation_month']
       .'-'.$_POST['date_creation_day']
@@ -151,7 +151,7 @@ if (isset($_POST['submit']) and count($page['errors']) == 0)
   }
   else
   {
-    $data{'date_creation'} = null;
+    $data['date_creation'] = null;
   }
 
   $data = trigger_change('picture_modify_before_update', $data);
@@ -469,14 +469,9 @@ SELECT id
     INNER JOIN '.IMAGE_CATEGORY_TABLE.' ON id = category_id
   WHERE image_id = '.$_GET['image_id'].'
 ;';
-$associate_options_selected = array_from_query($query, 'id');
+$associate_options_selected = query2array($query, null, 'id');
 
-$query = '
-SELECT id,name,uppercats,global_rank
-  FROM '.CATEGORIES_TABLE.'
-;';
-display_select_cat_wrapper($query, $associate_options_selected, 'associate_options');
-display_select_cat_wrapper($query, $represent_options_selected, 'represent_options');
+$template->assign(compact('associate_options_selected', 'represent_options_selected'));
 
 trigger_action('loc_end_picture_modify');
 

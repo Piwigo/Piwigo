@@ -2,36 +2,94 @@
 {include file='include/dbselect.inc.tpl'}
 {include file='include/datepicker.inc.tpl'}
 
-{combine_script id='jquery.chosen' load='footer' path='themes/default/js/plugins/chosen.jquery.min.js'}
-{combine_css path="themes/default/js/plugins/chosen.css"}
+{combine_script id='LocalStorageCache' load='footer' path='admin/themes/default/js/LocalStorageCache.js'}
 
-{footer_script}{literal}
-jQuery(document).ready(function() {
-  jQuery(".chzn-select").chosen();
-});
-{/literal}{/footer_script}
-
-{combine_css path='themes/default/js/plugins/jquery.tokeninput.css'}
-{combine_script id='jquery.tokeninput' load='async' require='jquery' path='themes/default/js/plugins/jquery.tokeninput.js'}
-{footer_script require='jquery.tokeninput'}
-jQuery(document).ready(function() {ldelim}
-  jQuery("#tags").tokenInput(
-    [{foreach from=$tags item=tag name=tags}{ldelim}"name":"{$tag.name|@escape:'javascript'}","id":"{$tag.id}"{rdelim}{if !$smarty.foreach.tags.last},{/if}{/foreach}],
-    {ldelim}
-      hintText: '{'Type in a search term'|@translate}',
-      noResultsText: '{'No results'|@translate}',
-      searchingText: '{'Searching...'|@translate}',
-      newText: ' ({'new'|@translate})',
-      animateDropdown: false,
-      preventDuplicates: true,
-      allowFreeTagging: true
-    }
-  );
-});
-{/footer_script}
+{combine_script id='jquery.selectize' load='footer' path='themes/default/js/plugins/selectize.min.js'}
+{combine_css id='jquery.selectize' path="themes/default/js/plugins/selectize.default.css"}
 
 {footer_script}
+(function(){
+{* <!-- CATEGORIES --> *}
+var categoriesCache = new LocalStorageCache('categoriesAdminList', 60, function(callback) {
+  jQuery.getJSON('{$ROOT_URL}ws.php?format=json&method=pwg.categories.getAdminList', function(data) {
+    callback(data.result.categories);
+  });
+});
+
+jQuery('[data-selectize=categories]').selectize({
+  valueField: 'id',
+  labelField: 'fullname',
+  searchField: ['fullname'],
+  plugins: ['remove_button']
+});
+
+categoriesCache.get(function(categories) {
+  var selects = jQuery('[data-selectize=categories]');
+
+  jQuery.each(categories, function(i, category) {
+    selects.each(function() {
+      this.selectize.addOption(category);
+    });
+  });
+  
+  selects.each(function() {
+    var that = this;
+
+    jQuery.each(jQuery(this).data('value'), function(i, id) {
+      that.selectize.addItem(id);
+    });
+  });
+});
+
+{* <!-- TAGS --> *}
+var tagsCache = new LocalStorageCache('tagsAdminList', 60, function(callback) {
+  jQuery.getJSON('{$ROOT_URL}ws.php?format=json&method=pwg.tags.getAdminList', function(data) {
+    var tags = data.result.tags;
+    
+    for (var i=0, l=tags.length; i<l; i++) {
+      tags[i].id = '~~' + tags[i].id + '~~';
+    }
+    
+    callback(tags);
+  });
+});
+
+jQuery('[data-selectize=tags]').selectize({
+  valueField: 'id',
+  labelField: 'name',
+  searchField: ['name'],
+  plugins: ['remove_button'],
+  create: function(input, callback) {
+    tagsCache.clear();
+    
+    callback({
+      id: input,
+      name: input
+    });
+  }
+});
+
+tagsCache.get(function(tags) {
+  var selects = jQuery('[data-selectize=tags]');
+
+  jQuery.each(tags, function(i, tag) {
+    selects.each(function() {
+      this.selectize.addOption(tag);
+    });
+  });
+  
+  selects.each(function() {
+    var that = this;
+
+    jQuery.each(jQuery(this).data('value'), function(i, tag) {
+      that.selectize.addItem(tag.id);
+    });
+  });
+});
+
+{* <!-- DATEPICKER --> *}
 pwg_initialization_datepicker("#date_creation_day", "#date_creation_month", "#date_creation_year", "#date_creation_linked_date", "#date_creation_action_set");
+}());
 {/footer_script}
 
 <h2>{$TITLE} &#8250; {'Edit photo'|@translate} {$TABSHEET_TITLE}</h2>
@@ -112,27 +170,22 @@ pwg_initialization_datepicker("#date_creation_day", "#date_creation_month", "#da
     <p>
       <strong>{'Linked albums'|@translate}</strong>
       <br>
-      <select data-placeholder="Select albums..." class="chzn-select" multiple style="width:700px;" name="associate[]">
-        {html_options options=$associate_options selected=$associate_options_selected}
-      </select>
+      <select data-selectize="categories" data-value="{$associate_options_selected|@json_encode|escape:html}"
+        name="associate[]" multiple style="width:600px;" ></select>
     </p>
 
     <p>
       <strong>{'Representation of albums'|@translate}</strong>
       <br>
-      <select data-placeholder="Select albums..." class="chzn-select" multiple style="width:700px;" name="represent[]">
-        {html_options options=$represent_options selected=$represent_options_selected}
-      </select>
+      <select data-selectize="categories" data-value="{$represent_options_selected|@json_encode|escape:html}"
+        name="represent[]" multiple style="width:600px;" ></select>
     </p>
 
     <p>
       <strong>{'Tags'|@translate}</strong>
       <br>
-<select id="tags" name="tags">
-{foreach from=$tag_selection item=tag}
-  <option value="{$tag.id}" class="selected">{$tag.name}</option>
-{/foreach}
-</select>
+      <select data-selectize="tags" data-value="{$tag_selection|@json_encode|escape:html}"
+        name="tags[]" multiple style="width:600px;" ></select>
     </p>
 
     <p>
