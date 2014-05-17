@@ -214,9 +214,17 @@
           </tfoot>
         </table>
       </div> <!-- methodParams -->
+      
+      <div id="requestDisplay" style="display:none;">
+        <br>
+        <h3>Request</h3>
+        <blockquote>
+          <pre class="url"></pre>
+          <pre class="params"></pre>
+        </blockquote>
+      </div> <!-- requestDisplay -->
 
-      <br><br>
-
+      <br>
       <h3>Result</h3>
       <div id="iframeWrapper">
         <iframe src="" id="invokeFrame" name="invokeFrame"></iframe>
@@ -292,12 +300,12 @@ function resetDisplay() {
   $("#urlForm").hide();
   $("#methodDescription blockquote").empty();
   $("#methodDescription").hide();
+  $("#requestDisplay").hide();
   $("#invokeFrame").attr('src','');
 }
 
 // give the same size to methods list and main page
-function adaptHeight()
-{
+function adaptHeight() {
   $("#the_page").css('height', 'auto');
   $("#the_methods").css('height', 'auto');
 
@@ -512,9 +520,15 @@ function invokeMethod(methodName, newWindow) {
     else {
       $("#invokeFrame").attr('src', reqUrl);
     }
+    
+    $('#requestDisplay').show()
+      .find('.url').html(reqUrl).end()
+      .find('.params').hide();
   }
   // POST
   else {
+    var params = {};
+    
     var form = $("#invokeForm");
     form.attr('action', reqUrl);
 
@@ -525,22 +539,31 @@ function invokeMethod(methodName, newWindow) {
         continue;
       }
 
-      var paramValue = $("input.methodParameterValue[data-id='"+ i +"']").val();
-
-      var paramSplitted = paramValue.split('|');
+      var paramValue = $("input.methodParameterValue[data-id='"+ i +"']").val(),
+          paramName = method.params[i].name,
+          paramSplitted = paramValue.split('|');
+           
       if (method.params[i].acceptArray &&  paramSplitted.length > 1) {
-        $.each(paramSplitted, function(v) {
-          t+= '<input type="hidden" name="'+ method.params[i].name +'[]" value="'+ paramSplitted[v] +'">';
+        params[paramName] = [];
+        
+        $.each(paramSplitted, function(i, value) {
+          params[paramName].push(value);
+          t+= '<input type="hidden" name="'+ paramName +'[]" value="'+ value +'">';
         });
       }
       else {
-        t+= '<input type="hidden" name="'+ method.params[i].name +'" value="'+ paramValue +'">';
+        params[paramName] = paramValue;
+        t+= '<input type="hidden" name="'+ paramName +'" value="'+ paramValue +'">';
       }
     }
 
     form.html(t);
     form.attr('target', newWindow ? "_blank" : "invokeFrame");
     form.submit();
+    
+    $('#requestDisplay').show()
+      .find('.url').html(reqUrl).end()
+      .find('.params').show().html(JSON.stringify(params, null, 4));
   }
 
   return false;
