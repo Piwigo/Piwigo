@@ -292,7 +292,7 @@ DELETE
     }
     else
     {
-      $date_creation = $_POST['date_creation'].' 00:00:00';
+      $date_creation = $_POST['date_creation'];
     }
 
     $datas = array();
@@ -565,7 +565,7 @@ if (count($page['cat_elements_id']) > 0)
 
 // creation date
 $template->assign('DATE_CREATION',
-  empty($_POST['date_creation']) ? date('y-n-j') : $_POST['date_creation']
+  empty($_POST['date_creation']) ? date('Y-m-d').' 00:00:00' : $_POST['date_creation']
   );
 
 // image level options

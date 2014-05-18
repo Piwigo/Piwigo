@@ -51,7 +51,7 @@ tagsCache.get(function(tags) {
 
 {* <!-- DATEPICKER --> *}
 jQuery(function(){ {* <!-- onLoad needed to wait localization loads --> *}
-  jQuery('[data-datepicker]').pwgDatepicker();
+  jQuery('[data-datepicker]').pwgDatepicker({ showTimepicker: true });
 });
 
 {* <!-- THUMBNAILS --> *}

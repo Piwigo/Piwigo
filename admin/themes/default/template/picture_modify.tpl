@@ -77,7 +77,7 @@ tagsCache.get(function(tags) {
 
 {* <!-- DATEPICKER --> *}
 jQuery(function(){ {* <!-- onLoad needed to wait localization loads --> *}
-  jQuery('[data-datepicker]').pwgDatepicker();
+  jQuery('[data-datepicker]').pwgDatepicker({ showTimepicker: true });
 });
 }());
 {/footer_script}
@@ -140,7 +140,6 @@ jQuery(function(){ {* <!-- onLoad needed to wait localization loads --> *}
     <p>
       <strong>{'Creation date'|@translate}</strong>
       <br>
-      <input type="hidden" name="date_creation_time" value="{$DATE_CREATION_TIME}">
       <input type="hidden" name="date_creation" value="{$DATE_CREATION}">
       <label>
         <i class="icon-calendar"></i>

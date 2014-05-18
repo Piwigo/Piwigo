@@ -60,7 +60,7 @@ jQuery(document).ready(function() {
 
 {footer_script require='jquery.tokeninput'}
 jQuery(document).ready(function() {ldelim}
-  jQuery('[data-datepicker]').pwgDatepicker();
+  jQuery('[data-datepicker]').pwgDatepicker({ showTimepicker: true });
 
   jQuery("a.preview-box").colorbox();
   

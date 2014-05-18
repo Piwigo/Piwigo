@@ -570,7 +570,7 @@ else
 {
   // by default, at page load, we want the selected date to be the current
   // date
-  $form['start'] = $form['end'] = date('Y-n-j');
+  $form['start'] = $form['end'] = date('Y-m-d');
   $form['types'] = $types;
   // Hoverbox by default
   $form['display_thumbnail'] =

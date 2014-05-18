@@ -78,15 +78,7 @@ SELECT id, date_creation
 
     if (!empty($_POST['date_creation-'.$row['id']]))
     {
-      if (!empty($row['date_creation']))
-      {
-        list(, $time) = explode(' ', $row['date_creation']);
-      }
-      else
-      {
-        $time = '00:00:00';
-      }
-      $data['date_creation'] = $_POST['date_creation-'.$row['id']].' '.$time;
+      $data['date_creation'] = $_POST['date_creation-'.$row['id']];
     }
     else
     {
@@ -222,16 +214,6 @@ SELECT *
 
     $src_image = new SrcImage($row);
 
-    // creation date
-    if (!empty($row['date_creation']))
-    {
-      list($date) = explode(' ', $row['date_creation']);
-    }
-    else
-    {
-      $date = '';
-    }
-
     $query = '
 SELECT
     id,
@@ -260,7 +242,7 @@ SELECT
         'AUTHOR' => htmlspecialchars(@$row['author']),
         'LEVEL' => !empty($row['level'])?$row['level']:'0',
         'DESCRIPTION' => htmlspecialchars(@$row['comment']),
-        'DATE_CREATION' => $date,
+        'DATE_CREATION' => $row['date_creation'],
         'TAGS' => $tag_selection,
         )
       ));

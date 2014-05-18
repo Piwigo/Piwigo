@@ -127,7 +127,7 @@ if (isset($_POST['submit']))
 
   if (!empty($_POST['date_creation']))
   {
-    $data['date_creation'] = $_POST['date_creation'].' '.$_POST['date_creation_time'];
+    $data['date_creation'] = $_POST['date_creation'];
   }
   else
   {
@@ -255,6 +255,8 @@ $template->assign(
         : @$row['author']
       ),
 
+    'DATE_CREATION' => $row['date_creation'],
+
     'DESCRIPTION' =>
       htmlspecialchars( isset($_POST['description']) ?
         stripslashes($_POST['description']) : @$row['comment'] ),
@@ -316,26 +318,7 @@ $template->assign(
     )
   );
 
-// creation date
-unset($day, $month, $year);
-
-if (!empty($row['date_creation']))
-{
-  list($date, $time) = explode(' ', $row['date_creation']);
-}
-else
-{
-  $date = '';
-  $time = '00:00:00';
-}
-
-$template->assign(
-    array(
-      'DATE_CREATION' => $date,
-      'DATE_CREATION_TIME' => $time,
-      )
-    );
-
+// categories
 $query = '
 SELECT category_id, uppercats
   FROM '.IMAGE_CATEGORY_TABLE.' AS ic
