@@ -4,8 +4,17 @@
 {include file='include/add_album.inc.tpl'}
 
 {combine_script id='common' load='footer' path='admin/themes/default/js/common.js'}
+
 {combine_script id='jquery.ui.slider' require='jquery.ui' load='footer' path='themes/default/js/ui/minified/jquery.ui.slider.min.js'}
 {combine_css path="themes/default/js/ui/theme/jquery.ui.slider.css"}
+
+{combine_script id='LocalStorageCache' load='footer' path='admin/themes/default/js/LocalStorageCache.js'}
+
+{combine_script id='jquery.selectize' load='footer' path='themes/default/js/plugins/selectize.min.js'}
+{combine_css id='jquery.selectize' path="themes/default/js/plugins/selectize.default.css"}
+
+{combine_script id='jquery.progressBar' load='footer' path='themes/default/js/plugins/jquery.progressbar.min.js'}
+{combine_script id='jquery.ajaxmanager' load='footer' path='themes/default/js/plugins/jquery.ajaxmanager.js'}
 
 {footer_script}{literal}
 /* Shift-click: select all photos between the click and the shift+click */
@@ -51,49 +60,66 @@ jQuery(document).ready(function() {
   }
 	$('ul.thumbnails').enableShiftClick();
 });
-{/literal}{/footer_script}
+{/literal}
 
-{combine_css path='themes/default/js/plugins/jquery.tokeninput.css'}
-{combine_script id='jquery.tokeninput' load='footer' require='jquery' path='themes/default/js/plugins/jquery.tokeninput.js'}
-{combine_script id='jquery.progressBar' load='footer' path='themes/default/js/plugins/jquery.progressbar.min.js'}
-{combine_script id='jquery.ajaxmanager' load='footer' path='themes/default/js/plugins/jquery.ajaxmanager.js'}
-
-{footer_script require='jquery.tokeninput'}
 jQuery(document).ready(function() {ldelim}
   jQuery('[data-datepicker]').pwgDatepicker({ showTimepicker: true });
 
   jQuery("a.preview-box").colorbox();
   
-	var tag_src = [{foreach from=$tags item=tag name=tags}{ldelim}name:"{$tag.name|@escape:'javascript'}",id:"{$tag.id}"{rdelim}{if !$smarty.foreach.tags.last},{/if}{/foreach}];
-  jQuery("#tags").tokenInput(
-    tag_src,
-    {ldelim}
-      hintText: '{'Type in a search term'|@translate}',
-      noResultsText: '{'No results'|@translate}',
-      searchingText: '{'Searching...'|@translate}',
-      newText: ' ({'new'|@translate})',
-      animateDropdown: false,
-      preventDuplicates: true,
-      allowFreeTagging: true
+  {* <!-- TAGS --> *}
+  var tagsCache = new LocalStorageCache('tagsAdminList', 5*60, function(callback) {
+    jQuery.getJSON('{$ROOT_URL}ws.php?format=json&method=pwg.tags.getAdminList', function(data) {
+      var tags = data.result.tags;
+      
+      for (var i=0, l=tags.length; i<l; i++) {
+        tags[i].id = '~~' + tags[i].id + '~~';
+      }
+      
+      callback(tags);
+    });
+  });
+  
+  jQuery('[data-selectize=tags]').selectize({
+    valueField: 'id',
+    labelField: 'name',
+    searchField: ['name'],
+    plugins: ['remove_button']
+  });
+  
+  jQuery('[data-selectize=tags-create]').selectize({
+    valueField: 'id',
+    labelField: 'name',
+    searchField: ['name'],
+    plugins: ['remove_button'],
+    create: function(input, callback) {
+      tagsCache.clear();
+      
+      callback({
+        id: input,
+        name: input
+      });
     }
-  );
-	
-  jQuery("#tagsFilter").tokenInput(
-    tag_src,
-    {ldelim}
-      hintText: '{'Type in a search term'|@translate}',
-      noResultsText: '{'No results'|@translate}',
-      searchingText: '{'Searching...'|@translate}',
-      animateDropdown: false,
-      preventDuplicates: true,
-      allowFreeTagging: false
-    }
-  );
+  });
+  
+  tagsCache.get(function(tags) {
+    jQuery('[data-selectize^=tags]').each(function() {
+      this.selectize.load(function(callback) {
+        // one select is populated with <option>
+        if (jQuery.isEmptyObject(this.options)) {
+          callback(tags);
+        }
+      });
 
+      if (jQuery(this).data('value')) {
+        jQuery.each(jQuery(this).data('value'), jQuery.proxy(function(i, tag) {
+          this.selectize.addItem(tag.id);
+        }, this));
+      }
+    });
+  });
 });
-{/footer_script}
 
-{footer_script}
 var nb_thumbs_page = {$nb_thumbs_page};
 var nb_thumbs_set = {$nb_thumbs_set};
 var are_you_sure = "{'Are you sure?'|@translate|@escape:'javascript'}";
@@ -606,11 +632,8 @@ $(document).ready(function() {
         <a href="#" class="removeFilter" title="remove this filter"><span>[x]</span></a>
         <input type="checkbox" name="filter_tags_use" class="useFilterCheckbox" {if isset($filter.tags)}checked="checked"{/if}>
         {'Tags'|@translate}
-        <select id="tagsFilter" name="filter_tags">
-          {if isset($filter_tags)}{foreach from=$filter_tags item=tag}
-          <option value="{$tag.id}">{$tag.name}</option>
-          {/foreach}{/if}
-        </select>
+        <select data-selectize="tags" data-value="{if isset($filter_tags)}{$filter_tags|@json_encode|escape:html}{else}[]{/if}"
+          name="filter_tags[]" multiple style="width:400px;" ></select>
         <label><span><input type="radio" name="tag_mode" value="AND" {if !isset($filter.tag_mode) or $filter.tag_mode eq 'AND'}checked="checked"{/if}> {'All tags'|@translate}</span></label>
         <label><span><input type="radio" name="tag_mode" value="OR" {if isset($filter.tag_mode) and $filter.tag_mode eq 'OR'}checked="checked"{/if}> {'Any tag'|@translate}</span></label>
       </li>
@@ -670,7 +693,7 @@ $(document).ready(function() {
 				{'Search'|@translate}
 				<input name="q" size=40 value="{$filter.search.q|stripslashes|htmlspecialchars}">
 				{combine_script id='core.scripts' load='async' path='themes/default/js/scripts.js'}
-				<a href="admin/popuphelp.php?page=quick_search"onclick="popuphelp(this.href);return false;" title="{'Help'|@translate}"><span class="icon-help-circled"></span></a>
+				<a href="admin/popuphelp.php?page=quick_search" onclick="popuphelp(this.href);return false;" title="{'Help'|@translate}"><span class="icon-help-circled"></span></a>
 			</li>
     </ul>
 
@@ -782,7 +805,7 @@ UL.thumbnails SPAN.wrap2 {ldelim}
       <option value="dissociate">{'Dissociate from album'|@translate}</option>
   {/if}
       <option value="add_tags">{'Add tags'|@translate}</option>
-  {if !empty($DEL_TAG_SELECTION)}
+  {if !empty($associated_tags)}
       <option value="del_tags">{'remove tags'|@translate}</option>
   {/if}
       <option value="author">{'Set author'|@translate}</option>
@@ -836,13 +859,18 @@ UL.thumbnails SPAN.wrap2 {ldelim}
 
     <!-- add_tags -->
     <div id="action_add_tags" class="bulkAction">
-<select id="tags" name="add_tags">
-</select>
+      <select data-selectize="tags-create" name="add_tags[]" multiple style="width:400px;"></select>
     </div>
 
     <!-- del_tags -->
     <div id="action_del_tags" class="bulkAction">
-{if !empty($DEL_TAG_SELECTION)}{$DEL_TAG_SELECTION}{/if}
+{if !empty($associated_tags)}
+      <select data-selectize="tags" name="del_tags[]" multiple style="width:400px;">
+      {foreach from=$associated_tags item=tag}
+        <option value="{$tag.id}">{$tag.name}</option>
+      {/foreach}
+      </select>
+{/if}
     </div>
 
     <!-- author -->

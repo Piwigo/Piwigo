@@ -554,13 +554,7 @@ SELECT
 if (count($page['cat_elements_id']) > 0)
 {
   // remove tags
-  $tags = get_common_tags($page['cat_elements_id'], -1);
-
-  $template->assign(
-    array(
-      'DEL_TAG_SELECTION' => get_html_tag_selection($tags, 'del_tags'),
-      )
-    );
+  $template->assign('associated_tags', get_common_tags($page['cat_elements_id'], -1));
 }
 
 // creation date
