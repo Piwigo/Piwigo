@@ -137,3 +137,15 @@ $lang['2_7_0_title11'] = '回见！';
 $lang['2_7_0_stp1'] = '你好！我将为您导览 Piwigo。请按指令操作，点击 前进（或使用键盘上的箭头键）控制进程。导览中如果点击进入其他页面， 将自动返回当前的导览页。';
 $lang['2_7_0_descrp'] = '探索 Piwigo 2.7 的新特性';
 $lang['2.7 Tour'] = 'Piwigo 2.7 导览';
+$lang['2_7_0_stp3'] = '快捷搜索 功能已重新编码：<br>
+- 增加逻辑运算符 OR <br>
+- 允许使用括号分组 ()<br>
+- 增加名称空间搜索，例如：<br>
+ * #snow - 仅限搜索标签为 snow 的<br>
+ * ratio:0.9..1.1 - 搜索 宽/高 比在 0.9 至 1.1 之间的图片（即几为正方形的）<br>
+ * hits:>10 - 搜索访问量 >10 的图片<br>
+ * size:>10mp - 搜索宽*高 >10 百万像素（mega pixels）的图片<br>
+ * file:.jpg - 仅限 jpg 图片<br>
+- 识别单复数词形变化（目前仅限英语和法语）<br>';
+$lang['2_7_0_stp2'] = '如您所见，我们添加了一个新的默认插件：Take A Tour。此插件可以帮助您探索您的 Piwigo。这里列出了所有可用的导览。<br>此页面可经由 <em>插件 » Take A Tour</em> 访问。';
+$lang['2_7_0_stp11'] = '导览结束。<p style="text-align:center">开始享用您的 Piwigo 2.7 吧！</p>如果您喜欢 Piwigo 并希望支持我们，您可以通过帮助我们进行翻译、捐赠等方式贡献您的力量。<a href="http://piwigo.org/basics/contribute" target="_blank">点此支持我们</a>';
