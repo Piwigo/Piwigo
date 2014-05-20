@@ -1,0 +1,1 @@
+TakeATour - Entdecke Piwigo während einer Tour durch die Funktionen. Dieses Plugin beinhaltet eine Tour für Anfänger und Fortgeschrittene Benutzer.

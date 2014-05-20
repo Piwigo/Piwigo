@@ -136,3 +136,17 @@ $lang['first_contact_stp39'] = 'Auf dieser ersten Seite sind die installierten P
 $lang['first_contact_stp38'] = 'Plugins sind sehr einfache Möglichkeiten, dein Piwigo entsprechend anzupassen. Sie können fast alles was du dir vorstellen kannst, von kleinen zusätzlichen Texten bis zu umfangreichen Funktionen, wie z. B. das Community Plugin, das nicht Administratoren erlaubt doch Bilder hoch laden zu können.';
 $lang['first_contact_stp36'] = 'Themen haben ein System der Abhängigkeit: Darum können einige Themen nicht gelöscht werden (ein Eltern-Thema kann nicht gelöscht werden, wenn ein Kind-Thema aktiviert ist) oder andere können nicht aktiviert werden (ein Kind-Thema benötigt sein Eltern-Thema). Wenn du zum Beispiel, deine Maus über einen Lösch-Link hältst und dieses Thema nicht gelöscht werden kann, dann bekommst du eine Erklärung dazu.';
 $lang['first_contact_stp35'] = 'Themen können auch als Standard gesetzt werden, was bedeutet, das dieses Thema für nicht registrierte Besucher (Gäste, du erinnerst dich?) und jedem neuen Benutzer erst mal als Thema festgelegt ist. Aber für alle bereits registrierten Benutzer, wird das Thema nicht geändert, bis du es von der User Management Seite aus tust, oder du dieses Thema deaktivierst: Vorsicht, du könntest deine Benutzer damit stören, indem du ihre gesamte Ansicht änderst.';
+$lang['2_7_0_stp3'] = 'Die Schnellsuche wurde überarbeitet:<br>
+- Fügt OR-Operator hinzu<br>
+- Ermöglicht Gruppierung unter Verwendung von Klammern ()<br>
+- Namenssuche hinzufügen wie:<br>
+  *#Schnee - sucht nur Tag-Namen mit Schnee<br>
+  * Verhältnis: 0,9 .. 1,1 - sucht Fotos mit Breite/Höhe-Verhältnis zwischen 0,9 und 1,1 (fast Quadrate)<br>
+  * Treffer:> 10 - sucht Fotos mit Anzahl der Besuche> 10 <br>
+  * Größe: >10MP - sucht Fotos, mit Breite * Höhe >10 Megapixel <br>
+  * Datei: .jpg - zeigt nur JPG-Bilder<br>
+- Verwende Singular/Plural Beugungen (Nur für Englisch/Französisch im Moment)<br>';
+$lang['first_contact_stp34'] = 'Themen ist einer der drei Wege um dein Piwigo anzupassen, die anderen sind Plugins und Templates. Installierte Themes sind hier aufgelistet. <br> Mehr als ein Thema kann aktiviert werden: Benutzer können ihr Thema durch Wahl eines der aktivierten ändern, aber nur wenn die Option "Benutzeranpassungen zulassen" auf der Option Seite aktiviert ist.';
+$lang['first_contact_stp33'] = 'Nun ein letztes Wort zu den Optionen, die "Gäste-Einstellung" Seite, dient dazu Präferenzen für nicht registrierte Besucher zu setzen. Jedes mal wenn Piwigo sich auf "Gäste" bezieht, sind damit nicht registrierte Besucher gemeint. <br> Lass uns  mit Konfiguration fortfahren: Klicke auf Konfiguration -> Themen oder einfach auf weiter.';
+$lang['first_contact_stp26'] = 'Hier kannst du das aktuelle Album als Privat einstellen und den Zugriff für Benutzer und Gruppen gewähren. Standardmäßig werden die Berechtigungen nicht rekursiv für Unter-Alben gewährt, aber Haupt-Alben werden mit der gleichen Berechtigung versehen, um dem zugelassenen Nutzer Zugriff auf das Album zu gewähren.';
+$lang['first_contact_stp25'] = 'Wie du in der Piwigo Hilfe (Link oben rechts) lesen kannst, werden Album Berechtigungen durch Gruppen und Benutzer festgelegt. Du kannst mehrere Private / Öffentliche Alben mit Hilfe der Verwaltung und »Alben» Eigenschaften Seite direkt einstellen.';
