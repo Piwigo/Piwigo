@@ -25,6 +25,7 @@ var categoriesCache = new LocalStorageCache({
 jQuery('[data-selectize=categories]').selectize({
   valueField: 'id',
   labelField: 'fullname',
+  sortField: 'fullname',
   searchField: ['fullname'],
   plugins: ['remove_button']
 });

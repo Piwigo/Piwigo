@@ -474,6 +474,8 @@ $template->assign(
   );
 
 // tags
+$filter_tags = array();
+
 if (!empty($_SESSION['bulk_manager_filter']['tags']))
 {
   $query = '
@@ -483,20 +485,11 @@ SELECT
   FROM '.TAGS_TABLE.'
   WHERE id IN ('.implode(',', $_SESSION['bulk_manager_filter']['tags']).')
 ;';
-  $template->assign('filter_tags', get_taglist($query));
+
+  $filter_tags = get_taglist($query);
 }
 
-// Virtualy associate a picture to a category
-$query = '
-SELECT id,name,uppercats,global_rank
-  FROM '.CATEGORIES_TABLE.'
-;';
-$categories = array_from_query($query);
-usort($categories, 'global_rank_compare');
-display_select_categories($categories, array(), 'category_full_name_options', true);
-
-$template->assign('category_parent_options', $template->get_template_vars('category_full_name_options'));
-$template->assign('category_parent_options_selected', array());
+$template->assign('filter_tags', $filter_tags);
 
 // in the filter box, which category to select by default
 $selected_category = array();
@@ -704,7 +697,7 @@ SELECT id,path,representative_ext,file,filesize,level,name,width,height,rotation
 $template->assign(array(
   'nb_thumbs_page' => $nb_thumbs_page,
   'nb_thumbs_set' => count($page['cat_elements_id']),
-  'CACHE_KEYS' => get_admin_client_cache_keys(array('tags'))
+  'CACHE_KEYS' => get_admin_client_cache_keys(array('tags', 'categories')),
   ));
 
 trigger_action('loc_end_element_set_global');

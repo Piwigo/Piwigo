@@ -217,16 +217,7 @@ SELECT category_id
 }
 
 // existing album
-$query = '
-SELECT id,name,uppercats,global_rank
-  FROM '.CATEGORIES_TABLE.'
-;';
-
-display_select_cat_wrapper(
-  $query,
-  $selected_category,
-  'category_options'
-  );
+$template->assign('selected_category', $selected_category);
 
 
 // image level options
@@ -256,11 +247,10 @@ if (!function_exists('gd_info'))
   $setup_errors[] = l10n('GD library is missing');
 }
 
-$template->assign(
-  array(
-    'setup_errors'=> $setup_errors,
-    )
-  );
+$template->assign(array(
+  'setup_errors'=> $setup_errors,
+  'CACHE_KEYS' => get_admin_client_cache_keys(array('categories')),
+  ));
 
 // Warnings
 if (isset($_GET['hide_warnings']))

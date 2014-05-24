@@ -1,3 +1,68 @@
+{combine_script id='LocalStorageCache' load='footer' path='admin/themes/default/js/LocalStorageCache.js'}
+
+{combine_script id='jquery.selectize' load='footer' path='themes/default/js/plugins/selectize.min.js'}
+{combine_css id='jquery.selectize' path="themes/default/js/plugins/selectize.default.css"}
+
+{footer_script}
+{* <!-- CATEGORIES --> *}
+var categoriesCache = new LocalStorageCache({
+  key: 'categoriesAdminList',
+  serverKey: '{$CACHE_KEYS.categories}',
+  serverId: '{$CACHE_KEYS._hash}',
+
+  loader: function(callback) {
+    jQuery.getJSON('{$ROOT_URL}ws.php?format=json&method=pwg.categories.getAdminList', function(data) {
+      callback(data.result.categories);
+    });
+  }
+});
+
+jQuery('[data-selectize=categories]').selectize({
+  valueField: 'id',
+  labelField: 'fullname',
+  sortField: 'fullname',
+  searchField: ['fullname'],
+  plugins: ['remove_button']
+});
+
+categoriesCache.get(function(categories) {
+  categories.push({
+    id: 0,
+    fullname: '------------'
+  });
+  
+  // remove itself and children
+  categories = jQuery.grep(categories, function(cat) {
+    return !(/\b{$CAT_ID}\b/.test(cat.uppercats));
+  });
+  
+  categories.sort(function(a, b) {
+    return a.fullname.localeCompare(b.fullname);
+  });
+  
+  jQuery('[data-selectize=categories]').each(function() {
+    this.selectize.load(function(callback) {
+      callback(categories);
+    });
+
+    if (jQuery(this).data('value')) {
+      this.selectize.setValue(jQuery(this).data('value')[0]);
+    }
+    
+    // prevent empty value
+    if (this.selectize.getValue() == '') {
+      this.selectize.setValue(categories[0].id);
+    }
+    this.selectize.on('dropdown_close', function() {
+      if (this.getValue() == '') {
+        this.setValue(categories[0].id);
+      }
+    });
+  });
+});
+{/footer_script}
+
+
 <div class="titrePage">
   <h2><span style="letter-spacing:0">{$CATEGORIES_NAV}</span> &#8250; {'Edit album'|@translate} {$TABSHEET_TITLE}</h2>
 </div>
@@ -71,14 +136,12 @@
     <textarea cols="50" rows="5" name="comment" id="comment" class="description">{$CAT_COMMENT}</textarea>
   </p>
 
-{if isset($move_cat_options) }
+{if isset($parent_category) }
   <p>
     <strong>{'Parent album'|@translate}</strong>
     <br>
-    <select class="categoryDropDown" name="parent">
-      <option value="0">------------</option>
-      {html_options options=$move_cat_options selected=$move_cat_options_selected }
-    </select>
+    <select data-selectize="categories" data-value="{$parent_category|@json_encode|escape:html}"
+        name="parent" style="width:400px"></select>
   </p>
 {/if}
 

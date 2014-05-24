@@ -288,12 +288,11 @@ else
 
 $intro.= '<br>'.l10n('Numeric identifier : %d', $category['id']);
 
-$template->assign('INTRO', $intro);
-
-$template->assign(
-  'U_MANAGE_RANKS',
-  $base_url.'element_set_ranks&amp;cat_id='.$category['id']
-  );
+$template->assign(array(
+  'INTRO' => $intro,
+  'U_MANAGE_RANKS' => $base_url.'element_set_ranks&amp;cat_id='.$category['id'],
+  'CACHE_KEYS' => get_admin_client_cache_keys(array('categories')),
+  ));
 
 if ($category['is_virtual'])
 {
@@ -366,21 +365,7 @@ SELECT id,representative_ext,path
 
 if ($category['is_virtual'])
 {
-  // the category can be moved in any category but in itself, in any
-  // sub-category
-  $unmovables = get_subcat_ids(array($category['id']));
-
-  $query = '
-SELECT id,name,uppercats,global_rank
-  FROM '.CATEGORIES_TABLE.'
-  WHERE id NOT IN ('.implode(',', $unmovables).')
-;';
-
-  display_select_cat_wrapper(
-    $query,
-    empty($category['id_uppercat']) ? array() : array($category['id_uppercat']),
-    'move_cat_options'
-    );
+  $template->assign('parent_category', empty($category['id_uppercat']) ? array() : array($category['id_uppercat']));
 }
 
 trigger_action('loc_end_cat_modify');

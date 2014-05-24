@@ -1043,6 +1043,13 @@ p#uploadModeInfos {text-align:left;margin-top:1em;font-size:90%;color:#999;}
 }
 
 /* Album Manager */
+#addAlbumForm {
+  text-align:left;
+  padding:1em;
+}
+#addAlbumForm .selectize-dropdown-content {
+  max-height:170px;
+}
 #addAlbumForm input[name="category_name"], #formCreateAlbum input[name="virtual_name"] {
   width:300px;
 }

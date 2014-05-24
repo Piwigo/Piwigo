@@ -117,6 +117,55 @@ jQuery(document).ready(function() {ldelim}
       }
     });
   });
+  
+  {* <!-- CATEGORIES --> *}
+  var categoriesCache = new LocalStorageCache({
+    key: 'categoriesAdminList',
+    serverKey: '{$CACHE_KEYS.categories}',
+    serverId: '{$CACHE_KEYS._hash}',
+
+    loader: function(callback) {
+      jQuery.getJSON('{$ROOT_URL}ws.php?format=json&method=pwg.categories.getAdminList', function(data) {
+        callback(data.result.categories);
+      });
+    }
+  });
+  
+  jQuery('[data-selectize=categories]').selectize({
+    valueField: 'id',
+    labelField: 'fullname',
+    sortField: 'fullname',
+    searchField: ['fullname'],
+    plugins: ['remove_button']
+  });
+  
+  categoriesCache.get(function(categories) {
+    categories.sort(function(a, b) {
+      return a.fullname.localeCompare(b.fullname);
+    });
+    
+    jQuery('[data-selectize=categories]').each(function() {
+      this.selectize.load(function(callback) {
+        callback(categories);
+      });
+
+      if (jQuery(this).data('value')) {
+        this.selectize.setValue(jQuery(this).data('value')[0]);
+      }
+      
+      // prevent empty value
+      if (this.selectize.getValue() == '') {
+        this.selectize.setValue(categories[0].id);
+      }
+      this.selectize.on('dropdown_close', function() {
+        if (this.getValue() == '') {
+          this.setValue(categories[0].id);
+        }
+      });
+    });
+  });
+  
+  jQuery('[data-add-album]').pwgAddAlbum({ cache: categoriesCache });
 });
 
 var nb_thumbs_page = {$nb_thumbs_page};
@@ -227,13 +276,6 @@ $(document).ready(function() {
   $("select[name=selectAction]").change(function () {
     $("[id^=action_]").hide();
     $("#action_"+$(this).prop("value")).show();
-
-    /* make sure the #albumSelect is on the right select box so that the */
-    /* "add new album" popup fills the right select box                  */
-    if ("associate" == $(this).prop("value") || "move" == $(this).prop("value")) {
-      jQuery("#albumSelect").removeAttr("id");
-      jQuery("#action_"+$(this).prop("value")+" select").attr("id", "albumSelect");
-    }
 
     if ($(this).val() != -1) {
       $("#applyActionBlock").show();
@@ -621,9 +663,8 @@ $(document).ready(function() {
         <a href="#" class="removeFilter" title="remove this filter"><span>[x]</span></a>
         <input type="checkbox" name="filter_category_use" class="useFilterCheckbox" {if isset($filter.category)}checked="checked"{/if}>
         {'Album'|@translate}
-        <select style="width:400px" name="filter_category" size="1">
-          {html_options options=$category_full_name_options selected=$filter_category_selected}
-        </select>
+        <select data-selectize="categories" data-value="{$filter_category_selected|@json_encode|escape:html}"
+          name="filter_category" style="width:400px"></select>
         <label><input type="checkbox" name="filter_category_recursive" {if isset($filter.category_recursive)}checked="checked"{/if}> {'include child albums'|@translate}</label>
       </li>
       
@@ -631,7 +672,7 @@ $(document).ready(function() {
         <a href="#" class="removeFilter" title="remove this filter"><span>[x]</span></a>
         <input type="checkbox" name="filter_tags_use" class="useFilterCheckbox" {if isset($filter.tags)}checked="checked"{/if}>
         {'Tags'|@translate}
-        <select data-selectize="tags" data-value="{if isset($filter_tags)}{$filter_tags|@json_encode|escape:html}{else}[]{/if}"
+        <select data-selectize="tags" data-value="{$filter_tags|@json_encode|escape:html}"
           name="filter_tags[]" multiple style="width:400px;" ></select>
         <label><span><input type="radio" name="tag_mode" value="AND" {if !isset($filter.tag_mode) or $filter.tag_mode eq 'AND'}checked="checked"{/if}> {'All tags'|@translate}</span></label>
         <label><span><input type="radio" name="tag_mode" value="OR" {if isset($filter.tag_mode) and $filter.tag_mode eq 'OR'}checked="checked"{/if}> {'Any tag'|@translate}</span></label>
@@ -833,26 +874,22 @@ UL.thumbnails SPAN.wrap2 {ldelim}
 
     <!-- associate -->
     <div id="action_associate" class="bulkAction">
-          <select style="width:400px" name="associate" size="1">
-            {html_options options=$category_full_name_options}
-         </select>
-<br>{'... or '|@translate} <a href="#" class="addAlbumOpen" title="{'create a new album'|@translate}">{'create a new album'|@translate}</a>
+      <select data-selectize="categories" name="associate" style="width:400px"></select>
+      <br>{'... or '|@translate}
+      <a href="#" data-add-album="associate" title="{'create a new album'|@translate}">{'create a new album'|@translate}</a>
     </div>
 
     <!-- move -->
     <div id="action_move" class="bulkAction">
-          <select style="width:400px" name="move" size="1">
-            {html_options options=$category_full_name_options}
-         </select>
-<br>{'... or '|@translate} <a href="#" class="addAlbumOpen" title="{'create a new album'|@translate}">{'create a new album'|@translate}</a>
+      <select data-selectize="categories" name="move" style="width:400px"></select>
+      <br>{'... or '|@translate}
+      <a href="#" data-add-album="move" title="{'create a new album'|@translate}">{'create a new album'|@translate}</a>
     </div>
 
 
     <!-- dissociate -->
     <div id="action_dissociate" class="bulkAction">
-          <select style="width:400px" name="dissociate" size="1">
-            {if !empty($dissociate_options)}{html_options options=$dissociate_options }{/if}
-          </select>
+      <select data-selectize="categories" name="dissociate" style="width:400px"></select>
     </div>
 
 

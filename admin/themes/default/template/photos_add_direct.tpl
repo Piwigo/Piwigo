@@ -9,14 +9,70 @@
 {include file='include/colorbox.inc.tpl'}
 {include file='include/add_album.inc.tpl'}
 
-{footer_script}{literal}
+{combine_script id='LocalStorageCache' load='footer' path='admin/themes/default/js/LocalStorageCache.js'}
+
+{combine_script id='jquery.selectize' load='footer' path='themes/default/js/plugins/selectize.min.js'}
+{combine_css id='jquery.selectize' path="themes/default/js/plugins/selectize.default.css"}
+
+{footer_script}
+{* <!-- CATEGORIES --> *}
+var categoriesCache = new LocalStorageCache({
+  key: 'categoriesAdminList',
+  serverKey: '{$CACHE_KEYS.categories}',
+  serverId: '{$CACHE_KEYS._hash}',
+
+  loader: function(callback) {
+    jQuery.getJSON('{$ROOT_URL}ws.php?format=json&method=pwg.categories.getAdminList', function(data) {
+      callback(data.result.categories);
+    });
+  }
+});
+
+jQuery('[data-selectize=categories]').selectize({
+  valueField: 'id',
+  labelField: 'fullname',
+  sortField: 'fullname',
+  searchField: ['fullname'],
+  plugins: ['remove_button']
+});
+
+categoriesCache.get(function(categories) {
+  categories.sort(function(a, b) {
+    return a.fullname.localeCompare(b.fullname);
+  });
+  
+  jQuery('[data-selectize=categories]').each(function() {
+    this.selectize.load(function(callback) {
+      callback(categories);
+    });
+
+    if (jQuery(this).data('value')) {
+      this.selectize.setValue(jQuery(this).data('value')[0]);
+    }
+    
+    // prevent empty value
+    if (this.selectize.getValue() == '') {
+      this.selectize.setValue(categories[0].id);
+    }
+    this.selectize.on('dropdown_close', function() {
+      if (this.getValue() == '') {
+        this.setValue(categories[0].id);
+      }
+    });
+  });
+});
+
+jQuery('[data-add-album]').pwgAddAlbum({ cache: categoriesCache });
+
+
+{literal}
 jQuery(document).ready(function(){
   function checkUploadStart() {
     var nbErrors = 0;
     jQuery("#formErrors").hide();
     jQuery("#formErrors li").hide();
 
-    if (jQuery("#albumSelect option:selected").length == 0) {
+    if (jQuery("select[name=category]").val() == '') {
       jQuery("#formErrors #noAlbum").show();
       nbErrors++;
     }
@@ -196,7 +252,7 @@ var sizeLimit = Math.round({$upload_max_filesize} / 1024); /* in KBytes */
     jQuery("#uploadify").uploadifySettings(
       'postData',
       {
-        'category_id' : jQuery("select[name=category] option:selected").val(),
+        'category_id' : jQuery("select[name=category]").val(),
         'level' : jQuery("select[name=level] option:selected").val(),
         'upload_id' : upload_id,
         'session_id' : session_id,
@@ -280,11 +336,10 @@ var sizeLimit = Math.round({$upload_max_filesize} / 1024); /* in KBytes */
       <legend>{'Drop into album'|@translate}</legend>
 
       <span id="albumSelection"{if count($category_options) == 0} style="display:none"{/if}>
-      <select id="albumSelect" name="category">
-        {html_options options=$category_options selected=$category_options_selected}
-      </select>
-      <br>{'... or '|@translate}</span><a href="#" class="addAlbumOpen" title="{'create a new album'|@translate}">{'create a new album'|@translate}</a>
-      
+      <select data-selectize="categories" data-value="{$selected_category|@json_encode|escape:html}"
+        name="category" style="width:400px"></select>
+      <br>{'... or '|@translate}</span>
+      <a href="#" data-add-album="category" title="{'create a new album'|@translate}">{'create a new album'|@translate}</a>
     </fieldset>
 
     <fieldset>
