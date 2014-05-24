@@ -6,10 +6,16 @@
 {footer_script}
 (function(){
 {* <!-- GROUPS --> *}
-var groupsCache = new LocalStorageCache('groupsAdminList', 5*60, function(callback) {
-  jQuery.getJSON('{$ROOT_URL}ws.php?format=json&method=pwg.groups.getList&per_page=99999', function(data) {
-    callback(data.result.groups);
-  });
+var groupsCache = new LocalStorageCache({
+  key: 'groupsAdminList',
+  serverKey: '{$CACHE_KEYS.groups}',
+  serverId: '{$CACHE_KEYS._hash}',
+
+  loader: function(callback) {
+    jQuery.getJSON('{$ROOT_URL}ws.php?format=json&method=pwg.groups.getList&per_page=99999', function(data) {
+      callback(data.result.groups);
+    });
+  }
 });
 
 jQuery('[data-selectize=groups]').selectize({
@@ -32,22 +38,28 @@ groupsCache.get(function(groups) {
 });
 
 {* <!-- USERS --> *}
-var usersCache = new LocalStorageCache('usersAdminList', 5*60, function(callback) {
-  var page = 0,
-      users = [];
-   
-  (function load(page){
-    jQuery.getJSON('{$ROOT_URL}ws.php?format=json&method=pwg.users.getList&display=username&per_page=99999&page='+ page, function(data) {
-      users = users.concat(data.result.users);
-      
-      if (data.result.paging.count == data.result.paging.per_page) {
-        load(++page);
-      }
-      else {
-        callback(users);
-      }
-    });
-  }(page));
+var usersCache = new LocalStorageCache({
+  key: 'usersAdminList',
+  serverKey: '{$CACHE_KEYS.users}',
+  serverId: '{$CACHE_KEYS._hash}',
+
+  loader: function(callback) {
+    var users = [];
+    
+    // recursive loader
+    (function load(page){
+      jQuery.getJSON('{$ROOT_URL}ws.php?format=json&method=pwg.users.getList&display=username&per_page=99999&page='+ page, function(data) {
+        users = users.concat(data.result.users);
+        
+        if (data.result.paging.count == data.result.paging.per_page) {
+          load(++page);
+        }
+        else {
+          callback(users);
+        }
+      });
+    }(0));
+  }
 });
 
 jQuery('[data-selectize=users]').selectize({
@@ -68,6 +80,29 @@ usersCache.get(function(users) {
     }, this));
   });
 });
+
+{* <!-- TOGGLES --> *}
+function checkStatusOptions() {
+  if (jQuery("input[name=status]:checked").val() == "private") {
+    jQuery("#privateOptions, #applytoSubAction").show();
+  }
+  else {
+    jQuery("#privateOptions, #applytoSubAction").hide();
+  }
+}
+
+checkStatusOptions();
+jQuery("#selectStatus").change(function() {
+  checkStatusOptions();
+});
+
+{if isset($nb_users_granted_indirect) && $nb_users_granted_indirect>0}
+  jQuery(".toggle-indirectPermissions").click(function(e){
+    jQuery(".toggle-indirectPermissions").toggle();
+    jQuery("#indirectPermissionsDetails").toggle();
+    e.preventDefault();
+  });
+{/if}
 }());
 {/footer_script}
 
@@ -111,8 +146,8 @@ usersCache.get(function(users) {
 {if isset($nb_users_granted_indirect) && $nb_users_granted_indirect>0}
   <p>
     {'%u users have automatic permission because they belong to a granted group.'|@translate:$nb_users_granted_indirect}
-    <a href="#" id="indirectPermissionsDetailsHide" style="display:none">{'hide details'|@translate}</a>
-    <a href="#" id="indirectPermissionsDetailsShow">{'show details'|@translate}</a>
+    <a href="#" class="toggle-indirectPermissions" style="display:none">{'hide details'|@translate}</a>
+    <a href="#" class="toggle-indirectPermissions">{'show details'|@translate}</a>
 
     <ul id="indirectPermissionsDetails" style="display:none">
   {foreach from=$user_granted_indirect_groups item=group_details}
@@ -184,7 +219,10 @@ usersCache.get(function(users) {
 
   <p style="margin:12px;text-align:left;">
     <input class="submit" type="submit" value="{'Save Settings'|@translate}" name="submit">
-    <label id="applytoSubAction" style="display:none;"><input type="checkbox" name="apply_on_sub" {if $INHERIT}checked="checked"{/if}>{'Apply to sub-albums'|@translate}</label>
+    <label id="applytoSubAction" style="display:none;">
+      <input type="checkbox" name="apply_on_sub" {if $INHERIT}checked="checked"{/if}>
+      {'Apply to sub-albums'|@translate}
+    </label>
   </p>
 
 <input type="hidden" name="pwg_token" value="{$PWG_TOKEN}">

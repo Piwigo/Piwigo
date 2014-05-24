@@ -248,7 +248,10 @@ SELECT
       ));
   }
 
-  $template->assign('ELEMENT_IDS', implode(',', $element_ids));
+  $template->assign(array(
+    'ELEMENT_IDS' => implode(',', $element_ids),
+    'CACHE_KEYS' => get_admin_client_cache_keys(array('tags')),
+    ));
 }
 
 trigger_action('loc_end_element_set_unit');

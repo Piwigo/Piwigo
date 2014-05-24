@@ -408,7 +408,11 @@ SELECT id
 ;';
 $associate_options_selected = query2array($query, null, 'id');
 
-$template->assign(compact('associate_options_selected', 'represent_options_selected'));
+$template->assign(array(
+  'associate_options_selected' => $associate_options_selected,
+  'represent_options_selected' => $represent_options_selected,
+  'CACHE_KEYS' => get_admin_client_cache_keys(array('tags', 'categories')),
+  ));
 
 trigger_action('loc_end_picture_modify');
 

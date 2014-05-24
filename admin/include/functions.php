@@ -400,13 +400,8 @@ function delete_orphan_tags()
     {
       $orphan_tag_ids[] = $tag['id'];
     }
-
-    $query = '
-DELETE
-  FROM '.TAGS_TABLE.'
-  WHERE id IN ('.implode(',', $orphan_tag_ids).')
-;';
-    pwg_query($query);
+    
+    delete_tags($orphan_tag_ids);
   }
 }
 
@@ -2733,4 +2728,54 @@ function deltree($path, $trash_path=null)
   }
 }
 
-?>
+/**
+ * Returns keys to identify the state of main tables. A key consists of the
+ * last modification timestamp and the total of items (separated by a _).
+ * Additionally returns the hash of root path.
+ * Used to invalidate LocalStorage cache on admin pages.
+ *
+ * @param string|string[] list of keys to retrieve (categories,groups,images,tags,users)
+ * @return string[]
+ */
+function get_admin_client_cache_keys($requested=array())
+{
+  $tables = array(
+    'categories' => CATEGORIES_TABLE,
+    'groups' => GROUPS_TABLE,
+    'images' => IMAGES_TABLE,
+    'tags' => TAGS_TABLE,
+    'users' => USER_INFOS_TABLE
+    );
+    
+  if (!is_array($requested))
+  {
+    $requested = array($requested);
+  }
+  if (empty($requested))
+  {
+    $requested = array_keys($tables);
+  }
+  else
+  {
+    $requested = array_intersect($requested, array_keys($tables));
+  }
+  
+  $keys = array(
+    '_hash' => md5(get_absolute_root_url()),
+    );
+  
+  foreach ($requested as $item)
+  {
+    $query = '
+SELECT CONCAT(
+    UNIX_TIMESTAMP(MAX(lastmodified)),
+    "_",
+    COUNT(*)
+  )
+  FROM '. $tables[$item] .'
+;';
+    list($keys[$item]) = pwg_db_fetch_row(pwg_query($query));
+  }
+  
+  return $keys;
+}

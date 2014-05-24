@@ -36,9 +36,11 @@ CREATE TABLE `piwigo_categories` (
   `global_rank` varchar(255) default NULL,
   `image_order` varchar(128) default NULL,
   `permalink` varchar(64) binary default NULL,
+  `lastmodified` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY  (`id`),
   UNIQUE KEY `categories_i3` (`permalink`),
-  KEY `categories_i2` (`id_uppercat`)
+  KEY `categories_i2` (`id_uppercat`),
+  KEY `lastmodified` (`lastmodified`)
 ) ENGINE=MyISAM;
 
 --
@@ -106,8 +108,10 @@ CREATE TABLE `piwigo_groups` (
   `id` smallint(5) unsigned NOT NULL auto_increment,
   `name` varchar(255) NOT NULL default '',
   `is_default` enum('true','false') NOT NULL default 'false',
+  `lastmodified` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY  (`id`),
-  UNIQUE KEY `groups_ui1` (`name`)
+  UNIQUE KEY `groups_ui1` (`name`),
+  KEY `lastmodified` (`lastmodified`)
 ) ENGINE=MyISAM;
 
 --
@@ -199,13 +203,15 @@ CREATE TABLE `piwigo_images` (
   `rotation` tinyint unsigned default NULL,
   `latitude` double(8, 6) default NULL,
   `longitude` double(9, 6) default NULL,
+  `lastmodified` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY  (`id`),
   KEY `images_i2` (`date_available`),
   KEY `images_i3` (`rating_score`),
   KEY `images_i4` (`hit`),
   KEY `images_i5` (`date_creation`),
   KEY `images_i1` (`storage_category_id`),
-  KEY `images_i6` (`latitude`)
+  KEY `images_i6` (`latitude`),
+  KEY `lastmodified` (`lastmodified`)
 ) ENGINE=MyISAM;
 
 --
@@ -305,8 +311,10 @@ CREATE TABLE `piwigo_tags` (
   `id` smallint(5) unsigned NOT NULL auto_increment,
   `name` varchar(255) NOT NULL default '',
   `url_name` varchar(255) binary NOT NULL default '',
+  `lastmodified` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY  (`id`),
-  KEY `tags_i1` (`url_name`)
+  KEY `tags_i1` (`url_name`),
+  KEY `lastmodified` (`lastmodified`)
 ) ENGINE=MyISAM;
 
 --
@@ -423,7 +431,9 @@ CREATE TABLE `piwigo_user_infos` (
   `enabled_high` enum('true','false') NOT NULL default 'true',
   `level` tinyint unsigned NOT NULL default '0',
   `activation_key` char(20) default NULL,
-  PRIMARY KEY (`user_id`)
+  `lastmodified` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`user_id`),
+  KEY `lastmodified` (`lastmodified`)
 ) ENGINE=MyISAM;
 
 --

@@ -701,12 +701,11 @@ SELECT id,path,representative_ext,file,filesize,level,name,width,height,rotation
   $template->assign('thumb_params', $thumb_params);
 }
 
-$template->assign(
-  array(
-    'nb_thumbs_page' => $nb_thumbs_page,
-    'nb_thumbs_set' => count($page['cat_elements_id']),
-    )
-  );
+$template->assign(array(
+  'nb_thumbs_page' => $nb_thumbs_page,
+  'nb_thumbs_set' => count($page['cat_elements_id']),
+  'CACHE_KEYS' => get_admin_client_cache_keys(array('tags'))
+  ));
 
 trigger_action('loc_end_element_set_global');
 

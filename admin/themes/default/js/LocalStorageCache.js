@@ -1,7 +1,8 @@
-var LocalStorageCache = function(key, lifetime, loader) {
-  this.key = key;
-  this.lifetime = lifetime*1000;
-  this.loader = loader;
+var LocalStorageCache = function(options) {
+  this.key = options.key + '-' + options.serverId;
+  this.serverKey = options.serverKey;
+  this.lifetime = options.lifetime ? options.lifetime*1000 : 3600*1000;
+  this.loader = options.loader;
   
   this.storage = window.localStorage;
   this.ready = !!this.storage;
@@ -14,28 +15,23 @@ LocalStorageCache.prototype.get = function(callback) {
   if (this.ready && this.storage[this.key] != undefined) {
     var cache = JSON.parse(this.storage[this.key]);
     
-    if (now - cache.timestamp <= this.lifetime) {
+    if (now - cache.timestamp <= this.lifetime && cache.key == this.serverKey) {
       callback(cache.data);
       return;
     }
   }
   
   this.loader(function(data) {
-    if (that.ready) {
-      that.storage[that.key] = JSON.stringify({
-        timestamp: now,
-        data: data
-      });
-    }
-    
+    that.set.call(that, data);
     callback(data);
   });
 };
 
 LocalStorageCache.prototype.set = function(data) {
   if (this.ready) {
-    that.storage[that.key] = JSON.stringify({
+    this.storage[this.key] = JSON.stringify({
       timestamp: new Date().getTime(),
+      key: this.serverKey,
       data: data
     });
   }

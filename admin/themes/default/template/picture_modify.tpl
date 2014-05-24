@@ -10,10 +10,16 @@
 {footer_script}
 (function(){
 {* <!-- CATEGORIES --> *}
-var categoriesCache = new LocalStorageCache('categoriesAdminList', 5*60, function(callback) {
-  jQuery.getJSON('{$ROOT_URL}ws.php?format=json&method=pwg.categories.getAdminList', function(data) {
-    callback(data.result.categories);
-  });
+var categoriesCache = new LocalStorageCache({
+  key: 'categoriesAdminList',
+  serverKey: '{$CACHE_KEYS.categories}',
+  serverId: '{$CACHE_KEYS._hash}',
+
+  loader: function(callback) {
+    jQuery.getJSON('{$ROOT_URL}ws.php?format=json&method=pwg.categories.getAdminList', function(data) {
+      callback(data.result.categories);
+    });
+  }
 });
 
 jQuery('[data-selectize=categories]').selectize({
@@ -36,16 +42,22 @@ categoriesCache.get(function(categories) {
 });
 
 {* <!-- TAGS --> *}
-var tagsCache = new LocalStorageCache('tagsAdminList', 5*60, function(callback) {
-  jQuery.getJSON('{$ROOT_URL}ws.php?format=json&method=pwg.tags.getAdminList', function(data) {
-    var tags = data.result.tags;
-    
-    for (var i=0, l=tags.length; i<l; i++) {
-      tags[i].id = '~~' + tags[i].id + '~~';
-    }
-    
-    callback(tags);
-  });
+var tagsCache = new LocalStorageCache({
+  key: 'tagsAdminList',
+  serverKey: '{$CACHE_KEYS.tags}',
+  serverId: '{$CACHE_KEYS._hash}',
+
+  loader: function(callback) {
+    jQuery.getJSON('{$ROOT_URL}ws.php?format=json&method=pwg.tags.getAdminList', function(data) {
+      var tags = data.result.tags;
+      
+      for (var i=0, l=tags.length; i<l; i++) {
+        tags[i].id = '~~' + tags[i].id + '~~';
+      }
+      
+      callback(tags);
+    });
+  }
 });
 
 jQuery('[data-selectize=tags]').selectize({
@@ -53,14 +65,7 @@ jQuery('[data-selectize=tags]').selectize({
   labelField: 'name',
   searchField: ['name'],
   plugins: ['remove_button'],
-  create: function(input, callback) {
-    tagsCache.clear();
-    
-    callback({
-      id: input,
-      name: input
-    });
-  }
+  create: true
 });
 
 tagsCache.get(function(tags) {

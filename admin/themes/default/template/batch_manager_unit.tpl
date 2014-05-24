@@ -10,16 +10,22 @@
 {footer_script}
 (function(){
 {* <!-- TAGS --> *}
-var tagsCache = new LocalStorageCache('tagsAdminList', 5*60, function(callback) {
-  jQuery.getJSON('{$ROOT_URL}ws.php?format=json&method=pwg.tags.getAdminList', function(data) {
-    var tags = data.result.tags;
-    
-    for (var i=0, l=tags.length; i<l; i++) {
-      tags[i].id = '~~' + tags[i].id + '~~';
-    }
-    
-    callback(tags);
-  });
+var tagsCache = new LocalStorageCache({
+  key: 'tagsAdminList',
+  serverKey: '{$CACHE_KEYS.tags}',
+  serverId: '{$CACHE_KEYS._hash}',
+
+  loader: function(callback) {
+    jQuery.getJSON('{$ROOT_URL}ws.php?format=json&method=pwg.tags.getAdminList', function(data) {
+      var tags = data.result.tags;
+      
+      for (var i=0, l=tags.length; i<l; i++) {
+        tags[i].id = '~~' + tags[i].id + '~~';
+      }
+      
+      callback(tags);
+    });
+  }
 });
 
 jQuery('[data-selectize=tags]').selectize({
@@ -27,14 +33,7 @@ jQuery('[data-selectize=tags]').selectize({
   labelField: 'name',
   searchField: ['name'],
   plugins: ['remove_button'],
-  create: function(input, callback) {
-    tagsCache.clear();
-    
-    callback({
-      id: input,
-      name: input
-    });
-  }
+  create: true
 });
 
 tagsCache.get(function(tags) {
