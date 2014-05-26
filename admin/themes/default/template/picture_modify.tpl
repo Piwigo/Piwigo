@@ -10,37 +10,18 @@
 {footer_script}
 (function(){
 {* <!-- CATEGORIES --> *}
-var categoriesCache = new LocalStorageCache({
-  key: 'categoriesAdminList',
+var categoriesCache = new CategoriesCache({
   serverKey: '{$CACHE_KEYS.categories}',
   serverId: '{$CACHE_KEYS._hash}',
+  rootUrl: '{$ROOT_URL}'
+});
 
-  loader: function(callback) {
-    jQuery.getJSON('{$ROOT_URL}ws.php?format=json&method=pwg.categories.getAdminList', function(data) {
-      callback(data.result.categories);
-    });
+categoriesCache.selectize(jQuery('[data-selectize=categories]'), { {if $STORAGE_ALBUM}
+  filter: function(categories, options) {
+    options.default = (this.name == 'associate[]') ? {$STORAGE_ALBUM} : undefined;
+    return categories;
   }
-});
-
-jQuery('[data-selectize=categories]').selectize({
-  valueField: 'id',
-  labelField: 'fullname',
-  sortField: 'global_rank',
-  searchField: ['fullname'],
-  plugins: ['remove_button']
-});
-
-categoriesCache.get(function(categories) {
-  jQuery('[data-selectize=categories]').each(function() {
-    this.selectize.load(function(callback) {
-      callback(categories);
-    });
-
-    jQuery.each(jQuery(this).data('value'), jQuery.proxy(function(i, id) {
-      this.selectize.addItem(id);
-    }, this));
-  });
-});
+{/if} });
 
 {* <!-- TAGS --> *}
 var tagsCache = new LocalStorageCache({
@@ -157,14 +138,14 @@ jQuery(function(){ {* <!-- onLoad needed to wait localization loads --> *}
     <p>
       <strong>{'Linked albums'|@translate}</strong>
       <br>
-      <select data-selectize="categories" data-value="{$associate_options_selected|@json_encode|escape:html}"
+      <select data-selectize="categories" data-value="{$associated_albums|@json_encode|escape:html}"
         name="associate[]" multiple style="width:600px;" ></select>
     </p>
 
     <p>
       <strong>{'Representation of albums'|@translate}</strong>
       <br>
-      <select data-selectize="categories" data-value="{$represent_options_selected|@json_encode|escape:html}"
+      <select data-selectize="categories" data-value="{$represented_albums|@json_encode|escape:html}"
         name="represent[]" multiple style="width:600px;" ></select>
     </p>
 

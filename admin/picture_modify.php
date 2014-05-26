@@ -42,7 +42,7 @@ SELECT id
   FROM '.CATEGORIES_TABLE.'
   WHERE representative_picture_id = '.$_GET['image_id'].'
 ;';
-$represent_options_selected = query2array($query, null, 'id');
+$represented_albums = query2array($query, null, 'id');
 
 // +-----------------------------------------------------------------------+
 // |                             delete photo                              |
@@ -165,13 +165,13 @@ if (isset($_POST['submit']))
     $_POST['represent'] = array();
   }
 
-  $no_longer_thumbnail_for = array_diff($represent_options_selected, $_POST['represent']);
+  $no_longer_thumbnail_for = array_diff($represented_albums, $_POST['represent']);
   if (count($no_longer_thumbnail_for) > 0)
   {
     set_random_representant($no_longer_thumbnail_for);
   }
 
-  $new_thumbnail_for = array_diff($_POST['represent'], $represent_options_selected);
+  $new_thumbnail_for = array_diff($_POST['represent'], $represented_albums);
   if (count($new_thumbnail_for) > 0)
   {
     $query = '
@@ -182,7 +182,7 @@ UPDATE '.CATEGORIES_TABLE.'
     pwg_query($query);
   }
 
-  $represent_options_selected = $_POST['represent'];
+  $represented_albums = $_POST['represent'];
 
   $page['infos'][] = l10n('Photo informations updated');
 }
@@ -406,11 +406,12 @@ SELECT id
     INNER JOIN '.IMAGE_CATEGORY_TABLE.' ON id = category_id
   WHERE image_id = '.$_GET['image_id'].'
 ;';
-$associate_options_selected = query2array($query, null, 'id');
+$associated_albums = query2array($query, null, 'id');
 
 $template->assign(array(
-  'associate_options_selected' => $associate_options_selected,
-  'represent_options_selected' => $represent_options_selected,
+  'associated_albums' => $associated_albums,
+  'represented_albums' => $represented_albums,
+  'STORAGE_ALBUM' => $storage_category_id,
   'CACHE_KEYS' => get_admin_client_cache_keys(array('tags', 'categories')),
   ));
 

@@ -119,46 +119,31 @@ jQuery(document).ready(function() {ldelim}
   });
   
   {* <!-- CATEGORIES --> *}
-  var categoriesCache = new LocalStorageCache({
-    key: 'categoriesAdminList',
+  var categoriesCache = new CategoriesCache({
     serverKey: '{$CACHE_KEYS.categories}',
     serverId: '{$CACHE_KEYS._hash}',
-
-    loader: function(callback) {
-      jQuery.getJSON('{$ROOT_URL}ws.php?format=json&method=pwg.categories.getAdminList', function(data) {
-        callback(data.result.categories);
-      });
-    }
+    rootUrl: '{$ROOT_URL}'
   });
   
-  jQuery('[data-selectize=categories]').selectize({
-    valueField: 'id',
-    labelField: 'fullname',
-    sortField: 'global_rank',
-    searchField: ['fullname'],
-    plugins: ['remove_button']
-  });
-  
-  categoriesCache.get(function(categories) {
-    jQuery('[data-selectize=categories]').each(function() {
-      this.selectize.load(function(callback) {
-        callback(categories);
-      });
-
-      if (jQuery(this).data('value')) {
-        this.selectize.setValue(jQuery(this).data('value')[0]);
-      }
-      
-      // prevent empty value
-      if (this.selectize.getValue() == '') {
-        this.selectize.setValue(categories[0].id);
-      }
-      this.selectize.on('dropdown_close', function() {
-        if (this.getValue() == '') {
-          this.setValue(categories[0].id);
+  categoriesCache.selectize(jQuery('[data-selectize=categories]'), {
+    filter: function(categories, options) {
+      if (this.name == 'dissociate') {
+        var filtered = jQuery.grep(categories, function(cat) {
+          return !cat.dir;
+        });
+        
+        if (filtered.length > 0) {
+          jQuery('.albumDissociate').show();
+          options.default = filtered[0].id;
         }
-      });
-    });
+        
+        return filtered;
+      }
+      else {
+        options.default = categories[0].id;
+        return categories;
+      }
+    }
   });
   
   jQuery('[data-add-album]').pwgAddAlbum({ cache: categoriesCache });
@@ -837,9 +822,7 @@ UL.thumbnails SPAN.wrap2 {ldelim}
       <option value="delete" class="icon-trash">{'Delete selected photos'|@translate}</option>
       <option value="associate">{'Associate to album'|@translate}</option>
       <option value="move">{'Move to album'|@translate}</option>
-  {if !empty($dissociate_options)}
-      <option value="dissociate">{'Dissociate from album'|@translate}</option>
-  {/if}
+      <option value="dissociate" class="albumDissociate" style="display:none">{'Dissociate from album'|@translate}</option>
       <option value="add_tags">{'Add tags'|@translate}</option>
   {if !empty($associated_tags)}
       <option value="del_tags">{'remove tags'|@translate}</option>
@@ -884,7 +867,7 @@ UL.thumbnails SPAN.wrap2 {ldelim}
 
 
     <!-- dissociate -->
-    <div id="action_dissociate" class="bulkAction">
+    <div id="action_dissociate" class="bulkAction albumDissociate" style="display:none">
       <select data-selectize="categories" name="dissociate" style="width:400px"></select>
     </div>
 

@@ -519,30 +519,8 @@ SELECT
   }
 }
 
-$template->assign( 'filter_category_selected', $selected_category);
+$template->assign('filter_category_selected', $selected_category);
 
-// Dissociate from a category : categories listed for dissociation can only
-// represent virtual links. We can't create orphans. Links to physical
-// categories can't be broken.
-if (count($page['cat_elements_id']) > 0)
-{
-  $query = '
-SELECT
-    DISTINCT(category_id) AS id,
-    c.name,
-    c.uppercats,
-    c.global_rank
-  FROM '.IMAGE_CATEGORY_TABLE.' AS ic
-    JOIN '.CATEGORIES_TABLE.' AS c ON c.id = ic.category_id
-    JOIN '.IMAGES_TABLE.' AS i ON i.id = ic.image_id
-  WHERE ic.image_id IN ('.implode(',', $page['cat_elements_id']).')
-    AND (
-      ic.category_id != i.storage_category_id
-      OR i.storage_category_id IS NULL
-    )
-;';
-  display_select_cat_wrapper($query, array(), 'dissociate_options', true);
-}
 
 if (count($page['cat_elements_id']) > 0)
 {

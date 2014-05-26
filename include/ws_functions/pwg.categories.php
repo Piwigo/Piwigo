@@ -489,7 +489,7 @@ SELECT category_id, COUNT(*) AS counter
   $nb_images_of = query2array($query, 'category_id', 'counter');
 
   $query = '
-SELECT id, name, comment, uppercats, global_rank
+SELECT id, name, comment, uppercats, global_rank, dir
   FROM '. CATEGORIES_TABLE .'
 ;';
   $result = pwg_query($query);

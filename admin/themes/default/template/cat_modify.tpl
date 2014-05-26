@@ -5,57 +5,28 @@
 
 {footer_script}
 {* <!-- CATEGORIES --> *}
-var categoriesCache = new LocalStorageCache({
-  key: 'categoriesAdminList',
+var categoriesCache = new CategoriesCache({
   serverKey: '{$CACHE_KEYS.categories}',
   serverId: '{$CACHE_KEYS._hash}',
-
-  loader: function(callback) {
-    jQuery.getJSON('{$ROOT_URL}ws.php?format=json&method=pwg.categories.getAdminList', function(data) {
-      callback(data.result.categories);
-    });
-  }
+  rootUrl: '{$ROOT_URL}'
 });
 
-jQuery('[data-selectize=categories]').selectize({
-  valueField: 'id',
-  labelField: 'fullname',
-  sortField: 'global_rank',
-  searchField: ['fullname'],
-  plugins: ['remove_button']
-});
-
-categoriesCache.get(function(categories) {
-  categories.push({
-    id: 0,
-    fullname: '------------',
-    global_rank: 0
-  });
-  
-  // remove itself and children
-  categories = jQuery.grep(categories, function(cat) {
-    return !(/\b{$CAT_ID}\b/.test(cat.uppercats));
-  });
-  
-  jQuery('[data-selectize=categories]').each(function() {
-    this.selectize.load(function(callback) {
-      callback(categories);
+categoriesCache.selectize(jQuery('[data-selectize=categories]'), {
+  default: 0,
+  filter: function(categories, options) {
+    // remove itself and children
+    var filtered = jQuery.grep(categories, function(cat) {
+      return !(/\b{$CAT_ID}\b/.test(cat.uppercats));
     });
-
-    if (jQuery(this).data('value')) {
-      this.selectize.setValue(jQuery(this).data('value')[0]);
-    }
     
-    // prevent empty value
-    if (this.selectize.getValue() == '') {
-      this.selectize.setValue(0);
-    }
-    this.selectize.on('dropdown_close', function() {
-      if (this.getValue() == '') {
-        this.setValue(0);
-      }
+    filtered.push({
+      id: 0,
+      fullname: '------------',
+      global_rank: 0
     });
-  });
+    
+    return filtered;
+  }
 });
 {/footer_script}
 

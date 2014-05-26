@@ -16,50 +16,21 @@
 
 {footer_script}
 {* <!-- CATEGORIES --> *}
-var categoriesCache = new LocalStorageCache({
-  key: 'categoriesAdminList',
+var categoriesCache = new CategoriesCache({
   serverKey: '{$CACHE_KEYS.categories}',
   serverId: '{$CACHE_KEYS._hash}',
-
-  loader: function(callback) {
-    jQuery.getJSON('{$ROOT_URL}ws.php?format=json&method=pwg.categories.getAdminList', function(data) {
-      callback(data.result.categories);
-    });
-  }
+  rootUrl: '{$ROOT_URL}'
 });
 
-jQuery('[data-selectize=categories]').selectize({
-  valueField: 'id',
-  labelField: 'fullname',
-  sortField: 'global_rank',
-  searchField: ['fullname'],
-  plugins: ['remove_button']
-});
-
-categoriesCache.get(function(categories) {
-  if (categories.length > 0) {
-    jQuery("#albumSelection").show();
-  }
-  
-  jQuery('[data-selectize=categories]').each(function() {
-    this.selectize.load(function(callback) {
-      callback(categories);
-    });
-
-    if (jQuery(this).data('value')) {
-      this.selectize.setValue(jQuery(this).data('value')[0]);
+categoriesCache.selectize(jQuery('[data-selectize=categories]'), {
+  filter: function(categories, options) {
+    if (categories.length > 0) {
+      jQuery("#albumSelection").show();
+      options.default = categories[0].id;
     }
     
-    // prevent empty value
-    if (this.selectize.getValue() == '') {
-      this.selectize.setValue(categories[0].id);
-    }
-    this.selectize.on('dropdown_close', function() {
-      if (this.getValue() == '') {
-        this.setValue(categories[0].id);
-      }
-    });
-  });
+    return categories;
+  }
 });
 
 jQuery('[data-add-album]').pwgAddAlbum({ cache: categoriesCache });
