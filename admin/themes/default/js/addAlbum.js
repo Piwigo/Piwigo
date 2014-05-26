@@ -8,7 +8,7 @@ jQuery.fn.pwgAddAlbum = function(options) {
     $popup.find('[name="category_parent"]').selectize({
       valueField: 'id',
       labelField: 'fullname',
-      sortField: 'fullname',
+      sortField: 'global_rank',
       searchField: ['fullname'],
       plugins: ['remove_button'],
       onInitialize: function() {
@@ -107,7 +107,8 @@ jQuery.fn.pwgAddAlbum = function(options) {
       options.cache.get(function(categories) {
         categories.push({
           id: 0,
-          fullname: '------------'
+          fullname: '------------',
+          global_rank: 0
         });
         
         albumParent.selectize.load(function(callback) {

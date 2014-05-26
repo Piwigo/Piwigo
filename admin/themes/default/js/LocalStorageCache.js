@@ -1,5 +1,5 @@
 var LocalStorageCache = function(options) {
-  this.key = options.key + '-' + options.serverId;
+  this.key = options.key + '_' + options.serverId;
   this.serverKey = options.serverKey;
   this.lifetime = options.lifetime ? options.lifetime*1000 : 3600*1000;
   this.loader = options.loader;

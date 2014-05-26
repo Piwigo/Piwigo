@@ -134,16 +134,12 @@ jQuery(document).ready(function() {ldelim}
   jQuery('[data-selectize=categories]').selectize({
     valueField: 'id',
     labelField: 'fullname',
-    sortField: 'fullname',
+    sortField: 'global_rank',
     searchField: ['fullname'],
     plugins: ['remove_button']
   });
   
   categoriesCache.get(function(categories) {
-    categories.sort(function(a, b) {
-      return a.fullname.localeCompare(b.fullname);
-    });
-    
     jQuery('[data-selectize=categories]').each(function() {
       this.selectize.load(function(callback) {
         callback(categories);

@@ -20,7 +20,7 @@ var categoriesCache = new LocalStorageCache({
 jQuery('[data-selectize=categories]').selectize({
   valueField: 'id',
   labelField: 'fullname',
-  sortField: 'fullname',
+  sortField: 'global_rank',
   searchField: ['fullname'],
   plugins: ['remove_button']
 });
@@ -28,16 +28,13 @@ jQuery('[data-selectize=categories]').selectize({
 categoriesCache.get(function(categories) {
   categories.push({
     id: 0,
-    fullname: '------------'
+    fullname: '------------',
+    global_rank: 0
   });
   
   // remove itself and children
   categories = jQuery.grep(categories, function(cat) {
     return !(/\b{$CAT_ID}\b/.test(cat.uppercats));
-  });
-  
-  categories.sort(function(a, b) {
-    return a.fullname.localeCompare(b.fullname);
   });
   
   jQuery('[data-selectize=categories]').each(function() {
@@ -51,11 +48,11 @@ categoriesCache.get(function(categories) {
     
     // prevent empty value
     if (this.selectize.getValue() == '') {
-      this.selectize.setValue(categories[0].id);
+      this.selectize.setValue(0);
     }
     this.selectize.on('dropdown_close', function() {
       if (this.getValue() == '') {
-        this.setValue(categories[0].id);
+        this.setValue(0);
       }
     });
   });
