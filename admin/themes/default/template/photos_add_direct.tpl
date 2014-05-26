@@ -37,6 +37,10 @@ jQuery('[data-selectize=categories]').selectize({
 });
 
 categoriesCache.get(function(categories) {
+  if (categories.length > 0) {
+    jQuery("#albumSelection").show();
+  }
+
   categories.sort(function(a, b) {
     return a.fullname.localeCompare(b.fullname);
   });
@@ -335,7 +339,7 @@ var sizeLimit = Math.round({$upload_max_filesize} / 1024); /* in KBytes */
     <fieldset>
       <legend>{'Drop into album'|@translate}</legend>
 
-      <span id="albumSelection"{if count($category_options) == 0} style="display:none"{/if}>
+      <span id="albumSelection" style="display:none">
       <select data-selectize="categories" data-value="{$selected_category|@json_encode|escape:html}"
         name="category" style="width:400px"></select>
       <br>{'... or '|@translate}</span>
