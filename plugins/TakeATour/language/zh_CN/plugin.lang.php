@@ -149,3 +149,4 @@ $lang['2_7_0_stp3'] = '快捷搜索 功能已重新编码：<br>
 - 识别单复数词形变化（目前仅限英语和法语）<br>';
 $lang['2_7_0_stp2'] = '如您所见，我们添加了一个新的默认插件：Take A Tour。此插件可以帮助您探索您的 Piwigo。这里列出了所有可用的导览。<br>此页面可经由 <em>插件 » Take A Tour</em> 访问。';
 $lang['2_7_0_stp11'] = '导览结束。<p style="text-align:center">开始享用您的 Piwigo 2.7 吧！</p>如果您喜欢 Piwigo 并希望支持我们，您可以通过帮助我们进行翻译、捐赠等方式贡献您的力量。<a href="http://piwigo.org/basics/contribute" target="_blank">点此支持我们</a>';
+$lang['2_7_0_title2'] = '首个新特性';
