@@ -1,165 +1,351 @@
-/**
- * Base LocalStorage cache
- *
- * @param options {object}
- *    - key (required) identifier of the collection
- *    - serverId (recommended) identifier of the Piwigo instance
- *    - serverKey (required) state of collection server-side
- *    - lifetime (optional) cache lifetime in seconds
- *    - loader (required) function called to fetch data, takes a callback as first argument
- *        which must be called with the loaded date
- */
-var LocalStorageCache = function(options) {
-  this._init(options);
-};
-
-/*
- * Constructor (deported for easy inheritance)
- */
-LocalStorageCache.prototype._init = function(options) {
-  this.key = options.key + '_' + options.serverId;
-  this.serverKey = options.serverKey;
-  this.lifetime = options.lifetime ? options.lifetime*1000 : 3600*1000;
-  this.loader = options.loader;
+(function($, exports) {
+  "use strict";
   
-  this.storage = window.localStorage;
-  this.ready = !!this.storage;
-};
+  /**
+   * Base LocalStorage cache
+   *
+   * @param options {object}
+   *    - key (required) identifier of the collection
+   *    - serverId (recommended) identifier of the Piwigo instance
+   *    - serverKey (required) state of collection server-side
+   *    - lifetime (optional) cache lifetime in seconds
+   *    - loader (required) function called to fetch data, takes a callback as first argument
+   *        which must be called with the loaded date
+   */
+  var LocalStorageCache = function(options) {
+    this._init(options);
+  };
 
-/*
- * Get the cache content
- * @param callback {function} called with the data as first parameter
- */
-LocalStorageCache.prototype.get = function(callback) {
-  var now = new Date().getTime(),
-      that = this;
-  
-  if (this.ready && this.storage[this.key] != undefined) {
-    var cache = JSON.parse(this.storage[this.key]);
+  /*
+   * Constructor (deported for easy inheritance)
+   */
+  LocalStorageCache.prototype._init = function(options) {
+    this.key = options.key + '_' + options.serverId;
+    this.serverKey = options.serverKey;
+    this.lifetime = options.lifetime ? options.lifetime*1000 : 3600*1000;
+    this.loader = options.loader;
     
-    if (now - cache.timestamp <= this.lifetime && cache.key == this.serverKey) {
-      callback(cache.data);
-      return;
+    this.storage = window.localStorage;
+    this.ready = !!this.storage;
+  };
+
+  /*
+   * Get the cache content
+   * @param callback {function} called with the data as first parameter
+   */
+  LocalStorageCache.prototype.get = function(callback) {
+    var now = new Date().getTime(),
+        that = this;
+    
+    if (this.ready && this.storage[this.key] != undefined) {
+      var cache = JSON.parse(this.storage[this.key]);
+      
+      if (now - cache.timestamp <= this.lifetime && cache.key == this.serverKey) {
+        callback(cache.data);
+        return;
+      }
     }
-  }
-  
-  this.loader(function(data) {
-    that.set.call(that, data);
-    callback(data);
-  });
-};
-
-/*
- * Manually set the cache content
- * @param data {mixed}
- */
-LocalStorageCache.prototype.set = function(data) {
-  if (this.ready) {
-    this.storage[this.key] = JSON.stringify({
-      timestamp: new Date().getTime(),
-      key: this.serverKey,
-      data: data
-    });
-  }
-};
-
-/*
- * Manually clear the cache
- */
-LocalStorageCache.prototype.clear = function() {
-  if (this.ready) {
-    this.storage.removeItem(this.key);
-  }
-};
-
-
-/**
- * Special LocalStorage for admin categories list
- *
- * @param options {object}
- *    - serverId (recommended) identifier of the Piwigo instance
- *    - serverKey (required) state of collection server-side
- *    - rootUrl (required) used for WS call
- */
-var CategoriesCache = function(options) {
-  options.key = 'categoriesAdminList';
-  
-  options.loader = function(callback) {
-    jQuery.getJSON(options.rootUrl + 'ws.php?format=json&method=pwg.categories.getAdminList', function(data) {
-      callback(data.result.categories);
+    
+    this.loader(function(data) {
+      that.set.call(that, data);
+      callback(data);
     });
   };
-  
-  this._init(options);
-};
 
-CategoriesCache.prototype = new LocalStorageCache({});
-
-/*
- * Init Selectize with cache content
- * @param $target {jQuery}
- * @param options {object}
- *    - default (optional) default value which will be forced if the select is emptyed
- *    - filter (optional) function called for each select before applying the data
- *      takes two parameters: cache data, options
- *      must return new data
- */
-CategoriesCache.prototype.selectize = function($target, options) {
-  options = options || {};
-
-  $target.selectize({
-    valueField: 'id',
-    labelField: 'fullname',
-    sortField: 'global_rank',
-    searchField: ['fullname'],
-    plugins: ['remove_button']
-  });
-  
-  this.get(function(categories) {
-    $target.each(function() {
-      var data;
-      if (options.filter != undefined) {
-        data = options.filter.call(this, categories, options);
-      }
-      else {
-        data = categories;
-      }
-      
-      this.selectize.load(function(callback) {
-        callback(data);
+  /*
+   * Manually set the cache content
+   * @param data {mixed}
+   */
+  LocalStorageCache.prototype.set = function(data) {
+    if (this.ready) {
+      this.storage[this.key] = JSON.stringify({
+        timestamp: new Date().getTime(),
+        key: this.serverKey,
+        data: data
       });
+    }
+  };
 
-      if (jQuery(this).data('value')) {
-        jQuery.each(jQuery(this).data('value'), jQuery.proxy(function(i, id) {
-          this.selectize.addItem(id);
-        }, this));
-      }
-      
-      if (options.default != undefined) {
-        if (this.selectize.getValue() == '') {
-          this.selectize.addItem(options.default);
-        }
+  /*
+   * Manually clear the cache
+   */
+  LocalStorageCache.prototype.clear = function() {
+    if (this.ready) {
+      this.storage.removeItem(this.key);
+    }
+  };
 
-        // if multiple: prevent item deletion
-        if (this.multiple) {
-          this.selectize.getItem(options.default).find('.remove').hide();
-          
-          this.selectize.on('item_remove', function(id) {
-            if (id == options.default) {
-              this.addItem(id);
-              this.getItem(id).find('.remove').hide();
-            }
-          });
+  
+  /**
+   * Abstract class containing common initialization code for selectize
+   */
+  var AbstractSelectizer = function(){};
+  AbstractSelectizer.prototype = new LocalStorageCache({});
+
+  /*
+   * Load Selectize with cache content
+   * @param $target {jQuery}
+   * @param options {object}
+   *    - default (optional) default value which will be forced if the select is emptyed
+   *    - filter (optional) function called for each select before applying the data
+   *      takes two parameters: cache data, options
+   *      must return new data
+   */
+  AbstractSelectizer.prototype._selectize = function($target, options) {
+    this.get(function(data) {
+      $target.each(function() {
+        var filtered, value;
+        
+        // apply filter function
+        if (options.filter != undefined) {
+          filtered = options.filter.call(this, data, options);
         }
-        // if single: restore default on blur
         else {
-          this.selectize.on('dropdown_close', function() {
-            if (this.getValue() == '') {
-              this.addItem(options.default);
-            }
-          });
+          filtered = data;
         }
-      }
+        
+        // active creation mode
+        if (this.hasAttribute('data-selectize-create')) {
+          this.selectize.settings.create = true;
+        }
+        
+        // load options
+        this.selectize.load(function(callback) {
+          if ($.isEmptyObject(this.options)) {
+            callback(filtered);
+          }
+        });
+
+        // load items
+        if ((value = $(this).data('value'))) {
+          $.each(value, $.proxy(function(i, cat) {
+            if ($.isNumeric(cat))
+              this.selectize.addItem(cat);
+            else
+              this.selectize.addItem(cat.id);
+          }, this));
+        }
+        
+        if (options.default != undefined) {
+          // add default item
+          if (this.selectize.getValue() == '') {
+            this.selectize.addItem(options.default);
+          }
+
+          // if multiple: prevent item deletion
+          if (this.multiple) {
+            this.selectize.getItem(options.default).find('.remove').hide();
+            
+            this.selectize.on('item_remove', function(id) {
+              if (id == options.default) {
+                this.addItem(id);
+                this.getItem(id).find('.remove').hide();
+              }
+            });
+          }
+          // if single: restore default on blur
+          else {
+            this.selectize.on('dropdown_close', function() {
+              if (this.getValue() == '') {
+                this.addItem(options.default);
+              }
+            });
+          }
+        }
+      });
     });
-  });
-};
+  };
+
+
+  /**
+   * Special LocalStorage for admin categories list
+   *
+   * @param options {object}
+   *    - serverId (recommended) identifier of the Piwigo instance
+   *    - serverKey (required) state of collection server-side
+   *    - rootUrl (required) used for WS call
+   */
+  var CategoriesCache = function(options) {
+    options.key = 'categoriesAdminList';
+    
+    options.loader = function(callback) {
+      $.getJSON(options.rootUrl + 'ws.php?format=json&method=pwg.categories.getAdminList', function(data) {
+        callback(data.result.categories);
+      });
+    };
+    
+    this._init(options);
+  };
+
+  CategoriesCache.prototype = new AbstractSelectizer();
+
+  /*
+   * Init Selectize with cache content
+   * @see AbstractSelectizer._selectize
+   */
+  CategoriesCache.prototype.selectize = function($target, options) {
+    options = options || {};
+
+    $target.selectize({
+      valueField: 'id',
+      labelField: 'fullname',
+      sortField: 'global_rank',
+      searchField: ['fullname'],
+      plugins: ['remove_button']
+    });
+    
+    this._selectize($target, options);
+  };
+
+
+  /**
+   * Special LocalStorage for admin tags list
+   *
+   * @param options {object}
+   *    - serverId (recommended) identifier of the Piwigo instance
+   *    - serverKey (required) state of collection server-side
+   *    - rootUrl (required) used for WS call
+   */
+  var TagsCache = function(options) {
+    options.key = 'tagsAdminList';
+    
+    options.loader = function(callback) {
+      $.getJSON(options.rootUrl + 'ws.php?format=json&method=pwg.tags.getAdminList', function(data) {
+        var tags = data.result.tags;
+        
+        for (var i=0, l=tags.length; i<l; i++) {
+          tags[i].id = '~~' + tags[i].id + '~~';
+        }
+        
+        callback(tags);
+      });
+    };
+    
+    this._init(options);
+  };
+
+  TagsCache.prototype = new AbstractSelectizer();
+
+  /*
+   * Init Selectize with cache content
+   * @see AbstractSelectizer._selectize
+   */
+  TagsCache.prototype.selectize = function($target, options) {
+    options = options || {};
+
+    $target.selectize({
+      valueField: 'id',
+      labelField: 'name',
+      sortField: 'name',
+      searchField: ['name'],
+      plugins: ['remove_button']
+    });
+    
+    this._selectize($target, options);
+  };
+  
+  
+  /**
+   * Special LocalStorage for admin groups list
+   *
+   * @param options {object}
+   *    - serverId (recommended) identifier of the Piwigo instance
+   *    - serverKey (required) state of collection server-side
+   *    - rootUrl (required) used for WS call
+   */
+  var GroupsCache = function(options) {
+    options.key = 'groupsAdminList';
+    
+    options.loader = function(callback) {
+      $.getJSON(options.rootUrl + 'ws.php?format=json&method=pwg.groups.getList&per_page=9999', function(data) {
+        callback(data.result.groups);
+      });
+    };
+    
+    this._init(options);
+  };
+
+  GroupsCache.prototype = new AbstractSelectizer();
+
+  /*
+   * Init Selectize with cache content
+   * @see AbstractSelectizer._selectize
+   */
+  GroupsCache.prototype.selectize = function($target, options) {
+    options = options || {};
+
+    $target.selectize({
+      valueField: 'id',
+      labelField: 'name',
+      sortField: 'name',
+      searchField: ['name'],
+      plugins: ['remove_button']
+    });
+    
+    this._selectize($target, options);
+  };
+  
+  
+  /**
+   * Special LocalStorage for admin users list
+   *
+   * @param options {object}
+   *    - serverId (recommended) identifier of the Piwigo instance
+   *    - serverKey (required) state of collection server-side
+   *    - rootUrl (required) used for WS call
+   */
+  var UsersCache = function(options) {
+    options.key = 'usersAdminList';
+    
+    options.loader = function(callback) {
+      var users = [];
+      
+      // recursive loader
+      (function load(page){
+        jQuery.getJSON(options.rootUrl + 'ws.php?format=json&method=pwg.users.getList&display=username&per_page=9999&page='+ page, function(data) {
+          users = users.concat(data.result.users);
+          
+          if (data.result.paging.count == data.result.paging.per_page) {
+            load(++page);
+          }
+          else {
+            callback(users);
+          }
+        });
+      }(0));
+    };
+    
+    this._init(options);
+  };
+
+  UsersCache.prototype = new AbstractSelectizer();
+
+  /*
+   * Init Selectize with cache content
+   * @see AbstractSelectizer._selectize
+   */
+  UsersCache.prototype.selectize = function($target, options) {
+    options = options || {};
+
+    $target.selectize({
+      valueField: 'id',
+      labelField: 'username',
+      sortField: 'username',
+      searchField: ['username'],
+      plugins: ['remove_button']
+    });
+    
+    this._selectize($target, options);
+  };
+  
+  
+  /**
+   * Expose classes in global scope
+   */
+  exports.LocalStorageCache = LocalStorageCache;
+  exports.CategoriesCache = CategoriesCache;
+  exports.TagsCache = TagsCache;
+  exports.GroupsCache = GroupsCache;
+  exports.UsersCache = UsersCache;
+  
+}(jQuery, window));

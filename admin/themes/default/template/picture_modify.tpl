@@ -24,43 +24,13 @@ categoriesCache.selectize(jQuery('[data-selectize=categories]'), { {if $STORAGE_
 {/if} });
 
 {* <!-- TAGS --> *}
-var tagsCache = new LocalStorageCache({
-  key: 'tagsAdminList',
+var tagsCache = new TagsCache({
   serverKey: '{$CACHE_KEYS.tags}',
   serverId: '{$CACHE_KEYS._hash}',
-
-  loader: function(callback) {
-    jQuery.getJSON('{$ROOT_URL}ws.php?format=json&method=pwg.tags.getAdminList', function(data) {
-      var tags = data.result.tags;
-      
-      for (var i=0, l=tags.length; i<l; i++) {
-        tags[i].id = '~~' + tags[i].id + '~~';
-      }
-      
-      callback(tags);
-    });
-  }
+  rootUrl: '{$ROOT_URL}'
 });
 
-jQuery('[data-selectize=tags]').selectize({
-  valueField: 'id',
-  labelField: 'name',
-  searchField: ['name'],
-  plugins: ['remove_button'],
-  create: true
-});
-
-tagsCache.get(function(tags) {
-  jQuery('[data-selectize=tags]').each(function() {
-    this.selectize.load(function(callback) {
-      callback(tags);
-    });
-
-    jQuery.each(jQuery(this).data('value'), jQuery.proxy(function(i, tag) {
-      this.selectize.addItem(tag.id);
-    }, this));
-  });
-});
+tagsCache.selectize(jQuery('[data-selectize=tags]'));
 
 {* <!-- DATEPICKER --> *}
 jQuery(function(){ {* <!-- onLoad needed to wait localization loads --> *}
@@ -139,21 +109,21 @@ jQuery(function(){ {* <!-- onLoad needed to wait localization loads --> *}
       <strong>{'Linked albums'|@translate}</strong>
       <br>
       <select data-selectize="categories" data-value="{$associated_albums|@json_encode|escape:html}"
-        name="associate[]" multiple style="width:600px;" ></select>
+        name="associate[]" multiple style="width:600px;"></select>
     </p>
 
     <p>
       <strong>{'Representation of albums'|@translate}</strong>
       <br>
       <select data-selectize="categories" data-value="{$represented_albums|@json_encode|escape:html}"
-        name="represent[]" multiple style="width:600px;" ></select>
+        name="represent[]" multiple style="width:600px;"></select>
     </p>
 
     <p>
       <strong>{'Tags'|@translate}</strong>
       <br>
       <select data-selectize="tags" data-value="{$tag_selection|@json_encode|escape:html}"
-        name="tags[]" multiple style="width:600px;" ></select>
+        name="tags[]" multiple style="width:600px;" data-selectize-create></select>
     </p>
 
     <p>

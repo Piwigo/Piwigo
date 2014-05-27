@@ -10,43 +10,13 @@
 {footer_script}
 (function(){
 {* <!-- TAGS --> *}
-var tagsCache = new LocalStorageCache({
-  key: 'tagsAdminList',
+var tagsCache = new TagsCache({
   serverKey: '{$CACHE_KEYS.tags}',
   serverId: '{$CACHE_KEYS._hash}',
-
-  loader: function(callback) {
-    jQuery.getJSON('{$ROOT_URL}ws.php?format=json&method=pwg.tags.getAdminList', function(data) {
-      var tags = data.result.tags;
-      
-      for (var i=0, l=tags.length; i<l; i++) {
-        tags[i].id = '~~' + tags[i].id + '~~';
-      }
-      
-      callback(tags);
-    });
-  }
+  rootUrl: '{$ROOT_URL}'
 });
 
-jQuery('[data-selectize=tags]').selectize({
-  valueField: 'id',
-  labelField: 'name',
-  searchField: ['name'],
-  plugins: ['remove_button'],
-  create: true
-});
-
-tagsCache.get(function(tags) {
-  jQuery('[data-selectize=tags]').each(function() {
-    this.selectize.load(function(callback) {
-      callback(tags);
-    });
-
-    jQuery.each(jQuery(this).data('value'), jQuery.proxy(function(i, tag) {
-      this.selectize.addItem(tag.id);
-    }, this));
-  });
-});
+tagsCache.selectize(jQuery('[data-selectize=tags]'));
 
 {* <!-- DATEPICKER --> *}
 jQuery(function(){ {* <!-- onLoad needed to wait localization loads --> *}
@@ -128,7 +98,7 @@ $(".elementEdit img")
       <td><strong>{'Tags'|@translate}</strong></td>
       <td>
         <select data-selectize="tags" data-value="{$element.TAGS|@json_encode|escape:html}"
-          name="tags-{$element.id}[]" multiple style="width:500px;" ></select>
+          name="tags-{$element.id}[]" multiple style="width:500px;" data-selectize-create></select>
       </td>
     </tr>
 

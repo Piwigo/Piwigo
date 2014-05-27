@@ -6,80 +6,22 @@
 {footer_script}
 (function(){
 {* <!-- GROUPS --> *}
-var groupsCache = new LocalStorageCache({
-  key: 'groupsAdminList',
+var groupsCache = new GroupsCache({
   serverKey: '{$CACHE_KEYS.groups}',
   serverId: '{$CACHE_KEYS._hash}',
-
-  loader: function(callback) {
-    jQuery.getJSON('{$ROOT_URL}ws.php?format=json&method=pwg.groups.getList&per_page=99999', function(data) {
-      callback(data.result.groups);
-    });
-  }
+  rootUrl: '{$ROOT_URL}'
 });
 
-jQuery('[data-selectize=groups]').selectize({
-  valueField: 'id',
-  labelField: 'name',
-  searchField: ['name'],
-  plugins: ['remove_button']
-});
-
-groupsCache.get(function(groups) {
-  jQuery('[data-selectize=groups]').each(function() {
-    this.selectize.load(function(callback) {
-      callback(groups);
-    });
-
-    jQuery.each(jQuery(this).data('value'), jQuery.proxy(function(i, id) {
-      this.selectize.addItem(id);
-    }, this));
-  });
-});
+groupsCache.selectize(jQuery('[data-selectize=groups]'));
 
 {* <!-- USERS --> *}
-var usersCache = new LocalStorageCache({
-  key: 'usersAdminList',
+var usersCache = new UsersCache({
   serverKey: '{$CACHE_KEYS.users}',
   serverId: '{$CACHE_KEYS._hash}',
-
-  loader: function(callback) {
-    var users = [];
-    
-    // recursive loader
-    (function load(page){
-      jQuery.getJSON('{$ROOT_URL}ws.php?format=json&method=pwg.users.getList&display=username&per_page=99999&page='+ page, function(data) {
-        users = users.concat(data.result.users);
-        
-        if (data.result.paging.count == data.result.paging.per_page) {
-          load(++page);
-        }
-        else {
-          callback(users);
-        }
-      });
-    }(0));
-  }
+  rootUrl: '{$ROOT_URL}'
 });
 
-jQuery('[data-selectize=users]').selectize({
-  valueField: 'id',
-  labelField: 'username',
-  searchField: ['username'],
-  plugins: ['remove_button']
-});
-
-usersCache.get(function(users) {
-  jQuery('[data-selectize=users]').each(function() {
-    this.selectize.load(function(callback) {
-      callback(users);
-    });
-
-    jQuery.each(jQuery(this).data('value'), jQuery.proxy(function(i, id) {
-      this.selectize.addItem(id);
-    }, this));
-  });
-});
+usersCache.selectize(jQuery('[data-selectize=users]'));
 
 {* <!-- TOGGLES --> *}
 function checkStatusOptions() {
@@ -130,7 +72,7 @@ jQuery("#selectStatus").change(function() {
     <strong>{'Permission granted for groups'|@translate}</strong>
     <br>
     <select data-selectize="groups" data-value="{$groups_selected|@json_encode|escape:html}"
-        name="groups[]" multiple style="width:600px;" ></select>
+        name="groups[]" multiple style="width:600px;"></select>
 {else}
     {'There is no group in this gallery.'|@translate} <a href="admin.php?page=group_list" class="externalLink">{'Group management'|@translate}</a>
 {/if}
@@ -140,7 +82,7 @@ jQuery("#selectStatus").change(function() {
     <strong>{'Permission granted for users'|@translate}</strong>
     <br>
     <select data-selectize="users" data-value="{$users_selected|@json_encode|escape:html}"
-        name="users[]" multiple style="width:600px;" ></select>
+        name="users[]" multiple style="width:600px;"></select>
   </p>
 
 {if isset($nb_users_granted_indirect) && $nb_users_granted_indirect>0}

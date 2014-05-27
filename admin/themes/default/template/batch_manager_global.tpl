@@ -68,55 +68,13 @@ jQuery(document).ready(function() {ldelim}
   jQuery("a.preview-box").colorbox();
   
   {* <!-- TAGS --> *}
-  var tagsCache = new LocalStorageCache({
-    key: 'tagsAdminList',
+  var tagsCache = new TagsCache({
     serverKey: '{$CACHE_KEYS.tags}',
     serverId: '{$CACHE_KEYS._hash}',
+    rootUrl: '{$ROOT_URL}'
+  });
 
-    loader: function(callback) {
-      jQuery.getJSON('{$ROOT_URL}ws.php?format=json&method=pwg.tags.getAdminList', function(data) {
-        var tags = data.result.tags;
-        
-        for (var i=0, l=tags.length; i<l; i++) {
-          tags[i].id = '~~' + tags[i].id + '~~';
-        }
-        
-        callback(tags);
-      });
-    }
-  });
-  
-  jQuery('[data-selectize=tags]').selectize({
-    valueField: 'id',
-    labelField: 'name',
-    searchField: ['name'],
-    plugins: ['remove_button']
-  });
-  
-  jQuery('[data-selectize=tags-create]').selectize({
-    valueField: 'id',
-    labelField: 'name',
-    searchField: ['name'],
-    plugins: ['remove_button'],
-    create: true
-  });
-  
-  tagsCache.get(function(tags) {
-    jQuery('[data-selectize^=tags]').each(function() {
-      this.selectize.load(function(callback) {
-        // one select is populated with <option>
-        if (jQuery.isEmptyObject(this.options)) {
-          callback(tags);
-        }
-      });
-
-      if (jQuery(this).data('value')) {
-        jQuery.each(jQuery(this).data('value'), jQuery.proxy(function(i, tag) {
-          this.selectize.addItem(tag.id);
-        }, this));
-      }
-    });
-  });
+  tagsCache.selectize(jQuery('[data-selectize=tags]'));
   
   {* <!-- CATEGORIES --> *}
   var categoriesCache = new CategoriesCache({
@@ -654,7 +612,7 @@ $(document).ready(function() {
         <input type="checkbox" name="filter_tags_use" class="useFilterCheckbox" {if isset($filter.tags)}checked="checked"{/if}>
         {'Tags'|@translate}
         <select data-selectize="tags" data-value="{$filter_tags|@json_encode|escape:html}"
-          name="filter_tags[]" multiple style="width:400px;" ></select>
+          name="filter_tags[]" multiple style="width:400px;"></select>
         <label><span><input type="radio" name="tag_mode" value="AND" {if !isset($filter.tag_mode) or $filter.tag_mode eq 'AND'}checked="checked"{/if}> {'All tags'|@translate}</span></label>
         <label><span><input type="radio" name="tag_mode" value="OR" {if isset($filter.tag_mode) and $filter.tag_mode eq 'OR'}checked="checked"{/if}> {'Any tag'|@translate}</span></label>
       </li>
@@ -874,7 +832,7 @@ UL.thumbnails SPAN.wrap2 {ldelim}
 
     <!-- add_tags -->
     <div id="action_add_tags" class="bulkAction">
-      <select data-selectize="tags-create" name="add_tags[]" multiple style="width:400px;"></select>
+      <select data-selectize="tags" data-selectize-create name="add_tags[]" multiple style="width:400px;"></select>
     </div>
 
     <!-- del_tags -->
