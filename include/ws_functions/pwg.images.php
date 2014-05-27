@@ -1244,6 +1244,146 @@ SELECT id, name, permalink
 
 /**
  * API method
+ * Adds a image (simple way)
+ * @param mixed[] $params
+ *    @option int[] category
+ *    @option string name (optional)
+ *    @option string author (optional)
+ *    @option string comment (optional)
+ *    @option int level
+ *    @option string|string[] tags
+ *    @option int image_id (optional)
+ */
+function ws_images_upload($params, $service)
+{
+  global $conf;
+
+  if (get_pwg_token() != $params['pwg_token'])
+  {
+    return new PwgError(403, 'Invalid security token');
+  }
+
+  // usleep(100000);
+
+  // if (!isset($_FILES['image']))
+  // {
+  //   return new PwgError(405, 'The image (file) is missing');
+  // }
+  
+  // file_put_contents('/tmp/plupload.log', "[".date('c')."] ".__FUNCTION__."\n\n", FILE_APPEND);
+  // file_put_contents('/tmp/plupload.log', '$_FILES = '.var_export($_FILES, true)."\n", FILE_APPEND);
+  // file_put_contents('/tmp/plupload.log', '$_POST = '.var_export($_POST, true)."\n", FILE_APPEND);
+
+  $upload_dir = $conf['upload_dir'].'/buffer';
+
+  // create the upload directory tree if not exists
+  if (!mkgetdir($upload_dir, MKGETDIR_DEFAULT&~MKGETDIR_DIE_ON_ERROR))
+  {
+    return new PwgError(500, 'error during buffer directory creation');
+  }
+
+  // Get a file name
+  if (isset($_REQUEST["name"]))
+  {
+    $fileName = $_REQUEST["name"];
+  }
+  elseif (!empty($_FILES))
+  {
+    $fileName = $_FILES["file"]["name"];
+  }
+  else
+  {
+    $fileName = uniqid("file_");
+  }
+
+  $filePath = $upload_dir.DIRECTORY_SEPARATOR.$fileName;
+
+  // Chunking might be enabled
+  $chunk = isset($_REQUEST["chunk"]) ? intval($_REQUEST["chunk"]) : 0;
+  $chunks = isset($_REQUEST["chunks"]) ? intval($_REQUEST["chunks"]) : 0;
+
+  file_put_contents('/tmp/plupload.log', "[".date('c')."] ".__FUNCTION__.', '.$fileName.' '.($chunk+1).'/'.$chunks."\n", FILE_APPEND);
+
+  single_insert(
+    'plupload',
+    array(
+      'received_on' => date('c'),
+      'filename' => $fileName,
+      'chunk' => $chunk+1,
+      'chunks' => $chunks,
+      )
+    );
+
+
+  // Open temp file
+  if (!$out = @fopen("{$filePath}.part", $chunks ? "ab" : "wb"))
+  {
+    die('{"jsonrpc" : "2.0", "error" : {"code": 102, "message": "Failed to open output stream."}, "id" : "id"}');
+  }
+
+  if (!empty($_FILES))
+  {
+    if ($_FILES["file"]["error"] || !is_uploaded_file($_FILES["file"]["tmp_name"]))
+    {
+      die('{"jsonrpc" : "2.0", "error" : {"code": 103, "message": "Failed to move uploaded file."}, "id" : "id"}');
+    }
+
+    // Read binary input stream and append it to temp file
+    if (!$in = @fopen($_FILES["file"]["tmp_name"], "rb"))
+    {
+      die('{"jsonrpc" : "2.0", "error" : {"code": 101, "message": "Failed to open input stream."}, "id" : "id"}');
+    }
+  }
+  else
+  {
+    if (!$in = @fopen("php://input", "rb"))
+    {
+      die('{"jsonrpc" : "2.0", "error" : {"code": 101, "message": "Failed to open input stream."}, "id" : "id"}');
+    }
+  }
+
+  while ($buff = fread($in, 4096))
+  {
+    fwrite($out, $buff);
+  }
+
+  @fclose($out);
+  @fclose($in);
+
+  // Check if file has been uploaded
+  if (!$chunks || $chunk == $chunks - 1)
+  {
+    // Strip the temp .part suffix off 
+    rename("{$filePath}.part", $filePath);
+  
+    include_once(PHPWG_ROOT_PATH.'admin/include/functions_upload.inc.php');
+    
+    $image_id = add_uploaded_file(
+      $filePath,
+      $params['name'],
+      $params['category'],
+      $params['level'],
+      null // image_id = not provided, this is a new photo
+      );
+    
+    $query = '
+SELECT
+    id,
+    path
+  FROM '.IMAGES_TABLE.'
+  WHERE id = '.$image_id.'
+;';
+    $image_infos = pwg_db_fetch_assoc(pwg_query($query));
+
+    return array(
+      'image_id' => $image_id,
+      'src' => DerivativeImage::thumb_url($image_infos),
+      );
+  }
+}
+
+/**
+ * API method
  * Check if an image exists by it's name or md5 sum
  * @param mixed[] $params
  *    @option string md5sum_list (optional)
