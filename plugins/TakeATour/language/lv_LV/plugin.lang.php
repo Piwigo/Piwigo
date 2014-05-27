@@ -141,3 +141,14 @@ $lang['2_7_0_title2'] = 'Pirmais jaunums';
 $lang['2_7_0_title1'] = 'Sveicināti Piwigo 2.7';
 $lang['2.7 Tour'] = '2.7 Apskats';
 $lang['2_7_0_descrp'] = 'Atklājiet, kas jauns Piwigo 2.7';
+$lang['2_7_0_stp3'] = 'Ātrā meklēšana ir pārstrādāta:<br>
+- pievienots operators OR<br>
+- atļauta grupēšana izmantojot iekavas ()<br>
+- pievienoti paraugi meklēšanā, tādi kā:<br>
+ * #snow - meklē tikai tegus vārdam snow<br>
+ * ratio:0.9..1.1 - meklē foto ar platuma/garuma attiecību no 0.9 līdz 1.1 (gandrīz kvadrāts)<br>
+ * hits:>10 - meklē foto, kas apmeklētas vairāk par 10 reizēm<br>
+ * size:>10mp - meklē foto kur platums*augstums > 10 mega pikselēm<br>
+ * file:.jpg - tikai jpg attēlus<br>
+- izmanto vienskaitļa / daudzskaitļa locījumus (angļu / franču tikai no šī brīža)<br>';
+$lang['2_7_0_stp11'] = 'Šī ekskursija nu ir galā.<p style="text-align:center">Baudiet savu Piwigo 2.7!</p>Ja jums palīk Piwigo un vēlaties mūs atbalstīt, to varat darīt palīdzot ar tulkojumiem, ziedojot, utt. <a href="http://piwigo.org/basics/contribute" target="_blank">Klikšķiniet lai atbalstītu mūs</a>';
