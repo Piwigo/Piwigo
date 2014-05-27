@@ -421,4 +421,4 @@ $lang['Password is missing. Please enter the password.'] = '密码未输入，�
 $lang['Password confirmation is missing. Please confirm the chosen password.'] = '密码确认未完成，请确认所选定的密码。';
 $lang['%d photos per page'] = '每页 %d 张相片 ';
 $lang['Theme'] = '主题';
-?>
+$lang['No results for'] = '没有结果';
