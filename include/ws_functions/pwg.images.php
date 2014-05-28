@@ -1365,10 +1365,25 @@ SELECT
 ;';
     $image_infos = pwg_db_fetch_assoc(pwg_query($query));
 
+    $query = '
+SELECT
+    COUNT(*) AS nb_photos
+  FROM '.IMAGE_CATEGORY_TABLE.'
+  WHERE category_id = '.$params['category'][0].'
+;';
+    $category_infos = pwg_db_fetch_assoc(pwg_query($query));
+
+    $category_name = get_cat_display_name_from_id($params['category'][0], null);
+    
     return array(
       'image_id' => $image_id,
       'src' => DerivativeImage::thumb_url($image_infos),
       'name' => $image_infos['name'],
+      'category' => array(
+        'id' => $params['category'][0],
+        'nb_photos' => $category_infos['nb_photos'],
+        'label' => $category_name,
+        )
       );
   }
 }

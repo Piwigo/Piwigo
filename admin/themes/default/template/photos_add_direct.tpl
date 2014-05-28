@@ -1,3 +1,4 @@
+{combine_script id='common' load='footer' path='admin/themes/default/js/common.js'}
 {combine_script id='jquery.jgrowl' load='footer' require='jquery' path='themes/default/js/plugins/jquery.jgrowl_minimized.js'}
 {combine_script id='jquery.plupload' load='footer' require='jquery' path='themes/default/js/plugins/plupload/plupload.full.min.js'}
 {combine_script id='jquery.plupload.queue' load='footer' require='jquery' path='themes/default/js/plugins/plupload/jquery.plupload.queue/jquery.plupload.queue.min.js'}
@@ -35,14 +36,12 @@ categoriesCache.selectize(jQuery('[data-selectize=categories]'), {
 
 jQuery('[data-add-album]').pwgAddAlbum({ cache: categoriesCache });
 
-var uploadify_path = '{$uploadify_path}';
-var upload_id = '{$upload_id}';
-var session_id = '{$session_id}';
 var pwg_token = '{$pwg_token}';
-var buttonText = "{'Select files'|@translate}";
-var sizeLimit = Math.round({$upload_max_filesize} / 1024); /* in KBytes */
-
-var noAlbum_message = "{'Select an album'|translate}";
+var photosUploaded_label = "{'%d photos uploaded'|translate}";
+var batch_Label = "{'Manage this set of %d photos'|translate}";
+var albumSummary_label = "{'Album "%s" now contains %d photos'|translate|escape}";
+var uploadedPhotos = [];
+var uploadCategory = null;
 
 {literal}
 jQuery(document).ready(function(){
@@ -94,6 +93,9 @@ jQuery(document).ready(function(){
       BeforeUpload: function(up, file) {
         console.log('[BeforeUpload]', file);
 
+        // no more change on category/level
+        jQuery("select[name=level]").attr("disabled", "disabled");
+
         // You can override settings before the file is uploaded
         // up.setOption('url', 'upload.php?id=' + file.id);
         up.setOption(
@@ -121,7 +123,38 @@ jQuery(document).ready(function(){
       
         jQuery("#uploadedPhotos").prepend(html);
 
-        up.removeFile(file);
+        // do not remove file, or it will reset the progress bar :-/
+        // up.removeFile(file);
+        uploadedPhotos.push(parseInt(data.result.image_id));
+        uploadCategory = data.result.category;
+      },
+
+      UploadComplete: function(up, files) {
+        // Called when all files are either uploaded or failed
+        console.log('[UploadComplete]');
+
+        jQuery(".selectAlbum, .selectFiles, #permissions, .showFieldset").hide();
+
+        jQuery(".infos").append('<ul><li>'+sprintf(photosUploaded_label, uploadedPhotos.length)+'</li></ul>');
+
+        html = sprintf(
+          albumSummary_label,
+          '<a href="admin.php?page=album-'+uploadCategory.id+'">'+uploadCategory.label+'</a>',
+          parseInt(uploadCategory.nb_photos)
+        );
+
+        jQuery(".infos ul").append('<li>'+html+'</li>');
+
+        jQuery(".infos").show();
+
+        // TODO: use a new method pwg.caddie.empty +
+        // pwg.caddie.add(uploadedPhotos) instead of relying on huge GET parameter
+        // (and remove useless code from admin/photos_add_direct.php)
+
+        jQuery(".batchLink").attr("href", "admin.php?page=photos_add&section=direct&batch="+uploadedPhotos.join(","));
+        jQuery(".batchLink").html(sprintf(batch_Label, uploadedPhotos.length));
+
+        jQuery(".afterUploadActions").show();
       }
     }
 	});
@@ -136,13 +169,9 @@ jQuery(document).ready(function(){
 
 <div id="photosAddContent">
 
-{*
-<div class="infos">
-  <ul>
-    <li>%d photos added..</li>
-  </ul>
-</div>
-*}
+<div class="infos" style="display:none"></div>
+
+<p class="afterUploadActions" style="margin:10px; display:none;"><a class="batchLink"></a> | <a href="">{'Add another set of photos'|@translate}</a></p>
 
 {if count($setup_errors) > 0}
 <div class="errors">
@@ -166,27 +195,8 @@ jQuery(document).ready(function(){
   {/if}
 
 
-{if !empty($thumbnails)}
-<fieldset>
-  <legend>{'Uploaded Photos'|@translate}</legend>
-  <div>
-  {foreach from=$thumbnails item=thumbnail}
-    <a href="{$thumbnail.link}" class="externalLink">
-      <img src="{$thumbnail.src}" alt="{$thumbnail.file}" title="{$thumbnail.title}" class="thumbnail">
-    </a>
-  {/foreach}
-  </div>
-  <p id="batchLink"><a href="{$batch_link}">{$batch_label}</a></p>
-</fieldset>
-<p style="margin:10px"><a href="{$another_upload_link}">{'Add another set of photos'|@translate}</a></p>
-{else}
-
 <form id="uploadForm" enctype="multipart/form-data" method="post" action="{$form_action}">
-{if $upload_mode eq 'multiple'}
-    <input name="upload_id" value="{$upload_id}" type="hidden">
-{/if}
-
-    <fieldset>
+    <fieldset class="selectAlbum">
       <legend>{'Drop into album'|@translate}</legend>
 
       <span id="albumSelection" style="display:none">
@@ -230,18 +240,11 @@ jQuery(document).ready(function(){
 
 </form>
 
-<div id="uploadProgress" style="display:none">
-{'Photo %s of %s'|@translate:'<span id="progressCurrent">1</span>':'<span id="progressMax">10</span>'}
-<br>
-<div id="progressbar"></div>
-</div>
-
 <fieldset style="display:none">
   <legend>{'Uploaded Photos'|@translate}</legend>
   <div id="uploadedPhotos"></div>
 </fieldset>
 
-{/if} {* empty($thumbnails) *}
 {/if} {* $setup_errors *}
 
 </div> <!-- photosAddContent -->
