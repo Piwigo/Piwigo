@@ -25,7 +25,7 @@ var categoriesCache = new CategoriesCache({
 categoriesCache.selectize(jQuery('[data-selectize=categories]'), {
   filter: function(categories, options) {
     if (categories.length > 0) {
-      jQuery("#albumSelection").show();
+      jQuery("#albumSelection, .selectFiles, .showFieldset").show();
       options.default = categories[0].id;
     }
     
@@ -42,70 +42,10 @@ var pwg_token = '{$pwg_token}';
 var buttonText = "{'Select files'|@translate}";
 var sizeLimit = Math.round({$upload_max_filesize} / 1024); /* in KBytes */
 
+var noAlbum_message = "{'Select an album'|translate}";
+
 {literal}
 jQuery(document).ready(function(){
-  function checkUploadStart() {
-    var nbErrors = 0;
-    jQuery("#formErrors").hide();
-    jQuery("#formErrors li").hide();
-
-    if (jQuery("select[name=category]").val() == '') {
-      jQuery("#formErrors #noAlbum").show();
-      nbErrors++;
-    }
-
-    var nbFiles = 0;
-    if (jQuery("#uploadBoxes").size() == 1) {
-      jQuery("input[name^=image_upload]").each(function() {
-        if (jQuery(this).val() != "") {
-          nbFiles++;
-        }
-      });
-    }
-    else {
-      nbFiles = jQuery(".uploadifyQueueItem").size();
-    }
-
-    if (nbFiles == 0) {
-      jQuery("#formErrors #noPhoto").show();
-      nbErrors++;
-    }
-
-    if (nbErrors != 0) {
-      jQuery("#formErrors").show();
-      return false;
-    }
-    else {
-      return true;
-    }
-
-  }
-
-  function humanReadableFileSize(bytes) {
-    var byteSize = Math.round(bytes / 1024 * 100) * .01;
-    var suffix = 'KB';
-
-    if (byteSize > 1000) {
-      byteSize = Math.round(byteSize *.001 * 100) * .01;
-      suffix = 'MB';
-    }
-
-    var sizeParts = byteSize.toString().split('.');
-    if (sizeParts.length > 1) {
-      byteSize = sizeParts[0] + '.' + sizeParts[1].substr(0,2);
-    }
-    else {
-      byteSize = sizeParts[0];
-    }
-
-    return byteSize+suffix;
-  }
-
-  jQuery("#hideErrors").click(function() {
-    jQuery("#formErrors").hide();
-    return false;
-  });
-
   jQuery("#uploadWarningsSummary a.showInfo").click(function() {
     jQuery("#uploadWarningsSummary").hide();
     jQuery("#uploadWarnings").show();
@@ -176,10 +116,12 @@ jQuery(document).ready(function(){
         jQuery("#uploadedPhotos").parent("fieldset").show();
       
         html = '<a href="admin.php?page=photo-'+data.result.image_id+'" target="_blank">';
-        html += '<img src="'+data.result.src+'" class="thumbnail">';
+        html += '<img src="'+data.result.src+'" class="thumbnail" title="'+data.result.name+'">';
         html += '</a> ';
       
         jQuery("#uploadedPhotos").prepend(html);
+
+        up.removeFile(file);
       }
     }
 	});
@@ -193,6 +135,14 @@ jQuery(document).ready(function(){
 </div>
 
 <div id="photosAddContent">
+
+{*
+<div class="infos">
+  <ul>
+    <li>%d photos added..</li>
+  </ul>
+</div>
+*}
 
 {if count($setup_errors) > 0}
 <div class="errors">
@@ -231,16 +181,7 @@ jQuery(document).ready(function(){
 <p style="margin:10px"><a href="{$another_upload_link}">{'Add another set of photos'|@translate}</a></p>
 {else}
 
-<div id="formErrors" class="errors" style="display:none">
-  <ul>
-    <li id="noAlbum">{'Select an album'|@translate}</li>
-    <li id="noPhoto">{'Select at least one photo'|@translate}</li>
-  </ul>
-  <div class="hideButton" style="text-align:center"><a href="#" id="hideErrors">{'Hide'|@translate}</a></div>
-</div>
-
-
-<form id="uploadForm" enctype="multipart/form-data" method="post" action="{$form_action}" class="properties">
+<form id="uploadForm" enctype="multipart/form-data" method="post" action="{$form_action}">
 {if $upload_mode eq 'multiple'}
     <input name="upload_id" value="{$upload_id}" type="hidden">
 {/if}
@@ -255,7 +196,7 @@ jQuery(document).ready(function(){
       <a href="#" data-add-album="category" title="{'create a new album'|@translate}">{'create a new album'|@translate}</a>
     </fieldset>
 
-    <p class="showFieldset"><a id="showPermissions" href="#">{'Manage Permissions'|@translate}</a></p>
+    <p class="showFieldset" style="display:none"><a id="showPermissions" href="#">{'Manage Permissions'|@translate}</a></p>
 
     <fieldset id="permissions" style="display:none">
       <legend>{'Who can see these photos?'|@translate}</legend>
@@ -265,7 +206,7 @@ jQuery(document).ready(function(){
       </select>
     </fieldset>
 
-    <fieldset>
+    <fieldset class="selectFiles" style="display:none">
       <legend>{'Select files'|@translate}</legend>
  
     {if isset($original_resize_maxheight)}<p class="uploadInfo">{'The picture dimensions will be reduced to %dx%d pixels.'|@translate:$original_resize_maxwidth:$original_resize_maxheight}</p>{/if}
@@ -282,7 +223,7 @@ jQuery(document).ready(function(){
 
 
 	<div id="uploader">
-		<p>Your browser doesn't have Flash, Silverlight or HTML5 support.</p>
+		<p>Your browser doesn't have HTML5 support.</p>
 	</div>
 
     </fieldset>

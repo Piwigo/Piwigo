@@ -83,7 +83,7 @@ jQuery.fn.pwgAddAlbum = function(options) {
           }
 
           albumParent.val('');
-          jQuery('#albumSelection').show();
+          jQuery('#albumSelection, .selectFiles, .showFieldset').show();
         },
         error: function(XMLHttpRequest, textStatus, errorThrows) {
             jQuery('#albumCreationLoading').hide();

@@ -1302,18 +1302,7 @@ function ws_images_upload($params, $service)
   $chunk = isset($_REQUEST["chunk"]) ? intval($_REQUEST["chunk"]) : 0;
   $chunks = isset($_REQUEST["chunks"]) ? intval($_REQUEST["chunks"]) : 0;
 
-  file_put_contents('/tmp/plupload.log', "[".date('c')."] ".__FUNCTION__.', '.$fileName.' '.($chunk+1).'/'.$chunks."\n", FILE_APPEND);
-
-  single_insert(
-    'plupload',
-    array(
-      'received_on' => date('c'),
-      'filename' => $fileName,
-      'chunk' => $chunk+1,
-      'chunks' => $chunks,
-      )
-    );
-
+  // file_put_contents('/tmp/plupload.log', "[".date('c')."] ".__FUNCTION__.', '.$fileName.' '.($chunk+1).'/'.$chunks."\n", FILE_APPEND);
 
   // Open temp file
   if (!$out = @fopen("{$filePath}.part", $chunks ? "ab" : "wb"))
@@ -1369,6 +1358,7 @@ function ws_images_upload($params, $service)
     $query = '
 SELECT
     id,
+    name,
     path
   FROM '.IMAGES_TABLE.'
   WHERE id = '.$image_id.'
@@ -1378,6 +1368,7 @@ SELECT
     return array(
       'image_id' => $image_id,
       'src' => DerivativeImage::thumb_url($image_infos),
+      'name' => $image_infos['name'],
       );
   }
 }

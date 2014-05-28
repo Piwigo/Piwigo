@@ -983,6 +983,11 @@ LEGEND {
 #order_filters .order_by_is_custom {display:block;font-weight:normal;font-style:italic;margin-left:20px;}
 
 /* Upload Form */
+.plupload_header {display:none;}
+#uploadForm .plupload_container {padding:0}
+#uploadForm .plupload_scroll .plupload_filelist {height:250px;}
+#uploadForm li.plupload_droptext {line-height:230px;font-size:2em;}
+
 #uploadBoxes .file {margin-bottom:5px;text-align:left;}
 #uploadBoxes {margin-top:20px;}
 #addUploadBox {margin-bottom:2em;}
