@@ -72,7 +72,8 @@ jQuery("#selectStatus").change(function() {
     <strong>{'Permission granted for groups'|@translate}</strong>
     <br>
     <select data-selectize="groups" data-value="{$groups_selected|@json_encode|escape:html}"
-        name="groups[]" multiple style="width:600px;"></select>
+      placeholder="{'Type in a search term'|translate}"
+      name="groups[]" multiple style="width:600px;"></select>
 {else}
     {'There is no group in this gallery.'|@translate} <a href="admin.php?page=group_list" class="externalLink">{'Group management'|@translate}</a>
 {/if}
@@ -82,7 +83,8 @@ jQuery("#selectStatus").change(function() {
     <strong>{'Permission granted for users'|@translate}</strong>
     <br>
     <select data-selectize="users" data-value="{$users_selected|@json_encode|escape:html}"
-        name="users[]" multiple style="width:600px;"></select>
+      placeholder="{'Type in a search term'|translate}"
+      name="users[]" multiple style="width:600px;"></select>
   </p>
 
 {if isset($nb_users_granted_indirect) && $nb_users_granted_indirect>0}

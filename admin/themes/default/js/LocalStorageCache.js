@@ -84,17 +84,20 @@
 
   /*
    * Load Selectize with cache content
-   * @param $target {jQuery}
+   * @param $target {jQuery} may have some data attributes (create, default, value)
    * @param options {object}
+   *    - value (optional) list of preselected items (ids, or objects with "id" attribute")
    *    - default (optional) default value which will be forced if the select is emptyed
+   *    - create (optional) allow item user creation
    *    - filter (optional) function called for each select before applying the data
    *      takes two parameters: cache data, options
    *      must return new data
    */
-  AbstractSelectizer.prototype._selectize = function($target, options) {
+  AbstractSelectizer.prototype._selectize = function($target, globalOptions) {
     this.get(function(data) {
       $target.each(function() {
-        var filtered, value;
+        var filtered, value, defaultValue,
+            options = $.extend({}, globalOptions);
         
         // apply filter function
         if (options.filter != undefined) {
@@ -105,10 +108,11 @@
         }
         
         // active creation mode
-        if (this.hasAttribute('data-selectize-create')) {
-          this.selectize.settings.create = true;
+        if (this.hasAttribute('data-create')) {
+          options.create = true;
         }
-        
+        this.selectize.settings.create = !!options.create;
+
         // load options
         this.selectize.load(function(callback) {
           if ($.isEmptyObject(this.options)) {
@@ -118,12 +122,23 @@
 
         // load items
         if ((value = $(this).data('value'))) {
+          options.value = value;
+        }
+        if (options.value != undefined) {
           $.each(value, $.proxy(function(i, cat) {
             if ($.isNumeric(cat))
               this.selectize.addItem(cat);
             else
               this.selectize.addItem(cat.id);
           }, this));
+        }
+        
+        // set default
+        if ((defaultValue = $(this).data('default'))) {
+          options.default = defaultValue;
+        }
+        if (options.default == 'first') {
+          options.default = filtered[0] ? filtered[0].id : undefined;
         }
         
         if (options.default != undefined) {

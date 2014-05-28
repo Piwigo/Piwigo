@@ -16,12 +16,7 @@ var categoriesCache = new CategoriesCache({
   rootUrl: '{$ROOT_URL}'
 });
 
-categoriesCache.selectize(jQuery('[data-selectize=categories]'), { {if $STORAGE_ALBUM}
-  filter: function(categories, options) {
-    options.default = (this.name == 'associate[]') ? {$STORAGE_ALBUM} : undefined;
-    return categories;
-  }
-{/if} });
+categoriesCache.selectize(jQuery('[data-selectize=categories]'));
 
 {* <!-- TAGS --> *}
 var tagsCache = new TagsCache({
@@ -109,13 +104,15 @@ jQuery(function(){ {* <!-- onLoad needed to wait localization loads --> *}
       <strong>{'Linked albums'|@translate}</strong>
       <br>
       <select data-selectize="categories" data-value="{$associated_albums|@json_encode|escape:html}"
-        name="associate[]" multiple style="width:600px;"></select>
+        placeholder="{'Type in a search term'|translate}"
+        data-default="{$STORAGE_ALBUM}" name="associate[]" multiple style="width:600px;"></select>
     </p>
 
     <p>
       <strong>{'Representation of albums'|@translate}</strong>
       <br>
       <select data-selectize="categories" data-value="{$represented_albums|@json_encode|escape:html}"
+        placeholder="{'Type in a search term'|translate}"
         name="represent[]" multiple style="width:600px;"></select>
     </p>
 
@@ -123,7 +120,8 @@ jQuery(function(){ {* <!-- onLoad needed to wait localization loads --> *}
       <strong>{'Tags'|@translate}</strong>
       <br>
       <select data-selectize="tags" data-value="{$tag_selection|@json_encode|escape:html}"
-        name="tags[]" multiple style="width:600px;" data-selectize-create></select>
+        placeholder="{'Type in a search term'|translate}"
+        data-create="true" name="tags[]" multiple style="width:600px;"</select>
     </p>
 
     <p>

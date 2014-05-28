@@ -98,7 +98,8 @@ $(".elementEdit img")
       <td><strong>{'Tags'|@translate}</strong></td>
       <td>
         <select data-selectize="tags" data-value="{$element.TAGS|@json_encode|escape:html}"
-          name="tags-{$element.id}[]" multiple style="width:500px;" data-selectize-create></select>
+          placeholder="{'Type in a search term'|translate}"
+          data-create="true" name="tags-{$element.id}[]" multiple style="width:500px;"></select>
       </td>
     </tr>
 

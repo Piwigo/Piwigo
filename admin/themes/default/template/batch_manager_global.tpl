@@ -98,7 +98,6 @@ jQuery(document).ready(function() {ldelim}
         return filtered;
       }
       else {
-        options.default = categories[0].id;
         return categories;
       }
     }
@@ -603,7 +602,7 @@ $(document).ready(function() {
         <input type="checkbox" name="filter_category_use" class="useFilterCheckbox" {if isset($filter.category)}checked="checked"{/if}>
         {'Album'|@translate}
         <select data-selectize="categories" data-value="{$filter_category_selected|@json_encode|escape:html}"
-          name="filter_category" style="width:400px"></select>
+          data-default="first" name="filter_category" style="width:400px"></select>
         <label><input type="checkbox" name="filter_category_recursive" {if isset($filter.category_recursive)}checked="checked"{/if}> {'include child albums'|@translate}</label>
       </li>
       
@@ -612,6 +611,7 @@ $(document).ready(function() {
         <input type="checkbox" name="filter_tags_use" class="useFilterCheckbox" {if isset($filter.tags)}checked="checked"{/if}>
         {'Tags'|@translate}
         <select data-selectize="tags" data-value="{$filter_tags|@json_encode|escape:html}"
+          placeholder="{'Type in a search term'|translate}"
           name="filter_tags[]" multiple style="width:400px;"></select>
         <label><span><input type="radio" name="tag_mode" value="AND" {if !isset($filter.tag_mode) or $filter.tag_mode eq 'AND'}checked="checked"{/if}> {'All tags'|@translate}</span></label>
         <label><span><input type="radio" name="tag_mode" value="OR" {if isset($filter.tag_mode) and $filter.tag_mode eq 'OR'}checked="checked"{/if}> {'Any tag'|@translate}</span></label>
@@ -811,14 +811,14 @@ UL.thumbnails SPAN.wrap2 {ldelim}
 
     <!-- associate -->
     <div id="action_associate" class="bulkAction">
-      <select data-selectize="categories" name="associate" style="width:400px"></select>
+      <select data-selectize="categories" data-default="first" name="associate" style="width:400px"></select>
       <br>{'... or '|@translate}
       <a href="#" data-add-album="associate" title="{'create a new album'|@translate}">{'create a new album'|@translate}</a>
     </div>
 
     <!-- move -->
     <div id="action_move" class="bulkAction">
-      <select data-selectize="categories" name="move" style="width:400px"></select>
+      <select data-selectize="categories" data-default="first" name="move" style="width:400px"></select>
       <br>{'... or '|@translate}
       <a href="#" data-add-album="move" title="{'create a new album'|@translate}">{'create a new album'|@translate}</a>
     </div>
@@ -826,19 +826,22 @@ UL.thumbnails SPAN.wrap2 {ldelim}
 
     <!-- dissociate -->
     <div id="action_dissociate" class="bulkAction albumDissociate" style="display:none">
-      <select data-selectize="categories" name="dissociate" style="width:400px"></select>
+      <select data-selectize="categories" placeholder="{'Type in a search term'|translate}"
+        name="dissociate" style="width:400px"></select>
     </div>
 
 
     <!-- add_tags -->
     <div id="action_add_tags" class="bulkAction">
-      <select data-selectize="tags" data-selectize-create name="add_tags[]" multiple style="width:400px;"></select>
+      <select data-selectize="tags" data-create="true" placeholder="{'Type in a search term'|translate}"
+        name="add_tags[]" multiple style="width:400px;"></select>
     </div>
 
     <!-- del_tags -->
     <div id="action_del_tags" class="bulkAction">
 {if !empty($associated_tags)}
-      <select data-selectize="tags" name="del_tags[]" multiple style="width:400px;">
+      <select data-selectize="tags" name="del_tags[]" multiple style="width:400px;"
+        placeholder="{'Type in a search term'|translate}">
       {foreach from=$associated_tags item=tag}
         <option value="{$tag.id}">{$tag.name}</option>
       {/foreach}

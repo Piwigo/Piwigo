@@ -4,19 +4,23 @@ jQuery.fn.pwgAddAlbum = function(options) {
   }
   
   var $popup = jQuery('#addAlbumForm');
-  if (!$popup.data('init')) {
-    $popup.find('[name="category_parent"]').selectize({
-      valueField: 'id',
-      labelField: 'fullname',
-      sortField: 'global_rank',
-      searchField: ['fullname'],
-      plugins: ['remove_button'],
-      onInitialize: function() {
-        this.on('dropdown_close', function() {
-          if (this.getValue() == '') {
-            this.setValue(0);
-          }
+  
+  function init() {
+    if ($popup.data('init')) {
+      return;
+    }
+    $popup.data('init', true);
+    
+    options.cache.selectize($popup.find('[name="category_parent"]'), {
+      'default': 0,
+      'filter': function(categories) {
+        categories.push({
+          id: 0,
+          fullname: '------------',
+          global_rank: 0
         });
+        
+        return categories;
       }
     });
     
@@ -47,10 +51,12 @@ jQuery.fn.pwgAddAlbum = function(options) {
           jQuery('[data-add-album="'+ target +'"]').colorbox.close();
 
           var newAlbum = data.result.id,
-              newAlbum_name = '';
+              newAlbum_name = '',
+              newAlbum_rank = '0';
               
           if (parent_id != 0) {
             newAlbum_name = albumParent[0].selectize.options[parent_id].fullname +' / ';
+            newAlbum_rank = albumParent[0].selectize.options[parent_id].global_rank +'.1';
           }
           newAlbum_name+= name;
           
@@ -74,12 +80,24 @@ jQuery.fn.pwgAddAlbum = function(options) {
           }
           // target is selectize
           else {
-            $albumSelect[0].selectize.addOption({
-              id: newAlbum,
-              fullname: newAlbum_name
-            });
+            var selectize = $albumSelect[0].selectize;
             
-            $albumSelect[0].selectize.setValue(newAlbum);
+            if (jQuery.isEmptyObject(selectize.options)) {
+              options.cache.clear();
+              options.cache.selectize($albumSelect, {
+                'default': newAlbum,
+                'value': newAlbum
+              });
+            }
+            else {
+              $albumSelect[0].selectize.addOption({
+                id: newAlbum,
+                fullname: newAlbum_name,
+                global_rank: newAlbum_rank
+              });
+              
+              $albumSelect[0].selectize.setValue(newAlbum);
+            }
           }
 
           albumParent.val('');
@@ -98,25 +116,9 @@ jQuery.fn.pwgAddAlbum = function(options) {
     href: '#addAlbumForm',
     width: 350, height: 300,
     onComplete: function() {
-      var albumParent = $popup.find('[name="category_parent"]')[0];
-      
+      init();
       $popup.data('target', jQuery(this).data('addAlbum'));
-
-      albumParent.selectize.clearOptions();
-      
-      options.cache.get(function(categories) {
-        categories.push({
-          id: 0,
-          fullname: '------------',
-          global_rank: 0
-        });
-        
-        albumParent.selectize.load(function(callback) {
-          callback(categories);
-        });
-        
-        albumParent.selectize.setValue(0);
-      });
+      $popup.find('[name=category_name]').focus();
     }
   });
   

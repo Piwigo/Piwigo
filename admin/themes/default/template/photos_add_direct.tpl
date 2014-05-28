@@ -27,7 +27,6 @@ categoriesCache.selectize(jQuery('[data-selectize=categories]'), {
   filter: function(categories, options) {
     if (categories.length > 0) {
       jQuery("#albumSelection, .selectFiles, .showFieldset").show();
-      options.default = categories[0].id;
     }
     
     return categories;
@@ -201,7 +200,7 @@ jQuery(document).ready(function(){
 
       <span id="albumSelection" style="display:none">
       <select data-selectize="categories" data-value="{$selected_category|@json_encode|escape:html}"
-        name="category" style="width:400px"></select>
+        data-default="first" name="category" style="width:400px"></select>
       <br>{'... or '|@translate}</span>
       <a href="#" data-add-album="category" title="{'create a new album'|@translate}">{'create a new album'|@translate}</a>
     </fieldset>
