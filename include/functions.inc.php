@@ -1162,34 +1162,34 @@ SELECT param, value
  *
  * @param string $param
  * @param string $value
+ * @param boolean $updateGlobal update global *$conf* variable
+ * @param callable $parser function to apply to the value before save in database
+      (eg: serialize, json_encode) will not be applied to *$conf* if *$parser* is *true*
  */
-function conf_update_param($param, $value)
+function conf_update_param($param, $value, $updateGlobal=false, $parser=null)
 {
-  $query = '
-SELECT param
-  FROM '.CONFIG_TABLE.'
-  WHERE param = \''.$param.'\'
-;';
-  $params = query2array($query, null, 'param');
-
-  if (count($params) == 0)
+  if ($parser != null)
   {
-    $query = '
-INSERT
-  INTO '.CONFIG_TABLE.'
-  (param, value)
-  VALUES(\''.$param.'\', \''.$value.'\')
-;';
-    pwg_query($query);
+    $dbValue = call_user_func($parser, $value);
   }
   else
   {
-    $query = '
-UPDATE '.CONFIG_TABLE.'
-  SET value = \''.$value.'\'
-  WHERE param = \''.$param.'\'
+    $dbValue = $value;
+  }
+  
+  $query = '
+INSERT INTO
+  '.CONFIG_TABLE.' (param, value)
+  VALUES(\''.$param.'\', \''.$dbValue.'\')
+  ON DUPLICATE KEY UPDATE value = \''.$dbValue.'\'
 ;';
-    pwg_query($query);
+  
+  pwg_query($query);
+  
+  if ($updateGlobal)
+  {
+    global $conf;
+    $conf[$param] = $value;
   }
 }
 
@@ -1222,6 +1222,38 @@ DELETE FROM '.CONFIG_TABLE.'
   {
     unset($conf[$param]);
   }
+}
+
+/**
+ * Apply *unserialize* on a value only if it is a string
+ * @since 2.7
+ *
+ * @param array|string $value
+ * @return array
+ */
+function safe_unserialize($value)
+{
+  if (is_string($value))
+  {
+    return unserialize($value);
+  }
+  return $value;
+}
+
+/**
+ * Apply *json_decode* on a value only if it is a string
+ * @since 2.7
+ *
+ * @param array|string $value
+ * @return array
+ */
+function safe_json_decode($value)
+{
+  if (is_string($value))
+  {
+    return json_decode($value, true);
+  }
+  return $value;
 }
 
 /**
