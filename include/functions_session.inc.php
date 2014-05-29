@@ -62,16 +62,6 @@ if (isset($conf['session_save_handler'])
  */
 function generate_key($size)
 {
-  global $conf;
-
-  $md5 = md5(substr(microtime(), 2, 6));
-  $init = '';
-  for ( $i = 0; $i < strlen( $md5 ); $i++ )
-  {
-    if ( is_numeric( $md5[$i] ) ) $init.= $md5[$i];
-  }
-  $init = substr( $init, 0, 8 );
-  mt_srand( $init );
   $key = '';
   for ( $i = 0; $i < $size; $i++ )
   {
