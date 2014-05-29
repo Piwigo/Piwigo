@@ -24,13 +24,7 @@ jQuery(function(){ {* <!-- onLoad needed to wait localization loads --> *}
 });
 
 {* <!-- THUMBNAILS --> *}
-$(".elementEdit img")
-  .css("opacity", 0.6) // Opacity on page load
-  .hover(function(){
-    $(this).fadeTo("slow", 1.0); // Opacity on hover
-  },function(){
-    $(this).fadeTo("slow", 0.6); // Opacity on mouseout
-  });
+jQuery("a.preview-box").colorbox();
 }());
 {/footer_script}
 

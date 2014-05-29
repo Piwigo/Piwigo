@@ -225,6 +225,12 @@ FIELDSET.elementEdit .thumb {
 	display: block;
 	float: right;
 	text-align: center;
+	opacity: 0.6;
+	-webkit-transition:opacity 400ms ease;
+	transition:opacity 400ms ease;
+}
+FIELDSET.elementEdit .thumb:hover {
+	opacity:1;
 }
 
 TABLE.doubleSelect {
