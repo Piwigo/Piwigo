@@ -502,20 +502,16 @@ else
 {
   // we need to know the category in which the last photo was added
   $query = '
-SELECT
-    category_id,
-    id_uppercat
-  FROM '.IMAGES_TABLE.' AS i
-    JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON image_id = i.id
-    JOIN '.CATEGORIES_TABLE.' AS c ON category_id = c.id
-  ORDER BY i.id DESC
+SELECT category_id
+  FROM '.IMAGE_CATEGORY_TABLE.'
+  ORDER BY image_id DESC
   LIMIT 1
 ;';
   $result = pwg_query($query);
   if (pwg_db_num_rows($result) > 0)
   {
     $row = pwg_db_fetch_assoc($result);
-    $selected_category = array($row['category_id']);
+    $selected_category[] = $row['category_id'];
   }
 }
 
