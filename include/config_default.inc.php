@@ -222,10 +222,6 @@ $conf['representative_cache_on_subcats'] = true;
 // category and element description.
 $conf['allow_html_descriptions'] = true;
 
-// users_page: how many users to display in screen
-// Administration>Identification>Users?
-$conf['users_page'] = 20;
-
 // image level permissions available in the admin interface
 $conf['available_permission_levels'] = array(0,1,2,4,8);
 
