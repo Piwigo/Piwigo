@@ -2060,7 +2060,8 @@ function fetchRemote($src, &$dest, $get_data=array(), $post_data=array(), $user_
   is_resource($dest) or $dest = '';
 
   // Try curl to read remote file
-  if (function_exists('curl_init'))
+  // TODO : remove all these @
+  if (function_exists('curl_init') && function_exists('curl_exec'))
   {
     $ch = @curl_init();
     @curl_setopt($ch, CURLOPT_URL, $src);
