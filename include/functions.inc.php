@@ -1176,16 +1176,16 @@ function conf_update_param($param, $value, $updateGlobal=false, $parser=null)
   {
     $dbValue = $value;
   }
-  
+
   $query = '
 INSERT INTO
   '.CONFIG_TABLE.' (param, value)
   VALUES(\''.$param.'\', \''.$dbValue.'\')
   ON DUPLICATE KEY UPDATE value = \''.$dbValue.'\'
 ;';
-  
+
   pwg_query($query);
-  
+
   if ($updateGlobal)
   {
     global $conf;
@@ -1368,7 +1368,7 @@ function get_filter_page_value($value_name)
   {
     return $conf['filter_pages'][$page_name][$value_name];
   }
-  else if (isset($conf['filter_pages']['default'][$value_name]))
+  elseif (isset($conf['filter_pages']['default'][$value_name]))
   {
     return $conf['filter_pages']['default'][$value_name];
   }
@@ -1994,8 +1994,7 @@ function get_nb_available_comments()
         array
           (
             'forbidden_categories' => 'category_id',
-            'visible_categories' => 'category_id',
-            'visible_images' => 'ic.image_id'
+            'forbidden_images' => 'ic.image_id'
           ),
         '', true
       );

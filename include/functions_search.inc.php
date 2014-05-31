@@ -606,7 +606,7 @@ class QMultiToken
               $crt_token .= $ch;
               break;
             }
-            if (strlen($crt_token) && preg_match('/[0-9]/', substr($crt_token,-1)) 
+            if (strlen($crt_token) && preg_match('/[0-9]/', substr($crt_token,-1))
               && $qi+1<strlen($q) && preg_match('/[0-9]/', $q[$qi+1]))
             {// dot between digits is not a separator e.g. F2.8
               $crt_token .= $ch;
@@ -707,7 +707,7 @@ class QMultiToken
   }
 
   /**
-  * Applies recursively a search scope to all sub single tokens. We allow 'tag:(John Bill)' but we cannot evaluate 
+  * Applies recursively a search scope to all sub single tokens. We allow 'tag:(John Bill)' but we cannot evaluate
   * scopes on expressions so we rewrite as '(tag:John tag:Bill)'
   */
   private function apply_scope(QSearchScope $scope)
@@ -843,8 +843,8 @@ function qsearch_get_text_token_search_sql($token, $fields)
 
     if ($use_ft)
     {
-      $max = max( array_map( 'mb_strlen', 
-        preg_split('/['.preg_quote('!"#$%&()*+,./:;<=>?@[\]^`{|}~','/').']+/', $variant, PREG_SPLIT_NO_EMPTY)
+      $max = max( array_map( 'mb_strlen',
+        preg_split('/['.preg_quote('-\'!"#$%&()*+,./:;<=>?@[\]^`{|}~','/').']+/', $variant)
         ) );
       if ($max<4)
         $use_ft = false;
@@ -966,7 +966,7 @@ WHERE ('. implode("\n OR ",$clauses) .')';
   // check adjacent short words
   for ($i=0; $i<count($expr->stokens)-1; $i++)
   {
-    if ( (strlen($expr->stokens[$i])<=3 || strlen($expr->stokens[$i+1])<=3)
+    if ( (strlen($expr->stokens[$i]->term)<=3 || strlen($expr->stokens[$i+1]->term)<=3)
       && (($expr->stoken_modifiers[$i] & (QST_QUOTED|QST_WILDCARD)) == 0)
       && (($expr->stoken_modifiers[$i+1] & (QST_BREAK|QST_QUOTED|QST_WILDCARD)) == 0) )
     {
@@ -995,11 +995,16 @@ SELECT image_id FROM '.IMAGE_TAG_TABLE.'
       if ($expr->stoken_modifiers[$i]&QST_NOT)
         $not_ids = array_merge($not_ids, $tag_ids);
       else
-        $positive_ids = array_merge($positive_ids, $tag_ids);
+      {
+        if (strlen($token->term)>2 || count($expr->stokens)==1 || isset($token->scope) || ($token->modifier&(QST_WILDCARD|QST_QUOTED)) )
+        {// add tag ids to list only if the word is not too short (such as de / la /les ...)
+          $positive_ids = array_merge($positive_ids, $tag_ids);
+        }
+      }
     }
     elseif (isset($token->scope) && 'tag' == $token->scope->id && strlen($token->term)==0)
     {
-      if ($tokens[$i]->modifier & QST_WILDCARD)
+      if ($token->modifier & QST_WILDCARD)
       {// eg. 'tag:*' returns all tagged images
         $qsr->tag_iids[$i] = query2array('SELECT DISTINCT image_id FROM '.IMAGE_TAG_TABLE, null, 'image_id');
       }
@@ -1095,7 +1100,7 @@ function get_quick_search_results($q, $options)
   $cache_key = $persistent_cache->make_key( array(
     strtolower($q),
     $conf['order_by'],
-    $user['id'],$user['cache_update_time'], 
+    $user['id'],$user['cache_update_time'],
     isset($options['permissions']) ? (boolean)$options['permissions'] : true,
     isset($options['images_where']) ? $options['images_where'] : '',
     ) );
@@ -1221,8 +1226,7 @@ function get_quick_search_results_no_cache($q, $options)
         array
           (
             'forbidden_categories' => 'category_id',
-            'visible_categories' => 'category_id',
-            'visible_images' => 'i.id'
+            'forbidden_images' => 'i.id'
           ),
         null,true
       );
