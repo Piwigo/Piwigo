@@ -77,7 +77,7 @@ jQuery.fn.pwgDatepicker = function(options) {
     
     // set value from linked input
     if (linked) {
-      if (value[0].length == 10 && !options.showTimepicker) {
+      if (value[0].length == 10 && (!options.showTimepicker || value.length==1)) {
         set(jQuery.datepicker.parseDate('yy-mm-dd', value[0]), true);
       }
       else if (value.length == 2 && options.showTimepicker) {
