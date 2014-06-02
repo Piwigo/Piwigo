@@ -592,7 +592,7 @@ class Template
 
   /**
    * "translate" variable modifier.
-   * Usage : 
+   * Usage :
    *    - {'Comment'|translate}
    *    - {'%d comments'|translate:$count}
    * @see l10n()
@@ -1101,7 +1101,7 @@ var s,after = document.getElementsByTagName(\'script\')[document.getElementsByTa
 
     if (!empty($css))
     {
-      $source = str_replace("\n{get_combined_css}", "\n".implode( "\n", $css )."\n{get_combined_css}", $source);
+      $source = str_replace("{get_combined_css}", implode( "\n", $css )."\n{get_combined_css}", $source);
     }
 
     return $source;
@@ -1164,7 +1164,7 @@ var s,after = document.getElementsByTagName(\'script\')[document.getElementsByTa
         $buttons = array_merge($buttons, $row);
       }
       $this->assign('PLUGIN_PICTURE_BUTTONS', $buttons);
-      
+
       // only for PHP 5.3
       // $this->assign('PLUGIN_PICTURE_BUTTONS',
           // array_reduce(
@@ -1189,7 +1189,7 @@ var s,after = document.getElementsByTagName(\'script\')[document.getElementsByTa
         $buttons = array_merge($buttons, $row);
       }
       $this->assign('PLUGIN_INDEX_BUTTONS', $buttons);
-      
+
       // only for PHP 5.3
       // $this->assign('PLUGIN_INDEX_BUTTONS',
           // array_reduce(
@@ -1359,18 +1359,18 @@ class CssLoader
   private $registered_css;
   /** @param int used to keep declaration order */
   private $counter;
-  
+
   function __construct()
   {
     $this->clear();
   }
-  
+
   function clear()
   {
     $this->registered_css = array();
     $this->counter = 0;
   }
-  
+
   /**
    * @return Combinable[] array of combined CSS.
    */
@@ -1380,7 +1380,7 @@ class CssLoader
     $combiner = new FileCombiner('css', $this->registered_css);
     return $combiner->combine();
   }
-  
+
   /**
    * Callback for CSS files sorting.
    */
@@ -1388,7 +1388,7 @@ class CssLoader
   {
     return $a->order - $b->order;
   }
-  
+
   /**
    * Adds a new file, if a file with the same $id already exsists, the one with
    * the higher $order or higher $version is kept.
