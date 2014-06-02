@@ -415,7 +415,7 @@ $template->assign(array(
   'CACHE_KEYS' => get_admin_client_cache_keys(array('tags', 'categories')),
   ));
 
-trigger_action('loc_end_picture_modify');
+trigger_notify('loc_end_picture_modify');
 
 //----------------------------------------------------------- sending html code
 

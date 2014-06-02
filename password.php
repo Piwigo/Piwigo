@@ -35,7 +35,7 @@ include_once(PHPWG_ROOT_PATH.'include/functions_mail.inc.php');
 
 check_status(ACCESS_FREE);
 
-trigger_action('loc_begin_password');
+trigger_notify('loc_begin_password');
 
 // +-----------------------------------------------------------------------+
 // | Functions                                                             |
@@ -117,7 +117,7 @@ function process_password_request()
 
   unset_make_full_url();
 
-  $message = trigger_event('render_lost_password_mail_content', $message);
+  $message = trigger_change('render_lost_password_mail_content', $message);
 
   $email_params = array(
     'subject' => '['.$conf['gallery_title'].'] '.l10n('Password Reset'),
@@ -353,7 +353,7 @@ if (!isset($themeconf['hide_menu_on']) OR !in_array('thePasswordPage', $themecon
 // +-----------------------------------------------------------------------+
 
 include(PHPWG_ROOT_PATH.'include/page_header.php');
-trigger_action('loc_end_password');
+trigger_notify('loc_end_password');
 flush_page_messages();
 $template->pparse('password');
 include(PHPWG_ROOT_PATH.'include/page_tail.php');

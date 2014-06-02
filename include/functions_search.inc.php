@@ -928,7 +928,7 @@ function qsearch_get_images(QExpression $expr, QResults $qsr)
         break;
       default:
         // allow plugins to have their own scope with columns added in db by themselves
-        $clauses = trigger_event('qsearch_get_images_sql_scopes', $clauses, $token, $expr);
+        $clauses = trigger_change('qsearch_get_images_sql_scopes', $clauses, $token, $expr);
         break;
     }
     if (!empty($clauses))
@@ -1019,7 +1019,7 @@ SELECT image_id FROM '.IMAGE_TAG_TABLE.'
   usort($all_tags, 'tag_alpha_compare');
   foreach ( $all_tags as &$tag )
   {
-    $tag['name'] = trigger_event('render_tag_name', $tag['name'], $tag);
+    $tag['name'] = trigger_change('render_tag_name', $tag['name'], $tag);
   }
   $qsr->all_tags = $all_tags;
   $qsr->tag_ids = $token_tag_ids;
@@ -1151,7 +1151,7 @@ function get_quick_search_results_no_cache($q, $options)
   $scopes[] = new QDateRangeScope('posted', $postedDateAliases);
 
   // allow plugins to add their own scopes
-  $scopes = trigger_event('qsearch_get_scopes', $scopes);
+  $scopes = trigger_change('qsearch_get_scopes', $scopes);
   $expression = new QExpression($q, $scopes);
 
   // get inflections for terms
@@ -1176,7 +1176,7 @@ function get_quick_search_results_no_cache($q, $options)
   }
 
 
-  trigger_action('qsearch_expression_parsed', $expression);
+  trigger_notify('qsearch_expression_parsed', $expression);
 //var_export($expression);
 
   if (count($expression->stokens)==0)
@@ -1188,7 +1188,7 @@ function get_quick_search_results_no_cache($q, $options)
   qsearch_get_images($expression, $qsr);
 
   // allow plugins to evaluate their own scopes
-  trigger_action('qsearch_before_eval', $expression, $qsr);
+  trigger_notify('qsearch_before_eval', $expression, $qsr);
 
   $ids = qsearch_eval($expression, $qsr, $tmp, $search_results['qs']['unmatched_terms']);
 

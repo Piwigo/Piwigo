@@ -56,7 +56,7 @@ SELECT COUNT(*)
 // +-----------------------------------------------------------------------+
 check_status(ACCESS_GUEST);
 
-trigger_action('loc_begin_notification');
+trigger_notify('loc_begin_notification');
 
 // +-----------------------------------------------------------------------+
 // |                          new feed creation                            |
@@ -114,7 +114,7 @@ if (!isset($themeconf['hide_menu_on']) OR !in_array('theNotificationPage', $them
 // |                           html code display                           |
 // +-----------------------------------------------------------------------+
 include(PHPWG_ROOT_PATH.'include/page_header.php');
-trigger_action('loc_end_notification');
+trigger_notify('loc_end_notification');
 flush_page_messages();
 $template->pparse('notification');
 include(PHPWG_ROOT_PATH.'include/page_tail.php');

@@ -40,7 +40,7 @@ if ($page['start']>0 && $page['start']>=count($page['items']))
   page_not_found('', duplicate_index_url(array('start'=>0)));
 }
 
-trigger_action('loc_begin_index');
+trigger_notify('loc_begin_index');
 
 //---------------------------------------------- change of image display order
 if (isset($_GET['image_order']))
@@ -361,7 +361,7 @@ if ( empty($page['is_external']) or !$page['is_external'] )
 
 //------------------------------------------------------------ end
 include(PHPWG_ROOT_PATH.'include/page_header.php');
-trigger_action('loc_end_index');
+trigger_notify('loc_end_index');
 flush_page_messages();
 $template->parse_index_buttons();
 $template->pparse('index');

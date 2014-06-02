@@ -76,7 +76,7 @@ SELECT id, name
         $updates[] = array(
           'id' => $tag_id,
           'name' => addslashes($tag_name),
-          'url_name' => trigger_event('render_tag_url', $tag_name),
+          'url_name' => trigger_change('render_tag_url', $tag_name),
           );
       }
     }
@@ -133,7 +133,7 @@ SELECT id, name
           TAGS_TABLE,
           array(
             'name' => $tag_name,
-            'url_name' => trigger_event('render_tag_url', $tag_name),
+            'url_name' => trigger_change('render_tag_url', $tag_name),
             )
           );
 
@@ -218,7 +218,7 @@ SELECT
       $result = pwg_query($query);
       while ($row = pwg_db_fetch_assoc($result))
       {
-        $name_of_tag[ $row['id'] ] = trigger_event('render_tag_name', $row['name'], $row);
+        $name_of_tag[ $row['id'] ] = trigger_change('render_tag_name', $row['name'], $row);
       }
 
       $tag_ids_to_delete = array_diff(
@@ -358,7 +358,7 @@ $orphan_tags = get_orphan_tags();
 $orphan_tag_names = array();
 foreach ($orphan_tags as $tag)
 {
-  $orphan_tag_names[] = trigger_event('render_tag_name', $tag['name'], $tag);
+  $orphan_tag_names[] = trigger_change('render_tag_name', $tag['name'], $tag);
 }
 
 if (count($orphan_tag_names) > 0)
@@ -393,12 +393,12 @@ $all_tags = array();
 while ($tag = pwg_db_fetch_assoc($result))
 {
   $raw_name = $tag['name'];
-  $tag['name'] = trigger_event('render_tag_name', $raw_name, $tag);
+  $tag['name'] = trigger_change('render_tag_name', $raw_name, $tag);
   $tag['counter'] = intval(@$tag_counters[ $tag['id'] ]);
   $tag['U_VIEW'] = make_index_url(array('tags'=>array($tag)));
   $tag['U_EDIT'] = 'admin.php?page=batch_manager&amp;filter=tag-'.$tag['id'];
 
-  $alt_names = trigger_event('get_tag_alt_names', array(), $raw_name);
+  $alt_names = trigger_change('get_tag_alt_names', array(), $raw_name);
   $alt_names = array_diff( array_unique($alt_names), array($tag['name']) );
   if (count($alt_names))
   {

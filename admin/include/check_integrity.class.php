@@ -66,7 +66,7 @@ class check_integrity
     $this->retrieve_list = array();
     $this->build_ignore_list = array();
 
-    trigger_action('list_check_integrity', $this);
+    trigger_notify('list_check_integrity', $this);
 
     // Information
     if (count($this->retrieve_list) > 0)

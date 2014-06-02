@@ -67,7 +67,7 @@ final class SrcImage
     else
     {
       $ext = strtolower($ext);
-      $this->rel_path = trigger_event('get_mimetype_location', get_themeconf('mime_icon_dir').$ext.'.png', $ext );
+      $this->rel_path = trigger_change('get_mimetype_location', get_themeconf('mime_icon_dir').$ext.'.png', $ext );
       $this->flags |= self::IS_MIMETYPE;
       if ( ($size=@getimagesize(PHPWG_ROOT_PATH.$this->rel_path)) === false)
       {
@@ -134,7 +134,7 @@ final class SrcImage
     $url = get_root_url().$this->rel_path;
     if ( !($this->flags & self::IS_MIMETYPE) )
     {
-      $url = trigger_event('get_src_image_url', $url, $this);
+      $url = trigger_change('get_src_image_url', $url, $this);
     }
     return embellish_url($url);
   }
@@ -235,7 +235,7 @@ final class DerivativeImage
       return $src_image->get_url();
     }
     return embellish_url(
-        trigger_event('get_derivative_url',
+        trigger_change('get_derivative_url',
           get_root_url().$rel_url,
           $params, $src_image, $rel_url
           ) );
@@ -405,7 +405,7 @@ final class DerivativeImage
       return $this->src_image->get_url();
     }
     return embellish_url(
-        trigger_event('get_derivative_url',
+        trigger_change('get_derivative_url',
           get_root_url().$this->rel_url,
           $this->params, $this->src_image, $this->rel_url
           ) );

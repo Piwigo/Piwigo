@@ -37,7 +37,7 @@ check_status(ACCESS_GUEST);
 $title= l10n('About Piwigo');
 $page['body_id'] = 'theAboutPage';
 
-trigger_action('loc_begin_about');
+trigger_notify('loc_begin_about');
 
 $template->set_filename('about', 'about.tpl');
 

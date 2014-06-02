@@ -33,7 +33,7 @@ include_once(PHPWG_ROOT_PATH.'admin/include/functions_notification_by_mail.inc.p
 // Translations are in admin file too
 load_language('admin.lang');
 // Need to update a second time
-trigger_action('loading_lang');
+trigger_notify('loading_lang');
 load_language('lang', PHPWG_ROOT_PATH.PWG_LOCAL_DIR, array('no_fallback'=>true, 'local'=>true) );
 
 

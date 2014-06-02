@@ -83,7 +83,7 @@ SELECT id, file, path, representative_ext
   pwg_mail_group(
     $_POST['group'],
     array(
-      'subject' => l10n('[%s] Visit album %s', $conf['gallery_title'], trigger_event('render_category_name', $category['name'], 'admin_cat_list')),
+      'subject' => l10n('[%s] Visit album %s', $conf['gallery_title'], trigger_change('render_category_name', $category['name'], 'admin_cat_list')),
       // TODO : change this language variable to 'Visit album %s'
       // TODO : 'language_selected' => ....
     ),
@@ -91,11 +91,11 @@ SELECT id, file, path, representative_ext
       'filename' => 'cat_group_info',
       'assign' => array(
         'IMG_URL' => $img_url,
-        'CAT_NAME' => trigger_event('render_category_name', $category['name'], 'admin_cat_list'),
+        'CAT_NAME' => trigger_change('render_category_name', $category['name'], 'admin_cat_list'),
         'LINK' => make_index_url(array(
             'category' => array(
               'id' => $category['id'],
-              'name' => trigger_event('render_category_name', $category['name'], 'admin_cat_list'),
+              'name' => trigger_change('render_category_name', $category['name'], 'admin_cat_list'),
               'permalink' => $category['permalink']
               )
             )),

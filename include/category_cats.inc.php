@@ -269,7 +269,7 @@ if (count($categories) > 0)
 
   $template->set_filename('index_category_thumbnails', 'mainpage_categories.tpl');
 
-  trigger_action('loc_begin_index_category_thumbnails', $categories);
+  trigger_notify('loc_begin_index_category_thumbnails', $categories);
 
   $tpl_thumbnails_var = array();
 
@@ -280,7 +280,7 @@ if (count($categories) > 0)
       continue;
     }
 
-    $category['name'] = trigger_event(
+    $category['name'] = trigger_change(
         'render_category_name',
         $category['name'],
         'subcatify_category_name'
@@ -316,8 +316,8 @@ if (count($categories) > 0)
                                     '<br>'
                                   ),
           'DESCRIPTION' =>
-            trigger_event('render_category_literal_description',
-              trigger_event('render_category_description',
+            trigger_change('render_category_literal_description',
+              trigger_change('render_category_description',
                 @$category['comment'],
                 'subcatify_category_description')),
           'NAME'  => $name,
@@ -367,8 +367,8 @@ if (count($categories) > 0)
     $conf['nb_categories_page']
     );
 
-  $derivative_params = trigger_event('get_index_album_derivative_params', ImageStdParams::get_by_type(IMG_THUMB) );
-  $tpl_thumbnails_var_selection = trigger_event('loc_end_index_category_thumbnails', $tpl_thumbnails_var_selection);
+  $derivative_params = trigger_change('get_index_album_derivative_params', ImageStdParams::get_by_type(IMG_THUMB) );
+  $tpl_thumbnails_var_selection = trigger_change('loc_end_index_category_thumbnails', $tpl_thumbnails_var_selection);
   $template->assign( array(
     'maxRequests' =>$conf['max_requests'],
     'category_thumbnails' => $tpl_thumbnails_var_selection,

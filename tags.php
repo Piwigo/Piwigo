@@ -49,7 +49,7 @@ include_once(PHPWG_ROOT_PATH.'include/common.inc.php');
 
 check_status(ACCESS_GUEST);
 
-trigger_action('loc_begin_tags');
+trigger_notify('loc_begin_tags');
 
 // +-----------------------------------------------------------------------+
 // |                       page header and options                         |
@@ -195,7 +195,7 @@ if (!isset($themeconf['hide_menu_on']) OR !in_array('theTagsPage', $themeconf['h
 }
 
 include(PHPWG_ROOT_PATH.'include/page_header.php');
-trigger_action('loc_end_tags');
+trigger_notify('loc_end_tags');
 flush_page_messages();
 $template->pparse('tags');
 include(PHPWG_ROOT_PATH.'include/page_tail.php');

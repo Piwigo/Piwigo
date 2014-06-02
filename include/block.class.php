@@ -49,7 +49,7 @@ class BlockManager
    */
   public function load_registered_blocks()
   {
-    trigger_action('blockmanager_register_blocks', array($this));
+    trigger_notify('blockmanager_register_blocks', array($this));
   }
   
   /**
@@ -110,7 +110,7 @@ class BlockManager
       $idx++;
     }
     $this->sort_blocks();
-    trigger_action('blockmanager_prepare_display', array($this));
+    trigger_notify('blockmanager_prepare_display', array($this));
     $this->sort_blocks();
   }
 
@@ -191,7 +191,7 @@ class BlockManager
     global $template;
 
     $template->set_filename('menubar', $file);
-    trigger_action('blockmanager_apply', array($this) );
+    trigger_notify('blockmanager_apply', array($this) );
 
     foreach ($this->display_blocks as $id=>$block)
     {

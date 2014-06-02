@@ -312,7 +312,7 @@ function switch_lang_to($language)
           load_language($filename, $dirname, array('language'=>$language) );
     }
     
-    trigger_action('loading_lang');
+    trigger_notify('loading_lang');
     load_language('lang', PHPWG_ROOT_PATH.PWG_LOCAL_DIR,
       array('language'=>$language, 'no_fallback'=>true, 'local'=>true)
     );
@@ -696,7 +696,7 @@ function pwg_mail($to, $args=array(), $tpl=array())
       if (!isset($conf_mail[$cache_key]['theme']))
       {
         $conf_mail[$cache_key]['theme'] = get_mail_template($content_type);
-        trigger_action('before_parse_mail_template', $cache_key, $content_type);
+        trigger_notify('before_parse_mail_template', $cache_key, $content_type);
       }
       $template = &$conf_mail[$cache_key]['theme'];
 
@@ -854,7 +854,7 @@ function pwg_mail($to, $args=array(), $tpl=array())
   }
 
   $ret = true;
-  $pre_result = trigger_event('before_send_mail', true, $to, $args, $mail);
+  $pre_result = trigger_change('before_send_mail', true, $to, $args, $mail);
 
   if ($pre_result)
   {
@@ -945,6 +945,6 @@ function pwg_send_mail_test($success, $mail, $args)
   }
 }
 
-trigger_action('functions_mail_included');
+trigger_notify('functions_mail_included');
 
 ?>

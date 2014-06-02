@@ -301,7 +301,7 @@ SELECT id
     break;
   }
 
-  $filter_sets = trigger_event('perform_batch_manager_prefilters', $filter_sets, $_SESSION['bulk_manager_filter']['prefilter']);
+  $filter_sets = trigger_change('perform_batch_manager_prefilters', $filter_sets, $_SESSION['bulk_manager_filter']['prefilter']);
 }
 
 if (isset($_SESSION['bulk_manager_filter']['category']))

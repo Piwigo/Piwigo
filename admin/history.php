@@ -216,7 +216,7 @@ INSERT INTO '.SEARCH_TABLE.'
   }
 
   /*TODO - no need to get a huge number of rows from db (should take only what needed for display + SQL_CALC_FOUND_ROWS*/
-  $data = trigger_event('get_history', array(), $page['search'], $types);
+  $data = trigger_change('get_history', array(), $page['search'], $types);
   usort($data, 'history_compare');
 
   $page['nb_lines'] = count($data);
@@ -316,7 +316,7 @@ SELECT
     $result = pwg_query($query);
     while ($row=pwg_db_fetch_assoc($result))
     {
-      $name_of_tag[ $row['id'] ] = '<a href="'.make_index_url( array('tags'=>array($row))).'">'.trigger_event("render_tag_name", $row['name'], $row).'</a>';
+      $name_of_tag[ $row['id'] ] = '<a href="'.make_index_url( array('tags'=>array($row))).'">'.trigger_change("render_tag_name", $row['name'], $row).'</a>';
     }
   }
 
@@ -408,7 +408,7 @@ SELECT
 
       if (isset($image_infos[$line['image_id']]['label']))
       {
-        $image_title.= ' '.trigger_event('render_element_description', $image_infos[$line['image_id']]['label']);
+        $image_title.= ' '.trigger_change('render_element_description', $image_infos[$line['image_id']]['label']);
       }
       else
       {

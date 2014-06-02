@@ -43,7 +43,7 @@ if (!defined('PHPWG_ROOT_PATH'))
 
   $userdata = $user;
 
-  trigger_action('loc_begin_profile');
+  trigger_notify('loc_begin_profile');
 
 // Reset to default (Guest) custom settings
   if (isset($_POST['reset_to_default']))
@@ -84,7 +84,7 @@ SELECT '.implode(',', $fields).'
   }
   
   include(PHPWG_ROOT_PATH.'include/page_header.php');
-  trigger_action('loc_end_profile');
+  trigger_notify('loc_end_profile');
   flush_page_messages();
   $template->pparse('profile');
   include(PHPWG_ROOT_PATH.'include/page_tail.php');
@@ -279,7 +279,7 @@ function save_profile_from_post($userdata, &$errors)
                    array('primary' => array('user_id'), 'update' => $fields),
                    array($data));
     }
-    trigger_action( 'save_profile_from_post', $userdata['id'] );
+    trigger_notify( 'save_profile_from_post', $userdata['id'] );
 
     if (!empty($_POST['redirect']))
     {
@@ -335,7 +335,7 @@ function load_profile_in_template($url_action, $url_redirect, $userdata)
   $template->assign('IN_ADMIN', defined('IN_ADMIN'));
 
   // allow plugins to add their own form data to content
-  trigger_action( 'load_profile_in_template', $userdata );
+  trigger_notify( 'load_profile_in_template', $userdata );
 
   $template->assign('PWG_TOKEN', get_pwg_token());
   $template->assign_var_from_handle('PROFILE_CONTENT', 'profile_content');

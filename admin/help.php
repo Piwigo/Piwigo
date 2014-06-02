@@ -46,7 +46,7 @@ $tabsheet->set_id('help');
 $tabsheet->select($selected);
 $tabsheet->assign();
 
-trigger_action('loc_end_help');
+trigger_notify('loc_end_help');
 
 $template->set_filenames(array('help' => 'help.tpl'));
 

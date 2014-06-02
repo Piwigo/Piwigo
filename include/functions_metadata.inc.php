@@ -104,7 +104,7 @@ function clean_iptc_value($value)
   {
     // apparently mac uses some MacRoman crap encoding. I don't know
     // how to detect it so a plugin should do the trick.
-    $value = trigger_event('clean_iptc_value', $value);
+    $value = trigger_change('clean_iptc_value', $value);
     if ( ($qual = qualify_utf8($value)) != 0)
     {// has non ascii chars
       if ($qual>0)
@@ -152,7 +152,7 @@ function get_exif_data($filename, $map)
   // Read EXIF data
   if ($exif = @read_exif_data($filename))
   {
-    $exif = trigger_event('format_exif_data', $exif, $filename, $map);
+    $exif = trigger_change('format_exif_data', $exif, $filename, $map);
 
     // configured fields
     foreach ($map as $key => $field)

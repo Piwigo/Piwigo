@@ -162,7 +162,7 @@ DELETE FROM '.USER_CACHE_CATEGORIES_TABLE.'
   WHERE cat_id IN ('.implode(',',$ids).')';
   pwg_query($query);
 
-  trigger_action('delete_categories', $ids);
+  trigger_notify('delete_categories', $ids);
 }
 
 /**
@@ -250,7 +250,7 @@ function delete_elements($ids, $physical_deletion=false)
   {
     return 0;
   }
-  trigger_action('begin_delete_elements', $ids);
+  trigger_notify('begin_delete_elements', $ids);
 
   if ($physical_deletion)
   {
@@ -325,7 +325,7 @@ SELECT
     update_category($category_ids);
   }
 
-  trigger_action('delete_elements', $ids);
+  trigger_notify('delete_elements', $ids);
   return count($ids);
 }
 
@@ -383,7 +383,7 @@ DELETE FROM '.USERS_TABLE.'
 ;';
   pwg_query($query);
 
-  trigger_action('delete_user', $user_id);
+  trigger_notify('delete_user', $user_id);
 }
 
 /**
@@ -1573,7 +1573,7 @@ SELECT id
 ;';
     if (count($existing_tags = array_from_query($query, 'id')) == 0)
     {
-      $url_name = trigger_event('render_tag_url', $tag_name);
+      $url_name = trigger_change('render_tag_url', $tag_name);
       // search existing by url name
       $query = '
 SELECT id
@@ -1841,7 +1841,7 @@ UPDATE '.USER_CACHE_TABLE.'
   SET need_update = \'true\';';
     pwg_query($query);
   }
-  trigger_action('invalidate_user_cache', $full);
+  trigger_notify('invalidate_user_cache', $full);
 }
 
 /**
@@ -1976,7 +1976,7 @@ SELECT id
       TAGS_TABLE,
       array(
         'name' => $tag_name,
-        'url_name' => trigger_event('render_tag_url', $tag_name),
+        'url_name' => trigger_change('render_tag_url', $tag_name),
         )
       );
 
@@ -2326,7 +2326,7 @@ function get_taglist($query, $only_user_language=true)
   while ($row = pwg_db_fetch_assoc($result))
   {
     $raw_name = $row['name'];
-    $name = trigger_event('render_tag_name', $raw_name, $row);
+    $name = trigger_change('render_tag_name', $raw_name, $row);
 
     $taglist[] =  array(
         'name' => $name,
@@ -2335,7 +2335,7 @@ function get_taglist($query, $only_user_language=true)
 
     if (!$only_user_language)
     {
-      $alt_names = trigger_event('get_tag_alt_names', array(), $raw_name);
+      $alt_names = trigger_change('get_tag_alt_names', array(), $raw_name);
 
       foreach( array_diff( array_unique($alt_names), array($name) ) as $alt)
       {

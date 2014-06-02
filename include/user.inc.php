@@ -72,5 +72,5 @@ if ($conf['browser_language'] and (is_a_guest() or is_generic()) )
 {
   get_browser_language($user['language']);
 }
-trigger_action('user_init', $user);
+trigger_notify('user_init', $user);
 ?>

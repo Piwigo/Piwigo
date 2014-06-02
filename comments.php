@@ -89,7 +89,7 @@ $since_options = array(
              'clause' => '1=1') // stupid but generic
   );
 
-trigger_action('loc_begin_comments');
+trigger_notify('loc_begin_comments');
 
 if (!empty($_GET['since']) && is_numeric($_GET['since']))
 {
@@ -483,10 +483,10 @@ SELECT *
       'U_PICTURE' => $url,
       'src_image' => $src_image,
       'ALT' => $name,
-      'AUTHOR' => trigger_event('render_comment_author', $comment['author']),
+      'AUTHOR' => trigger_change('render_comment_author', $comment['author']),
       'WEBSITE_URL' => $comment['website_url'],
       'DATE'=>format_date($comment['date'], true),
-      'CONTENT'=>trigger_event('render_comment_content',$comment['content']),
+      'CONTENT'=>trigger_change('render_comment_content',$comment['content']),
       );
 
     if (is_admin())
@@ -543,7 +543,7 @@ SELECT *
   }
 }
 
-$derivative_params = trigger_event('get_comments_derivative_params', ImageStdParams::get_by_type(IMG_THUMB) );
+$derivative_params = trigger_change('get_comments_derivative_params', ImageStdParams::get_by_type(IMG_THUMB) );
 $template->assign( 'derivative_params', $derivative_params );
 
 // include menubar
@@ -557,7 +557,7 @@ if (!isset($themeconf['hide_menu_on']) OR !in_array('theCommentsPage', $themecon
 // |                           html code display                           |
 // +-----------------------------------------------------------------------+
 include(PHPWG_ROOT_PATH.'include/page_header.php');
-trigger_action('loc_end_comments');
+trigger_notify('loc_end_comments');
 flush_page_messages();
 $template->pparse('comments');
 include(PHPWG_ROOT_PATH.'include/page_tail.php');

@@ -177,6 +177,6 @@ SELECT
 }
 
 add_event_handler('get_history', 'get_history', EVENT_HANDLER_PRIORITY_NEUTRAL, 3);
-trigger_action('functions_history_included');
+trigger_notify('functions_history_included');
 
 ?>

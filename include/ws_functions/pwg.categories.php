@@ -264,7 +264,7 @@ SELECT
     else
     {
       $row['name'] = strip_tags(
-        trigger_event(
+        trigger_change(
           'render_category_name',
           $row['name'],
           'ws_categories_getList'
@@ -273,7 +273,7 @@ SELECT
     }
 
     $row['comment'] = strip_tags(
-      trigger_event(
+      trigger_change(
         'render_category_description',
         $row['comment'],
         'ws_categories_getList'
@@ -501,7 +501,7 @@ SELECT id, name, comment, uppercats, global_rank, dir
     $row['nb_images'] = isset($nb_images_of[$id]) ? $nb_images_of[$id] : 0;
 
     $row['name'] = strip_tags(
-      trigger_event(
+      trigger_change(
         'render_category_name',
         $row['name'],
         'ws_categories_getAdminList'
@@ -514,7 +514,7 @@ SELECT id, name, comment, uppercats, global_rank, dir
         )
       );
     $row['comment'] = strip_tags(
-      trigger_event(
+      trigger_change(
         'render_category_description',
         $row['comment'],
         'ws_categories_getAdminList'
@@ -787,7 +787,7 @@ SELECT id, name, dir
     if (!empty($row['dir']))
     {
       $row['name'] = strip_tags(
-        trigger_event(
+        trigger_change(
           'render_category_name',
           $row['name'],
           'ws_categories_move'

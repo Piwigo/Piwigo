@@ -64,7 +64,7 @@ class pwg_image
   {
     $this->source_filepath = $source_filepath;
 
-    trigger_action('load_image_library', array(&$this) );
+    trigger_notify('load_image_library', array(&$this) );
 
     if (is_object($this->image))
     {

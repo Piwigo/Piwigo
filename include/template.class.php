@@ -521,7 +521,7 @@ class Template
       if ($combi->version !== false)
         $href .= '?v' . ($combi->version ? $combi->version : PHPWG_VERSION);
       // trigger the event for eventual use of a cdn
-      $href = trigger_event('combined_css', $href, $combi);
+      $href = trigger_change('combined_css', $href, $combi);
       $content[] = '<link rel="stylesheet" type="text/css" href="'.$href.'">';
     }
     $this->output = str_replace(self::COMBINED_CSS_TAG,
@@ -878,7 +878,7 @@ var s,after = document.getElementsByTagName(\'script\')[document.getElementsByTa
       }
     }
     // trigger the event for eventual use of a cdn
-    $ret = trigger_event('combined_script', $ret, $script);
+    $ret = trigger_change('combined_script', $ret, $script);
     return embellish_url($ret);
   }
 
@@ -1934,7 +1934,7 @@ final class FileCombiner
       global $template;
       $handle = $this->type. '.' .$combinable->id;
       $template->set_filename($handle, realpath(PHPWG_ROOT_PATH.$combinable->path));
-      trigger_action( 'combinable_preparse', $template, $combinable, $this); //allow themes and plugins to set their own vars to template ...
+      trigger_notify( 'combinable_preparse', $template, $combinable, $this); //allow themes and plugins to set their own vars to template ...
       $content = $template->parse($handle, true);
 
       if ($this->is_css)
@@ -1990,7 +1990,7 @@ final class FileCombiner
       require_once(PHPWG_ROOT_PATH.'include/cssmin.class.php');
       $css = CssMin::minify($css, array('Variables'=>false));
     }
-    $css = trigger_event('combined_css_postfilter', $css);
+    $css = trigger_change('combined_css_postfilter', $css);
     return $css;
   }
 

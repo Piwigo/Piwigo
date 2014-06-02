@@ -31,7 +31,7 @@ defined('PWG_DERIVATIVE_DIR') or define('PWG_DERIVATIVE_DIR', $conf['data_locati
 @include(PHPWG_ROOT_PATH.PWG_LOCAL_DIR .'config/database.inc.php');
 
 
-function trigger_action() {}
+function trigger_notify() {}
 function get_extension( $filename )
 {
   return substr( strrchr( $filename, '.' ), 1, strlen ( $filename ) );

@@ -30,7 +30,7 @@ include_once( PHPWG_ROOT_PATH.'include/common.inc.php' );
 // +-----------------------------------------------------------------------+
 check_status(ACCESS_GUEST);
 
-trigger_action('loc_begin_search');
+trigger_notify('loc_begin_search');
 
 //------------------------------------------------------------------ form check
 $search = array();
@@ -236,7 +236,7 @@ if (!isset($themeconf['hide_menu_on']) OR !in_array('theSearchPage', $themeconf[
 
 //------------------------------------------------------------ html code display
 include(PHPWG_ROOT_PATH.'include/page_header.php');
-trigger_action('loc_end_search');
+trigger_notify('loc_end_search');
 flush_page_messages();
 $template->pparse('search');
 include(PHPWG_ROOT_PATH.'include/page_tail.php');

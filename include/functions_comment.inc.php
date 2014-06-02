@@ -31,7 +31,7 @@ add_event_handler('user_comment_check', 'user_comment_check',
 
 /**
  * Does basic check on comment and returns action to perform.
- * This method is called by a trigger_event()
+ * This method is called by a trigger_change()
  *
  * @param string $action before check
  * @param array $comment
@@ -211,7 +211,7 @@ SELECT count(1) FROM '.COMMENTS_TABLE.'
   }
 
   // perform more spam check
-  $comment_action = trigger_event('user_comment_check',
+  $comment_action = trigger_change('user_comment_check',
       $comment_action, $comm
     );
 
@@ -303,7 +303,7 @@ $user_where_clause.'
                 array('author' => $GLOBALS['user']['username'],
                       'comment_id' => $comment_id
                   ));
-    trigger_action('user_comment_deletion', $comment_id);
+    trigger_notify('user_comment_deletion', $comment_id);
 
     return true;
   }
@@ -342,7 +342,7 @@ function update_user_comment($comment, $post_key)
 
   // perform more spam check
   $comment_action =
-    trigger_event('user_comment_check',
+    trigger_change('user_comment_check',
 		  $comment_action,
 		  array_merge($comment,
 			      array('author' => $GLOBALS['user']['username'])
@@ -509,7 +509,7 @@ UPDATE '.COMMENTS_TABLE.'
   pwg_query($query);
   
   invalidate_user_cache_nb_comments();
-  trigger_action('user_comment_validation', $comment_id);
+  trigger_notify('user_comment_validation', $comment_id);
 }
 
 /**

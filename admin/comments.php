@@ -200,9 +200,9 @@ while ($row = pwg_db_fetch_assoc($result))
       'U_PICTURE' => get_root_url().'admin.php?page=photo-'.$row['image_id'],
       'ID' => $row['id'],
       'TN_SRC' => $thumb,
-      'AUTHOR' => trigger_event('render_comment_author', $author_name),
+      'AUTHOR' => trigger_change('render_comment_author', $author_name),
       'DATE' => format_date($row['date'], true),
-      'CONTENT' => trigger_event('render_comment_content',$row['content']),
+      'CONTENT' => trigger_change('render_comment_content',$row['content']),
       'IS_PENDING' => ('false' == $row['validated']),
       )
     );

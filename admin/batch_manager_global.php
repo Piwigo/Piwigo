@@ -40,7 +40,7 @@ include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
 
 check_status(ACCESS_ADMINISTRATOR);
 
-trigger_action('loc_begin_element_set_global');
+trigger_notify('loc_begin_element_set_global');
 
 check_input_parameter('del_tags', $_POST, true, PATTERN_ID);
 check_input_parameter('associate', $_POST, false, PATTERN_ID);
@@ -404,7 +404,7 @@ DELETE
     }
   }
 
-  trigger_action('element_set_global_action', $action, $collection);
+  trigger_notify('element_set_global_action', $action, $collection);
 }
 
 // +-----------------------------------------------------------------------+
@@ -429,7 +429,7 @@ if ($conf['enable_synchronization'])
   $prefilters[] = array('ID' => 'no_virtual_album', 'NAME' => l10n('With no virtual album'));
 }
 
-$prefilters = trigger_event('get_batch_manager_prefilters', $prefilters);
+$prefilters = trigger_change('get_batch_manager_prefilters', $prefilters);
 usort($prefilters, 'UC_name_compare');
 
 $template->assign(
@@ -674,7 +674,7 @@ $template->assign(array(
   'CACHE_KEYS' => get_admin_client_cache_keys(array('tags', 'categories')),
   ));
 
-trigger_action('loc_end_element_set_global');
+trigger_notify('loc_end_element_set_global');
 
 //----------------------------------------------------------- sending html code
 $template->assign_var_from_handle('ADMIN_CONTENT', 'batch_manager_global');

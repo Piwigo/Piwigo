@@ -176,7 +176,7 @@ while ($row = pwg_db_fetch_assoc($result))
   $plugin_links = array();
   //$plugin_links is array of array composed of U_HREF, U_HINT & U_CAPTION
   $plugin_links =
-    trigger_event('get_admins_site_links',
+    trigger_change('get_admins_site_links',
       $plugin_links, $row['id'], $is_remote);
   $tpl_var['plugin_links'] = $plugin_links;
 

@@ -220,7 +220,7 @@ else
 $advanced_features = array();
 
 //$advanced_features is array of array composed of CAPTION & URL
-$advanced_features = trigger_event(
+$advanced_features = trigger_change(
   'get_admin_advanced_features_links',
   $advanced_features
   );

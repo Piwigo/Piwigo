@@ -54,7 +54,7 @@ if
     $help_content = '';
   }
 
-  $help_content = trigger_event(
+  $help_content = trigger_change(
     'get_popup_help_content', $help_content, $_GET['page']);
 }
 else

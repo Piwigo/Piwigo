@@ -423,7 +423,7 @@ function pwg_log($image_id = null, $image_type = null)
     $do_log = $conf['history_guest'];
   }
 
-  $do_log = trigger_event('pwg_log_allowed', $do_log, $image_id, $image_type);
+  $do_log = trigger_change('pwg_log_allowed', $do_log, $image_id, $image_type);
 
   if (!$do_log)
   {
@@ -773,7 +773,7 @@ function redirect_html( $url , $msg = '', $refresh_time = 0)
   {
     $user = build_user( $conf['guest_id'], true);
     load_language('common.lang');
-    trigger_action('loading_lang');
+    trigger_notify('loading_lang');
     load_language('lang', PHPWG_ROOT_PATH.PWG_LOCAL_DIR, array('no_fallback'=>true, 'local'=>true) );
     $template = new Template(PHPWG_ROOT_PATH.'themes', get_default_theme());
   }
@@ -870,7 +870,7 @@ SELECT
   }
 
   // plugins want remove some themes based on user status maybe?
-  $themes = trigger_event('get_pwg_themes', $themes);
+  $themes = trigger_change('get_pwg_themes', $themes);
 
   return $themes;
 }
@@ -1112,7 +1112,7 @@ SELECT '.$conf['user_fields']['email'].'
 ;';
   list($email) = pwg_db_fetch_row(pwg_query($query));
 
-  $email = trigger_event('get_webmaster_mail_address', $email);
+  $email = trigger_change('get_webmaster_mail_address', $email);
 
   return $email;
 }
@@ -1154,7 +1154,7 @@ SELECT param, value
     $conf[ $row['param'] ] = $val;
   }
 
-  trigger_action('load_conf', $condition);
+  trigger_notify('load_conf', $condition);
 }
 
 /**

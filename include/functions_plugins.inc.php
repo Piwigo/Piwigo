@@ -246,7 +246,6 @@ function remove_event_handler($event, $func,
  * optional _$args_ are not transmitted.
  *
  * @since 2.6
- * @todo remove trigger_event()
  *
  * @param string $event
  * @param mixed $data data to transmit to all handlers
@@ -255,21 +254,11 @@ function remove_event_handler($event, $func,
  */
 function trigger_change($event, $data=null)
 {
-  $args = func_get_args();
-  return call_user_func_array('trigger_event', $args);
-}
-
-/**
- * @deprecated 2.6
- * @see trigger_change
- */
-function trigger_event($event, $data=null)
-{
   global $pwg_event_handlers;
 
   if (isset($pwg_event_handlers['trigger']))
   {// debugging
-    trigger_action('trigger',
+    trigger_notify('trigger',
       array('type'=>'event', 'event'=>$event, 'data'=>$data)
       );
   }
@@ -298,7 +287,7 @@ function trigger_event($event, $data=null)
 
   if (isset($pwg_event_handlers['trigger']))
   {// debugging
-    trigger_action('trigger',
+    trigger_notify('trigger',
       array('type'=>'post_event', 'event'=>$event, 'data'=>$data)
       );
   }
@@ -311,28 +300,17 @@ function trigger_event($event, $data=null)
  * trigger_notify() is only used as a notifier, no modification of data is possible
  *
  * @since 2.6
- * @todo remove trigger_action()
  *
  * @param string $event
  * @param mixed $args,... optional arguments
  */
 function trigger_notify($event)
 {
-  $args = func_get_args();
-  return call_user_func_array('trigger_action', $args);
-}
-
-/**
- * @deprecated 2.6
- * @see trigger_notify
- */
-function trigger_action($event)
-{
   global $pwg_event_handlers;
 
   if (isset($pwg_event_handlers['trigger']) and $event!='trigger')
   {// debugging - avoid recursive calls
-    trigger_action('trigger',
+    trigger_notify('trigger',
       array('type'=>'action', 'event'=>$event, 'data'=>null)
       );
   }
@@ -455,7 +433,7 @@ function load_plugins()
     {// include main from a function to avoid using same function context
       load_plugin($plugin);
     }
-    trigger_action('plugins_loaded');
+    trigger_notify('plugins_loaded');
   }
 }
 

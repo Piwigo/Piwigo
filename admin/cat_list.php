@@ -33,7 +33,7 @@ include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
 // +-----------------------------------------------------------------------+
 check_status(ACCESS_ADMINISTRATOR);
 
-trigger_action('loc_begin_cat_list');
+trigger_notify('loc_begin_cat_list');
 
 if (!empty($_POST) or isset($_GET['delete']))
 {
@@ -324,7 +324,7 @@ foreach ($categories as $category)
   $tpl_cat =
     array(
       'NAME'       => 
-        trigger_event(
+        trigger_change(
           'render_category_name',
           $category['name'],
           'admin_cat_list'
@@ -363,7 +363,7 @@ foreach ($categories as $category)
   $template->append('categories', $tpl_cat);
 }
 
-trigger_action('loc_end_cat_list');
+trigger_notify('loc_end_cat_list');
 
 // +-----------------------------------------------------------------------+
 // |                          sending html code                            |

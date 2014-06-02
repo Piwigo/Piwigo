@@ -22,7 +22,7 @@
 // +-----------------------------------------------------------------------+
 $template->set_filenames(array('tail'=>'footer.tpl'));
 
-trigger_action('loc_begin_page_tail');
+trigger_notify('loc_begin_page_tail');
 
 $template->assign(
   array(
@@ -76,7 +76,7 @@ if ( !empty($conf['mobile_theme']) && (get_device() != 'desktop' || mobile_theme
     );
 }
 
-trigger_action('loc_end_page_tail');
+trigger_notify('loc_end_page_tail');
 //
 // Generate the page
 //

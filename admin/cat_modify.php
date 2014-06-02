@@ -103,7 +103,7 @@ SELECT galleries_url
 // +-----------------------------------------------------------------------+
 check_status(ACCESS_ADMINISTRATOR);
 
-trigger_action('loc_begin_cat_modify');
+trigger_notify('loc_begin_cat_modify');
 
 //---------------------------------------------------------------- verification
 if ( !isset( $_GET['cat_id'] ) || !is_numeric( $_GET['cat_id'] ) )
@@ -368,7 +368,7 @@ if ($category['is_virtual'])
   $template->assign('parent_category', empty($category['id_uppercat']) ? array() : array($category['id_uppercat']));
 }
 
-trigger_action('loc_end_cat_modify');
+trigger_notify('loc_end_cat_modify');
 
 //----------------------------------------------------------- sending html code
 $template->assign_var_from_handle('ADMIN_CONTENT', 'album_properties');
