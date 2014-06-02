@@ -101,7 +101,7 @@ class PersistentFileCache extends PersistentCache
       $lifetime = $this->default_lifetime;
     }
 
-    if (rand() % 199 == 0)
+    if (rand() % 97 == 0)
     {
       $this->purge(false);
     }
