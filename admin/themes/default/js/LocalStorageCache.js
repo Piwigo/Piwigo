@@ -170,6 +170,23 @@
       });
     });
   };
+  
+  // redefine Selectize templates without escape
+  AbstractSelectizer.getRender = function(field_label, lang) {
+    lang = lang || { 'Add': 'Add' };
+
+  	return {
+      'option': function(data, escape) {
+        return '<div class="option">' + data[field_label] + '</div>';
+      },
+      'item': function(data, escape) {
+        return '<div class="item">' + data[field_label] + '</div>';
+      },
+      'option_create': function(data, escape) {
+        return '<div class="create">' + lang['Add'] + ' <strong>' + data.input + '</strong>&hellip;</div>';
+      }
+    };
+  };
 
 
   /**
@@ -206,7 +223,8 @@
       labelField: 'fullname',
       sortField: 'global_rank',
       searchField: ['fullname'],
-      plugins: ['remove_button']
+      plugins: ['remove_button'],
+      render: AbstractSelectizer.getRender('fullname', options.lang)
     });
     
     this._selectize($target, options);
@@ -253,7 +271,8 @@
       labelField: 'name',
       sortField: 'name',
       searchField: ['name'],
-      plugins: ['remove_button']
+      plugins: ['remove_button'],
+      render: AbstractSelectizer.getRender('name', options.lang)
     });
     
     this._selectize($target, options);
@@ -294,7 +313,8 @@
       labelField: 'name',
       sortField: 'name',
       searchField: ['name'],
-      plugins: ['remove_button']
+      plugins: ['remove_button'],
+      render: AbstractSelectizer.getRender('name', options.lang)
     });
     
     this._selectize($target, options);
@@ -347,7 +367,8 @@
       labelField: 'username',
       sortField: 'username',
       searchField: ['username'],
-      plugins: ['remove_button']
+      plugins: ['remove_button'],
+      render: AbstractSelectizer.getRender('username', options.lang)
     });
     
     this._selectize($target, options);

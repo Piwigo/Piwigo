@@ -16,7 +16,9 @@ var tagsCache = new TagsCache({
   rootUrl: '{$ROOT_URL}'
 });
 
-tagsCache.selectize(jQuery('[data-selectize=tags]'));
+tagsCache.selectize(jQuery('[data-selectize=tags]'), { lang: {
+  'Add': '{'Create'|translate}'
+}});
 
 {* <!-- DATEPICKER --> *}
 jQuery(function(){ {* <!-- onLoad needed to wait localization loads --> *}

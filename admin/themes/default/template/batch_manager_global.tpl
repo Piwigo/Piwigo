@@ -74,7 +74,9 @@ jQuery(document).ready(function() {ldelim}
     rootUrl: '{$ROOT_URL}'
   });
 
-  tagsCache.selectize(jQuery('[data-selectize=tags]'));
+  tagsCache.selectize(jQuery('[data-selectize=tags]'), { lang: {
+    'Add': '{'Create'|translate}'
+  }});
   
   {* <!-- CATEGORIES --> *}
   var categoriesCache = new CategoriesCache({
