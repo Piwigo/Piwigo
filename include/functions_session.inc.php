@@ -58,19 +58,36 @@ if (isset($conf['session_save_handler'])
  * Characters used are a-z A-Z and numerical values.
  *
  * @param int $size
- * @param string $alphabet chars to use in the key,
- *    default is all digits and all letters uppercase and lowercase
  * @return string
  */
-function generate_key($size, $alphabet='abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789')
+function generate_key($size)
 {
-  $l = strlen($alphabet)-1;
-  $key = '';
-  for ($i=0; $i<$size; $i++)
+  if (
+    is_callable('openssl_random_pseudo_bytes')
+    and !(version_compare(PHP_VERSION, '5.3.4') < 0 and defined('PHP_WINDOWS_VERSION_MAJOR'))
+    )
   {
-    $key.= $alphabet[mt_rand(0, $l)];
+    return substr(
+      str_replace(
+        array('+', '/'),
+        '',
+        base64_encode(openssl_random_pseudo_bytes($size))
+        ),
+      0,
+      $size
+      );
   }
-  return $key;
+  else
+  {
+    $alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    $l = strlen($alphabet)-1;
+    $key = '';
+    for ($i=0; $i<$size; $i++)
+    {
+      $key.= $alphabet[mt_rand(0, $l)];
+    }
+    return $key;
+  }
 }
 
 /**
