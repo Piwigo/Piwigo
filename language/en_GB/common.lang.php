@@ -22,7 +22,7 @@
 // +-----------------------------------------------------------------------+
 /*
 Language Name: English [GB]
-Version: 2.6.0
+Version: 2.6.1
 Language URI: http://piwigo.org/ext/extension_view.php?eid=716
 Author: Piwigo team
 Author URI: http://piwigo.org
@@ -53,7 +53,7 @@ $lang['Related tags'] = "Related keywords";
 $lang['remove this tag from the list'] = "remove this keyword from the list";
 $lang['Requested tag does not exist'] = 'Requested keyword does not exist';
 $lang['Search tags'] = "Search keywords";
-$lang['show tag cloud'] = "show keywords ungrouped";
+$lang['show tag cloud'] = 'show keywords cloud';
 $lang['Tag results for'] = "Keyword results for";
 $lang['Tag'] = "Keyword";
 $lang['Tags'] = "Keywords";
@@ -64,7 +64,7 @@ $lang['Your Gallery Customization'] = "Your gallery customisation";
 $lang['no rate'] = 'no rating';
 $lang['display your favorites photos'] = 'display your favourite photos';
 $lang['You are not authorized to access the requested page'] = 'You are not authorised to access the requested page';
-$lang['Successfully registered, you will soon receive an email with your connection settings. Welcome!'] = 'Successfully registered; you will soon receive an email with your connection settings. Welcome!';
+$lang['Successfully registered, you will soon receive an email with your connection settings. Welcome!'] = 'Successfully registered.  You will soon receive an email with your connection settings. Welcome!';
 $lang['Please, enter a login'] = 'Please enter a login';
 $lang['Piwigo encountered a non recoverable error'] = 'Piwigo encountered an irrecoverable error';
-?>
+$lang['Forgot your password?'] = 'Forgotten your password?';

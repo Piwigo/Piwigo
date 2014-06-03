@@ -22,7 +22,7 @@
 // +-----------------------------------------------------------------------+
 /*
 Language Name: Brezhoneg [FR]
-Version: 2.6.1
+Version: 2.6.2
 Language URI: http://piwigo.org/ext/extension_view.php?eid=698
 Author: Piwigo team
 Author URI: http://piwigo.org
@@ -418,4 +418,4 @@ $lang['Password confirmation is missing. Please confirm the chosen password.'] =
 $lang['Password is missing. Please enter the password.'] = 'Mankout a ra ar ger-tremen. Skrivit ar ger-tremen.';
 $lang['%d photos per page'] = '%d luc\'hskeudenn e pep pajenn';
 $lang['Theme'] = 'Tem';
-?>
+$lang['No results for'] = 'Disoc\'h ebet evit';
