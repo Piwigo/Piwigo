@@ -62,3 +62,9 @@ $lang['2_7_0_title8'] = '
 ';
 $lang['2_7_0_title9'] = '
 ';
+$lang['First Contact'] = 'Đầu mối đầu tiên';
+$lang['End tour'] = 'Kết thúc';
+$lang['2_7_0_title2'] = 'Tính năng mới đầu tiên';
+$lang['2_7_0_title3'] = 'Tìm nhanh';
+$lang['Prev'] = 'Trước đó';
+$lang['Next '] = 'Kế tiếp';
