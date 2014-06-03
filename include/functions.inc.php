@@ -1172,6 +1172,10 @@ function conf_update_param($param, $value, $updateGlobal=false, $parser=null)
   {
     $dbValue = call_user_func($parser, $value);
   }
+  else if (is_array($value) || is_object($value))
+  {
+    $dbValue = addslashes(serialize($value));
+  }
   else
   {
     $dbValue = $value;
