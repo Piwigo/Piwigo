@@ -123,7 +123,7 @@ jQuery(function(){ {* <!-- onLoad needed to wait localization loads --> *}
       <br>
       <select data-selectize="tags" data-value="{$tag_selection|@json_encode|escape:html}"
         placeholder="{'Type in a search term'|translate}"
-        data-create="true" name="tags[]" multiple style="width:600px;"</select>
+        data-create="true" name="tags[]" multiple style="width:600px;"></select>
     </p>
 
     <p>
