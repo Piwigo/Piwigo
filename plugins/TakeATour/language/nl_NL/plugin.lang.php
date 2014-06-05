@@ -107,3 +107,4 @@ $lang['2_7_0_title2'] = 'Eerste nieuwe functie';
 $lang['2_7_0_title11'] = 'Tot ziens!';
 $lang['2_7_0_title1'] = 'Welkom bij Piwigo 2.7';
 $lang['2_7_0_descrp'] = 'Ontdek wat er nieuw is in Piwigo 2.7';
+$lang['first_contact_stp31'] = 'Dan zal de banner bovenaan op elke pagina worden weggegeven Zoals u kunt zien, worden HTML tags hier toegestaan​​. U kunt ook de% gallery_title% tag gebruiken om de titel die je net hierboven boven getypt hebt weergegeven.';
