@@ -63,10 +63,10 @@ $lang['first_contact_stp40'] = 'Ik ben het! Schakel mij nu niet uit, maar je kun
 $lang['first_contact_stp5'] = 'Klik vervolgens op de knop om foto\'s te selecteren voor het verzenden van via uw computer';
 $lang['first_contact_title22'] = 'Album Editie Pagina';
 $lang['2_7_0_stp2'] = 'Zoals u kunt zien, is er een nieuwe standaard plugin toegevoegd: Neem een rondleiding. Deze plugin helpt u om uw Piwigo ontdekken. Hier is een lijst met alle beschikbare rondleidingen.<br>Deze pagina is beschikbaar in<em>Plugins » Neem een rondleiding</em>';
-$lang['2_7_0_stp11'] = 'Deze rondleiding is voorbij.<p Style="text-align:center"> Geniet van uw Piwigo 2.7!</P>Als je Piwigo en ons wilt ondersteunen, kunt u een bijdrage leveren door te helpen met de vertalingen, te doneren, et cetera.<a href="http://piwigo.org/basics/contribute"target="_blank">Klik hier om ons te ondersteunen</a>';
-$lang['2_7_0_stp1'] = 'Hello! Ik zal uw gids zijn om Piwigo ontdekken. Volg mijn instructies op en klik op "Volgende" (of gebruik de pijltjes van je toetsenbord) om te navigeren. Als je naar een andere pagina gaat, wordt u doorgestuurd naar de huidige pagina van de rondleiding.';
+$lang['2_7_0_stp11'] = 'Deze rondleiding is voorbij.<p Style="text-align:center"> Geniet van uw Piwigo 2.7!</P>Als Piwigo je bevalt en ons wilt ondersteunen, kunt u een bijdrage leveren door te helpen met de vertalingen, te doneren, et cetera.<a href="http://piwigo.org/basics/contribute"target="_blank">Klik hier om ons te ondersteunen</a>';
+$lang['2_7_0_stp1'] = 'Hallo! Ik zal uw gids zijn om Piwigo ontdekken. Volg mijn instructies op en klik op "Volgende" (of gebruik de pijltjes van je toetsenbord) om te navigeren. Als u naar een andere pagina gaat, wordt u doorgestuurd naar de huidige pagina van de rondleiding.';
 $lang['first_contact_stp15'] = 'Op die pagina kunt u alle eigenschappen van een foto te bewerken, bijvoorbeeld ...';
-$lang['first_contact_stp11'] = 'Zo kunt u vanuit hier, een of meerdere foto\'s selecteren.';
+$lang['first_contact_stp11'] = 'Zo kunt u hiervandaan een of meerdere foto\'s selecteren.';
 $lang['Take a tour and discover the features of your Piwigo gallery » Go to the available tours'] = 'Neem een ​​rondleiding en ontdek de mogelijkheden van uw Piwigo galerie » Ga nu naar de beschikbare rondleidingen. ';
 $lang['first_contact_stp2'] = 'De link is hier. Klik op "Volgende" om door te gaan';
 $lang['first_contact_title4'] = 'Laten we een foto toevoegen!';
@@ -108,3 +108,20 @@ $lang['2_7_0_title11'] = 'Tot ziens!';
 $lang['2_7_0_title1'] = 'Welkom bij Piwigo 2.7';
 $lang['2_7_0_descrp'] = 'Ontdek wat er nieuw is in Piwigo 2.7';
 $lang['first_contact_stp31'] = 'Dan zal de banner bovenaan op elke pagina worden weggegeven Zoals u kunt zien, worden HTML tags hier toegestaan​​. U kunt ook de% gallery_title% tag gebruiken om de titel die je net hierboven boven getypt hebt weergegeven.';
+$lang['first_contact_stp14'] = 'We zien nu de bewerkingspagina van één beeld. Deze pagina is toegankelijk vanaf hier, maar ook vanaf de openbare beeldpagina als u ingelogd bent als beheerder. Klik op Bewerken of ga verder.';
+$lang['first_contact_stp13'] = 'Vanuit de Batch Beheerder in "unit" modus kunt u beschrijvingen bewerken en meer. Maar laten we op dit moment in de global modus blijven.';
+$lang['first_contact_stp12'] = 'Om ze vervolgens te bewerken via een actie. ';
+$lang['first_contact_stp10'] = 'Hier is de link voor de rechtstreekse toegang tot uw "caddy": een instrument voor beheerders om makkelijk beelden toe te voegen aan een set om ze te bewerken in de Batch Beheerder. U kunt foto\'s toevoegen van de openbare fotopagina aan de "caddy" als u ingelogd bent als Beheerder of gebruik maakt van de actie "Voeg toe aan de "caddy" in de Batch Beheerder.';
+$lang['first_contact_stp1'] = 'Hallo! Ik ben uw gids om Piwigo te ontdekken. Volg mijn instructies en klik op Volgende om te navigeren (of gebruik de pijltjes van uw toetsenbord). Als u tijdens de rondleiding naar een andere pagina van de administratie gaat, wordt u doorgestuurd naar de huidige pagina van de Rondleiding. Als u vast komt te zitten en de rondleiding niet kunt afronden gaat u naar <em>Plugins >> Neem een Rondleiding</em>. Hiermee beëindigt u de rondleiding.<br>Laten we beginnen met het toevoegen van foto\'s!';
+$lang['first_contact_descrp'] = 'Aanbevolen voor beginnelingen: deze rondleiding is een introductie tot Piwigo and zijn basismogelijkheden. Het begint bij het toevoegen van foto\'s en vervolgt met het beheer ervan. De rondleiding gaat verder met het beheren van albums en toestemmingen. Het eindigt met het naar eigen wensen aanpassen met behulp van de configuratie, de thema\'s en de plugins.';
+$lang['TAT_descrp'] = 'Welkom! Hier vindt u alle beschikbare rondleidingen om de mogelijkheden van uw Piwigo galerie te ontdekken.<br>Start een rondleiding hieronder en volg hierna de instructies. Klik Volgende/Vorige (of gebruik de pijltjes van uw toetsenbord) om door de rondleiding te navigeren. Als u tijdens de rondleiding naar een andere pagina van de administratie gaat, wordt u doorgestuurd naar de huidige pagina van de Rondleiding. Als u vast komt te zitten en de rondleiding niet kunt afronden gaat u naar <em>Plugins >> Neem een Rondleiding</em>. Hiermee beëindigt u de rondleiding.';
+$lang['2_7_0_stp3'] = 'De snelzoeker is opnieuw bewerkt:<br>
+- voegt OR bewerker toe<br>
+- staat het groeperen van het gebruik van haakjes ()toe
+- voegt naamruimte in de zoekfunctie toe zoals:<br>
+* #sneeuw - zoekt slechts tag namen voor sneeuw<br>
+* ratio:0.9..1.1 - zoekt foto\'s met een breedte/hoogte verhouding tussen 0.9 en 1.1 (bijna vierkant)<br>
+* hits:>10 - zoekt foto\'s met een aantal bezoeken van >10<br>
+* size:>10mp - zoekt foto\'s met een breedte/hoogte van >10 megapixels<br>
+* file:.jpg - alleen jpg-beelden<br>
+- gebruik van enkelvoudige/meervoudige verbuigingen (op het ogenblik alleen Engels/Frans)<br>';
