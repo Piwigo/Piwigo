@@ -116,3 +116,9 @@ $lang['2_7_0_title8'] = '
 ';
 $lang['2_7_0_title9'] = '
 ';
+$lang['2_7_0_title2'] = 'Prima le novità';
+$lang['2_7_0_title3'] = 'Ricerca Rapida';
+$lang['2_7_0_title11'] = 'A presto!';
+$lang['2_7_0_title1'] = 'Benvenuto in Piwigo 2.7';
+$lang['2.7 Tour'] = 'Tour 2.7';
+$lang['2_7_0_descrp'] = 'Scopri le Novità di Piwigo 2.7';
