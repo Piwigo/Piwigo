@@ -86,19 +86,11 @@ class themes
 
       if (class_exists($classname))
       {
-        $theme_maintain = new $classname($theme_id);
-      }
-      else
-      {
-        $theme_maintain = new DummyTheme_maintain($theme_id);
+        return new $classname($theme_id);
       }
     }
-    else
-    {
-      $theme_maintain = new DummyTheme_maintain($theme_id);
-    }
-
-    return $theme_maintain;
+    
+    return new DummyTheme_maintain($theme_id);
   }
 
   /**

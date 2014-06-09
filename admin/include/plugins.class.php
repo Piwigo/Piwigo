@@ -55,6 +55,7 @@ class DummyPlugin_maintain extends PluginMaintain
       return plugin_uninstall($this->plugin_id);
     }
   }
+  function update($old_version, $new_version, &$errors=array()) {}
 }
 
 
@@ -85,28 +86,26 @@ class plugins
    */
   private static function build_maintain_class($plugin_id)
   {
-    $file_to_include = PHPWG_PLUGINS_PATH . $plugin_id . '/maintain.inc.php';
+    $file_to_include = PHPWG_PLUGINS_PATH . $plugin_id . '/maintain';
     $classname = $plugin_id.'_maintain';
 
-    if (file_exists($file_to_include))
+    if (file_exists($file_to_include.'.class.php'))
     {
-      include_once($file_to_include);
+      include_once($file_to_include.'.class.php');
+      return new $classname($plugin_id);
+    }
+
+    if (file_exists($file_to_include.'.inc.php'))
+    {
+      include_once($file_to_include.'.inc.php');
 
       if (class_exists($classname))
       {
-        $plugin_maintain = new $classname($plugin_id);
+        return new $classname($plugin_id);
       }
-      else
-      {
-        $plugin_maintain = new DummyPlugin_maintain($plugin_id);
-      }
-    }
-    else
-    {
-      $plugin_maintain = new DummyPlugin_maintain($plugin_id);
     }
 
-    return $plugin_maintain;
+    return new DummyPlugin_maintain($plugin_id);
   }
 
   /**
@@ -121,7 +120,7 @@ class plugins
     {
       $crt_db_plugin = $this->db_plugins_by_id[$plugin_id];
     }
-    
+
     $plugin_maintain = self::build_maintain_class($plugin_id);
 
     $errors = array();
@@ -187,7 +186,7 @@ UPDATE '. PLUGINS_TABLE .'
   WHERE id=\''. $plugin_id .'\'
 ;';
         pwg_query($query);
-        
+
         $plugin_maintain->deactivate();
         break;
 
@@ -206,7 +205,7 @@ DELETE FROM '. PLUGINS_TABLE .'
   WHERE id=\''. $plugin_id .'\'
 ;';
         pwg_query($query);
-        
+
         $plugin_maintain->uninstall();
         break;
 
@@ -235,7 +234,7 @@ DELETE FROM '. PLUGINS_TABLE .'
 
   /**
    * Get plugins defined in the plugin directory
-   */  
+   */
   function get_fs_plugins()
   {
     $dir = opendir(PHPWG_PLUGINS_PATH);
@@ -256,7 +255,7 @@ DELETE FROM '. PLUGINS_TABLE .'
               'description'=>'',
               'author'=>'',
             );
-          $plg_data = implode( '', file($path.'/main.inc.php') );
+          $plg_data = file_get_contents($path.'/main.inc.php', null, null, 0, 2048);
 
           if ( preg_match("|Plugin Name: (.*)|", $plg_data, $val) )
           {
@@ -326,7 +325,7 @@ DELETE FROM '. PLUGINS_TABLE .'
   function get_versions_to_check($version=PHPWG_VERSION)
   {
     global $conf;
-    
+
     $versions_to_check = array();
     $url = PEM_URL . '/api/get_version_list.php?category_id='. $conf['pem_plugins_category'] .'&format=php';
     if (fetchRemote($url, $result) and $pem_versions = @unserialize($result))
@@ -423,7 +422,7 @@ DELETE FROM '. PLUGINS_TABLE .'
     {
       return false;
     }
-    
+
     global $conf;
 
     // Plugins to check
@@ -477,7 +476,7 @@ DELETE FROM '. PLUGINS_TABLE .'
     }
     return false;
   }
-  
+
   /**
    * Sort $server_plugins
    */

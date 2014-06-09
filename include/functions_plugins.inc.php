@@ -35,7 +35,7 @@ define('EVENT_HANDLER_PRIORITY_NEUTRAL', 50);
 /**
  * Used to declare maintenance methods of a plugin.
  */
-class PluginMaintain 
+class PluginMaintain
 {
   /** @var string $plugin_id */
   protected $plugin_id;
@@ -65,46 +65,17 @@ class PluginMaintain
   function uninstall() {}
 
   /**
-   * Tests if the plugin needs to be updated and call an update function
-   *
-   * @param string $version version exposed by the plugin (potentially new)
-   * @param string $on_update name of a method to call when an update is needed
-   *          it receives the previous version as first parameter
+   * @param string $old_version
+   * @param string $new_version
+   * @param array &$errors - used to return error messages
    */
-  function autoUpdate($version, $on_update=null)
-  {
-    global $pwg_loaded_plugins;
-    
-    $current_version = $pwg_loaded_plugins[$this->plugin_id]['version'];
-    
-    if ( $version == 'auto' or $current_version == 'auto'
-        or safe_version_compare($current_version, $version, '<')
-      )
-    {
-      if (!empty($on_update))
-      {
-        call_user_func(array(&$this, $on_update), $current_version);
-      }
-      
-      if ($version != 'auto')
-      {
-        $query = '
-UPDATE '. PLUGINS_TABLE .'
-  SET version = "'. $version .'"
-  WHERE id = "'. $this->plugin_id .'"
-;';
-        pwg_query($query);
-        
-        $pwg_loaded_plugins[$this->plugin_id]['version'] = $version;
-      }
-    }
-  }
+  function update($old_version, $new_version, &$errors=array()) {}
 }
 
 /**
  * Used to declare maintenance methods of a theme.
  */
-class ThemeMaintain 
+class ThemeMaintain
 {
   /** @var string $theme_id */
   protected $theme_id;
@@ -126,43 +97,6 @@ class ThemeMaintain
   function deactivate() {}
 
   function delete() {}
-  
-  /**
-   * Tests if the theme needs to be updated and call an update function
-   *
-   * @param string $version version exposed by the theme (potentially new)
-   * @param string $on_update name of a method to call when an update is needed
-   *          it receives the previous version as first parameter
-   */
-  function autoUpdate($version, $on_update=null)
-  {
-    $query = '
-SELECT version
-  FROM '. THEMES_TABLE .'
-  WHERE id = "'. $this->theme_id .'"
-;';
-    list($current_version) = pwg_db_fetch_row(pwg_query($query));
-    
-    if ( $version == 'auto' or $current_version == 'auto'
-        or safe_version_compare($current_version, $version, '<')
-      )
-    {
-      if (!empty($on_update))
-      {
-        call_user_func(array(&$this, $on_update), $current_version);
-      }
-      
-      if ($version != 'auto')
-      {
-        $query = '
-UPDATE '. THEMES_TABLE .'
-  SET version = "'. $version .'"
-  WHERE id = "'. $this->theme_id .'"
-;';
-        pwg_query($query);
-      }
-    }
-  }
 }
 
 
@@ -250,7 +184,7 @@ function remove_event_handler($event, $func,
  * @param string $event
  * @param mixed $data data to transmit to all handlers
  * @param mixed $args,... optional arguments
- * @return mixed $data 
+ * @return mixed $data
  */
 function trigger_change($event, $data=null)
 {
@@ -399,23 +333,92 @@ SELECT * FROM '.PLUGINS_TABLE;
     $query .= '
   WHERE '. implode(' AND ', $clauses);
   }
-  
+
   return query2array($query);
 }
 
 /**
- * Loads a plugin, it includes the main.inc.php file and updates _$pwg_loaded_plugins_.
+ * Loads a plugin in memory.
+ * It performs autoupdate, includes the main.inc.php file and updates *$pwg_loaded_plugins*.
  *
  * @param string $plugin
  */
 function load_plugin($plugin)
 {
   $file_name = PHPWG_PLUGINS_PATH.$plugin['id'].'/main.inc.php';
-  if ( file_exists($file_name) )
+  if (file_exists($file_name))
   {
+    autoupdate_plugin($plugin);
     global $pwg_loaded_plugins;
     $pwg_loaded_plugins[ $plugin['id'] ] = $plugin;
-    include_once( $file_name );
+    include_once($file_name);
+  }
+}
+
+/**
+ * Performs update task of a plugin.
+ * Autoupdate is only performed if the plugin has a maintain.class.php file.
+ *
+ * @since 2.7
+ *
+ * @param array &$plugin (id, version, state) will be updated if version changes
+ */
+function autoupdate_plugin(&$plugin)
+{
+  $maintain_file = PHPWG_PLUGINS_PATH.$plugin['id'].'/maintain.class.php';
+
+  // autoupdate is applicable only to plugins with 2.7 architecture
+  if (file_exists($maintain_file))
+  {
+    // try to find the filesystem version in lines 2 to 10 of main.inc.php
+    $fh = fopen(PHPWG_PLUGINS_PATH.$plugin['id'].'/main.inc.php', 'r');
+    $fs_version = null;
+    $i = -1;
+
+    while (($line = fgets($fh))!==false && $fs_version==null && $i<10)
+    {
+      $i++;
+      if ($i < 2) continue; // first lines are typically "<?php" and "/*"
+
+      if (preg_match('#Version: ([\\w.-]+)#', $line, $matches))
+      {
+        $fs_version = $matches[1];
+      }
+    }
+
+    fclose($fh);
+
+    if ($fs_version != null)
+    {
+      global $pwg_loaded_plugins, $page;
+
+      // if version is auto (dev) or superior
+      if (
+          $fs_version == 'auto' or $plugin['version'] == 'auto'
+          or safe_version_compare($plugin['version'], $fs_version, '<')
+        )
+      {
+        // call update method
+        include_once($maintain_file);
+
+        $classname = $plugin['id'].'_maintain';
+        $plugin_maintain = new $classname($plugin['id']);
+        $plugin_maintain->update($plugin['version'], $fs_version, $page['errors']);
+
+        $plugin['version'] = $fs_version;
+
+        // update database (only on production)
+        if ($plugin['version'] != 'auto')
+        {
+          $query = '
+UPDATE '. PLUGINS_TABLE .'
+  SET version = "'. $plugin['version'] .'"
+  WHERE id = "'. $plugin['id'] .'"
+;';
+          pwg_query($query);
+        }
+      }
+    }
   }
 }
 
