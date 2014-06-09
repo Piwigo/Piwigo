@@ -418,4 +418,4 @@ $lang['Password is missing. Please enter the password.'] = 'Passord mangler. Ven
 $lang['Password confirmation is missing. Please confirm the chosen password.'] = 'Passord bekreftelse mangler. Vennligst bekreft det valgte passord.';
 $lang['%d photos per page'] = '%d bilder pr side';
 $lang['Theme'] = 'Tema';
-?>
+$lang['No results for'] = 'Ingen resultater for';
