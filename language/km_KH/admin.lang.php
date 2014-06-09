@@ -234,4 +234,12 @@ $lang['Authorized'] = 'បាន​អនុញ្ញាត';
 $lang['Automatic correction'] = 'កែតម្រូវ​ដោយ​ស្វ័យ​ប្រវត្តិ';
 $lang['Automatic sort order'] = 'តម្រៀប​តាមលំដាប់​ដោយ​ស្វ័យ​ប្រវត្តិ';
 $lang['Available on'] = 'ដែល​អាច​ប្រើបាននៅ';
-?>
+$lang['Bound Theme'] = 'សម្បក​ចងភ្ជាប់';
+$lang['Cancel'] = 'បោះបង់';
+$lang['By rank'] = 'ដោយចំណាត់ថ្នាក់';
+$lang['By %s'] = 'ដោយ %s';
+$lang['Batch Manager'] = 'កម្មវិធីគ្រប់គ្រងជាបាច់';
+$lang['Basic settings'] = 'ការកំណត់មូលដ្ឋាន';
+$lang['Average rate'] = 'អត្រាជាមធ្យម';
+$lang['Available versions for'] = 'ជំនាន់ដែល​មាន​សម្រាប់';
+$lang['Available only with HTML format'] = 'មាន​តែ​នៅលើ​ទម្រង់ HTML ទេ';
