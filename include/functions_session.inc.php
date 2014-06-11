@@ -62,25 +62,32 @@ if (isset($conf['session_save_handler'])
  */
 function generate_key($size)
 {
-  global $conf;
-
-  $md5 = md5(substr(microtime(), 2, 6));
-  $init = '';
-  for ( $i = 0; $i < strlen( $md5 ); $i++ )
+  if (
+    is_callable('openssl_random_pseudo_bytes')
+    and !(version_compare(PHP_VERSION, '5.3.4') < 0 and defined('PHP_WINDOWS_VERSION_MAJOR'))
+    )
   {
-    if ( is_numeric( $md5[$i] ) ) $init.= $md5[$i];
+    return substr(
+      str_replace(
+        array('+', '/'),
+        '',
+        base64_encode(openssl_random_pseudo_bytes($size))
+        ),
+      0,
+      $size
+      );
   }
-  $init = substr( $init, 0, 8 );
-  mt_srand( $init );
-  $key = '';
-  for ( $i = 0; $i < $size; $i++ )
+  else
   {
-    $c = mt_rand( 0, 2 );
-    if ( $c == 0 )      $key .= chr( mt_rand( 65, 90 ) );
-    else if ( $c == 1 ) $key .= chr( mt_rand( 97, 122 ) );
-    else                $key .= mt_rand( 0, 9 );
+    $alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    $l = strlen($alphabet)-1;
+    $key = '';
+    for ($i=0; $i<$size; $i++)
+    {
+      $key.= $alphabet[mt_rand(0, $l)];
+    }
+    return $key;
   }
-  return $key;
 }
 
 /**
