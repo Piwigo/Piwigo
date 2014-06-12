@@ -155,6 +155,7 @@ if (isset($_POST['submit']))
   {
     $_POST['associate'] = array();
   }
+  check_input_parameter('associate', $_POST, true, PATTERN_ID);
   move_images_to_categories(array($_GET['image_id']), $_POST['associate']);
 
   invalidate_user_cache();
@@ -164,6 +165,7 @@ if (isset($_POST['submit']))
   {
     $_POST['represent'] = array();
   }
+  check_input_parameter('represent', $_POST, true, PATTERN_ID);
 
   $no_longer_thumbnail_for = array_diff($represented_albums, $_POST['represent']);
   if (count($no_longer_thumbnail_for) > 0)
