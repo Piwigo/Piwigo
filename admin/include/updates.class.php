@@ -45,7 +45,7 @@ class updates
       $this->types = array($page);
     }
     $this->default_themes = array('clear', 'dark', 'Sylvia', 'elegant');
-    $this->default_plugins = array('admin_multi_view', 'TakeATour', 'language_switch', 'LocalFilesEditor');
+    $this->default_plugins = array('AdminTools', 'TakeATour', 'language_switch', 'LocalFilesEditor');
 
     foreach ($this->types as $type)
     {

@@ -75,7 +75,7 @@ function deactivate_non_standard_plugins()
   global $page;
 
   $standard_plugins = array(
-    'admin_multi_view',
+    'AdminTools',
     'TakeATour',
     'event_tracer',
     'language_switch',

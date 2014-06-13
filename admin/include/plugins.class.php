@@ -64,7 +64,7 @@ class plugins
   var $fs_plugins = array();
   var $db_plugins_by_id = array();
   var $server_plugins = array();
-  var $default_plugins = array('LocalFilesEditor', 'language_switch', 'TakeATour', 'admin_multi_view');
+  var $default_plugins = array('LocalFilesEditor', 'language_switch', 'TakeATour', 'AdminTools');
 
   /**
    * Initialize $fs_plugins and $db_plugins_by_id
