@@ -1,0 +1,16 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg">
+<metadata>Copyright (C) 2013 by original authors @ fontello.com</metadata>
+<defs>
+<font id="fontello-ato" horiz-adv-x="1000" >
+<font-face font-family="fontello-ato" font-weight="400" font-stretch="normal" units-per-em="1000" ascent="850" descent="-150" />
+<missing-glyph horiz-adv-x="1000" />
+<glyph glyph-name="doc-text-inv" unicode="&#xe800;" d="m571 82v36q0 8-5 13t-12 5h-393q-8 0-13-5t-5-13v-36q0-8 5-13t13-5h393q7 0 12 5t5 13z m0 143v36q0 8-5 13t-12 5h-393q-8 0-13-5t-5-13v-36q0-8 5-13t13-5h393q7 0 12 5t5 13z m143 196v-446q0-22-15-38t-38-16h-607q-23 0-38 16t-16 38v750q0 22 16 38t38 16h303v-304q0-22 16-38t38-16h303z m-1 72h-284v284q45-8 73-36l174-175q28-27 37-73z" horiz-adv-x="714.3" />
+<glyph glyph-name="flash" unicode="&#xe801;" d="m494 534q10-11 4-24l-302-646q-7-14-23-14q-2 0-8 1q-9 3-14 11t-3 16l110 451l-226-56q-2-1-7-1q-10 0-17 7q-10 8-7 21l112 461q2 8 9 13t15 5h183q11 0 18-7t7-17q0-4-2-10l-96-258l221 54q5 2 7 2q11 0 19-9z" horiz-adv-x="500" />
+<glyph glyph-name="trophy" unicode="&#xe803;" d="m510 134l0-66q70-8 116-32t46-56q0-36-65-63t-157-27q-90 0-156 27t-66 63q0 32 46 56t118 32l0 66q0 50-33 84t-113 88q-56 36-87 61t-75 72t-64 108t-20 137q0 14 11 24t25 10l172 0q48 92 242 92q196 0 244-92l170 0q14 0 25-10t11-24q0-76-20-137t-64-108t-75-72t-87-61q-78-52-111-87t-33-85z m138 252q80 56 126 114t54 148l-126 0q-6-158-54-262z m-198 364q-62 0-108-15t-64-32t-18-29q0-14 18-31t64-32t108-15t108 15t64 32t18 31q0 12-18 29t-64 32t-108 15z m-378-102q8-90 54-148t126-114q-48 104-54 262l-126 0z" horiz-adv-x="900" />
+<glyph glyph-name="cancel" unicode="&#xe805;" d="m799 116l-156-157l-234 235l-235-235l-156 157l234 234l-234 234l156 157l235-235l234 235l156-157l-234-234z" horiz-adv-x="817" />
+<glyph glyph-name="ok" unicode="&#xe802;" d="m0 339q0-35 24-60l246-239q24-25 60-25q36 0 60 25l505 495q25 24 25 59t-25 58q-25 25-60 25t-60-25l-445-435l-185 181q-25 24-60 24t-61-24q-24-24-24-59z" horiz-adv-x="920.4" />
+</font>
+</defs>
+</svg>

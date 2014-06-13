@@ -1,0 +1,251 @@
+.icon-ato-null:before { content:' '; }
+
+.token-input-dropdown {
+  z-index:10000 !important;
+}
+
+#ato_header, #ato_header_closed {
+  display:none;
+}
+#ato_header {
+  width:100%;
+}
+#ato_header, #ato_header_closed:not(.smartpocket) {
+  position:fixed;
+  top:0;
+  left:0;
+  background:#464646;
+  background-image:linear-gradient(to bottom, #383838 0%, #464646 20%, #464646 80%, #383838 100%);
+  z-index:1000;
+}
+
+#ato_header>ul {
+  padding:0;
+  margin:0;
+}
+
+#ato_header>ul li {
+  list-style:none;
+  line-height:16px;
+  font-size:13px;
+  white-space:nowrap;
+}
+  #ato_header>ul li>*, #ato_header_closed:not(.smartpocket)>* {
+    display:inline-block;
+    padding:5px 10px;
+    border:none;
+    text-decoration:none;
+  }
+  #ato_header>ul li>*:before {
+    font-size:16px;
+    margin-right:0.5em;
+  }
+
+#ato_header>ul>li {
+  float:left;
+  display:inline-block;
+  position:relative;
+  overflow:visible;
+}
+  #ato_header>ul>li a {
+    color:white;
+  }
+  #ato_header>ul>li.right {
+    float:right;
+  }
+  #ato_header>ul>li {
+    border-left:1px solid #666;
+  }
+  #ato_header>ul>li {
+    border-right:1px solid #222;
+  }
+  #ato_header>ul>li>*, #ato_header_closed:not(.smartpocket)>* {
+    color:#ddd;
+    text-shadow:1px 1px 0px #222;
+  }
+  #ato_header>ul>li.disabled [class*="icon-"] {
+    color:#888;
+    text-shadow:none;
+  }
+  #ato_header>ul>li:not(.disabled):hover, #ato_header_closed:not(.smartpocket):hover {
+    background:#222;
+    background-image:linear-gradient(to bottom, #222, #353535);
+  }
+
+#ato_header>ul ul {
+  display:none;
+  position:absolute;
+  top:27px;
+  left:0;
+  min-width:100%;
+  background:#fefefe;
+  padding:0;
+  margin:0;
+  box-shadow:3px 3px 5px rgba(0,0,0,0.5);
+}
+  #ato_header>ul>li.right ul {
+    left:auto;
+    right:0;
+  }
+  #ato_header>ul ul li {
+  }
+  #ato_header>ul ul li:hover {
+    background:#dedede;
+  }
+  #ato_header>ul ul li>* {
+    color:#444;
+    text-shadow:1px 1px 0px #eee;
+  }
+  #ato_header>ul ul label {
+    font-weight:bold;
+    color:#777;
+    display:inline-block;
+    width:80px;
+    padding:5px;
+    text-align:right;
+    font-size:11px;
+  }
+  #ato_header>ul ul select, #ato_header>ul ul option {
+    font-size:13px;
+    line-height:15px;
+    color:#444;
+    background:#fefefe;
+    border-radius:2px;
+    text-shadow:none;
+  }
+    #ato_header>ul ul select {
+      border:1px solid #777;
+      height:22px;
+      padding:2px 3px;
+    }
+  #ato_header .switcher {
+    display:none;
+  }
+
+#ato_header_closed:not(.smartpocket) {
+  left:10px;
+  font-size:20px;
+  border-radius:0 0 20% 20%;
+  box-shadow:1px 1px 1px rgba(0,0,0,0.5);
+  width:35px;
+  height:35px;
+}
+  #ato_header_closed:not(.smartpocket).right {
+    left:auto;
+    right:10px;
+  }
+  #ato_header_closed:not(.smartpocket)>* {
+    padding:4px;
+  }
+#ato_header_closed.smartpocket {
+  float:left;
+  margin-right:10px;
+}
+  #ato_header_closed.smartpocket .ui-btn-inner {
+    display:none;
+  }
+
+#ato_header>ul .close-panel {
+  padding:6px 1px 4px 5px;
+}
+#ato_header>ul .close-panel:hover {
+  color:#d00;
+}
+#ato_header>ul .saved {
+  display:none;
+  border:none !important;
+  -webkit-animation:blink 0.8s infinite;
+  animation:blink 0.8s infinite;
+}
+  #ato_header>ul .saved>* {
+    color:#5f5;
+  }
+
+#ato_quick_edit {
+  padding:10px;
+}
+  #ato_quick_edit fieldset {
+    margin:0;
+    padding:0;
+    border:none;
+  }
+  #ato_quick_edit fieldset.left {
+    float:left;
+    width:100px;
+    text-align:center;
+  }
+    #ato_quick_edit fieldset.left img {
+      border-radius:2px;
+      border:1px solid #111;
+    }
+  #ato_quick_edit fieldset.main {
+    margin:0 0 0 110px;
+  }
+    #ato_quick_edit label {
+      display:block;
+      font-weight:bold;
+    }
+    #ato_quick_edit input, #ato_quick_edit textarea, #ato_quick_edit select {
+      width:100%;
+      margin:0 0 1em 0;
+      border-radius:2px;
+      padding:2px;
+      -moz-box-sizing:border-box;
+      box-sizing:border-box;
+    }
+    #ato_quick_edit textarea {
+      height:110px;
+    }
+    #ato_quick_edit input[type="submit"] {
+      margin:1.5em 0;
+      cursor:pointer;
+      background:#e60;
+      border:none;
+      color:#fff;
+    }
+      #ato_quick_edit input[type="submit"]:hover {
+        background:#EF962F;
+      }
+    #ato_quick_edit ul.token-input-list {
+      width:100%;
+      margin:0 0 1em 0;
+    }
+
+@-webkit-keyframes blink {
+  0% { opacity:0; }
+  50% { opacity:1; }
+  100% { opacity:0; }
+}
+@keyframes blink {
+  0% { opacity:0; }
+  50% { opacity:1; }
+  100% { opacity:0; }
+}
+
+@media (max-width:900px) {
+  #ato_header .ato-min-1 {
+    font-size:0px;
+    line-height:0px;
+  }
+  #ato_header .ato-min-1:before {
+    margin-right:0;
+  }
+
+  #ato_header .ato-hide-1 {
+    display:none;
+  }
+}
+
+@media (max-width:750px) {
+  #ato_header .ato-min-2 {
+    font-size:0px;
+    line-height:0px;
+  }
+  #ato_header .ato-min-2:before {
+    margin-right:0;
+  }
+
+  #ato_header .ato-hide-2 {
+    display:none;
+  }
+}

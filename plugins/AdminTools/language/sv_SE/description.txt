@@ -1,0 +1,1 @@
+Admin tools ger möjlighet att utföra vissa adminuppgifter från den publika sidan.
