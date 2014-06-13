@@ -1,11 +1,11 @@
 <?php
 /*
 Plugin Name: Admin Tools
-Version: auto
+Version: 2.6.2
 Description: Do some admin task from the public pages
-Plugin URI: auto
-Author: Mistic
-Author URI: http://www.strangeplanet.fr
+Plugin URI: http://piwigo.org/ext/extension_view.php?eid=720
+Author: Piwigo team
+Author URI: http://piwigo.org
 */
 
 defined('PHPWG_ROOT_PATH') or die('Hacking attempt!');
