@@ -1,1 +1,0 @@
-Erlaubt Administratoren, die Galerie als Gast oder in einer anderen Sprache anzusehen, ohne sich abzumelden. Praktisch z.B. für die Fehlersuche.
