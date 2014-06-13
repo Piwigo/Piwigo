@@ -1178,7 +1178,7 @@ function conf_update_param($param, $value, $updateGlobal=false, $parser=null)
   }
   else
   {
-    $dbValue = $value;
+    $dbValue = boolean_to_string($value);
   }
 
   $query = '
