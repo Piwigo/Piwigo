@@ -7,8 +7,7 @@
 <!DOCTYPE html>
 <html lang="{$lang_info.code}" dir="{$lang_info.direction}">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset={$CONTENT_ENCODING}">
-<meta name="generator" content="Piwigo (aka PWG), see piwigo.org">
+<meta charset="{$CONTENT_ENCODING}">
 <title>{$GALLERY_TITLE} :: {$PAGE_TITLE}</title>
 <link rel="shortcut icon" type="image/x-icon" href="{$ROOT_URL}{$themeconf.icon_dir}/favicon.ico">
 
@@ -26,10 +25,6 @@
 <!-- END get_combined_scripts -->
 
 {combine_script id='jquery' path='themes/default/js/jquery.min.js'}
-
-<!--[if lt IE 7]>
-<script type="text/javascript" src="{$ROOT_URL}themes/default/js/pngfix.js"></script>
-<![endif]-->
 
 {if not empty($head_elements)}
 {foreach from=$head_elements item=elt}
