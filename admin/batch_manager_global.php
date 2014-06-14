@@ -86,6 +86,7 @@ if (isset($_POST['submit']))
   }
 
   $action = $_POST['selectAction'];
+  $redirect = false;
 
   if ('remove_from_caddie' == $action)
   {
@@ -98,10 +99,10 @@ DELETE
     pwg_query($query);
 
     // remove from caddie action available only in caddie so reload content
-    redirect($redirect_url);
+    $redirect = true;
   }
 
-  if ('add_tags' == $action)
+  else if ('add_tags' == $action)
   {
     if (empty($_POST['add_tags']))
     {
@@ -114,27 +115,33 @@ DELETE
 
       if ('no_tag' == $page['prefilter'])
       {
-        redirect($redirect_url);
+        $redirect = true;
       }
     }
   }
 
-  if ('del_tags' == $action)
+  else if ('del_tags' == $action)
   {
-     if (isset($_POST['del_tags']) and count($_POST['del_tags']) > 0)
-     {
-    $query = '
+    if (isset($_POST['del_tags']) and count($_POST['del_tags']) > 0)
+    {
+      $query = '
 DELETE
   FROM '.IMAGE_TAG_TABLE.'
   WHERE image_id IN ('.implode(',', $collection).')
     AND tag_id IN ('.implode(',', $_POST['del_tags']).')
 ;';
-    pwg_query($query);
+      pwg_query($query);
+      
+      if (isset($_SESSION['bulk_manager_filter']['tags']) &&
+        count(array_intersect($_SESSION['bulk_manager_filter']['tags'], $_POST['del_tags'])))
+      {
+        $redirect = true;
+      }
     }
-     else
-     {
+    else
+    {
       $page['errors'][] = l10n('Select at least one tag');
-     }
+    }
   }
 
   if ('associate' == $action)
@@ -151,20 +158,20 @@ DELETE
     // let's refresh the page because we the current set might be modified
     if ('no_album' == $page['prefilter'])
     {
-      redirect($redirect_url);
+      $redirect = true;
     }
 
-    if ('no_virtual_album' == $page['prefilter'])
+    else if ('no_virtual_album' == $page['prefilter'])
     {
       $category_info = get_cat_info($_POST['associate']);
       if (empty($category_info['dir']))
       {
-        redirect($redirect_url);
+        $redirect = true;
       }
     }
   }
 
-  if ('move' == $action)
+  else if ('move' == $action)
   {
     move_images_to_categories($collection, array($_POST['move']));
 
@@ -175,26 +182,26 @@ DELETE
     // let's refresh the page because we the current set might be modified
     if ('no_album' == $page['prefilter'])
     {
-      redirect($redirect_url);
+      $redirect = true;
     }
 
-    if ('no_virtual_album' == $page['prefilter'])
+    else if ('no_virtual_album' == $page['prefilter'])
     {
       $category_info = get_cat_info($_POST['move']);
       if (empty($category_info['dir']))
       {
-        redirect($redirect_url);
+        $redirect = true;
       }
     }
 
-    if (isset($_SESSION['bulk_manager_filter']['category'])
+    else if (isset($_SESSION['bulk_manager_filter']['category'])
         and $_POST['move'] != $_SESSION['bulk_manager_filter']['category'])
     {
-      redirect($redirect_url);
+      $redirect = true;
     }
   }
 
-  if ('dissociate' == $action)
+  else if ('dissociate' == $action)
   {
     // physical links must not be broken, so we must first retrieve image_id
     // which create virtual links with the category to "dissociate from".
@@ -226,12 +233,12 @@ DELETE
         );
 
       // let's refresh the page because the current set might be modified
-      redirect($redirect_url);
+      $redirect = true;
     }
   }
 
   // author
-  if ('author' == $action)
+  else if ('author' == $action)
   {
     if (isset($_POST['remove_author']))
     {
@@ -255,7 +262,7 @@ DELETE
   }
 
   // title
-  if ('title' == $action)
+  else if ('title' == $action)
   {
     if (isset($_POST['remove_title']))
     {
@@ -279,7 +286,7 @@ DELETE
   }
 
   // date_creation
-  if ('date_creation' == $action)
+  else if ('date_creation' == $action)
   {
     if (isset($_POST['remove_date_creation']) || empty($_POST['date_creation']))
     {
@@ -307,7 +314,7 @@ DELETE
   }
 
   // privacy_level
-  if ('level' == $action)
+  else if ('level' == $action)
   {
     $datas = array();
     foreach ($collection as $image_id)
@@ -328,19 +335,19 @@ DELETE
     {
       if ($_POST['level'] < $_SESSION['bulk_manager_filter']['level'])
       {
-        redirect($redirect_url);
+        $redirect = true;
       }
     }
   }
 
   // add_to_caddie
-  if ('add_to_caddie' == $action)
+  else if ('add_to_caddie' == $action)
   {
     fill_caddie($collection);
   }
 
   // delete
-  if ('delete' == $action)
+  else if ('delete' == $action)
   {
     if (isset($_POST['confirm_deletion']) and 1 == $_POST['confirm_deletion'])
     {
@@ -353,7 +360,7 @@ DELETE
           );
 
         $redirect_url = get_root_url().'admin.php?page='.$_GET['page'];
-        redirect($redirect_url);
+        $redirect = true;
       }
       else
       {
@@ -367,13 +374,13 @@ DELETE
   }
 
   // synchronize metadata
-  if ('metadata' == $action)
+  else if ('metadata' == $action)
   {
     sync_metadata($collection);
     $page['infos'][] = l10n('Metadata synchronized from file');
   }
 
-  if ('delete_derivatives' == $action && !empty($_POST['del_derivatives_type']))
+  else if ('delete_derivatives' == $action && !empty($_POST['del_derivatives_type']))
   {
     $query='SELECT path,representative_ext FROM '.IMAGES_TABLE.'
   WHERE id IN ('.implode(',', $collection).')';
@@ -387,7 +394,7 @@ DELETE
     }
   }
 
-  if ('generate_derivatives' == $action)
+  else if ('generate_derivatives' == $action)
   {
     if ($_POST['regenerateSuccess'] != '0')
     {
@@ -405,6 +412,11 @@ DELETE
   }
 
   trigger_notify('element_set_global_action', $action, $collection);
+
+  if ($redirect)
+  {
+    redirect($redirect_url);
+  }
 }
 
 // +-----------------------------------------------------------------------+
