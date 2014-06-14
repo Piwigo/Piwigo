@@ -160,27 +160,23 @@ margin-top:4px; padding-bottom:3px; padding-top:3px; top:1px;
 .tabsheet a span { font-size:10px; margin-right:2px; padding:0 3px 0 1px; }
 
 .sort { clear: none; }
+
 /* menubar is on all admin pages => No specific css file */
 #menubar {
   padding:0; width:207px; z-index:99; text-align: left;margin-top:7px;
   margin-left:0;
 }
 
-#menubar ul.scroll { overflow-y:auto; max-height:500px;
- /* Only IE family supports colored scrollbar */
- scrollbar-face-color: #ddd; scrollbar-shadow-color: #bbb; scrollbar-highlight-color: #fff;
- scrollbar-3dlight-color: #d6d6d6; scrollbar-darkshadow-color: #ccc; scrollbar-track-color: #eee;
- scrollbar-arrow-color: #0cccc; }
-#menubar dd { margin: 0; padding: 0;}
-#menubar dl { width: 200px; border:0; margin: 0; padding: 0; display: block; min-height:35px; border:1px solid #ddd; background-color:#f1f1f1; border-left:none; border-right:1px solid #ddd;}
-#menubar dl.first {border-top:none;border-radius:0 6px 0 0;}
-#menubar dl.first dt {border-radius:0 6px 0 0;}
-#menubar dl.last {border-bottom:1px solid #ddd; border-radius:0 0 6px 0;}
+#menubar ul.scroll { overflow-y:auto; max-height:500px; }
+#menubar dl { width: 200px; min-height:35px; border:0; margin: 0; padding: 0; display: block; border:1px solid #ddd; background-color:#f1f1f1; border-left:none; }
+#menubar dd { margin: 0; padding: 0; }
 #menubar dt {
 	background-color: #ddd; margin: 0; display: block; font-weight:bold;
 	position:relative; padding: 5px 1px 4px 5px; font-size: 13px; color: #777;
 	cursor:pointer;
 }
+#menubar dl:first-of-type, #menubar dl:first-of-type dt { border-radius:0 6px 0 0;  }
+#menubar dl:last-of-type { border-radius:0 0 6px 0;  }
 #menubar li { margin: 0; padding-left:10px; }
 #menubar li A { display:block; }
 #menubar li A:hover {color:black; text-decoration:none}
