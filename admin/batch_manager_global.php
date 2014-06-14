@@ -87,11 +87,6 @@ if (isset($_POST['submit']))
 
   $action = $_POST['selectAction'];
 
-  if (!in_array($action, array('remove_from_caddie','add_to_caddie','delete_derivatives','generate_derivatives')))
-  {
-    invalidate_user_cache();
-  }
-
   if ('remove_from_caddie' == $action)
   {
     $query = '
@@ -402,6 +397,11 @@ DELETE
     {
       $page['warnings'][] = l10n('%s photos can not be regenerated', $_POST['regenerateError']);
     }
+  }
+
+  if (!in_array($action, array('remove_from_caddie','add_to_caddie','delete_derivatives','generate_derivatives')))
+  {
+    invalidate_user_cache();
   }
 
   trigger_notify('element_set_global_action', $action, $collection);
