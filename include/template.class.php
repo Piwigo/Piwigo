@@ -121,6 +121,7 @@ class Template
     $this->smarty->registerPlugin('modifiercompiler', 'translate', array('Template', 'modcompiler_translate') );
     $this->smarty->registerPlugin('modifiercompiler', 'translate_dec', array('Template', 'modcompiler_translate_dec') );
     $this->smarty->registerPlugin('modifier', 'explode', array('Template', 'mod_explode') );
+    $this->smarty->registerPlugin('modifier', 'ternary', array('Template', 'mod_ternary') );
     $this->smarty->registerPlugin('modifier', 'get_extent', array($this, 'get_extent') );
     $this->smarty->registerPlugin('block', 'html_head', array($this, 'block_html_head') );
     $this->smarty->registerPlugin('block', 'html_style', array($this, 'block_html_style') );
@@ -665,7 +666,7 @@ class Template
   /**
    * "explode" variable modifier.
    * Usage :
-   *    - {assign var=valueExploded value=$value|@explode:','}
+   *    - {assign var=valueExploded value=$value|explode:','}
    *
    * @param string $text
    * @param string $delimiter
@@ -674,6 +675,21 @@ class Template
   static function mod_explode($text, $delimiter=',')
   {
     return explode($delimiter, $text);
+  }
+  
+  /**
+   * ternary variable modifier.
+   * Usage :
+   *    - {$variable|ternary:'yes':'no'}
+   *
+   * @param mixed $param
+   * @param mixed $true
+   * @param mixed $false
+   * @return mixed
+   */
+  static function mod_ternary($param, $true, $false)
+  {
+    return $param ? $true : $false;
   }
 
   /**
