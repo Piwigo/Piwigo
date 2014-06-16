@@ -3,6 +3,17 @@
 {include file='include/resize.inc.tpl'}
 *}
 
+{combine_script id='jquery.selectize' load='footer' path='themes/default/js/plugins/selectize.min.js'}
+{combine_css id='jquery.selectize' path="themes/default/js/plugins/selectize.dark.css"}
+
+{footer_script}
+jQuery(document).ready(function() {
+  jQuery("#authors").selectize({
+    plugins: ['remove_button']
+  });
+});
+{/footer_script}
+
 {if isset($MENUBAR)}{$MENUBAR}{/if}
 <div id="content" class="content{if isset($MENUBAR)} contentWithMenu{/if}">
 
@@ -33,7 +44,11 @@
     </label></li>
   </ul>
   <label>{'Search for Author'|@translate}
-    <input type="text" name="search_author" size="35">
+    <select id="authors" placeholder="{'Type in a search term'|translate}" name="authors[]" multiple style="width:500px;">
+{foreach from=$AUTHORS item=author}
+      <option value="{$author.author|strip_tags:false|escape:html}">{$author.author|strip_tags:false} ({'%d photos'|translate:$author.counter})</option>
+{/foreach}
+    </select>
   </label>
 </fieldset>
 

@@ -83,13 +83,17 @@ if (isset($_POST['submit']))
       );
   }
 
-  if ($_POST['search_author'])
+  if (isset($_POST['authors']) and is_array($_POST['authors']) and count($_POST['authors']) > 0)
   {
+    $authors = array();
+
+    foreach ($_POST['authors'] as $author)
+    {
+      $authors[] = strip_tags($author);
+    }
+    
     $search['fields']['author'] = array(
-      'words' => preg_split(
-        '/\s+/',
-        strip_tags($_POST['search_author'])
-        ),
+      'words' => $authors,
       'mode' => 'OR',
       );
   }
@@ -209,6 +213,29 @@ if (count($available_tags) > 0)
         )
     );
 }
+
+// authors
+$query = '
+SELECT
+    author,
+    COUNT(*) AS counter
+  FROM '.IMAGES_TABLE.' AS i
+    JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON ic.image_id = i.id
+  '.get_sql_condition_FandF(
+    array(
+      'forbidden_categories' => 'category_id',
+      'visible_categories' => 'category_id',
+      'visible_images' => 'ic.image_id'
+      ),
+    ' WHERE '
+    ).'
+    AND author IS NOT NULL
+  GROUP BY author
+  ORDER BY author
+;';
+$authors = query2array($query);
+
+$template->assign('AUTHORS', $authors);
 
 //------------------------------------------------------------- categories form
 $query = '

@@ -507,7 +507,6 @@ SELECT.categoryList {
 FIELDSET {
 	padding: 1em;
 	margin: 1em;
-	overflow: hidden; /* <- makes Opera happy */
 }
 
 .filter UL,
