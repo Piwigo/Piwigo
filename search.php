@@ -204,14 +204,7 @@ if (count($available_tags) > 0)
 {
   usort( $available_tags, 'tag_alpha_compare');
 
-  $template->assign(
-    'TAG_SELECTION',
-    get_html_tag_selection(
-        $available_tags,
-        'tags',
-        isset($_POST['tags']) ? $_POST['tags'] : array()
-        )
-    );
+  $template->assign('TAGS', $available_tags);
 }
 
 // authors

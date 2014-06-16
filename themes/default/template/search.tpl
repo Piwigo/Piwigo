@@ -8,7 +8,7 @@
 
 {footer_script}
 jQuery(document).ready(function() {
-  jQuery("#authors").selectize({
+  jQuery("#authors, #tags").selectize({
     plugins: ['remove_button']
   });
 });
@@ -46,16 +46,22 @@ jQuery(document).ready(function() {
   <label>{'Search for Author'|@translate}
     <select id="authors" placeholder="{'Type in a search term'|translate}" name="authors[]" multiple style="width:500px;">
 {foreach from=$AUTHORS item=author}
-      <option value="{$author.author|strip_tags:false|escape:html}">{$author.author|strip_tags:false} ({'%d photos'|translate:$author.counter})</option>
+      <option value="{$author.author|strip_tags:false|escape:html}">{$author.author|strip_tags:false} ({$author.counter|translate_dec:'%d photo':'%d photos'})</option>
 {/foreach}
     </select>
   </label>
 </fieldset>
 
-{if isset($TAG_SELECTION)}
+{if isset($TAGS)}
 <fieldset>
   <legend>{'Search tags'|@translate}</legend>
-  {$TAG_SELECTION}
+
+  <select id="tags" placeholder="{'Type in a search term'|translate}" name="tags[]" multiple style="width:500px;">
+{foreach from=$TAGS item=tag}
+    <option value="{$tag.id}">{$tag.name} ({$tag.counter|translate_dec:'%d photo':'%d photos'})</option>
+{/foreach}
+  </select>
+
   <label><span><input type="radio" name="tag_mode" value="AND" checked="checked"> {'All tags'|@translate}</span></label>
   <label><span><input type="radio" name="tag_mode" value="OR"> {'Any tag'|@translate}</span></label>
 </fieldset>
