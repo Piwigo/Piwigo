@@ -8,7 +8,7 @@
 
 {footer_script}
 jQuery(document).ready(function() {
-  jQuery("#authors, #tags").selectize({
+  jQuery("#authors, #tags, #categories").selectize({
     plugins: ['remove_button']
   });
 });
@@ -128,10 +128,9 @@ jQuery(document).ready(function() {
 <fieldset>
   <legend>{'Search in albums'|@translate}</legend>
   <p>
-    <select class="categoryList" name="cat[]" multiple="multiple" size="15">
+    <select id="categories" name="cat[]" multiple>
       {html_options options=$category_options selected=$category_options_selected}
     </select>
-    <br>
     <label><input type="checkbox" name="subcats-included" value="1" checked="checked">{'Search in sub-albums'|@translate}</label>
   </p>
 </fieldset>

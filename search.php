@@ -247,8 +247,7 @@ SELECT id,name,global_rank,uppercats
     'WHERE'
   ).'
 ;';
-display_select_cat_wrapper($query, array(), 'category_options', false);
-
+display_select_cat_wrapper($query, array(), 'category_options', true);
 
 // include menubar
 $themeconf = $template->get_template_vars('themeconf');
