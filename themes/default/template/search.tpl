@@ -31,39 +31,46 @@ jQuery(document).ready(function() {
 
 <form class="filter" method="post" name="search" action="{$F_SEARCH_ACTION}">
 <fieldset>
-  <legend>{'Filter'|@translate}</legend>
-  <label>{'Search for words'|@translate}
-    <input type="text" name="search_allwords" size="35">
-  </label>
-  <ul>
-    <li><label>
-      <input type="radio" name="mode" value="AND" checked="checked">{'Search for all terms'|@translate}
-    </label></li>
-    <li><label>
-      <input type="radio" name="mode" value="OR">{'Search for any term'|@translate}
-    </label></li>
-  </ul>
-  <label>{'Search for Author'|@translate}
+  <legend>{'Search for words'|@translate}</legend>
+  <p>
+    <input type="text" name="search_allwords">
+    <br>
+    <label><input type="radio" name="mode" value="AND" checked="checked">{'Search for all terms'|@translate}</label>
+    <label><input type="radio" name="mode" value="OR">{'Search for any term'|@translate}</label>
+  </p>
+
+  <p>
+    <strong>{'Apply on properties'|translate}</strong><br>
+    <label><input type="checkbox" name="fields[]" value="name" checked="checked">{'Photo title'|translate}</label>
+    <label><input type="checkbox" name="fields[]" value="comment" checked="checked">{'Photo description'|translate}</label>
+    <label><input type="checkbox" name="fields[]" value="file" checked="checked">{'File name'|translate}</label>
+  </p>
+
+</fieldset>
+
+<fieldset>
+  <legend>{'Search for Author'|@translate}</legend>
+  <p>
     <select id="authors" placeholder="{'Type in a search term'|translate}" name="authors[]" multiple style="width:500px;">
 {foreach from=$AUTHORS item=author}
       <option value="{$author.author|strip_tags:false|escape:html}">{$author.author|strip_tags:false} ({$author.counter|translate_dec:'%d photo':'%d photos'})</option>
 {/foreach}
     </select>
-  </label>
+  </p>
 </fieldset>
 
 {if isset($TAGS)}
 <fieldset>
   <legend>{'Search tags'|@translate}</legend>
-
+  <p>
   <select id="tags" placeholder="{'Type in a search term'|translate}" name="tags[]" multiple style="width:500px;">
 {foreach from=$TAGS item=tag}
     <option value="{$tag.id}">{$tag.name} ({$tag.counter|translate_dec:'%d photo':'%d photos'})</option>
 {/foreach}
   </select>
-
   <label><span><input type="radio" name="tag_mode" value="AND" checked="checked"> {'All tags'|@translate}</span></label>
   <label><span><input type="radio" name="tag_mode" value="OR"> {'Any tag'|@translate}</span></label>
+  </p>
 </fieldset>
 {/if}
 
@@ -120,20 +127,13 @@ jQuery(document).ready(function() {
 
 <fieldset>
   <legend>{'Search in albums'|@translate}</legend>
-  <label>{'Albums'|@translate}
+  <p>
     <select class="categoryList" name="cat[]" multiple="multiple" size="15">
       {html_options options=$category_options selected=$category_options_selected}
     </select>
-  </label>
-  <ul>
-    <li><label>{'Search in sub-albums'|@translate}</label></li>
-    <li><label>
-      <input type="radio" name="subcats-included" value="1" checked="checked">{'Yes'|@translate}
-    </label></li>
-    <li><label>
-      <input type="radio" name="subcats-included" value="0">{'No'|@translate}
-    </label></li>
-  </ul>
+    <br>
+    <label><input type="checkbox" name="subcats-included" value="1" checked="checked">{'Search in sub-albums'|@translate}</label>
+  </p>
 </fieldset>
 <p>
   <input class="submit" type="submit" name="submit" value="{'Submit'|@translate}">

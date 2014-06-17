@@ -419,3 +419,6 @@ $lang['Password confirmation is missing. Please confirm the chosen password.'] =
 $lang['%d photos per page'] = '%d photos par page';
 $lang['Theme'] = 'Thème';
 $lang['No results for'] = 'Aucun résultat pour';
+$lang['Apply on properties'] = 'Appliquer sur les propriétés';
+$lang['Photo title'] = 'Titre de la photo';
+$lang['Photo description'] = 'Description de la photo';

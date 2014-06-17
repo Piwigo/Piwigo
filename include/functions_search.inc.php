@@ -85,7 +85,13 @@ function get_sql_search_clause($search)
 
   if (isset($search['fields']['allwords']))
   {
-    $fields = array('file', 'name', 'comment', 'author');
+    $fields = array('file', 'name', 'comment');
+
+    if (isset($search['fields']['allwords']['fields']) and count($search['fields']['allwords']['fields']) > 0)
+    {
+      $fields = array_intersect($fields, $search['fields']['allwords']['fields']);
+    }
+    
     // in the OR mode, request bust be :
     // ((field1 LIKE '%word1%' OR field2 LIKE '%word1%')
     // OR (field1 LIKE '%word2%' OR field2 LIKE '%word2%'))

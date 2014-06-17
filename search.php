@@ -48,6 +48,8 @@ if (isset($_POST['submit']))
       and !preg_match('/^\s*$/', $_POST['search_allwords']))
   {
     check_input_parameter('mode', $_POST, false, '/^(OR|AND)$/');
+
+    $fields = array_intersect($_POST['fields'], array('name', 'comment', 'file'));
     
     $drop_char_match = array(
       '-','^','$',';','#','&','(',')','<','>','`','\'','"','|',',','@','_',
@@ -69,6 +71,7 @@ if (isset($_POST['submit']))
           )
         ),
       'mode' => $_POST['mode'],
+      'fields' => $fields,
       );
   }
 

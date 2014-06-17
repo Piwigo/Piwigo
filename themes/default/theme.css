@@ -509,8 +509,7 @@ FIELDSET {
 	margin: 1em;
 }
 
-.filter UL,
-.filter LABEL {
+.filter UL {
 	display: block;
 	float: left;
 	margin-right: 1em;
@@ -522,15 +521,42 @@ FIELDSET {
 	margin-bottom: 0.5em;
 }
 
+.filter FIELDSET {
+  padding-bottom:0;
+}
+
 .filter LI LABEL {
 	display: inline;
 	float: none;
 }
 
+.filter P {
+  text-align:left;
+  margin:0 0 15px 0;
+  line-height:20px;
+}
+
+.filter input[name="search_allwords"] {
+  width:500px;
+}
+
+.filter P input[type="checkbox"], .filter P input[type="radio"] {
+  vertical-align:middle;
+  margin-top:-4px;
+}
+
+.filter input[type="submit"] {
+  margin-left:1em;
+}
+
+.filter P LABEL {
+  margin-right:1em;
+}
+
 /*IE6 needs override because of > selector*/
 .filter LABEL>INPUT,
 .filter LABEL>SELECT {
-	display: block;
+	/* display: block; */
 	margin: 0.5em 0;
 }
 
