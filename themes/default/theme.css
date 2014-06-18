@@ -589,17 +589,6 @@ FIELDSET {
 	padding: 0 0.5em 0 0;
 }
 
-.tagSelection {
-	margin: 1em 0 !important;
-}
-
-.tagSelection LI {
-	display:inline-block;
-	width: 150px;
-	overflow:hidden;
-	white-space: nowrap;
-}
-
 #fullTagCloud {
 	font-size: 120%;
 	text-align: justify;

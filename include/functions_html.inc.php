@@ -231,54 +231,6 @@ function render_comment_content($content)
   return $content;
 }
 
-/**
- * Returns an HTML list of tags. It can be a multi select field or a list of
- * checkboxes.
- *
- * @param string HTML field name
- * @param array selected tag ids
- * @return array
- */
-function get_html_tag_selection(
-  $tags,
-  $fieldname,
-  $selecteds = array(),
-  $forbidden_categories = null
-  )
-{
-  global $conf;
-
-  if (count ($tags) == 0 )
-  {
-    return '';
-  }
-  $output = '<ul class="tagSelection">';
-  foreach ($tags as $tag)
-  {
-    $output.=
-      '<li>'
-      .'<label>'
-      .'<input type="checkbox" name="'.$fieldname.'[]"'
-      .' value="'.$tag['id'].'"'
-      ;
-
-    if (in_array($tag['id'], $selecteds))
-    {
-      $output.= ' checked="checked"';
-    }
-
-    $output.=
-      '> '
-      .$tag['name']
-      .'</label>'
-      .'</li>'
-      ."\n"
-      ;
-  }
-  $output.= '</ul>';
-
-  return $output;
-}
 
 /**
  * Callback used for sorting by name.
