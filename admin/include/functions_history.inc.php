@@ -71,9 +71,9 @@ SELECT
 ;';
     $search['image_ids'] = array_from_query($query, 'id');
   }
-  
+
   // echo '<pre>'; print_r($search); echo '</pre>';
-  
+
   $clauses = array();
 
   if (isset($search['fields']['date-after']))
@@ -89,7 +89,7 @@ SELECT
   if (isset($search['fields']['types']))
   {
     $local_clauses = array();
-    
+
     foreach ($types as $type) {
       if (in_array($type, $search['fields']['types'])) {
         $clause = 'image_type ';
@@ -101,11 +101,11 @@ SELECT
         {
           $clause.= "= '".$type."'";
         }
-        
+
         $local_clauses[] = $clause;
       }
     }
-    
+
     if (count($local_clauses) > 0)
     {
       $clauses[] = implode(' OR ', $local_clauses);
@@ -122,7 +122,7 @@ SELECT
   {
     $clauses[] = 'image_id = '.$search['fields']['image_id'];
   }
-  
+
   if (isset($search['fields']['filename']))
   {
     if (count($search['image_ids']) == 0)
@@ -140,7 +140,7 @@ SELECT
   {
     $clauses[] = 'IP LIKE "'.$search['fields']['ip'].'"';
   }
-  
+
   $clauses = prepend_append_array_items($clauses, '(', ')');
 
   $where_separator =
@@ -148,7 +148,7 @@ SELECT
       "\n    AND ",
       $clauses
       );
-  
+
   $query = '
 SELECT
     date,
@@ -176,7 +176,7 @@ SELECT
   return $data;
 }
 
-add_event_handler('get_history', 'get_history', EVENT_HANDLER_PRIORITY_NEUTRAL, 3);
+add_event_handler('get_history', 'get_history');
 trigger_notify('functions_history_included');
 
 ?>

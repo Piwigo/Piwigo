@@ -269,8 +269,8 @@ add_event_handler('render_tag_url', 'str2url');
 add_event_handler('blockmanager_register_blocks', 'register_default_menubar_blocks', EVENT_HANDLER_PRIORITY_NEUTRAL-1);
 if ( !empty($conf['original_url_protection']) )
 {
-  add_event_handler('get_element_url', 'get_element_url_protection_handler', EVENT_HANDLER_PRIORITY_NEUTRAL, 2 );
-  add_event_handler('get_src_image_url', 'get_src_image_url_protection_handler', EVENT_HANDLER_PRIORITY_NEUTRAL, 2 );
+  add_event_handler('get_element_url', 'get_element_url_protection_handler');
+  add_event_handler('get_src_image_url', 'get_src_image_url_protection_handler');
 }
 trigger_notify('init');
 ?>

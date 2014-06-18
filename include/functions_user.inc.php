@@ -250,7 +250,7 @@ SELECT id
     if ($notify_user and email_check_format($mail_address))
     {
       include_once(PHPWG_ROOT_PATH.'include/functions_mail.inc.php');
-            
+
       $keyargs_content = array(
         get_l10n_args('Hello %s,', stripslashes($login)),
         get_l10n_args('Thank you for registering at %s!', $conf['gallery_title']),
@@ -262,7 +262,7 @@ SELECT id
         get_l10n_args('', ''),
         get_l10n_args('If you think you\'ve received this email in error, please contact us at %s', get_webmaster_mail_address()),
         );
-        
+
       pwg_mail(
         $mail_address,
         array(
@@ -281,7 +281,7 @@ SELECT id
         'email'=>$mail_address,
         )
       );
-      
+
     return $user_id;
   }
   else
@@ -1050,7 +1050,7 @@ function pwg_password_verify($password, $hash, $user_id=null)
       {
         return true;
       }
-      
+
       // Rehash using new hash.
       $hash = pwg_password_hash($password);
 
@@ -1088,7 +1088,7 @@ function try_log_user($username, $password, $remember_me)
   return trigger_change('try_log_user', false, $username, $password, $remember_me);
 }
 
-add_event_handler('try_log_user', 'pwg_login', EVENT_HANDLER_PRIORITY_NEUTRAL, 4);
+add_event_handler('try_log_user', 'pwg_login');
 
 /**
  * Default method for user login, can be overwritten with 'try_log_user' trigger.
@@ -1447,7 +1447,7 @@ function get_sql_condition_FandF(
   return $sql;
 }
 
-/** 
+/**
  * Returns sql WHERE condition for recent photos/albums for current user.
  *
  * @param string $db_field

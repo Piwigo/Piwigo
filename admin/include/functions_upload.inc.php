@@ -25,8 +25,8 @@ include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
 include_once(PHPWG_ROOT_PATH.'admin/include/image.class.php');
 
 // add default event handler for image and thumbnail resize
-add_event_handler('upload_image_resize', 'pwg_image_resize', EVENT_HANDLER_PRIORITY_NEUTRAL, 7);
-add_event_handler('upload_thumbnail_resize', 'pwg_image_resize', EVENT_HANDLER_PRIORITY_NEUTRAL, 9);
+add_event_handler('upload_image_resize', 'pwg_image_resize');
+add_event_handler('upload_thumbnail_resize', 'pwg_image_resize');
 
 function get_upload_form_config()
 {
@@ -126,7 +126,7 @@ function save_upload_form_config($data, &$errors=array(), &$form_errors=array())
           $upload_form_config[$field]['error_message'],
           $min, $max
           );
-        
+
         $form_errors[$field] = '['.$min.' .. '.$max.']';
       }
     }
@@ -260,19 +260,19 @@ SELECT
     $representative_file_path.= $representative_ext;
 
     prepare_directory(dirname($representative_file_path));
-    
+
     $exec = $conf['ext_imagick_dir'].'convert';
 
     if ('jpg' == $conf['tiff_representative_ext'])
     {
       $exec .= ' -quality 98';
     }
-    
+
     $exec .= ' "'.realpath($file_path).'"';
 
     $dest = pathinfo($representative_file_path);
     $exec .= ' "'.realpath($dest['dirname']).'/'.$dest['basename'].'"';
-    
+
     $exec .= ' 2>&1';
     @exec($exec, $returnarray);
 
@@ -286,7 +286,7 @@ SELECT
         '-0.'.$representative_ext,
         $representative_file_abspath
         );
-      
+
       if (file_exists($first_file_abspath))
       {
         rename($first_file_abspath, $representative_file_abspath);
@@ -322,7 +322,7 @@ SELECT
   // width/height of "multisizes"
   $rotation_angle = pwg_image::get_rotation_angle($file_path);
   $rotation = pwg_image::get_rotation_code_from_angle($rotation_angle);
-  
+
   $file_infos = pwg_image_infos($file_path);
 
   if (isset($image_id))
@@ -411,9 +411,9 @@ SELECT
   // in case we are on uploadify.php, we have to replace the false path
   $thumb_url = preg_replace('#admin/include/i#', 'i', DerivativeImage::thumb_url($image_infos));
   unset_make_full_url();
-  
+
   fetchRemote($thumb_url, $dest);
-  
+
 
   return $image_id;
 }

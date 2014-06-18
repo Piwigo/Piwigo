@@ -135,12 +135,7 @@ if ( isset($_GET['metadata']) )
 }
 
 // add default event handler for rendering element content
-add_event_handler(
-  'render_element_content',
-  'default_picture_content',
-  EVENT_HANDLER_PRIORITY_NEUTRAL,
-  2
-  );
+add_event_handler('render_element_content', 'default_picture_content');
 // add default event handler for rendering element description
 add_event_handler('render_element_description', 'nl2br');
 
