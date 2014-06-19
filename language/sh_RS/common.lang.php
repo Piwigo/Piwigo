@@ -418,3 +418,7 @@ $lang['Username is mandatory'] = 'Korisničko ime je obavezno';
 $lang['Website'] = 'Veb sajt';
 $lang['Your website URL is invalid'] = 'URL Vašeg veb sajta je neispravan';
 $lang['mandatory'] = 'obavezno';
+$lang['Apply on properties'] = 'Примени на подешавања';
+$lang['No results for'] = 'Нема резултата за';
+$lang['Photo description'] = 'Опис фотографије';
+$lang['Photo title'] = 'Назив фотографије';
