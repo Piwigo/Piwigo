@@ -14,24 +14,46 @@
   <fieldset>
     <legend>{'Filter'|@translate}</legend>
 
-    <label>{'Keyword'|@translate}<input type="text" name="keyword" value="{$F_KEYWORD}"></label>
+		<ul>
+			<li>
+				<label>{'Keyword'|@translate}</label>
+			</li>
+			<li>
+				<input type="text" name="keyword" value="{$F_KEYWORD}">
+			</li>
+		</ul>
 
-    <label>{'Author'|@translate}<input type="text" name="author" value="{$F_AUTHOR}"></label>
+		<ul>
+			<li>
+				<label>{'Author'|@translate}</label>
+			</li>
+			<li>
+				<input type="text" name="author" value="{$F_AUTHOR}">
+			</li>
+		</ul>
 
-    <label>
-      {'Album'|@translate}
-      <select name="cat">
-        <option value="0">------------</option>
-        {html_options options=$categories selected=$categories_selected}
-      </select>
-    </label>
+		<ul>
+			<li>
+				<label>{'Album'|@translate}</label>
+			</li>
+			<li>
+				<select name="cat">
+					<option value="0">------------</option>
+					{html_options options=$categories selected=$categories_selected}
+				</select>
+			</li>
+		</ul>
 
-    <label>
-      {'Since'|@translate}
-      <select name="since">
-        {html_options options=$since_options selected=$since_options_selected}
-      </select>
-    </label>
+		<ul>
+			<li>
+				<label>{'Since'|@translate}</label>
+			</li>
+			<li>
+				<select name="since">
+					{html_options options=$since_options selected=$since_options_selected}
+				</select>
+			</li>
+		</ul>
 
   </fieldset>
 
@@ -39,26 +61,38 @@
 
     <legend>{'Display'|@translate}</legend>
 
-    <label>
-      {'Sort by'|@translate}
-      <select name="sort_by">
-        {html_options options=$sort_by_options selected=$sort_by_options_selected}
-      </select>
-    </label>
+		<ul>
+			<li>
+				<label>{'Sort by'|@translate}</label>
+			</li>
+			<li>
+				<select name="sort_by">
+					{html_options options=$sort_by_options selected=$sort_by_options_selected}
+				</select>
+			</li>
+		</ul>
 
-    <label>
-      {'Sort order'|@translate}
-      <select name="sort_order">
-        {html_options options=$sort_order_options selected=$sort_order_options_selected}
-      </select>
-    </label>
+		<ul>
+			<li>
+				<label>{'Sort order'|@translate}</label>
+			</li>
+			<li>
+				<select name="sort_order">
+					{html_options options=$sort_order_options selected=$sort_order_options_selected}
+				</select>
+			</li>
+		</ul>
 
-    <label>
-      {'Number of items'|@translate}
-      <select name="items_number">
-        {html_options options=$item_number_options selected=$item_number_options_selected}
-      </select>
-    </label>
+		<ul>
+			<li>
+				<label>{'Number of items'|@translate}</label>
+			</li>
+			<li>
+				<select name="items_number">
+					{html_options options=$item_number_options selected=$item_number_options_selected}
+				</select>
+			</li>
+		</ul>
 
   </fieldset>
 

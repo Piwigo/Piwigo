@@ -221,7 +221,7 @@ SELECT
     array(
       'forbidden_categories' => 'category_id',
       'visible_categories' => 'category_id',
-      'visible_images' => 'ic.image_id'
+      'visible_images' => 'id'
       ),
     ' WHERE '
     ).'

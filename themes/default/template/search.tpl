@@ -48,6 +48,7 @@ jQuery(document).ready(function() {
 
 </fieldset>
 
+{if count($AUTHORS)>1}
 <fieldset>
   <legend>{'Search for Author'|@translate}</legend>
   <p>
@@ -58,6 +59,7 @@ jQuery(document).ready(function() {
     </select>
   </p>
 </fieldset>
+{/if}
 
 {if isset($TAGS)}
 <fieldset>
@@ -135,8 +137,8 @@ jQuery(document).ready(function() {
   </p>
 </fieldset>
 <p>
-  <input class="submit" type="submit" name="submit" value="{'Submit'|@translate}">
-  <input class="submit" type="reset" value="{'Reset'|@translate}">
+  <input type="submit" name="submit" value="{'Submit'|@translate}">
+  <input type="reset" value="{'Reset'|@translate}">
 </p>
 </form>
 

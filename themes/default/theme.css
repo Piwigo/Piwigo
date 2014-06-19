@@ -493,11 +493,6 @@ FORM P {
 	margin-bottom: 2em;
 }
 
-SELECT.categoryList {
-	height: 20em;
-	width: 500px;
-}
-
 
 /**
  * Filter forms are displayed label by label with the input (or select...)
@@ -512,7 +507,7 @@ FIELDSET {
 .filter UL {
 	display: block;
 	float: left;
-	margin-right: 1em;
+	margin: 0 1em 1em 0;
 	padding: 0;
 }
 
@@ -523,11 +518,6 @@ FIELDSET {
 
 .filter FIELDSET {
   padding-bottom:0;
-}
-
-.filter LI LABEL {
-	display: inline;
-	float: none;
 }
 
 .filter P {
@@ -553,18 +543,6 @@ FIELDSET {
   margin-right:1em;
 }
 
-/*IE6 needs override because of > selector*/
-.filter LABEL>INPUT,
-.filter LABEL>SELECT {
-	/* display: block; */
-	margin: 0.5em 0;
-}
-
-.filter FIELDSET * LABEL>INPUT {
-	display: inline;
-	vertical-align: top;
-	margin: 0 0.5em 0 0;
-}
 
 
 .properties UL {
