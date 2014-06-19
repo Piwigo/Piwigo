@@ -419,3 +419,6 @@ $lang['Password confirmation is missing. Please confirm the chosen password.'] =
 $lang['%d photos per page'] = '%d bilete på kvar side';
 $lang['Theme'] = 'Utsjånadsmal';
 $lang['No results for'] = 'Ikkje noko resultat for';
+$lang['Apply on properties'] = 'Gjer aktiv for eigneskapar';
+$lang['Photo description'] = 'Biletskildring';
+$lang['Photo title'] = 'Bilettittel';
