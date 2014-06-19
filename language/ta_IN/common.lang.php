@@ -423,3 +423,6 @@ $lang['Password confirmation is missing. Please confirm the chosen password.'] =
 $lang['Theme'] = 'கருப்பொருள்';
 $lang['%d photos per page'] = 'பக்கம் ஒன்றுக்கு%d புகைப்படங்கள்';
 $lang['No results for'] = 'க்கான முடிவுகள் இல்லை';
+$lang['Photo title'] = 'புகைப்பட தலைப்பு';
+$lang['Photo description'] = 'புகைப்பட விளக்கம்';
+$lang['Apply on properties'] = 'பண்புகள் மீது விண்ணப்பிக்க';
