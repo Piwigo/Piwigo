@@ -419,4 +419,7 @@ $lang['mandatory'] = 'ត្រូវការចាំបាច់';
 $lang['Your website URL is invalid'] = 'វេបសាយ​របស់​អ្នក​មិនត្រឹមត្រូវទេ';
 $lang['Website'] = 'វេបសាយ';
 $lang['Username is mandatory'] = 'ត្រូវការ​ឈ្មោះ​អ្នក​ប្រើជាចាំបាច់';
-?>
+$lang['Apply on properties'] = 'ដាក់លើ properties';
+$lang['No results for'] = 'មិនមានលទ្ធផលសំរាប់';
+$lang['Photo description'] = 'ពិពណ៌នារូបថត';
+$lang['Photo title'] = 'ឈ្មោះរូបថត';
