@@ -420,3 +420,6 @@ $lang['Password confirmation is missing. Please confirm the chosen password.'] =
 $lang['%d photos per page'] = '%d fotogrāfiju lapā';
 $lang['Theme'] = 'Tēma';
 $lang['No results for'] = 'Nav rezultātu';
+$lang['Apply on properties'] = 'Pielietot īpašībām';
+$lang['Photo title'] = 'Foto nosaukums';
+$lang['Photo description'] = 'Foto apraksts';
