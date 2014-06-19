@@ -425,4 +425,6 @@ $lang['Password is missing. Please enter the password.'] = 'گذرواژه ای 
 $lang['Password confirmation is missing. Please confirm the chosen password.'] = 'پذیرش گذرواژه با گذرواژه‌ی اصلی همخوانی ندارد. خواهشمندیم گذرواژه‌ی اصلی را در بخش پذیرش گذرواژه نیز بنویسید.';
 $lang['Theme'] = 'زمینه';
 $lang['%d photos per page'] = '%d عکس در هر برگ';
-?>
+$lang['No results for'] = 'نتیجه‌ای پیدا نشد برای';
+$lang['Photo description'] = 'توضیحاتِ عکس';
+$lang['Photo title'] = 'عنوانِ عکس';
