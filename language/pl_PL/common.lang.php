@@ -442,3 +442,6 @@ $lang['month']['7'] = 'lipiec';
 $lang['month']['8'] = 'sierpień';
 $lang['month']['9'] = 'wrzesień';
 $lang['No results for'] = 'Brak wyników dla';
+$lang['Apply on properties'] = 'Akceptuj ustawienia';
+$lang['Photo description'] = 'Opis zdjęcia';
+$lang['Photo title'] = 'Tytuł zdjęcia';
