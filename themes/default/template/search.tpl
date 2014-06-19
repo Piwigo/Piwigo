@@ -51,7 +51,7 @@ jQuery(document).ready(function() {
 <fieldset>
   <legend>{'Search for Author'|@translate}</legend>
   <p>
-    <select id="authors" placeholder="{'Type in a search term'|translate}" name="authors[]" multiple style="width:500px;">
+    <select id="authors" placeholder="{'Type in a search term'|translate}" name="authors[]" multiple>
 {foreach from=$AUTHORS item=author}
       <option value="{$author.author|strip_tags:false|escape:html}">{$author.author|strip_tags:false} ({$author.counter|translate_dec:'%d photo':'%d photos'})</option>
 {/foreach}
@@ -63,7 +63,7 @@ jQuery(document).ready(function() {
 <fieldset>
   <legend>{'Search tags'|@translate}</legend>
   <p>
-  <select id="tags" placeholder="{'Type in a search term'|translate}" name="tags[]" multiple style="width:500px;">
+  <select id="tags" placeholder="{'Type in a search term'|translate}" name="tags[]" multiple>
 {foreach from=$TAGS item=tag}
     <option value="{$tag.id}">{$tag.name} ({$tag.counter|translate_dec:'%d photo':'%d photos'})</option>
 {/foreach}

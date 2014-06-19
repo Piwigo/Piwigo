@@ -536,7 +536,7 @@ FIELDSET {
   line-height:20px;
 }
 
-.filter input[name="search_allwords"] {
+.filter input[name="search_allwords"], .filter #authors, .filter #tags {
   width:500px;
 }
 
