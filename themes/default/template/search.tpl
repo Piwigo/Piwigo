@@ -35,15 +35,15 @@ jQuery(document).ready(function() {
   <p>
     <input type="text" name="search_allwords">
     <br>
-    <label><input type="radio" name="mode" value="AND" checked="checked">{'Search for all terms'|@translate}</label>
-    <label><input type="radio" name="mode" value="OR">{'Search for any term'|@translate}</label>
+    <label><input type="radio" name="mode" value="AND" checked="checked"> {'Search for all terms'|@translate}</label>
+    <label><input type="radio" name="mode" value="OR"> {'Search for any term'|@translate}</label>
   </p>
 
   <p>
     <strong>{'Apply on properties'|translate}</strong><br>
-    <label><input type="checkbox" name="fields[]" value="name" checked="checked">{'Photo title'|translate}</label>
-    <label><input type="checkbox" name="fields[]" value="comment" checked="checked">{'Photo description'|translate}</label>
-    <label><input type="checkbox" name="fields[]" value="file" checked="checked">{'File name'|translate}</label>
+    <label><input type="checkbox" name="fields[]" value="name" checked="checked"> {'Photo title'|translate}</label>
+    <label><input type="checkbox" name="fields[]" value="comment" checked="checked"> {'Photo description'|translate}</label>
+    <label><input type="checkbox" name="fields[]" value="file" checked="checked"> {'File name'|translate}</label>
   </p>
 
 </fieldset>
@@ -81,10 +81,10 @@ jQuery(document).ready(function() {
   <ul>
     <li><label>{'Kind of date'|@translate}</label></li>
     <li><label>
-      <input type="radio" name="date_type" value="date_creation" checked="checked">{'Creation date'|@translate}
+      <input type="radio" name="date_type" value="date_creation" checked="checked"> {'Creation date'|@translate}
     </label></li>
     <li><label>
-      <input type="radio" name="date_type" value="date_available">{'Post date'|@translate}
+      <input type="radio" name="date_type" value="date_available"> {'Post date'|@translate}
     </label></li>
   </ul>
   <ul>
@@ -133,7 +133,7 @@ jQuery(document).ready(function() {
     <select id="categories" name="cat[]" multiple>
       {html_options options=$category_options selected=$category_options_selected}
     </select>
-    <label><input type="checkbox" name="subcats-included" value="1" checked="checked">{'Search in sub-albums'|@translate}</label>
+    <label><input type="checkbox" name="subcats-included" value="1" checked="checked"> {'Search in sub-albums'|@translate}</label>
   </p>
 </fieldset>
 <p>
