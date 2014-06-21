@@ -419,4 +419,7 @@ $lang['Password is missing. Please enter the password.'] = 'Lösenord saknas. An
 $lang['Password confirmation is missing. Please confirm the chosen password.'] = 'Bekräftelse av lösenord saknas. Vänligen bekräfta ditt valda lösenord.';
 $lang['%d photos per page'] = '%d fotografier per sida';
 $lang['Theme'] = 'Tema';
-?>
+$lang['Apply on properties'] = 'Verkställ egenskaper';
+$lang['No results for'] = 'Inget resultat för';
+$lang['Photo description'] = 'Fotots beskrivning';
+$lang['Photo title'] = 'Fotots titel';
