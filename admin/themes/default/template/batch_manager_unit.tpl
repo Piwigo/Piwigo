@@ -23,7 +23,10 @@ tagsCache.selectize(jQuery('[data-selectize=tags]'), { lang: {
 
 {* <!-- DATEPICKER --> *}
 jQuery(function(){ {* <!-- onLoad needed to wait localization loads --> *}
-  jQuery('[data-datepicker]').pwgDatepicker({ showTimepicker: true });
+  jQuery('[data-datepicker]').pwgDatepicker({
+    showTimepicker: true,
+    cancelButton: '{'Cancel'|translate}'
+  });
 });
 
 {* <!-- THUMBNAILS --> *}

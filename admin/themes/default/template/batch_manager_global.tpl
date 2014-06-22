@@ -64,7 +64,10 @@ jQuery(document).ready(function() {
 {/literal}
 
 jQuery(document).ready(function() {ldelim}
-  jQuery('[data-datepicker]').pwgDatepicker({ showTimepicker: true });
+  jQuery('[data-datepicker]').pwgDatepicker({
+    showTimepicker: true,
+    cancelButton: '{'Cancel'|translate}'
+  });
 
   jQuery("a.preview-box").colorbox();
   

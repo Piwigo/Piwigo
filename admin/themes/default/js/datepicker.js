@@ -1,25 +1,32 @@
 jQuery.timepicker.log = jQuery.noop; // that's ugly, but the timepicker is acting weird and throws parsing errors
 
-jQuery.fn.pwgDatepicker = function(options) {
-  options = options || {};
-  
+jQuery.fn.pwgDatepicker = function(settings) {
+  var options = jQuery.extend(true, {
+    showTimepicker: false,
+    cancelButton: false,
+  }, settings || {});
+
   return this.each(function() {
     var $this = jQuery(this),
-        $target = jQuery('[name="'+ jQuery(this).data('datepicker') +'"]'),
-        linked = !!$target.length;
+        originalValue = $this.val(),
+        originalDate,
+        $target = jQuery('[name="'+ $this.data('datepicker') +'"]'),
+        linked = !!$target.length,
+        $start, $end;
     
-    if (linked) { // get value before init
-      var value = $target.val().split(' ');
+    if (linked) {
+      originalValue = $target.val();
     }
 
     // custom setter
     function set(date, init) {
+      if (date === '') date = null;
       $this.datetimepicker('setDate', date);
       
-      if ($this.data('datepicker-start')) {
+      if ($this.data('datepicker-start') && $start) {
         $start.datetimepicker('option', 'maxDate', date);
       }
-      else if ($this.data('datepicker-end')) {
+      else if ($this.data('datepicker-end') && $end) {
         if (!init) { // on init, "end" is not initialized yet (assuming "start" is before "end" in the DOM)
           $end.datetimepicker('option', 'minDate', date);
         }
@@ -28,6 +35,26 @@ jQuery.fn.pwgDatepicker = function(options) {
       if (!date && linked) {
         $target.val('');
       }
+    }
+
+    // and custom cancel button
+    if (options.cancelButton) {
+      options.beforeShow = options.onChangeMonthYear = function() {
+        setTimeout(function() {
+          var buttonPane = $this.datepicker('widget')
+              .find('.ui-datepicker-buttonpane');
+          
+          if (buttonPane.find('.pwg-datepicker-cancel').length == 0) {
+            $('<button type="button">'+ options.cancelButton +'</button>')
+              .on('click', function() {
+                set(originalDate, false);
+                $this.datepicker('hide').blur();
+              })
+              .addClass('pwg-datepicker-cancel ui-state-error ui-corner-all')
+              .appendTo(buttonPane);
+          }
+        }, 1);
+      };
     }
 
     // init picker
@@ -42,16 +69,14 @@ jQuery.fn.pwgDatepicker = function(options) {
       autoSize: true,
       changeMonth : true,
       changeYear: true,
-      showTimepicker: false,
       altFieldTimeOnly: false,
       showSecond: false,
-      alwaysSetTime: false,
-      stepMinute: 5
+      alwaysSetTime: false
     }, options));
     
     // attach range pickers
     if ($this.data('datepicker-start')) {
-      var $start = jQuery('[data-datepicker="'+ jQuery(this).data('datepicker-start') +'"]');
+      $start = jQuery('[data-datepicker="'+ $this.data('datepicker-start') +'"]');
       
       $this.datetimepicker('option', 'onClose', function(date) {
         $start.datetimepicker('option', 'maxDate', date);
@@ -60,7 +85,7 @@ jQuery.fn.pwgDatepicker = function(options) {
       $this.datetimepicker('option', 'minDate', $start.datetimepicker('getDate'));
     }
     else if ($this.data('datepicker-end')) {
-      var $end = jQuery('[data-datepicker="'+ jQuery(this).data('datepicker-end') +'"]');
+      $end = jQuery('[data-datepicker="'+ $this.data('datepicker-end') +'"]');
       
       $this.datetimepicker('option', 'onClose', function(date) {
         $end.datetimepicker('option', 'minDate', date);
@@ -77,16 +102,19 @@ jQuery.fn.pwgDatepicker = function(options) {
     
     // set value from linked input
     if (linked) {
-      if (value[0].length == 10 && (!options.showTimepicker || value.length==1)) {
-        set(jQuery.datepicker.parseDate('yy-mm-dd', value[0]), true);
+      var splitted = originalValue.split(' ');
+      if (splitted.length == 2 && options.showTimepicker) {
+        set(jQuery.datepicker.parseDateTime('yy-mm-dd', 'HH:mm:ss', originalValue), true);
       }
-      else if (value.length == 2 && options.showTimepicker) {
-        set(jQuery.datepicker.parseDateTime('yy-mm-dd', 'HH:mm:ss', value.join(' ')), true);
+      else if (splitted[0].length == 10) {
+        set(jQuery.datepicker.parseDate('yy-mm-dd', splitted[0]), true);
       }
       else {
         set(null, true);
       }
     }
+    
+    originalDate = $this.datetimepicker('getDate');
     
     // autoSize not handled by timepicker
     if (options.showTimepicker) {

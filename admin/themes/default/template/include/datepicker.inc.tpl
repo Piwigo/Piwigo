@@ -11,6 +11,7 @@
 {combine_script id="jquery.ui.timepicker-$lang_info.code" load='footer' require='jquery.ui.timepicker-addon' path=$timepicker_language}
 {/if}
 
+{combine_css path="themes/default/js/ui/theme/jquery.ui.theme.css"}
 {combine_css path="themes/default/js/ui/theme/jquery.ui.slider.css"}
 {combine_css path="themes/default/js/ui/theme/jquery.ui.datepicker.css"}
 {combine_css path="themes/default/js/ui/theme/jquery.ui.timepicker-addon.css"}
