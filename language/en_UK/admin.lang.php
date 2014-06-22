@@ -168,6 +168,7 @@ $lang['all'] = "all";
 $lang['Allow rating'] = "Allow rating";
 $lang['Allow user customization'] = 'Allow user customization';
 $lang['Allow user registration'] = "Allow user registration";
+$lang['Allow users to add a link to their website'] = "Allow users to add a link to their website";
 $lang['Allow users to delete their own comments'] = "Allow users to delete their own comments";
 $lang['Allow users to edit their own comments'] = "Allow users to edit their own comments";
 $lang['Allowed file types: %s.'] = 'Allowed file types: %s.';

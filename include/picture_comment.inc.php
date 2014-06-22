@@ -262,6 +262,7 @@ SELECT
         'SHOW_EMAIL' =>       !is_classic_user() or empty($user['email']),
         'EMAIL_MANDATORY' =>  $conf['comments_email_mandatory'],
         'EMAIL' =>            '',
+        'SHOW_WEBSITE' =>     $conf['comments_enable_website'],
       );
 
     if ('reject'==@$comment_action)

@@ -274,6 +274,13 @@ jQuery("input[name='mail_theme']").change(function() {
 
     <li>
       <label>
+        <input type="checkbox" name="comments_enable_website" {if ($comments.comments_enable_website)}checked="checked"{/if}>
+        {'Allow users to add a link to their website'|translate}
+      </label>
+    </li>
+
+    <li>
+      <label>
         <input type="checkbox" name="user_can_edit_comment" {if ($comments.user_can_edit_comment)}checked="checked"{/if}>
         {'Allow users to edit their own comments'|@translate}
       </label>

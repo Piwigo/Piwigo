@@ -76,6 +76,7 @@ $comments_checkboxes = array(
     'email_admin_on_comment_deletion',
     'comments_author_mandatory',
     'comments_email_mandatory',
+    'comments_enable_website',
   );
 
 $display_checkboxes = array(

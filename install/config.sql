@@ -8,6 +8,7 @@ INSERT INTO piwigo_config (param,value,comment) VALUES ('comments_forall','false
 INSERT INTO piwigo_config (param,value,comment) VALUES ('comments_order','ASC','comments order on picture page and cie');
 INSERT INTO piwigo_config (param,value,comment) VALUES ('comments_author_mandatory','false','Comment author is mandatory');
 INSERT INTO piwigo_config (param,value,comment) VALUES ('comments_email_mandatory','false','Comment email is mandatory');
+INSERT INTO piwigo_config (param,value,comment) VALUES ('comments_enable_website','true','Enable "website" field on add comment form');
 INSERT INTO piwigo_config (param,value,comment) VALUES ('user_can_delete_comment','false','administrators can allow user delete their own comments');
 INSERT INTO piwigo_config (param,value,comment) VALUES ('user_can_edit_comment','false','administrators can allow user edit their own comments');
 INSERT INTO piwigo_config (param,value,comment) VALUES ('email_admin_on_comment_edition','false','Send an email to the administrators when a comment is modified');
